@@ -1,7 +1,8 @@
 /*
- * Motion of the Software and Instalacje lines — one system (SWV7; MOBILE-APLIKACJA §4, ZMIANY-v23
- * §5; Instalacje: audit before staging §3, session I-M). Shared rules use
- * `:is([data-line='software'], [data-line='instalacje'])` — the same specificity as the former
+ * Motion of the Software, Instalacje and Biznes lines — one system (SWV7; MOBILE-APLIKACJA §4,
+ * ZMIANY-v23 §5; Instalacje: audit before staging §3, session I-M; Biznes: prompt 4 R1, 03.11).
+ * Shared rules use `:is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])` —
+ * the same specificity as the former
  * `[data-line='software']`, so nothing changes for Software (`:where` would drop it to zero and
  * let component classes win). Header, mega menu, sheets, parallax, reading progress and page
  * transitions stay Software-only: Instalacje has its own (`sites/instalacje/instalacje.css`).
@@ -21,7 +22,7 @@
    would beat every utility). The transform family springs back after a press; colours and
    shadows ease out. With reduced motion only colours, shadows and outlines change, quickly. */
 @layer base {
-  :where([data-line='software'], [data-line='instalacje'])
+  :where([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
     :where(a, button, summary, [role='tab'], [role='switch'], input, select, textarea, label) {
     transition-property:
       color, background-color, border-color, box-shadow, outline-color, outline-offset, opacity,
@@ -34,16 +35,16 @@
   }
 
   /* Focus ring grows into place (outline-offset 0 → 3 px), never hidden (WCAG 2.4.7). */
-  :where([data-line='software'], [data-line='instalacje'])
+  :where([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
     :where(a, button, summary, [role='tab'], input, select, textarea) {
     outline-offset: 0;
   }
-  :where([data-line='software'], [data-line='instalacje']) :focus-visible {
+  :where([data-line='software'], [data-line='instalacje'], [data-line='biznes']) :focus-visible {
     outline-offset: 3px;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    :where([data-line='software'], [data-line='instalacje'])
+    :where([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
       :where(a, button, summary, [role='tab'], [role='switch'], input, select, textarea, label) {
       transition-property:
         color, background-color, border-color, box-shadow, outline-color, opacity,
@@ -56,7 +57,7 @@
 
 /* Buttons of the system (`Button`, `data-motion`): their own `transition-colors` would leave the
    press and the lift without a transition, so these win over the component's utility. */
-:is([data-line='software'], [data-line='instalacje'])
+:is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
   :is([data-motion='button'], [data-motion='button-outline']) {
   transition-property:
     color, background-color, border-color, box-shadow, filter, translate, scale, transform;
@@ -67,7 +68,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :is([data-line='software'], [data-line='instalacje'])
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
     :is([data-motion='button'], [data-motion='button-outline']) {
     transition-property: color, background-color, border-color, box-shadow;
     transition-duration: 150ms;
@@ -75,7 +76,8 @@
 }
 
 /* No grey tap rectangle, no double-tap zoom delay (MOBILE-APLIKACJA §4 pkt 1). */
-:is([data-line='software'], [data-line='instalacje']) :is(a, button, summary, [role='tab'], label) {
+:is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+  :is(a, button, summary, [role='tab'], label) {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
@@ -95,30 +97,41 @@
     scale: 0.97;
     transition-duration: var(--dur-press);
   }
+  /* Biznes (prompt 4 R1): `transform` as Software — Tailwind v4 `translate-*`/`scale-*` classes
+     are separate properties, so a pressed card or button keeps its own offset. */
+  [data-line='biznes']
+    :is(a, button, summary, [role='tab']):not(:disabled, [data-stretched]):active {
+    transform: scale(0.97);
+    transition-duration: var(--dur-press);
+  }
   /* A button stretched over its card (`data-stretched`) must not get a transform: it would
      become the containing block of its `::after` and a press elsewhere on the card would never
      click. The card (`data-card`) answers instead. */
-  :is([data-line='software'], [data-line='instalacje']) [data-card] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-card] {
     transition:
       translate var(--dur-state) var(--ease-out),
       box-shadow var(--dur-state) var(--ease-out),
       border-color var(--dur-hover) var(--ease-out),
       transform var(--dur-press) var(--ease-out);
   }
-  :is([data-line='software'], [data-line='instalacje']) [data-card]:has([data-stretched]:active) {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-card]:has([data-stretched]:active) {
     transform: scale(0.985);
   }
 
   /* The picture of a card grows inside its frame (`data-card-media`: the frame of an `<img>`, or
      a drawn scene clipped by its card). */
-  :is([data-line='software'], [data-line='instalacje']) [data-card-media] img,
-  :is([data-line='software'], [data-line='instalacje']) [data-card-media]:not(:has(img)) {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-card-media] img,
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-card-media]:not(:has(img)) {
     transition: scale var(--dur-state) var(--ease-out);
   }
 
   /* Arrows in links and buttons, icons in cards. */
-  :is([data-line='software'], [data-line='instalacje']) [data-icon='arrow'],
-  :is([data-line='software'], [data-line='instalacje']) [data-card] [data-card-icon] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-icon='arrow'],
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-card]
+    [data-card-icon] {
     transition:
       translate var(--dur-hover) var(--ease-out),
       scale var(--dur-hover) var(--ease-out);
@@ -127,12 +140,14 @@
 
 /* --- 2. Hover — mouse and trackpad only ------------------------------------------------------ */
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  :is([data-line='software'], [data-line='instalacje']) :is(a, button):hover [data-icon='arrow'] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    :is(a, button):hover
+    [data-icon='arrow'] {
     translate: 3px 0;
   }
 
   /* Main buttons: a tone lighter, a bigger shadow, 1 px up. */
-  :is([data-line='software'], [data-line='instalacje'])
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
     [data-motion='button']:not(:disabled):hover {
     filter: brightness(1.07);
     translate: 0 -1px;
@@ -140,26 +155,31 @@
   }
 
   /* Outline buttons: the soft accent fills from the middle, the border turns accent. */
-  :is([data-line='software'], [data-line='instalacje'])
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
     [data-motion='button-outline']:not(:disabled):hover {
     border-color: var(--accent-line);
   }
-  :is([data-line='software'], [data-line='instalacje'])
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
     [data-motion='button-outline']:not(:disabled):hover::before {
     opacity: 1;
     scale: 1;
   }
 
   /* Cards: up 4 px, softer shadow, accent edge, the icon a touch bigger. */
-  :is([data-line='software'], [data-line='instalacje']) [data-card]:hover {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-card]:hover {
     translate: 0 -4px;
     box-shadow: 0 22px 40px -28px var(--shadow);
   }
-  :is([data-line='software'], [data-line='instalacje']) [data-card]:hover [data-card-icon] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-card]:hover
+    [data-card-icon] {
     scale: 1.06;
   }
-  :is([data-line='software'], [data-line='instalacje']) [data-card]:hover [data-card-media] img,
-  :is([data-line='software'], [data-line='instalacje'])
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-card]:hover
+    [data-card-media]
+    img,
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
     [data-card]:hover
     [data-card-media]:not(:has(img)) {
     scale: 1.03;
@@ -186,11 +206,13 @@
 }
 
 /* Pseudo-elements of the hover effects (also without hover, to sit still). */
-:is([data-line='software'], [data-line='instalacje']) [data-motion='button-outline'] {
+:is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+  [data-motion='button-outline'] {
   position: relative;
   isolation: isolate;
 }
-:is([data-line='software'], [data-line='instalacje']) [data-motion='button-outline']::before {
+:is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+  [data-motion='button-outline']::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -205,7 +227,8 @@
 }
 /* Printed: nothing waits hidden for a rise-in that never comes. */
 @media print {
-  :is([data-line='software'], [data-line='instalacje']) [data-reveal-pending] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-reveal-pending] {
     opacity: 1 !important;
   }
 }
@@ -219,15 +242,16 @@
   /* Rising in, once (`RevealObserver`): only what starts below the screen waits hidden
      (`data-reveal-pending`); without JavaScript everything is simply there. Cards follow one by
      one, 60 ms apart (at most 6 in the queue), on a phone shorter and at most 3. */
-  :is([data-line='software'], [data-line='instalacje']) [data-reveal-pending] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-reveal-pending] {
     opacity: 0;
   }
-  :is([data-line='software'], [data-line='instalacje']) [data-revealed] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-revealed] {
     animation: sw-reveal var(--dur-enter) var(--ease-out) backwards;
     animation-delay: calc(min(var(--reveal-i, 0), 5) * 60ms);
   }
   @media (max-width: 1080px) {
-    :is([data-line='software'], [data-line='instalacje']) [data-revealed] {
+    :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-revealed] {
       --reveal-y: 10px;
       animation-delay: calc(min(var(--reveal-i, 0), 2) * 60ms);
     }
@@ -278,7 +302,9 @@
 /* --- 4. Opening and closing ----------------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
   /* FAQ answers open softly (the content of `<details>` is rendered on open). */
-  :is([data-line='software'], [data-line='instalacje']) details[open] > :not(summary) {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    details[open]
+    > :not(summary) {
     animation: sw-faq var(--dur-state) var(--ease-out);
   }
 
@@ -378,60 +404,74 @@
 }
 
 /* Spinner in a sending button. */
-:is([data-line='software'], [data-line='instalacje']) [data-spinner] {
+:is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-spinner] {
   animation: sw-spin 0.8s linear infinite;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   /* A tick draws itself (chosen topic, sent form); the chosen tile answers with a small spring. */
-  :is([data-line='software'], [data-line='instalacje']) [data-check] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-check] {
     stroke-dasharray: 1;
     animation: sw-check var(--dur-state) var(--ease-out) both;
   }
-  :is([data-line='software'], [data-line='instalacje']) [data-tile]:has(input:checked) {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-tile]:has(input:checked) {
     animation: sw-tile var(--dur-state) var(--ease-spring);
   }
 
   /* Wizard: the next step slides in from the right, a step back from the left; the result's
      parts pop in one after another (60 ms). */
-  :is([data-line='software'], [data-line='instalacje']) [data-wizard-dir='next'] > section {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-wizard-dir='next']
+    > section {
     animation: sw-step-next var(--dur-state) var(--ease-out);
   }
-  :is([data-line='software'], [data-line='instalacje']) [data-wizard-dir='back'] > section {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-wizard-dir='back']
+    > section {
     animation: sw-step-back var(--dur-state) var(--ease-out);
   }
-  :is([data-line='software'], [data-line='instalacje']) [data-wizard-result] > * {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-wizard-result]
+    > * {
     animation: sw-reveal var(--dur-enter) var(--ease-out) backwards;
     --reveal-y: 10px;
   }
-  :is([data-line='software'], [data-line='instalacje']) [data-wizard-result] > :nth-child(2) {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-wizard-result]
+    > :nth-child(2) {
     animation-delay: 60ms;
   }
-  :is([data-line='software'], [data-line='instalacje']) [data-wizard-result] > :nth-child(3) {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-wizard-result]
+    > :nth-child(3) {
     animation-delay: 120ms;
   }
-  :is([data-line='software'], [data-line='instalacje']) [data-wizard-result] > :nth-child(n + 4) {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-wizard-result]
+    > :nth-child(n + 4) {
     animation-delay: 180ms;
   }
 
   /* Toasts (phone, e-mail, „Twój projekt”) slide up from the bottom. */
-  :is([data-line='software'], [data-line='instalacje']) [data-toast] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-toast] {
     animation: sw-reveal var(--dur-state) var(--ease-out);
     --reveal-y: 12px;
   }
 
   /* A field found wrong shakes once (±4 px) and its message slides in. */
-  :is([data-line='software'], [data-line='instalacje']) [aria-invalid='true'] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [aria-invalid='true'] {
     animation: sw-shake 300ms var(--ease-out);
   }
-  :is([data-line='software'], [data-line='instalacje']) form [id$='-error'] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) form [id$='-error'] {
     animation: sw-faq var(--dur-state) var(--ease-out);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   /* A still marker instead of a spinning one. */
-  :is([data-line='software'], [data-line='instalacje']) [data-spinner] {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-spinner] {
     animation: none;
     border-right-color: currentColor;
     opacity: 0.6;

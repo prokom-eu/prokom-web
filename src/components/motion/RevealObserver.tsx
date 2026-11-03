@@ -30,7 +30,8 @@ export function useRevealCards(): { 'data-reveal-cards'?: '' } {
 
 /**
  * Sections and cards rise in once as they come into view (SWV7, `motion.css` §3). Placed in the
- * Software frame only: Instalacje keep the prototype's own rise-in (`.rv .ri`, `InstSection`) —
+ * Software and Biznes frames (Biznes: K4 sections, prompt 4 R1): Instalacje keep the prototype's
+ * own rise-in (`.rv .ri`, `InstSection`) —
  * the shared rules work under their `data-line` too, but nothing there carries the hooks:
  * `data-reveal` elements and the children of `data-reveal-cards`. On each page only what starts
  * below the screen waits hidden (`data-reveal-pending`); once seen it gets `data-revealed` (the

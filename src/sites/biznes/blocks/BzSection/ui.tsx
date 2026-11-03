@@ -110,7 +110,9 @@ export function SectionShell({
       // Phone (boards App-*): the head is the H2 alone (no label, no lead).
       className={cx('scroll-mt-28', padding, SURFACE[block.surface], className)}
     >
-      <Container wide>
+      {/* The content rises in once when it starts below the screen (`RevealObserver`, prompt 4
+          R1); the section's own background stays still. */}
+      <Container wide data-reveal="">
         {head && (block.heading || block.eyebrow) && (
           // Folded on a phone (`FoldOnPhone`, `data-folded`): its row is the heading there.
           <div className="mb-9 flex flex-wrap items-end justify-between gap-x-10 gap-y-4 max-md:mb-4 max-md:flex-nowrap max-md:items-center max-md:gap-x-3 max-md:in-data-[folded]:hidden">

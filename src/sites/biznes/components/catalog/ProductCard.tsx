@@ -60,7 +60,9 @@ export function ProductCard({
 
   return (
     <article
-      data-card={position}
+      // `data-card`: the motion hook (lift on hover); the index for focus is its own attribute.
+      data-card=""
+      data-card-index={position}
       className={cx(
         'group/card relative flex w-full flex-col gap-2.5',
         list && 'sm:flex-row sm:items-start sm:gap-5',
@@ -89,7 +91,7 @@ export function ProductCard({
               height={product.image.height}
               unoptimized
               className={cx(
-                'relative h-[78%] w-[78%] object-contain transition-transform duration-300 group-hover/card:-translate-y-1 group-hover/card:scale-[1.02] motion-reduce:transition-none',
+                'relative h-[78%] w-[78%] object-contain transition-transform duration-300 group-hover/card:scale-[1.03] motion-reduce:transition-none',
                 STAGE_SHADOW,
               )}
             />

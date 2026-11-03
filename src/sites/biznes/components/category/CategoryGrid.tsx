@@ -128,7 +128,9 @@ export function CategoryGrid({
   // After „Pokaż kolejne”: focus the first new card, so the keyboard continues there.
   useEffect(() => {
     if (focusCard.current === null) return
-    const card = document.querySelector<HTMLElement>(`[data-card="${focusCard.current}"] h3 a`)
+    const card = document.querySelector<HTMLElement>(
+      `[data-card-index="${focusCard.current}"] h3 a`,
+    )
     focusCard.current = null
     card?.focus()
   })

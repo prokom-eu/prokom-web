@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { RevealObserver } from '@/components/motion/RevealObserver'
 
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { offerMenu } from '@/lib/catalog/menu'
@@ -56,6 +57,8 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
       />
       <SiteRail />
       <PageTransition>{children}</PageTransition>
+      {/* Sections rise in once as they come into view (`motion.css` §3, prompt 4 R1). */}
+      <RevealObserver />
       <BiznesFooter
         name={tenant.name}
         company={company}
