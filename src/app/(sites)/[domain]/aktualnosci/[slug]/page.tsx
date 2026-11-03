@@ -157,7 +157,8 @@ export default async function PostPage({ params }: Props) {
         </Container>
       </article>
       {products.length > 0 && (
-        <section aria-labelledby="produkty-h" className="bg-surface-2 py-14 sm:py-20">
+        // App-Wpis ends with the sources and the sticky „Zapytaj”: no products, no form.
+        <section aria-labelledby="produkty-h" className="bg-surface-2 py-14 max-md:hidden sm:py-20">
           <Container wide>
             <SectionHead id="produkty-h" heading={NEWS_TEXTS.related} />
             <ul className="mt-8 grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:grid-cols-3">
@@ -170,13 +171,15 @@ export default async function PostPage({ params }: Props) {
           </Container>
         </section>
       )}
-      <CatalogContactPanel
-        tenantId={tenant.id}
-        id="kontakt"
-        heading={post.contact.heading ?? NEWS_TEXTS.contactHeading}
-        lead={post.contact.lead ?? NEWS_TEXTS.contactLead}
-        callbackTime={settings?.biznes?.promises.callbackTime ?? null}
-      />
+      <div className="max-md:hidden">
+        <CatalogContactPanel
+          tenantId={tenant.id}
+          id="kontakt"
+          heading={post.contact.heading ?? NEWS_TEXTS.contactHeading}
+          lead={post.contact.lead ?? NEWS_TEXTS.contactLead}
+          callbackTime={settings?.biznes?.promises.callbackTime ?? null}
+        />
+      </div>
     </>
   )
 }

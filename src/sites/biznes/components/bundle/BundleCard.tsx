@@ -25,7 +25,7 @@ export function BundleCard({
       href={bundle.href}
       className="group flex h-full flex-col overflow-hidden rounded-[22px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[inset_0_0_0_1.5px_var(--ink-3),0_18px_40px_-28px_var(--glow)]"
     >
-      <ProductStage className="h-[180px] gap-1 px-4 sm:h-[200px]">
+      <ProductStage className="h-[180px] gap-1 px-4 max-md:h-[130px] sm:h-[200px]">
         {bundle.photos.map((photo, position) => (
           <Image
             key={photo.url}
@@ -42,14 +42,16 @@ export function BundleCard({
           />
         ))}
       </ProductStage>
-      <div className="flex flex-1 flex-col gap-2 p-5">
+      <div className="flex flex-1 flex-col gap-2 p-5 max-md:gap-1.5 max-md:p-3.5">
         <span className="self-start rounded-md bg-surface-2 px-2 py-1 text-xs font-bold text-ink-2">
           {bundle.label}
         </span>
-        <Heading className="font-display text-lg leading-snug font-extrabold text-ink">
+        <Heading className="font-display text-lg leading-snug font-extrabold text-ink max-md:text-[15px]">
           {bundle.name}
         </Heading>
-        <p className="text-sm leading-relaxed text-ink-2">{bundle.benefit}</p>
+        <p className="text-sm leading-relaxed text-ink-2 max-md:line-clamp-2 max-md:text-[13px]">
+          {bundle.benefit}
+        </p>
         <p className="mt-auto pt-1 text-sm font-extrabold text-accent-text">
           {bundle.count} {plural(bundle.count, ['element', 'elementy', 'elementów'])}
           <span aria-hidden="true"> · </span>

@@ -139,7 +139,7 @@ export default async function IndustryPage({ params }: Props) {
               image={industry.image}
               sizes="(min-width: 1080px) 45vw, 100vw"
               eager
-              className="mx-auto h-auto w-full max-w-[560px] object-contain drop-shadow-[0_32px_40px_var(--glow)]"
+              className="mx-auto h-auto w-full max-w-[560px] object-contain drop-shadow-[0_32px_40px_var(--glow)] max-md:max-h-[220px] max-md:w-auto"
             />
           )
         }
@@ -153,10 +153,16 @@ export default async function IndustryPage({ params }: Props) {
         catalogHref={catalogHref({ ...DEFAULT_STATE, industries: [industry.slug] })}
       />
       {industry.day && <BzTimelineBlock block={industry.day} tone="accent" />}
-      {industry.flow && <BzOrderFlowBlock block={industry.flow} tenantId={tenant.id} />}
+      {/* Not on the phone board App-Branza (the hero and the day tell the same story). */}
+      {industry.flow && (
+        <div className="max-md:hidden">
+          <BzOrderFlowBlock block={industry.flow} tenantId={tenant.id} />
+        </div>
+      )}
       {industry.faq.items.length > 0 && (
         <FaqBiznes
           tenantId={tenant.id}
+          phoneLimit={3}
           block={{
             blockType: 'faq',
             eyebrow: industry.faq.eyebrow,
@@ -170,13 +176,16 @@ export default async function IndustryPage({ params }: Props) {
         industries={otherIndustries(index, industry.slug)}
         wizardHref={wizardHref(null)}
       />
-      <CatalogContactPanel
-        tenantId={tenant.id}
-        id="kontakt"
-        heading={industry.contact.heading}
-        lead={industry.contact.lead}
-        callbackTime={callback}
-      />
+      {/* App-Branza ends with the other industries; a phone asks through the tab bar. */}
+      <div className="max-md:hidden">
+        <CatalogContactPanel
+          tenantId={tenant.id}
+          id="kontakt"
+          heading={industry.contact.heading}
+          lead={industry.contact.lead}
+          callbackTime={callback}
+        />
+      </div>
     </>
   )
 }
