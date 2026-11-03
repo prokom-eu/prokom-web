@@ -8,6 +8,8 @@ import {
   k4CategoryOrder,
   k4GroupProducts,
   k4HomeProductFields,
+  k4WheelImageFile,
+  k4WheelProducts,
   type K4HomeFile,
 } from './k4Home'
 
@@ -65,17 +67,53 @@ describe('k4GroupProducts (dzTop9, wheel)', () => {
     return ids.get(slug)
   }
 
-  it('gives each of the 5 departments up to 5 first cards and 3 wheel products', () => {
+  it('gives each of the 5 departments 5 first cards and its wheel run (KOLO-HERO v3)', () => {
     const groups = k4GroupProducts(home, idOf)
     expect([...groups.keys()]).toEqual(['sprz', 'biuro', 'prog', 'bezp', 'usl'])
-    for (const group of groups.values()) {
-      expect(group.topProducts).toHaveLength(5)
-      expect(group.wheelProducts).toHaveLength(3)
-    }
-    expect(groups.get('sprz')?.wheelProducts).toEqual([idOf('ergo'), idOf('d3'), idOf('pol')])
+    for (const group of groups.values()) expect(group.topProducts).toHaveLength(5)
+    expect([...groups.values()].map((group) => group.wheelProducts.length)).toEqual([4, 6, 3, 3, 2])
+    expect(groups.get('sprz')?.wheelProducts).toEqual(
+      ['ergo', 'k10', 'd3', 'pol'].map((slug) => idOf(slug)),
+    )
+    // „Serwis” holds services of its own department, not cards of others (KOLO-HERO §Dane).
+    expect(groups.get('usl')?.wheelProducts).toEqual([idOf('ksef'), idOf('przkas')])
+  })
+
+  it('sets the short label and the extra page bubble, and clears them elsewhere', () => {
+    const groups = k4GroupProducts(home, idOf)
+    expect(groups.get('bezp')?.shortName).toBe('Sieć i ochrona')
+    expect(groups.get('sprz')?.shortName).toBeNull()
+    expect(groups.get('usl')?.wheelLink).toEqual({
+      label: 'Opieka IT dla firm',
+      href: '/opieka-it',
+      icon: 'lifebuoy',
+    })
+    expect(groups.get('prog')?.wheelLink).toEqual({ label: null, href: null, icon: null })
   })
 
   it('stops on a card without a record', () => {
     expect(() => k4GroupProducts(home, (slug) => (slug === 'ergo' ? undefined : 1))).toThrow(/ergo/)
+  })
+})
+
+describe('k4WheelProducts (KOLO-HERO v3)', () => {
+  it('gives every wheel card its short name, and the iPhone its colour', () => {
+    const cards = k4WheelProducts(home)
+    expect(cards.size).toBe(18)
+    expect(cards.get('apple-macbook-air-m5')).toEqual({
+      wheelName: 'Apple MacBook Air (M5)',
+      wheelColor: null,
+    })
+    expect(cards.get('apple-iphone-18-pro')).toEqual({
+      wheelName: 'Apple iPhone 18 Pro',
+      wheelColor: 'burgund',
+    })
+  })
+
+  it('names the cut-out photo of a wheel card', () => {
+    expect(k4WheelImageFile('ergo').uploadName).toBe('k4-kolo-ergo.webp')
+    expect(k4WheelImageFile('ergo').filePath.replaceAll('\\', '/')).toMatch(
+      /seed\/prokombiznes\/k4\/media\/kolo\/kolo-ergo\.webp$/,
+    )
   })
 })
