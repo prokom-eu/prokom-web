@@ -1,4 +1,7 @@
-import type { FeaturedGroup } from '../../lib/catalog/options'
+import path from 'node:path'
+
+import { isIconName, type FeaturedGroup, type IconName } from '../../lib/catalog/options'
+import { K4_MEDIA_DIR } from './k4Catalog'
 import type { ProductId } from './k31Plans'
 
 /**
@@ -10,7 +13,19 @@ import type { ProductId } from './k31Plans'
 export type K4HomeFile = {
   kolejnosc_w_kategorii: Record<string, number>
   top_dzialu: Record<string, string[]>
-  kolo_hero: { g: string; p: string[] }[]
+  /**
+   * KOLO-HERO v3 (03.11): the products of each department on the wheel, in order; `nazwy` = the
+   * short names of the tooltip, `kolory` = a colour the card opens with, `krotka` = the short
+   * label of the department, `link` = one extra bubble for a page (Opieka IT).
+   */
+  kolo_hero: {
+    g: string
+    p: string[]
+    nazwy?: Partial<Record<string, string>>
+    kolory?: Partial<Record<string, string>>
+    krotka?: string
+    link?: { n: string; href: string; ic: string }
+  }[]
 }
 
 /** `niepodzielone` of `mapa-slugow-k4.json`: a card the repo split → its new cards. */
@@ -63,7 +78,7 @@ export function k4HomeProductFields(slug: string, categoryOrder: ReadonlyMap<str
   }
 }
 
-/** `CatalogGroups` by department slug: first cards under „Polecane” and the wheel products. */
+/** `CatalogGroups` by department slug: first cards under „Polecane” and the wheel. */
 export function k4GroupProducts(home: K4HomeFile, product: ProductId) {
   const ids = (slugs: string[], where: string) =>
     slugs.map((slug) => product(slug) ?? fail(`${where}: card "${slug}" has no record.`))
@@ -72,15 +87,45 @@ export function k4GroupProducts(home: K4HomeFile, product: ProductId) {
     ...home.kolo_hero.map((row) => row.g),
   ])
   return new Map(
-    [...departments].map((group) => [
-      group,
-      {
-        topProducts: ids(home.top_dzialu[group] ?? [], `top of "${group}"`),
-        wheelProducts: ids(
-          home.kolo_hero.find((row) => row.g === group)?.p ?? [],
-          `wheel of "${group}"`,
-        ),
-      },
-    ]),
+    [...departments].map((group) => {
+      const wheel = home.kolo_hero.find((row) => row.g === group)
+      const link = wheel?.link
+      if (link && !isIconName(link.ic)) fail(`wheel of "${group}": unknown icon "${link.ic}".`)
+      return [
+        group,
+        {
+          topProducts: ids(home.top_dzialu[group] ?? [], `top of "${group}"`),
+          wheelProducts: ids(wheel?.p ?? [], `wheel of "${group}"`),
+          // null clears what an older package set.
+          shortName: wheel?.krotka ?? null,
+          wheelLink: link
+            ? { label: link.n, href: link.href, icon: link.ic as IconName }
+            : { label: null, href: null, icon: null },
+        },
+      ]
+    }),
   )
+}
+
+/** Fields of each wheel card: its short name in the tooltip and the colour it opens with. */
+export function k4WheelProducts(home: K4HomeFile) {
+  return new Map(
+    home.kolo_hero.flatMap((row) =>
+      row.p.map((slug) => [
+        slug,
+        {
+          wheelName: row.nazwy?.[slug] ?? fail(`wheel of "${row.g}": "${slug}" has no name.`),
+          wheelColor: row.kolory?.[slug] ?? null,
+        },
+      ]),
+    ),
+  )
+}
+
+/** Cut-out photo of a wheel card (paczka 03.11), uploaded as `k4-kolo-<slug>.webp`. */
+export function k4WheelImageFile(slug: string) {
+  return {
+    filePath: path.join(K4_MEDIA_DIR, 'kolo', `kolo-${slug}.webp`),
+    uploadName: `k4-kolo-${slug}.webp`,
+  }
 }

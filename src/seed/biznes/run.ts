@@ -1,3 +1,4 @@
+import { existsSync } from 'fs'
 import { readFile } from 'fs/promises'
 import path from 'path'
 import type { Payload, Where } from 'payload'
@@ -78,7 +79,14 @@ import {
 } from './k4Brands'
 import { k4ShowroomData, type K4Showroom } from './k4Showrooms'
 import { k4Bundle, k4Scene, k4ServiceSlugs, type K4Bundle, type K4Scene } from './k4Plans'
-import { K4_FEATURED, k4CategoryOrder, k4GroupProducts, k4HomeProductFields } from './k4Home'
+import {
+  K4_FEATURED,
+  k4CategoryOrder,
+  k4GroupProducts,
+  k4HomeProductFields,
+  k4WheelImageFile,
+  k4WheelProducts,
+} from './k4Home'
 import { seedBiznesK4Pages } from './k4PagesRun'
 import {
   brandLogoFile,
@@ -704,6 +712,44 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       await payload.update({ collection: 'catalog-groups', id: groupId, data: products, ...local })
     }
     count('catalog-groups K4 lists', same ? false : 'updated')
+  }
+
+  // --- wheel cards (KOLO-HERO v3): cut-out photo, short name and colour of each card ---
+  for (const [slug, fields] of k4WheelProducts(k4HomeFile)) {
+    const id = productIds.get(slug)
+    if (id === undefined) throw new Error(`Seed (Biznes): wheel card "${slug}" missing.`)
+    const photo = k4WheelImageFile(slug)
+    let wheelImage: number | null = storedId(photo.uploadName) ?? null
+    // A service without a photo (przegląd kasy) shows its icon on the wheel.
+    if (wheelImage === null && existsSync(photo.filePath)) {
+      const data = await readFile(path.resolve(photo.filePath))
+      wheelImage = (
+        await payload.create({
+          collection: 'media',
+          data: {
+            alt: `${fields.wheelName} — zdjęcie na kole`,
+            source: 'paczka 03.11.2026 (wycięte z paczki K3/K4), prawo użycia do potwierdzenia',
+            requiresConsent: false,
+            tenant: tenant.id,
+          },
+          file: { data, mimetype: 'image/webp', name: photo.uploadName, size: data.length },
+          ...local,
+        })
+      ).id
+      count('media (koło)', true)
+    }
+    const stored = await payload.findByID({ collection: 'products', id, ...local })
+    const update = { ...fields, wheelImage }
+    const same = hasSameValues(stored, update)
+    if (!same) {
+      await payload.update({
+        collection: 'products',
+        id,
+        data: { ...update, _status: stored._status ?? 'draft' },
+        ...local,
+      })
+    }
+    count('products koło', same ? false : 'updated')
   }
 
   // --- K4 polecane and podobne (ADR-017 pkt 10), once every card has its record ---
