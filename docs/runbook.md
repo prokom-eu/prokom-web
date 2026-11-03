@@ -9,6 +9,14 @@ Co robić krok po kroku przy wdrożeniu, cofnięciu, odtworzeniu z kopii i awari
 | Stos produkcji | projekt `prokom-prod`: `docker/compose.prod.yml`, zmienne `.env.prod` | kontenery `prokom-prod-app-1`, `prokom-prod-postgres-1` |
 | Stos stagingu | projekt `prokom-staging`: `compose.prod.yml` + `compose.staging.yml`, zmienne `.env.staging` | baza `prokom_staging` |
 | Nginx + certbot | projekt `prokom-proxy`: `docker/compose.proxy.yml` (staging) + `compose.proxy.prod.yml` (domeny produkcji, od startu produkcji), zmienne `.env.proxy` | jedyny z portami 80/443 |
+
+**Uruchamianie proxy (stan od 3.11.2026 — Gaming na produkcji, prokom-web jeszcze nie):** zawsze ze wszystkimi nakładkami, które mają certyfikat i zmienne w `.env.proxy` — pominięta nakładka wyłącza tę domenę:
+```bash
+cd /srv/prokom/prokom-web
+docker compose --env-file .env.proxy -f docker/compose.proxy.yml \
+  -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml up -d nginx
+```
+Po starcie produkcji prokom-web dochodzi `-f docker/compose.proxy.prod.yml` (§3). Odnawianie certyfikatów: kontener `certbot` (`renew --webroot`) — także tych wystawionych `--standalone`.
 | Kopie | `scripts/backup.sh`, `scripts/restore.sh`, zmienne `.env.backup` | lokalnie `../backups/`, poza serwerem `RCLONE_REMOTE` |
 | Sekrety | `.env.*` w repo (poza Gitem), plik hasła stagingu `../secrets/` | wartości w menedżerze haseł |
 | Klucz prywatny `age` | **tylko** menedżer haseł („prokom-web backup age”) | na serwerze jest tylko klucz publiczny |
