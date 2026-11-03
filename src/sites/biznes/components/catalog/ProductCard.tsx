@@ -6,7 +6,7 @@ import { cardIcon, productBadges, productHref, type BadgeTone } from '@/lib/cata
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { serviceTile } from '@/lib/catalog/purchase'
 
-import { AddToCartButton } from '../AddToCartButton'
+import { AddToCartButton } from '../AddToCartButtonLazy'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 
 const BADGE: Record<BadgeTone, string> = {

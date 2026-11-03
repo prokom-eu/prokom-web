@@ -4,7 +4,7 @@ import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
 import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 
-import { PhaseText } from '../k4j/Client'
+import { PhaseText } from '../k4j/ClientLazy'
 import {
   CARD,
   EYEBROW,

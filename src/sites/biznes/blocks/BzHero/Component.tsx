@@ -10,7 +10,7 @@ import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import type { BzHeroBlock as BzHeroBlockData } from '@/payload-types'
 
-import { DepartmentWheel } from './DepartmentWheel'
+import { DepartmentWheel } from './DepartmentWheelLazy'
 import { HeroSearch } from './HeroSearch'
 
 type Props = { block: BzHeroBlockData; isFirst: boolean; tenantId: number }

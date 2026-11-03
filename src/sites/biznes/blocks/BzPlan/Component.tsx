@@ -8,11 +8,11 @@ import type { BzPlanBlock as BzPlanBlockData } from '@/payload-types'
 
 import { SectionHead } from '../../components/home/SectionHead'
 import { TONE_ICON } from '../../components/home/tones'
-import { FloorPlan } from '../../components/plan/FloorPlan'
+import { FloorPlan } from '../../components/plan/FloorPlanLazy'
 import { loadFloorPlan } from '../../components/plan/planData'
 import { PlanStats } from '../../components/plan/PlanStats'
 import { DEFAULT_PLAN_LABELS } from '../../components/plan/types'
-import { IndustryGrid } from './IndustryGrid'
+import { IndustryGrid } from './IndustryGridLazy'
 import { PlanSceneLink } from './PlanSceneLink'
 import { industryTiles, WIZARD_HREF, type IndustryTile } from './tiles'
 

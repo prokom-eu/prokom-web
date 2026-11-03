@@ -22,8 +22,8 @@ import { plural } from '@/lib/plural'
 import type { BzOfferBlock as BzOfferBlockData } from '@/payload-types'
 
 import { SectionHead } from '../../components/home/SectionHead'
-import { DepartmentCategories } from './DepartmentCategories'
-import { SearchTile } from './SearchTile'
+import { DepartmentCategories } from './DepartmentCategoriesLazy'
+import { SearchTile } from './SearchTileLazy'
 
 type Props = { block: BzOfferBlockData; tenantId: number }
 

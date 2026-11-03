@@ -27,7 +27,7 @@ import {
   SiteLink,
   withTrail,
 } from '../ui'
-import { AddMachineButton, ClientTabs, KsefTimeline, PhaseText } from './Client'
+import { AddMachineButton, ClientTabs, KsefTimeline, PhaseText } from './ClientLazy'
 
 // Phone (boards App-*): 30 px in the hero card.
 const HERO_H1 = cx(BZ_H1, 'max-md:text-[30px] max-md:leading-[1.05]')

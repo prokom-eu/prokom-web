@@ -12,7 +12,7 @@ import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
 import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { LiveHours } from '../home/LiveHours'
-import { ContactForm } from './ContactForm'
+import { ContactForm } from './ContactFormLazy'
 
 type Props = {
   tenantId: number

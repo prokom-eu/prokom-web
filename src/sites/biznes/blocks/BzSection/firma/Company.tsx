@@ -17,7 +17,7 @@ import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { AreaMap } from '../../../components/AreaMap'
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
-import { ContactForm } from '../../../components/forms/ContactForm'
+import { ContactForm } from '../../../components/forms/ContactFormLazy'
 import { LiveHours } from '../../../components/home/LiveHours'
 import {
   BTN_OUTLINE,
