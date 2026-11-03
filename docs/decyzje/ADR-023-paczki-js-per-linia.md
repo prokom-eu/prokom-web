@@ -88,4 +88,6 @@ Kolumna „+ zod + fonty” to próbny build z obiema zmianami (deklaracja `font
 
 **Wynik (arkusz blokujący render, gzip):** Biznes 57,6 → 38,7 KB, Software → 32,5 KB, Instalacje → 31,0 KB (+ jej arkusze ramki bez zmian). Wygląd bez zmian: style obliczone wszystkich elementów identyczne na 23 stronach (Biznes 10, Software 5, Instalacje 4, nieznana domena) w 1440 i 390, jasny i ciemny.
 
+**Lighthouse mobile** (lokalnie `pnpm build && pnpm start`, lhci 0.15.1, mediana z 3, baza: develop po #313): Biznes `/` 80 → 82, `/oferta` 83 → 83, produkt 85 → 86, `/marki/apple` 86 → 86, `/kontakt` 86 → 87, `/plan-firmy` 86 → 86; Instalacje `/`, `/kontakt` 87 → 87; Software `/`, `/rozwiazania` 86 → 87. Mały zysk, bo FCP był już ~1,2 s — resztę różnicy opisuje dopisek „Dane planu firmy” niżej.
+
 **Reguła:** klasa Tailwind użyta w folderze jednej linii trafia tylko do jej arkusza; kod wspólny (`components`, `blocks`, `lib`, `app`) jest w każdym. Komponent jednej linii renderowany przez drugą wymaga `@source` w arkuszu drugiej (dziś: `news/` Biznesu w Software) — pilnuje tego `lineSheet.test.ts` (każdy plik innej linii osiągalny z importów linii musi być objęty jej `@source`).
