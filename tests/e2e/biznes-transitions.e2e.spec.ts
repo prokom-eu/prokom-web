@@ -103,6 +103,7 @@ test.describe('side rail and dialogs (R2)', () => {
 
   test('the rail opens with its labels and glides to a section', async ({ page }) => {
     await page.goto(site(HOST, '/'))
+    await page.waitForLoadState('networkidle')
     const rail = page.getByRole('navigation', { name: 'Na tej stronie' })
     const label = rail.locator('[data-rail-label]').first()
     await expect(label).toHaveCSS('opacity', '0')
