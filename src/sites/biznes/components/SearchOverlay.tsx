@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
+  type CSSProperties,
   type KeyboardEvent,
   useCallback,
   useDeferredValue,
@@ -146,6 +147,8 @@ export function SearchOverlay({ whatsapp }: Props) {
       </button>
 
       <dialog
+        data-motion="dialog"
+        data-backdrop="blur"
         ref={dialog}
         aria-labelledby={headingId}
         onClose={() => {
@@ -451,7 +454,12 @@ function Found({
         </h3>
         <ul className="flex flex-col gap-1">
           {shown.map((product, i) => (
-            <li key={product.slug}>
+            <li
+              key={product.slug}
+              // R2: new results rise in one by one (`data-cascade`).
+              data-cascade
+              style={{ '--reveal-i': i } as CSSProperties}
+            >
               <ProductResult product={product} index={index} onPreview={() => setPreview(i)} />
             </li>
           ))}

@@ -69,6 +69,7 @@ export function PlanPointDialog({ scene, points, products, current, onMove, onCl
 
   return (
     <dialog
+      data-motion="dialog"
       ref={dialog}
       aria-labelledby={headingId}
       onClose={() => {

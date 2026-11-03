@@ -144,7 +144,12 @@ export function HeaderNav({ menu, panels }: Props) {
                 <Chevron open={expanded} />
               </button>
               {/* Positioned against the sticky header, so the panel spans its full width. */}
-              <div id={panelId} hidden={!expanded} className="absolute inset-x-0 top-full">
+              <div
+                id={panelId}
+                data-mega-panel
+                hidden={!expanded}
+                className="absolute inset-x-0 top-full"
+              >
                 {panels[kind]}
               </div>
             </li>
