@@ -7,14 +7,19 @@ import localFont from 'next/font/local'
 // it — Polish letters come from `latin-ext`. The `Fallback` metrics (less layout shift) sit on the
 // last family of each chain. All four are preloaded, as before with Google: Polish text needs
 // `latin-ext` on almost every page.
+// Trimmed for page weight (ADR-023, 03.11; 216 → 127 KB, OFL allows it — no reserved names):
+// Archivo keeps the width axis 100–125 % only (the site uses 100–125 %), and both `latin-ext`
+// files keep Latin Extended-A only (U+0100–017F: Polish and other Central European letters).
+// fontTools: `varLib.instancer <file> wdth=100:125` and `subset --unicodes=U+0100-017F
+// --layout-features='*' --flavor=woff2`.
 
 // Archivo: headings, numbers — with the width axis (the brand book sets it at 110–118 %), hence
-// the `font-stretch` range. Font loader options must be literals (Next), so it is repeated.
+// the `font-stretch` range (the file keeps 100–125 %). Font loader options must be literals (Next), so it is repeated.
 export const archivoLatin = localFont({
   src: './fonts/archivo-latin-wdth-normal.woff2',
   weight: '100 900',
   display: 'swap',
-  declarations: [{ prop: 'font-stretch', value: '62% 125%' }],
+  declarations: [{ prop: 'font-stretch', value: '100% 125%' }],
   adjustFontFallback: false,
   variable: '--font-archivo-latin',
 })
@@ -23,7 +28,7 @@ export const archivoLatinExt = localFont({
   src: './fonts/archivo-latin-ext-wdth-normal.woff2',
   weight: '100 900',
   display: 'swap',
-  declarations: [{ prop: 'font-stretch', value: '62% 125%' }],
+  declarations: [{ prop: 'font-stretch', value: '100% 125%' }],
   variable: '--font-archivo-latin-ext',
 })
 
