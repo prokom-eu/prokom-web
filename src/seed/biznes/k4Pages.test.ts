@@ -157,18 +157,23 @@ describe('/gopos (K4h)', () => {
             lead: 'Zmienione w panelu',
             data: {
               ...(block.data as object),
-              stage: (block.data as { stage: object[] }).stage.map(({ ...device }) => {
+              stage: (block.data as { stage: object[] }).stage.map(({ ...device }, i) => {
                 delete (device as { image?: number }).image
                 delete (device as { pos?: string }).pos
                 delete (device as { lab?: string }).lab
-                return device
+                // A label edited in the panel stays.
+                return i === 0 ? { ...device, label: 'Kuchnia (KDS)' } : device
               }),
             },
           }
         : block,
     )
     const upgraded = upgradeGoposPhotos(stored, fresh)!
-    expect(dataOf(upgraded, 'gopos-hero')!.stage).toEqual(dataOf(fresh, 'gopos-hero')!.stage)
+    const stage = dataOf(upgraded, 'gopos-hero')!.stage
+    expect(stage.map(({ image, pos, lab }) => ({ image, pos, lab }))).toEqual(
+      dataOf(fresh, 'gopos-hero')!.stage.map(({ image, pos, lab }) => ({ image, pos, lab })),
+    )
+    expect(stage[0]!.label).toBe('Kuchnia (KDS)')
     expect(dataOf(upgraded, 'gopos-venues')!.venues.map((v) => v.image)).toEqual(
       dataOf(fresh, 'gopos-venues')!.venues.map((v) => v.image),
     )

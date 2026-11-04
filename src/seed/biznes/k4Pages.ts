@@ -205,7 +205,8 @@ function resolver(slugOf: SlugOf) {
 }
 
 type SectionLike = { blockType: string; variant?: string | null; data?: unknown }
-type StageData = { stage?: { image?: unknown }[] }
+type StageDevice = { slug?: string; image?: unknown; pos?: unknown; lab?: unknown }
+type StageData = { stage?: StageDevice[] }
 type VenuesData = { venues?: { key?: string; image?: unknown }[] }
 
 const isSection = (block: PageBlock, variant: string): block is PageBlock & SectionLike =>
@@ -213,9 +214,10 @@ const isSection = (block: PageBlock, variant: string): block is PageBlock & Sect
 
 /**
  * POPRAWKI-0311: a stored `/gopos` keeps its blocks (the seed never overwrites a page), so the
- * photos with the screen on come in here — only the pictures, only where they are still the old
- * seed's: a hero stage with no photo at all, a venue picture that is still a product slug.
- * Everything else, edited in the panel or not, stays. `null` when nothing changes.
+ * photos with the screen on come in here — only where they are still the old seed's: a hero
+ * stage with no photo at all gets each device's photo and placement (by slug; label and step
+ * stay), a venue picture that is still a product slug gets the photo. Everything else, edited in
+ * the panel or not, stays. `null` when nothing changes.
  */
 export function upgradeGoposPhotos(stored: PageBlock[], seed: PageBlock[]): PageBlock[] | null {
   const seedHero = seed.find((block) => isSection(block, 'gopos-hero')) as SectionLike | undefined
@@ -225,11 +227,25 @@ export function upgradeGoposPhotos(stored: PageBlock[], seed: PageBlock[]): Page
   const next = stored.map((block) => {
     if (isSection(block, 'gopos-hero') && seedHero) {
       const data = (block.data ?? {}) as StageData
-      const fresh = (seedHero.data as StageData).stage ?? []
-      const noPhotos = (data.stage ?? []).every((device) => device.image === undefined)
-      if (noPhotos && fresh.some((device) => device.image !== undefined)) {
+      const fresh = new Map(
+        ((seedHero.data as StageData).stage ?? []).map((device) => [device.slug, device]),
+      )
+      const stage = data.stage ?? []
+      const noPhotos = stage.every((device) => device.image === undefined)
+      const merged = stage.map((device) => {
+        const seedDevice = fresh.get(device.slug)
+        if (seedDevice?.image === undefined) return device
+        const { image, pos, lab } = seedDevice
+        return {
+          ...device,
+          image,
+          ...(pos !== undefined && { pos }),
+          ...(lab !== undefined && { lab }),
+        }
+      })
+      if (noPhotos && merged.some((device) => device.image !== undefined)) {
         changed = true
-        return { ...block, data: { ...data, stage: fresh } }
+        return { ...block, data: { ...data, stage: merged } }
       }
     }
     if (isSection(block, 'gopos-venues') && seedVenues) {

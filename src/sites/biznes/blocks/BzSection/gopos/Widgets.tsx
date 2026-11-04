@@ -19,7 +19,7 @@ import { productHref } from '@/lib/catalog/card'
 
 import { useSwap } from '../../../components/motion/useSwap'
 import { BTN_OUTLINE, BTN_PRIMARY, CARD, EYEBROW, TAB_KEYS } from '../ui'
-import { Ticket } from './Stage'
+import { Ticket, useReducedMotion } from './Stage'
 import { goposActions, pickedOr, useGopos } from './store'
 
 /** POPRAWKI-0311 §B: the venue's ticket moves through its statuses every 1.8 s. */
@@ -39,19 +39,25 @@ function useTabs(count: number) {
   return { current, setCurrent, base, go, swap }
 }
 
-/** The ticket of the venue scene: its own clock, from „Przyjęte” again on every venue. */
+/**
+ * The ticket of the venue scene: its own clock, from „Przyjęte” again on every venue. Stopped by
+ * the page's pause button and by reduced motion.
+ */
 function useTicketClock(venue: string) {
-  const [state, setState] = useState({ venue, step: 0 })
+  const { paused } = useGopos()
+  const reduce = useReducedMotion()
+  const [clock, setClock] = useState({ venue, step: 0 })
+  // A new venue starts its ticket from the first status (state reset during render).
+  if (clock.venue !== venue) setClock({ venue, step: 0 })
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (paused || reduce) return
     const timer = window.setInterval(
-      () => setState((s) => ({ venue: s.venue, step: (s.step + 1) % 4 })),
+      () => setClock((c) => ({ venue: c.venue, step: (c.step + 1) % 4 })),
       TICKET_MS,
     )
     return () => window.clearInterval(timer)
-  }, [])
-  // A new venue starts its ticket from the first status.
-  return state.venue === venue ? state.step : 0
+  }, [paused, reduce])
+  return clock.venue === venue ? clock.step : 0
 }
 
 /**

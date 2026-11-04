@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useEffect, useSyncExternalStore, type CSSProperties } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { ticketStep, type GoposTicket, type StagePlacement } from '@/lib/biznes/pages/gopos'
@@ -59,29 +59,33 @@ export function Ticket({
   )
 }
 
-/** Reduced motion, read once in the browser (the server renders the still frame). */
-function useReducedMotion() {
-  const [reduce, setReduce] = useState(false)
-  useEffect(() => {
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- once, from the media query after hydration
-    setReduce(query.matches)
-  }, [])
-  return reduce
+/** A media query in the browser, `false` on the server (the still frame renders first). */
+function useMedia(query: string): boolean {
+  return useSyncExternalStore(
+    (onChange) => {
+      const list = window.matchMedia(query)
+      list.addEventListener('change', onChange)
+      return () => list.removeEventListener('change', onChange)
+    },
+    () => window.matchMedia(query).matches,
+    () => false,
+  )
 }
 
-/** „Wstrzymaj animację” / „Wznów animację” (WCAG 2.2.2), the same as under the home wheel. */
-export function PauseButton({
-  paused,
-  onToggle,
-  className,
-}: {
-  paused: boolean
-  onToggle: () => void
-  className?: string
-}) {
+/** `prefers-reduced-motion: reduce`: nothing plays by itself (POPRAWKI-0311 §A, §B). */
+export const useReducedMotion = () => useMedia('(prefers-reduced-motion: reduce)')
+
+/**
+ * „Wstrzymaj animację” / „Wznów animację” (WCAG 2.2.2), worded as under the home wheel: one
+ * button for the stage and the venue ticket (`useGopos().paused`). Hidden with reduced motion,
+ * where nothing moves.
+ */
+export function PauseButton({ className }: { className?: string }) {
+  const { paused } = useGopos()
+  const reduce = useReducedMotion()
+  if (reduce) return null
   return (
-    <button type="button" className={cx('gps-pause', className)} onClick={onToggle}>
+    <button type="button" className={cx('gps-pause', className)} onClick={goposActions.togglePause}>
       {paused ? 'Wznów animację' : 'Wstrzymaj animację'}
     </button>
   )
@@ -103,16 +107,17 @@ export function GoposStage({
   ticket: GoposTicket
   flow: Flow
 }) {
-  const { step, stepRun } = useGopos()
+  const { step, stepRun, paused } = useGopos()
   const reduce = useReducedMotion()
-  const [paused, setPaused] = useState(false)
+  // Up to 720 px the tiles show no lit step: the order does not play there.
+  const wide = useMedia('(min-width: 721px)')
   const current = ticketStep(step)
 
   useEffect(() => {
-    if (paused || reduce || devices.length === 0) return
+    if (paused || reduce || !wide || devices.length === 0) return
     const timer = window.setTimeout(goposActions.advance, STEP_MS)
     return () => window.clearTimeout(timer)
-  }, [current, stepRun, paused, reduce, devices.length])
+  }, [current, stepRun, paused, reduce, wide, devices.length])
 
   if (devices.length === 0) return null
   const shown = devices.slice(0, 4)
@@ -172,11 +177,7 @@ export function GoposStage({
           </li>
         ))}
       </ol>
-      <PauseButton
-        paused={paused}
-        onToggle={() => setPaused((value) => !value)}
-        className="self-center"
-      />
+      <PauseButton className="self-center" />
     </div>
   )
 }
