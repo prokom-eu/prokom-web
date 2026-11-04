@@ -103,8 +103,10 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     await expect(bubbles(page)).toHaveCount(19)
     await expect(tabs(page)).toHaveCount(5)
 
+    // Each bubble in the middle of the window first: not under the sticky header, not below it.
     const links = await bubbles(page).evaluateAll((els) =>
       els.map((el) => {
+        el.scrollIntoView({ block: 'center', behavior: 'instant' })
         const r = el.getBoundingClientRect()
         const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
         return { href: el.getAttribute('href')!, own: Boolean(hit && el.contains(hit)) }

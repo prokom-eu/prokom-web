@@ -72,6 +72,13 @@ function arcPath(half: number) {
 const vars = (values: Record<string, string | number>) => values as CSSProperties
 
 /**
+ * Name of a department tab: it starts with the label seen on the wheel (WCAG 2.5.3 — „Sieć i
+ * ochrona” has to be in it), then the full name when it differs, then the count.
+ */
+const tabName = (group: WheelGroup) =>
+  `${group.label === group.name ? group.name : `${group.label} (${group.name})`}, ${positions(group.count)}`
+
+/**
  * Department wheel of the Biznes hero (KOLO-HERO.md, wersja 3; prototype `kolo/prototyp.html`):
  * one even ring of product bubbles that does not turn, the departments in the middle of their
  * runs, the active one in the core. Every 6.5 s (the ring around the core, `animationend`) the
@@ -287,7 +294,7 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                 id={tabId(i)}
                 aria-selected={on}
                 aria-controls={coreId}
-                aria-label={`${group.name}, ${positions(group.count)}`}
+                aria-label={tabName(group)}
                 tabIndex={on ? 0 : -1}
                 className="bzw-node bzw-at"
                 data-above={at.labelAbove ? '' : undefined}
