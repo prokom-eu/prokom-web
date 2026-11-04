@@ -195,6 +195,14 @@
   --inst-gor-card: var(--c-instalacje-light-gor-card);
   --inst-gor-mt: var(--c-instalacje-light-gor-mt);
   --inst-plan-glass-top: var(--c-instalacje-light-plan-glass-top);
+  /* Round v5 (RUNDA-V5 §1–§2): desktop chrome above the hero (top bar 36.5 px + header 77 px),
+     so the hero fits the first screen; brand logo tiles stay white in both themes (logos have
+     black and grey parts), only their ring follows the theme. */
+  --inst-hdr-h: 114px;
+  --inst-brand-tile: #ffffff;
+  --inst-brand-tile-ink: #4a5a60;
+  --inst-brand-tile-line: rgba(14, 26, 29, 0.1);
+  --inst-brand-tile-shadow: rgba(14, 26, 29, 0.14);
   /* Home sections (I6): the same in both themes. */
   --inst-ob-shadow: var(--c-instalacje-ob-shadow);
   --inst-us-glow-1: var(--c-instalacje-us-glow-1);
@@ -1211,6 +1219,8 @@
   --inst-gor-ring: var(--c-instalacje-night-border);
   --inst-gor-card: var(--c-instalacje-night-card);
   --inst-gor-mt: var(--c-instalacje-night-gor-mt);
+  --inst-brand-tile-line: rgba(255, 255, 255, 0.22);
+  --inst-brand-tile-shadow: rgba(0, 0, 0, 0.5);
   --inst-plan-glass-top: var(--c-instalacje-plan-glass-top);
   /* tokeny-stron (I7–I16). */
   --inst-il-house-hsky: var(--c-instalacje-night-il-house-hsky);
@@ -1422,6 +1432,8 @@
     --inst-gor-ring: var(--c-instalacje-night-border);
     --inst-gor-card: var(--c-instalacje-night-card);
     --inst-gor-mt: var(--c-instalacje-night-gor-mt);
+    --inst-brand-tile-line: rgba(255, 255, 255, 0.22);
+    --inst-brand-tile-shadow: rgba(0, 0, 0, 0.5);
     --inst-plan-glass-top: var(--c-instalacje-plan-glass-top);
     /* tokeny-stron (I7–I16). */
     --inst-il-house-hsky: var(--c-instalacje-night-il-house-hsky);

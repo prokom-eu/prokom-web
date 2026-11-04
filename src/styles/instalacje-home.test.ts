@@ -101,6 +101,8 @@ const FIXED: Case[] = [
   ['--inst-ticket-ink', '--inst-ticket-1'],
   ['--inst-ticket-mut', '--inst-ticket-1'],
   ['--inst-ticket-eye', '--inst-ticket-1'],
+  // Round v5: brand category under the logo on the white tile.
+  ['--inst-brand-tile-ink', '--inst-brand-tile'],
 ]
 
 const name = (c: Case) => `${c[0]} on ${c.slice(1).join(' over ')}`
@@ -123,6 +125,18 @@ describe('Instalacje home section colours', () => {
     const home = Object.keys(dark).filter((k) => /^--inst-(band|ob|gor|plan-glass)/.test(k))
     expect(home.length).toBeGreaterThan(20)
     for (const key of home) expect(media[key], key).toBe(dark[key])
+  })
+})
+
+describe('Instalacje brand tiles (round v5)', () => {
+  it('stay white in both themes, only the ring follows the theme', () => {
+    for (const scope of [light, dark, media]) {
+      expect(resolve('var(--inst-brand-tile)', scope)).toBe('#ffffff')
+    }
+    expect(resolve('var(--inst-brand-tile-line)', dark)).not.toBe(
+      resolve('var(--inst-brand-tile-line)', light),
+    )
+    expect(media['--inst-brand-tile-line']).toBe(dark['--inst-brand-tile-line'])
   })
 })
 
