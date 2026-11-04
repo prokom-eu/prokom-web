@@ -1,9 +1,10 @@
 'use client'
 
 import Image from 'next/image'
+import { useEffect, useSyncExternalStore, type CSSProperties } from 'react'
 
 import { cx } from '@/components/ui/cx'
-import { ticketStep, type GoposTicket } from '@/lib/biznes/pages/gopos'
+import { ticketStep, type GoposTicket, type StagePlacement } from '@/lib/biznes/pages/gopos'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
 
 import { goposActions, useGopos } from './store'
@@ -14,55 +15,88 @@ export type StageDevice = {
   step: number
   name: string
   image: IndexImage
+  /** Where the device sits in the stage and where its label hangs (data, `stagePlacement`). */
+  pos: StagePlacement
+  lab: StagePlacement
 }
 
 type Flow = readonly { k: string; t: string; d: string }[]
 
-/** The order ticket: venue, dishes and four statuses up to the current step. */
+/** POPRAWKI-0311 §A: the order moves to the next device every 2.6 s. */
+const STEP_MS = 2600
+
+/**
+ * The order ticket: what was ordered and four statuses — done ones amber, the current one green
+ * (POPRAWKI-0311 §A, §B). `current` comes from the stage or from the venue scene's own clock.
+ */
 export function Ticket({
   ticket,
-  flow,
+  title,
+  current,
   className,
 }: {
   ticket: GoposTicket
-  flow: Flow
+  title: string
+  current: number
   className?: string
 }) {
-  const { step } = useGopos()
-  const current = ticketStep(step)
   return (
-    <div
-      aria-live="polite"
-      className={cx(
-        'flex flex-col gap-2 rounded-2xl bg-[color-mix(in_srgb,var(--surface-dark)_88%,white)] p-4 text-white shadow-[0_20px_40px_-20px_black] ring-1 ring-white/15',
-        className,
-      )}
-    >
-      <small className="text-[12px] font-extrabold tracking-[0.06em] text-white/70 uppercase">
-        {ticket.label} · {flow[current]?.k}
-      </small>
-      <b className="leading-snug">{ticket.text}</b>
-      <span className="flex flex-wrap gap-1.5">
+    <div className={cx('gps-ticket', className)}>
+      <small>{title}</small>
+      <p>{ticket.text}</p>
+      <ol className="gps-steps">
         {ticket.statuses.map((status, i) => (
-          <i
+          <li
             key={status}
-            className={cx(
-              'rounded-full px-2.5 py-1 text-[12px] font-extrabold not-italic',
-              i <= current ? 'bg-promo text-promo-ink' : 'bg-white/10 text-white/75',
-            )}
+            data-state={i < current ? 'done' : i === current ? 'now' : undefined}
+            aria-current={i === current ? 'step' : undefined}
           >
             {status}
-          </i>
+          </li>
         ))}
-      </span>
+      </ol>
     </div>
   )
 }
 
+/** A media query in the browser, `false` on the server (the still frame renders first). */
+function useMedia(query: string): boolean {
+  return useSyncExternalStore(
+    (onChange) => {
+      const list = window.matchMedia(query)
+      list.addEventListener('change', onChange)
+      return () => list.removeEventListener('change', onChange)
+    },
+    () => window.matchMedia(query).matches,
+    () => false,
+  )
+}
+
+/** `prefers-reduced-motion: reduce`: nothing plays by itself (POPRAWKI-0311 §A, §B). */
+export const useReducedMotion = () => useMedia('(prefers-reduced-motion: reduce)')
+
 /**
- * Stage of the hero: the devices as white tiles (their photos have a white studio background),
- * the one of the picked step lit, the rest dim; the ticket under them hides below 760 px
- * (K4-FINAL §7).
+ * „Wstrzymaj animację” / „Wznów animację” (WCAG 2.2.2), worded as under the home wheel: one
+ * button for the stage and the venue ticket (`useGopos().paused`). Hidden with reduced motion,
+ * where nothing moves.
+ */
+export function PauseButton({ className }: { className?: string }) {
+  const { paused } = useGopos()
+  const reduce = useReducedMotion()
+  if (reduce) return null
+  return (
+    <button type="button" className={cx('gps-pause', className)} onClick={goposActions.togglePause}>
+      {paused ? 'Wznów animację' : 'Wstrzymaj animację'}
+    </button>
+  )
+}
+
+/**
+ * Stage of the GoPOS hero (POPRAWKI-0311 §A, prototype `poprawki-0311/sekcje.html` §1): the
+ * devices with the GoPOS screen on, standing on a glow where the data puts them; the order
+ * travels sala → kuchnia → płatność → kasa every 2.6 s, its device lit, the others dimmed, the
+ * ticket following. A click on a device (or a step below) picks it and counts from zero. Up to
+ * 720 px: four glass tiles in the order of the flow. Reduced motion: still, on step 1.
  */
 export function GoposStage({
   devices,
@@ -73,50 +107,77 @@ export function GoposStage({
   ticket: GoposTicket
   flow: Flow
 }) {
-  const { step } = useGopos()
+  const { step, stepRun, paused } = useGopos()
+  const reduce = useReducedMotion()
+  // Up to 720 px the tiles show no lit step: the order does not play there.
+  const wide = useMedia('(min-width: 721px)')
+  const current = ticketStep(step)
+
+  useEffect(() => {
+    if (paused || reduce || !wide || devices.length === 0) return
+    const timer = window.setTimeout(goposActions.advance, STEP_MS)
+    return () => window.clearTimeout(timer)
+  }, [current, stepRun, paused, reduce, wide, devices.length])
+
   if (devices.length === 0) return null
+  const shown = devices.slice(0, 4)
+  const inOrder = [...shown].sort((a, b) => a.step - b.step)
   return (
-    <div className="flex flex-col gap-4">
-      <ul className="grid grid-cols-2 gap-3">
-        {devices.slice(0, 4).map((device) => {
-          const on = step === device.step
-          const dim = step !== null && !on
+    <div className="flex min-w-0 flex-col gap-3">
+      <div className="gps-stage" aria-label="Droga zamówienia w GoPOS" role="group">
+        <div className="gps-floor" aria-hidden="true" />
+        {shown.map((device, i) => {
+          const on = current === device.step
           return (
-            <li key={device.slug}>
-              <button
-                type="button"
-                aria-pressed={on}
-                onClick={() => goposActions.pickStep(device.step)}
-                className={cx(
-                  'relative flex aspect-[4/3] w-full items-center justify-center rounded-2xl bg-white p-4 transition-[opacity,box-shadow] duration-300 motion-reduce:transition-none max-md:aspect-[16/10] max-md:p-2.5 max-md:pt-7',
-                  on ? 'shadow-[0_0_0_3px_var(--ok)]' : 'shadow-[0_18px_40px_-24px_black]',
-                  dim && 'opacity-50',
-                )}
-              >
-                <Image
-                  unoptimized
-                  src={device.image.url}
-                  alt=""
-                  width={device.image.width}
-                  height={device.image.height}
-                  className="max-h-full w-auto object-contain"
-                />
-                <span
-                  className={cx(
-                    'absolute top-2 left-2 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-extrabold whitespace-nowrap',
-                    on ? 'bg-ok text-surface-dark' : 'bg-surface-dark text-white',
-                  )}
-                >
-                  <i className="not-italic opacity-75">{device.step + 1}</i>
-                  {device.label}
-                  <span className="sr-only"> — {device.name}</span>
-                </span>
-              </button>
-            </li>
+            <button
+              key={device.slug}
+              type="button"
+              aria-pressed={on}
+              data-on={on ? '' : undefined}
+              onClick={() => goposActions.pickStep(device.step)}
+              className="gps-dev"
+              style={{ ...device.pos, zIndex: i + 1 } as CSSProperties}
+            >
+              <Image
+                unoptimized
+                src={device.image.url}
+                alt=""
+                width={device.image.width}
+                height={device.image.height}
+              />
+              <span className="gps-tag" style={device.lab as CSSProperties}>
+                <b>{device.step + 1}</b>
+                {device.label}
+                <span className="sr-only"> — {device.name}</span>
+              </span>
+            </button>
           )
         })}
-      </ul>
-      <Ticket ticket={ticket} flow={flow} className="hidden min-[761px]:flex" />
+        <Ticket
+          ticket={ticket}
+          title={`${ticket.label} · ${flow[current]?.k ?? ''}`}
+          current={current}
+          className="gps-stage-ticket"
+        />
+      </div>
+      <ol className="gps-tiles" aria-label="Droga zamówienia w GoPOS">
+        {inOrder.map((device) => (
+          <li key={device.slug} className="gps-tile">
+            <span className="gps-tag">
+              <b>{device.step + 1}</b>
+              {device.label}
+            </span>
+            <Image
+              unoptimized
+              src={device.image.url}
+              alt={device.name}
+              width={device.image.width}
+              height={device.image.height}
+            />
+          </li>
+        ))}
+      </ol>
+      <PauseButton className="self-center" />
     </div>
   )
 }
@@ -124,6 +185,7 @@ export function GoposStage({
 /** The 4 steps of an order under the hero: a click lights the step's device up. */
 export function GoposFlow({ flow }: { flow: Flow }) {
   const { step } = useGopos()
+  const current = ticketStep(step)
   return (
     // Phone (App-GoPOS): the steps two by two under the stage, the label and the step only.
     <ol className="mt-10 grid gap-3 max-md:mt-4 max-md:grid-cols-2 max-md:gap-2 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
@@ -131,11 +193,11 @@ export function GoposFlow({ flow }: { flow: Flow }) {
         <li key={item.k}>
           <button
             type="button"
-            aria-pressed={step === i}
+            aria-pressed={current === i}
             onClick={() => goposActions.pickStep(i)}
             className={cx(
               'flex size-full min-h-14 gap-3 rounded-2xl p-4 text-left ring-1 transition-colors ring-inset max-md:gap-2 max-md:p-2.5',
-              step === i ? 'bg-white/14 ring-ok' : 'bg-white/5 ring-white/15 hover:bg-white/10',
+              current === i ? 'bg-white/14 ring-ok' : 'bg-white/5 ring-white/15 hover:bg-white/10',
             )}
           >
             <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/15 font-display font-extrabold max-md:size-6 max-md:text-xs">

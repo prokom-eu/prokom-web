@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useId, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import {
@@ -19,11 +19,11 @@ import { productHref } from '@/lib/catalog/card'
 
 import { useSwap } from '../../../components/motion/useSwap'
 import { BTN_OUTLINE, BTN_PRIMARY, CARD, EYEBROW, TAB_KEYS } from '../ui'
-import { Ticket } from './Stage'
+import { Ticket, useReducedMotion } from './Stage'
 import { goposActions, pickedOr, useGopos } from './store'
 
-/** The ticket names the step; the venue section has no flow of its own, so its statuses do. */
-const flowOfTicket = (statuses: readonly string[]) => statuses.map((k) => ({ k, t: k, d: '' }))
+/** POPRAWKI-0311 §B: the venue's ticket moves through its statuses every 1.8 s. */
+const TICKET_MS = 1800
 
 /** Tabs with arrow keys: returns the props of the tab list and of each tab. */
 function useTabs(count: number) {
@@ -39,7 +39,32 @@ function useTabs(count: number) {
   return { current, setCurrent, base, go, swap }
 }
 
-/** „Twój lokal” (#lokal): a venue tab sets the package to its starting modules. */
+/**
+ * The ticket of the venue scene: its own clock, from „Przyjęte” again on every venue. Stopped by
+ * the page's pause button and by reduced motion.
+ */
+function useTicketClock(venue: string) {
+  const { paused } = useGopos()
+  const reduce = useReducedMotion()
+  const [clock, setClock] = useState({ venue, step: 0 })
+  // A new venue starts its ticket from the first status (state reset during render).
+  if (clock.venue !== venue) setClock({ venue, step: 0 })
+  useEffect(() => {
+    if (paused || reduce) return
+    const timer = window.setInterval(
+      () => setClock((c) => ({ venue: c.venue, step: (c.step + 1) % 4 })),
+      TICKET_MS,
+    )
+    return () => window.clearInterval(timer)
+  }, [paused, reduce])
+  return clock.venue === venue ? clock.step : 0
+}
+
+/**
+ * „Twój lokal” (#lokal, POPRAWKI-0311 §B): a venue tab (with a thumbnail of its picture) sets
+ * the package to its starting modules; the scene shows the venue's GoPOS set with the screen on,
+ * its ticket below the device, never over it. The picture and the text swap smoothly.
+ */
 export function GoposVenues({
   data,
   images,
@@ -54,6 +79,7 @@ export function GoposVenues({
     data.venues.findIndex((venue) => venue.key === state.venue),
   )
   const venue = data.venues[index]!
+  const ticketNow = useTicketClock(venue.key)
   const pick = (i: number) => {
     const next = data.venues[i]!
     goposActions.pickVenue(
@@ -61,9 +87,11 @@ export function GoposVenues({
       next.modules.map((module) => module.slug),
     )
   }
-  const image = venue.image ? images[venue.image] : undefined
+  const imageOf = (key: string | number | undefined) =>
+    key === undefined ? undefined : images[String(key)]
+  const image = imageOf(venue.image)
   return (
-    <div className="grid gap-6 min-[1080px]:grid-cols-[280px_minmax(0,1fr)]">
+    <div className="grid gap-5 min-[1080px]:grid-cols-[260px_minmax(0,1fr)]">
       <div
         role="tablist"
         aria-label="Rodzaj lokalu"
@@ -77,39 +105,47 @@ export function GoposVenues({
           if (event.key === 'End') pick(tabs.go(data.venues.length - 1))
         }}
       >
-        {data.venues.map((item, i) => (
-          <button
-            key={item.key}
-            id={`${tabs.base}-t${i}`}
-            type="button"
-            role="tab"
-            aria-selected={i === index}
-            aria-controls={`${tabs.base}-p`}
-            tabIndex={i === index ? 0 : -1}
-            onClick={() => pick(i)}
-            className={cx(
-              'flex min-h-12 shrink-0 items-center justify-between gap-3 rounded-2xl px-4 text-left font-extrabold transition-colors',
-              i === index
-                ? 'bg-ink text-surface'
-                : 'bg-card text-ink shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)]',
-            )}
-          >
-            {item.tab}
-          </button>
-        ))}
+        {data.venues.map((item, i) => {
+          const thumb = imageOf(item.image)
+          return (
+            <button
+              key={item.key}
+              id={`${tabs.base}-t${i}`}
+              type="button"
+              role="tab"
+              aria-selected={i === index}
+              aria-controls={`${tabs.base}-p`}
+              tabIndex={i === index ? 0 : -1}
+              onClick={() => pick(i)}
+              className="gps-vtab"
+            >
+              <span className="gps-vtab-th" aria-hidden="true">
+                {thumb && (
+                  <Image
+                    unoptimized
+                    src={thumb.url}
+                    alt=""
+                    width={thumb.width}
+                    height={thumb.height}
+                  />
+                )}
+              </span>
+              {item.tab}
+            </button>
+          )
+        })}
       </div>
       <div
         id={`${tabs.base}-p`}
         role="tabpanel"
-        {...tabs.swap}
         aria-labelledby={`${tabs.base}-t${index}`}
         className={cx(
           CARD,
-          'grid gap-6 p-6 max-md:gap-3 max-md:p-[18px] sm:p-8 min-[900px]:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]',
+          'grid items-center gap-8 p-8 max-[820px]:gap-5 max-[820px]:p-5 min-[821px]:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] min-[821px]:min-h-[440px]',
         )}
       >
-        <div className="flex flex-col gap-4 text-ink max-md:gap-3">
-          <h3 className="font-display text-[clamp(1.5rem,2.6vw,2.1rem)] leading-tight font-extrabold text-balance max-md:text-[21px]">
+        <div key={venue.key} className="gps-swap flex flex-col gap-4 text-ink max-md:gap-3">
+          <h3 className="font-display text-[clamp(1.5rem,2.5vw,2.125rem)] leading-tight font-extrabold text-balance max-md:text-[21px]">
             {venue.h1a} <em className="text-ok-text not-italic">{venue.h1b}</em>
           </h3>
           <p className="leading-relaxed text-pretty text-ink-2 max-md:text-sm">{venue.lead}</p>
@@ -132,22 +168,23 @@ export function GoposVenues({
             </a>
           </div>
         </div>
-        {/* Not on the phone board App-GoPOS (the venue card is text and the package). */}
-        <div className="relative flex min-h-[240px] items-center justify-center rounded-2xl bg-surface-2 p-6 max-md:hidden">
+        <div className="gps-scene">
           {image && (
             <Image
+              key={venue.key}
               unoptimized
               src={image.url}
               alt=""
               width={image.width}
               height={image.height}
-              className="max-h-[260px] w-auto object-contain"
+              className="gps-scene-img"
             />
           )}
           <Ticket
             ticket={venue.ticket}
-            flow={flowOfTicket(venue.ticket.statuses)}
-            className="absolute inset-x-4 bottom-4 hidden min-[761px]:flex"
+            title={venue.ticket.label}
+            current={ticketNow}
+            className="gps-scene-ticket"
           />
         </div>
       </div>

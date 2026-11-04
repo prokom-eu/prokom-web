@@ -71,6 +71,9 @@ test.describe('Biznes home page', () => {
     await expect(brands.getByRole('link', { name: /Wszystkie marki/ })).toBeVisible()
     // K4-FINAL §1: no shortened status anywhere.
     await expect(brands).not.toContainText('Aut.')
+    // POPRAWKI-0311 §D: logos in colour before any pointer — no grey filter.
+    await expect(tiles.first().locator('img')).toHaveCSS('filter', 'none')
+    await expect(tiles.first().locator('img')).toHaveCSS('opacity', '1')
   })
 
   test('no prices, leasing or instalments on the page', async ({ page }) => {
@@ -358,7 +361,7 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await expect(page.getByText('[do podmiany]')).toHaveCount(0)
   })
 
-  test('owner: no quote until approved, four numbers, logos, the company page', async ({
+  test('„O firmie” without the quote: H2, two numbers, four authorizations, the company page', async ({
     page,
   }) => {
     await page.goto(site('biznes.localhost'))
@@ -366,11 +369,26 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     // Seed: „Pokaż słowo od właściciela” off — the quote waits for the owner (audit 01.11).
     await expect(facts.locator('blockquote')).toHaveCount(0)
     await expect(facts).not.toContainText('u klienta po prostu działało')
-    await expect(facts.locator('dd')).toHaveText(['2004', '100+', '2', '2'])
+    // POPRAWKI-0311 §C: a visible H2 and two numbers — the authorizations say the rest.
+    await expect(facts.getByRole('heading', { level: 2 })).toBeVisible()
+    await expect(facts.getByRole('heading', { level: 2 })).toHaveText(
+      'Od 2004 roku przy kasach i komputerach firm z Podhala',
+    )
+    await expect(facts.locator('dd')).toHaveText(['2004', '100+'])
     await expect(facts).toContainText('klientów firmowych')
     await expect(facts).not.toContainText('pod stałą opieką')
-    for (const name of ['Posnet', 'Elzab', 'InsERT', 'GoPOS']) {
-      await expect(facts.getByRole('img', { name, exact: true })).toBeVisible()
+    const authorizations = facts.getByRole('list', { name: 'Autoryzacje i partnerstwa' })
+    for (const [name, status] of [
+      ['Posnet', 'Autoryzowany serwis'],
+      ['Elzab', 'Autoryzowany serwis'],
+      ['InsERT', 'Autoryzowany partner'],
+      ['GoPOS', 'Autoryzowany partner'],
+    ]) {
+      const item = authorizations.getByRole('listitem').filter({
+        has: page.getByRole('img', { name, exact: true }),
+      })
+      await expect(item).toBeVisible()
+      await expect(item).toContainText(status!)
     }
     await expect(
       facts.getByRole('link', { name: 'Poznaj PRO-KOM i pozostałe linie firmy' }),

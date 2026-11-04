@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 
 import file from '../../../seed/prokombiznes/k4/strony-k4.json'
@@ -17,6 +18,10 @@ import {
   aboutK4Layout,
   contactK4Layout,
   goposK4Layout,
+  goposPhotoFiles,
+  goposPhotoPath,
+  upgradeGoposPhotos,
+  GOPOS_PHOTO_ALT,
   insertK4Layout,
   KSEF_SWITCH_DATE,
   ksefK4Layout,
@@ -89,6 +94,9 @@ describe.each([
   })
 })
 
+/** `segImg` before 03.11: product ids. */
+const OLD_SEG_IMG = { rest: 'd3', kaw: 'v3mix', dow: 'kds', ft: 'v3', hot: 'd3' }
+
 describe('/gopos (K4h)', () => {
   const { layout, missing } = goposK4Layout(pages, identity)
 
@@ -107,6 +115,82 @@ describe('/gopos (K4h)', () => {
     const hero = dataOf(layout, 'gopos-hero')!
     expect(hero.flow[1]!.k).toBe('Kuchnia')
     expect(hero.stage.find((device) => device.step === 1)?.slug).toBe('kds')
+  })
+
+  it('puts the screen-on photos and their places on the stage (POPRAWKI-0311 §A)', () => {
+    const ids = new Map<string, number>()
+    const mediaOf = (file: string) => {
+      if (!ids.has(file)) ids.set(file, ids.size + 1)
+      return ids.get(file)
+    }
+    const hero = dataOf(goposK4Layout(pages, identity, mediaOf).layout, 'gopos-hero')!
+    const kds = hero.stage.find((device) => device.slug === 'kds')!
+    expect(kds.image).toBe(ids.get('kuchnia-kds.webp'))
+    expect(kds.pos).toBe('right:0;top:4%;width:46%;height:36%')
+    expect(kds.lab).toBe('right:4%;top:-14px')
+    expect(hero.stage.every((device) => typeof device.image === 'number')).toBe(true)
+  })
+
+  it('gives every venue its GoPOS photo by file, a slug as before (POPRAWKI-0311 §B)', () => {
+    const mediaOf = (file: string) => (file === 'kasa-d3.webp' ? undefined : 9)
+    const venues = dataOf(goposK4Layout(pages, identity, mediaOf).layout, 'gopos-venues')!.venues
+    expect(venues.find((venue) => venue.key === 'rest')?.image).toBe(9)
+    // A photo not uploaded leaves the venue without a picture, never with a wrong one.
+    expect(venues.find((venue) => venue.key === 'kaw')?.image).toBeUndefined()
+    // Without a media resolver (older calls) the files are left out.
+    const plain = dataOf(goposK4Layout(pages, identity).layout, 'gopos-venues')!.venues
+    expect(plain.every((venue) => venue.image === undefined)).toBe(true)
+  })
+
+  it('brings an untouched page to the photos, keeping what the panel changed', () => {
+    const mediaOf = (file: string) => file.length
+    const fresh = goposK4Layout(pages, identity, mediaOf).layout
+    const old = goposK4Layout(
+      { ...pages, gopos: { ...pages.gopos, segImg: OLD_SEG_IMG } },
+      identity,
+    ).layout
+    // The hero stage of the old seed: no photos, no placements.
+    const stored = old.map((block) =>
+      block.blockType === 'bzSection' && block.variant === 'gopos-hero'
+        ? {
+            ...block,
+            lead: 'Zmienione w panelu',
+            data: {
+              ...(block.data as object),
+              stage: (block.data as { stage: object[] }).stage.map(({ ...device }, i) => {
+                delete (device as { image?: number }).image
+                delete (device as { pos?: string }).pos
+                delete (device as { lab?: string }).lab
+                // A label edited in the panel stays.
+                return i === 0 ? { ...device, label: 'Kuchnia (KDS)' } : device
+              }),
+            },
+          }
+        : block,
+    )
+    const upgraded = upgradeGoposPhotos(stored, fresh)!
+    const stage = dataOf(upgraded, 'gopos-hero')!.stage
+    expect(stage.map(({ image, pos, lab }) => ({ image, pos, lab }))).toEqual(
+      dataOf(fresh, 'gopos-hero')!.stage.map(({ image, pos, lab }) => ({ image, pos, lab })),
+    )
+    expect(stage[0]!.label).toBe('Kuchnia (KDS)')
+    expect(dataOf(upgraded, 'gopos-venues')!.venues.map((v) => v.image)).toEqual(
+      dataOf(fresh, 'gopos-venues')!.venues.map((v) => v.image),
+    )
+    // Only the pictures change: the lead edited in the panel stays.
+    expect(sections(upgraded).find((b) => b.variant === 'gopos-hero')?.lead).toBe(
+      'Zmienione w panelu',
+    )
+    // Already upgraded: nothing to write.
+    expect(upgradeGoposPhotos(upgraded, fresh)).toBeNull()
+  })
+
+  it('has alt text and a file for every GoPOS photo it names', () => {
+    for (const file of goposPhotoFiles(pages)) {
+      expect(GOPOS_PHOTO_ALT[file], file).toBeTruthy()
+      expect(existsSync(goposPhotoPath(file)), file).toBe(true)
+    }
+    expect(goposPhotoFiles(pages)).toHaveLength(9)
   })
 
   it('leaves the device list out when no device is known (the panel needs one)', () => {

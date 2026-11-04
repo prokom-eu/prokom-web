@@ -129,3 +129,41 @@ describe('upgradeHomeV150 (K4c PR 3b and the cleanup)', () => {
     expect(upgradeHomeV150(seed, seed)).toBeNull()
   })
 })
+
+describe('upgradeHomeV150 — „O firmie” without the quote (POPRAWKI-0311 §C)', () => {
+  const stored: Block[] = [
+    {
+      blockType: 'bzFacts',
+      id: 'f',
+      heading: 'Słowo od właściciela',
+      headingAccent: null,
+      lead: null,
+      stats: [
+        { id: 'a', value: '2004', label: 'rok założenia' },
+        { id: 'b', value: '100+', label: 'klientów firmowych' },
+        { id: 'c', value: '2', label: 'autoryzowane serwisy kas' },
+        { id: 'd', value: '2', label: 'autoryzowane partnerstwa' },
+      ],
+    },
+  ]
+
+  it('gives the visible heading, its accent and the lead, and keeps two numbers', () => {
+    const facts = (upgradeHomeV150(stored, seed) ?? [])[0] as Block
+    const own = seedOf('bzFacts')
+    expect(facts).toMatchObject({
+      heading: 'Od 2004 roku przy kasach i komputerach firm z Podhala',
+      headingAccent: 'przy kasach i komputerach firm',
+      lead: own.lead,
+    })
+    expect((facts.stats as { label: string }[]).map((stat) => stat.label)).toEqual([
+      'rok założenia firmy',
+      'klientów firmowych',
+    ])
+  })
+
+  it('leaves a heading edited in the panel alone', () => {
+    const edited = [{ ...stored[0]!, heading: 'Nasza historia' }]
+    const facts = (upgradeHomeV150(edited, seed) ?? [])[0] as Block
+    expect(facts.heading).toBe('Nasza historia')
+  })
+})

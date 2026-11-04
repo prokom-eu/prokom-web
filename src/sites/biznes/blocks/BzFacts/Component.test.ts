@@ -13,7 +13,9 @@ const { BzFactsBlock } = await import('./Component')
 
 const block = {
   blockType: 'bzFacts',
-  heading: 'Słowo od właściciela',
+  heading: 'Od 2004 roku przy kasach i komputerach firm z Podhala',
+  headingAccent: 'przy kasach i komputerach firm',
+  lead: 'Sprzedajemy, wdrażamy i serwisujemy w Rabce-Zdroju.',
   owner: {
     label: 'Słowo od właściciela',
     quote: 'Nie chodzi nam o to, żeby sprzedać jak najwięcej.',
@@ -31,11 +33,14 @@ describe('BzFactsBlock: the owner quote waits for approval (audit 01.11.2026)', 
     settings.showOwnerQuote = false
   })
 
-  it('without the setting shows the numbers and the link, but no quote', async () => {
+  it('without the setting shows the card: visible H2, lead, numbers, link — no quote', async () => {
     const html = await render()
     expect(html).not.toContain('<blockquote')
     expect(html).not.toContain('Tadeusz Wójciak')
-    expect(html).toContain('PRO-KOM w liczbach')
+    // POPRAWKI-0311 §C: the heading is seen, its accent in the accent colour.
+    expect(html).toMatch(/<h2 id="fakty-h" class="(?![^"]*sr-only)[^"]*">Od 2004 roku <em/)
+    expect(html).toContain('>przy kasach i komputerach firm</em>')
+    expect(html).toContain('Sprzedajemy, wdrażamy i serwisujemy w Rabce-Zdroju.')
     expect(html).toContain('rok założenia')
     expect(html).toContain('href="/o-firmie"')
   })
