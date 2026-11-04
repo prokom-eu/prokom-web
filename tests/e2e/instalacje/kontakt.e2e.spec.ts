@@ -15,7 +15,10 @@ const clientIp = `198.17.${Math.floor(Math.random() * 250)}.${Math.floor(Math.ra
 
 async function open(page: Page) {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  return page.goto(site(HOST, '/kontakt'))
+  const response = await page.goto(site(HOST, '/kontakt'))
+  // ADR-023: the page's widgets hydrate lazily; a click before their code arrives is lost.
+  await page.waitForLoadState('networkidle')
+  return response
 }
 
 async function mailCount(request: APIRequestContext, query: string): Promise<number> {

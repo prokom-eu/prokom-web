@@ -9,6 +9,12 @@ const HOST = 'instalacje.localhost'
 const DESKTOP = { width: 1440, height: 1000 }
 const PHONE = { width: 390, height: 844 }
 
+/** The page, after the widgets' code has arrived (ADR-023): a key or click before it is lost. */
+async function open(page: Page, path = '/') {
+  await page.goto(site(HOST, path))
+  await page.waitForLoadState('networkidle')
+}
+
 const sheet = (page: Page) => page.getByRole('dialog', { name: 'Menu' })
 const bottomBar = (page: Page) => page.getByRole('navigation', { name: 'Szybka nawigacja' })
 
@@ -16,7 +22,7 @@ test.describe('Instalacje desktop header', () => {
   test.use({ viewport: DESKTOP })
 
   test('mega menu: hover, the pointer crosses to an item, the click works', async ({ page }) => {
-    await page.goto(site(HOST))
+    await open(page)
     const button = page.getByRole('button', { name: 'Usługi', exact: true })
     const panel = page.getByRole('region', { name: 'Usługi' })
     await button.hover()
@@ -36,7 +42,7 @@ test.describe('Instalacje desktop header', () => {
   })
 
   test('closes after the pointer leaves, and on Esc back to its button', async ({ page }) => {
-    await page.goto(site(HOST))
+    await open(page)
     const button = page.getByRole('button', { name: 'Dla kogo', exact: true })
     const panel = page.getByRole('region', { name: 'Dla kogo' })
     await button.hover()
@@ -53,7 +59,7 @@ test.describe('Instalacje desktop header', () => {
   })
 
   test('a click toggles; Tab stays inside the open panel', async ({ page }) => {
-    await page.goto(site(HOST))
+    await open(page)
     const button = page.getByRole('button', { name: 'Usługi', exact: true })
     const panel = page.getByRole('region', { name: 'Usługi' })
     await button.focus()
@@ -70,7 +76,7 @@ test.describe('Instalacje desktop header', () => {
   })
 
   test('marks the section of the page and has „Dla architektów”', async ({ page }) => {
-    await page.goto(site(HOST, '/realizacje'))
+    await open(page, '/realizacje')
     await expect(page.getByRole('navigation', { name: 'Główne menu' })).toBeVisible()
     await expect(
       page.getByRole('link', { name: 'Realizacje', exact: true }).first(),
@@ -83,7 +89,7 @@ test.describe('Instalacje desktop header', () => {
 
   test('theme switch remembers the choice and moves the browser bar colour', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'light' })
-    await page.goto(site(HOST))
+    await open(page)
     await page.getByRole('button', { name: 'Włącz ciemny motyw' }).click()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
     await expect(page.locator('meta[name="theme-color"]').first()).toHaveAttribute(
@@ -102,7 +108,7 @@ test.describe('Instalacje phone shell', () => {
   test('bottom bar: five items, Start active on the start page, „Dla kogo” on an object', async ({
     page,
   }) => {
-    await page.goto(site(HOST))
+    await open(page)
     const bar = bottomBar(page)
     await expect(bar.getByRole('link').or(bar.getByRole('button'))).toHaveCount(5)
     await expect(bar.getByRole('link', { name: 'Start' })).toHaveAttribute('aria-current', 'page')
@@ -110,7 +116,7 @@ test.describe('Instalacje phone shell', () => {
 
     // `/dla-kogo/<obiekt>` has no route before I10 (generic 404 outside the shell); the section
     // address itself answers 404 inside the shell.
-    await page.goto(site(HOST, '/dla-kogo'))
+    await open(page, '/dla-kogo')
     await expect(bottomBar(page).getByRole('button', { name: 'Dla kogo' })).toHaveClass(/act/)
   })
 
@@ -120,7 +126,7 @@ test.describe('Instalacje phone shell', () => {
     ['Więcej', 'Więcej'],
   ] as const) {
     test(`the sheet opens on „${tab}” and closes with ×`, async ({ page }) => {
-      await page.goto(site(HOST))
+      await open(page)
       await bottomBar(page).getByRole('button', { name: tab }).click()
       await expect(sheet(page)).toBeVisible()
       await expect(sheet(page).getByRole('button', { name: pressed, exact: true })).toHaveAttribute(
@@ -138,20 +144,20 @@ test.describe('Instalacje phone shell', () => {
   }
 
   test('the sheet closes with the backdrop, Esc and „back”', async ({ page }) => {
-    await page.goto(site(HOST))
-    const open = () => bottomBar(page).getByRole('button', { name: 'Usługi' }).click()
+    await open(page)
+    const openSheet = () => bottomBar(page).getByRole('button', { name: 'Usługi' }).click()
 
-    await open()
+    await openSheet()
     await expect(sheet(page)).toBeVisible()
     await page.mouse.click(200, 20)
     await expect(sheet(page)).toBeHidden()
 
-    await open()
+    await openSheet()
     await expect(sheet(page)).toBeVisible()
     await page.keyboard.press('Escape')
     await expect(sheet(page)).toBeHidden()
 
-    await open()
+    await openSheet()
     await expect(sheet(page)).toBeVisible()
     await page.goBack()
     await expect(sheet(page)).toBeHidden()
@@ -161,7 +167,7 @@ test.describe('Instalacje phone shell', () => {
   test('a link in the sheet leads on; „back” returns to the page, not to the sheet', async ({
     page,
   }) => {
-    await page.goto(site(HOST))
+    await open(page)
     await bottomBar(page).getByRole('button', { name: 'Więcej' }).click()
     await sheet(page)
       .getByRole('link', { name: /Realizacje/ })
@@ -176,7 +182,7 @@ test.describe('Instalacje phone shell', () => {
   test('„Zaplanuj instalację” at the bottom of the sheet leads on; „back” returns to the page', async ({
     page,
   }) => {
-    await page.goto(site(HOST))
+    await open(page)
     await bottomBar(page).getByRole('button', { name: 'Usługi' }).click()
     await sheet(page).getByRole('link', { name: 'Zaplanuj instalację', exact: true }).click()
     await expect(page).toHaveURL(site(HOST, '/zaplanuj'))
@@ -189,7 +195,7 @@ test.describe('Instalacje phone shell', () => {
   test('the header hides while scrolling down and comes back when scrolling up', async ({
     page,
   }) => {
-    await page.goto(site(HOST))
+    await open(page)
     const header = page.locator('#naglowek')
     const scrollTo = (y: number) => page.evaluate((top) => window.scrollTo({ top }), y)
     // Retried until the page is hydrated (before that nothing listens to the scroll).
@@ -214,7 +220,7 @@ test.describe('Instalacje shell layout', () => {
     }) => {
       await page.setViewportSize({ width, height: 800 })
       for (const path of ['/', '/monitoring']) {
-        await page.goto(site(HOST, path))
+        await open(page, path)
         const overflow = await page.evaluate(
           () => document.documentElement.scrollWidth - window.innerWidth,
         )

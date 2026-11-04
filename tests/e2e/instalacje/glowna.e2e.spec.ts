@@ -11,7 +11,10 @@ const hero = (page: Page) => page.locator('#start')
 
 async function open(page: Page) {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  return page.goto(site(HOST))
+  const response = await page.goto(site(HOST))
+  // ADR-023: the hero's widgets hydrate from their own chunks; a key before that is lost.
+  await page.waitForLoadState('networkidle')
+  return response
 }
 
 test.describe('Instalacje home hero', () => {
