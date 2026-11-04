@@ -212,7 +212,7 @@
     stroke: var(--inst-plan-accent);
     stroke-width: 2;
     stroke-dasharray: none;
-    animation: inst-kzin 0.5s ease;
+    animation: inst-kzin 0.5s var(--ease-out);
   }
   & .kmap2 .kroute0 {
     fill: none;

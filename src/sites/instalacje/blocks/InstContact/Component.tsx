@@ -23,6 +23,7 @@ import { JsonLd } from '../../sekcje/JsonLd'
 import { ContactForm } from '../../widzety/kontakt/ContactFormLazy'
 import { ContactHero } from '../../widzety/kontakt/ContactHeroLazy'
 import { KONTAKT_MAP_BASE, KONTAKT_MAP_TOP } from '../../widzety/kontakt/mapa'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { salonLabel, salonsNote } from '../../powloka/salons'
 
 type Props = { block: InstContactBlockData; tenantId: number }
@@ -182,7 +183,8 @@ export async function InstContactBlock({ block, tenantId }: Props) {
         </div>
       </section>
 
-      <section id="napisz" style={{ padding: '0 0 104px' }}>
+      {/* Round v5 (RUNDA-V5 §9.4): the heading and the cards come in on scroll (`.rv .ri`). */}
+      <InstSection id="napisz" style={{ padding: '0 0 104px' }}>
         <div className="wrap">
           <div className="shead ri">
             <div>
@@ -232,7 +234,7 @@ export async function InstContactBlock({ block, tenantId }: Props) {
             </div>
           </div>
         </div>
-      </section>
+      </InstSection>
       <CtaBandView band={band} phone={phone} salons={salons} titleId="cta-contact-title" page />
     </>
   )

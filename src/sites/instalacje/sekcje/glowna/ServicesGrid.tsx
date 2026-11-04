@@ -1,10 +1,11 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
 
 import type { InstMenu, MenuEntry } from '@/lib/instalacje/menu'
 import { plural } from '@/lib/plural'
 
-import { glownaSekcje, SERVICE_CARDS } from '../../dane/glownaSekcje'
+import { glownaSekcje, SERVICE_CARDS, type TrustBrand } from '../../dane/glownaSekcje'
 import type { ServiceKey } from '../../dane/types'
 import { InstIcon } from '../../InstIcon'
 import { solutionsText } from '../../powloka/offerText'
@@ -176,14 +177,27 @@ export function TrustBand() {
           <span className="eye" style={{ color: 'var(--ink-2)' }}>
             {glownaSekcje.trust.eyebrow}
           </span>
-          <div className="brands">
-            {glownaSekcje.trust.brands.map(([name, kind], i) => (
-              <div key={name} className={`brand${i > 8 ? ' hm' : ''}`}>
-                <b>{name}</b>
-                <span>{kind}</span>
-              </div>
+          <ul className="brands">
+            {glownaSekcje.trust.brands.map((brand: TrustBrand) => (
+              <li
+                key={brand.name}
+                className="brand"
+                style={
+                  brand.scale ? ({ '--brand-scale': brand.scale } as CSSProperties) : undefined
+                }
+              >
+                <Image
+                  src={`/instalacje/marki/${brand.logo}.webp`}
+                  width={brand.width}
+                  height={brand.height}
+                  alt={`Logo ${brand.name}`}
+                  sizes="120px"
+                  className="brandl"
+                />
+                <span>{brand.kind}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </section>

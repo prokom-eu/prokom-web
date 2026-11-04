@@ -21,8 +21,7 @@ const TENANTS = [
     host: 'instalacje.localhost',
     name: 'PRO-KOM Instalacje',
     title: 'Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje',
-    // RUNDA-V5 (#322): „Twój inteligentny obiekt na żywo.” (spacje twarde albo zwykłe)
-    h1: /Twój\sinteligentny\sobiekt\sna\sżywo\.$/,
+    h1: /Twój inteligentny obiekt na żywo\.$/,
     // The line's e-mail from the panel (the seed writes the real contact over the sample one,
     // boss 01.11.2026) and a text of the home page.
     markers: ['kontakt@prokominstalacje.pl', 'Wybierz obiekt obok'],

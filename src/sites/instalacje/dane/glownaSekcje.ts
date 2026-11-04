@@ -237,22 +237,42 @@ export const PLAN_OBJECTS = [
 ] as const
 export type PlanObject = (typeof PLAN_OBJECTS)[number]['key']
 
+/** A brand of the band „Marki, z którymi pracujemy” (round v5: logo instead of the name). */
+export type TrustBrand = {
+  name: string
+  kind: string
+  logo: string
+  width: number
+  height: number
+  scale?: number
+}
+
 export const glownaSekcje = {
   trust: {
     eyebrow: 'Marki, z którymi pracujemy',
+    /**
+     * Round v5 (RUNDA-V5 §2): logo files in `public/instalacje/marki/<logo>.webp` (2×, height
+     * 120 px or less); `scale` evens out the optical size — RCF and Samsung are massive shapes.
+     */
     brands: [
-      ['Dahua', 'kamery'],
-      ['Hikvision', 'kamery'],
-      ['BCS', 'kamery'],
-      ['Satel', 'alarmy'],
-      ['Ubiquiti', 'sieci Wi-Fi'],
-      ['Ampio', 'smart home'],
-      ['Elzab EcoPower', 'ładowarki'],
-      ['Samsung', 'ekrany'],
-      ['APART', 'nagłośnienie'],
-      ['RCF', 'nagłośnienie'],
-      ['MikroTik', 'sieci'],
-    ] as const,
+      { name: 'Dahua', kind: 'kamery', logo: 'dahua', width: 402, height: 120 },
+      { name: 'Hikvision', kind: 'kamery', logo: 'hikvision', width: 520, height: 66 },
+      { name: 'BCS', kind: 'kamery', logo: 'bcs', width: 370, height: 120 },
+      { name: 'Satel', kind: 'alarmy', logo: 'satel', width: 446, height: 120 },
+      { name: 'Ubiquiti', kind: 'sieci Wi-Fi', logo: 'ubiquiti', width: 364, height: 120 },
+      { name: 'Ampio', kind: 'smart home', logo: 'ampio', width: 520, height: 110 },
+      {
+        name: 'Elzab EcoPower',
+        kind: 'ładowarki',
+        logo: 'elzab-ecopower',
+        width: 342,
+        height: 120,
+      },
+      { name: 'Samsung', kind: 'ekrany', logo: 'samsung', width: 361, height: 120, scale: 0.84 },
+      { name: 'APART', kind: 'nagłośnienie', logo: 'apart', width: 457, height: 120 },
+      { name: 'RCF', kind: 'nagłośnienie', logo: 'rcf', width: 120, height: 120 },
+      { name: 'MikroTik', kind: 'sieci', logo: 'mikrotik', width: 493, height: 120 },
+    ] as const satisfies readonly TrustBrand[],
   },
   forWho: {
     eyebrow: 'Dla kogo pracujemy',

@@ -207,7 +207,7 @@
     transform: translate(-50%, 18px) scale(0.96);
     opacity: 0;
     transition:
-      opacity 0.55s ease,
+      opacity 0.55s var(--ease-out),
       transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
     filter: drop-shadow(0 26px 30px var(--inst-il-evstage-evi-filt));
     max-width: none;
