@@ -40,6 +40,17 @@ for (const [width, height] of SIZES) {
       camera: await box(page, '.pip'),
       dock: await box(page, '.hxdock'),
     }
+    // `--inst-hdr-h` is a number in the tokens: the hero starts right under the header and its
+    // height is the window minus exactly that chrome (review of PR 1).
+    const header = await box(page, '.hdr')
+    const hero = await box(page, '#start')
+    expect(header && hero).toBeTruthy()
+    if (header && hero) {
+      expect(Math.abs(header.y + header.height - hero.y)).toBeLessThanOrEqual(1)
+      const expected = Math.min(920, Math.max(640, height - hero.y))
+      expect(Math.abs(hero.height - expected)).toBeLessThanOrEqual(1)
+    }
+
     const building = await box(page, '[data-hx-building]')
     expect(building).not.toBeNull()
     // The camera stands by the right edge only with room for it (RUNDA-V5 §1.3).
