@@ -89,17 +89,20 @@ export async function BrandsHome({
           </div>
           <p className={`${BZ_LEAD} max-w-[46ch] text-ink-2 max-md:hidden`}>{lead}</p>
         </div>
-        <ul className="grid grid-cols-4 gap-2 md:hidden">
+        <ul data-reveal-cards="" data-logo-cascade="" className="grid grid-cols-4 gap-2 md:hidden">
           {brands.map((brand) => {
             const role = partnerStatusLabel(brand.status)
             return (
               <li key={brand.id} className="flex">
                 <Link
-                  data-logo-tint
+                  data-logo-shine
                   href={hrefOf(brand.slug)}
                   className="flex w-full flex-col items-center gap-1.5 text-center"
                 >
-                  <span className="flex h-14 w-full items-center justify-center rounded-2xl bg-white px-2 shadow-[inset_0_0_0_1px_var(--border)]">
+                  <span
+                    data-logo-plate=""
+                    className="flex h-14 w-full items-center justify-center rounded-2xl bg-white px-2 shadow-[inset_0_0_0_1px_var(--border)]"
+                  >
                     {brand.logo ? (
                       <MediaImage
                         image={{ ...brand.logo, alt: '' }}
@@ -150,19 +153,23 @@ export async function BrandsHome({
             <Icon name="arrow" strokeWidth={2.4} className="size-5" />
           </span>
         </Link>
-        <ul className="grid gap-3 max-md:hidden min-[560px]:grid-cols-2 min-[900px]:grid-cols-3 min-[1200px]:grid-cols-4">
+        <ul
+          data-reveal-cards=""
+          data-logo-cascade=""
+          className="grid gap-3 max-md:hidden min-[560px]:grid-cols-2 min-[900px]:grid-cols-3 min-[1200px]:grid-cols-4"
+        >
           {brands.map((brand) => {
             const role = partnerStatusLabel(brand.status)
             const count = brand.slug ? (counts.get(brand.slug) ?? 0) : 0
             return (
               <li key={brand.id} className="flex">
                 <Link
-                  data-logo-tint
+                  data-logo-shine
                   href={hrefOf(brand.slug)}
                   className="group/brand flex w-full flex-col gap-3 rounded-[22px] bg-card p-3.5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)] motion-reduce:transition-none"
                 >
                   {brand.logo ? (
-                    <span className={PLATE}>
+                    <span data-logo-plate="" className={PLATE}>
                       {/* The name is read once, from the line below: the logo is decoration. */}
                       <MediaImage
                         image={{ ...brand.logo, alt: '' }}
