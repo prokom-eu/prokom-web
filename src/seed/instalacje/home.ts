@@ -22,7 +22,7 @@ export function instalacjeHomeBlock(): InstHome {
     hero: {
       eyebrow: 'Rabka-Zdrój · Podhale i Małopolska',
       kicker: `Monitoring, alarmy, Wi-Fi i${NBSP}smart home na Podhalu`,
-      h1a: 'Twój obiekt',
+      h1a: 'Twój inteligentny obiekt',
       h1b: `na${NBSP}żywo.`,
       lead:
         `Kamery, alarm, sieć, zamki, ładowarka, nagłośnienie i${NBSP}sterowanie budynkiem. ` +

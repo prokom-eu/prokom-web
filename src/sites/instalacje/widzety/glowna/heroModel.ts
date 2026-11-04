@@ -19,7 +19,7 @@ export type HeroState = {
   mode: HeroMode
   /** Layers in the order they were switched on (the planner link keeps that order). */
   layers: HeroLayer[]
-  /** Below 1100 px: the scene is cropped to the building (`viewBox`). */
+  /** Below 1024 px: the phone layout, the scene cropped to the building (`viewBox`). */
   narrow: boolean
   /** Global counter (+1 every 1300 ms): lit windows, the PTZ camera, the screens. */
   tick: number
@@ -631,6 +631,23 @@ export type Autoplay = { hold: number; index: number }
 export const AUTOPLAY_START: Autoplay = { hold: 0, index: 0 }
 
 type Scene = Pick<HeroState, 'obj' | 'mode' | 'layers'>
+
+/** Steps of the autoplay on one object: layers 2 → 8, then two holds, then the next object. */
+const AUTOPLAY_STEPS = SEQ.length - 2 + 3
+
+/**
+ * The building scene from 1024 px (RUNDA-V5 §1.3): the buildings of all objects (x 727–1152,
+ * y 290–725) and most of their ground (613–1223, up to 767), fitted into the safe zone — the
+ * ground's corners may draw a little outside it; the full 1440 × 1000 scene (`viewBox`
+ * of the prototype) is now the backdrop behind it.
+ */
+export const BUILDING_VIEWBOX = '690 275 520 495'
+
+/** How far the autoplay is on this object (0 = just switched, 1 = the next step switches). */
+export function autoplayProgress(state: Pick<HeroState, 'layers'>, auto: Autoplay): number {
+  const done = Math.max(0, state.layers.length - 2) + auto.hold
+  return Math.min(1, (done + 1) / AUTOPLAY_STEPS)
+}
 
 /** One autoplay step: layers grow one by one, hold two steps, then the next object and time. */
 export function autoplayStep(state: Scene, auto: Autoplay): { state: Scene; auto: Autoplay } {

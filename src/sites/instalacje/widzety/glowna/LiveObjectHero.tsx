@@ -25,8 +25,10 @@ import { INST_ICONS, isInstIconName } from '../../icons'
 import { useInterval } from '../../sekcje/useInterval'
 import {
   AUTOPLAY_MS,
+  autoplayProgress,
   AUTOPLAY_START,
   autoplayStep,
+  BUILDING_VIEWBOX,
   heroScene,
   type HeroState,
   INITIAL_HERO,
@@ -44,7 +46,9 @@ type Props = {
 }
 
 const t = glowna.hero
-const NARROW = '(max-width: 1100px)'
+const NARROW = '(max-width: 1023px)'
+/** Without room for the camera preview (RUNDA-V5 §1.3): it opens from a camera point instead. */
+const COMPACT = '(max-width: 1279px), (max-height: 813px)'
 
 const iconPath = (name: string) => (isInstIconName(name) ? INST_ICONS[name] : '')
 
@@ -59,29 +63,40 @@ export function LiveObjectHero({ backdrop, children }: Props) {
   const [scene, setScene] = useState({ ...INITIAL_HERO })
   const [touched, setTouched] = useState(false)
   const [narrow, setNarrow] = useState(false)
+  const [compact, setCompact] = useState(false)
+  const [pipOpen, setPipOpen] = useState(false)
+  const [paused, setPaused] = useState(false)
   const [tick, setTick] = useState(0)
-  const auto = useRef(AUTOPLAY_START)
+  const [auto, setAuto] = useState(AUTOPLAY_START)
   const section = useRef<HTMLElement>(null)
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const objectTabs = useRef<HTMLDivElement>(null)
   const modeTabs = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const query = window.matchMedia(NARROW)
-    const onChange = () => setNarrow(query.matches)
+    const narrowQuery = window.matchMedia(NARROW)
+    const compactQuery = window.matchMedia(COMPACT)
+    const onChange = () => {
+      setNarrow(narrowQuery.matches)
+      setCompact(compactQuery.matches)
+    }
     onChange()
-    query.addEventListener('change', onChange)
-    return () => query.removeEventListener('change', onChange)
+    narrowQuery.addEventListener('change', onChange)
+    compactQuery.addEventListener('change', onChange)
+    return () => {
+      narrowQuery.removeEventListener('change', onChange)
+      compactQuery.removeEventListener('change', onChange)
+    }
   }, [])
 
   useInterval(
     () => {
-      const next = autoplayStep(scene, auto.current)
-      auto.current = next.auto
+      const next = autoplayStep(scene, auto)
+      setAuto(next.auto)
       setScene(next.state)
     },
     AUTOPLAY_MS,
-    { enabled: !touched, target: section },
+    { enabled: !touched && !paused, target: section },
   )
   useInterval(() => setTick((n) => n + 1), TICK_MS, { enabled: true, target: section })
 
@@ -124,138 +139,64 @@ export function LiveObjectHero({ backdrop, children }: Props) {
 
   const object = t.objects[scene.obj]
   const night = scene.mode === 'night'
+  // The preview sits by the right edge on wide screens; elsewhere a camera point opens it.
+  const pipShown = has('kam') && (!compact || narrow || pipOpen)
+  const progress = touched ? null : autoplayProgress(scene, auto)
+  const status = sc.lines.map((line) => line.text).join(' · ')
+  const flakes = sc.flakes.map((s, i) => (
+    <circle
+      key={i}
+      cx={s.x}
+      cy={s.y}
+      r={s.r}
+      className="flk"
+      style={{ animationDuration: `${s.t}s`, animationDelay: `${s.d}s` }}
+    />
+  ))
+  const pause = (on: boolean) => () => setPaused(on)
+  // A camera point opens the preview where it has no room by the right edge.
+  const togglePip = () => setPipOpen((open) => !open)
+  const camPoint = {
+    role: 'button',
+    tabIndex: 0,
+    'aria-label': `${t.preview.label}: ${object.camera}`,
+    'aria-pressed': pipOpen,
+    onClick: togglePip,
+    onKeyDown: (event: KeyboardEvent) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return
+      event.preventDefault()
+      togglePip()
+    },
+  }
 
   return (
-    <section id="start" ref={section} className={`hx ${scene.mode}`} data-hx-time={scene.mode}>
+    <section
+      id="start"
+      ref={section}
+      className={`hx ${scene.mode}`}
+      data-hx-time={scene.mode}
+      onPointerEnter={pause(true)}
+      onPointerLeave={pause(false)}
+      onFocus={pause(true)}
+      onBlur={pause(false)}
+    >
+      {/* Sky, mountains and forests across the whole section (RUNDA-V5 §1.3). Below 1024 px it is
+          hidden and the building scene draws it itself through <use>, cropped like the building. */}
       <svg
         className={`hxsvg scene ${scene.mode}`}
-        viewBox={sc.viewBox}
+        viewBox="0 0 1440 1000"
         preserveAspectRatio="xMidYMid slice"
-        id="hx-scena"
-        role="img"
-        aria-label={sc.aria}
+        aria-hidden="true"
+        focusable="false"
       >
         {backdrop}
-        <g>
-          {sc.gnd.map((f, i) => (
-            <polygon key={`g${i}`} points={f.p} className={f.c} />
-          ))}
-          {sc.zones.map((f, i) => (
-            <polygon key={`z${i}`} points={f.p} className={f.c} />
-          ))}
-        </g>
-        <g aria-hidden="true">
-          {sc.trees.map((tree, i) => (
-            <g key={i} transform={`translate(${tree.x} ${tree.y}) scale(${tree.s})`}>
-              <rect x="-1.6" y="-7" width="3.2" height="7" className="trk" />
-              <polygon points="0,-58 -12,-30 12,-30" className="tre2" />
-              <polygon points="0,-46 -15,-17 15,-17" className="tre" />
-              <polygon points="0,-33 -18,-5 18,-5" className="tre2" />
-              <polygon points="0,-58 -5,-48 0,-50 5,-48" className="tcap" />
-              <polygon points="-12,-30 -6,-31 -2,-28 4,-31 12,-30 6,-27 -6,-27" className="tcap" />
-            </g>
-          ))}
-        </g>
-        <g>
-          {sc.body.map((f, i) => (
-            <polygon key={i} points={f.p} className={f.c} />
-          ))}
-        </g>
-        <g aria-hidden="true">
-          <g
-            className="walker"
-            style={
-              {
-                '--x0': `${sc.walker.x0}px`,
-                '--y0': `${sc.walker.y0}px`,
-                '--x1': `${sc.walker.x1}px`,
-                '--y1': `${sc.walker.y1}px`,
-              } as CSSProperties
-            }
-          >
-            <ellipse cx="0" cy="0" rx="6" ry="2.6" className="wks" />
-            <path
-              d="M-3.2 0 L-2.4 -9 L2.4 -9 L3.2 0 Z M-4 -9 L-3 -17 L3 -17 L4 -9 Z"
-              className="wkb"
-            />
-            <circle cx="0" cy="-20.5" r="3.4" className="wkh" />
-            {sc.det ? (
-              <g>
-                <rect x="-9" y="-28" width="18" height="31" rx="2" className="detb" />
-                <rect x="-9" y="-38" width="44" height="10" rx="2" className="detl" />
-                <text x="-6" y="-30.5" className="dett">
-                  {t.preview.person}
-                </text>
-              </g>
-            ) : null}
-          </g>
-        </g>
-        <g aria-hidden="true">
-          {sc.smoke.map((s, i) => (
-            <circle key={i} cx={s.x} cy={s.y} r="4" className={s.c} />
-          ))}
-        </g>
-        <g>
-          {sc.cones.map((f, i) => (
-            <polygon key={`c${i}`} points={f.p} className={f.c} />
-          ))}
-          {sc.scr.map((f, i) => (
-            <polygon key={`s${i}`} points={f.p} className={f.c} />
-          ))}
-          {sc.rings.map((r, i) => (
-            <ellipse key={`r${i}`} cx={r.x} cy={r.y} rx={r.rx} ry={r.ry} className={r.c} />
-          ))}
-          {sc.arcs.map((a, i) => (
-            <path key={`a${i}`} d={a.d} className={a.c} />
-          ))}
-        </g>
-        <g>
-          {sc.dv.map((d) => (
-            <g
-              key={`${d.icon}-${d.x}-${d.y}`}
-              transform={`translate(${d.x} ${d.y})`}
-              className={d.cls}
-            >
-              <circle r="10.5" className="dvp" />
-              <circle r="10.5" className="dvb" />
-              <path
-                d={iconPath(d.icon)}
-                transform="translate(-6.5 -6.5) scale(.54)"
-                className="dvi"
-              />
-            </g>
-          ))}
-          {sc.temps.map((tag) => (
-            <g
-              key={`${tag.x}-${tag.y}`}
-              transform={`translate(${tag.x} ${tag.y})`}
-              className="ttag dv"
-            >
-              <rect x="-17" y="-11" width="34" height="18" rx="9" />
-              <foreignObject x="-17" y="-9" width="34" height="14" className="fo">
-                <div className="fot ttag2">{tag.t}</div>
-              </foreignObject>
-            </g>
-          ))}
-        </g>
-        <g aria-hidden="true">
-          {sc.flakes.map((s, i) => (
-            <circle
-              key={i}
-              cx={s.x}
-              cy={s.y}
-              r={s.r}
-              className="flk"
-              style={{ animationDuration: `${s.t}s`, animationDelay: `${s.d}s` }}
-            />
-          ))}
-        </g>
+        {narrow ? null : flakes}
       </svg>
 
       <div className="hxin">
         {children}
 
-        <div className="hxbar in d4">
+        <div className="hxbar in d2">
           <div ref={objectTabs} className="glass hotabs" role="tablist" aria-label={t.objectsLabel}>
             <SlidingPill
               container={objectTabs}
@@ -277,11 +218,20 @@ export function LiveObjectHero({ backdrop, children }: Props) {
                   aria-controls="hx-scena"
                   tabIndex={on ? 0 : -1}
                   className={on ? 'hotab on' : 'hotab'}
+                  title={t.objects[k].name}
                   onClick={() => touch({ obj: k })}
                   onKeyDown={(e) => onTabKey(e, i)}
                 >
                   <InstIcon name={t.objects[k].icon} size={17} />
-                  {t.objects[k].name}
+                  <span className="hotl">{t.objects[k].name}</span>
+                  {on && progress !== null ? (
+                    // How far the autoplay is before it moves on to the next object.
+                    <span
+                      className="hoprog"
+                      style={{ '--p': progress } as CSSProperties}
+                      aria-hidden="true"
+                    />
+                  ) : null}
                 </button>
               )
             })}
@@ -308,8 +258,131 @@ export function LiveObjectHero({ backdrop, children }: Props) {
           </div>
         </div>
 
-        {has('kam') ? (
-          <div className="glass pip" key={scene.obj + scene.mode}>
+        <div className="hxstage">
+          <svg
+            className={`hxbld scene ${scene.mode}`}
+            viewBox={narrow ? sc.viewBox : BUILDING_VIEWBOX}
+            preserveAspectRatio={narrow ? 'xMidYMid slice' : 'xMaxYMax meet'}
+            id="hx-scena"
+            role="img"
+            aria-label={sc.aria}
+          >
+            {narrow ? <use href="#hx-bd" /> : null}
+            <g key={scene.obj} className="hxobj">
+              <g>
+                {sc.gnd.map((f, i) => (
+                  <polygon key={`g${i}`} points={f.p} className={f.c} />
+                ))}
+                {sc.zones.map((f, i) => (
+                  <polygon key={`z${i}`} points={f.p} className={f.c} />
+                ))}
+              </g>
+              <g aria-hidden="true">
+                {sc.trees.map((tree, i) => (
+                  <g key={i} transform={`translate(${tree.x} ${tree.y}) scale(${tree.s})`}>
+                    <rect x="-1.6" y="-7" width="3.2" height="7" className="trk" />
+                    <polygon points="0,-58 -12,-30 12,-30" className="tre2" />
+                    <polygon points="0,-46 -15,-17 15,-17" className="tre" />
+                    <polygon points="0,-33 -18,-5 18,-5" className="tre2" />
+                    <polygon points="0,-58 -5,-48 0,-50 5,-48" className="tcap" />
+                    <polygon
+                      points="-12,-30 -6,-31 -2,-28 4,-31 12,-30 6,-27 -6,-27"
+                      className="tcap"
+                    />
+                  </g>
+                ))}
+              </g>
+              <g data-hx-building="">
+                {sc.body.map((f, i) => (
+                  <polygon key={i} points={f.p} className={f.c} />
+                ))}
+              </g>
+              <g aria-hidden="true">
+                <g
+                  className="walker"
+                  style={
+                    {
+                      '--x0': `${sc.walker.x0}px`,
+                      '--y0': `${sc.walker.y0}px`,
+                      '--x1': `${sc.walker.x1}px`,
+                      '--y1': `${sc.walker.y1}px`,
+                    } as CSSProperties
+                  }
+                >
+                  <ellipse cx="0" cy="0" rx="6" ry="2.6" className="wks" />
+                  <path
+                    d="M-3.2 0 L-2.4 -9 L2.4 -9 L3.2 0 Z M-4 -9 L-3 -17 L3 -17 L4 -9 Z"
+                    className="wkb"
+                  />
+                  <circle cx="0" cy="-20.5" r="3.4" className="wkh" />
+                  {sc.det ? (
+                    <g>
+                      <rect x="-9" y="-28" width="18" height="31" rx="2" className="detb" />
+                      <rect x="-14" y="-47" width="72" height="17" rx="8.5" className="detl" />
+                      <text x="22" y="-38.5" className="dett hxlab">
+                        {t.preview.person}
+                      </text>
+                    </g>
+                  ) : null}
+                </g>
+              </g>
+              <g aria-hidden="true">
+                {sc.smoke.map((s, i) => (
+                  <circle key={i} cx={s.x} cy={s.y} r="4" className={s.c} />
+                ))}
+              </g>
+              <g>
+                {sc.cones.map((f, i) => (
+                  <polygon key={`c${i}`} points={f.p} className={f.c} />
+                ))}
+                {sc.scr.map((f, i) => (
+                  <polygon key={`s${i}`} points={f.p} className={f.c} />
+                ))}
+                {sc.rings.map((r, i) => (
+                  <ellipse key={`r${i}`} cx={r.x} cy={r.y} rx={r.rx} ry={r.ry} className={r.c} />
+                ))}
+                {sc.arcs.map((a, i) => (
+                  <path key={`a${i}`} d={a.d} className={a.c} />
+                ))}
+              </g>
+              <g>
+                {sc.dv.map((d, i) => (
+                  <g
+                    key={`${d.icon}-${d.x}-${d.y}`}
+                    transform={`translate(${d.x} ${d.y})`}
+                    className={d.cls}
+                    style={{ '--i': i } as CSSProperties}
+                    {...(d.icon === 'cam' && compact && !narrow ? camPoint : {})}
+                  >
+                    <circle r="10.5" className="dvp" />
+                    <circle r="10.5" className="dvb" />
+                    <path
+                      d={iconPath(d.icon)}
+                      transform="translate(-6.5 -6.5) scale(.54)"
+                      className="dvi"
+                    />
+                  </g>
+                ))}
+                {sc.temps.map((tag) => (
+                  <g
+                    key={`${tag.x}-${tag.y}`}
+                    transform={`translate(${tag.x} ${tag.y})`}
+                    className="ttag dv"
+                  >
+                    <rect x="-20" y="-11" width="40" height="18" rx="9" />
+                    <text x="0" y="2.5" className="ttag2 hxlab">
+                      {tag.t}
+                    </text>
+                  </g>
+                ))}
+              </g>
+            </g>
+            {narrow ? <g aria-hidden="true">{flakes}</g> : null}
+          </svg>
+        </div>
+
+        {pipShown ? (
+          <div className={pipOpen ? 'glass pip open' : 'glass pip'} key={scene.obj + scene.mode}>
             <div className="piph">
               <span>{object.camera}</span>
               {/* The day clock is the real time: the server's and the browser's may differ. */}
@@ -396,6 +469,7 @@ export function LiveObjectHero({ backdrop, children }: Props) {
           </div>
         ) : null}
 
+        {/* Below 1024 px: the „Na żywo” card of the phone layout (unchanged). */}
         <div className="glass hxstat">
           <div className="hxsh">
             <b>
@@ -405,7 +479,7 @@ export function LiveObjectHero({ backdrop, children }: Props) {
             <span>{sc.modeName}</span>
           </div>
           {/* Announced only after a touch: the autoplay would talk every 2.3 s (WCAG 2.2.2). */}
-          <div className="hxl" aria-live={touched ? 'polite' : 'off'}>
+          <div className="hxl" aria-live={touched && narrow ? 'polite' : 'off'}>
             {sc.lines.length === 0 ? <div className="hxempty">{t.empty}</div> : null}
             {sc.lines.map((line) => (
               <div key={line.layer} className="hxli">
@@ -426,28 +500,60 @@ export function LiveObjectHero({ backdrop, children }: Props) {
           ) : null}
         </div>
 
-        <div className="glass hxchips" role="group" aria-label={t.chipsLabel}>
-          {HERO_LAYERS.map((k) => (
-            <button
-              key={k}
-              type="button"
-              className={has(k) ? 'hchip on' : 'hchip'}
-              aria-pressed={has(k)}
-              onClick={() => toggle(k)}
-            >
-              <InstIcon name={t.layers[k].icon} size={16} strokeWidth={2.1} />
-              {t.layers[k].label}
-              <em aria-hidden="true">{has(k) ? '✓' : '+'}</em>
-            </button>
-          ))}
-          <span className="hchipx">
-            <button type="button" onClick={() => touch({ layers: allOn ? [] : [...HERO_LAYERS] })}>
-              {allOn ? t.hideAll : t.showAll}
-            </button>
-            <a href={planHref(scene)} className="btn hbtn-p btn-s">
-              {t.planSet}
-            </a>
-          </span>
+        {/* From 1024 px: one dock at the bottom — the status line over the chips (RUNDA-V5 §1.3). */}
+        <div className="glass hxdock in d5">
+          <p className="hxdst" aria-live={touched && !narrow ? 'polite' : 'off'}>
+            <b>
+              <span className="live" aria-hidden="true" />
+              {t.live} · {sc.name} · {sc.modeName}
+            </b>
+            <span key={status} className="hxdtx">
+              {/* NBSP: a flex item drops a leading space. */}
+              {' — '}
+              {status || t.empty}
+            </span>
+            {sc.more > 0 ? <em>+{sc.more}</em> : null}
+          </p>
+          <div className="hxchips" role="group" aria-label={t.chipsLabel}>
+            <div className="hxcrow">
+              {HERO_LAYERS.map((k) => (
+                <button
+                  key={k}
+                  type="button"
+                  className={has(k) ? 'hchip on' : 'hchip'}
+                  aria-pressed={has(k)}
+                  onClick={() => toggle(k)}
+                >
+                  <InstIcon name={t.layers[k].icon} size={16} strokeWidth={2.1} />
+                  <span className="hcl">{t.layers[k].label}</span>
+                  <span className="hcs" aria-hidden="true">
+                    {t.layers[k].short}
+                  </span>
+                  <em aria-hidden="true">
+                    {has(k) ? (
+                      <svg viewBox="0 0 12 12" className="hchk">
+                        <path d="M2.5 6.2 5 8.6 9.6 3.6" />
+                      </svg>
+                    ) : (
+                      '+'
+                    )}
+                  </em>
+                </button>
+              ))}
+            </div>
+            <span className="hchipx">
+              <button
+                type="button"
+                className="hall"
+                onClick={() => touch({ layers: allOn ? [] : [...HERO_LAYERS] })}
+              >
+                {allOn ? t.hideAll : t.showAll}
+              </button>
+              <a href={planHref(scene)} className="btn hbtn-p btn-s">
+                {t.planSet}
+              </a>
+            </span>
+          </div>
         </div>
       </div>
     </section>
