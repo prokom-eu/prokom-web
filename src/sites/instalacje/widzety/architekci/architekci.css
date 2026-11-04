@@ -1663,7 +1663,7 @@
   & .ars .arblue,
   & .ars .ardevs,
   & .ars .arrackg {
-    transition: opacity 0.6s ease;
+    transition: opacity 0.6s var(--ease-out);
   }
   & .ars.m-kl .arcabs,
   & .ars.m-kl .arbox,
@@ -2632,7 +2632,7 @@
       ),
       linear-gradient(180deg, var(--surface-2), var(--card));
     border-bottom: 1px solid var(--border);
-    animation: inst-fadein 0.35s ease;
+    animation: inst-fadein 0.35s var(--ease-out);
   }
   & .arnxa svg {
     height: 84%;

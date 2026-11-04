@@ -15,6 +15,7 @@ import { PageCtaBand } from '../../sekcje/PageCtaBand'
 import { SplitHero } from '../../sekcje/SplitHero'
 import { updatedLabel } from '../../widzety/poradnik/guideMeta'
 import type { GuideCard } from '../../widzety/poradnik/GuideWidgets'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { GuideCategories, GuideGrid } from '../../widzety/poradnik/GuideWidgetsLazy'
 
 type Props = { block: InstGuideBlockData; tenantId: number }
@@ -82,10 +83,11 @@ export async function InstGuideBlock({ block, tenantId }: Props) {
       <SplitHero hero={block.hero} crumb={crumb} style={{ paddingBottom: 40 }}>
         <GuideCategories />
       </SplitHero>
-      <section style={{ padding: '0 0 96px' }}>
+      {/* Round v5 (RUNDA-V5 §9.4): the featured post and the cards come in on scroll. */}
+      <InstSection id="wpisy" style={{ padding: '0 0 96px' }}>
         <div className="wrap">
           {featured && (
-            <Link href={featured.href} className="prfeat card">
+            <Link href={featured.href} className="prfeat card ri">
               <div className="prart">
                 <svg viewBox="0 0 400 260" aria-hidden="true">
                   <rect width="400" height="260" style={{ fill: 'var(--accent-soft)' }} />
@@ -153,7 +155,7 @@ export async function InstGuideBlock({ block, tenantId }: Props) {
           )}
           <GuideGrid cards={cards} />
         </div>
-      </section>
+      </InstSection>
       <PageCtaBand tenantId={tenantId} cta={block.cta} titleId="cta-guide-title" />
     </>
   )

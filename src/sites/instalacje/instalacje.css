@@ -62,8 +62,8 @@ html[data-line='instalacje'].pk-lock body {
     cursor: pointer;
     font-family: inherit;
     transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease,
+      transform 0.2s var(--ease-out),
+      box-shadow 0.2s var(--ease-out),
       background 0.2s;
     color: var(--ink);
     white-space: nowrap;
@@ -216,7 +216,7 @@ html[data-line='instalacje'].pk-lock body {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr)) 1.05fr;
     gap: 10px 18px;
-    animation: inst-megain 0.22s ease;
+    animation: inst-megain 0.22s var(--ease-out);
   }
   /* The bridge: the pointer crosses the gap between the button and the panel without leaving
      the menu (spec §4 — a real bug of the visualisation). */
@@ -616,7 +616,7 @@ html[data-line='instalacje'].pk-lock body {
     animation: inst-sheet-up 0.34s cubic-bezier(0.2, 0.9, 0.25, 1) both;
   }
   & .mshp::backdrop {
-    animation: inst-fade 0.25s ease both;
+    animation: inst-fade 0.25s var(--ease-out) both;
   }
   & .mtabs {
     display: grid;
@@ -879,7 +879,7 @@ html[data-line='instalacje'].pk-lock body {
       display: none;
     }
     & .hdr {
-      transition: transform 0.28s ease;
+      transition: transform 0.28s var(--ease-out);
     }
     & .hdr.hdrh {
       transform: translateY(-100%);
@@ -889,7 +889,7 @@ html[data-line='instalacje'].pk-lock body {
     }
     & .anchors {
       top: 64px;
-      transition: top 0.28s ease;
+      transition: top 0.28s var(--ease-out);
     }
     & .cta {
       padding: 28px;

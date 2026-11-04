@@ -309,7 +309,7 @@
       color-mix(in srgb, var(--c) 10%, var(--card)),
       var(--card) 60%
     );
-    animation: inst-fadein 0.35s ease;
+    animation: inst-fadein 0.35s var(--ease-out);
   }
   & .sgno {
     display: grid;
@@ -498,7 +498,7 @@
     padding: 32px;
     position: relative;
     overflow: hidden;
-    animation: inst-fadein 0.4s ease;
+    animation: inst-fadein 0.4s var(--ease-out);
   }
   & .sgdc::after {
     content: '';
@@ -1381,7 +1381,7 @@
 [data-line='instalacje'] .sginfo {
   & > .sgno,
   & > .sgit {
-    animation: inst-fadein 0.35s ease;
+    animation: inst-fadein 0.35s var(--ease-out);
   }
 }
 
