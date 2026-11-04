@@ -106,6 +106,17 @@ test.describe('Biznes /gopos (K4h)', () => {
     for (const src of await photos.evaluateAll((els) => els.map((el) => el.getAttribute('src')))) {
       expect(src).toContain('k4-gopos-')
     }
+    // The ticket never covers a device's photo (≥ 8 px).
+    const gaps = await stage.evaluate((root) => {
+      const t = root.querySelector('.gps-stage-ticket')!.getBoundingClientRect()
+      return [...root.querySelectorAll('.gps-dev img')].map((img) => {
+        const r = img.getBoundingClientRect()
+        const dx = Math.max(r.left - t.right, t.left - r.right, 0)
+        const dy = Math.max(r.top - t.bottom, t.top - r.bottom, 0)
+        return dx === 0 && dy === 0 ? -1 : Math.hypot(dx, dy)
+      })
+    })
+    for (const gap of gaps) expect(gap).toBeGreaterThanOrEqual(8)
   })
 
   test('the order plays by itself; „Wstrzymaj animację” stops it', async ({ page }) => {
@@ -164,6 +175,10 @@ test.describe('Biznes /gopos (K4h)', () => {
       expect(gap).toBeGreaterThanOrEqual(8)
     }
     expect(seen.size).toBe(5)
+    // The ticket moves on in the venue picked last too (1.8 s per status).
+    const now = venues.locator('.gps-scene-ticket li[data-state="now"]')
+    const first = await now.textContent()
+    await expect(now).not.toHaveText(first ?? '', { timeout: 3000 })
   })
 
   test('the page belongs to the Biznes line only', async ({ page }) => {

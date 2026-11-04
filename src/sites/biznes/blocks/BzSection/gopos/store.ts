@@ -2,6 +2,8 @@
 
 import { useSyncExternalStore } from 'react'
 
+import { INITIAL_TICKET_STEP } from '@/lib/biznes/pages/gopos'
+
 /**
  * State the GoPOS sections share (K32 §3): the venue tab, the package and the step of the order
  * flow. A venue sets the package, „Dodaj GoHub do pakietu” and the configurator change it, the
@@ -14,9 +16,11 @@ type GoposState = {
   step: number | null
   /** Grows with every click on a step: the stage counts its 2.6 s from zero (POPRAWKI-0311 §A). */
   stepRun: number
+  /** „Wstrzymaj animację” (WCAG 2.2.2): stops the stage and the venue ticket alike. */
+  paused: boolean
 }
 
-const INITIAL: GoposState = { venue: null, picked: null, step: null, stepRun: 0 }
+const INITIAL: GoposState = { venue: null, picked: null, step: null, stepRun: 0, paused: false }
 
 /** Steps of the order flow: sala → kuchnia → płatność → kasa. */
 const STEPS = 4
@@ -54,5 +58,6 @@ export const goposActions = {
     set({ picked: new Set([...pickedOr(state, initial), slug]) }),
   pickStep: (step: number) => set({ step, stepRun: state.stepRun + 1 }),
   /** The order moves on by itself (the stage's timer). */
-  advance: () => set({ step: ((state.step ?? 0) + 1) % STEPS }),
+  advance: () => set({ step: ((state.step ?? INITIAL_TICKET_STEP) + 1) % STEPS }),
+  togglePause: () => set({ paused: !state.paused }),
 }
