@@ -155,6 +155,7 @@ export function LiveObjectHero({ backdrop, children }: Props) {
   ))
   const pause = (on: boolean) => () => setPaused(on)
   // A camera point opens the preview where it has no room by the right edge.
+  const camButtons = compact && !narrow && has('kam')
   const togglePip = () => setPipOpen((open) => !open)
   const camPoint = {
     role: 'button',
@@ -264,7 +265,9 @@ export function LiveObjectHero({ backdrop, children }: Props) {
             viewBox={narrow ? sc.viewBox : BUILDING_VIEWBOX}
             preserveAspectRatio={narrow ? 'xMidYMid slice' : 'xMaxYMax meet'}
             id="hx-scena"
-            role="img"
+            // With clickable camera points (no room for the preview) it is a group, not an image:
+            // an image may not hold buttons (axe `nested-interactive`).
+            role={camButtons ? 'group' : 'img'}
             aria-label={sc.aria}
           >
             {narrow ? <use href="#hx-bd" /> : null}
@@ -352,7 +355,7 @@ export function LiveObjectHero({ backdrop, children }: Props) {
                     transform={`translate(${d.x} ${d.y})`}
                     className={d.cls}
                     style={{ '--i': i } as CSSProperties}
-                    {...(d.icon === 'cam' && compact && !narrow ? camPoint : {})}
+                    {...(d.icon === 'cam' && camButtons ? camPoint : {})}
                   >
                     <circle r="10.5" className="dvp" />
                     <circle r="10.5" className="dvb" />

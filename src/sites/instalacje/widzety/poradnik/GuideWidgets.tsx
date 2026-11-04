@@ -75,7 +75,7 @@ export function GuideGrid({ cards }: { cards: GuideCard[] }) {
       </p>
       <div className="prgrid">
         {list.map((a) => (
-          <Link key={a.key} href={a.href} className="card prc2">
+          <Link key={a.key} href={a.href} className="card prc2 ri">
             <span className="svk">{a.categoryLabel}</span>
             <b className="h3">{a.title}</b>
             <p>{a.text}</p>
