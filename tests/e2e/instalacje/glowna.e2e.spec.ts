@@ -2,7 +2,9 @@ import { expect, type Page, test } from '@playwright/test'
 
 import { site } from '../helpers'
 
-// I5: the home hero „Twój obiekt na żywo” (spec §5.1, KOMPONENTY §3, MOBILE-APLIKACJA §6/§10).
+// I5: the home hero „Twój obiekt na żywo” (spec §5.1, KOMPONENTY §3, MOBILE-APLIKACJA §6/§10);
+// round v5 (RUNDA-V5 §1): new heading, the „Na żywo” status in the dock from 1024 px. The layout
+// in six window sizes: hero-uklad.e2e.spec.ts.
 // Data from `pnpm seed` (`seed:instalacje` publishes the home page with its `instHome` block).
 // Reduced motion: the autoplay waits, so the hero stays in its starting state.
 const HOST = 'instalacje.localhost'
@@ -28,7 +30,7 @@ test.describe('Instalacje home hero', () => {
     const noJs = await browser.newContext({ javaScriptEnabled: false })
     const plain = await noJs.newPage()
     await plain.goto(site(HOST))
-    await expect(plain.locator('h1')).toContainText('Twój obiekt')
+    await expect(plain.locator('h1')).toContainText('Twój inteligentny obiekt')
     await expect(plain.locator('#start .lead')).toContainText('Wybierz obiekt obok')
     await noJs.close()
 
@@ -36,7 +38,7 @@ test.describe('Instalacje home hero', () => {
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveCount(1)
     await expect(page.locator('h1')).toHaveText(
-      'Monitoring, alarmy, Wi-Fi i smart home na Podhalu. Twój obiekt na żywo.',
+      'Monitoring, alarmy, Wi-Fi i smart home na Podhalu. Twój inteligentny obiekt na żywo.',
     )
     await expect(page).toHaveTitle(
       'Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje',
@@ -53,8 +55,9 @@ test.describe('Instalacje home hero', () => {
       'true',
     )
     await expect(page.getByRole('button', { name: 'Noc' })).toHaveAttribute('aria-pressed', 'true')
-    await expect(page.locator('.hxsh b')).toHaveText('Na żywo · Pensjonat')
-    await expect(page.locator('.hxli b')).toHaveText(['Wi-Fi i sieć', 'Kamery'])
+    await expect(page.locator('.hxdst b')).toHaveText('Na żywo · Pensjonat · Noc')
+    await expect(page.locator('.hxdtx')).toContainText('Osobna sieć dla gości')
+    await expect(page.locator('.hxstat')).toBeHidden()
     await expect(page.locator('.pip')).toBeVisible()
     await expect(hero(page).getByRole('link', { name: 'Zaplanuj instalację' })).toHaveAttribute(
       'href',
@@ -69,7 +72,7 @@ test.describe('Instalacje home hero', () => {
     await page.getByRole('tab', { name: 'Dom', exact: true }).click()
     await page.getByRole('button', { name: 'Zima' }).click()
     await expect(hero(page)).toHaveAttribute('data-hx-time', 'winter')
-    await expect(page.locator('.hxsh b')).toHaveText('Na żywo · Dom')
+    await expect(page.locator('.hxdst b')).toHaveText('Na żywo · Dom · Zima')
     await expect(page.locator('.flk')).toHaveCount(90)
 
     const chips = page.getByRole('group', { name: 'Instalacje widoczne na obiekcie' })
@@ -80,16 +83,17 @@ test.describe('Instalacje home hero', () => {
       'aria-pressed',
       'true',
     )
-    await expect(page.locator('.hxli').first()).toContainText('Na zewnątrz −12°')
+    await expect(page.locator('.hxdtx')).toContainText('Na zewnątrz −12°')
     await expect(chips.getByRole('link', { name: 'Zaplanuj taki zestaw →' })).toHaveAttribute(
       'href',
       '/zaplanuj#obiekt=dom&uslugi=wifi,smart',
     )
 
-    await chips.getByRole('button', { name: 'Pokaż wszystko' }).click()
-    await expect(page.locator('.hxmore')).toContainText('+6 instalacji więcej')
-    await chips.getByRole('button', { name: 'Wyłącz wszystko' }).click()
-    await expect(page.locator('.hxempty')).toBeVisible()
+    // The dock has no „Pokaż wszystko” (RUNDA-V5 §1.3): it stays in the phone layout.
+    await expect(chips.getByRole('button', { name: 'Pokaż wszystko' })).toBeHidden()
+    for (const name of ['Alarm', 'Domofon i dostęp', 'Ładowarka EV', 'Nagłośnienie', 'Ekrany'])
+      await chips.getByRole('button', { name: new RegExp(name) }).click()
+    await expect(page.locator('.hxdst em')).toHaveText('+5')
   })
 
   test('the object tabs move with the arrow keys', async ({ page }) => {
@@ -109,11 +113,14 @@ test.describe('Instalacje home hero', () => {
 
   test('plays by itself without reduced motion and stops at the first touch', async ({ page }) => {
     await page.goto(site(HOST))
-    await expect(page.locator('.hxmore')).toBeVisible({ timeout: 6000 })
+    await expect(page.locator('.hxdst em')).toBeVisible({ timeout: 6000 })
+    await expect(page.locator('.hoprog')).toBeVisible()
     await page.getByRole('button', { name: 'Dzień' }).click()
-    const panel = await page.locator('.hxl').innerText()
+    await expect(page.locator('.hoprog')).toHaveCount(0)
+    const status = await page.locator('.hxdst').innerText()
+    await page.mouse.move(0, 0)
     await page.waitForTimeout(2600)
-    expect(await page.locator('.hxl').innerText()).toBe(panel)
+    expect(await page.locator('.hxdst').innerText()).toBe(status)
   })
 })
 
@@ -124,7 +131,7 @@ test.describe('Instalacje home hero on a phone', () => {
       await open(page)
       const scroll = await page.evaluate(() => document.documentElement.scrollWidth)
       expect(scroll).toBe(width)
-      const scene = await page.locator('.hxsvg').boundingBox()
+      const scene = await page.locator('.hxbld').boundingBox()
       const heading = await page.locator('h1').boundingBox()
       expect(scene && heading && scene.y < heading.y).toBe(true)
     })
