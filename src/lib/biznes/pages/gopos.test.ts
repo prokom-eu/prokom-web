@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  goposHeroSchema,
+  goposVenuesSchema,
+  stagePlacement,
   GOPOS_PACKAGE_NOTE,
   INITIAL_TICKET_STEP,
   packageHardware,
@@ -60,10 +63,62 @@ describe('GoPOS package (K4h, K32 §3)', () => {
     ])
   })
 
-  it('the ticket shows the kitchen until a step is picked', () => {
-    expect(INITIAL_TICKET_STEP).toBe(1)
-    expect(ticketStep(null)).toBe(1)
+  it('the order starts on the hall, step 1 (POPRAWKI-0311 §A)', () => {
+    expect(INITIAL_TICKET_STEP).toBe(0)
+    expect(ticketStep(null)).toBe(0)
     expect(ticketStep(0)).toBe(0)
     expect(ticketStep(3)).toBe(3)
+  })
+})
+
+describe('stagePlacement (POPRAWKI-0311 §A: composition from the data)', () => {
+  it('reads the position of a device as a style object', () => {
+    expect(stagePlacement('left:2%;top:10%;width:50%;height:54%')).toEqual({
+      left: '2%',
+      top: '10%',
+      width: '50%',
+      height: '54%',
+    })
+    expect(stagePlacement(' right: 0 ; top: -14px ')).toEqual({ right: '0', top: '-14px' })
+  })
+
+  it('drops anything that is not a plain length of a known side', () => {
+    expect(stagePlacement('left:2%;color:red;width:url(x)')).toEqual({ left: '2%' })
+    expect(stagePlacement('top:calc(1px + 2px);height:10vh')).toEqual({})
+    expect(stagePlacement(undefined)).toEqual({})
+  })
+})
+
+describe('GoPOS section data (POPRAWKI-0311 §A, §B)', () => {
+  const hero = {
+    pill: 'P',
+    presentation: { slug: 'gopos', note: 'N' },
+    proof: [],
+    flow: [1, 2, 3, 4].map((n) => ({ k: `K${n}`, t: 'T', d: 'D' })),
+    ticket: { label: 'L', text: 'T', statuses: ['a', 'b', 'c', 'd'] },
+  }
+
+  it('keeps the photo (media id) and the placement of each stage device', () => {
+    const parsed = goposHeroSchema.parse({
+      ...hero,
+      stage: [{ slug: 'kds', label: 'Kuchnia', step: 1, image: 7, pos: 'right:0', lab: 'top:0' }],
+    })
+    expect(parsed.stage[0]).toMatchObject({ image: 7, pos: 'right:0', lab: 'top:0' })
+  })
+
+  it('takes a venue picture as a media id or, as before, a product slug', () => {
+    const venue = {
+      key: 'rest',
+      tab: 'Restauracja',
+      h1a: 'A',
+      h1b: 'B',
+      lead: 'L',
+      modules: [],
+      ticket: hero.ticket,
+    }
+    expect(goposVenuesSchema.parse({ venues: [{ ...venue, image: 12 }] }).venues[0]!.image).toBe(12)
+    expect(goposVenuesSchema.parse({ venues: [{ ...venue, image: 'd3' }] }).venues[0]!.image).toBe(
+      'd3',
+    )
   })
 })

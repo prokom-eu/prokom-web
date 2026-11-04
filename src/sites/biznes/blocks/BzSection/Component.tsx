@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { getSectionImages } from '@/lib/biznes/pages/images'
 import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
 import {
   isSectionVariant,
@@ -75,13 +76,23 @@ const NEEDS_INDEX: ReadonlySet<SectionVariant> = new Set([
   'ksef-penalties',
 ])
 
-const imagesOf = (index: CatalogIndex, slugs: readonly (string | undefined)[]) => {
+/**
+ * Pictures of a section by key: a product slug → the card's photo, a Media id (POPRAWKI-0311)
+ * → that photo (keyed by the id as text).
+ */
+async function imagesOf(
+  index: CatalogIndex,
+  tenantId: number,
+  keys: readonly (string | number | undefined)[],
+) {
   const images: Record<string, IndexImage> = {}
-  for (const product of productsBySlug(
-    index,
-    slugs.filter((s): s is string => Boolean(s)),
-  )) {
+  const slugs = keys.filter((key): key is string => typeof key === 'string' && key !== '')
+  for (const product of productsBySlug(index, slugs)) {
     if (product.image) images[product.slug] = product.image
+  }
+  const ids = keys.filter((key): key is number => typeof key === 'number')
+  for (const [id, image] of Object.entries(await getSectionImages(tenantId, ids))) {
+    images[id] = image
   }
   return images
 }
@@ -97,13 +108,13 @@ export async function BzSectionBlock({ block, tenantId, crumbs }: Props) {
   return render(block, variant, index, crumbs, tenantId)
 }
 
-function render(
+async function render(
   block: BzSectionData,
   variant: SectionVariant,
   index: CatalogIndex | null,
   crumbs: readonly Crumb[],
   tenantId: number,
-): ReactNode {
+): Promise<ReactNode> {
   switch (variant) {
     case 'stats':
       return <StatsSection block={block} />
@@ -160,7 +171,13 @@ function render(
     }
     case 'gopos-hero': {
       const data = parseSectionData('gopos-hero', block.data)
-      return data && index && <GoposHero block={block} data={data} index={index} crumbs={crumbs} />
+      if (!data || !index) return null
+      const images = await imagesOf(
+        index,
+        tenantId,
+        data.stage.map((device) => device.image),
+      )
+      return <GoposHero block={block} data={data} index={index} images={images} crumbs={crumbs} />
     }
     case 'gopos-venues': {
       const data = parseSectionData('gopos-venues', block.data)
@@ -170,8 +187,9 @@ function render(
           <SectionShell block={block}>
             <GoposVenues
               data={data}
-              images={imagesOf(
+              images={await imagesOf(
                 index,
+                tenantId,
                 data.venues.map((venue) => venue.image),
               )}
             />
