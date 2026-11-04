@@ -215,7 +215,7 @@
     }
   }
   & .zp {
-    animation: inst-tt-fadein 0.35s ease;
+    animation: inst-tt-fadein 0.35s var(--ease-out);
   }
   & .flw {
     padding: 20px;

@@ -55,6 +55,31 @@ test.describe('Instalacje home sections', () => {
     await expect(page.getByRole('tab', { name: 'Hotel' })).toHaveAttribute('aria-selected', 'true')
   })
 
+  // Round v5 (RUNDA-V5 §2): logos instead of names, served through next/image.
+  test('the brand band shows 11 logos with their names in alt', async ({ page }) => {
+    await open(page)
+    const logos = page.locator('.trust .brand img')
+    await expect(logos).toHaveCount(11)
+    await expect(page.getByRole('img', { name: 'Logo Hikvision' })).toBeVisible()
+    await page.locator('.trust').scrollIntoViewIfNeeded()
+    const loaded = await logos.evaluateAll((els) =>
+      els.every(
+        (img) => (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0,
+      ),
+    )
+    expect(loaded).toBe(true)
+  })
+
+  // RUNDA-V5 §3: the whole card leads to the object page, not only „Zobacz rozwiązania”.
+  test('a „Dla kogo” card is one link to its object page', async ({ page }) => {
+    await open(page)
+    const card = page.locator('.obc', { hasText: 'Kościół' })
+    await expect(card.getByRole('link')).toHaveCount(1)
+    // The title's link lies over the whole card: a click where the description is hits it.
+    await card.locator('.obd').click({ force: true })
+    await expect(page).toHaveURL(/\/dla-kogo\/[a-z-]+$/)
+  })
+
   test('the section rail shows after scrolling, from 1400 px only', async ({ page }) => {
     await open(page)
     const rail = page.locator('nav.rail')

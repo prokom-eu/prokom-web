@@ -18,6 +18,7 @@ import { GuideQuiz } from '../widzety/poradnik/GuideQuiz'
 import { updatedLabel } from '../widzety/poradnik/guideMeta'
 import { salonsNote } from '../powloka/salons'
 import { Arrow } from '../Arrow'
+import { InstSection } from '../sekcje/InstSectionLazy'
 import { GuidePostStyles } from '../style/LineStyles'
 
 type EditorState = Parameters<typeof RichText>[0]['data']
@@ -141,9 +142,10 @@ export async function GuidePost({ post, tenantId, origin }: Props) {
         </div>
       </section>
 
-      <section style={{ padding: '0 0 96px' }}>
+      {/* Round v5 (RUNDA-V5 §9.4): contents, text and side panel come in on scroll. */}
+      <InstSection id="tresc" style={{ padding: '0 0 96px' }}>
         <div className="wrap art">
-          <nav className="toc" aria-label={T.toc}>
+          <nav className="toc ri" aria-label={T.toc}>
             <b
               style={{
                 fontSize: 12.5,
@@ -161,7 +163,7 @@ export async function GuidePost({ post, tenantId, origin }: Props) {
               </a>
             ))}
           </nav>
-          <article className="prose">
+          <article className="prose ri">
             {extras && (
               <div className="note" style={{ flexDirection: 'column', gap: 8 }}>
                 <b style={{ fontSize: 16 }}>{T.summary}</b>
@@ -253,7 +255,7 @@ export async function GuidePost({ post, tenantId, origin }: Props) {
             </aside>
           )}
         </div>
-      </section>
+      </InstSection>
       <CtaBandView band={band} phone={phone} salons={salons} titleId="cta-guide-post-title" page />
     </>
   )

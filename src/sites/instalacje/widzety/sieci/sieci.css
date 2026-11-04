@@ -467,7 +467,7 @@
   & .fov.down .fon:nth-child(2) {
     opacity: 1;
     box-shadow: inset 0 0 0 1.5px var(--warn);
-    animation: inst-si-fadeUp 0.5s ease;
+    animation: inst-si-fadeUp 0.5s var(--ease-out);
   }
   & .fov:not(.down) .fon:nth-child(2) .fol {
     background: var(--border);
