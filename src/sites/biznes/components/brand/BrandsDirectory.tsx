@@ -163,7 +163,11 @@ export function BrandsDirectory({
               </div>
             </div>
             {/* Phone: two small tiles per row, without the product photos. */}
-            <ul className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,285px),1fr))] max-md:grid-cols-2 max-md:gap-2.5">
+            <ul
+              data-reveal-cards=""
+              data-logo-cascade=""
+              className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,285px),1fr))] max-md:grid-cols-2 max-md:gap-2.5"
+            >
               {tiles.map((tile) => (
                 <li key={tile.id} className="flex">
                   <BrandCard tile={tile} />
@@ -242,7 +246,7 @@ function Logo({
   eager?: boolean
 }) {
   return tile.logo ? (
-    <span className={cx(PLATE, className)}>
+    <span data-logo-plate="" className={cx(PLATE, className)}>
       {/* The name is next to it: the logo is decoration here. */}
       <Image
         src={tile.logo.url}
@@ -270,6 +274,7 @@ function BrandCard({ tile }: { tile: BrandTile }) {
     <Link
       href={tile.href}
       aria-label={`${tile.name} — ${tile.salon ? 'wejdź do salonu' : 'zobacz ofertę'}`}
+      data-logo-shine=""
       className="relative flex w-full min-w-0 flex-col gap-3 rounded-3xl bg-card p-4 max-md:gap-2 max-md:rounded-[20px] max-md:p-2.5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
     >
       {tile.salon && (

@@ -937,3 +937,52 @@
     translate: 0 8px;
   }
 }
+
+/* --- Brand logos: always in colour (POPRAWKI-0311 §D) ---------------------------------------
+   The grey-until-hover of R2 is gone. Mouse only, not with reduced motion: on entering a tile
+   (`data-logo-shine`) the logo grows to 1.04 and one sweep of light crosses its plate
+   (`data-logo-plate`). Lists of logos (`data-logo-cascade`, rise-in of `data-reveal-cards`)
+   come in one by one, 40 ms apart. */
+[data-line='biznes'] [data-logo-plate] {
+  position: relative;
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-line='biznes'] [data-logo-cascade] > [data-revealed] {
+    --reveal-y: 8px;
+    animation-delay: calc(min(var(--reveal-i, 0), 8) * 40ms);
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-line='biznes'] [data-logo-shine] [data-logo-plate] img {
+    transition: scale var(--dur-hover) var(--ease-out);
+  }
+  [data-line='biznes'] [data-logo-shine]:hover [data-logo-plate] img {
+    scale: 1.04;
+  }
+  [data-line='biznes'] [data-logo-shine] [data-logo-plate]::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 40%;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      color-mix(in srgb, var(--c-white) 55%, transparent) 50%,
+      transparent 100%
+    );
+    translate: -120% 0;
+    pointer-events: none;
+  }
+  [data-line='biznes'] [data-logo-shine]:hover [data-logo-plate]::after {
+    animation: bz-logo-shine 0.7s var(--ease-out);
+  }
+}
+@keyframes bz-logo-shine {
+  from {
+    translate: -120% 0;
+  }
+  to {
+    translate: 220% 0;
+  }
+}
