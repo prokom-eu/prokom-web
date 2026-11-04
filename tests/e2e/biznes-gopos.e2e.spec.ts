@@ -31,11 +31,17 @@ test.describe('Biznes /gopos (K4h)', () => {
   test('clicking „Kuchnia” lights the KDS screen up', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/gopos'))
     const hero = page.locator('section[aria-labelledby="gopos-h"]')
-    await hero.getByRole('button', { name: /Kuchnia.*Od razu na ekranie/ }).click()
-    await expect(hero.getByRole('button', { name: /Kuchnia — / })).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    )
+    // The order plays by itself (POPRAWKI-0311 §A): the click counts its 2.6 s from zero.
+    await expect(async () => {
+      await hero
+        .getByRole('button', { name: /Kuchnia.*Od razu na ekranie/ })
+        .click({ timeout: 1000 })
+      await expect(hero.getByRole('button', { name: /Kuchnia — / })).toHaveAttribute(
+        'aria-pressed',
+        'true',
+        { timeout: 1000 },
+      )
+    }).toPass()
     await expect(hero.getByRole('button', { name: /Sala — / })).toHaveAttribute(
       'aria-pressed',
       'false',
@@ -88,6 +94,76 @@ test.describe('Biznes /gopos (K4h)', () => {
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
     )
     expect(overflow).toBeLessThanOrEqual(0)
+  })
+
+  test('the stage shows the GoPOS photos with the screen on (POPRAWKI-0311 §A)', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost', '/gopos'))
+    const stage = page.getByRole('group', { name: 'Droga zamówienia w GoPOS' })
+    const photos = stage.locator('img')
+    await expect(photos).toHaveCount(4)
+    for (const src of await photos.evaluateAll((els) => els.map((el) => el.getAttribute('src')))) {
+      expect(src).toContain('k4-gopos-')
+    }
+  })
+
+  test('the order plays by itself; „Wstrzymaj animację” stops it', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/gopos'))
+    const hero = page.locator('section[aria-labelledby="gopos-h"]')
+    const lit = () =>
+      hero
+        .getByRole('group', { name: 'Droga zamówienia w GoPOS' })
+        .locator('button[aria-pressed="true"]')
+    await expect(lit()).toHaveCount(1)
+    const first = await lit().textContent()
+    // 2.6 s per step: after ~3 s another device is lit.
+    await expect(lit()).not.toHaveText(first ?? '', { timeout: 4000 })
+
+    const pause = hero.getByRole('button', { name: 'Wstrzymaj animację' })
+    await expect(async () => {
+      await pause.click({ timeout: 1000 })
+      await expect(hero.getByRole('button', { name: 'Wznów animację' })).toBeVisible({
+        timeout: 1000,
+      })
+    }).toPass()
+    const held = await lit().textContent()
+    await page.waitForTimeout(3500)
+    await expect(lit()).toHaveText(held ?? '')
+  })
+
+  test('on a phone the stage is four tiles in the order of the flow', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(site('biznes.localhost', '/gopos'))
+    const tiles = page.getByRole('list', { name: 'Droga zamówienia w GoPOS' }).getByRole('listitem')
+    await expect(tiles).toHaveCount(4)
+    expect(await tiles.locator('b').allTextContents()).toEqual(['1', '2', '3', '4'])
+  })
+
+  test('every venue tab shows its own photo, the ticket below the device (§B)', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost', '/gopos'))
+    const venues = page.locator('#lokal')
+    const tabs = venues.getByRole('tab')
+    const photo = venues.locator('.gps-scene-img')
+    const seen = new Set<string>()
+    for (let i = 0; i < 5; i++) {
+      await expect(async () => {
+        await tabs.nth(i).click({ timeout: 1000 })
+        await expect(tabs.nth(i)).toHaveAttribute('aria-selected', 'true', { timeout: 1000 })
+      }).toPass()
+      const src = await photo.getAttribute('src')
+      expect(src).toContain('k4-gopos-')
+      seen.add(src!)
+      const gap = await venues.locator('.gps-scene').evaluate((scene) => {
+        const image = scene.querySelector('.gps-scene-img')!.getBoundingClientRect()
+        const ticket = scene.querySelector('.gps-scene-ticket')!.getBoundingClientRect()
+        return ticket.top - image.bottom
+      })
+      expect(gap).toBeGreaterThanOrEqual(8)
+    }
+    expect(seen.size).toBe(5)
   })
 
   test('the page belongs to the Biznes line only', async ({ page }) => {
