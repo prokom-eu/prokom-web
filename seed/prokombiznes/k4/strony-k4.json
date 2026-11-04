@@ -248,26 +248,30 @@
     {
      "s": "kds",
      "k": "Kuchnia",
-     "pos": "right:0;top:19%;width:44%;height:42%",
-     "lab": "right:3%;top:57%"
+     "pos": "right:0;top:4%;width:46%;height:36%",
+     "lab": "right:4%;top:-14px",
+     "img": "kuchnia-kds.webp"
     },
     {
      "s": "d3",
      "k": "Kasa i raporty",
-     "pos": "left:13%;top:12%;width:60%;height:66%",
-     "lab": "left:47%;top:71%"
+     "pos": "left:2%;top:10%;width:50%;height:54%",
+     "lab": "left:6%;top:-6px",
+     "img": "ekran-d3.webp"
     },
     {
      "s": "v3mix",
      "k": "Sala",
-     "pos": "left:0;bottom:2%;width:30%;height:38%",
-     "lab": "left:2%;bottom:41%"
+     "pos": "left:46%;bottom:3%;width:32%;height:38%",
+     "lab": "left:4%;top:-4px",
+     "img": "sala-v3mix.webp"
     },
     {
      "s": "pol",
      "k": "Płatność",
-     "pos": "right:3%;bottom:0;width:22%;height:33%",
-     "lab": "right:27%;bottom:5%"
+     "pos": "right:2%;bottom:2%;width:15%;height:42%",
+     "lab": "right:30%;top:-14px",
+     "img": "platnosc-polcard.webp"
     }
    ],
    "stageM": [
@@ -901,11 +905,11 @@
   ],
   "integSrc": "Według gopos.pl · stan na 26.10.2026. GoPOS podaje ponad 30 integracji, a my dobierzemy te, których potrzebuje Twój lokal.",
   "segImg": {
-   "rest": "d3",
-   "kaw": "v3mix",
-   "dow": "kds",
-   "ft": "v3",
-   "hot": "d3"
+   "rest": "zestaw-restauracja.webp",
+   "kaw": "kasa-d3.webp",
+   "dow": "ekosystem.webp",
+   "ft": "reczny-v3.webp",
+   "hot": "aio-stand.webp"
   }
  },
  "insert": {

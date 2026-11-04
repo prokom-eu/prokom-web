@@ -1,3 +1,5 @@
+import path from 'node:path'
+
 import type { SectionData, SectionVariant } from '../../lib/biznes/pages/sections'
 import type { IconName } from '../../lib/catalog/options'
 import { hardSpaces, hardSpacesDeep } from '../../lib/text/hardSpace'
@@ -16,6 +18,40 @@ import { BIZNES_CONTACT } from './contact'
 /** Short id of the board → slug of the product in the database; `undefined` when unknown. */
 export type SlugOf = (shortId: string) => string | undefined
 
+/** Media id of an uploaded package photo (`k4-gopos-<file>`), by its file name. */
+export type MediaOf = (file: string) => number | undefined
+
+/** Photos of the GoPOS page with the screen on (POPRAWKI-0311 §A, §B): file → alt text. */
+export const GOPOS_PHOTO_ALT: Record<string, string> = {
+  'sala-v3mix.webp': 'Sunmi V3 MIX z GoPOS na sali',
+  'kuchnia-kds.webp': 'Ekran kuchenny GoPOS KDS z kolejką zamówień',
+  'platnosc-polcard.webp': 'Terminal płatniczy PolCard',
+  'ekran-d3.webp': 'Sunmi D3 PRO z GoPOS',
+  'zestaw-restauracja.webp':
+    'Zestaw GoPOS dla restauracji: kasa, Sunmi V3 MIX, terminal i drukarka',
+  'kasa-d3.webp': 'Sunmi D3 PRO z GoPOS i ekranem dla klienta',
+  'ekosystem.webp': 'GoPOS: kiosk, aplikacja, kasa, ekran kuchni i panel online',
+  'reczny-v3.webp': 'GoPOS All in One — urządzenie ręczne',
+  'aio-stand.webp': 'Stanowisko GoPOS z drukarką',
+}
+
+const isPhotoFile = (value: string) => value.endsWith('.webp')
+
+/** Every photo file the GoPOS page names: the stage and the venues. */
+export function goposPhotoFiles(file: K4PagesFile): string[] {
+  const g = file.gopos
+  return [
+    ...new Set([
+      ...g.hero.stage.flatMap((device) => (device.img ? [device.img] : [])),
+      ...Object.values(g.segImg).filter(isPhotoFile),
+    ]),
+  ]
+}
+
+/** Path of a GoPOS photo of the package (relative to the repo). */
+export const goposPhotoPath = (name: string) =>
+  path.join('seed', 'prokombiznes', 'k4', 'media', 'gopos-scena', name)
+
 type Pair = [string, string]
 
 /** The parts of `strony-k4.json` the K4h pages use (Polish keys of the design package). */
@@ -27,7 +63,8 @@ export type K4PagesFile = {
       h1b: string
       lead: string
       proof: { t: string; d: string }[]
-      stage: { s: string; k: string }[]
+      /** `pos` / `lab`: placement on the stage; `img`: the photo with the screen on (03.11). */
+      stage: { s: string; k: string; pos?: string; lab?: string; img?: string }[]
       flowDev: Record<string, number>
     }
     flow: { k: string; t: string; d: string }[]
@@ -40,6 +77,7 @@ export type K4PagesFile = {
       mods: string[]
       tk: [string, string, string[]]
     }[]
+    /** A venue's picture: a photo file of `media/gopos-scena` (03.11) or a product id. */
     segImg: Record<string, string>
     mods: { s: string; core: boolean; n: string; d: string; hw: string[] }[]
     stats: Pair[]
@@ -166,8 +204,65 @@ function resolver(slugOf: SlugOf) {
   return { one, many, missing }
 }
 
+type SectionLike = { blockType: string; variant?: string | null; data?: unknown }
+type StageData = { stage?: { image?: unknown }[] }
+type VenuesData = { venues?: { key?: string; image?: unknown }[] }
+
+const isSection = (block: PageBlock, variant: string): block is PageBlock & SectionLike =>
+  block.blockType === 'bzSection' && (block as SectionLike).variant === variant
+
+/**
+ * POPRAWKI-0311: a stored `/gopos` keeps its blocks (the seed never overwrites a page), so the
+ * photos with the screen on come in here — only the pictures, only where they are still the old
+ * seed's: a hero stage with no photo at all, a venue picture that is still a product slug.
+ * Everything else, edited in the panel or not, stays. `null` when nothing changes.
+ */
+export function upgradeGoposPhotos(stored: PageBlock[], seed: PageBlock[]): PageBlock[] | null {
+  const seedHero = seed.find((block) => isSection(block, 'gopos-hero')) as SectionLike | undefined
+  const seedVenues = seed.find((block) => isSection(block, 'gopos-venues')) as
+    SectionLike | undefined
+  let changed = false
+  const next = stored.map((block) => {
+    if (isSection(block, 'gopos-hero') && seedHero) {
+      const data = (block.data ?? {}) as StageData
+      const fresh = (seedHero.data as StageData).stage ?? []
+      const noPhotos = (data.stage ?? []).every((device) => device.image === undefined)
+      if (noPhotos && fresh.some((device) => device.image !== undefined)) {
+        changed = true
+        return { ...block, data: { ...data, stage: fresh } }
+      }
+    }
+    if (isSection(block, 'gopos-venues') && seedVenues) {
+      const data = (block.data ?? {}) as VenuesData
+      const fresh = new Map(
+        ((seedVenues.data as VenuesData).venues ?? []).map((venue) => [venue.key, venue.image]),
+      )
+      let venueChanged = false
+      const venues = (data.venues ?? []).map((venue) => {
+        const image = fresh.get(venue.key)
+        const old = venue.image === undefined || typeof venue.image === 'string'
+        if (old && typeof image === 'number') {
+          venueChanged = true
+          return { ...venue, image }
+        }
+        return venue
+      })
+      if (venueChanged) {
+        changed = true
+        return { ...block, data: { ...data, venues } }
+      }
+    }
+    return block
+  })
+  return changed ? next : null
+}
+
 /** `/gopos` (K4h, K32 §3, plansza Web-GoPOS). */
-export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
+export function goposK4Layout(
+  file: K4PagesFile,
+  slugOf: SlugOf,
+  mediaOf: MediaOf = () => undefined,
+): K4Layout {
   const g = file.gopos
   const r = resolver(slugOf)
   const modules = g.mods.flatMap((mod) => {
@@ -204,7 +299,19 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
         stage: g.hero.stage.flatMap((device) => {
           const slug = r.one(device.s)
           const step = g.hero.flowDev[device.s]
-          return slug && step !== undefined ? [{ slug, label: device.k, step }] : []
+          const image = device.img ? mediaOf(device.img) : undefined
+          return slug && step !== undefined
+            ? [
+                {
+                  slug,
+                  label: device.k,
+                  step,
+                  ...(image !== undefined && { image }),
+                  ...(device.pos && { pos: device.pos }),
+                  ...(device.lab && { lab: device.lab }),
+                },
+              ]
+            : []
         }),
         flow: g.flow.map(({ k, t, d }) => ({ k, t, d })),
         ticket: ticket(g.seg[0]!.tk),
@@ -225,14 +332,16 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       lead: 'Wybierz rodzaj lokalu. Pokażemy, jak wygląda dzień pracy i od jakiego pakietu zacząć.',
       data: {
         venues: g.seg.map((venue) => {
-          const image = g.segImg[venue.k] ? r.one(g.segImg[venue.k]!) : undefined
+          // A photo file → its Media id; an older product id → the card's photo.
+          const source = g.segImg[venue.k]
+          const image = !source ? undefined : isPhotoFile(source) ? mediaOf(source) : r.one(source)
           return {
             key: venue.k,
             tab: venue.t,
             h1a: venue.h1a,
             h1b: venue.h1b,
             lead: venue.lead,
-            ...(image ? { image } : {}),
+            ...(image !== undefined ? { image } : {}),
             modules: venueModules(venue.mods),
             ticket: ticket(venue.tk),
           }

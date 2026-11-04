@@ -87,7 +87,8 @@ import {
   k4WheelImageFile,
   k4WheelProducts,
 } from './k4Home'
-import { seedBiznesK4Pages } from './k4PagesRun'
+import { GOPOS_PHOTO_ALT, goposPhotoFiles, goposPhotoPath } from './k4Pages'
+import { k4PagesFile, seedBiznesK4Pages } from './k4PagesRun'
 import {
   brandLogoFile,
   galleryFileName,
@@ -1202,8 +1203,39 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     product: (shortId: string) => productIds.get(shortId),
   }
   const pageReport = (name: string, changed: boolean) => count(name, changed ? 'updated' : false)
+  // POPRAWKI-0311: the GoPOS photos with the screen on, uploaded once as `k4-gopos-<file>`.
+  const goposPhotos = new Map<string, number>()
+  for (const file of goposPhotoFiles(k4PagesFile)) {
+    const uploadName = `k4-gopos-${file}`
+    const stored = storedId(uploadName)
+    count('media (GoPOS)', stored === undefined)
+    if (stored !== undefined) {
+      goposPhotos.set(file, stored)
+      continue
+    }
+    const data = await readFile(path.resolve(goposPhotoPath(file)))
+    const created = await payload.create({
+      collection: 'media',
+      data: {
+        alt: GOPOS_PHOTO_ALT[file] ?? 'GoPOS',
+        source: 'paczka 03.11.2026 (wycięte z paczki K3/K4), prawo użycia do potwierdzenia',
+        requiresConsent: false,
+        tenant: tenant.id,
+      },
+      file: { data, mimetype: 'image/webp', name: uploadName, size: data.length },
+      ...local,
+    })
+    goposPhotos.set(file, created.id)
+  }
   // K4h: /gopos and /insert from the K4 package (B9 layout replaced while untouched).
-  await seedBiznesK4Pages(payload, tenant.id, (id) => slugByKey.get(id), pageReport, note)
+  await seedBiznesK4Pages(
+    payload,
+    tenant.id,
+    (id) => slugByKey.get(id),
+    pageReport,
+    note,
+    (file) => goposPhotos.get(file),
+  )
 
   // --- category page content (B10a): the cash registers from the board ---
   await seedBiznesCategoryContent(payload, tenant.id, pageRefs.product, pageReport)
