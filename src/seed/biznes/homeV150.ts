@@ -120,6 +120,20 @@ const RULES: Record<string, Rule[]> = {
     { path: ['heading'], old: 'Lokalna firma, która jest tu od lat — i będzie dalej.' },
     // K4-FINAL §1: „100+ klientów firmowych”, one wording everywhere.
     { path: ['stats'], old: ['firm pod stałą opieką', 'autoryzacje i partnerstwa'], key: 'label' },
+    // POPRAWKI-0311 §C: the card without the quote — visible H2, lead, two numbers.
+    { path: ['heading'], old: 'Słowo od właściciela' },
+    { path: ['headingAccent'], old: EMPTY },
+    { path: ['lead'], old: EMPTY },
+    {
+      path: ['stats'],
+      old: [
+        'rok założenia',
+        'klientów firmowych',
+        'autoryzowane serwisy kas',
+        'autoryzowane partnerstwa',
+      ],
+      key: 'label',
+    },
     { path: ['contactLink', 'label'], old: 'Kontakt i dojazd' },
     { path: ['contactLink', 'href'], old: '/kontakt' },
   ],

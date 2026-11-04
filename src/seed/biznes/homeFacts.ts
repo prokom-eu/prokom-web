@@ -31,8 +31,11 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
     },
     {
       blockType: 'bzFacts',
-      // For screen readers only (the board shows the label above the quote).
-      heading: 'Słowo od właściciela',
+      // POPRAWKI-0311 §C: the visible H2 of „O firmie” while the owner's word is hidden (with
+      // the quote the section is named by the owner's label).
+      heading: 'Od 2004 roku przy kasach i komputerach firm z Podhala',
+      headingAccent: 'przy kasach i komputerach firm',
+      lead: 'Sprzedajemy, wdrażamy i serwisujemy w Rabce-Zdroju. Uprawnienia producentów widzisz obok — to one pozwalają nam serwisować kasy i wdrażać programy.',
       // TODO(krystian): cytat do akceptacji szefa (napisany przez nas). Na stronie dopiero po
       // „Pokaż słowo od właściciela” w Ustawieniach strony. [SZEF] też podpis (SVG) i zdjęcie.
       owner: {
@@ -46,15 +49,13 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
         yearText: 'od tego roku PRO-KOM działa w Rabce-Zdroju',
         photoPlaceholder: false,
       },
-      // K4-FINAL §1: „100+ klientów firmowych”; statuses: 2 serwisy (Posnet, Elzab),
-      // 2 partnerstwa (GoPOS, InsERT).
+      // K4-FINAL §1: „100+ klientów firmowych”. POPRAWKI-0311 §C: two numbers — the
+      // authorizations say the rest with their status (Posnet, Elzab, InsERT, GoPOS).
       stats: [
-        { value: '2004', label: 'rok założenia' },
+        { value: '2004', label: 'rok założenia firmy' },
         { value: '100+', label: 'klientów firmowych' },
-        { value: '2', label: 'autoryzowane serwisy kas' },
-        { value: '2', label: 'autoryzowane partnerstwa' },
       ],
-      authorizations: ['Posnet', 'Elzab', 'GoPOS', 'InsERT'].flatMap((name) => brand(name) ?? []),
+      authorizations: ['Posnet', 'Elzab', 'InsERT', 'GoPOS'].flatMap((name) => brand(name) ?? []),
       contactLink: { label: 'Poznaj PRO-KOM i pozostałe linie firmy', href: '/o-firmie' },
     },
     {
