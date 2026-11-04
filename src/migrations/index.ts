@@ -78,6 +78,7 @@ import * as migration_20261101_205557_software_swv8_seo from './20261101_205557_
 import * as migration_20261101_212117_software_swv9_copy from './20261101_212117_software_swv9_copy'
 import * as migration_20261101_225103_biznes_owner_quote from './20261101_225103_biznes_owner_quote'
 import * as migration_20261103_220030_biznes_kolo_v3 from './20261103_220030_biznes_kolo_v3'
+import * as migration_20261104_205826_inst_v5_arch_news_image from './20261104_205826_inst_v5_arch_news_image'
 
 export const migrations = [
   {
@@ -479,5 +480,10 @@ export const migrations = [
     up: migration_20261103_220030_biznes_kolo_v3.up,
     down: migration_20261103_220030_biznes_kolo_v3.down,
     name: '20261103_220030_biznes_kolo_v3',
+  },
+  {
+    up: migration_20261104_205826_inst_v5_arch_news_image.up,
+    down: migration_20261104_205826_inst_v5_arch_news_image.down,
+    name: '20261104_205826_inst_v5_arch_news_image',
   },
 ]
