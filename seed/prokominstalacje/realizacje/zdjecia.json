@@ -1,0 +1,65 @@
+{
+  "_opis": "RUNDA-V5 §4: zdjęcia realizacji z pro-kom.eu/realizacje (https://pro-kom.eu/api/media/file/<plik>.jpg), przejrzane pojedynczo: bez ludzi i twarzy (także na ekranach), bez tablic rejestracyjnych. Klucz = legacyId realizacji z Realizacje.json; pierwsze zdjęcie = okładka. Oryginały mają tylko 600×337 px — WebP w tym samym rozmiarze (bez powiększania). Pliki: media/<legacyId>/<plik>.webp, robi je docs/design/prokominstalacje/narzedzia/realizacje-zdjecia.mjs. Odrzucone: 03/20161005_153257 (twarz na monitorze), 10/20161222_002846 (twarz i tablice na ekranie), 12/20161121_124218 (monter, twarz z profilu), 12/20161121_124515 (monter), 12/20161121_125506 (nogi fotografa, słaby kadr).",
+  "zdjecia": {
+    "1": [
+      { "plik": "20170419_153352", "zrodlo": 11, "alt": "Sala konferencyjna Blachotrapezu: projektor na uchwycie sufitowym i oświetlenie szynowe" },
+      { "plik": "20170419_151356", "zrodlo": 11, "alt": "Projektor NEC z kamerą na uchwycie przy suficie sali konferencyjnej" },
+      { "plik": "20170419_151403", "zrodlo": 11, "alt": "Sufit sali konferencyjnej z głośnikami sufitowymi obok klimatyzacji" },
+      { "plik": "20170421_142204", "zrodlo": 11, "alt": "Sala konferencyjna: sufit z głośnikami i klimatyzacją, belki stropu" },
+      { "plik": "20160318_095642", "zrodlo": 5, "alt": "Sala marketingowa Blachotrapezu z rozwiniętym ekranem projekcyjnym" },
+      { "plik": "20160318_095426", "zrodlo": 5, "alt": "Projektor NEC z dwoma głośnikami na suficie podwieszanym" },
+      { "plik": "20160318_095449", "zrodlo": 5, "alt": "Projektor na uchwycie sufitowym w sali marketingowej" },
+      { "plik": "20160318_095436", "zrodlo": 5, "alt": "Kaseta ekranu elektrycznego schowana w suficie" },
+      { "plik": "20160722_111814", "zrodlo": 1, "alt": "Sala szkoleniowa w Ponicach: ekran w ramie, głośniki i projektor pod sufitem" },
+      { "plik": "20160722_111423", "zrodlo": 1, "alt": "Projektor krótkoogniskowy NEC na uchwycie ściennym" },
+      { "plik": "20160722_111507", "zrodlo": 1, "alt": "Ekran projekcyjny z obrazem z komputera i głośniki nad nim" },
+      { "plik": "20160722_111414", "zrodlo": 1, "alt": "Panel ścienny ze sterowaniem dźwięku oraz gniazdami HDMI, VGA i zasilania" },
+      { "plik": "20170421_142239", "zrodlo": 7, "alt": "Sala biurowa na poddaszu z puszkami przyłączy w podłodze" },
+      { "plik": "20170419_154123", "zrodlo": 7, "alt": "Puszka podłogowa z gniazdami HDMI i sieciowymi" },
+      { "plik": "20170419_154130", "zrodlo": 7, "alt": "Otwarta pokrywa puszki podłogowej przy stanowisku" },
+      { "plik": "20170419_154101", "zrodlo": 7, "alt": "Ramka puszki podłogowej w panelach przed montażem gniazd" },
+      { "plik": "20160629_085149", "zrodlo": 9, "alt": "Samochód reklamowy Blachotrapezu z nagłośnieniem na nadbudowie" }
+    ],
+    "2": [
+      { "plik": "20160722_160449", "zrodlo": 3, "alt": "Kościół św. Teresy: ekran projekcyjny z tekstem pieśni przy kamiennym łuku" },
+      { "plik": "20160722_155532", "zrodlo": 3, "alt": "Projektor Sony pod drewnianym sufitem kościoła" },
+      { "plik": "20160722_155457", "zrodlo": 3, "alt": "Mikser i procesor dźwięku w szafie przy ołtarzu" },
+      { "plik": "20170127_144203", "zrodlo": 13, "alt": "Mikrofony chóru na linkach pod drewnianym sufitem kościoła" },
+      { "plik": "20170127_160824", "zrodlo": 13, "alt": "Mikrofon pojemnościowy chóru zawieszony pod sufitem" },
+      { "plik": "20170127_160252", "zrodlo": 13, "alt": "Szafka z przedwzmacniaczem mikrofonowym chóru" },
+      { "plik": "20170125_133515", "zrodlo": 13, "alt": "Para mikrofonów pojemnościowych RØDE M5 przed montażem" }
+    ],
+    "4": [
+      { "plik": "20170407_201958", "zrodlo": 4, "alt": "Głośnik sufitowy w sali restauracji Aleksandra" },
+      { "plik": "20170407_173508", "zrodlo": 4, "alt": "Głośnik naścienny w narożniku sali" },
+      { "plik": "20170424_165527", "zrodlo": 4, "alt": "Panel przyłączy audio-wideo i regulatory głośności stref" },
+      { "plik": "20170412_161956", "zrodlo": 4, "alt": "Szafa rack ze wzmacniaczem, odtwarzaczem i przedwzmacniaczem stref APART" }
+    ],
+    "5": [
+      { "plik": "20161208_054739", "zrodlo": 2, "alt": "Caffe Europa: podświetlany szyld i ekrany reklamowe nad ladą" },
+      { "plik": "20161208_021416", "zrodlo": 2, "alt": "Szyld Caffe Europa z ekranem zawieszonym z tyłu" },
+      { "plik": "20161208_021520", "zrodlo": 2, "alt": "Telewizor nad ladą z treścią reklamową" },
+      { "plik": "20161208_021427", "zrodlo": 2, "alt": "Monitory zawieszone pod sufitem — widok mocowań" }
+    ],
+    "7": [
+      { "plik": "20160531_154017", "zrodlo": 6, "alt": "Ołtarz kościoła w Ślemieniu z mikrofonem na gęsiej szyi" },
+      { "plik": "20160525_124018", "zrodlo": 6, "alt": "Głośniki kolumnowe na filarach we wnętrzu kościoła" },
+      { "plik": "20160531_154509", "zrodlo": 6, "alt": "Głośniki tubowe nad wejściem do kościoła" },
+      { "plik": "20160531_130442", "zrodlo": 6, "alt": "Kościół Narodzenia św. Jana Chrzciciela w Ślemieniu z zewnątrz" }
+    ],
+    "9": [
+      { "plik": "20160315_170640", "zrodlo": 8, "alt": "Klasa w szkole w Rabce-Zdroju z projektorem i ekranem zwijanym" },
+      { "plik": "20160315_162101", "zrodlo": 8, "alt": "Projektor na wysięgniku sufitowym w klasie" },
+      { "plik": "20160315_165433", "zrodlo": 8, "alt": "Ekran z menu ustawień projektora" },
+      { "plik": "20160315_165329", "zrodlo": 8, "alt": "Gniazdo przyłączeniowe pod parapetem z podłączonym kablem" }
+    ],
+    "10": [
+      { "plik": "20161221_234424", "zrodlo": 10, "alt": "Sala lokalu w Krakowie z dwoma telewizorami na ścianie" },
+      { "plik": "20161222_002804", "zrodlo": 10, "alt": "Ekran projekcyjny i monitor z kursami w lokalu" },
+      { "plik": "zbkrk", "zrodlo": 10, "alt": "Projektor na suficie i monitor z ofertą zakładów" }
+    ],
+    "11": [
+      { "plik": "20161121_124455", "zrodlo": 12, "alt": "Antena satelitarna z konwerterem na ścianie domu w Ponicach" }
+    ]
+  }
+}

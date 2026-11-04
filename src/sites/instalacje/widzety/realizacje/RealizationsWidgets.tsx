@@ -3,6 +3,7 @@
 import { useEffect, useSyncExternalStore } from 'react'
 
 import { InstIcon } from '../../InstIcon'
+import { RealizationPhotos } from './RealizationPhotos'
 import {
   INITIAL_REALIZATIONS,
   realizationArt,
@@ -80,25 +81,36 @@ export function RealizationGrid({ items }: { items: RealizationItem[] }) {
       <p className="vh" aria-live="polite">
         {`Pokazujemy ${view.list.length} z ${items.length} realizacji`}
       </p>
-      <div className="rgrid">
+      {/* The key changes with the filters: the cards cross-fade in, 8 px up (RUNDA-V5 §4). */}
+      <div className="rgrid" key={`${st.fs}|${st.fo}`}>
         {view.list.map((r) => (
           <div key={r.id} className={'card rl' + (r.hidden ? ' xa-rlx' : '')}>
-            <div className="rlimg">
-              <svg viewBox="0 0 300 190" aria-hidden="true">
-                <rect width="300" height="190" style={{ fill: 'var(--surface-3)' }} />
-                <path
-                  d={realizationArt(r)}
-                  transform="translate(75 30) scale(.62)"
-                  style={{
-                    fill: 'none',
-                    stroke: 'var(--accent-text)',
-                    strokeWidth: 5,
-                    strokeLinecap: 'round',
-                    strokeLinejoin: 'round',
-                  }}
+            {r.photos?.length ? (
+              <div className="rlimg rlimgp">
+                <RealizationPhotos
+                  photos={r.photos}
+                  title={r.title}
+                  sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw"
                 />
-              </svg>
-            </div>
+              </div>
+            ) : (
+              <div className="rlimg">
+                <svg viewBox="0 0 300 190" aria-hidden="true">
+                  <rect width="300" height="190" style={{ fill: 'var(--surface-3)' }} />
+                  <path
+                    d={realizationArt(r)}
+                    transform="translate(75 30) scale(.62)"
+                    style={{
+                      fill: 'none',
+                      stroke: 'var(--accent-text)',
+                      strokeWidth: 5,
+                      strokeLinecap: 'round',
+                      strokeLinejoin: 'round',
+                    }}
+                  />
+                </svg>
+              </div>
+            )}
             <div className="rlb">
               {r.category && (
                 <span className="tag a" style={{ alignSelf: 'flex-start' }}>

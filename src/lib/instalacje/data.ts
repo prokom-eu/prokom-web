@@ -283,6 +283,15 @@ export type HomeRealization = {
   category: string | null
   place: string | null
   scope: string | null
+  /** Round v5 (RUNDA-V5 §4): the photos, the cover first; empty → the card keeps its drawing. */
+  photos: PublicImage[]
+}
+
+/** Photos of a realization the public site may show (this tenant, no consent needed). */
+function realizationImages(photos: unknown, tenantId: number): PublicImage[] {
+  return (Array.isArray(photos) ? photos : [])
+    .map((photo) => publicImage(photo, tenantId))
+    .filter((image): image is PublicImage => image !== null)
 }
 
 /**
@@ -310,11 +319,11 @@ export const getInstalacjeHome = cache(
         collection: 'realizations',
         where: { and: [...(where.and ?? []), { featured: { equals: true } }] },
         draft: false,
-        depth: 0,
+        depth: 1,
         limit: 4,
         // Newest first; without a year the package order (`legacyId`), as in the prototype.
         sort: ['-year', 'legacyId'],
-        select: { title: true, category: true, place: true, scope: true },
+        select: { title: true, category: true, place: true, scope: true, photos: true },
         overrideAccess: true,
       }),
     ])
@@ -330,6 +339,7 @@ export const getInstalacjeHome = cache(
         category: doc.category ?? null,
         place: doc.place ?? null,
         scope: doc.scope ?? null,
+        photos: realizationImages(doc.photos, tenantId),
       })),
     }
   },
@@ -450,7 +460,7 @@ export const getInstalacjeOffer = cache(async (tenantId: number): Promise<OfferA
     }))
 })
 
-/** A published realization for `/realizacje` (I12): public fields only, no photos yet. */
+/** A published realization for `/realizacje` (I12): public fields only; photos since v5. */
 export type RealizationCard = {
   id: number
   title: string
@@ -461,6 +471,7 @@ export type RealizationCard = {
   year: number | null
   services: string[]
   kind: string | null
+  photos: PublicImage[]
 }
 
 /**
@@ -474,10 +485,11 @@ export const getInstalacjeRealizations = cache(
       collection: 'realizations',
       where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
       draft: false,
-      depth: 0,
+      depth: 1,
       limit: LIMIT,
       sort: ['-year', 'legacyId'],
       select: {
+        photos: true,
         title: true,
         category: true,
         place: true,
@@ -499,6 +511,7 @@ export const getInstalacjeRealizations = cache(
       year: d.year ?? null,
       services: d.services ?? [],
       kind: d.kind ?? null,
+      photos: realizationImages(d.photos, tenantId),
     }))
   },
 )

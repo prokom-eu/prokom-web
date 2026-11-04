@@ -59,7 +59,7 @@ type ServiceLayout = {
   /** Under the warranty section (Smart home: the Ampio warranty note). */
   afterGuarantee?: ReactNode
 }
-type LayoutContext = { planHref: string }
+type LayoutContext = { planHref: string; tenantId: number }
 
 /** Pages built so far (I4, I7–I9); the other services show the shared sections until theirs. */
 const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = {
@@ -96,9 +96,9 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     folded: ['cena', 'faq'],
     afterGuarantee: <SmartWarrantyNote />,
   }),
-  snd: () => ({
+  snd: ({ tenantId }) => ({
     widget: <ZoneMixer />,
-    sections: <NaglosnienieSections />,
+    sections: <NaglosnienieSections tenantId={tenantId} />,
     folded: ['cena', 'faq'],
   }),
   scr: () => ({
@@ -142,7 +142,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
   const salons = salonsNote(company?.locations ?? [])
   const path = `/${service.slug}`
   const planHref = `/zaplanuj?usluga=${service.key}`
-  const layout = LAYOUTS[service.key]?.({ planHref })
+  const layout = LAYOUTS[service.key]?.({ planHref, tenantId })
   const folded = new Set(layout?.folded ?? [])
   const crumb = service.hero?.crumb || service.name
   const band = {

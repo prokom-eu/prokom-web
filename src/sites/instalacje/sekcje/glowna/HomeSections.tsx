@@ -6,6 +6,7 @@ import { glownaSekcje } from '../../dane/glownaSekcje'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../InstSectionLazy'
 import { SectionHead } from '../SectionHead'
+import { RealizationPhotos } from '../../widzety/realizacje/RealizationPhotosLazy'
 import { ShowAll } from './ShowAll'
 
 // Line art of the realization cards (`Main.js → ART`, `ART2`), by category of the work.
@@ -46,38 +47,57 @@ export function RealizationsTeaser({ items }: { items: HomeRealization[] }) {
           </Link>
         </div>
         <div className="g4">
-          {items.map((item) => (
-            <Link key={item.id} href="/realizacje" className="card rl ri">
-              <div className="rlimg dots" aria-hidden="true">
-                <svg viewBox="0 0 300 190" preserveAspectRatio="xMidYMid slice">
-                  <rect width="300" height="190" style={{ fill: 'var(--accent-soft)' }} />
-                  <path
-                    d={artOf(item)}
-                    style={{
-                      fill: 'none',
-                      stroke: 'var(--accent-text)',
-                      strokeWidth: 2.4,
-                      strokeLinecap: 'round',
-                      strokeLinejoin: 'round',
-                    }}
+          {items.map((item) =>
+            item.photos.length > 0 ? (
+              // Round v5 (RUNDA-V5 §4): the cover opens the gallery, the name leads to the list.
+              <div key={item.id} className="card rl ri">
+                <div className="rlimg rlimgp">
+                  <RealizationPhotos
+                    photos={item.photos}
+                    title={item.title}
+                    sizes="(min-width: 1100px) 320px, (min-width: 700px) 50vw, 100vw"
                   />
-                </svg>
-                {item.category && (
-                  <span
-                    className="tag"
-                    style={{ position: 'absolute', left: 12, top: 12, background: 'var(--card)' }}
-                  >
-                    {item.category}
-                  </span>
-                )}
+                  {item.category && <span className="tag rlt">{item.category}</span>}
+                </div>
+                <Link href="/realizacje" className="rlb">
+                  <b style={{ fontSize: 17 }}>{item.title}</b>
+                  {item.place && <span>{item.place}</span>}
+                  {item.scope && <span style={{ color: 'var(--ink-soft)' }}>{item.scope}</span>}
+                </Link>
               </div>
-              <div className="rlb">
-                <b style={{ fontSize: 17 }}>{item.title}</b>
-                {item.place && <span>{item.place}</span>}
-                {item.scope && <span style={{ color: 'var(--ink-soft)' }}>{item.scope}</span>}
-              </div>
-            </Link>
-          ))}
+            ) : (
+              <Link key={item.id} href="/realizacje" className="card rl ri">
+                <div className="rlimg dots" aria-hidden="true">
+                  <svg viewBox="0 0 300 190" preserveAspectRatio="xMidYMid slice">
+                    <rect width="300" height="190" style={{ fill: 'var(--accent-soft)' }} />
+                    <path
+                      d={artOf(item)}
+                      style={{
+                        fill: 'none',
+                        stroke: 'var(--accent-text)',
+                        strokeWidth: 2.4,
+                        strokeLinecap: 'round',
+                        strokeLinejoin: 'round',
+                      }}
+                    />
+                  </svg>
+                  {item.category && (
+                    <span
+                      className="tag"
+                      style={{ position: 'absolute', left: 12, top: 12, background: 'var(--card)' }}
+                    >
+                      {item.category}
+                    </span>
+                  )}
+                </div>
+                <div className="rlb">
+                  <b style={{ fontSize: 17 }}>{item.title}</b>
+                  {item.place && <span>{item.place}</span>}
+                  {item.scope && <span style={{ color: 'var(--ink-soft)' }}>{item.scope}</span>}
+                </div>
+              </Link>
+            ),
+          )}
         </div>
       </div>
     </InstSection>
