@@ -311,6 +311,17 @@ describe('decideRoute — invalid host', () => {
   it.each([null, '', 'evil.pl/x'])('returns 404 for %j', (host) => {
     expect(route(host, '/')).toEqual({ type: 'notFound' })
   })
+
+  // The `next/image` optimizer fetches a local file with an internal request without any headers
+  // (Next 16 `fetchInternalImage`): the public folders must not depend on the host, or every
+  // optimized image from `public/` answers 404 (round v5: charger photos, brand logos).
+  it('still serves the public folders, and only those', () => {
+    expect(route(null, '/instalacje/marki/dahua.webp')).toEqual({ type: 'next' })
+    expect(route(null, '/instalacje/ev/home.webp')).toEqual({ type: 'next' })
+    expect(route(null, '/brand/logo.svg')).toEqual({ type: 'next' })
+    expect(route(null, '/instalacje/cennik')).toEqual({ type: 'notFound' })
+    expect(route(null, '/admin')).toEqual({ type: 'notFound' })
+  })
 })
 
 describe('decideRoute — analytics proxy (ADR-020)', () => {

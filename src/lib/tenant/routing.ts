@@ -56,6 +56,11 @@ const ANALYTICS_PATHS: Record<string, string> = { '/script.js': 'GET', '/api/sen
 // Not a valid page slug, so `[domain]/[slug]` answers with the site's 404 page.
 export const NOT_FOUND_SEGMENT = '_404'
 
+/** A file from one of the `public/` folders the sites use. */
+function isPublicFile(pathname: string): boolean {
+  return PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(`${prefix}/`))
+}
+
 function startsWithSegment(pathname: string, prefix: string): boolean {
   return pathname === prefix || pathname.startsWith(`${prefix}/`)
 }
@@ -74,7 +79,9 @@ export function decideRoute({
   panelHost,
 }: RouteInput): RouteDecision {
   const host = normalizeHost(rawHost)
-  if (!host) return { type: 'notFound' }
+  // The `next/image` optimizer fetches local files without any headers (Next 16
+  // `fetchInternalImage`): the public folders answer without a host, everything else is 404.
+  if (!host) return isPublicFile(pathname) ? { type: 'next' } : { type: 'notFound' }
   if (pathname === HEALTH_PATH && READ_METHODS.includes(method)) return { type: 'next' }
 
   const panelOnly = PANEL_ONLY_PREFIXES.some((prefix) => startsWithSegment(pathname, prefix))
@@ -97,6 +104,6 @@ export function decideRoute({
   if (pathname === SOLUTIONS_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (PLAN_SVG.test(pathname) && READ_METHODS.includes(method)) return { type: 'next' }
   if (panelOnly) return { type: 'notFoundPage', pathname: `/${host}/${NOT_FOUND_SEGMENT}` }
-  if (PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(`${prefix}/`))) return { type: 'next' }
+  if (isPublicFile(pathname)) return { type: 'next' }
   return { type: 'rewrite', pathname: pathname === '/' ? `/${host}` : `/${host}${pathname}` }
 }
