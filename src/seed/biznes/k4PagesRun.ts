@@ -13,19 +13,23 @@ import {
   type K4FirmaFile,
   type K4PagesFile,
   type K4VendingFile,
+  type MediaOf,
   type SlugOf,
+  upgradeGoposPhotos,
 } from './k4Pages'
-import { upsertK4Page } from './page'
+import { upsertK4Page, type PageBlock } from './page'
 
 type Report = (name: string, changed: boolean) => void
 type Note = (what: string, item: string) => void
 
 const pages = file as unknown as K4PagesFile
+/** The K4 pages package, typed: the seed also uploads the photos it names (`run.ts`). */
+export const k4PagesFile = pages
 const firma = file as unknown as K4FirmaFile
 const vending = file as unknown as K4VendingFile
 
 /** The K4 subpages with their title, SEO description and layout (descriptions tested). */
-export function k4PageSeeds(slugOf: SlugOf) {
+export function k4PageSeeds(slugOf: SlugOf, mediaOf?: MediaOf) {
   return [
     {
       slug: 'gopos',
@@ -35,7 +39,7 @@ export function k4PageSeeds(slugOf: SlugOf) {
       replaces: [
         'GoPOS dla gastronomii z PRO-KOM: sprzęt, menu, fiskalizacja, szkolenie w lokalu i serwis w sezonie z Rabki. Sala, kuchnia i dowozy w jednym systemie.',
       ],
-      built: goposK4Layout(pages, slugOf),
+      built: goposK4Layout(pages, slugOf, mediaOf),
     },
     {
       slug: 'insert',
@@ -104,8 +108,9 @@ export async function seedBiznesK4Pages(
   slugOf: SlugOf,
   report: Report,
   note: Note,
+  mediaOf?: MediaOf,
 ): Promise<void> {
-  for (const { slug, title, description, replaces, built } of k4PageSeeds(slugOf)) {
+  for (const { slug, title, description, replaces, built } of k4PageSeeds(slugOf, mediaOf)) {
     for (const id of built.missing) note('strona K4: produkt spoza bazy', `${slug}: ${id}`)
     const done = await upsertK4Page(
       payload,
@@ -120,5 +125,34 @@ export async function seedBiznesK4Pages(
       report,
     )
     if (!done) note('strona K4 edytowana w panelu — bez zmian', slug)
+    if (done && slug === 'gopos') await upgradeStoredGopos(payload, tenantId, built.layout, report)
   }
+}
+
+const SEED_LOCAL = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
+
+/** POPRAWKI-0311: the GoPOS photos on a page the seed created before (`upgradeGoposPhotos`). */
+async function upgradeStoredGopos(
+  payload: Payload,
+  tenantId: number,
+  seed: PageBlock[],
+  report: Report,
+): Promise<void> {
+  const {
+    docs: [page],
+  } = await payload.find({
+    collection: 'pages',
+    where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: 'gopos' } }] },
+    limit: 1,
+    ...SEED_LOCAL,
+  })
+  const layout = page && upgradeGoposPhotos(page.layout ?? [], seed)
+  report('pages gopos photos', Boolean(layout))
+  if (!page || !layout) return
+  await payload.update({
+    collection: 'pages',
+    id: page.id,
+    data: { layout, _status: page._status ?? 'published' },
+    ...SEED_LOCAL,
+  })
 }
