@@ -5594,6 +5594,7 @@ export interface InstArchNew {
         id?: string | null;
       }[]
     | null;
+  image?: (number | null) | Media;
   illustration?: string | null;
   /**
    * Mniejsza liczba = wcześniej.
@@ -9243,6 +9244,7 @@ export interface InstArchNewsSelect<T extends boolean = true> {
         name?: T;
         id?: T;
       };
+  image?: T;
   illustration?: T;
   order?: T;
   featured?: T;

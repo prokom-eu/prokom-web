@@ -4,16 +4,28 @@
  * through the `--hx-*` tokens, which follow the scene's time of day (`data-hx-time`), not the page
  * theme (ADR-I003 §6) — so the prototype's `.day`/`.night` colour overrides live in the tokens.
  * Differences: the time buttons are 44 px high (MOBILE §10, prototype 40 px); keyframes are
- * prefixed `inst-hx-`; the scene keeps its height by `aspect-ratio` below 1100 px (no layout
+ * prefixed `inst-hx-`; the scene keeps its height by `aspect-ratio` below 1024 px (no layout
  * shift when the viewBox changes).
+ *
+ * Round v5 (RUNDA-V5 §1, before the prototype): from 1024 px the hero fits the first screen
+ * (height from the window, not 1000 px); the backdrop fills the section and the building has its
+ * own SVG in a safe zone right of the text, above the dock and below the tabs; the camera preview
+ * stands by the right edge only with room for it; the „Na żywo” panel and the chips are one dock
+ * at the bottom. Text colour and sky change together (`--hx-t`).
  */
 [data-line='instalacje'] {
   & .hx {
+    /* One time for the time of day: the text colour, the sky and the light move together, so the
+       text never stays light on a light sky for a moment (RUNDA-V5 §1.5). */
+    --hx-t: 400ms;
+    --hx-zone-top: 160px;
+    --hx-dock-room: 132px;
+    --hx-pip-w: clamp(220px, 18vw, 300px);
     position: relative;
     overflow: hidden;
-    min-height: 1000px;
+    block-size: clamp(640px, calc(100svh - var(--inst-hdr-h)), 920px);
     color: var(--hx-ink);
-    transition: color 0.9s ease;
+    transition: color var(--hx-t) var(--ease-out);
   }
   & .hx button {
     line-height: normal;
@@ -31,8 +43,8 @@
     z-index: 2;
     max-width: 1440px;
     margin: 0 auto;
-    padding: 40px 48px 0;
-    min-height: 1000px;
+    padding: 32px 48px 0;
+    height: 100%;
     box-sizing: border-box;
     pointer-events: none;
   }
@@ -40,17 +52,25 @@
     pointer-events: auto;
   }
   & .hxt {
-    width: 600px;
+    position: relative;
+    z-index: 3;
+    width: min(660px, 44vw);
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding-top: 24px;
+    gap: 18px;
+    padding-top: 8px;
   }
   & .hxt h1 {
     margin: 0;
-    font-size: clamp(50px, 5.3vw, 78px);
+    /* Two lines „Twój inteligentny / obiekt na żywo.”: the longer line is ~10.5 em, so the size
+       follows the column width (44vw, up to 660 px) and the window height. */
+    font-size: clamp(44px, min(4.15vw, 7.4svh), 62px);
     line-height: 0.94;
+    text-wrap: balance;
     text-shadow: 0 2px 30px var(--hx-h1-shadow);
+  }
+  & .hxt h1 .hxs {
+    text-wrap: wrap;
   }
   & .hx .disp {
     font-family: var(--font-display);
@@ -149,7 +169,7 @@
   & .hxbar {
     position: absolute;
     right: 48px;
-    top: 40px;
+    top: 32px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -179,9 +199,30 @@
       background 0.2s,
       color 0.2s;
   }
+  & .hotab {
+    position: relative;
+  }
   & .hotab.on {
     background: var(--hx-accent);
     color: var(--hx-accent-ink);
+  }
+  /* Autoplay progress under the chosen object: grows to the next step in one autoplay interval. */
+  & .hoprog {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 5px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    opacity: 0.55;
+    transform-origin: left;
+    transform: scaleX(var(--p));
+    transition: transform 2.3s linear;
+  }
+  & .hx:hover .hoprog,
+  & .hx:focus-within .hoprog {
+    opacity: 0.25;
   }
   & .hmodes {
     display: flex;
@@ -206,16 +247,84 @@
     background: var(--hx-mode-on-bg);
     color: var(--hx-tab-hover-ink);
   }
+  /* The phone card „Na żywo” (below 1024 px); from 1024 px its status is the dock's first line. */
   & .hxstat {
-    position: absolute;
-    left: 48px;
-    bottom: 158px;
-    width: 520px;
+    display: none;
     padding: 18px;
-    display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+  /* The building in its safe zone: right of the text, below the tabs, above the dock, left of
+     the camera preview. The SVG fits it (`xMaxYMax meet`) and may draw a little outside. */
+  & .hxstage {
+    position: absolute;
+    z-index: 1;
+    left: 42%;
+    right: calc(48px + var(--hx-pip-w) + 20px);
+    top: var(--hx-zone-top);
+    bottom: var(--hx-dock-room);
+    pointer-events: none;
+  }
+  & .hxbld {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  & .hxbld .dv {
+    pointer-events: auto;
+  }
+  & .hxbld .dv[role='button'] {
+    cursor: pointer;
+    outline: none;
+  }
+  & .hxbld .dv[role='button']:focus-visible .dvb {
+    stroke-width: 3;
+    stroke: var(--hx-tab-hover-ink);
+  }
+  /* The dock: status line over the chips and „Zaplanuj taki zestaw”. */
+  & .hxdock {
+    position: absolute;
     z-index: 3;
+    left: 48px;
+    right: 48px;
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 12px 10px 14px;
+    border-radius: 20px;
+  }
+  & .hxdst {
+    display: flex;
+    align-items: baseline;
+    min-width: 0;
+    margin: 0;
+    padding: 0 2px;
+    white-space: nowrap;
+    font-size: 13.5px;
+    line-height: 22px;
+  }
+  & .hxdst b {
+    flex: none;
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 15px;
+  }
+  & .hxdtx {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--hx-sub);
+    animation: inst-hx-fadein 0.3s var(--ease-out);
+  }
+  & .hxdst em {
+    flex: none;
+    margin-left: 8px;
+    font-style: normal;
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--hx-accent-2);
   }
   & .hxsh {
     display: flex;
@@ -298,29 +407,39 @@
     line-height: 1.38;
   }
   & .hxchips {
-    position: absolute;
-    left: 48px;
-    right: 48px;
-    bottom: 28px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     align-items: center;
-    padding: 10px;
-    z-index: 3;
+    min-width: 0;
+  }
+  /* One row; scrolls sideways (with snap) when the window is too narrow for all eight. */
+  & .hxcrow {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  & .hxcrow::-webkit-scrollbar {
+    display: none;
   }
   & .hchip {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     min-height: 44px;
-    padding: 0 13px 0 11px;
+    flex: none;
+    scroll-snap-align: start;
+    padding: 0 11px 0 9px;
     border-radius: 13px;
     border: 0;
     background: var(--hx-chip-bg);
     color: var(--hx-chip-ink);
     font-weight: 800;
-    font-size: 13.5px;
+    font-size: 13px;
+    white-space: nowrap;
     cursor: pointer;
     transition:
       background 0.2s,
@@ -347,11 +466,39 @@
     background: var(--hx-accent);
     color: var(--hx-accent-ink);
   }
+  /* The ✓ draws itself when a chip turns on (RUNDA-V5 §1.5). */
+  & .hchk {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  & .hchk path {
+    stroke-dasharray: 12;
+    animation: inst-hx-draw 0.32s var(--ease-out) both;
+  }
   & .hchipx {
+    flex: none;
     margin-left: auto;
     display: flex;
     gap: 8px;
     align-items: center;
+  }
+  /* „Pokaż wszystko” stays in the phone layout only (the dock of RUNDA-V5 has the chips). */
+  & .hchipx .hall {
+    display: none;
+  }
+  /* Short chip names in the dock (RUNDA-V5 §1.3); the full name stays for screen readers. */
+  & .hcl {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
   & .hchipx button {
     min-height: 44px;
@@ -366,11 +513,11 @@
   & .pip {
     position: absolute;
     right: 48px;
-    top: 172px;
-    width: 300px;
+    top: var(--hx-zone-top);
+    width: var(--hx-pip-w);
     overflow: hidden;
     z-index: 3;
-    animation: inst-hx-fadein 0.4s ease;
+    animation: inst-hx-fadein 0.4s var(--ease-out);
   }
   & .piph {
     display: flex;
@@ -405,11 +552,16 @@
   }
   & .pipf {
     display: flex;
+    gap: 8px;
     justify-content: space-between;
     padding: 8px 12px 10px;
     font-size: 11.5px;
     color: var(--hx-muted);
     font-weight: 700;
+  }
+  & .pipf span:last-child {
+    flex: none;
+    white-space: nowrap;
   }
   & .pipsweep {
     animation: inst-hx-pipsw 3.2s linear infinite;
@@ -481,7 +633,7 @@
     stroke: var(--hx-edge);
     stroke-width: 0.6;
     stroke-linejoin: round;
-    transition: fill 0.9s ease;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene .gnd {
     fill: var(--hx-gnd);
@@ -661,26 +813,26 @@
   & .scene .tcap {
     fill: var(--hx-white);
     opacity: 0;
-    transition: opacity 0.9s;
+    transition: opacity var(--hx-t) var(--ease-out);
   }
   & .scene.winter .tcap {
     opacity: 0.95;
   }
   & .scene .mnt0 {
     fill: var(--hx-mnt0);
-    transition: fill 0.9s;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene .mnt1 {
     fill: var(--hx-mnt1);
-    transition: fill 0.9s;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene .mnt2 {
     fill: var(--hx-mnt2);
-    transition: fill 0.9s;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene .cap {
     fill: var(--hx-cap);
-    transition: fill 0.9s;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene .skyS {
     stop-color: var(--hx-sky1);
@@ -702,12 +854,12 @@
   & .scene .sun {
     fill: var(--hx-sun);
     opacity: 0.9;
-    transition: opacity 0.9s;
+    transition: opacity var(--hx-t) var(--ease-out);
   }
   & .scene .sunh {
     fill: var(--hx-sun);
     opacity: 0.18;
-    transition: opacity 0.9s;
+    transition: opacity var(--hx-t) var(--ease-out);
   }
   & .scene.night .sun,
   & .scene.winter .sun,
@@ -718,7 +870,7 @@
   & .scene .moon {
     fill: var(--hx-moon);
     opacity: 0;
-    transition: opacity 0.9s;
+    transition: opacity var(--hx-t) var(--ease-out);
   }
   & .scene.night .moon {
     opacity: 0.95;
@@ -735,7 +887,7 @@
     fill: var(--hx-cloud);
     opacity: 0.85;
     animation: inst-hx-drift 28s ease-in-out infinite alternate;
-    transition: fill 0.9s;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene.night .cloud {
     opacity: 0.5;
@@ -827,7 +979,7 @@
     stop-opacity: 0;
   }
   & .scene .mf {
-    transition: fill 0.9s;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene .rim {
     fill: none;
@@ -847,24 +999,24 @@
   }
   & .scene .fst {
     fill: var(--hx-fst);
-    transition: fill 0.9s;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene .fst2 {
     fill: var(--hx-fst2);
-    transition: fill 0.9s;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene .fgh {
     fill: var(--hx-fg-hill);
-    transition: fill 0.9s;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene .fgt {
     fill: var(--hx-fg-tree);
-    transition: fill 0.9s;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene .fgt2 {
     fill: var(--hx-fg-tree2);
     opacity: 0.9;
-    transition: fill 0.9s;
+    transition: fill var(--hx-t) var(--ease-out);
   }
   & .scene .mist {
     animation: inst-hx-mist 34s ease-in-out infinite alternate;
@@ -891,7 +1043,7 @@
   & .scene .mws {
     fill: var(--hx-white);
     opacity: 0;
-    transition: opacity 0.9s;
+    transition: opacity var(--hx-t) var(--ease-out);
   }
   & .scene.night .mws {
     opacity: 0.55;
@@ -900,7 +1052,7 @@
   & .scene .vl {
     fill: var(--hx-lamp);
     opacity: 0;
-    transition: opacity 0.9s;
+    transition: opacity var(--hx-t) var(--ease-out);
   }
   & .scene.night .vl {
     opacity: 0.85;
@@ -909,7 +1061,7 @@
   & .scene .moonh {
     fill: var(--hx-moon-halo);
     opacity: 0;
-    transition: opacity 0.9s;
+    transition: opacity var(--hx-t) var(--ease-out);
   }
   & .scene.night .moonh {
     opacity: 0.12;
@@ -1062,17 +1214,21 @@
   & .scene .fo {
     overflow: visible;
   }
-  & .scene .fot.ttag2 {
+  /* Scene labels („Osoba 97%”, „21°”): one size and one capsule (RUNDA-V5 §1.3). */
+  & .scene .hxlab {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: 11px;
-    line-height: 14px;
-    white-space: nowrap;
-    color: var(--hx-amber-2);
-    text-align: center;
+    font-size: clamp(11px, 0.8vw, 13px);
+    text-anchor: middle;
   }
+  & .scene .ttag2 {
+    fill: var(--hx-amber-2);
+  }
+  /* Start position also without the animation (reduced motion): the building scene is cropped,
+     so (0, 0) would be outside it. */
   & .scene .walker,
   & .pip .walker {
+    transform: translate(var(--x0), var(--y0));
     animation: inst-hx-walk 14s ease-in-out infinite;
   }
   & .scene .wkb {
@@ -1094,17 +1250,95 @@
   }
   & .scene .dett {
     fill: var(--hx-detect-ink);
-    font-family: var(--font-sans);
-    font-weight: 800;
-    font-size: 8.5px;
   }
 }
 
-@media (max-width: 1100px) {
+/* Short windows (RUNDA-V5 §1.6: 1366 × 768, 1536 × 864): a tighter text column. */
+@media (min-width: 1024px) and (max-height: 880px) {
   [data-line='instalacje'] {
+    & .hxt {
+      gap: 14px;
+      padding-top: 0;
+    }
+    & .hxs {
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+    & .hxt .lead {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    & .htrust {
+      font-size: 13px;
+    }
+  }
+}
+
+/* No room for the camera preview (RUNDA-V5 §1.3): it opens from a camera point; the building
+   takes the free width. 1024–1279 px: object tabs as icons (names stay for screen readers). */
+@media (min-width: 1024px) and (max-width: 1279px), (min-width: 1024px) and (max-height: 813px) {
+  [data-line='instalacje'] {
+    & .hxstage {
+      right: 48px;
+    }
+    & .pip:not(.open) {
+      display: none;
+    }
+  }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  [data-line='instalacje'] {
+    & .hx {
+      --hx-dock-room: 170px;
+    }
+    & .hotab {
+      padding: 0 13px;
+    }
+    & .hotl {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    /* Dock in two rows: the chips scroll sideways, „Zaplanuj taki zestaw” below them on the right. */
+    & .hxchips {
+      flex-wrap: wrap;
+    }
+    & .hxcrow {
+      flex-basis: 100%;
+    }
+  }
+}
+
+/* Below 1024 px: the phone and tablet layout as before v5 — scene on top, then the text, the
+   tabs, the camera, the „Na żywo” card and the chips (RUNDA-V5 §1.4). */
+@media (max-width: 1023px) {
+  [data-line='instalacje'] {
+    & .hx {
+      block-size: auto;
+    }
+    /* Not `display: none`: the building scene draws this backdrop through <use>, and gradients
+       inside a hidden SVG do not paint. */
+    & .hxsvg {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+    & .hxin {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      padding-bottom: 40px;
+    }
     & .hxt {
       width: auto;
       max-width: 640px;
+    }
+    & .hxt h1 {
+      font-size: clamp(50px, 5.3vw, 78px);
     }
     & .hxbar {
       position: relative;
@@ -1113,19 +1347,57 @@
       align-items: flex-start;
       margin-top: 24px;
     }
-    & .hxstat {
+    /* The cropped scene keeps its height (viewBox 650 × 600) before the client draws it. */
+    & .hxstage {
       position: relative;
-      left: auto;
-      bottom: auto;
-      width: auto;
+      order: -1;
+      inset: auto;
+      aspect-ratio: 650 / 600;
+      margin: -14px -48px 32px;
+    }
+    & .hxbld {
+      overflow: hidden;
+    }
+    & .hxstat {
+      display: flex;
       margin-top: 16px;
     }
-    & .hxchips {
+    & .hxdock {
       position: relative;
       left: auto;
       right: auto;
       bottom: auto;
       margin-top: 12px;
+      padding: 10px;
+      border-radius: 22px;
+    }
+    & .hxdst {
+      display: none;
+    }
+    & .hxchips,
+    & .hxcrow {
+      flex-wrap: wrap;
+      overflow: visible;
+    }
+    & .hxcrow {
+      gap: 8px;
+    }
+    & .hchip {
+      font-size: 13.5px;
+      padding: 0 13px 0 11px;
+    }
+    & .hchipx .hall {
+      display: inline-block;
+    }
+    & .hcl {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip-path: none;
+    }
+    & .hcs {
+      display: none;
     }
     & .pip {
       position: relative;
@@ -1133,20 +1405,6 @@
       top: auto;
       width: auto;
       margin-top: 16px;
-    }
-    & .hx {
-      min-height: 0;
-    }
-    & .hxin {
-      min-height: 0;
-      padding-bottom: 40px;
-    }
-    /* The cropped scene (viewBox 650 × 600) keeps its height before the client sets it. */
-    & .hxsvg {
-      position: relative;
-      height: auto;
-      aspect-ratio: 650 / 600;
-      margin-top: 18px;
     }
   }
 }
@@ -1156,6 +1414,9 @@
     & .hx {
       background: var(--hx-phone-bg);
     }
+    & .hxstage {
+      margin: -2px -16px 20px;
+    }
     & .hxin {
       padding: 20px 16px 32px;
     }
@@ -1163,8 +1424,9 @@
       gap: 16px;
       padding-top: 4px;
     }
+    /* „inteligentny” (~6.4 em) fits 360 px. */
     & .hxt h1 {
-      font-size: 52px;
+      font-size: clamp(40px, 12.4vw, 52px);
     }
     & .hxs {
       font-size: 15px;
@@ -1212,6 +1474,46 @@
   }
 }
 
+/* Entrance and object change (RUNDA-V5 §1.5): text in 60 ms steps, the scene fades and grows
+   from .98, its points pop one by one (40 ms), the dock rises 12 px. A new object fades in. */
+[data-line='instalacje'] {
+  & .hxt .in.d1 {
+    animation-delay: 0s;
+  }
+  & .hxt .in.d2 {
+    animation-delay: 0.06s;
+  }
+  & .hxt .in.d3 {
+    animation-delay: 0.12s;
+  }
+  & .hxt .in.d4 {
+    animation-delay: 0.18s;
+  }
+  & .hxt .in.d5 {
+    animation-delay: 0.24s;
+  }
+  & .hxbld {
+    animation: inst-hx-enter var(--dur-enter) var(--ease-out) both;
+    transform-origin: 70% 80%;
+  }
+  & .hxobj {
+    animation: inst-hx-swap 0.3s var(--ease-out);
+  }
+  /* `scale`, not `transform`: the point's position is its `transform` attribute. */
+  & .hxbld .dv {
+    animation: inst-hx-dvin 0.36s var(--ease-spring) both;
+    animation-delay: calc(0.3s + var(--i, 0) * 40ms);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  & .hxdock.in {
+    animation-name: inst-hx-dock;
+  }
+  & .scene stop {
+    transition: stop-color var(--hx-t) var(--ease-out);
+  }
+}
+
 @media (hover: hover) {
   [data-line='instalacje'] {
     & .hx .hbtn-g:hover {
@@ -1241,6 +1543,9 @@
     & .scene .smk {
       opacity: 0 !important;
     }
+    & .hoprog {
+      display: none;
+    }
   }
 }
 
@@ -1252,6 +1557,52 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+@keyframes inst-hx-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes inst-hx-swap {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes inst-hx-dock {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes inst-hx-dvin {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes inst-hx-draw {
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: 0;
   }
 }
 @keyframes inst-hx-blink {

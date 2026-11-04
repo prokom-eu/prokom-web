@@ -277,8 +277,9 @@ describe('decideRoute — site domains', () => {
     })
   })
 
-  it('serves the charger photos of Instalacje (I9) — only that folder', () => {
+  it('serves the charger photos (I9) and brand logos (round v5) of Instalacje — only those', () => {
     expect(route('instalacje.localhost', '/instalacje/ev/home.webp')).toEqual({ type: 'next' })
+    expect(route('instalacje.localhost', '/instalacje/marki/dahua.webp')).toEqual({ type: 'next' })
     // `/instalacje` itself stays a page path of the tenant.
     expect(route('instalacje.localhost', '/instalacje/cennik')).toEqual({
       type: 'rewrite',

@@ -27,9 +27,9 @@ describe('Instalacje home seed', () => {
     ])
   })
 
-  it('has the hero texts of the prototype, without placeholders', () => {
+  it('has the hero texts (prototype, heading of round v5), without placeholders', () => {
     const { hero } = seed[0]
-    expect(`${hero.h1a} ${hero.h1b}`).toBe('Twój obiekt na żywo.')
+    expect(`${hero.h1a} ${hero.h1b}`).toBe('Twój inteligentny obiekt na żywo.')
     expect(hero.trust).toHaveLength(3)
     expect(JSON.stringify(hero)).not.toMatch(/\[[A-ZĄĆĘŁŃÓŚŹŻ ]+\]/)
   })
