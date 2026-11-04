@@ -118,6 +118,15 @@ export type CatalogIndex = {
     showcase?: GroupShowcase
     /** Products next to the department on the home page wheel (K36 §12), listed ones only. */
     wheel?: string[]
+    /**
+     * KOLO-HERO v3, server only (cut by `searchIndex`): the wheel cards in order — the short name
+     * of the tooltip, the colour the card opens with and the cut-out photo (else the card's).
+     */
+    wheelCards?: { slug: string; name: string; color?: string; image?: IndexImage }[]
+    /** One extra wheel bubble for a page (Opieka IT), server only. */
+    wheelLink?: { label: string; href: string; icon: IconName }
+    /** Short label of the department on the wheel, server only. */
+    shortName?: string
     /** Top of the department (`dzTop9`): first in its rows of „Polecane” (K36 §10). */
     top?: string[]
   }[]
@@ -155,6 +164,9 @@ export type IndexedProductDoc = Pick<
   | 'featured'
   | 'featuredOrder'
   | 'featuredGroup'
+  | 'wheelImage'
+  | 'wheelName'
+  | 'wheelColor'
 >
 
 export type CatalogSource = {
@@ -360,6 +372,16 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
 
   const search = source.settings?.search
   const listedSlugs = new Set(products.map((product) => product.slug))
+  const productBySlug = new Map(products.map((product) => [product.slug, product]))
+  const docBySlug = new Map(source.products.map((product) => [product.slug, product]))
+  const wheelCard = (slug: string) => {
+    const card = productBySlug.get(slug)!
+    const stored = docBySlug.get(slug)
+    const name = optional(stored?.wheelName) ?? card.name
+    const color = optional(stored?.wheelColor)
+    const image = indexImages([stored?.wheelImage], tenantId)[0] ?? card.image
+    return { slug, name, ...(color && { color }), ...(image && { image }) }
+  }
   return {
     products,
     brands: [...brands.values()].sort((a, b) => a.name.localeCompare(b.name, 'pl')),
@@ -372,6 +394,14 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         const wheel = docs(group.wheelProducts)
           .map((product) => product.slug)
           .filter((slug) => listedSlugs.has(slug))
+        const shortName = optional(group.shortName)
+        const link = group.wheelLink
+        const linkLabel = optional(link?.label)
+        const linkHref = optional(link?.href)
+        const wheelLink =
+          linkLabel && linkHref?.startsWith('/') && link?.icon
+            ? { label: linkLabel, href: linkHref, icon: link.icon }
+            : undefined
         const top = docs(group.topProducts)
           .map((product) => product.slug)
           .filter((slug) => listedSlugs.has(slug))
@@ -382,7 +412,9 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
           gradient: [group.gradientFrom, group.gradientTo] as [string, string],
           ...(description && { description }),
           ...(showcase && { showcase }),
-          ...(wheel.length > 0 && { wheel }),
+          ...(wheel.length > 0 && { wheel, wheelCards: wheel.map(wheelCard) }),
+          ...(wheelLink && { wheelLink }),
+          ...(shortName && { shortName }),
           ...(top.length > 0 && { top }),
         }
       }),
@@ -426,6 +458,8 @@ export function searchIndex(index: CatalogIndex): CatalogIndex {
   return {
     ...index,
     products: index.products.map(({ video: _video, order: _order, ...product }) => product),
-    groups: index.groups.map(({ top: _top, ...group }) => group),
+    groups: index.groups.map(
+      ({ top: _top, wheelCards: _cards, wheelLink: _link, shortName: _short, ...group }) => group,
+    ),
   }
 }

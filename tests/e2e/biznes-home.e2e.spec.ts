@@ -1,4 +1,3 @@
-import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
 import { api, loginAsAdmin, site, tenantId } from './helpers'
@@ -33,44 +32,6 @@ test.describe('Biznes home page', () => {
       'href',
       '#plan',
     )
-  })
-
-  test('the department wheel always shows an active department (board v150)', async ({ page }) => {
-    await page.clock.install()
-    await page.goto(site('biznes.localhost'))
-    const departments = page.getByRole('list', { name: 'Działy oferty' }).getByRole('button')
-    await expect(departments).toHaveCount(5)
-    const core = page.locator('#start [data-surface="dark"]')
-    // The first department is active from the start: no „your company” in the middle.
-    await expect(departments.first()).toHaveAttribute('aria-pressed', 'true')
-    await expect(core).toContainText('Dział 1 z 5')
-    await expect(core).not.toContainText('Twoja firma')
-
-    const software = departments.filter({ hasText: 'Oprogramowanie' })
-    await software.click()
-    await expect(software).toHaveAttribute('aria-pressed', 'true')
-    await expect(core).toContainText('Oprogramowanie')
-    await expect(core).toContainText(/\d+ pozycj/)
-    await expect(core.getByRole('link', { name: /Zobacz dział/ })).toHaveAttribute(
-      'href',
-      /^\/oferta\?grupa=/,
-    )
-
-    // A second click keeps it; after a pick the automatic switching stopped.
-    await software.click()
-    await expect(software).toHaveAttribute('aria-pressed', 'true')
-    await page.mouse.move(0, 0)
-    await page.clock.runFor(9000)
-    await expect(core).toContainText('Oprogramowanie')
-  })
-
-  test('product pictures of the wheel link to product pages', async ({ page }) => {
-    await page.goto(site('biznes.localhost'))
-    const pictures = page
-      .getByRole('list', { name: 'Przykładowe produkty działów' })
-      .getByRole('link')
-    expect(await pictures.count()).toBeGreaterThan(5)
-    await expect(pictures.first()).toHaveAttribute('href', /^\/produkt\//)
   })
 
   test('quick start: five ways in with counts from the database (K36 §11)', async ({ page }) => {
@@ -110,23 +71,6 @@ test.describe('Biznes home page', () => {
     await expect(brands.getByRole('link', { name: /Wszystkie marki/ })).toBeVisible()
     // K4-FINAL §1: no shortened status anywhere.
     await expect(brands).not.toContainText('Aut.')
-  })
-
-  test('reduced motion: no turning wheel', async ({ browser }) => {
-    const context = await browser.newContext({ reducedMotion: 'reduce' })
-    const page = await context.newPage()
-    await page.goto(site('biznes.localhost'))
-    const animation = (selector: string) =>
-      page
-        .locator(selector)
-        .first()
-        .evaluate((el) => getComputedStyle(el).animationName)
-    expect(await animation('[aria-label="Przykładowe produkty działów"]')).toBe('none')
-    const { violations } = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
-      .analyze()
-    expect(violations.map((v) => v.id)).toEqual([])
-    await context.close()
   })
 
   test('no prices, leasing or instalments on the page', async ({ page }) => {

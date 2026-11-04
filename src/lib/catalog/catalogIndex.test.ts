@@ -376,6 +376,85 @@ describe('buildCatalogIndex group showcase (home page offer cards)', () => {
     expect(build(null)?.wheel).toBeUndefined()
   })
 
+  it('gives the wheel cards their short name, colour and cut-out photo (KOLO-HERO v3)', () => {
+    const wheelGroup = (extra: object, products: object[]) =>
+      buildCatalogIndex({
+        tenantId: TENANT,
+        products: products as unknown as Product[],
+        categories: [category] as unknown as CatalogCategory[],
+        groups: [
+          {
+            id: 5,
+            slug: 'sprzedaz',
+            name: 'Kasy i sprzedaż',
+            icon: 'store',
+            gradientFrom: '#244FB0',
+            gradientTo: '#4FA3F0',
+            wheelProducts: products,
+            ...extra,
+          },
+        ] as unknown as Parameters<typeof buildCatalogIndex>[0]['groups'],
+        industries: [],
+        pages: [],
+        settings: null,
+      }).groups[0]
+    const cut = {
+      ...product,
+      slug: 'cut',
+      wheelName: 'Krótka',
+      wheelColor: ' burgund ',
+      wheelImage: image(3, 'kolo-cut.webp'),
+      images: [image(1, 'ergo.webp')],
+    }
+    const plain = { ...product, slug: 'plain', images: [image(2, 'b.webp')] }
+    // Another site's cut-out falls back to the card's own photo.
+    const foreign = {
+      ...product,
+      slug: 'foreign',
+      wheelImage: image(4, 'x.webp', { tenant: OTHER_TENANT }),
+      images: [image(2, 'b.webp')],
+    }
+    const group = wheelGroup(
+      {
+        shortName: ' Krótko ',
+        wheelLink: { label: 'Opieka IT dla firm', href: '/opieka-it', icon: 'lifebuoy' },
+      },
+      [cut, plain, foreign],
+    )
+    expect(group?.wheelCards).toEqual([
+      {
+        slug: 'cut',
+        name: 'Krótka',
+        color: 'burgund',
+        image: expect.objectContaining({ url: expect.stringContaining('kolo-cut') }),
+      },
+      {
+        slug: 'plain',
+        name: 'P',
+        image: expect.objectContaining({ url: expect.stringContaining('/b-') }),
+      },
+      {
+        slug: 'foreign',
+        name: 'P',
+        image: expect.objectContaining({ url: expect.stringContaining('/b-') }),
+      },
+    ])
+    expect(group?.shortName).toBe('Krótko')
+    expect(group?.wheelLink).toEqual({
+      label: 'Opieka IT dla firm',
+      href: '/opieka-it',
+      icon: 'lifebuoy',
+    })
+    // Only an address of this site, with a label and an icon, makes a bubble.
+    for (const wheelLink of [
+      { label: 'X', href: 'https://example.com', icon: 'lifebuoy' },
+      { label: '', href: '/x', icon: 'lifebuoy' },
+      { label: 'X', href: '/x', icon: null },
+    ]) {
+      expect(wheelGroup({ wheelLink }, [plain])?.wheelLink).toBeUndefined()
+    }
+  })
+
   it('gives up to two public pictures of this tenant', () => {
     const own = image(1, 'ergo.webp')
     const foreign = image(2, 'obce.webp', { tenant: OTHER_TENANT })
@@ -410,7 +489,16 @@ describe('searchIndex (`GET /api/catalog-index`, K31c)', () => {
         { slug: 'a', video: true, order: 0, name: 'A' },
         { slug: 'b', name: 'B' },
       ],
-      groups: [{ slug: 'g', name: 'G', top: ['a'] }],
+      groups: [
+        {
+          slug: 'g',
+          name: 'G',
+          top: ['a'],
+          wheelCards: [{ slug: 'a', name: 'A' }],
+          wheelLink: { label: 'L', href: '/l', icon: 'life' },
+          shortName: 'G',
+        },
+      ],
       brands: [],
     } as unknown as CatalogIndex
     const result = searchIndex(index)

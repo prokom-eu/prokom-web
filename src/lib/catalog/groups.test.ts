@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
-import { groupSummaries } from './groups'
+import { groupSummaries, wheelGroups } from './groups'
 
 const image = (slug: string) => ({ url: `/m/${slug}.webp`, alt: slug, width: 480, height: 480 })
 
@@ -99,5 +99,62 @@ describe('groupSummaries', () => {
   it('passes the showcase of the department card on', () => {
     expect(groupSummaries(index)[1]?.showcase?.statuses[0]?.value).toBe('aktywna')
     expect(groupSummaries(index)[0]).not.toHaveProperty('showcase')
+  })
+})
+
+describe('wheelGroups (KOLO-HERO v3)', () => {
+  const wheelIndex = {
+    groups: [
+      {
+        ...index.groups[0]!,
+        wheel: ['ergo', 'k10'],
+        wheelCards: [
+          { slug: 'ergo', name: 'Posnet Ergo', image: image('kolo-ergo') },
+          { slug: 'k10', name: 'Elzab K10', color: 'Błękit lodowca' },
+          // A card of another department picked in the panel stays off this run.
+          { slug: 'serwis-kas', name: 'Serwis kas' },
+        ],
+      },
+      {
+        ...index.groups[1]!,
+        shortName: 'Serwis',
+        wheelLink: { label: 'Opieka IT dla firm', href: '/opieka-it', icon: 'lifebuoy' },
+      },
+    ],
+    categories: [
+      ...index.categories,
+      { slug: 'kasy-cat', name: 'Kasy', group: 'sprz', count: 1, icon: 'cash' },
+    ],
+    products: [
+      product('ergo', 'sprz'),
+      product('k10', 'sprz', { categories: ['kasy-cat'], image: undefined }),
+      product('serwis-kas', 'usl'),
+    ],
+  } as unknown as Pick<CatalogIndex, 'groups' | 'categories' | 'products'>
+
+  it('lists each department with its wheel bubbles in order, the page bubble last', () => {
+    const [sprz, usl] = wheelGroups(wheelIndex)
+    expect(sprz).toMatchObject({
+      slug: 'sprz',
+      name: 'Kasy i sprzedaż',
+      label: 'Kasy i sprzedaż',
+      icon: 'store',
+      count: 2,
+      href: '/oferta?grupa=sprz',
+    })
+    expect(sprz!.items).toEqual([
+      { key: 'ergo', name: 'Posnet Ergo', href: '/produkt/ergo', image: image('kolo-ergo') },
+      // No photo: the card's icon, as on its tile; the colour goes into the address.
+      {
+        key: 'k10',
+        name: 'Elzab K10 · Błękit lodowca',
+        href: '/produkt/k10?kolor=B%C5%82%C4%99kit%20lodowca',
+        icon: 'cash',
+      },
+    ])
+    expect(usl).toMatchObject({ label: 'Serwis', count: 1 })
+    expect(usl!.items).toEqual([
+      { key: 'link:/opieka-it', name: 'Opieka IT dla firm', href: '/opieka-it', icon: 'lifebuoy' },
+    ])
   })
 })

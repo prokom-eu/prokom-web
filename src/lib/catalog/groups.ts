@@ -1,4 +1,6 @@
+import { cardIcon, productHref } from './card'
 import type { CatalogIndex, GroupShowcase, IndexImage } from './catalogIndex'
+import { groupHref } from './menu'
 import type { IconName } from './options'
 
 export type GroupSummary = {
@@ -56,6 +58,70 @@ export function groupSummaries(
         name,
         image: image as IndexImage,
       })),
+    }
+  })
+}
+
+/** A bubble of the hero wheel: a product card (photo or its icon) or a page (icon). */
+export type WheelItem = {
+  key: string
+  name: string
+  href: string
+  image?: IndexImage
+  icon?: IconName
+}
+
+export type WheelGroup = {
+  slug: string
+  name: string
+  /** Label next to the icon on the wheel: the short name when the department has one. */
+  label: string
+  icon: IconName
+  count: number
+  gradient: [string, string]
+  href: string
+  items: WheelItem[]
+}
+
+/**
+ * The departments of the hero wheel (KOLO-HERO v3): each with its wheel cards in the panel's
+ * order and the extra page bubble last. Only what the client island draws — no index entries.
+ */
+export function wheelGroups(
+  index: Pick<CatalogIndex, 'groups' | 'categories' | 'products'>,
+): WheelGroup[] {
+  const bySlug = new Map(index.products.map((product) => [product.slug, product]))
+  return index.groups.map((group) => {
+    const cards: WheelItem[] = (group.wheelCards ?? []).flatMap((card) => {
+      // Each bubble stands in its own department (KOLO-HERO §Pozycje): a card of another one
+      // picked in the panel would sit under the wrong department, or twice on the ring.
+      const product = bySlug.get(card.slug)
+      if (!product || product.group !== group.slug) return []
+      const query = card.color ? `?kolor=${encodeURIComponent(card.color)}` : ''
+      return [
+        {
+          key: card.slug,
+          name: card.color ? `${card.name} · ${card.color}` : card.name,
+          href: `${productHref(card.slug)}${query}`,
+          ...(card.image ? { image: card.image } : { icon: cardIcon(product, index) }),
+        },
+      ]
+    })
+    const link = group.wheelLink
+    return {
+      slug: group.slug,
+      name: group.name,
+      label: group.shortName ?? group.name,
+      icon: group.icon,
+      count: index.products.filter((product) => product.group === group.slug).length,
+      gradient: group.gradient,
+      href: groupHref(group.slug),
+      items: link
+        ? [
+            ...cards,
+            { key: `link:${link.href}`, name: link.label, href: link.href, icon: link.icon },
+          ]
+        : cards,
     }
   })
 }

@@ -480,41 +480,81 @@
    "g": "sprz",
    "p": [
     "ergo",
+    "k10",
     "d3",
     "pol"
-   ]
+   ],
+   "nazwy": {
+    "ergo": "Posnet Ergo Online",
+    "k10": "Elzab K10 Online",
+    "d3": "Sunmi D3 PRO",
+    "pol": "Terminal płatniczy PolCard"
+   }
   },
   {
    "g": "biuro",
    "p": [
+    "apple-iphone-18-pro",
+    "apple-macbook-air-m5",
     "lenovo-thinkbook-14-g8-g9",
-    "apple-iphone-17",
-    "brother-mfc-l2922dw-mfc-l2862dw"
-   ]
+    "lenovo-thinkcentre-neo-50s-55s",
+    "konica-minolta-bizhub-c3321i",
+    "comex-cover-core-one"
+   ],
+   "nazwy": {
+    "apple-iphone-18-pro": "Apple iPhone 18 Pro",
+    "apple-macbook-air-m5": "Apple MacBook Air (M5)",
+    "lenovo-thinkbook-14-g8-g9": "Lenovo ThinkBook 14",
+    "lenovo-thinkcentre-neo-50s-55s": "Lenovo ThinkCentre neo 50s",
+    "konica-minolta-bizhub-c3321i": "Konica Minolta bizhub C3321i",
+    "comex-cover-core-one": "UPS COMEX COVER CORE ONE"
+   },
+   "kolory": {
+    "apple-iphone-18-pro": "burgund"
+   }
   },
   {
    "g": "prog",
    "p": [
-    "nexo",
     "gopos",
-    "microsoft-365-business"
-   ]
+    "nexo",
+    "microsoft-office-2024"
+   ],
+   "nazwy": {
+    "gopos": "GoPOS dla gastronomii",
+    "nexo": "InsERT Subiekt nexo",
+    "microsoft-office-2024": "Microsoft Office 2024 dla firm"
+   }
   },
   {
    "g": "bezp",
+   "krotka": "Sieć i ochrona",
    "p": [
     "u7",
-    "udr7",
-    "eset"
-   ]
+    "eset",
+    "euro"
+   ],
+   "nazwy": {
+    "u7": "Ubiquiti UniFi U7 Pro",
+    "eset": "ESET PROTECT",
+    "euro": "Podpis kwalifikowany EuroCert"
+   }
   },
   {
    "g": "usl",
    "p": [
-    "k10",
-    "synology-diskstation-plus-2-4",
-    "lenovo-thinkcentre-neo-50s-55s"
-   ]
+    "ksef",
+    "przkas"
+   ],
+   "nazwy": {
+    "ksef": "Wdrożenie KSeF w firmie",
+    "przkas": "Przegląd kasy fiskalnej"
+   },
+   "link": {
+    "n": "Opieka IT dla firm",
+    "href": "/opieka-it",
+    "ic": "lifebuoy"
+   }
   }
  ],
  "dzialy_hero": [
