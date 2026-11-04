@@ -2,8 +2,9 @@ import Image from 'next/image'
 
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
+import { stagePlacement } from '@/lib/biznes/pages/gopos'
 import type { SectionData } from '@/lib/biznes/pages/sections'
-import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
+import type { CatalogIndex, IndexImage } from '@/lib/catalog/catalogIndex'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
@@ -17,27 +18,35 @@ type Props = {
   block: BzSectionData
   data: SectionData<'gopos-hero'>
   index: CatalogIndex
+  /** Stage photos by Media id (as text): the devices with the GoPOS screen on. */
+  images: Record<string, IndexImage>
   crumbs: readonly Crumb[]
 }
 
 /**
- * GoPOS hero (K32 §3, plansza Web-GoPOS): logo and partner pill, H1, lead, „Umów prezentację” /
- * „Skonfiguruj pakiet”, four proofs; on the right the stage of devices with the order ticket,
- * under it the 4-step flow. Clicking a step or a device lights the device up (Kuchnia → KDS).
+ * GoPOS hero (K32 §3, plansza Web-GoPOS; POPRAWKI-0311 §A): logo and partner pill, H1, lead,
+ * „Umów prezentację” / „Skonfiguruj pakiet”, four proofs; on the right the stage of devices with
+ * the GoPOS screen on and the order ticket, under it the 4-step flow. The order plays by itself;
+ * clicking a step or a device lights that device up (Kuchnia → KDS).
  */
-export function GoposHero({ block, data, index, crumbs }: Props) {
+export function GoposHero({ block, data, index, images, crumbs }: Props) {
   const logo = index.brands.find((brand) => brand.slug === 'gopos')?.logo
   const bySlug = new Map(index.products.map((product) => [product.slug, product]))
   const devices: StageDevice[] = data.stage.flatMap((device) => {
     const product = bySlug.get(device.slug)
-    return product?.image
+    // POPRAWKI-0311 §A: the photo with the screen on; the card's packshot only as a fallback.
+    const image =
+      (device.image !== undefined ? images[String(device.image)] : undefined) ?? product?.image
+    return product && image
       ? [
           {
             slug: device.slug,
             label: device.label,
             step: device.step,
             name: product.name,
-            image: product.image,
+            image,
+            pos: stagePlacement(device.pos),
+            lab: stagePlacement(device.lab),
           },
         ]
       : []
@@ -47,7 +56,7 @@ export function GoposHero({ block, data, index, crumbs }: Props) {
       aria-labelledby="gopos-h"
       data-surface="dark"
       // Phone (App-GoPOS): a card with a margin, like the other heroes of the phone screens.
-      className="relative isolate overflow-hidden bg-surface-dark pt-6 pb-12 text-white max-md:mx-4 max-md:mt-3 max-md:rounded-[26px] max-md:pt-5 max-md:pb-5 min-[768px]:pt-8 min-[768px]:pb-16"
+      className="gps-hero relative isolate overflow-hidden bg-surface-dark pt-6 pb-12 text-white max-md:mx-4 max-md:mt-3 max-md:rounded-[26px] max-md:pt-5 max-md:pb-5 min-[768px]:pt-8 min-[768px]:pb-16"
     >
       <Container wide>
         <div className="mb-7 max-md:hidden">

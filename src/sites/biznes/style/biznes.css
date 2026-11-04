@@ -571,3 +571,369 @@
     scale: 0.6;
   }
 }
+
+/* --- GoPOS: stage of the hero and the venue scene (POPRAWKI-0311 §A, §B) ------------------
+   Prototype `docs/design/prokombiznes/poprawki-0311/sekcje.html` §1–2, colours from tokens.
+   Device positions come from the data (`stagePlacement`). Above 720 px the stage, up to 720 px
+   four glass tiles in the order of the flow. */
+[data-line='biznes'] .gps-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      60% 70% at 78% 55%,
+      color-mix(in srgb, var(--c-biznes-on-dark) 32%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 40% at 10% 0%,
+      color-mix(in srgb, var(--ok) 14%, transparent),
+      transparent 70%
+    );
+}
+
+[data-line='biznes'] .gps-stage {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1.18;
+}
+[data-line='biznes'] .gps-floor {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 3%;
+  height: 22%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--c-biznes-on-dark) 28%, transparent),
+    color-mix(in srgb, var(--c-biznes-on-dark) 6%, transparent) 60%,
+    transparent
+  );
+}
+[data-line='biznes'] .gps-dev {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition:
+    translate 0.6s var(--ease-out),
+    filter 0.5s var(--ease-out);
+}
+[data-line='biznes'] .gps-dev img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 26px color-mix(in srgb, black 45%, transparent))
+    drop-shadow(0 4px 6px color-mix(in srgb, black 30%, transparent));
+}
+[data-line='biznes'] .gps-dev:not([data-on]) {
+  filter: saturate(0.75) brightness(0.72);
+}
+[data-line='biznes'] .gps-dev[data-on] {
+  translate: 0 -6px;
+}
+[data-line='biznes'] .gps-tag {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px 5px 5px;
+  border: 1px solid color-mix(in srgb, var(--c-white) 14%, transparent);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+  color: var(--c-white);
+  background: color-mix(in srgb, var(--surface-dark) 72%, transparent);
+  backdrop-filter: blur(10px);
+  transition:
+    background-color 0.4s var(--ease-out),
+    color 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out);
+}
+[data-line='biznes'] .gps-tag b {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 12px;
+  background: color-mix(in srgb, var(--c-white) 14%, transparent);
+}
+[data-line='biznes'] .gps-dev[data-on] .gps-tag {
+  border-color: var(--c-white);
+  color: var(--surface-dark);
+  background: var(--c-white);
+}
+[data-line='biznes'] .gps-dev[data-on] .gps-tag b {
+  color: var(--c-white);
+  background: var(--surface-dark);
+}
+[data-line='biznes'] .gps-dev:focus-visible {
+  outline: 3px solid var(--c-white);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+/* The order ticket: on the stage and in the venue scene. Its text is white on navy. */
+[data-line='biznes'] .gps-ticket {
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--c-white) 12%, transparent);
+  border-radius: 18px;
+  color: var(--c-white);
+  background: color-mix(in srgb, var(--surface-dark) 88%, transparent);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 24px 40px -18px color-mix(in srgb, black 60%, transparent);
+}
+[data-line='biznes'] .gps-ticket small {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--c-white) 70%, transparent);
+}
+[data-line='biznes'] .gps-ticket p {
+  margin: 4px 0 10px;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--c-white);
+}
+[data-line='biznes'] .gps-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+[data-line='biznes'] .gps-steps li {
+  padding-top: 6px;
+  border-top: 3px solid color-mix(in srgb, var(--c-white) 14%, transparent);
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  color: color-mix(in srgb, var(--c-white) 70%, transparent);
+  transition:
+    color 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out);
+}
+[data-line='biznes'] .gps-steps li[data-state] {
+  color: var(--c-white);
+}
+[data-line='biznes'] .gps-steps li[data-state='done'] {
+  border-color: var(--promo);
+}
+[data-line='biznes'] .gps-steps li[data-state='now'] {
+  border-color: var(--ok);
+}
+[data-line='biznes'] .gps-stage-ticket {
+  position: absolute;
+  z-index: 6;
+  left: 0;
+  bottom: 2%;
+  width: min(300px, 42%);
+}
+
+[data-line='biznes'] .gps-pause {
+  padding: 4px 2px;
+  border: 0;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent-on-dark);
+  background: none;
+  cursor: pointer;
+}
+[data-line='biznes'] .gps-pause:hover {
+  text-decoration: underline;
+}
+
+/* Up to 720 px: four glass tiles, 1–4, instead of the stage. */
+[data-line='biznes'] .gps-tiles {
+  display: none;
+}
+@media (max-width: 720px) {
+  [data-line='biznes'] .gps-stage {
+    display: none;
+  }
+  [data-line='biznes'] .gps-tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  [data-line='biznes'] .gps-tile {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    aspect-ratio: 1;
+    padding: 12px;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--c-white) 10%, transparent);
+    border-radius: 20px;
+    background:
+      radial-gradient(
+        80% 70% at 50% 62%,
+        color-mix(in srgb, var(--c-biznes-on-dark) 22%, transparent),
+        transparent 70%
+      ),
+      color-mix(in srgb, var(--c-white) 5%, transparent);
+  }
+  [data-line='biznes'] .gps-tile img {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    object-fit: contain;
+    filter: drop-shadow(0 14px 16px color-mix(in srgb, black 45%, transparent));
+  }
+  [data-line='biznes'] .gps-tile .gps-tag {
+    position: static;
+    justify-self: start;
+    padding: 4px 10px 4px 4px;
+    border: 0;
+    font-size: 12.5px;
+    background: color-mix(in srgb, var(--c-white) 10%, transparent);
+    backdrop-filter: none;
+  }
+  [data-line='biznes'] .gps-tile .gps-tag b {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+    color: var(--surface-dark);
+    background: var(--c-white);
+  }
+}
+
+/* Venue tabs with a thumbnail; the chosen one navy. */
+[data-line='biznes'] .gps-vtab {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 10px 10px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  font-weight: 800;
+  text-align: left;
+  color: var(--ink);
+  background: var(--card);
+  transition:
+    background-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out),
+    translate 0.3s var(--ease-out);
+}
+[data-line='biznes'] .gps-vtab-th {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: var(--surface-2);
+}
+[data-line='biznes'] .gps-vtab-th img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+[data-line='biznes'] .gps-vtab[aria-selected='true'] {
+  border-color: var(--surface-dark);
+  color: var(--c-white);
+  background: var(--surface-dark);
+}
+[data-line='biznes'] .gps-vtab[aria-selected='true'] .gps-vtab-th {
+  background: color-mix(in srgb, var(--c-white) 12%, transparent);
+}
+
+/* The scene: a soft lit stage in the line's green, the device big and on, the ticket below it. */
+[data-line='biznes'] .gps-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 7% 5% 5%;
+  aspect-ratio: 1.12;
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      75% 65% at 50% 46%,
+      color-mix(in srgb, var(--ok) 20%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+        circle at 1px 1px,
+        color-mix(in srgb, var(--ink) 9%, transparent) 1px,
+        transparent 1.4px
+      )
+      0 0 / 18px 18px,
+    linear-gradient(180deg, var(--surface-2), var(--surface-3));
+}
+[data-line='biznes'] .gps-scene::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 14%;
+  right: 14%;
+  bottom: 20%;
+  height: 10%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--surface-dark) 22%, transparent),
+    transparent
+  );
+}
+[data-line='biznes'] .gps-scene-img {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  padding-inline: 3%;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 22px color-mix(in srgb, var(--surface-dark) 28%, transparent));
+}
+/* The ticket stands in the lower band, below the device: never over it (§B). */
+[data-line='biznes'] .gps-scene-ticket {
+  flex: none;
+}
+@media (max-width: 820px) {
+  [data-line='biznes'] .gps-scene {
+    order: -1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-line='biznes'] .gps-vtab:hover {
+    translate: 3px 0;
+    border-color: color-mix(in srgb, var(--ink) 25%, var(--border));
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-line='biznes'] .gps-scene-img {
+    animation: gps-in-img 0.45s var(--ease-out) both;
+  }
+  [data-line='biznes'] .gps-swap {
+    animation: gps-in 0.45s var(--ease-out) both;
+  }
+}
+@keyframes gps-in-img {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+    scale: 0.97;
+  }
+}
+@keyframes gps-in {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
