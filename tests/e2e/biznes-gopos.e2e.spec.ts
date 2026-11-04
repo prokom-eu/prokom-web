@@ -116,7 +116,7 @@ test.describe('Biznes /gopos (K4h)', () => {
         return dx === 0 && dy === 0 ? -1 : Math.hypot(dx, dy)
       })
     })
-    for (const gap of gaps) expect(gap).toBeGreaterThanOrEqual(8)
+    for (const gap of gaps) expect(Math.round(gap)).toBeGreaterThanOrEqual(8)
   })
 
   test('the order plays by itself; „Wstrzymaj animację” stops it', async ({ page }) => {
@@ -170,7 +170,8 @@ test.describe('Biznes /gopos (K4h)', () => {
       const gap = await venues.locator('.gps-scene').evaluate((scene) => {
         const image = scene.querySelector('.gps-scene-img')!.getBoundingClientRect()
         const ticket = scene.querySelector('.gps-scene-ticket')!.getBoundingClientRect()
-        return ticket.top - image.bottom
+        // Rounded: the 8 px gap of the flex column lands on sub-pixels (7.998).
+        return Math.round(ticket.top - image.bottom)
       })
       expect(gap).toBeGreaterThanOrEqual(8)
     }
