@@ -123,17 +123,17 @@ test.describe('Instalacje page for architects', () => {
     const list = page.locator('#checklista')
     await expect(list.locator('.arckt .h3')).toHaveText('20 rzeczy do przewidzenia')
     await list.locator('.arci').first().click()
-    await expect(list.locator('.arckp span')).toHaveText('1 / 20')
+    await expect(list.locator('.arckp .arckn')).toHaveText('1 / 20')
     // Another object clears the ticks; fewer systems, fewer items.
     await list.getByRole('button', { name: 'Apartament, mieszkanie' }).click()
-    await expect(list.locator('.arckp span')).toHaveText(/^0 \//)
+    await expect(list.locator('.arckp .arckn')).toHaveText(/^0 \//)
     await list.locator('.arci').first().click()
     await page.reload()
     await expect(list.getByRole('button', { name: 'Apartament, mieszkanie' })).toHaveAttribute(
       'aria-pressed',
       'true',
     )
-    await expect(list.locator('.arckp span')).toHaveText(/^1 \//)
+    await expect(list.locator('.arckp .arckn')).toHaveText(/^1 \//)
   })
 
   test('„Nowe rozwiązania”: filter with counts, previous/next within it', async ({ page }) => {
