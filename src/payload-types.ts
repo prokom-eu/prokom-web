@@ -293,6 +293,170 @@ export interface SiteSetting {
      */
     ogImage?: (number | null) | Media;
   };
+  /**
+   * Pasek marki, nagłówek, telefon, szyna, stopka, Kontakt i O firmie (spec elementów wspólnych §4.2). Tekst ze znacznikiem [SZEF…] albo [Krystian…] nie pokazuje się na stronie.
+   */
+  shared?: {
+    phoneLabel?: string | null;
+    /**
+     * Puste = godziny z Danych firmy.
+     */
+    hours?: string | null;
+    /**
+     * Krótko, pod przyciskiem formularza i w stopce.
+     */
+    responsePromise?: string | null;
+    brandBarSlot?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    headerCta?: {
+      label?: string | null;
+      href?: string | null;
+      counter?: ('none' | 'inquiry' | 'project') | null;
+    };
+    /**
+     * Start, Kontakt i Menu są stałe.
+     */
+    tabBar?: {
+      second?: {
+        label?: string | null;
+        href?: string | null;
+      };
+      center?: {
+        label?: string | null;
+        href?: string | null;
+        icon?: string | null;
+      };
+    };
+    rail?: {
+      /**
+       * W kolejności sekcji strony głównej. Pozycja bez sekcji o tym id na stronie się nie pokazuje.
+       */
+      sections?:
+        | {
+            anchorId: string;
+            label: string;
+            icon: string;
+            id?: string | null;
+          }[]
+        | null;
+      searchPopular?: string[] | null;
+      searchShortcuts?:
+        | {
+            label: string;
+            href: string;
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * Grupy słów oddzielone przecinkiem, np. „kamera, monitoring, CCTV”.
+       */
+      synonyms?: string[] | null;
+    };
+    footerPromises?: string[] | null;
+    footerColumns?:
+      | {
+          heading: string;
+          links?:
+            | {
+                label: string;
+                href: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    legalNote?: string | null;
+    contact?: {
+      h1?: string | null;
+      lead?: string | null;
+      writeCta?: string | null;
+      placeKind?: ('salon' | 'spotkanie' | 'serwis') | null;
+      facts?:
+        | {
+            label: string;
+            value: string;
+            icon?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      routes?:
+        | {
+            title: string;
+            text?: string | null;
+            cta?: string | null;
+            href?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      topics?: string[] | null;
+      formTitle?: string | null;
+      placeholder?: string | null;
+      sendLabel?: string | null;
+      nextSteps?:
+        | {
+            title: string;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      mapTitle?: string | null;
+      mapLead?: string | null;
+      /**
+       * Np. „rabka”. Pokazujemy tylko opublikowane salony.
+       */
+      salonKeys?: string[] | null;
+      faq?:
+        | {
+            question: string;
+            answer?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    about?: {
+      h1?: string | null;
+      lead?: string | null;
+      authTitle?: string | null;
+      auth?: string[] | null;
+      stats?:
+        | {
+            value: string;
+            label: string;
+            /**
+             * Np. „do potwierdzenia przez szefa” — liczba z plakietką nie idzie na produkcję.
+             */
+            flag?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      rules?:
+        | {
+            title: string;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      steps?:
+        | {
+            title: string;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      verify?:
+        | {
+            title: string;
+            text?: string | null;
+            href?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      visitText?: string | null;
+    };
+  };
   biznes?: {
     /**
      * W nagłówku zostaje jeden numer główny (telefon linii wyżej).
@@ -5978,6 +6142,164 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         description?: T;
         ogImage?: T;
       };
+  shared?:
+    | T
+    | {
+        phoneLabel?: T;
+        hours?: T;
+        responsePromise?: T;
+        brandBarSlot?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        headerCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              counter?: T;
+            };
+        tabBar?:
+          | T
+          | {
+              second?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              center?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    icon?: T;
+                  };
+            };
+        rail?:
+          | T
+          | {
+              sections?:
+                | T
+                | {
+                    anchorId?: T;
+                    label?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              searchPopular?: T;
+              searchShortcuts?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              synonyms?: T;
+            };
+        footerPromises?: T;
+        footerColumns?:
+          | T
+          | {
+              heading?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        legalNote?: T;
+        contact?:
+          | T
+          | {
+              h1?: T;
+              lead?: T;
+              writeCta?: T;
+              placeKind?: T;
+              facts?:
+                | T
+                | {
+                    label?: T;
+                    value?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              routes?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    cta?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              topics?: T;
+              formTitle?: T;
+              placeholder?: T;
+              sendLabel?: T;
+              nextSteps?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              mapTitle?: T;
+              mapLead?: T;
+              salonKeys?: T;
+              faq?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+            };
+        about?:
+          | T
+          | {
+              h1?: T;
+              lead?: T;
+              authTitle?: T;
+              auth?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    flag?: T;
+                    id?: T;
+                  };
+              rules?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              steps?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              verify?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              visitText?: T;
+            };
+      };
   biznes?:
     | T
     | {
@@ -9340,11 +9662,47 @@ export interface CompanyDatum {
     number: string;
     id?: string | null;
   }[];
+  mapsUrl?: string | null;
+  ceidgUrl?: string | null;
+  legal?: {
+    privacy?: string | null;
+    cookies?: string | null;
+    accessibility?: string | null;
+    sitemap?: string | null;
+  };
+  /**
+   * Tryb po decyzji prawnika; formularze przejdą na te pola w D2/D3.
+   */
+  consent?: {
+    mode?: ('checkbox' | 'info') | null;
+    version?: string | null;
+    clause?: string | null;
+  };
+  /**
+   * Włącz dopiero po opinii prawnika (zapis na urządzeniu użytkownika).
+   */
+  recentlyViewed?: boolean | null;
   locations: {
     name: string;
+    /**
+     * Np. „rabka”, „zakopane” — po nim linie wybierają salony.
+     */
+    key?: string | null;
+    /**
+     * Wyłącz, dopóki adres i godziny nie są potwierdzone.
+     */
+    published?: boolean | null;
     street: string;
     postalCode: string;
     city: string;
+    /**
+     * Z OpenStreetMap, np. 49.6086 i 19.9602.
+     */
+    geo?: {
+      lat?: number | null;
+      lng?: number | null;
+    };
+    parkingNote?: string | null;
     /**
      * Dni, w które oddział jest zamknięty, pomiń.
      */
@@ -9358,6 +9716,41 @@ export interface CompanyDatum {
       | null;
     id?: string | null;
   }[];
+  holidays?:
+    | {
+        date: string;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Na stronach tylko opublikowane, w kolejności „Kolejność”.
+   */
+  lines?:
+    | {
+        key: 'prokom' | 'biznes' | 'instalacje' | 'software' | 'tech' | 'zakopane' | 'gaming';
+        name: string;
+        kind: 'linia' | 'marka';
+        order: number;
+        domain?: string | null;
+        url?: string | null;
+        logoLabel?: string | null;
+        color?: string | null;
+        colorOnDark?: string | null;
+        published?: boolean | null;
+        description?: string | null;
+        descriptionLong?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  serviceZones?:
+    | {
+        name: string;
+        towns?: string[] | null;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Widoczny na wybranych stronach, gdy ma tekst i trwa okres od–do.
    */
@@ -9411,13 +9804,40 @@ export interface CompanyDataSelect<T extends boolean = true> {
         number?: T;
         id?: T;
       };
+  mapsUrl?: T;
+  ceidgUrl?: T;
+  legal?:
+    | T
+    | {
+        privacy?: T;
+        cookies?: T;
+        accessibility?: T;
+        sitemap?: T;
+      };
+  consent?:
+    | T
+    | {
+        mode?: T;
+        version?: T;
+        clause?: T;
+      };
+  recentlyViewed?: T;
   locations?:
     | T
     | {
         name?: T;
+        key?: T;
+        published?: T;
         street?: T;
         postalCode?: T;
         city?: T;
+        geo?:
+          | T
+          | {
+              lat?: T;
+              lng?: T;
+            };
+        parkingNote?: T;
         hours?:
           | T
           | {
@@ -9426,6 +9846,38 @@ export interface CompanyDataSelect<T extends boolean = true> {
               closes?: T;
               id?: T;
             };
+        id?: T;
+      };
+  holidays?:
+    | T
+    | {
+        date?: T;
+        label?: T;
+        id?: T;
+      };
+  lines?:
+    | T
+    | {
+        key?: T;
+        name?: T;
+        kind?: T;
+        order?: T;
+        domain?: T;
+        url?: T;
+        logoLabel?: T;
+        color?: T;
+        colorOnDark?: T;
+        published?: T;
+        description?: T;
+        descriptionLong?: T;
+        id?: T;
+      };
+  serviceZones?:
+    | T
+    | {
+        name?: T;
+        towns?: T;
+        note?: T;
         id?: T;
       };
   promoBar?:
