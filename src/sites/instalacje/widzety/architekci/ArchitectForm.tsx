@@ -38,7 +38,7 @@ const CHOICES: { key: Choice; title: string; options: readonly string[] }[] = [
 
 /**
  * „Umów konsultację projektu” (`#wyslij`, `ar.fm`; round v5: no plan link): role, stage and object as chips, name, studio, phone
- * (the line's rule), town, a link to the plans instead of a file (spec §2.6), message, consent.
+ * (the line's rule), town, message, consent.
  * A contact inquiry „Architekci · projekt”; after sending the summary and the number in place,
  * like the service desk form (I11).
  */

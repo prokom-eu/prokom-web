@@ -3135,8 +3135,14 @@
     object-fit: cover;
     transition: scale var(--dur-state) var(--ease-out);
   }
+  /* The chosen card stays raised; pointing at it does not add the hover lift on top. */
   & .arnwi.on {
     translate: 0 -2px;
+  }
+  @media (hover: hover) {
+    & .arnwi.on:hover {
+      transform: none;
+    }
   }
   @media (hover: hover) and (pointer: fine) {
     & .arnwi:hover .arnwph,

@@ -96,8 +96,12 @@ export function DesignerChecklist({ hues, pdfForm }: Props) {
             <span className="mut">{objName}</span>
           </div>
           <div className="arckp">
-            <span aria-live="polite" key={progress.done} className="arckn">
-              {progress.done} / {progress.total}
+            {/* The live region stays; only the number inside is keyed (fades in), so screen
+                readers keep announcing the count (review of PR 5). */}
+            <span aria-live="polite">
+              <span key={progress.done} className="arckn">
+                {progress.done} / {progress.total}
+              </span>
             </span>
             <i>
               <s style={{ width: `${progress.pct}%` }} />

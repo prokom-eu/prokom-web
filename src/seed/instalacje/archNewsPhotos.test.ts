@@ -12,7 +12,7 @@ describe('arch news photos', () => {
 
   it('belong to cards of the import and have their file and an alt text', () => {
     const ids = new Set(archNewsToImport().map((card) => card.legacyId))
-    expect(photos.length).toBe(14)
+    expect(photos.length).toBe(13)
     for (const photo of photos) {
       expect(ids.has(photo.legacyId), `card ${photo.legacyId}`).toBe(true)
       expect(existsSync(path.join(ARCH_NEWS_MEDIA_DIR, photo.file)), photo.file).toBe(true)
@@ -23,8 +23,8 @@ describe('arch news photos', () => {
 
   it('leave the SVG to the cards without an official photo', () => {
     const withPhoto = new Set(photos.map((p) => p.legacyId))
-    // 1 Amina, 3 KEF subwoofer (no image), 14 ColorVu (only a graphic), 15 intercom (a face on
+    // 1 Amina, 3 KEF subwoofer (no image), 6 The Frame (official images too small), 14 ColorVu (only a graphic), 15 intercom (a face on
     // its screen), 19–20 presentation and offer for studios.
-    for (const id of [1, 3, 14, 15, 19, 20]) expect(withPhoto.has(id), `card ${id}`).toBe(false)
+    for (const id of [1, 3, 6, 14, 15, 19, 20]) expect(withPhoto.has(id), `card ${id}`).toBe(false)
   })
 })

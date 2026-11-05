@@ -238,12 +238,7 @@
     "Hotel"
    ],
    "doPotwierdzenia": null,
-   "ilustracja": "M34 26h132v74H34zM42 34h116v58H42zM58 80l24 -26 18 18 14 -12 22 20",
-   "zdjecie": {
-    "plik": "nowosc-06.webp",
-    "alt": "Telewizor Samsung The Frame z obrazem na ścianie salonu",
-    "zrodlo": "https://www.samsung.com/pl/lifestyle-tvs/the-frame/highlights/"
-   }
+   "ilustracja": "M34 26h132v74H34zM42 34h116v58H42zM58 80l24 -26 18 18 14 -12 22 20"
   },
   {
    "kategoria": "scr",

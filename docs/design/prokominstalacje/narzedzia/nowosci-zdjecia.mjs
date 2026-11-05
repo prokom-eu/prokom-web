@@ -5,7 +5,7 @@
 // media/nowosc-<poz>.webp, kadr 4:3, najwyżej 1200 × 900 (bez powiększania — Media robi mniejsze
 // rozmiary). „contain” = produkt na jasnym tle dopełnionym do 4:3, „cover” = zdjęcie wnętrza
 // przycięte do 4:3. Bez obrazu (zostaje ilustracja SVG): 1 Amina (strona nie dała obrazu),
-// 3 KEF Ci200QSb (HTTP 429), 14 ColorVu (na stronie serii tylko grafika „AI”, nie kamera),
+// 3 KEF Ci200QSb (HTTP 429), 6 The Frame (oficjalne obrazy za małe: 330 px i banery 1440×450), 14 ColorVu (na stronie serii tylko grafika „AI”, nie kamera),
 // 15 DS-KV9503-WBE1 (na ekranie urządzenia twarz osoby — zasada „bez zdjęć ludzi”), 19–20.
 import { copyFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -19,7 +19,6 @@ export const PHOTOS = [
   { poz: 2, mode: 'contain', white: true, url: 'https://eu.kef.com/cdn/shop/files/ci200rr_sp3836a_product__front.jpg' },
   { poz: 4, mode: 'contain', url: 'https://media.sonos.com/images/znqtjj88/production/bd7cdd505832336fa3e1813773b2cc5068a806cf-2048x2048.png' },
   { poz: 5, mode: 'cover', url: 'https://www.molecule-audio.com/wp-content/uploads/2025/12/cropped-Molecule-audio_11111.jpg' },
-  { poz: 6, mode: 'cover', url: 'https://images.samsung.com/is/image/samsung/assets/pl/lifestyle-tvs/the-frame/highlights/03-2026/2026-the-frame-why-the-frame-og.jpg' },
   { poz: 7, mode: 'contain', white: true, url: 'https://i8.amplience.net/i/epsonemear/a17797-productpicture-hires-en-int-projector_eh-ls800b_01_header_2000x2000px_png' },
   { poz: 8, mode: 'cover', url: 'https://d2oo5quzpsdib.cloudfront.net/Website/Product/Range/Audio-Visual.jpg' },
   { poz: 9, mode: 'contain', url: 'https://images.samsung.com/is/image/samsung/p6pim/pl/lh55omnesgbxen/gallery/pl-smart-signage-omn-s-lh55omnesgbxen-536771728' },

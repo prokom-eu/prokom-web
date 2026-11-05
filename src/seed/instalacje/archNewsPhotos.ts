@@ -69,7 +69,9 @@ export async function seedArchNewsPhotos(payload: Payload, tenantId: number, cou
             collection: 'media',
             data: {
               alt: photo.alt,
-              source: `materiały producenta: ${photo.source}`,
+              source: photo.source.startsWith('https://')
+                ? `materiały producenta: ${photo.source}`
+                : photo.source,
               tenant: tenantId,
             },
             filePath: path.resolve(ARCH_NEWS_MEDIA_DIR, photo.file),
