@@ -368,6 +368,8 @@ export type ArchNewsCard = {
   examples: string | null
   places: string[]
   illustration: string | null
+  /** Round v5 (RUNDA-V5 §7.2): the product photo; without it the card keeps its SVG. */
+  image: PublicImage | null
   featured: boolean
 }
 
@@ -383,10 +385,11 @@ export const getInstArchNews = cache(async (tenantId: number): Promise<ArchNewsC
     where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
     sort: ['order', 'id'],
     draft: false,
-    depth: 0,
+    depth: 1,
     limit: LIMIT,
     overrideAccess: true,
     select: {
+      image: true,
       title: true,
       category: true,
       type: true,
@@ -410,6 +413,7 @@ export const getInstArchNews = cache(async (tenantId: number): Promise<ArchNewsC
     examples: d.examples ?? null,
     places: (d.places ?? []).map((p) => p.name),
     illustration: d.illustration ?? null,
+    image: publicImage(d.image, tenantId),
     featured: d.featured ?? false,
   }))
 })

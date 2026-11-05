@@ -1,5 +1,6 @@
 'use client'
 
+import { MediaImage } from '@/components/MediaImage'
 import { type CSSProperties, type ReactNode, useState } from 'react'
 
 import type { ArchNewsCard } from '@/lib/instalacje/data'
@@ -78,7 +79,8 @@ export function SolutionsExplorer({ cards, hues, newsletterForm }: Props) {
       </div>
       {cur && (
         <div className="arnx ri">
-          <div className="arnxl" role="group" aria-label={T.listLabel}>
+          {/* The key changes with the filter: the list cross-fades in (RUNDA-V5 §7.3). */}
+          <div className="arnxl" role="group" aria-label={T.listLabel} key={s.filter}>
             {list.map((n) => {
               const on = n.id === cur.id
               return (
@@ -90,8 +92,13 @@ export function SolutionsExplorer({ cards, hues, newsletterForm }: Props) {
                   aria-pressed={on}
                   onClick={() => setS({ ...s, selected: n.id })}
                 >
-                  <span className="arnwth">
-                    <Art d={n.illustration} />
+                  <span className={n.image ? 'arnwth arnwthp' : 'arnwth'}>
+                    {n.image ? (
+                      // The name is in the card's text: the photo is decoration here.
+                      <MediaImage image={{ ...n.image, alt: '' }} sizes="96px" className="arnwph" />
+                    ) : (
+                      <Art d={n.illustration} />
+                    )}
                   </span>
                   <span className="arnwtx">
                     <span className="arnwm">
@@ -106,8 +113,16 @@ export function SolutionsExplorer({ cards, hues, newsletterForm }: Props) {
             })}
           </div>
           <article className="arnxd" style={hue(hues, cur.category)} key={cur.id}>
-            <div className="arnxa">
-              <Art d={cur.illustration} />
+            <div className={cur.image ? 'arnxa arnxap' : 'arnxa'}>
+              {cur.image ? (
+                <MediaImage
+                  image={cur.image}
+                  sizes="(min-width: 1100px) 560px, 100vw"
+                  className="arnxph"
+                />
+              ) : (
+                <Art d={cur.illustration} />
+              )}
               <span className={hotType(cur.type) ? 'arty hot' : 'arty'}>{cur.type}</span>
               <span className="arnxpos">{newsPosition(cards, s)}</span>
             </div>

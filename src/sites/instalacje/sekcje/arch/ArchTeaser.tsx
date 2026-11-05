@@ -55,7 +55,7 @@ export async function ArchTeaser({ tenantId }: { tenantId: number }) {
                 {T.more}
               </Link>
               <Link href={`${PAGE}#wyslij`} className="btn btn-g">
-                <InstIcon name="upload" />
+                <InstIcon name="cal" />
                 {T.send}
               </Link>
             </div>

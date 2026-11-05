@@ -1,6 +1,8 @@
 'use client'
 
-import { useId, useState } from 'react'
+import { useId, useRef, useState } from 'react'
+
+import { SlidingPill } from '@/components/motion/SlidingPill'
 
 import { architekci as A } from '../../dane/architekci'
 import { InstIcon } from '../../InstIcon'
@@ -20,13 +22,16 @@ export const stageBar = (i: number, n: number) => `${Math.round(((i + 0.5) / n) 
 export function StageTabs() {
   const id = useId()
   const [i, setI] = useState(1)
+  const tabs = useRef<HTMLDivElement>(null)
   const n = A.stages.length
   const cur = A.stages[i] ?? A.stages[0]
   if (!cur) return null
 
   return (
     <>
-      <div className="artabs ri" role="tablist" aria-label={T.tabsLabel}>
+      <div ref={tabs} className="artabs ri" role="tablist" aria-label={T.tabsLabel}>
+        {/* Round v5 (RUNDA-V5 §7.3): a pill flows under the chosen stage. */}
+        <SlidingPill container={tabs} active={i} className="inst-pill" radius={14} />
         <div className="artrack">
           <i style={{ width: stageBar(i, n) }} />
         </div>

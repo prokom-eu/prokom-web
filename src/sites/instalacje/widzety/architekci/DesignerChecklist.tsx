@@ -96,8 +96,12 @@ export function DesignerChecklist({ hues, pdfForm }: Props) {
             <span className="mut">{objName}</span>
           </div>
           <div className="arckp">
+            {/* The live region stays; only the number inside is keyed (fades in), so screen
+                readers keep announcing the count (review of PR 5). */}
             <span aria-live="polite">
-              {progress.done} / {progress.total}
+              <span key={progress.done} className="arckn">
+                {progress.done} / {progress.total}
+              </span>
             </span>
             <i>
               <s style={{ width: `${progress.pct}%` }} />
@@ -105,8 +109,9 @@ export function DesignerChecklist({ hues, pdfForm }: Props) {
           </div>
         </div>
         {checklistItems(s).length === 0 && <p className="mut">{T.empty}</p>}
+        {/* Keyed by the object: a new object's list cross-fades in (RUNDA-V5 §7.3). */}
         {phases.map((p) => (
-          <div key={p.key} className="arckg">
+          <div key={`${s.obj}-${p.key}`} className="arckg">
             <span className="arckgh">
               <InstIcon name={p.icon} size={16} />
               {p.name}

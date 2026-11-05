@@ -44,7 +44,8 @@ type Installation = {
 export const architekci = {
   hero: {
     buttons: [
-      { label: 'Wyślij rzuty do konsultacji', href: '#wyslij', icon: 'upload', primary: true },
+      // Round v5 (RUNDA-V5 §7.1, decision 03.11): no files are sent through the site.
+      { label: 'Umów konsultację projektu', href: '#wyslij', icon: 'cal', primary: true },
       { label: 'Umów prezentację dla pracowni', href: '#pokaz', icon: null, primary: false },
     ] as { label: string; href: string; icon: InstIconName | null; primary: boolean }[],
   },
@@ -62,7 +63,7 @@ export const architekci = {
     { id: 'doswiadczenie', label: 'Doświadczenie' },
     { id: 'biblioteka', label: 'Biblioteka' },
     { id: 'faq', label: 'Pytania' },
-    { id: 'wyslij', label: 'Wyślij rzuty' },
+    { id: 'wyslij', label: 'Konsultacja' },
   ],
   /** Sections folded on a phone and their height (`zrodlo/fold.json` → `Architekci`). */
   fold: {
@@ -92,7 +93,7 @@ export const architekci = {
         'Opis systemów prostym językiem dla inwestora',
         'Konsultacja na etapie koncepcji, zanim zamkniesz projekt',
       ],
-      cta: { label: 'Wyślij rzuty', href: '#wyslij' },
+      cta: { label: 'Umów konsultację', href: '#wyslij' },
     },
     {
       key: 'wn',
@@ -264,7 +265,7 @@ export const architekci = {
     eyebrow: 'Konkretnie',
     heading: 'Co od Ciebie,',
     accent: 'co od nas.',
-    lead: 'Bez spotkań, z których nic nie wynika. Wysyłasz rzuty, dostajesz wytyczne, które da się wpisać w projekt.',
+    lead: 'Bez spotkań, z których nic nie wynika. Rzuty pokażesz nam na spotkaniu albo online; w zamian dostajesz plan urządzeń i wytyczne do projektu.',
     fromYou: 'Od Ciebie',
     fromUs: 'Od nas',
     // TODO(krystian): szef — co bezpłatnie przy montażu u nas (dopisać do notki).
@@ -272,7 +273,7 @@ export const architekci = {
   },
   exchange: {
     fromYou: [
-      { title: 'Rzuty', text: 'PDF albo DWG, nawet wersja robocza.' },
+      { title: 'Rzuty', text: 'Na spotkaniu albo online, nawet wersja robocza.' },
       { title: 'Wysokości i przekroje', text: 'Sufity podwieszane, wnęki, zabudowy.' },
       { title: 'Projekt wnętrz i oświetlenia', text: 'Jeśli już jest. Dopasujemy się do niego.' },
       { title: 'Harmonogram budowy', text: 'Kiedy tynki, kiedy wykończenie.' },
@@ -759,7 +760,7 @@ export const architekci = {
     // Spec §2.2: no promise of a higher flat price — this sentence stays.
     noPromise:
       'Nie obiecujemy, że smart home podniesie cenę lokalu: polskie dane tego nie potwierdzają. Pokazujemy to, co realnie przekonuje kupujących: bezpieczeństwo, szybki internet i miejsce do ładowania auta.',
-    cta: 'Wyślij projekt inwestycji →',
+    cta: 'Umów rozmowę o inwestycji →',
   },
   developersData: [
     {
@@ -1179,7 +1180,7 @@ export const architekci = {
     aside: {
       title: 'Jedno pytanie do projektu?',
       text: 'Zadzwoń albo napisz. Zawsze pomożemy, nawet jeśli chodzi tylko o puszkę pod kamerę.',
-      cta: 'Wyślij rzuty',
+      cta: 'Umów konsultację',
       href: '#wyslij',
     },
   },
@@ -1238,12 +1239,12 @@ export const architekci = {
     },
   ],
   formSection: {
-    eyebrow: 'Wyślij rzuty',
-    heading: 'Prześlij projekt.',
+    eyebrow: 'Konsultacja projektu',
+    heading: 'Porozmawiajmy o projekcie.',
     accent: 'Oddzwonimy z konkretami.',
-    lead: 'Opiekun przejrzy rzuty i zadzwoni z pierwszymi uwagami: co przewidzieć, gdzie miejsce na szafę rack, na co uważać w suficie i elewacji.',
+    lead: 'Opiekun zadzwoni z pierwszymi uwagami i umówi spotkanie albo rozmowę online: co przewidzieć, gdzie miejsce na szafę rack, na co uważać w suficie i elewacji.',
     steps: [
-      'Wysyłasz rzuty i etap projektu',
+      'Opisujesz projekt i jego etap',
       'Oddzwaniamy do 24 h w dni robocze',
       'Dostajesz uwagi i propozycję zakresu',
     ],
@@ -1254,7 +1255,7 @@ export const architekci = {
     objects: ['Dom', 'Apartamenty', 'Pensjonat, hotel', 'Lokal', 'Wielorodzinny', 'Inny'],
   },
   formTexts: {
-    region: 'Formularz: wyślij rzuty do opiekuna',
+    region: 'Formularz: umów konsultację projektu',
     role: 'Kim jesteś',
     stage: 'Etap projektu',
     object: 'Obiekt',
@@ -1266,20 +1267,16 @@ export const architekci = {
     phonePlaceholder: 'np. 600 000 000',
     town: 'Miejscowość inwestycji',
     townPlaceholder: 'np. Zakopane',
-    // Spec §2.6: no upload in v1 — a link instead of the file field.
-    link: 'Link do rzutów (opcjonalnie)',
-    linkPlaceholder: 'np. dysk Google, WeTransfer',
-    linkNote: 'Pliki możesz też wysłać mailem w odpowiedzi na potwierdzenie.',
     message: 'Wiadomość',
     messagePlaceholder:
       'Co projektujesz, jakie instalacje rozważa inwestor, na kiedy potrzebujesz uwag',
-    send: 'Wyślij do opiekuna',
+    send: 'Umów konsultację',
     sending: 'Wysyłamy…',
     sentTitle: 'Dziękujemy. Mamy Twoje zgłoszenie.',
     sentNumber: 'Numer zgłoszenia:',
     sentText: 'Opiekun oddzwoni do 24 h w dni robocze. Jeśli projekt jest pilny, zadzwoń:',
-    sentMail: 'Rzuty możesz też wysłać na',
-    again: 'Wyślij kolejny projekt',
+    sentMail: 'Możesz też napisać na',
+    again: 'Zgłoś kolejny projekt',
     errors: {
       name: 'Podaj imię, żebyśmy wiedzieli, jak się do Ciebie zwracać.',
       phone: 'Podaj numer telefonu (9 cyfr), żebyśmy mogli oddzwonić.',
@@ -1328,7 +1325,7 @@ export const architekci = {
       { icon: 'chat', title: 'Zawsze pomożemy', text: 'Nawet jeśli to jedno pytanie do projektu.' },
     ] as { icon: InstIconName; title: string; text: string }[],
     more: 'Współpraca dla architektów →',
-    send: 'Wyślij rzuty',
+    send: 'Umów konsultację',
     news: 'Nowość',
   },
   /** The link from service pages and „Dla kogo” pages (spec §7, ADR-I005). */

@@ -18,14 +18,14 @@ import {
 const send = { href: 'https://prokominstalacje.pl/dla-architektow', formToken: 't', website: '' }
 const accepted = (body: unknown) => parseInquiryInput(body, 'instalacje').success
 
-describe('„Wyślij rzuty”', () => {
+// Round v5 (RUNDA-V5 §7.1, decision 03.11): no files through the site — no plan link either.
+describe('„Umów konsultację projektu”', () => {
   const filled = {
     ...INITIAL_PROJECT,
     name: 'Anna Kowalska',
     firm: 'Pracownia A',
     phone: '600 100 200',
     town: 'Zakopane',
-    link: 'https://example.test/rzuty',
     message: 'Dom z poddaszem.',
     consent: true,
   }
@@ -48,7 +48,8 @@ describe('„Wyślij rzuty”', () => {
     })
     expect(body.message).toContain('Kim jestem: Architekt')
     expect(body.message).toContain('Etap projektu: Projekt budowlany')
-    expect(body.message).toContain('Link do rzutów: https://example.test/rzuty')
+    expect(body.message).not.toMatch(/rzut|link/i)
+    expect(Object.keys(INITIAL_PROJECT)).not.toContain('link')
     expect(projectSummary(filled)).toBe('Architekt · Projekt budowlany · Dom')
     // Without a phone the server refuses it too (the line's rule).
     expect(accepted(projectBody({ ...filled, phone: '' }, send))).toBe(false)

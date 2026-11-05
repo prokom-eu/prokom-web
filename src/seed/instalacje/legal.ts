@@ -36,7 +36,7 @@ const PRIVACY = [
   ul(
     [
       { bold: 'Formularze' },
-      ' (Zaplanuj instalację, Kontakt, Serwis, przedmiar teletechniki, formularz na stronie głównej, formularze dla architektów): imię, telefon, e-mail, nazwę pracowni lub firmy, miejscowość, treść wiadomości, wybrane usługi i odpowiedzi kreatora, pilność zgłoszenia, link do rzutów i preferowany sposób kontaktu — tylko te, które podasz.',
+      ' (Zaplanuj instalację, Kontakt, Serwis, przedmiar teletechniki, formularz na stronie głównej, formularze dla architektów): imię, telefon, e-mail, nazwę pracowni lub firmy, miejscowość, treść wiadomości, wybrane usługi i odpowiedzi kreatora, pilność zgłoszenia i preferowany sposób kontaktu — tylko te, które podasz.',
     ],
     ['Adres strony, z której wysłano formularz, i parametry kampanii z adresu (utm), jeśli były.'],
     ['Informację o zgodzie: kiedy ją wyraziłeś i której wersji klauzuli dotyczyła.'],
