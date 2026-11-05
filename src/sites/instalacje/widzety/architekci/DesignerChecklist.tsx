@@ -96,7 +96,7 @@ export function DesignerChecklist({ hues, pdfForm }: Props) {
             <span className="mut">{objName}</span>
           </div>
           <div className="arckp">
-            <span aria-live="polite">
+            <span aria-live="polite" key={progress.done} className="arckn">
               {progress.done} / {progress.total}
             </span>
             <i>
@@ -105,8 +105,9 @@ export function DesignerChecklist({ hues, pdfForm }: Props) {
           </div>
         </div>
         {checklistItems(s).length === 0 && <p className="mut">{T.empty}</p>}
+        {/* Keyed by the object: a new object's list cross-fades in (RUNDA-V5 §7.3). */}
         {phases.map((p) => (
-          <div key={p.key} className="arckg">
+          <div key={`${s.obj}-${p.key}`} className="arckg">
             <span className="arckgh">
               <InstIcon name={p.icon} size={16} />
               {p.name}

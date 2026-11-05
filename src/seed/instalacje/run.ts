@@ -7,6 +7,7 @@ import { lineSettingsUpdate, siteContactUpdate } from './contact'
 import { FORM_PAGE_BLOCKS, needsFormBlock } from './formPages'
 import { seedInstalacjeGuide } from './guide'
 import { LEGAL_LINKS, seedInstalacjeLegal } from './legal'
+import { seedArchNewsPhotos } from './archNewsPhotos'
 import { seedInstalacjeHome } from './home'
 import { SERVICE_PAGE_KEYS } from './servicePages'
 import {
@@ -255,6 +256,9 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
       count('inst-arch-news', changed ? 'updated' : 'skipped')
     }
   }
+
+  // Round v5 (RUNDA-V5 §7.2): product photos for cards whose photo is empty.
+  await seedArchNewsPhotos(payload, tenantId, count)
 
   // --- realizations: published with the clients' consent (boss 01.11.2026) ---
   for (const data of realizationsToImport()) {
