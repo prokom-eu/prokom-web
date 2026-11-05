@@ -1,54 +1,95 @@
-# Elementy wspólne linii — plan sesji Claude Code (prokom-web) · v2 (01.11.2026)
+# Elementy wspólne linii i maile — plan sesji Claude Code (prokom-web) · v3 (05.11.2026)
 
 Spec: `docs/design/wspolne/WSPOLNE-ELEMENTY.md` · Decyzja: `docs/decyzje/ADR-022-elementy-wspolne-linii.md` · Wzorzec: `docs/design/wspolne/plansze/` (+ płótno Krystiana https://claude.ai/artifact/7HKNezL1nNmgeZPJum8rQG).
 Dotyczy tenantów **biznes, instalacje, software**. Tech (prokomserwis.pl) — osobny plan w `prokom-system/docs/wspolne/`. Gaming — nie dotyczy (poza flagą w `CompanyData.lines`).
 
-**v2 zastępuje plan W0–W7.** Zmiana: część wspólna powstaje **raz** (fundament F0–F3), a wpięcie w strony oraz Kontakt i O firmie z własnymi dodatkami każdej linii robią **sesje linii L1–L2** — w folderze i rytmie danej linii.
+**v3 (05.11, decyzja Krystiana) — duże sesje zamiast małych.** Po F0/F0b zostają **trzy rodzaje dużych sesji**: **D1** (dane wspólne + maile), **D2** (wszystkie komponenty wspólne i szablony stron) i **D3** (jedna sesja na linię: powłoka, szyna, wyszukiwarka, Kontakt, O firmie). Każda duża sesja to **jeden plan i kilka PR-ów piętrowych**, robionych przez kilka wieczorów; ciągłość między wieczorami niesie `docs/STAN.md`. Zakres i zasady v2 (część wspólna raz w folderze fundamentu, linie w swoich folderach, linia nie zmienia części wspólnej) zostają bez zmian. Dotychczasowe prompty F1–F4 i L1–L2 (§2, §3) są teraz **krokami szczegółowymi** dużych sesji — duża sesja odsyła do nich zamiast powtarzać treść. Maile: `docs/zadania/maile-linii.md` (spec `MAILE.md`, ADR-024) — część D1.
 
 ## 0. Podział i zasady
 
-### Fundament (F) — raz, w jednym folderze, jedna sesja naraz
+### Fundament (F0, D1, D2) — raz, w jednym folderze, jedna sesja naraz
 - Folder: ten, w którym akurat **nie** trwa sesja linii (np. folder `prokom-web`). Nigdy dwie sesje Claude Code w jednym folderze.
 - F robi: dokumenty, **dane i migracje**, tokeny, **wszystkie komponenty wspólne** i **szablony stron z miejscami na sekcje linii**, stronę podglądu komponentów. F **nie wpina** niczego w ramki linii (`src/sites/<linia>/…` bez zmian — wyjątek: seed treści linii w F1).
 - Gałęzie `feat/wsp-*` (F0: `docs/wsp-*`), squash do `develop`.
 
-### Sesje linii (L) — w folderze danej linii, po scaleniu odpowiedniego F
+### Sesje linii (D3-B, D3-I, D3-S) — w folderze danej linii, po scaleniu odpowiednich PR-ów D2
 - Przed sesją: `git fetch` + rebase/merge `develop` (musi zawierać F).
 - L **nie zmienia** `src/components/shared/`, `src/lib/shared/`, tokenów ról ani wspólnych pól panelu i **nie robi migracji wspólnych danych**. Brakuje czegoś we wspólnym komponencie → mały osobny PR `feat/wsp-<co>` do `develop` (z testem), potem linia z niego korzysta. Pola **tylko dla linii** (np. treść sekcji własnej) — w ustawieniach tej linii, własną migracją linii.
 - Gałęzie wg konwencji linii (`feat/…`, Instalacje `inst/…`), wpis w STAN linii (`docs/STAN.md` albo `docs/stan/STAN-instalacje.md`).
 
-### Wspólne dla F i L
+### Wspólne dla wszystkich sesji
+- **Duża sesja = jeden plan, kilka PR-ów.** Plan całości w trybie planowania na początku (akceptuje Krystian), potem PR po PR. Po każdym PR: `/przeglad` → `/koniec-sesji` (STAN: „W toku: D2, scalone D2-1, następny D2-2”) → `/pr`. Następny wieczór: `/zadanie D2 — kontynuacja wg STAN` (bez nowego planu, chyba że coś się zmieniło). Kolejny PR piętrowy startuje od poprzedniego; po scaleniu GitHub przestawia bazę na `develop`.
 - Plan w trybie planowania — akceptuje Krystian. Na koniec: `/przeglad` → porównanie z planszami → `/koniec-sesji` → `/pr`.
 - **Przed każdą sesją z UI:** zrzuty dotkniętych stron (1440 i 390, jasny/ciemny) do `tmp/zrzuty-przed/`; po sesji porównanie — każda niezamierzona zmiana poza zakresem = błąd.
 - Diff > 400 linii → PR-y piętrowe.
 - Nie ruszamy: menu linii (dane i mega menu), hero i sekcji sprzedażowych, katalogu, kreatorów. Nowy pomysł → STAN „Pomysły”.
-- Kolejność z bieżącą pracą: poprawki po audytach przed stagingiem (Biznes sesje A/B wg `docs/zadania/prokombiznes.md` §7.2, Instalacje I14b → I-T → I-M) kończymy **przed F1**.
+- Kolejność z bieżącą pracą: poprawki po audytach przed stagingiem (Biznes sesje A/B wg `docs/zadania/prokombiznes.md` §7.2, Instalacje I14b → I-T → I-M) kończymy **przed D1** (D1 robi migrację `SiteSettings`).
 
-## 1. Sesje
+## 1. Sesje (v3)
 
-| Sesja | Etap | Gdzie | Zakres | Szac. | Zależy od |
+| Sesja | Gdzie | PR-y (piętrowo) | Zakres = kroki szczegółowe | Szac. (wieczory) | Warunek |
 |---|---|---|---|---|---|
-| **F0** | A | fundament | pakiet w git, ADR-022, `MAPA-DZIS.md` (z listą dodatków linii na Kontakcie/O firmie), bez kodu | 0,5 | — |
-| **F0b** | A | fundament | uzupełnienie scalonego F0 (02.11): pakiet z szyną, wyszukiwarką i paskiem przewijania, `MAPA-DZIS.md` §10, decyzje 02.11; bez kodu | 0,5 | F0 |
-| **F1** | A | fundament | dane: `CompanyData` (linie, salony, strefy, prawne, `consentMode`), grupa `shared` w `SiteSettings` (ADR-022), migracja, seed z prawdziwymi danymi, hook `[SZEF`, loader | 1 | F0 |
-| **F2** | A | fundament | tokeny ról + komponenty powłoki: `LineLogo`, `OpeningStatus`, `BrandBar`, `SiteHeader`, `SiteFooter`, `LinesBand`, `LegalBar`, `AddressMap`, `TabBar`, `MenuSheet`; **`SiteRail` + powłoka `SearchDialog`**, wspólny silnik wyszukiwania (z Biznesu, bez zmiany jego zachowania); strona podglądu `/_wspolne` (tylko dev/staging); strona Cookies w panelu, jeśli brak | 3 | F1 |
-| **L1-B / L1-I / L1-S** | A | linia | wpięcie powłoki w ramkę linii (pasek marki, nagłówek ze slotami, stopka, dolny pasek i arkusz Menu, **boczna szyna**), usunięcie starej powłoki i WhatsAppa; Instalacje i Software: **indeks wyszukiwarki linii** | B 0,75 · I 1,25 · S 1,25 | F2 |
-| **F3** | B | fundament | moduły: `ContactForm`, `FaqBlock`, `Steps`, `ServiceAreaMap` + `zones.ts`, `Contours`, `CompanyCard`, `StatsStrip`, `RulesBento`, `FamilyStrip`, `VerifyCards`; **szablony `ContactPage`, `AboutPage` z miejscami na sekcje linii** (spec §6.0); wspólne API zgody/walidacji/sukcesu dla formularzy specjalnych | 2 | F2 |
-| **L2-B / L2-I / L2-S** | B | linia | `/kontakt` i `/o-firmie` na szablonie + **sekcje własne linii** w miejscach szablonu; formularze specjalne linii podpięte pod wspólną zgodę/walidację/sukces; usunięcie starych stron i zdjęć ludzi | 1 × 3 | F3, L1 tej linii |
-| **F4** | B | fundament | QA całości po wszystkich L2: e2e 3 tenantów, testy treści, axe, Lighthouse, 360/390/414, porównanie z planszami, „Stan wdrożenia” w spec | 0,5 | wszystkie L2 |
-| | | | **Razem** | **≈ 13** (etap A ≈ 7,5) | |
+| **F0** ✅ | fundament | — | pakiet, ADR-022, `MAPA-DZIS.md` (#282) | 0,5 | — |
+| **F0b** ✅ | fundament | — | szyna, wyszukiwarka, pasek przewijania w pakiecie (#288) | 0,5 | F0 |
+| **D1 — dane i maile** | fundament | **D1-1** dane · **D1-2** maile | kroki **F1** (§2) + kroki **FM** (`maile-linii.md`, 1–11); maile czytają dane kontaktowe z loadera F1 | **1,75** | bieżące rundy linii zakończone |
+| **D2 — komponenty i szablony** | fundament | **D2-1** tokeny, pasek przewijania, powłoka · **D2-2** `SiteRail` + `SearchDialog` + dodatki · **D2-3** formularz i moduły · **D2-4** szablony Kontakt/O firmie + `/_wspolne` | kroki **F2** + **F3** (§2) | **4,5** | D1-1 scalone |
+| **D3-B / D3-I / D3-S — linia na elementach wspólnych** | folder linii | **PR 1** powłoka, szyna, indeks wyszukiwarki (kroki **L1**) · **PR 2** Kontakt, O firmie, formularze specjalne (kroki **L2**) · ostatnia z trzech linii: **PR 3** QA całości (kroki **F4**) | L1 + L2 (§3), F4 | **B 1,5 · I 2 · S 2** (+0,5 QA w ostatniej) | PR 1: D2-2 scalone · PR 2: D2-4 scalone |
+| | | | **Razem do zrobienia (po F0/F0b)** | **≈ 12,25** | |
 
-- **Boczna szyna i wyszukiwarka (02.11):** komponenty w F2, wpięcie i indeks wyszukiwarki w L1. Dodatki przyjęte 02.11: akcja linii z licznikiem, postęp i „Do góry”, „Na tej stronie”, paleta poleceń, ostatnio oglądane (za flagą do opinii prawnika); status i telefon w szynie — nie.
-- **Etap A** (F0, F1, F2, L1 × 3) — przed produkcją linii. **Etap B** (F3, L2 × 3, F4) — przed produkcją, jeśli czas pozwala; jeśli nie (priorytet Gaming 20.11) — po produkcji (adresy stron się nie zmieniają).
-- **Software:** L2-S **zastępuje** budowę Kontaktu i O firmie w SW11a/SW11b (tam zostają `/cennik`, `/audyt`, strony prawne). Jeśli Kontakt z SW11a jest już scalony — L2-S przenosi go na szablon, zachowując „Twój projekt”.
-- **Biznes:** L1-B zastępuje górny pasek i stopkę z ramy K4 oraz dolny pasek M1′; L2-B zastępuje Kontakt i O firmie z K4i (treść K4i → pola szablonu + sekcje własne).
-- **Instalacje:** L1-I zastępuje klasy `topb`/`hdr`/`ftr2` i dolny pasek z I14; L2-I zastępuje `/kontakt` i `/o-firmie` z I11/I12.
-- Kolejność linii w L dowolna (wg tego, która linia ma czas); każda L niezależna od pozostałych linii.
-- Cięcie przy braku czasu: F4 skrócone do testów treści → L2 danej linii po produkcji (stare Kontakt/O firmie zostają, ale **bez WhatsAppa, bez zdjęć ludzi i z danymi z panelu** — to robi L1). **Bez cięć:** F0–F2, L1, rdzeń formularza w F3 (zgoda + walidacja).
+- **Dlaczego duże sesje:** mniej narzutu (jeden plan, jedne zrzuty „przed”, jeden przegląd na całość), a powiązane rzeczy powstają razem — np. maile od razu korzystają z danych F1 zamiast tymczasowego `findMailContext`, a D2 buduje formularz i szablony obok powłoki, na tych samych tokenach. PR-y zostają małe (≤ 400 linii, piętrowo), więc przegląd i CI działają jak dotąd.
+- **Koszt:** pierwsza linia gotowa do produkcji później niż w v2 (cała D3 zawiera też Kontakt i O firmie). **Wyjście awaryjne bez zmiany planu:** PR 1 sesji D3 może zostać scalony, a linia pójść na produkcję ze starym Kontaktem/O firmie oczyszczonym przez PR 1 (bez WhatsAppa, zdjęć ludzi i literałów) — PR 2 dochodzi po produkcji.
+- **Kolejność:** D1 → D2 → D3 linii w dowolnej kolejności (każda w swoim folderze; D3 jednej linii może iść równolegle z D2-3/D2-4 w folderze fundamentu, gdy D2-2 jest scalone). Ostatnia D3 kończy QA całości.
+- **Boczna szyna i wyszukiwarka (02.11):** komponenty w D2-2, wpięcie i indeks wyszukiwarki linii w D3 PR 1. Dodatki przyjęte 02.11: akcja linii z licznikiem, postęp i „Do góry”, „Na tej stronie”, paleta poleceń, ostatnio oglądane (za flagą do opinii prawnika); status i telefon w szynie — nie.
+- **Software:** D3-S PR 2 **zastępuje** budowę Kontaktu i O firmie w SW11a/SW11b (tam zostają `/cennik`, `/audyt`, strony prawne). Jeśli Kontakt z SW11a jest już scalony — przenosi go na szablon, zachowując „Twój projekt”.
+- **Biznes:** D3-B PR 1 zastępuje górny pasek i stopkę z ramy K4 oraz dolny pasek M1′; PR 2 zastępuje Kontakt i O firmie z K4i.
+- **Instalacje:** D3-I PR 1 zastępuje klasy `topb`/`hdr`/`ftr2` i dolny pasek z I14; PR 2 zastępuje `/kontakt` i `/o-firmie` z I11/I12.
+- **Bez cięć:** D1, D2-1, D2-2, D3 PR 1, rdzeń formularza z D2-3 (zgoda + walidacja). Przy braku czasu: QA skrócone do testów treści, D3 PR 2 po produkcji linii.
+
+## 1a. Prompty dużych sesji
+
+### D1 — dane wspólne i maile linii
+```
+/zadanie D1 — dane wspólne i maile linii (duża sesja: kroki F1 + FM, PR-y D1-1 i D1-2)
+Folder fundamentu (bez trwającej sesji linii). Pliki pakietu maili są nieśledzone — commit w D1-2. git fetch; D1-1: gałąź feat/wsp-dane od origin/develop; D1-2: feat/wsp-maile od feat/wsp-dane (piętrowo).
+Przeczytaj: ten plik §0, §1, kroki F1 (§2), docs/zadania/maile-linii.md (kroki 1–11), docs/design/wspolne/WSPOLNE-ELEMENTY.md (§2, §4, §5.1, §6.3), docs/design/wspolne/MAILE.md, ADR-022, ADR-024, MAPA-DZIS.md (§9, §10.1).
+Najpierw JEDEN plan całości w trybie planowania, podzielony na D1-1 i D1-2, z pytaniami do mnie na końcu — czekaj na akceptację.
+D1-1 = kroki F1 (dane, shared w SiteSettings z shared.rail, migracja, seed, hook [SZEF, loader getSharedData).
+D1-2 = kroki FM, z jedną zmianą: kontekst maila (telefon, e-mail, firma, NIP, adres, godziny, polityka prywatności) bierze loader getSharedData z D1-1 zamiast osobnego findMailContext; teksty linii (obietnica, kroki) zostają w src/lib/mail/lineCopy.ts.
+Po każdym PR: /przeglad → /koniec-sesji (STAN: „W toku: D1, …, następny …”) → /pr. Kolejny wieczór: „/zadanie D1 — kontynuacja wg STAN”.
+DoD: DoD kroków F1 i FM; CI zielone dla obu PR-ów.
+```
+
+### D2 — komponenty wspólne i szablony stron
+```
+/zadanie D2 — komponenty wspólne i szablony stron (duża sesja: kroki F2 + F3, PR-y D2-1…D2-4)
+Warunek: D1-1 scalone. Folder fundamentu. git fetch; gałęzie piętrowe feat/wsp-powloka (D2-1) → feat/wsp-szyna (D2-2) → feat/wsp-moduly (D2-3) → feat/wsp-szablony (D2-4).
+Przeczytaj: ten plik §0, §1, kroki F2 i F3 (§2), spec WSPOLNE-ELEMENTY.md (§3, §5, §5.1, §6.0–§6.2, §7), MAPA-DZIS.md (w tym „Dodatki linii” i §10), plansze Chrome, Footer, Telefon, Mapa, Logo, Moduly, Szyna, Kontakt, OFirmie.
+Zrzuty „przed” raz na całą sesję. Najpierw JEDEN plan całości w trybie planowania, podzielony na 4 PR-y, z pytaniami na końcu (m.in. sloty szablonów dla dodatków linii z MAPA-DZIS) — czekaj na akceptację.
+D2-1 = F2 kroki 1, 2, 4 (tokeny ról, pasek przewijania z poprawką Chrome 121+, komponenty powłoki, strona Cookies).
+D2-2 = F2 krok 3a (SiteRail, SearchDialog, wspólny silnik wyszukiwania, dodatki szyny).
+D2-3 = F3 kroki 1–3 (ContactForm, wspólne API zgody/walidacji/sukcesu, FaqBlock, Steps, ServiceAreaMap + zones, moduły O firmie).
+D2-4 = F2 krok 3 + F3 kroki 4–5 (szablony ContactPage i AboutPage z miejscami na sekcje linii, podgląd /_wspolne, /_wspolne/kontakt, /_wspolne/o-firmie dla 3 tenantów).
+Nic nie wpinaj w ramki linii (to D3).
+Po każdym PR: /przeglad → porównanie z planszami → /koniec-sesji (STAN) → /pr. Kolejne wieczory: „/zadanie D2 — kontynuacja wg STAN”.
+DoD: DoD kroków F2 i F3 dla odpowiednich PR-ów; axe 0; CI zielone.
+```
+
+### D3 — linia na elementach wspólnych (wstaw linię)
+```
+/zadanie D3-<B|I|S> — <Biznes|Instalacje|Software> na elementach wspólnych (duża sesja: kroki L1 + L2, PR 1 i PR 2)
+[wspólny początek z §3]
+Warunek: PR 1 — D2-2 scalone; PR 2 — D2-4 scalone. Folder tej linii, gałęzie wg konwencji linii (piętrowo: PR 2 od PR 1).
+Najpierw JEDEN plan całości w trybie planowania (oba PR-y, lista dodatków linii na Kontakcie i O firmie z MAPA-DZIS) — czekaj na akceptację.
+PR 1 = kroki L1 dla tej linii (powłoka, szyna, indeks wyszukiwarki, dodatki szyny, usunięcie WhatsAppa i literałów).
+PR 2 = kroki L2 dla tej linii (Kontakt i O firmie na szablonie + sekcje własne, formularze specjalne pod wspólną zgodą/walidacją/sukcesem, usunięcie starych stron i zdjęć ludzi).
+Jeśli to ostatnia z trzech linii: PR 3 = kroki F4 (QA całości) w gałęzi feat/wsp-qa.
+Po każdym PR: /przeglad → porównanie z planszami → /koniec-sesji (STAN linii) → /pr. Kolejne wieczory: „/zadanie D3-<X> — kontynuacja wg STAN”.
+DoD: DoD kroków L1 i L2 (i F4 w ostatniej); CI zielone.
+```
 
 ---
 
-## 2. Prompty — fundament
+## 2. Kroki szczegółowe — fundament (używane przez F0, D1, D2; sesje F1–F4 nie są już osobne)
 
 ### F0 — pakiet, ADR-022, mapa „dziś → docelowo” (bez kodu)
 ```
@@ -139,9 +180,9 @@ DoD: raport w PR, CI zielone.
 
 ---
 
-## 3. Prompty — sesje linii
+## 3. Kroki szczegółowe — linie (używane przez D3)
 
-Każdy prompt L zaczyna się tym blokiem („wspólny początek”):
+Każdy prompt D3 zaczyna się tym blokiem („wspólny początek”; „L1/L2” = PR 1/PR 2 sesji D3, „F2/F3” = PR-y D2):
 ```
 Warunek: develop zawiera F2 (dla L1) / F3 (dla L2). Najpierw git fetch i rebase (albo merge) origin/develop do gałęzi bazowej linii; sprawdź, że src/components/shared/ istnieje.
 Zasada: NIE zmieniasz src/components/shared/, src/lib/shared/, tokenów ról ani wspólnych pól/migracji. Brakuje czegoś wspólnego → zatrzymaj się i zaproponuj mały PR feat/wsp-<co> do develop.
