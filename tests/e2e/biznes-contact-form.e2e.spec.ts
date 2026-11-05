@@ -73,8 +73,8 @@ test.describe('Biznes contact form v20 (B8a)', () => {
       })
       // No e-mail given: only the office notification, with the number in the subject.
       await expect
-        .poll(() => subjects(request, `"${marker}"`), { timeout: 15_000 })
-        .toContain(`Zapytanie ${String(record?.number)} — Biznes`)
+        .poll(() => subjects(request, String(record?.number)), { timeout: 15_000 })
+        .toContain(`[Biznes] ${String(record?.number)} · Kontakt · ${marker}`)
     } finally {
       expect((await api(page, 'DELETE', `/api/inquiries/${record?.id}`)).status).toBe(200)
     }
