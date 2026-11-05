@@ -1,75 +1,12 @@
+import { ICON_NAMES } from '../shared/icons'
+
 /**
  * Fixed option lists of the Biznes catalog (ADR-012). They are database enums, so a new
  * value needs a migration — fine for lists that change with the design, not with the content.
  */
 
-/**
- * Line icons of the design, one set for every line (ADR-014 rozstrz. 8): Biznes
- * (`seed/prokombiznes/ikony.json`, B2) and Software (`seed/prokomsoftware/ikony.json`, SW3).
- */
-export const ICON_NAMES = [
-  'shield',
-  'cal',
-  'users',
-  'store',
-  'bolt',
-  'doc',
-  'life',
-  'arrow',
-  'check',
-  'phone',
-  'mail',
-  'pin',
-  'clock',
-  'monitor',
-  'remote',
-  'bell',
-  'wallet',
-  'chat',
-  'wrench',
-  'rocket',
-  'map',
-  'star',
-  'q',
-  'flash',
-  'grad',
-  'server',
-  'compass',
-  // Software (`seed/prokomsoftware/ikony.json`, SW3).
-  'panel',
-  'site',
-  'grid',
-  'plug',
-  'ticket',
-  'lifebuoy',
-  'chart',
-  'sign',
-  'cash',
-  'search',
-  'x',
-  'bed',
-  'food',
-  'refresh',
-  'globe',
-  'box',
-  'car',
-  'home',
-  'mountain',
-  'heart',
-  'bag',
-  'card',
-  'target',
-  'key',
-  'mega',
-  'mount',
-  'brief',
-] as const
-
-export type IconName = (typeof ICON_NAMES)[number]
-
-export function isIconName(value: unknown): value is IconName {
-  return typeof value === 'string' && (ICON_NAMES as readonly string[]).includes(value)
-}
+// Icon names live with the shared elements (D2-2); the catalog keeps these imports working.
+export { ICON_NAMES, isIconName, type IconName } from '../shared/icons'
 
 export const ICON_OPTIONS = ICON_NAMES.map((name) => ({ label: name, value: name }))
 

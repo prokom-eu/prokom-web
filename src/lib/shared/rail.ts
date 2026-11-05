@@ -1,4 +1,4 @@
-import { isIconName, type IconName } from '../catalog/options'
+import { isIconName, type IconName } from './icons'
 import { plural } from '../plural'
 
 /** A section of the line's home page in the rail (`shared.rail.sections`, spec §5.1). */

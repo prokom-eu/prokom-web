@@ -616,32 +616,37 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
  * 248 px on hover or keyboard focus after 120 ms and folds after 250 ms; labels slide in with a
  * 20 ms cascade. Colours from the line tokens; motion only transform / opacity / clip-path.
  */
-.srail {
-  --rail-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+.srail-wrap {
   position: fixed;
   top: 50%;
   left: 16px;
   z-index: 30;
   display: none;
+  filter: drop-shadow(0 14px 30px var(--cap-shadow));
+  translate: 0 -50%;
+}
+.srail {
+  /* Delays of the hover bridge (as the mega menus): open after 120 ms, fold after 250 ms. */
+  --rail-open-delay: var(--dur-press);
+  --rail-close-delay: 250ms;
+  position: relative;
+  display: flex;
   flex-direction: column;
   gap: 2px;
   box-sizing: border-box;
   width: 248px;
   max-height: calc(100dvh - 32px);
   padding: 8px;
+  border: 1px solid var(--border);
   border-radius: 22px;
   background: var(--card);
-  box-shadow:
-    0 0 0 1px var(--border),
-    0 14px 30px -14px var(--cap-shadow);
   font-size: 14px;
-  translate: 0 -50%;
   clip-path: inset(0 calc(100% - 64px) 0 0 round 22px);
-  transition: clip-path 280ms var(--rail-ease) 250ms;
+  transition: clip-path var(--dur-state) var(--ease-out) var(--rail-close-delay);
 }
 @media (min-width: 1400px) {
-  .srail {
-    display: flex;
+  .srail-wrap {
+    display: block;
   }
   /* The capsule keeps clear of the rail (64 px + 16 px on each side of it). */
   html:has([data-site-rail]) {
@@ -651,7 +656,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 .srail:hover,
 .srail:focus-within {
   clip-path: inset(0 0 0 0 round 22px);
-  transition-delay: 120ms;
+  transition-delay: var(--rail-open-delay);
 }
 .srail[data-collapsed] {
   clip-path: inset(0 calc(100% - 64px) 0 0 round 22px);
@@ -676,7 +681,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   text-align: left;
   white-space: nowrap;
   cursor: pointer;
-  transition: color 200ms;
+  transition: color var(--dur-hover);
 }
 .srail__item:hover {
   color: var(--ink);
@@ -695,7 +700,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
   color: var(--accent-ink);
   font-weight: 800;
-  transition: transform 120ms;
+  transition: transform var(--dur-press);
 }
 .srail__search:active {
   transform: scale(0.97);
@@ -709,7 +714,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   opacity: 0;
   content: '';
   pointer-events: none;
-  animation: srail-pulse 1.6s var(--rail-ease) 0.6s 1;
+  animation: srail-pulse 1.6s var(--ease-out) 0.6s 1;
 }
 @keyframes srail-pulse {
   0% {
@@ -733,7 +738,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   justify-content: center;
   width: 22px;
   height: 22px;
-  transition: transform 200ms var(--rail-ease);
+  transition: transform var(--dur-hover) var(--ease-out);
 }
 .srail__item:hover .srail__icon {
   transform: translateX(2px) scale(1.06);
@@ -746,8 +751,8 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   opacity: 0;
   transform: translateX(-8px);
   transition:
-    opacity 200ms,
-    transform 280ms var(--rail-ease);
+    opacity var(--dur-hover),
+    transform var(--dur-state) var(--ease-out);
 }
 .srail:is(:hover, :focus-within):not([data-collapsed]) .srail__label {
   opacity: 1;
@@ -822,7 +827,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   border-radius: 13px;
   background: var(--accent-soft);
   box-shadow: inset 3px 0 0 var(--accent-text);
-  transition: transform 420ms var(--rail-ease);
+  transition: transform var(--dur-sheet) var(--ease-out);
 }
 .srail__badge {
   position: absolute;
@@ -841,7 +846,9 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   color: var(--accent-ink);
   font-size: 10.5px;
   font-weight: 800;
-  animation: srail-bump 360ms var(--rail-ease) 1;
+}
+.srail__badge[data-bump] {
+  animation: srail-bump var(--dur-state) var(--ease-spring) 1;
 }
 @keyframes srail-bump {
   40% {
@@ -854,9 +861,9 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   transform: translateY(6px);
   pointer-events: none;
   transition:
-    opacity 200ms,
-    transform 280ms var(--rail-ease),
-    color 200ms;
+    opacity var(--dur-hover),
+    transform var(--dur-state) var(--ease-out),
+    color var(--dur-hover);
 }
 .srail__up[data-shown] {
   opacity: 1;
@@ -880,6 +887,22 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   transform: scaleY(var(--rail-progress, 0));
   transform-origin: top;
 }
+/* Where the browser can, the line follows the page scroll on its own (the variable stays as the
+   fallback set once per frame). */
+@supports (animation-timeline: scroll()) {
+  .srail__progress > span {
+    animation: srail-progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes srail-progress {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .srail,
   .srail__label,
@@ -889,7 +912,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
     transition: none;
   }
   .srail__search[data-pulse]::after,
-  .srail__badge {
+  .srail__badge[data-bump] {
     animation: none;
   }
 }

@@ -20,7 +20,8 @@ test.describe('/_wspolne — side rail (1440 px)', () => {
   }) => {
     await page.goto(site('software.localhost', '/_wspolne'))
     await expect(rail(page)).toBeVisible()
-    await expect(rail(page)).toHaveAttribute('aria-label', 'Nawigacja strony')
+    await expect(rail(page)).toHaveAttribute('aria-label', 'Sekcje strony')
+    await expect(rail(page).getByRole('group', { name: 'Na tej stronie' })).toBeVisible()
     const pageLinks = rail(page).locator('.srail__list').first().getByRole('link')
     await expect(pageLinks).toHaveText(['Kapsuła', 'Mapa adresu', 'Stopka'])
 
@@ -63,6 +64,11 @@ test.describe('/_wspolne — side rail (1440 px)', () => {
       .toBe('inset(0px round 22px)')
     await page.keyboard.press('Escape')
     await expect(rail(page)).toHaveAttribute('data-collapsed', '')
+    // Focus stays where it was (WCAG 2.4.3); the rail is folded around it.
+    await expect(search).toBeFocused()
+    await expect
+      .poll(() => rail(page).evaluate((nav) => getComputedStyle(nav).clipPath))
+      .toBe('inset(0px calc(100% - 64px) 0px 0px round 22px)')
   })
 
   test('„Do góry” comes after a screen of scrolling and takes focus to the content', async ({

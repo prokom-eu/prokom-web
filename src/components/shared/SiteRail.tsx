@@ -1,7 +1,9 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import {
   useEffect,
+  useId,
   useLayoutEffect,
   useRef,
   useState,
@@ -63,7 +65,7 @@ function readPageSections(): string {
 }
 
 /** Anchors of the home page sections present in the DOM. */
-const readPresent = (ids: string) => () =>
+const readPresent = (ids: string) =>
   ids
     .split(' ')
     .filter((id) => id && document.getElementById(id))
@@ -103,8 +105,23 @@ function focusSection(section: HTMLElement) {
  */
 export function SiteRail({ sections, onHome, action }: SiteRailProps) {
   const ids = sections.map((section) => section.anchorId).join(' ')
-  const presentIds = useSyncExternalStore(noSubscription, readPresent(ids), () => null)
-  const pageJson = useSyncExternalStore(noSubscription, readPageSections, () => '[]')
+  const pathname = usePathname()
+  // The page is read after each navigation (in D3 the rail lives in the line's frame, which stays
+  // mounted while App Router swaps the page). Before that — server, first paint — every home page
+  // section counts and the subpage has no group.
+  const [dom, setDom] = useState<{ present: string | null; page: string }>({
+    present: null,
+    page: '[]',
+  })
+  useEffect(() => {
+    const timer = window.setTimeout(
+      () => setDom({ present: readPresent(ids), page: readPageSections() }),
+      0,
+    )
+    return () => window.clearTimeout(timer)
+  }, [pathname, ids])
+  const presentIds = dom.present
+  const pageJson = dom.page
   const mac = useSyncExternalStore(noSubscription, isMac, () => false)
 
   const home = presentSections(
@@ -126,6 +143,7 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
   const [homeOpen, setHomeOpen] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
   const [pulse, setPulse] = useState(false)
+  const homeListId = useId()
   const progress = useRef<HTMLSpanElement>(null)
   const list = useRef<HTMLDivElement>(null)
   const [markerTop, setMarkerTop] = useState<number | null>(null)
@@ -194,10 +212,10 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
     return () => observer.disconnect()
   }, [active, trackedKey])
 
+  // Esc folds the rail and leaves focus where it is (WCAG 2.4.3); the next focus move or the
+  // pointer coming back opens it again.
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key !== 'Escape') return
-    setCollapsed(true)
-    ;(document.activeElement as HTMLElement | null)?.blur()
+    if (event.key === 'Escape') setCollapsed(true)
   }
 
   const glide = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -224,6 +242,8 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
   }
 
   const count = action?.count ?? 0
+  // The badge hops when the count changes, not on the first paint of the page.
+  const [initialCount] = useState(count)
   const sectionLink = (
     id: string,
     label: string,
@@ -241,7 +261,14 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
       <span className="srail__icon">
         <Icon name={railIcon(icon)} strokeWidth={1.8} className="size-[22px]" />
       </span>
-      <span className="srail__label">{label}</span>
+      <span className="srail__label">
+        {label}
+        {!inList && !onHome && (
+          <span className="srail__aside" aria-hidden="true">
+            ↗
+          </span>
+        )}
+      </span>
     </a>
   )
 
@@ -256,133 +283,154 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
   )
 
   return (
-    <nav
-      aria-label={onHome ? 'Sekcje strony' : 'Nawigacja strony'}
-      className="srail"
-      data-collapsed={collapsed ? '' : undefined}
-      data-site-rail
-      onKeyDown={onKeyDown}
-      onMouseLeave={() => setCollapsed(false)}
-      // Esc folds it until the pointer leaves or focus comes back from outside.
-      onFocus={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setCollapsed(false)
-      }}
-    >
-      <button
-        type="button"
-        className="srail__search"
-        data-pulse={pulse ? '' : undefined}
-        aria-haspopup="dialog"
-        aria-keyshortcuts="Control+K Meta+K /"
-        onClick={() => requestSearch()}
+    // The wrapper carries the position and the shadow: `clip-path` on the rail would cut both.
+    <div className="srail-wrap" data-site-rail-wrap>
+      <nav
+        aria-label="Sekcje strony"
+        className="srail"
+        data-collapsed={collapsed ? '' : undefined}
+        data-site-rail
+        onKeyDown={onKeyDown}
+        onMouseEnter={() => setCollapsed(false)}
+        onFocus={() => setCollapsed(false)}
       >
-        <span className="srail__icon">
-          <Icon name="search" strokeWidth={2} className="size-[22px]" />
-        </span>
-        <span className="srail__label">
-          Szukaj
-          <kbd className="srail__kbd">{mac ? '⌘K' : 'Ctrl K'}</kbd>
-        </span>
-      </button>
-      <span className="srail__sep" aria-hidden="true" />
-
-      {pageGroup && (
-        <>
-          <span className="srail__caption" aria-hidden="true">
-            <span className="srail__icon">•</span>
-            <span className="srail__label">Na tej stronie</span>
+        <button
+          type="button"
+          className="srail__search"
+          data-pulse={pulse ? '' : undefined}
+          aria-haspopup="dialog"
+          aria-keyshortcuts="Control+K Meta+K /"
+          onClick={() => requestSearch()}
+        >
+          <span className="srail__icon">
+            <Icon name="search" strokeWidth={2} className="size-[22px]" />
           </span>
+          <span className="srail__label">
+            Szukaj
+            <kbd className="srail__kbd">{mac ? '⌘K' : 'Ctrl K'} lub /</kbd>
+          </span>
+        </button>
+        <span className="srail__sep" aria-hidden="true" />
+
+        {pageGroup && (
+          <>
+            <span className="srail__caption" aria-hidden="true">
+              <span className="srail__icon">•</span>
+              <span className="srail__label">Na tej stronie</span>
+            </span>
+            <div
+              ref={list}
+              role="group"
+              aria-label="Na tej stronie"
+              className="srail__list"
+              data-scroll-thin
+              data-long={pageSections.length > PAGE_GROUP_MAX ? '' : undefined}
+            >
+              {markerTop !== null && (
+                <span
+                  aria-hidden="true"
+                  className="srail__marker"
+                  style={{ transform: `translateY(${markerTop}px)` } as CSSProperties}
+                />
+              )}
+              {pageSections.map((section) =>
+                sectionLink(section.id, section.label, section.icon, `#${section.id}`, true),
+              )}
+            </div>
+            <span className="srail__sep" aria-hidden="true" />
+            <button
+              type="button"
+              className="srail__item"
+              aria-expanded={homeOpen}
+              aria-controls={homeListId}
+              onClick={toggleHome}
+            >
+              <span className="srail__icon">
+                <Icon name="home" strokeWidth={1.8} className="size-[22px]" />
+              </span>
+              <span className="srail__label">
+                Strona główna
+                <span className="srail__aside">
+                  {sectionsCount(home.length)} {homeOpen ? '▴' : '▾'}
+                </span>
+              </span>
+            </button>
+            <div
+              id={homeListId}
+              role="group"
+              aria-label="Strona główna"
+              className="srail__list srail__list--home"
+              hidden={!homeOpen}
+            >
+              {homeLinks}
+            </div>
+          </>
+        )}
+        {!pageGroup && (
           <div
-            ref={list}
+            ref={onHome ? list : undefined}
+            role="group"
+            aria-label={onHome ? 'Na tej stronie' : 'Strona główna'}
             className="srail__list"
-            data-scroll-thin
-            data-long={pageSections.length > PAGE_GROUP_MAX ? '' : undefined}
           >
-            {markerTop !== null && (
+            {onHome && markerTop !== null && (
               <span
                 aria-hidden="true"
                 className="srail__marker"
                 style={{ transform: `translateY(${markerTop}px)` } as CSSProperties}
               />
             )}
-            {pageSections.map((section) =>
-              sectionLink(section.id, section.label, section.icon, `#${section.id}`, true),
-            )}
+            {homeLinks}
           </div>
-          <span className="srail__sep" aria-hidden="true" />
-          <button
-            type="button"
-            className="srail__item"
-            aria-expanded={homeOpen}
-            onClick={toggleHome}
-          >
-            <span className="srail__icon">
-              <Icon name="home" strokeWidth={1.8} className="size-[22px]" />
-            </span>
-            <span className="srail__label">
-              Strona główna
-              <span className="srail__aside">
-                {sectionsCount(home.length)} {homeOpen ? '▴' : '▾'}
-              </span>
-            </span>
-          </button>
-          {homeOpen && <div className="srail__list srail__list--home">{homeLinks}</div>}
-        </>
-      )}
-      {!pageGroup && (
-        <div ref={onHome ? list : undefined} className="srail__list">
-          {onHome && markerTop !== null && (
-            <span
-              aria-hidden="true"
-              className="srail__marker"
-              style={{ transform: `translateY(${markerTop}px)` } as CSSProperties}
-            />
-          )}
-          {homeLinks}
-        </div>
-      )}
+        )}
 
-      {action && (
-        <>
-          <span className="srail__sep" aria-hidden="true" />
-          <a
-            href={action.href}
-            className="srail__item srail__item--action"
-            aria-current={action.current ? 'page' : undefined}
-          >
-            <span className="srail__icon">
-              <Icon name={railIcon(action.icon)} strokeWidth={1.8} className="size-[22px]" />
-              {count > 0 && (
-                <span key={count} className="srail__badge" aria-hidden="true">
-                  {count}
-                </span>
-              )}
-            </span>
-            <span className="srail__label">{action.label}</span>
-          </a>
-          {action.countLabel && (
-            <span className="sr-only" aria-live="polite">
-              {count > 0 ? `${action.countLabel}: ${count}` : ''}
-            </span>
-          )}
-        </>
-      )}
-      <button
-        type="button"
-        className="srail__item srail__up"
-        data-shown={showUp ? '' : undefined}
-        // Out of reach (focus, screen readers) until it shows.
-        inert={!showUp}
-        onClick={toTop}
-      >
-        <span className="srail__icon">
-          <Icon name="arrow" strokeWidth={1.8} className="size-[22px] -rotate-90" />
+        {action && (
+          <>
+            <span className="srail__sep" aria-hidden="true" />
+            <a
+              href={action.href}
+              className="srail__item srail__item--action"
+              aria-current={action.current ? 'page' : undefined}
+            >
+              <span className="srail__icon">
+                <Icon name={railIcon(action.icon)} strokeWidth={1.8} className="size-[22px]" />
+                {count > 0 && (
+                  <span
+                    key={count}
+                    className="srail__badge"
+                    data-bump={count !== initialCount ? '' : undefined}
+                    aria-hidden="true"
+                  >
+                    {count}
+                  </span>
+                )}
+              </span>
+              <span className="srail__label">{action.label}</span>
+            </a>
+            {action.countLabel && (
+              <span className="sr-only" aria-live="polite">
+                {count > 0 ? `${action.countLabel}: ${count}` : ''}
+              </span>
+            )}
+          </>
+        )}
+        <button
+          type="button"
+          className="srail__item srail__up"
+          data-shown={showUp ? '' : undefined}
+          // Out of reach (focus, screen readers) until it shows.
+          inert={!showUp}
+          onClick={toTop}
+        >
+          <span className="srail__icon">
+            <Icon name="arrow" strokeWidth={1.8} className="size-[22px] -rotate-90" />
+          </span>
+          <span className="srail__label">Do góry</span>
+        </button>
+        <span ref={progress} className="srail__progress" aria-hidden="true">
+          <span />
         </span>
-        <span className="srail__label">Do góry</span>
-      </button>
-      <span ref={progress} className="srail__progress" aria-hidden="true">
-        <span />
-      </span>
-    </nav>
+      </nav>
+    </div>
   )
 }

@@ -1,0 +1,69 @@
+/**
+ * Line icons of the design, one set for every line (ADR-014 rozstrz. 8): Biznes
+ * (`seed/prokombiznes/ikony.json`, B2) and Software (`seed/prokomsoftware/ikony.json`, SW3);
+ * `components/ui/icons.ts` draws them. Moved here from `lib/catalog/options.ts` (D2-2) for the
+ * shared elements; the catalog re-exports them.
+ */
+export const ICON_NAMES = [
+  'shield',
+  'cal',
+  'users',
+  'store',
+  'bolt',
+  'doc',
+  'life',
+  'arrow',
+  'check',
+  'phone',
+  'mail',
+  'pin',
+  'clock',
+  'monitor',
+  'remote',
+  'bell',
+  'wallet',
+  'chat',
+  'wrench',
+  'rocket',
+  'map',
+  'star',
+  'q',
+  'flash',
+  'grad',
+  'server',
+  'compass',
+  // Software (`seed/prokomsoftware/ikony.json`, SW3).
+  'panel',
+  'site',
+  'grid',
+  'plug',
+  'ticket',
+  'lifebuoy',
+  'chart',
+  'sign',
+  'cash',
+  'search',
+  'x',
+  'bed',
+  'food',
+  'refresh',
+  'globe',
+  'box',
+  'car',
+  'home',
+  'mountain',
+  'heart',
+  'bag',
+  'card',
+  'target',
+  'key',
+  'mega',
+  'mount',
+  'brief',
+] as const
+
+export type IconName = (typeof ICON_NAMES)[number]
+
+export function isIconName(value: unknown): value is IconName {
+  return typeof value === 'string' && (ICON_NAMES as readonly string[]).includes(value)
+}
