@@ -1,6 +1,6 @@
 import type { CompanyDatum, SiteSetting } from '@/payload-types'
 
-import { stripMarked } from './markers'
+import { hasMarker, stripMarked } from './markers'
 import type { SharedLineKey } from './lines'
 
 type Hours = { days: string[]; opens: string; closes: string }[]
@@ -74,6 +74,11 @@ const LEGAL_DEFAULTS: SharedCompany['legal'] = {
   sitemap: '/mapa-strony',
 }
 
+// `sv-SE` formats as YYYY-MM-DD. A day picked in the panel is saved as midnight in Poland,
+// i.e. the evening before in UTC — so the day is read in Polish time, never by cutting the ISO.
+const WARSAW_DAY = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Warsaw' })
+const warsawDay = (iso: string): string => WARSAW_DAY.format(new Date(iso))
+
 const toGeo = (geo: { lat?: number | null; lng?: number | null } | undefined): Geo =>
   typeof geo?.lat === 'number' && typeof geo.lng === 'number'
     ? { lat: geo.lat, lng: geo.lng }
@@ -109,7 +114,7 @@ function toCompany(doc: CompanyDatum, salons: SharedSalon[]): SharedCompany {
       : null,
     geo: office?.geo ?? null,
     hours: office?.hours ?? [],
-    holidays: (doc.holidays ?? []).map(({ date }) => date.slice(0, 10)),
+    holidays: (doc.holidays ?? []).map(({ date }) => warsawDay(date)),
     mapsUrl: doc.mapsUrl ?? null,
     ceidgUrl: doc.ceidgUrl ?? null,
     legal: {
@@ -178,16 +183,36 @@ function toLineData(settings: SiteSetting | null, companyEmail: string): SharedL
  * `SiteSettings` (already filtered by tenant), published lines and salons. Texts with a
  * `[SZEF…]` / `[Krystian…]` marker never leave here (`stripMarked`). `null` on a fresh database.
  */
+type Fact = NonNullable<NonNullable<SharedGroup['contact']>['facts']>[number]
+
+/** Facts of the contact hero pointing to the line's e-mail or phones take them from there. */
+function resolveFacts(line: SharedLineData): SharedLineData {
+  const facts = line.contact?.facts
+  if (!line.contact || !facts) return line
+  const from: Record<Fact['kind'], string | null> = {
+    text: null,
+    email: line.email,
+    phone: line.phone,
+    phone2: line.phone2,
+  }
+  const resolved = facts
+    .map((fact) => (fact.kind === 'text' ? fact : { ...fact, value: from[fact.kind] }))
+    .filter((fact) => Boolean(fact.value))
+  return { ...line, contact: { ...line.contact, facts: resolved } }
+}
+
 export function toSharedData(
   company: CompanyDatum,
   settings: SiteSetting | null,
 ): SharedData | null {
-  if (!company.name) return null
-  const salons = toSalons(company.locations ?? [])
-  return stripMarked({
-    company: toCompany(company, salons),
-    line: toLineData(settings, company.email),
-    lines: toLines(company.lines),
+  // A marked name or NIP means the company data is not ready — like an unsaved global.
+  if (!company.name || hasMarker(company.name) || hasMarker(company.nip)) return null
+  // Salons first: the company address is the first salon still shown after the markers.
+  const salons = stripMarked(toSalons(company.locations ?? []))
+  return {
+    company: stripMarked(toCompany(company, salons)),
+    line: resolveFacts(stripMarked(toLineData(settings, company.email))),
+    lines: stripMarked(toLines(company.lines)),
     salons,
-  })
+  }
 }

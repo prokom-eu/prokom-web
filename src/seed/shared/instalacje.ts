@@ -81,9 +81,9 @@ export const INSTALACJE_SHARED: SharedGroup = {
     writeCta: 'Opisz obiekt',
     placeKind: 'salon',
     facts: [
-      { label: 'E-mail', value: 'kontakt@prokominstalacje.pl', icon: 'mail' },
-      { label: 'Zaplanuj', value: '4 kroki online', icon: 'pen' },
-      { label: 'Odpowiedź', value: 'Do 24 h w dni robocze', icon: 'clock' },
+      { kind: 'email', label: 'E-mail', icon: 'mail' },
+      { kind: 'text', label: 'Zaplanuj', value: '4 kroki online', icon: 'pen' },
+      { kind: 'text', label: 'Odpowiedź', value: 'Do 24 h w dni robocze', icon: 'clock' },
     ],
     routes: [
       {

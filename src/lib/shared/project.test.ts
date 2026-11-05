@@ -37,7 +37,8 @@ const company: CompanyDatum = {
       published: false,
     },
   ],
-  holidays: [{ id: 'x', date: '2026-12-25T00:00:00.000Z', label: 'Boże Narodzenie' }],
+  // The panel saves a day as midnight in Poland: 25.12 = 24.12 23:00 UTC.
+  holidays: [{ id: 'x', date: '2026-12-24T23:00:00.000Z', label: 'Boże Narodzenie' }],
   lines: [
     { id: '3', key: 'software', name: 'Software', kind: 'linia', order: 3, published: true },
     { id: '1', key: 'biznes', name: 'Biznes', kind: 'linia', order: 1, published: true },
@@ -140,5 +141,44 @@ describe('toSharedData', () => {
   it('has no line data without the settings of the tenant', () => {
     const data = toSharedData(company, null)
     expect(data?.line).toMatchObject({ phone: null, email: 'biuro@firma.test', rail: null })
+  })
+
+  it('takes the address from the first salon that is still shown after the markers', () => {
+    const marked: CompanyDatum = {
+      ...company,
+      locations: [
+        { ...company.locations[0]!, street: '[SZEF: nowy adres]' },
+        { ...company.locations[0]!, id: 'c', key: 'zapas', street: 'ul. Zapasowa 2' },
+      ],
+    }
+    const data = toSharedData(marked, settings({}))
+    expect(data?.salons.map((salon) => salon.key)).toEqual(['zapas'])
+    expect(data?.company.address?.street).toBe('ul. Zapasowa 2')
+  })
+
+  it('treats a marked company name or NIP as data not ready yet', () => {
+    expect(toSharedData({ ...company, name: '[SZEF] nazwa' }, settings({}))).toBeNull()
+  })
+
+  it('fills contact facts that point to the line e-mail or phone from the line fields', () => {
+    const data = toSharedData(
+      company,
+      settings(
+        {
+          contact: {
+            facts: [
+              { kind: 'email', label: 'E-mail' },
+              { kind: 'phone2', label: 'Drugi numer' },
+              { kind: 'text', label: 'Odpowiedź', value: 'W godzinach pracy' },
+            ],
+          },
+        },
+        { phone2: null },
+      ),
+    )
+    expect(data?.line.contact?.facts?.map(({ label, value }) => [label, value])).toEqual([
+      ['E-mail', 'linia@firma.test'],
+      ['Odpowiedź', 'W godzinach pracy'],
+    ])
   })
 })

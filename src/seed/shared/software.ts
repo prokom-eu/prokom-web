@@ -69,9 +69,9 @@ export const SOFTWARE_SHARED: SharedGroup = {
     writeCta: 'Opisz projekt',
     placeKind: 'spotkanie',
     facts: [
-      { label: 'E-mail', value: 'kontakt@prokomsoftware.pl', icon: 'mail' },
-      { label: 'Online', value: 'Spotkanie w całej Polsce', icon: 'video' },
-      { label: 'Odpowiedź', value: 'W 1 dzień roboczy', icon: 'clock' },
+      { kind: 'email', label: 'E-mail', icon: 'mail' },
+      { kind: 'text', label: 'Online', value: 'Spotkanie w całej Polsce', icon: 'video' },
+      { kind: 'text', label: 'Odpowiedź', value: 'W 1 dzień roboczy', icon: 'clock' },
     ],
     routes: [
       {

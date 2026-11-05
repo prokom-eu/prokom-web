@@ -111,12 +111,32 @@ const contactFields: Field[] = [
     label: 'Fakty w hero',
     type: 'array',
     maxRows: 3,
+    admin: {
+      description:
+        'E-mail i telefony linii wybierz jako rodzaj — wartość przyjdzie z pól linii wyżej, bez przepisywania.',
+    },
     fields: [
       {
         type: 'row',
         fields: [
+          {
+            name: 'kind',
+            label: 'Rodzaj',
+            type: 'select',
+            required: true,
+            defaultValue: 'text',
+            options: [
+              { label: 'Tekst', value: 'text' },
+              { label: 'E-mail linii', value: 'email' },
+              { label: 'Telefon linii', value: 'phone' },
+              { label: 'Drugi telefon linii', value: 'phone2' },
+            ],
+          },
           text('label', 'Etykieta', true),
-          text('value', 'Wartość', true),
+          {
+            ...text('value', 'Wartość'),
+            admin: { condition: (_data, sibling) => sibling?.kind === 'text' },
+          },
           text('icon', 'Ikona'),
         ],
       },

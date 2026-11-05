@@ -374,10 +374,14 @@ export interface SiteSetting {
       lead?: string | null;
       writeCta?: string | null;
       placeKind?: ('salon' | 'spotkanie' | 'serwis') | null;
+      /**
+       * E-mail i telefony linii wybierz jako rodzaj — wartość przyjdzie z pól linii wyżej, bez przepisywania.
+       */
       facts?:
         | {
+            kind: 'text' | 'email' | 'phone' | 'phone2';
             label: string;
-            value: string;
+            value?: string | null;
             icon?: string | null;
             id?: string | null;
           }[]
@@ -6224,6 +6228,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
               facts?:
                 | T
                 | {
+                    kind?: T;
                     label?: T;
                     value?: T;
                     icon?: T;

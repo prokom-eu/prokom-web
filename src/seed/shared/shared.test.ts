@@ -72,10 +72,13 @@ describe('shared seed — content rules (spec §2, §10 pkt 2)', () => {
     expect(unpublished).toEqual(['zakopane', 'gaming'])
   })
 
-  it('gives Biznes the contact of 01.11 and the K4-FINAL statuses', () => {
-    const biznes = JSON.stringify(BIZNES_SHARED)
-    expect(biznes).toContain('kontakt@prokombiznes.pl')
-    expect(biznes).toContain('883 200 151')
+  it('points the Biznes contact facts to the line fields and keeps the K4-FINAL statuses', () => {
+    // E-mail and the second number come from the line fields (`BIZNES_CONTACT`), not copied here.
+    expect(BIZNES_SHARED.contact?.facts?.map((fact) => fact.kind)).toEqual([
+      'email',
+      'phone2',
+      'text',
+    ])
     expect(BIZNES_SHARED.about?.auth).toEqual([
       'Autoryzowany serwis Posnet',
       'Autoryzowany serwis Elzab',

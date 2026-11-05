@@ -1,4 +1,3 @@
-import { BIZNES_CONTACT } from '../biznes/contact'
 import { CONTACT_FAQ_TODO, type SharedGroup, VERIFY_CEIDG, VERIFY_GOOGLE } from './types'
 
 /**
@@ -75,9 +74,9 @@ export const BIZNES_SHARED: SharedGroup = {
     writeCta: 'Napisz do nas',
     placeKind: 'salon',
     facts: [
-      { label: 'E-mail', value: BIZNES_CONTACT.email, icon: 'mail' },
-      { label: 'Drugi numer', value: BIZNES_CONTACT.phone2, icon: 'phone' },
-      { label: 'Odpowiedź', value: 'W godzinach pracy', icon: 'clock' },
+      { kind: 'email', label: 'E-mail', icon: 'mail' },
+      { kind: 'phone2', label: 'Drugi numer', icon: 'phone' },
+      { kind: 'text', label: 'Odpowiedź', value: 'W godzinach pracy', icon: 'clock' },
     ],
     routes: [
       {

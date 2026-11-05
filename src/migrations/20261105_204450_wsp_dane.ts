@@ -3,6 +3,7 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
    CREATE TYPE "public"."enum_site_settings_shared_header_cta_counter" AS ENUM('none', 'inquiry', 'project');
+  CREATE TYPE "public"."enum_site_settings_shared_contact_facts_kind" AS ENUM('text', 'email', 'phone', 'phone2');
   CREATE TYPE "public"."enum_site_settings_shared_contact_place_kind" AS ENUM('salon', 'spotkanie', 'serwis');
   CREATE TYPE "public"."enum_company_data_lines_key" AS ENUM('prokom', 'biznes', 'instalacje', 'software', 'tech', 'zakopane', 'gaming');
   CREATE TYPE "public"."enum_company_data_lines_kind" AS ENUM('linia', 'marka');
@@ -43,8 +44,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
+  	"kind" "enum_site_settings_shared_contact_facts_kind" DEFAULT 'text' NOT NULL,
   	"label" varchar NOT NULL,
-  	"value" varchar NOT NULL,
+  	"value" varchar,
   	"icon" varchar
   );
   
@@ -302,6 +304,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   ALTER TABLE "company_data" DROP COLUMN "consent_clause";
   ALTER TABLE "company_data" DROP COLUMN "recently_viewed";
   DROP TYPE "public"."enum_site_settings_shared_header_cta_counter";
+  DROP TYPE "public"."enum_site_settings_shared_contact_facts_kind";
   DROP TYPE "public"."enum_site_settings_shared_contact_place_kind";
   DROP TYPE "public"."enum_company_data_lines_key";
   DROP TYPE "public"."enum_company_data_lines_kind";

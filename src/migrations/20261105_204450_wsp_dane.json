@@ -1062,6 +1062,14 @@
           "primaryKey": true,
           "notNull": true
         },
+        "kind": {
+          "name": "kind",
+          "type": "enum_site_settings_shared_contact_facts_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'text'"
+        },
         "label": {
           "name": "label",
           "type": "varchar",
@@ -1072,7 +1080,7 @@
           "name": "value",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "icon": {
           "name": "icon",
@@ -55850,6 +55858,11 @@
       "schema": "public",
       "values": ["prokom", "biznes", "instalacje", "software"]
     },
+    "public.enum_site_settings_shared_contact_facts_kind": {
+      "name": "enum_site_settings_shared_contact_facts_kind",
+      "schema": "public",
+      "values": ["text", "email", "phone", "phone2"]
+    },
     "public.enum_site_settings_biznes_contact_channels_department": {
       "name": "enum_site_settings_biznes_contact_channels_department",
       "schema": "public",
@@ -58474,6 +58487,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "c38b1249-8ab6-4211-bfc3-be0997778589",
+  "id": "4e1db4d2-ecf1-4a61-812f-9548ab11cb23",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

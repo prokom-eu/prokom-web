@@ -26,7 +26,18 @@ describe('stripMarked', () => {
     expect(stripMarked(['[SZEF: Satel]', 'Elzab EcoPower'])).toEqual(['Elzab EcoPower'])
   })
 
-  it('drops a whole row when any of its texts is marked', () => {
+  it('keeps a row whose optional text is marked, with that text emptied', () => {
+    const salons = [
+      { name: 'Rabka-Zdrój', street: 'ul. Orkana 16B', parkingNote: '[SZEF] parking' },
+    ]
+    expect(stripMarked(salons)).toEqual([
+      { name: 'Rabka-Zdrój', street: 'ul. Orkana 16B', parkingNote: null },
+    ])
+    const lines = [{ name: 'Biznes', descriptionLong: '[Krystian] opis' }]
+    expect(stripMarked(lines)).toEqual([{ name: 'Biznes', descriptionLong: null }])
+  })
+
+  it('drops a whole row when its main text is marked', () => {
     const verify = [
       { title: 'CEIDG', text: 'Dane firmy po NIP.' },
       { title: 'Lista serwisów Posnet', text: '[Krystian: link do listy]' },
@@ -35,7 +46,7 @@ describe('stripMarked', () => {
   })
 
   it('looks into nested groups and rows', () => {
-    const about = { stats: [{ value: '24', label: 'miesiące', meta: { note: '[szef]' } }] }
+    const about = { stats: [{ value: '24', label: 'miesiące', meta: { title: '[szef]' } }] }
     expect(stripMarked(about)).toEqual({ stats: [] })
   })
 
