@@ -4,6 +4,9 @@ import type { Wizard } from '../catalog/wizard'
 import { parseKr, wizardProfile } from '../catalog/wizardEngine'
 import { parsePlanAnswers, planContact, planSummary } from '../instalacje/plan'
 import { errorFields, log } from '../log'
+import type { ConfirmationLimiter } from '../mail/confirmationLimit'
+import type { MailContext } from '../mail/context'
+import type { MailLogo } from '../mail/logo'
 import type { ContactField, SoftwareWizard } from '../software/wizard'
 import {
   addOnSlugsOf,
@@ -63,6 +66,15 @@ export type SubmitDeps = {
   save: (data: NewInquiry) => Promise<{ id: number; number?: string | null }>
   /** Sends from the sender of the tenant's line (`lib/mail/senders`, S10d). */
   sendEmail: (email: Email, line: Line) => Promise<unknown>
+  /**
+   * Phones, e-mail, company and privacy page of the tenant's line for the mails (spec MAILE §2) —
+   * from `getSharedData` (D1-1). `null` without shared data: the mails go without those parts.
+   */
+  mailContext: (tenant: { id: number; name: string }, host: string) => Promise<MailContext | null>
+  /** The line's logo for the confirmation (`lib/mail/logo`), or `null`. */
+  mailLogo: (line: Line) => MailLogo | null
+  /** At most 3 confirmations per address in 24 h (spec MAILE §6.3). */
+  confirmations: Pick<ConfirmationLimiter, 'allow'>
   panelUrl: (id: number) => string
   /** The site's address for a `Host` (`siteOrigin`), or `null` — links to the site in a record. */
   siteOrigin: (host: string) => string | null
@@ -390,6 +402,24 @@ export async function submitInquiryWith(
     })),
     consent: { clauseVersion: input.consent.clauseVersion, acceptedAt },
   }
+  let context: MailContext | null = null
+  try {
+    context = await deps.mailContext(tenant, normalized ?? '')
+  } catch (error) {
+    deps.log.error({ tenant: tenant.id, inquiry: id, ...errorFields(error) }, 'Mail context failed')
+  }
+  if (!context) deps.log.warn({ tenant: tenant.id, inquiry: id }, 'Mail without shared data')
+  const sentAt = new Date(deps.now())
+  // The limit counts before sending: the inquiry is saved anyway, only the confirmation waits.
+  const confirmation = !forEmail.email
+    ? 'none'
+    : deps.confirmations.allow(forEmail.email)
+      ? 'sent'
+      : 'limited'
+  if (confirmation === 'limited') {
+    deps.log.info({ tenant: tenant.id, inquiry: id, confirmation }, 'Confirmation limited')
+  }
+
   const emails: { kind: string; email: Email }[] = []
   if (tenant.notificationEmail) {
     emails.push({
@@ -397,13 +427,22 @@ export async function submitInquiryWith(
       email: notificationEmail(forEmail, {
         to: tenant.notificationEmail,
         panelUrl: deps.panelUrl(id),
+        confirmation,
+        context,
+        sentAt,
       }),
     })
   } else {
     deps.log.warn({ tenant: tenant.id, inquiry: id }, 'Tenant has no notification e-mail')
   }
-  const confirmation = confirmationEmail(forEmail)
-  if (confirmation) emails.push({ kind: 'confirmation', email: confirmation })
+  if (confirmation === 'sent') {
+    const mail = confirmationEmail(forEmail, {
+      context,
+      logo: deps.mailLogo(tenant.line),
+      sentAt,
+    })
+    if (mail) emails.push({ kind: 'confirmation', email: mail })
+  }
 
   const results = await Promise.allSettled(
     emails.map(({ email }) => deps.sendEmail(email, tenant.line)),
@@ -428,6 +467,11 @@ const store = globalThis as typeof globalThis & {
 // 5 inquiries per 10 minutes from one address — plenty for a person, little for a script.
 const limiter = (store[LIMITER_KEY] ??= createRateLimiter({ limit: 5, windowMs: 10 * 60_000 }))
 
+const CONFIRMATIONS_KEY = Symbol.for('prokom.confirmationLimiter')
+const confirmationStore = globalThis as typeof globalThis & {
+  [CONFIRMATIONS_KEY]?: ConfirmationLimiter
+}
+
 /**
  * Accepts an inquiry from a site form (ADR-003): tenant from `Host`, spam checks, validation,
  * save, e-mails. In 2027 `save` moves to the PRO-KOM System API; the forms stay as they are.
@@ -437,14 +481,25 @@ export async function submitInquiry(
   context: { requestId: string },
 ): Promise<SubmitResult> {
   // Imported lazily, like `lib/tenant/byHost`: keeps the Payload config out of unit tests.
-  const [{ getPayload }, { default: config }, { getEnv }, { getTenantByHost }, { siteOrigin }] =
-    await Promise.all([
-      import('payload'),
-      import('@payload-config'),
-      import('../env'),
-      import('../tenant/byHost'),
-      import('../seo/origin'),
-    ])
+  const [
+    { getPayload },
+    { default: config },
+    { getEnv },
+    { getTenantByHost },
+    { siteOrigin },
+    { mailLogo },
+    { lineCopy },
+    { createConfirmationLimiter },
+  ] = await Promise.all([
+    import('payload'),
+    import('@payload-config'),
+    import('../env'),
+    import('../tenant/byHost'),
+    import('../seo/origin'),
+    import('../mail/logo'),
+    import('../mail/lineCopy'),
+    import('../mail/confirmationLimit'),
+  ])
   const payload = await getPayload({ config })
   const env = getEnv()
 
@@ -518,6 +573,22 @@ export async function submitInquiry(
         const { sendLineEmail } = await import('../mail/send')
         return sendLineEmail(payload, line, email)
       },
+      mailContext: async (tenant, host) => {
+        const [{ getSharedData }, { toMailContext }] = await Promise.all([
+          import('../shared/getSharedData'),
+          import('../mail/context'),
+        ])
+        return toMailContext(
+          await getSharedData(tenant.id),
+          siteOrigin(host, env.SITE_ENV),
+          tenant.name,
+        )
+      },
+      mailLogo: (line) =>
+        mailLogo(lineCopy(line).logo, lineCopy(line).label, env.MAIL_LOGO_BASE_URL),
+      confirmations: (confirmationStore[CONFIRMATIONS_KEY] ??= createConfirmationLimiter({
+        secret: env.PAYLOAD_SECRET,
+      })),
       siteOrigin: (host) => siteOrigin(host, env.SITE_ENV),
       panelUrl: (id) => {
         // Same scheme rules as the sites; locally the panel runs on the request's port.

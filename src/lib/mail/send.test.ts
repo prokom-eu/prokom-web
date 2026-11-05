@@ -74,4 +74,29 @@ describe('sendLineEmail (S10d)', () => {
       from: { name: 'PRO-KOM', address: 'kontakt@prokombiznes.pl' },
     })
   })
+
+  it('names the line as the sender and passes HTML and the logo on both paths', async () => {
+    const attachments = [
+      { filename: 'l.png', content: Buffer.from('x'), cid: 'logo', contentType: 'image/png' },
+    ]
+    const rich = { ...email, html: '<p>x</p>', attachments, fromName: 'PRO-KOM Software' }
+    const p = payload()
+    await sendLineEmail(p as unknown as Payload, 'software', rich)
+    expect(p.sendEmail).toHaveBeenCalledWith({
+      ...email,
+      html: '<p>x</p>',
+      attachments,
+      from: { name: 'PRO-KOM Software', address: 'kontakt@prokomsoftware.pl' },
+    })
+    await sendLineEmail(p as unknown as Payload, 'instalacje', {
+      ...rich,
+      fromName: 'PRO-KOM Instalacje · formularz',
+    })
+    expect(sendMail).toHaveBeenLastCalledWith({
+      ...email,
+      html: '<p>x</p>',
+      attachments,
+      from: { name: 'PRO-KOM Instalacje · formularz', address: 'kontakt@prokominstalacje.pl' },
+    })
+  })
 })
