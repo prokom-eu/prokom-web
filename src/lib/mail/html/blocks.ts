@@ -39,7 +39,7 @@ export function button({
   )
 }
 
-/** The logo image: `src` is `cid:logo` or an https address (`MAIL_LOGO_BASE_URL`). */
+/** The logo image: `src` is `cid:logo` or an https address (`MAIL_LOGO_FROM_SITE`, the line's own domain). */
 export type LogoImage = { src: string; alt: string }
 
 const logoTag = (logo: LogoImage | null, height: number, fallback: string) =>

@@ -23,7 +23,7 @@ describe('mailLogo (ADR-024 pkt 3)', () => {
     expect(read).toHaveBeenCalledTimes(1)
   })
 
-  it('links the image from the site when MAIL_LOGO_BASE_URL is set', () => {
+  it('links the image from the site of the line when MAIL_LOGO_FROM_SITE is on', () => {
     const logo = mailLogo(
       'prokom-software_mail.png',
       'PRO-KOM Software',

@@ -169,6 +169,11 @@ type MailOptions = {
   context: MailContext | null
   logo: MailLogo | null
   sentAt: Date
+  /**
+   * Where a reply to the confirmation lands: the line's sender address (`From`; the confirmation
+   * has no Reply-To, spec §1). Shown to the customer, so it must be the real one, not the panel's.
+   */
+  replyAddress: string | null
 }
 
 /**
@@ -190,7 +195,7 @@ function confirmationCard(inquiry: InquiryForEmail): [string, string][] {
 /** Confirmation for the customer (spec MAILE §4.1–4.2, §5): HTML in the line's brand + full text. */
 export function confirmationEmail(
   inquiry: InquiryForEmail,
-  { context, logo, sentAt }: MailOptions,
+  { context, logo, sentAt, replyAddress }: MailOptions,
 ): Email | null {
   if (!inquiry.email) return null
   const copy = lineCopy(inquiry.line, inquiry.type)
@@ -234,9 +239,9 @@ export function confirmationEmail(
             theme,
           })
         : '',
-      context?.email
+      replyAddress
         ? paragraph(
-            `Chcesz coś dopisać? Odpowiedz na tę wiadomość — trafi prosto do nas, na ${strong(context.email)}.`,
+            `Chcesz coś dopisać? Odpowiedz na tę wiadomość — trafi prosto do nas, na ${strong(replyAddress)}.`,
           )
         : '',
       footer({
@@ -266,8 +271,8 @@ export function confirmationEmail(
     ...(context?.phone
       ? ['', `Sprawa pilna? Zadzwoń: ${context.phone}${hours ? ` (${hours})` : ''}`]
       : []),
-    ...(context?.email
-      ? ['', `Chcesz coś dopisać? Odpowiedz na tę wiadomość — trafi na ${context.email}.`]
+    ...(replyAddress
+      ? ['', `Chcesz coś dopisać? Odpowiedz na tę wiadomość — trafi na ${replyAddress}.`]
       : []),
     '',
     'Pozdrawiamy',

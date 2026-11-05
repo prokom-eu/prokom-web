@@ -78,6 +78,7 @@ function deps(overrides: Partial<SubmitDeps> = {}): SubmitDeps {
     sendEmail: vi.fn(async () => undefined),
     mailContext: vi.fn(async () => mailContext),
     mailLogo: vi.fn(() => null),
+    senderAddress: () => 'kontakt@nadawca.test',
     confirmations: createConfirmationLimiter({ secret, now: () => now }),
     panelUrl: (id: number) => `http://panel.localhost:3000/admin/collections/inquiries/${id}`,
     siteOrigin: (host: string) => `http://${host.toLowerCase()}`,

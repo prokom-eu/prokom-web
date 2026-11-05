@@ -29,8 +29,8 @@ function readLogo(file: string, read: (path: string) => Buffer): Buffer | null {
 
 /**
  * The line's logo for a mail (ADR-024 pkt 3): an inline attachment `cid:logo` — works without
- * „show images” and on the password-protected staging. With `MAIL_LOGO_BASE_URL` (production) an
- * `<img>` from the site instead: a lighter mail, no paperclip in some apps.
+ * „show images” and on the password-protected staging. With `MAIL_LOGO_FROM_SITE` (production) an
+ * `<img>` from the line's own site (`baseUrl` = its origin) instead: a lighter mail, no paperclip in some apps.
  */
 export function mailLogo(
   file: string | null,

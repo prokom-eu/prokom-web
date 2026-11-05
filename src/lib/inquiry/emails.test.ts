@@ -63,7 +63,10 @@ const sentAt = new Date('2026-11-05T09:41:00Z') // 10:41 in Poland
 const panelUrl = 'https://panel.test/admin/collections/inquiries/42'
 
 const confirm = (data: Partial<InquiryForEmail> = {}, ctx: MailContext | null = context) =>
-  confirmationEmail({ ...inquiry, ...data }, { context: ctx, logo, sentAt })
+  confirmationEmail(
+    { ...inquiry, ...data },
+    { context: ctx, logo, sentAt, replyAddress: 'nadawca@linia.test' },
+  )
 
 const notify = (data: Partial<InquiryForEmail> = {}, confirmation: ConfirmationStatus = 'sent') =>
   notificationEmail(
@@ -155,6 +158,13 @@ describe('confirmationEmail — each line (spec MAILE §4.2, §8)', () => {
 
   it('says when it was sent, in Polish time', () => {
     expect(confirm()?.html).toContain('Wysłane dziś, 10:41')
+  })
+
+  it('names the sender address as the place a reply lands, not the panel e-mail', () => {
+    const mail = confirm()!
+    expect(mail.html).toContain('nadawca@linia.test')
+    expect(mail.text).toContain('trafi na nadawca@linia.test')
+    expect(mail.text).not.toContain('trafi na kontakt@linia.test')
   })
 
   it('has no Reply-To (answers go to the line inbox) and is skipped without an e-mail', () => {

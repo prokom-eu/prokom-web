@@ -71,8 +71,10 @@ export type SubmitDeps = {
    * from `getSharedData` (D1-1). `null` without shared data: the mails go without those parts.
    */
   mailContext: (tenant: { id: number; name: string }, host: string) => Promise<MailContext | null>
-  /** The line's logo for the confirmation (`lib/mail/logo`), or `null`. */
-  mailLogo: (line: Line) => MailLogo | null
+  /** The line's logo for the confirmation (`lib/mail/logo`); `origin` = the line's site. */
+  mailLogo: (line: Line, origin: string | null) => MailLogo | null
+  /** The line's sender address (`lib/mail/senders`) — where a reply to the confirmation lands. */
+  senderAddress: (line: Line) => string
   /** At most 3 confirmations per address in 24 h (spec MAILE §6.3). */
   confirmations: Pick<ConfirmationLimiter, 'allow'>
   panelUrl: (id: number) => string
@@ -405,10 +407,10 @@ export async function submitInquiryWith(
   let context: MailContext | null = null
   try {
     context = await deps.mailContext(tenant, normalized ?? '')
+    if (!context) deps.log.warn({ tenant: tenant.id, inquiry: id }, 'Mail without shared data')
   } catch (error) {
     deps.log.error({ tenant: tenant.id, inquiry: id, ...errorFields(error) }, 'Mail context failed')
   }
-  if (!context) deps.log.warn({ tenant: tenant.id, inquiry: id }, 'Mail without shared data')
   const sentAt = new Date(deps.now())
   // The limit counts before sending: the inquiry is saved anyway, only the confirmation waits.
   const confirmation = !forEmail.email
@@ -438,8 +440,9 @@ export async function submitInquiryWith(
   if (confirmation === 'sent') {
     const mail = confirmationEmail(forEmail, {
       context,
-      logo: deps.mailLogo(tenant.line),
+      logo: deps.mailLogo(tenant.line, context?.origin ?? null),
       sentAt,
+      replyAddress: deps.senderAddress(tenant.line),
     })
     if (mail) emails.push({ kind: 'confirmation', email: mail })
   }
@@ -490,6 +493,7 @@ export async function submitInquiry(
     { mailLogo },
     { lineCopy },
     { createConfirmationLimiter },
+    { senderFor },
   ] = await Promise.all([
     import('payload'),
     import('@payload-config'),
@@ -499,6 +503,7 @@ export async function submitInquiry(
     import('../mail/logo'),
     import('../mail/lineCopy'),
     import('../mail/confirmationLimit'),
+    import('../mail/senders'),
   ])
   const payload = await getPayload({ config })
   const env = getEnv()
@@ -584,8 +589,14 @@ export async function submitInquiry(
           tenant.name,
         )
       },
-      mailLogo: (line) =>
-        mailLogo(lineCopy(line).logo, lineCopy(line).label, env.MAIL_LOGO_BASE_URL),
+      // With `MAIL_LOGO_FROM_SITE` the logo is an image from the line's own domain (ADR-024 pkt 3).
+      mailLogo: (line, origin) =>
+        mailLogo(
+          lineCopy(line).logo,
+          lineCopy(line).label,
+          env.MAIL_LOGO_FROM_SITE && origin?.startsWith('https://') ? origin : undefined,
+        ),
+      senderAddress: (line) => senderFor(line, env).address,
       confirmations: (confirmationStore[CONFIRMATIONS_KEY] ??= createConfirmationLimiter({
         secret: env.PAYLOAD_SECRET,
       })),
