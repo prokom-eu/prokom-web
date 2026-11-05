@@ -658,6 +658,28 @@
   --inst-il-old-mxstd-c: var(--c-instalacje-il-old-mxstd-c);
   --inst-il-zkin-xa-bad-sh: var(--c-instalacje-il-zkin-xa-bad-sh);
   --inst-il-evstage-evi-filt: var(--c-instalacje-il-evstage-evi-filt);
+  /* Shared elements (spec WSPOLNE-ELEMENTY §3): role tokens of the line's dark band — the same
+     in both themes. */
+  --on-dark: #12b6d8;
+  --on-dark-text: #4ccbe6;
+  --on-dark-ink: #06181c;
+  --line-dark: #071214;
+  --line-dark-text: #9fb0b4;
+  /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+  --cap-bg: rgba(255, 255, 255, 0.74);
+  --cap-border: rgba(18, 22, 19, 0.09);
+  --cap-highlight: rgba(255, 255, 255, 0.9);
+  --cap-shadow: rgba(18, 22, 19, 0.26);
+  --cap-kbd: #ffffff;
+  --nav-ink: #121613;
+  --nav-ink-2: #4f5650;
+  --nav-hover: rgba(18, 22, 19, 0.05);
+  --nav-active-bg: #e1f2f6;
+  --nav-active-ink: #006a82;
+  --cap-cta-from: #0a8aa8;
+  --cap-cta-to: #006f89;
+  --cap-cta-ink: #ffffff;
+  --cap-cta-glow: rgba(0, 122, 150, 0.5);
 }
 
 /* Home hero "Twój obiekt na żywo" (I5, `pk.css` .hx / .scene, `Main.body.html`, `Main.js`):
@@ -1361,6 +1383,21 @@
   --inst-il-mxp-mzch-c: var(--c-instalacje-night-il-mxp-mzch-c);
   --inst-il-kmap2-kz2-line: var(--c-instalacje-night-il-kmap2-kz2-line);
   --inst-il-kmap2-kz2-fill: var(--c-instalacje-night-il-kmap2-kz2-fill);
+  /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+  --cap-bg: rgba(14, 32, 36, 0.68);
+  --cap-border: rgba(255, 255, 255, 0.09);
+  --cap-highlight: rgba(255, 255, 255, 0.06);
+  --cap-shadow: rgba(0, 0, 0, 0.6);
+  --cap-kbd: rgba(255, 255, 255, 0.08);
+  --nav-ink: #eaf4f5;
+  --nav-ink-2: #9db2b5;
+  --nav-hover: rgba(255, 255, 255, 0.06);
+  --nav-active-bg: rgba(18, 182, 216, 0.16);
+  --nav-active-ink: #5ed3ec;
+  --cap-cta-from: #2cc4e3;
+  --cap-cta-to: #10a8c9;
+  --cap-cta-ink: #04181c;
+  --cap-cta-glow: rgba(18, 182, 216, 0.55);
 }
 
 /* …or by the system when there is no choice. Keep in sync with the rule above (tested). */
@@ -1574,5 +1611,20 @@
     --inst-il-mxp-mzch-c: var(--c-instalacje-night-il-mxp-mzch-c);
     --inst-il-kmap2-kz2-line: var(--c-instalacje-night-il-kmap2-kz2-line);
     --inst-il-kmap2-kz2-fill: var(--c-instalacje-night-il-kmap2-kz2-fill);
+    /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+    --cap-bg: rgba(14, 32, 36, 0.68);
+    --cap-border: rgba(255, 255, 255, 0.09);
+    --cap-highlight: rgba(255, 255, 255, 0.06);
+    --cap-shadow: rgba(0, 0, 0, 0.6);
+    --cap-kbd: rgba(255, 255, 255, 0.08);
+    --nav-ink: #eaf4f5;
+    --nav-ink-2: #9db2b5;
+    --nav-hover: rgba(255, 255, 255, 0.06);
+    --nav-active-bg: rgba(18, 182, 216, 0.16);
+    --nav-active-ink: #5ed3ec;
+    --cap-cta-from: #2cc4e3;
+    --cap-cta-to: #10a8c9;
+    --cap-cta-ink: #04181c;
+    --cap-cta-glow: rgba(18, 182, 216, 0.55);
   }
 }
