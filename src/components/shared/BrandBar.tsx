@@ -1,7 +1,7 @@
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { SharedLine } from '@/lib/shared/project'
-import type { SharedLineKey } from '@/lib/shared/lines'
+import { withGamingLast, type SharedLineKey } from '@/lib/shared/lines'
 import type { OpeningHours } from '@/lib/shared/openingStatus'
 import { toTelHref } from '@/lib/site/link'
 
@@ -23,12 +23,6 @@ export type BrandBarProps = {
   phoneLabel?: string | null
   className?: string
 }
-
-/** Gaming last, whatever its order in the panel (spec §2.4, §5 `BrandBar`). */
-const ordered = (lines: readonly SharedLine[]) => [
-  ...lines.filter((line) => line.key !== 'gaming'),
-  ...lines.filter((line) => line.key === 'gaming'),
-]
 
 /**
  * Brand bar above the header capsule (spec §5 `BrandBar`, NAGLOWEK-KAPSULA §2–3): the line switch
@@ -56,7 +50,7 @@ export function BrandBar({
       data-brand-bar
     >
       <nav aria-label="Linie PRO-KOM" className="flex items-center gap-[18px]">
-        {ordered(lines).map((line) => {
+        {withGamingLast(lines).map((line) => {
           const isCurrent = line.key === current
           // A published line without an address (not live yet) is a label, not a dead link.
           const Tag = line.url ? 'a' : 'span'

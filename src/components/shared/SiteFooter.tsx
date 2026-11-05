@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -80,6 +80,8 @@ export function SiteFooter({
   edge,
 }: SiteFooterProps) {
   const tel = contact.phone ? toTelHref(contact.phone) : null
+  // A column without a heading or links (unfinished in the panel) is left out.
+  const shown = columns.filter((column) => column.heading.trim() && column.links.length > 0)
   const { address } = company
   return (
     <footer className="relative bg-line-dark text-sm text-line-dark-text" data-site-footer>
@@ -87,7 +89,7 @@ export function SiteFooter({
       <div className="mx-auto box-content max-w-[1280px] px-5 pt-[52px] min-[768px]:px-8">
         <div
           className="grid gap-10 min-[900px]:[grid-template-columns:1.5fr_repeat(var(--cols),minmax(0,1fr))_1.25fr]"
-          style={{ '--cols': columns.length } as React.CSSProperties}
+          style={{ '--cols': shown.length } as CSSProperties}
         >
           <div className="flex flex-col gap-4">
             <LineLogo line={line} alt={lineName} on="dark" height={34} />
@@ -107,7 +109,7 @@ export function SiteFooter({
             )}
           </div>
 
-          {columns.map((column) => (
+          {shown.map((column) => (
             <nav
               key={column.heading}
               aria-label={column.heading}
@@ -117,9 +119,9 @@ export function SiteFooter({
               <ColumnLinks column={column} />
             </nav>
           ))}
-          {columns.length > 0 && (
+          {shown.length > 0 && (
             <div className="flex flex-col border-y border-line-dark-rule min-[900px]:hidden">
-              {columns.map((column) => (
+              {shown.map((column) => (
                 <details
                   key={column.heading}
                   className="group border-b border-line-dark-rule last:border-b-0"

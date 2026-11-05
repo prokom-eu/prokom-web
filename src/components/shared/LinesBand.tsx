@@ -1,6 +1,8 @@
+import { useId, type CSSProperties } from 'react'
+
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
-import type { SharedLineKey } from '@/lib/shared/lines'
+import { withGamingLast, type SharedLineKey } from '@/lib/shared/lines'
 import type { SharedLine } from '@/lib/shared/project'
 
 import { LineLogo } from './LineLogo'
@@ -12,12 +14,6 @@ export type LinesBandProps = {
   className?: string
 }
 
-/** Gaming last, as in the brand bar (spec §2.4). */
-const ordered = (lines: readonly SharedLine[]) => [
-  ...lines.filter((line) => line.key !== 'gaming'),
-  ...lines.filter((line) => line.key === 'gaming'),
-]
-
 /**
  * „Jedna firma — linie PRO-KOM” (spec §5 `LinesBand`, board Footer B): a tile per published line
  * with its mark, description and domain; the current one framed in the line colour with „Jesteś
@@ -25,15 +21,16 @@ const ordered = (lines: readonly SharedLine[]) => [
  * tiles form a scrolling row.
  */
 export function LinesBand({ lines, current, className }: LinesBandProps) {
+  const titleId = useId()
   return (
     <section
-      aria-labelledby="lines-band-title"
+      aria-labelledby={titleId}
       className={cx('flex flex-col gap-3.5', className)}
       data-lines-band
     >
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
         <h2
-          id="lines-band-title"
+          id={titleId}
           className="text-xs font-extrabold tracking-[0.12em] text-line-dark-ink uppercase"
         >
           Jedna firma — linie PRO-KOM
@@ -41,10 +38,12 @@ export function LinesBand({ lines, current, className }: LinesBandProps) {
         <span className="text-[12.5px]">Każda linia ma swój zespół i swój numer</span>
       </div>
       <ul
-        className="-mx-5 flex snap-x gap-2.5 overflow-x-auto px-5 pb-1 [scrollbar-width:none] min-[900px]:mx-0 min-[900px]:grid min-[900px]:grid-cols-6 min-[900px]:overflow-visible min-[900px]:px-0"
+        className="-mx-5 flex snap-x gap-2.5 overflow-x-auto px-5 pb-1 [scrollbar-width:none] min-[900px]:mx-0 min-[900px]:grid min-[900px]:[grid-template-columns:repeat(var(--n),minmax(0,1fr))] min-[900px]:overflow-visible min-[900px]:px-0"
+        // As many columns as published lines: 5 now, 6 once Gaming is published (no empty slot).
+        style={{ '--n': lines.length } as CSSProperties}
         data-scroll-thin
       >
-        {ordered(lines).map((line) => {
+        {withGamingLast(lines).map((line) => {
           const isCurrent = line.key === current
           const gaming = line.key === 'gaming'
           // A published line without an address is a tile, not a link without href.
@@ -65,7 +64,7 @@ export function LinesBand({ lines, current, className }: LinesBandProps) {
                 )}
               >
                 <span className="flex items-start justify-between gap-2">
-                  {gaming || line.key !== 'zakopane' ? (
+                  {line.key !== 'zakopane' ? (
                     <LineLogo
                       line={line.key}
                       alt={`PRO-KOM ${line.name}`}

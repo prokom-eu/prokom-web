@@ -5,7 +5,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { BottomSheet } from '@/components/BottomSheet'
 import { cx } from '@/components/ui/cx'
 import { useThemeChoice, type ThemeChoice } from '@/components/useTheme'
-import type { SharedLineKey } from '@/lib/shared/lines'
+import { withGamingLast, type SharedLineKey } from '@/lib/shared/lines'
 import { onMenuRequest } from '@/lib/shared/menuOpen'
 import type { OpeningHours } from '@/lib/shared/openingStatus'
 import type { SharedLine } from '@/lib/shared/project'
@@ -120,7 +120,7 @@ export function MenuSheet({
             Linie PRO-KOM
           </h3>
           <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
-            {lines.map((line) => {
+            {withGamingLast(lines).map((line) => {
               const Tag = line.url ? 'a' : 'span'
               return (
                 <li key={line.key} className="shrink-0">

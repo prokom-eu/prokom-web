@@ -89,6 +89,10 @@ describe('LinesBand (spec §5, §2.4)', () => {
     expect(markup.match(/Jesteś tutaj/g)).toHaveLength(1)
   })
 
+  it('has as many columns as lines — no empty sixth slot while Gaming waits', () => {
+    expect(html(createElement(LinesBand, { lines: FIVE, current: 'biznes' }))).toContain('--n:5')
+  })
+
   it('a line without an address is a tile, not a link without href', () => {
     const markup = html(
       createElement(LinesBand, { lines: [line('tech', 'Tech', null)], current: 'biznes' }),
@@ -135,6 +139,22 @@ describe('SiteFooter (spec §5)', () => {
     expect(markup).toContain('data-lines-band')
     expect(markup).toContain('data-legal-bar')
     expect(markup.replace(/<!-- -->/g, '')).toContain('© 2026 PRO-KOM Tadeusz Wójciak')
+  })
+
+  it('leaves out a column without a heading or links (unfinished in the panel)', () => {
+    const markup = html(
+      createElement(SiteFooter, {
+        ...props,
+        columns: [
+          ...props.columns,
+          { heading: '', links: [{ label: 'X', href: '/x' }] },
+          { heading: 'Pusta', links: [] },
+        ],
+      }),
+    )
+    expect(markup).not.toContain('href="/x"')
+    expect(markup).not.toContain('Pusta')
+    expect(markup).toContain('--cols:1')
   })
 
   it('without a phone or e-mail leaves them out (no literal fallback)', () => {

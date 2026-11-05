@@ -3,7 +3,6 @@ import type { Payload } from 'payload'
 import type { RichTextBlock } from '../../payload-types'
 import { h2, p, richText, ul } from '../biznes/lexical'
 
-import { SOFTWARE_CONTACT } from './map'
 import { upsertSoftwarePage, type PageBlock } from './page'
 
 type Count = (name: string, result: boolean | 'updated') => void
@@ -204,7 +203,8 @@ const ACCESSIBILITY = [
   h2('Zgłoś problem'),
   p(
     'Coś nie działa albo trudno z tego skorzystać? Napisz na ',
-    { text: SOFTWARE_CONTACT.email, href: `mailto:${SOFTWARE_CONTACT.email}` },
+    // The same open value as the privacy policy, filled in once the text is approved.
+    { bold: '[E-MAIL SOFTWARE]' },
     ' — odpowiemy i poprawimy.',
   ),
 ]
@@ -216,7 +216,7 @@ const legalLayout =
     { blockType: 'richText', content: richText<RichTextBlock['content']>(content) },
   ]
 
-const LEGAL_PAGES = [
+export const SOFTWARE_LEGAL_PAGES = [
   {
     slug: SOFTWARE_PRIVACY_SLUG,
     title: 'Polityka prywatności',
@@ -247,7 +247,7 @@ const LEGAL_PAGES = [
  * page has no text block; text edited in the panel stays).
  */
 export async function seedSoftwareLegal(payload: Payload, tenantId: number, count: Count) {
-  for (const page of LEGAL_PAGES) {
+  for (const page of SOFTWARE_LEGAL_PAGES) {
     await upsertSoftwarePage(payload, tenantId, { ...page, block: 'richText' }, count)
   }
 }

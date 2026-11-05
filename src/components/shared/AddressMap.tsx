@@ -1,6 +1,5 @@
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
-import { OSM_MAP } from '@/lib/shared/osmMap.generated'
 
 type Props = {
   /** `light` on light surfaces, `dark` in the footer and dark bands (board Mapa). */
@@ -19,13 +18,17 @@ type Props = {
   className?: string
 }
 
-const ROAD = 'fill-none [stroke-linecap:round] [stroke-linejoin:round]'
+/** The drawing as a static file (`scripts/address-map-svg.mjs`): cached between pages. */
+export const ADDRESS_MAP_SRC = '/brand/mapa-orkana.svg'
+/** Its coordinates (800 × 560), centred on the salon. */
+const VIEW_BOX = '0 0 800 560'
 
 /**
  * The address map of every line (spec §5 `AddressMap`, ADR-022 pkt 5): the OpenStreetMap drawing
- * made once by `scripts/software-osm-map.mjs` — no embedded map, no third-party script, no
- * cookies. The salon is in the middle (the drawing is centred on it, `slice` keeps it there at any
- * height), with two accent rings and the pin; the ODbL credit is always visible.
+ * made once by `scripts/software-osm-map.mjs` and written to a static file — no embedded map, no
+ * third-party script, no cookies; `<use>` passes the variant’s `--am-*` colours into it. The salon
+ * is in the middle (the drawing is centred on it, `slice` keeps it there at any height), with two
+ * accent rings and the pin; the ODbL credit is always visible.
  */
 export function AddressMap({
   variant = 'light',
@@ -37,54 +40,16 @@ export function AddressMap({
   routeLabel,
   className,
 }: Props) {
-  const { layers } = OSM_MAP
   const linked = Boolean(mapsUrl && !routeLabel)
   const drawing = (
     <svg
       role="img"
       aria-label={description}
-      viewBox={`0 0 ${OSM_MAP.width} ${OSM_MAP.height}`}
+      viewBox={VIEW_BOX}
       preserveAspectRatio="xMidYMid slice"
       className="absolute inset-0 size-full"
     >
-      <rect x={-400} y={-400} width={1600} height={1360} className="fill-(--am-land)" />
-      <path d={layers.green} className="fill-(--am-park)" />
-      <path d={layers.wood} className="fill-(--am-wood)" />
-      <path d={layers.park} className="fill-(--am-parking)" />
-      <path d={layers.water} className="fill-(--am-water)" />
-      <path d={layers.ww} className={`${ROAD} stroke-(--am-water) [stroke-width:5]`} />
-      <path
-        d={layers.b}
-        className="fill-(--am-block) stroke-(--am-block-line) [stroke-width:0.8]"
-      />
-      <path
-        d={layers.r4}
-        className={`${ROAD} stroke-(--am-path) [stroke-dasharray:3_3] [stroke-width:1.4]`}
-      />
-      <path d={layers.r3} className={`${ROAD} stroke-(--am-casing) [stroke-width:7]`} />
-      <path d={layers.r2} className={`${ROAD} stroke-(--am-casing) [stroke-width:11]`} />
-      <path d={layers.r1} className={`${ROAD} stroke-(--am-casing) [stroke-width:16]`} />
-      <path d={layers.r3} className={`${ROAD} stroke-(--am-road) [stroke-width:4.5]`} />
-      <path d={layers.r2} className={`${ROAD} stroke-(--am-road) [stroke-width:8]`} />
-      <path d={layers.r1} className={`${ROAD} stroke-(--am-road-main) [stroke-width:12.5]`} />
-      <path
-        d={layers.rail}
-        className="fill-none stroke-(--am-rail) [stroke-dasharray:10_6] [stroke-width:3]"
-      />
-      <path d={OSM_MAP.target} className="fill-(--am-accent)" />
-      {OSM_MAP.labels
-        .filter((item) => item.text === 'ul. Orkana')
-        .map((item) => (
-          <text
-            key={item.text}
-            transform={`translate(${item.x} ${item.y}) rotate(${item.angle})`}
-            textAnchor="middle"
-            dy={-6}
-            className="fill-(--am-label) stroke-(--am-land) text-[12px] font-extrabold [paint-order:stroke] [stroke-linejoin:round] [stroke-width:4px]"
-          >
-            {item.text}
-          </text>
-        ))}
+      <use href={`${ADDRESS_MAP_SRC}#map`} />
     </svg>
   )
 

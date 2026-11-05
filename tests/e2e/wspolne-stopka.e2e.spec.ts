@@ -1,6 +1,7 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { setTheme, site } from './helpers'
 
 // D2-1b (plan `docs/zadania/wspolne-elementy.md`, spec §5, §7, §10 pkt 3): the footer, the address
 // map, the tab bar and the menu sheet on the preview page `/_wspolne` of each line, on seed data.
@@ -96,6 +97,41 @@ test.describe('/_wspolne — phone', () => {
       await page.keyboard.press('Escape')
       await expect(sheet).toBeHidden()
       await expect(opener).toBeFocused()
+    })
+  }
+
+  test('the space under the page keeps the end of the footer clear of the tab bar', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(site('software.localhost', '/_wspolne'))
+    const bar = await preview(page).locator('[data-tab-bar]').boundingBox()
+    const spacer = await preview(page).locator('[data-tab-bar-spacer]').boundingBox()
+    expect(Math.round(spacer?.height ?? 0)).toBeGreaterThanOrEqual(Math.round(bar?.height ?? 1))
+  })
+
+  test('the tab bar Menu opens the same sheet (keyboard)', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(site('biznes.localhost', '/_wspolne'))
+    // On the preview the line's own tab bar still lies over the shared one (until D3), so the
+    // button is reached by keyboard rather than a click.
+    const menu = preview(page)
+      .getByRole('navigation', { name: 'Pasek aplikacji' })
+      .getByRole('button', { name: 'Menu' })
+    await menu.focus()
+    await page.keyboard.press('Enter')
+    await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible()
+  })
+
+  for (const theme of ['light', 'dark'] as const) {
+    test(`axe on a phone with the menu sheet open (${theme})`, async ({ page }) => {
+      await setTheme(page, theme)
+      await page.setViewportSize({ width: 390, height: 844 })
+      await page.goto(site('instalacje.localhost', '/_wspolne'))
+      await preview(page).locator('.cap').getByRole('button', { name: 'Menu' }).click()
+      await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible()
+      const results = await new AxeBuilder({ page }).include('[data-wspolne]').analyze()
+      expect(results.violations).toEqual([])
     })
   }
 })

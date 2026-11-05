@@ -14,3 +14,11 @@ export const SHARED_LINE_KEYS = [
 ] as const
 
 export type SharedLineKey = (typeof SHARED_LINE_KEYS)[number]
+
+/** Gaming last, whatever its order in the panel (spec §2.4: brand bar, lines band, menu chips). */
+export function withGamingLast<T extends { key: SharedLineKey }>(lines: readonly T[]): T[] {
+  return [
+    ...lines.filter((line) => line.key !== 'gaming'),
+    ...lines.filter((line) => line.key === 'gaming'),
+  ]
+}
