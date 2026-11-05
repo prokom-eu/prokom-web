@@ -1059,6 +1059,51 @@
   --dur-state: 280ms;
   --dur-enter: 520ms;
   --dur-sheet: 420ms;
+  /* Shared elements (spec WSPOLNE-ELEMENTY §3, NAGLOWEK-KAPSULA §4): defaults for pages
+     without a line design (hub, 404); the lines set their own values below. */
+  --on-dark: var(--accent-on-dark);
+  --on-dark-text: var(--accent-on-dark);
+  --on-dark-ink: var(--c-grafit);
+  --line-dark: var(--c-grafit);
+  --line-dark-text: var(--c-papier);
+  --cap-bg: color-mix(in srgb, var(--surface) 78%, transparent);
+  --cap-border: color-mix(in srgb, var(--ink) 9%, transparent);
+  --cap-highlight: color-mix(in srgb, var(--c-white) 90%, transparent);
+  --cap-shadow: color-mix(in srgb, var(--ink) 28%, transparent);
+  --cap-kbd: var(--surface);
+  --nav-ink: var(--ink);
+  --nav-ink-2: var(--ink-2);
+  --nav-hover: color-mix(in srgb, var(--ink) 5%, transparent);
+  --nav-active-bg: var(--accent-soft);
+  --nav-active-ink: var(--accent-text);
+  --cap-cta-from: var(--accent-text);
+  --cap-cta-to: var(--accent-text);
+  --cap-cta-ink: var(--accent-ink);
+  --cap-cta-glow: color-mix(in srgb, var(--accent) 50%, transparent);
+  /* Resolved on <html> (where data-line and data-theme are), then inherited as a value. */
+  --cap-cta-bg: linear-gradient(180deg, var(--cap-cta-from), var(--cap-cta-to));
+  /* The same on every line and theme (board 11): near shadow, gloss of the action, its count. */
+  --cap-shadow-near: rgba(0, 0, 0, 0.05);
+  --cap-cta-gloss: rgba(255, 255, 255, 0.22);
+  --cap-cta-edge: rgba(255, 255, 255, 0.08);
+  --cap-count-bg: rgba(255, 255, 255, 0.95);
+  --cap-count-ink: var(--c-grafit);
+  /* Page scrollbar (spec §3 „Pasek przewijania”): the accent mixed into the track — 80 %, not the
+     spec's ~68 %: at 68 % four line/theme pairs stay below 3:1 (WCAG 1.4.11, shared-tokens.test). */
+  --scrollbar-track: var(--surface-2);
+  --scrollbar-thumb: color-mix(in srgb, var(--accent) 80%, var(--scrollbar-track));
+  /* Opening status (spec §5 `OpeningStatus`): dot colours per state, the same on every line;
+     the dark theme and dark bands get the light green dot. */
+  --status-open: #2e7a1e;
+  --status-open-bg: #eaf5e6;
+  /* The spec's #C77800, a shade darker: 3:1 also on the papier surface-2 of Instalacje and Software. */
+  --status-soon: #c27500;
+  --status-closed: #b45309;
+  --status-open-on-dark: #7bd36a;
+  --status-bg-on-dark: rgba(255, 255, 255, 0.07);
+  --status-ink-on-dark: var(--c-white);
+  /* Gaming in the brand bar (spec §2.4): a darker gold dash than its #F2C230 on light pages. */
+  --gaming-dash: #d9a400;
 }
 
 [data-line='prokom'] {
@@ -1103,6 +1148,28 @@
   --tone-blue-tag: var(--c-biznes-tone-blue);
   --tone-violet-tag: var(--c-biznes-tone-violet);
   --wizard: var(--c-biznes-wizard);
+  /* Shared elements (spec WSPOLNE-ELEMENTY §3): role tokens of the line's dark band — the same
+     in both themes. */
+  --on-dark: #4a7be0;
+  --on-dark-text: #8dadf0;
+  --on-dark-ink: #06102a;
+  --line-dark: var(--c-biznes-navy);
+  --line-dark-text: #aeb8d2;
+  /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+  --cap-bg: rgba(255, 255, 255, 0.78);
+  --cap-border: rgba(13, 19, 38, 0.09);
+  --cap-highlight: rgba(255, 255, 255, 0.9);
+  --cap-shadow: rgba(13, 19, 38, 0.28);
+  --cap-kbd: #ffffff;
+  --nav-ink: #0d1326;
+  --nav-ink-2: #4a5470;
+  --nav-hover: rgba(13, 19, 38, 0.05);
+  --nav-active-bg: #e9edf6;
+  --nav-active-ink: #244fb0;
+  --cap-cta-from: #2f5bc2;
+  --cap-cta-to: #1f45a0;
+  --cap-cta-ink: #ffffff;
+  --cap-cta-glow: rgba(36, 79, 176, 0.55);
 }
 
 [data-line='software'] {
@@ -1167,6 +1234,28 @@
   /* Flat CTA blocks with white text („Czasem powiemy”, quote ticket, footer CTA): the light
      palette's text accent in both themes, ≥ 4.5:1 (ADR-015 v23 pkt 1, themes.test.ts). */
   --cta-bg: var(--c-software-light-accent-text);
+  /* Shared elements (spec WSPOLNE-ELEMENTY §3): role tokens of the line's dark band — the same
+     in both themes. */
+  --on-dark: #9670ee;
+  --on-dark-text: #b49bf5;
+  --on-dark-ink: #120a26;
+  --line-dark: var(--c-software-night-surface-2);
+  --line-dark-text: #a9afa9;
+  /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+  --cap-bg: rgba(255, 255, 255, 0.74);
+  --cap-border: rgba(18, 22, 19, 0.09);
+  --cap-highlight: rgba(255, 255, 255, 0.9);
+  --cap-shadow: rgba(18, 22, 19, 0.26);
+  --cap-kbd: #ffffff;
+  --nav-ink: #121613;
+  --nav-ink-2: #4f5650;
+  --nav-hover: rgba(18, 22, 19, 0.05);
+  --nav-active-bg: #ece7fb;
+  --nav-active-ink: #5b33c4;
+  --cap-cta-from: #7b52e0;
+  --cap-cta-to: #6238cf;
+  --cap-cta-ink: #ffffff;
+  --cap-cta-glow: rgba(110, 69, 212, 0.5);
 }
 
 /* Dark theme — chosen by the visitor (`data-theme`, see lib/brand/theme.ts)… */
@@ -1197,6 +1286,24 @@
   --ok-text: var(--c-ok-night);
   --warn: var(--c-warn-night);
   --h1-accent: var(--c-biznes-night-accent-2);
+  /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+  --cap-bg: rgba(17, 28, 60, 0.66);
+  --cap-border: rgba(255, 255, 255, 0.09);
+  --cap-highlight: rgba(255, 255, 255, 0.06);
+  --cap-shadow: rgba(0, 0, 0, 0.6);
+  --cap-kbd: rgba(255, 255, 255, 0.08);
+  --nav-ink: #eef2fb;
+  --nav-ink-2: #a6b0cc;
+  --nav-hover: rgba(255, 255, 255, 0.06);
+  --nav-active-bg: rgba(74, 123, 224, 0.18);
+  --nav-active-ink: #8fb0f5;
+  --cap-cta-from: #4472dc;
+  --cap-cta-to: #2d5bc8;
+  --cap-cta-ink: #ffffff;
+  --cap-cta-glow: rgba(74, 123, 224, 0.6);
+  /* Opening status in the dark theme (spec §5). */
+  --status-open: var(--status-open-on-dark);
+  --status-open-bg: var(--status-bg-on-dark);
 }
 
 [data-line='software'][data-theme='dark'] {
@@ -1243,6 +1350,24 @@
   --header-bg: var(--c-software-night-header-bg);
   --pill-accent: var(--c-software-light-accent-text);
   --shadow: var(--c-software-night-shadow);
+  /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+  --cap-bg: rgba(24, 27, 25, 0.72);
+  --cap-border: rgba(255, 255, 255, 0.08);
+  --cap-highlight: rgba(255, 255, 255, 0.05);
+  --cap-shadow: rgba(0, 0, 0, 0.65);
+  --cap-kbd: rgba(255, 255, 255, 0.08);
+  --nav-ink: #ecedea;
+  --nav-ink-2: #a9ada8;
+  --nav-hover: rgba(255, 255, 255, 0.06);
+  --nav-active-bg: rgba(150, 112, 238, 0.18);
+  --nav-active-ink: #c3abfa;
+  --cap-cta-from: #8a62ea;
+  --cap-cta-to: #6b42d8;
+  --cap-cta-ink: #ffffff;
+  --cap-cta-glow: rgba(150, 112, 238, 0.6);
+  /* Opening status in the dark theme (spec §5). */
+  --status-open: var(--status-open-on-dark);
+  --status-open-bg: var(--status-bg-on-dark);
 }
 
 /* …or by the system when there is no choice. Keep in sync with the rules above (tested). */
@@ -1293,6 +1418,24 @@
     --header-bg: var(--c-software-night-header-bg);
     --pill-accent: var(--c-software-light-accent-text);
     --shadow: var(--c-software-night-shadow);
+    /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+    --cap-bg: rgba(24, 27, 25, 0.72);
+    --cap-border: rgba(255, 255, 255, 0.08);
+    --cap-highlight: rgba(255, 255, 255, 0.05);
+    --cap-shadow: rgba(0, 0, 0, 0.65);
+    --cap-kbd: rgba(255, 255, 255, 0.08);
+    --nav-ink: #ecedea;
+    --nav-ink-2: #a9ada8;
+    --nav-hover: rgba(255, 255, 255, 0.06);
+    --nav-active-bg: rgba(150, 112, 238, 0.18);
+    --nav-active-ink: #c3abfa;
+    --cap-cta-from: #8a62ea;
+    --cap-cta-to: #6b42d8;
+    --cap-cta-ink: #ffffff;
+    --cap-cta-glow: rgba(150, 112, 238, 0.6);
+    /* Opening status in the dark theme (spec §5). */
+    --status-open: var(--status-open-on-dark);
+    --status-open-bg: var(--status-bg-on-dark);
   }
 }
 

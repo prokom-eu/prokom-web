@@ -1,0 +1,457 @@
+/*
+ * Shared elements of the lines (spec WSPOLNE-ELEMENTY, ADR-022): rules that Tailwind classes
+ * cannot say simply — the page scrollbar and the states of the header capsule. Colours only
+ * through tokens (`tokens.css`); components live in `src/components/shared`.
+ */
+
+/*
+ * Scrollbars in the line's colours (spec §3 „Pasek przewijania”, board 07 §6): the page's own bar
+ * 14 px, bars inside the page (windows, mega menus, sheets, results, scrolling rows) the thin 8 px
+ * version. Chrome, Edge and Safari: `::-webkit-scrollbar*` — a round thumb with a border in the
+ * track colour. Firefox: the standard properties, only where `::-webkit-scrollbar` does not exist —
+ * since Chrome 121 `scrollbar-color` on an element switches its `::-webkit-scrollbar` styles off.
+ */
+html[data-line] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+html[data-line]::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+html[data-line]::-webkit-scrollbar-track,
+html[data-line] ::-webkit-scrollbar-track,
+html[data-line]::-webkit-scrollbar-corner,
+html[data-line] ::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+html[data-line] ::-webkit-scrollbar-thumb {
+  border: 2px solid var(--scrollbar-track);
+  border-radius: 999px;
+  background: var(--scrollbar-thumb);
+}
+html[data-line]::-webkit-scrollbar-thumb {
+  border: 3px solid var(--scrollbar-track);
+  border-radius: 999px;
+  background: var(--scrollbar-thumb);
+}
+html[data-line]::-webkit-scrollbar-thumb:hover,
+html[data-line] ::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Scrollers hidden with Tailwind's `[scrollbar-width:none]` stay hidden in WebKit too (MAPA-DZIS
+   §10.3): the rules above would otherwise give them a bar. */
+.\[scrollbar-width\:none\]::-webkit-scrollbar {
+  display: none;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  html[data-line] {
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+  html[data-line] :is(dialog, [data-scroll-thin]) {
+    scrollbar-width: thin;
+  }
+}
+
+/*
+ * Opening status (spec §5 `OpeningStatus`, board Moduły): a dot in the state colour and the label;
+ * the pill variant on a soft tint. On a dark band (`data-on-dark`): light dot, white text.
+ */
+.oh-status {
+  --oh-dot: var(--status-open);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  color: var(--nav-ink, var(--ink));
+  white-space: nowrap;
+}
+.oh-status[data-state='soon'] {
+  --oh-dot: var(--status-soon);
+}
+.oh-status[data-state='closed'] {
+  --oh-dot: var(--status-closed);
+}
+.oh-status__dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--oh-dot);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--oh-dot) 20%, transparent);
+}
+.oh-status--pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--oh-dot) 10%, var(--surface));
+  color: var(--ink);
+}
+.oh-status--pill[data-state='open'] {
+  background: var(--status-open-bg);
+}
+.oh-status[data-on-dark] {
+  color: var(--status-ink-on-dark);
+}
+.oh-status[data-on-dark][data-state='open'] {
+  --oh-dot: var(--status-open-on-dark);
+}
+.oh-status--pill[data-on-dark] {
+  background: var(--status-bg-on-dark);
+}
+
+/*
+ * Header capsule (NAGLOWEK-KAPSULA §3–7, board 11): `SiteHeader` + `CapsuleShell`. The wrapper is
+ * sticky 12 px from the top and keeps its height, the capsule inside gets lower when scrolled —
+ * nothing below moves. Breakpoints 1081 and 1360 px for every line.
+ */
+.cap-sentinel {
+  position: relative;
+  height: 0;
+}
+.cap-sentinel > span {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 1px;
+  height: 1px;
+}
+.cap-wrap {
+  position: sticky;
+  top: 12px;
+  z-index: 40;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1344px;
+  height: 72px;
+  margin-inline: auto;
+  padding-inline: 32px;
+  /* Room for the side rail from 1400 px (D2-2 sets the variable). */
+  padding-left: calc(32px + var(--rail-offset, 0px));
+  transition: transform var(--dur-state) var(--ease-out);
+}
+.cap-wrap[data-static] {
+  position: relative;
+  top: auto;
+}
+.cap-wrap[data-hidden] {
+  transform: translateY(calc(-100% - 16px));
+}
+.cap {
+  --cap-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 72px;
+  padding: 0 12px 0 26px;
+  border: 1px solid var(--cap-border);
+  border-radius: 22px;
+  background: var(--cap-bg);
+  box-shadow:
+    inset 0 1px 0 var(--cap-highlight),
+    0 1px 2px var(--cap-shadow-near),
+    0 22px 44px -30px var(--cap-shadow);
+  backdrop-filter: blur(18px) saturate(1.6);
+  transition:
+    height 220ms var(--cap-ease),
+    border-radius 220ms var(--cap-ease),
+    padding 220ms var(--cap-ease),
+    box-shadow 220ms var(--cap-ease);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .cap {
+    background: color-mix(in srgb, var(--surface) 96%, transparent);
+  }
+}
+[data-scrolled] > .cap {
+  height: 60px;
+  border-radius: 18px;
+  padding-left: 20px;
+  box-shadow:
+    inset 0 1px 0 var(--cap-highlight),
+    0 1px 2px var(--cap-shadow-near),
+    0 26px 50px -26px var(--cap-shadow);
+}
+.cap__logo {
+  --logo-h: 36px;
+  display: flex;
+  flex-shrink: 0;
+  border-radius: 10px;
+  transform-origin: left center;
+  transition: transform 220ms var(--cap-ease);
+}
+[data-scrolled] .cap__logo {
+  transform: scale(0.86);
+}
+.cap__nav ul {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cap-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--nav-ink-2);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 150ms,
+    background-color 150ms;
+}
+.cap-link:hover,
+.cap-link[aria-expanded='true'] {
+  background: var(--nav-hover);
+  color: var(--nav-ink);
+}
+.cap-link svg {
+  transition: transform 150ms;
+}
+.cap-link[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+.cap-link[aria-current='page'] {
+  background: var(--nav-active-bg);
+  color: var(--nav-active-ink);
+  font-weight: 700;
+}
+.cap :is(a, button):focus-visible {
+  outline: 2px solid var(--nav-active-ink);
+  outline-offset: 2px;
+}
+.cap__actions,
+.cap__extras {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+}
+.cap-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  height: 44px;
+  border: 1px solid var(--cap-border);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--nav-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 150ms,
+    height 220ms,
+    min-width 220ms;
+}
+.cap-btn:hover {
+  background: var(--nav-hover);
+}
+.cap-btn--search {
+  padding: 0 8px 0 14px;
+  background: var(--nav-hover);
+  color: var(--nav-ink-2);
+  font-weight: 600;
+}
+.cap-btn--search kbd {
+  padding: 3px 7px;
+  border: 1px solid var(--cap-border);
+  border-radius: 7px;
+  background: var(--cap-kbd);
+  color: var(--nav-ink-2);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+}
+.cap-btn--pill {
+  padding: 0 14px;
+}
+.cap-count {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--nav-active-bg);
+  color: var(--nav-active-ink);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+}
+.cap-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 48px;
+  padding: 0 22px;
+  border-radius: 15px;
+  background: var(--cap-cta-bg);
+  color: var(--cap-cta-ink);
+  font-size: 15px;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 1px 0 var(--cap-cta-gloss),
+    inset 0 0 0 1px var(--cap-cta-edge),
+    0 10px 26px -10px var(--cap-cta-glow),
+    0 0 34px -10px var(--cap-cta-glow);
+  transition:
+    transform 150ms,
+    height 220ms;
+}
+.cap-cta:hover {
+  transform: translateY(-1px);
+}
+.cap-cta .cap-count {
+  background: var(--cap-count-bg);
+  color: var(--cap-count-ink);
+}
+.cap-cta__short,
+.cap-menu {
+  display: none;
+}
+[data-scrolled] .cap-cta {
+  height: 44px;
+}
+[data-scrolled] .cap-btn {
+  min-width: 40px;
+  height: 40px;
+}
+/* Mega menu of a line: 10 px under the capsule, the same width and radius; an invisible bridge
+   over the gap keeps it open while the pointer crosses. */
+.cap-mega {
+  position: absolute;
+  /* Offsets count from inside the capsule's 1 px border: 10 px gap, the capsule's full width. */
+  top: calc(100% + 11px);
+  right: -1px;
+  left: -1px;
+  z-index: 1;
+  border: 1px solid var(--cap-border);
+  border-radius: 22px;
+  background: var(--card);
+  color: var(--nav-ink);
+  box-shadow: 0 30px 70px -30px var(--cap-shadow);
+}
+.cap-mega::before {
+  position: absolute;
+  top: -12px;
+  right: 0;
+  left: 0;
+  height: 12px;
+  content: '';
+}
+
+/* Cramped (1081–1359 px): tighter menu and the short action label — never a second row. */
+@media (min-width: 1081px) and (max-width: 1359px) {
+  .cap {
+    gap: 8px;
+    padding-left: 20px;
+  }
+  .cap__nav ul {
+    gap: 0;
+  }
+  .cap-link {
+    padding: 9px;
+    font-size: 14px;
+  }
+  .cap-cta {
+    padding: 0 16px;
+  }
+  .cap-cta__long {
+    display: none;
+  }
+  .cap-cta__short {
+    display: inline;
+  }
+}
+/* Up to 1080 px: mark, short action and the Menu button (the sheet of board 06). */
+@media (max-width: 1080px) {
+  .cap-wrap {
+    padding-inline: 20px;
+  }
+  /* Board 11 (phone): the right-hand buttons move to the menu sheet (search included). */
+  .cap__nav,
+  .cap__extras {
+    display: none;
+  }
+  .cap__logo {
+    --logo-h: 30px;
+  }
+  .cap-menu {
+    display: contents;
+  }
+  .cap-cta__long {
+    display: none;
+  }
+  .cap-cta__short {
+    display: inline;
+  }
+}
+/* Phone: 10 px from the edges, 58 px high, 42 px buttons. */
+@media (max-width: 767px) {
+  .cap-wrap {
+    top: 10px;
+    height: 58px;
+    padding-inline: 10px;
+  }
+  .cap,
+  [data-scrolled] > .cap {
+    height: 58px;
+    padding: 0 7px 0 16px;
+    border-radius: 18px;
+  }
+  .cap__logo {
+    --logo-h: 24px;
+  }
+  [data-scrolled] .cap__logo {
+    transform: none;
+  }
+  .cap-btn,
+  [data-scrolled] .cap-btn {
+    min-width: 42px;
+    height: 42px;
+    border-radius: 13px;
+  }
+  .cap-cta,
+  [data-scrolled] .cap-cta {
+    height: 42px;
+    padding: 0 15px;
+    border-radius: 13px;
+    font-size: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cap-wrap,
+  .cap,
+  .cap__logo,
+  .cap-link,
+  .cap-link svg,
+  .cap-btn,
+  .cap-cta {
+    transition: none;
+  }
+  .cap-cta:hover {
+    transform: none;
+  }
+}

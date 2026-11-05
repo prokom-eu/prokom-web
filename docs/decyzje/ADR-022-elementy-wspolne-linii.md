@@ -44,3 +44,12 @@ Trzy linie w `prokom-web` (Biznes, Instalacje, Software) zbudowały pasek marki,
 4. **Ścieżki stron prawnych** — jedno źródło: `CompanyData.legal` (te same ścieżki we wszystkich liniach). `SiteSettings.footer.links` zostaje do D3 (L1 przechodzi na `legal`).
 5. **Salon w Zakopanem nie jest seedowany** (decyzja Instalacji 01.11: firma nie ma salonu w Zakopanem); linia `zakopane` w `CompanyData.lines` istnieje z `published: false`.
 6. **Liczby z plakietką (`about.stats[].flag`)** loader przepuszcza; ukrycie na produkcji robi `StatsStrip` w D2 (spec §6.2 pkt 2) — z testem.
+
+## Rozstrzygnięcia D2-1a (05.11.2026, plan D2 zaakceptowany przez Krystiana)
+1. **Podział D2-1** na D2-1a (tokeny, pasek przewijania, `LineLogo`, `OpeningStatus`, `BrandBar`, `SiteHeader`-kapsuła) i D2-1b (stopka, mapa, telefon, strony prawne) — PR ≤ ~800 linii. `/_wspolne` powstaje od D2-1a i rośnie z każdym PR (e2e komponentów).
+2. **Pasek przewijania:** suwak 80 % akcentu zamiast ~68 % ze spec §3 — przy 68 % cztery pary linia/motyw nie osiągają 3:1 (WCAG 1.4.11); 14 px tylko pasek strony, wewnątrz strony 8 px.
+3. **Status „Zamykamy za N min”:** `#C27500` zamiast `#C77800` — 3:1 także na papierowym `surface-2` Instalacji i Software. Tekst statusu zawsze w kolorze tekstu, stan niesie kropka i słowa.
+4. **Tokeny kapsuły** `--cap-*`, `--nav-*`, `--cap-cta-*` (nie `--cta-*` z NAGLOWEK-KAPSULA §4 — `--cta-bg` zajmują płaskie CTA Software).
+5. **Wspólna funkcja statusu** (`src/lib/shared/openingStatus.ts`, święta i „Zamykamy za”) obok `lib/site/hours.ts` linii — linie przechodzą na nią w D3, potem stara znika. Tak samo `lib/shared/hideOnScroll.ts` (kopia reguły z powłoki Instalacji).
+6. **Telefon (≤ 1080 px):** wg planszy 11 — znak, krótka akcja, Menu; prawe przyciski (z lupą) w arkuszu Menu. Spec §7 (02.11) chciał lupy w nagłówku poniżej 1400 px — do potwierdzenia.
+7. **Krótka etykieta akcji** (`headerCta.shortLabel`) nie ma pola w panelu — dodaje je D3 PR 1 (migracja tylko dodająca); do tego czasu podgląd bierze ją z `demo.ts`.
