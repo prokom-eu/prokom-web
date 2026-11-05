@@ -1,14 +1,2 @@
-/**
- * Search form of a text (spec. §8.2): lower case, `ł → l` (NFD does not split it), no
- * diacritics, single spaces. The catalog index stores product text in this form (`hay`) and
- * the search (B4) normalizes the query the same way.
- */
-export function normalizeText(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/ł/g, 'l')
-    .normalize('NFD')
-    .replace(/\p{M}/gu, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-}
+// The search form of a text lives with the shared search engine (D2-2); catalog code keeps this path.
+export { normalizeText } from '../shared/search/normalize'
