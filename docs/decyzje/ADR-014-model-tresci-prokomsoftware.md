@@ -295,3 +295,15 @@ Strona rozwiązania (spec. §6.1) i strona branży (spec. §6.2), wg plansz `Roz
 7. **Audyt:** formularz z „Imię” i zgodą (rozstrz. SW0 6); adres jak wpisany (`https://` dopisywane, domena z kropką), `type: 'audit'`, `message` składa serwer. Ceny rodzajów z `levels` rozwiązania audytu; w tekstach cena przez `{cena:<slug>}`.
 8. **`?projekt=1` i `?poziom=`** czytane `useSearchParams` — bloki są dynamiczne (`connection()`), więc wartości są już w HTML z serwera.
 9. **Kontakt:** status godzin liczony z `CompanyData.locations[0].hours` (`openingStatus` z polami `time`/`when`), odświeżany w przeglądarce co minutę; mapa = rysunek z tokenów `--map-*` + link „Nawiguj” do Map Google (bez osadzania, bez ciasteczek); „Inne linie PRO-KOM” z `data-lines-section` (stopka chowa swoje karty linii).
+
+## Rozstrzygnięcia v24 „Aurora” (06.11.2026 — do potwierdzenia w planach sesji SWA)
+
+Wizualizacja v24 (`docs/design/prokomsoftware/v24/ZMIANY-v24.md`) nie zmienia zasady modelu (rozwiązania, ceny i terminy w `Solutions`, teksty sekcji w `SoftwareSettings`, zgłoszenia w `Inquiries`). Zmiany, domyślnie przyjęte (PRZEKAZANIE-v24 §0.1):
+
+1. **`Solutions.preview`** = { `kind`: site | dash | flow | care | before | phone, `variant` } — makieta zamiast miniatury SVG; migracja tylko dodająca, seed wg PRZEKAZANIE-v24 §5; puste → `thumbnail` (zapas, OG).
+2. **`SoftwareSettings.home` v24** — nowe klucze `hero` (slajdy: słowo, `solution`, makieta, podpis; pigułka, lead, pasek zaufania, branże taśmy), `promises`, `situations`, `bento`, `showroom`, `tech` (4 zakładki), `pricingSection`; znikają klucze sekcji usuniętych (obszary, „12 rzeczy”, podglądy, howWeBuild, whyNotWordpress, technologies, guarantees, heroModules, heroPanel). Usunięcie wariantów bloku `swHomeSection` = migracja danych (pytanie do Krystiana).
+3. **`SoftwareSettings.wizard` v3** — typy z grupą (site / redo / sys / auto / idk), kroki per grupa, opcje (w tym wyłączne „Zaczynamy od zera”), branże, podpowiedzi jako reguły `{ when, text }`, podgląd → makieta, teksty wysyłki; **bez dodatków**; wielkość zespołu tylko w grupie sys. Migracja danych przepisuje stary kształt (jak SW7).
+4. **`Inquiries.wizard`** — JSON odpowiedzi v3 (`type`, `industry`, `answers`, `note`) + `items[].solution`.
+5. **`Posts.category` (Software)** — Poradnik, Strony, Systemy, Automatyzacje, Bezpieczeństwo (migracja danych: Nowości → Poradnik, Realizacje → Strony).
+6. **`/jedna-firma`** — strona usunięta, przekierowanie 301 na `/o-firmie#linie`; treść linii w O firmie (szablon D2-4).
+7. **Strony prawne** — nowe `/regulamin`, `/cookies`, `/dostepnosc` z bloków (jak polityka); tabele RODO jako blok tabeli Software (`swTable`) albo uzasadniona alternatywa (SWA6).
