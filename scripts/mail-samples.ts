@@ -11,6 +11,7 @@ import { lineCopy } from '../src/lib/mail/lineCopy'
 import { mailLogo } from '../src/lib/mail/logo'
 import { SAMPLE_LINES, sampleMails } from '../src/lib/mail/samples'
 import { sendLineEmail } from '../src/lib/mail/send'
+import { senderFor } from '../src/lib/mail/senders'
 import { toSharedData } from '../src/lib/shared/project'
 import config from '../src/payload.config'
 
@@ -25,6 +26,8 @@ if (env.SITE_ENV === 'production') {
   process.exit(2)
 }
 
+// Shared data straight from the documents (`toSharedData`), not `getSharedData`: that loader
+// imports `@payload-config` and React `cache`, which `payload run` scripts do not resolve.
 const payload = await getPayload({ config })
 let failed = false
 try {
@@ -55,7 +58,12 @@ try {
     const copy = lineCopy(line)
     const mails = sampleMails(line, {
       context,
-      logo: mailLogo(copy.logo, copy.label, env.MAIL_LOGO_BASE_URL),
+      logo: mailLogo(
+        copy.logo,
+        copy.label,
+        env.MAIL_LOGO_FROM_SITE && context?.origin ? context.origin : undefined,
+      ),
+      replyAddress: senderFor(line, env).address,
       to,
       panelUrl: `https://${env.PANEL_HOST}/admin`,
     })

@@ -87,6 +87,7 @@ export function sampleMails(
     logo,
     to,
     panelUrl,
+    replyAddress,
     sentAt = new Date(),
   }: {
     context: MailContext | null
@@ -94,11 +95,13 @@ export function sampleMails(
     /** Recipient of both mails (`mail:samples`); the preview shows the line inbox. */
     to?: string
     panelUrl: string
+    /** The line's sender address — where a reply to the confirmation lands. */
+    replyAddress: string | null
     sentAt?: Date
   },
 ): { confirmation: Email; notification: Email } {
   const inquiry = INQUIRIES[line]
-  const confirmation = confirmationEmail(inquiry, { context, logo, sentAt })
+  const confirmation = confirmationEmail(inquiry, { context, logo, sentAt, replyAddress })
   if (!confirmation) throw new Error('The sample inquiry has an e-mail.')
   const notification = notificationEmail(inquiry, {
     to: to ?? context?.email ?? '',

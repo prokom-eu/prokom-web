@@ -8,6 +8,7 @@ import { getEnv } from '@/lib/env'
 import { toMailContext } from '@/lib/mail/context'
 import { lineCopy } from '@/lib/mail/lineCopy'
 import { mailLogo } from '@/lib/mail/logo'
+import { senderFor } from '@/lib/mail/senders'
 import { SAMPLE_LINES, sampleMails, type SampleLine } from '@/lib/mail/samples'
 import { siteOrigin } from '@/lib/seo/origin'
 import { getSharedData } from '@/lib/shared/getSharedData'
@@ -61,7 +62,8 @@ export default async function MailPreviewPage({ params }: Props) {
   const sentAt = new Date()
 
   return (
-    <main id="main" className="mx-auto max-w-[1320px] px-6 py-12 font-sans">
+    // The site layout already has the `<main>` landmark.
+    <div className="mx-auto max-w-[1320px] px-6 py-12 font-sans">
       <h1 className="text-3xl font-extrabold">Maile linii — podgląd</h1>
       <p className="mt-2 text-sm opacity-80">
         Dane klienta przykładowe; telefon, e-mail i dane firmy z panelu (Dane firmy, Ustawienia
@@ -74,13 +76,14 @@ export default async function MailPreviewPage({ params }: Props) {
           mails={sampleMails(line, {
             context,
             logo: mailLogo(lineCopy(line).logo, lineCopy(line).label, origin),
-            panelUrl: `${origin ?? ''}/admin`,
+            panelUrl: `${siteOrigin(env.PANEL_HOST, env.SITE_ENV) ?? ''}/admin`,
+            replyAddress: senderFor(line, env).address,
             sentAt,
           })}
           missing={!context}
         />
       ))}
-    </main>
+    </div>
   )
 }
 
