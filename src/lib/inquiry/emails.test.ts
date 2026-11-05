@@ -277,7 +277,11 @@ describe('mail code has no contact literals (spec MAILE §2, §8)', () => {
   const files = [
     ...readdirSync(join(__dirname, '../mail'), { recursive: true })
       .map(String)
-      .filter((file) => file.endsWith('.ts') && !file.endsWith('.test.ts'))
+      // `samples.ts` holds the made-up customer of the previews (`/_maile`, `mail:samples`).
+      .filter(
+        (file) =>
+          file.endsWith('.ts') && !file.endsWith('.test.ts') && !file.endsWith('samples.ts'),
+      )
       .map((file) => join(__dirname, '../mail', file)),
     join(__dirname, 'emails.ts'),
   ]
