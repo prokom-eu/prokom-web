@@ -335,7 +335,7 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   // --- /cennik (SW11a): after the solutions, its hero card points at one ---
   await seedSoftwarePricing(payload, tenant.id, count)
   await seedSoftwareAudit(payload, tenant.id, count)
-  // --- /polityka-prywatnosci (SW11b): a draft until the owner approves it ---
+  // --- /polityka-prywatnosci (SW11b), /cookies, /dostepnosc (D2-1b): drafts until approved ---
   await seedSoftwareLegal(payload, tenant.id, count)
   // --- /o-firmie, /jedna-firma (SW11b): after the home texts — the comparison reads them ---
   await seedSoftwareAbout(payload, tenant.id, count)
