@@ -3,6 +3,7 @@ import type { Payload } from 'payload'
 import type { CompanyDatum } from '../../payload-types'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
+import { SHARED_COMPANY } from '../shared/company'
 
 export const CONTACT_SLUG = 'kontakt'
 
@@ -48,18 +49,9 @@ export const BIZNES_CONTACT = {
  * Shared phones and e-mail stay as they are: Software and Instalacje show their own sample ones.
  */
 export const BIZNES_COMPANY: Pick<CompanyDatum, 'name' | 'nip' | 'locations'> = {
-  name: 'PRO-KOM Tadeusz Wójciak',
-  nip: '7352511447',
-  locations: [
-    {
-      name: 'Rabka-Zdrój',
-      street: 'ul. Orkana 16B',
-      postalCode: '34-700',
-      city: 'Rabka-Zdrój',
-      // Saturday and Sunday closed: days without a row.
-      hours: [{ days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' }],
-    },
-  ],
+  name: SHARED_COMPANY.name,
+  nip: SHARED_COMPANY.nip,
+  locations: SHARED_COMPANY.locations,
 }
 
 type Count = (name: string, result: boolean | 'updated') => void

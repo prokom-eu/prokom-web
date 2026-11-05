@@ -118,6 +118,7 @@ import { seedBiznesLegal } from './legal'
 import { SERVICE_AREAS, upsertBiznesContact } from './contact'
 import { seedBiznesHome } from './home'
 import { navigationData, upgradedColumnLimit, upgradedHighlights, upgradedMenu } from './navigation'
+import { seedSharedData } from '../shared/run'
 
 /** Files of the design package, relative to the repo root (where `pnpm seed` runs). */
 const MEDIA_DIR = path.join('docs', 'design', 'prokombiznes', 'boards', 'media')
@@ -1251,6 +1252,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- corrected wording in pages seeded earlier (old contact, 01.11.2026) ---
   await seedBiznesTextFixes(payload, tenant.id, pageReport)
+
+  // --- shared data of the company and the line (D1, spec elementów wspólnych §4) ---
+  await seedSharedData(payload, 'biznes', tenant.id, count)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

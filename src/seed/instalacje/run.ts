@@ -22,6 +22,7 @@ import {
   solutionsToImport,
   type Refs,
 } from './map'
+import { seedSharedData } from '../shared/run'
 
 const INSTALACJE_TENANT_SLUG = 'instalacje'
 
@@ -399,6 +400,11 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     })
     count('form-pages', 'updated')
   }
+
+  // --- shared data of the company and the line (D1, spec elementów wspólnych §4) ---
+  await seedSharedData(payload, 'instalacje', tenantId, (name, result) =>
+    count(name, result === 'updated' ? 'updated' : result ? 'created' : 'skipped'),
+  )
 
   for (const [name, c] of Object.entries(counters)) {
     log(`${name}: ${c.created} created, ${c.updated} updated, ${c.skipped} unchanged.`)

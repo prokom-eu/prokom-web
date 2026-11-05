@@ -32,6 +32,7 @@ import { seedSoftwareHome } from './home'
 import { seedSoftwarePhotos } from './photos'
 import { seedSoftwarePricing } from './pricing'
 import { HOME_SECTION_TEXTS, homeWithPriceTokens, homeWithSections } from './homeExtras'
+import { seedSharedData } from '../shared/run'
 
 const SOFTWARE_TENANT_SLUG = 'software'
 
@@ -342,6 +343,9 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   await seedSoftwarePhotos(payload, tenant.id, count)
   // --- titles and descriptions of those pages (SW12, spec. §9): only empty fields ---
   await seedSoftwareSeo(payload, tenant.id, count)
+
+  // --- shared data of the company and the line (D1, spec elementów wspólnych §4) ---
+  await seedSharedData(payload, 'software', tenant.id, count)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

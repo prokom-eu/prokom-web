@@ -9,6 +9,7 @@ import { FACT_KEY } from '../lib/software/facts'
 import { validateNavigation } from '../lib/software/navigation'
 import { LINES } from '../lib/tenant/lines'
 import { copyTenantLine, onLine } from '../lib/tenant/copyLine'
+import { sharedLineFields } from '../fields/sharedLineFields'
 import { biznesFooter } from './biznesFooter'
 import { biznesNavigation } from './biznesNavigation'
 
@@ -313,6 +314,7 @@ export const SiteSettings: CollectionConfig = {
         },
       ],
     },
+    sharedLineFields,
     biznesGroup,
     softwareGroup,
   ],
