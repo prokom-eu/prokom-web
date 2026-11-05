@@ -206,14 +206,15 @@ test.describe('Instalacje page for architects', () => {
     }
   })
 
-  test('„Wyślij rzuty”: asks for what is missing, saves „Architekci · projekt”', async ({
+  // Round v5 (RUNDA-V5 §7.1): a consultation, no files and no plan link through the site.
+  test('„Umów konsultację projektu”: asks for what is missing, saves „Architekci · projekt”', async ({
     page,
   }) => {
     await page.setExtraHTTPHeaders({ 'X-Real-IP': clientIp })
     const name = `E2E Architekt ${Date.now()}`
     await open(page)
     const form = page.locator('#wyslij form')
-    const send = form.getByRole('button', { name: 'Wyślij do opiekuna' })
+    const send = form.getByRole('button', { name: 'Umów konsultację' })
     await send.click()
     await expect(form.getByRole('alert')).toContainText('Podaj imię')
     await form.getByLabel('Imię i nazwisko').fill(name)
@@ -222,7 +223,8 @@ test.describe('Instalacje page for architects', () => {
     await form.getByLabel('Telefon').fill('600 100 200')
     await form.getByRole('button', { name: 'Deweloper' }).click()
     await form.getByLabel('Pracownia lub firma').fill('Pracownia E2E')
-    await form.getByLabel('Link do rzutów').fill('https://example.test/rzuty')
+    await expect(form.getByLabel(/Link do rzutów/)).toHaveCount(0)
+    await expect(form.locator('input[type="file"]')).toHaveCount(0)
     await form.locator('label.consent input').check()
     await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
     await send.click()
@@ -239,7 +241,7 @@ test.describe('Instalacje page for architects', () => {
         company: 'Pracownia E2E',
         phone: '600 100 200',
       })
-      expect(String(record?.message)).toContain('Link do rzutów: https://example.test/rzuty')
+      expect(String(record?.message)).not.toMatch(/link do rzutów/i)
     } finally {
       if (record) await api(page, 'DELETE', `/api/inquiries/${record.id}`)
     }

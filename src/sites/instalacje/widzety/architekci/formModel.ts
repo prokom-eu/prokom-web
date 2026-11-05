@@ -16,7 +16,7 @@ type Send = { href: string; formToken: string; website: string }
 const digits = (phone: string) => phone.replace(/\D/g, '').length
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-// ── „Wyślij rzuty” (`#wyslij`) ──────────────────────────────────────────────────────────
+// ── „Umów konsultację projektu” (`#wyslij`; round v5: no files and no plan link) ──────────
 
 export type ProjectState = {
   role: number
@@ -26,7 +26,6 @@ export type ProjectState = {
   firm: string
   phone: string
   town: string
-  link: string
   message: string
   consent: boolean
 }
@@ -40,7 +39,6 @@ export const INITIAL_PROJECT: ProjectState = {
   firm: '',
   phone: '',
   town: '',
-  link: '',
   message: '',
   consent: false,
 }
@@ -62,13 +60,11 @@ export const projectSummary = (s: ProjectState) =>
     .join(' · ')
 
 export function projectBody(s: ProjectState, { href, formToken, website }: Send) {
-  const link = s.link.trim()
   const text = s.message.trim()
   const lines = [
     `Kim jestem: ${A.form.roles[s.role] ?? ''}`,
     `Etap projektu: ${A.form.stages[s.stage] ?? ''}`,
     `Obiekt: ${A.form.objects[s.object] ?? ''}`,
-    link ? `Link do rzutów: ${link}` : '',
     text ? `\n${text}` : '',
   ]
   return {
