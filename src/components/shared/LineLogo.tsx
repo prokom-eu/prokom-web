@@ -38,7 +38,8 @@ function Mark({
       height={height}
       loading={eager ? 'eager' : 'lazy'}
       className={cx('block h-auto max-w-none', className)}
-      style={{ width, height }}
+      // A container may resize the mark with `--logo-h` (the capsule on phones); the width follows.
+      style={{ height: `var(--logo-h, ${height}px)`, width: 'auto' }}
       data-line-logo={line}
     />
   )

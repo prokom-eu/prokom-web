@@ -50,7 +50,7 @@ export function BrandBar({
   return (
     <div
       className={cx(
-        'mx-auto hidden h-[38px] w-full max-w-[1280px] items-center justify-between gap-6 px-8 text-[12.5px] text-nav-ink-2 min-[1081px]:flex min-[1360px]:px-0',
+        'mx-auto hidden h-[38px] w-full max-w-[1344px] items-center justify-between gap-6 px-8 text-[12.5px] text-nav-ink-2 min-[1081px]:flex',
         className,
       )}
       data-brand-bar

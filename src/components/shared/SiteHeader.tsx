@@ -1,0 +1,95 @@
+import Link from 'next/link'
+import type { ReactNode } from 'react'
+
+import type { SharedLineKey } from '@/lib/shared/lines'
+
+import { CAPSULE } from './capsule'
+import { CapsuleShell } from './CapsuleShell'
+import { LineLogo } from './LineLogo'
+
+/** A menu entry of the line (data and order from the panel, as today). */
+export type CapsuleNavItem = {
+  key: string
+  label: string
+  /** Plain link; without it the entry is a mega menu trigger rendered by `megaFor`. */
+  href?: string
+  /** The current page: pill + `aria-current="page"` (not for home page sections). */
+  current?: boolean
+}
+
+export type SiteHeaderProps = {
+  line: SharedLineKey
+  /** Accessible name of the logo link, e.g. „PRO-KOM Biznes — strona główna”. */
+  homeLabel: string
+  nav: readonly CapsuleNavItem[]
+  /** The line's mega menu for an entry without `href`: trigger + panel (`CAPSULE.link`, `.mega`). */
+  megaFor?: (key: string) => ReactNode
+  /** Right-hand buttons before the action: search, theme, „Twój projekt” (`CAPSULE.*`). */
+  actions?: ReactNode
+  /** The line's main action (`shared.headerCta`); `badge` = a live count (`CAPSULE.count`). */
+  cta?: { label: string; shortLabel?: string | null; href: string; badge?: ReactNode } | null
+  /** Up to 1080 px: the button that opens the menu sheet. */
+  menuButton?: ReactNode
+  /** A sheet is open: the capsule stays on phones. */
+  paused?: boolean
+  /** Fixed state for the preview page only. */
+  state?: 'top' | 'scrolled'
+}
+
+/**
+ * Header capsule of the three lines (NAGLOWEK-KAPSULA, board 11; spec §5 `SiteHeader`): mark →
+ * the line's menu → right-hand buttons → action. One component for every line: the line gives
+ * the data and its mega menus as slots; the capsule brings the layout, the states (scrolled,
+ * cramped 1081–1359 px, phone), stickiness and accessibility.
+ */
+export function SiteHeader({
+  line,
+  homeLabel,
+  nav,
+  megaFor,
+  actions,
+  cta,
+  menuButton,
+  paused,
+  state,
+}: SiteHeaderProps) {
+  return (
+    <CapsuleShell paused={paused} state={state}>
+      <header className="cap">
+        <Link href="/" className="cap__logo" aria-label={homeLabel}>
+          <LineLogo line={line} alt="" eager />
+        </Link>
+        <nav aria-label="Menu główne" className="cap__nav">
+          <ul>
+            {nav.map((item) => (
+              <li key={item.key}>
+                {item.href ? (
+                  <Link
+                    href={item.href}
+                    className={CAPSULE.link}
+                    aria-current={item.current ? 'page' : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  megaFor?.(item.key)
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="cap__actions">
+          {actions}
+          {cta && (
+            <Link href={cta.href} className="cap-cta">
+              <span className="cap-cta__long">{cta.label}</span>
+              <span className="cap-cta__short">{cta.shortLabel || cta.label}</span>
+              {cta.badge}
+            </Link>
+          )}
+          {menuButton && <span className="cap-menu">{menuButton}</span>}
+        </div>
+      </header>
+    </CapsuleShell>
+  )
+}

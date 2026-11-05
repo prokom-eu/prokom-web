@@ -1082,6 +1082,12 @@
   --cap-cta-glow: color-mix(in srgb, var(--accent) 50%, transparent);
   /* Resolved on <html> (where data-line and data-theme are), then inherited as a value. */
   --cap-cta-bg: linear-gradient(180deg, var(--cap-cta-from), var(--cap-cta-to));
+  /* The same on every line and theme (board 11): near shadow, gloss of the action, its count. */
+  --cap-shadow-near: rgba(0, 0, 0, 0.05);
+  --cap-cta-gloss: rgba(255, 255, 255, 0.22);
+  --cap-cta-edge: rgba(255, 255, 255, 0.08);
+  --cap-count-bg: rgba(255, 255, 255, 0.95);
+  --cap-count-ink: var(--c-grafit);
   /* Page scrollbar (spec §3 „Pasek przewijania”): the accent mixed into the track — 80 %, not the
      spec's ~68 %: at 68 % four line/theme pairs stay below 3:1 (WCAG 1.4.11, shared-tokens.test). */
   --scrollbar-track: var(--surface-2);
