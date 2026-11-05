@@ -1,0 +1,56 @@
+/*
+ * Shared elements of the lines (spec WSPOLNE-ELEMENTY, ADR-022): rules that Tailwind classes
+ * cannot say simply — the page scrollbar and the states of the header capsule. Colours only
+ * through tokens (`tokens.css`); components live in `src/components/shared`.
+ */
+
+/*
+ * Scrollbars in the line's colours (spec §3 „Pasek przewijania”, board 07 §6): the page's own bar
+ * 14 px, bars inside the page (windows, mega menus, sheets, results, scrolling rows) the thin 8 px
+ * version. Chrome, Edge and Safari: `::-webkit-scrollbar*` — a round thumb with a border in the
+ * track colour. Firefox: the standard properties, only where `::-webkit-scrollbar` does not exist —
+ * since Chrome 121 `scrollbar-color` on an element switches its `::-webkit-scrollbar` styles off.
+ */
+html[data-line] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+html[data-line]::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+html[data-line]::-webkit-scrollbar-track,
+html[data-line] ::-webkit-scrollbar-track,
+html[data-line]::-webkit-scrollbar-corner,
+html[data-line] ::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+html[data-line] ::-webkit-scrollbar-thumb {
+  border: 2px solid var(--scrollbar-track);
+  border-radius: 999px;
+  background: var(--scrollbar-thumb);
+}
+html[data-line]::-webkit-scrollbar-thumb {
+  border: 3px solid var(--scrollbar-track);
+  border-radius: 999px;
+  background: var(--scrollbar-thumb);
+}
+html[data-line]::-webkit-scrollbar-thumb:hover,
+html[data-line] ::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Scrollers hidden with Tailwind's `[scrollbar-width:none]` stay hidden in WebKit too (MAPA-DZIS
+   §10.3): the rules above would otherwise give them a bar. */
+.\[scrollbar-width\:none\]::-webkit-scrollbar {
+  display: none;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  html[data-line] {
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+  html[data-line] :is(dialog, [data-scroll-thin]) {
+    scrollbar-width: thin;
+  }
+}

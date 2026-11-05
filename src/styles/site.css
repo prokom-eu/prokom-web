@@ -7,6 +7,7 @@
  */
 @import './tokens.css';
 @import './motion.css';
+@import './wspolne.css';
 
 /* Shared code: every line's sheet scans it. Code of one line lives in `src/sites/<line>`. Route
    pages of the lines (`app/(sites)/[domain]/(<line>)`) stay here: they mostly compose components. */
@@ -67,6 +68,18 @@
   --color-footer-line: var(--footer-line);
   --color-footer-eyebrow: var(--footer-eyebrow);
   --color-footer-ok: var(--footer-ok);
+  /* Shared elements (spec WSPOLNE-ELEMENTY §3): the line's dark band and the header capsule. */
+  --color-line-dark: var(--line-dark);
+  --color-line-dark-text: var(--line-dark-text);
+  --color-on-dark: var(--on-dark);
+  --color-on-dark-text: var(--on-dark-text);
+  --color-on-dark-ink: var(--on-dark-ink);
+  --color-nav-ink: var(--nav-ink);
+  --color-nav-ink-2: var(--nav-ink-2);
+  --color-nav-hover: var(--nav-hover);
+  --color-nav-active-bg: var(--nav-active-bg);
+  --color-nav-active-ink: var(--nav-active-ink);
+  --color-cap-border: var(--cap-border);
   /* Biznes only (need tiles of the home page); undefined elsewhere. */
   --color-tone-green: var(--tone-green);
   --color-tone-green-2: var(--tone-green-2);
