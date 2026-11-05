@@ -35,7 +35,7 @@ export function button({
   return (
     `<a href="${esc(href)}" style="display:inline-block;${colors};font-family:${FONT};` +
     `font-size:15px;font-weight:bold;line-height:44px;padding:0 20px;border-radius:12px;` +
-    `text-decoration:none">${esc(label)}</a>`
+    `text-decoration:none;white-space:nowrap">${esc(label)}</a>`
   )
 }
 
@@ -62,7 +62,7 @@ export function header({
   return (
     `<tr><td style="padding:26px 34px 18px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>` +
     `<td valign="middle">${logoTag(logo, 44, name)}</td>` +
-    `<td valign="middle" align="right" style="font-family:${FONT};font-size:12px;color:${INK_2}">${esc(label)} <b style="color:${INK}">${esc(number)}</b></td>` +
+    `<td valign="middle" align="right" style="font-family:${FONT};font-size:12px;color:${INK_2}">${esc(label)} <b style="color:${INK};white-space:nowrap">${esc(number)}</b></td>` +
     `</tr></table></td></tr>`
   )
 }
