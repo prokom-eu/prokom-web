@@ -99,12 +99,13 @@ test.describe('inquiry inbox (ADR-003)', () => {
 
     try {
       // Notification to the line inbox (seed: biznes@example.test), customer as Reply-To.
+      // Subject since D1-2 (MAILE.md §4): [line] number · form · company or name.
       await expect
-        .poll(async () => mails(request, marker), { timeout: 15_000 })
+        .poll(async () => mails(request, String(record?.number)), { timeout: 15_000 })
         .toEqual(
           expect.arrayContaining([
             expect.objectContaining({
-              Subject: `Zapytanie ${String(record?.number)} — Biznes — ${marker}`,
+              Subject: `[Biznes] ${String(record?.number)} · Kontakt · Test E2E`,
               To: [expect.objectContaining({ Address: 'biznes@example.test' })],
               ReplyTo: [
                 expect.objectContaining({ Address: `${marker.toLowerCase()}@example.test` }),
@@ -218,13 +219,18 @@ test.describe('inquiry inbox (ADR-003)', () => {
       })
       expect(record?.items).toHaveLength(2)
 
-      const subject = `Zapytanie ${String(record?.number)} — Biznes — Lista zapytania — ${marker}`
+      const subject = `[Biznes] ${String(record?.number)} · Lista zapytania (2 poz.) · Test E2E`
       await expect
-        .poll(async () => (await mails(request, marker)).map((mail) => mail.Subject), {
-          timeout: 15_000,
-        })
+        .poll(
+          async () => (await mails(request, String(record?.number))).map((mail) => mail.Subject),
+          {
+            timeout: 15_000,
+          },
+        )
         .toContain(subject)
-      const [notification] = (await mails(request, marker)).filter((m) => m.Subject === subject)
+      const [notification] = (await mails(request, String(record?.number))).filter(
+        (m) => m.Subject === subject,
+      )
       const message = await request.get(`${MAILPIT}/message/${notification?.ID}`)
       const text = ((await message.json()) as { Text: string }).Text
       expect(text).toContain(`- 2 × ${first.name} — uwaga: Uwaga ${marker}`)
