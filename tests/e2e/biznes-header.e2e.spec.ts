@@ -9,6 +9,26 @@ const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 
 const mainNav = (page: Page) => page.getByRole('navigation', { name: 'Główna' })
 
+/**
+ * Opens Oferta ▾ once the header is hydrated: before that a click or Enter does nothing.
+ * Pressed only while closed — the button is a switch, a retry must not close it again.
+ */
+async function openOffer(page: Page, via: 'click' | 'Enter' = 'click') {
+  const button = mainNav(page).getByRole('button', { name: 'Oferta' })
+  await expect(async () => {
+    if ((await button.getAttribute('aria-expanded')) !== 'true') {
+      if (via === 'Enter') {
+        await button.focus()
+        await page.keyboard.press('Enter')
+      } else {
+        await button.click()
+      }
+    }
+    await expect(button).toHaveAttribute('aria-expanded', 'true', { timeout: 1000 })
+  }).toPass()
+  return button
+}
+
 test.describe('Biznes header', () => {
   test('top bar shows the opening status and the main phone number', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
@@ -27,9 +47,7 @@ test.describe('Biznes header', () => {
     const button = mainNav(page).getByRole('button', { name: 'Oferta' })
     await expect(button).toHaveAttribute('aria-expanded', 'false')
 
-    await button.focus()
-    await page.keyboard.press('Enter')
-    await expect(button).toHaveAttribute('aria-expanded', 'true')
+    await openOffer(page, 'Enter')
     const panel = page.locator(`#${await button.getAttribute('aria-controls')}`)
     await expect(panel).toBeVisible()
 
@@ -46,7 +64,7 @@ test.describe('Biznes header', () => {
     page,
   }) => {
     await page.goto(site('biznes.localhost'))
-    await mainNav(page).getByRole('button', { name: 'Oferta' }).click()
+    await openOffer(page)
     const panel = page.locator('[id$="-offer"]')
     const heading = panel.getByRole('heading', { level: 2 })
     await expect(heading).toHaveText('Kasy i sprzedaż')
@@ -73,8 +91,7 @@ test.describe('Biznes header', () => {
   // Tabs pattern: arrows switch the department, Tab goes on into the one shown (WCAG 2.1.1).
   test('the departments work from the keyboard', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    const button = mainNav(page).getByRole('button', { name: 'Oferta' })
-    await button.click()
+    await openOffer(page)
     const panel = page.locator('[id$="-offer"]')
     await page.keyboard.press('Tab')
     await expect(panel.getByRole('tab', { selected: true })).toBeFocused()
@@ -93,8 +110,7 @@ test.describe('Biznes header', () => {
     // A tall window: with the subcategories (K3b′) the panel fills a 720 px one (it scrolls).
     await page.setViewportSize({ width: 1280, height: 1200 })
     await page.goto(site('biznes.localhost'))
-    const button = mainNav(page).getByRole('button', { name: 'Oferta' })
-    await button.click()
+    const button = await openOffer(page)
     // Plain text of the panel: focus leaves the button without a new target.
     await page.locator('[id$="-offer"]').getByText('Na skróty').click()
     await expect(button).toHaveAttribute('aria-expanded', 'true')
@@ -176,7 +192,7 @@ test.describe('Biznes header', () => {
     test(`axe passes with the mega menu open — ${colorScheme}`, async ({ page }) => {
       await setTheme(page, colorScheme)
       await page.goto(site('biznes.localhost'))
-      await mainNav(page).getByRole('button', { name: 'Oferta' }).click()
+      await openOffer(page)
       await expect(page.locator('[id$="-offer"]')).toBeVisible()
       const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze()
       expect(

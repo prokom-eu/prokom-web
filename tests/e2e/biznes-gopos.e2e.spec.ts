@@ -167,8 +167,12 @@ test.describe('Biznes /gopos (K4h)', () => {
       const src = await photo.getAttribute('src')
       expect(src).toContain('k4-gopos-')
       seen.add(src!)
-      const gap = await venues.locator('.gps-scene').evaluate((scene) => {
-        const image = scene.querySelector('.gps-scene-img')!.getBoundingClientRect()
+      const gap = await venues.locator('.gps-scene').evaluate(async (scene) => {
+        const img = scene.querySelector('.gps-scene-img')!
+        // The photo slides in (`gps-in-img`, translate 10 px → 0): measure once it has landed,
+        // the box of an element in flight includes its transform.
+        await Promise.all(img.getAnimations().map((animation) => animation.finished))
+        const image = img.getBoundingClientRect()
         const ticket = scene.querySelector('.gps-scene-ticket')!.getBoundingClientRect()
         // Rounded: the 8 px gap of the flex column lands on sub-pixels (7.998).
         return Math.round(ticket.top - image.bottom)
