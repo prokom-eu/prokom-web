@@ -62,3 +62,11 @@ Trzy linie w `prokom-web` (Biznes, Instalacje, Software) zbudowały pasek marki,
 5. **Przełącznik motywu (Jasny / Ciemny / Auto) w arkuszu Menu tylko w liniach z ciemnym motywem** (ADR-013); „Auto” usuwa zapisany wybór (`useThemeChoice`).
 6. **Pas linii ma tyle kolumn, ile linii** (5 dziś, 6 po publikacji Gaming) — bez pustego miejsca.
 7. **Druga pinezka salonu** (spec §5 `AddressMap`) — nie teraz: jedyny drugi salon (Zakopane) ma `published: false`; wraca w D3, gdy salon powstanie.
+
+## Rozstrzygnięcia D2-2a (06.11.2026, po przeglądzie)
+1. **Podział D2-2** na D2-2a (silnik wyszukiwania w `lib/shared/search` + `SiteRail` z dodatkami 1, 3, 4) i D2-2b (`SearchDialog`, paleta poleceń, ostatnio oglądane, skróty) — PR ≤ ~900 linii.
+2. **Szyna czyta sekcje strony po każdej nawigacji** (`usePathname`), bo w D3 zostaje zamontowana w ramce linii, gdy App Router podmienia stronę; do pierwszego odczytu liczą się wszystkie sekcje strony głównej.
+3. **Esc zwija szynę i zostawia fokus** (WCAG 2.4.3); następny ruch fokusu albo kursor nad szyną rozwija ją znowu.
+4. **Jedna nazwa nawigacji „Sekcje strony”** na każdej stronie; grupy w środku (`role="group"`): „Na tej stronie” i „Strona główna”.
+5. **Ruch z tokenów** `--dur-*` / `--ease-*`; stałe zostają tylko dla opóźnień mostu (otwarcie = `--dur-press` 120 ms, zamknięcie 250 ms) i jednorazowego pulsu Szukaj. Linia postępu: `animation-timeline: scroll()` tam, gdzie przeglądarka umie, odczyt raz na klatkę jako zapas.
+6. **Obwódka szyny wewnątrz (`border`), cień na opakowaniu (`drop-shadow`)** — `clip-path` zwiniętej szyny ucinał pierścień i cień.
