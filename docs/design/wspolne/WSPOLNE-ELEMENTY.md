@@ -23,7 +23,7 @@ Klient przechodzi między stronami PRO-KOM i ma od razu wiedzieć, że to ta sam
 1. **Bez WhatsAppa** — żadnego kafelka, linku `wa.me`, ikony ani wzmianki na żadnej stronie linii (także FAQ, stopka, kontakt, telefon, wyszukiwarka Biznesu, opcja „preferowany kontakt” w formularzach). Zdarzenia `click_whatsapp` w kodzie nie ma (F0) — w analityce nic do usunięcia. Lista miejsc: `MAPA-DZIS.md` §5.
 2. **Bez zdjęć ludzi** (szef, Krystian, pracownicy) — nigdzie. Sekcji „Ludzie/Zespół” ze zdjęciami nie ma; miejsca na portrety usuwamy (także zaślepki „zdjęcie właściciela”). Cytat właściciela może zostać bez zdjęcia, jeśli szef zatwierdzi treść.
 3. **Dane tylko z panelu** (CompanyData + ustawienia linii): telefon, e-mail, adres, NIP, godziny, salony, opisy linii. Literały w kodzie — test, który je wyłapuje (§10).
-4. **Bez obietnic, których szef nie potwierdził** — pola w panelu z blokadą publikacji przy znaczniku `[SZEF` (wzór: hook z `InstArchNews`).
+4. **Bez obietnic, których szef nie potwierdził** — tekst ze znacznikiem `[SZEF…]` / `[Krystian…]` można zapisać w panelu, ale nie wychodzi z loadera `getSharedData` (decyzja 05.11, ADR-022 „Rozstrzygnięcia D1-1”; kolekcje z wersjami roboczymi — hook jak w `InstArchNews`).
 5. **pro-kom.eu = strona główna firmy, wszystkie linie. Nie ma i nie będzie tam sklepu** — nigdzie nie piszemy „i sklep”.
 6. **Nazwy linii:** PRO-KOM (marka główna), Biznes, Instalacje, Software, **Tech** (nie „Serwis”), Zakopane. Słowo „serwis” zostaje w treściach Tech (SEO).
 7. **Zakopane:** pokazujemy tylko tam, gdzie linia ma salon/obsługę w Zakopanem (Instalacje); Biznes i Software — tylko Rabka (decyzje K4 i v23). Lista salonów linii w panelu.
@@ -90,7 +90,8 @@ Jedna definicja pól (np. `src/fields/sharedLineFields.ts`) w kolekcji `SiteSett
 - **Stopka:** `footerDescription` (= istniejące `footer.text`), `footerPromises[3]`, `footerColumns[]` ({heading, links[{label, href}]}), `legalNote`.
 - **Kontakt (szablon):** `contact` {h1, lead, writeCta, placeKind („Salon” | „Spotkanie” | „Serwis”), facts[3] {label, value, icon}, routes[3] {title, text, cta, href}, topics[] (chipy formularza), formTitle, placeholder, sendLabel, nextSteps[4] {title, text}, mapTitle, mapLead, salonKeys[], faq[] }.
 - **O firmie (szablon):** `about` {h1, lead, authTitle, auth[], stats[2] {value, label, flag}, rules[6] {title, text}, steps[4] {title, text}, verify[4] {title, text, href}, visitText}.
-- Hook: blokada publikacji, gdy którekolwiek pole zawiera `[SZEF` / `[Krystian`.
+- Znaczniki `[SZEF` / `[Krystian`: bez blokady zapisu — loader ukrywa tekst (wiersz listy, gdy znacznik jest w tekście głównym). Decyzja 05.11, ADR-022 „Rozstrzygnięcia D1-1”.
+- Fakty `contact.facts` mają rodzaj (`text` | `email` | `phone` | `phone2`) — e-mail i telefony linii przychodzą z pól linii.
 
 Treści startowe dla wszystkich pól są w §6 (seed F1 wpisuje je per tenant; dane prawdziwe, nie przykładowe).
 
