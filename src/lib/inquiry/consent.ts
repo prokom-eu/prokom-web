@@ -12,10 +12,6 @@ export const CONSENT_CLAUSE = {
     'w celu odpowiedzi na to zapytanie. Szczegóły w polityce prywatności.',
 } as const
 
-/** Promise made to the customer in the confirmation e-mail. */
-// TODO(krystian): confirm the response time with the boss (per line, if it differs).
-export const RESPONSE_TIME = 'w ciągu 1 dnia roboczego'
-
 /** Words of the clause that link to the policy (`linkInText`); keep them in the text. */
 export const PRIVACY_POLICY_LINK_TEXT = 'polityce prywatności'
 

@@ -63,6 +63,12 @@ const envSchema = z
     // hard-coded, so moving the mail provider changes no code.
     MAIL_FROM_ADDRESS: z.email(),
     MAIL_FROM_NAME: z.string().min(1).default('PRO-KOM'),
+    // Mail logo as <img> from the line's own domain instead of an inline attachment (ADR-024
+    // pkt 3) — on production, once the domains are live. `false` = attachment `cid:logo`.
+    MAIL_LOGO_FROM_SITE: z
+      .enum(['true', 'false'])
+      .default('false')
+      .transform((value) => value === 'true'),
     // Sender per line (S10d): `<line>=<address>,…`; others use MAIL_FROM_ADDRESS. A line's own
     // SMTP login, when the mail host needs it: SMTP_PASS_<LINE> (lib/mail/senders.ts).
     MAIL_SENDERS: mailSenders,

@@ -17,7 +17,8 @@ Pliki `.dc.html` nie otworzą się samodzielnie w przeglądarce (potrzebują śr
 | `Kontakt.dc.html` | 04 · szablon Kontakt (zmienna `linia`: Biznes / Instalacje / Software / Tech) |
 | `OFirmie.dc.html` | 05 · szablon O firmie (zmienna `linia`) |
 | `Szyna.dc.html` | 07 · boczna szyna (≥ 1400 px), wyszukiwarka, pasek przewijania (zmienne `linia`, `dodatki`; najedź na szynę) |
-| `Logo.dc.html` | znak linii (w kodzie używamy plików z `public/brand/`, nie tego rysunku) |
+| `Logo.dc.html` | znaki linii — oficjalne pliki z księgi znaku (w kodzie używamy plików z `public/brand/`, nie tego rysunku) |
+| `Maile.dc.html` | 08 · maile linii: potwierdzenie i powiadomienie (3 linie, symulacja ciemnego motywu), spec `MAILE.md`, ADR-024 |
 | `Mapa.dc.html` | mapa adresu — schemat ulic; w kodzie prawdziwa geometria z OSM (spec §5 AddressMap) |
 
 **Uwaga — dane w planszach vs spec:** gdzie plansza i `WSPOLNE-ELEMENTY.md` §6.3 różnią się danymi kontaktowymi (Biznes: e-mail i telefony), wygrywa spec.

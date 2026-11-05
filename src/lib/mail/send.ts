@@ -37,9 +37,13 @@ function transportFor(user: string, pass: string): Transporter {
 export async function sendLineEmail(payload: Payload, line: Line, email: Email): Promise<unknown> {
   const env = getEnv()
   const sender = senderFor(line, env)
-  const from = { name: env.MAIL_FROM_NAME, address: sender.address }
+  // The line's label (`PRO-KOM Biznes`, spec MAILE §6.4); `MAIL_FROM_NAME` stays for Payload's own
+  // mails (password reset). `fromName` is ours, not a nodemailer field — it never goes further.
+  const { fromName, ...message } = email
+  const from = { name: fromName ?? env.MAIL_FROM_NAME, address: sender.address }
   if (sender.auth) {
-    return transportFor(sender.auth.user, sender.auth.pass).sendMail({ ...email, from })
+    return transportFor(sender.auth.user, sender.auth.pass).sendMail({ ...message, from })
   }
-  return payload.sendEmail({ ...email, from })
+  // The adapter spreads the message into `sendMail`, so `html` and `attachments` pass as they are.
+  return payload.sendEmail({ ...message, from })
 }

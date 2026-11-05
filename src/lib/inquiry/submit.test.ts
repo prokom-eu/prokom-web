@@ -6,6 +6,8 @@ import { wizardSeed } from '../../seed/software/wizardExtras'
 import { k4Wizard, type K4WizardFile } from '../../seed/biznes/k4Wizard'
 import { wizardSchema } from '../catalog/wizard'
 import { softwareWizardSchema } from '../software/wizard'
+import { createConfirmationLimiter } from '../mail/confirmationLimit'
+import type { MailContext } from '../mail/context'
 import { CONSENT_CLAUSE } from './consent'
 import { createRateLimiter, FORM_MIN_FILL_MS, issueFormToken } from './spam'
 import { siteUrl, submitInquiryWith, type SubmitDeps } from './submit'
@@ -31,6 +33,16 @@ const body = {
   consent: { accepted: true, clauseVersion: CONSENT_CLAUSE.version },
   website: '',
   formToken: issueFormToken(secret, now - FORM_MIN_FILL_MS),
+}
+
+const mailContext: MailContext = {
+  siteName: 'biznes.localhost',
+  origin: 'http://biznes.localhost:3000',
+  phone: '111 222 333',
+  phone2: null,
+  email: 'kontakt@linia.test',
+  company: { name: 'Firma', nip: '9999999999', address: null, hours: null },
+  privacyUrl: null,
 }
 
 function deps(overrides: Partial<SubmitDeps> = {}): SubmitDeps {
@@ -64,6 +76,10 @@ function deps(overrides: Partial<SubmitDeps> = {}): SubmitDeps {
     findWizard: vi.fn(async (tenantId: number) => (tenantId === 1 ? rules : null)),
     findSoftwareWizard: vi.fn(async (tenantId: number) => (tenantId === 2 ? softwareRules : null)),
     sendEmail: vi.fn(async () => undefined),
+    mailContext: vi.fn(async () => mailContext),
+    mailLogo: vi.fn(() => null),
+    senderAddress: () => 'kontakt@nadawca.test',
+    confirmations: createConfirmationLimiter({ secret, now: () => now }),
     panelUrl: (id: number) => `http://panel.localhost:3000/admin/collections/inquiries/${id}`,
     siteOrigin: (host: string) => `http://${host.toLowerCase()}`,
     log: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
@@ -103,6 +119,47 @@ describe('submitInquiry (ADR-003)', () => {
     expect(d.sendEmail).toHaveBeenCalledWith(
       expect.objectContaining({ to: 'jan@example.test' }),
       'biznes',
+    )
+  })
+
+  it('takes the mail context of the tenant and its host (getSharedData, D1-1)', async () => {
+    const d = deps()
+    await submitInquiryWith(d, { ...request, body })
+    expect(d.mailContext).toHaveBeenCalledWith(
+      expect.objectContaining({ id: 1 }),
+      'biznes.localhost',
+    )
+    const confirmation = vi.mocked(d.sendEmail).mock.calls[1]?.[0]
+    expect(confirmation?.html).toContain('111 222 333')
+  })
+
+  it('sends at most 3 confirmations per address a day; the 4th inquiry is saved, its confirmation skipped', async () => {
+    const d = deps({ limiter: createRateLimiter({ limit: 99, windowMs: 1, now: () => now }) })
+    for (let i = 0; i < 3; i++) await submitInquiryWith(d, { ...request, body })
+    vi.mocked(d.sendEmail).mockClear()
+    const result = await submitInquiryWith(d, {
+      ...request,
+      body: { ...body, email: '  JAN@Example.TEST ' },
+    })
+    expect(result).toMatchObject({ ok: true })
+    expect(d.save).toHaveBeenCalledTimes(4)
+    expect(d.sendEmail).toHaveBeenCalledTimes(1) // the notification only
+    expect(vi.mocked(d.sendEmail).mock.calls[0]?.[0].text).toContain(
+      'Potwierdzenie do klienta: pominięte — limit 3 na dobę',
+    )
+    expect(d.log.info).toHaveBeenCalledWith(
+      { tenant: 1, inquiry: 42, confirmation: 'limited' },
+      'Confirmation limited',
+    )
+  })
+
+  it('still saves and notifies when the shared data cannot be read', async () => {
+    const d = deps({ mailContext: vi.fn(async () => Promise.reject(new Error('db'))) })
+    expect(await submitInquiryWith(d, { ...request, body })).toMatchObject({ ok: true })
+    expect(d.sendEmail).toHaveBeenCalledTimes(2)
+    expect(d.log.error).toHaveBeenCalledWith(
+      expect.objectContaining({ tenant: 1 }),
+      'Mail context failed',
     )
   })
 
@@ -279,7 +336,7 @@ describe('submitInquiry (ADR-003)', () => {
       expect(d.sendEmail).toHaveBeenCalledWith(
         expect.objectContaining({
           to: 'b@p.pl',
-          subject: 'Zapytanie PKB-2026-0042 — Biznes — Lista zapytania — Kasy fiskalne',
+          subject: '[Biznes] PKB-2026-0042 · Lista zapytania (2 poz.) · Jan Kowalski',
           text: expect.stringContaining('- 1 × Szuflada Posnet SKL'),
         }),
         'biznes',
