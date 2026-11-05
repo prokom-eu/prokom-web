@@ -35,7 +35,7 @@ for (const { host, name } of LINES) {
       await expect(bar.locator('[aria-current="page"]')).toHaveText(name)
       const tel = preview(page).locator('[data-brand-bar] a[href^="tel:"]')
       await expect(tel).toHaveAttribute('href', /^tel:\+48\d{9}$/)
-      await expect(preview(page).locator('[data-opening-status]')).toBeVisible()
+      await expect(preview(page).locator('[data-brand-bar] [data-opening-status]')).toBeVisible()
     })
 
     test('capsule: lower and stuck 12 px from the top after scrolling, the page does not move', async ({
