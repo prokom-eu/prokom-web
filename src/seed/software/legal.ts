@@ -141,17 +141,113 @@ export function softwarePrivacyLayout(): PageBlock[] {
   ]
 }
 
-/** Creates the published privacy policy draft of the tenant (only while it has no text block). */
-export function seedSoftwareLegal(payload: Payload, tenantId: number, count: Count) {
-  return upsertSoftwarePage(
-    payload,
-    tenantId,
-    {
-      slug: SOFTWARE_PRIVACY_SLUG,
-      title: 'Polityka prywatności',
-      block: 'richText',
-      layout: softwarePrivacyLayout,
-    },
-    count,
-  )
+// TODO(krystian): [SZEF/prawnik] DRAFT of the Software cookies page (D2-1b, plan F2 pkt 4; spec
+// WSPOLNE-ELEMENTY §12): the keys are the only browser storage of the line (`lib/brand/theme.ts`,
+// `lib/software/project.ts`, `lib/site/promo.ts`); statistics by Umami without cookies (ADR-020);
+// no embeds. Check again whenever a key, an embed or analytics is added.
+const COOKIES = [
+  p(
+    'Strona nie ustawia cookies — ani własnych, ani analitycznych czy reklamowych — i nie osadza treści innych firm (map, filmów, czatów). Dlatego nie prosimy o zgodę na cookies.',
+  ),
+  h2('Statystyki'),
+  p(
+    'Ruch na stronie liczymy narzędziem ',
+    { bold: 'Umami' },
+    ', które działa bez plików cookies, nie zapisuje nic w Twojej przeglądarce i nie śledzi Cię między stronami.',
+  ),
+  h2('Co zapisujemy w przeglądarce'),
+  p(
+    'Kilka ustawień trzymamy w pamięci przeglądarki. Zostają na Twoim urządzeniu i nie są wysyłane na serwer, dopóki sam nie wyślesz wiadomości.',
+  ),
+  ul(
+    [{ bold: 'pk-theme' }, ' — wybrany motyw strony: jasny albo ciemny.'],
+    [
+      { bold: 'pk-project' },
+      ' — lista „Twój projekt”: wybrane rozwiązania, żeby nie znikały po odświeżeniu strony.',
+    ],
+    [
+      { bold: 'pk-project-sent' },
+      ' — numer wysłanej wiadomości i nazwy rozwiązań, pokazywane na stronie podziękowania; tylko do zamknięcia karty.',
+    ],
+    [{ bold: 'pk-sz-closed' }, ' — informacja, że zamknąłeś pasek z kampanią.'],
+  ),
+  h2('Jak to usunąć'),
+  p(
+    'Dane te usuniesz, czyszcząc dane witryny w ustawieniach przeglądarki. Strona działa też bez nich — motyw i lista „Twój projekt” nie zostaną wtedy zapamiętane.',
+  ),
+  h2('Dane osobowe'),
+  p(
+    'Jak przetwarzamy dane z formularzy, opisuje ',
+    { text: 'polityka prywatności', href: `/${SOFTWARE_PRIVACY_SLUG}` },
+    '.',
+  ),
+]
+
+// TODO(krystian): [SZEF] DRAFT of the Software accessibility statement (D2-1b, the shared legal bar
+// links it on every line): only what the repo checks (axe in CI, docs/jakosc.md, `motion.css`).
+const ACCESSIBILITY = [
+  p(
+    'Chcemy, żeby ze strony wygodnie korzystał każdy — także z czytnikiem ekranu, samą klawiaturą albo w powiększeniu.',
+  ),
+  h2('Co robimy'),
+  ul(
+    ['Projektujemy i sprawdzamy stronę według WCAG 2.1 na poziomie AA.'],
+    ['Kontrast tekstu spełnia poziom AA w motywie jasnym i ciemnym.'],
+    [
+      'Całą stronę obsłużysz klawiaturą: fokus jest zawsze widoczny, a okna i menu zamyka klawisz Esc.',
+    ],
+    ['Obrazy mają teksty alternatywne, a pola formularzy — etykiety.'],
+    ['Animacje wyłączają się, gdy w systemie ustawisz ograniczenie ruchu.'],
+    ['Każdą zmianę kodu strony sprawdzamy automatycznym testem dostępności (WCAG 2.1 AA).'],
+  ),
+  h2('Zgłoś problem'),
+  p(
+    'Coś nie działa albo trudno z tego skorzystać? Napisz na ',
+    // The same open value as the privacy policy, filled in once the text is approved.
+    { bold: '[E-MAIL SOFTWARE]' },
+    ' — odpowiemy i poprawimy.',
+  ),
+]
+
+/** Hero and text of a short legal page in the Software look. */
+const legalLayout =
+  (heading: string, lead: string, content: Parameters<typeof richText>[0]) => (): PageBlock[] => [
+    { blockType: 'hero', heading, lead },
+    { blockType: 'richText', content: richText<RichTextBlock['content']>(content) },
+  ]
+
+export const SOFTWARE_LEGAL_PAGES = [
+  {
+    slug: SOFTWARE_PRIVACY_SLUG,
+    title: 'Polityka prywatności',
+    layout: softwarePrivacyLayout,
+  },
+  {
+    slug: 'cookies',
+    title: 'Cookies',
+    layout: legalLayout(
+      'Cookies. **Bez banera, bo bez śledzenia.**',
+      'Co strona zapisuje w Twojej przeglądarce i jak to usunąć.',
+      COOKIES,
+    ),
+  },
+  {
+    slug: 'dostepnosc',
+    title: 'Dostępność',
+    layout: legalLayout(
+      'Dostępność. **Dla każdego.**',
+      'Jak dbamy o to, żeby ze strony mógł skorzystać każdy, i jak zgłosić problem.',
+      ACCESSIBILITY,
+    ),
+  },
+] as const
+
+/**
+ * Creates the published legal drafts of the tenant — privacy, cookies, accessibility (only while a
+ * page has no text block; text edited in the panel stays).
+ */
+export async function seedSoftwareLegal(payload: Payload, tenantId: number, count: Count) {
+  for (const page of SOFTWARE_LEGAL_PAGES) {
+    await upsertSoftwarePage(payload, tenantId, { ...page, block: 'richText' }, count)
+  }
 }

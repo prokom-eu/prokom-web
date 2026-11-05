@@ -1088,6 +1088,18 @@
   --cap-cta-edge: rgba(255, 255, 255, 0.08);
   --cap-count-bg: rgba(255, 255, 255, 0.95);
   --cap-count-ink: var(--c-grafit);
+  /* Shadow under the address map pin and its cards (board Mapa). */
+  --map-pin-shadow: rgba(0, 0, 0, 0.45);
+  /* Footer on the line's dark band (board Footer): headings and phone, rules, tiles. */
+  --line-dark-ink: var(--c-papier);
+  --line-dark-rule: rgba(255, 255, 255, 0.1);
+  --line-dark-card: rgba(255, 255, 255, 0.04);
+  --line-dark-current: rgba(255, 255, 255, 0.08);
+  /* Gaming tile (spec §2.4): a product brand with its own look, the same on every line. */
+  --gaming-bg: #080c0b;
+  --gaming-border: rgba(242, 194, 48, 0.45);
+  --gaming-gold: #f2c230;
+  --gaming-ink: #ece4d0;
   /* Page scrollbar (spec §3 „Pasek przewijania”): the accent mixed into the track — 80 %, not the
      spec's ~68 %: at 68 % four line/theme pairs stay below 3:1 (WCAG 1.4.11, shared-tokens.test). */
   --scrollbar-track: var(--surface-2);
@@ -1155,6 +1167,7 @@
   --on-dark-ink: #06102a;
   --line-dark: var(--c-biznes-navy);
   --line-dark-text: #aeb8d2;
+  --line-dark-ink: var(--c-white);
   /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
   --cap-bg: rgba(255, 255, 255, 0.78);
   --cap-border: rgba(13, 19, 38, 0.09);

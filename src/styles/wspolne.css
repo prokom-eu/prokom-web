@@ -102,6 +102,160 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 }
 
 /*
+ * Address map (spec §5 `AddressMap`, board Mapa): the neutral OSM palette of Software v23 for
+ * every line, light or dark by the variant (not by the page theme — the footer is always dark).
+ */
+.addr-map {
+  --am-accent: var(--accent);
+  --am-land: var(--c-software-light-map-land);
+  --am-water: var(--c-software-light-map-water);
+  --am-road: var(--c-software-light-map-road);
+  --am-road-main: var(--c-software-light-map-road-main);
+  --am-block: var(--c-software-light-map-block);
+  --am-block-line: var(--c-software-light-map-block-line);
+  --am-park: var(--c-software-light-map-park);
+  --am-wood: var(--c-software-light-map-wood);
+  --am-parking: var(--c-software-light-map-parking);
+  --am-casing: var(--c-software-light-map-casing);
+  --am-path: var(--c-software-light-map-path);
+  --am-rail: var(--c-software-light-map-rail);
+  --am-label: var(--c-software-light-map-label);
+  --am-card: var(--c-white);
+  --am-card-ink: var(--c-grafit);
+}
+.addr-map[data-variant='dark'] {
+  --am-accent: var(--on-dark);
+  --am-land: var(--c-software-night-map-land);
+  --am-water: var(--c-software-night-map-water);
+  --am-road: var(--c-software-night-map-road);
+  --am-road-main: var(--c-software-night-map-road-main);
+  --am-block: var(--c-software-night-map-block);
+  --am-block-line: var(--c-software-night-map-block-line);
+  --am-park: var(--c-software-night-map-park);
+  --am-wood: var(--c-software-night-map-wood);
+  --am-parking: var(--c-software-night-map-parking);
+  --am-casing: var(--c-software-night-map-casing);
+  --am-path: var(--c-software-night-map-path);
+  --am-rail: var(--c-software-night-map-rail);
+  --am-label: var(--c-software-night-map-label);
+  --am-card: var(--c-papier);
+}
+.addr-map__link {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.addr-map__link:focus-visible,
+.addr-map a:focus-visible {
+  outline: 2px solid var(--am-accent);
+  outline-offset: -4px;
+}
+.addr-map__ring,
+.addr-map__pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+}
+.addr-map__ring--soft {
+  width: 76px;
+  height: 76px;
+  margin: -38px 0 0 -38px;
+  border-radius: 50%;
+  background: var(--am-accent);
+  opacity: 0.16;
+}
+.addr-map__ring--line {
+  width: 140px;
+  height: 140px;
+  margin: -70px 0 0 -70px;
+  border: 1.5px solid var(--am-accent);
+  border-radius: 50%;
+  opacity: 0.28;
+}
+.addr-map__pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: -46px 0 0 -20px;
+  border-radius: 50% 50% 50% 0;
+  background: var(--am-accent);
+  box-shadow: 0 10px 20px -6px var(--map-pin-shadow);
+  transform: rotate(-45deg);
+}
+.addr-map__pin > span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--c-white);
+}
+.addr-map__card {
+  position: absolute;
+  top: calc(50% - 92px);
+  left: calc(50% + 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: calc(50% - 40px);
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--am-card);
+  color: var(--am-card-ink);
+  box-shadow: 0 16px 34px -14px var(--map-pin-shadow);
+  pointer-events: none;
+}
+.addr-map__card b {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  font-stretch: 112%;
+}
+.addr-map__card span {
+  font-size: 12.5px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+.addr-map__route {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: var(--am-card);
+  color: var(--am-card-ink);
+  font-size: 12.5px;
+  font-weight: 800;
+  box-shadow: 0 10px 20px -10px var(--map-pin-shadow);
+}
+.addr-map__credit {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--am-land) 80%, transparent);
+  color: var(--am-label);
+  font-size: 10px;
+  font-weight: 600;
+}
+/* With the route button at the bottom (footer mini map) the credit moves to the top corner. */
+.addr-map__route ~ .addr-map__credit {
+  top: 6px;
+  bottom: auto;
+}
+.addr-map__credit a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+
+/*
  * Header capsule (NAGLOWEK-KAPSULA §3–7, board 11): `SiteHeader` + `CapsuleShell`. The wrapper is
  * sticky 12 px from the top and keeps its height, the capsule inside gets lower when scrolled —
  * nothing below moves. Breakpoints 1081 and 1360 px for every line.
