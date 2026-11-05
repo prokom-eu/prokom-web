@@ -62,6 +62,27 @@ describe.each(LINES)('%s: dark band (role tokens)', (line) => {
   })
 })
 
+describe.each(LINES)('%s: footer (board Footer)', (line) => {
+  const s = scope(line, 'light')
+  const band = rgba('--line-dark', s)
+
+  it('headings and phone reach 4.5:1 on the band; text 4.5:1 on the tiles', () => {
+    expect(ratio(rgba('--line-dark-ink', s), band)).toBeGreaterThanOrEqual(4.5)
+    for (const tile of ['--line-dark-card', '--line-dark-current']) {
+      const surface = over(rgba(tile, s), band)
+      expect(ratio(rgba('--line-dark-text', s), surface), tile).toBeGreaterThanOrEqual(4.5)
+      expect(ratio(rgba('--line-dark-ink', s), surface), tile).toBeGreaterThanOrEqual(4.5)
+    }
+  })
+
+  it('the Gaming tile: gold and its light ink reach 4.5:1 on its own black (spec §2.4)', () => {
+    const tile = rgba('--gaming-bg', s)
+    expect(ratio(rgba('--gaming-gold', s), tile)).toBeGreaterThanOrEqual(4.5)
+    expect(ratio(rgba('--gaming-ink', s), tile)).toBeGreaterThanOrEqual(4.5)
+    expect(ratio(rgba('--line-dark-text', s), tile)).toBeGreaterThanOrEqual(4.5)
+  })
+})
+
 describe.each(cases)('$line, $mode theme: header capsule', ({ line, mode }) => {
   const s = scope(line, mode)
   // The capsule is translucent: what text sits on is the capsule over the page surface.

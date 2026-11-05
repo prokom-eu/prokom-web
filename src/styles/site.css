@@ -80,6 +80,14 @@
   --color-nav-active-bg: var(--nav-active-bg);
   --color-nav-active-ink: var(--nav-active-ink);
   --color-cap-border: var(--cap-border);
+  --color-line-dark-ink: var(--line-dark-ink);
+  --color-line-dark-rule: var(--line-dark-rule);
+  --color-line-dark-card: var(--line-dark-card);
+  --color-line-dark-current: var(--line-dark-current);
+  --color-gaming-bg: var(--gaming-bg);
+  --color-gaming-border: var(--gaming-border);
+  --color-gaming-gold: var(--gaming-gold);
+  --color-gaming-ink: var(--gaming-ink);
   /* Biznes only (need tiles of the home page); undefined elsewhere. */
   --color-tone-green: var(--tone-green);
   --color-tone-green-2: var(--tone-green-2);
