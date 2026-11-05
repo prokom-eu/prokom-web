@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { leadPhoto, matchRealization, publishWithoutConsent } from './realizations'
+import { byNewest, leadPhoto, matchRealization, publishWithoutConsent } from './realizations'
 
 describe('publishWithoutConsent', () => {
   it('refuses publishing without the client consent', () => {
@@ -95,7 +95,29 @@ describe('leadPhoto (round v5: the cover that fits the card)', () => {
     expect(leadPhoto('Ponice · sala szkoleniowa', photos)).toHaveLength(4)
   })
 
+  it('matches word forms („chór” – „chóru”), not just the first letters', () => {
+    const church = [
+      { alt: 'Projektor Sony pod drewnianym sufitem kościoła' },
+      { alt: 'Mikrofony chóru na linkach pod sufitem kościoła' },
+    ]
+    expect(leadPhoto('Rabka-Zdrój · nagłośnienie chóru', church)[0]).toBe(church[1])
+    expect(leadPhoto('Parafia św. Teresy, chór', church)[0]).toBe(church[1])
+  })
+
   it('keeps the order when nothing fits', () => {
     expect(first('Nowy Sącz · kawiarnia')).toBe(photos[0]?.alt)
+  })
+})
+
+describe('byNewest (review of PR 4: PostgreSQL puts an empty year first in a descending sort)', () => {
+  it('newest year first, no year last, then the package order', () => {
+    const items = [
+      { legacyId: 3, year: null },
+      { legacyId: 1, year: 2016 },
+      { legacyId: 4, year: 2017 },
+      { legacyId: 2, year: 2016 },
+      { legacyId: 5, year: null },
+    ]
+    expect([...items].sort(byNewest).map((r) => r.legacyId)).toEqual([4, 1, 2, 3, 5])
   })
 })

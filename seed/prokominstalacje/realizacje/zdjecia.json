@@ -1,5 +1,5 @@
 {
-  "_opis": "RUNDA-V5 §4: zdjęcia realizacji z pro-kom.eu/realizacje (https://pro-kom.eu/api/media/file/<plik>.jpg), przejrzane pojedynczo: bez ludzi i twarzy (także na ekranach), bez tablic rejestracyjnych. Klucz = legacyId realizacji z Realizacje.json; pierwsze zdjęcie = okładka. Oryginały mają tylko 600×337 px — WebP w tym samym rozmiarze (bez powiększania). Pliki: media/<legacyId>/<plik>.webp, robi je docs/design/prokominstalacje/narzedzia/realizacje-zdjecia.mjs. Odrzucone: 03/20161005_153257 (twarz na monitorze), 10/20161222_002846 (twarz i tablice na ekranie), 12/20161121_124218 (monter, twarz z profilu), 12/20161121_124515 (monter), 12/20161121_125506 (nogi fotografa, słaby kadr).",
+  "_opis": "RUNDA-V5 §4: zdjęcia realizacji z pro-kom.eu/realizacje (https://pro-kom.eu/api/media/file/<plik>.jpg), przejrzane pojedynczo: bez ludzi i twarzy (także na ekranach), bez tablic rejestracyjnych. Klucz = legacyId realizacji z Realizacje.json; pierwsze zdjęcie = okładka. Oryginały mają tylko 600×337 px — WebP w tym samym rozmiarze (bez powiększania). Pliki: media/<legacyId>/<plik>.webp, robi je docs/design/prokominstalacje/narzedzia/realizacje-zdjecia.mjs. Odrzucone: 03/20161005_153257 (twarz na monitorze), 10/20161222_002804 (ręce z telefonem i głowa przy dolnej krawędzi — przegląd PR 4), 10/20161222_002846 (twarz i tablice na ekranie), 12/20161121_124218 (monter, twarz z profilu), 12/20161121_124515 (monter), 12/20161121_125506 (nogi fotografa, słaby kadr).",
   "zdjecia": {
     "1": [
       { "plik": "20170419_153352", "zrodlo": 11, "alt": "Sala konferencyjna Blachotrapezu: projektor na uchwycie sufitowym i oświetlenie szynowe" },
@@ -55,7 +55,6 @@
     ],
     "10": [
       { "plik": "20161221_234424", "zrodlo": 10, "alt": "Sala lokalu w Krakowie z dwoma telewizorami na ścianie" },
-      { "plik": "20161222_002804", "zrodlo": 10, "alt": "Ekran projekcyjny i monitor z kursami w lokalu" },
       { "plik": "zbkrk", "zrodlo": 10, "alt": "Projektor na suficie i monitor z ofertą zakładów" }
     ],
     "11": [

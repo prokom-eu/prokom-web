@@ -58,9 +58,15 @@ export function matchRealization<T extends { title: string }>(
   return best?.item
 }
 
-/** Word stems (first 5 letters) of a text, for loose matching of Polish word forms. */
-function stems(text: string): Set<string> {
-  return new Set(words(text).map((w) => w.slice(0, 5)))
+/**
+ * Two Polish forms of one word: one starts with the other („chór” – „chóru”) or they share the
+ * first 6 letters („stanowiska” – „stanowisku”).
+ */
+function sameWord(a: string, b: string): boolean {
+  if (a.startsWith(b) || b.startsWith(a)) return true
+  let i = 0
+  while (i < a.length && a[i] === b[i]) i++
+  return i >= 6
 }
 
 /**
@@ -70,11 +76,11 @@ function stems(text: string): Set<string> {
  * nothing fits.
  */
 export function leadPhoto<T extends { alt: string }>(text: string, photos: readonly T[]): T[] {
-  const own = stems(text)
+  const own = words(text)
   let best = -1
   let top = 0
   photos.forEach((photo, i) => {
-    const score = [...stems(photo.alt)].filter((s) => own.has(s)).length
+    const score = words(photo.alt).filter((w) => own.some((o) => sameWord(o, w))).length
     if (score > top) {
       top = score
       best = i
@@ -82,4 +88,18 @@ export function leadPhoto<T extends { alt: string }>(text: string, photos: reado
   })
   if (best <= 0) return [...photos]
   return [photos[best] as T, ...photos.filter((_, i) => i !== best)]
+}
+
+type Ordered = { year?: number | null; legacyId?: number | null }
+
+/**
+ * Order of the realizations: the newest year first, without a year at the end, then the package
+ * order (`legacyId`). In JS because PostgreSQL puts an empty year first in a descending sort
+ * (the Payload adapter adds no `NULLS LAST`).
+ */
+export function byNewest(a: Ordered, b: Ordered): number {
+  const ya = a.year ?? -Infinity
+  const yb = b.year ?? -Infinity
+  if (ya !== yb) return yb - ya
+  return (a.legacyId ?? Infinity) - (b.legacyId ?? Infinity)
 }

@@ -31,7 +31,12 @@ describe('realization photos', () => {
 
   it('leave out the rejected ones (people on them)', () => {
     const files = [...photos.values()].flat().map((p) => p.file)
-    for (const rejected of ['20161005_153257', '20161222_002846', '20161121_124218'])
+    for (const rejected of [
+      '20161005_153257',
+      '20161222_002846',
+      '20161222_002804',
+      '20161121_124218',
+    ])
       expect(files).not.toContain(`${rejected}.webp`)
     expect(new Set(files).size).toBe(files.length)
   })

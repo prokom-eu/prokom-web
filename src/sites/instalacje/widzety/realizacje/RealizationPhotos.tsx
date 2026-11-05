@@ -85,7 +85,8 @@ export function RealizationPhotos({ photos, title, sizes }: Props) {
         <div className="rlgw">
           <figure key={index} className="rlgf">
             <MediaImage image={photo} sizes="(min-width: 760px) 720px, 100vw" className="rlgi" />
-            <figcaption>
+            {/* Shown, not read: the photo's alt already says it (review of PR 4). */}
+            <figcaption aria-hidden="true">
               <b>{title}</b> {photo.alt}
             </figcaption>
           </figure>

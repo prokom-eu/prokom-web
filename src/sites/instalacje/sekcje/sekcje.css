@@ -1210,6 +1210,8 @@
     background: var(--card);
     color: var(--ink);
     overflow: visible;
+    /* A swipe in the gallery does not scroll the page behind it. */
+    overscroll-behavior: contain;
   }
   & .rlg::backdrop {
     background: var(--inst-scrim);
