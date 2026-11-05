@@ -244,6 +244,11 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   font-size: 10px;
   font-weight: 600;
 }
+/* With the route button at the bottom (footer mini map) the credit moves to the top corner. */
+.addr-map__route ~ .addr-map__credit {
+  top: 6px;
+  bottom: auto;
+}
 .addr-map__credit a {
   display: inline-flex;
   align-items: center;
