@@ -1,10 +1,14 @@
 import Link from 'next/link'
 
+import { getInstalacjeRealizations } from '@/lib/instalacje/data'
+import { leadPhoto, matchRealization } from '@/lib/instalacje/realizations'
+
 import { naglosnienie } from '../../dane/naglosnienie'
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
+import { RealizationPhotos } from '../realizacje/RealizationPhotosLazy'
 import { ApartFamilies, ChurchDemo, SignalChain, SpeakerCalc } from './NaglosnienieWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
@@ -16,7 +20,9 @@ const SECTION = { padding: '0 0 104px' }
  * agreed, boss 01.11.2026). Folded on a phone as in `zrodlo/fold.json` (`cena` and `faq` by the
  * shared sections).
  */
-export function NaglosnienieSections() {
+export async function NaglosnienieSections({ tenantId }: { tenantId: number }) {
+  // Round v5 (RUNDA-V5 §4): the realizations named here show their photos from pro-kom.eu.
+  const withPhotos = (await getInstalacjeRealizations(tenantId)).filter((r) => r.photos.length > 0)
   const { objects, apart, chain, church, council, dso, licences, realizations } = naglosnienie
   return (
     <>
@@ -195,33 +201,47 @@ export function NaglosnienieSections() {
             </Link>
           </div>
           <div className="g3">
-            {realizations.items.map((r) => (
-              <div key={r.name} className="card rl ri">
-                <div className="rlimg" aria-hidden="true">
-                  <svg viewBox="0 0 300 190">
-                    <rect width="300" height="190" style={{ fill: 'var(--surface-3)' }} />
-                    <path
-                      d={realizations.art[r.art]}
-                      transform="translate(75 30) scale(.62)"
-                      style={{
-                        fill: 'none',
-                        stroke: 'var(--accent-text)',
-                        strokeWidth: 5,
-                        strokeLinecap: 'round',
-                        strokeLinejoin: 'round',
-                      }}
-                    />
-                  </svg>
+            {realizations.items.map((r) => {
+              const match = matchRealization(r.name, withPhotos)
+              const photos = match && leadPhoto(r.place, match.photos)
+              return (
+                <div key={r.name} className="card rl ri">
+                  {photos ? (
+                    <div className="rlimg rlimgp">
+                      <RealizationPhotos
+                        photos={photos}
+                        title={r.name}
+                        sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw"
+                      />
+                    </div>
+                  ) : (
+                    <div className="rlimg" aria-hidden="true">
+                      <svg viewBox="0 0 300 190">
+                        <rect width="300" height="190" style={{ fill: 'var(--surface-3)' }} />
+                        <path
+                          d={realizations.art[r.art]}
+                          transform="translate(75 30) scale(.62)"
+                          style={{
+                            fill: 'none',
+                            stroke: 'var(--accent-text)',
+                            strokeWidth: 5,
+                            strokeLinecap: 'round',
+                            strokeLinejoin: 'round',
+                          }}
+                        />
+                      </svg>
+                    </div>
+                  )}
+                  <div className="rlb">
+                    <span className="tag a" style={{ alignSelf: 'flex-start' }}>
+                      {r.kind}
+                    </span>
+                    <b className="h3">{r.name}</b>
+                    <span>{r.place}</span>
+                  </div>
                 </div>
-                <div className="rlb">
-                  <span className="tag a" style={{ alignSelf: 'flex-start' }}>
-                    {r.kind}
-                  </span>
-                  <b className="h3">{r.name}</b>
-                  <span>{r.place}</span>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </InstSection>

@@ -40,7 +40,8 @@ export async function InstRealizationsBlock({ block, tenantId }: Props) {
         />
       )}
       <SplitHero hero={block.hero} crumb={crumb} style={{ paddingBottom: 40 }}>
-        <RealizationFilters items={items} />
+        {/* The filters count by kind and service only: no photos in their payload. */}
+        <RealizationFilters items={items.map(({ photos: _photos, ...item }) => item)} />
       </SplitHero>
       <section style={{ padding: '0 0 80px' }}>
         <div className="wrap">

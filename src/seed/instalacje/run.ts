@@ -8,6 +8,7 @@ import { FORM_PAGE_BLOCKS, needsFormBlock } from './formPages'
 import { seedInstalacjeGuide } from './guide'
 import { LEGAL_LINKS, seedInstalacjeLegal } from './legal'
 import { seedInstalacjeHome } from './home'
+import { seedRealizationPhotos } from './realizationPhotos'
 import { SERVICE_PAGE_KEYS } from './servicePages'
 import {
   archNewsToImport,
@@ -303,6 +304,8 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
       count('realizations', 'skipped')
     }
   }
+  // Round v5 (RUNDA-V5 §4): photos from pro-kom.eu for realizations whose photos are empty.
+  await seedRealizationPhotos(payload, tenantId, count)
 
   // --- guide posts (I12): `/poradnik/<slug>`, created while missing ---
   await seedInstalacjeGuide(payload, tenantId, count)

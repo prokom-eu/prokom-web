@@ -70,4 +70,26 @@ test.describe('Instalacje realizations', () => {
     await expect(page.locator('.rgrid .rl:visible')).toHaveCount(3)
     expect(await page.locator('main').innerText()).not.toMatch(/\[SZEF/)
   })
+
+  // Round v5 (RUNDA-V5 §4): photos from pro-kom.eu (`pnpm seed`), the gallery in a <dialog>.
+  test('a card with photos opens the gallery: arrows, keys, counter, Esc', async ({ page }) => {
+    await open(page, '/realizacje')
+    const cover = page.getByRole('button', { name: /^Blachotrapez: 17 zdjęć/ })
+    await cover.click()
+    const gallery = page.getByRole('dialog', { name: 'Zdjęcia: Blachotrapez' })
+    await expect(gallery).toBeVisible()
+    await expect(gallery.locator('.rlgc')).toHaveText('1 / 17')
+    await page.keyboard.press('ArrowRight')
+    await expect(gallery.locator('.rlgc')).toHaveText('2 / 17')
+    await gallery.getByRole('button', { name: 'Poprzednie zdjęcie' }).click()
+    await gallery.getByRole('button', { name: 'Poprzednie zdjęcie' }).click()
+    await expect(gallery.locator('.rlgc')).toHaveText('17 / 17')
+    await expect(gallery.locator('img')).toHaveAttribute('alt', /\S{10,}/)
+    await page.keyboard.press('Escape')
+    await expect(gallery).toBeHidden()
+    await expect(cover).toBeFocused()
+    // A realization without photos keeps its drawing.
+    await page.getByRole('button', { name: 'Pokaż wszystkie (11)' }).click()
+    await expect(page.locator('.rl', { hasText: 'FitBar' }).locator('.rlph')).toHaveCount(0)
+  })
 })

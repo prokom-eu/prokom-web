@@ -1,9 +1,14 @@
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
 
-import { getInstalacjeCards, getInstalacjeSettings } from '@/lib/instalacje/data'
+import {
+  getInstalacjeCards,
+  getInstalacjeRealizations,
+  getInstalacjeSettings,
+} from '@/lib/instalacje/data'
 import { objectHref } from '@/lib/instalacje/menu'
 import { SERVICE_KEYS } from '@/lib/instalacje/options'
+import { leadPhoto, matchRealization } from '@/lib/instalacje/realizations'
 import { serviceJsonLd } from '@/lib/instalacje/seo'
 import { breadcrumbJsonLd } from '@/lib/seo/jsonLd'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
@@ -24,6 +29,7 @@ import { Packages } from '../sekcje/Packages'
 import { PageHero } from '../sekcje/PageHero'
 import { Related } from '../sekcje/Related'
 import { SectionHead } from '../sekcje/SectionHead'
+import { RealizationPhotos } from '../widzety/realizacje/RealizationPhotosLazy'
 import { DayTimeline } from './DayTimeline'
 import { ObjectScene } from './ObjectScene'
 import {
@@ -63,12 +69,15 @@ const ARCH_OBJECTS = new Set(['dev', 'bud'])
  * from the panel; the photo slot keeps the icon without the prototype's „Miejsce na zdjęcie”.
  */
 export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) {
-  const [cards, settings, site, company] = await Promise.all([
+  const [cards, settings, site, company, realizations] = await Promise.all([
     getInstalacjeCards(tenantId),
     getInstalacjeSettings(tenantId),
     getSiteSettings(tenantId),
     getCompanyData(),
+    getInstalacjeRealizations(tenantId),
   ])
+  // Round v5 (RUNDA-V5 §4): the photos of the realization this page names, if it has any.
+  const withPhotos = realizations.filter((r) => r.photos.length > 0)
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
   const salons = salonsNote(company?.locations ?? [])
@@ -301,16 +310,31 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
               </Link>
             </div>
             <div className="sgrg">
-              {object.realizations.map((r) => (
-                <div key={r.id ?? r.title} className="card sgrc ri">
-                  <span className="sgrph" aria-hidden="true">
-                    <InstIcon name="camera2" size={26} strokeWidth={1.6} />
-                  </span>
-                  <b className="h3">{r.title}</b>
-                  {r.place && <span className="mut">{r.place}</span>}
-                  {r.description && <p>{r.description}</p>}
-                </div>
-              ))}
+              {object.realizations.map((r) => {
+                const match = matchRealization(r.title, withPhotos)
+                const photos =
+                  match && leadPhoto(`${r.place ?? ''} ${r.description ?? ''}`, match.photos)
+                return (
+                  <div key={r.id ?? r.title} className="card sgrc ri">
+                    {photos ? (
+                      <div className="sgrph sgrphp">
+                        <RealizationPhotos
+                          photos={photos}
+                          title={r.title}
+                          sizes="(min-width: 1100px) 400px, 100vw"
+                        />
+                      </div>
+                    ) : (
+                      <span className="sgrph" aria-hidden="true">
+                        <InstIcon name="camera2" size={26} strokeWidth={1.6} />
+                      </span>
+                    )}
+                    <b className="h3">{r.title}</b>
+                    {r.place && <span className="mut">{r.place}</span>}
+                    {r.description && <p>{r.description}</p>}
+                  </div>
+                )
+              })}
             </div>
           </div>
         </InstSection>

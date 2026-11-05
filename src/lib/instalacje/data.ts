@@ -12,6 +12,7 @@ import type {
 import { navigation } from '@/sites/instalacje/dane/nawigacja'
 
 import { buildMenu, type InstMenu, type MenuDoc } from './menu'
+import { byNewest } from './realizations'
 import { OFFER_FAMILIES, SERVICE_KEYS, SETTINGS_DEFAULTS } from './options'
 
 /** Far above the 10 services, 12 objects and 76 solutions of the package. */
@@ -283,6 +284,15 @@ export type HomeRealization = {
   category: string | null
   place: string | null
   scope: string | null
+  /** Round v5 (RUNDA-V5 §4): the photos, the cover first; empty → the card keeps its drawing. */
+  photos: PublicImage[]
+}
+
+/** Photos of a realization the public site may show (this tenant, no consent needed). */
+function realizationImages(photos: unknown, tenantId: number): PublicImage[] {
+  return (Array.isArray(photos) ? photos : [])
+    .map((photo) => publicImage(photo, tenantId))
+    .filter((image): image is PublicImage => image !== null)
 }
 
 /**
@@ -310,11 +320,17 @@ export const getInstalacjeHome = cache(
         collection: 'realizations',
         where: { and: [...(where.and ?? []), { featured: { equals: true } }] },
         draft: false,
-        depth: 0,
-        limit: 4,
-        // Newest first; without a year the package order (`legacyId`), as in the prototype.
-        sort: ['-year', 'legacyId'],
-        select: { title: true, category: true, place: true, scope: true },
+        depth: 1,
+        limit: LIMIT,
+        select: {
+          title: true,
+          category: true,
+          place: true,
+          scope: true,
+          photos: true,
+          year: true,
+          legacyId: true,
+        },
         overrideAccess: true,
       }),
     ])
@@ -324,13 +340,18 @@ export const getInstalacjeHome = cache(
     brands.delete('')
     return {
       brands: brands.size,
-      realizations: realizations.docs.map((doc) => ({
-        id: doc.id,
-        title: doc.title,
-        category: doc.category ?? null,
-        place: doc.place ?? null,
-        scope: doc.scope ?? null,
-      })),
+      // Newest first, without a year after them, then the package order (`byNewest`); 4 cards.
+      realizations: [...realizations.docs]
+        .sort(byNewest)
+        .slice(0, 4)
+        .map((doc) => ({
+          id: doc.id,
+          title: doc.title,
+          category: doc.category ?? null,
+          place: doc.place ?? null,
+          scope: doc.scope ?? null,
+          photos: realizationImages(doc.photos, tenantId),
+        })),
     }
   },
 )
@@ -450,7 +471,7 @@ export const getInstalacjeOffer = cache(async (tenantId: number): Promise<OfferA
     }))
 })
 
-/** A published realization for `/realizacje` (I12): public fields only, no photos yet. */
+/** A published realization for `/realizacje` (I12): public fields only; photos since v5. */
 export type RealizationCard = {
   id: number
   title: string
@@ -461,11 +482,13 @@ export type RealizationCard = {
   year: number | null
   services: string[]
   kind: string | null
+  photos: PublicImage[]
 }
 
 /**
  * The published realizations of this tenant (published = with the client's consent, the hook of
- * `Realizations`), newest first, otherwise in the package order. Fresh on every request.
+ * `Realizations`), newest first, without a year after them, then in the package order
+ * (`byNewest`). Fresh on every request.
  */
 export const getInstalacjeRealizations = cache(
   async (tenantId: number): Promise<RealizationCard[]> => {
@@ -474,10 +497,11 @@ export const getInstalacjeRealizations = cache(
       collection: 'realizations',
       where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
       draft: false,
-      depth: 0,
+      depth: 1,
       limit: LIMIT,
-      sort: ['-year', 'legacyId'],
       select: {
+        legacyId: true,
+        photos: true,
         title: true,
         category: true,
         place: true,
@@ -489,7 +513,7 @@ export const getInstalacjeRealizations = cache(
       },
       overrideAccess: true,
     })
-    return docs.map((d) => ({
+    return [...docs].sort(byNewest).map((d) => ({
       id: d.id,
       title: d.title,
       category: d.category ?? null,
@@ -499,6 +523,7 @@ export const getInstalacjeRealizations = cache(
       year: d.year ?? null,
       services: d.services ?? [],
       kind: d.kind ?? null,
+      photos: realizationImages(d.photos, tenantId),
     }))
   },
 )

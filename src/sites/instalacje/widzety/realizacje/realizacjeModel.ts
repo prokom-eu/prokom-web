@@ -1,3 +1,5 @@
+import type { PublicImage } from '@/lib/media/public'
+
 /*
  * Logic of `/realizacje` (`zrodlo/pages/Realizacje.js`, `page()`) as pure functions:
  * `realizacjeModel.test.ts` runs the original and compares. Two filters (installation, object),
@@ -14,6 +16,8 @@ export type RealizationItem = {
   year: number | null
   services: string[]
   kind: string | null
+  /** Round v5: the photos, the cover first (none → the drawing stays). */
+  photos?: PublicImage[]
 }
 
 export type RealizationsState = { fs: string; fo: string; more: boolean }
