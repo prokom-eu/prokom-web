@@ -1,0 +1,11 @@
+<!-- PRICE LIST -->
+<section id="cennik" class="au-sec">
+<div class="wrap">
+<div style="text-align:center;margin-bottom:28px"><div class="au-eb">Cennik</div><h2 class="au-h2">Cena i termin. <em>Od razu.</em></h2><p class="au-lead" style="margin:14px auto 0;max-width:560px">Kliknij kartę: zobaczysz, co dostajesz, jak to przebiega i kiedy płacisz.</p></div>
+<div class="au-chips scroll" style="justify-content:center;margin-bottom:26px"><sc-for list="{{filters}}" as="f" hint-placeholder-count="5"><button class="au-chip {{f.cls}}" onClick="{{f.pick}}">{{f.label}} · {{f.n}}</button></sc-for></div>
+<div class="au-cards" key="{{popKey}}">
+<sc-for list="{{pops}}" as="p" hint-placeholder-count="8"><button class="au-glass au-card" onClick="{{p.open}}" style="animation-delay:{{p.delay}}"><div class="th"><div><div class="fit k-card" style="--fw:290px;--fh:190px"><dc-import name="Vis" kind="{{p.kind}}" variant="{{p.variant}}" phone="{{p.phone}}" scale="0.43" h="190" hint-size="100%,100%"></dc-import></div></div><span class="more">Szczegóły →</span></div><div class="bd"><span class="au-eb" style="font-size:10px">{{p.cat}}</span><b style="font:800 18px/1.2 Archivo">{{p.name}}</b><span style="font-size:13px;color:var(--fg3);line-height:1.45;flex:1">{{p.effect}}</span><div class="ft"><b>{{p.price}}</b>{{p.time}}</div></div></button></sc-for>
+</div>
+</div>
+</section>
+

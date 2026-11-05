@@ -141,7 +141,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 <!-- END:nextjs-agent-rules -->
 
 ## prokomsoftware.pl
-- Plan sesji: `docs/zadania/prokomsoftware.md`. **Od 01.11.2026 wersja finalna v23:** `docs/design/prokomsoftware/ZMIANY-v23.md` + `PRZEKAZANIE-v23.md` (sesje SWV1–SWV5), kolory — ADR-015 „Rozstrzygnięcia v23”. Historia: `PRZEKAZANIE-v22.md`.
+- Plan sesji: `docs/zadania/prokomsoftware.md`. **Od 06.11.2026 wersja finalna v24 „Aurora”:** `docs/design/prokomsoftware/v24/ZMIANY-v24.md` (spec.) + `PRZEKAZANIE-v24.md` (duże sesje SWA1–SWA6, prompty), plansze `v24/boards`, decyzje — ADR-015 i ADR-014 „Rozstrzygnięcia v24” (ciemny motyw domyślnie, fioletowe światło, hero przed Lighthouse). Historia: v23 (`ZMIANY-v23.md`, `PRZEKAZANIE-v23.md`).
 - **Telefon = osobny układ „jak najlepsza aplikacja”** (`docs/design/prokomsoftware/MOBILE-APLIKACJA.md`); jego §5 to Definition of Done każdej sesji z UI.
 
 ## Linia Instalacje (prokominstalacje.pl) — worktree `prokom-instal`
