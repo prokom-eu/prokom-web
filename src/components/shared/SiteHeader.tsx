@@ -24,7 +24,8 @@ export type SiteHeaderProps = {
   nav: readonly CapsuleNavItem[]
   /** The line's mega menu for an entry without `href`: trigger + panel (`CAPSULE.link`, `.mega`). */
   megaFor?: (key: string) => ReactNode
-  /** Right-hand buttons before the action: search, theme, „Twój projekt” (`CAPSULE.*`). */
+  /** Right-hand buttons before the action: search, theme, „Twój projekt” (`CAPSULE.*`) — from
+   *  1081 px; on phones they live in the menu sheet (board 11). */
   actions?: ReactNode
   /** The line's main action (`shared.headerCta`); `badge` = a live count (`CAPSULE.count`). */
   cta?: { label: string; shortLabel?: string | null; href: string; badge?: ReactNode } | null
@@ -79,7 +80,7 @@ export function SiteHeader({
           </ul>
         </nav>
         <div className="cap__actions">
-          {actions}
+          {actions && <div className="cap__extras">{actions}</div>}
           {cta && (
             <Link href={cta.href} className="cap-cta">
               <span className="cap-cta__long">{cta.label}</span>

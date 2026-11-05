@@ -233,7 +233,8 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   outline: 2px solid var(--nav-active-ink);
   outline-offset: 2px;
 }
-.cap__actions {
+.cap__actions,
+.cap__extras {
   display: flex;
   flex-shrink: 0;
   align-items: center;
@@ -341,9 +342,10 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
    over the gap keeps it open while the pointer crosses. */
 .cap-mega {
   position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  left: 0;
+  /* Offsets count from inside the capsule's 1 px border: 10 px gap, the capsule's full width. */
+  top: calc(100% + 11px);
+  right: -1px;
+  left: -1px;
   z-index: 1;
   border: 1px solid var(--cap-border);
   border-radius: 22px;
@@ -353,10 +355,10 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 }
 .cap-mega::before {
   position: absolute;
-  top: -11px;
+  top: -12px;
   right: 0;
   left: 0;
-  height: 11px;
+  height: 12px;
   content: '';
 }
 
@@ -388,8 +390,13 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   .cap-wrap {
     padding-inline: 20px;
   }
-  .cap__nav {
+  /* Board 11 (phone): the right-hand buttons move to the menu sheet (search included). */
+  .cap__nav,
+  .cap__extras {
     display: none;
+  }
+  .cap__logo {
+    --logo-h: 30px;
   }
   .cap-menu {
     display: contents;
@@ -415,7 +422,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
     border-radius: 18px;
   }
   .cap__logo {
-    --logo-h: 30px;
+    --logo-h: 24px;
   }
   [data-scrolled] .cap__logo {
     transform: none;
