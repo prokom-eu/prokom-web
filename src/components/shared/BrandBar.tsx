@@ -58,8 +58,10 @@ export function BrandBar({
       <nav aria-label="Linie PRO-KOM" className="flex items-center gap-[18px]">
         {ordered(lines).map((line) => {
           const isCurrent = line.key === current
+          // A published line without an address (not live yet) is a label, not a dead link.
+          const Tag = line.url ? 'a' : 'span'
           return (
-            <a
+            <Tag
               key={line.key}
               href={line.url ?? undefined}
               aria-current={isCurrent ? 'page' : undefined}
@@ -78,7 +80,7 @@ export function BrandBar({
                 }}
               />
               {line.name}
-            </a>
+            </Tag>
           )
         })}
       </nav>

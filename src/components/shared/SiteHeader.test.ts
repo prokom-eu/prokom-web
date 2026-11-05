@@ -42,6 +42,12 @@ describe('SiteHeader — capsule (NAGLOWEK-KAPSULA §2, §6)', () => {
     expect(at('cap-cta')).toBeLessThan(at('>Menu<'))
   })
 
+  it('leaves out a mega entry the line gives no menu for (no empty list item)', () => {
+    const html = render({ megaFor: undefined })
+    expect(html).not.toContain('<li></li>')
+    expect(html.match(/<li>/g)).toHaveLength(2)
+  })
+
   it('renders links from the data and the line mega menu in its slot', () => {
     const html = render()
     expect(html).toContain('data-mega="uslugi"')

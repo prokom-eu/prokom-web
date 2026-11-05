@@ -59,4 +59,4 @@ export const PREVIEW_STATES = {
 export type PreviewState = keyof typeof PREVIEW_STATES
 
 export const isPreviewState = (value: unknown): value is PreviewState =>
-  typeof value === 'string' && value in PREVIEW_STATES
+  typeof value === 'string' && Object.hasOwn(PREVIEW_STATES, value)

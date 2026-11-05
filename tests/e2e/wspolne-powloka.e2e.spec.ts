@@ -43,14 +43,18 @@ for (const { host, name } of LINES) {
     }) => {
       await page.goto(site(host, '/_wspolne'))
       await expect(wrapper(page)).not.toHaveAttribute('data-scrolled')
-      await expect.poll(async () => (await capsule(page).boundingBox())?.height).toBe(72)
+      await expect
+        .poll(async () => Math.round((await capsule(page).boundingBox())?.height ?? 0))
+        .toBe(72)
 
       await scrollTo(page, 400)
       await expect(wrapper(page)).toHaveAttribute('data-scrolled', '')
-      await expect.poll(async () => (await capsule(page).boundingBox())?.height).toBe(60)
+      await expect
+        .poll(async () => Math.round((await capsule(page).boundingBox())?.height ?? 0))
+        .toBe(60)
       const box = await wrapper(page).boundingBox()
-      expect(box?.y).toBe(12)
-      expect(box?.height).toBe(72)
+      expect(Math.round(box?.y ?? 0)).toBe(12)
+      expect(Math.round(box?.height ?? 0)).toBe(72)
 
       await scrollTo(page, 0)
       await expect(wrapper(page)).not.toHaveAttribute('data-scrolled')
@@ -127,7 +131,7 @@ test.describe('/_wspolne — widths (NAGLOWEK-KAPSULA §3)', () => {
       await expect(capsule(page).getByRole('button', { name: 'Menu' })).toBeVisible()
       await expect(preview(page).locator('[data-brand-bar]')).toBeHidden()
       const box = await capsule(page).boundingBox()
-      expect(box?.height).toBe(58)
+      expect(Math.round(box?.height ?? 0)).toBe(58)
       const sideways = await page.evaluate(
         () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
       )

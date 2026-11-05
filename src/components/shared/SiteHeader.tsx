@@ -62,21 +62,22 @@ export function SiteHeader({
         </Link>
         <nav aria-label="Menu główne" className="cap__nav">
           <ul>
-            {nav.map((item) => (
-              <li key={item.key}>
-                {item.href ? (
-                  <Link
-                    href={item.href}
-                    className={CAPSULE.link}
-                    aria-current={item.current ? 'page' : undefined}
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  megaFor?.(item.key)
-                )}
-              </li>
-            ))}
+            {nav.map((item) => {
+              // An entry without a link is a mega trigger; with no mega from the line it is left
+              // out rather than an empty list item.
+              const content = item.href ? (
+                <Link
+                  href={item.href}
+                  className={CAPSULE.link}
+                  aria-current={item.current ? 'page' : undefined}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                megaFor?.(item.key)
+              )
+              return content ? <li key={item.key}>{content}</li> : null
+            })}
           </ul>
         </nav>
         <div className="cap__actions">

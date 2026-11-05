@@ -57,6 +57,13 @@ describe('BrandBar (spec §5)', () => {
     expect(html).toContain('Biznes: <b')
   })
 
+  it('a line without an address is a label, not a link without href', () => {
+    const html = render({ lines: [{ ...line('biznes', 'Biznes', 1), url: null }] })
+    const nav = /<nav aria-label="Linie PRO-KOM"[^>]*>([\s\S]*?)<\/nav>/.exec(html)?.[1] ?? ''
+    expect(nav).not.toContain('<a')
+    expect(nav).toMatch(/^<span[^>]*aria-current="page"/)
+  })
+
   it('without a phone or slot leaves them out (no literal fallback)', () => {
     const html = render({ phone: null, slot: null })
     expect(html).not.toContain('tel:')

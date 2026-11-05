@@ -9,8 +9,8 @@ export const NARROW_QUERY = '(max-width: 1080px)'
 
 /**
  * `true` while the visitor scrolls down on a phone or tablet (≤ 1080 px); `false` near the top,
- * on wider screens and while `paused` (an open sheet). One passive listener; state changes only
- * when the answer does.
+ * on wider screens and while `paused` (an open sheet). One passive listener; React
+ * re-renders only when the answer changes.
  */
 export function useHideOnScroll(paused = false): boolean {
   const [hidden, setHidden] = useState(false)
@@ -28,10 +28,10 @@ export function useHideOnScroll(paused = false): boolean {
         paused,
       })
       lastY = next.lastY
-      if (next.hidden !== current) {
-        current = next.hidden
-        setHidden(current)
-      }
+      current = next.hidden
+      // Always set: the effect restarts when `paused` changes, so the state may still be `true`
+      // while `current` starts again at `false` (React skips a set to the same value).
+      setHidden(current)
     }
     window.addEventListener('scroll', update, { passive: true })
     narrow.addEventListener('change', update)
