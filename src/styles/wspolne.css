@@ -609,3 +609,287 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
     transform: none;
   }
 }
+
+/*
+ * Side rail (spec §5.1, board 07 „Szyna”): `SiteRail`. From 1400 px, fixed on the left, centred
+ * vertically, over the free margin. Folded to 64 px by `clip-path` (no width animation); opens to
+ * 248 px on hover or keyboard focus after 120 ms and folds after 250 ms; labels slide in with a
+ * 20 ms cascade. Colours from the line tokens; motion only transform / opacity / clip-path.
+ */
+.srail {
+  --rail-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: fixed;
+  top: 50%;
+  left: 16px;
+  z-index: 30;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  box-sizing: border-box;
+  width: 248px;
+  max-height: calc(100dvh - 32px);
+  padding: 8px;
+  border-radius: 22px;
+  background: var(--card);
+  box-shadow:
+    0 0 0 1px var(--border),
+    0 14px 30px -14px var(--cap-shadow);
+  font-size: 14px;
+  translate: 0 -50%;
+  clip-path: inset(0 calc(100% - 64px) 0 0 round 22px);
+  transition: clip-path 280ms var(--rail-ease) 250ms;
+}
+@media (min-width: 1400px) {
+  .srail {
+    display: flex;
+  }
+  /* The capsule keeps clear of the rail (64 px + 16 px on each side of it). */
+  html:has([data-site-rail]) {
+    --rail-offset: max(0px, calc(96px - (100vw - 1344px) / 2 - 32px));
+  }
+}
+.srail:hover,
+.srail:focus-within {
+  clip-path: inset(0 0 0 0 round 22px);
+  transition-delay: 120ms;
+}
+.srail[data-collapsed] {
+  clip-path: inset(0 calc(100% - 64px) 0 0 round 22px);
+  transition-delay: 0ms;
+}
+.srail__search,
+.srail__item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 13px;
+  background: none;
+  color: var(--ink-2);
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 200ms;
+}
+.srail__item:hover {
+  color: var(--ink);
+}
+.srail__item[aria-current='location'],
+.srail__item--action,
+.srail__item--action:hover {
+  color: var(--accent-text);
+}
+.srail__item--action {
+  background: var(--accent-soft);
+}
+.srail__search {
+  height: 48px;
+  border-radius: 15px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 800;
+  transition: transform 120ms;
+}
+.srail__search:active {
+  transform: scale(0.97);
+}
+/* One calm pulse of the outline on the first page of a visit (not a loop). */
+.srail__search[data-pulse]::after {
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--accent);
+  border-radius: 19px;
+  opacity: 0;
+  content: '';
+  pointer-events: none;
+  animation: srail-pulse 1.6s var(--rail-ease) 0.6s 1;
+}
+@keyframes srail-pulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.94);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+.srail :is(a, button):focus-visible {
+  outline: 3px solid var(--accent-text);
+  outline-offset: -1px;
+}
+.srail__icon {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  transition: transform 200ms var(--rail-ease);
+}
+.srail__item:hover .srail__icon {
+  transform: translateX(2px) scale(1.06);
+}
+.srail__label {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity 200ms,
+    transform 280ms var(--rail-ease);
+}
+.srail:is(:hover, :focus-within):not([data-collapsed]) .srail__label {
+  opacity: 1;
+  transform: none;
+}
+.srail__list > :nth-child(2) .srail__label {
+  transition-delay: 20ms;
+}
+.srail__list > :nth-child(3) .srail__label {
+  transition-delay: 40ms;
+}
+.srail__list > :nth-child(4) .srail__label {
+  transition-delay: 60ms;
+}
+.srail__list > :nth-child(5) .srail__label {
+  transition-delay: 80ms;
+}
+.srail__list > :nth-child(n + 6) .srail__label {
+  transition-delay: 100ms;
+}
+.srail__kbd {
+  margin-left: auto;
+  padding: 3px 7px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--accent-ink) 20%, transparent);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+}
+.srail__aside {
+  margin-left: auto;
+  font-size: 12px;
+  opacity: 0.6;
+}
+.srail__sep {
+  flex: none;
+  height: 1px;
+  margin: 7px 10px;
+  background: var(--border);
+}
+.srail__caption {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  height: 22px;
+  padding: 0 13px;
+  color: var(--ink-2);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.srail__list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 0;
+}
+.srail__list[data-long] {
+  max-height: calc(10 * 46px);
+  overflow-y: auto;
+}
+.srail__marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 44px;
+  border-radius: 13px;
+  background: var(--accent-soft);
+  box-shadow: inset 3px 0 0 var(--accent-text);
+  transition: transform 420ms var(--rail-ease);
+}
+.srail__badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border: 2px solid var(--card);
+  border-radius: 9px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 10.5px;
+  font-weight: 800;
+  animation: srail-bump 360ms var(--rail-ease) 1;
+}
+@keyframes srail-bump {
+  40% {
+    transform: scale(1.28);
+  }
+}
+/* „Do góry” comes in after one screen of scrolling. */
+.srail__up {
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition:
+    opacity 200ms,
+    transform 280ms var(--rail-ease),
+    color 200ms;
+}
+.srail__up[data-shown] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.srail__progress {
+  position: absolute;
+  top: 74px;
+  bottom: 16px;
+  left: 3px;
+  width: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--border);
+}
+.srail__progress > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleY(var(--rail-progress, 0));
+  transform-origin: top;
+}
+@media (prefers-reduced-motion: reduce) {
+  .srail,
+  .srail__label,
+  .srail__icon,
+  .srail__marker,
+  .srail__up {
+    transition: none;
+  }
+  .srail__search[data-pulse]::after,
+  .srail__badge {
+    animation: none;
+  }
+}

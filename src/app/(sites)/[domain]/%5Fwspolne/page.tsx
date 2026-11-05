@@ -8,6 +8,7 @@ import { MenuButton } from '@/components/shared/MenuButton'
 import { MenuSheet } from '@/components/shared/MenuSheet'
 import { SiteFooter } from '@/components/shared/SiteFooter'
 import { SiteHeader } from '@/components/shared/SiteHeader'
+import { SiteRail } from '@/components/shared/SiteRail'
 import { TabBar } from '@/components/shared/TabBar'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { Icon } from '@/components/ui/Icon'
@@ -21,7 +22,7 @@ import { DemoMega } from './DemoMega'
 
 type Props = {
   params: Promise<{ domain: string }>
-  searchParams: Promise<{ stan?: string | string[] }>
+  searchParams: Promise<{ stan?: string | string[]; szyna?: string | string[] }>
 }
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
 }
 
 const STATE_LINKS = [
+  { href: '?szyna=glowna', label: 'Szyna jak na stronie głównej' },
   { href: '?', label: 'Na żywo (przewiń stronę)' },
   { href: '?stan=gora', label: 'Góra strony' },
   { href: '?stan=przewinieta', label: 'Po przewinięciu' },
@@ -47,6 +49,8 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
   if (getEnv().SITE_ENV === 'production') notFound()
   const [shared, query] = await Promise.all([getSharedData(tenant.id), searchParams])
   const stan = Array.isArray(query.stan) ? query.stan[0] : query.stan
+  // `?szyna=glowna`: the rail as on a home page, over the sections of this preview (D2-2).
+  const railHome = (Array.isArray(query.szyna) ? query.szyna[0] : query.szyna) === 'glowna'
   const preview = isPreviewState(stan) ? stan : null
 
   if (!shared) {
@@ -122,7 +126,13 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
         state={preview ? PREVIEW_STATES[preview] : undefined}
       />
 
-      <section aria-labelledby="wspolne-h1" className="mx-auto max-w-[1344px] px-8 pt-20">
+      <section
+        id="wspolne-start"
+        aria-labelledby="wspolne-h1"
+        className="mx-auto max-w-[1344px] scroll-mt-28 px-8 pt-20"
+        data-rail-section="Kapsuła"
+        data-rail-icon="rocket"
+      >
         <h1 id="wspolne-h1" className="font-display text-3xl font-extrabold">
           Elementy wspólne — {tenant.name}
         </h1>
@@ -151,7 +161,13 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
       </section>
 
       {where && (
-        <section aria-labelledby="wspolne-mapa" className="mx-auto max-w-[1344px] px-8 py-16">
+        <section
+          id="wspolne-mapa-sekcja"
+          aria-labelledby="wspolne-mapa"
+          className="mx-auto max-w-[1344px] scroll-mt-28 px-8 py-16"
+          data-rail-section="Mapa adresu"
+          data-rail-icon="pin"
+        >
           <h2 id="wspolne-mapa" className="font-display text-2xl font-extrabold">
             Mapa adresu
           </h2>
@@ -179,23 +195,54 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
         </section>
       )}
 
-      <SiteFooter
-        line={tenant.line}
-        lineName={tenant.name}
-        description={line.footerDescription}
-        promises={line.footerPromises ?? []}
-        columns={columns}
-        company={company}
-        contact={{
-          phone: line.phone,
-          email: line.email,
-          hours: company.hours,
-          holidays: company.holidays,
-          responsePromise: line.responsePromise,
-        }}
-        lines={lines}
-        legalNote={line.legalNote}
-        now={now}
+      <div
+        id="wspolne-stopka"
+        className="scroll-mt-28"
+        data-rail-section="Stopka"
+        data-rail-icon="doc"
+      >
+        <SiteFooter
+          line={tenant.line}
+          lineName={tenant.name}
+          description={line.footerDescription}
+          promises={line.footerPromises ?? []}
+          columns={columns}
+          company={company}
+          contact={{
+            phone: line.phone,
+            email: line.email,
+            hours: company.hours,
+            holidays: company.holidays,
+            responsePromise: line.responsePromise,
+          }}
+          lines={lines}
+          legalNote={line.legalNote}
+          now={now}
+        />
+      </div>
+
+      <SiteRail
+        sections={
+          railHome
+            ? [
+                { anchorId: 'wspolne-start', label: 'Kapsuła', icon: 'rocket' },
+                { anchorId: 'wspolne-mapa-sekcja', label: 'Mapa adresu', icon: 'pin' },
+                { anchorId: 'wspolne-stopka', label: 'Stopka', icon: 'doc' },
+              ]
+            : (line.rail?.sections ?? [])
+        }
+        onHome={railHome}
+        action={
+          line.tabBar?.center?.label && line.tabBar.center.href
+            ? {
+                label: line.tabBar.center.label,
+                href: line.tabBar.center.href,
+                icon: line.tabBar.center.icon,
+                count: counted ? 3 : null,
+                countLabel: counted ? 'W zapytaniu' : null,
+              }
+            : null
+        }
       />
 
       <TabBar
