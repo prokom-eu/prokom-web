@@ -72,10 +72,19 @@ test.describe('Biznes /gopos (K4h)', () => {
 
   test('„Dodaj GoHub do pakietu” marks GoHub in the package', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/gopos'))
-    await page.locator('#lokal').getByRole('tab', { name: 'Kawiarnia' }).click()
+    // Clicks work once the page is hydrated: retried until the tab is picked.
+    const tab = page.locator('#lokal').getByRole('tab', { name: 'Kawiarnia' })
+    await expect(async () => {
+      await tab.click({ timeout: 1000 })
+      await expect(tab).toHaveAttribute('aria-selected', 'true', { timeout: 1000 })
+    }).toPass()
     const hub = page.getByRole('button', { name: 'Dodaj GoHub do pakietu' })
-    await hub.click()
-    await expect(page.getByRole('button', { name: 'GoHub jest w pakiecie ✓' })).toBeVisible()
+    const added = page.getByRole('button', { name: 'GoHub jest w pakiecie ✓' })
+    // Clicked only while not added yet: the button is a switch.
+    await expect(async () => {
+      if (await hub.isVisible()) await hub.click({ timeout: 1000 })
+      await expect(added).toBeVisible({ timeout: 1000 })
+    }).toPass()
     await expect(
       page.locator('#pakiet').getByRole('complementary', { name: 'Twój pakiet GoPOS' }),
     ).toContainText('GoHub')

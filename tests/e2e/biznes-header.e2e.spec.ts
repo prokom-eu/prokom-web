@@ -156,8 +156,12 @@ test.describe('Biznes header', () => {
       .getByRole('banner')
       .getByRole('button', { name: 'Szukaj w ofercie Ctrl K' })
     await expect(magnifier).toHaveAttribute('aria-keyshortcuts', 'Control+K Meta+K /')
-    await magnifier.click()
-    await expect(page.getByRole('dialog', { name: 'Szukaj w ofercie' })).toBeVisible()
+    const dialog = page.getByRole('dialog', { name: 'Szukaj w ofercie' })
+    // The click works once the header is hydrated; clicked only while the dialog is closed.
+    await expect(async () => {
+      if (!(await dialog.isVisible())) await magnifier.click()
+      await expect(dialog).toBeVisible({ timeout: 1000 })
+    }).toPass()
   })
 
   // v20: the row fits without scrolling; below 1080 px the full-screen menu takes over.
