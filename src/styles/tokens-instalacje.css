@@ -1398,6 +1398,9 @@
   --cap-cta-to: #10a8c9;
   --cap-cta-ink: #04181c;
   --cap-cta-glow: rgba(18, 182, 216, 0.55);
+  /* Opening status in the dark theme (spec §5). */
+  --status-open: var(--status-open-on-dark);
+  --status-open-bg: var(--status-bg-on-dark);
 }
 
 /* …or by the system when there is no choice. Keep in sync with the rule above (tested). */
@@ -1626,5 +1629,8 @@
     --cap-cta-to: #10a8c9;
     --cap-cta-ink: #04181c;
     --cap-cta-glow: rgba(18, 182, 216, 0.55);
+    /* Opening status in the dark theme (spec §5). */
+    --status-open: var(--status-open-on-dark);
+    --status-open-bg: var(--status-bg-on-dark);
   }
 }

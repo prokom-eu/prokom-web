@@ -54,3 +54,49 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
     scrollbar-width: thin;
   }
 }
+
+/*
+ * Opening status (spec §5 `OpeningStatus`, board Moduły): a dot in the state colour and the label;
+ * the pill variant on a soft tint. On a dark band (`data-on-dark`): light dot, white text.
+ */
+.oh-status {
+  --oh-dot: var(--status-open);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  color: var(--nav-ink, var(--ink));
+  white-space: nowrap;
+}
+.oh-status[data-state='soon'] {
+  --oh-dot: var(--status-soon);
+}
+.oh-status[data-state='closed'] {
+  --oh-dot: var(--status-closed);
+}
+.oh-status__dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--oh-dot);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--oh-dot) 20%, transparent);
+}
+.oh-status--pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--oh-dot) 10%, var(--surface));
+  color: var(--ink);
+}
+.oh-status--pill[data-state='open'] {
+  background: var(--status-open-bg);
+}
+.oh-status[data-on-dark] {
+  color: var(--status-ink-on-dark);
+}
+.oh-status[data-on-dark][data-state='open'] {
+  --oh-dot: var(--status-open-on-dark);
+}
+.oh-status--pill[data-on-dark] {
+  background: var(--status-bg-on-dark);
+}

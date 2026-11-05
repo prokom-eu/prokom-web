@@ -1086,6 +1086,18 @@
      spec's ~68 %: at 68 % four line/theme pairs stay below 3:1 (WCAG 1.4.11, shared-tokens.test). */
   --scrollbar-track: var(--surface-2);
   --scrollbar-thumb: color-mix(in srgb, var(--accent) 80%, var(--scrollbar-track));
+  /* Opening status (spec §5 `OpeningStatus`): dot colours per state, the same on every line;
+     the dark theme and dark bands get the light green dot. */
+  --status-open: #2e7a1e;
+  --status-open-bg: #eaf5e6;
+  /* The spec's #C77800, a shade darker: 3:1 also on the papier surface-2 of Instalacje and Software. */
+  --status-soon: #c27500;
+  --status-closed: #b45309;
+  --status-open-on-dark: #7bd36a;
+  --status-bg-on-dark: rgba(255, 255, 255, 0.07);
+  --status-ink-on-dark: var(--c-white);
+  /* Gaming in the brand bar (spec §2.4): a darker gold dash than its #F2C230 on light pages. */
+  --gaming-dash: #d9a400;
 }
 
 [data-line='prokom'] {
@@ -1283,6 +1295,9 @@
   --cap-cta-to: #2d5bc8;
   --cap-cta-ink: #ffffff;
   --cap-cta-glow: rgba(74, 123, 224, 0.6);
+  /* Opening status in the dark theme (spec §5). */
+  --status-open: var(--status-open-on-dark);
+  --status-open-bg: var(--status-bg-on-dark);
 }
 
 [data-line='software'][data-theme='dark'] {
@@ -1344,6 +1359,9 @@
   --cap-cta-to: #6b42d8;
   --cap-cta-ink: #ffffff;
   --cap-cta-glow: rgba(150, 112, 238, 0.6);
+  /* Opening status in the dark theme (spec §5). */
+  --status-open: var(--status-open-on-dark);
+  --status-open-bg: var(--status-bg-on-dark);
 }
 
 /* …or by the system when there is no choice. Keep in sync with the rules above (tested). */
@@ -1409,6 +1427,9 @@
     --cap-cta-to: #6b42d8;
     --cap-cta-ink: #ffffff;
     --cap-cta-glow: rgba(150, 112, 238, 0.6);
+    /* Opening status in the dark theme (spec §5). */
+    --status-open: var(--status-open-on-dark);
+    --status-open-bg: var(--status-bg-on-dark);
   }
 }
 

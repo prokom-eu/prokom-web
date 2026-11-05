@@ -85,6 +85,36 @@ describe.each(cases)('$line, $mode theme: header capsule', ({ line, mode }) => {
   })
 })
 
+describe.each(cases)('$line, $mode theme: opening status', ({ line, mode }) => {
+  const s = scope(line, mode)
+  const surfaces = ['--surface', '--surface-2', '--card'].map((token) => rgba(token, s))
+  const dots = (
+    mode === 'light'
+      ? ['--status-open', '--status-soon', '--status-closed']
+      : ['--status-open', '--status-soon']
+  ).map((token) => [token, rgba(token, s)] as const)
+
+  it('state dots reach 3:1 on the surfaces of the bar and cards (WCAG 1.4.11)', () => {
+    for (const [token, dot] of dots) {
+      for (const surface of surfaces) {
+        expect(ratio(dot, surface), token).toBeGreaterThanOrEqual(3)
+      }
+    }
+  })
+
+  it('the open pill: dot 3:1 and text 4.5:1 on its tint', () => {
+    const pill = over(rgba('--status-open-bg', s), rgba('--surface', s))
+    expect(ratio(rgba('--status-open', s), pill)).toBeGreaterThanOrEqual(3)
+    expect(ratio(rgba('--ink', s), pill)).toBeGreaterThanOrEqual(4.5)
+  })
+
+  it('on the dark band: light dot 3:1 and white text 4.5:1', () => {
+    const band = over(rgba('--status-bg-on-dark', s), rgba('--line-dark', s))
+    expect(ratio(rgba('--status-open-on-dark', s), band)).toBeGreaterThanOrEqual(3)
+    expect(ratio(rgba('--status-ink-on-dark', s), band)).toBeGreaterThanOrEqual(4.5)
+  })
+})
+
 describe.each(cases)('$line, $mode theme: page scrollbar', ({ line, mode }) => {
   const s = scope(line, mode)
 
