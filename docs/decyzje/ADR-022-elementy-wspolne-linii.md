@@ -53,3 +53,12 @@ Trzy linie w `prokom-web` (Biznes, Instalacje, Software) zbudowały pasek marki,
 5. **Wspólna funkcja statusu** (`src/lib/shared/openingStatus.ts`, święta i „Zamykamy za”) obok `lib/site/hours.ts` linii — linie przechodzą na nią w D3, potem stara znika. Tak samo `lib/shared/hideOnScroll.ts` (kopia reguły z powłoki Instalacji).
 6. **Telefon (≤ 1080 px):** wg planszy 11 — znak, krótka akcja, Menu; prawe przyciski (z lupą) w arkuszu Menu. Spec §7 (02.11) chciał lupy w nagłówku poniżej 1400 px — do potwierdzenia.
 7. **Krótka etykieta akcji** (`headerCta.shortLabel`) nie ma pola w panelu — dodaje je D3 PR 1 (migracja tylko dodająca); do tego czasu podgląd bierze ją z `demo.ts`.
+
+## Rozstrzygnięcia D2-1b (06.11.2026, po przeglądzie — decyzja Krystiana: mapa jako plik)
+1. **Mapa adresu jako statyczny plik** `public/brand/mapa-orkana.svg` (46 KB, ok. 16 KB gzip), rysowany przez `<svg><use href="…#map"/></svg>` — przeglądarka pobiera go raz i trzyma w pamięci podręcznej między stronami, zamiast ok. 60 KB ścieżek w HTML i danych RSC każdej strony (stopka jest wszędzie). Plik generuje `scripts/address-map-svg.mjs` z rysunku OSM (`src/lib/shared/osmMap.generated.ts`, przeniesiony z Software; Software czyta go przez re-eksport do D3-S); test pilnuje zgodności i limitu 60 KB (spec §9). Kolory w pliku przez `style="…var(--am-…)"`, więc wariant jasny/ciemny działa. Katalog `/brand`, bo `proxy.ts` przepuszcza tylko jawną listę katalogów `public/`.
+2. **Akcent mapy wynika z wariantu** (`light` → `--accent`, `dark` → `--on-dark`), bez osobnego propu `accent` ze spec §5 — mapa zawsze stoi w kolorach linii.
+3. **Dolny pasek (`TabBar`) zostawia pod stroną miejsce na siebie** (WCAG 2.4.11) — ramki linii nie dodają własnego odstępu.
+4. **Kolumny stopki dwa razy w DOM:** lista na komputerze i akordeon `<details>` na telefonie (spec §7); ukryta wersja jest `display: none`, więc poza drzewem dostępności.
+5. **Przełącznik motywu (Jasny / Ciemny / Auto) w arkuszu Menu tylko w liniach z ciemnym motywem** (ADR-013); „Auto” usuwa zapisany wybór (`useThemeChoice`).
+6. **Pas linii ma tyle kolumn, ile linii** (5 dziś, 6 po publikacji Gaming) — bez pustego miejsca.
+7. **Druga pinezka salonu** (spec §5 `AddressMap`) — nie teraz: jedyny drugi salon (Zakopane) ma `published: false`; wraca w D3, gdy salon powstanie.
