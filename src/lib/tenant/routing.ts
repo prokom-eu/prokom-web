@@ -42,6 +42,9 @@ const CATALOG_INDEX_PATH = '/api/catalog-index'
 // Solutions index of the Software site (ADR-014 §4): the same kind of handler, read only; it
 // answers 404 on domains of other lines.
 const SOLUTIONS_INDEX_PATH = '/api/solutions-index'
+// Search index of the Instalacje site (L1-I, spec §5.1): the same kind of handler, read only; it
+// answers 404 on domains of other lines.
+const INST_SEARCH_INDEX_PATH = '/api/inst-search-index'
 // One drawing of „Plan Twojej firmy” (K31d′): read only, a scene slug; the handler answers 404
 // on domains of other lines and re-checks the drawing.
 const PLAN_SVG = /^\/api\/plan-svg\/[a-z0-9-]{1,60}$/
@@ -69,7 +72,7 @@ function startsWithSegment(pathname: string, prefix: string): boolean {
  * Decides what the proxy does with a request (ADR-006):
  * - panel domain: only the admin panel and the Payload API,
  * - any other domain: never the admin or the API (only uploaded image files, inquiries and their form token, the
- *   catalog and solutions indexes, plan drawings, the analytics proxy and the health check); pages are rewritten to
+ *   catalog, solutions and Instalacje search indexes, plan drawings, the analytics proxy and the health check); pages are rewritten to
  *   `/<host>/<path>`, where the `[domain]` layout resolves the tenant (unknown → 404).
  */
 export function decideRoute({
@@ -102,6 +105,7 @@ export function decideRoute({
   if (pathname === INQUIRY_TOKEN_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === CATALOG_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === SOLUTIONS_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
+  if (pathname === INST_SEARCH_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (PLAN_SVG.test(pathname) && READ_METHODS.includes(method)) return { type: 'next' }
   if (panelOnly) return { type: 'notFoundPage', pathname: `/${host}/${NOT_FOUND_SEGMENT}` }
   if (isPublicFile(pathname)) return { type: 'next' }
