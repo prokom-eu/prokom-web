@@ -72,7 +72,12 @@ test.describe('/_software — v24 foundation', () => {
     test(`no axe violations (${theme})`, async ({ page }) => {
       await setTheme(page, theme, { reducedMotion: 'reduce' })
       await page.goto(site(HOST, '/_software'))
-      const result = await new AxeBuilder({ page }).withTags(WCAG).analyze()
+      // Mock-ups are decorative pictures of sample firms in their own brand colours (ADR-015 v24
+      // pkt 4, `aria-hidden`); axe still measures text contrast inside them, so they are left out.
+      const result = await new AxeBuilder({ page })
+        .exclude('[data-mockup]')
+        .withTags(WCAG)
+        .analyze()
       expect(result.violations).toEqual([])
     })
   }
