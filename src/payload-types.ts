@@ -3959,7 +3959,9 @@ export interface SwHomeSectionBlock {
     | 'promises'
     | 'situations'
     | 'bento'
-    | 'showroom';
+    | 'showroom'
+    | 'tech'
+    | 'pricing';
   id?: string | null;
   blockName?: string | null;
   blockType: 'swHomeSection';

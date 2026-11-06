@@ -1,10 +1,15 @@
 import { getSoftwareHome, getSolutionsIndex } from '@/lib/software/data'
 
+import type { SoftwareHome } from '@/lib/software/home'
+import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
+
 import { BentoSection } from './Bento'
-import { priceLines } from './prices'
+import { PricingSection, type PricingCard } from './Pricing'
+import { priceLine, priceLines } from './prices'
 import { Promises } from './Promises'
 import { ShowroomSection } from './Showroom'
 import { Situations } from './Situations'
+import { TechSection } from './Tech'
 
 /**
  * The v24 start page sections as `swHomeSection` blocks (SWA2c): each reads its data from
@@ -43,4 +48,50 @@ export async function BentoBlockSection({ tenantId }: Props) {
 export async function ShowroomBlockSection({ tenantId }: Props) {
   const home = await getSoftwareHome(tenantId)
   return home?.showroom ? <ShowroomSection showroom={home.showroom} /> : null
+}
+
+export async function TechBlockSection({ tenantId }: Props) {
+  const home = await getSoftwareHome(tenantId)
+  return home?.tech ? <TechSection tech={home.tech} /> : null
+}
+
+/** Cards of the price list: the published solutions of each group, in the group's order. */
+export function pricingCards(
+  pricing: NonNullable<SoftwareHome['pricing']>,
+  index: SolutionsIndex,
+): PricingCard[] {
+  return pricing.groups.flatMap((group) =>
+    group.solutions.flatMap((slug) => {
+      const solution = index.solutions.find((item) => item.slug === slug)
+      if (!solution) return []
+      return [
+        {
+          slug,
+          name: solution.name,
+          lead: solution.lead ?? '',
+          group: group.label,
+          ...priceLine(slug, index),
+          mockup: solution.preview ?? null,
+        },
+      ]
+    }),
+  )
+}
+
+export async function PricingBlockSection({ tenantId }: Props) {
+  const [home, index] = await Promise.all([getSoftwareHome(tenantId), getSolutionsIndex(tenantId)])
+  const pricing = home?.pricing
+  if (!pricing) return null
+  return (
+    <PricingSection
+      eyebrow={pricing.eyebrow}
+      title={pricing.title}
+      em={pricing.em}
+      lead={pricing.lead}
+      all={pricing.all}
+      details={pricing.details}
+      groups={pricing.groups.map((group) => group.label)}
+      cards={pricingCards(pricing, index)}
+    />
+  )
 }

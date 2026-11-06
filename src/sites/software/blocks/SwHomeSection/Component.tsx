@@ -14,9 +14,11 @@ import {
 } from '@/sites/software/components/home/HomeSections'
 import {
   BentoBlockSection,
+  PricingBlockSection,
   PromisesSection,
   ShowroomBlockSection,
   SituationsSection,
+  TechBlockSection,
 } from '@/sites/software/components/v24home/HomeV24Blocks'
 
 type Props = { block: SwHomeSectionBlockData; tenantId: number }
@@ -37,6 +39,10 @@ export function SwHomeSectionBlock({ block, tenantId }: Props) {
       return <BentoBlockSection tenantId={tenantId} />
     case 'showroom':
       return <ShowroomBlockSection tenantId={tenantId} />
+    case 'tech':
+      return <TechBlockSection tenantId={tenantId} />
+    case 'pricing':
+      return <PricingBlockSection tenantId={tenantId} />
     case 'areas':
       return <AreasSection tenantId={tenantId} />
     case 'popular':

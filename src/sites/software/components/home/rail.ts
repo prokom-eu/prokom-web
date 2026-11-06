@@ -7,8 +7,7 @@ import {
 
 /**
  * Section rail of the Software start page (v24, board `AU-pc`: Start, Od czego zaczynasz, Oferta,
- * Podglądy na żywo, Kreator 60 s, Jak pracujemy, Pytania, Kontakt; „Jak robimy” and „Cennik” come
- * with their sections in SWA2c):
+ * Podglądy na żywo, Jak robimy, Kreator 60 s, Cennik, Jak pracujemy, Pytania, Kontakt):
  * only sections whose components exist, by the block that renders them — `faq` is the shared FAQ
  * block. A section that renders nothing (texts missing in the panel) is dropped by `SectionRail`
  * itself, when its anchor is not found.
@@ -19,7 +18,9 @@ export const RAIL_LABELS: Record<string, Omit<RailItem, 'id'>> = {
   sytuacje: { label: 'Od czego zaczynasz', icon: 'compass' },
   oferta: { label: 'Oferta', icon: 'grid' },
   podglady: { label: 'Podglądy na żywo', icon: 'monitor' },
+  technologia: { label: 'Jak robimy', icon: 'site' },
   dobierz: { label: 'Kreator 60 s', icon: 'flash' },
+  cennik: { label: 'Cennik', icon: 'wallet' },
   proces: { label: 'Jak pracujemy', icon: 'doc' },
   faq: { label: 'Pytania', icon: 'q' },
   kontakt: { label: 'Kontakt', icon: 'chat' },
