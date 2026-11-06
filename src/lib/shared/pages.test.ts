@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { aboutPageJsonLd, aboutStats, contactPageJsonLd, lineSalons } from './pages'
+import { aboutStats, lineSalons, pageBreadcrumbsJsonLd } from './pages'
 import type { SharedSalon } from './project'
 
 const salon = (key: string | null, city: string): SharedSalon => ({
@@ -15,16 +15,6 @@ const salon = (key: string | null, city: string): SharedSalon => ({
 })
 
 const SALONS = [salon('rabka', 'Rabka-Zdrój'), salon('zakopane', 'Zakopane')]
-const BASE = {
-  company: { name: 'PRO-KOM Tadeusz Wójciak', nip: '7352511447' },
-  lineName: 'PRO-KOM Biznes',
-  phone: '889 003 889',
-  email: 'kontakt@prokombiznes.pl',
-  origin: 'https://prokombiznes.pl',
-}
-
-type Node = Record<string, unknown> & { '@type': string }
-const graph = (data: { '@graph': unknown[] }) => data['@graph'] as Node[]
 
 describe('lineSalons (contact.salonKeys)', () => {
   it('keeps the salons named by key, in the company order', () => {
@@ -44,51 +34,30 @@ describe('lineSalons (contact.salonKeys)', () => {
   })
 })
 
-describe('contactPageJsonLd (spec §6.1, §8)', () => {
-  const data = contactPageJsonLd({
-    ...BASE,
-    salons: SALONS.slice(0, 1),
-    breadcrumbs: [
+describe('pageBreadcrumbsJsonLd (spec §6.1, §6.2)', () => {
+  it('lists the crumbs with absolute addresses, nothing else (the layout has the company)', () => {
+    const data = pageBreadcrumbsJsonLd('https://prokombiznes.pl', [
       { name: 'Strona główna', path: '/' },
       { name: 'Kontakt', path: '/kontakt' },
-    ],
-  })
-
-  it('has one LocalBusiness per salon of the line, with hours and E.164 phone', () => {
-    const branches = graph(data).filter((node) => node['@type'] === 'LocalBusiness')
-    expect(branches).toHaveLength(1)
-    expect(branches[0]).toMatchObject({
-      telephone: '+48889003889',
-      address: { streetAddress: 'ul. Orkana 16B', addressLocality: 'Rabka-Zdrój' },
-      openingHours: ['Mo-Fr 09:00-17:00'],
-      parentOrganization: { '@id': 'https://prokombiznes.pl/#organization' },
-    })
-  })
-
-  it('ends with the breadcrumbs as absolute addresses', () => {
-    const list = graph(data).find((node) => node['@type'] === 'BreadcrumbList')
-    expect(list?.itemListElement).toEqual([
-      { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://prokombiznes.pl/' },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Kontakt',
-        item: 'https://prokombiznes.pl/kontakt',
-      },
     ])
-  })
-})
-
-describe('aboutPageJsonLd (spec §6.2)', () => {
-  it('is the Organization and the breadcrumbs, no phone when the line has none', () => {
-    const data = aboutPageJsonLd({
-      ...BASE,
-      phone: null,
-      breadcrumbs: [{ name: 'O firmie', path: '/o-firmie' }],
+    expect(data).toEqual({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Strona główna',
+          item: 'https://prokombiznes.pl/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Kontakt',
+          item: 'https://prokombiznes.pl/kontakt',
+        },
+      ],
     })
-    expect(graph(data).map((node) => node['@type'])).toEqual(['Organization', 'BreadcrumbList'])
-    expect(graph(data)[0]).not.toHaveProperty('telephone')
-    expect(graph(data)[0]).toMatchObject({ taxID: '7352511447', name: 'PRO-KOM Biznes' })
   })
 })
 

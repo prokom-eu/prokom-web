@@ -69,7 +69,6 @@ const shared = {
 const common = {
   shared,
   line: 'biznes' as const,
-  lineName: 'PRO-KOM Biznes',
   origin: 'https://prokombiznes.pl',
 }
 const slot = (name: string) => createElement('p', { 'data-slot': name }, name)
@@ -117,8 +116,23 @@ describe('ContactPage (spec §6.1)', () => {
     expect(markup).not.toContain('id="dojazd"')
     expect(markup).not.toContain('id="inne-linie"')
     expect(markup).toContain('href="tel:+48889003889"')
-    expect(markup).toContain('"@type":"LocalBusiness"')
+    // Only the breadcrumbs: the Organization and LocalBusiness are the layout's (one @id each).
     expect(markup).toContain('"@type":"BreadcrumbList"')
+    expect(markup).not.toContain('"@type":"LocalBusiness"')
+  })
+
+  it('the map and route show only on the office card (the drawing is the office)', () => {
+    expect(contact()).toContain('data-address-map')
+    const zakopane = { ...shared.salons[0]!, key: 'zakopane', city: 'Zakopane' }
+    const other = {
+      ...shared,
+      salons: [...shared.salons, zakopane],
+      line: { ...shared.line, contact: { ...shared.line.contact, salonKeys: ['zakopane'] } },
+    } as SharedData
+    const markup = contact({ shared: other })
+    expect(markup).toContain('data-address-card')
+    expect(markup).toContain('Zakopane')
+    expect(markup).not.toContain('data-address-map')
   })
 
   it('the other lines leave out the current one', () => {
@@ -158,10 +172,10 @@ describe('AboutPage (spec §6.2)', () => {
     expect([...at].sort((a, b) => a - b)).toEqual(at)
   })
 
-  it('„Sprawdź nas” switches off; Organization data, no people', () => {
+  it('„Sprawdź nas” switches off; breadcrumbs data, no people', () => {
     const markup = about({ showVerify: false })
     expect(markup).not.toContain('id="sprawdz"')
-    expect(markup).toContain('"@type":"Organization"')
+    expect(markup).toContain('"@type":"BreadcrumbList"')
     // No „Ludzie” section and no photos (spec §6.2) — the only images are the line logos.
     expect(markup).not.toContain('Ludzie')
     const sources = [...markup.matchAll(/<img[^>]*src="([^"]*)"/g)].map((m) => m[1])

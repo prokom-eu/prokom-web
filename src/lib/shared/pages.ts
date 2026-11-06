@@ -1,7 +1,5 @@
 import { plural } from '../plural'
-import { openingHoursText } from '../seo/jsonLd'
-import { toTelHref } from '../site/link'
-import type { SharedCompany, SharedSalon } from './project'
+import type { SharedSalon } from './project'
 
 /** „{placeKind} · Rabka-Zdrój” on the address card (spec §6.1 pkt 1, field `contact.placeKind`). */
 export const PLACE_KIND_LABEL = {
@@ -24,98 +22,24 @@ export function lineSalons(
   return salons.filter((salon) => salon.key !== null && keys.includes(salon.key))
 }
 
-const DAYS: Record<string, string> = {
-  mon: 'Monday',
-  tue: 'Tuesday',
-  wed: 'Wednesday',
-  thu: 'Thursday',
-  fri: 'Friday',
-  sat: 'Saturday',
-  sun: 'Sunday',
-}
-
-/** `tel:+48…` → `+48…` (E.164, as schema.org wants it). */
-const e164 = (phone: string | null) => (phone ? (toTelHref(phone)?.slice(4) ?? null) : null)
-
-type PageInput = {
-  company: Pick<SharedCompany, 'name' | 'nip'>
-  /** The line's name as the public face, e.g. „PRO-KOM Biznes”. */
-  lineName: string
-  phone: string | null
-  email: string | null
-  /** `https://prokombiznes.pl` — no trailing slash. */
-  origin: string
-  /** The page's breadcrumbs, last = the page itself. */
-  breadcrumbs: readonly { name: string; path: string }[]
-}
-
-/** BreadcrumbList as a node of the page's graph (no own @context). */
-const crumbs = (origin: string, items: PageInput['breadcrumbs']) => ({
-  '@type': 'BreadcrumbList',
-  itemListElement: items.map(({ name, path }, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    name,
-    item: origin + path,
-  })),
-})
-
-function organization({ company, lineName, phone, email, origin }: PageInput) {
-  return {
-    '@type': 'Organization',
-    '@id': `${origin}/#organization`,
-    name: lineName,
-    legalName: company.name,
-    url: `${origin}/`,
-    ...(e164(phone) && { telephone: e164(phone) }),
-    ...(email && { email }),
-    taxID: company.nip,
-  }
-}
-
 /**
- * Kontakt (spec §6.1, §8): a `LocalBusiness` per salon of the line — only real, published ones —
- * with its hours, and the `BreadcrumbList`. Same NAP on every domain (from `CompanyData`).
+ * `BreadcrumbList` of a shared page (spec §6.1, §6.2), absolute addresses. The `Organization` and
+ * a `LocalBusiness` per salon are on every page already (the site layout, `organizationJsonLd`) —
+ * a second copy here would give the same `@id` two meanings.
  */
-export function contactPageJsonLd(input: PageInput & { salons: readonly SharedSalon[] }) {
-  const { company, phone, email, origin, salons } = input
-  const branches = salons.map((salon, index) => ({
-    '@type': 'LocalBusiness',
-    '@id': `${origin}/#oddzial-${index + 1}`,
-    name: `${company.name} — ${salon.name}`,
-    parentOrganization: { '@id': `${origin}/#organization` },
-    url: `${origin}/`,
-    ...(e164(phone) && { telephone: e164(phone) }),
-    ...(email && { email }),
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: salon.street,
-      postalCode: salon.postalCode,
-      addressLocality: salon.city,
-      addressCountry: 'PL',
-    },
-    ...(salon.geo && {
-      geo: { '@type': 'GeoCoordinates', latitude: salon.geo.lat, longitude: salon.geo.lng },
-    }),
-    openingHours: salon.hours.map(openingHoursText),
-    openingHoursSpecification: salon.hours.map(({ days, opens, closes }) => ({
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: days.flatMap((day) => (DAYS[day] ? [`https://schema.org/${DAYS[day]}`] : [])),
-      opens,
-      closes,
+export function pageBreadcrumbsJsonLd(
+  origin: string,
+  items: readonly { name: string; path: string }[],
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map(({ name, path }, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name,
+      item: origin + path,
     })),
-  }))
-  return {
-    '@context': 'https://schema.org',
-    '@graph': [organization(input), ...branches, crumbs(origin, input.breadcrumbs)],
-  }
-}
-
-/** O firmie (spec §6.2): `Organization` and the `BreadcrumbList`. */
-export function aboutPageJsonLd(input: PageInput) {
-  return {
-    '@context': 'https://schema.org',
-    '@graph': [organization(input), crumbs(input.origin, input.breadcrumbs)],
   }
 }
 

@@ -5,7 +5,7 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { plural } from '@/lib/plural'
 import { serializeJsonLd } from '@/lib/seo/jsonLd'
-import { aboutPageJsonLd, aboutStats, FOUNDED } from '@/lib/shared/pages'
+import { aboutStats, FOUNDED, pageBreadcrumbsJsonLd } from '@/lib/shared/pages'
 import type { SharedData } from '@/lib/shared/project'
 import { toTelHref } from '@/lib/site/link'
 import type { Line } from '@/lib/tenant/lines'
@@ -32,9 +32,7 @@ export type AboutSlots = {
 export type AboutPageProps = {
   shared: SharedData
   line: Line
-  /** The line's name, e.g. „PRO-KOM Biznes” (JSON-LD). */
-  lineName: string
-  /** `https://prokombiznes.pl`, no trailing slash (JSON-LD addresses). */
+  /** `https://prokombiznes.pl`, no trailing slash (breadcrumb addresses in JSON-LD). */
   origin: string
   /** `SITE_ENV`: a flagged number is hidden on production (`StatsStrip`). */
   siteEnv: string
@@ -59,7 +57,6 @@ const FOCUS =
 export function AboutPage({
   shared,
   line,
-  lineName,
   origin,
   siteEnv,
   breadcrumbs = [
@@ -77,14 +74,7 @@ export function AboutPage({
   const where = address ? `${address.street}, ${address.postalCode} ${address.city}` : null
   const lineCount = lines.filter((item) => item.kind === 'linia').length
   const gaming = lines.some((item) => item.key === 'gaming')
-  const jsonLd = aboutPageJsonLd({
-    company,
-    lineName,
-    phone: data.phone,
-    email: data.email,
-    origin,
-    breadcrumbs,
-  })
+  const jsonLd = pageBreadcrumbsJsonLd(origin, breadcrumbs)
 
   return (
     <div data-about-page>

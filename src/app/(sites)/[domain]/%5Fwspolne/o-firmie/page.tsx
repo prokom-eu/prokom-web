@@ -1,13 +1,11 @@
 import type { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { AboutPage } from '@/components/shared/AboutPage'
 import { getEnv } from '@/lib/env'
-import { siteOrigin } from '@/lib/seo/origin'
 import { getSharedData } from '@/lib/shared/getSharedData'
 
-import { requireTenant } from '../../tenant'
+import { requestOrigin, requireTenant } from '../../tenant'
 import { SlotFrame } from '../SlotFrame'
 
 type Props = { params: Promise<{ domain: string }> }
@@ -26,14 +24,13 @@ export default async function AboutTemplatePreview({ params }: Props) {
   const tenant = await requireTenant(params)
   const env = getEnv()
   if (env.SITE_ENV === 'production') notFound()
-  const [shared, head] = await Promise.all([getSharedData(tenant.id), headers()])
+  const [shared, origin] = await Promise.all([getSharedData(tenant.id), requestOrigin()])
   if (!shared) notFound()
   return (
     <AboutPage
       shared={shared}
       line={tenant.line}
-      lineName={tenant.name}
-      origin={siteOrigin(head.get('host'), env.SITE_ENV) ?? ''}
+      origin={origin}
       siteEnv={env.SITE_ENV}
       breadcrumbs={[
         { name: 'Strona główna', path: '/' },

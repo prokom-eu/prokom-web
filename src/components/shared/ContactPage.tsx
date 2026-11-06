@@ -6,7 +6,7 @@ import { serializeJsonLd } from '@/lib/seo/jsonLd'
 import { formConsent } from '@/lib/shared/consent'
 import { hourTiles } from '@/lib/shared/hourTiles'
 import { isIconName } from '@/lib/shared/icons'
-import { contactPageJsonLd, lineSalons, PLACE_KIND_LABEL } from '@/lib/shared/pages'
+import { lineSalons, pageBreadcrumbsJsonLd, PLACE_KIND_LABEL } from '@/lib/shared/pages'
 import type { SharedData } from '@/lib/shared/project'
 import { warsawWeekday } from '@/lib/site/hours'
 import { toTelHref } from '@/lib/site/link'
@@ -38,9 +38,7 @@ export type ContactSlots = {
 export type ContactPageProps = {
   shared: SharedData
   line: Line
-  /** The line's name, e.g. „PRO-KOM Biznes” (JSON-LD). */
-  lineName: string
-  /** `https://prokombiznes.pl`, no trailing slash (JSON-LD addresses). */
+  /** `https://prokombiznes.pl`, no trailing slash (breadcrumb addresses in JSON-LD). */
   origin: string
   /** ISO time of the render (opening status, „dziś”). */
   now: string
@@ -69,7 +67,6 @@ const FOCUS =
 export function ContactPage({
   shared,
   line,
-  lineName,
   origin,
   now,
   formToken,
@@ -92,15 +89,11 @@ export function ContactPage({
   const where = salon ? `${salon.street}, ${salon.postalCode} ${salon.city}` : null
   const tiles = hours.length ? hourTiles(hours, warsawWeekday(new Date(now))) : []
   const routes = contact.routes ?? []
-  const jsonLd = contactPageJsonLd({
-    company,
-    lineName,
-    phone: data.phone,
-    email: data.email,
-    origin,
-    breadcrumbs,
-    salons,
-  })
+  // The map drawing is of the office (Orkana 16B) and the route is `CompanyData.mapsUrl` — shown only
+  // when the card is that salon; another first salon gets its address and hours without a map.
+  const officeCard = salon !== null && salon.key === (shared.salons[0]?.key ?? null)
+  const others = lines.filter((item) => item.key !== line)
+  const jsonLd = pageBreadcrumbsJsonLd(origin, breadcrumbs)
 
   return (
     <div data-contact-page>
@@ -205,14 +198,17 @@ export function ContactPage({
                 className="flex flex-col gap-5 rounded-[28px] bg-card p-4 text-ink shadow-raised"
                 data-address-card
               >
-                <AddressMap
-                  height={290}
-                  radius={22}
-                  label={{ title: 'PRO-KOM', text: where }}
-                  description={`Mapa: ${company.name}, ${where}`}
-                  mapsUrl={company.mapsUrl}
-                  routeLabel="Wyznacz trasę"
-                />
+                {officeCard && (
+                  <AddressMap
+                    height={290}
+                    mobileHeight={108}
+                    radius={22}
+                    label={{ title: 'PRO-KOM', text: where }}
+                    description={`Mapa: ${company.name}, ${where}`}
+                    mapsUrl={company.mapsUrl}
+                    routeLabel="Wyznacz trasę"
+                  />
+                )}
                 <div className="flex flex-col gap-1 px-2">
                   <span className="text-xs font-extrabold tracking-[0.12em] text-accent-text uppercase">
                     {PLACE_KIND_LABEL[contact.placeKind ?? 'salon']} · {salon.city}
@@ -395,7 +391,7 @@ export function ContactPage({
         </section>
       )}
 
-      {showOtherLines && (
+      {showOtherLines && others.length > 0 && (
         <section
           id="inne-linie"
           aria-labelledby="kontakt-linie"

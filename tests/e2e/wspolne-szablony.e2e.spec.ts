@@ -22,16 +22,12 @@ test.describe('/_wspolne/kontakt and /_wspolne/o-firmie — page templates', () 
       for (const name of CONTACT_SLOTS) {
         await expect(root.locator(`[data-slot="${name}"]`)).toHaveCount(1)
       }
-      const types = await root
+      // The template adds the breadcrumbs; the company and its salons come from the site layout.
+      const types = await page
         .locator('script[type="application/ld+json"]')
-        .first()
-        .evaluate((node) =>
-          (JSON.parse(node.textContent ?? '{}') as { '@graph': { '@type': string }[] })[
-            '@graph'
-          ].map((item) => item['@type']),
-        )
-      expect(types).toContain('LocalBusiness')
-      expect(types).toContain('BreadcrumbList')
+        .evaluateAll((nodes) => nodes.map((node) => node.textContent ?? ''))
+      expect(types.some((text) => text.includes('"BreadcrumbList"'))).toBe(true)
+      expect(types.some((text) => text.includes('"LocalBusiness"'))).toBe(true)
       await expect(root.locator('[data-contact-form]')).toBeVisible()
     })
 
@@ -56,8 +52,11 @@ test.describe('/_wspolne/kontakt and /_wspolne/o-firmie — page templates', () 
   for (const width of [360, 390, 414]) {
     test(`no sideways scroll at ${width} px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 800 })
-      for (const path of ['/_wspolne/kontakt', '/_wspolne/o-firmie']) {
-        await page.goto(site('instalacje.localhost', path))
+      for (const path of HOSTS.flatMap((host) => [
+        site(host, '/_wspolne/kontakt'),
+        site(host, '/_wspolne/o-firmie'),
+      ])) {
+        await page.goto(path)
         const overflow = await page.evaluate(
           () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
         )
@@ -66,11 +65,13 @@ test.describe('/_wspolne/kontakt and /_wspolne/o-firmie — page templates', () 
     })
   }
 
-  for (const theme of ['light', 'dark'] as const) {
-    test(`axe on both templates (${theme})`, async ({ page }) => {
+  for (const [host, theme] of HOSTS.flatMap((h) =>
+    (['light', 'dark'] as const).map((t) => [h, t] as const),
+  )) {
+    test(`axe on both templates (${host}, ${theme})`, async ({ page }) => {
       await setTheme(page, theme)
       for (const path of ['/_wspolne/kontakt', '/_wspolne/o-firmie']) {
-        await page.goto(site('software.localhost', path))
+        await page.goto(site(host, path))
         const results = await new AxeBuilder({ page })
           .include(path.endsWith('kontakt') ? '[data-contact-page]' : '[data-about-page]')
           .analyze()
