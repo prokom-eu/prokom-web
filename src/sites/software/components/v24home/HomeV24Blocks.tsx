@@ -1,10 +1,10 @@
 import { getSoftwareHome, getSolutionsIndex } from '@/lib/software/data'
 
-import { BentoSection } from './Bento'
-import { priceLines } from './prices'
+import { BentoSection } from './BentoLazy'
+import { bentoSlugs, priceLines } from './prices'
 import { Promises } from './Promises'
-import { ShowroomSection } from './Showroom'
-import { Situations } from './Situations'
+import { ShowroomSection } from './ShowroomLazy'
+import { Situations } from './SituationsLazy'
 
 /**
  * The v24 start page sections as `swHomeSection` blocks (SWA2c): each reads its data from
@@ -31,13 +31,7 @@ export async function BentoBlockSection({ tenantId }: Props) {
   const [home, index] = await Promise.all([getSoftwareHome(tenantId), getSolutionsIndex(tenantId)])
   const bento = home?.bento
   if (!bento) return null
-  const slugs = [
-    ...bento.sites.variants.map((v) => v.solution),
-    bento.rebuild.solution,
-    ...bento.systems.variants.map((v) => v.solution),
-    ...bento.automations.variants.map((v) => v.solution),
-  ]
-  return <BentoSection bento={bento} prices={priceLines(slugs, index)} />
+  return <BentoSection bento={bento} prices={priceLines(bentoSlugs(bento), index)} />
 }
 
 export async function ShowroomBlockSection({ tenantId }: Props) {

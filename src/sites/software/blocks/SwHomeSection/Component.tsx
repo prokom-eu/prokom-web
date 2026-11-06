@@ -26,7 +26,8 @@ type Props = { block: SwHomeSectionBlockData; tenantId: number }
  * A section without a component renders nothing.
  */
 export function SwHomeSectionBlock({ block, tenantId }: Props) {
-  // v24: a block of a section no longer built (the v23 ones) stays in the panel but renders nothing.
+  // v24: a block of a section no longer built (the v23 ones) stays in the panel but renders nothing;
+  // the v23 cases below and their components go with `feat/swa2-sprzatanie` (decision D6, STAN).
   if (!BUILT_HOME_SECTIONS.includes(block.section as HomeSectionValue)) return null
   switch (block.section) {
     case 'promises':
