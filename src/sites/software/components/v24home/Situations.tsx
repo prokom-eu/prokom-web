@@ -1,12 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
 import type { SoftwareHome } from '@/lib/software/home'
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
+import { usePausedOffscreen } from './usePausedOffscreen'
 import { offerHref, type PriceLine } from './prices'
 
 type Props = {
@@ -20,9 +21,11 @@ type Props = {
  * A situation opens on hover (mouse) or on a click / Enter; the first is open at the start.
  */
 export function Situations({ situations, prices }: Props) {
+  const ids = useId()
+  const section = usePausedOffscreen<HTMLElement>()
   const [open, setOpen] = useState(0)
   return (
-    <section id="sytuacje" className="v-sec">
+    <section ref={section} id="sytuacje" className="v-sec">
       <div className="v-wrap">
         <SectionHead
           eyebrow={situations.eyebrow}
@@ -49,7 +52,7 @@ export function Situations({ situations, prices }: Props) {
                   type="button"
                   className="v-sit-tx"
                   aria-expanded={on}
-                  aria-controls={`v-sit-${index}`}
+                  aria-controls={`${ids}-sit-${index}`}
                   onClick={() => setOpen(index)}
                 >
                   <span className="v-sit-n">
@@ -57,7 +60,7 @@ export function Situations({ situations, prices }: Props) {
                   </span>
                   <span className="v-sit-q">{item.question}</span>
                 </button>
-                <div id={`v-sit-${index}`} className="v-sit-body" hidden={!on}>
+                <div id={`${ids}-sit-${index}`} className="v-sit-body" hidden={!on}>
                   <p>{item.answer}</p>
                   <div className="v-row">
                     <b className="v-price">{price?.price}</b>

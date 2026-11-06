@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 import { ICON_NAMES } from '../catalog/options'
 import { DASH_VARIANTS, isVariantOf, MOCKUP_KINDS, SITE_VARIANTS } from './mockups'
+import { WIZARD_FIRMS } from './options'
 import { firstIssue, href, key, label, link, obj, slug, svgPath, text } from './schema'
 
 /**
@@ -85,6 +86,11 @@ export const heroV24Schema = obj({
 export type SoftwareHeroV24 = z.infer<typeof heroV24Schema>
 
 /** Eyebrow, H2 (with its highlighted part in `em`) and lead of a v24 section (ZMIANY-v24 §2). */
+const WIZARD_FIRM_VALUES = WIZARD_FIRMS.map((firm) => firm.value) as [
+  (typeof WIZARD_FIRMS)[number]['value'],
+  ...(typeof WIZARD_FIRMS)[number]['value'][],
+]
+
 const headV24 = { eyebrow: label, title: label, em: label.optional(), lead: text.optional() }
 
 /**
@@ -159,8 +165,8 @@ export const homeV24SectionsSchema = {
     industries: z
       .array(
         obj({
-          /** `?firma=` of the wizard (`/dobierz?firma=<key>`). */
-          key: slug,
+          /** `?firma=` of the wizard (`/dobierz?firma=<key>`): one of its industries. */
+          key: z.enum(WIZARD_FIRM_VALUES),
           name: label,
           icon: svgPath,
           site: z.enum(SITE_VARIANTS),

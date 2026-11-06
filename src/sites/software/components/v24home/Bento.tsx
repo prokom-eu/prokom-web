@@ -8,6 +8,7 @@ import { Mockup } from '@/sites/software/components/mockups/Mockup'
 import { Chip } from '@/sites/software/components/ui/Chip'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
+import { usePausedOffscreen } from './usePausedOffscreen'
 import { offerHref, type PriceLine } from './prices'
 
 type Bento = NonNullable<SoftwareHome['bento']>
@@ -51,6 +52,7 @@ export function BentoSection({ bento, prices }: Props) {
   const [auto, setAuto] = useState(0)
   const [cut, setCut] = useState<number | null>(null)
   const drag = useRef(false)
+  const section = usePausedOffscreen<HTMLElement>()
 
   const siteVariant = bento.sites.variants[site] ?? bento.sites.variants[0]
   const systemVariant = bento.systems.variants[system] ?? bento.systems.variants[0]
@@ -64,14 +66,20 @@ export function BentoSection({ bento, prices }: Props) {
     setCut(clampCut(((event.clientX - box.left) / box.width) * 100))
   }
   const onSliderKey = (event: KeyboardEvent<HTMLDivElement>) => {
-    const step = { ArrowLeft: -5, ArrowRight: 5 }[event.key]
-    if (step === undefined) return
+    const keys: Record<string, (value: number) => number> = {
+      ArrowLeft: (value) => value - 5,
+      ArrowRight: (value) => value + 5,
+      Home: () => 4,
+      End: () => 96,
+    }
+    const move = keys[event.key]
+    if (!move) return
     event.preventDefault()
-    setCut((value) => clampCut((value ?? 50) + step))
+    setCut((value) => clampCut(move(value ?? 50)))
   }
 
   return (
-    <section id="oferta-v24" className="v-sec">
+    <section ref={section} id="oferta-v24" className="v-sec">
       <div className="v-wrap">
         <div className="v-head-row">
           <SectionHead eyebrow={bento.eyebrow} title={bento.title} em={bento.em} />
@@ -116,6 +124,7 @@ export function BentoSection({ bento, prices }: Props) {
               aria-valuemin={4}
               aria-valuemax={96}
               aria-valuenow={cut ?? 50}
+              aria-valuetext={`Nowa strona: ${100 - (cut ?? 50)}%`}
               style={cut === null ? undefined : ({ '--mk-cut': `${cut}%` } as React.CSSProperties)}
               onPointerDown={(event) => {
                 drag.current = true

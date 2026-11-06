@@ -1,12 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, type KeyboardEvent } from 'react'
+import { useId, useState, type KeyboardEvent } from 'react'
 
 import type { SoftwareHome } from '@/lib/software/home'
+import { industryWizardHref } from '@/lib/software/industryPage'
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
 import { Segment } from '@/sites/software/components/ui/Segment'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
+
+import { usePausedOffscreen } from './usePausedOffscreen'
 
 type Showroom = NonNullable<SoftwareHome['showroom']>
 type Mode = 'site' | 'phone' | 'system'
@@ -18,6 +21,8 @@ type Mode = 'site' | 'phone' | 'system'
  * (`/dobierz?firma=<key>`).
  */
 export function ShowroomSection({ showroom }: { showroom: Showroom }) {
+  const ids = useId()
+  const section = usePausedOffscreen<HTMLElement>()
   const [active, setActive] = useState(0)
   const [mode, setMode] = useState<Mode>('site')
   const industry = showroom.industries[active] ?? showroom.industries[0]
@@ -28,8 +33,8 @@ export function ShowroomSection({ showroom }: { showroom: Showroom }) {
     mode === 'system' ? [industry.systemName, ...showroom.systemFeatures] : industry.features
   const subtitle =
     mode === 'system'
-      ? `${showroom.systemPrefix} ${industry.systemName.toLowerCase()}`
-      : `${showroom.sitePrefix} ${industry.name.toLowerCase()}`
+      ? `${showroom.systemPrefix} ${industry.systemName}`
+      : `${showroom.sitePrefix} ${industry.name}`
 
   function onTabKey(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[event.key]
@@ -37,11 +42,11 @@ export function ShowroomSection({ showroom }: { showroom: Showroom }) {
     event.preventDefault()
     const next = (index + step + count) % count
     setActive(next)
-    document.getElementById(`v-ind-${next}`)?.focus()
+    document.getElementById(`${ids}-ind-${next}`)?.focus()
   }
 
   return (
-    <section id="podglady-v24" className="v-sec">
+    <section ref={section} id="podglady-v24" className="v-sec">
       <div className="v-wrap">
         <SectionHead
           eyebrow={showroom.eyebrow}
@@ -58,11 +63,11 @@ export function ShowroomSection({ showroom }: { showroom: Showroom }) {
               return (
                 <button
                   key={item.key}
-                  id={`v-ind-${index}`}
+                  id={`${ids}-ind-${index}`}
                   type="button"
                   role="tab"
                   aria-selected={on}
-                  aria-controls="v-stage"
+                  aria-controls={`${ids}-stage`}
                   tabIndex={on ? 0 : -1}
                   className="v-ind"
                   onClick={() => setActive(index)}
@@ -86,9 +91,9 @@ export function ShowroomSection({ showroom }: { showroom: Showroom }) {
             })}
           </div>
           <div
-            id="v-stage"
+            id={`${ids}-stage`}
             role="tabpanel"
-            aria-labelledby={`v-ind-${active}`}
+            aria-labelledby={`${ids}-ind-${active}`}
             className="sw-glass v-stage"
           >
             <div className="v-stbar">
@@ -129,7 +134,7 @@ export function ShowroomSection({ showroom }: { showroom: Showroom }) {
                   </li>
                 ))}
               </ul>
-              <Link className="v-btn" href={`/dobierz?firma=${industry.key}`}>
+              <Link className="v-btn" href={industryWizardHref(industry.key)}>
                 {showroom.cta}
               </Link>
             </div>

@@ -488,6 +488,12 @@
   }
 }
 
+/* Looping mock-ups stop while pointed at, focused or off screen (WCAG 2.2.2). */
+.v-scr:is(:hover, :focus-within) .mk *,
+.v-sec[data-paused] .mk * {
+  animation-play-state: paused;
+}
+
 /* Switching variants: the new mock-up fades in (ZMIANY-v24 §4.2 „przejście krzyżowe”). */
 @media (prefers-reduced-motion: no-preference) {
   .v-swap {

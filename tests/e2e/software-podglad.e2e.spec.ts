@@ -144,7 +144,7 @@ test.describe('/_software — v24 start page sections', () => {
     await expect(showroom.locator('[data-mockup="dash"]')).toBeVisible()
     await expect(showroom.getByRole('link', { name: /Policz dla tej branży/ })).toHaveAttribute(
       'href',
-      '/dobierz?firma=budowlanka',
+      '/dobierz?firma=bud',
     )
   })
 })

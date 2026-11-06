@@ -159,7 +159,7 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
     cta: 'Policz dla tej branży →',
     industries: [
       {
-        key: 'pensjonat',
+        key: 'nocleg',
         name: 'Pensjonat, hotel, apartamenty',
         icon: 'M3 18V8M3 14h18v4M21 18v-4a3 3 0 0 0-3-3h-7v3M7.5 11a1.5 1.5 0 1 0 0-.01',
         site: 'pensjonat',
@@ -173,7 +173,7 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
         ],
       },
       {
-        key: 'restauracja',
+        key: 'gastro',
         name: 'Restauracja, bar, kawiarnia',
         icon: 'M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 0-3 2-3 5s1 4 3 4v9',
         site: 'restauracja',
@@ -187,7 +187,7 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
         ],
       },
       {
-        key: 'budowlanka',
+        key: 'bud',
         name: 'Budowlanka i remonty',
         icon: 'M3 11l9-7 9 7M5 10v10h14V10M10 20v-5h4v5',
         site: 'budowlanka',
@@ -201,7 +201,7 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
         ],
       },
       {
-        key: 'turystyka',
+        key: 'turyst',
         name: 'Turystyka i atrakcje',
         icon: 'M3 19l6-9 4 6 3-4 5 7z',
         site: 'turystyka',
@@ -229,7 +229,7 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
         ],
       },
       {
-        key: 'warsztat',
+        key: 'moto',
         name: 'Warsztat i motoryzacja',
         icon: 'M5 16h14M6 16l1.5-5h9L18 16M5 16v3M19 16v3M8 13.5h.01M16 13.5h.01',
         site: 'warsztat',
@@ -243,7 +243,7 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
         ],
       },
       {
-        key: 'sklep',
+        key: 'handel',
         name: 'Sklep i handel',
         icon: 'M6 8h12l-1 12H7zM9 8a3 3 0 0 1 6 0',
         site: 'sklep',
@@ -271,7 +271,7 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
         ],
       },
       {
-        key: 'produkcja',
+        key: 'prod',
         name: 'Produkcja i rzemiosło',
         icon: 'M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-2.5z',
         site: 'produkcja',
