@@ -1,7 +1,7 @@
-import { prepareItems, searchItems, type PreparedItems } from '../search'
+import { prepareItems, searchItems, type PreparedItems } from '../shared/search/engine'
 import type { IndexSolution, SolutionsIndex } from './solutionsIndex'
 
-/** Software solutions prepared for the shared search engine (`lib/search.ts`). */
+/** Software solutions prepared for the shared search engine (`lib/shared/search/engine.ts`). */
 export type PreparedSolutionSearch = PreparedItems<IndexSolution>
 
 /**

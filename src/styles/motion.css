@@ -277,7 +277,7 @@
     }
   }
 
-  /* The rail glided to a section (`lib/software/smoothScroll`): its heading arrives. Software
+  /* The rail glided to a section (`lib/shared/smoothScroll`): its heading arrives. Software
      has the v24 arrival (§6 below). */
   [data-line='biznes'] [data-arrive] h2 {
     animation: sw-arrive 1.3s var(--ease-out);

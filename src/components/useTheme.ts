@@ -74,3 +74,32 @@ export function useTheme(): [Theme, (theme: Theme) => void] {
 
   return [theme, setTheme]
 }
+
+export type ThemeChoice = Theme | 'auto'
+
+const choiceSnapshot = (): ThemeChoice => storedTheme() ?? 'auto'
+
+/**
+ * The visitor's choice with „Auto” (shared menu sheet, spec §5 `MenuSheet`): `auto` = nothing
+ * stored: the line's default (Biznes light, Software dark), else the system. Same key and event as
+ * `useTheme`, so every switch on the page agrees.
+ */
+export function useThemeChoice(): [ThemeChoice, (choice: ThemeChoice) => void] {
+  const choice = useSyncExternalStore(subscribe, choiceSnapshot, () => 'auto' as const)
+
+  function setChoice(next: ThemeChoice) {
+    const root = document.documentElement
+    try {
+      if (next === 'auto') localStorage.removeItem(THEME_STORAGE_KEY)
+      else localStorage.setItem(THEME_STORAGE_KEY, next)
+    } catch {
+      // Storage blocked: the choice still applies until the next page load.
+    }
+    const theme = next === 'auto' ? defaultTheme(root.getAttribute('data-line')) : next
+    if (theme) root.setAttribute('data-theme', theme)
+    else root.removeAttribute('data-theme')
+    window.dispatchEvent(new Event(CHANGE_EVENT))
+  }
+
+  return [choice, setChoice]
+}
