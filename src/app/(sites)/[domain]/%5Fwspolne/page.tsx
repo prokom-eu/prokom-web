@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 
 import { AddressMap } from '@/components/shared/AddressMap'
 import { BrandBar } from '@/components/shared/BrandBar'
+import { ContactForm } from '@/components/shared/ContactForm'
 import { CAPSULE } from '@/components/shared/capsule'
 import { MenuButton } from '@/components/shared/MenuButton'
 import { MenuSheet } from '@/components/shared/MenuSheet'
@@ -15,6 +16,8 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 import { Icon } from '@/components/ui/Icon'
 import { hasDarkTheme } from '@/lib/brand/theme'
 import { getEnv } from '@/lib/env'
+import { CONSENT_CLAUSE } from '@/lib/inquiry/consent'
+import { issueFormToken } from '@/lib/inquiry/spam'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import type { LineSearchEntry } from '@/lib/shared/search/lineProvider'
 import { paletteActions } from '@/lib/shared/search/palette'
@@ -94,6 +97,11 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
       })),
     ),
   ]
+  // The clause from the panel only while its version is the one the server accepts (ADR-003).
+  const consentText =
+    company.consent.clause && company.consent.version === CONSENT_CLAUSE.version
+      ? company.consent.clause
+      : CONSENT_CLAUSE.text
   const columns = (line.footerColumns ?? []).map((column) => ({
     heading: column.heading ?? '',
     links: (column.links ?? []).map((link) => ({ label: link.label, href: link.href })),
@@ -219,6 +227,41 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
           </div>
         </section>
       )}
+
+      <section
+        id="wspolne-formularz"
+        aria-labelledby="wspolne-formularz-h"
+        className="mx-auto max-w-[1344px] scroll-mt-28 px-8 pb-16"
+        data-rail-section="Formularz"
+        data-rail-icon="chat"
+      >
+        <h2 id="wspolne-formularz-h" className="font-display text-2xl font-extrabold">
+          {line.contact?.formTitle || 'Formularz kontaktu'}
+        </h2>
+        <p className="mt-2 text-ink-2">
+          Wspólny formularz na danych linii; wysyła prawdziwe zapytanie (typ „kontakt”) do panelu.
+        </p>
+        <div className="mt-6 max-w-[640px]">
+          <ContactForm
+            formToken={issueFormToken(getEnv().PAYLOAD_SECRET)}
+            topics={line.contact?.topics ?? []}
+            placeholder={line.contact?.placeholder}
+            sendLabel={line.contact?.sendLabel}
+            responsePromise={line.responsePromise}
+            consent={{
+              mode: company.consent.mode,
+              text: consentText,
+              privacyHref: company.legal.privacy,
+            }}
+            zones={company.serviceZones}
+            nextSteps={line.contact?.nextSteps ?? []}
+            rules={{
+              phoneRequired: tenant.line === 'instalacje',
+              messageOptional: tenant.line === 'biznes',
+            }}
+          />
+        </div>
+      </section>
 
       <div
         id="wspolne-stopka"
