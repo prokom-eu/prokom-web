@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
-import { hasDarkTheme, startsLight, THEME_SCRIPT, THEME_STORAGE_KEY, themeScript } from './theme'
+import {
+  defaultTheme,
+  followsSystemTheme,
+  hasDarkTheme,
+  THEME_SCRIPT,
+  THEME_STORAGE_KEY,
+  themeScript,
+} from './theme'
 
 /** Runs the inline script against a fake `document` and `localStorage`. */
 function runScript(stored: string | null | Error, script = THEME_SCRIPT): string | null {
@@ -51,15 +58,37 @@ describe('themeScript (D-K4-5: Biznes light by default)', () => {
     expect(runScript('dark', biznes)).toBe('dark')
   })
 
-  it('starts light only on Biznes', () => {
-    expect(startsLight('biznes')).toBe(true)
-    expect(startsLight('software')).toBe(false)
-    expect(startsLight(null)).toBe(false)
+  it('leaves Instalacje on the system preference', () => {
+    expect(themeScript('instalacje')).toBe(THEME_SCRIPT)
+    expect(followsSystemTheme('instalacje')).toBe(true)
+  })
+})
+
+describe('themeScript (ADR-015 v24: Software dark by default)', () => {
+  const software = themeScript('software')
+
+  it('starts Software dark without a stored choice, never from the system', () => {
+    expect(runScript(null, software)).toBe('dark')
+    expect(runScript('"><script>', software)).toBe('dark')
+    expect(runScript(new Error('SecurityError'), software)).toBe('dark')
   })
 
-  it('leaves the other lines on the system preference', () => {
-    expect(themeScript('software')).toBe(THEME_SCRIPT)
-    expect(themeScript('instalacje')).toBe(THEME_SCRIPT)
+  it('keeps the choice of the visitor on Software', () => {
+    expect(runScript('light', software)).toBe('light')
+  })
+
+  it('does not follow the system on Software', () => {
+    expect(followsSystemTheme('software')).toBe(false)
+  })
+})
+
+describe('defaultTheme', () => {
+  it('is light on Biznes, dark on Software, none elsewhere', () => {
+    expect(defaultTheme('biznes')).toBe('light')
+    expect(defaultTheme('software')).toBe('dark')
+    expect(defaultTheme('instalacje')).toBeNull()
+    expect(defaultTheme(null)).toBeNull()
+    expect(defaultTheme('nieznana')).toBeNull()
   })
 })
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { contrastRatio } from '@/lib/brand/contrast'
+import { colorStops, composite, contrastRatio, hueAndSaturation } from '@/lib/brand/contrast'
 import { DARK_THEME_LINES, followsSystemTheme } from '@/lib/brand/theme'
 import { LINE_VALUES, type Line } from '@/lib/tenant/lines'
 
@@ -277,7 +277,7 @@ describe.each(cases.filter(({ line }) => line === 'instalacje'))(
 )
 
 // ADR-015 v23 pkt 1: flat CTA blocks („Czasem powiemy”, quote ticket, footer CTA) on --cta-bg
-// with a white label in both themes; no gradient tokens are left.
+// with a white label in both themes.
 it.each(['light', 'dark'] as const)(
   'Software, %s theme: white on --cta-bg reaches 4.5:1',
   (mode) => {
@@ -286,10 +286,48 @@ it.each(['light', 'dark'] as const)(
   },
 )
 
-it('Software has no gradient tokens left (ADR-015 v23)', () => {
-  const s = scope('software', 'light')
-  for (const token of Object.keys(s)) expect(token).not.toMatch(/^--grad-(area|card|say-no)/)
-  expect(resolve('var(--glow-2)', s)).toBe('transparent')
+// ADR-015 „Rozstrzygnięcia v24” pkt 2, 3, 6: light, glass and gradients of Software come only
+// from its violet family (fiolet → lawenda → biel) or are neutral — no pink, no blue (v20).
+const SOFTWARE_LIGHT_TOKENS = [
+  '--glow',
+  '--glass',
+  '--glass-card',
+  '--em-from',
+  '--em-mid',
+  '--em-to',
+  '--em-hero-from',
+  '--em-hero-to',
+  '--sheen',
+  '--sheen-ghost',
+  '--beam',
+  '--beam-glow',
+]
+
+describe.each(['light', 'dark'] as const)('Software v24 light and glass, %s theme', (mode) => {
+  const s = scope('software', mode)
+
+  it.each(SOFTWARE_LIGHT_TOKENS)('%s is violet or neutral', (token) => {
+    const stops = colorStops(resolve(`var(${token})`, s))
+    expect(stops.length, token).toBeGreaterThan(0)
+    for (const stop of stops) {
+      const { hue, saturation } = hueAndSaturation(stop)
+      expect(saturation < 8 || (hue >= 245 && hue <= 285), `${token}: ${stop}`).toBe(true)
+    }
+  })
+
+  // Text on a glass card: every stop of its gradient laid over the page must keep AA.
+  it.each(['--ink', '--ink-2', '--ink-3', '--accent-text'])(
+    '%s reaches 4.5:1 on the glass card and the glass panel',
+    (text) => {
+      const glass = [...colorStops(resolve('var(--glass-card)', s)), resolve('var(--glass)', s)]
+      for (const stop of glass) {
+        const surface = composite(stop, hex('--surface', s))
+        expect(contrastRatio(hex(text, s), surface), `${text} on ${stop}`).toBeGreaterThanOrEqual(
+          4.5,
+        )
+      }
+    },
+  )
 })
 
 // ADR-015 v22 pkt 7, v23 pkt 4: the grafit footer of Software (SWR2) — texts on `--footer-bg`,

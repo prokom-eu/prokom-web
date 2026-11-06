@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { setTheme, site } from './helpers'
 
 // SW9 + SWR3: catalog `/rozwiazania` with the offer window (spec. §5, §5.1, board `Katalog`,
 // stany 88a–b and okno-90…99, kryterium 4). Data from
@@ -385,7 +385,7 @@ test.describe('Software catalog on the phone', () => {
 test.describe('Software catalog accessibility', () => {
   for (const colorScheme of ['light', 'dark'] as const) {
     test(`no axe violations with the offer window open (${colorScheme})`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme })
+      await setTheme(page, colorScheme)
       await page.goto(site(HOST, `${PATH}?rozwiazanie=opieka-nad-strona-i-systemem`))
       await expect(windowOf(page, 'Opieka nad stroną i systemem')).toBeVisible()
       expect((await new AxeBuilder({ page }).withTags(WCAG).analyze()).violations).toEqual([])

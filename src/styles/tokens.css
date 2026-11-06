@@ -107,7 +107,8 @@
   --c-software-light-surface-3: #e3e6df;
   --c-software-light-card: #ffffff;
   --c-software-light-card-2: #f7f8f5;
-  --c-software-light-border: #dcdfd8;
+  /* v24: grafit 10 % on the page. */
+  --c-software-light-border: #dddfdb;
   --c-software-light-ink: #121613;
   --c-software-light-ink-soft: #2e342f;
   --c-software-light-ink-2: #4f5650;
@@ -123,13 +124,14 @@
   --c-software-light-accent-text: #5b33c4;
   --c-software-light-accent-ink: #ffffff;
   --c-software-light-accent-soft: #ece7fb;
-  --c-software-light-accent-line: #cfc2f5;
+  /* v24: violet 45 % on the page (`--gbh`). */
+  --c-software-light-accent-line: #b8a6e4;
   --c-software-light-chip: #e8eae5;
   --c-software-light-ok: #2e7a1e;
   --c-software-light-warn: #a86a00;
-  /* ADR-015 v23 pkt 2: a neutral shadow, no violet glow. */
-  --c-software-light-glow: rgba(18, 22, 19, 0.16);
-  --c-software-light-grid: rgba(110, 69, 212, 0.09);
+  /* ADR-015 v24 pkt 3: the violet glow is back (v23 pkt 2 reverted). */
+  --c-software-light-glow: rgba(150, 112, 238, 0.28);
+  --c-software-light-grid: rgba(18, 22, 19, 0.05);
   --c-software-light-dot: rgba(18, 22, 19, 0.09);
   /* Map mock-up of /kontakt (board `Kontakt`, `.gmaps`): decoration, no text on it. */
   /* Contact map from OpenStreetMap (SWV4, ZMIANY-v23 §6): land, water, streets, buildings,
@@ -148,18 +150,20 @@
   --c-software-light-map-rail: #9ea39a;
   --c-software-light-map-label: #2e342f;
   --c-software-light-header-bg: rgba(244, 245, 241, 0.8);
-  --c-software-light-shadow: 0 36px 80px -30px rgba(40, 30, 80, 0.35);
+  --c-software-light-shadow: 0 40px 90px -45px rgba(40, 30, 80, 0.35);
   /* Software — dark theme of the visualisation. */
-  --c-software-night-surface: #121613;
-  --c-software-night-surface-2: #161a17;
-  --c-software-night-surface-3: #1c211d;
-  --c-software-night-card: #1a1f1b;
-  --c-software-night-card-2: #20261f;
-  --c-software-night-border: #2a302b;
-  --c-software-night-ink: #f4f5f1;
+  /* v24 Aurora (ZMIANY §1, `aurora.css` `.au.dark`): near-black page, glass cards over it;
+     `card` / `card-2` = the glass card laid on the page, for solid fills. */
+  --c-software-night-surface: #0b0d0c;
+  --c-software-night-surface-2: #101211;
+  --c-software-night-surface-3: #161817;
+  --c-software-night-card: #151716;
+  --c-software-night-card-2: #1c1f1d;
+  --c-software-night-border: #232524;
+  --c-software-night-ink: #eef0ec;
   --c-software-night-ink-soft: #d9ddd8;
-  --c-software-night-ink-2: #b5bbb5;
-  --c-software-night-ink-3: #b5bbb5;
+  --c-software-night-ink-2: #b3b9b3;
+  --c-software-night-ink-3: #7f867f;
   /* 4.57 on surface, 3.87 on card-2. */
   --c-software-night-border-input: #7a817b;
   /* = ok: ≥ 8.3 on every dark surface. */
@@ -167,15 +171,15 @@
   /* = --c-software-on-dark of the brand book. */
   --c-software-night-accent: #9670ee;
   --c-software-night-accent-2: #c9a9ff;
-  --c-software-night-accent-text: #b39bf5;
-  --c-software-night-accent-ink: #121613;
-  --c-software-night-accent-soft: #241e36;
-  --c-software-night-accent-line: #4a3c74;
+  --c-software-night-accent-text: #c9b8ff;
+  --c-software-night-accent-ink: #0b0d0c;
+  --c-software-night-accent-soft: #211d30;
+  --c-software-night-accent-line: #503f7d;
   --c-software-night-chip: #232823;
   --c-software-night-ok: #7bd36a;
   --c-software-night-warn: #f2b84b;
-  --c-software-night-glow: rgba(0, 0, 0, 0.34);
-  --c-software-night-grid: rgba(179, 155, 245, 0.09);
+  --c-software-night-glow: rgba(110, 69, 212, 0.42);
+  --c-software-night-grid: rgba(255, 255, 255, 0.04);
   --c-software-night-dot: rgba(244, 245, 241, 0.08);
   --c-software-night-map-land: #161a17;
   --c-software-night-map-water: #1a2a33;
@@ -190,8 +194,10 @@
   --c-software-night-map-path: #3e443f;
   --c-software-night-map-rail: #5a615b;
   --c-software-night-map-label: #d9ddd8;
-  --c-software-night-header-bg: rgba(18, 22, 19, 0.78);
-  --c-software-night-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
+  --c-software-night-header-bg: rgba(11, 13, 12, 0.78);
+  --c-software-night-shadow: 0 40px 100px -40px rgba(0, 0, 0, 0.9);
+  /* ADR-015 v24 pkt 5: the footer and dark bands of Software, the same in both themes. */
+  --c-software-band: #161a17;
 
   /* Instalacje — values 1:1 from docs/design/prokominstalacje/tokens.css (ADR-I003 §3). */
   /* Instalacje — light theme of the visualisation. */
@@ -1195,8 +1201,8 @@
   /* ADR-015 v23 pkt 5: neutral stage. */
   --stage: var(--surface-2);
   --chip: var(--c-software-light-chip);
-  /* ADR-015 v23 pkt 4: grafit in both themes (the visualisation: #151a16). */
-  --surface-dark: var(--c-software-night-surface-2);
+  /* ADR-015 v24 pkt 5: the footer grafit in both themes (shared board 02). */
+  --surface-dark: var(--c-software-band);
   --ok: var(--c-software-light-ok);
   --ok-text: var(--c-software-light-ok-text);
   --warn: var(--c-software-light-warn);
@@ -1239,7 +1245,7 @@
   --on-dark: #9670ee;
   --on-dark-text: #b49bf5;
   --on-dark-ink: #120a26;
-  --line-dark: var(--c-software-night-surface-2);
+  --line-dark: var(--c-software-band);
   --line-dark-text: #a9afa9;
   /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
   --cap-bg: rgba(255, 255, 255, 0.74);
@@ -1256,9 +1262,24 @@
   --cap-cta-to: #6238cf;
   --cap-cta-ink: #ffffff;
   --cap-cta-glow: rgba(110, 69, 212, 0.5);
+  /* v24 Aurora (ZMIANY §1, ADR-015 „Rozstrzygnięcia v24”): glass, the gradient of the
+     highlighted heading word (`em`), the light sweep of buttons and the arrival beam. Light only
+     from the Software violet family or neutral (themes.test.ts). */
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-card: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.7));
+  --em-from: #5b33c4;
+  --em-mid: #7b52e0;
+  --em-to: #a07ef2;
+  --em-hero-from: #d9ccff;
+  --em-hero-to: #9670ee;
+  --sheen: rgba(255, 255, 255, 0.35);
+  --sheen-ghost: rgba(150, 112, 238, 0.25);
+  --beam: #9670ee;
+  --beam-glow: rgba(150, 112, 238, 0.6);
 }
 
-/* Dark theme — chosen by the visitor (`data-theme`, see lib/brand/theme.ts)… */
+/* Dark theme — chosen by the visitor or the line's default (`data-theme`, lib/brand/theme.ts);
+   Instalacje also follows the system (`tokens-instalacje.css`). */
 [data-line='biznes'][data-theme='dark'] {
   color-scheme: dark;
   --accent: var(--c-biznes-on-dark);
@@ -1368,75 +1389,12 @@
   /* Opening status in the dark theme (spec §5). */
   --status-open: var(--status-open-on-dark);
   --status-open-bg: var(--status-bg-on-dark);
-}
-
-/* …or by the system when there is no choice. Keep in sync with the rules above (tested). */
-@media (prefers-color-scheme: dark) {
-  /* Biznes: no rule here — it starts light whatever the system says (D-K4-5, `themeScript`). */
-
-  [data-line='software']:not([data-theme='light']) {
-    color-scheme: dark;
-    --accent: var(--c-software-night-accent);
-    --accent-on-dark: var(--c-software-night-accent-2);
-    --accent-text: var(--c-software-night-accent-text);
-    --surface: var(--c-software-night-surface);
-    --surface-2: var(--c-software-night-surface-2);
-    --surface-3: var(--c-software-night-surface-3);
-    --card: var(--c-software-night-card);
-    --card-2: var(--c-software-night-card-2);
-    --ink: var(--c-software-night-ink);
-    --ink-soft: var(--c-software-night-ink-soft);
-    --ink-2: var(--c-software-night-ink-2);
-    --ink-3: var(--c-software-night-ink-3);
-    --border: var(--c-software-night-border);
-    --border-input: var(--c-software-night-border-input);
-    --accent-2: var(--accent);
-    --accent-ink: var(--c-software-night-accent-ink);
-    --accent-soft: var(--c-software-night-accent-soft);
-    --accent-line: var(--c-software-night-accent-line);
-    --stage: var(--surface-2);
-    --chip: var(--c-software-night-chip);
-    --ok: var(--c-software-night-ok);
-    --ok-text: var(--c-software-night-ok-text);
-    --warn: var(--c-software-night-warn);
-    --glow: var(--c-software-night-glow);
-    --grid: var(--c-software-night-grid);
-    --dot: var(--c-software-night-dot);
-    --map-land: var(--c-software-night-map-land);
-    --map-water: var(--c-software-night-map-water);
-    --map-road: var(--c-software-night-map-road);
-    --map-block: var(--c-software-night-map-block);
-    --map-park: var(--c-software-night-map-park);
-    --map-wood: var(--c-software-night-map-wood);
-    --map-parking: var(--c-software-night-map-parking);
-    --map-block-line: var(--c-software-night-map-block-line);
-    --map-casing: var(--c-software-night-map-casing);
-    --map-road-main: var(--c-software-night-map-road-main);
-    --map-path: var(--c-software-night-map-path);
-    --map-rail: var(--c-software-night-map-rail);
-    --map-label: var(--c-software-night-map-label);
-    --header-bg: var(--c-software-night-header-bg);
-    --pill-accent: var(--c-software-light-accent-text);
-    --shadow: var(--c-software-night-shadow);
-    /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
-    --cap-bg: rgba(24, 27, 25, 0.72);
-    --cap-border: rgba(255, 255, 255, 0.08);
-    --cap-highlight: rgba(255, 255, 255, 0.05);
-    --cap-shadow: rgba(0, 0, 0, 0.65);
-    --cap-kbd: rgba(255, 255, 255, 0.08);
-    --nav-ink: #ecedea;
-    --nav-ink-2: #a9ada8;
-    --nav-hover: rgba(255, 255, 255, 0.06);
-    --nav-active-bg: rgba(150, 112, 238, 0.18);
-    --nav-active-ink: #c3abfa;
-    --cap-cta-from: #8a62ea;
-    --cap-cta-to: #6b42d8;
-    --cap-cta-ink: #ffffff;
-    --cap-cta-glow: rgba(150, 112, 238, 0.6);
-    /* Opening status in the dark theme (spec §5). */
-    --status-open: var(--status-open-on-dark);
-    --status-open-bg: var(--status-bg-on-dark);
-  }
+  /* v24 Aurora: glass and the `em` gradient of the dark theme. */
+  --glass: rgba(20, 22, 21, 0.66);
+  --glass-card: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  --em-from: #8f9690;
+  --em-mid: #a79bd6;
+  --em-to: #c3abfa;
 }
 
 /* „Plan Twojej firmy” (K31d′): colours of the floor plan drawings, 1:1 from `fp.css` of the

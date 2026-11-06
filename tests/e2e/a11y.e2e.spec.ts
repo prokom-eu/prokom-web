@@ -128,7 +128,8 @@ test.describe('phone width (360 px)', () => {
 test.describe('dark theme switch', () => {
   for (const { host } of SITES.filter(({ dark, themeSwitch = true }) => dark && themeSwitch)) {
     test(`toggles, is announced and survives a reload (${host})`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme: 'light' })
+      // A stored light choice: Software starts dark without one (ADR-015 v24).
+      await setTheme(page, 'light')
       await page.goto(site(host))
       const toggle = page.getByRole('button', { name: 'Tryb ciemny' })
       await expect(toggle).toHaveAttribute('aria-pressed', 'false')
