@@ -3,7 +3,8 @@ import type { SoftwareHeroV24 } from '@/lib/software/home'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
 
-import { HeroStage, type StageSlide } from './HeroStage'
+import type { StageSlide } from './HeroStage'
+import { HeroStage } from './HeroStageLazy'
 
 type Props = { hero: SoftwareHeroV24; index: SolutionsIndex; isFirst?: boolean }
 
