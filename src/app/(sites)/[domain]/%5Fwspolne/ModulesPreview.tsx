@@ -42,14 +42,16 @@ export function ModulesPreview({ shared, line, siteEnv }: Props) {
   ]
 
   return (
-    <div data-modules-preview>
-      <section
-        id="wspolne-zasieg"
-        aria-labelledby="wspolne-zasieg-h"
-        className={sectionClass}
-        data-rail-section="Zasięg"
-        data-rail-icon="map"
-      >
+    // One rail entry for all modules: a rail of every module would be taller than the screen and
+    // slide under the line header (Software, 900 px). Line pages mark their own sections.
+    <div
+      id="wspolne-moduly"
+      className="scroll-mt-28"
+      data-modules-preview
+      data-rail-section="Moduły"
+      data-rail-icon="grid"
+    >
+      <section id="wspolne-zasieg" aria-labelledby="wspolne-zasieg-h" className={sectionClass}>
         <h2 id="wspolne-zasieg-h" className={h2Class}>
           {contact?.mapTitle || 'Dojazd i zasięg'}
         </h2>
@@ -62,13 +64,7 @@ export function ModulesPreview({ shared, line, siteEnv }: Props) {
         />
       </section>
 
-      <section
-        id="wspolne-kroki"
-        aria-labelledby="wspolne-kroki-h"
-        className={sectionClass}
-        data-rail-section="Kroki"
-        data-rail-icon="compass"
-      >
+      <section id="wspolne-kroki" aria-labelledby="wspolne-kroki-h" className={sectionClass}>
         <h2 id="wspolne-kroki-h" className={h2Class}>
           Jak to wygląda krok po kroku
         </h2>
@@ -93,8 +89,6 @@ export function ModulesPreview({ shared, line, siteEnv }: Props) {
         id="wspolne-o-firmie"
         aria-labelledby="wspolne-o-firmie-h"
         className="relative isolate overflow-hidden bg-line-dark py-16"
-        data-rail-section="O firmie"
-        data-rail-icon="users"
       >
         <Contours />
         <div className="mx-auto grid max-w-[1344px] items-start gap-10 px-8 min-[1000px]:grid-cols-2">
@@ -121,39 +115,21 @@ export function ModulesPreview({ shared, line, siteEnv }: Props) {
         <StatsStrip stats={stats} siteEnv={siteEnv} />
       </div>
 
-      <section
-        id="wspolne-zasady"
-        aria-labelledby="wspolne-zasady-h"
-        className={sectionClass}
-        data-rail-section="Zasady"
-        data-rail-icon="star"
-      >
+      <section id="wspolne-zasady" aria-labelledby="wspolne-zasady-h" className={sectionClass}>
         <h2 id="wspolne-zasady-h" className={h2Class}>
           Dlaczego PRO-KOM
         </h2>
         <RulesBento rules={about?.rules ?? []} className="mt-8" />
       </section>
 
-      <section
-        id="wspolne-rodzina"
-        aria-labelledby="wspolne-rodzina-h"
-        className={sectionClass}
-        data-rail-section="Linie"
-        data-rail-icon="grid"
-      >
+      <section id="wspolne-rodzina" aria-labelledby="wspolne-rodzina-h" className={sectionClass}>
         <h2 id="wspolne-rodzina-h" className={h2Class}>
           Linie PRO-KOM
         </h2>
         <FamilyStrip lines={lines} current={line} className="mt-8" />
       </section>
 
-      <section
-        id="wspolne-sprawdz"
-        aria-labelledby="wspolne-sprawdz-h"
-        className={sectionClass}
-        data-rail-section="Sprawdź nas"
-        data-rail-icon="shield"
-      >
+      <section id="wspolne-sprawdz" aria-labelledby="wspolne-sprawdz-h" className={sectionClass}>
         <h2 id="wspolne-sprawdz-h" className={h2Class}>
           Nie musisz wierzyć nam na słowo
         </h2>
