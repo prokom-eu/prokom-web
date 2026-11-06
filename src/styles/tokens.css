@@ -1065,6 +1065,15 @@
   --dur-state: 280ms;
   --dur-enter: 520ms;
   --dur-sheet: 420ms;
+  /* v24 Aurora motion of Software (ZMIANY-v24 §5): page swap out / in, the arrival of a
+     section after a glide, the beam over it, the light sweep of buttons. */
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-page-out: 320ms;
+  --dur-page-in: 550ms;
+  --dur-arrive: 950ms;
+  --dur-beam: 1400ms;
+  --dur-sheen: 700ms;
   /* Shared elements (spec WSPOLNE-ELEMENTY §3, NAGLOWEK-KAPSULA §4): defaults for pages
      without a line design (hub, 404); the lines set their own values below. */
   --on-dark: var(--accent-on-dark);
@@ -1269,6 +1278,7 @@
   --glass-card: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.7));
   --em-from: #5b33c4;
   --em-mid: #7b52e0;
+  --em-mid-at: 45%;
   --em-to: #a07ef2;
   --em-hero-from: #d9ccff;
   --em-hero-to: #9670ee;
@@ -1394,6 +1404,7 @@
   --glass-card: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
   --em-from: #8f9690;
   --em-mid: #a79bd6;
+  --em-mid-at: 70%;
   --em-to: #c3abfa;
 }
 
