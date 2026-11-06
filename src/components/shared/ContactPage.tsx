@@ -230,7 +230,7 @@ export function ContactPage({
                       >
                         <span className="font-bold">
                           {tile.label}
-                          {tile.today && <span className="text-accent-text"> · dziś</span>}
+                          {tile.today && <span> · dziś</span>}
                         </span>
                         <span className="text-ink-2">{tile.value}</span>
                       </li>
