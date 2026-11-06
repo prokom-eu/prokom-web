@@ -624,12 +624,16 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   display: none;
   filter: drop-shadow(0 14px 30px var(--cap-shadow));
   translate: 0 -50%;
+  /* The wrapper is as wide as the open rail; only the visible rail takes the pointer, so the page
+     behind the folded part stays clickable (`clip-path` already takes the hidden part out). */
+  pointer-events: none;
 }
 .srail {
   /* Delays of the hover bridge (as the mega menus): open after 120 ms, fold after 250 ms. */
   --rail-open-delay: var(--dur-press);
   --rail-close-delay: 250ms;
   position: relative;
+  pointer-events: auto;
   display: flex;
   flex-direction: column;
   gap: 2px;

@@ -6,6 +6,14 @@ import { site } from './helpers'
 // the preview page — as on a subpage (`/_wspolne`) and as on a home page (`?szyna=glowna`).
 const rail = (page: Page) => page.locator('[data-wspolne] [data-site-rail]')
 
+/** As a visitor does: the pointer over the folded rail's icons first, until it opens. */
+async function openRail(page: Page) {
+  await rail(page).hover({ position: { x: 32, y: 32 } })
+  await expect
+    .poll(() => rail(page).evaluate((nav) => getComputedStyle(nav).clipPath))
+    .toBe('inset(0px round 22px)')
+}
+
 const scrollTo = (page: Page, id: string) =>
   page.evaluate((target) => {
     document.documentElement.style.scrollBehavior = 'auto'
@@ -27,6 +35,7 @@ test.describe('/_wspolne — side rail (1440 px)', () => {
 
     const home = rail(page).getByRole('button', { name: /Strona główna/ })
     await expect(home).toHaveAttribute('aria-expanded', 'false')
+    await openRail(page)
     await home.click()
     await expect(home).toHaveAttribute('aria-expanded', 'true')
     // Home page sections from the panel, as links to the home page (spec §5.1).
@@ -49,6 +58,7 @@ test.describe('/_wspolne — side rail (1440 px)', () => {
     await scrollTo(page, 'wspolne-start')
     await expect(rail(page).locator('[aria-current="location"]')).toHaveText('Kapsuła')
 
+    await openRail(page)
     await rail(page).getByRole('link', { name: 'Mapa adresu' }).click()
     await expect(page).toHaveURL(/#wspolne-mapa-sekcja$/)
     await expect(page.locator('#wspolne-mapa-sekcja')).toBeFocused()
@@ -79,6 +89,7 @@ test.describe('/_wspolne — side rail (1440 px)', () => {
     await expect(up).not.toHaveAttribute('data-shown')
     await scrollTo(page, 'wspolne-stopka')
     await expect(up).toHaveAttribute('data-shown', '')
+    await openRail(page)
     await up.click()
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
     await expect(page.locator('#tresc')).toBeFocused()
