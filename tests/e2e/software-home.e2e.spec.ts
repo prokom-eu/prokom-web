@@ -20,9 +20,7 @@ const stagePanel = (page: Page) => page.locator('#proces [role=tabpanel]:not([in
 test.describe('Software start page', () => {
   test('sections in the order of the blocks, hero with the H1', async ({ page }) => {
     await page.goto(site(HOST))
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Strony i programy dla firm. Zobaczysz, zanim zapłacisz.',
-    )
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(/^Zrobimy Ci /)
     const ids = await page
       .locator('main section[id]')
       .evaluateAll((sections) => sections.map((section) => section.id))
