@@ -3,17 +3,11 @@ import { expect, test, type Page } from '@playwright/test'
 import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
 import { api, loginAsAdmin, site } from './helpers'
 
-// SW5–SW8b, SWR5 (v21): start page of the Software line (spec. §4, 14 sections; §3.3 rail; §7). Data
-// from `pnpm seed`: the home page blocks in the order of `homeOrder`, texts in
-// `SoftwareSettings.home`, areas and solutions of the package.
+// Start page of the Software line — v24 (ZMIANY-v24 §4: hero in software-hero, the new sections in
+// software-podglad; here the order, the rail, the process, the wizard, FAQ and the contact form).
+// Data from `pnpm seed`: the blocks in the order of `HOME_ORDER_V24`, texts in `SoftwareSettings.home`.
 const HOST = 'software.localhost'
 
-const areaTabs = (page: Page) =>
-  page.getByRole('tablist', { name: 'Obszary oferty' }).getByRole('tab')
-const areaPanel = (page: Page) => page.locator('#oferta').getByRole('tabpanel')
-const previewTabs = (page: Page) =>
-  page.getByRole('tablist', { name: 'Rodzaj rozwiązania' }).getByRole('tab')
-const previewPanel = (page: Page) => page.locator('#podglady [role=tabpanel]:not([inert])')
 const stageTabs = (page: Page) => page.getByRole('tablist', { name: 'Etapy' }).getByRole('tab')
 const stagePanel = (page: Page) => page.locator('#proces [role=tabpanel]:not([inert])')
 
@@ -24,145 +18,20 @@ test.describe('Software start page', () => {
     const ids = await page
       .locator('main section[id]')
       .evaluateAll((sections) => sections.map((section) => section.id))
-    // v23: 13 sections (the intent tiles are part of the hero), no „Realizacje”.
+    // v24 (ZMIANY-v24 §4): the order of HOME_ORDER_V24; the v23 sections render nothing.
     expect(ids).toEqual([
       'start',
+      'obietnice',
+      'sytuacje',
       'oferta',
-      'popularne',
       'podglady',
       'dobierz',
       'proces',
-      'jak-robimy',
-      'bez-wordpressa',
-      'technologie',
-      'zasady',
       'faq',
       'kontakt',
     ])
     // Hero v24 (SWA2a): details in software-hero.e2e.spec.ts.
     await expect(page.locator('#start h1')).toContainText('Zrobimy Ci')
-  })
-
-  test('areas: tabs with arrows, a price, switching itself until picked', async ({ page }) => {
-    await page.clock.install()
-    await page.goto(site(HOST))
-    await expect(areaTabs(page)).toHaveCount(8)
-    await expect(areaTabs(page).first()).toHaveAttribute('aria-selected', 'true')
-    await expect(areaPanel(page).getByRole('heading', { level: 3 })).toHaveText(
-      'Strony internetowe',
-    )
-    await expect(areaPanel(page)).toContainText('od 999 zł')
-
-    // Every 5,5 s the next area (pointer outside the section).
-    await page.mouse.move(0, 0)
-    await page.clock.runFor(5600)
-    await expect(areaTabs(page).nth(1)).toHaveAttribute('aria-selected', 'true')
-
-    // Picked by keyboard: stops for good.
-    await areaTabs(page).nth(1).focus()
-    await page.keyboard.press('ArrowRight')
-    await expect(areaTabs(page).nth(2)).toHaveAttribute('aria-selected', 'true')
-    await expect(areaTabs(page).nth(2)).toBeFocused()
-    await page.keyboard.press('End')
-    await expect(areaTabs(page).last()).toHaveAttribute('aria-selected', 'true')
-    await page.mouse.move(0, 0)
-    await page.locator('body').click({ position: { x: 1, y: 1 } })
-    await page.clock.runFor(12_000)
-    await expect(areaTabs(page).last()).toHaveAttribute('aria-selected', 'true')
-  })
-
-  test('areas do not switch themselves with reduced motion', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' })
-    await page.clock.install()
-    await page.goto(site(HOST))
-    // The section first, then the time: the clock only runs once the tabs are on the page.
-    await expect(areaTabs(page)).toHaveCount(8)
-    await page.mouse.move(0, 0)
-    await page.clock.runFor(12_000)
-    await expect(areaTabs(page).first()).toHaveAttribute('aria-selected', 'true')
-  })
-
-  test('12 rzeczy: tabs filter the cards, a card opens the offer window', async ({ page }) => {
-    await page.goto(site(HOST))
-    const section = page.locator('#popularne')
-    const cards = section.getByTestId('popular-card')
-    await expect(cards).toHaveCount(12)
-    await expect(section).toContainText('12 pozycji · kliknij kartę, żeby zobaczyć szczegóły')
-    // v22: all 12 are solutions — 11 and 12 instead of the generic cards (board `Main`).
-    await expect(cards.nth(10)).toContainText('Aplikacja dla ekip w terenie')
-    await expect(cards.nth(11)).toContainText('Powiadomienia SMS i e-mail')
-    await expect(section).toContainText('Opieka i rozwój')
-    await expect(section).toContainText('od 149 zł / mies.')
-
-    await section.getByRole('tab', { name: /Systemy/ }).click()
-    await expect(cards).toHaveCount(4)
-    await expect(section).toContainText('4 pozycje')
-
-    const name = 'CRM dla małej i średniej firmy'
-    const button = cards.first().getByRole('button', { name, exact: true })
-    await button.click()
-    const dialog = page.getByRole('dialog', { name, exact: true })
-    await expect(dialog).toBeVisible()
-    // ←/→ along the visible cards (the tab's 4), the address stays (decyzja 1).
-    await expect(dialog).toContainText('1 / 4')
-    await expect(page).not.toHaveURL(/rozwiazanie=/)
-    await page.goBack()
-    await expect(dialog).toBeHidden()
-    await expect(button).toBeFocused()
-  })
-
-  test('previews: 5 tabs, switching itself every 6 s until picked', async ({ page }) => {
-    await page.clock.install()
-    await page.goto(site(HOST))
-    await expect(previewTabs(page)).toHaveText([
-      'Strona',
-      'Noclegi',
-      'System firmowy',
-      'Aplikacja mobilna',
-      'Automatyzacje i AI',
-    ])
-    await expect(previewTabs(page).first()).toHaveAttribute('aria-selected', 'true')
-    await expect(previewPanel(page).getByRole('heading', { level: 3 })).toHaveText(
-      'Strona, z której klienci dzwonią i piszą',
-    )
-    await expect(previewPanel(page)).toContainText('w mniej niż 2,5 sekundy') // Google LCP
-    await expect(page.locator('#podglady')).toContainText('Przełącza się samo.')
-
-    // Switching by itself never moves the page below (no layout shift).
-    const height = async () => (await page.locator('#podglady').boundingBox())?.height
-    const before = await height()
-    await page.mouse.move(0, 0)
-    await page.clock.runFor(6100)
-    await expect(previewTabs(page).nth(1)).toHaveAttribute('aria-selected', 'true')
-    expect(await height()).toBe(before)
-
-    // Picked by keyboard: stops for good, the hint says so.
-    await previewTabs(page).nth(1).focus()
-    await page.keyboard.press('ArrowRight')
-    await expect(previewTabs(page).nth(2)).toBeFocused()
-    await expect(previewPanel(page).getByRole('heading', { level: 3 })).toHaveText(
-      'Zlecenia, ekipy i faktury w jednym miejscu',
-    )
-    await expect(page.locator('#podglady')).toContainText('Twój wybór. Klikaj po ekranach.')
-    await page.mouse.move(0, 0)
-    await page.locator('body').click({ position: { x: 1, y: 1 } })
-    await page.clock.runFor(20_000)
-    await expect(previewTabs(page).nth(2)).toHaveAttribute('aria-selected', 'true')
-  })
-
-  test('„Chcę takie u siebie” adds the preview to „Twój projekt”', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' })
-    await page.goto(site(HOST))
-    await previewTabs(page).nth(1).click()
-    await previewPanel(page).getByRole('button', { name: 'Chcę takie u siebie' }).click()
-    await expect(
-      previewPanel(page).getByRole('button', { name: '✓ W Twoim projekcie' }),
-    ).toHaveAttribute('aria-pressed', 'true')
-    const stored = await page.evaluate(() => localStorage.getItem('pk-project'))
-    expect(JSON.parse(stored ?? '[]')).toContainEqual({ id: 'hero-rez', name: 'noclegi' })
-    await expect(
-      previewPanel(page).getByRole('link', { name: 'Otwórz pełny podgląd' }),
-    ).toHaveAttribute('href', '/rozwiazania')
   })
 
   test('process: 5 stages, the sample quote, switching itself until picked', async ({ page }) => {
@@ -193,15 +62,13 @@ test.describe('Software start page', () => {
     await expect(stageTabs(page).nth(4)).toHaveAttribute('aria-selected', 'true')
   })
 
-  test('previews and process do not switch themselves with reduced motion', async ({ page }) => {
+  test('the process does not switch itself with reduced motion', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.clock.install()
     await page.goto(site(HOST))
-    await expect(previewTabs(page)).toHaveCount(5)
     await expect(stageTabs(page)).toHaveCount(5)
     await page.mouse.move(0, 0)
     await page.clock.runFor(20_000)
-    await expect(previewTabs(page).first()).toHaveAttribute('aria-selected', 'true')
     await expect(stageTabs(page).first()).toHaveAttribute('aria-selected', 'true')
   })
 
@@ -212,87 +79,6 @@ test.describe('Software start page', () => {
       'Kilka kliknięć i od razu widzisz cenę, termin i podgląd',
     )
     await expect(wizard.getByRole('heading', { level: 3 }).first()).toBeVisible()
-  })
-
-  test('„Dlaczego nie WordPress”: facts with sources, 6 rows, the rebuild price from Solutions', async ({
-    page,
-  }) => {
-    await page.goto(site(HOST))
-    const section = page.locator('#bez-wordpressa')
-    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Dlaczego nie robimy stron na WordPressie',
-    )
-    const facts = section.getByRole('listitem')
-    await expect(facts).toHaveCount(3)
-    await expect(facts.nth(0)).toContainText('Źródło: Patchstack')
-    await expect(facts.nth(1)).toContainText('Źródło: RODO, art. 33 i art. 83 ust. 4')
-    const table = section.getByRole('table', { name: 'WordPress z wtyczkami a Strona od PRO-KOM' })
-    await expect(table.getByRole('rowheader')).toHaveText([
-      'Szybkość',
-      'Bezpieczeństwo',
-      'Aktualizacje',
-      'Wygląd',
-      'Google i AI',
-      'Zmiana treści',
-    ])
-    await expect(table.getByRole('columnheader').nth(2)).toHaveText('Strona od PRO-KOM')
-    await expect(
-      section.getByRole('link', { name: 'Sprawdź swoją stronę za darmo' }),
-    ).toHaveAttribute('href', '/audyt')
-    // The price is filled from `Solutions` (`{cena:przebudowa-starej-strony}`), no token left.
-    const rebuild = section.getByRole('link', { name: /^Przebudowa od / })
-    await expect(rebuild).toHaveText(/^Przebudowa od 1\s?499 zł →$/)
-    await expect(rebuild).toHaveAttribute('href', '/rozwiazania/przebudowa-starej-strony')
-    await expect(section).not.toContainText('{cena')
-  })
-
-  test('„Zasady”: 6 guarantee cards and „Czasem powiemy”', async ({ page }) => {
-    await page.goto(site(HOST))
-    const section = page.locator('#zasady')
-    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Zasady, których się trzymamy',
-    )
-    await expect(section.getByRole('listitem')).toHaveCount(6)
-    await expect(section.getByRole('listitem').first()).toContainText('Stała cena za zakres')
-    await expect(section).toContainText('Czasem powiemy: tego nie buduj.')
-    await expect(section.getByRole('link', { name: /Zapytaj, co się opłaca/ })).toHaveAttribute(
-      'href',
-      '/#kontakt',
-    )
-  })
-
-  test('„Jak robimy”: 3 cards with what you gain, the source of the speed threshold', async ({
-    page,
-  }) => {
-    await page.goto(site(HOST))
-    const section = page.locator('#jak-robimy')
-    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Piszemy stronę pod Twoją firmę, nie składamy jej z szablonu',
-    )
-    await expect(section.getByRole('heading', { level: 3 })).toHaveText([
-      'Szybka',
-      'Bezpieczna',
-      'Widoczna w Google i AI',
-    ])
-    await expect(section.getByRole('listitem').first()).toContainText('Zyskujesz')
-    await expect(section).toContainText('Źródło progu szybkości: Google Search Central')
-  })
-
-  test('„Z czego budujemy”: 6 layers as tabs, the card of the picked one', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' })
-    await page.goto(site(HOST))
-    const section = page.locator('#technologie')
-    const tabs = section.getByRole('tablist', { name: 'Warstwy systemu' }).getByRole('tab')
-    await expect(tabs).toHaveCount(6)
-    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
-    const panel = section.locator('[role=tabpanel]:not([inert])')
-    await expect(panel.getByRole('heading', { level: 3 })).toHaveText('Strona')
-    await expect(panel).toContainText('Co zyskujesz')
-    await expect(panel).toContainText('< 2,5 s')
-    await tabs.first().focus()
-    await page.keyboard.press('End')
-    await expect(tabs.last()).toBeFocused()
-    await expect(panel.getByRole('heading', { level: 3 })).toHaveText('Serwer')
   })
 
   test('FAQ: 6 questions, the first open, facts filled, FAQPage JSON-LD', async ({ page }) => {
@@ -324,26 +110,23 @@ test.describe('Software start page', () => {
     const rail = page.getByRole('navigation', { name: 'Na tej stronie' })
     await expect(rail.getByRole('link')).toHaveText([
       'Start',
+      'Od czego zaczynasz',
       'Oferta',
-      'Najczęściej zamawiane',
       'Podglądy na żywo',
-      'Dobierz rozwiązanie',
-      'Jak robimy',
-      'Dlaczego nie WordPress',
-      'Z czego budujemy',
-      'Zasady',
+      'Kreator 60 s',
+      'Jak pracujemy',
       'Pytania',
       'Kontakt',
     ])
     await expect(rail).toBeVisible()
-    // SWV6: the marked entry is the section whose top passed 40% of the screen; „Proces” has no
-    // entry, so its rail neighbour before it stays marked; at the bottom of the page — „Kontakt”.
+    // SWV6: the marked entry is the section whose top passed 40% of the screen; at the bottom of
+    // the page — „Kontakt”.
     const marked = rail.locator('[aria-current="true"]')
     await page.evaluate(() => {
       const top = document.getElementById('proces')!.getBoundingClientRect().top
       window.scrollTo({ top: window.scrollY + top - 100, behavior: 'instant' })
     })
-    await expect(marked).toHaveText('Dobierz rozwiązanie')
+    await expect(marked).toHaveText('Jak pracujemy')
     await page.evaluate(() =>
       window.scrollTo({ top: document.scrollingElement!.scrollHeight, behavior: 'instant' }),
     )
@@ -459,39 +242,13 @@ test.describe('Software start page on a phone', () => {
       expect(scroll).toBe(width)
       // Touch targets of the sections ≥ 44 px.
       for (const target of [
-        areaTabs(page).first(),
-        page.locator('#popularne').getByRole('tab').first(),
-        previewTabs(page).first(),
         stageTabs(page).first(),
+        page.locator('#oferta').getByRole('button', { name: 'Firmowa' }),
+        page.locator('#podglady').getByRole('tab').first(),
       ]) {
         const box = await target.boundingBox()
         expect(box?.height ?? 0).toBeGreaterThanOrEqual(44)
       }
-      // 12 rzeczy as a carousel: a card is 84% wide, the next one peeks in.
-      const card = await page.getByTestId('popular-card').first().boundingBox()
-      expect(card?.width ?? 0).toBeLessThan(width * 0.9)
-      // Previews: the phone screen only (audyt P1 #22), no laptop and no floating notes;
-      // process without the sketch.
-      await expect(previewPanel(page).getByText('Nowe zapytanie z formularza')).toBeHidden()
-      const stage = previewPanel(page).locator('[aria-hidden="true"]').first()
-      await expect(stage.locator(':scope > div').first()).toBeHidden() // the laptop
-      const phone = await stage.locator(':scope > div').nth(1).boundingBox()
-      expect(phone?.width ?? 0).toBeGreaterThan(width * 0.4)
-      expect((phone?.x ?? 0) + (phone?.width ?? 0)).toBeLessThanOrEqual(width)
-      await stageTabs(page).nth(1).click()
-      await expect(stagePanel(page).getByText('szkic Twojego systemu, za darmo')).toBeHidden()
-      // „Bez WordPressa”: facts as a carousel, the table as cards (no column header row).
-      const why = page.locator('#bez-wordpressa')
-      const fact = await why.getByRole('listitem').first().boundingBox()
-      expect(fact?.width ?? 0).toBeLessThan(width * 0.9)
-      const row = why.getByRole('row').nth(1)
-      const name = await row.getByRole('rowheader').boundingBox()
-      const theirs = await row.getByRole('cell').nth(0).boundingBox()
-      const ours = await row.getByRole('cell').nth(1).boundingBox()
-      expect(theirs?.y ?? 0).toBeGreaterThan(name?.y ?? 0)
-      expect(ours?.y ?? 0).toBeGreaterThan(theirs?.y ?? 0)
-      const header = await why.getByRole('row').first().boundingBox()
-      expect(header?.height ?? 0).toBeLessThanOrEqual(1)
       // Hero v24 on a phone (ZMIANY-v24 §10): one 340 px window, the tiles in a row, the caption
       // button across the width.
       const hero = page.locator('#start')
@@ -499,13 +256,6 @@ test.describe('Software start page on a phone', () => {
       expect(Math.round(active?.width ?? 0)).toBe(340)
       const capButton = await hero.locator('.hx-cap a').boundingBox()
       expect(capButton?.width ?? 0).toBeGreaterThan(width - 80)
-      // „Jak robimy”: a carousel of cards; „Z czego budujemy”: the 6 layers in a 2×3 grid.
-      const how = await page.locator('#jak-robimy li').first().boundingBox()
-      expect(how?.width ?? 0).toBeLessThan(width * 0.9)
-      const layers = page.locator('#technologie [role=tab]')
-      const [l1, l2, l3] = await Promise.all([0, 1, 2].map((i) => layers.nth(i).boundingBox()))
-      expect(Math.round(l2?.y ?? 0)).toBe(Math.round(l1?.y ?? 0))
-      expect(l3?.y ?? 0).toBeGreaterThan(l1?.y ?? 0)
       // Kontakt: the form under the promises, topics as large targets.
       const side = await page.locator('#kontakt').getByText('Najpierw zobaczysz').boundingBox()
       const form = await page.locator('#kontakt form').boundingBox()

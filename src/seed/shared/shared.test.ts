@@ -34,7 +34,7 @@ describe('shared.rail — every anchor exists on the line home page, in its orde
     expect(anchors(BIZNES_SHARED)).toEqual(home.map((item) => item.id))
   })
 
-  it('Software: the sections of the v23 rail', () => {
+  it('Software: the sections of the v24 rail', () => {
     expect(anchors(SOFTWARE_SHARED)).toEqual(Object.keys(RAIL_LABELS))
   })
 
