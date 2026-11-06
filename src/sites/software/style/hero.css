@@ -1535,14 +1535,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* The windows stand still in their places and swap by a short cross-fade (no 3D flight). */
   .hx-win {
     transition: opacity var(--dur-state) linear;
-  }
-  .hx-win[data-rank='r1'],
-  .hx-win[data-rank='rl'] {
-    transform: none;
-    opacity: 0;
-    visibility: hidden;
   }
   .hx-mq ul {
     flex-wrap: wrap;
