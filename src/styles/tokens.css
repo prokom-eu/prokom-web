@@ -15,7 +15,8 @@
  *   orange text on cards and `surface-2`, ≥ 4.5:1 — themes.test.ts), --ok-text (small green labels)
  *   --promo, --promo-ink (marketing badge of catalog cards and its label)
  *   --card-2 (second card level), --ink-soft, --accent-soft / --accent-line (active chips and
- *   their border), --stage (preview mock-ups), --chip, --glow-2, --dot, --header-bg, --shadow —
+ *   their border), --stage (preview mock-ups), --chip, --glow-2, --dot, --header-bg, --shadow, and the v24
+ *   --glass, --glass-card, --em-*, --sheen*, --beam* (ADR-015 „Rozstrzygnięcia v24”) —
  *   Software's visualisation (ADR-015); other lines get neutral defaults below.
  *   --c-software-light-* / --c-software-night-*  Software palette (docs/design/prokomsoftware)
  * Contrast is checked by `tokens.test.ts` and `themes.test.ts`.
@@ -1072,6 +1073,7 @@
   --dur-page-out: 320ms;
   --dur-page-in: 550ms;
   --dur-arrive: 950ms;
+  /* = ARRIVE_MS in lib/software/smoothScroll.ts (how long the section stays marked). */
   --dur-beam: 1400ms;
   --dur-sheen: 700ms;
   /* Shared elements (spec WSPOLNE-ELEMENTY §3, NAGLOWEK-KAPSULA §4): defaults for pages

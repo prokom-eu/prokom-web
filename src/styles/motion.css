@@ -822,16 +822,14 @@
     }
   }
 
-  /* Arrival after a glide (`data-arrive`, set by the rail for 1.4 s): eyebrow and heading come
-     out of a blur, a violet beam crosses the top of the section. */
-  [data-line='software'] [data-arrive] :is(h1, h2, [data-eyebrow]) {
+  /* Arrival after a glide (`data-arrive`, set by the rail for 1.4 s = `--dur-beam`): eyebrow and
+     heading come out of a blur, a violet beam crosses the top of the section (the section is
+     `relative` for good, see the layer below — nothing moves while the beam runs). */
+  [data-line='software'] [data-arrive] :is(h1, h2, .sw-eyebrow) {
     animation: sw-aurora-arrive var(--dur-arrive) var(--ease-out) both;
   }
   [data-line='software'] [data-arrive] h2 {
     animation-delay: 60ms;
-  }
-  [data-line='software'] [data-arrive] {
-    position: relative;
   }
   [data-line='software'] [data-arrive]::before {
     content: '';
@@ -848,12 +846,8 @@
     animation: sw-beam var(--dur-beam) var(--ease-out) both;
   }
 
-  /* Buttons: a streak of light runs across on hover (the press is in §1). */
-  [data-line='software'] :is([data-motion='button'], [data-motion='button-outline']) {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-  }
+  /* Buttons: a streak of light runs across on hover (the press is in §1); the button frame is in
+     the layer below. */
   [data-line='software'] :is([data-motion='button'], [data-motion='button-outline'])::after {
     content: '';
     position: absolute;
@@ -929,5 +923,18 @@
   100% {
     opacity: 0;
     scale: 1 1;
+  }
+}
+
+/* Frames of the v24 effects, in the `base` layer so a component's own position or overflow
+   classes still win: rail targets carry the arrival beam, buttons clip their light streak. */
+@layer base {
+  [data-line='software'] :where(section[id], [data-arrive]) {
+    position: relative;
+  }
+  [data-line='software'] :where([data-motion='button'], [data-motion='button-outline']) {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
   }
 }

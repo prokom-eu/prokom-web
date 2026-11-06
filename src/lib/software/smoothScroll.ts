@@ -3,10 +3,13 @@
  * pattern `docs/design/prokomsoftware/v23/pkScroll.js`): longer for a longer way (520–1100 ms),
  * easing in and out, then the section's heading „arrives” (`data-arrive`, motion.css). With
  * reduced motion it is a plain jump; the visitor's own wheel, touch or key stops the glide.
+ * v24 glide (easeInOutQuint, 520–1250 ms, 104/78 px, ZMIANY-v24 §5.2) moves to the shared rail
+ * (`lib/shared/smoothScroll`, D2-2 or `feat/wsp-przejazd` — decision 06.11.2026).
  */
 
 /** Room for the sticky header when the section has no `scroll-margin-top` of its own. */
 export const HEADER_OFFSET = 84
+/** = `--dur-beam` in tokens.css: the arrival beam must end before the mark goes. */
 const ARRIVE_MS = 1400
 const STOP_EVENTS = ['wheel', 'touchstart', 'keydown'] as const
 
