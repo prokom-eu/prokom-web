@@ -44,6 +44,8 @@ const STATE_LINKS = [
   { href: '?stan=gora', label: 'Góra strony' },
   { href: '?stan=przewinieta', label: 'Po przewinięciu' },
   { href: '?stan=mega', label: 'Mega menu otwarte' },
+  { href: '/_wspolne/kontakt', label: 'Szablon Kontakt' },
+  { href: '/_wspolne/o-firmie', label: 'Szablon O firmie' },
 ]
 
 /**

@@ -4,11 +4,11 @@ import { FaqBlock } from '@/components/shared/FaqBlock'
 import { FamilyStrip } from '@/components/shared/FamilyStrip'
 import { RulesBento } from '@/components/shared/RulesBento'
 import { ServiceAreaMap } from '@/components/shared/ServiceAreaMap'
-import { StatsStrip, type Stat } from '@/components/shared/StatsStrip'
+import { StatsStrip } from '@/components/shared/StatsStrip'
 import { Steps } from '@/components/shared/Steps'
 import { VerifyCards } from '@/components/shared/VerifyCards'
-import { plural } from '@/lib/plural'
 import type { SharedData } from '@/lib/shared/getSharedData'
+import { aboutStats } from '@/lib/shared/pages'
 import type { Line } from '@/lib/tenant/lines'
 
 type Props = { shared: SharedData; line: Line; siteEnv: string }
@@ -25,21 +25,7 @@ export function ModulesPreview({ shared, line, siteEnv }: Props) {
   const { company, lines } = shared
   const about = shared.line.about
   const contact = shared.line.contact
-  const lineCount = lines.filter((item) => item.kind === 'linia').length
-  // TODO(krystian): the founding year is not in the panel — D2-4 decides (CompanyData field or text).
-  const stats: Stat[] = [
-    { value: '2004', label: 'na Podhalu, w Rabce-Zdroju' },
-    ...(about?.stats ?? []).map((stat) => ({
-      value: stat.value,
-      label: stat.label,
-      flag: stat.flag,
-    })),
-    // Published lines only (Zakopane waits): ADR-022 D2-3b, „5” from the board once it starts.
-    {
-      value: String(lineCount),
-      label: `${plural(lineCount, ['linia', 'linie', 'linii'])} w jednej firmie`,
-    },
-  ]
+  const stats = aboutStats(about?.stats, lines)
 
   return (
     <div data-modules-preview>
