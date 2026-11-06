@@ -21,8 +21,16 @@ type Props = {
   phone?: boolean
   /** `site` with a phone, `phone`: the „Nowe zapytanie” toast. */
   toast?: boolean
-  /** `before`: the slider stands at this percentage instead of sweeping. */
-  cut?: number
+  /**
+   * `before`: the slider stands at this percentage instead of sweeping; `parent` — it follows the
+   * `--mk-cut` of an outer element (the hand-held slider of the bento, SWA2b).
+   */
+  cut?: number | 'parent'
+  /**
+   * `width` (default): the box is 640 × 420 scaled to its width. `contain`: the box takes the size
+   * its parent gives it and the stage fits inside, centred (frames of other shapes on the boards).
+   */
+  fit?: 'width' | 'contain'
   className?: string
 }
 
@@ -34,9 +42,10 @@ const pick = <T extends string>(list: readonly T[], kind: MockupKind, variant?: 
  * 640 × 420 stage and scaled to the box width. A picture only — the name and the description of the
  * solution stand next to it, so it is hidden from screen readers.
  */
-export function Mockup({ kind, variant, phone, toast, cut, className }: Props) {
+export function Mockup({ kind, variant, phone, toast, cut, fit = 'width', className }: Props) {
+  const classes = ['mk', fit === 'contain' && 'mk-contain', className].filter(Boolean).join(' ')
   return (
-    <div className={className ? `mk ${className}` : 'mk'} aria-hidden="true" data-mockup={kind}>
+    <div className={classes} aria-hidden="true" data-mockup={kind}>
       <div className="mk-stage">
         {kind === 'site' && (
           <MockSite
