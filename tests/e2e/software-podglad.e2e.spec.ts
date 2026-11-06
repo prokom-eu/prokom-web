@@ -121,7 +121,7 @@ test.describe('/_software — v24 start page sections', () => {
     page,
   }) => {
     await page.goto(site(HOST, '/_software'))
-    const bento = page.locator('#oferta-v24')
+    const bento = page.locator('#oferta')
     await bento.getByRole('button', { name: 'Restauracja' }).click()
     await expect(bento.getByRole('button', { name: 'Restauracja' })).toHaveAttribute(
       'aria-pressed',
@@ -138,7 +138,7 @@ test.describe('/_software — v24 start page sections', () => {
     page,
   }) => {
     await page.goto(site(HOST, '/_software'))
-    const showroom = page.locator('#podglady-v24')
+    const showroom = page.locator('#podglady')
     await showroom.getByRole('tab', { name: 'Budowlanka i remonty' }).click()
     await showroom.getByRole('button', { name: 'System' }).click()
     await expect(showroom.locator('[data-mockup="dash"]')).toBeVisible()

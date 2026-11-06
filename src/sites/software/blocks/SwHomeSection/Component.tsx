@@ -1,3 +1,4 @@
+import { BUILT_HOME_SECTIONS, type HomeSectionValue } from '@/lib/software/homeSections'
 import type { SwHomeSectionBlock as SwHomeSectionBlockData } from '@/payload-types'
 import {
   AreasSection,
@@ -11,6 +12,12 @@ import {
   WhyNotWordpressSection,
   WizardSection,
 } from '@/sites/software/components/home/HomeSections'
+import {
+  BentoBlockSection,
+  PromisesSection,
+  ShowroomBlockSection,
+  SituationsSection,
+} from '@/sites/software/components/v24home/HomeV24Blocks'
 
 type Props = { block: SwHomeSectionBlockData; tenantId: number }
 
@@ -19,7 +26,17 @@ type Props = { block: SwHomeSectionBlockData; tenantId: number }
  * A section without a component renders nothing.
  */
 export function SwHomeSectionBlock({ block, tenantId }: Props) {
+  // v24: a block of a section no longer built (the v23 ones) stays in the panel but renders nothing.
+  if (!BUILT_HOME_SECTIONS.includes(block.section as HomeSectionValue)) return null
   switch (block.section) {
+    case 'promises':
+      return <PromisesSection tenantId={tenantId} />
+    case 'situations':
+      return <SituationsSection tenantId={tenantId} />
+    case 'bento':
+      return <BentoBlockSection tenantId={tenantId} />
+    case 'showroom':
+      return <ShowroomBlockSection tenantId={tenantId} />
     case 'areas':
       return <AreasSection tenantId={tenantId} />
     case 'popular':

@@ -1,10 +1,10 @@
 import type { Payload } from 'payload'
 
 import faqPackage from '../../../seed/prokomsoftware/faq.json'
-import stronaGlowna from '../../../seed/prokomsoftware/strona-glowna.json'
 import { HOME_SLUG } from '../../lib/pages/slug'
 import {
   BUILT_HOME_SECTIONS,
+  HOME_ORDER_V24,
   HOME_SECTIONS,
   type HomeSectionValue,
 } from '../../lib/software/homeSections'
@@ -12,8 +12,8 @@ import type { Page } from '../../payload-types'
 import { mergeLayout } from '../layout'
 
 /**
- * Start page of the Software tenant (SW5): the blocks in the order of `strona-glowna.json` →
- * `homeOrder` (spec. §4, decision SWD1 D2 — the order lives only in the blocks). A section gets
+ * Start page of the Software tenant (SW5): the blocks in the v24 order `HOME_ORDER_V24` (ZMIANY-v24
+ * §4; until SWA2 the package's `homeOrder`; decision SWD1 D2 — the order lives only in the blocks). A section gets
  * its block once its component exists; later sessions add theirs to `BUILT_HOME_SECTIONS` and the
  * seed inserts the new block in its place, leaving blocks edited in the panel as they are.
  */
@@ -116,7 +116,7 @@ const isSection = (key: string): key is HomeSectionValue =>
  * the shared FAQ block, `contact` the `swContact` block.
  */
 export function softwareHomeLayout(
-  order: readonly string[] = stronaGlowna.homeOrder.order,
+  order: readonly string[] = HOME_ORDER_V24,
   built: readonly HomeSectionValue[] = BUILT_HOME_SECTIONS,
 ): Block[] {
   return order.flatMap((key): Block[] => {
