@@ -1289,7 +1289,7 @@
 }
 
 /* Dark theme — chosen by the visitor or the line's default (`data-theme`, lib/brand/theme.ts);
-   Instalacje also follows the system (`tokens-instalacje.css`). */
+   Instalacje also follows the system (its own token sheet). */
 [data-line='biznes'][data-theme='dark'] {
   color-scheme: dark;
   --accent: var(--c-biznes-on-dark);
