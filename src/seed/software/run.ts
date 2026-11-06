@@ -33,11 +33,12 @@ import { seedSoftwarePhotos } from './photos'
 import { seedSoftwarePricing } from './pricing'
 import {
   HOME_SECTION_TEXTS,
-  homeWithHero,
   homeWithPriceTokens,
   homeWithSections,
+  homeWithV24,
 } from './homeExtras'
 import { HOME_HERO } from './homeHero'
+import { HOME_V24 } from './homeV24'
 import { seedSharedData } from '../shared/run'
 
 const SOFTWARE_TENANT_SLUG = 'software'
@@ -320,8 +321,9 @@ export async function seedSoftware(payload: Payload): Promise<void> {
     if (!missing.home) {
       const withSections = homeWithSections(softwareSettings.home, HOME_SECTION_TEXTS)
       const priced = homeWithPriceTokens(withSections ?? softwareSettings.home) ?? withSections
-      // Hero v24 (SWA2a): added once to a home that has none; an edited one stays.
-      const home = homeWithHero(priced ?? softwareSettings.home, HOME_HERO) ?? priced
+      // v24 (SWA2a/2b): hero and the new sections added once to a home that lacks them.
+      const home =
+        homeWithV24(priced ?? softwareSettings.home, { hero: HOME_HERO, ...HOME_V24 }) ?? priced
       if (home) missing.home = home as typeof fields.home
     }
     const changed = Object.keys(missing).length > 0

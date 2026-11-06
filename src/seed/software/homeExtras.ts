@@ -1,4 +1,4 @@
-import type { SoftwareHeroV24, SoftwareHomeSections } from '../../lib/software/home'
+import type { SoftwareHomeSections } from '../../lib/software/home'
 
 /**
  * Headings of the start page sections the board `Main` keeps in its HTML, not in
@@ -187,13 +187,18 @@ export function homeWithSections(
   }
 }
 
-/** `home` with the v24 hero when the stored one has none; `null` when it is there already. */
-export function homeWithHero(
+/**
+ * `home` with the v24 keys (hero, promises, situations, bento, showroom) the stored one lacks;
+ * keys already stored (edited in the panel) stay. `null` when nothing is missing.
+ */
+export function homeWithV24(
   stored: unknown,
-  hero: SoftwareHeroV24,
+  extras: Record<string, unknown>,
 ): Record<string, unknown> | null {
-  if (!isRecord(stored) || stored.hero != null) return null
-  return { ...stored, hero: structuredClone(hero) }
+  if (!isRecord(stored)) return null
+  const missing = Object.entries(extras).filter(([name]) => stored[name] == null)
+  if (missing.length === 0) return null
+  return { ...stored, ...structuredClone(Object.fromEntries(missing)) }
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
