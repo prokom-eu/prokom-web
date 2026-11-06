@@ -86,3 +86,10 @@ Trzy linie w `prokom-web` (Biznes, Instalacje, Software) zbudowały pasek marki,
 4. **Reguły linii z jednego miejsca:** `ContactForm` dostaje linię, `sharedRulesFor(line)` daje te same reguły co serwer (Instalacje — telefon, Biznes — wiadomość opcjonalna).
 5. **Strefy tylko z panelu** (`findZone`): cała nazwa albo — od 3 liter — początek, gdy pasuje dokładnie jedna miejscowość. Seed: Raba Wyżna w strefie Podhale (spec F3 pkt 3; wcześniejszy wzorzec Instalacji przypisywał ją do Rabki).
 6. **Potwierdzenie mailem** na ekranie sukcesu jako zapowiedź („wyślemy”) — serwer może je wstrzymać (limit 3 na dobę).
+
+## Rozstrzygnięcia D2-3b (06.11.2026, po przeglądzie — w nocnej sesji bez Krystiana: **decyzje do potwierdzenia rano**)
+1. **`RulesBento` przyjmuje 6–8 reguł** (`RULES_MAX = 8`), Biznes zostaje przy „Ośmiu zasadach” (MAPA-DZIS: „6–8” albo „8 → 6” do F3). Jedna lista `<ol>` (czytnik liczy wszystkie reguły), siatka: duża karta obok siatki 2 kolumn od 1000 px, ostatnia reguła jako ciemny pasek.
+2. **Mapa zasięgu bez geografii:** `layoutTowns` rozkłada miejscowości stref na pierścieniach wokół salonu (strefa = pierścień). Panel ma tylko nazwy, więc nowa miejscowość pojawia się bez kodu. Miejscowość salonu i powtórki są pomijane. Na telefonie (< 768 px) zamiast 20 etykiet są kropki, a etykieta tylko przy znalezionej miejscowości. Warstwice przychodzą z serwera (`background`), poza paczką JS.
+3. **„Liczba linii” w `StatsStrip` liczy opublikowane linie** (`kind: 'linia'`) z odmianą („4 linie”, „5 linii”). Plansza mówi „5”, bo zakłada Zakopane — liczba dojdzie sama po publikacji.
+4. **Rok „2004” nie ma pola w panelu** — na razie w kodzie podglądu i szablonu (`TODO(krystian)`); pole w `CompanyData` dopiero po decyzji (migracja).
+5. **`FaqBlock` znika bez odpowiedzi** — odpowiedzi seeda mają znacznik `[Krystian…]`, więc FAQ pokaże się po uzupełnieniu w panelu.
