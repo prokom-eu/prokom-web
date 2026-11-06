@@ -314,6 +314,8 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 7. ~~**B11:** `/aktualnosci` budować od razu jako trasę wspólną dla linii, poza `(biznes)`.~~ — zrobione (B11a, #98: `NEWS_LINES` w `lib/posts/list.ts`; SW11b dopisuje `software` i swój wygląd w obu trasach).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- **JSON-LD w layoucie (przegląd D2-4, 06.11):** `organizationJsonLd` bierze `locations` z `getCompanyData()` bez filtra `published` — nieopublikowany salon trafiłby do `LocalBusiness` (spec §8). Przy D3 przejść na salony z `getSharedData`.
+- **Leniwe sekcje szablonów (przegląd D2-4):** `ContactForm` i `ServiceAreaMap` są pod zgięciem — przy wpinaniu `ContactPage` w D3 ocenić leniwe ładowanie wg ADR-023.
 - **Elementy wspólne (D2-3a, 06.11):** w L2 zastąpić `splitEmailOrPhone` (`lib/inquiry/form.ts`, Software: 6+ cyfr) wspólnym `readContact` (`lib/shared/contact.ts`, 9 cyfr) — jedna reguła pola „telefon lub e-mail”; dwa pliki `contactForm.ts` (`lib/inquiry` i `lib/shared`) przy okazji uporządkować.
 - **Software, ciemny domyślnie — pasek przeglądarki i ekran startowy (06.11, przegląd SWA1a):** `theme-color` (`lineViewport`) i `lineManifest` dają jasny pasek do hydracji i jasny ekran startowy zainstalowanej aplikacji. Dla linii z `defaultTheme` jeden `theme-color` w kolorze motywu domyślnego — mały PR.
 - **Przełącznik motywu przed hydracją (06.11):** `useTheme` renderuje na serwerze „light”, więc `aria-pressed` w nagłówku Software jest błędne do hydracji (teraz u każdego, bo ciemny jest domyślny). Kosmetyka.
