@@ -10,6 +10,9 @@ export type ContactReading =
   | { kind: 'invalid'; looksLike: 'phone' | 'email' }
   | { kind: 'empty' }
 
+/** Longest number the server accepts (`lib/inquiry/schema.ts`). */
+export const PHONE_MAX = 30
+
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 /** Only digits, spaces, dashes, brackets and a leading „+”: what people type as a number. */
 const NUMBERISH = /^\+?[\d\s()-]+$/
@@ -23,6 +26,8 @@ export function readContact(value: string): ContactReading {
       : { kind: 'invalid', looksLike: 'email' }
   }
   if (NUMBERISH.test(typed)) {
+    // The server keeps up to 30 characters of a number (`schema.ts`).
+    if (typed.length > PHONE_MAX) return { kind: 'invalid', looksLike: 'phone' }
     const digits = typed.replace(/\D/g, '').replace(/^(?:0048|48)(?=\d{9}$)/, '')
     return digits.length === 9
       ? { kind: 'phone', phone: typed }

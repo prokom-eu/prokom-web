@@ -23,9 +23,11 @@ describe('findZone (seed zones)', () => {
     expect(findZone(zones, 'BIAŁKA TATRZAŃSKA')?.zone.name).toBe('Zakopane i Tatry')
   })
 
-  it('from 3 letters a town is found by its beginning', () => {
+  it('from 3 letters a town is found by its beginning, when only one fits', () => {
     expect(findZone(zones, 'szaf')?.town).toBe('Szaflary')
     expect(findZone(zones, 'sz')).toBeNull()
+    // Several towns begin so (Nowy Targ, Nowy Sącz): no guess.
+    expect(findZone(zones, 'nowy')).toBeNull()
   })
 
   it('a town outside every zone gives nothing (the form promises no zone)', () => {

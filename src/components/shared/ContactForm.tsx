@@ -10,12 +10,14 @@ import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import {
   checkContactForm,
   serverMessages,
+  sharedRulesFor,
   toFormFields,
   toInquiryValues,
   type SharedField,
   type SharedFormValues,
   type SharedRules,
 } from '@/lib/shared/contactForm'
+import type { Line } from '@/lib/tenant/lines'
 import { PHRASE_PARAM } from '@/lib/shared/search/provider'
 import { findZone, zoneLabel, type ServiceZone } from '@/lib/shared/zones'
 
@@ -37,7 +39,8 @@ export type ContactFormProps = {
   /** Zones for the town hint (`CompanyData.serviceZones`). */
   zones: readonly ServiceZone[]
   nextSteps?: readonly NextStep[]
-  rules?: Omit<SharedRules, 'consentMode'>
+  /** The site's line: its rules are the server's (`sharedRulesFor`) — Instalacje a phone, Biznes no message. */
+  line: Line
   /** Slot above the fields, e.g. Software „Twój projekt” (spec §6.0 `formPrefill`). */
   prefill?: ReactNode
 }
@@ -77,17 +80,19 @@ export function ContactForm({
   consent,
   zones,
   nextSteps,
-  rules = {},
+  line,
   prefill,
 }: ContactFormProps) {
   const id = useId()
   const fid = (name: string) => `${id}-${name}`
-  const sharedRules: SharedRules = { ...rules, consentMode: consent.mode }
+  const sharedRules: SharedRules = { ...sharedRulesFor(line), consentMode: consent.mode }
   const [values, setValues] = useState<SharedFormValues>(EMPTY)
   const [errors, setErrors] = useState<Partial<Record<SharedField, string>>>({})
   const [formError, setFormError] = useState<string | null>(null)
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState<{ number: string | null; email: boolean } | null>(null)
+  // One request at a time: a double click in the same frame must not send twice.
+  const lock = useRef(false)
   const summary = useRef<HTMLDivElement>(null)
   const nameField = useRef<HTMLInputElement>(null)
 
@@ -117,16 +122,17 @@ export function ContactForm({
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (sending) return
+    if (lock.current) return
     const found = checkContactForm(values, sharedRules)
     if (Object.keys(found).length) return showErrors(found)
+    lock.current = true
     setSending(true)
     try {
       const response = await fetch('/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
-          buildInquiryBody(toInquiryValues(values, sharedRules), {
+          buildInquiryBody(toInquiryValues(values), {
             href: window.location.href,
             formToken,
             category: values.topic,
@@ -150,6 +156,7 @@ export function ContactForm({
     } catch {
       showErrors({}, 'Nie udało się wysłać wiadomości. Sprawdź połączenie i spróbuj ponownie.')
     } finally {
+      lock.current = false
       setSending(false)
     }
   }
@@ -255,6 +262,7 @@ export function ContactForm({
         value={values.contact}
         onChange={(event) => set('contact', event.target.value)}
         error={errors.contact}
+        maxLength={254}
         required
       />
       <div>
@@ -265,6 +273,7 @@ export function ContactForm({
           autoComplete="address-level2"
           value={values.city}
           onChange={(event) => set('city', event.target.value)}
+          // The zone hint is this field's only description (no hint or error of its own).
           aria-describedby={zone ? `${fid('city')}-zone` : undefined}
         />
         <p
