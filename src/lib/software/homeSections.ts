@@ -18,7 +18,8 @@ export const HOME_SECTIONS = [
   // SW11b: „Freelancer, agencja czy PRO-KOM?” on `/o-firmie` — the value goes in now (one migration).
   { value: 'compare', label: 'Porównanie (O firmie)', anchor: 'porownanie' },
   // SWA2 (v24, ZMIANY-v24 §4): the new start page sections; bento and showroom take the anchors
-  // of the v23 areas and previews.
+  // of the v23 areas and previews (the v23 entries above got other anchors only so the rail can
+  // never list one id twice — their components are not rendered any more).
   { value: 'promises', label: 'Obietnice (v24)', anchor: 'obietnice' },
   { value: 'situations', label: 'Z czym do nas przychodzisz (v24)', anchor: 'sytuacje' },
   { value: 'bento', label: 'Oferta — cztery rzeczy (v24)', anchor: 'oferta' },

@@ -1,4 +1,5 @@
 import { cardPrice } from '@/lib/software/cardPrice'
+import type { SoftwareHome } from '@/lib/software/home'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
 /** „od 2 490 zł” and the term of a solution (`cardPrice`); a missing one asks for a quote. */
@@ -19,3 +20,13 @@ export function priceLines(slugs: string[], index: SolutionsIndex): Record<strin
 
 /** Address of the offer window of a solution (catalog, `?rozwiazanie=`). */
 export const offerHref = (slug: string) => `/rozwiazania?rozwiazanie=${slug}`
+
+/** Every solution the bento points to (its prices are counted on the server). */
+export function bentoSlugs(bento: NonNullable<SoftwareHome['bento']>): string[] {
+  return [
+    ...bento.sites.variants.map((v) => v.solution),
+    bento.rebuild.solution,
+    ...bento.systems.variants.map((v) => v.solution),
+    ...bento.automations.variants.map((v) => v.solution),
+  ]
+}
