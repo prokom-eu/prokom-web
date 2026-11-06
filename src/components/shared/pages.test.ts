@@ -1,0 +1,170 @@
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import { describe, expect, it } from 'vitest'
+
+import type { SharedData } from '@/lib/shared/project'
+
+import { AboutPage } from './AboutPage'
+import { ContactPage } from './ContactPage'
+
+// D2-4 (plan F3 pkt 4, spec §6.0–§6.2): the shared Kontakt and O firmie templates.
+const HOURS = [{ days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' }]
+
+const shared = {
+  company: {
+    name: 'PRO-KOM Tadeusz Wójciak',
+    nip: '7352511447',
+    email: 'biuro@example.pl',
+    address: { street: 'ul. Orkana 16B', postalCode: '34-700', city: 'Rabka-Zdrój' },
+    geo: null,
+    hours: HOURS,
+    holidays: [],
+    mapsUrl: 'https://maps.google.com/?q=PRO-KOM',
+    ceidgUrl: null,
+    legal: {
+      privacy: '/polityka-prywatnosci',
+      cookies: '/cookies',
+      accessibility: '/dostepnosc',
+      sitemap: '/mapa-strony',
+    },
+    consent: { mode: 'checkbox', version: null, clause: null },
+    recentlyViewed: false,
+    serviceZones: [{ name: 'Podhale', towns: ['Nowy Targ'], note: null }],
+  },
+  line: {
+    phone: '889 003 889',
+    phone2: null,
+    email: 'kontakt@prokombiznes.pl',
+    footerDescription: null,
+    contact: {
+      h1: 'Zadzwoń albo wpadnij',
+      routes: [{ title: 'Awaria', text: 'Coś nie działa', cta: 'Zgłoś', href: '#formularz' }],
+      faq: [{ question: 'Czy jest parking?', answer: 'Tak.' }],
+    },
+    about: {
+      h1: 'Lokalna firma IT',
+      rules: [{ title: 'Jeden numer' }],
+      steps: [{ title: 'Rozmowa' }],
+      verify: [{ title: 'CEIDG', href: 'https://www.biznes.gov.pl/' }],
+    },
+  },
+  lines: [
+    { key: 'biznes', name: 'Biznes', kind: 'linia', url: 'https://prokombiznes.pl' },
+    { key: 'software', name: 'Software', kind: 'linia', url: 'https://prokomsoftware.pl' },
+  ],
+  salons: [
+    {
+      key: 'rabka',
+      name: 'Salon Rabka',
+      street: 'ul. Orkana 16B',
+      postalCode: '34-700',
+      city: 'Rabka-Zdrój',
+      geo: null,
+      parkingNote: null,
+      hours: HOURS,
+    },
+  ],
+} as unknown as SharedData
+
+const common = {
+  shared,
+  line: 'biznes' as const,
+  lineName: 'PRO-KOM Biznes',
+  origin: 'https://prokombiznes.pl',
+}
+const slot = (name: string) => createElement('p', { 'data-slot': name }, name)
+const order = (markup: string, needles: string[]) => needles.map((n) => markup.indexOf(n))
+const contact = (props: Partial<Parameters<typeof ContactPage>[0]> = {}) =>
+  renderToStaticMarkup(
+    createElement(ContactPage, {
+      ...common,
+      now: '2026-11-09T09:00:00Z',
+      formToken: 't',
+      ...props,
+    }),
+  )
+
+describe('ContactPage (spec §6.1)', () => {
+  it('puts every slot in its place, shared sections in the fixed order', () => {
+    const markup = contact({
+      slots: {
+        heroAside: slot('heroAside'),
+        afterRoutes: slot('afterRoutes'),
+        formPrefill: slot('formPrefill'),
+        afterForm: slot('afterForm'),
+        beforeFaq: slot('beforeFaq'),
+      },
+    })
+    const at = order(markup, [
+      'id="kontakt-h1"',
+      'data-slot="heroAside"',
+      'id="z-czym-dzwonisz"',
+      'data-slot="afterRoutes"',
+      'id="formularz"',
+      'data-slot="formPrefill"',
+      'data-slot="afterForm"',
+      'id="dojazd"',
+      'id="inne-linie"',
+      'data-slot="beforeFaq"',
+      'id="pytania"',
+    ])
+    expect(at.every((index) => index >= 0)).toBe(true)
+    expect([...at].sort((a, b) => a - b)).toEqual(at)
+  })
+
+  it('the optional sections switch off; the phone and JSON-LD come from the data', () => {
+    const markup = contact({ showServiceArea: false, showOtherLines: false })
+    expect(markup).not.toContain('id="dojazd"')
+    expect(markup).not.toContain('id="inne-linie"')
+    expect(markup).toContain('href="tel:+48889003889"')
+    expect(markup).toContain('"@type":"LocalBusiness"')
+    expect(markup).toContain('"@type":"BreadcrumbList"')
+  })
+
+  it('the other lines leave out the current one', () => {
+    const markup = contact()
+    expect(markup).toContain('data-other-line="software"')
+    expect(markup).not.toContain('data-other-line="biznes"')
+  })
+})
+
+describe('AboutPage (spec §6.2)', () => {
+  const about = (props: Partial<Parameters<typeof AboutPage>[0]> = {}) =>
+    renderToStaticMarkup(createElement(AboutPage, { ...common, siteEnv: 'local', ...props }))
+
+  it('puts every slot in its place, shared sections in the fixed order', () => {
+    const markup = about({
+      slots: {
+        afterStats: slot('afterStats'),
+        afterRules: slot('afterRules'),
+        afterSteps: slot('afterSteps'),
+        beforeVisit: slot('beforeVisit'),
+      },
+    })
+    const at = order(markup, [
+      'id="o-firmie-h1"',
+      'data-stats-strip',
+      'data-slot="afterStats"',
+      'id="dlaczego"',
+      'data-slot="afterRules"',
+      'id="wspolpraca"',
+      'data-slot="afterSteps"',
+      'id="linie"',
+      'id="sprawdz"',
+      'data-slot="beforeVisit"',
+      'id="wizyta"',
+    ])
+    expect(at.every((index) => index >= 0)).toBe(true)
+    expect([...at].sort((a, b) => a - b)).toEqual(at)
+  })
+
+  it('„Sprawdź nas” switches off; Organization data, no people', () => {
+    const markup = about({ showVerify: false })
+    expect(markup).not.toContain('id="sprawdz"')
+    expect(markup).toContain('"@type":"Organization"')
+    // No „Ludzie” section and no photos (spec §6.2) — the only images are the line logos.
+    expect(markup).not.toContain('Ludzie')
+    const sources = [...markup.matchAll(/<img[^>]*src="([^"]*)"/g)].map((m) => m[1])
+    expect(sources.every((src) => src?.startsWith('/brand/'))).toBe(true)
+  })
+})
