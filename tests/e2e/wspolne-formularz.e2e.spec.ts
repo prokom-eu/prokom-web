@@ -34,7 +34,8 @@ test.describe('/_wspolne — shared contact form', () => {
     await expect(summary).toContainText('Podaj imię albo nazwę firmy.')
     // Instalacje call back: a phone, always (ADR-I002 §4).
     await expect(summary).toContainText('Podaj numer telefonu')
-    await expect(form(page).locator('[aria-invalid="true"]')).toHaveCount(3)
+    // Instalacje: name, phone, message and consent — the same rules as the server (`sharedRulesFor`).
+    await expect(form(page).locator('[aria-invalid="true"]')).toHaveCount(4)
     await summary.getByRole('link', { name: /Imię i firma/ }).click()
     await expect(form(page).getByLabel('Imię i firma')).toBeFocused()
   })

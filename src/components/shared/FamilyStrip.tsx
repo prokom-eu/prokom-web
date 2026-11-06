@@ -78,7 +78,8 @@ export function FamilyStrip({ lines, current, className }: Props) {
                   <span
                     className={cx(
                       'mt-auto text-sm font-bold',
-                      gaming ? 'text-gaming-gold' : 'text-accent-text',
+                      // On the accent tint the accent text is 4.49:1 in Biznes dark — the current card uses ink.
+                      gaming ? 'text-gaming-gold' : isCurrent ? 'text-ink' : 'text-accent-text',
                     )}
                   >
                     {line.domain}
