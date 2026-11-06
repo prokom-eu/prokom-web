@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { railItems } from '@/sites/biznes/components/home/rail'
+import { isIconName } from '@/lib/shared/icons'
 import { glownaSekcje } from '@/sites/instalacje/dane/glownaSekcje'
 import { RAIL_LABELS } from '@/sites/software/components/home/rail'
 
@@ -27,6 +28,18 @@ const BIZNES_HOME = [
   { blockType: 'faq' },
   { blockType: 'bzContact' },
 ]
+
+// L1-I: an unknown name falls back to a page icon in the rail. Instalacje only for now — Biznes
+// („list”) and Software („wand”) get theirs in D3-B / D3-S (STAN-instalacje, uwaga dla D3).
+describe('shared.rail — Instalacje icons come from the shared set', () => {
+  it('rail sections and the tab bar action', () => {
+    const icons = [
+      ...(INSTALACJE_SHARED.rail?.sections ?? []).map((section) => section.icon),
+      INSTALACJE_SHARED.tabBar?.center?.icon,
+    ].filter(Boolean)
+    expect(icons.filter((icon) => !isIconName(icon))).toEqual([])
+  })
+})
 
 describe('shared.rail — every anchor exists on the line home page, in its order', () => {
   it('Biznes: the sections of the Biznes rail', () => {

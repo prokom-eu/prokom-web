@@ -48,7 +48,7 @@ type Props = {
 const t = glowna.hero
 const NARROW = '(max-width: 1023px)'
 /** Without room for the camera preview (RUNDA-V5 §1.3): it opens from a camera point instead. */
-const COMPACT = '(max-width: 1279px), (max-height: 813px)'
+const COMPACT = '(max-width: 1279px), (max-height: 809px)'
 
 const iconPath = (name: string) => (isInstIconName(name) ? INST_ICONS[name] : '')
 

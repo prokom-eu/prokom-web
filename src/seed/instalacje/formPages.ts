@@ -83,7 +83,7 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
     cta: {
       eyebrow: 'Pełna oferta',
       heading: 'Nie wiesz, co wybrać? Pomożemy ułożyć zestaw.',
-      text: 'Opisz obiekt albo wyślij zdjęcia. Zaproponujemy, od czego zacząć, i wycenimy na piśmie.',
+      text: 'Opisz obiekt. Zaproponujemy, od czego zacząć, i wycenimy na piśmie.',
     },
   }),
   realizacje: () => ({
@@ -135,7 +135,7 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
     cta: {
       eyebrow: 'Poradnik',
       heading: 'Nie znalazłeś odpowiedzi? Zapytaj nas wprost.',
-      text: 'Wyślij zdjęcie obiektu albo opisz sytuację. Odpowiemy po ludzku, bez lania wody.',
+      text: 'Opisz sytuację w kilku zdaniach. Odpowiemy po ludzku, bez lania wody.',
     },
   }),
 }

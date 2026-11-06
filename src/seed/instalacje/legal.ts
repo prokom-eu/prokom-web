@@ -72,7 +72,7 @@ const PRIVACY = [
     'Dane przechowujemy na serwerze dostawcy usług hostingowych, wiadomości e-mail wysyłamy przez naszego dostawcę poczty, a zaszyfrowane kopie zapasowe trzymamy u dostawcy przestrzeni na kopie w Unii Europejskiej. Przetwarzają oni dane wyłącznie na nasze zlecenie.',
   ),
   p(
-    'Jeśli napiszesz do nas przez WhatsApp albo otworzysz trasę w Mapach Google, korzystasz z usług tych firm na ich zasadach — strona tylko otwiera ich aplikację.',
+    'Jeśli otworzysz trasę w Mapach Google, korzystasz z usług tej firmy na jej zasadach — strona tylko otwiera jej aplikację.',
   ),
   h2('Twoje prawa'),
   p(

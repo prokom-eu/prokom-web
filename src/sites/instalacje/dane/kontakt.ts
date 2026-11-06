@@ -2,7 +2,7 @@ import type { InstIconName } from '../icons'
 
 /*
  * Texts of the contact page `/kontakt` (`zrodlo/pages/Kontakt.body.html` + `Kontakt.js`), 1:1
- * with the prototype except: phone, e-mail, WhatsApp, salons, hours and NIP come from the panel
+ * with the prototype except: phone, e-mail, salons, hours and NIP come from the panel
  * (`SiteSettings`, `InstalacjeSettings`, `CompanyData`) instead of the prototype's
  * placeholders; no `[SZEF…]` notes on the page (travel rules, Saturday hours,
  * parking — open questions for the boss); the consent is `CONSENT_CLAUSE`. The hero and the
@@ -31,12 +31,6 @@ export const kontakt = {
   },
   cards: {
     phone: { icon: 'phone', title: 'Telefon', text: 'Instalacje i serwis' },
-    whatsapp: {
-      icon: 'chat',
-      title: 'WhatsApp',
-      text: 'Zdjęcia obiektu i pytania',
-      message: 'Dzień dobry, mam pytanie o instalację w obiekcie: ',
-    },
     email: {
       icon: 'mail',
       title: 'E-mail',

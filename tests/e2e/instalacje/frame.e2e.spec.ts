@@ -16,10 +16,12 @@ test.describe('Instalacje frame', () => {
     expect(response?.status()).toBe(200)
     await expect(page.locator('html')).toHaveAttribute('data-line', 'instalacje')
     await expect(
-      page.locator('#naglowek').getByRole('link', { name: 'PRO-KOM Instalacje — strona główna' }),
+      page
+        .locator('[data-site-header]')
+        .getByRole('link', { name: 'PRO-KOM Instalacje — strona główna' }),
     ).toHaveCount(1)
-    // I3: the footer of the design shows the line's phone (the e-mail is on the contact page).
-    await expect(page.locator('#stopka a[href^="tel:"]').first()).toBeVisible()
+    // L1-I: the shared footer shows the line's phone from the panel.
+    await expect(page.locator('[data-site-footer] a[href^="tel:"]').first()).toBeVisible()
   })
 
   test('follows the system theme', async ({ page }) => {

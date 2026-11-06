@@ -1,4 +1,5 @@
 import type { InstalacjeSetting } from '../../payload-types'
+import { navigation } from '../../sites/instalacje/dane/nawigacja'
 
 /**
  * The line's real contact and the architects' contact person (boss's answers 01.11.2026,
@@ -9,7 +10,6 @@ import type { InstalacjeSetting } from '../../payload-types'
 export const INSTALACJE_CONTACT = {
   phone: '+48 889 003 889',
   email: 'kontakt@prokominstalacje.pl',
-  whatsapp: '+48 889 003 889',
 } as const
 
 /** The contact person of `/dla-architektow`: the owner, phone and e-mail of the line. */
@@ -40,17 +40,15 @@ export function siteContactUpdate(current: SiteContact): SiteContact | null {
 
 type LineSettings = Partial<Pick<InstalacjeSetting, 'whatsapp' | 'architects'>>
 type LineSettingsUpdate = {
-  whatsapp?: string
   architects?: NonNullable<InstalacjeSetting['architects']>
 }
 
 /**
- * `InstalacjeSettings` fields to write: WhatsApp while empty, the contact person while the panel
- * has no name. Phone and e-mail of the person stay empty — the page falls back to the line's.
+ * `InstalacjeSettings` fields to write: the contact person while the panel has no name. No
+ * WhatsApp any more (decision 01.11) — the panel field stays until L2-I and is not shown. Phone and e-mail of the person stay empty — the page falls back to the line's.
  */
 export function lineSettingsUpdate(current: LineSettings): LineSettingsUpdate | null {
   const update: LineSettingsUpdate = {}
-  if (isSample(current.whatsapp)) update.whatsapp = INSTALACJE_CONTACT.whatsapp
   if (!current.architects?.name?.trim()) {
     update.architects = {
       ...current.architects,
@@ -59,4 +57,16 @@ export function lineSettingsUpdate(current: LineSettings): LineSettingsUpdate | 
     }
   }
   return Object.keys(update).length > 0 ? update : null
+}
+
+/** The line description of the shared footer (L1-I): the I3 footer text, now `SiteSettings.footer.text`. */
+export const INSTALACJE_FOOTER_TEXT = navigation.footer.about
+
+/**
+ * The footer text to write: the line description while the panel holds the sample of
+ * `pnpm seed` („… — dane przykładowe.”) or nothing; `null` keeps what an editor typed.
+ */
+export function footerText(current: string | null | undefined): string | null {
+  const text = current?.trim() ?? ''
+  return text === '' || text.endsWith('dane przykładowe.') ? INSTALACJE_FOOTER_TEXT : null
 }
