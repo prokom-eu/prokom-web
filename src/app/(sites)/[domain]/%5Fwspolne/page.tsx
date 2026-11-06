@@ -26,6 +26,7 @@ import { requireTenant } from '../tenant'
 import { DEMO_NAV, DEMO_SHORT_CTA, isPreviewState, PREVIEW_STATES } from './demo'
 import { DemoMega } from './DemoMega'
 import { DemoSearch } from './DemoSearch'
+import { ModulesPreview } from './ModulesPreview'
 
 type Props = {
   params: Promise<{ domain: string }>
@@ -252,6 +253,8 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
           />
         </div>
       </section>
+
+      <ModulesPreview shared={shared} line={tenant.line} siteEnv={getEnv().SITE_ENV} />
 
       <div
         id="wspolne-stopka"
