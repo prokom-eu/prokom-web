@@ -99,7 +99,12 @@ test.describe('Software hero v24', () => {
     test(`no axe violations in the hero (${theme})`, async ({ page }) => {
       await setTheme(page, theme, { reducedMotion: 'reduce' })
       await page.goto(site(HOST))
-      const result = await new AxeBuilder({ page }).include('#start').withTags(WCAG).analyze()
+      // The mock-ups are decorative pictures of sample firms (own brand colours, `aria-hidden`).
+      const result = await new AxeBuilder({ page })
+        .include('#start')
+        .exclude('[data-mockup]')
+        .withTags(WCAG)
+        .analyze()
       expect(result.violations).toEqual([])
     })
   }
