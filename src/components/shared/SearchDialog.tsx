@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   useCallback,
@@ -12,13 +13,16 @@ import {
   type KeyboardEvent,
 } from 'react'
 
-import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { useTheme } from '@/components/useTheme'
 import { clearRecent, readRecent, type RecentItem } from '@/lib/shared/recent'
 import { railIcon } from '@/lib/shared/rail'
 import { matchActions, type PaletteAction } from '@/lib/shared/search/palette'
-import type { SearchGroup, SearchProvider } from '@/lib/shared/search/provider'
+import {
+  contactWithPhrase,
+  type SearchGroup,
+  type SearchProvider,
+} from '@/lib/shared/search/provider'
 import { plural } from '@/lib/plural'
 import { toTelHref } from '@/lib/site/link'
 import { onSearchRequest } from '@/lib/site/searchOpen'
@@ -32,7 +36,7 @@ export type SearchDialogProps = {
   line: string
   /** `CompanyData.recentlyViewed` — off until the lawyer says yes. */
   recentlyViewed: boolean
-  /** „Zapytaj o …” leads here with the phrase (`?pytanie=`), next to the phone. */
+  /** „Zapytaj o …” leads here with the phrase (`?fraza=`, `contactWithPhrase`), next to the phone. */
   contactHref?: string
   phone: string | null
   /** Accessible name and the field's label, e.g. „Szukaj na stronie”. */
@@ -58,6 +62,12 @@ function moveFocus(event: KeyboardEvent<HTMLElement>) {
   else items[Math.min(next, items.length - 1)]?.focus()
   event.preventDefault()
 }
+
+/** „dziś 14:05”-like time of a recently viewed page, in Polish. */
+const viewedAt = new Intl.DateTimeFormat('pl-PL', { dateStyle: 'short', timeStyle: 'short' })
+
+/** Same-site paths go through the router (no full reload); `tel:`, `mailto:`, maps stay plain. */
+const isInternal = (href: string) => href.startsWith('/') && !href.startsWith('//')
 
 const resultsLabel = (count: number) => `${count} ${plural(count, ['wynik', 'wyniki', 'wyników'])}`
 
@@ -133,8 +143,12 @@ export function SearchDialog({
 
   const run = (action: PaletteAction) => {
     if (action.kind === 'copy' && action.value) {
+      if (!navigator.clipboard) {
+        setStatus('Nie udało się skopiować — zaznacz numer ręcznie.')
+        return
+      }
       void navigator.clipboard
-        ?.writeText(action.value)
+        .writeText(action.value)
         .then(() => setStatus(`Skopiowano numer ${action.value}`))
         .catch(() => setStatus('Nie udało się skopiować — zaznacz numer ręcznie.'))
       return
@@ -155,6 +169,19 @@ export function SearchDialog({
       </>
     )
     const className = compact ? 'sdlg__chip' : 'sdlg__result'
+    if (action.href && isInternal(action.href)) {
+      return (
+        <Link
+          key={action.kind}
+          href={action.href}
+          className={className}
+          data-result
+          aria-label={compact ? action.label : undefined}
+        >
+          {content}
+        </Link>
+      )
+    }
     return action.href ? (
       <a
         key={action.kind}
@@ -188,7 +215,7 @@ export function SearchDialog({
       <ul>
         {group.results.map((result) => (
           <li key={result.id}>
-            <a href={result.href} className="sdlg__result" data-result>
+            <Link href={result.href} className="sdlg__result" data-result>
               <span className="sdlg__icon">
                 <Icon name={railIcon(result.icon)} strokeWidth={2} className="size-4" />
               </span>
@@ -198,7 +225,7 @@ export function SearchDialog({
                   <span className="truncate text-[13px] text-ink-2">{result.hint}</span>
                 )}
               </span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -206,7 +233,7 @@ export function SearchDialog({
   )
 
   const tel = phone ? toTelHref(phone) : null
-  const ask = `${contactHref}?pytanie=${encodeURIComponent(trimmed)}`
+  const ask = contactWithPhrase(contactHref, trimmed)
 
   return (
     <dialog
@@ -315,15 +342,17 @@ export function SearchDialog({
                   <ul>
                     {recent.map((item) => (
                       <li key={item.href}>
-                        <a href={item.href} className="sdlg__result" data-result>
+                        <Link href={item.href} className="sdlg__result" data-result>
                           <span className="sdlg__icon">
                             <Icon name="clock" strokeWidth={2} className="size-4" />
                           </span>
                           <span className="flex min-w-0 flex-col">
                             <span className="truncate font-bold">{item.title}</span>
-                            <span className="text-[13px] text-ink-2">{item.kind}</span>
+                            <span className="text-[13px] text-ink-2">
+                              {item.kind} · {viewedAt.format(item.at)}
+                            </span>
                           </span>
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -350,10 +379,10 @@ export function SearchDialog({
             <div className="sdlg__none">
               <p className="font-display text-lg font-extrabold">Nie znaleźliśmy „{trimmed}”</p>
               <p className="text-ink-2">Napisz, czego szukasz — odpowiemy, czy to zrobimy.</p>
-              <div className={cx('mt-3 flex flex-wrap gap-2')}>
-                <a href={ask} className="sdlg__cta" data-result>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <Link href={ask} className="sdlg__cta" data-result>
                   Zapytaj o „{trimmed}”
-                </a>
+                </Link>
                 {phone && tel && (
                   <a href={tel} className="sdlg__chip" data-result>
                     <Icon name="phone" strokeWidth={2} className="size-4" />
@@ -364,6 +393,12 @@ export function SearchDialog({
             </div>
           )}
         </div>
+        {/* Enter follows the focused result (Up/Down from the field), as in the Biznes search. */}
+        <p className="sdlg__keys" aria-hidden="true">
+          <span>↑↓ wybór</span>
+          <span>Enter otwórz</span>
+          <span>Esc zamknij</span>
+        </p>
       </div>
     </dialog>
   )

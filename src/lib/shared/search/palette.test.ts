@@ -47,6 +47,12 @@ describe('matchActions', () => {
 
   it('stays out of the way of ordinary queries and of an empty field', () => {
     expect(matchActions(full, 'kasa fiskalna')).toEqual([])
+    // Whole words only (D2-2b review): no phone for TV, no route for „do”, no mail for „na”.
+    expect(matchActions(full, 'telewizja')).toEqual([])
+    expect(matchActions(full, 'telewizor')).toEqual([])
+    expect(matchActions(full, 'alarm do domu')).toEqual([])
+    expect(matchActions(full, 'kamera na parking')).toEqual([])
+    expect(matchActions(full, 'po')).toEqual([])
     expect(matchActions(full, '')).toEqual([])
     expect(matchActions(full, 'a')).toEqual([])
   })

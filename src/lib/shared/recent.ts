@@ -57,6 +57,20 @@ export function pushRecent(
   return next
 }
 
+/**
+ * The one way pages record a visit (`RecordRecent`): nothing is written unless
+ * `CompanyData.recentlyViewed` is on — the lines never check the flag themselves (D2-2b review).
+ */
+export function recordRecent(
+  enabled: boolean,
+  line: string,
+  item: Omit<RecentItem, 'at'>,
+  now: number = Date.now(),
+  store: Store | null = safeStorage(),
+): RecentItem[] | null {
+  return enabled ? pushRecent(line, { ...item, at: now }, store) : null
+}
+
 export function clearRecent(line: string, store: Store | null = safeStorage()): void {
   try {
     store?.removeItem(recentKey(line))

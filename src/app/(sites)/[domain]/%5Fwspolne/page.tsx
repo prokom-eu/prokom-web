@@ -6,6 +6,7 @@ import { BrandBar } from '@/components/shared/BrandBar'
 import { CAPSULE } from '@/components/shared/capsule'
 import { MenuButton } from '@/components/shared/MenuButton'
 import { MenuSheet } from '@/components/shared/MenuSheet'
+import { RecordRecent } from '@/components/shared/RecordRecent'
 import { SiteFooter } from '@/components/shared/SiteFooter'
 import { SiteHeader } from '@/components/shared/SiteHeader'
 import { SiteRail } from '@/components/shared/SiteRail'
@@ -269,6 +270,12 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
         }
       />
 
+      {/* Records this page only when the panel flag is on (seed: off — e2e checks nothing is kept). */}
+      <RecordRecent
+        enabled={company.recentlyViewed}
+        line={tenant.line}
+        item={{ title: 'Elementy wspólne — podgląd', href: '/_wspolne', kind: 'Strona' }}
+      />
       {tenant.line !== 'biznes' && (
         // Biznes keeps its own search (K4b), which already answers `requestSearch()` there.
         <DemoSearch

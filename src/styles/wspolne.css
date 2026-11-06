@@ -951,6 +951,10 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
     border: 0;
     border-radius: 0;
   }
+  /* Full height for the inner column, so the results scroll inside it (D2-2b review). */
+  .sdlg > div {
+    height: 100%;
+  }
 }
 .sdlg__field {
   display: flex;
@@ -960,6 +964,10 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   height: 64px;
   padding: 0 14px 0 20px;
   border-bottom: 1px solid var(--border);
+}
+/* The field has no outline of its own: the line under it shows where the focus is (WCAG 2.4.7). */
+.sdlg__field:focus-within {
+  box-shadow: inset 0 -2px 0 var(--accent-text);
 }
 .sdlg__field input {
   flex: 1;
@@ -1104,4 +1112,20 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 .sdlg :is(a, button):focus-visible {
   outline: 2px solid var(--accent-text);
   outline-offset: 2px;
+}
+.sdlg__keys {
+  display: flex;
+  flex: none;
+  gap: 16px;
+  margin: 0;
+  padding: 10px 20px;
+  border-top: 1px solid var(--border);
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 700;
+}
+@media (max-width: 767px) {
+  .sdlg__keys {
+    display: none;
+  }
 }

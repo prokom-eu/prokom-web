@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
-import { clearRecent, pushRecent, readRecent, RECENT_LIMIT, recentKey } from './recent'
+import {
+  clearRecent,
+  pushRecent,
+  readRecent,
+  RECENT_LIMIT,
+  recentKey,
+  recordRecent,
+} from './recent'
 
 /** A `localStorage` stand-in. */
 function memory() {
@@ -54,5 +61,23 @@ describe('recently viewed (spec §5.1 dodatek 6)', () => {
     expect(readRecent('software', blocked)).toEqual([])
     expect(() => pushRecent('software', page(1), blocked)).not.toThrow()
     expect(() => clearRecent('software', blocked)).not.toThrow()
+  })
+})
+
+describe('recordRecent — behind the CompanyData.recentlyViewed flag', () => {
+  it('writes nothing while the flag is off', () => {
+    const store = memory()
+    expect(
+      recordRecent(false, 'software', { title: 'A', href: '/a', kind: 'Strona' }, 1, store),
+    ).toBeNull()
+    expect(store.data.size).toBe(0)
+  })
+
+  it('records the visit with its time once the flag is on', () => {
+    const store = memory()
+    recordRecent(true, 'software', { title: 'A', href: '/a', kind: 'Strona' }, 42, store)
+    expect(readRecent('software', store)).toEqual([
+      { title: 'A', href: '/a', kind: 'Strona', at: 42 },
+    ])
   })
 })

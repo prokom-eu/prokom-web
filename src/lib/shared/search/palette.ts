@@ -122,16 +122,18 @@ export function paletteActions(input: PaletteInput): PaletteAction[] {
 }
 
 /**
- * Actions for a query: one whose key word starts with a token of the query (or the query starts
- * with a key word — „jak dojechac do was”), in the palette order. Nothing for an empty query.
+ * Actions for a query: the query is a key word or begins with one as a whole word („jak dojechac
+ * do was”), or a token of 3+ letters begins a key word („dzwon” → „dzwon”, „zapyt” → „zapytanie”).
+ * Whole words only, so „telewizja”, „alarm do domu” or „kamera na parking” bring no actions.
  */
 export function matchActions(actions: readonly PaletteAction[], query: string): PaletteAction[] {
   const q = normalizeText(query)
   if (!q) return []
-  const tokens = q.split(/[^a-z0-9]+/).filter((token) => token.length >= 2)
+  const tokens = q.split(/[^a-z0-9]+/).filter((token) => token.length >= 3)
   return actions.filter((action) =>
     action.words.some(
-      (word) => q.startsWith(word) || tokens.some((token) => word.startsWith(token)),
+      (word) =>
+        q === word || q.startsWith(`${word} `) || tokens.some((token) => word.startsWith(token)),
     ),
   )
 }

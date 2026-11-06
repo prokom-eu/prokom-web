@@ -31,7 +31,8 @@ test.describe('/_wspolne — search window (1440 px)', () => {
     const button = page
       .locator('[data-wspolne] [data-site-rail]')
       .getByRole('button', { name: /Szukaj/ })
-    await button.click()
+    // The folded rail shows its first 64 px: the button is pressed there, as a visitor would.
+    await button.click({ position: { x: 24, y: 24 } })
     await expect(dialog(page)).toBeVisible()
     await page.keyboard.press('Escape')
     await expect(button).toBeFocused()
@@ -75,7 +76,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
     await expect(dialog(page).getByText('Nie znaleźliśmy „zxqvbn”')).toBeVisible()
     await expect(dialog(page).getByRole('link', { name: 'Zapytaj o „zxqvbn”' })).toHaveAttribute(
       'href',
-      '/kontakt?pytanie=zxqvbn',
+      '/kontakt?fraza=zxqvbn',
     )
   })
 
@@ -89,13 +90,50 @@ test.describe('/_wspolne — search window (1440 px)', () => {
   })
 
   for (const theme of ['light', 'dark'] as const) {
-    test(`axe with the window open (${theme})`, async ({ page }) => {
+    test(`axe with the window open, Instalacje (${theme})`, async ({ page }) => {
       await setTheme(page, theme)
-      await page.goto(site('software.localhost', '/_wspolne'))
+      await page.goto(site('instalacje.localhost', '/_wspolne'))
       await page.keyboard.press('Control+k')
-      await field(page).fill('oferta')
+      await field(page).fill('zaplanuj')
       const results = await new AxeBuilder({ page }).include('[data-search-dialog]').analyze()
       expect(results.violations).toEqual([])
     })
   }
+})
+
+test.describe('/_wspolne — search window on a phone and the recently viewed flag', () => {
+  test('on a low phone screen the last result scrolls into view inside the window', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 480 })
+    await page.goto(site('software.localhost', '/_wspolne'))
+    await page.keyboard.press('Control+k')
+    const last = dialog(page).locator('[data-result]').last()
+    await last.scrollIntoViewIfNeeded()
+    await expect(last).toBeInViewport()
+  })
+
+  test('axe with the window open at 390 px (Software)', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(site('software.localhost', '/_wspolne'))
+    await page.keyboard.press('Control+k')
+    const results = await new AxeBuilder({ page }).include('[data-search-dialog]').analyze()
+    expect(results.violations).toEqual([])
+  })
+
+  test('with the panel flag off: no „Ostatnio oglądane” and nothing new kept', async ({ page }) => {
+    // Seed: CompanyData.recentlyViewed is off until the lawyer's opinion (spec §5.1 dodatek 6).
+    const kept = [{ title: 'Cennik', href: '/cennik', kind: 'Strona', at: 1 }]
+    await page.addInitScript(
+      (value) => localStorage.setItem('pk-recent-software', value),
+      JSON.stringify(kept),
+    )
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site('software.localhost', '/_wspolne'))
+    await page.keyboard.press('Control+k')
+    await expect(dialog(page)).toBeVisible()
+    await expect(dialog(page).getByRole('heading', { name: 'Ostatnio oglądane' })).toHaveCount(0)
+    const stored = await page.evaluate(() => localStorage.getItem('pk-recent-software'))
+    expect(JSON.parse(stored ?? '[]')).toEqual(kept)
+  })
 })
