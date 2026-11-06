@@ -277,8 +277,9 @@
     }
   }
 
-  /* The rail glided to a section (`lib/software/smoothScroll`): its heading arrives. */
-  :is([data-line='software'], [data-line='biznes']) [data-arrive] h2 {
+  /* The rail glided to a section (`lib/shared/smoothScroll`): its heading arrives. Software
+     has the v24 arrival (§6 below). */
+  [data-line='biznes'] [data-arrive] h2 {
     animation: sw-arrive 1.3s var(--ease-out);
   }
 
@@ -582,11 +583,12 @@
   [data-line='software'] [data-tab-bar] {
     view-transition-name: sw-tab-bar;
   }
+  /* v24 (ZMIANY §5.1): the old page leaves upwards into a blur, the new one rises in. */
   html[data-line='software']::view-transition-old(.sw-page-out) {
-    animation: sw-vt-out 0.22s var(--ease-out) both;
+    animation: sw-vt-out var(--dur-page-out) var(--ease-exit) both;
   }
   html[data-line='software']::view-transition-new(.sw-page-in) {
-    animation: sw-vt-in 0.32s var(--ease-out) both;
+    animation: sw-vt-in var(--dur-page-in) var(--ease-expo-out) both;
   }
 
   /* Theme switch (`revealTheme`): the new theme opens in a circle from the button. Header and
@@ -728,14 +730,16 @@
 @keyframes sw-vt-out {
   to {
     opacity: 0;
-    translate: 0 -6px;
+    translate: 0 -14px;
+    filter: blur(6px);
   }
 }
 
 @keyframes sw-vt-in {
   from {
     opacity: 0;
-    translate: 0 10px;
+    translate: 0 22px;
+    filter: blur(8px);
   }
 }
 
@@ -782,5 +786,155 @@
   100% {
     opacity: 0;
     scale: 1.6;
+  }
+}
+
+/* --- 6. Software v24 „Aurora” (ZMIANY-v24 §5, pattern `v24/wzorzec/aurora.css` „v5: ruch premium”) */
+/* The entry and the `em` sweep animate `translate`, `scale`, `opacity` and `background-position`,
+   never `transform` — that stays for hover and press, so nothing fights. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Rising in on scroll, no JavaScript: `data-rise` on one element, `data-rise-group` on a row
+       of cards (each next card a little later). Unsupported browsers simply show everything. */
+    [data-line='software'] :is([data-rise], [data-rise-group] > *) {
+      animation: sw-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 2% entry 60%;
+    }
+    [data-line='software'] [data-rise-group] > :nth-child(2) {
+      animation-range: entry 6% entry 66%;
+    }
+    [data-line='software'] [data-rise-group] > :nth-child(3) {
+      animation-range: entry 10% entry 72%;
+    }
+    [data-line='software'] [data-rise-group] > :nth-child(4) {
+      animation-range: entry 14% entry 78%;
+    }
+    [data-line='software'] [data-rise-group] > :nth-child(n + 5) {
+      animation-range: entry 18% entry 84%;
+    }
+
+    /* The highlighted word of a heading: its gradient moves along while the page scrolls. */
+    [data-line='software'] .sw-em {
+      animation: sw-em linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 40%;
+    }
+  }
+
+  /* Arrival after a glide (`data-arrive`, set by the rail for 1.4 s = `--dur-beam`): eyebrow and
+     heading come out of a blur, a violet beam crosses the top of the section (the section is
+     `relative` for good, see the layer below — nothing moves while the beam runs). */
+  [data-line='software'] [data-arrive] :is(h1, h2, .sw-eyebrow) {
+    animation: sw-aurora-arrive var(--dur-arrive) var(--ease-out) both;
+  }
+  [data-line='software'] [data-arrive] h2 {
+    animation-delay: 60ms;
+  }
+  [data-line='software'] [data-arrive]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 3;
+    width: min(1100px, 92%);
+    height: 2px;
+    translate: -50% 0;
+    background: linear-gradient(90deg, transparent, var(--beam), transparent);
+    box-shadow: 0 0 24px 2px var(--beam-glow);
+    pointer-events: none;
+    animation: sw-beam var(--dur-beam) var(--ease-out) both;
+  }
+
+  /* Buttons: a streak of light runs across on hover (the press is in §1); the button frame is in
+     the layer below. */
+  [data-line='software'] :is([data-motion='button'], [data-motion='button-outline'])::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(110deg, transparent 30%, var(--sheen) 50%, transparent 70%);
+    translate: -120% 0;
+    transition: translate var(--dur-sheen) var(--ease-out);
+    pointer-events: none;
+  }
+  [data-line='software'] [data-motion='button-outline']::after {
+    background: linear-gradient(110deg, transparent 30%, var(--sheen-ghost) 50%, transparent 70%);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-line='software']
+    :is([data-motion='button'], [data-motion='button-outline']):not(:disabled):hover::after {
+    translate: 120% 0;
+  }
+  /* Cards: besides the lift of §2, the accent edge. */
+  [data-line='software'] [data-card]:hover {
+    border-color: var(--accent-line);
+  }
+}
+
+@keyframes sw-rise {
+  from {
+    opacity: 0;
+    translate: 0 38px;
+    scale: 0.98;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@keyframes sw-em {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@keyframes sw-aurora-arrive {
+  0% {
+    opacity: 0.15;
+    translate: 0 22px;
+    filter: blur(8px);
+  }
+  60% {
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    translate: 0 0;
+    filter: none;
+  }
+}
+
+@keyframes sw-beam {
+  0% {
+    opacity: 0;
+    scale: 0.2 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 1 1;
+  }
+}
+
+/* Frames of the v24 effects, in the `base` layer so a component's own position or overflow
+   classes still win: rail targets carry the arrival beam, buttons clip their light streak. */
+@layer base {
+  [data-line='software'] :where(section[id], [data-arrive]) {
+    position: relative;
+  }
+  [data-line='software'] :where([data-motion='button'], [data-motion='button-outline']) {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
   }
 }

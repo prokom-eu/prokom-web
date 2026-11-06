@@ -27,23 +27,25 @@ export function isTheme(value: unknown): value is Theme {
 export const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("${THEME_STORAGE_KEY}");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`
 
 /**
- * Lines that start light whatever the system says (D-K4-5, ADR-017: Biznes K4 — the dark theme
- * only after the visitor picks it). The others follow `prefers-color-scheme` until a choice.
+ * Theme a line starts with whatever the system says, until the visitor picks one: Biznes light
+ * (D-K4-5, ADR-017 K4), Software dark (ADR-015 „Rozstrzygnięcia v24” pkt 1). The other lines
+ * follow `prefers-color-scheme`.
  */
-const LIGHT_BY_DEFAULT: readonly Line[] = ['biznes']
+const DEFAULT_THEME: Partial<Record<Line, Theme>> = { biznes: 'light', software: 'dark' }
 
-/** The line starts light without a choice (D-K4-5); `line`: the `data-line` of `<html>`. */
-export function startsLight(line: string | null | undefined): boolean {
-  return (LIGHT_BY_DEFAULT as readonly string[]).includes(line ?? '')
+/** Theme of the line without a choice, or `null` when the system decides; `line`: `data-line`. */
+export function defaultTheme(line: string | null | undefined): Theme | null {
+  return Object.hasOwn(DEFAULT_THEME, line ?? '') ? (DEFAULT_THEME[line as Line] ?? null) : null
 }
 
-/** The line follows the system theme until the visitor chooses (not Biznes, D-K4-5). */
+/** The line follows the system theme until the visitor chooses (not Biznes nor Software). */
 export function followsSystemTheme(line: Line): boolean {
-  return hasDarkTheme(line) && !LIGHT_BY_DEFAULT.includes(line)
+  return hasDarkTheme(line) && defaultTheme(line) === null
 }
 
-/** The `<head>` script of a line: `THEME_SCRIPT`, or one that falls back to light (Biznes). */
+/** The `<head>` script of a line: `THEME_SCRIPT`, or one that falls back to the line's default. */
 export function themeScript(line: Line): string {
-  if (!LIGHT_BY_DEFAULT.includes(line)) return THEME_SCRIPT
-  return `(function(){var t="light";try{var s=localStorage.getItem("${THEME_STORAGE_KEY}");if(s==="light"||s==="dark")t=s}catch(e){}document.documentElement.setAttribute("data-theme",t)})()`
+  const fallback = defaultTheme(line)
+  if (!fallback) return THEME_SCRIPT
+  return `(function(){var t="${fallback}";try{var s=localStorage.getItem("${THEME_STORAGE_KEY}");if(s==="light"||s==="dark")t=s}catch(e){}document.documentElement.setAttribute("data-theme",t)})()`
 }

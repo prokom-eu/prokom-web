@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { contrastRatio, relativeLuminance } from './contrast'
+import {
+  colorStops,
+  composite,
+  contrastRatio,
+  hueAndSaturation,
+  relativeLuminance,
+} from './contrast'
 
 describe('relativeLuminance', () => {
   it('is 0 for black and 1 for white', () => {
@@ -34,5 +40,38 @@ describe('contrastRatio', () => {
     expect(contrastRatio('#244FB0', '#FFFFFF')).toBeCloseTo(7.45, 2)
     expect(contrastRatio('#0093B3', '#FFFFFF')).toBeCloseTo(3.61, 2)
     expect(contrastRatio('#DD8600', '#F4F5F1')).toBeCloseTo(2.56, 2)
+  })
+})
+
+describe('composite', () => {
+  it('lays a translucent colour over an opaque background', () => {
+    expect(composite('rgba(255, 255, 255, 0.5)', '#000000')).toBe('#808080')
+    expect(composite('rgba(255,255,255,.06)', '#0b0d0c')).toBe('#1a1c1b')
+  })
+
+  it('returns an opaque colour as it is', () => {
+    expect(composite('#9670ee', '#000000')).toBe('#9670ee')
+    expect(composite('rgba(150, 112, 238, 1)', '#000000')).toBe('#9670ee')
+  })
+
+  it('rejects what it cannot read', () => {
+    expect(() => composite('var(--glass)', '#000000')).toThrow()
+  })
+})
+
+describe('colorStops', () => {
+  it('finds every colour in a gradient', () => {
+    expect(
+      colorStops('linear-gradient(180deg, rgba(255, 255, 255, 0.95), #7b52e0 45%, #a07ef2)'),
+    ).toEqual(['rgba(255, 255, 255, 0.95)', '#7b52e0', '#a07ef2'])
+  })
+})
+
+describe('hueAndSaturation', () => {
+  it('gives the HSL hue and saturation in degrees and percent', () => {
+    const violet = hueAndSaturation('#9670ee')
+    expect(Math.round(violet.hue)).toBe(258)
+    expect(Math.round(violet.saturation)).toBe(79)
+    expect(hueAndSaturation('rgba(255, 255, 255, 0.35)').saturation).toBe(0)
   })
 })

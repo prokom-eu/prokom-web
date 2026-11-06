@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { setTheme, site } from './helpers'
 
 // SW4a: frame of the Software line — top bar, header with „Oferta ▾” and „Twój projekt”,
 // footer (spec. §3.0–3.4). Data from `pnpm seed` (`seed/prokomsoftware/nawigacja.json`).
@@ -253,7 +253,7 @@ test.describe('Software footer', () => {
 test.describe('Software frame accessibility', () => {
   for (const colorScheme of ['light', 'dark'] as const) {
     test(`no axe violations with the open panels (${colorScheme})`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme })
+      await setTheme(page, colorScheme)
       await page.goto(site(HOST, SUBPAGE))
       await setProject(page, TWO)
       await page.reload()
