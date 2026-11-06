@@ -16,8 +16,6 @@ const previewTabs = (page: Page) =>
 const previewPanel = (page: Page) => page.locator('#podglady [role=tabpanel]:not([inert])')
 const stageTabs = (page: Page) => page.getByRole('tablist', { name: 'Etapy' }).getByRole('tab')
 const stagePanel = (page: Page) => page.locator('#proces [role=tabpanel]:not([inert])')
-const modules = (page: Page) =>
-  page.getByRole('group', { name: 'Moduły Twojego systemu' }).getByRole('button')
 
 test.describe('Software start page', () => {
   test('sections in the order of the blocks, hero with the H1', async ({ page }) => {
@@ -43,44 +41,8 @@ test.describe('Software start page', () => {
       'faq',
       'kontakt',
     ])
-    await expect(
-      page.locator('#start').getByRole('link', { name: /Dobierz rozwiązanie/ }),
-    ).toHaveAttribute('href', '/#dobierz')
-    await expect(page.locator('#start')).toContainText('Odpowiadamy w ciągu 1 dnia roboczego')
-    await expect(page.locator('#start')).toContainText('Zakres · ')
-  })
-
-  test('four intent tiles lead to the catalog and the wizard', async ({ page }) => {
-    await page.goto(site(HOST))
-    const tiles = page.locator('#start ul').last().getByRole('link')
-    await expect(tiles).toHaveCount(4)
-    await expect(tiles.nth(0)).toHaveAttribute('href', '/rozwiazania?kategoria=strony')
-    await expect(tiles.nth(1)).toHaveAttribute('href', '/dobierz?potrzeba=prog')
-  })
-
-  test('„Twój system”: modules switch, „Chcę taki system” adds one project item', async ({
-    page,
-  }) => {
-    // No self-assembling with reduced motion: the default three modules stay.
-    await page.emulateMedia({ reducedMotion: 'reduce' })
-    await page.goto(site(HOST))
-    await expect(modules(page)).toHaveCount(7)
-    await expect(modules(page).and(page.locator('[aria-pressed="true"]'))).toHaveCount(3)
-
-    await modules(page).filter({ hasText: 'Asystent AI' }).click()
-    await expect(modules(page).filter({ hasText: 'Asystent AI' })).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    )
-    await expect(page.locator('#start')).toContainText('4moduływłasny system firmy')
-
-    await page.getByRole('button', { name: 'Chcę taki system' }).click()
-    await expect(page.getByRole('button', { name: '✓ W Twoim projekcie' })).toBeVisible()
-    const stored = await page.evaluate(() => localStorage.getItem('pk-project'))
-    expect(JSON.parse(stored ?? '[]')).toContainEqual({
-      id: 'build-www-zlec-app-ai',
-      name: 'system z 4 modułów',
-    })
+    // Hero v24 (SWA2a): details in software-hero.e2e.spec.ts.
+    await expect(page.locator('#start h1')).toContainText('Zrobimy Ci')
   })
 
   test('areas: tabs with arrows, a price, switching itself until picked', async ({ page }) => {
@@ -492,15 +454,11 @@ test.describe('Software start page — contact form', () => {
 
 test.describe('Software start page on a phone', () => {
   for (const width of [390, 360]) {
-    test(`fits ${width} px: no sideways scroll, intents as a list with texts`, async ({ page }) => {
+    test(`fits ${width} px: no sideways scroll, sections as on a phone`, async ({ page }) => {
       await page.setViewportSize({ width, height: 844 })
       await page.goto(site(HOST))
       const scroll = await page.evaluate(() => document.scrollingElement?.scrollWidth)
       expect(scroll).toBe(width)
-      const intent = page.locator('#start ul').last().getByRole('link').first()
-      // v23: one list, every row with its two-line text and ≥ 72 px.
-      await expect(intent.locator('span').last()).toBeVisible()
-      expect((await intent.boundingBox())?.height ?? 0).toBeGreaterThanOrEqual(72)
       // Touch targets of the sections ≥ 44 px.
       for (const target of [
         areaTabs(page).first(),
@@ -536,16 +494,13 @@ test.describe('Software start page on a phone', () => {
       expect(ours?.y ?? 0).toBeGreaterThan(theirs?.y ?? 0)
       const header = await why.getByRole('row').first().boundingBox()
       expect(header?.height ?? 0).toBeLessThanOrEqual(1)
-      // Hero v23 (MOBILE-APLIKACJA §3a): no „Twój system” at all, „Zadzwoń” next to the
-      // previews, the panel card with 3 notifications, trust in 3 columns on one row.
+      // Hero v24 on a phone (ZMIANY-v24 §10): one 340 px window, the tiles in a row, the caption
+      // button across the width.
       const hero = page.locator('#start')
-      await expect(modules(page).first()).toBeHidden()
-      await expect(hero.getByRole('link', { name: 'Zadzwoń' })).toHaveAttribute('href', /^tel:\+48/)
-      await expect(hero.getByText('Twoja Firma · panel')).toBeVisible()
-      await expect(hero.getByText('Faktura wysłana sama')).toBeVisible()
-      const trust = hero.locator('ul').nth(1).getByRole('listitem')
-      const [t1, t3] = await Promise.all([trust.nth(0).boundingBox(), trust.nth(2).boundingBox()])
-      expect(Math.round(t3?.y ?? 0)).toBe(Math.round(t1?.y ?? 0))
+      const active = await hero.locator('.hx-win[data-rank="r0"]').boundingBox()
+      expect(Math.round(active?.width ?? 0)).toBe(340)
+      const capButton = await hero.locator('.hx-cap a').boundingBox()
+      expect(capButton?.width ?? 0).toBeGreaterThan(width - 80)
       // „Jak robimy”: a carousel of cards; „Z czego budujemy”: the 6 layers in a 2×3 grid.
       const how = await page.locator('#jak-robimy li').first().boundingBox()
       expect(how?.width ?? 0).toBeLessThan(width * 0.9)

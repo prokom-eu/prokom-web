@@ -16,7 +16,7 @@ const animations = (page: Page) =>
   )
 
 /** Our animations: sections, the phone panel card, the map pin, page transitions. */
-const OURS = /^(sw-|panel-in|map-pulse)/
+const OURS = /^(sw-|hx-|mk-|panel-in|map-pulse)/
 
 const scrollBehavior = (page: Page) =>
   page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)
@@ -71,10 +71,18 @@ test.describe('Software motion with reduced motion', () => {
     expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])
   })
 
-  test('the phone hero card shows its notifications at once', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 })
+  test('the hero stands on its first slide, tiles still switch by hand', async ({ page }) => {
+    await page.clock.install()
     await page.goto(site(HOST))
-    await expect(page.locator('#start').getByText('Faktura wysłana sama')).toBeVisible()
+    const word = page.locator('#start .hx-word')
+    await expect(word).toHaveText('stronę wizytówkę.')
+    await page.clock.fastForward(9000)
+    await expect(word).toHaveText('stronę wizytówkę.')
+    await page
+      .locator('#start')
+      .getByRole('tab', { name: /Restauracja/ })
+      .click()
+    await expect(word).toHaveText('stronę restauracji.')
     expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])
   })
 
