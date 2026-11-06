@@ -301,6 +301,16 @@ const SOFTWARE_LIGHT_TOKENS = [
   '--sheen-ghost',
   '--beam',
   '--beam-glow',
+  '--hv',
+  '--hv-deep',
+  '--hv-lav',
+  '--hv-pale',
+  '--hv-dot',
+  '--hv-edge',
+  '--hero-tile-from',
+  '--hero-tile-to',
+  '--hero-word-from',
+  '--hero-word-to',
 ]
 
 describe.each(['light', 'dark'] as const)('Software v24 light and glass, %s theme', (mode) => {
