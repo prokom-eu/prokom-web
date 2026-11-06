@@ -38,7 +38,10 @@ export async function SwHeroBlock({ block, tenantId, isFirst = true }: Props) {
   ])
   // v24 (SWA2a): with `home.hero` in the data the new hero; without it (a home saved before v24,
   // staging until the data is pasted) the v23 hero below stays.
-  if (home?.hero) return <HeroV24 hero={home.hero} index={await getSolutionsIndex(tenantId)} />
+  if (home?.hero) {
+    const index = await getSolutionsIndex(tenantId)
+    return <HeroV24 hero={home.hero} index={index} isFirst={isFirst} />
+  }
   const tel = settings?.phone ? toTelHref(settings.phone) : null
   const panel = home?.sections?.heroPanel
   const context: TextContext = {

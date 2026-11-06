@@ -1078,6 +1078,23 @@
   --dur-sheen: 700ms;
   /* Hero carousel: one slide (= SLIDE_MS in lib/software/heroStage.ts). */
   --hx-slide: 4200ms;
+  /* The rest of the hero (pattern `aurora.css`): window flight and fade, the word, the cursor,
+     the band, the cosmic layer — stars, aurora ribbons, orbits, beam. */
+  --dur-hx-move: 1100ms;
+  --dur-hx-fade: 800ms;
+  --dur-hx-word: 600ms;
+  --dur-hx-blink: 1s;
+  --dur-hx-band: 50s;
+  --dur-hx-twinkle: 6s;
+  --dur-hx-twinkle-2: 8s;
+  --dur-hx-drift: 120s;
+  --dur-hx-drift-2: 80s;
+  --dur-hx-ribbon: 16s;
+  --dur-hx-ribbon-2: 19s;
+  --dur-hx-ribbon-3: 23s;
+  --dur-hx-orbit: 40s;
+  --dur-hx-orbit-2: 70s;
+  --dur-hx-beam: 6s;
   /* Mock-ups (ZMIANY-v24 §8): bars grow, a log line slides in, a dot runs on the wire, the
      slider sweeps, the toast comes back, stars twinkle, a picture drifts; steps between items. */
   --dur-mk-bar: 900ms;

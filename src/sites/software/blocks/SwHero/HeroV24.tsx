@@ -5,7 +5,7 @@ import { Mockup } from '@/sites/software/components/mockups/Mockup'
 
 import { HeroStage, type StageSlide } from './HeroStage'
 
-type Props = { hero: SoftwareHeroV24; index: SolutionsIndex }
+type Props = { hero: SoftwareHeroV24; index: SolutionsIndex; isFirst?: boolean }
 
 /** „od 2 490 zł” and the term of the slide's solution; a solution off the index asks for a quote. */
 function priceOf(slug: string, index: SolutionsIndex): Pick<StageSlide, 'price' | 'term'> {
@@ -22,7 +22,7 @@ function priceOf(slug: string, index: SolutionsIndex): Pick<StageSlide, 'price' 
  * the carousel and the caption in `HeroStage`. All mock-ups are rendered at once here (no loading
  * on a slide change) and handed to the client as children — it does not ship their code.
  */
-export function HeroV24({ hero, index }: Props) {
+export function HeroV24({ hero, index, isFirst = true }: Props) {
   const slides: StageSlide[] = hero.slides.map((slide) => ({
     word: slide.word,
     name: slide.name,
@@ -69,6 +69,7 @@ export function HeroV24({ hero, index }: Props) {
         offer={hero.offer}
         slides={slides}
         windows={windows}
+        isFirst={isFirst}
       />
       <ul className="hx-trust">
         {hero.trust.map((item) => (

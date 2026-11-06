@@ -62,6 +62,17 @@ test.describe('Software hero v24', () => {
     await expect(word(page)).toHaveText('stronę firmową.')
   })
 
+  test('after a click the clock comes back 12 s later', async ({ page }) => {
+    await page.clock.install()
+    await page.goto(site(HOST))
+    await tabs(page).nth(2).click()
+    await expect(word(page)).toHaveText('rozbudowaną stronę.')
+    // Leave the hero: only pointing and keyboard focus keep it still.
+    await page.mouse.move(700, 30)
+    await page.clock.fastForward(12000 + 4300)
+    await expect(word(page)).toHaveText('stronę hotelu.')
+  })
+
   test('the side windows are in 3D, the rest hidden; nothing is cut in the active one', async ({
     page,
   }) => {

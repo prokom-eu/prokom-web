@@ -1,8 +1,10 @@
 'use client'
 
+import Link from 'next/link'
 import {
   useCallback,
   useEffect,
+  useId,
   useRef,
   useState,
   type KeyboardEvent,
@@ -32,6 +34,8 @@ type Props = {
   slides: StageSlide[]
   /** The mock-ups, rendered on the server; one per slide, in the same order. */
   windows: ReactNode[]
+  /** `h1` when the hero opens the page (it always does on the start page), else `h2`. */
+  isFirst?: boolean
 }
 
 const SWIPE_PX = 40
@@ -42,8 +46,19 @@ const SWIPE_PX = 40
  * swipe takes over and the clock comes back 12 s later. Stopped while the visitor points at or
  * focuses the hero, off screen, on a hidden tab and with reduced motion (slides by hand only).
  */
-export function HeroStage({ title, lead, query, queryHint, offer, slides, windows }: Props) {
+export function HeroStage({
+  title,
+  lead,
+  query,
+  queryHint,
+  offer,
+  slides,
+  windows,
+  isFirst = true,
+}: Props) {
   const count = slides.length
+  const ids = useId()
+  const Title = isFirst ? 'h1' : 'h2'
   const [current, setCurrent] = useState(0)
   const [held, setHeld] = useState(false)
   const [paused, setPaused] = useState(false)
@@ -90,7 +105,9 @@ export function HeroStage({ title, lead, query, queryHint, offer, slides, window
     const hero = root.current?.closest<HTMLElement>('.hx')
     if (!hero) return
     hero.toggleAttribute('data-paused', paused)
-    hero.toggleAttribute('data-hold', held || still)
+    // While the clock rests the progress bar of the tile stands full; it starts again from zero
+    // together with the clock (a paused CSS bar would run ahead of the restarted clock).
+    hero.toggleAttribute('data-hold', held || still || paused)
   }, [paused, held, still])
 
   useEffect(() => {
@@ -152,7 +169,10 @@ export function HeroStage({ title, lead, query, queryHint, offer, slides, window
         pointer.current = false
         syncPause()
       }}
-      onFocus={() => {
+      onFocus={(event) => {
+        // Only keyboard focus pauses: a click also focuses the tile, and the clock must come back
+        // 12 s after it (ZMIANY-v24 §4.1).
+        if (!(event.target as Element).matches(':focus-visible')) return
         focus.current = true
         syncPause()
       }}
@@ -163,12 +183,12 @@ export function HeroStage({ title, lead, query, queryHint, offer, slides, window
       }}
     >
       <div className="hx-wrap">
-        <h1 className="hx-h1">
-          {title}
+        <Title className="hx-h1">
+          {title}{' '}
           <span className="hx-word">
             <span key={current}>{slide.word}</span>
           </span>
-        </h1>
+        </Title>
         <p className="hx-lead">{lead}</p>
         <div className="hx-cmd">
           <div className="hx-q">
@@ -201,15 +221,15 @@ export function HeroStage({ title, lead, query, queryHint, offer, slides, window
               const selected = index === current
               return (
                 <button
-                  key={item.name}
+                  key={`${index}-${item.name}`}
                   ref={(element) => {
                     tabs.current[index] = element
                   }}
                   type="button"
                   role="tab"
-                  id={`hx-tab-${index}`}
+                  id={`${ids}-tab-${index}`}
                   aria-selected={selected}
-                  aria-controls="hx-stage"
+                  aria-controls={`${ids}-stage`}
                   tabIndex={selected ? 0 : -1}
                   className="hx-tile"
                   onClick={() => choose(index)}
@@ -238,41 +258,41 @@ export function HeroStage({ title, lead, query, queryHint, offer, slides, window
         </div>
       </div>
 
-      <div
-        id="hx-stage"
-        role="tabpanel"
-        aria-labelledby={`hx-tab-${current}`}
-        className="hx-flow"
-        onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
-        onPointerCancel={() => {
-          swipe.current = null
-        }}
-      >
-        {windows.map((mockup, index) => (
-          <div
-            key={slides[index]?.name ?? index}
-            className="hx-win"
-            data-rank={rankOf(index, current, count)}
-          >
-            {mockup}
-          </div>
-        ))}
-      </div>
+      <div id={`${ids}-stage`} role="tabpanel" aria-labelledby={`${ids}-tab-${current}`}>
+        <div
+          className="hx-flow"
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerCancel={() => {
+            swipe.current = null
+          }}
+        >
+          {windows.map((mockup, index) => (
+            <div
+              key={`${index}-${slides[index]?.name ?? ''}`}
+              className="hx-win"
+              data-rank={rankOf(index, current, count)}
+            >
+              {mockup}
+            </div>
+          ))}
+        </div>
 
-      <div className="hx-cap" aria-live="polite">
-        <span className="ic" aria-hidden="true">
-          {String(current + 1).padStart(2, '0')}
-        </span>
-        <div>
-          <b>{slide.name}</b>
-          <span>{slide.text}</span>
+        {/* Announced only after the visitor's own choice, not on every turn of the clock. */}
+        <div className="hx-cap" aria-live={held || still ? 'polite' : 'off'}>
+          <span className="ic" aria-hidden="true">
+            {String(current + 1).padStart(2, '0')}
+          </span>
+          <div>
+            <b>{slide.name}</b>
+            <span>{slide.text}</span>
+          </div>
+          <div className="div">
+            <b>{slide.price}</b>
+            <span>{slide.term}</span>
+          </div>
+          <Link href={slide.href}>{offer}</Link>
         </div>
-        <div className="div">
-          <b>{slide.price}</b>
-          <span>{slide.term}</span>
-        </div>
-        <a href={slide.href}>{offer}</a>
       </div>
     </div>
   )

@@ -496,9 +496,6 @@
       color-mix(in srgb, var(--hero-white) 100%, transparent),
       transparent
     );
-  animation:
-    auTw 6s ease-in-out infinite,
-    auDrift 120s linear infinite;
 }
 .hx-cos .s2 {
   background-image:
@@ -802,9 +799,6 @@
       color-mix(in srgb, var(--hero-white) 50%, transparent),
       transparent
     );
-  animation:
-    auTw 8s ease-in-out -3s infinite,
-    auDrift 80s linear infinite reverse;
   opacity: 0.7;
 }
 .hx-cos .rb {
@@ -1121,10 +1115,10 @@
     0 0 0 1px var(--border),
     0 50px 120px -40px color-mix(in srgb, var(--hero-black) 60%, transparent);
   transition:
-    transform 1.1s var(--ease-out),
-    opacity 0.8s var(--ease-out),
-    filter 0.8s,
-    visibility 0.8s;
+    transform var(--dur-hx-move) var(--ease-out),
+    opacity var(--dur-hx-fade) var(--ease-out),
+    filter var(--dur-hx-fade),
+    visibility var(--dur-hx-fade);
 }
 .hx-win::before {
   content: '';
@@ -1147,7 +1141,7 @@
   mask-composite: exclude;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.8s;
+  transition: opacity var(--dur-hx-fade);
 }
 .hx-win[data-rank='r0'] {
   transform: none;
@@ -1469,41 +1463,41 @@
 @media (prefers-reduced-motion: no-preference) {
   .hx-cos .s1 {
     animation:
-      hx-twinkle 6s ease-in-out infinite,
-      hx-drift 120s linear infinite;
+      hx-twinkle var(--dur-hx-twinkle) ease-in-out infinite,
+      hx-drift var(--dur-hx-drift) linear infinite;
   }
   .hx-cos .s2 {
     animation:
-      hx-twinkle 8s ease-in-out -3s infinite,
-      hx-drift 80s linear infinite reverse;
+      hx-twinkle var(--dur-hx-twinkle-2) ease-in-out -3s infinite,
+      hx-drift var(--dur-hx-drift-2) linear infinite reverse;
   }
   .hx-cos .rb.a {
-    animation: hx-ribbon-1 16s ease-in-out infinite alternate;
+    animation: hx-ribbon-1 var(--dur-hx-ribbon) ease-in-out infinite alternate;
   }
   .hx-cos .rb.b {
-    animation: hx-ribbon-2 19s ease-in-out infinite alternate;
+    animation: hx-ribbon-2 var(--dur-hx-ribbon-2) ease-in-out infinite alternate;
   }
   .hx-cos .rb.c {
-    animation: hx-ribbon-1 23s ease-in-out -6s infinite alternate;
+    animation: hx-ribbon-1 var(--dur-hx-ribbon-3) ease-in-out -6s infinite alternate;
   }
   .hx-cos .orb {
-    animation: hx-spin 40s linear infinite;
+    animation: hx-spin var(--dur-hx-orbit) linear infinite;
   }
   .hx-cos .orb.b2 {
-    animation-duration: 70s;
+    animation-duration: var(--dur-hx-orbit-2);
     animation-direction: reverse;
   }
   .hx-cos .beam {
-    animation: hx-beam 6s ease-in-out infinite;
+    animation: hx-beam var(--dur-hx-beam) ease-in-out infinite;
   }
   .hx-typ {
-    animation: hx-blink 1s steps(1) infinite;
+    animation: hx-blink var(--dur-hx-blink) steps(1) infinite;
   }
   .hx-tile[aria-selected='true']::after {
     animation: hx-fill var(--hx-slide) linear forwards;
   }
   .hx-word > span {
-    animation: hx-word 0.6s var(--ease-out) both;
+    animation: hx-word var(--dur-hx-word) var(--ease-out) both;
   }
   .hx-win[data-rank='r0']::after {
     content: '';
@@ -1521,7 +1515,7 @@
     pointer-events: none;
   }
   .hx-mq ul {
-    animation: hx-band 50s linear infinite;
+    animation: hx-band var(--dur-hx-band) linear infinite;
   }
   .hx-mq:hover ul {
     animation-play-state: paused;
