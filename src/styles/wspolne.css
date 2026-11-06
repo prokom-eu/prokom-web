@@ -920,3 +920,188 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
     animation: none;
   }
 }
+
+/*
+ * Search window of Instalacje and Software (spec §5.1 „Wyszukiwarka”, board 07): `SearchDialog`.
+ * A modal `<dialog>` 10 vh from the top (full screen on a phone), the field, groups of results
+ * with the line's accent on the focused one, the action chips. Colours from the line tokens.
+ */
+.sdlg {
+  width: min(640px, calc(100% - 32px));
+  max-width: none;
+  max-height: min(80dvh, 720px);
+  margin: 10vh auto auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 0 30px 70px -30px var(--cap-shadow);
+}
+.sdlg::backdrop {
+  background: color-mix(in srgb, var(--surface-dark) 60%, transparent);
+}
+@media (max-width: 767px) {
+  .sdlg {
+    width: 100%;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+}
+.sdlg__field {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+  padding: 0 14px 0 20px;
+  border-bottom: 1px solid var(--border);
+}
+.sdlg__field input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 17px;
+  outline: none;
+}
+.sdlg__field input::-webkit-search-cancel-button {
+  display: none;
+}
+.sdlg__close {
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.sdlg__body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+  padding: 16px 12px 20px;
+  overflow-y: auto;
+}
+.sdlg__group ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sdlg__title {
+  margin: 0 0 6px;
+  padding: 0 8px;
+  color: var(--ink-2);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.sdlg__result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.sdlg__result:hover,
+.sdlg__result:focus-visible {
+  background: var(--accent-soft);
+  box-shadow: inset 3px 0 0 var(--accent-text);
+  outline: none;
+}
+.sdlg__icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--accent-text);
+}
+.sdlg__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 8px;
+}
+.sdlg__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 12px 0 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.sdlg__chip .sdlg__icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--card);
+}
+.sdlg__chip:hover,
+.sdlg__chip:focus-visible {
+  border-color: var(--accent-text);
+  outline: none;
+}
+.sdlg__link {
+  padding: 4px 8px;
+  border: 0;
+  background: none;
+  color: var(--accent-text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.sdlg__none {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+}
+.sdlg__cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 14px;
+  background: var(--button-bg);
+  color: var(--accent-ink);
+  font-weight: 800;
+}
+.sdlg :is(a, button):focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
