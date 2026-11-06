@@ -13,8 +13,7 @@ const TENANTS = [
     name: 'PRO-KOM Biznes',
     // `\s`: a hard space after „i” (K4-FINAL §1); a regex sees the raw text.
     h1: /^Kasy, komputery i\sprogramy dla firm\./,
-    // No one-letter word: the H1 has hard spaces after them (K4-FINAL §1). Not „programy dla
-    // firm.”: Software's H1 v23 („Strony i programy dla firm.”) has it too.
+    // No one-letter word: the H1 has hard spaces after them (K4-FINAL §1).
     markers: ['Kasy, komputery'],
   },
   {
@@ -31,12 +30,13 @@ const TENANTS = [
     name: 'PRO-KOM Software',
     // The start page's full SEO title from the seed (SW12b, `src/seed/software/seo.ts`).
     title: 'Strony i systemy dla firm — Rabka-Zdrój | PRO-KOM Software',
-    h1: 'Strony i programy dla firm. Zobaczysz, zanim zapłacisz.',
+    // Hero v24 (SWA2a): „Zrobimy Ci” + the word of the slide, which changes every 4.2 s.
+    h1: /^Zrobimy Ci /,
     // SWV2: the seed gives Software its real contact (ZMIANY-v23 §1) over the sample one.
     markers: [
       'kontakt@prokomsoftware.pl',
       'Strony, systemy i aplikacje dla firm z Podhala',
-      'Zobaczysz, zanim zapłacisz',
+      'Najpierw klikasz podgląd swojego projektu',
     ],
   },
 ]
