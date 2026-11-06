@@ -28,9 +28,8 @@ test.describe('/_wspolne — shared contact form', () => {
 
   test('empty: a list of errors on top with links, messages under the fields', async ({ page }) => {
     await page.goto(site('instalacje.localhost', '/_wspolne'))
-    await form(page)
-      .getByRole('button', { name: /Zaplanuj|Wyślij/ })
-      .click()
+    // The button text is the line's (Instalacje: „Zamów oddzwonienie”).
+    await form(page).locator('button[type="submit"]').click()
     const summary = form(page).getByRole('alert')
     await expect(summary).toContainText('Podaj imię albo nazwę firmy.')
     // Instalacje call back: a phone, always (ADR-I002 §4).

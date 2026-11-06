@@ -11,13 +11,95 @@
 
 /*
  * Thumbnails of Software solutions (spec. §5.2, ADR-015 v22 pkt 4): the SVG files carry their own
- * light background, so the dark theme dims them a little instead of a second set of files.
+ * light background, so the dark theme dims them a little instead of a second set of files. Software
+ * always carries `data-theme` (dark by default, ADR-015 v24), so no system rule is needed.
  */
 [data-theme='dark'] .thumb-dim {
   filter: brightness(0.86);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .thumb-dim {
-    filter: brightness(0.86);
+
+/*
+ * v24 „Aurora” headings (ZMIANY-v24 §2): eyebrow → H2 with its second part in `em`, the subpage
+ * H1. Archivo 900, tight letter spacing; sizes desktop → 1200 → 960 → 600. In the components
+ * layer, so a component's own utility classes still win.
+ */
+@layer components {
+  .sw-eyebrow {
+    color: var(--accent-text);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .sw-h2,
+  .sw-h1-page {
+    font-family: var(--font-display);
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  .sw-h2 {
+    font-size: 60px;
+  }
+
+  .sw-h1-page {
+    font-size: 74px;
+  }
+
+  @media (max-width: 1200px) {
+    .sw-h2 {
+      font-size: 52px;
+    }
+    .sw-h1-page {
+      font-size: 54px;
+    }
+  }
+
+  @media (max-width: 960px) {
+    .sw-h2 {
+      font-size: 44px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .sw-eyebrow {
+      font-size: 11px;
+    }
+    .sw-h2 {
+      font-size: 34px;
+    }
+    .sw-h1-page {
+      font-size: 39px;
+    }
+  }
+
+  /* The highlighted word: the violet gradient of the theme (`--em-*`), moved by scrolling in
+     motion.css. The H1 of a subpage (dark hero) uses `sw-em-hero`. */
+  .sw-em,
+  .sw-em-hero {
+    font-style: normal;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding-bottom: 0.06em;
+  }
+
+  .sw-em {
+    background-image: linear-gradient(
+      100deg,
+      var(--em-from) 0%,
+      var(--em-mid) var(--em-mid-at),
+      var(--em-to) 100%
+    );
+    background-size: 200% 100%;
+  }
+
+  .sw-em-hero {
+    background-image: linear-gradient(100deg, var(--em-hero-from), var(--em-hero-to));
   }
 }

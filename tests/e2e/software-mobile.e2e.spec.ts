@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { setTheme, site } from './helpers'
 
 // SW4b: phone layer of the Software line, up to 1080 px — compact header, bottom bar, menu
 // sheet and „Twój projekt” pill and sheet (spec. §3.2, §8.6; stany 80–82). Data from
@@ -169,23 +169,25 @@ test.describe('Software menu sheet', () => {
     await expect(page).toHaveURL(/\/rozwiazania\?q=crm$/)
   })
 
-  test('„Wygląd strony” switches the theme and remembers it', async ({ page }) => {
+  // ADR-015 v24 pkt 1: dark without a choice, whatever the system says; the choice is kept.
+  test('„Wygląd strony” starts dark, switches the theme and remembers it', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'light' })
     await page.goto(site(HOST, SUBPAGE))
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
     await bar(page).getByRole('button', { name: 'Menu' }).click()
     const group = menuSheet(page).getByRole('group', { name: 'Wygląd strony' })
-    await expect(group.getByRole('button', { name: 'Jasny' })).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    )
-    await group.getByRole('button', { name: 'Ciemny' }).click()
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
     await expect(group.getByRole('button', { name: 'Ciemny' })).toHaveAttribute(
       'aria-pressed',
       'true',
     )
+    await group.getByRole('button', { name: 'Jasny' }).click()
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+    await expect(group.getByRole('button', { name: 'Jasny' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
     await page.reload()
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
   })
 })
 
@@ -301,7 +303,7 @@ test.describe('Software frame on a touch screen', () => {
   })
 
   test('the browser bar follows the theme, also one chosen in the menu', async ({ page }) => {
-    await page.emulateMedia({ colorScheme: 'light' })
+    await setTheme(page, 'light')
     await page.goto(site(HOST, SUBPAGE))
     const metas = page.locator('meta[name="theme-color"]')
     await expect(metas).toHaveCount(2)
@@ -316,7 +318,7 @@ test.describe('Software frame on a touch screen', () => {
       .tap()
     await expect(page.locator('meta[name="theme-color"][media*="light"]')).toHaveAttribute(
       'content',
-      '#121613',
+      '#0b0d0c',
     )
   })
 
@@ -395,7 +397,7 @@ test.describe('Software phone layout', () => {
 test.describe('Software phone accessibility', () => {
   for (const colorScheme of ['light', 'dark'] as const) {
     test(`no axe violations with the open sheets (${colorScheme})`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme })
+      await setTheme(page, colorScheme)
       await page.goto(site(HOST, SUBPAGE))
       await setProject(page, TWO)
       await page.reload()

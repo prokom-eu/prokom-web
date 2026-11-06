@@ -31,7 +31,12 @@ test.describe('/_wspolne — side rail (1440 px)', () => {
     await expect(rail(page)).toHaveAttribute('aria-label', 'Sekcje strony')
     await expect(rail(page).getByRole('group', { name: 'Na tej stronie' })).toBeVisible()
     const pageLinks = rail(page).locator('.srail__list').first().getByRole('link')
-    await expect(pageLinks).toHaveText(['Kapsuła', 'Mapa adresu', 'Stopka'])
+    // The preview grows with each D2 PR: the rail lists whatever sections the page marks.
+    const marked = await page
+      .locator('[data-wspolne] [data-rail-section]')
+      .evaluateAll((nodes) => nodes.map((node) => (node as HTMLElement).dataset.railSection ?? ''))
+    expect(marked.slice(0, 2)).toEqual(['Kapsuła', 'Mapa adresu'])
+    await expect(pageLinks).toHaveText(marked)
 
     const home = rail(page).getByRole('button', { name: /Strona główna/ })
     await expect(home).toHaveAttribute('aria-expanded', 'false')

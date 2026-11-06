@@ -1,7 +1,7 @@
 import { headers } from 'next/headers'
 import React from 'react'
 
-import { hasDarkTheme, themeScript } from '@/lib/brand/theme'
+import { defaultTheme, hasDarkTheme, themeScript } from '@/lib/brand/theme'
 import { getTenantByHost } from '@/lib/tenant/byHost'
 import { normalizeHost } from '@/lib/tenant/host'
 
@@ -18,11 +18,14 @@ export default async function SitesRootLayout({ children }: { children: React.Re
   const line = host ? await lineFor(host) : undefined
   return (
     // The theme script may set `data-theme` before hydration (ADR-013), hence the suppression.
+    // A line with a default theme (Biznes light, Software dark) gets it from the server too, so
+    // the page is right without JavaScript; the script only swaps it for a stored choice.
     // `data-scroll-behavior`: Software and Biznes (R2) scroll smoothly to anchors; the attribute tells
     // Next.js 16 to jump instantly on a route change instead of gliding to the top.
     <html
       lang="pl"
       data-line={line}
+      data-theme={line ? (defaultTheme(line) ?? undefined) : undefined}
       data-scroll-behavior={line === 'software' || line === 'biznes' ? 'smooth' : undefined}
       className={fontVariables}
       suppressHydrationWarning
