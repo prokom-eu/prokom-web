@@ -1,11 +1,11 @@
 import type { SoftwareHome } from '@/lib/software/home'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
-import { BentoSection } from './Bento'
-import { priceLines } from './prices'
+import { BentoSection } from './BentoLazy'
+import { bentoSlugs, priceLines } from './prices'
 import { Promises } from './Promises'
-import { ShowroomSection } from './Showroom'
-import { Situations } from './Situations'
+import { ShowroomSection } from './ShowroomLazy'
+import { Situations } from './SituationsLazy'
 
 type Props = { home: SoftwareHome; index: SolutionsIndex }
 
@@ -16,14 +16,6 @@ type Props = { home: SoftwareHome; index: SolutionsIndex }
  */
 export function HomeV24Sections({ home, index }: Props) {
   const { promises, situations, bento } = home
-  const bentoSlugs = bento
-    ? [
-        ...bento.sites.variants.map((v) => v.solution),
-        bento.rebuild.solution,
-        ...bento.systems.variants.map((v) => v.solution),
-        ...bento.automations.variants.map((v) => v.solution),
-      ]
-    : []
   return (
     <>
       {promises && <Promises promises={promises} />}
@@ -36,7 +28,7 @@ export function HomeV24Sections({ home, index }: Props) {
           )}
         />
       )}
-      {bento && <BentoSection bento={bento} prices={priceLines(bentoSlugs, index)} />}
+      {bento && <BentoSection bento={bento} prices={priceLines(bentoSlugs(bento), index)} />}
       {home.showroom && <ShowroomSection showroom={home.showroom} />}
     </>
   )
