@@ -162,6 +162,7 @@ export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
             priceNote: true,
             priceMonthly: true,
             thumbnail: true,
+            preview: true,
             levels: true,
           },
           ...read,

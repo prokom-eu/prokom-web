@@ -26,11 +26,20 @@ describe('solutions index on the seed package', () => {
       priceFrom: 2490,
       leadTime: 'od 2 tygodni',
       thumbnail: '/software/rozwiazania/strona-firmowa-z-panelem.svg',
+      preview: { kind: 'site', variant: 'firmowa' },
       levels: [],
     })
     expect(solution).not.toHaveProperty('prices')
     expect(solution).not.toHaveProperty('leadTimes')
     expect(solution).not.toHaveProperty('sizeNames')
+  })
+
+  it('carries only a mock-up whose variant fits its kind (ZMIANY-v24 §8)', () => {
+    expect(solutionOf('opieka-nad-strona-i-systemem')?.preview).toEqual({
+      kind: 'care',
+      variant: null,
+    })
+    expect(solutionOf('asystent-ai-do-zapytan')?.preview).toEqual({ kind: 'flow', variant: 'ai' })
   })
 
   it('keeps 0 as a price and an empty price as none', () => {

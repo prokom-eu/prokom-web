@@ -10,6 +10,7 @@ import obszary from '../../../seed/prokomsoftware/obszary.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
 import wpisy from '../../../seed/prokomsoftware/wpisy.json'
 import { homeSchema } from '../../lib/software/home'
+import { previewVariantError } from '../../lib/software/solutionRules'
 import { navigationSchema } from '../../lib/software/navigation'
 import { notFoundSchema, thanksSchema } from '../../lib/software/pages'
 import { INDUSTRY_GROUPS, WIZARD_FIRMS } from '../../lib/software/options'
@@ -41,6 +42,7 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
+import { SOLUTION_PREVIEWS } from './previews'
 
 /** Fake ids: the solution's legacy id, so a test can tell which one a chip points to. */
 const legacyIdOf = new Map(rozwiazania.items.map((item) => [item.slug, item.legacyId]))
@@ -538,5 +540,20 @@ describe('softwareContactUpdate', () => {
         email: 'a@pro-kom.eu',
       }),
     ).toBeNull()
+  })
+})
+
+describe('mock-ups of the solutions (PRZEKAZANIE-v24 §5)', () => {
+  it('gives every imported solution a valid mock-up', () => {
+    for (const item of solutionsToImport()) {
+      const preview = solutionData(item).preview
+      expect(preview?.kind, item.slug).toBeTruthy()
+      expect(previewVariantError(preview?.kind, preview?.variant), item.slug).toBeNull()
+    }
+  })
+
+  it('has no mock-up for a solution that is not imported', () => {
+    const slugs = new Set(solutionsToImport().map((item) => item.slug))
+    for (const slug of Object.keys(SOLUTION_PREVIEWS)) expect(slugs.has(slug), slug).toBe(true)
   })
 })
