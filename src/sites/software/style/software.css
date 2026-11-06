@@ -8,6 +8,8 @@
 @import './mockups.css';
 /* Hero v24 of the start page (`blocks/SwHero/HeroV24`). */
 @import './hero.css';
+/* Sections of the v24 start page (`components/v24home`). */
+@import './v24home.css';
 
 @source '..';
 /* A news post renders the Biznes post body (`news/PostContent`); the folder, in case it grows. */
