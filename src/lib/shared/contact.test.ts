@@ -25,6 +25,11 @@ describe('readContact', () => {
     expect(readContact('600 100')).toEqual({ kind: 'invalid', looksLike: 'phone' })
     expect(readContact('jan@firma')).toEqual({ kind: 'invalid', looksLike: 'email' })
     expect(readContact('Jan')).toEqual({ kind: 'invalid', looksLike: 'email' })
+    // Longer than the server keeps (30 characters), even if the digits are right.
+    expect(readContact(`600${' '.repeat(30)}100 200`)).toEqual({
+      kind: 'invalid',
+      looksLike: 'phone',
+    })
   })
 
   it('nothing typed → empty', () => {

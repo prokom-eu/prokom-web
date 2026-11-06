@@ -1,4 +1,5 @@
 import type { FormValues } from '../inquiry/form'
+import type { Line } from '../tenant/lines'
 import { readContact } from './contact'
 
 /**
@@ -28,6 +29,14 @@ export type SharedRules = {
   /** Biznes: „Wiadomość (opcjonalnie)” (K4-FINAL §5). */
   messageOptional?: boolean
   consentMode: 'checkbox' | 'info'
+}
+
+/**
+ * The line's rules, the same the server applies (`lib/inquiry/schema.ts`): Instalacje want a phone,
+ * Biznes takes a contact without a message. Callers pass the line, never the rules.
+ */
+export function sharedRulesFor(line: Line): Omit<SharedRules, 'consentMode'> {
+  return { phoneRequired: line === 'instalacje', messageOptional: line === 'biznes' }
 }
 
 export const SHARED_MESSAGES = {
@@ -64,10 +73,10 @@ export function checkContactForm(
 }
 
 /**
- * The values `buildInquiryBody` sends: the contact split into `phone` or `email`. With an
- * information clause (`info`) sending the form accepts it.
+ * The values `buildInquiryBody` sends: the contact split into `phone` or `email`; the consent as
+ * the visitor ticked it (an information clause is not recorded as a consent — ADR-022 D2-3a).
  */
-export function toInquiryValues(values: SharedFormValues, rules: SharedRules): FormValues {
+export function toInquiryValues(values: SharedFormValues): FormValues {
   const contact = readContact(values.contact)
   return {
     name: values.name,
@@ -77,21 +86,21 @@ export function toInquiryValues(values: SharedFormValues, rules: SharedRules): F
     phone: contact.kind === 'phone' ? contact.phone : '',
     message: values.message,
     city: values.city,
-    consent: rules.consentMode === 'info' ? true : values.consent,
+    consent: values.consent,
     marketingConsent: false,
     website: values.website,
   }
 }
 
 /**
- * Messages by the server's field names (`readOutcome`): a missing or wrong `email` / `phone`
- * lands on the one contact field.
+ * Messages by the server's field names (`readOutcome`), all landing on the one contact field. An
+ * empty contact never reaches the server (the browser checks it), so its `email` / `phone` errors
+ * mean a wrong format.
  */
 export function serverMessages(rules: SharedRules) {
-  const contact = rules.phoneRequired ? SHARED_MESSAGES.phoneRequired : SHARED_MESSAGES.contactEmpty
   return {
     name: SHARED_MESSAGES.name,
-    email: contact,
+    email: SHARED_MESSAGES.emailInvalid,
     phone: rules.phoneRequired ? SHARED_MESSAGES.phoneRequired : SHARED_MESSAGES.phoneInvalid,
     message: SHARED_MESSAGES.message,
     consent: SHARED_MESSAGES.consent,

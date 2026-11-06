@@ -9,7 +9,7 @@ export type NextStep = { title: string; text?: string | null }
 type Props = {
   /** Inquiry number from the server (`PKB-2026-0042`); none when the answer had no number. */
   number: string | null
-  /** The visitor left an e-mail: a confirmation was sent there. */
+  /** The visitor left an e-mail: a confirmation goes there (the server may hold it back — limit). */
   emailSent: boolean
   /** „Co dalej” of the line (`shared.contact.nextSteps`), 3 shown. */
   nextSteps?: readonly NextStep[]
@@ -51,9 +51,7 @@ export function SuccessPanel({
               Numer zgłoszenia: <b className="text-ink">{number}</b>
             </p>
           )}
-          {emailSent && (
-            <p className="mt-1 text-ink-2">Potwierdzenie wysłaliśmy na podany adres.</p>
-          )}
+          {emailSent && <p className="mt-1 text-ink-2">Potwierdzenie wyślemy na podany adres.</p>}
         </div>
       </div>
       {nextSteps.length > 0 && (

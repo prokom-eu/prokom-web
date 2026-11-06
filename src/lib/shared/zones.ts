@@ -13,7 +13,7 @@ const key = (text: string) => normalizeText(text).replace(/[-\s]+/g, ' ')
 
 /**
  * The zone of a town the visitor typed (spec §5 `ServiceAreaMap`, `ContactForm`): the whole name
- * first, then — from 3 letters — the first town that begins with it, in panel order. Only the
+ * first, then — from 3 letters — the one town that begins with it (none when several do). Only the
  * panel's lists count: a town outside them has no zone (the office agrees the trip).
  */
 export function findZone(zones: readonly ServiceZone[], input: string): ZoneMatch | null {
@@ -23,11 +23,11 @@ export function findZone(zones: readonly ServiceZone[], input: string): ZoneMatc
     const town = zone.towns.find((name) => key(name) === q)
     if (town) return { town, zone }
   }
-  for (const zone of zones) {
-    const town = zone.towns.find((name) => key(name).startsWith(q))
-    if (town) return { town, zone }
-  }
-  return null
+  // A beginning counts only when it points to one town („nowy” could be Nowy Targ or Nowy Sącz).
+  const candidates = zones.flatMap((zone) =>
+    zone.towns.filter((name) => key(name).startsWith(q)).map((town) => ({ town, zone })),
+  )
+  return candidates.length === 1 ? candidates[0]! : null
 }
 
 /** „Szaflary · strefa Podhale”. */

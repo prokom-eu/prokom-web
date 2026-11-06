@@ -16,8 +16,8 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 import { Icon } from '@/components/ui/Icon'
 import { hasDarkTheme } from '@/lib/brand/theme'
 import { getEnv } from '@/lib/env'
-import { CONSENT_CLAUSE } from '@/lib/inquiry/consent'
 import { issueFormToken } from '@/lib/inquiry/spam'
+import { formConsent } from '@/lib/shared/consent'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import type { LineSearchEntry } from '@/lib/shared/search/lineProvider'
 import { paletteActions } from '@/lib/shared/search/palette'
@@ -97,11 +97,8 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
       })),
     ),
   ]
-  // The clause from the panel only while its version is the one the server accepts (ADR-003).
-  const consentText =
-    company.consent.clause && company.consent.version === CONSENT_CLAUSE.version
-      ? company.consent.clause
-      : CONSENT_CLAUSE.text
+  // What every shared form shows until the consent ADR (ADR-022 D2-3a): the code's clause.
+  const consent = formConsent(company.consent)
   const columns = (line.footerColumns ?? []).map((column) => ({
     heading: column.heading ?? '',
     links: (column.links ?? []).map((link) => ({ label: link.label, href: link.href })),
@@ -248,17 +245,10 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
             placeholder={line.contact?.placeholder}
             sendLabel={line.contact?.sendLabel}
             responsePromise={line.responsePromise}
-            consent={{
-              mode: company.consent.mode,
-              text: consentText,
-              privacyHref: company.legal.privacy,
-            }}
+            consent={{ ...consent, privacyHref: company.legal.privacy }}
             zones={company.serviceZones}
             nextSteps={line.contact?.nextSteps ?? []}
-            rules={{
-              phoneRequired: tenant.line === 'instalacje',
-              messageOptional: tenant.line === 'biznes',
-            }}
+            line={tenant.line}
           />
         </div>
       </section>

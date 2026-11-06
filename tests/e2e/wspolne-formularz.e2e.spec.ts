@@ -69,7 +69,7 @@ test.describe('/_wspolne — shared contact form', () => {
 
     const done = page.locator('[data-wspolne] [data-success-panel]')
     await expect(done).toContainText('Numer zgłoszenia: PKS-')
-    await expect(done).toContainText('Potwierdzenie wysłaliśmy na podany adres.')
+    await expect(done).toContainText('Potwierdzenie wyślemy na podany adres.')
     await expect(done).toBeFocused()
 
     await loginAsAdmin(page)
