@@ -31,7 +31,13 @@ import { seedSoftwareContact } from './contact'
 import { seedSoftwareHome } from './home'
 import { seedSoftwarePhotos } from './photos'
 import { seedSoftwarePricing } from './pricing'
-import { HOME_SECTION_TEXTS, homeWithPriceTokens, homeWithSections } from './homeExtras'
+import {
+  HOME_SECTION_TEXTS,
+  homeWithHero,
+  homeWithPriceTokens,
+  homeWithSections,
+} from './homeExtras'
+import { HOME_HERO } from './homeHero'
 import { seedSharedData } from '../shared/run'
 
 const SOFTWARE_TENANT_SLUG = 'software'
@@ -313,7 +319,9 @@ export async function seedSoftware(payload: Payload): Promise<void> {
     // are added. The package's rebuild price written as text becomes the price token (SW8a).
     if (!missing.home) {
       const withSections = homeWithSections(softwareSettings.home, HOME_SECTION_TEXTS)
-      const home = homeWithPriceTokens(withSections ?? softwareSettings.home) ?? withSections
+      const priced = homeWithPriceTokens(withSections ?? softwareSettings.home) ?? withSections
+      // Hero v24 (SWA2a): added once to a home that has none; an edited one stays.
+      const home = homeWithHero(priced ?? softwareSettings.home, HOME_HERO) ?? priced
       if (home) missing.home = home as typeof fields.home
     }
     const changed = Object.keys(missing).length > 0

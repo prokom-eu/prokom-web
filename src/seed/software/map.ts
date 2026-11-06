@@ -26,6 +26,7 @@ import {
   FIELD_CREW_SLUG,
 } from './solutionPages'
 import { wizardSeed } from './wizardExtras'
+import { HOME_HERO } from './homeHero'
 import { SOLUTION_PREVIEWS } from './previews'
 
 /**
@@ -494,6 +495,7 @@ export function softwareSettingsData() {
       technologies: structuredClone(technologie.layers),
       popular: { order: structuredClone(popularne.order), tabs: structuredClone(popularne.tabs) },
       sections: structuredClone(HOME_SECTION_TEXTS),
+      hero: structuredClone(HOME_HERO),
     },
     offer: structuredClone(oknoOferty),
     thanks: structuredClone(SOFTWARE_THANKS),

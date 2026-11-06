@@ -14,8 +14,10 @@ describe('Software home texts schema', () => {
 
   it('points all 12 cards to solutions of the package (v22: no generic cards)', () => {
     const slugs = new Set(solutionsToImport().map((item) => item.slug))
-    const cards = homeSolutionSlugs(homeSchema.parse(seedHome()))
-    expect(cards).toHaveLength(12)
+    const home = homeSchema.parse(seedHome())
+    const cards = homeSolutionSlugs(home)
+    // 12 cards of „12 rzeczy” + the 7 hero slides (SWA2a).
+    expect(cards).toHaveLength(12 + (home.hero?.slides.length ?? 0))
     for (const slug of cards) expect(slugs.has(slug), slug).toBe(true)
   })
 
