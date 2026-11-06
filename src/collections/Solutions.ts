@@ -7,7 +7,12 @@ import {
 } from 'payload/shared'
 
 import { adminOnly } from '../lib/auth/access'
-import { MOCKUP_KINDS, MOCKUP_VARIANTS } from '../lib/software/mockups'
+import {
+  isMockupKind,
+  MOCKUP_KINDS,
+  MOCKUP_VARIANTS,
+  mockupVariants,
+} from '../lib/software/mockups'
 import { INDUSTRY_GROUPS, SITUATIONS, SOLUTION_CATEGORIES } from '../lib/software/options'
 import { solutionsRevalidationHooks } from '../lib/software/revalidate'
 import {
@@ -369,8 +374,18 @@ export const Solutions: CollectionConfig = {
                   type: 'select',
                   options: MOCKUP_VARIANTS.map((variant) => ({ label: variant, value: variant })),
                   validate: validatePreviewVariant,
+                  // Only the variants of the chosen kind; none for care (the field hides).
+                  filterOptions: ({ options, siblingData }) => {
+                    const kind = (siblingData as { kind?: unknown }).kind
+                    if (!isMockupKind(kind)) return options
+                    const allowed = mockupVariants(kind)
+                    return options.filter((option) =>
+                      allowed.includes(typeof option === 'string' ? option : option.value),
+                    )
+                  },
                   admin: {
                     description: 'Przykładowa firma na makiecie; opieka nie ma wariantu.',
+                    condition: (_, siblingData) => siblingData?.kind !== 'care',
                   },
                 },
               ],

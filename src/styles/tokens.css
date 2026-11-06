@@ -1076,6 +1076,17 @@
   /* = ARRIVE_MS in lib/shared/smoothScroll.ts (how long the section stays marked). */
   --dur-beam: 1400ms;
   --dur-sheen: 700ms;
+  /* Mock-ups (ZMIANY-v24 §8): bars grow, a log line slides in, a dot runs on the wire, the
+     slider sweeps, the toast comes back, stars twinkle, a picture drifts; steps between items. */
+  --dur-mk-bar: 900ms;
+  --dur-mk-log: 500ms;
+  --dur-mk-travel: 2400ms;
+  --dur-mk-wipe: 5600ms;
+  --dur-mk-toast: 6000ms;
+  --dur-mk-twinkle: 3000ms;
+  --dur-mk-drift: 9000ms;
+  --mk-step-bar: 70ms;
+  --mk-step-log: 250ms;
   /* Shared elements (spec WSPOLNE-ELEMENTY §3, NAGLOWEK-KAPSULA §4): defaults for pages
      without a line design (hub, 404); the lines set their own values below. */
   --on-dark: var(--accent-on-dark);

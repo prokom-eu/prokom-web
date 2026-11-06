@@ -57,7 +57,7 @@ export function MockDash({ variant }: { variant: DashVariant }) {
               {dash.bars.map((value, i) => {
                 const style: CSSProperties = {
                   height: `${Math.max(4, Math.round((value / max) * 100))}%`,
-                  animationDelay: `${(i * 0.07).toFixed(2)}s`,
+                  animationDelay: `calc(${i} * var(--mk-step-bar))`,
                 }
                 return (
                   <div key={DAYS[i]}>
@@ -126,7 +126,11 @@ export function MockFlow({ variant }: { variant: FlowVariant }) {
           <span>{flow.count}</span>
         </div>
         {flow.logs.map(([text, status], i) => (
-          <div key={text} className="mk-log" style={{ animationDelay: `${i * 0.25}s` }}>
+          <div
+            key={text}
+            className="mk-log"
+            style={{ animationDelay: `calc(${i} * var(--mk-step-log))` }}
+          >
             <span>{text}</span>
             <b>{status}</b>
           </div>

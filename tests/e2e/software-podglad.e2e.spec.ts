@@ -46,6 +46,17 @@ test.describe('/_software — v24 foundation', () => {
           if (hero && part.getBoundingClientRect().bottom > hero.bottom + 0.5)
             found.push(`${name}: ${part.className}`)
         }
+        // Phone screens (the phone kind, the phone over a site): hero and buttons stay inside.
+        for (const screen of item.querySelectorAll('.mk-screen')) {
+          const box = screen.getBoundingClientRect()
+          for (const part of screen.querySelectorAll(
+            '.mk-screen-hero > div, .mk-screen-body > span',
+          )) {
+            const rect = part.getBoundingClientRect()
+            if (rect.height > 0 && rect.bottom > box.bottom + 0.5)
+              found.push(`${name}: phone ${part.textContent?.slice(0, 24)}`)
+          }
+        }
         const frame = item.querySelector('.mk-frame')?.getBoundingClientRect()
         for (const row of item.querySelectorAll('.mk-list-row, .mk-log, .mk-feature')) {
           if (frame && row.getBoundingClientRect().bottom > frame.bottom + 0.5)

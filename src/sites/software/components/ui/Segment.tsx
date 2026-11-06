@@ -35,7 +35,7 @@ export function Segment<V extends string>({
       <span
         aria-hidden="true"
         className="sw-segment-pill"
-        style={{ width: `calc(${100 / options.length}% - 4px)`, translate: `${index * 100}% 0` }}
+        style={{ width: `calc((100% - 8px) / ${options.length})`, translate: `${index * 100}% 0` }}
       />
       {options.map((option) => (
         <button

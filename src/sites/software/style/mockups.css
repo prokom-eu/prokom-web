@@ -8,6 +8,10 @@
 .mk {
   position: relative;
   width: 100%;
+  /* A browser without `tan(atan2())` keeps the stage at 640 px: clip it instead of scrolling the
+     page sideways; the margin keeps the phone over a site and the shadows. */
+  overflow: clip;
+  overflow-clip-margin: 32px;
   aspect-ratio: 640 / 420;
   container-type: inline-size;
   color: var(--mk-ink);
@@ -1250,28 +1254,28 @@
    sky twinkles. Off with reduced motion: the final state at once. -------------------------- */
 @media (prefers-reduced-motion: no-preference) {
   .mk-bars i {
-    animation: mk-bar 0.9s var(--ease-out) both;
+    animation: mk-bar var(--dur-mk-bar) var(--ease-out) both;
   }
   .mk-wire > i {
-    animation: mk-travel 2.4s var(--ease-out) infinite;
+    animation: mk-travel var(--dur-mk-travel) var(--ease-out) infinite;
   }
   .mk-wire + .mk-wire > i {
-    animation-delay: 1.2s;
+    animation-delay: calc(var(--dur-mk-travel) / 2);
   }
   .mk-log {
-    animation: mk-log 0.5s var(--ease-out) both;
+    animation: mk-log var(--dur-mk-log) var(--ease-out) both;
   }
   .mk-ba[data-wipe] {
-    animation: mk-wipe 5.6s var(--ease-out) infinite;
+    animation: mk-wipe var(--dur-mk-wipe) var(--ease-out) infinite;
   }
   .mk-toast {
-    animation: mk-toast 6s var(--ease-out) infinite;
+    animation: mk-toast var(--dur-mk-toast) var(--ease-out) infinite;
   }
   .mk-art .tw {
-    animation: mk-twinkle 3s ease-in-out infinite;
+    animation: mk-twinkle var(--dur-mk-twinkle) ease-in-out infinite;
   }
   .mk-art .drift {
-    animation: mk-drift 9s ease-in-out infinite alternate;
+    animation: mk-drift var(--dur-mk-drift) ease-in-out infinite alternate;
   }
 }
 
