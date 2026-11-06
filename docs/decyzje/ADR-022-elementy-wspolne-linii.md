@@ -70,3 +70,11 @@ Trzy linie w `prokom-web` (Biznes, Instalacje, Software) zbudowały pasek marki,
 4. **Jedna nazwa nawigacji „Sekcje strony”** na każdej stronie; grupy w środku (`role="group"`): „Na tej stronie” i „Strona główna”.
 5. **Ruch z tokenów** `--dur-*` / `--ease-*`; stałe zostają tylko dla opóźnień mostu (otwarcie = `--dur-press` 120 ms, zamknięcie 250 ms) i jednorazowego pulsu Szukaj. Linia postępu: `animation-timeline: scroll()` tam, gdzie przeglądarka umie, odczyt raz na klatkę jako zapas.
 6. **Obwódka szyny wewnątrz (`border`), cień na opakowaniu (`drop-shadow`)** — `clip-path` zwiniętej szyny ucinał pierścień i cień.
+
+## Rozstrzygnięcia D2-2b (06.11.2026, po przeglądzie)
+1. **„Zapytaj o …” → `/kontakt?fraza=<fraza>`** (`contactWithPhrase`, `PHRASE_PARAM` w `lib/shared/search/provider.ts`) — ten sam parametr, który czyta już Biznes. Wspólny `ContactForm` (D2-3) wypełnia nim treść wiadomości.
+2. **Okno nie otwiera się, gdy jest otwarty inny `<dialog>`** (arkusz Menu, podgląd) — w D3 lupa w arkuszu najpierw zamyka arkusz, potem woła `requestSearch()`.
+3. **Enter otwiera wynik z fokusem** (strzałki z pola), jak w wyszukiwarce Biznesu — Enter w samym polu nic nie robi; stopka okna podpowiada klawisze.
+4. **„Ostatnio oglądane” zapisuje tylko wspólny `RecordRecent`** (`recordRecent` sprawdza `CompanyData.recentlyViewed`) — linie nie piszą własnego kodu pamięci przeglądarki, więc flagi pilnuje jedno miejsce.
+5. **Słowa kluczowe palety tylko całymi wyrazami** (fraza = słowo albo zaczyna się słowem i spacją; token ≥ 3 litery jako początek słowa) — „telewizja”, „alarm do domu” nie wyciągają akcji.
+6. **Wpięcie w D3** przez leniwie ładowany komponent (jak ADR-023 „CSS per linia”: okno w ramce linii nie powinno obciążać pierwszego wczytania strony); indeks linii przez `buildLineProvider`.

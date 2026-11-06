@@ -6,6 +6,7 @@ import { BrandBar } from '@/components/shared/BrandBar'
 import { CAPSULE } from '@/components/shared/capsule'
 import { MenuButton } from '@/components/shared/MenuButton'
 import { MenuSheet } from '@/components/shared/MenuSheet'
+import { RecordRecent } from '@/components/shared/RecordRecent'
 import { SiteFooter } from '@/components/shared/SiteFooter'
 import { SiteHeader } from '@/components/shared/SiteHeader'
 import { SiteRail } from '@/components/shared/SiteRail'
@@ -15,10 +16,13 @@ import { Icon } from '@/components/ui/Icon'
 import { hasDarkTheme } from '@/lib/brand/theme'
 import { getEnv } from '@/lib/env'
 import { getSharedData } from '@/lib/shared/getSharedData'
+import type { LineSearchEntry } from '@/lib/shared/search/lineProvider'
+import { paletteActions } from '@/lib/shared/search/palette'
 
 import { requireTenant } from '../tenant'
 import { DEMO_NAV, DEMO_SHORT_CTA, isPreviewState, PREVIEW_STATES } from './demo'
 import { DemoMega } from './DemoMega'
+import { DemoSearch } from './DemoSearch'
 
 type Props = {
   params: Promise<{ domain: string }>
@@ -69,6 +73,27 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
   const now = new Date().toISOString()
   const { address } = company
   const where = address ? `${address.street}, ${address.postalCode} ${address.city}` : null
+  // Test index of the search window (D2-2b): the line's home page sections and footer links.
+  const searchEntries: LineSearchEntry[] = [
+    ...(line.rail?.sections ?? []).map((section) => ({
+      id: `sekcja-${section.anchorId}`,
+      title: section.label,
+      hint: 'Strona główna',
+      href: `/#${section.anchorId}`,
+      icon: section.icon,
+      group: 'Strona główna',
+    })),
+    ...(line.footerColumns ?? []).flatMap((column) =>
+      (column.links ?? []).map((link) => ({
+        id: `link-${link.href}-${link.label}`,
+        title: link.label,
+        hint: column.heading ?? null,
+        href: link.href,
+        icon: 'arrow',
+        group: column.heading || 'Strony',
+      })),
+    ),
+  ]
   const columns = (line.footerColumns ?? []).map((column) => ({
     heading: column.heading ?? '',
     links: (column.links ?? []).map((link) => ({ label: link.label, href: link.href })),
@@ -244,6 +269,45 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
             : null
         }
       />
+
+      {/* Records this page only when the panel flag is on (seed: off — e2e checks nothing is kept). */}
+      <RecordRecent
+        enabled={company.recentlyViewed}
+        line={tenant.line}
+        item={{ title: 'Elementy wspólne — podgląd', href: '/_wspolne', kind: 'Strona' }}
+      />
+      {tenant.line !== 'biznes' && (
+        // Biznes keeps its own search (K4b), which already answers `requestSearch()` there.
+        <DemoSearch
+          entries={searchEntries}
+          settings={{
+            synonyms: line.rail?.synonyms ?? [],
+            popular: line.rail?.searchPopular ?? [],
+            shortcuts: (line.rail?.searchShortcuts ?? []).map((link) => ({
+              label: link.label,
+              href: link.href,
+            })),
+          }}
+          actions={paletteActions({
+            phone: line.phone,
+            phone2: line.phone2,
+            email: line.email,
+            mapsUrl: company.mapsUrl,
+            primary:
+              line.tabBar?.center?.label && line.tabBar.center.href
+                ? {
+                    label: line.tabBar.center.label,
+                    href: line.tabBar.center.href,
+                    icon: line.tabBar.center.icon,
+                  }
+                : null,
+            themes: hasDarkTheme(tenant.line),
+          })}
+          line={tenant.line}
+          recentlyViewed={company.recentlyViewed}
+          phone={line.phone}
+        />
+      )}
 
       <TabBar
         second={line.tabBar?.second ?? null}
