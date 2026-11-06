@@ -1,0 +1,189 @@
+import type { CSSProperties } from 'react'
+
+import type { DashVariant, FlowVariant } from '@/lib/software/mockups'
+
+import { CARE, DASHES, FLOWS } from './data'
+
+const DAYS = ['pn', 'wt', 'śr', 'cz', 'pt', 'sb', 'nd']
+/** The highlighted bar of the week: Friday. */
+const PEAK_DAY = 4
+
+/** A system panel: side menu, three KPIs, bars rising one by one, the latest rows with status. */
+export function MockDash({ variant }: { variant: DashVariant }) {
+  const dash = DASHES[variant]
+  const max = Math.max(...dash.bars, 1)
+  return (
+    <div className="mk-frame mk-dash">
+      <div className="mk-side">
+        <b>
+          <i />
+          Twoja Firma
+        </b>
+        {dash.nav.map((item, i) => (
+          <span key={item} data-on={i === 1 || undefined}>
+            {item}
+          </span>
+        ))}
+        <span className="mk-user">
+          <i>AN</i>Anna · biuro
+        </span>
+      </div>
+      <div className="mk-main">
+        <div className="mk-main-head">
+          <div>
+            <small>{dash.crumb}</small>
+            <b>{dash.title}</b>
+          </div>
+          <span>{dash.button}</span>
+        </div>
+        <div className="mk-kpis">
+          {dash.kpi.map(([label, value, delta]) => (
+            <div key={label} className="mk-card mk-kpi">
+              <small>{label}</small>
+              <div>
+                <b>{value}</b>
+                {delta && <span>{delta}</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mk-panels">
+          <div className="mk-card mk-chart">
+            <div className="mk-panel-head">
+              <span>{dash.chart}</span>
+              <span>ten tydzień</span>
+            </div>
+            <div className="mk-bars">
+              {dash.bars.map((value, i) => {
+                const style: CSSProperties = {
+                  height: `${Math.max(4, Math.round((value / max) * 100))}%`,
+                  animationDelay: `${(i * 0.07).toFixed(2)}s`,
+                }
+                return (
+                  <div key={DAYS[i]}>
+                    <i style={style} data-peak={i === PEAK_DAY || undefined} />
+                    <small>{DAYS[i]}</small>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+          <div className="mk-card mk-list">
+            <div>{dash.list}</div>
+            {dash.rows.map(([title, note, tag, tone]) => (
+              <div key={title} className="mk-list-row">
+                <span>
+                  <b>{title}</b>
+                  <small>{note}</small>
+                </span>
+                <span className="mk-tag" data-tone={tone}>
+                  {tag}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/** Left edges of the three nodes and of the two wires between them (board px). */
+const NODE_LEFT = [0, 223, 446]
+const WIRE_LEFT = [150, 373]
+
+/** An automation: when → automat → effect with a dot running on the wire, today's history. */
+export function MockFlow({ variant }: { variant: FlowVariant }) {
+  const flow = FLOWS[variant]
+  return (
+    <div className="mk-frame mk-flow">
+      <div className="mk-flow-head">
+        <b>{flow.title}</b>
+        <span className="mk-live">
+          <i />
+          działa
+        </span>
+      </div>
+      <div className="mk-nodes">
+        {WIRE_LEFT.map((left) => (
+          <div key={left} className="mk-wire" style={{ left }}>
+            <i />
+          </div>
+        ))}
+        {flow.nodes.map(([icon, step, text], i) => (
+          <div key={step} className="mk-node" style={{ left: NODE_LEFT[i] }}>
+            <span>
+              <i>{icon}</i>
+              {step}
+            </span>
+            <b>{text}</b>
+          </div>
+        ))}
+      </div>
+      <div className="mk-card mk-history">
+        <div>
+          <span>Historia · dziś</span>
+          <span>{flow.count}</span>
+        </div>
+        {flow.logs.map(([text, status], i) => (
+          <div key={text} className="mk-log" style={{ animationDelay: `${i * 0.25}s` }}>
+            <span>{text}</span>
+            <b>{status}</b>
+          </div>
+        ))}
+      </div>
+      <div className="mk-promises">
+        <div className="mk-card mk-promise">
+          <i>⟳</i>
+          <span>
+            <b>Działa 24/7</b>także w weekend
+          </span>
+        </div>
+        <div className="mk-card mk-promise">
+          <i>✓</i>
+          <span>
+            <b>Pod kontrolą</b>Ty ustalasz reguły
+          </span>
+        </div>
+        <div className="mk-card mk-promise">
+          <i>≡</i>
+          <span>
+            <b>Pełna historia</b>każdy krok zapisany
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/** Care of a site or system: online, 30 days of uptime, backups and updates. */
+export function MockCare() {
+  return (
+    <div className="mk-frame mk-care">
+      <div className="mk-care-head">
+        <div>
+          <small>{CARE.eyebrow}</small>
+          <b>{CARE.title}</b>
+        </div>
+        <span className="mk-online">
+          <i />
+          online
+        </span>
+      </div>
+      <div className="mk-care-label">Dostępność · ostatnie 30 dni</div>
+      <div className="mk-uptime">
+        {Array.from({ length: 30 }, (_, day) => (
+          <i key={day} data-slow={day === CARE.slowDay || undefined} />
+        ))}
+      </div>
+      <div className="mk-care-grid">
+        {CARE.rows.map(([label, value]) => (
+          <div key={label}>
+            <small>{label}</small>
+            <b>{value}</b>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
