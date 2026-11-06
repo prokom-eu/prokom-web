@@ -142,6 +142,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## prokomsoftware.pl
 - Plan sesji: `docs/zadania/prokomsoftware.md`. **Od 06.11.2026 wersja finalna v24 „Aurora”:** `docs/design/prokomsoftware/v24/ZMIANY-v24.md` (spec.) + `PRZEKAZANIE-v24.md` (duże sesje SWA1–SWA6, prompty), plansze `v24/boards`, decyzje — ADR-015 i ADR-014 „Rozstrzygnięcia v24” (ciemny motyw domyślnie, fioletowe światło, hero przed Lighthouse). Historia: v23 (`ZMIANY-v23.md`, `PRZEKAZANIE-v23.md`).
+- **Folder sesji SWA (od 06.11):** worktree `prokom-web-software` — `PORT=3003`, baza `prokom_web_swa` (w `prokom-web` pracują sesje D2).
 - **Telefon = osobny układ „jak najlepsza aplikacja”** (`docs/design/prokomsoftware/MOBILE-APLIKACJA.md`); jego §5 to Definition of Done każdej sesji z UI.
 
 ## Linia Instalacje (prokominstalacje.pl) — worktree `prokom-instal`
