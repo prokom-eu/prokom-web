@@ -40,3 +40,24 @@ describe('layoutTowns (ServiceAreaMap)', () => {
     }
   })
 })
+
+describe('layoutTowns — the middle and repeats', () => {
+  it('leaves out the salon town (it is the middle) and a town listed twice', () => {
+    const towns = layoutTowns(
+      [
+        { name: 'Rabka', towns: ['Rabka-Zdrój', 'Chabówka'], note: null },
+        { name: 'Podhale', towns: ['chabówka', 'Nowy Targ'], note: null },
+      ],
+      'Rabka-Zdrój',
+    )
+    expect(towns.map((t) => t.town)).toEqual(['Chabówka', 'Nowy Targ'])
+  })
+
+  it('labels near the left and right edges grow inwards', () => {
+    for (const t of layoutTowns(zones)) {
+      if (t.x < 25) expect(t.align).toBe('start')
+      else if (t.x > 75) expect(t.align).toBe('end')
+      else expect(t.align).toBe('center')
+    }
+  })
+})

@@ -17,7 +17,7 @@ export function VerifyCards({ items, className }: Props) {
       className={cx('grid gap-3 min-[640px]:grid-cols-2 min-[1000px]:grid-cols-4', className)}
       data-verify-cards
     >
-      {items.map((item) => {
+      {items.map((item, i) => {
         const body = (
           <>
             <span className="flex size-10 items-center justify-center rounded-xl bg-accent-soft text-accent-text">
@@ -35,7 +35,7 @@ export function VerifyCards({ items, className }: Props) {
         )
         const card = 'flex h-full flex-col gap-3 rounded-[22px] border border-border bg-card p-6'
         return (
-          <li key={item.title}>
+          <li key={i}>
             {item.href ? (
               <a
                 href={item.href}

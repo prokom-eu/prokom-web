@@ -1,17 +1,20 @@
 'use client'
 
-import { useDeferredValue, useId, useMemo, useState } from 'react'
+import { Fragment, useDeferredValue, useId, useMemo, useState, type ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { layoutTowns } from '@/lib/shared/areaLayout'
 import { findZone, ZONE_MIN_LETTERS, zoneLabel, type ServiceZone } from '@/lib/shared/zones'
 
-import { Contours } from './Contours'
+/** The label touches its point with this side (`layoutTowns` → `align`). */
+const ALIGN = { start: '', center: '-translate-x-1/2', end: '-translate-x-full' } as const
 
 type Props = {
   zones: readonly ServiceZone[]
   /** The salon in the middle, e.g. „Rabka-Zdrój”. */
   center: string
+  /** Behind the drawing — the page passes `<Contours />`, drawn on the server, not in this bundle. */
+  background?: ReactNode
   className?: string
 }
 
@@ -22,13 +25,15 @@ type Props = {
  * dashed lines to the towns of `CompanyData.serviceZones`, labels as HTML. No travel times (no
  * source). On a phone the field comes first and the drawing is smaller.
  */
-export function ServiceAreaMap({ zones, center, className }: Props) {
+export function ServiceAreaMap({ zones, center, background, className }: Props) {
   const id = useId()
   const [town, setTown] = useState('')
   const deferred = useDeferredValue(town)
-  const placed = useMemo(() => layoutTowns(zones), [zones])
+  const placed = useMemo(() => layoutTowns(zones, center), [zones, center])
   const typed = deferred.trim()
   const match = typed.length >= ZONE_MIN_LETTERS ? findZone(zones, typed) : null
+  // No zones in the panel: nothing to check against, so no field that would say „not listed” to all.
+  if (zones.length === 0) return null
 
   return (
     <div className={cx('flex flex-col gap-5', className)} data-service-area>
@@ -61,11 +66,11 @@ export function ServiceAreaMap({ zones, center, className }: Props) {
         className="relative isolate h-[300px] overflow-hidden rounded-[28px] bg-line-dark min-[768px]:h-[440px]"
         aria-hidden="true"
       >
-        <Contours />
+        {background}
         <svg className="absolute inset-0 size-full" preserveAspectRatio="none">
-          {placed.map((t) => (
+          {placed.map((t, i) => (
             <line
-              key={t.town}
+              key={i}
               x1="50%"
               y1="50%"
               x2={`${t.x}%`}
@@ -77,20 +82,33 @@ export function ServiceAreaMap({ zones, center, className }: Props) {
             />
           ))}
         </svg>
-        {placed.map((t) => (
-          <span
-            key={t.town}
-            style={{ left: `${t.x}%`, top: `${t.y}%` }}
-            className={cx(
-              'absolute -translate-x-1/2 -translate-y-1/2 rounded-full px-2.5 py-1 text-xs font-bold whitespace-nowrap min-[768px]:text-[13px]',
-              match?.town === t.town
-                ? 'bg-on-dark text-on-dark-ink'
-                : 'bg-line-dark-current text-line-dark-ink ring-1 ring-line-dark-rule',
-            )}
-          >
-            {t.town}
-          </span>
-        ))}
+        {placed.map((t, i) => {
+          const found = match?.town === t.town
+          const at = { left: `${t.x}%`, top: `${t.y}%` }
+          return (
+            <Fragment key={i}>
+              {/* Phone: 20 labels do not fit 300 px — a dot each, the label only for the match. */}
+              {!found && (
+                <span
+                  style={at}
+                  className="absolute size-2 -translate-1/2 rounded-full bg-on-dark opacity-70 min-[768px]:hidden"
+                />
+              )}
+              <span
+                style={at}
+                className={cx(
+                  'absolute -translate-y-1/2 rounded-full px-2.5 py-1 text-xs font-bold whitespace-nowrap min-[768px]:text-[13px]',
+                  ALIGN[t.align],
+                  found
+                    ? 'z-[1] bg-on-dark text-on-dark-ink'
+                    : 'bg-line-dark-current text-line-dark-ink ring-1 ring-line-dark-rule max-[767px]:hidden',
+                )}
+              >
+                {t.town}
+              </span>
+            </Fragment>
+          )
+        })}
         <span className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-2">
           <span className="size-5 rounded-full border-[5px] border-on-dark/30 bg-on-dark" />
           <span className="rounded-lg bg-card px-3 py-1 text-sm font-extrabold text-ink">

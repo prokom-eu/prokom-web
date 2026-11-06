@@ -7,6 +7,7 @@ import { ServiceAreaMap } from '@/components/shared/ServiceAreaMap'
 import { StatsStrip, type Stat } from '@/components/shared/StatsStrip'
 import { Steps } from '@/components/shared/Steps'
 import { VerifyCards } from '@/components/shared/VerifyCards'
+import { plural } from '@/lib/plural'
 import type { SharedData } from '@/lib/shared/getSharedData'
 import type { Line } from '@/lib/tenant/lines'
 
@@ -33,7 +34,11 @@ export function ModulesPreview({ shared, line, siteEnv }: Props) {
       label: stat.label,
       flag: stat.flag,
     })),
-    { value: String(lineCount), label: 'linii w jednej firmie' },
+    // Published lines only (Zakopane waits): ADR-022 D2-3b, „5” from the board once it starts.
+    {
+      value: String(lineCount),
+      label: `${plural(lineCount, ['linia', 'linie', 'linii'])} w jednej firmie`,
+    },
   ]
 
   return (
@@ -52,6 +57,7 @@ export function ModulesPreview({ shared, line, siteEnv }: Props) {
         <ServiceAreaMap
           zones={company.serviceZones}
           center={company.address?.city ?? 'Rabka-Zdrój'}
+          background={<Contours />}
           className="mt-6"
         />
       </section>

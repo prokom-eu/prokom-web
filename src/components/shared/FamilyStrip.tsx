@@ -70,7 +70,7 @@ export function FamilyStrip({ lines, current, className }: Props) {
                   )}
                 </span>
                 {(line.descriptionLong || line.description) && (
-                  <span className={gaming ? 'text-line-dark-text' : 'text-ink-2'}>
+                  <span className={gaming ? undefined : 'text-ink-2'}>
                     {line.descriptionLong || line.description}
                   </span>
                 )}

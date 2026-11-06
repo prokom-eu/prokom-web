@@ -17,6 +17,7 @@ type Props = {
  * is read out too.
  */
 export function Steps({ steps, orientation = 'horizontal', onDark, className }: Props) {
+  if (steps.length === 0) return null
   const horizontal = orientation === 'horizontal'
   return (
     <ol
@@ -28,10 +29,7 @@ export function Steps({ steps, orientation = 'horizontal', onDark, className }: 
       data-steps={orientation}
     >
       {steps.map((step, i) => (
-        <li
-          key={step.title}
-          className={cx('relative flex gap-4', horizontal && 'min-[900px]:flex-col')}
-        >
+        <li key={i} className={cx('relative flex gap-4', horizontal && 'min-[900px]:flex-col')}>
           {/* The joining line: down the side (vertical), along the top (horizontal, wide). */}
           {i < steps.length - 1 && (
             <span

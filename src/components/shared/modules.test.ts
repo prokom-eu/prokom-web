@@ -49,6 +49,12 @@ describe('RulesBento — 6 to 8 rules (ADR-022 D2-3b)', () => {
     expect(markup).toContain('>06<')
     expect(markup.lastIndexOf('bg-line-dark')).toBeGreaterThan(markup.indexOf('Zasada 5'))
   })
+
+  it('is one ordered list with an item per rule (the reader counts them all)', () => {
+    const markup = html(createElement(RulesBento, { rules: rules(7) }))
+    expect(markup.match(/<ol/g)).toHaveLength(1)
+    expect(markup.match(/<li/g)).toHaveLength(7)
+  })
 })
 
 describe('FaqBlock', () => {
@@ -58,7 +64,7 @@ describe('FaqBlock', () => {
   ]
 
   it('shows answered questions only, the first open, with FAQPage data', () => {
-    const markup = html(createElement(FaqBlock, { title: 'Zanim zadzwonisz', items }))
+    const markup = html(createElement(FaqBlock, { id: 'faq', title: 'Zanim zadzwonisz', items }))
     expect(markup).toContain('Czy jest parking?')
     expect(markup).not.toContain('Pytanie bez odpowiedzi')
     expect(markup).toMatch(/<details open=""/)
@@ -66,11 +72,15 @@ describe('FaqBlock', () => {
   })
 
   it('renders nothing when no question has an answer', () => {
-    expect(html(createElement(FaqBlock, { title: 'X', items: [items[1]!] }))).toBe('')
+    expect(html(createElement(FaqBlock, { id: 'faq', title: 'X', items: [items[1]!] }))).toBe('')
   })
 })
 
 describe('Steps and VerifyCards', () => {
+  it('Steps without steps renders nothing', () => {
+    expect(html(createElement(Steps, { steps: [] }))).toBe('')
+  })
+
   it('Steps is an ordered list numbered 01…', () => {
     const markup = html(
       createElement(Steps, { steps: [{ title: 'Rozmowa' }, { title: 'Wycena' }] }),

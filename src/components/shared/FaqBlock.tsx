@@ -5,7 +5,8 @@ import { faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 export type FaqItem = { question: string; answer?: string | null }
 
 type Props = {
-  id?: string
+  /** The section anchor; its heading id is `<id>-title` (two blocks on a page stay distinct). */
+  id: string
   eyebrow?: string
   /** H2, e.g. „Zanim zadzwonisz”. */
   title: string
@@ -39,7 +40,7 @@ export function FaqBlock({
   return (
     <section
       id={id}
-      aria-labelledby={`${id ?? 'faq'}-title`}
+      aria-labelledby={`${id}-title`}
       className="bg-surface-2 py-[72px]"
       data-faq-block
     >
@@ -56,7 +57,7 @@ export function FaqBlock({
             {eyebrow}
           </p>
           <h2
-            id={`${id ?? 'faq'}-title`}
+            id={`${id}-title`}
             className="font-display text-[clamp(32px,3.8vw,48px)] leading-none font-extrabold tracking-[-0.025em]"
           >
             {title}
@@ -67,7 +68,7 @@ export function FaqBlock({
         <div className="flex flex-col gap-3">
           {answered.map((item, i) => (
             <details
-              key={item.question}
+              key={i}
               open={i === 0}
               className="group rounded-2xl border border-border bg-card open:border-accent-text"
             >
