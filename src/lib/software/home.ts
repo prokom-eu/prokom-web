@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { ICON_NAMES } from '../catalog/options'
+import { isVariantOf, MOCKUP_KINDS } from './mockups'
 import { firstIssue, href, key, label, link, obj, slug, svgPath, text } from './schema'
 
 /**
@@ -38,6 +39,50 @@ const sectionHead = { eyebrow: label, title: label, lead: text }
 
 /** A card of „Jak robimy”: badge on the picture („< 2,5 s”; optional), name, text, the gain. */
 const howWeBuildCard = obj({ badge: label.optional(), name: label, text, gain: text })
+
+/** Mock-up of a slide: one of the kinds and its variant (`lib/software/mockups`). */
+const mockup = obj({ kind: z.enum(MOCKUP_KINDS), variant: key.nullable() }).refine(
+  (value) => isVariantOf(value.kind, value.variant),
+  { message: 'Wariant makiety nie pasuje do rodzaju.' },
+)
+
+/**
+ * Hero v24 (ZMIANY-v24 §4.1): „Zrobimy Ci” + the changing word, 7 solutions with their mock-ups in
+ * the 3D carousel, the caption with the price and term of the solution (from `Solutions`), trust
+ * figures and the band of industries. Optional: while it is missing the old hero stays.
+ */
+export const heroV24Schema = obj({
+  pill: label,
+  /** Bold end of the pill („od 2004”). */
+  pillBadge: label,
+  /** First line of the H1 („Zrobimy Ci”); the second is the word of the slide. */
+  title: label,
+  lead: text,
+  /** Line of the choice panel („Czego potrzebuje Twoja firma?”) and its key hint („wybierz”). */
+  query: label,
+  queryHint: label,
+  /** Button of the caption („Zobacz ofertę →”). */
+  offer: label,
+  slides: z
+    .array(
+      obj({
+        /** Word of the H1 for this slide („stronę firmową.”). */
+        word: label,
+        name: label,
+        text: label,
+        /** Price and term come from this solution. */
+        solution: slug,
+        mockup,
+        icon: svgPath,
+      }),
+    )
+    .min(1)
+    .max(9),
+  trust: z.array(figure).min(1).max(4),
+  industries: z.array(label).min(1),
+})
+
+export type SoftwareHeroV24 = z.infer<typeof heroV24Schema>
 
 /**
  * Headings and small texts of the start page sections built in SW5 — the board `Main` keeps them
@@ -217,13 +262,15 @@ export const homeSchema = obj({
   }),
   /** Optional: a home saved before SW5 has none; the sections that need it are then skipped. */
   sections: homeSectionsSchema.optional(),
+  /** Hero v24 (SWA2a); missing → the old hero. */
+  hero: heroV24Schema.optional(),
 })
 
 export type SoftwareHome = z.infer<typeof homeSchema>
 
-/** Solution slugs the „12 rzeczy” cards point to (checked against `Solutions` on save). */
+/** Solution slugs the „12 rzeczy” cards and the hero slides point to (checked on save). */
 export function homeSolutionSlugs(home: SoftwareHome): string[] {
-  return [...home.popular.order]
+  return [...home.popular.order, ...(home.hero?.slides.map((slide) => slide.solution) ?? [])]
 }
 
 export function validateHome(value: unknown): true | string {
