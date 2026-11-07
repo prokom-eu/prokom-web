@@ -24,6 +24,8 @@ export const HOME_SECTIONS = [
   { value: 'situations', label: 'Z czym do nas przychodzisz (v24)', anchor: 'sytuacje' },
   { value: 'bento', label: 'Oferta — cztery rzeczy (v24)', anchor: 'oferta' },
   { value: 'showroom', label: 'Podglądy branż (v24)', anchor: 'podglady' },
+  { value: 'tech', label: 'Jak budujemy (v24)', anchor: 'technologia' },
+  { value: 'pricing', label: 'Cennik na głównej (v24)', anchor: 'cennik' },
 ] as const
 
 export type HomeSectionValue = (typeof HOME_SECTIONS)[number]['value']
@@ -40,7 +42,9 @@ export const BUILT_HOME_SECTIONS: readonly HomeSectionValue[] = [
   'situations',
   'bento',
   'showroom',
+  'tech',
   'wizard',
+  'pricing',
   'process',
   // SW11b: on `/o-firmie` only — not in the start page order, so not in the rail.
   'compare',
@@ -53,7 +57,9 @@ export const HOME_ORDER_V24 = [
   'situations',
   'bento',
   'showroom',
+  'tech',
   'wizard',
+  'pricing',
   'process',
   'faq',
   'contact',

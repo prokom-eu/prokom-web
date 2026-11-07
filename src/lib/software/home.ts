@@ -151,6 +151,55 @@ export const homeV24SectionsSchema = {
         .min(1),
     }),
   }).optional(),
+  /**
+   * „Nie składamy stron z szablonu” — 4 tabs (fast, safe, found in Google and AI, built on), each
+   * with its picture, text, an optional figure with its source and „them vs us” (ZMIANY-v24 §4.2).
+   */
+  tech: obj({
+    ...headV24,
+    tabs: z
+      .array(
+        obj({
+          label,
+          title: label,
+          text,
+          stat: obj({ v: label, t: text }).optional(),
+          them: z.tuple([label, label]),
+          us: z.tuple([label, label]),
+          visual: z.discriminatedUnion('kind', [
+            obj({ kind: z.literal('speed'), value: label, caption: label }),
+            obj({ kind: z.literal('security'), pills: z.array(label).min(1).max(4) }),
+            obj({
+              kind: z.literal('search'),
+              query: label,
+              ours: z.tuple([label, label, label]),
+              other: z.tuple([label, label]),
+              ai: z.tuple([label, label]),
+            }),
+            obj({
+              kind: z.literal('stack'),
+              rows: z
+                .array(z.tuple([label, label]))
+                .min(1)
+                .max(6),
+            }),
+          ]),
+        }),
+      )
+      .min(1)
+      .max(4),
+  }).optional(),
+  /** „Cena i termin. Od razu.” — filters by group, cards of the solutions with their mock-ups. */
+  pricing: obj({
+    ...headV24,
+    /** First filter („Wszystko”). */
+    all: label,
+    details: label,
+    groups: z
+      .array(obj({ label, solutions: z.array(slug).min(1) }))
+      .min(1)
+      .max(6),
+  }).optional(),
   /** Showroom „Tak może wyglądać Twoja strona albo system” — industries × 3 views. */
   showroom: obj({
     ...headV24,
@@ -380,6 +429,7 @@ export function homeSolutionSlugs(home: SoftwareHome): string[] {
           ...bento.automations.variants.map((v) => v.solution),
         ]
       : []),
+    ...(home.pricing?.groups.flatMap((group) => group.solutions) ?? []),
   ]
 }
 
@@ -387,4 +437,7 @@ export function validateHome(value: unknown): true | string {
   return firstIssue(homeSchema, value, 'Teksty strony głównej')
 }
 
-export type SoftwareHomeV24 = Pick<SoftwareHome, 'promises' | 'situations' | 'bento' | 'showroom'>
+export type SoftwareHomeV24 = Pick<
+  SoftwareHome,
+  'promises' | 'situations' | 'bento' | 'showroom' | 'tech' | 'pricing'
+>

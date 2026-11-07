@@ -300,4 +300,112 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
       },
     ],
   },
+  tech: {
+    eyebrow: 'Jak budujemy',
+    title: 'Nie składamy stron z szablonu.',
+    em: 'Piszemy je pod Twoją firmę.',
+    lead: 'Większość stron powstaje z gotowego motywu i kilkunastu wtyczek. My piszemy od podstaw. Dlatego dostajesz rzeczy, które da się zmierzyć i wpisać do protokołu odbioru.',
+    tabs: [
+      {
+        label: 'Szybka',
+        title: 'Klient nie czeka i nie ucieka',
+        text: 'Strona czeka gotowa na serwerze, nic nie składa się w locie z wtyczek. Google lepiej ocenia szybkie strony, a klient dzwoni, zamiast wracać do wyników.',
+        them: ['WordPress z wtyczkami', 'motyw i wtyczki ładują się po kolei'],
+        us: ['Strona od PRO-KOM', 'treść w mniej niż 2,5 s, zmierzona przy odbiorze'],
+        visual: { kind: 'speed', value: '< 2,5 s', caption: 'treść na ekranie telefonu' },
+      },
+      {
+        label: 'Bezpieczna',
+        title: 'Spokój zamiast łatania wtyczek',
+        text: 'Nie ma obcych wtyczek, które trzeba co tydzień łatać. Kopie, aktualizacje i monitoring robimy my. Ty prowadzisz firmę.',
+        stat: {
+          v: '7 966',
+          t: 'nowych luk w WordPressie i wtyczkach w 2024 r. (ok. 22 dziennie, 96% we wtyczkach). Źródło: Patchstack, „State of WordPress Security in 2025”.',
+        },
+        them: ['WordPress z wtyczkami', 'każda wtyczka to inny autor i inna luka'],
+        us: ['Strona od PRO-KOM', 'jeden kod, bez PHP i bez wtyczek'],
+        visual: {
+          kind: 'security',
+          pills: ['✓ kopia 03:00', '✓ aktualizacje', '✓ monitoring 24/7'],
+        },
+      },
+      {
+        label: 'Widoczna w Google i AI',
+        title: 'Widoczna w Google i w odpowiedziach AI',
+        text: 'Szybkość, wygoda na telefonie i dobre opisy. Dane o firmie, godziny i adres zapisujemy tak, żeby czytał je Google i asystenci AI, np. ChatGPT. Miejsca w wynikach uczciwie nie gwarantuje nikt.',
+        them: ['WordPress z wtyczkami', 'zależy od wtyczek i ich ustawień'],
+        us: ['Strona od PRO-KOM', 'dane strukturalne i SEO w cenie każdej strony'],
+        visual: {
+          kind: 'search',
+          query: 'twoja usługa + miasto',
+          ours: ['twojafirma.pl', 'Twoja Firma · Twoje miasto', '★★★★★ · otwarte do 17:00 · tel.'],
+          other: ['konkurencja.pl', 'Firma XYZ'],
+          ai: ['Asystent AI', '„Polecam Twoja Firma — odpowiada w 24 h, ceny na stronie.”'],
+        },
+      },
+      {
+        label: 'Na czym budujemy',
+        title: 'Sprawdzone narzędzia, dane w Polsce',
+        text: 'Nazw nie musisz znać. Ważne, co z nich masz: szybka strona, panel po polsku, dane na serwerze w Polsce i kopia co noc. Projekt może przejąć każdy programista, nie tylko my.',
+        them: ['Gotowe kreatory stron', 'dane u dostawcy, abonament na zawsze'],
+        us: ['Strona od PRO-KOM', 'domena, kod i dane zapisane na Twoją firmę'],
+        visual: {
+          kind: 'stack',
+          rows: [
+            ['Strona', 'Next.js · TypeScript'],
+            ['Panel', 'Payload CMS po polsku'],
+            ['System', 'Python · Django'],
+            ['Dane', 'PostgreSQL'],
+            ['Serwer', 'Docker · VPS w Polsce'],
+          ],
+        },
+      },
+    ],
+  },
+  pricing: {
+    eyebrow: 'Cennik',
+    title: 'Cena i termin.',
+    em: 'Od razu.',
+    lead: 'Kliknij kartę: zobaczysz, co dostajesz, jak to przebiega i kiedy płacisz.',
+    all: 'Wszystko',
+    details: 'Szczegóły →',
+    groups: [
+      {
+        label: 'Strony',
+        solutions: [
+          'strona-wizytowka',
+          'strona-firmowa-z-panelem',
+          'rozbudowana-strona-firmowa',
+          'landing-page',
+          'strona-dla-hotelu-lub-pensjonatu',
+          'strona-dla-restauracji-lub-baru',
+        ],
+      },
+      {
+        label: 'Przebudowa i opieka',
+        solutions: [
+          'przebudowa-starej-strony',
+          'opieka-nad-strona-i-systemem',
+          'przejecie-po-innym-wykonawcy',
+        ],
+      },
+      {
+        label: 'Systemy',
+        solutions: [
+          'system-zlecen-i-grafik-ekip',
+          'crm-dla-malej-i-sredniej-firmy',
+          'z-excela-do-systemu',
+          'czas-pracy-i-rozliczenia',
+        ],
+      },
+      {
+        label: 'Automatyzacje',
+        solutions: [
+          'powiadomienia-sms-i-e-mail',
+          'faktury-bez-przepisywania',
+          'asystent-ai-do-zapytan',
+        ],
+      },
+    ],
+  },
 }
