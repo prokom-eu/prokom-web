@@ -147,16 +147,16 @@ export async function auditPhone(page: Page, width: number): Promise<PhoneProble
         add('carousel', `przewijane w bok bez scroll-snap ${label(el)}`)
     }
 
-    // 6. The phone header hides scrolling down and comes back scrolling up; the anchor bar
-    // then sits at the top with no gap.
-    const header = document.getElementById('naglowek')
+    // 6. The phone capsule hides scrolling down and comes back scrolling up; the anchor bar
+    // then sits at the top with no gap (L1-I: the shared capsule, `data-hidden`).
+    const header = document.querySelector('[data-site-header]')
+    const capsuleHidden = () => header?.hasAttribute('data-hidden') ?? false
     if (header && html.scrollHeight > window.innerHeight + 1200) {
       window.scrollTo(0, 400)
       await wait(80)
       window.scrollTo(0, 1100)
       await wait(450)
-      if (!html.hasAttribute('data-hdr-hidden'))
-        add('header', 'nie chowa się po przewinięciu w dół')
+      if (!capsuleHidden()) add('header', 'nie chowa się po przewinięciu w dół')
       // The anchor bar sits under the hero: scroll well past where it starts, then it is stuck.
       // Skipped when the page ends too soon after it.
       const anchors = document.querySelector('nav.anchors')
@@ -172,18 +172,18 @@ export async function auditPhone(page: Page, width: number): Promise<PhoneProble
         window.scrollTo(0, anchorsStart + 1200)
         await wait(450)
         const top = anchors.getBoundingClientRect().top
-        if (html.hasAttribute('data-hdr-hidden') && Math.abs(top) > 1)
+        if (capsuleHidden() && Math.abs(top) > 1)
           add('anchors', `pasek kotwic ${Math.round(top)} px od góry przy schowanym nagłówku`)
       }
       // Back up from wherever the page stopped (never pinned at its end).
       window.scrollTo(0, window.scrollY - 400)
       await wait(450)
-      if (html.hasAttribute('data-hdr-hidden')) add('header', 'nie wraca po przewinięciu w górę')
+      if (capsuleHidden()) add('header', 'nie wraca po przewinięciu w górę')
     }
 
     // 7. Nothing hides under the bottom bar: at the very end the footer's content ends above it.
-    const bar = document.querySelector('nav.bnav')
-    const footer = document.querySelector('footer')
+    const bar = document.querySelector('nav[aria-label="Pasek aplikacji"]')
+    const footer = document.querySelector('[data-site-footer]')
     if (bar && footer && shown(bar)) {
       window.scrollTo(0, html.scrollHeight)
       await wait(450)

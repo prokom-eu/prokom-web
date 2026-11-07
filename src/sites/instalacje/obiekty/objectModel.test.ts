@@ -3,7 +3,13 @@ import { fileURLToPath } from 'node:url'
 
 import { describe, expect, it } from 'vitest'
 
-import { type BuiltObjectKey, LAYERS, OBJECT_SCENES } from '../dane/obiekty'
+import {
+  type BuiltObjectKey,
+  INSTITUTIONS,
+  LAYERS,
+  OBJECT_SCENES,
+  objectPage,
+} from '../dane/obiekty'
 import type { ServiceKey } from '../dane/types'
 import {
   autoplayDay,
@@ -203,13 +209,19 @@ describe.each(KEYS)('object page %s — the same as the prototype', (key) => {
       const sg = render(proto)
       const c = checklist(checked, total)
       expect([sg.ck.n, sg.ck.st]).toEqual([c.n, `--p:${c.ratio}`])
+      // The prototype's button text; ours says „Opisz obiekt →” (L1-I: no photos by form or
+      // WhatsApp — `dane/obiekty.ts` → `prepare.cta`).
       expect(sg.ck.cta).toBe(c.done ? 'Gotowe, wyślij zgłoszenie →' : 'Wyślij zdjęcia i opis →')
       if (i < total) {
         sg.ck.items[i]?.pick()
         checked[i] = true
       }
     }
-    expect(prepareLead(key, null)).toBe(render(proto).prepLead)
+    // The prototype's lead promised photos „w formularzu albo przez WhatsApp” — gone in L1-I.
+    expect(prepareLead(key, null)).not.toMatch(/WhatsApp|zdjęci/i)
+    expect(prepareLead(key, null)).toBe(
+      INSTITUTIONS.includes(key) ? objectPage.prepare.leadInstitution : objectPage.prepare.lead,
+    )
   })
 
   it('scene markup: one hotspot per title, classes and colours filled in', () => {

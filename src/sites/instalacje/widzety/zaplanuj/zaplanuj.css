@@ -3,8 +3,7 @@
  * for the classes of `Zaplanuj.body.html` and the state classes of `Zaplanuj.js`, ported by
  * `narzedzia/przenies-css.mjs` (map `przenies-css.strony.json`), colours only from tokens.
  * `.zkseg`/`.zksg` come from `sekcje.css`; the ticket classes repeat the home page's rules
- * because `glowna-sekcje.css` loads on `/` only. On this page the footer hides its „Zaplanuj”
- * card (prototype `.xa-zapmark`) and the frame's CTA band (prototype meta `cta: false`).
+ * because `glowna-sekcje.css` loads on `/` only. On this page the frame's CTA band hides (prototype meta `cta: false`).
  */
 [data-line='instalacje'] {
   & .zkh .hglow2 {
@@ -1131,10 +1130,6 @@
     stroke-dashoffset: 0;
   }
 }
-[data-line='instalacje'] .inst-page:has(.xa-zapmark) .ftci.plan {
-  display: none;
-}
-
 /* The consent is a real checkbox (hidden) in the prototype's look: its focus shows on the box. */
 [data-line='instalacje'] .zkcons:has(input:focus-visible) {
   outline: 2px solid var(--accent);

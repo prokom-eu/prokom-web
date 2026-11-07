@@ -1,24 +1,26 @@
-import { AnalyticsScript } from '@/components/AnalyticsScript'
 import type { ReactNode } from 'react'
 
-import { SiteLogo } from '@/components/SiteLogo'
+import { AnalyticsScript } from '@/components/AnalyticsScript'
+import { BrandBar } from '@/components/shared/BrandBar'
+import { MenuSheet } from '@/components/shared/MenuSheet'
+import { SiteFooter } from '@/components/shared/SiteFooter'
+import { TabBar } from '@/components/shared/TabBar'
 import { getInstalacjeMenu } from '@/lib/instalacje/data'
+import { getSharedData } from '@/lib/shared/getSharedData'
+import { paletteActions } from '@/lib/shared/search/palette'
 import { getCompanyData } from '@/lib/site/data'
-import { openingStatus } from '@/lib/site/hours'
 import { toTelHref } from '@/lib/site/link'
 import type { PublicSiteSettings } from '@/lib/site/public'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { navigation } from './dane/nawigacja'
 import { CtaBand } from './powloka/CtaBand'
-import { Footer } from './powloka/Footer'
-import { Header } from './powloka/Header'
-import { MenuSheet } from './powloka/MenuSheet'
+import { FooterRidge } from './powloka/FooterRidge'
+import { InstHeader } from './powloka/InstHeader'
+import { InstRail } from './powloka/InstRail'
+import { InstSheetList } from './powloka/InstSheetList'
 import { PageTransition } from './powloka/PageTransition'
-import { ShellProvider } from './powloka/ShellProvider'
-import { TabBar } from './powloka/TabBar'
-import { TopBar } from './powloka/TopBar'
-import { salonsList, salonsNote } from './powloka/salons'
+import { salonsNote } from './powloka/salons'
 import { FrameStyles } from './style/LineStyles'
 
 type Props = {
@@ -30,53 +32,125 @@ type Props = {
 }
 
 /**
- * Page frame of the Instalacje line (I3, ADR-I004, KOMPONENTY §1): top bar, header with mega
- * menus, CTA band and footer; on a phone the hiding header, the bottom bar and the menu sheet.
- * Menus: layout in `dane/nawigacja.ts`, names/icons/colours from the panel; contact, salons and
- * hours from the panel (`SiteSettings`, `CompanyData`) — without them the item is left out.
+ * Page frame of the Instalacje line on the shared elements of the lines (L1-I, ADR-022, spec
+ * WSPOLNE-ELEMENTY §5): brand bar, header capsule with the line's two mega menus, side rail and
+ * search window, the line's CTA band, the shared footer with the mountain ridge, and on a phone
+ * the bottom bar and the menu sheet. Contact data, hours and lines come from the panel
+ * (`CompanyData`, `SiteSettings.shared`) — nothing written in code, no WhatsApp (decision 01.11).
  */
 export async function InstalacjeFrame({ tenant, settings, promo, children }: Props) {
-  const [menu, company] = await Promise.all([getInstalacjeMenu(tenant.id), getCompanyData()])
+  const [menu, shared, company] = await Promise.all([
+    getInstalacjeMenu(tenant.id),
+    getSharedData(tenant.id),
+    getCompanyData(),
+  ])
   const telHref = settings?.phone ? toTelHref(settings.phone) : null
   const phone = settings?.phone && telHref ? { label: settings.phone, href: telHref } : null
-  const locations = company?.locations ?? []
-  const hours = locations[0]?.hours ?? null
-  const status = hours ? openingStatus(hours, new Date()) : null
-  const salons = salonsList(locations)
-  const legal = settings?.footer.links ?? []
+  const homeLabel = `${tenant.name} — strona główna`
+  const now = new Date().toISOString()
+
+  const line = shared?.line
+  const center = line?.tabBar?.center
+  const action =
+    center?.label && center.href
+      ? { label: center.label, href: center.href, icon: center.icon }
+      : null
+  const columns = (line?.footerColumns ?? []).map((column) => ({
+    heading: column.heading ?? '',
+    links: (column.links ?? []).map((link) => ({ label: link.label, href: link.href })),
+  }))
 
   return (
-    <ShellProvider>
+    <>
       <FrameStyles />
       <div id="top" className="inst-page min-h-dvh bg-surface text-ink">
         {promo}
-        <TopBar
-          topBar={navigation.topBar}
-          salons={salons}
-          hours={hours}
-          status={status}
-          phone={phone}
-        />
-        <Header
-          logo={<SiteLogo tenant={tenant} className="h-7 w-auto" />}
+        {shared && (
+          <BrandBar
+            lines={shared.lines}
+            current="instalacje"
+            hours={shared.company.hours}
+            holidays={shared.company.holidays}
+            now={now}
+            slot={shared.line.brandBarSlot}
+            phone={shared.line.phone}
+            phoneLabel={shared.line.phoneLabel}
+          />
+        )}
+        <InstHeader
+          homeLabel={homeLabel}
           navigation={navigation}
           menu={menu}
-          phone={phone}
+          withShared={shared !== null}
         />
         <PageTransition>{children}</PageTransition>
-        <CtaBand band={navigation.ctaBand} phone={phone} salons={salonsNote(locations)} />
-        <Footer navigation={navigation} menu={menu} company={company} phone={phone} legal={legal} />
-        <TabBar navigation={navigation} menu={menu} />
-        <MenuSheet
-          navigation={navigation}
-          menu={menu}
-          hours={hours}
-          status={status}
+        <CtaBand
+          band={navigation.ctaBand}
           phone={phone}
+          salons={salonsNote(company?.locations ?? [])}
         />
+        {shared && (
+          <SiteFooter
+            line="instalacje"
+            lineName={tenant.name}
+            description={shared.line.footerDescription}
+            promises={shared.line.footerPromises ?? []}
+            columns={columns}
+            company={shared.company}
+            contact={{
+              phone: shared.line.phone,
+              email: shared.line.email,
+              hours: shared.company.hours,
+              holidays: shared.company.holidays,
+              responsePromise: shared.line.responsePromise,
+            }}
+            lines={shared.lines}
+            legalNote={shared.line.legalNote}
+            now={now}
+            edge={<FooterRidge />}
+          />
+        )}
+        {shared && (
+          <InstRail
+            sections={shared.line.rail?.sections ?? []}
+            action={action}
+            settings={{
+              synonyms: shared.line.rail?.synonyms ?? [],
+              popular: shared.line.rail?.searchPopular ?? [],
+              shortcuts: (shared.line.rail?.searchShortcuts ?? []).map((link) => ({
+                label: link.label,
+                href: link.href,
+              })),
+            }}
+            actions={paletteActions({
+              phone: shared.line.phone,
+              phone2: shared.line.phone2,
+              email: shared.line.email,
+              mapsUrl: shared.company.mapsUrl,
+              primary: action,
+              themes: true,
+            })}
+            recentlyViewed={shared.company.recentlyViewed}
+            phone={shared.line.phone}
+          />
+        )}
+        {shared && <TabBar second={line?.tabBar?.second ?? null} center={center ?? null} />}
+        {shared && (
+          <MenuSheet
+            lines={shared.lines}
+            current="instalacje"
+            phone={shared.line.phone}
+            hours={shared.company.hours}
+            holidays={shared.company.holidays}
+            now={now}
+            themes
+          >
+            <InstSheetList navigation={navigation} menu={menu} />
+          </MenuSheet>
+        )}
         {/* Statistics (ADR-020): rendered only when `UMAMI_WEBSITES` has `instalacje=<id>`. */}
         <AnalyticsScript line={tenant.line} />
       </div>
-    </ShellProvider>
+    </>
   )
 }

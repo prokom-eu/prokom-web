@@ -42,7 +42,8 @@ for (const [width, height] of SIZES) {
     }
     // `--inst-hdr-h` is a number in the tokens: the hero starts right under the header and its
     // height is the window minus exactly that chrome (review of PR 1).
-    const header = await box(page, '.hdr')
+    // L1-I: the shared brand bar + header capsule; the hero starts right under the capsule.
+    const header = await box(page, '[data-site-header]')
     const hero = await box(page, '#start')
     expect(header && hero).toBeTruthy()
     if (header && hero) {
@@ -54,7 +55,7 @@ for (const [width, height] of SIZES) {
     const building = await box(page, '[data-hx-building]')
     expect(building).not.toBeNull()
     // The camera stands by the right edge only with room for it (RUNDA-V5 §1.3).
-    expect(Boolean(parts.camera)).toBe(height - 114 >= 700 && width >= 1280)
+    expect(Boolean(parts.camera)).toBe(height - 110 >= 700 && width >= 1280)
 
     const named = Object.entries(parts).filter((e): e is [string, Box] => e[1] !== null)
     for (const [name, rect] of named) {

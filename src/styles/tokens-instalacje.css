@@ -195,10 +195,11 @@
   --inst-gor-card: var(--c-instalacje-light-gor-card);
   --inst-gor-mt: var(--c-instalacje-light-gor-mt);
   --inst-plan-glass-top: var(--c-instalacje-light-plan-glass-top);
-  /* Round v5 (RUNDA-V5 §1–§2): desktop chrome above the hero (top bar 36.5 px + header 77 px),
-     so the hero fits the first screen; brand logo tiles stay white in both themes (logos have
-     black and grey parts), only their ring follows the theme. */
-  --inst-hdr-h: 114px;
+  /* Round v5 (RUNDA-V5 §1–§2): desktop chrome above the hero, so the hero fits the first screen —
+     since L1-I the shared brand bar (38 px) + header capsule (72 px); brand logo tiles stay white
+     in both themes (logos have black and grey parts), only their ring follows the theme. Change
+     together with `COMPACT` in `LiveObjectHero.tsx` and `glowna.css` (700 px + this). */
+  --inst-hdr-h: 110px;
   --inst-brand-tile: #ffffff;
   --inst-brand-tile-ink: #4a5a60;
   --inst-brand-tile-line: rgba(14, 26, 29, 0.1);

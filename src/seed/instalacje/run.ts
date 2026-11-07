@@ -3,7 +3,7 @@ import type { Payload, Where } from 'payload'
 import { SETTINGS_DEFAULTS } from '../../lib/instalacje/options'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
-import { lineSettingsUpdate, siteContactUpdate } from './contact'
+import { footerText, lineSettingsUpdate, siteContactUpdate } from './contact'
 import { FORM_PAGE_BLOCKS, needsFormBlock } from './formPages'
 import { seedInstalacjeGuide } from './guide'
 import { LEGAL_LINKS, seedInstalacjeLegal } from './legal'
@@ -41,7 +41,7 @@ type Counter = { created: number; updated: number; skipped: number }
  * - Pages: missing ones as empty drafts with title and SEO (blocks come with their sessions);
  *   an existing page is never touched — except home, which gets its `instHome` block (I5).
  * - Settings: created while missing, then they belong to the panel. The line's real phone and
- *   e-mail (`SiteSettings`), WhatsApp and the architects' contact person replace only the sample
+ *   e-mail (`SiteSettings`) and the architects' contact person replace only the sample
  *   or an empty field (`./contact`).
  */
 export async function seedInstalacje(payload: Payload): Promise<void> {
@@ -112,10 +112,13 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     ...local,
   })
   const siteUpdate = siteSettings ? siteContactUpdate(siteSettings) : null
-  // I13: the footer's legal links while the panel has none (the sample settings have none).
+  // I13: the footer's legal links while the panel has none (the sample settings have none);
+  // L1-I: the line description of the shared footer while the panel has the sample text.
+  const links = siteSettings && !siteSettings.footer?.links?.length ? LEGAL_LINKS : null
+  const text = siteSettings ? footerText(siteSettings.footer?.text) : null
   const footer =
-    siteSettings && !siteSettings.footer?.links?.length
-      ? { ...siteSettings.footer, links: LEGAL_LINKS }
+    siteSettings && (links || text)
+      ? { ...siteSettings.footer, ...(links && { links }), ...(text && { text }) }
       : null
   if (siteSettings && (siteUpdate || footer)) {
     await payload.update({

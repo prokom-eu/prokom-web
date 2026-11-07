@@ -191,7 +191,9 @@ test.describe('Anteny page on a phone', () => {
         await scrollTo(y)
         await page.waitForTimeout(50)
       }
-      await expect(page.locator('html')).toHaveAttribute('data-hdr-hidden', '', { timeout: 500 })
+      await expect(page.locator('[data-site-header]')).toHaveAttribute('data-hidden', '', {
+        timeout: 500,
+      })
     }).toPass()
     await expect(async () => {
       const box = await bar.boundingBox()

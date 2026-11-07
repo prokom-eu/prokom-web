@@ -355,7 +355,7 @@ export const glownaSekcje = {
     steps: [
       {
         title: 'Rozmowa',
-        text: 'Telefon albo formularz. Mówisz, co chcesz zabezpieczyć lub usprawnić, wysyłasz zdjęcia.',
+        text: 'Telefon albo formularz. Mówisz, co chcesz zabezpieczyć lub usprawnić, i umawiamy wizję lokalną.',
       },
       {
         title: 'Wizja lokalna',
@@ -399,10 +399,8 @@ export const glownaSekcje = {
     guide: 'Poradnik: przepisy i porady →',
     aside: {
       title: 'Nie ma Twojego pytania?',
-      text: 'Zadzwoń albo napisz na WhatsApp. Wyślij zdjęcie obiektu albo starej instalacji, a powiemy, od czego zacząć.',
-      button: 'Napisz na WhatsApp',
-      /** Without a WhatsApp number in the panel. */
-      buttonNoWhatsapp: 'Napisz do nas',
+      text: 'Zadzwoń albo napisz. Opisz obiekt i to, co już w nim jest, a powiemy, od czego zacząć.',
+      button: 'Napisz do nas',
     },
     items: [
       {
@@ -415,7 +413,7 @@ export const glownaSekcje = {
         // TODO(krystian): the boss's rules of the site visit and travel go first (prototype
         // `[SZEF: zasady wizji lokalnej i dojazdu]`).
         answer:
-          'Zanim przyjedziemy, możesz wysłać zdjęcia obiektu. Często już na ich podstawie powiemy, jakiego zakresu się spodziewać.',
+          'Zanim przyjedziemy, opisz obiekt przez telefon albo w formularzu. Często już wtedy powiemy, jakiego zakresu się spodziewać.',
       },
       {
         question: 'Czy kamery działają bez internetu?',
@@ -504,9 +502,8 @@ export const glownaSekcje = {
       phone: 'Telefon',
       /** Without opening hours in the company data. */
       hours: 'pn–pt 9:00–17:00',
-      mail: 'WhatsApp i e-mail',
-      mailOnly: 'E-mail',
-      mailNote: 'Wyślij zdjęcia obiektu',
+      mail: 'E-mail',
+      mailNote: 'Zapytania i dokumenty',
       salon: 'Salon',
       route: 'Wyznacz trasę →',
     },
