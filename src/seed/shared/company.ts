@@ -141,7 +141,7 @@ export const COMPANY_ZONES: NonNullable<CompanyDatum['serviceZones']> = [
   },
   {
     name: 'Podhale',
-    towns: ['Nowy Targ', 'Szaflary', 'Czarny Dunajec', 'Szczawnica', 'Krościenko'],
+    towns: ['Nowy Targ', 'Szaflary', 'Raba Wyżna', 'Czarny Dunajec', 'Szczawnica', 'Krościenko'],
     note: 'Dojazd z Rabki-Zdroju.',
   },
   {

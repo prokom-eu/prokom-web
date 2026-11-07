@@ -166,18 +166,14 @@ export function SearchDialog({
           <Icon name={railIcon(action.icon)} strokeWidth={2} className="size-4" />
         </span>
         <span>{compact ? action.short : action.label}</span>
+        {/* The chip shows the short word; its name starts with it, so voice control finds it. */}
+        {compact && <span className="sr-only"> — {action.label}</span>}
       </>
     )
     const className = compact ? 'sdlg__chip' : 'sdlg__result'
     if (action.href && isInternal(action.href)) {
       return (
-        <Link
-          key={action.kind}
-          href={action.href}
-          className={className}
-          data-result
-          aria-label={compact ? action.label : undefined}
-        >
+        <Link key={action.kind} href={action.href} className={className} data-result>
           {content}
         </Link>
       )
@@ -189,7 +185,6 @@ export function SearchDialog({
         className={className}
         data-result
         {...(action.kind === 'route' ? { target: '_blank', rel: 'noopener' } : {})}
-        aria-label={compact ? action.label : undefined}
       >
         {content}
       </a>
@@ -199,7 +194,6 @@ export function SearchDialog({
         type="button"
         className={className}
         data-result
-        aria-label={compact ? action.label : undefined}
         onClick={() => run(action)}
       >
         {content}
