@@ -20,6 +20,7 @@ import { InstHeader } from './powloka/InstHeader'
 import { InstRail } from './powloka/InstRail'
 import { InstSheetList } from './powloka/InstSheetList'
 import { PageTransition } from './powloka/PageTransition'
+import { PreviewGuard } from './powloka/PreviewGuard'
 import { salonsNote } from './powloka/salons'
 import { FrameStyles } from './style/LineStyles'
 
@@ -110,44 +111,47 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
             edge={<FooterRidge />}
           />
         )}
-        {shared && (
-          <InstRail
-            sections={shared.line.rail?.sections ?? []}
-            action={action}
-            settings={{
-              synonyms: shared.line.rail?.synonyms ?? [],
-              popular: shared.line.rail?.searchPopular ?? [],
-              shortcuts: (shared.line.rail?.searchShortcuts ?? []).map((link) => ({
-                label: link.label,
-                href: link.href,
-              })),
-            }}
-            actions={paletteActions({
-              phone: shared.line.phone,
-              phone2: shared.line.phone2,
-              email: shared.line.email,
-              mapsUrl: shared.company.mapsUrl,
-              primary: action,
-              themes: true,
-            })}
-            recentlyViewed={shared.company.recentlyViewed}
-            phone={shared.line.phone}
-          />
-        )}
-        {shared && <TabBar second={line?.tabBar?.second ?? null} center={center ?? null} />}
-        {shared && (
-          <MenuSheet
-            lines={shared.lines}
-            current="instalacje"
-            phone={shared.line.phone}
-            hours={shared.company.hours}
-            holidays={shared.company.holidays}
-            now={now}
-            themes
-          >
-            <InstSheetList navigation={navigation} menu={menu} />
-          </MenuSheet>
-        )}
+        {/* The preview of the shared elements renders its own copies (`/_wspolne`). */}
+        <PreviewGuard>
+          {shared && (
+            <InstRail
+              sections={shared.line.rail?.sections ?? []}
+              action={action}
+              settings={{
+                synonyms: shared.line.rail?.synonyms ?? [],
+                popular: shared.line.rail?.searchPopular ?? [],
+                shortcuts: (shared.line.rail?.searchShortcuts ?? []).map((link) => ({
+                  label: link.label,
+                  href: link.href,
+                })),
+              }}
+              actions={paletteActions({
+                phone: shared.line.phone,
+                phone2: shared.line.phone2,
+                email: shared.line.email,
+                mapsUrl: shared.company.mapsUrl,
+                primary: action,
+                themes: true,
+              })}
+              recentlyViewed={shared.company.recentlyViewed}
+              phone={shared.line.phone}
+            />
+          )}
+          {shared && <TabBar second={line?.tabBar?.second ?? null} center={center ?? null} />}
+          {shared && (
+            <MenuSheet
+              lines={shared.lines}
+              current="instalacje"
+              phone={shared.line.phone}
+              hours={shared.company.hours}
+              holidays={shared.company.holidays}
+              now={now}
+              themes
+            >
+              <InstSheetList navigation={navigation} menu={menu} />
+            </MenuSheet>
+          )}
+        </PreviewGuard>
         {/* Statistics (ADR-020): rendered only when `UMAMI_WEBSITES` has `instalacje=<id>`. */}
         <AnalyticsScript line={tenant.line} />
       </div>
