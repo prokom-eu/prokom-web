@@ -27,6 +27,7 @@ import {
 } from './solutionPages'
 import { wizardSeed } from './wizardExtras'
 import { HOME_HERO } from './homeHero'
+import { HOME_V24 } from './homeV24'
 import { SOLUTION_PREVIEWS } from './previews'
 
 /**
@@ -496,6 +497,7 @@ export function softwareSettingsData() {
       popular: { order: structuredClone(popularne.order), tabs: structuredClone(popularne.tabs) },
       sections: structuredClone(HOME_SECTION_TEXTS),
       hero: structuredClone(HOME_HERO),
+      ...structuredClone(HOME_V24),
     },
     offer: structuredClone(oknoOferty),
     thanks: structuredClone(SOFTWARE_THANKS),

@@ -12,12 +12,13 @@ describe('Software home texts schema', () => {
     expect(homeSchema.safeParse(seedHome()).error?.issues).toBeUndefined()
   })
 
-  it('points all 12 cards to solutions of the package (v22: no generic cards)', () => {
+  it('points the 12 cards and the v24 items to solutions of the package', () => {
     const slugs = new Set(solutionsToImport().map((item) => item.slug))
     const home = homeSchema.parse(seedHome())
     const cards = homeSolutionSlugs(home)
-    // 12 cards of „12 rzeczy” + the 7 hero slides (SWA2a).
-    expect(cards).toHaveLength(12 + (home.hero?.slides.length ?? 0))
+    // „12 rzeczy” first, then the v24 hero, situations and bento (SWA2a/2b).
+    expect(cards.slice(0, 12)).toEqual(home.popular.order)
+    expect(cards.length).toBeGreaterThan(12)
     for (const slug of cards) expect(slugs.has(slug), slug).toBe(true)
   })
 

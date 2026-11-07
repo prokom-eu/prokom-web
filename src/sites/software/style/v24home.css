@@ -1,0 +1,512 @@
+/*
+ * Sections of the v24 start page after the hero (ZMIANY-v24 §4 pkt 2–5, board `AU-pc`, pattern
+ * `v24/wzorzec/aurora.css` „promises / situations / bento / showroom”). Colours from tokens only.
+ */
+
+.v-sec {
+  position: relative;
+  padding: 130px 0 0;
+}
+.v-sec-first {
+  padding-top: 100px;
+}
+.v-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.v-head-center {
+  margin: 0 auto 44px;
+}
+.v-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.v-lead {
+  max-width: 380px;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.v-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.v-price {
+  font: 900 19px var(--font-display);
+  color: var(--accent-text);
+  white-space: nowrap;
+}
+.v-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--accent-text);
+}
+.v-link > span {
+  transition: translate var(--dur-hover) var(--ease-out);
+}
+.v-link:hover > span {
+  translate: 4px 0;
+}
+.v-scr {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--ink) 4%, var(--surface));
+}
+.v-swap {
+  position: absolute;
+  inset: 0;
+}
+.v-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.v-chips .sw-chip {
+  min-height: 40px;
+  font-size: 13px;
+}
+
+/* Promises */
+.v-prom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.v-prom > li {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.v-ico {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--accent-soft);
+  display: grid;
+  place-items: center;
+}
+.v-ico svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--accent-text);
+}
+.v-prom h3 {
+  margin: 0;
+  font: 900 24px/1.15 var(--font-display);
+  letter-spacing: -0.02em;
+}
+.v-prom p {
+  margin: 8px 0 0;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+/* Situations */
+.v-sits {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  align-items: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.v-sit {
+  overflow: hidden;
+  transition:
+    border-color var(--dur-state) var(--ease-out),
+    box-shadow var(--dur-state) var(--ease-out);
+}
+.v-sit[data-open] {
+  border-color: var(--accent-line);
+  box-shadow: 0 40px 100px -40px var(--glow);
+}
+.v-sit-tx {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 26px 28px 0;
+  text-align: left;
+  cursor: pointer;
+}
+.v-sit-n {
+  font: 900 13px var(--font-display);
+  color: var(--accent-text);
+  letter-spacing: 0.06em;
+}
+.v-sit-q {
+  font: 900 27px/1.12 var(--font-display);
+  letter-spacing: -0.02em;
+}
+.v-sit-body {
+  padding: 10px 28px 0;
+}
+.v-sit-body p {
+  margin: 0;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+.v-sit-body .v-price {
+  font-size: 20px;
+}
+.v-sit-scr {
+  height: 0;
+  margin-top: 26px;
+  transition: height 0.7s var(--ease-out);
+}
+.v-sit[data-open] .v-sit-scr {
+  height: 300px;
+}
+.v-sit:not([data-open]) .v-sit-tx {
+  padding-bottom: 0;
+}
+
+/* Bento */
+.v-bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 18px;
+}
+.v-bento h3 {
+  margin: 0;
+  font: 900 26px var(--font-display);
+  letter-spacing: -0.02em;
+}
+.v-b1 {
+  grid-column: span 7;
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.v-b2,
+.v-b3 {
+  grid-column: span 5;
+  overflow: hidden;
+}
+.v-b4 {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  overflow: hidden;
+}
+.v-b1-scr {
+  flex: 1;
+  min-height: 560px;
+}
+.v-b2-scr {
+  height: 270px;
+}
+.v-b4-scr {
+  min-height: 360px;
+}
+.v-tb {
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.v-b4 .v-tb {
+  justify-content: center;
+}
+.v-note {
+  color: var(--ink-2);
+  font-size: 14px;
+}
+.v-text {
+  margin: 0;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+.v-drag {
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+}
+.v-drag:focus-visible {
+  outline-offset: -3px;
+}
+
+/* Showroom */
+.v-shw {
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  gap: 18px;
+  align-items: stretch;
+}
+.v-indgrid {
+  display: grid;
+  gap: 8px;
+}
+.v-ind {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+  padding: 10px 14px 10px 10px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+  color: var(--ink);
+  font: 800 14px var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-state) var(--ease-out),
+    background-color var(--dur-state) var(--ease-out);
+}
+.v-ind[aria-selected='true'] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow:
+    0 0 0 1px var(--accent) inset,
+    0 18px 40px -24px var(--glow);
+}
+.v-ii {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  color: var(--ink-2);
+}
+.v-ii svg {
+  width: 18px;
+  height: 18px;
+}
+.v-ind[aria-selected='true'] .v-ii {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.v-stage {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.v-stbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.v-stname {
+  min-width: 0;
+}
+.v-stname b {
+  display: block;
+  font: 800 15px var(--font-display);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.v-stname span {
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.v-modes {
+  flex: none;
+  min-width: 320px;
+}
+.v-stscr {
+  flex: 1;
+  min-height: 500px;
+}
+.v-stglow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 70%;
+  height: 70%;
+  translate: -50% -50%;
+  background: radial-gradient(closest-side, var(--glow), transparent);
+  pointer-events: none;
+}
+.v-stfoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 16px;
+  border-top: 1px solid var(--border);
+}
+.v-feats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.v-feats i {
+  margin-right: 6px;
+  color: var(--ok-text);
+  font-style: normal;
+  font-weight: 900;
+}
+.v-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .v-wrap {
+    padding: 0 24px;
+  }
+}
+@media (max-width: 960px) {
+  .v-prom,
+  .v-sits {
+    grid-template-columns: 1fr;
+  }
+  .v-prom > li {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .v-b1,
+  .v-b2,
+  .v-b3 {
+    grid-column: span 12;
+  }
+  .v-b4 {
+    grid-template-columns: 1fr;
+  }
+  .v-b1-scr {
+    min-height: 380px;
+  }
+  .v-shw {
+    grid-template-columns: 1fr;
+  }
+  .v-indgrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .v-sec {
+    padding-top: 76px;
+  }
+  .v-sec-first {
+    padding-top: 56px;
+  }
+  .v-wrap {
+    padding: 0 16px;
+  }
+  .v-prom > li {
+    padding: 20px;
+  }
+  .v-sit-tx {
+    padding: 20px 20px 0;
+  }
+  .v-sit-body {
+    padding: 10px 20px 0;
+  }
+  .v-sit-q {
+    font-size: 22px;
+  }
+  .v-sit[data-open] .v-sit-scr {
+    height: 220px;
+  }
+  .v-b1-scr {
+    min-height: 0;
+    height: 290px;
+    flex: none;
+  }
+  .v-b2-scr {
+    height: 216px;
+  }
+  .v-b4-scr {
+    min-height: 226px;
+  }
+  .v-chips-scroll {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin: 0 -26px;
+    padding: 0 26px;
+  }
+  .v-chips-scroll .sw-chip {
+    flex: none;
+  }
+  .v-indgrid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .v-ind {
+    flex: 0 0 auto;
+    width: auto;
+    scroll-snap-align: start;
+    white-space: nowrap;
+  }
+  .v-stbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .v-modes {
+    min-width: 0;
+  }
+  .v-stscr {
+    min-height: 260px;
+  }
+  .v-btn {
+    width: 100%;
+  }
+}
+
+/* Looping mock-ups stop while pointed at, focused or off screen (WCAG 2.2.2). */
+.v-scr:is(:hover, :focus-within) .mk *,
+.v-sec[data-paused] .mk * {
+  animation-play-state: paused;
+}
+
+/* Switching variants: the new mock-up fades in (ZMIANY-v24 §4.2 „przejście krzyżowe”). */
+@media (prefers-reduced-motion: no-preference) {
+  .v-swap {
+    animation: v-swap var(--dur-state) var(--ease-out) both;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v-sit-scr {
+    transition: none;
+  }
+}
+@keyframes v-swap {
+  from {
+    opacity: 0;
+  }
+}

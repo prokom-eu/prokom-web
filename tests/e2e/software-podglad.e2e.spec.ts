@@ -97,6 +97,58 @@ test.describe('/_software — v24 foundation', () => {
   })
 })
 
+// SWA2b (ZMIANY-v24 §4 pkt 2–5, §4.2): the v24 start page sections, shown on `/_software` until
+// SWA2c places them on the start page.
+test.describe('/_software — v24 start page sections', () => {
+  test.use({ viewport: { width: 1440, height: 900 } })
+  const sections = (page: Page) => page.locator('[data-software-preview="home-sections"]')
+
+  test('promises and situations: one open, its price from Solutions', async ({ page }) => {
+    await page.goto(site(HOST, '/_software'))
+    await expect(sections(page).getByRole('heading', { level: 3 })).toContainText([
+      'Widzisz, zanim zapłacisz',
+    ])
+    const situations = page.locator('#sytuacje')
+    const second = situations.getByRole('button', { name: /Mam starą stronę/ })
+    await expect(second).toHaveAttribute('aria-expanded', 'false')
+    await second.click()
+    await expect(second).toHaveAttribute('aria-expanded', 'true')
+    await expect(situations.locator('[data-open] .v-price')).toHaveText(/od [\d\s]+zł/)
+    await expect(situations.locator('[data-open] [data-mockup="before"]')).toBeVisible()
+  })
+
+  test('bento: a chip switches the mock-up and the price; the slider moves by keys', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST, '/_software'))
+    const bento = page.locator('#oferta-v24')
+    await bento.getByRole('button', { name: 'Restauracja' }).click()
+    await expect(bento.getByRole('button', { name: 'Restauracja' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await expect(bento.locator('.v-b1 .mk-url')).toHaveText('karczmapodlipa.pl')
+    const slider = bento.getByRole('slider')
+    await slider.focus()
+    await page.keyboard.press('ArrowLeft')
+    await expect(slider).toHaveAttribute('aria-valuenow', '45')
+  })
+
+  test('showroom: an industry and the system view, „Policz” goes to the wizard', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST, '/_software'))
+    const showroom = page.locator('#podglady-v24')
+    await showroom.getByRole('tab', { name: 'Budowlanka i remonty' }).click()
+    await showroom.getByRole('button', { name: 'System' }).click()
+    await expect(showroom.locator('[data-mockup="dash"]')).toBeVisible()
+    await expect(showroom.getByRole('link', { name: /Policz dla tej branży/ })).toHaveAttribute(
+      'href',
+      '/dobierz?firma=bud',
+    )
+  })
+})
+
 test.describe('/_software on a phone', () => {
   test.use({ viewport: { width: 360, height: 780 } })
 
