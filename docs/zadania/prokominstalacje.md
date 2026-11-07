@@ -17,6 +17,8 @@ Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w
 
 ## 1. Sesje i szacunek
 
+**Od 06.11.2026 obowiązuje plan domknięcia** `docs/zadania/prokominstalacje-domkniecie.md` (sesje FUND-W, INST-2 … PROD z promptami; ma pierwszeństwo przed tabelą niżej i przed V5-C/V5-D jako osobnymi sesjami — weszły do INST-4). Audyt 06.11: `docs/audyty/prokominstalacje-audyt-0611.md`.
+
 **Runda v5 (03.11.2026):** `docs/design/prokominstalacje/RUNDA-V5.md` — prompty sesji w §12; ma pierwszeństwo przed prototypem v4.2.
 **Od 30.10 obowiązuje plan przyspieszenia** (`prokominstalacje-przyspieszenie.md`: narzędzia po I6, tokeny wszystkich stron jednym PR, auto-merge małych PR-ów, jeden folder i sesje połączone — 31.10) — pozostałe ≈ 22 wieczory → ≈ 15; tabela niżej to szacunek pierwotny.
 
