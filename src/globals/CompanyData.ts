@@ -93,7 +93,10 @@ const companyFields: Field[] = [
     name: 'consent',
     label: 'Zgoda w formularzach',
     type: 'group',
-    admin: { description: 'Tryb po decyzji prawnika; formularze przejdą na te pola w D2/D3.' },
+    admin: {
+      description:
+        'Jeszcze nie działa: formularze pokazują klauzulę z kodu i zawsze pole do zaznaczenia (ADR-022 „Rozstrzygnięcia D2-3a”). Nie zmieniaj przed opinią prawnika i osobnym ADR.',
+    },
     fields: [
       {
         type: 'row',
