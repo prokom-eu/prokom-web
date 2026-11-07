@@ -9676,7 +9676,7 @@ export interface CompanyDatum {
     sitemap?: string | null;
   };
   /**
-   * Tryb po decyzji prawnika; formularze przejdą na te pola w D2/D3.
+   * Jeszcze nie działa: formularze pokazują klauzulę z kodu i zawsze pole do zaznaczenia (ADR-022 „Rozstrzygnięcia D2-3a”). Nie zmieniaj przed opinią prawnika i osobnym ADR.
    */
   consent?: {
     mode?: ('checkbox' | 'info') | null;

@@ -1129,3 +1129,13 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
     display: none;
   }
 }
+
+/* Shared contact form (spec §5 `ContactForm`): fields 52 px high (54 on phones), text 16 px. */
+.cform :is(input:not([type='checkbox']), textarea) {
+  min-height: 52px;
+}
+@media (max-width: 767px) {
+  .cform input:not([type='checkbox']) {
+    min-height: 54px;
+  }
+}
