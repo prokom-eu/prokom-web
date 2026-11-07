@@ -93,8 +93,8 @@ test.describe('Instalacje service desk', () => {
     await expect(page.locator('#plany .plan')).toHaveCount(3)
     await expect(page.locator('#plany')).not.toContainText('zł')
     await expect(page.locator('#powiazane .relc')).toHaveCount(4)
-    // The plan cards' rules never reach the footer's „Zaplanuj” card (`.ftci.plan`).
-    await expect(page.locator('#stopka .ftci.plan')).toHaveCSS('flex-direction', 'row')
+    // The plan cards' rules stay in the section: the shared footer has no `.plan` of its own.
+    await expect(page.locator('[data-site-footer] .plan')).toHaveCount(0)
   })
 
   test('has no accessibility violations in the fault form', async ({ page }) => {

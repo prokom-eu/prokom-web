@@ -7,7 +7,7 @@ import { SERVICE_KEYS } from '@/lib/instalacje/options'
 import { siteOrigin } from '@/lib/seo/origin'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
-import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toTelHref } from '@/lib/site/link'
 import type { InstHomeBlock as InstHomeBlockData } from '@/payload-types'
 
 import { glownaSekcje } from '../../dane/glownaSekcje'
@@ -27,7 +27,6 @@ import { type HomeService, ServicesGrid, TrustBand } from '../../sekcje/glowna/S
 import { JsonLd } from '../../sekcje/JsonLd'
 import { HeroBackdrop } from '../../widzety/glowna/HeroBackdrop'
 import { LiveObjectHero } from '../../widzety/glowna/LiveObjectHeroLazy'
-import { SectionRail } from '../../widzety/glowna/SectionRailLazy'
 
 type Props = { block: InstHomeBlockData; tenantId: number }
 
@@ -55,7 +54,6 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
   const origin = siteOrigin(host, getEnv().SITE_ENV)
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
-  const whatsapp = settings.whatsapp ? toWhatsAppHref(settings.whatsapp) : null
   const services = new Map<ServiceKey, HomeService>(
     menu.services.flatMap((column) =>
       column.items.map((item) => [item.key as ServiceKey, { ...item, group: column.label }]),
@@ -85,7 +83,6 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
   return (
     <>
       {origin && <JsonLd data={websiteJsonLd({ origin, name: SITE_NAME })} />}
-      <SectionRail />
       <LiveObjectHero backdrop={<HeroBackdrop />}>
         <div className="hxt">
           <span className="hpill in d1">
@@ -145,8 +142,8 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
         aside={{
           title: t.aside.title,
           text: t.aside.text,
-          button: whatsapp ? t.aside.button : t.aside.buttonNoWhatsapp,
-          href: whatsapp ?? '/kontakt',
+          button: t.aside.button,
+          href: '/kontakt',
         }}
         phone={phone}
         fold
@@ -158,7 +155,6 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
         phone={phone}
         email={site?.email ?? null}
         salons={salons}
-        whatsapp={whatsapp}
         hours={hours}
       />
     </>

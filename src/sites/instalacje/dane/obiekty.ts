@@ -257,12 +257,11 @@ export const objectPage = {
   prepare: {
     eyebrow: 'Przed wizytą',
     heading: 'Przygotuj to, a wycena będzie szybsza.',
-    lead: 'Zaznacz, co już masz. Zdjęcia możesz wysłać w formularzu albo przez WhatsApp.',
+    lead: 'Zaznacz, co już masz. Resztę zobaczymy na wizji lokalnej.',
     /** Church, school and municipality (`build_seg.py`: `kosc`, `szk`, `gmina`). */
-    leadInstitution:
-      'Zaznaczenie, co już jest, przyspieszy wycenę. Zdjęcia można wysłać w formularzu albo przez WhatsApp.',
+    leadInstitution: 'Zaznaczenie, co już jest, przyspieszy wycenę. Resztę sprawdzimy na miejscu.',
     of: 'z',
-    cta: 'Wyślij zdjęcia i opis →',
+    cta: 'Opisz obiekt →',
     ctaDone: 'Gotowe, wyślij zgłoszenie →',
   },
   packages: {

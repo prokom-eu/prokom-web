@@ -80,12 +80,13 @@ test.describe('Instalacje home sections', () => {
     await expect(page).toHaveURL(/\/dla-kogo\/[a-z-]+$/)
   })
 
-  test('the section rail shows after scrolling, from 1400 px only', async ({ page }) => {
+  test('the shared side rail marks the section in view, from 1400 px only (L1-I)', async ({
+    page,
+  }) => {
     await open(page)
-    const rail = page.locator('nav.rail')
+    const rail = page.locator('[data-site-rail]')
     await page.locator('#proces').scrollIntoViewIfNeeded()
-    await expect(rail).toHaveClass(/\bon\b/)
-    await expect(rail.locator('a.act')).toHaveAttribute('href', '#proces')
+    await expect(rail.locator('[aria-current="location"]')).toHaveAttribute('href', '#proces')
     await page.setViewportSize({ width: 1399, height: 900 })
     await expect(rail).toBeHidden()
   })

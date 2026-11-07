@@ -17,12 +17,15 @@ for (const path of INST_PAGES) {
     const response = await page.goto(site(INST_HOST, path))
     expect(response?.status(), path).toBe(200)
 
-    // The menu sheet opens from the bottom bar and closes with Esc (all closing ways:
-    // shell.e2e.spec.ts). First, so the page is hydrated before the scroll checks.
-    const bar = page.getByRole('navigation', { name: 'Szybka nawigacja' })
-    await bar.getByRole('button', { name: 'Więcej' }).click()
-    const sheet = page.getByRole('dialog')
-    await expect(sheet).toBeVisible()
+    // The menu sheet opens from the tab bar and closes with Esc (shell.e2e.spec.ts). First, so
+    // the page is hydrated before the scroll checks.
+    const bar = page.getByRole('navigation', { name: 'Pasek aplikacji' })
+    const sheet = page.getByRole('dialog', { name: 'Menu' })
+    // Retried until the page is hydrated (before that the tap is lost).
+    await expect(async () => {
+      await bar.getByRole('button', { name: 'Menu' }).click()
+      await expect(sheet).toBeVisible({ timeout: 1000 })
+    }).toPass()
     await page.keyboard.press('Escape')
     await expect(sheet).toBeHidden()
 

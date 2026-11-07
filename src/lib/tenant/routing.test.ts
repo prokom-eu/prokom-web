@@ -248,6 +248,33 @@ describe('decideRoute — site domains', () => {
     }
   })
 
+  it('lets the Instalacje search index through on site domains, read only (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'instalacje.localhost',
+          pathname: '/api/inst-search-index',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'instalacje.localhost',
+        pathname: '/api/inst-search-index',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual({ type: 'notFoundPage', pathname: '/instalacje.localhost/_404' })
+    for (const pathname of ['/api/inst-search-index/', '/api/inst-search-index/x', '/api/inst']) {
+      expect(route('instalacje.localhost', pathname)).toEqual({
+        type: 'notFoundPage',
+        pathname: '/instalacje.localhost/_404',
+      })
+    }
+  })
+
   it.each(['/robots.txt', '/sitemap.xml'])('rewrites %s to the domain segment', (pathname) => {
     expect(route('software.localhost:3000', pathname)).toEqual({
       type: 'rewrite',

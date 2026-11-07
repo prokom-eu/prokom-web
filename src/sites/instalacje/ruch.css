@@ -21,9 +21,6 @@ html[data-line='instalacje']
     .sycta,
     .hzksend,
     .zkpb,
-    .bnav a,
-    .bnav button,
-    .ftci,
     .sgrc,
     .rl,
     .obc,
@@ -89,10 +86,6 @@ html[data-line='instalacje']
     ):not(:disabled, :has(:is(a, button):active)):active {
     scale: 0.98;
   }
-  /* The bottom bar presses deeper, as in the prototype (`scale(.94)`). */
-  html[data-line='instalacje'] :is(.bnav a, .bnav button):not(:disabled):active {
-    scale: 0.94;
-  }
 }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
@@ -106,39 +99,13 @@ html[data-line='instalacje']
   }
 }
 
-/* --- 2. Header: underline drawn under a pointed item, mega menu in a cascade ----------------- */
-html[data-line='instalacje'] :is(.nav > a:not(.on), .nav .nbtn:not(.cur))::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -2px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--accent-line);
-  scale: 0 1;
-  transform-origin: left center;
-  transition: scale var(--dur-state) var(--ease-out);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  html[data-line='instalacje'] :is(.nav > a:not(.on), .nav .nbtn:not(.cur)):hover::after {
-    scale: 1 1;
-  }
-}
-
+/* --- 2. Mega menus of the capsule in a cascade (L1-I: the header is the shared capsule) ------- */
 @media (prefers-reduced-motion: no-preference) {
-  /* The active item's line grows in when the page changes (the header itself stays). */
-  html[data-line='instalacje'] :is(.nav > a.on, .nav .nbtn.cur)::after {
-    animation: inst-grow-x var(--dur-enter) var(--ease-out) backwards;
-    transform-origin: left center;
-  }
-
-  html[data-line='instalacje'] .mega:not([hidden]) {
+  html[data-line='instalacje'] .imega:not([hidden]) {
     animation: inst-megain var(--dur-state) var(--ease-out);
   }
   /* Items one after another, 20 ms apart (at most 8 in the queue). */
-  html[data-line='instalacje'] .mega:not([hidden]) :is(.megac a, .megap) {
+  html[data-line='instalacje'] .imega:not([hidden]) :is(.megac a, .megap) {
     animation: sw-reveal var(--dur-state) var(--ease-out) backwards;
     --reveal-y: 8px;
   }
@@ -163,18 +130,6 @@ html[data-line='instalacje'] :is(.nav > a:not(.on), .nav .nbtn:not(.cur))::after
   html[data-line='instalacje'] .megac a:nth-child(n + 8),
   html[data-line='instalacje'] .megap {
     animation-delay: 140ms;
-  }
-
-  /* Menu sheet: the shared curve and time of sheets. */
-  html[data-line='instalacje'] .mshp {
-    animation: inst-sheet-up var(--dur-sheet) var(--ease-out) both;
-  }
-  html[data-line='instalacje'] .mshp::backdrop {
-    animation: inst-fade var(--dur-state) var(--ease-out) both;
-  }
-  /* Bottom bar: the pill of the active tab grows in. */
-  html[data-line='instalacje'] .bnav .act .bni {
-    animation: inst-grow-x var(--dur-state) var(--ease-spring) backwards;
   }
 }
 
@@ -204,12 +159,6 @@ html[data-line='instalacje'] .mtabs > .inst-pill {
   box-shadow:
     var(--inst-tab-shadow),
     inset 0 0 0 1px var(--border);
-}
-
-/* Theme circle (`revealTheme`): header and bottom bar join the page for that moment, so the
-   whole screen changes at once (their own names keep them still on page changes). */
-html[data-line='instalacje'][data-theme-reveal] :is(.hdr, .bnav) {
-  view-transition-name: none;
 }
 
 /* --- 3. Rising in: the prototype's `.rv .ri` on the shared curve ----------------------------- */
@@ -370,21 +319,7 @@ html[data-line='instalacje'] :is(input, textarea, select, .zkfl, .zktown, .hzkf,
    The prototype's planner, contact map and company map had no such rule. */
 @media (prefers-reduced-motion: reduce) {
   html[data-line='instalacje']
-    :is(
-      .zkbody,
-      .zkth,
-      .zkerr,
-      .zkdone,
-      .zkdtl,
-      .zkhint,
-      .kz2,
-      .kroute,
-      .kpul,
-      .ofring,
-      .mshp,
-      .mega
-    ),
-  html[data-line='instalacje'] .mshp::backdrop {
+    :is(.zkbody, .zkth, .zkerr, .zkdone, .zkdtl, .zkhint, .kz2, .kroute, .kpul, .ofring, .imega) {
     animation: none;
   }
   /* The drawn tick of „Wysłane” is simply there. */
@@ -400,7 +335,6 @@ html[data-line='instalacje'] :is(input, textarea, select, .zkfl, .zktown, .hzkf,
       .sycta,
       .hzksend,
       .zkpb,
-      .ftci,
       .sgrc,
       .rl,
       .obc,
@@ -432,15 +366,8 @@ html[data-line='instalacje'] :is(input, textarea, select, .zkfl, .zktown, .hzkf,
   }
   html[data-line='instalacje'] .fq summary > svg,
   html[data-line='instalacje'] .foldb svg,
-  html[data-line='instalacje'] .hs .hsd,
-  html[data-line='instalacje'] :is(.nav > a, .nav .nbtn)::after {
+  html[data-line='instalacje'] .hs .hsd {
     transition: none;
-  }
-}
-
-@keyframes inst-grow-x {
-  from {
-    scale: 0 1;
   }
 }
 
