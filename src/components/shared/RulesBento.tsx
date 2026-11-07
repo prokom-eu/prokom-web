@@ -35,11 +35,11 @@ export function RulesBento({ rules, className }: Props) {
       style={{ '--rows': rows } as CSSProperties}
       data-rules-bento
     >
-      <li className="relative isolate flex min-h-[380px] flex-col justify-end gap-3 overflow-hidden rounded-[28px] bg-accent p-7 text-accent-ink min-[640px]:col-span-2 min-[1000px]:col-span-1 min-[1000px]:[grid-row:span_var(--rows)]">
+      <li className="relative isolate flex min-h-[380px] flex-col justify-end gap-3 overflow-hidden rounded-[28px] bg-button p-7 text-accent-ink min-[640px]:col-span-2 min-[1000px]:col-span-1 min-[1000px]:[grid-row:span_var(--rows)]">
         <Contours className="opacity-80" />
-        <span className="font-display text-sm font-extrabold opacity-80">{number(0)}</span>
+        <span className="font-display text-sm font-extrabold">{number(0)}</span>
         <b className="font-display text-[28px] leading-tight font-extrabold">{first.title}</b>
-        {first.text && <span className="opacity-90">{first.text}</span>}
+        {first.text && <span>{first.text}</span>}
       </li>
       {middle.map((rule, i) => (
         <li key={i} className="flex flex-col gap-2 rounded-[22px] border border-border bg-card p-6">

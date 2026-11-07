@@ -278,7 +278,7 @@ export function ContactPage({
                   key={i}
                   className={cx(
                     'flex min-h-[250px] flex-col gap-3 rounded-[28px] p-7',
-                    accent ? 'bg-accent text-accent-ink' : 'border border-border bg-card',
+                    accent ? 'bg-button text-accent-ink' : 'border border-border bg-card',
                   )}
                 >
                   <span
@@ -292,7 +292,7 @@ export function ContactPage({
                   </span>
                   <b className="font-display text-2xl font-extrabold">{route.title}</b>
                   {route.text && (
-                    <span className={accent ? 'opacity-90' : 'text-ink-2'}>{route.text}</span>
+                    <span className={accent ? undefined : 'text-ink-2'}>{route.text}</span>
                   )}
                   {route.cta && route.href && (
                     <a
