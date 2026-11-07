@@ -22,11 +22,20 @@ describe('Software section rail (v24, board `AU-pc`)', () => {
     ])
   })
 
-  it('has the entries of the board: no promises, „Jak pracujemy” and „Kontakt” in', () => {
+  it('has the 10 entries of the board: no promises, „Jak robimy” and „Cennik” in', () => {
     const items = softwareRailItems(
       [
         { blockType: 'swHero' },
-        ...['promises', 'situations', 'bento', 'showroom', 'wizard', 'process'].map((section) => ({
+        ...[
+          'promises',
+          'situations',
+          'bento',
+          'showroom',
+          'tech',
+          'wizard',
+          'pricing',
+          'process',
+        ].map((section) => ({
           blockType: 'swHomeSection',
           section,
         })),
@@ -40,12 +49,14 @@ describe('Software section rail (v24, board `AU-pc`)', () => {
       'sytuacje',
       'oferta',
       'podglady',
+      'technologia',
       'dobierz',
+      'cennik',
       'proces',
       'faq',
       'kontakt',
     ])
-    expect(Object.keys(RAIL_LABELS)).toHaveLength(8)
+    expect(Object.keys(RAIL_LABELS)).toHaveLength(10)
   })
 
   it('skips a v23 section that is no longer rendered', () => {
