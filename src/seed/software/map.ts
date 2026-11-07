@@ -26,6 +26,7 @@ import {
   FIELD_CREW_SLUG,
 } from './solutionPages'
 import { wizardSeed } from './wizardExtras'
+import { SOLUTION_PREVIEWS } from './previews'
 
 /**
  * Pure mapping of the Software package (`seed/prokomsoftware/`, v20) to the shapes of the
@@ -127,6 +128,7 @@ export function solutionData(item: SeedSolution): SolutionData {
     levels: levelsOf(item).map(levelData),
     levelRows: item.levelRows ?? [],
     thumbnail: item.thumbnail,
+    preview: SOLUTION_PREVIEWS[item.slug] ?? { kind: null, variant: null },
     included: item.included ?? [],
     moreExamples: item.moreExamples ?? solutionPageExtra(item.slug),
     example: item.example,

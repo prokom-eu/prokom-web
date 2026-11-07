@@ -5,6 +5,7 @@ import {
   includedError,
   lowestLevelPrice,
   relatedFilter,
+  previewVariantError,
   thumbnailError,
 } from './solutionRules'
 
@@ -84,5 +85,24 @@ describe('relatedFilter', () => {
 
   it('lists everything for a new solution (the plugin narrows the tenant)', () => {
     expect(relatedFilter({ id: undefined })).toBe(true)
+  })
+})
+
+describe('previewVariantError (ZMIANY-v24 §8, ADR-014 v24 pkt 1)', () => {
+  it('accepts an empty preview and a variant of its kind', () => {
+    expect(previewVariantError(null, null)).toBeNull()
+    expect(previewVariantError('site', 'pensjonat')).toBeNull()
+    expect(previewVariantError('flow', 'ai')).toBeNull()
+    expect(previewVariantError('care', null)).toBeNull()
+  })
+
+  it('asks for a variant of the chosen kind', () => {
+    expect(previewVariantError('dash', 'pensjonat')).toMatch(/nie pasuje/)
+    expect(previewVariantError('site', null)).toMatch(/Wybierz wariant/)
+    expect(previewVariantError('care', 'sms')).toMatch(/bez wariantu/)
+  })
+
+  it('needs a kind for a variant', () => {
+    expect(previewVariantError(null, 'sms')).toMatch(/rodzaj/)
   })
 })

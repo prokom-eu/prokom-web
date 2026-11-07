@@ -80,6 +80,7 @@ import * as migration_20261101_225103_biznes_owner_quote from './20261101_225103
 import * as migration_20261103_220030_biznes_kolo_v3 from './20261103_220030_biznes_kolo_v3'
 import * as migration_20261104_205826_inst_v5_arch_news_image from './20261104_205826_inst_v5_arch_news_image'
 import * as migration_20261105_204450_wsp_dane from './20261105_204450_wsp_dane'
+import * as migration_20261106_011831_swa1_solutions_preview from './20261106_011831_swa1_solutions_preview'
 
 export const migrations = [
   {
@@ -491,5 +492,10 @@ export const migrations = [
     up: migration_20261105_204450_wsp_dane.up,
     down: migration_20261105_204450_wsp_dane.down,
     name: '20261105_204450_wsp_dane',
+  },
+  {
+    up: migration_20261106_011831_swa1_solutions_preview.up,
+    down: migration_20261106_011831_swa1_solutions_preview.down,
+    name: '20261106_011831_swa1_solutions_preview',
   },
 ]

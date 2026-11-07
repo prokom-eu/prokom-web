@@ -1,6 +1,7 @@
 import type { SoftwareSetting, Solution } from '@/payload-types'
 
 import { normalizeText } from '../catalog/normalize'
+import { isMockupKind, isVariantOf, type MockupKind } from './mockups'
 import { INDUSTRY_GROUPS, SITUATIONS, SOLUTION_CATEGORIES, type SolutionCategory } from './options'
 import { type PriceDisplay, priceDisplaySchema } from './wizard'
 
@@ -34,11 +35,16 @@ export type IndexSolution = {
   leadTime: string | null
   /** Thumbnail file in `public/` (`/software/rozwiazania/<slug>.svg`). */
   thumbnail?: string
+  /** Mock-up of v24 (ZMIANY-v24 §8); missing → the thumbnail stays. */
+  preview?: IndexPreview
   /** Levels of care and audit (pkt 2); empty for the other solutions. */
   levels: IndexLevel[]
   /** Normalized text the search matches (`normalizeText`). */
   hay: string
 }
+
+/** Kind and variant of the mock-up (`Solutions.preview`, checked here). */
+export type IndexPreview = { kind: MockupKind; variant: string | null }
 
 /** A level of care or audit: its own price and reaction time / term. */
 export type IndexLevel = {
@@ -105,6 +111,7 @@ export type IndexedSolutionDoc = Pick<
   | 'priceNote'
   | 'priceMonthly'
   | 'thumbnail'
+  | 'preview'
   | 'levels'
 >
 
@@ -137,6 +144,14 @@ function indexLevels(levels: IndexedSolutionDoc['levels']): IndexLevel[] {
   )
 }
 
+/** A mock-up only when the kind is known and the variant belongs to it. */
+function indexPreview(preview: IndexedSolutionDoc['preview']): IndexPreview | undefined {
+  const kind = preview?.kind
+  const variant = preview?.variant ?? null
+  if (!isMockupKind(kind) || !isVariantOf(kind, variant)) return undefined
+  return { kind, variant }
+}
+
 function indexSolution(doc: IndexedSolutionDoc): IndexSolution {
   const features = (doc.features ?? []).map((feature) => feature.trim()).filter(Boolean)
   return {
@@ -157,6 +172,7 @@ function indexSolution(doc: IndexedSolutionDoc): IndexSolution {
     priceFrom: isPrice(doc.priceFrom) ? doc.priceFrom : null,
     leadTime: text(doc.leadTime) ?? null,
     thumbnail: text(doc.thumbnail),
+    preview: indexPreview(doc.preview),
     levels: indexLevels(doc.levels),
     hay: normalizeText(
       [doc.name, doc.label, doc.tag, doc.lead, ...features, doc.forWhom, doc.keywords]

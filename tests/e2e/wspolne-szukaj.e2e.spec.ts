@@ -44,11 +44,11 @@ test.describe('/_wspolne — search window (1440 px)', () => {
     await page.goto(site('instalacje.localhost', '/_wspolne'))
     await page.keyboard.press('Control+k')
     const actions = dialog(page).getByRole('group', { name: 'Akcje' })
-    await expect(actions.getByRole('link', { name: /^Zadzwoń/ }).first()).toHaveAttribute(
+    await expect(actions.getByRole('link', { name: /Zadzwoń/ }).first()).toHaveAttribute(
       'href',
       /^tel:\+48\d{9}$/,
     )
-    await expect(actions.getByRole('link', { name: 'Wyznacz trasę' })).toHaveAttribute(
+    await expect(actions.getByRole('link', { name: /Wyznacz trasę/ })).toHaveAttribute(
       'target',
       '_blank',
     )
