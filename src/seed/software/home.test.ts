@@ -7,19 +7,42 @@ import { solutionsToImport } from './map'
 const ids = (layout: readonly { blockType: string; section?: string | null }[] | null) =>
   layout?.map((block) => (block.blockType === 'swHomeSection' ? block.section : block.blockType))
 
+const V23_ORDER = [
+  'hero',
+  'areas',
+  'popular',
+  'livePreviews',
+  'wizard',
+  'process',
+  'howWeBuild',
+  'whyNotWordpress',
+  'technologies',
+  'guarantees',
+  'faq',
+  'contact',
+]
+const V23_BUILT = [
+  'areas',
+  'popular',
+  'livePreviews',
+  'process',
+  'wizard',
+  'whyNotWordpress',
+  'guarantees',
+  'howWeBuild',
+  'technologies',
+] as const
+
 describe('Software start page of the seed', () => {
-  it('puts the 13 sections in the v23 order of the package (homeOrder, spec. §4; no „Realizacje”)', () => {
+  it('puts the sections in the v24 order (ZMIANY-v24 §4)', () => {
     expect(ids(softwareHomeLayout())).toEqual([
       'swHero',
-      'areas',
-      'popular',
-      'livePreviews',
+      'promises',
+      'situations',
+      'bento',
+      'showroom',
       'wizard',
       'process',
-      'howWeBuild',
-      'whyNotWordpress',
-      'technologies',
-      'guarantees',
       'faq',
       'swContact',
     ])
@@ -56,16 +79,8 @@ describe('Software start page of the seed', () => {
   })
 
   it('adds a section of a later session in its place', () => {
-    const layout = softwareHomeLayout(undefined, ['areas', 'popular', 'whyNotWordpress', 'wizard'])
-    expect(ids(layout)).toEqual([
-      'swHero',
-      'areas',
-      'popular',
-      'wizard',
-      'whyNotWordpress',
-      'faq',
-      'swContact',
-    ])
+    const layout = softwareHomeLayout(undefined, ['promises', 'bento', 'wizard'])
+    expect(ids(layout)).toEqual(['swHero', 'promises', 'bento', 'wizard', 'faq', 'swContact'])
   })
 
   it('replaces the sample page (no Software block yet)', () => {
@@ -84,17 +99,17 @@ describe('Software start page of the seed', () => {
       edited as Parameters<typeof mergeSoftwareHome>[0],
       softwareHomeLayout(),
     )
+    // A v23 section stays where it was (it renders nothing in v24); the v24 ones come in after
+    // their predecessors.
     expect(ids(merged)).toEqual([
       'popular',
       'swHero',
-      'areas',
-      'livePreviews',
+      'promises',
+      'situations',
+      'bento',
+      'showroom',
       'wizard',
       'process',
-      'howWeBuild',
-      'whyNotWordpress',
-      'technologies',
-      'guarantees',
       'faq',
       'swContact',
     ])
@@ -102,23 +117,27 @@ describe('Software start page of the seed', () => {
   })
 
   it('moves a v20 page to the v21 order once, keeping blocks of its own in their place', () => {
-    const v20 = softwareHomeLayout([
-      'hero',
-      'areas',
-      'popular',
-      'livePreviews',
-      'process',
-      'wizard',
-      'whyNotWordpress',
-      'guarantees',
-      'showcase',
-      'faq',
-      'contact',
-    ])
+    const v23 = softwareHomeLayout(V23_ORDER, V23_BUILT)
+    const v20 = softwareHomeLayout(
+      [
+        'hero',
+        'areas',
+        'popular',
+        'livePreviews',
+        'process',
+        'wizard',
+        'whyNotWordpress',
+        'guarantees',
+        'showcase',
+        'faq',
+        'contact',
+      ],
+      V23_BUILT,
+    )
     const own = { blockType: 'richText' } as unknown as (typeof v20)[number]
     const page = [...v20.slice(0, 3), own, ...v20.slice(3)]
-    const merged = mergeSoftwareHome(page, softwareHomeLayout())!
-    const result = softwareHomeInV21Order(merged, softwareHomeLayout())
+    const merged = mergeSoftwareHome(page, v23)!
+    const result = softwareHomeInV21Order(merged, v23)
     expect(ids(result)).toEqual([
       'swHero',
       'areas',
@@ -134,7 +153,7 @@ describe('Software start page of the seed', () => {
       'faq',
       'swContact',
     ])
-    expect(softwareHomeInV21Order(result!, softwareHomeLayout())).toBeNull()
+    expect(softwareHomeInV21Order(result!, v23)).toBeNull()
   })
 
   it('changes nothing when every block is there', () => {

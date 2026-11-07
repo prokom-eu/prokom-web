@@ -16,7 +16,7 @@ const animations = (page: Page) =>
   )
 
 /** Our animations: sections, the phone panel card, the map pin, page transitions. */
-const OURS = /^(sw-|panel-in|map-pulse)/
+const OURS = /^(sw-|hx-|mk-|panel-in|map-pulse)/
 
 const scrollBehavior = (page: Page) =>
   page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)
@@ -34,15 +34,15 @@ test.describe('Software motion', () => {
     await page
 
       .getByRole('navigation', { name: 'Na tej stronie' })
-      .locator('a[href="#jak-robimy"]')
+      .locator('a[href="#proces"]')
       .click()
-    await expect(page).toHaveURL(/#jak-robimy$/)
-    await expect(page.locator('#jak-robimy')).toBeFocused()
+    await expect(page).toHaveURL(/#proces$/)
+    await expect(page.locator('#proces')).toBeFocused()
     // Lands where a plain anchor jump would (the section's scroll margin), marked as arrived.
     await expect
       .poll(() =>
         page.evaluate(() => {
-          const section = document.getElementById('jak-robimy')
+          const section = document.getElementById('proces')
           if (!section) return 'missing'
           const top = Math.round(section.getBoundingClientRect().top)
           const margin = Math.round(Number.parseFloat(getComputedStyle(section).scrollMarginTop))
@@ -51,7 +51,7 @@ test.describe('Software motion', () => {
       )
       .toBe('arrived')
     // The heading of the section reached has risen in and stays (no hiding on the way back up).
-    const head = page.locator('#jak-robimy [data-reveal]').first()
+    const head = page.locator('#proces [data-reveal]').first()
     await expect(head).toHaveAttribute('data-revealed', '')
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
     await expect(head).toHaveAttribute('data-revealed', '')
@@ -71,10 +71,18 @@ test.describe('Software motion with reduced motion', () => {
     expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])
   })
 
-  test('the phone hero card shows its notifications at once', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 })
+  test('the hero stands on its first slide, tiles still switch by hand', async ({ page }) => {
+    await page.clock.install()
     await page.goto(site(HOST))
-    await expect(page.locator('#start').getByText('Faktura wysłana sama')).toBeVisible()
+    const word = page.locator('#start .hx-word')
+    await expect(word).toHaveText('stronę wizytówkę.')
+    await page.clock.fastForward(9000)
+    await expect(word).toHaveText('stronę wizytówkę.')
+    await page
+      .locator('#start')
+      .getByRole('tab', { name: /Restauracja/ })
+      .click()
+    await expect(word).toHaveText('stronę restauracji.')
     expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])
   })
 

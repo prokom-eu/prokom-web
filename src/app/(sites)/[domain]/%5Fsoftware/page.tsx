@@ -3,11 +3,13 @@ import { notFound } from 'next/navigation'
 
 import { Button } from '@/components/ui/Button'
 import { getEnv } from '@/lib/env'
+import { getSoftwareHome, getSolutionsIndex } from '@/lib/software/data'
 import { MOCKUP_KINDS, mockupVariants } from '@/lib/software/mockups'
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
 import { Chip, ChipLabel } from '@/sites/software/components/ui/Chip'
 import { Glass } from '@/sites/software/components/ui/Glass'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
+import { HomeV24Sections } from '@/sites/software/components/v24home/HomeV24Sections'
 
 import { requireTenant } from '../tenant'
 import { DemoSegment } from './DemoSegment'
@@ -34,6 +36,10 @@ const ALL = MOCKUP_KINDS.flatMap((kind) => {
 export default async function SoftwarePreviewPage({ params }: Props) {
   const tenant = await requireTenant(params)
   if (getEnv().SITE_ENV === 'production' || tenant.line !== 'software') notFound()
+  const [home, index] = await Promise.all([
+    getSoftwareHome(tenant.id),
+    getSolutionsIndex(tenant.id),
+  ])
 
   return (
     <div className="mx-auto flex max-w-[1280px] flex-col gap-24 px-4 py-16 min-[640px]:px-8">
@@ -125,6 +131,13 @@ export default async function SoftwarePreviewPage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      {/* SWA2b: the v24 start page sections; SWA2c places them on the start page itself. */}
+      {home && (
+        <div data-software-preview="home-sections">
+          <HomeV24Sections home={home} index={index} />
+        </div>
+      )}
     </div>
   )
 }

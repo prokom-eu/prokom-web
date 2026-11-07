@@ -42,6 +42,7 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
+import { HOME_V24 } from './homeV24'
 import { SOLUTION_PREVIEWS } from './previews'
 
 /** Fake ids: the solution's legacy id, so a test can tell which one a chip points to. */
@@ -555,5 +556,14 @@ describe('mock-ups of the solutions (PRZEKAZANIE-v24 §5)', () => {
   it('has no mock-up for a solution that is not imported', () => {
     const slugs = new Set(solutionsToImport().map((item) => item.slug))
     for (const slug of Object.keys(SOLUTION_PREVIEWS)) expect(slugs.has(slug), slug).toBe(true)
+  })
+})
+
+describe('showroom industries of the v24 home (ZMIANY-v24 §4.2)', () => {
+  it('opens the wizard with one of its own industries', () => {
+    const firms = new Set<string>(WIZARD_FIRMS.map((firm) => firm.value))
+    for (const industry of HOME_V24.showroom.industries) {
+      expect(firms.has(industry.key), industry.key).toBe(true)
+    }
   })
 })

@@ -1,6 +1,8 @@
 import { z } from 'zod'
 
 import { ICON_NAMES } from '../catalog/options'
+import { DASH_VARIANTS, isVariantOf, MOCKUP_KINDS, SITE_VARIANTS } from './mockups'
+import { WIZARD_FIRMS } from './options'
 import { firstIssue, href, key, label, link, obj, slug, svgPath, text } from './schema'
 
 /**
@@ -38,6 +40,145 @@ const sectionHead = { eyebrow: label, title: label, lead: text }
 
 /** A card of „Jak robimy”: badge on the picture („< 2,5 s”; optional), name, text, the gain. */
 const howWeBuildCard = obj({ badge: label.optional(), name: label, text, gain: text })
+
+/** Mock-up of a slide: one of the kinds and its variant (`lib/software/mockups`). */
+const mockup = obj({ kind: z.enum(MOCKUP_KINDS), variant: key.nullable() }).refine(
+  (value) => isVariantOf(value.kind, value.variant),
+  { message: 'Wariant makiety nie pasuje do rodzaju.' },
+)
+
+/**
+ * Hero v24 (ZMIANY-v24 §4.1): „Zrobimy Ci” + the changing word, 7 solutions with their mock-ups in
+ * the 3D carousel, the caption with the price and term of the solution (from `Solutions`), trust
+ * figures and the band of industries. Optional: while it is missing the old hero stays.
+ */
+export const heroV24Schema = obj({
+  pill: label,
+  /** Bold end of the pill („od 2004”). */
+  pillBadge: label,
+  /** First line of the H1 („Zrobimy Ci”); the second is the word of the slide. */
+  title: label,
+  lead: text,
+  /** Line of the choice panel („Czego potrzebuje Twoja firma?”) and its key hint („wybierz”). */
+  query: label,
+  queryHint: label,
+  /** Button of the caption („Zobacz ofertę →”). */
+  offer: label,
+  slides: z
+    .array(
+      obj({
+        /** Word of the H1 for this slide („stronę firmową.”). */
+        word: label,
+        name: label,
+        text: label,
+        /** Price and term come from this solution. */
+        solution: slug,
+        mockup,
+        icon: svgPath,
+      }),
+    )
+    .min(1)
+    .max(9),
+  trust: z.array(figure).min(1).max(4),
+  industries: z.array(label).min(1),
+})
+
+export type SoftwareHeroV24 = z.infer<typeof heroV24Schema>
+
+/** Eyebrow, H2 (with its highlighted part in `em`) and lead of a v24 section (ZMIANY-v24 §2). */
+const WIZARD_FIRM_VALUES = WIZARD_FIRMS.map((firm) => firm.value) as [
+  (typeof WIZARD_FIRMS)[number]['value'],
+  ...(typeof WIZARD_FIRMS)[number]['value'][],
+]
+
+const headV24 = { eyebrow: label, title: label, em: label.optional(), lead: text.optional() }
+
+/**
+ * Sections of the v24 start page after the hero (ZMIANY-v24 §4 pkt 2–5, SWA2b). Prices and terms
+ * come from the solutions they point to. Optional: a home saved before v24 has none.
+ */
+export const homeV24SectionsSchema = {
+  /** 3 promise cards under the hero (replace „Zasady”). */
+  promises: z
+    .array(obj({ title: label, text, icon: z.array(svgPath).min(1).max(3) }))
+    .min(1)
+    .max(4)
+    .optional(),
+  /** „Z czym do nas przychodzisz?” — 4 situations, each with its solution and mock-up. */
+  situations: obj({
+    ...headV24,
+    /** Link of an open situation („Zobacz ofertę”). */
+    offer: label,
+    items: z
+      .array(
+        obj({
+          short: label,
+          question: label,
+          answer: text,
+          solution: slug,
+          mockup,
+          phone: z.boolean().optional(),
+        }),
+      )
+      .min(1)
+      .max(4),
+  }).optional(),
+  /** Bento „Cztery rzeczy. Zrobione najlepiej.” — sites, rebuild, systems, automations. */
+  bento: obj({
+    ...headV24,
+    details: label,
+    /** Hint of the before/after slider („⇆ Przeciągnij: stara i nowa strona.”). */
+    dragHint: label,
+    sites: obj({
+      title: label,
+      variants: z
+        .array(obj({ label, solution: slug, variant: z.enum(SITE_VARIANTS), text }))
+        .min(1),
+    }),
+    rebuild: obj({ title: label, solution: slug }),
+    systems: obj({
+      title: label,
+      variants: z.array(obj({ label, solution: slug, variant: z.enum(DASH_VARIANTS) })).min(1),
+    }),
+    automations: obj({
+      eyebrow: label,
+      title: label,
+      text,
+      /** Link of the card („Wycena po rozmowie · szczegóły”). */
+      link: label,
+      variants: z
+        .array(obj({ label, solution: slug, variant: z.enum(['sms', 'faktury', 'raporty', 'ai']) }))
+        .min(1),
+    }),
+  }).optional(),
+  /** Showroom „Tak może wyglądać Twoja strona albo system” — industries × 3 views. */
+  showroom: obj({
+    ...headV24,
+    /** Labels of the views: site, phone, system. */
+    modes: z.tuple([label, label, label]),
+    /** „Strona dla branży:” / „System:” before the industry name. */
+    sitePrefix: label,
+    systemPrefix: label,
+    /** The 3 points of every system view after its own first one. */
+    systemFeatures: z.array(label).min(1).max(3),
+    cta: label,
+    industries: z
+      .array(
+        obj({
+          /** `?firma=` of the wizard (`/dobierz?firma=<key>`): one of its industries. */
+          key: z.enum(WIZARD_FIRM_VALUES),
+          name: label,
+          icon: svgPath,
+          site: z.enum(SITE_VARIANTS),
+          system: z.enum(DASH_VARIANTS),
+          systemName: label,
+          features: z.array(label).min(1).max(4),
+        }),
+      )
+      .min(1)
+      .max(12),
+  }).optional(),
+}
 
 /**
  * Headings and small texts of the start page sections built in SW5 — the board `Main` keeps them
@@ -217,15 +358,33 @@ export const homeSchema = obj({
   }),
   /** Optional: a home saved before SW5 has none; the sections that need it are then skipped. */
   sections: homeSectionsSchema.optional(),
+  /** Hero v24 (SWA2a); missing → the old hero. */
+  hero: heroV24Schema.optional(),
+  ...homeV24SectionsSchema,
 })
 
 export type SoftwareHome = z.infer<typeof homeSchema>
 
-/** Solution slugs the „12 rzeczy” cards point to (checked against `Solutions` on save). */
+/** Solution slugs the „12 rzeczy” cards and the hero slides point to (checked on save). */
 export function homeSolutionSlugs(home: SoftwareHome): string[] {
-  return [...home.popular.order]
+  const bento = home.bento
+  return [
+    ...home.popular.order,
+    ...(home.hero?.slides.map((slide) => slide.solution) ?? []),
+    ...(home.situations?.items.map((item) => item.solution) ?? []),
+    ...(bento
+      ? [
+          ...bento.sites.variants.map((v) => v.solution),
+          bento.rebuild.solution,
+          ...bento.systems.variants.map((v) => v.solution),
+          ...bento.automations.variants.map((v) => v.solution),
+        ]
+      : []),
+  ]
 }
 
 export function validateHome(value: unknown): true | string {
   return firstIssue(homeSchema, value, 'Teksty strony głównej')
 }
+
+export type SoftwareHomeV24 = Pick<SoftwareHome, 'promises' | 'situations' | 'bento' | 'showroom'>

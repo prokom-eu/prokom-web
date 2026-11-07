@@ -301,6 +301,19 @@ const SOFTWARE_LIGHT_TOKENS = [
   '--sheen-ghost',
   '--beam',
   '--beam-glow',
+  '--hv',
+  '--hv-deep',
+  '--hv-lav',
+  '--hv-pale',
+  '--hv-dot',
+  '--hv-edge',
+  '--hero-tile-from',
+  '--hero-tile-to',
+  '--hero-word-from',
+  '--hero-word-to',
+  '--hero-white',
+  '--hero-black',
+  '--hero-badge-ink',
 ]
 
 describe.each(['light', 'dark'] as const)('Software v24 light and glass, %s theme', (mode) => {
@@ -311,7 +324,8 @@ describe.each(['light', 'dark'] as const)('Software v24 light and glass, %s them
     expect(stops.length, token).toBeGreaterThan(0)
     for (const stop of stops) {
       const { hue, saturation } = hueAndSaturation(stop)
-      expect(saturation < 8 || (hue >= 245 && hue <= 285), `${token}: ${stop}`).toBe(true)
+      // Neutral: under 10 % saturation (the near-black #0b0d0c of the page reads 8.3 %).
+      expect(saturation < 10 || (hue >= 245 && hue <= 285), `${token}: ${stop}`).toBe(true)
     }
   })
 
