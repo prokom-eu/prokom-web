@@ -6,23 +6,21 @@ import {
 } from '@/lib/software/homeSections'
 
 /**
- * Section rail of the Software start page (spec. §3.3; board `Main` v22, `RAILI`: with „Jak
- * robimy”, „Z czego budujemy” and „Zasady”, without „Proces”, decyzja 9; „Kontakt” at the end
- * since SWV6 — audyt 01.11):
+ * Section rail of the Software start page (v24, board `AU-pc`: Start, Od czego zaczynasz, Oferta,
+ * Podglądy na żywo, Kreator 60 s, Jak pracujemy, Pytania, Kontakt; „Jak robimy” and „Cennik” come
+ * with their sections in SWA2c):
  * only sections whose components exist, by the block that renders them — `faq` is the shared FAQ
  * block. A section that renders nothing (texts missing in the panel) is dropped by `SectionRail`
  * itself, when its anchor is not found.
  */
 export const RAIL_LABELS: Record<string, Omit<RailItem, 'id'>> = {
   start: { label: 'Start', icon: 'home' },
+  // v24 (board `AU-pc`, rail): promises have no entry.
+  sytuacje: { label: 'Od czego zaczynasz', icon: 'compass' },
   oferta: { label: 'Oferta', icon: 'grid' },
-  popularne: { label: 'Najczęściej zamawiane', icon: 'star' },
   podglady: { label: 'Podglądy na żywo', icon: 'monitor' },
-  dobierz: { label: 'Dobierz rozwiązanie', icon: 'flash' },
-  'jak-robimy': { label: 'Jak robimy', icon: 'site' },
-  'bez-wordpressa': { label: 'Dlaczego nie WordPress', icon: 'shield' },
-  technologie: { label: 'Z czego budujemy', icon: 'server' },
-  zasady: { label: 'Zasady', icon: 'doc' },
+  dobierz: { label: 'Kreator 60 s', icon: 'flash' },
+  proces: { label: 'Jak pracujemy', icon: 'doc' },
   faq: { label: 'Pytania', icon: 'q' },
   kontakt: { label: 'Kontakt', icon: 'chat' },
 }

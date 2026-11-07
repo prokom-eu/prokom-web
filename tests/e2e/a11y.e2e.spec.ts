@@ -72,7 +72,12 @@ const PATHS = ['/', '/kontakt']
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 
 async function expectNoViolations(page: Page) {
-  const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze()
+  // Software mock-ups (`data-mockup`) are decorative pictures of sample firms in their own brand
+  // colours (ADR-015 v24 pkt 4, `aria-hidden`); axe still measures text inside them.
+  const { violations } = await new AxeBuilder({ page })
+    .exclude('[data-mockup]')
+    .withTags(WCAG)
+    .analyze()
   // Rule ids and targets only, so a failure reads well in the CI log.
   expect(violations.map((v) => ({ rule: v.id, targets: v.nodes.map((n) => n.target) }))).toEqual([])
 }

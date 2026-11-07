@@ -8,13 +8,14 @@ import { getEnv } from '@/lib/env'
 import { isIconName } from '@/lib/catalog/options'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
-import { getSoftwareFacts, getSoftwareHome } from '@/lib/software/data'
+import { getSoftwareFacts, getSoftwareHome, getSolutionsIndex } from '@/lib/software/data'
 import { fillText, type TextContext } from '@/lib/software/facts'
 import type { SwHeroBlock as SwHeroBlockData } from '@/payload-types'
 
 import type { HeroModule } from './HeroBuilder'
 import { HeroBuilder } from './HeroBuilderLazy'
 import { HeroPanelCard } from './HeroPanelCard'
+import { HeroV24 } from './HeroV24'
 
 type Props = { block: SwHeroBlockData; tenantId: number; isFirst?: boolean }
 
@@ -35,6 +36,12 @@ export async function SwHeroBlock({ block, tenantId, isFirst = true }: Props) {
     getSoftwareHome(tenantId),
     getSiteSettings(tenantId),
   ])
+  // v24 (SWA2a): with `home.hero` in the data the new hero; without it (a home saved before v24,
+  // staging until the data is pasted) the v23 hero below stays.
+  if (home?.hero) {
+    const index = await getSolutionsIndex(tenantId)
+    return <HeroV24 hero={home.hero} index={index} isFirst={isFirst} />
+  }
   const tel = settings?.phone ? toTelHref(settings.phone) : null
   const panel = home?.sections?.heroPanel
   const context: TextContext = {

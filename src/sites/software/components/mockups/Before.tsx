@@ -1,16 +1,18 @@
 /**
  * An old site against the new one with a slider (ZMIANY-v24 §8 `before`). Without `cut` the
- * slider sweeps by itself (CSS, stopped with reduced motion); with `cut` (0–100) it stands still.
- * The hand-held slider comes with the bento of the start page (SWA2).
+ * slider sweeps by itself (CSS, stopped with reduced motion); with `cut` (0–100) it stands still;
+ * with `cut="parent"` it follows the `--mk-cut` of an outer element (the bento's slider).
  */
-export function MockBefore({ cut }: { cut?: number }) {
+export function MockBefore({ cut }: { cut?: number | 'parent' }) {
   const still = cut !== undefined
   return (
     <div className="mk-frame">
       <div
         className="mk-ba"
         data-wipe={still ? undefined : ''}
-        style={still ? ({ '--mk-cut': `${cut}%` } as React.CSSProperties) : undefined}
+        style={
+          typeof cut === 'number' ? ({ '--mk-cut': `${cut}%` } as React.CSSProperties) : undefined
+        }
       >
         <div className="mk-old">
           <div className="mk-oldsite">
