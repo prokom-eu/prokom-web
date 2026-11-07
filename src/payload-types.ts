@@ -3955,7 +3955,11 @@ export interface SwHomeSectionBlock {
     | 'guarantees'
     | 'howWeBuild'
     | 'technologies'
-    | 'compare';
+    | 'compare'
+    | 'promises'
+    | 'situations'
+    | 'bento'
+    | 'showroom';
   id?: string | null;
   blockName?: string | null;
   blockType: 'swHomeSection';

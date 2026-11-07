@@ -79,7 +79,7 @@ export function BentoSection({ bento, prices }: Props) {
   }
 
   return (
-    <section ref={section} id="oferta-v24" className="v-sec">
+    <section ref={section} id="oferta" className="v-sec">
       <div className="v-wrap">
         <div className="v-head-row">
           <SectionHead eyebrow={bento.eyebrow} title={bento.title} em={bento.em} />

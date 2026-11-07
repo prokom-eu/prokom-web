@@ -34,15 +34,15 @@ test.describe('Software motion', () => {
     await page
 
       .getByRole('navigation', { name: 'Na tej stronie' })
-      .locator('a[href="#jak-robimy"]')
+      .locator('a[href="#proces"]')
       .click()
-    await expect(page).toHaveURL(/#jak-robimy$/)
-    await expect(page.locator('#jak-robimy')).toBeFocused()
+    await expect(page).toHaveURL(/#proces$/)
+    await expect(page.locator('#proces')).toBeFocused()
     // Lands where a plain anchor jump would (the section's scroll margin), marked as arrived.
     await expect
       .poll(() =>
         page.evaluate(() => {
-          const section = document.getElementById('jak-robimy')
+          const section = document.getElementById('proces')
           if (!section) return 'missing'
           const top = Math.round(section.getBoundingClientRect().top)
           const margin = Math.round(Number.parseFloat(getComputedStyle(section).scrollMarginTop))
@@ -51,7 +51,7 @@ test.describe('Software motion', () => {
       )
       .toBe('arrived')
     // The heading of the section reached has risen in and stays (no hiding on the way back up).
-    const head = page.locator('#jak-robimy [data-reveal]').first()
+    const head = page.locator('#proces [data-reveal]').first()
     await expect(head).toHaveAttribute('data-revealed', '')
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
     await expect(head).toHaveAttribute('data-revealed', '')

@@ -5,7 +5,7 @@ type Props = { promises: NonNullable<SoftwareHome['promises']>; heading?: string
 /** Three promises under the hero (ZMIANY-v24 §4 pkt 2, board `AU-pc` „obietnice”). */
 export function Promises({ promises, heading = 'Nasze obietnice' }: Props) {
   return (
-    <section className="v-sec v-sec-first" aria-labelledby="v-prom-title">
+    <section id="obietnice" className="v-sec v-sec-first" aria-labelledby="v-prom-title">
       <div className="v-wrap">
         {/* The board has no heading here; a hidden H2 keeps the outline after the hero's H1. */}
         <h2 id="v-prom-title" className="sr-only">

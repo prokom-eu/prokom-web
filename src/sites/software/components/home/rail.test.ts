@@ -6,37 +6,30 @@ import { RAIL_LABELS, softwareRailItems } from './rail'
 
 const ALL = HOME_SECTIONS.map(({ value }) => value)
 
-describe('Software section rail', () => {
+describe('Software section rail (v24, board `AU-pc`)', () => {
   it('lists the anchored sections in the order of the blocks', () => {
     const items = softwareRailItems([
       { blockType: 'swHero' },
-      { blockType: 'swHomeSection', section: 'areas' },
-      { blockType: 'swHomeSection', section: 'popular' },
+      { blockType: 'swHomeSection', section: 'situations' },
+      { blockType: 'swHomeSection', section: 'bento' },
       { blockType: 'swHomeSection', section: 'wizard' },
     ])
     expect(items.map((item) => [item.id, item.label])).toEqual([
       ['start', 'Start'],
+      ['sytuacje', 'Od czego zaczynasz'],
       ['oferta', 'Oferta'],
-      ['popularne', 'Najczęściej zamawiane'],
-      ['dobierz', 'Dobierz rozwiązanie'],
+      ['dobierz', 'Kreator 60 s'],
     ])
   })
 
-  it('has the 11 entries: with „Zasady” and „Kontakt” (SWV6), without „Proces” and „Realizacje”', () => {
+  it('has the entries of the board: no promises, „Jak pracujemy” and „Kontakt” in', () => {
     const items = softwareRailItems(
       [
         { blockType: 'swHero' },
-        ...[
-          'areas',
-          'popular',
-          'livePreviews',
-          'wizard',
-          'process',
-          'howWeBuild',
-          'whyNotWordpress',
-          'technologies',
-          'guarantees',
-        ].map((section) => ({ blockType: 'swHomeSection', section })),
+        ...['promises', 'situations', 'bento', 'showroom', 'wizard', 'process'].map((section) => ({
+          blockType: 'swHomeSection',
+          section,
+        })),
         { blockType: 'faq' },
         { blockType: 'swContact' },
       ],
@@ -44,49 +37,30 @@ describe('Software section rail', () => {
     )
     expect(items.map((item) => item.id)).toEqual([
       'start',
+      'sytuacje',
       'oferta',
-      'popularne',
       'podglady',
       'dobierz',
-      'jak-robimy',
-      'bez-wordpressa',
-      'technologie',
-      'zasady',
+      'proces',
       'faq',
       'kontakt',
     ])
-    expect(Object.keys(RAIL_LABELS)).toHaveLength(11)
+    expect(Object.keys(RAIL_LABELS)).toHaveLength(8)
   })
 
-  it('skips a section without its component yet (no anchor on the page)', () => {
-    const items = softwareRailItems(
-      [
-        { blockType: 'swHomeSection', section: 'showcase' },
-        { blockType: 'swHomeSection', section: 'areas' },
-      ],
-      ['areas'],
-    )
-    expect(items.map((item) => item.id)).toEqual(['oferta'])
-  })
-
-  it('ends with „Zasady”, the FAQ block and the contact block (SWV6)', () => {
+  it('skips a v23 section that is no longer rendered', () => {
     const items = softwareRailItems([
-      { blockType: 'swHomeSection', section: 'guarantees' },
-      { blockType: 'faq' },
-      { blockType: 'swContact' },
+      { blockType: 'swHomeSection', section: 'areas' },
+      { blockType: 'swHomeSection', section: 'bento' },
     ])
-    expect(items.map((item) => [item.id, item.label])).toEqual([
-      ['zasady', 'Zasady'],
-      ['faq', 'Pytania'],
-      ['kontakt', 'Kontakt'],
-    ])
+    expect(items.map((item) => item.id)).toEqual(['oferta'])
   })
 
   it('skips other blocks and repeated sections', () => {
     const items = softwareRailItems([
       { blockType: 'richText' },
-      { blockType: 'swHomeSection', section: 'areas' },
-      { blockType: 'swHomeSection', section: 'areas' },
+      { blockType: 'swHomeSection', section: 'bento' },
+      { blockType: 'swHomeSection', section: 'bento' },
       { blockType: 'swHomeSection', section: null },
     ])
     expect(items.map((item) => item.id)).toEqual(['oferta'])

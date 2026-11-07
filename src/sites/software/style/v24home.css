@@ -6,6 +6,8 @@
 .v-sec {
   position: relative;
   padding: 130px 0 0;
+  /* Room under the capsule for anchors and the rail's glide (ZMIANY-v24 §5.2: 104 / 78 px). */
+  scroll-margin-top: 104px;
 }
 .v-sec-first {
   padding-top: 100px;
@@ -75,7 +77,6 @@
   gap: 6px;
 }
 .v-chips .sw-chip {
-  min-height: 40px;
   font-size: 13px;
 }
 
@@ -418,6 +419,7 @@
 @media (max-width: 600px) {
   .v-sec {
     padding-top: 76px;
+    scroll-margin-top: 78px;
   }
   .v-sec-first {
     padding-top: 56px;

@@ -46,7 +46,7 @@ export function ShowroomSection({ showroom }: { showroom: Showroom }) {
   }
 
   return (
-    <section ref={section} id="podglady-v24" className="v-sec">
+    <section ref={section} id="podglady" className="v-sec">
       <div className="v-wrap">
         <SectionHead
           eyebrow={showroom.eyebrow}
