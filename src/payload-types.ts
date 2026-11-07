@@ -1927,6 +1927,41 @@ export interface Solution {
    */
   thumbnail?: string | null;
   /**
+   * Makieta v24 na kartach, w oknie oferty i w hero (ZMIANY-v24 §8). Puste = zostaje miniatura SVG.
+   */
+  preview?: {
+    kind?: ('site' | 'dash' | 'flow' | 'care' | 'before' | 'phone') | null;
+    /**
+     * Przykładowa firma na makiecie; opieka nie ma wariantu.
+     */
+    variant?:
+      | (
+          | 'wizytowka'
+          | 'firmowa'
+          | 'rozbudowana'
+          | 'landing'
+          | 'pensjonat'
+          | 'restauracja'
+          | 'przebudowa'
+          | 'budowlanka'
+          | 'turystyka'
+          | 'uroda'
+          | 'warsztat'
+          | 'sklep'
+          | 'biuro'
+          | 'produkcja'
+          | 'zamowienia'
+          | 'crm'
+          | 'czas'
+          | 'excel'
+          | 'sms'
+          | 'faktury'
+          | 'raporty'
+          | 'ai'
+        )
+      | null;
+  };
+  /**
    * Co jest w cenie „od” (3–5 punktów).
    */
   included?: string[] | null;
@@ -8655,6 +8690,12 @@ export interface SolutionsSelect<T extends boolean = true> {
         id?: T;
       };
   thumbnail?: T;
+  preview?:
+    | T
+    | {
+        kind?: T;
+        variant?: T;
+      };
   included?: T;
   moreExamples?: T;
   example?: T;

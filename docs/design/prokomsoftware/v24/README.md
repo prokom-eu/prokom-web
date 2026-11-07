@@ -25,3 +25,6 @@ Plansze (`boards/*.dc.html`) korzystają z `boards/support.js` (silnik plansz, t
 5. Elementy wspólne linii (ADR-022, `docs/design/wspolne/`) — powłoka (kapsuła, pasek marki, szyna, wyszukiwarka, stopka, Kontakt, O firmie) **pochodzi z komponentów wspólnych D2**; v24 opisuje tylko, jak Software je motywuje i co wkłada w sloty linii.
 
 Stare materiały v20–v23 zostają w repo jako historia (tak jak dotąd) — nie kasujemy ich w tej paczce.
+
+## Porównanie z kodem (SWA1b)
+`node scripts/software-porownaj.mjs [Glowna Oferta …]` — zrzuty strony z kodu (1440, 1280, 834, 390; ciemny i jasny; ruch ograniczony) obok zrzutów z `screens/` w `tmp/zrzuty-v24/index.html`. Zawężenie: `SW_WIDTHS=1440,390 SW_THEMES=dark`. Podgląd fundamentu (prymitywy i wszystkie makiety): `/_software` (nazwa `Podglad`, bez wzorca — porównuj z `boards/Vis.dc.html`).
