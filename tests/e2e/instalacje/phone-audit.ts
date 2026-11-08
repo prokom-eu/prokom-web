@@ -37,8 +37,14 @@ export async function auditPhone(page: Page, width: number): Promise<PhoneProble
   return page.evaluate(async (vw) => {
     const problems: { kind: string; detail: string }[] = []
     const add = (kind: string, detail: string) => problems.push({ kind, detail })
-    const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))
     const wait = (ms: number) => new Promise((r) => setTimeout(r, ms))
+    // Two frames, but never more than 200 ms: in CI the audit of a random page sometimes hung
+    // until the 180 s test timeout (08.11: /smart-home, /ladowarki-ev, /dla-architektow).
+    const frame = () =>
+      Promise.race([
+        new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))),
+        wait(200),
+      ])
     const html = document.documentElement
     const label = (el: Element) => {
       const id = el.id ? `#${el.id}` : ''
@@ -55,8 +61,8 @@ export async function auditPhone(page: Page, width: number): Promise<PhoneProble
       return r.width > 0 && r.height > 0 && el.checkVisibility({ visibilityProperty: true })
     }
 
-    // Lay out the whole page once.
-    for (let y = 0; y < html.scrollHeight; y += 600) {
+    // Lay out the whole page once. Capped: lazy parts can grow the page while it scrolls.
+    for (let y = 0; y < Math.min(html.scrollHeight, 60_000); y += 600) {
       window.scrollTo(0, y)
       await wait(30)
     }
