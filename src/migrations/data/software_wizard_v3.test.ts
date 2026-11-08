@@ -13,5 +13,8 @@ describe('frozen wizard v3 of the migration swa3_kreator_v3', () => {
     expect(WIZARD_V3_FROZEN.types.map((type) => type.solution)).toEqual(
       WIZARD_V3.types.map((type) => type.solution),
     )
+    // The live card starts with the board's kind; the page keeps its eyebrows (SWA3b-2 review).
+    expect(WIZARD_V3_FROZEN.defaultType).toBe(WIZARD_V3.defaultType)
+    expect(WIZARD_V3_FROZEN.page).toEqual(WIZARD_V3.page)
   })
 })

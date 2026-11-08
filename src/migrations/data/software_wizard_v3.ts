@@ -69,6 +69,7 @@ export const WIZARD_V3_FROZEN = {
       },
     },
   ],
+  defaultType: 'firmowa',
   groups: {
     site: ['type', 'ind', 'have', 'feat', 'res'],
     redo: ['type', 'ind', 'redo', 'fix', 'res'],
@@ -842,9 +843,11 @@ export const WIZARD_V3_FROZEN = {
     urlPlaceholder: 'np. twojafirma.pl',
   },
   page: {
+    eyebrow: 'Kreator wyceny · 60 sekund',
     title: 'Zobacz cenę i termin,',
     em: 'zanim zadzwonisz.',
     lead: 'Kilka kliknięć dopasowanych do tego, co wybierzesz. Bez rejestracji i bez dodatków na siłę. Kontakt zostawiasz tylko wtedy, gdy chcesz wycenę na piśmie.',
+    stepsEyebrow: 'Co dalej po wysłaniu',
     stepsTitle: 'Cztery kroki do startu',
     steps: [
       {
