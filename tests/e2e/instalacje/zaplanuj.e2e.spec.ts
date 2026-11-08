@@ -89,7 +89,7 @@ test.describe('Instalacje planner', () => {
     await next(page).click()
     await expect(page).toHaveURL(/\/wyslane\?nr=PKI-\d{4}-\d{4,}&kontakt=phone$/)
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Dziękujemy! Zgłoszenie jest u nas.',
+      'Dziękujemy, zgłoszenie jest u nas',
     )
     await expect(page.locator('.zkdone')).toContainText('telefonem')
     // The address carries the number and the contact way only — never the name or the phone.

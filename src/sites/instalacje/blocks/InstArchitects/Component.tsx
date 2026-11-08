@@ -488,10 +488,7 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
           <div className="shead ri">
             <div>
               <span className="eye">{A.presentationsSection.eyebrow}</span>
-              <h2 className="h2">
-                {A.presentationsSection.heading}{' '}
-                <span className="acc">{A.presentationsSection.accent}</span>
-              </h2>
+              <h2 className="h2">{A.presentationsSection.heading}</h2>
             </div>
             <a href="#wyslij" className="btn btn-p">
               {A.presentationsSection.cta}
@@ -597,9 +594,7 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
           <div className="arfm ri">
             <div className="arfml">
               <span className="eye">{A.formSection.eyebrow}</span>
-              <h2 className="h2">
-                {A.formSection.heading} <span className="acc">{A.formSection.accent}</span>
-              </h2>
+              <h2 className="h2">{A.formSection.heading}</h2>
               <p className="lead">{A.formSection.lead}</p>
               <div className="arsteps">
                 {A.formSection.steps.map((s, i) => (

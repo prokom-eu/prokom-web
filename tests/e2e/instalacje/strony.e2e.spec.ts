@@ -41,6 +41,14 @@ const COPY_CHECKED = new Set([
   '/ekrany',
   '/ladowarki-ev',
   '/uslugi',
+  // PR4: „Dla kogo” and the line's pages.
+  ...INST_PAGES.filter((path) => path.startsWith('/dla-kogo/')),
+  '/dla-architektow',
+  '/realizacje',
+  '/o-firmie',
+  '/kontakt',
+  '/serwis',
+  '/zaplanuj',
 ])
 const COPY_ALL = new RegExp(COPY_WORDS.source, 'gu')
 const PLACEHOLDER = /\[[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ ]{2,}[:\]]/

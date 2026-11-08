@@ -53,10 +53,10 @@ describe('INST-6 text rewrites (runda v6 §2)', () => {
 
 describe('INST-6 dictionaries', () => {
   it('a text is rewritten in one module only', async () => {
-    const { USLUGI_MODULES } = await import('./uslugi')
+    const { TEXT_MODULES } = await import('.')
     const seen = new Map<string, string>()
     const twice: string[] = []
-    for (const [name, texts] of Object.entries(USLUGI_MODULES))
+    for (const [name, texts] of Object.entries(TEXT_MODULES))
       for (const text of Object.keys(texts)) {
         if (seen.has(text)) twice.push(`${seen.get(text)} + ${name}: ${text.slice(0, 60)}`)
         seen.set(text, name)

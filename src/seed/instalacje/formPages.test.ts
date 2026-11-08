@@ -23,14 +23,14 @@ describe('form pages of the seed (I11)', () => {
     expect(contact).toMatchObject({ blockType: 'instContact', hero: { h1a: 'Kontakt:' } })
     expect(FORM_PAGE_BLOCKS.serwis?.()).toMatchObject({
       blockType: 'instServiceDesk',
-      hero: { h1a: 'Coś nie działa?', cta: { href: '#plany' } },
+      hero: { h1a: 'Serwis kamer, alarmów i sieci', cta: { href: '#plany' } },
     })
     const architects = FORM_PAGE_BLOCKS['dla-architektow']?.()
     // The 4 hero numbers of the prototype (spec §4).
     expect(architects).toMatchObject({
       blockType: 'instArchitects',
       hero: {
-        h1b: 'Zaplanujmy ją przed tynkami.',
+        h1b: 'na Podhalu',
         facts: [
           { value: 'od 2004' },
           { value: '10 instalacji' },

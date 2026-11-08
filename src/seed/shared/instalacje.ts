@@ -76,8 +76,9 @@ export const INSTALACJE_SHARED: SharedGroup = {
   ],
   legalNote: 'Logotypy należą do ich właścicieli',
   contact: {
-    h1: 'Powiedz, co planujesz. Resztę ustalimy na miejscu.',
-    lead: 'Monitoring, alarmy, sieci i smart home na Podhalu. Odpowiadamy do 24 h w dni robocze, termin wizji lokalnej ustalamy w rozmowie.',
+    // INST-6 PR4 (runda v6 §2): the H1 says the page and the region, the lead has 2 sentences.
+    h1: 'Kontakt z PRO-KOM Instalacje w Rabce-Zdroju',
+    lead: 'Zadzwoń, napisz albo przyjdź do salonu w Rabce-Zdroju, jeśli planujesz monitoring, alarm, Wi-Fi albo smart home. Na zgłoszenie odpowiadamy do 24 h w dni robocze, a termin wizji lokalnej ustalamy w rozmowie.',
     writeCta: 'Opisz obiekt',
     placeKind: 'salon',
     facts: [
@@ -88,34 +89,34 @@ export const INSTALACJE_SHARED: SharedGroup = {
     routes: [
       {
         title: 'Planuję instalację',
-        text: 'Monitoring, alarm, Wi-Fi, smart home. Odpowiesz na 4 pytania, my przygotujemy wycenę.',
+        text: 'Monitoring, alarm, Wi-Fi albo smart home: odpowiesz na 4 pytania, a my przygotujemy wycenę.',
         cta: 'Zaplanuj instalację',
         href: '/zaplanuj',
       },
       {
         title: 'Awaria albo przegląd',
-        text: 'Także instalacje po innej firmie. Opisz problem, oddzwonimy.',
+        text: 'Naprawiamy też instalacje po innej firmie. Opisz problem, a oddzwonimy.',
         cta: 'Zgłoś awarię',
         href: '/serwis#zglos',
       },
       {
         title: 'Jestem architektem lub deweloperem',
-        text: 'Liczby do projektu, wymiana plików, stały opiekun.',
+        text: 'Dostaniesz liczby do projektu, wymianę plików i jednego stałego opiekuna.',
         cta: 'Dla architektów',
         href: '/dla-architektow',
       },
     ],
     topics: ['Monitoring', 'Alarm', 'Sieć i Wi-Fi', 'Smart home', 'Inne'],
-    formTitle: 'Opisz obiekt. Wrócimy z planem.',
+    formTitle: 'Opisz obiekt, a oddzwonimy z propozycją',
     placeholder: 'np. Pensjonat, 12 pokoi — kamery na parkingu i Wi-Fi w pokojach.',
     sendLabel: 'Zamów oddzwonienie',
     nextSteps: [
       { title: 'Odpowiedź do 24 h', text: 'W dni robocze — telefonem albo e-mailem.' },
       { title: 'Wizja lokalna', text: 'Termin ustalamy w rozmowie.' },
-      { title: 'Projekt i wycena na piśmie', text: 'Dobieramy pod obiekt, nie pod markę.' },
+      { title: 'Projekt i wycena na piśmie', text: 'Sprzęt dobieramy do Twojego obiektu.' },
       { title: 'Montaż i odbiór', text: '24 miesiące gwarancji na montaż.' },
     ],
-    mapTitle: 'Podhale i Małopolska — sprawdź swoją miejscowość.',
+    mapTitle: 'Strefy dojazdu na Podhalu i w Małopolsce',
     mapLead:
       'Wpisz miejscowość, a pokażemy strefę dojazdu. Przy większych inwestycjach jedziemy dalej.',
     salonKeys: ['rabka'],
@@ -144,8 +145,8 @@ export const INSTALACJE_SHARED: SharedGroup = {
     ],
   },
   about: {
-    h1: 'Firma z Podhala, która zostaje po montażu.',
-    lead: 'Projektujemy, montujemy i serwisujemy monitoring, alarmy, sieci, smart home i nagłośnienie. Salon w Rabce-Zdroju, od 2004 r.',
+    h1: 'PRO-KOM — instalacje w Rabce-Zdroju i na Podhalu',
+    lead: 'Projektujemy, montujemy i serwisujemy monitoring, alarmy, sieci, smart home i nagłośnienie w domach, pensjonatach i firmach. Działamy od 2004 roku, a salon mamy w Rabce-Zdroju.',
     authTitle: 'Autoryzacje',
     // Ampio confirmed by the boss 01.11 (`dane/smartHome.ts`); Satel still open — the marker
     // keeps it off the page until confirmed.
@@ -157,8 +158,8 @@ export const INSTALACJE_SHARED: SharedGroup = {
     ],
     rules: [
       {
-        title: 'Pod obiekt, nie pod markę',
-        text: 'Najpierw wizja lokalna, potem dobór sprzętu. Tak, żeby działało latami, a nie tylko w dniu odbioru.',
+        title: 'Sprzęt dobrany do obiektu',
+        text: 'Najpierw wizja lokalna, potem dobór sprzętu. Dobieramy go tak, żeby działał latami po odbiorze.',
       },
       { title: 'Wycena na piśmie', text: 'Zakres i termin, zanim zaczniemy.' },
       { title: '24 miesiące gwarancji', text: 'Na montaż. Sprzęt według gwarancji producenta.' },
@@ -193,6 +194,6 @@ export const INSTALACJE_SHARED: SharedGroup = {
       },
     ],
     visitText:
-      'Salon czynny pn–pt 9:00–17:00. Zobaczysz kamery, wideodomofony i smart home na żywo.',
+      'Salon czynny pn–pt 9:00–17:00. Na miejscu zobaczysz w działaniu kamery, wideodomofony i smart home.',
   },
 }

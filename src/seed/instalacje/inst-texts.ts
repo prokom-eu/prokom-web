@@ -36,6 +36,7 @@ import {
   formatTextReport,
   homeLayoutWithHero,
   layoutWithBlockTexts,
+  overlay,
   planTextChange,
   type TextChange,
   type TextCollection,
@@ -187,12 +188,24 @@ async function main() {
     content: post.content,
     seo: post.seo,
   })
-  // The shared group holds the panel's contact data too: only the line's „O firmie” numbers
-  // (a group sent in part keeps its other fields on update).
+  // The shared group holds the panel's contact data too: only the line's template texts (a group
+  // sent in part keeps its other fields on update — checked locally, INST-6 PR2).
   const site = settings[0]
   if (site) {
-    plan('site-settings', 'shared.about.stats', site, {
-      shared: { about: { stats: INSTALACJE_SHARED.about?.stats ?? [] } },
+    // INST-6 PR4: the line's texts of the shared Kontakt and O firmie templates, laid over the
+    // stored groups (a link or a row typed in the panel stays). Settings that are not texts —
+    // the salons shown, the place kind, the confirmed authorisations — stay the panel's.
+    const stored = (site.shared ?? {}) as Record<string, unknown>
+    const omit = (group: object | undefined, keys: readonly string[]) =>
+      Object.fromEntries(Object.entries(group ?? {}).filter(([k]) => !keys.includes(k)))
+    plan('site-settings', 'shared.contact + shared.about', site, {
+      shared: {
+        contact: overlay(
+          stored.contact,
+          omit(INSTALACJE_SHARED.contact, ['salonKeys', 'placeKind']),
+        ),
+        about: overlay(stored.about, omit(INSTALACJE_SHARED.about, ['auth'])),
+      },
     })
     plan('site-settings', 'footer.text', site, { footer: { text: INSTALACJE_FOOTER_TEXT } })
   }
