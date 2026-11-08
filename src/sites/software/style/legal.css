@@ -1,0 +1,481 @@
+/*
+ * Legal pages of Software v24 (`blocks/SwLegal`; ZMIANY-v24 §9.6, boards `AU-polityka`,
+ * `AU-regulamin`, `AU-cookies`, `AU-dostepnosc`). Colours only from tokens (ADR-007); no gradient
+ * here — the list mark and the note are flat violet (gradients stay on the closed list, ADR-015).
+ */
+
+.sw-legal-hero {
+  padding-bottom: 6px;
+}
+
+/* Badges under the lead: version (accent), update, reading time. */
+.sw-lmeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.sw-lmeta li {
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: var(--glass-card);
+  font: 700 12.5px var(--font-sans);
+  color: var(--ink-2);
+}
+.sw-lmeta li:first-child {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+
+/* „Wersja robocza…” — only outside production. */
+.sw-ldraft {
+  display: flex;
+  gap: 12px;
+  max-width: 792px;
+  margin: 18px 0 0;
+  padding: 12px 16px;
+  border: 1px solid var(--warn);
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.sw-ldraft > span:first-child {
+  display: grid;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 2px solid var(--warn);
+  border-radius: 99px;
+  font: 900 12px var(--font-display);
+  color: var(--ink);
+}
+
+.sw-legal {
+  padding: 40px 0 80px;
+}
+.sw-lgrid {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+/* Table of contents + question card (sticky beside the text). */
+.sw-ltoc {
+  position: sticky;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sw-ltoc-in {
+  padding: 16px;
+}
+.sw-ltoc-h {
+  padding: 4px 10px 10px;
+  font: 800 11px var(--font-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.sw-ltoc ol {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sw-ltoc ol a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 8px 10px;
+  border-radius: 11px;
+  font: 600 14px var(--font-sans);
+  color: var(--ink-2);
+  transition:
+    background-color var(--dur-state),
+    color var(--dur-state);
+}
+.sw-ltoc ol a:hover {
+  background: var(--surface);
+  color: var(--ink);
+}
+.sw-ln {
+  min-width: 20px;
+  font: 900 11px var(--font-display);
+  color: var(--accent-text);
+}
+.sw-lask {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+}
+.sw-lask p {
+  margin: 0 0 6px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.sw-lask .sw-lask-h {
+  margin: 0;
+  font: 900 17px var(--font-display);
+  color: var(--ink);
+}
+.sw-lask a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  font: 800 14px var(--font-sans);
+  color: var(--accent-text);
+  overflow-wrap: anywhere;
+}
+
+/* Up to 960 px: the contents as chips scrolled sideways, under the capsule. */
+.sw-lchips {
+  display: none;
+}
+
+/* The text. */
+.sw-prose {
+  max-width: 760px;
+}
+.sw-lintro p {
+  margin: 0 0 22px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-2);
+}
+.sw-lsec {
+  margin-bottom: 26px;
+  padding: 6px 0 30px;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 120px;
+}
+.sw-lsec:last-child {
+  border-bottom: 0;
+}
+.sw-prose h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 16px;
+  font: 900 28px/1.15 var(--font-display);
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.sw-prose h3 {
+  margin: 22px 0 10px;
+  font: 800 19px/1.3 var(--font-display);
+  color: var(--ink);
+}
+.sw-prose p {
+  margin: 0 0 14px;
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+.sw-prose strong {
+  color: var(--ink);
+}
+.sw-prose a {
+  font-weight: 700;
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-line);
+  text-underline-offset: 3px;
+}
+.sw-prose ul,
+.sw-prose ol {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+.sw-prose li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+.sw-prose ul > li::before {
+  content: '';
+  position: absolute;
+  top: 0.62em;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 3px;
+  background: var(--accent);
+}
+.sw-prose ol {
+  counter-reset: sw-prose;
+}
+.sw-prose ol > li::before {
+  counter-increment: sw-prose;
+  content: counter(sw-prose) '.';
+  position: absolute;
+  left: 0;
+  font-weight: 800;
+  color: var(--accent-text);
+}
+
+/* Tables inside the text. */
+.sw-ltbl {
+  margin: 4px 0 14px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--glass-card);
+}
+.sw-ltbl:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+}
+.sw-ltbl table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+}
+.sw-ltbl thead th {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  font: 800 11.5px var(--font-sans);
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.sw-ltbl tbody th,
+.sw-ltbl td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.55;
+  text-align: left;
+  vertical-align: top;
+  color: var(--ink-2);
+}
+.sw-ltbl tbody th {
+  width: 38%;
+  font-weight: 700;
+  color: var(--ink);
+}
+.sw-ltbl tr:last-child > * {
+  border-bottom: 0;
+}
+
+/* Note with the „!” mark. */
+.sw-lnote {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 6px 0 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--accent-line);
+  border-radius: 16px;
+  background: var(--accent-soft);
+}
+.sw-lnote > span {
+  display: grid;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 9px;
+  background: var(--accent);
+  font: 900 13px var(--font-display);
+  color: var(--accent-ink);
+}
+.sw-prose .sw-lnote p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+@media (max-width: 1200px) {
+  .sw-lgrid {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+@media (max-width: 960px) {
+  .sw-lgrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .sw-ltoc {
+    display: none;
+  }
+  .sw-lchips {
+    position: sticky;
+    top: 76px;
+    z-index: 5;
+    display: flex;
+    gap: 8px;
+    margin: -6px 0 6px;
+    padding: 8px 0;
+    overflow-x: auto;
+    background: var(--surface);
+    scrollbar-width: none;
+    transition: top var(--dur-state) var(--ease-out);
+  }
+  /* The capsule hides while scrolling down (shared `CapsuleShell`): the chips take its place. */
+  :root:has(.cap-wrap[data-hidden]) .sw-lchips {
+    top: 0;
+  }
+  .sw-lchips a {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    background: var(--glass-card);
+    font: 700 13px var(--font-sans);
+    color: var(--ink-2);
+  }
+}
+@media (max-width: 600px) {
+  .sw-legal {
+    padding: 24px 0 56px;
+  }
+  .sw-prose h2 {
+    font-size: 23px;
+  }
+  .sw-prose p,
+  .sw-prose li {
+    font-size: 15.5px;
+  }
+  .sw-ltbl table {
+    font-size: 13.5px;
+  }
+  .sw-ltbl thead th,
+  .sw-ltbl tbody th,
+  .sw-ltbl td {
+    padding: 12px 13px;
+  }
+  .sw-ltbl tbody th {
+    width: auto;
+  }
+  .sw-lchips {
+    top: 70px;
+  }
+}
+
+/* Site map `/mapa-strony` (`components/sitemap/SoftwareSiteMap`, board `AU-mapa`). */
+.sw-smap {
+  padding: 40px 0 80px;
+}
+.sw-smap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.sw-smap-rest {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+.sw-smap-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.sw-smap-card h2 {
+  margin: 0 0 10px;
+  font: 900 19px var(--font-display);
+  color: var(--ink);
+}
+.sw-smap-card h3 {
+  margin: 14px 0 6px;
+  font: 800 11px var(--font-sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.sw-smap-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sw-smap-grid a,
+.sw-smap-grid button {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 4px;
+  border-top: 1px solid var(--border);
+  font: 600 15px var(--font-sans);
+  text-align: left;
+  color: var(--ink-2);
+  transition:
+    color var(--dur-state),
+    padding var(--dur-state) var(--ease-out);
+}
+.sw-smap-grid a > span,
+.sw-smap-grid button > span {
+  color: var(--ink-3);
+  transition:
+    translate var(--dur-state) var(--ease-out),
+    color var(--dur-state);
+}
+.sw-smap-cols {
+  columns: 3 220px;
+  column-gap: 24px;
+}
+.sw-smap-cols li {
+  break-inside: avoid;
+}
+.sw-smap-cols a {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  font: 600 14.5px var(--font-sans);
+  color: var(--ink-2);
+}
+.sw-smap-cols a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+@media (hover: hover) and (pointer: fine) {
+  .sw-smap-grid a:hover,
+  .sw-smap-grid button:hover {
+    padding-left: 10px;
+    color: var(--ink);
+  }
+  .sw-smap-grid a:hover > span,
+  .sw-smap-grid button:hover > span {
+    translate: 4px 0;
+    color: var(--accent-text);
+  }
+}
+@media (max-width: 960px) {
+  .sw-smap-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .sw-smap {
+    padding: 24px 0 56px;
+  }
+  .sw-smap-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

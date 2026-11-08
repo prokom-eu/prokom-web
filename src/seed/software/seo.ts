@@ -2,7 +2,7 @@ import type { Payload } from 'payload'
 
 import { HOME_SLUG } from '../../lib/pages/slug'
 import { SOFTWARE_AUDIT_SLUG } from './audit'
-import { SOFTWARE_PRIVACY_SLUG } from './legal'
+import { SOFTWARE_PRIVACY_SLUG, SOFTWARE_TERMS_SLUG } from './legal'
 import { SOFTWARE_PRICING_SLUG } from './pricing'
 import { SOFTWARE_ABOUT_SLUG, SOFTWARE_CONTACT_SLUG } from './sharedPages'
 
@@ -32,6 +32,18 @@ export const SOFTWARE_PAGE_SEO: Readonly<Record<string, Seo>> = {
   [SOFTWARE_PRIVACY_SLUG]: {
     description:
       'Jak PRO-KOM Software przetwarza dane z formularzy i kreatora: kto jest administratorem, jak długo przechowujemy dane i jakie masz prawa.',
+  },
+  [SOFTWARE_TERMS_SLUG]: {
+    description:
+      'Regulamin strony PRO-KOM Software: formularz kontaktowy, kreator wyceny, darmowy audyt, ceny orientacyjne i reklamacje.',
+  },
+  cookies: {
+    description:
+      'PRO-KOM Software nie śledzi odwiedzających: bez cookies reklamowych i bez banera zgód. Lista zapisów w przeglądarce i jak je usunąć.',
+  },
+  dostepnosc: {
+    description:
+      'Deklaracja dostępności prokomsoftware.pl: WCAG 2.1 AA, obsługa klawiaturą, kontrast, ograniczenie ruchu i jak zgłosić barierę.',
   },
   [SOFTWARE_CONTACT_SLUG]: {
     description:

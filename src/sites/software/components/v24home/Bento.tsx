@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
 
+import { labelKey } from '@/lib/analytics/events'
+import { track } from '@/lib/analytics/track'
 import type { SoftwareHome } from '@/lib/software/home'
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
 import { Chip } from '@/sites/software/components/ui/Chip'
@@ -33,7 +35,14 @@ function Variants({
   return (
     <div className={scroll ? 'v-chips v-chips-scroll' : 'v-chips'} role="group" aria-label={label}>
       {items.map((item, index) => (
-        <Chip key={item.label} pressed={index === value} onClick={() => onChange(index)}>
+        <Chip
+          key={item.label}
+          pressed={index === value}
+          onClick={() => {
+            onChange(index)
+            track('oferta_wariant', { wariant: labelKey(item.label) })
+          }}
+        >
           {item.label}
         </Chip>
       ))}
