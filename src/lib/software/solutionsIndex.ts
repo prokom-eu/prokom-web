@@ -145,7 +145,7 @@ function indexLevels(levels: IndexedSolutionDoc['levels']): IndexLevel[] {
 }
 
 /** A mock-up only when the kind is known and the variant belongs to it. */
-function indexPreview(preview: IndexedSolutionDoc['preview']): IndexPreview | undefined {
+export function indexPreview(preview: IndexedSolutionDoc['preview']): IndexPreview | undefined {
   const kind = preview?.kind
   const variant = preview?.variant ?? null
   if (!isMockupKind(kind) || !isVariantOf(kind, variant)) return undefined

@@ -6,6 +6,7 @@ import okno from '../../../seed/prokomsoftware/okno-oferty.json'
 import { solutionData, solutionsToImport } from '../../seed/software/map'
 import {
   buildOfferView,
+  careFromLine,
   type OfferSolution,
   offerSolutionOf,
   type OfferSolutionDoc,
@@ -334,5 +335,40 @@ describe('offer texts of the seed', () => {
       expect(view.faq.length, slug).toBeGreaterThanOrEqual(3)
       if (view.price.kind === 'included') expect(view.price.items.length, slug).toBeGreaterThan(0)
     }
+  })
+})
+
+describe('offer window v24: mock-up and „Opieka od” (ZMIANY-v24 §6.1)', () => {
+  it('carries the solution mock-up, also on the related cards', () => {
+    expect(viewOf('strona-wizytowka').preview).toEqual({ kind: 'site', variant: 'wizytowka' })
+    expect(relatedCard(solutions.get('asystent-ai-do-zapytan')!, display).preview).toEqual({
+      kind: 'flow',
+      variant: 'ai',
+    })
+  })
+
+  it('„Opieka od” is the cheapest monthly care level, not the free audit', () => {
+    const line = careFromLine([...solutions.values()], display)
+    expect(line).toMatch(/^od 149 zł/)
+  })
+
+  it('no care solution → no tile; care and audit windows show their own levels instead', () => {
+    expect(careFromLine([solutions.get('strona-wizytowka')!], display)).toBeNull()
+    const care = buildOfferView(solutions.get('opieka-nad-strona-i-systemem')!, {
+      offer,
+      display,
+      related: [],
+      fill,
+      careFrom: 'od 149 zł / mies.',
+    })
+    expect(care.careFrom).toBeNull()
+    const page = buildOfferView(solutions.get('strona-wizytowka')!, {
+      offer,
+      display,
+      related: [],
+      fill,
+      careFrom: 'od 149 zł / mies.',
+    })
+    expect(page.careFrom).toBe('od 149 zł / mies.')
   })
 })
