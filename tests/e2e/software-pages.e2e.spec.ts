@@ -2,9 +2,9 @@ import { expect, test, type Page } from '@playwright/test'
 
 import { site } from './helpers'
 
-// SW11b: system and legal pages of the Software line (spec. §6.11; boards `Dziekujemy`,
-// `NieZnaleziono`, `Polityka`). Data from `pnpm seed`: `SoftwareSettings.thanks` / `.notFound`
-// and the privacy policy draft (`src/seed/software/legal.ts`).
+// System and legal pages of the Software line (SW11b; SWA6a: ZMIANY-v24 §9.6, boards
+// `AU-polityka`, `AU-regulamin`, `AU-cookies`, `AU-dostepnosc`, `AU-mapa`). Data from `pnpm seed`:
+// `SoftwareSettings.thanks` / `.notFound` and the legal drafts (`src/seed/software/legal.ts`).
 const HOST = 'software.localhost'
 
 /** Wider than the window = horizontal scroll of the page (MOBILE-APLIKACJA §5 pkt 1). */
@@ -68,39 +68,76 @@ test.describe('Software 404', () => {
   })
 })
 
-test.describe('Software /polityka-prywatnosci', () => {
-  test('draft notice, accent H1, 8 numbered sections with a table of contents', async ({
-    page,
-  }) => {
+test.describe('Software legal pages v24 (swLegal)', () => {
+  test('policy: draft notice, badges, 11 numbered sections, tables', async ({ page }) => {
     await page.goto(site(HOST, '/polityka-prywatnosci'))
-    await expect(page.locator('h1')).toHaveText('Twoje dane. Krótko i po ludzku.')
+    await expect(page.locator('h1')).toHaveText('Polityka prywatności.')
     // Local and CI run outside production: the draft notice is there.
-    await expect(page.getByRole('note')).toContainText('Wersja robocza')
-    const toc = page.getByRole('navigation', { name: 'Spis treści' })
-    await expect(toc.getByRole('link')).toHaveCount(8)
-    await toc.getByRole('link', { name: /Cookies i statystyki/ }).click()
-    await expect(page).toHaveURL(/#cookies-i-statystyki$/)
-    const cookies = page.getByRole('article', { name: /Cookies i statystyki/ })
-    await expect(cookies).toContainText('pk-project')
-    await expect(cookies).toContainText('pk-theme')
-    await expect(page.locator('main')).not.toContainText(/newsletter/i)
+    await expect(page.getByRole('note').filter({ hasText: 'Wersja robocza' })).toBeVisible()
+    const badges = page.getByRole('list', { name: 'O dokumencie' })
+    await expect(badges).toContainText('Wersja 1.0')
+    await expect(badges).toContainText(/Czas czytania: \d+ min/)
+    const toc = page.getByRole('navigation', { name: 'Spis treści', exact: true })
+    await expect(toc.getByRole('link')).toHaveCount(11)
+    await toc.getByRole('link', { name: /Jak długo przechowujemy dane/ }).click()
+    await expect(page).toHaveURL(/#jak-dlugo-przechowujemy-dane$/)
+    const retention = page.getByRole('region', { name: /Jak długo przechowujemy dane/ })
+    await expect(retention.getByRole('table')).toContainText('Logi serwera')
+    await expect(page.getByRole('table')).toHaveCount(2)
+    await expect(page.locator('main')).not.toContainText(/newsletter|składnik/i)
+  })
+
+  test('terms, cookies and accessibility have their sections', async ({ page }) => {
+    for (const [path, h1, sections] of [
+      ['/regulamin', 'Regulamin strony.', 9],
+      ['/cookies', 'Pliki cookies.', 5],
+      ['/dostepnosc', 'Deklaracja dostępności.', 5],
+    ] as const) {
+      await page.goto(site(HOST, path))
+      await expect(page.locator('h1'), path).toHaveText(h1)
+      const toc = page.getByRole('navigation', { name: 'Spis treści', exact: true })
+      await expect(toc.getByRole('link'), path).toHaveCount(sections)
+    }
+    await page.goto(site(HOST, '/cookies'))
+    const storage = page.getByRole('table')
+    for (const key of ['pk-theme', 'pk-project', 'sesja panelu']) {
+      await expect(storage).toContainText(key)
+    }
+  })
+
+  test('the question card takes the line contact from the settings', async ({ page }) => {
+    await page.goto(site(HOST, '/regulamin'))
+    const card = page.locator('.sw-lask')
+    await expect(card.getByRole('link', { name: /@/ })).toHaveAttribute('href', /^mailto:/)
+    await expect(card.locator('a[href^="tel:"]')).toBeVisible()
   })
 
   test('is not on another line', async ({ page }) => {
-    // Biznes has its own policy; the Software text never shows there.
+    // Biznes has its own policy and no terms page; the Software text never shows there.
     await page.goto(site('biznes.localhost', '/polityka-prywatnosci'))
-    await expect(page.locator('main')).not.toContainText('Krótko i po ludzku')
+    await expect(page.locator('main')).not.toContainText('Strona prokomsoftware.pl')
+    const terms = await page.goto(site('biznes.localhost', '/regulamin'))
+    expect(terms?.status()).toBe(404)
   })
 })
 
 test.describe('Software /mapa-strony', () => {
-  test('lists the policy in the Software look', async ({ page }) => {
+  test('six cards of the board, the terms, the search and every solution', async ({ page }) => {
     await page.goto(site(HOST, '/mapa-strony'))
-    await expect(page.locator('h1')).toHaveText('Mapa strony')
-    await expect(
-      page.locator('main').getByRole('link', { name: 'Polityka prywatności' }),
-    ).toBeVisible()
-    await expect(page.locator('main a[href="/dziekujemy"]')).toHaveCount(0)
+    await expect(page.locator('h1')).toHaveText('Mapa strony.')
+    const main = page.locator('main')
+    for (const title of ['Strona główna', 'Oferta', 'Narzędzia', 'Firma', 'Informacje']) {
+      await expect(main.getByRole('heading', { level: 2, name: title, exact: true })).toBeVisible()
+    }
+    await expect(main.getByRole('link', { name: /Regulamin/ })).toHaveAttribute(
+      'href',
+      '/regulamin',
+    )
+    await main.getByRole('button', { name: /Wyszukiwarka/ }).click()
+    await expect(page.getByRole('dialog')).toBeVisible()
+    await page.keyboard.press('Escape')
+    await expect(main.locator('a[href^="/rozwiazania/"]').first()).toBeVisible()
+    await expect(main.locator('a[href="/dziekujemy"]')).toHaveCount(0)
   })
 })
 
@@ -112,6 +149,8 @@ test.describe('Software system pages on the phone', () => {
         '/dziekujemy?nr=PKS-2026-0145',
         '/nie-ma-takiej',
         '/polityka-prywatnosci',
+        '/cookies',
+        '/mapa-strony',
       ]) {
         await page.goto(site(HOST, path))
         expect(await pageWidth(page), path).toBeLessThanOrEqual(width)
