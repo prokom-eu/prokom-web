@@ -26,7 +26,10 @@ export const SwContactBlock: Block = {
           type: 'text',
           required: true,
           maxLength: 60,
-          admin: { description: 'Jeden taki blok na stronę (kotwica #kontakt).' },
+          admin: {
+            description:
+              'Jeden taki blok na stronę (kotwica #kontakt). Na stronie głównej v24 formularz stoi obok FAQ, gdy blok FAQ jest bezpośrednio przed tym blokiem.',
+          },
         },
         { name: 'title', label: 'Nagłówek (H2)', type: 'text', required: true, maxLength: 100 },
       ],

@@ -12,6 +12,7 @@ import { SOFTWARE_TOPIC_LABELS, type SoftwareTopic } from '@/lib/inquiry/types'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { getSoftwareWizard } from '@/lib/software/data'
+import { contactHead } from '@/lib/software/contactHead'
 import { fillText } from '@/lib/software/facts'
 import type { SwContactBlock as SwContactBlockData } from '@/payload-types'
 import { softwareTextContext } from '@/sites/software/components/textContext'
@@ -46,7 +47,7 @@ function telLink(phone: string | null): { label: string; href: string } | null {
  * Data of the contact block with its facts filled (one promise with a missing fact is left out on
  * production) and the props of the form: errors „no contact” and „no consent” use the wizard's
  * texts (spec. §7.2); the form token carries the render time, so never cached. `null` without its
- * eyebrow, title or side title. Shared by the v23 block and the v24 „Napisz po swojemu”.
+ * eyebrow or title (`contactHead`); the side title may be missing. Shared by the v23 block and the v24 „Napisz po swojemu”.
  */
 export async function swContactData(block: SwContactBlockData, tenantId: number) {
   await connection()
@@ -56,10 +57,9 @@ export async function swContactData(block: SwContactBlockData, tenantId: number)
     softwareTextContext(tenantId),
   ])
   const fill = (text: string | null | undefined) => (text ? fillText(text, context) : null)
-  const eyebrow = fill(block.eyebrow)
-  const title = fill(block.title)
-  const sideTitle = fill(block.sideTitle)
-  if (!eyebrow || !title || !sideTitle) return null
+  const head = contactHead(block, fill)
+  if (!head) return null
+  const { eyebrow, title, sideTitle } = head
 
   const promises = (block.promises ?? []).flatMap((promise) => {
     const text = fill(promise.text)
@@ -121,6 +121,8 @@ export async function SwContactBlock({ block, tenantId }: Props) {
   const data = await swContactData(block, tenantId)
   if (!data) return null
   const { eyebrow, title, sideTitle, sideText, promises, audit, auditText, phoneCaption } = data
+  // The v23 dark side opens with its side title: without it the block stays as before (nothing).
+  if (!sideTitle) return null
   const { phone, phone2 } = data
 
   return (

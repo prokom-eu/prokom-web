@@ -181,6 +181,7 @@ export function RenderBlocks({ page, tenant }: Props) {
             if (software) {
               // v24: a FAQ with the contact block right after it is one section (ZMIANY-v24 §4).
               const contact = blocks[i + 1]
+              // The second check only narrows the type for TypeScript; the pair says the same.
               if (faqContactPair(blocks, i) === 'faq' && contact?.blockType === 'swContact') {
                 return <FaqContact key={key} faq={block} contact={contact} tenantId={tenant.id} />
               }

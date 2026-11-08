@@ -40,11 +40,13 @@ export function ProcessSection({ eyebrow, title, em, steps }: Props) {
               const on = index === tabs.active
               return (
                 <div
-                  key={item.num}
+                  key={index}
                   id={`${ids}-panel-${index}`}
                   role="tabpanel"
                   aria-labelledby={`${ids}-tab-${index}`}
                   inert={!on}
+                  // APG Tabs: the panel has nothing focusable, so it takes the Tab stop itself.
+                  tabIndex={on ? 0 : undefined}
                   className="sw-glass v-proc-card"
                 >
                   <span className="sw-eyebrow">{item.eyebrow}</span>
@@ -66,7 +68,7 @@ export function ProcessSection({ eyebrow, title, em, steps }: Props) {
             const on = index === tabs.active
             return (
               <button
-                key={item.num}
+                key={index}
                 ref={tabs.tabRef(index)}
                 id={`${ids}-tab-${index}`}
                 type="button"

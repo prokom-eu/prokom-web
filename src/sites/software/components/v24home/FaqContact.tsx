@@ -42,7 +42,7 @@ export async function FaqContact({ faq: faqBlock, contact: contactBlock, tenantI
             {faq.lead && <p className="v-lead">{faq.lead}</p>}
             <ul className="v-qs">
               {faq.items.map((item, index) => (
-                <li key={item.question}>
+                <li key={index}>
                   <details className="v-q" open={index === 0}>
                     <summary>
                       {item.question}
@@ -64,7 +64,7 @@ export async function FaqContact({ faq: faqBlock, contact: contactBlock, tenantI
             <h2 id="kontakt-h" className="sw-h2 v-contact-h">
               {contact.title}
             </h2>
-            <p className="v-contact-lead">{contact.sideTitle}</p>
+            {contact.sideTitle && <p className="v-contact-lead">{contact.sideTitle}</p>}
             <ContactForm {...contact.form} look="v24" />
             {(contact.phone || contact.email) && (
               <p className="v-contact-row">

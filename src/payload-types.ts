@@ -3972,7 +3972,7 @@ export interface SwHomeSectionBlock {
  */
 export interface SwContactBlock {
   /**
-   * Jeden taki blok na stronę (kotwica #kontakt).
+   * Jeden taki blok na stronę (kotwica #kontakt). Na stronie głównej v24 formularz stoi obok FAQ, gdy blok FAQ jest bezpośrednio przed tym blokiem.
    */
   eyebrow: string;
   title: string;
