@@ -14,6 +14,8 @@ type Props = {
   heading: string
   /** What the visitor looks at (a category, an industry): written into `/zapytanie?fraza=`. */
   topic?: string | null
+  /** Home contact (plan 0611 §7.1 pkt 14): the address and „Wyznacz trasę ↗” under the buttons. */
+  place?: { address: string; route: string | null } | null
 }
 
 const BUTTON =
@@ -25,7 +27,7 @@ const BUTTON =
  * (the inquiry page with the topic written in, or the inquiry drawer). A computer keeps the full
  * form; no second form on the phone.
  */
-export async function PhoneHelpCard({ tenantId, id, heading, topic }: Props) {
+export async function PhoneHelpCard({ tenantId, id, heading, topic, place }: Props) {
   const headingId = `${id}-h`
   const settings = await getSiteSettings(tenantId)
   const phone = settings?.phone ?? null
@@ -67,6 +69,28 @@ export async function PhoneHelpCard({ tenantId, id, heading, topic }: Props) {
             </AskQuoteTile>
           )}
         </div>
+        {place && (
+          <p
+            className="mt-4 flex items-start gap-2.5 border-t border-border pt-4 text-[14.5px] text-ink-2"
+            data-contact-address
+          >
+            <Icon name="pin" className="mt-0.5 size-[18px] shrink-0 text-accent-text" />
+            <span>
+              <span className="block font-bold text-ink">{place.address}</span>
+              {place.route && (
+                <a
+                  href={place.route}
+                  target="_blank"
+                  rel="noopener"
+                  className="mt-1 inline-flex min-h-11 items-center gap-1 font-extrabold text-accent-text underline underline-offset-4"
+                >
+                  Wyznacz trasę <span aria-hidden="true">↗</span>
+                  <span className="sr-only"> (Mapy Google, nowe okno)</span>
+                </a>
+              )}
+            </span>
+          </p>
+        )}
       </div>
     </section>
   )
