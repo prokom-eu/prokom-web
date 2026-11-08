@@ -81,6 +81,16 @@ export type PublicBiznesSettings = {
   footer: { important: Link[]; company: Link[] }
   /** „Zaopatrzenie — linki” (plan 0611 §6.4): hook-ins of the two procurement pages. */
   procurement: SupplyLinks
+  /** „KSeF — pas na stronie głównej” (plan 0611 §7.1 pkt 7); `null` without a deadline. */
+  ksef: PublicKsefBand | null
+}
+
+export type PublicKsefBand = {
+  /** The deadline as stored (a date from the panel). */
+  deadline: string
+  textBefore: string | null
+  textAfter: string | null
+  href: string
 }
 
 function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicBiznesSettings {
@@ -110,6 +120,18 @@ function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicB
       company: toValidLinks(group?.footer?.company),
     },
     procurement: toSupplyLinks(group?.procurement),
+    ksef: toKsefBand(group?.ksef),
+  }
+}
+
+function toKsefBand(group: NonNullable<SiteSetting['biznes']>['ksef']): PublicKsefBand | null {
+  const deadline = group?.deadline
+  if (!deadline || Number.isNaN(new Date(deadline).getTime())) return null
+  return {
+    deadline,
+    textBefore: textOrNull(group.textBefore),
+    textAfter: textOrNull(group.textAfter),
+    href: textOrNull(group.href) ?? '/ksef',
   }
 }
 

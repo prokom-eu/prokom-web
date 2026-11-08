@@ -143,7 +143,33 @@ describe('toPublicSiteSettings', () => {
       },
       footer: { important: [], company: [] },
       procurement: EMPTY_SUPPLY_LINKS,
+      ksef: null,
     })
+  })
+
+  it('maps the KSeF band: blank texts as null, the link /ksef by default', () => {
+    const withKsef: SiteSetting['biznes'] = {
+      ksef: { deadline: '2027-01-01T00:00:00.000Z', textBefore: ' Przed. ', textAfter: '' },
+    }
+    expect(toPublicSiteSettings({ ...base, biznes: withKsef }, 'biznes').biznes?.ksef).toEqual({
+      deadline: '2027-01-01T00:00:00.000Z',
+      textBefore: 'Przed.',
+      textAfter: null,
+      href: '/ksef',
+    })
+    const linked: SiteSetting['biznes'] = {
+      ksef: { deadline: '2027-01-01', href: '/ksef#kroki' },
+    }
+    expect(toPublicSiteSettings({ ...base, biznes: linked }, 'biznes').biznes?.ksef?.href).toBe(
+      '/ksef#kroki',
+    )
+  })
+
+  it('no KSeF band without a valid deadline', () => {
+    for (const deadline of [null, undefined, '', 'nie-data']) {
+      const group: SiteSetting['biznes'] = { ksef: { deadline, textBefore: 'Przed.' } }
+      expect(toPublicSiteSettings({ ...base, biznes: group }, 'biznes').biznes?.ksef).toBeNull()
+    }
   })
 
   it('maps „Zaopatrzenie — linki”, empty texts as null', () => {
