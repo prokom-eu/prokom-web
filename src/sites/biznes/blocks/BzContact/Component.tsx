@@ -41,7 +41,7 @@ export function BzContactBlock({ block, tenantId }: Props) {
           accentSecondSentence
         />
       </div>
-      <PhoneHelpCard tenantId={tenantId} heading={block.heading} />
+      <PhoneHelpCard tenantId={tenantId} id="kontakt-help" heading={block.heading} />
     </div>
   )
 }

@@ -15,15 +15,16 @@ type Props = {
 /**
  * The v20 contact form under the catalog pages (`/oferta`, category, industry): one set of
  * promises and texts; the call-back time is added to the lead when set in the panel. Below 768 px
- * the help card with the same heading takes the form's place (D12).
+ * the help card with the same heading takes the form's place (D12). `id` names the whole block, so
+ * an anchor (`#kontakt`) lands on the form on a computer and on the card on a phone.
  */
 export function CatalogContactPanel({ tenantId, id, heading, lead, callbackTime, topic }: Props) {
   return (
-    <>
+    <div id={id} className="scroll-mt-24">
       <div className="max-md:hidden">
         <ContactPanel
           tenantId={tenantId}
-          id={id}
+          id={`${id}-form`}
           heading={heading}
           lead={[lead, callbackTime && `${callbackTime} w godzinach pracy.`]
             .filter(Boolean)
@@ -40,7 +41,7 @@ export function CatalogContactPanel({ tenantId, id, heading, lead, callbackTime,
           }
         />
       </div>
-      <PhoneHelpCard tenantId={tenantId} heading={heading} topic={topic} />
-    </>
+      <PhoneHelpCard tenantId={tenantId} id={`${id}-help`} heading={heading} topic={topic} />
+    </div>
   )
 }

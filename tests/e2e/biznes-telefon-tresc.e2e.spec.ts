@@ -40,8 +40,13 @@ test.describe('Biznes — telefon nie chowa treści (D12)', () => {
   for (const path of PAGES) {
     test(`${path}: every heading of a computer is on a phone too`, async ({ page }) => {
       test.slow()
+      const height = () => page.evaluate(() => document.documentElement.scrollHeight)
       const wide = await headings(page, path, 1440)
+      const wideHeight = await height()
       const phone = new Set(await headings(page, path, 390))
+      // §5.3: a phone page up to 1.3× the computer one; above that it is listed in the PR.
+      const ratio = (await height()) / wideHeight
+      test.info().annotations.push({ type: 'wysokość 390/1440', description: ratio.toFixed(2) })
       expect(wide.filter((text) => !phone.has(text))).toEqual([])
       const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth)
       expect(scrollWidth).toBeLessThanOrEqual(390)
@@ -54,7 +59,7 @@ test.describe('Biznes — telefon nie chowa treści (D12)', () => {
       await page.goto(site('biznes.localhost', path))
       const data = await page.locator('script[type="application/ld+json"]').allTextContents()
       const faq = data.map((text) => JSON.parse(text)).find((item) => item['@type'] === 'FAQPage')
-      if (!faq) continue
+      expect(faq, path).toBeTruthy()
       const first = faq.mainEntity[0].name as string
       await expect(page.locator('main summary', { hasText: first }).first()).toBeVisible()
     }
