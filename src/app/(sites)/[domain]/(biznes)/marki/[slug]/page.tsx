@@ -41,7 +41,6 @@ import { CategoryGrid } from '@/sites/biznes/components/category/CategoryGrid'
 import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
 
 import { requestOrigin, requireLine } from '../../../tenant'
-import { ScreenTitleMark } from '@/sites/biznes/components/mobile/ScreenTitleMark'
 
 type Props = { params: Promise<{ domain: string; slug: string }> }
 
@@ -142,7 +141,6 @@ export default async function BrandPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
-      <ScreenTitleMark name={brand.name} />
       <BrandHero brand={brand} crumbs={crumbs} count={products.length} />
       <BrandAbout brand={brand} />
       <Container wide className="pb-14 sm:pb-20">
@@ -230,7 +228,6 @@ async function Salon({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
-      <ScreenTitleMark name={brand} />
       <Container
         wide
         className="flex flex-col gap-10 pt-4 pb-10 min-[768px]:gap-24 min-[768px]:pt-8 min-[768px]:pb-20"

@@ -7,7 +7,7 @@ import { site } from './helpers'
 // stanowisk?”. No price model, no downtime calculator (K4-FINAL §1). Axe in `a11y`.
 
 const cartButton = (page: Page) =>
-  page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
+  page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 
 test.describe('Biznes /opieka-it (K4i)', () => {
   test('shows the hero with the report, the areas, the steps and the FAQ', async ({ page }) => {

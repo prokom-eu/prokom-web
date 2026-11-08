@@ -102,7 +102,7 @@ test.describe('Biznes product page 2.0', () => {
 
     await addToInquiry(page, 'Posnet Ergo Online')
     await expect(
-      page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ }),
+      page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ }),
     ).toHaveAccessibleName('Zapytanie 1 pozycja')
   })
 
@@ -417,12 +417,9 @@ test.describe('Biznes product page 2.0', () => {
 test.describe('Biznes product on a phone', () => {
   test.use({ viewport: { width: 390, height: 844 } })
 
-  test('category in the top bar, versions in a row, the description folds', async ({ page }) => {
+  test('versions in a row, the description folds', async ({ page }) => {
+    // The screen title of the top bar went with the K4 header (D3-B: the shared capsule).
     await page.goto(site('biznes.localhost', THINKBOOK))
-    await expect(page.locator('main [data-screen-title]')).toHaveAttribute(
-      'data-screen-title',
-      'Laptopy',
-    )
     const versions = page.getByRole('button', { name: 'G8 IRL (Intel)' }).locator('..')
     const size = await versions.evaluate((el) => [el.scrollWidth, el.clientWidth])
     expect(size[0]).toBeGreaterThan(size[1])

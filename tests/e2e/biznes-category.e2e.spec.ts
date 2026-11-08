@@ -80,7 +80,7 @@ test.describe('Biznes category page', () => {
       .getByRole('button', { name: 'Do zapytania: Posnet Ergo Online' })
       .click()
     await expect(
-      page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ }),
+      page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ }),
     ).toHaveAccessibleName('Zapytanie 1 pozycja')
   })
 

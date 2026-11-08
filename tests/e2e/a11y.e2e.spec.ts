@@ -170,7 +170,8 @@ test.describe('main navigation', () => {
       if (/hydrat/i.test(message.text())) hydrationErrors.push(message.text())
     })
     await page.goto(site('biznes.localhost', '/kontakt'))
-    const nav = page.getByRole('navigation', { name: 'Główna' })
+    // The shared header capsule (D3-B): „Menu główne”.
+    const nav = page.getByRole('navigation', { name: 'Menu główne' })
     await expect(nav.getByRole('link', { name: 'Kontakt' })).toHaveAttribute('aria-current', 'page')
     await page.waitForLoadState('networkidle')
     expect(hydrationErrors).toEqual([])

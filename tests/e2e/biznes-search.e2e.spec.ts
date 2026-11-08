@@ -72,10 +72,10 @@ test.describe('Biznes search', () => {
     await expect(page.locator('dialog[open]')).toHaveCount(0)
     // Nothing invisible in the top layer: the header still takes clicks.
     await page
-      .getByRole('navigation', { name: 'Główna' })
-      .getByRole('button', { name: 'Oferta' })
+      .getByRole('navigation', { name: 'Menu główne' })
+      .getByRole('button', { name: /^Oferta/ })
       .click()
-    await expect(page.locator('[id$="-offer"]')).toBeVisible()
+    await expect(page.locator('#oferta-mega')).toBeVisible()
   })
 
   test('a second click in the preview opens the inquiry drawer', async ({ page }) => {
@@ -119,13 +119,17 @@ test.describe('Biznes search', () => {
     )
   })
 
-  test('the magnifier opens it on a phone', async ({ page }) => {
+  test('the menu sheet opens it on a phone (no room for the loupe in the capsule)', async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 360, height: 780 })
     await page.goto(site('biznes.localhost'))
+    const sheet = page.getByRole('dialog', { name: 'Menu' })
     await clickUntilVisible(
-      page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }),
-      field(page),
+      page.locator('[data-site-header]').getByRole('button', { name: 'Menu' }),
+      sheet,
     )
+    await sheet.getByRole('button', { name: 'Szukaj w ofercie' }).click()
     await expect(field(page)).toBeFocused()
     await typeIn(page, 'terminal')
     await expect(

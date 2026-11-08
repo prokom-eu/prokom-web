@@ -74,7 +74,8 @@ function inField(event: globalThis.KeyboardEvent) {
  * `<dialog>` — the browser keeps focus inside, closes it on Esc and returns focus. The catalog
  * index is fetched on the first opening, then matched on the client.
  */
-export function SearchOverlay() {
+/** `trigger={false}`: the window only — the shared capsule and rail carry the search buttons. */
+export function SearchOverlay({ trigger = true }: { trigger?: boolean }) {
   const dialog = useRef<HTMLDialogElement>(null)
   const input = useRef<HTMLInputElement>(null)
   const [open, setOpen] = useState(false)
@@ -119,27 +120,29 @@ export function SearchOverlay() {
   return (
     <>
       {/* K4 (K33 §2.2): „Szukaj · Ctrl K” from 640 px, the magnifier alone on phones. */}
-      <button
-        type="button"
-        aria-haspopup="dialog"
-        aria-keyshortcuts="Control+K Meta+K /"
-        onClick={show}
-        className={cx(
-          ICON_BUTTON,
-          'min-[1280px]:w-auto min-[1280px]:gap-2.5 min-[1280px]:bg-surface-2 min-[1280px]:px-4 min-[1280px]:font-bold',
-        )}
-      >
-        <SearchIcon size={18} />
-        {/* The name comes from the visible text (WCAG 2.5.3): „Szukaj w ofercie Ctrl K”. Below
+      {trigger && (
+        <button
+          type="button"
+          aria-haspopup="dialog"
+          aria-keyshortcuts="Control+K Meta+K /"
+          onClick={show}
+          className={cx(
+            ICON_BUTTON,
+            'min-[1280px]:w-auto min-[1280px]:gap-2.5 min-[1280px]:bg-surface-2 min-[1280px]:px-4 min-[1280px]:font-bold',
+          )}
+        >
+          <SearchIcon size={18} />
+          {/* The name comes from the visible text (WCAG 2.5.3): „Szukaj w ofercie Ctrl K”. Below
             1280 px (phones and the 1080–1279 header row) the magnifier alone shows — the text
             stays for screen readers, so the menu row fits. */}
-        <span className="sr-only min-[1280px]:not-sr-only">
-          Szukaj<span className="sr-only"> w ofercie</span>
-        </span>
-        <kbd className="sr-only rounded-md border border-border bg-surface px-1.5 py-0.5 font-sans text-[11px] font-bold whitespace-nowrap text-ink-2 min-[1280px]:not-sr-only">
-          Ctrl K
-        </kbd>
-      </button>
+          <span className="sr-only min-[1280px]:not-sr-only">
+            Szukaj<span className="sr-only"> w ofercie</span>
+          </span>
+          <kbd className="sr-only rounded-md border border-border bg-surface px-1.5 py-0.5 font-sans text-[11px] font-bold whitespace-nowrap text-ink-2 min-[1280px]:not-sr-only">
+            Ctrl K
+          </kbd>
+        </button>
+      )}
 
       <dialog
         data-motion="dialog"

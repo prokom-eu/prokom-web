@@ -98,60 +98,25 @@ test.describe('reduced motion', () => {
 
 // Prompt 4 R2 + Krystian 03.11: the side rail opens softly and a click glides to the section,
 // whose heading arrives; the marker follows. Dialogs open with the system's motion.
-test.describe('side rail and dialogs (R2)', () => {
+test.describe('dialogs (R2)', () => {
   test.use({ viewport: { width: 1440, height: 900 } })
-
-  test('the rail opens with its labels and glides to a section', async ({ page }) => {
-    await page.goto(site(HOST, '/'))
-    await page.waitForLoadState('networkidle')
-    const rail = page.getByRole('navigation', { name: 'Na tej stronie' })
-    const label = rail.locator('[data-rail-label]').first()
-    await expect(label).toHaveCSS('opacity', '0')
-    await rail.hover()
-    await expect(label).toHaveCSS('opacity', '1')
-    const link = rail.locator('a[href="#faq"]')
-    await link.click()
-    await expect(page).toHaveURL(/#faq$/)
-    await expect
-      .poll(() =>
-        page.evaluate(() => {
-          const section = document.getElementById('faq')!
-          const top = Math.round(section.getBoundingClientRect().top)
-          // Same rule as `sectionOffset` (lib/software/smoothScroll): no own scroll margin →
-          // room for the sticky header (HEADER_OFFSET, 84 px).
-          const own = Number.parseFloat(getComputedStyle(section).scrollMarginTop)
-          const margin = Math.round(Number.isFinite(own) && own > 0 ? own : 84)
-          return Math.abs(top - margin) <= 2 && section.hasAttribute('data-arrive')
-            ? 'arrived'
-            : top
-        }),
-      )
-      .toBe('arrived')
-    await expect(link).toHaveAttribute('aria-current', 'true')
-    await expect(rail.locator('[data-rail-marker]')).toBeAttached()
-  })
 
   test('the inquiry drawer slides in from the right', async ({ page }) => {
     await page.goto(site(HOST, '/oferta'))
     await page.waitForLoadState('networkidle')
     const drawer = page.locator('dialog[data-motion="drawer"]')
     await expect(drawer).toHaveCSS('translate', '100%')
-    await page
-      .getByRole('button', { name: /^Zapytanie/ })
-      .first()
-      .click()
+    await page.locator('[data-site-header] .cap-cta').click()
     await expect(drawer).toBeVisible()
     await expect(drawer).toHaveCSS('translate', 'none')
   })
 })
 
-test.describe('side rail with reduced motion', () => {
+test.describe('dialogs with reduced motion', () => {
   test.use({ viewport: { width: 1440, height: 900 }, contextOptions: { reducedMotion: 'reduce' } })
 
-  test('labels do not fade and the drawer does not slide', async ({ page }) => {
+  test('the drawer does not slide', async ({ page }) => {
     await page.goto(site(HOST, '/'))
-    const rail = page.getByRole('navigation', { name: 'Na tej stronie' })
-    await expect(rail.locator('[data-rail-label]').first()).toHaveCSS('opacity', '1')
     await expect(page.locator('dialog[data-motion="drawer"]')).not.toHaveCSS('translate', '100%')
   })
 })

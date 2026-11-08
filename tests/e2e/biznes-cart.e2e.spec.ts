@@ -10,7 +10,7 @@ const ERGO = 'posnet-ergo-online'
 const TERMINAL = 'terminal-platniczy-polcard'
 
 const cartButton = (page: Page) =>
-  page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
+  page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 const drawer = (page: Page) => page.getByRole('dialog', { name: /^Twoje zapytanie \(\d+\)$/ })
 
 /** Sets the list before the page scripts run (as if added on an earlier visit). */
@@ -24,7 +24,8 @@ async function withCart(page: Page, items: { id: string; q: number }[]) {
 }
 
 async function openDrawer(page: Page) {
-  // The click works once the header is hydrated.
+  // Before hydration the capsule's „Zapytanie” is a plain link to /zapytanie: wait for it.
+  await hydrated(cartButton(page))
   await expect(async () => {
     await cartButton(page).click()
     await expect(drawer(page)).toBeVisible({ timeout: 1000 })
@@ -148,17 +149,14 @@ test.describe('Biznes inquiry list', () => {
     ).toHaveAttribute('href', '/zapytanie')
   })
 
-  // M1′: on a phone „Zapytanie” is a tab of the app bar and leads to the inquiry page.
-  test('the tab bar counts it and leads to the inquiry page on a phone', async ({ page }) => {
+  // D3-B: on a phone „Zapytanie” is the raised centre of the shared bottom bar, with the count.
+  test('the bottom bar counts it and leads to the inquiry page on a phone', async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 780 })
     await withCart(page, [{ id: ERGO, q: 1 }])
     await page.goto(site('biznes.localhost'))
-    const tab = page
-      .getByRole('navigation', { name: 'Pasek aplikacji' })
-      .getByRole('link', { name: 'Zapytanie · 1 pozycja' })
+    const tab = page.locator('[data-tab-bar] [data-tab-center]')
     await expect(tab).toHaveAttribute('href', '/zapytanie')
-    // The header's „Zapytanie” is for wider screens.
-    await expect(page.locator('header').getByRole('button', { name: /^Zapytanie/ })).toBeHidden()
+    await expect(tab).toHaveAccessibleName(/1 pozycja/)
     const width = await page.evaluate(() => document.documentElement.scrollWidth)
     expect(width).toBeLessThanOrEqual(360)
   })

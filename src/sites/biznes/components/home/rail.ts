@@ -1,3 +1,8 @@
+/*
+ * Which home page block gives which section anchor, in page order. Since D3-B the page uses the
+ * shared `SiteRail` (sections from `SiteSettings.shared.rail`); this stays as the source the shared
+ * seed is checked against (`src/seed/shared/shared.test.ts`).
+ */
 import type { RailItem } from '@/components/SectionRail'
 
 import { reviewSlots } from '../../blocks/BzReferences/reviews'
@@ -71,7 +76,7 @@ const RAIL: Record<string, Entry[]> = {
         ).length > 0,
     },
   ],
-  bzFacts: [{ id: 'fakty', label: 'O firmie', icon: 'doc' }],
+  bzFacts: [{ id: 'fakty', label: 'O firmie', icon: 'shield' }],
   faq: [{ id: 'faq', label: 'Pytania', icon: 'q' }],
   bzContact: [{ id: 'kontakt', label: 'Kontakt', icon: 'phone' }],
 }

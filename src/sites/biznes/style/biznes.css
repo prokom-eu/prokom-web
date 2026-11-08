@@ -36,7 +36,7 @@
 /* Biznes page transitions on phones (`PageTransition`, the same motion as Software): the content
    fades out and rises in; header and tab bar keep their own names, so they stay. */
 @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
-  [data-line='biznes'] [data-bz-header] {
+  [data-line='biznes'] [data-site-header] {
     view-transition-name: bz-header;
   }
   [data-line='biznes'] [data-tab-bar] {

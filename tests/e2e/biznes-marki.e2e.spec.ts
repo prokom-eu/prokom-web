@@ -48,14 +48,19 @@ test.describe('Biznes /marki (K4f)', () => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(biznes('/kontakt'))
     await expect(
-      page.getByRole('navigation', { name: 'Główna' }).getByRole('link', { name: 'Marki' }),
+      page.getByRole('navigation', { name: 'Menu główne' }).getByRole('link', { name: 'Marki' }),
     ).toHaveAttribute('href', '/marki')
     await expect(
       page.getByRole('contentinfo').getByRole('link', { name: 'Wszystkie marki' }),
     ).toHaveAttribute('href', '/marki')
+    // The shared side rail (D3-B): on a subpage its „Strona główna” group leads to the brands
+    // section of the home page.
     await expect(
-      page.getByRole('navigation', { name: 'Menu boczne' }).getByRole('link', { name: 'Marki' }),
-    ).toHaveAttribute('href', '/marki')
+      page
+        .locator('[data-site-rail]')
+        .getByRole('group', { name: 'Strona główna' })
+        .getByRole('link', { name: 'Marki' }),
+    ).toHaveAttribute('href', '/#marki')
   })
 
   test('has no horizontal scroll at 390 px', async ({ page }) => {

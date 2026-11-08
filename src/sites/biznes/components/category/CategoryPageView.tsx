@@ -30,7 +30,6 @@ import { CategoryHero, type CategoryChip } from './CategoryHero'
 import { BoughtWith, CategoryFacts, IncludedCards } from './CategorySections'
 import { SubcategoryNav } from './SubcategoryNav'
 import { NotListedCard } from '../catalog/NotListedCard'
-import { ScreenTitleMark } from '@/sites/biznes/components/mobile/ScreenTitleMark'
 
 /** „…potrzebujesz drukarki fiskalnej, nie kasy →” under the cash register picker (board). */
 const PRINTERS_SLUG = 'drukarki-fiskalne'
@@ -135,7 +134,6 @@ export async function CategoryPageView({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbs) }}
       />
-      <ScreenTitleMark name={subcategory?.name ?? category.name} />
       <CategoryHero
         title={hero.title}
         eyebrow={subcategory?.name ?? category.name}
