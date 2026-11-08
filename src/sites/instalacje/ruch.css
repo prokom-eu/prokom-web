@@ -21,14 +21,12 @@ html[data-line='instalacje']
     .sycta,
     .hzksend,
     .zkpb,
-    .sgrc,
     .rl,
     .obc,
     .ut2,
     .gor,
     .hzkb,
     .card.feat,
-    .odbl,
     .relc,
     .relsegc,
     .arsv,
@@ -62,14 +60,12 @@ html[data-line='instalacje']
      link or a button inside them is pressed (that one shrinks, not both). */
   html[data-line='instalacje']
     :is(
-      .sgrc,
       .rl,
       .obc,
       .ut2,
       .gor,
       .hzkb,
       .card.feat,
-      .odbl,
       .relc,
       .relsegc,
       .arlzc,
@@ -92,7 +88,7 @@ html[data-line='instalacje']
     filter: brightness(1.06);
   }
   /* The arrow of a card that is not itself a link or a button. */
-  html[data-line='instalacje'] :is(.relc, .odbl, .pkg, .ut2, .obc):hover [data-icon='arrow'] {
+  html[data-line='instalacje'] :is(.relc, .pkg, .ut2, .obc):hover [data-icon='arrow'] {
     translate: 3px 0;
   }
 }
@@ -333,13 +329,11 @@ html[data-line='instalacje'] :is(input, textarea, select, .zkfl, .zktown, .hzkf,
       .sycta,
       .hzksend,
       .zkpb,
-      .sgrc,
       .rl,
       .obc,
       .ut2,
       .hzkb,
       .card.feat,
-      .odbl,
       .relc,
       .relsegc,
       .arsv,
