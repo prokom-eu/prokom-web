@@ -11,6 +11,14 @@ import { api, loginAsAdmin, setTheme, site } from './helpers'
 // SuccessPanel). Data from `pnpm seed`; inquiries made here are deleted at the end.
 const HOST = 'software.localhost'
 
+/** Text of `main` without the service area list: its towns (shared zones) may name Zakopane. */
+const mainTextWithoutArea = (page: Page) =>
+  page.locator('main').evaluate((main) => {
+    const copy = main.cloneNode(true) as HTMLElement
+    copy.querySelectorAll('[data-service-area]').forEach((area) => area.remove())
+    return copy.textContent ?? ''
+  })
+
 // Own client address per test (benchmark range 198.18.0.0/15): the limit of 5 inquiries per
 // 10 minutes keys on `X-Real-IP`, so these sends never use up the limit of other specs.
 const newVisitor = (page: Page) =>
@@ -83,7 +91,8 @@ test.describe('Software /kontakt (shared template)', () => {
       'https://www.biznes.gov.pl/pl/wyszukiwarka-firm',
     )
     // v23 leftovers are gone: no Zakopane, no WhatsApp, no „Jak wolisz rozmawiać?”.
-    await expect(page.locator('main')).not.toContainText(/Zakopan|WhatsApp|Jak wolisz rozmawiać/i)
+    // The shared service area („Kod nie zna granic…”) may list the town of Zakopane.
+    expect(await mainTextWithoutArea(page)).not.toMatch(/Zakopan|WhatsApp|Jak wolisz rozmawiać/i)
   })
 
   test('routes, the form with next steps, service area, other lines, FAQ, the band', async ({
