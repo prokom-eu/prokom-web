@@ -25,6 +25,7 @@ import { BzSectionBlock } from '@/sites/biznes/blocks/BzSection/Component'
 import { HERO_VARIANTS, parseSectionData, type SectionVariant } from '@/lib/biznes/pages/sections'
 import { isProcurementPage } from '@/lib/biznes/procurement/schema'
 import { BzKsefBlock } from '@/sites/biznes/blocks/BzKsef/Component'
+import { BzNewsHomeBlock } from '@/sites/biznes/blocks/BzNewsHome/Component'
 import { QuickStart } from '@/sites/biznes/components/home/QuickStart'
 import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
 import { BzOrderFlowBlock } from '@/sites/biznes/blocks/BzOrderFlow/Component'
@@ -233,7 +234,9 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'bzTimeline':
             return <BzTimelineBlock key={key} block={block} />
           case 'bzKsef':
-            return <BzKsefBlock key={key} block={block} />
+            return <BzKsefBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzNewsHome':
+            return <BzNewsHomeBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzSection': {
             const section = (
               <BzSectionBlock

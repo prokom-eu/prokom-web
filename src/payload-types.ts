@@ -508,6 +508,21 @@ export interface SiteSetting {
      */
     showOwnerQuote?: boolean | null;
     /**
+     * Pas z odliczaniem między „Najczęściej wybierane” a planem. Bez terminu pas się nie pokazuje. Tylko fakty ze źródłem (komunikat MF).
+     */
+    ksef?: {
+      deadline?: string | null;
+      href?: string | null;
+      /**
+       * Np. „Od 1 stycznia 2027 KSeF obejmie także najmniejsze firmy.”
+       */
+      textBefore?: string | null;
+      /**
+       * Pokazywany od dnia terminu, bez odliczania (K36 §3 „wersja po”).
+       */
+      textAfter?: string | null;
+    };
+    /**
      * Odnośniki do stron „AGD i RTV dla firm” i „Dostawy IT dla firm” w reszcie strony. Puste pole = odnośnik niewidoczny.
      */
     procurement?: {
@@ -2228,6 +2243,7 @@ export interface Page {
         | BzAboutPageBlock
         | BzProcurementPageBlock
         | BzProcurementBlock
+        | BzNewsHomeBlock
         | InstServiceBlock
         | InstHomeBlock
         | InstPlannerBlock
@@ -2980,15 +2996,16 @@ export interface BzTimelineBlock {
  * via the `definition` "BzKsefBlock".
  */
 export interface BzKsefBlock {
+  variant: 'full' | 'band';
   /**
    * Sekcja ma kotwicę #ksef — blok tylko raz na stronie.
    */
   eyebrow?: string | null;
-  date: string;
+  date?: string | null;
   /**
    * Np. „dni do 1 stycznia 2027”.
    */
-  dateLabel: string;
+  dateLabel?: string | null;
   text?: string | null;
   link?: {
     label?: string | null;
@@ -3259,6 +3276,25 @@ export interface BzProcurementBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzProcurement';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzNewsHomeBlock".
+ */
+export interface BzNewsHomeBlock {
+  /**
+   * Sekcja ma kotwicę #aktualnosci — blok tylko raz na stronie.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  lead?: string | null;
+  /**
+   * Np. „Wszystkie aktualności” → /aktualnosci. Pusty = bez linku.
+   */
+  allLabel?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzNewsHome';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5986,6 +6022,14 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         showReviews?: T;
         showClientLogos?: T;
         showOwnerQuote?: T;
+        ksef?:
+          | T
+          | {
+              deadline?: T;
+              href?: T;
+              textBefore?: T;
+              textAfter?: T;
+            };
         procurement?:
           | T
           | {
@@ -6120,6 +6164,7 @@ export interface PagesSelect<T extends boolean = true> {
         bzAboutPage?: T | BzAboutPageBlockSelect<T>;
         bzProcurementPage?: T | BzProcurementPageBlockSelect<T>;
         bzProcurement?: T | BzProcurementBlockSelect<T>;
+        bzNewsHome?: T | BzNewsHomeBlockSelect<T>;
         instService?: T | InstServiceBlockSelect<T>;
         instHome?: T | InstHomeBlockSelect<T>;
         instPlanner?: T | InstPlannerBlockSelect<T>;
@@ -6578,6 +6623,7 @@ export interface BzTimelineBlockSelect<T extends boolean = true> {
  * via the `definition` "BzKsefBlock_select".
  */
 export interface BzKsefBlockSelect<T extends boolean = true> {
+  variant?: T;
   eyebrow?: T;
   date?: T;
   dateLabel?: T;
@@ -6690,6 +6736,18 @@ export interface BzProcurementBlockSelect<T extends boolean = true> {
   heading?: T;
   lead?: T;
   data?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzNewsHomeBlock_select".
+ */
+export interface BzNewsHomeBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  allLabel?: T;
   id?: T;
   blockName?: T;
 }

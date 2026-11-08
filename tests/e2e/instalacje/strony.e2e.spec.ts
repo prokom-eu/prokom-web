@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, type Page, test } from '@playwright/test'
 
 import { LAW_WORDS } from '../../../src/lib/instalacje/lawWords'
@@ -167,5 +168,46 @@ test.describe('Instalacje legal links and llms.txt', () => {
     expect(text).toContain('/monitoring')
     expect(text).not.toMatch(/\[SZEF|\d+\s?zł/)
     expect((await request.get(site('biznes.localhost', '/llms.txt'))).status()).toBe(404)
+  })
+})
+
+// Runda v6 §1.8 (audit 08.11): rows and tables that scroll sideways on a phone take focus and
+// have a name (axe „scrollable-region-focusable”).
+test.describe('Instalacje scrollable regions on a phone', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+  for (const path of [
+    '/',
+    '/alarmy',
+    '/ekrany',
+    '/kontrola-dostepu',
+    '/ladowarki-ev',
+    '/monitoring',
+    '/serwis',
+  ]) {
+    test(`${path}: every scrollable region is reachable from the keyboard`, async ({ page }) => {
+      await open(page, path)
+      const { violations } = await new AxeBuilder({ page })
+        .withRules(['scrollable-region-focusable'])
+        .analyze()
+      expect(violations.flatMap((v) => v.nodes.map((n) => n.target.join(' ')))).toEqual([])
+    })
+  }
+})
+
+// Runda v6 D3 and §1.8: texts of the package that must not come back.
+test.describe('Instalacje unconfirmed claims stay off the pages', () => {
+  test('/ekrany: a sample shop, no PRO-KOM salon; the home and the offer neither', async ({
+    page,
+  }) => {
+    for (const path of ['/ekrany', '/', '/uslugi']) {
+      await open(page, path)
+      const text = await page.locator('main').evaluate((m) => m.textContent ?? '')
+      expect(text, path).not.toMatch(/PRO-KOM · salon|Rabka-Zdrój · witryna|naszym salonie/)
+    }
+  })
+
+  test('/teletechnika: no unconfirmed standards', async ({ page }) => {
+    await open(page, '/teletechnika')
+    await expect(page.locator('main')).not.toContainText('W jakich standardach pracujemy')
   })
 })

@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { setTheme, site } from './helpers'
+import { hydrated, setTheme, site } from './helpers'
 
 // SWA1b (PRZEKAZANIE-v24 §3.1, ZMIANY-v24 §8): the v24 foundation on `/_software` — headings,
 // primitives and every mock-up. Nothing in a mock-up is cut off, the stage scales to its box, the
@@ -122,6 +122,8 @@ test.describe('/_software — v24 start page sections', () => {
   }) => {
     await page.goto(site(HOST, '/_software'))
     const bento = page.locator('#oferta')
+    // A lazy island (ADR-023): a click before hydration is lost.
+    await hydrated(bento.getByRole('button', { name: 'Restauracja' }))
     await bento.getByRole('button', { name: 'Restauracja' }).click()
     await expect(bento.getByRole('button', { name: 'Restauracja' })).toHaveAttribute(
       'aria-pressed',

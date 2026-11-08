@@ -44,12 +44,16 @@ for (const path of PAGES) {
 
 /** Scrolls to the bottom and back, step by step, so every section passes the screen. */
 async function scrollThrough(page: Page) {
-  await page.evaluate(async () => {
-    for (let y = 0; y < document.body.scrollHeight; y += window.innerHeight / 2) {
-      window.scrollTo(0, y)
-      await new Promise((resolve) => setTimeout(resolve, 60))
-    }
-  })
+  // Steps from the test, not one long script in the page: that script hung until the test
+  // timeout on CI (08.11, #428). Capped: lazy parts can grow the page while it scrolls.
+  const { height, step } = await page.evaluate(() => ({
+    height: Math.min(document.body.scrollHeight, 60_000),
+    step: window.innerHeight / 2,
+  }))
+  for (let y = 0; y < height; y += step) {
+    await page.evaluate((top) => window.scrollTo(0, top), y)
+    await page.waitForTimeout(60)
+  }
 }
 
 test('rise-in: nothing on the first screen waits; after scrolling nothing stays hidden', async ({

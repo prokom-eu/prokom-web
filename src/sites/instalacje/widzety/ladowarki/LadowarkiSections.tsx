@@ -47,7 +47,7 @@ export function LadowarkiSections() {
       <InstSection id="urzadzenia" fold style={SECTION}>
         <div className="wrap">
           <SectionHead {...comparison.head} />
-          <div className="tblw ri">
+          <div className="tblw ri" role="region" tabIndex={0} aria-label={comparison.head.heading}>
             <table className="tbl evtbl">
               <thead>
                 <tr>

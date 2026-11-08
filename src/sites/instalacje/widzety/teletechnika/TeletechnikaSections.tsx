@@ -17,12 +17,12 @@ const SECTION = { padding: '0 0 104px' }
  * (`zrodlo/pages/Teletechnika.body.html`): scope, for whom and the quote form (no law: runda v6 §1.1). The page
  * has no warranty, packages or price sections (the prototype's markup). Folded on a phone as in
  * `zrodlo/fold.json` (`zakres`; `faq` by the shared section). Round v5 (RUNDA-V5 §10) adds the
- * building stages, what you get at handover and the standards, the mistakes that stop a handover,
+ * building stages, what you get at handover, the mistakes that stop a handover,
  * the common parts and how the offer is counted — all folded on a phone. Realizations live on
  * `/realizacje` only (runda v6 §1.2).
  */
 export function TeletechnikaSections() {
-  const { scope, stages, handover, standards, mistakes, common, pricing } = teletechnika
+  const { scope, stages, handover, mistakes, common, pricing } = teletechnika
   const { forWhom, quote } = teletechnika // the sections the prototype already had
   // Rendered per request (minimum time to fill in, ADR-003).
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
@@ -59,22 +59,11 @@ export function TeletechnikaSections() {
       </InstSection>
 
       <InstSection id="przy-odbiorze" fold style={SECTION}>
-        <div className="wrap ttho">
+        <div className="wrap">
           <div className="ri">
             <SectionHead {...handover.head} />
             <ul className="ttlist">
               {handover.items.map((item) => (
-                <li key={item}>
-                  <InstIcon name="check" size={18} />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="card ttstd ri">
-            <h3 className="h3">{standards.title}</h3>
-            <ul className="ttlist">
-              {standards.items.map((item) => (
                 <li key={item}>
                   <InstIcon name="check" size={18} />
                   <span>{item}</span>

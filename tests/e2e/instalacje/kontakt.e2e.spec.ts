@@ -143,7 +143,9 @@ test.describe('Instalacje O firmie (shared template)', () => {
     await page.goto(site(HOST, '/o-firmie'))
     const main = page.locator('main')
     await expect(main.locator('h1')).toHaveText(/Firma z Podhala/)
-    await expect(main).toContainText('lat na Podhalu')
+    // Runda v6 §1.8: one number for the years (the shared „2004”), the line adds another fact.
+    await expect(main).toContainText('rodzajów instalacji u jednego wykonawcy')
+    await expect(main).not.toContainText('lat na Podhalu')
     await expect(main).not.toContainText(/\[SZEF|\[Krystian|WhatsApp/)
     // Only line logos as images — no portraits (rule 01.11).
     const sources = await main

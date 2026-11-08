@@ -27,6 +27,7 @@
     "mail:samples": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/mail-samples.ts",
     "seed:biznes": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/biznes/index.ts",
     "seed:instalacje": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/instalacje/index.ts",
+    "inst:texts": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/instalacje/inst-texts.ts --",
     "seed:software": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/index.ts",
     "software:wizard-json": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/printWizard.ts",
     "software:home-json": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/printHome.ts",

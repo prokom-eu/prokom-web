@@ -22,10 +22,12 @@ const BIZNES_HOME = [
   { blockType: 'bzProcurement' },
   { blockType: 'partners' },
   { blockType: 'bzFeatured' },
+  { blockType: 'bzKsef', variant: 'band' },
   { blockType: 'bzPlan', industries: { heading: 'Dla firm', tiles: [{ name: 'Sklep' }] } },
   { blockType: 'bzSteps' },
   { blockType: 'bzReferences', reviews: [{ quote: 'Polecam.', author: 'E. S.' }] },
   { blockType: 'bzFacts' },
+  { blockType: 'bzNewsHome' },
   { blockType: 'faq' },
   { blockType: 'bzContact' },
 ]

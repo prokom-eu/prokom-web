@@ -6,6 +6,7 @@ import { splitSentence } from '@/lib/biznes/textParts'
 import type { IconName } from '@/lib/catalog/options'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
+import { getSharedData } from '@/lib/shared/getSharedData'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
@@ -13,6 +14,7 @@ import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { LiveHours } from '../home/LiveHours'
 import { ContactForm } from './ContactFormLazy'
+import { ContactPlace } from './ContactPlace'
 
 type Props = {
   tenantId: number
@@ -29,6 +31,11 @@ type Props = {
   topicsLabel?: string
   /** Home page (board `#s4-kontakt`): the heading's second sentence on its own line, in the accent. */
   accentSecondSentence?: boolean
+  /**
+   * Home page (plan 0611 §7.1 pkt 14): the left column shows the location — map, route, phone,
+   * address — instead of the channel tiles (`ContactPlace`).
+   */
+  showLocation?: boolean
 }
 
 type Channel = { label: string; value: string; href: string; icon: IconName }
@@ -50,10 +57,15 @@ export async function ContactPanel({
   topics,
   topicsLabel,
   accentSecondSentence = false,
+  showLocation = false,
 }: Props) {
   const [first, accent] = accentSecondSentence ? splitSentence(heading) : [heading, null]
   await connection()
-  const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
+  const [settings, company, shared] = await Promise.all([
+    getSiteSettings(tenantId),
+    getCompanyData(),
+    showLocation ? getSharedData(tenantId) : null,
+  ])
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
   const phone = settings?.phone ?? null
   const email = settings?.email ?? null
@@ -88,7 +100,8 @@ export async function ContactPanel({
               )}
             </h2>
             {lead && <p className="leading-relaxed text-white/80">{lead}</p>}
-            {channels.length > 0 && (
+            {shared && <ContactPlace shared={shared} />}
+            {!shared && channels.length > 0 && (
               <ul className="flex flex-col gap-2.5">
                 {channels.map((channel) => (
                   <li key={channel.label}>
@@ -111,7 +124,7 @@ export async function ContactPanel({
                 ))}
               </ul>
             )}
-            {footer && (
+            {!shared && footer && (
               <p className="mt-auto border-t border-white/10 pt-5 text-sm text-white/80">
                 {footer}
               </p>

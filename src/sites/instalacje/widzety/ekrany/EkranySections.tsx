@@ -66,7 +66,7 @@ export function EkranySections() {
       <InstSection id="tv-czy-ekran" fold style={SECTION}>
         <div className="wrap">
           <SectionHead {...tvOrScreen.head} />
-          <div className="tblw ri">
+          <div className="tblw ri" role="region" tabIndex={0} aria-label={tvOrScreen.head.heading}>
             <table className="tbl">
               <thead>
                 <tr>

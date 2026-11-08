@@ -370,6 +370,12 @@ describe('anchor bars changed after the prototype (RUNDA-V5 §10)', () => {
   })
 })
 
+describe('no claim about our own salon (runda v6 D3)', () => {
+  it('no mapped text says we run it in our salon', () => {
+    expect(allMapped()).not.toMatch(/naszym salonie|naszych salonach/)
+  })
+})
+
 describe('icon review (runda v6 §1.5)', () => {
   it('every fixed title is in the package and every icon is in the set', () => {
     const text = allMapped()

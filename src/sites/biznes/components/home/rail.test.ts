@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { railItems } from './rail'
 
-/** The home page of the seed in the order of plan 0611 §7.1 (B3-1), with the deciding data. */
+/** The home page of the seed in the order of plan 0611 §7.1 (B3-1, B3-2), with the deciding data. */
 const HOME = [
   { blockType: 'bzHero' },
   { blockType: 'bzNeeds' },
@@ -10,6 +10,7 @@ const HOME = [
   { blockType: 'bzProcurement' },
   { blockType: 'partners' },
   { blockType: 'bzFeatured' },
+  { blockType: 'bzKsef', variant: 'band' },
   {
     blockType: 'bzPlan',
     industries: { heading: 'Firmy każdej wielkości.', tiles: [{ name: 'Sklep' }] },
@@ -18,6 +19,7 @@ const HOME = [
   { blockType: 'bzSteps' },
   { blockType: 'bzReferences', reviews: [{ quote: 'Polecam.', author: 'E. S.' }] },
   { blockType: 'bzFacts' },
+  { blockType: 'bzNewsHome' },
   { blockType: 'faq' },
   { blockType: 'bzContact' },
 ]
@@ -33,10 +35,12 @@ describe('railItems', () => {
       'Zaopatrzenie firm',
       'Marki',
       'Najczęściej wybierane',
+      'KSeF',
       'Plan Twojej firmy',
       'Jak pracujemy',
       'Opinie',
       'O firmie',
+      'Aktualności',
       'Pytania',
       'Kontakt',
     ])
@@ -46,10 +50,12 @@ describe('railItems', () => {
       'zaopatrzenie',
       'marki',
       'wybierane',
+      'ksef',
       'plan',
       'jak-pracujemy',
       'opinie',
       'fakty',
+      'aktualnosci',
       'faq',
       'kontakt',
     ])
@@ -58,7 +64,7 @@ describe('railItems', () => {
   it('leaves out „Opinie” while reviews are hidden (D-K4-6)', () => {
     const ids = railItems(HOME, { reviews: false, placeholders: true }).map((item) => item.id)
     expect(ids).not.toContain('opinie')
-    expect(ids).toHaveLength(10)
+    expect(ids).toHaveLength(12)
   })
 
   it('leaves out „Opinie” without reviews in production, keeps it with placeholders', () => {

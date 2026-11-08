@@ -10,7 +10,7 @@ import type { ServiceKey } from '../../dane/types'
 import { InstIcon } from '../../InstIcon'
 import { solutionsText } from '../../powloka/offerText'
 import { InstSection } from '../InstSectionLazy'
-import { SERVICE_SCENES } from './sceny'
+import { LazyServiceScene } from './LazyServiceScene'
 import { Count } from '../Count'
 
 const t = glownaSekcje.services
@@ -90,11 +90,8 @@ export function ServicesGrid({ services, offer, brands, noPriceText }: Props) {
               style={{ '--h': service.color ?? undefined } as CSSProperties}
             >
               <div className="ust" aria-hidden="true" data-inst-sx="">
-                <svg
-                  viewBox="0 0 400 220"
-                  preserveAspectRatio="xMidYMid meet"
-                  dangerouslySetInnerHTML={{ __html: SERVICE_SCENES[key] }}
-                />
+                {/* Runda v6 §1.8 (LCP of `/`): the scene comes in a chunk near the screen. */}
+                <LazyServiceScene sceneKey={key} />
                 <span className="ustk">{groupLabel(key, service.group)}</span>
               </div>
               <div className="ubd">
@@ -177,7 +174,7 @@ export function TrustBand() {
           <span className="eye" style={{ color: 'var(--ink-2)' }}>
             {glownaSekcje.trust.eyebrow}
           </span>
-          <ul className="brands">
+          <ul className="brands" tabIndex={0} aria-label={glownaSekcje.trust.eyebrow}>
             {glownaSekcje.trust.brands.map((brand: TrustBrand) => (
               <li
                 key={brand.name}
