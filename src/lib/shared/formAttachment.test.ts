@@ -39,8 +39,21 @@ describe('form attachments (Biznes: the inquiry list joins the contact message)'
     off.push(registerFormAttachment(() => null, { onSent: () => sent.push('pusta') }))
     const collected = collectAttachments()
     expect(collected.texts).toEqual(['Lista'])
-    collected.sent()
+    collected.sent(withAttachments('Dzień dobry', collected.texts))
     expect(sent).toEqual(['lista'])
+  })
+
+  it('keeps a part the message could not carry whole (cut or left out at the limit)', () => {
+    const sent: string[] = []
+    off.push(
+      registerFormAttachment(() => 'Lista: ' + 'a'.repeat(200), {
+        onSent: () => sent.push('lista'),
+      }),
+    )
+    const collected = collectAttachments()
+    collected.sent(withAttachments('m'.repeat(MESSAGE_LIMIT - 50), collected.texts))
+    collected.sent(withAttachments('m'.repeat(MESSAGE_LIMIT), collected.texts))
+    expect(sent).toEqual([])
   })
 
   it('a message close to the limit stays whole; the attachment drops out', () => {

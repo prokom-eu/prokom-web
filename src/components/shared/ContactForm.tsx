@@ -142,23 +142,18 @@ export function ContactForm({
     lock.current = true
     setSending(true)
     const attached = collectAttachments()
+    const message = withAttachments(values.message, attached.texts)
     try {
       const response = await fetch('/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
           // The line's attachments (Biznes: the inquiry list) go under the message.
-          buildInquiryBody(
-            toInquiryValues({
-              ...values,
-              message: withAttachments(values.message, attached.texts),
-            }),
-            {
-              href: window.location.href,
-              formToken,
-              category: values.topic,
-            },
-          ),
+          buildInquiryBody(toInquiryValues({ ...values, message }), {
+            href: window.location.href,
+            formToken,
+            category: values.topic,
+          }),
         ),
       })
       const outcome = readOutcome(
@@ -167,8 +162,8 @@ export function ContactForm({
         serverMessages(sharedRules),
       )
       if (outcome.kind === 'sent') {
-        // The line's parts went out with the message (Biznes may empty its list).
-        attached.sent()
+        // The line's parts that went out whole (Biznes then empties its list).
+        attached.sent(message)
         setSent({ number: outcome.number, email: values.contact.includes('@') })
         setErrors({})
         setFormError(null)
