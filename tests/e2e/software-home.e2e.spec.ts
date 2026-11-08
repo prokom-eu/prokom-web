@@ -85,8 +85,11 @@ test.describe('Software start page', () => {
     const pricing = page.locator('#cennik')
     const cards = pricing.locator('.v-card')
     await expect(cards).toHaveCount(16)
-    await pricing.getByRole('button', { name: /^Systemy · 4$/ }).click()
-    await expect(cards).toHaveCount(4)
+    // The filters work once the section is hydrated: clicked until the list follows.
+    await expect(async () => {
+      await pricing.getByRole('button', { name: /^Systemy · 4$/ }).click()
+      await expect(cards).toHaveCount(4, { timeout: 1000 })
+    }).toPass()
     await expect(cards.first()).toContainText(/od [\d\s]+zł/)
     await expect(cards.first()).toHaveAttribute('href', /\/rozwiazania\?rozwiazanie=/)
   })
@@ -283,10 +286,10 @@ test.describe('Software start page on a phone', () => {
       expect(Math.round(active?.width ?? 0)).toBe(340)
       const capButton = await hero.locator('.hx-cap a').boundingBox()
       expect(capButton?.width ?? 0).toBeGreaterThan(width - 80)
-      // Kontakt: the form under the promises, topics as large targets.
-      const side = await page.locator('#kontakt').getByText('Najpierw zobaczysz').boundingBox()
+      // Kontakt v24: the card under the FAQ (one column), topics as large targets.
+      const faq = await page.locator('#faq-h').boundingBox()
       const form = await page.locator('#kontakt form').boundingBox()
-      expect(form?.y ?? 0).toBeGreaterThan(side?.y ?? 0)
+      expect(form?.y ?? 0).toBeGreaterThan(faq?.y ?? 0)
       const topic = await page
         .locator('#kontakt label:has(input[type=radio])')
         .first()

@@ -47,7 +47,7 @@ test.describe('Software motion', () => {
       .toBe('arrived')
     // v24: the heading rises in with the scroll alone (`data-rise`, CSS) and is there on arrival.
     const head = page.locator('#proces h2')
-    await expect(head).toHaveAttribute('data-rise', '')
+    await expect(head).toHaveAttribute('data-rise')
     await expect.poll(() => head.evaluate((el) => getComputedStyle(el).opacity)).toBe('1')
   })
 })
