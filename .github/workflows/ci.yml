@@ -27,7 +27,7 @@ env:
   NEXT_TELEMETRY_DISABLED: '1'
 
 jobs:
-  # What does the PR touch? A docs-only PR skips build · e2e; pushes to develop/main always run
+  # What does the PR touch? A docs-only PR skips e2e; pushes to develop/main always run
   # the e2e job (there: seed · build only, see below). `docs/design/` is not documentation here:
   # the seed reads its images.
   #
@@ -73,7 +73,7 @@ jobs:
           echo "$files"
           code=$( { echo "$files" | grep -Ev "$DOCS_ONLY"; echo "$files" | grep -E "$ALWAYS_CODE"; } | sort -u || true)
           if [ -n "$files" ] && [ -z "$code" ]; then
-            echo "Only documentation changed: build · e2e skipped."
+            echo "Only documentation changed: e2e skipped."
             { echo "code=false"; echo "shards=[1]"; echo "total=1"; } >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -112,16 +112,49 @@ jobs:
           # 11, so 2–3 PRs at once do not wait for runners (20 parallel jobs on the free plan).
           { echo "shards=[1,2,3,4]"; echo "total=4"; } >> "$GITHUB_OUTPUT"
 
-  # Fast feedback (~1.5 min): most mistakes show up here, next to the slower e2e job.
+  # Fast feedback (~2 min): most mistakes show up here, next to the slower e2e job. Gitleaks runs
+  # here too, not as its own job: every job of a PR waits for a free runner (20 at once on the
+  # free plan), so fewer jobs means less waiting when several PRs run (08.11: up to 10 min).
+  # There is no separate „build · e2e” summary job either: it waited up to 3 min for a runner to
+  # check the shards for 3 s. Branches have no protection rules, so no check name is required.
   checks:
-    name: lint · typecheck · test
+    name: lint · typecheck · test · gitleaks
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 12
     env:
       DATABASE_URL: postgresql://prokom:prokom@127.0.0.1:5432/prokom_web
       PANEL_HOST: panel.localhost
+      GITLEAKS_VERSION: 8.30.1
+      # SHA256 of gitleaks_<version>_linux_x64.tar.gz from the release checksums file.
+      GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # full history for gitleaks: a secret removed in a later commit is still a leak
+
+      # The checked binary is cached per version (outside the working tree, so lint and Prettier
+      # never see it): a release download that stalls (08.11) happens once per version.
+      - id: gitleaks-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/gitleaks-bin
+          key: gitleaks-bin-${{ runner.os }}-${{ env.GITLEAKS_VERSION }}-${{ env.GITLEAKS_SHA256 }}
+
+      # Binary instead of gitleaks-action: the action needs a paid license for organizations.
+      - name: Install gitleaks
+        if: steps.gitleaks-cache.outputs.cache-hit != 'true'
+        run: |
+          archive="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          # Retry transient GitHub errors (e.g. 504); --retry-all-errors needs curl >= 7.71 (24.04 ships 8.5).
+          # --max-time: a stalled transfer fails and is retried instead of hanging to the job limit.
+          curl --retry 5 --retry-delay 5 --retry-all-errors --connect-timeout 20 --max-time 60 -sSfL -o "$RUNNER_TEMP/$archive" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${archive}"
+          echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/${archive}" | sha256sum --check --strict
+          mkdir -p ~/gitleaks-bin
+          tar -xzf "$RUNNER_TEMP/$archive" -C ~/gitleaks-bin gitleaks
+          ~/gitleaks-bin/gitleaks version
+
+      - name: Gitleaks — scan repository history
+        run: ~/gitleaks-bin/gitleaks git --redact --no-banner --verbose .
 
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
@@ -427,55 +460,3 @@ jobs:
             playwright-report/
             test-results/
           retention-days: 7
-
-  # One check for the PR page and branch rules, whatever the number of shards: green when every
-  # shard passed, or when build · e2e was skipped for a docs-only PR.
-  e2e-result:
-    name: build · e2e
-    needs: [changes, e2e]
-    # !cancelled(), not always(): a run cancelled by a newer push must not wait for a runner.
-    if: ${{ !cancelled() }}
-    runs-on: ubuntu-24.04
-    timeout-minutes: 2
-    steps:
-      - name: All shards passed
-        run: |
-          echo "changes: ${{ needs.changes.result }}, e2e: ${{ needs.e2e.result }}"
-          [ "${{ needs.changes.result }}" = success ] || exit 1
-          [ "${{ needs.e2e.result }}" = success ] || [ "${{ needs.e2e.result }}" = skipped ]
-
-  gitleaks:
-    name: gitleaks (secrets)
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    env:
-      GITLEAKS_VERSION: 8.30.1
-      # SHA256 of gitleaks_<version>_linux_x64.tar.gz from the release checksums file.
-      GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0 # full history: a secret removed in a later commit is still a leak
-
-      # The checked binary is cached per version: a release download that stalls (seen 08.11,
-      # the job hit its 5 min limit) then happens once per version, not on every PR.
-      - id: gitleaks-cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: gitleaks
-          key: gitleaks-${{ runner.os }}-${{ env.GITLEAKS_VERSION }}-${{ env.GITLEAKS_SHA256 }}
-
-      # Binary instead of gitleaks-action: the action needs a paid license for organizations.
-      - name: Install gitleaks
-        if: steps.gitleaks-cache.outputs.cache-hit != 'true'
-        run: |
-          archive="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
-          # Retry transient GitHub errors (e.g. 504); --retry-all-errors needs curl >= 7.71 (24.04 ships 8.5).
-          # --max-time: a stalled transfer fails and is retried instead of hanging to the job limit.
-          curl --retry 5 --retry-delay 5 --retry-all-errors --connect-timeout 20 --max-time 60 -sSfL -o "$archive" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${archive}"
-          echo "${GITLEAKS_SHA256}  ${archive}" | sha256sum --check --strict
-          tar -xzf "$archive" gitleaks
-          ./gitleaks version
-
-      - name: Scan repository history
-        run: ./gitleaks git --redact --no-banner --verbose .
