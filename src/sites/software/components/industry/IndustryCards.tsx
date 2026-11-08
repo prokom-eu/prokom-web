@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import type { OfferView } from '@/lib/software/offer'
 import type { IndexSolution } from '@/lib/software/solutionsIndex'
-import type { PriceDisplay } from '@/lib/software/wizard'
+import type { PriceDisplay } from '@/lib/software/priceDisplay'
 
 import { SolutionCard } from '../catalog/SolutionCard'
 import { SolutionDialog } from '../offer/SolutionDialog'

@@ -1,6 +1,6 @@
 import { cardPrice } from '@/lib/software/cardPrice'
 import type { IndexSolution } from '@/lib/software/solutionsIndex'
-import type { PriceDisplay } from '@/lib/software/wizard'
+import type { PriceDisplay } from '@/lib/software/priceDisplay'
 
 import { OfferThumb } from '../offer/OfferThumb'
 

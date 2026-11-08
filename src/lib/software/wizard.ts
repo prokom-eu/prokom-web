@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { priceDisplaySchema, template } from './priceDisplay'
 import { firstIssue, key, label, obj, slug, svgPath, text } from './schema'
 
 /**
@@ -90,37 +91,8 @@ const result = obj({
 /** Result id, or one per option of the need's question (`*` = any other option). */
 const mappingTarget = z.union([key, z.record(z.union([key, z.literal('*')]), key)])
 
-const template = (token: string) =>
-  label.refine((value) => value.includes(token), { message: `Musi zawierać ${token}.` })
-
 /** Keyed texts with the package's `_info` note (scope notes). */
 const notes = z.object({ _info: z.string().optional() }).catchall(text)
-
-/**
- * How prices read on the site (kreator.json → `priceDisplay`): always „od” (v22). Also used by the
- * catalog cards (SW9) and the offer window (SWR3).
- */
-export const priceDisplaySchema = obj({
-  /** „od {cena} zł netto” — the result and the cards. */
-  template: template('{cena}'),
-  /** „od {cena} zł” — tiles of step 1 and add-ons. */
-  short: template('{cena}'),
-  /** Care from its lowest level: „od {cena} zł / mies.”. */
-  monthTemplate: template('{cena}'),
-  /** The price of one care level: „{cena} zł / mies.”. */
-  levelMonthTemplate: template('{cena}'),
-  fallback: label,
-  termFallback: label,
-  priceSub: label,
-  /** Under „Potrzebujesz czegoś więcej?” — before and after something is ticked. */
-  moreHint: text,
-  moreSelectedNote: text,
-  /** A result without a price (apps, automations). */
-  noPrice: obj({ price: label, term: label, priceSub: label, termSub: text, mobileBar: label }),
-  scopeIntro: label,
-})
-
-export type PriceDisplay = z.infer<typeof priceDisplaySchema>
 
 /** Step „Zakres”: what the „od” price includes and examples of more (quoted in writing). */
 const scopeEntry = obj({

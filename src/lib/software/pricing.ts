@@ -3,7 +3,7 @@ import type { Solution } from '@/payload-types'
 import { SOLUTION_CATEGORIES, type SolutionCategory } from './options'
 import { formatPrice, keepTogether } from './price'
 import { levelSlug } from './projectSummary'
-import type { PriceDisplay } from './wizard'
+import type { PriceDisplay } from './priceDisplay'
 
 /**
  * The price list `/cennik` (spec. §6.4, v22; board `Cennik`, stan `89b`): the solutions in the
