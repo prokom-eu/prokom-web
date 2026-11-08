@@ -9,7 +9,6 @@ import type { BundleCardData } from '@/lib/catalog/bundle'
 import { pickScene, planCartItems, type PlanScene } from '@/lib/catalog/floorPlan'
 import { cartActions } from '@/lib/cart/store'
 import { plural } from '@/lib/plural'
-import { onPlanSceneRequest } from '@/lib/site/planScene'
 
 import { BundleCard } from '../bundle/BundleCard'
 import { ProductStage, StageFallback } from '../ProductStage'
@@ -123,12 +122,11 @@ export function FloorPlan({
     [scenes],
   )
 
-  // `?scena=` of the address (read here, so the page stays static) and the industry tiles.
+  // `?scena=` of the address (read here, so the page stays static).
   useEffect(() => {
     const fromUrl = new URLSearchParams(window.location.search).get('scena')
     // eslint-disable-next-line react-hooks/set-state-in-effect -- once, from the address after hydration
     if (fromUrl) show(fromUrl, { remember: false })
-    return onPlanSceneRequest((slug) => show(slug))
   }, [show])
 
   useEffect(() => {
@@ -172,7 +170,7 @@ export function FloorPlan({
     event.preventDefault()
     const target = scenes[(next + scenes.length) % scenes.length]
     if (!target) return
-    show(target.slug)
+    show(target.slug, { remember: !home })
     document.getElementById(tabId(target.slug))?.focus()
   }
   const svg = svgs[scene.slug]
@@ -215,7 +213,7 @@ export function FloorPlan({
                     tabIndex: active ? 0 : -1,
                   }
                 : { 'aria-pressed': active })}
-              onClick={() => show(item.slug)}
+              onClick={() => show(item.slug, { remember: !home })}
               className={cx(
                 'flex min-h-11 shrink-0 snap-start items-center gap-3 rounded-full px-4 py-2 text-left transition-colors sm:rounded-2xl sm:p-3',
                 active

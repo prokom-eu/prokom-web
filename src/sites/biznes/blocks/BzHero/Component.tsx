@@ -44,9 +44,10 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
   const groups = wheelGroups(index)
   const phone = block.showPhone ? (settings?.phone ?? null) : null
   const tel = phone ? toTelHref(phone) : null
-  // Plan 0611 §7.1 pkt 9: the promise only from the panel („Obietnice”), nothing while empty —
-  // on the page it stands in the hero, „Nasze zobowiązania” and the contact form only.
-  const callback = settings?.biznes?.promises.callbackTime?.trim() || null
+  // Plan 0611 §7.1 pkt 9: the hero is one of the three places of the promise (with „Nasze
+  // zobowiązania” and the form). The confirmed wording (D18, 01.11) stands in while the panel's
+  // „Obietnice” is empty (decyzja Krystiana 08.11: zapas tylko w hero).
+  const callback = settings?.biznes?.promises.callbackTime?.trim() || 'Oddzwaniamy w ciągu 60 minut'
   const trust = [
     // Board: each status on its own line (the panel keeps them in one, split by middle dots).
     ...splitDots(settings?.biznes?.trustLine ?? '').map((text, i) => ({

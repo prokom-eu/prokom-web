@@ -122,6 +122,7 @@ test.describe('Biznes home page', () => {
       HOME_ANCHORS,
     )
     expect(sections.filter((id) => !['start', 'jak-pracujemy', 'kontakt'].includes(id))).toEqual([])
+    expect(sections).toContain('start')
     expect(sections).toContain('jak-pracujemy')
     expect(sections).toContain('kontakt')
     // „Zapytaj o wycenę” in „Szybki start” says the written quote, not the call-back time.
@@ -320,7 +321,8 @@ test.describe('Biznes home page: industries, plan, steps', () => {
     await tabs.filter({ hasText: 'Biuro' }).click()
     await expect(tabs.filter({ hasText: 'Biuro' })).toHaveAttribute('aria-selected', 'true')
     await expect(panel.getByRole('heading', { level: 3, name: /^Biuro/ })).toBeVisible()
-    await expect(page).toHaveURL(/\?scena=biuro/)
+    // On the home page switching does not rewrite the address (only /plan-firmy keeps ?scena=).
+    await expect(page).not.toHaveURL(/scena=/)
     // A new industry starts with the short list again.
     await expect(list).toHaveCount(6)
 
@@ -328,7 +330,6 @@ test.describe('Biznes home page: industries, plan, steps', () => {
     await page.keyboard.press('ArrowRight')
     await expect(tabs.filter({ hasText: 'Szkoła' })).toBeFocused()
     await expect(tabs.filter({ hasText: 'Szkoła' })).toHaveAttribute('aria-selected', 'true')
-    await expect(page).toHaveURL(/\?scena=szkola/)
 
     // The funding bar closes the same section.
     await expect(plan).toContainText('Masz dofinansowanie na sprzęt lub oprogramowanie?')

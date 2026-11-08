@@ -75,7 +75,10 @@ export const BzPlanBlock: Block = {
               name: 'eyebrow',
               label: 'Etykieta',
               type: 'text',
-              admin: { description: 'Sekcja „Dla kogo” (#dla-kogo), np. „Dla kogo pracujemy”.' },
+              admin: {
+                description:
+                  'Nie wyświetlana od B3-1 (branże są w sekcji planu); zostaje w danych.',
+              },
             },
             {
               name: 'heading',

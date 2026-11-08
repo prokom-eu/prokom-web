@@ -2601,7 +2601,7 @@ export interface BzPlanBlock {
    */
   industries?: {
     /**
-     * Sekcja „Dla kogo” (#dla-kogo), np. „Dla kogo pracujemy”.
+     * Nie wyświetlana od B3-1 (branże są w sekcji planu); zostaje w danych.
      */
     eyebrow?: string | null;
     /**
