@@ -7,8 +7,14 @@
  */
 
 .hx {
+  /* AUDYT-0811 #0: the vertical rhythm follows the screen height, so the mock-up shows on the
+     first screen of a laptop. The window's width is one variable — height, side windows and the
+     carousel follow it; it is capped by the width breakpoints and by the screen height. */
+  --hx-w-max: 760px;
+  --hx-side: 0.737;
+  --hx-w: clamp(360px, calc((100svh - 470px) * 1.55), var(--hx-w-max));
   position: relative;
-  padding: 96px 0 30px;
+  padding: clamp(24px, 4vh, 64px) 0 30px;
   text-align: center;
   overflow: clip;
 }
@@ -939,10 +945,10 @@
   font-size: 11px;
 }
 .hx-h1 {
-  margin: 24px 0 0;
+  margin: clamp(12px, 2.2vh, 24px) 0 0;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 100px;
+  font-size: clamp(52px, min(7.2vw, 9.4vh), 100px);
   line-height: 0.96;
   letter-spacing: -0.05em;
 }
@@ -960,7 +966,7 @@
 }
 .hx-lead {
   max-width: 620px;
-  margin: 18px auto 0;
+  margin: clamp(8px, 1.6vh, 18px) auto 0;
   font-size: 18px;
   line-height: 1.6;
   color: var(--ink-2);
@@ -971,7 +977,7 @@
   position: relative;
   z-index: 2;
   max-width: 960px;
-  margin: 34px auto 0;
+  margin: clamp(14px, 2.8vh, 34px) auto 0;
   padding: 10px;
   border-radius: 22px;
   background: var(--glass);
@@ -1095,8 +1101,8 @@
 /* --- Carousel ----------------------------------------------------------------------------- */
 .hx-flow {
   position: relative;
-  height: 570px;
-  margin-top: 40px;
+  height: calc(var(--hx-w) * 0.6566 + 40px);
+  margin-top: clamp(8px, 2vh, 24px);
   perspective: 2200px;
   text-align: left;
   touch-action: pan-y;
@@ -1104,10 +1110,10 @@
 .hx-win {
   position: absolute;
   left: 50%;
-  top: 30px;
-  width: 760px;
-  height: 499px;
-  margin-left: -380px;
+  top: 16px;
+  width: var(--hx-w);
+  height: calc(var(--hx-w) * 0.6566);
+  margin-left: calc(var(--hx-w) / -2);
   border-radius: 18px;
   overflow: hidden;
   isolation: isolate;
@@ -1156,13 +1162,13 @@
   opacity: 1;
 }
 .hx-win[data-rank='r1'] {
-  transform: translateX(560px) translateZ(-420px) rotateY(-28deg);
+  transform: translateX(calc(var(--hx-w) * var(--hx-side))) translateZ(-420px) rotateY(-28deg);
   opacity: 0.5;
   z-index: 3;
   filter: saturate(0.7);
 }
 .hx-win[data-rank='rl'] {
-  transform: translateX(-560px) translateZ(-420px) rotateY(28deg);
+  transform: translateX(calc(var(--hx-w) * var(--hx-side) * -1)) translateZ(-420px) rotateY(28deg);
   opacity: 0.5;
   z-index: 3;
   filter: saturate(0.7);
@@ -1172,6 +1178,69 @@
   opacity: 0;
   visibility: hidden;
   z-index: 1;
+}
+
+/* Arrows next to the active window (AUDYT-0811 #2): glass circles, from 1080 px — on a phone the
+   carousel follows the finger. Half way down the window, just outside its side edges. */
+.hx-arrow {
+  position: absolute;
+  top: calc(16px + var(--hx-w) * 0.6566 / 2);
+  z-index: 7;
+  display: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-state) var(--ease-out),
+    box-shadow var(--dur-state) var(--ease-out),
+    scale var(--dur-state) var(--ease-spring);
+}
+.hx-arrow[data-step='prev'] {
+  left: calc(50% - var(--hx-w) / 2 - 68px);
+}
+.hx-arrow[data-step='next'] {
+  right: calc(50% - var(--hx-w) / 2 - 68px);
+}
+.hx-arrow svg {
+  width: 20px;
+  height: 20px;
+  transition: translate var(--dur-state) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hx-arrow:hover {
+    border-color: var(--accent-line);
+    box-shadow:
+      0 0 0 1px var(--accent-line),
+      0 12px 30px -12px color-mix(in srgb, var(--hv) 70%, transparent);
+  }
+  .hx-arrow[data-step='prev']:hover svg {
+    translate: -2px 0;
+  }
+  .hx-arrow[data-step='next']:hover svg {
+    translate: 2px 0;
+  }
+}
+.hx-arrow:active {
+  scale: 0.94;
+}
+.hx-arrow:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+}
+@media (min-width: 1080px) {
+  .hx-arrow {
+    display: grid;
+  }
 }
 
 /* --- Caption, trust, band ------------------------------------------------------------------ */
@@ -1284,24 +1353,60 @@
   color: var(--ink-2);
 }
 
+/* Short laptop screens (AUDYT-0811 #0): the tiles turn compact — the icon next to the name, about
+   64 px instead of 96 — and the field above them is lower, so the carousel moves up. */
+@media (min-width: 1200px) and (max-height: 900px) {
+  /* One line of lead instead of two on a wide, short screen. */
+  .hx-lead {
+    max-width: 960px;
+  }
+}
+@media (min-width: 961px) and (max-height: 900px) {
+  /* Wider panel, so the names fit next to the icons without cutting. */
+  .hx-cmd {
+    max-width: 1160px;
+  }
+  .hx-q {
+    padding: 6px 12px 10px;
+    font-size: 15px;
+  }
+  .hx-tiles {
+    padding-top: 8px;
+  }
+  .hx-tile {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 8px;
+    min-height: 60px;
+    padding: 10px;
+    text-align: left;
+  }
+  .hx-tile .si {
+    flex: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+  }
+  /* The number would sit on the name; the order still reads from left to right. */
+  .hx-tile .sn {
+    display: none;
+  }
+  .hx-tile[aria-selected='true']::after {
+    bottom: 4px;
+  }
+}
+
 /* --- Laptop ≤ 1200, tablet ≤ 960, phone ≤ 600 (AU-laptop, AU-tablet, AU-mobile) --------- */
 @media (max-width: 1200px) {
   .hx-wrap {
     padding: 0 24px;
   }
+  .hx {
+    --hx-w-max: 660px;
+    --hx-side: 0.712;
+  }
   .hx-h1 {
-    font-size: 84px;
-  }
-  .hx-win {
-    width: 660px;
-    height: 433px;
-    margin-left: -330px;
-  }
-  .hx-win[data-rank='r1'] {
-    transform: translateX(470px) translateZ(-420px) rotateY(-28deg);
-  }
-  .hx-win[data-rank='rl'] {
-    transform: translateX(-470px) translateZ(-420px) rotateY(28deg);
+    font-size: clamp(52px, min(7vw, 9.4vh), 84px);
   }
 }
 @media (max-width: 960px) {
@@ -1318,19 +1423,16 @@
     flex: 0 0 112px;
     scroll-snap-align: start;
   }
-  .hx-flow {
-    height: 440px;
-  }
-  .hx-win {
-    width: 560px;
-    height: 368px;
-    margin-left: -280px;
+  .hx {
+    --hx-w-max: 560px;
+    --hx-side: 0.59;
+    --hx-w: min(var(--hx-w-max), calc(100vw - 64px));
   }
   .hx-win[data-rank='r1'] {
-    transform: translateX(330px) translateZ(-380px) rotateY(-30deg);
+    transform: translateX(calc(var(--hx-w) * var(--hx-side))) translateZ(-380px) rotateY(-30deg);
   }
   .hx-win[data-rank='rl'] {
-    transform: translateX(-330px) translateZ(-380px) rotateY(30deg);
+    transform: translateX(calc(var(--hx-w) * var(--hx-side) * -1)) translateZ(-380px) rotateY(30deg);
   }
   .hx-cos .planet {
     top: 880px;
@@ -1341,7 +1443,7 @@
 }
 @media (max-width: 600px) {
   .hx {
-    padding: 34px 0 10px;
+    padding: 22px 0 10px;
   }
   .hx-wrap {
     padding: 0 16px;
@@ -1351,16 +1453,18 @@
   }
   .hx-h1 {
     font-size: 46px;
-    margin-top: 18px;
+    margin-top: 14px;
   }
   .hx-word {
     min-height: 2.1em;
   }
   .hx-lead {
-    font-size: 16px;
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.5;
   }
   .hx-cmd {
-    margin-top: 22px;
+    margin-top: 16px;
     border-radius: 20px;
     text-align: left;
   }
@@ -1376,32 +1480,34 @@
   }
   .hx-tile {
     flex-basis: 96px;
-    min-height: 86px;
+    min-height: 72px;
+    gap: 6px;
     font-size: 11.5px;
-    padding: 12px 6px;
+    padding: 9px 6px;
   }
   .hx-tile .si {
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
+  }
+  .hx {
+    --hx-w-max: 340px;
+    --hx-w: min(var(--hx-w-max), calc(100vw - 50px));
   }
   .hx-flow {
-    height: 250px;
-    margin-top: 22px;
+    height: calc(var(--hx-w) * 0.6566 + 14px);
+    margin-top: 14px;
     perspective: 1200px;
   }
   .hx-win {
-    width: 340px;
-    height: 223px;
-    margin-left: -170px;
-    top: 10px;
+    top: 4px;
     border-radius: 12px;
   }
   .hx-win[data-rank='r1'] {
-    transform: translateX(200px) translateZ(-300px) rotateY(-30deg);
+    transform: translateX(calc(var(--hx-w) * var(--hx-side))) translateZ(-300px) rotateY(-30deg);
     opacity: 0.35;
   }
   .hx-win[data-rank='rl'] {
-    transform: translateX(-200px) translateZ(-300px) rotateY(30deg);
+    transform: translateX(calc(var(--hx-w) * var(--hx-side) * -1)) translateZ(-300px) rotateY(30deg);
     opacity: 0.35;
   }
   .hx-cap {
@@ -1516,9 +1622,6 @@
   }
   .hx-mq ul {
     animation: hx-band var(--dur-hx-band) linear infinite;
-  }
-  .hx-mq:hover ul {
-    animation-play-state: paused;
   }
   .hx[data-paused] :is(.hx-cos *, .hx-mq ul, .hx-win::after, .mk *, .hx-tile::after) {
     animation-play-state: paused;
