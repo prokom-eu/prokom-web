@@ -1,4 +1,4 @@
-import { INDUSTRY_GROUPS, SITUATIONS, SOLUTION_CATEGORIES, type SolutionCategory } from './options'
+import { INDUSTRY_GROUPS, SITUATIONS, type SolutionCategory } from './options'
 import { slug as slugSchema } from './schema'
 import { searchSolutions, type PreparedSolutionSearch } from './search'
 import type { IndexSolution, SolutionsIndex } from './solutionsIndex'
@@ -15,16 +15,51 @@ export const CATALOG_PATH = '/rozwiazania'
 /** Longest search phrase read from the URL. */
 const MAX_QUERY = 100
 
+/**
+ * v24 shows four offer groups, the data keeps five categories (ZMIANY-v24 §6.2, decyzja D10):
+ * apps count as systems, care and the audit go with the rebuild. This is the only place that
+ * maps them — the catalog, the price page and the home grid all read it.
+ */
+export const OFFER_GROUPS = [
+  { value: 'strony', label: 'Strony internetowe', short: 'Strony' },
+  { value: 'przebudowa', label: 'Przebudowa i opieka', short: 'Przebudowa i opieka' },
+  { value: 'systemy', label: 'Systemy dla firm', short: 'Systemy' },
+  { value: 'automatyzacje', label: 'Automatyzacje i AI', short: 'Automatyzacje' },
+] as const
+
+export type OfferGroup = (typeof OFFER_GROUPS)[number]['value']
+
+const CATEGORY_GROUP: Record<SolutionCategory, OfferGroup> = {
+  strony: 'strony',
+  systemy: 'systemy',
+  aplikacje: 'systemy',
+  automatyzacje: 'automatyzacje',
+  opieka: 'przebudowa',
+}
+
+/** Pages by data that the board files under „Przebudowa i opieka”. */
+const REBUILD_SLUGS: ReadonlySet<string> = new Set(['przebudowa-starej-strony'])
+
+export function offerGroup(solution: { slug: string; category: SolutionCategory }): OfferGroup {
+  return REBUILD_SLUGS.has(solution.slug) ? 'przebudowa' : CATEGORY_GROUP[solution.category]
+}
+
+/** Old `?kategoria=` words still saved in menus and links (v23) open their v24 group. */
+function parseGroup(word: string | null): OfferGroup | null {
+  if (!word) return null
+  const group = OFFER_GROUPS.find(({ value }) => value === word)?.value
+  return group ?? CATEGORY_GROUP[word as SolutionCategory] ?? null
+}
+
 type Situation = (typeof SITUATIONS)[number]['value']
 type IndustryGroup = (typeof INDUSTRY_GROUPS)[number]['value']
 
 export type SoftwareCatalogState = {
   query: string
-  category: SolutionCategory | null
+  /** Offer group (the URL word stays `kategoria`). */
+  category: OfferGroup | null
   situation: Situation | null
   group: IndustryGroup | null
-  /** Only solutions with a live preview. */
-  preview: boolean
   /** Slug of the open offer window (SWR3, decyzja 1); the island checks that it exists. */
   solution: string | null
 }
@@ -34,7 +69,6 @@ export const DEFAULT_CATALOG_STATE: SoftwareCatalogState = {
   category: null,
   situation: null,
   group: null,
-  preview: false,
   solution: null,
 }
 
@@ -50,7 +84,6 @@ const PARAM = {
   category: 'kategoria',
   situation: 'sytuacja',
   group: 'branza',
-  preview: 'podglad',
   solution: 'rozwiazanie',
 } as const
 
@@ -64,17 +97,15 @@ function first(params: ParamSource, name: string): string | null {
 
 /** The view from the URL; unknown values are dropped, never an empty catalog by mistake. */
 export function parseCatalogState(params: ParamSource): SoftwareCatalogState {
-  const category = first(params, PARAM.category)
   const situation = first(params, PARAM.situation)
   const group = first(params, PARAM.group)
   return {
     query: (first(params, PARAM.query) ?? '').slice(0, MAX_QUERY),
-    category: SOLUTION_CATEGORIES.find(({ value }) => value === category)?.value ?? null,
+    category: parseGroup(first(params, PARAM.category)),
     situation:
       (Object.entries(SITUATION_PARAMS).find(([, word]) => word === situation)?.[0] as
         Situation | undefined) ?? null,
     group: INDUSTRY_GROUPS.find(({ value }) => value === group)?.value ?? null,
-    preview: first(params, PARAM.preview) === '1',
     solution: slugSchema.safeParse(first(params, PARAM.solution)).data ?? null,
   }
 }
@@ -86,24 +117,18 @@ export function catalogHref(state: SoftwareCatalogState): string {
   if (state.category) params.set(PARAM.category, state.category)
   if (state.situation) params.set(PARAM.situation, SITUATION_PARAMS[state.situation])
   if (state.group) params.set(PARAM.group, state.group)
-  if (state.preview) params.set(PARAM.preview, '1')
   if (state.solution) params.set(PARAM.solution, state.solution)
   const query = params.toString()
   return query ? `${CATALOG_PATH}?${query}` : CATALOG_PATH
 }
 
-/** Number of active filters besides the category and the query — the phone's „Filtry (n)”. */
-export const sheetFilterCount = (state: SoftwareCatalogState) =>
-  (state.situation ? 1 : 0) + (state.group ? 1 : 0) + (state.preview ? 1 : 0)
-
-type Facet = 'category' | 'situation' | 'group' | 'preview'
+type Facet = 'category' | 'situation' | 'group'
 
 function passes(solution: IndexSolution, state: SoftwareCatalogState, skip: Facet | null) {
   return (
-    (skip === 'category' || !state.category || solution.category === state.category) &&
+    (skip === 'category' || !state.category || offerGroup(solution) === state.category) &&
     (skip === 'situation' || !state.situation || solution.situations.includes(state.situation)) &&
-    (skip === 'group' || !state.group || solution.industryGroups.includes(state.group)) &&
-    (skip === 'preview' || !state.preview || solution.hasLivePreview)
+    (skip === 'group' || !state.group || solution.industryGroups.includes(state.group))
   )
 }
 
@@ -112,14 +137,12 @@ export type CatalogFacets = {
   category: Record<string, number>
   situation: Record<string, number>
   group: Record<string, number>
-  /** Solutions with a live preview under the other filters. */
-  preview: number
 }
 
 function count(
   base: IndexSolution[],
   state: SoftwareCatalogState,
-  facet: Exclude<Facet, 'preview'>,
+  facet: Facet,
   keysOf: (solution: IndexSolution) => readonly string[],
 ): Record<string, number> {
   const counts: Record<string, number> = { all: 0 }
@@ -141,12 +164,9 @@ export function runCatalog(
   return {
     results: base.filter((solution) => passes(solution, state, null)),
     facets: {
-      category: count(base, state, 'category', (solution) => [solution.category]),
+      category: count(base, state, 'category', (solution) => [offerGroup(solution)]),
       situation: count(base, state, 'situation', (solution) => solution.situations),
       group: count(base, state, 'group', (solution) => solution.industryGroups),
-      preview: base.filter(
-        (solution) => passes(solution, state, 'preview') && solution.hasLivePreview,
-      ).length,
     },
   }
 }

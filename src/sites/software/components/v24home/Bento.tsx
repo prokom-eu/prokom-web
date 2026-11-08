@@ -9,7 +9,7 @@ import { Chip } from '@/sites/software/components/ui/Chip'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
 import { usePausedOffscreen } from './usePausedOffscreen'
-import { offerHref, type PriceLine } from './prices'
+import { offerHref, type PriceLine } from '@/lib/software/priceCards'
 
 type Bento = NonNullable<SoftwareHome['bento']>
 type Props = { bento: Bento; prices: Record<string, PriceLine> }

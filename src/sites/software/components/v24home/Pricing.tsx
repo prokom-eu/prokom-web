@@ -1,15 +1,14 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
 
 import type { SoftwareHome } from '@/lib/software/home'
 import { plural } from '@/lib/plural'
-import { Mockup } from '@/sites/software/components/mockups/Mockup'
+import { PriceCard } from '@/sites/software/components/catalog/PriceCard'
 import { Chip } from '@/sites/software/components/ui/Chip'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
-import { offerHref, type PricingCard } from './prices'
+import { offerHref, type PricingCard } from '@/lib/software/priceCards'
 
 type Props = { pricing: NonNullable<SoftwareHome['pricing']>; cards: PricingCard[] }
 
@@ -48,23 +47,7 @@ export function PricingSection({ pricing, cards }: Props) {
         <ul className="v-cards">
           {shown.map((card) => (
             <li key={`${card.group}-${card.slug}`}>
-              <Link href={offerHref(card.slug)} className="sw-glass v-card" data-card="">
-                <div className="v-card-th" aria-hidden="true">
-                  {card.mockup && (
-                    <Mockup kind={card.mockup.kind} variant={card.mockup.variant} fit="contain" />
-                  )}
-                  <span className="v-card-more">{pricing.details}</span>
-                </div>
-                <div className="v-card-bd">
-                  <span className="sw-eyebrow">{card.group}</span>
-                  <b>{card.name}</b>
-                  <span className="v-card-lead">{card.lead}</span>
-                  <div className="v-card-ft">
-                    <b>{card.price}</b>
-                    {card.term}
-                  </div>
-                </div>
-              </Link>
+              <PriceCard card={card} details={pricing.details} href={offerHref(card.slug)} />
             </li>
           ))}
         </ul>

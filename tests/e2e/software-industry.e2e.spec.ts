@@ -38,10 +38,11 @@ test.describe('Software industry page', () => {
 
   test('six cards with prices; a card opens the offer window', async ({ page }) => {
     await page.goto(site(HOST, PATH))
-    const cards = page.locator('section[aria-labelledby="rozwiazania-h"] article')
+    const cards = page.locator('section[aria-labelledby="rozwiazania-h"] .v-card')
     await expect(cards).toHaveCount(6)
     await expect(cards.first()).toContainText('zł netto')
-    await cards.first().getByRole('button').first().click()
+    // Before hydration the card is a link to the same window in the catalog.
+    await cards.first().click()
     await expect(page.getByRole('dialog', { name: 'System zleceń i grafik ekip' })).toBeVisible()
   })
 

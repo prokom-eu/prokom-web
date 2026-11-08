@@ -12,6 +12,8 @@
 @import './v24home.css';
 /* Wizard v3 (`components/wizard`). */
 @import './wizard.css';
+/* Subpage hero and the offer catalog v24 (`components/ui/PageHero`, `components/catalog`). */
+@import './subpages.css';
 
 @source '..';
 /* A news post renders the Biznes post body (`news/PostContent`); the folder, in case it grows. */

@@ -10,6 +10,8 @@ type Props = {
   /** `h1` for the heading of a subpage hero (`.sw-h1-page`, `em` in the hero gradient). */
   level?: 'h1' | 'h2'
   align?: 'start' | 'center'
+  /** Id of the heading (`aria-labelledby` of its section, anchors). */
+  id?: string
   className?: string
 }
 
@@ -24,6 +26,7 @@ export function SectionHead({
   lead,
   level = 'h2',
   align = 'start',
+  id,
   className,
 }: Props) {
   const Heading = level
@@ -38,7 +41,7 @@ export function SectionHead({
       <p className="sw-eyebrow" data-rise>
         {eyebrow}
       </p>
-      <Heading className={level === 'h1' ? 'sw-h1-page' : 'sw-h2'} data-rise>
+      <Heading id={id} className={level === 'h1' ? 'sw-h1-page' : 'sw-h2'} data-rise>
         {title}
         {em ? (
           <>
