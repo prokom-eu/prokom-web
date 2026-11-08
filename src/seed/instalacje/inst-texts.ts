@@ -36,6 +36,7 @@ import {
   formatTextReport,
   homeLayoutWithHero,
   layoutWithBlockTexts,
+  overlay,
   planTextChange,
   type TextChange,
   type TextCollection,
@@ -191,10 +192,20 @@ async function main() {
   // sent in part keeps its other fields on update — checked locally, INST-6 PR2).
   const site = settings[0]
   if (site) {
-    // INST-6 PR4: the line's texts of the shared Kontakt and O firmie templates (all written in
-    // the repo: the contact data itself is `CompanyData` and the line's phone/e-mail fields).
+    // INST-6 PR4: the line's texts of the shared Kontakt and O firmie templates, laid over the
+    // stored groups (a link or a row typed in the panel stays). Settings that are not texts —
+    // the salons shown, the place kind, the confirmed authorisations — stay the panel's.
+    const stored = (site.shared ?? {}) as Record<string, unknown>
+    const omit = (group: object | undefined, keys: readonly string[]) =>
+      Object.fromEntries(Object.entries(group ?? {}).filter(([k]) => !keys.includes(k)))
     plan('site-settings', 'shared.contact + shared.about', site, {
-      shared: { contact: INSTALACJE_SHARED.contact, about: INSTALACJE_SHARED.about },
+      shared: {
+        contact: overlay(
+          stored.contact,
+          omit(INSTALACJE_SHARED.contact, ['salonKeys', 'placeKind']),
+        ),
+        about: overlay(stored.about, omit(INSTALACJE_SHARED.about, ['auth'])),
+      },
     })
     plan('site-settings', 'footer.text', site, { footer: { text: INSTALACJE_FOOTER_TEXT } })
   }

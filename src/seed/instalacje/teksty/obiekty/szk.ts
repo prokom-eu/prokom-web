@@ -26,11 +26,11 @@ export const SZK: Readonly<Record<string, string>> = {
     'Na wejściach, w holu, na korytarzach, przy parkingu i na boisku. W salach lekcyjnych, łazienkach, szatniach, gabinetach i pokoju nauczycielskim kamer nie montujemy.',
   'Ile przechowuje się nagrania?': 'Jak długo rejestrator trzyma nagrania?',
   'Najdłużej 3 miesiące. Rejestrator ustawiamy tak, żeby sam usuwał starsze nagrania przed upływem tego terminu.':
-    'Do 3 miesięcy. Ustawiamy rejestrator tak, żeby sam usuwał starsze nagrania i nikt nie musiał o tym pamiętać.',
+    'Tyle dni, ile ustali szkoła. Ustawiamy rejestrator tak, żeby sam usuwał starsze nagrania i nikt nie musiał o tym pamiętać.',
   'Co musi zrobić dyrektor przed uruchomieniem monitoringu?':
     'Co przygotujecie przed uruchomieniem monitoringu?',
   'Po kolei: uzgodnienie z organem prowadzącym, konsultacje z radą pedagogiczną, radą rodziców i samorządem uczniowskim, informacja co najmniej 14 dni przed startem i oznakowanie dzień wcześniej. Na etapie oferty przygotujemy opis systemu i rzut kamer, które można pokazać na konsultacjach.':
-    'Opis systemu i rzut kamer, które dyrektor może pokazać organowi prowadzącemu, radzie pedagogicznej, radzie rodziców i samorządowi uczniowskiemu. Przed startem wieszamy tabliczki o monitoringu przy wejściach.',
+    'Opis systemu i rzut kamer, które dyrektor pokaże na konsultacjach. Przed startem wieszamy tabliczki o monitoringu przy wejściach.',
   'Co do zasady nie. Wyjątek wymaga zagrożenia, którego nie udało się opanować innymi metodami, i obrazu, na którym nie da się nikogo rozpoznać. Najpierw proponujemy kamerę na korytarzu przed łazienką i lepszy nadzór w czasie przerw.':
     'Odradzamy to. Proponujemy kamerę na korytarzu przed łazienką i lepszy nadzór w czasie przerw.',
   // CTA

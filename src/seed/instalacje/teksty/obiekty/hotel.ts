@@ -9,7 +9,7 @@ export const HOTEL: Readonly<Record<string, string>> = {
   // hero fact: a deadline of the regulation → a fact of the same file (#hotspots, FAQ)
   '15.03.2027': '18,4%',
   'termin Wi-Fi dla skategoryzowanych hoteli':
-    'średnio mniej na ogrzewaniu i chłodzeniu pokoi ze sterowaniem według obecności',
+    'mniej na ogrzewaniu i chłodzeniu pokoi w badaniu w USA',
   'Kamera wjazdu i parkingu. W wyższych kategoriach parking ma być monitorowany.':
     'Kamera wjazdu i parkingu, która pomaga wyjaśnić stłuczkę albo spór o miejsce.',
   // sections

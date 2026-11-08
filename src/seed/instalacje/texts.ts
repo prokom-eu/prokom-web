@@ -160,6 +160,24 @@ export function planTextChange(
   return changes.length ? { collection, key, id: stored.id, data, changes } : null
 }
 
+/**
+ * The stored value with the repo's values laid over it: objects keep their stored keys the repo
+ * does not set (a link typed in the panel, row ids), list rows are matched by position and the
+ * list has the repo's length.
+ */
+export function overlay(stored: unknown, desired: unknown): unknown {
+  if (Array.isArray(desired)) {
+    const rows = Array.isArray(stored) ? stored : []
+    return desired.map((row, i) => overlay(rows[i], row))
+  }
+  if (isRecord(desired)) {
+    const base = isRecord(stored) ? stored : {}
+    const laid = Object.entries(desired).map(([k, v]) => [k, overlay(base[k], v)] as const)
+    return { ...base, ...Object.fromEntries(laid) }
+  }
+  return desired
+}
+
 /** Text groups of a page block the script carries (the hero and the CTA band). */
 export type BlockTexts = Readonly<Record<string, Readonly<Record<string, unknown>>>>
 
