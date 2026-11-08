@@ -43,8 +43,10 @@ export function SlidingMark({ selector }: { selector: string }) {
       attributes: true,
       attributeFilter: ['aria-pressed', 'aria-selected'],
     })
+    // The row and each item: a chip can grow (a late font) while the row keeps its width.
     const sizes = new ResizeObserver(schedule)
     sizes.observe(row)
+    for (const item of Array.from(row.children)) if (item !== mark) sizes.observe(item)
     return () => {
       if (frame) cancelAnimationFrame(frame)
       changes.disconnect()

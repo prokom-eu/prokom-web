@@ -814,22 +814,23 @@
   /* Cards (AUDYT-0811 P2 A3): up 4 px with `transform` — `translate` belongs to the entry on
      scroll and would win over the hover once the entry has run — the accent edge and a violet
      glow under them; pressed, a touch smaller. Glass cards in a rising row count as cards too. */
-  [data-line='software'] :is([data-card], [data-rise-group] > .sw-glass) {
+  [data-line='software'] :is([data-card], [data-rise-group] > :is(a, button).sw-glass) {
     transition:
       transform var(--dur-state) var(--ease-out),
       box-shadow 350ms var(--ease-out),
       border-color var(--dur-hover) var(--ease-out);
   }
-  [data-line='software'] :is([data-card], [data-rise-group] > .sw-glass):hover {
-    translate: none;
+  [data-line='software'] :is([data-card], [data-rise-group] > :is(a, button).sw-glass):hover {
     transform: translateY(-4px);
     border-color: var(--accent-line);
     box-shadow: 0 26px 50px -30px var(--glow);
   }
-  [data-line='software'] :is([data-card], [data-rise-group] > .sw-glass):active {
+  [data-line='software'] :is([data-card], [data-rise-group] > :is(a, button).sw-glass):active {
     transform: translateY(-4px) scale(0.98);
   }
-  [data-line='software'] :is([data-card], [data-rise-group] > .sw-glass):hover [data-card-icon] {
+  [data-line='software']
+    :is([data-card], [data-rise-group] > :is(a, button).sw-glass):hover
+    [data-card-icon] {
     scale: 1;
     translate: 2px -2px;
   }

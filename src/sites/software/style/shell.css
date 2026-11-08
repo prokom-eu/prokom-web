@@ -155,7 +155,9 @@
     var(--line-dark);
 }
 /* With the band the footer's violet edge line is drawn at the band's middle (above). */
-[data-line='software'] .sw-start-sec + [data-site-footer]::before {
+/* A page that ends with its own CTA hides the band (`site.css`): its footer keeps the line. */
+:root:not(:has([data-final-cta])) [data-line='software'] .sw-start-sec + [data-site-footer]::before,
+[data-line='software']:not(:has([data-final-cta])) .sw-start-sec + [data-site-footer]::before {
   display: none;
 }
 [data-line='software'] .sw-start-sec + [data-site-footer] {
@@ -215,7 +217,8 @@
 }
 @media (min-width: 900px) {
   [data-line='software'] [data-footer-grid] {
-    grid-template-columns: 1.35fr 0.8fr 0.9fr 1.15fr;
+    /* Board: 1.35 / .8 / .9 / 1.15 with two link columns; their count comes from the panel. */
+    grid-template-columns: 1.35fr repeat(var(--cols), minmax(0, 0.85fr)) 1.15fr;
     gap: 36px;
   }
 }
