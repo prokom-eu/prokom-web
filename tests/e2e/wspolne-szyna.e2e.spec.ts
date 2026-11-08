@@ -69,6 +69,35 @@ test.describe('/_wspolne — side rail (1440 px)', () => {
     await expect(page.locator('#wspolne-mapa-sekcja')).toBeFocused()
   })
 
+  test('the progress line runs along the section list and ends at the current entry', async ({
+    page,
+  }) => {
+    // AUDYT-0811 #8: not the share of the whole page — the line points at the section read.
+    await page.goto(site('software.localhost', '/_wspolne?szyna=glowna'))
+    for (const id of ['wspolne-start', 'wspolne-stopka']) {
+      await scrollTo(page, id)
+      await expect
+        .poll(() =>
+          rail(page).evaluate((nav) => {
+            const list = nav.querySelector('.srail__progress')?.parentElement
+            const dot = nav.querySelector('.srail__progress > i')?.getBoundingClientRect()
+            const links = Array.from(list?.querySelectorAll('a.srail__item') ?? [])
+            const current = list?.querySelector('[aria-current="location"]')
+            const first = links[0]?.getBoundingClientRect()
+            const last = links.at(-1)?.getBoundingClientRect()
+            const box = current?.getBoundingClientRect()
+            if (!dot || !first || !last || !box) return 'missing'
+            const end = dot.top + dot.height / 2
+            const inList = end >= first.top && end <= last.bottom
+            // The end sits on the current entry or on the way to the next one.
+            const atCurrent = end >= box.top - 2 && end <= box.bottom + box.height
+            return inList && atCurrent ? 'ok' : `end ${end}, entry ${box.top}–${box.bottom}`
+          }),
+        )
+        .toBe('ok')
+    }
+  })
+
   test('opens from the keyboard, Esc folds it; „Szukaj” on top', async ({ page }) => {
     await page.goto(site('software.localhost', '/_wspolne'))
     const search = rail(page).getByRole('button', { name: /Szukaj/ })

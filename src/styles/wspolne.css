@@ -768,20 +768,22 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   opacity: 1;
   transform: none;
 }
-.srail__list > :nth-child(2) .srail__label {
-  transition-delay: 20ms;
-}
-.srail__list > :nth-child(3) .srail__label {
+/* Labels open one after another, 40 ms apart (AUDYT-0811 P2 A13); counted among the entries
+   only — the marker and the progress line sit in the same list. */
+.srail__list > :nth-child(2 of .srail__item) .srail__label {
   transition-delay: 40ms;
 }
-.srail__list > :nth-child(4) .srail__label {
-  transition-delay: 60ms;
-}
-.srail__list > :nth-child(5) .srail__label {
+.srail__list > :nth-child(3 of .srail__item) .srail__label {
   transition-delay: 80ms;
 }
-.srail__list > :nth-child(n + 6) .srail__label {
-  transition-delay: 100ms;
+.srail__list > :nth-child(4 of .srail__item) .srail__label {
+  transition-delay: 120ms;
+}
+.srail__list > :nth-child(5 of .srail__item) .srail__label {
+  transition-delay: 160ms;
+}
+.srail__list > :nth-child(n + 6 of .srail__item) .srail__label {
+  transition-delay: 200ms;
 }
 .srail__kbd {
   margin-left: auto;
@@ -881,44 +883,48 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   pointer-events: auto;
 }
 .srail__progress {
+  /* Along the tracked list only, from the first entry's centre to the last one's (AUDYT-0811
+     #8); the filled part ends at the section being read, with a glowing dot on its end. */
   position: absolute;
-  top: 74px;
-  bottom: 16px;
-  left: 3px;
+  top: var(--rail-line-top, 22px);
+  left: 0;
+  z-index: 1;
   width: 2px;
-  overflow: hidden;
+  height: var(--rail-line-h, 0px);
   border-radius: 2px;
   background: var(--border);
+  pointer-events: none;
 }
 .srail__progress > span {
   display: block;
   height: 100%;
+  border-radius: inherit;
   background: var(--accent);
   transform: scaleY(var(--rail-progress, 0));
   transform-origin: top;
+  transition: transform 250ms var(--ease-out);
 }
-/* Where the browser can, the line follows the page scroll on its own (the variable stays as the
-   fallback set once per frame). */
-@supports (animation-timeline: scroll()) {
-  .srail__progress > span {
-    animation: srail-progress linear both;
-    animation-timeline: scroll(root);
-  }
-}
-@keyframes srail-progress {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
-  }
+.srail__progress > i {
+  position: absolute;
+  top: -4px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent),
+    0 0 12px var(--accent);
+  transform: translateY(var(--rail-dot, 0px));
+  transition: transform 250ms var(--ease-out);
 }
 @media (prefers-reduced-motion: reduce) {
   .srail,
   .srail__label,
   .srail__icon,
   .srail__marker,
-  .srail__up {
+  .srail__up,
+  .srail__progress > * {
     transition: none;
   }
   .srail__search[data-pulse]::after,
