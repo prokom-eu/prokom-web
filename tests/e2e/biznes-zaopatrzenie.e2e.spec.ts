@@ -145,3 +145,62 @@ test.describe('Biznes „Zaopatrzenie firm” AGD (B2-1c)', () => {
     })
   }
 })
+
+// B2-2: „Dostawy IT dla firm” on the same template (ZAOPATRZENIE §2 IT, §5).
+const IT_PAGE = '/dostawy-it-dla-firm'
+
+test.describe('Biznes „Zaopatrzenie firm” IT (B2-2)', () => {
+  test('server HTML: H1, JSON-LD and the „Przygotowanie” steps without JavaScript', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost', IT_PAGE))
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Komputery dla firm.')
+    const jsonLd = (
+      await page.locator('script[type="application/ld+json"]').allTextContents()
+    ).join()
+    expect(jsonLd).toContain('"Service"')
+    expect(jsonLd).toContain('"FAQPage"')
+    // §0 pkt 2: without the panel's service list the steps tied to services are not shown.
+    await expect(page.locator('#prep .zp-plist li')).toHaveCount(6)
+    await expect(page.locator('#prep')).not.toContainText('Etykieta inwentarzowa')
+  })
+
+  test('reduced motion: every step ticked at once, no replay', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await asNewVisitor(page)
+    await page.goto(site('biznes.localhost', IT_PAGE))
+    await hydrated(page.locator('#zestaw .zp-itm').first())
+    await page.locator('#prep').scrollIntoViewIfNeeded()
+    await expect(page.locator('#prep .zp-plist li.is-ok')).toHaveCount(6)
+    await expect(page.locator('#prep .zp-pstage')).toContainText('Gotowe do pracy')
+    await expect(page.getByRole('button', { name: 'Pokaż jeszcze raz' })).toHaveCount(0)
+  })
+
+  test('the home page handoff sets the IT configurator', async ({ page }) => {
+    await asNewVisitor(page)
+    await page.goto(site('biznes.localhost', `${IT_PAGE}?typ=ksiegowosc&n=7`))
+    await hydrated(page.locator('#zestaw .zp-itm').first())
+    await expect(page.locator('#zestaw .zp-stepper output')).toHaveText('7')
+    await expect(
+      page.locator('#zestaw').getByRole('button', { name: 'Księgowość i ERP' }),
+    ).toHaveAttribute('aria-pressed', 'true')
+  })
+
+  test('each page links to the other under the form', async ({ page }) => {
+    await page.goto(site('biznes.localhost', IT_PAGE))
+    await expect(page.locator('.zp-cross')).toHaveAttribute('href', PAGE)
+    await page.goto(site('biznes.localhost', PAGE))
+    await expect(page.locator('.zp-cross')).toHaveAttribute('href', IT_PAGE)
+  })
+
+  for (const width of [360, 390, 1024, 1440]) {
+    test(`IT: no horizontal scroll at ${width} px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto(site('biznes.localhost', IT_PAGE))
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth > window.innerWidth,
+      )
+      expect(overflow).toBe(false)
+    })
+  }
+})

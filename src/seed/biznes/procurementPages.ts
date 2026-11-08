@@ -115,8 +115,8 @@ function altOf(data: unknown, name: string): string {
   return alt ?? 'Sprzęt dla firm'
 }
 
-/** Pages the seed creates: the IT page comes with its template sections in B2-2. */
-const SEEDED: ReadonlySet<Variant> = new Set(['agd'])
+/** Pages the seed creates (the IT page since B2-2). */
+const SEEDED: ReadonlySet<Variant> = new Set(['agd', 'it'])
 
 const packageData = (file as unknown as { zaopatrzenie: Record<Variant, unknown> }).zaopatrzenie
 
