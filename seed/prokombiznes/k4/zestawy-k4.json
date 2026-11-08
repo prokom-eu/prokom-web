@@ -57,7 +57,7 @@
     {
      "s": "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro",
      "rola": "szuflada kasowa",
-     "w": "ELZ-350; kabel dobierzemy do kasy",
+     "w": "ELZ-350, kabel RJ w komplecie, sterowanie 12 V",
      "q": 1,
      "ob": true
     },
@@ -71,7 +71,7 @@
     {
      "s": "pol",
      "rola": "terminal płatniczy",
-     "w": "Ingenico Desk 3200 + PIN-pad Desk 1500 albo przenośny Move 2500. Terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
+     "w": "Ingenico Desk 3200 albo przenośny Move 3500 — Elzab podaje je jako terminale współpracujące z Mini ONLINE (kwota przechodzi z kasy na terminal; połączenie uruchamia PolCard)",
      "q": 1,
      "ob": false
     }
@@ -101,7 +101,7 @@
    "why": [
     "Mini Online ma 10 000 towarów, 33 kasjerów, złącze szuflady RJ12 i USB-A na czytnik kodów i wagę: to wszystko, czego potrzebuje mały sklep.",
     "Czytnik BS80 2D łączy się przez USB i odczytuje kody QR także z ekranu telefonu; podstawka jest w zestawie.",
-    "Szuflady ELZ-240/ELZ-350 to ten sam producent co kasa: Elzab oferuje do nich kable także do kas Mini.",
+    "Szuflady ELZ-240/ELZ-350 to ten sam producent co kasa: Elzab wymienia je jako akcesoria Mini ONLINE, a kabel RJ jest w komplecie.",
     "Akumulator Li-Ion i wersja z modemem GPRS pozwalają sprzedawać przy zaniku prądu albo bez internetu w lokalu.",
     "Kasa obsługuje e-paragony i usługi czasowe, więc nadaje się też do wypożyczalni czy punktu usług."
    ],
@@ -126,6 +126,10 @@
     {
      "q": "Czy terminal płatniczy jest konieczny?",
      "a": "Nie. Zestaw działa bez niego; terminal dokładasz, gdy chcesz przyjmować karty i BLIK na terminalu."
+    },
+    {
+     "q": "Czy kwota z kasy przejdzie na terminal?",
+     "a": "Tak, Elzab podaje terminale PolCard Desk 3200 i Move 3500 jako współpracujące z Mini ONLINE. Połączenie kasy z terminalem uruchamia PolCard przy podpisaniu umowy."
     }
    ],
    "imgs": [
@@ -235,6 +239,10 @@
     {
      "q": "Co, jeśli zabraknie prądu?",
      "a": "Kasa ma akumulator AGM, a do wagi WS-1 można dokupić akumulator na ok. 8 godzin pracy."
+    },
+    {
+     "q": "Czy terminal PolCard połączy się z kasą?",
+     "a": "Nie. Posnet podaje dla Bingo Max2 współpracę z terminalem Netpay. Terminal PolCard z zestawu działa obok kasy: kwotę wpisujesz na terminalu."
     }
    ],
    "imgs": [
@@ -339,7 +347,7 @@
     {
      "s": "pol",
      "rola": "terminal płatniczy",
-     "w": "Desk 3200 + PIN-pad Desk 1500. Terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
+     "w": "Ingenico Desk 3200 — Elzab podaje go jako terminal współpracujący z Jota ONLINE (połączenie uruchamia PolCard)",
      "q": 1,
      "ob": false
     }
@@ -825,6 +833,10 @@
     {
      "q": "Czy potrzebuję serwisanta do fiskalizacji?",
      "a": "Nie. Według GoPOS fiskalizacja kasy wirtualnej odbywa się zdalnie; potrzebne są dane firmy i kod urzędu skarbowego."
+    },
+    {
+     "q": "Jak urządzenie połączy się z internetem w food trucku?",
+     "a": "Przez Wi-Fi, np. hotspot z telefonu albo router z kartą SIM. Bez zasięgu sprzedajesz dalej, a dane wysyłają się po powrocie połączenia."
     }
    ],
    "imgs": [
@@ -877,7 +889,7 @@
     {
      "s": "pol",
      "rola": "terminal płatniczy",
-     "w": "Move 3500 albo Desk 3200. Terminal działa samodzielnie (bez przesyłania kwoty z GoPOS, kwotę wpisujesz na terminalu)",
+     "w": "Move 3500 albo Desk 3200. Terminal działa samodzielnie (kwotę wpisujesz na terminalu); terminale zintegrowane z GoPOS (Ingenico Lane 3000, PAX A920) dostarcza GoPOS z eService",
      "q": 1,
      "ob": true
     },
@@ -903,9 +915,9 @@
      "ob": false
     },
     {
-     "s": "sunmi-blink-blink-2",
-     "rola": "czytnik kodów QR dla klienta",
-     "w": "Blink 2",
+     "s": "skaner",
+     "rola": "skaner kodów 1D i 2D przy kasie (karty GoCRM, kupony z telefonu)",
+     "w": "Skaner Sunmi 2D USB",
      "q": 1,
      "ob": false
     }
@@ -957,7 +969,7 @@
     },
     {
      "q": "Czy terminal płatniczy połączy się z GoPOS?",
-     "a": "GoPOS przesyła kwotę do terminali rozliczanych przez eService. Terminal PolCard z zestawu działa samodzielnie: kwotę wpisuje kasjer."
+     "a": "GoPOS przesyła kwotę do terminali Ingenico Lane 3000 i PAX A920, które dostarcza z eService. Terminal PolCard z zestawu działa samodzielnie: kwotę wpisuje kasjer."
     },
     {
      "q": "Czy gość zobaczy menu na telefonie?",
@@ -1025,14 +1037,14 @@
     {
      "s": "kds",
      "rola": "ekran kuchenny",
-     "w": "FLEX 3 KDS 22\" na zasilaczu",
+     "w": "FLEX 3 KDS 22\" na dołączonym zasilaczu (router nie zasili go przez PoE)",
      "q": 1,
      "ob": true
     },
     {
      "s": "v3",
      "rola": "terminal kelnerski (Mobilny Kelner)",
-     "w": "Sunmi V3 3/32 GB, 4G",
+     "w": "Sunmi V3 3/32 GB",
      "q": "1–2",
      "ob": false
     },
@@ -1099,7 +1111,7 @@
     "GoPOS obsługuje Posnet Thermal HD; HD ma ceramiczny obcinacz i papier 80 mm, a Posnet poleca do niej szufladę SKL.",
     "GoPOS Basic ma limit 20 stolików i jednego kierunku rozchodu: wystarcza dla jednej kuchni; przy barze potrzebny jest Pro.",
     "ER7212PC łączy router, 8 portów PoE+ (110 W) i kontroler; EAP650 pobiera do 13,5 W, więc punkty Wi-Fi mieszczą się w budżecie mocy.",
-    "Sunmi V3 to polecany przez GoPOS terminal kelnerski z 4G i drukarką 58 mm."
+    "Sunmi V3 to polecany przez GoPOS terminal kelnerski z wbudowaną drukarką i czytnikiem NFC."
    ],
    "usl": [
     "Wdrożenie programu z przeniesieniem danych",
@@ -1124,6 +1136,10 @@
     {
      "q": "Czy goście dostaną Wi-Fi?",
      "a": "Tak, punkty Omada nadają osobną sieć dla gości, oddzieloną od kasy i terminali."
+    },
+    {
+     "q": "Czy terminal płatniczy połączy się z GoPOS?",
+     "a": "Terminal PolCard z zestawu działa samodzielnie: kwotę wpisujesz na terminalu. Z GoPOS łączą się terminale Ingenico Lane 3000 i PAX A920, które GoPOS dostarcza z eService."
     }
    ],
    "imgs": [
@@ -1323,6 +1339,10 @@
     {
      "q": "Czy policzę food cost dań?",
      "a": "Tak, z modułem GoStock: po powiązaniu dań z recepturami każda sprzedaż zdejmuje składniki ze stanu."
+    },
+    {
+     "q": "Czy terminale płatnicze połączą się z GoPOS?",
+     "a": "Terminale PolCard z zestawu działają samodzielnie: kwotę wpisujesz na terminalu. Z GoPOS łączą się terminale Ingenico Lane 3000 i PAX A920, które GoPOS dostarcza z eService."
     }
    ],
    "imgs": [
@@ -1563,6 +1583,10 @@
     {
      "q": "Czy mogę przyjąć płatność kartą bez terminala?",
      "a": "Tak, aplikacją PolCard Go na telefonie z Androidem i NFC; paragon wystawiasz na kasie."
+    },
+    {
+     "q": "Czy NFHotel wydrukuje paragon na kasie?",
+     "a": "Nie. NFHotel łączy się z drukarkami fiskalnymi, a Ergo to kasa: paragon wybijasz na kasie, NFHotel nie przesyła do niej rachunku."
     }
    ],
    "imgs": [
@@ -1692,7 +1716,7 @@
     "NFHotel drukuje paragony na drukarkach fiskalnych Elzab i Posnet (także online), wysyła faktury do KSeF i nalicza opłatę miejscową.",
     "EAP615-Wall montujesz w miejscu gniazdka; ma 3 gniazda LAN na telewizor lub telefon i obsługuje ponad 120 klientów.",
     "Kontroler OC220 zasilisz z przełącznika PoE (802.3af) i obsłuży do 100 punktów i 20 przełączników; daje stronę logowania dla gości.",
-    "SG3428MP ma 24 porty PoE+ i budżet 384 W: zapas dla punktu w każdym pokoju.",
+    "EAP615-Wall pobiera do 10 W, a SG3428MP ma 24 porty PoE+ i budżet 384 W (do 30 W na port): zapas dla punktu w każdym pokoju.",
     "Terminal z preautoryzacją przydaje się przy kaucji za pobyt; PolCard podaje preautoryzację zależnie od modelu."
    ],
    "usl": [
@@ -1899,7 +1923,7 @@
     "Room Service: gość skanuje kod QR w pokoju, zamawia z telefonu, a zamówienie trafia na GoKDS.",
     "UDM-SE ma zaporę IDS/IPS do 3,5 Gb/s, 8 portów PoE (180 W), ponad 1000 użytkowników i kieszeń na dysk do nagrań kamer.",
     "USW-Pro-Max-24-PoE ma 8 portów 2,5 Gb/s i 400 W PoE: U7 Pro pobiera maks. 21 W, więc kilkanaście punktów mieści się w budżecie.",
-    "SMT2200RMI2UC (1980 W, rack 2U) podtrzyma UDM-SE, przełącznik i NAS; QMC pracuje 24/7 z jasnością 500 nit."
+    "SMT2200RMI2UC (1980 W, rack 2U) podtrzyma UDM-SE, przełącznik i NAS (tego UPS nie ma na liście zgodności Synology, więc zamykanie NAS sprawdzamy próbą przy montażu); QMC pracuje 24/7 z jasnością 500 nit."
    ],
    "usl": [
     "Wdrożenie programu z przeniesieniem danych",
@@ -1993,9 +2017,9 @@
      "ob": true
     },
     {
-     "s": "apc-back-ups",
+     "s": "apc-back-ups-pro",
      "rola": "zasilacz awaryjny NAS i routera",
-     "w": "BXR750MI-GR",
+     "w": "Back-UPS Pro BR650MI (z listy zgodności Synology)",
      "q": 1,
      "ob": true
     },
@@ -2069,6 +2093,10 @@
     {
      "q": "Ile licencji ESET potrzebuję?",
      "a": "Pakiety ESET PROTECT Entry i Advanced kupuje się od 5 stanowisk, liczonych na urządzenia."
+    },
+    {
+     "q": "Czy NAS sam się wyłączy przy zaniku prądu?",
+     "a": "Tak. UPS Back-UPS Pro BR650MI jest na liście zgodności Synology dla DS225+: przez USB daje sygnał, a NAS bezpiecznie kończy pracę. Sprawdzamy to próbnym odłączeniem prądu przy montażu."
     }
    ],
    "imgs": [
@@ -2160,7 +2188,7 @@
     {
      "s": "apc-smart-ups-wieza",
      "rola": "UPS z automatycznym zamykaniem",
-     "w": "SMC1500IC",
+     "w": "SMT1500IC (z listy zgodności Synology)",
      "q": 1,
      "ob": true
     },
@@ -2206,7 +2234,7 @@
     "OC220 zarządza punktami Wi-Fi i przełącznikami Omada (do 100 punktów, 20 przełączników) i zasila się z PoE.",
     "SG2210MP ma budżet 150 W: punkty EAP650 (13,5 W) / EAP723 (18,6 W) i kontroler mieszczą się z zapasem.",
     "ESET PROTECT Advanced dokłada pełne szyfrowanie dysków laptopów i odtwarzanie plików po ataku ransomware: to opcja dla firm, które wolą konsolę ESET zamiast Defendera.",
-    "Microsoft 365 Business Premium ma Intune i Microsoft Defender dla Firm; Smart-UPS SMC1500IC daje czystą sinusoidę i PowerChute Serial Shutdown."
+    "Microsoft 365 Business Premium ma Intune i Microsoft Defender dla Firm; Smart-UPS SMT1500IC daje czystą sinusoidę i jest na liście zgodności Synology dla DS925+."
    ],
    "usl": [
     "Szkolenia zespołu"
@@ -2222,7 +2250,7 @@
     },
     {
      "q": "Czy NAS sam się wyłączy przy zaniku prądu?",
-     "a": "Smart-UPS ma zamykanie systemu przez PowerChute; współpracę z konkretnym NAS konfigurujemy przy wdrożeniu."
+     "a": "Tak. Smart-UPS SMT1500IC jest na liście zgodności Synology dla DS925+: przez USB daje sygnał, a NAS bezpiecznie kończy pracę. Sprawdzamy to próbnym odłączeniem prądu przy montażu."
     },
     {
      "q": "Czy antywirus na zaporze działa bez dodatkowej licencji?",
@@ -2297,7 +2325,7 @@
     {
      "s": "lenovo-thinkcentre-neo-50s-55s",
      "rola": "komputer stanowiska",
-     "w": "neo 50s Gen 6, 16 GB RAM, SSD",
+     "w": "neo 50s Gen 6, 16 GB RAM, SSD (spełnia zalecane wymagania Rachmistrza i Rewizora nexo PRO)",
      "q": "wg stanowisk",
      "ob": true
     },
@@ -2332,7 +2360,7 @@
     {
      "s": "apc-smart-ups-wieza",
      "rola": "UPS z automatycznym zamykaniem",
-     "w": "SMC1000IC",
+     "w": "SMT1500IC (z listy zgodności Synology)",
      "q": 1,
      "ob": true
     },
@@ -2387,7 +2415,7 @@
     "Rachmistrz pobiera e-faktury z KSeF automatycznie i dopasowuje kontrahenta po NIP; Portfel biura dostaje 400 InsPunktów na start.",
     "Podpis EuroCert służy do ZUS Płatnik, e-deklaracji i JPK oraz logowania do KSeF przy nadanych uprawnieniach.",
     "bizhub 4051i skanuje obie strony w jednym przebiegu (do 90 obrazów/min) z podajnika na 80 kartek.",
-    "Smart-UPS SMC1000IC daje czystą sinusoidę i zamykanie przez PowerChute; ESET Advanced szyfruje dyski."
+    "Smart-UPS SMT1500IC daje czystą sinusoidę i jest na liście zgodności Synology (NAS sam się wyłączy przy zaniku prądu); ESET Advanced szyfruje dyski."
    ],
    "usl": [
     "Wdrożenie programu z przeniesieniem danych",
@@ -2496,7 +2524,7 @@
     {
      "z": "k10",
      "na": "temo",
-     "kiedy": "Gdy paragony i faktury mają iść z komputera: drukarka fiskalna Posnet Temo z programem Subiekt 123 (moduł Fiskalizacja obsługuje drukarki Posnet)."
+     "kiedy": "Gdy paragony i faktury mają iść z komputera: drukarka fiskalna Posnet Temo Online z programem Subiekt 123 (jest na liście urządzeń InsERT)."
     },
     {
      "z": "pol",
@@ -2581,6 +2609,13 @@
      "w": "ThinkBook 14 G9, 16 GB RAM",
      "q": 1,
      "ob": true
+    },
+    {
+     "s": "avtek-ops",
+     "rola": "komputer OPS wsuwany w monitor (opcja)",
+     "w": "Avtek OPS i5, Windows 11 Pro",
+     "q": 1,
+     "ob": false
     }
    ],
    "zam": [
@@ -2603,7 +2638,7 @@
    "why": [
     "Avtek ma Androida 14 z certyfikatem Google EDLA: aplikacje ze Sklepu Play działają bez podłączonego komputera.",
     "Do 8 urządzeń łączy się bezprzewodowo, a na ekranie widać do 4 obrazów naraz: uczniowie pokazują swoje prace z tabletów.",
-    "Slot OPS pozwala później dołożyć komputer z Windows wsuwany w ekran; uchwyt ścienny jest w zestawie.",
+    "Slot OPS pozwala dołożyć komputer Avtek OPS z Windows 11 Pro wsuwany w ekran (Avtek podaje zgodność z TS 8 Lite G); uchwyt ścienny jest w zestawie.",
     "Praca 24/7 i 2 głośniki po 20 W z mikrofonem: ekran zastępuje też nagłośnienie małej sali.",
     "ThinkBook 14 ma HDMI 2.1 (4K 60 Hz) do podłączenia kablem, gdy sieć w szkole zawodzi."
    ],
@@ -2746,6 +2781,10 @@
     {
      "q": "Czy sieć zadziała przy zaniku prądu?",
      "a": "Szafa jest podłączona do UPS, który podtrzymuje router, przełącznik i NAS przez czas zależny od obciążenia."
+    },
+    {
+     "q": "Czy NAS sam się wyłączy przy zaniku prądu?",
+     "a": "Automatyczne wyłączanie NAS skonfigurujemy i sprawdzimy próbnym odłączeniem prądu przy montażu: ten model UPS nie jest wymieniony na liście zgodności Synology."
     }
    ],
    "imgs": [
@@ -2811,7 +2850,7 @@
    "faq": [
     {
      "q": "Czy Wi-Fi gości będzie oddzielone od kasy?",
-     "a": "Tak, ustawiamy osobną sieć dla gości i osobną dla urządzeń firmy."
+     "a": "Tak, ustawiamy osobną sieć dla gości z własnym hasłem, oddzieloną od urządzeń firmy (UDR7 ma izolację ruchu gości)."
     },
     {
      "q": "Co, jeśli padnie internet?",
@@ -2824,6 +2863,10 @@
     {
      "q": "Czy zobaczę sieć w telefonie?",
      "a": "Tak, siecią UniFi zarządzasz w aplikacji, także zdalnie."
+    },
+    {
+     "q": "Czy dołożę punkt Wi-Fi na kablu?",
+     "a": "Tak. Punkt U7 Lite (do 13 W) zasilisz prosto z portu PoE routera; U7 Pro potrzebuje przełącznika PoE+, bo port routera daje 15,4 W."
     }
    ],
    "imgs": [
@@ -2954,9 +2997,9 @@
      "ob": true
     },
     {
-     "s": "apc-back-ups",
+     "s": "apc-back-ups-pro",
      "rola": "zasilacz awaryjny NAS i routera",
-     "w": "BXR750MI-GR",
+     "w": "Back-UPS Pro BR650MI (z listy zgodności Synology)",
      "q": 1,
      "ob": true
     }
@@ -2973,16 +3016,16 @@
      "kiedy": "Gdy kopiujesz tylko kilka komputerów i wystarczy prostszy DS223 (1 GbE, 2 lata gwarancji)."
     },
     {
-     "z": "apc-back-ups",
+     "z": "apc-back-ups-pro",
      "na": "apc-smart-ups-wieza",
-     "kiedy": "Gdy NAS stoi z serwerem: Smart-UPS z czystą sinusoidą i PowerChute Serial Shutdown."
+     "kiedy": "Gdy NAS stoi z serwerem: Smart-UPS SMT1500IC z czystą sinusoidą (też na liście zgodności Synology)."
     }
    ],
    "why": [
     "DS225+ robi automatyczne kopie wszystkich komputerów programem Active Backup for Business.",
     "Dwa dyski w lustrze chronią przed awarią jednego dysku, a producent wprost zaznacza, że RAID nie zastępuje kopii.",
     "NAS w firmie to pierwszy, lokalny element zasady 3-2-1; kopię poza firmą dobieramy jako osobny element.",
-    "BXR750MI-GR ma 410 W, AVR i 4 gniazda Schuko: NAS (ok. 17 W) i router podtrzyma z dużym zapasem.",
+    "Back-UPS Pro BR650MI (390 W, AVR) jest na liście zgodności Synology: po zaniku prądu daje NAS-owi sygnał przez USB, a NAS sam bezpiecznie kończy pracę.",
     "DS225+ ma port 2,5 GbE i 3 lata gwarancji producenta z możliwością przedłużenia."
    ],
    "usl": [
@@ -2999,7 +3042,7 @@
     },
     {
      "q": "Czy NAS sam się wyłączy przy zaniku prądu?",
-     "a": "UPS ma port USB do sygnalizacji; automatyczne zamykanie NAS konfigurujemy i sprawdzamy przy wdrożeniu."
+     "a": "Tak. BR650MI jest na liście zgodności Synology: przez USB daje sygnał, a NAS sam się wyłącza. Działanie sprawdzamy próbnym odłączeniem prądu przy montażu."
     },
     {
      "q": "Co kopiować?",
@@ -3035,7 +3078,7 @@
     {
      "s": "samsung-om",
      "rola": "ekran do witryny",
-     "w": "OM55B (4K, 3000 nit) albo OM55N-S (4000 nit) od strony słońca",
+     "w": "OM55B (witryna, 4K, 3000 nit) albo OMN-S 55 (witryna od strony słońca, 4000 nit); na zewnątrz OHDX 55 (IP56)",
      "q": 1,
      "ob": false
     }
@@ -3073,7 +3116,7 @@
     },
     {
      "q": "Czy zmienię menu z telefonu albo z domu?",
-     "a": "Treściami zarządzasz zdalnie przez oprogramowanie Samsung (VXT CMS lub MagicINFO, licencje osobno)."
+     "a": "Treściami zarządzasz zdalnie: QBC ma wbudowany odtwarzacz MagicINFO S10 i obsługuje chmurę Samsung VXT (licencje kupuje się osobno)."
     },
     {
      "q": "Czy ekran w witrynie będzie widoczny w słońcu?",

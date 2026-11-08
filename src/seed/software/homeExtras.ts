@@ -8,7 +8,7 @@ import type { SoftwareHomeSections } from '../../lib/software/home'
 export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   compare: {
     eyebrow: 'Dlaczego my',
-    title: 'Freelancer, agencja czy PRO-KOM?',
+    title: 'Freelancer, agencja **czy PRO-KOM?**',
     tabs: ['vs freelancer', 'vs agencja z miasta'],
   },
 }

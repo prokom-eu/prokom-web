@@ -222,6 +222,35 @@
     gap: 36px;
   }
 }
+/* AUDYT po SWA7 #10: from 1200 px the contact column is wider and splits in two — the map with
+   the opening status beside the phone, e-mail and address — so it is no longer twice as tall
+   as the link columns (no empty field under Oferta / Firma). */
+@media (min-width: 1200px) {
+  [data-line='software'] [data-footer-grid] {
+    grid-template-columns: 1.1fr repeat(var(--cols), minmax(0, 0.75fr)) 1.75fr;
+  }
+  [data-line='software'] [data-footer-contact] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-content: start;
+    column-gap: 24px;
+  }
+  [data-line='software'] [data-footer-contact] > * {
+    grid-column: 2;
+  }
+  [data-line='software'] [data-footer-contact] > [data-footer-heading] {
+    grid-column: 1 / -1;
+  }
+  [data-line='software'] [data-footer-contact] > [data-address-map] {
+    grid-column: 1;
+    grid-row: 2 / span 4;
+    height: 100%;
+    min-height: 124px;
+  }
+  [data-line='software'] [data-footer-contact] > :is(.oh-status, .oh-status ~ *) {
+    grid-column: 1;
+  }
+}
 [data-line='software'] [data-footer-heading] {
   display: inline-flex;
   align-items: center;
@@ -325,5 +354,28 @@
   }
   [data-line='software'] .cap-btn--search kbd {
     display: none;
+  }
+}
+
+/* AUDYT po SWA7 #4: at the band above the footer and the footer the side rail steps aside —
+   fades and slides left (`SwRail` sets `data-rail-away`); hidden, it takes no Tab stop. */
+[data-line='software'] .srail-wrap {
+  transition:
+    opacity var(--dur-rail-away) var(--ease-out),
+    translate var(--dur-rail-away) var(--ease-out),
+    visibility 0s linear 0s;
+}
+[data-line='software'][data-rail-away] .srail-wrap {
+  opacity: 0;
+  translate: -24px -50%;
+  visibility: hidden;
+  transition:
+    opacity var(--dur-rail-away) var(--ease-out),
+    translate var(--dur-rail-away) var(--ease-out),
+    visibility 0s linear var(--dur-rail-away);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-line='software'][data-rail-away] .srail-wrap {
+    translate: 0 -50%;
   }
 }

@@ -23,12 +23,12 @@ export function swPricing(): PricingBlock {
     primary: { label: 'Dobierz rozwiązanie · 60 s', href: '/dobierz' },
     secondary: { label: 'Zapytaj o wycenę', href: '/kontakt#formularz' },
     careEyebrow: 'Opieka i rozwój',
-    careTitle: 'Opieka po wdrożeniu: wybierasz poziom, rezygnujesz, kiedy chcesz',
+    careTitle: 'Opieka po wdrożeniu: wybierasz poziom, **rezygnujesz, kiedy chcesz**',
     careLead: 'Serwer w Polsce, kopie i aktualizacje. Ceny netto.',
     careButton: 'Zapytaj o opiekę',
     careNote: 'Przejdziesz do formularza kontaktu',
     auditEyebrow: 'Audyt strony lub programu',
-    auditTitle: 'Trzy poziomy audytu — pierwszy za darmo',
+    auditTitle: 'Trzy poziomy audytu — **pierwszy za darmo**',
     auditLead: 'Pełny audyt odliczamy od projektu zamówionego w ciągu 60 dni.',
     auditButton: 'Zamów audyt →',
     auditHref: '/audyt',
@@ -39,7 +39,7 @@ export function swPricing(): PricingBlock {
 export const SW_PRICING_FAQ: FaqBlock = {
   blockType: 'faq',
   eyebrow: 'Pytania o ceny',
-  heading: 'Zanim zapytasz o wycenę',
+  heading: 'Zanim zapytasz **o wycenę**',
   items: [
     {
       question: 'Ceny są netto czy brutto?',

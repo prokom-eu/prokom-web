@@ -9,6 +9,7 @@ import { buildLineProvider } from '@/lib/shared/search/lineProvider'
 import type { PaletteAction } from '@/lib/shared/search/palette'
 import { onSearchRequest } from '@/lib/site/searchOpen'
 import { PROJECT_SEND_HREF } from '@/lib/software/project'
+import { railAway } from '@/lib/software/railAway'
 import {
   searchSettings,
   softwareSearchEntries,
@@ -82,6 +83,40 @@ export function SwRail({
       off()
     }
   }, [])
+
+  // AUDYT po SWA7 #4: the fixed rail would lie over the band above the footer and the footer
+  // itself — it steps aside (fades and slides left, `shell.css`) once either reaches it.
+  useEffect(() => {
+    const root = document.documentElement
+    const rail = document.querySelector('[data-site-rail]')
+    if (!rail) return
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const targetTops = [...document.querySelectorAll('[data-footer-cta], [data-site-footer]')]
+        .map((target) => target.getBoundingClientRect())
+        .filter((box) => box.height > 0)
+        .map((box) => box.top)
+      const away = railAway({
+        railBottom: rail.getBoundingClientRect().bottom,
+        targetTops,
+        scrolled: window.scrollY > 0,
+      })
+      root.toggleAttribute('data-rail-away', away)
+    }
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+      root.removeAttribute('data-rail-away')
+    }
+  }, [pathname])
 
   const provider = useMemo(
     () => buildLineProvider(softwareSearchEntries(index, pages), searchSettings(index, shortcuts)),

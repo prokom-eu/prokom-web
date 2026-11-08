@@ -359,6 +359,8 @@ export const getBundles = (tenantId: number): Promise<BundleView[]> =>
           related: true,
           industries: true,
           contentStatus: true,
+          // Name, status and official source of a pair only — its notes stay in the panel.
+          compatChecks: { pair: true, status: true, url: true },
         },
         overrideAccess: true,
       })

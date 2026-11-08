@@ -6,9 +6,18 @@ import catalog from '../../../seed/prokombiznes/k4/katalog-k4.json'
 import slugMap from '../../../seed/prokombiznes/k4/mapa-slugow-k4.json'
 import plansFile from '../../../seed/prokombiznes/k4/plany-k4.json'
 import bundlesFile from '../../../seed/prokombiznes/k4/zestawy-k4.json'
-import { bundleData, type K3Bundle } from './k3Bundles'
+import { bundleBlockers, bundleData, type K3Bundle } from './k3Bundles'
+import { loadK31Catalog } from './k31Data'
+import { cardsOf } from './k31Plans'
 import type { K31Scene } from './k31Plans'
-import { k4Bundle, k4Scene, k4ServiceSlugs, type K4Bundle, type K4Scene } from './k4Plans'
+import {
+  k4Bundle,
+  k4Scene,
+  k4ServiceSlugs,
+  packageCardStatus,
+  type K4Bundle,
+  type K4Scene,
+} from './k4Plans'
 
 const baseScenes = k31Plans.sceny as K31Scene[]
 const scenes = plansFile.sceny as K4Scene[]
@@ -125,5 +134,35 @@ describe('k4Bundle (zestawy-k4.json)', () => {
     for (const scene of pairedScenes) {
       for (const point of scene.punkty) expect(known.has(point.slug), point.slug).toBe(true)
     }
+  })
+})
+
+describe('bundle status on the K4 cards (BIZ-3 §9.1)', () => {
+  const { catalog: k31 } = loadK31Catalog()
+  const k4Only = catalog.produkty.filter(
+    (card) => !k31.cards.some((repo) => repo.slug_seed === card.slug_seed),
+  )
+  const cardsFor = cardsOf({ ...k31, cards: [...k31.cards, ...k4Only] as typeof k31.cards })
+  const cardStatus = packageCardStatus(k31.cards, catalog.produkty, cardsFor)
+  const checks = k3BundlesFile.sprawdzone_zgodnosci
+
+  it('marks „Gotowe” in the package only bundles with nothing open and only ready cards', () => {
+    for (const bundle of pairedBundles) {
+      const blockers = bundleBlockers(bundle, { checks, cardStatus })
+      expect(blockers.length === 0 ? 'gotowe' : 'do-sprawdzenia', bundle.slug).toBe(bundle.status)
+    }
+  })
+
+  it('swaps only items the bundle lists („Możesz zamienić”)', () => {
+    for (const bundle of pairedBundles) {
+      const listed = new Set(bundle.elementy.map((item) => item.slug))
+      for (const swap of bundle.zamienniki) expect(listed, bundle.slug).toContain(swap.zamiast)
+    }
+  })
+
+  it('stops on an open question of a card K4 dropped', () => {
+    const base = baseBundles.find((item) => item.slug === 'zestaw-sklep-kasa-start')!
+    const open = { ...base, elementy: [{ ...base.elementy[0]!, slug: 'x', do_potwierdzenia: '?' }] }
+    expect(() => k4Bundle(base.slug, bundles[base.slug]!, open, serviceSlug)).toThrow(/K4 dropped/)
   })
 })

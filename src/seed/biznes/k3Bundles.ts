@@ -43,8 +43,14 @@ export type K3CompatCheck = {
   zestaw: string
   para: string
   zrodlo_w_karcie?: string
+  /** `potwierdzona`, `bez-integracji` (works on its own, said plainly) or `do_potwierdzenia`. */
   status?: string
+  /** Official source of the verdict (BIZ-3 §9.1) — shown as „Źródło ↗” on the bundle page. */
+  url?: string
 }
+
+/** A pair still waiting for an answer: the only compat status that keeps a bundle back. */
+export const COMPAT_OPEN = 'do_potwierdzenia'
 
 export type BundleData = Pick<
   Bundle,
@@ -74,7 +80,12 @@ export type BundleData = Pick<
   services: number[]
   faq: { question: string; answer: string }[]
   related: number[]
-  compatChecks: { pair: string; source: string | null; status: string | null }[]
+  compatChecks: {
+    pair: string
+    source: string | null
+    status: string | null
+    url: string | null
+  }[]
 }
 
 export type BundleRefs = {
@@ -85,6 +96,15 @@ export type BundleRefs = {
   category: (code: string) => number | undefined
   /** Cards that stay unpublished (`do-akceptacji-szefa`): never a service of a bundle. */
   hidden: ReadonlySet<string>
+  /** Package status of the card standing for an item (`gotowe`, `do-sprawdzenia`…). */
+  cardStatus?: (slug: string) => string | undefined
+}
+
+export type BundleStatusInput = {
+  /** Compat pairs of the package; only the bundle's own count. */
+  checks?: readonly K3CompatCheck[]
+  /** Without it the cards are not checked (tests of the item rule alone). */
+  cardStatus?: (slug: string) => string | undefined
 }
 
 /** `seria` of the package → filter area of `/zestawy` (board `Web-Zestawy-1440`, 8 areas). */
@@ -109,9 +129,36 @@ const fail = (message: string): never => {
   throw new Error(`Seed (K3c zestawy): ${message}`)
 }
 
-/** K3-KATALOG §7: „Gotowe” only when no item waits for a confirmation. */
-export function bundleStatus(bundle: Pick<K3Bundle, 'elementy'>): BundleData['contentStatus'] {
-  return bundle.elementy.some((item) => item.do_potwierdzenia) ? 'needs-review' : 'ready'
+/**
+ * What keeps a bundle from „Gotowe” (BIZ-3 §9.1): an item waiting for a confirmation, a card that
+ * is not ready (a bundle never outruns its cards) or a compat pair still open. Empty = ready.
+ */
+export function bundleBlockers(
+  bundle: Pick<K3Bundle, 'slug' | 'elementy'>,
+  input: BundleStatusInput = {},
+): string[] {
+  const { checks = [], cardStatus } = input
+  return [
+    ...bundle.elementy.flatMap((item) =>
+      item.do_potwierdzenia ? [`${item.slug}: ${item.do_potwierdzenia}`] : [],
+    ),
+    ...(cardStatus
+      ? bundle.elementy.flatMap((item) => {
+          const status = cardStatus(item.slug)
+          return status === 'gotowe' ? [] : [`${item.slug}: karta ${status ?? 'nieznana'}`]
+        })
+      : []),
+    ...checks
+      .filter((check) => check.zestaw === bundle.slug && check.status === COMPAT_OPEN)
+      .map((check) => `${check.para}: para do potwierdzenia`),
+  ]
+}
+
+export function bundleStatus(
+  bundle: Pick<K3Bundle, 'slug' | 'elementy'>,
+  input: BundleStatusInput = {},
+): BundleData['contentStatus'] {
+  return bundleBlockers(bundle, input).length ? 'needs-review' : 'ready'
 }
 
 /**
@@ -150,7 +197,7 @@ export function bundleData(
     area,
     series: bundle.seria,
     level: bundle.poziom ?? null,
-    contentStatus: bundleStatus(bundle),
+    contentStatus: bundleStatus(bundle, { checks, cardStatus: refs.cardStatus }),
     // `magazyn-produkcja` has no industry record (K3a): skipped, like on the cards.
     industries: [...new Set(bundle.branze.flatMap((slug) => refs.industry(slug) ?? []))],
     audience: bundle.dla_kogo,
@@ -189,6 +236,7 @@ export function bundleData(
         pair: check.para,
         source: check.zrodlo_w_karcie ?? null,
         status: check.status ?? null,
+        url: check.url ?? null,
       })),
   }
 }

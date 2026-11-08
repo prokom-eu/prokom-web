@@ -26,7 +26,7 @@ describe('Software start page of the seed', () => {
 
   it('takes the 6 questions of the start page FAQ from the package', () => {
     const faq = softwareHomeLayout().find((block) => block.blockType === 'faq')
-    expect(faq).toMatchObject({ eyebrow: 'Pytania', heading: 'Zanim napiszesz' })
+    expect(faq).toMatchObject({ eyebrow: 'Pytania', heading: 'Zanim **napiszesz**' })
     expect(faq && 'items' in faq ? faq.items : []).toHaveLength(6)
   })
 
