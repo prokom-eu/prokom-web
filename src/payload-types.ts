@@ -4155,30 +4155,6 @@ export interface SwPricingBlock {
     label?: string | null;
     href?: string | null;
   };
-  /**
-   * Cena i termin z rozwiązania. Puste = bez karty.
-   */
-  featured?: (number | null) | Solution;
-  featuredBadge?: string | null;
-  featuredPoints?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  tableEyebrow?: string | null;
-  tableTitle: string;
-  /**
-   * Kolejność i liczba pozycji z rozwiązań (kategoria). Bez wpisu zakładka ma nazwę kategorii i nie ma noty.
-   */
-  tabs?:
-    | {
-        category: 'strony' | 'systemy' | 'aplikacje' | 'automatyzacje' | 'opieka';
-        label?: string | null;
-        note?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   careEyebrow?: string | null;
   careTitle?: string | null;
   /**
@@ -4198,25 +4174,6 @@ export interface SwPricingBlock {
   auditLead?: string | null;
   auditButton?: string | null;
   auditHref?: string | null;
-  includedEyebrow?: string | null;
-  includedTitle?: string | null;
-  includedItems?:
-    | {
-        title: string;
-        text?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  ctaTitle?: string | null;
-  ctaText?: string | null;
-  ctaPrimary?: {
-    label?: string | null;
-    href?: string | null;
-  };
-  ctaSecondary?: {
-    label?: string | null;
-    href?: string | null;
-  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'swPricing';
@@ -7527,24 +7484,6 @@ export interface SwPricingBlockSelect<T extends boolean = true> {
         label?: T;
         href?: T;
       };
-  featured?: T;
-  featuredBadge?: T;
-  featuredPoints?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
-  tableEyebrow?: T;
-  tableTitle?: T;
-  tabs?:
-    | T
-    | {
-        category?: T;
-        label?: T;
-        note?: T;
-        id?: T;
-      };
   careEyebrow?: T;
   careTitle?: T;
   careLead?: T;
@@ -7555,29 +7494,6 @@ export interface SwPricingBlockSelect<T extends boolean = true> {
   auditLead?: T;
   auditButton?: T;
   auditHref?: T;
-  includedEyebrow?: T;
-  includedTitle?: T;
-  includedItems?:
-    | T
-    | {
-        title?: T;
-        text?: T;
-        id?: T;
-      };
-  ctaTitle?: T;
-  ctaText?: T;
-  ctaPrimary?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-      };
-  ctaSecondary?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-      };
   id?: T;
   blockName?: T;
 }
