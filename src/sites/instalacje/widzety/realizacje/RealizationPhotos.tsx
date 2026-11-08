@@ -90,8 +90,12 @@ export function RealizationPhotos({ photos, title, sizes }: Props) {
               <b>{title}</b> {photo.alt}
             </figcaption>
           </figure>
+          {/* P2-18: the reader hears the photo with its place, not just „2 / 17”. */}
           <p className="rlgc" aria-live="polite">
-            {index + 1} / {count}
+            <span aria-hidden="true">
+              {index + 1} / {count}
+            </span>
+            <span className="sr-only">{`Zdjęcie ${index + 1} z ${count}: ${photo.alt}`}</span>
           </p>
           {count > 1 && (
             <>

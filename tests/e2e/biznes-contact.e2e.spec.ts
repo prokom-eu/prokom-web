@@ -61,8 +61,8 @@ test.describe('Biznes /kontakt (K4i)', () => {
 
   test('other lines keep their own contact page', async ({ page }) => {
     await page.goto(site('instalacje.localhost', '/kontakt'))
-    // Instalacje: their own contact page with the form `#napisz` (I11).
-    await expect(page.locator('#napisz form')).toBeVisible()
+    // Instalacje: the shared Kontakt template with their own data (L2-I).
+    await expect(page.locator('[data-contact-page] [data-contact-form]')).toBeVisible()
     await expect(page.getByRole('heading', { level: 1, name: 'Zadzwoń, napisz' })).toHaveCount(0)
   })
 })

@@ -212,7 +212,6 @@ export type InstalacjeSiteSettings = {
 export type ArchitectsContact = {
   name: string
   role: string | null
-  photo: PublicImage | null
   phone: string | null
   email: string | null
   quote: string | null
@@ -252,21 +251,19 @@ export const getInstalacjeSettings = cache(
       noPriceText: doc?.noPriceText || SETTINGS_DEFAULTS.noPriceText,
       warrantyMonths: doc?.warrantyMonths ?? SETTINGS_DEFAULTS.warrantyMonths,
       responseText: doc?.responseText || SETTINGS_DEFAULTS.responseText,
-      architects: architectsContact(doc?.architects, tenantId),
+      architects: architectsContact(doc?.architects),
     }
   },
 )
 
 function architectsContact(
   group: InstalacjeSettingsDoc['architects'] | undefined,
-  tenantId: number,
 ): ArchitectsContact | null {
   const name = pageText(group?.name)
   if (!group || !name) return null
   return {
     name,
     role: pageText(group.role),
-    photo: publicImage(group.photo, tenantId),
     phone: pageText(group.phone),
     email: pageText(group.email),
     quote: pageText(group.quote),

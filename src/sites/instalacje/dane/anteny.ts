@@ -1,3 +1,5 @@
+import { stanNa } from './stanFaktow'
+
 /**
  * Fixed texts of the Anteny page (ADR-I002 §1): the sections that are not in `InstServices`
  * and the widgets. Transcribed from `zrodlo/pages/Anteny.js` + `Anteny.body.html` (v4.2) the way
@@ -120,10 +122,10 @@ export const anteny = {
 
   multiplexes: {
     head: {
-      eyebrow: 'Telewizja naziemna, stan na październik 2026',
+      eyebrow: `Telewizja naziemna, ${stanNa()}`,
       heading: 'Pięć multipleksów w DVB-T2.',
       accent: 'Jeden jeszcze czeka.',
-      lead: 'MUX-8 nadaje jeszcze w starym DVB-T i w paśmie VHF. Termin zmiany jego standardu nie był ogłoszony (stan na październik 2026).',
+      lead: `MUX-8 nadaje jeszcze w starym DVB-T i w paśmie VHF. Termin zmiany jego standardu nie był ogłoszony (${stanNa()}).`,
     } satisfies SectionHead,
     items: [
       { name: 'MUX-1', standard: 'DVB-T2', text: 'Kanały ogólnodostępne', old: false },
