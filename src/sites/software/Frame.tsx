@@ -100,6 +100,8 @@ export async function SoftwareFrame({
     ...(legal
       ? [
           { label: 'Polityka prywatności', href: legal.privacy },
+          // Software's own legal page, outside the shared four (SWA6a).
+          { label: 'Regulamin', href: '/regulamin' },
           { label: 'Cookies', href: legal.cookies },
           { label: 'Deklaracja dostępności', href: legal.accessibility },
           { label: 'Mapa strony', href: legal.sitemap },
