@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
+import { MAX_ITEMS } from '../cart/cart'
 import {
   checkContactForm,
+  listPart,
   serverMessages,
   sharedRulesFor,
   SHARED_MESSAGES,
@@ -80,6 +82,28 @@ describe('toInquiryValues', () => {
   })
 })
 
+describe('listPart — „Twój projekt” sent with the form', () => {
+  it('each item once and within the server’s limit (a refused list cannot be fixed)', () => {
+    expect(listPart(['a', 'b', 'a']).items?.map((item) => item.slug)).toEqual(['a', 'b'])
+    const many = Array.from({ length: MAX_ITEMS + 5 }, (_, i) => `s${i}`)
+    expect(listPart(many).items).toHaveLength(MAX_ITEMS)
+  })
+
+  it('no items: nothing added, the server takes a contact', () => {
+    expect(listPart([])).toEqual({})
+  })
+
+  it('items: a list inquiry with each item once', () => {
+    expect(listPart(['strona-wizytowka', 'crm-dla-malej-i-sredniej-firmy'])).toEqual({
+      type: 'list',
+      items: [
+        { slug: 'strona-wizytowka', quantity: 1 },
+        { slug: 'crm-dla-malej-i-sredniej-firmy', quantity: 1 },
+      ],
+    })
+  })
+})
+
 describe('toFormFields', () => {
   it('puts the server’s e-mail or phone error on the one contact field', () => {
     expect(toFormFields({ email: 'x' })).toEqual({ contact: 'x' })
@@ -92,6 +116,11 @@ describe('sharedRulesFor — the rules the server applies', () => {
     expect(sharedRulesFor('instalacje')).toEqual({ phoneRequired: true, messageOptional: false })
     expect(sharedRulesFor('biznes')).toEqual({ phoneRequired: false, messageOptional: true })
     expect(sharedRulesFor('software')).toEqual({ phoneRequired: false, messageOptional: false })
+  })
+
+  it('with a list attached the message is optional, as on the server (type list)', () => {
+    expect(sharedRulesFor('software', 2)).toEqual({ phoneRequired: false, messageOptional: true })
+    expect(sharedRulesFor('instalacje', 1).phoneRequired).toBe(true)
   })
 
   it('a wrong e-mail from the server reads as a wrong e-mail', () => {

@@ -147,6 +147,7 @@ export async function BiznesFrame({ tenant, settings, biznes, promo, children }:
             holidays={shared.company.holidays}
             now={now}
             themes
+            search="Szukaj w ofercie"
           >
             <BizSheetList offer={offer} menu={biznes.navigation.menu} />
           </MenuSheet>

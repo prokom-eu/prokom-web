@@ -147,6 +147,7 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
               holidays={shared.company.holidays}
               now={now}
               themes
+              search="Szukaj na stronie"
             >
               <InstSheetList navigation={navigation} menu={menu} />
             </MenuSheet>
