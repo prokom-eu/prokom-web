@@ -338,6 +338,14 @@ test.describe('Software side rail (≥ 1400 px)', () => {
     await expect(rail(page)).toBeVisible()
   })
 
+  // …but a short page keeps it on arrival: the footer on screen is no reason to drop the rail.
+  test('stays on a short page until it is scrolled to the footer', async ({ page }) => {
+    await page.goto(site(HOST, '/nie-ma-takiej-strony-swa5'))
+    await hydrated(rail(page))
+    await expect(rail(page)).toBeVisible()
+    await expect(page.locator('html')).not.toHaveAttribute('data-rail-away', '')
+  })
+
   test('hidden below 1400 px', async ({ page }) => {
     await page.setViewportSize({ width: 1399, height: 900 })
     await page.goto(site(HOST))

@@ -9,6 +9,7 @@ import { buildLineProvider } from '@/lib/shared/search/lineProvider'
 import type { PaletteAction } from '@/lib/shared/search/palette'
 import { onSearchRequest } from '@/lib/site/searchOpen'
 import { PROJECT_SEND_HREF } from '@/lib/software/project'
+import { railAway } from '@/lib/software/railAway'
 import {
   searchSettings,
   softwareSearchEntries,
@@ -84,26 +85,35 @@ export function SwRail({
   }, [])
 
   // AUDYT po SWA7 #4: the fixed rail would lie over the band above the footer and the footer
-  // itself — it steps aside (fades and slides left, `shell.css`) while either is in view.
+  // itself — it steps aside (fades and slides left, `shell.css`) once either reaches it.
   useEffect(() => {
     const root = document.documentElement
-    const targets = document.querySelectorAll('[data-footer-cta], [data-site-footer]')
-    if (targets.length === 0 || typeof IntersectionObserver === 'undefined') return
-    const inView = new Set<Element>()
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) inView.add(entry.target)
-          else inView.delete(entry.target)
-        }
-        root.toggleAttribute('data-rail-away', inView.size > 0)
-      },
-      // The rail reaches about 80 % down the screen: step aside before the edge gets there.
-      { rootMargin: '0px 0px -20% 0px' },
-    )
-    targets.forEach((target) => observer.observe(target))
+    const rail = document.querySelector('[data-site-rail]')
+    if (!rail) return
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const targetTops = [...document.querySelectorAll('[data-footer-cta], [data-site-footer]')]
+        .map((target) => target.getBoundingClientRect())
+        .filter((box) => box.height > 0)
+        .map((box) => box.top)
+      const away = railAway({
+        railBottom: rail.getBoundingClientRect().bottom,
+        targetTops,
+        scrolled: window.scrollY > 0,
+      })
+      root.toggleAttribute('data-rail-away', away)
+    }
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
     return () => {
-      observer.disconnect()
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
       root.removeAttribute('data-rail-away')
     }
   }, [pathname])
