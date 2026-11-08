@@ -15,12 +15,14 @@ import type { SiteTenant } from '@/lib/tenant/byHost'
 import { BzContactBlock } from '@/sites/biznes/blocks/BzContact/Component'
 import { BzAboutPageBlock } from '@/sites/biznes/blocks/BzAboutPage/Component'
 import { BzContactPageBlock } from '@/sites/biznes/blocks/BzContactPage/Component'
+import { BzProcurementPageBlock } from '@/sites/biznes/blocks/BzProcurementPage/Component'
 import { BzLocationBlock } from '@/sites/biznes/blocks/BzLocation/Component'
 import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
 import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
 import { BzSectionBlock } from '@/sites/biznes/blocks/BzSection/Component'
 import { HERO_VARIANTS, parseSectionData, type SectionVariant } from '@/lib/biznes/pages/sections'
+import { isProcurementPage } from '@/lib/biznes/procurement/schema'
 import { BzKsefBlock } from '@/sites/biznes/blocks/BzKsef/Component'
 import { QuickStart } from '@/sites/biznes/components/home/QuickStart'
 import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
@@ -68,6 +70,7 @@ const HERO_BLOCKS = new Set([
   'bzHero',
   'bzContactPage',
   'bzAboutPage',
+  'bzProcurementPage',
   'swHero',
   'swPricing',
   'swAuditForm',
@@ -93,6 +96,8 @@ function opensWithHero(block: NonNullable<PublicPage['layout']>[number] | undefi
     const variant = block.variant as SectionVariant
     return HERO_VARIANTS.has(variant) && parseSectionData(variant, block.data) !== null
   }
+  // Procurement data that does not fit renders nothing either (BIZ-2).
+  if (block.blockType === 'bzProcurementPage') return isProcurementPage(block.data, block.variant)
   return HERO_BLOCKS.has(block.blockType)
 }
 
@@ -211,6 +216,15 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzContactPageBlock key={key} tenantId={tenant.id} />
           case 'bzAboutPage':
             return <BzAboutPageBlock key={key} tenantId={tenant.id} />
+          case 'bzProcurementPage':
+            return (
+              <BzProcurementPageBlock
+                key={key}
+                block={block}
+                tenantId={tenant.id}
+                path={pagePath(page.slug)}
+              />
+            )
           case 'bzOrderFlow':
             return <BzOrderFlowBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzTimeline':

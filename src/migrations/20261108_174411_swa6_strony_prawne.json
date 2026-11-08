@@ -7866,6 +7866,303 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.pages_blocks_bz_procurement_page_services": {
+      "name": "pages_blocks_bz_procurement_page_services",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "enum_pages_blocks_bz_procurement_page_services_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'mount'"
+        }
+      },
+      "indexes": {
+        "pages_blocks_bz_procurement_page_services_order_idx": {
+          "name": "pages_blocks_bz_procurement_page_services_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "pages_blocks_bz_procurement_page_services_parent_id_idx": {
+          "name": "pages_blocks_bz_procurement_page_services_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "pages_blocks_bz_procurement_page_services_parent_id_fk": {
+          "name": "pages_blocks_bz_procurement_page_services_parent_id_fk",
+          "tableFrom": "pages_blocks_bz_procurement_page_services",
+          "tableTo": "pages_blocks_bz_procurement_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.pages_blocks_bz_procurement_page_class_hints": {
+      "name": "pages_blocks_bz_procurement_page_class_hints",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "brands": {
+          "name": "brands",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "pages_blocks_bz_procurement_page_class_hints_order_idx": {
+          "name": "pages_blocks_bz_procurement_page_class_hints_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "pages_blocks_bz_procurement_page_class_hints_parent_id_idx": {
+          "name": "pages_blocks_bz_procurement_page_class_hints_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "pages_blocks_bz_procurement_page_class_hints_parent_id_fk": {
+          "name": "pages_blocks_bz_procurement_page_class_hints_parent_id_fk",
+          "tableFrom": "pages_blocks_bz_procurement_page_class_hints",
+          "tableTo": "pages_blocks_bz_procurement_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.pages_blocks_bz_procurement_page": {
+      "name": "pages_blocks_bz_procurement_page",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "variant": {
+          "name": "variant",
+          "type": "enum_pages_blocks_bz_procurement_page_variant",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "old_equipment_pickup": {
+          "name": "old_equipment_pickup",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "onsite_warranty": {
+          "name": "onsite_warranty",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "show_l_g": {
+          "name": "show_l_g",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "block_name": {
+          "name": "block_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "pages_blocks_bz_procurement_page_order_idx": {
+          "name": "pages_blocks_bz_procurement_page_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "pages_blocks_bz_procurement_page_parent_id_idx": {
+          "name": "pages_blocks_bz_procurement_page_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "pages_blocks_bz_procurement_page_path_idx": {
+          "name": "pages_blocks_bz_procurement_page_path_idx",
+          "columns": [
+            {
+              "expression": "_path",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "pages_blocks_bz_procurement_page_parent_id_fk": {
+          "name": "pages_blocks_bz_procurement_page_parent_id_fk",
+          "tableFrom": "pages_blocks_bz_procurement_page",
+          "tableTo": "pages",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.pages_blocks_inst_service": {
       "name": "pages_blocks_inst_service",
       "schema": "",
@@ -17441,6 +17738,321 @@
         "_pages_v_blocks_bz_about_page_parent_id_fk": {
           "name": "_pages_v_blocks_bz_about_page_parent_id_fk",
           "tableFrom": "_pages_v_blocks_bz_about_page",
+          "tableTo": "_pages_v",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._pages_v_blocks_bz_procurement_page_services": {
+      "name": "_pages_v_blocks_bz_procurement_page_services",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "enum__pages_v_blocks_bz_procurement_page_services_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'mount'"
+        },
+        "_uuid": {
+          "name": "_uuid",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_pages_v_blocks_bz_procurement_page_services_order_idx": {
+          "name": "_pages_v_blocks_bz_procurement_page_services_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_pages_v_blocks_bz_procurement_page_services_parent_id_idx": {
+          "name": "_pages_v_blocks_bz_procurement_page_services_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "_pages_v_blocks_bz_procurement_page_services_parent_id_fk": {
+          "name": "_pages_v_blocks_bz_procurement_page_services_parent_id_fk",
+          "tableFrom": "_pages_v_blocks_bz_procurement_page_services",
+          "tableTo": "_pages_v_blocks_bz_procurement_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._pages_v_blocks_bz_procurement_page_class_hints": {
+      "name": "_pages_v_blocks_bz_procurement_page_class_hints",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "brands": {
+          "name": "brands",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "_uuid": {
+          "name": "_uuid",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_pages_v_blocks_bz_procurement_page_class_hints_order_idx": {
+          "name": "_pages_v_blocks_bz_procurement_page_class_hints_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_pages_v_blocks_bz_procurement_page_class_hints_parent_id_idx": {
+          "name": "_pages_v_blocks_bz_procurement_page_class_hints_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "_pages_v_blocks_bz_procurement_page_class_hints_parent_id_fk": {
+          "name": "_pages_v_blocks_bz_procurement_page_class_hints_parent_id_fk",
+          "tableFrom": "_pages_v_blocks_bz_procurement_page_class_hints",
+          "tableTo": "_pages_v_blocks_bz_procurement_page",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._pages_v_blocks_bz_procurement_page": {
+      "name": "_pages_v_blocks_bz_procurement_page",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "variant": {
+          "name": "variant",
+          "type": "enum__pages_v_blocks_bz_procurement_page_variant",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "old_equipment_pickup": {
+          "name": "old_equipment_pickup",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "onsite_warranty": {
+          "name": "onsite_warranty",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "show_l_g": {
+          "name": "show_l_g",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "_uuid": {
+          "name": "_uuid",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "block_name": {
+          "name": "block_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_pages_v_blocks_bz_procurement_page_order_idx": {
+          "name": "_pages_v_blocks_bz_procurement_page_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_pages_v_blocks_bz_procurement_page_parent_id_idx": {
+          "name": "_pages_v_blocks_bz_procurement_page_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_pages_v_blocks_bz_procurement_page_path_idx": {
+          "name": "_pages_v_blocks_bz_procurement_page_path_idx",
+          "columns": [
+            {
+              "expression": "_path",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "_pages_v_blocks_bz_procurement_page_parent_id_fk": {
+          "name": "_pages_v_blocks_bz_procurement_page_parent_id_fk",
+          "tableFrom": "_pages_v_blocks_bz_procurement_page",
           "tableTo": "_pages_v",
           "columnsFrom": ["_parent_id"],
           "columnsTo": ["id"],
@@ -51791,6 +52403,16 @@
       "schema": "public",
       "values": ["default", "muted", "dark"]
     },
+    "public.enum_pages_blocks_bz_procurement_page_services_kind": {
+      "name": "enum_pages_blocks_bz_procurement_page_services_kind",
+      "schema": "public",
+      "values": ["system", "data", "inventory", "mount", "pickup"]
+    },
+    "public.enum_pages_blocks_bz_procurement_page_variant": {
+      "name": "enum_pages_blocks_bz_procurement_page_variant",
+      "schema": "public",
+      "values": ["agd", "it"]
+    },
     "public.enum_pages_blocks_inst_home_hero_trust_icon": {
       "name": "enum_pages_blocks_inst_home_hero_trust_icon",
       "schema": "public",
@@ -52264,6 +52886,16 @@
       "name": "enum__pages_v_blocks_bz_section_surface",
       "schema": "public",
       "values": ["default", "muted", "dark"]
+    },
+    "public.enum__pages_v_blocks_bz_procurement_page_services_kind": {
+      "name": "enum__pages_v_blocks_bz_procurement_page_services_kind",
+      "schema": "public",
+      "values": ["system", "data", "inventory", "mount", "pickup"]
+    },
+    "public.enum__pages_v_blocks_bz_procurement_page_variant": {
+      "name": "enum__pages_v_blocks_bz_procurement_page_variant",
+      "schema": "public",
+      "values": ["agd", "it"]
     },
     "public.enum__pages_v_blocks_inst_home_hero_trust_icon": {
       "name": "enum__pages_v_blocks_inst_home_hero_trust_icon",
@@ -53589,6 +54221,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "a7fc15a7-f5fb-469f-b021-6bc1152ea914",
+  "id": "5e92419f-7b53-4ace-bece-99888f3bcfef",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
