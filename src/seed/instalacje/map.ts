@@ -51,6 +51,7 @@ import type {
   Realization,
 } from '../../payload-types'
 import { withoutLaw } from './bezPrzepisow'
+import { rewritten } from './teksty'
 
 /**
  * Pure mapping of the Instalacje package (`seed/prokominstalacje/`, v4.0) to the collections
@@ -59,41 +60,43 @@ import { withoutLaw } from './bezPrzepisow'
  * (`art: [svg-path]`) are left out.
  */
 
-// Runda v6 §1.1: every package file without law (`bezPrzepisow.ts`).
-const noweRozwiazania = withoutLaw(rawNoweRozwiazania)
-const apt = withoutLaw(rawApt)
-const bud = withoutLaw(rawBud)
-const dev = withoutLaw(rawDev)
-const dom = withoutLaw(rawDom)
-const firma = withoutLaw(rawFirma)
-const gmina = withoutLaw(rawGmina)
-const hotel = withoutLaw(rawHotel)
-const kosc = withoutLaw(rawKosc)
-const pens = withoutLaw(rawPens)
-const rest = withoutLaw(rawRest)
-const sklep = withoutLaw(rawSklep)
-const szk = withoutLaw(rawSzk)
-const oferta = withoutLaw(rawOffer76)
-const Alarmy = withoutLaw(rawAlarmy)
-const Architekci = withoutLaw(rawArchitekci)
-const Anteny = withoutLaw(rawAnteny)
-const Dostep = withoutLaw(rawDostep)
-const Kontakt = withoutLaw(rawKontakt)
-const Ladowarki = withoutLaw(rawLadowarki)
-const Main = withoutLaw(rawMain)
-const Monitoring = withoutLaw(rawMonitoring)
-const Multimedia = withoutLaw(rawMultimedia)
-const Naglosnienie = withoutLaw(rawNaglosnienie)
-const OFirmie = withoutLaw(rawOFirmie)
-const Oferta = withoutLaw(rawOferta)
-const Poradnik = withoutLaw(rawPoradnik)
-const Realizacje = withoutLaw(rawRealizacje)
-const Serwis = withoutLaw(rawSerwis)
-const Sieci = withoutLaw(rawSieci)
-const SmartHome = withoutLaw(rawSmartHome)
-const Teletechnika = withoutLaw(rawTeletechnika)
-const Zaplanuj = withoutLaw(rawZaplanuj)
-const wspolne = withoutLaw(rawWspolne)
+// Runda v6: every package file without law (§1.1, `bezPrzepisow.ts`), then with the texts of
+// INST-6 (§2, `teksty/`).
+const clean = <T>(file: T): T => rewritten(withoutLaw(file))
+const noweRozwiazania = clean(rawNoweRozwiazania)
+const apt = clean(rawApt)
+const bud = clean(rawBud)
+const dev = clean(rawDev)
+const dom = clean(rawDom)
+const firma = clean(rawFirma)
+const gmina = clean(rawGmina)
+const hotel = clean(rawHotel)
+const kosc = clean(rawKosc)
+const pens = clean(rawPens)
+const rest = clean(rawRest)
+const sklep = clean(rawSklep)
+const szk = clean(rawSzk)
+const oferta = clean(rawOffer76)
+const Alarmy = clean(rawAlarmy)
+const Architekci = clean(rawArchitekci)
+const Anteny = clean(rawAnteny)
+const Dostep = clean(rawDostep)
+const Kontakt = clean(rawKontakt)
+const Ladowarki = clean(rawLadowarki)
+const Main = clean(rawMain)
+const Monitoring = clean(rawMonitoring)
+const Multimedia = clean(rawMultimedia)
+const Naglosnienie = clean(rawNaglosnienie)
+const OFirmie = clean(rawOFirmie)
+const Oferta = clean(rawOferta)
+const Poradnik = clean(rawPoradnik)
+const Realizacje = clean(rawRealizacje)
+const Serwis = clean(rawSerwis)
+const Sieci = clean(rawSieci)
+const SmartHome = clean(rawSmartHome)
+const Teletechnika = clean(rawTeletechnika)
+const Zaplanuj = clean(rawZaplanuj)
+const wspolne = clean(rawWspolne)
 
 type Data<T> = Omit<T, 'id' | 'tenant' | 'updatedAt' | 'createdAt' | '_status'>
 export type ServiceData = Data<InstService>
@@ -234,7 +237,7 @@ export function mapHref(href: string): string {
 const optionalHref = (href: string | undefined) => (href ? mapHref(href) : undefined)
 
 /** Page slug from a prototype link (`SegDom.dc.html` → `dom`, last path segment). */
-const slugOf = (href: string) => mapHref(href).split('/').filter(Boolean).pop() ?? HOME_SLUG
+export const slugOf = (href: string) => mapHref(href).split('/').filter(Boolean).pop() ?? HOME_SLUG
 
 const icon = (value: string | undefined) => value?.replace(/^ikona:/, '') || undefined
 
