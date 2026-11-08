@@ -93,3 +93,13 @@ Trzy linie w `prokom-web` (Biznes, Instalacje, Software) zbudowały pasek marki,
 3. **„Liczba linii” w `StatsStrip` liczy opublikowane linie** (`kind: 'linia'`) z odmianą („4 linie”, „5 linii”). Plansza mówi „5”, bo zakłada Zakopane — liczba dojdzie sama po publikacji.
 4. **Rok „2004” nie ma pola w panelu** — na razie w kodzie podglądu i szablonu (`TODO(krystian)`); pole w `CompanyData` dopiero po decyzji (migracja).
 5. **`FaqBlock` znika bez odpowiedzi** — odpowiedzi seeda mają znacznik `[Krystian…]`, więc FAQ pokaże się po uzupełnieniu w panelu.
+
+## Rozstrzygnięcia D2-4 (06.11.2026, po przeglądzie — w nocnej sesji bez Krystiana: **decyzje do potwierdzenia rano**)
+1. **Bez nowych slotów:** szablony mają dokładnie sloty z §6.0 (`ContactPage`: `heroAside`, `afterRoutes`, `formPrefill`, `afterForm`, `beforeFaq`, `showServiceArea`, `showOtherLines`; `AboutPage`: `afterStats`, `afterRules`, `afterSteps`, `beforeVisit`, `showVerify`). Drugi salon (Instalacje) idzie do `heroAside`; karta adresu pokazuje pierwszy salon z `contact.salonKeys`; mapę i „Wyznacz trasę” tylko wtedy, gdy to salon-biuro (rysunek i `mapsUrl` są Orkana 16B) — inny salon dostaje adres i godziny bez mapy.
+2. **Nagłówek wizyty „Wpadnij do nas — {ulica}, {miasto}.”** zamiast planszowego „Wpadnij do Rabki, …” — panel nie ma odmiany nazwy miasta.
+3. **Nagłówek pasa linii z liczby:** „{n} linie/linii PRO-KOM”, z Gaming — „… i marka PRO-KOM Gaming” (plansza: „Pięć linii…” słownie).
+4. **Rok i opis „od 2004” w stałej `FOUNDED`** (`lib/shared/pages.ts`, `TODO(krystian)`) do czasu pola w `CompanyData`.
+5. **Podgląd szablonów** na `/_wspolne/kontakt` i `/_wspolne/o-firmie` (w ramie linii, 404 na produkcji, `noindex`), każdy slot jako ramka „slot: nazwa”. Trasy `/kontakt` i `/o-firmie` linii zmienia D3.
+6. **JSON-LD szablonów = tylko `BreadcrumbList`** (po przeglądzie): `Organization` i `LocalBusiness` każdego salonu wystawia już layout strony (`organizationJsonLd`) — druga kopia dałaby temu samemu `@id` dwa znaczenia. Spec §6.1/§6.2 spełnione razem z layoutem.
+7. **Telefon (spec §7) w szablonie:** kolejność status → H1 → duży numer i „Zadzwoń teraz” → kafelki faktów (e-mail, drugi numer) → karta salonu z mapą 108 px (`AddressMap` `mobileHeight`). Duży przycisk telefonu jako cała klikalna karta — do oceny przy D3 na prawdziwej stronie linii.
+8. **Kafelki godzin:** „Pon–Pt” = godziny poniedziałku (salony mają jeden wiersz na tydzień roboczy), „dziś” bez świąt — status ze świętami pokazuje `OpeningStatus` obok.
