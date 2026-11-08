@@ -14,7 +14,7 @@ export const isDesktop = () => window.matchMedia(DESKTOP_QUERY).matches
  */
 export function focusProjectFallback() {
   const candidates = document.querySelectorAll<HTMLElement>(
-    '[data-project-fallback], [data-site-header] .cap-cta',
+    '[data-project-fallback], [data-site-header] .cap__actions > .cap-cta',
   )
   ;[...candidates].find((element) => element.offsetParent !== null)?.focus()
 }

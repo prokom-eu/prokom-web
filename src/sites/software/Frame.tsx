@@ -21,6 +21,7 @@ import type { SiteTenant } from '@/lib/tenant/byHost'
 import { PageTransition } from './PageTransition'
 import { ContactToast } from './components/ContactToast'
 import { ProjectToast } from './components/ProjectToast'
+import { PhoneSignals } from './powloka/PhoneSignals'
 import { PreviewGuard } from './powloka/PreviewGuard'
 import { StartBand } from './powloka/StartBand'
 import { SwHeader } from './powloka/SwHeader'
@@ -147,6 +148,7 @@ export async function SoftwareFrame({
       )}
       {/* Outside the header: its backdrop blur would pin `fixed` children to the header. */}
       <ProjectToast canOpen={navigation.headerRight.projectDrawer} />
+      <PhoneSignals />
       {/* The preview of the shared elements renders its own copies (`/_wspolne`). */}
       <PreviewGuard>
         {shared && line && (
