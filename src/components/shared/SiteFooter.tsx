@@ -42,6 +42,8 @@ export type SiteFooterProps = {
   now: string
   /** Decoration of the top edge (the Instalacje mountain ridge), drawn by the line. */
   edge?: ReactNode
+  /** The line's own legal pages in the legal bar (`LegalBar.extraLinks`). */
+  legalLinks?: readonly { label: string; href: string }[]
 }
 
 const headingClass = 'text-xs font-extrabold tracking-[0.12em] text-line-dark-ink uppercase'
@@ -50,7 +52,7 @@ const linkClass =
 
 function ColumnLinks({ column }: { column: FooterColumn }) {
   return (
-    <ul className="flex flex-col gap-[11px]">
+    <ul className="flex flex-col gap-[11px]" data-footer-links>
       {column.links.map((link) => (
         <li key={`${link.href}-${link.label}`}>
           <Link href={link.href} className={linkClass}>
@@ -81,6 +83,7 @@ export function SiteFooter({
   legalNote,
   now,
   edge,
+  legalLinks,
 }: SiteFooterProps) {
   const tel = contact.phone ? toTelHref(contact.phone) : null
   const tel2 = contact.phone2 ? toTelHref(contact.phone2) : null
@@ -92,10 +95,11 @@ export function SiteFooter({
       {edge}
       <div className="mx-auto box-content max-w-[1280px] px-5 pt-9 min-[768px]:px-8 min-[768px]:pt-[52px]">
         <div
+          data-footer-grid
           className="grid gap-7 min-[900px]:gap-10 min-[900px]:[grid-template-columns:1.5fr_repeat(var(--cols),minmax(0,1fr))_1.25fr]"
           style={{ '--cols': shown.length } as CSSProperties}
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4" data-footer-brand>
             <LineLogo line={line} alt={lineName} on="dark" height={34} />
             {description && <p className="max-w-[330px] leading-[1.6]">{description}</p>}
             {promises.length > 0 && (
@@ -118,8 +122,11 @@ export function SiteFooter({
               key={column.heading}
               aria-label={column.heading}
               className="hidden flex-col gap-[11px] min-[900px]:flex"
+              data-footer-column
             >
-              <h2 className={headingClass}>{column.heading}</h2>
+              <h2 className={headingClass} data-footer-heading>
+                {column.heading}
+              </h2>
               <ColumnLinks column={column} />
             </nav>
           ))}
@@ -147,7 +154,9 @@ export function SiteFooter({
           )}
 
           <div className="flex flex-col gap-2.5 min-[900px]:gap-3" data-footer-contact>
-            <h2 className={headingClass}>Kontakt</h2>
+            <h2 className={headingClass} data-footer-heading>
+              Kontakt
+            </h2>
             {address && (
               <AddressMap
                 variant="dark"
@@ -207,6 +216,7 @@ export function SiteFooter({
           company={company}
           legalNote={legalNote}
           year={new Date(now).getUTCFullYear()}
+          extraLinks={legalLinks}
           className="mt-5 min-[768px]:mt-[26px]"
         />
       </div>

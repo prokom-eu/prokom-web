@@ -370,6 +370,9 @@ export interface SiteSetting {
       | null;
     legalNote?: string | null;
     contact?: {
+      /**
+       * Wyróżniony fragment w **gwiazdkach**, np. „Porozmawiajmy o **Twoim projekcie.**”.
+       */
       h1?: string | null;
       lead?: string | null;
       writeCta?: string | null;
@@ -421,6 +424,9 @@ export interface SiteSetting {
         | null;
     };
     about?: {
+      /**
+       * Wyróżniony fragment w **gwiazdkach**, np. „Porozmawiajmy o **Twoim projekcie.**”.
+       */
       h1?: string | null;
       lead?: string | null;
       authTitle?: string | null;

@@ -182,3 +182,62 @@ describe('AboutPage (spec §6.2)', () => {
     expect(sources.every((src) => src?.startsWith('/brand/'))).toBe(true)
   })
 })
+
+// AUDYT-0811 #11–#13: the highlighted part of H1, contact data never cut, the card's top row.
+describe('H1 highlight, contact facts, company card heading', () => {
+  const withH1 = (h1: string) => ({
+    ...shared,
+    line: {
+      ...shared.line,
+      contact: { ...shared.line.contact, h1 },
+      about: { ...shared.line.about, h1 },
+    },
+  })
+
+  it('the part in **stars** becomes <em>; without stars the H1 is plain text', () => {
+    const markup = renderToStaticMarkup(
+      createElement(ContactPage, {
+        ...common,
+        shared: withH1('Porozmawiajmy o **Twoim projekcie.**') as SharedData,
+        now: '2026-11-09T09:00:00Z',
+        formToken: 't',
+      }),
+    )
+    expect(markup).toMatch(/Porozmawiajmy o <em[^>]*data-heading-em[^>]*>Twoim projekcie\.<\/em>/)
+    expect(markup).not.toContain('**')
+    const plain = renderToStaticMarkup(
+      createElement(AboutPage, {
+        ...common,
+        shared: withH1('Firma z Podhala') as SharedData,
+        siteEnv: 'local',
+      }),
+    )
+    expect(plain).toMatch(/<h1[^>]*>Firma z Podhala<\/h1>/)
+  })
+
+  it('a fact value may wrap anywhere (a long e-mail never gets cut off)', () => {
+    const facts = [
+      { icon: 'mail', label: 'E-mail', kind: 'email', value: 'kontakt@prokomsoftware.pl' },
+    ]
+    const markup = contact({
+      shared: {
+        ...shared,
+        line: { ...shared.line, contact: { ...shared.line.contact, facts } },
+      } as SharedData,
+    })
+    expect(markup).toMatch(
+      /min-w-0 flex-col \[overflow-wrap:anywhere\][^]*kontakt@prokomsoftware\.pl/,
+    )
+  })
+
+  it('the company card shows the line’s heading row first', () => {
+    const markup = renderToStaticMarkup(
+      createElement(AboutPage, {
+        ...common,
+        siteEnv: 'local',
+        cardHeading: createElement('p', { 'data-card-heading': '' }, 'Wizytówka firmy'),
+      }),
+    )
+    expect(markup).toMatch(/data-company-card[^>]*><p data-card-heading="">Wizytówka firmy<\/p><dl/)
+  })
+})

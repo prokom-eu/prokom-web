@@ -21,6 +21,7 @@ import { OtherLines } from './OtherLines'
 import { PageCrumbs, type Crumb } from './PageCrumbs'
 import { ServiceAreaMap } from './ServiceAreaMap'
 import { Steps } from './Steps'
+import { HeadingText } from './HeadingText'
 
 /** The line's own sections in named places (spec §6.0) — the template never knows their content. */
 export type ContactSlots = {
@@ -131,7 +132,7 @@ export function ContactPage({
               id="kontakt-h1"
               className="font-display text-[clamp(42px,6vw,74px)] leading-[0.95] font-extrabold tracking-[-0.03em] text-line-dark-ink"
             >
-              {contact.h1 || 'Kontakt'}
+              <HeadingText text={contact.h1 || 'Kontakt'} />
             </h1>
             {contact.lead && <p className="max-w-[56ch] text-lg">{contact.lead}</p>}
             {tel && (
@@ -182,7 +183,8 @@ export function ContactPage({
                       name={isIconName(fact.icon) ? fact.icon : 'check'}
                       className="mt-0.5 size-5 text-on-dark-text"
                     />
-                    <span className="flex flex-col">
+                    {/* Contact data never cut off (AUDYT-0811 #12): a long e-mail wraps. */}
+                    <span className="flex min-w-0 flex-col [overflow-wrap:anywhere]">
                       <span className="text-xs font-bold text-line-dark-text">{fact.label}</span>
                       <FactValue kind={fact.kind} value={fact.value ?? ''} />
                     </span>

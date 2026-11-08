@@ -66,6 +66,13 @@ describe('LegalBar (spec §5)', () => {
     const hrefs = [...markup.matchAll(/href="([^"]+)"/g)].map((m) => m[1])
     expect(hrefs).toEqual(['/polityka-prywatnosci', '/cookies', '/dostepnosc', '/mapa-strony', '#'])
   })
+
+  it('the line’s own legal pages go right after the privacy policy (Software: Regulamin)', () => {
+    const extraLinks = [{ label: 'Regulamin', href: '/regulamin' }]
+    const markup = html(createElement(LegalBar, { company, year: 2026, extraLinks }))
+    const hrefs = [...markup.matchAll(/href="([^"]+)"/g)].map((m) => m[1])
+    expect(hrefs.slice(0, 3)).toEqual(['/polityka-prywatnosci', '/regulamin', '/cookies'])
+  })
 })
 
 describe('LinesBand (spec §5, §2.4)', () => {

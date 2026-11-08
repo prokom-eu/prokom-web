@@ -14,6 +14,7 @@ import { AddressMap } from './AddressMap'
 import { type AuthLogo, CompanyCard } from './CompanyCard'
 import { Contours } from './Contours'
 import { FamilyStrip } from './FamilyStrip'
+import { HeadingText } from './HeadingText'
 import { PageCrumbs, type Crumb } from './PageCrumbs'
 import { RulesBento } from './RulesBento'
 import { StatsStrip } from './StatsStrip'
@@ -43,6 +44,8 @@ export type AboutPageProps = {
   showVerify?: boolean
   /** Logos of the line's authorisations in the company card (Biznes, plan 0611 §8.2). */
   authLogos?: readonly AuthLogo[]
+  /** Top row of the company card (Software: „Wizytówka firmy” + logo, AUDYT-0811 #13). */
+  cardHeading?: ReactNode
 }
 
 const CONTAINER = 'mx-auto max-w-[1344px] px-5 min-[768px]:px-8'
@@ -68,6 +71,7 @@ export function AboutPage({
   slots = {},
   showVerify = true,
   authLogos,
+  cardHeading,
 }: AboutPageProps) {
   const { company, lines } = shared
   const data = shared.line
@@ -117,7 +121,7 @@ export function AboutPage({
               id="o-firmie-h1"
               className="font-display text-[clamp(42px,6vw,74px)] leading-[0.95] font-extrabold tracking-[-0.03em] text-line-dark-ink"
             >
-              {about.h1 || 'O firmie'}
+              <HeadingText text={about.h1 || 'O firmie'} />
             </h1>
             {about.lead && <p className="max-w-[56ch] text-lg">{about.lead}</p>}
             <div className="flex flex-wrap gap-3">
@@ -152,6 +156,7 @@ export function AboutPage({
             authTitle={about.authTitle}
             auth={about.auth}
             authLogos={authLogos}
+            heading={cardHeading}
           />
         </div>
       </section>
