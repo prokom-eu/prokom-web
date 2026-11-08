@@ -12,6 +12,7 @@ import {
   archNewsToImport,
   mapHref,
   objectData,
+  forwardSeoTitle,
   objectsToImport,
   pagesToImport,
   realizationsToImport,
@@ -278,5 +279,39 @@ describe('no photo promises (P0-2, audit 06.11)', () => {
 
   it('no page SEO names WhatsApp (decision 01.11)', () => {
     expect(JSON.stringify(pagesToImport())).not.toMatch(/whats\s?app/i)
+  })
+})
+
+describe('forwardSeoTitle (P3-23 on existing databases)', () => {
+  it('moves a former default title to the new one', () => {
+    expect(
+      forwardSeoTitle(
+        'Alarmy i wideodomofony Rabka-Zdrój, Podhale',
+        'Alarmy i wideodomofony na Podhalu',
+      ),
+    ).toBe('Alarmy i wideodomofony na Podhalu')
+    expect(
+      forwardSeoTitle(
+        'Dla architektów: smart home i teletechnika',
+        'Dla architektów: instalacje w projekcie',
+      ),
+    ).toBe('Dla architektów: instalacje w projekcie')
+  })
+
+  it('keeps a title edited in the panel, an empty one and the current one', () => {
+    expect(forwardSeoTitle('Nasz własny tytuł', 'Alarmy i wideodomofony na Podhalu')).toBeNull()
+    expect(forwardSeoTitle(null, 'Alarmy i wideodomofony na Podhalu')).toBeNull()
+    expect(
+      forwardSeoTitle('Alarmy i wideodomofony na Podhalu', 'Alarmy i wideodomofony na Podhalu'),
+    ).toBeNull()
+  })
+
+  it('never moves to a title the seed does not want for that page', () => {
+    expect(
+      forwardSeoTitle(
+        'Alarmy i wideodomofony Rabka-Zdrój, Podhale',
+        'Dostęp, monitoring i sieć dla firm',
+      ),
+    ).toBeNull()
   })
 })

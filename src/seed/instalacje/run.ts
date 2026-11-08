@@ -13,6 +13,7 @@ import { seedRealizationPhotos } from './realizationPhotos'
 import { SERVICE_PAGE_KEYS } from './servicePages'
 import {
   archNewsToImport,
+  forwardSeoTitle,
   objectData,
   objectsToImport,
   pagesToImport,
@@ -320,15 +321,32 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
   // --- home page (I5): the `instHome` block and SEO, also over the sample page ---
   await seedInstalacjeHome(payload, tenantId, count)
 
-  // --- pages: missing ones as empty drafts with title and SEO; existing ones untouched ---
+  // --- pages: missing ones as empty drafts with title and SEO; existing ones keep theirs ---
   // `kontakt` of an older `pnpm seed` is its sample page; the form pages below replace it (I11).
+  // P3-23: an existing page whose SEO title is still a former default of the seed moves forward.
   for (const page of pagesToImport()) {
-    const { totalDocs } = await payload.count({
+    const {
+      docs: [existing],
+      totalDocs,
+    } = await payload.find({
       collection: 'pages',
       where: inTenant({ slug: { equals: page.slug } }),
+      limit: 1,
+      depth: 0,
+      draft: true,
       overrideAccess: true,
       context: SEED_CONTEXT,
     })
+    const title = existing ? forwardSeoTitle(existing.seo?.title, page.seo.title) : null
+    if (existing && title) {
+      await payload.update({
+        collection: 'pages',
+        id: existing.id,
+        data: { seo: { ...existing.seo, title } },
+        ...local,
+      })
+      count('pages seo title', 'updated')
+    }
     if (totalDocs === 0) {
       await payload.create({
         collection: 'pages',

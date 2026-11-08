@@ -91,7 +91,9 @@ export async function seedInstalacjeHome(payload: Payload, tenantId: number, cou
     return
   }
   const layout = mergeInstalacjeHome(home.layout, seed)
-  const seo = home.seo?.title?.trim() ? null : HOME_SEO
+  // SEO when the page has none, or still the package's former title (P3-23: 66 characters).
+  const former = home.seo?.title === Main._title
+  const seo = home.seo?.title?.trim() && !former ? null : HOME_SEO
   if (!layout && !seo) {
     count('home', 'skipped')
     return

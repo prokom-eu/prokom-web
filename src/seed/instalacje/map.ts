@@ -249,6 +249,27 @@ export const SHORT_SEO_TITLES: Readonly<Record<string, string>> = {
   'Monitoring i alarm dla sklepów, Zakopane': 'Monitoring i alarm w sklepie, Zakopane',
 }
 
+/**
+ * Titles the seed wrote before P3-23 (fixed pages with an own title) → their successors. With
+ * `SHORT_SEO_TITLES` they let the seed move an existing page forward (`forwardSeoTitle`).
+ */
+const FORMER_OWN_TITLES: Readonly<Record<string, string>> = {
+  'Dla architektów: smart home i teletechnika': 'Dla architektów: instalacje w projekcie',
+  'Zaplanuj instalację na Podhalu w 2 minuty': 'Zaplanuj instalację w 2 minuty',
+  'Serwis kamer, alarmów i sieci na Podhalu': 'Serwis kamer, alarmów i sieci, Podhale',
+}
+
+/**
+ * The new SEO title for a page that still has a former default of the seed, else `null`. Pages
+ * are created once and then belong to the panel; only an untouched old default moves forward,
+ * so CI snapshots, local and older databases follow P3-23 and a title edited in the panel stays.
+ */
+export function forwardSeoTitle(current: string | null | undefined, wanted: string): string | null {
+  if (!current || current === wanted) return null
+  const next = SHORT_SEO_TITLES[current] ?? FORMER_OWN_TITLES[current]
+  return next === wanted ? wanted : null
+}
+
 /** The site name is added by the title template of the site settings. */
 export function seoTitle(title: string): string {
   const base = title.replace(/\s*\|\s*PRO-KOM.*$/, '').trim()
