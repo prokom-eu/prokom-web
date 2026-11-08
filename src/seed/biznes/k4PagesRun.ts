@@ -15,6 +15,7 @@ import {
   type K4VendingFile,
   type MediaOf,
   type SlugOf,
+  upgradeCareIcons,
   upgradeGoposPhotos,
 } from './k4Pages'
 import { upsertK4Page, type PageBlock } from './page'
@@ -125,16 +126,32 @@ export async function seedBiznesK4Pages(
       report,
     )
     if (!done) note('strona K4 edytowana w panelu — bez zmian', slug)
-    if (done && slug === 'gopos') await upgradeStoredGopos(payload, tenantId, built.layout, report)
+    const upgrade = done ? STORED_UPGRADES[slug] : undefined
+    if (upgrade) await upgradeStoredPage(payload, tenantId, slug, ...upgrade, built.layout, report)
   }
+}
+
+/** Pages whose stored copy gets an upgrade from the seed: slug → [report label, upgrade]. */
+const STORED_UPGRADES: Record<
+  string,
+  [string, (stored: PageBlock[], seed: PageBlock[]) => PageBlock[] | null]
+> = {
+  gopos: ['photos', upgradeGoposPhotos],
+  'opieka-it': ['icons', upgradeCareIcons],
 }
 
 const SEED_LOCAL = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
 
-/** POPRAWKI-0311: the GoPOS photos on a page the seed created before (`upgradeGoposPhotos`). */
-async function upgradeStoredGopos(
+/**
+ * An upgrade of a page the seed created before (the seed never overwrites a stored page):
+ * POPRAWKI-0311 GoPOS photos (`upgradeGoposPhotos`), D13 `/opieka-it` icons (`upgradeCareIcons`).
+ */
+async function upgradeStoredPage(
   payload: Payload,
   tenantId: number,
+  slug: string,
+  what: string,
+  upgrade: (stored: PageBlock[], seed: PageBlock[]) => PageBlock[] | null,
   seed: PageBlock[],
   report: Report,
 ): Promise<void> {
@@ -142,12 +159,12 @@ async function upgradeStoredGopos(
     docs: [page],
   } = await payload.find({
     collection: 'pages',
-    where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: 'gopos' } }] },
+    where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: slug } }] },
     limit: 1,
     ...SEED_LOCAL,
   })
-  const layout = page && upgradeGoposPhotos(page.layout ?? [], seed)
-  report('pages gopos photos', Boolean(layout))
+  const layout = page && upgrade(page.layout ?? [], seed)
+  report(`pages ${slug} ${what}`, Boolean(layout))
   if (!page || !layout) return
   await payload.update({
     collection: 'pages',

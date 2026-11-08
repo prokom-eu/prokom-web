@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 import plans from '../../../seed/prokombiznes/k31/plansze-k31.json'
 import showrooms from '../../../seed/prokombiznes/k31/marki-salony-k31.json'
-import { isSafeSvg, isSvgPath, validateIconPath, validateSvg } from './svg'
+import { isSafeSvg, isSvgPath, svgPathText, validateIconPath, validateSvg } from './svg'
 
 const SVG_DIR = path.resolve(__dirname, '../../../seed/prokombiznes/k31/plansze-svg')
 const svg = (inner: string) => `<svg viewBox="0 0 10 10">${inner}</svg>`
@@ -86,11 +86,21 @@ describe('icon path (FloorPlans.iconPath, Showrooms.family)', () => {
     expect(isSvgPath('M0 0" onload="x')).toBe(false)
     expect(isSvgPath('<path/>')).toBe(false)
     expect(isSvgPath('')).toBe(false)
+    // A hard space is not a separator inside `d` — the browser drops the icon (D13).
+    expect(isSvgPath(`M5 5${String.fromCharCode(0xa0)}0 01-1 1`)).toBe(false)
   })
 
   it('is optional in the panel', () => {
     expect(validateIconPath('')).toBe(true)
     expect(validateIconPath(null)).toBe(true)
     expect(validateIconPath('M0 0<')).toMatch(/ścieżk/i)
+  })
+})
+
+describe('svgPathText', () => {
+  it('turns hard spaces saved by older seeds back into plain spaces', () => {
+    const nb = String.fromCharCode(0xa0)
+    expect(svgPathText(`M5 5${nb}0 01${nb}1 1`)).toBe('M5 5 0 01 1 1')
+    expect(isSvgPath(svgPathText(`M5 5${nb}0 01`))).toBe(true)
   })
 })

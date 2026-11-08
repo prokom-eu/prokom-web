@@ -5,6 +5,14 @@ import { postHref } from '../../lib/posts/list'
 import { missingFields } from './fill'
 import { h2, p, richText } from './lexical'
 
+/** KSeF post, „5. Kasy fiskalne”: without the 450 zł sentence (D17, 06.11.2026). */
+export const KSEF_POS_PARAGRAPH =
+  'Kasa dalej drukuje paragony. Ale od 1.01.2027 faktura do paragonu dla firmy idzie wyłącznie przez KSeF: z programu lub aplikacji, nie z kasy. W gastronomii i hotelu konfigurujemy to w GoPOS i NFHotel.'
+
+/** KSeF post, „Przy okazji: ulga 700 zł” — how the relief is settled (K4-FINAL §1). */
+export const KSEF_RELIEF_PARAGRAPH =
+  'Firmy, które dopiero zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Zakup nie później niż 6 miesięcy od rozpoczęcia ewidencji; brak przeglądu w 3 lata oznacza zwrot ulgi. Ulgę rozliczasz w deklaracji VAT, zwykle razem z księgową.'
+
 type Report = (name: string, changed: boolean) => void
 type Refs = {
   image: (file: string) => number | undefined
@@ -57,17 +65,13 @@ function ksefPost(refs: Refs) {
         'Fakturowanie w programie z API KSeF 2.0 albo w bezpłatnej Aplikacji Podatnika. Wdrażamy i testujemy na Twoich fakturach, nie na przykładach z instrukcji.',
       ),
       h2('5. Kasy fiskalne: co się zmienia'),
-      p(
-        'Kasa dalej drukuje paragony. Ale od 1.01.2027 faktura do paragonu dla firmy idzie wyłącznie przez KSeF: z programu lub aplikacji, nie z kasy. Paragon z NIP do 450 zł przestaje być fakturą uproszczoną w B2B. W gastronomii i hotelu konfigurujemy to w GoPOS i NFHotel.',
-      ),
+      p(KSEF_POS_PARAGRAPH),
       h2('6. Procedura awaryjna spisana, a nie „jakoś to będzie”'),
       p(
         'Kto i jak wysyła faktury po awarii internetu, sprzętu albo KSeF. Offline24 jest bezterminowy, ale wymaga certyfikatu typu 2 i wysyłki następnego dnia roboczego.',
       ),
       h2('Przy okazji: ulga 700 zł'),
-      p(
-        'Firmy, które dopiero zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Zakup nie później niż 6 miesięcy od rozpoczęcia ewidencji; brak przeglądu w 3 lata oznacza zwrot ulgi.',
-      ),
+      p(KSEF_RELIEF_PARAGRAPH),
     ]),
     sources: [
       { name: 'MF — podatki.gov.pl', url: 'https://www.podatki.gov.pl/', verifiedAt: VERIFIED_AT },
