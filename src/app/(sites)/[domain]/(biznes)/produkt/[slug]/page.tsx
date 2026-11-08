@@ -11,6 +11,7 @@ import { CATALOG_PATH, catalogHref, parseCatalogState, updateState } from '@/lib
 import { productTitle, uniqueVersions, variantKey, variantSlug } from '@/lib/catalog/productName'
 import { productGallery } from '@/lib/catalog/product'
 import { familyProducts, recommendedProducts, suggestedProducts } from '@/lib/catalog/related'
+import { RecordRecent } from '@/components/shared/RecordRecent'
 import { getEnv } from '@/lib/env'
 import { pickSource } from '@/lib/media/sizes'
 import { ogImages } from '@/lib/pages/metadata'
@@ -23,6 +24,7 @@ import {
   videoJsonLd,
 } from '@/lib/seo/jsonLd'
 import { pageRobots } from '@/lib/seo/robots'
+import { getSharedData } from '@/lib/shared/getSharedData'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
@@ -125,11 +127,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params }: Props) {
   const { tenant, product } = await load(params)
   if (!product) notFound()
-  const [index, settings, origin, allBundles] = await Promise.all([
+  const [index, settings, origin, allBundles, shared] = await Promise.all([
     getCatalogIndex(tenant.id),
     getSiteSettings(tenant.id),
     requestOrigin(),
     getBundles(tenant.id),
+    getSharedData(tenant.id),
   ])
 
   // The picture without a photo is the card's (catalog index), so both agree.
@@ -226,6 +229,12 @@ export default async function ProductPage({ params }: Props) {
       variants={variantNames}
       colors={product.colors.map((color) => color.name)}
     >
+      {/* „Ostatnio oglądane” of the search — only with the panel flag on (spec §5.1 dodatek 6). */}
+      <RecordRecent
+        enabled={shared?.company.recentlyViewed ?? false}
+        line="biznes"
+        item={{ title: product.heading, href: productHref(product.slug), kind: 'Produkt' }}
+      />
       {jsonLd.map((data, position) => (
         <script
           key={position}
