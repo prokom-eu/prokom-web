@@ -11,32 +11,40 @@ const text = (children: object[]): NonNullable<Page['layout']>[number] => ({
 })
 
 const EMAIL = INSTALACJE_CONTACT.email
+const PHONE = INSTALACJE_CONTACT.phone
+const TEL = `tel:${PHONE.replace(/\s/g, '')}`
 
-// TODO(krystian): [SZEF/prawnik] DRAFT of the Instalacje privacy policy (I13, decision of
-// Krystian 01.11: „zrób to wszystko sam”), built only from facts in the code and ADRs like the
-// Biznes and Software drafts: the administrator (`CompanyData`), the form fields of the line
-// (`Inquiries`: planner, contact, service, quantity survey, architects' forms with the separate
-// marketing consent — ADR-I005 §3), the IP hash of the spam limiter (ADR-003), the Nginx log,
-// retention (`INQUIRY_RETENTION_MONTHS`, default 24), encrypted backups ~3 months (S9b-2,
-// Backblaze B2 EU — S10), statistics without cookies (Umami on our server, ADR-020 — only when
-// `UMAMI_WEBSITES` has the line). To confirm before production: legal bases, hosting and mail
-// providers (ADR-002, ADR-019), the effective date. Approving the text means a new consent clause
-// version as well (`lib/inquiry/consent.ts`).
+/** Version of the three texts (shown at the end of each; change it with any edit of substance). */
+export const LEGAL_VERSION = '8 listopada 2026 r.'
+
+// Prepared 08.11.2026 without a lawyer (decision of Krystian 08.11: „zrób sam”, licences OK),
+// from facts in the code and ADRs and the law as of that date: RODO art. 13 (information duty),
+// Prawo komunikacji elektronicznej art. 399 (storage in the end device; ust. 3 pkt 2 — no
+// consent for what is necessary for a service the user asked for), UODO address from
+// uodo.gov.pl/pl/p/kontakt (Moniuszki 1A since July 2025). Facts: the administrator
+// (`CompanyData`), the line's forms (`Inquiries`), the IP hash of the spam limiter (ADR-003),
+// the Nginx log, retention (`INQUIRY_RETENTION_MONTHS` = 24), encrypted backups ~3 months in
+// Backblaze B2 EU (ADR-019), server VPS and mail at Polish providers (ADR-019, ADR-002),
+// server-only Sentry EU without personal data (ADR-021), Umami without cookies on our server
+// (ADR-020, only with `UMAMI_WEBSITES`). Check again when a form field, a provider, analytics
+// or an embed changes.
 const PRIVACY = [
   p(
-    'Ta polityka opisuje, jak PRO-KOM Tadeusz Wójciak przetwarza dane osobowe osób, które korzystają ze strony prokominstalacje.pl i wysyłają zapytania przez formularze.',
+    'Ta polityka opisuje, jak PRO-KOM Tadeusz Wójciak przetwarza dane osobowe osób, które korzystają ze strony prokominstalacje.pl i wysyłają zapytania przez formularze. Piszemy ją zgodnie z art. 13 RODO (rozporządzenie Parlamentu Europejskiego i Rady (UE) 2016/679).',
   ),
   h2('Administrator danych'),
   p(
     'Administratorem danych jest PRO-KOM Tadeusz Wójciak, ul. Orkana 16B, 34-700 Rabka-Zdrój, NIP 7352511447. W sprawach danych osobowych napisz na ',
     { text: EMAIL, href: `mailto:${EMAIL}` },
-    ' albo listownie na adres firmy z dopiskiem „Dane osobowe”.',
+    ', zadzwoń pod numer ',
+    { text: PHONE, href: TEL },
+    ' albo napisz listownie na adres firmy z dopiskiem „Dane osobowe”. Nie wyznaczyliśmy inspektora ochrony danych — sprawami danych zajmuje się bezpośrednio właściciel firmy.',
   ),
   h2('Jakie dane zbieramy'),
   ul(
     [
       { bold: 'Formularze' },
-      ' (Zaplanuj instalację, Kontakt, Serwis, przedmiar teletechniki, formularz na stronie głównej, formularze dla architektów): imię, telefon, e-mail, nazwę pracowni lub firmy, miejscowość, treść wiadomości, wybrane usługi i odpowiedzi kreatora, pilność zgłoszenia i preferowany sposób kontaktu — tylko te, które podasz.',
+      ' (Zaplanuj instalację, Kontakt, zgłoszenie serwisowe, zapytanie o teletechnikę, formularz na stronie głównej, formularze dla architektów): imię i nazwisko lub nazwę firmy albo pracowni, telefon, e-mail, miejscowość, treść wiadomości, wybrane usługi i odpowiedzi kreatora, pilność zgłoszenia i preferowany sposób kontaktu — tylko te, które podasz.',
     ],
     ['Adres strony, z której wysłano formularz, i parametry kampanii z adresu (utm), jeśli były.'],
     ['Informację o zgodzie: kiedy ją wyraziłeś i której wersji klauzuli dotyczyła.'],
@@ -44,39 +52,44 @@ const PRIVACY = [
       'Adres IP przy wysyłce formularza — do ochrony przed spamem. Aplikacja trzyma w pamięci jego skrót, nie sam adres, i nie zapisuje go przy zapytaniu.',
     ],
     [
-      'Dziennik serwera: przy każdym wejściu na stronę serwer zapisuje adres IP, czas, adres strony i wynik odpowiedzi. Służy bezpieczeństwu i usuwaniu awarii (art. 6 ust. 1 lit. f RODO) i jest kasowany po zapełnieniu rotowanych plików dziennika.',
+      'Dziennik serwera: przy każdym wejściu na stronę serwer zapisuje adres IP, czas, adres strony i wynik odpowiedzi. Służy bezpieczeństwu i usuwaniu awarii i jest kasowany po zapełnieniu rotowanych plików dziennika.',
     ],
     [
       'Statystyki odwiedzin (jeśli są włączone): liczymy wejścia narzędziem Umami na naszym serwerze, bez cookies i bez danych z formularzy. Narzędzie nie przechowuje adresu IP.',
     ],
   ),
-  p('Nie zakładamy kont klientów i nie korzystamy z narzędzi reklamowych.'),
+  p(
+    'Nie zakładamy kont klientów, nie korzystamy z narzędzi reklamowych, nie profilujemy i nie podejmujemy decyzji w sposób zautomatyzowany.',
+  ),
   h2('Po co i na jakiej podstawie'),
   ul(
     [
-      'Odpowiedź na zapytanie, wizja lokalna i przygotowanie wyceny — na podstawie Twojej zgody (art. 6 ust. 1 lit. a RODO) i działań przed zawarciem umowy na Twoje żądanie (art. 6 ust. 1 lit. b RODO).',
+      'Odpowiedź na zapytanie, wizja lokalna i przygotowanie wyceny — na podstawie Twojej zgody wyrażonej w formularzu (art. 6 ust. 1 lit. a RODO) i działań przed zawarciem umowy, które podejmujemy na Twoje żądanie (art. 6 ust. 1 lit. b RODO).',
     ],
     [
       'Informacje o nowych rozwiązaniach dla pracowni (formularz „Nowości” na stronie dla architektów) — tylko jeśli zaznaczysz osobną, dobrowolną zgodę (art. 6 ust. 1 lit. a RODO).',
     ],
+    [
+      'Bezpieczeństwo strony, ochrona przed spamem i ewentualne dochodzenie lub obrona roszczeń — na podstawie naszego prawnie uzasadnionego interesu (art. 6 ust. 1 lit. f RODO).',
+    ],
   ),
   p(
-    'Zgodę możesz wycofać w każdej chwili. Wycofanie nie wpływa na zgodność z prawem przetwarzania, które odbyło się wcześniej.',
+    'Podanie danych jest dobrowolne, ale bez numeru telefonu albo adresu e-mail nie odpowiemy na zapytanie. Zgodę możesz wycofać w każdej chwili, pisząc na adres powyżej. Wycofanie nie wpływa na zgodność z prawem przetwarzania, które odbyło się wcześniej.',
   ),
   h2('Jak długo przechowujemy dane'),
   p(
-    'Zakończone zapytania usuwamy po 24 miesiącach od ostatniej zmiany ich statusu; zapytania w toku przechowujemy do czasu ich zakończenia. Kopie zapasowe są szyfrowane i rotowane — usunięte dane znikają z nich najpóźniej po około 3 miesiącach.',
+    'Zakończone zapytania usuwamy po 24 miesiącach od ostatniej zmiany ich statusu; zapytania w toku przechowujemy do czasu ich zakończenia. Jeśli zawrzemy umowę, dane potrzebne do jej rozliczenia przechowujemy tak długo, jak wymagają tego przepisy podatkowe i rachunkowe. Kopie zapasowe są szyfrowane i rotowane — usunięte dane znikają z nich najpóźniej po około 3 miesiącach.',
   ),
   h2('Komu przekazujemy dane'),
   p(
-    'Dane przechowujemy na serwerze dostawcy usług hostingowych, wiadomości e-mail wysyłamy przez naszego dostawcę poczty, a zaszyfrowane kopie zapasowe trzymamy u dostawcy przestrzeni na kopie w Unii Europejskiej. Przetwarzają oni dane wyłącznie na nasze zlecenie.',
+    'Dane przetwarzają na nasze zlecenie i według naszych poleceń: dostawca serwera, na którym działa strona i baza zapytań (serwer w Polsce), dostawca poczty, przez którego wysyłamy i odbieramy wiadomości e-mail (w Polsce), oraz dostawca przestrzeni na kopie zapasowe (centrum danych w Unii Europejskiej; kopie szyfrujemy przed wysłaniem i dostawca nie ma do nich klucza). Raporty o błędach serwera trafiają do usługi Sentry w regionie UE i nie zawierają danych z formularzy.',
   ),
   p(
-    'Jeśli otworzysz trasę w Mapach Google, korzystasz z usług tej firmy na jej zasadach — strona tylko otwiera jej aplikację.',
+    'Nie przekazujemy danych do państw poza Europejskim Obszarem Gospodarczym. Jeśli otworzysz trasę w Mapach Google, korzystasz z usług tej firmy na jej zasadach — strona tylko otwiera jej aplikację w nowej karcie.',
   ),
   h2('Twoje prawa'),
   p(
-    'Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania i przeniesienia oraz prawo sprzeciwu. Masz też prawo wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych.',
+    'Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania i przeniesienia oraz prawo sprzeciwu wobec przetwarzania na podstawie naszego prawnie uzasadnionego interesu. Masz też prawo wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych, ul. Stanisława Moniuszki 1A, 00-014 Warszawa.',
   ),
   h2('Pamięć przeglądarki i cookies'),
   p(
@@ -84,19 +97,24 @@ const PRIVACY = [
     { text: 'Cookies', href: '/cookies' },
     '.',
   ),
+  h2('Zmiany polityki'),
+  p(
+    `Gdy zmienimy zasady przetwarzania danych, zaktualizujemy tę stronę i datę wersji. Wersja z ${LEGAL_VERSION}`,
+  ),
 ]
 
-// TODO(krystian): [SZEF/prawnik] DRAFT — the keys are the only browser storage of the Instalacje
-// site (`lib/brand/theme.ts` `pk-theme`, `widzety/architekci/checklistStore.ts`
-// `inst-arch-checklist`, `lib/site/promo.ts` `pk-sz-closed`); no cookies, no embeds (the contact map is our own drawing, routes open
-// Google Maps in a new tab). Check again whenever a key, an embed or analytics is added.
+// Keys are the only browser storage of the Instalacje site: `pk-theme` (`lib/brand/theme.ts`),
+// `inst-arch-checklist` (`widzety/architekci/checklistStore.ts`), `pk-sz-closed`
+// (`lib/site/promo.ts`), `pk-recent-instalacje` (`lib/shared/recent.ts`, only with
+// `CompanyData.recentlyViewed`), session `pk-rail-home` / `pk-rail-pulse` (`SiteRail.tsx`). No
+// cookies on the public site, no embeds. Check again whenever a key, an embed or analytics is added.
 const COOKIES = [
   p(
-    'Strona nie ustawia cookies — ani własnych, ani analitycznych czy reklamowych — i nie osadza treści innych firm: mapa dojazdu to nasz rysunek, a trasa otwiera Mapy Google w nowej karcie dopiero po kliknięciu. Dlatego nie prosimy o zgodę na cookies.',
+    'Strona nie ustawia cookies — ani własnych, ani analitycznych czy reklamowych — i nie osadza treści innych firm: mapa dojazdu to nasz rysunek, a trasa otwiera Mapy Google w nowej karcie dopiero po kliknięciu. Dlatego nie wyświetlamy okna zgody na cookies.',
   ),
   h2('Co zapisujemy w przeglądarce'),
   p(
-    'Kilka ustawień trzymamy w pamięci przeglądarki (localStorage). Zostają na Twoim urządzeniu i nie są wysyłane na serwer.',
+    'Kilka ustawień trzymamy w pamięci przeglądarki (localStorage i sessionStorage). Zostają na Twoim urządzeniu, nie są wysyłane na serwer i nie służą do śledzenia. Zapisujemy je tylko po to, żeby strona działała tak, jak sam ją ustawisz — na to przepisy nie wymagają zgody (art. 399 ust. 3 pkt 2 ustawy Prawo komunikacji elektronicznej).',
   ),
   ul(
     [{ bold: 'pk-theme' }, ' — wybrany motyw strony: jasny albo ciemny.'],
@@ -105,48 +123,70 @@ const COOKIES = [
       ' — punkty odhaczone na checkliście projektanta na stronie dla architektów.',
     ],
     [{ bold: 'pk-sz-closed' }, ' — informacja, że zamknąłeś pasek z akcją sezonową.'],
+    [
+      { bold: 'pk-recent-instalacje' },
+      ' — do pięciu ostatnio oglądanych stron, pokazywanych w wyszukiwarce (tylko gdy ta funkcja jest włączona).',
+    ],
+    [
+      { bold: 'pk-rail-home, pk-rail-pulse' },
+      ' — stan bocznego paska nawigacji w bieżącej karcie; znikają po jej zamknięciu.',
+    ],
   ),
   h2('Jak to usunąć'),
   p(
-    'Dane te usuniesz, czyszcząc dane witryny w ustawieniach przeglądarki. Strona działa też bez nich — motyw, odhaczone punkty i zamknięty pasek nie zostaną wtedy zapamiętane.',
+    'Dane te usuniesz, czyszcząc dane witryny w ustawieniach przeglądarki. Strona działa też bez nich — Twoje ustawienia nie zostaną wtedy zapamiętane.',
   ),
   h2('Dane osobowe'),
   p(
     'Jak przetwarzamy dane z formularzy, opisuje ',
     { text: 'polityka prywatności', href: '/polityka-prywatnosci' },
-    '.',
+    `. Wersja z ${LEGAL_VERSION}`,
   ),
 ]
 
-// TODO(krystian): [SZEF] a short statement of what the site does for accessibility; every point is
-// checked in the repo (axe in `tests/e2e/a11y.e2e.spec.ts`, touch targets and scrolling in
-// `tests/e2e/instalacje/strony.e2e.spec.ts` — buttons ≥ 40 px, MOBILE §10 aims at 44, docs/jakosc.md).
-// The retention „24 miesiącach” of the privacy policy = the default `INQUIRY_RETENTION_MONTHS`;
-// change the text together with the variable.
+// A voluntary statement: the law on the digital accessibility of public bodies (2019) does not
+// cover a private company, and the accessibility act of 26.04.2024 (EAA) covers e-commerce — this
+// site sells nothing. Every point is checked in the repo: axe on 35 pages × 2 themes (INST-2),
+// touch targets 44 px and no sideways scroll (`tests/e2e/instalacje/phone-audit.ts`, MOBILE §10),
+// reduced motion (`ruch.e2e.spec.ts`), 200% text in the hero (INST-2 PR4).
 const ACCESSIBILITY = [
   p(
-    'Chcemy, żeby ze strony wygodnie korzystał każdy — także z czytnikiem ekranu, samą klawiaturą, w powiększeniu albo na telefonie.',
+    'Chcemy, żeby ze strony prokominstalacje.pl wygodnie korzystał każdy — także z czytnikiem ekranu, samą klawiaturą, w powiększeniu albo na telefonie. Tę deklarację publikujemy dobrowolnie.',
   ),
-  h2('Co robimy'),
+  h2('Stan dostępności'),
+  p(
+    'Strona jest projektowana i sprawdzana według wytycznych WCAG 2.1 na poziomie AA. Ocenę przygotowaliśmy sami, na podstawie testów automatycznych i ręcznych.',
+  ),
   ul(
-    ['Projektujemy i sprawdzamy stronę według WCAG 2.1 na poziomie AA.'],
     ['Kontrast tekstu spełnia poziom AA w motywie jasnym i ciemnym.'],
     [
       'Całą stronę obsłużysz klawiaturą: fokus jest zawsze widoczny, menu i arkusze zamyka klawisz Esc.',
     ],
     [
-      'Interaktywne rysunki (przekroje obiektów, kalkulatory) mają opis tekstowy i sterowanie przyciskami.',
+      'Interaktywne rysunki (przekroje obiektów, kalkulatory, pokaz na stronie głównej) mają opis tekstowy i sterowanie przyciskami; pokaz można wstrzymać.',
     ],
-    ['Przyciski na telefonie mają co najmniej 40 pikseli wysokości, a większość 44.'],
+    ['Przyciski i pola na telefonie mają co najmniej 44 piksele wysokości.'],
+    ['Strona działa przy powiększeniu tekstu do 200% i na ekranach od 360 pikseli szerokości.'],
     ['Animacje wyłączają się, gdy w systemie ustawisz ograniczenie ruchu.'],
-    ['Zmiany strony sprawdzamy automatycznym testem dostępności.'],
+    ['Zdjęcia realizacji mają opisy alternatywne.'],
+    ['Każdą zmianę strony sprawdzamy automatycznym testem dostępności.'],
+  ),
+  h2('Znane ograniczenia'),
+  ul(
+    [
+      'Rysunki przekrojów obiektów są ilustracjami — te same informacje znajdziesz w tekście obok i w opisach punktów.',
+    ],
+    ['Trasa dojazdu otwiera się w Mapach Google, na których dostępność nie mamy wpływu.'],
   ),
   h2('Zgłoś problem'),
   p(
     'Coś nie działa albo trudno z tego skorzystać? Napisz na ',
     { text: EMAIL, href: `mailto:${EMAIL}` },
-    ' — odpowiemy i poprawimy.',
+    ' albo zadzwoń pod ',
+    { text: PHONE, href: TEL },
+    '. Odpowiemy w ciągu 7 dni i, jeśli to możliwe, poprawimy stronę albo przekażemy Ci informację w inny sposób.',
   ),
+  p(`Deklarację sporządzono ${LEGAL_VERSION}`),
 ]
 
 export const INSTALACJE_LEGAL_PAGES: {
