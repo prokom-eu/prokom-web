@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { setTheme, site } from './helpers'
+import { clickUntilVisible, setTheme, site } from './helpers'
 
 // B4a: search overlay of the Biznes header (spec. §3.2, §8.2, §9 pkt 2 and 7). Catalog from
 // `pnpm seed`; the cases do not rely on synonyms (BiznesSettings), which other tests replace.
@@ -96,7 +96,10 @@ test.describe('Biznes search', () => {
 
   test('a phrase with no results offers to ask about it', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    await page.getByRole('button', { name: 'Szukaj w ofercie' }).first().click()
+    await clickUntilVisible(
+      page.getByRole('button', { name: 'Szukaj w ofercie' }).first(),
+      field(page),
+    )
     await field(page).fill('zxqvbn')
     await expect(
       overlay(page).getByText('Nie znaleźliśmy „zxqvbn”', { exact: false }),
@@ -110,7 +113,10 @@ test.describe('Biznes search', () => {
   test('the magnifier opens it on a phone', async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 780 })
     await page.goto(site('biznes.localhost'))
-    await page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }).click()
+    await clickUntilVisible(
+      page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }),
+      field(page),
+    )
     await expect(field(page)).toBeFocused()
     await field(page).fill('terminal')
     await expect(

@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { api, loginAsAdmin, setTheme, site } from './helpers'
+import { api, clickUntilVisible, hydrated, loginAsAdmin, setTheme, site } from './helpers'
 
 // B3b, M1′: phone menu sheet, tab bar and top bar, the five-column footer and the closable seasonal bar of the
 // Biznes line (spec. §3.3, §3.4, §3.6). Data from `pnpm seed`.
@@ -47,11 +47,9 @@ test.describe('Biznes on a phone', () => {
 
   test('the menu closes when a link is followed', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    await page.getByRole('banner').getByRole('button', { name: 'Menu' }).click()
-    await page
-      .getByRole('dialog', { name: 'Menu' })
-      .getByRole('link', { name: 'Kontakt i dojazd' })
-      .click()
+    const menu = page.getByRole('dialog', { name: 'Menu' })
+    await clickUntilVisible(page.getByRole('banner').getByRole('button', { name: 'Menu' }), menu)
+    await menu.getByRole('link', { name: 'Kontakt i dojazd' }).click()
     await expect(page).toHaveURL(/\/kontakt$/)
     await expect(page.getByRole('dialog', { name: 'Menu' })).toBeHidden()
   })
@@ -129,8 +127,10 @@ test.describe('Biznes on a phone', () => {
     test(`axe passes with the menu open — ${colorScheme}`, async ({ page }) => {
       await setTheme(page, colorScheme)
       await page.goto(site('biznes.localhost'))
-      await page.getByRole('banner').getByRole('button', { name: 'Menu' }).click()
-      await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible()
+      await clickUntilVisible(
+        page.getByRole('banner').getByRole('button', { name: 'Menu' }),
+        page.getByRole('dialog', { name: 'Menu' }),
+      )
       await expectNoViolations(page)
     })
   }
@@ -210,7 +210,9 @@ test.describe('seasonal bar', () => {
       const bar = page.getByRole('complementary', { name: 'Promocja' })
       await expect(bar).toBeVisible()
 
-      await bar.getByRole('button', { name: 'Zamknij pasek promocji' }).click()
+      const close = bar.getByRole('button', { name: 'Zamknij pasek promocji' })
+      await hydrated(close)
+      await close.click()
       await expect(bar).toBeHidden()
       await page.reload()
       await expect(page.getByRole('complementary', { name: 'Promocja' })).toBeHidden()

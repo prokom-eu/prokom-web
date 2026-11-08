@@ -37,6 +37,15 @@ test.describe('Instalacje capsule (desktop)', () => {
     }).toPass()
     await expect(button).toHaveAttribute('aria-expanded', 'true')
 
+    // The item's box is read once the panel has stopped sliding in: measured mid-animation, the
+    // pointer aims where the item is no longer, leaves the panel and it closes (flaky in CI).
+    await panel.evaluate((element) =>
+      Promise.all(
+        element
+          .getAnimations({ subtree: true })
+          .map((animation) => animation.finished.catch(() => undefined)),
+      ),
+    )
     // Through the gap between the capsule and the panel (the bridge), slowly, like a hand.
     const item = panel.getByRole('link').first()
     const href = await item.getAttribute('href')

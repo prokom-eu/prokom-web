@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-import { api, loginAsAdmin, site, tenantId } from './helpers'
+import { api, clickUntilVisible, loginAsAdmin, site, tenantId } from './helpers'
 
 // B7a + K4c (v150): the Biznes home page — hero with the department wheel, „Szybki start”,
 // brands, „Najczęściej wybierane” (K36 §1, §11, §12; K35 7a). Data from `pnpm seed`.
@@ -129,9 +129,8 @@ test.describe('Biznes home page: offer and featured', () => {
     )
     const phrase = tile.getByRole('list', { name: 'Najczęściej szukane' }).getByRole('button')
     const first = (await phrase.first().textContent())?.trim() ?? ''
-    await phrase.first().click()
     const dialog = page.getByRole('dialog')
-    await expect(dialog).toBeVisible()
+    await clickUntilVisible(phrase.first(), dialog)
     await expect(dialog.getByRole('searchbox').or(dialog.locator('input')).first()).toHaveValue(
       first,
     )

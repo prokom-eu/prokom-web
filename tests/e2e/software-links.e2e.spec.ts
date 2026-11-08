@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { clickUntilVisible, site } from './helpers'
 
 // SWV6 A1: no internal link of the Software start page leads to a missing page — header, mega
 // menu, sections, footer and the phone menu (its links are in the page even while closed).
@@ -25,11 +25,12 @@ for (const viewport of [
     await page.goto(site(HOST))
     if (viewport.name === 'phone') {
       // The menu sheet renders its links when opened.
-      await page
-        .getByRole('navigation', { name: 'Pasek nawigacji' })
-        .getByRole('button', { name: 'Menu' })
-        .click()
-      await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible()
+      await clickUntilVisible(
+        page
+          .getByRole('navigation', { name: 'Pasek nawigacji' })
+          .getByRole('button', { name: 'Menu' }),
+        page.getByRole('dialog', { name: 'Menu' }),
+      )
     } else {
       await page
         .getByRole('button', { name: /^Oferta/ })
