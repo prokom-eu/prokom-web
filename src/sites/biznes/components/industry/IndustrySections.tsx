@@ -151,7 +151,7 @@ export function IndustryBundles({ bundles }: { bundles: BundleCardData[] }) {
   )
 }
 
-/** „Inne branże”: chips of the active industries, „Wkrótce” for the rest, the wizard link. */
+/** „Inne branże”: chips of the active industries and the wizard link (no „Wkrótce” — BIZ-3 §9.2). */
 export function OtherIndustriesSection({
   industries,
   wizardHref,
@@ -187,11 +187,6 @@ export function OtherIndustriesSection({
               </li>
             ))}
           </ul>
-          {industries.soon.length > 0 && (
-            <p className="text-sm text-ink-2 max-md:hidden">
-              Wkrótce: {industries.soon.map((name) => name.toLowerCase()).join(', ')}
-            </p>
-          )}
           <Link
             href={wizardHref}
             className="font-extrabold text-accent-text hover:underline max-md:text-sm"

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import { Container } from '@/components/ui/Container'
 import {
+  BUNDLE_SIZES,
   BUNDLES_PATH,
   bundleCard,
   bundleHref,
@@ -51,8 +52,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /**
- * Ready bundles `/zestawy` (K3c, spec. §6.10, `k31/screens/Web-Zestawy-1440`): the dark hero and
- * the grid with the area chips. Every bundle shows, „Do sprawdzenia” too (`noindex` on its page);
+ * Ready bundles `/zestawy` (K3c, BIZ-3 §9.2, `k31/screens/Web-Zestawy-1440`): the dark hero and
+ * the grid with area chips, industry and size filters. Only „Gotowe” bundles show — one still
+ * „Do sprawdzenia” is not linked anywhere (its page stays, `noindex`, for the panel preview);
  * items of hidden cards drop out, a bundle without a required item is not listed.
  */
 export default async function BundlesPage({ params }: Props) {
@@ -63,9 +65,13 @@ export default async function BundlesPage({ params }: Props) {
     requestOrigin(),
   ])
   const products = new Map(index.products.map((product) => [product.slug, product]))
-  const bundles = listBundles(all, new Set(products.keys()))
+  const bundles = listBundles(all, new Set(products.keys())).filter((bundle) => bundle.indexable)
   const cards = bundles.map((bundle) => bundleCard(bundle, products))
   const areas = BUNDLE_AREAS.filter(({ value }) => bundles.some((b) => b.area === value))
+  const industries = index.industries
+    .filter((industry) => bundles.some((bundle) => bundle.industries.includes(industry.slug)))
+    .map(({ slug, name }) => ({ slug, name }))
+  const sizes = BUNDLE_SIZES.filter((size) => bundles.some((bundle) => bundle.level === size))
   const heroPhotos = [
     ...new Map(
       bundles.flatMap((bundle) => bundlePhotos(bundle, products, 1)).map((p) => [p.url, p]),
@@ -100,7 +106,12 @@ export default async function BundlesPage({ params }: Props) {
       />
       <Container wide className="pt-8 pb-14 sm:pt-10 sm:pb-20">
         {cards.length > 0 ? (
-          <BundleList bundles={cards} areas={areas.map(({ value, label }) => ({ value, label }))} />
+          <BundleList
+            bundles={cards}
+            areas={areas.map(({ value, label }) => ({ value, label }))}
+            industries={industries}
+            sizes={sizes}
+          />
         ) : (
           // No bundle to show (none yet, or their cards hidden): say so, point to the catalog.
           <div className="flex flex-col items-start gap-4 rounded-[26px] bg-surface-2 p-6 sm:p-8">

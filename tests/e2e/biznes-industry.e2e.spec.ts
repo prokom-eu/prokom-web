@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 import { site } from './helpers'
 
 // B10b: industry pages `/branze/[branza]` (spec. §6.7, board `Branza`). Content from `pnpm seed`:
-// gastronomia from the board, drafts of handel and noclegi; beauty and the rest are „Wkrótce”.
+// gastronomia from the board, drafts of handel and noclegi; inactive ones (beauty…) have no page.
 const GASTRO = '/branze/gastronomia'
 
 type JsonLd = { '@type'?: string; [key: string]: unknown }
@@ -48,7 +48,7 @@ test.describe('Biznes industry page', () => {
     expect(data.some((item) => item['@type'] === 'FAQPage')).toBe(true)
   })
 
-  test('„Inne branże” links the active industries and names the rest „Wkrótce”', async ({
+  test('„Inne branże” links the active industries only, no „Wkrótce” (BIZ-3 §9.2)', async ({
     page,
   }) => {
     await page.goto(site('biznes.localhost', '/branze/handel'))
@@ -58,11 +58,26 @@ test.describe('Biznes industry page', () => {
       'aria-current',
       'page',
     )
-    await expect(other).toContainText('Wkrótce:')
-    await expect(other).toContainText('beauty i usługi')
+    await expect(other).not.toContainText('Wkrótce')
     await expect(
       page.getByRole('link', { name: 'Przygotuj zapytanie dla sklepu' }),
     ).toHaveAttribute('href', '/konfigurator?firma=sklep')
+  })
+
+  test('„Gotowe zestawy” of gastronomy: at least 2, no gaps, no sideways scroll', async ({
+    page,
+  }) => {
+    for (const width of [360, 1440]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto(site('biznes.localhost', GASTRO))
+      const section = page.locator('#gotowe-zestawy')
+      const cards = section.locator('a[href^="/zestawy/zestaw-"]')
+      expect(await cards.count()).toBeGreaterThanOrEqual(2)
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      )
+      expect(overflow, `${width}px`).toBeLessThanOrEqual(0)
+    }
   })
 
   test('no prices, leasing or instalments on the page', async ({ page }) => {

@@ -25,6 +25,7 @@ import { BundleInquiry, type BundleRow } from '@/sites/biznes/components/bundle/
 import {
   BundleHero,
   BundleReasons,
+  BundleSources,
   BundleRelated,
   BundleSwaps,
 } from '@/sites/biznes/components/bundle/BundleSections'
@@ -153,6 +154,7 @@ export default async function BundlePage({ params }: Props) {
                 }))}
               />
               <BundleReasons reasons={bundle.reasons} />
+              <BundleSources sources={bundle.sources} />
               <ProductFaq id="faq" faq={bundle.faq} phone={phone} />
               <BundleRelated links={related} />
             </>

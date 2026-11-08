@@ -158,6 +158,43 @@ export function BundleReasons({ reasons }: { reasons: string[] }) {
   )
 }
 
+/**
+ * „Sprawdzone zgodności” (BIZ-3 §9.2): each settled pair with a discreet „Źródło ↗” to the
+ * official page it was checked on; the link target is at least 24 px tall (WCAG 2.5.8).
+ */
+export function BundleSources({ sources }: { sources: { pair: string; url: string }[] }) {
+  if (sources.length === 0) return null
+  return (
+    <section aria-labelledby="zgodnosci-h" className="flex flex-col gap-4">
+      <h2 id="zgodnosci-h" className={H2}>
+        Sprawdzone zgodności
+      </h2>
+      <p className="max-w-[70ch] text-sm leading-relaxed text-ink-2">
+        Każde połączenie w tym zestawie sprawdziliśmy u producenta.
+      </p>
+      <ul className="flex flex-col divide-y divide-border rounded-[20px] bg-surface-2 px-5">
+        {sources.map((source) => (
+          <li
+            key={`${source.pair}-${source.url}`}
+            className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-3 text-sm"
+          >
+            <span className="min-w-0 [overflow-wrap:anywhere] text-ink">{source.pair}</span>
+            <a
+              href={source.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-6 shrink-0 items-center gap-1 font-bold text-accent-text hover:underline"
+            >
+              Źródło<span aria-hidden="true"> ↗</span>
+              <span className="sr-only"> (otwiera się w nowej karcie)</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
 /** „Zobacz też”: catalog categories named by the bundle. */
 export function BundleRelated({ links }: { links: { name: string; href: string }[] }) {
   if (links.length === 0) return null

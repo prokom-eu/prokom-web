@@ -111,7 +111,8 @@ export default async function ConfiguratorPage({ params, searchParams }: Props) 
     ? runWizard(rules, linked, (slug) => slug in products, []).needs.length
     : 0
   const step = linked ? (linkedNeeds > 0 ? 3 : 2) : state.firm ? 1 : 0
-  const listed = listBundles(allBundles, new Set(bySlug.keys()))
+  // „Gotowe” only: a bundle still „Do sprawdzenia” is never linked (BIZ-3 §9.2).
+  const listed = listBundles(allBundles, new Set(bySlug.keys())).filter((b) => b.indexable)
   const bundleCards = Object.fromEntries(
     listed.map((bundle) => [bundle.slug, bundleCard(bundle, bySlug)]),
   )

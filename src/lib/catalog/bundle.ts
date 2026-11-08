@@ -7,7 +7,8 @@ import { BUNDLE_AREAS, type BundleArea } from './options'
 
 /**
  * Ready bundles (K3c, spec. §6.10, K3-KATALOG §7). Built from `Bundles` with public fields only —
- * `toConfirm`, `internalNotes` and `compatChecks` never leave here. Products are slugs, joined
+ * `toConfirm`, `internalNotes` and the notes of `compatChecks` never leave here; of a settled pair
+ * only its name and official source (`sources`, BIZ-3 §9.2). Products are slugs, joined
  * with the catalog index on the page (`listBundle`), so unpublished cards never show.
  */
 
@@ -39,9 +40,14 @@ export type BundleView = {
   /** Category slugs („Zobacz też”). */
   related: string[]
   industries: string[]
+  /** Official sources of settled compat pairs — „Źródło ↗” on the bundle page. */
+  sources: { pair: string; url: string }[]
   /** „Gotowe”: in Google, the site maps, under the plan and on industry pages. */
   indexable: boolean
 }
+
+/** Pairs that are settled: confirmed, or working on their own and said so (BIZ-3 §9.1). */
+const SETTLED_PAIRS = new Set(['potwierdzona', 'bez-integracji'])
 
 const text = (value: string | null | undefined) => value?.trim() || null
 
@@ -89,7 +95,7 @@ export function buildBundleView(
     | 'related'
     | 'industries'
     | 'contentStatus'
-  >,
+  > & { compatChecks?: Bundle['compatChecks'] },
   tenantId: number,
 ): BundleView | null {
   if (tenantIdOf(bundle.tenant) !== tenantId) return null
@@ -127,6 +133,11 @@ export function buildBundleView(
     faq: (bundle.faq ?? []).map(({ question, answer }) => ({ question, answer })),
     related: slugsOf(bundle.related, tenantId),
     industries: slugsOf(bundle.industries, tenantId),
+    sources: (bundle.compatChecks ?? []).flatMap(({ pair, status, url }) =>
+      status && SETTLED_PAIRS.has(status) && url?.startsWith('https://')
+        ? [{ pair: pair.trim(), url }]
+        : [],
+    ),
     indexable: bundle.contentStatus === 'ready',
   }
 }
@@ -146,9 +157,12 @@ export function listBundle(view: BundleView, listed: ReadonlySet<string>): Bundl
   }
 }
 
-/** Bundles listing a card (any item), in their order — „W zestawach” of the product page. */
+/**
+ * „Gotowe” bundles listing a card (any item), in their order — „W zestawach” of the product page.
+ * A bundle still „Do sprawdzenia” is never linked (BIZ-3 §9.2).
+ */
 export const bundlesWithProduct = (bundles: readonly BundleView[], slug: string) =>
-  bundles.filter((bundle) => bundle.items.some((item) => item.product === slug))
+  bundles.filter((bundle) => bundle.indexable && bundle.items.some((item) => item.product === slug))
 
 /** „Gotowe” bundles of an industry — the section of the industry page (K3-KATALOG §9, max 6). */
 export const bundlesOfIndustry = (bundles: readonly BundleView[], slug: string, limit = 6) =>
@@ -210,6 +224,12 @@ export function bundlePhotos(
 export const bundleLabel = (bundle: Pick<BundleView, 'areaLabel' | 'level'>) =>
   [bundle.areaLabel, bundle.level].filter(Boolean).join(' · ')
 
+/** Sizes of the `/zestawy` filter (BIZ-3 §9.2); other levels („Standard”, „UniFi”) — no chip. */
+export const BUNDLE_SIZES = ['Mały', 'Średni', 'Duży'] as const
+
+/** Items named on a tile: required first, up to 4; the rest is a count. */
+const TILE_ITEMS = 4
+
 /** What a bundle tile needs (serializable: `/zestawy` filters them in the browser). */
 export type BundleCardData = {
   slug: string
@@ -217,23 +237,60 @@ export type BundleCardData = {
   name: string
   area: BundleArea
   label: string
+  level: string | null
+  audience: string
   benefit: string
   count: number
   photos: IndexImage[]
+  /** Names of up to 4 items, required first. */
+  items: string[]
+  more: number
+  industries: string[]
+  /** „Dodaj zestaw do zapytania”: the required items with the bundle note. */
+  cartItems: { id: string; q: number; uwaga: string }[]
 }
 
 export function bundleCard(
   bundle: BundleView,
-  products: ReadonlyMap<string, Pick<IndexProduct, 'image'>>,
+  products: ReadonlyMap<string, Pick<IndexProduct, 'image'> & { name?: string }>,
 ): BundleCardData {
+  const ordered = [
+    ...bundle.items.filter((item) => item.mandatory),
+    ...bundle.items.filter((item) => !item.mandatory),
+  ]
+  const names = [...new Set(ordered.flatMap((item) => products.get(item.product)?.name ?? []))]
   return {
     slug: bundle.slug,
     href: bundleHref(bundle.slug),
     name: bundle.name,
     area: bundle.area,
     label: bundleLabel(bundle),
+    level: bundle.level,
+    audience: bundle.audience,
     benefit: bundle.benefit,
     count: bundle.items.length,
     photos: bundlePhotos(bundle, products, 3),
+    items: names.slice(0, TILE_ITEMS),
+    more: Math.max(0, names.length - TILE_ITEMS),
+    industries: bundle.industries,
+    cartItems: bundleCartItems(bundle, new Set()),
   }
 }
+
+export type BundleFilter = {
+  area: BundleArea | null
+  industry: string | null
+  size: string | null
+}
+
+/** `/zestawy` filters, all at once; `null` = any. */
+export const filterBundleCards = <T extends Pick<BundleCardData, 'area' | 'level' | 'industries'>>(
+  cards: readonly T[],
+  { area, industry, size }: BundleFilter,
+): T[] =>
+  cards.filter(
+    (card) =>
+      (area === null || card.area === area) &&
+      (industry === null || card.industries.includes(industry)) &&
+      (size === null || card.level === size),
+  )
