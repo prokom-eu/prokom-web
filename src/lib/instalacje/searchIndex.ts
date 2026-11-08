@@ -1,4 +1,7 @@
+import type { IconName } from '@/lib/shared/icons'
 import type { LineSearchEntry } from '@/lib/shared/search/lineProvider'
+
+import type { ServiceKey } from '../../sites/instalacje/dane/types'
 
 import type { InstMenu } from './menu'
 
@@ -14,6 +17,24 @@ export type InstSearchSources = {
   realizations: readonly { id: number; title: string; place: string | null; scope: string | null }[]
   pages: readonly { label: string; href: string; caption?: string | null }[]
   faq: readonly { question: string; answer: string }[]
+}
+
+/**
+ * Runda v6 §1.5: each service its own icon in the search window (it showed the same shield for all).
+ * The window draws the shared set (`lib/shared/icons`), which has no camera, antenna or speaker of
+ * the line's own icons — the nearest shared drawing for each.
+ */
+export const SERVICE_SEARCH_ICONS: Record<ServiceKey, IconName> = {
+  kam: 'monitor',
+  alarm: 'bell',
+  kd: 'key',
+  wifi: 'server',
+  tel: 'plug',
+  ant: 'globe',
+  smart: 'home',
+  snd: 'mega',
+  scr: 'site',
+  ev: 'bolt',
 }
 
 /** Longer texts only help the matching; the window shows the title and the hint. */
@@ -33,7 +54,7 @@ export function buildInstSearchIndex(sources: InstSearchSources): LineSearchEntr
       title: item.label,
       hint: item.caption ?? column.label,
       href: item.href,
-      icon: 'shield',
+      icon: SERVICE_SEARCH_ICONS[item.key as ServiceKey] ?? 'doc',
       group: 'Usługi',
       popularity: 80,
     })),

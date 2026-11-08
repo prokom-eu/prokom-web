@@ -54,7 +54,7 @@ export function AlarmVersions() {
               <div>
                 <b>{el.name}</b>
                 <span>{el.text}</span>
-                <em>{el.model}</em>
+                {on ? <em>{el.model}</em> : <em className="alvx">{T.outside}</em>}
               </div>
             </div>
           )
