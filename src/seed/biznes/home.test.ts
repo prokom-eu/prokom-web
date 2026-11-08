@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
 import { BIZNES_BLOCK_SLUGS, GENERIC_BLOCK_SLUGS } from '../../blocks/registry'
-import { biznesHomeLayout, mergeHomeLayout } from './home'
+import { PAGE_SEO_TITLE_MAX } from '../../lib/seo/title'
+import { HOME_SEO_TITLE, biznesHomeLayout, mergeHomeLayout, nextHomeSeoTitle } from './home'
 
 const block = (blockType: string, id?: string) => ({ blockType, ...(id ? { id } : {}) })
 
@@ -67,5 +68,21 @@ describe('biznesHomeLayout', () => {
 
   it('starts with the Biznes hero (the only h1 of the page)', () => {
     expect(biznesHomeLayout()[0]?.blockType).toBe('bzHero')
+  })
+})
+
+describe('home SEO title (audit 0611 P0.3a)', () => {
+  it('carries key phrases, fits 60 characters and is not just the site name', () => {
+    expect(HOME_SEO_TITLE.length).toBeLessThanOrEqual(60)
+    expect(HOME_SEO_TITLE.length).toBeLessThanOrEqual(PAGE_SEO_TITLE_MAX)
+    expect(HOME_SEO_TITLE).not.toBe('PRO-KOM Biznes')
+    expect(HOME_SEO_TITLE).toMatch(/Kasy fiskalne/)
+    expect(HOME_SEO_TITLE).toMatch(/\| PRO-KOM Biznes$/)
+  })
+
+  it('fills the title only while the panel has none', () => {
+    expect(nextHomeSeoTitle(null)).toBe(HOME_SEO_TITLE)
+    expect(nextHomeSeoTitle('  ')).toBe(HOME_SEO_TITLE)
+    expect(nextHomeSeoTitle('Tytuł z panelu')).toBeNull()
   })
 })

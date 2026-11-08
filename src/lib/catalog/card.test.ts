@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
-import { cardIcon, productBadges } from './card'
+import { cardIcon, productBadges, productImageAlt } from './card'
 
 const product = (overrides: Partial<IndexProduct>): IndexProduct => ({
   slug: 'p',
@@ -84,5 +84,21 @@ describe('cardIcon', () => {
   it('falls back to the group icon, then to the store icon', () => {
     expect(cardIcon(product({ categories: ['uslugi'], group: 'serwis' }), index)).toBe('wrench')
     expect(cardIcon(product({}), index)).toBe('store')
+  })
+})
+
+describe('productImageAlt (audit 0611 P0.5)', () => {
+  it('puts the brand before the model', () => {
+    expect(productImageAlt('Lenovo', 'ThinkPad E14')).toBe('Lenovo ThinkPad E14')
+  })
+
+  it('does not repeat a brand the name already starts with', () => {
+    expect(productImageAlt('Posnet', 'Posnet Ergo')).toBe('Posnet Ergo')
+    expect(productImageAlt('InsERT', 'insert Subiekt nexo')).toBe('insert Subiekt nexo')
+  })
+
+  it('is the name alone without a brand', () => {
+    expect(productImageAlt(null, ' Sunmi D3 Pro ')).toBe('Sunmi D3 Pro')
+    expect(productImageAlt('  ', 'Sunmi D3 Pro')).toBe('Sunmi D3 Pro')
   })
 })
