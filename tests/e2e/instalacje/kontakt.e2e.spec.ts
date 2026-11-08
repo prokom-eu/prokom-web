@@ -49,7 +49,7 @@ test.describe('Instalacje contact page (shared template)', () => {
     await expect(page.locator('#dojazd')).toBeVisible()
     await expect(page.locator('#pytania')).toContainText('Czy przyjeżdżacie na miejsce?')
     // The template ends with FAQ: no CTA band of the line (D5).
-    await expect(main.locator('#cta-contact-title, .ctab')).toHaveCount(0)
+    await expect(main.locator('#cta-contact-title, .cta[data-surface="dark"]')).toHaveCount(0)
     await expect(main).not.toContainText(/WhatsApp|\[SZEF|\[Krystian/)
     expect(await page.locator('a[href*="wa.me"]').count()).toBe(0)
     // One salon today (Zakopane unpublished) — no second salon card.
@@ -155,9 +155,11 @@ test.describe('Instalacje O firmie (shared template)', () => {
   test('the architects’ guardian has no photo or silhouette', async ({ page }) => {
     await page.goto(site(HOST, '/dla-architektow'))
     const guardian = page.locator('#opiekun')
-    // Shown only with a name in the panel (seeded locally).
-    if (await guardian.count()) {
-      await expect(guardian.locator('img, .aropi')).toHaveCount(0)
-    }
+    // `pnpm seed` sets the guardian's name, so the section is there.
+    await expect(guardian).toBeAttached()
+    await expect(guardian.locator('img, .aropi')).toHaveCount(0)
+    // The former person silhouette (head circle) is gone; the ruler icon stands in its place.
+    await expect(guardian.locator('.aropa svg circle[cx="60"][cy="46"]')).toHaveCount(0)
+    await expect(guardian.locator('.aropa svg')).toHaveCount(1)
   })
 })

@@ -40,4 +40,14 @@ describe('otherSalons', () => {
   it('is empty for one salon (Zakopane unpublished never reaches the shared data)', () => {
     expect(otherSalons([salon('rabka', 'Rabka-Zdrój')], ['rabka'])).toEqual([])
   })
+
+  it('with keys, a salon without a key counts as another salon', () => {
+    const list = [salon('rabka', 'Rabka-Zdrój'), salon(null, 'Zakopane')]
+    expect(otherSalons(list, ['rabka']).map((s) => s.city)).toEqual(['Zakopane'])
+  })
+
+  it('when no key matches, every salon is another salon (the template shows no card)', () => {
+    const list = [salon('rabka', 'Rabka-Zdrój'), salon('zakopane', 'Zakopane')]
+    expect(otherSalons(list, ['nowy-targ']).map((s) => s.city)).toEqual(['Rabka-Zdrój', 'Zakopane'])
+  })
 })

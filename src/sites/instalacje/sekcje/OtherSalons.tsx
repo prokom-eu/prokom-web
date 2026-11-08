@@ -1,4 +1,3 @@
-import { cx } from '@/components/ui/cx'
 import type { SharedSalon } from '@/lib/shared/project'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toDirectionsHref } from '@/lib/site/link'
@@ -6,8 +5,6 @@ import { toDirectionsHref } from '@/lib/site/link'
 type Props = {
   salons: readonly SharedSalon[]
   company: string
-  /** `heroAside` of Kontakt sits on the dark hero; `beforeVisit` of O firmie on the page. */
-  className?: string
 }
 
 /**
@@ -15,10 +12,10 @@ type Props = {
  * „Dodatki linii”): address, hours and the route. Rendered only for published salons outside
  * the template's own card (`otherSalons`) — with one salon (today) it renders nothing.
  */
-export function OtherSalons({ salons, company, className }: Props) {
+export function OtherSalons({ salons, company }: Props) {
   if (!salons.length) return null
   return (
-    <ul className={cx('grid gap-3', className)} aria-label="Inne salony" data-other-salons>
+    <ul className="grid gap-3" aria-label="Inne salony" data-other-salons>
       {salons.map((salon) => {
         const address = `${salon.street}, ${salon.postalCode} ${salon.city}`
         return (
