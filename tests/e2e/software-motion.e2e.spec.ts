@@ -27,10 +27,14 @@ test.describe('Software motion', () => {
   test('the rail glides to a section, focuses it and its heading arrives', async ({ page }) => {
     await page.goto(site(HOST))
     expect(await scrollBehavior(page)).toBe('smooth')
-    await page
-      .getByRole('navigation', { name: 'Na tej stronie' })
-      .locator('a[href="#proces"]')
-      .click()
+    // The shared side rail (SWA5a) is folded to its icons: a hand points at it first, it opens.
+    const rail = page.locator('[data-site-rail]')
+    await hydrated(rail.getByRole('button', { name: /Szukaj/ }))
+    await rail.hover({ position: { x: 32, y: 32 } })
+    await expect
+      .poll(() => rail.evaluate((nav) => getComputedStyle(nav).clipPath))
+      .toBe('inset(0px round 22px)')
+    await rail.locator('a[href="#proces"]').click()
     await expect(page).toHaveURL(/#proces$/)
     await expect(page.locator('#proces')).toBeFocused()
     // Lands where a plain anchor jump would (the section's scroll margin), marked as arrived.
@@ -80,7 +84,11 @@ test.describe('Software motion with reduced motion', () => {
 
   test('a page change swaps without a transition', async ({ page }) => {
     await page.goto(site(HOST))
-    await page.locator('header').getByRole('link', { name: 'Kontakt' }).first().click()
+    await page
+      .locator('[data-site-header]')
+      .getByRole('navigation', { name: 'Menu główne' })
+      .getByRole('link', { name: 'Kontakt' })
+      .click()
     const during = await animations(page)
     expect(during.filter((a) => a.pseudo.includes('view-transition'))).toEqual([])
     await expect(page).toHaveURL(/\/kontakt$/)

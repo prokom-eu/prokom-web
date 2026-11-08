@@ -37,9 +37,8 @@ test.describe('Software /kontakt', () => {
     await expect(page.getByText(/^Teraz (otwarte|zamknięte)$/)).toBeVisible()
     await expect(page.locator('main a[href^="tel:"]').first()).toBeVisible()
     await expect(page.locator('main a[href^="mailto:"]').first()).toBeVisible()
-    // The page ends with its own form and shows the PRO-KOM lines: no footer band nor cards.
+    // The page ends with its own form: no „Zacznij od podglądu” band above the footer.
     await expect(page.locator('[data-footer-cta]')).toBeHidden()
-    await expect(page.locator('[data-footer-lines]')).toBeHidden()
     await expect(page.locator('[data-lines-section] li')).toHaveCount(4)
     // v23: Software only in Rabka; the phone card names the second number.
     await expect(page.locator('main')).not.toContainText(/Zakopan/i)
