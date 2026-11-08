@@ -31,7 +31,14 @@ const headerItem = z.union([
 const megaColumn = obj({ title: label, links: z.array(link).min(1) })
 
 const schema = obj({
-  header: z.array(headerItem).min(1).max(8),
+  header: z
+    .array(headerItem)
+    .min(1)
+    .max(8)
+    // One „Oferta ▾”: the panel has one id (`#oferta-mega`).
+    .refine((items) => items.filter((item) => 'mega' in item).length <= 1, {
+      message: 'Najwyżej jedna pozycja z mega menu.',
+    }),
   headerRight: obj({
     themeToggle: z.boolean(),
     projectDrawer: z.boolean(),
@@ -71,28 +78,28 @@ export function isV23Navigation(value: unknown): boolean {
 
 /**
  * A navigation saved before SWA5 keeps working until the v24 one is pasted: only the known keys
- * of the v23 frame are dropped (the CTA's start-page target moves to `ctaHomeHref`) — any other
- * unknown key is still an error.
+ * of the v23 frame are dropped — `headerRight.cta` (its start-page target moves to `ctaHomeHref`)
+ * and `mega.branze`; everything else passes on to the strict schema, so any other unknown key is
+ * still an error.
  */
 function fromV23(value: unknown): unknown {
   if (!isV23Navigation(value) || !isRecord(value)) return value
   const rest = Object.fromEntries(
     Object.entries(value).filter(([key]) => !(V23_KEYS as readonly string[]).includes(key)),
   )
-  const right = isRecord(rest.headerRight) ? rest.headerRight : null
-  const mega = isRecord(rest.mega) ? rest.mega : null
-  const cta = right && isRecord(right.cta) ? right.cta : null
-  return {
-    ...rest,
-    ...(right && {
-      headerRight: {
-        themeToggle: right.themeToggle,
-        projectDrawer: right.projectDrawer,
-        ...(cta?.homeHref !== undefined && { ctaHomeHref: cta.homeHref }),
-      },
-    }),
-    ...(mega && { mega: { columns: mega.columns, card: mega.card } }),
+  if (isRecord(rest.headerRight) && 'cta' in rest.headerRight) {
+    const { cta, ...right } = rest.headerRight
+    const homeHref = isRecord(cta) ? cta.homeHref : undefined
+    rest.headerRight = {
+      ...(homeHref !== undefined && { ctaHomeHref: homeHref }),
+      ...right,
+    }
   }
+  if (isRecord(rest.mega) && 'branze' in rest.mega) {
+    const { branze: _branze, ...mega } = rest.mega
+    rest.mega = mega
+  }
+  return rest
 }
 
 export const navigationSchema = z.preprocess(fromV23, schema)

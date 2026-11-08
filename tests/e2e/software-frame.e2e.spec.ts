@@ -129,7 +129,7 @@ test.describe('Software „Oferta ▾”', () => {
       'Systemy dla firm',
       'Automatyzacje i AI',
     ]) {
-      await expect(panel.getByRole('region', { name: group })).toBeVisible()
+      await expect(panel.getByRole('heading', { level: 2, name: group })).toBeVisible()
     }
     // A solution opens its offer window in the catalog, with its „od” price from Solutions.
     const item = panel.getByRole('link', { name: /^Strona wizytówka/ })
@@ -346,8 +346,8 @@ test.describe('Software „Zacznij od podglądu” band', () => {
     })
   }
 
-  // A page that ends with its own CTA (`data-final-cta`) drops the band.
-  for (const path of [SUBPAGE, '/audyt']) {
+  // A page that ends with its own CTA (`data-final-cta`) drops the band — the 404 too (§3.5).
+  for (const path of [SUBPAGE, '/audyt', '/nie-ma-takiej-strony-swa5']) {
     test(`no band where the page ends with its own CTA (${path})`, async ({ page }) => {
       await page.goto(site(HOST, path))
       await expect(footer(page)).toBeVisible()

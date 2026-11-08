@@ -42,7 +42,9 @@ type Props = {
  * ZMIANY-v24 §3): brand bar, header capsule with „Oferta ▾” and „Kreator 60 s”, side rail and
  * search window, the „Zacznij od podglądu” band, the shared footer, and on a phone the bottom bar
  * and the menu sheet. The menu and mega menu come from `SiteSettings.software.navigation`, the
- * rest from the shared fields (`SiteSettings.shared`, `CompanyData`) — nothing written in code.
+ * rest from the shared fields (`SiteSettings.shared`, `CompanyData`). Written here: the sheet's
+ * „Cennik” row and the labels of the legal pages in the search (their addresses come from
+ * `CompanyData.legal`).
  */
 export async function SoftwareFrame({
   tenant,
@@ -69,7 +71,14 @@ export async function SoftwareFrame({
       : null
   const cta =
     line?.headerCta?.label && line.headerCta.href
-      ? { label: line.headerCta.label, shortLabel: 'Wycena', href: line.headerCta.href }
+      ? {
+          label: line.headerCta.label,
+          // TODO(krystian): the short label has no field in `shared.headerCta` yet (as Instalacje).
+          shortLabel: 'Wycena',
+          href: line.headerCta.href,
+          // `counter` of the panel: „Twój projekt” count on the CTA, or none.
+          withCount: line.headerCta.counter === 'project',
+        }
       : null
   const columns = (line?.footerColumns ?? []).map((column) => ({
     heading: column.heading ?? '',

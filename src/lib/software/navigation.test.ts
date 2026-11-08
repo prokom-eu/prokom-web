@@ -61,6 +61,19 @@ describe('Software navigation schema (v24, SWA5)', () => {
     expect(validateNavigation({ ...v23(), stopka: {} })).toMatch(/^Nawigacja/)
   })
 
+  it('a stated `ctaHomeHref` next to v23 keys is kept; one mega menu at most', () => {
+    const value = { ...v23(), headerRight: { ...v23().headerRight, ctaHomeHref: '#dobierz' } }
+    expect(navigationSchema.parse(value).headerRight.ctaHomeHref).toBe('#dobierz')
+    const twice = clone()
+    twice.header = [...twice.header, { label: 'Oferta 2', mega: true }] as never
+    expect(validateNavigation(twice)).toMatch(/^Nawigacja: header/)
+  })
+
+  it('…and an unknown key inside a v23 group is not dropped silently', () => {
+    const value = { ...v23(), mega: { ...v23().mega, kolumny: [] } }
+    expect(validateNavigation(value)).toMatch(/^Nawigacja: mega/)
+  })
+
   it('the start band is optional', () => {
     const value: Record<string, unknown> = clone()
     delete value.startBand

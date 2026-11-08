@@ -26,8 +26,8 @@ type Props = {
   navigation: SoftwareNavigation
   /** Columns of „Oferta ▾” with the solutions' „od” prices (`megaColumns`). */
   mega: MegaColumn[]
-  /** `shared.headerCta`: „Bezpłatna wycena” / „Wycena”. */
-  cta: { label: string; shortLabel?: string; href: string } | null
+  /** `shared.headerCta`: „Bezpłatna wycena” / „Wycena”; `withCount` = counter `project`. */
+  cta: { label: string; shortLabel?: string; href: string; withCount: boolean } | null
 }
 
 const noop = () => () => {}
@@ -89,8 +89,11 @@ export function SwHeader({ homeLabel, navigation, mega, cta }: Props) {
     if (!open) return
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return
+      // Focus goes back to „Oferta” only from the trigger or the panel (not from a hover-open).
+      const active = document.activeElement
+      const inside = trigger.current?.contains(active) || panel.current?.contains(active)
       setOpen(false)
-      trigger.current?.focus()
+      if (inside) trigger.current?.focus()
     }
     const onDown = (event: PointerEvent) => {
       const target = event.target as Node
@@ -162,8 +165,9 @@ export function SwHeader({ homeLabel, navigation, mega, cta }: Props) {
         }}
       >
         <div className="sw-mega__cols">
+          {/* Plain columns with headings, no landmarks: the panel already sits in „Menu główne”. */}
           {mega.map((column) => (
-            <section key={column.title} aria-label={column.title}>
+            <div key={column.title}>
               <h2 className="sw-mega__head">{column.title}</h2>
               <ul>
                 {column.items.map((item) => (
@@ -175,10 +179,10 @@ export function SwHeader({ homeLabel, navigation, mega, cta }: Props) {
                   </li>
                 ))}
               </ul>
-            </section>
+            </div>
           ))}
         </div>
-        <aside className="sw-mega__promo" aria-label={navigation.mega.card.eyebrow}>
+        <div className="sw-mega__promo">
           <span className="text-xs font-extrabold tracking-[0.12em] text-accent-text uppercase">
             {navigation.mega.card.eyebrow}
           </span>
@@ -192,7 +196,7 @@ export function SwHeader({ homeLabel, navigation, mega, cta }: Props) {
               {label}
             </Link>
           ))}
-        </aside>
+        </div>
       </div>
     </div>
   )
@@ -238,12 +242,13 @@ export function SwHeader({ homeLabel, navigation, mega, cta }: Props) {
       }
       cta={
         cta && {
-          ...cta,
+          label: cta.label,
+          shortLabel: cta.shortLabel,
           href:
             onHome && navigation.headerRight.ctaHomeHref
               ? navigation.headerRight.ctaHomeHref
               : cta.href,
-          badge: <ProjectCount className={CAPSULE.count} />,
+          badge: cta.withCount ? <ProjectCount className={CAPSULE.count} /> : null,
         }
       }
       menuButton={<MenuButton />}

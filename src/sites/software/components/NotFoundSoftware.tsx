@@ -41,7 +41,8 @@ export async function NotFoundSoftware({ tenantId }: { tenantId: number }) {
 
   return (
     <>
-      <section className="relative overflow-x-clip pt-6 min-[641px]:pt-10">
+      {/* `data-final-cta`: no „Zacznij od podglądu” band on the 404 (ZMIANY-v24 §3.5). */}
+      <section data-final-cta className="relative overflow-x-clip pt-6 min-[641px]:pt-10">
         <Container wide>
           <Breadcrumbs current="Nie znaleziono" />
           <div className="mt-2 grid gap-8 min-[1081px]:grid-cols-[minmax(0,1fr)_400px] min-[1081px]:items-end min-[1081px]:gap-12">

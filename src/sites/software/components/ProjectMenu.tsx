@@ -26,7 +26,7 @@ function focusAfterClose(button: HTMLButtonElement | null, hasItems: boolean) {
  * click outside, focus leaving it and a route change close it; the toast's „Zobacz projekt”
  * opens it on the desktop (the phone opens its sheet). The contents and their focus rules are
  * `ProjectList`; emptied, the panel stays with the empty text, and closing it then moves focus
- * to the element marked `data-project-fallback` („Bezpłatna wycena”).
+ * to the capsule's CTA („Bezpłatna wycena”).
  */
 export function ProjectMenu({ texts }: Props) {
   const project = useProject()
