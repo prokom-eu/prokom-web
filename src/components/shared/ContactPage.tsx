@@ -13,7 +13,7 @@ import { toTelHref } from '@/lib/site/link'
 import type { Line } from '@/lib/tenant/lines'
 
 import { AddressMap } from './AddressMap'
-import { ContactForm } from './ContactForm'
+import { ContactForm, type ContactFormProps } from './ContactForm'
 import { Contours } from './Contours'
 import { FaqBlock } from './FaqBlock'
 import { OpeningStatus } from './OpeningStatus'
@@ -30,6 +30,11 @@ export type ContactSlots = {
   afterRoutes?: ReactNode
   /** Above the form fields, e.g. Software „Twój projekt”. */
   formPrefill?: ReactNode
+  /**
+   * The line's own wrapper of the shared form — gets its props and returns the form, e.g. a client
+   * component that adds Software „Twój projekt” (`items`, `onSent`). Default: the form as it is.
+   */
+  form?: (props: ContactFormProps) => ReactNode
   /** Before „Dojazd i zasięg”. */
   afterForm?: ReactNode
   beforeFaq?: ReactNode
@@ -51,6 +56,8 @@ export type ContactPageProps = {
   showServiceArea?: boolean
   showOtherLines?: boolean
 }
+
+const defaultForm = (props: ContactFormProps) => <ContactForm {...props} />
 
 const CONTAINER = 'mx-auto max-w-[1344px] px-5 min-[768px]:px-8'
 const H2 =
@@ -352,18 +359,18 @@ export function ContactPage({
             )}
           </div>
           <div className="p-6 min-[768px]:p-10">
-            <ContactForm
-              formToken={formToken}
-              topics={contact.topics ?? []}
-              placeholder={contact.placeholder}
-              sendLabel={contact.sendLabel}
-              responsePromise={data.responsePromise}
-              consent={{ ...consent, privacyHref: company.legal.privacy }}
-              zones={company.serviceZones}
-              nextSteps={contact.nextSteps ?? []}
-              line={line}
-              prefill={slots.formPrefill}
-            />
+            {(slots.form ?? defaultForm)({
+              formToken,
+              topics: contact.topics ?? [],
+              placeholder: contact.placeholder,
+              sendLabel: contact.sendLabel,
+              responsePromise: data.responsePromise,
+              consent: { ...consent, privacyHref: company.legal.privacy },
+              zones: company.serviceZones,
+              nextSteps: contact.nextSteps ?? [],
+              line,
+              prefill: slots.formPrefill,
+            })}
           </div>
         </div>
       </section>

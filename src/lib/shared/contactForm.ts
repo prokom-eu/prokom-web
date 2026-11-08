@@ -33,10 +33,26 @@ export type SharedRules = {
 
 /**
  * The line's rules, the same the server applies (`lib/inquiry/schema.ts`): Instalacje want a phone,
- * Biznes takes a contact without a message. Callers pass the line, never the rules.
+ * Biznes takes a contact without a message. Callers pass the line, never the rules. A list sent
+ * with the form (`items`) says what is needed, so the message is optional then (type `list`).
  */
-export function sharedRulesFor(line: Line): Omit<SharedRules, 'consentMode'> {
-  return { phoneRequired: line === 'instalacje', messageOptional: line === 'biznes' }
+export function sharedRulesFor(line: Line, itemCount = 0): Omit<SharedRules, 'consentMode'> {
+  return {
+    phoneRequired: line === 'instalacje',
+    messageOptional: line === 'biznes' || itemCount > 0,
+  }
+}
+
+/**
+ * The list the line attaches to the form (Software „Twój projekt”, spec §6.0 `formPrefill`): with
+ * items the inquiry becomes a `list`, each item once; without them nothing changes.
+ */
+export function listPart(items: readonly string[]) {
+  if (items.length === 0) return {}
+  return {
+    type: 'list' as const,
+    items: items.map((slug) => ({ slug, quantity: 1 })),
+  }
 }
 
 export const SHARED_MESSAGES = {

@@ -9,6 +9,7 @@ import { buildInquiryBody, readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import {
   checkContactForm,
+  listPart,
   serverMessages,
   sharedRulesFor,
   toFormFields,
@@ -43,7 +44,13 @@ export type ContactFormProps = {
   line: Line
   /** Slot above the fields, e.g. Software „Twój projekt” (spec §6.0 `formPrefill`). */
   prefill?: ReactNode
+  /** Slugs the line sends with the form (Software „Twój projekt”): the inquiry becomes a list. */
+  items?: readonly string[]
+  /** Called once the inquiry is saved, with its number (e.g. to clear the line's list). */
+  onSent?: (number: string | null) => void
 }
+
+const NO_ITEMS: readonly string[] = []
 
 const EMPTY: SharedFormValues = {
   topic: null,
@@ -82,10 +89,15 @@ export function ContactForm({
   nextSteps,
   line,
   prefill,
+  items = NO_ITEMS,
+  onSent,
 }: ContactFormProps) {
   const id = useId()
   const fid = (name: string) => `${id}-${name}`
-  const sharedRules: SharedRules = { ...sharedRulesFor(line), consentMode: consent.mode }
+  const sharedRules: SharedRules = {
+    ...sharedRulesFor(line, items.length),
+    consentMode: consent.mode,
+  }
   const [values, setValues] = useState<SharedFormValues>(EMPTY)
   const [errors, setErrors] = useState<Partial<Record<SharedField, string>>>({})
   const [formError, setFormError] = useState<string | null>(null)
@@ -131,13 +143,14 @@ export function ContactForm({
       const response = await fetch('/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-          buildInquiryBody(toInquiryValues(values), {
+        body: JSON.stringify({
+          ...buildInquiryBody(toInquiryValues(values), {
             href: window.location.href,
             formToken,
             category: values.topic,
           }),
-        ),
+          ...listPart(items),
+        }),
       })
       const outcome = readOutcome(
         response.status,
@@ -148,6 +161,7 @@ export function ContactForm({
         setSent({ number: outcome.number, email: values.contact.includes('@') })
         setErrors({})
         setFormError(null)
+        onSent?.(outcome.number)
       } else if (outcome.kind === 'invalid') {
         showErrors(toFormFields(outcome.fields), outcome.formError ?? null)
       } else {
