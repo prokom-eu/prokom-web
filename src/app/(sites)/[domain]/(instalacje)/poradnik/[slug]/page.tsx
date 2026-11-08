@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 
 import { ogImages } from '@/lib/pages/metadata'
 import { getPostView } from '@/lib/posts/data'
 import { getSiteSettings } from '@/lib/site/data'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
+import { FORMER_SLUGS } from '@/sites/instalacje/dane/wpisy'
 import { GuidePost } from '@/sites/instalacje/poradnik/GuidePost'
 
 import { requestOrigin, requireLine } from '../../../tenant'
@@ -14,6 +15,9 @@ type Props = { params: Promise<{ domain: string; slug: string }> }
 async function load(params: Props['params']) {
   const tenant = await requireLine(params, 'instalacje')
   const { slug } = await params
+  // Runda v6 D1: a post's former address moves for good to the new one (308, like a 301).
+  const moved = FORMER_SLUGS[slug]
+  if (moved) permanentRedirect(`/poradnik/${moved}`)
   // Invalid, unknown, draft, future or another site's slug → 404.
   const post = isValidSlug(slug) ? await getPostView(tenant.id, slug, 'instalacje') : null
   return { tenant, post }

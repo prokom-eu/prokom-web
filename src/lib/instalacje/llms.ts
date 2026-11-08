@@ -8,6 +8,8 @@ type Input = {
   address: string | null
   services: readonly { name: string; href: string | null; description: string }[]
   objects: readonly { name: string; href: string }[]
+  /** Published guide posts (runda v6 §3.3). */
+  posts?: readonly { title: string; href: string }[]
 }
 
 /** Pages every reader should know, in the order of the site (SEO §2.4). */
@@ -51,6 +53,9 @@ export function llmsTxt(input: Input): string {
     '',
     ...input.objects.map((o) => `- [${o.name}](${url(o.href)})`),
     '',
+    ...(input.posts?.length
+      ? ['## Poradnik', '', ...input.posts.map((p) => `- [${p.title}](${url(p.href)})`), '']
+      : []),
     '## Strony',
     '',
     ...PAGES.map(([label, path]) => `- [${label}](${url(path)})`),
