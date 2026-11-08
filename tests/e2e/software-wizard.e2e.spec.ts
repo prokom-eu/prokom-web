@@ -305,7 +305,7 @@ test.describe('Software wizard v3 — steps and links', () => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto(site(HOST, `${PATH}?rodzaj=system&firma=bud`))
     const bar = page.locator('[data-wizard-bar]')
-    await expect(bar).toContainText(/ods2s990szł/)
+    await expect(bar).toContainText(/od\s2\s990\szł/)
     await expect(live(page)).toBeHidden()
     const toggle = bar.getByRole('button', { name: 'Twój projekt na żywo' })
     await expect(async () => {
