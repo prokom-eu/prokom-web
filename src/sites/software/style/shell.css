@@ -130,3 +130,19 @@
 [data-line='software'] .sw-start-band {
   background-image: radial-gradient(700px 260px at 88% 0, var(--glow), transparent);
 }
+
+/* Cramped capsule (1081–1359 px): Software carries more than the other lines (Kreator plate,
+   „Twój projekt”, the CTA's count), so its menu is a little tighter and the loupe drops the
+   „Ctrl K” hint — the shortcut keeps working; never a second row (e2e `software-frame`). */
+@media (min-width: 1081px) and (max-width: 1359px) {
+  [data-line='software'] .cap__nav .cap-link {
+    padding-inline: 7px;
+  }
+  [data-line='software'] .sw-cap-pill__badge {
+    margin-left: 4px;
+    padding: 2px 5px;
+  }
+  [data-line='software'] .cap-btn--search kbd {
+    display: none;
+  }
+}
