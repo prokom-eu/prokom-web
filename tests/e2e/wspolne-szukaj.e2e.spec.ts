@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { setTheme, site } from './helpers'
+import { hydrated, pressUntilVisible, setTheme, site } from './helpers'
 
 // D2-2b (plan `docs/zadania/wspolne-elementy.md`, spec §5.1, §10 pkt 3): the shared search window
 // on the preview page of Software and Instalacje, over a test index of the line's own data.
@@ -14,7 +14,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
   test('Ctrl K and „/” open it, Esc closes and gives focus back', async ({ page }) => {
     await page.goto(site('software.localhost', '/_wspolne'))
     await page.locator('#wspolne-h1').click()
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     await expect(dialog(page)).toBeVisible()
     await expect(field(page)).toBeFocused()
     await page.keyboard.press('Escape')
@@ -32,6 +32,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
       .locator('[data-wspolne] [data-site-rail]')
       .getByRole('button', { name: /Szukaj/ })
     // The folded rail shows its first 64 px: the button is pressed there, as a visitor would.
+    await hydrated(button)
     await button.click({ position: { x: 24, y: 24 } })
     await expect(dialog(page)).toBeVisible()
     await page.keyboard.press('Escape')
@@ -42,7 +43,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
     page,
   }) => {
     await page.goto(site('instalacje.localhost', '/_wspolne'))
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     const actions = dialog(page).getByRole('group', { name: 'Akcje' })
     await expect(actions.getByRole('link', { name: /Zadzwoń/ }).first()).toHaveAttribute(
       'href',
@@ -58,7 +59,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
     page,
   }) => {
     await page.goto(site('software.localhost', '/_wspolne'))
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     await field(page).fill('cenik')
     await expect(
       dialog(page)
@@ -71,7 +72,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
 
   test('nothing found → „Zapytaj o …” with the phrase, and the phone', async ({ page }) => {
     await page.goto(site('software.localhost', '/_wspolne'))
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     await field(page).fill('zxqvbn')
     await expect(dialog(page).getByText('Nie znaleźliśmy „zxqvbn”')).toBeVisible()
     await expect(dialog(page).getByRole('link', { name: 'Zapytaj o „zxqvbn”' })).toHaveAttribute(
@@ -130,7 +131,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
 
   test('arrows move between results and back to the field', async ({ page }) => {
     await page.goto(site('software.localhost', '/_wspolne'))
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     await field(page).press('ArrowDown')
     await expect(dialog(page).locator('[data-result]').first()).toBeFocused()
     await page.keyboard.press('ArrowUp')
@@ -141,7 +142,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
     test(`axe with the window open, Instalacje (${theme})`, async ({ page }) => {
       await setTheme(page, theme)
       await page.goto(site('instalacje.localhost', '/_wspolne'))
-      await page.keyboard.press('Control+k')
+      await pressUntilVisible(page, 'Control+k', dialog(page))
       await field(page).fill('zaplanuj')
       const results = await new AxeBuilder({ page }).include('[data-search-dialog]').analyze()
       expect(results.violations).toEqual([])
@@ -155,7 +156,7 @@ test.describe('/_wspolne — search window on a phone and the recently viewed fl
   }) => {
     await page.setViewportSize({ width: 390, height: 480 })
     await page.goto(site('software.localhost', '/_wspolne'))
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     const last = dialog(page).locator('[data-result]').last()
     await last.scrollIntoViewIfNeeded()
     await expect(last).toBeInViewport()
@@ -164,7 +165,7 @@ test.describe('/_wspolne — search window on a phone and the recently viewed fl
   test('axe with the window open at 390 px (Software)', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto(site('software.localhost', '/_wspolne'))
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     const results = await new AxeBuilder({ page }).include('[data-search-dialog]').analyze()
     expect(results.violations).toEqual([])
   })
@@ -178,7 +179,7 @@ test.describe('/_wspolne — search window on a phone and the recently viewed fl
     )
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site('software.localhost', '/_wspolne'))
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     await expect(dialog(page)).toBeVisible()
     await expect(dialog(page).getByRole('heading', { name: 'Ostatnio oglądane' })).toHaveCount(0)
     const stored = await page.evaluate(() => localStorage.getItem('pk-recent-software'))
