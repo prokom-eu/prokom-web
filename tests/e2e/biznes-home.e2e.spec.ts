@@ -5,6 +5,20 @@ import { api, clickUntilVisible, loginAsAdmin, site, tenantId } from './helpers'
 // B7a + K4c (v150): the Biznes home page — hero with the department wheel, „Szybki start”,
 // brands, „Najczęściej wybierane” (K36 §1, §11, §12; K35 7a). Data from `pnpm seed`.
 
+/** Top-level anchors of the home page in the order of plan 0611 §7.1 (B3-1, before B3-2). */
+const HOME_ANCHORS = [
+  'start',
+  'oferta',
+  'zaopatrzenie',
+  'marki',
+  'wybierane',
+  'plan',
+  'jak-pracujemy',
+  'fakty',
+  'faq',
+  'kontakt',
+]
+
 test.describe('Biznes home page', () => {
   test('hero: one h1, wizard CTA, the offer with its count, phone, trust line', async ({
     page,
@@ -23,10 +37,10 @@ test.describe('Biznes home page', () => {
       '/oferta',
     )
     await expect(hero.locator('a[href^="tel:"]')).toBeVisible()
-    // Board v150: the trust line split into its statuses, the callback promise by the phone.
+    // Board v150: the trust line split into its statuses. The call-back promise by the phone
+    // comes from the panel only (plan 0611 §7.1 pkt 9) — the seed leaves it empty.
     await expect(hero).toContainText('Autoryzowany serwis Posnet i Elzab')
     await expect(hero).toContainText('Autoryzowany partner GoPOS i InsERT')
-    await expect(hero).toContainText('Oddzwaniamy w ciągu 60 minut w godzinach pracy')
     await expect(hero).toContainText('100+ klientów firmowych')
     await expect(hero.getByRole('link', { name: 'Zobacz plan Twojej firmy ↓' })).toHaveAttribute(
       'href',
@@ -83,6 +97,40 @@ test.describe('Biznes home page', () => {
     const text = await page.locator('main').innerText()
     expect(text).not.toMatch(/leasing|\braty\b|\d+[,.]\d{2}\s*zł/i)
   })
+
+  // B3-1: plan 0611 §7.1 (KSeF and „Aktualności” come with B3-2, reviews stay off in the seed).
+  test('sections in the order of plan 0611 §7.1', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const found = await page.evaluate((ids) => {
+      const nodes = ids.flatMap((id) => document.getElementById(id) ?? [])
+      // Document order of the anchors that are on the page.
+      return nodes
+        .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1))
+        .map((node) => node.id)
+    }, HOME_ANCHORS)
+    expect(found).toEqual(HOME_ANCHORS)
+    await expect(page.locator('#dla-kogo')).toHaveCount(0)
+  })
+
+  test('„60 minut” only in the hero, „Nasze zobowiązania” and the contact form (§7.1 pkt 9)', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site('biznes.localhost'))
+    const sections = await page.evaluate(
+      (ids) => ids.filter((id) => /60\s*min/.test(document.getElementById(id)?.innerText ?? '')),
+      HOME_ANCHORS,
+    )
+    expect(sections.filter((id) => !['start', 'jak-pracujemy', 'kontakt'].includes(id))).toEqual([])
+    expect(sections).toContain('start')
+    expect(sections).toContain('jak-pracujemy')
+    expect(sections).toContain('kontakt')
+    // „Zapytaj o wycenę” in „Szybki start” says the written quote, not the call-back time.
+    const start = page.getByRole('region', { name: 'Od czego zaczynasz?' })
+    await expect(start.getByRole('button', { name: /Zapytaj o wycenę/ })).toContainText(
+      'Wycena na piśmie',
+    )
+  })
 })
 
 // B7b: „Oferta” and „Najczęściej wybierane” (spec. §4 pkt 4–5, ZMIANY-v20 §2.2–2.3).
@@ -125,10 +173,9 @@ test.describe('Biznes home page: offer and featured', () => {
     await page.goto(site('biznes.localhost'))
     const tile = page.getByRole('article', { name: /znajdziemy to za\sCiebie/ })
     await expect(tile.getByRole('button', { name: /Szukaj w \d+ pozycj/ })).toBeVisible()
-    await expect(tile.getByRole('link', { name: /Gotowe zestawy/ })).toHaveAttribute(
-      'href',
-      '/zestawy',
-    )
+    // B3-1 (audit P1.1): no shortcuts to the plan, bundles or the whole offer — „Szybki start” is
+    // the hub of the page.
+    await expect(tile.getByRole('link')).toHaveCount(0)
     const phrase = tile.getByRole('list', { name: 'Najczęściej szukane' }).getByRole('button')
     const first = (await phrase.first().textContent())?.trim() ?? ''
     const dialog = page.getByRole('dialog')
@@ -244,57 +291,97 @@ test.describe('Biznes blocks on other lines', () => {
   })
 })
 
-// K4c PR 3b (v150): „Dla kogo”, „Plan Twojej firmy”, „Jak pracujemy” (K36 §1).
+// B3-1 (D8): „Plan Twojej firmy” with the industries in one section; „Jak pracujemy” (K36 §1).
 test.describe('Biznes home page: industries, plan, steps', () => {
-  test('plan 2.0: the scenes of „Plany firmy”, a tile sets the scene (K31d′)', async ({ page }) => {
-    await page.goto(site('biznes.localhost'))
-    const plan = page.locator('#plan')
-    const scenes = plan.getByRole('group', { name: 'Rodzaj firmy' }).getByRole('button')
-    await expect(scenes).toHaveCount(12)
-    await expect(scenes.first()).toHaveAttribute('aria-pressed', 'true')
-    await expect(plan.getByRole('heading', { level: 3, name: 'Sklep spożywczy' })).toBeVisible()
-    await expect(plan).toContainText('186')
-
-    // A lazy island (ADR-023): a click before hydration is lost.
-    await clickUntilVisible(
-      scenes.filter({ hasText: 'Biuro' }),
-      plan.getByRole('heading', { level: 3, name: /^Biuro/ }),
-    )
-    await expect(page).toHaveURL(/\?scena=biuro/)
-
-    await page
-      .locator('#dla-kogo')
-      .getByRole('link', { name: /Apteka/ })
-      .click()
-    await expect(plan.getByRole('heading', { level: 3, name: 'Apteka' })).toBeVisible()
-    await expect(page).toHaveURL(/\?scena=apteka/)
-  })
-
-  test('industries: eleven tiles and the funding bar, the rest unfolds in place', async ({
+  test('plan with the industries: tabs switch the plan, six points and „Pokaż wszystkie”', async ({
     page,
   }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site('biznes.localhost'))
-    const section = page.getByRole('region', {
-      name: 'Firmy każdej wielkości, od straganu po urząd gminy',
-    })
-    const grid = section.getByRole('list').filter({ hasText: 'Sklep spożywczy' })
-    const tiles = grid.getByRole('link')
-    await expect(tiles).toHaveCount(11)
-    await expect(tiles.filter({ hasText: 'Fryzjer, kosmetyka, beauty' })).toBeVisible()
-    // A tile with a scene of the plan shows it (K31d′); without JavaScript it opens the plan page.
-    await expect(tiles.filter({ hasText: 'Restauracja, bar, kawiarnia' })).toHaveAttribute(
-      'href',
-      '/plan-firmy?scena=gastro',
+    const plan = page.locator('#plan')
+    await expect(plan.getByRole('heading', { level: 2 })).toHaveText(
+      /Wybierz branżę i\s+zobacz, co ustawimy w\s+Twoim lokalu/,
     )
-    await expect(section).toContainText('Masz dofinansowanie na sprzęt lub oprogramowanie?')
-    await grid.getByRole('button', { name: /Pokaż wszystkie branże/ }).click()
-    await expect(tiles).toHaveCount(22)
-    // First of the rest in the order of the board (`KG5`).
-    await expect(tiles.filter({ hasText: 'Zakład produkcyjny' })).toBeFocused()
-    await expect(tiles.filter({ hasText: 'Każda inna firma' })).toHaveAttribute(
-      'href',
-      '/konfigurator',
+    const tabs = plan.getByRole('tablist', { name: 'Branże' }).getByRole('tab')
+    await expect(tabs).toHaveCount(12)
+    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
+    const panel = plan.getByRole('tabpanel')
+    await expect(panel.getByRole('heading', { level: 3, name: 'Sklep spożywczy' })).toBeVisible()
+    await expect(plan).toContainText('186')
+
+    // Six points first, the rest after „Pokaż wszystkie N”.
+    const list = panel.getByRole('region', { name: 'Na tym planie' }).getByRole('listitem')
+    await expect(list).toHaveCount(6)
+    const all = panel.getByRole('button', { name: /^Pokaż wszystkie \d+/ })
+    const total = Number((await all.textContent())?.match(/\d+/)?.[0])
+    expect(total).toBeGreaterThan(6)
+    // A lazy island (ADR-023, #426): a click before hydration is lost.
+    await clickUntilVisible(all, list.nth(total - 1))
+    await expect(list).toHaveCount(total)
+
+    await tabs.filter({ hasText: 'Biuro' }).click()
+    await expect(tabs.filter({ hasText: 'Biuro' })).toHaveAttribute('aria-selected', 'true')
+    await expect(panel.getByRole('heading', { level: 3, name: /^Biuro/ })).toBeVisible()
+    // On the home page switching does not rewrite the address (only /plan-firmy keeps ?scena=).
+    await expect(page).not.toHaveURL(/scena=/)
+    // A new industry starts with the short list again.
+    await expect(list).toHaveCount(6)
+
+    // ARIA tabs: the arrow shows the next industry and moves the focus to it.
+    await page.keyboard.press('ArrowRight')
+    await expect(tabs.filter({ hasText: 'Szkoła' })).toBeFocused()
+    await expect(tabs.filter({ hasText: 'Szkoła' })).toHaveAttribute('aria-selected', 'true')
+
+    // The funding bar closes the same section.
+    await expect(plan).toContainText('Masz dofinansowanie na sprzęt lub oprogramowanie?')
+    await expect(plan.getByRole('link', { name: /Zapytaj o realizację/ })).toBeVisible()
+  })
+
+  test('no „Firmy każdej wielkości” section of its own (D8)', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    await expect(page.locator('#dla-kogo')).toHaveCount(0)
+    await expect(
+      page.getByRole('heading', { name: /Firmy każdej wielkości, od straganu po urząd gminy/ }),
+    ).toHaveCount(0)
+  })
+
+  test('„Gotowy zestaw dla tej branży” only for a home bundle marked „Gotowe”', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await loginAsAdmin(page)
+    const biznes = await tenantId(page, 'biznes')
+    // `zestawy_na_glownej`: the shop bundle on the „Sklep” scene, the café one on „Restauracja”.
+    const found = await api(
+      page,
+      'GET',
+      `/api/bundles?where[tenant][equals]=${biznes}&where[slug][in]=zestaw-sklep-kasa-start,zestaw-kawiarnia-lada&depth=0&limit=2`,
     )
+    const bundles = found.json.docs as { id: number; slug: string; contentStatus: string }[]
+    const shop = bundles.find((bundle) => bundle.slug === 'zestaw-sklep-kasa-start')!
+    const cafe = bundles.find((bundle) => bundle.slug === 'zestaw-kawiarnia-lada')!
+    const status = (id: number, contentStatus: string) =>
+      api(page, 'PATCH', `/api/bundles/${id}`, { contentStatus })
+    try {
+      expect((await status(shop.id, 'ready')).status).toBe(200)
+      expect((await status(cafe.id, 'needs-review')).status).toBe(200)
+      await page.goto(site('biznes.localhost'))
+      const plan = page.locator('#plan')
+      const card = plan.locator('[data-home-bundle]')
+      await expect(card).toHaveCount(1)
+      await expect(card).toHaveAttribute('href', '/zestawy/zestaw-sklep-kasa-start')
+      await expect(plan).toContainText('Gotowy zestaw dla tej branży')
+      await plan.getByRole('tab', { name: /Restauracja/ }).click()
+      await expect(plan.getByRole('tab', { name: /Restauracja/ })).toHaveAttribute(
+        'aria-selected',
+        'true',
+      )
+      await expect(card).toHaveCount(0)
+    } finally {
+      await page.goto('/admin/login')
+      await status(shop.id, shop.contentStatus)
+      await status(cafe.id, cafe.contentStatus)
+    }
   })
 
   test('steps and „Nasze zobowiązania”', async ({ page }) => {
@@ -322,14 +409,21 @@ test.describe('Biznes home page: industries, plan, steps', () => {
   test.describe('on a phone', () => {
     test.use({ viewport: { width: 390, height: 844 } })
 
-    test('five industries and the unfold tile, no horizontal scroll', async ({ page }) => {
+    test('the plan section: scenes as links, the funding bar, no horizontal scroll', async ({
+      page,
+    }) => {
       await page.goto(site('biznes.localhost'))
-      const grid = page
-        .locator('#dla-kogo')
-        .getByRole('list')
-        .filter({ hasText: 'Sklep spożywczy' })
-      await expect(grid.getByRole('link').filter({ visible: true })).toHaveCount(5)
-      await expect(grid.getByRole('button', { name: /Pokaż wszystkie branże/ })).toBeVisible()
+      await expect(page.locator('#dla-kogo')).toHaveCount(0)
+      const plan = page.locator('#plan')
+      await expect(plan.getByRole('heading', { level: 2 })).toBeVisible()
+      await expect(plan.getByRole('link', { name: 'Biuro', exact: true })).toHaveAttribute(
+        'href',
+        '/plan-firmy?scena=biuro',
+      )
+      await expect(plan.getByRole('link', { name: /Zapytaj o realizację/ })).toBeVisible()
+      // Plan 0611 §7.1: FAQ and „O firmie” are on a phone too.
+      await expect(page.locator('#faq').getByRole('heading', { level: 2 })).toBeVisible()
+      await expect(page.locator('#fakty').getByRole('heading', { level: 2 })).toBeVisible()
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
     })
 
@@ -429,7 +523,7 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await expect(contact).toContainText('Wycena na piśmie')
   })
 
-  test('section rail: the anchors of K36 §1, the current one marked', async ({ page }) => {
+  test('section rail: the sections of plan 0611 §7.1, the current one marked', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site('biznes.localhost'))
     // The shared side rail (D3-B): sections from `SiteSettings.shared.rail`, the ones without a
@@ -437,11 +531,10 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     const rail = page.locator('[data-site-rail]').getByRole('group', { name: 'Na tej stronie' })
     await expect(rail.getByRole('link')).toHaveText([
       'Start',
-      'Działy oferty',
-      'Systemy i opieka IT',
+      'Oferta',
+      'Zaopatrzenie firm',
       'Marki',
       'Najczęściej wybierane',
-      'Dla kogo',
       'Plan Twojej firmy',
       'Jak pracujemy',
       'O firmie',

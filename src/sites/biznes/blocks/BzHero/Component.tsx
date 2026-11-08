@@ -44,8 +44,10 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
   const groups = wheelGroups(index)
   const phone = block.showPhone ? (settings?.phone ?? null) : null
   const tel = phone ? toTelHref(phone) : null
-  // K4-FINAL §1 (audit 01.11): the confirmed promise; the panel field may shorten it.
-  const callback = settings?.biznes?.promises.callbackTime || 'Oddzwaniamy w ciągu 60 minut'
+  // Plan 0611 §7.1 pkt 9: the hero is one of the three places of the promise (with „Nasze
+  // zobowiązania” and the form). The confirmed wording (D18, 01.11) stands in while the panel's
+  // „Obietnice” is empty (decyzja Krystiana 08.11: zapas tylko w hero).
+  const callback = settings?.biznes?.promises.callbackTime?.trim() || 'Oddzwaniamy w ciągu 60 minut'
   const trust = [
     // Board: each status on its own line (the panel keeps them in one, split by middle dots).
     ...splitDots(settings?.biznes?.trustLine ?? '').map((text, i) => ({
@@ -120,9 +122,11 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
                 {phone}
               </a>
             )}
-            <span>
-              <Emphasis text={callback} /> w godzinach pracy
-            </span>
+            {callback && (
+              <span>
+                <Emphasis text={callback} /> w godzinach pracy
+              </span>
+            )}
           </p>
           {trust.length > 0 && (
             <ul className="grid gap-x-6 gap-y-2.5 max-md:hidden border-t border-border pt-5 sm:grid-cols-[auto_auto] sm:justify-start">

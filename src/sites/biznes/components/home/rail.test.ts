@@ -2,11 +2,12 @@ import { describe, expect, it } from 'vitest'
 
 import { railItems } from './rail'
 
-/** The home page of the seed, v150 (K36 §1), with the data that decides the sections. */
+/** The home page of the seed in the order of plan 0611 §7.1 (B3-1), with the deciding data. */
 const HOME = [
   { blockType: 'bzHero' },
   { blockType: 'bzNeeds' },
   { blockType: 'bzOffer', systems: [{ title: 'GoPOS' }] },
+  { blockType: 'bzProcurement' },
   { blockType: 'partners' },
   { blockType: 'bzFeatured' },
   {
@@ -24,15 +25,14 @@ const HOME = [
 const ON = { reviews: true, placeholders: false }
 
 describe('railItems', () => {
-  it('lists the 12 anchors of K36 §1 in the page order when reviews are shown', () => {
+  it('lists the sections of plan 0611 §7.1 in the page order when reviews are shown', () => {
     const items = railItems(HOME, ON)
     expect(items.map((item) => item.label)).toEqual([
       'Start',
-      'Działy oferty',
-      'Systemy i opieka IT',
+      'Oferta',
+      'Zaopatrzenie firm',
       'Marki',
       'Najczęściej wybierane',
-      'Dla kogo',
       'Plan Twojej firmy',
       'Jak pracujemy',
       'Opinie',
@@ -43,10 +43,9 @@ describe('railItems', () => {
     expect(items.map((item) => item.id)).toEqual([
       'start',
       'oferta',
-      'systemy',
+      'zaopatrzenie',
       'marki',
       'wybierane',
-      'dla-kogo',
       'plan',
       'jak-pracujemy',
       'opinie',
@@ -59,7 +58,7 @@ describe('railItems', () => {
   it('leaves out „Opinie” while reviews are hidden (D-K4-6)', () => {
     const ids = railItems(HOME, { reviews: false, placeholders: true }).map((item) => item.id)
     expect(ids).not.toContain('opinie')
-    expect(ids).toHaveLength(11)
+    expect(ids).toHaveLength(10)
   })
 
   it('leaves out „Opinie” without reviews in production, keeps it with placeholders', () => {
@@ -72,37 +71,13 @@ describe('railItems', () => {
     )
   })
 
-  it('leaves out sections their block does not render (empty data)', () => {
-    const ids = railItems(
-      [
-        { blockType: 'bzOffer', systems: [] },
-        {
-          blockType: 'bzPlan',
-          industries: { heading: 'Firmy', tiles: [] },
-          funding: { heading: null },
-        },
-      ],
-      ON,
-    ).map((item) => item.id)
-    expect(ids).toEqual(['oferta', 'plan'])
-    // The funding bar alone keeps „Dla kogo”.
+  it('D8: the plan with the industries is one entry — no „Dla kogo”, no „Systemy”', () => {
+    const ids = railItems(HOME, ON).map((item) => item.id)
+    expect(ids).not.toContain('dla-kogo')
+    expect(ids).not.toContain('systemy')
     expect(
-      railItems(
-        [
-          {
-            blockType: 'bzPlan',
-            industries: { heading: 'Firmy' },
-            funding: { heading: 'Dofinansowania' },
-          },
-        ],
-        ON,
-      ).map((item) => item.id),
-    ).toEqual(['dla-kogo', 'plan'])
-  })
-
-  it('leaves out „Dla kogo” without its heading (the section needs it)', () => {
-    const ids = railItems([{ blockType: 'bzPlan', industries: { tiles: [{ name: 'Sklep' }] } }], ON)
-    expect(ids.map((item) => item.id)).toEqual(['plan'])
+      railItems([{ blockType: 'bzPlan', funding: { heading: 'Dofinansowania' } }], ON),
+    ).toEqual([{ id: 'plan', label: 'Plan Twojej firmy', icon: 'map' }])
   })
 
   it('names a section once, even when its block is there twice', () => {

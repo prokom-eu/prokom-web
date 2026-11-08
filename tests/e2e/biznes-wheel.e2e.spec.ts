@@ -220,7 +220,8 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     await expect(tabs(page).nth(1)).toHaveAttribute('aria-selected', 'true')
     await page.keyboard.press('End')
     await expect(tabs(page).nth(4)).toHaveAttribute('aria-selected', 'true')
-    const core = page.getByRole('tabpanel')
+    // The wheel's own panel: the plan section has tabs too (B3-1).
+    const core = page.locator('#start').getByRole('tabpanel')
     await expect(core).toContainText('Dział 5 z 5')
     await expect(core).not.toContainText(/pozycj/)
     await expect(core.getByRole('link', { name: /Zobacz dział/ })).toHaveAttribute(

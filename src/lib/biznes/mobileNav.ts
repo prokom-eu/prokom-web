@@ -19,8 +19,8 @@ export const INQUIRY_PAGE_PATH = '/zapytanie'
 export function phoneContactHref(href: string): string {
   return href.endsWith('#kontakt') ? INQUIRY_PAGE_PATH : href
 }
-/** The industries section of the home page (`bzPlan` anchor). */
-const INDUSTRIES_ON_HOME = '/#dla-kogo'
+/** The plan with the industries on the home page (`bzPlan` anchor, D8). */
+const INDUSTRIES_ON_HOME = '/#plan'
 export const CONTACT_PATH = '/kontakt'
 const PRODUCT_PATH = '/produkt'
 

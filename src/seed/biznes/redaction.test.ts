@@ -178,14 +178,17 @@ describe('redaction of the Biznes texts (audit of 01.11.2026, prompt 5)', () => 
       expect(industryHeadings(rest).map(normalize), `${slug}: H1 jako H2`).not.toContain(h1)
     }
     // Hard-coded H1 of /marki and /plan-firmy are not seeded: they must not take the home H2.
-    for (const home of ['marki, które znamy od środka', 'zobacz, co ustawimy w twoim lokalu']) {
+    for (const home of [
+      'marki, które znamy od środka',
+      'wybierz branżę i zobacz, co ustawimy w twoim lokalu',
+    ]) {
       expect(pagesOf.get(home)).toEqual(new Set(['home']))
     }
     expect(read('src/sites/biznes/components/brand/BrandsDirectory.tsx')).not.toMatch(
       /Marki, które znamy/,
     )
     expect(read('src/app/(sites)/[domain]/(biznes)/plan-firmy/page.tsx')).not.toMatch(
-      /Zobacz, co ustawimy/,
+      /Wybierz branżę i/,
     )
     const repeated = [...pagesOf].filter(([, set]) => set.size > 1).map(([h]) => h)
     // Salons share the generic „Dla kogo” kind of labels only below H2; H1/H2 stay unique.
