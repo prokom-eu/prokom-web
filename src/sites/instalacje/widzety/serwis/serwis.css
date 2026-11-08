@@ -147,3 +147,85 @@
     animation: none;
   }
 }
+
+/* RUNDA-V5 §11: the level switch above the plans, the chosen card rises, its list cascades in. */
+[data-line='instalacje'] {
+  & #plany .plans {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: stretch;
+  }
+  & .planseg {
+    position: relative;
+    display: inline-flex;
+    gap: 4px;
+    padding: 5px;
+    margin-bottom: 26px;
+    border-radius: 999px;
+    background: var(--surface-3);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .planseg button {
+    min-height: 44px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-2);
+    font: 800 15px var(--font-sans);
+    cursor: pointer;
+  }
+  & .planseg button.on {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  & .planseg:has(> .inst-pill) button.on {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+  }
+  & .planseg > .inst-pill {
+    background: var(--accent);
+  }
+  & .plans .plan.on {
+    box-shadow:
+      inset 0 0 0 2px var(--accent),
+      var(--shadow);
+  }
+  @media (max-width: 760px) {
+    & .planseg {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    & .planseg button {
+      flex: none;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    & .plans .plan {
+      transition:
+        translate var(--dur-state) var(--ease-out),
+        box-shadow var(--dur-state) var(--ease-out);
+    }
+    & .plans .plan.on {
+      translate: 0 -6px;
+    }
+    & .plans .plan.on li {
+      animation: inst-plan-in var(--dur-state) var(--ease-out) backwards;
+      animation-delay: calc(var(--k, 0) * 50ms);
+    }
+  }
+}
+
+@keyframes inst-plan-in {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

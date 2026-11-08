@@ -10,7 +10,7 @@ const DESKTOP = { width: 1440, height: 1000 }
 
 /** Names of our animations running on the page (shared `sw-*` and the line's own). */
 const OURS =
-  /^(sw-[a-z-]+|inst-(grow-x|unfold|zkback|megain|sheet-up|fade|gor-[a-z]+|proc-[a-z]+))$/
+  /^(sw-[a-z-]+|inst-(grow-x|unfold|zkback|megain|sheet-up|fade|gor-[a-z]+|proc-[a-z]+|plan-in|ev-swap))$/
 const running = (page: Page) =>
   page.evaluate(() =>
     document

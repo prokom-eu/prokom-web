@@ -1492,3 +1492,84 @@
     }
   }
 }
+
+/*
+ * „Doba w …” on a computer (RUNDA-V5 §11): the moments on an axis of hours, nodes fill up to the
+ * current one and the accent line slides there (transform only; no motion with reduced motion).
+ * Below 1101 px the list and the card stay as they were.
+ */
+[data-line='instalacje'] {
+  & .sgdfill {
+    display: none;
+  }
+  @media (min-width: 1101px) {
+    & .sgday {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 26px;
+    }
+    & .sgdl {
+      position: relative;
+      flex-direction: row;
+      gap: 10px;
+      padding-top: 34px;
+    }
+    & .sgdl::before,
+    & .sgdfill {
+      content: '';
+      position: absolute;
+      top: 13px;
+      left: calc(50% / var(--n));
+      width: calc(100% - 100% / var(--n));
+      height: 3px;
+      border-radius: 3px;
+      background: var(--border);
+    }
+    & .sgdfill {
+      display: block;
+      background: var(--h, var(--accent));
+      transform-origin: left center;
+      transform: scaleX(var(--p));
+    }
+    & .sgdb {
+      flex: 1;
+      min-width: 0;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+      text-align: center;
+      overflow: visible;
+      padding: 12px 10px;
+    }
+    & .sgdb .sgdbar {
+      display: none;
+    }
+    /* The node of the moment on the axis. */
+    & .sgdb::before {
+      content: '';
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      margin-left: -8px;
+      border-radius: 50%;
+      background: var(--card);
+      box-shadow: inset 0 0 0 2px var(--border);
+    }
+    & .sgdb.past::before,
+    & .sgdb.on::before {
+      background: var(--h, var(--accent));
+      box-shadow: none;
+    }
+    & .sgdb.on::before {
+      scale: 1.25;
+    }
+  }
+  @media (min-width: 1101px) and (prefers-reduced-motion: no-preference) {
+    & .sgdfill {
+      transition: transform var(--dur-sheet) var(--ease-out);
+    }
+    & .sgdb::before {
+      transition: scale var(--dur-state) var(--ease-out);
+    }
+  }
+}
