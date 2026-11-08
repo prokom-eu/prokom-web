@@ -21,5 +21,6 @@ export const Schedule = dynamic(() => import('./Schedule').then((m) => m.Schedul
 export const ProcurementForm = dynamic(() =>
   import('./ProcurementForm').then((m) => m.ProcurementForm),
 )
+export const PrepChecklist = dynamic(() => import('./PrepChecklist').then((m) => m.PrepChecklist))
 export const LiveChipText = dynamic(() => import('./Pickers').then((m) => m.LiveChipText))
 export const ClassPick = dynamic(() => import('./Pickers').then((m) => m.ClassPick))

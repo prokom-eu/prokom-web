@@ -165,6 +165,7 @@ export const procurementPageSchema = z.object({
     .object({
       ...head,
       tag: text,
+      image: image.optional(),
       list: z
         .array(z.object({ title: text, sub: text }))
         .min(1)
