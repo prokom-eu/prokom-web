@@ -1,6 +1,14 @@
 'use client'
 
-import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from 'react'
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type FormEvent,
+  type ReactNode,
+} from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { TextAreaField, TextField } from '@/components/ui/Field'
@@ -21,7 +29,11 @@ import {
 import type { Line } from '@/lib/tenant/lines'
 import { topicFromSearch } from '@/lib/shared/contactTopic'
 import { MESSAGE_MAX } from '@/lib/inquiry/limits'
-import { collectAttachments, withAttachments } from '@/lib/shared/formAttachment'
+import {
+  collectAttachments,
+  subscribeFormAttachments,
+  withAttachments,
+} from '@/lib/shared/formAttachment'
 import { PHRASE_PARAM } from '@/lib/shared/search/provider'
 import { findZone, zoneLabel, type ServiceZone } from '@/lib/shared/zones'
 
@@ -95,7 +107,14 @@ export function ContactForm({
     ...sharedRulesFor(line, itemCount),
     consentMode: consent.mode,
   })
-  const sharedRules = rulesFor(0)
+  // Items the line attaches now (Software „Twój projekt”): the label says „(opcjonalnie)” with
+  // them, as the check at sending and the server do. None on the server render.
+  const attachedItems = useSyncExternalStore(
+    subscribeFormAttachments,
+    () => collectAttachments().items.length,
+    () => 0,
+  )
+  const sharedRules = rulesFor(attachedItems)
   const [values, setValues] = useState<SharedFormValues>(EMPTY)
   const [errors, setErrors] = useState<Partial<Record<SharedField, string>>>({})
   const [formError, setFormError] = useState<string | null>(null)

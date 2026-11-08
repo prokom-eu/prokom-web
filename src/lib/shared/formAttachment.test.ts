@@ -4,7 +4,9 @@ import {
   MESSAGE_LIMIT,
   collectAttachments,
   formAttachments,
+  notifyFormAttachments,
   registerFormAttachment,
+  subscribeFormAttachments,
   withAttachments,
 } from './formAttachment'
 
@@ -84,5 +86,19 @@ describe('form attachments (Biznes: the inquiry list joins the contact message)'
     expect(result.length).toBe(MESSAGE_LIMIT)
     expect(result.startsWith(`${message}\n\n`)).toBe(true)
     expect(result.endsWith('…')).toBe(true)
+  })
+
+  it('tells the form when a part comes, goes or changes (the „(opcjonalnie)” of the message)', () => {
+    let calls = 0
+    const stop = subscribeFormAttachments(() => calls++)
+    const unregister = registerFormAttachment(() => null, { items: () => ['crm'] })
+    expect(calls).toBe(1)
+    notifyFormAttachments()
+    expect(calls).toBe(2)
+    unregister()
+    expect(calls).toBe(3)
+    stop()
+    notifyFormAttachments()
+    expect(calls).toBe(3)
   })
 })

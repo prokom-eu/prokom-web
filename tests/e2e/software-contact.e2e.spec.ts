@@ -82,8 +82,10 @@ test.describe('Software /kontakt (shared template)', () => {
       'href',
       'https://www.biznes.gov.pl/pl/wyszukiwarka-firm',
     )
-    // v23 leftovers are gone: no Zakopane, no WhatsApp, no „Jak wolisz rozmawiać?”.
-    await expect(page.locator('main')).not.toContainText(/Zakopan|WhatsApp|Jak wolisz rozmawiać/i)
+    // v23 leftovers are gone: no Zakopane office, no WhatsApp, no „Jak wolisz rozmawiać?”.
+    // Zakopane stays in the service area list (towns we drive to) — the rule is one office.
+    await expect(card).not.toContainText(/Zakopan/i)
+    await expect(page.locator('main')).not.toContainText(/WhatsApp|Jak wolisz rozmawiać/i)
   })
 
   test('routes, the form with next steps, service area, other lines, FAQ, the band', async ({
