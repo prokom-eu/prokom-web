@@ -11,7 +11,7 @@ import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 import { PostContent } from '@/sites/biznes/components/news/PostContent'
 
 import { Breadcrumbs } from '../Breadcrumbs'
-import { SectionHead } from '../home/SectionHead'
+import { SectionHead } from '../ui/SectionHead'
 import { SwCallToAction } from '../SwCallToAction'
 import { PostCardList } from './PostCards'
 import { SOFTWARE_NEWS_TEXTS as T } from './texts'
@@ -46,7 +46,8 @@ function part(content: RichTextData, nodes: unknown[]): RichTextData {
 }
 
 /**
- * A post in the Software look (board `Wpis`, spec. §6.8): category · reading time · one date,
+ * A post in the Software v24 look (ZMIANY-v24 §9.4, §9.8 — no board: the subpage hero with its glow,
+ * glass cards, the text in the shared post style): category · reading time · one date,
  * author, „W tym tekście” beside the text from 1081 px, „Krótko”, the text with the audit CTA in
  * the middle, sources with their check dates (never a future day), the author box, 3 related
  * posts and the related solutions of this tenant.
@@ -90,16 +91,12 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
         className="pointer-events-none fixed inset-x-0 top-0 z-50 h-[3px] origin-left bg-accent"
       />
       <article aria-labelledby="post-h">
-        <header className="pt-6 pb-8 min-[641px]:pt-10 min-[641px]:pb-12">
+        <header className="sw-page-hero pb-8 min-[641px]:pb-12">
           <Container wide>
             <div className="mx-auto max-w-[980px]">
               <Breadcrumbs current={post.title} parents={parents} />
               <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-bold text-ink-2">
-                {post.category ? (
-                  <span className="rounded-lg bg-accent-soft px-2.5 py-1 text-xs font-extrabold text-accent-text">
-                    {post.category}
-                  </span>
-                ) : null}
+                {post.category ? <span className="sw-eyebrow">{post.category}</span> : null}
                 <span>
                   {post.minutes} {T.minutes}
                 </span>
@@ -110,10 +107,7 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
                   </time>
                 ) : null}
               </p>
-              <h1
-                id="post-h"
-                className="mt-4 font-display text-[34px] font-extrabold leading-[1.05] tracking-tight min-[641px]:text-[clamp(40px,4.4vw,60px)]"
-              >
+              <h1 id="post-h" className="sw-h1-page sw-h1-post mt-4">
                 {post.title}
               </h1>
               {post.lead ? (
@@ -125,7 +119,7 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
                 <p className="mt-6 flex items-center gap-3">
                   <span
                     aria-hidden="true"
-                    className="grid size-11 place-items-center rounded-xl bg-cta text-sm font-extrabold text-white"
+                    className="grid size-11 place-items-center rounded-xl bg-accent text-sm font-extrabold text-accent-ink"
                   >
                     {initials(post.author.name)}
                   </span>
@@ -146,12 +140,9 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
             {toc.length > 1 ? (
               <nav
                 aria-labelledby="w-tekscie-h"
-                className="min-w-0 min-[1081px]:sticky min-[1081px]:top-28 min-[1081px]:self-start min-[1081px]:rounded-[22px] min-[1081px]:border min-[1081px]:border-border min-[1081px]:bg-card min-[1081px]:p-[18px]"
+                className="sw-post-toc min-w-0 min-[1081px]:sticky min-[1081px]:top-28 min-[1081px]:self-start"
               >
-                <h2
-                  id="w-tekscie-h"
-                  className="text-xs font-extrabold uppercase tracking-[0.14em] text-ink-2"
-                >
+                <h2 id="w-tekscie-h" className="sw-eyebrow">
                   {T.outline}
                 </h2>
                 <ol className="-mx-4 mt-3 flex snap-x gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 min-[1081px]:mx-0 min-[1081px]:flex-col min-[1081px]:gap-0 min-[1081px]:overflow-visible min-[1081px]:px-0 min-[1081px]:pb-0">
@@ -175,23 +166,22 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
                 <aside
                   id={SUMMARY_ID}
                   aria-label={T.summary}
-                  className="scroll-mt-28 rounded-[22px] border border-accent-line bg-accent-soft p-[18px] min-[641px]:p-6"
+                  className="sw-glass sw-glass-featured scroll-mt-28 p-[18px] min-[641px]:p-6"
                 >
-                  <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text">
-                    {T.summary}
-                  </p>
+                  <p className="sw-eyebrow">{T.summary}</p>
                   <p className="mt-2">{post.summary}</p>
                 </aside>
               ) : null}
               <div className={post.summary ? 'mt-8' : undefined}>
                 <PostContent content={part(post.content, before)} outline={outline} />
               </div>
-              <div className="my-8 flex flex-col items-start gap-3 rounded-[24px] bg-cta p-[22px] text-white shadow-raised min-[641px]:p-7">
+              <div className="sw-glass sw-glass-featured my-8 flex flex-col items-start gap-3 p-[22px] min-[641px]:p-7">
                 <p className="font-display text-xl font-extrabold">{cta.heading}</p>
-                {cta.text ? <p className="text-white/90">{cta.text}</p> : null}
+                {cta.text ? <p className="text-ink-2">{cta.text}</p> : null}
                 <Link
                   href={cta.link.href}
-                  className="mt-1 inline-flex min-h-[52px] items-center rounded-2xl bg-card px-6 font-extrabold text-ink transition-transform active:scale-[0.98]"
+                  data-motion="button"
+                  className="mt-1 inline-flex min-h-[52px] items-center rounded-full bg-button px-6 font-extrabold text-accent-ink"
                 >
                   {cta.link.label}
                 </Link>
@@ -204,12 +194,9 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
                 <section
                   id={SOURCES_ID}
                   aria-labelledby="zrodla-h"
-                  className="mt-10 scroll-mt-28 rounded-[22px] border border-border bg-surface-2 p-[18px] min-[641px]:p-6"
+                  className="sw-glass mt-10 scroll-mt-28 p-[18px] min-[641px]:p-6"
                 >
-                  <h2
-                    id="zrodla-h"
-                    className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text"
-                  >
+                  <h2 id="zrodla-h" className="sw-eyebrow">
                     {T.sources}
                   </h2>
                   <ol className="mt-3 flex list-decimal flex-col gap-2 pl-5 text-sm">
@@ -244,7 +231,7 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
               {post.author ? (
                 <section
                   aria-label={T.author}
-                  className="mt-4 grid gap-4 rounded-[24px] border border-border bg-card p-3 min-[641px]:grid-cols-[150px_minmax(0,1fr)]"
+                  className="sw-glass mt-4 grid gap-4 p-3 min-[641px]:grid-cols-[150px_minmax(0,1fr)]"
                 >
                   {post.author.photo ? (
                     <MediaImage
@@ -255,15 +242,13 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
                   ) : (
                     <span
                       aria-hidden="true"
-                      className="hidden aspect-square place-items-center rounded-[18px] bg-cta font-display text-4xl font-extrabold text-white min-[641px]:grid"
+                      className="hidden aspect-square place-items-center rounded-[18px] bg-accent font-display text-4xl font-extrabold text-accent-ink min-[641px]:grid"
                     >
                       {initials(post.author.name)}
                     </span>
                   )}
                   <div className="p-2">
-                    <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-ink-2">
-                      {T.author}
-                    </p>
+                    <p className="sw-eyebrow">{T.author}</p>
                     <p className="mt-1 font-display text-xl font-extrabold">{post.author.name}</p>
                     {post.author.role ? (
                       <p className="text-sm font-extrabold text-accent-text">{post.author.role}</p>
@@ -288,7 +273,7 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
       {readMore.length > 0 ? (
         <section className="py-12 min-[641px]:py-20">
           <Container wide>
-            <SectionHead eyebrow={T.readMoreEyebrow} title={T.readMore} lead={null} />
+            <SectionHead eyebrow={T.readMoreEyebrow} title={T.readMore} />
             <div className="mt-6">
               <PostCardList posts={readMore} headingLevel="h3" />
             </div>
@@ -299,7 +284,7 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
       {solutions.length > 0 ? (
         <section className="pb-12 min-[641px]:pb-20">
           <Container wide>
-            <SectionHead eyebrow={T.solutionsEyebrow} title={T.solutions} lead={null} />
+            <SectionHead eyebrow={T.solutionsEyebrow} title={T.solutions} />
             <ul className="mt-6 grid gap-3 min-[761px]:grid-cols-3">
               {solutions.map((solution) => {
                 const price = cardPrice(solution, index.priceDisplay)
@@ -307,7 +292,8 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
                   <li key={solution.slug}>
                     <Link
                       href={`/rozwiazania/${solution.slug}`}
-                      className="flex h-full flex-col gap-2 rounded-[22px] border border-border bg-card p-5 transition-transform active:scale-[0.99]"
+                      data-card=""
+                      className="sw-glass flex h-full flex-col gap-2 p-5"
                     >
                       <h3 className="font-display text-lg font-extrabold">{solution.name}</h3>
                       {solution.lead ? <p className="text-sm text-ink-2">{solution.lead}</p> : null}
