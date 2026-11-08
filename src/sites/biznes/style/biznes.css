@@ -1096,7 +1096,11 @@
   margin-top: 2px;
   font-size: 12px;
   font-weight: 700;
-  color: var(--ink-3);
+  /* On `--surface-2` `--ink-3` falls under 4.5:1 (axe) — `--ink-2` here and in the bar. */
+  color: var(--ink-2);
+}
+[data-line='biznes'] .bmg__dz > .bmg__h {
+  color: var(--ink-2);
 }
 [data-line='biznes'] .bmg__ar {
   width: 16px;
@@ -1306,7 +1310,7 @@
   font-size: 12px;
   font-weight: 600;
   line-height: 1.35;
-  color: var(--ink-3);
+  color: var(--ink-2);
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -1477,7 +1481,7 @@
   background: var(--surface-2);
   font-size: 12.5px;
   font-weight: 700;
-  color: var(--ink-3);
+  color: var(--ink-2);
 }
 [data-line='biznes'] .bmg__ft button {
   display: inline-flex;
