@@ -396,8 +396,9 @@ test.describe('Biznes product page 2.0', () => {
     expect(xml).toContain(site('biznes.localhost', ERGO))
     expect(xml).not.toContain(review)
     await page.goto(site('biznes.localhost', '/mapa-strony'))
-    await expect(page.locator(`a[href="${review}"]`)).toHaveCount(0)
-    await expect(page.locator(`a[href="${ERGO}"]`)).toHaveCount(1)
+    // The site map itself (`main`): the header's mega menu has its own „Najczęściej wybierane” card.
+    await expect(page.locator(`main a[href="${review}"]`)).toHaveCount(0)
+    await expect(page.locator(`main a[href="${ERGO}"]`)).toHaveCount(1)
   })
 
   test('the Biznes sitemap lists the catalog and products, other sites do not', async ({
