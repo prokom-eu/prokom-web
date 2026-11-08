@@ -329,6 +329,8 @@ export const glownaSekcje = {
         title: 'Mróz i śnieg',
         text: 'Dobieramy kamery i obudowy do górskiej zimy i montujemy je tak, żeby jak najmniej zbierały śnieg. Obraz ustawiamy pod odblask od śniegu i wieczorne światło.',
         // Source: RMF24, 7.02.2023 (the prototype's fact list, `prototyp/firmy.html`).
+        // TODO(krystian): RUNDA-V5 §5 wants a number-fact on every card — only this one has a
+        // checked source; add the others with their sources (`docs/tresci/`) or keep one.
         fact: { value: '−28,5°C', label: 'Kotlina Orawsko-Nowotarska, 7.02.2023' },
       },
       {

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 /**
  * Mini scenes of the „Na Podhalu…” cards (RUNDA-V5 §5): a small dark stage instead of an icon in
  * a circle. Colours come from the `--sx-*` tokens of `[data-inst-sx]`; the part marked `.gsa`
- * plays once (600 ms) when the card is pointed at or focused (`podhale-proces.css`).
+ * plays once (600 ms) when the card is pointed at (`podhale-proces.css`).
  */
 const RIDGE = 'M0 64V44l16-12 12 8 18-20 14 12 12-8 16 14 14-10 18 14v26z'
 
@@ -88,7 +88,7 @@ export function GorScene({ name }: { name: string }) {
           <rect x="40" y="14" width="40" height="38" rx="4" className="gbody" />
           <path d="M40 24h40" className="gline-d" />
           <path d="M50 10v8M70 10v8" className="gline-d" />
-          <path d="M50 38l7 6 13-13" className="gcheck gsa gsa-draw" pathLength={1} />
+          <path d="M50 38l7 6 13-13" className="gcheck gsa gsa-draw" />
         </Stage>
       )
     case 'pin':

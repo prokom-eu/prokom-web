@@ -13,7 +13,6 @@ export type ProcessAxisStep = {
 type Props = {
   steps: readonly ProcessAxisStep[]
   getLabel?: string
-  className?: string
 }
 
 /**
@@ -22,12 +21,9 @@ type Props = {
  * reaches them (`podhale-proces.css`, scroll-driven; drawn in full without support and with
  * reduced motion). Horizontal from 761 px, vertical on a phone. Server-rendered, no JS.
  */
-export function ProcessAxis({ steps, getLabel, className }: Props) {
+export function ProcessAxis({ steps, getLabel }: Props) {
   return (
-    <ol
-      className={`proc${className ? ` ${className}` : ''}`}
-      style={{ '--n': steps.length } as CSSProperties}
-    >
+    <ol className="proc" style={{ '--n': steps.length } as CSSProperties}>
       {steps.map((step, i) => (
         <li key={step.title} className="procs ri" style={{ '--i': i } as CSSProperties}>
           <span className="procn" aria-hidden="true">
