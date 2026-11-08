@@ -141,7 +141,11 @@ test.describe('/_software — v24 start page sections', () => {
   }) => {
     await page.goto(site(HOST, '/_software'))
     const showroom = page.locator('#podglady')
-    await showroom.getByRole('tab', { name: 'Budowlanka i remonty' }).click()
+    // A lazy island (ADR-023): a click before hydration is lost.
+    const industry = showroom.getByRole('tab', { name: 'Budowlanka i remonty' })
+    await hydrated(industry)
+    await industry.click()
+    await expect(industry).toHaveAttribute('aria-selected', 'true')
     await showroom.getByRole('button', { name: 'System' }).click()
     await expect(showroom.locator('[data-mockup="dash"]')).toBeVisible()
     await expect(showroom.getByRole('link', { name: /Policz dla tej branży/ })).toHaveAttribute(

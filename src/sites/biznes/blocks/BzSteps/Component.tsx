@@ -52,7 +52,10 @@ export async function BzStepsBlock({ block, tenantId }: Props) {
             aria-hidden="true"
             className="absolute top-[30px] right-[12.5%] left-[12.5%] hidden h-[2px] rounded-full bg-linear-90 from-tone-blue via-tone-green to-tone-red opacity-40 min-[1080px]:block"
           />
-          <ol className="relative grid gap-4 max-md:gap-5 min-[768px]:grid-cols-2 min-[1080px]:grid-cols-4">
+          <ol
+            data-reveal-cards=""
+            className="relative grid gap-4 max-md:gap-5 min-[768px]:grid-cols-2 min-[1080px]:grid-cols-4"
+          >
             {block.steps.map((step, i) => {
               const tone = STEP_TONES[i % STEP_TONES.length] ?? 'blue'
               return (

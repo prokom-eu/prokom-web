@@ -2,6 +2,7 @@
 
 import { useRef, useState, type CSSProperties, type ReactNode } from 'react'
 
+import { useRevealCards } from '@/components/motion/RevealObserver'
 import { SlidingPill } from '@/components/motion/SlidingPill'
 import { cx } from '@/components/ui/cx'
 
@@ -27,6 +28,8 @@ export function FeaturedPills({ pills, cards }: Props) {
   const [picked, setPicked] = useState(ALL)
   const group = useRef<HTMLDivElement>(null)
   const changed = 'data-swap' in useSwap(picked)
+  // P3: on the way down the cards rise in one by one; set only once hydrated (a lazy island).
+  const revealCards = useRevealCards()
   let shown = 0
   const options = [{ value: ALL, label: 'Wszystkie', count: cards.length }, ...pills]
   return (
@@ -62,9 +65,12 @@ export function FeaturedPills({ pills, cards }: Props) {
           )
         })}
       </div>
+      {/* Phone strip (audit 0611 P0.6): `scroll-px-4` keeps the snapped first card 16 px from
+          the edge, as in the other strips (MOBILE-APLIKACJA). */}
       <ul
         key={picked}
-        className="-mx-4 mt-6 flex max-md:mt-4 snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 min-[640px]:mx-0 min-[640px]:grid min-[640px]:grid-cols-2 min-[640px]:overflow-visible min-[640px]:px-0 min-[640px]:pb-0 min-[900px]:grid-cols-3 min-[1080px]:grid-cols-4"
+        {...revealCards}
+        className="-mx-4 mt-6 flex max-md:mt-4 snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-2 min-[640px]:mx-0 min-[640px]:grid min-[640px]:grid-cols-2 min-[640px]:overflow-visible min-[640px]:px-0 min-[640px]:pb-0 min-[900px]:grid-cols-3 min-[1080px]:grid-cols-4"
       >
         {cards.map(({ key, group: cardGroup, card }) => {
           const hidden = picked !== ALL && cardGroup !== picked
