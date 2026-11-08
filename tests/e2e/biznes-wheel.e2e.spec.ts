@@ -14,7 +14,9 @@ const wheel = (page: Page) => page.locator('#start .bzw')
 const tabs = (page: Page) => page.getByRole('tablist', { name: 'Działy oferty' }).getByRole('tab')
 const bubbles = (page: Page) =>
   page.getByRole('list', { name: 'Przykładowe produkty działów' }).getByRole('link')
-const pauseButton = (page: Page) => page.getByRole('button', { name: /animację$/ })
+// The hero's own button: the home page has another pause (brand strips, B2-3a).
+const pauseButton = (page: Page) =>
+  page.locator('#start').getByRole('button', { name: /animację$/ })
 
 /** The wheel island is lazy (ADR-023): wait until it answers clicks. */
 async function ready(page: Page) {
