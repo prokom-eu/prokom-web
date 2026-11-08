@@ -435,11 +435,13 @@ export const architekci = {
     eyebrow: 'Checklista projektanta',
     heading: 'Co przewidzieć w projekcie?',
     accent: 'Wybierz obiekt i instalacje.',
-    lead: 'Lista rzeczy, które trzeba zaplanować przed tynkami, żeby potem niczego nie kuć. Odhaczaj albo pobierz jako PDF dla zespołu.',
+    lead: 'Lista rzeczy, które trzeba zaplanować przed tynkami, żeby potem niczego nie kuć. Odhaczaj na stronie albo zamów wersję PDF dla zespołu.',
     objectsTitle: '1. Obiekt',
     systemsTitle: '2. Instalacje',
     pdfTitle: 'Checklista w PDF',
-    pdfText: 'Pełna wersja z rysunkami puszek i ramek. Wyślemy na e-mail.',
+    // D2 = A (06.11): no file in the repo yet — the guardian sends it by hand.
+    pdfText:
+      'Pełna wersja z rysunkami puszek i ramek. Wyślemy checklistę mailem w ciągu 1 dnia roboczego.',
     toPlan: 'do przewidzenia',
     empty: 'Wybierz co najmniej jedną instalację.',
   },
@@ -893,7 +895,7 @@ export const architekci = {
     },
     {
       date: 'w toku',
-      status: 'W przygotowaniu',
+      status: 'Projekt ustawy',
       tone: 'mut',
       title: 'Polska ustawa wdrażająca GIA',
       text: 'Projekt nowelizacji megaustawy jest w przygotowaniu. Ma m.in. rozstrzygnąć, czy obowiązek obejmie domy jednorodzinne budowane na własne potrzeby.',
@@ -1023,7 +1025,7 @@ export const architekci = {
     eyebrow: 'Biblioteka projektanta',
     heading: 'Materiały, które',
     accent: 'skracają projekt.',
-    lead: 'Nasze materiały do pobrania i sprawdzone narzędzia producentów, z których korzystamy przy projektach.',
+    lead: 'Nasza checklista na e-mail i sprawdzone narzędzia producentów, z których korzystamy przy projektach.',
     tools: 'Narzędzia producentów',
   },
   libraryOwn: [
@@ -1040,6 +1042,7 @@ export const architekci = {
       text: 'Kamery, czujki, głośniki, punkty Wi-Fi, panele, gniazda. Gotowe do wklejenia w rzut.',
       format: 'DWG · PDF',
       status: 'W przygotowaniu',
+      ready: false,
     },
     {
       icon: 'doc',
@@ -1047,6 +1050,7 @@ export const architekci = {
       text: 'Krótkie opisy monitoringu, sieci, smart home i dźwięku do części opisowej projektu.',
       format: 'DOCX',
       status: 'W przygotowaniu',
+      ready: false,
     },
     {
       icon: 'layers',
@@ -1054,8 +1058,17 @@ export const architekci = {
       text: 'Miejsce, wymiary, wentylacja, zasilanie i dostęp. Do pomieszczenia technicznego.',
       format: 'PDF',
       status: 'W przygotowaniu',
+      ready: false,
     },
-  ] as { icon: InstIconName; title: string; text: string; format: string; status: string }[],
+  ] as {
+    icon: InstIconName
+    title: string
+    text: string
+    format: string
+    status: string
+    /** P0-3 (audit 06.11): `false` keeps an unfinished material off the page until its file. */
+    ready?: boolean
+  }[],
   libraryTools: [
     {
       title: 'Ampio: katalog dla architekta',
@@ -1293,7 +1306,7 @@ export const architekci = {
     email: 'E-mail',
     emailPlaceholder: 'adres@pracownia.pl',
     pdfSend: 'Wyślij PDF',
-    pdfSent: 'Wysłane. Opiekun prześle checklistę na podany adres.',
+    pdfSent: 'Wysłane. Wyślemy checklistę mailem w ciągu 1 dnia roboczego.',
     newsSend: 'Zapisz pracownię',
     newsSent: 'Zapisane. Pierwszy e-mail z nowościami wkrótce.',
     // ADR-I005 §3 / spec §2.7: a separate consent for commercial e-mails, never pre-ticked.

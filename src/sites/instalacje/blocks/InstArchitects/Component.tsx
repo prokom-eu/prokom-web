@@ -493,27 +493,29 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
             leadWidth={440}
           />
           <div className="g4 arlibo">
-            {A.libraryOwn.map((o) => (
-              <div key={o.title} className="card arlibc ri">
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                  }}
-                >
-                  <span className="ico">
-                    <InstIcon name={o.icon} size={22} />
-                  </span>
-                  <span className="tag">{o.format}</span>
+            {A.libraryOwn
+              .filter((o) => o.ready !== false)
+              .map((o) => (
+                <div key={o.title} className="card arlibc ri">
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <span className="ico">
+                      <InstIcon name={o.icon} size={22} />
+                    </span>
+                    <span className="tag">{o.format}</span>
+                  </div>
+                  <b className="h3" style={{ fontSize: 19 }}>
+                    {o.title}
+                  </b>
+                  <p>{o.text}</p>
+                  <span className="arlibs">{o.status}</span>
                 </div>
-                <b className="h3" style={{ fontSize: 19 }}>
-                  {o.title}
-                </b>
-                <p>{o.text}</p>
-                <span className="arlibs">{o.status}</span>
-              </div>
-            ))}
+              ))}
           </div>
           <div className="arlibe ri">
             <span className="arckh">{A.librarySection.tools}</span>
