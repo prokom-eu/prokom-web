@@ -40,25 +40,25 @@ const withUrlValidation = (field: FieldAffectingData): FieldAffectingData =>
  * the brand, S6). Headings from h2: the page's h1 is the hero or the page title.
  * Shared by other long texts of the sites (product description, post content).
  */
-export const restrictedRichTextEditor = lexicalEditor({
-  features: [
-    ParagraphFeature(),
-    HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
-    BoldFeature(),
-    ItalicFeature(),
-    UnderlineFeature(),
-    StrikethroughFeature(),
-    UnorderedListFeature(),
-    OrderedListFeature(),
-    BlockquoteFeature(),
-    HorizontalRuleFeature(),
-    LinkFeature({
-      enabledCollections: [],
-      fields: ({ defaultFields }) => defaultFields.map(withUrlValidation),
-    }),
-    InlineToolbarFeature(),
-  ],
-})
+export const RESTRICTED_RICH_TEXT_FEATURES = [
+  ParagraphFeature(),
+  HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+  BoldFeature(),
+  ItalicFeature(),
+  UnderlineFeature(),
+  StrikethroughFeature(),
+  UnorderedListFeature(),
+  OrderedListFeature(),
+  BlockquoteFeature(),
+  HorizontalRuleFeature(),
+  LinkFeature({
+    enabledCollections: [],
+    fields: ({ defaultFields }) => defaultFields.map(withUrlValidation),
+  }),
+  InlineToolbarFeature(),
+]
+
+export const restrictedRichTextEditor = lexicalEditor({ features: RESTRICTED_RICH_TEXT_FEATURES })
 
 export const RichTextBlock: Block = {
   slug: 'richText',

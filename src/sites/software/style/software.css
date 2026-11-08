@@ -14,6 +14,8 @@
 @import './wizard.css';
 /* Subpage hero and the offer catalog v24 (`components/ui/PageHero`, `components/catalog`). */
 @import './subpages.css';
+/* Legal pages (`blocks/SwLegal`, SWA6a). */
+@import './legal.css';
 /* The line in the shared frame: Kreator pill, „Oferta ▾” panel (`powloka/`, SWA5). */
 @import './shell.css';
 

@@ -30,6 +30,7 @@ import { InstAboutBlock } from '../sites/instalacje/blocks/InstAbout/config'
 import { InstGuideBlock } from '../sites/instalacje/blocks/InstGuide/config'
 import { SwHeroBlock } from '../sites/software/blocks/SwHero/config'
 import { SwSharedPageBlock } from '../sites/software/blocks/SwSharedPage/config'
+import { SwLegalBlock } from '../sites/software/blocks/SwLegal/config'
 import { SwHomeSectionBlock } from '../sites/software/blocks/SwHomeSection/config'
 import { SwContactBlock } from '../sites/software/blocks/SwContact/config'
 import { SwPricingBlock } from '../sites/software/blocks/SwPricing/config'
@@ -101,7 +102,7 @@ export const INSTALACJE_BLOCKS: Block[] = [
  * Sections of the Software pages (ADR-014 rozstrz. SW0 7, at most 10) — `src/sites/software/blocks/`.
  * The fixed start page sections are one block, `swHomeSection`, with the section picked; new
  * blocks go at the end (SW8b: `swContact`, SW11a: `swPricing`, `swAuditForm`; SWA5b:
- * `swSharedPage`).
+ * `swSharedPage`; SWA6a: `swLegal`).
  */
 export const SOFTWARE_BLOCKS: Block[] = [
   SwHeroBlock,
@@ -111,6 +112,8 @@ export const SOFTWARE_BLOCKS: Block[] = [
   SwAuditFormBlock,
   // SWA5b: /kontakt, /o-firmie on the shared templates (replaces the SW11a/SW11b page blocks).
   SwSharedPageBlock,
+  // SWA6a: legal pages with tables in the text (ZMIANY-v24 §9.6).
+  SwLegalBlock,
 ]
 
 /**

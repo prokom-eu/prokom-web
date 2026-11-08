@@ -2202,6 +2202,7 @@ export interface Page {
         | SwPricingBlock
         | SwAuditFormBlock
         | SwSharedPageBlock
+        | SwLegalBlock
       )[]
     | null;
   seo?: {
@@ -4170,6 +4171,53 @@ export interface SwSharedPageBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwLegalBlock".
+ */
+export interface SwLegalBlock {
+  eyebrow?: string | null;
+  /**
+   * Wyróżniona część w **gwiazdkach**, np. „Polityka **prywatności.**”.
+   */
+  heading: string;
+  lead?: string | null;
+  /**
+   * Np. „1.0”. Puste — bez plakietki.
+   */
+  version?: string | null;
+  /**
+   * Np. „listopad 2026”. Puste — bez plakietki.
+   */
+  updated?: string | null;
+  /**
+   * Baner „Wersja robocza…” nad nagłówkiem — tylko poza produkcją. Odznacz po akceptacji tekstu.
+   */
+  draft?: boolean | null;
+  askTitle?: string | null;
+  askText?: string | null;
+  /**
+   * Każdy nagłówek H2 = numerowana sekcja i pozycja spisu treści.
+   */
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swLegal';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -5940,6 +5988,7 @@ export interface PagesSelect<T extends boolean = true> {
         swPricing?: T | SwPricingBlockSelect<T>;
         swAuditForm?: T | SwAuditFormBlockSelect<T>;
         swSharedPage?: T | SwSharedPageBlockSelect<T>;
+        swLegal?: T | SwLegalBlockSelect<T>;
       };
   seo?:
     | T
@@ -6993,6 +7042,23 @@ export interface SwAuditFormBlockSelect<T extends boolean = true> {
  */
 export interface SwSharedPageBlockSelect<T extends boolean = true> {
   template?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwLegalBlock_select".
+ */
+export interface SwLegalBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  version?: T;
+  updated?: T;
+  draft?: T;
+  askTitle?: T;
+  askText?: T;
+  body?: T;
   id?: T;
   blockName?: T;
 }
@@ -9190,6 +9256,45 @@ export interface TaskSchedulePublish {
     } | null;
   };
   output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalTableBlock".
+ */
+export interface LegalTableBlock {
+  /**
+   * Np. „Cele i podstawy przetwarzania danych”. Niewidoczny na stronie.
+   */
+  caption?: string | null;
+  head1: string;
+  head2: string;
+  head3?: string | null;
+  head4?: string | null;
+  /**
+   * Komórki kolumn bez nagłówka są pomijane.
+   */
+  rows?:
+    | {
+        c1: string;
+        c2?: string | null;
+        c3?: string | null;
+        c4?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'legalTable';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalNoteBlock".
+ */
+export interface LegalNoteBlock {
+  text: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'legalNote';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
