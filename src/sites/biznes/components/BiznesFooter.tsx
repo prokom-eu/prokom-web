@@ -18,8 +18,8 @@ type Props = {
   settings: PublicSiteSettings
   biznes: NonNullable<PublicSiteSettings['biznes']>
   badges: PartnerBadge[]
-  /** Main number and WhatsApp link, computed once in the layout (as for the header). */
-  contact: { phone: { label: string; href: string } | null; whatsapp: string | null }
+  /** Main number, computed once in the layout (as for the header). */
+  contact: { phone: { label: string; href: string } | null }
 }
 
 const HEADING = 'mb-1 font-display font-extrabold text-white'
@@ -150,13 +150,6 @@ export function BiznesFooter({ name, company, settings, biznes, badges, contact 
                 ) : (
                   <span>{settings.phone} · oferty i serwis</span>
                 )}
-              </li>
-            )}
-            {biznes.whatsapp && contact.whatsapp && (
-              <li>
-                <a href={contact.whatsapp} target="_blank" rel="noopener" className={LINK}>
-                  WhatsApp: {biznes.whatsapp}
-                </a>
               </li>
             )}
             {otherPhones.map((phone, i) => {

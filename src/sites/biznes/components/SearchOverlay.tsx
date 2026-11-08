@@ -61,11 +61,6 @@ const SHOWROOM_LOGOS = ['apple', 'samsung', 'lenovo', 'dell', 'posnet', 'elzab',
 const CONFIGURATOR_HREF = CONFIGURATOR_PATH
 const PLAN_HREF = PLAN_PATH
 
-type Props = {
-  /** wa.me link of the line; `null` hides "Napisz na WhatsApp" when nothing is found. */
-  whatsapp: string | null
-}
-
 /** The focus is in a field: „/” is typed there, not a shortcut. */
 function inField(event: globalThis.KeyboardEvent) {
   const target = event.target as HTMLElement | null
@@ -79,7 +74,7 @@ function inField(event: globalThis.KeyboardEvent) {
  * `<dialog>` — the browser keeps focus inside, closes it on Esc and returns focus. The catalog
  * index is fetched on the first opening, then matched on the client.
  */
-export function SearchOverlay({ whatsapp }: Props) {
+export function SearchOverlay() {
   const dialog = useRef<HTMLDialogElement>(null)
   const input = useRef<HTMLInputElement>(null)
   const [open, setOpen] = useState(false)
@@ -218,7 +213,6 @@ export function SearchOverlay({ whatsapp }: Props) {
                 // Keep typing after a "Popularne" chip.
                 input.current?.focus()
               }}
-              whatsapp={whatsapp}
             />
           ) : catalog.status === 'error' ? (
             <p className="m-5 rounded-2xl bg-surface-2 p-5 text-ink-2">
@@ -251,7 +245,6 @@ type ResultsProps = {
   index: CatalogIndex
   query: string
   onPick: (query: string) => void
-  whatsapp: string | null
 }
 
 /** Arrow keys move between the result links (the field stays reachable with ↑ from the top). */
@@ -271,7 +264,7 @@ function moveFocus(event: KeyboardEvent<HTMLElement>) {
   event.preventDefault()
 }
 
-function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
+function SearchResults({ index, query, onPick }: ResultsProps) {
   const ids = useId()
   const prepared = useMemo(() => prepareSearch(index), [index])
   const deferred = useDeferredValue(query)
@@ -288,7 +281,7 @@ function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
         <EmptySearch index={index} onPick={onPick} ids={ids} />
       ) : results.length === 0 ? (
         <div className="p-5 sm:p-6">
-          <NothingFound query={trimmed} whatsapp={whatsapp} />
+          <NothingFound query={trimmed} />
         </div>
       ) : (
         <Found index={index} prepared={prepared} results={results} query={deferred} ids={ids} />
@@ -626,7 +619,7 @@ function ProductResult({
   )
 }
 
-function NothingFound({ query, whatsapp }: { query: string; whatsapp: string | null }) {
+function NothingFound({ query }: { query: string }) {
   return (
     <div className="grid gap-4 rounded-2xl bg-surface-2 p-5 sm:grid-cols-[auto_1fr] sm:items-center">
       <span
@@ -651,17 +644,6 @@ function NothingFound({ query, whatsapp }: { query: string; whatsapp: string | n
           >
             Zapytaj o „{query}”
           </Link>
-          {whatsapp && (
-            <a
-              href={whatsapp}
-              target="_blank"
-              rel="noopener"
-              data-result
-              className="inline-flex min-h-[46px] items-center rounded-xl border border-border bg-card px-4 font-extrabold text-ink"
-            >
-              Napisz na WhatsApp
-            </a>
-          )}
         </div>
       </div>
     </div>

@@ -187,7 +187,7 @@ test.describe('inquiry inbox (ADR-003)', () => {
         message: '',
         city: 'Nowy Targ',
         deadline: 'Przed sezonem',
-        preferredContact: 'whatsapp',
+        preferredContact: 'phone',
         items: [
           { slug: first.slug, quantity: 2, note: `Uwaga ${marker}` },
           // Not a product of this site: dropped, never saved under a made-up name.
@@ -207,7 +207,7 @@ test.describe('inquiry inbox (ADR-003)', () => {
         type: 'list',
         city: 'Nowy Targ',
         deadline: 'Przed sezonem',
-        preferredContact: 'whatsapp',
+        preferredContact: 'phone',
         items: [
           expect.objectContaining({
             nameSnapshot: first.name,

@@ -8,7 +8,7 @@ import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
-import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toTelHref } from '@/lib/site/link'
 import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { LiveHours } from '../home/LiveHours'
@@ -31,7 +31,7 @@ type Props = {
   accentSecondSentence?: boolean
 }
 
-type Channel = { label: string; value: string; href: string; icon: IconName; external?: boolean }
+type Channel = { label: string; value: string; href: string; icon: IconName }
 
 /**
  * Navy panel with the channels from the settings and the v20 contact form (ZMIANY-v20 §2.9):
@@ -56,7 +56,6 @@ export async function ContactPanel({
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
   const phone = settings?.phone ?? null
-  const whatsapp = settings?.biznes?.whatsapp ?? null
   const email = settings?.email ?? null
   const location = company?.locations[0]
   const hours = location?.hours ?? []
@@ -64,10 +63,6 @@ export async function ContactPanel({
   const channels: Channel[] = []
   const tel = phone ? toTelHref(phone) : null
   if (phone && tel) channels.push({ label: 'Telefon', value: phone, href: tel, icon: 'phone' })
-  const wa = whatsapp ? toWhatsAppHref(whatsapp) : null
-  if (whatsapp && wa) {
-    channels.push({ label: 'WhatsApp', value: whatsapp, href: wa, icon: 'chat', external: true })
-  }
   if (email) channels.push({ label: 'E-mail', value: email, href: `mailto:${email}`, icon: 'mail' })
   const footer = [location && `${location.street}, ${location.city}`, hoursSummary(hours)]
     .filter(Boolean)
@@ -99,7 +94,6 @@ export async function ContactPanel({
                   <li key={channel.label}>
                     <a
                       href={channel.href}
-                      {...(channel.external ? { rel: 'noopener', target: '_blank' } : {})}
                       className="flex items-center gap-4 rounded-2xl bg-white/5 px-4 py-3 shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--c-white)_12%,transparent)] hover:bg-white/10"
                     >
                       <span
@@ -112,9 +106,6 @@ export async function ContactPanel({
                         <span className="text-[13px] text-white/80">{channel.label}</span>
                         <span className="font-extrabold">{channel.value}</span>
                       </span>
-                      {channel.external && (
-                        <span className="sr-only"> (otwiera się w nowej karcie)</span>
-                      )}
                     </a>
                   </li>
                 ))}

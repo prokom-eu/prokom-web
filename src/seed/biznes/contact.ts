@@ -38,7 +38,6 @@ export const BIZNES_CONTACT = {
   phone2: '883 200 151',
   phone2Href: 'tel:+48883200151',
   email: 'kontakt@prokombiznes.pl',
-  whatsapp: '889 003 889',
   /** For sentences: „pn–pt 9:00–17:00”. */
   hoursText: 'pn–pt 9:00–17:00',
 } as const
@@ -81,14 +80,13 @@ export async function upsertBiznesContact(
       phone2: BIZNES_CONTACT.phone2,
       email: BIZNES_CONTACT.email,
     }
-    const whatsappSame = settings.biznes?.whatsapp === BIZNES_CONTACT.whatsapp
-    const same = hasSameValues(settings, data) && whatsappSame
+    const same = hasSameValues(settings, data)
     count('site-settings contact', same ? false : 'updated')
     if (!same) {
       await payload.update({
         collection: 'site-settings',
         id: settings.id,
-        data: { ...data, biznes: { ...settings.biznes, whatsapp: BIZNES_CONTACT.whatsapp } },
+        data,
         ...local,
       })
     }

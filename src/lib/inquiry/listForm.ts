@@ -63,12 +63,12 @@ export function checkListRequired(
 }
 
 /**
- * Phone and WhatsApp need a number: with an e-mail only, the answer goes by e-mail — the
+ * The phone needs a number: with an e-mail only, the answer goes by e-mail — the
  * office must not get „zadzwoń” without a number (K4-FINAL §5, the drawer has no choice).
  */
 function contactFor(values: ListFormValues): PreferredContact {
-  const byPhone = values.preferredContact === 'phone' || values.preferredContact === 'whatsapp'
-  if (byPhone && !values.phone.trim() && values.email.trim()) return 'email'
+  if (values.preferredContact === 'phone' && !values.phone.trim() && values.email.trim())
+    return 'email'
   return values.preferredContact
 }
 

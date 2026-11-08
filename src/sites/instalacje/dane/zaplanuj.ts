@@ -128,7 +128,7 @@ export const zaplanuj = {
     emailRequired: 'wymagany przy kontakcie e-mailem',
     emailPlaceholder: 'np. anna@example.pl',
     via: 'Wolisz kontakt przez',
-    viaIcons: ['phone', 'chat', 'mail'] satisfies InstIconName[],
+    viaIcons: ['phone', 'mail'] satisfies InstIconName[],
     when: 'Kiedy najlepiej?',
   },
   errors: {

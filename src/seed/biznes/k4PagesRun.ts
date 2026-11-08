@@ -70,7 +70,7 @@ export function k4PageSeeds(slugOf: SlugOf, mediaOf?: MediaOf) {
       slug: 'kontakt',
       title: 'Kontakt',
       description:
-        'Kontakt z PRO-KOM w Rabce-Zdroju: telefon, WhatsApp, e-mail i formularz. Oddzwaniamy w ciągu 60 minut w godzinach pracy. Dojazd na całe Podhale.',
+        'Kontakt z PRO-KOM w Rabce-Zdroju: telefon, e-mail i formularz. Oddzwaniamy w ciągu 60 minut w godzinach pracy. Dojazd na całe Podhale.',
       built: contactK4Layout(firma),
     },
     // K4j: new pages (D-K4-7), no older seed.

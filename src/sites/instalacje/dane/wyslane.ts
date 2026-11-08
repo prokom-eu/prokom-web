@@ -11,7 +11,7 @@ export const wyslane = {
   leadVia: (via: string) =>
     `Odezwiemy się do 24 h w dni robocze, tak jak wybrałeś: ${via}. Wtedy dopytamy o szczegóły i umówimy wizję lokalną.`,
   lead: 'Odezwiemy się do 24 h w dni robocze. Wtedy dopytamy o szczegóły i umówimy wizję lokalną.',
-  via: { phone: 'telefonem', whatsapp: 'na WhatsAppie', email: 'e-mailem' },
+  via: { phone: 'telefonem', email: 'e-mailem' },
   number: 'Numer zgłoszenia:',
   files: 'Zdjęcia, rzuty albo przedmiar prześlij w odpowiedzi na naszą wiadomość.',
   after: [

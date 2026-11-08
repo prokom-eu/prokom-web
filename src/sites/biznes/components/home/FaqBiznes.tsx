@@ -3,7 +3,7 @@ import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
-import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toTelHref } from '@/lib/site/link'
 import type { FaqBlock as FaqBlockData } from '@/payload-types'
 import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
@@ -28,7 +28,6 @@ export async function FaqBiznes({ block, tenantId, phoneLimit }: Props) {
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const phone = settings?.phone ?? null
   const tel = phone ? toTelHref(phone) : null
-  const whatsapp = settings?.biznes?.whatsapp ? toWhatsAppHref(settings.biznes.whatsapp) : null
   const email = settings?.email ?? null
   const hours = company?.locations[0]?.hours ?? []
 
@@ -54,7 +53,7 @@ export async function FaqBiznes({ block, tenantId, phoneLimit }: Props) {
           {block.lead && (
             <p className={`${BZ_LEAD} mt-4 max-w-[46ch] text-ink-2 max-md:hidden`}>{block.lead}</p>
           )}
-          {(phone || email || whatsapp) && (
+          {(phone || email) && (
             // Phone (boards App-*): the questions only; the contact card is one tap away
             // under „Kontakt” in the tab bar.
             <div className="mt-6 max-w-[420px] rounded-[22px] bg-card p-5 shadow-[0_24px_48px_-32px_var(--glow),inset_0_0_0_1px_var(--border)] max-md:hidden">
@@ -68,20 +67,8 @@ export async function FaqBiznes({ block, tenantId, phoneLimit }: Props) {
                   {phone}
                 </a>
               )}
-              <p className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-extrabold">
-                {whatsapp && (
-                  <a
-                    href={whatsapp}
-                    rel="noopener"
-                    target="_blank"
-                    className="inline-flex items-center gap-1.5 text-ink hover:underline"
-                  >
-                    <Icon name="chat" className="size-4 text-accent-text" />
-                    WhatsApp
-                    <span className="sr-only"> (otwiera się w nowej karcie)</span>
-                  </a>
-                )}
-                {email && (
+              {email && (
+                <p className="mt-3 text-sm font-extrabold">
                   <a
                     href={`mailto:${email}`}
                     className="inline-flex items-center gap-1.5 text-ink hover:underline"
@@ -89,8 +76,8 @@ export async function FaqBiznes({ block, tenantId, phoneLimit }: Props) {
                     <Icon name="mail" className="size-4 text-accent-text" />
                     {email}
                   </a>
-                )}
-              </p>
+                </p>
+              )}
             </div>
           )}
         </div>

@@ -25,20 +25,17 @@ describe('siteContactUpdate', () => {
 })
 
 describe('lineSettingsUpdate', () => {
-  it('fills the architects’ contact person while empty and never writes WhatsApp (01.11)', () => {
-    expect(lineSettingsUpdate({ whatsapp: null, architects: { name: '', role: null } })).toEqual({
+  it('fills the architects’ contact person while empty', () => {
+    expect(lineSettingsUpdate({ architects: { name: '', role: null } })).toEqual({
       architects: { name: ARCHITECTS_CONTACT.name, role: ARCHITECTS_CONTACT.role },
     })
-    expect(INSTALACJE_CONTACT).not.toHaveProperty('whatsapp')
   })
 
-  it('keeps a name, role and number set in the panel', () => {
-    expect(
-      lineSettingsUpdate({ whatsapp: '+48 600 000 000', architects: { name: 'Anna Nowak' } }),
-    ).toBeNull()
-    expect(
-      lineSettingsUpdate({ whatsapp: '+48 600 100 200', architects: { role: 'Projekty' } }),
-    ).toEqual({ architects: { name: ARCHITECTS_CONTACT.name, role: 'Projekty' } })
+  it('keeps a name and role set in the panel', () => {
+    expect(lineSettingsUpdate({ architects: { name: 'Anna Nowak' } })).toBeNull()
+    expect(lineSettingsUpdate({ architects: { role: 'Projekty' } })).toEqual({
+      architects: { name: ARCHITECTS_CONTACT.name, role: 'Projekty' },
+    })
   })
 })
 

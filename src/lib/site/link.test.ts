@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { isValidNavHref, toDirectionsHref, toMapsHref, toTelHref, toWhatsAppHref } from './link'
+import { isValidNavHref, toDirectionsHref, toMapsHref, toTelHref } from './link'
 
 describe('isValidNavHref', () => {
   it.each([
@@ -43,27 +43,6 @@ describe('toTelHref', () => {
   it('adds the Polish code to a bare 9-digit number (Software v23: „883 200 151”)', () => {
     expect(toTelHref('883 200 151')).toBe('tel:+48883200151')
     expect(toTelHref('0048 883 200 151')).toBe('tel:0048883200151')
-  })
-})
-
-describe('toWhatsAppHref', () => {
-  it('builds a wa.me link from an international number', () => {
-    expect(toWhatsAppHref('+48 889 003 889')).toBe('https://wa.me/48889003889')
-  })
-
-  // wa.me needs the country code; a local number would open someone else's chat.
-  it('adds the Polish code to a 9-digit number', () => {
-    expect(toWhatsAppHref('889 003 889')).toBe('https://wa.me/48889003889')
-  })
-
-  // "00" is the dialling prefix, not part of the number wa.me expects.
-  it('drops a leading 00', () => {
-    expect(toWhatsAppHref('0048 889 003 889')).toBe('https://wa.me/48889003889')
-  })
-
-  it('returns null without a usable number', () => {
-    expect(toWhatsAppHref('brak')).toBeNull()
-    expect(toWhatsAppHref('12 34')).toBeNull()
   })
 })
 

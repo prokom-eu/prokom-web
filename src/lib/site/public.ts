@@ -63,7 +63,6 @@ export type PublicBiznesSettings = {
     hours: string | null
     showInFooter: boolean
   }[]
-  whatsapp: string | null
   trustLine: string | null
   serviceAreas: string[]
   promises: {
@@ -91,7 +90,6 @@ function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicB
       hours: row.hours ?? null,
       showInFooter: row.showInFooter ?? false,
     })),
-    whatsapp: group?.whatsapp ?? null,
     trustLine: group?.trustLine ?? null,
     serviceAreas: group?.serviceAreas ?? [],
     promises: {
