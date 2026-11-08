@@ -1423,7 +1423,8 @@
   .hx {
     --hx-w-max: 560px;
     --hx-side: 0.59;
-    --hx-w: min(var(--hx-w-max), calc(100vw - 64px));
+    /* Tablet and phone: the window has the board's fixed width (the side windows peek out). */
+    --hx-w: var(--hx-w-max);
   }
   .hx-win[data-rank='r1'] {
     transform: translateX(calc(var(--hx-w) * var(--hx-side))) translateZ(-380px) rotateY(-30deg);
@@ -1488,7 +1489,6 @@
   }
   .hx {
     --hx-w-max: 340px;
-    --hx-w: min(var(--hx-w-max), calc(100vw - 50px));
   }
   .hx-flow {
     height: calc(var(--hx-w) * 0.6566 + 14px);
