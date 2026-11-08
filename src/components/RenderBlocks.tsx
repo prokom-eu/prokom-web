@@ -13,6 +13,8 @@ import type { PublicPage } from '@/lib/pages/data'
 import { HOME_SLUG, pagePath } from '@/lib/pages/slug'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 import { BzContactBlock } from '@/sites/biznes/blocks/BzContact/Component'
+import { BzAboutPageBlock } from '@/sites/biznes/blocks/BzAboutPage/Component'
+import { BzContactPageBlock } from '@/sites/biznes/blocks/BzContactPage/Component'
 import { BzLocationBlock } from '@/sites/biznes/blocks/BzLocation/Component'
 import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
@@ -217,6 +219,10 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzLocation':
             return <BzLocationBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzContactPage':
+            return <BzContactPageBlock key={key} tenantId={tenant.id} />
+          case 'bzAboutPage':
+            return <BzAboutPageBlock key={key} tenantId={tenant.id} />
           case 'bzOrderFlow':
             return <BzOrderFlowBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzTimeline':

@@ -15,6 +15,8 @@ import { BzKsefBlock } from '../sites/biznes/blocks/BzKsef/config'
 import { BzOrderFlowBlock } from '../sites/biznes/blocks/BzOrderFlow/config'
 import { BzTimelineBlock } from '../sites/biznes/blocks/BzTimeline/config'
 import { BzSectionBlock } from '../sites/biznes/blocks/BzSection/config'
+import { BzAboutPageBlock } from '../sites/biznes/blocks/BzAboutPage/config'
+import { BzContactPageBlock } from '../sites/biznes/blocks/BzContactPage/config'
 import { BzLocationBlock } from '../sites/biznes/blocks/BzLocation/config'
 import { InstContactBlock } from '../sites/instalacje/blocks/InstContact/config'
 import { InstHomeBlock } from '../sites/instalacje/blocks/InstHome/config'
@@ -75,6 +77,9 @@ export const BIZNES_BLOCKS: Block[] = [
   BzLocationBlock,
   // K4hij: the K4 subpages (one block, the section kind picked — decyzja Krystiana 01.11)
   BzSectionBlock,
+  // D3-B PR 2: /kontakt and /o-firmie on the shared templates (plan 0611 §8.2)
+  BzContactPageBlock,
+  BzAboutPageBlock,
 ]
 
 /**
