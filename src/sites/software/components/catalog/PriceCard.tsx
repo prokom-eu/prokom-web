@@ -20,8 +20,8 @@ const plainClick = (event: MouseEvent) =>
 /**
  * Price card of Software v24 (ZMIANY-v24 §4.2, §6.2): the solution's mock-up, group, name, lead,
  * „od” price and term. The same card on the start page, the catalog and the price page; a click
- * opens the offer window (`?rozwiazanie=`). The link is named by the solution first, then its group,
- * price and term — the group eyebrow stands above the name only for the eye.
+ * opens the offer window (`?rozwiazanie=`). The link is named by its visible text (no `aria-label`:
+ * a name in another order than the text fails WCAG 2.5.3 „label in name”, axe).
  */
 export function PriceCard({ card, details, href, onOpen }: Props) {
   return (
@@ -29,7 +29,6 @@ export function PriceCard({ card, details, href, onOpen }: Props) {
       href={href}
       className="sw-glass v-card"
       data-card=""
-      aria-label={[card.name, card.group, card.price, card.term].filter(Boolean).join(' · ')}
       onClick={(event) => {
         if (!onOpen || !plainClick(event)) return
         event.preventDefault()

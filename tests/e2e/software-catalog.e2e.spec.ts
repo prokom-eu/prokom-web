@@ -20,8 +20,9 @@ const chip = (page: Page, name: RegExp) =>
   page.getByRole('group', { name: 'Kategoria' }).getByRole('button', { name })
 const tile = (page: Page, name: string) =>
   page.getByRole('group', { name: 'Grupy oferty' }).getByRole('button', { name })
+/** The card of one solution, found by its name (the bold title of the card). */
 const card = (page: Page, name: string) =>
-  page.getByRole('link', { name: new RegExp(`^${name} · `) })
+  cards(page).filter({ has: page.locator('.v-card-bd > b', { hasText: new RegExp(`^${name}$`) }) })
 /** The island is interactive (ADR-023: a click before hydration is lost). */
 const ready = (page: Page) => hydrated(chip(page, /^Wszystko/))
 /** The offer window of one solution (`<dialog>` named after it). */
@@ -63,7 +64,7 @@ test.describe('Software catalog', () => {
 
     // Kryterium 4: a typo still finds it.
     await page.goto(site(HOST, `${PATH}?q=exel`))
-    await expect(cards(page).first()).toHaveAccessibleName(/^Z Excela do systemu · /)
+    await expect(cards(page).first().locator('.v-card-bd > b')).toHaveText('Z Excela do systemu')
   })
 
   test('tiles and chips write the URL, counts agree with the list, a refresh keeps the view', async ({
@@ -150,7 +151,7 @@ test.describe('Software catalog', () => {
     await page.goto(site(HOST, PATH))
     const firmSite = card(page, 'Strona firmowa z panelem')
     await expect(firmSite).toContainText(/od\s2\s490\s*zł netto/)
-    await expect(firmSite).toHaveAccessibleName(/· od 2 tygodni$/)
+    await expect(firmSite.locator('.v-card-ft')).toContainText('od 2 tygodni')
     await expect(firmSite.locator('[data-mockup="site"]')).toHaveCount(1)
     await expect(card(page, 'Opieka nad stroną i systemem')).toContainText('od 149 zł / mies.')
   })
