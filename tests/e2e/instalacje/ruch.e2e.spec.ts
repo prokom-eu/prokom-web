@@ -26,9 +26,15 @@ const animationOf = (page: Page, selector: string) =>
     .evaluate((element) => getComputedStyle(element).animationName)
 
 const openMega = async (page: Page) => {
-  const button = page.getByRole('button', { name: 'Usługi', exact: true })
-  await button.hover()
-  await expect(page.getByRole('region', { name: 'Usługi' })).toBeVisible()
+  const button = page
+    .locator('[data-site-header]')
+    .getByRole('button', { name: 'Usługi', exact: true })
+  // Retried until the page is hydrated (before that nothing listens to the pointer).
+  await expect(async () => {
+    await page.mouse.move(700, 950)
+    await button.hover()
+    await expect(page.getByRole('region', { name: 'Usługi' })).toBeVisible({ timeout: 500 })
+  }).toPass()
 }
 
 test.describe('Instalacje motion', () => {
@@ -61,7 +67,7 @@ test.describe('Instalacje motion', () => {
   test('the mega menu items come in one after another', async ({ page }) => {
     await page.goto(site(HOST))
     await openMega(page)
-    expect(await animationOf(page, '.mega:not([hidden]) .megac a')).toBe('sw-reveal')
+    expect(await animationOf(page, '.imega:not([hidden]) .megac a')).toBe('sw-reveal')
   })
 
   test('an FAQ plus turns into a × when its answer opens', async ({ page }) => {
@@ -78,8 +84,13 @@ test.describe('Instalacje motion with reduced motion', () => {
 
   test('the theme changes its colours at once, without the circle', async ({ page }) => {
     await page.goto(site(HOST))
-    await page.getByRole('button', { name: 'Włącz ciemny motyw' }).click()
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+    // L1-I: the shared theme toggle of the capsule.
+    const toggle = page.locator('[data-site-header]').getByRole('button', { name: 'Tryb ciemny' })
+    // Retried until the page is hydrated (before that the click is lost).
+    await expect(async () => {
+      if ((await toggle.getAttribute('aria-pressed')) !== 'true') await toggle.click()
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark', { timeout: 500 })
+    }).toPass()
     await expect(page.locator('html')).not.toHaveAttribute('data-theme-reveal')
     expect((await running(page)).filter((name) => OURS.test(name))).toEqual([])
   })
@@ -87,7 +98,7 @@ test.describe('Instalacje motion with reduced motion', () => {
   test('the mega menu, an FAQ answer and the page do not move', async ({ page }) => {
     await page.goto(site(HOST, '/monitoring'))
     await openMega(page)
-    expect(await animationOf(page, '.mega:not([hidden]) .megac a')).toBe('none')
+    expect(await animationOf(page, '.imega:not([hidden]) .megac a')).toBe('none')
     await page.keyboard.press('Escape')
     const faq = page.locator('#faq details.fq').nth(1)
     await faq.locator('summary').click()

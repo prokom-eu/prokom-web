@@ -47,8 +47,6 @@ test.describe('Instalacje contact page', () => {
     await expect(page.locator('.ctc2 a[href^="mailto:"]')).toHaveCount(1)
     await expect(page.locator('.zsum a[href^="https://www.google.com/maps/"]')).not.toHaveCount(0)
     await expect(page.locator('main')).not.toContainText('[SZEF')
-    // The footer drops its contact row: the page shows it (prototype `.ctc2`).
-    await expect(page.locator('#stopka .ftc')).toBeHidden()
   })
 
   test('the form asks for what is missing, then saves a contact inquiry', async ({

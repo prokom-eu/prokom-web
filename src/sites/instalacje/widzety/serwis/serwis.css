@@ -6,7 +6,7 @@
  * related cards, `.seg`, `.note` (`sekcje.css`); `.steps`, `.step` (`glowna-sekcje.css`); `.zp`,
  * `.zpq`, `.zsl`, `.fl`, `.zin`, `.odi` (`teletechnika.css`); `.zpc`, `.chip` (`sieci.css`);
  * `.zkerr` (`zaplanuj.css`); `.consent` (`kontakt.css`) — check `/serwis` when changing those.
- * The plan cards are scoped to `.plans`: the footer's „Zaplanuj” card is `.ftci.plan` too.
+ * The plan cards are scoped to `.plans`.
  */
 [data-line='instalacje'] {
   & .plans .plan {

@@ -4,13 +4,12 @@ import { connection } from 'next/server'
 
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
-import { getInstalacjeSettings } from '@/lib/instalacje/data'
 import { breadcrumbJsonLd } from '@/lib/seo/jsonLd'
 import { siteOrigin } from '@/lib/seo/origin'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { openingStatus } from '@/lib/site/hours'
 import { hoursSummary } from '@/lib/site/hoursSummary'
-import { toDirectionsHref, toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toDirectionsHref, toTelHref } from '@/lib/site/link'
 import type { InstContactBlock as InstContactBlockData } from '@/payload-types'
 
 import { kontakt as K } from '../../dane/kontakt'
@@ -31,16 +30,15 @@ type Props = { block: InstContactBlockData; tenantId: number }
 /**
  * The contact page `/kontakt` (ADR-I002 §0, `Kontakt.body.html`): hero with the contact cards,
  * the salons' hours and the map of the travel zones; the form `#napisz` with the salons beside
- * it; the CTA band from the panel. Phone and e-mail from `SiteSettings`, WhatsApp from
- * `InstalacjeSettings`, salons, hours and NIP from `CompanyData` — no external map script, the
+ * it; the CTA band from the panel. Phone and e-mail from `SiteSettings` (no WhatsApp since
+ * 01.11), salons, hours and NIP from `CompanyData` — no external map script, the
  * route opens Google Maps in a new tab. The block carries the page's h1.
  */
 export async function InstContactBlock({ block, tenantId }: Props) {
   // The form token carries the render time (minimum fill time), so never from a cache.
   await connection()
-  const [site, settings, company, host] = await Promise.all([
+  const [site, company, host] = await Promise.all([
     getSiteSettings(tenantId),
-    getInstalacjeSettings(tenantId),
     getCompanyData(),
     headers().then((h) => h.get('host')),
   ])
@@ -48,7 +46,6 @@ export async function InstContactBlock({ block, tenantId }: Props) {
   const origin = siteOrigin(host, getEnv().SITE_ENV)
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
-  const waHref = settings.whatsapp ? toWhatsAppHref(settings.whatsapp) : null
   const locations = company?.locations ?? []
   const first = locations[0]
   const status = first?.hours?.length ? openingStatus(first.hours, new Date()) : null
@@ -70,13 +67,6 @@ export async function InstContactBlock({ block, tenantId }: Props) {
   type Card = { icon: InstIconName; title: string; text: string; value: string; href: string }
   const cards: Card[] = []
   if (phone) cards.push({ ...C.phone, value: phone.label, href: phone.href })
-  if (waHref && settings.whatsapp) {
-    cards.push({
-      ...C.whatsapp,
-      value: settings.whatsapp,
-      href: `${waHref}?text=${encodeURIComponent(C.whatsapp.message)}`,
-    })
-  }
   if (site?.email) {
     cards.push({
       ...C.email,

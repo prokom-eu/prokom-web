@@ -32,7 +32,7 @@ type Props = {
 // Defaults of the prototype (`common.js → sub()`).
 const ASIDE = {
   title: 'Masz inne pytanie?',
-  text: 'Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.',
+  text: 'Opisz obiekt albo obecną instalację. Powiemy, od czego zacząć i czego się spodziewać.',
   button: 'Zaplanuj instalację',
   href: '/zaplanuj',
 }

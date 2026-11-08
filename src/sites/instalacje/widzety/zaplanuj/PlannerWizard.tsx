@@ -102,8 +102,9 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
     if (!moved.current) return
     const box = card.current
     if (box) {
-      const header = document.querySelector('.hdr')
-      const offset = (header ? header.getBoundingClientRect().height : 0) + 12
+      // L1-I: the shared header capsule (sticky; 0 px while it hides on a phone).
+      const header = document.querySelector('[data-site-header]:not([data-hidden])')
+      const offset = (header ? header.getBoundingClientRect().bottom : 0) + 12
       const top = box.getBoundingClientRect().top
       if (top < offset || top > window.innerHeight * 0.4) {
         const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -595,18 +596,22 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
                     {Z.step4.via}
                   </span>
                   <div className="zkseg">
-                    {PLAN_VIA.map((v, i) => (
-                      <button
-                        key={v.label}
-                        type="button"
-                        className={'zksg' + tile(state.via === i)}
-                        aria-pressed={state.via === i}
-                        onClick={() => change({ via: i })}
-                      >
-                        <InstIcon name={Z.step4.viaIcons[i]} size={16} />
-                        <b>{v.label}</b>
-                      </button>
-                    ))}
+                    {/* No WhatsApp (decision 01.11): its option is not offered, the indexes of the
+                        others stay as the prototype's and the inquiry schema's. */}
+                    {PLAN_VIA.map((v, i) =>
+                      v.contact === 'whatsapp' ? null : (
+                        <button
+                          key={v.label}
+                          type="button"
+                          className={'zksg' + tile(state.via === i)}
+                          aria-pressed={state.via === i}
+                          onClick={() => change({ via: i })}
+                        >
+                          <InstIcon name={Z.step4.viaIcons[i]} size={16} />
+                          <b>{v.label}</b>
+                        </button>
+                      ),
+                    )}
                   </div>
                 </div>
                 <div className="zkgrp" role="group" aria-labelledby="zk-when">
