@@ -68,6 +68,15 @@ test.describe('Instalacje home sections', () => {
       ),
     )
     expect(loaded).toBe(true)
+    // P1-6 (audit 06.11): every logo is drawn ≥ 24 px tall (11 columns gave Hikvision ~10 px).
+    const heights = await logos.evaluateAll((els) =>
+      els.map((el) => {
+        const img = el as HTMLImageElement
+        const box = img.getBoundingClientRect()
+        return Math.min(box.height, box.width / (img.naturalWidth / img.naturalHeight))
+      }),
+    )
+    expect(Math.min(...heights)).toBeGreaterThanOrEqual(24)
   })
 
   // RUNDA-V5 §3: the whole card leads to the object page, not only „Zobacz rozwiązania”.
