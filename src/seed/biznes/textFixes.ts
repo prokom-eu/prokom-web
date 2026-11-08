@@ -2,7 +2,9 @@ import type { Payload } from 'payload'
 
 import { SEED_CONTEXT } from '../config'
 import { hardSpaces } from '../../lib/text/hardSpace'
+import { RELIEF_FAQ_ANSWER } from './category'
 import { BIZNES_CONTACT } from './contact'
+import { KSEF_POS_PARAGRAPH, KSEF_RELIEF_PARAGRAPH } from './posts'
 
 /**
  * Wording corrected after a page was seeded. The seed never rewrites the blocks of an existing
@@ -64,6 +66,24 @@ type Fix = readonly [from: string, to: string]
  * same phrase written inside another text in the panel stays.
  */
 export const WHOLE_TEXT_FIXES: readonly Fix[] = [
+  // KSeF post and the cash register FAQ (D17 and the relief note, 06.11.2026).
+  [
+    'Kasa dalej drukuje paragony. Ale od 1.01.2027 faktura do paragonu dla firmy idzie wyłącznie przez KSeF: z programu lub aplikacji, nie z kasy. Paragon z NIP do 450 zł przestaje być fakturą uproszczoną w B2B. W gastronomii i hotelu konfigurujemy to w GoPOS i NFHotel.',
+    KSEF_POS_PARAGRAPH,
+  ],
+  [
+    'Firmy, które dopiero zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Zakup nie później niż 6 miesięcy od rozpoczęcia ewidencji; brak przeglądu w 3 lata oznacza zwrot ulgi.',
+    KSEF_RELIEF_PARAGRAPH,
+  ],
+  [
+    'Firmy, które po raz pierwszy zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto kasy, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Warunki (m.in. terminy i obowiązkowy przegląd) sprawdzimy z Tobą przy zamówieniu.',
+    RELIEF_FAQ_ANSWER,
+  ],
+  // The same answer as seeded before the redaction of 01.11 (local and staging databases).
+  [
+    'Firmy, które po raz pierwszy zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto kasy, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Warunki — m.in. terminy i obowiązkowy przegląd — sprawdzimy z Tobą przy zamówieniu.',
+    RELIEF_FAQ_ANSWER,
+  ],
   // Home page.
   ['Wszystko z jednego miejsca — z Rabki.', 'Wszystko z jednego miejsca w Rabce.'],
   [

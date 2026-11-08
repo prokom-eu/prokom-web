@@ -314,3 +314,6 @@ PR 3 perf/prokombiznes-wydajnosc — prompt 2 W4 (Lighthouse mobile ≥ 90 dla /
 PR 4 feat/prokombiznes-ruch — prompt 4 R1 + R2 (system ruchu SWV7 dla Biznesu i sekcje; e2e biznes-transitions i software-transitions; pomiar CPU 4×, nagrania). Jeśli diff R1+R2 > ~400 linii — dwa PR-y.
 DoD: jak w promptach; Lighthouse po ruchu bez spadku względem PR 3; /przeglad; /koniec-sesji.
 ```
+
+### 7.3 Paczka 0611 (od 08.11.2026 — decyzje Krystiana 05–06.11)
+Plan, zakres PR-ów, prompty i otwarte decyzje: **`docs/zadania/prokombiznes-0611.md`** (źródło prawdy, wygrywa z §7.1–§7.2 tam, gdzie się różnią). Cztery sesje: F (WhatsApp, folder fundamentu) → BIZ-1 (porządek, powłoka wspólna, Kontakt i O firmie) → BIZ-2 (Zaopatrzenie firm, nowa główna) → BIZ-3 (zestawy, jakość podstron, QA). Materiały: `docs/design/prokombiznes/0611/`, rozstrzygnięcia — ADR-017 „Rozstrzygnięcia 06.11”.

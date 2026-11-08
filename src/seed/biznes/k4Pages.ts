@@ -4,7 +4,7 @@ import type { SectionData, SectionVariant } from '../../lib/biznes/pages/section
 import type { IconName } from '../../lib/catalog/options'
 import { hardSpaces, hardSpacesDeep } from '../../lib/text/hardSpace'
 import type { BzSectionBlock, FaqBlock } from '../../payload-types'
-import { isSvgPath } from '../../lib/catalog/svg'
+import { isSvgPath, svgPathText } from '../../lib/catalog/svg'
 import type { PageBlock } from './page'
 import { BIZNES_CONTACT } from './contact'
 
@@ -269,6 +269,36 @@ export function upgradeGoposPhotos(stored: PageBlock[], seed: PageBlock[]): Page
       }
     }
     return block
+  })
+  return changed ? next : null
+}
+
+type CareArea = { t?: string; iconPath?: string }
+
+/**
+ * D13 (`/opieka-it`): a stored page keeps its blocks, so the area icons come in here. A missing
+ * icon gets the seed's (matched by the area title), an icon with hard spaces from an older seed
+ * is repaired; an icon set in the panel stays. `null` when nothing changes.
+ */
+export function upgradeCareIcons(stored: PageBlock[], seed: PageBlock[]): PageBlock[] | null {
+  const seedBlock = seed.find((block) => isSection(block, 'care-areas')) as SectionLike | undefined
+  const fresh = new Map(
+    (((seedBlock?.data ?? {}) as { areas?: CareArea[] }).areas ?? []).map((area) => [
+      area.t,
+      area.iconPath,
+    ]),
+  )
+  let changed = false
+  const next = stored.map((block) => {
+    if (!isSection(block, 'care-areas')) return block
+    const data = (block.data ?? {}) as { areas?: CareArea[] }
+    const areas = (data.areas ?? []).map((area) => {
+      const iconPath = area.iconPath ? svgPathText(area.iconPath) : fresh.get(area.t)
+      if (!iconPath || iconPath === area.iconPath) return area
+      changed = true
+      return { ...area, iconPath }
+    })
+    return changed ? { ...block, data: { ...data, areas } } : block
   })
   return changed ? next : null
 }
