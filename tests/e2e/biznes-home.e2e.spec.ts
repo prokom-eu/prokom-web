@@ -443,6 +443,8 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
       'Pytania',
       'Kontakt',
     ])
+    // The folded rail shows its icons: the pointer over it unfolds the labels first.
+    await page.locator('[data-site-rail]').hover()
     await rail.getByRole('link', { name: 'O firmie' }).click()
     await expect(page).toHaveURL(/#fakty$/)
     await expect(rail.getByRole('link', { name: 'O firmie' })).toHaveAttribute(
