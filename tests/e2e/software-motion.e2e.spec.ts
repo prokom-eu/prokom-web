@@ -27,12 +27,7 @@ test.describe('Software motion', () => {
   test('the rail glides to a section, focuses it and its heading arrives', async ({ page }) => {
     await page.goto(site(HOST))
     expect(await scrollBehavior(page)).toBe('smooth')
-    // SWV7: sections below the screen wait hidden and rise in once seen (`RevealObserver`).
-    const pending = page.locator('[data-reveal-pending]')
-    // The observer marks them after hydration — wait for it, not just for the load.
-    await expect.poll(() => pending.count()).toBeGreaterThan(0)
     await page
-
       .getByRole('navigation', { name: 'Na tej stronie' })
       .locator('a[href="#proces"]')
       .click()
@@ -50,12 +45,10 @@ test.describe('Software motion', () => {
         }),
       )
       .toBe('arrived')
-    // The heading of the section reached has risen in and stays (no hiding on the way back up).
-    const head = page.locator('#proces [data-reveal]').first()
-    await expect(head).toHaveAttribute('data-revealed', '')
-    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
-    await expect(head).toHaveAttribute('data-revealed', '')
-    await expect(head).not.toHaveAttribute('data-reveal-pending')
+    // v24: the heading rises in with the scroll alone (`data-rise`, CSS) and is there on arrival.
+    const head = page.locator('#proces h2')
+    await expect(head).toHaveAttribute('data-rise', '')
+    await expect.poll(() => head.evaluate((el) => getComputedStyle(el).opacity)).toBe('1')
   })
 })
 

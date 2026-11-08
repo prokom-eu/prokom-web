@@ -30,13 +30,14 @@ test.describe('Software start page', () => {
       'cennik',
       'proces',
       'faq',
-      'kontakt',
     ])
+    // v24: „Napisz po swojemu” is the card next to the FAQ, in its section.
+    await expect(page.locator('#faq #kontakt')).toBeVisible()
     // Hero v24 (SWA2a): details in software-hero.e2e.spec.ts.
     await expect(page.locator('#start h1')).toContainText('Zrobimy Ci')
   })
 
-  test('process: 5 stages, the sample quote, switching itself until picked', async ({ page }) => {
+  test('process: 5 stages, the stage card, switching itself until picked', async ({ page }) => {
     await page.clock.install()
     await page.goto(site(HOST))
     await expect(stageTabs(page)).toHaveCount(5)
@@ -50,12 +51,12 @@ test.describe('Software start page', () => {
     const height = async () => (await page.locator('#proces').boundingBox())?.height
     const before = await height()
     await page.mouse.move(0, 0)
-    await page.clock.runFor(5300)
+    await page.clock.runFor(6300)
     await expect(stageTabs(page).nth(1)).toHaveAttribute('aria-selected', 'true')
     expect(await height()).toBe(before)
-    // Stage 2: the quote of `proceduralMock` — amounts of the price list.
-    await expect(stagePanel(page)).toContainText('Wycena nr PKS-2026-0142')
-    await expect(stagePanel(page)).toContainText('8 980 zł netto')
+    // v24: the card shows the stage's eyebrow, heading and what you pay — no sample quote.
+    await expect(stagePanel(page)).toContainText('Etap 02')
+    await expect(stagePanel(page)).toContainText('Płacisz:')
 
     await stageTabs(page).nth(4).click()
     await expect(stagePanel(page)).toContainText('Etap 05')
@@ -112,9 +113,7 @@ test.describe('Software start page', () => {
   test('FAQ: 6 questions, the first open, facts filled, FAQPage JSON-LD', async ({ page }) => {
     await page.goto(site(HOST))
     const section = page.locator('#faq')
-    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Pytania, które słyszymy najczęściej',
-    )
+    await expect(section.locator('#faq-h')).toHaveText('Zanim napiszesz')
     const items = section.locator('details')
     await expect(items).toHaveCount(6)
     await expect(items.nth(0)).toHaveAttribute('open', '')
@@ -174,19 +173,15 @@ test.describe('Software start page — contact form', () => {
   const contact = (page: Page) => page.locator('#kontakt')
   const send = (page: Page) => contact(page).getByRole('button', { name: 'Wyślij' })
 
-  test('promises, audit card and phone next to the form', async ({ page }) => {
+  test('v24: heading, the line under it, topics as chips, phone and e-mail', async ({ page }) => {
     await page.goto(site(HOST))
     const section = contact(page)
-    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy',
-    )
-    await expect(section).toContainText('Odpowiadamy w ciągu 1 dnia roboczego')
-    await expect(section.getByRole('link', { name: /Masz już stronę\?/ })).toHaveAttribute(
-      'href',
-      '/audyt',
-    )
-    // Both numbers of the line (v23); the empty „najbliższy wolny termin” is gone.
-    await expect(section.locator('a[href^="tel:"]')).toHaveCount(2)
+    await expect(section.locator('#kontakt-h')).toHaveText('Napisz po swojemu')
+    await expect(section).toContainText('Odpowiadamy w ciągu 1 dnia roboczego. Zawsze człowiek.')
+    // The v23 side (promises, audit card, second number) is gone; the line's phone and e-mail stay.
+    await expect(section.getByRole('link', { name: /Masz już stronę\?/ })).toHaveCount(0)
+    await expect(section.locator('a[href^="tel:"]')).toHaveCount(1)
+    await expect(section.locator('a[href^="mailto:"]')).toHaveCount(1)
     await expect(section).not.toContainText('[MIESIĄC]')
     await expect(section.getByRole('radio')).toHaveCount(6)
     // v21: no topic picked at first.
