@@ -37,6 +37,116 @@ const text = (name: string, label: string, description?: string): Field => ({
 })
 
 /**
+ * „Zaopatrzenie — linki” (plan 0611 §6.4, ZAOPATRZENIE §10): texts of the hook-ins of the two
+ * procurement pages. An empty field hides its hook-in; so does a page that is not published.
+ */
+const procurementGroup: Field = {
+  name: 'procurement',
+  label: 'Zaopatrzenie — linki',
+  type: 'group',
+  admin: {
+    description:
+      'Odnośniki do stron „AGD i RTV dla firm” i „Dostawy IT dla firm” w reszcie strony. Puste pole = odnośnik niewidoczny.',
+  },
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'categoryBand',
+          label: 'Pas nad siatką kategorii',
+          type: 'text',
+          admin: { placeholder: 'np. Kupujesz 5 sztuk lub więcej?' },
+        },
+        {
+          name: 'categoryBandCta',
+          label: 'Link pasa',
+          type: 'text',
+          admin: { description: 'Puste = tytuł strony „Dostawy IT dla firm”.' },
+        },
+      ],
+    },
+    {
+      name: 'itCategories',
+      label: 'Kategorie z pasem i linkiem na karcie produktu',
+      type: 'text',
+      hasMany: true,
+      admin: { description: 'Adresy kategorii, np. laptopy, komputery, monitory.' },
+    },
+    {
+      name: 'productLink',
+      label: 'Link na karcie produktu (pod „Do zapytania”)',
+      type: 'text',
+      admin: { placeholder: 'np. Potrzebujesz kilku sztuk? Policz stanowiska' },
+    },
+    {
+      name: 'industryTiles',
+      label: 'Kafle na stronach branż',
+      type: 'array',
+      labels: { singular: 'Kafel', plural: 'Kafle' },
+      admin: { initCollapsed: true },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'industry',
+              label: 'Branża (adres)',
+              type: 'text',
+              required: true,
+              admin: { placeholder: 'np. noclegi' },
+            },
+            {
+              name: 'page',
+              label: 'Strona',
+              type: 'select',
+              required: true,
+              options: [
+                { label: 'AGD i RTV dla firm', value: 'agd' },
+                { label: 'Dostawy IT dla firm', value: 'it' },
+              ],
+            },
+          ],
+        },
+        { name: 'title', label: 'Tytuł', type: 'text', required: true, maxLength: 80 },
+        { name: 'text', label: 'Opis', type: 'text', maxLength: 160 },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'scaleTitle',
+          label: 'Konfigurator — karta przy skali „Ponad 10”',
+          type: 'text',
+          admin: { placeholder: 'np. Przy tej skali zrobimy dostawę' },
+        },
+        { name: 'scaleText', label: 'Opis karty', type: 'text', maxLength: 200 },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'searchAgd',
+          label: 'Wyszukiwarka — frazy AGD',
+          type: 'text',
+          hasMany: true,
+          admin: { description: 'Podpowiedź „AGD i RTV dla firm” na górze wyników.' },
+        },
+        {
+          name: 'searchIt',
+          label: 'Wyszukiwarka — frazy IT',
+          type: 'text',
+          hasMany: true,
+          admin: { description: 'Podpowiedź „Dostawy IT dla firm” na górze wyników.' },
+        },
+      ],
+    },
+  ],
+}
+
+/**
  * Data of the Biznes line (ADR-012, rozstrzygnięcie 2). Shown in the panel only for Biznes;
  * the public reader ignores it on other lines (`toPublicSiteSettings` with the tenant's line). [SZEF] = the boss's
  * wording, edited here, never a constant in code (spec. §1).
@@ -150,6 +260,7 @@ const biznesGroup: Field = {
         },
       ],
     },
+    procurementGroup,
     biznesNavigation,
     biznesFooter,
   ],

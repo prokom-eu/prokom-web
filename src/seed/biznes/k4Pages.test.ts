@@ -18,6 +18,7 @@ import {
   goposPhotoFiles,
   goposPhotoPath,
   upgradeCareIcons,
+  upgradeCareSupplyLink,
   upgradeGoposPhotos,
   GOPOS_PHOTO_ALT,
   insertK4Layout,
@@ -275,6 +276,31 @@ describe('upgradeCareIcons (D13)', () => {
     expect(areas[2]!.iconPath).toBe('M1 1h2')
     for (const area of areas) expect(area.iconPath ?? '').not.toContain(hard)
     expect(upgradeCareIcons(upgraded, fresh)).toBeNull()
+  })
+})
+
+describe('upgradeCareSupplyLink (plan 0611 §6.4 #9)', () => {
+  const fresh = opiekaK4Layout(firma, identity).layout
+  const seats = (layout: typeof fresh) =>
+    dataOf(layout, 'seats') as unknown as { label: string; link?: { label: string; href: string } }
+
+  it('the seed links „Ile masz stanowisk?” to the IT deliveries', () => {
+    expect(seats(fresh).link).toEqual({
+      label: 'Dostawy IT — gotowe do pracy',
+      href: '/dostawy-it-dla-firm',
+    })
+  })
+
+  it('adds the link to a stored section without one, keeping its texts; then nothing', () => {
+    const stored = fresh.map((block) => {
+      if (block.blockType !== 'bzSection' || block.variant !== 'seats') return block
+      const { link: _link, ...data } = block.data as { link?: unknown }
+      return { ...block, data: { ...data, label: 'Zmienione w panelu' } }
+    })
+    const upgraded = upgradeCareSupplyLink(stored, fresh)!
+    expect(seats(upgraded).label).toBe('Zmienione w panelu')
+    expect(seats(upgraded).link?.href).toBe('/dostawy-it-dla-firm')
+    expect(upgradeCareSupplyLink(upgraded, fresh)).toBeNull()
   })
 })
 

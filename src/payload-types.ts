@@ -502,6 +502,40 @@ export interface SiteSetting {
      */
     showOwnerQuote?: boolean | null;
     /**
+     * Odnośniki do stron „AGD i RTV dla firm” i „Dostawy IT dla firm” w reszcie strony. Puste pole = odnośnik niewidoczny.
+     */
+    procurement?: {
+      categoryBand?: string | null;
+      /**
+       * Puste = tytuł strony „Dostawy IT dla firm”.
+       */
+      categoryBandCta?: string | null;
+      /**
+       * Adresy kategorii, np. laptopy, komputery, monitory.
+       */
+      itCategories?: string[] | null;
+      productLink?: string | null;
+      industryTiles?:
+        | {
+            industry: string;
+            page: 'agd' | 'it';
+            title: string;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      scaleTitle?: string | null;
+      scaleText?: string | null;
+      /**
+       * Podpowiedź „AGD i RTV dla firm” na górze wyników.
+       */
+      searchAgd?: string[] | null;
+      /**
+       * Podpowiedź „Dostawy IT dla firm” na górze wyników.
+       */
+      searchIt?: string[] | null;
+    };
+    /**
      * Nagłówek: kolejność menu i mega menu Oferta.
      */
     navigation?: {
@@ -5931,6 +5965,27 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         showReviews?: T;
         showClientLogos?: T;
         showOwnerQuote?: T;
+        procurement?:
+          | T
+          | {
+              categoryBand?: T;
+              categoryBandCta?: T;
+              itCategories?: T;
+              productLink?: T;
+              industryTiles?:
+                | T
+                | {
+                    industry?: T;
+                    page?: T;
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              scaleTitle?: T;
+              scaleText?: T;
+              searchAgd?: T;
+              searchIt?: T;
+            };
         navigation?:
           | T
           | {

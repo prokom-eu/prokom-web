@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import type { CompanyDatum, SiteSetting } from '@/payload-types'
 
 import nawigacja from '../../../seed/prokomsoftware/nawigacja.json'
+import { EMPTY_SUPPLY_LINKS } from '../biznes/procurement/links'
 import { toPublicCompanyData, toPublicSiteSettings } from './public'
 
 const company: CompanyDatum = {
@@ -141,6 +142,32 @@ describe('toPublicSiteSettings', () => {
         cards: [],
       },
       footer: { important: [], company: [] },
+      procurement: EMPTY_SUPPLY_LINKS,
+    })
+  })
+
+  it('maps „Zaopatrzenie — linki”, empty texts as null', () => {
+    const withLinks: SiteSetting['biznes'] = {
+      procurement: {
+        categoryBand: 'Kupujesz 5 sztuk lub więcej?',
+        categoryBandCta: '  ',
+        itCategories: ['laptopy'],
+        industryTiles: [
+          { id: 't', industry: 'noclegi', page: 'agd', title: 'Telewizory i lodówki do pokoi' },
+        ],
+        searchAgd: ['agd'],
+      },
+    }
+    expect(
+      toPublicSiteSettings({ ...base, biznes: withLinks }, 'biznes').biznes?.procurement,
+    ).toEqual({
+      ...EMPTY_SUPPLY_LINKS,
+      categoryBand: 'Kupujesz 5 sztuk lub więcej?',
+      itCategories: ['laptopy'],
+      industryTiles: [
+        { industry: 'noclegi', page: 'agd', title: 'Telewizory i lodówki do pokoi', text: null },
+      ],
+      searchAgd: ['agd'],
     })
   })
 
