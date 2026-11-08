@@ -1368,6 +1368,107 @@
   }
 }
 
+/* AUDYT po SWA7 #1: on a wide screen the window never drops below 560 px — on a short laptop
+   the text and tiles shrink first, so the window keeps its size and only its lower part falls
+   below the fold (at least the top half stays on the first screen). */
+@media (min-width: 1280px) {
+  .hx {
+    --hx-w: clamp(560px, calc((100svh - 470px) * 1.55), var(--hx-w-max));
+  }
+}
+@media (min-width: 1280px) and (max-height: 820px) {
+  .hx {
+    padding-top: 14px;
+  }
+  .hx-pill {
+    padding-block: 4px;
+  }
+  .hx-h1 {
+    margin-top: 10px;
+    font-size: clamp(48px, 9.5vh, 72px);
+  }
+  .hx-lead {
+    margin-top: 8px;
+  }
+  .hx-cmd {
+    margin-top: 12px;
+  }
+  .hx-q {
+    padding: 2px 12px 8px;
+    font-size: 14px;
+  }
+  .hx-tiles {
+    padding-top: 6px;
+  }
+  .hx-tile {
+    min-height: 56px;
+    padding-block: 8px;
+  }
+  .hx-flow {
+    margin-top: 4px;
+    height: calc(var(--hx-w) * 0.6566 + 24px);
+  }
+  .hx-win {
+    top: 10px;
+  }
+}
+
+/* AUDYT po SWA7 #2: on a tall desktop (1920×1080) the whole window fits on the first screen —
+   less air above the H1 and between the lead and the tiles, the tiles compact (icon beside the
+   name), and the window width follows the height left below the panel. */
+@media (min-width: 1280px) and (min-height: 1000px) {
+  .hx {
+    --hx-w: clamp(560px, calc((100svh - 600px) / 0.6566), var(--hx-w-max));
+    padding-top: 20px;
+  }
+  .hx-h1 {
+    margin-top: 14px;
+    font-size: clamp(52px, min(6.4vw, 8.2vh), 88px);
+  }
+  .hx-lead {
+    max-width: 960px;
+    margin-top: 12px;
+  }
+  .hx-cmd {
+    max-width: 1160px;
+    margin-top: 18px;
+  }
+  .hx-q {
+    padding: 6px 12px 10px;
+    font-size: 15px;
+  }
+  .hx-tiles {
+    padding-top: 8px;
+  }
+  .hx-tile {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 8px;
+    min-height: 60px;
+    padding: 10px;
+    text-align: left;
+  }
+  .hx-tile .si {
+    flex: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+  }
+  .hx-tile .sn {
+    display: none;
+  }
+  .hx-tile[aria-selected='true']::after {
+    bottom: 4px;
+  }
+  .hx-flow {
+    margin-top: 8px;
+    height: calc(var(--hx-w) * 0.6566 + 28px);
+  }
+  .hx-win {
+    top: 12px;
+  }
+}
+
 /* --- Laptop ≤ 1200, tablet ≤ 960, phone ≤ 600 (AU-laptop, AU-tablet, AU-mobile) --------- */
 @media (max-width: 1200px) {
   .hx-wrap {
@@ -1416,7 +1517,7 @@
 }
 @media (max-width: 600px) {
   .hx {
-    padding: 22px 0 10px;
+    padding: 16px 0 10px;
   }
   .hx-wrap {
     padding: 0 16px;
@@ -1426,48 +1527,49 @@
   }
   .hx-h1 {
     font-size: 46px;
-    margin-top: 14px;
+    margin-top: 10px;
   }
   .hx-word {
     min-height: 2.1em;
   }
   .hx-lead {
-    margin-top: 10px;
+    margin-top: 8px;
     font-size: 15px;
-    line-height: 1.5;
+    line-height: 1.45;
   }
   .hx-cmd {
-    margin-top: 16px;
+    margin-top: 12px;
     border-radius: 20px;
     text-align: left;
   }
   .hx-q {
     font-size: 14px;
-    padding: 8px 10px 12px;
+    padding: 4px 10px 8px;
   }
   .hx-q kbd {
     display: none;
   }
   .hx-tiles {
-    padding: 12px 2px 4px;
+    padding: 8px 2px 4px;
   }
   .hx-tile {
     flex-basis: 96px;
-    min-height: 72px;
-    gap: 6px;
+    min-height: 0;
+    gap: 4px;
     font-size: 11.5px;
-    padding: 9px 6px;
+    padding: 7px 6px 9px;
   }
   .hx-tile .si {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
+    border-radius: 9px;
   }
   .hx {
-    --hx-w-max: 340px;
+    --hx-w-max: 320px;
   }
   .hx-flow {
     height: calc(var(--hx-w) * 0.6566 + 14px);
-    margin-top: 14px;
+    margin-top: 10px;
     perspective: 1200px;
   }
   .hx-win {
