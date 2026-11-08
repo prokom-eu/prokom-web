@@ -116,11 +116,8 @@ describe('buildBundleView (K3c)', () => {
     expect(view.indexable).toBe(false)
   })
 
-  it('lists official sources of settled pairs only (https), for „Źródło ↗”', () => {
-    expect(view.sources).toEqual([
-      { pair: 'D3 ↔ Zeta', url: 'https://gopos.pl/x' },
-      { pair: 'GoPOS ↔ PolCard', url: 'https://help.gopos.pl/y' },
-    ])
+  it('lists official sources of confirmed pairs only (https) — never „bez integracji”', () => {
+    expect(view.sources).toEqual([{ pair: 'D3 ↔ Zeta', url: 'https://gopos.pl/x' }])
   })
 
   it('keeps relations of its own tenant only', () => {

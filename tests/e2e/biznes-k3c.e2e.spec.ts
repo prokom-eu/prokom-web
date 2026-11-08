@@ -58,14 +58,22 @@ test.describe('Biznes ready bundles (K3c)', () => {
     for (const item of cart) expect(item.uwaga).toMatch(/^Zestaw: Kawiarnia — /)
   })
 
-  test('/zestawy and every bundle fit 360 and 390 px without sideways scroll', async ({ page }) => {
+  test('/zestawy and bundle pages fit 360 and 390 px without sideways scroll', async ({ page }) => {
+    const paths = [
+      '/zestawy',
+      '/zestawy/zestaw-szkola-siec',
+      '/zestawy/zestaw-noclegi-hotel-restauracja',
+      '/zestawy/zestaw-biuro-rachunkowe',
+    ]
     for (const width of [360, 390]) {
       await page.setViewportSize({ width, height: 800 })
-      await page.goto(biznesUrl('/zestawy'))
-      const overflow = await page.evaluate(
-        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-      )
-      expect(overflow, `/zestawy ${width}px`).toBeLessThanOrEqual(0)
+      for (const path of paths) {
+        await page.goto(biznesUrl(path))
+        const overflow = await page.evaluate(
+          () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        )
+        expect(overflow, `${path} ${width}px`).toBeLessThanOrEqual(0)
+      }
     }
   })
 

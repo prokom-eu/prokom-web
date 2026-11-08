@@ -75,15 +75,24 @@ export function BundleCard({
 
 /**
  * Columns for `count` tiles without gaps (BIZ-3 §9.2): 1 → one wide card, 2 or 4 → two columns,
- * otherwise three; with 5 the last two share the row (6-column grid, spans 2 or 3).
+ * otherwise three (6-column grid, spans 2): with 5 the last two share the row, a last tile alone
+ * spans it. With two columns (640–1023 px) a last odd tile spans both.
  */
 export function gridLayout(count: number): { cols: string; span: (index: number) => string } {
   if (count === 1) return { cols: 'sm:grid-cols-1', span: () => '' }
+  const lastOdd = (index: number) => count % 2 === 1 && index === count - 1
   if (count === 2 || count === 4) return { cols: 'sm:grid-cols-2', span: () => '' }
-  const lastTwo = count % 3 === 2
   return {
     cols: 'sm:grid-cols-2 lg:grid-cols-6',
-    span: (index) => (lastTwo && index >= count - 2 ? 'lg:col-span-3' : 'lg:col-span-2'),
+    span: (index) =>
+      cx(
+        lastOdd(index) && 'sm:col-span-2',
+        count % 3 === 2 && index >= count - 2
+          ? 'lg:col-span-3'
+          : count % 3 === 1 && index === count - 1
+            ? 'lg:col-span-6'
+            : 'lg:col-span-2',
+      ),
   }
 }
 

@@ -154,7 +154,8 @@ export default async function BundlePage({ params }: Props) {
                 }))}
               />
               <BundleReasons reasons={bundle.reasons} />
-              <BundleSources sources={bundle.sources} />
+              {/* „Do sprawdzenia”: not every pair is checked yet, so no such claim. */}
+              {bundle.indexable && <BundleSources sources={bundle.sources} />}
               <ProductFaq id="faq" faq={bundle.faq} phone={phone} />
               <BundleRelated links={related} />
             </>

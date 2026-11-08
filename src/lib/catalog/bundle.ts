@@ -40,14 +40,17 @@ export type BundleView = {
   /** Category slugs („Zobacz też”). */
   related: string[]
   industries: string[]
-  /** Official sources of settled compat pairs — „Źródło ↗” on the bundle page. */
+  /** Official sources of confirmed compat pairs — „Źródło ↗” on the bundle page. */
   sources: { pair: string; url: string }[]
   /** „Gotowe”: in Google, the site maps, under the plan and on industry pages. */
   indexable: boolean
 }
 
-/** Pairs that are settled: confirmed, or working on their own and said so (BIZ-3 §9.1). */
-const SETTLED_PAIRS = new Set(['potwierdzona', 'bez-integracji'])
+/**
+ * Pairs shown as „Sprawdzone zgodności”: confirmed only. A pair „bez-integracji” (works on its
+ * own) is said in the bundle's texts, never listed as a checked connection (BIZ-3 §9.2).
+ */
+const CONFIRMED_PAIR = 'potwierdzona'
 
 const text = (value: string | null | undefined) => value?.trim() || null
 
@@ -134,9 +137,7 @@ export function buildBundleView(
     related: slugsOf(bundle.related, tenantId),
     industries: slugsOf(bundle.industries, tenantId),
     sources: (bundle.compatChecks ?? []).flatMap(({ pair, status, url }) =>
-      status && SETTLED_PAIRS.has(status) && url?.startsWith('https://')
-        ? [{ pair: pair.trim(), url }]
-        : [],
+      status === CONFIRMED_PAIR && url?.startsWith('https://') ? [{ pair: pair.trim(), url }] : [],
     ),
     indexable: bundle.contentStatus === 'ready',
   }

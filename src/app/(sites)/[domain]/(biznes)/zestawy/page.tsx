@@ -68,8 +68,12 @@ export default async function BundlesPage({ params }: Props) {
   const bundles = listBundles(all, new Set(products.keys())).filter((bundle) => bundle.indexable)
   const cards = bundles.map((bundle) => bundleCard(bundle, products))
   const areas = BUNDLE_AREAS.filter(({ value }) => bundles.some((b) => b.area === value))
+  // Active industries only, as everywhere on the site (no „Wkrótce” — BIZ-3 §9.2).
   const industries = index.industries
-    .filter((industry) => bundles.some((bundle) => bundle.industries.includes(industry.slug)))
+    .filter(
+      (industry) =>
+        industry.active && bundles.some((bundle) => bundle.industries.includes(industry.slug)),
+    )
     .map(({ slug, name }) => ({ slug, name }))
   const sizes = BUNDLE_SIZES.filter((size) => bundles.some((bundle) => bundle.level === size))
   const heroPhotos = [

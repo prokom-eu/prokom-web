@@ -64,7 +64,7 @@ test.describe('Biznes industry page', () => {
     ).toHaveAttribute('href', '/konfigurator?firma=sklep')
   })
 
-  test('„Gotowe zestawy” of gastronomy: at least 2, no gaps, no sideways scroll', async ({
+  test('„Gotowe zestawy” of gastronomy: at least 2, rows without gaps, no sideways scroll', async ({
     page,
   }) => {
     for (const width of [360, 1440]) {
@@ -73,6 +73,12 @@ test.describe('Biznes industry page', () => {
       const section = page.locator('#gotowe-zestawy')
       const cards = section.locator('a[href^="/zestawy/zestaw-"]')
       expect(await cards.count()).toBeGreaterThanOrEqual(2)
+      if (width === 1440) {
+        // Each row is filled: the tiles of the last row reach the right edge of the grid.
+        const grid = await section.locator('ul').first().boundingBox()
+        const last = await cards.last().boundingBox()
+        expect(Math.abs(last!.x + last!.width - (grid!.x + grid!.width))).toBeLessThan(2)
+      }
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       )
