@@ -406,7 +406,7 @@
   .sw-scan-mark {
     transition:
       opacity var(--dur-state),
-      scale var(--dur-state) var(--spring);
+      scale var(--dur-state) var(--ease-spring);
   }
   .sw-scan[data-scanning] .sw-scan-rows::after {
     animation: sw-scan-sweep 2.8s var(--ease-out) both;
