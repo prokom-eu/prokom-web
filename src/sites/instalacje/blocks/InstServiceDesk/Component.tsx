@@ -124,6 +124,8 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
           </div>
           <ol
             className="steps"
+            tabIndex={0}
+            aria-label={S.takeover.heading}
             style={{
               gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
               listStyle: 'none',

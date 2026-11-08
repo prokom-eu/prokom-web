@@ -89,7 +89,7 @@ export function MountainsSection() {
           <GorSnow />
           <div className="gorin">
             <SectionHead eyebrow={t.eyebrow} heading={t.heading} lead={t.lead} leadWidth={420} />
-            <div className="gorg">
+            <div className="gorg" role="region" tabIndex={0} aria-label={t.heading}>
               {rows.map((row, r) => (
                 <div key={r} className={`gorrow gorrow${r + 1}`}>
                   {row.map((card) => (

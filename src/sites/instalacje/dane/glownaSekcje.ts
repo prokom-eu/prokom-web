@@ -99,7 +99,8 @@ export const SERVICE_CARDS: ServiceCard[] = [
       'szablony',
     ],
     highlights: [
-      'Wdrażamy to w naszym salonie w Rabce-Zdroju',
+      // Runda v6 D3: no claim about our own salon without the boss's confirmation.
+      'Cenę zmieniasz w jednym miejscu, ekrany odświeżają się same',
       'Harmonogram: rano śniadania, wieczorem kolacje',
     ],
     big: true,

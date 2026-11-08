@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, type Page, test } from '@playwright/test'
 
 import { LAW_WORDS } from '../../../src/lib/instalacje/lawWords'
@@ -168,4 +169,19 @@ test.describe('Instalacje legal links and llms.txt', () => {
     expect(text).not.toMatch(/\[SZEF|\d+\s?zł/)
     expect((await request.get(site('biznes.localhost', '/llms.txt'))).status()).toBe(404)
   })
+})
+
+// Runda v6 §1.8 (audit 08.11): rows and tables that scroll sideways on a phone take focus and
+// have a name (axe „scrollable-region-focusable”).
+test.describe('Instalacje scrollable regions on a phone', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+  for (const path of ['/', '/alarmy', '/ekrany', '/ladowarki-ev', '/monitoring', '/serwis']) {
+    test(`${path}: every scrollable region is reachable from the keyboard`, async ({ page }) => {
+      await open(page, path)
+      const { violations } = await new AxeBuilder({ page })
+        .withRules(['scrollable-region-focusable'])
+        .analyze()
+      expect(violations.flatMap((v) => v.nodes.map((n) => n.target.join(' ')))).toEqual([])
+    })
+  }
 })

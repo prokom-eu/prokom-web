@@ -137,7 +137,12 @@ export function MonitoringSections({ planHref }: { planHref: string }) {
       <InstSection id="sprzet-kamery" style={SECTION}>
         <div className="wrap">
           <SectionHead {...brands.head} />
-          <div className="bmg xb-bmg3 ri">
+          <div
+            className="bmg xb-bmg3 ri"
+            role="region"
+            tabIndex={0}
+            aria-label={brands.head.heading}
+          >
             {brands.items.map((brand) => (
               <div key={brand.name} className="card bmc">
                 <div className="bmh">
