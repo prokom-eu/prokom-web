@@ -11,14 +11,6 @@ import { api, loginAsAdmin, setTheme, site } from './helpers'
 // SuccessPanel). Data from `pnpm seed`; inquiries made here are deleted at the end.
 const HOST = 'software.localhost'
 
-/** Text of `main` without the service area list: its towns (shared zones) may name Zakopane. */
-const mainTextWithoutArea = (page: Page) =>
-  page.locator('main').evaluate((main) => {
-    const copy = main.cloneNode(true) as HTMLElement
-    copy.querySelectorAll('[data-service-area]').forEach((area) => area.remove())
-    return copy.textContent ?? ''
-  })
-
 // Own client address per test (benchmark range 198.18.0.0/15): the limit of 5 inquiries per
 // 10 minutes keys on `X-Real-IP`, so these sends never use up the limit of other specs.
 const newVisitor = (page: Page) =>
@@ -83,6 +75,8 @@ test.describe('Software /kontakt (shared template)', () => {
     await expect(hero.locator('a[href="mailto:kontakt@prokomsoftware.pl"]')).toBeVisible()
 
     const card = hero.locator('[data-address-card]')
+    // One office (rule 01.11): a single address card on the page.
+    await expect(contact(page).locator('[data-address-card]')).toHaveCount(1)
     await expect(card).toContainText('ul. Orkana 16B')
     await expect(card).toContainText('Rabka-Zdrój')
     await expect(card.getByRole('list', { name: 'Godziny otwarcia' })).toBeVisible()
@@ -90,9 +84,10 @@ test.describe('Software /kontakt (shared template)', () => {
       'href',
       'https://www.biznes.gov.pl/pl/wyszukiwarka-firm',
     )
-    // v23 leftovers are gone: no Zakopane, no WhatsApp, no „Jak wolisz rozmawiać?”.
-    // The shared service area („Kod nie zna granic…”) may list the town of Zakopane.
-    expect(await mainTextWithoutArea(page)).not.toMatch(/Zakopan|WhatsApp|Jak wolisz rozmawiać/i)
+    // v23 leftovers are gone: no Zakopane office, no WhatsApp, no „Jak wolisz rozmawiać?”.
+    // Zakopane stays in the service area list (towns we drive to) — the rule is one office.
+    await expect(card).not.toContainText(/Zakopan/i)
+    await expect(page.locator('main')).not.toContainText(/WhatsApp|Jak wolisz rozmawiać/i)
   })
 
   test('routes, the form with next steps, service area, other lines, FAQ, the band', async ({

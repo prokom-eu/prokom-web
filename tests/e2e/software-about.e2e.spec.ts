@@ -8,14 +8,6 @@ import { setTheme, site } from './helpers'
 // line's own sections in the `afterRules` slot (comparison, technical section). `/jedna-firma`
 // is gone: 301 → `/o-firmie#linie`. Data from `pnpm seed`.
 const HOST = 'software.localhost'
-
-/** Text of `main` without the service area list: its towns (shared zones) may name Zakopane. */
-const mainTextWithoutArea = (page: Page) =>
-  page.locator('main').evaluate((main) => {
-    const copy = main.cloneNode(true) as HTMLElement
-    copy.querySelectorAll('[data-service-area]').forEach((area) => area.remove())
-    return copy.textContent ?? ''
-  })
 const CEIDG = 'https://www.biznes.gov.pl/pl/wyszukiwarka-firm'
 
 const about = (page: Page) => page.locator('[data-about-page]')
@@ -121,14 +113,15 @@ test.describe('Software /o-firmie (shared template)', () => {
       '/kontakt',
     )
 
-    // No people, no photos (rule 01.11); the old v23 sections are gone.
-    // Photos only (the address map is an image named after the company, PRO-KOM Tadeusz Wójciak).
+    // No people, no photos (rule 01.11); the old v23 sections are gone. The address map of the
+    // visit section is named after the company („Mapa: PRO-KOM Tadeusz Wójciak, …”): not a photo.
     await expect(
-      page.locator('main img[alt*="Krystian"], main img[alt*="Tadeusz"], main img[alt*="Wejście"]'),
+      page
+        .locator('main')
+        .getByRole('img', { name: /^(?!Mapa:)[\s\S]*(Krystian|Tadeusz|Wejście do PRO-KOM)/ }),
     ).toHaveCount(0)
     await expect(page.locator('main')).not.toContainText('Kto z Tobą pracuje')
-    // No Zakopane salon (v23); the shared service area may list the town.
-    expect(await mainTextWithoutArea(page)).not.toMatch(/Zakopan/i)
+    await expect(page.locator('main')).not.toContainText(/Zakopan/i)
     // The template has no closing CTA of its own: the „Zacznij od podglądu” band closes the page.
     await expect(page.locator('section[data-footer-cta]')).toBeVisible()
   })
