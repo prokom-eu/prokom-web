@@ -12,6 +12,8 @@ type Props = {
   align?: 'start' | 'center'
   /** Id of the heading (`aria-labelledby` of its section, anchors). */
   id?: string
+  /** Max width class of the block (`cx` does not merge Tailwind classes, so not via `className`). */
+  width?: string
   className?: string
 }
 
@@ -27,13 +29,15 @@ export function SectionHead({
   level = 'h2',
   align = 'start',
   id,
+  width = 'max-w-[760px]',
   className,
 }: Props) {
   const Heading = level
   return (
     <div
       className={cx(
-        'flex max-w-[760px] flex-col gap-4',
+        'flex flex-col gap-4',
+        width,
         align === 'center' && 'mx-auto items-center text-center',
         className,
       )}

@@ -142,6 +142,7 @@ export default async function SolutionsCatalogPage({ params }: Props) {
             align="center"
             eyebrow="W cenie każdej strony"
             title="Bez dopłat za rzeczy oczywiste"
+            width="max-w-none"
           />
           <ul className="sw-included">
             {INCLUDED.map((item) => (

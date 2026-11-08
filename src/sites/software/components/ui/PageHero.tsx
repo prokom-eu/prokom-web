@@ -50,7 +50,8 @@ export function PageHero({
             title={title}
             em={em}
             lead={lead}
-            className="mt-4 max-w-[880px]"
+            width="max-w-[880px]"
+            className="mt-4"
           />
           {children}
         </div>

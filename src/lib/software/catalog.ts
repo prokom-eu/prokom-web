@@ -154,13 +154,21 @@ function count(
   return counts
 }
 
-/** Results of a view (search order when searching, else the catalog order) and the counts. */
+const GROUP_RANK = new Map<OfferGroup, number>(OFFER_GROUPS.map(({ value }, i) => [value, i]))
+
+/** The catalog order, group by group as on the board (stable within a group). */
+const byGroup = (solutions: readonly IndexSolution[]) =>
+  [...solutions].sort(
+    (a, b) => (GROUP_RANK.get(offerGroup(a)) ?? 0) - (GROUP_RANK.get(offerGroup(b)) ?? 0),
+  )
+
+/** Results of a view (search order when searching, else group by group) and the counts. */
 export function runCatalog(
   index: SolutionsIndex,
   search: PreparedSolutionSearch,
   state: SoftwareCatalogState,
 ): { results: IndexSolution[]; facets: CatalogFacets } {
-  const base = searchSolutions(search, state.query) ?? index.solutions
+  const base = searchSolutions(search, state.query) ?? byGroup(index.solutions)
   return {
     results: base.filter((solution) => passes(solution, state, null)),
     facets: {

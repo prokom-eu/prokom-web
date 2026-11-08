@@ -115,6 +115,14 @@ describe('offer groups (ZMIANY-v24 §6.2, D10)', () => {
     expect(groupOf('przebudowa-starej-strony')).toBe('przebudowa')
   })
 
+  it('without a search the cards go group by group, in the board order', () => {
+    const order = run({}).results.map((s) =>
+      OFFER_GROUPS.findIndex((g) => g.value === offerGroup(s)),
+    )
+    expect(order).toEqual([...order].sort((a, b) => a - b))
+    expect(slugs({}).indexOf('przebudowa-starej-strony')).toBe(7)
+  })
+
   it('every solution lands in exactly one group and the counts add up', () => {
     const { facets } = run({})
     const sum = OFFER_GROUPS.reduce((total, { value }) => total + (facets.category[value] ?? 0), 0)
