@@ -31,8 +31,7 @@
      "rola": "szuflada kasowa",
      "ilosc": 1,
      "wariant_sugerowany": "ELZ-350; kabel dobierzemy do kasy",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Napięcie sterowania szuflady w Mini ONLINE i typ kabla (RJ standard albo „typ Alfa” dla Mini) — karta szuflady podaje kabel do „Alfa, Mini, Mini E”, ale nie nazywa wprost Mini ONLINE."
+     "obowiazkowy": true
     },
     {
      "slug": "elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka",
@@ -46,8 +45,7 @@
      "rola": "terminal płatniczy",
      "ilosc": 1,
      "wariant_sugerowany": "Ingenico Desk 3200 + PIN-pad Desk 1500 albo przenośny Move 2500 — terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
-     "obowiazkowy": false,
-     "do_potwierdzenia": "Przekazywanie kwoty z Mini ONLINE do terminala PolCard — karta kasy podaje tylko „terminal płatniczy”; bez integracji terminal działa samodzielnie."
+     "obowiazkowy": false
     }
    ],
    "zamienniki": [
@@ -110,7 +108,7 @@
     }
    ],
    "kolejnosc": 1,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-sklep-spozywczy-kasa-waga",
@@ -141,8 +139,7 @@
      "rola": "waga sklepowa do kasy",
      "ilosc": 1,
      "wariant_sugerowany": "WS-1 6/15 kg w wersji legalizowanej; na stoisko bez gniazdka — z akumulatorem",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Dostępność zakresów innych niż 6/15 kg (strona produktu Posnet podaje tylko 6/15 kg)."
+     "obowiazkowy": true
     },
     {
      "slug": "posnet-szuflada-mk330-mk350",
@@ -163,8 +160,7 @@
      "rola": "terminal płatniczy",
      "ilosc": 1,
      "wariant_sugerowany": "Ingenico Desk 3200 + PIN-pad Desk 1500 — terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
-     "obowiazkowy": false,
-     "do_potwierdzenia": "Integracja kwoty Bingo Max2 ↔ terminal PolCard — Posnet wymienia dla Bingo terminal Netpay; bez integracji terminal działa samodzielnie."
+     "obowiazkowy": false
     }
    ],
    "zamienniki": [
@@ -228,7 +224,7 @@
     }
    ],
    "kolejnosc": 2,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-sklep-spozywczy-program-waga-etykiet",
@@ -259,8 +255,7 @@
      "rola": "waga przy kasie",
      "ilosc": 1,
      "wariant_sugerowany": "Prima 2 6/15 kg + zasilacz (zamawiany osobno)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Tabela konfiguracji Elzab z Jotą dotyczy starszych kas — potwierdzić dla Jota ONLINE."
+     "obowiazkowy": true
     },
     {
      "slug": "dibal-w-025",
@@ -302,8 +297,7 @@
      "rola": "szuflada kasowa",
      "ilosc": 1,
      "wariant_sugerowany": "ELZ-350 PRO",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Napięcie sterowania szuflady w Jocie (szuflada: 12 V na stronie, 12/24 V w poradniku Elzab)."
+     "obowiazkowy": true
     },
     {
      "slug": "elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka",
@@ -332,8 +326,7 @@
      "rola": "terminal płatniczy",
      "ilosc": 1,
      "wariant_sugerowany": "Desk 3200 + PIN-pad Desk 1500 — terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
-     "obowiazkowy": false,
-     "do_potwierdzenia": "Integracja z kasą Jota — karta kasy podaje „terminal płatniczy” bez operatora."
+     "obowiazkowy": false
     }
    ],
    "zamienniki": [
@@ -508,16 +501,14 @@
      "rola": "sprawdzarka cen w sali",
      "ilosc": "2–4",
      "wariant_sugerowany": "LFT 2D",
-     "obowiazkowy": false,
-     "do_potwierdzenia": "Zasilanie przez PoE/MZAS — moduł MZAS i zasilacz PoE nie są w katalogu."
+     "obowiazkowy": false
     },
     {
      "slug": "pol",
      "rola": "terminal płatniczy",
      "ilosc": "wg stanowisk",
      "wariant_sugerowany": "Desk 3200 + PIN-pad Desk 1500 — terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Integracja kwoty PC-POS ↔ terminal PolCard (karta PC-POS: „karty płatnicze”, bez operatora)."
+     "obowiazkowy": true
     },
     {
      "slug": "apc-smart-ups-wieza",
@@ -781,8 +772,7 @@
      "rola": "terminal z wirtualną kasą fiskalną i SoftPOS",
      "ilosc": 1,
      "wariant_sugerowany": "Sunmi V3 Mix (stojak, ekran 10,1\") lub Sunmi V3 (w ręku)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Karta ma status do-sprawdzenia: łączność 4G/SIM niepotwierdzona, szerokość druku V3/V3 Mix niepodana, opłaty SoftPOS nieznane."
+     "obowiazkowy": true
     },
     {
      "slug": "gopos",
@@ -854,7 +844,7 @@
     }
    ],
    "kolejnosc": 6,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-kawiarnia-lada",
@@ -906,8 +896,7 @@
      "rola": "terminal płatniczy",
      "ilosc": 1,
      "wariant_sugerowany": "Move 3500 albo Desk 3200 — terminal działa samodzielnie (bez przesyłania kwoty z GoPOS, kwotę wpisujesz na terminalu)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Integracja z GoPOS — GoPOS rozlicza terminale przez eService (polecane Ingenico Lane 3000, PAX); terminal PolCard działa wtedy samodzielnie."
+     "obowiazkowy": true
     },
     {
      "slug": "ux",
@@ -942,8 +931,7 @@
      "rola": "czytnik kodów QR dla klienta",
      "ilosc": 1,
      "wariant_sugerowany": "Blink 2",
-     "obowiazkowy": false,
-     "do_potwierdzenia": "Współpraca Blink 2 z GoPOS/GoCRM — GoCRM poleca „skaner kodów 2D przy kasie”, bez modelu."
+     "obowiazkowy": false
     }
    ],
    "zamienniki": [
@@ -1007,7 +995,7 @@
     }
    ],
    "kolejnosc": 7,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-restauracja-bistro",
@@ -1080,8 +1068,7 @@
      "rola": "terminal płatniczy przy stoliku",
      "ilosc": 1,
      "wariant_sugerowany": "Move 3500 — terminal działa samodzielnie (bez przesyłania kwoty z GoPOS, kwotę wpisujesz na terminalu)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Integracja z GoPOS (eService) — terminal PolCard pracuje samodzielnie."
+     "obowiazkowy": true
     },
     {
      "slug": "omada-routery",
@@ -1175,7 +1162,7 @@
     }
    ],
    "kolejnosc": 8,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-restauracja-sala-ogrodek",
@@ -1242,8 +1229,7 @@
      "rola": "ekran kuchenny",
      "ilosc": 2,
      "wariant_sugerowany": "FLEX 3 KDS 22\" na zasilaczu — na kuchnię i na bar lub wydawkę",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "GoKDS wymienia Sunmi Flex 3 22\" — wersję 15,6\" potwierdzić z GoPOS."
+     "obowiazkowy": true
     },
     {
      "slug": "gohub",
@@ -1271,8 +1257,7 @@
      "rola": "terminal płatniczy przy stoliku",
      "ilosc": "2–3",
      "wariant_sugerowany": "Move 3500 — terminal działa samodzielnie (bez przesyłania kwoty z GoPOS, kwotę wpisujesz na terminalu)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Integracja z GoPOS (eService) — terminal PolCard pracuje samodzielnie."
+     "obowiazkowy": true
     },
     {
      "slug": "omada-routery",
@@ -1385,7 +1370,7 @@
     }
    ],
    "kolejnosc": 9,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-bar-kiosk-numerki",
@@ -1466,8 +1451,7 @@
      "rola": "system numerków zamówień",
      "ilosc": 1,
      "wariant_sugerowany": "1 ekran na sali",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Karta do-sprawdzenia: producent nie podaje, na jakim urządzeniu działa wyświetlanie numerków."
+     "obowiazkowy": true
     },
     {
      "slug": "samsung-qbc",
@@ -1482,8 +1466,7 @@
      "rola": "terminal płatniczy przy ladzie",
      "ilosc": 1,
      "wariant_sugerowany": "Desk 3200 + PIN-pad Desk 1500 — terminal działa samodzielnie (bez przesyłania kwoty z GoPOS, kwotę wpisujesz na terminalu)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Integracja z GoPOS (eService) — terminal PolCard pracuje samodzielnie."
+     "obowiazkowy": true
     },
     {
      "slug": "omada-routery",
@@ -1688,8 +1671,7 @@
      "rola": "drukarka fiskalna online",
      "ilosc": 1,
      "wariant_sugerowany": "Zeta ONLINE",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "NFHotel podaje drukarki Elzab (także online) bez modeli — potwierdzić Zetę z NFHotel."
+     "obowiazkowy": true
     },
     {
      "slug": "elzab-szuflada-aktywna-elz-350-elz-410",
@@ -1724,8 +1706,7 @@
      "rola": "przełącznik PoE do szafy",
      "ilosc": 1,
      "wariant_sugerowany": "SG3428MP (24× PoE+, 384 W)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Pobór mocy EAP615-Wall nie jest podany w karcie — budżet PoE przyjęto z zapasem (384 W / 24 porty)."
+     "obowiazkowy": true
     },
     {
      "slug": "omada-ap-scienne-zewnetrzne",
@@ -1818,7 +1799,7 @@
     }
    ],
    "kolejnosc": 12,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-noclegi-hotel-restauracja",
@@ -1914,8 +1895,7 @@
      "rola": "terminale płatnicze",
      "ilosc": 2,
      "wariant_sugerowany": "Axium DX 8000 na recepcji (preautoryzacja), Move 3500 w restauracji — terminale działają samodzielnie (bez przesyłania kwoty z GoPOS)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Integracja z GoPOS (eService) — terminal PolCard w restauracji pracuje samodzielnie."
+     "obowiazkowy": true
     },
     {
      "slug": "udmse",
@@ -1967,12 +1947,11 @@
      "obowiazkowy": false
     },
     {
-     "slug": "synology-dyski-rozszerzenia",
+     "slug": "synology-dyski-hat",
      "rola": "dyski do NAS",
      "ilosc": 4,
      "wariant_sugerowany": "HAT3300 lub HAT3310 (z listy zgodności), pojemność wg danych",
-     "obowiazkowy": false,
-     "do_potwierdzenia": "Karta ma status do-sprawdzenia. Dodane w QA 25.10 — NAS sprzedawany jest bez dysków."
+     "obowiazkowy": false
     }
    ],
    "zamienniki": [
@@ -2037,7 +2016,7 @@
     }
    ],
    "kolejnosc": 13,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-biuro-3-5",
@@ -2087,12 +2066,11 @@
      "obowiazkowy": true
     },
     {
-     "slug": "synology-dyski-rozszerzenia",
+     "slug": "synology-dyski-hat",
      "rola": "dyski do NAS",
      "ilosc": 2,
      "wariant_sugerowany": "HAT3300 4 TB lub 6 TB (z listy zgodności)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Karta ma status do-sprawdzenia (niespójne dane dystrybutora)."
+     "obowiazkowy": true
     },
     {
      "slug": "udr7",
@@ -2106,8 +2084,7 @@
      "rola": "zasilacz awaryjny NAS i routera",
      "ilosc": 1,
      "wariant_sugerowany": "BXR750MI-GR",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Automatyczne zamknięcie NAS Synology po sygnale z UPS przez USB — zgodność nieopisana w kartach."
+     "obowiazkowy": true
     },
     {
      "slug": "microsoft-365-business",
@@ -2193,7 +2170,7 @@
     }
    ],
    "kolejnosc": 14,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-biuro-6-12",
@@ -2271,20 +2248,18 @@
      "obowiazkowy": true
     },
     {
-     "slug": "synology-dyski-rozszerzenia",
+     "slug": "synology-dyski-hat",
      "rola": "dyski do NAS",
      "ilosc": 4,
      "wariant_sugerowany": "HAT3310 8 TB lub większe",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Karta ma status do-sprawdzenia."
+     "obowiazkowy": true
     },
     {
      "slug": "apc-smart-ups-wieza",
      "rola": "UPS z automatycznym zamykaniem",
      "ilosc": 1,
      "wariant_sugerowany": "SMC1500IC",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Zamykanie NAS Synology sygnałem z UPS — zgodność nieopisana w kartach."
+     "obowiazkowy": true
     },
     {
      "slug": "microsoft-365-business",
@@ -2363,7 +2338,7 @@
     }
    ],
    "kolejnosc": 15,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-biuro-rachunkowe",
@@ -2415,8 +2390,7 @@
      "rola": "opłaty za KSeF w programach InsERT",
      "ilosc": 1,
      "wariant_sugerowany": "paczka dobrana do liczby faktur klientów",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Karta ma status do-sprawdzenia (zachowanie programu przy zerowym saldzie, zasady dla linii GT)."
+     "obowiazkowy": true
     },
     {
      "slug": "euro",
@@ -2430,8 +2404,7 @@
      "rola": "komputer stanowiska",
      "ilosc": "wg stanowisk",
      "wariant_sugerowany": "neo 50s Gen 6, 16 GB RAM, SSD",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Wymagania sprzętowe podane w kartach dla Subiekta nexo (4 rdzenie, 8 GB RAM, SSD) — dla Rachmistrza/Rewizora nieweryfikowane osobno."
+     "obowiazkowy": true
     },
     {
      "slug": "lenovo-thinkvision-t",
@@ -2455,12 +2428,11 @@
      "obowiazkowy": true
     },
     {
-     "slug": "synology-dyski-rozszerzenia",
+     "slug": "synology-dyski-hat",
      "rola": "dyski do NAS",
      "ilosc": "2–4",
      "wariant_sugerowany": "HAT3300 / HAT3310",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Karta ma status do-sprawdzenia."
+     "obowiazkowy": true
     },
     {
      "slug": "apc-smart-ups-wieza",
@@ -2556,7 +2528,7 @@
     }
    ],
    "kolejnosc": 16,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-gabinet",
@@ -2610,8 +2582,7 @@
      "rola": "terminal płatniczy",
      "ilosc": 1,
      "wariant_sugerowany": "Desk 3200 albo Move 2500 — terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Integracja kwoty K10 ↔ terminal PolCard — karta kasy podaje „terminal płatniczy” bez operatora."
+     "obowiazkowy": true
     },
     {
      "slug": "euro",
@@ -2698,7 +2669,7 @@
     }
    ],
    "kolejnosc": 17,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-szkola-sala-interaktywna",
@@ -2838,12 +2809,11 @@
      "obowiazkowy": true
     },
     {
-     "slug": "synology-dyski-rozszerzenia",
+     "slug": "synology-dyski-hat",
      "rola": "dyski do NAS",
      "ilosc": 4,
      "wariant_sugerowany": "HAT3310 lub HAT5300",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Karta ma status do-sprawdzenia."
+     "obowiazkowy": true
     },
     {
      "slug": "apc-smart-ups-rack",
@@ -2926,7 +2896,7 @@
     }
    ],
    "kolejnosc": 19,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-wifi-unifi",
@@ -2955,8 +2925,7 @@
      "rola": "router z Wi-Fi 7, zaporą i konsolą UniFi",
      "ilosc": 1,
      "wariant_sugerowany": "UniFi Dream Router 7",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Strona logowania gości i izolacja na wbudowanym Wi-Fi UDR7 — funkcje opisane w karcie U7 Pro jako funkcje UniFi Network; potwierdzić dla UDR7."
+     "obowiazkowy": true
     },
     {
      "slug": "ux",
@@ -3028,7 +2997,7 @@
     }
    ],
    "kolejnosc": 20,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-wifi-omada",
@@ -3167,20 +3136,18 @@
      "obowiazkowy": true
     },
     {
-     "slug": "synology-dyski-rozszerzenia",
+     "slug": "synology-dyski-hat",
      "rola": "dyski do NAS",
      "ilosc": 2,
      "wariant_sugerowany": "HAT3300 4 TB lub 6 TB (z listy zgodności)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Karta ma status do-sprawdzenia."
+     "obowiazkowy": true
     },
     {
      "slug": "apc-back-ups",
      "rola": "zasilacz awaryjny NAS i routera",
      "ilosc": 1,
      "wariant_sugerowany": "BXR750MI-GR",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Automatyczne zamknięcie NAS Synology po sygnale z UPS przez USB — zgodność nieopisana w kartach."
+     "obowiazkowy": true
     }
    ],
    "zamienniki": [
@@ -3240,7 +3207,7 @@
     }
    ],
    "kolejnosc": 22,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-ekran-menu-witryna",
@@ -3269,16 +3236,14 @@
      "rola": "ekran informacyjny w lokalu",
      "ilosc": "1–2",
      "wariant_sugerowany": "QB55C (w pionie przy kasie QB43C)",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Strony QBC promują VXT CMS; zgodność z MagicINFO (wersja odtwarzacza, licencja) potwierdzić u dystrybutora."
+     "obowiazkowy": true
     },
     {
      "slug": "samsung-om",
      "rola": "ekran do witryny",
      "ilosc": 1,
      "wariant_sugerowany": "OM55B (4K, 3000 nit) albo OM55N-S (4000 nit) od strony słońca",
-     "obowiazkowy": false,
-     "do_potwierdzenia": "Karta ma status do-sprawdzenia: Tizen 5.0, możliwe wycofanie, OM46B bez potwierdzenia u Samsunga."
+     "obowiazkowy": false
     },
     {
      "slug": "ux",
@@ -3335,7 +3300,7 @@
     }
    ],
    "kolejnosc": 23,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   }
  ],
  "sprawdzone_zgodnosci": [
@@ -3348,14 +3313,16 @@
   {
    "zestaw": "zestaw-sklep-kasa-start",
    "para": "Elzab Mini ONLINE ↔ szuflada ELZ-240/350 (RJ)",
-   "zrodlo_w_karcie": "mini: „szuflada RJ12”; szuflada: „Akcesoria = … kabel typ Alfa (Alfa, Mini, Mini E)”; napięcie Mini nieopisane",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "mini: „szuflady (RJ12)”; ELZ-350: „Sterowanie napięciem 12V”, kabel RJ w komplecie",
+   "status": "potwierdzona",
+   "url": "https://www.elzab.com.pl/pl/kasy-i-drukarki-online/kasy-male-online/elzab-mini-online"
   },
   {
    "zestaw": "zestaw-sklep-kasa-start",
    "para": "Elzab Mini ONLINE ↔ terminal PolCard",
-   "zrodlo_w_karcie": "mini: „Współpraca = … terminal płatniczy” (bez nazwy operatora)",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "Elzab: „FISERV / POLCARD … Desk 3200, Move 3500 … ECR-EFT” (kolumna Mini ONLINE)",
+   "status": "potwierdzona",
+   "url": "https://www.elzab.com.pl/pl/strefa-dla-klienta/terminale-platnicze-wspolpracujace-z-kasami-elzab"
   },
   {
    "zestaw": "zestaw-sklep-spozywczy-kasa-waga",
@@ -3378,8 +3345,9 @@
   {
    "zestaw": "zestaw-sklep-spozywczy-kasa-waga",
    "para": "Posnet Bingo Max2 ↔ terminal PolCard",
-   "zrodlo_w_karcie": "bingo: „terminal płatniczy (Netpay)” — PolCard niewymieniony",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "Posnet: „Bingo Max2 współpracuje z terminalem płatniczym Netpay.” — PolCard działa samodzielnie",
+   "status": "bez-integracji",
+   "url": "https://www.posnet.com.pl/produkty/product/657/bingo-max2"
   },
   {
    "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
@@ -3396,14 +3364,16 @@
   {
    "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
    "para": "Elzab Jota ↔ waga Prima 2",
-   "zrodlo_w_karcie": "prima-2: „Elzab publikuje tabelę konfiguracji z kasami ELZAB (m.in. Mini, Jota, Alfa, Delta)” + uwaga: „dla kas ONLINE potwierdzić”",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "Jota ONLINE: „Wagi sklepowe — Waga ELZAB Prima 2”",
+   "status": "potwierdzona",
+   "url": "https://www.elzab.com.pl/pl/kasy-i-drukarki-online/kasy-srednie-online/elzab-jota-online"
   },
   {
    "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
    "para": "Elzab Jota ↔ szuflada ELZ-350 PRO",
-   "zrodlo_w_karcie": "jota: „szuflada RJ12”; szuflada: „12 V (poradnik Elzab: 12/24 V)”",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "Jota ONLINE: „Szuflada kasowa średnia RJ grafit ELZ-350 PRO”; sterowanie 12 V",
+   "status": "potwierdzona",
+   "url": "https://www.elzab.com.pl/pl/kasy-i-drukarki-online/kasy-srednie-online/elzab-jota-online"
   },
   {
    "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
@@ -3510,8 +3480,9 @@
   {
    "zestaw": "zestaw-gastro-foodtruck",
    "para": "GoPOS All in One — łączność komórkowa",
-   "zrodlo_w_karcie": "gopos-all-in-one (uwagi): „łączność komórkowa 4G/karta SIM … nie potwierdzają, więc nie wpisano”",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "GoPOS: „GoPOS działa również offline.” — łączność przez Wi-Fi (hotspot lub router z SIM), 4G nie obiecujemy",
+   "status": "bez-integracji",
+   "url": "https://gopos.pl/all-in-one"
   },
   {
    "zestaw": "zestaw-kawiarnia-lada",
@@ -3534,8 +3505,9 @@
   {
    "zestaw": "zestaw-kawiarnia-lada",
    "para": "GoPOS ↔ terminal PolCard",
-   "zrodlo_w_karcie": "gopos: „terminal płatniczy przez eService (polecane Ingenico Lane 3000, PAX A35/A920)”",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "GoPOS: „współpracuje z terminalami Ingenico Lane 3000 oraz PAX A920, dostarczonymi przez GoPOS” — PolCard samodzielnie",
+   "status": "bez-integracji",
+   "url": "https://help.gopos.pl/pl/articles/7239654-konfiguracja-urzadzen-terminal-platniczy"
   },
   {
    "zestaw": "zestaw-kawiarnia-lada",
@@ -3582,8 +3554,9 @@
   {
    "zestaw": "zestaw-restauracja-bistro",
    "para": "FLEX 3 KDS ↔ PoE z ER7212PC",
-   "zrodlo_w_karcie": "kds: „moduł PoE (60 W)”; routery: „PoE+ (do 30 W)” — nie zasili, ekran na zasilaczu",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "Sunmi: „60W PoE support” (moduł opcjonalny) — PoE+ routera nie wystarczy, ekran na zasilaczu",
+   "status": "bez-integracji",
+   "url": "https://cdn.sunmi.com/public/generalfile/mgt_import/a70210b4783a47b4b350e68a2ecfce55.pdf"
   },
   {
    "zestaw": "zestaw-restauracja-sala-ogrodek",
@@ -3612,8 +3585,9 @@
   {
    "zestaw": "zestaw-restauracja-sala-ogrodek",
    "para": "GoKDS ↔ FLEX 3 KDS 15,6\"",
-   "zrodlo_w_karcie": "gokds: polecany tylko „Sunmi Flex 3 22\"”",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "GoPOS: „Terminal KDS o przekątnej ekranu 22 cala” — w zestawie tylko 22\"",
+   "status": "potwierdzona",
+   "url": "https://gopos.pl/hardware"
   },
   {
    "zestaw": "zestaw-bar-kiosk-numerki",
@@ -3660,14 +3634,16 @@
   {
    "zestaw": "zestaw-noclegi-kwatera",
    "para": "NFHotel ↔ kasa Posnet Ergo",
-   "zrodlo_w_karcie": "nfh: „Drukarki fiskalne = Posnet, …, Elzab” — kasy nie wymienione; Ergo pracuje samodzielnie",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "NFHotel: „Integracja z drukarkami fiskalnymi firmy Posnet.” — kasa Ergo pracuje samodzielnie",
+   "status": "bez-integracji",
+   "url": "https://nfhotel.pl/produkt"
   },
   {
    "zestaw": "zestaw-noclegi-pensjonat",
    "para": "NFHotel ↔ Elzab Zeta ONLINE",
-   "zrodlo_w_karcie": "nfh: „Drukarki fiskalne = Posnet, …, Elzab (także online)” — bez modeli",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "NFHotel: „Integracja z drukarkami fiskalnymi firmy Elzab.”, „gotowa na pracę z drukarkami fiskalnymi on-line”",
+   "status": "potwierdzona",
+   "url": "https://nfhotel.pl/produkt"
   },
   {
    "zestaw": "zestaw-noclegi-pensjonat",
@@ -3684,8 +3660,9 @@
   {
    "zestaw": "zestaw-noclegi-pensjonat",
    "para": "EAP615-Wall — pobór mocy",
-   "zrodlo_w_karcie": "naścienne: pobór niepodany (tylko „PoE out do 13 W”)",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "EAP615-Wall: „10W (802.3at PoE, bez PoE Out)”; SG3428MP: 384 W, do 30 W na port",
+   "status": "potwierdzona",
+   "url": "https://www.omadanetworks.com/pl/business-networking/omada-wifi-wall-plate/eap615-wall/"
   },
   {
    "zestaw": "zestaw-noclegi-pensjonat",
@@ -3749,15 +3726,17 @@
   },
   {
    "zestaw": "zestaw-biuro-3-5",
-   "para": "NAS Synology ↔ UPS APC (zamykanie przez USB)",
-   "zrodlo_w_karcie": "bxr: „port USB; PowerChute Serial Shutdown” — współpraca z DSM nieopisana",
-   "status": "do_potwierdzenia"
+   "para": "NAS Synology ↔ UPS APC Back-UPS Pro BR650MI (zamykanie przez USB)",
+   "zrodlo_w_karcie": "lista zgodności Synology (UPS) dla DS225+: „Back-UPS Pro BR650MI”",
+   "status": "potwierdzona",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS225%2B&category=upses"
   },
   {
    "zestaw": "zestaw-biuro-3-5",
    "para": "NAS DS225+ ↔ dyski HAT3300",
-   "zrodlo_w_karcie": "dyski: „Dyski Plus (HAT33xx) …”; synology: „gwarancja pełnego działania tylko z dyskami z listy zgodności” — karta dysków do-sprawdzenia",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "lista zgodności Synology (dyski) dla DS225+: „HAT3300-4T, HAT3300-6T”",
+   "status": "potwierdzona",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=drives&model=DS225%2B&category=hdds_no_ssd_trim"
   },
   {
    "zestaw": "zestaw-biuro-6-12",
@@ -3785,9 +3764,10 @@
   },
   {
    "zestaw": "zestaw-biuro-6-12",
-   "para": "NAS Synology ↔ Smart-UPS (zamykanie)",
-   "zrodlo_w_karcie": "brak opisu w kartach",
-   "status": "do_potwierdzenia"
+   "para": "NAS Synology ↔ UPS APC Smart-UPS SMT1500IC (zamykanie przez USB)",
+   "zrodlo_w_karcie": "lista zgodności Synology (UPS) dla DS925+: „Smart-UPS SMT1500IC”",
+   "status": "potwierdzona",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS925%2B&category=upses"
   },
   {
    "zestaw": "zestaw-biuro-rachunkowe",
@@ -3810,8 +3790,9 @@
   {
    "zestaw": "zestaw-biuro-rachunkowe",
    "para": "Programy InsERT nexo ↔ komputer",
-   "zrodlo_w_karcie": "nexo: „procesor x64 min. 4 rdzenie, RAM min. 8 GB, zalecany dysk SSD” (dla Subiekta nexo)",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "InsERT (zalecane): „procesor o architekturze x64 o 6 lub więcej rdzeniach”, 16 GB RAM, SSD",
+   "status": "potwierdzona",
+   "url": "https://www.insert.com.pl/programy_dla_firm/ksiegowosc_i_finanse/rachmistrz_nexo_pro/wymagania_systemowe.html"
   },
   {
    "zestaw": "zestaw-gabinet",
@@ -3822,14 +3803,16 @@
   {
    "zestaw": "zestaw-gabinet",
    "para": "Elzab K10 ↔ terminal PolCard",
-   "zrodlo_w_karcie": "k10: „Współpraca = terminal płatniczy” (bez operatora)",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "Elzab K10: „współpraca z terminalem kart płatniczych” bez operatora — PolCard samodzielnie",
+   "status": "bez-integracji",
+   "url": "https://www.elzab.com.pl/pl/kasy-i-drukarki-online/kasy-mobilne-online/elzab-k10-online-bt-wifi"
   },
   {
    "zestaw": "zestaw-gabinet",
    "para": "Subiekt 123 ↔ Posnet Temo (zamiennik)",
-   "zrodlo_w_karcie": "s123: „fiskalizacja (drukarki fiskalne m.in. Elzab, …, Posnet, Upos)” — bez modeli",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "InsERT, lista urządzeń Subiekt 123: „Posnet | Temo Online | 1.01”",
+   "status": "potwierdzona",
+   "url": "https://www.insert.com.pl/dla_uzytkownikow/e-pomoc_techniczna/1659,lista-urzadzen-wspolpracujacych-z-systemem-subiekt-123.html"
   },
   {
    "zestaw": "zestaw-szkola-sala-interaktywna",
@@ -3839,9 +3822,10 @@
   },
   {
    "zestaw": "zestaw-szkola-sala-interaktywna",
-   "para": "Avtek ↔ komputer OPS",
-   "zrodlo_w_karcie": "avtek: „Slot OPS = tak” — komputera OPS brak w katalogu",
-   "status": "do_potwierdzenia"
+   "para": "Avtek ↔ komputer Avtek OPS (slot OPS)",
+   "zrodlo_w_karcie": "Avtek OPS: zgodne monitory „TS 8.1 Mate G. TS 8 Lite G”",
+   "status": "potwierdzona",
+   "url": "https://avtek.pl/produkty/monitory-interaktywne/avtek-ops-i5-13505h-8gb-256gbwin-11-pro,1tv469"
   },
   {
    "zestaw": "zestaw-szkola-siec",
@@ -3869,15 +3853,17 @@
   },
   {
    "zestaw": "zestaw-wifi-unifi",
-   "para": "UDR7 PoE ↔ U7 Pro",
-   "zrodlo_w_karcie": "udr7: „1 z PoE 15,4 W”; u7: „PoE+, maks. 21 W” — nie zasili",
-   "status": "do_potwierdzenia"
+   "para": "UDR7 PoE ↔ punkt rozbudowy (U7 Lite z routera, U7 Pro z przełącznika PoE+)",
+   "zrodlo_w_karcie": "UDR7: „PoE Budget 15.4W”; U7 Lite: „Max. power consumption 13W” — U7 Pro tylko z przełącznika PoE+",
+   "status": "potwierdzona",
+   "url": "https://techspecs.ui.com/unifi/wifi/u7-lite"
   },
   {
    "zestaw": "zestaw-wifi-unifi",
    "para": "UDR7 ↔ portal gości",
-   "zrodlo_w_karcie": "u7: „Funkcje dla gości = portal logowania …” (UniFi Network); karta UDR7 tego nie wymienia",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "UDR7: „Guest Traffic Isolation”; strony logowania gości nie obiecujemy (osobne hasło dla gości)",
+   "status": "bez-integracji",
+   "url": "https://techspecs.ui.com/unifi/cloud-gateways/udr7"
   },
   {
    "zestaw": "zestaw-wifi-omada",
@@ -3905,27 +3891,156 @@
   },
   {
    "zestaw": "zestaw-kopie-zapasowe",
-   "para": "NAS ↔ UPS (zamykanie przez USB)",
-   "zrodlo_w_karcie": "bxr: „port USB; zgodność z PowerChute Serial Shutdown” — DSM nieopisany",
-   "status": "do_potwierdzenia"
+   "para": "NAS Synology ↔ UPS APC Back-UPS Pro BR650MI (zamykanie przez USB)",
+   "zrodlo_w_karcie": "lista zgodności Synology (UPS) dla DS225+ i DS425+: „Back-UPS Pro BR650MI”",
+   "status": "potwierdzona",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS225%2B&category=upses"
   },
   {
    "zestaw": "zestaw-kopie-zapasowe",
    "para": "DS225+ ↔ dyski HAT3300",
-   "zrodlo_w_karcie": "synology: „pełne działanie tylko z dyskami z listy zgodności”; karta dysków do-sprawdzenia",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "lista zgodności Synology (dyski) dla DS225+ i DS425+: „HAT3300-4T, HAT3300-6T”",
+   "status": "potwierdzona",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=drives&model=DS225%2B&category=hdds_no_ssd_trim"
   },
   {
    "zestaw": "zestaw-ekran-menu-witryna",
    "para": "Samsung QBC ↔ VXT CMS / MagicINFO",
-   "zrodlo_w_karcie": "qbc: „Strony produktów QBC promują Samsung VXT CMS … i NIE wymieniają MagicINFO wprost”",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "Samsung QBC: „Samsung VXT CMS to oparte na chmurze rozwiązanie”; MagicINFO S10 wbudowany (samsung.com/au)",
+   "status": "potwierdzona",
+   "url": "https://www.samsung.com/pl/business/smart-signage/uhd-4k-signage/crystal-uhd-signage-qbc-lh55qbcebgcxen/"
   },
   {
    "zestaw": "zestaw-ekran-menu-witryna",
    "para": "Samsung OMB ↔ MagicINFO",
    "zrodlo_w_karcie": "om: „Tizen 5.0 z wbudowanym odtwarzaczem MagicINFO (OMB, OMN-S)”",
    "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-kasa-waga",
+   "para": "Posnet Bingo Max2 ↔ waga WS-1 6/15 kg",
+   "zrodlo_w_karcie": "Posnet: „Zakres ważenia: 6/15 kg”",
+   "status": "potwierdzona",
+   "url": "https://www.posnet.com.pl/produkty/product/276/waga-fawag-ws-1"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
+   "para": "Elzab Jota ONLINE ↔ terminal PolCard",
+   "zrodlo_w_karcie": "Elzab: „FISERV / POLCARD … Desk 3200 … ECR-EFT” (kolumna Jota ONLINE)",
+   "status": "potwierdzona",
+   "url": "https://www.elzab.com.pl/pl/strefa-dla-klienta/terminale-platnicze-wspolpracujace-z-kasami-elzab"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-market-pos",
+   "para": "Sprawdzarka cen LFT 2D ↔ zasilanie",
+   "zrodlo_w_karcie": "Elzab: zasilacz sieciowy, PoE lub moduł MZAS zamawiany osobno",
+   "status": "bez-integracji",
+   "url": "https://www.elzab.com.pl/pl/kody-kreskowe/sprawdzarki/sprawdzarki-cen/lft-2d"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-market-pos",
+   "para": "PC-POS ↔ terminal PolCard",
+   "zrodlo_w_karcie": "strona PC-POS nie wymienia terminali PolCard — terminal działa samodzielnie",
+   "status": "bez-integracji",
+   "url": "https://www.insoft.com.pl/pc-pos"
+  },
+  {
+   "zestaw": "zestaw-kawiarnia-lada",
+   "para": "GoPOS ↔ skaner Sunmi 2D",
+   "zrodlo_w_karcie": "GoPOS: „Dzięki technologii Plug & Play działa od razu po podłączeniu.”",
+   "status": "potwierdzona",
+   "url": "https://gopos.pl/2d-handheld-scanner"
+  },
+  {
+   "zestaw": "zestaw-restauracja-bistro",
+   "para": "GoPOS ↔ terminal PolCard",
+   "zrodlo_w_karcie": "GoPOS integruje terminale Lane 3000 / PAX A920 (eService) — PolCard samodzielnie",
+   "status": "bez-integracji",
+   "url": "https://help.gopos.pl/pl/articles/7239654-konfiguracja-urzadzen-terminal-platniczy"
+  },
+  {
+   "zestaw": "zestaw-restauracja-sala-ogrodek",
+   "para": "GoPOS ↔ terminal PolCard",
+   "zrodlo_w_karcie": "GoPOS integruje terminale Lane 3000 / PAX A920 (eService) — PolCard samodzielnie",
+   "status": "bez-integracji",
+   "url": "https://help.gopos.pl/pl/articles/7239654-konfiguracja-urzadzen-terminal-platniczy"
+  },
+  {
+   "zestaw": "zestaw-bar-kiosk-numerki",
+   "para": "GoPOS ↔ terminal PolCard",
+   "zrodlo_w_karcie": "GoPOS integruje terminale Lane 3000 / PAX A920 (eService) — PolCard samodzielnie",
+   "status": "bez-integracji",
+   "url": "https://help.gopos.pl/pl/articles/7239654-konfiguracja-urzadzen-terminal-platniczy"
+  },
+  {
+   "zestaw": "zestaw-noclegi-hotel-restauracja",
+   "para": "GoPOS ↔ terminal PolCard",
+   "zrodlo_w_karcie": "GoPOS integruje terminale Lane 3000 / PAX A920 (eService) — PolCard samodzielnie",
+   "status": "bez-integracji",
+   "url": "https://help.gopos.pl/pl/articles/7239654-konfiguracja-urzadzen-terminal-platniczy"
+  },
+  {
+   "zestaw": "zestaw-noclegi-hotel-restauracja",
+   "para": "NAS DS925+ ↔ dyski HAT3300 / HAT3310",
+   "zrodlo_w_karcie": "lista zgodności Synology: „HAT3300-4T, HAT3300-6T, HAT3310-8T, HAT3310-12T”",
+   "status": "potwierdzona",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=drives&model=DS925%2B&category=hdds_no_ssd_trim"
+  },
+  {
+   "zestaw": "zestaw-noclegi-hotel-restauracja",
+   "para": "NAS DS925+ ↔ UPS SMT2200RMI2UC",
+   "zrodlo_w_karcie": "UPS spoza listy zgodności Synology — zamykanie NAS sprawdzamy próbą przy montażu",
+   "status": "bez-integracji",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS925%2B&category=upses"
+  },
+  {
+   "zestaw": "zestaw-biuro-6-12",
+   "para": "NAS DS925+ ↔ dyski HAT3310",
+   "zrodlo_w_karcie": "lista zgodności Synology: „HAT3310-8T, HAT3310-12T, HAT3310-16T”",
+   "status": "potwierdzona",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=drives&model=DS925%2B&category=hdds_no_ssd_trim"
+  },
+  {
+   "zestaw": "zestaw-biuro-rachunkowe",
+   "para": "NAS DS425+ / DS925+ ↔ dyski HAT3300 / HAT3310",
+   "zrodlo_w_karcie": "lista zgodności Synology: „HAT3300-4T, HAT3300-6T, HAT3310-8T, HAT3310-12T”",
+   "status": "potwierdzona",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=drives&model=DS425%2B&category=hdds_no_ssd_trim"
+  },
+  {
+   "zestaw": "zestaw-biuro-rachunkowe",
+   "para": "NAS Synology ↔ UPS APC Smart-UPS SMT1500IC (zamykanie przez USB)",
+   "zrodlo_w_karcie": "lista zgodności Synology (UPS) dla DS425+ i DS925+: „Smart-UPS SMT1500IC”",
+   "status": "potwierdzona",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS425%2B&category=upses"
+  },
+  {
+   "zestaw": "zestaw-szkola-siec",
+   "para": "NAS DS925+ ↔ dyski HAT3310 / HAT5300",
+   "zrodlo_w_karcie": "lista zgodności Synology: „HAT3310-8T, HAT5300-8T, HAT5300-12T”",
+   "status": "potwierdzona",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=drives&model=DS925%2B&category=hdds_no_ssd_trim"
+  },
+  {
+   "zestaw": "zestaw-szkola-siec",
+   "para": "NAS DS925+ ↔ UPS SMT1500RMI2UC",
+   "zrodlo_w_karcie": "UPS spoza listy zgodności Synology — zamykanie NAS sprawdzamy próbą przy montażu",
+   "status": "bez-integracji",
+   "url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS925%2B&category=upses"
+  },
+  {
+   "zestaw": "zestaw-wifi-unifi",
+   "para": "UDR7 ↔ izolacja sieci gości",
+   "zrodlo_w_karcie": "UDR7: „Guest Traffic Isolation”",
+   "status": "potwierdzona",
+   "url": "https://techspecs.ui.com/unifi/cloud-gateways/udr7"
+  },
+  {
+   "zestaw": "zestaw-ekran-menu-witryna",
+   "para": "Samsung QBC ↔ MagicINFO",
+   "zrodlo_w_karcie": "Samsung: „The embedded MagicINFO™ S10 player”; licencja osobno",
+   "status": "potwierdzona",
+   "url": "https://www.samsung.com/au/business/smart-signage/uhd-4k-signage/crystal-uhd-signage-qbc-lh55qbcebgcxxy/"
   }
  ]
 }

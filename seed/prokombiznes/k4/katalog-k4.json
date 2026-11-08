@@ -5264,7 +5264,7 @@
   {
    "slug_seed": "gopos-all-in-one",
    "zmiana_k4": "drobne",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "sprz",
    "kategoria": "pos",
    "marka": "Sunmi",
@@ -5298,7 +5298,7 @@
     },
     {
      "k": "Płatności",
-     "v": "SoftPOS — zbliżeniowo kartą, telefonem, zegarkiem przez NFC; wymaga umowy z operatorem płatności"
+     "v": "SoftPOS (aplikacja eService) — zbliżeniowo kartą, telefonem, zegarkiem przez NFC; Android 9 lub nowszy z NFC; wymaga umowy z operatorem płatności (GoPOS pomaga ją zawrzeć)"
     },
     {
      "k": "Ekran",
@@ -8987,7 +8987,7 @@
    "opis": [
     "Szuflady kasowe ELZAB z gniazdem RJ to metalowe szuflady na gotówkę w kolorze grafitowym, podłączane do kasy lub drukarki fiskalnej kablem z wtyczką RJ (w zestawie). Kasa otwiera je elektromagnesem przy zamknięciu paragonu. Mała ELZ-240 pasuje do kiosku, gabinetu czy punktu usług, średnie ELZ-350 do sklepu i baru.",
     "ELZ-240 to rozsądny kompromis do małego obrotu: metalowa obudowa, wkład z tworzywa, 5 przegródek na banknoty i 5 na bilon, zamek z 10 kombinacjami. ELZ-350 ma metalowy wózek na teflonowych rolkach, metalowe dociski banknotów, 9 przegródek na bilon, podwójną szczelinę na czeki i bony, dźwignię awaryjną i zamek z 20 kombinacjami. Wersja PRO jedzie na prowadnicach kulkowych (jak w meblach kuchennych) — jest cichsza, płynniejsza i ma 5+2 przegródki na banknoty.",
-    "Przed zakupem sprawdź napięcie sterowania w swojej kasie: ELZ-240 pracuje na 24 V, ELZ-350 na stronie produktu na 12 V (poradnik Elzab podaje 12/24 V). Do kas Posnet i ELZAB Alfa/Mini są osobne kable, a adapter zamienia ELZ-350 w szufladę do K10, Zety i D10."
+    "Przed zakupem sprawdź napięcie sterowania w swojej kasie: ELZ-240 pracuje na 24 V, ELZ-350 i PRO na 12 V. Elzab wymienia ELZ-350 jako szufladę do kas Mini ONLINE i Jota ONLINE (kabel RJ w komplecie). Do kas Posnet i starszych ELZAB Alfa/Mini są osobne kable, a adapter zamienia ELZ-350 w szufladę do K10, Zety i D10."
    ],
    "cechy": [
     "złącze RJ",
@@ -9001,7 +9001,7 @@
     },
     {
      "k": "Sterowanie",
-     "v": "ELZ-240: 24 V / maks. 1 A; ELZ-350 i PRO: 12 V / maks. 1 A (poradnik Elzab: 12/24 V)"
+     "v": "ELZ-240: 24 V / maks. 1 A; ELZ-350 i PRO: 12 V / maks. 1 A"
     },
     {
      "k": "Pojemność",
@@ -9041,7 +9041,7 @@
     },
     {
      "k": "Akcesoria",
-     "v": "kabel szuflady RJ, kabel typ Alfa (Alfa, Mini, Mini E), kabel RJ do Posnet, przejściówka Mini Jack/RJ12, adapter szuflady"
+     "v": "kabel szuflady RJ, kabel typ Alfa (starsze kasy Alfa, Mini, Mini E), kabel RJ do Posnet, przejściówka Mini Jack/RJ12, adapter szuflady"
     }
    ],
    "warianty_opis": [
@@ -68217,7 +68217,7 @@
   {
    "slug_seed": "samsung-om",
    "zmiana_k4": "drobne",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "biuro",
    "kategoria": "av",
    "podkategoria": "ekrany-informacyjne",
@@ -68229,8 +68229,8 @@
    "korzysc": "Ekran do okna wystawowego, widoczny z ulicy także w słońcu, a w wersji OHDX montowany na zewnątrz.",
    "opis": [
     "Te ekrany stawia się za szybą witryny, ekranem do ulicy: promocje, nowości, godziny otwarcia czy oferta pensjonatu są widoczne dla przechodniów także w pełnym słońcu. Zwykły ekran wewnętrzny ma 350–700 nit; OM55B ma 3000 nit, a OM55N-S 4000 nit. Samsung opisuje też zabezpieczenie przed nagrzewaniem od słońca i ochronę przed pyłem IP5X.",
-    "Ekrany pracują 24/7, mają wbudowany odtwarzacz MagicINFO na systemie Tizen i Wi-Fi, więc treści i aktualizacje wysyłasz przez sieć, bez dodatkowego komputera za szybą. Przewody chowa się w prowadnicy, żeby od strony sklepu wyglądało to schludnie.",
-    "Jeśli ekran ma wisieć na zewnątrz budynku (np. przy wejściu albo na ścianie restauracji), potrzebny jest model zewnętrzny OHDX — ma certyfikat IP56 (odporność na wodę i pył) i jasność 3500 nit. MagicINFO pozwala zarządzać wszystkimi ekranami — w sklepie i w witrynie — z jednego miejsca."
+    "OM55B pracuje 24/7; ekrany OMB i OMN-S mają wbudowany odtwarzacz MagicINFO na systemie Tizen 5.0 i Wi-Fi, więc treści i aktualizacje wysyłasz przez sieć, bez dodatkowego komputera za szybą. Przewody chowa się w prowadnicy, żeby od strony sklepu wyglądało to schludnie.",
+    "Jeśli ekran ma wisieć na zewnątrz budynku (np. przy wejściu albo na ścianie restauracji), potrzebny jest model zewnętrzny OHDX — ma certyfikat IP56 (odporność na wodę i pył) i jasność 3500 nit. OHDX pracuje 24/7 na systemie Tizen 8.0 i obsługuje chmurę Samsung VXT (licencja osobno) — tę samą, co ekrany QBC w lokalu."
    ],
    "cechy": [
     "3000–4000 nit",
@@ -68252,7 +68252,7 @@
     },
     {
      "k": "Czas pracy",
-     "v": "24/7"
+     "v": "24/7 (OM55B, OH55DX); OM55N-S — producent nie podaje"
     },
     {
      "k": "Ochrona",
@@ -68260,7 +68260,7 @@
     },
     {
      "k": "System / odtwarzacz",
-     "v": "Tizen 5.0 z wbudowanym odtwarzaczem MagicINFO (OMB, OMN-S); Tizen 8.0 (OHDX)"
+     "v": "Tizen 5.0 z wbudowanym odtwarzaczem MagicINFO (OMB, OMN-S); Tizen 8.0 z Samsung VXT (OHDX)"
     },
     {
      "k": "Złącza",
@@ -68308,7 +68308,7 @@
     },
     {
      "q": "Czy za ekranem musi stać komputer, żeby wyświetlał treści?",
-     "a": "Nie. Ekrany mają wbudowany odtwarzacz MagicINFO na systemie Tizen i Wi-Fi, więc treści wysyłasz przez sieć. MagicINFO pozwala zarządzać z jednego miejsca wszystkimi ekranami — w sklepie i w witrynie."
+     "a": "Nie. OMB i OMN-S mają wbudowany odtwarzacz MagicINFO, a OHDX obsługuje chmurę Samsung VXT; wszystkie mają Wi-Fi (OHDX przez moduł zewnętrzny), więc treści wysyłasz przez sieć. Licencje programów kupuje się osobno."
     },
     {
      "q": "Jakie ekran ma złącza i jak się go montuje?",
@@ -72878,7 +72878,7 @@
   {
    "slug_seed": "insert-inspunkty-ksef",
    "zmiana_k4": "drobne",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "prog",
    "kategoria": "progs",
    "marka": "InsERT",
@@ -72889,7 +72889,7 @@
    "korzysc": "Doładowujesz Portfel InsERT i Twój program wysyła oraz pobiera e-faktury z KSeF bez przerw.",
    "opis": [
     "InsPunkty to wewnętrzna waluta płatności InsERT, zbierana w Portfelu InsERT przypisanym do Twojej firmy. Płacisz nimi za usługi online w programach InsERT. Najważniejsza z nich to obsługa KSeF w Subiekcie, Rachmistrzu i Rewizorze: od 1 kwietnia 2026 każde wysłanie e-faktury do KSeF i każde pobranie e-faktury z KSeF kosztuje 1 InsPunkt. InsPunktami opłacisz też Portal Dokumentów i obsługę zamówień w Sello NX.",
-    "Część InsPunktów dostajesz bez dopłaty: każdy kupiony Abonament do Subiekta, Rachmistrza lub Rewizora dodaje do Portfela 100 InsPunktów, a nowo zarejestrowany program z 3-miesięcznym Abonamentem — 25. Firmy z aktywnym Abonamentem dostały też jednorazowo 100 InsPunktów na start (biura rachunkowe — 400). Gdy potrzebujesz więcej, dokupujesz paczkę: u partnera InsERT (np. w PRO-KOM), z poziomu programu albo w Koncie InsERT. Saldo sprawdzisz w programie lub w Koncie InsERT.",
+    "Część InsPunktów dostajesz bez dopłaty: każdy Abonament do Subiekta, Rachmistrza lub Rewizora kupiony od 1 marca 2026 dodaje do Portfela 100 InsPunktów, a nowo zarejestrowany program z 3-miesięcznym Abonamentem — 25. Firmy z aktywnym Abonamentem w dniu 1 marca 2026 dostały też jednorazowo 100 InsPunktów na start (biura rachunkowe — 400). Gdy potrzebujesz więcej, dokupujesz paczkę: u partnera InsERT (np. w PRO-KOM), z poziomu programu albo w Koncie InsERT. Saldo sprawdzisz w programie lub w Koncie InsERT.",
     "Jak to działa krok po kroku: 1) Masz program InsERT z aktywnym Abonamentem — Portfel aktywuje się automatycznie i dostaje pulę InsPunktów w ramach Abonamentu. 2) Program wysyła i pobiera e-faktury, a za każdą operację odejmuje 1 InsPunkt. 3) Sprawdzasz saldo w programie albo w Koncie InsERT. 4) Gdy punktów ubywa, dokupujesz paczkę — u nas, w programie lub w Koncie InsERT; każde doładowanie przedłuża ważność Portfela o rok. 5) Przedłużasz Abonament — dostajesz kolejne 100 InsPunktów. Ważne: Subiekt 123 kupiony przez firmę nie korzysta z InsPunktów — KSeF działa w nim w ramach limitu dokumentów licencji."
    ],
    "cechy": [
@@ -72916,11 +72916,11 @@
     },
     {
      "k": "Programy",
-     "v": "Subiekt, Rachmistrz, Rewizor (obsługa KSeF), Portal Dokumentów, Sello NX, Navireo; Subiekt 123 dla firm — bez InsPunktów (limit dokumentów)"
+     "v": "linie InsERT nexo PRO, InsERT nexo i InsERT GT: Subiekt, Rachmistrz, Rewizor (obsługa KSeF), Portal Dokumentów, Sello NX, Navireo; Subiekt 123 dla firm — bez InsPunktów (limit dokumentów)"
     },
     {
      "k": "Pula w ramach Abonamentu",
-     "v": "100 InsPunktów z każdym Abonamentem do Subiekta, Rachmistrza lub Rewizora; 25 przy nowym programie z 3-mies. Abonamentem; jednorazowo na start 100 (firmy) / 400 (biura); 25 przy aktywacji Portfela przez Portal Dokumentów lub Sello NX"
+     "v": "100 InsPunktów z każdym Abonamentem do Subiekta, Rachmistrza lub Rewizora kupionym od 1.03.2026; 25 przy nowym programie z 3-mies. Abonamentem; jednorazowo na start 100 (firmy) / 400 (biura) z aktywnym Abonamentem w dniu 1.03.2026; 25 przy aktywacji Portfela przez Portal Dokumentów lub Sello NX"
     },
     {
      "k": "Wymagania",
@@ -75114,7 +75114,7 @@
   {
    "slug_seed": "numerki",
    "zmiana_k4": "drobne",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "prog",
    "kategoria": "progb",
    "marka": "GoPOS",
@@ -75126,7 +75126,7 @@
    "opis": [
     "System numerkowy przydaje się tam, gdzie gość sam odbiera zamówienie przy ladzie: bary szybkiej obsługi, food trucki, kawiarnie, strefy gastronomiczne, parki rozrywki. Każde zamówienie dostaje numer, a ekran na sali pokazuje, które są w przygotowaniu, a które gotowe.",
     "Numer nadaje się automatycznie przy kasie GoPOS albo w kiosku GoKiosk; obsługa może też nadać numer ręcznie. Kucharz zmienia status na ekranie kuchennym GoKDS, a gdy danie jest gotowe, numer sam przechodzi na ekranie do gotowych. Mniej wołania gości i porządek przy wydawce.",
-    "Potrzebny jest ekran na sali (koszt urządzenia jest osobny). Licencja obejmuje jedno urządzenie wyświetlające. System działa razem z kasą GoPOS, ekranem kuchennym GoKDS i kioskiem GoKiosk."
+    "Numery wyświetla aplikacja na telewizorze z pełnym Androidem (nie Android TV) albo z przystawką Android Box; jest też wersja w przeglądarce na dowolne urządzenie z internetem. Ekran kupujesz osobno. Licencja obejmuje jedno urządzenie wyświetlające. System działa razem z kasą GoPOS, ekranem kuchennym GoKDS i kioskiem GoKiosk."
    ],
    "cechy": [
     "numer na ekranie",
@@ -75156,7 +75156,7 @@
     },
     {
      "k": "Ekran",
-     "v": "kupowany osobno; producent nie podaje wymagań"
+     "v": "telewizor z pełnym Androidem (nie Android TV) albo telewizor z przystawką Android Box; wersja w przeglądarce — dowolne urządzenie z przeglądarką i internetem"
     },
     {
      "k": "Współpraca",
@@ -75166,7 +75166,7 @@
    "faq": [
     {
      "q": "Czy ekran do wyświetlania numerów jest w zestawie?",
-     "a": "Nie, ekran kupujesz osobno. Może to być Twój telewizor lub monitor, a producent nie podaje wymagań sprzętowych — pomożemy dobrać ekran i uchwyt ścienny."
+     "a": "Nie, ekran kupujesz osobno. GoPOS podaje: telewizor z pełnym Androidem (nie Android TV) albo telewizor z przystawką Android Box; wersja w przeglądarce działa na dowolnym urządzeniu z internetem. Pomożemy dobrać ekran i uchwyt."
     },
     {
      "q": "Czy potrzebuję ekranu kuchennego GoKDS?",

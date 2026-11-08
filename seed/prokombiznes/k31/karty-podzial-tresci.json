@@ -618,14 +618,14 @@
         "Dyski SAS Enterprise HAS5300 / HAS5310 (12–20 TB) są tylko do serwerów z kontrolerem SAS, nie do DiskStation. Gdy w NAS-ie zabraknie miejsca na kolejne dyski, dobierz obudowę rozszerzającą Synology (osobna karta)."
       ],
       "parametry": [
-        { "k": "Dyski Plus (HAT33xx)", "v": "4 i 6 TB (5400 obr./min), 8, 12, 16, 20 TB (7200 obr./min), SATA 6 Gb/s, CMR" },
+        { "k": "Dyski Plus (HAT33xx)", "v": "HAT3300: 2–12 TB (4 i 6 TB 5400 obr./min); HAT3310 / HAT3320: 8–20 TB (7200 obr./min); SATA 6 Gb/s, CMR — pojemności wg listy zgodności danego NAS-a" },
         { "k": "Dyski Enterprise (HAT53xx)", "v": "4, 8, 12, 16, 20, 24 TB, 7200 obr./min, SATA 6 Gb/s, obciążenie 550 TB/rok" },
         { "k": "Dyski SAS Enterprise (HAS53xx)", "v": "12–20 TB, tylko do serwerów z kontrolerem SAS, nie do DiskStation Plus" },
         { "k": "Niezawodność (MTBF)", "v": "do 1,2 mln h (Plus), do 2,5 mln h (Enterprise) — wartość statystyczna" },
         { "k": "Gwarancja dysków", "v": "3 lata (Plus), 5 lat (Enterprise)" }
       ],
       "warianty_opis": [
-        { "model": "HAT3300 (4, 6 TB)", "roznica": "Seria Plus, 5400 obr./min — ciche, do małych NAS-ów." },
+        { "model": "HAT3300 (2–12 TB)", "roznica": "Seria Plus, 5400 obr./min — ciche, do małych NAS-ów." },
         { "model": "HAT3310 / HAT3320 (8–20 TB)", "roznica": "Seria Plus, 7200 obr./min, szybsze i większe." },
         { "model": "HAT5300 / HAT5310 / HAT5320 (4–24 TB)", "roznica": "Seria Enterprise do pracy 24/7, 5 lat gwarancji." },
         { "model": "HAS5300 / HAS5310 (12–20 TB)", "roznica": "Dyski SAS Enterprise — tylko do serwerów z kontrolerem SAS, nie do DiskStation Plus." }
@@ -658,7 +658,8 @@
       ],
       "zdjecia": ["synology-dyski-rozszerzenia-01.webp", "synology-dyski-rozszerzenia-02.webp"],
       "filmy": [],
-      "uwagi": ""
+      "uwagi": "Sprawdzone 08.11.2026 (BIZ-3): lista zgodności Synology dla DS225+, DS425+ i DS925+ zawiera HAT3300, HAT3310, HAT3320, HAT5300, HAT5310 i HAT5320.",
+      "status": "gotowe"
     },
     {
       "slug": "synology-obudowy-rozszerzajace",
