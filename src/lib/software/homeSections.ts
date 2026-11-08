@@ -5,21 +5,11 @@
  * full list goes in at once (SW5), so the later sessions add components, not a migration.
  */
 export const HOME_SECTIONS = [
-  { value: 'areas', label: 'Oferta — 8 obszarów (v23)', anchor: 'obszary' },
-  { value: 'popular', label: '12 rzeczy', anchor: 'popularne' },
-  { value: 'livePreviews', label: 'Podglądy na żywo (v23)', anchor: 'podglady-na-zywo' },
   { value: 'process', label: 'Jak pracujemy i cena', anchor: 'proces' },
   { value: 'wizard', label: 'Kreator', anchor: 'dobierz' },
-  { value: 'whyNotWordpress', label: 'Dlaczego nie WordPress', anchor: 'bez-wordpressa' },
-  { value: 'guarantees', label: 'Zasady', anchor: 'zasady' },
-  // SWR5 (v21): back from `/o-firmie` to the start page.
-  { value: 'howWeBuild', label: 'Jak robimy', anchor: 'jak-robimy' },
-  { value: 'technologies', label: 'Z czego budujemy', anchor: 'technologie' },
-  // SW11b: „Freelancer, agencja czy PRO-KOM?” on `/o-firmie` — the value goes in now (one migration).
+  // SW11b: „Freelancer, agencja czy PRO-KOM?” on `/o-firmie`.
   { value: 'compare', label: 'Porównanie (O firmie)', anchor: 'porownanie' },
-  // SWA2 (v24, ZMIANY-v24 §4): the new start page sections; bento and showroom take the anchors
-  // of the v23 areas and previews (the v23 entries above got other anchors only so the rail can
-  // never list one id twice — their components are not rendered any more).
+  // SWA2 (v24, ZMIANY-v24 §4); the v23 sections went with the clean-up (decision D6, 08.11).
   { value: 'promises', label: 'Obietnice (v24)', anchor: 'obietnice' },
   { value: 'situations', label: 'Z czym do nas przychodzisz (v24)', anchor: 'sytuacje' },
   { value: 'bento', label: 'Oferta — cztery rzeczy (v24)', anchor: 'oferta' },
@@ -35,9 +25,6 @@ export type HomeSectionValue = (typeof HOME_SECTIONS)[number]['value']
  * these and a block of any other section renders nothing.
  */
 export const BUILT_HOME_SECTIONS: readonly HomeSectionValue[] = [
-  // v24 (SWA2): the v23 sections (areas, popular, livePreviews, howWeBuild, whyNotWordpress,
-  // technologies, guarantees) are no longer rendered; their blocks and code go with the clean-up
-  // migration after Krystian's decision D6 (PRZEKAZANIE-v24 §0.1).
   'promises',
   'situations',
   'bento',

@@ -1,16 +1,6 @@
 import { BUILT_HOME_SECTIONS, type HomeSectionValue } from '@/lib/software/homeSections'
 import type { SwHomeSectionBlock as SwHomeSectionBlockData } from '@/payload-types'
-import {
-  AreasSection,
-  CompareSection,
-  GuaranteesSection,
-  HowWeBuildSection,
-  LivePreviewsSection,
-  PopularSection,
-  TechnologiesSection,
-  WhyNotWordpressSection,
-  WizardSection,
-} from '@/sites/software/components/home/HomeSections'
+import { CompareSection, WizardSection } from '@/sites/software/components/home/HomeSections'
 import {
   BentoBlockSection,
   PricingBlockSection,
@@ -28,8 +18,6 @@ type Props = { block: SwHomeSectionBlockData; tenantId: number }
  * A section without a component renders nothing.
  */
 export function SwHomeSectionBlock({ block, tenantId }: Props) {
-  // v24: a block of a section no longer built (the v23 ones) stays in the panel but renders nothing;
-  // the v23 cases below and their components go with `feat/swa2-sprzatanie` (decision D6, STAN).
   if (!BUILT_HOME_SECTIONS.includes(block.section as HomeSectionValue)) return null
   switch (block.section) {
     case 'promises':
@@ -44,24 +32,10 @@ export function SwHomeSectionBlock({ block, tenantId }: Props) {
       return <TechBlockSection tenantId={tenantId} />
     case 'pricing':
       return <PricingBlockSection tenantId={tenantId} />
-    case 'areas':
-      return <AreasSection tenantId={tenantId} />
-    case 'popular':
-      return <PopularSection tenantId={tenantId} />
-    case 'livePreviews':
-      return <LivePreviewsSection tenantId={tenantId} />
     case 'process':
       return <ProcessBlockSection tenantId={tenantId} />
     case 'wizard':
       return <WizardSection tenantId={tenantId} />
-    case 'whyNotWordpress':
-      return <WhyNotWordpressSection tenantId={tenantId} />
-    case 'guarantees':
-      return <GuaranteesSection tenantId={tenantId} />
-    case 'howWeBuild':
-      return <HowWeBuildSection tenantId={tenantId} />
-    case 'technologies':
-      return <TechnologiesSection tenantId={tenantId} />
     case 'compare':
       return <CompareSection tenantId={tenantId} />
     default:

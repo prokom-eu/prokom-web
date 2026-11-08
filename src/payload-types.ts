@@ -3941,23 +3941,7 @@ export interface SwHomeSectionBlock {
   /**
    * Każda sekcja raz na stronie (ma swoją kotwicę, np. #oferta). Teksty sekcji edytuje się w Ustawieniach Software → strona główna.
    */
-  section:
-    | 'areas'
-    | 'popular'
-    | 'livePreviews'
-    | 'process'
-    | 'wizard'
-    | 'whyNotWordpress'
-    | 'guarantees'
-    | 'howWeBuild'
-    | 'technologies'
-    | 'compare'
-    | 'promises'
-    | 'situations'
-    | 'bento'
-    | 'showroom'
-    | 'tech'
-    | 'pricing';
+  section: 'process' | 'wizard' | 'compare' | 'promises' | 'situations' | 'bento' | 'showroom' | 'tech' | 'pricing';
   id?: string | null;
   blockName?: string | null;
   blockType: 'swHomeSection';
