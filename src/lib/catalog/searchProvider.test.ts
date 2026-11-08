@@ -66,6 +66,23 @@ describe('biznesSearchProvider (plan 0611 §8.1 pkt 5)', () => {
     }
     expect(titles('kasa')).not.toContain('Dobierz rozwiązanie')
   })
+
+  it('a procurement phrase from the panel brings its page on top (plan 0611 §6.4 #10)', () => {
+    const withSupply = biznesSearchProvider(index, [
+      {
+        kind: 'agd',
+        href: '/agd-rtv-dla-firm',
+        title: 'AGD i RTV dla firm',
+        phrases: ['lodowka', 'telewizor'],
+      },
+    ])
+    const [first] = withSupply.query('lodówka')
+    expect(first?.key).toBe('supply')
+    expect(first?.results).toEqual([
+      expect.objectContaining({ title: 'AGD i RTV dla firm', href: '/agd-rtv-dla-firm' }),
+    ])
+    expect(withSupply.query('kasa').map((group) => group.key)).not.toContain('supply')
+  })
 })
 
 describe('catalogLoadingProvider', () => {

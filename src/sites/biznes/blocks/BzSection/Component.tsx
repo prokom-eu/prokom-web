@@ -7,6 +7,7 @@ import {
   parseSectionData,
   type SectionVariant,
 } from '@/lib/biznes/pages/sections'
+import { supplyHrefVisible } from '@/lib/biznes/procurement/links'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import type { CatalogIndex, IndexImage } from '@/lib/catalog/catalogIndex'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
@@ -67,6 +68,7 @@ const NEEDS_INDEX: ReadonlySet<SectionVariant> = new Set([
   'insert-picker',
   'insert-requirements',
   'care-areas',
+  'seats',
   'audience',
   'about-hero',
   'brands',
@@ -316,7 +318,14 @@ async function render(
       return (
         data && (
           <SectionShell block={block}>
-            <Seats data={data} />
+            {/* A link to a procurement page only once it is published (plan 0611 §6.4). */}
+            <Seats
+              data={
+                data.link && index && !supplyHrefVisible(data.link.href, index)
+                  ? { ...data, link: undefined }
+                  : data
+              }
+            />
           </SectionShell>
         )
       )

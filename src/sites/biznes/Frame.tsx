@@ -6,6 +6,7 @@ import { CAPSULE } from '@/components/shared/capsule'
 import { MenuSheet } from '@/components/shared/MenuSheet'
 import { SiteFooter } from '@/components/shared/SiteFooter'
 import { TabBar } from '@/components/shared/TabBar'
+import { supplyHrefVisible, supplySearch } from '@/lib/biznes/procurement/links'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { offerMenu } from '@/lib/catalog/menu'
 import { getSharedData } from '@/lib/shared/getSharedData'
@@ -59,7 +60,10 @@ export async function BiznesFrame({ tenant, settings, biznes, promo, children }:
     headerCta?.label && headerCta.href ? { label: headerCta.label, href: headerCta.href } : null
   const columns = (line?.footerColumns ?? []).map((column) => ({
     heading: column.heading ?? '',
-    links: (column.links ?? []).map((link) => ({ label: link.label, href: link.href })),
+    links: (column.links ?? [])
+      // „AGD i RTV dla firm”, „Dostawy IT dla firm” only once published (plan 0611 §6.4 #7).
+      .filter((link) => supplyHrefVisible(link.href, index))
+      .map((link) => ({ label: link.label, href: link.href })),
   }))
 
   return (
@@ -129,6 +133,7 @@ export async function BiznesFrame({ tenant, settings, biznes, promo, children }:
           }
           recentlyViewed={shared?.company.recentlyViewed ?? false}
           phone={shared?.line.phone ?? settings.phone ?? null}
+          supply={supplySearch(biznes.procurement, index)}
         />
         {shared && <BizRail sections={line?.rail?.sections ?? []} action={action} />}
         {shared && (

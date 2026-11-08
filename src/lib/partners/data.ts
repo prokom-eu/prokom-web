@@ -89,6 +89,18 @@ export const getBrandStripData = cache(
         sort: 'order',
         limit: 200,
         depth: 0,
+        // What a tile reads (`orderHomeBrands`); `filename` builds the file URLs of the logo.
+        select: {
+          name: true,
+          slug: true,
+          partnerStatus: true,
+          filename: true,
+          url: true,
+          width: true,
+          height: true,
+          sizes: true,
+          brandPage: { shortDescription: true },
+        },
         // Server-side read; only the fields of `HomeBrand` leave here.
         overrideAccess: true,
       }),

@@ -15,6 +15,7 @@ import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { biznesDescription } from '@/lib/biznes/seo'
+import { EMPTY_SUPPLY_LINKS, industrySupplyTiles } from '@/lib/biznes/procurement/links'
 import { BzOrderFlowBlock } from '@/sites/biznes/blocks/BzOrderFlow/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
@@ -149,6 +150,11 @@ export default async function IndustryPage({ params }: Props) {
         total={total}
         index={cardIndex}
         catalogHref={catalogHref({ ...DEFAULT_STATE, industries: [industry.slug] })}
+        supply={industrySupplyTiles(
+          settings?.biznes?.procurement ?? EMPTY_SUPPLY_LINKS,
+          index,
+          industry.slug,
+        )}
       />
       {industry.day && <BzTimelineBlock block={industry.day} tone="accent" />}
       {industry.flow && <BzOrderFlowBlock block={industry.flow} tenantId={tenant.id} />}

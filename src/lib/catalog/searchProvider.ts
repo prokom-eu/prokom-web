@@ -1,3 +1,4 @@
+import { matchSupplySearch, type SupplySearchEntry } from '../biznes/procurement/links'
 import { matchActions } from '../shared/search/palette'
 import type { SearchGroup, SearchProvider, SearchResult } from '../shared/search/provider'
 import {
@@ -81,7 +82,11 @@ export function productOfResult(
  * pages and brands; the empty field shows shortcuts and the popular phrases from the panel.
  * The contact actions come from `paletteActions`, „Zapytaj o …” from the dialog.
  */
-export function biznesSearchProvider(index: CatalogIndex): SearchProvider {
+export function biznesSearchProvider(
+  index: CatalogIndex,
+  /** Phrases of the procurement pages from the panel (plan 0611 §6.4 #10), published only. */
+  supply: readonly SupplySearchEntry[] = [],
+): SearchProvider {
   const prepared = prepareSearch(index)
   const categoryName = new Map(index.categories.map((category) => [category.slug, category.name]))
   const brandName = new Map(index.brands.map((brand) => [brand.slug, brand.name]))
@@ -134,6 +139,16 @@ export function biznesSearchProvider(index: CatalogIndex): SearchProvider {
       const products = searchProducts(prepared, q) ?? []
       const pages = matchPages(index, q)
       const groups: SearchGroup[] = [
+        {
+          key: 'supply',
+          title: 'Zaopatrzenie firm',
+          results: matchSupplySearch(supply, q).map((entry) => ({
+            id: `zaop:${entry.kind}`,
+            title: entry.title,
+            href: entry.href,
+            icon: 'box',
+          })),
+        },
         {
           key: 'configurator',
           title: 'Dobierz rozwiązanie',

@@ -1,3 +1,4 @@
+import type { ScaleSupply } from '@/lib/biznes/procurement/links'
 import type { BundleCardData } from '@/lib/catalog/bundle'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
 import type { IconName } from '@/lib/catalog/options'
@@ -30,6 +31,8 @@ export type ConfiguratorData = {
   formToken: string
   phone: { label: string; href: string } | null
   callbackTime: string | null
+  /** „Przy tej skali zrobimy dostawę” at „Ponad 10” (plan 0611 §6.4 #5); `null` = none. */
+  supply: ScaleSupply | null
 }
 
 export const linkKey = (kind: WizardLinkKind, target?: string) => `${kind}:${target ?? ''}`

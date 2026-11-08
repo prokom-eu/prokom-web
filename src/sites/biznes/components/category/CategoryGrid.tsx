@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -26,6 +26,7 @@ import { plural } from '@/lib/plural'
 import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { ProductCard } from '../catalog/ProductCard'
+import { SupplyBand } from '../SupplyBand'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
 import { usePhone } from '../mobile/usePhone'
 
@@ -54,7 +55,15 @@ type Props = {
   guide?: CategoryGuide | null
   /** „Do czego” (the cards' industries) — laptops and computers only (K36 §13). */
   useCases?: boolean
+  /**
+   * „Kupujesz 5 sztuk lub więcej?” (plan 0611 §6.4 #2): above the grid; on a phone after the
+   * 6th card (after the last one when fewer).
+   */
+  supply?: { text: string; cta: string; href: string } | null
 }
+
+/** The phone shows the procurement band after this many cards (§6.4 #2). */
+const SUPPLY_AFTER = 6
 
 const SPAN_2: Record<number, string> = { 1: 'col-span-1', 2: 'col-span-2' }
 const SPAN_3: Record<number, string> = {
@@ -86,6 +95,7 @@ export function CategoryGrid({
   bySeriesFilter = false,
   guide = null,
   useCases = false,
+  supply = null,
 }: Props) {
   const products = index.products
   const [choice, setChoice] = useState<CategoryChoice>({})
@@ -296,6 +306,13 @@ export function CategoryGrid({
               )}
             </div>
 
+            {supply && (
+              <SupplyBand
+                text={supply.text}
+                links={[{ label: supply.cta, href: supply.href }]}
+                className="mt-5 max-md:hidden"
+              />
+            )}
             {results.length === 0 ? (
               <div className="mt-5 flex flex-col items-start gap-3 rounded-3xl bg-surface-2 p-6">
                 <p className="font-extrabold text-ink">Nic nie pasuje do tego wyboru.</p>
@@ -323,14 +340,24 @@ export function CategoryGrid({
                 className="mt-5 grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:grid-cols-3"
               >
                 {visible.map((product, position) => (
-                  <li key={product.slug} className="flex">
-                    <ProductCard
-                      product={product}
-                      index={index}
-                      position={position}
-                      meta={bySeries ? 'series' : 'category'}
-                    />
-                  </li>
+                  <Fragment key={product.slug}>
+                    <li className="flex">
+                      <ProductCard
+                        product={product}
+                        index={index}
+                        position={position}
+                        meta={bySeries ? 'series' : 'category'}
+                      />
+                    </li>
+                    {supply && position + 1 === Math.min(SUPPLY_AFTER, visible.length) && (
+                      <li className="col-span-2 md:hidden">
+                        <SupplyBand
+                          text={supply.text}
+                          links={[{ label: supply.cta, href: supply.href }]}
+                        />
+                      </li>
+                    )}
+                  </Fragment>
                 ))}
                 {more === 0 && !guide && help && (
                   <li

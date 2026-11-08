@@ -9,16 +9,12 @@ import { BRANDS_PATH, OWN_BRAND_SLUG } from '@/lib/catalog/filters'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { getBrandStripData } from '@/lib/partners/data'
 import type { HomeBrand } from '@/lib/partners/homeBrands'
-import { brandStrips } from '@/lib/partners/strips'
+import { BRANDS_LEAD, brandStrips } from '@/lib/partners/strips'
 import { plural } from '@/lib/plural'
 import type { PartnersBlock as PartnersBlockData } from '@/payload-types'
 
 import { BrandStrips } from './HomeIslands'
 import { SplitHead } from './SplitHead'
-
-/** The lead of the strips (ZAOPATRZENIE §9: shortened). */
-const BRANDS_LEAD =
-  'Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony producentów — każdy z doborem modelu i serwisem.'
 
 /**
  * „Marki, które znamy od środka.” of the home page in two moving strips (ZAOPATRZENIE §9, D5
