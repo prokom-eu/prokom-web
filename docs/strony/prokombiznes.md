@@ -1,5 +1,7 @@
 # prokombiznes.pl — specyfikacja strony
 
+> **D10 (06.11.2026, wdrożone w W1 08.11): WhatsApp usunięty wszędzie** — z widoku, panelu i danych. Wszystkie wzmianki o WhatsAppie niżej (kontakt, stopka, menu, kreator, formularze) są nieaktualne.
+
 - **Status:** zakres i wygląd uzgodnione przez Krystiana 17.10.2026 na podstawie wizualizacji (17 plansz). Akceptacja szefa: Asana. Punkty oznaczone **[SZEF]** wymagają potwierdzenia przed publikacją, ale **nie blokują budowy**: buduj z tekstem z wizualizacji, a pole ma być edytowalne w panelu.
 - **Wizualizacja v20 (20.10.2026):** nagłówek, górny pasek, strona główna i formularz kontaktowy według `docs/design/prokombiznes/ZMIANY-v20.md` — wniesione do §1, §3.1, §3.2, §4 i §8.4 (sesja D1). Zrzuty i plansze w repo są w wersji v20.
 - **K4 (30.10.2026, wersja finalna wizualizacji v150, ADR-017):** wszystko po K3.1 (rundy K3.2–K3.6): 33 kategorie w 5 działach, 162 nowe karty (COMEX, Optivendi, Apple, Samsung Galaxy, Brother, HP, Logitech, Fellowes, Kobra, usługi PRO-KOM…), salon 2.0 dla wszystkich marek, `/marki`, Konfigurator 3.0 (`/konfigurator`), nowa strona główna, Oferta 2.0, `/automaty-vendingowe`, `/ksef`, `/ulga-na-kase-fiskalna`, poprawki po audytach. **Źródło: `docs/design/prokombiznes/K4-FINAL.md`** (kolejność ważności, zasady, co zastąpione, dane, widoki) — przy różnicy z tą specyfikacją wygrywa K4-FINAL i ADR-017; sesje — `docs/zadania/prokombiznes.md` §7. Sekcje tej specyfikacji aktualizują sesje K4 przy swoich widokach.
