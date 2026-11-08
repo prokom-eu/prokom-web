@@ -163,6 +163,8 @@
 }
 [data-line='software'] .sw-start-band {
   border-radius: 28px;
+  /* Opaque: half of the card lies on the dark footer, the text must read the same on both. */
+  background-color: var(--surface);
   background-image:
     radial-gradient(700px 260px at 88% 0, var(--glow), transparent),
     radial-gradient(900px 220px at 50% 130%, var(--glow), transparent);
