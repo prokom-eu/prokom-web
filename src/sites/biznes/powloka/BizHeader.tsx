@@ -129,10 +129,12 @@ export function BizHeader({ homeLabel, menu, offer, phone, hours, cta }: Props) 
             type="button"
             className={CAPSULE.searchButton}
             onClick={() => requestSearch()}
-            aria-label="Szukaj w ofercie"
+            aria-keyshortcuts="Control+K Meta+K /"
           >
             <Icon name="search" className="size-[18px]" />
-            <kbd>Ctrl K</kbd>
+            {/* The name from the content (WCAG 2.5.3): the shortcut is shown, not read out. */}
+            <span className="sr-only">Szukaj w ofercie</span>
+            <kbd aria-hidden="true">Ctrl K</kbd>
           </button>
           <ThemeToggle className={CAPSULE.iconButton} />
         </>

@@ -102,7 +102,7 @@ test.describe('Biznes product page 2.0', () => {
 
     await addToInquiry(page, 'Posnet Ergo Online')
     await expect(
-      page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ }),
+      page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ }),
     ).toHaveAccessibleName('Zapytanie 1 pozycja')
   })
 

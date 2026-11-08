@@ -168,7 +168,7 @@ test.describe('Biznes catalog /oferta', () => {
     await expect(added).toHaveAttribute('aria-pressed', 'true')
     await expect(page.getByText('Dodano do zapytania:')).toBeVisible()
     await expect(
-      page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ }),
+      page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ }),
     ).toHaveAccessibleName('Zapytanie 1 pozycja')
   })
 

@@ -205,8 +205,8 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     const drawer = page.getByRole('dialog', { name: /^Twoje zapytanie/ })
     await expect(async () => {
       await page
-        .getByRole('banner')
-        .getByRole('button', { name: /^Zapytanie/ })
+        .locator('[data-site-header]')
+        .getByRole('link', { name: /^Zapytanie/ })
         .click()
       await expect(drawer).toBeVisible({ timeout: 1000 })
     }).toPass()

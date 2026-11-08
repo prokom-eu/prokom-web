@@ -7,7 +7,7 @@ import { site } from './helpers'
 // 1.01.2027, `?ksefpo=1` shows the later one) and /ulga-na-kase-fiskalna (K35 §3). Axe in `a11y`.
 
 const cartButton = (page: Page) =>
-  page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
+  page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 
 const PAGES = ['/automaty-vendingowe', '/ksef', '/ulga-na-kase-fiskalna']
 
