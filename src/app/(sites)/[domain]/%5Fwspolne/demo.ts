@@ -35,7 +35,7 @@ export const DEMO_NAV: Record<Line, CapsuleNavItem[]> = {
     { key: 'oferta', label: 'Oferta' },
     { key: 'na-zywo', label: 'Na żywo', href: '/#podglady' },
     { key: 'cennik', label: 'Cennik', href: '/cennik' },
-    { key: 'jak-pracujemy', label: 'Jak pracujemy', href: '/#jak-robimy' },
+    { key: 'jak-pracujemy', label: 'Jak pracujemy', href: '/#proces' },
     { key: 'kontakt', label: 'Kontakt', href: '/kontakt', current: true },
   ],
 }

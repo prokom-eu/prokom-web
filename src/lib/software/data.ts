@@ -9,7 +9,6 @@ import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { isIconName } from '../catalog/options'
 import { contactFacts, factsMap, fillDeep, fillText } from './facts'
 import { homeSchema, type SoftwareHome } from './home'
-import { type HomeArea, homeAreas } from './homeAreas'
 import type { MenuArea } from './mobileNav'
 import {
   buildOfferView,
@@ -232,50 +231,6 @@ export const getSoftwareHome = (tenantId: number): Promise<SoftwareHome | null> 
     ['software-home', 'swv2', String(tenantId)],
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
-
-/**
- * The areas of the start page section „Oferta” of one Software tenant, in panel order; chips link
- * only to solutions published in this tenant. Read on the server (`SolutionAreas` is readable
- * for the panel only). Deduplicated per request.
- */
-export const getHomeAreas = cache(async (tenantId: number): Promise<HomeArea[]> => {
-  const payload = await getPayload({ config })
-  const inTenant = { tenant: { equals: tenantId } }
-  const [areas, solutions] = await Promise.all([
-    payload.find({
-      collection: 'solution-areas',
-      where: inTenant,
-      limit: 20,
-      depth: 0,
-      sort: 'order',
-      select: {
-        key: true,
-        name: true,
-        icon: true,
-        short: true,
-        description: true,
-        gain: true,
-        countLabel: true,
-        priceFrom: true,
-        priceLabel: true,
-        chips: true,
-        cta: true,
-      },
-      overrideAccess: true,
-    }),
-    payload.find({
-      collection: 'solutions',
-      where: { and: [inTenant, { _status: { equals: 'published' } }] },
-      draft: false,
-      limit: MAX_SOLUTIONS,
-      depth: 0,
-      select: { slug: true },
-      overrideAccess: true,
-    }),
-  ])
-  const slugs = new Map(solutions.docs.map((doc) => [doc.id, doc.slug]))
-  return homeAreas(areas.docs, slugs)
-})
 
 /**
  * What the offer windows of one Software tenant read (SWR3): published solutions with the window

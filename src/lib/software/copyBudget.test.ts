@@ -46,10 +46,9 @@ describe('Software copy budget (SWV9 §1, §5)', () => {
     expect(count(/na piśmie/gi)).toBeLessThanOrEqual(25)
   })
 
-  // v24: the title of the tech tab „Szybka” (board `AU-pc`); the v23 „Jak robimy” text that also
-  // has it is no longer rendered (SWA2c) and goes with the clean-up D6 — then back to 1.
+  // v24: the title of the tech tab „Szybka” (board `AU-pc`); the v23 one went with D6.
   it('„Klient nie czeka i nie ucieka” once on the page', () => {
-    expect(count(/Klient nie czeka i nie ucieka/g)).toBeLessThanOrEqual(2)
+    expect(count(/Klient nie czeka i nie ucieka/g)).toBeLessThanOrEqual(1)
   })
 
   it('no „od ilu kosztuje”, „Dzień dobry, Anna” or booking in the wizard', () => {

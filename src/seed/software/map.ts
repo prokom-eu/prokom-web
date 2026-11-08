@@ -6,17 +6,15 @@ import miejscowosci from '../../../seed/prokomsoftware/miejscowosci.json'
 import nawigacja from '../../../seed/prokomsoftware/nawigacja.json'
 import obszary from '../../../seed/prokomsoftware/obszary.json'
 import oknoOferty from '../../../seed/prokomsoftware/okno-oferty.json'
-import popularne from '../../../seed/prokomsoftware/popularne.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
 import stronaGlowna from '../../../seed/prokomsoftware/strona-glowna.json'
-import technologie from '../../../seed/prokomsoftware/technologie.json'
 import wpisy from '../../../seed/prokomsoftware/wpisy.json'
 import wyszukiwarka from '../../../seed/prokomsoftware/wyszukiwarka.json'
 import { isIconName } from '../../lib/catalog/options'
 import type { City, Industry, Post, Solution, SolutionArea } from '../../payload-types'
 import { h2, p, richText, ul } from '../biznes/lexical'
 import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
-import { HOME_SECTION_TEXTS, REBUILD_BUTTON } from './homeExtras'
+import { HOME_SECTION_TEXTS } from './homeExtras'
 import { withoutIndustryLinks, withServiceLineName } from '../../lib/software/industryLinks'
 import { INDUSTRY_PAGE_TEXTS } from './industryPages'
 import {
@@ -103,8 +101,7 @@ function levelData(level: SeedLevel): NonNullable<SolutionData['levels']>[number
 /**
  * Card, one „od” price and term, levels and the texts of the offer window of one solution
  * (ADR-014 v22 pkt 1–4). „Dobrze łączy się z” (`related`) needs the ids of the other solutions —
- * `relatedIds`, written after all are imported. The 12 cards of the start page
- * are these solutions in the order of `SoftwareSettings.home.popular` (v22: no card fields).
+ * `relatedIds`, written after all are imported.
  */
 export function solutionData(item: SeedSolution): SolutionData {
   return {
@@ -468,17 +465,12 @@ export function missingFacts(
 }
 
 /**
- * Settings JSON 1:1 with the package (ADR-014 doprecyzowania SW2a 6). `home` = the start page
- * texts without `homeOrder` (the section order is the order of the page blocks, D2) + the
- * technology layers + the 12 cards + the section headings of the board (SW5) + the price token
- * of the rebuild button (SW8a).
+ * Settings JSON 1:1 with the package (ADR-014 doprecyzowania SW2a 6). `home` = of the start page
+ * package only the process stages and the comparison rows (the v23 sections went with the clean-up,
+ * decision D6, 08.11) + the comparison heading (SW11b) + hero and sections of v24.
  */
 export function softwareSettingsData() {
-  const { homeOrder: _order, ...homeTexts } = structuredClone(stronaGlowna)
-  // The rebuild price comes from `Solutions`, not from the text (ADR-014 doprecyzowania SW8a).
-  homeTexts.whyNotWordpress.cta.buttons = homeTexts.whyNotWordpress.cta.buttons.map((button) =>
-    button[0] === REBUILD_BUTTON.package ? [REBUILD_BUTTON.token, ...button.slice(1)] : button,
-  )
+  const { process, compare } = structuredClone(stronaGlowna)
   return {
     // Only links to industry pages that exist (the index and inactive industries 404) and „Serwis”
     // for the service line (SWV6).
@@ -492,9 +484,8 @@ export function softwareSettingsData() {
     },
     wizard: wizardSeed(kreator),
     home: {
-      ...homeTexts,
-      technologies: structuredClone(technologie.layers),
-      popular: { order: structuredClone(popularne.order), tabs: structuredClone(popularne.tabs) },
+      process,
+      compare,
       sections: structuredClone(HOME_SECTION_TEXTS),
       hero: structuredClone(HOME_HERO),
       ...structuredClone(HOME_V24),
