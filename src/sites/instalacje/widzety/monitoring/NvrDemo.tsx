@@ -414,11 +414,13 @@ export function NvrDemo() {
               type="button"
               className={state.sel === i ? 'cam sel' : 'cam'}
               onClick={() => touch((s) => ({ ...s, sel: s.sel === i ? -1 : i }))}
-              aria-label={cam.label}
+              // WCAG 2.5.3: the name comes from what the tile shows (detections, camera, time),
+              // the hint for the reader is added, not put over it.
             >
               <Scene index={i} state={state} />
               <span className="cl">{cam.name}</span>
               <span className="ct2">{time}</span>
+              <span className="sr-only">. {cam.label}</span>
             </button>
           ),
         )}
