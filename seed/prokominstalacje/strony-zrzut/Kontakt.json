@@ -1,7 +1,7 @@
 {
  "_strona": "Kontakt",
  "_title": "Kontakt: PRO-KOM Instalacje, Rabka-Zdrój i Podhale",
- "_description": "Kontakt z PRO-KOM Instalacje: salon w Rabce-Zdroju (ul. Orkana 16B). Telefon, WhatsApp, e-mail i mapa stref dojazdu.",
+ "_description": "Kontakt z PRO-KOM Instalacje: salon w Rabce-Zdroju (ul. Orkana 16B). Telefon, e-mail i mapa stref dojazdu.",
  "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
  "dane": {
   "ctaEye": "Zaplanuj instalację",
@@ -205,13 +205,6 @@
      "v": "Instalacje i serwis",
      "ph": "[TELEFON]",
      "href": "tel:+48TELEFON"
-    },
-    {
-     "ic": "ikona:chat",
-     "t": "WhatsApp",
-     "v": "Zdjęcia obiektu i pytania",
-     "ph": "[WHATSAPP]",
-     "href": "https://wa.me/48WHATSAPP?text=Dzie%C5%84%20dobry%2C%20mam%20pytanie%20o%20instalacj%C4%99%20w%20obiekcie%3A%20"
     },
     {
      "ic": "ikona:mail",

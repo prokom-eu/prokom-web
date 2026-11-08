@@ -32,17 +32,6 @@ export function toTelHref(phone: string): string | null {
   return `tel:${digits.length === 9 ? '+48' : ''}${digits}`
 }
 
-/**
- * `https://wa.me/<number>` for the WhatsApp number from the panel. wa.me needs the country
- * code without `+` or `00`; a bare 9-digit Polish number gets `48`. Anything shorter → `null`.
- */
-export function toWhatsAppHref(phone: string): string | null {
-  // A leading "00" is the international dialling prefix, not part of the number.
-  const digits = phone.replace(/\D/g, '').replace(/^00/, '')
-  if (digits.length === 9) return `https://wa.me/48${digits}`
-  return digits.length >= 10 ? `https://wa.me/${digits}` : null
-}
-
 /** The address in Google Maps — a link, not an embedded map (no third party before consent). */
 export function toMapsHref(address: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`

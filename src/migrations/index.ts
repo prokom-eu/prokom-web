@@ -83,6 +83,7 @@ import * as migration_20261105_204450_wsp_dane from './20261105_204450_wsp_dane'
 import * as migration_20261106_011831_swa1_solutions_preview from './20261106_011831_swa1_solutions_preview'
 import * as migration_20261106_020602_swa2_home_sections_v24 from './20261106_020602_swa2_home_sections_v24'
 import * as migration_20261106_021456_swa2_home_tech_pricing from './20261106_021456_swa2_home_tech_pricing'
+import * as migration_20261108_095701_usun_whatsapp from './20261108_095701_usun_whatsapp'
 
 export const migrations = [
   {
@@ -509,5 +510,10 @@ export const migrations = [
     up: migration_20261106_021456_swa2_home_tech_pricing.up,
     down: migration_20261106_021456_swa2_home_tech_pricing.down,
     name: '20261106_021456_swa2_home_tech_pricing',
+  },
+  {
+    up: migration_20261108_095701_usun_whatsapp.up,
+    down: migration_20261108_095701_usun_whatsapp.down,
+    name: '20261108_095701_usun_whatsapp',
   },
 ]

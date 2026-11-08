@@ -105,12 +105,17 @@ export function questionKeys(services: readonly ServiceKey[]): QuestionKey[] {
   return services.flatMap((key): QuestionKey[] => (key === 'alarm' ? ['alarm', 'vd'] : [key]))
 }
 
-/** „Jak się skontaktować?” → `preferredContact` of the inquiry. */
+/**
+ * „Jak się skontaktować?” → `preferredContact` of the inquiry. The prototype's second option
+ * (a messenger) is gone (D10), so the indexes differ from it — compare by `contact`, not index.
+ */
 export const PLAN_VIA = [
   { label: 'Telefon', contact: 'phone' },
-  { label: 'WhatsApp', contact: 'whatsapp' },
   { label: 'E-mail', contact: 'email' },
 ] as const
+
+/** The customer chose an answer by e-mail, so the e-mail address is required. */
+export const viaIsEmail = (via: number) => PLAN_VIA[via]?.contact === 'email'
 
 export const PLAN_WHEN = ['Rano', 'Po południu', 'Obojętnie'] as const
 

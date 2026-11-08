@@ -37,7 +37,7 @@ type Props = {
  * WSPOLNE-ELEMENTY §5): brand bar, header capsule with the line's two mega menus, side rail and
  * search window, the line's CTA band, the shared footer with the mountain ridge, and on a phone
  * the bottom bar and the menu sheet. Contact data, hours and lines come from the panel
- * (`CompanyData`, `SiteSettings.shared`) — nothing written in code, no WhatsApp (decision 01.11).
+ * (`CompanyData`, `SiteSettings.shared`) — nothing written in code, no messenger links (decisions 01.11, D10).
  */
 export async function InstalacjeFrame({ tenant, settings, promo, children }: Props) {
   const [menu, shared, company] = await Promise.all([

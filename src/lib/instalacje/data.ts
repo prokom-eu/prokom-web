@@ -205,8 +205,6 @@ export type InstalacjeSiteSettings = {
   noPriceText: string
   warrantyMonths: number
   responseText: string
-  /** WhatsApp number of the line (the panel validates it), `null` when not set. */
-  whatsapp: string | null
   /** „Twój opiekun” of /dla-architektow; `null` = no name yet (or still a boss's marker). */
   architects: ArchitectsContact | null
 }
@@ -243,7 +241,6 @@ export const getInstalacjeSettings = cache(
         noPriceText: true,
         warrantyMonths: true,
         responseText: true,
-        whatsapp: true,
         architects: true,
       },
       overrideAccess: true,
@@ -254,7 +251,6 @@ export const getInstalacjeSettings = cache(
       noPriceText: doc?.noPriceText || SETTINGS_DEFAULTS.noPriceText,
       warrantyMonths: doc?.warrantyMonths ?? SETTINGS_DEFAULTS.warrantyMonths,
       responseText: doc?.responseText || SETTINGS_DEFAULTS.responseText,
-      whatsapp: doc?.whatsapp || null,
       architects: architectsContact(doc?.architects),
     }
   },

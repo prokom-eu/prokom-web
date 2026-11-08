@@ -12,7 +12,9 @@ describe('/wyslane parameters', () => {
   })
 
   it('names the contact way, nothing else', () => {
-    expect(sentVia('whatsapp')).toBe('na WhatsAppie')
+    expect(sentVia('email')).toBe('e-mailem')
+    // Old links from before D10 still open the page, with the lead without the way.
+    expect(sentVia('whatsapp')).toBeNull()
     expect(sentVia('toString')).toBeNull()
     expect(sentVia(undefined)).toBeNull()
   })
