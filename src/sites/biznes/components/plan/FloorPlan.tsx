@@ -53,7 +53,7 @@ function Thumb({ product, size }: { product: PlanProduct; size: 'point' | 'list'
   return product.image ? (
     <Image
       src={product.image.url}
-      alt=""
+      alt={product.image.alt}
       width={product.image.width}
       height={product.image.height}
       unoptimized

@@ -99,7 +99,7 @@ export function YourVersion({ benefit }: { benefit: string | null }) {
         <button
           type="button"
           onClick={scrollToConfigurator}
-          className="min-h-10 text-sm font-extrabold text-accent-text hover:underline"
+          className="min-h-11 text-sm font-extrabold text-accent-text hover:underline"
         >
           Zmień wersję ↓
         </button>
