@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 
 import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
-import { api, loginAsAdmin, site } from './helpers'
+import { hydrated, api, loginAsAdmin, site } from './helpers'
 
 // SW11a: `/audyt` of the Software line (spec. §6.5; board `Audyt`). Data from `pnpm seed`: the
 // `swAuditForm` block and the FAQ, the audit solution with its levels. Inquiries made here are
@@ -35,6 +35,43 @@ test.describe('Software /audyt', () => {
     await expect(kinds).toContainText('Polecamy')
     await expect(page.locator('#faq')).toContainText('Czy szybki audyt naprawdę jest darmowy?')
     await expect(page.locator('[data-footer-cta]')).toBeHidden()
+  })
+
+  test('„Skanuj podgląd →” plays the sample card with the typed address, sends nothing', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST, '/audyt'))
+    const card = page.locator('.sw-scan')
+    await expect(card).toContainText('twojafirma.pl')
+    // At rest the finished sample: five rows with their badges.
+    await expect(card.locator('.sw-scan-mark.is-on')).toHaveCount(5)
+    let posted = false
+    page.on('request', (request) => {
+      if (request.url().includes('/api/inquiry')) posted = true
+    })
+    const scan = form(page).getByRole('button', { name: /^Skanuj podgląd/ })
+    await hydrated(scan)
+    await form(page).getByLabel('Adres strony').fill('https://www.pensjonat-gorce.pl/oferta')
+    await scan.click()
+    await expect(card).toContainText('pensjonat-gorce.pl · raport')
+    await expect(card).toHaveAttribute('data-scanning', 'true')
+    // The badges come back one by one, then the bar stops.
+    await expect(card.locator('.sw-scan-mark.is-on')).toHaveCount(5)
+    await expect(card).not.toHaveAttribute('data-scanning')
+    expect(posted).toBe(false)
+  })
+
+  test('with reduced motion the scan only swaps the address', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(site(HOST, '/audyt'))
+    const scan = form(page).getByRole('button', { name: /^Skanuj podgląd/ })
+    await hydrated(scan)
+    await form(page).getByLabel('Adres strony').fill('firma.pl')
+    await scan.click()
+    const card = page.locator('.sw-scan')
+    await expect(card).toContainText('firma.pl · raport')
+    await expect(card).not.toHaveAttribute('data-scanning')
+    await expect(card.locator('.sw-scan-mark.is-on')).toHaveCount(5)
   })
 
   test('errors under the fields and in the box; focus on the first wrong one', async ({ page }) => {

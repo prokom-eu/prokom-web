@@ -241,3 +241,207 @@
     height: 220px;
   }
 }
+
+/* `/audyt` (`blocks/SwAuditForm`, ZMIANY-v24 §9.1, board `AU-audyt`) */
+.sw-scan {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--glass-card);
+  box-shadow: 0 40px 100px -50px var(--glow);
+}
+.sw-scan-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.sw-scan-badge {
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: color-mix(in srgb, var(--accent-ink) 16%, transparent);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.sw-scan-rows {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 14px;
+  list-style: none;
+}
+/* The scanning bar: sweeps down over the rows while the demo plays. */
+.sw-scan-rows::after {
+  content: '';
+  position: absolute;
+  inset: 0 14px auto;
+  height: 2px;
+  background: var(--beam);
+  box-shadow: 0 0 18px var(--beam-glow);
+  opacity: 0;
+  pointer-events: none;
+}
+.sw-scan-row {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+}
+.sw-scan-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+.sw-scan-mark {
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: 800;
+  background: color-mix(in srgb, var(--warn) 25%, transparent);
+  color: var(--ink);
+  opacity: 0;
+  scale: 0.8;
+}
+.sw-scan-mark.is-good {
+  background: color-mix(in srgb, var(--ok) 20%, transparent);
+}
+.sw-scan-mark.is-on {
+  opacity: 1;
+  scale: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sw-scan-mark {
+    transition:
+      opacity var(--dur-state),
+      scale var(--dur-state) var(--spring);
+  }
+  .sw-scan[data-scanning] .sw-scan-rows::after {
+    animation: sw-scan-sweep 2.8s var(--ease-out) both;
+  }
+}
+@keyframes sw-scan-sweep {
+  0% {
+    opacity: 1;
+    translate: 0 0;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 330px;
+  }
+}
+
+.sw-checks,
+.sw-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sw-check,
+.sw-step {
+  padding: 24px;
+}
+.sw-check h3,
+.sw-step h3 {
+  font: 800 19px var(--font-display);
+  letter-spacing: -0.02em;
+}
+.sw-check p,
+.sw-step p {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.sw-check-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+/* „Wynik: raport” — the highlighted card (closed list of highlighted cards, ADR-015 v24). */
+.sw-check-strong {
+  border-color: transparent;
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 30px 80px -40px var(--glow);
+}
+.sw-check-strong p {
+  color: inherit;
+  opacity: 0.88;
+}
+.sw-check-strong .sw-check-icon {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--accent-ink) 14%, transparent);
+  color: inherit;
+}
+.sw-step-no {
+  display: block;
+  margin-bottom: 14px;
+  font: 900 40px/1 var(--font-display);
+  letter-spacing: -0.04em;
+  color: var(--accent-text);
+}
+.sw-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px;
+}
+.sw-cta-title {
+  font-size: 40px;
+}
+@media (min-width: 1081px) {
+  .sw-cta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 48px;
+  }
+}
+@media (max-width: 960px) {
+  .sw-checks {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sw-steps {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .sw-checks {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .sw-cta {
+    padding: 22px;
+  }
+  .sw-cta-title {
+    font-size: 30px;
+  }
+}

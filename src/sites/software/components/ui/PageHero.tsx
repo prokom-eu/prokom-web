@@ -20,6 +20,8 @@ type Props = {
   children?: ReactNode
   /** Right column on wide screens (a form, a card); under the text on a phone. */
   aside?: ReactNode
+  /** Anchor of the hero (`#formularz` on `/audyt`). */
+  id?: string
   className?: string
 }
 
@@ -37,10 +39,11 @@ export function PageHero({
   lead,
   children,
   aside,
+  id,
   className,
 }: Props) {
   return (
-    <section className={cx('sw-page-hero', className)}>
+    <section id={id} className={cx('sw-page-hero', className)}>
       <div className={cx('v-wrap sw-page-hero-in', aside != null && 'sw-page-hero-split')}>
         <div className="min-w-0">
           <Breadcrumbs current={crumb} parents={parents} />
