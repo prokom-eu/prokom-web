@@ -20,7 +20,7 @@ function flaggable<S extends z.ZodRawShape>(shape: S) {
 }
 
 const head = { eyebrow: z.string().optional(), heading: text, lead: z.string().optional() }
-const box = z.object({
+export const box = z.object({
   left: z.string().optional(),
   right: z.string().optional(),
   top: z.string().optional(),
