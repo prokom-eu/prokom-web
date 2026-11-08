@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 
@@ -6,6 +8,8 @@ type Props = {
   variant?: 'light' | 'dark'
   /** Height in px: footer 118, contact hero 290, about 400, phone 100–112 (spec §5). */
   height: number
+  /** Height below 768 px when it differs (contact hero on a phone: 108, spec §7). */
+  mobileHeight?: number
   radius?: number
   /** Card next to the pin („PRO-KOM” / „ul. Orkana 16B, Rabka-Zdrój”); none in the footer. */
   label?: { title: string; text: string } | null
@@ -33,6 +37,7 @@ const VIEW_BOX = '0 0 800 560'
 export function AddressMap({
   variant = 'light',
   height,
+  mobileHeight,
   radius = 24,
   label,
   description,
@@ -55,9 +60,21 @@ export function AddressMap({
 
   return (
     <div
-      className={cx('addr-map relative isolate overflow-hidden bg-(--am-land)', className)}
+      className={cx(
+        'addr-map relative isolate overflow-hidden bg-(--am-land)',
+        mobileHeight !== undefined && 'h-(--am-h-sm) min-[768px]:h-(--am-h)',
+        className,
+      )}
       data-variant={variant}
-      style={{ height, borderRadius: radius }}
+      style={
+        mobileHeight === undefined
+          ? { height, borderRadius: radius }
+          : ({
+              '--am-h': `${height}px`,
+              '--am-h-sm': `${mobileHeight}px`,
+              borderRadius: radius,
+            } as CSSProperties)
+      }
       data-address-map
     >
       {linked ? (

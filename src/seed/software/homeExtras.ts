@@ -187,6 +187,20 @@ export function homeWithSections(
   }
 }
 
+/**
+ * `home` with the v24 keys (hero, promises, situations, bento, showroom) the stored one lacks;
+ * keys already stored (edited in the panel) stay. `null` when nothing is missing.
+ */
+export function homeWithV24(
+  stored: unknown,
+  extras: Record<string, unknown>,
+): Record<string, unknown> | null {
+  if (!isRecord(stored)) return null
+  const missing = Object.entries(extras).filter(([name]) => stored[name] == null)
+  if (missing.length === 0) return null
+  return { ...stored, ...structuredClone(Object.fromEntries(missing)) }
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }

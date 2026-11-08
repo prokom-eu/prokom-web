@@ -1076,6 +1076,25 @@
   /* = ARRIVE_MS in lib/shared/smoothScroll.ts (how long the section stays marked). */
   --dur-beam: 1400ms;
   --dur-sheen: 700ms;
+  /* Hero carousel: one slide (= SLIDE_MS in lib/software/heroStage.ts). */
+  --hx-slide: 4200ms;
+  /* The rest of the hero (pattern `aurora.css`): window flight and fade, the word, the cursor,
+     the band, the cosmic layer — stars, aurora ribbons, orbits, beam. */
+  --dur-hx-move: 1100ms;
+  --dur-hx-fade: 800ms;
+  --dur-hx-word: 600ms;
+  --dur-hx-blink: 1s;
+  --dur-hx-band: 50s;
+  --dur-hx-twinkle: 6s;
+  --dur-hx-twinkle-2: 8s;
+  --dur-hx-drift: 120s;
+  --dur-hx-drift-2: 80s;
+  --dur-hx-ribbon: 16s;
+  --dur-hx-ribbon-2: 19s;
+  --dur-hx-ribbon-3: 23s;
+  --dur-hx-orbit: 40s;
+  --dur-hx-orbit-2: 70s;
+  --dur-hx-beam: 6s;
   /* Mock-ups (ZMIANY-v24 §8): bars grow, a log line slides in, a dot runs on the wire, the
      slider sweeps, the toast comes back, stars twinkle, a picture drifts; steps between items. */
   --dur-mk-bar: 900ms;
@@ -1451,6 +1470,21 @@
   --sheen-ghost: rgba(150, 112, 238, 0.25);
   --beam: #9670ee;
   --beam-glow: rgba(150, 112, 238, 0.6);
+  /* Hero v24 (ZMIANY-v24 §4.1): the cosmic layer, the word of the H1, the active tile. Mixed with
+     transparent in `hero.css`; violet family or neutral only (themes.test.ts). */
+  --hv: #9670ee;
+  --hv-deep: #6e45d4;
+  --hv-lav: #c4b0ff;
+  --hv-pale: #dccdff;
+  --hv-dot: #e6dcff;
+  --hv-edge: #c3abfa;
+  --hero-white: #ffffff;
+  --hero-black: #000000;
+  --hero-badge-ink: #0b0d0c;
+  --hero-tile-from: #8a62ea;
+  --hero-tile-to: #6b42d8;
+  --hero-word-from: #9670ee;
+  --hero-word-to: #5b33c4;
 }
 
 /* Dark theme — chosen by the visitor or the line's default (`data-theme`, lib/brand/theme.ts);
@@ -1570,6 +1604,8 @@
   --em-from: #8f9690;
   --em-mid: #a79bd6;
   --em-mid-at: 70%;
+  --hero-word-from: #d9ccff;
+  --hero-word-to: #9670ee;
   --em-to: #c3abfa;
 }
 

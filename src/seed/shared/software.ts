@@ -15,16 +15,14 @@ export const SOFTWARE_SHARED: SharedGroup = {
     center: { label: 'Kreator', href: '/dobierz', icon: 'wand' },
   },
   rail: {
+    // v24 (board `AU-pc`, SWA2c): = RAIL_LABELS of the start page.
     sections: [
       { anchorId: 'start', label: 'Start', icon: 'home' },
+      { anchorId: 'sytuacje', label: 'Od czego zaczynasz', icon: 'compass' },
       { anchorId: 'oferta', label: 'Oferta', icon: 'grid' },
-      { anchorId: 'popularne', label: 'Najczęściej zamawiane', icon: 'star' },
       { anchorId: 'podglady', label: 'Podglądy na żywo', icon: 'monitor' },
-      { anchorId: 'dobierz', label: 'Dobierz rozwiązanie', icon: 'flash' },
-      { anchorId: 'jak-robimy', label: 'Jak robimy', icon: 'site' },
-      { anchorId: 'bez-wordpressa', label: 'Dlaczego nie WordPress', icon: 'shield' },
-      { anchorId: 'technologie', label: 'Z czego budujemy', icon: 'server' },
-      { anchorId: 'zasady', label: 'Zasady', icon: 'doc' },
+      { anchorId: 'dobierz', label: 'Kreator 60 s', icon: 'flash' },
+      { anchorId: 'proces', label: 'Jak pracujemy', icon: 'doc' },
       { anchorId: 'faq', label: 'Pytania', icon: 'q' },
       { anchorId: 'kontakt', label: 'Kontakt', icon: 'chat' },
     ],

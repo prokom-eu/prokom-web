@@ -31,6 +31,20 @@
   transform-origin: 0 0;
 }
 
+/* `fit="contain"`: the parent sets the size, the stage fits inside with the boards' 4 % margin. */
+.mk.mk-contain {
+  aspect-ratio: auto;
+  height: 100%;
+  container-type: size;
+}
+.mk-contain > .mk-stage {
+  --k: calc(min(tan(atan2(100cqw, 640px)), tan(atan2(100cqh, 420px))) * 0.96);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(var(--k));
+  transform-origin: 50% 50%;
+}
+
 .mk-stage * {
   box-sizing: border-box;
 }
