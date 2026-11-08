@@ -8,7 +8,8 @@ import { describe, expect, it } from 'vitest'
 const root = process.cwd()
 const files = [
   ...readdirSync(join(root, 'seed/prokomsoftware'))
-    .filter((name) => name.endsWith('.json'))
+    // SWA3: wizard v3 (`src/seed/software/wizard.ts`) replaces kreator.json — gone in SWA3b-1.
+    .filter((name) => name.endsWith('.json') && name !== 'kreator.json')
     .map((name) => join(root, 'seed/prokomsoftware', name)),
   ...readdirSync(join(root, 'src/seed/software'))
     .filter((name) => name.endsWith('.ts') && !name.endsWith('.test.ts'))

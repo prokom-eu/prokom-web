@@ -1,7 +1,8 @@
 import { z } from 'zod'
 
 import { formatPrice } from './price'
-import type { PREVIEW_FEATURES, PriceDisplay, SoftwareWizard, WizardCondition } from './wizard'
+import type { PriceDisplay } from './priceDisplay'
+import type { PREVIEW_FEATURES, SoftwareWizard, WizardCondition } from './wizard'
 
 /**
  * What the Software wizard shows and sends (`/dobierz`, spec. §6.3), computed from the rules in

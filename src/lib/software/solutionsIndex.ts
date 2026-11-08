@@ -3,7 +3,7 @@ import type { SoftwareSetting, Solution } from '@/payload-types'
 import { normalizeText } from '../catalog/normalize'
 import { isMockupKind, isVariantOf, type MockupKind } from './mockups'
 import { INDUSTRY_GROUPS, SITUATIONS, SOLUTION_CATEGORIES, type SolutionCategory } from './options'
-import { type PriceDisplay, priceDisplaySchema } from './wizard'
+import { type PriceDisplay, priceDisplaySchema } from './priceDisplay'
 
 /**
  * Index of the Software solutions for the catalog, the menu sheet and the 404 search (ADR-014

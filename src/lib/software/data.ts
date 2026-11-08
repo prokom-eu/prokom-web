@@ -27,7 +27,8 @@ import { buildIndustryPage, type IndustryDoc, type IndustryPageView } from './in
 import { buildSolutionPage, type SolutionPageDoc, type SolutionPageView } from './solutionPage'
 import { buildSolutionsIndex, DEFAULT_PRICE_DISPLAY, type SolutionsIndex } from './solutionsIndex'
 import { solutionsTag } from './tags'
-import { type PriceDisplay, priceDisplaySchema, type SoftwareWizard } from './wizard'
+import { type PriceDisplay, priceDisplaySchema } from './priceDisplay'
+import type { SoftwareWizard } from './wizard'
 import { readSoftwareWizard } from './wizardRules'
 
 /**
