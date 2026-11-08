@@ -54,6 +54,16 @@ describe('softwareSiteMapGroups (board AU-mapa)', () => {
     expect(JSON.stringify(bare)).not.toContain('/aktualnosci')
   })
 
+  it('leaves out the legal card without the company data', () => {
+    const bare = softwareSiteMapGroups({
+      legal: null,
+      lines,
+      currentLine: 'software',
+      hasNews: true,
+    })
+    expect(bare.map((group) => group.id)).not.toContain('informacje')
+  })
+
   it('offers the search in the tools card', () => {
     expect(groups.find((group) => group.id === 'narzedzia')?.search).toBe(true)
   })

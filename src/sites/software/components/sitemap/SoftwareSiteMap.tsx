@@ -48,6 +48,7 @@ export function SoftwareSiteMap({
                         {...(link.external ? { target: '_blank', rel: 'noopener' } : {})}
                       >
                         {link.label}
+                        {link.external ? <span className="sr-only"> (nowe okno)</span> : null}
                         <Arrow />
                       </a>
                     </li>

@@ -19,13 +19,6 @@ import { requireTenant } from '../tenant'
 type Props = { params: Promise<{ domain: string }> }
 
 const TITLE = 'Mapa strony'
-
-/** The company's legal paths when the shared data is missing (same defaults as `CompanyData`). */
-const LEGAL_PATHS = {
-  privacy: '/polityka-prywatnosci',
-  cookies: '/cookies',
-  accessibility: '/dostepnosc',
-}
 const DESCRIPTION =
   'Wszystkie strony serwisu w jednym miejscu: oferta, produkty, aktualności i informacje.'
 
@@ -74,7 +67,7 @@ export default async function SiteMapPage({ params }: Props) {
   if (tenant.line === 'software') {
     const shared = await getSharedData(tenant.id)
     const groups = softwareSiteMapGroups({
-      legal: shared?.company.legal ?? LEGAL_PATHS,
+      legal: shared?.company.legal ?? null,
       lines: shared?.lines ?? [],
       currentLine: tenant.line,
       hasNews: (sections.find((section) => section.id === 'aktualnosci')?.links.length ?? 0) > 1,

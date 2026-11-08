@@ -82,7 +82,7 @@ test.describe('Software legal pages v24 (swLegal)', () => {
     await toc.getByRole('link', { name: /Jak długo przechowujemy dane/ }).click()
     await expect(page).toHaveURL(/#jak-dlugo-przechowujemy-dane$/)
     const retention = page.getByRole('region', { name: /Jak długo przechowujemy dane/ })
-    await expect(retention.getByRole('table')).toContainText('Logi serwera')
+    await expect(retention.getByRole('table')).toContainText('Dziennik serwera')
     await expect(page.getByRole('table')).toHaveCount(2)
     await expect(page.locator('main')).not.toContainText(/newsletter|składnik/i)
   })

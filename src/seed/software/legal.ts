@@ -6,6 +6,7 @@ import { PROJECT_KEY } from '../../lib/software/project'
 import type { SwLegalBlock } from '../../payload-types'
 import { h2, p, richText, ul } from '../biznes/lexical'
 
+import { SOFTWARE_CONTACT } from './map'
 import { upsertSoftwarePage, type PageBlock } from './page'
 
 type Count = (name: string, result: boolean | 'updated') => void
@@ -13,8 +14,8 @@ type Count = (name: string, result: boolean | 'updated') => void
 export const SOFTWARE_PRIVACY_SLUG = 'polityka-prywatnosci'
 export const SOFTWARE_TERMS_SLUG = 'regulamin'
 
-const EMAIL = 'kontakt@prokomsoftware.pl'
-const PHONE = '883 200 151'
+const EMAIL = SOFTWARE_CONTACT.email
+const PHONE = SOFTWARE_CONTACT.phone
 const mail = { text: EMAIL, href: `mailto:${EMAIL}` }
 const tel = { text: PHONE, href: 'tel:+48883200151' }
 
@@ -27,7 +28,7 @@ type Row = [string, string, string?, string?]
 
 /**
  * A `legalTable` block node inside the text. The id only has to be unique within the text; a fixed
- * one per table keeps the printed JSON (`pnpm software:pages-json`) the same between runs.
+ * one per table keeps the printed pages (`pnpm software:pages-json`) the same between runs.
  */
 const table = (id: string, caption: string, heads: string[], rows: Row[]) => ({
   type: 'block',
@@ -60,10 +61,13 @@ const note = (id: string, text: string) => ({
 })
 
 // TODO(krystian): [SZEF/prawnik] PROJEKT polityki prywatności v24 (TRESCI-v24 `p_polityka`,
-// PRZEKAZANIE-v24 §7) — do akceptacji przed produkcją. Do potwierdzenia: okres przechowywania
-// zapytań (propozycja 12 miesięcy) i logów serwera (propozycja 30 dni), „serwer w Polsce”
-// (ADR-002), brak inspektora ochrony danych, biuro rachunkowe jako odbiorca. Zdanie planszy o
-// „drugim składniku logowania” do panelu pominięte — panel go dziś nie ma.
+// PRZEKAZANIE-v24 §7) — do akceptacji przed produkcją. Fakty z repo: retencja zapytań =
+// `INQUIRY_RETENTION_MONTHS` (24, od zamknięcia, `lib/inquiry/retention.ts`; jedna wartość dla
+// wszystkich linii — 12 miesięcy z planszy wymaga zmiany zmiennej, decyzja szefa 08.11: 24), logi
+// Nginx/Dockera rotowane według rozmiaru (nie 30 dni z planszy), Sentry UE bez danych (ADR-021),
+// UODO pod adresem z 07.2025. Do potwierdzenia: „serwer w Polsce” (ADR-002), brak inspektora
+// ochrony danych, biuro rachunkowe. Zdanie planszy o „drugim składniku logowania” do panelu
+// pominięte — panel go dziś nie ma.
 const PRIVACY = [
   h2('Administrator danych'),
   p(
@@ -89,7 +93,7 @@ const PRIVACY = [
     [{ bold: 'umowa' }, ' — dane firmy potrzebne do umowy i faktury;'],
     [
       { bold: 'dane techniczne' },
-      ' — logi serwera (adres IP, data i godzina, typ przeglądarki), potrzebne do bezpieczeństwa strony. Ochrona przed spamem trzyma w pamięci skrót adresu IP, nie sam adres, i nie zapisuje go przy wiadomości.',
+      ' — dziennik serwera (adres IP, data i godzina, typ przeglądarki), potrzebny do bezpieczeństwa strony. Ochrona przed spamem trzyma w pamięci skrót adresu IP, nie sam adres, i nie zapisuje go przy wiadomości.',
     ],
   ),
   note(
@@ -122,20 +126,27 @@ const PRIVACY = [
   ul(
     ['dostawca serwera — dane są przechowywane na serwerze w Polsce;'],
     ['dostawca poczty e-mail;'],
-    ['dostawca miejsca na zaszyfrowane kopie zapasowe;'],
+    [
+      'dostawca miejsca na kopie zapasowe — kopie szyfrujemy przed wysłaniem i dostawca nie ma do nich klucza;',
+    ],
+    [
+      'usługa raportów o błędach serwera (Sentry, centrum danych w UE) — raporty nie zawierają danych z formularzy;',
+    ],
     ['biuro rachunkowe — przy umowach i fakturach;'],
     ['organy publiczne — tylko gdy wymaga tego prawo.'],
   ),
   p('Nie przekazujemy danych poza Europejski Obszar Gospodarczy.'),
   h2('Jak długo przechowujemy dane'),
-  // TODO(krystian): [SZEF] okresy „12 miesięcy” i „do 30 dni” to propozycje (PRZEKAZANIE-v24 §7) —
-  // potwierdzić przed produkcją; dziś panel nie usuwa zapytań sam (usuwamy ręcznie).
+  // Retencja z `INQUIRY_RETENTION_MONTHS` (24) — zmiana okresu = zmiana zmiennej dla wszystkich linii.
   table(
     'a1b2c3d4e5f6a7b8c9d0e103',
     'Okresy przechowywania danych',
     ['Dane', 'Okres'],
     [
-      ['Zapytania bez umowy', '12 miesięcy od ostatniego kontaktu, potem usuwamy je z panelu'],
+      [
+        'Zapytania bez umowy',
+        '24 miesiące od zakończenia sprawy (zapytania w toku — do ich zakończenia), potem usuwamy je z panelu i ze skrzynki',
+      ],
       [
         'Umowy i korespondencja projektowa',
         'przez czas umowy i do upływu terminu przedawnienia roszczeń',
@@ -144,7 +155,10 @@ const PRIVACY = [
         'Faktury i dokumenty księgowe',
         '5 lat od końca roku, w którym minął termin płatności podatku',
       ],
-      ['Logi serwera', 'do 30 dni'],
+      [
+        'Dziennik serwera',
+        'pliki rotowane według rozmiaru — najstarsze wpisy znikają, gdy zapełni się kolejny plik',
+      ],
     ],
   ),
   p(
@@ -166,7 +180,7 @@ const PRIVACY = [
     '. Odpowiemy bez zbędnej zwłoki, najpóźniej w ciągu miesiąca.',
   ),
   p(
-    'Możesz też złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa, ',
+    'Możesz też złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stanisława Moniuszki 1A, 00-014 Warszawa, ',
     { text: 'uodo.gov.pl', href: 'https://uodo.gov.pl' },
     ').',
   ),
@@ -326,13 +340,14 @@ const COOKIES = [
 ]
 
 // TODO(krystian): [SZEF] PROJEKT deklaracji dostępności (D2-1b, TRESCI-v24 `p_dostepnosc`): tylko to,
-// co sprawdza repo (axe w CI, `docs/jakosc.md`, `motion.css`, motyw jasny/ciemny).
+// co sprawdza repo — axe w e2e przy każdej zmianie (CI), Lighthouse po wdrożeniu (staging),
+// `docs/jakosc.md`, `motion.css`, motyw jasny/ciemny. Bez obietnicy testów czytnikiem ekranu.
 const ACCESSIBILITY = [
   h2('Standard'),
   p(
     'Projektujemy i budujemy Stronę zgodnie z wytycznymi ',
     { bold: 'WCAG 2.1 na poziomie AA' },
-    '. Zgodność sprawdzamy testami automatycznymi (axe, Lighthouse) przy każdej zmianie oraz ręcznie — klawiaturą i czytnikiem ekranu.',
+    '. Każdą zmianę sprawdzamy automatycznym testem dostępności (axe), a po wdrożeniu — narzędziem Lighthouse.',
   ),
   h2('Co zrobiliśmy'),
   ul(

@@ -53,7 +53,7 @@
   border: 2px solid var(--warn);
   border-radius: 99px;
   font: 900 12px var(--font-display);
-  color: var(--warn);
+  color: var(--ink);
 }
 
 .sw-legal {

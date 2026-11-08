@@ -11,7 +11,8 @@ export type SiteMapGroup = {
 }
 
 type Input = {
-  legal: { privacy: string; cookies: string; accessibility: string }
+  /** `CompanyData.legal`; without the shared data the card goes (as the search in `Frame`). */
+  legal: { privacy: string; cookies: string; accessibility: string } | null
   /** Published lines of the company with an address; the current line is left out. */
   lines: readonly { key: string; name: string; url: string | null }[]
   currentLine: string
@@ -79,16 +80,20 @@ export function softwareSiteMapGroups({
         { href: '/kontakt', label: 'Kontakt i dojazd' },
       ],
     },
-    {
-      id: 'informacje',
-      title: 'Informacje',
-      links: [
-        { href: legal.privacy, label: 'Polityka prywatności' },
-        { href: TERMS_PATH, label: 'Regulamin' },
-        { href: legal.cookies, label: 'Pliki cookies' },
-        { href: legal.accessibility, label: 'Deklaracja dostępności' },
-      ],
-    },
+    ...(legal
+      ? [
+          {
+            id: 'informacje',
+            title: 'Informacje',
+            links: [
+              { href: legal.privacy, label: 'Polityka prywatności' },
+              { href: TERMS_PATH, label: 'Regulamin' },
+              { href: legal.cookies, label: 'Pliki cookies' },
+              { href: legal.accessibility, label: 'Deklaracja dostępności' },
+            ],
+          },
+        ]
+      : []),
     ...(others.length
       ? [
           {
