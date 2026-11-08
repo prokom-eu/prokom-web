@@ -248,9 +248,11 @@ test.describe('Software start page — contact form', () => {
       route.fulfill({ status: 503, contentType: 'application/json', body: '{}' }),
     )
     await page.goto(site(HOST, '/#kontakt'))
-    // The form is a lazy widget (ADR-023): typing before it hydrates would be reset.
-    await page.waitForLoadState('networkidle')
     const section = contact(page)
+    // The form is a lazy widget (ADR-023): typing before it hydrates would be reset. An empty send
+    // moves focus to the first field only once it is hydrated (as in test 77).
+    await send(page).click()
+    await expect(section.getByLabel('Opisz krótko, po swojemu')).toBeFocused()
     await section.getByLabel('Opisz krótko, po swojemu').fill('Test błędu serwera.')
     await section.getByLabel('Imię i firma').fill('E2E')
     await section.getByLabel('E-mail albo telefon').fill('600 100 200')
