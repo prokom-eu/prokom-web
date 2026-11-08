@@ -64,19 +64,22 @@ test.describe('Software analytics (ADR-020)', () => {
     )
   })
 
-  test('the wizard: start, steps, „więcej”, result, add-on and field errors', async ({ page }) => {
+  test('the wizard: start, steps, result and field errors', async ({ page }) => {
     await page.goto(site(HOST, '/dobierz'))
     const main = page.getByRole('main')
     const button = (name: string | RegExp) => main.getByRole('button', { name })
-    await main.getByRole('button', { name: /^Strona dla firmy/ }).click()
+    const title = main.locator('[data-wizard-step]').getByRole('heading')
+    // The first click may come before hydration: repeat it until the step changes.
+    await expect(async () => {
+      await button(/^Strona firmowa/).click()
+      await expect(title).toHaveText('Jaka to firma?', { timeout: 1000 })
+    }).toPass()
     await button('Pensjonat, hotel, apartamenty').click()
-    await main.getByLabel('Rezerwacja z zaliczką online').check()
-    await button('Nic, zaczynam od zera').click()
-    await button('Przed sezonem zimowym').click()
+    await button(/Zaczynamy od zera$/).click()
+    await button('Dalej →').click()
     await button('Pokaż wynik →').click()
-    await button(/^Opieka nad stroną/).click()
     await main.locator('form button[type="submit"]').click()
-    await expect(main.getByText('Wpisz numer telefonu (9 cyfr).')).toBeVisible()
+    await expect(main.getByText('Wpisz telefon albo adres e-mail.')).toBeVisible()
 
     const recorded = await events(page)
     const names = recorded.map(([name]) => name)
@@ -86,12 +89,12 @@ test.describe('Software analytics (ADR-020)', () => {
         ['kreator_krok', { krok: 2 }],
         ['kreator_krok', { krok: 3 }],
         ['kreator_krok', { krok: 4 }],
-        ['kreator_wynik', { wynik: 'pensjonat' }],
+        ['kreator_krok', { krok: 5 }],
+        ['kreator_wynik', { wynik: 'firmowa' }],
         ['formularz_blad', { formularz: 'kreator', pole: 'contact' }],
         ['formularz_blad', { formularz: 'kreator', pole: 'consent' }],
       ]),
     )
-    expect(names.filter((name) => name === 'kreator_dodatek')).toHaveLength(2)
     expect(names).not.toContain('kreator_wyslij')
     await expectNoTypedValues(page)
   })
