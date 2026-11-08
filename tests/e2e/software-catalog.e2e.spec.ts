@@ -314,9 +314,14 @@ test.describe('Software offer window (spec. §5.1)', () => {
     const dialog = windowOf(page, 'Strona firmowa z panelem')
     await expect(dialog).toBeVisible()
     expect((await dialog.boundingBox())?.width ?? 0).toBeGreaterThanOrEqual(1240)
-    const gallery = dialog.getByRole('group', { name: 'Widok makiety' })
+    const aside = dialog.locator('aside')
+    const top = (await dialog.boundingBox())!.y
     await dialog.evaluate((element) => element.scrollTo(0, 900))
-    await expect(gallery).toBeInViewport()
+    await expect(dialog.getByRole('group', { name: 'Widok makiety' })).toBeInViewport()
+    // Stuck under the window's header (88 px), not scrolled away with the details.
+    await expect
+      .poll(async () => Math.round(((await aside.boundingBox())?.y ?? 0) - top))
+      .toBeLessThan(100)
   })
 
   test('„Zapytaj o tę ofertę →” puts the solution into the project and opens the form', async ({

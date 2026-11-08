@@ -1620,6 +1620,11 @@
   .hx-mq ul {
     animation: hx-band var(--dur-hx-band) linear infinite;
   }
+  /* WCAG 2.2.2: moving text can be stopped — on the band itself only (pointer or focus), never
+     by pointing at the rest of the hero (AUDYT-0811 #1). */
+  .hx-mq:is(:hover, :focus-within) ul {
+    animation-play-state: paused;
+  }
   .hx[data-paused] :is(.hx-cos *, .hx-mq ul, .hx-win::after, .mk *, .hx-tile::after) {
     animation-play-state: paused;
   }
