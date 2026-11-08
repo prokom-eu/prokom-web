@@ -30,15 +30,20 @@ export function registerFormAttachment(
   }
 }
 
-/** The parts given now, each with the callback to run once the message carrying it was sent. */
-export function collectAttachments(): { texts: string[]; sent: () => void } {
+/**
+ * The parts given now. `sent(message)`: after a successful send of `message`, runs `onSent` only
+ * for the parts it carries whole — a part cut or left out at the limit is kept (Biznes keeps the
+ * inquiry list the office did not get).
+ */
+export function collectAttachments(): { texts: string[]; sent: (message: string) => void } {
   const given = [...attachments].flatMap((attachment) => {
     const text = attachment.read()?.trim()
     return text ? [{ text, attachment }] : []
   })
   return {
     texts: given.map((item) => item.text),
-    sent: () => given.forEach((item) => item.attachment.onSent?.()),
+    sent: (message) =>
+      given.forEach((item) => message.includes(item.text) && item.attachment.onSent?.()),
   }
 }
 
