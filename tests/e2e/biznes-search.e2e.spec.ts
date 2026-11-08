@@ -80,6 +80,16 @@ test.describe('Biznes search', () => {
       'aria-pressed',
       'true',
     )
+
+    // „Karta →” leaves a usable page: nothing invisible stays in the top layer.
+    await preview.getByRole('link', { name: 'Karta →' }).click()
+    await expect(page).toHaveURL(/\/produkt\//)
+    await expect(page.locator('dialog[open]')).toHaveCount(0)
+    await page
+      .getByRole('navigation', { name: 'Menu główne' })
+      .getByRole('button', { name: /^Oferta/ })
+      .click()
+    await expect(page.locator('#oferta-mega')).toBeVisible()
   })
 
   test('„tel” brings the contact actions on top, „Pokaż wszystkie” leads to the catalog', async ({
