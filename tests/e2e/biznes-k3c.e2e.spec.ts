@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 import { site } from './helpers'
 
 // K3c: ready bundles (`/zestawy`, `/zestawy/[slug]`), K3-KATALOG §7, spec. §6.10. Bundles from
-// `pnpm seed` (`seed:biznes`): 23, of them 3 „Gotowe”.
+// `pnpm seed` (`seed:biznes`): 23, of them 19 „Gotowe” (BIZ-3 B4-1, `docs/zadania/zestawy-zgodnosci.md`).
 const biznes = (path: string) => site('biznes.localhost', path)
 const KAWIARNIA = '/zestawy/zestaw-kawiarnia-lada'
 
@@ -30,8 +30,8 @@ test.describe('Biznes ready bundles (K3c)', () => {
     await page.goto(biznes(KAWIARNIA))
     await page.evaluate(() => localStorage.removeItem('pk-cart'))
     await page.reload()
-    // „Do sprawdzenia”: shown, but out of the index (K3-KATALOG §7).
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
+    // „Gotowe” after the compatibility check (BIZ-3 B4-1): in the index.
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
     const card = page.locator('#twoj-zestaw')
     await expect(card.getByRole('button', { name: /Zapytaj o ten zestaw · 5 poz\./ })).toBeVisible()
 
@@ -71,7 +71,9 @@ test.describe('Biznes ready bundles (K3c)', () => {
     const xml = (await (await page.goto(biznes('/sitemap.xml')))?.text()) ?? ''
     expect(xml).toContain('/zestawy</loc>')
     expect(xml).toContain('/zestawy/zestaw-wifi-omada</loc>')
-    expect(xml).not.toContain('/zestawy/zestaw-kawiarnia-lada</loc>')
+    expect(xml).toContain('/zestawy/zestaw-kawiarnia-lada</loc>')
+    // Hidden until Insoft answers (STAN, plan §13 #11).
+    expect(xml).not.toContain('/zestawy/zestaw-sklep-spozywczy-market-pos</loc>')
   })
 
   test('the product page shows „W zestawach”, at most 3', async ({ page }) => {
