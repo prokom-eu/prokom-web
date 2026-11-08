@@ -240,7 +240,8 @@ test.describe('Software footer', () => {
   })
 
   // Every page ends with one CTA (plan §3b, decyzja 6): a page with its own drops the band.
-  for (const path of ['/', '/rozwiazania', '/dobierz', SUBPAGE]) {
+  // `/rozwiazania` v24 ends with the band like the board (AU-oferta, SWA4a).
+  for (const path of ['/', '/dobierz', SUBPAGE]) {
     test(`no CTA band where the page ends with its own CTA (${path})`, async ({ page }) => {
       await page.goto(site(HOST, path))
       const footer = page.locator('footer')

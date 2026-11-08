@@ -72,7 +72,11 @@ test.describe('Software industry page', () => {
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
     )
     expect(overflow).toBeLessThanOrEqual(0)
-    const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze()
+    // Without the mock-ups of the cards (decorative, `aria-hidden` — as in `a11y.e2e.spec.ts`).
+    const { violations } = await new AxeBuilder({ page })
+      .exclude('[data-mockup]')
+      .withTags(WCAG)
+      .analyze()
     expect(violations).toEqual([])
   })
 })

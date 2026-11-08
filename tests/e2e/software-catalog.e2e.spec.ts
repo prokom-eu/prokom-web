@@ -23,6 +23,11 @@ const tile = (page: Page, name: string) =>
 /** The card of one solution, found by its name (the bold title of the card). */
 const card = (page: Page, name: string) =>
   cards(page).filter({ has: page.locator('.v-card-bd > b', { hasText: new RegExp(`^${name}$`) }) })
+/**
+ * axe without the mock-ups: decorative pictures of sample firms in their own brand colours
+ * (`aria-hidden`, ADR-015 v24 pkt 4) — as in `a11y.e2e.spec.ts`.
+ */
+const axe = (page: Page) => new AxeBuilder({ page }).exclude('[data-mockup]').withTags(WCAG)
 /** The island is interactive (ADR-023: a click before hydration is lost). */
 const ready = (page: Page) => hydrated(chip(page, /^Wszystko/))
 /** The offer window of one solution (`<dialog>` named after it). */
@@ -384,10 +389,14 @@ test.describe('Software catalog on the phone', () => {
       await page.goto(site(HOST, `${PATH}?rozwiazanie=audyt-strony-lub-programu`))
       const dialog = windowOf(page, 'Audyt strony lub programu')
       await expect(dialog).toBeVisible()
-      // The sheet slides up (SWV7 `BottomSheet`): measure where it stops, not mid-way.
+      // The sheet slides up (SWV7 `BottomSheet`): measure where it stops, not mid-way. The
+      // mock-ups loop forever (v24), so only the animations that end are waited for.
       await dialog.evaluate((element) =>
         Promise.all(
-          element.getAnimations({ subtree: true }).map((animation) => animation.finished),
+          element
+            .getAnimations({ subtree: true })
+            .filter((animation) => animation.effect?.getComputedTiming().iterations !== Infinity)
+            .map((animation) => animation.finished),
         ),
       )
       const box = (await dialog.boundingBox())!
@@ -411,7 +420,7 @@ test.describe('Software catalog on the phone', () => {
   test('no axe violations on the phone', async ({ page }) => {
     await page.goto(site(HOST, PATH))
     await ready(page)
-    expect((await new AxeBuilder({ page }).withTags(WCAG).analyze()).violations).toEqual([])
+    expect((await axe(page).analyze()).violations).toEqual([])
   })
 })
 
@@ -421,7 +430,7 @@ test.describe('Software catalog accessibility', () => {
       await setTheme(page, colorScheme)
       await page.goto(site(HOST, `${PATH}?rozwiazanie=opieka-nad-strona-i-systemem`))
       await expect(windowOf(page, 'Opieka nad stroną i systemem')).toBeVisible()
-      expect((await new AxeBuilder({ page }).withTags(WCAG).analyze()).violations).toEqual([])
+      expect((await axe(page).analyze()).violations).toEqual([])
     })
   }
 })
