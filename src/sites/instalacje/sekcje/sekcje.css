@@ -637,7 +637,6 @@
   }
   & .trsa [data-icon='arrow'] {
     color: var(--accent-text);
-    transition: transform 0.2s;
   }
   & .trsico {
     display: grid;
@@ -649,7 +648,10 @@
     background: var(--accent-soft);
     color: var(--accent-text);
   }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    & .trsa [data-icon='arrow'] {
+      transition: transform var(--dur-hover) var(--ease-out);
+    }
     & .trsa:hover [data-icon='arrow'] {
       transform: translateX(3px);
     }

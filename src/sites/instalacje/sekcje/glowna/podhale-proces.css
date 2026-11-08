@@ -432,6 +432,8 @@ html[data-line='instalacje'] {
     & .procw {
       --proc-line: 1.2s;
       --proc-seg: calc(var(--proc-line) / max(var(--n, 6) - 1, 1));
+      /* A node fills when the line reaches it (at least 150 ms apart, spec §1.6). */
+      --proc-node-step: max(150ms, var(--proc-seg));
     }
     & .procw[data-ready='1']:not([data-on='1']) {
       & .procs:not(:last-child)::after {
@@ -454,11 +456,13 @@ html[data-line='instalacje'] {
         animation: inst-proc-seg var(--proc-seg) linear calc(var(--i) * var(--proc-seg)) backwards;
       }
       & .procn {
-        animation: inst-proc-pop 520ms var(--ease-spring) calc(var(--i) * 150ms) backwards;
+        animation: inst-proc-pop 520ms var(--ease-spring) calc(var(--i) * var(--proc-node-step))
+          backwards;
       }
       & .procn::before,
       & .procn > .on {
-        animation: inst-proc-node 260ms var(--ease-out) calc(var(--i) * 150ms) backwards;
+        animation: inst-proc-node 260ms var(--ease-out) calc(var(--i) * var(--proc-node-step))
+          backwards;
       }
       & .procc {
         animation: inst-proc-card 480ms var(--ease-out) calc(var(--i) * 70ms) backwards;

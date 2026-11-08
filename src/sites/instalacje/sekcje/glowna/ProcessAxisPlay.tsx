@@ -3,7 +3,9 @@
 import { useEffect, useRef, type ReactNode } from 'react'
 
 /**
- * Plays the process axis once when it enters the screen (runda v6 §1.6, threshold 0.35).
+ * Plays the process axis once when it enters the screen (runda v6 §1.6): when its top reaches the
+ * upper 65 % of the screen — by position, not by a share of the axis, which on a phone is taller
+ * than a low screen and would never be 35 % visible.
  * `data-ready` hides the start state only when the play can happen (JS, motion allowed,
  * IntersectionObserver); `data-on` starts it. Without either the axis is drawn in full.
  */
@@ -20,7 +22,7 @@ export function ProcessAxisPlay({ children }: { children: ReactNode }) {
         el.dataset.on = '1'
         io.disconnect()
       },
-      { threshold: 0.35 },
+      { threshold: 0, rootMargin: '0px 0px -35% 0px' },
     )
     io.observe(el)
     return () => io.disconnect()

@@ -96,6 +96,24 @@ test.describe('Instalacje home sections', () => {
       .toEqual(Array(5).fill('none'))
   })
 
+  // Review of PR3a: on a low screen the tall vertical axis is never 35 % visible — it starts by
+  // its position on the screen, so the cards do not stay hidden.
+  test('on a low screen the vertical axis still plays and shows every card', async ({ page }) => {
+    await page.setViewportSize({ width: 844, height: 390 })
+    await page.goto(site(HOST, '/'))
+    const axis = page.locator('#proces .procw')
+    await axis.scrollIntoViewIfNeeded()
+    await page.mouse.wheel(0, 300)
+    await expect(axis).toHaveAttribute('data-on', '1')
+    await expect
+      .poll(() =>
+        axis
+          .locator('.procc')
+          .evaluateAll((cards) => cards.map((c) => getComputedStyle(c).opacity)),
+      )
+      .toEqual(Array(6).fill('1'))
+  })
+
   // Round v5 (RUNDA-V5 §2): logos instead of names, served through next/image.
   test('the brand band shows 11 logos with their names in alt', async ({ page }) => {
     await open(page)

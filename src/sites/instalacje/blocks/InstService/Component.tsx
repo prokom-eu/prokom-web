@@ -57,7 +57,8 @@ type ServiceLayout = {
   /** Button of the CTA band instead of the planner (Teletechnika: to the quote form). */
   bandButton?: { label: string; href: string }
   /** Under the warranty section (Smart home: the Ampio warranty note). */
-  afterGuarantee?: ReactNode
+  /** Right under the trust band (Smart home: the Ampio warranty note). */
+  afterTrust?: ReactNode
 }
 type LayoutContext = { planHref: string }
 
@@ -94,7 +95,7 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     widget: <SmartPlan />,
     sections: <SmartSections planHref={planHref} />,
     folded: ['cena', 'faq'],
-    afterGuarantee: <SmartWarrantyNote />,
+    afterTrust: <SmartWarrantyNote />,
   }),
   snd: () => ({
     widget: <ZoneMixer />,
@@ -191,7 +192,6 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         widget={layout?.widget}
       />
       {layout?.sections}
-      {layout?.afterGuarantee}
       <Packages
         intro={service.packagesIntro}
         packages={service.packages}
@@ -220,6 +220,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
       />
       {/* Runda v6 §1.3: the trust band right above the CTA band (Teletechnika has none). */}
       {layout?.guarantee !== false && <TrustStrip warrantyMonths={settings.warrantyMonths} />}
+      {layout?.afterTrust}
       <CtaBandView band={band} phone={phone} salons={salons} titleId="cta-service-title" page />
     </div>
   )
