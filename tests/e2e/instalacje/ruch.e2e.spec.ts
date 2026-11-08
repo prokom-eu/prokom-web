@@ -9,7 +9,8 @@ const HOST = 'instalacje.localhost'
 const DESKTOP = { width: 1440, height: 1000 }
 
 /** Names of our animations running on the page (shared `sw-*` and the line's own). */
-const OURS = /^(sw-[a-z-]+|inst-(grow-x|unfold|zkback|megain|sheet-up|fade))$/
+const OURS =
+  /^(sw-[a-z-]+|inst-(grow-x|unfold|zkback|megain|sheet-up|fade|gor-[a-z]+|proc-[a-z]+))$/
 const running = (page: Page) =>
   page.evaluate(() =>
     document
@@ -105,5 +106,19 @@ test.describe('Instalacje motion with reduced motion', () => {
     await expect(faq).toHaveAttribute('open', '')
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2))
     expect((await running(page)).filter((name) => OURS.test(name))).toEqual([])
+  })
+  test('the mountain band and the process axis stand still, drawn in full (RUNDA-V5 §5–§6)', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST))
+    await page.locator('#gory').scrollIntoViewIfNeeded()
+    await expect(page.locator('#gory .gorsnow')).toBeHidden()
+    await page.locator('#proces').scrollIntoViewIfNeeded()
+    expect((await running(page)).filter((name) => OURS.test(name))).toEqual([])
+    // Every node is filled without the scroll-driven animation.
+    const fills = await page
+      .locator('#proces .procn')
+      .evaluateAll((nodes) => nodes.map((n) => getComputedStyle(n, '::before').opacity))
+    expect(fills).toEqual(['1', '1', '1', '1', '1', '1'])
   })
 })

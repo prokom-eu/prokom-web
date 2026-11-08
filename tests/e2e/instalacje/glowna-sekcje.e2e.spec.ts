@@ -55,6 +55,21 @@ test.describe('Instalacje home sections', () => {
     await expect(page.getByRole('tab', { name: 'Hotel' })).toHaveAttribute('aria-selected', 'true')
   })
 
+  test('Podhale cards have scenes and the process says what you get (RUNDA-V5 §5–§6)', async ({
+    page,
+  }) => {
+    await open(page)
+    const cards = page.locator('#gory .gor')
+    await expect(cards).toHaveCount(6)
+    await expect(cards.locator('.gsc svg')).toHaveCount(6)
+    await expect(cards.first().locator('.gorfact')).toContainText('−28,5°C')
+    const steps = page.locator('#proces .procs')
+    await expect(steps).toHaveCount(6)
+    await expect(steps.locator('.procg')).toHaveCount(6)
+    await expect(steps.last().locator('.procg')).toContainText(/\d+ mies\. gwarancji na montaż/)
+    await expect(page.locator('#proces .proctr a')).toHaveAttribute('href', '/zaplanuj')
+  })
+
   // Round v5 (RUNDA-V5 §2): logos instead of names, served through next/image.
   test('the brand band shows 11 logos with their names in alt', async ({ page }) => {
     await open(page)

@@ -3,7 +3,7 @@ import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
 import { BentoSection } from './BentoLazy'
 import { PricingSection } from './PricingLazy'
-import { bentoSlugs, priceLines, pricingCards } from './prices'
+import { bentoSlugs, priceLines, pricingCards } from '@/lib/software/priceCards'
 import { Promises } from './Promises'
 import { ShowroomSection } from './ShowroomLazy'
 import { Situations } from './SituationsLazy'

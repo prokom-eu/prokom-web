@@ -3,6 +3,7 @@
 import '../widzety/architekci/architekci.css'
 import '../widzety/glowna/glowna.css'
 import '../sekcje/glowna/glowna-sekcje.css'
+import '../sekcje/glowna/podhale-proces.css'
 import '../widzety/zaplanuj/zaplanuj.css'
 import '../widzety/serwis/serwis.css'
 import '../widzety/oferta/oferta.css'

@@ -323,36 +323,38 @@ export const glownaSekcje = {
     eyebrow: 'Robimy to w górach, nie w biurowcu',
     heading: 'Na Podhalu instalacja ma trudniej. Projektujemy to od początku.',
     lead: 'Mróz, śnieg na kamerach, burze, słabe łącze i domy, w których nikogo nie ma przez pół roku. Znamy to z każdego montażu.',
-    showAll: 'Pokaż wszystkie 6 wyzwań',
-    collapse: 'Zwiń',
     cards: [
       {
-        icon: 'snow',
+        scene: 'snow',
         title: 'Mróz i śnieg',
         text: 'Dobieramy kamery i obudowy do górskiej zimy i montujemy je tak, żeby jak najmniej zbierały śnieg. Obraz ustawiamy pod odblask od śniegu i wieczorne światło.',
+        // Source: RMF24, 7.02.2023 (the prototype's fact list, `prototyp/firmy.html`).
+        // TODO(krystian): RUNDA-V5 §5 wants a number-fact on every card — only this one has a
+        // checked source; add the others with their sources (`docs/tresci/`) or keep one.
+        fact: { value: '−28,5°C', label: 'Kotlina Orawsko-Nowotarska, 7.02.2023' },
       },
       {
-        icon: 'storm',
+        scene: 'storm',
         title: 'Burze i przepięcia',
         text: 'Ochrona przepięciowa zmniejsza ryzyko uszkodzeń po burzy, a zasilacz UPS podtrzymuje kamery i alarm przy krótkich zanikach prądu.',
       },
       {
-        icon: 'off',
+        scene: 'off',
         title: 'Słabe łącze',
         text: 'Nagrania zapisują się w obiekcie, a Ampio steruje domem lokalnie. Gdy internet zniknie, instalacja działa dalej, a podgląd z telefonu wraca razem z łączem.',
       },
       {
-        icon: 'home',
+        scene: 'home',
         title: 'Domy na wynajem i letnie',
         text: 'Podgląd z daleka, nagrzanie domu przed przyjazdem, ochrona przed zamarzaniem i zalaniem. Dla domów, w których nikogo nie ma przez kilka miesięcy.',
       },
       {
-        icon: 'cal',
+        scene: 'cal',
         title: 'Przegląd przed sezonem',
         text: 'Przed zimą i przed latem: czyszczenie kamer, test dysków, akumulatorów, Wi-Fi i ładowarki. Zanim przyjadą goście, a nie po pierwszej awarii.',
       },
       {
-        icon: 'pin',
+        scene: 'pin',
         title: 'Salon blisko Ciebie',
         text: 'Rabka-Zdrój, blisko obiektów na Podhalu. Dużo usterek naprawiamy zdalnie, a gdy trzeba przyjechać, nie jedziemy z Krakowa.',
       },
@@ -362,29 +364,48 @@ export const glownaSekcje = {
     eyebrow: 'Jak pracujemy',
     heading: 'Rozmowa, wizja lokalna, projekt, montaż, odbiór, serwis.',
     lead: 'Bez niespodzianek w połowie roboty. Cena i zakres są na piśmie przed montażem, a po montażu zostajemy w serwisie.',
+    getLabel: 'Co dostajesz',
     steps: [
       {
+        icon: 'phone',
         title: 'Rozmowa',
         text: 'Telefon albo formularz. Mówisz, co chcesz zabezpieczyć lub usprawnić, i umawiamy wizję lokalną.',
+        get: 'termin wizji lokalnej',
       },
       {
+        icon: 'ruler',
         title: 'Wizja lokalna',
         text: 'Przyjeżdżamy, mierzymy, sprawdzamy kable, zasięg i rozdzielnicę.',
+        get: 'pomiary i lista uwag',
       },
       {
+        icon: 'doc',
         title: 'Projekt i wycena',
         text: 'Plan rozmieszczenia urządzeń i wycena na piśmie, zwykle w wariantach do wyboru.',
+        get: 'plan urządzeń i wycena w wariantach',
       },
-      { title: 'Montaż', text: 'W ustalonym terminie, czysto, z zabezpieczeniem mebli i podłóg.' },
       {
+        icon: 'tool',
+        title: 'Montaż',
+        text: 'W ustalonym terminie, czysto, z zabezpieczeniem mebli i podłóg.',
+        get: 'montaż w terminie z wyceny',
+      },
+      {
+        icon: 'check',
         title: 'Odbiór',
         text: 'Sprawdzamy działanie razem z Tobą i pokazujemy, jak korzystać z aplikacji.',
+        get: 'pokazujemy działanie i aplikację',
       },
       {
+        icon: 'wrench',
         title: 'Serwis',
         text: 'Przegląd przed sezonem, zdalna pomoc i naprawy pod jednym numerem.',
+        // `{n}` = warranty months from `InstalacjeSettings` (spec §2: 24).
+        get: 'jeden numer, {n} mies. gwarancji na montaż',
       },
     ],
+    trust: 'Wycena na piśmie przed montażem · bez niespodzianek w połowie roboty',
+    cta: 'Zaplanuj instalację',
   },
   service: {
     eyebrow: 'Serwis i przeglądy',

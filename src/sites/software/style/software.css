@@ -12,6 +12,8 @@
 @import './v24home.css';
 /* Wizard v3 (`components/wizard`). */
 @import './wizard.css';
+/* Subpage hero and the offer catalog v24 (`components/ui/PageHero`, `components/catalog`). */
+@import './subpages.css';
 
 @source '..';
 /* A news post renders the Biznes post body (`news/PostContent`); the folder, in case it grows. */
@@ -85,7 +87,7 @@
   }
 
   /* The highlighted word: the violet gradient of the theme (`--em-*`), moved by scrolling in
-     motion.css. The H1 of a subpage (dark hero) uses `sw-em-hero`. */
+     motion.css. The H1 of a subpage uses `sw-em-hero` (vertical, as `.au-ph h1 em`). */
   .sw-em,
   .sw-em-hero {
     font-style: normal;
@@ -108,7 +110,7 @@
   }
 
   .sw-em-hero {
-    background-image: linear-gradient(100deg, var(--em-hero-from), var(--em-hero-to));
+    background-image: linear-gradient(180deg, var(--em-hero-from), var(--em-hero-to));
   }
 }
 

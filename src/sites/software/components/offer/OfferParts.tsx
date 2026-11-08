@@ -10,16 +10,17 @@ import type {
   RelatedCard,
 } from '@/lib/software/offer'
 
+import { Mockup } from '../mockups/Mockup'
 import { OfferThumb } from './OfferThumb'
 
-/** Parts of the offer window (spec. §5.1, `stany/okno-90…98`) — presentational only. */
+/** Parts of the offer window (ZMIANY-v24 §6.1, v24 glass look) — presentational only. */
 
-export const EYEBROW = 'text-xs font-extrabold uppercase tracking-[0.14em] text-ink-2'
+export const EYEBROW = 'sw-eyebrow'
 
 /** Category badge: one flat accent for every category (ADR-015 v23 pkt 3). */
 export function OfferBadge({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex min-h-7 items-center rounded-lg bg-accent px-2.5 text-xs font-extrabold uppercase tracking-[0.12em] text-accent-ink">
+    <span className="inline-flex min-h-7 items-center rounded-full bg-accent-soft px-3 text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">
       {children}
     </span>
   )
@@ -27,7 +28,7 @@ export function OfferBadge({ children }: { children: ReactNode }) {
 
 export function LiveBadge() {
   return (
-    <span className="inline-flex min-h-7 items-center gap-1.5 rounded-lg bg-surface-2 px-2.5 text-xs font-bold text-ok-text">
+    <span className="inline-flex min-h-7 items-center gap-1.5 rounded-full border border-border px-3 text-xs font-bold text-ok-text">
       <span aria-hidden="true" className="size-1.5 rounded-full bg-ok" />
       podgląd na żywo
     </span>
@@ -44,12 +45,12 @@ export function Fact({
   wide?: boolean
 }) {
   return (
-    <div className={cx('rounded-2xl border border-border bg-card px-4 py-3', wide && 'flex-1')}>
+    <div className={cx('sw-glass rounded-[18px] px-4 py-3', wide && 'flex-1')}>
       <dt className={EYEBROW}>{label}</dt>
       <dd
         className={cx(
           'mt-1 font-bold',
-          wide ? 'text-sm text-ink' : 'font-display text-lg text-accent-text',
+          wide ? 'text-sm text-ink' : 'font-display text-lg font-extrabold text-ink',
         )}
       >
         {value}
@@ -58,34 +59,24 @@ export function Fact({
   )
 }
 
-/** „W cenie” card: the one „od” price, 3–5 points and „Potrzebujesz więcej?” (v22). */
-export function IncludedCard({ price }: { price: Extract<OfferPrice, { kind: 'included' }> }) {
+/** „W cenie” (ZMIANY-v24 §6.1): what the „od” price includes as chips, then „Potrzebujesz więcej?”. */
+export function IncludedChips({ price }: { price: Extract<OfferPrice, { kind: 'included' }> }) {
+  if (price.items.length === 0 && !price.more) return null
   return (
-    <div className="rounded-[22px] border-2 border-accent-line bg-accent-soft p-5">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className={EYEBROW}>W cenie</p>
-        <p className="text-accent-text">
-          {price.head.before && (
-            <span className="font-display text-2xl font-extrabold">{price.head.before} </span>
-          )}
-          <span className="font-display text-3xl font-extrabold">{price.head.amount}</span>
-          {price.head.after && (
-            <span className="text-sm font-bold text-ink-2"> {price.head.after}</span>
-          )}
-        </p>
-      </div>
+    <div className="sw-glass rounded-[22px] p-5">
+      <p className={EYEBROW}>W cenie</p>
       {price.items.length > 0 && (
-        <ul className="mt-3 space-y-2">
+        <ul className="mt-3 flex flex-wrap gap-2">
           {price.items.map((item) => (
-            <li key={item} className="flex gap-2.5 font-bold">
-              <CheckBox />
+            <li key={item} className="sw-chip text-ink">
+              <Icon name="check" strokeWidth={2.6} className="size-3.5 text-accent-text" />
               {item}
             </li>
           ))}
         </ul>
       )}
       {price.more && (
-        <p className="mt-4 flex gap-2.5 rounded-2xl bg-surface-2 px-4 py-3 text-sm text-ink-2">
+        <p className="mt-4 flex gap-2.5 text-sm text-ink-2">
           <span aria-hidden="true" className="font-bold text-accent-text">
             +
           </span>
@@ -99,7 +90,7 @@ export function IncludedCard({ price }: { price: Extract<OfferPrice, { kind: 'in
 /** Apps and automations: no price yet — the quote comes after a short talk. */
 export function AskCard({ price }: { price: Extract<OfferPrice, { kind: 'ask' }> }) {
   return (
-    <div className="rounded-[22px] border-2 border-accent-line bg-accent-soft p-5">
+    <div className="sw-glass sw-glass-featured rounded-[22px] p-5">
       <p className="font-display text-2xl font-extrabold text-accent-text">{price.title}</p>
       {price.text && <p className="mt-2 text-sm text-ink-2">{price.text}</p>}
       {price.note && <p className="mt-2 text-xs font-bold text-ink">{price.note}</p>}
@@ -143,12 +134,12 @@ export function LevelChoice({
               // Only the phone row reorders; an inline `order` would win over the desktop grid.
               style={{ '--phone-order': phoneOrder.indexOf(i) } as CSSProperties}
               className={cx(
-                'relative flex min-h-11 w-[72%] shrink-0 snap-start flex-col rounded-2xl border-2 bg-card p-3.5 text-left max-[640px]:order-[var(--phone-order)] min-[641px]:w-auto',
-                on ? 'border-accent-text shadow-raised' : 'border-border',
+                'sw-glass relative flex min-h-11 w-[72%] shrink-0 snap-start flex-col rounded-[18px] p-3.5 text-left max-[640px]:order-[var(--phone-order)] min-[641px]:w-auto',
+                on && 'sw-glass-featured',
               )}
             >
               {level.recommended && (
-                <span className="absolute -top-3 left-3 rounded-md bg-ok-text px-2 py-0.5 text-xs font-extrabold text-surface">
+                <span className="absolute -top-3 left-3 rounded-full bg-accent px-2.5 py-0.5 text-xs font-extrabold text-accent-ink">
                   Polecamy
                 </span>
               )}
@@ -286,7 +277,7 @@ export function OfferSection({
   children: ReactNode
 }) {
   return (
-    <section className={cx('rounded-[22px] border border-border bg-card p-5', className)}>
+    <section className={cx('sw-glass rounded-[22px] p-5', className)}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className={EYEBROW}>{title}</h3>
         {aside}
@@ -311,7 +302,10 @@ export function CheckList({ items }: { items: string[] }) {
   return (
     <ul className="space-y-2">
       {items.map((item) => (
-        <li key={item} className="flex gap-2.5 rounded-xl bg-surface-2 px-3.5 py-2.5 font-bold">
+        <li
+          key={item}
+          className="flex gap-2.5 border-b border-border py-2.5 font-bold last:border-0"
+        >
           <CheckBox />
           {item}
         </li>
@@ -324,7 +318,7 @@ export function Steps({ steps }: { steps: OfferStep[] }) {
   return (
     <ol className="grid gap-3 min-[641px]:grid-cols-2 min-[981px]:grid-cols-4">
       {steps.map((step, i) => (
-        <li key={step.name} className="rounded-2xl bg-surface-2 p-4">
+        <li key={step.name} className="rounded-[18px] border border-border p-4">
           <div className="flex items-center justify-between gap-2">
             <span className="inline-flex size-8 items-center justify-center rounded-full bg-button font-extrabold text-accent-ink">
               {i + 1}
@@ -350,7 +344,7 @@ export function Questions({ faq }: { faq: { q: string; a: string }[] }) {
         <details
           key={item.q}
           open={i === 0}
-          className="group rounded-2xl border border-border bg-surface-2 open:border-accent-line open:bg-card"
+          className="group rounded-[18px] border border-border open:border-accent-line"
         >
           <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 font-bold [&::-webkit-details-marker]:hidden">
             {item.q}
@@ -369,7 +363,7 @@ export function Questions({ faq }: { faq: { q: string; a: string }[] }) {
   )
 }
 
-/** „Dobrze łączy się z”: a click switches the window to that solution. */
+/** „Często łączone z”: a click switches the window to that solution. */
 export function RelatedCards({
   cards,
   onPick,
@@ -384,9 +378,16 @@ export function RelatedCards({
           <button
             type="button"
             onClick={() => onPick(card.slug)}
-            className="grid w-full grid-cols-[112px_1fr] items-center gap-3 rounded-2xl bg-surface-2 p-2.5 text-left hover:shadow-raised"
+            data-card=""
+            className="sw-glass grid w-full grid-cols-[112px_1fr] items-center gap-3 rounded-[18px] p-2.5 text-left"
           >
-            <OfferThumb src={card.thumbnail} />
+            {card.preview ? (
+              <span className="sw-offer-related-pic">
+                <Mockup kind={card.preview.kind} variant={card.preview.variant} fit="contain" />
+              </span>
+            ) : (
+              <OfferThumb src={card.thumbnail} />
+            )}
             <span className="min-w-0">
               {card.label && (
                 <span className="block text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">

@@ -8,7 +8,7 @@ import { Mockup } from '@/sites/software/components/mockups/Mockup'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
 import { usePausedOffscreen } from './usePausedOffscreen'
-import { offerHref, type PriceLine } from './prices'
+import { offerHref, type PriceLine } from '@/lib/software/priceCards'
 
 type Props = {
   situations: NonNullable<SoftwareHome['situations']>
