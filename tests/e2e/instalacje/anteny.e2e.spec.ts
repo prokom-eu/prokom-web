@@ -16,11 +16,12 @@ const SECTIONS = [
   'filtr-5g',
   'satelita',
   'pensjonat-tv',
-  'odbior',
   'pakiety',
   'cena',
   'faq',
   'powiazane',
+  // Runda v6 §1.3: the trust band right above the CTA band.
+  'odbior',
 ]
 
 const open = (page: Page) => page.goto(site(HOST, '/anteny'))

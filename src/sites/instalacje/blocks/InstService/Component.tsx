@@ -15,7 +15,7 @@ import { navigation } from '../../dane/nawigacja'
 import { CtaBandView } from '../../powloka/CtaBandView'
 import { architekci } from '../../dane/architekci'
 import { Faq } from '../../sekcje/Faq'
-import { GuaranteeSection } from '../../sekcje/GuaranteeSection'
+import { TrustStrip } from '../../sekcje/TrustStrip'
 import { IlDefs } from '../../sekcje/IlDefs'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { Packages } from '../../sekcje/Packages'
@@ -191,12 +191,6 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         widget={layout?.widget}
       />
       {layout?.sections}
-      {layout?.guarantee !== false && (
-        <GuaranteeSection
-          warrantyMonths={settings.warrantyMonths}
-          responseText={settings.responseText}
-        />
-      )}
       {layout?.afterGuarantee}
       <Packages
         intro={service.packagesIntro}
@@ -224,6 +218,8 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         objects={service.similarObjects}
         extraLink={architekci.related}
       />
+      {/* Runda v6 §1.3: the trust band right above the CTA band (Teletechnika has none). */}
+      {layout?.guarantee !== false && <TrustStrip warrantyMonths={settings.warrantyMonths} />}
       <CtaBandView band={band} phone={phone} salons={salons} titleId="cta-service-title" page />
     </div>
   )

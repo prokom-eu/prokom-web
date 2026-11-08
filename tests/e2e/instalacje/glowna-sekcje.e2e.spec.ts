@@ -71,6 +71,31 @@ test.describe('Instalacje home sections', () => {
     await expect(page.locator('#proces .proctr a')).toHaveAttribute('href', '/zaplanuj')
   })
 
+  // Runda v6 §1.6: with motion the axis plays once on entering the screen and ends full.
+  test('the process axis plays once and ends with every node and segment filled', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST, '/'))
+    const axis = page.locator('#proces .procw')
+    await expect(axis).toHaveAttribute('data-ready', '1')
+    await axis.scrollIntoViewIfNeeded()
+    await expect(axis).toHaveAttribute('data-on', '1')
+    await expect
+      .poll(() =>
+        axis
+          .locator('.procn')
+          .evaluateAll((nodes) => nodes.map((n) => getComputedStyle(n, '::before').opacity)),
+      )
+      .toEqual(['1', '1', '1', '1', '1', '1'])
+    await expect
+      .poll(() =>
+        axis
+          .locator('.procs:not(:last-child)')
+          .evaluateAll((items) => items.map((i) => getComputedStyle(i, '::after').transform)),
+      )
+      .toEqual(Array(5).fill('none'))
+  })
+
   // Round v5 (RUNDA-V5 §2): logos instead of names, served through next/image.
   test('the brand band shows 11 logos with their names in alt', async ({ page }) => {
     await open(page)
