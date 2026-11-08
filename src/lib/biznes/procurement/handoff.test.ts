@@ -25,6 +25,15 @@ describe('parseHandoff (?typ=&n=, ZAOPATRZENIE §3)', () => {
     expect(parseHandoff(new URLSearchParams('n=2.5'), TYPES)).toEqual({ type: null, count: null })
   })
 
+  it('keeps the default count for an empty n or a number written otherwise than in digits', () => {
+    expect(parseHandoff(new URLSearchParams('typ=pokoj&n='), TYPES)).toEqual({
+      type: 2,
+      count: null,
+    })
+    expect(parseHandoff(new URLSearchParams('n=1e2'), TYPES)?.count).toBeNull()
+    expect(parseHandoff(new URLSearchParams('n=0x10'), TYPES)?.count).toBeNull()
+  })
+
   it('clamps the count to 1–500', () => {
     expect(parseHandoff(new URLSearchParams('n=0'), TYPES)?.count).toBe(1)
     expect(parseHandoff(new URLSearchParams('n=9999'), TYPES)?.count).toBe(500)

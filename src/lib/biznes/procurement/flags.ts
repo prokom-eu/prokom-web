@@ -10,16 +10,24 @@ export type ProcurementFlags = {
   warranty: boolean
   /** LG delivered by the wholesaler (§0 pkt 4). */
   lg: boolean
-  /** The call-back promise is set in `SiteSettings` → „Obietnice” (§0 pkt 7). */
-  callback: boolean
+  /** The list of IT services before the delivery is filled in (§0 pkt 2). */
+  services: boolean
+  /**
+   * The call-back promise from `SiteSettings` → „Obietnice” (§0 pkt 7): put in place of
+   * `{callback}`; empty = items flagged `callback` do not show.
+   */
+  callback: string | null
 }
 
 export const NO_FLAGS: ProcurementFlags = {
   pickup: false,
   warranty: false,
   lg: false,
-  callback: false,
+  services: false,
+  callback: null,
 }
+
+const CALLBACK = '{callback}'
 
 type Flagged = { when?: unknown; fallback?: unknown }
 
@@ -28,11 +36,21 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 function flagOn(when: unknown, flags: ProcurementFlags): boolean {
-  return typeof when === 'string' && when in flags && flags[when as keyof ProcurementFlags]
+  if (typeof when !== 'string' || !Object.hasOwn(flags, when)) return false
+  const value = flags[when as keyof ProcurementFlags]
+  return typeof value === 'string' ? value.trim() !== '' : value === true
 }
 
-/** Drops (or swaps for `fallback`) items whose flag is off and strips the markers. */
+/**
+ * Drops (or swaps for `fallback`) items whose flag is off, strips the markers and puts the
+ * panel's promise in place of `{callback}`.
+ */
 export function applyFlags<T>(value: T, flags: ProcurementFlags): T {
+  if (typeof value === 'string') {
+    return (
+      value.includes(CALLBACK) ? value.replaceAll(CALLBACK, flags.callback?.trim() ?? '') : value
+    ) as T
+  }
   if (Array.isArray(value)) {
     return value.flatMap((item: unknown) => {
       if (!isRecord(item) || !('when' in item)) return [applyFlags(item, flags)]

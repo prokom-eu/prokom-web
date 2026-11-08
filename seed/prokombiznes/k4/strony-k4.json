@@ -3722,8 +3722,12 @@
     "items": [
      {
       "title": "Lista albo rzut",
-      "text": "Wysyłasz listę, rzut albo standard wykończenia.",
-      "callback": true
+      "text": "Wysyłasz listę, rzut albo standard wykończenia. {callback} w godzinach pracy.",
+      "when": "callback",
+      "fallback": {
+       "title": "Lista albo rzut",
+       "text": "Wysyłasz listę, rzut albo standard wykończenia."
+      }
      },
      {
       "title": "Dobór w 2–3 wariantach",
@@ -3812,8 +3816,7 @@
       "image": "zaop-logo-beko"
      },
      {
-      "name": "Whirlpool",
-      "image": "zaop-logo-whirlpool"
+      "name": "Whirlpool"
      },
      {
       "name": "Gorenje",
@@ -3840,11 +3843,6 @@
     {
      "value": "1 kontakt",
      "label": "na AGD, RTV, komputery, kasy i sieć Wi-Fi"
-    },
-    {
-     "value": "60 min",
-     "label": "tyle maksymalnie czekasz na telefon zwrotny w godzinach pracy",
-     "when": "callback"
     }
    ],
    "documents": {
@@ -3889,7 +3887,7 @@
     },
     {
      "q": "Jak szybko dostanę wycenę?",
-     "a": "Oddzwaniamy w 60 minut w godzinach pracy (pn–pt 9–17) i doprecyzowujemy listę. Wycenę wysyłamy, gdy lista jest jasna — w kilku wariantach cenowych, z kartami produktów.",
+     "a": "{callback} w godzinach pracy (pn–pt 9–17) i doprecyzowujemy listę. Wycenę wysyłamy, gdy lista jest jasna — w kilku wariantach cenowych, z kartami produktów.",
      "when": "callback",
      "fallback": {
       "q": "Jak szybko dostanę wycenę?",
@@ -3945,7 +3943,7 @@
     "pill": "Dostawy sprzętu IT · Podhale i Małopolska",
     "heading": "Komputery dla firm.",
     "headingAccent": "Gotowe do pracy w dniu dostawy.",
-    "lead": "Dostarczamy całe stanowiska — od kilku do kilkudziesięciu naraz. Dobieramy Lenovo, Dell, HP albo Apple, instalujemy system i programy, przenosimy dane i montujemy sprzęt na biurkach.",
+    "lead": "Dostarczamy całe stanowiska — od kilku do kilkudziesięciu naraz. Dobieramy Lenovo, Dell, HP albo Apple i przygotowujemy sprzęt do pracy przed dostawą, w zakresie ustalonym w ofercie.",
     "action": {
      "label": "Policz stanowiska",
      "href": "#zestaw"
@@ -3959,11 +3957,6 @@
      {
       "value": "100+",
       "label": "klientów firmowych"
-     },
-     {
-      "value": "60 min",
-      "label": "oddzwaniamy w godzinach pracy",
-      "when": "callback"
      }
     ],
     "scene": [
@@ -4021,7 +4014,8 @@
        "right": "0",
        "top": "64%"
       },
-      "icon": "#"
+      "icon": "#",
+      "when": "services"
      },
      {
       "text": "Dane przeniesione",
@@ -4029,7 +4023,8 @@
        "left": "22%",
        "bottom": "0"
       },
-      "icon": "→"
+      "icon": "→",
+      "when": "services"
      }
     ]
    },
@@ -4353,7 +4348,8 @@
       "text": "Dostawa: {delivery}"
      },
      {
-      "text": "Lista numerów seryjnych"
+      "text": "Lista numerów seryjnych",
+      "when": "services"
      },
      {
       "text": "Faktura VAT na firmę"
@@ -4419,13 +4415,15 @@
       "icon": "lock",
       "title": "Stary komputer z danymi klientów",
       "without": "Leży w szafie albo trafia do kosza razem z danymi.",
-      "with": "Usuwamy dane i zabieramy sprzęt przy dostawie."
+      "with": "Usuwamy dane i zabieramy sprzęt przy dostawie.",
+      "when": "pickup"
      },
      {
       "icon": "doc",
       "title": "Księgowa pyta o numery seryjne",
       "without": "Spisujesz je z naklejek, laptop po laptopie.",
-      "with": "Dostajesz listę sprzętu z numerami seryjnymi i inwentarzowymi."
+      "with": "Dostajesz listę sprzętu z numerami seryjnymi i inwentarzowymi.",
+      "when": "services"
      },
      {
       "icon": "wrench",
@@ -4443,8 +4441,12 @@
     "items": [
      {
       "title": "Lista stanowisk",
-      "text": "Ile osób, do jakiej pracy, jakie programy.",
-      "callback": true
+      "text": "Ile osób, do jakiej pracy, jakie programy. {callback} w godzinach pracy.",
+      "when": "callback",
+      "fallback": {
+       "title": "Lista stanowisk",
+       "text": "Ile osób, do jakiej pracy, jakie programy."
+      }
      },
      {
       "title": "Oferta w 2 wariantach",
@@ -4460,7 +4462,7 @@
       "when": "pickup",
       "fallback": {
        "title": "Dostawa i montaż",
-       "text": "Podłączamy na biurkach i przenosimy dane. Faktura na firmę."
+       "text": "Podłączamy sprzęt na biurkach. Faktura na firmę."
       }
      }
     ],
@@ -4638,11 +4640,6 @@
     {
      "value": "1 kontakt",
      "label": "na komputery, drukarki, sieć, kasy i programy"
-    },
-    {
-     "value": "60 min",
-     "label": "maksymalny czas na telefon zwrotny w godzinach pracy",
-     "when": "callback"
     }
    ],
    "documents": {
@@ -4656,7 +4653,8 @@
      {
       "icon": "copy",
       "title": "Lista sprzętu",
-      "sub": "numery seryjne i inwentarzowe"
+      "sub": "numery seryjne i inwentarzowe",
+      "when": "services"
      },
      {
       "icon": "shield",
@@ -4687,7 +4685,12 @@
     },
     {
      "q": "Czy skonfigurujecie sprzęt pod nasze programy?",
-     "a": "Tak. Instalujemy system, programy (np. Subiekt, Microsoft 365), drukarki i konta — tak, żeby w dniu dostawy wszystko działało."
+     "a": "Tak. Instalujemy system, programy (np. Subiekt, Microsoft 365), drukarki i konta — tak, żeby w dniu dostawy wszystko działało.",
+     "when": "services",
+     "fallback": {
+      "q": "Czy skonfigurujecie sprzęt pod nasze programy?",
+      "a": "Tak. Zakres przygotowania ustalamy w ofercie — pod programy, na których pracujesz."
+     }
     },
     {
      "q": "Co ze starym sprzętem i danymi?",

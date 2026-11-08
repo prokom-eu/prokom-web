@@ -20,6 +20,8 @@ type SeedPage = {
    */
   description?: string
   replaces?: readonly string[]
+  /** SEO → Tytuł: set on create only (a title from the panel stays). */
+  seoTitle?: string
 }
 
 /**
@@ -57,7 +59,7 @@ export async function upsertK4Page(
 export async function upsertBiznesPage(
   payload: Payload,
   tenantId: number,
-  { slug, title, layout: seed, description, replaces }: SeedPage,
+  { slug, title, layout: seed, description, replaces, seoTitle }: SeedPage,
   report: Report,
 ): Promise<void> {
   const {
@@ -75,7 +77,9 @@ export async function upsertBiznesPage(
         title,
         slug,
         layout: seed,
-        ...(description ? { seo: { description } } : {}),
+        ...((description || seoTitle) && {
+          seo: { ...(description && { description }), ...(seoTitle && { title: seoTitle }) },
+        }),
         tenant: tenantId,
         _status: 'published',
       },

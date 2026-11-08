@@ -142,11 +142,11 @@ export function offerRows(state: ProcurementState, data: ConfiguratorData, servi
   return {
     rows,
     total: devices,
-    services: chosenServices.map((service) => ({
+    services: chosenServices.map((service): OfferRow => ({
       name: 'Usługa',
       params: service.label,
       qty: state.count,
-    })) as OfferRow[],
+    })),
   }
 }
 

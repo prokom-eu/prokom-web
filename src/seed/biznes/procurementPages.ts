@@ -115,6 +115,9 @@ function altOf(data: unknown, name: string): string {
   return alt ?? 'Sprzęt dla firm'
 }
 
+/** Pages the seed creates: the IT page comes with its template sections in B2-2. */
+const SEEDED: ReadonlySet<Variant> = new Set(['agd'])
+
 const packageData = (file as unknown as { zaopatrzenie: Record<Variant, unknown> }).zaopatrzenie
 
 /**
@@ -131,7 +134,7 @@ export async function seedBiznesProcurementPages(
   note: (what: string, item: string) => void,
 ): Promise<void> {
   const ids = new Map<string, number>()
-  for (const variant of ['agd', 'it'] as const) {
+  for (const variant of SEEDED) {
     for (const name of procurementImageNames(packageData[variant])) {
       if (ids.has(name)) continue
       const { file: filePath, upload } = procurementMediaFile(name)
@@ -157,7 +160,7 @@ export async function seedBiznesProcurementPages(
     }
   }
 
-  for (const page of PROCUREMENT_PAGES) {
+  for (const page of PROCUREMENT_PAGES.filter((item) => SEEDED.has(item.variant))) {
     const { data, missing } = resolveProcurementImages(packageData[page.variant], (name) =>
       ids.get(name),
     )
@@ -179,11 +182,11 @@ export async function seedBiznesProcurementPages(
           slug: page.slug,
           title: page.title,
           description: page.description,
+          seoTitle: page.seoTitle,
           layout: [block] as PageBlock[],
         },
         report,
       )
-      await setSeoTitle(payload, tenantId, page.slug, page.seoTitle)
       continue
     }
     const layout = stored.layout ?? []
@@ -205,22 +208,4 @@ export async function seedBiznesProcurementPages(
       ...local,
     })
   }
-}
-
-async function setSeoTitle(payload: Payload, tenantId: number, slug: string, title: string) {
-  const {
-    docs: [page],
-  } = await payload.find({
-    collection: 'pages',
-    where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: slug } }] },
-    limit: 1,
-    ...local,
-  })
-  if (!page || page.seo?.title) return
-  await payload.update({
-    collection: 'pages',
-    id: page.id,
-    data: { seo: { ...page.seo, title } },
-    ...local,
-  })
 }

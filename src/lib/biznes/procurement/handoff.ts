@@ -9,7 +9,7 @@ export type Handoff = { type: number | null; count: number | null }
 
 /**
  * Configurator state handed over from the home page. `null` when neither parameter is there
- * (nothing to set, no scroll); an unknown type or a count that is not a whole number stays
+ * (nothing to set, no scroll); an unknown type or a count not written in digits stays
  * `null` (default); a count is clamped to 1–500.
  */
 export function parseHandoff(
@@ -21,7 +21,9 @@ export function parseHandoff(
   if (rawType === null && rawCount === null) return null
   const slug = rawType?.trim().toLowerCase() ?? ''
   const index = types.findIndex((type) => type.slug === slug)
-  const number = rawCount === null ? Number.NaN : Number(rawCount.trim())
+  const digits = rawCount?.trim() ?? ''
+  // Digits only: `n=` stays default, `1e2` or `0x10` are not counts.
+  const number = /^\d{1,6}$/.test(digits) ? Number(digits) : Number.NaN
   return {
     type: index >= 0 ? index : null,
     count: Number.isInteger(number) ? clampCount(number) : null,

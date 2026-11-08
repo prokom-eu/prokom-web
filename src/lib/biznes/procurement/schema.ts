@@ -11,7 +11,7 @@ import { applyFlags, type ProcurementFlags } from './flags'
 const text = z.string().trim().min(1)
 const image = z.number().int().positive().nullable()
 const forms = z.tuple([text, text, text])
-const when = z.enum(['pickup', 'warranty', 'lg', 'callback'])
+const when = z.enum(['pickup', 'warranty', 'lg', 'services', 'callback'])
 
 /** An item that shows only with a §0 flag, optionally with a text for while it is off. */
 function flaggable<S extends z.ZodRawShape>(shape: S) {
@@ -51,40 +51,53 @@ const item = z.object({
   energy: z.string().max(2).optional(),
 })
 
-const configurator = z.object({
-  ...head,
-  typeLabel: text,
-  countLabel: text,
-  unit: forms,
-  start: z.number().int().min(1).max(500),
-  types: z
-    .array(
-      z.object({
-        title: text,
-        short: text,
-        slug: z.string().regex(/^[a-z0-9-]+$/),
-        items: z.array(item).min(1).max(12),
-      }),
-    )
-    .min(1)
-    .max(6),
-  classLabel: z.string().optional(),
-  classes: z.array(text).max(4).optional(),
-  defaultClass: z.number().int().min(0).optional(),
-  servicesLabel: z.string().optional(),
-  more: z.string().optional(),
-  delivery: z.object({
-    label: text,
-    options: z
-      .array(z.object({ label: text, stages: z.number().int().min(1).max(6) }))
+const configurator = z
+  .object({
+    ...head,
+    typeLabel: text,
+    countLabel: text,
+    unit: forms,
+    start: z.number().int().min(1).max(500),
+    types: z
+      .array(
+        z.object({
+          title: text,
+          short: text,
+          slug: z.string().regex(/^[a-z0-9-]+$/),
+          items: z.array(item).min(1).max(12),
+        }),
+      )
       .min(1)
       .max(6),
-    defaultStages: z.number().int().min(1).max(6),
-    word: forms,
-    unit: forms,
-    set: forms,
-  }),
-})
+    classLabel: z.string().optional(),
+    classes: z.array(text).max(4).optional(),
+    defaultClass: z.number().int().min(0).optional(),
+    servicesLabel: z.string().optional(),
+    more: z.string().optional(),
+    delivery: z.object({
+      label: text,
+      options: z
+        .array(z.object({ label: text, stages: z.number().int().min(1).max(6) }))
+        .min(1)
+        .max(6),
+      defaultStages: z.number().int().min(1).max(6),
+      word: forms,
+      unit: forms,
+      set: forms,
+    }),
+  })
+  .superRefine((value, ctx) => {
+    if (value.defaultClass !== undefined && value.defaultClass >= (value.classes?.length ?? 0)) {
+      ctx.addIssue({ code: 'custom', path: ['defaultClass'], message: 'nie ma takiej klasy' })
+    }
+    if (!value.delivery.options.some((option) => option.stages === value.delivery.defaultStages)) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['delivery', 'defaultStages'],
+        message: 'nie ma takiej opcji dostawy',
+      })
+    }
+  })
 
 export const procurementPageSchema = z.object({
   variant: z.enum(['agd', 'it']),
@@ -100,7 +113,7 @@ export const procurementPageSchema = z.object({
     marquee: text,
     stats: z.array(valueLabel).max(4),
     scene: z.array(z.object({ image, box })).max(6),
-    chips: z.array(z.object({ text, box, icon: text, live: z.boolean().optional() })).max(4),
+    chips: z.array(flaggable({ text, box, icon: text, live: z.boolean().optional() })).max(4),
   }),
   nav: z.array(z.object({ anchor: z.string().regex(/^[a-z][a-z0-9-]*$/), label: text })).max(10),
   who: z
@@ -180,7 +193,7 @@ export const procurementPageSchema = z.object({
   steps: z.object({
     ...head,
     items: z
-      .array(flaggable({ title: text, text, callback: z.boolean().optional() }))
+      .array(flaggable({ title: text, text }))
       .min(1)
       .max(6),
     gantt: z.object({ title: text, note: text, unit: text }),
@@ -251,9 +264,11 @@ export type ProcurementPageData = z.infer<typeof procurementPageSchema>
 export function parseProcurementPage(
   value: unknown,
   flags: ProcurementFlags,
+  variant: string | null | undefined,
 ): ProcurementPageData | null {
   const result = procurementPageSchema.safeParse(value ?? null)
-  return result.success ? applyFlags(result.data, flags) : null
+  if (!result.success || result.data.variant !== variant) return null
+  return applyFlags(result.data, flags)
 }
 
 /** Panel check of the block's JSON. */
