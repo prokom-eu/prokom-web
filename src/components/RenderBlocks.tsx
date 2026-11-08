@@ -72,6 +72,8 @@ const PRIVACY_SLUG = 'polityka-prywatnosci'
 const HERO_BLOCKS = new Set([
   'hero',
   'bzHero',
+  'bzContactPage',
+  'bzAboutPage',
   'swHero',
   'swContactPage',
   'swPricing',

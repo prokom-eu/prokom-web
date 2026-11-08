@@ -13,13 +13,15 @@ describe('templateLayout (/kontakt and /o-firmie on the shared templates, plan 0
     const k4 = [
       { blockType: 'bzSection', variant: 'contact-hero' },
       { blockType: 'bzSection', variant: 'contact-form' },
+      { blockType: 'faq' },
+      { blockType: 'bzLocation' },
     ]
     expect(templateLayout(k4 as never, 'bzContactPage')).toEqual([block])
   })
 
   it('a page already on the template, or edited in the panel, stays as it is', () => {
     expect(templateLayout([block] as never, 'bzContactPage')).toBeNull()
-    const edited = [{ blockType: 'bzSection' }, { blockType: 'bzLocation' }]
+    const edited = [{ blockType: 'bzSection' }, { blockType: 'bzHero' }]
     expect(templateLayout(edited as never, 'bzContactPage')).toBeNull()
   })
 

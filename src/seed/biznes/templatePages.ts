@@ -31,9 +31,12 @@ export const TEMPLATE_PAGES: {
   },
 ]
 
+/** Block types of the old K4 layouts of these pages (K4 sections, FAQ, the visit card). */
+const K4_BLOCKS = new Set(['bzSection', 'faq', 'bzLocation'])
+
 /**
  * The layout a template page should get, or `null` to leave it: a new page and the old K4 layout
- * (K4 sections only — the seed's own) get the template block alone; a page already on it or
+ * (the seed's own block types only) get the template block alone; a page already on it or
  * edited in the panel (other blocks) stays.
  */
 export function templateLayout(
@@ -43,7 +46,7 @@ export function templateLayout(
   const fresh = [{ blockType: block }] as PageBlock[]
   if (!stored?.length) return fresh
   if (stored.some((item) => item.blockType === block)) return null
-  return stored.every((item) => item.blockType === 'bzSection') ? fresh : null
+  return stored.every((item) => K4_BLOCKS.has(item.blockType)) ? fresh : null
 }
 
 /** Creates or moves `/o-firmie` and `/kontakt` to the shared templates (reports `pages <slug>`). */

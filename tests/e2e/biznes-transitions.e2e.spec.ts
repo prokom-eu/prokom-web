@@ -56,7 +56,8 @@ test('rise-in: nothing on the first screen waits; after scrolling nothing stays 
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto(site(HOST, '/kontakt'))
+  // A page of K4 sections (`/kontakt` is on the shared template since D3-B PR 2).
+  await page.goto(site(HOST, '/opieka-it'))
   await page.waitForLoadState('networkidle')
   // The first screen is never hidden (LCP), below it the K4 sections wait for their turn.
   const firstScreen = await page.evaluate(
