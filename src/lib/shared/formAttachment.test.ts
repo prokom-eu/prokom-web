@@ -21,6 +21,22 @@ describe('form attachments (Biznes: the inquiry list joins the contact message)'
     expect(formAttachments()).toEqual([])
   })
 
+  it('items of the parts (Software „Twój projekt”) each once; such a part counts as sent', () => {
+    const sent: string[] = []
+    off.push(
+      registerFormAttachment(() => null, {
+        items: () => ['strona-wizytowka', 'crm'],
+        onSent: () => sent.push('projekt'),
+      }),
+    )
+    off.push(registerFormAttachment(() => null, { items: () => ['crm'] }))
+    const collected = collectAttachments()
+    expect(collected.items).toEqual(['strona-wizytowka', 'crm'])
+    expect(collected.texts).toEqual([])
+    collected.sent('Dzień dobry')
+    expect(sent).toEqual(['projekt'])
+  })
+
   it('stops reading a part once unregistered', () => {
     const unregister = registerFormAttachment(() => 'x')
     unregister()

@@ -9,6 +9,7 @@ import { buildInquiryBody, readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import {
   checkContactForm,
+  listPart,
   serverMessages,
   sharedRulesFor,
   toFormFields,
@@ -89,7 +90,12 @@ export function ContactForm({
 }: ContactFormProps) {
   const id = useId()
   const fid = (name: string) => `${id}-${name}`
-  const sharedRules: SharedRules = { ...sharedRulesFor(line), consentMode: consent.mode }
+  // The rules at sending: a list attached by the line makes the message optional (as the server).
+  const rulesFor = (itemCount: number): SharedRules => ({
+    ...sharedRulesFor(line, itemCount),
+    consentMode: consent.mode,
+  })
+  const sharedRules = rulesFor(0)
   const [values, setValues] = useState<SharedFormValues>(EMPTY)
   const [errors, setErrors] = useState<Partial<Record<SharedField, string>>>({})
   const [formError, setFormError] = useState<string | null>(null)
@@ -137,29 +143,32 @@ export function ContactForm({
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (lock.current) return
-    const found = checkContactForm(values, sharedRules)
+    const attached = collectAttachments()
+    const rules = rulesFor(attached.items.length)
+    const found = checkContactForm(values, rules)
     if (Object.keys(found).length) return showErrors(found)
     lock.current = true
     setSending(true)
-    const attached = collectAttachments()
     const message = withAttachments(values.message, attached.texts)
     try {
       const response = await fetch('/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-          // The line's attachments (Biznes: the inquiry list) go under the message.
-          buildInquiryBody(toInquiryValues({ ...values, message }), {
+        body: JSON.stringify({
+          // The line's attachments (Biznes: the inquiry list) go under the message; its items
+          // (Software „Twój projekt”) make the inquiry a list.
+          ...buildInquiryBody(toInquiryValues({ ...values, message }), {
             href: window.location.href,
             formToken,
             category: values.topic,
           }),
-        ),
+          ...listPart(attached.items),
+        }),
       })
       const outcome = readOutcome(
         response.status,
         await response.json().catch(() => null),
-        serverMessages(sharedRules),
+        serverMessages(rules),
       )
       if (outcome.kind === 'sent') {
         // The line's parts that went out whole (Biznes then empties its list).
