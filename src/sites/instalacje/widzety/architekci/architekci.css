@@ -891,7 +891,7 @@
     font-size: 12px;
     font-weight: 800;
     background: var(--card);
-    color: color-mix(in srgb, var(--hc) var(--inst-hue-text-mix), var(--ink));
+    color: color-mix(in srgb, var(--hc, var(--accent-text)) var(--inst-hue-text-mix), var(--ink));
     box-shadow: inset 0 0 0 1px var(--border);
   }
   & .arnl {

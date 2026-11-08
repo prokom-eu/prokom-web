@@ -62,18 +62,25 @@ test.describe('Instalacje home sections', () => {
     await expect(logos).toHaveCount(11)
     await expect(page.getByRole('img', { name: 'Logo Hikvision' })).toBeVisible()
     await page.locator('.trust').scrollIntoViewIfNeeded()
-    const loaded = await logos.evaluateAll((els) =>
-      els.every(
-        (img) => (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0,
-      ),
-    )
-    expect(loaded).toBe(true)
+    // Lazy images: wait until every logo is loaded instead of one read right after the scroll.
+    await expect
+      .poll(() =>
+        logos.evaluateAll((els) =>
+          els.every(
+            (img) =>
+              (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0,
+          ),
+        ),
+      )
+      .toBe(true)
     // P1-6 (audit 06.11): every logo is drawn ≥ 24 px tall (11 columns gave Hikvision ~10 px).
+    // The proportion from the width/height attributes — known before the file arrives.
     const heights = await logos.evaluateAll((els) =>
       els.map((el) => {
         const img = el as HTMLImageElement
         const box = img.getBoundingClientRect()
-        return Math.min(box.height, box.width / (img.naturalWidth / img.naturalHeight))
+        const ratio = Number(img.getAttribute('width')) / Number(img.getAttribute('height'))
+        return Math.min(box.height, box.width / ratio)
       }),
     )
     expect(Math.min(...heights)).toBeGreaterThanOrEqual(24)

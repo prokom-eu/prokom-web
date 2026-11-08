@@ -464,17 +464,19 @@
   }
   & .fov.down .fon:nth-child(1) svg {
     opacity: 0.4;
-  }
-  & .fov.down .fon:nth-child(1) svg {
     color: var(--inst-bad);
   }
   & .fov.down .fon:nth-child(1) .fol {
     background: var(--inst-bad);
   }
+  /* After the failure the backup link takes over: fully active again (review of PR3). */
   & .fov.down .fon:nth-child(2) {
-    opacity: 1;
+    color: var(--ink);
     box-shadow: inset 0 0 0 1.5px var(--warn);
     animation: inst-si-fadeUp 0.5s var(--ease-out);
+  }
+  & .fov.down .fon:nth-child(2) svg {
+    opacity: 1;
   }
   & .fov:not(.down) .fon:nth-child(2) .fol {
     background: var(--border);

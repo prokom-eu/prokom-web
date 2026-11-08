@@ -1,6 +1,6 @@
 # STAN — prokominstalacje.pl (linia Instalacje)
 
-Ostatnia aktualizacja: 06.11.2026 (D3-I PR 1 = L1-I: powłoka na elementach wspólnych, PR `inst/l1-powloka`; audyt develop 06.11 — `claude/instalacje-audyt-0611.md` w projekcie; wcześniej INST-1: runda v5 #322–#329 scalone)
+Ostatnia aktualizacja: 08.11.2026 (INST-2 PR3: kontrast 240 → 0 i pas marek; wcześniej 06.11: D3-I PR 1 = L1-I: powłoka na elementach wspólnych, PR `inst/l1-powloka`; audyt develop 06.11 — `claude/instalacje-audyt-0611.md` w projekcie; wcześniej INST-1: runda v5 #322–#329 scalone)
 Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`, baza `prokom_web_instalacje` we wspólnym kontenerze PostgreSQL prokom-web (54320), Mailpit wspólny (8025)
 
 ## W toku
