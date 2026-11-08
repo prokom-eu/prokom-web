@@ -87,6 +87,7 @@ import * as migration_20261108_095701_usun_whatsapp from './20261108_095701_usun
 import * as migration_20261108_105821_swa2_sprzatanie_v23 from './20261108_105821_swa2_sprzatanie_v23'
 import * as migration_20261108_122225_swa3_kreator_v3 from './20261108_122225_swa3_kreator_v3'
 import * as migration_20261108_132223_biznes_kategoria_miniatura from './20261108_132223_biznes_kategoria_miniatura'
+import * as migration_20261108_144103_swa4_cennik_v24 from './20261108_144103_swa4_cennik_v24'
 
 export const migrations = [
   {
@@ -533,5 +534,10 @@ export const migrations = [
     up: migration_20261108_132223_biznes_kategoria_miniatura.up,
     down: migration_20261108_132223_biznes_kategoria_miniatura.down,
     name: '20261108_132223_biznes_kategoria_miniatura',
+  },
+  {
+    up: migration_20261108_144103_swa4_cennik_v24.up,
+    down: migration_20261108_144103_swa4_cennik_v24.down,
+    name: '20261108_144103_swa4_cennik_v24',
   },
 ]

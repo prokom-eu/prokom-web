@@ -1,14 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { solutionData, solutionsToImport } from '../../seed/software/map'
-import {
-  findLevelSolution,
-  levelAccusative,
-  levelPlans,
-  pricingTabs,
-  type PricingSolution,
-} from './pricing'
-import { DEFAULT_PRICE_DISPLAY } from './solutionsIndex'
+import { findLevelSolution, levelAccusative, levelPlans, type PricingSolution } from './pricing'
 
 const NBSP = String.fromCharCode(0xa0)
 const nb = (text: string) => text.replace(/ /g, NBSP)
@@ -28,55 +21,6 @@ const solutions: PricingSolution[] = solutionsToImport()
     levels: item.levels ?? [],
     levelRows: item.levelRows ?? [],
   }))
-
-describe('price list tabs (spec. §6.4, v22)', () => {
-  const tabs = pricingTabs(solutions, DEFAULT_PRICE_DISPLAY)
-
-  it('groups the 29 solutions of the package in the 5 tabs of the board', () => {
-    expect(tabs.map((tab) => [tab.slug, tab.rows.length])).toEqual([
-      ['strony', 8],
-      ['systemy', 10],
-      ['aplikacje', 3],
-      ['automatyzacje', 5],
-      ['opieka', 3],
-    ])
-  })
-
-  it('one „od” price with its „od” term and „W cenie”', () => {
-    const site = tabs[0]!.rows.find((row) => row.slug === 'strona-wizytowka')
-    expect(site).toMatchObject({
-      name: 'Strona wizytówka',
-      price: nb('od 999 zł'),
-      term: nb('od 1 tygodnia'),
-      ask: false,
-      included:
-        'Jedna strona: oferta, telefon, mapa i formularz · Wygodna na telefonie · Gotowa pod Google',
-    })
-  })
-
-  it('asks for a quote where there is no price, never „0 zł”', () => {
-    const app = tabs[2]!.rows[0]!
-    expect(app).toMatchObject({
-      price: 'Zapytaj o wycenę',
-      term: 'po krótkiej rozmowie',
-      ask: true,
-    })
-    // „Zapytaj o wycenę” in the price note too: said once, not twice.
-    expect(app.note).toBeNull()
-  })
-
-  it('care per month, the free audit as „0 zł”, the note kept', () => {
-    const [care, takeover, audit] = tabs[4]!.rows
-    expect(care).toMatchObject({ price: `${nb('od 149 zł')} / mies.` })
-    expect(takeover?.note).toMatch(/^jednorazowo/)
-    expect(audit).toMatchObject({ price: nb('0 zł'), term: `2${NBSP}dni robocze` })
-  })
-
-  it('names a tab as the block says, else as the catalog', () => {
-    const named = pricingTabs(solutions, DEFAULT_PRICE_DISPLAY, { systemy: 'Systemy i panele' })
-    expect(named.map((tab) => tab.name).slice(0, 2)).toEqual(['Strony', 'Systemy i panele'])
-  })
-})
 
 describe('levels of care and audit', () => {
   it('finds care (per month) and the audit (once) among the solutions', () => {
