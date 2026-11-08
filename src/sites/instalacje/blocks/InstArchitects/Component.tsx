@@ -468,7 +468,15 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
               </div>
               <p className="mut" style={{ margin: 0, fontSize: 14.5 }}>
                 {A.experienceSection.brandsNote}{' '}
-                <a href="https://prokombiznes.pl" style={{ color: 'var(--accent-text)' }}>
+                {/* A link in a sentence is underlined, not told apart by colour alone (WCAG 1.4.1, P3-25). */}
+                <a
+                  href="https://prokombiznes.pl"
+                  style={{
+                    color: 'var(--accent-text)',
+                    textDecoration: 'underline',
+                    textUnderlineOffset: 3,
+                  }}
+                >
                   prokombiznes.pl
                 </a>
                 . {A.experienceSection.brandsAuth}
