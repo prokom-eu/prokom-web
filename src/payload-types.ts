@@ -2187,6 +2187,7 @@ export interface Page {
         | BzContactPageBlock
         | BzAboutPageBlock
         | BzProcurementPageBlock
+        | BzProcurementBlock
         | InstServiceBlock
         | InstHomeBlock
         | InstPlannerBlock
@@ -3188,6 +3189,30 @@ export interface BzProcurementPageBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzProcurementPage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProcurementBlock".
+ */
+export interface BzProcurementBlock {
+  eyebrow?: string | null;
+  heading: string;
+  lead?: string | null;
+  /**
+   * Dwie karty (AGD, IT) z kalkulatorem i pasek korzyści. Zdjęcia to numery z Media. „Odbiór starego sprzętu” pokazuje się po zaznaczeniu flagi na stronie AGD, oddzwanianie — z obietnicy w Ustawieniach strony. Po imporcie z paczki (`pnpm seed:biznes`) wygrywa paczka.
+   */
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzProcurement';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6018,6 +6043,7 @@ export interface PagesSelect<T extends boolean = true> {
         bzContactPage?: T | BzContactPageBlockSelect<T>;
         bzAboutPage?: T | BzAboutPageBlockSelect<T>;
         bzProcurementPage?: T | BzProcurementPageBlockSelect<T>;
+        bzProcurement?: T | BzProcurementBlockSelect<T>;
         instService?: T | InstServiceBlockSelect<T>;
         instHome?: T | InstHomeBlockSelect<T>;
         instPlanner?: T | InstPlannerBlockSelect<T>;
@@ -6575,6 +6601,18 @@ export interface BzProcurementPageBlockSelect<T extends boolean = true> {
         brands?: T;
         id?: T;
       };
+  data?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProcurementBlock_select".
+ */
+export interface BzProcurementBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
   data?: T;
   id?: T;
   blockName?: T;

@@ -124,7 +124,7 @@ const packageData = (file as unknown as { zaopatrzenie: Record<Variant, unknown>
  * `/agd-rtv-dla-firm` and `/dostawy-it-dla-firm` (BIZ-2): uploads the missing `zaop-*` media,
  * creates a missing page and keeps the stored page's JSON equal to the package (the package
  * wins). The §0 fields (flags, services, class hints) are the boss's: never touched, empty on a
- * new page.
+ * new page. Returns the package image name → Media id (for the home section).
  */
 export async function seedBiznesProcurementPages(
   payload: Payload,
@@ -132,10 +132,13 @@ export async function seedBiznesProcurementPages(
   storedMediaId: (upload: string) => number | undefined,
   report: Report,
   note: (what: string, item: string) => void,
-): Promise<void> {
+  /** Other package data using the same media (the home section, B2-3). */
+  extra: unknown[] = [],
+): Promise<Map<string, number>> {
   const ids = new Map<string, number>()
-  for (const variant of SEEDED) {
-    for (const name of procurementImageNames(packageData[variant])) {
+  const sources = [...[...SEEDED].map((variant) => packageData[variant]), ...extra]
+  for (const source of sources) {
+    for (const name of procurementImageNames(source)) {
       if (ids.has(name)) continue
       const { file: filePath, upload } = procurementMediaFile(name)
       const stored = storedMediaId(upload)
@@ -148,7 +151,7 @@ export async function seedBiznesProcurementPages(
       const created = await payload.create({
         collection: 'media',
         data: {
-          alt: altOf(packageData[variant], name),
+          alt: altOf(source, name),
           source: MEDIA_SOURCE,
           requiresConsent: false,
           tenant: tenantId,
@@ -208,4 +211,5 @@ export async function seedBiznesProcurementPages(
       ...local,
     })
   }
+  return ids
 }

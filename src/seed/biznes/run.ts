@@ -91,6 +91,7 @@ import { GOPOS_PHOTO_ALT, goposPhotoFiles, goposPhotoPath } from './k4Pages'
 import { k4PagesFile, seedBiznesK4Pages } from './k4PagesRun'
 import { seedBiznesTemplatePages } from './templatePages'
 import { seedBiznesProcurementPages } from './procurementPages'
+import { homeProcurementPackage, seedBiznesHomeProcurement } from './homeProcurement'
 import {
   brandLogoFile,
   galleryFileName,
@@ -1290,7 +1291,22 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   await seedBiznesTemplatePages(payload, tenant.id, pageReport)
 
   // BIZ-2: /agd-rtv-dla-firm and /dostawy-it-dla-firm (ZAOPATRZENIE §2), media `zaop-*`.
-  await seedBiznesProcurementPages(payload, tenant.id, storedId, pageReport, note)
+  const procurementMedia = await seedBiznesProcurementPages(
+    payload,
+    tenant.id,
+    storedId,
+    pageReport,
+    note,
+    [homeProcurementPackage],
+  )
+  // B2-3: „Zaopatrzenie firm” on the home page, right after the offer (ZAOPATRZENIE §8).
+  await seedBiznesHomeProcurement(
+    payload,
+    tenant.id,
+    (name) => procurementMedia.get(name),
+    pageReport,
+    note,
+  )
 
   // --- category page content (B10a): the cash registers from the board ---
   await seedBiznesCategoryContent(payload, tenant.id, pageRefs.product, pageReport)
