@@ -949,15 +949,10 @@
       grid-template-columns: minmax(0, 1fr);
     }
   }
+  /* Under the trust band (its own 40 px bottom padding), before the CTA band. */
   & .xc-gwn {
-    margin-top: -80px;
-    margin-bottom: 104px;
-  }
-  @media (max-width: 760px) {
-    & .xc-gwn {
-      margin-top: -64px;
-      margin-bottom: 72px;
-    }
+    margin-top: -24px;
+    margin-bottom: 40px;
   }
 
   /* The prototype has no box-sizing reset: the phone is 340 px plus its padding (ADR-I003 §5

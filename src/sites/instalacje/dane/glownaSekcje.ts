@@ -352,7 +352,8 @@ export const glownaSekcje = {
   },
   process: {
     eyebrow: 'Jak pracujemy',
-    heading: 'Rozmowa, wizja lokalna, projekt, montaż, odbiór, serwis.',
+    // Runda v6 §1.6: no list of steps in the heading (final wording in INST-6).
+    heading: 'Jak wygląda współpraca: od telefonu do serwisu',
     lead: 'Bez niespodzianek w połowie roboty. Cena i zakres są na piśmie przed montażem, a po montażu zostajemy w serwisie.',
     getLabel: 'Co dostajesz',
     steps: [

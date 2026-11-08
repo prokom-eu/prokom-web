@@ -52,8 +52,9 @@
     margin: 0;
     max-width: 62ch;
   }
+  /* Runda v6 §1.4: headings in one colour — the second half (`h1b`, `accent`) is not tinted. */
   & .acc {
-    color: var(--accent-text);
+    color: inherit;
   }
   & .mut {
     color: var(--ink-2);
@@ -554,15 +555,6 @@
   }
 
   /* Service colour (`--h`) on the hero, section heads and feature cards. */
-  & .inst-svc .phero .h1 .acc {
-    background: linear-gradient(
-      90deg,
-      var(--accent-text),
-      color-mix(in srgb, var(--h) 85%, var(--accent-text))
-    );
-    background-clip: text;
-    color: transparent;
-  }
   & .inst-svc .phero .eye {
     color: color-mix(in srgb, var(--h) var(--inst-hue-text-mix), var(--ink));
   }
@@ -610,40 +602,66 @@
       box-shadow 0.3s;
   }
 
-  /* Warranty and service (odbsec). */
-  & .odbg {
+  /* Trust band above the CTA band (runda v6 §1.3): one low row, three facts. */
+  & .trs {
+    padding: 0 0 40px;
+  }
+  & .trsl {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
-  }
-  & .odbc {
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  & .odbc p {
     margin: 0;
-    color: var(--ink-soft);
-    font-size: 14.5px;
-    line-height: 1.55;
+    padding: 18px 22px;
+    list-style: none;
+    border-radius: 22px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
   }
-  & .odbc .ico {
-    background: color-mix(in srgb, var(--h, var(--accent-on-dark)) 16%, transparent);
-    color: color-mix(in srgb, var(--h, var(--accent-on-dark)) 80%, var(--ink));
+  & .trsi,
+  & .trsa {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.4;
   }
-  & .odbn {
-    font: 900 20px var(--font-display);
-  }
-  & .odbl {
-    text-decoration: none;
+  & .trsi b {
     color: var(--ink);
-    transition: transform 0.25s;
-  }
-  & .odba {
-    margin-top: auto;
     font-weight: 800;
+  }
+  & .trsa {
+    text-decoration: none;
+    border-radius: 12px;
+  }
+  & .trsa [data-icon='arrow'] {
     color: var(--accent-text);
+  }
+  & .trsico {
+    display: grid;
+    flex: 0 0 36px;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    & .trsa [data-icon='arrow'] {
+      transition: transform var(--dur-hover) var(--ease-out);
+    }
+    & .trsa:hover [data-icon='arrow'] {
+      transform: translateX(3px);
+    }
+  }
+  @media (max-width: 760px) {
+    & .trsl {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+      padding: 12px 16px;
+    }
   }
 
   /* Packages (pkgs). */
@@ -926,9 +944,6 @@
         inset 0 0 0 1px color-mix(in srgb, var(--h) 50%, transparent),
         0 24px 50px -30px color-mix(in srgb, var(--h) 70%, transparent);
     }
-    & .odbl:hover {
-      transform: translateY(-3px);
-    }
     & .relc:hover {
       transform: translateY(-3px);
       box-shadow: inset 0 0 0 1.5px var(--accent);
@@ -1010,12 +1025,6 @@
     }
     & .usl {
       width: auto;
-    }
-    & .odbg {
-      grid-template-columns: 1fr 1fr !important;
-    }
-    & .odbg .odbl {
-      grid-column: 1 / -1;
     }
     & .relsegc {
       padding: 10px;
@@ -1113,18 +1122,6 @@
     & .rel > .relc {
       flex: 0 0 62%;
       scroll-snap-align: start;
-    }
-    & .odbc {
-      padding: 16px;
-    }
-    & .odbc p {
-      font-size: 13.5px;
-    }
-    & .odbc .h3 {
-      font-size: 17px;
-    }
-    & .odbc .odbn {
-      display: block;
     }
     & .phv .illbar {
       display: none;
