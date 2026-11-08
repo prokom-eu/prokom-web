@@ -467,7 +467,7 @@ export const glownaSekcje = {
     ],
   },
   plan: {
-    eyebrow: 'Zaplanuj instalację · 2 minuty',
+    eyebrow: 'Krótki formularz',
     heading: 'Zaplanuj instalację — oddzwonimy w 1 dzień roboczy',
     lead: 'Zaznacz, czego potrzebujesz, i zostaw numer. Oddzwonimy, umówimy wizję lokalną, a wycenę dostaniesz na piśmie.',
     step1: 'Co planujesz?',

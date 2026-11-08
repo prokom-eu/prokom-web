@@ -17,6 +17,9 @@ describe('COPY_WORDS (runda v6 §2.2)', () => {
       'bez kompromisów',
       'innowacyjne rozwiązania',
       'najwyższa jakość',
+      // A non-breaking space after a one-letter word, as in the texts.
+      'na żywo.',
+      'goście, a nie po',
     ])
       expect(bad).toMatch(COPY_WORDS)
   })

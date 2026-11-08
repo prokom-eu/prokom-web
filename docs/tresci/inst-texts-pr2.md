@@ -4,6 +4,8 @@ Podgląd, nic nie zapisano (zapis: --write).
 
 INST-6 PR2 (strona główna, menu, pas CTA, stopka, 404), podgląd względem lokalnej bazy sprzed PR. `inst-services · scr` i `shared.about.stats` to zmiany z INST-5 (#436), których ta baza jeszcze nie miała — na stagingu mogą już być.
 
+Seed nie nadpisuje hero istniejącego bloku `instHome` ani edytowanego opisu stopki — lokalnie i na stagingu nowe teksty wchodzą przez `pnpm inst:texts <panel> --write` (opis stopki z panelu zostanie zastąpiony tekstem z repo, D4).
+
 4 rekordy, 10 pól do zmiany.
 
 ### inst-services · scr
@@ -17,7 +19,7 @@ INST-6 PR2 (strona główna, menu, pas CTA, stopka, 404), podgląd względem lok
 
 | Pole | Było | Będzie |
 |---|---|---|
-| seo.description | Monitoring, alarmy, zamki, Wi-Fi, smart home Ampio i nagłośnienie na Podhalu. Projekt, montaż i serwis z Rabki-Zdroju… | Monitoring, alarmy, Wi-Fi i smart home Ampio dla domów, pensjonatów i firm na Podhalu. Projekt, montaż i serwis z Rab… |
+| seo.description | Monitoring, alarmy, zamki, Wi-Fi, smart home Ampio i nagłośnienie na Podhalu. Projekt, montaż i serwis z Rabki-Zdroju… | Monitoring, alarmy, Wi-Fi i smart home Ampio dla domów, pensjonatów i firm na Podhalu. Projekt, montaż z 24-miesięczn… |
 | layout[0].hero.kicker | Monitoring, alarmy, Wi-Fi i smart home na Podhalu | Projekt, montaż i serwis w jednej firmie |
 | layout[0].hero.h1a | Twój inteligentny obiekt | Monitoring, alarmy, Wi-Fi i smart home |
 | layout[0].hero.h1b | na żywo. | na Podhalu |

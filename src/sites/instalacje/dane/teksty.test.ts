@@ -92,6 +92,7 @@ describe('texts after INST-6 (runda v6 §2.2)', () => {
       glownaSekcje.process.eyebrow,
       glownaSekcje.service.eyebrow,
       glownaSekcje.faq.eyebrow,
+      glownaSekcje.plan.eyebrow,
       architekci.teaser.eyebrow,
       navigation.ctaBand.eyebrow,
     ])
