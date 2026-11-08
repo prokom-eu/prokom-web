@@ -12,7 +12,6 @@ import { LiveHours } from './LiveHours'
 type Props = {
   block: FaqBlockData
   tenantId: number
-  /** Questions shown below 768 px (board App-Branza: three); all stay in the FAQPage data. */
 }
 
 /** The field is optional in the shared block: never an empty `h2` the section points to. */

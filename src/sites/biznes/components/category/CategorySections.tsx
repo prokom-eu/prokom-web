@@ -11,7 +11,7 @@ import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { SectionHead } from '../home/SectionHead'
 import { ProductStage } from '../ProductStage'
-import { CAROUSEL, CAROUSEL_ITEM } from '../brand/salon/carousel'
+import { PHONE_ROW_ITEM, PhoneRow } from '../mobile/PhoneRow'
 
 /** „W cenie” (board: „Kupujesz kasę, dostajesz spokój.”): cards with an icon, title and text. */
 export function IncludedCards({ included }: { included: CategoryView['included'] }) {
@@ -129,9 +129,9 @@ export function BoughtWith({ heading, tiles }: { heading: string; tiles: BoughtW
           {heading}
         </h2>
         {/* Phone (D12): a row that scrolls sideways, the next card peeks out. */}
-        <ul className={cx('mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4', CAROUSEL)}>
+        <PhoneRow className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {tiles.map((tile) => (
-            <li key={tile.slug} className={CAROUSEL_ITEM}>
+            <li key={tile.slug} className={PHONE_ROW_ITEM}>
               <Link
                 href={categoryHref(tile.slug)}
                 className="flex items-center gap-4 rounded-[20px] bg-card p-3 shadow-[inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_1px_var(--ink-3)]"
@@ -159,7 +159,7 @@ export function BoughtWith({ heading, tiles }: { heading: string; tiles: BoughtW
               </Link>
             </li>
           ))}
-        </ul>
+        </PhoneRow>
       </Container>
     </section>
   )
