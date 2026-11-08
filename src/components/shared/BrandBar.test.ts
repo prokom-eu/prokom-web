@@ -57,6 +57,17 @@ describe('BrandBar (spec §5)', () => {
     expect(html).toContain('Biznes: <b')
   })
 
+  it('the status, slot and phone sit in a named region landmark (audit 08.11 §2 pkt 7)', () => {
+    const html = render()
+    const region =
+      /<section aria-label="Godziny otwarcia i kontakt"[^>]*>([\s\S]*?)<\/section>/.exec(
+        html,
+      )?.[1] ?? ''
+    expect(region).toContain('Otwarte · do 17:00')
+    expect(region).toContain('href="/konfigurator"')
+    expect(region).toContain('href="tel:+48889003889"')
+  })
+
   it('a line without an address is a label, not a link without href', () => {
     const html = render({ lines: [{ ...line('biznes', 'Biznes', 1), url: null }] })
     const nav = /<nav aria-label="Linie PRO-KOM"[^>]*>([\s\S]*?)<\/nav>/.exec(html)?.[1] ?? ''
