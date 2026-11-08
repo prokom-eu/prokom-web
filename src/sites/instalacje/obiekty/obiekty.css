@@ -617,49 +617,6 @@
     text-decoration: underline;
     margin-top: auto;
   }
-  & .sgrg {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-  }
-  & .sgrc {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 16px 16px 22px;
-    transition: transform 0.2s;
-  }
-  @media (hover: hover) {
-    & .sgrc:hover {
-      transform: translateY(-3px);
-    }
-  }
-  & .sgrc p {
-    margin: 0;
-    color: var(--ink-2);
-    font-size: 14.5px;
-  }
-  & .sgrph {
-    display: grid;
-    place-items: center;
-    gap: 6px;
-    aspect-ratio: 16/9;
-    border-radius: 16px;
-    margin-bottom: 8px;
-    background: repeating-linear-gradient(
-      45deg,
-      var(--surface-2),
-      var(--surface-2) 10px,
-      var(--surface-3) 10px,
-      var(--surface-3) 20px
-    );
-    color: var(--ink-2);
-  }
-  & .sgrph em {
-    font-style: normal;
-    font-size: 12px;
-    font-weight: 700;
-  }
   & .sgck {
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -751,8 +708,7 @@
     color: var(--inst-il-sgscr-fill);
   }
   @media (max-width: 1100px) {
-    & .sgpg,
-    & .sgrg {
+    & .sgpg {
       grid-template-columns: 1fr 1fr;
     }
     & .sggg {
@@ -765,7 +721,6 @@
   }
   @media (max-width: 700px) {
     & .sgpg,
-    & .sgrg,
     & .sggg {
       grid-template-columns: 1fr;
     }
