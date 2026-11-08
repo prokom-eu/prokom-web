@@ -37,7 +37,10 @@ const CATEGORY_GROUP: Record<SolutionCategory, OfferGroup> = {
   opieka: 'przebudowa',
 }
 
-/** Pages by data that the board files under „Przebudowa i opieka”. */
+/**
+ * Pages by data that the board files under „Przebudowa i opieka”. By slug: the data has no rebuild
+ * tag (ZMIANY-v24 §6.2), and a slug is the page address, so it changes with a redirect anyway.
+ */
 const REBUILD_SLUGS: ReadonlySet<string> = new Set(['przebudowa-starej-strony'])
 
 export function offerGroup(solution: { slug: string; category: SolutionCategory }): OfferGroup {
@@ -48,7 +51,9 @@ export function offerGroup(solution: { slug: string; category: SolutionCategory 
 function parseGroup(word: string | null): OfferGroup | null {
   if (!word) return null
   const group = OFFER_GROUPS.find(({ value }) => value === word)?.value
-  return group ?? CATEGORY_GROUP[word as SolutionCategory] ?? null
+  if (group) return group
+  // Own keys only: `constructor`, `__proto__` from the URL are not categories.
+  return Object.hasOwn(CATEGORY_GROUP, word) ? CATEGORY_GROUP[word as SolutionCategory] : null
 }
 
 type Situation = (typeof SITUATIONS)[number]['value']

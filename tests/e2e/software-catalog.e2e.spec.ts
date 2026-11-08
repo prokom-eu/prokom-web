@@ -150,7 +150,7 @@ test.describe('Software catalog', () => {
     await page.goto(site(HOST, PATH))
     const firmSite = card(page, 'Strona firmowa z panelem')
     await expect(firmSite).toContainText(/od\s2\s490\s*zł netto/)
-    await expect(firmSite).toContainText('termin od 2 tygodni')
+    await expect(firmSite).toHaveAccessibleName(/· od 2 tygodni$/)
     await expect(firmSite.locator('[data-mockup="site"]')).toHaveCount(1)
     await expect(card(page, 'Opieka nad stroną i systemem')).toContainText('od 149 zł / mies.')
   })
@@ -192,7 +192,7 @@ test.describe('Software offer window (spec. §5.1)', () => {
     await expect(dialog).toContainText('1 / 29')
     // Three tiles (ZMIANY-v24 §6.1): price, term, care.
     await expect(dialog.locator('dl > div')).toHaveText([
-      /^Cena od\s*od\s2\s490\s*zł netto$/,
+      /^Cena\s*od\s2\s490\s*zł netto$/,
       /^Termin\s*od 2 tygodni$/,
       /^Opieka od\s*od 149 zł \/ mies\.$/,
     ])
@@ -299,6 +299,19 @@ test.describe('Software offer window (spec. §5.1)', () => {
     await dialog.evaluate((element) => element.scrollTo(0, element.scrollHeight))
     await expect(dialog.getByRole('button', { name: 'Zamknij' })).toBeInViewport()
     await expect(dialog.getByRole('button', { name: 'Następne rozwiązanie' })).toBeInViewport()
+  })
+
+  test('„Zapytaj o tę ofertę →” puts the solution into the project and opens the form', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST, `${PATH}?rozwiazanie=landing-page`))
+    const dialog = windowOf(page, 'Landing page')
+    const ask = dialog.getByRole('link', { name: /^Zapytaj o tę ofertę/ })
+    await hydrated(ask)
+    await expect(ask).toHaveAttribute('href', '/kontakt?projekt=1#formularz')
+    await ask.click()
+    await expect(page).toHaveURL(/\/kontakt\?projekt=1#formularz$/)
+    await expect(page.getByRole('button', { name: /^Twój projekt/ })).toContainText('1')
   })
 
   test('„Często łączone z” switches the window to that solution', async ({ page }) => {

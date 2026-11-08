@@ -48,6 +48,12 @@ describe('parseCatalogState', () => {
     expect(parseCatalogState({ kategoria: 'opieka' }).category).toBe('przebudowa')
   })
 
+  it('does not take keys of a plain object for a category (przegląd SWA4a)', () => {
+    for (const word of ['constructor', '__proto__', 'toString', 'hasOwnProperty']) {
+      expect(parseCatalogState({ kategoria: word }).category).toBeNull()
+    }
+  })
+
   it('drops unknown values instead of showing an empty catalog', () => {
     expect(
       parseCatalogState({

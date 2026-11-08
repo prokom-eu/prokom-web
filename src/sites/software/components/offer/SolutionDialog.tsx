@@ -239,6 +239,21 @@ export function SolutionDialog({
       >
         Dobierz w kreatorze
       </Link>
+      {!added && (
+        // „Zapytaj o tę ofertę →” (ZMIANY-v24 §6.1): the solution goes into „Twój projekt”, so the
+        // contact form opens with it (the form reads only `?projekt=1`).
+        <Link
+          href={PROJECT_SEND_HREF}
+          onClick={() => {
+            if (projectActions.toggle(view.slug, projectName)) {
+              track('oferta_dodaj', { slug: view.slug })
+            }
+          }}
+          className="inline-flex min-h-12 items-center gap-2 rounded-full border border-border bg-card px-5 font-bold"
+        >
+          Zapytaj o tę ofertę <span aria-hidden="true">→</span>
+        </Link>
+      )}
       {added ? (
         <Link
           ref={send}
@@ -279,7 +294,8 @@ export function SolutionDialog({
   const termValue = level ? level.term : view.term
   const facts = (
     <dl className="mt-5 grid grid-cols-2 gap-2.5 min-[641px]:grid-cols-3">
-      {priceValue && <Fact label={level ? 'Cena' : 'Cena od'} value={priceValue} />}
+      {/* „Cena”: the value already says „od” (or „Zapytaj o wycenę”). */}
+      {priceValue && <Fact label="Cena" value={priceValue} />}
       {/* A level without its time in the panel: no empty tile (decyzja SWD2 3). */}
       {termValue && <Fact label={view.termLabel} value={termValue} />}
       {view.careFrom && <Fact label="Opieka od" value={view.careFrom} />}
