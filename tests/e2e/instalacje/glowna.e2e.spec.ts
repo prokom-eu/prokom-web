@@ -122,18 +122,63 @@ test.describe('Instalacje home hero', () => {
     await page.waitForTimeout(2600)
     expect(await page.locator('.hxdst').innerText()).toBe(status)
   })
+
+  // P2-11 (WCAG 2.2.2): a visible pause stops the autoplay and its progress bar.
+  test('the pause button stops the autoplay and the progress bar', async ({ page }) => {
+    await page.goto(site(HOST))
+    await page.waitForLoadState('networkidle')
+    const pause = page.getByRole('button', { name: 'Wstrzymaj pokaz' })
+    await expect(pause).toHaveAttribute('aria-pressed', 'false')
+    await pause.click()
+    await expect(pause).toHaveAttribute('aria-pressed', 'true')
+    // Away from the hero: hover would pause it anyway — only the button keeps it stopped.
+    await page.mouse.move(0, 0)
+    await page.locator('h1').evaluate((h1) => (h1 as HTMLElement).blur())
+    const read = () =>
+      page.evaluate(() => ({
+        status: document.querySelector('.hxdst')?.textContent ?? '',
+        tab: document.querySelector('.hotab.on')?.textContent ?? '',
+        bar: getComputedStyle(document.querySelector('.hoprog')!).transform,
+      }))
+    const before = await read()
+    await page.waitForTimeout(3000)
+    expect(await read()).toEqual(before)
+    await pause.click()
+    await expect(pause).toHaveAttribute('aria-pressed', 'false')
+  })
+
+  // P2-11: where there is no room for the camera preview, a camera point opens it; Esc closes it.
+  test('Esc closes the camera preview opened from a camera point', async ({ page }) => {
+    await page.setViewportSize({ width: 1366, height: 768 })
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(site(HOST))
+    await page.waitForLoadState('networkidle')
+    const point = page.locator('#hx-scena [role="button"]').first()
+    await point.focus()
+    await page.keyboard.press('Enter')
+    await expect(page.locator('.pip')).toBeVisible()
+    await page.keyboard.press('Escape')
+    await expect(page.locator('.pip')).toBeHidden()
+    await expect(point).toBeFocused()
+  })
 })
 
 test.describe('Instalacje home hero on a phone', () => {
   for (const width of [360, 390, 414]) {
-    test(`no horizontal scroll at ${width} px, the scene above the text`, async ({ page }) => {
+    // P2-12 (audit 06.11): the first screen is the H1, the lead and the buttons; the scene comes
+    // under them and the whole hero stays well under two screens (was ~2.5).
+    test(`no horizontal scroll at ${width} px, H1, lead and buttons first`, async ({ page }) => {
       await page.setViewportSize({ width, height: 844 })
       await open(page)
       const scroll = await page.evaluate(() => document.documentElement.scrollWidth)
       expect(scroll).toBe(width)
       const scene = await page.locator('.hxbld').boundingBox()
       const heading = await page.locator('h1').boundingBox()
-      expect(scene && heading && scene.y < heading.y).toBe(true)
+      expect(scene && heading && heading.y < scene.y).toBe(true)
+      const lastButton = await page.locator('.hxt .btn').last().boundingBox()
+      expect((lastButton?.y ?? 9999) + (lastButton?.height ?? 0)).toBeLessThanOrEqual(844)
+      const hero = await page.locator('#start').boundingBox()
+      expect(hero?.height ?? 9999).toBeLessThanOrEqual(844 * 1.8)
     })
   }
 
