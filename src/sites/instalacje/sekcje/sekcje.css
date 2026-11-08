@@ -348,6 +348,13 @@
     opacity: 0;
     animation: inst-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
   }
+  /* The hero's headline and lead are the largest paint (LCP). An element at opacity 0 does not
+     count, so a fade made LCP wait for the animation and the scripts before it (INST-3: 2.8 s on
+     staging). They are visible at the first paint and only rise. */
+  & :is(.h1, .disp, .lead).in {
+    opacity: 1;
+    animation-name: inst-rise;
+  }
   & .d1 {
     animation-delay: 0.05s;
   }
@@ -1123,6 +1130,14 @@
   }
   to {
     opacity: 1;
+    transform: none;
+  }
+}
+@keyframes inst-rise {
+  from {
+    transform: translateY(16px);
+  }
+  to {
     transform: none;
   }
 }

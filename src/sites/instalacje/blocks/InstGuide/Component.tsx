@@ -70,7 +70,7 @@ export async function InstGuideBlock({ block, tenantId }: Props) {
         <JsonLd
           data={[
             breadcrumbJsonLd([
-              { name: 'Start', url: `${origin}/` },
+              { name: 'Strona główna', url: `${origin}/` },
               { name: crumb, url: `${origin}/poradnik` },
             ]),
             itemListJsonLd({

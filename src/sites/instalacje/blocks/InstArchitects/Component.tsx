@@ -119,7 +119,7 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
           )}
           <JsonLd
             data={breadcrumbJsonLd([
-              { name: 'Start', url: `${origin}/` },
+              { name: 'Strona główna', url: `${origin}/` },
               { name: crumb, url: `${origin}${PATH}` },
             ])}
           />
@@ -132,7 +132,7 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
         <div className="hglow2" />
         <div className="wrap">
           <nav className="crumb in d1" aria-label="Okruszki">
-            <Link href="/">Start</Link>
+            <Link href="/">Strona główna</Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{crumb}</span>
           </nav>

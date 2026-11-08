@@ -55,7 +55,7 @@ export function PageHero({ hero, name, anchors, phone, widget, parent = SERVICES
         </svg>
         <div className="wrap">
           <nav className="crumb in d1" aria-label="Okruszki">
-            <Link href="/">Start</Link>
+            <Link href="/">Strona główna</Link>
             <span aria-hidden="true">/</span>
             {parent && (
               <>
