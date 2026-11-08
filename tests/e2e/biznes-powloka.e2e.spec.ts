@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { hydrated, site } from './helpers'
+import { openInquiryDrawer, site } from './helpers'
 
 // D3-B PR 1a (docs/zadania/prokombiznes-0611.md §8.1 pkt 1, 2, 4, 6, 7, 8): prokombiznes.pl on the
 // shared shell — brand bar, header capsule with „Oferta ▾”, side rail from 1400 px, shared
@@ -70,14 +70,11 @@ test.describe('Biznes shell — computer', () => {
 
   test('„Zapytanie” in the capsule opens the inquiry drawer', async ({ page }) => {
     await page.goto(biznes('/oferta'))
-    // Before hydration the action is a plain link to /zapytanie.
-    await hydrated(capsule(page).locator('.cap-cta'))
-    await expect(async () => {
-      await capsule(page).locator('.cap-cta').click()
-      await expect(page.getByRole('dialog', { name: /^Twoje zapytanie/ })).toBeVisible({
-        timeout: 1000,
-      })
-    }).toPass()
+    await openInquiryDrawer(
+      page,
+      capsule(page).locator('.cap-cta'),
+      page.getByRole('dialog', { name: /^Twoje zapytanie/ }),
+    )
     await expect(page).toHaveURL(/\/oferta$/)
   })
 

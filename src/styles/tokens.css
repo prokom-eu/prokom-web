@@ -1121,6 +1121,13 @@
   --line-dark: var(--c-grafit);
   --line-dark-text: var(--c-papier);
   --cap-bg: color-mix(in srgb, var(--surface) 78%, transparent);
+  /* Search window (AUDYT-0811 #4): a dim, blurred page and a window that stands out from it. */
+  --sdlg-backdrop: color-mix(in srgb, var(--surface-dark) 72%, transparent);
+  --sdlg-bg: var(--card);
+  --sdlg-ring: color-mix(in srgb, var(--accent-text) 35%, var(--border));
+  --sdlg-glow: var(--cap-shadow);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: color-mix(in srgb, var(--surface) 92%, transparent);
   --cap-border: color-mix(in srgb, var(--ink) 9%, transparent);
   --cap-highlight: color-mix(in srgb, var(--c-white) 90%, transparent);
   --cap-shadow: color-mix(in srgb, var(--ink) 28%, transparent);
@@ -1374,6 +1381,8 @@
   --line-dark-ink: var(--c-white);
   /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
   --cap-bg: rgba(255, 255, 255, 0.78);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: rgba(255, 255, 255, 0.92);
   --cap-border: rgba(13, 19, 38, 0.09);
   --cap-highlight: rgba(255, 255, 255, 0.9);
   --cap-shadow: rgba(13, 19, 38, 0.28);
@@ -1460,6 +1469,8 @@
   --line-dark-text: #a9afa9;
   /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
   --cap-bg: rgba(255, 255, 255, 0.74);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: rgba(255, 255, 255, 0.92);
   --cap-border: rgba(18, 22, 19, 0.09);
   --cap-highlight: rgba(255, 255, 255, 0.9);
   --cap-shadow: rgba(18, 22, 19, 0.26);
@@ -1477,6 +1488,9 @@
      highlighted heading word (`em`), the light sweep of buttons and the arrival beam. Light only
      from the Software violet family or neutral (themes.test.ts). */
   --glass: rgba(255, 255, 255, 0.72);
+  --sdlg-backdrop: rgba(22, 26, 23, 0.55);
+  --sdlg-bg: rgba(255, 255, 255, 0.97);
+  --sdlg-glow: var(--glow);
   --glass-card: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.7));
   --em-from: #5b33c4;
   --em-mid: #7b52e0;
@@ -1485,6 +1499,9 @@
   /* H1 of a subpage (aurora.css `.au.light .au-ph h1 em`). */
   --em-hero-from: #9670ee;
   --em-hero-to: #5b33c4;
+  /* The highlighted H1 part on the dark band of O firmie / Kontakt (both themes, AUDYT-0811 #11). */
+  --em-band-from: #d9ccff;
+  --em-band-to: #9670ee;
   --sheen: rgba(255, 255, 255, 0.35);
   --sheen-ghost: rgba(150, 112, 238, 0.25);
   --beam: #9670ee;
@@ -1555,6 +1572,8 @@
   --h1-accent: var(--c-biznes-night-accent-2);
   /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
   --cap-bg: rgba(17, 28, 60, 0.66);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: rgba(17, 28, 60, 0.9);
   --cap-border: rgba(255, 255, 255, 0.09);
   --cap-highlight: rgba(255, 255, 255, 0.06);
   --cap-shadow: rgba(0, 0, 0, 0.6);
@@ -1619,6 +1638,8 @@
   --shadow: var(--c-software-night-shadow);
   /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
   --cap-bg: rgba(24, 27, 25, 0.72);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: rgba(16, 18, 17, 0.9);
   --cap-border: rgba(255, 255, 255, 0.08);
   --cap-highlight: rgba(255, 255, 255, 0.05);
   --cap-shadow: rgba(0, 0, 0, 0.65);
@@ -1637,6 +1658,9 @@
   --status-open-bg: var(--status-bg-on-dark);
   /* v24 Aurora: glass and the `em` gradient of the dark theme. */
   --glass: rgba(20, 22, 21, 0.66);
+  --sdlg-backdrop: rgba(5, 6, 8, 0.72);
+  --sdlg-bg: rgba(30, 33, 32, 0.94);
+  --sdlg-glow: var(--glow);
   --glass-card: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
   --em-from: #8f9690;
   --em-mid: #a79bd6;

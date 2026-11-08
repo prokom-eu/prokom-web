@@ -284,6 +284,13 @@ export const ICON_FIXES: Readonly<Record<string, string>> = {
 const iconFor = (title: string | undefined, value: string | undefined) =>
   (title && ICON_FIXES[title]) || icon(value)
 
+/** Runda v6 D3: package lines that claimed what the boss has not confirmed (our salon). */
+const TILE_FIXES: Readonly<Record<string, string>> = {
+  'Wdrażamy to w naszym salonie w Rabce-Zdroju':
+    'Cenę zmieniasz w jednym miejscu, ekrany odświeżają się same',
+}
+const withoutSalonClaim = (text: string) => text.replace(' Wdrażamy to w naszym salonie.', '')
+
 /** Runda v6 §1.5: a service or object icon that clashed with another meaning. */
 const MENU_ICONS: Readonly<Record<string, string>> = {
   smart: 'smart', // the object „Dom” keeps `home`
@@ -465,14 +472,14 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
     tile: {
       description: tile.d,
       parts: tile.parts,
-      highlights: tile.hl,
+      highlights: tile.hl.map((h) => TILE_FIXES[h] ?? h),
       items: tile.pl,
       priceFrom: price(tile.pr),
       wide: tile.big,
     },
     offer: {
       family: valueOf(OFFER_FAMILIES, area.rodzina, 'offer family'),
-      description: area.opis,
+      description: withoutSalonClaim(area.opis),
       brands: area.marki,
     },
     hero: hero(d.hero),

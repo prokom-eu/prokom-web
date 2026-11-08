@@ -30,6 +30,23 @@ export async function clickUntilVisible(trigger: Locator, shown: Locator): Promi
   }).toPass()
 }
 
+/**
+ * Opens the inquiry drawer from a „Zapytanie” link of the shared shell. Before hydration the
+ * link goes to /zapytanie, and it hydrates before `DrawerLinks` listens: such a click left the
+ * page, where no drawer opens and every next click did nothing (flaky 08.11) — so the test goes
+ * back and clicks again.
+ */
+export async function openInquiryDrawer(page: Page, link: Locator, drawer: Locator): Promise<void> {
+  const start = page.url()
+  await hydrated(link)
+  await expect(async () => {
+    if (page.url() !== start) await page.goto(start)
+    // Not again once open: a second click closed a drawer that opened slowly.
+    if (!(await drawer.isVisible())) await link.click({ timeout: 2000 })
+    await expect(drawer).toBeVisible({ timeout: 1000 })
+  }).toPass()
+}
+
 /** Presses `key` until `shown` is visible (a key press before hydration is lost). */
 export async function pressUntilVisible(page: Page, key: string, shown: Locator): Promise<void> {
   await expect(async () => {

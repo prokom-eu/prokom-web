@@ -207,16 +207,9 @@ export const teletechnika = {
       'Listę sprzętu z numerami seryjnymi tam, gdzie to ma znaczenie',
     ],
   },
-  standards: {
-    title: 'W jakich standardach pracujemy',
-    items: [
-      // TODO(krystian): check the exact wording of the standards at editing (RUNDA-V5 §10.3).
-      'Okablowanie strukturalne projektujemy i wykonujemy według norm z rodziny PN-EN 50173 (projektowanie) i PN-EN 50174 (instalacja).',
-      'Każdy tor mierzymy miernikiem, a wyniki trafiają do raportu.',
-      // TODO(krystian): confirm the fibre type in the flats with the boss (RUNDA-V5 §10.3).
-      'W lokalach stosujemy światłowód jednomodowy z włóknem odpornym na zginanie.',
-    ],
-  },
+  // Runda v6 §1.8 (audit 08.11): „W jakich standardach pracujemy” is gone — its commitments (norm
+  // wording, the fibre type, the measurement report) were not confirmed by the boss.
+  // TODO(krystian): bring it back with the boss's confirmed wording, if he wants it.
 
   /** „Błędy, które zatrzymują odbiór” (`#bledy`): four cards, each with how we avoid it. */
   mistakes: {

@@ -5,7 +5,6 @@ import { useSearchParams } from 'next/navigation'
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Icon } from '@/components/ui/Icon'
-import { useRevealCards } from '@/components/motion/RevealObserver'
 import { plural } from '@/lib/plural'
 import {
   catalogHref,
@@ -59,7 +58,6 @@ type Props = {
  */
 export function Catalog({ index, offers, hero }: Props) {
   const searchParams = useSearchParams()
-  const revealCards = useRevealCards()
   const state = useMemo(() => parseCatalogState(searchParams), [searchParams])
   const search = useMemo(() => prepareSolutionSearch(index), [index])
 
@@ -264,7 +262,7 @@ export function Catalog({ index, offers, hero }: Props) {
             </div>
           </Glass>
         ) : (
-          <ul {...revealCards} className="v-cards">
+          <ul className="v-cards" data-rise-group>
             {results.map((solution) => (
               <li key={solution.slug}>
                 <PriceCard

@@ -6,6 +6,7 @@ import type { SoftwareHome } from '@/lib/software/home'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
 import { useAutoTabs } from '../home/useAutoTabs'
+import { SlidingMark } from '../ui/SlidingMark'
 
 type Tech = NonNullable<SoftwareHome['tech']>
 type Visual = Tech['tabs'][number]['visual']
@@ -100,7 +101,7 @@ export function TechSection({ tech }: { tech: Tech }) {
           <SectionHead eyebrow={tech.eyebrow} title={tech.title} em={tech.em} />
           {tech.lead && <p className="v-lead v-lead-wide">{tech.lead}</p>}
         </div>
-        <div className="sw-glass v-tech" {...tabs.region}>
+        <div className="sw-glass v-tech" data-rise {...tabs.region}>
           <div className="v-tabs" role="tablist" aria-label={tech.eyebrow}>
             {tech.tabs.map((item, index) => {
               const on = index === tabs.active
@@ -122,6 +123,7 @@ export function TechSection({ tech }: { tech: Tech }) {
                 </button>
               )
             })}
+            <SlidingMark selector="[aria-selected='true']" />
           </div>
           <div
             key={tabs.active}
@@ -142,7 +144,7 @@ export function TechSection({ tech }: { tech: Tech }) {
                   <span>{tab.stat.t}</span>
                 </div>
               )}
-              <div className="v-vs">
+              <div className="v-vs" data-rise-group>
                 <div>
                   <span>{tab.them[0]}</span>
                   {tab.them[1]}

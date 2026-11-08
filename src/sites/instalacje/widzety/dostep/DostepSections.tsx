@@ -49,7 +49,13 @@ export function DostepSections() {
               </div>
             ))}
           </div>
-          <div className="tblw ri" style={{ marginTop: 22 }}>
+          <div
+            className="tblw ri"
+            style={{ marginTop: 22 }}
+            role="region"
+            tabIndex={0}
+            aria-label={apartments.head.heading}
+          >
             <table className="tbl">
               <thead>
                 <tr>

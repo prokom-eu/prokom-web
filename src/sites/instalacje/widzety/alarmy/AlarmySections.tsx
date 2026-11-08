@@ -44,7 +44,8 @@ export function AlarmySections() {
       <InstSection id="przewod" fold style={SECTION}>
         <div className="wrap">
           <SectionHead {...compare.head} />
-          <div className="tblw ri">
+          {/* Scrolls sideways on a phone: a named region that takes focus (runda v6 §1.8). */}
+          <div className="tblw ri" role="region" tabIndex={0} aria-label={compare.head.heading}>
             <table className="tbl">
               <thead>
                 <tr>

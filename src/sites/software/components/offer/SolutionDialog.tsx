@@ -27,11 +27,11 @@ import {
 import { OfferGallery } from './OfferGallery'
 
 /**
- * Phone ≤ 640 px: a sheet from the bottom; above: a glass modal in the middle (ZMIANY-v24 §6.1:
- * radius 28, the page dimmed and blurred behind).
+ * Phone ≤ 640 px: a sheet from the bottom; above: a wide glass modal in the middle (ZMIANY-v24
+ * §6.1, AUDYT-0811 #5: up to 1320 × 880, radius 28, the page dimmed and blurred behind).
  */
 const PANEL =
-  'sw-offer-panel inset-0 m-auto h-[calc(100dvh-80px)] max-h-[980px] w-[min(1180px,calc(100vw-48px))] max-w-none rounded-[28px] min-[641px]:[&_[data-sheet-handle]]:hidden max-[640px]:inset-x-0 max-[640px]:bottom-0 max-[640px]:top-auto max-[640px]:h-auto max-[640px]:max-h-[94dvh] max-[640px]:w-full max-[640px]:rounded-b-none'
+  'sw-offer-panel inset-0 m-auto h-[min(880px,calc(100dvh-48px))] max-h-none w-[min(1320px,calc(100vw-64px))] max-w-none rounded-[28px] min-[641px]:[&_[data-sheet-handle]]:hidden max-[640px]:inset-x-0 max-[640px]:bottom-0 max-[640px]:top-auto max-[640px]:h-auto max-[640px]:max-h-[94dvh] max-[640px]:w-full max-[640px]:rounded-b-none'
 const BACKDROP = 'backdrop:bg-surface-dark/70 backdrop:backdrop-blur-md'
 const CONTENT = 'px-4 pb-6 pt-2.5 min-[641px]:px-7 min-[641px]:pt-0'
 
@@ -185,7 +185,7 @@ export function SolutionDialog({
   }
 
   const header = (
-    <div className="-mx-4 flex items-center gap-3 border-b border-border bg-surface px-4 py-3 min-[641px]:-mx-7 min-[641px]:px-7">
+    <div className="sw-offer-head -mx-4 flex items-center gap-3 border-b border-border px-4 py-3 min-[641px]:-mx-7 min-[641px]:px-7">
       {list.length > 1 && (
         <div className="flex items-center rounded-full border border-border bg-surface-2 p-1">
           <button
@@ -352,7 +352,12 @@ export function SolutionDialog({
       closeOnBack={closeOnBack}
     >
       <div ref={top} className="scroll-mt-24" />
-      <div className="mt-5 grid gap-6 min-[981px]:grid-cols-[minmax(0,1fr)_440px]">
+      {/* 7/5 (AUDYT-0811 #5): the details on the left, the mock-up with the price kept in view on
+          the right. `key`: the next offer (←/→) fades in and its mock-up slides up. */}
+      <div
+        key={view.slug}
+        className="sw-offer-swap mt-5 grid items-start gap-6 min-[981px]:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] min-[981px]:gap-8"
+      >
         <div className="min-w-0">
           <div className="flex flex-wrap gap-2">
             {view.label && <OfferBadge>{view.label}</OfferBadge>}
@@ -384,9 +389,75 @@ export function SolutionDialog({
               </p>
             )}
           </div>
+          <div className="mt-6 grid items-start gap-4 min-[1200px]:grid-cols-[repeat(2,minmax(0,1fr))]">
+            <div className="min-w-0 space-y-4">
+              {levels && levels.rows.length > 0 && (
+                <CompareTable
+                  title={levels.monthly ? 'Porównanie poziomów' : 'Porównanie audytów'}
+                  first={levels.monthly ? 'Cena za miesiąc' : 'Zakres'}
+                  levels={levels.levels}
+                  rows={levels.rows}
+                  selected={selected}
+                  onPick={choose}
+                />
+              )}
+              {view.benefits.items.length > 0 && (
+                <OfferSection title={view.benefits.title || 'Co dostajesz'}>
+                  <CheckList items={view.benefits.items} />
+                </OfferSection>
+              )}
+            </div>
+            <div className="min-w-0 space-y-4">
+              {view.example && (
+                <OfferSection
+                  title="Przykład z życia"
+                  aside={<span className="sw-chip min-h-0 py-0.5 text-xs">Przykład</span>}
+                >
+                  <p className="border-l-4 border-accent-line pl-4 text-ink-2">{view.example}</p>
+                </OfferSection>
+              )}
+              {who}
+            </div>
+          </div>
+
+          {steps.length > 0 && (
+            <OfferSection title="Jak to wygląda" className="mt-4">
+              <Steps steps={steps} />
+            </OfferSection>
+          )}
+
+          {(view.needs.length > 0 || view.faq.length > 0) && (
+            <div className="mt-4 grid items-start gap-4 min-[1200px]:grid-cols-[repeat(2,minmax(0,1fr))]">
+              {view.needs.length > 0 && (
+                <OfferSection title="Co od Ciebie">
+                  <ul className="flex flex-wrap gap-2">
+                    {view.needs.map((item) => (
+                      <li key={item} className="sw-chip text-ink">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  {view.needsHint && <p className="mt-3 text-sm text-ink-2">{view.needsHint}</p>}
+                </OfferSection>
+              )}
+              {view.faq.length > 0 && (
+                <OfferSection title="Pytania, które słyszymy">
+                  {/* `key`: a new solution starts with its first answer open. */}
+                  <Questions key={view.slug} faq={view.faq} />
+                </OfferSection>
+              )}
+            </div>
+          )}
+
+          {view.related.length > 0 && (
+            <OfferSection title="Często łączone z" className="mt-4">
+              <RelatedCards cards={view.related} onPick={onSwitch} />
+            </OfferSection>
+          )}
         </div>
 
-        <div className="min-w-0 space-y-4">
+        {/* The mock-up, the price and the guarantees stay in view while the details scroll. */}
+        <aside className="min-w-0 space-y-4 min-[981px]:sticky min-[981px]:top-[88px]">
           <OfferGallery
             key={view.slug}
             preview={view.preview}
@@ -412,75 +483,13 @@ export function SolutionDialog({
               Zobacz podgląd na żywo
             </Link>
           )}
+          <p className="sw-offer-price">
+            <span>{bar.label}</span>
+            <b>{bar.price}</b>
+          </p>
           {guarantees}
-        </div>
+        </aside>
       </div>
-
-      <div className="mt-6 grid items-start gap-4 min-[981px]:grid-cols-[repeat(2,minmax(0,1fr))]">
-        <div className="min-w-0 space-y-4">
-          {levels && levels.rows.length > 0 && (
-            <CompareTable
-              title={levels.monthly ? 'Porównanie poziomów' : 'Porównanie audytów'}
-              first={levels.monthly ? 'Cena za miesiąc' : 'Zakres'}
-              levels={levels.levels}
-              rows={levels.rows}
-              selected={selected}
-              onPick={choose}
-            />
-          )}
-          {view.benefits.items.length > 0 && (
-            <OfferSection title={view.benefits.title || 'Co dostajesz'}>
-              <CheckList items={view.benefits.items} />
-            </OfferSection>
-          )}
-        </div>
-        <div className="min-w-0 space-y-4">
-          {view.example && (
-            <OfferSection
-              title="Przykład z życia"
-              aside={<span className="sw-chip min-h-0 py-0.5 text-xs">Przykład</span>}
-            >
-              <p className="border-l-4 border-accent-line pl-4 text-ink-2">{view.example}</p>
-            </OfferSection>
-          )}
-          {who}
-        </div>
-      </div>
-
-      {steps.length > 0 && (
-        <OfferSection title="Jak to wygląda" className="mt-4">
-          <Steps steps={steps} />
-        </OfferSection>
-      )}
-
-      {(view.needs.length > 0 || view.faq.length > 0) && (
-        <div className="mt-4 grid items-start gap-4 min-[981px]:grid-cols-[repeat(2,minmax(0,1fr))]">
-          {view.needs.length > 0 && (
-            <OfferSection title="Co od Ciebie">
-              <ul className="flex flex-wrap gap-2">
-                {view.needs.map((item) => (
-                  <li key={item} className="sw-chip text-ink">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              {view.needsHint && <p className="mt-3 text-sm text-ink-2">{view.needsHint}</p>}
-            </OfferSection>
-          )}
-          {view.faq.length > 0 && (
-            <OfferSection title="Pytania, które słyszymy">
-              {/* `key`: a new solution starts with its first answer open. */}
-              <Questions key={view.slug} faq={view.faq} />
-            </OfferSection>
-          )}
-        </div>
-      )}
-
-      {view.related.length > 0 && (
-        <OfferSection title="Często łączone z" className="mt-4">
-          <RelatedCards cards={view.related} onPick={onSwitch} />
-        </OfferSection>
-      )}
     </BottomSheet>
   )
 }

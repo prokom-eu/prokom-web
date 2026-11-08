@@ -11,7 +11,7 @@ export type PaletteKind =
 export type PaletteAction = {
   kind: PaletteKind
   label: string
-  /** Short word on the empty state's button („tel”, „mail”, „trasa”, „motyw”). */
+  /** Word on the empty state's chip („Zadzwoń”, „Drugi numer”, „Trasa”, „Motyw” — AUDYT-0811 #4). */
   short: string
   icon: string
   /** Link to open; `copy` and `theme` run in the dialog instead. */
@@ -45,7 +45,7 @@ export function paletteActions(input: PaletteInput): PaletteAction[] {
     actions.push({
       kind: 'call',
       label: `Zadzwoń · ${input.phone}`,
-      short: 'tel',
+      short: 'Zadzwoń',
       icon: 'phone',
       href: tel,
       words: words('tel', 'telefon', 'dzwon', 'zadzwon', 'numer'),
@@ -55,7 +55,7 @@ export function paletteActions(input: PaletteInput): PaletteAction[] {
     actions.push({
       kind: 'call2',
       label: `Zadzwoń · ${input.phone2}`,
-      short: 'tel 2',
+      short: 'Drugi numer',
       icon: 'phone',
       href: tel2,
       words: words('tel', 'telefon', 'dzwon', 'zadzwon', 'numer', 'drugi'),
@@ -65,7 +65,7 @@ export function paletteActions(input: PaletteInput): PaletteAction[] {
     actions.push({
       kind: 'copy',
       label: 'Skopiuj numer',
-      short: 'kopiuj',
+      short: 'Kopiuj numer',
       icon: 'doc',
       value: input.phone,
       words: words('kopiuj', 'skopiuj', 'numer', 'tel', 'telefon'),
@@ -75,7 +75,7 @@ export function paletteActions(input: PaletteInput): PaletteAction[] {
     actions.push({
       kind: 'mail',
       label: `Napisz e-mail · ${input.email}`,
-      short: 'mail',
+      short: 'E-mail',
       icon: 'mail',
       href: `mailto:${input.email}`,
       words: words('mail', 'e-mail', 'email', 'napisz', 'poczta'),
@@ -85,7 +85,7 @@ export function paletteActions(input: PaletteInput): PaletteAction[] {
     actions.push({
       kind: 'route',
       label: 'Wyznacz trasę',
-      short: 'trasa',
+      short: 'Trasa',
       icon: 'pin',
       href: input.mapsUrl,
       words: words('trasa', 'dojazd', 'mapa', 'jak dojechac', 'adres', 'gdzie'),
@@ -95,7 +95,7 @@ export function paletteActions(input: PaletteInput): PaletteAction[] {
     actions.push({
       kind: 'primary',
       label: input.primary.label,
-      short: input.primary.label.toLowerCase(),
+      short: input.primary.label,
       icon: input.primary.icon ?? 'arrow',
       href: input.primary.href,
       words: words(input.primary.label),
@@ -104,7 +104,7 @@ export function paletteActions(input: PaletteInput): PaletteAction[] {
   actions.push({
     kind: 'contact',
     label: 'Kontakt',
-    short: 'kontakt',
+    short: 'Kontakt',
     icon: 'chat',
     href: input.contactHref ?? '/kontakt',
     words: words('kontakt', 'formularz', 'wiadomosc'),
@@ -113,7 +113,7 @@ export function paletteActions(input: PaletteInput): PaletteAction[] {
     actions.push({
       kind: 'theme',
       label: 'Motyw jasny / ciemny',
-      short: 'motyw',
+      short: 'Motyw',
       icon: 'refresh',
       words: words('motyw', 'ciemny', 'jasny', 'tryb'),
     })

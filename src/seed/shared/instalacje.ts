@@ -151,7 +151,8 @@ export const INSTALACJE_SHARED: SharedGroup = {
     // keeps it off the page until confirmed.
     auth: ['Ampio', 'Elzab EcoPower', '[SZEF: Satel]'],
     stats: [
-      { value: '20+', label: 'lat na Podhalu — od 2004 r.' },
+      // Runda v6 §1.8: the shared template already shows „2004 · na Podhalu” first — another fact here.
+      { value: '10', label: 'rodzajów instalacji u jednego wykonawcy' },
       { value: '24', label: 'miesiące gwarancji na montaż' },
     ],
     rules: [

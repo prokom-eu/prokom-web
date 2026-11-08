@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
-import { api, clickUntilVisible, loginAsAdmin, site, tenantId } from './helpers'
+import { api, clickUntilVisible, hydrated, loginAsAdmin, site, tenantId } from './helpers'
 
 // B7a + K4c (v150): the Biznes home page — hero with the department wheel, „Szybki start”,
 // brands, „Najczęściej wybierane” (K36 §1, §11, §12; K35 7a). Data from `pnpm seed`.
@@ -373,7 +373,10 @@ test.describe('Biznes home page: industries, plan, steps', () => {
       await expect(card).toHaveCount(1)
       await expect(card).toHaveAttribute('href', '/zestawy/zestaw-sklep-kasa-start')
       await expect(plan).toContainText('Gotowy zestaw dla tej branży')
-      await plan.getByRole('tab', { name: /Restauracja/ }).click()
+      // A lazy island (ADR-023): a click before hydration is lost (flaky in #431).
+      const cafeTab = plan.getByRole('tab', { name: /Restauracja/ })
+      await hydrated(cafeTab)
+      await cafeTab.click()
       await expect(plan.getByRole('tab', { name: /Restauracja/ })).toHaveAttribute(
         'aria-selected',
         'true',

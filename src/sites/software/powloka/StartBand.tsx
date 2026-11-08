@@ -12,8 +12,10 @@ type Props = {
 }
 
 /**
- * „Zacznij od podglądu, nie od faktury.” above the shared footer (ZMIANY-v24 §3.5, board
- * `.au-prefoot`): a glass card with the glow, the wizard and the phone. `data-footer-cta`: a page
+ * „Zacznij od podglądu, nie od faktury.” on the edge of the shared footer (ZMIANY-v24 §3.5,
+ * AUDYT-0811 #6): half on the page, half on the footer — the section's background turns footer
+ * colour at its middle, so it fits any height; a glass card with the glow, the wizard and the
+ * phone. `data-footer-cta`: a page
  * that ends with its own CTA (`data-final-cta` — wizard, thanks, news, audit) drops it
  * (`site.css`), as the v23 footer's band.
  */
@@ -21,7 +23,7 @@ export function StartBand({ band, phone }: Props) {
   const [label, href] = band.cta
   const tel = phone ? toTelHref(phone) : null
   return (
-    <section data-footer-cta aria-labelledby="start-band-h" className="v-sec">
+    <section data-footer-cta aria-labelledby="start-band-h" className="v-sec sw-start-sec">
       <div className="v-wrap">
         <Glass featured className="sw-cta sw-start-band">
           <div>

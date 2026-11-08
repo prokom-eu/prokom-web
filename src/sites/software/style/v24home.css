@@ -948,10 +948,11 @@
   animation-play-state: paused;
 }
 
-/* Switching variants: the new mock-up fades in (ZMIANY-v24 §4.2 „przejście krzyżowe”). */
+/* Switching variants: the new mock-up fades in and comes up 10 px (ZMIANY-v24 §4.2, AUDYT-0811
+   P2 A5). */
 @media (prefers-reduced-motion: no-preference) {
   .v-swap {
-    animation: v-swap var(--dur-state) var(--ease-out) both;
+    animation: v-swap 450ms var(--ease-out) both;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -962,6 +963,7 @@
 @keyframes v-swap {
   from {
     opacity: 0;
+    translate: 0 10px;
   }
 }
 
@@ -1136,6 +1138,24 @@
   rotate: 45deg;
   background: var(--accent);
   color: var(--accent-ink);
+}
+/* The answer opens in height (AUDYT-0811 P2 A9) where the browser can animate `<details>`;
+   elsewhere it simply shows. */
+@media (prefers-reduced-motion: no-preference) {
+  .v-q,
+  .sw-faq-item {
+    interpolate-size: allow-keywords;
+  }
+  :is(.v-q, .sw-faq-item)::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size 350ms var(--ease-out),
+      content-visibility 350ms allow-discrete;
+  }
+  :is(.v-q, .sw-faq-item)[open]::details-content {
+    block-size: auto;
+  }
 }
 .v-q > p {
   margin: 0;

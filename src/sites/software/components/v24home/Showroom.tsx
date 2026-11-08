@@ -57,7 +57,7 @@ export function ShowroomSection({ showroom }: { showroom: Showroom }) {
           align="center"
           className="v-head-center"
         />
-        <div className="v-shw">
+        <div className="v-shw" data-rise>
           <div className="v-indgrid" role="tablist" aria-label={showroom.eyebrow}>
             {showroom.industries.map((item, index) => {
               const on = index === active

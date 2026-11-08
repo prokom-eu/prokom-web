@@ -215,6 +215,7 @@ export async function SwLegal({ block, isFirst, pageTitle, tenantId, draftAllowe
                 key={section.id}
                 id={section.id}
                 className="sw-lsec"
+                data-rise
                 aria-labelledby={`${section.id}-h`}
               >
                 <h2 id={`${section.id}-h`}>
