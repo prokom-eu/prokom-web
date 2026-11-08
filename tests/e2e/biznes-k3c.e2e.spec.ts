@@ -46,7 +46,10 @@ test.describe('Biznes ready bundles (K3c)', () => {
     await page.goto(biznesUrl('/zestawy'))
     await page.evaluate(() => localStorage.removeItem('pk-cart'))
     await page.reload()
-    const tile = page.locator('article').filter({ hasText: 'Kawiarnia' })
+    // By its heading: other tiles mention a café in their texts too (B4-2).
+    const tile = page
+      .locator('article')
+      .filter({ has: page.getByRole('heading', { level: 2, name: /^Kawiarnia/ }) })
     const add = tile.getByRole('button', { name: 'Dodaj zestaw do zapytania' })
     await hydrated(add)
     await add.click()
