@@ -1,7 +1,6 @@
 import Link from 'next/link'
 
 import { ekrany } from '../../dane/ekrany'
-import { LEGAL_NOTE } from '../../dane/prawo'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSectionLazy'
 import { RealizationStrip } from '../../sekcje/RealizationStrip'
@@ -169,12 +168,6 @@ export async function EkranySections({ tenantId }: { tenantId: number }) {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="note w ri" style={{ marginTop: 18 }}>
-            <InstIcon name="doc" size={20} />
-            <span>
-              {outdoor.law} {LEGAL_NOTE}
-            </span>
           </div>
         </div>
       </InstSection>

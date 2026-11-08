@@ -26,7 +26,6 @@ import { ArchHouseScene } from '../../sekcje/arch/ArchHouseSceneLazy'
 import { hotspotsHtml, INITIAL_ARCH_SCENE, safeHue } from '../../sekcje/arch/archScene'
 import { ARCH_SCENE } from '../../sekcje/arch/scene'
 import { InstSection } from '../../sekcje/InstSectionLazy'
-import { LEGAL_NOTE } from '../../dane/prawo'
 import { Faq } from '../../sekcje/Faq'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { SectionHead } from '../../sekcje/SectionHead'
@@ -368,49 +367,6 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
       <InstSection id="deweloperzy" style={{ padding: '104px 0 104px' }}>
         <div className="wrap">
           <DeveloperTabs />
-        </div>
-      </InstSection>
-
-      <InstSection id="przepisy" style={{ padding: '0 0 104px' }} {...fold('przepisy')}>
-        <div className="wrap">
-          <SectionHead
-            eyebrow={A.lawSection.eyebrow}
-            heading={A.lawSection.heading}
-            accent={A.lawSection.accent}
-            lead={A.lawSection.lead}
-            leadWidth={440}
-          />
-          <div className="artlw ri">
-            <div className="artlline" />
-            {A.timeline.map((t) => (
-              <div key={t.date} className={t.now ? 'artl now' : 'artl'}>
-                <i />
-                <b>{t.date}</b>
-                <span>{t.label}</span>
-              </div>
-            ))}
-          </div>
-          <div className="arprz">
-            {A.law.map((r) => (
-              <div key={r.title} className="card arprc2 ri">
-                <div className="arprh">
-                  <span className={`arprst ${r.tone}`}>{r.status}</span>
-                  <span className="arprd2">{r.date}</span>
-                </div>
-                <b className="h3" style={{ fontSize: 20 }}>
-                  {r.title}
-                </b>
-                <p>{r.text}</p>
-                <div className="arprp">
-                  <em>{A.lawSection.inProject}</em>
-                  <span>{r.inProject}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="src ri" style={{ marginTop: 16 }}>
-            {LEGAL_NOTE} Stan na {A.lawAsOf}, aktualizujemy przy każdej zmianie.
-          </p>
         </div>
       </InstSection>
 

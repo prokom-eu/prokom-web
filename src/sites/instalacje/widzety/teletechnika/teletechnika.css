@@ -1,6 +1,6 @@
 /*
  * Teletechnika page (I8): the building cross-section in the hero (`.ttx`: stages, layers,
- * numbered elements), scope, for whom, the law and the quote form. Rules of `pk.css` v4.2 for the
+ * numbered elements), scope, for whom and the quote form. Rules of `pk.css` v4.2 for the
  * classes of `Teletechnika.body.html`, `Teletechnika.js` and the scene (`scena.ts`) not already in
  * the other page sheets (one bundle for all service pages), ported by
  * `narzedzia/przenies-css.mjs` (scene colours: `--inst-il-ttx-*` pairs, `--il-*`), then: without
@@ -965,26 +965,6 @@
   }
 
   /* Inline styles of `Teletechnika.body.html` as classes. */
-  & .card.tlaw {
-    padding: 44px;
-    border-radius: 30px;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-    gap: 36px;
-  }
-  @media (max-width: 760px) {
-    & .card.tlaw {
-      grid-template-columns: 1fr;
-      padding: 26px;
-    }
-  }
-  & .tlaweye {
-    color: var(--inst-plan-accent);
-  }
-  & .tlawtx {
-    color: var(--inst-deep-lead-2);
-    font-size: 14px;
-  }
   /* No upload in v1: the drop area only says how to send the bill of quantities. */
   & .drop.tqfiles {
     cursor: default;

@@ -43,7 +43,12 @@ export const navigation: Navigation = {
       icon: 'wrench',
       caption: 'Zgłoś awarię, przegląd, przejęcie instalacji',
     },
-    { label: 'Poradnik', href: '/poradnik', icon: 'book', caption: 'Monitoring a RODO i inne' },
+    {
+      label: 'Poradnik',
+      href: '/poradnik',
+      icon: 'book',
+      caption: 'Kamery, Wi-Fi, alarmy i więcej',
+    },
     {
       label: 'O firmie',
       href: '/o-firmie',
@@ -89,7 +94,7 @@ export const navigation: Navigation = {
   megaObjects: {
     eyebrow: 'Twój obiekt',
     title: 'Każdy obiekt ma inne potrzeby. Zobacz, co ma sens u Ciebie.',
-    text: 'Przekrój budynku, typowe problemy, przepisy i zestawy dobrane do rodzaju obiektu.',
+    text: 'Przekrój budynku, typowe problemy i zestawy dobrane do rodzaju obiektu.',
     button: { label: 'Zaplanuj instalację →', href: '/zaplanuj' },
     link: { label: 'Architekt lub projektant? Współpraca →', href: '/dla-architektow' },
   },

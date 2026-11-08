@@ -39,7 +39,7 @@ export const nieZnaleziono = {
       href: '/poradnik',
       icon: 'book',
       title: 'Poradnik',
-      text: 'Odpowiedzi na pytania o monitoring, przepisy i obiekty na wynajem.',
+      text: 'Odpowiedzi na pytania o monitoring, Wi-Fi i obiekty na wynajem.',
     },
     {
       href: '/kontakt',
