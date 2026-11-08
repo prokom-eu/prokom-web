@@ -283,10 +283,11 @@ jobs:
 
       # The seeded database and its media are cached: a fresh seed takes ~4 min (the Biznes
       # catalog) and depends only on these inputs. `base` = migrations and dependencies, `key` =
-      # base + the seed's data. A pull request restores the exact snapshot, or else the newest one
-      # of the same base and runs the seed over it: the seed is idempotent and writes only what
-      # changed. A push to develop/main and the night run always seed fresh and save it, so a seed
-      # bug a stale snapshot could hide still shows up there.
+      # base + the seed's data. A pull request restores only the exact snapshot (a PR that does
+      # not touch the seed gets the one develop saved). No fallback to an older snapshot: parts of
+      # the seed skip records that exist (settings of Instalacje, Software, some of Biznes), so a
+      # seed over an older snapshot keeps old content and fails the e2e of the changed data. A
+      # push to develop/main and the night run always seed fresh and save it.
       - name: Seed snapshot key
         id: snapshot
         run: |
@@ -309,18 +310,16 @@ jobs:
         with:
           path: ~/seed-snapshot
           key: ${{ steps.snapshot.outputs.key }}
-          restore-keys: ${{ steps.snapshot.outputs.base }}-
 
       - name: Restore seeded database
-        if: steps.snapshot-cache.outputs.cache-matched-key != ''
+        if: steps.snapshot-cache.outputs.cache-hit == 'true'
         run: |
-          echo "Snapshot: ${{ steps.snapshot-cache.outputs.cache-matched-key }}"
+          echo "Snapshot: ${{ steps.snapshot.outputs.key }}"
           docker exec -i ${{ job.services.postgres.id }}             pg_restore -U prokom -d prokom_web --no-owner --exit-on-error < ~/seed-snapshot/db.dump
           tar -xf ~/seed-snapshot/media.tar
 
       # ADR-009: push is disabled, so the empty CI database gets its schema from migrations only.
-      # Skipped after an exact restore; after a fallback restore it finds nothing to do (same
-      # base = same migrations).
+      # Skipped after a restore: the snapshot key covers src/migrations, so it is up to date.
       - name: Migrate database
         if: steps.snapshot-cache.outputs.cache-hit != 'true'
         run: pnpm payload migrate
