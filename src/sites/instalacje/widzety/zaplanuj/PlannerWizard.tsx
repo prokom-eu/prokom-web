@@ -16,6 +16,7 @@ import {
   PLAN_SIZES,
   PLAN_STAGES,
   PLAN_VIA,
+  viaIsEmail,
   PLAN_WHEN,
   PLANNER_OBJECTS,
 } from '@/lib/instalacje/plan'
@@ -571,19 +572,21 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
                 <label className="zkfl full">
                   <span>
                     {Z.step4.email}{' '}
-                    <i>{state.via === 2 ? Z.step4.emailRequired : Z.step4.emailOptional}</i>
+                    <i>{viaIsEmail(state.via) ? Z.step4.emailRequired : Z.step4.emailOptional}</i>
                   </span>
                   <input
                     ref={emailField}
                     className={
                       'zkin' +
-                      (state.via === 2 && state.email && !emailOk(state.email) ? ' xa-bad' : '')
+                      (viaIsEmail(state.via) && state.email && !emailOk(state.email)
+                        ? ' xa-bad'
+                        : '')
                     }
                     type="email"
                     placeholder={Z.step4.emailPlaceholder}
                     autoComplete="email"
                     maxLength={254}
-                    required={state.via === 2}
+                    required={viaIsEmail(state.via)}
                     value={state.email}
                     onChange={(e) => change({ email: e.target.value })}
                     {...invalid('email')}
@@ -596,22 +599,18 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
                     {Z.step4.via}
                   </span>
                   <div className="zkseg">
-                    {/* No WhatsApp (decision 01.11): its option is not offered, the indexes of the
-                        others stay as the prototype's and the inquiry schema's. */}
-                    {PLAN_VIA.map((v, i) =>
-                      v.contact === 'whatsapp' ? null : (
-                        <button
-                          key={v.label}
-                          type="button"
-                          className={'zksg' + tile(state.via === i)}
-                          aria-pressed={state.via === i}
-                          onClick={() => change({ via: i })}
-                        >
-                          <InstIcon name={Z.step4.viaIcons[i]} size={16} />
-                          <b>{v.label}</b>
-                        </button>
-                      ),
-                    )}
+                    {PLAN_VIA.map((v, i) => (
+                      <button
+                        key={v.label}
+                        type="button"
+                        className={'zksg' + tile(state.via === i)}
+                        aria-pressed={state.via === i}
+                        onClick={() => change({ via: i })}
+                      >
+                        <InstIcon name={Z.step4.viaIcons[i]} size={16} />
+                        <b>{v.label}</b>
+                      </button>
+                    ))}
                   </div>
                 </div>
                 <div className="zkgrp" role="group" aria-labelledby="zk-when">

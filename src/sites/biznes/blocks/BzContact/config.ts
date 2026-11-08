@@ -2,7 +2,7 @@ import type { Block } from 'payload'
 
 /**
  * Contact section of the Biznes home page, `#kontakt` (spec. §4 pkt 13, ZMIANY-v20 §2.9): the
- * navy panel of v20 and the inquiry form. Phone, WhatsApp, e-mail, address and hours come from
+ * navy panel of v20 and the inquiry form. Phone, e-mail, address and hours come from
  * the settings and company data; the one-screen v20 form (`ContactForm`, B8).
  */
 export const BzContactBlock: Block = {

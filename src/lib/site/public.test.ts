@@ -105,7 +105,6 @@ describe('toPublicSiteSettings', () => {
     contactChannels: [
       { id: 'k', department: 'fiscal', phone: '+48 18 222 22 22', showInFooter: true },
     ],
-    whatsapp: '+48 889 003 889',
     serviceAreas: ['Rabka-Zdrój', 'Nowy Targ'],
     promises: { callbackTime: 'Oddzwonimy w 60 minut' },
     showReviews: true,
@@ -123,7 +122,6 @@ describe('toPublicSiteSettings', () => {
           showInFooter: true,
         },
       ],
-      whatsapp: '+48 889 003 889',
       trustLine: null,
       serviceAreas: ['Rabka-Zdrój', 'Nowy Targ'],
       promises: {

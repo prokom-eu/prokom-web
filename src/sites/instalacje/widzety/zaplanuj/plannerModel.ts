@@ -9,6 +9,7 @@ import {
   PLAN_SIZES,
   PLAN_STAGES,
   PLAN_VIA,
+  viaIsEmail,
   PLANNER_OBJECTS,
   planHashState,
   norm,
@@ -103,7 +104,7 @@ export function stepError(s: PlannerState, step: PlannerStep): PlannerError | nu
   if (step === 4) {
     if (!s.name.trim()) return 'name'
     if (phoneDigits(s.phone) < 9) return 'phone'
-    if (s.via === 2 && !emailOk(s.email)) return 'email'
+    if (viaIsEmail(s.via) && !emailOk(s.email)) return 'email'
     if (!s.consent) return 'consent'
   }
   return null

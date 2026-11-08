@@ -3,7 +3,7 @@ import type { CollectionConfig, Field } from 'payload'
 import { adminOnly } from '../lib/auth/access'
 import { tenantImageFilter } from '../lib/media/access'
 import { DEPARTMENTS } from '../lib/site/departments'
-import { isValidNavHref, toWhatsAppHref } from '../lib/site/link'
+import { isValidNavHref } from '../lib/site/link'
 import { isValidTitleTemplate } from '../lib/site/title'
 import { FACT_KEY } from '../lib/software/facts'
 import { validateNavigation } from '../lib/software/navigation'
@@ -87,28 +87,13 @@ const biznesGroup: Field = {
       ],
     },
     {
-      type: 'row',
-      fields: [
-        {
-          name: 'whatsapp',
-          label: 'WhatsApp',
-          type: 'text',
-          validate: (value: unknown) =>
-            !value || (typeof value === 'string' && toWhatsAppHref(value) !== null)
-              ? true
-              : 'Numer telefonu, np. +48 889 003 889.',
-          admin: { description: 'Numer z kierunkowym, np. +48 889 003 889.' },
-        },
-        {
-          name: 'trustLine',
-          label: 'Linia zaufania',
-          type: 'text',
-          admin: {
-            description:
-              '[SZEF] np. „Autoryzowany serwis Posnet i Elzab · Autoryzowany partner GoPOS i InsERT” (K4-FINAL §1: pełne brzmienie statusów).',
-          },
-        },
-      ],
+      name: 'trustLine',
+      label: 'Linia zaufania',
+      type: 'text',
+      admin: {
+        description:
+          '[SZEF] np. „Autoryzowany serwis Posnet i Elzab · Autoryzowany partner GoPOS i InsERT” (K4-FINAL §1: pełne brzmienie statusów).',
+      },
     },
     {
       name: 'serviceAreas',

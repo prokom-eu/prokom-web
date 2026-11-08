@@ -300,7 +300,7 @@ describe('submitInquiry (ADR-003)', () => {
       message: '',
       city: 'Nowy Targ',
       deadline: 'Przed sezonem',
-      preferredContact: 'whatsapp',
+      preferredContact: 'phone',
       items: [
         { slug: 'posnet-ergo-online', quantity: 2, note: 'Czarna' },
         { slug: 'szuflada-posnet-skl', quantity: 1 },
@@ -324,7 +324,7 @@ describe('submitInquiry (ADR-003)', () => {
           type: 'list',
           city: 'Nowy Targ',
           deadline: 'Przed sezonem',
-          preferredContact: 'whatsapp',
+          preferredContact: 'phone',
           items: [{ product: 7, nameSnapshot: 'Posnet Ergo Online', quantity: 2, note: 'Czarna' }],
         }),
       )
@@ -829,7 +829,7 @@ describe('submitInquiry (ADR-003)', () => {
 
     it('asks for an e-mail when the customer chose „E-mail”', async () => {
       const d = installations()
-      const byEmail = { ...planBody, wizard: { ...plan, via: 2 } }
+      const byEmail = { ...planBody, wizard: { ...plan, via: 1 } }
       expect(await submitInquiryWith(d, { ...instRequest, body: byEmail })).toEqual({
         ok: false,
         error: 'invalid',

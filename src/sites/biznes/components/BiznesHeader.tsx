@@ -25,8 +25,8 @@ type Props = {
   partnerStatuses: Readonly<Record<string, string>>
   /** Opening hours in short for the mega menu, e.g. „pn–pt 9–17”. */
   hours: string | null
-  /** Main phone (`tel:`) and WhatsApp (wa.me) of the line, for the phone menu. */
-  contact: { phone: { label: string; href: string } | null; whatsapp: string | null }
+  /** Main phone (`tel:`) of the line, for the mega menu, the phone menu and the drawer. */
+  contact: { phone: { label: string; href: string } | null }
 }
 
 /**
@@ -68,7 +68,7 @@ export function BiznesHeader({
           )}
 
           <div className="flex items-center gap-2">
-            <SearchOverlay whatsapp={contact.whatsapp} />
+            <SearchOverlay />
             {/* On phones the switch lives in the menu (spec. §3.3). */}
             <div className="hidden sm:block">
               <ThemeToggle className={ICON_BUTTON} />

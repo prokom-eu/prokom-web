@@ -30,8 +30,8 @@ type Props = { block: InstContactBlockData; tenantId: number }
 /**
  * The contact page `/kontakt` (ADR-I002 §0, `Kontakt.body.html`): hero with the contact cards,
  * the salons' hours and the map of the travel zones; the form `#napisz` with the salons beside
- * it; the CTA band from the panel. Phone and e-mail from `SiteSettings` (no WhatsApp since
- * 01.11), salons, hours and NIP from `CompanyData` — no external map script, the
+ * it; the CTA band from the panel. Phone and e-mail from `SiteSettings` (no messenger since
+ * 01.11, D10), salons, hours and NIP from `CompanyData` — no external map script, the
  * route opens Google Maps in a new tab. The block carries the page's h1.
  */
 export async function InstContactBlock({ block, tenantId }: Props) {

@@ -38,14 +38,14 @@ export function siteContactUpdate(current: SiteContact): SiteContact | null {
   return Object.keys(update).length > 0 ? update : null
 }
 
-type LineSettings = Partial<Pick<InstalacjeSetting, 'whatsapp' | 'architects'>>
+type LineSettings = Partial<Pick<InstalacjeSetting, 'architects'>>
 type LineSettingsUpdate = {
   architects?: NonNullable<InstalacjeSetting['architects']>
 }
 
 /**
- * `InstalacjeSettings` fields to write: the contact person while the panel has no name. No
- * WhatsApp any more (decision 01.11) — the panel field stays until L2-I and is not shown. Phone and e-mail of the person stay empty — the page falls back to the line's.
+ * `InstalacjeSettings` fields to write: the contact person while the panel has no name. Phone
+ * and e-mail of the person stay empty — the page falls back to the line's.
  */
 export function lineSettingsUpdate(current: LineSettings): LineSettingsUpdate | null {
   const update: LineSettingsUpdate = {}

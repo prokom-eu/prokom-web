@@ -2,7 +2,6 @@ import type { CollectionConfig } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
 import { SETTINGS_DEFAULTS } from '../lib/instalacje/options'
-import { toWhatsAppHref } from '../lib/site/link'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
 
 /**
@@ -46,27 +45,12 @@ export const InstalacjeSettings: CollectionConfig = {
       ],
     },
     {
-      type: 'row',
-      fields: [
-        {
-          name: 'warrantyMonths',
-          label: 'Gwarancja na montaż (mies.)',
-          type: 'number',
-          required: true,
-          min: 1,
-          defaultValue: SETTINGS_DEFAULTS.warrantyMonths,
-        },
-        {
-          name: 'whatsapp',
-          label: 'WhatsApp',
-          type: 'text',
-          validate: (value: unknown) =>
-            !value || (typeof value === 'string' && toWhatsAppHref(value) !== null)
-              ? true
-              : 'Numer telefonu, np. +48 889 003 889.',
-          admin: { description: 'Numer z kierunkowym, np. +48 889 003 889.' },
-        },
-      ],
+      name: 'warrantyMonths',
+      label: 'Gwarancja na montaż (mies.)',
+      type: 'number',
+      required: true,
+      min: 1,
+      defaultValue: SETTINGS_DEFAULTS.warrantyMonths,
     },
     {
       name: 'responseText',

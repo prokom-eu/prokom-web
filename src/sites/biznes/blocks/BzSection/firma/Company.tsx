@@ -11,7 +11,7 @@ import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary, weekHours } from '@/lib/site/hoursSummary'
-import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toTelHref } from '@/lib/site/link'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
@@ -38,7 +38,6 @@ async function contactData(tenantId: number) {
   const location = company?.locations[0] ?? null
   // The line's second phone; `CompanyData` phones are shared by all lines.
   const phone2 = settings?.phone2 ?? null
-  const whatsapp = settings?.biznes?.whatsapp ?? null
   return {
     company,
     phone,
@@ -46,8 +45,6 @@ async function contactData(tenantId: number) {
     phone2,
     phone2Tel: phone2 ? toTelHref(phone2) : null,
     email: settings?.email ?? null,
-    whatsapp: whatsapp ? toWhatsAppHref(whatsapp) : null,
-    whatsappNumber: whatsapp,
     location,
     hours: location?.hours ?? [],
     address: location ? `${location.street}, ${location.postalCode} ${location.city}` : null,
@@ -388,8 +385,7 @@ type Channel = {
   note: string
   cta: string
   href: string
-  icon: 'phone' | 'chat' | 'mail' | 'doc'
-  external?: boolean
+  icon: 'phone' | 'mail' | 'doc'
 }
 
 /**
@@ -420,15 +416,14 @@ export async function ContactHero({
       icon: 'phone',
     })
   }
-  if (c.whatsapp && c.whatsappNumber) {
+  if (c.phone2 && c.phone2Tel) {
     channels.push({
-      label: 'WhatsApp',
-      value: c.whatsappNumber,
-      note: 'wyślij zdjęcie usterki albo tabliczki znamionowej',
-      cta: 'Napisz',
-      href: c.whatsapp,
-      icon: 'chat',
-      external: true,
+      label: 'Drugi telefon',
+      value: c.phone2,
+      note: 'gdy pierwszy numer jest zajęty',
+      cta: 'Zadzwoń',
+      href: c.phone2Tel,
+      icon: 'phone',
     })
   }
   if (c.email) {
@@ -475,7 +470,8 @@ export async function ContactHero({
               </p>
             )}
             {/* Phone (App-Kontakt): the phone card large, the other channels as short rows; no
-                form card — the form section is not on the phone board. */}
+                form card — the form section is not on the phone board. With an odd number of
+                cards the phone card takes the whole row (1 + 2), so the grid has no gap. */}
             <ul className="grid gap-3 max-md:gap-2 min-[640px]:grid-cols-2">
               {channels.map((channel, i) => {
                 // Board `Web-kontakt`: the phone card in the accent, the action at the top right.
@@ -483,11 +479,13 @@ export async function ContactHero({
                 return (
                   <li
                     key={channel.label}
-                    className={channel.href === '#formularz' ? 'max-md:hidden' : undefined}
+                    className={cx(
+                      channel.href === '#formularz' && 'max-md:hidden',
+                      lead && channels.length % 2 === 1 && 'min-[640px]:col-span-2',
+                    )}
                   >
                     <a
                       href={channel.href}
-                      {...(channel.external ? { rel: 'noopener', target: '_blank' } : {})}
                       className={cx(
                         'flex h-full flex-col gap-1 rounded-[22px] p-5 transition-shadow motion-reduce:transition-none max-md:rounded-[18px] max-md:p-4',
                         !lead && 'max-md:gap-0 max-md:py-3',
@@ -544,19 +542,11 @@ export async function ContactHero({
                       >
                         {channel.note}
                       </span>
-                      {channel.external && (
-                        <span className="sr-only"> (otwiera się w nowej karcie)</span>
-                      )}
                     </a>
                   </li>
                 )
               })}
             </ul>
-            {c.phone2 && c.phone2Tel && (
-              <a href={c.phone2Tel} className="self-start text-[15px] text-ink-2 hover:underline">
-                Drugi telefon: <b className="text-ink">{c.phone2}</b>
-              </a>
-            )}
           </div>
           {/* Board `Web-kontakt`: one card — the dark area map on top, address and hours below. */}
           <div className="flex flex-col overflow-hidden rounded-[22px] bg-card shadow-[0_30px_60px_-36px_var(--glow),inset_0_0_0_1px_var(--border)]">

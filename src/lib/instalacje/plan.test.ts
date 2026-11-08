@@ -36,10 +36,10 @@ describe('parsePlanAnswers', () => {
       stage: 2,
       answers: { kam: 1, alarm: 0, vd: 2, ev: 1 },
       charger,
-      via: 2,
+      via: 1,
       when: 0,
     })
-    expect(answers).toMatchObject({ services: ['kam', 'alarm', 'ev'], object: 'pens', via: 2 })
+    expect(answers).toMatchObject({ services: ['kam', 'alarm', 'ev'], object: 'pens', via: 1 })
   })
 
   it('accepts „Nie wiem, doradźcie mi” without services', () => {
@@ -57,7 +57,7 @@ describe('parsePlanAnswers', () => {
     expect(parsePlanAnswers({ ...minimal, object: 'zamek' })).toBeNull()
     expect(parsePlanAnswers({ ...minimal, size: 3 })).toBeNull()
     expect(parsePlanAnswers({ ...minimal, stage: -1 })).toBeNull()
-    expect(parsePlanAnswers({ ...minimal, via: 3 })).toBeNull()
+    expect(parsePlanAnswers({ ...minimal, via: 2 })).toBeNull()
     expect(parsePlanAnswers({ ...minimal, when: 1.5 })).toBeNull()
   })
 
@@ -117,7 +117,7 @@ describe('planSummary', () => {
         'Kolor: antracyt',
       ],
       'Strefa dojazdu': 'Zakopane i Tatry',
-      'Kontakt przez': 'WhatsApp',
+      'Kontakt przez': 'E-mail',
       'Pora kontaktu': 'Obojętnie',
     })
   })
@@ -134,8 +134,7 @@ describe('planSummary', () => {
 describe('planContact', () => {
   it('maps „Jak się skontaktować?” to the inquiry preference', () => {
     expect(planContact({ via: 0 })).toBe('phone')
-    expect(planContact({ via: 1 })).toBe('whatsapp')
-    expect(planContact({ via: 2 })).toBe('email')
+    expect(planContact({ via: 1 })).toBe('email')
   })
 })
 
