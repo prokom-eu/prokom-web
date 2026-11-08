@@ -15,6 +15,7 @@ import {
   type K4VendingFile,
   type MediaOf,
   type SlugOf,
+  upgradeCareIcons,
   upgradeGoposPhotos,
 } from './k4Pages'
 import { upsertK4Page, type PageBlock } from './page'
@@ -126,10 +127,41 @@ export async function seedBiznesK4Pages(
     )
     if (!done) note('strona K4 edytowana w panelu — bez zmian', slug)
     if (done && slug === 'gopos') await upgradeStoredGopos(payload, tenantId, built.layout, report)
+    if (done && slug === 'opieka-it') {
+      await upgradeStoredPage(payload, tenantId, slug, upgradeCareIcons, built.layout, report)
+    }
   }
 }
 
 const SEED_LOCAL = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
+
+/** D13: the area icons of `/opieka-it` on a page the seed created before (`upgradeCareIcons`). */
+async function upgradeStoredPage(
+  payload: Payload,
+  tenantId: number,
+  slug: string,
+  upgrade: (stored: PageBlock[], seed: PageBlock[]) => PageBlock[] | null,
+  seed: PageBlock[],
+  report: Report,
+): Promise<void> {
+  const {
+    docs: [page],
+  } = await payload.find({
+    collection: 'pages',
+    where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: slug } }] },
+    limit: 1,
+    ...SEED_LOCAL,
+  })
+  const layout = page && upgrade(page.layout ?? [], seed)
+  report(`pages ${slug} icons`, Boolean(layout))
+  if (!page || !layout) return
+  await payload.update({
+    collection: 'pages',
+    id: page.id,
+    data: { layout, _status: page._status ?? 'published' },
+    ...SEED_LOCAL,
+  })
+}
 
 /** POPRAWKI-0311: the GoPOS photos on a page the seed created before (`upgradeGoposPhotos`). */
 async function upgradeStoredGopos(
