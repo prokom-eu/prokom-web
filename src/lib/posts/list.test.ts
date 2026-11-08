@@ -47,7 +47,13 @@ describe('categories of Instalacje', () => {
       'Obiekty noclegowe',
       'Energia',
       'Dźwięk i obraz',
+      'Alarmy',
+      'Sieci',
+      'Smart home',
+      'Ładowarki',
+      'Anteny',
     ])
+    expect(parseCategory('smart-home', 'instalacje')).toBe('smart-home')
     expect(isCategoryOfLine('przepisy', 'instalacje')).toBe(true)
     expect(isCategoryOfLine('przepisy', 'software')).toBe(false)
     expect(isCategoryOfLine('poradnik', 'instalacje')).toBe(false)

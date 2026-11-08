@@ -4499,7 +4499,12 @@ export interface Post {
     | 'monitoring'
     | 'noclegi'
     | 'energia'
-    | 'dzwiek-obraz';
+    | 'dzwiek-obraz'
+    | 'alarmy'
+    | 'sieci'
+    | 'smart-home'
+    | 'ladowarki'
+    | 'anteny';
   /**
    * Puste przy publikacji → dzisiejsza data.
    */
