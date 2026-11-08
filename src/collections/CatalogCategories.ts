@@ -16,6 +16,7 @@ import {
   seoGroup,
   slugField,
 } from './catalogFields'
+import { tenantImageFilter } from '../lib/media/access'
 
 // K4 (D-K4-2): "Do czego" chips and the "Nie wiesz, co wybrać?" card, on a category and on
 // each subcategory (`slowniki-k4.json` → `do_czego`, `dobor`).
@@ -88,6 +89,19 @@ export const CatalogCategories: CollectionConfig = {
       index: true,
     },
     { name: 'icon', label: 'Ikona', type: 'select', options: ICON_OPTIONS },
+    {
+      // BIZ-1 (plan 0611 §8.1 pkt 3): the thumbnail in the „Oferta ▾” mega menu, on a light studio
+      // background. Empty: the picture of the category's best product, then the department icon.
+      name: 'menuImage',
+      label: 'Miniatura w menu „Oferta”',
+      type: 'upload',
+      relationTo: 'media',
+      filterOptions: tenantImageFilter,
+      admin: {
+        description:
+          'Zdjęcie produktu wycięte z tła, kwadrat. Puste = zdjęcie produktu z kategorii.',
+      },
+    },
     {
       name: 'description',
       label: 'Krótki opis',

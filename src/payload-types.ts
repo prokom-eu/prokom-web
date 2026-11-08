@@ -1279,6 +1279,10 @@ export interface CatalogCategory {
       )
     | null;
   /**
+   * Zdjęcie produktu wycięte z tła, kwadrat. Puste = zdjęcie produktu z kategorii.
+   */
+  menuImage?: (number | null) | Media;
+  /**
    * Jedno zdanie pod nazwą w menu i na kafelku.
    */
   description?: string | null;
@@ -8033,6 +8037,7 @@ export interface CatalogCategoriesSelect<T extends boolean = true> {
   slug?: T;
   group?: T;
   icon?: T;
+  menuImage?: T;
   description?: T;
   subcategories?:
     | T

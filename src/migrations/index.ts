@@ -85,6 +85,7 @@ import * as migration_20261106_020602_swa2_home_sections_v24 from './20261106_02
 import * as migration_20261106_021456_swa2_home_tech_pricing from './20261106_021456_swa2_home_tech_pricing'
 import * as migration_20261108_095701_usun_whatsapp from './20261108_095701_usun_whatsapp'
 import * as migration_20261108_105821_swa2_sprzatanie_v23 from './20261108_105821_swa2_sprzatanie_v23'
+import * as migration_20261108_115823_biznes_kategoria_miniatura from './20261108_115823_biznes_kategoria_miniatura'
 
 export const migrations = [
   {
@@ -521,5 +522,10 @@ export const migrations = [
     up: migration_20261108_105821_swa2_sprzatanie_v23.up,
     down: migration_20261108_105821_swa2_sprzatanie_v23.down,
     name: '20261108_105821_swa2_sprzatanie_v23',
+  },
+  {
+    up: migration_20261108_115823_biznes_kategoria_miniatura.up,
+    down: migration_20261108_115823_biznes_kategoria_miniatura.down,
+    name: '20261108_115823_biznes_kategoria_miniatura',
   },
 ]
