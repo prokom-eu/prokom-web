@@ -187,12 +187,14 @@ async function main() {
     content: post.content,
     seo: post.seo,
   })
-  // The shared group holds the panel's contact data too: only the line's „O firmie” numbers
-  // (a group sent in part keeps its other fields on update).
+  // The shared group holds the panel's contact data too: only the line's template texts (a group
+  // sent in part keeps its other fields on update — checked locally, INST-6 PR2).
   const site = settings[0]
   if (site) {
-    plan('site-settings', 'shared.about.stats', site, {
-      shared: { about: { stats: INSTALACJE_SHARED.about?.stats ?? [] } },
+    // INST-6 PR4: the line's texts of the shared Kontakt and O firmie templates (all written in
+    // the repo: the contact data itself is `CompanyData` and the line's phone/e-mail fields).
+    plan('site-settings', 'shared.contact + shared.about', site, {
+      shared: { contact: INSTALACJE_SHARED.contact, about: INSTALACJE_SHARED.about },
     })
     plan('site-settings', 'footer.text', site, { footer: { text: INSTALACJE_FOOTER_TEXT } })
   }
