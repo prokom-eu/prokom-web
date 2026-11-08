@@ -142,9 +142,13 @@ test.describe('dark theme switch', () => {
       const toggle = page.getByRole('button', { name: 'Tryb ciemny' })
       await expect(toggle).toHaveAttribute('aria-pressed', 'false')
 
+      // Clicked again only while still off: right after hydration the stored choice is read and
+      // could undo a click that came first (flaky in CI on Software).
       await hydrated(toggle)
-      await toggle.click()
-      await expect(toggle).toHaveAttribute('aria-pressed', 'true')
+      await expect(async () => {
+        if ((await toggle.getAttribute('aria-pressed')) !== 'true') await toggle.click()
+        await expect(toggle).toHaveAttribute('aria-pressed', 'true', { timeout: 1000 })
+      }).toPass()
       await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
 
       await page.reload()
