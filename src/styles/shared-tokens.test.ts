@@ -104,6 +104,18 @@ describe.each(cases)('$line, $mode theme: header capsule', ({ line, mode }) => {
     const middle = mix(rgba('--cap-cta-from', s), rgba('--cap-cta-to', s), 0.5)
     expect(ratio(rgba('--cap-cta-ink', s), middle)).toBeGreaterThanOrEqual(4.5)
   })
+
+  // AUDYT-0811 #3: scrolled, the capsule sits over any content — photos, dark bands, white cards.
+  it('scrolled: nearly opaque, menu links reach 4.5:1 over black and over white', () => {
+    const solid = rgba('--cap-bg-solid', s)
+    expect(solid[3]).toBeGreaterThanOrEqual(0.85)
+    for (const page of [
+      [0, 0, 0, 1],
+      [255, 255, 255, 1],
+    ] as Rgba[]) {
+      expect(ratio(rgba('--nav-ink-2', s), over(solid, page))).toBeGreaterThanOrEqual(4.5)
+    }
+  })
 })
 
 describe.each(cases)('$line, $mode theme: opening status', ({ line, mode }) => {
