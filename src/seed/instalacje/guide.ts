@@ -18,9 +18,10 @@ export function rodoPost(): Pick<
   'title' | 'slug' | 'category' | 'publishedAt' | 'lead' | 'content' | 'seo'
 > {
   return {
-    title: 'Monitoring w pensjonacie a RODO: gdzie kamera może patrzeć, a gdzie nie',
+    // Runda v6 D1: a practical post about placing cameras; the text without law comes in INST-6.
+    title: 'Gdzie powiesić kamery w pensjonacie, żeby goście czuli się dobrze',
     slug: RODO_POST_SLUG,
-    category: 'przepisy',
+    category: 'monitoring',
     publishedAt: '2026-10-01T00:00:00.000Z',
     lead: 'Parking i narciarnia tak, pokoje i sauna nie. Jak długo przechowywać nagrania, co napisać na tabliczce i dlaczego kamera, która widzi drogę, to już nie „domowa sprawa”.',
     content: richText<Post['content']>([
@@ -59,8 +60,9 @@ export function rodoPost(): Pick<
         'Pracowników trzeba poinformować o monitoringu najpóźniej 2 tygodnie przed jego uruchomieniem, a teren oznaczyć najpóźniej dzień wcześniej. Cel, zakres i sposób monitoringu określa układ zbiorowy pracy, regulamin pracy albo obwieszczenie.',
       ),
     ]),
+    // TODO(krystian): INST-6 PR5 (D1) rewrites the lead, the content and this description without law.
     seo: {
-      title: 'Monitoring w pensjonacie a RODO',
+      title: 'Gdzie powiesić kamery w pensjonacie',
       description:
         'Monitoring a RODO w pensjonacie, sklepie i firmie: tabliczki, czas przechowywania nagrań, kamery a prywatność gości i pracowników.',
     },

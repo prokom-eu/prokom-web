@@ -152,14 +152,14 @@ test.describe('Instalacje page for architects', () => {
     await expect(news).not.toContainText('Głośniki pod gładzią')
   })
 
-  test('developers and law: tabs, no price promise, the legal note', async ({ page }) => {
+  test('developers: tabs, no price promise, no law section', async ({ page }) => {
     await open(page)
     const dev = page.locator('#deweloperzy')
     await dev.getByRole('tab', { name: 'Garaż i parking' }).click()
     await expect(dev.getByRole('tabpanel')).toContainText('Elzab EcoPower')
     await expect(dev).toContainText('Nie obiecujemy, że smart home podniesie cenę lokalu')
-    await expect(page.locator('#przepisy')).toContainText('To nie jest porada prawna. Stan na')
-    await expect(page.locator('#przepisy .arprc2')).toHaveCount(8)
+    // Runda v6 §1.1: no law on the page.
+    await expect(page.locator('#przepisy')).toHaveCount(0)
   })
 
   test('a card published in the panel shows; one with a marker cannot be published', async ({
@@ -296,7 +296,8 @@ test.describe('Instalacje page for architects', () => {
 
   test('FAQ, the contact person of the seed, sections in order', async ({ page }) => {
     await open(page)
-    await expect(page.locator('#faq details')).toHaveCount(10)
+    // Runda v6 §1.1: the question about the regulations of 2026 is gone (10 → 9).
+    await expect(page.locator('#faq details')).toHaveCount(9)
     // The seed's contact person (boss 01.11): the owner, with the line's phone and e-mail.
     const contact = page.locator('#opiekun')
     await expect(contact.locator('h2')).toHaveText('Tadeusz Wójciak')

@@ -1,7 +1,7 @@
 /*
  * Monitoring page (I7): the recorder preview in the hero (camera scenes `.cs`, detection,
  * timeline), installation versions (`.sy*`), camera types, the DORI and recording calculators,
- * RODO and the brands. Rules of `pk.css` v4.2 for the classes of `Monitoring.body.html`, ported
+ * privacy (frame, masks, sign) and the brands. Rules of `pk.css` v4.2 for the classes of `Monitoring.body.html`, ported
  * with the prototype's class names by `narzedzia/przenies-css.mjs` (map
  * `przenies-css.strony.json`, scene colours from `--il-*` / `--sx-*` under `data-inst-il` /
  * `data-inst-sx` on the service page), then fixed by hand: inline styles of the prototype as
@@ -505,7 +505,7 @@
     background: var(--inst-plan-send-to);
     color: var(--inst-band-button-ink);
   }
-  & .rodo {
+  & .privacy {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 340px;
     gap: 18px;
@@ -649,10 +649,10 @@
     fill: var(--warn);
   }
   @media (max-width: 1100px) {
-    & .rodo {
+    & .privacy {
       grid-template-columns: 1fr 1fr;
     }
-    & .rodo .sign {
+    & .privacy .sign {
       grid-column: 1/-1;
     }
     & .typw {
@@ -675,7 +675,7 @@
       left: 5px;
       top: 5px;
     }
-    & .rodo {
+    & .privacy {
       grid-template-columns: 1fr;
     }
     & .typc {
@@ -1423,10 +1423,6 @@
   }
   & .evbar.cres-bar {
     background: var(--inst-plan-line);
-  }
-  & .note.cres-note {
-    background: var(--inst-foot-glow);
-    color: var(--inst-plan-card-ink);
   }
 }
 

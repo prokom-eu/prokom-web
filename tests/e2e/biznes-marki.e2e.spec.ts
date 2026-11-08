@@ -54,12 +54,13 @@ test.describe('Biznes /marki (K4f)', () => {
       page.getByRole('contentinfo').getByRole('link', { name: 'Wszystkie marki' }),
     ).toHaveAttribute('href', '/marki')
     // The shared side rail (D3-B): on a subpage its „Strona główna” group leads to the brands
-    // section of the home page.
+    // section of the home page. Kontakt is on the shared template (#401) with its own sections, so
+    // once the rail reads them the group folds (`hidden`) under „Na tej stronie” — a CSS locator
+    // finds the link in both states (a role query skips hidden elements and raced the rail).
     await expect(
-      page
-        .locator('[data-site-rail]')
-        .getByRole('group', { name: 'Strona główna' })
-        .getByRole('link', { name: 'Marki' }),
+      page.locator('[data-site-rail] [role="group"][aria-label="Strona główna"] a', {
+        hasText: 'Marki',
+      }),
     ).toHaveAttribute('href', '/#marki')
   })
 
