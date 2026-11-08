@@ -114,15 +114,39 @@ export type OfferAreaView = {
   extra: boolean
 }
 
-/** Everything the offer list shows for the state. */
-export function offerView(areas: readonly OfferArea[], state: OfferState) {
-  const words = offerNorm(state.q)
+/** Search words of a query: normalised, longer than one letter. */
+const queryWords = (q: string) =>
+  offerNorm(q)
     .split(' ')
     .filter((w) => w.length > 1)
+
+/** What a search word looks for in the text: its synonyms or its stem. */
+const needles = (word: string) => SYNONYMS[word] ?? [stem(word)]
+
+/**
+ * A title split into parts with the words the search matched marked (RUNDA-V5 §8: matched words
+ * underlined). Whole words are marked, compared like the search (no Polish letters, synonyms).
+ */
+export function offerHighlight(text: string, q: string): { text: string; hit: boolean }[] {
+  const all = queryWords(q).flatMap(needles)
+  const parts: { text: string; hit: boolean }[] = []
+  for (const token of text.split(/(\s+)/)) {
+    if (!token) continue
+    const norm = offerNorm(token)
+    const hit = Boolean(norm) && all.some((n) => norm.includes(n))
+    const last = parts[parts.length - 1]
+    if (last && last.hit === hit) last.text += token
+    else parts.push({ text: token, hit })
+  }
+  return parts.length ? parts : [{ text, hit: false }]
+}
+
+/** Everything the offer list shows for the state. */
+export function offerView(areas: readonly OfferArea[], state: OfferState) {
+  const words = queryWords(state.q)
   const q = words.join(' ')
   const o = state.o
-  const match = (hay: string) =>
-    words.every((w) => (SYNONYMS[w] ?? [stem(w)]).some((x) => hay.includes(x)))
+  const match = (hay: string) => words.every((w) => needles(w).some((x) => hay.includes(x)))
   const filtered = Boolean(q || o)
   let total = 0
   let shown = 0

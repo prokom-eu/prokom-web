@@ -7,3 +7,4 @@ import dynamic from 'next/dynamic'
 // revealed by a script later (sections missing without JS and right after load).
 export const OfferBar = dynamic(() => import('./OfferWidgets').then((m) => m.OfferBar))
 export const OfferList = dynamic(() => import('./OfferWidgets').then((m) => m.OfferList))
+export const OfferFilters = dynamic(() => import('./OfferWidgets').then((m) => m.OfferFilters))

@@ -14,7 +14,9 @@ import { JsonLd } from '../../sekcje/JsonLd'
 import { PageCtaBand } from '../../sekcje/PageCtaBand'
 import { SplitHero } from '../../sekcje/SplitHero'
 import type { OfferArea, OfferCategory } from '../../widzety/oferta/offerModel'
-import { OfferBar, OfferList } from '../../widzety/oferta/OfferWidgetsLazy'
+import { OfferBar, OfferFilters, OfferList } from '../../widzety/oferta/OfferWidgetsLazy'
+import { SERVICE_SCENES } from '../../sekcje/glowna/sceny'
+import { isServiceKey } from '@/lib/instalacje/plan'
 
 type Props = { block: InstOfferBlockData; tenantId: number }
 
@@ -32,7 +34,26 @@ export async function InstOfferBlock({ block, tenantId }: Props) {
     headers().then((h) => h.get('host')),
   ])
   const origin = siteOrigin(host, getEnv().SITE_ENV)
-  const areas: OfferArea[] = data.map((a) => ({
+  // RUNDA-V5 §8: each area header gets the small scene of its service card from the home page.
+  const scenes = Object.fromEntries(
+    data.flatMap((a) =>
+      isServiceKey(a.key)
+        ? [
+            [
+              a.key,
+              <svg
+                key={a.key}
+                viewBox="0 0 400 220"
+                preserveAspectRatio="xMidYMid slice"
+                dangerouslySetInnerHTML={{ __html: SERVICE_SCENES[a.key] }}
+              />,
+            ],
+          ]
+        : [],
+    ),
+  )
+  const hues = Object.fromEntries(data.map((a) => [a.key, a.color]))
+  const areas: OfferArea[] = data.map(({ color: _color, ...a }) => ({
     ...a,
     icon: a.icon && isInstIconName(a.icon) ? a.icon : null,
     solutions: a.solutions.map((s) => ({
@@ -71,8 +92,9 @@ export async function InstOfferBlock({ block, tenantId }: Props) {
         <OfferBar areas={areas} />
       </SplitHero>
 
-      <InstSection id="lista" fold foldHeight={2600} style={{ padding: '18px 0 96px' }}>
-        <OfferList areas={areas} />
+      <InstSection id="lista" fold foldHeight={2600} style={{ padding: '0 0 96px' }}>
+        <OfferFilters areas={areas} />
+        <OfferList areas={areas} scenes={scenes} hues={hues} />
       </InstSection>
 
       <InstSection id="zawsze" style={{ padding: '0 0 104px' }}>

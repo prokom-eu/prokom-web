@@ -80,9 +80,12 @@ export const INITIAL_PLANNER: PlannerState = {
 /**
  * The state after reading the address (`mountPage()`): object, services, charger. The service
  * pages link with `?usluga=<key>` (I4); the hash of the prototype wins when both are there.
+ * An empty search of `/uslugi` links with `?opis=<phrase>` — it starts the description.
  */
 export function plannerFromHash(hash: string, search = ''): PlannerState {
-  const service = new URLSearchParams(search).get('usluga')
+  const params = new URLSearchParams(search)
+  const service = params.get('usluga')
+  const phrase = searchPhrase(params.get('opis'))
   const found = planHashState(hash)
   if (!found.services && service && isServiceKey(service)) found.services = [service]
   return {
@@ -90,7 +93,21 @@ export function plannerFromHash(hash: string, search = ''): PlannerState {
     ...(found.object && { object: found.object }),
     ...(found.services && { services: found.services, fromLink: true }),
     ...(found.charger && { charger: found.charger }),
+    ...(phrase && { message: `Szukam: ${phrase}` }),
   }
+}
+
+/** Longest search phrase carried from `/uslugi` into the description (`?opis=`, RUNDA-V5 §8). */
+const PHRASE_MAX = 200
+
+/** The phrase of an empty offer search: one line, no control characters, trimmed and capped. */
+function searchPhrase(raw: string | null): string {
+  if (!raw) return ''
+  return raw
+    .replace(/[\u0000-\u001f\u007f]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, PHRASE_MAX)
 }
 
 export const phoneDigits = (phone: string) => phone.replace(/\D/g, '').length

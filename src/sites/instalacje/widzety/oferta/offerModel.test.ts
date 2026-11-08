@@ -4,7 +4,14 @@ import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
 import oferta from '../../../../../seed/prokominstalacje/oferta-76.json'
-import { INITIAL_OFFER, offerNorm, offerView, type OfferArea, type OfferState } from './offerModel'
+import {
+  INITIAL_OFFER,
+  offerHighlight,
+  offerNorm,
+  offerView,
+  type OfferArea,
+  type OfferState,
+} from './offerModel'
 
 // The reference: the prototype's own class (`zrodlo/pages/Oferta.js`, v4.2) with a `setState`
 // that merges, fed with the same data (`offer()` and `c.SV` from `oferta-76.json`).
@@ -128,5 +135,28 @@ describe('the patched prototype', () => {
 describe('offerNorm', () => {
   it('drops Polish letters, dashes and punctuation', () => {
     expect(offerNorm('Wi-Fi dla gości, Łódź!')).toBe('wifi dla gosci lodz')
+  })
+})
+
+describe('offerHighlight', () => {
+  it('marks the words matched by the search, without Polish letters and with synonyms', () => {
+    expect(offerHighlight('Kamery na parking i taras', 'kamera')).toEqual([
+      { text: 'Kamery', hit: true },
+      { text: ' na parking i taras', hit: false },
+    ])
+    expect(offerHighlight('Sieć Wi-Fi dla gości', 'wifi')).toEqual([
+      { text: 'Sieć', hit: true },
+      { text: ' ', hit: false },
+      { text: 'Wi-Fi', hit: true },
+      { text: ' dla gości', hit: false },
+    ])
+    expect(offerHighlight('Nagłośnienie kościoła', 'koscio')).toEqual([
+      { text: 'Nagłośnienie ', hit: false },
+      { text: 'kościoła', hit: true },
+    ])
+  })
+  it('returns the whole text unmarked without a search', () => {
+    expect(offerHighlight('Ładowarka', '')).toEqual([{ text: 'Ładowarka', hit: false }])
+    expect(offerHighlight('Ładowarka', 'a')).toEqual([{ text: 'Ładowarka', hit: false }])
   })
 })
