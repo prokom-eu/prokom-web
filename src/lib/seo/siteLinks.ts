@@ -5,6 +5,7 @@ import { productHref } from '../catalog/card'
 import { categoryHref, subcategoryHref } from '../catalog/category'
 import { BRANDS_PATH, CATALOG_PATH } from '../catalog/filters'
 import { PLAN_PATH } from '../catalog/floorPlan'
+import { CONFIGURATOR_PATH } from '../catalog/wizardEngine'
 import { industryHref } from '../catalog/industry'
 import { objectHref } from '../instalacje/menu'
 import { HOME_SLUG, pagePath } from '../pages/slug'
@@ -153,6 +154,12 @@ export function buildSiteMap({
         ],
       })
     }
+    // The configurator is indexable (canonical) and in no other list (audit 0611 P1-10).
+    sections.push({
+      id: 'konfigurator',
+      title: 'Konfigurator',
+      links: [{ href: CONFIGURATOR_PATH, label: 'Konfigurator — dobierz rozwiązanie' }],
+    })
     if (catalog.plan) {
       sections.push({
         id: 'plan',

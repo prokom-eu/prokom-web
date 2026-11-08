@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Fragment } from 'react'
 import { cx } from '@/components/ui/cx'
+import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 
 export type Crumb = { name: string; href: string }
 
@@ -47,5 +48,19 @@ export function Breadcrumbs({
         })}
       </ol>
     </nav>
+  )
+}
+
+/** `BreadcrumbList` of the same crumbs (absolute addresses), for pages without their own. */
+export function BreadcrumbJsonLd({ items, origin }: { items: Crumb[]; origin: string }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: serializeJsonLd(
+          breadcrumbJsonLd(items.map(({ name, href }) => ({ name, url: origin + href }))),
+        ),
+      }}
+    />
   )
 }

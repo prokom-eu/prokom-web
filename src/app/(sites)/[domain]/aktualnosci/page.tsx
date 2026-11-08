@@ -43,7 +43,11 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       url: NEWS_PATH,
       title: texts.title,
       description: texts.description,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      // Biznes opted in to the line's mark when no picture is set (audit 0611 P1-9).
+      images: ogImages(
+        settings?.seo.ogImage ?? null,
+        tenant.line === 'biznes' ? 'biznes' : undefined,
+      ),
     },
   }
 }

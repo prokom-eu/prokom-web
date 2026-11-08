@@ -19,7 +19,8 @@ import {
 import type { CatalogIndex, IndexSubcategory } from '@/lib/catalog/catalogIndex'
 import { CATALOG_PATH } from '@/lib/catalog/filters'
 import { categorySupplyBand, EMPTY_SUPPLY_LINKS } from '@/lib/biznes/procurement/links'
-import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
+import { productHref } from '@/lib/catalog/card'
+import { breadcrumbJsonLd, itemListJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { getSiteSettings } from '@/lib/site/data'
 
 import type { Crumb } from '../Breadcrumbs'
@@ -89,6 +90,14 @@ export async function CategoryPageView({
   const breadcrumbs = breadcrumbJsonLd(
     crumbs.map(({ name, href }) => ({ name, url: origin + href })),
   )
+  // ItemList of the listed cards (audit 0611 P1-9, K33 §8 pkt 5): names and addresses, no prices.
+  const itemList = itemListJsonLd({
+    name: subcategory?.name ?? category.name,
+    items: products.map((product) => ({
+      name: product.name,
+      url: origin + productHref(product.slug),
+    })),
+  })
 
   // The client island gets only these products, not the whole catalog.
   const bySeries = seriesFilter(true, products).length > 0
@@ -133,7 +142,9 @@ export async function CategoryPageView({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbs) }}
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd(products.length > 0 ? [breadcrumbs, itemList] : breadcrumbs),
+        }}
       />
       <CategoryHero
         title={hero.title}
