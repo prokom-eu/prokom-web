@@ -361,6 +361,7 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
         holidays={company.holidays}
         now={now}
         themes={hasDarkTheme(tenant.line)}
+        search={tenant.line === 'biznes' ? 'Szukaj w ofercie' : 'Szukaj na stronie'}
       >
         <ul
           className="flex flex-col rounded-2xl border border-border bg-card"

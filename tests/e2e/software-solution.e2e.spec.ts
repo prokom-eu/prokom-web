@@ -23,7 +23,8 @@ test.describe('Software solution page', () => {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
       /^Aplikacja dla ekip w\sterenie\. Działa bez zasięgu\.$/,
     )
-    await expect(page.getByText('Zapytaj o wycenę').first()).toBeVisible()
+    // In `main`: the closed „Oferta ▾” panel of the capsule has the same words.
+    await expect(page.getByRole('main').getByText('Zapytaj o wycenę').first()).toBeVisible()
     await expect(page.getByText('Pierwszy etap', { exact: true })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'W cenie wdrożenia' })).toBeVisible()
     await expect(page.getByText('+ Publikacja w App Store i Google Play')).toBeVisible()
