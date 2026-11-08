@@ -14,7 +14,7 @@ import {
   TARGET,
   WIDTH,
 } from '../../../scripts/software-osm-map.mjs'
-import { OSM_MAP } from '../../sites/software/blocks/SwContactPage/osmMap.generated'
+import { OSM_MAP } from '../shared/osmMap.generated'
 
 // SWV4 (ZMIANY-v23 §6): the contact map drawn once from OpenStreetMap data.
 

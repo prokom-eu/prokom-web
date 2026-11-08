@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { useEffect, useId, useRef, useState } from 'react'
 
+import { CAPSULE } from '@/components/shared/capsule'
 import { Icon } from '@/components/ui/Icon'
 import { plural } from '@/lib/plural'
 import type { SoftwareNavigation } from '@/lib/software/navigation'
@@ -20,12 +21,12 @@ function focusAfterClose(button: HTMLButtonElement | null, hasItems: boolean) {
 }
 
 /**
- * „Twój projekt ▾” of the desktop header (spec. §3.1, `stany/02-twoj-projekt.jpg`): shown only
+ * „Twój projekt ▾” of the capsule (ZMIANY-v24 §3.2, `CAPSULE.pillButton`; spec. §3.1, `stany/02-twoj-projekt.jpg`): shown only
  * while the list has items. A disclosure button with a panel below it — Esc (focus back), ×, a
  * click outside, focus leaving it and a route change close it; the toast's „Zobacz projekt”
  * opens it on the desktop (the phone opens its sheet). The contents and their focus rules are
  * `ProjectList`; emptied, the panel stays with the empty text, and closing it then moves focus
- * to the element marked `data-project-fallback` („Bezpłatna wycena”).
+ * to the capsule's CTA („Bezpłatna wycena”).
  */
 export function ProjectMenu({ texts }: Props) {
   const project = useProject()
@@ -96,13 +97,13 @@ export function ProjectMenu({ texts }: Props) {
         aria-controls={panelId}
         onClick={() => setOpen(!open)}
         title={texts.title}
-        className="inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap rounded-xl border border-accent-line bg-accent-soft px-2.5 text-[15px] font-bold text-ink min-[1360px]:gap-2 min-[1360px]:px-3.5"
+        className={CAPSULE.pillButton}
       >
         <Icon name="brief" className="size-[18px]" />
         {/* The board's label does not fit the row with Manrope (wider than the board's font)
             even at 1440 px: icon and count stay, the name is for screen readers and the tooltip. */}
         <span className="sr-only">{texts.title}</span>
-        <span className="inline-flex min-w-6 items-center justify-center rounded-full bg-button px-1.5 py-0.5 text-xs font-extrabold text-accent-ink">
+        <span className={CAPSULE.count}>
           {project.length}
           <span className="sr-only">
             {' '}

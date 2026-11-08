@@ -14,7 +14,7 @@ import type { City, Industry, Post, Solution, SolutionArea } from '../../payload
 import { h2, p, richText, ul } from '../biznes/lexical'
 import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
 import { HOME_SECTION_TEXTS } from './homeExtras'
-import { withoutIndustryLinks, withServiceLineName } from '../../lib/software/industryLinks'
+import { withoutIndustryLinks } from '../../lib/software/industryLinks'
 import { INDUSTRY_PAGE_TEXTS } from './industryPages'
 import {
   FIELD_CREW_DELIVERABLES,
@@ -456,6 +456,19 @@ export function softwareContactUpdate(current: Contact): Contact | null {
   return Object.keys(update).length > 0 ? update : null
 }
 
+/** The line under the logo of the shared footer (ZMIANY-v24 §3.6, `SiteSettings.footer.text`). */
+export const SOFTWARE_FOOTER_TEXT =
+  'Strony, systemy, aplikacje i automatyzacje dla firm. Zobaczysz, zanim zapłacisz.'
+
+/**
+ * The footer text to write: the line description while the panel holds the sample of
+ * `pnpm seed` („… — dane przykładowe.”) or nothing; `null` keeps what an editor typed.
+ */
+export function softwareFooterText(current: string | null | undefined): string | null {
+  const text = current?.trim() ?? ''
+  return text === '' || text.endsWith('dane przykładowe.') ? SOFTWARE_FOOTER_TEXT : null
+}
+
 /** Facts of the package missing in the panel: values saved there are never changed. */
 export function missingFacts(
   stored: readonly { key?: string | null }[] | null | undefined,
@@ -473,11 +486,8 @@ export function missingFacts(
 export function softwareSettingsData() {
   const { process, compare } = structuredClone(stronaGlowna)
   return {
-    // Only links to industry pages that exist (the index and inactive industries 404) and „Serwis”
-    // for the service line (SWV6).
-    navigation: withServiceLineName(
-      withoutIndustryLinks(structuredClone(nawigacja), activeIndustrySlugs()),
-    ),
+    // Only links to industry pages that exist (the index and inactive industries 404, SWV6).
+    navigation: withoutIndustryLinks(structuredClone(nawigacja), activeIndustrySlugs()),
     search: {
       synonyms: wyszukiwarka.synonyms.map(({ phrase, expansions }) => ({ phrase, expansions })),
       stopWords: wyszukiwarka.stopWords,

@@ -170,7 +170,8 @@ test.describe('Biznes shell — phone', () => {
   }
 })
 
-test('other lines keep their own shell', async ({ page }) => {
-  await page.goto(site('software.localhost', '/'))
+// Software is on the shared capsule too since SWA5a (its own „Oferta ▾”: software-frame).
+test('Instalacje keeps its own mega menus', async ({ page }) => {
+  await page.goto(site('instalacje.localhost', '/'))
   await expect(page.locator('#oferta-mega')).toHaveCount(0)
 })

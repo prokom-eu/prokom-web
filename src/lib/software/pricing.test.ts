@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
 import { solutionData, solutionsToImport } from '../../seed/software/map'
-import { findLevelSolution, levelAccusative, levelPlans, type PricingSolution } from './pricing'
+import {
+  careContactHref,
+  findLevelSolution,
+  levelAccusative,
+  levelPlans,
+  type PricingSolution,
+} from './pricing'
 
 const NBSP = String.fromCharCode(0xa0)
 const nb = (text: string) => text.replace(/ /g, NBSP)
@@ -39,7 +45,7 @@ describe('levels of care and audit', () => {
     expect(plans[0]).toMatchObject({
       termLabel: 'Reakcja',
       term: 'do końca następnego dnia roboczego',
-      href: '/kontakt?poziom=podstawowa',
+      href: careContactHref('Podstawowa'),
       points: [
         'Serwer w Polsce i domena',
         'Kopia co noc i aktualizacje',
@@ -53,7 +59,9 @@ describe('levels of care and audit', () => {
       'Raport co miesiąc',
     ])
     expect(plans[2]?.points[0]).toBe('Wszystko z Rozszerzonej')
-    expect(plans[2]?.href).toBe('/kontakt?poziom=systemy')
+    expect(plans[2]?.href).toBe(
+      '/kontakt?temat=Opieka&fraza=Interesuje%20mnie%20opieka%20%E2%80%94%20poziom%20Systemy.#formularz',
+    )
   })
 
   it('audit: one-off price, the term as „Wynik”, the free level „0 zł”', () => {

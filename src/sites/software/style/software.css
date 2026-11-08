@@ -14,6 +14,8 @@
 @import './wizard.css';
 /* Subpage hero and the offer catalog v24 (`components/ui/PageHero`, `components/catalog`). */
 @import './subpages.css';
+/* The line in the shared frame: Kreator pill, „Oferta ▾” panel (`powloka/`, SWA5). */
+@import './shell.css';
 
 @source '..';
 /* A news post renders the Biznes post body (`news/PostContent`); the folder, in case it grows. */

@@ -34,10 +34,6 @@ import { getEnv } from '@/lib/env'
 import { foldedOnPhone } from '@/lib/biznes/pages/phone'
 import { FoldOnPhone } from '@/sites/biznes/components/mobile/FoldOnPhone'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
-import { SwLinesBlock } from '@/sites/software/blocks/SwLines/Component'
-import { SwPageHeroBlock } from '@/sites/software/blocks/SwPageHero/Component'
-import { SwStepsBlock } from '@/sites/software/blocks/SwSteps/Component'
-import { SwTeamBlock } from '@/sites/software/blocks/SwTeam/Component'
 import { SwCallToAction } from '@/sites/software/components/SwCallToAction'
 import { SwPageHero } from '@/sites/software/components/SwPageHero'
 import { SwRichText } from '@/sites/software/components/SwRichText'
@@ -57,9 +53,9 @@ import { BlockStyles as InstalacjeBlockStyles } from '@/sites/instalacje/style/L
 import { SwHeroBlock } from '@/sites/software/blocks/SwHero/Component'
 import { SwContactBlock } from '@/sites/software/blocks/SwContact/Component'
 import { SwAuditFormBlock } from '@/sites/software/blocks/SwAuditForm/Component'
-import { SwContactPageBlock } from '@/sites/software/blocks/SwContactPage/Component'
 import { SwHomeSectionBlock } from '@/sites/software/blocks/SwHomeSection/Component'
 import { SwPricingBlock } from '@/sites/software/blocks/SwPricing/Component'
+import { SwSharedPageBlock } from '@/sites/software/blocks/SwSharedPage/Component'
 import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
 import { FaqContact } from '@/sites/software/components/v24home/FaqContact'
 import { faqContactPair } from '@/lib/software/faqContact'
@@ -77,10 +73,9 @@ const HERO_BLOCKS = new Set([
   'bzAboutPage',
   'bzProcurementPage',
   'swHero',
-  'swContactPage',
   'swPricing',
   'swAuditForm',
-  'swPageHero',
+  'swSharedPage',
   'instService',
   'instHome',
   'instPlanner',
@@ -270,26 +265,8 @@ export function RenderBlocks({ page, tenant }: Props) {
             )
           case 'swPricing':
             return <SwPricingBlock key={key} block={block} tenantId={tenant.id} isFirst={i === 0} />
-          case 'swContactPage':
-            return (
-              <SwContactPageBlock key={key} block={block} tenantId={tenant.id} isFirst={i === 0} />
-            )
-          case 'swPageHero':
-            return (
-              <SwPageHeroBlock
-                key={key}
-                block={block}
-                tenantId={tenant.id}
-                isFirst={i === 0}
-                pageTitle={page.title}
-              />
-            )
-          case 'swSteps':
-            return <SwStepsBlock key={key} block={block} tenantId={tenant.id} />
-          case 'swTeam':
-            return <SwTeamBlock key={key} block={block} tenantId={tenant.id} />
-          case 'swLines':
-            return <SwLinesBlock key={key} block={block} tenantId={tenant.id} />
+          case 'swSharedPage':
+            return <SwSharedPageBlock key={key} block={block} tenantId={tenant.id} />
           case 'instService':
             return <InstServiceBlock key={key} block={block} tenantId={tenant.id} />
           case 'instHome':
