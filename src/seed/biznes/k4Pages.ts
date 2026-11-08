@@ -303,6 +303,25 @@ export function upgradeCareIcons(stored: PageBlock[], seed: PageBlock[]): PageBl
   return changed ? next : null
 }
 
+/**
+ * Plan 0611 §6.4 #9: „Ile masz stanowisk?” of a stored `/opieka-it` gets the seed's link when it
+ * has none; its texts stay. `null` = nothing to change.
+ */
+export function upgradeCareSupplyLink(stored: PageBlock[], seed: PageBlock[]): PageBlock[] | null {
+  const seedBlock = seed.find((block) => isSection(block, 'seats')) as SectionLike | undefined
+  const link = ((seedBlock?.data ?? {}) as { link?: unknown }).link
+  if (!link) return null
+  let changed = false
+  const next = stored.map((block) => {
+    if (!isSection(block, 'seats')) return block
+    const data = (block.data ?? {}) as { link?: unknown }
+    if (data.link) return block
+    changed = true
+    return { ...block, data: { ...data, link } }
+  })
+  return changed ? next : null
+}
+
 /** `/gopos` (K4h, K32 §3, plansza Web-GoPOS). */
 export function goposK4Layout(
   file: K4PagesFile,
@@ -818,6 +837,8 @@ const CARE_CALENDAR: [string, string, string][] = [
 ]
 
 const CARE_NOTE = 'Opieka IT'
+/** Plan 0611 §6.4 #9: new hardware → the IT deliveries (hidden until that page is published). */
+const CARE_SUPPLY_LINK = { label: 'Dostawy IT — gotowe do pracy', href: '/dostawy-it-dla-firm' }
 
 /** `/opieka-it` (K4i, K34 §6, K35 §0, plansza Web-Opieka; H1 z planszy — decyzja Krystiana 01.11). */
 export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
@@ -946,7 +967,13 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
         eyebrow: 'Wycena od zakresu',
         heading: 'Ile masz stanowisk?',
         lead: 'Zaznacz, a dopiszemy to do zapytania. Wycenę przygotujemy od zakresu.',
-        data: { slug: care, options: o.stan, label: 'Zapytaj o opiekę IT', note: CARE_NOTE },
+        data: {
+          slug: care,
+          options: o.stan,
+          label: 'Zapytaj o opiekę IT',
+          note: CARE_NOTE,
+          link: CARE_SUPPLY_LINK,
+        },
       }),
       section({
         variant: 'band',

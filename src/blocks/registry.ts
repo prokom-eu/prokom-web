@@ -19,6 +19,7 @@ import { BzAboutPageBlock } from '../sites/biznes/blocks/BzAboutPage/config'
 import { BzContactPageBlock } from '../sites/biznes/blocks/BzContactPage/config'
 import { BzLocationBlock } from '../sites/biznes/blocks/BzLocation/config'
 import { BzProcurementPageBlock } from '../sites/biznes/blocks/BzProcurementPage/config'
+import { BzProcurementBlock } from '../sites/biznes/blocks/BzProcurement/config'
 import { InstContactBlock } from '../sites/instalacje/blocks/InstContact/config'
 import { InstHomeBlock } from '../sites/instalacje/blocks/InstHome/config'
 import { InstPlannerBlock } from '../sites/instalacje/blocks/InstPlanner/config'
@@ -80,6 +81,8 @@ export const BIZNES_BLOCKS: Block[] = [
   BzAboutPageBlock,
   // BIZ-2: /agd-rtv-dla-firm and /dostawy-it-dla-firm (ZAOPATRZENIE §2)
   BzProcurementPageBlock,
+  // BIZ-2 B2-3: „Zaopatrzenie firm” on the home page (ZAOPATRZENIE §8)
+  BzProcurementBlock,
 ]
 
 /**

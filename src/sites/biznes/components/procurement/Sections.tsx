@@ -247,9 +247,12 @@ export function Guide({ guide }: { guide: Data['guide'] }) {
       <ul className="zp-guide" data-reveal-cards="">
         {guide.list.map((item, i) => (
           <li key={`${i}-${item.title}`} className="zp-gd zp-card">
-            <span className="zp-gd-no" aria-hidden="true">
-              {String(i + 1).padStart(2, '0')}
-            </span>
+            {/* Decorative watermark number: drawn by CSS, so it is not text (no contrast rule). */}
+            <span
+              className="zp-gd-no"
+              aria-hidden="true"
+              data-no={String(i + 1).padStart(2, '0')}
+            />
             <span className="zp-gd-icon">
               <ProcIcon name={item.icon} />
             </span>

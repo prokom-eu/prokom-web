@@ -1,0 +1,576 @@
+/*
+ * Home page (B2-3): „Zaopatrzenie firm” (`bzProcurement`, ZAOPATRZENIE §8) and the brands in two
+ * moving strips (`BrandsHome`, §9). Ported from `docs/design/prokombiznes/0611/
+ * prototyp-zaopatrzenie.html` („Wpis na głównej”: `.hz*`, `.calc`, `.bm`, `.bt`) onto the Biznes
+ * tokens, as `zaopatrzenie.css`. Brand tiles are white in both themes (colour logos), so their
+ * text uses the light-theme values. Motion only transform/opacity, off with reduced motion.
+ */
+
+.zh {
+  --zh-navy: var(--line-dark);
+  --zh-white: var(--c-white);
+  --zh-black: var(--on-dark-ink);
+  --zh-on-06: color-mix(in srgb, var(--zh-white) 6%, transparent);
+  --zh-on-08: color-mix(in srgb, var(--zh-white) 8%, transparent);
+  --zh-on-12: color-mix(in srgb, var(--zh-white) 12%, transparent);
+  --zh-on-18: color-mix(in srgb, var(--zh-white) 18%, transparent);
+  --zh-on-60: color-mix(in srgb, var(--zh-white) 64%, transparent);
+  --zh-on-76: color-mix(in srgb, var(--zh-white) 76%, transparent);
+  --zh-on-88: color-mix(in srgb, var(--zh-white) 88%, transparent);
+  --zh-hi: var(--tone-red-2);
+  --zh-ease: var(--ease-out);
+}
+
+/* --- Cards ------------------------------------------------------------------------------------ */
+.zh-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+}
+.zh-card {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 520px;
+  overflow: hidden;
+  padding: 30px 30px 26px;
+  border-radius: 28px;
+  background: var(--zh-navy);
+  color: var(--zh-white);
+}
+.zh-card[data-variant='it'] {
+  --zh-hi: var(--on-dark-text);
+}
+.zh-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      60% 55% at 78% 38%,
+      color-mix(in srgb, var(--on-dark) 42%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 40% at 0% 100%,
+      color-mix(in srgb, var(--zh-hi) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(circle at 1px 1px, var(--zh-on-06) 1px, transparent 1.5px) 0 0 / 18px 18px;
+}
+.zh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 6px 12px;
+  border: 1px solid var(--zh-on-12);
+  border-radius: 999px;
+  background: var(--zh-on-08);
+  color: var(--zh-on-88);
+  font: 800 12.5px var(--font-sans);
+}
+.zh-badge i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--zh-hi);
+}
+.zh-card h3 {
+  max-width: 13em;
+  margin-top: 16px;
+  font-size: clamp(24px, 2.3vw, 32px);
+  font-weight: 800;
+  line-height: 1.06;
+}
+.zh-card h3 em {
+  color: var(--zh-hi);
+  font-style: normal;
+}
+.zh-text {
+  max-width: 30em;
+  margin-top: 10px;
+  color: var(--zh-on-76);
+  font-size: 15.5px;
+}
+
+/* Scene of packshots: depth behind the mouse (`SceneParallax` sets --mx/--my on the scene). */
+.zh-scene {
+  position: relative;
+  min-height: 230px;
+  margin: 10px -6px 0;
+}
+.zh-floor {
+  position: absolute;
+  right: 4%;
+  bottom: 0;
+  left: 4%;
+  height: 26%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--on-dark-text) 28%, transparent),
+    transparent
+  );
+}
+.zh-shot {
+  position: absolute;
+}
+.zh-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  filter: drop-shadow(0 22px 22px color-mix(in srgb, var(--zh-black) 45%, transparent));
+}
+
+.zh-bottom {
+  display: grid;
+  gap: 14px;
+}
+.zh-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.zh-pills li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px 6px 8px;
+  border: 1px solid var(--zh-on-12);
+  border-radius: 999px;
+  background: var(--zh-on-06);
+  color: var(--zh-on-88);
+  font: 700 13.5px var(--font-sans);
+}
+.zh-pills .zp-i {
+  width: 15px;
+  height: 15px;
+  color: var(--tone-green-2);
+}
+
+/* Mini calculator (`ProcurementCalc`). */
+.zh-calc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--zh-on-12);
+  border-radius: 16px;
+  background: var(--zh-on-08);
+}
+.zh-seg {
+  display: inline-flex;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--zh-black) 20%, transparent);
+}
+.zh-seg button {
+  min-height: 36px;
+  padding: 7px 10px;
+  border-radius: 9px;
+  color: var(--zh-on-76);
+  font: 800 12.5px var(--font-sans);
+}
+.zh-seg button[aria-pressed='true'] {
+  background: var(--zh-white);
+  color: var(--zh-navy);
+}
+.zh-step {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--zh-on-18);
+  border-radius: 12px;
+}
+.zh-step button {
+  width: 40px;
+  height: 40px;
+  color: var(--zh-white);
+  font: 800 17px var(--font-sans);
+}
+.zh-step button:disabled {
+  opacity: 0.4;
+}
+.zh-step output {
+  min-width: 34px;
+  font: 800 16px var(--font-display);
+  font-stretch: 112%;
+  text-align: center;
+}
+.zh-res {
+  margin-left: auto;
+  line-height: 1.15;
+  text-align: right;
+}
+.zh-res b {
+  display: block;
+  font: 800 26px/1 var(--font-display);
+  font-stretch: 112%;
+}
+.zh-res span {
+  color: var(--zh-on-60);
+  font: 700 12px var(--font-sans);
+}
+.zh-go {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+}
+.zh-go small {
+  color: var(--zh-on-60);
+  font: 700 12.5px var(--font-sans);
+}
+.zh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: var(--zh-white);
+  box-shadow: 0 16px 30px -18px color-mix(in srgb, var(--zh-black) 60%, transparent);
+  color: var(--zh-navy);
+  font: 800 15.5px var(--font-sans);
+}
+
+/* Bar of benefits under the cards. */
+.zh-benefits {
+  display: grid;
+  grid-template-columns: repeat(var(--zh-n, 4), minmax(0, 1fr));
+  margin-top: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--card);
+}
+.zh-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-left: 1px solid var(--border);
+}
+.zh-benefits li:first-child {
+  border-left: 0;
+}
+.zh-benefits .zh-ico {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--accent-text) 11%, transparent);
+  color: var(--accent-text);
+}
+.zh-benefits b {
+  display: block;
+  font: 800 14.5px var(--font-sans);
+}
+.zh-benefits span span {
+  color: var(--ink-2);
+  font-size: 13px;
+}
+
+/* --- Brand strips (`BrandStrips` over `BrandMarquee`) ------------------------------------------ */
+.zh-strip {
+  margin-top: 0;
+}
+.zh-strip .zp-marq-view {
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    var(--on-dark-ink) 6%,
+    var(--on-dark-ink) 94%,
+    transparent
+  );
+}
+.zh-strip .zp-marq-group {
+  gap: 14px;
+  padding: 10px 14px 10px 0;
+}
+.zp-marq-view[data-draggable] {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+.zp-marq-view[data-draggable]:active {
+  cursor: grabbing;
+}
+.zh-tile {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 212px;
+  height: 114px;
+  overflow: hidden;
+  border: 1px solid var(--c-biznes-light-border);
+  border-radius: 18px;
+  background: var(--c-white);
+  -webkit-user-drag: none;
+}
+.zh-tile-logo {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 16px 24px 30px;
+}
+.zh-tile-logo img {
+  width: auto;
+  max-width: 146px;
+  max-height: 40px;
+  object-fit: contain;
+  pointer-events: none;
+}
+.zh-tile-logo em {
+  color: var(--c-biznes-light-ink);
+  font: 800 21px var(--font-display);
+  font-style: normal;
+}
+.zh-tile-status {
+  position: absolute;
+  bottom: 11px;
+  left: 50%;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--c-biznes-tone-green-tag) 12%, var(--c-white));
+  color: var(--c-biznes-tone-green-tag);
+  font: 800 10.5px var(--font-sans);
+  white-space: nowrap;
+  translate: -50% 0;
+}
+.zh-tile-info {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  gap: 1px;
+  padding: 8px 12px 11px;
+  opacity: 0;
+  text-align: center;
+  translate: 0 14px;
+}
+.zh-tile-info b {
+  overflow: hidden;
+  color: var(--c-biznes-light-ink);
+  font: 800 12.5px/1.25 var(--font-sans);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.zh-tile-info small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--c-biznes-text);
+  font: 700 11.5px var(--font-sans);
+}
+.zh-tile-info small svg {
+  width: 13px;
+  height: 13px;
+}
+.zh-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    color-mix(in srgb, var(--c-white) 85%, transparent) 50%,
+    transparent 65%
+  );
+  pointer-events: none;
+  translate: -120% 0;
+}
+/* Keyboard focus shows the tile's description too (the strip stands while focused). */
+.zh-tile:focus-visible .zh-tile-info {
+  opacity: 1;
+  translate: 0 0;
+}
+.zh-tile:focus-visible .zh-tile-logo {
+  translate: 0 -16px;
+  scale: 0.88;
+}
+.zh-tile:focus-visible .zh-tile-status {
+  opacity: 0;
+}
+.zh-strip-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  color: var(--ink-3);
+  font: 700 13px var(--font-sans);
+}
+.zh-strip-foot > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.zh-pause {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--ink-2);
+  font: 800 13px var(--font-sans);
+}
+
+/* --- Motion ----------------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .zh-card {
+    transition:
+      translate 0.4s var(--zh-ease),
+      box-shadow 0.4s;
+  }
+  .zh-shot {
+    transition: translate 0.5s var(--zh-ease);
+  }
+  .zh-tile,
+  .zh-tile-logo,
+  .zh-tile-info,
+  .zh-tile-status {
+    transition:
+      translate 0.45s var(--zh-ease),
+      scale 0.5s var(--zh-ease),
+      opacity 0.3s,
+      box-shadow 0.45s,
+      border-color 0.3s;
+  }
+  @media (hover: hover) {
+    .zh-card:hover {
+      box-shadow: 0 40px 60px -40px color-mix(in srgb, var(--zh-black) 70%, transparent);
+      translate: 0 -4px;
+    }
+    .zh-card:hover .zh-shot {
+      translate: 0 -6px;
+    }
+    .zh-card:hover .zh-shot:nth-of-type(2) {
+      translate: 0 -10px;
+    }
+    .zh-tile:hover {
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--c-biznes-light-border));
+      box-shadow: 0 26px 36px -24px color-mix(in srgb, var(--c-biznes-light-ink) 45%, transparent);
+      translate: 0 -6px;
+    }
+    .zh-tile:hover .zh-tile-logo {
+      scale: 0.88;
+      translate: 0 -16px;
+    }
+    .zh-tile:hover .zh-tile-info {
+      opacity: 1;
+      translate: 0 0;
+    }
+    .zh-tile:hover .zh-tile-status {
+      opacity: 0;
+      translate: -50% 10px;
+    }
+    .zh-tile:hover::after {
+      animation: zp-shine 0.9s var(--zh-ease);
+    }
+  }
+}
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .zh-shot img {
+    transform: translate3d(
+      calc(var(--mx, 0) * var(--z, 10) * 1px),
+      calc(var(--my, 0) * var(--z, 10) * 1px),
+      0
+    );
+    transition: transform 0.6s var(--zh-ease);
+  }
+}
+
+/* --- Tablet and phone ------------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .zh-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .zh-benefits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .zh-benefits li:nth-child(odd) {
+    border-left: 0;
+  }
+  .zh-benefits li:nth-child(n + 3) {
+    border-top: 1px solid var(--border);
+  }
+}
+@media (max-width: 767px) {
+  .zh-card {
+    min-height: 0;
+    padding: 22px 18px 18px;
+    border-radius: 24px;
+  }
+  .zh-scene {
+    min-height: 190px;
+  }
+  .zh-res {
+    width: 100%;
+    margin-left: 0;
+    text-align: left;
+  }
+  .zh-res b {
+    display: inline;
+    margin-right: 6px;
+    font-size: 22px;
+  }
+  .zh-go {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .zh-btn {
+    justify-content: center;
+  }
+  .zh-benefits {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .zh-benefits li {
+    border-left: 0;
+  }
+  .zh-benefits li + li {
+    border-top: 1px solid var(--border);
+  }
+  .zh-tile {
+    width: 158px;
+    height: 94px;
+    border-radius: 16px;
+  }
+  .zh-tile-logo {
+    padding: 12px 16px 26px;
+  }
+  .zh-tile-logo img {
+    max-width: 110px;
+    max-height: 30px;
+  }
+  .zh-tile-status {
+    bottom: 9px;
+    font-size: 9.5px;
+  }
+  .zh-strip .zp-marq-group {
+    gap: 10px;
+    padding: 6px 10px 6px 0;
+  }
+  .zh-strip-foot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

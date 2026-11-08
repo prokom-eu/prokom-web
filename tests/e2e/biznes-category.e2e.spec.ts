@@ -146,10 +146,12 @@ test.describe('Biznes category on a phone', () => {
     await page.goto(site('biznes.localhost', '/oferta/laptopy'))
     await expect(page.getByRole('navigation', { name: 'Kategorie działu' })).toBeVisible()
     const grid = page.locator('[data-category-grid]')
-    await expect(grid.locator(':scope > li')).toHaveCount(10)
+    // Cards only: the procurement band sits after the 6th card (plan 0611 §6.4 #2).
+    const cards = grid.locator(':scope > li:not(:has([data-supply-band]))')
+    await expect(cards).toHaveCount(10)
     await expect(page.getByText(/^Widzisz 10 z \d+$/)).toBeVisible()
     await page.getByRole('button', { name: /^Pokaż kolejne/ }).click()
-    await expect(grid.locator(':scope > li')).toHaveCount(20)
+    await expect(cards).toHaveCount(20)
 
     const last = page.getByRole('region', { name: 'Nie widzisz tego, czego szukasz?' })
     await expect(last.getByRole('link', { name: 'Zapytaj o produkt' })).toHaveAttribute(

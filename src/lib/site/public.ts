@@ -1,5 +1,6 @@
 import type { CompanyDatum, SiteSetting } from '@/payload-types'
 
+import type { SupplyLinks } from '../biznes/procurement/links'
 import { publicImage, type PublicImage } from '../media/public'
 import { navigationSchema, type SoftwareNavigation } from '../software/navigation'
 import { tenantIdOf } from '../tenant/id'
@@ -78,6 +79,8 @@ export type PublicBiznesSettings = {
   navigation: PublicBiznesNavigation
   /** Link columns of the footer (spec. §3.4). */
   footer: { important: Link[]; company: Link[] }
+  /** „Zaopatrzenie — linki” (plan 0611 §6.4): hook-ins of the two procurement pages. */
+  procurement: SupplyLinks
 }
 
 function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicBiznesSettings {
@@ -106,6 +109,28 @@ function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicB
       important: toValidLinks(group?.footer?.important),
       company: toValidLinks(group?.footer?.company),
     },
+    procurement: toSupplyLinks(group?.procurement),
+  }
+}
+
+const textOrNull = (value: string | null | undefined) => value?.trim() || null
+
+function toSupplyLinks(group: NonNullable<SiteSetting['biznes']>['procurement']): SupplyLinks {
+  return {
+    categoryBand: textOrNull(group?.categoryBand),
+    categoryBandCta: textOrNull(group?.categoryBandCta),
+    itCategories: group?.itCategories ?? [],
+    productLink: textOrNull(group?.productLink),
+    industryTiles: (group?.industryTiles ?? []).map(({ industry, page, title, text }) => ({
+      industry,
+      page,
+      title,
+      text: textOrNull(text),
+    })),
+    scaleTitle: textOrNull(group?.scaleTitle),
+    scaleText: textOrNull(group?.scaleText),
+    searchAgd: group?.searchAgd ?? [],
+    searchIt: group?.searchIt ?? [],
   }
 }
 

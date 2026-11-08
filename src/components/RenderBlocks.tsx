@@ -16,6 +16,7 @@ import { BzContactBlock } from '@/sites/biznes/blocks/BzContact/Component'
 import { BzAboutPageBlock } from '@/sites/biznes/blocks/BzAboutPage/Component'
 import { BzContactPageBlock } from '@/sites/biznes/blocks/BzContactPage/Component'
 import { BzProcurementPageBlock } from '@/sites/biznes/blocks/BzProcurementPage/Component'
+import { BzProcurementBlock } from '@/sites/biznes/blocks/BzProcurement/Component'
 import { BzLocationBlock } from '@/sites/biznes/blocks/BzLocation/Component'
 import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
@@ -225,6 +226,8 @@ export function RenderBlocks({ page, tenant }: Props) {
                 path={pagePath(page.slug)}
               />
             )
+          case 'bzProcurement':
+            return <BzProcurementBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzOrderFlow':
             return <BzOrderFlowBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzTimeline':

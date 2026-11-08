@@ -98,6 +98,8 @@ export const seatsSchema = z.object({
   /** Button without a pick, and the note without one. */
   label: text,
   note: text,
+  /** A link under the button (plan 0611 §6.4 #9: „Dostawy IT — gotowe do pracy”). */
+  link: link.optional(),
 })
 
 /** `about-hero`: O firmie hero with the business card from the panel and 4 authorizations. */

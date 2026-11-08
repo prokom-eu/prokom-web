@@ -6,6 +6,7 @@ import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'rea
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { scaleSupplyLinks } from '@/lib/biznes/procurement/links'
 import type { IconName } from '@/lib/catalog/options'
 import { planHref } from '@/lib/catalog/floorPlan'
 import {
@@ -147,6 +148,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
     [rules, state, products, data.bundles],
   )
   const kr = formatKr(state, result.selected)
+  const supplyLinks = data.supply ? scaleSupplyLinks(data.supply, state.firm, state.scale) : []
   const tops = result.needs.map((need) => need.top)
   const allTopsIn = tops.length > 0 && tops.every(inCart)
 
@@ -757,6 +759,29 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                   )}
                 </div>
               ) : null}
+
+              {data.supply && supplyLinks.length > 0 && (
+                <div data-supply-card className={cx(CARD, 'p-5 sm:p-6')}>
+                  <p className="font-display text-[18px] font-extrabold text-ink">
+                    {data.supply.title}
+                  </p>
+                  {data.supply.text && (
+                    <p className="mt-1 text-[14px] text-ink-2">{data.supply.text}</p>
+                  )}
+                  <div className="mt-2 flex flex-wrap gap-x-5">
+                    {supplyLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="inline-flex min-h-11 items-center gap-1 text-[14px] font-extrabold text-accent-text"
+                      >
+                        {link.label}
+                        <Icon name="arrow" className="size-4" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div
                 data-surface="dark"

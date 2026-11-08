@@ -502,6 +502,40 @@ export interface SiteSetting {
      */
     showOwnerQuote?: boolean | null;
     /**
+     * Odnośniki do stron „AGD i RTV dla firm” i „Dostawy IT dla firm” w reszcie strony. Puste pole = odnośnik niewidoczny.
+     */
+    procurement?: {
+      categoryBand?: string | null;
+      /**
+       * Puste = tytuł strony „Dostawy IT dla firm”.
+       */
+      categoryBandCta?: string | null;
+      /**
+       * Adresy kategorii, np. laptopy, komputery, monitory.
+       */
+      itCategories?: string[] | null;
+      productLink?: string | null;
+      industryTiles?:
+        | {
+            industry: string;
+            page: 'agd' | 'it';
+            title: string;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      scaleTitle?: string | null;
+      scaleText?: string | null;
+      /**
+       * Podpowiedź „AGD i RTV dla firm” na górze wyników.
+       */
+      searchAgd?: string[] | null;
+      /**
+       * Podpowiedź „Dostawy IT dla firm” na górze wyników.
+       */
+      searchIt?: string[] | null;
+    };
+    /**
      * Nagłówek: kolejność menu i mega menu Oferta.
      */
     navigation?: {
@@ -2187,6 +2221,7 @@ export interface Page {
         | BzContactPageBlock
         | BzAboutPageBlock
         | BzProcurementPageBlock
+        | BzProcurementBlock
         | InstServiceBlock
         | InstHomeBlock
         | InstPlannerBlock
@@ -3188,6 +3223,30 @@ export interface BzProcurementPageBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzProcurementPage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProcurementBlock".
+ */
+export interface BzProcurementBlock {
+  eyebrow?: string | null;
+  heading: string;
+  lead?: string | null;
+  /**
+   * Dwie karty (AGD, IT) z kalkulatorem i pasek korzyści. Zdjęcia to numery z Media. „Odbiór starego sprzętu” pokazuje się po zaznaczeniu flagi na stronie AGD, oddzwanianie — z obietnicy w Ustawieniach strony. Po imporcie z paczki (`pnpm seed:biznes`) wygrywa paczka.
+   */
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzProcurement';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5909,6 +5968,27 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         showReviews?: T;
         showClientLogos?: T;
         showOwnerQuote?: T;
+        procurement?:
+          | T
+          | {
+              categoryBand?: T;
+              categoryBandCta?: T;
+              itCategories?: T;
+              productLink?: T;
+              industryTiles?:
+                | T
+                | {
+                    industry?: T;
+                    page?: T;
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              scaleTitle?: T;
+              scaleText?: T;
+              searchAgd?: T;
+              searchIt?: T;
+            };
         navigation?:
           | T
           | {
@@ -6021,6 +6101,7 @@ export interface PagesSelect<T extends boolean = true> {
         bzContactPage?: T | BzContactPageBlockSelect<T>;
         bzAboutPage?: T | BzAboutPageBlockSelect<T>;
         bzProcurementPage?: T | BzProcurementPageBlockSelect<T>;
+        bzProcurement?: T | BzProcurementBlockSelect<T>;
         instService?: T | InstServiceBlockSelect<T>;
         instHome?: T | InstHomeBlockSelect<T>;
         instPlanner?: T | InstPlannerBlockSelect<T>;
@@ -6578,6 +6659,18 @@ export interface BzProcurementPageBlockSelect<T extends boolean = true> {
         brands?: T;
         id?: T;
       };
+  data?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProcurementBlock_select".
+ */
+export interface BzProcurementBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
   data?: T;
   id?: T;
   blockName?: T;

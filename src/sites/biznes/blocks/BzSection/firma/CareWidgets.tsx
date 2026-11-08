@@ -259,6 +259,15 @@ export function Seats({ data }: { data: SectionData<'seats'> }) {
       >
         {picked ? `Zapytaj o opiekę · stanowiska: ${picked}` : data.label}
       </button>
+      {data.link && (
+        <Link
+          href={data.link.href}
+          className="inline-flex min-h-11 items-center gap-1.5 self-start font-extrabold text-accent-text underline-offset-4 hover:underline"
+        >
+          {data.link.label}
+          <Icon name="arrow" className="size-4" />
+        </Link>
+      )}
     </div>
   )
 }

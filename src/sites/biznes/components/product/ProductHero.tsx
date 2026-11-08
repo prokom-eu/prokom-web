@@ -31,6 +31,8 @@ type Props = {
   gallery: PublicImage[]
   /** Gallery slide of each colour (`null`: a colour without a picture). */
   colorSlides: (number | null)[]
+  /** „Potrzebujesz kilku sztuk? Policz stanowiska” (plan 0611 §6.4 #3) — IT categories only. */
+  supply?: { label: string; href: string } | null
 }
 
 /**
@@ -47,6 +49,7 @@ export function ProductHero({
   videoTarget,
   gallery,
   colorSlides,
+  supply = null,
 }: Props) {
   const { brand, category } = product
   const highlights = product.features.slice(0, HIGHLIGHTS)
@@ -151,6 +154,16 @@ export function ProductHero({
           <p className="text-sm text-ink-2">
             Bez cen na stronie. Ofertę z wybraną wersją przygotujemy pod Twoją firmę.
           </p>
+          {supply && (
+            <Link
+              href={supply.href}
+              data-supply-link
+              className="inline-flex min-h-11 items-center gap-1.5 self-start font-extrabold text-accent-text underline-offset-4 hover:underline"
+            >
+              {supply.label}
+              <span aria-hidden="true">→</span>
+            </Link>
+          )}
         </div>
 
         <ul className="grid gap-4 border-t border-border pt-5 max-md:hidden sm:grid-cols-3">
