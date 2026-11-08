@@ -1076,6 +1076,8 @@
   /* = ARRIVE_MS in lib/shared/smoothScroll.ts (how long the section stays marked). */
   --dur-beam: 1400ms;
   --dur-sheen: 700ms;
+  /* The side rail stepping aside at the footer (AUDYT po SWA7 #4). */
+  --dur-rail-away: 350ms;
   /* Hero carousel: one slide (= SLIDE_MS in lib/software/heroStage.ts). */
   --hx-slide: 4200ms;
   /* The rest of the hero (pattern `aurora.css`): window flight and fade, the word, the cursor,

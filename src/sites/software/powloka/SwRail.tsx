@@ -83,6 +83,31 @@ export function SwRail({
     }
   }, [])
 
+  // AUDYT po SWA7 #4: the fixed rail would lie over the band above the footer and the footer
+  // itself — it steps aside (fades and slides left, `shell.css`) while either is in view.
+  useEffect(() => {
+    const root = document.documentElement
+    const targets = document.querySelectorAll('[data-footer-cta], [data-site-footer]')
+    if (targets.length === 0 || typeof IntersectionObserver === 'undefined') return
+    const inView = new Set<Element>()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) inView.add(entry.target)
+          else inView.delete(entry.target)
+        }
+        root.toggleAttribute('data-rail-away', inView.size > 0)
+      },
+      // The rail reaches about 80 % down the screen: step aside before the edge gets there.
+      { rootMargin: '0px 0px -20% 0px' },
+    )
+    targets.forEach((target) => observer.observe(target))
+    return () => {
+      observer.disconnect()
+      root.removeAttribute('data-rail-away')
+    }
+  }, [pathname])
+
   const provider = useMemo(
     () => buildLineProvider(softwareSearchEntries(index, pages), searchSettings(index, shortcuts)),
     [index, pages, shortcuts],
