@@ -26,8 +26,9 @@ export function DrawerLinks({ href }: { href: string }) {
       event.preventDefault()
       openCartDrawer()
     }
-    document.addEventListener('click', onClick)
-    return () => document.removeEventListener('click', onClick)
+    // Capture phase: React (and `next/link`) listen on the document and would navigate first.
+    document.addEventListener('click', onClick, true)
+    return () => document.removeEventListener('click', onClick, true)
   }, [href, pathname])
   return null
 }

@@ -9,7 +9,7 @@ import { type CapsuleNavItem, SiteHeader } from '@/components/shared/SiteHeader'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { Icon } from '@/components/ui/Icon'
 import type { OfferMenu } from '@/lib/catalog/menu'
-import type { PublicBiznesNavigation } from '@/lib/site/navigation'
+import { type PublicBiznesNavigation, withoutEmptyDropdowns } from '@/lib/site/navigation'
 import { requestSearch } from '@/lib/site/searchOpen'
 
 import { MegaMenuPanel } from '../components/MegaMenuPanel'
@@ -80,18 +80,18 @@ export function BizHeader({ homeLabel, menu, offer, phone, hours, cta }: Props) 
 
   const hover = (event: { pointerType: string }) => event.pointerType === 'mouse'
   const offerLabel = menu.find((item) => item.type !== 'link')?.label ?? 'Oferta'
-  const nav: CapsuleNavItem[] = menu
-    .filter((item) => item.type === 'link' || offer.departments.length > 0)
-    .map((item) =>
-      item.type === 'link' && item.href
-        ? {
-            key: item.href,
-            label: item.label,
-            href: item.href,
-            current: isCurrent(pathname, item.href),
-          }
-        : { key: 'oferta', label: item.label },
-    )
+  // Until the catalog has content (staging before the import) „Oferta ▾” is a plain link.
+  const items = withoutEmptyDropdowns(menu, { offer: offer.departments.length > 0 })
+  const nav: CapsuleNavItem[] = items.map((item) =>
+    item.type === 'link' && item.href
+      ? {
+          key: item.href,
+          label: item.label,
+          href: item.href,
+          current: isCurrent(pathname, item.href),
+        }
+      : { key: 'oferta', label: item.label },
+  )
 
   return (
     <SiteHeader

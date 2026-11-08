@@ -26,7 +26,7 @@ export const BIZNES_SHARED: SharedGroup = {
       { anchorId: 'plan', label: 'Plan Twojej firmy', icon: 'map' },
       { anchorId: 'jak-pracujemy', label: 'Jak pracujemy', icon: 'compass' },
       { anchorId: 'opinie', label: 'Opinie', icon: 'chat' },
-      { anchorId: 'fakty', label: 'O firmie', icon: 'doc' },
+      { anchorId: 'fakty', label: 'O firmie', icon: 'shield' },
       { anchorId: 'faq', label: 'Pytania', icon: 'q' },
       { anchorId: 'kontakt', label: 'Kontakt', icon: 'phone' },
     ],

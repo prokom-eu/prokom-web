@@ -113,9 +113,9 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
       <CartDrawer phone={phone} />
       <CartToast />
       {action && <DrawerLinks href={action.href} />}
-      <SearchOverlay trigger={false} />
       {/* The preview of the shared elements renders its own copies (`/_wspolne`). */}
       <PreviewGuard>
+        <SearchOverlay trigger={false} />
         {shared && <BizRail sections={line?.rail?.sections ?? []} action={action} />}
         {shared && (
           <TabBar
