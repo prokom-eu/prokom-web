@@ -107,6 +107,33 @@ test.describe('Instalacje motion with reduced motion', () => {
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2))
     expect((await running(page)).filter((name) => OURS.test(name))).toEqual([])
   })
+  test('the care plans and the charger photo switch without moving (RUNDA-V5 §11)', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST, '/serwis'))
+    const level = page.getByRole('group', { name: 'Poziom opieki' })
+    await expect(async () => {
+      await level.getByRole('button', { name: 'Pełna opieka' }).click()
+      await expect(page.locator('#plany .plan.on')).toContainText('Pełna opieka', { timeout: 500 })
+    }).toPass()
+    expect((await running(page)).filter((name) => OURS.test(name))).toEqual([])
+    expect(
+      await page.locator('#plany .plan.on').evaluate((el) => getComputedStyle(el).translate),
+    ).toBe('none')
+
+    await page.goto(site(HOST, '/ladowarki-ev'))
+    const model = page.locator('.evco').getByRole('group', { name: 'Model' })
+    await expect(async () => {
+      await model.getByRole('button', { name: 'CC City' }).click()
+      await expect(model.getByRole('button', { name: 'CC City' })).toHaveAttribute(
+        'aria-pressed',
+        'true',
+        { timeout: 500 },
+      )
+    }).toPass()
+    expect((await running(page)).filter((name) => OURS.test(name))).toEqual([])
+  })
+
   test('the mountain band and the process axis stand still, drawn in full (RUNDA-V5 §5–§6)', async ({
     page,
   }) => {
