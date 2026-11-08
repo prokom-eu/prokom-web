@@ -36,7 +36,7 @@ export function BundleTile({ bundle }: { bundle: BundleCardData }) {
           <Image
             key={photo.url}
             src={photo.url}
-            alt=""
+            alt={photo.alt}
             width={photo.width}
             height={photo.height}
             unoptimized

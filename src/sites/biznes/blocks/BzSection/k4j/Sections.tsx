@@ -144,7 +144,7 @@ export function VendingHero({
                     <Image
                       unoptimized
                       src={machine.image!.url}
-                      alt=""
+                      alt={machine.image!.alt}
                       width={machine.image!.width}
                       height={machine.image!.height}
                       className="max-h-full w-auto object-contain"
@@ -217,7 +217,7 @@ export function VendingPicker({
                       <Image
                         unoptimized
                         src={product.image.url}
-                        alt=""
+                        alt={product.image.alt}
                         width={product.image.width}
                         height={product.image.height}
                         className="max-h-full w-auto object-contain"
@@ -586,7 +586,7 @@ export function KsefPenalties({
                       <Image
                         unoptimized
                         src={product.image.url}
-                        alt=""
+                        alt={product.image.alt}
                         width={product.image.width}
                         height={product.image.height}
                         className="h-16 w-auto object-contain"

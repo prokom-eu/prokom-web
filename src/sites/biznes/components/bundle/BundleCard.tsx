@@ -41,7 +41,7 @@ export function BundleCard({
           <Image
             key={photo.url}
             src={photo.url}
-            alt=""
+            alt={photo.alt}
             width={photo.width}
             height={photo.height}
             unoptimized

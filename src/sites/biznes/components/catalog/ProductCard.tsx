@@ -190,10 +190,23 @@ export function ProductCard({
 
       <div className="flex min-w-0 flex-1 flex-col gap-2">
         {eyebrow && (
-          <p className="text-xs font-extrabold tracking-[0.07em] text-ink-2 uppercase">{eyebrow}</p>
+          // A series keeps its own spelling („ThinkPad T i X13”, audit 0611 P3), a category is caps.
+          <p
+            className={cx(
+              'text-xs font-extrabold text-ink-2',
+              meta === 'series' && product.series
+                ? 'tracking-[0.02em]'
+                : 'tracking-[0.07em] uppercase',
+            )}
+          >
+            {eyebrow}
+          </p>
         )}
         <h3 className="text-[15px] leading-[1.25] font-extrabold sm:text-[17px]">
-          <Link href={href} className="text-ink hover:text-accent-text">
+          <Link
+            href={href}
+            className="inline-flex min-h-6 items-center text-ink hover:text-accent-text"
+          >
             {product.name}
           </Link>
         </h3>

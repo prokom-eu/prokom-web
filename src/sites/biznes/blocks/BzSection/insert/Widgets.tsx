@@ -76,7 +76,7 @@ export function InsertPicker({
               <Image
                 unoptimized
                 src={program.image.url}
-                alt=""
+                alt={program.image.alt}
                 width={program.image.width}
                 height={program.image.height}
                 className="max-h-full w-auto object-contain"

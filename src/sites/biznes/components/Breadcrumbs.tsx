@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Fragment } from 'react'
+import { cx } from '@/components/ui/cx'
 
 export type Crumb = { name: string; href: string }
 
@@ -29,9 +30,13 @@ export function Breadcrumbs({
                 ) : (
                   <Link
                     href={item.href}
-                    className={
-                      onDark ? 'hover:text-white hover:underline' : 'hover:text-ink hover:underline'
-                    }
+                    // At least 24 px tall: a target of its own (WCAG 2.5.8, audit 0611 P3).
+                    className={cx(
+                      'inline-flex min-h-6 items-center',
+                      onDark
+                        ? 'hover:text-white hover:underline'
+                        : 'hover:text-ink hover:underline',
+                    )}
                   >
                     {item.name}
                   </Link>

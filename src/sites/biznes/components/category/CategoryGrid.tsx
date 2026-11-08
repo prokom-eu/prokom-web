@@ -461,7 +461,7 @@ export function CategoryGrid({
                         {option.image && (
                           <Image
                             src={option.image.url}
-                            alt=""
+                            alt={option.image.alt}
                             width={option.image.width}
                             height={option.image.height}
                             unoptimized
