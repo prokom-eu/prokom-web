@@ -11,6 +11,5 @@ if (!checked.success) {
   console.error(checked.error.issues[0])
   process.exit(1)
 }
-process.stdout.write(`${JSON.stringify(WIZARD_V3, null, 2)}
-`)
+process.stdout.write(`${JSON.stringify(WIZARD_V3, null, 2)}\n`)
 process.exit(0)

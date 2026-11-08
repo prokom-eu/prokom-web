@@ -829,6 +829,7 @@ export const WIZARD_V3_FROZEN = {
     next: 'Dalej →',
     showResult: 'Pokaż wynik →',
     restart: 'Zacznij od nowa',
+    stepsLabel: 'Kroki kreatora',
     live: 'Twój projekt na żywo',
     stepOf: 'krok {n} z {m}',
     tipLabel: 'Podpowiedź',

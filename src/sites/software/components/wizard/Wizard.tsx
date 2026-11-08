@@ -73,6 +73,8 @@ export function Wizard({ rules, solutions, initial, formToken, headingLevel }: W
   const ids = useId()
   const [answers, setAnswers] = useState(initial.answers)
   const [step, setStep] = useState(initial.step)
+  // Name and contact of the result live here: a step back and forth keeps them.
+  const [who, setWho] = useState({ name: '', contact: '' })
   const titleRef = useRef<HTMLHeadingElement>(null)
   const moved = useRef(false)
   const started = useRef(false)
@@ -198,6 +200,8 @@ export function Wizard({ rules, solutions, initial, formToken, headingLevel }: W
           send={rules.send}
           answers={answers}
           onNote={(note) => setAnswers((current) => ({ ...current, note }))}
+          who={who}
+          onWho={setWho}
           formToken={formToken}
         />
       )
@@ -285,7 +289,7 @@ export function Wizard({ rules, solutions, initial, formToken, headingLevel }: W
       </header>
       <div className="wz-grid">
         <div className="wz-main sw-glass">
-          <ol className="wz-steps" aria-label={rules.ui.live}>
+          <ol className="wz-steps" aria-label={rules.ui.stepsLabel}>
             {steps.map((s, i) => (
               <li key={s}>
                 <button

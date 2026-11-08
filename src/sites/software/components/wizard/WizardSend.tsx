@@ -21,6 +21,9 @@ type Props = {
   send: SoftwareWizard['send']
   answers: WizardAnswers
   onNote: (note: string) => void
+  /** Name and contact, kept by the wizard while the visitor steps back. */
+  who: { name: string; contact: string }
+  onWho: (who: { name: string; contact: string }) => void
   formToken: string
 }
 
@@ -33,11 +36,10 @@ const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
  * name and company, e-mail or phone, the consent of `consent.ts`. The browser sends the answers
  * only; the server checks them against its rules. Sent → `/dziekujemy?nr=PKS-…`.
  */
-export function WizardSend({ send, answers, onNote, formToken }: Props) {
+export function WizardSend({ send, answers, onNote, who, onWho, formToken }: Props) {
   const id = useId()
   const router = useRouter()
-  const [name, setName] = useState('')
-  const [contact, setContact] = useState('')
+  const { name, contact } = who
   const [consent, setConsent] = useState(false)
   const [busy, setBusy] = useState(false)
   const [errors, setErrors] = useState<Partial<Record<ErrorKey, string>>>({})
@@ -120,7 +122,7 @@ export function WizardSend({ send, answers, onNote, formToken }: Props) {
           <input
             id={`${id}-name`}
             value={name}
-            onChange={(event) => setName(event.target.value)}
+            onChange={(event) => onWho({ ...who, name: event.target.value })}
             placeholder={send.name.placeholder}
             autoComplete="name"
             maxLength={120}
@@ -133,7 +135,7 @@ export function WizardSend({ send, answers, onNote, formToken }: Props) {
             ref={contactRef}
             value={contact}
             onChange={(event) => {
-              setContact(event.target.value)
+              onWho({ ...who, contact: event.target.value })
               setErrors(({ contact: _fixing, ...rest }) => rest)
             }}
             placeholder={send.contact.placeholder}
