@@ -112,21 +112,24 @@ export async function BiznesFrame({ tenant, settings, biznes, promo, children }:
       {action && <DrawerLinks href={action.href} />}
       {/* The preview of the shared elements renders its own copies (`/_wspolne`). */}
       <PreviewGuard>
-        {shared && (
-          <BizSearch
-            actions={paletteActions({
-              phone: shared.line.phone,
-              phone2: shared.line.phone2 ?? settings.phone2,
-              email: shared.line.email,
-              mapsUrl: shared.company.mapsUrl,
-              primary: action,
-              contactHref: '/kontakt',
-              themes: true,
-            })}
-            recentlyViewed={shared.company.recentlyViewed}
-            phone={shared.line.phone}
-          />
-        )}
+        {/* Without the shared data (a fresh staging) the search still opens, just no actions. */}
+        <BizSearch
+          actions={
+            shared
+              ? paletteActions({
+                  phone: shared.line.phone,
+                  phone2: shared.line.phone2 ?? settings.phone2,
+                  email: shared.line.email,
+                  mapsUrl: shared.company.mapsUrl,
+                  primary: action,
+                  contactHref: '/kontakt',
+                  themes: true,
+                })
+              : []
+          }
+          recentlyViewed={shared?.company.recentlyViewed ?? false}
+          phone={shared?.line.phone ?? settings.phone ?? null}
+        />
         {shared && <BizRail sections={line?.rail?.sections ?? []} action={action} />}
         {shared && (
           <TabBar

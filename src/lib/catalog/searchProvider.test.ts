@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { buildCatalogIndex } from './catalogIndex'
 import { sourceFromSeed } from './seedSource.fixture'
-import { biznesSearchProvider, productOfResult } from './searchProvider'
+import { biznesSearchProvider, catalogLoadingProvider, productOfResult } from './searchProvider'
 
 const index = buildCatalogIndex(sourceFromSeed())
 const provider = biznesSearchProvider(index)
@@ -57,5 +57,26 @@ describe('biznesSearchProvider (plan 0611 §8.1 pkt 5)', () => {
       expect.arrayContaining(['/oferta/kasy-fiskalne', '/konfigurator', '/plan-firmy']),
     )
     expect(provider.popular).toEqual(index.search.popular)
+  })
+
+  it('„konfigurator”, „dobierz” bring the configurator on top (plan §8.1 pkt 5: Akcje)', () => {
+    for (const q of ['konfigurator', 'dobierz sprzęt', 'dobór']) {
+      const [first] = provider.query(q)
+      expect(first?.results[0]).toMatchObject({ href: '/konfigurator' })
+    }
+    expect(titles('kasa')).not.toContain('Dobierz rozwiązanie')
+  })
+})
+
+describe('catalogLoadingProvider', () => {
+  it('while the catalog loads, a phrase leads to the catalog search, never „nothing found”', () => {
+    expect(catalogLoadingProvider.empty()).toEqual([])
+    const [group] = catalogLoadingProvider.query('kasa fiskalna')
+    expect(group?.results).toEqual([
+      expect.objectContaining({
+        title: 'Szukaj „kasa fiskalna” w ofercie',
+        href: '/oferta?szukaj=kasa%20fiskalna',
+      }),
+    ])
   })
 })

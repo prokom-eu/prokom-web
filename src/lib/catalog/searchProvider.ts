@@ -1,3 +1,4 @@
+import { matchActions } from '../shared/search/palette'
 import type { SearchGroup, SearchProvider, SearchResult } from '../shared/search/provider'
 import {
   matchBrands,
@@ -31,6 +32,38 @@ const SHORTCUT_CATEGORIES = [
 ]
 
 const PRODUCT_ID = 'p:'
+
+const CONFIGURATOR: SearchResult = {
+  id: 'konfigurator',
+  title: 'Konfigurator',
+  hint: 'Dobierzemy rozwiązanie w około minutę',
+  href: CONFIGURATOR_PATH,
+  icon: 'target',
+}
+/**
+ * „Konfigurator” among the actions of plan §8.1 pkt 5, with its key words — matched like the
+ * shared palette (whole words; a token of 3+ letters begins one).
+ */
+const CONFIGURATOR_WORDS = ['konfigurator', 'konfiguracja', 'dobierz', 'dobor', 'dobrac', 'wybor']
+const asksForConfigurator = (q: string) =>
+  matchActions([{ kind: 'primary', label: '', short: '', icon: '', words: CONFIGURATOR_WORDS }], q)
+    .length > 0
+
+const catalogSearch = (q: string): SearchResult => ({
+  id: 'all',
+  title: `Szukaj „${q}” w ofercie`,
+  href: `/oferta?szukaj=${encodeURIComponent(q)}`,
+  icon: 'search',
+})
+
+/**
+ * Until the catalog index arrives (or after it failed): a phrase leads to the catalog's own
+ * search — the dialog never says „nothing found” about products it has not seen yet.
+ */
+export const catalogLoadingProvider: SearchProvider = {
+  empty: () => [],
+  query: (q) => [{ key: 'loading', title: 'Wczytujemy katalog…', results: [catalogSearch(q)] }],
+}
 
 /** The product behind a result of the search (its preview), `null` for the other results. */
 export function productOfResult(
@@ -84,13 +117,7 @@ export function biznesSearchProvider(index: CatalogIndex): SearchProvider {
           title: 'Na skróty',
           results: [
             ...categories,
-            {
-              id: 'konfigurator',
-              title: 'Konfigurator',
-              hint: 'Dobierzemy rozwiązanie w około minutę',
-              href: CONFIGURATOR_PATH,
-              icon: 'star',
-            },
+            CONFIGURATOR,
             {
               id: 'plan',
               title: 'Plan Twojej firmy',
@@ -107,6 +134,11 @@ export function biznesSearchProvider(index: CatalogIndex): SearchProvider {
       const products = searchProducts(prepared, q) ?? []
       const pages = matchPages(index, q)
       const groups: SearchGroup[] = [
+        {
+          key: 'configurator',
+          title: 'Dobierz rozwiązanie',
+          results: asksForConfigurator(q) ? [CONFIGURATOR] : [],
+        },
         {
           key: 'products',
           title: 'Produkty i usługi',
@@ -176,7 +208,7 @@ export function biznesSearchProvider(index: CatalogIndex): SearchProvider {
               id: `m:${brand.slug}`,
               title: brand.name,
               href: brandTarget(brand) ?? brandHref(brand.slug),
-              icon: 'star',
+              icon: 'sign',
             })),
         },
       ]

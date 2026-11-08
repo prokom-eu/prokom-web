@@ -2,18 +2,22 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { SearchDialog } from '@/components/shared/SearchDialog'
 import { Icon } from '@/components/ui/Icon'
 import { brandTarget } from '@/lib/catalog/brand'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
-import { biznesSearchProvider, productOfResult } from '@/lib/catalog/searchProvider'
+import {
+  biznesSearchProvider,
+  catalogLoadingProvider,
+  productOfResult,
+} from '@/lib/catalog/searchProvider'
 import { useCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { railIcon } from '@/lib/shared/rail'
 import type { PaletteAction } from '@/lib/shared/search/palette'
-import type { SearchProvider, SearchResult } from '@/lib/shared/search/provider'
+import type { SearchResult } from '@/lib/shared/search/provider'
 
 import { AddToCartButton } from '../components/AddToCartButton'
 import { ProductThumb } from '../components/ProductThumb'
@@ -24,30 +28,37 @@ type Props = {
   phone: string | null
 }
 
-/** Until the catalog index arrives the dialog shows its actions only. */
-const LOADING: SearchProvider = { empty: () => [], query: () => [] }
-
 /**
  * Ctrl K / „/” of Biznes (plan 0611 §8.1 pkt 5): the shared search dialog over the catalog index
  * (`/api/catalog-index`, fetched the first time the dialog takes the focus — not on every page
- * view), the line's contact actions, „Zapytaj o …” → `/zapytanie?fraza=` and the preview of a
+ * view; until then, or after a failed fetch, a phrase leads to the catalog search), the line's contact actions, „Zapytaj o …” → `/zapytanie?fraza=` and the preview of a
  * product (photo, brand, status, benefit, „Do zapytania”, „Karta”).
  */
 export function BizSearch({ actions, recentlyViewed, phone }: Props) {
   const [wanted, setWanted] = useState(false)
   const catalog = useCatalogIndex(wanted)
-
+  // The listener reads the latest state without being added again on every change.
+  const latest = useRef(catalog)
   useEffect(() => {
-    if (wanted) return
+    latest.current = catalog
+  })
+
+  // The first focus in the dialog fetches the index; after a failed fetch the next one retries.
+  useEffect(() => {
     const onFocus = (event: FocusEvent) => {
-      if ((event.target as Element | null)?.closest?.('[data-search-dialog]')) setWanted(true)
+      if (!(event.target as Element | null)?.closest?.('[data-search-dialog]')) return
+      setWanted(true)
+      if (latest.current.status === 'error') latest.current.retry()
     }
     document.addEventListener('focusin', onFocus)
     return () => document.removeEventListener('focusin', onFocus)
-  }, [wanted])
+  }, [])
 
   const index = catalog.index
-  const provider = useMemo(() => (index ? biznesSearchProvider(index) : LOADING), [index])
+  const provider = useMemo(
+    () => (index ? biznesSearchProvider(index) : catalogLoadingProvider),
+    [index],
+  )
 
   return (
     <SearchDialog
