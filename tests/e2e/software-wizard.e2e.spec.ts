@@ -143,7 +143,9 @@ const PATHS: Path[] = [
     walk: async (page) => {
       await button(page, 'Pomiń').click()
       await expect(title(page)).toHaveText('Opisz po swojemu')
-      await main(page).getByLabel('Opisz po swojemu').fill('Zamówienia giną w mailach.')
+      await main(page)
+        .getByRole('textbox', { name: 'Opisz po swojemu' })
+        .fill('Zamówienia giną w mailach.')
       await option(page, 'Informatyk zniknął').click()
       await expect(sizeQuestion(page)).toHaveCount(0)
       await button(page, 'Pokaż wynik →').click()
