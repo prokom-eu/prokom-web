@@ -355,7 +355,8 @@ test.describe('Software side rail (≥ 1400 px)', () => {
 
 test.describe('Software „Zacznij od podglądu” band', () => {
   // Every page ends with one CTA (plan §3b, decyzja 6): pages without their own get the band.
-  for (const path of ['/', '/dobierz', '/cennik', '/mapa-strony']) {
+  // `/audyt` too since SWA8 (AUDYT po SWA7 #6): its own CTA band is gone, one CTA before the footer.
+  for (const path of ['/', '/dobierz', '/cennik', '/mapa-strony', '/audyt']) {
     test(`the band closes ${path}`, async ({ page }) => {
       await page.goto(site(HOST, path))
       const band = page.locator('section[data-footer-cta]')
@@ -368,11 +369,12 @@ test.describe('Software „Zacznij od podglądu” band', () => {
         '/dobierz',
       )
       await expect(band.locator('a[href^="tel:"]')).toHaveCount(1)
+      await expect(page.locator('[data-final-cta]')).toHaveCount(0)
     })
   }
 
   // A page that ends with its own CTA (`data-final-cta`) drops the band — the 404 too (§3.5).
-  for (const path of [SUBPAGE, '/audyt', '/nie-ma-takiej-strony-swa5']) {
+  for (const path of [SUBPAGE, '/nie-ma-takiej-strony-swa5']) {
     test(`no band where the page ends with its own CTA (${path})`, async ({ page }) => {
       await page.goto(site(HOST, path))
       await expect(footer(page)).toBeVisible()
@@ -383,6 +385,29 @@ test.describe('Software „Zacznij od podglądu” band', () => {
 
 test.describe('Software footer', () => {
   test.use({ viewport: DESKTOP })
+
+  // AUDYT po SWA7 #10: the contact column splits in two, so no empty field under the links.
+  test('the contact column ends level with the link columns (±48 px)', async ({ page }) => {
+    await page.goto(site(HOST, '/mapa-strony'))
+    await footer(page).scrollIntoViewIfNeeded()
+    const heights = await page.evaluate(() =>
+      [...document.querySelectorAll('[data-footer-grid] > *')]
+        .filter((column) => (column as HTMLElement).offsetWidth > 0)
+        .map((column) => {
+          const top = column.getBoundingClientRect().top
+          const bottoms = [...column.querySelectorAll('*')]
+            .filter((child) => (child as HTMLElement).offsetHeight > 0)
+            .map((child) => child.getBoundingClientRect().bottom)
+          return {
+            contact: column.hasAttribute('data-footer-contact'),
+            height: Math.max(...bottoms) - top,
+          }
+        }),
+    )
+    const contact = heights.find((column) => column.contact)!.height
+    const tallest = Math.max(...heights.filter((c) => !c.contact).map((c) => c.height))
+    expect(contact - tallest).toBeLessThanOrEqual(48)
+  })
 
   test('columns, promises, contact, the lines band and the legal bar', async ({ page }) => {
     await page.goto(site(HOST, '/mapa-strony'))

@@ -110,6 +110,9 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const wizard = page.locator('#dobierz')
     await expect(wizard.getByRole('heading', { level: 2 })).toHaveText('Policz swój projekt.')
+    await expect(wizard.getByRole('heading', { level: 2 }).locator('em')).toHaveText(
+      'swój projekt.',
+    )
     await expect(wizard.getByRole('heading', { level: 3 }).first()).toBeVisible()
   })
 
@@ -117,6 +120,7 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const section = page.locator('#faq')
     await expect(section.locator('#faq-h')).toHaveText('Zanim napiszesz')
+    await expect(section.locator('#faq-h em')).toHaveText('napiszesz')
     const items = section.locator('details')
     await expect(items).toHaveCount(6)
     await expect(items.nth(0)).toHaveAttribute('open', '')
