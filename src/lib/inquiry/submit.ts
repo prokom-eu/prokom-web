@@ -7,16 +7,9 @@ import { errorFields, log } from '../log'
 import type { ConfirmationLimiter } from '../mail/confirmationLimit'
 import type { MailContext } from '../mail/context'
 import type { MailLogo } from '../mail/logo'
-import type { ContactField, SoftwareWizard } from '../software/wizard'
-import {
-  addOnSlugsOf,
-  contactPrefOf,
-  needOf,
-  parseSoftwareAnswers,
-  resultIdOf,
-  wizardMessage,
-  wizardSummary as softwareWizardSummary,
-} from '../software/wizardFlow'
+import { parseWizardAnswers, wizardMessage, wizardRecord } from '../software/wizard/answers'
+import { typeOf } from '../software/wizard/flow'
+import type { SoftwareWizard } from '../software/wizard/schema'
 import { normalizeHost } from '../tenant/host'
 import type { Line } from '../tenant/lines'
 import {
@@ -157,6 +150,9 @@ async function composeWizard(
   return { summary: wizardProfile(rules, state, deps.siteOrigin(host) ?? '') }
 }
 
+/** What the contact field must hold (Instalacje: an e-mail for „E-mail”). */
+type ContactField = 'phone' | 'email' | 'any'
+
 type ComposedWizard = {
   /** Absent: the items sent by the browser stand (Konfigurator 3.0). */
   items?: SavedItem[]
@@ -165,7 +161,7 @@ type ComposedWizard = {
   message?: string
   preferredContact?: InquiryInput['preferredContact']
   auditUrl?: string
-  /** Software: what the chosen contact preference needs (`contactPrefs[].field`). */
+  /** What the chosen contact preference needs (Instalacje). */
   contactField?: ContactField
   /** Instalacje: the services come from the answers, not from the sent topics. */
   topics?: string[]
@@ -214,10 +210,10 @@ export function siteUrl(text: string): string | undefined {
 }
 
 /**
- * The Software wizard's answers as an inquiry (spec. §6.3): checked against this site's rules,
- * the recommended solution and the added add-ons as items (published, this tenant), the answers named for people,
- * the message written here and the contact preference mapped — or `null` when the answers do
- * not fit the rules (or there are none).
+ * The Software wizard v3 answers as an inquiry (ZMIANY-v24 §7.2): checked against this site's
+ * rules, the kind's solution as the item (published, this tenant; none for „Nie wiem jeszcze”),
+ * the answers named in Polish and the message written here — or `null` when the answers do not
+ * fit the rules (or there are none). A valid site address goes to `auditUrl` (printed once).
  */
 async function composeSoftwareWizard(
   deps: SubmitDeps,
@@ -225,26 +221,21 @@ async function composeSoftwareWizard(
   input: unknown,
 ): Promise<ComposedWizard | null> {
   const rules = await deps.findSoftwareWizard(tenantId)
-  const answers = rules ? parseSoftwareAnswers(rules, input) : null
+  const answers = rules ? parseWizardAnswers(rules, input) : null
   if (!rules || !answers) return null
-  // The recommended solution first, then the added add-ons (each solution once).
-  const result = rules.resultToSolutionSlug[resultIdOf(rules, answers)] ?? null
-  const slugs = [...new Set([...(result ? [result] : []), ...addOnSlugsOf(rules, answers)])]
-  const found = slugs.length > 0 ? await deps.findSolutions(tenantId, slugs) : []
-  const bySlug = new Map(found.map((solution) => [solution.slug, solution]))
-  const items = slugs.flatMap((slug) => {
-    const solution = bySlug.get(slug)
-    return solution ? [{ solution: solution.id, nameSnapshot: solution.name, quantity: 1 }] : []
-  })
-  const when = rules.whens.find((option) => option.id === answers.when)?.n
+  const slug = typeOf(rules, answers)?.solution
+  const found = slug ? await deps.findSolutions(tenantId, [slug]) : []
+  const items = found.map((solution) => ({
+    solution: solution.id,
+    nameSnapshot: solution.name,
+    quantity: 1,
+  }))
+  const auditUrl = siteUrl(answers.url)
   return {
     items,
-    summary: softwareWizardSummary(rules, answers),
+    summary: wizardRecord(rules, auditUrl ? { ...answers, url: '' } : answers),
     message: wizardMessage(rules, answers),
-    preferredContact: contactPrefOf(rules, answers)?.inquiryValue,
-    contactField: contactPrefOf(rules, answers)?.field,
-    ...(when && { when }),
-    ...(needOf(rules, answers)?.url && { auditUrl: siteUrl(answers.url) }),
+    ...(auditUrl && { auditUrl }),
   }
 }
 
@@ -565,7 +556,7 @@ export async function submitInquiry(
         return docs.map(({ id, slug, name }) => ({ id, slug, name }))
       },
       findSoftwareWizard: async (tenantId) => {
-        const { readSoftwareWizard } = await import('../software/wizardRules')
+        const { readSoftwareWizard } = await import('../software/wizard/read')
         return readSoftwareWizard(payload, tenantId)
       },
       findWizard: async (tenantId) => {

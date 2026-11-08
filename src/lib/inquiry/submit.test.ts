@@ -1,11 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import konfigurator from '../../../seed/prokombiznes/k4/konfigurator-k4.json'
-import softwareKreator from '../../../seed/prokomsoftware/kreator.json'
-import { wizardSeed } from '../../seed/software/wizardExtras'
+import { WIZARD_V3 } from '../../seed/software/wizard'
 import { k4Wizard, type K4WizardFile } from '../../seed/biznes/k4Wizard'
 import { wizardSchema } from '../catalog/wizard'
-import { softwareWizardSchema } from '../software/wizard'
+import { softwareWizardSchema } from '../software/wizard/schema'
 import { createConfirmationLimiter } from '../mail/confirmationLimit'
 import type { MailContext } from '../mail/context'
 import { CONSENT_CLAUSE } from './consent'
@@ -18,7 +17,7 @@ const rules = wizardSchema.parse(
 )
 
 // Software wizard rules (tenant 2): the seed value.
-const softwareRules = softwareWizardSchema.parse(wizardSeed(softwareKreator))
+const softwareRules = softwareWizardSchema.parse(WIZARD_V3)
 
 const secret = 's'.repeat(32)
 const now = Date.UTC(2026, 9, 17, 12)
@@ -588,7 +587,7 @@ describe('submitInquiry (ADR-003)', () => {
     })
   })
 
-  describe('Software wizard (SW7, v22)', () => {
+  describe('Software wizard v3 (SWA3)', () => {
     const software = (overrides: Partial<SubmitDeps> = {}) =>
       deps({
         findTenant: vi.fn(async () => ({
@@ -597,11 +596,10 @@ describe('submitInquiry (ADR-003)', () => {
           line: 'software' as const,
           notificationEmail: 's@p.pl',
         })),
-        // Published on tenant 2 (in this order — the inquiry keeps the wizard's order).
+        // Published on tenant 2 (the automation solution is not).
         findSolutions: vi.fn(async (tenantId: number, slugs: string[]) =>
           tenantId === 2
             ? [
-                { id: 13, slug: 'opieka-nad-strona-i-systemem', name: 'Opieka nad stroną' },
                 { id: 11, slug: 'strona-firmowa-z-panelem', name: 'Strona firmowa z panelem' },
                 { id: 12, slug: 'przebudowa-starej-strony', name: 'Przebudowa starej strony' },
               ].filter((solution) => slugs.includes(solution.slug))
@@ -611,18 +609,13 @@ describe('submitInquiry (ADR-003)', () => {
       })
     const softwareRequest = { host: 'software.localhost:3000', ip: '203.0.113.9' }
     const answers = {
-      need: 'firm',
-      own: false,
-      options: ['bud'],
-      have: null,
+      type: 'firmowa',
+      industry: 'bud',
+      picks: { have: ['logo'], feat: ['oferta', 'bud-2'] },
+      size: null,
       url: '',
-      when: 'lato',
-      description: 'Chcę więcej telefonów.',
-      checklist: [],
-      more: ['blog'],
-      addOns: ['opieka', 'sms'],
-      shop: false,
-      contactPref: 'salon',
+      description: '',
+      note: 'Chcę więcej telefonów.',
     }
     const wizardBody = {
       ...body,
@@ -631,117 +624,75 @@ describe('submitInquiry (ADR-003)', () => {
       message: undefined,
       wizard: answers,
     }
+    const send = (d: SubmitDeps, wizard: unknown) =>
+      submitInquiryWith(d, { ...softwareRequest, body: { ...wizardBody, wizard } })
 
-    it('saves the recommendation and the add-ons, the named answers and the message', async () => {
+    it('saves the kind’s solution, the answers named in Polish and the message', async () => {
       const d = software()
-      expect((await submitInquiryWith(d, { ...softwareRequest, body: wizardBody })).ok).toBe(true)
+      expect((await send(d, answers)).ok).toBe(true)
       expect(d.findWizard).not.toHaveBeenCalled()
-      expect(d.findSolutions).toHaveBeenCalledWith(2, [
-        'strona-firmowa-z-panelem',
-        'opieka-nad-strona-i-systemem',
-        'powiadomienia-sms-i-e-mail',
-      ])
+      expect(d.findSoftwareWizard).toHaveBeenCalledWith(2)
+      expect(d.findSolutions).toHaveBeenCalledWith(2, ['strona-firmowa-z-panelem'])
       expect(d.save).toHaveBeenCalledWith(
         expect.objectContaining({
           line: 'software',
           type: 'wizard',
-          // The result first; the SMS add-on is not published on this site, so it is dropped.
-          items: [
-            { solution: 11, nameSnapshot: 'Strona firmowa z panelem', quantity: 1 },
-            { solution: 13, nameSnapshot: 'Opieka nad stroną', quantity: 1 },
-          ],
-          preferredContact: 'meeting',
-          deadline: 'Przed latem',
-          message: expect.stringContaining('+ do wyceny: Aktualności i blog'),
-          wizard: expect.objectContaining({
-            Potrzeba: 'Strona dla firmy',
-            Szczegóły: ['Budowlanka i remonty'],
-            'Do wyceny': ['Aktualności i blog'],
-            Dodatki: ['Opieka nad stroną', 'Powiadomienia SMS i e-mail'],
-          }),
+          items: [{ solution: 11, nameSnapshot: 'Strona firmowa z panelem', quantity: 1 }],
+          message: 'Kreator: Strona firmowa\n\nChcę więcej telefonów.',
+          wizard: {
+            Rodzaj: 'Strona firmowa',
+            Branża: 'Budowlanka i remonty',
+            'Masz już': ['Logo'],
+            'Ma umieć': ['Oferta na podstronach', 'Formularz bezpłatnej wyceny'],
+          },
         }),
       )
-      const saved = vi.mocked(d.save).mock.calls[0]?.[0]
-      expect(saved?.message).toMatch(/^Kreator: Strona firmowa z panelem\n/)
     })
 
-    it('keeps the current site of a refresh as the address to look at', async () => {
+    it('keeps the current site of a rebuild as the address to look at, printed once', async () => {
       const d = software()
-      const refresh = {
+      const rebuild = {
         ...answers,
-        need: 'odsw',
-        options: ['wolna'],
+        type: 'przebudowa',
+        picks: { fix: ['wolna'] },
         url: 'stara-firma.pl',
-        more: [],
-        addOns: [],
       }
-      const result = await submitInquiryWith(d, {
-        ...softwareRequest,
-        body: { ...wizardBody, wizard: refresh },
+      expect((await send(d, rebuild)).ok).toBe(true)
+      const saved = vi.mocked(d.save).mock.calls[0]?.[0]
+      expect(saved).toMatchObject({
+        auditUrl: 'https://stara-firma.pl/',
+        items: [{ solution: 12, nameSnapshot: 'Przebudowa starej strony', quantity: 1 }],
       })
-      expect(result.ok).toBe(true)
-      expect(d.save).toHaveBeenCalledWith(
-        expect.objectContaining({
-          auditUrl: 'https://stara-firma.pl/',
-          items: [{ solution: 12, nameSnapshot: 'Przebudowa starej strony', quantity: 1 }],
-        }),
-      )
+      expect(saved?.wizard).not.toHaveProperty('Adres strony')
+    })
+
+    it('keeps an address that is not a web address among the answers', async () => {
+      const d = software()
+      const rebuild = { ...answers, type: 'przebudowa', picks: {}, url: 'nie pamiętam' }
+      expect((await send(d, rebuild)).ok).toBe(true)
+      const saved = vi.mocked(d.save).mock.calls[0]?.[0]
+      expect(saved?.auditUrl).toBeUndefined()
+      expect(saved?.wizard).toMatchObject({ 'Adres strony': 'nie pamiętam' })
     })
 
     it('rejects answers that do not fit the rules, and a site without rules', async () => {
       for (const [d, wizard] of [
-        [software(), { ...answers, options: ['zlec'] }],
-        [software(), { ...answers, size: 'start' }],
-        [software(), { ...answers, addOns: ['opiekaSys'] }],
+        [software(), { ...answers, size: '1-3' }],
+        [software(), { ...answers, picks: { have: ['zero', 'logo'] } }],
+        [software(), { ...answers, addOns: ['opieka'] }],
         [software({ findSoftwareWizard: vi.fn(async () => null) }), answers],
       ] as const) {
-        expect(
-          await submitInquiryWith(d, { ...softwareRequest, body: { ...wizardBody, wizard } }),
-        ).toEqual({ ok: false, error: 'invalid', fields: ['wizard'] })
+        expect(await send(d, wizard)).toEqual({ ok: false, error: 'invalid', fields: ['wizard'] })
         expect(d.save).not.toHaveBeenCalled()
       }
     })
 
-    it('asks for the contact the preference needs: a phone for „Telefon”, an e-mail for „E-mail”', async () => {
-      const phonePref = { ...wizardBody, wizard: { ...answers, contactPref: 'tel' } }
-      const d = software()
-      expect(await submitInquiryWith(d, { ...softwareRequest, body: phonePref })).toEqual({
-        ok: false,
-        error: 'invalid',
-        fields: ['phone'],
-      })
-      expect(d.save).not.toHaveBeenCalled()
-      const withPhone = { ...phonePref, email: undefined, phone: '600 100 200' }
-      expect(
-        (await submitInquiryWith(software(), { ...softwareRequest, body: withPhone })).ok,
-      ).toBe(true)
-      const mailPref = {
-        ...wizardBody,
-        email: undefined,
-        phone: '600 100 200',
-        wizard: { ...answers, contactPref: 'mail' },
+    it('saves without an item when the kind has no published solution', async () => {
+      for (const type of ['nie-wiem', 'automatyzacje']) {
+        const d = software()
+        expect((await send(d, { ...answers, type, industry: null, picks: {} })).ok).toBe(true)
+        expect(d.save).toHaveBeenCalledWith(expect.objectContaining({ items: [] }))
       }
-      expect(await submitInquiryWith(software(), { ...softwareRequest, body: mailPref })).toEqual({
-        ok: false,
-        error: 'invalid',
-        fields: ['email'],
-      })
-    })
-
-    it('reads the rules of its own tenant only', async () => {
-      const d = software()
-      await submitInquiryWith(d, { ...softwareRequest, body: wizardBody })
-      expect(d.findSoftwareWizard).toHaveBeenCalledWith(2)
-    })
-
-    it('saves the advice without an item when nothing prices it („Opisz po swojemu”)', async () => {
-      const d = software()
-      const own = { ...answers, need: null, own: true, options: [], more: [], addOns: [] }
-      expect(
-        (await submitInquiryWith(d, { ...softwareRequest, body: { ...wizardBody, wizard: own } }))
-          .ok,
-      ).toBe(true)
-      expect(d.save).toHaveBeenCalledWith(expect.objectContaining({ items: [] }))
     })
   })
 

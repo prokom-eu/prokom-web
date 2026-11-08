@@ -1,0 +1,526 @@
+/*
+ * Wizard v3 „Aurora” (`components/wizard`, ZMIANY-v24 §7, board `AU-kreator`). The effect of
+ * `v24/wzorzec/aurora.css` (`.au-wz`, `.wst`, `.wtp`, `.au-opt`) rebuilt on the tokens — colours
+ * and times only from `tokens.css`.
+ */
+.wz {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.wz-head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 760px;
+}
+.wz-lead {
+  color: var(--ink-2);
+  font-size: 17px;
+  line-height: 1.6;
+}
+.wz-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 18px;
+  align-items: start;
+}
+.wz-main {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 30px;
+}
+
+/* Step bar: numbers, done ✓, the current one lit; only steps behind are clickable. */
+.wz-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.wz-st {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 7px 14px 7px 7px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-3);
+  font: 800 13px var(--font-sans);
+  cursor: pointer;
+  transition:
+    color var(--dur-state) var(--ease-out),
+    background-color var(--dur-state) var(--ease-out),
+    border-color var(--dur-state) var(--ease-out);
+}
+.wz-st:disabled {
+  cursor: default;
+}
+.wz-st i {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--chip);
+  color: var(--ink-2);
+  font-size: 11px;
+  font-style: normal;
+}
+.wz-st[data-state='on'] {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.wz-st:is([data-state='on'], [data-state='done']) i {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.wz-st[data-state='done'] {
+  color: var(--ink-2);
+}
+.wz-bar {
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--chip);
+}
+.wz-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width var(--dur-state) var(--ease-out);
+}
+
+.wz-step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.wz-title {
+  font: 800 24px/1.2 var(--font-display);
+  outline-offset: 4px;
+}
+.wz-sub {
+  margin-top: -6px;
+  color: var(--ink-2);
+}
+
+/* Step 1: the kinds — number, name with a line, price „od”. */
+.wz-types {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.wz-type,
+.wz-ind,
+.wz-opt {
+  border: 1px solid var(--border);
+  background: var(--glass);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-state) var(--ease-out),
+    background-color var(--dur-state) var(--ease-out),
+    box-shadow var(--dur-state) var(--ease-out),
+    transform var(--dur-state) var(--ease-out);
+}
+.wz-type {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 15px 16px;
+  border-radius: 16px;
+}
+.wz-n {
+  color: var(--ink-3);
+  font: 900 12px var(--font-display);
+}
+.wz-type b {
+  display: block;
+  font: 800 15px var(--font-display);
+}
+.wz-type small {
+  display: block;
+  margin-top: 2px;
+  color: var(--ink-3);
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+.wz-p {
+  color: var(--accent-text);
+  font: 800 13px var(--font-display);
+  white-space: nowrap;
+}
+.wz-type[aria-pressed='true'],
+.wz-ind[aria-pressed='true'],
+.wz-opt[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent) inset;
+}
+
+/* Step 2: the industries of the showroom. */
+.wz-inds {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.wz-ind {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 10px 14px 10px 10px;
+  border-radius: 16px;
+  font: 800 14px var(--font-sans);
+}
+.wz-ii {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--chip);
+  color: var(--accent-text);
+}
+.wz-ii svg {
+  width: 18px;
+  height: 18px;
+}
+.wz-ind[aria-pressed='true'] .wz-ii {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Questions: chips with ✓ / +. */
+.wz-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.wz-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.wz-q {
+  margin-bottom: 10px;
+  font: 800 16px var(--font-display);
+}
+.wz-opts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.wz-opts-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.wz-opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font: 800 15px var(--font-sans);
+}
+.wz-mark {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--chip);
+  font-weight: 900;
+}
+.wz-opt[aria-pressed='true'] .wz-mark {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.wz-inprice {
+  padding: 14px 16px;
+  border: 1px dashed var(--accent-line);
+  border-radius: 14px;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+.wz-inprice b {
+  color: var(--accent-text);
+}
+
+/* Fields: the address, the description, the form of the result. */
+.wz-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.wz-field label {
+  font-size: 14px;
+  font-weight: 800;
+}
+.wz-field :is(input, textarea) {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--border-input);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--ink);
+  font: 500 15.5px var(--font-sans);
+}
+.wz-field textarea {
+  resize: vertical;
+}
+.wz-field :is(input, textarea)::placeholder {
+  color: var(--ink-3);
+}
+.wz-field :is(input, textarea):focus {
+  border-color: var(--accent-text);
+}
+.wz-field [aria-invalid='true'] {
+  border-width: 3px;
+  border-color: var(--ink);
+}
+.wz-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.wz-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.wz-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+.wz-consent input {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  margin-top: 1px;
+  accent-color: var(--accent-text);
+}
+.wz-consent a {
+  color: var(--accent-text);
+  font-weight: 700;
+  text-decoration: underline;
+}
+.wz-error {
+  padding: 12px 16px;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  background: var(--surface-2);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Back / Skip / Next — and the submit button. */
+.wz-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 6px;
+}
+.wz-back,
+.wz-skip {
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-2);
+  font: 800 14px var(--font-sans);
+  cursor: pointer;
+}
+.wz-back:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.wz-skip {
+  border-color: transparent;
+}
+.wz-next,
+.wz-submit {
+  min-height: 48px;
+  margin-left: auto;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--button-bg);
+  color: var(--accent-ink);
+  font: 800 15px var(--font-sans);
+  cursor: pointer;
+}
+.wz-next[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.wz-ghost {
+  border: 1px solid var(--accent-line);
+  background: transparent;
+  color: var(--accent-text);
+}
+.wz-submit {
+  width: 100%;
+  min-height: 56px;
+  margin-left: 0;
+  font-size: 16px;
+}
+
+/* The live card: name, term, price, choices, points, tip. */
+.wz-live {
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+.wz-livehead {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--accent-text);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.wz-livehead span:last-child {
+  color: var(--ink-3);
+}
+.wz-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+.wz-name b {
+  font: 800 20px var(--font-display);
+}
+.wz-name span {
+  color: var(--ink-2);
+  font-size: 13px;
+  font-weight: 700;
+}
+.wz-price {
+  margin-top: 6px;
+  font: 900 34px/1.1 var(--font-display);
+}
+.wz-net {
+  color: var(--ink-3);
+  font-size: 13px;
+}
+.wz-sum {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 13.5px;
+}
+.wz-sum dt {
+  color: var(--ink-3);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.wz-sum dd {
+  color: var(--ink);
+  font-weight: 700;
+}
+.wz-points {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+.wz-points li {
+  display: flex;
+  gap: 10px;
+}
+.wz-points li::before {
+  content: '✓';
+  color: var(--accent-text);
+  font-weight: 900;
+}
+.wz-tip {
+  padding: 14px 16px;
+  border: 1px solid var(--accent-line);
+  border-radius: 14px;
+  background: var(--accent-soft);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.wz-tip b {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--accent-text);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.wz-more {
+  color: var(--accent-text);
+  font-weight: 800;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wz-step {
+    animation: wz-in var(--dur-state) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    :is(.wz-type, .wz-opt, .wz-ind):hover {
+      border-color: var(--accent-line);
+      transform: translateY(-2px);
+    }
+  }
+}
+@keyframes wz-in {
+  from {
+    opacity: 0;
+    translate: 24px 0;
+  }
+}
+
+@media (max-width: 1080px) {
+  .wz-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .wz-live {
+    position: static;
+  }
+}
+@media (max-width: 600px) {
+  .wz-main {
+    padding: 18px;
+  }
+  .wz-types,
+  .wz-inds,
+  .wz-opts,
+  .wz-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .wz-opts-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .wz-price {
+    font-size: 30px;
+  }
+}

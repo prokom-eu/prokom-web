@@ -7,7 +7,7 @@ export const template = (token: string) =>
   label.refine((value) => value.includes(token), { message: `Musi zawierać ${token}.` })
 
 /**
- * How prices read on the site (kreator.json → `priceDisplay`): always „od” (v22). Also used by the
+ * How prices read on the site (`SoftwareSettings.wizard.priceDisplay`): always „od” (v22). Also used by the
  * catalog cards (SW9) and the offer window (SWR3).
  */
 export const priceDisplaySchema = obj({

@@ -92,7 +92,7 @@ export async function swContactData(block: SwContactBlockData, tenantId: number)
     initialTopic: null,
     errors: {
       ...SOFTWARE_CONTACT_MESSAGES,
-      contact: wizard?.send.contact.any.error ?? FIELD_MESSAGES.email,
+      contact: wizard?.send.contact.error ?? FIELD_MESSAGES.email,
       consent: wizard?.send.errors.consent ?? FIELD_MESSAGES.consent,
     },
     formToken: issueFormToken(getEnv().PAYLOAD_SECRET),

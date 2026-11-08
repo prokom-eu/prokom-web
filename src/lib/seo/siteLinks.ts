@@ -13,7 +13,7 @@ import { NEWS_PATH, postHref } from '../posts/list'
 import { CATALOG_PATH as SOLUTIONS_PATH } from '../software/catalog'
 import { cityHref } from '../software/cities'
 import { industryPageHref } from '../software/industryPage'
-import { WIZARD_PATH } from '../software/wizardFlow'
+import { WIZARD_PATH } from '../software/wizard/flow'
 
 export const SITE_MAP_PATH = '/mapa-strony'
 

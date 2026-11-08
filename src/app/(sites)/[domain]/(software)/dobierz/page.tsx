@@ -8,7 +8,7 @@ import { ogImages } from '@/lib/pages/metadata'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { SOFTWARE_ROUTE_DESCRIPTIONS } from '@/lib/software/meta'
-import { WIZARD_PATH } from '@/lib/software/wizardFlow'
+import { WIZARD_PATH } from '@/lib/software/wizard/flow'
 import { Wizard } from '@/sites/software/components/wizard/WizardLazy'
 import { loadWizardProps } from '@/sites/software/components/wizard/wizardProps'
 
@@ -44,9 +44,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /**
- * The wizard `/dobierz` (spec. §6.3, board `Kreator`): rules, prices of the results and the
- * form token on the server; the steps, the preview and the form are one client island. The
- * parameters `?potrzeba=`, `?firma=` and `?tryb=opis` preset steps; unknown ones are ignored.
+ * The wizard `/dobierz` (v3, ZMIANY-v24 §7): rules, the kinds' solutions and the form token on the
+ * server; the steps, the live card and the form are one client island. The parameters `?firma=`,
+ * `?rodzaj=` and `?tryb=opis` preset steps; unknown ones are ignored.
  */
 export default async function WizardPage({ params, searchParams }: Props) {
   const tenant = await requireLine(params, 'software')

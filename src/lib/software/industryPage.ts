@@ -3,7 +3,7 @@ import type { Industry } from '@/payload-types'
 import type { IconName } from '../catalog/options'
 import { INDUSTRY_GROUPS } from './options'
 import type { IndexSolution } from './solutionsIndex'
-import { WIZARD_PATH } from './wizardFlow'
+import { WIZARD_PATH } from './wizard/flow'
 
 /**
  * Software industry page `/dla-branz/[branza]` (spec. §6.2, board `Branza` v22). Pure: the loader
