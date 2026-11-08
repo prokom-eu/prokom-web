@@ -24,13 +24,11 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
-import { seedSoftwareAbout } from './about'
 import { seedSoftwareSeo } from './seo'
 import { seedSoftwareAudit } from './audit'
 import { seedSoftwareLegal } from './legal'
-import { seedSoftwareContact } from './contact'
 import { seedSoftwareHome } from './home'
-import { seedSoftwarePhotos } from './photos'
+import { seedSoftwareSharedPages } from './sharedPages'
 import { seedSoftwarePricing } from './pricing'
 import { HOME_SECTION_TEXTS, homeWithSections, homeWithV24 } from './homeExtras'
 import { HOME_HERO } from './homeHero'
@@ -340,17 +338,13 @@ export async function seedSoftware(payload: Payload): Promise<void> {
 
   // --- start page (SW5): after the settings, its sections read their texts ---
   await seedSoftwareHome(payload, tenant.id, count)
-  // --- /kontakt (SW11a): replaces the generic sample page of `pnpm seed` ---
-  await seedSoftwareContact(payload, tenant.id, count)
   // --- /cennik (SW11a): after the solutions, its hero card points at one ---
   await seedSoftwarePricing(payload, tenant.id, count)
   await seedSoftwareAudit(payload, tenant.id, count)
   // --- /polityka-prywatnosci (SW11b), /cookies, /dostepnosc (D2-1b): drafts until approved ---
   await seedSoftwareLegal(payload, tenant.id, count)
-  // --- /o-firmie, /jedna-firma (SW11b): after the home texts — the comparison reads them ---
-  await seedSoftwareAbout(payload, tenant.id, count)
-  // --- photos of /o-firmie, /jedna-firma, /kontakt (SWV4): only empty photo fields ---
-  await seedSoftwarePhotos(payload, tenant.id, count)
+  // --- /kontakt, /o-firmie on the shared templates, /jedna-firma → 301 (SWA5b) ---
+  await seedSoftwareSharedPages(payload, tenant.id, count)
   // --- titles and descriptions of those pages (SW12, spec. §9): only empty fields ---
   await seedSoftwareSeo(payload, tenant.id, count)
 

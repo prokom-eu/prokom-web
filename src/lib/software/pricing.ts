@@ -1,7 +1,6 @@
 import type { Solution } from '@/payload-types'
 
 import { formatPrice } from './price'
-import { levelSlug } from './projectSummary'
 
 /**
  * Levels of care and kinds of audit (`Solutions.levels`, ADR-014 v22 pkt 2) for `/cennik` and
@@ -74,9 +73,18 @@ export function levelPlans(solution: PricingSolution): LevelPlan[] {
       term: level.term?.trim() || null,
       recommended: level.recommended ?? false,
       points: previous ? [fromLevel(previous.name), ...own] : own,
-      href: solution.priceMonthly ? `/kontakt?poziom=${levelSlug(level.name)}` : null,
+      href: solution.priceMonthly ? careContactHref(level.name) : null,
     }
   })
+}
+
+/**
+ * „Zapytaj o opiekę X →”: the contact form with the topic „Opieka” picked and the level written in
+ * the message, both visible to the customer (`?temat=`, `?fraza=` of the shared form, SWA5b).
+ */
+export function careContactHref(levelName: string): string {
+  const phrase = encodeURIComponent(`Interesuje mnie opieka — poziom ${levelName}.`)
+  return `/kontakt?temat=Opieka&fraza=${phrase}#formularz`
 }
 
 /** „Zapytaj o opiekę Podstawową”: a name in -a takes -ą, any other stays as it is („Systemy”). */
