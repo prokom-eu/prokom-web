@@ -206,6 +206,79 @@
   border: 1px solid var(--border);
   box-shadow: 0 40px 120px -50px var(--glow);
 }
+/* Glass top and bottom (AUDYT-0811 #5): the details scroll under them, blurred. */
+.sw-offer-panel [data-sheet-top] {
+  background: transparent;
+  box-shadow: none;
+}
+.sw-offer-head,
+.sw-offer-panel [data-sheet-footer] {
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(18px) saturate(1.5);
+}
+/* The price under the mock-up, as on the bar below. */
+.sw-offer-price {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 18px;
+  border: 1px solid var(--accent-line);
+  border-radius: 18px;
+  background: var(--accent-soft);
+}
+.sw-offer-price span {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.sw-offer-price b {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--accent-text);
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* The next offer: the details fade in, the mock-up comes up 12 px. */
+  .sw-offer-swap {
+    animation: sw-offer-swap var(--dur-sheet) var(--ease-out) both;
+  }
+  .sw-offer-swap > aside > :first-child {
+    animation: sw-offer-mock 450ms var(--ease-spring) both;
+  }
+  /* The window comes in from a blur on a spring (450 ms) and leaves quicker (200 ms). */
+  @media (min-width: 641px) {
+    [data-line='software'] dialog.sw-offer-panel[data-motion] {
+      transition:
+        translate 450ms var(--ease-spring),
+        scale 450ms var(--ease-spring),
+        opacity 300ms var(--ease-out),
+        filter 450ms var(--ease-out),
+        display 450ms allow-discrete,
+        overlay 450ms allow-discrete;
+    }
+    [data-line='software'] dialog.sw-offer-panel[data-motion]:not([open]) {
+      filter: blur(8px);
+      transition-duration: 200ms;
+      transition-timing-function: var(--ease-out);
+    }
+    @starting-style {
+      [data-line='software'] dialog.sw-offer-panel[data-motion][open] {
+        filter: blur(8px);
+      }
+    }
+  }
+}
+@keyframes sw-offer-swap {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes sw-offer-mock {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
 .sw-offer-shot {
   height: 300px;
   border: 1px solid var(--border);

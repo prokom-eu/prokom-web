@@ -260,6 +260,7 @@ export function BottomSheet({
             content scrolls; the side shadows cover the content's padding (up to 32 px). */}
         <div
           {...dragHandlers}
+          data-sheet-top={stickyHeader ? '' : undefined}
           className={
             [
               dragToClose ? 'touch-none' : '',
@@ -300,7 +301,10 @@ export function BottomSheet({
         {children}
       </div>
       {footer && (
-        <div className="sticky bottom-0 border-t border-border bg-surface px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3">
+        <div
+          data-sheet-footer
+          className="sticky bottom-0 border-t border-border bg-surface px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3"
+        >
           {footer}
         </div>
       )}

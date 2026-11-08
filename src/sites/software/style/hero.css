@@ -982,7 +982,6 @@
   border-radius: 22px;
   background: var(--glass);
   backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
 }
@@ -1196,7 +1195,6 @@
   border-radius: 50%;
   background: var(--glass);
   backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   color: var(--ink);
   box-shadow: var(--shadow);
   cursor: pointer;
@@ -1255,7 +1253,6 @@
   border-radius: 18px;
   background: var(--glass);
   backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   text-align: left;
   box-shadow: var(--shadow);

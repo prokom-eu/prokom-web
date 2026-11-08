@@ -307,6 +307,18 @@ test.describe('Software offer window (spec. §5.1)', () => {
     await expect(dialog.getByRole('button', { name: 'Następne rozwiązanie' })).toBeInViewport()
   })
 
+  test('wide window 7/5 at 1440 px: the mock-up column stays in view', async ({ page }) => {
+    // AUDYT-0811 #5: up to 1320 px wide, the gallery with the price kept in view while scrolling.
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site(HOST, `${PATH}?rozwiazanie=strona-firmowa-z-panelem`))
+    const dialog = windowOf(page, 'Strona firmowa z panelem')
+    await expect(dialog).toBeVisible()
+    expect((await dialog.boundingBox())?.width ?? 0).toBeGreaterThanOrEqual(1240)
+    const gallery = dialog.getByRole('group', { name: 'Widok makiety' })
+    await dialog.evaluate((element) => element.scrollTo(0, 900))
+    await expect(gallery).toBeInViewport()
+  })
+
   test('„Zapytaj o tę ofertę →” puts the solution into the project and opens the form', async ({
     page,
   }) => {
