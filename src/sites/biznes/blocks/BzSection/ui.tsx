@@ -3,7 +3,6 @@ import type { ReactNode } from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
-import { phoneFormHref } from '@/lib/biznes/pages/phone'
 import type { SectionAction } from '@/lib/biznes/pages/sections'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
@@ -184,10 +183,7 @@ export function SourceLine({ block, className }: { block: BzSectionData; classNa
   )
 }
 
-/**
- * A link inside the site (`#…` on the page or a path). A link to the contact form gets a twin
- * for phones that leads to the inquiry page — the form is not shown below 768 px.
- */
+/** A link inside the site: `#…` on the page stays a plain anchor, a path goes through `Link`. */
 export function SiteLink({
   href,
   className,
@@ -197,23 +193,14 @@ export function SiteLink({
   className: string
   children: ReactNode
 }) {
-  const one = (to: string, extra?: string) =>
-    to.startsWith('#') ? (
-      <a href={to} className={cx(className, extra)}>
-        {children}
-      </a>
-    ) : (
-      <Link href={to} className={cx(className, extra)}>
-        {children}
-      </Link>
-    )
-  const phone = phoneFormHref(href)
-  if (!phone) return one(href)
-  return (
-    <>
-      {one(href, 'max-md:hidden')}
-      {one(phone, 'min-[768px]:hidden')}
-    </>
+  return href.startsWith('#') ? (
+    <a href={href} className={className}>
+      {children}
+    </a>
+  ) : (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
   )
 }
 

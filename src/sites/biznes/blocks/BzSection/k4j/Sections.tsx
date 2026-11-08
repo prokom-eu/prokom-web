@@ -555,8 +555,10 @@ export function KsefPenalties({
             className={cx(BTN_PRIMARY, 'w-full min-[768px]:hidden')}
           />
         )}
-        {/* Not on the phone board App-KSeF (the penalties card is followed by the sources). */}
-        <div className={cx(CARD, 'flex flex-col gap-4 p-6 text-ink max-md:hidden sm:p-8')}>
+        {/* D12: shown on a phone too, a tighter card. */}
+        <div
+          className={cx(CARD, 'flex flex-col gap-4 p-6 text-ink max-md:gap-3 max-md:p-5 sm:p-8')}
+        >
           <p className={cx(EYEBROW, 'text-accent-text')}>{data.help.eyebrow}</p>
           <h2 className={H2}>{data.help.heading}</h2>
           <ul className="flex flex-col gap-3">

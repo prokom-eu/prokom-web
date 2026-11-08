@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContactBlock } from '@/blocks/Contact/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
@@ -29,7 +28,7 @@ import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
 import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
 import { getEnv } from '@/lib/env'
-import { foldedOnPhone, hiddenOnPhone } from '@/lib/biznes/pages/phone'
+import { foldedOnPhone } from '@/lib/biznes/pages/phone'
 import { FoldOnPhone } from '@/sites/biznes/components/mobile/FoldOnPhone'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { SwLinesBlock } from '@/sites/software/blocks/SwLines/Component'
@@ -107,14 +106,6 @@ function opensWithHero(block: NonNullable<PublicPage['layout']>[number] | undefi
  * per line (ADR-014 rozstrz. 7): on Biznes, Partners is the brands bar and FAQ the cards with
  * a contact column; on Software, FAQ takes the line's look (SW8b).
  */
-/**
- * Biznes below 768 px follows the phone boards App-*: a section the board leaves out stays in the
- * page (and its FAQPage data) but is not shown on a phone (`lib/biznes/pages/phone`).
- */
-function PhoneHidden({ hidden, children }: { hidden: boolean; children: ReactNode }) {
-  return hidden ? <div className="max-md:hidden">{children}</div> : <>{children}</>
-}
-
 export function RenderBlocks({ page, tenant }: Props) {
   const blocks = renderableBlocks(tenant.line, page.layout)
   const biznes = tenant.line === 'biznes'
@@ -172,11 +163,7 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <CallToActionBlock key={key} block={block} />
           case 'faq':
             if (biznes) {
-              return (
-                <PhoneHidden key={key} hidden={hiddenOnPhone(page.slug, block)}>
-                  <FaqBiznes block={block} tenantId={tenant.id} />
-                </PhoneHidden>
-              )
+              return <FaqBiznes key={key} block={block} tenantId={tenant.id} />
             }
             if (software) {
               // v24: a FAQ with the contact block right after it is one section (ZMIANY-v24 §4).
@@ -227,19 +214,11 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'bzReferences':
             return <BzReferencesBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzFacts':
-            return (
-              <PhoneHidden key={key} hidden={hiddenOnPhone(page.slug, block)}>
-                <BzFactsBlock block={block} tenantId={tenant.id} />
-              </PhoneHidden>
-            )
+            return <BzFactsBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzContact':
             return <BzContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzLocation':
-            return (
-              <PhoneHidden key={key} hidden={hiddenOnPhone(page.slug, block)}>
-                <BzLocationBlock block={block} tenantId={tenant.id} />
-              </PhoneHidden>
-            )
+            return <BzLocationBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzOrderFlow':
             return <BzOrderFlowBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzTimeline':
@@ -249,6 +228,7 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'bzSection': {
             const section = (
               <BzSectionBlock
+                key={key}
                 block={block}
                 tenantId={tenant.id}
                 crumbs={[
@@ -264,11 +244,7 @@ export function RenderBlocks({ page, tenant }: Props) {
                 </FoldOnPhone>
               )
             }
-            return (
-              <PhoneHidden key={key} hidden={hiddenOnPhone(page.slug, block)}>
-                {section}
-              </PhoneHidden>
-            )
+            return section
           }
           case 'swHero':
             return <SwHeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />

@@ -160,39 +160,36 @@ export async function CategoryPageView({
           useCases={useCases}
         />
       </Container>
-      {/* Board App-Kategoria: on a phone the grid is followed only by the closing card. */}
-      <div className="max-md:hidden">
-        <IncludedCards included={category.included} />
-        {!subcategory && <CategoryFacts facts={category.facts} />}
-        <BoughtWith
-          heading="Często dobierane razem"
-          tiles={boughtWithTiles(index, category.slug, category.boughtWith)}
+      {/* D12: the phone shows these too, in a shorter form (compact list, row, accordion). */}
+      <IncludedCards included={category.included} />
+      {!subcategory && <CategoryFacts facts={category.facts} />}
+      <BoughtWith
+        heading="Często dobierane razem"
+        tiles={boughtWithTiles(index, category.slug, category.boughtWith)}
+      />
+      {!subcategory && category.faq.items.length > 0 && (
+        <FaqBiznes
+          tenantId={tenantId}
+          block={{
+            blockType: 'faq',
+            eyebrow: category.faq.eyebrow,
+            heading: category.faq.title,
+            lead: category.faq.lead,
+            items: category.faq.items,
+          }}
         />
-        {!subcategory && category.faq.items.length > 0 && (
-          <FaqBiznes
-            tenantId={tenantId}
-            block={{
-              blockType: 'faq',
-              eyebrow: category.faq.eyebrow,
-              heading: category.faq.title,
-              lead: category.faq.lead,
-              items: category.faq.items,
-            }}
-          />
-        )}
-        <HowInquiryWorks callbackTime={callback} />
-      </div>
+      )}
+      <HowInquiryWorks callbackTime={callback} />
       {/* `#kontakt` (the grid's help card links here) wraps the form and the phone card. */}
       <div id="kontakt" className="scroll-mt-24">
-        <div className="max-md:hidden">
-          <CatalogContactPanel
-            tenantId={tenantId}
-            id="kontakt-formularz"
-            heading={category.contact.heading}
-            lead={category.contact.lead}
-            callbackTime={callback}
-          />
-        </div>
+        <CatalogContactPanel
+          tenantId={tenantId}
+          id="kontakt-formularz"
+          heading={category.contact.heading}
+          lead={category.contact.lead}
+          callbackTime={callback}
+          topic={category.name}
+        />
         <NotListedCard />
       </div>
     </>
