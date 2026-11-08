@@ -386,8 +386,8 @@
   border: 1px solid var(--border);
   border-radius: 16px;
 }
-/* Looping mock-ups stop while pointed at, focused or off screen (WCAG 2.2.2). */
-.wz-screen:is(:hover, :focus-within) .mk *,
+/* Looping mock-ups stop while pointed at or off screen (WCAG 2.2.2; the mock-up takes no focus). */
+.wz-screen:hover .mk *,
 .wz-live[data-paused] .mk * {
   animation-play-state: paused;
 }

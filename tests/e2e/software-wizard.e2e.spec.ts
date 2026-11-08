@@ -301,8 +301,8 @@ test.describe('Software wizard v3 — steps and links', () => {
     await expect(live(page).locator('[data-mockup="before"]')).toBeVisible()
   })
 
-  test('phone: the live card folds into a price bar that unfolds it', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 })
+  test('phone: the live card folds into a price bar that unfolds it (360 px)', async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 780 })
     await page.goto(site(HOST, `${PATH}?rodzaj=system&firma=bud`))
     const bar = page.locator('[data-wizard-bar]')
     await expect(bar).toContainText(/od\s2\s990\szł/)
@@ -313,7 +313,7 @@ test.describe('Software wizard v3 — steps and links', () => {
       await expect(toggle).toHaveAttribute('aria-expanded', 'true', { timeout: 1000 })
     }).toPass()
     await expect(live(page).locator('[data-mockup="dash"]')).toBeVisible()
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390)
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360)
   })
 
   test('dark start, a question and the result pass axe', async ({ page }) => {
