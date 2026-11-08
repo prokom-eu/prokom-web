@@ -26,7 +26,8 @@ export function ProjectPrefill({ solutions }: { solutions: readonly ProjectSolut
   useEffect(() => {
     latest.current = { summary }
   })
-  // The form shows „(opcjonalnie)” at the message while the list has items.
+  // The form shows „(opcjonalnie)” at the message while the list has items. Keep this effect
+  // after the one above: React runs effects in order, and the form then reads the new list.
   useEffect(() => notifyFormAttachments(), [slugs])
   useEffect(
     () =>

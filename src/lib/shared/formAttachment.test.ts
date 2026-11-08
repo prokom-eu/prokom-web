@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 
 import {
   MESSAGE_LIMIT,
+  attachedItemCount,
   collectAttachments,
   formAttachments,
   notifyFormAttachments,
@@ -100,5 +101,19 @@ describe('form attachments (Biznes: the inquiry list joins the contact message)'
     stop()
     notifyFormAttachments()
     expect(calls).toBe(3)
+  })
+
+  it('counts the items without reading the texts (read at every key press)', () => {
+    let reads = 0
+    off.push(
+      registerFormAttachment(() => {
+        reads++
+        return 'Lista: Posnet Ergo × 1'
+      }),
+    )
+    off.push(registerFormAttachment(() => null, { items: () => ['crm', 'strona-wizytowka'] }))
+    off.push(registerFormAttachment(() => null, { items: () => ['crm'] }))
+    expect(attachedItemCount()).toBe(2)
+    expect(reads).toBe(0)
   })
 })

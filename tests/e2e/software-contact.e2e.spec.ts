@@ -75,6 +75,8 @@ test.describe('Software /kontakt (shared template)', () => {
     await expect(hero.locator('a[href="mailto:kontakt@prokomsoftware.pl"]')).toBeVisible()
 
     const card = hero.locator('[data-address-card]')
+    // One office (rule 01.11): a single address card on the page.
+    await expect(contact(page).locator('[data-address-card]')).toHaveCount(1)
     await expect(card).toContainText('ul. Orkana 16B')
     await expect(card).toContainText('Rabka-Zdrój')
     await expect(card.getByRole('list', { name: 'Godziny otwarcia' })).toBeVisible()

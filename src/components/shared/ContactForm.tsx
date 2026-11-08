@@ -30,6 +30,7 @@ import type { Line } from '@/lib/tenant/lines'
 import { topicFromSearch } from '@/lib/shared/contactTopic'
 import { MESSAGE_MAX } from '@/lib/inquiry/limits'
 import {
+  attachedItemCount,
   collectAttachments,
   subscribeFormAttachments,
   withAttachments,
@@ -109,11 +110,7 @@ export function ContactForm({
   })
   // Items the line attaches now (Software „Twój projekt”): the label says „(opcjonalnie)” with
   // them, as the check at sending and the server do. None on the server render.
-  const attachedItems = useSyncExternalStore(
-    subscribeFormAttachments,
-    () => collectAttachments().items.length,
-    () => 0,
-  )
+  const attachedItems = useSyncExternalStore(subscribeFormAttachments, attachedItemCount, () => 0)
   const sharedRules = rulesFor(attachedItems)
   const [values, setValues] = useState<SharedFormValues>(EMPTY)
   const [errors, setErrors] = useState<Partial<Record<SharedField, string>>>({})

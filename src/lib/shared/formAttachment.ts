@@ -55,6 +55,14 @@ export function registerFormAttachment(
 }
 
 /**
+ * How many items the parts carry now, each once — the form's label reads it at every render (key
+ * press), so only `items` is asked, never the texts (Biznes builds its list text in `read`).
+ */
+export function attachedItemCount(): number {
+  return new Set([...attachments].flatMap((attachment) => attachment.items?.() ?? [])).size
+}
+
+/**
  * The parts given now. `sent(message)`: after a successful send of `message`, runs `onSent` only
  * for the parts it carries whole — a part cut or left out at the limit is kept (Biznes keeps the
  * inquiry list the office did not get); a part with items went out as the list, so it counts as
