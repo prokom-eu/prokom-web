@@ -67,7 +67,7 @@ export function NotFoundInstalacje() {
           ))}
         </ul>
         <div className="mt-8">
-          <Link href="/" className="btn btn-p">
+          <Link href="/" className="btn btn-g">
             {T.home}
           </Link>
         </div>

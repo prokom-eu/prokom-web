@@ -78,7 +78,14 @@ test.describe('Instalacje line routes', () => {
     await expect(page).toHaveTitle(/^Nie znaleziono strony/)
     await expect(page.locator('h1')).toHaveCount(1)
     const links = page.locator('[data-not-found] a')
-    for (const href of ['/uslugi', '/#dla-kogo', '/zaplanuj', '/kontakt', '/poradnik']) {
+    for (const href of [
+      '/uslugi',
+      '/#dla-kogo',
+      '/realizacje',
+      '/zaplanuj',
+      '/kontakt',
+      '/poradnik',
+    ]) {
       await expect(links.and(page.locator(`[href="${href}"]`))).toHaveCount(1)
     }
     // RUNDA-V5 §11: a search of the offer — a GET form that lands on `/uslugi?q=`.
@@ -93,6 +100,20 @@ test.describe('Instalacje line routes', () => {
 })
 
 // I13: the footer's legal links and `llms.txt` (SEO §2.4).
+// RUNDA-V5 §11: realizations named on a service page show their photos (seed: Blachotrapez with
+// the client's consent), related services show the scene of their home card.
+test.describe('Instalacje service pages, round v5', () => {
+  test('Sieci shows the Blachotrapez photos and the related cards have scenes', async ({
+    page,
+  }) => {
+    await open(page, '/sieci-wifi')
+    const photo = page.locator('#okablowanie .rlstrip img').first()
+    await expect(photo).toBeVisible()
+    expect(await photo.getAttribute('alt')).not.toBe('')
+    await expect(page.locator('#powiazane .relsc svg').first()).toBeVisible()
+  })
+})
+
 test.describe('Instalacje legal links and llms.txt', () => {
   test('the footer links the three legal pages', async ({ page }) => {
     await open(page, '/')

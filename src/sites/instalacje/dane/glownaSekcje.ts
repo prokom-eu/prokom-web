@@ -16,7 +16,6 @@ export type ForWhoCard = {
   /** Colour pair `oh1`–`oh5` of the prototype and the wide card. */
   hue: 1 | 2 | 3 | 4 | 5
   big?: boolean
-  /** „Pokaż na żywo”: the hero object it switches to. */
 }
 
 /** Service card of `#uslugi` (`SVX`), in the order of the prototype's grid. */
