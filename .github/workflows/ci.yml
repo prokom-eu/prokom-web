@@ -369,7 +369,8 @@ jobs:
       - name: Install gitleaks
         run: |
           archive="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
-          curl -sSfL -o "$archive" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${archive}"
+          # Retry transient GitHub errors (e.g. 504); --retry-all-errors needs curl >= 7.71 (24.04 ships 8.5).
+          curl --retry 5 --retry-delay 5 --retry-all-errors --connect-timeout 20 -sSfL -o "$archive" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${archive}"
           echo "${GITLEAKS_SHA256}  ${archive}" | sha256sum --check --strict
           tar -xzf "$archive" gitleaks
           ./gitleaks version
