@@ -9,16 +9,17 @@ import { TabBar } from '@/components/shared/TabBar'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { offerMenu } from '@/lib/catalog/menu'
 import { getSharedData } from '@/lib/shared/getSharedData'
+import { paletteActions } from '@/lib/shared/search/palette'
 import { toTelHref } from '@/lib/site/link'
 import type { PublicSiteSettings } from '@/lib/site/public'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { CartDrawer } from './components/CartDrawer'
 import { CartToast } from './components/CartToast'
-import { SearchOverlay } from './components/SearchOverlay'
 import { PageTransition } from './PageTransition'
 import { BizHeader } from './powloka/BizHeader'
 import { BizRail } from './powloka/BizRail'
+import { BizSearch } from './powloka/BizSearch'
 import { BizSheetList } from './powloka/BizSheetList'
 import { CartCount } from './powloka/CartCount'
 import { DrawerLinks } from './powloka/DrawerLinks'
@@ -111,7 +112,21 @@ export async function BiznesFrame({ tenant, settings, biznes, promo, children }:
       {action && <DrawerLinks href={action.href} />}
       {/* The preview of the shared elements renders its own copies (`/_wspolne`). */}
       <PreviewGuard>
-        <SearchOverlay trigger={false} />
+        {shared && (
+          <BizSearch
+            actions={paletteActions({
+              phone: shared.line.phone,
+              phone2: shared.line.phone2 ?? settings.phone2,
+              email: shared.line.email,
+              mapsUrl: shared.company.mapsUrl,
+              primary: action,
+              contactHref: '/kontakt',
+              themes: true,
+            })}
+            recentlyViewed={shared.company.recentlyViewed}
+            phone={shared.line.phone}
+          />
+        )}
         {shared && <BizRail sections={line?.rail?.sections ?? []} action={action} />}
         {shared && (
           <TabBar
