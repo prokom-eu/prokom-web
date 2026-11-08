@@ -37,7 +37,8 @@ const TENANTS = [
     // SWV2: the seed gives Software its real contact (ZMIANY-v23 §1) over the sample one.
     markers: [
       'kontakt@prokomsoftware.pl',
-      'Strony, systemy i aplikacje dla firm z Podhala',
+      // The line under the footer logo (SWA5a, `SiteSettings.footer.text`).
+      'Strony, systemy, aplikacje i automatyzacje dla firm',
       'Najpierw klikasz podgląd swojego projektu',
     ],
   },
