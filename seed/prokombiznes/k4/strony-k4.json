@@ -4303,6 +4303,7 @@
     "heading": "Każdy komputer wyjeżdża z Rabki gotowy do pracy",
     "lead": "Zanim sprzęt trafi na biurko, przechodzi przez naszą listę kontrolną. W dniu dostawy zostaje podłączenie i podpis na protokole.",
     "tag": "Stanowisko 07 · Księgowość",
+    "image": "zaop-thinkbook",
     "list": [
      {
       "title": "Windows 11 Pro i aktualizacje",
@@ -4330,11 +4331,13 @@
      },
      {
       "title": "Dane ze starego komputera",
-      "sub": "pliki, zakładki, ustawienia programów"
+      "sub": "pliki, zakładki, ustawienia programów",
+      "when": "services"
      },
      {
       "title": "Etykieta inwentarzowa",
-      "sub": "numer na obudowie i w liście sprzętu"
+      "sub": "numer na obudowie i w liście sprzętu",
+      "when": "services"
      }
     ]
    },

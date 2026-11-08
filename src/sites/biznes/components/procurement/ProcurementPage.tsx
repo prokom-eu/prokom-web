@@ -16,6 +16,7 @@ import {
   FaqSearch,
   OfferPreview,
   PageNav,
+  PrepChecklist,
   ProcurementConfigurator,
   ProcurementForm,
   Schedule,
@@ -93,6 +94,7 @@ export function ProcurementPage({
   const rendered = new Set<string>(['zestaw', 'oferta', 'steps', 'formularz'])
   if (data.who) rendered.add('who')
   if (data.categories) rendered.add('cats')
+  if (data.prep) rendered.add('prep')
   if (data.guide.list.length > 0) rendered.add('guide')
   if (data.versus.rows.length > 0) rendered.add('vs')
   if (data.programs) rendered.add('progs')
@@ -159,6 +161,15 @@ export function ProcurementPage({
             images={images}
           />
         </Shell>
+        {data.prep && (
+          <Shell id="prep" head={data.prep}>
+            <PrepChecklist
+              tag={data.prep.tag}
+              steps={data.prep.list}
+              picture={<ProcImage id={data.prep.image} images={images} decorative />}
+            />
+          </Shell>
+        )}
         <Shell id="oferta" head={data.offer}>
           <OfferPreview
             offer={data.offer}

@@ -1438,6 +1438,212 @@
   }
 }
 
+/* --- 6. Przygotowanie (IT, §5) ----------------------------------------------------------------- */
+.zp-prep {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+.zp-pstage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  min-height: 480px;
+  padding: 40px 30px 120px;
+  border-radius: var(--zp-r-lg);
+  background: var(--zp-navy);
+}
+.zp-pstage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      60% 55% at 50% 45%,
+      color-mix(in srgb, var(--on-dark) 45%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+        circle at 1px 1px,
+        color-mix(in srgb, var(--zp-white) 7%, transparent) 1px,
+        transparent 1.5px
+      )
+      0 0 / 18px 18px;
+}
+.zp-pstage img {
+  width: 80%;
+  height: auto;
+  filter: drop-shadow(0 30px 30px color-mix(in srgb, var(--zp-black) 50%, transparent));
+}
+.zp-ptag {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  padding: 6px 12px;
+  border: 1px solid var(--zp-on-12);
+  border-radius: 999px;
+  background: var(--zp-on-08);
+  color: var(--on-dark-text);
+  font: 800 12px var(--font-sans);
+}
+.zp-pdone {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--zp-green-tag);
+  color: var(--zp-white);
+  font: 800 13.5px var(--font-sans);
+  opacity: 0;
+  scale: 0.8;
+}
+.zp-pstage.is-ok .zp-pdone {
+  opacity: 1;
+  scale: 1;
+}
+.zp-pstat {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--zp-on-12);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--zp-navy) 85%, transparent);
+  color: var(--zp-white);
+}
+.zp-pstat-t {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font: 800 14px var(--font-sans);
+}
+.zp-pstat-t span {
+  color: var(--zp-on-70);
+}
+.zp-pbar {
+  height: 8px;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: var(--zp-on-12);
+}
+.zp-pbar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--on-dark), var(--zp-green-2));
+  transform-origin: left;
+}
+.zp-plist-wrap {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.zp-plist {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.zp-plist li {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+}
+.zp-plist b {
+  display: block;
+  font: 800 15px var(--font-sans);
+}
+.zp-plist li span span {
+  color: var(--ink-2);
+  font-size: 13.5px;
+}
+.zp-pbx {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  color: transparent;
+}
+.zp-plist li.is-ok {
+  border-color: color-mix(in srgb, var(--zp-green) 35%, var(--border));
+}
+.zp-plist li.is-ok .zp-pbx {
+  border-color: var(--zp-green-tag);
+  background: var(--zp-green-tag);
+  color: var(--zp-white);
+}
+.zp-plist li.is-cur {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--glow);
+}
+.zp-plist li.is-cur .zp-pbx {
+  border-color: var(--accent);
+  scale: 1.12;
+}
+.zp-replay {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-self: start;
+  min-height: 44px;
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  color: var(--accent-text);
+  font: 800 14px var(--font-sans);
+  cursor: pointer;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .zp-pdone {
+    transition:
+      opacity 0.4s,
+      scale 0.5s var(--zp-ease);
+  }
+  .zp-pbar i {
+    transition: transform 0.45s var(--zp-ease);
+  }
+  .zp-plist li,
+  .zp-pbx {
+    transition:
+      border-color 0.3s,
+      box-shadow 0.3s,
+      background 0.3s,
+      color 0.3s,
+      scale 0.3s var(--zp-ease);
+  }
+}
+@media (max-width: 1100px) {
+  .zp-prep {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 767px) {
+  .zp-pstage {
+    min-height: 330px;
+    padding: 46px 20px 110px;
+  }
+  .zp-plist li {
+    padding: 11px 12px;
+  }
+}
+
 /* --- Motion (§7) ----------------------------------------------------------------------------- */
 @keyframes zp-rise {
   from {
@@ -2198,23 +2404,21 @@
   border-color: var(--accent-text);
   box-shadow: 0 0 0 4px var(--glow);
 }
+/* The button itself covers the card (a real box: visible to tests and to pointer hit-testing);
+   the card content stays server HTML below it. */
 .zp-var-pick {
-  display: block;
-  width: 0;
-  height: 0;
-  padding: 0;
-}
-.zp-var-pick::after {
-  content: '';
   position: absolute;
   inset: 0;
   z-index: 1;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
   border-radius: var(--zp-r-lg);
+  background: none;
+  cursor: pointer;
 }
 .zp-var-pick:focus-visible {
-  outline: none;
-}
-.zp-var-pick:focus-visible::after {
   outline: 3px solid var(--accent-text);
   outline-offset: 3px;
 }
