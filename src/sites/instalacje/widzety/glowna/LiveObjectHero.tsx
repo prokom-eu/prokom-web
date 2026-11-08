@@ -36,6 +36,7 @@ import {
   previewTime,
   TICK_MS,
 } from './heroModel'
+import { beamOrigin } from './beam'
 import { HERO_OBJECT_EVENT } from './heroEvents'
 
 type Props = {
@@ -47,6 +48,8 @@ type Props = {
 
 const t = glowna.hero
 const NARROW = '(max-width: 1023px)'
+/** Phone layout: the dock's one-line status replaces the „Na żywo” card (P2-12). */
+const PHONE = '(max-width: 760px)'
 /** Without room for the camera preview (RUNDA-V5 §1.3): it opens from a camera point instead. */
 const COMPACT = '(max-width: 1279px), (max-height: 809px)'
 
@@ -63,9 +66,18 @@ export function LiveObjectHero({ backdrop, children }: Props) {
   const [scene, setScene] = useState({ ...INITIAL_HERO })
   const [touched, setTouched] = useState(false)
   const [narrow, setNarrow] = useState(false)
+  const [phone, setPhone] = useState(false)
   const [compact, setCompact] = useState(false)
   const [pipOpen, setPipOpen] = useState(false)
   const [paused, setPaused] = useState(false)
+  // P2-11 (WCAG 2.2.2): the visitor's own pause — the autoplay and every animation of the scene
+  // stop (`still`); the autoplay's progress bar is frozen where it stopped.
+  const [userPaused, setUserPaused] = useState(false)
+  const [frozen, setFrozen] = useState<number | null>(null)
+  const [reduced, setReduced] = useState(true)
+  const progressBar = useRef<HTMLSpanElement>(null)
+  // The camera point that opened the preview: Esc gives the focus back to it.
+  const pipOpener = useRef<Element | null>(null)
   const [tick, setTick] = useState(0)
   const [auto, setAuto] = useState(AUTOPLAY_START)
   const section = useRef<HTMLElement>(null)
@@ -75,17 +87,26 @@ export function LiveObjectHero({ backdrop, children }: Props) {
 
   useEffect(() => {
     const narrowQuery = window.matchMedia(NARROW)
+    const phoneQuery = window.matchMedia(PHONE)
     const compactQuery = window.matchMedia(COMPACT)
     const onChange = () => {
       setNarrow(narrowQuery.matches)
+      setPhone(phoneQuery.matches)
       setCompact(compactQuery.matches)
     }
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onMotion = () => setReduced(motionQuery.matches)
+    onMotion()
+    motionQuery.addEventListener('change', onMotion)
     onChange()
     narrowQuery.addEventListener('change', onChange)
+    phoneQuery.addEventListener('change', onChange)
     compactQuery.addEventListener('change', onChange)
     return () => {
       narrowQuery.removeEventListener('change', onChange)
+      phoneQuery.removeEventListener('change', onChange)
       compactQuery.removeEventListener('change', onChange)
+      motionQuery.removeEventListener('change', onMotion)
     }
   }, [])
 
@@ -96,9 +117,24 @@ export function LiveObjectHero({ backdrop, children }: Props) {
       setScene(next.state)
     },
     AUTOPLAY_MS,
-    { enabled: !touched && !paused, target: section },
+    { enabled: !touched && !paused && !userPaused, target: section },
   )
-  useInterval(() => setTick((n) => n + 1), TICK_MS, { enabled: true, target: section })
+  // The scene's own clock (sweeping cameras, the preview's time) stands with the pause too.
+  useInterval(() => setTick((n) => n + 1), TICK_MS, { enabled: !userPaused, target: section })
+
+  // Hover, focus or the button stop the autoplay: the progress bar stops where it is (its CSS
+  // transition would otherwise run on to the next step).
+  const stopped = paused || userPaused
+  useEffect(() => {
+    const bar = progressBar.current
+    if (!stopped || !bar) {
+      setFrozen(null)
+      return
+    }
+    const matrix = getComputedStyle(bar).transform
+    const scale = matrix.startsWith('matrix(') ? Number(matrix.slice(7).split(',')[0]) : NaN
+    setFrozen(Number.isFinite(scale) ? scale : null)
+  }, [stopped])
 
   const state: HeroState = { ...scene, narrow, tick }
   const sc = heroScene(state)
@@ -156,17 +192,20 @@ export function LiveObjectHero({ backdrop, children }: Props) {
   const pause = (on: boolean) => () => setPaused(on)
   // A camera point opens the preview where it has no room by the right edge.
   const camButtons = compact && !narrow && has('kam')
-  const togglePip = () => setPipOpen((open) => !open)
+  const togglePip = (opener: Element) => {
+    pipOpener.current = opener
+    setPipOpen((open) => !open)
+  }
   const camPoint = {
     role: 'button',
     tabIndex: 0,
     'aria-label': `${t.preview.label}: ${object.camera}`,
     'aria-pressed': pipOpen,
-    onClick: togglePip,
+    onClick: (event: { currentTarget: Element }) => togglePip(event.currentTarget),
     onKeyDown: (event: KeyboardEvent) => {
       if (event.key !== 'Enter' && event.key !== ' ') return
       event.preventDefault()
-      togglePip()
+      togglePip(event.currentTarget)
     },
   }
 
@@ -174,12 +213,26 @@ export function LiveObjectHero({ backdrop, children }: Props) {
     <section
       id="start"
       ref={section}
-      className={`hx ${scene.mode}`}
+      className={userPaused ? `hx ${scene.mode} still` : `hx ${scene.mode}`}
       data-hx-time={scene.mode}
       onPointerEnter={pause(true)}
       onPointerLeave={pause(false)}
-      onFocus={pause(true)}
+      // Focus pauses the autoplay, except on the pause button itself: after „resume” the show
+      // must move again while the button still has the focus.
+      onFocus={(event) => {
+        if (!(event.target as Element).closest('.hxpause')) setPaused(true)
+      }}
       onBlur={pause(false)}
+      onKeyDown={(event) => {
+        // P2-11: the camera preview opened from a camera point closes with Esc; the focus goes
+        // back to that point only when it was there (or nowhere), not from a chip or a tab.
+        if (event.key !== 'Escape' || !pipOpen) return
+        setPipOpen(false)
+        const active = document.activeElement
+        if (active === pipOpener.current || active === document.body || !active) {
+          ;(pipOpener.current as SVGElement | null)?.focus()
+        }
+      }}
     >
       {/* Sky, mountains and forests across the whole section (RUNDA-V5 §1.3). Below 1024 px it is
           hidden and the building scene draws it itself through <use>, cropped like the building. */}
@@ -228,8 +281,9 @@ export function LiveObjectHero({ backdrop, children }: Props) {
                   {on && progress !== null ? (
                     // How far the autoplay is before it moves on to the next object.
                     <span
-                      className="hoprog"
-                      style={{ '--p': progress } as CSSProperties}
+                      ref={progressBar}
+                      className={frozen === null ? 'hoprog' : 'hoprog stop'}
+                      style={{ '--p': frozen ?? progress } as CSSProperties}
                       aria-hidden="true"
                     />
                   ) : null}
@@ -237,25 +291,46 @@ export function LiveObjectHero({ backdrop, children }: Props) {
               )
             })}
           </div>
-          <div ref={modeTabs} className="glass hmodes" role="group" aria-label={t.modesLabel}>
-            <SlidingPill
-              container={modeTabs}
-              active={scene.mode}
-              className="inst-pill"
-              radius={12}
-            />
-            {HERO_MODES.map((m) => (
+          <div className="hmrow">
+            <div ref={modeTabs} className="glass hmodes" role="group" aria-label={t.modesLabel}>
+              <SlidingPill
+                container={modeTabs}
+                active={scene.mode}
+                className="inst-pill"
+                radius={12}
+              />
+              {HERO_MODES.map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  className={scene.mode === m ? 'hmode on' : 'hmode'}
+                  aria-pressed={scene.mode === m}
+                  onClick={() => touch({ mode: m })}
+                >
+                  <InstIcon name={t.modes[m].icon} size={15} strokeWidth={2.2} />
+                  {t.modes[m].label}
+                </button>
+              ))}
+            </div>
+            {/* P2-11 (WCAG 2.2.2): a visible pause of the autoplay and of every animation of the
+                scene, also after the first touch (none with reduced motion — nothing moves). */}
+            {!reduced ? (
               <button
-                key={m}
                 type="button"
-                className={scene.mode === m ? 'hmode on' : 'hmode'}
-                aria-pressed={scene.mode === m}
-                onClick={() => touch({ mode: m })}
+                className="glass hxpause"
+                aria-pressed={userPaused}
+                onClick={() => setUserPaused((on) => !on)}
               >
-                <InstIcon name={t.modes[m].icon} size={15} strokeWidth={2.2} />
-                {t.modes[m].label}
+                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  {userPaused ? (
+                    <path d="M5 3.5v9l7-4.5z" />
+                  ) : (
+                    <path d="M4.5 3h2.5v10H4.5zM9 3h2.5v10H9z" />
+                  )}
+                </svg>
+                <span className="hxpl">{t.pause}</span>
               </button>
-            ))}
+            ) : null}
           </div>
         </div>
 
@@ -335,9 +410,18 @@ export function LiveObjectHero({ backdrop, children }: Props) {
                 ))}
               </g>
               <g>
-                {sc.cones.map((f, i) => (
-                  <polygon key={`c${i}`} points={f.p} className={f.c} />
-                ))}
+                {sc.cones.map((f, i) => {
+                  // RUNDA-V5 §1.5: the beam grows from its camera (`clip-path`), see glowna.css.
+                  const o = beamOrigin(f.p)
+                  return (
+                    <polygon
+                      key={`c${i}`}
+                      points={f.p}
+                      className={f.c}
+                      style={{ '--ox': `${o.x}px`, '--oy': `${o.y}px` } as CSSProperties}
+                    />
+                  )
+                })}
                 {sc.scr.map((f, i) => (
                   <polygon key={`s${i}`} points={f.p} className={f.c} />
                 ))}
@@ -482,7 +566,7 @@ export function LiveObjectHero({ backdrop, children }: Props) {
             <span>{sc.modeName}</span>
           </div>
           {/* Announced only after a touch: the autoplay would talk every 2.3 s (WCAG 2.2.2). */}
-          <div className="hxl" aria-live={touched && narrow ? 'polite' : 'off'}>
+          <div className="hxl" aria-live={touched && narrow && !phone ? 'polite' : 'off'}>
             {sc.lines.length === 0 ? <div className="hxempty">{t.empty}</div> : null}
             {sc.lines.map((line) => (
               <div key={line.layer} className="hxli">
@@ -505,7 +589,7 @@ export function LiveObjectHero({ backdrop, children }: Props) {
 
         {/* From 1024 px: one dock at the bottom — the status line over the chips (RUNDA-V5 §1.3). */}
         <div className="glass hxdock in d5">
-          <p className="hxdst" aria-live={touched && !narrow ? 'polite' : 'off'}>
+          <p className="hxdst" aria-live={touched && (!narrow || phone) ? 'polite' : 'off'}>
             <b>
               <span className="live" aria-hidden="true" />
               {t.live} · {sc.name} · {sc.modeName}

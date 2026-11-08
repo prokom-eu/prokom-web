@@ -35,6 +35,8 @@ export const glowna = {
   hero: {
     objectsLabel: 'Rodzaj obiektu',
     modesLabel: 'Pora i pogoda',
+    /** P2-11 (WCAG 2.2.2): the autoplay and the scene's animations stop with a button. */
+    pause: 'Wstrzymaj animację',
     chipsLabel: 'Instalacje widoczne na obiekcie',
     modes: {
       day: { label: 'Dzień', icon: 'sun' },
