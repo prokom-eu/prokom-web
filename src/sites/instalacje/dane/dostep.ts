@@ -104,7 +104,7 @@ export const dostep = {
         log: [
           { when: '07:52', text: 'Jan K. · Magazyn · karta', icon: 'card' },
           { when: '07:31', text: 'Anna W. · Biuro · karta', icon: 'card' },
-          { when: 'Wt 22:14', text: 'Karta #31 · poza godzinami', icon: 'x' },
+          { when: 'Wt 22:14', text: 'Karta #31 · poza godzinami', icon: 'ban' },
         ],
       },
       wsp: {
@@ -134,7 +134,7 @@ export const dostep = {
         log: [
           { when: '18:20', text: 'Lokal 12 · brelok · Brama', icon: 'key' },
           { when: '14:03', text: 'Kurier · kod dzienny · Klatka B', icon: 'key' },
-          { when: 'Śr 09:12', text: 'Brelok #14 zablokowany', icon: 'x' },
+          { when: 'Śr 09:12', text: 'Brelok #14 zablokowany', icon: 'ban' },
         ],
       },
     } as Record<
@@ -160,7 +160,7 @@ export const dostep = {
     } satisfies SectionHead,
     items: [
       {
-        icon: 'grid',
+        icon: 'keypad',
         title: 'Kod PIN',
         text: 'Stały dla domowników, czasowy dla gości i serwisu. Wygasa sam.',
         tag: 'Apartamenty, pensjonaty',
@@ -209,7 +209,7 @@ export const dostep = {
         text: 'Kod przychodzi mailem lub SMS-em przed przyjazdem.',
       },
       {
-        icon: 'lock',
+        icon: 'door',
         title: 'Przyjazd i wyjazd',
         text: 'Gość wchodzi sam, a po wymeldowaniu kod przestaje działać.',
       },
@@ -305,7 +305,7 @@ export const dostep = {
       {
         name: 'MIFARE DESFire / Plus',
         sub: 'szyfrowanie AES',
-        icon: 'shield',
+        icon: 'card',
         level: 4,
         levelText: 'Wysoka',
         text: 'Karty z szyfrowaniem AES znacznie utrudniają klonowanie. W połączeniu z kodem PIN dają uwierzytelnianie dwuskładnikowe. Obsługuje je m.in. polski system Roger RACS 5.',
@@ -327,7 +327,7 @@ export const dostep = {
       {
         name: 'Kod PIN',
         sub: 'klawiatura przy drzwiach',
-        icon: 'grid',
+        icon: 'keypad',
         level: 3,
         levelText: 'Zależy od kodu',
         text: 'W apartamentach to podstawowa metoda: system rezerwacji generuje kod ważny tylko w czasie pobytu i wysyła go gościowi.',
@@ -416,7 +416,7 @@ export const dostep = {
         text: 'Zamki na wkładkę, np. Nuki czy Yale Linus, działają na bateriach i wcześniej ostrzegają w aplikacji (Nuki przy 20%). Gdy bateria się wyczerpie, Nuki otworzysz zwykłym kluczem.',
       },
       {
-        icon: 'cloud',
+        icon: 'off',
         title: 'Brak internetu',
         text: 'Systemy takie jak Salto KS dalej działają według reguł zapisanych w zamkach. Kody PIN działają offline.',
       },
@@ -426,7 +426,7 @@ export const dostep = {
         text: 'Kontrolery z akumulatorem rezerwowym działają dalej. Bez niego zwora puszcza, a elektrozaczep zwykły (NC) trzyma drzwi.',
       },
       {
-        icon: 'key',
+        icon: 'keypad',
         title: 'Gość bez telefonu',
         text: 'Kod na klawiaturze albo karta z recepcji. Zawsze zostawiamy drugą drogę wejścia.',
       },

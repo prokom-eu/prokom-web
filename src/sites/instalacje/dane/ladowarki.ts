@@ -123,14 +123,14 @@ export const ladowarki = {
     extrasHeading: 'W ofercie także',
     extras: [
       {
-        icon: 'build',
+        icon: 'ev',
         title: 'Podstawa do CC Wall',
         text: 'Ładowarka ścienna staje na parkingu bez ściany.',
       },
       { icon: 'plug', title: 'Przewód 7,5 m', text: 'Do CC Wall, w wersji 1- lub 3-fazowej.' },
       { icon: 'card', title: 'Karty RFID', text: 'Dla gości, pracowników i floty.' },
       {
-        icon: 'cloud',
+        icon: 'euro',
         title: 'Rozliczanie ładowania',
         text: 'OCPP i aplikacja, gdy ładowanie ma być płatne.',
       },

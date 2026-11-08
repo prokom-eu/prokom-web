@@ -63,12 +63,12 @@ export const anteny = {
         text: 'Antena satelitarna i naziemna DVB-T2, rozprowadzenie do kilku telewizorów, pomiar sygnału przy każdym gnieździe.',
       },
       {
-        icon: 'build',
+        icon: 'apt',
         title: 'Instalacje zbiorcze w blokach',
         text: 'Jedna antena dla wszystkich mieszkańców zamiast lasu talerzy na balkonach. Multiswitche i rozprowadzenie do lokali.',
       },
       {
-        icon: 'wrench',
+        icon: 'tool',
         title: 'Modernizacja starych instalacji',
         text: 'Wymiana wzmacniaczy, przewodów i gniazd w istniejących instalacjach zbiorczych, z pomiarami po modernizacji.',
       },
@@ -83,7 +83,7 @@ export const anteny = {
         text: 'Ustawiamy anteny profesjonalnym miernikiem poziomu i jakości sygnału. Wynik pokazujemy przy odbiorze.',
       },
       {
-        icon: 'shield',
+        icon: 'wrench',
         title: 'Opieka po montażu',
         text: 'Konserwacja w gwarancji i opieka po gwarancji: przestawiona przez wiatr antena, zalane złącze, nowy telewizor.',
       },
@@ -103,7 +103,7 @@ export const anteny = {
         text: 'Stok albo las między domem a nadajnikiem. Pomaga wyższy maszt, inne miejsce montażu albo antena kierunkowa.',
       },
       {
-        icon: 'storm',
+        icon: 'wind',
         title: 'Halny i wichury',
         text: 'Mocowania i maszty dobieramy z zapasem. W Zakopanem halny dawał porywy 33 m/s (grudzień 2013).',
       },
@@ -113,7 +113,7 @@ export const anteny = {
         text: 'Mokry śnieg na czaszy osłabia sygnał. Dobieramy miejsce montażu tak, żeby antenę dało się bezpiecznie odśnieżyć.',
       },
       {
-        icon: 'bolt',
+        icon: 'storm',
         title: 'Burze',
         text: 'Uziemienie i ochrona przepięciowa instalacji antenowej, żeby piorun nie trafił przez przewód do telewizora.',
       },

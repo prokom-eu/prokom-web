@@ -19,13 +19,13 @@ export const nieZnaleziono = {
     },
     {
       href: '/#dla-kogo',
-      icon: 'home',
+      icon: 'users',
       title: 'Dla kogo',
       text: 'Dom, pensjonat, hotel, firma, gmina.',
     },
     {
       href: '/realizacje',
-      icon: 'check',
+      icon: 'star',
       title: 'Realizacje',
       text: 'Wybrane instalacje z Podhala i Małopolski.',
     },

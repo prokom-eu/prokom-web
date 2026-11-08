@@ -49,7 +49,7 @@ export const glowna = {
       alarm: { label: 'Alarm', short: 'Alarm', icon: 'bell' },
       kd: { label: 'Domofon i dostęp', short: 'Domofon', icon: 'lock' },
       wifi: { label: 'Wi-Fi i sieć', short: 'Wi-Fi', icon: 'wifi' },
-      smart: { label: 'Smart home Ampio', short: 'Smart home', icon: 'home' },
+      smart: { label: 'Smart home Ampio', short: 'Smart home', icon: 'smart' },
       ev: { label: 'Ładowarka EV', short: 'EV', icon: 'bolt' },
       snd: { label: 'Nagłośnienie', short: 'Nagłośnienie', icon: 'spk' },
       scr: { label: 'Ekrany', short: 'Ekrany', icon: 'scr' },

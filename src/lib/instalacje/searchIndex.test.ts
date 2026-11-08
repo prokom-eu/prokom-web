@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest'
 
 import { buildLineProvider } from '@/lib/shared/search/lineProvider'
 
-import { buildInstSearchIndex, type InstSearchSources } from './searchIndex'
+import { isIconName } from '@/lib/shared/icons'
+
+import { buildInstSearchIndex, SERVICE_SEARCH_ICONS, type InstSearchSources } from './searchIndex'
 
 const sources: InstSearchSources = {
   menu: {
@@ -100,5 +102,15 @@ describe('buildInstSearchIndex', () => {
       ],
     })
     expect(entry?.text?.length).toBeLessThanOrEqual(161)
+  })
+})
+
+describe('service icons in the search window (runda v6 §1.5)', () => {
+  it('every service has its own icon of the shared set, not the same shield', () => {
+    const keys = ['kam', 'alarm', 'kd', 'wifi', 'tel', 'ant', 'smart', 'snd', 'scr', 'ev']
+    const icons = keys.map((key) => SERVICE_SEARCH_ICONS[key as keyof typeof SERVICE_SEARCH_ICONS])
+    for (const icon of icons) expect(isIconName(icon), String(icon)).toBe(true)
+    expect(new Set(icons).size).toBe(keys.length)
+    expect(icons).not.toContain('shield')
   })
 })

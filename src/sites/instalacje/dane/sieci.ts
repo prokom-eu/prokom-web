@@ -56,7 +56,7 @@ export const sieci = {
     s: {
       name: 'Smart i TV',
       hue: 'var(--inst-hue-violet)',
-      icon: 'home',
+      icon: 'tv',
       text: 'Telewizory, ekran w recepcji, sterowanie Ampio, ładowarka.',
       extra: 'urządzenia IoT',
     },
@@ -83,7 +83,7 @@ export const sieci = {
         text: 'Beton, cegła, kamień i stropy osłabiają sygnał. Zwykle każde piętro potrzebuje swojego punktu.',
       },
       {
-        icon: 'layers',
+        icon: 'wifi',
         title: 'Mesh bez kabla',
         text: 'Każdy skok radiowy obniża prędkość. Ubiquiti zaleca najwyżej dwa skoki bezprzewodowe.',
       },
@@ -165,7 +165,7 @@ export const sieci = {
         text: 'Gniazda w pokojach, przy telewizorach i w miejscach na punkty dostępowe.',
       },
       {
-        icon: 'cpu',
+        icon: 'rack',
         title: 'Szafa rack',
         text: 'Porządek w technice: router, switch PoE, rejestrator, UPS i opisane przewody.',
       },
@@ -175,7 +175,7 @@ export const sieci = {
         text: 'Światłowody jedno- i wielomodowe: układanie, spawanie i pomiary. Pensjonat, domki i hala w jednej sieci.',
       },
       {
-        icon: 'mountain',
+        icon: 'ant',
         title: 'Mosty radiowe',
         text: 'Połączenie punkt–punkt tam, gdzie kabla nie da się przekopać.',
       },
@@ -185,7 +185,7 @@ export const sieci = {
         text: 'UPS dla routera i kamer, żeby krótki zanik prądu nie wyłączał sieci.',
       },
       {
-        icon: 'globe',
+        icon: 'lte',
         title: 'Łącze zapasowe LTE',
         text: 'Gdy główne łącze padnie, router przełącza się na sieć komórkową.',
       },

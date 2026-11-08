@@ -239,6 +239,59 @@ const slugOf = (href: string) => mapHref(href).split('/').filter(Boolean).pop() 
 const icon = (value: string | undefined) => value?.replace(/^ikona:/, '') || undefined
 
 /**
+ * Runda v6 §1.5 (icon review): package icons that said nothing or clashed, by the title they
+ * stand next to (a price factor, a package, a problem quote, a day moment, a Podhale card).
+ * Matched by the title alone on purpose: a short title („Start”, „Montaż”, „Noc”) gets the same
+ * icon wherever it stands in the package — checked for every entry when this list was written.
+ */
+export const ICON_FIXES: Readonly<Record<string, string>> = {
+  // Price factors and packages of the service pages.
+  'Wysokość montażu': 'crane',
+  'Etap budowy': 'crane',
+  Programowanie: 'sliders',
+  Start: 'light',
+  Montaż: 'tool',
+  Treści: 'play',
+  Rozdzielnica: 'grid',
+  'Uziemienie i ochrona': 'bolt',
+  // „Dla kogo” pages.
+  '„Z koparki zniknęło paliwo”': 'crane',
+  'Paliwo: 39% wobec średnio 25,4%': 'car',
+  'Ktoś przy kontenerze': 'siren',
+  '„Lokator zgłasza: nie działa domofon”': 'phone',
+  '„Kucie po tynkach”': 'tool',
+  '„Wspólnota nie ma haseł”': 'lock',
+  Urządzenia: 'tool',
+  '„Hasła ma były informatyk”': 'lock',
+  '„Policja chce stały podgląd”': 'cam',
+  '„Mieszkaniec nie słyszy w okienku”': 'spk',
+  'Punkt obsługi': 'users',
+  '„Przy ambonie piszczy”': 'mic',
+  'Mikrofon dla kantora i lektora': 'mic',
+  Komfort: 'layers',
+  '„Na weselu piszczy mikrofon”': 'mic',
+  Przemówienia: 'mic',
+  '„Zginęły narty”': 'cam',
+  '„W nocy ktoś wybił szybę”': 'glassBreak',
+  Zamknięcie: 'lock',
+  Noc: 'moon',
+  '„W toaletach palą e-papierosy”': 'fire',
+  '„Impreza, skarga wspólnoty”': 'spk',
+  'Za głośno': 'spk',
+  'Zgodność Wi-Fi': 'wifi',
+  'Zasilanie awaryjne': 'battery',
+}
+const iconFor = (title: string | undefined, value: string | undefined) =>
+  (title && ICON_FIXES[title]) || icon(value)
+
+/** Runda v6 §1.5: a service or object icon that clashed with another meaning. */
+const MENU_ICONS: Readonly<Record<string, string>> = {
+  smart: 'smart', // the object „Dom” keeps `home`
+  ev: 'ev', // `bolt` stays for power, surges and storms
+  dev: 'apt', // `build` is Teletechnika and the building works
+}
+
+/**
  * P0-2 (audit 06.11): the package asks to send photos, but no Instalacje form takes files
  * (decision „bez przesyłania plików”). The same wording as the code's fallbacks since L1-I.
  */
@@ -354,7 +407,7 @@ function withoutCta(value: ServiceData['hero']): ObjectData['hero'] {
 const packages = (seed: SeedPackage[]): NonNullable<ServiceData['packages']> =>
   seed.map((pkg) => ({
     name: pkg.n,
-    icon: icon(pkg.ic),
+    icon: iconFor(pkg.n, pkg.ic),
     description: pkg.d,
     items: pkg.f ?? [],
     price: price(pkg.pr),
@@ -406,7 +459,7 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
     slug: slugOf(menu.href),
     name: menu.n,
     group: valueOf(SERVICE_GROUPS, menu.g, 'menu group'),
-    icon: icon(menu.ic),
+    icon: MENU_ICONS[menu.k] ?? icon(menu.ic),
     color: wspolne.HU[key],
     menuCaption: menu.s,
     tile: {
@@ -441,7 +494,7 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
       text: noPhotos(d.sx.cena.p),
       button: noPhotos(d.sx.cena.btn),
     },
-    priceFactors: d.cena.map((c) => ({ title: c.t, icon: icon(c.ic), description: c.d })),
+    priceFactors: d.cena.map((c) => ({ title: c.t, icon: iconFor(c.t, c.ic), description: c.d })),
     faqHeading: d.sx.faqH,
     faq: d.faq.map((f) => ({ question: f.q, answer: noPhotos(f.a) })),
     faqAside: {
@@ -484,7 +537,7 @@ export function objectData({ menu, page: o }: SeedObjectItem, refs: Refs): Objec
     slug: slugOf(menu.href),
     name: menu.n,
     group: valueOf(OBJECT_GROUPS, menu.g, 'object group'),
-    icon: icon(menu.ic),
+    icon: MENU_ICONS[menu.k] ?? icon(menu.ic),
     color: o.h,
     menuCaption: menu.s,
     forWhom: o.dla,
@@ -499,7 +552,7 @@ export function objectData({ menu, page: o }: SeedObjectItem, refs: Refs): Objec
       description: p.d,
       fix: p.fix,
       service: isServiceKey(p.s) ? p.s : undefined,
-      icon: icon(p.ic),
+      icon: iconFor(p.q, p.ic),
     })),
     dayIntro: { eyebrow: o.day.eye, heading: o.day.h, text: o.day.lead },
     day: o.day.items.map((item) => ({
@@ -507,13 +560,17 @@ export function objectData({ menu, page: o }: SeedObjectItem, refs: Refs): Objec
       name: item.n,
       description: item.d,
       services: (item.s ?? []).filter(isServiceKey),
-      icon: icon(item.ic),
+      icon: iconFor(item.n, item.ic),
     })),
     // Runda v6 §1.1: no law section — stored law is cleared (the fields stay in the schema).
     lawIntro: { heading: null, text: null },
     law: [],
     mountainsIntro: { heading: o.gory.h },
-    mountains: o.gory.items.map((g) => ({ title: g.t, icon: icon(g.ic), description: g.d })),
+    mountains: o.gory.items.map((g) => ({
+      title: g.t,
+      icon: iconFor(g.t, g.ic),
+      description: g.d,
+    })),
     // Runda v6 §1.2: no realizations on the object page — stored ones are cleared (fields stay).
     realizationsHeading: null,
     realizations: [],

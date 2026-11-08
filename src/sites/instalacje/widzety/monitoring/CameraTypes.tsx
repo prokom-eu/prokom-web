@@ -3,7 +3,6 @@
 import { type CSSProperties, useState } from 'react'
 
 import { monitoring } from '../../dane/monitoring'
-import { InstIcon } from '../../InstIcon'
 
 const T = monitoring.types
 const DASH_ACCENT: CSSProperties = {
@@ -91,9 +90,7 @@ export function CameraTypes() {
             aria-pressed={index === i}
             onClick={() => setIndex(i)}
           >
-            <span className="ico s">
-              <InstIcon name="cam" />
-            </span>
+            {/* Runda v6 §1.5: no icon — the same camera next to all five types said nothing. */}
             {t.name}
           </button>
         ))}
