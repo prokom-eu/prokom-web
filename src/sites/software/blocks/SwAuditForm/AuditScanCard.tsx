@@ -35,6 +35,8 @@ export function AuditScanCard({ title, subtitle, badge, rows }: Props) {
   /** Rows with their badge shown; `rows.length` = the finished sample. */
   const [shown, setShown] = useState(rows.length)
   const [scanning, setScanning] = useState(false)
+  /** Bumped on every scan: a new key restarts the bar even mid-sweep. */
+  const [run, setRun] = useState(0)
   const timers = useRef<number[]>([])
 
   useEffect(() => {
@@ -52,6 +54,7 @@ export function AuditScanCard({ title, subtitle, badge, rows }: Props) {
       }
       setShown(0)
       setScanning(true)
+      setRun((count) => count + 1)
       rows.forEach((_, i) => {
         timers.current.push(window.setTimeout(() => setShown(i + 1), ROW_STEP_MS * (i + 1)))
       })
@@ -65,17 +68,20 @@ export function AuditScanCard({ title, subtitle, badge, rows }: Props) {
     }
   }, [rows])
 
-  const rest = subtitle?.split('·').slice(1).join('·').trim()
+  // „twojafirma.pl · raport”: the host before „·” follows the scan; no „·” — the text stays.
+  const parts = subtitle?.split('·') ?? []
+  const caption =
+    parts.length > 1 ? `${host} · ${parts.slice(1).join('·').trim()}` : (subtitle ?? host)
   return (
     <div aria-hidden="true" className="sw-scan" data-scanning={scanning || undefined}>
       <div className="sw-scan-head">
         <div>
           <p className="font-display text-lg font-extrabold">{title}</p>
-          <p className="text-xs opacity-85">{rest ? `${host} · ${rest}` : host}</p>
+          <p className="text-xs opacity-85">{caption}</p>
         </div>
         {badge ? <span className="sw-scan-badge">{badge}</span> : null}
       </div>
-      <ul className="sw-scan-rows">
+      <ul key={run} className="sw-scan-rows">
         {rows.map((row, i) => (
           <li key={row.title} className="sw-scan-row">
             <span className="sw-scan-icon">

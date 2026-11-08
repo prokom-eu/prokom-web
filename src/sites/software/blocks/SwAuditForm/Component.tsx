@@ -32,9 +32,9 @@ const linkOf = (link: LinkField) =>
  * quick audit form and the sample scan card, „Pięć rzeczy…” (the last card highlighted), the three
  * audit kinds and „Jak wygląda darmowy audyt”. Never cached: the form token carries the render
  * time. Prices and terms of the kinds from the tenant's published audit solution
- * (`Solutions.levels`); a missing one hides the section. A hero block: it carries the H1.
+ * (`Solutions.levels`); a missing one hides the section. A hero block: the H1 when first.
  */
-export async function SwAuditFormBlock({ block, tenantId }: Props) {
+export async function SwAuditFormBlock({ block, tenantId, isFirst }: Props) {
   await connection()
   const [{ solutions }, wizard, context] = await Promise.all([
     getPricingSource(tenantId),
@@ -50,6 +50,7 @@ export async function SwAuditFormBlock({ block, tenantId }: Props) {
   const plans = audit && block.levelsTitle ? levelPlans(audit) : []
   const buttons = block.levelButtons ?? []
   const reportRows = block.reportTitle ? (block.reportRows ?? []) : []
+  const hasScan = reportRows.length > 0 && Boolean(block.reportTitle)
   const checks = block.checksTitle ? (block.checks ?? []) : []
   const steps = block.stepsTitle ? (block.steps ?? []) : []
   const ctaPrimary = linkOf(block.ctaPrimary)
@@ -58,6 +59,7 @@ export async function SwAuditFormBlock({ block, tenantId }: Props) {
   return (
     <>
       <PageHero
+        level={isFirst ? 'h1' : 'h2'}
         id="formularz"
         className="scroll-mt-24"
         crumb="Darmowy audyt"
@@ -66,7 +68,7 @@ export async function SwAuditFormBlock({ block, tenantId }: Props) {
         em={block.titleAccent}
         lead={lead}
         aside={
-          reportRows.length > 0 && block.reportTitle ? (
+          hasScan && block.reportTitle ? (
             <AuditScanCard
               title={block.reportTitle}
               subtitle={block.reportSubtitle ?? null}
@@ -101,6 +103,7 @@ export async function SwAuditFormBlock({ block, tenantId }: Props) {
               consent: wizard?.send.errors.consent ?? FIELD_MESSAGES.consent,
             }}
             formToken={issueFormToken(getEnv().PAYLOAD_SECRET)}
+            scan={hasScan}
           />
         </div>
       </PageHero>

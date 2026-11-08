@@ -335,17 +335,18 @@
     animation: sw-scan-sweep 2.8s var(--ease-out) both;
   }
 }
+/* `top` in % of the list: the bar reaches the last row whatever the rows wrap to. */
 @keyframes sw-scan-sweep {
   0% {
     opacity: 1;
-    translate: 0 0;
+    top: 0%;
   }
   92% {
     opacity: 1;
   }
   100% {
     opacity: 0;
-    translate: 0 330px;
+    top: 100%;
   }
 }
 

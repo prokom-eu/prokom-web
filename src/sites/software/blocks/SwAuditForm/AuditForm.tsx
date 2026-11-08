@@ -34,6 +34,8 @@ type Props = {
   texts: AuditFormTexts
   errors: Record<AuditField, string>
   formToken: string
+  /** The sample scan card stands next to the form: show „Skanuj podgląd →”. */
+  scan: boolean
 }
 
 const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
@@ -54,7 +56,7 @@ const inputClass =
  * (ADR-014 rozstrz. SW0 6), consent. Labels above the fields; errors under them and in a box above
  * the button, focus on the first wrong field. Sent → `/dziekujemy?nr=…`.
  */
-export function AuditForm({ texts, errors: messages, formToken }: Props) {
+export function AuditForm({ texts, errors: messages, formToken, scan }: Props) {
   const id = useId()
   const router = useRouter()
   const [values, setValues] = useState({ url: '', name: '', contact: '', consent: false })
@@ -200,20 +202,28 @@ export function AuditForm({ texts, errors: messages, formToken }: Props) {
             autoComplete="url"
             maxLength={2000}
           />
-          <button
-            type="button"
-            data-motion="button-outline"
-            onClick={() => {
-              track('audyt_skan')
-              requestAuditScan(scanHost(values.url))
-            }}
-            className="inline-flex min-h-[54px] shrink-0 items-center justify-center gap-2 rounded-[14px] border border-accent-line bg-accent-soft px-4 font-extrabold text-accent-text"
-          >
-            {SCAN_LABEL}
-            <Icon name="arrow" className="size-4" />
-          </button>
+          {scan ? (
+            <button
+              type="button"
+              data-motion="button-outline"
+              aria-describedby={`${id}-scan-note`}
+              onClick={() => {
+                track('audyt_skan')
+                requestAuditScan(scanHost(values.url))
+              }}
+              className="inline-flex min-h-[54px] shrink-0 items-center justify-center gap-2 rounded-[14px] border border-accent-line bg-accent-soft px-4 font-extrabold text-accent-text"
+            >
+              {SCAN_LABEL}
+              <Icon name="arrow" className="size-4" />
+            </button>
+          ) : null}
         </div>
         {errors.url && <FieldError id={`${id}-url-error`}>{errors.url}</FieldError>}
+        {scan ? (
+          <span id={`${id}-scan-note`} className="sr-only">
+            Pokazuje przykładowy wynik obok formularza. Nic nie wysyłamy.
+          </span>
+        ) : null}
       </div>
       <div className="grid gap-4 min-[641px]:grid-cols-2 min-[641px]:gap-2.5">
         {input('name', texts.nameLabel, texts.namePlaceholder, {

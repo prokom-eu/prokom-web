@@ -24,9 +24,9 @@ const GROUP_SHORT = new Map(OFFER_GROUPS.map(({ value, short }) => [value, short
  * `/cennik` of the Software line (ZMIANY-v24 §6.3): the subpage hero, every published solution as
  * a price card (the four offer groups as filters, a card opens the offer window), the care levels
  * and the audit kinds; the FAQ is the next block. Everything with a price comes from the tenant's
- * published `Solutions`. A hero block (`HERO_BLOCKS`): it carries the page's H1.
+ * published `Solutions`. A hero block (`HERO_BLOCKS`): it carries the page's H1 when first.
  */
-export async function SwPricingBlock({ block, tenantId }: Props) {
+export async function SwPricingBlock({ block, tenantId, isFirst }: Props) {
   const [{ solutions, display }, index, offers, context] = await Promise.all([
     getPricingSource(tenantId),
     getSolutionsIndex(tenantId),
@@ -57,6 +57,7 @@ export async function SwPricingBlock({ block, tenantId }: Props) {
   return (
     <>
       <PageHero
+        level={isFirst ? 'h1' : 'h2'}
         crumb="Cennik"
         eyebrow={fill(block.eyebrow) ?? ''}
         title={title}
