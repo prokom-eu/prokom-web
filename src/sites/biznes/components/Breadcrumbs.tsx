@@ -17,7 +17,8 @@ export function Breadcrumbs({
         {items.map((item, position) => {
           const current = position === items.length - 1
           return (
-            <Fragment key={item.href}>
+            // Position in the key: two crumbs may share an address (Zaopatrzenie → /oferta).
+            <Fragment key={`${position}-${item.href}`}>
               {position > 0 && <li aria-hidden="true">/</li>}
               <li>
                 {current ? (

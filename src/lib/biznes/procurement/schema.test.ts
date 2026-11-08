@@ -3,7 +3,12 @@ import { describe, expect, it } from 'vitest'
 import file from '../../../../seed/prokombiznes/k4/strony-k4.json'
 import { resolveProcurementImages } from '../../../seed/biznes/procurementPages'
 import { NO_FLAGS } from './flags'
-import { parseProcurementPage, procurementPageSchema, validateProcurementPage } from './schema'
+import {
+  isProcurementPage,
+  parseProcurementPage,
+  procurementPageSchema,
+  validateProcurementPage,
+} from './schema'
 
 const pages = (file as unknown as { zaopatrzenie: Record<'agd' | 'it', unknown> }).zaopatrzenie
 const stored = (variant: 'agd' | 'it') => {
@@ -15,6 +20,10 @@ describe('procurement page schema (panel check and render)', () => {
   it('renders the page only for the block variant it was written for', () => {
     expect(parseProcurementPage(stored('agd'), NO_FLAGS, 'agd')?.variant).toBe('agd')
     expect(parseProcurementPage(stored('agd'), NO_FLAGS, 'it')).toBeNull()
+    // RenderBlocks: the page title is the H1 when the block would render nothing.
+    expect(isProcurementPage(stored('agd'), 'agd')).toBe(true)
+    expect(isProcurementPage(stored('agd'), 'it')).toBe(false)
+    expect(isProcurementPage({ variant: 'agd' }, 'agd')).toBe(false)
   })
 
   it('refuses a default class outside the classes and default stages outside the options', () => {

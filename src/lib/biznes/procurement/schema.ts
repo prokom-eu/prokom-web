@@ -271,6 +271,12 @@ export function parseProcurementPage(
   return applyFlags(result.data, flags)
 }
 
+/** Whether the block renders its page (and so its H1): valid data written for this variant. */
+export function isProcurementPage(value: unknown, variant: string | null | undefined): boolean {
+  const result = procurementPageSchema.safeParse(value ?? null)
+  return result.success && result.data.variant === variant
+}
+
 /** Panel check of the block's JSON. */
 export function validateProcurementPage(value: unknown): true | string {
   const result = procurementPageSchema.safeParse(value ?? null)

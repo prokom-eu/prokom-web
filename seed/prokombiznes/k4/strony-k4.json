@@ -3887,11 +3887,11 @@
     },
     {
      "q": "Jak szybko dostanę wycenę?",
-     "a": "{callback} w godzinach pracy (pn–pt 9–17) i doprecyzowujemy listę. Wycenę wysyłamy, gdy lista jest jasna — w kilku wariantach cenowych, z kartami produktów.",
+     "a": "{callback} w godzinach pracy ({hours}) i doprecyzowujemy listę. Wycenę wysyłamy, gdy lista jest jasna — w kilku wariantach cenowych, z kartami produktów.",
      "when": "callback",
      "fallback": {
       "q": "Jak szybko dostanę wycenę?",
-      "a": "Najpierw oddzwaniamy w godzinach pracy (pn–pt 9–17) i doprecyzowujemy listę. Wycenę wysyłamy, gdy lista jest jasna — w kilku wariantach cenowych, z kartami produktów."
+      "a": "Najpierw oddzwaniamy w godzinach pracy ({hours}) i doprecyzowujemy listę. Wycenę wysyłamy, gdy lista jest jasna — w kilku wariantach cenowych, z kartami produktów."
      }
     },
     {
