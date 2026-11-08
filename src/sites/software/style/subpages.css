@@ -582,3 +582,11 @@
     font-size: 34px;
   }
 }
+
+/* Solution page (`solution/SolutionSections`): „Efekt”, the highlighted card of „Dziś / Efekt”. */
+.sw-compare-last {
+  border-color: transparent;
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 30px 80px -40px var(--glow);
+}

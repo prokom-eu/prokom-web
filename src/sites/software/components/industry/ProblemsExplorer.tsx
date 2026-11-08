@@ -8,6 +8,7 @@ import { Icon } from '@/components/ui/Icon'
 import type { IndustryProblem } from '@/lib/software/industryPage'
 import { projectActions, useProject } from '@/lib/software/projectStore'
 
+import { Mockup } from '../mockups/Mockup'
 import { OfferThumb } from '../offer/OfferThumb'
 
 type Props = { problems: IndustryProblem[] }
@@ -123,8 +124,8 @@ export function ProblemsExplorer({ problems }: Props) {
                 className={cx(
                   'inline-flex min-h-12 items-center justify-center rounded-2xl px-5 font-extrabold active:scale-[0.98] motion-reduce:transition-none',
                   added
-                    ? 'bg-card text-accent-text ring-2 ring-accent-line'
-                    : 'bg-button text-accent-ink shadow-raised',
+                    ? 'border border-accent-line bg-card text-accent-text'
+                    : 'bg-button text-accent-ink',
                 )}
               >
                 {added ? '✓ W wycenie' : '+ Dodaj do wyceny'}
@@ -138,7 +139,17 @@ export function ProblemsExplorer({ problems }: Props) {
           </div>
         </div>
         <div className="flex items-center bg-stage p-5 min-[641px]:p-7">
-          <OfferThumb src={solution?.thumbnail ?? undefined} className="w-full" />
+          {solution?.preview ? (
+            <span className="sw-offer-shot block w-full">
+              <Mockup
+                kind={solution.preview.kind}
+                variant={solution.preview.variant}
+                fit="contain"
+              />
+            </span>
+          ) : (
+            <OfferThumb src={solution?.thumbnail ?? undefined} className="w-full" />
+          )}
         </div>
       </div>
     </div>

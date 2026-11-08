@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { Container } from '@/components/ui/Container'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { metaDescription } from '@/lib/seo/description'
@@ -15,9 +14,10 @@ import { getCityView, getSolutionsIndex } from '@/lib/software/data'
 import { fillText } from '@/lib/software/facts'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { Buttons } from '@/sites/software/components/about/Buttons'
-import { Breadcrumbs } from '@/sites/software/components/Breadcrumbs'
 import { FaqSection } from '@/sites/software/components/FaqSection'
-import { SectionHead } from '@/sites/software/components/home/SectionHead'
+import { Glass } from '@/sites/software/components/ui/Glass'
+import { PageHero } from '@/sites/software/components/ui/PageHero'
+import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 import { softwareTextContext } from '@/sites/software/components/textContext'
 
 import { requestOrigin, requireLine } from '../../../tenant'
@@ -104,64 +104,42 @@ export default async function CityPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
         />
       ))}
-      <section className="pt-6 pb-10 min-[641px]:pt-10 min-[641px]:pb-16">
-        <Container wide>
-          <Breadcrumbs current={city.name} />
-          <div className="mt-4 grid gap-8 min-[1081px]:grid-cols-[minmax(0,1fr)_minmax(0,540px)] min-[1081px]:items-center min-[1081px]:gap-14">
-            <div>
-              {city.hero.eyebrow ? (
-                <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text min-[641px]:text-sm">
-                  {city.hero.eyebrow}
-                </p>
-              ) : null}
-              <h1 className="mt-3 font-display text-[40px] font-extrabold leading-[1.02] tracking-tight min-[641px]:text-[clamp(44px,5vw,68px)]">
-                {city.hero.title}
-                {city.hero.titleAccent ? (
-                  <>
-                    {' '}
-                    <span className="text-grad-h1">{city.hero.titleAccent}</span>
-                  </>
-                ) : null}
-              </h1>
-              <p className="mt-5 max-w-[56ch] text-lg text-ink-2 min-[641px]:text-xl">
-                {city.hero.lead}
-              </p>
-              <Buttons primary={city.hero.ctas[0]} secondary={city.hero.ctas[1]} className="mt-7" />
-            </div>
-            {city.hero.badges.length > 0 ? (
-              <ul className="grid gap-2.5 min-[641px]:grid-cols-2 min-[1081px]:grid-cols-1">
-                {city.hero.badges.map((badge, index) => (
-                  <li
-                    key={index}
-                    className="rounded-[16px] border border-border bg-card px-5 py-4 shadow-raised"
-                  >
-                    <p className="font-extrabold">{badge.title}</p>
-                    {badge.text ? <p className="text-sm text-ink-2">{badge.text}</p> : null}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-        </Container>
-      </section>
+      <PageHero
+        crumb={city.name}
+        eyebrow={city.hero.eyebrow ?? ''}
+        title={city.hero.title}
+        em={city.hero.titleAccent}
+        lead={city.hero.lead}
+        aside={
+          city.hero.badges.length > 0 ? (
+            <ul className="grid gap-2.5 min-[641px]:grid-cols-2 min-[1081px]:grid-cols-1">
+              {city.hero.badges.map((badge, position) => (
+                <Glass as="li" key={position} className="rounded-[18px] px-5 py-4">
+                  <p className="font-extrabold">{badge.title}</p>
+                  {badge.text ? <p className="text-sm text-ink-2">{badge.text}</p> : null}
+                </Glass>
+              ))}
+            </ul>
+          ) : undefined
+        }
+      >
+        <Buttons primary={city.hero.ctas[0]} secondary={city.hero.ctas[1]} className="mt-7" />
+      </PageHero>
 
       {city.who.items.length > 0 && city.who.title ? (
-        <section className="py-12 min-[641px]:py-20">
-          <Container wide>
+        <section className="v-sec">
+          <div className="v-wrap">
             <SectionHead
               eyebrow={city.locative ? `Firmy ${city.locative}` : 'Dla kogo'}
               title={city.who.title}
               lead={city.who.lead}
             />
-            <ul className="mt-6 grid gap-3 min-[641px]:grid-cols-2 min-[1081px]:grid-cols-4">
+            <ul className="mt-10 grid gap-4 min-[641px]:grid-cols-2 min-[1081px]:grid-cols-4">
               {city.who.items.map((item) => {
                 const solution = item.solution ? bySlug.get(item.solution) : undefined
                 const price = solution ? cardPrice(solution, index.priceDisplay) : null
                 return (
-                  <li
-                    key={item.name}
-                    className="flex flex-col gap-2 rounded-[22px] border border-border bg-card p-[22px]"
-                  >
+                  <Glass as="li" rise key={item.name} className="flex flex-col gap-2 p-[22px]">
                     <h3 className="font-display text-lg font-extrabold">{item.name}</h3>
                     {item.text ? <p className="text-sm text-ink-2">{item.text}</p> : null}
                     {price && !price.ask ? (
@@ -179,30 +157,27 @@ export default async function CityPage({ params }: Props) {
                         {item.cta}
                       </Link>
                     ) : null}
-                  </li>
+                  </Glass>
                 )
               })}
             </ul>
-          </Container>
+          </div>
         </section>
       ) : null}
 
       {city.local.items.length > 0 && city.local.title ? (
-        <section className="py-12 min-[641px]:py-20">
-          <Container wide>
-            <SectionHead eyebrow="Dlaczego lokalnie" title={city.local.title} lead={null} />
-            <ul className="mt-6 grid gap-3 min-[761px]:grid-cols-3">
+        <section className="v-sec">
+          <div className="v-wrap">
+            <SectionHead eyebrow="Dlaczego lokalnie" title={city.local.title} />
+            <ul className="mt-10 grid gap-4 min-[761px]:grid-cols-3">
               {city.local.items.map((item) => (
-                <li
-                  key={item.title}
-                  className="rounded-[22px] border border-border bg-card p-[22px] shadow-raised"
-                >
+                <Glass as="li" rise key={item.title} className="p-[22px]">
                   <h3 className="font-display text-xl font-extrabold">{item.title}</h3>
                   {item.text ? <p className="mt-2 text-ink-2">{fill(item.text) ?? ''}</p> : null}
-                </li>
+                </Glass>
               ))}
             </ul>
-          </Container>
+          </div>
         </section>
       ) : null}
 
@@ -215,12 +190,9 @@ export default async function CityPage({ params }: Props) {
       />
 
       {city.nearby.length > 0 ? (
-        <section aria-labelledby="okolica-h" className="pb-12 min-[641px]:pb-16">
-          <Container wide>
-            <h2
-              id="okolica-h"
-              className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text min-[641px]:text-sm"
-            >
+        <section aria-labelledby="okolica-h" className="v-sec">
+          <div className="v-wrap">
+            <h2 id="okolica-h" className="sw-eyebrow">
               Pracujemy też w okolicy
             </h2>
             {/* Plain chips, no links: other city pages exist only with their own text. */}
@@ -229,9 +201,7 @@ export default async function CityPage({ params }: Props) {
                 <li
                   key={name}
                   className={
-                    name === city.name
-                      ? 'rounded-full bg-button px-4 py-2.5 text-sm font-extrabold text-accent-ink'
-                      : 'rounded-full border border-border bg-card px-4 py-2.5 text-sm font-extrabold'
+                    name === city.name ? 'sw-chip border-accent-line text-accent-text' : 'sw-chip'
                   }
                 >
                   {name}
@@ -239,18 +209,16 @@ export default async function CityPage({ params }: Props) {
               ))}
             </ul>
             <p className="mt-3 text-sm text-ink-2">Dalej pracujemy zdalnie, w całej Polsce.</p>
-          </Container>
+          </div>
         </section>
       ) : null}
 
       {city.cta.title ? (
-        <section data-final-cta className="pb-12 min-[641px]:pb-20">
-          <Container wide>
-            <div className="flex flex-col gap-6 rounded-[28px] border border-accent-line bg-accent-soft p-[22px] min-[641px]:p-12 min-[1081px]:flex-row min-[1081px]:items-center min-[1081px]:justify-between">
+        <section data-final-cta className="v-sec">
+          <div className="v-wrap">
+            <Glass featured className="sw-cta">
               <div className="max-w-[620px]">
-                <h2 className="font-display text-[30px] font-extrabold leading-[1.05] tracking-tight min-[641px]:text-[40px]">
-                  {city.cta.title}
-                </h2>
+                <h2 className="sw-h2 sw-cta-title">{city.cta.title}</h2>
                 {city.cta.text ? (
                   <p className="mt-3 text-lg text-ink-2 min-[641px]:text-xl">{city.cta.text}</p>
                 ) : null}
@@ -260,8 +228,8 @@ export default async function CityPage({ params }: Props) {
                 secondary={city.cta.buttons[1]}
                 className="shrink-0"
               />
-            </div>
-          </Container>
+            </Glass>
+          </div>
         </section>
       ) : null}
     </>
