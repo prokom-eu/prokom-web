@@ -257,11 +257,6 @@ const PHOTO_PROMISES: Readonly<Record<string, string>> = {
     'Opisz obiekt albo obecną instalację. Powiemy, od czego zacząć i czego się spodziewać.',
   'Wyślij zdjęcie rozdzielnicy. Powiemy, którą ładowarkę da się podłączyć.':
     'Opisz rozdzielnicę i przyłącze. Powiemy, którą ładowarkę da się podłączyć.',
-  // Runda v6 §1.8 (audit 08.11): the CTA texts of the offer and the guide in the package.
-  'Opisz obiekt albo wyślij zdjęcia. Zaproponujemy, od czego zacząć, i wycenimy na piśmie.':
-    'Opisz obiekt. Zaproponujemy, od czego zacząć, i wycenimy na piśmie.',
-  'Wyślij zdjęcie obiektu albo opisz sytuację. Odpowiemy po ludzku, bez lania wody.':
-    'Opisz sytuację w kilku zdaniach. Odpowiemy po ludzku, bez lania wody.',
   'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Wyślij zdjęcia, a powiemy, czego się spodziewać.':
     'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Opisz obiekt, a powiemy, czego się spodziewać.',
 }

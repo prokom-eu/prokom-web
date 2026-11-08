@@ -277,7 +277,7 @@ export type HomeRealization = {
   category: string | null
   place: string | null
   scope: string | null
-  /** Round v5 (RUNDA-V5 §4): the photos, the cover first; empty → the card keeps its drawing. */
+  /** Round v5 (RUNDA-V5 §4): the photos, the cover first; never empty (runda v6 D2). */
   photos: PublicImage[]
 }
 

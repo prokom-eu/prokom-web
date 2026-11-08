@@ -16,7 +16,10 @@ export type RealizationItem = {
   year: number | null
   services: string[]
   kind: string | null
-  /** Round v5: the photos, the cover first (none → the drawing stays). */
+  /**
+   * Round v5: the photos, the cover first; never empty on the grid (runda v6 D2). Optional because
+   * the filters get the cards without photos (smaller client payload).
+   */
   photos?: PublicImage[]
 }
 
