@@ -87,6 +87,10 @@ describe.each(GUIDE_POSTS.map((post) => [post.slug, post] as const))(
       const all = texts(post)
       expect(all.filter((t) => COPY_WORDS.test(t) || LAW_WORDS.test(t))).toEqual([])
       expect(all.filter((t) => /\p{L}!/u.test(t))).toEqual([])
+      // Audit 06.11 P0: no promise of sending photos — no form takes files (as `strony.e2e`).
+      const photos =
+        /[Ww]yślij zdjęci|[Pp]rześlij rzuty|możesz wysłać wcześniej|[Zz]rób zdjęcie|wystarczą zdjęcia/
+      expect(all.filter((t) => photos.test(t))).toEqual([])
     })
   },
 )

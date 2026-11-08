@@ -10,7 +10,7 @@ export const ladowarkaDoAutaWDomu: GuidePostData = {
   title: 'Ładowarka do auta w domu: co sprawdzić przed montażem',
   category: 'ladowarki',
   publishedAt: '2026-11-08T11:00:00.000Z',
-  lead: 'Zanim zamontujesz ładowarkę do samochodu elektrycznego w domu, sprawdź pięć rzeczy: moc przyłącza, rozdzielnicę, miejsce na ładowarkę, moc, jakiej potrzebuje Twoje auto, i trasę przewodu. Do wstępnej wyceny wystarczą zdjęcia rozdzielnicy, licznika i miejsca montażu.',
+  lead: 'Zanim zamontujesz ładowarkę do samochodu elektrycznego w domu, sprawdź pięć rzeczy: moc przyłącza, rozdzielnicę, miejsce na ładowarkę, moc, jakiej potrzebuje Twoje auto, i trasę przewodu. Do wstępnej wyceny wystarczy opis rozdzielnicy, licznika i miejsca montażu.',
   sections: [
     {
       heading: 'Co sprawdzić przed montażem ładowarki w domu',
@@ -24,7 +24,7 @@ export const ladowarkaDoAutaWDomu: GuidePostData = {
           'Ile kilowatów przyjmuje Twoje auto przy ładowaniu prądem przemiennym (AC).',
           'Jak daleko jest od rozdzielnicy do miejsca montażu i którędy poprowadzić przewód.',
         ],
-        'Jeśli znasz te odpowiedzi, wycena i montaż idą szybko. Jeśli nie, sprawdzimy je na wizji lokalnej albo ze zdjęć.',
+        'Jeśli znasz te odpowiedzi, wycena i montaż idą szybko. Jeśli nie, sprawdzimy je na wizji lokalnej.',
       ],
     },
     {
@@ -40,7 +40,7 @@ export const ladowarkaDoAutaWDomu: GuidePostData = {
       blocks: [
         'Ładowarka dostaje w rozdzielnicy własny obwód z osobnymi zabezpieczeniami. Nie podłączamy jej do gniazdek w garażu, bo te nie są przygotowane na wielogodzinny pobór dużego prądu.',
         'W starszych domach rozdzielnica bywa pełna albo stara. Wtedy trzeba ją rozbudować albo dołożyć małą rozdzielnicę obok. To jedna z rzeczy, które najbardziej zmieniają cenę montażu.',
-        'Zrób zdjęcie otwartej rozdzielnicy i licznika. Po zdjęciu zwykle widać, czy wystarczy dołożyć zabezpieczenia, czy trzeba czegoś więcej.',
+        'Opisz, ile wolnych miejsc ma rozdzielnica i jaki masz licznik. Na wizji lokalnej od razu widać, czy wystarczy dołożyć zabezpieczenia, czy trzeba czegoś więcej.',
       ],
     },
     {
@@ -118,14 +118,14 @@ export const ladowarkaDoAutaWDomu: GuidePostData = {
         'Ładowarka zawiśnie tam, gdzie auto stoi na noc',
         'Przewód ładowarki sięgnie do gniazda w aucie',
         'Znam trasę przewodu od rozdzielnicy do ładowarki',
-        'Mam zdjęcia rozdzielnicy, licznika i miejsca montażu',
+        'Wiem, gdzie jest rozdzielnica i licznik',
       ],
       initial: [0, 3],
-      done: 'Wszystko gotowe. Wyślij zdjęcia, a podamy cenę montażu na piśmie.',
-      partial: '{n} z {all}. Brakujące punkty sprawdzimy na wizji lokalnej albo ze zdjęć.',
+      done: 'Wszystko gotowe. Opisz dom w kreatorze, a podamy cenę montażu na piśmie.',
+      partial: '{n} z {all}. Brakujące punkty sprawdzimy na wizji lokalnej.',
     },
     howWeDo: [
-      'Wycenę zaczynamy od rozdzielnicy i licznika: oglądamy je na miejscu albo na zdjęciach.',
+      'Wycenę zaczynamy od rozdzielnicy i licznika: oglądamy je na wizji lokalnej.',
       'Moc ładowarki dobieramy do przyłącza i do auta, a cenę podajemy na piśmie.',
       'Prowadzimy przewód z rozdzielnicy, montujemy zabezpieczenia, uruchamiamy i testujemy ładowarkę.',
       'Na montaż dajemy 24 miesiące gwarancji PRO-KOM, ładowarka ma gwarancję producenta.',
@@ -152,9 +152,9 @@ export const ladowarkaDoAutaWDomu: GuidePostData = {
           'CC Home montujemy w garażu albo pod wiatą, osłoniętą od deszczu. Na otwarty podjazd lepiej pasuje CC Wall na podstawie, która ma szczelniejszą obudowę.',
       },
       {
-        question: 'Co wysłać do wyceny?',
+        question: 'Co przygotować do wyceny?',
         answer:
-          'Zdjęcie otwartej rozdzielnicy, licznika i miejsca, gdzie ma wisieć ładowarka. Napisz też, jakie masz auto i jak daleko jest od rozdzielnicy do miejsca montażu.',
+          'Krótki opis rozdzielnicy, licznika i miejsca, gdzie ma wisieć ładowarka. Napisz też, jakie masz auto i jak daleko jest od rozdzielnicy do miejsca montażu.',
       },
     ],
     plan: {
@@ -178,7 +178,7 @@ export const ladowarkaDoAutaWDomu: GuidePostData = {
     band: {
       eyebrow: 'Ładowarka w domu',
       heading: 'Sprawdzimy, którą ładowarkę da się u Ciebie podłączyć',
-      text: 'Wyślij zdjęcia rozdzielnicy i licznika. Odpowiemy, jaka moc i jaki model pasują do Twojego domu.',
+      text: 'Opisz rozdzielnicę, licznik i miejsce montażu. Odpowiemy, jaka moc i jaki model pasują do Twojego domu.',
     },
   },
 }

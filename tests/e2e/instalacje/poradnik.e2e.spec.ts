@@ -64,7 +64,7 @@ test.describe('Instalacje guide', () => {
       'Kamery w pensjonacie: gdzie je powiesić i jak ustawić',
     )
     await expect(page.locator('main')).not.toContainText('RODO')
-    await expect(page.locator('.toc a')).toHaveCount(14)
+    await expect(page.locator('.toc a')).toHaveCount(13)
     await expect(page.locator('.qz')).toContainText('2 z 7')
     await expect(page.locator('.prfaq details')).toHaveCount(5)
     await expect(page.locator('article a.btn')).toHaveAttribute('href', /^\/zaplanuj\?opis=/)
