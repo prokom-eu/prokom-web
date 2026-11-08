@@ -31,6 +31,7 @@ export function PrepChecklist({
   const [current, setCurrent] = useState(-1)
   const [motion, setMotion] = useState(false)
   const stageRef = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLDivElement>(null)
   const run = useRef(0)
   const timer = useRef(0)
 
@@ -53,8 +54,9 @@ export function PrepChecklist({
   }
 
   useEffect(() => {
-    const stage = stageRef.current
-    if (!stage || window.matchMedia(REDUCED).matches) return
+    // The list, not the stage: on a phone it sits below the stage and must be seen ticking.
+    const list = listRef.current
+    if (!list || window.matchMedia(REDUCED).matches) return
     setMotion(true)
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -64,7 +66,7 @@ export function PrepChecklist({
       },
       { threshold: 0.35 },
     )
-    observer.observe(stage)
+    observer.observe(list)
     return () => {
       observer.disconnect()
       run.current += 1
@@ -104,7 +106,7 @@ export function PrepChecklist({
           </div>
         </div>
       </div>
-      <div className="zp-plist-wrap">
+      <div ref={listRef} className="zp-plist-wrap">
         <ul className="zp-plist">
           {steps.map((step, i) => (
             <li

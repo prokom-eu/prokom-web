@@ -4331,11 +4331,13 @@
      },
      {
       "title": "Dane ze starego komputera",
-      "sub": "pliki, zakładki, ustawienia programów"
+      "sub": "pliki, zakładki, ustawienia programów",
+      "when": "services"
      },
      {
       "title": "Etykieta inwentarzowa",
-      "sub": "numer na obudowie i w liście sprzętu"
+      "sub": "numer na obudowie i w liście sprzętu",
+      "when": "services"
      }
     ]
    },

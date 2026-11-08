@@ -53,5 +53,12 @@ describe('procurement page schema (panel check and render)', () => {
       const text = JSON.stringify(parseProcurementPage(stored(variant), NO_FLAGS, variant))
       expect(text).not.toMatch(/60 min|\{callback\}|przenosimy dane|Numery inwentarzowe|1 za 1/)
     }
+    // „Przygotowanie” (IT): the steps tied to the §0 services wait for the panel list.
+    const prep = parseProcurementPage(stored('it'), NO_FLAGS, 'it')?.prep?.list ?? []
+    expect(prep.map((step) => step.title)).not.toContain('Etykieta inwentarzowa')
+    expect(prep.map((step) => step.title)).not.toContain('Dane ze starego komputera')
+    expect(prep).toHaveLength(6)
+    const withServices = parseProcurementPage(stored('it'), { ...NO_FLAGS, services: true }, 'it')
+    expect(withServices?.prep?.list).toHaveLength(8)
   })
 })
