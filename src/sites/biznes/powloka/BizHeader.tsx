@@ -12,7 +12,8 @@ import type { OfferMenu } from '@/lib/catalog/menu'
 import { type PublicBiznesNavigation, withoutEmptyDropdowns } from '@/lib/site/navigation'
 import { requestSearch } from '@/lib/site/searchOpen'
 
-import { MegaMenuPanel } from '../components/MegaMenuPanel'
+import { megaKey } from '../components/menu/megaKeys'
+import { OfferMega } from '../components/menu/OfferMega'
 import { CartCount } from './CartCount'
 
 /** Closing delay after the pointer leaves the mega menu (spec §8.1: 280 ms). */
@@ -24,8 +25,6 @@ type Props = {
   homeLabel: string
   menu: PublicBiznesNavigation['menu']
   offer: OfferMenu
-  phone: { label: string; href: string } | null
-  hours: string | null
   /** `shared.headerCta`: „Zapytanie” with the count of the inquiry list. */
   cta: { label: string; href: string } | null
 }
@@ -40,9 +39,10 @@ const isCurrent = (pathname: string, href: string) =>
  * (the mega menu — opens on hover or click, closes 280 ms after the pointer leaves, Esc returns
  * focus), the search loupe, the theme switch and „Zapytanie” with the live count.
  */
-export function BizHeader({ homeLabel, menu, offer, phone, hours, cta }: Props) {
+export function BizHeader({ homeLabel, menu, offer, cta }: Props) {
   const pathname = usePathname() ?? '/'
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState(0)
   const [shownPath, setShownPath] = useState(pathname)
   const timer = useRef<number | undefined>(undefined)
   const openedAt = useRef(0)
@@ -56,6 +56,16 @@ export function BizHeader({ homeLabel, menu, offer, phone, hours, cta }: Props) 
   }
 
   const keep = () => window.clearTimeout(timer.current)
+  const close = (focusTrigger: boolean) => {
+    keep()
+    setOpen(false)
+    if (focusTrigger) trigger.current?.focus()
+  }
+  /** Focus a department once the opened panel is visible (it is `inert` until then). */
+  const focusTab = (index: number) =>
+    requestAnimationFrame(() =>
+      panel.current?.querySelectorAll<HTMLElement>('[role="tab"]')[index]?.focus(),
+    )
   /** `at`: the event's time stamp (no clock read in render code). */
   const openNow = (at: number) => {
     keep()
@@ -111,6 +121,11 @@ export function BizHeader({ homeLabel, menu, offer, phone, hours, cta }: Props) 
         <div
           onPointerEnter={(event) => hover(event) && openNow(event.timeStamp)}
           onPointerLeave={(event) => hover(event) && closeLater()}
+          // The focus leaving „Oferta ▾” and its panel closes it (plan 0611 §8.1 pkt 3).
+          onBlur={(event) => {
+            const next = event.relatedTarget
+            if (next instanceof Node && !event.currentTarget.contains(next)) close(false)
+          }}
         >
           <button
             ref={trigger}
@@ -119,6 +134,17 @@ export function BizHeader({ homeLabel, menu, offer, phone, hours, cta }: Props) 
             aria-expanded={open}
             aria-controls="oferta-mega"
             aria-current={isCurrent(pathname, '/oferta') ? 'true' : undefined}
+            onKeyDown={(event) => {
+              const action = megaKey(event.key, {
+                zone: 'trigger',
+                index: active,
+                count: offer.departments.length,
+              })
+              if (action.type !== 'open') return
+              event.preventDefault()
+              openNow(event.timeStamp)
+              focusTab(action.focus)
+            }}
             onClick={(event) => {
               // The hover has just opened it: the click that follows must not close it.
               if (open && event.timeStamp - openedAt.current > TOGGLE_AFTER) {
@@ -130,8 +156,27 @@ export function BizHeader({ homeLabel, menu, offer, phone, hours, cta }: Props) 
             {offerLabel}
             <Icon name="arrow" className="ml-1 size-3 rotate-90" strokeWidth={2.4} />
           </button>
-          <div ref={panel} id="oferta-mega" className={CAPSULE.mega} hidden={!open}>
-            <MegaMenuPanel offer={offer} phone={phone} hours={hours} />
+          <div
+            ref={panel}
+            id="oferta-mega"
+            className={`${CAPSULE.mega} bmg-panel`}
+            data-open={open ? '' : undefined}
+            inert={!open}
+            // A followed link closes it, also one to the page already open (`?grupa=`).
+            onClick={(event) => {
+              if ((event.target as Element).closest('a')) close(false)
+            }}
+          >
+            <OfferMega
+              offer={offer}
+              active={active}
+              onActive={setActive}
+              onClose={() => close(true)}
+              onSearch={() => {
+                close(false)
+                requestSearch()
+              }}
+            />
           </div>
         </div>
       )}

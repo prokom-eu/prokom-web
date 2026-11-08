@@ -80,13 +80,7 @@ export default async function TenantLayout({ children, params }: Props) {
   let frame: React.ReactNode
   if (settings?.biznes) {
     frame = (
-      <BiznesFrame
-        tenant={tenant}
-        settings={settings}
-        biznes={settings.biznes}
-        company={company}
-        promo={promo}
-      >
+      <BiznesFrame tenant={tenant} settings={settings} biznes={settings.biznes} promo={promo}>
         {main}
       </BiznesFrame>
     )
