@@ -76,16 +76,16 @@ export const architekci = {
     faq: 640,
   } as Record<string, number>,
   audienceSection: {
-    eyebrow: 'Dla kogo jest ta strona',
-    heading: 'Wybierz, kim jesteś. Pokażemy, co dostajesz.',
+    eyebrow: 'Dla kogo',
+    heading: 'Co dostaje architekt, projektant, deweloper i wykonawca',
   },
   audience: [
     {
       key: 'arch',
       name: 'Architekt',
       icon: 'ruler',
-      heading: 'Projekt, który obroni się na budowie.',
-      text: 'Technikę wpisujesz w projekt raz, w odpowiednim miejscu. Bez improwizacji ekipy i bez kucia po tynkach.',
+      heading: 'Instalacje rozpisane w projekcie, zanim wejdzie ekipa',
+      text: 'Instalacje wpisujesz w projekt raz, w odpowiednim miejscu. Ekipa nie musi improwizować, a po tynkach nic się nie kuje.',
       points: [
         'Plan urządzeń na Twoich rzutach (kamery, czujki, głośniki, Wi-Fi, panele)',
         'Wytyczne dla branży elektrycznej: szafa rack, przepusty, moc pod ładowarkę',
@@ -98,8 +98,8 @@ export const architekci = {
       key: 'wn',
       name: 'Projektant wnętrz',
       icon: 'eye',
-      heading: 'Technika, której nie widać we wnętrzu.',
-      text: 'Dobieramy urządzenia do wnętrza, a nie wnętrze do urządzeń: maskownice, kolor szkła paneli, zabudowy, głośniki pod gładzią.',
+      heading: 'Urządzenia schowane w suficie, ścianie i zabudowie',
+      text: 'Urządzenia dobieramy do wnętrza: maskownice, kolor szkła paneli, zabudowy i głośniki pod gładzią.',
       points: [
         'Głośniki w suficie i pod gładzią, maskownice do malowania',
         'Szklane panele Ampio: kolor, ikony i podpisy pod projekt',
@@ -112,8 +112,8 @@ export const architekci = {
       key: 'dev',
       name: 'Deweloper',
       icon: 'apt',
-      heading: 'Budynek gotowy na odbiór i na sprzedaż.',
-      text: 'Teletechnika budynku z pomiarami, części wspólne, garaż z ładowaniem i opcja smart apartamentu. Jeden wykonawca niskoprądówki.',
+      heading: 'Instalacje budynku gotowe do odbioru i sprzedaży lokali',
+      text: 'Robimy teletechnikę budynku z pomiarami, części wspólne, garaż z ładowarkami i smart apartament na życzenie. Wszystkie instalacje niskoprądowe masz u jednego wykonawcy.',
       points: [
         'Instalacja telekomunikacyjna: punkt styku, skrzynki w lokalach, światłowód',
         'Wideodomofony, kontrola dostępu do klatek i garażu, monitoring',
@@ -126,37 +126,37 @@ export const architekci = {
       key: 'gw',
       name: 'Generalny wykonawca',
       icon: 'crane',
-      heading: 'Podwykonawca, który trzyma harmonogram.',
+      heading: 'Podwykonawca instalacji, który trzyma się harmonogramu',
       text: 'Wchodzimy na budowę w uzgodnionych oknach: przed tynkami i przy wykończeniu. Jedna osoba kontaktowa dla kierownika budowy.',
       points: [
         'Okablowanie i puszki przed tynkami, zdjęcia tras',
         'Koordynacja z elektrykiem i ekipą wykończeniową',
         'Montaż, uruchomienie i szkolenie użytkownika',
-        'Serwis po odbiorze, bez telefonów do Ciebie',
+        'Serwis po odbiorze: inwestor dzwoni bezpośrednio do nas',
       ],
       cta: { label: 'Umów wizję na budowie', href: '#wyslij' },
     },
   ] as Audience[],
   problemsSection: {
-    eyebrow: 'Znasz to z budowy',
-    heading: 'Technika zaplanowana za późno',
-    accent: 'psuje najlepszy projekt.',
+    eyebrow: 'Typowe problemy',
+    heading: 'Co się dzieje, gdy instalacje planuje się za późno',
+    accent: '',
     lead: 'Cztery sytuacje, które słyszymy od architektów najczęściej. Każdą da się rozwiązać na rzutach, zanim ekipa wejdzie na budowę.',
     answer: 'U nas',
-    bravasTitle: 'Nie tylko u nas.',
+    bravasTitle: 'Podobne wnioski z badania w USA',
     bravasText: 'Badanie BRAVAS 2024 wśród architektów i wykonawców domów premium w USA.',
   },
   problems: [
     {
       icon: 'tool',
       title: 'Technika dokładana po tynkach',
-      text: 'Kamera „na kołkach”, kabel w listwie, kucie świeżej gładzi tydzień przed przeprowadzką.',
+      text: 'Kamera wisi na kołkach, kabel biegnie w listwie, a tydzień przed przeprowadzką ktoś kuje świeżą gładź.',
       answer: 'Trasy, puszki i ramki planujemy na rzutach. Po tynkach już nic nie kujemy.',
     },
     {
       icon: 'eye',
       title: 'Urządzenia psują wnętrze',
-      text: 'Rząd włączników, biała kolumna w rogu, czujka na środku sufitu, kable pod telewizorem.',
+      text: 'Na ścianie rząd włączników, w rogu biała kolumna, na środku sufitu czujka, a pod telewizorem kable.',
       answer: 'Dobieramy urządzenia do projektu: maskownice, kolory, szkło paneli, zabudowy.',
     },
     {
@@ -168,9 +168,10 @@ export const architekci = {
     },
     {
       icon: 'users',
-      title: 'Sześć firm, nikt za całość',
-      text: 'Osobno alarm, kamery, sieć, antena, audio i smart home. Każdy kładzie swoje kable.',
-      answer: 'Jeden wykonawca 10 instalacji i jeden opiekun od koncepcji do serwisu.',
+      title: 'Sześć firm i nikt nie odpowiada za całość',
+      text: 'Alarm, kamery, sieć, antenę, dźwięk i smart home robią różne firmy i każda kładzie swoje kable.',
+      answer:
+        'Wszystkie 10 instalacji robi jeden wykonawca, a jeden opiekun prowadzi je od koncepcji do serwisu.',
     },
   ] as { icon: InstIconName; title: string; text: string; answer: string }[],
   bravas: [
@@ -179,10 +180,10 @@ export const architekci = {
     { value: '30%', label: 'szuka bardziej rzetelnych wykonawców instalacji' },
   ],
   stagesSection: {
-    eyebrow: 'Współpraca etap po etapie',
-    heading: 'Na każdym etapie wiesz,',
-    accent: 'co dostajesz.',
-    lead: 'Wchodzimy tam, gdzie jesteś z projektem. Najtaniej dla inwestora jest na etapie koncepcji i projektu budowlanego.',
+    eyebrow: 'Etapy projektu',
+    heading: 'Co robimy na każdym etapie projektu i budowy',
+    accent: '',
+    lead: 'Dołączamy na tym etapie, na którym jest Twój projekt. Dla inwestora najtaniej jest zacząć przy koncepcji albo projekcie budowlanym.',
     tabsLabel: 'Etapy projektu',
     best: 'Najlepszy moment, żeby nas zaprosić',
     prev: 'Poprzedni etap',
@@ -205,7 +206,9 @@ export const architekci = {
       youGet: [
         'Lista instalacji z tym, co zmieniają w projekcie: sufity, wnęki, pomieszczenie techniczne.',
       ],
-      investor: ['Od początku wie, co dostanie. Bez dopłat „bo tego nie było w projekcie”.'],
+      investor: [
+        'Od początku wie, co dostanie, i nie dopłaca za rzeczy, których zabrakło w projekcie.',
+      ],
     },
     {
       title: 'Projekt budowlany',
@@ -256,15 +259,15 @@ export const architekci = {
         'Szkolenie inwestora, dokumentacja w zakresie ustalonym przed instalacją.',
         'Gwarancja 24 miesiące na montaż, przeglądy, pomoc zdalna.',
       ],
-      youGet: ['Inwestor dzwoni z serwisem do nas, nie do Ciebie.'],
+      youGet: ['W sprawie serwisu inwestor dzwoni bezpośrednio do nas.'],
       investor: ['Jeden numer do wszystkich instalacji w domu.'],
     },
   ] as Stage[],
   exchangeSection: {
-    eyebrow: 'Konkretnie',
-    heading: 'Co od Ciebie,',
-    accent: 'co od nas.',
-    lead: 'Bez spotkań, z których nic nie wynika. Rzuty pokażesz nam na spotkaniu albo online; w zamian dostajesz plan urządzeń i wytyczne do projektu.',
+    eyebrow: 'Współpraca',
+    heading: 'Czego potrzebujemy od Ciebie i co dostajesz od nas',
+    accent: '',
+    lead: 'Rzuty pokażesz nam na spotkaniu albo online. W zamian dostajesz plan urządzeń i wytyczne do projektu.',
     fromYou: 'Od Ciebie',
     fromUs: 'Od nas',
     // TODO(krystian): szef — co bezpłatnie przy montażu u nas (dopisać do notki).
@@ -293,9 +296,9 @@ export const architekci = {
     ],
   },
   installationsSection: {
-    eyebrow: 'Wszystkie instalacje w jednym miejscu',
-    heading: 'Co warto wiedzieć',
-    accent: 'o każdej instalacji.',
+    eyebrow: 'Instalacje',
+    heading: 'Co zaplanować w projekcie dla każdej z 10 instalacji',
+    accent: '',
     lead: 'Dla każdej z 10 instalacji: co daje inwestorowi, co zaplanować w projekcie i jak wygląda we wnętrzu. Smart home i dźwięk na początek, bo o nie pytacie najczęściej.',
     tabsLabel: 'Instalacje',
     plan: 'W projekcie zaplanuj',
@@ -310,7 +313,7 @@ export const architekci = {
     details: {
       smart: {
         big: true,
-        heading: 'Smart home Ampio: dom, który sam pilnuje światła, ciepła i rolet.',
+        heading: 'Smart home Ampio: światło, ogrzewanie i rolety w jednej aplikacji',
         text: 'Polski system Ampio. Światło, ogrzewanie strefowe, rolety, brama, alarm i kamery w jednej aplikacji. Działa także bez internetu, a sceny („przyjazd”, „noc”, „wyjście”) uruchamia jeden przycisk albo czujnik.',
         plan: [
           'Projekt przed tynkami: rozdzielnica z miejscem na moduły, przewody do rolet i stref grzewczych.',
@@ -326,7 +329,7 @@ export const architekci = {
       },
       snd: {
         big: true,
-        heading: 'Dźwięk w domu i obiekcie: słychać, nie widać.',
+        heading: 'Dźwięk w domu i obiekcie z głośnikami schowanymi w zabudowie',
         text: 'Multiroom w domu: muzyka w każdym pokoju, na tarasie i w łazience, sterowana z telefonu. W restauracji, hotelu, kościele i sali stałe nagłośnienie APART ze strefami i komunikatami. Do domu także głośniki Hi-Fi do zabudowy i głośniki, które są obiektem designu.',
         plan: [
           'Głębokość zabudowy w suficie albo ścianie i ramki montażowe przed płytą g-k.',
@@ -338,8 +341,8 @@ export const architekci = {
       },
       kam: {
         big: false,
-        heading: 'Monitoring, który nie wygląda jak monitoring.',
-        text: 'Kompletny system: kamery, rejestrator, dyski do pracy całą dobę, zasilanie PoE i podgląd w telefonie. Kamery z kolorem w nocy i wykrywaniem człowieka i auta.',
+        heading: 'Monitoring z kamerami dobranymi do elewacji',
+        text: 'Cały system: kamery, rejestrator, dyski do pracy całą dobę, zasilanie po kablu sieciowym (PoE) i podgląd w telefonie. Kamery pokazują kolor w nocy i rozpoznają człowieka i auto.',
         plan: [
           'Miejsca kamer uzgodnione z detalem elewacji: okap, podbitka, gzyms.',
           'Puszka montażowa w ociepleniu, kabel do szafy rack.',
@@ -350,7 +353,7 @@ export const architekci = {
       },
       alarm: {
         big: false,
-        heading: 'Alarm i wideodomofon: spokój, gdy dom stoi pusty.',
+        heading: 'Alarm i wideodomofon do domu, który często stoi pusty',
         text: 'Czujki ruchu, otwarcia, zalania i dymu, syrena i powiadomienia w telefonie. Przy furtce wideodomofon, który odbierasz z dowolnego miejsca.',
         plan: [
           'Manipulator przy wejściu, centrala w szafie albo obok.',
@@ -362,7 +365,7 @@ export const architekci = {
       },
       kd: {
         big: false,
-        heading: 'Kontrola dostępu: kod, karta albo telefon zamiast klucza.',
+        heading: 'Kontrola dostępu: kod, karta albo telefon zamiast klucza',
         text: 'Zamki z kodem w apartamentach, karty w hotelu i firmie, brama i szlaban z aplikacji. Wiadomo, kto i kiedy wszedł.',
         plan: [
           'Przewód do zamka lub elektrozaczepu w ościeżnicy.',
@@ -373,7 +376,7 @@ export const architekci = {
       },
       wifi: {
         big: false,
-        heading: 'Sieć i Wi-Fi: fundament wszystkich pozostałych instalacji.',
+        heading: 'Sieć i Wi-Fi, na których działają pozostałe instalacje',
         text: 'Okablowanie strukturalne, szafa rack, światłowód i Wi-Fi bez martwych stref, także w ogrodzie. Na tej sieci działają kamery, smart home, TV i ładowarka.',
         plan: [
           'Miejsce na szafę rack w pomieszczeniu technicznym.',
@@ -385,7 +388,7 @@ export const architekci = {
       },
       tel: {
         big: false,
-        heading: 'Teletechnika w budownictwie: dla deweloperów i wykonawców.',
+        heading: 'Teletechnika budynków dla deweloperów i wykonawców',
         text: 'Instalacje słaboprądowe budynku: światłowód do lokali, RTV/SAT zbiorcza, domofony, okablowanie lokali usługowych, pomiary i dokumentacja do odbioru.',
         plan: [
           'Piony, kanalizacja teletechniczna i skrzynki w lokalach.',
@@ -396,7 +399,7 @@ export const architekci = {
       },
       ant: {
         big: false,
-        heading: 'Anteny RTV/SAT: telewizja bez anteny na środku elewacji.',
+        heading: 'Anteny RTV/SAT ustawione z dala od głównej elewacji',
         text: 'Anteny satelitarne i naziemne ustawiane miernikiem, instalacje zbiorcze i telewizja w każdym pokoju pensjonatu. Montaż z zapasem na halny.',
         plan: [
           'Miejsce na maszt od strony mniej widocznej, przepust przez dach, uziemienie.',
@@ -407,8 +410,8 @@ export const architekci = {
       },
       scr: {
         big: false,
-        heading: 'Ekrany i digital signage: obraz jako część wnętrza.',
-        text: 'Telewizory w zabudowie, ekrany w recepcji i witrynie, menu board w gastronomii. Treść zmieniana zdalnie z komputera.',
+        heading: 'Telewizory w zabudowie i ekrany w lokalach',
+        text: 'Montujemy telewizory w zabudowie, ekrany w recepcji i witrynie oraz ekrany z menu w gastronomii. Treść na ekranach zmieniasz zdalnie z komputera.',
         plan: [
           'Wnęka z wentylacją, rura pod przewody za ekranem.',
           'Zasilanie i sieć przy witrynie, recepcji, menu board.',
@@ -418,7 +421,7 @@ export const architekci = {
       },
       ev: {
         big: false,
-        heading: 'Ładowarki samochodów: zaplanuj moc, zanim inwestor kupi auto.',
+        heading: 'Ładowarki samochodów: moc zaplanowana, zanim inwestor kupi auto',
         text: 'Ładowarki Elzab EcoPower produkowane w Polsce: CC Home do garażu, CC Wall dla firm i obiektów, CC City na parking. Z doborem mocy do przyłącza i montażem.',
         plan: [
           'Moc przyłącza z zapasem, uzgodniona z projektantem elektrycznym.',
@@ -432,8 +435,8 @@ export const architekci = {
   } as { order: ServiceKey[]; details: Record<ServiceKey, Installation> },
   checklistSection: {
     eyebrow: 'Checklista projektanta',
-    heading: 'Co przewidzieć w projekcie?',
-    accent: 'Wybierz obiekt i instalacje.',
+    heading: 'Co przewidzieć w projekcie dla Twojego obiektu',
+    accent: '',
     lead: 'Lista rzeczy, które trzeba zaplanować przed tynkami, żeby potem niczego nie kuć. Odhaczaj na stronie albo zamów wersję PDF dla zespołu.',
     objectsTitle: '1. Obiekt',
     systemsTitle: '2. Instalacje',
@@ -659,8 +662,8 @@ export const architekci = {
   },
   numbersSection: {
     eyebrow: 'Liczby do projektu',
-    heading: 'Wymiary i parametry,',
-    accent: 'które warto mieć pod ręką.',
+    heading: 'Wymiary i parametry instalacji do wstępnego projektu',
+    accent: '',
     lead: 'Z kart katalogowych producentów i norm, z którymi pracujemy. Konkretny model może się różnić, dlatego ostateczne wartości podajemy w wytycznych do Twojego projektu.',
     note: `Stan na ${STAN_FAKTOW.month}. Wartości orientacyjne do wstępnego projektu, nie zastępują karty katalogowej wybranego modelu.`,
   },
@@ -671,7 +674,7 @@ export const architekci = {
       service: 'wifi',
       value: '90 m',
       title: 'kabla stałego w torze skrętki',
-      text: 'Kanał do 100 m z kablami przyłączeniowymi. Szafa rack w środku budynku, nie na jego końcu.',
+      text: 'Kanał do 100 m z kablami przyłączeniowymi. Dlatego szafę rack najlepiej postawić w środku budynku.',
     },
     {
       service: 'wifi',
@@ -689,7 +692,7 @@ export const architekci = {
       service: 'wifi',
       value: '10–12 m',
       title: 'odstęp punktów Wi-Fi',
-      text: 'Na środku sufitu, nie w rogu. Tak zalecają wytyczne TP-Link Omada.',
+      text: 'Punkt montujemy na środku sufitu. Tak zalecają wytyczne TP-Link Omada.',
     },
     {
       service: 'kam',
@@ -753,10 +756,10 @@ export const architekci = {
     },
   ] as { service: ServiceKey; value: string; title: string; text: string }[],
   developersSection: {
-    eyebrow: 'Dla deweloperów i inwestorów',
-    heading: 'Budynek gotowy na odbiór.',
-    accent: 'I na sprzedaż.',
-    lead: 'Cała niskoprądówka budynku u jednego wykonawcy: od punktu styku, przez klatki i garaż, po apartament na wynajem. Z pomiarami do odbioru.',
+    eyebrow: 'Dla deweloperów',
+    heading: 'Instalacje budynku wielorodzinnego od jednego wykonawcy',
+    accent: '',
+    lead: 'Robimy wszystkie instalacje niskoprądowe budynku: od punktu styku, przez klatki i garaż, po apartament na wynajem. Do odbioru dostajesz pomiary torów z protokołami.',
     why: 'Dlaczego to ważne',
     // Spec §2.2: no promise of a higher flat price — this sentence stays.
     noPromise:
@@ -786,7 +789,7 @@ export const architekci = {
         'Unifon albo monitor wideodomofonu',
         'Opcja: smart apartament Ampio (światło, ogrzewanie, rolety, zamek)',
       ],
-      why: 'Od 2013 r. każdy nowy budynek wielorodzinny musi mieć instalację telekomunikacyjną: punkt styku, skrzynkę w lokalu, światłowód, skrętkę i koncentryk.',
+      why: 'Każdy lokal dostaje od razu światłowód, skrętkę i przewód antenowy w skrzynce mieszkaniowej. Kupujący nie kuje ścian pod internet i telewizję.',
     },
     {
       key: 'wsp',
@@ -825,7 +828,7 @@ export const architekci = {
         'Ogrzewanie w trybie oszczędnym, gdy lokal stoi pusty',
         'Zdalny podgląd i serwis z Rabki-Zdroju',
       ],
-      why: 'W Zakopanem działa ok. 3,5 tys. ofert najmu krótkoterminowego, średnie obłożenie ok. 48%. Od 20.05.2026 każdy lokal potrzebuje numeru rejestrowego.',
+      why: 'W Zakopanem działa ok. 3,5 tys. ofert najmu krótkoterminowego, średnie obłożenie ok. 48%. Zamek z kodem i zdalny podgląd oszczędzają dojazdy do każdego gościa.',
     },
     {
       key: 'odb',
@@ -849,9 +852,9 @@ export const architekci = {
     why: string
   }[],
   newsSection: {
-    eyebrow: 'Nowe rozwiązania do projektów',
-    heading: 'Co warto pokazać inwestorowi',
-    accent: 'w tym sezonie.',
+    eyebrow: 'Nowe rozwiązania',
+    heading: 'Co warto pokazać inwestorowi w tym sezonie',
+    accent: '',
     lead: 'Rozwiązania, które sprawdzamy i montujemy. Przy każdym: parametry z karty katalogowej i to, co trzeba przewidzieć w projekcie. Dodajemy nowe na bieżąco.',
     listLabel: 'Lista rozwiązań',
     filterLabel: 'Filtr kategorii',
@@ -861,9 +864,9 @@ export const architekci = {
     ask: 'Zapytaj o to w projekcie',
     prev: 'Poprzednie rozwiązanie',
     next: 'Następne rozwiązanie',
-    newsletterTitle: 'Nowe rozwiązania raz w miesiącu, na e-mail.',
+    newsletterTitle: 'Nowe rozwiązania raz w miesiącu na e-mail',
     newsletterText:
-      'Krótko: jedno rozwiązanie z parametrami, termin prezentacji, oferta dla pracowni. Wypiszesz się jednym kliknięciem.',
+      'W każdym mailu jedno rozwiązanie z parametrami, termin prezentacji i oferta dla pracowni. Wypiszesz się jednym kliknięciem.',
     note: `Parametry z kart katalogowych producentów, ${stanNa()}. Marki podajemy jako przykład: dobieramy sprzęt pod projekt.`,
   },
   /** Filter (`NF`) and the card's category label (`CAT`): `sz` is „Dla pracowni” on a card. */
@@ -887,12 +890,12 @@ export const architekci = {
     sz: 'Dla pracowni',
   },
   experienceSection: {
-    eyebrow: 'Nasze doświadczenie',
-    heading: 'Od 2004 roku na Podhalu.',
-    accent: 'Zostajemy po montażu.',
+    eyebrow: 'Doświadczenie',
+    heading: 'Instalacje na Podhalu od 2004 roku i serwis po montażu',
+    accent: '',
     lead: 'PRO-KOM to firma z Rabki-Zdroju. Instalacje, sprzęt, serwis i oprogramowanie w jednej firmie, blisko Twoich inwestycji.',
     brands: 'Sprzęt, z którym pracujemy',
-    brandsNote: 'Dobieramy sprzęt pod obiekt, nie pod markę. Sprzęt dostępny dla firm:',
+    brandsNote: 'Markę dobieramy do obiektu. Sprzęt dostępny dla firm:',
     // The prototype's „[SZEF: autoryzacje i certyfikaty, np. Ampio, Satel]”: Ampio confirmed
     // (boss 01.11.2026); Satel still open (STAN „Pytania”).
     brandsAuth: 'Mamy autoryzację Ampio.',
@@ -923,8 +926,8 @@ export const architekci = {
   ],
   librarySection: {
     eyebrow: 'Biblioteka projektanta',
-    heading: 'Materiały, które',
-    accent: 'skracają projekt.',
+    heading: 'Materiały i narzędzia, które skracają pracę nad projektem',
+    accent: '',
     lead: 'Nasza checklista na e-mail i sprawdzone narzędzia producentów, z których korzystamy przy projektach.',
     tools: 'Narzędzia producentów',
   },
@@ -1023,9 +1026,8 @@ export const architekci = {
     },
   ],
   presentationsSection: {
-    eyebrow: 'Zobacz i usłysz',
-    heading: 'Pokażemy działanie na żywo,',
-    accent: 'zanim wpiszesz je do projektu.',
+    eyebrow: 'Prezentacje',
+    heading: 'Zobacz i usłysz urządzenia, zanim wpiszesz je do projektu',
     cta: 'Umów prezentację',
   },
   // TODO(krystian): szef — co mamy na pokazie w salonie (etykieta karty „W salonie PRO-KOM”).
@@ -1050,9 +1052,9 @@ export const architekci = {
     },
   ] as { icon: InstIconName; title: string; text: string; tag: string | null }[],
   rulesSection: {
-    eyebrow: 'Zasady współpracy',
-    heading: 'Chętnie współpracujemy.',
-    accent: 'Na jasnych zasadach.',
+    eyebrow: 'Zasady',
+    heading: 'Na jakich zasadach współpracujemy z pracownią',
+    accent: '',
   },
   // TODO(krystian): szef — „Warunki dla pracowni”: opisane jawnie albo „ustalamy indywidualnie”
   // (6. karta prototypu, do tego czasu bez niej).
@@ -1060,17 +1062,17 @@ export const architekci = {
     {
       icon: 'ruler',
       title: 'Twój projekt, Twoje decyzje',
-      text: 'Dobieramy technikę pod projekt, nie pod markę. Jeśli coś koliduje z wnętrzem, szukamy innego rozwiązania.',
+      text: 'Technikę dobieramy do projektu i wnętrza. Jeśli coś koliduje z wnętrzem, szukamy innego rozwiązania.',
     },
     {
       icon: 'star',
-      title: 'Grasz pierwsze skrzypce',
-      text: 'Z inwestorem rozmawiamy razem z Tobą albo za Twoją zgodą. Nie zmieniamy projektu za Twoimi plecami.',
+      title: 'Rozmowy z inwestorem uzgadniamy z Tobą',
+      text: 'Z inwestorem rozmawiamy razem z Tobą albo za Twoją zgodą. Każdą zmianę w projekcie najpierw uzgadniamy z Tobą.',
     },
     {
       icon: 'doc',
       title: 'Wycena na piśmie',
-      text: 'Zakres, sprzęt i cena czarno na białym, w wariantach do wyboru. Inwestor wie, za co płaci.',
+      text: 'Zakres, sprzęt i cenę podajemy na piśmie, w wariantach do wyboru. Inwestor wie, za co płaci.',
     },
     {
       icon: 'chat',
@@ -1080,19 +1082,19 @@ export const architekci = {
     {
       icon: 'shield',
       title: 'Gwarancja 24 miesiące',
-      text: 'Na montaż. Sprzęt według gwarancji producenta. Serwis i przeglądy po montażu.',
+      text: 'Na montaż dajemy 24 miesiące gwarancji, a na sprzęt obowiązuje gwarancja producenta. Po montażu robimy serwis i przeglądy.',
     },
   ] as { icon: InstIconName; title: string; text: string }[],
   contactSection: {
-    eyebrow: 'Twój opiekun w PRO-KOM',
+    eyebrow: 'Twój opiekun',
     role: 'Opiekun architektów i wykonawców · instalacje niskoprądowe i smart home',
     quote:
-      '„Zawsze pomożemy. Nawet jeśli to jedno pytanie o puszkę pod kamerę albo głębokość sufitu pod głośnik. Zadzwoń, zanim projekt pójdzie do druku.”',
+      '„Zawsze pomożemy, nawet jeśli masz tylko jedno pytanie o puszkę pod kamerę albo głębokość sufitu pod głośnik. Zadzwoń, zanim projekt pójdzie do druku.”',
     response: 'Odpowiadamy do 24 h w dni robocze.',
   },
   faqSection: {
-    eyebrow: 'Pytania i odpowiedzi',
-    heading: 'Pytania architektów.',
+    eyebrow: 'Pytania',
+    heading: 'Najczęstsze pytania architektów i projektantów',
     aside: {
       title: 'Jedno pytanie do projektu?',
       text: 'Zadzwoń albo napisz. Zawsze pomożemy, nawet jeśli chodzi tylko o puszkę pod kamerę.',
@@ -1150,9 +1152,8 @@ export const architekci = {
     },
   ],
   formSection: {
-    eyebrow: 'Konsultacja projektu',
-    heading: 'Porozmawiajmy o projekcie.',
-    accent: 'Oddzwonimy z konkretami.',
+    eyebrow: 'Konsultacja',
+    heading: 'Umów konsultację projektu — oddzwonimy z pierwszymi uwagami',
     lead: 'Opiekun zadzwoni z pierwszymi uwagami i umówi spotkanie albo rozmowę online: co przewidzieć, gdzie miejsce na szafę rack, na co uważać w suficie i elewacji.',
     steps: [
       'Opisujesz projekt i jego etap',

@@ -1,5 +1,4 @@
 import Kontakt from '../../../seed/prokominstalacje/strony-zrzut/Kontakt.json'
-import Serwis from '../../../seed/prokominstalacje/strony-zrzut/Serwis.json'
 import type { Page } from '../../payload-types'
 
 type Block = NonNullable<Page['layout']>[number]
@@ -18,10 +17,11 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
     blockType: 'instPlanner',
     hero: {
       crumb: 'Zaplanuj instalację',
-      eyebrow: 'Kreator · 4 krótkie kroki · 2 minuty',
-      h1a: 'Zaplanuj instalację:',
-      h1b: 'monitoring, alarm, Wi-Fi, smart home na Podhalu.',
-      lead: 'Powiedz, co planujesz, a resztę ustalimy na miejscu. Klikasz, zamiast pisać. Po drodze podpowiemy, na co zwrócić uwagę, a na końcu zostawiasz numer. Oddzwonimy i umówimy wizję lokalną.',
+      // INST-6 PR4 (runda v6 §2): H1 = the topic and the region, a 2-sentence lead.
+      eyebrow: 'Kreator wyceny',
+      h1a: 'Zaplanuj instalację w domu, pensjonacie albo firmie',
+      h1b: 'na Podhalu',
+      lead: 'Zaznacz, co chcesz zamontować, opisz obiekt i zostaw numer telefonu. Oddzwonimy do 24 h w dni robocze i umówimy wizję lokalną.',
     },
   }),
   kontakt: () => ({
@@ -39,10 +39,10 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
     blockType: 'instServiceDesk',
     hero: {
       crumb: 'Serwis i przeglądy',
-      eyebrow: 'Serwis instalacji · Rabka-Zdrój, Podhale i Tatry',
-      h1a: 'Coś nie działa?',
-      h1b: 'Zgłoś. Sprawdzimy zdalnie albo przyjedziemy.',
-      lead: 'Serwisujemy kamery, alarmy, sieci, zamki, smart home, nagłośnienie, ekrany i ładowarki. Także instalacje, które montowała inna firma. Przed sezonem robimy przeglądy, żeby awarie nie trafiały się w pełnym obłożeniu.',
+      eyebrow: 'Serwis i przeglądy',
+      h1a: 'Serwis kamer, alarmów i sieci',
+      h1b: 'na Podhalu',
+      lead: 'Naprawiamy i przeglądamy kamery, alarmy, Wi-Fi, zamki, smart home, nagłośnienie, ekrany i ładowarki, także po innej firmie. Wiele usterek sprawdzamy zdalnie, a przed sezonem robimy przeglądy, żeby awarie nie trafiały się w pełnym obłożeniu.',
       facts: [
         { value: 'Rabka-Zdrój', label: 'salon i serwis' },
         { value: 'zdalnie', label: 'diagnoza wielu usterek' },
@@ -51,17 +51,22 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
       tags: ['Awarie', 'Przeglądy sezonowe', 'Przejęcie instalacji', 'Umowy serwisowe'],
       cta: { text: 'Umów przegląd', href: '#plany' },
     },
-    cta: { eyebrow: Serwis.dane.ctaEye, heading: Serwis.dane.ctaH, text: Serwis.dane.ctaP },
+    // Written here, not from the package (`Serwis.dane` would skip the INST-6 dictionary).
+    cta: {
+      eyebrow: 'Serwis',
+      heading: 'Zgłoś usterkę albo umów przegląd przed sezonem',
+      text: 'Opisz w formularzu, co nie działa. Odpowiadamy do 24 h w dni robocze: oddzwonimy albo odpiszemy.',
+    },
   }),
   // The architects' page (I16a, ADR-I005): hero of `Architekci.body.html`; no band (meta `cta: false`).
   'dla-architektow': () => ({
     blockType: 'instArchitects',
     hero: {
       crumb: 'Dla architektów',
-      eyebrow: 'Dla architektów, projektantów wnętrz, deweloperów i wykonawców',
-      h1a: 'Technika, która nie psuje projektu.',
-      h1b: 'Zaplanujmy ją przed tynkami.',
-      lead: 'Monitoring, sieć, smart home Ampio, dźwięk, ekrany, anteny i ładowarki. Dostajesz plan urządzeń na rzutach i wytyczne, które da się wpisać w projekt. Inwestor dostaje technikę, której nie widać, i jednego wykonawcę od koncepcji do serwisu.',
+      eyebrow: 'Dla architektów',
+      h1a: 'Instalacje w projekcie domu i inwestycji',
+      h1b: 'na Podhalu',
+      lead: 'Nanosimy monitoring, sieć, smart home Ampio, dźwięk, ekrany i ładowarki na Twoje rzuty i dajemy wytyczne do projektu. Pracujemy z architektami, projektantami wnętrz i deweloperami na Podhalu i w Małopolsce.',
       facts: [
         { value: 'od 2004', label: 'instalacje na Podhalu' },
         { value: '10 instalacji', label: 'jeden wykonawca, jeden opiekun' },
@@ -91,15 +96,15 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
     blockType: 'instRealizations',
     hero: {
       crumb: 'Realizacje',
-      eyebrow: 'Realizacje · Podhale, Małopolska i okolice',
-      h1a: 'Realizacje: nagłośnienie, multimedia i sieci',
-      h1b: 'od Krakowa po Zakopane.',
-      lead: 'Nagłośnienie, multimedia, projekcja, sieci i anteny dla firm, parafii, szkół i lokali na Podhalu, w Małopolsce i okolicach. Wybierz rodzaj instalacji albo obiektu.',
+      eyebrow: 'Realizacje',
+      h1a: 'Realizacje: nagłośnienie, ekrany i projekcja',
+      h1b: 'w Małopolsce i okolicach',
+      lead: 'Pokazujemy obiekty, w których montowaliśmy nagłośnienie, ekrany, projekcję, sieci i anteny: firmy, parafie, szkoły i lokale. Wybierz rodzaj instalacji albo obiektu, żeby zawęzić listę.',
     },
     cta: {
-      eyebrow: 'Masz podobny obiekt?',
-      heading: 'Twoja realizacja może być następna.',
-      text: 'Pokaż nam obiekt. Zaproponujemy rozwiązanie, a po montażu pokażemy je tutaj, jeśli się zgodzisz.',
+      eyebrow: 'Podobny obiekt',
+      heading: 'Zaplanuj podobną instalację w swoim obiekcie',
+      text: 'Opisz obiekt, a zaproponujemy rozwiązanie. Po montażu, jeśli się zgodzisz, pokażemy go tutaj.',
     },
   }),
   // `OFirmie.body.html` with one salon (boss 01.11.2026).

@@ -6,7 +6,8 @@
 
 export const wyslane = {
   metaTitle: 'Zgłoszenie wysłane',
-  title: 'Dziękujemy! Zgłoszenie jest u nas.',
+  // INST-6 PR4 (runda v6 §2.2 p. 10): no exclamation mark.
+  title: 'Dziękujemy, zgłoszenie jest u nas',
   /** „…tak jak wybrałeś: telefonem.” — the way from `?kontakt=`. */
   leadVia: (via: string) =>
     `Odezwiemy się do 24 h w dni robocze, tak jak wybrałeś: ${via}. Wtedy dopytamy o szczegóły i umówimy wizję lokalną.`,

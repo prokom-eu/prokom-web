@@ -4,9 +4,19 @@
  * `withoutLaw()`: an exact text (after the law clean-up) → its new wording. One module per page
  * group; `pnpm inst:texts` carries the result to the panels of staging and production.
  */
-import { USLUGI_TEXTS } from './uslugi'
+import { OBIEKTY_MODULES } from './obiekty'
+import { USLUGI_MODULES } from './uslugi'
 
-export const TEXT_REWRITES: Readonly<Record<string, string>> = { ...USLUGI_TEXTS }
+/** Every dictionary of INST-6 by name; a text may sit in one of them only (test). */
+export const TEXT_MODULES: Readonly<Record<string, Readonly<Record<string, string>>>> = {
+  ...USLUGI_MODULES,
+  ...OBIEKTY_MODULES,
+}
+
+export const TEXT_REWRITES: Readonly<Record<string, string>> = Object.assign(
+  {},
+  ...Object.values(TEXT_MODULES),
+)
 
 /** A deep copy with every listed text replaced by its new wording. */
 export function rewritten<T>(value: T): T {

@@ -128,7 +128,10 @@ describe.each(KEYS)('object page %s — the same as the prototype', (key) => {
   const hotspots = OBJECT_SCENES[key].hotspots
 
   it('has the hotspot titles of the prototype, in the same order', () => {
-    expect(render(prototype(key)).leg.map((l) => l.t)).toEqual(hotspots.map((h) => h.title))
+    // INST-6 (runda v6 §1.1): no duty from an act in a hotspot title.
+    const v6 = (t: string) =>
+      t === 'Czujka dymu, obowiązkowa przy najmie' ? 'Czujka dymu z powiadomieniem' : t
+    expect(render(prototype(key)).leg.map((l) => v6(l.t))).toEqual(hotspots.map((h) => h.title))
   })
 
   it('hotspots, legend, layers and prev/next follow the same steps', () => {

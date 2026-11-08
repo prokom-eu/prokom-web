@@ -40,7 +40,7 @@ test.describe('Instalacje contact page (shared template)', () => {
     expect((await open(page))?.status()).toBe(200)
     const main = page.locator('main')
     await expect(main.locator('h1')).toHaveCount(1)
-    await expect(main.locator('h1')).toHaveText(/Powiedz, co planujesz/)
+    await expect(main.locator('h1')).toHaveText(/Kontakt z PRO-KOM Instalacje/)
     await expect(main.locator('[data-contact-page] a[href^="tel:"]').first()).toBeVisible()
     const routes = page.locator('#z-czym-dzwonisz')
     await expect(routes.locator('a[href="/zaplanuj"]')).toHaveText(/Zaplanuj instalację/)
@@ -142,7 +142,7 @@ test.describe('Instalacje O firmie (shared template)', () => {
   test('H1 and stats of the line, no people photos, no markers', async ({ page }) => {
     await page.goto(site(HOST, '/o-firmie'))
     const main = page.locator('main')
-    await expect(main.locator('h1')).toHaveText(/Firma z Podhala/)
+    await expect(main.locator('h1')).toHaveText(/instalacje w Rabce-Zdroju i na Podhalu/)
     // Runda v6 §1.8: one number for the years (the shared „2004”), the line adds another fact.
     await expect(main).toContainText('rodzajów instalacji u jednego wykonawcy')
     await expect(main).not.toContainText('lat na Podhalu')

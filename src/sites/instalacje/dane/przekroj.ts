@@ -36,7 +36,7 @@ export const przekroj = {
       key: 'kl',
       name: 'Gotowy dom',
       icon: 'home',
-      caption: 'Tak widzi to klient. Ile instalacji tu jest?',
+      caption: 'Gotowy dom oczami klienta: instalacji prawie nie widać',
     },
     {
       key: 'ty',
