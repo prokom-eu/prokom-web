@@ -5,7 +5,7 @@ import { cx } from '@/components/ui/cx'
 import { Breadcrumbs } from '../Breadcrumbs'
 import { SectionHead } from './SectionHead'
 
-type Crumb = { name: string; href: string }
+type Crumb = { name: string; href?: string }
 
 type Props = {
   /** Last breadcrumb (the page itself) and the levels above it. */

@@ -5,78 +5,44 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { IndustryPageView } from '@/lib/software/industryPage'
 
+import { PageHero } from '../ui/PageHero'
+
 type Page = { page: IndustryPageView }
 
-const eyebrowClass = 'text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text'
-
 /**
- * Hero of an industry page (board `Branza`): breadcrumbs, eyebrow, H1 with its accent, lead,
- * „Złóż system…” (the wizard with the kind of firm) and „Typowe kłopoty w branży…”; on the right the
- * modules around the firm (positions from the panel, floating; still with reduced motion). On a
- * phone the modules are a 2-column grid under the hub card (spec. §6.2).
+ * Hero of an industry page (ZMIANY-v24 §9.8: the subpage hero of v24): breadcrumbs, eyebrow, H1
+ * with its accent, lead, „Złóż system…” (the wizard with the kind of firm) and „Typowe kłopoty w
+ * branży…”; on the right the modules around the firm (positions from the panel, floating; still
+ * with reduced motion). On a phone the modules are a 2-column grid under the hub card.
  */
 export function IndustryHero({ page }: Page) {
   return (
-    <section aria-labelledby="branza-h" className="overflow-x-clip pt-6 min-[641px]:pt-10">
-      <Container wide>
-        <nav aria-label="Okruszki" className="text-sm text-ink-2">
-          <ol className="flex flex-wrap items-center gap-1">
-            <li>
-              <Link href="/" className="inline-flex min-h-11 items-center px-1 hover:text-ink">
-                Strona główna
-              </Link>
-            </li>
-            <li aria-hidden="true">›</li>
-            <li className="inline-flex min-h-11 items-center px-1">Branże</li>
-            <li aria-hidden="true" className="max-[640px]:hidden">
-              ›
-            </li>
-            <li className="max-[640px]:hidden">
-              <span aria-current="page" className="inline-flex min-h-11 items-center px-1">
-                {page.name}
-              </span>
-            </li>
-          </ol>
-        </nav>
-        <div className="mt-3 grid gap-8 min-[1081px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] min-[1081px]:items-center">
-          <div>
-            <p className={eyebrowClass}>{page.eyebrow}</p>
-            <h1
-              id="branza-h"
-              className="mt-3 font-display text-[40px] font-extrabold leading-[1.02] tracking-tight min-[641px]:text-6xl min-[1081px]:text-[64px]"
-            >
-              {page.title.plain}
-              {page.title.accent && (
-                <>
-                  {' '}
-                  <span className="text-grad-h1">{page.title.accent}</span>
-                </>
-              )}
-            </h1>
-            {page.lead && (
-              <p className="mt-5 max-w-[56ch] text-lg text-ink-2 min-[641px]:text-xl">
-                {page.lead}
-              </p>
-            )}
-            <div className="mt-7 flex flex-col gap-2.5 min-[641px]:flex-row">
-              <Link
-                href={page.wizard.href}
-                className="inline-flex min-h-14 items-center justify-center rounded-2xl bg-button px-6 font-extrabold text-accent-ink shadow-raised active:scale-[0.98] motion-reduce:transition-none"
-              >
-                {page.wizard.label}
-              </Link>
-              <a
-                href="#problemy"
-                className="inline-flex min-h-14 items-center justify-center rounded-2xl border border-border bg-card px-6 font-extrabold active:scale-[0.98] motion-reduce:transition-none"
-              >
-                Typowe kłopoty w branży i co na nie mamy
-              </a>
-            </div>
-          </div>
-          <ModuleMap page={page} />
-        </div>
-      </Container>
-    </section>
+    <PageHero
+      crumb={page.name}
+      parents={[{ name: 'Branże' }]}
+      eyebrow={page.eyebrow}
+      title={page.title.plain}
+      em={page.title.accent}
+      lead={page.lead}
+      aside={<ModuleMap page={page} />}
+    >
+      <div className="mt-7 flex flex-col gap-2.5 min-[641px]:flex-row">
+        <Link
+          href={page.wizard.href}
+          data-motion="button"
+          className="inline-flex min-h-14 items-center justify-center rounded-full bg-button px-6 font-extrabold text-accent-ink"
+        >
+          {page.wizard.label}
+        </Link>
+        <a
+          href="#problemy"
+          data-motion="button-outline"
+          className="inline-flex min-h-14 items-center justify-center rounded-full border border-border bg-card px-6 font-extrabold"
+        >
+          Typowe kłopoty w branży i co na nie mamy
+        </a>
+      </div>
+    </PageHero>
   )
 }
 
