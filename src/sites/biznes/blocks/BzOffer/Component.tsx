@@ -74,7 +74,7 @@ const VISIBLE_CATEGORIES_PHONE = 4
 
 function DepartmentCard({ group, phone = false }: { group: Department; phone?: boolean }) {
   // Product pictures of the department (audit 0611 P0.5): their `alt` from the panel's image,
-  // which the seed fills with „Marka Model” of the product (`seed/biznes/map.ts`).
+  // which the seed fills with the product name (`seed/biznes/map.ts`, not always with the brand).
   const [big, small] = group.showcase?.images ?? []
   const statuses = group.showcase?.statuses ?? []
   return (

@@ -47,7 +47,9 @@ test.describe('Biznes home: SEO and accessibility (B3-3)', () => {
     // TODO(krystian): the shared search window and the menu sheet (`SearchDialog`, `BottomSheet`)
     // still keep their H2 while closed — drop these exclusions after the `feat/wsp-*` fix.
     const closedH2 = await page
-      .locator('dialog:not([open]):not([data-search-dialog]):not([aria-label="Menu"]) h2')
+      .locator(
+        'dialog:not([open]):not([data-search-dialog]):not([aria-label="Menu"]) :is(h2, [role="heading"])',
+      )
       .count()
     expect(closedH2).toBe(0)
     await expect(page.locator('#start').getByRole('heading', { level: 2 })).toHaveCount(0)
@@ -60,7 +62,7 @@ test.describe('Biznes home: SEO and accessibility (B3-3)', () => {
       .waitFor()
     const drawer = page.locator('dialog[data-motion="drawer"]')
     await expect(drawer).toHaveAttribute('aria-labelledby', /.+/)
-    await expect(drawer.locator('h2')).toHaveCount(0)
+    await expect(drawer.locator('h2, [role="heading"]')).toHaveCount(0)
   })
 
   test('product pictures of „Najczęściej wybierane” and the departments have text (P0.5)', async ({
@@ -75,6 +77,7 @@ test.describe('Biznes home: SEO and accessibility (B3-3)', () => {
       expect(alt.trim()).not.toBe('')
     }
     const showcase = page.locator('#oferta article img[src*="p-"]')
+    expect(await showcase.count()).toBeGreaterThan(0)
     for (const alt of await showcase.evaluateAll((images) =>
       images.map((image) => image.getAttribute('alt') ?? ''),
     )) {
