@@ -182,6 +182,8 @@ export const softwareWizardSchema = obj({
     next: label,
     showResult: label,
     restart: label,
+    /** Name of the step bar for screen readers („Kroki kreatora”). */
+    stepsLabel: label,
     live: label,
     stepOf: template('{n}').refine((value) => value.includes('{m}'), {
       message: 'Musi zawierać {m}.',
