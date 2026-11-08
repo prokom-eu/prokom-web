@@ -306,6 +306,13 @@
     font-weight: 700;
   }
 
+  /* Without JavaScript nothing reveals: the content stays visible (the guide's filter, PR5). */
+  @media (scripting: none) {
+    & .rv .ri {
+      opacity: 1;
+      transform: none;
+    }
+  }
   /* Reveal on scroll (`useReveal`) and the hero's intro. */
   & .rv .ri {
     opacity: 0;

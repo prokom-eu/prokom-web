@@ -1,87 +1,92 @@
 import type { Payload } from 'payload'
 
 import type { Post } from '../../payload-types'
-import { h2, p, richText } from '../biznes/lexical'
+import { FORMER_SLUGS, GUIDE_POSTS, type GuidePostData } from '../../sites/instalacje/dane/wpisy'
+import { h2, p, richText, ul } from '../biznes/lexical'
 import { SEED_CONTEXT } from '../config'
 
-export const RODO_POST_SLUG = 'monitoring-a-rodo'
-
-/**
- * The guide post „Monitoring w pensjonacie a RODO” (`PoradnikRodo.body.html`, I12), texts 1:1 from
- * the prototype; the summary, „Co robi instalator, a co właściciel” and the self-check are
- * widgets of the page (`dane/poradnik.ts`). No source list on the page (spec §2): the prototype's
- * `src` list is not published. The SEO title is shortened to the limit (the title + „| PRO-KOM
- * Instalacje” ≤ 65), the description without „Przepisy ze źródłami.”
- */
-export function rodoPost(): Pick<
+type Inline = Parameters<typeof p>[number]
+type GuidePostSeed = Pick<
   Post,
   'title' | 'slug' | 'category' | 'publishedAt' | 'lead' | 'content' | 'seo'
-> {
+>
+
+/** `[text](/path)` → a link, `**text**` → bold, the rest plain text. */
+export function inlinePieces(text: string): Inline[] {
+  return text
+    .split(/(\[[^\]]+\]\([^)\s]+\)|\*\*[^*]+\*\*)/)
+    .filter(Boolean)
+    .map((piece) => {
+      const link = /^\[([^\]]+)\]\(([^)\s]+)\)$/.exec(piece)
+      if (link) return { text: link[1] ?? '', href: link[2] ?? '' }
+      const bold = /^\*\*([^*]+)\*\*$/.exec(piece)
+      return bold ? { bold: bold[1] ?? '' } : piece
+    })
+}
+
+/**
+ * Runda v6 §3 (INST-6 PR5): a post of `dane/wpisy` as the panel's `Posts` fields — the sections as
+ * h2 + paragraphs and lists. The widgets of the post (summary, checklist, table, FAQ…) stay in code.
+ */
+export function guidePostSeed(post: GuidePostData): GuidePostSeed {
+  const content = post.sections.flatMap((section) => [
+    h2(section.heading),
+    ...section.blocks.map((block) =>
+      typeof block === 'string'
+        ? p(...inlinePieces(block))
+        : ul(...block.map((item) => inlinePieces(item))),
+    ),
+  ])
   return {
-    // Runda v6 D1: a practical post about placing cameras; the text without law comes in INST-6.
-    title: 'Gdzie powiesić kamery w pensjonacie, żeby goście czuli się dobrze',
-    slug: RODO_POST_SLUG,
-    category: 'monitoring',
-    publishedAt: '2026-10-01T00:00:00.000Z',
-    lead: 'Parking i narciarnia tak, pokoje i sauna nie. Jak długo przechowywać nagrania, co napisać na tabliczce i dlaczego kamera, która widzi drogę, to już nie „domowa sprawa”.',
-    content: richText<Post['content']>([
-      h2('Czy w pensjonacie można mieć monitoring?'),
-      p(
-        'Tak. Kamera nagrywa wizerunek gości i pracowników, więc właściciel obiektu staje się administratorem danych w rozumieniu RODO. Musi mieć cel monitoringu, najczęściej bezpieczeństwo osób i ochronę mienia, i dopasować do niego miejsca montażu, czas przechowywania nagrań oraz informację dla osób w kadrze.',
-      ),
-      h2('Gdzie kamera może patrzeć, a gdzie nie'),
-      p(
-        'Rozsądne miejsca to parking, podjazd, wejście do budynku, recepcja, narciarnia, wózkownia, zaplecze i magazyn. Kamera nie powinna obejmować pokoi gości, łazienek, sauny i strefy SPA ani działek i okien sąsiadów.',
-      ),
-      p(
-        'Jeśli zatrudniasz pracowników, Kodeks pracy wprost wyłącza z monitoringu m.in. toalety, szatnie, stołówki i palarnie, z wąskimi wyjątkami.',
-      ),
-      h2('Jak długo przechowywać nagrania'),
-      p(
-        'Przy monitoringu pracowników Kodeks pracy pozwala przechowywać nagrania najwyżej 3 miesiące od nagrania, chyba że są dowodem w postępowaniu. Wytyczne europejskich organów ochrony danych idą dalej: w większości przypadków nagrania powinny znikać automatycznie po kilku dniach, a im dłużej ponad 72 godziny, tym mocniejsze musi być uzasadnienie.',
-      ),
-      p(
-        'W praktyce ustawiamy w rejestratorze nadpisywanie po tylu dniach, ile wynika z celu. Dłuższe przechowywanie nie oznacza lepszej ochrony, tylko więcej obowiązków.',
-      ),
-      h2('Tabliczka i informacja dla gości'),
-      p(
-        'Sam piktogram kamery nie wystarczy. Sprawdza się układ warstwowy: tabliczka przy wejściu w strefę monitorowaną z nazwą administratora, celem, czasem przechowywania i wskazaniem, gdzie jest pełna informacja, a pełna klauzula w recepcji albo na stronie obiektu.',
-      ),
-      h2('Kamera, która widzi drogę albo sąsiada'),
-      p(
-        'Trybunał Sprawiedliwości UE orzekł, że kamera przy domu, która obejmuje choćby część przestrzeni publicznej, nie jest już „czysto osobistym” użyciem i podlega RODO. Media opisywały też karę UODO z lipca 2026 r. nałożoną na osobę prywatną za kamery nagrywające drogę i posesje sąsiadów. W tej sprawie kamera nagrywała też dźwięk. Dlatego ustawiamy kadr na Twoją posesję, a resztę zaczerniamy maską prywatności.',
-      ),
-      h2('Nie nagrywaj dźwięku'),
-      p(
-        'Kodeks pracy mówi o monitoringu w postaci środków technicznych umożliwiających rejestrację obrazu. Nagrywanie rozmów to znacznie mocniejsza ingerencja w prywatność gości i pracowników. Dlatego przy montażu wyłączamy mikrofony w kamerach, chyba że jest wyraźny i uzasadniony powód.',
-      ),
-      h2('Monitoring a pracownicy pensjonatu'),
-      p(
-        'Pracowników trzeba poinformować o monitoringu najpóźniej 2 tygodnie przed jego uruchomieniem, a teren oznaczyć najpóźniej dzień wcześniej. Cel, zakres i sposób monitoringu określa układ zbiorowy pracy, regulamin pracy albo obwieszczenie.',
-      ),
-    ]),
-    // TODO(krystian): INST-6 PR5 (D1) rewrites the lead, the content and this description without law.
-    seo: {
-      title: 'Gdzie powiesić kamery w pensjonacie',
-      description:
-        'Monitoring a RODO w pensjonacie, sklepie i firmie: tabliczki, czas przechowywania nagrań, kamery a prywatność gości i pracowników.',
-    },
+    title: post.title,
+    slug: post.slug,
+    category: post.category,
+    publishedAt: post.publishedAt,
+    lead: post.lead,
+    content: richText<Post['content']>(content),
+    seo: post.seo,
   }
 }
 
+export const guidePostsToImport = (): GuidePostSeed[] => GUIDE_POSTS.map(guidePostSeed)
+
+/** The former slug of a post (D1: `monitoring-a-rodo` → `kamery-w-pensjonacie`), if it had one. */
+export const formerSlugOf = (slug: string): string | undefined =>
+  Object.entries(FORMER_SLUGS).find(([, now]) => now === slug)?.[0]
+
 type Count = (name: string, result: 'created' | 'updated' | 'skipped') => void
 
-/** Creates and publishes the guide posts of the line while missing; then they belong to the panel. */
+/**
+ * Creates and publishes the guide posts of the line while missing; a post still under its former
+ * slug gets the new slug and texts. Then they belong to the panel (`pnpm inst:texts` carries later
+ * changes of the repo).
+ */
 export async function seedInstalacjeGuide(payload: Payload, tenantId: number, count: Count) {
   const local = { overrideAccess: true, context: SEED_CONTEXT, depth: 0 } as const
-  for (const post of [rodoPost()]) {
-    const { totalDocs } = await payload.count({
-      collection: 'posts',
-      where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: post.slug } }] },
-      overrideAccess: true,
-    })
-    if (totalDocs > 0) {
+  const find = async (slug: string) =>
+    (
+      await payload.find({
+        collection: 'posts',
+        where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: slug } }] },
+        limit: 1,
+        ...local,
+      })
+    ).docs[0]
+  for (const post of guidePostsToImport()) {
+    if (await find(post.slug)) {
       count('posts', 'skipped')
+      continue
+    }
+    const former = formerSlugOf(post.slug)
+    const old = former ? await find(former) : undefined
+    if (old) {
+      await payload.update({
+        collection: 'posts',
+        id: old.id,
+        data: { ...post, _status: 'published' },
+        ...local,
+      })
+      count('posts', 'updated')
       continue
     }
     await payload.create({

@@ -39,10 +39,20 @@ export const INST_PAGES: readonly string[] = [
   // Oferta i Realizacje (I12).
   '/uslugi',
   '/realizacje',
-  // O firmie, Poradnik i wpis RODO (I12).
+  // O firmie i Poradnik (I12); wpisy Poradnika (INST-6 PR5, `dane/wpisy`).
   '/o-firmie',
   '/poradnik',
-  '/poradnik/monitoring-a-rodo',
+  ...[
+    'ile-kamer-do-domu',
+    'kamera-wifi-czy-przewodowa',
+    'alarm-w-domku-letniskowym',
+    'wifi-w-pensjonacie',
+    'smart-home-w-nowym-domu',
+    'ladowarka-do-auta-w-domu',
+    'monitoring-zima-w-gorach',
+    'antena-satelitarna-czy-dvb-t2',
+    'kamery-w-pensjonacie',
+  ].map((slug) => `/poradnik/${slug}`),
   // Strony prawne (I13).
   '/polityka-prywatnosci',
   '/cookies',

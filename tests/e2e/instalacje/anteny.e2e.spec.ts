@@ -19,6 +19,8 @@ const SECTIONS = [
   'pakiety',
   'cena',
   'faq',
+  // INST-6 PR5 (runda v6 §3.3): the guide posts of the service.
+  'z-poradnika',
   'powiazane',
   // Runda v6 §1.3: the trust band right above the CTA band.
   'odbior',

@@ -4,6 +4,7 @@ import { getEnv } from '@/lib/env'
 import { getInstalacjeObjectList, getInstalacjeOffer } from '@/lib/instalacje/data'
 import { llmsTxt } from '@/lib/instalacje/llms'
 import { objectHref } from '@/lib/instalacje/menu'
+import { getPostList } from '@/lib/posts/data'
 import { siteOrigin } from '@/lib/seo/origin'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 
@@ -22,11 +23,12 @@ export async function GET(_request: Request, { params }: Context) {
   if (!tenant || tenant.line !== 'instalacje' || !origin) {
     return new Response('Not Found', { status: 404 })
   }
-  const [offer, objects, site, company] = await Promise.all([
+  const [offer, objects, site, company, posts] = await Promise.all([
     getInstalacjeOffer(tenant.id),
     getInstalacjeObjectList(tenant.id),
     getSiteSettings(tenant.id),
     getCompanyData(),
+    getPostList(tenant.id, 'instalacje'),
   ])
   const office = company?.locations?.[0]
   const body = llmsTxt({
@@ -37,6 +39,7 @@ export async function GET(_request: Request, { params }: Context) {
     address: office ? `${office.street}, ${office.postalCode} ${office.city}` : null,
     services: offer.map((s) => ({ name: s.name, href: s.href, description: s.description })),
     objects: objects.map((o) => ({ name: o.name, href: objectHref(o.slug) })),
+    posts: posts.map((p) => ({ title: p.title, href: p.href })),
   })
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }

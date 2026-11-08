@@ -66,7 +66,8 @@ export const TEXT_FIELDS: Readonly<Record<TextCollection, readonly string[]>> = 
   // `layout`: the hero and CTA texts of a page's own block (`layoutWithBlockTexts`) — the home
   // page and the pages built in code (`FORM_PAGE_BLOCKS`).
   pages: ['seo', 'layout'],
-  posts: ['title', 'category', 'lead', 'content', 'seo'],
+  // `slug`: a post may move to a new address (D1, the former slug redirects).
+  posts: ['slug', 'title', 'category', 'lead', 'content', 'seo'],
   // `footer`: only its line description (`footer.text`, INST-6 PR2).
   'site-settings': ['shared', 'footer'],
 }

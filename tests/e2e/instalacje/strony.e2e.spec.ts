@@ -16,14 +16,8 @@ const PAGES = INST_PAGES
 const FORBIDDEN =
   /WhatsApp|wa\.me|W przygotowaniu|[Ww]yślij zdjęci|[Pp]rześlij rzuty|możesz wysłać wcześniej|[Zz]rób zdjęcie|wystarczą zdjęcia|dane przykładowe|przykładowe dane/
 // Runda v6 §1.1: no law on the pages. The legal pages are the firm's own duty, not content about
-// law; the camera post keeps its old text until INST-6 PR5 rewrites it (decision D1).
-// TODO(krystian): drop „/poradnik/monitoring-a-rodo” here once INST-6 PR5 is merged.
-const LAW_EXEMPT = new Set([
-  '/polityka-prywatnosci',
-  '/cookies',
-  '/dostepnosc',
-  '/poradnik/monitoring-a-rodo',
-])
+// law (the camera post is practical since INST-6 PR5, decision D1).
+const LAW_EXEMPT = new Set(['/polityka-prywatnosci', '/cookies', '/dostepnosc'])
 const LAW_ALL = new RegExp(LAW_WORDS.source, 'gu')
 // Runda v6 §2.2 (INST-6): pages with rewritten texts — no generated-copy phrasings in the whole
 // body (the frame too). Each INST-6 PR adds its pages.
@@ -49,6 +43,8 @@ const COPY_CHECKED = new Set([
   '/kontakt',
   '/serwis',
   '/zaplanuj',
+  // PR5: the guide and its posts.
+  ...INST_PAGES.filter((path) => path.startsWith('/poradnik')),
 ])
 const COPY_ALL = new RegExp(COPY_WORDS.source, 'gu')
 const PLACEHOLDER = /\[[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ ]{2,}[:\]]/

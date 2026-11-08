@@ -12,9 +12,11 @@ import { toTelHref } from '@/lib/site/link'
 import type { InstServiceBlock as InstServiceBlockData } from '@/payload-types'
 
 import { navigation } from '../../dane/nawigacja'
+import type { ServiceKey } from '../../dane/types'
 import { CtaBandView } from '../../powloka/CtaBandView'
 import { architekci } from '../../dane/architekci'
 import { Faq } from '../../sekcje/Faq'
+import { FromGuide } from '../../sekcje/FromGuide'
 import { TrustStrip } from '../../sekcje/TrustStrip'
 import { IlDefs } from '../../sekcje/IlDefs'
 import { JsonLd } from '../../sekcje/JsonLd'
@@ -211,6 +213,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         phone={phone}
         fold={folded.has('faq')}
       />
+      <FromGuide tenantId={tenantId} service={service.key as ServiceKey} path={path} />
       <Related
         tenantId={tenantId}
         heading={service.relatedHeading}
