@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { setTheme, site } from './helpers'
+import { clickUntilVisible, setTheme, site } from './helpers'
 
 // B4a: search overlay of the Biznes header (spec. §3.2, §8.2, §9 pkt 2 and 7). Catalog from
 // `pnpm seed`; the cases do not rely on synonyms (BiznesSettings), which other tests replace.
@@ -96,11 +96,10 @@ test.describe('Biznes search', () => {
 
   test('a phrase with no results offers to ask about it', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    // A click before hydration is lost (dev on 2 cores in CI): retry until the window opens.
-    await expect(async () => {
-      await page.getByRole('button', { name: 'Szukaj w ofercie' }).first().click()
-      await expect(overlay(page)).toBeVisible({ timeout: 1000 })
-    }).toPass()
+    await clickUntilVisible(
+      page.getByRole('button', { name: 'Szukaj w ofercie' }).first(),
+      field(page),
+    )
     await field(page).fill('zxqvbn')
     await expect(
       overlay(page).getByText('Nie znaleźliśmy „zxqvbn”', { exact: false }),
@@ -116,14 +115,12 @@ test.describe('Biznes search', () => {
   }) => {
     await page.setViewportSize({ width: 360, height: 780 })
     await page.goto(site('biznes.localhost'))
-    await expect(async () => {
-      await page.locator('[data-site-header]').getByRole('button', { name: 'Menu' }).click()
-      await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible({ timeout: 1000 })
-    }).toPass()
-    await page
-      .getByRole('dialog', { name: 'Menu' })
-      .getByRole('button', { name: 'Szukaj w ofercie' })
-      .click()
+    const sheet = page.getByRole('dialog', { name: 'Menu' })
+    await clickUntilVisible(
+      page.locator('[data-site-header]').getByRole('button', { name: 'Menu' }),
+      sheet,
+    )
+    await sheet.getByRole('button', { name: 'Szukaj w ofercie' }).click()
     await expect(field(page)).toBeFocused()
     await field(page).fill('terminal')
     await expect(

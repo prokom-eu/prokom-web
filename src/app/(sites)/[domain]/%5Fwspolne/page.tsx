@@ -273,6 +273,7 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
           company={company}
           contact={{
             phone: line.phone,
+            phone2: line.phone2,
             email: line.email,
             hours: company.hours,
             holidays: company.holidays,

@@ -42,3 +42,33 @@ for (const path of INST_PAGES) {
     expect(failures).toEqual([])
   })
 }
+
+// P2-21 (audit 06.11): CLS 0,27 on `/dla-kogo/szkoly` after scrolling (a lazy widget). The page
+// is scrolled down in steps; the layout shifts without input must stay under 0,1.
+test('Instalacje on a phone: no layout shift while scrolling /dla-kogo/szkoly', async ({
+  page,
+}) => {
+  // With motion on: the file runs with reduced motion, which would hide shifts of reveals.
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto(site(INST_HOST, '/dla-kogo/szkoly'))
+  await page.waitForLoadState('networkidle')
+  const cls = await page.evaluate(async () => {
+    let total = 0
+    new PerformanceObserver((list) => {
+      for (const entry of list.getEntries() as (PerformanceEntry & {
+        value: number
+        hadRecentInput: boolean
+      })[]) {
+        if (!entry.hadRecentInput) total += entry.value
+      }
+    }).observe({ type: 'layout-shift', buffered: true })
+    for (let y = 0; y < document.body.scrollHeight; y += 600) {
+      window.scrollTo(0, y)
+      await new Promise((resolve) => setTimeout(resolve, 200))
+    }
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    return total
+  })
+  expect(cls).toBeLessThan(0.1)
+})

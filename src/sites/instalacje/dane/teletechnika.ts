@@ -1,4 +1,5 @@
 import type { Feature, SectionHead } from './anteny'
+import { stanNa } from './stanFaktow'
 
 /**
  * Fixed texts of the Teletechnika page (ADR-I002 §1): the sections that are not in
@@ -160,7 +161,7 @@ export const teletechnika = {
   },
 
   law: {
-    eyebrow: 'Co się zmieniło w 2026 · stan na październik 2026',
+    eyebrow: `Co się zmieniło w 2026 · ${stanNa()}`,
     heading: 'Nowy budynek musi być gotowy na światłowód.',
     lead: 'Pilnujemy, żeby to, co zaprojektowano, dało się odebrać. A gdy przepisy się zmieniają, mówimy o tym już w ofercie.',
     items: [
@@ -174,7 +175,7 @@ export const teletechnika = {
       },
       {
         title: 'Warunki techniczne: okres przejściowy',
-        text: 'Rozporządzenie o warunkach technicznych z 2002 r. utraciło moc 20.09.2026, a nowego do października 2026 nie ogłoszono. Do 20.03.2028 projekt można sporządzić według dotychczasowych warunków (dla teletechniki rozdział 8a), jeśli inwestor złoży oświadczenie (art. 102a–102c Prawa budowlanego). Stan prawny sprawdzamy przy każdym projekcie.',
+        text: `Rozporządzenie o warunkach technicznych z 2002 r. utraciło moc 20.09.2026, nowego nie ogłoszono (${stanNa()}). Do 20.03.2028 projekt można sporządzić według dotychczasowych warunków (dla teletechniki rozdział 8a), jeśli inwestor złoży oświadczenie (art. 102a–102c Prawa budowlanego). Stan prawny sprawdzamy przy każdym projekcie.`,
       },
     ],
   },

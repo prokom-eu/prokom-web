@@ -93,7 +93,7 @@ export function EmailForm({ kind, formToken }: Props) {
 
   if (sent) {
     return (
-      <b role="status" tabIndex={-1} ref={done} style={{ color: 'var(--ok)' }}>
+      <b role="status" tabIndex={-1} ref={done} style={{ color: 'var(--ok-text)' }}>
         {kind === 'checklist' ? T.pdfSent : T.newsSent}
       </b>
     )
@@ -143,9 +143,11 @@ export function EmailForm({ kind, formToken }: Props) {
             {...invalid('email')}
           />
         </label>
-        <button type="submit" className="btn btn-p btn-s" disabled={busy}>
-          {kind === 'checklist' ? T.pdfSend : T.newsSend}
-        </button>
+        {kind === 'checklist' && (
+          <button type="submit" className="btn btn-p btn-s" disabled={busy}>
+            {T.pdfSend}
+          </button>
+        )}
       </div>
       <label className="consent">
         <input
@@ -174,6 +176,12 @@ export function EmailForm({ kind, formToken }: Props) {
           />
           <span>{T.marketing}</span>
         </label>
+      )}
+      {/* P2-16: the newsletter's two consents come first, the button under them. */}
+      {kind === 'news' && (
+        <button type="submit" className="btn btn-p btn-s arnsb" disabled={busy}>
+          {T.newsSend}
+        </button>
       )}
       <input
         ref={honeypot}

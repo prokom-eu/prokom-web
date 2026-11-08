@@ -31,6 +31,9 @@ export default defineConfig({
   use: {
     baseURL,
     trace: 'on-first-retry',
+    // A click or fill on an element that never shows fails after 10 s, not after the whole test
+    // timeout (60 s): a lost click (before hydration) cost a minute before the retry.
+    actionTimeout: 10_000,
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {

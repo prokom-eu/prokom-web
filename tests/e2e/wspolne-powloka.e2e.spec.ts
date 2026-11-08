@@ -120,6 +120,18 @@ test.describe('/_wspolne — widths (NAGLOWEK-KAPSULA §3)', () => {
     })
   }
 
+  test('on a phone the capsule hidden while scrolling down is inert', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    // The preview page keeps its capsule still (`state`): a real line page hides it.
+    await page.goto(site('instalacje.localhost', '/'))
+    const wrap = page.locator('[data-site-header]')
+    await expect(async () => {
+      await page.mouse.wheel(0, 600)
+      await expect(wrap).toHaveAttribute('data-hidden', '', { timeout: 1000 })
+    }).toPass()
+    await expect(wrap).toHaveAttribute('inert', '')
+  })
+
   for (const { host } of LINES) {
     test(`${host} on a phone: mark, short action and Menu, no sideways scroll`, async ({
       page,

@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-import { api, loginAsAdmin, site } from './helpers'
+import { api, hydrated, loginAsAdmin, site } from './helpers'
 
 // B3b: the theme, the closable seasonal bar and product pictures of the Biznes line (spec. §3.6).
 // The shell (brand bar, capsule, rail, footer, bottom bar, menu sheet): biznes-powloka.e2e.spec.ts.
@@ -30,7 +30,9 @@ test.describe('seasonal bar', () => {
       const bar = page.getByRole('complementary', { name: 'Promocja' })
       await expect(bar).toBeVisible()
 
-      await bar.getByRole('button', { name: 'Zamknij pasek promocji' }).click()
+      const close = bar.getByRole('button', { name: 'Zamknij pasek promocji' })
+      await hydrated(close)
+      await close.click()
       await expect(bar).toBeHidden()
       await page.reload()
       await expect(page.getByRole('complementary', { name: 'Promocja' })).toBeHidden()

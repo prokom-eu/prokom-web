@@ -12,6 +12,7 @@ import {
   archNewsToImport,
   mapHref,
   objectData,
+  forwardSeoTitle,
   objectsToImport,
   pagesToImport,
   realizationsToImport,
@@ -20,6 +21,7 @@ import {
   servicesToImport,
   solutionsToImport,
 } from './map'
+import { stanNa } from '../../sites/instalacje/dane/stanFaktow'
 
 const ids = (prefix: number) => (key: string) => prefix + key.length // any stable fake id
 const refs = { service: ids(100), object: ids(200) }
@@ -209,10 +211,10 @@ describe('the whole import', () => {
 })
 
 describe('page SEO (I11)', () => {
-  it('keeps the planner title within 65 characters with the site name', () => {
+  it('keeps the planner title within 60 characters with the site name (P3-23)', () => {
     const page = pagesToImport().find((item) => item.slug === 'zaplanuj')
-    expect(page?.seo.title).toBe('Zaplanuj instalację na Podhalu w 2 minuty')
-    expect(`${page?.seo.title} | PRO-KOM Instalacje`.length).toBeLessThanOrEqual(65)
+    expect(page?.seo.title).toBe('Zaplanuj instalację w 2 minuty')
+    expect(`${page?.seo.title} | PRO-KOM Instalacje`.length).toBeLessThanOrEqual(60)
   })
 })
 
@@ -243,5 +245,73 @@ describe('architects’ „Nowe rozwiązania” (I16b)', () => {
       expect(item.data.illustration).toMatch(/^[MmLlHhVvCcSsQqTtAaZz0-9\s.,-]+$/)
       expect(item.data.params?.length).toBeGreaterThanOrEqual(2)
     }
+  })
+})
+
+describe('SEO titles (P3-23)', () => {
+  it('every page title fits 60 characters with the site name', () => {
+    const long = pagesToImport()
+      .map((page) => `${page.seo.title} | PRO-KOM Instalacje`)
+      .filter((title) => title.length > 60)
+    expect(long).toEqual([])
+  })
+
+  it('every object page title fits too', () => {
+    const long = objectsToImport()
+      .map((item) => `${objectData(item, refs).seo?.title} | PRO-KOM Instalacje`)
+      .filter((title) => title.length > 60)
+    expect(long).toEqual([])
+  })
+})
+
+describe('no photo promises (P0-2, audit 06.11)', () => {
+  it('no mapped text asks to send photos or plans — no form takes files', () => {
+    expect(allMapped()).not.toMatch(
+      /[Ww]yślij zdjęci|[Pp]rześlij rzuty|[Ww]yślesz zdjęci|możesz wysłać wcześniej|[Zz]rób zdjęcie|wystarczą zdjęcia/,
+    )
+  })
+
+  it('no mapped text has a hard date of the facts (P1-7)', () => {
+    // The only date left is the one of `STAN_FAKTOW` (changes in one place).
+    const rest = allMapped().replaceAll(stanNa(), '')
+    expect(rest).not.toMatch(/(październik|października|październiku) 20\d\d/)
+  })
+
+  it('no page SEO names WhatsApp (decision 01.11)', () => {
+    expect(JSON.stringify(pagesToImport())).not.toMatch(/whats\s?app/i)
+  })
+})
+
+describe('forwardSeoTitle (P3-23 on existing databases)', () => {
+  it('moves a former default title to the new one', () => {
+    expect(
+      forwardSeoTitle(
+        'Alarmy i wideodomofony Rabka-Zdrój, Podhale',
+        'Alarmy i wideodomofony na Podhalu',
+      ),
+    ).toBe('Alarmy i wideodomofony na Podhalu')
+    expect(
+      forwardSeoTitle(
+        'Dla architektów: smart home i teletechnika',
+        'Dla architektów: instalacje w projekcie',
+      ),
+    ).toBe('Dla architektów: instalacje w projekcie')
+  })
+
+  it('keeps a title edited in the panel, an empty one and the current one', () => {
+    expect(forwardSeoTitle('Nasz własny tytuł', 'Alarmy i wideodomofony na Podhalu')).toBeNull()
+    expect(forwardSeoTitle(null, 'Alarmy i wideodomofony na Podhalu')).toBeNull()
+    expect(
+      forwardSeoTitle('Alarmy i wideodomofony na Podhalu', 'Alarmy i wideodomofony na Podhalu'),
+    ).toBeNull()
+  })
+
+  it('never moves to a title the seed does not want for that page', () => {
+    expect(
+      forwardSeoTitle(
+        'Alarmy i wideodomofony Rabka-Zdrój, Podhale',
+        'Dostęp, monitoring i sieć dla firm',
+      ),
+    ).toBeNull()
   })
 })

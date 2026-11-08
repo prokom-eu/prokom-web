@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { setTheme, site } from './helpers'
+import { hydrated, setTheme, site } from './helpers'
 
 // SWA2a (ZMIANY-v24 §4.1–4.1a): the v24 hero of the Software start page — the word of the H1, the
 // tiles (tabs), the 3D carousel of mock-ups, the caption with the price of the solution.
@@ -56,6 +56,8 @@ test.describe('Software hero v24', () => {
     await page.clock.install()
     await page.goto(site(HOST))
     await expect(word(page)).toHaveText('stronę wizytówkę.')
+    // The clock starts with hydration: moving time before it would change nothing.
+    await hydrated(tabs(page).first())
     // Off the hero (over the header): the clock runs.
     await page.mouse.move(700, 30)
     await page.clock.fastForward(4300)
@@ -68,6 +70,7 @@ test.describe('Software hero v24', () => {
   test('after a click the clock comes back 12 s later', async ({ page }) => {
     await page.clock.install()
     await page.goto(site(HOST))
+    await hydrated(tabs(page).nth(2))
     await tabs(page).nth(2).click()
     await expect(word(page)).toHaveText('rozbudowaną stronę.')
     // Leave the hero: only pointing and keyboard focus keep it still.

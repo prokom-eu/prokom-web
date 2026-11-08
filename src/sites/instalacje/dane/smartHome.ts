@@ -1,4 +1,5 @@
 import type { SectionHead } from './anteny'
+import { stanNa } from './stanFaktow'
 
 /**
  * Fixed texts of the Smart home Ampio page (ADR-I002 §1): the sections that are not in
@@ -363,7 +364,7 @@ export const smartHome = {
       },
       {
         title: 'Bez abonamentu',
-        text: 'Za sterowanie lokalne producent nie pobiera dziś opłat od właścicieli (stan na październik 2026). Zastrzega, że może się to zmienić.',
+        text: `Za sterowanie lokalne producent nie pobiera dziś opłat od właścicieli (${stanNa()}). Zastrzega, że może się to zmienić.`,
       },
     ] satisfies Titled[],
     failure: {

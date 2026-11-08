@@ -295,7 +295,7 @@
     padding: 4px 10px;
     border-radius: 8px;
     background: color-mix(in srgb, var(--h) 18%, transparent);
-    color: color-mix(in srgb, var(--h) 75%, var(--ink));
+    color: color-mix(in srgb, var(--h) var(--inst-hue-text-mix), var(--ink));
     font: 900 13px var(--font-display);
   }
   & .wfn {
@@ -557,7 +557,7 @@
     color: transparent;
   }
   & .inst-svc .phero .eye {
-    color: color-mix(in srgb, var(--h) 70%, var(--ink));
+    color: color-mix(in srgb, var(--h) var(--inst-hue-text-mix), var(--ink));
   }
   & .inst-svc .phero .eye::before {
     content: '';
@@ -581,7 +581,7 @@
     );
   }
   & .inst-svc > section[data-rv] .shead .eye {
-    color: color-mix(in srgb, var(--h) 72%, var(--ink));
+    color: color-mix(in srgb, var(--h) var(--inst-hue-text-mix), var(--ink));
   }
   & .inst-svc > section[data-rv] .shead .eye::before {
     content: '';
@@ -1313,5 +1313,24 @@
   [data-line='instalacje'] .rlgf figcaption {
     padding: 12px 72px 14px 16px;
     font-size: 14px;
+  }
+}
+
+/* Consent row of the line's own forms (planner, home, service, architects, quote) — moved from
+   the former contact page stylesheet (L2-I: `/kontakt` uses the shared form). */
+[data-line='instalacje'] {
+  & .consent {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  & .consent input {
+    width: 20px;
+    height: 20px;
+    margin: 2px 0 0;
+    accent-color: var(--accent);
+    flex: none;
   }
 }

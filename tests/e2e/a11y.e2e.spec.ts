@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { setTheme, site } from './helpers'
+import { hydrated, setTheme, site } from './helpers'
 
 // ADR-007 / ADR-013 / ADR-015: every line passes axe (WCAG 2.1 A/AA) in each of its themes, the layout
 // holds at 360 px and the dark theme switch works. Seed pages: `home` and `kontakt` (and the Biznes
@@ -142,6 +142,7 @@ test.describe('dark theme switch', () => {
       const toggle = page.getByRole('button', { name: 'Tryb ciemny' })
       await expect(toggle).toHaveAttribute('aria-pressed', 'false')
 
+      await hydrated(toggle)
       await toggle.click()
       await expect(toggle).toHaveAttribute('aria-pressed', 'true')
       await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')

@@ -177,12 +177,6 @@ export const INSTALACJE_LEGAL_PAGES: {
   },
 ]
 
-/** The footer's legal links (`SiteSettings.footer.links`), as in the prototype's footer. */
-export const LEGAL_LINKS = INSTALACJE_LEGAL_PAGES.map((page) => ({
-  label: page.title,
-  href: `/${page.slug}`,
-}))
-
 type Count = (name: string, result: 'created' | 'updated' | 'skipped') => void
 
 /**

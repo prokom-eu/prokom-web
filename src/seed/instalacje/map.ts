@@ -50,6 +50,7 @@ import type {
   InstSolution,
   Realization,
 } from '../../payload-types'
+import { stanNa } from '../../sites/instalacje/dane/stanFaktow'
 
 /**
  * Pure mapping of the Instalacje package (`seed/prokominstalacje/`, v4.0) to the collections
@@ -201,9 +202,78 @@ const slugOf = (href: string) => mapHref(href).split('/').filter(Boolean).pop() 
 
 const icon = (value: string | undefined) => value?.replace(/^ikona:/, '') || undefined
 
+/**
+ * P0-2 (audit 06.11): the package asks to send photos, but no Instalacje form takes files
+ * (decision „bez przesyłania plików”). The same wording as the code's fallbacks since L1-I.
+ */
+// Photos are welcome only as a reply to our e-mail (audit 06.11 P0-2, the allowed wording).
+const PHOTO_PROMISES: Readonly<Record<string, string>> = {
+  'Zależy od liczby kamer, tras kabli, wysokości montażu i rodzaju kamer. Po wizji lokalnej dostajesz wycenę na piśmie, zwykle w wariantach. Zdjęcia obiektu możesz wysłać wcześniej.':
+    'Zależy od liczby kamer, tras kabli, wysokości montażu i rodzaju kamer. Po wizji lokalnej dostajesz wycenę na piśmie, zwykle w wariantach. Zdjęcia obiektu możesz wysłać w odpowiedzi na nasz e-mail.',
+  'Do wyceny wystarczą zdjęcia rozdzielnicy, licznika i miejsca montażu. Ostateczną cenę podajemy na piśmie.':
+    'Do wstępnej wyceny wystarczy opis rozdzielnicy, licznika i miejsca montażu — zdjęcia możesz wysłać w odpowiedzi na nasz e-mail. Ostateczną cenę podajemy na piśmie.',
+  'Zrób zdjęcie dachu albo miejsca na antenę i napisz, ile telewizorów chcesz podłączyć.':
+    'Opisz dach albo miejsce na antenę i napisz, ile telewizorów chcesz podłączyć. Zdjęcia możesz wysłać w odpowiedzi na nasz e-mail.',
+  'Najwięcej zmieniają drzwi i integracje. Zrób zdjęcie drzwi z obu stron i boku skrzydła, a powiemy, jaki zamek pasuje.':
+    'Najwięcej zmieniają drzwi i integracje. Opisz drzwi, a zdjęcia z obu stron i boku skrzydła możesz wysłać w odpowiedzi na nasz e-mail. Powiemy, jaki zamek pasuje.',
+  'Wyślij zdjęcia do wyceny': 'Opisz obiekt do wyceny',
+  'Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.':
+    'Opisz obiekt albo obecną instalację. Powiemy, od czego zacząć i czego się spodziewać.',
+  'Wyślij zdjęcie rozdzielnicy. Powiemy, którą ładowarkę da się podłączyć.':
+    'Opisz rozdzielnicę i przyłącze. Powiemy, którą ładowarkę da się podłączyć.',
+  'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Wyślij zdjęcia, a powiemy, czego się spodziewać.':
+    'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Opisz obiekt, a powiemy, czego się spodziewać.',
+}
+
+/** P1-7: dates of the facts in package sentences come from `STAN_FAKTOW`. */
+const DATED: Readonly<Record<string, string>> = {
+  'Nowe warunki techniczne nie zostały ogłoszone (stan na październik 2026). Projektujemy więc według dotychczasowych, które w okresie przejściowym stosuje się po oświadczeniu inwestora. Śledzimy zmiany i uprzedzamy, jeśli wpłyną na projekt.': `Nowe warunki techniczne nie zostały ogłoszone (${stanNa()}). Projektujemy więc według dotychczasowych, które w okresie przejściowym stosuje się po oświadczeniu inwestora. Śledzimy zmiany i uprzedzamy, jeśli wpłyną na projekt.`,
+}
+
+/** A package text without a photo promise (P0-2) nor a hard date of the facts (P1-7). */
+const noPhotos = <T extends string | undefined>(text: T): T =>
+  (text === undefined ? text : (PHOTO_PROMISES[text] ?? DATED[text] ?? text)) as T
+
+/**
+ * P3-23 (audit 06.11): package titles too long for Google — with „ | PRO-KOM Instalacje” (21
+ * characters) every title stays ≤ 60. Keyed by the package title without the site name.
+ */
+export const SHORT_SEO_TITLES: Readonly<Record<string, string>> = {
+  'Alarmy i wideodomofony Rabka-Zdrój, Podhale': 'Alarmy i wideodomofony na Podhalu',
+  'Dostęp, monitoring i sieć dla firm, Podhale': 'Dostęp, monitoring i sieć dla firm',
+  'Nagłośnienie i transmisja mszy dla parafii': 'Nagłośnienie kościoła i transmisja mszy',
+  'Monitoring placu budowy bez prądu, Podhale': 'Monitoring placu budowy bez prądu',
+  'Nagłośnienie lokali i kościołów, Podhale': 'Nagłośnienie lokali i kościołów',
+  'Alarm i kamery dla domu i domku, Podhale': 'Alarm i kamery w domu i domku, Podhale',
+  'Zamki z kodem dla apartamentów na wynajem': 'Zamki z kodem dla apartamentów na doby',
+  'Monitoring i alarm dla sklepów, Zakopane': 'Monitoring i alarm w sklepie, Zakopane',
+}
+
+/**
+ * Titles the seed wrote before P3-23 (fixed pages with an own title) → their successors. With
+ * `SHORT_SEO_TITLES` they let the seed move an existing page forward (`forwardSeoTitle`).
+ */
+const FORMER_OWN_TITLES: Readonly<Record<string, string>> = {
+  'Dla architektów: smart home i teletechnika': 'Dla architektów: instalacje w projekcie',
+  'Zaplanuj instalację na Podhalu w 2 minuty': 'Zaplanuj instalację w 2 minuty',
+  'Serwis kamer, alarmów i sieci na Podhalu': 'Serwis kamer, alarmów i sieci, Podhale',
+}
+
+/**
+ * The new SEO title for a page that still has a former default of the seed, else `null`. Pages
+ * are created once and then belong to the panel; only an untouched old default moves forward,
+ * so CI snapshots, local and older databases follow P3-23 and a title edited in the panel stays.
+ */
+export function forwardSeoTitle(current: string | null | undefined, wanted: string): string | null {
+  if (!current || current === wanted) return null
+  const next = SHORT_SEO_TITLES[current] ?? FORMER_OWN_TITLES[current]
+  return next === wanted ? wanted : null
+}
+
 /** The site name is added by the title template of the site settings. */
 export function seoTitle(title: string): string {
-  return title.replace(/\s*\|\s*PRO-KOM.*$/, '').trim()
+  const base = title.replace(/\s*\|\s*PRO-KOM.*$/, '').trim()
+  return SHORT_SEO_TITLES[base] ?? base
 }
 
 /** „Cena po wizji lokalnej” is the no-price text of the settings, not a price. */
@@ -309,21 +379,21 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
       eyebrow: d.sx.pkg.eye,
       heading: d.sx.pkg.h,
       text: d.sx.pkg.p,
-      note: d.sx.pkg.note,
+      note: noPhotos(d.sx.pkg.note),
     },
     packages: packages(d.pkgs),
     priceIntro: {
       eyebrow: d.sx.cena.eye,
       heading: d.sx.cena.h,
-      text: d.sx.cena.p,
-      button: d.sx.cena.btn,
+      text: noPhotos(d.sx.cena.p),
+      button: noPhotos(d.sx.cena.btn),
     },
     priceFactors: d.cena.map((c) => ({ title: c.t, icon: icon(c.ic), description: c.d })),
     faqHeading: d.sx.faqH,
-    faq: d.faq.map((f) => ({ question: f.q, answer: f.a })),
+    faq: d.faq.map((f) => ({ question: f.q, answer: noPhotos(f.a) })),
     faqAside: {
       title: d.sx.faqA.t,
-      text: d.sx.faqA.d,
+      text: noPhotos(d.sx.faqA.d),
       button: d.sx.faqA.cta,
       href: optionalHref(d.sx.faqA.href),
     },
@@ -336,7 +406,7 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
       d.segRel.map((r) => r.k),
       refs.object,
     ),
-    cta: { eyebrow: d.ctaEye, heading: d.ctaH, text: d.ctaP },
+    cta: { eyebrow: d.ctaEye, heading: noPhotos(d.ctaH), text: noPhotos(d.ctaP) },
   }
 }
 
@@ -397,7 +467,7 @@ export function objectData({ menu, page: o }: SeedObjectItem, refs: Refs): Objec
     packagesHeading: o.pkgH,
     packages: packages(o.pkgs),
     faqHeading: o.faqH,
-    faq: o.faq.map(([question = '', answer = '']) => ({ question, answer })),
+    faq: o.faq.map(([question = '', answer = '']) => ({ question, answer: noPhotos(answer) })),
     relatedServices: ids(o.rel, refs.service),
     cta: { eyebrow: ctaEyebrow, heading: ctaHeading, text: ctaText },
     foldOnPhone: o.fold.map((entry) => {
@@ -554,7 +624,7 @@ const PAGE_FILES: {
     slug: 'zaplanuj',
     title: 'Zaplanuj instalację',
     file: Zaplanuj,
-    seoTitle: 'Zaplanuj instalację na Podhalu w 2 minuty',
+    seoTitle: 'Zaplanuj instalację w 2 minuty',
   },
   // The package's title (52 characters, no „|”) + „| PRO-KOM Instalacje” is over 65.
   {
@@ -568,14 +638,14 @@ const PAGE_FILES: {
     slug: 'serwis',
     title: 'Serwis',
     file: Serwis,
-    seoTitle: 'Serwis kamer, alarmów i sieci na Podhalu',
+    seoTitle: 'Serwis kamer, alarmów i sieci, Podhale',
   },
   // The package's title (spec §3) without „| PRO-KOM” + „| PRO-KOM Instalacje” has 71 characters.
   {
     slug: 'dla-architektow',
     title: 'Dla architektów',
     file: Architekci,
-    seoTitle: 'Dla architektów: smart home i teletechnika',
+    seoTitle: 'Dla architektów: instalacje w projekcie',
     // The package's description has 211 characters (the field: ≤ 160).
     seoDescription:
       'Współpraca z architektami na Podhalu i w Małopolsce: plan urządzeń na rzutach, wytyczne do projektu, smart home Ampio, głośniki do zabudowy, monitoring.',

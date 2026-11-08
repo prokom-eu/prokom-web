@@ -10,3 +10,16 @@ export const salonsList = (locations: readonly Location[]) =>
 /** „Salon: Rabka-Zdrój, ul. Orkana 16B” under the CTA band; empty without locations. */
 export const salonsNote = (locations: readonly Location[]) =>
   locations.length ? `${salonLabel(locations.length)}: ${salonsList(locations)}` : ''
+
+/**
+ * Published salons the shared Kontakt card does not show (`lineSalons`: the `salonKeys` of the
+ * line, without keys the first salon) — the second salon of the line (Zakopane) in the slots.
+ * The shared data already drops unpublished locations, so today this is empty.
+ */
+export function otherSalons<T extends { key: string | null }>(
+  salons: readonly T[],
+  keys: readonly string[] | null | undefined,
+): T[] {
+  if (!keys?.length) return salons.slice(1)
+  return salons.filter((salon) => salon.key === null || !keys.includes(salon.key))
+}
