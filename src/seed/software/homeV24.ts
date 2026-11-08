@@ -408,4 +408,9 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
       },
     ],
   },
+  processHead: {
+    eyebrow: 'Jak pracujemy',
+    title: 'Większość płacisz po odbiorze',
+    stage: 'Etap {num} · {t}',
+  },
 }

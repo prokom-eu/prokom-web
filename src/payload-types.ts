@@ -3968,10 +3968,13 @@ export interface SwHomeSectionBlock {
  */
 export interface SwContactBlock {
   /**
-   * Jeden taki blok na stronę (kotwica #kontakt).
+   * Jeden taki blok na stronę (kotwica #kontakt). Na stronie głównej v24 formularz stoi obok FAQ, gdy blok FAQ jest bezpośrednio przed tym blokiem.
    */
   eyebrow: string;
   title: string;
+  /**
+   * Strona główna v24: zdanie pod nagłówkiem obok FAQ (np. „Odpowiadamy w ciągu [CZAS ODPOWIEDZI]. Zawsze człowiek.”). Pozostałe pola tej kolumny pokazuje tylko wygląd v23.
+   */
   sideTitle: string;
   sideText?: string | null;
   /**

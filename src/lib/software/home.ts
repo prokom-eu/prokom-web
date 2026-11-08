@@ -213,6 +213,11 @@ export const homeV24SectionsSchema = {
         }
       }),
   }).optional(),
+  /**
+   * „Większość płacisz po odbiorze” (ZMIANY-v24 §4 pkt 9): heading of the v24 process; the stages
+   * stay in `process`. `stage` = eyebrow of the stage card, `{num}` and `{t}` filled.
+   */
+  processHead: obj({ ...headV24, stage: label }).optional(),
   /** Showroom „Tak może wyglądać Twoja strona albo system” — industries × 3 views. */
   showroom: obj({
     ...headV24,
@@ -452,5 +457,5 @@ export function validateHome(value: unknown): true | string {
 
 export type SoftwareHomeV24 = Pick<
   SoftwareHome,
-  'promises' | 'situations' | 'bento' | 'showroom' | 'tech' | 'pricing'
+  'promises' | 'situations' | 'bento' | 'showroom' | 'tech' | 'pricing' | 'processHead'
 >
