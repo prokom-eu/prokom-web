@@ -198,7 +198,8 @@ function BundleItemRow({
   onToggle: (slug: string, on: boolean) => void
 }) {
   const id = useId()
-  const quantity = /^\d+$/.test(row.quantity) ? `×${row.quantity}` : row.quantity
+  const count = /^\d+$/.test(row.quantity)
+  const quantity = count ? `×${row.quantity}` : row.quantity
   return (
     <li className="flex gap-4 border-b border-border py-5 first:pt-0">
       {row.thumb}
@@ -207,12 +208,18 @@ function BundleItemRow({
           <p className="text-[0.7rem] font-extrabold tracking-[0.1em] text-ink-3 uppercase">
             {row.role}
           </p>
-          <span className="shrink-0 text-right text-sm font-extrabold text-ink">
+          {/* A worded quantity („1 na 1–2 sale…”) wraps instead of widening the phone page (D11). */}
+          <span
+            className={`text-right text-sm font-extrabold text-ink ${count ? 'shrink-0' : 'max-w-[60%] min-w-0'}`}
+          >
             <span className="sr-only">Ilość: </span>
             {quantity}
           </span>
         </div>
-        <Link href={row.href} className="font-extrabold text-ink hover:underline">
+        <Link
+          href={row.href}
+          className="font-extrabold [overflow-wrap:anywhere] text-ink hover:underline"
+        >
           {row.name}
         </Link>
         {row.suggestedVersion && <p className="text-sm text-ink-2">{row.suggestedVersion}</p>}

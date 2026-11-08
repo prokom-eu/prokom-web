@@ -65,27 +65,27 @@ export const SW_HERO: Extract<Block, { blockType: 'swHero' }> = {
 }
 
 /**
- * FAQ of the start page (spec. §4 pkt 11) — the shared block in the Software look; heading and
- * lead from the board `Main`, the 6 questions from `faq.json` → `homeFaq` (`[OPIEKA OD]` is
- * filled on render).
+ * FAQ of the start page (spec. §4 pkt 11) — the shared block in the Software look; heading of v24
+ * (`TRESCI-v24` § s_8, no lead: the form stands next to it), the 6 questions from `faq.json` →
+ * `homeFaq` (`[OPIEKA OD]` is filled on render).
  */
 export const SW_FAQ: Extract<Block, { blockType: 'faq' }> = {
   blockType: 'faq',
-  eyebrow: 'Zanim napiszesz',
-  heading: 'Pytania, które słyszymy najczęściej',
-  lead: 'Nie ma Twojego? Zadaj je w formularzu poniżej, odpowiadamy konkretnie.',
+  eyebrow: 'Pytania',
+  heading: 'Zanim napiszesz',
   items: faqPackage.homeFaq.map(({ q, a }) => ({ question: q, answer: a })),
 }
 
 /**
- * Contact block of the start page (spec. §4 pkt 12) — texts of the board `Main` v23; two
- * promises, no empty „najbliższy wolny termin” (ZMIANY-v23 §2: we don't know, we don't write).
+ * Contact block of the start page (spec. §4 pkt 12) — heading, the line under it („side title”)
+ * and the button of v24 (`TRESCI-v24` § s_8); the promises, audit card and side text are shown by
+ * the v23 look only (no empty „najbliższy wolny termin”, ZMIANY-v23 §2).
  */
 export const SW_CONTACT: Extract<Block, { blockType: 'swContact' }> = {
   blockType: 'swContact',
   eyebrow: 'Kontakt',
-  title: 'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy',
-  sideTitle: 'Najpierw zobaczysz, potem zapłacisz.',
+  title: 'Napisz po swojemu',
+  sideTitle: 'Odpowiadamy w ciągu [CZAS ODPOWIEDZI]. Zawsze człowiek.',
   sideText:
     'Po krótkiej rozmowie dostajesz: szkic rozwiązania, zakres, cenę i termin. Bez zobowiązań.',
   promises: [
@@ -103,7 +103,7 @@ export const SW_CONTACT: Extract<Block, { blockType: 'swContact' }> = {
   namePlaceholder: 'Anna, Twoja Firma',
   contactLabel: 'E-mail albo telefon',
   contactPlaceholder: 'jak mamy się odezwać?',
-  submit: 'Wyślij',
+  submit: 'Wyślij wiadomość',
   alternative: 'Wolisz kliknąć niż pisać?',
   alternativeLink: { label: 'Dobierz rozwiązanie w 60 sekund', href: '/#dobierz' },
 }
@@ -144,32 +144,6 @@ export function mergeSoftwareHome(
   })
 }
 
-/**
- * A start page in the v20 order (the wizard after the process, SW5–SW8b) gets the v21 order once
- * (SWR5, spec. §4): the blocks the seed knows take the seed order in the places they hold; any
- * other block stays where it is. `null` = not a v20 page (a page ordered in the panel is left).
- */
-export function softwareHomeInV21Order(
-  layout: readonly Block[],
-  seed: readonly Block[],
-): Block[] | null {
-  const at = (section: string) =>
-    layout.findIndex((b) => identity(b) === `swHomeSection:${section}`)
-  const process = at('process')
-  const wizard = at('wizard')
-  if (process < 0 || wizard < 0 || process > wizard) return null
-  const order = seed.map(identity)
-  const slots = layout.flatMap((block, i) => (order.includes(identity(block)) ? [i] : []))
-  const known = slots
-    .map((i) => layout[i]!)
-    .sort((a, b) => order.indexOf(identity(a)) - order.indexOf(identity(b)))
-  const result = [...layout]
-  slots.forEach((slot, k) => {
-    result[slot] = known[k]!
-  })
-  return result
-}
-
 type Count = (name: string, result: boolean | 'updated') => void
 const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
 
@@ -199,8 +173,7 @@ export async function seedSoftwareHome(payload: Payload, tenantId: number, count
     count('pages home', true)
     return
   }
-  const merged = mergeSoftwareHome(home.layout, seed)
-  const layout = softwareHomeInV21Order(merged ?? home.layout ?? [], seed) ?? merged
+  const layout = mergeSoftwareHome(home.layout, seed)
   count('pages home', layout ? 'updated' : false)
   if (!layout) return
   await payload.update({

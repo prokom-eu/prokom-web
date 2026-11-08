@@ -153,16 +153,10 @@ export default async function IndustryPage({ params }: Props) {
         catalogHref={catalogHref({ ...DEFAULT_STATE, industries: [industry.slug] })}
       />
       {industry.day && <BzTimelineBlock block={industry.day} tone="accent" />}
-      {/* Not on the phone board App-Branza (the hero and the day tell the same story). */}
-      {industry.flow && (
-        <div className="max-md:hidden">
-          <BzOrderFlowBlock block={industry.flow} tenantId={tenant.id} />
-        </div>
-      )}
+      {industry.flow && <BzOrderFlowBlock block={industry.flow} tenantId={tenant.id} />}
       {industry.faq.items.length > 0 && (
         <FaqBiznes
           tenantId={tenant.id}
-          phoneLimit={3}
           block={{
             blockType: 'faq',
             eyebrow: industry.faq.eyebrow,
@@ -176,16 +170,14 @@ export default async function IndustryPage({ params }: Props) {
         industries={otherIndustries(index, industry.slug)}
         wizardHref={wizardHref(null)}
       />
-      {/* App-Branza ends with the other industries; a phone asks through the tab bar. */}
-      <div className="max-md:hidden">
-        <CatalogContactPanel
-          tenantId={tenant.id}
-          id="kontakt"
-          heading={industry.contact.heading}
-          lead={industry.contact.lead}
-          callbackTime={callback}
-        />
-      </div>
+      <CatalogContactPanel
+        tenantId={tenant.id}
+        id="kontakt"
+        heading={industry.contact.heading}
+        lead={industry.contact.lead}
+        callbackTime={callback}
+        topic={industry.name}
+      />
     </>
   )
 }

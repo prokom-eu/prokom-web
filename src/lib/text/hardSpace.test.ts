@@ -28,4 +28,17 @@ describe('hardSpaces (K4-FINAL §1)', () => {
       b: null,
     })
   })
+
+  it('never touches SVG icon paths (D13: icons on /opieka-it)', () => {
+    const icon = 'M7 18a5 5 0 01-.6-10 6 6 0 0111.5 1.5A4 4 0 0117 18z'
+    expect(hardSpacesDeep({ t: 'w domu', iconPath: icon, ic: icon, ikona: icon })).toEqual({
+      t: `w${NBSP}domu`,
+      iconPath: icon,
+      ic: icon,
+      ikona: icon,
+    })
+    expect(hardSpacesDeep([{ areas: [{ iconPath: icon }] }])).toEqual([
+      { areas: [{ iconPath: icon }] },
+    ])
+  })
 })

@@ -3941,23 +3941,7 @@ export interface SwHomeSectionBlock {
   /**
    * Każda sekcja raz na stronie (ma swoją kotwicę, np. #oferta). Teksty sekcji edytuje się w Ustawieniach Software → strona główna.
    */
-  section:
-    | 'areas'
-    | 'popular'
-    | 'livePreviews'
-    | 'process'
-    | 'wizard'
-    | 'whyNotWordpress'
-    | 'guarantees'
-    | 'howWeBuild'
-    | 'technologies'
-    | 'compare'
-    | 'promises'
-    | 'situations'
-    | 'bento'
-    | 'showroom'
-    | 'tech'
-    | 'pricing';
+  section: 'process' | 'wizard' | 'compare' | 'promises' | 'situations' | 'bento' | 'showroom' | 'tech' | 'pricing';
   id?: string | null;
   blockName?: string | null;
   blockType: 'swHomeSection';
@@ -3968,10 +3952,13 @@ export interface SwHomeSectionBlock {
  */
 export interface SwContactBlock {
   /**
-   * Jeden taki blok na stronę (kotwica #kontakt).
+   * Jeden taki blok na stronę (kotwica #kontakt). Na stronie głównej v24 formularz stoi obok FAQ, gdy blok FAQ jest bezpośrednio przed tym blokiem.
    */
   eyebrow: string;
   title: string;
+  /**
+   * Strona główna v24: zdanie pod nagłówkiem obok FAQ (np. „Odpowiadamy w ciągu [CZAS ODPOWIEDZI]. Zawsze człowiek.”). Pozostałe pola tej kolumny pokazuje tylko wygląd v23.
+   */
   sideTitle: string;
   sideText?: string | null;
   /**

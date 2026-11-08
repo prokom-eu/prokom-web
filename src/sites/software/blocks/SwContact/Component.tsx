@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import type { ComponentProps } from 'react'
 import { connection } from 'next/server'
 
 import { Container } from '@/components/ui/Container'
@@ -11,6 +12,7 @@ import { SOFTWARE_TOPIC_LABELS, type SoftwareTopic } from '@/lib/inquiry/types'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { getSoftwareWizard } from '@/lib/software/data'
+import { contactHead } from '@/lib/software/contactHead'
 import { fillText } from '@/lib/software/facts'
 import type { SwContactBlock as SwContactBlockData } from '@/payload-types'
 import { softwareTextContext } from '@/sites/software/components/textContext'
@@ -35,13 +37,19 @@ const TOPICS = (Object.keys(SOFTWARE_TOPIC_LABELS) as SoftwareTopic[]).map((valu
   icon: TOPIC_ICONS[value],
 }))
 
+/** A phone number with its `tel:` address; `null` without a number or a dialable one. */
+function telLink(phone: string | null): { label: string; href: string } | null {
+  const href = phone ? toTelHref(phone) : null
+  return phone && href ? { label: phone, href } : null
+}
+
 /**
- * „Kontakt” of the Software start page (`#kontakt`, spec. §4 pkt 12, board `Main`): dark side
- * with the promises (facts filled; one with a missing fact is left out on production), the audit
- * card and the line's phone, next to the contact form. Errors „no contact” and „no consent” use
- * the wizard's texts (spec. §7.2); the form token carries the render time, so never cached.
+ * Data of the contact block with its facts filled (one promise with a missing fact is left out on
+ * production) and the props of the form: errors „no contact” and „no consent” use the wizard's
+ * texts (spec. §7.2); the form token carries the render time, so never cached. `null` without its
+ * eyebrow or title (`contactHead`); the side title may be missing. Shared by the v23 block and the v24 „Napisz po swojemu”.
  */
-export async function SwContactBlock({ block, tenantId }: Props) {
+export async function swContactData(block: SwContactBlockData, tenantId: number) {
   await connection()
   const [settings, wizard, context] = await Promise.all([
     getSiteSettings(tenantId),
@@ -49,10 +57,9 @@ export async function SwContactBlock({ block, tenantId }: Props) {
     softwareTextContext(tenantId),
   ])
   const fill = (text: string | null | undefined) => (text ? fillText(text, context) : null)
-  const eyebrow = fill(block.eyebrow)
-  const title = fill(block.title)
-  const sideTitle = fill(block.sideTitle)
-  if (!eyebrow || !title || !sideTitle) return null
+  const head = contactHead(block, fill)
+  if (!head) return null
+  const { eyebrow, title, sideTitle } = head
 
   const promises = (block.promises ?? []).flatMap((promise) => {
     const text = fill(promise.text)
@@ -61,15 +68,62 @@ export async function SwContactBlock({ block, tenantId }: Props) {
   const auditTitle = fill(block.auditTitle)
   const audit = auditTitle && block.auditHref ? { title: auditTitle, href: block.auditHref } : null
   const phone = settings?.phone ?? null
-  const tel = phone ? toTelHref(phone) : null
   const phone2 = settings?.phone2 ?? null
-  const tel2 = phone2 ? toTelHref(phone2) : null
   const email = settings?.email ?? null
-  const phoneCaption = [fill(block.phoneCaption), email].filter(Boolean).join(' · ')
   const alternativeLink =
     block.alternativeLink?.label && block.alternativeLink.href
       ? { label: block.alternativeLink.label, href: block.alternativeLink.href }
       : null
+  const form: ComponentProps<typeof ContactForm> = {
+    texts: {
+      topicsLabel: block.topicsLabel,
+      messageLabel: block.messageLabel,
+      messagePlaceholder: block.messagePlaceholder ?? null,
+      nameLabel: block.nameLabel,
+      namePlaceholder: block.namePlaceholder ?? null,
+      contactLabel: block.contactLabel,
+      contactPlaceholder: block.contactPlaceholder ?? null,
+      submit: block.submit,
+      alternative: block.alternative ?? null,
+      alternativeLink,
+    },
+    topics: TOPICS,
+    // v21 (ZMIANY-v21 §9): no topic picked at first; the topic stays optional (board).
+    initialTopic: null,
+    errors: {
+      ...SOFTWARE_CONTACT_MESSAGES,
+      contact: wizard?.send.contact.any.error ?? FIELD_MESSAGES.email,
+      consent: wizard?.send.errors.consent ?? FIELD_MESSAGES.consent,
+    },
+    formToken: issueFormToken(getEnv().PAYLOAD_SECRET),
+  }
+  return {
+    eyebrow,
+    title,
+    sideTitle,
+    sideText: fill(block.sideText),
+    promises,
+    audit,
+    auditText: fill(block.auditText),
+    phone: telLink(phone),
+    phone2: telLink(phone2),
+    email,
+    phoneCaption: [fill(block.phoneCaption), email].filter(Boolean).join(' · '),
+    form,
+  }
+}
+
+/**
+ * „Kontakt” of the Software start page (`#kontakt`, spec. §4 pkt 12, board `Main`): dark side
+ * with the promises, the audit card and the line's phone, next to the contact form.
+ */
+export async function SwContactBlock({ block, tenantId }: Props) {
+  const data = await swContactData(block, tenantId)
+  if (!data) return null
+  const { eyebrow, title, sideTitle, sideText, promises, audit, auditText, phoneCaption } = data
+  // The v23 dark side opens with its side title: without it the block stays as before (nothing).
+  if (!sideTitle) return null
+  const { phone, phone2 } = data
 
   return (
     // `data-final-cta`: the page ends with this CTA — the footer drops its CTA band (SWR2).
@@ -96,8 +150,8 @@ export async function SwContactBlock({ block, tenantId }: Props) {
             <p className="font-display text-[26px] font-extrabold leading-[1.05] min-[641px]:text-[30px]">
               {sideTitle}
             </p>
-            {fill(block.sideText) ? (
-              <p className="text-[15.5px] leading-relaxed text-white/80">{fill(block.sideText)}</p>
+            {sideText ? (
+              <p className="text-[15.5px] leading-relaxed text-white/80">{sideText}</p>
             ) : null}
             {promises.length > 0 ? (
               <ul className="flex flex-col gap-2.5 text-[15px]">
@@ -115,9 +169,9 @@ export async function SwContactBlock({ block, tenantId }: Props) {
                 className="grid grid-cols-[1fr_auto] gap-x-2.5 gap-y-0.5 rounded-2xl bg-white/[0.07] px-4 py-3.5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.14)] transition-colors hover:bg-white/[0.12]"
               >
                 <b className="text-[15px]">{audit.title}</b>
-                {fill(block.auditText) ? (
+                {auditText ? (
                   <span className="col-start-1 text-[13px] leading-snug text-white/80">
-                    {fill(block.auditText)}
+                    {auditText}
                   </span>
                 ) : null}
                 <span
@@ -128,21 +182,21 @@ export async function SwContactBlock({ block, tenantId }: Props) {
                 </span>
               </Link>
             ) : null}
-            {phone && tel ? (
+            {phone ? (
               <div className="mt-auto flex flex-col gap-1 border-t border-white/10 pt-[18px]">
                 <span className="text-xs font-extrabold uppercase tracking-[0.08em] text-accent-on-dark">
                   Telefon
                 </span>
-                <a href={tel} className="text-2xl font-extrabold hover:underline">
-                  {phone}
+                <a href={phone.href} className="text-2xl font-extrabold hover:underline">
+                  {phone.label}
                 </a>
-                {phone2 && tel2 ? (
+                {phone2 ? (
                   // Full touch target on a phone (MOBILE-APLIKACJA, 44 px), compact on a desktop.
                   <a
-                    href={tel2}
+                    href={phone2.href}
                     className="inline-flex min-h-11 items-center self-start text-[15px] font-bold hover:underline min-[1081px]:min-h-0"
                   >
-                    {phone2}
+                    {phone2.label}
                   </a>
                 ) : null}
                 {phoneCaption ? (
@@ -152,29 +206,7 @@ export async function SwContactBlock({ block, tenantId }: Props) {
             ) : null}
           </div>
           <div className="px-[18px] py-[22px] min-[641px]:p-[clamp(24px,3.5vw,44px)]">
-            <ContactForm
-              texts={{
-                topicsLabel: block.topicsLabel,
-                messageLabel: block.messageLabel,
-                messagePlaceholder: block.messagePlaceholder ?? null,
-                nameLabel: block.nameLabel,
-                namePlaceholder: block.namePlaceholder ?? null,
-                contactLabel: block.contactLabel,
-                contactPlaceholder: block.contactPlaceholder ?? null,
-                submit: block.submit,
-                alternative: block.alternative ?? null,
-                alternativeLink,
-              }}
-              topics={TOPICS}
-              // v21 (ZMIANY-v21 §9): no topic picked at first; the topic stays optional (board).
-              initialTopic={null}
-              errors={{
-                ...SOFTWARE_CONTACT_MESSAGES,
-                contact: wizard?.send.contact.any.error ?? FIELD_MESSAGES.email,
-                consent: wizard?.send.errors.consent ?? FIELD_MESSAGES.consent,
-              }}
-              formToken={issueFormToken(getEnv().PAYLOAD_SECRET)}
-            />
+            <ContactForm {...data.form} />
           </div>
         </div>
       </Container>

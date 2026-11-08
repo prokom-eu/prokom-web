@@ -161,6 +161,7 @@ export default async function BrandPage({ params }: Props) {
         heading={DEFAULTS.contact.heading}
         lead={DEFAULTS.contact.lead}
         callbackTime={callback}
+        topic={brand.name}
       />
     </>
   )

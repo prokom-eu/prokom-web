@@ -469,9 +469,9 @@ export async function ContactHero({
                 {block.lead}
               </p>
             )}
-            {/* Phone (App-Kontakt): the phone card large, the other channels as short rows; no
-                form card — the form section is not on the phone board. With an odd number of
-                cards the phone card takes the whole row (1 + 2), so the grid has no gap. */}
+            {/* Phone (App-Kontakt): the phone card large, the other channels as short rows. With
+                an odd number of cards the phone card takes the whole row (1 + 2), so the grid
+                has no gap. */}
             <ul className="grid gap-3 max-md:gap-2 min-[640px]:grid-cols-2">
               {channels.map((channel, i) => {
                 // Board `Web-kontakt`: the phone card in the accent, the action at the top right.
@@ -479,10 +479,7 @@ export async function ContactHero({
                 return (
                   <li
                     key={channel.label}
-                    className={cx(
-                      channel.href === '#formularz' && 'max-md:hidden',
-                      lead && channels.length % 2 === 1 && 'min-[640px]:col-span-2',
-                    )}
+                    className={cx(lead && channels.length % 2 === 1 && 'min-[640px]:col-span-2')}
                   >
                     <a
                       href={channel.href}

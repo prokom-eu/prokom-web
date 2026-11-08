@@ -3,6 +3,10 @@ import type { Payload } from 'payload'
 import type { CatalogCategory } from '../../payload-types'
 import { isBlank, missingFields } from './fill'
 
+/** FAQ of /oferta/kasy-fiskalne: the relief and how it is settled (K4-FINAL §1). */
+export const RELIEF_FAQ_ANSWER =
+  'Firmy, które po raz pierwszy zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto kasy, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Ulgę rozliczasz w deklaracji VAT, zwykle razem z księgową. Warunki (m.in. terminy i obowiązkowy przegląd) sprawdzimy z Tobą przy zamówieniu.'
+
 type Report = (name: string, changed: boolean) => void
 
 const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
@@ -127,8 +131,7 @@ export const CASH_REGISTERS_CONTENT: Content = {
     },
     {
       question: 'Czy przysługuje mi ulga na zakup kasy online?',
-      answer:
-        'Firmy, które po raz pierwszy zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto kasy, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Warunki (m.in. terminy i obowiązkowy przegląd) sprawdzimy z Tobą przy zamówieniu.',
+      answer: RELIEF_FAQ_ANSWER,
     },
     {
       question: 'Jak często trzeba robić przegląd kasy?',
