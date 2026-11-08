@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { hydrated, site } from './helpers'
 
 // SWV5 (MOBILE-APLIKACJA §4 pkt 10, ZMIANY-v23 §5): motion of the Software line — the rail
 // glides, sections rise in on scroll, and with reduced motion nothing moves at all.
@@ -71,10 +71,9 @@ test.describe('Software motion with reduced motion', () => {
     await expect(word).toHaveText('stronę wizytówkę.')
     await page.clock.fastForward(9000)
     await expect(word).toHaveText('stronę wizytówkę.')
-    await page
-      .locator('#start')
-      .getByRole('tab', { name: /Restauracja/ })
-      .click()
+    const tile = page.locator('#start').getByRole('tab', { name: /Restauracja/ })
+    await hydrated(tile)
+    await tile.click()
     await expect(word).toHaveText('stronę restauracji.')
     expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])
   })

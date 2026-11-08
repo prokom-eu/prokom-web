@@ -83,7 +83,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
 
   test('Enter in the field opens the first result', async ({ page }) => {
     await page.goto(site('software.localhost', '/_wspolne'))
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     await field(page).fill('cenik')
     const first = dialog(page).locator('[data-result]').first()
     await expect(first).toBeVisible()
@@ -97,7 +97,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
     page,
   }) => {
     await page.goto(site('software.localhost', '/_wspolne'))
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     await field(page).fill('o')
     const results = dialog(page).locator('[data-result]')
     await expect(results.nth(1)).toBeVisible()
@@ -115,7 +115,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
     page,
   }) => {
     await page.goto(site('software.localhost', '/_wspolne'))
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     await field(page).fill('telefon')
     const first = dialog(page).locator('.sdlg__body [data-result]').first()
     await expect(first).toHaveAttribute('href', /^tel:/)
@@ -124,7 +124,7 @@ test.describe('/_wspolne — search window (1440 px)', () => {
   test('on a phone the window with a preview fills the screen', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto(site('software.localhost', '/_wspolne'))
-    await page.keyboard.press('Control+k')
+    await pressUntilVisible(page, 'Control+k', dialog(page))
     const box = await dialog(page).boundingBox()
     expect(Math.round(box?.width ?? 0)).toBe(390)
   })
