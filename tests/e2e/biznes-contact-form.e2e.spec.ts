@@ -109,7 +109,7 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     expect(overflow).toBe(false)
 
     const { violations } = await new AxeBuilder({ page })
-      .include('#formularz')
+      .include('#kontakt')
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze()
     expect(violations.map((v) => v.id)).toEqual([])
