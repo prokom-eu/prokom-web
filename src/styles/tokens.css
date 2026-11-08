@@ -1302,6 +1302,17 @@
   --mk-device-edge: rgba(255, 255, 255, 0.06);
   /* Gaming in the brand bar (spec §2.4): a darker gold dash than its #F2C230 on light pages. */
   --gaming-dash: #d9a400;
+  /* EU energy label classes A–G (Regulation (EU) 2017/1369): fixed by the standard, the same in
+     both themes — the only fixed colours of the procurement offer preview (ZAOPATRZENIE §4). */
+  --c-energy-a: #00a651;
+  --c-energy-b: #50b848;
+  --c-energy-c: #bed62f;
+  --c-energy-d: #fff200;
+  --c-energy-e: #fdb913;
+  --c-energy-f: #f37021;
+  --c-energy-g: #ed1c24;
+  /* Letter on G: only black reaches AA on that red (white 4.4:1, the Biznes ink 4.2:1). */
+  --c-energy-ink-g: #000000;
 }
 
 [data-line='prokom'] {

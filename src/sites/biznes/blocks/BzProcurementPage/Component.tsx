@@ -1,4 +1,5 @@
 import { headers } from 'next/headers'
+import { connection } from 'next/server'
 
 import { getSectionImages } from '@/lib/biznes/pages/images'
 import {
@@ -9,6 +10,7 @@ import {
 import { brandTarget } from '@/lib/catalog/brand'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { getEnv } from '@/lib/env'
+import { issueFormToken } from '@/lib/inquiry/spam'
 import { log } from '@/lib/log'
 import { siteOrigin } from '@/lib/seo/origin'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
@@ -21,10 +23,11 @@ import {
 
 type Props = { block: BlockData; tenantId: number; path: string }
 
-/** Media ids the template shows (the configurator's come with its island, B2-1c). */
+/** Media ids the template shows. */
 function imageIds(data: ProcurementPageData): number[] {
   const ids = [
     ...data.hero.scene.map((item) => item.image),
+    ...data.configurator.types.flatMap((type) => type.items.map((item) => item.image)),
     ...(data.who?.tabs.flatMap((tab) => tab.images) ?? []),
     ...(data.categories?.list.map((item) => item.image) ?? []),
     ...(data.combo?.list.map((item) => item.image) ?? []),
@@ -41,6 +44,8 @@ function imageIds(data: ProcurementPageData): number[] {
  * leaves a log line, so the page keeps its title as the H1.
  */
 export async function BzProcurementPageBlock({ block, tenantId, path }: Props) {
+  // The form's time token is issued per request (spam protection), as on `/kontakt`.
+  await connection()
   const [settings, company, index, host] = await Promise.all([
     getSiteSettings(tenantId),
     getCompanyData(),
@@ -100,6 +105,8 @@ export async function BzProcurementPageBlock({ block, tenantId, path }: Props) {
       data.cross && index.pages.some((page) => page.slug === data.cross?.page),
     ),
     classHints: (block.classHints ?? []).map((hint) => hint.brands),
+    services: (block.services ?? []).map(({ label, kind }) => ({ label, kind })),
+    formToken: issueFormToken(getEnv().PAYLOAD_SECRET),
   }
   return <ProcurementPage data={data} context={context} />
 }

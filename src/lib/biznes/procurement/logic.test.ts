@@ -2,10 +2,14 @@ import { describe, expect, it } from 'vitest'
 
 import {
   deliverySplit,
+  fillDelivery,
   initialState,
+  liveChipText,
   offerRows,
   procurementMessage,
+  procurementReducer,
   procurementTotals,
+  redactWidth,
   scheduleRows,
   type ConfiguratorData,
   type Service,
@@ -235,5 +239,62 @@ describe('procurementMessage', () => {
         'Dostawa: jedna tura',
       ].join('\n'),
     )
+  })
+})
+
+describe('procurementReducer (one state for the whole page, §3)', () => {
+  const start = initialState(AGD, 0)
+
+  it('changes the type with every item ticked again, and clamps the count to 1–500', () => {
+    const off = procurementReducer(start, { type: 'item', index: 1 })
+    expect(off.off).toEqual([1])
+    expect(procurementReducer(off, { type: 'item', index: 1 }).off).toEqual([])
+    expect(procurementReducer(off, { type: 'type', index: 1 })).toMatchObject({ type: 1, off: [] })
+    expect(procurementReducer(start, { type: 'count', value: 0 }).count).toBe(1)
+    expect(procurementReducer(start, { type: 'count', value: 900 }).count).toBe(500)
+  })
+
+  it('sets the class, stages, services, variant and the extra text', () => {
+    const it = initialState(IT, SERVICES.length)
+    expect(procurementReducer(start, { type: 'cls', index: 2 }).cls).toBe(2)
+    expect(procurementReducer(start, { type: 'stages', value: 1 }).stages).toBe(1)
+    expect(procurementReducer(it, { type: 'service', index: 1 }).services).toEqual([0, 2])
+    expect(
+      procurementReducer({ ...it, services: [2] }, { type: 'service', index: 0 }).services,
+    ).toEqual([0, 2])
+    expect(procurementReducer(it, { type: 'variant', index: 1 }).variant).toBe(1)
+    expect(procurementReducer(start, { type: 'more', value: '  odkurzacz ' }).more).toBe(
+      'odkurzacz',
+    )
+  })
+
+  it('takes the home page handoff: known values only, the list ticked again', () => {
+    const off = { ...start, off: [0] }
+    expect(
+      procurementReducer(off, { type: 'handoff', handoff: { type: 1, count: 30 } }),
+    ).toMatchObject({ type: 1, count: 30, off: [] })
+    expect(
+      procurementReducer(off, { type: 'handoff', handoff: { type: null, count: 7 } }),
+    ).toMatchObject({ type: 0, count: 7, off: [0] })
+  })
+})
+
+describe('texts driven by the state', () => {
+  it('writes the hero chip as count × short type · devices', () => {
+    expect(liveChipText(initialState(AGD, 0), AGD)).toBe('12 × kawalerka · 48 szt.')
+  })
+
+  it('puts the delivery of the configurator into the offer footer', () => {
+    expect(fillDelivery('Dostawa: {delivery}', '3 etapy po ok. 4 lokale')).toBe(
+      'Dostawa: 3 etapy po ok. 4 lokale',
+    )
+    expect(fillDelivery('Faktura VAT na firmę', 'naraz')).toBe('Faktura VAT na firmę')
+  })
+
+  it('gives the redacted prices varying, stable widths', () => {
+    expect(redactWidth(0)).toBe(52)
+    expect(redactWidth(1)).toBe(59)
+    expect(redactWidth(1)).toBe(redactWidth(1))
+    expect(new Set([0, 1, 2, 3].map((i) => redactWidth(i))).size).toBe(4)
   })
 })

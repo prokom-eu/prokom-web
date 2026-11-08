@@ -178,6 +178,8 @@ export const procurementPageSchema = z.object({
     callouts: z.array(z.object({ title: text, text })).length(4),
     footer: z.array(flaggable({ text })).max(5),
     note: z.string().optional(),
+    /** Example number and validity in the sheet's header (§4) — not a real offer. */
+    example: z.object({ number: text, validity: text }).optional(),
   }),
   classes: z
     .object({
@@ -247,6 +249,14 @@ export const procurementPageSchema = z.object({
     countLabel: text,
     messageLabel: text,
     topic: text,
+    /** „Planowany termin” options; sent as the inquiry's deadline. */
+    deadlineLabel: z.string().optional(),
+    deadlines: z.array(text).max(6).optional(),
+    /** „Co dalej” (1, 2, 3): beside the form and on the thank-you card; `{callback}` allowed. */
+    next: z
+      .array(flaggable({ title: z.string().optional(), text }))
+      .max(4)
+      .optional(),
   }),
   cross: z
     .object({

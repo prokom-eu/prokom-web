@@ -92,6 +92,56 @@ export function initialState(data: ConfiguratorData, serviceCount: number): Proc
   }
 }
 
+export type ProcurementAction =
+  | { type: 'type'; index: number }
+  | { type: 'count'; value: number }
+  | { type: 'item'; index: number }
+  | { type: 'cls'; index: number }
+  | { type: 'stages'; value: number }
+  | { type: 'service'; index: number }
+  | { type: 'variant'; index: number }
+  | { type: 'more'; value: string }
+  | { type: 'handoff'; handoff: { type: number | null; count: number | null } }
+
+function toggle(list: number[], index: number): number[] {
+  return list.includes(index)
+    ? list.filter((item) => item !== index)
+    : [...list, index].sort((a, b) => a - b)
+}
+
+/** The one state of the page (§3): a new type ticks every item again. */
+export function procurementReducer(
+  state: ProcurementState,
+  action: ProcurementAction,
+): ProcurementState {
+  switch (action.type) {
+    case 'type':
+      return { ...state, type: action.index, off: [] }
+    case 'count':
+      return { ...state, count: clampCount(action.value) }
+    case 'item':
+      return { ...state, off: toggle(state.off, action.index) }
+    case 'cls':
+      return { ...state, cls: action.index }
+    case 'stages':
+      return { ...state, stages: action.value }
+    case 'service':
+      return { ...state, services: toggle(state.services, action.index) }
+    case 'variant':
+      return { ...state, variant: action.index }
+    case 'more':
+      return { ...state, more: action.value.trim() }
+    case 'handoff': {
+      const { type, count } = action.handoff
+      return {
+        ...state,
+        ...(type !== null && { type, off: [] }),
+        ...(count !== null && { count: clampCount(count) }),
+      }
+    }
+  }
+}
+
 /** Splits n units into k stages almost evenly (larger first); the sizes sum to n. */
 export function deliverySplit(n: number, stages: number): number[] {
   const k = Math.max(1, Math.min(stages, n))
@@ -258,4 +308,20 @@ export function procurementMessage(
   }
   lines.push(`Dostawa: ${deliveryText}`)
   return lines.join('\n')
+}
+
+/** Hero chip driven by the configurator (§3): „12 × kawalerka · 84 szt.”. */
+export function liveChipText(state: ProcurementState, data: ConfiguratorData): string {
+  const { type, devices } = procurementTotals(state, data)
+  return `${state.count} × ${type.short} · ${devices} szt.`
+}
+
+/** Offer footer line (§4): `{delivery}` → the delivery of the configurator. */
+export function fillDelivery(text: string, deliveryText: string): string {
+  return text.replaceAll('{delivery}', deliveryText)
+}
+
+/** Width in px of a redacted price bar (§4): varying per row, the same on every render. */
+export function redactWidth(row: number, base = 52, spread = 30): number {
+  return base + ((row * 37) % spread)
 }
