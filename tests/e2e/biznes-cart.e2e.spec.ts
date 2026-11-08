@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { clickUntilVisible, setTheme, site } from './helpers'
+import { clickUntilVisible, hydrated, setTheme, site } from './helpers'
 
 // B4b: inquiry list `pk-cart` — counter, drawer, toast, shared between tabs (spec. §3.2, §8.1,
 // §9 pkt 3 and 7). Catalog from `pnpm seed`.
@@ -42,6 +42,8 @@ test.describe('Biznes inquiry list', () => {
       page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }).first(),
       search,
     )
+    // The overlay can show before its field listens: typed then, the phrase is lost.
+    await hydrated(search.getByRole('searchbox'))
     await search.getByRole('searchbox').fill('terminal')
     // K4: results add through the quick preview (K33 §2.6).
     await search.getByRole('button', { name: 'Podgląd: Terminal płatniczy PolCard' }).click()
