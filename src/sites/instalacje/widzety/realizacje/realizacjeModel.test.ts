@@ -7,7 +7,6 @@ import { realizationsToImport } from '@/seed/instalacje/map'
 
 import {
   INITIAL_REALIZATIONS,
-  realizationArt,
   realizationsView,
   type RealizationItem,
   type RealizationsState,
@@ -78,8 +77,9 @@ describe('realizations as the prototype', () => {
     expect(ours.kindFilters.map((f) => [f.label, f.on])).toEqual(
       ref.fo.map((f) => [f.n, f.on === 'true']),
     )
-    expect(ours.list.map((r) => [r.title, r.hidden, realizationArt(r)])).toEqual(
-      ref.list.map((r) => [r.n, r.cls.includes('xa-rlx'), r.art]),
+    // Runda v6 D2: every shown card has a photo, so the prototype's line art is not compared.
+    expect(ours.list.map((r) => [r.title, r.hidden])).toEqual(
+      ref.list.map((r) => [r.n, r.cls.includes('xa-rlx')]),
     )
     expect([ours.empty, ours.moreOn, ours.moreLabel]).toEqual([ref.empty, ref.moreOn, ref.moreT])
   })

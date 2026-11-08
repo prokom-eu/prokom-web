@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { byNewest, leadPhoto, matchRealization, publishWithoutConsent } from './realizations'
+import { byNewest, publishWithoutConsent, withPhotos } from './realizations'
 
 describe('publishWithoutConsent', () => {
   it('refuses publishing without the client consent', () => {
@@ -43,72 +43,6 @@ describe('publishWithoutConsent', () => {
   })
 })
 
-describe('matchRealization (round v5: photos on object and service pages)', () => {
-  const list = [
-    'Blachotrapez',
-    'Parafia św. Teresy',
-    'Empik',
-    'Restauracja „Aleksandra”',
-    'Caffe Europa',
-    'Parafia Narodzenia św. Jana Chrzciciela (Jasna Górka)',
-    'Szkoła Podstawowa im. Adama Mickiewicza',
-    'Dom prywatny',
-  ].map((title) => ({ title }))
-  const match = (name: string) => matchRealization(name, list)?.title
-
-  it('finds the realization by its distinctive words', () => {
-    expect(match('Blachotrapez')).toBe('Blachotrapez')
-    expect(match('Restauracja i dom weselny „Aleksandra”')).toBe('Restauracja „Aleksandra”')
-    expect(match('Parafia św. Teresy, chór')).toBe('Parafia św. Teresy')
-    expect(match('Jasna Górka, Ślemień')).toBe(
-      'Parafia Narodzenia św. Jana Chrzciciela (Jasna Górka)',
-    )
-    expect(match('Parafia Narodzenia św. Jana Chrzciciela')).toBe(
-      'Parafia Narodzenia św. Jana Chrzciciela (Jasna Górka)',
-    )
-    expect(match('Szkoła Podstawowa im. Adama Mickiewicza')).toBe(
-      'Szkoła Podstawowa im. Adama Mickiewicza',
-    )
-    expect(match('Empik Zakopane i Kraków')).toBe('Empik')
-  })
-
-  it('does not match on generic words only', () => {
-    expect(match('Salon PRO-KOM')).toBeUndefined()
-    expect(match('Parafia w Zakopanem')).toBeUndefined()
-    expect(match('Kaplica Sióstr Nazaretanek')).toBeUndefined()
-  })
-})
-
-describe('leadPhoto (round v5: the cover that fits the card)', () => {
-  const photos = [
-    { alt: 'Sala konferencyjna Blachotrapezu: projektor na uchwycie sufitowym' },
-    { alt: 'Sala szkoleniowa w Ponicach: ekran w ramie' },
-    { alt: 'Puszka podłogowa z gniazdami przy stanowisku' },
-    { alt: 'Sala biurowa na poddaszu z puszkami przyłączy w podłodze' },
-  ]
-  const first = (text: string) => leadPhoto(text, photos)[0]?.alt
-
-  it('puts first the photo whose description shares the most words with the card', () => {
-    expect(first('Ponice · sala szkoleniowa')).toBe('Sala szkoleniowa w Ponicach: ekran w ramie')
-    // Both desk photos fit (one word each): either, never the conference room.
-    expect([photos[2]?.alt, photos[3]?.alt]).toContain(first('Rabka-Zdrój · stanowiska biurowe'))
-    expect(leadPhoto('Ponice · sala szkoleniowa', photos)).toHaveLength(4)
-  })
-
-  it('matches word forms („chór” – „chóru”), not just the first letters', () => {
-    const church = [
-      { alt: 'Projektor Sony pod drewnianym sufitem kościoła' },
-      { alt: 'Mikrofony chóru na linkach pod sufitem kościoła' },
-    ]
-    expect(leadPhoto('Rabka-Zdrój · nagłośnienie chóru', church)[0]).toBe(church[1])
-    expect(leadPhoto('Parafia św. Teresy, chór', church)[0]).toBe(church[1])
-  })
-
-  it('keeps the order when nothing fits', () => {
-    expect(first('Nowy Sącz · kawiarnia')).toBe(photos[0]?.alt)
-  })
-})
-
 describe('byNewest (review of PR 4: PostgreSQL puts an empty year first in a descending sort)', () => {
   it('newest year first, no year last, then the package order', () => {
     const items = [
@@ -119,5 +53,20 @@ describe('byNewest (review of PR 4: PostgreSQL puts an empty year first in a des
       { legacyId: 5, year: null },
     ]
     expect([...items].sort(byNewest).map((r) => r.legacyId)).toEqual([4, 1, 2, 3, 5])
+  })
+})
+
+describe('withPhotos (runda v6 D2: a realization without a photo is not shown anywhere)', () => {
+  it('keeps the cards with at least one photo, in their order', () => {
+    const cards = [
+      { id: 1, photos: [{ alt: 'a' }] },
+      { id: 2, photos: [] },
+      { id: 3, photos: [{ alt: 'b' }, { alt: 'c' }] },
+    ]
+    expect(withPhotos(cards).map((c) => c.id)).toEqual([1, 3])
+  })
+
+  it('an empty list stays empty', () => {
+    expect(withPhotos([])).toEqual([])
   })
 })

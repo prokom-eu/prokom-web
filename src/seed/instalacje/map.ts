@@ -257,6 +257,11 @@ const PHOTO_PROMISES: Readonly<Record<string, string>> = {
     'Opisz obiekt albo obecną instalację. Powiemy, od czego zacząć i czego się spodziewać.',
   'Wyślij zdjęcie rozdzielnicy. Powiemy, którą ładowarkę da się podłączyć.':
     'Opisz rozdzielnicę i przyłącze. Powiemy, którą ładowarkę da się podłączyć.',
+  // Runda v6 §1.8 (audit 08.11): the CTA texts of the offer and the guide in the package.
+  'Opisz obiekt albo wyślij zdjęcia. Zaproponujemy, od czego zacząć, i wycenimy na piśmie.':
+    'Opisz obiekt. Zaproponujemy, od czego zacząć, i wycenimy na piśmie.',
+  'Wyślij zdjęcie obiektu albo opisz sytuację. Odpowiemy po ludzku, bez lania wody.':
+    'Opisz sytuację w kilku zdaniach. Odpowiemy po ludzku, bez lania wody.',
   'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Wyślij zdjęcia, a powiemy, czego się spodziewać.':
     'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Opisz obiekt, a powiemy, czego się spodziewać.',
 }
@@ -364,6 +369,9 @@ const packages = (seed: SeedPackage[]): NonNullable<ServiceData['packages']> =>
 
 // --- services ---
 
+/** Runda v6 §1.2: realizations only on `/realizacje` and the home page — gone service sections. */
+export const GONE_SECTIONS: ReadonlySet<string> = new Set(['realizacje-n', 'realizacja-t'])
+
 /** Anchor bars changed after the prototype (RUNDA-V5 §10: new Teletechnika sections). */
 export const ANCHORS_V5: Partial<Record<string, { anchorId: string; name: string }[]>> = {
   tel: [
@@ -421,7 +429,10 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
     },
     hero: hero(d.hero),
     anchors:
-      ANCHORS_V5[key] ?? d.anc.map((a) => ({ anchorId: a.href.replace(/^#/, ''), name: a.n })),
+      ANCHORS_V5[key] ??
+      d.anc
+        .map((a) => ({ anchorId: a.href.replace(/^#/, ''), name: a.n }))
+        .filter((a) => !GONE_SECTIONS.has(a.anchorId)),
     packagesIntro: {
       eyebrow: d.sx.pkg.eye,
       heading: d.sx.pkg.h,
@@ -508,8 +519,9 @@ export function objectData({ menu, page: o }: SeedObjectItem, refs: Refs): Objec
     law: [],
     mountainsIntro: { heading: o.gory.h },
     mountains: o.gory.items.map((g) => ({ title: g.t, icon: icon(g.ic), description: g.d })),
-    realizationsHeading: o.realH,
-    realizations: o.real.map((r) => ({ title: r.t, place: r.m, description: r.d })),
+    // Runda v6 §1.2: no realizations on the object page — stored ones are cleared (fields stay).
+    realizationsHeading: null,
+    realizations: [],
     prepareIntro: { eyebrow: o.prepEye },
     prepare: o.prep,
     packagesHeading: o.pkgH,
