@@ -52,8 +52,8 @@ export const AREA_KEYS = [
 export type AreaKey = (typeof AREA_KEYS)[number]['value']
 
 /**
- * Kinds of business in the wizard (`kreator.json` → `needs.firm.o`): an industry page opens the
- * wizard with its kind (`/dobierz?firma=<id>`, ADR-014 §1.6).
+ * Industries of the wizard and the showroom (`wizard.industries[].key`): an industry page opens the
+ * wizard with its industry (`/dobierz?firma=<id>`, ADR-014 §1.6).
  */
 export const WIZARD_FIRMS = [
   { label: 'Pensjonat, hotel, apartamenty', value: 'nocleg' },

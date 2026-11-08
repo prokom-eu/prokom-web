@@ -14,8 +14,8 @@ export const INQUIRY_TYPE_LABELS: Record<InquiryType, string> = {
 }
 
 /**
- * How the customer wants to be contacted (plansza `Zapytanie`; Software wizard: `kreator.json` →
- * `contactPrefs[].inquiryValue`). A meeting and an online call are Software only.
+ * How the customer wants to be contacted (plansza `Zapytanie`). A meeting and an online call
+ * are Software only.
  */
 export const PREFERRED_CONTACTS = ['phone', 'email', 'meeting', 'online'] as const
 export type PreferredContact = (typeof PREFERRED_CONTACTS)[number]

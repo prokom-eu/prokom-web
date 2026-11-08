@@ -7,7 +7,7 @@ import { SEED_CONTEXT } from '../config'
 import { homeSchema } from '../../lib/software/home'
 import { navigationSchema } from '../../lib/software/navigation'
 import { softwareOfferSchema } from '../../lib/software/offer'
-import { softwareWizardSchema } from '../../lib/software/wizard'
+import { softwareWizardSchema } from '../../lib/software/wizard/schema'
 import {
   areaData,
   cityData,
@@ -286,8 +286,8 @@ export async function seedSoftware(payload: Payload): Promise<void> {
     const missing: Partial<typeof fields> = Object.fromEntries(
       Object.entries(jsonFields).filter(([key]) => {
         const value = softwareSettings[key as keyof typeof jsonFields]
-        // Rules of an older shape (SW7 sizes, SWR4a send block…) hide the wizard: replaced locally,
-        // like the window texts; staging pastes `pnpm software:wizard-json` (decyzja SWD2 nr 5).
+        // Rules of an older shape (before v3) hide the wizard: replaced locally; on staging the
+        // migration `swa3_kreator_v3` rewrites them (`pnpm software:wizard-json` for edits).
         if (key === 'wizard' && value != null) return !softwareWizardSchema.safeParse(value).success
         // Window texts in an older shape would hide the window's shared parts: replaced (SWR3).
         if (key === 'offer' && value != null) return !softwareOfferSchema.safeParse(value).success

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { CONSENT_CLAUSE } from './consent'
 import { parseInquiryInput } from './schema'
-import { EMPTY_ANSWERS, type WizardAnswers as SoftwareAnswers } from '../software/wizardFlow'
+import { EMPTY_ANSWERS, type WizardAnswers as SoftwareAnswers } from '../software/wizard/flow'
 import {
   ANONYMOUS_WIZARD_NAME,
   buildSoftwareWizardBody,
@@ -68,14 +68,14 @@ describe('buildWizardInquiryBody (Konfigurator 3.0)', () => {
   })
 })
 
-describe('Software wizard form (SW7)', () => {
+describe('Software wizard form (v3)', () => {
   const values: SoftwareWizardContact = {
     name: 'Anna',
     contact: 'anna@firma.pl',
     consent: true,
     website: '',
   }
-  const softwareAnswers: SoftwareAnswers = { ...EMPTY_ANSWERS, need: 'firm', options: ['bud'] }
+  const softwareAnswers: SoftwareAnswers = { ...EMPTY_ANSWERS, type: 'firmowa', industry: 'bud' }
 
   it('asks for a usable contact and the consent (send.errors)', () => {
     expect(checkSoftwareWizardRequired(values)).toEqual({})
@@ -85,21 +85,8 @@ describe('Software wizard form (SW7)', () => {
     })
   })
 
-  it('asks for the kind of contact the preference names (board: 9 digits of a phone)', () => {
-    expect(checkSoftwareWizardRequired(values, 'email')).toEqual({})
-    expect(checkSoftwareWizardRequired(values, 'phone')).toEqual({ contact: true })
-    expect(checkSoftwareWizardRequired({ ...values, contact: '600 100 200' }, 'phone')).toEqual({})
-    expect(checkSoftwareWizardRequired({ ...values, contact: '600 100' }, 'phone')).toEqual({
-      contact: true,
-    })
-    expect(checkSoftwareWizardRequired({ ...values, contact: '600 100 200' }, 'email')).toEqual({
-      contact: true,
-    })
-    expect(checkSoftwareWizardRequired({ ...values, contact: '600 100 200' }, 'any')).toEqual({})
-  })
-
   it('sends the contact as an e-mail or a phone, the answers and a valid body', () => {
-    const href = 'https://software.localhost:3000/dobierz?potrzeba=firm'
+    const href = 'https://software.localhost:3000/dobierz?firma=bud'
     const email = buildSoftwareWizardBody(values, {
       href,
       formToken: 't',

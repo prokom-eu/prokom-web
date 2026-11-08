@@ -5230,7 +5230,7 @@ export interface SoftwareSetting {
     popular?: string[] | null;
   };
   /**
-   * Potrzeby, pytania, wyniki i teksty kreatora (/dobierz). Ceny wyników biorą się z Rozwiązań (resultToSolutionSlug). Zapis sprawdza kształt i adresy rozwiązań.
+   * Rodzaje, kroki, opcje, podpowiedzi i teksty kreatora v3 (/dobierz). Ceny i terminy biorą się z Rozwiązań (types[].solution). Zapis sprawdza kształt i adresy rozwiązań.
    */
   wizard?:
     | {

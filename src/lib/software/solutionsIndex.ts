@@ -67,8 +67,8 @@ export type SolutionsIndex = {
 }
 
 /**
- * Templates of the package (`kreator.json` → `priceDisplay`), used when the settings are not
- * saved yet or no longer match the schema — the catalog still shows prices.
+ * Price templates (as `priceDisplay` of the wizard seed), used when the settings are not saved
+ * yet or no longer match the schema — the catalog still shows prices.
  */
 export const DEFAULT_PRICE_DISPLAY: PriceDisplay = {
   template: 'od {cena} zł netto',

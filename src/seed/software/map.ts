@@ -1,7 +1,6 @@
 import fakty from '../../../seed/prokomsoftware/fakty.json'
 import branze from '../../../seed/prokomsoftware/branze.json'
 import ikony from '../../../seed/prokomsoftware/ikony.json'
-import kreator from '../../../seed/prokomsoftware/kreator.json'
 import miejscowosci from '../../../seed/prokomsoftware/miejscowosci.json'
 import nawigacja from '../../../seed/prokomsoftware/nawigacja.json'
 import obszary from '../../../seed/prokomsoftware/obszary.json'
@@ -23,7 +22,7 @@ import {
   FIELD_CREW_PAGE,
   FIELD_CREW_SLUG,
 } from './solutionPages'
-import { wizardSeed } from './wizardExtras'
+import { WIZARD_V3 } from './wizard'
 import { HOME_HERO } from './homeHero'
 import { HOME_V24 } from './homeV24'
 import { SOLUTION_PREVIEWS } from './previews'
@@ -482,7 +481,7 @@ export function softwareSettingsData() {
       stopWords: wyszukiwarka.stopWords,
       popular: wyszukiwarka.popular,
     },
-    wizard: wizardSeed(kreator),
+    wizard: WIZARD_V3,
     home: {
       process,
       compare,

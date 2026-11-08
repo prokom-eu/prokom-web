@@ -20,6 +20,9 @@ import {
  * `SoftwareSettings.wizard`; this module only reads them.
  */
 
+/** Address of the wizard page; `#dobierz` is its section on the start page. */
+export const WIZARD_PATH = '/dobierz'
+
 export type WizardAnswers = {
   /** `types[].id`; `null` until step 1. */
   type: string | null
