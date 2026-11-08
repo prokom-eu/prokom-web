@@ -37,6 +37,9 @@ function Mark({
       width={width}
       height={height}
       loading={eager ? 'eager' : 'lazy'}
+      // Early in the queue (often the LCP element); not `preload`, which would add a <link> for
+      // both theme files (Next 16 Image docs). Both are ~6 KB SVGs, so eager on both is cheap.
+      fetchPriority={eager ? 'high' : undefined}
       className={cx('h-auto max-w-none', className)}
       // A container may resize the mark with `--logo-h` (the capsule on phones); the width follows.
       style={{ height: `var(--logo-h, ${height}px)`, width: 'auto' }}
