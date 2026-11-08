@@ -1,6 +1,7 @@
 import type { ServiceKey } from '@/lib/instalacje/options'
 
 import type { InstIconName } from '../icons'
+import { STAN_FAKTOW, stanNa } from './stanFaktow'
 
 /*
  * Texts of the page `/dla-architektow` (ADR-I005 §1, spec `prokominstalacje-architekci.md`),
@@ -435,11 +436,13 @@ export const architekci = {
     eyebrow: 'Checklista projektanta',
     heading: 'Co przewidzieć w projekcie?',
     accent: 'Wybierz obiekt i instalacje.',
-    lead: 'Lista rzeczy, które trzeba zaplanować przed tynkami, żeby potem niczego nie kuć. Odhaczaj albo pobierz jako PDF dla zespołu.',
+    lead: 'Lista rzeczy, które trzeba zaplanować przed tynkami, żeby potem niczego nie kuć. Odhaczaj na stronie albo zamów wersję PDF dla zespołu.',
     objectsTitle: '1. Obiekt',
     systemsTitle: '2. Instalacje',
     pdfTitle: 'Checklista w PDF',
-    pdfText: 'Pełna wersja z rysunkami puszek i ramek. Wyślemy na e-mail.',
+    // D2 = A (06.11): no file in the repo yet — the guardian sends it by hand.
+    pdfText:
+      'Pełna wersja z rysunkami puszek i ramek. Wyślemy checklistę mailem w ciągu 1 dnia roboczego.',
     toPlan: 'do przewidzenia',
     empty: 'Wybierz co najmniej jedną instalację.',
   },
@@ -661,7 +664,7 @@ export const architekci = {
     heading: 'Wymiary i parametry,',
     accent: 'które warto mieć pod ręką.',
     lead: 'Z kart katalogowych producentów i norm, z którymi pracujemy. Konkretny model może się różnić, dlatego ostateczne wartości podajemy w wytycznych do Twojego projektu.',
-    note: 'Stan na październik 2026. Wartości orientacyjne do wstępnego projektu, nie zastępują karty katalogowej wybranego modelu.',
+    note: `Stan na ${STAN_FAKTOW.month}. Wartości orientacyjne do wstępnego projektu, nie zastępują karty katalogowej wybranego modelu.`,
   },
   // Without three numbers of the package that have no source (review I16b, spec §2.3): the
   // motorised-zoom camera's 12 W, Ampio 90×160 mm / 2–18 fields, the rental law's fines.
@@ -855,7 +858,7 @@ export const architekci = {
     inProject: 'W projekcie',
   },
   /** Date of the law section (spec §2.5, ADR-I005 §6); check before I13. */
-  lawAsOf: '28.10.2026',
+  lawAsOf: STAN_FAKTOW.date,
   timeline: [
     { date: '2013', label: 'Instalacja telekom. w budynkach wielorodzinnych', now: false },
     { date: '12.02.2026', label: 'GIA: gotowość na światłowód', now: false },
@@ -879,7 +882,7 @@ export const architekci = {
       status: 'Czekamy',
       tone: 'mut',
       title: 'Nowe warunki techniczne',
-      text: 'Nowe rozporządzenie o warunkach technicznych nie zostało jeszcze ogłoszone (stan na październik 2026).',
+      text: `Nowe rozporządzenie o warunkach technicznych nie zostało jeszcze ogłoszone (${stanNa()}).`,
       inProject: 'Przy każdym projekcie sprawdzamy aktualny stan prawny i dopasowujemy wytyczne.',
     },
     {
@@ -893,7 +896,7 @@ export const architekci = {
     },
     {
       date: 'w toku',
-      status: 'W przygotowaniu',
+      status: 'Projekt ustawy',
       tone: 'mut',
       title: 'Polska ustawa wdrażająca GIA',
       text: 'Projekt nowelizacji megaustawy jest w przygotowaniu. Ma m.in. rozstrzygnąć, czy obowiązek obejmie domy jednorodzinne budowane na własne potrzeby.',
@@ -959,7 +962,7 @@ export const architekci = {
     newsletterTitle: 'Nowe rozwiązania raz w miesiącu, na e-mail.',
     newsletterText:
       'Krótko: jedno rozwiązanie z parametrami, termin prezentacji, oferta dla pracowni. Wypiszesz się jednym kliknięciem.',
-    note: 'Parametry z kart katalogowych producentów, stan na październik 2026. Marki podajemy jako przykład: dobieramy sprzęt pod projekt.',
+    note: `Parametry z kart katalogowych producentów, ${stanNa()}. Marki podajemy jako przykład: dobieramy sprzęt pod projekt.`,
   },
   /** Filter (`NF`) and the card's category label (`CAT`): `sz` is „Dla pracowni” on a card. */
   newsFilters: [
@@ -1023,7 +1026,7 @@ export const architekci = {
     eyebrow: 'Biblioteka projektanta',
     heading: 'Materiały, które',
     accent: 'skracają projekt.',
-    lead: 'Nasze materiały do pobrania i sprawdzone narzędzia producentów, z których korzystamy przy projektach.',
+    lead: 'Nasza checklista na e-mail i sprawdzone narzędzia producentów, z których korzystamy przy projektach.',
     tools: 'Narzędzia producentów',
   },
   libraryOwn: [
@@ -1033,6 +1036,7 @@ export const architekci = {
       text: 'Co przewidzieć w projekcie, etap po etapie. PDF, 1 strona na instalację.',
       format: 'PDF',
       status: 'Na e-mail',
+      href: '#checklista',
     },
     {
       icon: 'grid',
@@ -1040,6 +1044,7 @@ export const architekci = {
       text: 'Kamery, czujki, głośniki, punkty Wi-Fi, panele, gniazda. Gotowe do wklejenia w rzut.',
       format: 'DWG · PDF',
       status: 'W przygotowaniu',
+      ready: false,
     },
     {
       icon: 'doc',
@@ -1047,6 +1052,7 @@ export const architekci = {
       text: 'Krótkie opisy monitoringu, sieci, smart home i dźwięku do części opisowej projektu.',
       format: 'DOCX',
       status: 'W przygotowaniu',
+      ready: false,
     },
     {
       icon: 'layers',
@@ -1054,8 +1060,19 @@ export const architekci = {
       text: 'Miejsce, wymiary, wentylacja, zasilanie i dostęp. Do pomieszczenia technicznego.',
       format: 'PDF',
       status: 'W przygotowaniu',
+      ready: false,
     },
-  ] as { icon: InstIconName; title: string; text: string; format: string; status: string }[],
+  ] as {
+    icon: InstIconName
+    title: string
+    text: string
+    format: string
+    status: string
+    /** P0-3 (audit 06.11): `false` keeps an unfinished material off the page until its file. */
+    ready?: boolean
+    /** Where to get it (the checklist: the form on this page). */
+    href?: string
+  }[],
   libraryTools: [
     {
       title: 'Ampio: katalog dla architekta',
@@ -1293,7 +1310,7 @@ export const architekci = {
     email: 'E-mail',
     emailPlaceholder: 'adres@pracownia.pl',
     pdfSend: 'Wyślij PDF',
-    pdfSent: 'Wysłane. Opiekun prześle checklistę na podany adres.',
+    pdfSent: 'Wysłane. Wyślemy checklistę mailem w ciągu 1 dnia roboczego.',
     newsSend: 'Zapisz pracownię',
     newsSent: 'Zapisane. Pierwszy e-mail z nowościami wkrótce.',
     // ADR-I005 §3 / spec §2.7: a separate consent for commercial e-mails, never pre-ticked.

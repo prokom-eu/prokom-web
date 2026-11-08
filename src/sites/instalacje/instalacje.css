@@ -280,10 +280,17 @@ html[data-line='instalacje'].pk-lock body {
     margin: 0;
     max-width: 62ch;
   }
-  & .cta .note {
+  & .cta .ctan {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
     font-size: 13.5px;
     color: var(--inst-band-note);
     text-align: center;
+  }
+  & .cta .ctan svg {
+    flex: none;
   }
   & .hbtn-p {
     background: var(--inst-band-button);
