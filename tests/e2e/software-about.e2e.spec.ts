@@ -113,9 +113,12 @@ test.describe('Software /o-firmie (shared template)', () => {
       '/kontakt',
     )
 
-    // No people, no photos (rule 01.11); the old v23 sections are gone.
+    // No people, no photos (rule 01.11); the old v23 sections are gone. The address map of the
+    // visit section is named after the company („Mapa: PRO-KOM Tadeusz Wójciak, …”): not a photo.
     await expect(
-      page.locator('main').getByRole('img', { name: /Krystian|Tadeusz|Wejście do PRO-KOM/ }),
+      page
+        .locator('main')
+        .getByRole('img', { name: /^(?!Mapa:)[\s\S]*(Krystian|Tadeusz|Wejście do PRO-KOM)/ }),
     ).toHaveCount(0)
     await expect(page.locator('main')).not.toContainText('Kto z Tobą pracuje')
     await expect(page.locator('main')).not.toContainText(/Zakopan/i)

@@ -18,7 +18,24 @@ type Attachment = {
 }
 
 const attachments = new Set<Attachment>()
+const listeners = new Set<() => void>()
 const BLANK_LINE = '\n\n'
+
+/**
+ * Tells the form the parts changed: it shows „(opcjonalnie)” at the message while a part carries
+ * items (as the server accepts it then). A line calls it when its list changes.
+ */
+export function notifyFormAttachments(): void {
+  listeners.forEach((listener) => listener())
+}
+
+/** For `useSyncExternalStore` in the form; returns the function that stops listening. */
+export function subscribeFormAttachments(listener: () => void): () => void {
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
+  }
+}
 
 /** The server's message limit — the attachment is cut to fit, the visitor's text never. */
 export const MESSAGE_LIMIT = MESSAGE_MAX
@@ -30,9 +47,19 @@ export function registerFormAttachment(
 ): () => void {
   const attachment: Attachment = { read, ...options }
   attachments.add(attachment)
+  notifyFormAttachments()
   return () => {
     attachments.delete(attachment)
+    notifyFormAttachments()
   }
+}
+
+/**
+ * How many items the parts carry now, each once — the form's label reads it at every render (key
+ * press), so only `items` is asked, never the texts (Biznes builds its list text in `read`).
+ */
+export function attachedItemCount(): number {
+  return new Set([...attachments].flatMap((attachment) => attachment.items?.() ?? [])).size
 }
 
 /**

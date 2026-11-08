@@ -75,6 +75,8 @@ test.describe('Software /kontakt (shared template)', () => {
     await expect(hero.locator('a[href="mailto:kontakt@prokomsoftware.pl"]')).toBeVisible()
 
     const card = hero.locator('[data-address-card]')
+    // One office (rule 01.11): a single address card on the page.
+    await expect(contact(page).locator('[data-address-card]')).toHaveCount(1)
     await expect(card).toContainText('ul. Orkana 16B')
     await expect(card).toContainText('Rabka-Zdrój')
     await expect(card.getByRole('list', { name: 'Godziny otwarcia' })).toBeVisible()
@@ -82,8 +84,10 @@ test.describe('Software /kontakt (shared template)', () => {
       'href',
       'https://www.biznes.gov.pl/pl/wyszukiwarka-firm',
     )
-    // v23 leftovers are gone: no Zakopane, no WhatsApp, no „Jak wolisz rozmawiać?”.
-    await expect(page.locator('main')).not.toContainText(/Zakopan|WhatsApp|Jak wolisz rozmawiać/i)
+    // v23 leftovers are gone: no Zakopane office, no WhatsApp, no „Jak wolisz rozmawiać?”.
+    // Zakopane stays in the service area list (towns we drive to) — the rule is one office.
+    await expect(card).not.toContainText(/Zakopan/i)
+    await expect(page.locator('main')).not.toContainText(/WhatsApp|Jak wolisz rozmawiać/i)
   })
 
   test('routes, the form with next steps, service area, other lines, FAQ, the band', async ({
