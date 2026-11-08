@@ -27,7 +27,7 @@ const SECTION = { padding: '0 0 104px' }
 export async function TeletechnikaSections({ tenantId }: { tenantId: number }) {
   const { scope, stages, handover, standards, mistakes, common, pricing, realization } =
     teletechnika
-  const { forWhom, law, quote } = teletechnika
+  const { forWhom, law, quote } = teletechnika // the sections the prototype already had
   const withPhotos = (await getInstalacjeRealizations(tenantId)).filter((r) => r.photos.length > 0)
   const match = matchRealization(realization.name, withPhotos)
   const photos = match && leadPhoto(realization.photoHint, match.photos)
@@ -79,7 +79,7 @@ export async function TeletechnikaSections({ tenantId }: { tenantId: number }) {
             </ul>
           </div>
           <div className="card ttstd ri">
-            <b className="h3">{standards.title}</b>
+            <h3 className="h3">{standards.title}</h3>
             <ul className="ttlist">
               {standards.items.map((item) => (
                 <li key={item}>

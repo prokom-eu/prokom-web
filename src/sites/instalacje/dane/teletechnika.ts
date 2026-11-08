@@ -267,7 +267,7 @@ export const teletechnika = {
         icon: 'phone',
         title: 'Domofony i wideodomofony',
         text: 'Panele przy wejściach i bramie, monitory w lokalach.',
-        href: '/alarmy',
+        href: '/alarmy#domofony',
       },
       {
         icon: 'lock',
@@ -328,7 +328,7 @@ export const teletechnika = {
     name: 'Blachotrapez',
     place: 'Rabka-Zdrój · stanowiska biurowe',
     photoHint: 'stanowiska biurowe przyłącza IT okablowanie',
-    text: 'Przyłącza IT i okablowanie stanowisk, a w salach konferencyjnej i szkoleniowej także nagłośnienie i projekcja.',
+    text: 'Przyłącza IT i okablowanie stanowisk biurowych.',
     all: { label: 'Wszystkie realizacje →', href: '/realizacje' },
   },
 

@@ -335,15 +335,6 @@ html[data-line='instalacje'] {
     color: var(--ink);
   }
 
-  @media (max-width: 1100px) and (min-width: 761px) {
-    & .proc {
-      --proc-node: 44px;
-      --proc-gap: 10px;
-    }
-    & .procc {
-      padding: 14px;
-    }
-  }
   /* Phone: trust line and CTA right under the heading, so the fold of the axis never hides them. */
   @media (max-width: 700px) {
     & #proces > .wrap {
@@ -358,8 +349,9 @@ html[data-line='instalacje'] {
       order: 2;
     }
   }
-  /* Phone and narrow tablet: a vertical axis, nodes on the left. */
-  @media (max-width: 760px) {
+  /* Phone and tablet: a vertical axis, nodes on the left (six or seven columns get too narrow
+     below 1100 px — cards of ~100 px on a tablet). */
+  @media (max-width: 1100px) {
     & .proc {
       --proc-node: 40px;
       grid-template-columns: 1fr;
@@ -482,7 +474,7 @@ html[data-line='instalacje'] {
         animation-timeline: --proc;
         animation-range: cover calc(18% + var(--i) * 6%) cover calc(23% + var(--i) * 6%);
       }
-      @media (max-width: 760px) {
+      @media (max-width: 1100px) {
         & .procs:not(:last-child)::after {
           animation-name: inst-proc-seg-y;
         }

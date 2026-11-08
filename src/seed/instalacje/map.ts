@@ -332,7 +332,7 @@ const packages = (seed: SeedPackage[]): NonNullable<ServiceData['packages']> =>
 // --- services ---
 
 /** Anchor bars changed after the prototype (RUNDA-V5 §10: new Teletechnika sections). */
-const ANCHORS_V5: Partial<Record<string, { anchorId: string; name: string }[]>> = {
+export const ANCHORS_V5: Partial<Record<string, { anchorId: string; name: string }[]>> = {
   tel: [
     { anchorId: 'zakres', name: 'Zakres' },
     { anchorId: 'etapy', name: 'Etapy budowy' },
