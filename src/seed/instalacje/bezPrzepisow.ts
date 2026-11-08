@@ -158,6 +158,8 @@ export const LAW_TEXTS: Readonly<Record<string, string | null>> = {
   'Od zgodności z warunkami technicznymi po osiedle premium.':
     'Od podstawowej instalacji po osiedle premium.',
   'Zgodnie z warunkami technicznymi.': 'Z pomiarami do odbioru.',
+  // INST-6 PR3: licence fees for music are a topic of law too (runda v6 §1.1).
+  'Czy muszę płacić za muzykę w restauracji?': null,
   przepisy: null,
   Przepisy: null,
   '#przepisy': null,

@@ -44,7 +44,7 @@ test.describe('Anteny page', () => {
     const response = await open(page)
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('Antena ustawiona miernikiem, nie na oko.')
+    await expect(page.locator('h1')).toContainText('Anteny satelitarne i DVB-T2 na Podhalu')
     const ids = await page
       .locator('main section[id]')
       .evaluateAll((sections) => sections.map((section) => section.id))
@@ -76,7 +76,7 @@ test.describe('Anteny page', () => {
     await open(page)
     const bands = page.locator('.cta:visible')
     await expect(bands).toHaveCount(1)
-    await expect(bands).toContainText('Obraz się rwie albo budujesz dom?')
+    await expect(bands).toContainText('Zamów montaż albo ustawienie anteny miernikiem')
   })
 
   test('the aiming simulator locks with the installer button', async ({ page }) => {

@@ -69,7 +69,7 @@ export const naglosnienie = {
   objects: {
     head: {
       eyebrow: 'Gdzie nagłaśniamy',
-      heading: 'Inaczej gra restauracja, inaczej kościół.',
+      heading: 'Nagłośnienie restauracji, hotelu, kościoła i szkoły',
       lead: 'W restauracji muzyka ma być tłem dla rozmowy. W kościele najważniejsze jest, żeby każde słowo było zrozumiałe w ostatniej ławce. Dobieramy sprzęt do akustyki wnętrza.',
     } satisfies SectionHead,
     brands:
@@ -129,10 +129,9 @@ export const naglosnienie = {
 
   apart: {
     head: {
-      eyebrow: 'APART · nagłośnienie montowane na stałe',
-      heading: 'Sprzęt zrobiony do nagłośnienia na stałe.',
-      accent: 'Od głośnika w suficie po kolumnę w kościele.',
-      lead: 'APART to marka nagłośnienia instalacyjnego założona w Belgii, od 2019 część amerykańskiej grupy Biamp. Głośniki, wzmacniacze, strefy, mikrofony i źródła muzyki od jednego producenta. Kliknij rodzinę, żeby zobaczyć, gdzie ją montujemy.',
+      eyebrow: 'Sprzęt APART',
+      heading: 'Jakie głośniki APART montujemy i gdzie się sprawdzają',
+      lead: 'APART to marka nagłośnienia montowanego na stałe, założona w Belgii, od 2019 w amerykańskiej grupie Biamp. Głośniki, wzmacniacze, strefy, mikrofony i źródła muzyki są od jednego producenta. Kliknij rodzinę, żeby zobaczyć, gdzie ją montujemy.',
     } satisfies SectionHead,
     where: 'Gdzie montujemy',
     models: 'Przykładowe modele',
@@ -335,8 +334,8 @@ export const naglosnienie = {
   /** Signal chain of a zone system (`chn`). */
   chain: {
     head: {
-      eyebrow: 'Jak działa system strefowy',
-      heading: 'Muzyka, mikrofon i gong. Każda strefa po swojemu.',
+      eyebrow: 'System strefowy',
+      heading: 'Jak muzyka i komunikaty trafiają do każdej strefy',
       lead: 'Źródła trafiają do miksera strefowego, potem do wzmacniacza i do głośników. Komunikat ma pierwszeństwo: muzyka sama się ścisza, gdy ktoś mówi do mikrofonu.',
     } satisfies SectionHead,
     tabsLabel: 'Rodzaj linii',
@@ -396,9 +395,9 @@ export const naglosnienie = {
 
   /** Church: speech intelligibility (`ko`). */
   church: {
-    eyebrow: 'Nagłośnienie kościoła',
-    heading: 'Głośniej nie znaczy wyraźniej.',
-    lead: 'W pogłosowym wnętrzu podgłośnienie zwiększa też pogłos, a słowa zlewają się ze sobą. Pomaga dobór i ustawienie głośników, na przykład kolumn, które kierują dźwięk na ławki, a nie na sklepienie. Przesuń suwaki i zobacz, co się dzieje ze zrozumiałością.',
+    eyebrow: 'Kościoły',
+    heading: 'Dlaczego w kościele słowa się zlewają i jak to naprawić',
+    lead: 'W pogłosowym wnętrzu podgłośnienie zwiększa też pogłos i słowa zlewają się ze sobą. Pomaga dobór i ustawienie głośników, na przykład kolumn, które kierują dźwięk na ławki zamiast na sklepienie. Przesuń suwaki i zobacz, co się dzieje ze zrozumiałością.',
     points: [
       {
         title: 'Kolumny zamiast zwykłych głośników',
@@ -410,7 +409,7 @@ export const naglosnienie = {
       },
       {
         title: 'Pętla indukcyjna',
-        text: 'Przesyła mowę prosto do aparatu słuchowego. Podmioty publiczne muszą zapewnić wsparcie słyszenia, np. pętlę indukcyjną. Dla parafii to wybór dobrowolny.',
+        text: 'Przesyła mowę prosto do aparatu słuchowego, z pominięciem pogłosu wnętrza.',
       },
       {
         title: 'Nagłośnienie przed kościołem',
@@ -434,8 +433,8 @@ export const naglosnienie = {
 
   /** Calculator: how many speakers (`ig`). */
   calc: {
-    eyebrow: 'Kalkulator: ile głośników',
-    heading: 'Szybki szacunek dla Twojej sali.',
+    eyebrow: 'Kalkulator',
+    heading: 'Ile głośników potrzebuje Twoja sala',
     area: 'Powierzchnia',
     areaLabel: 'Powierzchnia w metrach kwadratowych',
     height: 'Wysokość sufitu',
@@ -456,8 +455,8 @@ export const naglosnienie = {
 
   council: {
     head: {
-      eyebrow: 'Gminy, szkoły, sale obrad',
-      heading: 'Sesja rady słyszalna, nagrana i transmitowana.',
+      eyebrow: 'Sale obrad',
+      heading: 'Nagłośnienie sali obrad z nagrywaniem i transmisją sesji',
       lead: 'Nagłośnienie to jeden z elementów systemu do sesji rady, obok nagrywania, transmisji i głosowania.',
     } satisfies SectionHead,
     items: [
@@ -488,8 +487,8 @@ export const naglosnienie = {
   },
 
   dso: {
-    eyebrow: 'Nagłośnienie a DSO',
-    heading: 'Dźwiękowy system ostrzegawczy to osobna sprawa.',
+    eyebrow: 'Ostrzeganie przy pożarze',
+    heading: 'Czym nagłośnienie różni się od systemu ostrzegawczego DSO',
     lead: 'DSO ostrzega ludzi w razie pożaru. Czy Twój budynek go potrzebuje, decyduje projekt i rzeczoznawca do spraw zabezpieczeń przeciwpożarowych.',
     // TODO(krystian): the DSO company we recommend (the prototype: „[SZEF: firma DSO do
     // polecania]”, spec §12).

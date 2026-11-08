@@ -92,8 +92,7 @@ export const smartHome = {
   areas: {
     head: {
       eyebrow: 'Co sterujesz',
-      heading: 'Dwanaście rzeczy, którymi steruje Ampio.',
-      accent: 'W jednej aplikacji i na panelach w ścianie.',
+      heading: 'Czym sterujesz z aplikacji Ampio i paneli w ścianie',
       lead: 'Ampio to polski system automatyki budynku. Łączy światło, ogrzewanie, rolety, bramę, alarm, kamery i energię tak, żeby dom sam robił to, co powtarzasz codziennie. Kliknij obszar, żeby zobaczyć, co potrafi i z jakich modułów to budujemy.',
     } satisfies SectionHead,
     tabsLabel: 'Obszary sterowania',
@@ -213,7 +212,7 @@ export const smartHome = {
         then: 'Zawór wody się zamyka, a Ty dostajesz powiadomienie na telefon',
         modules: ['M-ALARM-8s', 'M-CON-232-s', 'M-CON-485-s', 'M-IN'],
         integrations: ['Satel', 'Jablotron', 'Bosch', 'DSC'],
-        note: 'Centrala Ampio nie ma podanej klasy według normy EN 50131. Gdy wymaga jej ubezpieczyciel, montujemy alarm Satel i łączymy go z Ampio.',
+        note: 'Producent nie podaje klasy centrali alarmowej Ampio. Gdy ubezpieczyciel wymaga certyfikowanego alarmu, montujemy alarm Satel i łączymy go z Ampio.',
       },
       {
         key: 'acc',
@@ -231,7 +230,7 @@ export const smartHome = {
         then: 'Zamek się otwiera, a w pokoju włącza się światło powitalne i ogrzewanie',
         modules: ['M-CON-KEY-p', 'M-DOT-R14', 'M-DOT-R PRO', 'M-SERV-MINI-s'],
         integrations: ['Akuvox', 'DoorBird', 'Dahua', 'Vidiline'],
-        note: 'Dla bezpieczeństwa zaczepem drzwi steruje moduł lokalnie, kartą lub kodem, a nie zdalnie z aplikacji.',
+        note: 'Dla bezpieczeństwa zaczep drzwi otwiera moduł na miejscu, kartą lub kodem. Zdalnie z aplikacji zaczepu nie otwieramy.',
       },
       {
         key: 'cam',
@@ -249,14 +248,14 @@ export const smartHome = {
         then: 'Zapalają się lampy ogrodowe, a powiadomienie prowadzi do obrazu z kamery',
         modules: ['M-SERV-s', 'M-SERV-MINI-s'],
         integrations: ['Hikvision', 'Dahua', 'TP-Link', 'Tiandy'],
-        note: 'Nagrania zostają w rejestratorze. Ampio pokazuje obraz, nie zastępuje monitoringu.',
+        note: 'Nagrania zostają w rejestratorze monitoringu. Ampio tylko pokazuje obraz z kamer.',
       },
       {
         key: 'en',
         name: 'Energia i fotowoltaika',
         icon: 'bolt',
         group: 'Energia',
-        text: 'Zużycie prądu, wody i gazu na żywo, a urządzenia pracują wtedy, gdy panele dają nadwyżkę.',
+        text: 'Zużycie prądu, wody i gazu widzisz w aplikacji na bieżąco, a urządzenia włączają się, gdy panele dają nadwyżkę.',
         features: [
           'Pomiar prądu, wody i gazu z liczników',
           'Dane z falownika i magazynu energii w aplikacji',
@@ -342,8 +341,7 @@ export const smartHome = {
   /** „Dlaczego Ampio” (`#dlaczego`) with the failure demo (`fl`). */
   why: {
     eyebrow: 'Dlaczego Ampio',
-    heading: 'Każdy moduł ma własny mózg.',
-    accent: 'Jedna awaria nie gasi domu.',
+    heading: 'Dlaczego awaria jednego modułu nie wyłącza całego domu',
     lead: 'W wielu systemach wszystko zależy od jednego sterownika. Ampio rozkłada logikę na moduły połączone magistralą. Gdy jeden się zepsuje, przestaje działać tylko jego część, a reszta domu pracuje dalej.',
     list: [
       {
@@ -389,8 +387,8 @@ export const smartHome = {
 
   /** „Szklane panele Ampio M-DOT” (`#panele`): glass colour, size, the pressed fields. */
   panels: {
-    eyebrow: 'Szklane panele Ampio M-DOT',
-    heading: 'Panel zaprojektujesz razem z nami.',
+    eyebrow: 'Szklane panele',
+    heading: 'Jak wygląda szklany panel Ampio i co na nim ustawisz',
     lead: 'W Kreatorze Paneli Ampio wybieramy kolor szkła, liczbę pól, ikony i podpisy. Panele mają od 2 do 18 pól dotykowych, w formacie kwadratowym albo prostokątnym, a wybrane modele mają czytnik kart RFID.',
     glassLabel: 'Kolor szkła',
     sizeLabel: 'Liczba pól',
@@ -423,8 +421,8 @@ export const smartHome = {
   integrations: {
     head: {
       eyebrow: 'Integracje',
-      heading: 'Pompa ciepła, rekuperacja, alarm i kamery w jednej aplikacji Ampio.',
-      lead: 'Ampio rozmawia w kilkunastu standardach komunikacji, od KNX i DALI po Modbus, MQTT i Matter. Przez Matter łączy się z asystentami Apple, Google i Amazon Alexa.',
+      heading: 'Z jakimi urządzeniami łączy się Ampio',
+      lead: 'Ampio obsługuje kilkanaście standardów komunikacji, od KNX i DALI po Modbus, MQTT i Matter. Dzięki temu łączy się z pompą ciepła, rekuperacją, alarmem i kamerami, a przez Matter także z asystentami Apple, Google i Amazon Alexa.',
     } satisfies SectionHead,
     groups: [
       {
@@ -467,10 +465,9 @@ export const smartHome = {
   /** „Pensjonaty, apartamenty, hotele” (`#obiekty`): the floor of rooms, the app, segments. */
   objects: {
     head: {
-      eyebrow: 'Pensjonaty, apartamenty, hotele',
-      heading: 'Pusty pokój grzeje mniej i nie świeci.',
-      accent: 'A wszystkie obiekty masz w jednym telefonie.',
-      lead: 'Kliknij pokój, żeby zmienić jego stan. Tak działa logika, którą ustawiamy w obiektach noclegowych: gość w pokoju ma komfort, pusty pokój oszczędza, a obsługa wie, co się dzieje.',
+      eyebrow: 'Dla pensjonatów',
+      heading: 'Smart home w pensjonacie i apartamentach na wynajem',
+      lead: 'Pusty pokój grzeje mniej i nie świeci, a wszystkie obiekty masz w jednym telefonie. Kliknij pokój na planie, żeby zobaczyć, jak zmienia się ogrzewanie i światło.',
     } satisfies SectionHead,
     floor: 'Pensjonat · piętro 1',
     roomPrefix: 'Pokój',
@@ -595,8 +592,8 @@ export const smartHome = {
   modules: {
     head: {
       eyebrow: 'Dla dociekliwych',
-      heading: 'Z czego składa się instalacja Ampio.',
-      lead: 'Moduły na szynę DIN w rozdzielnicy albo do puszki, połączone jedną magistralą. Dobieramy je w projekcie do liczby obwodów, rolet i pomieszczeń.',
+      heading: 'Z czego składa się instalacja Ampio',
+      lead: 'Moduły montujemy w rozdzielnicy (na szynie DIN) albo w puszce i łączymy jednym przewodem magistrali. Dobieramy je w projekcie do liczby obwodów, rolet i pomieszczeń.',
     } satisfies SectionHead,
     items: [
       {
@@ -655,8 +652,8 @@ export const smartHome = {
   stages: {
     head: {
       eyebrow: 'Kiedy zacząć',
-      heading: 'Najlepiej, zanim elektryk położy pierwszy przewód.',
-      lead: 'Smart home planujemy razem z instalacją elektryczną. Wtedy jest najtaniej i najwięcej da się zrobić. W gotowym domu też się da, choć zwykle trzeba dołożyć przewody.',
+      heading: 'Kiedy zaplanować smart home w nowym i gotowym domu',
+      lead: 'Najlepiej, zanim elektryk położy pierwszy przewód: wtedy jest najtaniej i najwięcej da się zrobić. W gotowym domu też się da, choć zwykle trzeba dołożyć przewody.',
     } satisfies SectionHead,
     steps: [
       {
@@ -703,7 +700,7 @@ export const smartHome = {
       },
     ],
     checklist: {
-      eyebrow: 'Budujesz? Lista przed tynkami',
+      eyebrow: 'Lista przed tynkami',
       heading: 'Odhacz, co już masz zaplanowane',
       initial: [0, 1],
       done: 'Komplet. Jesteś gotowy na smart home.',

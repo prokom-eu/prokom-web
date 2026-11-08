@@ -38,9 +38,7 @@ export function SmartSections({ planHref }: { planHref: string }) {
         <div className="wrap split" style={{ alignItems: 'center' }}>
           <div className="ri" style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
             <span className="eye">{why.eyebrow}</span>
-            <h2 className="h2">
-              {why.heading} <span className="acc">{why.accent}</span>
-            </h2>
+            <h2 className="h2">{why.heading}</h2>
             <p className="lead">{why.lead}</p>
             <ul className="list">
               {why.list.map((w) => (
