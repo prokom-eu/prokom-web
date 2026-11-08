@@ -103,7 +103,8 @@ test.describe('Software seed', () => {
   test('/dziekujemy shows the start texts of the seed', async ({ page }) => {
     const response = await page.goto(site('software.localhost', '/dziekujemy'))
     expect(response?.status()).toBe(200)
-    await expect(page.locator('h1')).toHaveText('Dziękujemy, mamy to.')
+    // v24 (AU-dziekujemy): „Dziękujemy.” and the accent with the fact [CZAS ODPOWIEDZI] filled.
+    await expect(page.locator('h1')).toHaveText(/^Dziękujemy\. Odezwiemy się w ciągu [^[\]]+\.$/)
   })
 
   test('imports the 12 industries and the post draft', async ({ page }) => {
