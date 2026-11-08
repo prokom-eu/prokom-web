@@ -25,7 +25,7 @@ import {
   type RailSection,
 } from '@/lib/shared/rail'
 import { glideTo } from '@/lib/shared/smoothScroll'
-import { activeSection } from '@/lib/site/railActive'
+import { activeSection, railLineEnd, railProgress } from '@/lib/site/railActive'
 import { requestSearch } from '@/lib/site/searchOpen'
 
 export type RailAction = {
@@ -100,7 +100,8 @@ function focusSection(section: HTMLElement) {
  * Side rail of every line from 1400 px (spec §5.1, board 07 „Szyna”): „Szukaj” on top (pulses
  * once per visit, opens the line's search), the home page sections with a gliding marker of the
  * current one (`railActive`), on subpages „Na tej stronie” from 3 marked sections and the home page
- * folded into one row, the line's action with a live count, „Do góry” and a progress line. Folded
+ * folded into one row, the line's action with a live count and „Do góry”; a progress line along
+ * the tracked list ends at the section being read. Folded
  * to 64 px; opens to 248 px on hover or keyboard focus (`clip-path`, 120 / 250 ms), Esc folds it.
  */
 export function SiteRail({ sections, onHome, action }: SiteRailProps) {
@@ -166,23 +167,39 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
       ? trackedKey.split(' ').flatMap((id) => document.getElementById(id) ?? [])
       : []
     let frame = 0
+    // The progress line runs from the centre of the first entry to the centre of the last one and
+    // ends at the section being read (AUDYT-0811 #8): measured from the list on every frame.
+    const drawLine = (position: number) => {
+      const line = progress.current
+      const box = list.current
+      if (!line || !box) return
+      const centers = Array.from(
+        box.querySelectorAll<HTMLElement>('a.srail__item'),
+        (link) => link.offsetTop + link.offsetHeight / 2,
+      )
+      const top = centers[0] ?? 0
+      const length = (centers[centers.length - 1] ?? top) - top
+      const share = railLineEnd(position, centers)
+      line.style.setProperty('--rail-line-top', `${top}px`)
+      line.style.setProperty('--rail-line-h', `${length}px`)
+      line.style.setProperty('--rail-progress', String(share))
+      line.style.setProperty('--rail-dot', `${share * length}px`)
+    }
     const update = () => {
       frame = 0
       const root = document.scrollingElement ?? document.documentElement
-      const max = Math.max(1, root.scrollHeight - window.innerHeight)
-      const atBottom = window.scrollY >= max - 2
+      const atBottom = window.scrollY >= root.scrollHeight - window.innerHeight - 2
       if (elements.length) {
-        const id = activeSection(
-          elements.map((element) => ({ id: element.id, top: element.getBoundingClientRect().top })),
-          window.innerHeight,
-          atBottom,
+        const tops = elements.map((element) => element.getBoundingClientRect().top)
+        setActive(
+          activeSection(
+            elements.map((element, i) => ({ id: element.id, top: tops[i]! })),
+            window.innerHeight,
+            atBottom,
+          ),
         )
-        setActive(id)
+        drawLine(railProgress(tops, window.innerHeight, atBottom))
       }
-      progress.current?.style.setProperty(
-        '--rail-progress',
-        String(Math.min(1, window.scrollY / max)),
-      )
       setShowUp(window.scrollY > window.innerHeight)
     }
     const schedule = () => {
@@ -333,6 +350,10 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
                   style={{ transform: `translateY(${markerTop}px)` } as CSSProperties}
                 />
               )}
+              <span ref={progress} className="srail__progress" aria-hidden="true">
+                <span />
+                <i />
+              </span>
               {pageSections.map((section) =>
                 sectionLink(section.id, section.label, section.icon, `#${section.id}`, true),
               )}
@@ -379,6 +400,12 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
                 className="srail__marker"
                 style={{ transform: `translateY(${markerTop}px)` } as CSSProperties}
               />
+            )}
+            {onHome && (
+              <span ref={progress} className="srail__progress" aria-hidden="true">
+                <span />
+                <i />
+              </span>
             )}
             {homeLinks}
           </div>
@@ -427,9 +454,6 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
           </span>
           <span className="srail__label">Do góry</span>
         </button>
-        <span ref={progress} className="srail__progress" aria-hidden="true">
-          <span />
-        </span>
       </nav>
     </div>
   )

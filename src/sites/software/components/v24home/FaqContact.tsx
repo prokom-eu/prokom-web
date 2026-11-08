@@ -40,7 +40,7 @@ export async function FaqContact({ faq: faqBlock, contact: contactBlock, tenantI
               {faq.heading}
             </h2>
             {faq.lead && <p className="v-lead">{faq.lead}</p>}
-            <ul className="v-qs">
+            <ul className="v-qs" data-rise-group>
               {faq.items.map((item, index) => (
                 <li key={index}>
                   <details className="v-q" open={index === 0}>
@@ -58,7 +58,7 @@ export async function FaqContact({ faq: faqBlock, contact: contactBlock, tenantI
           </div>
         )}
         {contact && (
-          <div id="kontakt" className="sw-glass v-contact">
+          <div id="kontakt" className="sw-glass v-contact" data-rise>
             <p className="sw-eyebrow">{contact.eyebrow}</p>
             <h2 id="kontakt-h" className="sw-h2 v-contact-h">
               {contact.title}

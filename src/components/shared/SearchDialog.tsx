@@ -198,8 +198,10 @@ export function SearchDialog({
           <Icon name={railIcon(action.icon)} strokeWidth={2} className="size-4" />
         </span>
         <span>{compact ? action.short : action.label}</span>
-        {/* The chip shows the short word; its name starts with it, so voice control finds it. */}
-        {compact && <span className="sr-only"> — {action.label}</span>}
+        {/* The chip shows the word; its name starts with it, so voice control finds it. */}
+        {compact && action.label !== action.short && (
+          <span className="sr-only"> — {action.label}</span>
+        )}
       </>
     )
     const className = compact ? 'sdlg__chip' : 'sdlg__result'

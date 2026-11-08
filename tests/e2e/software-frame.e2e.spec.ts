@@ -430,6 +430,8 @@ test.describe('Software frame accessibility', () => {
 
   for (const colorScheme of ['light', 'dark'] as const) {
     test(`no axe violations with the open panels (${colorScheme})`, async ({ page }) => {
+      // axe reads the settled colours: no window fading in, no section half way through its entry.
+      await page.emulateMedia({ reducedMotion: 'reduce' })
       await setTheme(page, colorScheme)
       await page.goto(site(HOST, SUBPAGE))
       await setProject(page, TWO)

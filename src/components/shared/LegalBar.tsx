@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Fragment } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import type { SharedCompany } from '@/lib/shared/project'
@@ -9,6 +10,8 @@ export type LegalBarProps = {
   legalNote?: string | null
   /** Year of the copyright — passed in, so the server and tests agree. */
   year: number
+  /** The line's own legal pages, after „Polityka prywatności” (Software: Regulamin, AUDYT-0811 #7). */
+  extraLinks?: readonly { label: string; href: string }[]
   className?: string
 }
 
@@ -28,7 +31,7 @@ const linkClass =
  * address and NIP from `CompanyData`, the line's note, the four legal pages from `CompanyData.legal`
  * and „Do góry”. Identical on every domain apart from the line's note.
  */
-export function LegalBar({ company, legalNote, year, className }: LegalBarProps) {
+export function LegalBar({ company, legalNote, year, extraLinks = [], className }: LegalBarProps) {
   const { address } = company
   const where = address ? ` · ${address.street}, ${address.postalCode} ${address.city}` : ''
   return (
@@ -51,9 +54,17 @@ export function LegalBar({ company, legalNote, year, className }: LegalBarProps)
         className="flex flex-wrap items-center gap-x-[18px] gap-y-1 text-line-dark-ink"
       >
         {LINKS.map(([key, label]) => (
-          <Link key={key} href={company.legal[key]} className={linkClass}>
-            {label}
-          </Link>
+          <Fragment key={key}>
+            <Link href={company.legal[key]} className={linkClass}>
+              {label}
+            </Link>
+            {key === 'privacy' &&
+              extraLinks.map((link) => (
+                <Link key={link.href} href={link.href} className={linkClass}>
+                  {link.label}
+                </Link>
+              ))}
+          </Fragment>
         ))}
         <a
           href="#"

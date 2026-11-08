@@ -19,7 +19,7 @@ type Props = {
  */
 export function LevelCards({ plans, button, note }: Props) {
   return (
-    <ul className="grid gap-4 min-[1081px]:grid-cols-3">
+    <ul className="grid gap-4 min-[1081px]:grid-cols-3" data-rise-group>
       {plans.map((plan) => {
         const link = button(plan)
         return (

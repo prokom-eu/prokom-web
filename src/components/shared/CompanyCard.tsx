@@ -23,6 +23,8 @@ type Props = {
    * `Partners`, plan 0611 §8.2). Given, they replace the badges.
    */
   authLogos?: readonly AuthLogo[] | null
+  /** The line's top row of the card (Software: „Wizytówka firmy” and the logo, AUDYT-0811 #13). */
+  heading?: ReactNode
   className?: string
 }
 
@@ -45,6 +47,7 @@ export function CompanyCard({
   authTitle,
   auth,
   authLogos,
+  heading,
   className,
 }: Props) {
   const logos = authLogos?.length ? authLogos : null
@@ -94,6 +97,7 @@ export function CompanyCard({
       )}
       data-company-card
     >
+      {heading}
       <dl className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-2.5 text-sm">
         {rows.map(([label, value]) => (
           <div key={label} className="contents">

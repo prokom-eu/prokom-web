@@ -25,7 +25,7 @@ describe('paletteActions', () => {
       'contact',
       'theme',
     ])
-    expect(full[0]).toMatchObject({ href: 'tel:+48889003889', short: 'tel' })
+    expect(full[0]).toMatchObject({ href: 'tel:+48889003889', short: 'Zadzwoń' })
     expect(full.find((a) => a.kind === 'mail')?.href).toBe('mailto:kontakt@prokombiznes.test')
     expect(full.find((a) => a.kind === 'copy')?.value).toBe('889 003 889')
   })

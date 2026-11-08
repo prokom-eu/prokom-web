@@ -107,6 +107,8 @@ test.describe('/_wspolne/kontakt and /_wspolne/o-firmie — page templates', () 
     (['light', 'dark'] as const).map((t) => [h, t] as const),
   )) {
     test(`axe on both templates (${host}, ${theme})`, async ({ page }) => {
+      // Settled colours: Software's sections fade in on scroll (SWA7), axe would read them faded.
+      await page.emulateMedia({ reducedMotion: 'reduce' })
       await setTheme(page, theme)
       for (const path of ['/_wspolne/kontakt', '/_wspolne/o-firmie']) {
         await page.goto(site(host, path))

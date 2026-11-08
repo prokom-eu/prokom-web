@@ -65,7 +65,7 @@ export async function NotFoundSoftware({ tenantId }: { tenantId: number }) {
           <span>{texts.search}</span>
           <kbd aria-hidden="true">Ctrl K</kbd>
         </SearchTrigger>
-        <ul className="sw-404-tiles">
+        <ul className="sw-404-tiles" data-rise-group>
           {tiles.map((tile) => (
             <li key={`${tile.href}-${tile.title}`}>
               <Glass as="div" className="sw-404-tile">

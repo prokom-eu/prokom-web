@@ -671,6 +671,8 @@
   --line-dark-text: #9fb0b4;
   /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
   --cap-bg: rgba(255, 255, 255, 0.74);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: rgba(255, 255, 255, 0.92);
   --cap-border: rgba(18, 22, 19, 0.09);
   --cap-highlight: rgba(255, 255, 255, 0.9);
   --cap-shadow: rgba(18, 22, 19, 0.26);
@@ -1390,6 +1392,8 @@
   --inst-il-kmap2-kz2-fill: var(--c-instalacje-night-il-kmap2-kz2-fill);
   /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
   --cap-bg: rgba(14, 32, 36, 0.68);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: rgba(14, 32, 36, 0.9);
   --cap-border: rgba(255, 255, 255, 0.09);
   --cap-highlight: rgba(255, 255, 255, 0.06);
   --cap-shadow: rgba(0, 0, 0, 0.6);
@@ -1622,6 +1626,8 @@
     --inst-il-kmap2-kz2-fill: var(--c-instalacje-night-il-kmap2-kz2-fill);
     /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
     --cap-bg: rgba(14, 32, 36, 0.68);
+    /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+    --cap-bg-solid: rgba(14, 32, 36, 0.9);
     --cap-border: rgba(255, 255, 255, 0.09);
     --cap-highlight: rgba(255, 255, 255, 0.06);
     --cap-shadow: rgba(0, 0, 0, 0.6);

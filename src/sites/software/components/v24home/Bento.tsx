@@ -12,6 +12,7 @@ import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
 import { usePausedOffscreen } from './usePausedOffscreen'
 import { offerHref, type PriceLine } from '@/lib/software/priceCards'
+import { SlidingMark } from '../ui/SlidingMark'
 
 type Bento = NonNullable<SoftwareHome['bento']>
 type Props = { bento: Bento; prices: Record<string, PriceLine> }
@@ -46,6 +47,7 @@ function Variants({
           {item.label}
         </Chip>
       ))}
+      <SlidingMark selector="[aria-pressed='true']" />
     </div>
   )
 }
@@ -94,7 +96,7 @@ export function BentoSection({ bento, prices }: Props) {
           <SectionHead eyebrow={bento.eyebrow} title={bento.title} em={bento.em} />
           {bento.lead && <p className="v-lead">{bento.lead}</p>}
         </div>
-        <div className="v-bento">
+        <div className="v-bento" data-rise-group>
           <article className="sw-glass v-b1">
             <div className="v-scr v-b1-scr" aria-hidden="true">
               <div key={siteVariant.variant} className="v-swap">

@@ -314,21 +314,27 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
     height 220ms var(--cap-ease),
     border-radius 220ms var(--cap-ease),
     padding 220ms var(--cap-ease),
-    box-shadow 220ms var(--cap-ease);
+    box-shadow 220ms var(--cap-ease),
+    background-color 300ms var(--cap-ease),
+    border-color 300ms var(--cap-ease);
 }
 @supports not (backdrop-filter: blur(1px)) {
   .cap {
     background: color-mix(in srgb, var(--surface) 96%, transparent);
   }
 }
+/* Scrolled: the glass turns nearly opaque, so text under the menu does not read through. */
 [data-scrolled] > .cap {
   height: 60px;
   border-radius: 18px;
   padding-left: 20px;
+  border-bottom-color: var(--border);
+  background-color: var(--cap-bg-solid, var(--cap-bg));
   box-shadow:
     inset 0 1px 0 var(--cap-highlight),
     0 1px 2px var(--cap-shadow-near),
-    0 26px 50px -26px var(--cap-shadow);
+    0 18px 40px -24px var(--cap-shadow);
+  backdrop-filter: blur(24px) saturate(1.8);
 }
 .cap__logo {
   --logo-h: 36px;
@@ -762,20 +768,22 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   opacity: 1;
   transform: none;
 }
-.srail__list > :nth-child(2) .srail__label {
-  transition-delay: 20ms;
-}
-.srail__list > :nth-child(3) .srail__label {
+/* Labels open one after another, 40 ms apart (AUDYT-0811 P2 A13); counted among the entries
+   only — the marker and the progress line sit in the same list. */
+.srail__list > :nth-child(2 of .srail__item) .srail__label {
   transition-delay: 40ms;
 }
-.srail__list > :nth-child(4) .srail__label {
-  transition-delay: 60ms;
-}
-.srail__list > :nth-child(5) .srail__label {
+.srail__list > :nth-child(3 of .srail__item) .srail__label {
   transition-delay: 80ms;
 }
-.srail__list > :nth-child(n + 6) .srail__label {
-  transition-delay: 100ms;
+.srail__list > :nth-child(4 of .srail__item) .srail__label {
+  transition-delay: 120ms;
+}
+.srail__list > :nth-child(5 of .srail__item) .srail__label {
+  transition-delay: 160ms;
+}
+.srail__list > :nth-child(n + 6 of .srail__item) .srail__label {
+  transition-delay: 200ms;
 }
 .srail__kbd {
   margin-left: auto;
@@ -875,44 +883,48 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   pointer-events: auto;
 }
 .srail__progress {
+  /* Along the tracked list only, from the first entry's centre to the last one's (AUDYT-0811
+     #8); the filled part ends at the section being read, with a glowing dot on its end. */
   position: absolute;
-  top: 74px;
-  bottom: 16px;
-  left: 3px;
+  top: var(--rail-line-top, 22px);
+  left: 0;
+  z-index: 1;
   width: 2px;
-  overflow: hidden;
+  height: var(--rail-line-h, 0px);
   border-radius: 2px;
   background: var(--border);
+  pointer-events: none;
 }
 .srail__progress > span {
   display: block;
   height: 100%;
+  border-radius: inherit;
   background: var(--accent);
   transform: scaleY(var(--rail-progress, 0));
   transform-origin: top;
+  transition: transform 250ms var(--ease-out);
 }
-/* Where the browser can, the line follows the page scroll on its own (the variable stays as the
-   fallback set once per frame). */
-@supports (animation-timeline: scroll()) {
-  .srail__progress > span {
-    animation: srail-progress linear both;
-    animation-timeline: scroll(root);
-  }
-}
-@keyframes srail-progress {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
-  }
+.srail__progress > i {
+  position: absolute;
+  top: -4px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent),
+    0 0 12px var(--accent);
+  transform: translateY(var(--rail-dot, 0px));
+  transition: transform 250ms var(--ease-out);
 }
 @media (prefers-reduced-motion: reduce) {
   .srail,
   .srail__label,
   .srail__icon,
   .srail__marker,
-  .srail__up {
+  .srail__up,
+  .srail__progress > * {
     transition: none;
   }
   .srail__search[data-pulse]::after,
@@ -933,14 +945,20 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   margin: 10vh auto auto;
   padding: 0;
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 1px solid var(--sdlg-ring);
   border-radius: 22px;
-  background: var(--card);
+  background: var(--sdlg-bg);
   color: var(--ink);
-  box-shadow: 0 30px 70px -30px var(--cap-shadow);
+  box-shadow:
+    inset 0 1px 0 var(--cap-highlight),
+    0 40px 120px -40px var(--sdlg-glow),
+    0 30px 70px -30px var(--cap-shadow);
+  backdrop-filter: blur(24px) saturate(1.6);
 }
+/* The page behind dims and blurs, so the window does not melt into it (AUDYT-0811 #4). */
 .sdlg::backdrop {
-  background: color-mix(in srgb, var(--surface-dark) 60%, transparent);
+  background: var(--sdlg-backdrop);
+  backdrop-filter: blur(10px);
 }
 @media (max-width: 767px) {
   .sdlg {
@@ -980,6 +998,10 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   font-size: 17px;
   outline: none;
 }
+/* The line's global focus ring would draw a second frame inside the field. */
+.sdlg__field input:focus-visible {
+  outline: none;
+}
 .sdlg__field input::-webkit-search-cancel-button {
   display: none;
 }
@@ -1001,6 +1023,74 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   min-height: 0;
   padding: 16px 12px 20px;
   overflow-y: auto;
+}
+/* Entry (AUDYT-0811 #4): up 12 px from a slightly smaller size on a spring, the chips follow
+   20 ms apart; closing is quicker. Transitions on `[open]`, so the close animates too. */
+@media (prefers-reduced-motion: no-preference) {
+  .sdlg,
+  .sdlg::backdrop {
+    transition:
+      opacity 200ms var(--ease-out),
+      translate 200ms var(--ease-out),
+      scale 200ms var(--ease-out),
+      display 200ms allow-discrete,
+      overlay 200ms allow-discrete;
+  }
+  .sdlg[open] {
+    transition-duration: 350ms;
+    transition-timing-function: var(--ease-out), var(--ease-spring), var(--ease-spring);
+  }
+  .sdlg:not([open]) {
+    opacity: 0;
+    translate: 0 12px;
+  }
+  .sdlg:not([open])::backdrop {
+    opacity: 0;
+  }
+  @starting-style {
+    .sdlg[open] {
+      opacity: 0;
+      translate: 0 12px;
+    }
+    .sdlg[open]::backdrop {
+      opacity: 0;
+    }
+  }
+  /* A touch smaller at first — not on a phone, where the window fills the screen. */
+  @media (min-width: 768px) {
+    .sdlg:not([open]) {
+      scale: 0.98;
+    }
+    @starting-style {
+      .sdlg[open] {
+        scale: 0.98;
+      }
+    }
+  }
+  .sdlg[open] .sdlg__chips > * {
+    animation: sdlg-item 300ms var(--ease-out) both;
+  }
+  .sdlg[open] .sdlg__chips > *:nth-child(2) {
+    animation-delay: 20ms;
+  }
+  .sdlg[open] .sdlg__chips > *:nth-child(3) {
+    animation-delay: 40ms;
+  }
+  .sdlg[open] .sdlg__chips > *:nth-child(4) {
+    animation-delay: 60ms;
+  }
+  .sdlg[open] .sdlg__chips > *:nth-child(5) {
+    animation-delay: 80ms;
+  }
+  .sdlg[open] .sdlg__chips > *:nth-child(n + 6) {
+    animation-delay: 100ms;
+  }
+}
+@keyframes sdlg-item {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
 }
 /* Wider with a preview — not on a phone, where the window fills the screen. */
 @media (min-width: 768px) {
@@ -1033,7 +1123,8 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   }
 }
 .sdlg__result[data-active] {
-  background: var(--surface-2);
+  background: var(--accent-soft);
+  box-shadow: inset 3px 0 0 var(--accent-text);
 }
 .sdlg__group ul {
   display: flex;
@@ -1094,22 +1185,23 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 40px;
-  padding: 0 12px 0 8px;
+  min-height: 44px;
+  padding: 0 14px 0 8px;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--surface-2);
   color: var(--ink);
   font: inherit;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
 }
+/* Action chips: the icon in an accent square and a word („Zadzwoń”, „Trasa”…). */
 .sdlg__chip .sdlg__icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 7px;
-  background: var(--card);
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--accent-soft);
 }
 .sdlg__chip:hover,
 .sdlg__chip:focus-visible {

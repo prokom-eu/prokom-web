@@ -88,7 +88,12 @@ const railFields: Field[] = [
 ]
 
 const contactFields: Field[] = [
-  text('h1', 'Nagłówek H1'),
+  {
+    ...text('h1', 'Nagłówek H1'),
+    admin: {
+      description: 'Wyróżniony fragment w **gwiazdkach** — w nagłówku pokaże się w kolorze linii.',
+    },
+  },
   textarea('lead', 'Wstęp'),
   {
     type: 'row',
@@ -176,7 +181,12 @@ const contactFields: Field[] = [
 ]
 
 const aboutFields: Field[] = [
-  text('h1', 'Nagłówek H1'),
+  {
+    ...text('h1', 'Nagłówek H1'),
+    admin: {
+      description: 'Wyróżniony fragment w **gwiazdkach** — w nagłówku pokaże się w kolorze linii.',
+    },
+  },
   textarea('lead', 'Wstęp'),
   text('authTitle', 'Tytuł autoryzacji'),
   { name: 'auth', label: 'Autoryzacje (plakietki)', type: 'text', hasMany: true },

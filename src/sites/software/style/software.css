@@ -118,6 +118,18 @@
   .sw-em-hero {
     background-image: linear-gradient(180deg, var(--em-hero-from), var(--em-hero-to));
   }
+
+  /* The highlighted part of the shared templates' H1 (`**…**` in the panel, AUDYT-0811 #11): on
+     the dark band in both themes. */
+  [data-heading-em] {
+    color: transparent;
+    background-image: linear-gradient(180deg, var(--em-band-from), var(--em-band-to));
+    background-clip: text;
+    -webkit-background-clip: text;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding-bottom: 0.06em;
+  }
 }
 
 /* v24 primitives (`components/ui`): glass card, chip, segment (ZMIANY-v24 §1). */
@@ -164,6 +176,50 @@
     border-color: var(--accent-line);
     background: var(--accent-soft);
     color: var(--accent-text);
+  }
+
+  /* The sliding pill (`SlidingMark`, AUDYT-0811 P2 A5–A6): the rows it lives in are its frame;
+     once it has measured, the active item leaves its own background to the pill. */
+  .v-chips,
+  .v-tabs {
+    position: relative;
+    isolation: isolate;
+  }
+  .sw-mark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1px var(--accent-line);
+    opacity: 0;
+    pointer-events: none;
+  }
+  [data-has-mark] > .sw-mark {
+    opacity: 1;
+  }
+  .sw-mark[data-ready] {
+    transition:
+      transform 350ms var(--ease-spring),
+      width 350ms var(--ease-out),
+      height 350ms var(--ease-out);
+  }
+  [data-has-mark] > .sw-chip[aria-pressed='true'] {
+    background: transparent;
+  }
+  .v-tabs > .sw-mark {
+    border-radius: 10px;
+    background: var(--ink);
+    box-shadow: none;
+  }
+  .v-tabs[data-has-mark] > button[aria-selected='true'] {
+    background: transparent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sw-mark[data-ready] {
+      transition: none;
+    }
   }
 
   .sw-segment {

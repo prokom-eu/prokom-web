@@ -10,6 +10,7 @@ import { VerifyCards } from '@/components/shared/VerifyCards'
 import type { SharedData } from '@/lib/shared/getSharedData'
 import { aboutStats } from '@/lib/shared/pages'
 import type { Line } from '@/lib/tenant/lines'
+import { HeadingText } from '@/components/shared/HeadingText'
 
 type Props = { shared: SharedData; line: Line; siteEnv: string }
 
@@ -83,7 +84,7 @@ export function ModulesPreview({ shared, line, siteEnv }: Props) {
               id="wspolne-o-firmie-h"
               className="font-display text-[clamp(32px,3.8vw,48px)] leading-none font-extrabold text-line-dark-ink"
             >
-              {about?.h1 || 'O firmie'}
+              <HeadingText text={about?.h1 || 'O firmie'} />
             </h2>
             {about?.lead && <p className="max-w-[52ch]">{about.lead}</p>}
           </div>

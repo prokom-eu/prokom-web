@@ -60,16 +60,13 @@ export const SOFTWARE_SHARED: SharedGroup = {
         { label: 'Aktualności', href: '/aktualnosci' },
         { label: 'Darmowy audyt', href: '/audyt' },
         { label: 'Kreator 60 s', href: '/dobierz' },
-        // The shared legal bar has four fixed links on every line; the terms are Software's own
-        // (SWA6a, decyzja Krystiana 08.11).
-        { label: 'Regulamin', href: '/regulamin' },
       ],
     },
   ],
   legalNote: 'Statystyki bez ciasteczek śledzących',
   contact: {
     // v24 (TRESCI-v24 „Kontakt”, ZMIANY-v24 §9.3).
-    h1: 'Porozmawiajmy o Twoim projekcie.',
+    h1: 'Porozmawiajmy o **Twoim projekcie.**',
     lead: 'Nie potrzebujesz specyfikacji ani znajomości technologii. Opowiedz po swojemu — odezwie się osoba, która potem pisze Twój projekt.',
     writeCta: 'Opisz projekt ↓',
     placeKind: 'salon',
@@ -149,7 +146,7 @@ export const SOFTWARE_SHARED: SharedGroup = {
   },
   about: {
     // v24 (TRESCI-v24 „O firmie”, ZMIANY-v24 §9.2).
-    h1: 'Nie agencja z open space’u. Firma z Rabki, od 2004 r.',
+    h1: 'Nie agencja z open space’u. **Firma z Rabki, od 2004 r.**',
     lead: 'PRO-KOM Software to linia firmy PRO-KOM Tadeusz Wójciak. Piszemy strony, systemy i automatyzacje od podstaw — z umową, fakturą VAT i adresem, pod który możesz przyjść.',
     authTitle: 'Na czym budujemy',
     auth: ['Next.js', 'Django', 'Serwer w Polsce'],

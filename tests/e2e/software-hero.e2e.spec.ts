@@ -52,19 +52,39 @@ test.describe('Software hero v24', () => {
     await expect(word(page)).toHaveText('stronę wizytówkę.')
   })
 
-  test('the clock changes the slide every 4.2 s, not while pointed at', async ({ page }) => {
+  test('the clock changes the slide every 4.2 s, also while pointed at', async ({ page }) => {
+    // AUDYT-0811 #1: pointing at the hero used to stop it all — it looked frozen.
     await page.clock.install()
     await page.goto(site(HOST))
     await expect(word(page)).toHaveText('stronę wizytówkę.')
     // The clock starts with hydration: moving time before it would change nothing.
     await hydrated(tabs(page).first())
-    // Off the hero (over the header): the clock runs.
-    await page.mouse.move(700, 30)
-    await page.clock.fastForward(4300)
+    await hero(page).locator('.hx-flow').hover()
+    await page.clock.fastForward(6000)
     await expect(word(page)).toHaveText('stronę firmową.')
-    await hero(page).locator('.hx-cmd').hover()
-    await page.clock.fastForward(9000)
+    await expect(hero(page)).not.toHaveAttribute('data-paused')
+  })
+
+  test('an arrow shows the next slide and the clock rests 12 s (≥ 1080 px)', async ({ page }) => {
+    // AUDYT-0811 #2.
+    await page.clock.install()
+    await page.goto(site(HOST))
+    await hydrated(tabs(page).first())
+    await hero(page).getByRole('button', { name: 'Następny slajd' }).click()
     await expect(word(page)).toHaveText('stronę firmową.')
+    await expect(tabs(page).nth(1)).toHaveAttribute('aria-selected', 'true')
+    await page.clock.fastForward(11000)
+    await expect(word(page)).toHaveText('stronę firmową.')
+    await page.clock.fastForward(1000 + 4300)
+    await expect(word(page)).toHaveText('rozbudowaną stronę.')
+    await hero(page).getByRole('button', { name: 'Poprzedni slajd' }).click()
+    await expect(word(page)).toHaveText('stronę firmową.')
+  })
+
+  test('no arrows below 1080 px — the carousel follows the finger there', async ({ page }) => {
+    await page.setViewportSize({ width: 1000, height: 800 })
+    await page.goto(site(HOST))
+    await expect(hero(page).getByRole('button', { name: 'Następny slajd' })).toBeHidden()
   })
 
   test('after a click the clock comes back 12 s later', async ({ page }) => {
@@ -73,7 +93,7 @@ test.describe('Software hero v24', () => {
     await hydrated(tabs(page).nth(2))
     await tabs(page).nth(2).click()
     await expect(word(page)).toHaveText('rozbudowaną stronę.')
-    // Leave the hero: only pointing and keyboard focus keep it still.
+    // Leave the hero, so the click does not leave a keyboard focus behind.
     await page.mouse.move(700, 30)
     // In two steps: the 4.2 s timer is set only after React re-renders the end of the rest,
     // so one long jump could pass before that timer exists (flaky 08.11, #423).
@@ -87,6 +107,8 @@ test.describe('Software hero v24', () => {
     page,
   }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
+    // Full size of the window on a tall screen (shorter screens scale it down, AUDYT-0811 #0).
+    await page.setViewportSize({ width: 1920, height: 1080 })
     await page.goto(site(HOST))
     const box = await active(page).boundingBox()
     expect(Math.round(box?.width ?? 0)).toBe(760)
@@ -119,3 +141,20 @@ test.describe('Software hero v24', () => {
     })
   }
 })
+
+// AUDYT-0811 #0: the mock-up shows on the first screen — at least its top half on a laptop.
+for (const [width, height] of [
+  [1440, 900],
+  [1366, 768],
+  [390, 844],
+] as const) {
+  test(`the active mock-up shows on the first screen at ${width}×${height}`, async ({ page }) => {
+    await page.setViewportSize({ width, height })
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(site(HOST))
+    const box = await active(page).boundingBox()
+    expect(box).not.toBeNull()
+    expect(box!.y).toBeLessThan(height - 0.5 * box!.height)
+    if (width < 600) expect(box!.y + box!.height).toBeLessThanOrEqual(height)
+  })
+}
