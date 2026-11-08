@@ -156,7 +156,7 @@ test.describe('Biznes shell — phone', () => {
   })
 
   for (const path of ['/', '/opieka-it', '/oferta/kasy-fiskalne']) {
-    test(`the footer folds its columns and stays under 1400 px on ${path} (D15)`, async ({
+    test(`the footer folds its columns and stays under 1300 px on ${path} (D15)`, async ({
       page,
     }) => {
       await page.goto(biznes(path))
@@ -165,7 +165,7 @@ test.describe('Biznes shell — phone', () => {
         .evaluate((footer) => footer.getBoundingClientRect().height)
       // D15: ~2000 px with the K4 footer; the target ≤ ~900 px needs the shared footer to fold
       // its contact column and lines band on a phone (order for F, docs/STAN.md).
-      expect(height).toBeLessThan(1400)
+      expect(height).toBeLessThan(1300)
     })
   }
 })
