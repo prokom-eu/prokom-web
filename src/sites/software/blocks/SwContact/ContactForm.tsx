@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { type FormEvent, useEffect, useId, useRef, useState } from 'react'
 
 import { FieldError } from '@/components/ui/Field'
@@ -18,21 +18,10 @@ import {
   buildSoftwareContactBody,
   checkSoftwareContactRequired,
   type SoftwareContactField,
-  type SoftwareTalkWay,
-  talkWayFor,
 } from '@/lib/inquiry/contactForm'
 import { linkInText, readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import type { SoftwareTopic } from '@/lib/inquiry/types'
-import { PROJECT_SENT_KEY, sentRecord } from '@/lib/software/project'
-import { useProject, projectActions } from '@/lib/software/projectStore'
-import {
-  careLevelFromParam,
-  type ProjectSolution,
-  summarizeProject,
-} from '@/lib/software/projectSummary'
-
-import { ProjectBox } from '../SwContactPage/ProjectBox'
 
 export type ContactFormTexts = {
   topicsLabel: string
@@ -47,50 +36,6 @@ export type ContactFormTexts = {
   alternativeLink: { label: string; href: string } | null
 }
 
-/**
- * What `/kontakt` adds (spec. §6.10): „Twój projekt”, hints under the description, the way to
- * talk, the hint under the contact field. Absent on the start page.
- */
-export type ContactPageExtras = {
-  /** Published solutions of the site: prices of „Twój projekt”, `?poziom=` levels. */
-  solutions: ProjectSolution[]
-  projectMessageLabel: string
-  projectMessagePlaceholder: string | null
-  hintsLabel: string | null
-  /** `topic`: a topic value, `none` (no topic picked) or `all` (always shown last). */
-  hints: { topic: string; text: string }[]
-  contactHint: string | null
-  talkLabel: string
-  submitNote: string | null
-}
-
-/** „Jak wolisz rozmawiać?” (board `Kontakt`). */
-const TALK_WAYS: { value: SoftwareTalkWay; label: string }[] = [
-  { value: 'phone', label: 'Telefon' },
-  { value: 'email', label: 'E-mail' },
-  { value: 'meeting', label: 'Spotkanie w salonie' },
-  { value: 'online', label: 'Online' },
-]
-
-/** The hint under „Telefon albo e-mail”: what was recognised (board `Kontakt`). */
-function contactHintOf(value: string, empty: string | null): string | null {
-  const text = value.trim()
-  if (!text) return empty
-  if (text.includes('@')) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)
-      ? 'Odpiszemy na ten adres.'
-      : 'Sprawdź adres e-mail.'
-  }
-  return text.replace(/\D/g, '').length >= 9 ? 'Oddzwonimy na ten numer.' : 'Numer ma za mało cyfr.'
-}
-
-/** Appends a hint to the description as a new sentence. */
-function withHint(message: string, hint: string): string {
-  const text = message.trim()
-  if (!text) return hint
-  return `${text}${/[.!?]$/.test(text) ? ' ' : '. '}${hint}`
-}
-
 type Props = {
   texts: ContactFormTexts
   topics: { value: SoftwareTopic; label: string; icon: IconName }[]
@@ -98,7 +43,6 @@ type Props = {
   initialTopic: SoftwareTopic | null
   errors: Record<SoftwareContactField, string>
   formToken: string
-  page?: ContactPageExtras
   /**
    * `v24`: the look of „Napisz po swojemu” (ZMIANY-v24 §4 pkt 10) — topics as chips, no „Wolisz
    * kliknąć…” link (the wizard is a section above). Fields, errors and sending stay the same.
@@ -118,7 +62,7 @@ const inputClass =
  * Contact form of the Software line (spec. §7, §7.2; board `Main`, stan 77): topic, description,
  * name and firm, one field „E-mail albo telefon”, consent. Labels above the fields; errors under
  * them and in a box above the button, focus on the first wrong field. Sent → `/dziekujemy?nr=…`
- * (ADR-014 v20 12). Kept apart from the start page block, so `/kontakt` (SW11) can reuse it.
+ * (ADR-014 v20 12). `/kontakt` uses the shared form since SWA5b.
  */
 export function ContactForm({
   texts,
@@ -126,26 +70,12 @@ export function ContactForm({
   initialTopic,
   errors: messages,
   formToken,
-  page,
   look,
 }: Props) {
   const id = useId()
   const router = useRouter()
-  // The address is read on the server too: both blocks render per request (`connection()`).
-  const searchParams = useSearchParams()
-  const solutions = page?.solutions
-  // `?projekt=1` shows „Twój projekt” even when empty (spec. §6.10).
-  const projectAsked = Boolean(solutions) && searchParams.get('projekt') === '1'
-  // `?poziom=rozszerzona` from the price list: care, with the level in the description.
-  const askedLevel = solutions
-    ? careLevelFromParam(searchParams.get('poziom') ?? undefined, solutions)
-    : null
-  const [topic, setTopic] = useState<SoftwareTopic | null>(
-    initialTopic ?? (askedLevel ? 'opieka' : null),
-  )
-  const [message, setMessage] = useState(
-    askedLevel ? `Interesuje mnie opieka — poziom ${askedLevel}.` : '',
-  )
+  const [topic, setTopic] = useState<SoftwareTopic | null>(initialTopic)
+  const [message, setMessage] = useState('')
   const [name, setName] = useState('')
   const [contact, setContact] = useState('')
   const [consent, setConsent] = useState(false)
@@ -153,24 +83,7 @@ export function ContactForm({
   const [busy, setBusy] = useState(false)
   /** Sent: the button shows a tick for the moment before the thanks page (SWV7). */
   const [sent, setSent] = useState(false)
-  // `null` until the customer picks: then the contact field decides (`talkWayFor`).
-  const [pickedTalk, setPickedTalk] = useState<SoftwareTalkWay | null>(null)
-  const project = useProject()
-  const talk = talkWayFor(pickedTalk, contact)
-  const summary = solutions ? summarizeProject(project, solutions) : null
-  const hasItems = (summary?.slugs.length ?? 0) > 0
-  const showProject = summary !== null && (summary.rows.length > 0 || projectAsked)
-  // The topic follows the first item until the customer picks one (spec. §6.10).
-  const currentTopic = topic ?? summary?.topic ?? null
-
-  // The list renders only after hydration: the browser's own jump to `#formularz` came early.
-  useEffect(() => {
-    if (!projectAsked) return
-    const frame = requestAnimationFrame(() =>
-      document.getElementById('formularz')?.scrollIntoView({ block: 'start' }),
-    )
-    return () => cancelAnimationFrame(frame)
-  }, [projectAsked])
+  const currentTopic = topic
   const messageRef = useRef<HTMLTextAreaElement>(null)
   const nameRef = useRef<HTMLInputElement>(null)
   const contactRef = useRef<HTMLInputElement>(null)
@@ -181,8 +94,7 @@ export function ContactForm({
   useEffect(() => {
     if (focusBox > 0) boxRef.current?.focus()
   }, [focusBox])
-  const ready =
-    (message.trim() !== '' || hasItems) && name.trim() !== '' && contact.trim() !== '' && consent
+  const ready = message.trim() !== '' && name.trim() !== '' && contact.trim() !== '' && consent
 
   const fixing = (field: SoftwareContactField) => setErrors(({ [field]: _done, ...rest }) => rest)
 
@@ -208,8 +120,6 @@ export function ContactForm({
       contact,
       consent,
       website: String(data.get(HONEYPOT_FIELD) ?? ''),
-      items: summary?.slugs ?? [],
-      preferredContact: page ? talk : null,
     }
     const missing = checkSoftwareContactRequired(values)
     const local = Object.fromEntries(
@@ -239,25 +149,7 @@ export function ContactForm({
       outcome = readOutcome(0, null)
     }
     if (outcome.kind === 'sent') {
-      const sent = summary ? summary.rows.filter((row) => summary.slugs.includes(row.id)) : []
       track('kontakt_wyslij')
-      if (sent.length > 0) track('projekt_wyslij', { liczba: sent.length })
-      if (sent.length > 0) {
-        if (outcome.number) {
-          try {
-            sessionStorage.setItem(
-              PROJECT_SENT_KEY,
-              sentRecord(
-                outcome.number,
-                sent.map((row) => row.label),
-              ),
-            )
-          } catch {
-            // Private mode: the thanks page just shows no list.
-          }
-        }
-        projectActions.clear()
-      }
       const query = outcome.number ? `?nr=${encodeURIComponent(outcome.number)}` : ''
       setSent(true)
       router.push(`/dziekujemy${query}`)
@@ -286,7 +178,6 @@ export function ContactForm({
 
   return (
     <form noValidate onSubmit={submit} className="flex flex-col gap-[18px]">
-      {showProject && summary ? <ProjectBox summary={summary} /> : null}
       <fieldset>
         <legend className={labelClass}>{texts.topicsLabel}</legend>
         {look === 'v24' ? (
@@ -340,7 +231,7 @@ export function ContactForm({
 
       <div className="flex flex-col gap-1.5">
         <label htmlFor={`${id}-message`} className={labelClass}>
-          {page && hasItems ? page.projectMessageLabel : texts.messageLabel}
+          {texts.messageLabel}
         </label>
         <textarea
           id={`${id}-message`}
@@ -350,10 +241,7 @@ export function ContactForm({
             setMessage(event.target.value)
             fixing('message')
           }}
-          placeholder={
-            (page && hasItems ? page.projectMessagePlaceholder : texts.messagePlaceholder) ??
-            undefined
-          }
+          placeholder={texts.messagePlaceholder ?? undefined}
           maxLength={5000}
           rows={4}
           aria-invalid={errors.message ? true : undefined}
@@ -361,20 +249,6 @@ export function ContactForm({
           className={cx(inputClass, 'min-h-[110px] resize-y py-3')}
         />
         {errors.message && <FieldError id={`${id}-message-error`}>{errors.message}</FieldError>}
-        {page ? (
-          <Hints
-            label={page.hintsLabel}
-            hints={[
-              ...page.hints.filter((hint) => hint.topic === (currentTopic ?? 'none')),
-              ...page.hints.filter((hint) => hint.topic === 'all'),
-            ].map((hint) => hint.text)}
-            message={message}
-            onPick={(hint) => {
-              setMessage((current) => withHint(current, hint))
-              fixing('message')
-            }}
-          />
-        ) : null}
       </div>
 
       <div className="grid gap-[18px] min-[641px]:grid-cols-2 min-[641px]:gap-2.5">
@@ -418,47 +292,9 @@ export function ContactForm({
             aria-describedby={describe('contact')}
             className={cx(inputClass, 'h-[54px]')}
           />
-          {errors.contact ? (
-            <FieldError id={`${id}-contact-error`}>{errors.contact}</FieldError>
-          ) : page ? (
-            <p aria-live="polite" className="text-[13px] font-bold text-accent-text">
-              {contactHintOf(contact, page.contactHint)}
-            </p>
-          ) : null}
+          {errors.contact && <FieldError id={`${id}-contact-error`}>{errors.contact}</FieldError>}
         </div>
       </div>
-
-      {page ? (
-        <fieldset>
-          <legend className={labelClass}>{page.talkLabel}</legend>
-          <div className="mt-2.5 flex flex-wrap gap-2">
-            {TALK_WAYS.map((way) => (
-              <label
-                key={way.value}
-                className={cx(
-                  'inline-flex min-h-11 cursor-pointer items-center rounded-full border-[1.5px] px-4 text-[15px] font-bold has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-text active:scale-[0.98] motion-reduce:transition-none',
-                  talk === way.value
-                    ? 'border-button bg-button text-accent-ink'
-                    : 'border-border bg-card text-ink hover:border-accent-line',
-                )}
-              >
-                <input
-                  type="radio"
-                  name={`${id}-talk`}
-                  value={way.value}
-                  checked={talk === way.value}
-                  onChange={() => {
-                    setPickedTalk(way.value)
-                    fixing('contact')
-                  }}
-                  className="sr-only"
-                />
-                {way.label}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-      ) : null}
 
       <div>
         <div className="flex items-start gap-3">
@@ -516,11 +352,7 @@ export function ContactForm({
       )}
 
       <div className="flex flex-col-reverse gap-3 min-[641px]:flex-row min-[641px]:flex-wrap min-[641px]:items-center min-[641px]:justify-between">
-        {page?.submitNote ? (
-          <p className="text-[13px] text-ink-2 min-[641px]:max-w-[36ch] min-[641px]:order-last">
-            {page.submitNote}
-          </p>
-        ) : texts.alternativeLink && look !== 'v24' ? (
+        {texts.alternativeLink && look !== 'v24' ? (
           <p className="text-[13px] text-ink-2">
             {texts.alternative ? `${texts.alternative} ` : null}
             <Link
@@ -575,42 +407,5 @@ function DrawnCheck({ className }: { className?: string }) {
     >
       <path data-check pathLength={1} d="M5 12.5l4.5 4.5L19 7" />
     </svg>
-  )
-}
-
-/** Hints under the description (board `Kontakt`): a picked one is appended as a sentence. */
-function Hints({
-  label,
-  hints,
-  message,
-  onPick,
-}: {
-  label: string | null
-  hints: string[]
-  message: string
-  onPick: (hint: string) => void
-}) {
-  if (hints.length === 0) return null
-  return (
-    <div className="mt-1 flex flex-wrap items-center gap-2">
-      {label ? <span className="text-[13px] font-extrabold text-ink-2">{label}</span> : null}
-      {hints.map((hint) => {
-        const used = message.includes(hint)
-        return (
-          <button
-            key={hint}
-            type="button"
-            aria-pressed={used}
-            onClick={() => (used ? undefined : onPick(hint))}
-            className={cx(
-              'inline-flex min-h-11 items-center rounded-full px-3.5 text-[13.5px] font-bold active:scale-[0.98] motion-reduce:transition-none min-[641px]:min-h-10',
-              used ? 'bg-accent-soft text-accent-text' : 'bg-chip text-ink hover:bg-surface-3',
-            )}
-          >
-            + {hint}
-          </button>
-        )
-      })}
-    </div>
   )
 }

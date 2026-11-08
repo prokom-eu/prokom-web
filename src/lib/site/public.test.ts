@@ -184,8 +184,8 @@ describe('toPublicSiteSettings — Software', () => {
 
   it('maps the navigation on the Software line', () => {
     expect(
-      toPublicSiteSettings({ ...base, software }, 'software').software?.navigation?.tabBar.items,
-    ).toHaveLength(5)
+      toPublicSiteSettings({ ...base, software }, 'software').software?.navigation?.header.length,
+    ).toBe(nawigacja.header.length)
   })
 
   // Like the Biznes group (ADR-012, rozstrzygnięcie 2): never on another line's domain.
@@ -197,7 +197,7 @@ describe('toPublicSiteSettings — Software', () => {
   )
 
   it('has no navigation when it is empty or was saved past the validation', () => {
-    const broken = { ...nawigacja, tabBar: { items: [] } }
+    const broken = { ...nawigacja, header: [] }
     expect(toPublicSiteSettings({ ...base, software: {} }, 'software').software).toEqual({
       navigation: null,
     })

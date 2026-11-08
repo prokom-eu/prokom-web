@@ -320,12 +320,10 @@
 /*
  * Dark footer of Software v21 (spec. §3.4, plan §3b decyzja 6): every page ends with one CTA.
  * A page whose content ends with its own CTA (contact block, `swContact`, the wizard, thanks)
- * carries `data-final-cta`, and the footer's CTA band goes; a page with the PRO-KOM lines
- * (`/kontakt`) carries `data-lines-section`, and the footer's line cards go. No list of
- * addresses in the footer; without `:has()` the band simply stays.
+ * carries `data-final-cta`, and the band above the footer goes (Software v24: `StartBand`,
+ * ZMIANY-v24 §3.5); without `:has()` the band simply stays.
  */
-:root:has([data-final-cta]) [data-footer-cta],
-:root:has([data-lines-section]) [data-footer-lines] {
+:root:has([data-final-cta]) [data-footer-cta] {
   display: none;
 }
 

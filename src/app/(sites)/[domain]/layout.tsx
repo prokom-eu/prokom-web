@@ -93,13 +93,7 @@ export default async function TenantLayout({ children, params }: Props) {
     )
   } else if (settings && navigation) {
     frame = (
-      <SoftwareFrame
-        tenant={tenant}
-        settings={settings}
-        navigation={navigation}
-        company={company}
-        promo={promo}
-      >
+      <SoftwareFrame tenant={tenant} settings={settings} navigation={navigation} promo={promo}>
         {main}
       </SoftwareFrame>
     )

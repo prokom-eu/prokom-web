@@ -13,7 +13,6 @@ import { fillText } from '@/lib/software/facts'
 import { inquiryNumberParam } from '@/lib/software/pages'
 import { Breadcrumbs } from '@/sites/software/components/Breadcrumbs'
 import { SectionHead } from '@/sites/software/components/home/SectionHead'
-import { SentProject } from '@/sites/software/components/SentProject'
 import { softwareTextContext } from '@/sites/software/components/textContext'
 
 import { requireLine } from '../../tenant'
@@ -106,7 +105,6 @@ export default async function ThanksPage({ params, searchParams }: Props) {
               {lead ? (
                 <p className="mt-4 max-w-[52ch] text-lg text-ink-2 min-[641px]:text-xl">{lead}</p>
               ) : null}
-              <SentProject number={number} />
             </div>
             {stepsTitle && steps.length > 0 ? (
               <div className="rounded-[22px] bg-surface-2 p-[18px] min-[641px]:p-6">

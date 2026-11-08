@@ -1,11 +1,10 @@
 import type { Payload } from 'payload'
 
 import { HOME_SLUG } from '../../lib/pages/slug'
-import { SOFTWARE_ABOUT_SLUG, SOFTWARE_ONE_FIRM_SLUG } from './about'
 import { SOFTWARE_AUDIT_SLUG } from './audit'
-import { SOFTWARE_CONTACT_SLUG } from './contact'
 import { SOFTWARE_PRIVACY_SLUG } from './legal'
 import { SOFTWARE_PRICING_SLUG } from './pricing'
+import { SOFTWARE_ABOUT_SLUG, SOFTWARE_CONTACT_SLUG } from './sharedPages'
 
 type Count = (name: string, result: boolean | 'updated') => void
 type Seo = { title?: string | null; description?: string | null }
@@ -41,10 +40,6 @@ export const SOFTWARE_PAGE_SEO: Readonly<Record<string, Seo>> = {
   [SOFTWARE_ABOUT_SLUG]: {
     description:
       'PRO-KOM Software z Rabki-Zdroju: kto zbuduje Twoją stronę albo system, jak pracujemy i z czego budujemy.',
-  },
-  [SOFTWARE_ONE_FIRM_SLUG]: {
-    description:
-      'Strona, system, kasy, sieć i serwis od jednej firmy z Rabki-Zdroju. Jeden numer telefonu zamiast kilku dostawców.',
   },
 }
 

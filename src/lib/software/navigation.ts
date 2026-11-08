@@ -1,11 +1,12 @@
 import { z } from 'zod'
 
-import { firstIssue, href, label, link, linkWithNote, obj, text } from './schema'
+import { firstIssue, href, label, link, obj, text } from './schema'
 
 /**
- * Navigation of the Software site (`SiteSettings.software.navigation`, ADR-014 rozstrz. v20 4 and
- * v22 pkt 9, spec. §3) — the shape of `seed/prokomsoftware/nawigacja.json`. Phone and e-mail are
- * never here: they come from `SiteSettings.phone` / `email` (rozstrz. SW0 4).
+ * Navigation of the Software site (`SiteSettings.software.navigation`, ADR-014, ZMIANY-v24 §3):
+ * the menu of the header capsule, the „Oferta ▾” mega menu and the „Twój projekt” drawer. The
+ * rest of the frame — brand bar, footer, tab bar, menu sheet, CTA — comes from the shared fields
+ * (`SiteSettings.shared`, SWA5). Phone and e-mail are never here (rozstrz. SW0 4).
  */
 
 const headerItem = z.union([
@@ -15,102 +16,95 @@ const headerItem = z.union([
     href,
     /** Same target as a section of the start page (`#dobierz`) — used on `/`. */
     homeHref: href.optional(),
+    /** Small plate next to the label („60 s”). */
     badge: label.optional(),
+    /** The line's accent pill (Kreator, ZMIANY-v24 §3.2). */
     pill: z.boolean().optional(),
   }),
 ])
 
-const linkColumn = obj({ title: label, links: z.array(link).min(1) })
-
-/** PRO-KOM lines of „Jedna firma, pięć linii” — the keys of `--c-<line>-on-dark`. Without
- * Zakopane: Software works only in Rabka (ZMIANY-v23 §1). */
-export const FOOTER_LINE_COLORS = ['prokom', 'biznes', 'instalacje', 'software', 'tech'] as const
-
-/** The design package calls the main line „zielen”; in code it is `prokom` (ADR-014 v22 pkt 9). */
-const lineColor = z.preprocess(
-  (value) => (value === 'zielen' ? 'prokom' : value),
-  z.enum(FOOTER_LINE_COLORS),
-)
-
-const ctaLink = obj({ label, href })
-
 /**
- * Dark footer v21 (spec. §3.4, ADR-014 v22 pkt 9). The contact column has only its texts: phone
- * and e-mail come from `SiteSettings`, addresses and hours from `CompanyData`.
+ * A mega menu column: a group of the offer (Strony / Przebudowa i opieka / Systemy /
+ * Automatyzacje). Links to `/rozwiazania/<slug>` show the solution's „od” price and open its offer
+ * window; other links stay plain.
  */
-const footerSchema = obj({
-  cta: obj({ eyebrow: label, title: label, text, primary: ctaLink, secondary: ctaLink }),
-  about: text,
-  guarantees: z.array(label).length(3),
-  columns: z
-    .array(
-      z.union([
-        obj({ title: label, links: z.array(linkWithNote).min(1) }),
-        obj({ title: label, response: label, reach: label }),
-      ]),
-    )
-    .length(3),
-  linesTitle: label,
-  lines: z
-    .array(
-      obj({
-        name: label,
-        label,
-        text: label,
-        href,
-        color: lineColor,
-        current: z.boolean().optional(),
-      }),
-    )
-    .min(1)
-    .max(6),
-  /** Short notes of the bottom bar („Bez ciasteczek śledzących”). */
-  bottom: z.array(label),
-  legal: z.array(link),
-})
+const megaColumn = obj({ title: label, links: z.array(link).min(1) })
 
-export const navigationSchema = obj({
-  header: z.array(headerItem).min(1).max(8),
+const schema = obj({
+  header: z
+    .array(headerItem)
+    .min(1)
+    .max(8)
+    // One „Oferta ▾”: the panel has one id (`#oferta-mega`).
+    .refine((items) => items.filter((item) => 'mega' in item).length <= 1, {
+      message: 'Najwyżej jedna pozycja z mega menu.',
+    }),
   headerRight: obj({
     themeToggle: z.boolean(),
     projectDrawer: z.boolean(),
-    cta: obj({ label, href, homeHref: href.optional() }),
+    /** On the start page the CTA leads to its section (`#kontakt`). */
+    ctaHomeHref: href.optional(),
   }),
   mega: obj({
-    columns: z.array(linkColumn).min(1).max(6),
-    card: obj({
-      eyebrow: label,
-      title: label,
-      text,
-      cta: link,
-      links: z.array(link),
-    }),
-    /** Chips of active industries only (SWV6 A1); empty = the group is left out. */
-    branze: obj({ label, links: z.array(link) }),
+    columns: z.array(megaColumn).min(1).max(6),
+    /** „Nie wiesz, od czego zacząć?” — the promo card next to the columns. */
+    card: obj({ eyebrow: label, title: label, text, cta: link, links: z.array(link) }),
   }),
-  footer: footerSchema,
-  headerMobile: obj({ cta: link }),
-  tabBar: obj({ items: z.array(link).length(5) }),
-  mobileMenu: obj({
-    search: label,
-    /** [title, caption, href] of the wizard card. */
-    kreator: z.tuple([label, label, href]),
-    /** [name, price text, href] — the price text follows `SolutionAreas`. */
-    tiles: z.array(z.tuple([label, label, href])).max(6),
-    offer: z.array(linkWithNote),
-    company: z.array(link),
-  }),
-  mobileMenuFooter: obj({
-    cta: link,
-    /** Always the line's phone from the site settings — the package leaves `null` here. */
-    phone: z.null().optional(),
-  }),
-  /** `{n}` = number of solutions in the list. */
-  projectPill: label,
   projectDrawer: obj({ title: label, empty: text, send: label, clear: label }),
+  /**
+   * „Zacznij od podglądu, nie od faktury.” above the footer (ZMIANY-v24 §3.5); the title's `em`
+   * part in the accent. Left out on pages that end with their own CTA (`data-final-cta`).
+   */
+  startBand: obj({ eyebrow: label, title: label, em: label.optional(), cta: link }).optional(),
 })
 
-export type SoftwareNavigation = z.infer<typeof navigationSchema>
+/** Keys of the v23 frame (own footer, tab bar, phone sheets) now taken by the shared elements. */
+const V23_KEYS = [
+  'footer',
+  'tabBar',
+  'headerMobile',
+  'mobileMenu',
+  'mobileMenuFooter',
+  'projectPill',
+] as const
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  !!value && typeof value === 'object' && !Array.isArray(value)
+
+/** A navigation saved before SWA5 (it has keys of the v23 frame). */
+export function isV23Navigation(value: unknown): boolean {
+  return isRecord(value) && V23_KEYS.some((key) => key in value)
+}
+
+/**
+ * A navigation saved before SWA5 keeps working until the v24 one is pasted: only the known keys
+ * of the v23 frame are dropped — `headerRight.cta` (its start-page target moves to `ctaHomeHref`)
+ * and `mega.branze`; everything else passes on to the strict schema, so any other unknown key is
+ * still an error.
+ */
+function fromV23(value: unknown): unknown {
+  if (!isV23Navigation(value) || !isRecord(value)) return value
+  const rest = Object.fromEntries(
+    Object.entries(value).filter(([key]) => !(V23_KEYS as readonly string[]).includes(key)),
+  )
+  if (isRecord(rest.headerRight) && 'cta' in rest.headerRight) {
+    const { cta, ...right } = rest.headerRight
+    const homeHref = isRecord(cta) ? cta.homeHref : undefined
+    rest.headerRight = {
+      ...(homeHref !== undefined && { ctaHomeHref: homeHref }),
+      ...right,
+    }
+  }
+  if (isRecord(rest.mega) && 'branze' in rest.mega) {
+    const { branze: _branze, ...mega } = rest.mega
+    rest.mega = mega
+  }
+  return rest
+}
+
+export const navigationSchema = z.preprocess(fromV23, schema)
+
+export type SoftwareNavigation = z.infer<typeof schema>
 
 export function validateNavigation(value: unknown): true | string {
   return firstIssue(navigationSchema, value, 'Nawigacja')

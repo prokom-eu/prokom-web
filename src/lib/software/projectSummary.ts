@@ -1,6 +1,4 @@
 import { normalizeText } from '../catalog/normalize'
-import type { SoftwareTopic } from '../inquiry/types'
-import type { SolutionCategory } from './options'
 import { formatPrice, keepTogether } from './price'
 import type { ProjectItem } from './project'
 import type { IndexSolution } from './solutionsIndex'
@@ -35,36 +33,12 @@ export type ProjectSummary = {
   sumLabel: string
   sum: string
   note: string
-  /** Topic of the first item the site still offers; the customer may change it. */
-  topic: SoftwareTopic | null
   /** Slugs sent with the inquiry: only solutions the site still offers. */
   slugs: string[]
 }
 
 const NBSP = String.fromCharCode(0xa0)
 const zl = (amount: number) => `${formatPrice(amount)}${NBSP}zł`
-
-const CATEGORY_TOPIC: Record<SolutionCategory, SoftwareTopic> = {
-  strony: 'strona',
-  systemy: 'system',
-  aplikacje: 'mobile',
-  automatyzacje: 'laczenie',
-  opieka: 'opieka',
-}
-
-/** The audit: levels, priced once (care is per month). */
-const isAudit = (solution: ProjectSolution) =>
-  solution.category === 'opieka' && solution.levels.length > 0 && !solution.priceMonthly
-
-const topicOf = (solution: ProjectSolution): SoftwareTopic =>
-  isAudit(solution) ? 'audyt' : CATEGORY_TOPIC[solution.category]
-
-/** Address of a level in `?poziom=`: „Rozszerzona” → `rozszerzona`. */
-export function levelSlug(name: string): string {
-  return normalizeText(name)
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
-}
 
 type Line = { row: ProjectRow; slug: string | null; oneTime: number; monthly: number }
 
@@ -138,24 +112,11 @@ export function summarizeProject(
       : asked === 1
         ? 'Jedna pozycja jest wyceniana po krótkiej rozmowie. '
         : 'Część pozycji wyceniamy po krótkiej rozmowie. '
-  const first = project.map((item) => bySlug.get(item.id)).find((solution) => solution)
   return {
     rows: lines.map((line) => line.row),
     sumLabel: lines.length > 1 ? 'Razem (netto)' : 'Cena (netto)',
     sum: parts.length > 0 ? parts.join(' + ') : 'po rozmowie',
     note: `${askNote}Lista pójdzie razem ze zgłoszeniem. Dokładną cenę i termin dostaniesz w 5–7 dni.`,
-    topic: first ? topicOf(first) : null,
     slugs: lines.flatMap((line) => (line.slug ? [line.slug] : [])),
   }
-}
-
-/** `?poziom=rozszerzona` (price list „Zapytaj o opiekę X →”): the care level's name, if any. */
-export function careLevelFromParam(
-  param: string | string[] | undefined,
-  solutions: readonly ProjectSolution[],
-): string | null {
-  const value = Array.isArray(param) ? param[0] : param
-  if (!value) return null
-  const care = solutions.find((solution) => solution.priceMonthly && solution.levels.length > 0)
-  return care?.levels.find((level) => levelSlug(level.name) === value)?.name ?? null
 }

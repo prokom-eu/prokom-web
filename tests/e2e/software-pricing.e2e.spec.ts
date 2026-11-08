@@ -53,10 +53,14 @@ test.describe('Software /cennik', () => {
     await expect(care).toContainText(`299${NBSP}zł`)
     await expect(care).toContainText('Polecamy')
     const ask = care.getByRole('link', { name: 'Zapytaj o opiekę Rozszerzoną →' })
-    await expect(ask).toHaveAttribute('href', '/kontakt?poziom=rozszerzona')
+    await expect(ask).toHaveAttribute(
+      'href',
+      '/kontakt?temat=Opieka&fraza=Interesuje%20mnie%20opieka%20%E2%80%94%20poziom%20Rozszerzona.#formularz',
+    )
     await ask.click()
-    await expect(page).toHaveURL(/\/kontakt\?poziom=rozszerzona$/)
-    await expect(page.getByRole('radio', { name: 'Opieka lub ratunek' })).toBeChecked()
+    await expect(page).toHaveURL(/\/kontakt\?temat=Opieka&fraza=/)
+    // SWA5b: the shared form with the level written in the message (software-contact).
+    await expect(page.locator('[data-contact-page] [data-contact-form]')).toBeVisible()
   })
 
   test('audit kinds and the FAQ; the page ends with the footer band (no CTA of its own)', async ({
