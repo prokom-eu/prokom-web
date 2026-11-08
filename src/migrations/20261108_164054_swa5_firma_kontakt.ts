@@ -72,7 +72,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 
   -- SWA5b (data, written by hand): /kontakt and /o-firmie of every Software tenant become one
   -- „szablon wspólny” block — the other blocks left on them (FAQ, CTA, comparison of v23) go, the
-  -- texts live in SiteSettings.shared. The published page and its latest version both change.
+  -- texts live in SiteSettings.shared. The published page and its latest version both change;
+  -- older versions lose the removed blocks („Przywróć wersję” in the panel gives an empty page).
   CREATE TEMP TABLE swa5_pages AS
     SELECT p.id, CASE p.slug WHEN 'kontakt' THEN 'contact' ELSE 'about' END AS template
     FROM pages p JOIN tenants t ON t.id = p.tenant_id

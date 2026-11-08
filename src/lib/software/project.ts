@@ -11,11 +11,6 @@ export const MAX_PROJECT_ITEMS = 30
 /** „Wyślij do wyceny →”: the contact form with the project list (spec. §3.1, v21). */
 export const PROJECT_SEND_HREF = '/kontakt?projekt=1#formularz'
 
-/**
- * Names sent with the last inquiry from `/kontakt`, for `/dziekujemy` („Wysłane razem z: …”):
- * `sessionStorage` (this tab only) as `{ nr, names }` — shown only on the thanks page of that
- * inquiry number, so a later inquiry (audit, wizard) never shows a stale list.
- */
 const MAX_NAME = 120
 
 export type ProjectItem = { id: string; name: string }

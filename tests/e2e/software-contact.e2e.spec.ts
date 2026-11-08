@@ -7,7 +7,7 @@ import { api, loginAsAdmin, setTheme, site } from './helpers'
 // SWA5b: `/kontakt` of the Software line on the shared Kontakt template (spec §6.1,
 // ZMIANY-v24 §9.3): texts from `SiteSettings.shared.contact` (`src/seed/shared/software.ts`),
 // „Twój projekt” in the `formPrefill` slot — its items make the inquiry a `list`, then the list
-// is emptied; `?poziom=` adds the care level to the message. Success stays on the page (shared
+// is emptied; the price list's care link picks „Opieka” and writes the level (`?temat=`, `?fraza=`). Success stays on the page (shared
 // SuccessPanel). Data from `pnpm seed`; inquiries made here are deleted at the end.
 const HOST = 'software.localhost'
 
@@ -142,18 +142,31 @@ test.describe('Software /kontakt (shared template)', () => {
     await expect(form(page).locator('[aria-invalid="true"]')).toHaveCount(4)
   })
 
-  test('a contact inquiry with ?poziom= carries the care level; success stays on the page', async ({
+  test('the price list’s care link fills topic and message; success stays on the page', async ({
     page,
   }) => {
     await newVisitor(page)
     const name = `E2E Kontakt SWA5b ${Date.now()}`
     const email = `swa5b-${Date.now()}@example.test`
-    await page.goto(site(HOST, '/kontakt?poziom=rozszerzona#formularz'))
-    // No list and no `?projekt=1`: no „Twój projekt” box, the level goes in at sending.
+    await page.goto(
+      site(
+        HOST,
+        '/kontakt?temat=Opieka&fraza=Interesuje%20mnie%20opieka%20%E2%80%94%20poziom%20Rozszerzona.#formularz',
+      ),
+    )
+    // No list and no `?projekt=1`: no „Twój projekt” box; the level is visible in the message.
     await expect(projectBox(page)).toHaveCount(0)
+    await expect(form(page).getByRole('button', { name: 'Opieka' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await expect(form(page).getByLabel('Wiadomość')).toHaveValue(
+      'Interesuje mnie opieka — poziom Rozszerzona.',
+    )
     await form(page).getByLabel('Imię i firma').fill(name)
     await form(page).getByLabel('Telefon lub e-mail').fill(email)
-    await form(page).getByLabel('Wiadomość').fill('Chcemy oddać stronę pod stałą opiekę.')
+    await form(page).getByLabel('Wiadomość').press('End')
+    await form(page).getByLabel('Wiadomość').pressSequentially(' Chcemy oddać stronę pod opiekę.')
     await form(page).getByRole('checkbox').check()
     await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
     await submit(page).click()
@@ -161,14 +174,15 @@ test.describe('Software /kontakt (shared template)', () => {
     const done = contact(page).locator('[data-success-panel]')
     await expect(done).toContainText('Numer zgłoszenia: PKS-')
     await expect(done).toContainText('Potwierdzenie wyślemy na podany adres.')
-    await expect(page).toHaveURL(/\/kontakt\?poziom=rozszerzona#formularz$/)
+    await expect(page).toHaveURL(/\/kontakt\?temat=Opieka&fraza=/)
 
     const record = await findInquiry(page, name)
     expect(record, 'the inquiry is in the panel').toBeDefined()
     try {
       expect(record).toMatchObject({ line: 'software', type: 'contact', email })
-      expect(String(record?.message)).toContain('Chcemy oddać stronę pod stałą opiekę.')
-      expect(String(record?.message)).toContain('Poziom opieki: Rozszerzona')
+      expect(String(record?.message)).toContain(
+        'Interesuje mnie opieka — poziom Rozszerzona. Chcemy oddać stronę pod opiekę.',
+      )
     } finally {
       if (record) await api(page, 'DELETE', `/api/inquiries/${record.id}`)
     }

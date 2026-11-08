@@ -53,10 +53,13 @@ test.describe('Software /cennik', () => {
     await expect(care).toContainText(`299${NBSP}zł`)
     await expect(care).toContainText('Polecamy')
     const ask = care.getByRole('link', { name: 'Zapytaj o opiekę Rozszerzoną →' })
-    await expect(ask).toHaveAttribute('href', '/kontakt?poziom=rozszerzona')
+    await expect(ask).toHaveAttribute(
+      'href',
+      '/kontakt?temat=Opieka&fraza=Interesuje%20mnie%20opieka%20%E2%80%94%20poziom%20Rozszerzona.#formularz',
+    )
     await ask.click()
-    await expect(page).toHaveURL(/\/kontakt\?poziom=rozszerzona$/)
-    // SWA5b: the shared form; the level joins the message at sending (software-contact).
+    await expect(page).toHaveURL(/\/kontakt\?temat=Opieka&fraza=/)
+    // SWA5b: the shared form with the level written in the message (software-contact).
     await expect(page.locator('[data-contact-page] [data-contact-form]')).toBeVisible()
   })
 
