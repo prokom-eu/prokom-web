@@ -10,7 +10,6 @@ import type { ObjectKey } from '../../dane/types'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../InstSectionLazy'
 import { SectionHead } from '../SectionHead'
-import { LiveButton } from './LiveButton'
 import { ShowAll } from './ShowAll'
 import { Arrow } from '../../Arrow'
 
@@ -45,7 +44,7 @@ export function ForWhoGrid({ objects }: { objects: Map<ObjectKey, MenuEntry> }) 
           leadWidth={440}
         />
         <ShowAll className="obg" more={t.showAll} less={t.collapse}>
-          {cards.map(({ key, object, description, set, hue, big, live }) => (
+          {cards.map(({ key, object, description, set, hue, big }) => (
             <div key={key} className={`obc ri oh${hue}${big ? ' big' : ''}`}>
               <div className="oba" aria-hidden="true">
                 <span className="obi">
@@ -77,7 +76,6 @@ export function ForWhoGrid({ objects }: { objects: Map<ObjectKey, MenuEntry> }) 
                 ))}
               </div>
               <div className="obf">
-                {live && <LiveButton object={live} label={t.live} />}
                 <span className="obl2" aria-hidden="true">
                   {t.more} <Arrow />
                 </span>

@@ -78,9 +78,17 @@ test.describe('Instalacje line routes', () => {
     await expect(page).toHaveTitle(/^Nie znaleziono strony/)
     await expect(page.locator('h1')).toHaveCount(1)
     const links = page.locator('[data-not-found] a')
-    for (const href of ['/uslugi', '/#dla-kogo', '/zaplanuj', '/kontakt']) {
+    for (const href of ['/uslugi', '/#dla-kogo', '/zaplanuj', '/kontakt', '/poradnik']) {
       await expect(links.and(page.locator(`[href="${href}"]`))).toHaveCount(1)
     }
+    // RUNDA-V5 §11: a search of the offer — a GET form that lands on `/uslugi?q=`.
+    const search = page.locator('[data-not-found]').getByRole('searchbox', {
+      name: 'Szukaj w ofercie',
+    })
+    await search.fill('kamera')
+    await search.press('Enter')
+    await expect(page).toHaveURL(/\/uslugi\?q=kamera$/)
+    await expect(page.getByRole('searchbox', { name: 'Szukaj w ofercie' })).toHaveValue('kamera')
   })
 })
 

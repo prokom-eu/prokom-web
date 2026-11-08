@@ -46,13 +46,12 @@ test.describe('Instalacje home sections', () => {
     expect(types).toEqual(expect.arrayContaining(['WebSite', 'FAQPage']))
   })
 
-  test('„Pokaż na żywo” switches the hero to the card’s object', async ({ page }) => {
+  // P2-15 (audit 06.11, decision 08.11): „Pokaż na żywo” on none of the cards — the hero has
+  // scenes for 6 of 14 objects; the card itself links to the object page.
+  test('no „Pokaż na żywo” on the „Dla kogo” cards', async ({ page }) => {
     await open(page)
-    await page
-      .locator('.obc', { hasText: 'Hotel' })
-      .getByRole('link', { name: 'Pokaż na żywo' })
-      .click()
-    await expect(page.getByRole('tab', { name: 'Hotel' })).toHaveAttribute('aria-selected', 'true')
+    await expect(page.locator('.obc').first()).toBeVisible()
+    await expect(page.locator('#dla-kogo').getByText('Pokaż na żywo')).toHaveCount(0)
   })
 
   test('Podhale cards have scenes and the process says what you get (RUNDA-V5 §5–§6)', async ({

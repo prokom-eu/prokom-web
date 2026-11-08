@@ -19,6 +19,35 @@ export function NotFoundInstalacje() {
         <span className="eye">{T.eyebrow}</span>
         <h1 className="h1 mt-3">{T.heading}</h1>
         <p className="lead mt-4 max-w-2xl">{T.lead}</p>
+        {/* A plain GET form: works before hydration and without JS; `/uslugi` reads `?q=`. */}
+        <form action="/uslugi" method="get" role="search" className="nfsearch mt-8">
+          <label className="nfs">
+            <span className="sr-only">{T.search.label}</span>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-3.6-3.6" />
+            </svg>
+            <input
+              type="search"
+              name="q"
+              maxLength={100}
+              placeholder={T.search.placeholder}
+              enterKeyHint="search"
+            />
+          </label>
+          <button type="submit" className="btn btn-p">
+            {T.search.button}
+          </button>
+        </form>
         <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {T.links.map((link) => (
             <li key={link.href}>
