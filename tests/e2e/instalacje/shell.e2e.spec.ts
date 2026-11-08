@@ -222,10 +222,10 @@ test.describe('Instalacje side rail and search (1440 px)', () => {
 test.describe('Instalacje phone shell', () => {
   test.use({ viewport: PHONE, hasTouch: true })
 
-  test('tab bar: Start · Usługi · Zaplanuj · Kontakt · Menu', async ({ page }) => {
+  test('tab bar: Główna · Usługi · Zaplanuj · Kontakt · Menu', async ({ page }) => {
     await open(page)
     const bar = tabBar(page)
-    await expect(bar.getByRole('link', { name: 'Start' })).toHaveAttribute('aria-current', 'page')
+    await expect(bar.getByRole('link', { name: 'Główna' })).toHaveAttribute('aria-current', 'page')
     await expect(bar.getByRole('link', { name: 'Usługi' })).toHaveAttribute('href', '/uslugi')
     await expect(bar.getByRole('link', { name: 'Zaplanuj' })).toHaveAttribute('href', '/zaplanuj')
     await expect(bar.getByRole('link', { name: 'Kontakt' })).toHaveAttribute('href', '/kontakt')

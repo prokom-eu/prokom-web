@@ -94,7 +94,7 @@ test.describe('/_wspolne — phone', () => {
       await page.goto(site(host, '/_wspolne'))
       const bar = preview(page).getByRole('navigation', { name: 'Pasek aplikacji' })
       await expect(bar.locator(':scope > *')).toHaveCount(5)
-      await expect(bar.getByRole('link', { name: 'Start' })).toHaveAttribute('href', '/')
+      await expect(bar.getByRole('link', { name: 'Główna' })).toHaveAttribute('href', '/')
       await expect(bar.getByRole('link', { name: 'Kontakt' })).toHaveAttribute('href', '/kontakt')
       const center = bar.locator('[data-tab-center] > span').first()
       expect(Math.round((await center.boundingBox())?.height ?? 0)).toBe(52)
