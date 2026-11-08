@@ -199,7 +199,27 @@ export const Bundles: CollectionConfig = {
           fields: [
             { name: 'pair', label: 'Para', type: 'text', required: true },
             { name: 'source', label: 'Źródło w karcie', type: 'textarea' },
-            { name: 'status', label: 'Status', type: 'text' },
+            {
+              name: 'status',
+              label: 'Status',
+              type: 'text',
+              admin: {
+                description:
+                  '„potwierdzona”, „bez-integracji” (działa samodzielnie, strona mówi to wprost) albo „do_potwierdzenia” — ta ostatnia trzyma zestaw w „Do sprawdzenia”.',
+              },
+            },
+            {
+              name: 'url',
+              label: 'Źródło oficjalne (adres)',
+              type: 'text',
+              // Shown as a link on the bundle page: an address of a page or PDF only.
+              validate: (value: string | null | undefined) =>
+                !value || /^https:\/\/\S+$/.test(value) || 'Adres musi zaczynać się od https://',
+              admin: {
+                description:
+                  'Strona lub PDF producenta. Przy parze „potwierdzona” pokazuje się na karcie zestawu jako „Źródło ↗”.',
+              },
+            },
           ],
         },
       ],

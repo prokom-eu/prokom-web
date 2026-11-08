@@ -15,17 +15,28 @@ import { ProductStage, STAGE_SHADOW } from '../ProductStage'
 export function BundleCard({
   bundle,
   headingLevel = 'h3',
+  wide = false,
 }: {
   bundle: BundleCardData
   headingLevel?: 'h2' | 'h3' | 'h4'
+  /** The only bundle of a grid: photos beside the text from 640 px (BIZ-3 §9.2). */
+  wide?: boolean
 }) {
   const Heading = headingLevel
   return (
     <Link
       href={bundle.href}
-      className="group flex h-full flex-col overflow-hidden rounded-[22px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[inset_0_0_0_1.5px_var(--ink-3),0_18px_40px_-28px_var(--glow)]"
+      className={cx(
+        'group flex h-full flex-col overflow-hidden rounded-[22px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[inset_0_0_0_1.5px_var(--ink-3),0_18px_40px_-28px_var(--glow)]',
+        wide && 'sm:flex-row',
+      )}
     >
-      <ProductStage className="h-[180px] gap-1 px-4 max-md:h-[130px] min-[768px]:h-[200px]">
+      <ProductStage
+        className={cx(
+          'h-[180px] gap-1 px-4 max-md:h-[130px] min-[768px]:h-[200px]',
+          wide && 'sm:h-auto sm:min-h-[220px] sm:w-[45%] sm:shrink-0',
+        )}
+      >
         {bundle.photos.map((photo, position) => (
           <Image
             key={photo.url}
@@ -62,6 +73,29 @@ export function BundleCard({
   )
 }
 
+/**
+ * Columns for `count` tiles without gaps (BIZ-3 §9.2): 1 → one wide card, 2 or 4 → two columns,
+ * otherwise three (6-column grid, spans 2): with 5 the last two share the row, a last tile alone
+ * spans it. With two columns (640–1023 px) a last odd tile spans both.
+ */
+export function gridLayout(count: number): { cols: string; span: (index: number) => string } {
+  if (count === 1) return { cols: 'sm:grid-cols-1', span: () => '' }
+  const lastOdd = (index: number) => count % 2 === 1 && index === count - 1
+  if (count === 2 || count === 4) return { cols: 'sm:grid-cols-2', span: () => '' }
+  return {
+    cols: 'sm:grid-cols-2 lg:grid-cols-6',
+    span: (index) =>
+      cx(
+        lastOdd(index) && 'sm:col-span-2',
+        count % 3 === 2 && index >= count - 2
+          ? 'lg:col-span-3'
+          : count % 3 === 1 && index === count - 1
+            ? 'lg:col-span-6'
+            : 'lg:col-span-2',
+      ),
+  }
+}
+
 /** Up to 3 tiles in a row (product page „W zestawach”, industry page „Gotowe zestawy”). */
 export function BundleGrid({
   bundles,
@@ -73,20 +107,26 @@ export function BundleGrid({
   /** Below 768 px one row to swipe (product page, board App-Produkt). */
   phoneRow?: boolean
 }) {
+  const layout = gridLayout(bundles.length)
   return (
     <ul
       className={cx(
-        'grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3',
+        'grid gap-4 sm:gap-5',
+        layout.cols,
         phoneRow &&
           '[scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:scroll-px-4 max-md:overflow-x-auto max-md:px-4 max-md:py-2',
       )}
     >
-      {bundles.map((bundle) => (
+      {bundles.map((bundle, index) => (
         <li
           key={bundle.slug}
-          className={cx(phoneRow && 'relative max-md:w-[80%] max-md:shrink-0 max-md:snap-start')}
+          className={cx(
+            'min-w-0',
+            layout.span(index),
+            phoneRow && 'relative max-md:w-[80%] max-md:shrink-0 max-md:snap-start',
+          )}
         >
-          <BundleCard bundle={bundle} headingLevel={headingLevel} />
+          <BundleCard bundle={bundle} headingLevel={headingLevel} wide={bundles.length === 1} />
         </li>
       ))}
     </ul>

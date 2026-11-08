@@ -98,6 +98,7 @@ import * as migration_20261108_193425_biznes_zaopatrzenie_linki from './20261108
 import * as migration_20261108_200552_biznes_glowna_zestawy from './20261108_200552_biznes_glowna_zestawy'
 import * as migration_20261108_204810_biznes_glowna_ksef_aktualnosci from './20261108_204810_biznes_glowna_ksef_aktualnosci'
 import * as migration_20261108_225143_inst_poradnik_kategorie from './20261108_225143_inst_poradnik_kategorie'
+import * as migration_20261108_230919_biznes_zestawy_zrodla from './20261108_230919_biznes_zestawy_zrodla'
 
 export const migrations = [
   {
@@ -599,5 +600,10 @@ export const migrations = [
     up: migration_20261108_225143_inst_poradnik_kategorie.up,
     down: migration_20261108_225143_inst_poradnik_kategorie.down,
     name: '20261108_225143_inst_poradnik_kategorie',
+  },
+  {
+    up: migration_20261108_230919_biznes_zestawy_zrodla.up,
+    down: migration_20261108_230919_biznes_zestawy_zrodla.down,
+    name: '20261108_230919_biznes_zestawy_zrodla',
   },
 ]

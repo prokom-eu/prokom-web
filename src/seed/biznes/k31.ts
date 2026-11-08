@@ -58,6 +58,8 @@ export type K31SplitContent = Pick<
   /** YouTube ids of the source card's films that show this model or the whole series. */
   filmy: string[]
   uwagi: string
+  /** Status after a check against official sources (BIZ-3 §9.1); `do-sprawdzenia` when missing. */
+  status?: string
 }
 
 export type K31Video = {
@@ -163,7 +165,7 @@ export function splitCards(
       dobierz: content.dobierz ?? source.dobierz,
       branze: source.branze,
       zrodla,
-      status: 'do-sprawdzenia',
+      status: content.status ?? 'do-sprawdzenia',
       uwagi: [`Podział K3.1 z karty „${source.nazwa}” (${split.z}).`, content.uwagi, source.uwagi]
         .filter(Boolean)
         .join(' | '),

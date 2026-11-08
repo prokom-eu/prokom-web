@@ -42,7 +42,8 @@ test.describe('Biznes catalog after the K3 import', () => {
   })
 
   test('keeps a card „Do sprawdzenia” visible but out of the index', async ({ page }) => {
-    const response = await page.goto(site('biznes.localhost', '/produkt/samsung-om'))
+    // Samsung OM is „gotowe” since B4-1; Yoga Pro 7 15 stays „do-sprawdzenia”.
+    const response = await page.goto(site('biznes.localhost', '/produkt/lenovo-yoga-pro-7-15'))
     expect(response?.status()).toBe(200)
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
   })

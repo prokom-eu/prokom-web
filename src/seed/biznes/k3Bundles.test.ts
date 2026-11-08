@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import bundlesFile from '../../../seed/prokombiznes/k3/zestawy.json'
 import plans from '../../../seed/prokombiznes/k31/plansze-k31.json'
 import {
+  bundleBlockers,
   bundleData,
   bundleStatus,
   nextBundleStatus,
@@ -46,14 +47,10 @@ describe('bundleData (K3c, K3-KATALOG §7)', () => {
     })
   })
 
-  it('marks „Gotowe” only the bundles without open questions (3), like the package', () => {
-    expect(all.filter((bundle) => bundle.contentStatus === 'ready').map((b) => b.slug)).toEqual([
-      'zestaw-noclegi-kwatera',
-      'zestaw-szkola-sala-interaktywna',
-      'zestaw-wifi-omada',
-    ])
+  it('gives every bundle the status of the package (open item or pair = „Do sprawdzenia”)', () => {
     for (const bundle of bundles) {
-      expect(bundleStatus(bundle) === 'ready' ? 'gotowe' : 'do-sprawdzenia').toBe(bundle.status)
+      const status = bundleStatus(bundle, { checks: bundlesFile.sprawdzone_zgodnosci })
+      expect(status === 'ready' ? 'gotowe' : 'do-sprawdzenia', bundle.slug).toBe(bundle.status)
     }
   })
 
@@ -71,8 +68,10 @@ describe('bundleData (K3c, K3-KATALOG §7)', () => {
 
   it('keeps internal fields in the panel fields only', () => {
     const kawiarnia = bySlug('zestaw-kawiarnia-lada')
-    expect(kawiarnia.items.find((item) => item.toConfirm)?.toConfirm).toMatch(/GoPOS/)
+    const market = bySlug('zestaw-sklep-spozywczy-market-pos')
+    expect(market.items.find((item) => item.toConfirm)?.toConfirm).toMatch(/Insoft/)
     expect(kawiarnia.compatChecks.length).toBeGreaterThan(0)
+    expect(kawiarnia.compatChecks.find((check) => check.url)?.url).toMatch(/^https:\/\//)
     const notes = bySlug('zestaw-sklep-spozywczy-program-waga-etykiet').internalNotes
     expect(notes).toMatch(/Usługi po akceptacji szefa: kopie, opieka\./)
     const publicText = JSON.stringify({
@@ -102,6 +101,45 @@ describe('bundleData (K3c, K3-KATALOG §7)', () => {
     expect(() => bundleData(first!, [], { ...refs, product: () => undefined })).toThrow(
       /has no record/,
     )
+  })
+})
+
+describe('bundleBlockers (BIZ-3 §9.1: „Gotowe” only with every question settled)', () => {
+  const bundle = {
+    slug: 'zestaw-x',
+    elementy: [
+      { slug: 'kasa', rola: 'kasa', ilosc: 1, obowiazkowy: true },
+      { slug: 'term', rola: 'terminal', ilosc: 1, obowiazkowy: false },
+    ],
+  }
+  const ready = (slug: string) => (slug === 'term' ? 'do-sprawdzenia' : 'gotowe')
+
+  it('is ready with no open item, no open pair and only ready cards', () => {
+    expect(bundleBlockers(bundle, { cardStatus: () => 'gotowe' })).toEqual([])
+    expect(bundleStatus(bundle, { cardStatus: () => 'gotowe' })).toBe('ready')
+  })
+
+  it('blocks on an item waiting for a confirmation', () => {
+    const open = {
+      ...bundle,
+      elementy: [{ ...bundle.elementy[0]!, do_potwierdzenia: 'Napięcie szuflady?' }],
+    }
+    expect(bundleBlockers(open)).toEqual(['kasa: Napięcie szuflady?'])
+    expect(bundleStatus(open)).toBe('needs-review')
+  })
+
+  it('blocks on a card that is not ready (a bundle never outruns its cards)', () => {
+    expect(bundleBlockers(bundle, { cardStatus: ready })).toEqual(['term: karta do-sprawdzenia'])
+    expect(bundleBlockers(bundle, { cardStatus: () => undefined })).toHaveLength(2)
+  })
+
+  it('blocks on an open pair of the bundle only; „bez integracji” is settled', () => {
+    const checks = [
+      { zestaw: 'zestaw-x', para: 'kasa ↔ terminal', status: 'do_potwierdzenia' },
+      { zestaw: 'zestaw-x', para: 'kasa ↔ waga', status: 'bez-integracji' },
+      { zestaw: 'zestaw-y', para: 'inna', status: 'do_potwierdzenia' },
+    ]
+    expect(bundleBlockers(bundle, { checks })).toEqual(['kasa ↔ terminal: para do potwierdzenia'])
   })
 })
 

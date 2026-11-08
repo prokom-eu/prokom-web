@@ -56,10 +56,13 @@ describe('K3.1 catalog (PRZEKAZANIE-K31 §4 „K31a”)', () => {
     )
   })
 
-  it('makes 11 new records „do sprawdzenia” — Avtek TS 9 keeps its record', () => {
+  it('makes 11 new records „do sprawdzenia” (unless checked) — Avtek TS 9 keeps its record', () => {
     const parts = catalog.cards.filter((item) => item.zrodlo_podzialu)
     expect(parts).toHaveLength(12)
-    expect(parts.every((item) => item.status === 'do-sprawdzenia')).toBe(true)
+    for (const part of parts) {
+      const content = k31Input.splitContents.find((item) => item.slug === part.slug_seed)!
+      expect(part.status, part.slug_seed).toBe(content.status ?? 'do-sprawdzenia')
+    }
     const avtek = bySlug.get('avtek-ts-9-mate-g')!
     const source = k31Input.k3Cards.find((item) => item.slug_seed === 'avtek-ts-9-mate-g')!
     expect(avtek.legacyIds).toEqual(source.legacyIds)
