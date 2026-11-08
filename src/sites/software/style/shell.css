@@ -1,0 +1,132 @@
+/*
+ * Software in the shared frame (SWA5, ZMIANY-v24 §3): only what the line adds to the shared
+ * capsule — the „Kreator 60 s” pill and the „Oferta ▾” panel. Layout, states and the capsule's
+ * look come from `src/styles/wspolne.css`; colours from the tokens.
+ */
+
+/* „Kreator” with the „60 s” plate: the line's accent pill (board `.au-kr`). */
+[data-line='software'] .cap-link.sw-cap-pill {
+  border: 1px solid var(--accent-line);
+  background: var(--nav-active-bg);
+  color: var(--nav-active-ink);
+}
+[data-line='software'] .sw-cap-pill__badge {
+  margin-left: 6px;
+  border-radius: 99px;
+  background: var(--accent);
+  padding: 2px 7px;
+  color: var(--accent-ink);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* Oferta ▾ (board `.au-mega`): four columns of the offer and the promo card. Closed = hidden +
+   `inert`; opening slides it in from the top. */
+[data-line='software'] .cap-mega.sw-mega {
+  display: grid;
+  grid-template-columns: 3fr 1.1fr;
+  gap: 16px;
+  max-height: calc(100vh - 120px);
+  overflow: hidden auto;
+  padding: 22px;
+  visibility: hidden;
+  opacity: 0;
+  translate: 0 -6px;
+  transition:
+    opacity 0.2s,
+    translate 0.25s var(--ease-out),
+    visibility 0s 0.25s;
+}
+[data-line='software'] .cap-mega.sw-mega[data-open] {
+  visibility: visible;
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity 0.2s,
+    translate 0.25s var(--ease-out),
+    visibility 0s;
+}
+[data-line='software'] .sw-mega__cols {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+/* The panel sits inside the capsule's menu list: its own lists are columns, not a menu row. */
+[data-line='software'] .sw-mega ul {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+[data-line='software'] .sw-mega__head {
+  display: block;
+  padding: 6px 10px 8px;
+  color: var(--accent-text);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+[data-line='software'] .sw-mega__item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border-radius: 12px;
+  padding: 9px 10px;
+  color: var(--ink);
+  transition: background-color 0.2s;
+}
+[data-line='software'] .sw-mega__item:hover {
+  background: var(--surface-2);
+}
+[data-line='software'] .sw-mega__item:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: -2px;
+}
+[data-line='software'] .sw-mega__item b {
+  font-size: 14.5px;
+  font-weight: 700;
+}
+[data-line='software'] .sw-mega__item small {
+  color: var(--ink-3);
+  font-size: 12px;
+}
+[data-line='software'] .sw-mega__promo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid var(--accent-line);
+  border-radius: 18px;
+  background: var(--accent-soft);
+  padding: 20px;
+}
+[data-line='software'] .sw-mega__promo b {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+[data-line='software'] .sw-mega__promo p {
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+[data-line='software'] .sw-mega__promo a:not(.cap-cta) {
+  color: var(--accent-text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-line='software'] .cap-mega.sw-mega,
+  [data-line='software'] .cap-mega.sw-mega[data-open] {
+    translate: none;
+    transition: none;
+  }
+}
+
+/* „Zacznij od podglądu…” (`powloka/StartBand`, board `.au-prefoot`): the glow in the top right. */
+[data-line='software'] .sw-start-band {
+  background-image: radial-gradient(700px 260px at 88% 0, var(--glow), transparent);
+}

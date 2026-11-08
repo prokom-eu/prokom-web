@@ -10,9 +10,11 @@ export const isDesktop = () => window.matchMedia(DESKTOP_QUERY).matches
 
 /**
  * Focus for a closing „Twój projekt” whose button is gone (the list was emptied): the visible
- * quote link of the header marked `data-project-fallback` (desktop or phone).
+ * quote link: an element marked `data-project-fallback` or the capsule's CTA (desktop or phone).
  */
 export function focusProjectFallback() {
-  const candidates = document.querySelectorAll<HTMLElement>('[data-project-fallback]')
+  const candidates = document.querySelectorAll<HTMLElement>(
+    '[data-project-fallback], [data-site-header] .cap-cta',
+  )
   ;[...candidates].find((element) => element.offsetParent !== null)?.focus()
 }

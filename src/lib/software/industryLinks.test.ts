@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import nawigacja from '../../../seed/prokomsoftware/nawigacja.json'
-import { isDeadIndustryHref, withoutIndustryLinks, withServiceLineName } from './industryLinks'
+import { isDeadIndustryHref, withoutIndustryLinks } from './industryLinks'
 
 // SWV6 A1: no menu or footer link may lead to a 404 industry page.
 
@@ -29,6 +28,19 @@ describe('isDeadIndustryHref', () => {
 })
 
 describe('withoutIndustryLinks', () => {
+  // A navigation an editor extended in the panel: the mega promo card with industry links.
+  const nawigacja = {
+    mega: {
+      card: {
+        links: [
+          ['Wszystkie branże', '/dla-branz'],
+          ['Budowlanka i ekipy', '/dla-branz/budownictwo-i-wykonczenia'],
+          ['Gastronomia', '/dla-branz/gastronomia'],
+          ['Cennik', '/cennik'],
+        ],
+      },
+    },
+  }
   const navigation = withoutIndustryLinks(structuredClone(nawigacja), ACTIVE)
 
   it('leaves no link to the index or an inactive industry anywhere', () => {
@@ -36,21 +48,9 @@ describe('withoutIndustryLinks', () => {
     expect(left).toEqual(['/dla-branz/budownictwo-i-wykonczenia'])
   })
 
-  it('keeps the mega menu chips of active industries and every other link', () => {
-    expect(navigation.mega.branze.links).toEqual([
-      ['Budowlanka i ekipy', '/dla-branz/budownictwo-i-wykonczenia'],
-    ])
+  it('keeps every other link', () => {
     const before = hrefs(nawigacja).filter((href) => !href.startsWith('/dla-branz'))
     const after = hrefs(navigation).filter((href) => !href.startsWith('/dla-branz'))
     expect(after).toEqual(before)
-  })
-})
-
-describe('withServiceLineName', () => {
-  it('names the service line card „Serwis” and keeps its colour key', () => {
-    const card = withServiceLineName(structuredClone(nawigacja)).footer.lines.find(
-      (line) => line.color === 'tech',
-    )
-    expect(card).toMatchObject({ name: 'Serwis', label: 'SERWIS', href: 'https://prokomserwis.pl' })
   })
 })

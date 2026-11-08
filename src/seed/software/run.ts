@@ -5,7 +5,7 @@ import obszary from '../../../seed/prokomsoftware/obszary.json'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
 import { homeSchema } from '../../lib/software/home'
-import { navigationSchema } from '../../lib/software/navigation'
+import { isV23Navigation, navigationSchema } from '../../lib/software/navigation'
 import { softwareOfferSchema } from '../../lib/software/offer'
 import { softwareWizardSchema } from '../../lib/software/wizard/schema'
 import {
@@ -15,6 +15,7 @@ import {
   industriesToImport,
   missingFacts,
   softwareContactUpdate,
+  softwareFooterText,
   removedSolutions,
   softwareSettingsData,
   softwarePostData,
@@ -231,20 +232,25 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   if (!siteSettings) {
     log('site-settings: skipped — no settings of the tenant yet, run `pnpm seed`.')
   } else {
-    // A navigation in a shape before v21 (SWR2) no longer passes the schema — the frame would
-    // fall back to the generic one, so locally the seed replaces it (like the wizard, SW7).
-    const navigationMissing = !navigationSchema.safeParse(siteSettings.software?.navigation).success
+    // A navigation that no longer passes the schema (before v21) or still of the v23 frame (before
+    // SWA5 — it works, but without the v24 mega menu and band): locally the seed replaces it.
+    const savedNavigation = siteSettings.software?.navigation
+    const navigationMissing =
+      !navigationSchema.safeParse(savedNavigation).success || isV23Navigation(savedNavigation)
+    const footerText = softwareFooterText(siteSettings.footer?.text)
     const facts = missingFacts(siteSettings.software?.facts, factsData())
     const contact = softwareContactUpdate(siteSettings)
     count('site-settings navigation', navigationMissing)
     count('site-settings facts', facts.length > 0 ? 'updated' : false)
     count('site-settings contact', contact ? 'updated' : false)
-    if (navigationMissing || facts.length > 0 || contact) {
+    count('site-settings footer text', footerText ? 'updated' : false)
+    if (navigationMissing || facts.length > 0 || contact || footerText) {
       await payload.update({
         collection: 'site-settings',
         id: siteSettings.id,
         data: {
           ...contact,
+          ...(footerText && { footer: { ...siteSettings.footer, text: footerText } }),
           software: {
             ...siteSettings.software,
             navigation: navigationMissing ? settings.navigation : siteSettings.software?.navigation,

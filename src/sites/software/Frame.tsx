@@ -2,92 +2,190 @@ import type { ReactNode } from 'react'
 
 import { AnalyticsScript } from '@/components/AnalyticsScript'
 import { RevealObserver } from '@/components/motion/RevealObserver'
-import { log } from '@/lib/log'
+import { BrandBar } from '@/components/shared/BrandBar'
+import { MenuSheet } from '@/components/shared/MenuSheet'
+import { SiteFooter } from '@/components/shared/SiteFooter'
+import { TabBar } from '@/components/shared/TabBar'
+import { NEWS_PATH } from '@/lib/posts/list'
 import { hasPublicPosts } from '@/lib/posts/data'
-import { toTelHref } from '@/lib/site/link'
-import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
-import { getMenuAreas } from '@/lib/software/data'
-import { menuTiles } from '@/lib/software/mobileNav'
+import { getSharedData } from '@/lib/shared/getSharedData'
+import { paletteActions } from '@/lib/shared/search/palette'
+import type { PublicSiteSettings } from '@/lib/site/public'
+import { getSolutionsIndex } from '@/lib/software/data'
+import { megaColumns } from '@/lib/software/megaMenu'
 import type { SoftwareNavigation } from '@/lib/software/navigation'
 import { withoutNewsLinks } from '@/lib/software/newsLinks'
+import type { SearchPage } from '@/lib/software/searchEntries'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { PageTransition } from './PageTransition'
 import { ContactToast } from './components/ContactToast'
-import { PhoneLayer } from './components/PhoneLayer'
 import { ProjectToast } from './components/ProjectToast'
-import { SoftwareFooter } from './components/SoftwareFooter'
-import { SoftwareHeader } from './components/SoftwareHeader'
-import { SwTopBar } from './components/SwTopBar'
+import { PreviewGuard } from './powloka/PreviewGuard'
+import { StartBand } from './powloka/StartBand'
+import { SwHeader } from './powloka/SwHeader'
+import { SwRail } from './powloka/SwRail'
+import { type SheetLink, SwSheetList } from './powloka/SwSheetList'
 
 type Props = {
   tenant: SiteTenant
   settings: PublicSiteSettings
   navigation: SoftwareNavigation
-  company: PublicCompanyData | null
-  /** The promo bar, between the top bar and the header. */
+  /** The promo bar, under the brand bar. */
   promo: ReactNode
   children: ReactNode
 }
 
 /**
- * Page frame of the Software line (SW4, ADR-014 rozstrz. 12; spec. §3): top bar, header with
- * the mega menu and „Twój projekt”, footer, and up to 1080 px the phone layer (bottom bar,
- * sheets) — all from `SiteSettings.software.navigation`; the menu's tile prices from the areas.
+ * Page frame of the Software line on the shared elements of the lines (SWA5 = D3-S, ADR-022,
+ * ZMIANY-v24 §3): brand bar, header capsule with „Oferta ▾” and „Kreator 60 s”, side rail and
+ * search window, the „Zacznij od podglądu” band, the shared footer, and on a phone the bottom bar
+ * and the menu sheet. The menu and mega menu come from `SiteSettings.software.navigation`, the
+ * rest from the shared fields (`SiteSettings.shared`, `CompanyData`) — nothing written in code.
  */
 export async function SoftwareFrame({
   tenant,
   settings,
   navigation: panelNavigation,
-  company,
   promo,
   children,
 }: Props) {
-  const [areas, anyPost] = await Promise.all([getMenuAreas(tenant.id), hasPublicPosts(tenant.id)])
+  const [shared, anyPost, index] = await Promise.all([
+    getSharedData(tenant.id),
+    hasPublicPosts(tenant.id),
+    getSolutionsIndex(tenant.id),
+  ])
   // No published post yet: no menu leads to an empty „Aktualności” (SWV8 P0 #3).
   const navigation = anyPost ? panelNavigation : withoutNewsLinks(panelNavigation)
-  // Header items with a section of the start page (Kreator → `#dobierz`) lend it to the same
-  // address elsewhere (bottom bar, menu card).
-  const homeHrefs: Record<string, string> = {}
-  for (const item of navigation.header) {
-    if ('href' in item && item.homeHref) homeHrefs[item.href] = item.homeHref
-  }
-  const tiles = menuTiles(navigation.mobileMenu.tiles, areas)
-  const unmatched = tiles.filter((tile) => tile.key === null).map((tile) => tile.name)
-  if (unmatched.length > 0) {
-    log.warn({ tenant: tenant.id, tiles: unmatched }, 'Menu tiles without an area of that name')
-  }
-  // TODO(krystian): the sheet's bottom line is not in the panel (spec. §3.2 puts it in
-  // `mobileMenuFooter`, whose schema has no text); the main branch is the first location.
-  const location = company?.locations[0]
+  const line = shared?.line ? (anyPost ? shared.line : withoutNewsLinks(shared.line)) : null
+  const homeLabel = `${tenant.name} — strona główna`
+  const now = new Date().toISOString()
+
+  const center = line?.tabBar?.center
+  const action =
+    center?.label && center.href
+      ? { label: center.label, href: center.href, icon: center.icon }
+      : null
+  const cta =
+    line?.headerCta?.label && line.headerCta.href
+      ? { label: line.headerCta.label, shortLabel: 'Wycena', href: line.headerCta.href }
+      : null
+  const columns = (line?.footerColumns ?? []).map((column) => ({
+    heading: column.heading ?? '',
+    links: (column.links ?? []).map((link) => ({ label: link.label, href: link.href })),
+  }))
+  const menuLinks: SheetLink[] = navigation.header.flatMap((item) =>
+    'href' in item
+      ? [{ label: item.label, href: item.href, ...(item.badge && { badge: item.badge }) }]
+      : [{ label: item.label, href: '/rozwiazania' }],
+  )
+  const sheetLinks: SheetLink[] = [
+    ...menuLinks,
+    { label: 'Cennik', href: '/cennik' },
+    ...(anyPost ? [{ label: 'Aktualności', href: NEWS_PATH }] : []),
+  ]
+  const legal = shared?.company.legal
+  const searchPages: SearchPage[] = [
+    ...sheetLinks.map(({ label, href }) => ({ label, href })),
+    ...(legal
+      ? [
+          { label: 'Polityka prywatności', href: legal.privacy },
+          { label: 'Cookies', href: legal.cookies },
+          { label: 'Deklaracja dostępności', href: legal.accessibility },
+          { label: 'Mapa strony', href: legal.sitemap },
+        ]
+      : []),
+  ]
+
   return (
-    <>
-      <SwTopBar phone={settings.phone} />
+    <div id="top">
       {promo}
-      <SoftwareHeader tenant={tenant} navigation={navigation} />
+      {shared && line && (
+        <BrandBar
+          lines={shared.lines}
+          current="software"
+          hours={shared.company.hours}
+          holidays={shared.company.holidays}
+          now={now}
+          slot={line.brandBarSlot}
+          phone={line.phone}
+          phoneLabel={line.phoneLabel}
+        />
+      )}
+      <SwHeader
+        homeLabel={homeLabel}
+        navigation={navigation}
+        mega={megaColumns(navigation.mega.columns, index.solutions, index.priceDisplay)}
+        cta={cta}
+      />
       <PageTransition>{children}</PageTransition>
       <RevealObserver />
       <ContactToast />
-      <SoftwareFooter
-        name={tenant.name}
-        footer={navigation.footer}
-        phone={settings.phone}
-        phone2={settings.phone2}
-        email={settings.email}
-        company={company}
-      />
-      {/* The footer's bottom bar keeps room for the bottom bar and the project pill above it
-          (spec. §8.6), so the dark footer runs to the bottom of the screen. */}
+      {navigation.startBand && (
+        <StartBand band={navigation.startBand} phone={line?.phone ?? null} />
+      )}
+      {shared && line && (
+        <SiteFooter
+          line="software"
+          lineName={tenant.name}
+          description={line.footerDescription}
+          promises={line.footerPromises ?? []}
+          columns={columns}
+          company={shared.company}
+          contact={{
+            phone: line.phone,
+            phone2: line.phone2 ?? settings.phone2,
+            email: line.email,
+            hours: shared.company.hours,
+            holidays: shared.company.holidays,
+            responsePromise: line.responsePromise,
+          }}
+          lines={shared.lines}
+          legalNote={line.legalNote}
+          now={now}
+        />
+      )}
       {/* Outside the header: its backdrop blur would pin `fixed` children to the header. */}
       <ProjectToast canOpen={navigation.headerRight.projectDrawer} />
-      <PhoneLayer
-        navigation={navigation}
-        tiles={tiles}
-        homeHrefs={homeHrefs}
-        phone={settings.phone ? { label: settings.phone, href: toTelHref(settings.phone) } : null}
-        footerLine={location ? `PRO-KOM · ${location.street}, ${location.city} · od 2004 r.` : null}
-      />
+      {/* The preview of the shared elements renders its own copies (`/_wspolne`). */}
+      <PreviewGuard>
+        {shared && line && (
+          <SwRail
+            sections={line.rail?.sections ?? []}
+            action={action}
+            pages={searchPages}
+            shortcuts={(line.rail?.searchShortcuts ?? []).map((link) => ({
+              label: link.label,
+              href: link.href,
+            }))}
+            actions={paletteActions({
+              phone: line.phone,
+              phone2: line.phone2,
+              email: line.email,
+              mapsUrl: shared.company.mapsUrl,
+              primary: action,
+              themes: true,
+            })}
+            recentlyViewed={shared.company.recentlyViewed}
+            phone={line.phone}
+          />
+        )}
+        {line && <TabBar second={line.tabBar?.second ?? null} center={center ?? null} />}
+        {shared && line && (
+          <MenuSheet
+            lines={shared.lines}
+            current="software"
+            phone={line.phone}
+            hours={shared.company.hours}
+            holidays={shared.company.holidays}
+            now={now}
+            themes
+          >
+            <SwSheetList links={sheetLinks} />
+          </MenuSheet>
+        )}
+      </PreviewGuard>
       <AnalyticsScript line={tenant.line} />
-    </>
+    </div>
   )
 }

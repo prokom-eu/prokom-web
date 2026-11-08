@@ -9,20 +9,20 @@ export const SOFTWARE_SHARED: SharedGroup = {
   phoneLabel: 'Software:',
   responsePromise: 'Odpowiedź w 1 dzień roboczy',
   brandBarSlot: { label: 'Darmowy audyt', href: '/audyt' },
-  headerCta: { label: 'Bezpłatna wycena', href: '/kontakt', counter: 'none' },
+  headerCta: { label: 'Bezpłatna wycena', href: '/kontakt', counter: 'project' },
   tabBar: {
     second: { label: 'Oferta', href: '/rozwiazania' },
-    center: { label: 'Kreator', href: '/dobierz', icon: 'wand' },
+    center: { label: 'Kreator', href: '/dobierz', icon: 'bolt' },
   },
   rail: {
-    // v24 (board `AU-pc`, SWA2c): = RAIL_LABELS of the start page.
+    // v24 (board `AU-pc`, SWA2c): the sections of the start page, in its order.
     sections: [
       { anchorId: 'start', label: 'Start', icon: 'home' },
       { anchorId: 'sytuacje', label: 'Od czego zaczynasz', icon: 'compass' },
       { anchorId: 'oferta', label: 'Oferta', icon: 'grid' },
       { anchorId: 'podglady', label: 'Podglądy na żywo', icon: 'monitor' },
       { anchorId: 'technologia', label: 'Jak robimy', icon: 'site' },
-      { anchorId: 'dobierz', label: 'Kreator 60 s', icon: 'flash' },
+      { anchorId: 'dobierz', label: 'Kreator 60 s', icon: 'bolt' },
       { anchorId: 'cennik', label: 'Cennik', icon: 'wallet' },
       { anchorId: 'proces', label: 'Jak pracujemy', icon: 'doc' },
       { anchorId: 'faq', label: 'Pytania', icon: 'q' },
@@ -56,9 +56,10 @@ export const SOFTWARE_SHARED: SharedGroup = {
       heading: 'Firma',
       links: [
         { label: 'O firmie', href: '/o-firmie' },
-        { label: 'Jedna firma do wszystkiego', href: '/jedna-firma' },
+        { label: 'Jedna firma do wszystkiego', href: '/o-firmie#linie' },
         { label: 'Aktualności', href: '/aktualnosci' },
         { label: 'Darmowy audyt', href: '/audyt' },
+        { label: 'Kreator 60 s', href: '/dobierz' },
       ],
     },
   ],

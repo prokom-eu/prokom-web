@@ -59,8 +59,8 @@ export default async function WizardPage({ params, searchParams }: Props) {
 
   const { page } = props.rules
   return (
-    // `data-final-cta`: the wizard is the page's CTA — the footer drops its CTA band (SWR2).
-    <div data-final-cta className="overflow-x-clip pt-6 pb-16 sm:pt-10 sm:pb-24">
+    // The band „Zacznij od podglądu” follows the wizard (board AU-kreator, ZMIANY-v24 §3.5).
+    <div className="overflow-x-clip pt-6 pb-16 sm:pt-10 sm:pb-24">
       <Container wide>
         <nav aria-label="Okruszki" className="mb-6 text-sm text-ink-2">
           <ol className="flex flex-wrap gap-2">
