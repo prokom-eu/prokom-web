@@ -142,6 +142,29 @@ describe('ContactPage (spec §6.1)', () => {
   })
 })
 
+// Audit 08.11 §2 pkt 1: from 1400 px the content keeps clear of the side rail (`--rail-offset`).
+const RAIL_PADDING = 'pl-[calc(32px+var(--rail-offset,0px))]'
+const containers = (markup: string) =>
+  [...markup.matchAll(/class="([^"]*max-w-\[1344px\][^"]*)"/g)].map((m) => m[1] ?? '')
+
+describe('templates keep clear of the side rail (audit 08.11)', () => {
+  it('every content container of Kontakt and O firmie carries the rail offset', () => {
+    for (const markup of [
+      contact(),
+      renderToStaticMarkup(createElement(AboutPage, { ...common, siteEnv: 'local' })),
+    ]) {
+      const found = containers(markup)
+      expect(found.length).toBeGreaterThan(3)
+      expect(found.filter((c) => !c.includes(RAIL_PADDING))).toEqual([])
+    }
+  })
+
+  it('the big phone number in the Kontakt hero never wraps (audit 08.11 §2 pkt 4)', () => {
+    const big = /<a href="tel:[^"]*" class="([^"]*font-display[^"]*)"/.exec(contact())?.[1] ?? ''
+    expect(big).toContain('whitespace-nowrap')
+  })
+})
+
 describe('AboutPage (spec §6.2)', () => {
   const about = (props: Partial<Parameters<typeof AboutPage>[0]> = {}) =>
     renderToStaticMarkup(createElement(AboutPage, { ...common, siteEnv: 'local', ...props }))

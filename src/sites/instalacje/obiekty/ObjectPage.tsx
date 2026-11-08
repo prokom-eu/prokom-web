@@ -1,14 +1,9 @@
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
 
-import {
-  getInstalacjeCards,
-  getInstalacjeRealizations,
-  getInstalacjeSettings,
-} from '@/lib/instalacje/data'
+import { getInstalacjeCards, getInstalacjeSettings } from '@/lib/instalacje/data'
 import { objectHref } from '@/lib/instalacje/menu'
 import { SERVICE_KEYS } from '@/lib/instalacje/options'
-import { leadPhoto, matchRealization } from '@/lib/instalacje/realizations'
 import { serviceJsonLd } from '@/lib/instalacje/seo'
 import { breadcrumbJsonLd } from '@/lib/seo/jsonLd'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
@@ -28,7 +23,6 @@ import { Packages } from '../sekcje/Packages'
 import { PageHero } from '../sekcje/PageHero'
 import { Related } from '../sekcje/Related'
 import { SectionHead } from '../sekcje/SectionHead'
-import { RealizationPhotos } from '../widzety/realizacje/RealizationPhotosLazy'
 import { DayTimeline } from './DayTimeline'
 import { ObjectScene } from './ObjectScene'
 import {
@@ -63,19 +57,16 @@ const ARCH_OBJECTS = new Set(['dev', 'bud'])
  * the cross-section, problems with what we do, day / year timeline (no law
  * section: runda v6 §1.1), Podhale, checklist „Przed wizytą”, warranty, packages, FAQ, related services and
  * similar objects, the CTA band — all texts from the panel (`InstObjects`), hotspot titles and
- * the drawing from code. Realizations („Nasze realizacje”, the clients agreed — boss 01.11.2026)
- * from the panel; the photo slot keeps the icon without the prototype's „Miejsce na zdjęcie”.
+ * the drawing from code. No realizations here: they live on `/realizacje` and the home page only
+ * (runda v6 §1.2).
  */
 export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) {
-  const [cards, settings, site, company, realizations] = await Promise.all([
+  const [cards, settings, site, company] = await Promise.all([
     getInstalacjeCards(tenantId),
     getInstalacjeSettings(tenantId),
     getSiteSettings(tenantId),
     getCompanyData(),
-    getInstalacjeRealizations(tenantId),
   ])
-  // Round v5 (RUNDA-V5 §4): the photos of the realization this page names, if it has any.
-  const withPhotos = realizations.filter((r) => r.photos.length > 0)
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
   const salons = salonsNote(company?.locations ?? [])
@@ -261,51 +252,6 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </InstSection>
-      )}
-
-      {object.realizations && object.realizations.length > 0 && (
-        <InstSection id="realizacje-s" style={SECTION} {...foldOf('realizacje-s')}>
-          <div className="wrap">
-            <div className="shead ri">
-              <div>
-                <span className="eye">{objectPage.realizations.eyebrow}</span>
-                <h2 className="h2">
-                  {object.realizationsHeading || objectPage.realizations.heading}
-                </h2>
-              </div>
-              <Link href={objectPage.realizations.all.href} className="btn btn-g btn-s">
-                {objectPage.realizations.all.label}
-              </Link>
-            </div>
-            <div className="sgrg">
-              {object.realizations.map((r) => {
-                const match = matchRealization(r.title, withPhotos)
-                const photos =
-                  match && leadPhoto(`${r.place ?? ''} ${r.description ?? ''}`, match.photos)
-                return (
-                  <div key={r.id ?? r.title} className="card sgrc ri">
-                    {photos ? (
-                      <div className="sgrph sgrphp">
-                        <RealizationPhotos
-                          photos={photos}
-                          title={r.title}
-                          sizes="(min-width: 1100px) 400px, 100vw"
-                        />
-                      </div>
-                    ) : (
-                      <span className="sgrph" aria-hidden="true">
-                        <InstIcon name="camera2" size={26} strokeWidth={1.6} />
-                      </span>
-                    )}
-                    <b className="h3">{r.title}</b>
-                    {r.place && <span className="mut">{r.place}</span>}
-                    {r.description && <p>{r.description}</p>}
-                  </div>
-                )
-              })}
             </div>
           </div>
         </InstSection>

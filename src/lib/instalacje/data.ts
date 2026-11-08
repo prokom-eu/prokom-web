@@ -12,7 +12,7 @@ import type {
 import { navigation } from '@/sites/instalacje/dane/nawigacja'
 
 import { buildMenu, type InstMenu, type MenuDoc } from './menu'
-import { byNewest } from './realizations'
+import { byNewest, homeRealizations, withPhotos } from './realizations'
 import { OFFER_FAMILIES, SERVICE_KEYS, SETTINGS_DEFAULTS } from './options'
 
 /** Far above the 10 services, 12 objects and 76 solutions of the package. */
@@ -277,7 +277,7 @@ export type HomeRealization = {
   category: string | null
   place: string | null
   scope: string | null
-  /** Round v5 (RUNDA-V5 §4): the photos, the cover first; empty → the card keeps its drawing. */
+  /** Round v5 (RUNDA-V5 §4): the photos, the cover first; never empty (runda v6 D2). */
   photos: PublicImage[]
 }
 
@@ -290,8 +290,8 @@ function realizationImages(photos: unknown, tenantId: number): PublicImage[] {
 
 /**
  * What the home sections need beyond the menu (I6): the number of brands of the published offer
- * (`InstServices.offer.brands`, counted once each) and up to 4 published, featured realizations
- * (published = with the client's consent, I2). This tenant only, public fields only.
+ * (`InstServices.offer.brands`, counted once each) and up to 4 published realizations with a
+ * photo, the featured ones first (published = with the client's consent, I2; runda v6 D2). This tenant only, public fields only.
  */
 export const getInstalacjeHome = cache(
   async (tenantId: number): Promise<{ brands: number; realizations: HomeRealization[] }> => {
@@ -311,7 +311,7 @@ export const getInstalacjeHome = cache(
       }),
       payload.find({
         collection: 'realizations',
-        where: { and: [...(where.and ?? []), { featured: { equals: true } }] },
+        where,
         draft: false,
         depth: 1,
         limit: LIMIT,
@@ -323,6 +323,7 @@ export const getInstalacjeHome = cache(
           photos: true,
           year: true,
           legacyId: true,
+          featured: true,
         },
         overrideAccess: true,
       }),
@@ -334,17 +335,18 @@ export const getInstalacjeHome = cache(
     return {
       brands: brands.size,
       // Newest first, without a year after them, then the package order (`byNewest`); 4 cards.
-      realizations: [...realizations.docs]
-        .sort(byNewest)
-        .slice(0, 4)
-        .map((doc) => ({
+      realizations: homeRealizations(
+        [...realizations.docs].sort(byNewest).map((doc) => ({
           id: doc.id,
           title: doc.title,
           category: doc.category ?? null,
           place: doc.place ?? null,
           scope: doc.scope ?? null,
+          featured: doc.featured ?? false,
           photos: realizationImages(doc.photos, tenantId),
         })),
+        4,
+      ).map(({ featured: _featured, ...card }) => card),
     }
   },
 )
@@ -487,8 +489,8 @@ export type RealizationCard = {
 
 /**
  * The published realizations of this tenant (published = with the client's consent, the hook of
- * `Realizations`), newest first, without a year after them, then in the package order
- * (`byNewest`). Fresh on every request.
+ * `Realizations`) that have a photo (runda v6 D2), newest first, without a year after them, then
+ * in the package order (`byNewest`). Fresh on every request.
  */
 export const getInstalacjeRealizations = cache(
   async (tenantId: number): Promise<RealizationCard[]> => {
@@ -513,17 +515,19 @@ export const getInstalacjeRealizations = cache(
       },
       overrideAccess: true,
     })
-    return [...docs].sort(byNewest).map((d) => ({
-      id: d.id,
-      title: d.title,
-      category: d.category ?? null,
-      place: d.place ?? null,
-      scope: d.scope ?? null,
-      description: d.description ?? null,
-      year: d.year ?? null,
-      services: d.services ?? [],
-      kind: d.kind ?? null,
-      photos: realizationImages(d.photos, tenantId),
-    }))
+    return withPhotos(
+      [...docs].sort(byNewest).map((d) => ({
+        id: d.id,
+        title: d.title,
+        category: d.category ?? null,
+        place: d.place ?? null,
+        scope: d.scope ?? null,
+        description: d.description ?? null,
+        year: d.year ?? null,
+        services: d.services ?? [],
+        kind: d.kind ?? null,
+        photos: realizationImages(d.photos, tenantId),
+      })),
+    )
   },
 )

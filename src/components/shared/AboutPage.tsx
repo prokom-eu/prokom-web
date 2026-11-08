@@ -15,6 +15,7 @@ import { type AuthLogo, CompanyCard } from './CompanyCard'
 import { Contours } from './Contours'
 import { FamilyStrip } from './FamilyStrip'
 import { PageCrumbs, type Crumb } from './PageCrumbs'
+import { PAGE_CONTAINER as CONTAINER } from './pageContainer'
 import { RulesBento } from './RulesBento'
 import { StatsStrip } from './StatsStrip'
 import { Steps } from './Steps'
@@ -45,7 +46,6 @@ export type AboutPageProps = {
   authLogos?: readonly AuthLogo[]
 }
 
-const CONTAINER = 'mx-auto max-w-[1344px] px-5 min-[768px]:px-8'
 const H2 =
   'font-display text-[clamp(32px,3.8vw,48px)] leading-none font-extrabold tracking-[-0.025em]'
 const FOCUS =

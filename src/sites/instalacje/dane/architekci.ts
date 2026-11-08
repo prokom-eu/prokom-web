@@ -891,8 +891,6 @@ export const architekci = {
     heading: 'Od 2004 roku na Podhalu.',
     accent: 'Zostajemy po montażu.',
     lead: 'PRO-KOM to firma z Rabki-Zdroju. Instalacje, sprzęt, serwis i oprogramowanie w jednej firmie, blisko Twoich inwestycji.',
-    realizations: 'Wybrane realizacje',
-    realizationsAll: 'Wszystkie realizacje →',
     brands: 'Sprzęt, z którym pracujemy',
     brandsNote: 'Dobieramy sprzęt pod obiekt, nie pod markę. Sprzęt dostępny dla firm:',
     // The prototype's „[SZEF: autoryzacje i certyfikaty, np. Ampio, Satel]”: Ampio confirmed
@@ -905,9 +903,8 @@ export const architekci = {
     { value: '10', label: 'rodzajów instalacji u jednego wykonawcy' },
     { value: '100+', label: 'klientów firmowych całej PRO-KOM' },
   ],
-  // Realizations: the card lists the published (featured) ones — the clients agreed (boss
-  // 01.11.2026), the seed publishes them.
-  // TODO(krystian): szef — zdjęcia, 2–3 domy z projektem architekta; autoryzacja Satel.
+  // Runda v6 §1.2: no realizations on this page (only `/realizacje` and the home page).
+  // TODO(krystian): szef — autoryzacja Satel.
   brands: [
     'Ampio',
     'Dahua',

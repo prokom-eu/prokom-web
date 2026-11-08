@@ -5139,6 +5139,9 @@ export interface Realization {
    * Bez zgody realizacja zostaje wersją roboczą.
    */
   clientConsent?: boolean | null;
+  /**
+   * Pierwszeństwo na stronie głównej. Wolne miejsca (do 4) uzupełniają inne opublikowane realizacje ze zdjęciem. Realizacja bez zdjęcia nie pokazuje się nigdzie.
+   */
   featured?: boolean | null;
   title: string;
   /**

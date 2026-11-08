@@ -320,17 +320,6 @@ export const teletechnika = {
     ],
   },
 
-  /** The realization of this page (RUNDA-V5 §10.7): matched by name to a published one. */
-  realization: {
-    eyebrow: 'Realizacja',
-    heading: 'Przyłącza IT stanowisk biurowych w Blachotrapezie.',
-    name: 'Blachotrapez',
-    place: 'Rabka-Zdrój · stanowiska biurowe',
-    photoHint: 'stanowiska biurowe przyłącza IT okablowanie',
-    text: 'Przyłącza IT i okablowanie stanowisk biurowych.',
-    all: { label: 'Wszystkie realizacje →', href: '/realizacje' },
-  },
-
   forWhom: {
     head: { eyebrow: 'Dla kogo', heading: 'Pracujemy z tymi, którzy budują.' },
     items: [

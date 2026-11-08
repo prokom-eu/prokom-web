@@ -59,7 +59,7 @@ type ServiceLayout = {
   /** Under the warranty section (Smart home: the Ampio warranty note). */
   afterGuarantee?: ReactNode
 }
-type LayoutContext = { planHref: string; tenantId: number }
+type LayoutContext = { planHref: string }
 
 /** Pages built so far (I4, I7–I9); the other services show the shared sections until theirs. */
 const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = {
@@ -78,14 +78,14 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     sections: <DostepSections />,
     folded: ['cena', 'faq'],
   }),
-  wifi: ({ tenantId }) => ({
+  wifi: () => ({
     widget: <CoverageMap />,
-    sections: <SieciSections tenantId={tenantId} />,
+    sections: <SieciSections />,
     folded: ['cena', 'faq'],
   }),
-  tel: ({ tenantId }) => ({
+  tel: () => ({
     widget: <BuildingScene />,
-    sections: <TeletechnikaSections tenantId={tenantId} />,
+    sections: <TeletechnikaSections />,
     folded: ['faq'],
     guarantee: false,
     bandButton: teletechnika.bandButton,
@@ -96,14 +96,14 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     folded: ['cena', 'faq'],
     afterGuarantee: <SmartWarrantyNote />,
   }),
-  snd: ({ tenantId }) => ({
+  snd: () => ({
     widget: <ZoneMixer />,
-    sections: <NaglosnienieSections tenantId={tenantId} />,
+    sections: <NaglosnienieSections />,
     folded: ['cena', 'faq'],
   }),
-  scr: ({ tenantId }) => ({
+  scr: () => ({
     widget: <ScreenPreview />,
-    sections: <EkranySections tenantId={tenantId} />,
+    sections: <EkranySections />,
     folded: ['cena', 'faq'],
   }),
   ev: () => ({
@@ -142,7 +142,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
   const salons = salonsNote(company?.locations ?? [])
   const path = `/${service.slug}`
   const planHref = `/zaplanuj?usluga=${service.key}`
-  const layout = LAYOUTS[service.key]?.({ planHref, tenantId })
+  const layout = LAYOUTS[service.key]?.({ planHref })
   const folded = new Set(layout?.folded ?? [])
   const crumb = service.hero?.crumb || service.name
   const band = {

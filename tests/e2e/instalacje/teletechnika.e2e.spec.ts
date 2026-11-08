@@ -30,9 +30,7 @@ test.describe('Instalacje Teletechnika', () => {
     await expect(hero.locator('.ttnote')).toContainText('Szafa główna')
   })
 
-  test('round v5 sections: stages, handover, mistakes, common parts, pricing, realization', async ({
-    page,
-  }) => {
+  test('round v5 sections: stages, handover, mistakes, common parts, pricing', async ({ page }) => {
     await open(page)
     const ids = await page.locator('main section[id]').evaluateAll((s) => s.map((x) => x.id))
     const at = (id: string) => ids.indexOf(id)
@@ -47,8 +45,8 @@ test.describe('Instalacje Teletechnika', () => {
     await expect(page.locator('#bledy .ttavoid')).toHaveCount(4)
     await expect(page.locator('#czesci-wspolne a[href="/kontrola-dostepu"]')).toBeVisible()
     await expect(page.locator('#jak-liczymy .procs')).toHaveCount(4)
-    // The Blachotrapez realization is published with photos in the seed.
-    await expect(page.locator('#realizacja-t img').first()).toBeVisible()
+    // Runda v6 §1.2: no realization on the page.
+    await expect(page.locator('#realizacja-t')).toHaveCount(0)
   })
 
   test('the quote form asks for the missing answers, then saves an inquiry', async ({ page }) => {

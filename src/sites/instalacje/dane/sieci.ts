@@ -192,16 +192,6 @@ export const sieci = {
     ] satisfies Feature[],
     slowLink:
       'Na Podhalu wciąż trafiamy na adresy bez szybkiego internetu. Wtedy budujemy łącze radiowe albo zapasowe LTE.',
-    // The client agreed to the publication (boss 01.11.2026); without the prototype's `[SZEF…]`.
-    realization: 'Realizacja: okablowanie stanowisk biurowych w Blachotrapezie w Rabce-Zdroju.',
-    // RUNDA-V5 §11: the same realization with its photos when published.
-    realizations: [
-      {
-        name: 'Blachotrapez',
-        place: 'Rabka-Zdrój · stanowiska biurowe',
-        hint: 'biurowe przyłącza',
-      },
-    ],
   },
 
   lab: {

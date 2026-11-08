@@ -272,7 +272,7 @@ describe('SEO titles (P3-23)', () => {
 describe('no photo promises (P0-2, audit 06.11)', () => {
   it('no mapped text asks to send photos or plans — no form takes files', () => {
     expect(allMapped()).not.toMatch(
-      /[Ww]yślij zdjęci|[Pp]rześlij rzuty|[Ww]yślesz zdjęci|możesz wysłać wcześniej|[Zz]rób zdjęcie|wystarczą zdjęcia/,
+      /wyślij zdję|prześlij rzuty|wyślesz zdjęci|możesz wysłać wcześniej|zrób zdjęcie|wystarczą zdjęcia/i,
     )
   })
 
