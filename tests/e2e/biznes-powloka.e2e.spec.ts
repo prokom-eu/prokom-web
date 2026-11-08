@@ -133,7 +133,7 @@ for (const width of [1400, 1180, 1024, 390, 360]) {
 test.describe('Biznes shell — phone', () => {
   test.use({ viewport: { width: 390, height: 844 } })
 
-  test('bottom bar: Start · Oferta · Zapytanie in the centre · Kontakt · Menu', async ({
+  test('bottom bar: Główna · Oferta · Zapytanie in the centre · Kontakt · Menu', async ({
     page,
   }) => {
     await page.goto(biznes('/oferta'))

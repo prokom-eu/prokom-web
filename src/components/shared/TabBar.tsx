@@ -30,7 +30,8 @@ const isCurrent = (pathname: string, href: string) =>
   href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`)
 
 /**
- * Phone tab bar of every line (spec §5 `TabBar`, board Telefon): Start · {second} · {centre —
+ * Phone tab bar of every line (spec §5 `TabBar`, board Telefon): Główna (not „Start”: Lighthouse
+ * `link-text` counts it as a non-descriptive link) · {second} · {centre —
  * raised, 52 px, in the accent} · Kontakt · Menu. Only the second and centre come from the panel;
  * Menu opens the shared sheet (`requestMenu`). Up to 767 px, above the safe area; a spacer of the
  * bar's height keeps the end of the page clear of it.
@@ -54,7 +55,7 @@ export function TabBar({ second, center, centerBadge, contactHref = '/kontakt' }
           <span className={icon(at('/'))}>
             <Icon name="home" />
           </span>
-          Start
+          Główna
         </Link>
         {second?.label && second.href ? (
           <Link

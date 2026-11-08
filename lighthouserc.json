@@ -10,7 +10,9 @@
         "https://staging.prokominstalacje.pl/monitoring",
         "https://staging.prokominstalacje.pl/dla-kogo/pensjonaty",
         "https://staging.prokominstalacje.pl/ladowarki-ev",
-        "https://staging.prokominstalacje.pl/zaplanuj"
+        "https://staging.prokominstalacje.pl/zaplanuj",
+        "https://staging.prokominstalacje.pl/dla-architektow",
+        "https://staging.prokominstalacje.pl/kontakt"
       ],
       "numberOfRuns": 3,
       "settings": {
