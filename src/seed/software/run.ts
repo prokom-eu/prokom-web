@@ -31,12 +31,7 @@ import { seedSoftwareContact } from './contact'
 import { seedSoftwareHome } from './home'
 import { seedSoftwarePhotos } from './photos'
 import { seedSoftwarePricing } from './pricing'
-import {
-  HOME_SECTION_TEXTS,
-  homeWithPriceTokens,
-  homeWithSections,
-  homeWithV24,
-} from './homeExtras'
+import { HOME_SECTION_TEXTS, homeWithSections, homeWithV24 } from './homeExtras'
 import { HOME_HERO } from './homeHero'
 import { HOME_V24 } from './homeV24'
 import { seedSharedData } from '../shared/run'
@@ -316,14 +311,13 @@ export async function seedSoftware(payload: Payload): Promise<void> {
       popular: stored?.popular?.length ? stored.popular : search.popular,
     }
     if (!hasSameValues(stored, searchMissing)) missing.search = searchMissing
-    // A home saved before SW5 / SW6 / SW8a lacks some section headings: only the missing ones
-    // are added. The package's rebuild price written as text becomes the price token (SW8a).
+    // A home saved before SW11b lacks the comparison heading: only missing headings are added.
     if (!missing.home) {
       const withSections = homeWithSections(softwareSettings.home, HOME_SECTION_TEXTS)
-      const priced = homeWithPriceTokens(withSections ?? softwareSettings.home) ?? withSections
       // v24 (SWA2a/2b): hero and the new sections added once to a home that lacks them.
       const home =
-        homeWithV24(priced ?? softwareSettings.home, { hero: HOME_HERO, ...HOME_V24 }) ?? priced
+        homeWithV24(withSections ?? softwareSettings.home, { hero: HOME_HERO, ...HOME_V24 }) ??
+        withSections
       if (home) missing.home = home as typeof fields.home
     }
     const changed = Object.keys(missing).length > 0

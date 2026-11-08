@@ -144,32 +144,6 @@ export function mergeSoftwareHome(
   })
 }
 
-/**
- * A start page in the v20 order (the wizard after the process, SW5–SW8b) gets the v21 order once
- * (SWR5, spec. §4): the blocks the seed knows take the seed order in the places they hold; any
- * other block stays where it is. `null` = not a v20 page (a page ordered in the panel is left).
- */
-export function softwareHomeInV21Order(
-  layout: readonly Block[],
-  seed: readonly Block[],
-): Block[] | null {
-  const at = (section: string) =>
-    layout.findIndex((b) => identity(b) === `swHomeSection:${section}`)
-  const process = at('process')
-  const wizard = at('wizard')
-  if (process < 0 || wizard < 0 || process > wizard) return null
-  const order = seed.map(identity)
-  const slots = layout.flatMap((block, i) => (order.includes(identity(block)) ? [i] : []))
-  const known = slots
-    .map((i) => layout[i]!)
-    .sort((a, b) => order.indexOf(identity(a)) - order.indexOf(identity(b)))
-  const result = [...layout]
-  slots.forEach((slot, k) => {
-    result[slot] = known[k]!
-  })
-  return result
-}
-
 type Count = (name: string, result: boolean | 'updated') => void
 const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
 
@@ -199,8 +173,7 @@ export async function seedSoftwareHome(payload: Payload, tenantId: number, count
     count('pages home', true)
     return
   }
-  const merged = mergeSoftwareHome(home.layout, seed)
-  const layout = softwareHomeInV21Order(merged ?? home.layout ?? [], seed) ?? merged
+  const layout = mergeSoftwareHome(home.layout, seed)
   count('pages home', layout ? 'updated' : false)
   if (!layout) return
   await payload.update({
