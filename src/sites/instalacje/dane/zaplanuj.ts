@@ -19,8 +19,8 @@ export const PLANNER_OBJECT_ICONS: Record<PlannerObject, InstIconName> = {
   rest: 'food',
   sklep: 'shop',
   firma: 'factory',
-  gmina: 'school',
-  dew: 'crane',
+  gmina: 'town',
+  dew: 'apt',
 }
 
 export type PlannerPreset = {
@@ -34,7 +34,7 @@ export type PlannerPreset = {
 export const zaplanuj = {
   trust: [
     { icon: 'clock', title: '2 minuty', text: 'klikasz zamiast pisać' },
-    { icon: 'shield', title: 'Bez zobowiązań', text: 'wycena po wizji lokalnej' },
+    { icon: 'check', title: 'Bez zobowiązań', text: 'wycena po wizji lokalnej' },
     { icon: 'doc', title: 'Na piśmie', text: 'zakres i cena przed montażem' },
   ] satisfies { icon: InstIconName; title: string; text: string }[],
   steps: ['Instalacje', 'Obiekt', 'Szczegóły', 'Kontakt'],

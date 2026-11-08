@@ -12,6 +12,7 @@ import {
 import {
   ANCHORS_V5,
   archNewsToImport,
+  ICON_FIXES,
   mapHref,
   objectData,
   forwardSeoTitle,
@@ -24,6 +25,7 @@ import {
   solutionsToImport,
 } from './map'
 import { LAW_WORDS } from '../../lib/instalacje/lawWords'
+import { isInstIconName } from '../../sites/instalacje/icons'
 import { withoutLaw } from './bezPrzepisow'
 
 const ids = (prefix: number) => (key: string) => prefix + key.length // any stable fake id
@@ -365,5 +367,23 @@ describe('anchor bars changed after the prototype (RUNDA-V5 §10)', () => {
         ),
       ).toEqual([])
     }
+  })
+})
+
+describe('icon review (runda v6 §1.5)', () => {
+  it('every fixed title is in the package and every icon is in the set', () => {
+    const text = allMapped()
+    for (const [title, name] of Object.entries(ICON_FIXES)) {
+      expect(text.includes(JSON.stringify(title)), title).toBe(true)
+      expect(isInstIconName(name), name).toBe(true)
+    }
+  })
+
+  it('Smart home, chargers and developers have their own icons', () => {
+    const services = servicesToImport().map((item) => serviceData(item, refs))
+    expect(services.find((s) => s.key === 'smart')?.icon).toBe('smart')
+    expect(services.find((s) => s.key === 'ev')?.icon).toBe('ev')
+    const objects = objectsToImport().map((item) => objectData(item, refs))
+    expect(objects.find((o) => o.key === 'dev')?.icon).toBe('apt')
   })
 })

@@ -48,7 +48,7 @@ export const naglosnienie = {
     } satisfies Record<VenueKey, { name: string; icon: string; zones: readonly string[] }>,
     sources: [
       { name: 'Muzyka w tle', icon: 'music' },
-      { name: 'Mikrofon', icon: 'spk' },
+      { name: 'Mikrofon', icon: 'mic' },
       { name: 'Telewizor, AUX', icon: 'tv' },
     ],
     source: 'Źródło',
@@ -347,9 +347,9 @@ export const naglosnienie = {
     /** Sources: name, icon, whether it speaks during an announcement. */
     sources: [
       { name: 'Muzyka i radio', icon: 'music', speaks: false },
-      { name: 'Mikrofon przy kasie', icon: 'chat', speaks: true },
+      { name: 'Mikrofon przy kasie', icon: 'mic', speaks: true },
       { name: 'Gong', icon: 'bell', speaks: true },
-      { name: 'Wejście alarmowe', icon: 'shield', speaks: false },
+      { name: 'Wejście alarmowe', icon: 'siren', speaks: false },
     ],
     priority: 'PRIORYTET: MIKROFON',
     panel: 'Panel ścienny w każdej strefie',
@@ -468,7 +468,7 @@ export const naglosnienie = {
         source: 'Mikrofony konferencyjne m.in. Audio-Technica',
       },
       {
-        icon: 'camera2',
+        icon: 'play',
         title: 'Nagrywanie i transmisja',
         text: 'Obrady rady gminy są transmitowane i utrwalane, a nagrania trafiają do BIP i na stronę gminy.',
       },

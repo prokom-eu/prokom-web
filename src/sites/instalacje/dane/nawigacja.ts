@@ -23,7 +23,7 @@ export const navigation: Navigation = {
   ],
   bottomBar: [
     { label: 'Start', icon: 'home', featured: false, href: '/' },
-    { label: 'Usługi', icon: 'net', featured: false, sheet: 'services' },
+    { label: 'Usługi', icon: 'grid', featured: false, sheet: 'services' },
     { label: 'Zaplanuj', icon: 'send', featured: true, href: '/zaplanuj' },
     { label: 'Dla kogo', icon: 'users', featured: false, sheet: 'objects' },
     { label: 'Więcej', icon: 'more', featured: false, sheet: 'more' },
@@ -36,7 +36,12 @@ export const navigation: Navigation = {
       icon: 'ruler',
       caption: 'Współpraca, wytyczne do projektu, nowości',
     },
-    { label: 'Realizacje', href: '/realizacje', icon: 'eye', caption: 'Przykłady naszych montaży' },
+    {
+      label: 'Realizacje',
+      href: '/realizacje',
+      icon: 'star',
+      caption: 'Przykłady naszych montaży',
+    },
     {
       label: 'Serwis i przeglądy',
       href: '/serwis',
@@ -52,7 +57,7 @@ export const navigation: Navigation = {
     {
       label: 'O firmie',
       href: '/o-firmie',
-      icon: 'shield',
+      icon: 'info',
       caption: 'PRO-KOM od 2004 r., Rabka-Zdrój',
     },
     {
@@ -64,7 +69,7 @@ export const navigation: Navigation = {
     {
       label: 'Pełna oferta',
       href: '/uslugi',
-      icon: 'layers',
+      icon: 'users',
       caption: 'Wszystkie rozwiązania w jednym miejscu',
     },
   ],

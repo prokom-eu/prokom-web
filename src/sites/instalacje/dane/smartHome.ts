@@ -144,7 +144,7 @@ export const smartHome = {
       {
         key: 'air',
         name: 'Wentylacja i powietrze',
-        icon: 'cloud',
+        icon: 'fan',
         group: 'Powietrze',
         text: 'Rekuperacja i czujniki pracują razem, więc wentylacja reaguje na to, co dzieje się w pomieszczeniu.',
         features: [
@@ -199,7 +199,7 @@ export const smartHome = {
       {
         key: 'al',
         name: 'Alarm i czujki',
-        icon: 'shield',
+        icon: 'bell',
         group: 'Bezpieczeństwo',
         text: 'Alarm uzbraja się razem ze sceną Wyjście, a czujki zalania i dymu same reagują.',
         features: [
@@ -218,7 +218,7 @@ export const smartHome = {
       {
         key: 'acc',
         name: 'Dostęp i wideodomofon',
-        icon: 'key',
+        icon: 'lock',
         group: 'Wejście',
         text: 'Karta albo kod zamiast klucza, a wideodomofon odbierasz w tej samej aplikacji.',
         features: [
@@ -308,7 +308,7 @@ export const smartHome = {
       {
         key: 'app',
         name: 'Aplikacja, głos i sceny',
-        icon: 'star',
+        icon: 'phone',
         group: 'Sterowanie',
         text: 'Jedna aplikacja dla domu i wszystkich obiektów, sceny, harmonogramy i sterowanie głosem.',
         features: [
@@ -409,13 +409,13 @@ export const smartHome = {
       { name: 'Ogrzew.', icon: 'thermo' },
       { name: 'Scena', icon: 'star' },
       { name: 'Brama', icon: 'gate' },
-      { name: 'Alarm', icon: 'shield' },
+      { name: 'Alarm', icon: 'bell' },
       { name: 'Muzyka', icon: 'music' },
       { name: 'Noc', icon: 'moon' },
       { name: 'Wyjście', icon: 'door' },
-      { name: 'Taras', icon: 'sun2' },
+      { name: 'Taras', icon: 'leaf' },
       { name: 'Kino', icon: 'tv' },
-      { name: 'Wentyl.', icon: 'cloud' },
+      { name: 'Wentyl.', icon: 'fan' },
     ],
   },
 
@@ -499,7 +499,7 @@ export const smartHome = {
             ['Światło', 'light', '4', 'włączone', true],
             ['Rolety', 'blind', 'Otwarte', 'parter', false],
             ['Brama', 'gate', 'Zamknięta', 'wjazd', false],
-            ['Alarm', 'shield', 'Rozbrojony', 'dom', false],
+            ['Alarm', 'bell', 'Rozbrojony', 'dom', false],
             ['Energia', 'bolt', '3,2 kW', 'z paneli PV', true],
           ],
         },
@@ -624,7 +624,7 @@ export const smartHome = {
         models: ['M-RT-s', 'M-CON-HVAC-p', 'M-CON-485-s'],
       },
       {
-        icon: 'cloud',
+        icon: 'thermo',
         name: 'Czujniki',
         text: 'Temperatura, wilgotność, światło, jakość powietrza, ruch i wejścia na kontaktrony lub czujki zalania.',
         models: ['M-SENS', 'WZ-PIR', 'M-IN'],

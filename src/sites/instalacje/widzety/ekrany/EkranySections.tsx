@@ -33,7 +33,7 @@ export function EkranySections() {
             ))}
           </div>
           <div className="note ri" style={{ marginTop: 18 }}>
-            <InstIcon name="eye" size={20} />
+            <InstIcon name="tv" size={20} />
             <span>
               {where.tvBefore}
               <Link href={where.tvLink.href} className="scr-link">

@@ -332,7 +332,7 @@ export const ekrany = {
       },
       {
         name: 'Jasne wnętrze',
-        icon: 'sun',
+        icon: 'light',
         nits: 700,
         range: 'ok. 700 nitów',
         cls: 'Ekran o podwyższonej jasności, np. seria QHC (700 nitów)',
@@ -340,7 +340,7 @@ export const ekrany = {
       },
       {
         name: 'Witryna w cieniu',
-        icon: 'eye',
+        icon: 'cloud',
         nits: 2000,
         range: '1500–2500 nitów',
         cls: 'Ekran witrynowy, np. OMDX 32" (2000 nitów)',
@@ -348,7 +348,7 @@ export const ekrany = {
       },
       {
         name: 'Witryna w słońcu',
-        icon: 'sun2',
+        icon: 'sun',
         nits: 3000,
         range: '2500–4000 nitów',
         cls: 'Ekran witrynowy, np. OMB 55" (3000 nitów)',
@@ -407,7 +407,7 @@ export const ekrany = {
         text: 'Śniadanie, obiad, kolacja. Treść zmienia się sama, także w weekendy i święta.',
       },
       {
-        icon: 'wrench',
+        icon: 'doc',
         title: 'Treści na zlecenie',
         // TODO(krystian): scope and price of the content service (the prototype: „Zakres i cena:
         // [SZEF].”).
@@ -440,12 +440,12 @@ export const ekrany = {
           text: 'Polska marka firmy VIDIS. Np. TouchScreen 6 Connect 86: 4K, 20 punktów dotyku, według producenta 5 lat gwarancji.',
         },
         {
-          icon: 'users',
+          icon: 'scr',
           title: 'Samsung Flip i monitory edukacyjne',
           text: 'Interaktywny flipchart do sal spotkań i monitory z Google Play i Classroom do szkół.',
         },
         {
-          icon: 'tv',
+          icon: 'play',
           title: 'Projektory i ekrany',
           text: 'Sale konferencyjne, szkoły i kościoły. Projektor, ekran projekcyjny i nagłośnienie w jednym projekcie.',
         },

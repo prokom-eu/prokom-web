@@ -54,7 +54,7 @@ export const serwis = {
       },
       {
         label: 'Smart home',
-        icon: 'home',
+        icon: 'smart',
         service: 'smart',
         symptoms: ['Scena nie działa', 'Brak sterowania z telefonu', 'Ogrzewanie', 'Inne'],
       },
@@ -121,7 +121,7 @@ export const serwis = {
     symptom: 'Objaw',
     urgency: 'Pilność',
     steps: [
-      { title: 'Przyjęte', text: 'Zgłoszenie jest u nas', icon: 'check' },
+      { title: 'Przyjęte', text: 'Zgłoszenie jest u nas', icon: 'mail' },
       {
         title: 'Odpowiedź',
         text: 'Do 24 h w dni robocze oddzwonimy albo odpiszemy',
@@ -132,7 +132,7 @@ export const serwis = {
         text: 'Najpierw zdalnie, za Twoją zgodą. Jeśli trzeba, ustalamy termin przyjazdu',
         icon: 'cal',
       },
-      { title: 'Naprawione', text: 'Potwierdzamy zakres wykonanych prac', icon: 'star' },
+      { title: 'Naprawione', text: 'Potwierdzamy zakres wykonanych prac', icon: 'check' },
     ] satisfies { title: string; text: string; icon: InstIconName }[],
     note: 'Tak zwykle przebiega zgłoszenie.',
   },
@@ -211,7 +211,7 @@ export const serwis = {
     items: [
       { icon: 'cam', title: 'Kamery', text: 'Ustawienia, nagrywanie, aplikacja.' },
       { icon: 'wifi', title: 'Sieć i Wi-Fi', text: 'Punkty dostępowe, vouchery, aktualizacje.' },
-      { icon: 'home', title: 'Smart home', text: 'Sceny, harmonogramy, zmiany ustawień.' },
+      { icon: 'smart', title: 'Smart home', text: 'Sceny, harmonogramy, zmiany ustawień.' },
       { icon: 'scr', title: 'Ekrany', text: 'Treści i harmonogramy.' },
       { icon: 'lock', title: 'Zamki', text: 'Kody, integracje, historia.' },
       { icon: 'bolt', title: 'Ładowarki', text: 'Karty RFID i konfiguracja (modele online).' },

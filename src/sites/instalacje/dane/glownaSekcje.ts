@@ -223,8 +223,8 @@ export const PLAN_OBJECTS = [
   { key: 'sklep', label: 'Sklep', icon: 'shop', planner: 'sklep' },
   { key: 'biuro', label: 'Biuro lub firma', icon: 'office', planner: 'firma' },
   { key: 'hala', label: 'Hala lub magazyn', icon: 'factory', planner: 'firma' },
-  { key: 'gmina', label: 'Gmina, szkoła, kościół', icon: 'school', planner: 'gmina' },
-  { key: 'dew', label: 'Deweloper, wspólnota', icon: 'crane', planner: 'dew' },
+  { key: 'gmina', label: 'Gmina, szkoła, kościół', icon: 'town', planner: 'gmina' },
+  { key: 'dew', label: 'Deweloper, wspólnota', icon: 'apt', planner: 'dew' },
 ] as const
 export type PlanObject = (typeof PLAN_OBJECTS)[number]['key']
 
@@ -405,7 +405,7 @@ export const glownaSekcje = {
       { icon: 'chat', title: 'Pomoc zdalna', text: 'Wiele usterek naprawiamy bez dojazdu.' },
       { icon: 'wrench', title: 'Naprawy i rozbudowa', text: 'Jeden numer do całej instalacji.' },
       {
-        icon: 'layers',
+        icon: 'wrench',
         title: 'Przejęcie serwisu',
         text: 'Instalacje po firmach, które zniknęły.',
       },

@@ -116,6 +116,22 @@ export const INST_ICONS = {
     'M7 18v-5a5 5 0 0 1 10 0v5M5 18h14v3H5zM12 5V2M5.6 7.6L3.5 5.5M18.4 7.6l2.1-2.1M2 13h2M20 13h2',
   /** Flood detector: a drop over a wave. */
   flood: 'M12 2s-5 6-5 9.5a5 5 0 0 0 10 0C17 8 12 2 12 2zM2 20c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0',
+  /** Smart home: a house with a switch inside (the object „Dom” keeps `home`). */
+  smart: 'M3 11l9-7 9 7v9H3zM9 13h6v5H9zM12 14.5v2',
+  /** Microphone on a stand. */
+  mic: 'M9 3h6v9a3 3 0 0 1-6 0zM5 11a7 7 0 0 0 14 0M12 18v3M8 21h8',
+  /** Rack cabinet: shelves with lights. */
+  rack: 'M5 2h14v20H5zM5 8h14M5 14h14M8 5h.01M8 11h.01M8 17h.01M11 5h5M11 11h5M11 17h5',
+  /** EV charger: a post with a cable and a plug (`bolt` stays for power). */
+  ev: 'M5 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16M3 21h14M8 7h4M11 11l-2 3h3l-2 3M15 9h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 0 3 0V8l-2-2',
+  /** Refused: a crossed circle (an access log line, not „×”). */
+  ban: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM5.6 5.6l12.8 12.8',
+  /** About: „i” in a circle. */
+  info: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 11v6M12 7.5h.01',
+  /** Ventilation: a fan in a ring. */
+  fan: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 12c0-3 1-5 3-5s2 3-3 5zM12 12c3 0 5 1 5 3s-3 2-5-3zM12 12c0 3-1 5-3 5s-2-3 3-5zM12 12c-3 0-5-1-5-3s3-2 5 3z',
+  /** Wind (the halny): wavy lines with curls. */
+  wind: 'M3 8h11a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h8',
   /** LTE link: an aerial and signal bars. */
   lte: 'M6 21V9M3 5l3 4 3-4M13 21v-3M17 21v-7M21 21V9',
 } as const satisfies Record<string, string>
