@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  bundleCard,
   bundleCartItems,
+  filterBundleCards,
   bundlesOfIndustry,
   bundlesWithProduct,
   buildBundleView,
@@ -77,7 +79,28 @@ const doc = {
   industries: [ref('gastronomia'), ref('handel', OTHER)],
   contentStatus: 'needs-review' as const,
   internalNotes: 'Potwierdzić u Elzab.',
-  compatChecks: [{ pair: 'D3 ↔ Zeta', source: null, status: 'potwierdzona' }],
+  compatChecks: [
+    {
+      pair: 'D3 ↔ Zeta',
+      source: 'karta: „Zeta”',
+      status: 'potwierdzona',
+      url: 'https://gopos.pl/x',
+    },
+    {
+      pair: 'GoPOS ↔ PolCard',
+      source: null,
+      status: 'bez-integracji',
+      url: 'https://help.gopos.pl/y',
+    },
+    {
+      pair: 'Kiosk ↔ GoKiosk',
+      source: null,
+      status: 'do_potwierdzenia',
+      url: 'https://gopos.pl/z',
+    },
+    { pair: 'Bez adresu', source: null, status: 'potwierdzona', url: null },
+    { pair: 'Zły adres', source: null, status: 'potwierdzona', url: 'javascript:alert(1)' },
+  ],
 } as unknown as BundleDoc
 
 const view = buildBundleView(doc, TENANT)!
@@ -85,10 +108,16 @@ const view = buildBundleView(doc, TENANT)!
 describe('buildBundleView (K3c)', () => {
   it('copies public fields only', () => {
     const json = JSON.stringify(view)
-    expect(json).not.toMatch(/Potwierdzić|Integracja z GoPOS|potwierdzona|toConfirm|internalNotes/)
+    expect(json).not.toMatch(
+      /Potwierdzić|Integracja z GoPOS|potwierdzona|do_potwierdzenia|karta: |toConfirm|internalNotes/,
+    )
     expect(view.areaLabel).toBe('Gastronomia')
     expect(view.description).toEqual(['Akapit 1.'])
     expect(view.indexable).toBe(false)
+  })
+
+  it('lists official sources of confirmed pairs only (https) — never „bez integracji”', () => {
+    expect(view.sources).toEqual([{ pair: 'D3 ↔ Zeta', url: 'https://gopos.pl/x' }])
   })
 
   it('keeps relations of its own tenant only', () => {
@@ -144,11 +173,59 @@ describe('bundleCartItems („Zapytaj o ten zestaw”)', () => {
 
 describe('bundle lists', () => {
   const ready: BundleView = { ...view, slug: 'gotowy', indexable: true }
-  it('finds bundles of a product and „Gotowe” bundles of an industry', () => {
-    expect(bundlesWithProduct([view, ready], 'ux').map((b) => b.slug)).toEqual([
-      'zestaw-kawiarnia-lada',
-      'gotowy',
-    ])
+  it('links „Gotowe” bundles only: of a product and of an industry (BIZ-3 §9.2)', () => {
+    expect(bundlesWithProduct([view, ready], 'ux').map((b) => b.slug)).toEqual(['gotowy'])
     expect(bundlesOfIndustry([view, ready], 'gastronomia').map((b) => b.slug)).toEqual(['gotowy'])
+  })
+})
+
+describe('bundleCard (/zestawy, BIZ-3 §9.2)', () => {
+  const names = ['d3', 'pol', 'ux', 'a', 'b', 'c']
+  const products = new Map(names.map((slug) => [slug, { name: `Karta ${slug}`, image: undefined }]))
+  const card = bundleCard({ ...view, indexable: true }, products)
+
+  it('shows who it is for, up to 4 items (required first) and what is left', () => {
+    expect(card.audience).toBe('Kawiarnia z jedną ladą.')
+    expect(card.items).toEqual(['Karta d3', 'Karta pol', 'Karta ux'])
+    expect(card.more).toBe(0)
+    const extra = ['a', 'b', 'c'].map((product) => ({ ...view.items[0]!, product }))
+    const many = bundleCard({ ...view, items: [...view.items, ...extra] }, products)
+    expect(many.items).toEqual(['Karta d3', 'Karta pol', 'Karta a', 'Karta b'])
+    expect(many.more).toBe(2)
+  })
+
+  it('„Dodaj zestaw do zapytania” puts the required items with the bundle note', () => {
+    expect(card.cartItems.map((item) => item.id)).toEqual(['d3', 'pol'])
+    expect(card.cartItems[0]?.uwaga).toMatch(/^Zestaw: Kawiarnia/)
+  })
+})
+
+describe('filterBundleCards', () => {
+  const base = bundleCard({ ...view, indexable: true }, new Map())
+  const cards = [
+    {
+      ...base,
+      slug: 'a',
+      area: 'gastronomia' as const,
+      level: 'Mały',
+      industries: ['gastronomia'],
+    },
+    { ...base, slug: 'b', area: 'sklep' as const, level: 'Duży', industries: ['handel'] },
+    {
+      ...base,
+      slug: 'c',
+      area: 'gastronomia' as const,
+      level: 'Duży',
+      industries: ['gastronomia', 'noclegi'],
+    },
+  ]
+  const slugs = (filter: Parameters<typeof filterBundleCards>[1]) =>
+    filterBundleCards(cards, filter).map((card) => card.slug)
+
+  it('filters by area, industry and size together; null = any', () => {
+    expect(slugs({ area: null, industry: null, size: null })).toEqual(['a', 'b', 'c'])
+    expect(slugs({ area: 'gastronomia', industry: null, size: null })).toEqual(['a', 'c'])
+    expect(slugs({ area: null, industry: 'noclegi', size: null })).toEqual(['c'])
+    expect(slugs({ area: 'gastronomia', industry: null, size: 'Duży' })).toEqual(['c'])
   })
 })
