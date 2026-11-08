@@ -16,7 +16,7 @@ import type { ServiceKey } from '../dane/types'
 import { InstIcon } from '../InstIcon'
 import { CtaBandView } from '../powloka/CtaBandView'
 import { Faq } from '../sekcje/Faq'
-import { GuaranteeSection } from '../sekcje/GuaranteeSection'
+import { TrustStrip } from '../sekcje/TrustStrip'
 import { InstSection } from '../sekcje/InstSectionLazy'
 import { JsonLd } from '../sekcje/JsonLd'
 import { Packages } from '../sekcje/Packages'
@@ -270,10 +270,6 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
         </InstSection>
       )}
 
-      <GuaranteeSection
-        warrantyMonths={settings.warrantyMonths}
-        responseText={settings.responseText}
-      />
       <Packages
         intro={{
           eyebrow: object.forWhom
@@ -302,6 +298,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
         // Developers and building sites lead to the page for architects (spec §7).
         extraLink={ARCH_OBJECTS.has(object.key) ? architekci.related : undefined}
       />
+      <TrustStrip warrantyMonths={settings.warrantyMonths} />
       <CtaBandView band={band} phone={phone} salons={salons} titleId="cta-object-title" page />
     </div>
   )

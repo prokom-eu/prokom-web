@@ -1,6 +1,6 @@
 import type { ServiceKey } from '../../sites/instalacje/dane/types'
 
-/** Sections every service page ends with (shared sections, KOMPONENTY §2). */
+/** Shared sections of every service page (KOMPONENTY §2; `odbior` = the trust band, runda v6 §1.3). */
 export const SHARED_SECTION_IDS = ['odbior', 'pakiety', 'cena', 'faq', 'powiazane'] as const
 
 /**

@@ -2414,9 +2414,6 @@
     box-shadow: inset 0 0 0 1px var(--inst-plan-line);
     color: var(--inst-plan-text);
   }
-  & .hzk .hzkhead .acc {
-    color: var(--inst-plan-accent);
-  }
   & .hzk .ctc .ico {
     background: var(--inst-plan-icon-bg);
     color: var(--inst-plan-accent);

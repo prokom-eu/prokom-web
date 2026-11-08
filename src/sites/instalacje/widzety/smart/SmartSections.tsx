@@ -185,7 +185,7 @@ export function SmartSections({ planHref }: { planHref: string }) {
   )
 }
 
-/** Note on the Ampio warranty under the shared warranty section (`.xc-gwn`). */
+/** Note on the Ampio warranty right under the trust band (`.xc-gwn`, runda v6 §1.3). */
 export function SmartWarrantyNote() {
   return (
     <div className="wrap xc-gwn">

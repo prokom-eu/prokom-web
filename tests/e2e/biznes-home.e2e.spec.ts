@@ -315,7 +315,8 @@ test.describe('Biznes home page: industries, plan, steps', () => {
     const all = panel.getByRole('button', { name: /^Pokaż wszystkie \d+/ })
     const total = Number((await all.textContent())?.match(/\d+/)?.[0])
     expect(total).toBeGreaterThan(6)
-    await all.click()
+    // A lazy island (ADR-023, #426): a click before hydration is lost.
+    await clickUntilVisible(all, list.nth(total - 1))
     await expect(list).toHaveCount(total)
 
     await tabs.filter({ hasText: 'Biuro' }).click()
