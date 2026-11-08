@@ -8,10 +8,15 @@ on:
     branches: [develop, main]
   push:
     branches: [develop, main]
+  # Full e2e on develop every night: a PR runs only the e2e of the line it changes (see
+  # `changes`), so a break across lines shows up here by the morning.
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
 
-# A newer push to the same branch/PR cancels the older run.
+# A newer push to the same branch/PR cancels the older run (the night run has its own group).
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ci-${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -22,15 +27,25 @@ env:
   NEXT_TELEMETRY_DISABLED: '1'
 
 jobs:
-  # Does the PR touch anything besides documentation? A docs-only PR skips build · e2e; pushes to
-  # develop/main always run the e2e job (there: seed · build only, see below). `docs/design/` is
-  # not documentation here: the seed reads its images.
+  # What does the PR touch? A docs-only PR skips build · e2e; pushes to develop/main always run
+  # the e2e job (there: seed · build only, see below). `docs/design/` is not documentation here:
+  # the seed reads its images.
+  #
+  # Which e2e: a PR whose code files all belong to lines (Biznes, Software, Instalacje — their
+  # folders in LINE_*) runs the e2e of those lines plus the shared ones (tests/e2e/*.spec.ts
+  # without a line prefix). Any other file (components, collections, shared lib, config,
+  # dependencies) runs all of them. Unit test files (*.test.ts) do not pick e2e: the checks job
+  # runs them. LINE_SHARED = files in a line's folder that code of every line imports
+  # (SectionRail, RenderBlocks): they run all e2e too. A break across lines that slips through
+  # shows up in the night run.
   changes:
     name: changes
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     outputs:
       code: ${{ steps.diff.outputs.code }}
+      e2e: ${{ steps.diff.outputs.e2e }}
+      phone: ${{ steps.diff.outputs.phone }}
     steps:
       # The PR's merge commit and its first parent (the current base) are enough for the diff.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -41,21 +56,56 @@ jobs:
         env:
           DOCS_ONLY: '^(docs/|\.claude/)|\.md$'
           ALWAYS_CODE: '^docs/design/'
+          UNIT_TEST: '\.test\.ts$'
+          LINE_SHARED: '^src/lib/(software/smoothScroll|biznes/pages/)'
+          LINE_BIZNES: '^(src/sites/biznes/|src/app/\(sites\)/\[domain\]/\(biznes\)/|src/lib/biznes/|seed/prokombiznes/|src/seed/biznes/|src/seed/shared/biznes\.ts|docs/design/prokombiznes/|tests/e2e/biznes-)'
+          LINE_SOFTWARE: '^(src/sites/software/|src/app/\(sites\)/\[domain\]/(\(software\)|%5Fsoftware)/|src/lib/software/|seed/prokomsoftware/|src/seed/software/|src/seed/shared/software\.ts|docs/design/prokomsoftware/|tests/e2e/software-)'
+          LINE_INSTALACJE: '^(src/sites/instalacje/|src/app/\(sites\)/\[domain\]/\(instalacje\)/|src/lib/instalacje/|seed/prokominstalacje/|src/seed/instalacje/|src/seed/shared/instalacje\.ts|docs/design/prokominstalacje/|tests/e2e/instalacje/|src/styles/tokens-instalacje)'
         run: |
           if [ "${{ github.event_name }}" != "pull_request" ]; then
-            echo "code=true" >> "$GITHUB_OUTPUT"
+            { echo "code=true"; echo "e2e=all"; echo "phone=true"; } >> "$GITHUB_OUTPUT"
             exit 0
           fi
           # --no-renames: a file moved from src/ to docs/ also lists its old path.
           files=$(git diff --no-renames --name-only HEAD^1 HEAD)
           echo "$files"
-          if [ -n "$files" ] && ! echo "$files" | grep -Ev "$DOCS_ONLY" >/dev/null \
-            && ! echo "$files" | grep -E "$ALWAYS_CODE" >/dev/null; then
+          code=$( { echo "$files" | grep -Ev "$DOCS_ONLY"; echo "$files" | grep -E "$ALWAYS_CODE"; } | sort -u || true)
+          if [ -n "$files" ] && [ -z "$code" ]; then
             echo "Only documentation changed: build · e2e skipped."
             echo "code=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "code=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          echo "code=true" >> "$GITHUB_OUTPUT"
+
+          lines=""
+          full=false
+          while IFS= read -r f; do
+            if [ -z "$f" ] || echo "$f" | grep -Eq "$UNIT_TEST"; then continue
+            elif echo "$f" | grep -Eq "$LINE_SHARED"; then echo "Shared by all lines, all e2e: $f"; full=true
+            elif echo "$f" | grep -Eq "$LINE_BIZNES"; then lines="$lines biznes"
+            elif echo "$f" | grep -Eq "$LINE_SOFTWARE"; then lines="$lines software"
+            elif echo "$f" | grep -Eq "$LINE_INSTALACJE"; then lines="$lines instalacje"
+            else echo "Not a line file, all e2e: $f"; full=true
+            fi
+          done <<< "$code"
+          if [ "$full" = true ] || [ -z "$code" ]; then
+            { echo "e2e=all"; echo "phone=true"; } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          specs=$(git ls-files tests/e2e | grep '\.spec\.ts$')
+          selected=$(echo "$specs" | grep -E '^tests/e2e/[^/]+$' | grep -Ev '^tests/e2e/(biznes|software)-' || true)
+          phone=false
+          for line in $(echo "$lines" | tr ' ' '\n' | sort -u); do
+            echo "Line changed: $line"
+            case "$line" in
+              biznes) selected="$selected"$'\n'$(echo "$specs" | grep '^tests/e2e/biznes-' || true) ;;
+              software) selected="$selected"$'\n'$(echo "$specs" | grep '^tests/e2e/software-' || true) ;;
+              instalacje) selected="$selected"$'\n'$(echo "$specs" | grep '^tests/e2e/instalacje/' || true); phone=true ;;
+            esac
+          done
+          echo "e2e=$(echo "$selected" | grep . | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
+          echo "phone=$phone" >> "$GITHUB_OUTPUT"
 
   # Fast feedback (~1.5 min): most mistakes show up here, next to the slower e2e job.
   checks:
@@ -116,10 +166,11 @@ jobs:
       - name: Unit tests
         run: pnpm test
 
-  # E2E in 6 parallel shards (`playwright --shard`), each with its own database and server, so
-  # the tests that edit content never meet. Tests are split one by one (fullyParallel in CI),
-  # so the shards take about the same time. More shards barely help: each one has ~45 s of
-  # fixed set-up (containers, install, build).
+  # E2E in 8 parallel shards (`playwright --shard`), each with its own database and server, so
+  # the tests that edit content never meet. Tests are split one by one (fullyParallel in CI).
+  # Target: a PR green in ~7 min. All e2e take ~38 min on one worker; each shard adds ~2 min of
+  # set-up (install, seed snapshot, build). 8 shards + 3 small jobs = 11 runners per PR, under
+  # the 20 parallel jobs of the free plan for two PRs at once (a few small jobs may wait).
   #
   # A push to develop/main runs one job without Playwright: fresh seed, snapshot save and build.
   # Why: the merged PR already passed full e2e on its merge commit, and 6 shards per merge filled
@@ -128,7 +179,7 @@ jobs:
   # `.next/cache` that PR runs restore. Risk: two PRs green on their own can break together
   # after squash — the next PR's CI (merge commit with current develop) or staging shows it.
   e2e:
-    name: ${{ github.event_name == 'pull_request' && format('e2e ({0}/6)', matrix.shard) || 'seed · build (no e2e on push)' }}
+    name: ${{ github.event_name == 'push' && 'seed · build (no e2e on push)' || format('e2e ({0}/8)', matrix.shard) }}
     needs: changes
     if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-24.04
@@ -136,7 +187,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: ${{ fromJSON(github.event_name == 'pull_request' && '[1, 2, 3, 4, 5, 6]' || '[1]') }}
+        shard: ${{ fromJSON(github.event_name == 'push' && '[1]' || '[1, 2, 3, 4, 5, 6, 7, 8]') }}
 
     # Database for the build and Playwright (same version as docker/compose.dev.yml).
     services:
@@ -195,14 +246,14 @@ jobs:
 
       # Chromium of the pinned Playwright version; system libraries are installed every time.
       - id: playwright-cache
-        if: github.event_name == 'pull_request'
+        if: github.event_name != 'push'
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Install Playwright (Chromium only)
-        if: github.event_name == 'pull_request' && steps.playwright-cache.outputs.cache-hit != 'true'
+        if: github.event_name != 'push' && steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install chromium
 
       # System libraries for Chromium come from apt. The Ubuntu mirror is sometimes very slow
@@ -210,7 +261,7 @@ jobs:
       # ~/apt-archives (its own directory, so the runner's clean-up does not delete them) and
       # installs from disk next time. Killing a slow apt does not help — it keeps the dpkg lock.
       - id: apt-cache
-        if: github.event_name == 'pull_request'
+        if: github.event_name != 'push'
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/apt-archives
@@ -220,7 +271,7 @@ jobs:
       # apt runs in the background while the database and the build are prepared; the
       # "Wait for…" step below collects its result. Its log and exit code go to ~/apt-deps.*.
       - name: Start Playwright system dependencies (background)
-        if: github.event_name == 'pull_request'
+        if: github.event_name != 'push'
         run: |
           mkdir -p ~/apt-archives/partial
           printf '%s\n' \
@@ -230,21 +281,27 @@ jobs:
             | sudo tee /etc/apt/apt.conf.d/99ci >/dev/null
           nohup bash -c 'pnpm exec playwright install-deps chromium > ~/apt-deps.log 2>&1; echo $? > ~/apt-deps.exit' >/dev/null 2>&1 &
 
-      # The seeded database and its media are cached: the seed takes ~2 min and depends only on
-      # these inputs. A pull request restores the snapshot when they did not change; a push to
-      # develop/main always seeds fresh and saves it, so a seed bug a stale snapshot could hide
-      # still shows up there before production.
+      # The seeded database and its media are cached: a fresh seed takes ~4 min (the Biznes
+      # catalog) and depends only on these inputs. `base` = migrations and dependencies, `key` =
+      # base + the seed's data. A pull request restores the exact snapshot, or else the newest one
+      # of the same base and runs the seed over it: the seed is idempotent and writes only what
+      # changed. A push to develop/main and the night run always seed fresh and save it, so a seed
+      # bug a stale snapshot could hide still shows up there.
       - name: Seed snapshot key
         id: snapshot
-        run: echo "key=seed-${{ runner.os }}-v1-${{ hashFiles('pnpm-lock.yaml', 'src/migrations/**', 'src/seed/**', 'seed/**', 'src/collections/**', 'src/globals/**', 'src/payload.config.ts', 'docs/design/**/media/**') }}-g${{ env.SEED_GALLERY_LIMIT }}" >> "$GITHUB_OUTPUT"
+        run: |
+          base="seed-${{ runner.os }}-v2-${{ hashFiles('pnpm-lock.yaml', 'src/migrations/**') }}-g${{ env.SEED_GALLERY_LIMIT }}"
+          echo "base=$base" >> "$GITHUB_OUTPUT"
+          echo "key=$base-${{ hashFiles('src/seed/**', 'seed/**', 'src/collections/**', 'src/globals/**', 'src/payload.config.ts', 'docs/design/**/media/**') }}" >> "$GITHUB_OUTPUT"
 
       # Throwaway values generated per run, so no secret-looking value lives in the repo. The
-      # admin password is derived from the snapshot key: a restored database keeps the admin of
-      # the run that seeded it, and the e2e tests log in with it.
+      # admin password is derived from the snapshot base: a restored database keeps the admin of
+      # the run that seeded it (the seed does not change an existing admin), and the e2e tests
+      # log in with it.
       - name: Test-only environment
         run: |
           echo "PAYLOAD_SECRET=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
-          echo "SEED_ADMIN_PASSWORD=$(printf '%s' '${{ steps.snapshot.outputs.key }}' | sha256sum | cut -c1-32)" >> "$GITHUB_ENV"
+          echo "SEED_ADMIN_PASSWORD=$(printf '%s' '${{ steps.snapshot.outputs.base }}' | sha256sum | cut -c1-32)" >> "$GITHUB_ENV"
 
       - id: snapshot-cache
         if: github.event_name == 'pull_request'
@@ -252,15 +309,18 @@ jobs:
         with:
           path: ~/seed-snapshot
           key: ${{ steps.snapshot.outputs.key }}
+          restore-keys: ${{ steps.snapshot.outputs.base }}-
 
       - name: Restore seeded database
-        if: steps.snapshot-cache.outputs.cache-hit == 'true'
+        if: steps.snapshot-cache.outputs.cache-matched-key != ''
         run: |
+          echo "Snapshot: ${{ steps.snapshot-cache.outputs.cache-matched-key }}"
           docker exec -i ${{ job.services.postgres.id }}             pg_restore -U prokom -d prokom_web --no-owner --exit-on-error < ~/seed-snapshot/db.dump
           tar -xf ~/seed-snapshot/media.tar
 
       # ADR-009: push is disabled, so the empty CI database gets its schema from migrations only.
-      # Skipped after a restore: the snapshot key covers src/migrations, so it is up to date.
+      # Skipped after an exact restore; after a fallback restore it finds nothing to do (same
+      # base = same migrations).
       - name: Migrate database
         if: steps.snapshot-cache.outputs.cache-hit != 'true'
         run: pnpm payload migrate
@@ -303,7 +363,7 @@ jobs:
         run: pnpm build
 
       - name: Wait for Playwright system dependencies
-        if: github.event_name == 'pull_request'
+        if: github.event_name != 'push'
         timeout-minutes: 15
         run: |
           until [ -f ~/apt-deps.exit ]; do sleep 2; done
@@ -313,21 +373,34 @@ jobs:
           sudo rm -rf ~/apt-archives/partial ~/apt-archives/lock
           sudo chown -R "$(id -u):$(id -g)" ~/apt-archives
 
-      - if: github.event_name == 'pull_request' && steps.apt-cache.outputs.cache-hit != 'true'
+      - if: github.event_name != 'push' && steps.apt-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/apt-archives
           key: apt-playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       # On the build above (`pnpm start`, playwright.config.ts): no route compiling on first visit.
-      - name: E2E tests (shard ${{ matrix.shard }}/6)
-        if: github.event_name == 'pull_request'
-        run: pnpm test:e2e --shard=${{ matrix.shard }}/6
+      # Two runs, each split into 8: Playwright cuts the list by test count in file order, so the
+      # ~40 slow phone tests of Instalacje (~11 min) would all land in one shard. Split on their
+      # own they add ~1.5 min to every shard instead.
+      - name: E2E tests (shard ${{ matrix.shard }}/8)
+        if: github.event_name != 'push'
         env:
           E2E_SERVER: start
+          E2E_FILES: ${{ needs.changes.outputs.e2e }}
+          E2E_PHONE: ${{ needs.changes.outputs.phone }}
+          PHONE_TESTS: 'Instalacje on a phone:'
+        run: |
+          files=""
+          [ "$E2E_FILES" = all ] || files="$E2E_FILES"
+          # $files unquoted on purpose: one argument per spec file.
+          pnpm test:e2e --shard=${{ matrix.shard }}/8 --pass-with-no-tests --grep-invert "$PHONE_TESTS" $files
+          if [ "$E2E_PHONE" = true ]; then
+            pnpm test:e2e --shard=${{ matrix.shard }}/8 --pass-with-no-tests --grep "$PHONE_TESTS" tests/e2e/instalacje/telefon
+          fi
 
       - name: Upload Playwright report
-        if: github.event_name == 'pull_request' && failure()
+        if: github.event_name != 'push' && failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: playwright-report-${{ matrix.shard }}
