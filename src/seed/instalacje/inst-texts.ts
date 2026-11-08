@@ -21,6 +21,7 @@ import { INSTALACJE_SHARED } from '../shared/instalacje'
 import { HOME_SLUG } from '../../lib/pages/slug'
 import { rodoPost } from './guide'
 import { INSTALACJE_FOOTER_TEXT } from './contact'
+import { FORM_PAGE_BLOCKS } from './formPages'
 import { HOME_HERO_TEXTS, HOME_SEO } from './home'
 import {
   objectData,
@@ -34,6 +35,7 @@ import {
 import {
   formatTextReport,
   homeLayoutWithHero,
+  layoutWithBlockTexts,
   planTextChange,
   type TextChange,
   type TextCollection,
@@ -160,8 +162,19 @@ async function main() {
       description: item.data.description,
     })
   const pageDocs = byKey(pages, 'slug')
-  for (const page of pagesToImport())
-    plan('pages', page.slug, pageDocs.get(page.slug), { seo: page.seo })
+  for (const page of pagesToImport()) {
+    const doc = pageDocs.get(page.slug)
+    // A page built in code: the hero and CTA texts of its block too (INST-6 PR3).
+    const block = FORM_PAGE_BLOCKS[page.slug]?.() as unknown as Record<string, unknown> | undefined
+    const texts = Object.fromEntries(
+      ['hero', 'cta'].flatMap((g) =>
+        block?.[g] ? [[g, block[g] as Record<string, unknown>]] : [],
+      ),
+    )
+    const layout =
+      doc && block ? layoutWithBlockTexts(doc.layout, String(block.blockType), texts) : null
+    plan('pages', page.slug, doc, { seo: page.seo, ...(layout && { layout }) })
+  }
   // The home page: its SEO and the hero texts of the `instHome` block (INST-6 PR2).
   const home = pageDocs.get(HOME_SLUG)
   const homeLayout = home ? homeLayoutWithHero(home.layout, HOME_HERO_TEXTS) : null

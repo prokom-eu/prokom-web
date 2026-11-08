@@ -63,7 +63,8 @@ export const TEXT_FIELDS: Readonly<Record<TextCollection, readonly string[]>> = 
     'seo',
   ],
   'inst-solutions': ['name', 'description'],
-  // `layout` on the home page only: the hero texts of its `instHome` block (`homeLayoutWithHero`).
+  // `layout`: the hero and CTA texts of a page's own block (`layoutWithBlockTexts`) — the home
+  // page and the pages built in code (`FORM_PAGE_BLOCKS`).
   pages: ['seo', 'layout'],
   posts: ['title', 'category', 'lead', 'content', 'seo'],
   // `footer`: only its line description (`footer.text`, INST-6 PR2).
@@ -159,23 +160,36 @@ export function planTextChange(
   return changes.length ? { collection, key, id: stored.id, data, changes } : null
 }
 
+/** Text groups of a page block the script carries (the hero and the CTA band). */
+export type BlockTexts = Readonly<Record<string, Readonly<Record<string, unknown>>>>
+
 /**
- * The home page's stored layout with the repo's hero texts in its `instHome` block; the trust
- * points, the other blocks and the ids stay as stored. `null` when the page has no such block.
+ * A page's stored layout with the repo's texts merged into each group (`hero`, `cta`) of its block
+ * of `blockType`; the group's other fields (trust points of the home page), the other blocks and
+ * the ids stay as stored. `null` when the page has no such block.
  */
-export function homeLayoutWithHero(
+export function layoutWithBlockTexts(
   layout: unknown,
-  hero: Readonly<Record<string, string>>,
+  blockType: string,
+  texts: BlockTexts,
 ): unknown[] | null {
   if (!Array.isArray(layout)) return null
   let found = false
   const next = layout.map((block) => {
-    if (!isRecord(block) || block.blockType !== 'instHome') return block
+    if (!isRecord(block) || block.blockType !== blockType) return block
     found = true
-    return { ...block, hero: { ...(isRecord(block.hero) ? block.hero : {}), ...hero } }
+    const merged = Object.entries(texts).map(([group, values]) => {
+      const stored = block[group]
+      return [group, { ...(isRecord(stored) ? stored : {}), ...values }] as const
+    })
+    return { ...block, ...Object.fromEntries(merged) }
   })
   return found ? next : null
 }
+
+/** The home page's layout with the repo's hero texts in its `instHome` block (INST-6 PR2). */
+export const homeLayoutWithHero = (layout: unknown, hero: Readonly<Record<string, string>>) =>
+  layoutWithBlockTexts(layout, 'instHome', { hero })
 
 const MAX = 118
 const cell = (v: unknown) => {

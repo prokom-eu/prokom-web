@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { formatTextReport, homeLayoutWithHero, planTextChange, TEXT_FIELDS } from './texts'
+import {
+  formatTextReport,
+  homeLayoutWithHero,
+  layoutWithBlockTexts,
+  planTextChange,
+  TEXT_FIELDS,
+} from './texts'
 
 const stored = {
   id: 7,
@@ -157,5 +163,29 @@ describe('homeLayoutWithHero (INST-6 PR2)', () => {
   it('gives null without the block or the layout', () => {
     expect(homeLayoutWithHero([layout[1]], { h1a: 'Nowy' })).toBeNull()
     expect(homeLayoutWithHero(undefined, { h1a: 'Nowy' })).toBeNull()
+  })
+})
+
+describe('layoutWithBlockTexts (INST-6 PR3)', () => {
+  it('merges the hero and the CTA band of the page block, the rest as stored', () => {
+    const layout = [
+      {
+        id: 'o',
+        blockType: 'instOffer',
+        hero: { crumb: 'C', h1a: 'Stary' },
+        cta: { heading: 'H' },
+      },
+    ]
+    expect(
+      layoutWithBlockTexts(layout, 'instOffer', { hero: { h1a: 'Nowy' }, cta: { text: 'T' } }),
+    ).toEqual([
+      {
+        id: 'o',
+        blockType: 'instOffer',
+        hero: { crumb: 'C', h1a: 'Nowy' },
+        cta: { heading: 'H', text: 'T' },
+      },
+    ])
+    expect(layoutWithBlockTexts(layout, 'instGuide', { hero: { h1a: 'Nowy' } })).toBeNull()
   })
 })
