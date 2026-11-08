@@ -29,6 +29,8 @@ export type SiteFooterProps = {
   company: Pick<SharedCompany, 'name' | 'nip' | 'address' | 'legal' | 'mapsUrl'>
   contact: {
     phone: string | null
+    /** The line's second number (`SiteSettings.phone2`), under the main one. */
+    phone2?: string | null
     email: string | null
     hours: OpeningHours
     holidays: readonly string[]
@@ -64,7 +66,8 @@ function ColumnLinks({ column }: { column: FooterColumn }) {
  * Footer of every line (spec §5 `SiteFooter`, board Footer): on the line's dark colour — A the
  * line's part (mark, description, promises, link columns, the shared contact column with the mini
  * map), B `LinesBand` and C `LegalBar` the same everywhere. On a phone the link columns fold into
- * an accordion; everything else stacks.
+ * an accordion, the promises run in one wrapped row and the spacing is tighter (D15: a shorter
+ * footer on a phone); everything else stacks.
  */
 export function SiteFooter({
   line,
@@ -80,26 +83,27 @@ export function SiteFooter({
   edge,
 }: SiteFooterProps) {
   const tel = contact.phone ? toTelHref(contact.phone) : null
+  const tel2 = contact.phone2 ? toTelHref(contact.phone2) : null
   // A column without a heading or links (unfinished in the panel) is left out.
   const shown = columns.filter((column) => column.heading.trim() && column.links.length > 0)
   const { address } = company
   return (
     <footer className="relative bg-line-dark text-sm text-line-dark-text" data-site-footer>
       {edge}
-      <div className="mx-auto box-content max-w-[1280px] px-5 pt-[52px] min-[768px]:px-8">
+      <div className="mx-auto box-content max-w-[1280px] px-5 pt-9 min-[768px]:px-8 min-[768px]:pt-[52px]">
         <div
-          className="grid gap-10 min-[900px]:[grid-template-columns:1.5fr_repeat(var(--cols),minmax(0,1fr))_1.25fr]"
+          className="grid gap-7 min-[900px]:gap-10 min-[900px]:[grid-template-columns:1.5fr_repeat(var(--cols),minmax(0,1fr))_1.25fr]"
           style={{ '--cols': shown.length } as CSSProperties}
         >
           <div className="flex flex-col gap-4">
             <LineLogo line={line} alt={lineName} on="dark" height={34} />
             {description && <p className="max-w-[330px] leading-[1.6]">{description}</p>}
             {promises.length > 0 && (
-              <ul className="flex flex-col gap-2">
+              <ul className="flex flex-wrap gap-x-4 gap-y-2 min-[900px]:flex-col">
                 {promises.map((promise) => (
                   <li
                     key={promise}
-                    className="flex items-center gap-[9px] font-bold text-line-dark-ink"
+                    className="flex items-center gap-[9px] font-bold text-line-dark-ink max-[899px]:text-[13px]"
                   >
                     <Icon name="check" strokeWidth={2.4} className="size-4 text-on-dark-text" />
                     {promise}
@@ -142,12 +146,13 @@ export function SiteFooter({
             </div>
           )}
 
-          <div className="flex flex-col gap-3" data-footer-contact>
+          <div className="flex flex-col gap-2.5 min-[900px]:gap-3" data-footer-contact>
             <h2 className={headingClass}>Kontakt</h2>
             {address && (
               <AddressMap
                 variant="dark"
                 height={118}
+                mobileHeight={88}
                 radius={14}
                 description={`Mapa: ${company.name}, ${address.street}, ${address.postalCode} ${address.city}`}
                 mapsUrl={company.mapsUrl}
@@ -164,6 +169,11 @@ export function SiteFooter({
                 )}
               >
                 {contact.phone}
+              </a>
+            )}
+            {contact.phone2 && tel2 && (
+              <a href={tel2} className={cx(linkClass, 'font-bold')}>
+                Drugi numer: {contact.phone2}
               </a>
             )}
             {contact.email && (
@@ -191,13 +201,13 @@ export function SiteFooter({
         <LinesBand
           lines={lines}
           current={line}
-          className="mt-[34px] border-t border-line-dark-rule pt-[26px]"
+          className="mt-7 border-t border-line-dark-rule pt-5 min-[768px]:mt-[34px] min-[768px]:pt-[26px]"
         />
         <LegalBar
           company={company}
           legalNote={legalNote}
           year={new Date(now).getUTCFullYear()}
-          className="mt-[26px]"
+          className="mt-5 min-[768px]:mt-[26px]"
         />
       </div>
     </footer>

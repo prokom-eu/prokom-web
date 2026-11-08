@@ -109,11 +109,11 @@ export function CameraTypes() {
           </p>
           <div className="g2" style={{ gap: 12 }}>
             <div className="note" style={{ flexDirection: 'column', gap: 6 }}>
-              <b style={{ color: 'var(--ok)' }}>{T.fits}</b>
+              <b style={{ color: 'var(--ok-text)' }}>{T.fits}</b>
               <span>{type.fits}</span>
             </div>
             <div className="note" style={{ flexDirection: 'column', gap: 6 }}>
-              <b style={{ color: 'var(--warn)' }}>{T.careful}</b>
+              <b style={{ color: 'var(--inst-warn-text)' }}>{T.careful}</b>
               <span>{type.careful}</span>
             </div>
           </div>

@@ -48,7 +48,10 @@ test.describe('/_wspolne — footer (1440 px)', () => {
       await expect(footer(page).getByText('Jesteś tutaj')).toHaveCount(1)
 
       const contact = footer(page).locator('[data-footer-contact]')
-      await expect(contact.locator('a[href^="tel:"]')).toHaveAttribute('href', /^tel:\+48\d{9}$/)
+      await expect(contact.locator('a[href^="tel:"]').first()).toHaveAttribute(
+        'href',
+        /^tel:\+48\d{9}$/,
+      )
       await expect(contact.locator('a[href^="mailto:"]')).toHaveCount(1)
       const route = contact.locator('[data-route]')
       await expect(route).toHaveAttribute('href', /^https:\/\/www\.google\.com\/maps\//)
@@ -59,6 +62,21 @@ test.describe('/_wspolne — footer (1440 px)', () => {
 })
 
 test.describe('/_wspolne — phone', () => {
+  test('Biznes: the second number in the contact column, a short footer (D15)', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(site('biznes.localhost', '/_wspolne'))
+    const contact = footer(page).locator('[data-footer-contact]')
+    await expect(contact.getByRole('link', { name: /^Drugi numer: / })).toHaveAttribute(
+      'href',
+      /^tel:\+48\d{9}$/,
+    )
+    // ~2 000 px with the K4 footer, 1 606 px in the 0611 prototype; nothing hidden (D12).
+    const height = await footer(page).evaluate((element) => element.getBoundingClientRect().height)
+    expect(height).toBeLessThan(1300)
+  })
+
   for (const width of [360, 390, 414]) {
     test(`no sideways scroll at ${width} px (Instalacje, the longest texts)`, async ({ page }) => {
       await page.setViewportSize({ width, height: 844 })

@@ -10,7 +10,11 @@ import { resolve, rule } from './parse-tokens'
 // P1-4 (audit 06.11): eyebrows, chips and legends of Instalacje take the service colour (`--h`,
 // set from the panel) mixed with --ink by `--inst-hue-text-mix`. Every hue of the package
 // (services `wspolne.json` → HU, objects `obiekty/*.json` → h) must reach WCAG AA (4.5:1) on the
-// line's surfaces — plain and tinted with the hue like a chip (14%) — in both themes.
+// line's surfaces — plain and tinted with the hue like a chip (14–18%) — in both themes. Token
+// colours used in the same mixes (Wi-Fi legend `--vc`, lock status, solutions `--hc`, the chip's
+// default) are checked too. A colour typed in the panel has no guarantee: e.g. pure yellow
+// (#ffff00) gives ~4.2:1 on white — keep new hues as dark as the package's (idea: validate in
+// the panel).
 const SEED = new URL('../../seed/prokominstalacje/', import.meta.url)
 const read = (path: string) => JSON.parse(readFileSync(fileURLToPath(new URL(path, SEED)), 'utf8'))
 
@@ -20,6 +24,18 @@ const HUES: string[] = [
     .map((file) => read(`obiekty/${file}`).h as string | undefined)
     .filter((hue): hue is string => Boolean(hue)),
 ].map((hue) => hue.toLowerCase())
+
+/** Token colours mixed by the same rule in the line's CSS (resolved per theme). */
+const TOKEN_HUES = [
+  '--inst-plan-accent',
+  '--inst-promo-warm',
+  '--inst-scene-beam-ok',
+  '--inst-hue-violet',
+  '--inst-hue-blue',
+  '--inst-il-lkst-c',
+  '--warn',
+  '--inst-plan-send-to',
+]
 
 const light = { ...rule(':root'), ...rule("[data-line='instalacje']") }
 const dark = { ...light, ...rule("[data-line='instalacje'][data-theme='dark']") }
@@ -51,10 +67,13 @@ function worst(scope: Scope): { ratio: number; hue: string; surface: string } {
     resolve(`var(${name})`, scope),
   )
   let found = { ratio: Infinity, hue: '', surface: '' }
-  for (const hue of HUES) {
+  const hues = [...HUES, ...TOKEN_HUES.map((name) => resolve(`var(${name})`, scope).toLowerCase())]
+  // A non-hex value (rgba, var) would give NaN ratios and pass silently.
+  for (const hue of hues) expect(hue, 'a #rrggbb colour').toMatch(/^#[0-9a-f]{6}$/)
+  for (const hue of hues) {
     const text = mix(hue, ink, share(scope))
     for (const surface of surfaces) {
-      for (const tinted of [surface, mix(hue, surface, 0.14)]) {
+      for (const tinted of [surface, mix(hue, surface, 0.14), mix(hue, surface, 0.18)]) {
         const ratio = contrastRatio(text, tinted)
         if (ratio < found.ratio) found = { ratio, hue, surface: tinted }
       }
