@@ -9,7 +9,7 @@ export const antenaSatelitarnaCzyDvbT2: GuidePostData = {
   slug: 'antena-satelitarna-czy-dvb-t2',
   title: 'Antena satelitarna czy DVB-T2 na Podhalu',
   category: 'anteny',
-  publishedAt: '2026-11-08T00:00:00.000Z',
+  publishedAt: '2026-11-08T09:00:00.000Z',
   lead: 'Satelita daje więcej kanałów, zwykle w pakiecie Polsat Box albo CANAL+, a naziemna DVB-T2 daje kanały z multipleksów bez pakietu u operatora. Na Podhalu o wyborze często decyduje to, czy stok nie zasłania nadajnika, a to sprawdzamy miernikiem.',
   sections: [
     {

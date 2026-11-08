@@ -9,7 +9,7 @@ export const ladowarkaDoAutaWDomu: GuidePostData = {
   slug: 'ladowarka-do-auta-w-domu',
   title: 'Ładowarka do auta w domu: co sprawdzić przed montażem',
   category: 'ladowarki',
-  publishedAt: '2026-11-08T00:00:00.000Z',
+  publishedAt: '2026-11-08T11:00:00.000Z',
   lead: 'Zanim zamontujesz ładowarkę do samochodu elektrycznego w domu, sprawdź pięć rzeczy: moc przyłącza, rozdzielnicę, miejsce na ładowarkę, moc, jakiej potrzebuje Twoje auto, i trasę przewodu. Do wstępnej wyceny wystarczą zdjęcia rozdzielnicy, licznika i miejsca montażu.',
   sections: [
     {

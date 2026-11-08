@@ -71,8 +71,11 @@ const SERVICE_CATEGORY: Partial<Record<ServiceKey, GuideCategory>> = {
 export function guidePostsForService(key: ServiceKey, path: string, limit = 3): GuidePostData[] {
   const category = SERVICE_CATEGORY[key]
   const linksHere = (post: GuidePostData) =>
-    post.sections.some((s) => s.blocks.flat().some((b) => b.includes(`](${path}`))) ||
-    post.extras.readAlso.some((r) => r.href.split('#')[0] === path)
+    post.sections.some((s) =>
+      s.blocks
+        .flat()
+        .some((b) => [...b.matchAll(/\]\(([^)]+)\)/g)].some((m) => m[1]?.split('#')[0] === path)),
+    ) || post.extras.readAlso.some((r) => r.href.split('#')[0] === path)
   const own = GUIDE_POSTS.filter((p) => p.category === category)
   const linked = GUIDE_POSTS.filter((p) => p.category !== category && linksHere(p))
   return [...own, ...linked].slice(0, limit)

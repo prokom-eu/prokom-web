@@ -34,8 +34,8 @@ export async function FromGuide({ tenantId, service, path }: Props) {
               className="card prc2 ri"
             >
               <span className="svk">{bySlug.get(post.slug)?.category}</span>
-              <b className="h3">{post.title}</b>
-              <p>{post.lead.split('. ')[0]}.</p>
+              <b className="h3">{bySlug.get(post.slug)?.title ?? post.title}</b>
+              <p>{bySlug.get(post.slug)?.lead ?? post.lead}</p>
               <span className="mut" style={{ fontSize: 13, marginTop: 'auto' }}>
                 {T.featured.minutes(guideMinutes(post))}
               </span>

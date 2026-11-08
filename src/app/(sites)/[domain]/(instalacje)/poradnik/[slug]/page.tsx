@@ -15,9 +15,12 @@ type Props = { params: Promise<{ domain: string; slug: string }> }
 async function load(params: Props['params']) {
   const tenant = await requireLine(params, 'instalacje')
   const { slug } = await params
-  // Runda v6 D1: a post's former address moves for good to the new one (308, like a 301).
+  // Runda v6 D1: a post's former address moves for good to the new one (308, like a 301) — once
+  // the post has its new slug in the panel (`pnpm inst:texts --write`); until then the old one.
   const moved = FORMER_SLUGS[slug]
-  if (moved) permanentRedirect(`/poradnik/${moved}`)
+  if (moved && (await getPostView(tenant.id, moved, 'instalacje'))) {
+    permanentRedirect(`/poradnik/${moved}`)
+  }
   // Invalid, unknown, draft, future or another site's slug → 404.
   const post = isValidSlug(slug) ? await getPostView(tenant.id, slug, 'instalacje') : null
   return { tenant, post }
@@ -41,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       ...(post.published && { publishedTime: post.published.dateTime }),
-      images: ogImages(post.cover ?? settings?.seo.ogImage ?? null),
+      images: ogImages(post.cover ?? settings?.seo.ogImage ?? null, 'instalacje'),
     },
   }
 }

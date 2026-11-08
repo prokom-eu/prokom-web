@@ -8,7 +8,7 @@ export const wifiWPensjonacie: GuidePostData = {
   slug: 'wifi-w-pensjonacie',
   title: 'Wi-Fi w pensjonacie, które działa w każdym pokoju',
   category: 'noclegi',
-  publishedAt: '2026-11-08T00:00:00.000Z',
+  publishedAt: '2026-11-08T13:00:00.000Z',
   lead: 'Wi-Fi w pensjonacie działa w każdym pokoju wtedy, gdy sygnał rozchodzi się z kilku punktów dostępowych podłączonych kablem, rozmieszczonych w pokojach albo nad ich drzwiami. Goście dostają osobną sieć, oddzieloną od kamer i kasy.',
   sections: [
     {

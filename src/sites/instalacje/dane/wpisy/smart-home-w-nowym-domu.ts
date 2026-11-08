@@ -9,7 +9,7 @@ export const smartHomeWNowymDomu: GuidePostData = {
   slug: 'smart-home-w-nowym-domu',
   title: 'Smart home przed tynkami: co zaplanować w budowie',
   category: 'smart-home',
-  publishedAt: '2026-11-08T00:00:00.000Z',
+  publishedAt: '2026-11-08T12:00:00.000Z',
   lead: 'Smart home w nowym domu planuje się, zanim elektryk położy pierwszy przewód: wtedy jest najtaniej i najwięcej da się zrobić. Przed tynkami trzeba przewidzieć przewód magistrali do paneli, głębokie puszki, osobne przewody do rolet i bramy, czujniki temperatury i większą rozdzielnicę.',
   sections: [
     {

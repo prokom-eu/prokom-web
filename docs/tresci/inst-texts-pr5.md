@@ -2,7 +2,7 @@
 
 Podgląd, nic nie zapisano (zapis: --write).
 
-INST-6 PR5 (Poradnik), podgląd względem lokalnej bazy po PR4. Wpis „Monitoring w pensjonacie a RODO” dostaje nowy adres `kamery-w-pensjonacie` (stary przekierowuje 308), 8 nowych wpisów skrypt tworzy przy `--write`. Najpierw scal #448 (kategorie) i uruchom migracje na stagingu.
+INST-6 PR5 (Poradnik), podgląd względem lokalnej bazy po PR4. Wpis „Monitoring w pensjonacie a RODO” dostaje nowy adres `kamery-w-pensjonacie` (stary przekierowuje 308), 8 nowych wpisów skrypt tworzy przy `--write`. Najpierw scal #448 (kategorie) i uruchom migracje na stagingu. `--write` zaraz po wdrożeniu: do tego czasu stary adres wpisu działa bez przekierowania (przekierowanie włącza się, gdy wpis ma nowy slug).
 
 9 rekordów, 18 pól do zmiany.
 

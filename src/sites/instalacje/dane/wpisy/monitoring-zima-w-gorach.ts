@@ -9,7 +9,7 @@ export const monitoringZimaWGorach: GuidePostData = {
   slug: 'monitoring-zima-w-gorach',
   title: 'Monitoring zimą w górach: mróz, śnieg i wiatr',
   category: 'monitoring',
-  publishedAt: '2026-11-08T00:00:00.000Z',
+  publishedAt: '2026-11-08T10:00:00.000Z',
   lead: 'Kamera na mróz w górach to model z zakresem pracy co najmniej do −30°C i szczelną obudową IP67, zamontowany pod okapem albo z daszkiem. Do tego potrzebne są wykrywanie ludzi i aut, które nie reaguje na padający śnieg, oraz rejestrator i zasilacz awaryjny w ciepłym pomieszczeniu.',
   sections: [
     {
@@ -111,7 +111,7 @@ export const monitoringZimaWGorach: GuidePostData = {
       columns: ['Element', 'Co sprawdzamy', 'Dlaczego w górach'],
       rows: [
         ['Kamera', 'Zakres pracy w karcie modelu, IP67', 'Mróz do −28,5°C i mokry śnieg'],
-        ['Miejsce montażu', 'Okap albo daszek, sztywny uchwyt', 'Śnieg na obiektywie, wiatr'],
+        ['Miejsce montażu', 'Okap albo daszek', 'Śnieg na obiektywie'],
         ['Analiza obrazu', 'Wykrywanie ludzi i aut', 'Płatki śniegu w podczerwieni'],
         ['Dysk', 'Pojemność z zapasem na zimę', 'Śnieg i noc zwiększają strumień'],
         ['Switch', 'Przemysłowy w nieogrzewanej skrzynce', 'Zwykły pracuje od ok. −10°C'],

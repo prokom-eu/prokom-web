@@ -43,7 +43,7 @@ export const kameryWPensjonacie: GuidePostData = {
     {
       heading: 'Ile dni trzymać nagrania z kamer',
       blocks: [
-        'Tyle, ile potrzebujesz, żeby zauważyć problem i sprawdzić nagranie. W pensjonacie zwykle wystarczy kilka dni do dwóch tygodni. Rejestrator sam nadpisuje najstarsze nagrania, więc nie trzeba niczego kasować ręcznie.',
+        'Tyle, ile potrzebujesz, żeby zauważyć problem i sprawdzić nagranie. W pensjonacie zwykle wystarczy kilka dni. Rejestrator sam nadpisuje najstarsze nagrania, więc nie trzeba niczego kasować ręcznie.',
         'Dłuższe przechowywanie nie daje lepszej ochrony, a wymaga większego dysku. Ile dni zmieści dysk przy Twoich kamerach, policzysz w [kalkulatorze nagrań](/monitoring#nagrania).',
       ],
     },

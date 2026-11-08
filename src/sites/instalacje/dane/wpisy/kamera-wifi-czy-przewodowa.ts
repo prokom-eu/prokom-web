@@ -11,7 +11,7 @@ export const kameraWifiCzyPrzewodowa: GuidePostData = {
   slug: 'kamera-wifi-czy-przewodowa',
   title: 'Kamera Wi-Fi czy przewodowa? Co wybrać do domu',
   category: 'monitoring',
-  publishedAt: '2026-11-08T00:00:00.000Z',
+  publishedAt: '2026-11-08T15:00:00.000Z',
   lead: 'Na zewnątrz domu wybierz kamerę przewodową: jeden kabel daje jej prąd i przesyła obraz do rejestratora, więc nagrywa także przy słabym Wi-Fi. Kamera Wi-Fi sprawdzi się w środku domu albo tam, gdzie kabla nie da się poprowadzić, ale i tak potrzebuje zasilania.',
   sections: [
     {

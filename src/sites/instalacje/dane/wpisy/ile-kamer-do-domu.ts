@@ -9,7 +9,7 @@ export const ileKamerDoDomu: GuidePostData = {
   slug: 'ile-kamer-do-domu',
   title: 'Ile kamer potrzebuje dom i gdzie je powiesić',
   category: 'monitoring',
-  publishedAt: '2026-11-08T00:00:00.000Z',
+  publishedAt: '2026-11-08T16:00:00.000Z',
   lead: 'Typowy dom jednorodzinny potrzebuje 4 kamer: przy furtce, na podjeździe, przy wejściu i od strony ogrodu. Mały domek letniskowy zwykle obejdzie się 2 albo 3 kamerami, a duża działka z garażem obok lub drugim budynkiem potrzebuje kolejnych.',
   sections: [
     {

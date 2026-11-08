@@ -8,7 +8,7 @@ export const alarmWDomkuLetniskowym: GuidePostData = {
   slug: 'alarm-w-domku-letniskowym',
   title: 'Alarm w domku letniskowym: jak pilnować pustego domu',
   category: 'alarmy',
-  publishedAt: '2026-11-08T00:00:00.000Z',
+  publishedAt: '2026-11-08T14:00:00.000Z',
   lead: 'Pusty domek letniskowy pilnuje alarm z czujkami otwarcia i ruchu oraz czujkami, które działają całą dobę: zalania, temperatury i dymu. Powiadomienie przychodzi na Twój telefon i do osoby, która mieszka blisko, nawet gdy w domu padnie internet albo prąd.',
   sections: [
     {
