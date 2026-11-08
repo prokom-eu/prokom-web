@@ -37,10 +37,6 @@ const text = (name: string, label: string, description?: string): Field => ({
 })
 
 /**
- * „Zaopatrzenie — linki” (plan 0611 §6.4, ZAOPATRZENIE §10): texts of the hook-ins of the two
- * procurement pages. An empty field hides its hook-in; so does a page that is not published.
- */
-/**
  * „KSeF — pas na głównej” (plan 0611 §7.1 pkt 7): the deadline the home band counts down to and
  * its texts before and from that day on (K36 §3). No deadline = no band.
  */
@@ -91,6 +87,10 @@ const ksefGroup: Field = {
   ],
 }
 
+/**
+ * „Zaopatrzenie — linki” (plan 0611 §6.4, ZAOPATRZENIE §10): texts of the hook-ins of the two
+ * procurement pages. An empty field hides its hook-in; so does a page that is not published.
+ */
 const procurementGroup: Field = {
   name: 'procurement',
   label: 'Zaopatrzenie — linki',

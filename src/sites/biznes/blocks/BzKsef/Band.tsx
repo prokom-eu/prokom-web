@@ -25,7 +25,8 @@ export async function BzKsefBand({
   const ksef = (await getSiteSettings(tenantId))?.biznes?.ksef ?? null
   if (!ksef) return null
   const before = ksefPhase(ksef.deadline, new Date()) === 'before'
-  const heading = (before ? ksef.textBefore : ksef.textAfter) ?? block.eyebrow ?? 'KSeF'
+  // Without the panel text a fixed heading — not the eyebrow, which would then show twice.
+  const heading = (before ? ksef.textBefore : ksef.textAfter) ?? 'Przygotuj firmę do KSeF'
   const date = deadlineText(ksef.deadline)
   const steps = (block.checklist ?? []).slice(0, 6)
   return (

@@ -4,6 +4,7 @@ import { MediaImage } from '@/components/MediaImage'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { getEnv } from '@/lib/env'
 import { postDate } from '@/lib/posts/cards'
 import { getPostList, getSisterLinePostLinks } from '@/lib/posts/data'
 import { NEWS_PATH } from '@/lib/posts/list'
@@ -39,7 +40,13 @@ export async function BzNewsHomeBlock({
   tenantId: number
 }) {
   const own = (await getPostList(tenantId, 'biznes')).slice(0, CARDS)
-  const sister = await getSisterLinePostLinks(tenantId, CARDS - own.length)
+  // Links to the other lines' sites in this environment (tenant domains). Locally one app serves
+  // every domain on its own port; reading the request host would make the home page dynamic.
+  const { SITE_ENV } = getEnv()
+  const sister = await getSisterLinePostLinks(tenantId, CARDS - own.length, {
+    siteEnv: SITE_ENV,
+    port: SITE_ENV === 'local' ? (process.env.PORT ?? '3000') : null,
+  })
   if (own.length + sister.length === 0) return null
   return (
     <section

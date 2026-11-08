@@ -1,4 +1,3 @@
-import { BRAND_LINKS } from '../brand/lines'
 import type { Line } from '../tenant/lines'
 import { postHref } from './list'
 
@@ -12,21 +11,38 @@ export type SisterLine = (typeof SISTER_LINES)[number]
  */
 export type SisterPostLink = {
   title: string
-  /** Absolute, on the line's public site, e.g. `https://prokominstalacje.pl/poradnik/…`. */
+  /** Absolute, on the line's site in this environment, e.g. `https://prokominstalacje.pl/poradnik/…`. */
   href: string
   publishedAt: string
   line: SisterLine
 }
 
-export type SisterTenant = { id: number; line: string | null | undefined }
+export type SisterDomain = { host?: string | null; environment?: string | null }
+export type SisterTenant = {
+  id: number
+  line: string | null | undefined
+  domains?: readonly SisterDomain[] | null
+}
+/** Where the page is served: the environment (`SITE_ENV`) and, locally, the app's port. */
+export type SitePlace = { siteEnv: 'production' | 'staging' | 'local'; port?: string | null }
 export type SisterPostRow = { slug: string; title: string; publishedAt?: string | null }
 
 const isSisterLine = (line: unknown): line is SisterLine =>
   SISTER_LINES.includes(line as SisterLine)
 
-/** The public site of a line (`BRAND_LINKS`, production addresses — docs/dns.md). */
-export function lineOrigin(line: SisterLine): string | null {
-  return BRAND_LINKS.find((link) => link.line === line)?.href ?? null
+/**
+ * The tenant's site in this environment, from its domains in the database (decyzja Krystiana
+ * 08.11): staging links stay on staging, a line without a domain here gets no link. Locally one
+ * app serves every domain, so the port is this app's.
+ */
+export function tenantOrigin(
+  domains: readonly SisterDomain[] | null | undefined,
+  place: SitePlace,
+): string | null {
+  const host = domains?.find((domain) => domain.environment === place.siteEnv)?.host?.trim()
+  if (!host) return null
+  if (place.siteEnv !== 'local') return `https://${host}`
+  return `http://${host}${place.port ? `:${place.port}` : ''}`
 }
 
 /** Sister tenants to read: Instalacje and Software only, never the excluded (own) tenant. */
@@ -48,12 +64,13 @@ export function sisterPostLinks(
   groups: readonly { tenant: SisterTenant; posts: readonly SisterPostRow[] }[],
   excludeTenantId: number,
   limit: number,
+  place: SitePlace,
 ): SisterPostLink[] {
   if (limit <= 0) return []
   const links: SisterPostLink[] = []
   for (const { tenant, posts } of groups) {
     if (tenant.id === excludeTenantId || !isSisterLine(tenant.line)) continue
-    const origin = lineOrigin(tenant.line)
+    const origin = tenantOrigin(tenant.domains, place)
     if (!origin) continue
     for (const post of posts) {
       const title = post.title?.trim()

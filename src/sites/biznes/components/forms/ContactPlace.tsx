@@ -1,6 +1,6 @@
 import { AddressMap } from '@/components/shared/AddressMap'
 import { Icon } from '@/components/ui/Icon'
-import { routeUrl } from '@/lib/biznes/route'
+import { routeUrl, salonAddress } from '@/lib/biznes/route'
 import type { SharedData } from '@/lib/shared/getSharedData'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
@@ -14,7 +14,7 @@ import { toTelHref } from '@/lib/site/link'
 export function ContactPlace({ shared }: { shared: SharedData }) {
   const { company, line } = shared
   const salon = shared.salons[0] ?? null
-  const address = salon ? `${salon.street}, ${salon.postalCode} ${salon.city}` : null
+  const address = salonAddress(salon)
   const route = routeUrl(company.mapsUrl, address)
   const tel = line.phone ? toTelHref(line.phone) : null
   const hours = salon ? hoursSummary(salon.hours) : null

@@ -1,3 +1,10 @@
+/** Salon address on one line: „ul. …, 34-700 Rabka-Zdrój”. */
+export function salonAddress(
+  salon: { street: string; postalCode: string; city: string } | null | undefined,
+): string | null {
+  return salon ? `${salon.street}, ${salon.postalCode} ${salon.city}` : null
+}
+
 /**
  * „Wyznacz trasę” of the home contact (plan 0611 §7.1 pkt 14): the panel's route link
  * (`CompanyData.mapsUrl`), else a route URL built from the address — a plain link opened on click,

@@ -1,10 +1,16 @@
 import { describe, expect, it } from 'vitest'
 
-import { sisterPostLinks, sisterTenants } from './sister'
+import { sisterPostLinks, sisterTenants, tenantOrigin, type SitePlace } from './sister'
 
-const BIZNES = { id: 1, line: 'biznes' }
-const INSTALACJE = { id: 2, line: 'instalacje' }
-const SOFTWARE = { id: 3, line: 'software' }
+const domains = (name: string) => [
+  { host: `${name}.localhost`, environment: 'local' },
+  { host: `staging.prokom${name}.pl`, environment: 'staging' },
+  { host: `prokom${name}.pl`, environment: 'production' },
+]
+const BIZNES = { id: 1, line: 'biznes', domains: domains('biznes') }
+const INSTALACJE = { id: 2, line: 'instalacje', domains: domains('instalacje') }
+const SOFTWARE = { id: 3, line: 'software', domains: domains('software') }
+const PROD: SitePlace = { siteEnv: 'production' }
 
 // Rows as a careless query might return them: lead, body and cover must never come out.
 const row = (slug: string, publishedAt: string) => ({
@@ -35,7 +41,7 @@ describe('sisterPostLinks — title and link only (SEO: no copied text)', () => 
   ]
 
   it('newest first, absolute links on the line’s own site, at most `limit`', () => {
-    expect(sisterPostLinks(groups, BIZNES.id, 2)).toEqual([
+    expect(sisterPostLinks(groups, BIZNES.id, 2, PROD)).toEqual([
       {
         title: 'Wpis strona',
         href: 'https://prokomsoftware.pl/aktualnosci/strona',
@@ -52,13 +58,13 @@ describe('sisterPostLinks — title and link only (SEO: no copied text)', () => 
   })
 
   it('never returns lead, body or cover — exactly four fields', () => {
-    for (const link of sisterPostLinks(groups, BIZNES.id, 10)) {
+    for (const link of sisterPostLinks(groups, BIZNES.id, 10, PROD)) {
       expect(Object.keys(link).sort()).toEqual(['href', 'line', 'publishedAt', 'title'])
     }
   })
 
   it('never returns the own (Biznes) posts, even when they are passed in', () => {
-    const links = sisterPostLinks(groups, BIZNES.id, 10)
+    const links = sisterPostLinks(groups, BIZNES.id, 10, PROD)
     expect(links.map((link) => link.href)).not.toContain(expect.stringContaining('prokombiznes.pl'))
     expect(links.some((link) => link.title === 'Wpis ksef-biznes')).toBe(false)
     expect(links).toHaveLength(3)
@@ -66,7 +72,36 @@ describe('sisterPostLinks — title and link only (SEO: no copied text)', () => 
 
   it('drops rows without a date or title; nothing for limit 0', () => {
     const odd = [{ tenant: SOFTWARE, posts: [{ slug: 'a', title: ' ', publishedAt: null }] }]
-    expect(sisterPostLinks(odd, BIZNES.id, 3)).toEqual([])
-    expect(sisterPostLinks(groups, BIZNES.id, 0)).toEqual([])
+    expect(sisterPostLinks(odd, BIZNES.id, 3, PROD)).toEqual([])
+    expect(sisterPostLinks(groups, BIZNES.id, 0, PROD)).toEqual([])
+  })
+})
+
+describe('tenantOrigin — the line’s site in this environment (tenant domains in the database)', () => {
+  it('takes the domain of the current environment: staging links stay on staging', () => {
+    expect(tenantOrigin(INSTALACJE.domains, { siteEnv: 'staging' })).toBe(
+      'https://staging.prokominstalacje.pl',
+    )
+    expect(tenantOrigin(INSTALACJE.domains, PROD)).toBe('https://prokominstalacje.pl')
+  })
+
+  it('locally: http and the port of this app (one app serves every domain)', () => {
+    expect(tenantOrigin(SOFTWARE.domains, { siteEnv: 'local', port: '3001' })).toBe(
+      'http://software.localhost:3001',
+    )
+    expect(tenantOrigin(SOFTWARE.domains, { siteEnv: 'local' })).toBe('http://software.localhost')
+  })
+
+  it('no domain for this environment → no link (a line not live yet gets no card)', () => {
+    const notLive = [{ host: 'instalacje.localhost', environment: 'local' }]
+    expect(tenantOrigin(notLive, PROD)).toBeNull()
+    expect(tenantOrigin(null, PROD)).toBeNull()
+    const groups = [
+      {
+        tenant: { id: 2, line: 'instalacje', domains: notLive },
+        posts: [row('pompa', '2026-11-05T10:00:00.000Z')],
+      },
+    ]
+    expect(sisterPostLinks(groups, BIZNES.id, 3, PROD)).toEqual([])
   })
 })

@@ -660,7 +660,8 @@ test.describe('Biznes home page: KSeF band, news, contact location', () => {
       const card = sister.nth(i)
       await expect(card.getByRole('link')).toHaveAttribute(
         'href',
-        /^https:\/\/(prokominstalacje|prokomsoftware)\.pl\/(poradnik|aktualnosci)\//,
+        // The line's domain in this environment (CI: SITE_ENV=local → `*.localhost` of the seed).
+        /^http:\/\/(instalacje|software)\.localhost(:\d+)?\/(poradnik|aktualnosci)\//,
       )
       // Title only — no lead and no cover from the other line (SEO).
       await expect(card.locator('img')).toHaveCount(0)

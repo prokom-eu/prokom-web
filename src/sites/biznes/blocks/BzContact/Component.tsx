@@ -1,4 +1,4 @@
-import { routeUrl } from '@/lib/biznes/route'
+import { routeUrl, salonAddress } from '@/lib/biznes/route'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import type { BzContactBlock as BzContactBlockData } from '@/payload-types'
 
@@ -32,7 +32,7 @@ const HOME_TOPICS = [
 export async function BzContactBlock({ block, tenantId }: Props) {
   const shared = await getSharedData(tenantId)
   const salon = shared?.salons[0] ?? null
-  const address = salon ? `${salon.street}, ${salon.postalCode} ${salon.city}` : null
+  const address = salonAddress(salon)
   const route = address ? routeUrl(shared?.company.mapsUrl, address) : null
   return (
     <div id="kontakt" className="scroll-mt-24">

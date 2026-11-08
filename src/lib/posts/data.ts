@@ -16,6 +16,7 @@ import {
   type SisterPostLink,
   type SisterPostRow,
   type SisterTenant,
+  type SitePlace,
 } from './sister'
 import { postsTag } from './tags'
 import { buildPostView, type PostView } from './view'
@@ -186,10 +187,10 @@ const getSisterTenantRows = (): Promise<SisterTenant[]> =>
         },
         limit: 10,
         depth: 0,
-        select: { line: true },
+        select: { line: true, domains: true },
         overrideAccess: true,
       })
-      return docs.map(({ id, line }) => ({ id, line }))
+      return docs.map(({ id, line, domains }) => ({ id, line, domains }))
     },
     ['sister-tenants'],
     { revalidate: PAGE_CACHE_SECONDS },
@@ -203,11 +204,12 @@ const getSisterTenantRows = (): Promise<SisterTenant[]> =>
 export async function getSisterLinePostLinks(
   excludeTenantId: number,
   limit: number,
+  place: SitePlace,
 ): Promise<SisterPostLink[]> {
   if (limit <= 0) return []
   const tenants = sisterTenants(await getSisterTenantRows(), excludeTenantId)
   const groups = await Promise.all(
     tenants.map(async (tenant) => ({ tenant, posts: await getTenantPostRows(tenant.id, limit) })),
   )
-  return sisterPostLinks(groups, excludeTenantId, limit)
+  return sisterPostLinks(groups, excludeTenantId, limit, place)
 }
