@@ -616,6 +616,9 @@
   & .arpdff .zin {
     min-height: 46px;
   }
+  & .arnsb {
+    align-self: flex-start;
+  }
   & .arckr {
     padding: 26px;
     display: flex;
