@@ -270,7 +270,15 @@ export function ContactPage({
           <h2 id="kontakt-sprawy" className={H2}>
             Z czym dzwonisz?
           </h2>
-          <ul className="mt-8 grid gap-3 min-[900px]:grid-cols-3">
+          {/* Three routes in a row; four (Biznes, plan 0611 §8.2) two by two, then in one row. */}
+          <ul
+            className={cx(
+              'mt-8 grid gap-3',
+              routes.length === 4
+                ? 'min-[700px]:grid-cols-2 min-[1200px]:grid-cols-4'
+                : 'min-[900px]:grid-cols-3',
+            )}
+          >
             {routes.map((route, i) => {
               const accent = i === 0
               return (
