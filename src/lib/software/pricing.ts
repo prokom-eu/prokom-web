@@ -1,15 +1,12 @@
 import type { Solution } from '@/payload-types'
 
-import { SOLUTION_CATEGORIES, type SolutionCategory } from './options'
-import { formatPrice, keepTogether } from './price'
+import { formatPrice } from './price'
 import { levelSlug } from './projectSummary'
-import type { PriceDisplay } from './priceDisplay'
 
 /**
- * The price list `/cennik` (spec. §6.4, v22; board `Cennik`, stan `89b`): the solutions in the
- * catalog's tabs with one „od” price, one „od” term and „W cenie”, and the levels of care and
- * audit (`Solutions.levels`, ADR-014 v22 pkt 2). Prices and terms only from `Solutions`, words
- * only from `priceDisplay` (spec. §1 pkt 1).
+ * Levels of care and kinds of audit (`Solutions.levels`, ADR-014 v22 pkt 2) for `/cennik` and
+ * `/audyt` (ZMIANY-v24 §6.3, §9.1). Prices only from `Solutions` (spec. §1 pkt 1); the solutions
+ * grid of `/cennik` uses the price cards (`priceCards.ts`).
  */
 
 export type PricingSolution = Pick<Solution, 'slug' | 'name' | 'category'> & {
@@ -23,59 +20,8 @@ export type PricingSolution = Pick<Solution, 'slug' | 'name' | 'category'> & {
   levelRows: NonNullable<Solution['levelRows']>
 }
 
-export type PricingRow = {
-  slug: string
-  name: string
-  lead: string | null
-  price: string
-  term: string
-  /** No price: „Zapytaj o wycenę”. */
-  ask: boolean
-  /** „W cenie” in one line; `null` → the lead says it. */
-  included: string | null
-  note: string | null
-}
-
-export type PricingTab = { slug: SolutionCategory; name: string; rows: PricingRow[] }
-
 const NBSP = String.fromCharCode(0xa0)
 const zl = (amount: number) => `${formatPrice(amount)}${NBSP}zł`
-
-function priceOf(solution: PricingSolution, display: PriceDisplay): string {
-  if (solution.priceFrom === null) return display.fallback
-  if (solution.priceFrom === 0) return zl(0)
-  const template = solution.priceMonthly ? display.monthTemplate : display.short
-  return keepTogether(template.replace('{cena}', formatPrice(solution.priceFrom)))
-}
-
-function rowOf(solution: PricingSolution, display: PriceDisplay): PricingRow {
-  const note = solution.priceNote?.trim() || null
-  return {
-    slug: solution.slug,
-    name: solution.name,
-    lead: solution.lead,
-    price: priceOf(solution, display),
-    term: solution.leadTime ? keepTogether(solution.leadTime) : display.termFallback,
-    ask: solution.priceFrom === null,
-    included: solution.included.length > 0 ? solution.included.join(' · ') : null,
-    // The package repeats „Zapytaj o wycenę” as the note of apps: said once is enough.
-    note: note && note !== display.fallback ? note : null,
-  }
-}
-
-/** The tabs with a published solution, in the catalog's order; `names` override the labels. */
-export function pricingTabs(
-  solutions: readonly PricingSolution[],
-  display: PriceDisplay,
-  names: Partial<Record<SolutionCategory, string>> = {},
-): PricingTab[] {
-  return SOLUTION_CATEGORIES.flatMap(({ value, label }) => {
-    const rows = solutions
-      .filter((solution) => solution.category === value)
-      .map((solution) => rowOf(solution, display))
-    return rows.length > 0 ? [{ slug: value, name: names[value] ?? label, rows }] : []
-  })
-}
 
 /** Care has levels priced per month, the audit levels priced once (ADR-014 v22 pkt 2). */
 export function findLevelSolution(
