@@ -3,7 +3,6 @@ import { type CSSProperties, Fragment, type ReactNode } from 'react'
 import { sieci } from '../../dane/sieci'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSectionLazy'
-import { RealizationStrip } from '../../sekcje/RealizationStrip'
 import { SectionHead } from '../../sekcje/SectionHead'
 import {
   CableLab,
@@ -54,7 +53,7 @@ function LabCard({
  * phone as in `zrodlo/fold.json` (`podzial`, `portal`, `okablowanie`, `sprzet` to 900 px,
  * `standardy`; `cena` and `faq` by the shared sections).
  */
-export async function SieciSections({ tenantId }: { tenantId: number }) {
+export function SieciSections() {
   const { why, split, portal, cabling, lab, hardware, standards } = sieci
   const S = portal.screen
   return (
@@ -172,10 +171,6 @@ export async function SieciSections({ tenantId }: { tenantId: number }) {
             <InstIcon name="globe" size={20} />
             <span>{cabling.slowLink}</span>
           </div>
-          <p className="src ri" style={{ marginTop: 12 }}>
-            {cabling.realization}
-          </p>
-          <RealizationStrip tenantId={tenantId} items={cabling.realizations} />
         </div>
       </InstSection>
 

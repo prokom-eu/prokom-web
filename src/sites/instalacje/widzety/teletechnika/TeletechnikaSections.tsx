@@ -1,7 +1,5 @@
 import Link from 'next/link'
 
-import { getInstalacjeRealizations } from '@/lib/instalacje/data'
-import { leadPhoto, matchRealization } from '@/lib/instalacje/realizations'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 
@@ -10,7 +8,6 @@ import { InstIcon } from '../../InstIcon'
 import { ProcessAxis } from '../../sekcje/glowna/ProcessAxis'
 import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { RealizationPhotos } from '../realizacje/RealizationPhotosLazy'
 import { QuoteForm } from './QuoteFormLazy'
 
 const SECTION = { padding: '0 0 104px' }
@@ -21,15 +18,12 @@ const SECTION = { padding: '0 0 104px' }
  * has no warranty, packages or price sections (the prototype's markup). Folded on a phone as in
  * `zrodlo/fold.json` (`zakres`; `faq` by the shared section). Round v5 (RUNDA-V5 §10) adds the
  * building stages, what you get at handover and the standards, the mistakes that stop a handover,
- * the common parts, how the offer is counted and the realization — all folded on a phone.
+ * the common parts and how the offer is counted — all folded on a phone. Realizations live on
+ * `/realizacje` only (runda v6 §1.2).
  */
-export async function TeletechnikaSections({ tenantId }: { tenantId: number }) {
-  const { scope, stages, handover, standards, mistakes, common, pricing, realization } =
-    teletechnika
+export function TeletechnikaSections() {
+  const { scope, stages, handover, standards, mistakes, common, pricing } = teletechnika
   const { forWhom, quote } = teletechnika // the sections the prototype already had
-  const withPhotos = (await getInstalacjeRealizations(tenantId)).filter((r) => r.photos.length > 0)
-  const match = matchRealization(realization.name, withPhotos)
-  const photos = match && leadPhoto(realization.photoHint, match.photos)
   // Rendered per request (minimum time to fill in, ADR-003).
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
   return (
@@ -137,31 +131,6 @@ export async function TeletechnikaSections({ tenantId }: { tenantId: number }) {
           <ProcessAxis steps={pricing.steps} />
         </div>
       </InstSection>
-
-      {photos ? (
-        <InstSection id="realizacja-t" style={SECTION}>
-          <div className="wrap">
-            <div className="card ttreal ri">
-              <div className="rlimg rlimgp">
-                <RealizationPhotos
-                  photos={photos}
-                  title={realization.name}
-                  sizes="(min-width: 1100px) 620px, 100vw"
-                />
-              </div>
-              <div className="ttrealb">
-                <span className="eye">{realization.eyebrow}</span>
-                <h2 className="h2">{realization.heading}</h2>
-                <span className="tag a">{realization.place}</span>
-                <p>{realization.text}</p>
-                <Link href={realization.all.href} className="btn btn-g">
-                  {realization.all.label}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </InstSection>
-      ) : null}
 
       <InstSection id="dla-kogo" style={SECTION}>
         <div className="wrap">

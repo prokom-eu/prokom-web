@@ -1036,7 +1036,7 @@
   }
 }
 
-/* RUNDA-V5 §10: handover + standards, mistakes, common parts, the realization. Tokens only. */
+/* RUNDA-V5 §10: handover + standards, mistakes, common parts. Tokens only. */
 [data-line='instalacje'] {
   & .ttho {
     display: grid;
@@ -1111,35 +1111,9 @@
   & .ttcom h3 > svg {
     color: var(--accent-text);
   }
-  & .ttreal {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-    gap: 28px;
-    padding: 18px;
-    align-items: center;
-  }
-  & .ttreal .rlimg {
-    border-radius: 18px;
-    overflow: hidden;
-  }
-  & .ttrealb {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    align-items: flex-start;
-    padding: 8px 12px 8px 0;
-  }
-  & .ttrealb p {
-    margin: 0;
-    color: var(--ink-2);
-  }
   @media (max-width: 1100px) {
-    & .ttho,
-    & .ttreal {
+    & .ttho {
       grid-template-columns: minmax(0, 1fr);
-    }
-    & .ttrealb {
-      padding: 0 6px 6px;
     }
   }
   /* Phone: one card per row — these carry two paragraphs each. */

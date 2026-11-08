@@ -6,7 +6,6 @@ import { InstIcon } from '../../InstIcon'
 import { RealizationPhotos } from './RealizationPhotos'
 import {
   INITIAL_REALIZATIONS,
-  realizationArt,
   realizationsView,
   type RealizationItem,
   type RealizationsState,
@@ -85,32 +84,13 @@ export function RealizationGrid({ items }: { items: RealizationItem[] }) {
       <div className="rgrid" key={`${st.fs}|${st.fo}`}>
         {view.list.map((r) => (
           <div key={r.id} className={'card rl' + (r.hidden ? ' xa-rlx' : '')}>
-            {r.photos?.length ? (
-              <div className="rlimg rlimgp">
-                <RealizationPhotos
-                  photos={r.photos}
-                  title={r.title}
-                  sizes="(min-width: 1100px) 420px, (min-width: 700px) 50vw, 100vw"
-                />
-              </div>
-            ) : (
-              <div className="rlimg">
-                <svg viewBox="0 0 300 190" aria-hidden="true">
-                  <rect width="300" height="190" style={{ fill: 'var(--surface-3)' }} />
-                  <path
-                    d={realizationArt(r)}
-                    transform="translate(75 30) scale(.62)"
-                    style={{
-                      fill: 'none',
-                      stroke: 'var(--accent-text)',
-                      strokeWidth: 5,
-                      strokeLinecap: 'round',
-                      strokeLinejoin: 'round',
-                    }}
-                  />
-                </svg>
-              </div>
-            )}
+            <div className="rlimg rlimgp">
+              <RealizationPhotos
+                photos={r.photos ?? []}
+                title={r.title}
+                sizes="(min-width: 1100px) 420px, (min-width: 700px) 50vw, 100vw"
+              />
+            </div>
             <div className="rlb">
               {r.category && (
                 <span className="tag a" style={{ alignSelf: 'flex-start' }}>

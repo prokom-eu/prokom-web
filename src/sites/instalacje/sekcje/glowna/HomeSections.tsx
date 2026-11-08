@@ -11,25 +11,9 @@ import { GorScene } from './GorScene'
 import { GorSnow } from './GorSnow'
 import { ProcessAxis } from './ProcessAxis'
 
-// Line art of the realization cards (`Main.js → ART`, `ART2`), by category of the work.
-const ART = {
-  conf: 'M60 150h180M90 150V70h120v80M110 90h80v40h-80zM150 150v20M120 170h60',
-  snd: 'M60 120v-40h28l34-26v92l-34-26zM150 70a40 40 0 0 1 0 60M175 50a70 70 0 0 1 0 100M200 30a100 100 0 0 1 0 140',
-  ch: 'M150 30v26M138 42h24M100 160V96l50-40 50 40v64M136 160v-34h28v34M60 160h180',
-  wed: 'M150 40l20 30h-40zM150 70v90M110 160h80M100 100c20-20 80-20 100 0',
-}
-/** The prototype's art of a card, picked from what the realization is (a church, a wedding
- * hall, a conference room) — the panel has no field for it. */
-function artOf(item: HomeRealization): string {
-  const text = `${item.category ?? ''} ${item.place ?? ''}`.toLowerCase()
-  if (/kości|kaplic|parafi/.test(text)) return ART.ch
-  if (/wesel|restaur/.test(text)) return ART.wed
-  if (/projekc|konferenc|sale/.test(text)) return ART.conf
-  return ART.snd
-}
-
 /**
- * „Realizacje” (`#realizacje`): up to 4 published, featured realizations of this tenant. The
+ * „Realizacje” (`#realizacje`): up to 4 published, featured realizations with a photo (runda v6
+ * D2: without one a card is hidden, the loader filters them). The
  * prototype shows four real clients, but a realization is published only with the client's
  * consent (I2) — without any the section is left out, no placeholders on the page.
  */
@@ -49,57 +33,24 @@ export function RealizationsTeaser({ items }: { items: HomeRealization[] }) {
           </Link>
         </div>
         <div className="g4">
-          {items.map((item) =>
-            item.photos.length > 0 ? (
-              // Round v5 (RUNDA-V5 §4): the cover opens the gallery, the name leads to the list.
-              <div key={item.id} className="card rl ri">
-                <div className="rlimg rlimgp">
-                  <RealizationPhotos
-                    photos={item.photos}
-                    title={item.title}
-                    sizes="(min-width: 1100px) 320px, (min-width: 700px) 50vw, 100vw"
-                  />
-                  {item.category && <span className="tag rlt">{item.category}</span>}
-                </div>
-                <Link href="/realizacje" className="rlb">
-                  <b style={{ fontSize: 17 }}>{item.title}</b>
-                  {item.place && <span>{item.place}</span>}
-                  {item.scope && <span style={{ color: 'var(--ink-soft)' }}>{item.scope}</span>}
-                </Link>
+          {items.map((item) => (
+            // Round v5 (RUNDA-V5 §4): the cover opens the gallery, the name leads to the list.
+            <div key={item.id} className="card rl ri">
+              <div className="rlimg rlimgp">
+                <RealizationPhotos
+                  photos={item.photos}
+                  title={item.title}
+                  sizes="(min-width: 1100px) 320px, (min-width: 700px) 50vw, 100vw"
+                />
+                {item.category && <span className="tag rlt">{item.category}</span>}
               </div>
-            ) : (
-              <Link key={item.id} href="/realizacje" className="card rl ri">
-                <div className="rlimg dots" aria-hidden="true">
-                  <svg viewBox="0 0 300 190" preserveAspectRatio="xMidYMid slice">
-                    <rect width="300" height="190" style={{ fill: 'var(--accent-soft)' }} />
-                    <path
-                      d={artOf(item)}
-                      style={{
-                        fill: 'none',
-                        stroke: 'var(--accent-text)',
-                        strokeWidth: 2.4,
-                        strokeLinecap: 'round',
-                        strokeLinejoin: 'round',
-                      }}
-                    />
-                  </svg>
-                  {item.category && (
-                    <span
-                      className="tag"
-                      style={{ position: 'absolute', left: 12, top: 12, background: 'var(--card)' }}
-                    >
-                      {item.category}
-                    </span>
-                  )}
-                </div>
-                <div className="rlb">
-                  <b style={{ fontSize: 17 }}>{item.title}</b>
-                  {item.place && <span>{item.place}</span>}
-                  {item.scope && <span style={{ color: 'var(--ink-soft)' }}>{item.scope}</span>}
-                </div>
+              <Link href="/realizacje" className="rlb">
+                <b style={{ fontSize: 17 }}>{item.title}</b>
+                {item.place && <span>{item.place}</span>}
+                {item.scope && <span style={{ color: 'var(--ink-soft)' }}>{item.scope}</span>}
               </Link>
-            ),
-          )}
+            </div>
+          ))}
         </div>
       </div>
     </InstSection>

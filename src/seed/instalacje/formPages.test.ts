@@ -12,6 +12,11 @@ describe('form pages of the seed (I11)', () => {
     expect(needsFormBlock([{ blockType: 'hero' }, { blockType: 'inquiryForm' }])).toBe(false)
   })
 
+  it('no page block asks to send photos (runda v6 §1.8, no form takes files)', () => {
+    const text = JSON.stringify(Object.values(FORM_PAGE_BLOCKS).map((block) => block()))
+    expect(text).not.toMatch(/wyślij zdję|prześlij zdję/i)
+  })
+
   it('gives each page its block with the hero h1', () => {
     expect(FORM_PAGE_BLOCKS.zaplanuj?.()).toMatchObject({ blockType: 'instPlanner' })
     const contact = FORM_PAGE_BLOCKS.kontakt?.()

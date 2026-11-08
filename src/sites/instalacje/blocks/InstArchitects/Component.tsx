@@ -5,12 +5,7 @@ import type { CSSProperties } from 'react'
 
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
-import {
-  getInstalacjeCards,
-  getInstalacjeHome,
-  getInstalacjeSettings,
-  getInstArchNews,
-} from '@/lib/instalacje/data'
+import { getInstalacjeCards, getInstalacjeSettings, getInstArchNews } from '@/lib/instalacje/data'
 import type { ServiceKey } from '@/lib/instalacje/options'
 import { serviceJsonLd } from '@/lib/instalacje/seo'
 import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo/jsonLd'
@@ -54,12 +49,11 @@ const PATH = '/dla-architektow'
 export async function InstArchitectsBlock({ block, tenantId }: Props) {
   // The form token carries the render time (minimum fill time), so never from a cache.
   await connection()
-  const [cards, news, settings, site, home, host] = await Promise.all([
+  const [cards, news, settings, site, host] = await Promise.all([
     getInstalacjeCards(tenantId),
     getInstArchNews(tenantId),
     getInstalacjeSettings(tenantId),
     getSiteSettings(tenantId),
-    getInstalacjeHome(tenantId),
     headers().then((h) => h.get('host')),
   ])
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
@@ -394,27 +388,6 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
             ))}
           </div>
           <div className="arexg">
-            {/* Only realizations published with the client's consent (I2 hook). */}
-            {home.realizations.length > 0 && (
-              <div className="card arexr ri">
-                <span className="eye">{A.experienceSection.realizations}</span>
-                <div className="arexl">
-                  {home.realizations.map((r) => (
-                    <div key={r.id}>
-                      <b>{r.title}</b>
-                      <span>{[r.place, r.scope].filter(Boolean).join(' · ')}</span>
-                    </div>
-                  ))}
-                </div>
-                <Link
-                  href="/realizacje"
-                  className="btn btn-g btn-s"
-                  style={{ alignSelf: 'flex-start' }}
-                >
-                  {A.experienceSection.realizationsAll}
-                </Link>
-              </div>
-            )}
             <div className="card arexb ri">
               <span className="eye">{A.experienceSection.brands}</span>
               <div className="arexbr">
