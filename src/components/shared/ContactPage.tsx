@@ -431,9 +431,19 @@ function FactValue({ kind, value }: { kind: string; value: string }) {
       : kind === 'phone' || kind === 'phone2'
         ? toTelHref(value)
         : null
+  // An e-mail breaks after „@” when it must, not in the middle of the domain.
+  const at = kind === 'email' ? value.indexOf('@') : -1
   return href ? (
     <a href={href} className={cx('font-bold text-line-dark-ink', FOCUS)}>
-      {value}
+      {at > 0 ? (
+        <>
+          {value.slice(0, at + 1)}
+          <wbr />
+          {value.slice(at + 1)}
+        </>
+      ) : (
+        value
+      )}
     </a>
   ) : (
     <b className="text-line-dark-ink">{value}</b>

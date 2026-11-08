@@ -226,7 +226,7 @@ describe('H1 highlight, contact facts, company card heading', () => {
       } as SharedData,
     })
     expect(markup).toMatch(
-      /min-w-0 flex-col \[overflow-wrap:anywhere\][^]*kontakt@prokomsoftware\.pl/,
+      /min-w-0 flex-col \[overflow-wrap:anywhere\][^]*kontakt@<wbr\/>prokomsoftware\.pl/,
     )
   })
 
