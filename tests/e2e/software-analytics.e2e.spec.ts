@@ -48,6 +48,25 @@ test.describe('Software analytics (ADR-020)', () => {
     expect((await request.get(site(HOST, '/_s/api/websites'))).status()).toBe(404)
   })
 
+  test('v24 start page: hero tile, bento variant, showroom industry (ZMIANY-v24 §13)', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST))
+    await page.locator('#start [role="tab"]').nth(1).click()
+    const bento = page.locator('#oferta')
+    await bento.scrollIntoViewIfNeeded()
+    await bento.locator('button[aria-pressed="false"]').first().click()
+    const showroom = page.locator('#podglady')
+    await showroom.scrollIntoViewIfNeeded()
+    await showroom.locator('[role="tab"][aria-selected="false"]').first().click()
+    const names = (await events(page)).map(([name]) => name)
+    expect(names).toEqual(
+      expect.arrayContaining(['hero_slajd', 'oferta_wariant', 'branza_podglad']),
+    )
+    expect(await events(page)).toEqual(expect.arrayContaining([['hero_slajd', { nr: 2 }]]))
+    await expectNoTypedValues(page)
+  })
+
   test('the offer window: opening it and adding from it', async ({ page }) => {
     await page.goto(site(HOST, '/rozwiazania?rozwiazanie=strona-firmowa-z-panelem'))
     const dialog = page.getByRole('dialog', { name: 'Strona firmowa z panelem', exact: true })

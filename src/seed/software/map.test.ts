@@ -371,21 +371,14 @@ describe('Software settings of the seed', () => {
     expect(homeWithSections(null, HOME_SECTION_TEXTS)).toBeNull()
   })
 
-  it('price the 404 tiles with the cheapest solution of their category', () => {
-    const lowest = (category: string) =>
-      Math.min(
-        ...solutionsToImport()
-          .filter((item) => item.category === category)
-          .map((item) => item.priceFrom ?? Infinity),
-      )
-    const priceOf = (slug: string | undefined) =>
-      solutionsToImport().find((item) => item.slug === slug)?.priceFrom
-    const tiles = settings.notFound.places.tiles
-    // `{cena:<slug>}` — a price changed in the panel changes the tile too (decyzja 10).
-    const slugIn = (href: string) =>
-      tiles.find((tile) => tile.href === href)?.note.match(/\{cena:([a-z0-9-]+)\}/)?.[1]
-    expect(priceOf(slugIn('/rozwiazania?kategoria=strony'))).toBe(lowest('strony'))
-    expect(priceOf(slugIn('/rozwiazania?kategoria=systemy'))).toBe(lowest('systemy'))
+  it('name only existing solutions in the 404 prices (decyzja 10)', () => {
+    const slugs = new Set(solutionsToImport().map((item) => item.slug))
+    // `{cena:<slug>}` — a price changed in the panel changes the tile too.
+    for (const tile of settings.notFound.tiles) {
+      for (const [, slug] of tile.note.matchAll(/\{cena:([a-z0-9-]+)\}/g)) {
+        expect(slugs.has(slug ?? ''), slug).toBe(true)
+      }
+    }
   })
 
   it('take the search settings as they are', () => {

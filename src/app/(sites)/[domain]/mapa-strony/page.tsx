@@ -21,13 +21,17 @@ type Props = { params: Promise<{ domain: string }> }
 const TITLE = 'Mapa strony'
 const DESCRIPTION =
   'Wszystkie strony serwisu w jednym miejscu: oferta, produkty, aktualności i informacje.'
+/** Software has no products: its own sentence (lead of the board `AU-mapa`). */
+const SOFTWARE_DESCRIPTION =
+  'Wszystkie podstrony PRO-KOM Software na jednym ekranie: oferta, kreator, darmowy audyt, firma i informacje prawne.'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireTenant(params)
   const settings = await getSiteSettings(tenant.id)
+  const description = tenant.line === 'software' ? SOFTWARE_DESCRIPTION : DESCRIPTION
   return {
     title: TITLE,
-    description: DESCRIPTION,
+    description,
     alternates: { canonical: SITE_MAP_PATH },
     robots: robotsMeta(getEnv().SITE_ENV),
     openGraph: {
@@ -36,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: tenant.name,
       url: SITE_MAP_PATH,
       title: TITLE,
-      description: DESCRIPTION,
+      description,
       images: ogImages(settings?.seo.ogImage ?? null),
     },
   }

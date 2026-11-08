@@ -16,6 +16,8 @@
 @import './subpages.css';
 /* Legal pages (`blocks/SwLegal`, SWA6a). */
 @import './legal.css';
+/* 404 and „Dziękujemy” (`components/NotFoundSoftware`, `(software)/dziekujemy`, SWA6b). */
+@import './system.css';
 /* The line in the shared frame: Kreator pill, „Oferta ▾” panel (`powloka/`, SWA5). */
 @import './shell.css';
 

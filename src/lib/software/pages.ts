@@ -5,55 +5,46 @@ import { ICON_NAMES } from '../catalog/options'
 import { firstIssue, href, label, obj, text } from './schema'
 
 /**
- * Texts of two system pages of the Software line (ADR-014 rozstrz. v20 11, spec. §6.11). The
- * package has no JSON for them — the shapes follow the boards `Dziekujemy` and `NieZnaleziono`.
- * Phone and e-mail come from the site settings, hours from the fact `[GODZINY]`.
+ * Texts of two system pages of the Software line (ADR-014 rozstrz. v20 11; v24: ZMIANY-v24 §9.7,
+ * boards `AU-dziekujemy`, `AU-404`). Phone comes from the site settings; facts such as
+ * `[CZAS ODPOWIEDZI]` and prices `{cena:<slug>}` are filled on render.
  */
 
 const icon = z.enum(ICON_NAMES)
-const card = obj({ title: label, text, cta: label, href, icon: icon.optional() })
+const link = obj({ label, href })
 
-/** `/dziekujemy` (`SoftwareSettings.thanks`). `**bold**` works in the steps. */
+/** `/dziekujemy` (`SoftwareSettings.thanks`): number pill, H1, lead, three steps, buttons. */
 export const thanksSchema = obj({
+  /** Pill above the H1, the number from `?nr=` follows („Zgłoszenie przyjęte · nr”). */
+  numberLabel: label,
   title: label,
-  /** Second part of the H1 in the accent gradient („mamy to.”, board `Dziekujemy`). */
+  /** Second part of the H1 in the hero gradient („Odezwiemy się w ciągu …”). */
   titleAccent: label.optional(),
   lead: text,
-  /** Caption of the inquiry number from `?nr=` (shown only with a number). */
-  numberLabel: label,
-  stepsTitle: label,
-  steps: z.array(text).min(1).max(5),
-  /** „Pilna sprawa? Zadzwoń:” — the line's phone and `hours` follow. */
-  urgent: label,
-  hours: label.optional(),
-  more: obj({ eyebrow: label, title: label, cards: z.array(card).max(3) }),
+  steps: z
+    .array(obj({ title: label, text }))
+    .min(1)
+    .max(3),
+  /** One or two buttons; the line's phone is the last button, always. */
+  actions: z.array(link).min(1).max(2),
 })
 
-/**
- * 404 of the Software line (`SoftwareSettings.notFound`). Tile notes take facts and
- * `{cena:<slug>}`, so a price changed in the panel changes the tile too (decyzja 10).
- */
+/** 404 of the Software line (`SoftwareSettings.notFound`): eyebrow, H1, search, six tiles. */
 export const notFoundSchema = obj({
+  eyebrow: label,
   title: label,
-  /** Second line of the H1 in the accent gradient („Reszta jest.”, board `NieZnaleziono`). */
+  /** Second part of the H1 in the hero gradient („tu nie ma.”). */
   titleAccent: label.optional(),
   lead: text,
-  search: obj({
-    label,
-    button: label,
-    /** Caption before the popular searches (`SoftwareSettings.search.popular`). */
-    popularLabel: label,
-  }),
-  wizard: card,
-  places: obj({
-    eyebrow: label,
-    title: label,
-    tiles: z
-      .array(obj({ title: label, note: label, href, icon: icon.optional() }))
-      .min(1)
-      .max(6),
-  }),
-  brokenLink: obj({ text: label, cta: label, href }),
+  /** Text of the field that opens the search window. */
+  search: label,
+  tiles: z
+    .array(obj({ title: label, note: label, href, icon: icon.optional() }))
+    .min(1)
+    .max(6),
+  /** Button back to the start page; the phone button follows with `call` before the number. */
+  home: label,
+  call: label,
 })
 
 export type SoftwareThanks = z.infer<typeof thanksSchema>
