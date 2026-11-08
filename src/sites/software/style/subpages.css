@@ -1,0 +1,243 @@
+/*
+ * Subpages of Software v24 (ZMIANY-v24 §6, §9; boards `AU-oferta`, `AU-audyt`, `AU-aktualnosci`):
+ * the subpage hero and the offer catalog. Colours only from tokens (ADR-007); glows only from the
+ * Software violet (`--glow`, closed list ADR-015 v24).
+ */
+
+/* Subpage hero (`components/ui/PageHero`) */
+.sw-page-hero {
+  position: relative;
+  padding: 40px 0 8px;
+  overflow-x: clip;
+}
+.sw-page-hero::before {
+  content: '';
+  position: absolute;
+  inset: -120px -10% auto 30%;
+  height: 520px;
+  background: radial-gradient(closest-side, var(--glow), transparent 72%);
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: -1;
+}
+.sw-page-hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 470px);
+  gap: 48px;
+  align-items: start;
+}
+.sw-page-hero-aside {
+  padding-top: 64px;
+}
+
+/* Catalog `/rozwiazania` (`components/catalog/Catalog`) */
+.sw-offer-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+.sw-offer-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 84px;
+  padding: 18px 20px;
+  text-align: left;
+  font: 800 17px var(--font-display);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  transition:
+    border-color var(--dur-state),
+    translate var(--dur-state) var(--ease-out);
+}
+.sw-offer-tile > span {
+  font: 800 11px var(--font-sans);
+  letter-spacing: 0.14em;
+  color: var(--accent-text);
+}
+.sw-offer-tile[aria-pressed='true'] {
+  border-color: var(--accent-line);
+  box-shadow: 0 24px 60px -40px var(--glow);
+}
+@media (hover: hover) and (pointer: fine) {
+  .sw-offer-tile:hover {
+    border-color: var(--accent-line);
+  }
+}
+
+.sw-offer-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin: 36px 0 24px;
+}
+.sw-offer-bar .v-chips {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.sw-offer-count {
+  font-size: 13px;
+  color: var(--ink-3);
+  outline: none;
+}
+.sw-offer-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 1 320px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--glass);
+  color: var(--ink-2);
+}
+.sw-offer-search:focus-within {
+  border-color: var(--accent-line);
+}
+.sw-offer-search input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 15px;
+  outline: none;
+}
+.sw-offer-search input::placeholder {
+  color: var(--ink-3);
+}
+.sw-offer-clear {
+  min-height: 44px;
+  padding: 0 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.sw-offer-empty {
+  padding: 28px;
+}
+
+/* „Bez dopłat za rzeczy oczywiste” */
+.sw-included {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.sw-included > li {
+  padding: 24px;
+}
+.sw-included-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+.sw-included h3 {
+  font: 800 19px var(--font-display);
+  letter-spacing: -0.02em;
+}
+.sw-included p {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1200px) {
+  .sw-page-hero-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+    gap: 32px;
+  }
+}
+@media (max-width: 960px) {
+  .sw-page-hero-split {
+    grid-template-columns: 1fr;
+  }
+  .sw-page-hero-aside {
+    padding-top: 0;
+  }
+  .sw-offer-tiles,
+  .sw-included {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .sw-page-hero {
+    padding-top: 20px;
+  }
+  .sw-offer-tiles,
+  .sw-included {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .sw-offer-tiles {
+    margin-top: 28px;
+  }
+  .sw-offer-search {
+    flex-basis: 100%;
+  }
+  .sw-offer-bar .v-chips {
+    flex-basis: 100%;
+    order: 1;
+  }
+  .sw-offer-count {
+    order: 2;
+  }
+}
+
+/* Offer window v24 (`components/offer/SolutionDialog`, ZMIANY-v24 §6.1) */
+.sw-offer-panel {
+  border: 1px solid var(--border);
+  box-shadow: 0 40px 120px -50px var(--glow);
+}
+.sw-offer-shot {
+  height: 300px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--ink) 4%, var(--surface));
+  overflow: hidden;
+}
+.sw-offer-thumb {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 112px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.sw-offer-thumb.is-on {
+  border-color: var(--accent-line);
+  color: var(--ink);
+}
+.sw-offer-thumb-pic,
+.sw-offer-related-pic {
+  display: block;
+  height: 64px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ink) 4%, var(--surface));
+  overflow: hidden;
+}
+.sw-offer-related-pic {
+  height: 72px;
+}
+@media (max-width: 600px) {
+  .sw-offer-shot {
+    height: 220px;
+  }
+}

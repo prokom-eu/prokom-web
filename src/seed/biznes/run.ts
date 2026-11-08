@@ -119,6 +119,7 @@ import { SERVICE_AREAS, upsertBiznesContact } from './contact'
 import { seedBiznesHome } from './home'
 import { navigationData, upgradedColumnLimit, upgradedHighlights, upgradedMenu } from './navigation'
 import { seedSharedData } from '../shared/run'
+import { MENU_IMAGES, MENU_MEDIA_DIR, menuImageUpdate, menuUploadName } from './menuImages'
 
 /** Files of the design package, relative to the repo root (where `pnpm seed` runs). */
 const MEDIA_DIR = path.join('docs', 'design', 'prokombiznes', 'boards', 'media')
@@ -1228,6 +1229,51 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     })
     goposPhotos.set(file, created.id)
   }
+  // BIZ-1: thumbnails of the „Oferta ▾” mega menu (`menu-c-*.webp`), on categories still without one.
+  for (const [slug, file] of Object.entries(MENU_IMAGES)) {
+    // K4 categories are seeded after the K3 map (`categoryIds`): look the slug up in the database.
+    const {
+      docs: [category],
+    } = await payload.find({
+      collection: 'catalog-categories',
+      where: { and: [{ tenant: { equals: tenant.id } }, { slug: { equals: slug } }] },
+      select: { menuImage: true, name: true },
+      limit: 1,
+      ...local,
+    })
+    if (!category) continue
+    const categoryId = category.id
+    const uploadName = menuUploadName(file)
+    let imageId = storedId(uploadName)
+    count('media (menu)', imageId === undefined)
+    if (imageId === undefined) {
+      const data = await readFile(path.resolve(MENU_MEDIA_DIR, file))
+      imageId = (
+        await payload.create({
+          collection: 'media',
+          data: {
+            alt: category.name,
+            source: 'prototyp 0611 (miniatury menu „Oferta”), zdjęcia produktów z paczek K3/K4',
+            requiresConsent: false,
+            tenant: tenant.id,
+          },
+          file: { data, mimetype: 'image/webp', name: uploadName, size: data.length },
+          ...local,
+        })
+      ).id
+    }
+    const menuImage = menuImageUpdate(category.menuImage, imageId)
+    count('catalog-categories (menu)', menuImage === null ? false : 'updated')
+    if (menuImage !== null) {
+      await payload.update({
+        collection: 'catalog-categories',
+        id: categoryId,
+        data: { menuImage },
+        ...local,
+      })
+    }
+  }
+
   // K4h: /gopos and /insert from the K4 package (B9 layout replaced while untouched).
   await seedBiznesK4Pages(
     payload,

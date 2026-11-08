@@ -1,0 +1,595 @@
+/*
+ * RUNDA-V5 §5 „Na Podhalu instalacja ma trudniej” (`#gory`) and §6 „Jak pracujemy” (`.proc`,
+ * also reused by other pages). Motion only through transform / opacity (the axis segments scale,
+ * nodes fade in their fill); scroll-driven under `@supports (animation-timeline: view())` and
+ * `prefers-reduced-motion: no-preference` — otherwise everything is drawn in its end state.
+ * Colours only from tokens (`--inst-gor-*`, `--accent*`, `--sx-*` on the scene stage).
+ */
+html[data-line='instalacje'] {
+  /* ── §5 band ─────────────────────────────────────────────────────────── */
+  & .gorband {
+    isolation: isolate;
+  }
+  & .gorridge {
+    position: absolute;
+    inset: auto 0 0;
+    width: 100%;
+    height: 200px;
+    z-index: -1;
+  }
+  & .gorridge .gl1 {
+    fill: color-mix(in oklab, var(--inst-gor-mt) 40%, transparent);
+  }
+  & .gorridge .gl2 {
+    fill: color-mix(in oklab, var(--inst-gor-mt) 68%, transparent);
+  }
+  & .gorridge .gl3 {
+    fill: var(--inst-gor-mt);
+  }
+  & .gorin {
+    position: relative;
+    padding: 0 44px;
+  }
+  & .gorg {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  & .gorrow {
+    display: grid;
+    gap: 16px;
+  }
+  & .gorrow1 {
+    grid-template-columns: 1.3fr 1.3fr 1fr;
+  }
+  & .gorrow2 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  & .gsc {
+    display: block;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 120 / 64;
+    max-width: 180px;
+    box-shadow: inset 0 0 0 1px var(--sx-line);
+  }
+  & .gorrow1 .gor:nth-child(-n + 2) .gsc {
+    max-width: 240px;
+  }
+  & .gsc svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  & .gsc .gsky {
+    fill: var(--sx-sky);
+  }
+  & .gsc .gmt {
+    fill: var(--sx-m1);
+  }
+  & .gsc :is(.gsnow, .gline, .gline-d, .garc, .groof, .gok, .gwarm-l, .gcheck, .groad) {
+    fill: none;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  & .gsc .gsnow {
+    stroke: var(--sx-snow);
+  }
+  & .gsc .gbody {
+    fill: var(--sx-body);
+  }
+  & .gsc .gcloud {
+    fill: var(--sx-pale);
+  }
+  & .gsc .glens {
+    fill: var(--sx-ink);
+  }
+  & .gsc :is(.gline, .gline-d) {
+    stroke: var(--sx-met);
+  }
+  & .gsc .gflake {
+    fill: var(--sx-white);
+  }
+  & .gsc .gbolt {
+    fill: var(--sx-win);
+  }
+  & .gsc :is(.gok, .gcheck) {
+    stroke: var(--sx-det);
+  }
+  & .gsc .gok-dot {
+    fill: var(--sx-det);
+  }
+  & .gsc .gwall {
+    fill: var(--sx-wall);
+  }
+  & .gsc .groof {
+    stroke: var(--sx-pale);
+  }
+  & .gsc .gwin {
+    fill: var(--sx-win);
+  }
+  & .gsc .gwin-d {
+    fill: var(--sx-win-d);
+  }
+  & .gsc .garc {
+    stroke: var(--sx-ht);
+  }
+  & .gsc .gwarm {
+    fill: var(--sx-amber);
+  }
+  & .gsc .gwarm-l {
+    stroke: var(--sx-amber);
+    stroke-width: 3;
+  }
+  & .gsc .groad {
+    stroke: var(--sx-met);
+    stroke-dasharray: 4 5;
+  }
+  & .gsc .gpin {
+    fill: var(--sx-blue);
+  }
+  & .gsc .gpin-c {
+    fill: var(--sx-white);
+  }
+  & .gsc .gsa {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  & .gsc .gsa-rise {
+    transform-origin: bottom;
+  }
+  & .gor .gorfact {
+    margin: auto 0 0;
+    padding-top: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  & .gor .gorfact b {
+    font-family: var(--font-display);
+    font-stretch: 120%;
+    font-weight: 900;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--accent-text);
+  }
+  & .gorsnow {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    display: none;
+  }
+  & .gorsnow i {
+    position: absolute;
+    top: -8px;
+    border-radius: 50%;
+    background: var(--inst-gor-mt);
+    opacity: 0.55;
+  }
+
+  @media (max-width: 1100px) {
+    & .gorg {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    & .gorrow {
+      display: contents;
+    }
+  }
+  @media (max-width: 760px) {
+    & .gorin {
+      padding: 0 16px;
+    }
+  }
+  /* Phone: one snapping row (`glowna-sekcje.css` #gory .gorg), smaller scenes. */
+  @media (max-width: 700px) {
+    & #gory .gorg {
+      flex-direction: row;
+    }
+    & .gsc,
+    & .gorrow1 .gor:nth-child(-n + 2) .gsc {
+      max-width: 150px;
+    }
+  }
+
+  /* ── §6 axis ─────────────────────────────────────────────────────────── */
+  & .proc {
+    --proc-node: 52px;
+    --proc-gap: 14px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--n, 6), minmax(0, 1fr));
+    gap: var(--proc-gap);
+    view-timeline-name: --proc;
+  }
+  & .procs {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  /* The segment from this node to the next one: a muted track and an accent fill. */
+  & .procs:not(:last-child)::before,
+  & .procs:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--proc-node) / 2 - 1.5px);
+    left: calc(50% + var(--proc-node) / 2 + 4px);
+    width: calc(100% + var(--proc-gap) - var(--proc-node) - 8px);
+    height: 3px;
+    border-radius: 3px;
+    background: var(--border);
+  }
+  & .procs:not(:last-child)::after {
+    background: var(--accent);
+    transform-origin: left center;
+  }
+  & .procn {
+    position: relative;
+    align-self: center;
+    display: grid;
+    place-items: center;
+    width: var(--proc-node);
+    height: var(--proc-node);
+    border-radius: 50%;
+    background: var(--card);
+    box-shadow: inset 0 0 0 2px var(--border);
+    font-family: var(--font-display);
+    font-stretch: 120%;
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--ink);
+  }
+  /* The node's accent fill: an overlay that fades in (no colour animation). */
+  & .procn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  & .procn > span {
+    grid-area: 1 / 1;
+    position: relative;
+  }
+  & .procn > .on {
+    color: var(--accent-ink);
+  }
+  & .procc {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    flex: 1;
+    transition: box-shadow var(--dur-hover) var(--ease-out);
+  }
+  & .proct {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 17px;
+    line-height: 1.25;
+  }
+  & .proci {
+    flex: none;
+    color: var(--accent-text);
+  }
+  & .procc p {
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--ink-2);
+  }
+  & .procc .procg {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  & .procg span {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 2px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    & .procs:hover .procn {
+      box-shadow:
+        inset 0 0 0 2px var(--accent),
+        0 0 0 6px color-mix(in oklab, var(--accent) 18%, transparent);
+    }
+    & .procs:hover .procc {
+      box-shadow: inset 0 0 0 1px var(--accent);
+    }
+    & .procs:hover::after {
+      filter: brightness(1.15);
+    }
+  }
+  & .proctr {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px 24px;
+  }
+  & .proctr p {
+    margin: 0;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  @media (max-width: 1100px) and (min-width: 761px) {
+    & .proc {
+      --proc-node: 44px;
+      --proc-gap: 10px;
+    }
+    & .procc {
+      padding: 14px;
+    }
+  }
+  /* Phone: trust line and CTA right under the heading, so the fold of the axis never hides them. */
+  @media (max-width: 700px) {
+    & #proces > .wrap {
+      display: flex;
+      flex-direction: column;
+    }
+    & #proces .proctr {
+      order: 1;
+      margin: 0 0 24px;
+    }
+    & #proces .proc {
+      order: 2;
+    }
+  }
+  /* Phone and narrow tablet: a vertical axis, nodes on the left. */
+  @media (max-width: 760px) {
+    & .proc {
+      --proc-node: 40px;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    & .procs {
+      flex-direction: row;
+      align-items: stretch;
+      gap: 14px;
+    }
+    & .procn {
+      align-self: flex-start;
+      flex: none;
+      font-size: 15px;
+    }
+    & .procc {
+      padding: 12px 14px;
+      gap: 4px;
+      border-radius: 14px;
+    }
+    & .proct {
+      font-size: 16px;
+    }
+    & .procc p {
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    & .procc .procg {
+      padding-top: 6px;
+      margin-top: 4px;
+    }
+    & .procg span {
+      display: inline;
+      margin: 0 6px 0 0;
+    }
+    & .procs:not(:last-child)::before,
+    & .procs:not(:last-child)::after {
+      top: calc(var(--proc-node) + 4px);
+      bottom: calc(-10px + 4px);
+      left: calc(var(--proc-node) / 2 - 1.5px);
+      width: 3px;
+      height: auto;
+    }
+    & .procs:not(:last-child)::after {
+      transform-origin: center top;
+    }
+    & .proctr {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    & .proctr .btn {
+      justify-content: center;
+      min-height: 48px;
+    }
+  }
+
+  /* ── motion ──────────────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: no-preference) {
+    & .procn {
+      transition: scale var(--dur-hover) var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      & .procs:hover .procn {
+        scale: 1.08;
+      }
+    }
+    /* Scene of a card: plays once when the card is pointed at or focused. */
+    @media (hover: hover) and (pointer: fine) {
+      & .gor:hover .gsa-fall {
+        animation: inst-gor-fall 600ms var(--ease-out) 1;
+      }
+      & .gor:hover .gsa-flash {
+        animation: inst-gor-flash 600ms linear 1;
+      }
+      & .gor:hover .gsa-signal {
+        animation: inst-gor-signal 600ms var(--ease-in-out) 1;
+      }
+      & .gor:hover .gsa-glow {
+        animation: inst-gor-flash 600ms var(--ease-in-out) 1;
+      }
+      & .gor:hover .gsa-rise {
+        animation: inst-gor-rise 600ms var(--ease-out) 1;
+      }
+      & .gor:hover .gsa-draw {
+        animation: inst-gor-draw 600ms var(--ease-out) 1;
+      }
+      & .gor:hover .gsa-drop {
+        animation: inst-gor-drop 600ms var(--ease-spring) 1;
+      }
+    }
+    & .gorsnow {
+      display: block;
+    }
+    & .gorsnow i {
+      animation: inst-gor-snow linear infinite;
+      animation-play-state: paused;
+    }
+    & .gorsnow[data-on='1'] i {
+      animation-play-state: running;
+    }
+
+    @supports (animation-timeline: view()) {
+      /* §5: back ridges drift while the band crosses the screen (≤ 24 px). */
+      & .gorridge .gl1,
+      & .gorridge .gl2 {
+        transform-box: fill-box;
+        animation: inst-gor-par linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+      & .gorridge .gl1 {
+        --gor-par: 24px;
+      }
+      & .gorridge .gl2 {
+        --gor-par: 12px;
+      }
+      /* §6: segment i and node i fill in turn as the list crosses the screen. */
+      & .procs:not(:last-child)::after {
+        animation: inst-proc-seg linear both;
+        animation-timeline: --proc;
+        animation-range: cover calc(18% + var(--i) * 6%) cover calc(23% + var(--i) * 6%);
+      }
+      @media (max-width: 760px) {
+        & .procs:not(:last-child)::after {
+          animation-name: inst-proc-seg-y;
+        }
+      }
+      & .procn::before,
+      & .procn > .on {
+        animation: inst-proc-node linear both;
+        animation-timeline: --proc;
+        animation-range: cover calc(17% + var(--i) * 6%) cover calc(19% + var(--i) * 6%);
+      }
+    }
+  }
+}
+
+@keyframes inst-gor-par {
+  from {
+    transform: translateY(var(--gor-par));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes inst-gor-snow {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-24px, 110vh, 0);
+  }
+}
+@keyframes inst-gor-fall {
+  from {
+    transform: translateY(-14px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes inst-gor-flash {
+  0%,
+  40%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  60% {
+    opacity: 0.15;
+  }
+}
+@keyframes inst-gor-signal {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0.1;
+  }
+}
+@keyframes inst-gor-rise {
+  from {
+    transform: scaleY(0.3);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes inst-gor-draw {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes inst-gor-drop {
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes inst-proc-seg {
+  from {
+    transform: scale(0, 1);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
+@keyframes inst-proc-seg-y {
+  from {
+    transform: scale(1, 0);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
+@keyframes inst-proc-node {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

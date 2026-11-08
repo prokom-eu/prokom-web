@@ -712,9 +712,6 @@
       justify-content: center;
       margin-top: 14px;
     }
-    & .gorg:not(.all) .gor:nth-child(n + 3) {
-      display: none;
-    }
     & .obg:not(.all) .obc:nth-child(n + 7) {
       display: none;
     }
@@ -2530,8 +2527,7 @@
       scroll-snap-align: start;
       padding: 20px;
     }
-    & #dla-kogo .mobmore,
-    & #gory .mobmore {
+    & #dla-kogo .mobmore {
       display: none;
     }
     /* Phone: one row with snap, edges fading out (no automatic carousel, RUNDA-V5 §2). */

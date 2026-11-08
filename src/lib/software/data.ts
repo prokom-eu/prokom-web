@@ -17,6 +17,7 @@ import {
   offerSolutionOf,
   type OfferView,
   priceLine,
+  careFromLine,
   relatedCard,
   softwareOfferSchema,
 } from './offer'
@@ -264,6 +265,7 @@ const getOfferSource = (tenantId: number) =>
             hasLivePreview: true,
             toast: true,
             thumbnail: true,
+            preview: true,
             priceFrom: true,
             priceMonthly: true,
             leadTime: true,
@@ -294,7 +296,7 @@ const getOfferSource = (tenantId: number) =>
           ?.priceDisplay,
       }
     },
-    ['offer-source', 'v22', String(tenantId)],
+    ['offer-source', 'v24', String(tenantId)],
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
@@ -389,6 +391,10 @@ export async function getOfferViews(tenantId: number): Promise<Record<string, Of
     entries.map(({ solution }) => [solution.slug, solution.priceFrom]),
   )
   const strict = getEnv().SITE_ENV === 'production'
+  const careFrom = careFromLine(
+    entries.map(({ solution }) => solution),
+    display,
+  )
   return Object.fromEntries(
     entries.map(({ id, related, solution }) => {
       const fill: FillText = (text, term) =>
@@ -397,7 +403,10 @@ export async function getOfferViews(tenantId: number): Promise<Record<string, Of
         const card = relatedId === id ? undefined : byId.get(relatedId)
         return card ? [relatedCard(card, display)] : []
       })
-      return [solution.slug, buildOfferView(solution, { offer, display, related: cards, fill })]
+      return [
+        solution.slug,
+        buildOfferView(solution, { offer, display, related: cards, fill, careFrom }),
+      ]
     }),
   )
 }

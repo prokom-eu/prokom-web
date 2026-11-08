@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
-import { buildSolutionsIndex } from '@/lib/software/solutionsIndex'
-import { solutionsSourceFromSeed } from '@/lib/software/solutionsIndex.fixture'
+import { buildSolutionsIndex } from './solutionsIndex'
+import { solutionsSourceFromSeed } from './solutionsIndex.fixture'
 
-import { pricingCards } from './prices'
+import { pricingCards } from './priceCards'
 
 const index = buildSolutionsIndex(solutionsSourceFromSeed())
 

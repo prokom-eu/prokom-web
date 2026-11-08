@@ -86,6 +86,13 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
             limit: MAX_RECORDS,
             sort: 'order',
             ...read,
+            // 1: the mega menu thumbnail comes populated (`menuImage`, checked by `publicImage`);
+            // of the other relations only what the index reads.
+            depth: 1,
+            populate: {
+              'catalog-groups': { slug: true },
+              products: { slug: true, tenant: true },
+            },
           }),
           payload.find({
             collection: 'catalog-groups',

@@ -457,8 +457,9 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     scrollbar-width: none;
-    margin: 0 -26px;
-    padding: 0 26px;
+    /* As wide as the .v-wrap gutter on a phone (16 px), or the page scrolls sideways. */
+    margin: 0 -16px;
+    padding: 0 16px;
   }
   .v-chips-scroll .sw-chip {
     flex: none;
