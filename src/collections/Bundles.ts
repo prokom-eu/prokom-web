@@ -212,6 +212,9 @@ export const Bundles: CollectionConfig = {
               name: 'url',
               label: 'Źródło oficjalne (adres)',
               type: 'text',
+              // Shown as a link on the bundle page: an address of a page or PDF only.
+              validate: (value: string | null | undefined) =>
+                !value || /^https:\/\/\S+$/.test(value) || 'Adres musi zaczynać się od https://',
               admin: {
                 description:
                   'Strona lub PDF producenta. Przy parze „potwierdzona” pokazuje się na karcie zestawu jako „Źródło ↗”.',

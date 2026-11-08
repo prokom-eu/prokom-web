@@ -66,10 +66,11 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 - **BIZ-3 — zestawy, jakość podstron, QA — W TOKU (od 08.11, sesja nocna; plan `docs/zadania/prokombiznes-0611.md` §9–§11, PR-y piętrowo od `origin/develop`).**
   - **Decyzje Krystiana 08.11 (plan BIZ-3):** teksty SEO dla wszystkich stron z audytu pisze sesja (Krystian czyta w PR B5-2); §13 #4, #5, #10 bez zmian; zestaw z pytaniem nie do rozstrzygnięcia — najpierw zamiana na kartę z oficjalnej listy, dopiero potem ukrycie.
   - **B4-1 `docs/biznes-zestawy-zgodnosci`:** 42 pytania i 32 pary sprawdzone na źródłach oficjalnych → **19/23 „Gotowe”** (wynik i źródła: `docs/zadania/zestawy-zgodnosci.md`). Reguła w seedzie: „Gotowe” tylko bez otwartego pytania, bez pary `do_potwierdzenia` i z gotowymi kartami (`bundleBlockers`); pytanie na karcie, którą K4 wymienił, zatrzymuje import. Pole `compatChecks.url` (migracja `20261108_222303_biznes_zestawy_zrodla` tylko dodaje). Skrypt `node scripts/biznes-zestawy-pytania.mjs`.
-  - **Zestawy ukryte — pytania do dystrybutorów (§13 #11):**
+  - **Zestawy ukryte — pytania do dystrybutorów (§13 #11).** Do B4-2 te 4 zestawy mają `noindex` i nie ma ich w `sitemap.xml`, ale strona zestawu odpowiada; od B4-2 nie ma ich na `/zestawy` ani w żadnym linku.
     - Insoft (pomoc techniczna): „Czy PC-Market 7 drukuje etykiety na Godex DT2x i Zebra ZD421t (sterownik Windows)?” → `zestaw-sklep-spozywczy-program-waga-etykiet`, `zestaw-sklep-etykiety-inwentaryzacja`; „Czy PC-POS 7 obsługuje Posnet Thermal HD ONLINE i wagę Dibal G-325 (RS-232/OPOS)?” → `zestaw-sklep-spozywczy-market-pos`.
     - Elzab (help@elzab.com.pl): „Czy elzAPP MAG – Serwer działa na Windows 11 Pro 64-bit?” i „Czy moduł etykiet elzAPP MAG drukuje na Zebra ZD421t?” → `zestaw-sklep-etykiety-inwentaryzacja`.
     - GoPOS (opiekun partnera): „Czy GoKiosk działa na Sunmi K2, jaki terminal i fiskalizacja zamówień z kiosku?” — albo karta kiosku z listy GoKiosk (Sunmi FLEX 3 kiosk 22″/27″) w katalogu → `zestaw-bar-kiosk-numerki`.
+    - `TODO(krystian)`: czy karta `skaner` (Elzab, indeks 2005271) to Sunmi NS020 sprzedawany przez GoPOS — kawiarnia ma go zamiast Blink 2.
     - Do potwierdzenia przy wdrożeniu (zestaw gotowy): NFHotel — lista modeli Elzab (Zeta ONLINE) w pensjonacie; GoPOS — 4G w Sunmi V3/V3 Mix (food truck pisze o Wi-Fi).
   - **Po B4-1 — w panelu stagingu/produkcji:** statusy zestawów ustawia się w panelu (seed tam nie działa) — 19 zestawów na „Gotowe” po imporcie danych albo `scripts/staging-content.sh` (zgoda szefa).
 - **BIZ-2 — Zaopatrzenie firm i nowa główna — KOD ZROBIONY 08.11 — czeka na scalenie B3-3 (od 08.11; plan sesji: `docs/zadania/prokombiznes-0611.md` §6–§7, kolejność PR-ów: B2-1a → B2-1b → B2-1c → B2-2 → B2-3 → B3-1 → B3-2 → B3-3).**
@@ -426,6 +427,7 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 7. ~~**B11:** `/aktualnosci` budować od razu jako trasę wspólną dla linii, poza `(biznes)`.~~ — zrobione (B11a, #98: `NEWS_LINES` w `lib/posts/list.ts`; SW11b dopisuje `software` i swój wygląd w obu trasach).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- Karta `v3` (Sunmi V3, Biznes): opis „4G” i „2× nano SIM” niepotwierdzony na stronach GoPOS i Sunmi (badanie zestawów 08.11) — sprawdzić u producenta i poprawić kartę; zestawy bistro i sala-ogrodek już o 4G nie piszą (z przeglądu B4-1).
 - Termin KSeF w dwóch miejscach panelu: `SiteSettings → biznes.ksef.deadline` (pas na głównej, B3-2) i `BiznesSettings.news.ksef` (panel w Aktualnościach) — ujednolicić do jednego pola.
 - Zaopatrzenie §6.4 pkt 8 (punkty „Telewizory w pokojach” / „Kuchnia socjalna” na planach Hotel/Biuro): punkty planu są oparte o produkty (popup, statystyki, „Dodaj cały plan”) — wymaga opcjonalnego `href` w punkcie (migracja) i zmian w `FloorPlan`/`PlanPointDialog`; pominięte w B2-3b.
 - Paski marek na głównej: przy małej liczbie marek (świeży staging) w pętli widać przerwę — rozważyć jeden pasek poniżej progu (z przeglądu B2-3a).

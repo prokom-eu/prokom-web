@@ -77,7 +77,8 @@ export function k4ServiceSlugs(
 
 /**
  * Package status of the card standing for a bundle item: the K4 card wins (`withK4Content`), a
- * repo card without one keeps its K3 / K3.1 status. A split card stands for its 301 target.
+ * repo card without one keeps its K3 / K3.1 status. A split card stands for its 301 target only
+ * (as in `bundleData`): bundles name the new cards directly, so the other parts need no check.
  */
 export function packageCardStatus(
   repoCards: readonly { slug_seed: string; status: string }[],

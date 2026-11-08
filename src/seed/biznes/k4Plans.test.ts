@@ -153,6 +153,13 @@ describe('bundle status on the K4 cards (BIZ-3 §9.1)', () => {
     }
   })
 
+  it('swaps only items the bundle lists („Możesz zamienić”)', () => {
+    for (const bundle of pairedBundles) {
+      const listed = new Set(bundle.elementy.map((item) => item.slug))
+      for (const swap of bundle.zamienniki) expect(listed, bundle.slug).toContain(swap.zamiast)
+    }
+  })
+
   it('stops on an open question of a card K4 dropped', () => {
     const base = baseBundles.find((item) => item.slug === 'zestaw-sklep-kasa-start')!
     const open = { ...base, elementy: [{ ...base.elementy[0]!, slug: 'x', do_potwierdzenia: '?' }] }

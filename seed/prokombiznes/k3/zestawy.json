@@ -3584,7 +3584,7 @@
   },
   {
    "zestaw": "zestaw-restauracja-sala-ogrodek",
-   "para": "GoKDS ↔ FLEX 3 KDS 15,6\"",
+   "para": "GoKDS ↔ FLEX 3 KDS 22\"",
    "zrodlo_w_karcie": "GoPOS: „Terminal KDS o przekątnej ekranu 22 cala” — w zestawie tylko 22\"",
    "status": "potwierdzona",
    "url": "https://gopos.pl/hardware"
@@ -3720,8 +3720,8 @@
   },
   {
    "zestaw": "zestaw-biuro-3-5",
-   "para": "UPS BXR750 ↔ NAS + router",
-   "zrodlo_w_karcie": "bxr: „750 VA/410 W, 4× Schuko”; synology: „ok. 17 W (DS225+)”; udr7: „maks. 26 W (bez PoE)”",
+   "para": "UPS BR650MI ↔ NAS + router",
+   "zrodlo_w_karcie": "ups pro: „650 VA/390 W, 6× IEC C13”; synology: „ok. 17 W (DS225+)”; udr7: „maks. 26 W (bez PoE)”",
    "status": "potwierdzona"
   },
   {
@@ -3758,8 +3758,8 @@
   },
   {
    "zestaw": "zestaw-biuro-6-12",
-   "para": "Smart-UPS SMC1500IC ↔ NAS + zapora + przełącznik",
-   "zrodlo_w_karcie": "ups: „1500 VA/900 W”, „8× IEC C13”, „PowerChute Serial Shutdown”; switche: maks. PoE 150 W; synology: „ok. 38 W (DS925+)”",
+   "para": "Smart-UPS SMT1500IC ↔ NAS + zapora + przełącznik",
+   "zrodlo_w_karcie": "ups: „1500 VA/1000 W, 8× IEC C13”; switche: maks. PoE 150 W; synology: „ok. 38 W (DS925+)”",
    "status": "potwierdzona"
   },
   {
@@ -3885,8 +3885,8 @@
   },
   {
    "zestaw": "zestaw-kopie-zapasowe",
-   "para": "BXR750MI-GR ↔ NAS DS225+ + router",
-   "zrodlo_w_karcie": "bxr: „750 VA/410 W, 4× Schuko”; synology: „ok. 17 W (DS225+)”",
+   "para": "UPS BR650MI ↔ NAS DS225+ + router",
+   "zrodlo_w_karcie": "ups pro: „650 VA/390 W, 6× IEC C13”; synology: „ok. 17 W (DS225+)”",
    "status": "potwierdzona"
   },
   {

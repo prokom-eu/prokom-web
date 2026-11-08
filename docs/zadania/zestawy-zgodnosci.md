@@ -5,7 +5,7 @@ Data sprawdzenia: 08.11.2026. Źródła wyłącznie oficjalne (producenci, listy
 ## Wynik
 
 - **19 z 23 zestawów „Gotowe”** (wcześniej 3). Status liczy seed (`bundleBlockers` w `src/seed/biznes/k3Bundles.ts`): zestaw jest „Gotowy” tylko bez otwartego pytania, bez pary „do_potwierdzenia” i z samymi gotowymi kartami.
-- **4 zestawy ukryte** do odpowiedzi dystrybutora: `zestaw-sklep-spozywczy-program-waga-etykiet` (Godex ↔ PC-Market), `zestaw-sklep-spozywczy-market-pos` (Thermal HD ONLINE i Dibal G-325 ↔ PC-POS), `zestaw-sklep-etykiety-inwentaryzacja` (elzAPP MAG Serwer na Windows 11, Zebra ZD421 ↔ PC-Market / elzAPP), `zestaw-bar-kiosk-numerki` (Sunmi K2 poza listą GoKiosk, brak kiosku z listy w katalogu). Pytania i adresaci — `docs/STAN.md`.
+- **4 zestawy „Do sprawdzenia”** do odpowiedzi dystrybutora (bez `sitemap.xml` i z `noindex`; od B4-2 także poza `/zestawy` i linkami): `zestaw-sklep-spozywczy-program-waga-etykiet` (Godex ↔ PC-Market), `zestaw-sklep-spozywczy-market-pos` (Thermal HD ONLINE i Dibal G-325 ↔ PC-POS), `zestaw-sklep-etykiety-inwentaryzacja` (elzAPP MAG Serwer na Windows 11, Zebra ZD421 ↔ PC-Market / elzAPP), `zestaw-bar-kiosk-numerki` (Sunmi K2 poza listą GoKiosk, brak kiosku z listy w katalogu). Pytania i adresaci — `docs/STAN.md`.
 - Karty poprawione i oznaczone „gotowe”: `gopos-all-in-one`, `numerki`, `insert-inspunkty-ksef`, `samsung-om`, `synology-dyski-hat` (karta z podziału K3.1, status w `karty-podzial-tresci.json`); poprawiona też karta szuflady Elzab ELZ-350 (12 V, kabel RJ).
 - Zmiany składu: UPS z listy zgodności Synology (Back-UPS Pro BR650MI zamiast BXR750MI-GR; Smart-UPS SMT1500IC zamiast Smart-UPS C), skaner Sunmi 2D zamiast Blink 2 (kawiarnia), komputer Avtek OPS jako opcja (sala), terminal przenośny Move 3500 przy Mini ONLINE.
 - Statusy par: `potwierdzona`, `bez-integracji` (element działa samodzielnie i strona mówi to wprost), `do_potwierdzenia` (trzyma zestaw w „Do sprawdzenia”). Adres źródła w polu `url` — na karcie zestawu jako „Źródło ↗” (PR B4-2).
@@ -90,5 +90,5 @@ Data sprawdzenia: 08.11.2026. Źródła wyłącznie oficjalne (producenci, listy
 
 - Lista zgodności Synology: brak modelu na liście nie znaczy, że nie działa, ale Synology gwarantuje pełne działanie tylko dla urządzeń z listy — dlatego w zestawach z NAS-em UPS jest z listy albo tekst mówi o próbie przy montażu.
 - Integrację terminala PolCard z kasą Elzab (Mini ONLINE, Jota ONLINE) uruchamia PolCard — teksty nie obiecują działania „od razu po wyjęciu z pudełka”.
-- Karta `v3` (Sunmi V3) — opis „4G” niepotwierdzony na stronach GoPOS i Sunmi; usunięty z zestawu bistro, sama karta do sprawdzenia przy B5 / „Pomysły na później”.
+- Karta `v3` (Sunmi V3) — opis „4G” niepotwierdzony na stronach GoPOS i Sunmi; usunięty z zestawu bistro, sama karta — wpis w `docs/STAN.md` → „Pomysły na później”.
 - `TODO(krystian)`: potwierdzić, że karta `skaner` (Elzab, indeks 2005271) to Sunmi NS020 sprzedawany przez GoPOS.
