@@ -8,6 +8,11 @@ import { MESSAGE_MAX } from '../inquiry/limits'
  */
 type Attachment = {
   read: () => string | null
+  /**
+   * Slugs sent as the inquiry's list (Software „Twój projekt”, SWA5b): with them the inquiry is a
+   * `list` and its items reach the office as records, not only as text.
+   */
+  items?: () => readonly string[]
   /** After a successful send that carried this part (e.g. empty the inquiry list). */
   onSent?: () => void
 }
@@ -21,7 +26,7 @@ export const MESSAGE_LIMIT = MESSAGE_MAX
 /** Registers a part read at sending; returns the function that removes it. */
 export function registerFormAttachment(
   read: Attachment['read'],
-  options: { onSent?: () => void } = {},
+  options: { onSent?: () => void; items?: () => readonly string[] } = {},
 ): () => void {
   const attachment: Attachment = { read, ...options }
   attachments.add(attachment)
@@ -33,17 +38,27 @@ export function registerFormAttachment(
 /**
  * The parts given now. `sent(message)`: after a successful send of `message`, runs `onSent` only
  * for the parts it carries whole — a part cut or left out at the limit is kept (Biznes keeps the
- * inquiry list the office did not get).
+ * inquiry list the office did not get); a part with items went out as the list, so it counts as
+ * sent. `items`: the slugs of every part, each once.
  */
-export function collectAttachments(): { texts: string[]; sent: (message: string) => void } {
+export function collectAttachments(): {
+  texts: string[]
+  items: string[]
+  sent: (message: string) => void
+} {
   const given = [...attachments].flatMap((attachment) => {
-    const text = attachment.read()?.trim()
-    return text ? [{ text, attachment }] : []
+    const text = attachment.read()?.trim() ?? ''
+    const items = attachment.items?.() ?? []
+    return text || items.length ? [{ text, items, attachment }] : []
   })
   return {
-    texts: given.map((item) => item.text),
+    texts: given.flatMap((item) => (item.text ? [item.text] : [])),
+    items: [...new Set(given.flatMap((item) => item.items))],
     sent: (message) =>
-      given.forEach((item) => message.includes(item.text) && item.attachment.onSent?.()),
+      given.forEach(
+        (item) =>
+          (item.items.length > 0 || message.includes(item.text)) && item.attachment.onSent?.(),
+      ),
   }
 }
 

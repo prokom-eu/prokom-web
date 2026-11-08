@@ -1,3 +1,4 @@
+import { MAX_ITEMS } from '../cart/cart'
 import type { FormValues } from '../inquiry/form'
 import type { Line } from '../tenant/lines'
 import { readContact } from './contact'
@@ -33,10 +34,29 @@ export type SharedRules = {
 
 /**
  * The line's rules, the same the server applies (`lib/inquiry/schema.ts`): Instalacje want a phone,
- * Biznes takes a contact without a message. Callers pass the line, never the rules.
+ * Biznes takes a contact without a message. Callers pass the line, never the rules. A list sent
+ * with the form (`items`) says what is needed, so the message is optional then (type `list`).
  */
-export function sharedRulesFor(line: Line): Omit<SharedRules, 'consentMode'> {
-  return { phoneRequired: line === 'instalacje', messageOptional: line === 'biznes' }
+export function sharedRulesFor(line: Line, itemCount = 0): Omit<SharedRules, 'consentMode'> {
+  return {
+    phoneRequired: line === 'instalacje',
+    messageOptional: line === 'biznes' || itemCount > 0,
+  }
+}
+
+/**
+ * The list the line attaches to the form (Software „Twój projekt”, `registerFormAttachment`): with
+ * items the inquiry becomes a `list`, each item once; without them nothing changes.
+ */
+export function listPart(items: readonly string[]) {
+  // Each once and within the server's limit: a stored list with a repeat or too many items would
+  // be refused as a whole, with nothing the visitor could change.
+  const unique = [...new Set(items)].slice(0, MAX_ITEMS)
+  if (unique.length === 0) return {}
+  return {
+    type: 'list' as const,
+    items: unique.map((slug) => ({ slug, quantity: 1 })),
+  }
 }
 
 export const SHARED_MESSAGES = {
