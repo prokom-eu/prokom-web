@@ -57,7 +57,7 @@ export function pageMetadata({ title, slug, seo }: PageSeo, site: SiteSeo): Meta
     locale: 'pl_PL',
     siteName: site.name,
     url: path,
-    title: seoTitle || (slug === HOME_SLUG ? site.name : title),
+    title: seoTitle || (slug === HOME_SLUG ? site.name : (metadata.title as string)),
     description: description ?? undefined,
     images: ogImages(site.ogImage, site.line),
   }

@@ -1371,7 +1371,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   // --- corrected wording in pages seeded earlier (old contact, 01.11.2026) ---
   await seedBiznesTextFixes(payload, tenant.id, pageReport)
 
-  // --- SEO titles and descriptions of panel pages (BIZ-3 §10.2, only into empty fields) ---
+  // --- SEO of panel pages (BIZ-3 §10.2): titles into empty fields, descriptions under 100 ---
   await seedBiznesPageSeo(payload, tenant.id, pageReport)
 
   // --- shared data of the company and the line (D1, spec elementów wspólnych §4) ---

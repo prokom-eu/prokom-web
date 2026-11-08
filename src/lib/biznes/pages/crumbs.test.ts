@@ -12,11 +12,13 @@ describe('pageCrumbs (BIZ-3 §10.2: BreadcrumbList like the visible crumbs)', ()
     ])
   })
 
-  it('puts the middle items of the hero section before the page', () => {
+  it('puts the middle items of the hero (first block) before the page', () => {
     const layout = [
       { blockType: 'bzSection', data: { trail: [{ name: 'Oferta', href: '/oferta' }] } },
       { blockType: 'bzSection', data: { trail: [{ name: 'Inne', href: '/inne' }] } },
     ]
+    const later = [{ blockType: 'bzSection', data: {} }, ...layout]
+    expect(pageCrumbs(page(later))).toHaveLength(2)
     expect(pageCrumbs(page(layout)).map((crumb) => crumb.name)).toEqual([
       'Strona główna',
       'Oferta',

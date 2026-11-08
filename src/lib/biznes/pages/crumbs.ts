@@ -25,14 +25,13 @@ export function pageCrumbs(page: { slug: string; title: string; layout?: unknown
   if (page.slug === HOME_SLUG) return []
   const blocks: unknown[] = Array.isArray(page.layout) ? page.layout : []
   if (blocks.some((block) => OWN_CRUMBS.has(String(blockType(block))))) return []
-  const hero = blocks.find(
-    (block) =>
-      blockType(block) === 'bzSection' &&
-      Array.isArray((block as { data?: { trail?: unknown } }).data?.trail),
-  ) as { data: { trail: unknown[] } } | undefined
+  // The hero is the first block; only it draws the crumbs with its middle items (`withTrail`).
+  const first = blocks[0] as { data?: { trail?: unknown } } | undefined
+  const trail =
+    blockType(first) === 'bzSection' && Array.isArray(first?.data?.trail) ? first.data.trail : []
   return [
     { name: 'Strona główna', href: '/' },
-    ...(hero?.data.trail.filter(isCrumb) ?? []),
+    ...trail.filter(isCrumb),
     { name: page.title, href: pagePath(page.slug) },
   ]
 }

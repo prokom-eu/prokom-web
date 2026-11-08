@@ -18,7 +18,7 @@ export const PAGE_SEO: Record<string, { title?: string; description?: string }> 
   gopos: { title: 'GoPOS dla gastronomii — wdrożenie w Rabce' },
   insert: { title: 'Programy InsERT dla firm i biur — Rabka' },
   kontakt: { title: 'Kontakt i dojazd — Rabka-Zdrój' },
-  'o-firmie': { title: 'O firmie PRO-KOM — kasy i IT w Rabce' },
+  'o-firmie': { title: 'O firmie — kasy, komputery i IT w Rabce' },
   'opieka-it': { title: 'Opieka IT dla firm na Podhalu' },
   'polityka-prywatnosci': {
     title: 'Polityka prywatności i dane osobowe',

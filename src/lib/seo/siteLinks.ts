@@ -50,6 +50,8 @@ export type SiteMapInput = {
     bundles?: readonly { slug: string; name: string }[] | null
     /** „Plan Twojej firmy” has a scene to show (K31d′): `/plan-firmy` is listed. */
     plan?: boolean
+    /** The panel has configurator rules: `/konfigurator` is listed (audit 0611 P1-10). */
+    configurator?: boolean
     /** `categories[0]` is the main category. */
     products: readonly ({ slug: string; name: string; categories: readonly string[] } & Dated)[]
   } | null
@@ -155,11 +157,13 @@ export function buildSiteMap({
       })
     }
     // The configurator is indexable (canonical) and in no other list (audit 0611 P1-10).
-    sections.push({
-      id: 'konfigurator',
-      title: 'Konfigurator',
-      links: [{ href: CONFIGURATOR_PATH, label: 'Konfigurator — dobierz rozwiązanie' }],
-    })
+    if (catalog.configurator) {
+      sections.push({
+        id: 'konfigurator',
+        title: 'Konfigurator',
+        links: [{ href: CONFIGURATOR_PATH, label: 'Konfigurator — dobierz rozwiązanie' }],
+      })
+    }
     if (catalog.plan) {
       sections.push({
         id: 'plan',

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { fitTitle } from '@/lib/biznes/seo'
+import { biznesDescription, fitTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
@@ -62,7 +62,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : (post.seo.title ?? post.title)
   // Cut to what results show in full (audit 01.11: the KSeF post had 210 characters).
   const descriptionSource = post.seo.description ?? post.lead
-  const description = descriptionSource ? metaDescription(descriptionSource) : undefined
+  const description = descriptionSource
+    ? tenant.line === 'biznes'
+      ? biznesDescription(descriptionSource)
+      : metaDescription(descriptionSource)
+    : undefined
   return {
     title,
     description,

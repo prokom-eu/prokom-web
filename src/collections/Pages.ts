@@ -105,7 +105,7 @@ export const Pages: CollectionConfig = {
               afterInput: [
                 {
                   path: '/fields/admin/SeoCounter#SeoCounter',
-                  clientProps: { min: 13, max: 43, note: '(bez nazwy strony z szablonu)' },
+                  clientProps: { min: 13, max: 43, note: '(Biznes: bez „ | PRO-KOM Biznes”)' },
                 },
               ],
             },

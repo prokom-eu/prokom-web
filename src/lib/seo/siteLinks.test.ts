@@ -24,6 +24,7 @@ describe('buildSiteMap', () => {
     const map = buildSiteMap({
       pages,
       catalog: {
+        configurator: true,
         categories: [
           { slug: 'kasy-fiskalne', name: 'Kasy fiskalne' },
           { slug: 'drukarki-fiskalne', name: 'Drukarki fiskalne' },
@@ -112,15 +113,15 @@ describe('buildSiteMap', () => {
     expect(none.find(({ id }) => id === 'plan')).toBeUndefined()
   })
 
-  it('lists /konfigurator on every catalog site (audit 0611 P1-10)', () => {
+  it('lists /konfigurator when the panel has its rules (audit 0611 P1-10)', () => {
     const catalog = { categories: [], industries: [], products: [] }
-    const map = buildSiteMap({ pages: [], catalog, news: null })
+    const map = buildSiteMap({ pages: [], catalog: { ...catalog, configurator: true }, news: null })
     expect(map.find(({ id }) => id === 'konfigurator')?.links).toEqual([
       { href: '/konfigurator', label: 'Konfigurator — dobierz rozwiązanie' },
     ])
     expect(siteMapPaths(map).map(({ path }) => path)).toContain('/konfigurator')
-    const noCatalog = buildSiteMap({ pages: [], catalog: null, news: null })
-    expect(noCatalog.find(({ id }) => id === 'konfigurator')).toBeUndefined()
+    const noRules = buildSiteMap({ pages: [], catalog, news: null })
+    expect(noRules.find(({ id }) => id === 'konfigurator')).toBeUndefined()
   })
 
   it('keeps a published product whose category is not listed, under „Pozostałe”', () => {
