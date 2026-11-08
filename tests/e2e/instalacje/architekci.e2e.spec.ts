@@ -152,6 +152,21 @@ test.describe('Instalacje page for architects', () => {
     await expect(news).not.toContainText('Głośniki pod gładzią')
   })
 
+  // Runda v6 §1.7.2: a card whose photo file is missing shows its drawing, not a broken image.
+  test('„Nowe rozwiązania”: a photo that does not load gives way to the drawing', async ({
+    page,
+  }) => {
+    await page.route('**/api/media/file/nowosc-*', (route) => route.abort())
+    await open(page)
+    const news = page.locator('#nowosci')
+    await news.scrollIntoViewIfNeeded()
+    // A card that has a photo in the seed (its thumbnail keeps the photo frame class).
+    await news.locator('.arnwi:has(.arnwthp)').first().click()
+    await expect(news.locator('.arnxap svg').first()).toBeVisible()
+    await expect(news.locator('.arnxap img')).toHaveCount(0)
+    await expect(news.locator('.arnwthp img')).toHaveCount(0)
+  })
+
   test('developers: tabs, no price promise, no law section', async ({ page }) => {
     await open(page)
     const dev = page.locator('#deweloperzy')

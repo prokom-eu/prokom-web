@@ -10,18 +10,22 @@
 [data-line='instalacje'] {
   /* P1-6 (audit 06.11): 6 × 2 on a computer — 11 columns left wide logos ~10 px tall (RUNDA-V5
      §2: 30–34 px). Tablet 4 columns, phone a snapping row (below). */
+  /* Runda v6 §1.7.3: equal tiles, an incomplete last row centred (11 brands). */
   & .brands {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    --brand-cols: 6;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
     margin: 0;
     padding: 0;
     list-style: none;
   }
   /* Round v5 (RUNDA-V5 §2): logo on a tile that stays white in both themes (logos have black and
-     grey parts); grey at rest, the brand's colours and a 3 px lift on hover. The shadow is a
-     layer that fades in (motion only through transform/opacity/filter). */
+     grey parts); runda v6 §1.7.3: always in the brand's colours, a 3 px lift on hover. The shadow
+     is a layer that fades in (motion only through transform/opacity). */
   & .brand {
+    flex: 0 0 calc((100% - (var(--brand-cols) - 1) * 10px) / var(--brand-cols) - 12px);
     /* The prototype has no box-sizing reset: min sizes plus padding (ADR-I003 §5 p. 6). */
     box-sizing: content-box;
     position: relative;
@@ -34,12 +38,10 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 12px 14px 9px;
+    /* 6 px at the sides: the wide Hikvision wordmark stays ≥ 24 px tall in a 1/6 tile (P1-6). */
+    padding: 12px 6px 9px;
     text-align: center;
     transition: translate var(--dur-hover) var(--ease-out);
-  }
-  & .brand[data-wide] {
-    grid-column: span 2;
   }
   & .brand::after {
     content: '';
@@ -51,16 +53,13 @@
     pointer-events: none;
     transition: opacity var(--dur-hover) var(--ease-out);
   }
+  /* A field of a fixed 32 px height; `--brand-scale` evens out massive shapes (RCF, Samsung). */
   & .brandl {
     display: block;
     width: 100%;
-    height: calc(32px * var(--brand-scale, 1));
+    height: 32px;
     object-fit: contain;
-    filter: grayscale(1);
-    opacity: 0.72;
-    transition:
-      filter var(--dur-hover) var(--ease-out),
-      opacity var(--dur-hover) var(--ease-out);
+    scale: var(--brand-scale, 1);
   }
   & .brand span {
     font-size: 10.5px;
@@ -74,10 +73,6 @@
       translate: 0 -3px;
     }
     & .brand:hover::after {
-      opacity: 1;
-    }
-    & .brand:hover .brandl {
-      filter: none;
       opacity: 1;
     }
   }
@@ -191,7 +186,7 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     & .brands {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      --brand-cols: 4;
     }
     & .ctc {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -219,7 +214,7 @@
       padding: 20px;
     }
     & .brands {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      --brand-cols: 3;
     }
     & .gorband {
       padding: 36px 0 40px;
@@ -1866,6 +1861,8 @@
     }
     /* Phone: one row with snap, edges fading out (no automatic carousel, RUNDA-V5 §2). */
     & .trust .brands {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
       gap: 8px;
       padding-bottom: 6px;
       mask-image: linear-gradient(
@@ -1876,17 +1873,11 @@
         transparent
       );
     }
+    /* Equal tiles here too (§1.7.3), wide enough for the Hikvision wordmark (≥ 24 px tall). */
     & .trust .brand {
       display: flex;
-      flex: 0 0 auto;
-      min-width: 104px;
-      max-width: 120px;
+      flex: 0 0 194px;
       scroll-snap-align: start;
-    }
-    /* P1-6: the wide wordmark (Hikvision) gets a wider tile here too. */
-    & .trust .brand[data-wide] {
-      min-width: 200px;
-      max-width: 220px;
     }
     & #serwis .srvg {
       grid-template-columns: repeat(2, minmax(0, 1fr));

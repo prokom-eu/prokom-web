@@ -236,8 +236,6 @@ export type TrustBrand = {
   width: number
   height: number
   scale?: number
-  /** P1-6: a very wide wordmark gets a double tile (11 brands fill the 12 cells of 6 × 2). */
-  wide?: boolean
 }
 
 export const glownaSekcje = {
@@ -255,8 +253,6 @@ export const glownaSekcje = {
         logo: 'hikvision',
         width: 520,
         height: 66,
-        wide: true,
-        scale: 0.8,
       },
       { name: 'BCS', kind: 'kamery', logo: 'bcs', width: 370, height: 120 },
       { name: 'Satel', kind: 'alarmy', logo: 'satel', width: 446, height: 120 },
