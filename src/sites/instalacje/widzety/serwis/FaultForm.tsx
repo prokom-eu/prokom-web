@@ -224,10 +224,10 @@ export function FaultForm({ formToken, phone }: Props) {
         </div>
       </div>
       <div className="zpq" role="group" aria-labelledby="sv-sys">
-        <h3 id="sv-sys">
+        <h2 id="sv-sys">
           <em aria-hidden="true">1</em>
           {F.systemTitle}
-        </h3>
+        </h2>
         <div className="zpc">
           {F.systems.map((system, i) => (
             <button
@@ -247,10 +247,10 @@ export function FaultForm({ formToken, phone }: Props) {
         </div>
       </div>
       <div className="zpq" role="group" aria-labelledby="sv-sym">
-        <h3 id="sv-sym">
+        <h2 id="sv-sym">
           <em aria-hidden="true">2</em>
           {F.symptomTitle}
-        </h3>
+        </h2>
         <div className="zpc">
           {symptoms.map((symptom, i) => (
             <button
@@ -266,10 +266,10 @@ export function FaultForm({ formToken, phone }: Props) {
         </div>
       </div>
       <div className="zpq" role="group" aria-labelledby="sv-urg">
-        <h3 id="sv-urg">
+        <h2 id="sv-urg">
           <em aria-hidden="true">3</em>
           {F.urgencyTitle}
-        </h3>
+        </h2>
         <div className="zpc">
           {F.urgency.map((urgency, i) => (
             <button

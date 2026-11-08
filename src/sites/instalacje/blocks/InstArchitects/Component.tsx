@@ -4,7 +4,6 @@ import Link from 'next/link'
 import type { CSSProperties } from 'react'
 
 import { getEnv } from '@/lib/env'
-import { MediaImage } from '@/components/MediaImage'
 import { issueFormToken } from '@/lib/inquiry/spam'
 import {
   getInstalacjeCards,
@@ -469,7 +468,15 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
               </div>
               <p className="mut" style={{ margin: 0, fontSize: 14.5 }}>
                 {A.experienceSection.brandsNote}{' '}
-                <a href="https://prokombiznes.pl" style={{ color: 'var(--accent-text)' }}>
+                {/* A link in a sentence is underlined, not told apart by colour alone (WCAG 1.4.1, P3-25). */}
+                <a
+                  href="https://prokombiznes.pl"
+                  style={{
+                    color: 'var(--accent-text)',
+                    textDecoration: 'underline',
+                    textUnderlineOffset: 3,
+                  }}
+                >
                   prokombiznes.pl
                 </a>
                 . {A.experienceSection.brandsAuth}
@@ -494,27 +501,35 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
             leadWidth={440}
           />
           <div className="g4 arlibo">
-            {A.libraryOwn.map((o) => (
-              <div key={o.title} className="card arlibc ri">
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                  }}
-                >
-                  <span className="ico">
-                    <InstIcon name={o.icon} size={22} />
-                  </span>
-                  <span className="tag">{o.format}</span>
+            {A.libraryOwn
+              .filter((o) => o.ready !== false)
+              .map((o) => (
+                <div key={o.title} className="card arlibc ri">
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <span className="ico">
+                      <InstIcon name={o.icon} size={22} />
+                    </span>
+                    <span className="tag">{o.format}</span>
+                  </div>
+                  <b className="h3" style={{ fontSize: 19 }}>
+                    {o.title}
+                  </b>
+                  <p>{o.text}</p>
+                  {o.href ? (
+                    <a href={o.href} className="arlibs">
+                      {o.status} →
+                    </a>
+                  ) : (
+                    <span className="arlibs">{o.status}</span>
+                  )}
                 </div>
-                <b className="h3" style={{ fontSize: 19 }}>
-                  {o.title}
-                </b>
-                <p>{o.text}</p>
-                <span className="arlibs">{o.status}</span>
-              </div>
-            ))}
+              ))}
           </div>
           <div className="arlibe ri">
             <span className="arckh">{A.librarySection.tools}</span>
@@ -598,17 +613,11 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
         <InstSection id="opiekun" style={{ padding: '0 0 104px' }}>
           <div className="wrap">
             <div className="arop ri" data-surface="dark">
+              {/* No photos or silhouettes of people (rule 01.11): the drawing ruler of the page. */}
               <div className="aropp">
-                {contact.photo ? (
-                  <MediaImage image={contact.photo} sizes="160px" className="aropi" />
-                ) : (
-                  <div className="aropa" aria-hidden="true">
-                    <svg viewBox="0 0 120 120">
-                      <circle cx="60" cy="46" r="22" />
-                      <path d="M18 116c4-26 22-38 42-38s38 12 42 38" />
-                    </svg>
-                  </div>
-                )}
+                <div className="aropa" aria-hidden="true">
+                  <InstIcon name="ruler" size={72} />
+                </div>
               </div>
               <div className="aropt">
                 <span className="eye" style={{ color: 'var(--inst-dark-accent)' }}>

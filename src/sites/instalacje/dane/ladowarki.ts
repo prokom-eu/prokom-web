@@ -257,7 +257,7 @@ export const ladowarki = {
         icon: 'bolt',
         title: 'Moc przyłącza',
         text: 'Sprawdzamy rozdzielnicę i moc umowną. 11 kW wymaga trzech faz. Gdy mocy jest mało, ustawiamy niższą moc albo dzielenie mocy między stacje.',
-        note: 'Wycenę zaczynamy od zdjęcia rozdzielnicy i licznika.',
+        note: 'Wycenę zaczynamy od rozdzielnicy i licznika — zdjęcia możesz wysłać w odpowiedzi na nasz e-mail.',
       },
       {
         icon: 'shield',

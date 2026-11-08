@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { setTheme, site } from './helpers'
+import { clickUntilVisible, setTheme, site } from './helpers'
 
 // B4b: inquiry list `pk-cart` — counter, drawer, toast, shared between tabs (spec. §3.2, §8.1,
 // §9 pkt 3 and 7). Catalog from `pnpm seed`.
@@ -37,8 +37,11 @@ test.describe('Biznes inquiry list', () => {
   }) => {
     await page.goto(site('biznes.localhost'))
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 0 pozycji')
-    await page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }).first().click()
     const search = page.getByRole('dialog', { name: 'Szukaj w ofercie' })
+    await clickUntilVisible(
+      page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }).first(),
+      search,
+    )
     await search.getByRole('searchbox').fill('terminal')
     // K4: results add through the quick preview (K33 §2.6).
     await search.getByRole('button', { name: 'Podgląd: Terminal płatniczy PolCard' }).click()

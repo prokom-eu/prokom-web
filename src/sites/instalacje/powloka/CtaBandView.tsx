@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import type { Navigation } from '../dane/types'
+import { InstIcon } from '../InstIcon'
 
 export type CtaBandProps = {
   band: Navigation['ctaBand']
@@ -39,7 +40,13 @@ export function CtaBandView({ band, phone, salons, titleId, page = false }: CtaB
                 Zadzwoń: <b>{phone.label}</b>
               </a>
             )}
-            {salons && <span className="note">{salons}</span>}
+            {/* P2-16: plain text with a pin — the shared `.note` box looked like a disabled field. */}
+            {salons && (
+              <span className="ctan">
+                <InstIcon name="pin" size={16} />
+                {salons}
+              </span>
+            )}
           </div>
         </div>
       </div>
