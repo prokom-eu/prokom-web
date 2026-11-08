@@ -91,7 +91,11 @@ test.describe('Software solution page', () => {
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       )
       expect(overflow, path).toBeLessThanOrEqual(0)
-      const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze()
+      // Without the mock-up (decorative, `aria-hidden` — as in `a11y.e2e.spec.ts`).
+      const { violations } = await new AxeBuilder({ page })
+        .exclude('[data-mockup]')
+        .withTags(WCAG)
+        .analyze()
       expect(violations, path).toEqual([])
     }
   })

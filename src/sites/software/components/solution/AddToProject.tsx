@@ -25,11 +25,12 @@ export function AddToProject({ id, name, className }: Props) {
         type="button"
         aria-pressed={added}
         onClick={() => setFull(!projectActions.toggle(id, name))}
+        data-motion={added ? 'button-outline' : 'button'}
         className={cx(
-          'inline-flex min-h-14 w-full items-center justify-center rounded-2xl px-6 text-base font-extrabold transition-transform active:scale-[0.98] motion-reduce:transition-none min-[641px]:w-auto',
+          'inline-flex min-h-14 w-full items-center justify-center rounded-full px-6 text-base font-extrabold min-[641px]:w-auto',
           added
-            ? 'bg-card text-accent-text ring-2 ring-accent-line'
-            : 'bg-button text-accent-ink shadow-raised',
+            ? 'border border-accent-line bg-card text-accent-text'
+            : 'bg-button text-accent-ink',
         )}
       >
         {added ? '✓ W Twoim projekcie' : 'Chcę takie u siebie'}

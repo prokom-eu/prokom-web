@@ -5,13 +5,13 @@ import { cx } from '@/components/ui/cx'
 import { Breadcrumbs } from '../Breadcrumbs'
 import { SectionHead } from './SectionHead'
 
-type Crumb = { name: string; href: string }
+type Crumb = { name: string; href?: string }
 
 type Props = {
   /** Last breadcrumb (the page itself) and the levels above it. */
   crumb: string
   parents?: Crumb[]
-  eyebrow: string
+  eyebrow?: string | null
   title: string
   /** Second part of the H1, in the hero gradient (`.sw-em-hero`). */
   em?: string | null

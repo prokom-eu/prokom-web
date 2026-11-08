@@ -1,7 +1,8 @@
 import { cx } from '@/components/ui/cx'
 
 type Props = {
-  eyebrow: string
+  /** Empty or missing: no eyebrow line (a city without one in the panel). */
+  eyebrow?: string | null
   /** First part of the H2. */
   title: string
   /** Second part, in the violet gradient (`.sw-em`); ZMIANY-v24 §2: „eyebrow → H2 z `em`”. */
@@ -42,9 +43,11 @@ export function SectionHead({
         className,
       )}
     >
-      <p className="sw-eyebrow" data-rise>
-        {eyebrow}
-      </p>
+      {eyebrow ? (
+        <p className="sw-eyebrow" data-rise>
+          {eyebrow}
+        </p>
+      ) : null}
       <Heading id={id} className={level === 'h1' ? 'sw-h1-page' : 'sw-h2'} data-rise>
         {title}
         {em ? (
