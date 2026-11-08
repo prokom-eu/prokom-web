@@ -153,6 +153,8 @@ test.describe('dark theme switch', () => {
 
       await page.reload()
       await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+      // The button shows the stored choice once hydrated (slow on a busy CI runner).
+      await hydrated(page.getByRole('button', { name: 'Tryb ciemny' }))
       await expect(page.getByRole('button', { name: 'Tryb ciemny' })).toHaveAttribute(
         'aria-pressed',
         'true',

@@ -92,7 +92,14 @@ describe('post categories per line', () => {
   })
 
   it('lists the categories of a line', () => {
-    expect(categoriesOfLine('software')).toEqual(['Poradnik', 'Nowości', 'Realizacje'])
+    // D7 (PRZEKAZANIE-v24 §0.1, board AU-aktualnosci): five categories of Software.
+    expect(categoriesOfLine('software')).toEqual([
+      'Poradnik',
+      'Strony',
+      'Systemy',
+      'Automatyzacje',
+      'Bezpieczeństwo',
+    ])
     expect(categoriesOfLine('prokom')).toEqual([])
   })
 })

@@ -125,13 +125,8 @@ export default async function IndustryPage({ params }: Props) {
         <Container wide>
           <div className="grid gap-4 min-[1081px]:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] min-[1081px]:items-end">
             <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text">
-                {page.problems.eyebrow}
-              </p>
-              <h2
-                id="problemy-h"
-                className="mt-2 font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[641px]:text-5xl min-[1081px]:text-[56px]"
-              >
+              <p className="sw-eyebrow">{page.problems.eyebrow}</p>
+              <h2 id="problemy-h" className="sw-h2 mt-4">
                 Kliknij swój problem, a pokażemy, co na to mamy
               </h2>
             </div>
@@ -150,19 +145,15 @@ export default async function IndustryPage({ params }: Props) {
           <Container wide>
             <div className="flex flex-col gap-4 min-[641px]:flex-row min-[641px]:items-end min-[641px]:justify-between">
               <div>
-                <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text">
-                  {page.solutions.eyebrow}
-                </p>
-                <h2
-                  id="rozwiazania-h"
-                  className="mt-2 max-w-[22ch] font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[641px]:text-5xl"
-                >
+                <p className="sw-eyebrow">{page.solutions.eyebrow}</p>
+                <h2 id="rozwiazania-h" className="sw-h2 mt-4 max-w-[22ch]">
                   Sześć rzeczy, od których zaczynają firmy takie jak Twoja
                 </h2>
               </div>
               <Link
                 href={CATALOG_PATH}
-                className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-2xl border border-border bg-card px-5 font-extrabold active:scale-[0.98] motion-reduce:transition-none"
+                data-motion="button-outline"
+                className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full border border-border bg-card px-5 font-extrabold"
               >
                 Pełna oferta →
               </Link>

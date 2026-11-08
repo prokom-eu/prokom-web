@@ -86,7 +86,8 @@ test.describe('/_wspolne — search window (1440 px)', () => {
     await pressUntilVisible(page, 'Control+k', dialog(page))
     await field(page).fill('cenik')
     const first = dialog(page).locator('[data-result]').first()
-    await expect(first).toBeVisible()
+    // The list of the empty field shows first; its first item is not the answer to „cenik”.
+    await expect(first).toContainText(/Cennik/)
     const href = (await first.getAttribute('href')) ?? ''
     await field(page).press('Enter')
     await expect(dialog(page)).toBeHidden()

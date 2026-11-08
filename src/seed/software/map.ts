@@ -356,8 +356,10 @@ type SeedSection = SeedPost['sections'][number]
 /** Package categories (`Poradnik`) → values of `POST_CATEGORIES`. */
 const POST_CATEGORY: Record<string, Post['category']> = {
   Poradnik: 'poradnik',
-  Nowości: 'nowosci',
-  Realizacje: 'realizacje',
+  Strony: 'strony',
+  Systemy: 'systemy',
+  Automatyzacje: 'automatyzacje',
+  Bezpieczeństwo: 'bezpieczenstwo',
 }
 
 function sectionNodes(section: SeedSection): object[] {

@@ -4783,7 +4783,7 @@ export interface Post {
    */
   slug: string;
   /**
-   * Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Nowości, Realizacje. Instalacje: Przepisy, Monitoring, Obiekty noclegowe, Energia, Dźwięk i obraz.
+   * Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Strony, Systemy, Automatyzacje, Bezpieczeństwo. Instalacje: Przepisy, Monitoring, Obiekty noclegowe, Energia, Dźwięk i obraz.
    */
   category:
     | 'ksef'
@@ -4792,8 +4792,10 @@ export interface Post {
     | 'dofinansowania'
     | 'programy'
     | 'poradnik'
-    | 'nowosci'
-    | 'realizacje'
+    | 'strony'
+    | 'systemy'
+    | 'automatyzacje'
+    | 'bezpieczenstwo'
     | 'przepisy'
     | 'monitoring'
     | 'noclegi'

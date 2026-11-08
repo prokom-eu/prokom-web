@@ -1486,6 +1486,24 @@
   --hero-tile-to: #6b42d8;
   --hero-word-from: #9670ee;
   --hero-word-to: #5b33c4;
+  /* Pictures of the news categories (ZMIANY-v24 §1 pkt 4, aurora.css `.au-pc-art`): the only place
+     with other hues — a category code (turquoise, gold, red, navy); dark in both themes. */
+  --news-art-base: #0f1110;
+  --news-art-ring: rgba(195, 171, 250, 0.35);
+  --news-art-orb: rgba(150, 112, 238, 0.55);
+  --news-art-dot: #c3abfa;
+  --news-art-dot-halo: rgba(195, 171, 250, 0.15);
+  --news-art-dot-glow: #9670ee;
+  --news-art-poradnik: rgba(150, 112, 238, 0.55);
+  --news-art-poradnik-bg: #1a1430;
+  --news-art-strony: rgba(63, 193, 173, 0.45);
+  --news-art-strony-bg: #10201d;
+  --news-art-systemy: rgba(74, 123, 224, 0.45);
+  --news-art-systemy-bg: #111827;
+  --news-art-automatyzacje: rgba(242, 193, 78, 0.4);
+  --news-art-automatyzacje-bg: #1c1a12;
+  --news-art-bezpieczenstwo: rgba(226, 72, 58, 0.38);
+  --news-art-bezpieczenstwo-bg: #1e1312;
 }
 
 /* Dark theme — chosen by the visitor or the line's default (`data-theme`, lib/brand/theme.ts);
