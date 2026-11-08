@@ -415,6 +415,8 @@ export const getInstArchNews = cache(async (tenantId: number): Promise<ArchNewsC
 export type OfferAreaData = {
   key: string
   name: string
+  /** Accent of the service (panel value, `--h`). */
+  color: string | null
   icon: string | null
   href: string | null
   family: string
@@ -438,7 +440,7 @@ export const getInstalacjeOffer = cache(async (tenantId: number): Promise<OfferA
     payload.find({
       collection: 'inst-services',
       ...published,
-      select: { key: true, name: true, icon: true, slug: true, offer: true },
+      select: { key: true, name: true, icon: true, slug: true, offer: true, color: true },
     }),
     payload.find({
       collection: 'inst-solutions',
@@ -453,6 +455,7 @@ export const getInstalacjeOffer = cache(async (tenantId: number): Promise<OfferA
     .map((s) => ({
       key: s.key,
       name: s.name,
+      color: s.color ?? null,
       icon: s.icon ?? null,
       href: s.slug ? `/${s.slug}` : null,
       family: OFFER_FAMILIES.find((f) => f.value === s.offer?.family)?.label ?? '',
