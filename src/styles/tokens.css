@@ -1499,6 +1499,9 @@
   /* H1 of a subpage (aurora.css `.au.light .au-ph h1 em`). */
   --em-hero-from: #9670ee;
   --em-hero-to: #5b33c4;
+  /* The highlighted H1 part on the dark band of O firmie / Kontakt (both themes, AUDYT-0811 #11). */
+  --em-band-from: #d9ccff;
+  --em-band-to: #9670ee;
   --sheen: rgba(255, 255, 255, 0.35);
   --sheen-ghost: rgba(150, 112, 238, 0.25);
   --beam: #9670ee;

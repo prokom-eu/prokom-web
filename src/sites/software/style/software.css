@@ -118,6 +118,18 @@
   .sw-em-hero {
     background-image: linear-gradient(180deg, var(--em-hero-from), var(--em-hero-to));
   }
+
+  /* The highlighted part of the shared templates' H1 (`**…**` in the panel, AUDYT-0811 #11): on
+     the dark band in both themes. */
+  [data-heading-em] {
+    color: transparent;
+    background-image: linear-gradient(180deg, var(--em-band-from), var(--em-band-to));
+    background-clip: text;
+    -webkit-background-clip: text;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding-bottom: 0.06em;
+  }
 }
 
 /* v24 primitives (`components/ui`): glass card, chip, segment (ZMIANY-v24 §1). */
