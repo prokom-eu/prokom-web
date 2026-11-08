@@ -58,8 +58,7 @@ export async function FaqContact({ faq: faqBlock, contact: contactBlock, tenantI
           </div>
         )}
         {contact && (
-          // `data-final-cta`: the page ends with this CTA — the footer drops its CTA band (SWR2).
-          <div id="kontakt" data-final-cta className="sw-glass v-contact">
+          <div id="kontakt" className="sw-glass v-contact">
             <p className="sw-eyebrow">{contact.eyebrow}</p>
             <h2 id="kontakt-h" className="sw-h2 v-contact-h">
               {contact.title}

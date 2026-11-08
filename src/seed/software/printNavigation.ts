@@ -2,8 +2,8 @@ import nawigacja from '../../../seed/prokomsoftware/nawigacja.json'
 import { navigationSchema } from '../../lib/software/navigation'
 
 /**
- * `pnpm software:navigation-json`: the value of `SiteSettings.software.navigation` in the v21
- * shape (SWR2), to paste in the panel where the seed is blocked (staging, production). Checked
+ * `pnpm software:navigation-json`: the value of `SiteSettings.software.navigation` in the v24
+ * shape (SWA5), to paste in the panel where the seed is blocked (staging, production). Checked
  * against the schema the panel uses on save; prints nothing else, so the output can go straight
  * to a file.
  */

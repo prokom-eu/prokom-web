@@ -319,7 +319,12 @@ test.describe('Software wizard v3 — steps and links', () => {
   test('dark start, a question and the result pass axe', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' })
     const axe = async () => {
-      const result = await new AxeBuilder({ page }).withTags(WCAG).analyze()
+      // The glass capsule over the bright mock-up below misleads the contrast check; the capsule
+      // has its own axe run at the top of the page (software-frame).
+      const result = await new AxeBuilder({ page })
+        .withTags(WCAG)
+        .exclude('[data-site-header]')
+        .analyze()
       expect(
         result.violations.map((v) => ({ rule: v.id, targets: v.nodes.map((n) => n.target) })),
       ).toEqual([])

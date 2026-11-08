@@ -27,7 +27,7 @@ for (const viewport of [
       // The menu sheet renders its links when opened.
       await clickUntilVisible(
         page
-          .getByRole('navigation', { name: 'Pasek nawigacji' })
+          .getByRole('navigation', { name: 'Pasek aplikacji' })
           .getByRole('button', { name: 'Menu' }),
         page.getByRole('dialog', { name: 'Menu' }),
       )

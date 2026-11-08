@@ -30,6 +30,8 @@ import {
   industryData,
   missingFacts,
   softwareContactUpdate,
+  softwareFooterText,
+  SOFTWARE_FOOTER_TEXT,
   relatedIds,
   type SeedCity,
   softwarePostData,
@@ -532,5 +534,13 @@ describe('showroom industries of the v24 home (ZMIANY-v24 §4.2)', () => {
     for (const industry of HOME_V24.showroom.industries) {
       expect(firms.has(industry.key), industry.key).toBe(true)
     }
+  })
+})
+
+describe('softwareFooterText — the line under the footer logo (SWA5)', () => {
+  it('writes it over the sample or an empty text, keeps an editor’s text', () => {
+    expect(softwareFooterText('PRO-KOM Software — dane przykładowe.')).toBe(SOFTWARE_FOOTER_TEXT)
+    expect(softwareFooterText(null)).toBe(SOFTWARE_FOOTER_TEXT)
+    expect(softwareFooterText('Nasz opis.')).toBeNull()
   })
 })

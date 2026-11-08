@@ -134,10 +134,11 @@ test.describe('Software start page', () => {
     expect(JSON.stringify(jsonLd)).not.toContain('[OPIEKA OD]')
   })
 
-  test('section rail above 1400 px, hidden below', async ({ page }) => {
+  // SWA5a: the shared side rail of the frame (`SiteRail`, sections from `shared.rail`) from 1400 px.
+  test('section rail from 1400 px, hidden below', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site(HOST))
-    const rail = page.getByRole('navigation', { name: 'Na tej stronie' })
+    const rail = page.locator('[data-site-rail]').getByRole('group', { name: 'Na tej stronie' })
     await expect(rail.getByRole('link')).toHaveText([
       'Start',
       'Od czego zaczynasz',
@@ -153,7 +154,7 @@ test.describe('Software start page', () => {
     await expect(rail).toBeVisible()
     // SWV6: the marked entry is the section whose top passed 40% of the screen; at the bottom of
     // the page — „Kontakt”.
-    const marked = rail.locator('[aria-current="true"]')
+    const marked = rail.locator('[aria-current="location"]')
     await page.evaluate(() => {
       const top = document.getElementById('proces')!.getBoundingClientRect().top
       window.scrollTo({ top: window.scrollY + top - 100, behavior: 'instant' })
@@ -163,7 +164,7 @@ test.describe('Software start page', () => {
       window.scrollTo({ top: document.scrollingElement!.scrollHeight, behavior: 'instant' }),
     )
     await expect(marked).toHaveText('Kontakt')
-    await page.setViewportSize({ width: 1400, height: 900 })
+    await page.setViewportSize({ width: 1399, height: 900 })
     await expect(rail).toBeHidden()
   })
 })

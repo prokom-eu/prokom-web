@@ -116,9 +116,10 @@ test.describe('Software analytics (ADR-020)', () => {
 test.describe('Software analytics on a phone (ADR-020)', () => {
   test.use({ viewport: { width: 390, height: 844 } })
 
+  // The shared bar and sheet report through the frame's `PhoneSignals` (SWA5a).
   test('bottom bar items and the menu sheet', async ({ page }) => {
     await page.goto(site(HOST, '/dziekujemy'))
-    const bar = page.getByRole('navigation', { name: 'Pasek nawigacji' })
+    const bar = page.getByRole('navigation', { name: 'Pasek aplikacji' })
     await bar.getByRole('button', { name: 'Menu' }).click()
     await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible()
     expect(await events(page)).toEqual([

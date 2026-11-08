@@ -13,7 +13,7 @@
  * colours still change, quickly.
  * Hooks in the markup: `data-reveal`, `data-reveal-cards` (sections and card lists rising in,
  * `RevealObserver`), `data-motion="button|button-outline"`, `data-card`, `data-icon="arrow"`,
- * `data-mega-panel`, `data-motion` on sheets (`BottomSheet`), `data-sw-header`, `data-tab-bar`.
+ * `data-motion` on sheets (`BottomSheet`), `data-site-header`, `data-tab-bar`.
  */
 
 /* --- 1. Every clickable element changes smoothly --------------------------------------------
@@ -282,22 +282,6 @@
   [data-line='biznes'] [data-arrive] h2 {
     animation: sw-arrive 1.3s var(--ease-out);
   }
-
-  /* Header: once the page moves, a shadow and a slightly smaller logo — scroll-driven, no JS;
-     transform and shadow only, the header keeps its height. */
-  @supports (animation-timeline: scroll()) {
-    [data-line='software'] [data-sw-header] {
-      animation: sw-header linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 96px;
-    }
-    [data-line='software'] [data-sw-header] [data-site-logo] {
-      transform-origin: left center;
-      animation: sw-logo linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 96px;
-    }
-  }
 }
 
 /* --- 4. Opening and closing ----------------------------------------------------------------- */
@@ -307,30 +291,6 @@
     details[open]
     > :not(summary) {
     animation: sw-faq var(--dur-state) var(--ease-out);
-  }
-
-  /* Mega menu „Oferta”: in with a small drop, its columns one after another (30 ms). Closing is
-     instant: `hidden` is `display: none !important` in the reset. */
-  :is([data-line='software'], [data-line='biznes']) [data-mega-panel]:not([hidden]) {
-    animation: sw-drop var(--dur-state) var(--ease-out);
-  }
-  :is([data-line='software'], [data-line='biznes'])
-    [data-mega-panel]:not([hidden])
-    [data-mega-column] {
-    animation: sw-reveal var(--dur-state) var(--ease-out) backwards;
-    --reveal-y: 6px;
-  }
-  :is([data-line='software'], [data-line='biznes']) [data-mega-column]:nth-child(2) {
-    animation-delay: 30ms;
-  }
-  :is([data-line='software'], [data-line='biznes']) [data-mega-column]:nth-child(3) {
-    animation-delay: 60ms;
-  }
-  :is([data-line='software'], [data-line='biznes']) [data-mega-column]:nth-child(4) {
-    animation-delay: 90ms;
-  }
-  :is([data-line='software'], [data-line='biznes']) [data-mega-column]:nth-child(n + 5) {
-    animation-delay: 120ms;
   }
 
   /* Sheets and windows (`BottomSheet`): a sheet slides up from the bottom, a window (≥ 641 px)
@@ -555,7 +515,7 @@
 @media (prefers-reduced-motion: no-preference) {
   /* `PageTransition`: the old page `sw-page-out`, the new `sw-page-in`; header and bottom bar
      have their own names, so they stay. */
-  [data-line='software'] [data-sw-header] {
+  [data-line='software'] [data-site-header] {
     view-transition-name: sw-header;
   }
   [data-line='software'] [data-tab-bar] {
@@ -571,7 +531,7 @@
 
   /* Theme switch (`revealTheme`): the new theme opens in a circle from the button. Header and
      bar join the page for that moment, so the whole screen changes at once. */
-  html[data-line='software'][data-theme-reveal] [data-sw-header],
+  html[data-line='software'][data-theme-reveal] [data-site-header],
   html[data-line='software'][data-theme-reveal] [data-tab-bar] {
     view-transition-name: none;
   }
@@ -682,26 +642,6 @@
   from {
     opacity: 0;
     translate: 0 -6px;
-  }
-}
-
-@keyframes sw-drop {
-  from {
-    opacity: 0;
-    translate: 0 -6px;
-    scale: 0.99;
-  }
-}
-
-@keyframes sw-header {
-  to {
-    box-shadow: 0 12px 30px -26px var(--shadow);
-  }
-}
-
-@keyframes sw-logo {
-  to {
-    scale: 0.92;
   }
 }
 

@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { railItems } from '@/sites/biznes/components/home/rail'
 import { isIconName } from '@/lib/shared/icons'
 import { glownaSekcje } from '@/sites/instalacje/dane/glownaSekcje'
-import { RAIL_LABELS } from '@/sites/software/components/home/rail'
+import { HOME_ORDER_V24, homeSectionAnchor } from '@/lib/software/homeSections'
 
 import { BIZNES_SHARED } from './biznes'
 import { COMPANY_LINES, SHARED_COMPANY } from './company'
@@ -29,11 +29,10 @@ const BIZNES_HOME = [
   { blockType: 'bzContact' },
 ]
 
-// L1-I / D3-B: an unknown name falls back to a page icon in the rail. Software („wand”) gets
-// its icon in D3-S (STAN-instalacje, uwaga dla D3).
+// L1-I / D3-B / D3-S: an unknown name falls back to a page icon in the rail.
 describe('shared.rail — Instalacje and Biznes icons come from the shared set', () => {
   it('rail sections and the tab bar action', () => {
-    const icons = [INSTALACJE_SHARED, BIZNES_SHARED]
+    const icons = [INSTALACJE_SHARED, BIZNES_SHARED, SOFTWARE_SHARED]
       .flatMap((shared) => [
         ...(shared.rail?.sections ?? []).map((section) => section.icon),
         shared.tabBar?.center?.icon,
@@ -49,8 +48,15 @@ describe('shared.rail — every anchor exists on the line home page, in its orde
     expect(anchors(BIZNES_SHARED)).toEqual(home.map((item) => item.id))
   })
 
-  it('Software: the sections of the v24 rail', () => {
-    expect(anchors(SOFTWARE_SHARED)).toEqual(Object.keys(RAIL_LABELS))
+  it('Software: the sections of the v24 start page, in its order (promises have no entry)', () => {
+    const home = HOME_ORDER_V24.map((section) =>
+      section === 'hero'
+        ? 'start'
+        : section === 'contact'
+          ? 'kontakt'
+          : (homeSectionAnchor(section) ?? section),
+    ).filter((anchor) => anchor !== 'obietnice')
+    expect(anchors(SOFTWARE_SHARED)).toEqual(home)
   })
 
   it('Instalacje: the sections of the home rail', () => {

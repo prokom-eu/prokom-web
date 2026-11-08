@@ -9,7 +9,6 @@ import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { isIconName } from '../catalog/options'
 import { contactFacts, factsMap, fillDeep, fillText } from './facts'
 import { homeSchema, type SoftwareHome } from './home'
-import type { MenuArea } from './mobileNav'
 import {
   buildOfferView,
   EMPTY_OFFER,
@@ -95,30 +94,6 @@ export const getSoftwareNotFound = (tenantId: number): Promise<SoftwareNotFound 
     ['software-not-found', String(tenantId)],
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
-
-/**
- * Areas of one Software tenant for the menu sheet's tiles (name, key, icon, price) — public
- * fields only, read on the server (`SolutionAreas` is readable for the panel only). Call it only
- * for a tenant of the Software line. Deduplicated per request.
- */
-export const getMenuAreas = cache(async (tenantId: number): Promise<MenuArea[]> => {
-  const payload = await getPayload({ config })
-  const { docs } = await payload.find({
-    collection: 'solution-areas',
-    where: { tenant: { equals: tenantId } },
-    limit: 20,
-    depth: 0,
-    select: { name: true, key: true, icon: true, priceFrom: true, priceLabel: true },
-    overrideAccess: true,
-  })
-  return docs.map(({ name, key, icon, priceFrom, priceLabel }) => ({
-    name,
-    key,
-    icon: isIconName(icon) ? icon : null,
-    priceFrom: priceFrom ?? null,
-    priceLabel: priceLabel ?? null,
-  }))
-})
 
 /** Far above the 29 solutions of the package; the catalog is one page without paging. */
 const MAX_SOLUTIONS = 200

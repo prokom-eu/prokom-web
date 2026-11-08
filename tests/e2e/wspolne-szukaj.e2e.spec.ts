@@ -194,7 +194,7 @@ test.describe('/_wspolne — search window on a phone and the recently viewed fl
 const PHONE_SEARCH = [
   { host: 'biznes.localhost', path: '/', label: 'Szukaj w ofercie' },
   { host: 'instalacje.localhost', path: '/', label: 'Szukaj na stronie' },
-  { host: 'software.localhost', path: '/_wspolne', label: 'Szukaj na stronie' },
+  { host: 'software.localhost', path: '/', label: 'Szukaj na stronie' },
 ] as const
 
 test.describe('menu sheet „Szukaj” on a phone (390 px)', () => {
