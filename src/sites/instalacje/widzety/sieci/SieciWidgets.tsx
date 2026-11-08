@@ -357,7 +357,7 @@ export function FailoverLab() {
         aria-pressed={down}
         onClick={() => setDown((d) => !d)}
       >
-        <InstIcon name="x" size={15} />
+        <InstIcon name="off" size={15} />
         {down ? T.restore : T.cut}
       </button>
       <p className="labr" aria-live="polite">

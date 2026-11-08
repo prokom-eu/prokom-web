@@ -97,7 +97,7 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
           <p className="lead in d3">{hero.lead}</p>
           <div className="hxcta in d4">
             <a href={HOME_PLAN_HREF} className="btn hbtn-p">
-              <InstIcon name="home" strokeWidth={2.2} />
+              <InstIcon name="send" strokeWidth={2.2} />
               Zaplanuj instalację
             </a>
             {phone ? (

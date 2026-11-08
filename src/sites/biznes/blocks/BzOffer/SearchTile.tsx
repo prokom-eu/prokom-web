@@ -1,13 +1,9 @@
 'use client'
 
-import Link from 'next/link'
 import { useId } from 'react'
 
 import { Icon } from '@/components/ui/Icon'
-import type { IconName } from '@/lib/catalog/options'
 import { requestSearch } from '@/lib/site/searchOpen'
-
-type Shortcut = { label: string; note: string; href: string; icon: IconName }
 
 type Props = {
   eyebrow: string | null
@@ -16,14 +12,14 @@ type Props = {
   searchLabel: string
   /** `BiznesSettings.search.popular`: each phrase opens the search with it typed. */
   popular: string[]
-  shortcuts: Shortcut[]
 }
 
 /**
  * Sixth tile of the departments (board `#s4-dz`, „Nie wiesz, w którym dziale szukać?”, texts from
- * the block): the site search (same overlay as Ctrl K), popular phrases and the shortcuts.
+ * the block): the site search (same overlay as Ctrl K) and popular phrases. No shortcuts to the
+ * plan, bundles or the whole offer — „Szybki start” is the one hub of the page (plan 0611 §7.1).
  */
-export function SearchTile({ eyebrow, heading, searchLabel, popular, shortcuts }: Props) {
+export function SearchTile({ eyebrow, heading, searchLabel, popular }: Props) {
   const headingId = useId()
   return (
     <article
@@ -71,27 +67,6 @@ export function SearchTile({ eyebrow, heading, searchLabel, popular, shortcuts }
           ))}
         </ul>
       )}
-      <ul className="mt-auto flex flex-col gap-2 pt-5">
-        {shortcuts.map((item) => (
-          <li key={item.href}>
-            <Link
-              href={item.href}
-              className="flex items-center gap-3 rounded-2xl bg-white/5 p-2.5 shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--c-white)_10%,transparent)] transition-colors hover:bg-white/10"
-            >
-              <span
-                aria-hidden="true"
-                className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-white/10"
-              >
-                <Icon name={item.icon} className="size-[18px]" />
-              </span>
-              <span className="flex flex-col">
-                <span className="text-[14px] font-extrabold text-white">{item.label}</span>
-                <span className="text-[12.5px] text-white/70">{item.note}</span>
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
     </article>
   )
 }

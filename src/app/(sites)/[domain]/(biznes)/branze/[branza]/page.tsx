@@ -32,8 +32,8 @@ import { requestOrigin, requireLine } from '../../../tenant'
 
 type Props = { params: Promise<{ domain: string; branza: string }> }
 
-/** „Branże” in the breadcrumbs: the industries grid of the home page (there is no list page). */
-const INDUSTRIES_CRUMB = '/#dla-kogo'
+/** „Branże” in the breadcrumbs: the plan with the industries on the home page (D8; no list page). */
+const INDUSTRIES_CRUMB = '/#plan'
 
 async function load(params: Props['params']) {
   const tenant = await requireLine(params, 'biznes')

@@ -1,12 +1,12 @@
 'use client'
 
-import { MediaImage } from '@/components/MediaImage'
 import { type CSSProperties, type ReactNode, useState } from 'react'
 
 import type { ArchNewsCard } from '@/lib/instalacje/data'
 import type { ServiceKey } from '@/lib/instalacje/options'
 
 import { architekci as A } from '../../dane/architekci'
+import { PhotoOrArt } from './PhotoOrArt'
 import { InstIcon } from '../../InstIcon'
 import { safeHue } from '../../sekcje/arch/archScene'
 import {
@@ -95,7 +95,12 @@ export function SolutionsExplorer({ cards, hues, newsletterForm }: Props) {
                   <span className={n.image ? 'arnwth arnwthp' : 'arnwth'}>
                     {n.image ? (
                       // The name is in the card's text: the photo is decoration here.
-                      <MediaImage image={{ ...n.image, alt: '' }} sizes="96px" className="arnwph" />
+                      <PhotoOrArt
+                        image={{ ...n.image, alt: '' }}
+                        sizes="96px"
+                        className="arnwph"
+                        art={<Art d={n.illustration} />}
+                      />
                     ) : (
                       <Art d={n.illustration} />
                     )}
@@ -115,10 +120,11 @@ export function SolutionsExplorer({ cards, hues, newsletterForm }: Props) {
           <article className="arnxd" style={hue(hues, cur.category)} key={cur.id}>
             <div className={cur.image ? 'arnxa arnxap' : 'arnxa'}>
               {cur.image ? (
-                <MediaImage
+                <PhotoOrArt
                   image={cur.image}
                   sizes="(min-width: 1100px) 560px, 100vw"
                   className="arnxph"
+                  art={<Art d={cur.illustration} />}
                 />
               ) : (
                 <Art d={cur.illustration} />

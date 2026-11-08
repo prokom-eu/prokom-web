@@ -130,7 +130,7 @@ export const monitoring = {
         text: 'Kamery z jasnym obiektywem F1.0 i ciepłym doświetleniem pokazują kolory po zmroku. Albo dyskretna podczerwień, gdy światło przeszkadza gościom.',
       },
       {
-        icon: 'bell',
+        icon: 'siren',
         title: 'Odstraszanie',
         text: 'Kamera z białym światłem, syreną i własnym komunikatem głosowym reaguje, zanim ktoś wejdzie do narciarni czy garażu.',
       },
@@ -228,7 +228,7 @@ export const monitoring = {
       },
       rack: {
         name: 'Szafa rack',
-        icon: 'build',
+        icon: 'rack',
         place: 'Porządek w technice',
         text: 'Rejestrator, router, UPS i opisane kable w jednym zamykanym miejscu. Serwisant od razu wie, co jest czym.',
         tip: 'Szafę montujemy w ogrzewanym pomieszczeniu. Gdy stoi w niej kilka urządzeń PoE, dokładamy wentylację.',
@@ -263,7 +263,7 @@ export const monitoring = {
       },
       ptz: {
         name: 'Kamera obrotowa PTZ',
-        icon: 'eye',
+        icon: 'cam',
         place: 'Duży plac',
         text: 'Obraca się i przybliża obraz, żeby z jednego miejsca obejrzeć cały plac albo parking.',
         tip: 'Kamera PTZ pobiera więcej prądu niż zwykła, dlatego przy jej montażu liczymy budżet mocy switcha.',
@@ -298,7 +298,7 @@ export const monitoring = {
       },
       {
         name: 'Firma',
-        icon: 'shop',
+        icon: 'office',
         sub: '6–8 kamer',
         cams: 8,
         camLabel: '8 × 4 MP',
@@ -521,7 +521,7 @@ export const monitoring = {
     },
     we: [
       {
-        icon: 'layers',
+        icon: 'grid',
         title: 'Strefy i maski',
         text: 'Zaczerniamy w obrazie to, czego kamera nie powinna nagrywać.',
       },

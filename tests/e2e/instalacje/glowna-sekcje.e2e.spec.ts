@@ -143,6 +143,15 @@ test.describe('Instalacje home sections', () => {
       }),
     )
     expect(Math.min(...heights)).toBeGreaterThanOrEqual(24)
+    // Runda v6 §1.7.3: always in the brand's colours, all tiles of one width.
+    const looks = await logos.evaluateAll((els) =>
+      els.map((el) => `${getComputedStyle(el).filter} ${getComputedStyle(el).opacity}`),
+    )
+    expect(new Set(looks)).toEqual(new Set(['none 1']))
+    const widths = await page
+      .locator('.trust .brand')
+      .evaluateAll((els) => els.map((el) => Math.round(el.getBoundingClientRect().width)))
+    expect(new Set(widths).size).toBe(1)
   })
 
   // RUNDA-V5 §3: the whole card leads to the object page, not only „Zobacz rozwiązania”.

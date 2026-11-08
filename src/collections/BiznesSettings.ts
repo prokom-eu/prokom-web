@@ -143,6 +143,25 @@ export const BiznesSettings: CollectionConfig = {
       ],
     },
     {
+      // B3-1 (D8): „Gotowy zestaw dla tej branży” in the home plan (`zestawy_na_glownej`).
+      name: 'bundles',
+      label: 'Zestawy',
+      type: 'group',
+      fields: [
+        {
+          name: 'home',
+          label: 'Zestawy na stronie głównej',
+          type: 'relationship',
+          relationTo: 'bundles',
+          hasMany: true,
+          admin: {
+            description:
+              'Plan na głównej pokazuje przy branży pierwszy z tych zestawów, który jest przypisany do jej sceny planu i ma status „Gotowe”. Brak takiego = bez karty.',
+          },
+        },
+      ],
+    },
+    {
       name: 'wizard',
       label: 'Reguły konfiguratora',
       type: 'json',

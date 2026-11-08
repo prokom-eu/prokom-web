@@ -10,6 +10,12 @@ import { BIZNES_CONTACT } from './contact'
 
 type HomeBlock = NonNullable<Page['layout']>[number]
 
+/** FAQ lead before B3-1 (with „60 minut”) and after it (prototype 0611 `#faq`). */
+export const FAQ_LEAD_OLD =
+  'Najczęstsze pytania od firm z Podhala. Nie ma tu Twojego? Zadzwoń albo napisz. Oddzwonimy w ciągu 60 minut w godzinach pracy.'
+export const FAQ_LEAD_BIZ2 =
+  'Najczęstsze pytania od firm z Podhala. Nie ma tu Twojego? Zadzwoń albo napisz.'
+
 export function factsBlocks(brand: (name: string) => number | undefined): HomeBlock[] {
   return [
     {
@@ -62,7 +68,8 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
       blockType: 'faq',
       eyebrow: 'Pytania i odpowiedzi',
       heading: 'Zanim zadzwonisz',
-      lead: 'Najczęstsze pytania od firm z Podhala. Nie ma tu Twojego? Zadzwoń albo napisz. Oddzwonimy w ciągu 60 minut w godzinach pracy.',
+      // Plan 0611 §7.1 pkt 9: the call-back promise only in the hero, the steps and the form.
+      lead: FAQ_LEAD_BIZ2,
       // Board `FAQ4` (v150).
       items: [
         {

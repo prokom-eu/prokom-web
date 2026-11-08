@@ -95,6 +95,7 @@ import * as migration_20261108_173428_biznes_zaopatrzenie_strona from './2026110
 import * as migration_20261108_174411_swa6_strony_prawne from './20261108_174411_swa6_strony_prawne'
 import * as migration_20261108_190544_biznes_glowna_zaopatrzenie from './20261108_190544_biznes_glowna_zaopatrzenie'
 import * as migration_20261108_193425_biznes_zaopatrzenie_linki from './20261108_193425_biznes_zaopatrzenie_linki'
+import * as migration_20261108_200552_biznes_glowna_zestawy from './20261108_200552_biznes_glowna_zestawy'
 
 export const migrations = [
   {
@@ -581,5 +582,10 @@ export const migrations = [
     up: migration_20261108_193425_biznes_zaopatrzenie_linki.up,
     down: migration_20261108_193425_biznes_zaopatrzenie_linki.down,
     name: '20261108_193425_biznes_zaopatrzenie_linki',
+  },
+  {
+    up: migration_20261108_200552_biznes_glowna_zestawy.up,
+    down: migration_20261108_200552_biznes_glowna_zestawy.down,
+    name: '20261108_200552_biznes_glowna_zestawy',
   },
 ]

@@ -121,16 +121,18 @@ export const alarmy = {
       lead: 'Wybierz obiekt. Pokażemy, z jakich elementów zwykle składamy system i co każdy z nich robi. Przykładowe urządzenia z bezprzewodowej linii Satel ABAX 2 i Ajax.',
     } satisfies SectionHead,
     tabsLabel: 'Wersja alarmu',
+    /** Runda v6 §1.5: the label of an element outside the chosen version. */
+    outside: 'Poza zestawem',
     note: 'Zasięgi radiowe podaje się dla otwartej przestrzeni, w budynku są krótsze. Konkretne urządzenia dobieramy po wizji lokalnej.',
     elements: {
       cen: {
-        icon: 'cpu',
+        icon: 'panel',
         name: 'Centrala z akumulatorem',
         text: 'Mózg systemu. Przy braku prądu pracuje na akumulatorze, przy braku internetu wysyła powiadomienia przez sieć komórkową.',
         model: 'np. Satel z kontrolerem ABAX 2, Ajax Hub 2',
       },
       kl: {
-        icon: 'grid',
+        icon: 'keypad',
         name: 'Klawiatura i piloty',
         text: 'Uzbrajanie przy wejściu, pilot dla domowników, a do tego aplikacja w telefonie.',
         model: 'manipulator, breloki',
@@ -148,25 +150,25 @@ export const alarmy = {
         model: 'czujki magnetyczne',
       },
       gb: {
-        icon: 'x',
+        icon: 'glassBreak',
         name: 'Czujki zbicia szyby',
         text: 'Przy dużych przeszkleniach, witrynach i drzwiach tarasowych.',
         model: 'np. Satel AGD-200: do 6 m',
       },
       out: {
-        icon: 'sun2',
+        icon: 'pirOut',
         name: 'Czujki zewnętrzne',
         text: 'Alarm, gdy ktoś jest jeszcze na podwórku, a nie dopiero w domu.',
         model: 'np. Satel AOD-210: praca od −40°C',
       },
       sir: {
-        icon: 'bell',
+        icon: 'siren',
         name: 'Sygnalizator z lampą',
         text: 'Głośny sygnał i błyskające światło odstraszają i pokazują, gdzie jest alarm.',
         model: 'np. Satel ASP-200 R: do 105 dB',
       },
       fl: {
-        icon: 'drop',
+        icon: 'flood',
         name: 'Czujki zalania i temperatury',
         text: 'Woda pod pralką albo spadek temperatury w kotłowni od razu w telefonie.',
         model: 'np. Satel AFD-200: bateria do 5 lat',
@@ -184,13 +186,13 @@ export const alarmy = {
         model: 'np. Ajax MotionCam: bateria do 4 lat',
       },
       lte: {
-        icon: 'ant',
+        icon: 'lte',
         name: 'Łączność LTE i Ethernet',
         text: 'Dwie drogi powiadomień. Gdy jedna zawiedzie, działa druga.',
         model: 'moduł GSM/LTE, dwie karty SIM',
       },
       ag: {
-        icon: 'shield',
+        icon: 'patrol',
         name: 'Agencja ochrony (opcja)',
         text: 'Sygnał trafia do całodobowego centrum, które wysyła patrol.',
         model: 'umowa z agencją ochrony',

@@ -45,7 +45,12 @@ export const BzPlanBlock: Block = {
           type: 'text',
           admin: { description: 'Np. „Kliknij urządzenie — otworzy się film i szczegóły”.' },
         },
-        { name: 'moreLabel', label: 'Przycisk „Gotowe zestawy”', type: 'text' },
+        {
+          name: 'moreLabel',
+          label: 'Karta „Gotowy zestaw dla tej branży”',
+          type: 'text',
+          admin: { description: 'Etykieta karty zestawu branży (zestawy: Ustawienia Biznesu).' },
+        },
         {
           name: 'inquiryLabel',
           label: 'Przycisk „Dodaj cały plan do zapytania”',
@@ -58,6 +63,10 @@ export const BzPlanBlock: Block = {
       name: 'industries',
       label: 'Siatka branż',
       type: 'group',
+      admin: {
+        description:
+          'Od 11.2026 (D8) nie wyświetla się na stronie głównej: branże wybiera się w planie (sceny w „Plany firmy”). Dane zostają.',
+      },
       fields: [
         {
           type: 'row',
@@ -66,7 +75,10 @@ export const BzPlanBlock: Block = {
               name: 'eyebrow',
               label: 'Etykieta',
               type: 'text',
-              admin: { description: 'Sekcja „Dla kogo” (#dla-kogo), np. „Dla kogo pracujemy”.' },
+              admin: {
+                description:
+                  'Nie wyświetlana od B3-1 (branże są w sekcji planu); zostaje w danych.',
+              },
             },
             {
               name: 'heading',
