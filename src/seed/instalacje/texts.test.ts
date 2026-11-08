@@ -57,6 +57,40 @@ describe('planTextChange (runda v6 D4)', () => {
     ])
   })
 
+  it('a package keeps the price of the stored package with its name, wherever it moved', () => {
+    const two = {
+      ...stored,
+      packages: [
+        { id: 'p', name: 'Dom', description: 'A', price: 'od 2500 zł' },
+        { id: 'q', name: 'Firma', description: 'B', price: 'od 9000 zł' },
+      ],
+    }
+    const desired = {
+      packages: [
+        { name: 'Firma', description: 'B', price: 'Cena po wizji lokalnej' },
+        { name: 'Dom', description: 'A', price: 'Cena po wizji lokalnej' },
+      ],
+    }
+    const change = planTextChange('inst-services', 'kam', two, desired)
+    expect(change?.data.packages).toEqual([
+      { name: 'Firma', description: 'B', price: 'od 9000 zł' },
+      { name: 'Dom', description: 'A', price: 'od 2500 zł' },
+    ])
+  })
+
+  it('a renamed package keeps the price at its place and the report says so', () => {
+    const desired = { packages: [{ name: 'Dom i domek', description: 'Stary', price: 'x' }] }
+    const change = planTextChange('inst-services', 'kam', stored, desired)
+    expect(change?.data.packages).toEqual([
+      { name: 'Dom i domek', description: 'Stary', price: 'od 2500 zł' },
+    ])
+    expect(change?.changes).toContainEqual({
+      path: 'packages[0].price',
+      before: 'od 2500 zł',
+      after: 'zachowana z „Dom”',
+    })
+  })
+
   it('reports a shorter or longer list as a change of its length', () => {
     const desired = { faq: [{ question: 'P1', answer: 'O1' }] }
     const change = planTextChange('inst-services', 'kam', stored, desired)

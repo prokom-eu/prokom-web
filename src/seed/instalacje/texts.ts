@@ -9,7 +9,11 @@ import { hasSameValues } from '../compare'
 export type TextCollection =
   'inst-services' | 'inst-objects' | 'inst-solutions' | 'pages' | 'posts' | 'site-settings'
 
-/** The text fields the script may write, per collection (top-level keys of the seed data). */
+/**
+ * The text fields the script may write, per collection (top-level keys of the seed data). Two
+ * look settings ride along on purpose: `icon` (the icon review of runda v6 §1.5 lives in the
+ * panel too) and `foldOnPhone` (folds follow the sections the texts belong to).
+ */
 export const TEXT_FIELDS: Readonly<Record<TextCollection, readonly string[]>> = {
   'inst-services': [
     'name',
@@ -78,18 +82,34 @@ export type TextChange = {
 const isRecord = (v: unknown): v is Record<string, unknown> =>
   typeof v === 'object' && v !== null && !Array.isArray(v)
 
-/** The panel's prices win: the tile's `priceFrom` and each package's `price` (by its place). */
-function keepPrices(field: string, desired: unknown, stored: unknown): unknown {
+/**
+ * The panel's prices win: the tile's `priceFrom` and each package's `price` — from the stored
+ * package with the same name (wherever it moved), else from the one at its place; the report
+ * notes a price kept from a package of another name.
+ */
+function keepPrices(
+  field: string,
+  desired: unknown,
+  stored: unknown,
+): { value: unknown; notes: FieldDiff[] } {
   if (field === 'tile' && isRecord(desired) && isRecord(stored) && 'priceFrom' in stored)
-    return { ...desired, priceFrom: stored.priceFrom }
-  if (field === 'packages' && Array.isArray(desired)) {
-    const rows = Array.isArray(stored) ? stored : []
-    return desired.map((row, i) => {
-      const old: unknown = rows[i]
-      return isRecord(row) && isRecord(old) && 'price' in old ? { ...row, price: old.price } : row
-    })
-  }
-  return desired
+    return { value: { ...desired, priceFrom: stored.priceFrom }, notes: [] }
+  if (field !== 'packages' || !Array.isArray(desired)) return { value: desired, notes: [] }
+  const rows = (Array.isArray(stored) ? stored : []).filter(isRecord)
+  const notes: FieldDiff[] = []
+  const value = desired.map((row, i) => {
+    if (!isRecord(row)) return row
+    const old = rows.find((r) => r.name === row.name) ?? rows[i]
+    if (!old || !('price' in old)) return row
+    if (old.name !== row.name)
+      notes.push({
+        path: `packages[${i}].price`,
+        before: old.price,
+        after: `zachowana z „${String(old.name)}”`,
+      })
+    return { ...row, price: old.price }
+  })
+  return { value, notes }
 }
 
 const items = (n: number) =>
@@ -128,11 +148,11 @@ export function planTextChange(
   const changes: FieldDiff[] = []
   for (const field of fields) {
     if (!(field in desired)) continue
-    const wanted = keepPrices(field, desired[field], stored[field])
+    const { value: wanted, notes } = keepPrices(field, desired[field], stored[field])
     const found = diffs(stored[field], wanted, field)
     if (found.length === 0) continue
     data[field] = wanted
-    changes.push(...found)
+    changes.push(...found, ...notes)
   }
   return changes.length ? { collection, key, id: stored.id, data, changes } : null
 }
