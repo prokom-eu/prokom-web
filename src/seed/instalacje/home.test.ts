@@ -27,9 +27,11 @@ describe('Instalacje home seed', () => {
     ])
   })
 
-  it('has the hero texts (prototype, heading of round v5), without placeholders', () => {
+  it('has the hero texts (INST-6: service and region in the H1), without placeholders', () => {
     const { hero } = seed[0]
-    expect(`${hero.h1a} ${hero.h1b}`).toBe('Twój inteligentny obiekt na żywo.')
+    expect(`${hero.h1a} ${hero.h1b}`.replace(/ /g, ' ')).toBe(
+      'Monitoring, alarmy, Wi-Fi i smart home na Podhalu',
+    )
     expect(hero.trust).toHaveLength(3)
     expect(JSON.stringify(hero)).not.toMatch(/\[[A-ZĄĆĘŁŃÓŚŹŻ ]+\]/)
   })
@@ -37,6 +39,7 @@ describe('Instalacje home seed', () => {
   it('has the full home title, at most 60 characters (no template on the start page)', () => {
     expect(HOME_SEO.title).toBe('Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje')
     expect(HOME_SEO.title.length).toBeLessThanOrEqual(60)
+    expect(HOME_SEO.description.length).toBeGreaterThanOrEqual(140)
     expect(HOME_SEO.description.length).toBeLessThanOrEqual(155)
   })
 })

@@ -30,15 +30,16 @@ test.describe('Instalacje home hero', () => {
     const noJs = await browser.newContext({ javaScriptEnabled: false })
     const plain = await noJs.newPage()
     await plain.goto(site(HOST))
-    await expect(plain.locator('h1')).toContainText('Twój inteligentny obiekt')
+    await expect(plain.locator('h1')).toContainText(/smart\shome na\sPodhalu/)
     await expect(plain.locator('#start .lead')).toContainText('Wybierz obiekt obok')
     await noJs.close()
 
     const response = await open(page)
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveCount(1)
+    // INST-6 PR2: the H1 says the service and the region (runda v6 §2.3).
     await expect(page.locator('h1')).toHaveText(
-      'Monitoring, alarmy, Wi-Fi i smart home na Podhalu. Twój inteligentny obiekt na żywo.',
+      /^Projekt, montaż i\sserwis w\sjednej firmie\. Monitoring, alarmy, Wi-Fi i\ssmart home na\sPodhalu$/,
     )
     await expect(page).toHaveTitle('Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje')
     const description = await page.locator('meta[name="description"]').getAttribute('content')
@@ -53,7 +54,7 @@ test.describe('Instalacje home hero', () => {
       'true',
     )
     await expect(page.getByRole('button', { name: 'Noc' })).toHaveAttribute('aria-pressed', 'true')
-    await expect(page.locator('.hxdst b')).toHaveText('Na żywo · Pensjonat · Noc')
+    await expect(page.locator('.hxdst b')).toHaveText('Teraz · Pensjonat · Noc')
     await expect(page.locator('.hxdtx')).toContainText('Osobna sieć dla gości')
     await expect(page.locator('.hxstat')).toBeHidden()
     await expect(page.locator('.pip')).toBeVisible()
@@ -70,7 +71,7 @@ test.describe('Instalacje home hero', () => {
     await page.getByRole('tab', { name: 'Dom', exact: true }).click()
     await page.getByRole('button', { name: 'Zima' }).click()
     await expect(hero(page)).toHaveAttribute('data-hx-time', 'winter')
-    await expect(page.locator('.hxdst b')).toHaveText('Na żywo · Dom · Zima')
+    await expect(page.locator('.hxdst b')).toHaveText('Teraz · Dom · Zima')
     await expect(page.locator('.flk')).toHaveCount(90)
 
     const chips = page.getByRole('group', { name: 'Instalacje widoczne na obiekcie' })

@@ -47,9 +47,7 @@ export function ServicesGrid({ services, offer, brands, noPriceText }: Props) {
         <div className="ushead xa-ushead">
           <div className="usht ri">
             <span className="eye">{t.eyebrow}</span>
-            <h2 className="h2">
-              {t.heading} <span className="acc">{t.accent}</span>
-            </h2>
+            <h2 className="h2">{t.heading}</h2>
             <p className="lead">{t.lead}</p>
           </div>
           <div className="xa-uside ri">

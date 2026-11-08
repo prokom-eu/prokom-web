@@ -35,6 +35,19 @@ export const HOME_PLAN_HREF = '/zaplanuj#obiekt=pens&uslugi=kam,wifi'
 
 const SITE_NAME = 'PRO-KOM Instalacje'
 
+/** Words with a hyphen („Wi-Fi”) never break at it in the big heading (a phone wrapped „Wi- Fi”). */
+function keepHyphens(text: string) {
+  return text.split(/(\S+-\S+)/).map((part, i) =>
+    i % 2 ? (
+      <span key={i} className="whitespace-nowrap">
+        {part}
+      </span>
+    ) : (
+      part
+    ),
+  )
+}
+
 /**
  * Home page of the Instalacje line (ADR-I002 §0, KOMPONENTY §3): the hero „Twój obiekt na
  * żywo” (I5) and the sections below it (I6) in the order of the design. The hero's text column
@@ -92,7 +105,7 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
           <h1 className="disp in d2">
             <span className="hxs">{hero.kicker}</span>
             <span className="sr-only">. </span>
-            {hero.h1a} <span className="hxk">{hero.h1b}</span>
+            {keepHyphens(hero.h1a)} <span className="hxk">{keepHyphens(hero.h1b)}</span>
           </h1>
           <p className="lead in d3">{hero.lead}</p>
           <div className="hxcta in d4">
