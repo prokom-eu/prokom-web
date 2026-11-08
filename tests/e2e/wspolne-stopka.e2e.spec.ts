@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { setTheme, site } from './helpers'
+import { pressUntilVisible, setTheme, site } from './helpers'
 
 // D2-1b (plan `docs/zadania/wspolne-elementy.md`, spec §5, §7, §10 pkt 3): the footer, the address
 // map, the tab bar and the menu sheet on the preview page `/_wspolne` of each line, on seed data.
@@ -136,9 +136,9 @@ test.describe('/_wspolne — phone', () => {
     const menu = preview(page)
       .getByRole('navigation', { name: 'Pasek aplikacji' })
       .getByRole('button', { name: 'Menu' })
+    // A key press before hydration is lost: pressed again until the sheet shows.
     await menu.focus()
-    await page.keyboard.press('Enter')
-    await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible()
+    await pressUntilVisible(page, 'Enter', page.getByRole('dialog', { name: 'Menu' }))
   })
 
   for (const theme of ['light', 'dark'] as const) {
