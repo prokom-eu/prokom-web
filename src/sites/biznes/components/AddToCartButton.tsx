@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type MouseEvent } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { cartActions, useCart } from '@/lib/cart/store'
+
+import { flyToCart } from './motion/flyToCart'
 
 type Props = {
   slug: string
@@ -18,6 +20,8 @@ type Props = {
   variant?: 'icon' | 'label' | 'primary' | 'onDark' | 'card'
   /** After the switch, e.g. to move focus when this button leaves the page. */
   onToggle?: () => void
+  /** Adding sends a dot flying to the shell's counter (`flyToCart`; home „Najczęściej wybierane”). */
+  fly?: boolean
 }
 
 const PLUS = 'M12 5v14M5 12h14'
@@ -53,11 +57,19 @@ function Mark({
 }
 
 /** Switch of a product on the inquiry list: adds, or removes when already there. */
-export function AddToCartButton({ slug, name, className, variant = 'icon', onToggle }: Props) {
+export function AddToCartButton({
+  slug,
+  name,
+  className,
+  variant = 'icon',
+  onToggle,
+  fly = false,
+}: Props) {
   const on = useCart().some((item) => item.id === slug)
   const [clicked, setClicked] = useState(false)
-  const toggle = () => {
+  const toggle = (event: MouseEvent<HTMLButtonElement>) => {
     setClicked(true)
+    if (fly && !on) flyToCart(event.currentTarget)
     cartActions.toggle(slug, name)
     onToggle?.()
   }
