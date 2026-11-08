@@ -86,8 +86,9 @@ test.describe('Biznes shell — computer', () => {
     const rail = page.locator('[data-site-rail]')
     await expect(rail.locator('a[href="#oferta"]')).toBeAttached()
     await expect(rail.locator('a[href="#kontakt"]')).toBeAttached()
-    await page.goto(biznes('/opieka-it'))
-    await expect(rail.getByRole('navigation', { name: 'Na tej stronie' })).toBeAttached()
+    // A subpage gets the group from three marked sections up (`data-rail-section`): GoPOS has four.
+    await page.goto(biznes('/gopos'))
+    await expect(rail.getByRole('group', { name: 'Na tej stronie' })).toBeAttached()
   })
 
   test('footer: the panel columns, the lines band and the legal bar', async ({ page }) => {

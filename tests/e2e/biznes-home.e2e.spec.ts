@@ -428,8 +428,9 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
   test('section rail: the anchors of K36 §1, the current one marked', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site('biznes.localhost'))
-    const rail = page.getByRole('navigation', { name: 'Na tej stronie' })
-    // 12 entries of K36 §1; „Opinie” only with reviews switched on (off in the seed).
+    // The shared side rail (D3-B): sections from `SiteSettings.shared.rail`, the ones without a
+    // block on the page left out („Opinie” — reviews off in the seed).
+    const rail = page.locator('[data-site-rail]').getByRole('group', { name: 'Na tej stronie' })
     await expect(rail.getByRole('link')).toHaveText([
       'Start',
       'Działy oferty',
@@ -447,7 +448,7 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await expect(page).toHaveURL(/#fakty$/)
     await expect(rail.getByRole('link', { name: 'O firmie' })).toHaveAttribute(
       'aria-current',
-      'true',
+      'location',
     )
   })
 })
