@@ -370,9 +370,13 @@
    Focus: border and a soft accent glow grow in (the transition of §1); the label of the field
    darkens. Always, also with reduced motion — it is a state, not a movement. Software only:
    the fields of Instalacje keep the prototype's own focus (an inset accent border, e.g.
-   `.zkta:focus`), which this glow would replace. */
+   `.zkta:focus`), which this glow would replace. Not the search window's field: it fills its
+   row edge to edge and the row shows the focus with its accent line (`.sdlg__field`); the glow
+   was cut at the top and bottom into two violet bars at the sides (AUDYT po SWA7 #9). */
 [data-line='software']
-  :is(input:not([type='radio'], [type='checkbox'], [type='hidden']), textarea, select):focus {
+  :is(input:not([type='radio'], [type='checkbox'], [type='hidden']), textarea, select):not(
+    .sdlg__field input
+  ):focus {
   box-shadow: 0 0 0 4px var(--accent-soft);
 }
 [data-line='software'] :has(> :is(input, textarea, select):focus) > label {
