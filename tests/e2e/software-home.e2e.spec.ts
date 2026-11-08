@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 
 import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
-import { api, loginAsAdmin, site } from './helpers'
+import { api, hydrated, loginAsAdmin, site } from './helpers'
 
 // Start page of the Software line — v24 (ZMIANY-v24 §4: hero in software-hero, the new sections in
 // software-podglad; here the order, the rail, the process, the wizard, FAQ and the contact form).
@@ -74,6 +74,8 @@ test.describe('Software start page', () => {
     const tabs = tech.getByRole('tab')
     await expect(tabs).toHaveCount(4)
     await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
+    // A lazy island (ADR-023): a click before hydration is lost.
+    await hydrated(tabs.nth(3))
     await tabs.nth(3).click()
     await expect(tabs.nth(3)).toHaveAttribute('aria-selected', 'true')
     await expect(tech.getByRole('tabpanel')).toContainText('PostgreSQL')
