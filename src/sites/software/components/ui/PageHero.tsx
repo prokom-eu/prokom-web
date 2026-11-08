@@ -11,7 +11,7 @@ type Props = {
   /** Last breadcrumb (the page itself) and the levels above it. */
   crumb: string
   parents?: Crumb[]
-  eyebrow: string
+  eyebrow?: string | null
   title: string
   /** Second part of the H1, in the hero gradient (`.sw-em-hero`). */
   em?: string | null

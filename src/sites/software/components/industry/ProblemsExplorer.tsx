@@ -121,8 +121,9 @@ export function ProblemsExplorer({ problems }: Props) {
                   added ? `W wycenie: ${solution.name}` : `Dodaj do wyceny: ${solution.name}`
                 }
                 onClick={() => setFull(!projectActions.toggle(solution.slug, solution.name))}
+                data-motion={added ? 'button-outline' : 'button'}
                 className={cx(
-                  'inline-flex min-h-12 items-center justify-center rounded-2xl px-5 font-extrabold active:scale-[0.98] motion-reduce:transition-none',
+                  'inline-flex min-h-12 items-center justify-center rounded-full px-5 font-extrabold',
                   added
                     ? 'border border-accent-line bg-card text-accent-text'
                     : 'bg-button text-accent-ink',

@@ -292,7 +292,7 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
                   <li key={solution.slug}>
                     <Link
                       href={`/rozwiazania/${solution.slug}`}
-                      data-card=""
+                      data-card
                       className="sw-glass flex h-full flex-col gap-2 p-5"
                     >
                       <h3 className="font-display text-lg font-extrabold">{solution.name}</h3>

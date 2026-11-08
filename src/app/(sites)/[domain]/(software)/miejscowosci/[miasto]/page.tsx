@@ -106,7 +106,7 @@ export default async function CityPage({ params }: Props) {
       ))}
       <PageHero
         crumb={city.name}
-        eyebrow={city.hero.eyebrow ?? ''}
+        eyebrow={city.hero.eyebrow}
         title={city.hero.title}
         em={city.hero.titleAccent}
         lead={city.hero.lead}
