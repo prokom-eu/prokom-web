@@ -1,6 +1,8 @@
 // K4c — home page v150 (K36 §1, K4-FINAL §2): what the seed changes in a home page it created
 // earlier. Only values still equal to the old seed text are replaced, so edits in the panel win.
 
+import { BRANDS_LEAD } from '../../lib/partners/strips'
+
 type Block = { blockType: string }
 type Fields = Record<string, unknown>
 type Trust = { icon: string; text: string }
@@ -53,7 +55,7 @@ export const OLD_BRANDS = {
 export const K4_BRANDS = {
   heading: 'Marki, które znamy od środka.',
   // B2-3 (ZAOPATRZENIE §9): the lead shortened for the two strips.
-  lead: 'Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony producentów — każdy z doborem modelu i serwisem.',
+  lead: BRANDS_LEAD,
 }
 /** The v150 lead of the 16-tile grid, replaced by the short one while unedited. */
 export const V150_BRANDS_LEAD =

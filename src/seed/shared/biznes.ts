@@ -53,6 +53,9 @@ export const BIZNES_SHARED: SharedGroup = {
         { label: 'Plan Twojej firmy', href: '/plan-firmy' },
         { label: 'Wszystkie marki', href: '/marki' },
         { label: 'Konfigurator', href: '/konfigurator' },
+        // Plan 0611 §6.4 #7: the procurement pages (hidden in the footer until published).
+        { label: 'AGD i RTV dla firm', href: '/agd-rtv-dla-firm' },
+        { label: 'Dostawy IT dla firm', href: '/dostawy-it-dla-firm' },
       ],
     },
     {

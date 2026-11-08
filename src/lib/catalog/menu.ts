@@ -1,3 +1,4 @@
+import { SUPPLY_PAGE } from '../biznes/procurement/links'
 import { partnerStatusLabel } from '../partners/badges'
 import { productHref } from './card'
 import { categoryHref } from './category'
@@ -36,7 +37,7 @@ export type OfferDepartment = {
 }
 
 /** „Zaopatrzenie firm” pages (plan 0611 §6), in the order of the mega menu. */
-export const SUPPLY_PAGES = ['agd-rtv-dla-firm', 'dostawy-it-dla-firm'] as const
+export const SUPPLY_PAGES = [SUPPLY_PAGE.agd, SUPPLY_PAGE.it] as const
 export type SupplyPage = (typeof SUPPLY_PAGES)[number]
 
 export type OfferMenu = {

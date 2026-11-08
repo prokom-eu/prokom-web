@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { SearchDialog } from '@/components/shared/SearchDialog'
 import { Icon } from '@/components/ui/Icon'
 import { brandTarget } from '@/lib/catalog/brand'
+import type { SupplySearchEntry } from '@/lib/biznes/procurement/links'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
 import {
   biznesSearchProvider,
@@ -26,6 +27,8 @@ type Props = {
   actions: readonly PaletteAction[]
   recentlyViewed: boolean
   phone: string | null
+  /** Procurement phrases from the panel (plan 0611 §6.4 #10), published pages only. */
+  supply: readonly SupplySearchEntry[]
 }
 
 /**
@@ -34,7 +37,7 @@ type Props = {
  * view; until then, or after a failed fetch, a phrase leads to the catalog search), the line's contact actions, „Zapytaj o …” → `/zapytanie?fraza=` and the preview of a
  * product (photo, brand, status, benefit, „Do zapytania”, „Karta”).
  */
-export function BizSearch({ actions, recentlyViewed, phone }: Props) {
+export function BizSearch({ actions, recentlyViewed, phone, supply }: Props) {
   const [wanted, setWanted] = useState(false)
   const catalog = useCatalogIndex(wanted)
   // The listener reads the latest state without being added again on every change.
@@ -56,8 +59,8 @@ export function BizSearch({ actions, recentlyViewed, phone }: Props) {
 
   const index = catalog.index
   const provider = useMemo(
-    () => (index ? biznesSearchProvider(index) : catalogLoadingProvider),
-    [index],
+    () => (index ? biznesSearchProvider(index, supply) : catalogLoadingProvider),
+    [index, supply],
   )
 
   return (

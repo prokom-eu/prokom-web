@@ -119,6 +119,7 @@ import { seedBiznesIndustries } from './industries'
 import { seedBiznesNews } from './posts'
 import { seedBiznesLegal } from './legal'
 import { SERVICE_AREAS, upsertBiznesContact } from './contact'
+import { procurementLinksUpdate } from './procurementLinks'
 import { seedBiznesHome } from './home'
 import { navigationData, upgradedColumnLimit, upgradedHighlights, upgradedMenu } from './navigation'
 import { seedSharedData } from '../shared/run'
@@ -1183,6 +1184,25 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
         collection: 'site-settings',
         id: siteSettings.id,
         data: { biznes: { ...current.biznes, serviceAreas: SERVICE_AREAS } },
+        ...local,
+      })
+    }
+  }
+
+  // --- „Zaopatrzenie — linki” (plan 0611 §6.4): only the empty fields ---
+  if (siteSettings) {
+    const current = await payload.findByID({
+      collection: 'site-settings',
+      id: siteSettings.id,
+      ...local,
+    })
+    const procurement = procurementLinksUpdate(current.biznes?.procurement)
+    count('site-settings procurement links', procurement ? 'updated' : false)
+    if (procurement) {
+      await payload.update({
+        collection: 'site-settings',
+        id: siteSettings.id,
+        data: { biznes: { ...current.biznes, procurement } },
         ...local,
       })
     }

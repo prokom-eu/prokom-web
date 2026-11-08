@@ -29,6 +29,7 @@ import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { biznesDescription } from '@/lib/biznes/seo'
+import { EMPTY_SUPPLY_LINKS, productSupplyLink } from '@/lib/biznes/procurement/links'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { BundleGrid } from '@/sites/biznes/components/bundle/BundleCard'
 import { PageLink } from '@/sites/biznes/components/PageLink'
@@ -257,6 +258,11 @@ export default async function ProductPage({ params }: Props) {
             videoTarget={video ? ID.video : null}
             gallery={gallery.images}
             colorSlides={gallery.colorSlides}
+            supply={productSupplyLink(
+              settings?.biznes?.procurement ?? EMPTY_SUPPLY_LINKS,
+              index,
+              listed?.categories ?? (product.category ? [product.category.slug] : []),
+            )}
           />
         </div>
       </div>

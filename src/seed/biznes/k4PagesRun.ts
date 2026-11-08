@@ -14,6 +14,7 @@ import {
   type MediaOf,
   type SlugOf,
   upgradeCareIcons,
+  upgradeCareSupplyLink,
   upgradeGoposPhotos,
 } from './k4Pages'
 import { upsertK4Page, type PageBlock } from './page'
@@ -121,14 +122,21 @@ const STORED_UPGRADES: Record<
   [string, (stored: PageBlock[], seed: PageBlock[]) => PageBlock[] | null]
 > = {
   gopos: ['photos', upgradeGoposPhotos],
-  'opieka-it': ['icons', upgradeCareIcons],
+  'opieka-it': [
+    'icons and IT link',
+    (stored, seed) => {
+      const icons = upgradeCareIcons(stored, seed)
+      return upgradeCareSupplyLink(icons ?? stored, seed) ?? icons
+    },
+  ],
 }
 
 const SEED_LOCAL = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
 
 /**
  * An upgrade of a page the seed created before (the seed never overwrites a stored page):
- * POPRAWKI-0311 GoPOS photos (`upgradeGoposPhotos`), D13 `/opieka-it` icons (`upgradeCareIcons`).
+ * POPRAWKI-0311 GoPOS photos (`upgradeGoposPhotos`), D13 `/opieka-it` icons (`upgradeCareIcons`)
+ * and its link to the IT deliveries (`upgradeCareSupplyLink`, plan 0611 §6.4 #9).
  */
 async function upgradeStoredPage(
   payload: Payload,

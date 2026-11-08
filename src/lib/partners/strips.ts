@@ -1,4 +1,11 @@
 /**
+ * Lead of the brand strips (ZAOPATRZENIE §9: shortened) — the fallback of the home block and
+ * the text the seed writes (`K4_BRANDS.lead`).
+ */
+export const BRANDS_LEAD =
+  'Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony producentów — każdy z doborem modelu i serwisem.'
+
+/**
  * Brands of the home page in two moving strips (ZAOPATRZENIE §9, D5 06.11): all partners of the
  * tenant — first the panel's home order (`BiznesSettings.brands.home`), then the rest by item
  * count (ties keep the panel order) — split alternately, so both strips start with the brands
