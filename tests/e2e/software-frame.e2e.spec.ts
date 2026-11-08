@@ -323,6 +323,21 @@ test.describe('Software side rail (≥ 1400 px)', () => {
     await expect(action).toContainText('2')
   })
 
+  // AUDYT po SWA7 #4: the rail never lies over the band above the footer or the footer itself.
+  test('steps aside at the footer and comes back above it', async ({ page }) => {
+    await page.goto(site(HOST, '/o-firmie'))
+    await hydrated(rail(page))
+    await expect(rail(page)).toBeVisible()
+    await page.evaluate(() =>
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }),
+    )
+    await expect(page.locator('html')).toHaveAttribute('data-rail-away', '')
+    await expect(rail(page)).toBeHidden()
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
+    await expect(page.locator('html')).not.toHaveAttribute('data-rail-away', '')
+    await expect(rail(page)).toBeVisible()
+  })
+
   test('hidden below 1400 px', async ({ page }) => {
     await page.setViewportSize({ width: 1399, height: 900 })
     await page.goto(site(HOST))

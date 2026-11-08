@@ -327,3 +327,26 @@
     display: none;
   }
 }
+
+/* AUDYT po SWA7 #4: at the band above the footer and the footer the side rail steps aside —
+   fades and slides left (`SwRail` sets `data-rail-away`); hidden, it takes no Tab stop. */
+[data-line='software'] .srail-wrap {
+  transition:
+    opacity var(--dur-rail-away) var(--ease-out),
+    translate var(--dur-rail-away) var(--ease-out),
+    visibility 0s linear 0s;
+}
+[data-line='software'][data-rail-away] .srail-wrap {
+  opacity: 0;
+  translate: -24px -50%;
+  visibility: hidden;
+  transition:
+    opacity var(--dur-rail-away) var(--ease-out),
+    translate var(--dur-rail-away) var(--ease-out),
+    visibility 0s linear var(--dur-rail-away);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-line='software'][data-rail-away] .srail-wrap {
+    translate: 0 -50%;
+  }
+}
