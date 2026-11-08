@@ -6,7 +6,7 @@ import { SEED_CONTEXT } from '../config'
 import { footerText, lineSettingsUpdate, siteContactUpdate } from './contact'
 import { FORM_PAGE_BLOCKS, needsFormBlock } from './formPages'
 import { seedInstalacjeGuide } from './guide'
-import { LEGAL_LINKS, seedInstalacjeLegal } from './legal'
+import { seedInstalacjeLegal } from './legal'
 import { seedArchNewsPhotos } from './archNewsPhotos'
 import { seedInstalacjeHome } from './home'
 import { seedRealizationPhotos } from './realizationPhotos'
@@ -112,14 +112,10 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     ...local,
   })
   const siteUpdate = siteSettings ? siteContactUpdate(siteSettings) : null
-  // I13: the footer's legal links while the panel has none (the sample settings have none);
-  // L1-I: the line description of the shared footer while the panel has the sample text.
-  const links = siteSettings && !siteSettings.footer?.links?.length ? LEGAL_LINKS : null
+  // L1-I: the line description of the shared footer while the panel has the sample text. The
+  // legal links are no longer written (L2-I): the shared footer takes them from `CompanyData.legal`.
   const text = siteSettings ? footerText(siteSettings.footer?.text) : null
-  const footer =
-    siteSettings && (links || text)
-      ? { ...siteSettings.footer, ...(links && { links }), ...(text && { text }) }
-      : null
+  const footer = siteSettings && text ? { ...siteSettings.footer, text } : null
   if (siteSettings && (siteUpdate || footer)) {
     await payload.update({
       collection: 'site-settings',
