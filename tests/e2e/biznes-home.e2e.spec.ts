@@ -287,7 +287,11 @@ test.describe('Biznes home page: industries, plan, steps', () => {
       '/plan-firmy?scena=gastro',
     )
     await expect(section).toContainText('Masz dofinansowanie na sprzęt lub oprogramowanie?')
-    await grid.getByRole('button', { name: /Pokaż wszystkie branże/ }).click()
+    // A lazy island (ADR-023): a click before hydration is lost.
+    await clickUntilVisible(
+      grid.getByRole('button', { name: /Pokaż wszystkie branże/ }),
+      tiles.filter({ hasText: 'Zakład produkcyjny' }),
+    )
     await expect(tiles).toHaveCount(22)
     // First of the rest in the order of the board (`KG5`).
     await expect(tiles.filter({ hasText: 'Zakład produkcyjny' })).toBeFocused()
