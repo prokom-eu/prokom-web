@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 
 import { AnalyticsScript } from '@/components/AnalyticsScript'
-import { RevealObserver } from '@/components/motion/RevealObserver'
 import { BrandBar } from '@/components/shared/BrandBar'
 import { MenuSheet } from '@/components/shared/MenuSheet'
 import { SiteFooter } from '@/components/shared/SiteFooter'
@@ -131,7 +130,6 @@ export async function SoftwareFrame({
         cta={cta}
       />
       <PageTransition>{children}</PageTransition>
-      <RevealObserver />
       <ContactToast />
       {navigation.startBand && (
         <StartBand band={navigation.startBand} phone={line?.phone ?? null} />

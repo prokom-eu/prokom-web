@@ -138,7 +138,7 @@ export async function SwContactBlock({ block, tenantId }: Props) {
             {eyebrow}
           </p>
           <h2
-            data-reveal
+            data-rise
             className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[640px]:text-5xl min-[1081px]:text-[56px]"
           >
             {title}

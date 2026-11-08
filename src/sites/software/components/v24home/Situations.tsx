@@ -35,7 +35,7 @@ export function Situations({ situations, prices }: Props) {
           align="center"
           className="v-head-center"
         />
-        <ul className="v-sits">
+        <ul className="v-sits" data-rise-group>
           {situations.items.map((item, index) => {
             const on = index === open
             const price = prices[item.solution]

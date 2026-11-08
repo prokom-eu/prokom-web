@@ -32,7 +32,7 @@ export function ProcessSection({ eyebrow, title, em, steps }: Props) {
   return (
     <section id="proces" className="v-sec">
       <div className="v-wrap v-proc" {...tabs.region}>
-        <div className="v-proc-side">
+        <div className="v-proc-side" data-rise>
           <SectionHead eyebrow={eyebrow} title={title} em={em} />
           {/* All cards in one cell: the tallest sets the height, so switching never moves the page. */}
           <div className="v-proc-cards">
@@ -63,7 +63,13 @@ export function ProcessSection({ eyebrow, title, em, steps }: Props) {
             })}
           </div>
         </div>
-        <div className="v-steps" role="tablist" aria-label="Etapy" aria-orientation="vertical">
+        <div
+          className="v-steps"
+          data-rise-group
+          role="tablist"
+          aria-label="Etapy"
+          aria-orientation="vertical"
+        >
           {steps.map((item, index) => {
             const on = index === tabs.active
             return (

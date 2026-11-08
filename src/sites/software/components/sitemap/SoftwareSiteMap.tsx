@@ -31,7 +31,7 @@ export function SoftwareSiteMap({
       />
       <section className="sw-smap" aria-label={title}>
         <div className="v-wrap">
-          <div className="sw-smap-grid">
+          <div className="sw-smap-grid" data-rise-group>
             {groups.map((group) => (
               <Glass
                 key={group.id}
