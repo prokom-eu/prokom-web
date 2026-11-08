@@ -50,6 +50,7 @@ import type {
   InstSolution,
   Realization,
 } from '../../payload-types'
+import { stanNa } from '../../sites/instalacje/dane/stanFaktow'
 
 /**
  * Pure mapping of the Instalacje package (`seed/prokominstalacje/`, v4.0) to the collections
@@ -205,7 +206,16 @@ const icon = (value: string | undefined) => value?.replace(/^ikona:/, '') || und
  * P0-2 (audit 06.11): the package asks to send photos, but no Instalacje form takes files
  * (decision „bez przesyłania plików”). The same wording as the code's fallbacks since L1-I.
  */
+// Photos are welcome only as a reply to our e-mail (audit 06.11 P0-2, the allowed wording).
 const PHOTO_PROMISES: Readonly<Record<string, string>> = {
+  'Zależy od liczby kamer, tras kabli, wysokości montażu i rodzaju kamer. Po wizji lokalnej dostajesz wycenę na piśmie, zwykle w wariantach. Zdjęcia obiektu możesz wysłać wcześniej.':
+    'Zależy od liczby kamer, tras kabli, wysokości montażu i rodzaju kamer. Po wizji lokalnej dostajesz wycenę na piśmie, zwykle w wariantach. Zdjęcia obiektu możesz wysłać w odpowiedzi na nasz e-mail.',
+  'Do wyceny wystarczą zdjęcia rozdzielnicy, licznika i miejsca montażu. Ostateczną cenę podajemy na piśmie.':
+    'Do wstępnej wyceny wystarczy opis rozdzielnicy, licznika i miejsca montażu — zdjęcia możesz wysłać w odpowiedzi na nasz e-mail. Ostateczną cenę podajemy na piśmie.',
+  'Zrób zdjęcie dachu albo miejsca na antenę i napisz, ile telewizorów chcesz podłączyć.':
+    'Opisz dach albo miejsce na antenę i napisz, ile telewizorów chcesz podłączyć. Zdjęcia możesz wysłać w odpowiedzi na nasz e-mail.',
+  'Najwięcej zmieniają drzwi i integracje. Zrób zdjęcie drzwi z obu stron i boku skrzydła, a powiemy, jaki zamek pasuje.':
+    'Najwięcej zmieniają drzwi i integracje. Opisz drzwi, a zdjęcia z obu stron i boku skrzydła możesz wysłać w odpowiedzi na nasz e-mail. Powiemy, jaki zamek pasuje.',
   'Wyślij zdjęcia do wyceny': 'Opisz obiekt do wyceny',
   'Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.':
     'Opisz obiekt albo obecną instalację. Powiemy, od czego zacząć i czego się spodziewać.',
@@ -215,9 +225,14 @@ const PHOTO_PROMISES: Readonly<Record<string, string>> = {
     'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Opisz obiekt, a powiemy, czego się spodziewać.',
 }
 
-/** A package text without a photo promise (P0-2). */
+/** P1-7: dates of the facts in package sentences come from `STAN_FAKTOW`. */
+const DATED: Readonly<Record<string, string>> = {
+  'Nowe warunki techniczne nie zostały ogłoszone (stan na październik 2026). Projektujemy więc według dotychczasowych, które w okresie przejściowym stosuje się po oświadczeniu inwestora. Śledzimy zmiany i uprzedzamy, jeśli wpłyną na projekt.': `Nowe warunki techniczne nie zostały ogłoszone (${stanNa()}). Projektujemy więc według dotychczasowych, które w okresie przejściowym stosuje się po oświadczeniu inwestora. Śledzimy zmiany i uprzedzamy, jeśli wpłyną na projekt.`,
+}
+
+/** A package text without a photo promise (P0-2) nor a hard date of the facts (P1-7). */
 const noPhotos = <T extends string | undefined>(text: T): T =>
-  (text !== undefined && PHOTO_PROMISES[text] !== undefined ? PHOTO_PROMISES[text] : text) as T
+  (text === undefined ? text : (PHOTO_PROMISES[text] ?? DATED[text] ?? text)) as T
 
 /**
  * P3-23 (audit 06.11): package titles too long for Google — with „ | PRO-KOM Instalacje” (21
@@ -343,7 +358,7 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
       eyebrow: d.sx.pkg.eye,
       heading: d.sx.pkg.h,
       text: d.sx.pkg.p,
-      note: d.sx.pkg.note,
+      note: noPhotos(d.sx.pkg.note),
     },
     packages: packages(d.pkgs),
     priceIntro: {
@@ -354,7 +369,7 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
     },
     priceFactors: d.cena.map((c) => ({ title: c.t, icon: icon(c.ic), description: c.d })),
     faqHeading: d.sx.faqH,
-    faq: d.faq.map((f) => ({ question: f.q, answer: f.a })),
+    faq: d.faq.map((f) => ({ question: f.q, answer: noPhotos(f.a) })),
     faqAside: {
       title: d.sx.faqA.t,
       text: noPhotos(d.sx.faqA.d),
@@ -431,7 +446,7 @@ export function objectData({ menu, page: o }: SeedObjectItem, refs: Refs): Objec
     packagesHeading: o.pkgH,
     packages: packages(o.pkgs),
     faqHeading: o.faqH,
-    faq: o.faq.map(([question = '', answer = '']) => ({ question, answer })),
+    faq: o.faq.map(([question = '', answer = '']) => ({ question, answer: noPhotos(answer) })),
     relatedServices: ids(o.rel, refs.service),
     cta: { eyebrow: ctaEyebrow, heading: ctaHeading, text: ctaText },
     foldOnPhone: o.fold.map((entry) => {

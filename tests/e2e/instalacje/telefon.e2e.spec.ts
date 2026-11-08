@@ -48,6 +48,8 @@ for (const path of INST_PAGES) {
 test('Instalacje on a phone: no layout shift while scrolling /dla-kogo/szkoly', async ({
   page,
 }) => {
+  // With motion on: the file runs with reduced motion, which would hide shifts of reveals.
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto(site(INST_HOST, '/dla-kogo/szkoly'))
   await page.waitForLoadState('networkidle')

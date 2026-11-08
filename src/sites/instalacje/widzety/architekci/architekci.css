@@ -2343,6 +2343,32 @@
     color: var(--ink-2);
     font-size: 14.5px;
   }
+  /* P0-3: with one ready material left, one wide card instead of a lonely quarter. */
+  @media (min-width: 761px) {
+    & .arlibo:has(> :only-child) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .arlibo:has(> :only-child) > .arlibc {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      column-gap: 22px;
+      row-gap: 4px;
+      align-items: center;
+    }
+    & .arlibo:has(> :only-child) > .arlibc > div:first-child {
+      grid-row: 1 / 3;
+      gap: 12px;
+      align-items: center;
+    }
+    & .arlibo:has(> :only-child) > .arlibc > :is(b, p) {
+      grid-column: 2;
+    }
+    & .arlibo:has(> :only-child) > .arlibc > .arlibs {
+      grid-column: 3;
+      grid-row: 1 / 3;
+      margin-top: 0;
+    }
+  }
   & .arlibs {
     margin-top: auto;
     font-size: 12.5px;

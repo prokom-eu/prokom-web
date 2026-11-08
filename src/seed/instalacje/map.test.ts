@@ -20,6 +20,7 @@ import {
   servicesToImport,
   solutionsToImport,
 } from './map'
+import { stanNa } from '../../sites/instalacje/dane/stanFaktow'
 
 const ids = (prefix: number) => (key: string) => prefix + key.length // any stable fake id
 const refs = { service: ids(100), object: ids(200) }
@@ -264,7 +265,15 @@ describe('SEO titles (P3-23)', () => {
 
 describe('no photo promises (P0-2, audit 06.11)', () => {
   it('no mapped text asks to send photos or plans — no form takes files', () => {
-    expect(allMapped()).not.toMatch(/[Ww]yślij zdjęci|[Pp]rześlij rzuty|[Ww]yślesz zdjęci/)
+    expect(allMapped()).not.toMatch(
+      /[Ww]yślij zdjęci|[Pp]rześlij rzuty|[Ww]yślesz zdjęci|możesz wysłać wcześniej|[Zz]rób zdjęcie|wystarczą zdjęcia/,
+    )
+  })
+
+  it('no mapped text has a hard date of the facts (P1-7)', () => {
+    // The only date left is the one of `STAN_FAKTOW` (changes in one place).
+    const rest = allMapped().replaceAll(stanNa(), '')
+    expect(rest).not.toMatch(/(październik|października|październiku) 20\d\d/)
   })
 
   it('no page SEO names WhatsApp (decision 01.11)', () => {

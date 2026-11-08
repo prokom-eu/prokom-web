@@ -23,7 +23,7 @@ describe('STAN_FAKTOW (P1-7, audit 06.11)', () => {
     const offenders = sources(DIR)
       .filter((path) => !path.endsWith('stanFaktow.ts'))
       .filter((path) =>
-        /(październik|października)\s+20\d\d/i.test(code(readFileSync(path, 'utf8'))),
+        /(październik|października|październiku)\s+20\d\d/i.test(code(readFileSync(path, 'utf8'))),
       )
     expect(offenders).toEqual([])
   })

@@ -521,7 +521,13 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
                     {o.title}
                   </b>
                   <p>{o.text}</p>
-                  <span className="arlibs">{o.status}</span>
+                  {o.href ? (
+                    <a href={o.href} className="arlibs">
+                      {o.status} →
+                    </a>
+                  ) : (
+                    <span className="arlibs">{o.status}</span>
+                  )}
                 </div>
               ))}
           </div>

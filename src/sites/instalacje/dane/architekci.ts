@@ -1036,6 +1036,7 @@ export const architekci = {
       text: 'Co przewidzieć w projekcie, etap po etapie. PDF, 1 strona na instalację.',
       format: 'PDF',
       status: 'Na e-mail',
+      href: '#checklista',
     },
     {
       icon: 'grid',
@@ -1069,6 +1070,8 @@ export const architekci = {
     status: string
     /** P0-3 (audit 06.11): `false` keeps an unfinished material off the page until its file. */
     ready?: boolean
+    /** Where to get it (the checklist: the form on this page). */
+    href?: string
   }[],
   libraryTools: [
     {
