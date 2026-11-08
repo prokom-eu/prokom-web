@@ -2186,6 +2186,7 @@ export interface Page {
         | BzSectionBlock
         | BzContactPageBlock
         | BzAboutPageBlock
+        | BzProcurementPageBlock
         | InstServiceBlock
         | InstHomeBlock
         | InstPlannerBlock
@@ -3142,6 +3143,50 @@ export interface BzAboutPageBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzAboutPage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProcurementPageBlock".
+ */
+export interface BzProcurementPageBlock {
+  variant: 'agd' | 'it';
+  oldEquipmentPickup?: boolean | null;
+  onsiteWarranty?: boolean | null;
+  showLG?: boolean | null;
+  /**
+   * Przełączniki w konfiguratorze IT i wiersze „Usługa” w podglądzie oferty. Propozycja z paczki: instalacja systemu i programów; przeniesienie danych; numery inwentarzowe i lista seryjnych; montaż na stanowiskach i test sieci; odbiór starego sprzętu z usunięciem danych.
+   */
+  services?:
+    | {
+        label: string;
+        kind: 'system' | 'data' | 'inventory' | 'mount' | 'pickup';
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * W kolejności klas: Ekonomiczny, Standard, Premium. Propozycja z paczki: „Amica, Beko”; „Samsung, Bosch, Beko”; „Bosch, Siemens, Samsung”.
+   */
+  classHints?:
+    | {
+        brands: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Teksty, konfigurator, FAQ i formularz (ZAOPATRZENIE §2). Zdjęcia to numery z Media. Po imporcie z paczki (`pnpm seed:biznes`) wygrywa paczka.
+   */
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzProcurementPage';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5924,6 +5969,7 @@ export interface PagesSelect<T extends boolean = true> {
         bzSection?: T | BzSectionBlockSelect<T>;
         bzContactPage?: T | BzContactPageBlockSelect<T>;
         bzAboutPage?: T | BzAboutPageBlockSelect<T>;
+        bzProcurementPage?: T | BzProcurementPageBlockSelect<T>;
         instService?: T | InstServiceBlockSelect<T>;
         instHome?: T | InstHomeBlockSelect<T>;
         instPlanner?: T | InstPlannerBlockSelect<T>;
@@ -6455,6 +6501,32 @@ export interface BzContactPageBlockSelect<T extends boolean = true> {
  * via the `definition` "BzAboutPageBlock_select".
  */
 export interface BzAboutPageBlockSelect<T extends boolean = true> {
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProcurementPageBlock_select".
+ */
+export interface BzProcurementPageBlockSelect<T extends boolean = true> {
+  variant?: T;
+  oldEquipmentPickup?: T;
+  onsiteWarranty?: T;
+  showLG?: T;
+  services?:
+    | T
+    | {
+        label?: T;
+        kind?: T;
+        id?: T;
+      };
+  classHints?:
+    | T
+    | {
+        brands?: T;
+        id?: T;
+      };
+  data?: T;
   id?: T;
   blockName?: T;
 }
