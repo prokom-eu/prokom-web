@@ -142,8 +142,18 @@ export function validateSvg(value: string | null | undefined): true | string {
     : 'Tylko rysunek SVG: bez skryptów, obrazów, linków, animacji i atrybutów „on…”; atrybuty w cudzysłowach "…", bez encji „&…;”, odwołania tylko „url(#…)”, do 100 000 znaków.'
 }
 
-/** The `d` of an SVG `<path>`: commands and numbers only. */
-const SVG_PATH = /^[MmLlHhVvCcSsQqTtAaZz0-9.,\s-]+$/
+/**
+ * The `d` of an SVG `<path>`: commands and numbers only. Plain ASCII whitespace — `\s` would let
+ * a hard space through, which the browser does not read as a separator (D13).
+ */
+const SVG_PATH = /^[MmLlHhVvCcSsQqTtAaZz0-9., \t\n\r-]+$/
+
+/** Hard spaces → plain spaces: repairs icon paths saved by seeds before D13. */
+const HARD_SPACE = new RegExp(String.fromCharCode(0xa0), 'g')
+
+export function svgPathText(value: string): string {
+  return value.replace(HARD_SPACE, ' ')
+}
 
 export function isSvgPath(value: string): boolean {
   return value.length > 0 && value.length <= 1000 && SVG_PATH.test(value)

@@ -51,3 +51,12 @@ Po paczce K3.1 (wgranej w #110, zbudowanej do K3c — #142) wizualizacja przesz�
 - **`/marki/<marka z salonu tematycznego>`** (np. `/marki/kyocera`) → stałe przekierowanie do salonu (`permanentRedirect`, HTTP 308 — dla wyszukiwarek równoważne 301). Strona marki K3b′ zostaje dla marek z `hasPage` bez salonu.
 - **Kafel marki na `/marki`:** salon → `/marki/<salon>`; GoPOS, InsERT, Optivendi → własna strona, gdy opublikowana; reszta → `/oferta?marka=<slug>`; marka bez kart i bez strony nie ma kafla.
 - **„Marki” w nagłówku** schowane w 1080–1279 px (siedem pozycji się nie mieści) — jak „Gotowe zestawy”; zostaje w mega-menu, stopce i bocznym pasku.
+
+## Rozstrzygnięcia 06.11 (Krystian, 05–06.11.2026 — paczka 0611)
+Pełna lista decyzji D1–D18: `docs/zadania/prokombiznes-0611.md` §1. Tu tylko te, które odwracają lub zmieniają wcześniejsze ustalenia K4:
+- **Marki na głównej w dwóch przesuwających się paskach** (wszystkie marki, klikalne logo, wygaszanie pod kursorem, przeciąganie, przycisk pauzy — WCAG 2.2.2), **także na telefonie**. Odwraca K36 §1 (usunięcie paska logo) i K4-FINAL „Start: bez paska marek” (D5).
+- **Branże scalone z Planem Twojej firmy** w jedną sekcję głównej (przełącznik branż → plan → gotowy zestaw branży → dofinansowania); osobna sekcja „Firmy każdej wielkości” znika. Zmienia kolejność głównej z K4 v150 (D8).
+- **Aktualności wracają na główną** (3 karty z panelu; mniej niż 3 wpisy Biznesu → linki do wpisów innych linii bez kopiowania treści; pusto → sekcja się nie renderuje). Odwraca K4-FINAL §2 (D8).
+- **Telefon nie chowa treści, którą pokazuje komputer.** Długie bloki skracamy formą (akordeon `<details>`, rząd przewijany, lista kompaktowa, karta pomocy), nie `display:none`. Odwraca decyzję 02.11 „telefon jak plansza” (`hiddenOnPhone` / `max-md:hidden` dla sekcji bez planszy App-*) (D12).
+
+Uzupełnienia BIZ-1 (Krystian, 08.11): dolny pasek telefonu = wspólny `TabBar` (Start · Oferta · Zapytanie na środku · Kontakt · Menu; Szukaj = lupa w kapsule) — plan §13 #9; brakujący podgląd wyniku w `SearchDialog` i `inert` schowanej kapsuły — mały PR `feat/wsp-szukaj-podglad` z folderu Biznesu; miniatury kategorii w mega menu — opcjonalne pole `menuImage` w `CatalogCategories` (migracja dodająca) ze zdjęciami z prototypu, zapas: zdjęcie produktu → ikona.

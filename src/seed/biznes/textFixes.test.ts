@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
+import { hardSpaces } from '../../lib/text/hardSpace'
+import { RELIEF_FAQ_ANSWER } from './category'
+import { KSEF_POS_PARAGRAPH, KSEF_RELIEF_PARAGRAPH } from './posts'
 import { fixIndustryTexts, fixTexts } from './textFixes'
 
 describe('fixIndustryTexts (audit 01.11.2026)', () => {
@@ -105,5 +108,33 @@ describe('fixTexts', () => {
   it('leaves other texts untouched', () => {
     const block = { heading: 'pro-kom.eu — wspólne wejście', lead: 'Rabka-Zdrój' }
     expect(fixTexts(block)).toEqual(block)
+  })
+})
+
+describe('KSeF post and relief (D17, K4-FINAL §1)', () => {
+  const oldPos =
+    'Kasa dalej drukuje paragony. Ale od 1.01.2027 faktura do paragonu dla firmy idzie wyłącznie przez KSeF: z programu lub aplikacji, nie z kasy. Paragon z NIP do 450 zł przestaje być fakturą uproszczoną w B2B. W gastronomii i hotelu konfigurujemy to w GoPOS i NFHotel.'
+  const oldRelief =
+    'Firmy, które dopiero zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Zakup nie później niż 6 miesięcy od rozpoczęcia ewidencji; brak przeglądu w 3 lata oznacza zwrot ulgi.'
+  const oldFaq =
+    'Firmy, które po raz pierwszy zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto kasy, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Warunki (m.in. terminy i obowiązkowy przegląd) sprawdzimy z Tobą przy zamówieniu.'
+
+  it('drops the 450 zł sentence and reads on', () => {
+    expect(KSEF_POS_PARAGRAPH).not.toMatch(/450/)
+    expect(fixTexts({ p: hardSpaces(oldPos) }).p).toBe(hardSpaces(KSEF_POS_PARAGRAPH))
+  })
+
+  it('says once that the relief is settled in the VAT return, idempotently', () => {
+    for (const text of [KSEF_RELIEF_PARAGRAPH, RELIEF_FAQ_ANSWER]) {
+      expect(text.match(/deklaracji VAT/g)).toHaveLength(1)
+    }
+    const after = fixTexts({ post: oldRelief, faq: oldFaq })
+    expect(after).toEqual({ post: KSEF_RELIEF_PARAGRAPH, faq: RELIEF_FAQ_ANSWER })
+    expect(fixTexts(after)).toEqual(after)
+    expect(
+      fixTexts({
+        faq: 'Firmy, które po raz pierwszy zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto kasy, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Warunki — m.in. terminy i obowiązkowy przegląd — sprawdzimy z Tobą przy zamówieniu.',
+      }).faq,
+    ).toBe(RELIEF_FAQ_ANSWER)
   })
 })
