@@ -377,7 +377,7 @@ export const WIZARD_V3: SoftwareWizard = {
   },
   ui: {
     eyebrow: 'Kreator · 60 sekund',
-    title: 'Policz swój projekt.',
+    title: 'Policz **swój projekt.**',
     lead: 'Pytamy tylko o to, co ważne dla Twojego wyboru. Cena i podpowiedź zmieniają się na żywo. Resztę napiszesz po swojemu.',
     back: '← Wstecz',
     skip: 'Pomiń',

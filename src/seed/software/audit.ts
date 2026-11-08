@@ -50,7 +50,7 @@ export const SW_AUDIT: AuditBlock = {
     { icon: 'users', title: 'Dostępność', text: 'zbyt słaby kontrast przycisków', status: 'fix' },
   ],
   checksEyebrow: 'Co sprawdzamy',
-  checksTitle: 'Pięć rzeczy, które decydują, czy strona zarabia',
+  checksTitle: 'Pięć rzeczy, które decydują, **czy strona zarabia**',
   checksLead:
     'Wynik każdej z nich trafia do raportu na piśmie. Możesz z nim pójść do nas albo do kogokolwiek.',
   checks: [
@@ -87,7 +87,7 @@ export const SW_AUDIT: AuditBlock = {
     },
   ],
   levelsEyebrow: 'Rodzaje audytu',
-  levelsTitle: 'Trzy poziomy audytu — pierwszy za darmo',
+  levelsTitle: 'Trzy poziomy audytu — **pierwszy za darmo**',
   levelsLead: 'Ceny netto. Pełny audyt odliczamy od projektu zamówionego w ciągu 60 dni.',
   levelButtons: [
     { label: 'Zamów za darmo', href: '/audyt#formularz' },
@@ -95,7 +95,7 @@ export const SW_AUDIT: AuditBlock = {
     { label: 'Zapytaj o termin', href: '/kontakt#formularz' },
   ],
   stepsEyebrow: 'Jak to działa',
-  stepsTitle: 'Jak wygląda darmowy audyt',
+  stepsTitle: 'Jak wygląda **darmowy audyt**',
   steps: [
     { title: 'Wpisujesz adres', text: 'I e-mail albo telefon. Nic więcej nie trzeba.' },
     {
@@ -107,17 +107,13 @@ export const SW_AUDIT: AuditBlock = {
       text: 'Na piśmie, do [CZAS]. Jeśli chcesz, omówimy go w 15 minut.',
     },
   ],
-  ctaTitle: 'Wolisz od razu nową stronę?',
-  ctaText: 'Dobierz rozwiązanie w 60 sekund albo napisz, czego potrzebujesz.',
-  ctaPrimary: { label: 'Dobierz rozwiązanie', href: '/dobierz' },
-  ctaSecondary: { label: 'Kontakt', href: '/kontakt' },
 }
 
 /** FAQ of `/audyt` (board `Audyt`, 5 questions) — the shared `faq` block, Software look. */
 export const SW_AUDIT_FAQ: FaqBlock = {
   blockType: 'faq',
   eyebrow: 'Pytania',
-  heading: 'Zanim zamówisz audyt',
+  heading: 'Zanim **zamówisz audyt**',
   items: [
     {
       question: 'Czy szybki audyt naprawdę jest darmowy?',

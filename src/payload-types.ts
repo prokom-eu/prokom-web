@@ -4197,6 +4197,9 @@ export interface SwPricingBlock {
     href?: string | null;
   };
   careEyebrow?: string | null;
+  /**
+   * Część w gradiencie w **gwiazdkach**, np. „Trzy poziomy audytu — **pierwszy za darmo**”.
+   */
   careTitle?: string | null;
   /**
    * Poziomy, ceny i czasy reakcji z rozwiązania z poziomami miesięcznymi. Pusty nagłówek = bez sekcji.
@@ -4208,6 +4211,9 @@ export interface SwPricingBlock {
   careButton?: string | null;
   careNote?: string | null;
   auditEyebrow?: string | null;
+  /**
+   * Część w gradiencie w **gwiazdkach**, np. „Trzy poziomy audytu — **pierwszy za darmo**”.
+   */
   auditTitle?: string | null;
   /**
    * Rodzaje z rozwiązania „audyt”. Pusty nagłówek = bez sekcji.
@@ -4256,6 +4262,9 @@ export interface SwAuditFormBlock {
       }[]
     | null;
   checksEyebrow?: string | null;
+  /**
+   * Część w gradiencie w **gwiazdkach**, np. „Jak wygląda **darmowy audyt**”.
+   */
   checksTitle?: string | null;
   checksLead?: string | null;
   /**
@@ -4270,6 +4279,9 @@ export interface SwAuditFormBlock {
       }[]
     | null;
   levelsEyebrow?: string | null;
+  /**
+   * Część w gradiencie w **gwiazdkach**, np. „Jak wygląda **darmowy audyt**”.
+   */
   levelsTitle?: string | null;
   /**
    * Ceny i terminy z rozwiązania „audyt” (poziomy). Pusty nagłówek = bez sekcji.
@@ -4283,6 +4295,9 @@ export interface SwAuditFormBlock {
       }[]
     | null;
   stepsEyebrow?: string | null;
+  /**
+   * Część w gradiencie w **gwiazdkach**, np. „Jak wygląda **darmowy audyt**”.
+   */
   stepsTitle?: string | null;
   /**
    * Fakty w nawiasach ([CZAS]…) z Ustawień linii.

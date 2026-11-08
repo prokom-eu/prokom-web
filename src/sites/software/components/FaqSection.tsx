@@ -2,6 +2,7 @@ import type React from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
+import { EmText } from '@/sites/software/components/ui/EmText'
 
 type Props = {
   /** Section id (the anchor); the heading gets `<id>-h`. One FAQ section per page. */
@@ -52,7 +53,7 @@ export function FaqSection({ id, eyebrow, heading, lead, aside, items, band = fa
             id={headingId}
             className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[640px]:text-5xl min-[1081px]:text-[56px]"
           >
-            {heading}
+            <EmText text={heading} />
           </h2>
           {lead ? (
             <p className="max-w-[40ch] text-lg text-ink-2 min-[640px]:text-xl">{lead}</p>

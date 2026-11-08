@@ -355,7 +355,8 @@ test.describe('Software side rail (≥ 1400 px)', () => {
 
 test.describe('Software „Zacznij od podglądu” band', () => {
   // Every page ends with one CTA (plan §3b, decyzja 6): pages without their own get the band.
-  for (const path of ['/', '/dobierz', '/cennik', '/mapa-strony']) {
+  // `/audyt` too since SWA8 (AUDYT po SWA7 #6): its own CTA band is gone, one CTA before the footer.
+  for (const path of ['/', '/dobierz', '/cennik', '/mapa-strony', '/audyt']) {
     test(`the band closes ${path}`, async ({ page }) => {
       await page.goto(site(HOST, path))
       const band = page.locator('section[data-footer-cta]')
@@ -368,11 +369,12 @@ test.describe('Software „Zacznij od podglądu” band', () => {
         '/dobierz',
       )
       await expect(band.locator('a[href^="tel:"]')).toHaveCount(1)
+      await expect(page.locator('[data-final-cta]')).toHaveCount(0)
     })
   }
 
   // A page that ends with its own CTA (`data-final-cta`) drops the band — the 404 too (§3.5).
-  for (const path of [SUBPAGE, '/audyt', '/nie-ma-takiej-strony-swa5']) {
+  for (const path of [SUBPAGE, '/nie-ma-takiej-strony-swa5']) {
     test(`no band where the page ends with its own CTA (${path})`, async ({ page }) => {
       await page.goto(site(HOST, path))
       await expect(footer(page)).toBeVisible()

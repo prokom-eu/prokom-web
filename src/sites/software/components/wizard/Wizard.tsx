@@ -28,6 +28,7 @@ import { usePausedOffscreen } from '@/sites/software/components/v24home/usePause
 
 import { WizardSend } from './WizardSend'
 import { PriceTween } from './PriceTween'
+import { EmText } from '@/sites/software/components/ui/EmText'
 
 export type WizardProps = {
   rules: SoftwareWizard
@@ -310,7 +311,9 @@ export function Wizard({
       {head && (
         <header className="wz-head">
           <p className="sw-eyebrow">{rules.ui.eyebrow}</p>
-          <Heading className="sw-h2">{rules.ui.title}</Heading>
+          <Heading className="sw-h2">
+            <EmText text={rules.ui.title} />
+          </Heading>
           <p className="wz-lead">{rules.ui.lead}</p>
         </header>
       )}
