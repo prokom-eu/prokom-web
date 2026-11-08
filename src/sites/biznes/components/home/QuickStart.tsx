@@ -167,8 +167,6 @@ export async function QuickStart({
     new Set(index.products.map((product) => product.slug)),
   ).length
   const planHrefHere = planOnPage ? '#plan' : PLAN_PATH
-  // A promise shows only once confirmed in the panel (`SiteSettings` → „Obietnice”).
-  const callback = settings?.biznes?.promises.callbackTime?.trim()
   const tel = settings?.phone ? toTelHref(settings.phone) : null
   const shortcuts: { label: string; href: string; icon: IconName }[] = [
     ...(tel ? [{ label: 'Zadzwoń', href: tel, icon: 'phone' as const }] : []),
@@ -218,9 +216,9 @@ export async function QuickStart({
     {
       title: 'Zapytaj o wycenę',
       text: 'Napisz, czego potrzebujesz. Dobierzemy i wycenimy.',
-      // K4-FINAL §1 (audit 01.11): the confirmed 60 minutes, or the panel's own wording.
-      tag: callback ? `${callback} w godzinach pracy` : 'oddzwaniamy w ciągu 60 minut',
-      phoneTag: callback || 'oddzwaniamy w ciągu 60 minut',
+      // Plan 0611 §7.1 pkt 9 (prototype): no call-back promise here — it stands in the hero,
+      // „Nasze zobowiązania” and the contact form only.
+      tag: 'Wycena na piśmie',
       action: 'Wyślij zapytanie',
       icon: 'chat',
       tone: 'green',

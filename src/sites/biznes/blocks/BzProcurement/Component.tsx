@@ -7,7 +7,6 @@ import { procurementPageSchema } from '@/lib/biznes/procurement/schema'
 import { SUPPLY_PAGES, type SupplyPage } from '@/lib/catalog/menu'
 import { log } from '@/lib/log'
 import { getPublishedPage } from '@/lib/pages/data'
-import { getSiteSettings } from '@/lib/site/data'
 import type { BzProcurementBlock as BlockData } from '@/payload-types'
 import { ProcurementCalc } from '@/sites/biznes/components/home/HomeIslands'
 import { SplitHead } from '@/sites/biznes/components/home/SplitHead'
@@ -34,10 +33,7 @@ async function homePage(tenantId: number, slug: SupplyPage): Promise<HomePage | 
  * only while its page is published; nothing renders (with a log line) when no card is left.
  */
 export async function BzProcurementBlock({ block, tenantId }: Props) {
-  const [settings, ...found] = await Promise.all([
-    getSiteSettings(tenantId),
-    ...SUPPLY_PAGES.map((slug) => homePage(tenantId, slug)),
-  ])
+  const found = await Promise.all(SUPPLY_PAGES.map((slug) => homePage(tenantId, slug)))
   const pages: Partial<Record<SupplyPage, HomePage>> = {}
   SUPPLY_PAGES.forEach((slug, i) => {
     const page = found[i]
@@ -45,7 +41,9 @@ export async function BzProcurementBlock({ block, tenantId }: Props) {
   })
   const home = buildProcurementHome(block.data, {
     pages,
-    callback: settings?.biznes?.promises.callbackTime ?? null,
+    // Plan 0611 §7.1 (audit P1.6): on the home page the call-back promise shows only in the
+    // hero, the commitments and the form — not in this section's benefits.
+    callback: null,
   })
   if (!home) {
     log.warn(

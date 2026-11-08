@@ -1,4 +1,3 @@
-import { PLAN_PATH } from '@/lib/catalog/floorPlan'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
@@ -9,12 +8,11 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { brandAsset, HORIZONTAL_LOGO_SIZE } from '@/lib/brand/lines'
 import { brandLogo } from '@/lib/catalog/brandLogo'
-import { BUNDLES_PAGE, type ShowcaseStatus } from '@/lib/catalog/catalogIndex'
+import type { ShowcaseStatus } from '@/lib/catalog/catalogIndex'
 import { fillCatalogCounts } from '@/lib/catalog/counts'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { brandCount } from '@/lib/catalog/filters'
 import { groupSummaries, type GroupSummary } from '@/lib/catalog/groups'
-import { BUNDLES_PATH } from '@/lib/catalog/bundle'
 import { groupHref } from '@/lib/catalog/menu'
 import { publicImage } from '@/lib/media/public'
 import { partnerStatusLabel } from '@/lib/partners/badges'
@@ -211,32 +209,6 @@ function SystemCard({ system, tenantId, headingLevel: Title }: SystemCardProps) 
   )
 }
 
-/** `bundles`: the site shows ready bundles (`/zestawy` exists only then). */
-const SHORTCUTS = (products: number, bundles: boolean) => [
-  {
-    label: 'Plan Twojej firmy',
-    note: 'urządzenia na planie lokalu',
-    href: PLAN_PATH,
-    icon: 'map' as const,
-  },
-  ...(bundles
-    ? [
-        {
-          label: 'Gotowe zestawy',
-          note: 'sklep, lokal, biuro, pensjonat',
-          href: BUNDLES_PATH,
-          icon: 'box' as const,
-        },
-      ]
-    : []),
-  {
-    label: `Cała oferta · ${products}`,
-    note: 'filtry, marki, branże',
-    href: '/oferta',
-    icon: 'grid' as const,
-  },
-]
-
 /**
  * „Działy oferty” and „Systemy” (board v150 `#s4-dz`, `#s4-sys`; K36 §1): five department cards
  * from the catalog with their categories, a sixth tile with the site search, then the three
@@ -303,10 +275,6 @@ export async function BzOfferBlock({ block, tenantId }: Props) {
                   heading={block.searchHeading}
                   searchLabel={`Szukaj w ${counts.products} ${plural(counts.products, ['pozycji', 'pozycjach', 'pozycjach'])}`}
                   popular={index.search.popular}
-                  shortcuts={SHORTCUTS(
-                    counts.products,
-                    index.pages.some((page) => page.slug === BUNDLES_PAGE.slug),
-                  )}
                 />
               )}
             </div>
