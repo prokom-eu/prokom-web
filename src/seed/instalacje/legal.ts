@@ -24,7 +24,8 @@ export const LEGAL_VERSION = '8 listopada 2026 r.'
 // uodo.gov.pl/pl/p/kontakt (Moniuszki 1A since July 2025). Facts: the administrator
 // (`CompanyData`), the line's forms (`Inquiries`), the IP hash of the spam limiter (ADR-003),
 // the Nginx log, retention (`INQUIRY_RETENTION_MONTHS` = 24), encrypted backups ~3 months in
-// Backblaze B2 EU (ADR-019), server VPS and mail at Polish providers (ADR-019, ADR-002),
+// Backblaze B2 EU (ADR-019), server VPS and mail at Polish providers with data centres in Poland
+// (ADR-019, ADR-002; location confirmed by Krystian 08.11),
 // server-only Sentry EU without personal data (ADR-021), Umami without cookies on our server
 // (ADR-020, only with `UMAMI_WEBSITES`). Check again when a form field, a provider, analytics
 // or an embed changes.
@@ -47,7 +48,9 @@ const PRIVACY = [
       ' (Zaplanuj instalację, Kontakt, zgłoszenie serwisowe, zapytanie o teletechnikę, formularz na stronie głównej, formularze dla architektów): imię i nazwisko lub nazwę firmy albo pracowni, telefon, e-mail, miejscowość, treść wiadomości, wybrane usługi i odpowiedzi kreatora, pilność zgłoszenia i preferowany sposób kontaktu — tylko te, które podasz.',
     ],
     ['Adres strony, z której wysłano formularz, i parametry kampanii z adresu (utm), jeśli były.'],
-    ['Informację o zgodzie: kiedy ją wyraziłeś i której wersji klauzuli dotyczyła.'],
+    [
+      'Informację o zgodzie na kontakt: kiedy ją wyraziłeś i której wersji klauzuli dotyczyła; przy zapisie na informacje dla pracowni — także zaznaczenie tej osobnej zgody.',
+    ],
     [
       'Adres IP przy wysyłce formularza — do ochrony przed spamem. Aplikacja trzyma w pamięci jego skrót, nie sam adres, i nie zapisuje go przy zapytaniu.',
     ],
@@ -70,7 +73,7 @@ const PRIVACY = [
       'Informacje o nowych rozwiązaniach dla pracowni (formularz „Nowości” na stronie dla architektów) — tylko jeśli zaznaczysz osobną, dobrowolną zgodę (art. 6 ust. 1 lit. a RODO).',
     ],
     [
-      'Bezpieczeństwo strony, ochrona przed spamem i ewentualne dochodzenie lub obrona roszczeń — na podstawie naszego prawnie uzasadnionego interesu (art. 6 ust. 1 lit. f RODO).',
+      'Bezpieczeństwo strony, ochrona przed spamem, statystyki odwiedzin bez danych osobowych i ewentualne dochodzenie lub obrona roszczeń — na podstawie naszego prawnie uzasadnionego interesu (art. 6 ust. 1 lit. f RODO).',
     ],
   ),
   p(
@@ -78,11 +81,11 @@ const PRIVACY = [
   ),
   h2('Jak długo przechowujemy dane'),
   p(
-    'Zakończone zapytania usuwamy po 24 miesiącach od ostatniej zmiany ich statusu; zapytania w toku przechowujemy do czasu ich zakończenia. Jeśli zawrzemy umowę, dane potrzebne do jej rozliczenia przechowujemy tak długo, jak wymagają tego przepisy podatkowe i rachunkowe. Kopie zapasowe są szyfrowane i rotowane — usunięte dane znikają z nich najpóźniej po około 3 miesiącach.',
+    'Zakończone zapytania usuwamy po 24 miesiącach od ostatniej zmiany ich statusu; zapytania w toku przechowujemy do czasu ich zakończenia. W tym samym terminie usuwamy kopie zapytań z naszej skrzynki pocztowej. Dane z zapisu na informacje dla pracowni przechowujemy do wycofania zgody. Jeśli zawrzemy umowę, dane potrzebne do jej rozliczenia przechowujemy tak długo, jak wymagają tego przepisy podatkowe i rachunkowe. Kopie zapasowe są szyfrowane i rotowane — usunięte dane znikają z nich najpóźniej po około 3 miesiącach.',
   ),
   h2('Komu przekazujemy dane'),
   p(
-    'Dane przetwarzają na nasze zlecenie i według naszych poleceń: dostawca serwera, na którym działa strona i baza zapytań (serwer w Polsce), dostawca poczty, przez którego wysyłamy i odbieramy wiadomości e-mail (w Polsce), oraz dostawca przestrzeni na kopie zapasowe (centrum danych w Unii Europejskiej; kopie szyfrujemy przed wysłaniem i dostawca nie ma do nich klucza). Raporty o błędach serwera trafiają do usługi Sentry w regionie UE i nie zawierają danych z formularzy.',
+    'Dane przetwarzają na nasze zlecenie i według naszych poleceń: dostawca serwera, na którym działa strona i baza zapytań (serwer w Polsce), dostawca poczty, przez którego wysyłamy i odbieramy wiadomości e-mail (w Polsce), oraz dostawca przestrzeni na kopie zapasowe (centrum danych w Amsterdamie; kopie szyfrujemy przed wysłaniem i dostawca nie ma do nich klucza). Raporty o błędach serwera trafiają do usługi Sentry z centrum danych we Frankfurcie i nie zawierają danych z formularzy.',
   ),
   p(
     'Nie przekazujemy danych do państw poza Europejskim Obszarem Gospodarczym. Jeśli otworzysz trasę w Mapach Google, korzystasz z usług tej firmy na jej zasadach — strona tylko otwiera jej aplikację w nowej karcie.',
@@ -114,7 +117,7 @@ const COOKIES = [
   ),
   h2('Co zapisujemy w przeglądarce'),
   p(
-    'Kilka ustawień trzymamy w pamięci przeglądarki (localStorage i sessionStorage). Zostają na Twoim urządzeniu, nie są wysyłane na serwer i nie służą do śledzenia. Zapisujemy je tylko po to, żeby strona działała tak, jak sam ją ustawisz — na to przepisy nie wymagają zgody (art. 399 ust. 3 pkt 2 ustawy Prawo komunikacji elektronicznej).',
+    'Kilka ustawień trzymamy w pamięci przeglądarki (localStorage i sessionStorage). Zostają na Twoim urządzeniu, nie są wysyłane na serwer i nie służą do śledzenia. Są potrzebne do działania strony i zapamiętania Twoich ustawień — na to przepisy nie wymagają zgody (art. 399 ust. 3 pkt 2 ustawy Prawo komunikacji elektronicznej).',
   ),
   ul(
     [{ bold: 'pk-theme' }, ' — wybrany motyw strony: jasny albo ciemny.'],
@@ -125,7 +128,7 @@ const COOKIES = [
     [{ bold: 'pk-sz-closed' }, ' — informacja, że zamknąłeś pasek z akcją sezonową.'],
     [
       { bold: 'pk-recent-instalacje' },
-      ' — do pięciu ostatnio oglądanych stron, pokazywanych w wyszukiwarce (tylko gdy ta funkcja jest włączona).',
+      ' — do pięciu ostatnio oglądanych stron, pokazywanych w wyszukiwarce. Dziś ta funkcja jest wyłączona i klucz nie powstaje.',
     ],
     [
       { bold: 'pk-rail-home, pk-rail-pulse' },
@@ -165,11 +168,17 @@ const ACCESSIBILITY = [
     [
       'Interaktywne rysunki (przekroje obiektów, kalkulatory, pokaz na stronie głównej) mają opis tekstowy i sterowanie przyciskami; pokaz można wstrzymać.',
     ],
-    ['Przyciski i pola na telefonie mają co najmniej 44 piksele wysokości.'],
-    ['Strona działa przy powiększeniu tekstu do 200% i na ekranach od 360 pikseli szerokości.'],
+    [
+      'Przyciski i pola formularzy w treści strony mają na telefonie co najmniej 44 piksele wysokości.',
+    ],
+    [
+      'Strona działa na ekranach od 360 pikseli szerokości, a pokaz na stronie głównej także przy powiększeniu tekstu do 200%.',
+    ],
     ['Animacje wyłączają się, gdy w systemie ustawisz ograniczenie ruchu.'],
     ['Zdjęcia realizacji mają opisy alternatywne.'],
-    ['Każdą zmianę strony sprawdzamy automatycznym testem dostępności.'],
+    [
+      'Kluczowe strony i formularze sprawdzamy automatycznym testem dostępności przy każdej zmianie.',
+    ],
   ),
   h2('Znane ograniczenia'),
   ul(
@@ -221,7 +230,7 @@ type Count = (name: string, result: 'created' | 'updated' | 'skipped') => void
 
 /**
  * Legal pages of Instalacje (I13): created and published only when missing — never merged, so a
- * text edited in the panel stays. Drafts to approve (TODOs above).
+ * text edited in the panel stays.
  */
 export async function seedInstalacjeLegal(payload: Payload, tenantId: number, count: Count) {
   const local = { overrideAccess: true, context: SEED_CONTEXT, depth: 0 } as const

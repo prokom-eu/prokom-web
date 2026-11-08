@@ -6,6 +6,7 @@
   nagłówki „##” jako H2, punkty jako listę, adresy e-mail i telefon jako linki.
 -->
 
+
 # Polityka prywatności (/polityka-prywatnosci)
 
 Ta polityka opisuje, jak PRO-KOM Tadeusz Wójciak przetwarza dane osobowe osób, które korzystają ze strony prokominstalacje.pl i wysyłają zapytania przez formularze. Piszemy ją zgodnie z art. 13 RODO (rozporządzenie Parlamentu Europejskiego i Rady (UE) 2016/679).
@@ -18,7 +19,7 @@ Administratorem danych jest PRO-KOM Tadeusz Wójciak, ul. Orkana 16B, 34-700 Rab
 
 - **Formularze** (Zaplanuj instalację, Kontakt, zgłoszenie serwisowe, zapytanie o teletechnikę, formularz na stronie głównej, formularze dla architektów): imię i nazwisko lub nazwę firmy albo pracowni, telefon, e-mail, miejscowość, treść wiadomości, wybrane usługi i odpowiedzi kreatora, pilność zgłoszenia i preferowany sposób kontaktu — tylko te, które podasz.
 - Adres strony, z której wysłano formularz, i parametry kampanii z adresu (utm), jeśli były.
-- Informację o zgodzie: kiedy ją wyraziłeś i której wersji klauzuli dotyczyła.
+- Informację o zgodzie na kontakt: kiedy ją wyraziłeś i której wersji klauzuli dotyczyła; przy zapisie na informacje dla pracowni — także zaznaczenie tej osobnej zgody.
 - Adres IP przy wysyłce formularza — do ochrony przed spamem. Aplikacja trzyma w pamięci jego skrót, nie sam adres, i nie zapisuje go przy zapytaniu.
 - Dziennik serwera: przy każdym wejściu na stronę serwer zapisuje adres IP, czas, adres strony i wynik odpowiedzi. Służy bezpieczeństwu i usuwaniu awarii i jest kasowany po zapełnieniu rotowanych plików dziennika.
 - Statystyki odwiedzin (jeśli są włączone): liczymy wejścia narzędziem Umami na naszym serwerze, bez cookies i bez danych z formularzy. Narzędzie nie przechowuje adresu IP.
@@ -29,17 +30,17 @@ Nie zakładamy kont klientów, nie korzystamy z narzędzi reklamowych, nie profi
 
 - Odpowiedź na zapytanie, wizja lokalna i przygotowanie wyceny — na podstawie Twojej zgody wyrażonej w formularzu (art. 6 ust. 1 lit. a RODO) i działań przed zawarciem umowy, które podejmujemy na Twoje żądanie (art. 6 ust. 1 lit. b RODO).
 - Informacje o nowych rozwiązaniach dla pracowni (formularz „Nowości” na stronie dla architektów) — tylko jeśli zaznaczysz osobną, dobrowolną zgodę (art. 6 ust. 1 lit. a RODO).
-- Bezpieczeństwo strony, ochrona przed spamem i ewentualne dochodzenie lub obrona roszczeń — na podstawie naszego prawnie uzasadnionego interesu (art. 6 ust. 1 lit. f RODO).
+- Bezpieczeństwo strony, ochrona przed spamem, statystyki odwiedzin bez danych osobowych i ewentualne dochodzenie lub obrona roszczeń — na podstawie naszego prawnie uzasadnionego interesu (art. 6 ust. 1 lit. f RODO).
 
 Podanie danych jest dobrowolne, ale bez numeru telefonu albo adresu e-mail nie odpowiemy na zapytanie. Zgodę możesz wycofać w każdej chwili, pisząc na adres powyżej. Wycofanie nie wpływa na zgodność z prawem przetwarzania, które odbyło się wcześniej.
 
 ## Jak długo przechowujemy dane
 
-Zakończone zapytania usuwamy po 24 miesiącach od ostatniej zmiany ich statusu; zapytania w toku przechowujemy do czasu ich zakończenia. Jeśli zawrzemy umowę, dane potrzebne do jej rozliczenia przechowujemy tak długo, jak wymagają tego przepisy podatkowe i rachunkowe. Kopie zapasowe są szyfrowane i rotowane — usunięte dane znikają z nich najpóźniej po około 3 miesiącach.
+Zakończone zapytania usuwamy po 24 miesiącach od ostatniej zmiany ich statusu; zapytania w toku przechowujemy do czasu ich zakończenia. W tym samym terminie usuwamy kopie zapytań z naszej skrzynki pocztowej. Dane z zapisu na informacje dla pracowni przechowujemy do wycofania zgody. Jeśli zawrzemy umowę, dane potrzebne do jej rozliczenia przechowujemy tak długo, jak wymagają tego przepisy podatkowe i rachunkowe. Kopie zapasowe są szyfrowane i rotowane — usunięte dane znikają z nich najpóźniej po około 3 miesiącach.
 
 ## Komu przekazujemy dane
 
-Dane przetwarzają na nasze zlecenie i według naszych poleceń: dostawca serwera, na którym działa strona i baza zapytań (serwer w Polsce), dostawca poczty, przez którego wysyłamy i odbieramy wiadomości e-mail (w Polsce), oraz dostawca przestrzeni na kopie zapasowe (centrum danych w Unii Europejskiej; kopie szyfrujemy przed wysłaniem i dostawca nie ma do nich klucza). Raporty o błędach serwera trafiają do usługi Sentry w regionie UE i nie zawierają danych z formularzy.
+Dane przetwarzają na nasze zlecenie i według naszych poleceń: dostawca serwera, na którym działa strona i baza zapytań (serwer w Polsce), dostawca poczty, przez którego wysyłamy i odbieramy wiadomości e-mail (w Polsce), oraz dostawca przestrzeni na kopie zapasowe (centrum danych w Amsterdamie; kopie szyfrujemy przed wysłaniem i dostawca nie ma do nich klucza). Raporty o błędach serwera trafiają do usługi Sentry z centrum danych we Frankfurcie i nie zawierają danych z formularzy.
 
 Nie przekazujemy danych do państw poza Europejskim Obszarem Gospodarczym. Jeśli otworzysz trasę w Mapach Google, korzystasz z usług tej firmy na jej zasadach — strona tylko otwiera jej aplikację w nowej karcie.
 
@@ -63,12 +64,12 @@ Strona nie ustawia cookies — ani własnych, ani analitycznych czy reklamowych 
 
 ## Co zapisujemy w przeglądarce
 
-Kilka ustawień trzymamy w pamięci przeglądarki (localStorage i sessionStorage). Zostają na Twoim urządzeniu, nie są wysyłane na serwer i nie służą do śledzenia. Zapisujemy je tylko po to, żeby strona działała tak, jak sam ją ustawisz — na to przepisy nie wymagają zgody (art. 399 ust. 3 pkt 2 ustawy Prawo komunikacji elektronicznej).
+Kilka ustawień trzymamy w pamięci przeglądarki (localStorage i sessionStorage). Zostają na Twoim urządzeniu, nie są wysyłane na serwer i nie służą do śledzenia. Są potrzebne do działania strony i zapamiętania Twoich ustawień — na to przepisy nie wymagają zgody (art. 399 ust. 3 pkt 2 ustawy Prawo komunikacji elektronicznej).
 
 - **pk-theme** — wybrany motyw strony: jasny albo ciemny.
 - **inst-arch-checklist** — punkty odhaczone na checkliście projektanta na stronie dla architektów.
 - **pk-sz-closed** — informacja, że zamknąłeś pasek z akcją sezonową.
-- **pk-recent-instalacje** — do pięciu ostatnio oglądanych stron, pokazywanych w wyszukiwarce (tylko gdy ta funkcja jest włączona).
+- **pk-recent-instalacje** — do pięciu ostatnio oglądanych stron, pokazywanych w wyszukiwarce. Dziś ta funkcja jest wyłączona i klucz nie powstaje.
 - **pk-rail-home, pk-rail-pulse** — stan bocznego paska nawigacji w bieżącej karcie; znikają po jej zamknięciu.
 
 ## Jak to usunąć
@@ -92,11 +93,11 @@ Strona jest projektowana i sprawdzana według wytycznych WCAG 2.1 na poziomie AA
 - Kontrast tekstu spełnia poziom AA w motywie jasnym i ciemnym.
 - Całą stronę obsłużysz klawiaturą: fokus jest zawsze widoczny, menu i arkusze zamyka klawisz Esc.
 - Interaktywne rysunki (przekroje obiektów, kalkulatory, pokaz na stronie głównej) mają opis tekstowy i sterowanie przyciskami; pokaz można wstrzymać.
-- Przyciski i pola na telefonie mają co najmniej 44 piksele wysokości.
-- Strona działa przy powiększeniu tekstu do 200% i na ekranach od 360 pikseli szerokości.
+- Przyciski i pola formularzy w treści strony mają na telefonie co najmniej 44 piksele wysokości.
+- Strona działa na ekranach od 360 pikseli szerokości, a pokaz na stronie głównej także przy powiększeniu tekstu do 200%.
 - Animacje wyłączają się, gdy w systemie ustawisz ograniczenie ruchu.
 - Zdjęcia realizacji mają opisy alternatywne.
-- Każdą zmianę strony sprawdzamy automatycznym testem dostępności.
+- Kluczowe strony i formularze sprawdzamy automatycznym testem dostępności przy każdej zmianie.
 
 ## Znane ograniczenia
 
