@@ -3,8 +3,8 @@ import { expect, test, type Page } from '@playwright/test'
 
 import { clickUntilVisible, hydrated, setTheme, site } from './helpers'
 
-// B4a: search overlay of the Biznes header (spec. §3.2, §8.2, §9 pkt 2 and 7). Catalog from
-// `pnpm seed`; the cases do not rely on synonyms (BiznesSettings), which other tests replace.
+// Ctrl K of Biznes on the shared search dialog (plan 0611 §8.1 pkt 5; before: B4a overlay).
+// Catalog from `pnpm seed`; the cases do not rely on synonyms (BiznesSettings), which other tests replace.
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 
 const overlay = (page: Page) => page.getByRole('dialog', { name: 'Szukaj w ofercie' })
@@ -50,27 +50,41 @@ test.describe('Biznes search', () => {
     await expect(overlay(page)).toBeHidden()
   })
 
-  // K33 §2.6: the quick preview steps through the results and closes with the search.
-  test('the quick preview steps with arrows and „Pełna karta” leaves a usable page', async ({
+  // Plan 0611 §8.1 pkt 5: the preview of the focused result next to the list (from 900 px).
+  test('the preview shows the product, adds it to the inquiry and leads to its card', async ({
     page,
   }) => {
+    await page.setViewportSize({ width: 1280, height: 900 })
     await page.goto(site('biznes.localhost'))
+    await page.evaluate(() => localStorage.removeItem('pk-cart'))
     await openWithSlash(page)
     await typeIn(page, 'kasa')
-    await overlay(page)
-      .getByRole('button', { name: /^Podgląd: / })
-      .first()
-      .click()
-    // The preview is a dialog inside the search dialog: the inner one (last) is it.
-    const preview = page.locator('dialog[open]').last()
-    await expect(preview).toContainText('1 / ')
-    await page.keyboard.press('ArrowRight')
-    await expect(preview).toContainText('2 / ')
-    await preview.getByRole('link', { name: 'Pełna karta →' }).click()
+    const results = overlay(page).getByRole('region', { name: /Produkty i usługi/ })
+    const first = results.getByRole('link').first()
+    await expect(first).toHaveAttribute('href', /^\/produkt\//)
+    const name = (await first.locator('.font-bold').first().textContent())!.trim()
+    const preview = overlay(page).getByRole('complementary', { name: `Podgląd: ${name}` })
+    await expect(preview).toBeVisible()
+    await expect(preview.getByRole('link', { name: 'Karta →' })).toHaveAttribute(
+      'href',
+      (await first.getAttribute('href'))!,
+    )
+    // The second result takes the preview when it gets the focus.
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await expect(preview).toBeHidden()
+
+    await page.keyboard.press('ArrowUp')
+    await preview.getByRole('button', { name: /^Do zapytania/ }).click()
+    await expect(preview.getByRole('button', { name: /^W zapytaniu/ })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+
+    // „Karta →” leaves a usable page: nothing invisible stays in the top layer.
+    await preview.getByRole('link', { name: 'Karta →' }).click()
     await expect(page).toHaveURL(/\/produkt\//)
-    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     await expect(page.locator('dialog[open]')).toHaveCount(0)
-    // Nothing invisible in the top layer: the header still takes clicks.
     await page
       .getByRole('navigation', { name: 'Menu główne' })
       .getByRole('button', { name: /^Oferta/ })
@@ -78,20 +92,18 @@ test.describe('Biznes search', () => {
     await expect(page.locator('#oferta-mega')).toBeVisible()
   })
 
-  test('a second click in the preview opens the inquiry drawer', async ({ page }) => {
+  test('„tel” brings the contact actions on top, „Pokaż wszystkie” leads to the catalog', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
-    await page.evaluate(() => localStorage.removeItem('pk-cart'))
     await openWithSlash(page)
-    await typeIn(page, 'kasa')
-    await overlay(page)
-      .getByRole('button', { name: /^Podgląd: / })
-      .first()
-      .click()
-    // The preview is a dialog inside the search dialog: the inner one (last) is it.
-    const preview = page.locator('dialog[open]').last()
-    await preview.getByRole('button', { name: '+ Do zapytania' }).click()
-    await preview.getByRole('button', { name: '✓ W zapytaniu' }).click()
-    await expect(page.getByRole('dialog', { name: /Twoje zapytanie/ })).toBeVisible()
+    await typeIn(page, 'tel')
+    const actions = overlay(page).locator('[data-result]').first()
+    await expect(actions).toHaveAttribute('href', /^tel:/)
+    await typeIn(page, 'laptop')
+    await expect(
+      overlay(page).getByRole('link', { name: /^Wszystkie wyniki w ofercie/ }),
+    ).toHaveAttribute('href', '/oferta?szukaj=laptop')
   })
 
   test('"/" can be typed in the search field', async ({ page }) => {

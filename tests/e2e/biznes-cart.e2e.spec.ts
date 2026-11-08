@@ -46,12 +46,14 @@ test.describe('Biznes inquiry list', () => {
     // The overlay can show before its field listens: typed then, the phrase is lost.
     await hydrated(search.getByRole('searchbox'))
     await search.getByRole('searchbox').fill('terminal')
-    // K4: results add through the quick preview (K33 §2.6).
-    await search.getByRole('button', { name: 'Podgląd: Terminal płatniczy PolCard' }).click()
-    const preview = page.getByRole('dialog', { name: /Terminal płatniczy PolCard/ })
-    await preview.getByRole('button', { name: '+ Do zapytania' }).click()
-    await expect(preview.getByRole('button', { name: '✓ W zapytaniu' })).toBeVisible()
-    await page.keyboard.press('Escape')
+    // Results add through the preview next to the list (plan 0611 §8.1 pkt 5): focus picks it.
+    await search
+      .getByRole('link', { name: /Terminal płatniczy PolCard/ })
+      .first()
+      .focus()
+    const preview = search.getByRole('complementary', { name: /Terminal płatniczy PolCard/ })
+    await preview.getByRole('button', { name: /^Do zapytania/ }).click()
+    await expect(preview.getByRole('button', { name: /^W zapytaniu/ })).toBeVisible()
     await page.keyboard.press('Escape')
 
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')
