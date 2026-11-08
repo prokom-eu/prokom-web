@@ -87,7 +87,7 @@ export async function GuidePost({ post, tenantId, origin }: Props) {
       <JsonLd
         data={[
           breadcrumbJsonLd([
-            { name: 'Start', url: `${origin}/` },
+            { name: 'Strona główna', url: `${origin}/` },
             { name: 'Poradnik', url: `${origin}/poradnik` },
             { name: short, url: `${origin}${post.href}` },
           ]),
@@ -107,7 +107,7 @@ export async function GuidePost({ post, tenantId, origin }: Props) {
         <div className="hglow" />
         <div className="wrap" style={{ position: 'relative' }}>
           <nav className="crumb in d1" aria-label="Okruszki">
-            <Link href="/">Start</Link>
+            <Link href="/">Strona główna</Link>
             <span aria-hidden="true">/</span>
             <Link href="/poradnik">Poradnik</Link>
             <span aria-hidden="true">/</span>

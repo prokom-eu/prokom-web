@@ -155,7 +155,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
       />
       <JsonLd
         data={breadcrumbJsonLd([
-          { name: 'Start', url: `${origin}/` },
+          { name: 'Strona główna', url: `${origin}/` },
           { name: objectPage.parent.label, url: `${origin}${objectPage.parent.href}` },
           { name: crumb, url: `${origin}${path}` },
         ])}

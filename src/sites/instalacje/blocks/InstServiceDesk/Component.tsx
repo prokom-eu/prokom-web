@@ -80,7 +80,7 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
           />
           <JsonLd
             data={breadcrumbJsonLd([
-              { name: 'Start', url: `${origin}/` },
+              { name: 'Strona główna', url: `${origin}/` },
               { name: crumb, url: `${origin}${PATH}` },
             ])}
           />
