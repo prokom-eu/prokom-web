@@ -14,6 +14,8 @@ const PAGES = INST_PAGES
 const LONG_TITLE_OK = new Set(['/'])
 
 // „[SZEF: …]”, „[CENA]”, „[TELEFON]” — notes of the prototype for the owner.
+const FORBIDDEN =
+  /WhatsApp|wa\.me|W przygotowaniu|[Ww]yślij zdjęci|[Pp]rześlij rzuty|dane przykładowe|przykładowe dane/
 const PLACEHOLDER = /\[[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ ]{2,}[:\]]/
 
 async function open(page: Page, path: string) {
@@ -39,6 +41,10 @@ for (const path of PAGES) {
       // in the HTML but not in `innerText` (audit before staging, P1 2).
       const allText = await page.locator('main').evaluate((main) => main.textContent ?? '')
       expect(allText).not.toMatch(PLACEHOLDER)
+      // Content rules (audit 06.11 P0, decisions 01.11): no WhatsApp, nothing „in preparation”,
+      // no promise of sending photos or plans (no form takes files), no sample-data notes.
+      expect(allText).not.toMatch(FORBIDDEN)
+      expect(description ?? '').not.toMatch(FORBIDDEN)
       // No lists of sources on the page (spec §2): a line that is only the heading „Źródła”.
       // Sentences may start with the word (Nagłośnienie: „Źródła trafiają do miksera…”,
       // „Źródła muzyki”, „Źródła i mikrofony” — sound sources, not references).
