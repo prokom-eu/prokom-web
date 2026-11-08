@@ -6,7 +6,15 @@ import { site } from './helpers'
 // the panel has no „Obraz OG”.
 const HOST = 'software.localhost'
 
-for (const path of ['/', '/rozwiazania', '/dobierz', '/kontakt', '/miejscowosci/rabka-zdroj']) {
+for (const path of [
+  '/',
+  '/rozwiazania',
+  '/dobierz',
+  '/kontakt',
+  '/miejscowosci/rabka-zdroj',
+  '/regulamin',
+  '/mapa-strony',
+]) {
   test(`${path} has og:image and a large Twitter card`, async ({ page }) => {
     await page.goto(site(HOST, path))
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
