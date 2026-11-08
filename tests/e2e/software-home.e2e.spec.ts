@@ -110,6 +110,9 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const wizard = page.locator('#dobierz')
     await expect(wizard.getByRole('heading', { level: 2 })).toHaveText('Policz swój projekt.')
+    await expect(wizard.getByRole('heading', { level: 2 }).locator('em')).toHaveText(
+      'swój projekt.',
+    )
     await expect(wizard.getByRole('heading', { level: 3 }).first()).toBeVisible()
   })
 
@@ -117,6 +120,7 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const section = page.locator('#faq')
     await expect(section.locator('#faq-h')).toHaveText('Zanim napiszesz')
+    await expect(section.locator('#faq-h em')).toHaveText('napiszesz')
     const items = section.locator('details')
     await expect(items).toHaveCount(6)
     await expect(items.nth(0)).toHaveAttribute('open', '')
@@ -280,11 +284,11 @@ test.describe('Software start page on a phone', () => {
         const box = await target.boundingBox()
         expect(box?.height ?? 0).toBeGreaterThanOrEqual(44)
       }
-      // Hero v24 on a phone (ZMIANY-v24 §10): one 340 px window, the tiles in a row, the caption
-      // button across the width.
+      // Hero v24 on a phone (ZMIANY-v24 §10): one window — 320 px since SWA8, so it ends above
+      // the tab bar (AUDYT po SWA7 #3) — the tiles in a row, the caption button across the width.
       const hero = page.locator('#start')
       const active = await hero.locator('.hx-win[data-rank="r0"]').boundingBox()
-      expect(Math.round(active?.width ?? 0)).toBe(340)
+      expect(Math.round(active?.width ?? 0)).toBe(320)
       const capButton = await hero.locator('.hx-cap a').boundingBox()
       expect(capButton?.width ?? 0).toBeGreaterThan(width - 80)
       // Kontakt v24: the card under the FAQ (one column), topics as large targets.

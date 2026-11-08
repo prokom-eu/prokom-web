@@ -1,9 +1,11 @@
 import { cx } from '@/components/ui/cx'
 
+import { EmText } from './EmText'
+
 type Props = {
   /** Empty or missing: no eyebrow line (a city without one in the panel). */
   eyebrow?: string | null
-  /** First part of the H2. */
+  /** First part of the H2 — or the whole H2 with its highlighted part in `**stars**`. */
   title: string
   /** Second part, in the violet gradient (`.sw-em`); ZMIANY-v24 §2: „eyebrow → H2 z `em`”. */
   em?: string | null
@@ -49,7 +51,7 @@ export function SectionHead({
         </p>
       ) : null}
       <Heading id={id} className={level === 'h1' ? 'sw-h1-page' : 'sw-h2'} data-rise>
-        {title}
+        <EmText text={title} emClass={level === 'h1' ? 'sw-em-hero' : 'sw-em'} />
         {em ? (
           <>
             {' '}

@@ -24,6 +24,7 @@ import {
 import type { SoftwareWizard, WizardPick, WizardStep } from '@/lib/software/wizard/schema'
 
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
+import { EmText } from '@/sites/software/components/ui/EmText'
 import { usePausedOffscreen } from '@/sites/software/components/v24home/usePausedOffscreen'
 
 import { WizardSend } from './WizardSend'
@@ -310,7 +311,9 @@ export function Wizard({
       {head && (
         <header className="wz-head">
           <p className="sw-eyebrow">{rules.ui.eyebrow}</p>
-          <Heading className="sw-h2">{rules.ui.title}</Heading>
+          <Heading className="sw-h2">
+            <EmText text={rules.ui.title} />
+          </Heading>
           <p className="wz-lead">{rules.ui.lead}</p>
         </header>
       )}

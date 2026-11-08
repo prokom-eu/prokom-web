@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { connection } from 'next/server'
 
 import { cx } from '@/components/ui/cx'
@@ -23,16 +22,13 @@ import { AuditScanCard } from './AuditScanCardLazy'
 
 type Props = { block: SwAuditFormData; tenantId: number; isFirst: boolean }
 
-type LinkField = { label?: string | null; href?: string | null } | null | undefined
-const linkOf = (link: LinkField) =>
-  link?.label && link.href ? { label: link.label, href: link.href } : null
-
 /**
  * `/audyt` of the Software line (ZMIANY-v24 §9.1, board `AU-audyt`): the subpage hero with the
  * quick audit form and the sample scan card, „Pięć rzeczy…” (the last card highlighted), the three
- * audit kinds and „Jak wygląda darmowy audyt”. Never cached: the form token carries the render
- * time. Prices and terms of the kinds from the tenant's published audit solution
- * (`Solutions.levels`); a missing one hides the section. A hero block: the H1 when first.
+ * audit kinds and „Jak wygląda darmowy audyt”, then the shared band above the footer. Never
+ * cached: the form token carries the render time. Prices and terms of the kinds from the
+ * tenant's published audit solution (`Solutions.levels`); a missing one hides the section.
+ * A hero block: the H1 when first.
  */
 export async function SwAuditFormBlock({ block, tenantId, isFirst }: Props) {
   await connection()
@@ -53,8 +49,6 @@ export async function SwAuditFormBlock({ block, tenantId, isFirst }: Props) {
   const hasScan = reportRows.length > 0 && Boolean(block.reportTitle)
   const checks = block.checksTitle ? (block.checks ?? []) : []
   const steps = block.stepsTitle ? (block.steps ?? []) : []
-  const ctaPrimary = linkOf(block.ctaPrimary)
-  const ctaSecondary = linkOf(block.ctaSecondary)
 
   return (
     <>
@@ -181,44 +175,8 @@ export async function SwAuditFormBlock({ block, tenantId, isFirst }: Props) {
           </div>
         </section>
       ) : null}
-
-      {block.ctaTitle ? (
-        // `data-final-cta`: the page ends with its own CTA (spec. §6.0) — no footer band.
-        <section data-final-cta aria-labelledby="audyt-cta-h" className="v-sec">
-          <div className="v-wrap">
-            <Glass featured className="sw-cta">
-              <div className="max-w-[56ch]">
-                <h2 id="audyt-cta-h" className="sw-h2 sw-cta-title">
-                  {block.ctaTitle}
-                </h2>
-                {block.ctaText ? (
-                  <p className="mt-3 text-lg text-ink-2">{fill(block.ctaText)}</p>
-                ) : null}
-              </div>
-              <div className="flex flex-col gap-2.5 min-[641px]:flex-row min-[1081px]:shrink-0">
-                {ctaPrimary ? (
-                  <Link
-                    href={ctaPrimary.href}
-                    data-motion="button"
-                    className="inline-flex min-h-13 items-center justify-center rounded-full bg-button px-6 font-extrabold text-accent-ink"
-                  >
-                    {ctaPrimary.label}
-                  </Link>
-                ) : null}
-                {ctaSecondary ? (
-                  <Link
-                    href={ctaSecondary.href}
-                    data-motion="button-outline"
-                    className="inline-flex min-h-13 items-center justify-center rounded-full border border-border bg-card px-6 font-extrabold"
-                  >
-                    {ctaSecondary.label}
-                  </Link>
-                ) : null}
-              </div>
-            </Glass>
-          </div>
-        </section>
-      ) : null}
+      {/* AUDYT po SWA7 #6: no CTA band of its own (`cta*` stay in the schema, unused) — the page
+          ends with the shared „Zacznij od podglądu” band, one CTA before the footer. */}
     </>
   )
 }

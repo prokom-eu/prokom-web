@@ -7,6 +7,7 @@ import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { CompareView, Mark } from '@/lib/software/compare'
+import { EmText } from '@/sites/software/components/ui/EmText'
 
 type Props = { view: CompareView; eyebrow: string; title: string; tabs: [string, string] }
 
@@ -58,7 +59,7 @@ export function Compare({ view, eyebrow, title, tabs }: Props) {
               {eyebrow}
             </p>
             <h2 className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[640px]:text-5xl min-[1081px]:text-[56px]">
-              {title}
+              <EmText text={title} />
             </h2>
           </div>
           <div
