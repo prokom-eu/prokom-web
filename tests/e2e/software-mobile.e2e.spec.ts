@@ -275,18 +275,17 @@ test.describe('Software frame on a touch screen', () => {
     expect(await kreator.evaluate((el) => getComputedStyle(el).touchAction)).toBe('manipulation')
   })
 
-  test('the browser bar has the colour of each theme', async ({ page }) => {
+  test('a chosen theme colours the browser bar for both system schemes', async ({ page }) => {
     await setTheme(page, 'light')
     await page.goto(site(HOST, SUBPAGE))
     await expect(page.locator('meta[name="theme-color"]')).toHaveCount(2)
-    await expect(page.locator('meta[name="theme-color"][media*="light"]')).toHaveAttribute(
-      'content',
-      '#f4f5f1',
-    )
-    await expect(page.locator('meta[name="theme-color"][media*="dark"]')).toHaveAttribute(
-      'content',
-      '#0b0d0c',
-    )
+    // `useThemeColor`: a theme chosen by hand wins over the system scheme of each meta.
+    for (const scheme of ['light', 'dark']) {
+      await expect(page.locator(`meta[name="theme-color"][media*="${scheme}"]`)).toHaveAttribute(
+        'content',
+        '#f4f5f1',
+      )
+    }
   })
 
   // `useThemeColor('software')` in the frame's `PhoneSignals` (MOBILE-APLIKACJA §5).
