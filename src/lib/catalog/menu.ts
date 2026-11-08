@@ -35,9 +35,15 @@ export type OfferDepartment = {
   brands: { slug: string; name: string; logo: IndexLogo }[]
 }
 
+/** „Zaopatrzenie firm” pages (plan 0611 §6), in the order of the mega menu. */
+export const SUPPLY_PAGES = ['agd-rtv-dla-firm', 'dostawy-it-dla-firm'] as const
+export type SupplyPage = (typeof SUPPLY_PAGES)[number]
+
 export type OfferMenu = {
   departments: OfferDepartment[]
   totals: { products: number; brands: number; bundles: number }
+  /** „Zaopatrzenie firm” in the mega menu: only the pages already published (after B2). */
+  supply: SupplyPage[]
 }
 
 /** Brand logos shown under the categories of a department (K35 7a, v147c). */
@@ -120,6 +126,7 @@ export function offerMenu(
       brands: brandCount(index),
       bundles: index.pages.filter((page) => page.slug.startsWith('zestawy/')).length,
     },
+    supply: SUPPLY_PAGES.filter((slug) => index.pages.some((page) => page.slug === slug)),
   }
 }
 

@@ -99,6 +99,19 @@ describe('offerMenu (K4 mega menu v147c)', () => {
     expect(menu.totals).toEqual({ products: 4, brands: 3, bundles: 2 })
   })
 
+  it('shows „Zaopatrzenie firm” only with its published pages (plan 0611 §6)', () => {
+    expect(menu.supply).toEqual([])
+    const withSupply = offerMenu({
+      ...k4,
+      pages: [
+        ...k4.pages,
+        { slug: 'dostawy-it-dla-firm', title: 'IT' },
+        { slug: 'agd-rtv-dla-firm', title: 'AGD' },
+      ],
+    })
+    expect(withSupply.supply).toEqual(['agd-rtv-dla-firm', 'dostawy-it-dla-firm'])
+  })
+
   it('prefers the panel thumbnail of a category (BIZ-1 mega menu)', () => {
     const withThumb = offerMenu({
       ...k4,
