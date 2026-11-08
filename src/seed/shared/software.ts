@@ -60,9 +60,6 @@ export const SOFTWARE_SHARED: SharedGroup = {
         { label: 'Aktualności', href: '/aktualnosci' },
         { label: 'Darmowy audyt', href: '/audyt' },
         { label: 'Kreator 60 s', href: '/dobierz' },
-        // The shared legal bar has four fixed links on every line; the terms are Software's own
-        // (SWA6a, decyzja Krystiana 08.11).
-        { label: 'Regulamin', href: '/regulamin' },
       ],
     },
   ],

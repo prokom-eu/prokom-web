@@ -153,3 +153,30 @@ test.describe('/_wspolne — phone', () => {
     })
   }
 })
+
+// AUDYT-0811 #6, #7: Software — „Regulamin” only in the legal bar (after the privacy policy),
+// not in a column; the band „Zacznij od podglądu” sits across the footer's top edge.
+test.describe('Software footer (1440 px)', () => {
+  test.use({ viewport: { width: 1440, height: 900 } })
+
+  test('Regulamin in the legal bar, not in the columns; the band on the edge', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(site('software.localhost', '/cennik'))
+    const foot = page.locator('[data-site-footer]')
+    const legal = foot.getByRole('navigation', { name: 'Informacje prawne' }).getByRole('link')
+    const hrefs = await legal.evaluateAll((links) => links.map((a) => a.getAttribute('href')))
+    expect(hrefs.slice(0, 3)).toEqual(['/polityka-prywatnosci', '/regulamin', '/cookies'])
+    await expect(foot.locator('[data-footer-column] a[href="/regulamin"]')).toHaveCount(0)
+
+    const band = await page.locator('.sw-start-band').boundingBox()
+    const edge = await foot.boundingBox()
+    expect(band && edge).toBeTruthy()
+    // The band ends where the footer starts; the lower half of its section is footer colour,
+    // so on screen it sits half on the page, half on the footer.
+    expect(Math.abs(band!.y + band!.height - edge!.y)).toBeLessThan(4)
+    const split = await page
+      .locator('.sw-start-sec > .v-wrap')
+      .evaluate((wrap) => getComputedStyle(wrap, '::before').top)
+    expect(Math.abs(parseFloat(split) - band!.height / 2)).toBeLessThan(4)
+  })
+})

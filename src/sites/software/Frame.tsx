@@ -27,6 +27,9 @@ import { SwHeader } from './powloka/SwHeader'
 import { SwRail } from './powloka/SwRail'
 import { type SheetLink, SwSheetList } from './powloka/SwSheetList'
 
+/** Software's own legal page, in the shared legal bar after the privacy policy (AUDYT-0811 #7). */
+const TERMS = { label: 'Regulamin', href: '/regulamin' }
+
 type Props = {
   tenant: SiteTenant
   settings: PublicSiteSettings
@@ -79,9 +82,13 @@ export async function SoftwareFrame({
           withCount: line.headerCta.counter === 'project',
         }
       : null
+  // The terms live in the legal bar (AUDYT-0811 #7); a „Regulamin” left in a column by the panel
+  // (SWA6a put it there) would show twice.
   const columns = (line?.footerColumns ?? []).map((column) => ({
     heading: column.heading ?? '',
-    links: (column.links ?? []).map((link) => ({ label: link.label, href: link.href })),
+    links: (column.links ?? [])
+      .filter((link) => link.href !== TERMS.href)
+      .map((link) => ({ label: link.label, href: link.href })),
   }))
   const menuLinks: SheetLink[] = navigation.header.flatMap((item) =>
     'href' in item
@@ -152,6 +159,7 @@ export async function SoftwareFrame({
           }}
           lines={shared.lines}
           legalNote={line.legalNote}
+          legalLinks={[TERMS]}
           now={now}
         />
       )}
