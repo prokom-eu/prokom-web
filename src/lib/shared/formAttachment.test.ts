@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 
 import {
   MESSAGE_LIMIT,
+  collectAttachments,
   formAttachments,
   registerFormAttachment,
   withAttachments,
@@ -30,6 +31,22 @@ describe('form attachments (Biznes: the inquiry list joins the contact message)'
     expect(withAttachments('Dzień dobry', ['Lista: A'])).toBe('Dzień dobry\n\nLista: A')
     expect(withAttachments('  ', ['Lista: A', 'B'])).toBe('Lista: A\n\nB')
     expect(withAttachments('Treść', [])).toBe('Treść')
+  })
+
+  it('runs `onSent` only for the parts that went out with the message', () => {
+    const sent: string[] = []
+    off.push(registerFormAttachment(() => 'Lista', { onSent: () => sent.push('lista') }))
+    off.push(registerFormAttachment(() => null, { onSent: () => sent.push('pusta') }))
+    const collected = collectAttachments()
+    expect(collected.texts).toEqual(['Lista'])
+    collected.sent()
+    expect(sent).toEqual(['lista'])
+  })
+
+  it('a message close to the limit stays whole; the attachment drops out', () => {
+    const message = 'm'.repeat(MESSAGE_LIMIT - 1)
+    expect(withAttachments(message, ['Lista: A'])).toBe(message)
+    expect(withAttachments('m'.repeat(MESSAGE_LIMIT), ['Lista: A'])).toHaveLength(MESSAGE_LIMIT)
   })
 
   it('never goes over the server limit: the attachment is cut, the message kept', () => {

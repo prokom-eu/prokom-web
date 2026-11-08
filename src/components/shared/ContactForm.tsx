@@ -19,7 +19,8 @@ import {
 } from '@/lib/shared/contactForm'
 import type { Line } from '@/lib/tenant/lines'
 import { topicFromSearch } from '@/lib/shared/contactTopic'
-import { formAttachments, withAttachments } from '@/lib/shared/formAttachment'
+import { MESSAGE_MAX } from '@/lib/inquiry/limits'
+import { collectAttachments, withAttachments } from '@/lib/shared/formAttachment'
 import { PHRASE_PARAM } from '@/lib/shared/search/provider'
 import { findZone, zoneLabel, type ServiceZone } from '@/lib/shared/zones'
 
@@ -101,11 +102,12 @@ export function ContactForm({
 
   // „Zapytaj o …” of the search (`?fraza=`, ADR-022 D2-2b): the phrase starts the message;
   // „Z czym dzwonisz?” (`?temat=`, plan 0611 §8.2) picks the topic chip, when the line has it.
-  const topicKey = JSON.stringify(topics)
+  // Read once on mount: the topics are props of the page (`shared.contact.topics`).
+  const topicList = useRef(topics)
   useEffect(() => {
     const search = window.location.search
     const phrase = new URLSearchParams(search).get(PHRASE_PARAM)?.trim()
-    const topic = topicFromSearch(search, JSON.parse(topicKey) as string[])
+    const topic = topicFromSearch(search, topicList.current)
     if (!phrase && !topic) return
     const timer = window.setTimeout(
       () =>
@@ -117,7 +119,7 @@ export function ContactForm({
       0,
     )
     return () => window.clearTimeout(timer)
-  }, [topicKey])
+  }, [])
 
   const set = <K extends keyof SharedFormValues>(key: K, value: SharedFormValues[K]) =>
     setValues((current) => ({ ...current, [key]: value }))
@@ -139,6 +141,7 @@ export function ContactForm({
     if (Object.keys(found).length) return showErrors(found)
     lock.current = true
     setSending(true)
+    const attached = collectAttachments()
     try {
       const response = await fetch('/api/inquiry', {
         method: 'POST',
@@ -148,7 +151,7 @@ export function ContactForm({
           buildInquiryBody(
             toInquiryValues({
               ...values,
-              message: withAttachments(values.message, formAttachments()),
+              message: withAttachments(values.message, attached.texts),
             }),
             {
               href: window.location.href,
@@ -164,6 +167,8 @@ export function ContactForm({
         serverMessages(sharedRules),
       )
       if (outcome.kind === 'sent') {
+        // The line's parts went out with the message (Biznes may empty its list).
+        attached.sent()
         setSent({ number: outcome.number, email: values.contact.includes('@') })
         setErrors({})
         setFormError(null)
@@ -311,7 +316,7 @@ export function ContactForm({
         value={values.message}
         onChange={(event) => set('message', event.target.value)}
         error={errors.message}
-        maxLength={5000}
+        maxLength={MESSAGE_MAX}
       />
       <ConsentField
         id={fid('consent')}

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { MESSAGE_MAX } from './limits'
 
 import { MAX_ITEMS, MAX_NOTE, MAX_QTY } from '../cart/cart'
 import { isValidNip, normalizeNip } from '../site/company'
@@ -55,7 +56,7 @@ const baseSchema = z.object({
     'invalid phone',
   ),
   city: optionalText(100),
-  message: optionalText(5000),
+  message: optionalText(MESSAGE_MAX),
   // The site to audit (`audit`) or the customer's current site (wizard, „mam już stronę”).
   auditUrl: optionalText(2000).pipe(z.url({ protocol: /^https?$/ }).optional()),
   preferredContact: z.enum(PREFERRED_CONTACTS).optional(),
