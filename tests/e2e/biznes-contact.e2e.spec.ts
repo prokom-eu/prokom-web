@@ -46,6 +46,12 @@ test.describe('Biznes /kontakt (shared template, §8.2)', () => {
     await expect(root.locator('address, [data-salon]').filter({ hasText: 'Zakopane' })).toHaveCount(
       0,
     )
+    // The company and the salon as structured data (the site layout), the breadcrumbs (template).
+    const ld = await page
+      .locator('script[type="application/ld+json"]')
+      .evaluateAll((nodes) => nodes.map((node) => node.textContent ?? '').join('\n'))
+    expect(ld).toContain('"LocalBusiness"')
+    expect(ld).toContain('"BreadcrumbList"')
   })
 
   test('„Z czym dzwonisz?”: 4 matters, each leads to the form with its topic picked', async ({
