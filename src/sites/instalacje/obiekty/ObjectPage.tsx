@@ -17,7 +17,6 @@ import type { InstObject } from '@/payload-types'
 
 import { navigation } from '../dane/nawigacja'
 import { type BuiltObjectKey, OBJECT_SCENES, objectPage } from '../dane/obiekty'
-import { LEGAL_NOTE } from '../dane/prawo'
 import type { ServiceKey } from '../dane/types'
 import { InstIcon } from '../InstIcon'
 import { CtaBandView } from '../powloka/CtaBandView'
@@ -52,7 +51,6 @@ type Props = { tenantId: number; object: InstObject; sceneKey: BuiltObjectKey; o
 
 const SECTION = { padding: '0 0 104px' } satisfies CSSProperties
 const hueOf = (color: string) => ({ '--c': color }) as CSSProperties
-const WHO: Record<string, string> = { Instalator: 'i', Razem: 'r' }
 // The Podhale band (`#gory`): the same ridge as the prototype's `.sggm`.
 const RIDGE =
   'M0 160 L0 110 L120 70 L210 98 L330 30 L420 82 L520 50 L640 104 L760 40 L860 90 L980 56 L1090 96 L1200 64 L1200 160 Z'
@@ -62,8 +60,8 @@ const serviceLabel = (key: ServiceKey) => SERVICE_KEYS.find((s) => s.value === k
 const ARCH_OBJECTS = new Set(['dev', 'bud'])
 /**
  * Page of one object „Dla kogo” (`/dla-kogo/<slug>`, KOMPONENTY §5, `build_seg.py`): hero with
- * the cross-section, problems with what we do, day / year timeline, law (no sources, the legal
- * sentence), Podhale, checklist „Przed wizytą”, warranty, packages, FAQ, related services and
+ * the cross-section, problems with what we do, day / year timeline (no law
+ * section: runda v6 §1.1), Podhale, checklist „Przed wizytą”, warranty, packages, FAQ, related services and
  * similar objects, the CTA band — all texts from the panel (`InstObjects`), hotspot titles and
  * the drawing from code. Realizations („Nasze realizacje”, the clients agreed — boss 01.11.2026)
  * from the panel; the photo slot keeps the icon without the prototype's „Miejsce na zdjęcie”.
@@ -228,33 +226,6 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
               lead={object.dayIntro?.text ?? undefined}
             />
             <DayTimeline moments={moments} hotspotColors={hotspots.map((h) => h.color)} />
-          </div>
-        </InstSection>
-      )}
-
-      {object.law && object.law.length > 0 && (
-        <InstSection id="przepisy" style={SECTION} {...foldOf('przepisy')}>
-          <div className="wrap">
-            <SectionHead
-              eyebrow={objectPage.law.eyebrow}
-              heading={object.lawIntro?.heading ?? ''}
-              lead={object.lawIntro?.text ?? undefined}
-            />
-            <div className="sglg">
-              {object.law.map((l) => (
-                <article key={l.id ?? l.title} className="card sglc ri">
-                  <div className="sglt">
-                    {l.who && <span className={`sgwho ${WHO[l.who] ?? 'o'}`}>{l.who}</span>}
-                    {l.article && <code>{l.article}</code>}
-                  </div>
-                  <b className="h3">{l.title}</b>
-                  {l.description && <p>{l.description}</p>}
-                </article>
-              ))}
-            </div>
-            <p className="src ri" style={{ marginTop: 12, marginBottom: '1em' }}>
-              {LEGAL_NOTE}
-            </p>
           </div>
         </InstSection>
       )}

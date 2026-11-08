@@ -1,5 +1,5 @@
 /*
- * „Dla kogo” pages (I10): the cross-section card, problems, day timeline, law, Podhale band,
+ * „Dla kogo” pages (I10): the cross-section card, problems, day timeline, Podhale band,
  * checklist. Ported from pk.css by narzedzia/przenies-css.mjs (classes of `Seg*.body.html` and
  * `build_seg.py`), colours only from tokens (`--inst-sg-*`, `--inst-il-*`). The prototype's
  * generic `.cone`, `.ring`, `.arc` apply here only as hotspot effects (`.hsfx`).
@@ -557,59 +557,6 @@
     background: var(--h, var(--inst-plan-send-to));
     transition: width 0.5s;
   }
-  & .sglg {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-  }
-  & .sglc {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 24px;
-  }
-  & .sglc p {
-    margin: 0;
-    color: var(--ink-2);
-    font-size: 14.5px;
-    line-height: 1.55;
-  }
-  & .sglt {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-  }
-  & .sglt code {
-    font:
-      700 12px ui-monospace,
-      Menlo,
-      monospace;
-    padding: 4px 8px;
-    border-radius: 8px;
-    background: var(--surface-2);
-    color: var(--ink-soft);
-  }
-  & .sgwho {
-    font-size: 11.5px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 4px 9px;
-    border-radius: 999px;
-  }
-  & .sgwho.o {
-    background: color-mix(in srgb, var(--inst-promo-warm) 18%, transparent);
-    color: var(--inst-warn-text);
-  }
-  & .sgwho.i {
-    background: var(--accent-soft);
-    color: var(--accent-text);
-  }
-  & .sgwho.r {
-    background: color-mix(in srgb, var(--inst-scene-beam-ok) 18%, transparent);
-    color: var(--ok-text);
-  }
   & .sggw {
     position: relative;
     border-radius: 30px;
@@ -805,7 +752,6 @@
   }
   @media (max-width: 1100px) {
     & .sgpg,
-    & .sglg,
     & .sgrg {
       grid-template-columns: 1fr 1fr;
     }
@@ -819,7 +765,6 @@
   }
   @media (max-width: 700px) {
     & .sgpg,
-    & .sglg,
     & .sgrg,
     & .sggg {
       grid-template-columns: 1fr;

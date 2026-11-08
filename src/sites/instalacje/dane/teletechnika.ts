@@ -1,5 +1,4 @@
 import type { Feature, SectionHead } from './anteny'
-import { stanNa } from './stanFaktow'
 
 /**
  * Fixed texts of the Teletechnika page (ADR-I002 §1): the sections that are not in
@@ -123,7 +122,7 @@ export const teletechnika = {
       {
         icon: 'cam',
         title: 'Monitoring części wspólnych',
-        text: 'Garaż podziemny, wejścia, śmietnik, plac zabaw. Zakres dokumentacji (np. pod RODO wspólnoty) ustalamy w ofercie.',
+        text: 'Garaż podziemny, wejścia, śmietnik, plac zabaw. Zakres dokumentacji ustalamy w ofercie.',
       },
       {
         icon: 'lock',
@@ -134,7 +133,7 @@ export const teletechnika = {
   },
 
   /*
-   * RUNDA-V5 §10 — more content between the scope and the law. Only general, checkable facts,
+   * RUNDA-V5 §10 — more content between the scope and the quote form. Only general, checkable facts,
    * no new numbers without a source. Sentences that name a standard carry a TODO for the check
    * at the editing stage.
    */
@@ -357,26 +356,6 @@ export const teletechnika = {
       },
     ] satisfies Feature[],
     note: 'Na Podhalu wciąż dużo się buduje: w 2024 roku w powiatach nowotarskim i tatrzańskim oddano łącznie ok. 1170 mieszkań, także w domach jednorodzinnych (dane GUS). Okablowanie najlepiej zaplanować, zanim wejdą tynkarze.',
-  },
-
-  law: {
-    eyebrow: `Co się zmieniło w 2026 · ${stanNa()}`,
-    heading: 'Nowy budynek musi być gotowy na światłowód.',
-    lead: 'Pilnujemy, żeby to, co zaprojektowano, dało się odebrać. A gdy przepisy się zmieniają, mówimy o tym już w ofercie.',
-    items: [
-      {
-        title: 'Od 12.02.2026: światłowód w nowym budynku',
-        text: 'Rozporządzenie UE 2024/1309 (Gigabit Infrastructure Act, art. 10): nowe budynki i budynki po gruntownej przebudowie, dla których wniosek o pozwolenie złożono po 12.02.2026, mają mieć wewnętrzną infrastrukturę i okablowanie światłowodowe, a budynki wielorodzinne także punkt dostępu dla operatorów. Wyjątki i szczegóły sprawdzamy w projekcie.',
-      },
-      {
-        title: 'Ustawa o wspieraniu rozwoju sieci telekomunikacyjnych',
-        text: 'Art. 30 ust. 6: budynek powinien być wyposażony, zgodnie z warunkami technicznymi, w instalację telekomunikacyjną. Przy przebudowie instalacji w budynkach wielorodzinnych, zamieszkania zbiorowego i użyteczności publicznej obowiązek dotyczy także ich (art. 30 ust. 7–9).',
-      },
-      {
-        title: 'Warunki techniczne: okres przejściowy',
-        text: `Rozporządzenie o warunkach technicznych z 2002 r. utraciło moc 20.09.2026, nowego nie ogłoszono (${stanNa()}). Do 20.03.2028 projekt można sporządzić według dotychczasowych warunków (dla teletechniki rozdział 8a), jeśli inwestor złoży oświadczenie (art. 102a–102c Prawa budowlanego). Stan prawny sprawdzamy przy każdym projekcie.`,
-      },
-    ],
   },
 
   /** Quote form (`rfq`): a contact inquiry „Teletechnika — przedmiar” (ADR-I002 §4). */

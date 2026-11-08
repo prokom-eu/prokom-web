@@ -1285,13 +1285,6 @@
     color: var(--inst-band-note);
     font-size: 14px;
   }
-  & .snd-dso-lbl {
-    color: var(--inst-dark-lead);
-    font-size: 13px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
 }
 
 @keyframes inst-snd-pulse {

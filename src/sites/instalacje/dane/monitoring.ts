@@ -479,14 +479,13 @@ export const monitoring = {
       few: 'To mało. Przy takiej liczbie kamer warto większy dysk albo nagrywanie przy ruchu.',
       ok: 'Czas przechowywania ustawiamy w rejestratorze, a starsze nagrania nadpisują się same.',
     },
-    law: 'Monitoring pracowników: nagrania najwyżej 3 miesiące od nagrania, chyba że są dowodem w postępowaniu (Kodeks pracy, art. 22²). EROD zaleca, by nagrania co do zasady usuwać automatycznie po kilku dniach. Dłuższy czas, zwłaszcza ponad 72 godziny, administrator musi uzasadnić celem monitoringu.',
   },
 
-  rodo: {
+  privacy: {
     head: {
-      eyebrow: 'Monitoring i RODO',
-      heading: 'Gdzie kamera może patrzeć, a gdzie nie.',
-      lead: 'Technikę ustawiamy tak, żeby pomagała Ci spełnić przepisy: strefy, maski, czas nagrań, tabliczki. Dokumenty, np. regulamin monitoringu, przygotowuje właściciel. Podpowiemy, co w nich ująć.',
+      eyebrow: 'Prywatność',
+      heading: 'Kadr i maski: kamera patrzy tylko tam, gdzie trzeba.',
+      lead: 'Ustawiamy kadr, maski prywatności i czas nagrań. Podpowiemy też, gdzie powiesić tabliczkę o monitoringu i co na niej wpisać.',
     } satisfies SectionHead,
     yes: {
       title: 'Tak, z rozsądkiem',
@@ -504,7 +503,7 @@ export const monitoring = {
         'Pokoje gości i apartamenty',
         'Łazienki, toalety, szatnie',
         'Sauna, strefa SPA, przebieralnie',
-        'Stołówka, palarnia i pokój związków zawodowych (Kodeks pracy dopuszcza tylko wąskie wyjątki)',
+        'Stołówka, palarnia i pokój związków zawodowych',
         'Okna, ogrody i działki sąsiadów',
       ],
     },
@@ -513,13 +512,12 @@ export const monitoring = {
       label: 'Przykład tabliczki informującej o monitoringu',
       title: 'Obiekt monitorowany',
       rows: [
-        { key: 'Administrator:', value: 'nazwa obiektu, adres, kontakt' },
+        { key: 'Kto monitoruje:', value: 'nazwa obiektu, adres, kontakt' },
         { key: 'Cel:', value: 'bezpieczeństwo osób i ochrona mienia' },
         { key: 'Czas przechowywania:', value: 'liczba dni, np. 3' },
-        { key: 'Twoje prawa:', value: 'm.in. dostęp do nagrań, usunięcie, sprzeciw' },
         { key: 'Pełna informacja:', value: 'recepcja lub adres strony' },
       ],
-      foot: 'Przykład układu tabliczki według wytycznych EROD 3/2019. Treść ustala administrator.',
+      foot: 'Przykład układu tabliczki. Treść ustala właściciel obiektu.',
     },
     we: [
       {
@@ -530,7 +528,7 @@ export const monitoring = {
       {
         icon: 'clock',
         title: 'Czas nagrań',
-        text: 'Ustawiamy nadpisywanie po tylu dniach, ile wynika z celu.',
+        text: 'Ustawiamy, po ilu dniach stare nagrania nadpisują się same.',
       },
       {
         icon: 'lock',
@@ -543,13 +541,10 @@ export const monitoring = {
         text: 'Pokazujemy, gdzie powiesić oznaczenia i co na nich wpisać.',
       },
     ] satisfies Feature[],
-    neighbour:
-      'Kamera przy domu, która obejmuje choćby część drogi albo działki sąsiada, nie jest już „czysto domowym” użyciem i podlega RODO (wyrok TSUE C-212/13, Ryneš). Ustawimy kadr i maski tak, żeby patrzyła na Twoją posesję.',
+    neighbour: 'Ustawimy kadr i maski tak, żeby kamera patrzyła tylko na Twoją posesję.',
     employees: {
-      title: 'Masz pracowników?',
-      text: 'Kodeks pracy (art. 22²) wymaga, by cel i zasięg monitoringu ustalić w regulaminie pracy albo obwieszczeniu, poinformować pracowników najpóźniej 2 tygodnie przed uruchomieniem kamer i oznaczyć monitorowany teren najpóźniej dzień wcześniej. Więcej w',
-      link: 'poradniku o monitoringu i RODO',
-      href: '/poradnik/monitoring-a-rodo',
+      title: 'Monitorujesz pracowników?',
+      text: 'Pomożemy ustawić kamery tak, żeby obejmowały tylko to, co trzeba.',
     },
   },
 

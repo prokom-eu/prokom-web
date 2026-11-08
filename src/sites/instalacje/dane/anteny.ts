@@ -146,7 +146,7 @@ export const anteny = {
   quiz: {
     eyebrow: 'Czy mój telewizor jest gotowy?',
     title: 'Sprawdź w 30 sekund.',
-    text: 'Przepisy wymagają od odbiorników DVB-T2 dekodowania HEVC (H.265). Telewizory sprzedawane od 1.12.2019 powinny to mieć. Od 2023 r. TVP1 i Polsat nadają z anteny w DVB-T2/HEVC, więc ich odbiór to najprostszy test.',
+    text: 'Do odbioru DVB-T2 telewizor musi dekodować HEVC (H.265). Telewizory sprzedawane od 1.12.2019 powinny to mieć. Od 2023 r. TVP1 i Polsat nadają z anteny w DVB-T2/HEVC, więc ich odbiór to najprostszy test.',
     q1: {
       label: 'Kiedy kupiony telewizor?',
       options: ['Od grudnia 2019', 'Wcześniej', 'Nie wiem'],
@@ -269,24 +269,5 @@ export const anteny = {
         text: 'Transmodulator przerabia wybrane kanały SAT na DVB-T lub DVB-C w wewnętrznej sieci obiektu. Dotyczy to kanałów niekodowanych albo płatnych w ramach umowy hotelowej z operatorem (np. Polsat Box, CANAL+). Bez takiej umowy płatnych kanałów nie wolno rozprowadzać po pokojach.',
       },
     ] satisfies Feature[],
-    fees: {
-      eyebrow: 'Zanim powiesisz telewizory w pokojach',
-      heading: 'Dwie opłaty, o których warto wiedzieć.',
-      items: [
-        {
-          icon: 'doc',
-          title: 'Abonament RTV za każdy telewizor',
-          text: 'Firma płaci za każdy odbiornik osobno. W 2026 r. to 30,50 zł miesięcznie za telewizor. Sądy uznają, że telewizor gotowy do odbioru w pokoju hotelowym podlega opłacie.',
-        },
-        {
-          icon: 'music',
-          title: 'Licencje organizacji zbiorowego zarządzania',
-          text: 'TSUE (C-306/05) uznał telewizję w pokojach hotelowych za publiczne udostępnianie utworów. Licencje rozlicza się z kilkoma organizacjami, m.in. ZAiKS i STOART. Przykład: STOART za audio w pokojach od 1,10 do 5,00 zł netto za pokój miesięcznie (tabela od 1.04.2026). Dla telewizorów STOART ma osobną tabelę.',
-        },
-      ] satisfies Feature[],
-      // TODO(krystian): spec §2 — przy przepisach tylko „To nie jest porada prawna.”; zdanie z wzorca
-      // zostawione do decyzji (dopisać / zastąpić).
-      note: 'To obowiązki obiektu, nie instalatora. Informujemy o nich przy projekcie, ale nie zastępujemy porady prawnej.',
-    },
   },
 } as const

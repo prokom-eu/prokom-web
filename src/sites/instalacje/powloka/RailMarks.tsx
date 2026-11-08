@@ -6,7 +6,7 @@ import { useLayoutEffect } from 'react'
 const ICONS: [RegExp, string][] = [
   [/pyta|faq/i, 'q'],
   [/cen|koszt|wycen/i, 'wallet'],
-  [/rodo|przepis|prawo|norm/i, 'shield'],
+  [/rodo|prywatn|norm/i, 'shield'],
   [/zestaw|pakiet|sprz[eę]t|marki/i, 'box'],
   [/serwis|gwaranc|przegl/i, 'wrench'],
   [/kalkul|liczb/i, 'chart'],

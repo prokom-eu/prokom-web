@@ -607,23 +607,6 @@
     color: var(--ink-soft);
     line-height: 1.5;
   }
-  & .kdl.dk b {
-    color: var(--inst-dark-white);
-  }
-  & .kdl.dk span span {
-    color: var(--inst-dark-lead);
-  }
-  & .kdl.dk .ico {
-    background: var(--inst-dark-icon-bg);
-    color: var(--inst-dark-accent);
-  }
-  & .kdk .kdeye {
-    color: var(--inst-dark-accent);
-  }
-  & .kdk .kdnote {
-    color: var(--inst-dark-note);
-    font-size: 13.5px;
-  }
 }
 
 @media (max-width: 1100px) {
