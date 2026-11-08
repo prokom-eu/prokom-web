@@ -130,8 +130,8 @@ export const COMPANY_LINES: NonNullable<CompanyDatum['lines']> = [
 ]
 
 /**
- * Service zones: the four zones of the Instalacje contact map (`dane/kontakt.ts`, towns of
- * `kontaktModel.ts`), now one list for every line. TODO(krystian): [SZEF] potwierdzić listę.
+ * Service zones: the four zones of the former Instalacje contact map (and the towns of
+ * its zone model), now one list for every line. TODO(krystian): [SZEF] potwierdzić listę.
  */
 export const COMPANY_ZONES: NonNullable<CompanyDatum['serviceZones']> = [
   {

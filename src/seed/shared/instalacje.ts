@@ -1,4 +1,4 @@
-import { CONTACT_FAQ_TODO, type SharedGroup, VERIFY_CEIDG, VERIFY_GOOGLE } from './types'
+import { type SharedGroup, VERIFY_CEIDG, VERIFY_GOOGLE } from './types'
 
 /**
  * Shared fields of prokominstalacje.pl (spec §4.2, §6.3): texts of the boards Chrome, Footer,
@@ -95,8 +95,8 @@ export const INSTALACJE_SHARED: SharedGroup = {
       {
         title: 'Awaria albo przegląd',
         text: 'Także instalacje po innej firmie. Opisz problem, oddzwonimy.',
-        cta: 'Serwis i przeglądy',
-        href: '/serwis',
+        cta: 'Zgłoś awarię',
+        href: '/serwis#zglos',
       },
       {
         title: 'Jestem architektem lub deweloperem',
@@ -119,16 +119,40 @@ export const INSTALACJE_SHARED: SharedGroup = {
     mapLead:
       'Wpisz miejscowość, a pokażemy strefę dojazdu. Przy większych inwestycjach jedziemy dalej.',
     salonKeys: ['rabka'],
-    faq: CONTACT_FAQ_TODO,
+    // Answers only from what the site already promises (spec §2, `dane/`); the template's
+    // questions about parking and walk-ins wait for the boss. TODO(krystian): parking at the salon.
+    faq: [
+      {
+        question: 'Czy przyjeżdżacie na miejsce?',
+        answer:
+          'Tak. Przed wyceną oglądamy obiekt na wizji lokalnej — termin ustalamy w rozmowie. Dojeżdżamy z Rabki-Zdroju na całe Podhale, przy większych inwestycjach dalej w Małopolsce.',
+      },
+      {
+        question: 'Jak szybko odpowiadacie?',
+        answer: 'Na zgłoszenie odpowiadamy do 24 h w dni robocze — telefonem albo e-mailem.',
+      },
+      {
+        question: 'Co przygotować przed rozmową?',
+        answer:
+          'Wystarczy krótki opis: rodzaj obiektu, co chcesz zabezpieczyć albo podłączyć i gdzie jest obiekt. Resztę ustalimy na wizji lokalnej.',
+      },
+      {
+        question: 'Czy serwisujecie instalacje po innej firmie?',
+        answer:
+          'Tak. Robimy przeglądy i naprawy także instalacji, których nie montowaliśmy. Opisz problem w formularzu albo zgłoś awarię — oddzwonimy.',
+      },
+    ],
   },
   about: {
     h1: 'Firma z Podhala, która zostaje po montażu.',
     lead: 'Projektujemy, montujemy i serwisujemy monitoring, alarmy, sieci, smart home i nagłośnienie. Salon w Rabce-Zdroju, od 2004 r.',
     authTitle: 'Autoryzacje',
-    auth: ['[SZEF: Satel]', '[SZEF: Ampio]', 'Elzab EcoPower'],
+    // Ampio confirmed by the boss 01.11 (`dane/smartHome.ts`); Satel still open — the marker
+    // keeps it off the page until confirmed.
+    auth: ['Ampio', 'Elzab EcoPower', '[SZEF: Satel]'],
     stats: [
+      { value: '20+', label: 'lat na Podhalu — od 2004 r.' },
       { value: '24', label: 'miesiące gwarancji na montaż' },
-      { value: '12', label: 'rodzajów obiektów — od domu po gminę' },
     ],
     rules: [
       {
@@ -156,7 +180,11 @@ export const INSTALACJE_SHARED: SharedGroup = {
     verify: [
       VERIFY_CEIDG,
       VERIFY_GOOGLE,
-      { title: 'Autoryzacje producentów', text: '[SZEF: potwierdzenia Satel / Ampio]' },
+      {
+        title: 'Autoryzacja Ampio',
+        text: 'Smart home Ampio montujemy z autoryzacją producenta.',
+        href: '/smart-home',
+      },
       {
         title: 'Realizacje',
         text: 'Wybrane obiekty — tylko za zgodą klienta.',

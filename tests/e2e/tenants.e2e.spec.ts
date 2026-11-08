@@ -21,7 +21,7 @@ const TENANTS = [
   {
     host: 'instalacje.localhost',
     name: 'PRO-KOM Instalacje',
-    title: 'Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje',
+    title: 'Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje',
     h1: /Twój inteligentny obiekt na żywo\.$/,
     // The line's e-mail from the panel (the seed writes the real contact over the sample one,
     // boss 01.11.2026) and a text of the home page.

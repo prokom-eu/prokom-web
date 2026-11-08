@@ -6,13 +6,14 @@ import { SEED_CONTEXT } from '../config'
 import { footerText, lineSettingsUpdate, siteContactUpdate } from './contact'
 import { FORM_PAGE_BLOCKS, needsFormBlock } from './formPages'
 import { seedInstalacjeGuide } from './guide'
-import { LEGAL_LINKS, seedInstalacjeLegal } from './legal'
+import { seedInstalacjeLegal } from './legal'
 import { seedArchNewsPhotos } from './archNewsPhotos'
 import { seedInstalacjeHome } from './home'
 import { seedRealizationPhotos } from './realizationPhotos'
 import { SERVICE_PAGE_KEYS } from './servicePages'
 import {
   archNewsToImport,
+  forwardSeoTitle,
   objectData,
   objectsToImport,
   pagesToImport,
@@ -112,14 +113,10 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     ...local,
   })
   const siteUpdate = siteSettings ? siteContactUpdate(siteSettings) : null
-  // I13: the footer's legal links while the panel has none (the sample settings have none);
-  // L1-I: the line description of the shared footer while the panel has the sample text.
-  const links = siteSettings && !siteSettings.footer?.links?.length ? LEGAL_LINKS : null
+  // L1-I: the line description of the shared footer while the panel has the sample text. The
+  // legal links are no longer written (L2-I): the shared footer takes them from `CompanyData.legal`.
   const text = siteSettings ? footerText(siteSettings.footer?.text) : null
-  const footer =
-    siteSettings && (links || text)
-      ? { ...siteSettings.footer, ...(links && { links }), ...(text && { text }) }
-      : null
+  const footer = siteSettings && text ? { ...siteSettings.footer, text } : null
   if (siteSettings && (siteUpdate || footer)) {
     await payload.update({
       collection: 'site-settings',
@@ -324,15 +321,32 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
   // --- home page (I5): the `instHome` block and SEO, also over the sample page ---
   await seedInstalacjeHome(payload, tenantId, count)
 
-  // --- pages: missing ones as empty drafts with title and SEO; existing ones untouched ---
+  // --- pages: missing ones as empty drafts with title and SEO; existing ones keep theirs ---
   // `kontakt` of an older `pnpm seed` is its sample page; the form pages below replace it (I11).
+  // P3-23: an existing page whose SEO title is still a former default of the seed moves forward.
   for (const page of pagesToImport()) {
-    const { totalDocs } = await payload.count({
+    const {
+      docs: [existing],
+      totalDocs,
+    } = await payload.find({
       collection: 'pages',
       where: inTenant({ slug: { equals: page.slug } }),
+      limit: 1,
+      depth: 0,
+      draft: true,
       overrideAccess: true,
       context: SEED_CONTEXT,
     })
+    const title = existing ? forwardSeoTitle(existing.seo?.title, page.seo.title) : null
+    if (existing && title) {
+      await payload.update({
+        collection: 'pages',
+        id: existing.id,
+        data: { seo: { ...existing.seo, title } },
+        ...local,
+      })
+      count('pages seo title', 'updated')
+    }
     if (totalDocs === 0) {
       await payload.create({
         collection: 'pages',

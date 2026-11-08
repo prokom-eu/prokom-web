@@ -1315,3 +1315,22 @@
     font-size: 14px;
   }
 }
+
+/* Consent row of the line's own forms (planner, home, service, architects, quote) — moved from
+   the former contact page stylesheet (L2-I: `/kontakt` uses the shared form). */
+[data-line='instalacje'] {
+  & .consent {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  & .consent input {
+    width: 20px;
+    height: 20px;
+    margin: 2px 0 0;
+    accent-color: var(--accent);
+    flex: none;
+  }
+}

@@ -21,7 +21,8 @@ export const dostep = {
   lock: {
     label: 'Interaktywny zamek z kodem i harmonogram kodów',
     tabsLabel: 'Rodzaj obiektu',
-    keysLabel: { clear: 'Wyczyść', ok: 'Zatwierdź', digit: 'Cyfra' },
+    // WCAG 2.5.3: a key's name starts with what it shows („OK”, „C”).
+    keysLabel: { clear: 'C, wyczyść', ok: 'OK, zatwierdź', digit: 'Cyfra' },
     hint: 'Wpisz kod gościa:',
     guestCode: '2468',
     expiredCode: '1357',
