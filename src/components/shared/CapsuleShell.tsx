@@ -46,6 +46,8 @@ export function CapsuleShell({ children, paused, state }: Props) {
         className="cap-wrap"
         data-scrolled={isScrolled ? '' : undefined}
         data-hidden={hidden && !state ? '' : undefined}
+        // Moved off screen on a phone: out of the Tab order and the accessibility tree too.
+        inert={hidden && !state ? true : undefined}
         data-static={state ? '' : undefined}
         data-site-header
       >
