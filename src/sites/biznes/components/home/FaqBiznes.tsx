@@ -12,8 +12,6 @@ import { LiveHours } from './LiveHours'
 type Props = {
   block: FaqBlockData
   tenantId: number
-  /** Questions shown below 768 px (board App-Branza: three); all stay in the FAQPage data. */
-  phoneLimit?: number
 }
 
 /** The field is optional in the shared block: never an empty `h2` the section points to. */
@@ -24,7 +22,7 @@ const DEFAULT_HEADING = 'Najczęstsze pytania'
  * with a small contact card, numbered question cards on the right, the first one open.
  * `<details>` works without JavaScript; `FAQPage` JSON-LD as in the shared block.
  */
-export async function FaqBiznes({ block, tenantId, phoneLimit }: Props) {
+export async function FaqBiznes({ block, tenantId }: Props) {
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const phone = settings?.phone ?? null
   const tel = phone ? toTelHref(phone) : null
@@ -83,10 +81,7 @@ export async function FaqBiznes({ block, tenantId, phoneLimit }: Props) {
         </div>
         <ol className="flex flex-col gap-2.5 max-md:gap-2">
           {block.items.map((item, i) => (
-            <li
-              key={item.id ?? i}
-              className={phoneLimit !== undefined && i >= phoneLimit ? 'max-md:hidden' : undefined}
-            >
+            <li key={item.id ?? i}>
               <details
                 open={i === 0}
                 className="group rounded-[18px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-shadow open:shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
