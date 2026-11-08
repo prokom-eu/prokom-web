@@ -275,7 +275,7 @@
     font-style: normal;
     font-size: 12.5px;
     font-weight: 800;
-    color: var(--vc);
+    color: color-mix(in srgb, var(--vc) var(--inst-hue-text-mix), var(--ink));
   }
   & .netvb.on {
     box-shadow:
@@ -438,7 +438,7 @@
   & .fon b {
     margin-left: auto;
     font-size: 12px;
-    color: var(--ok);
+    color: var(--ok-text);
   }
   & .fol {
     position: absolute;
@@ -451,23 +451,32 @@
   & .fov .fon:nth-child(1) {
     box-shadow: inset 0 0 0 1.5px var(--ok);
   }
+  /* A link on standby: its icon fades, the text stays readable (P1-4; opacity 0.5 gave 3.6). */
   & .fov .fon:nth-child(2) {
+    color: var(--ink-2);
+  }
+  & .fov .fon:nth-child(2) svg {
     opacity: 0.5;
   }
   & .fov.down .fon:nth-child(1) {
-    opacity: 0.4;
+    color: var(--ink-2);
     box-shadow: inset 0 0 0 1.5px var(--inst-bad);
   }
   & .fov.down .fon:nth-child(1) svg {
+    opacity: 0.4;
     color: var(--inst-bad);
   }
   & .fov.down .fon:nth-child(1) .fol {
     background: var(--inst-bad);
   }
+  /* After the failure the backup link takes over: fully active again (review of PR3). */
   & .fov.down .fon:nth-child(2) {
-    opacity: 1;
+    color: var(--ink);
     box-shadow: inset 0 0 0 1.5px var(--warn);
     animation: inst-si-fadeUp 0.5s var(--ease-out);
+  }
+  & .fov.down .fon:nth-child(2) svg {
+    opacity: 1;
   }
   & .fov:not(.down) .fon:nth-child(2) .fol {
     background: var(--border);
@@ -555,7 +564,8 @@
     font-stretch: 120%;
     font-weight: 900;
     font-size: 34px;
-    color: var(--border);
+    /* Big role numbers (34 px): ≥ 3:1 for large text, still quiet (P1-4). */
+    color: color-mix(in srgb, var(--ink-2) 72%, var(--card));
   }
   & .hwrole:not(:last-child)::after {
     content: '';
@@ -579,7 +589,7 @@
     background: var(--surface-2);
   }
   & .hwtip b {
-    color: var(--warn);
+    color: var(--inst-warn-text);
   }
   @media (max-width: 1100px) {
     & .hwflow {
@@ -703,6 +713,10 @@
   }
   & .uhl.bkl {
     color: var(--inst-plan-text);
+  }
+  /* Lists on a dark card: the light-theme --ink-soft of `.uhl li` would vanish (P1-4). */
+  & [data-surface='dark'] .uhl li {
+    color: var(--inst-dark-lead);
   }
   & .bknote {
     color: var(--inst-plan-note);

@@ -299,7 +299,8 @@
     right: 20px;
     top: 16px;
     font-size: 34px;
-    opacity: 0.5;
+    /* Large text: ≥ 3:1 (P1-4; 0.5 gave 2.3). */
+    opacity: 0.72;
   }
   & .vdscr {
     position: relative;
@@ -670,9 +671,22 @@
     background: var(--il-bad-feed);
     color: var(--il-bad-ink);
   }
+  /* Not in this version: the icon fades, the text stays readable (P1-4, WCAG 1.4.3). */
   & .xb-alv .alvi:not(.on) {
+    opacity: 1;
+    filter: none;
+  }
+  & .xb-alv .alvi > :not(div) {
+    transition:
+      opacity 0.4s,
+      filter 0.4s;
+  }
+  & .xb-alv .alvi:not(.on) > :not(div) {
     opacity: 0.68;
     filter: saturate(0.25);
+  }
+  & .xb-alv .alvi:not(.on) > div :is(span, em) {
+    color: var(--ink-2);
   }
   & .xb-alv .alvi:not(.on) b {
     color: var(--ink-2);
