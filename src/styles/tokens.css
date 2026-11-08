@@ -1464,8 +1464,9 @@
   --em-mid: #7b52e0;
   --em-mid-at: 45%;
   --em-to: #a07ef2;
-  --em-hero-from: #d9ccff;
-  --em-hero-to: #9670ee;
+  /* H1 of a subpage (aurora.css `.au.light .au-ph h1 em`). */
+  --em-hero-from: #9670ee;
+  --em-hero-to: #5b33c4;
   --sheen: rgba(255, 255, 255, 0.35);
   --sheen-ghost: rgba(150, 112, 238, 0.25);
   --beam: #9670ee;
@@ -1607,6 +1608,8 @@
   --hero-word-from: #d9ccff;
   --hero-word-to: #9670ee;
   --em-to: #c3abfa;
+  --em-hero-from: #d9ccff;
+  --em-hero-to: #9670ee;
 }
 
 /* „Plan Twojej firmy” (K31d′): colours of the floor plan drawings, 1:1 from `fp.css` of the

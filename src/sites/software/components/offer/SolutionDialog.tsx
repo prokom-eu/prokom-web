@@ -15,7 +15,7 @@ import {
   CheckList,
   CompareTable,
   Fact,
-  IncludedCard,
+  IncludedChips,
   LevelChoice,
   LiveBadge,
   OfferBadge,
@@ -24,12 +24,15 @@ import {
   RelatedCards,
   Steps,
 } from './OfferParts'
-import { OfferThumb } from './OfferThumb'
+import { OfferGallery } from './OfferGallery'
 
-/** Phone ≤ 640 px: a sheet from the bottom; above: a modal in the middle (spec. §5.1). */
+/**
+ * Phone ≤ 640 px: a sheet from the bottom; above: a glass modal in the middle (ZMIANY-v24 §6.1:
+ * radius 28, the page dimmed and blurred behind).
+ */
 const PANEL =
-  'inset-0 m-auto h-[calc(100dvh-80px)] max-h-[980px] w-[min(1180px,calc(100vw-48px))] max-w-none rounded-[28px] min-[641px]:[&_[data-sheet-handle]]:hidden max-[640px]:inset-x-0 max-[640px]:bottom-0 max-[640px]:top-auto max-[640px]:h-auto max-[640px]:max-h-[94dvh] max-[640px]:w-full max-[640px]:rounded-b-none'
-const BACKDROP = 'backdrop:bg-surface-dark/60 backdrop:backdrop-blur-sm'
+  'sw-offer-panel inset-0 m-auto h-[calc(100dvh-80px)] max-h-[980px] w-[min(1180px,calc(100vw-48px))] max-w-none rounded-[28px] min-[641px]:[&_[data-sheet-handle]]:hidden max-[640px]:inset-x-0 max-[640px]:bottom-0 max-[640px]:top-auto max-[640px]:h-auto max-[640px]:max-h-[94dvh] max-[640px]:w-full max-[640px]:rounded-b-none'
+const BACKDROP = 'backdrop:bg-surface-dark/70 backdrop:backdrop-blur-md'
 const CONTENT = 'px-4 pb-6 pt-2.5 min-[641px]:px-7 min-[641px]:pt-0'
 
 type Props = {
@@ -67,8 +70,8 @@ function Chevron({ back = false }: { back?: boolean }) {
 }
 
 /**
- * The offer window — one component for the catalog (SWR3), „12 rzeczy” (SWR5) and the industry
- * page (SW10). On the shared `BottomSheet`: native modal `<dialog>` (focus stays inside, Esc,
+ * The offer window (v24 look, ZMIANY-v24 §6.1) — one component for the catalog, the price page
+ * and the industry page. On the shared `BottomSheet`: native modal `<dialog>` (focus stays inside, Esc,
  * focus back on the card), a tap on the backdrop, a pull down on the phone. ←/→ move along
  * `list`; „+ Dodaj do wyceny” turns into „Wyślij do wyceny →”, which takes the focus.
  */
@@ -184,11 +187,11 @@ export function SolutionDialog({
   const header = (
     <div className="-mx-4 flex items-center gap-3 border-b border-border bg-surface px-4 py-3 min-[641px]:-mx-7 min-[641px]:px-7">
       {list.length > 1 && (
-        <div className="flex items-center rounded-2xl border border-border bg-surface-2 p-1">
+        <div className="flex items-center rounded-full border border-border bg-surface-2 p-1">
           <button
             type="button"
             onClick={() => step(-1)}
-            className="inline-flex size-11 items-center justify-center rounded-xl hover:bg-card"
+            className="inline-flex size-11 items-center justify-center rounded-full hover:bg-card"
           >
             <Chevron back />
             <span className="sr-only">Poprzednie rozwiązanie</span>
@@ -201,20 +204,18 @@ export function SolutionDialog({
           <button
             type="button"
             onClick={() => step(1)}
-            className="inline-flex size-11 items-center justify-center rounded-xl hover:bg-card"
+            className="inline-flex size-11 items-center justify-center rounded-full hover:bg-card"
           >
             <Chevron />
             <span className="sr-only">Następne rozwiązanie</span>
           </button>
         </div>
       )}
-      <p className="hidden text-sm font-bold text-ink-2 min-[641px]:block">
-        Oferta · {view.categoryName}
-      </p>
+      <p className="sw-eyebrow hidden min-[641px]:block">Oferta · {view.categoryName}</p>
       <button
         type="button"
         onClick={() => onClose()}
-        className="ml-auto inline-flex size-12 shrink-0 items-center justify-center rounded-2xl border border-border bg-surface-2"
+        className="ml-auto inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-border bg-surface-2"
       >
         <Icon name="x" strokeWidth={2.4} className="size-5" />
         <span className="sr-only">Zamknij</span>
@@ -234,15 +235,31 @@ export function SolutionDialog({
       </p>
       <Link
         href="/dobierz"
-        className="hidden min-h-12 items-center rounded-2xl border border-border bg-card px-5 font-bold min-[641px]:inline-flex"
+        className="hidden min-h-12 items-center rounded-full border border-border bg-card px-5 font-bold min-[641px]:inline-flex"
       >
         Dobierz w kreatorze
       </Link>
+      {!added && (
+        // „Zapytaj o tę ofertę →” (ZMIANY-v24 §6.1): the solution goes into „Twój projekt”, so the
+        // contact form opens with it (the form reads only `?projekt=1`).
+        <Link
+          href={PROJECT_SEND_HREF}
+          onClick={() => {
+            if (projectActions.toggle(view.slug, projectName)) {
+              track('oferta_dodaj', { slug: view.slug })
+            }
+          }}
+          className="inline-flex min-h-12 items-center gap-2 rounded-full border border-border bg-card px-5 font-bold"
+        >
+          Zapytaj o tę ofertę <span aria-hidden="true">→</span>
+        </Link>
+      )}
       {added ? (
         <Link
           ref={send}
           href={PROJECT_SEND_HREF}
-          className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-button px-5 font-bold text-accent-ink"
+          data-motion="button"
+          className="inline-flex min-h-12 items-center gap-2 rounded-full bg-button px-5 font-bold text-accent-ink"
         >
           Wyślij do wyceny
           <Icon name="arrow" strokeWidth={2.4} className="size-4" />
@@ -251,7 +268,8 @@ export function SolutionDialog({
         <button
           type="button"
           onClick={add}
-          className="inline-flex min-h-12 items-center rounded-2xl bg-button px-5 font-bold text-accent-ink"
+          data-motion="button"
+          className="inline-flex min-h-12 items-center rounded-full bg-button px-5 font-bold text-accent-ink"
         >
           <span aria-hidden="true">+ Dodaj do wyceny</span>
           <span className="sr-only">Dodaj do wyceny: {projectName}</span>
@@ -265,14 +283,22 @@ export function SolutionDialog({
     </div>
   )
 
+  // Three tiles (ZMIANY-v24 §6.1): price „od”, term, care „od”.
+  const priceValue = level
+    ? level.price
+    : price.kind === 'included'
+      ? [price.head.before, price.head.amount, price.head.after].filter(Boolean).join(' ')
+      : price.kind === 'ask'
+        ? price.title
+        : null
+  const termValue = level ? level.term : view.term
   const facts = (
-    <dl className="mt-4 flex flex-wrap gap-2.5">
-      {level && <Fact label="Cena" value={level.price} />}
+    <dl className="mt-5 grid grid-cols-2 gap-2.5 min-[641px]:grid-cols-3">
+      {/* „Cena”: the value already says „od” (or „Zapytaj o wycenę”). */}
+      {priceValue && <Fact label="Cena" value={priceValue} />}
       {/* A level without its time in the panel: no empty tile (decyzja SWD2 3). */}
-      {(level ? level.term : view.term) && (
-        <Fact label={view.termLabel} value={(level ? level.term : view.term) ?? ''} />
-      )}
-      {view.forWhomShort && <Fact label="Dla kogo" value={view.forWhomShort} wide />}
+      {termValue && <Fact label={view.termLabel} value={termValue} />}
+      {view.careFrom && <Fact label="Opieka od" value={view.careFrom} />}
     </dl>
   )
 
@@ -342,7 +368,7 @@ export function SolutionDialog({
           {view.lead && <p className="mt-2 text-lg text-ink-2">{view.lead}</p>}
           {facts}
           <div className="mt-4 space-y-3">
-            {price.kind === 'included' && <IncludedCard price={price} />}
+            {price.kind === 'included' && <IncludedChips price={price} />}
             {price.kind === 'ask' && <AskCard price={price} />}
             {levels && (
               <LevelChoice
@@ -353,29 +379,35 @@ export function SolutionDialog({
               />
             )}
             {view.note && (
-              <p className="rounded-2xl bg-accent-soft px-4 py-3 text-sm">{view.note}</p>
+              <p className="rounded-2xl border border-accent-line bg-accent-soft px-4 py-3 text-sm">
+                {view.note}
+              </p>
             )}
           </div>
         </div>
 
         <div className="min-w-0 space-y-4">
-          <div className="relative">
-            <OfferThumb src={view.thumbnail} eager className="rounded-[22px]" />
-            {view.toast && (
-              <span
-                aria-hidden="true"
-                className="absolute -bottom-3 left-4 inline-flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-xl bg-surface-dark px-3 py-2 text-xs font-bold text-white shadow-raised"
-              >
-                <span className="size-1.5 shrink-0 rounded-full bg-ok" />
-                <span className="truncate">{view.toast}</span>
-              </span>
-            )}
-          </div>
+          <OfferGallery
+            key={view.slug}
+            preview={view.preview}
+            thumbnail={view.thumbnail}
+            overlay={
+              view.toast && (
+                <span
+                  aria-hidden="true"
+                  className="absolute bottom-3 left-4 z-10 inline-flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-xl bg-surface-dark px-3 py-2 text-xs font-bold text-white shadow-raised"
+                >
+                  <span className="size-1.5 shrink-0 rounded-full bg-ok" />
+                  <span className="truncate">{view.toast}</span>
+                </span>
+              )
+            }
+          />
           {view.hasLivePreview && (
             // The full solution page with its live preview comes with SW10.
             <Link
               href={`/rozwiazania/${view.slug}`}
-              className="mt-2 flex min-h-12 items-center justify-center rounded-2xl border border-border bg-card px-4 font-bold text-accent-text"
+              className="mt-2 flex min-h-12 items-center justify-center rounded-full border border-border bg-card px-4 font-bold text-accent-text"
             >
               Zobacz podgląd na żywo
             </Link>
@@ -406,11 +438,7 @@ export function SolutionDialog({
           {view.example && (
             <OfferSection
               title="Przykład z życia"
-              aside={
-                <span className="rounded-md bg-surface-2 px-2 py-0.5 text-xs font-bold">
-                  Przykład
-                </span>
-              }
+              aside={<span className="sw-chip min-h-0 py-0.5 text-xs">Przykład</span>}
             >
               <p className="border-l-4 border-accent-line pl-4 text-ink-2">{view.example}</p>
             </OfferSection>
@@ -431,7 +459,7 @@ export function SolutionDialog({
             <OfferSection title="Co od Ciebie">
               <ul className="flex flex-wrap gap-2">
                 {view.needs.map((item) => (
-                  <li key={item} className="rounded-xl bg-surface-2 px-3.5 py-2 font-bold">
+                  <li key={item} className="sw-chip text-ink">
                     {item}
                   </li>
                 ))}
@@ -449,7 +477,7 @@ export function SolutionDialog({
       )}
 
       {view.related.length > 0 && (
-        <OfferSection title="Dobrze łączy się z" className="mt-4">
+        <OfferSection title="Często łączone z" className="mt-4">
           <RelatedCards cards={view.related} onPick={onSwitch} />
         </OfferSection>
       )}
