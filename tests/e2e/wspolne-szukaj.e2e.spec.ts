@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { hydrated, pressUntilVisible, setTheme, site } from './helpers'
+import { clickUntilVisible, hydrated, pressUntilVisible, setTheme, site } from './helpers'
 
 // D2-2b (plan `docs/zadania/wspolne-elementy.md`, spec §5.1, §10 pkt 3): the shared search window
 // on the preview page of Software and Instalacje, over a test index of the line's own data.
@@ -186,4 +186,37 @@ test.describe('/_wspolne — search window on a phone and the recently viewed fl
     const stored = await page.evaluate(() => localStorage.getItem('pk-recent-software'))
     expect(JSON.parse(stored ?? '[]')).toEqual(kept)
   })
+})
+
+// FUND-W PR1: up to 1080 px the capsule hides its loupe — the menu sheet's „Szukaj” opens the
+// line's search window. Software's own site has its phone menu with a search field (no shared
+// sheet), so the shared sheet is checked on its preview page.
+const PHONE_SEARCH = [
+  { host: 'biznes.localhost', path: '/', label: 'Szukaj w ofercie' },
+  { host: 'instalacje.localhost', path: '/', label: 'Szukaj na stronie' },
+  { host: 'software.localhost', path: '/_wspolne', label: 'Szukaj na stronie' },
+] as const
+
+test.describe('menu sheet „Szukaj” on a phone (390 px)', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+
+  for (const { host, path, label } of PHONE_SEARCH) {
+    test(`${host}${path}: Menu → Szukaj → focus in the field, Esc back to the page`, async ({
+      page,
+    }) => {
+      await page.goto(site(host, path))
+      const sheet = page.getByRole('dialog', { name: 'Menu' })
+      await clickUntilVisible(
+        page.locator('[data-site-header]').getByRole('button', { name: 'Menu' }).first(),
+        sheet,
+      )
+      await sheet.getByRole('button', { name: label }).click()
+      await expect(sheet).toBeHidden()
+      const search = page.locator('dialog[open]')
+      await expect(search).toHaveCount(1)
+      await expect(search.getByRole('searchbox')).toBeFocused()
+      await page.keyboard.press('Escape')
+      await expect(page.locator('dialog[open]')).toHaveCount(0)
+    })
+  }
 })
