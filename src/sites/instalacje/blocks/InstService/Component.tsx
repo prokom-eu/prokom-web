@@ -83,9 +83,9 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     sections: <SieciSections />,
     folded: ['cena', 'faq'],
   }),
-  tel: () => ({
+  tel: ({ tenantId }) => ({
     widget: <BuildingScene />,
-    sections: <TeletechnikaSections />,
+    sections: <TeletechnikaSections tenantId={tenantId} />,
     folded: ['faq'],
     guarantee: false,
     bandButton: teletechnika.bandButton,

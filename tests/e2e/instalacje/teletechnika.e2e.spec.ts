@@ -30,6 +30,26 @@ test.describe('Instalacje Teletechnika', () => {
     await expect(hero.locator('.ttnote')).toContainText('Szafa główna')
   })
 
+  test('round v5 sections: stages, handover, mistakes, common parts, pricing, realization', async ({
+    page,
+  }) => {
+    await open(page)
+    const ids = await page.locator('main section[id]').evaluateAll((s) => s.map((x) => x.id))
+    const at = (id: string) => ids.indexOf(id)
+    // RUNDA-V5 §10: after the scope, before the law.
+    for (const id of ['etapy', 'przy-odbiorze', 'bledy', 'czesci-wspolne', 'jak-liczymy']) {
+      expect(at(id)).toBeGreaterThan(at('zakres'))
+      expect(at(id)).toBeLessThan(at('przepisy'))
+    }
+    await expect(page.locator('#etapy .procs')).toHaveCount(7)
+    await expect(page.locator('#etapy .procg')).toHaveCount(7)
+    await expect(page.locator('#bledy .ttavoid')).toHaveCount(4)
+    await expect(page.locator('#czesci-wspolne a[href="/kontrola-dostepu"]')).toBeVisible()
+    await expect(page.locator('#jak-liczymy .procs')).toHaveCount(4)
+    // The Blachotrapez realization is published with photos in the seed.
+    await expect(page.locator('#realizacja-t img').first()).toBeVisible()
+  })
+
   test('the quote form asks for the missing answers, then saves an inquiry', async ({ page }) => {
     await page.setExtraHTTPHeaders({ 'X-Real-IP': clientIp })
     const name = `E2E teletechnika I8 ${Date.now()}`

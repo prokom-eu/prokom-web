@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { unknownAnchors } from '@/lib/instalacje/anchors'
 import { markerIn } from '@/lib/instalacje/archNews'
 
 import {
@@ -9,6 +10,7 @@ import {
   SERVICE_KEYS,
 } from '../../lib/instalacje/options'
 import {
+  ANCHORS_V5,
   archNewsToImport,
   mapHref,
   objectData,
@@ -313,5 +315,18 @@ describe('forwardSeoTitle (P3-23 on existing databases)', () => {
         'Dostęp, monitoring i sieć dla firm',
       ),
     ).toBeNull()
+  })
+})
+
+describe('anchor bars changed after the prototype (RUNDA-V5 §10)', () => {
+  it('point only at sections of the page', () => {
+    for (const [key, anchors] of Object.entries(ANCHORS_V5)) {
+      expect(
+        unknownAnchors(
+          key,
+          (anchors ?? []).map((a) => a.anchorId),
+        ),
+      ).toEqual([])
+    }
   })
 })

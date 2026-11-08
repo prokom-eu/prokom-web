@@ -331,6 +331,20 @@ const packages = (seed: SeedPackage[]): NonNullable<ServiceData['packages']> =>
 
 // --- services ---
 
+/** Anchor bars changed after the prototype (RUNDA-V5 §10: new Teletechnika sections). */
+export const ANCHORS_V5: Partial<Record<string, { anchorId: string; name: string }[]>> = {
+  tel: [
+    { anchorId: 'zakres', name: 'Zakres' },
+    { anchorId: 'etapy', name: 'Etapy budowy' },
+    { anchorId: 'przy-odbiorze', name: 'Odbiór' },
+    { anchorId: 'bledy', name: 'Błędy' },
+    { anchorId: 'dla-kogo', name: 'Dla kogo' },
+    { anchorId: 'przepisy', name: 'Przepisy' },
+    { anchorId: 'zapytanie', name: 'Zapytanie ofertowe' },
+    { anchorId: 'faq', name: 'Pytania' },
+  ],
+}
+
 export type SeedServiceItem = {
   menu: (typeof wspolne.SV)[number]
   page: SeedServicePage
@@ -374,7 +388,8 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
       brands: area.marki,
     },
     hero: hero(d.hero),
-    anchors: d.anc.map((a) => ({ anchorId: a.href.replace(/^#/, ''), name: a.n })),
+    anchors:
+      ANCHORS_V5[key] ?? d.anc.map((a) => ({ anchorId: a.href.replace(/^#/, ''), name: a.n })),
     packagesIntro: {
       eyebrow: d.sx.pkg.eye,
       heading: d.sx.pkg.h,
