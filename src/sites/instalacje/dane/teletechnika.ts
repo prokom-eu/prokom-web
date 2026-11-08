@@ -110,7 +110,7 @@ export const teletechnika = {
         text: 'Instalacja światłowodowa od punktu styku do skrzynek mieszkaniowych, gotowa dla operatorów.',
       },
       {
-        icon: 'tv',
+        icon: 'dish',
         title: 'RTV/SAT zbiorcza',
         text: 'Antena naziemna i satelitarna, multiswitche, rozprowadzenie do gniazd w lokalach.',
       },
@@ -228,7 +228,7 @@ export const teletechnika = {
     avoidLabel: 'Jak tego unikamy',
     items: [
       {
-        icon: 'x',
+        icon: 'fiber',
         title: 'Rury bez zapasu i pilota',
         text: 'Przewodu nie da się przeciągnąć, a ściana jest już otynkowana.',
         avoid: 'Rury z zapasem średnicy i pilotem, drożność sprawdzona przed tynkami.',
@@ -246,7 +246,7 @@ export const teletechnika = {
         avoid: 'Opis na obu końcach każdego przewodu, zgodny z dokumentacją.',
       },
       {
-        icon: 'layers',
+        icon: 'grid',
         title: 'Za mała skrzynka mieszkaniowa',
         text: 'Router, terminal operatora i zasilacz się nie mieszczą, drzwiczki się nie zamykają.',
         avoid: 'Skrzynka dobrana do sprzętu operatora, z zapasem na przyszłość.',
@@ -281,7 +281,7 @@ export const teletechnika = {
         href: '/monitoring',
       },
       {
-        icon: 'tv',
+        icon: 'dish',
         title: 'RTV/SAT zbiorcza',
         text: 'Jedna antena i multiswitch zamiast anten na balkonach.',
         href: '/anteny',
@@ -324,12 +324,12 @@ export const teletechnika = {
     head: { eyebrow: 'Dla kogo', heading: 'Pracujemy z tymi, którzy budują.' },
     items: [
       {
-        icon: 'crane',
+        icon: 'apt',
         title: 'Deweloperzy',
         text: 'Teletechnika budynków wielorodzinnych i osiedli domów, od projektu do odbioru.',
       },
       {
-        icon: 'build',
+        icon: 'crane',
         title: 'Generalni wykonawcy',
         text: 'Podwykonawstwo branży teletechnicznej zgodnie z harmonogramem budowy.',
       },

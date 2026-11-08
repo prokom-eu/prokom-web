@@ -152,6 +152,36 @@ test.describe('Instalacje page for architects', () => {
     await expect(news).not.toContainText('Głośniki pod gładzią')
   })
 
+  // Review of PR3b: the fallback never hides photos that load (lazy thumbnails included).
+  test('„Nowe rozwiązania”: photos that load stay photos', async ({ page }) => {
+    await open(page)
+    const news = page.locator('#nowosci')
+    await news.scrollIntoViewIfNeeded()
+    await news.locator('.arnwi:has(.arnwthp)').first().click()
+    const photo = news.locator('.arnxap img')
+    await expect(photo).toBeVisible()
+    await expect
+      .poll(() => photo.evaluate((img) => (img as HTMLImageElement).naturalWidth))
+      .toBeGreaterThan(0)
+    const thumbs = news.locator('.arnwthp img')
+    expect(await thumbs.count()).toBeGreaterThan(0)
+  })
+
+  // Runda v6 §1.7.2: a card whose photo file is missing shows its drawing, not a broken image.
+  test('„Nowe rozwiązania”: a photo that does not load gives way to the drawing', async ({
+    page,
+  }) => {
+    await page.route('**/api/media/file/nowosc-*', (route) => route.abort())
+    await open(page)
+    const news = page.locator('#nowosci')
+    await news.scrollIntoViewIfNeeded()
+    // A card that has a photo in the seed (its thumbnail keeps the photo frame class).
+    await news.locator('.arnwi:has(.arnwthp)').first().click()
+    await expect(news.locator('.arnxap svg').first()).toBeVisible()
+    await expect(news.locator('.arnxap img')).toHaveCount(0)
+    await expect(news.locator('.arnwthp img')).toHaveCount(0)
+  })
+
   test('developers: tabs, no price promise, no law section', async ({ page }) => {
     await open(page)
     const dev = page.locator('#deweloperzy')

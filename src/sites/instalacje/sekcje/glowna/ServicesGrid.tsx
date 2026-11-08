@@ -182,7 +182,6 @@ export function TrustBand() {
               <li
                 key={brand.name}
                 className="brand"
-                data-wide={brand.wide ? '' : undefined}
                 style={
                   brand.scale ? ({ '--brand-scale': brand.scale } as CSSProperties) : undefined
                 }
@@ -192,7 +191,8 @@ export function TrustBand() {
                   width={brand.width}
                   height={brand.height}
                   alt={`Logo ${brand.name}`}
-                  sizes={brand.wide ? '220px' : '120px'}
+                  // The logo field's real width: 6 / 4 / 3 columns, a 194 px tile in the phone row.
+                  sizes="(min-width: 1101px) 190px, (min-width: 761px) 220px, 200px"
                   className="brandl"
                 />
                 <span>{brand.kind}</span>

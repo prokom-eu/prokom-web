@@ -954,7 +954,7 @@ export const architekci = {
       ready: false,
     },
     {
-      icon: 'layers',
+      icon: 'rack',
       title: 'Wytyczne dla szafy rack',
       text: 'Miejsce, wymiary, wentylacja, zasilanie i dostęp. Do pomieszczenia technicznego.',
       format: 'PDF',
@@ -1058,12 +1058,12 @@ export const architekci = {
   // (6. karta prototypu, do tego czasu bez niej).
   rules: [
     {
-      icon: 'layers',
+      icon: 'ruler',
       title: 'Twój projekt, Twoje decyzje',
       text: 'Dobieramy technikę pod projekt, nie pod markę. Jeśli coś koliduje z wnętrzem, szukamy innego rozwiązania.',
     },
     {
-      icon: 'shield',
+      icon: 'star',
       title: 'Grasz pierwsze skrzypce',
       text: 'Z inwestorem rozmawiamy razem z Tobą albo za Twoją zgodą. Nie zmieniamy projektu za Twoimi plecami.',
     },
@@ -1073,12 +1073,12 @@ export const architekci = {
       text: 'Zakres, sprzęt i cena czarno na białym, w wariantach do wyboru. Inwestor wie, za co płaci.',
     },
     {
-      icon: 'users',
+      icon: 'chat',
       title: 'Jeden opiekun',
       text: 'Jedna osoba od pierwszej rozmowy do odbioru. Nie tłumaczysz projektu od nowa każdemu monterowi.',
     },
     {
-      icon: 'check',
+      icon: 'shield',
       title: 'Gwarancja 24 miesiące',
       text: 'Na montaż. Sprzęt według gwarancji producenta. Serwis i przeglądy po montażu.',
     },
@@ -1229,11 +1229,15 @@ export const architekci = {
         text: 'Głośniki w suficie, szklane panele, TV w zabudowie.',
       },
       {
-        icon: 'users',
+        icon: 'chat',
         title: 'Jeden opiekun',
         text: 'Od koncepcji, przez budowę, do serwisu po odbiorze.',
       },
-      { icon: 'chat', title: 'Zawsze pomożemy', text: 'Nawet jeśli to jedno pytanie do projektu.' },
+      {
+        icon: 'phone',
+        title: 'Zawsze pomożemy',
+        text: 'Nawet jeśli to jedno pytanie do projektu.',
+      },
     ] as { icon: InstIconName; title: string; text: string }[],
     more: 'Współpraca dla architektów →',
     send: 'Umów konsultację',

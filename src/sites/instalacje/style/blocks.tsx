@@ -2,6 +2,8 @@
 // e.g. `.zkticket` (glowna-sekcje, zaplanuj) and `.odi` (oferta, teletechnika).
 import '../widzety/architekci/architekci.css'
 import '../widzety/glowna/glowna.css'
+// Scenes before the home sheet: where they stood inside it (runda v6 §1.7.1).
+import '../sekcje/sceny.css'
 import '../sekcje/glowna/glowna-sekcje.css'
 import '../sekcje/glowna/podhale-proces.css'
 import '../widzety/zaplanuj/zaplanuj.css'

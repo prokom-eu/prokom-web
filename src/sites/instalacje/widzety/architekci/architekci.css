@@ -2285,6 +2285,10 @@
     font-size: 14px;
     color: var(--ink-2);
   }
+  /* Runda v6 §1.7.2: the photo wrapper of `PhotoOrArt` does not change the layout. */
+  & .arpoa {
+    display: contents;
+  }
   & .arexg {
     display: grid;
     grid-template-columns: minmax(0, 1fr);

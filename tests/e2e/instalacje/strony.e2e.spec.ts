@@ -136,6 +136,15 @@ test.describe('Instalacje service pages, round v5', () => {
     }
     await open(page, '/sieci-wifi')
     await expect(page.locator('#powiazane .relsc svg').first()).toBeVisible()
+    // Runda v6 §1.7.1: the scenes have their colours on service and object pages (not black).
+    for (const path of ['/monitoring', '/dla-kogo/budowy']) {
+      await open(page, path)
+      const fill = await page
+        .locator('#powiazane svg rect')
+        .first()
+        .evaluate((rect) => getComputedStyle(rect).fill)
+      expect(fill, path).not.toBe('rgb(0, 0, 0)')
+    }
   })
 })
 

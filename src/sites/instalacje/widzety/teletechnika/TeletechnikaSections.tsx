@@ -76,7 +76,7 @@ export function TeletechnikaSections() {
             <ul className="ttlist">
               {standards.items.map((item) => (
                 <li key={item}>
-                  <InstIcon name="ruler" size={18} />
+                  <InstIcon name="check" size={18} />
                   <span>{item}</span>
                 </li>
               ))}

@@ -1,9 +1,11 @@
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 
 import type { Payload } from 'payload'
 
 import noweRozwiazania from '../../../seed/prokominstalacje/architekci/nowe-rozwiazania.json'
 import { findImportedFile } from '../biznes/map'
+import { getEnv } from '../../lib/env'
 import { SEED_CONTEXT } from '../config'
 
 /** Product photos of „Nowe rozwiązania” (RUNDA-V5 §7.2), next to the package data. */
@@ -29,6 +31,17 @@ export function archNewsPhotos(): ArchNewsPhoto[] {
   )
 }
 
+/**
+ * Runda v6 §1.7.2: the media record exists, but its file is not in this folder's media directory
+ * (e.g. a database copied from another worktree) — the card would show a broken image.
+ */
+export function mediaFileMissing(dir: string, filename: string | null | undefined): boolean {
+  return Boolean(filename) && !existsSync(path.join(dir, filename as string))
+}
+
+/** Where Payload keeps the uploads (`Media.upload.staticDir`). */
+const mediaDir = () => path.resolve(getEnv().MEDIA_DIR, 'media')
+
 type Count = (name: string, result: 'created' | 'updated' | 'skipped') => void
 const local = { overrideAccess: true, context: SEED_CONTEXT, depth: 0 } as const
 
@@ -48,8 +61,27 @@ export async function seedArchNewsPhotos(payload: Payload, tenantId: number, cou
       draft: true,
       ...local,
     })
-    if (!card || card.image) {
+    if (!card) {
       count('arch news photos', 'skipped')
+      continue
+    }
+    if (card.image) {
+      // The card has its photo: only put the file back when it is gone from the disk.
+      const id = typeof card.image === 'object' ? card.image.id : card.image
+      const media = await payload.findByID({ collection: 'media', id, ...local })
+      // Only the package's own photo (same name, Payload may add „-1”): one picked in the panel
+      // is never replaced by the package file.
+      const ownPhoto = media.filename?.startsWith(path.parse(photo.file).name) ?? false
+      if (ownPhoto && mediaFileMissing(mediaDir(), media.filename)) {
+        await payload.update({
+          collection: 'media',
+          id,
+          data: {},
+          filePath: path.resolve(ARCH_NEWS_MEDIA_DIR, photo.file),
+          ...local,
+        })
+        count('arch news photos', 'updated')
+      } else count('arch news photos', 'skipped')
       continue
     }
     const name = photo.file
