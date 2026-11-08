@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
@@ -17,7 +18,18 @@ type Props = {
   authTitle?: string | null
   /** Badges with a shield (`shared.about.auth`). */
   auth?: readonly string[] | null
+  /**
+   * Logos of the authorisations with their status (Biznes: Posnet, Elzab, GoPOS, InsERT from
+   * `Partners`, plan 0611 §8.2). Given, they replace the badges.
+   */
+  authLogos?: readonly AuthLogo[] | null
   className?: string
+}
+
+export type AuthLogo = {
+  name: string
+  status: string
+  logo: { url: string; width: number; height: number }
 }
 
 /**
@@ -25,7 +37,17 @@ type Props = {
  * NIP, the line's phone and e-mail, hours; the line's authorisations as badges; the CEIDG link.
  * All from the panel — a missing value leaves its row out.
  */
-export function CompanyCard({ company, phone, email, hours, authTitle, auth, className }: Props) {
+export function CompanyCard({
+  company,
+  phone,
+  email,
+  hours,
+  authTitle,
+  auth,
+  authLogos,
+  className,
+}: Props) {
+  const logos = authLogos?.length ? authLogos : null
   const tel = phone ? toTelHref(phone) : null
   const rows: [string, ReactNode][] = [
     ['Firma', company.name],
@@ -80,24 +102,45 @@ export function CompanyCard({ company, phone, email, hours, authTitle, auth, cla
           </div>
         ))}
       </dl>
-      {auth && auth.length > 0 && (
+      {(logos || (auth && auth.length > 0)) && (
         <div className="flex flex-col gap-2 border-t border-border pt-4">
           {authTitle && (
             <p className="text-xs font-extrabold tracking-[0.12em] text-accent-text uppercase">
               {authTitle}
             </p>
           )}
-          <ul className="flex flex-wrap gap-2">
-            {auth.map((badge) => (
-              <li
-                key={badge}
-                className="inline-flex items-center gap-1.5 rounded-full bg-accent-soft px-3 py-1 text-sm font-bold text-accent-text"
-              >
-                <Icon name="shield" strokeWidth={2} className="size-4" />
-                {badge}
-              </li>
-            ))}
-          </ul>
+          {logos ? (
+            <ul className="grid grid-cols-2 gap-2">
+              {logos.map((item) => (
+                <li key={item.name} className="flex flex-col items-center gap-1.5" data-auth-logo>
+                  {/* Brand logos stay on light tiles in both themes (K35 §6). */}
+                  <span className="flex h-12 w-full items-center justify-center rounded-xl border border-border bg-white px-3">
+                    <Image
+                      src={item.logo.url}
+                      alt={item.name}
+                      width={item.logo.width}
+                      height={item.logo.height}
+                      unoptimized
+                      className="max-h-7 w-auto object-contain"
+                    />
+                  </span>
+                  <span className="text-center text-xs font-bold text-ink-2">{item.status}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <ul className="flex flex-wrap gap-2">
+              {(auth ?? []).map((badge) => (
+                <li
+                  key={badge}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-accent-soft px-3 py-1 text-sm font-bold text-accent-text"
+                >
+                  <Icon name="shield" strokeWidth={2} className="size-4" />
+                  {badge}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
       {company.ceidgUrl && (
