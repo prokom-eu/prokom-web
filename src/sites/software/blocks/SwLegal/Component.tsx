@@ -178,7 +178,9 @@ export async function SwLegal({ block, isFirst, pageTitle, tenantId, draftAllowe
                       {sections.map((section, index) => (
                         <li key={section.id}>
                           <a href={`#${section.id}`}>
-                            <span className="sw-ln">{pad(index + 1)}</span>
+                            <span className="sw-ln" aria-hidden="true">
+                              {pad(index + 1)}
+                            </span>
                             {section.title}
                           </a>
                         </li>
@@ -216,7 +218,9 @@ export async function SwLegal({ block, isFirst, pageTitle, tenantId, draftAllowe
                 aria-labelledby={`${section.id}-h`}
               >
                 <h2 id={`${section.id}-h`}>
-                  <span className="sw-ln">{pad(index + 1)}</span>
+                  <span className="sw-ln" aria-hidden="true">
+                    {pad(index + 1)}
+                  </span>
                   {section.title}
                 </h2>
                 {section.nodes.length > 0 ? (

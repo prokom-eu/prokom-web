@@ -1,4 +1,4 @@
-import type { SiteMapLink, SiteMapSection } from '../seo/siteLinks'
+import { SITE_MAP_PATH, type SiteMapLink, type SiteMapSection } from '../seo/siteLinks'
 import { OFFER_GROUPS, CATALOG_PATH } from './catalog'
 import { WIZARD_PATH } from './wizard/flow'
 
@@ -108,14 +108,18 @@ export function softwareSiteMapGroups({
 const pathOf = (href: string) => href.split('#')[0]?.split('?')[0] || '/'
 
 /**
- * The sitemap sections minus what the cards already link (same path): the solutions, industries,
+ * The sitemap sections minus what the cards already link (same path) and the map itself: the solutions, industries,
  * cities, posts and any extra page of the panel stay listed, nothing twice. Empty sections go.
  */
 export function restOfSiteMap(
   sections: readonly SiteMapSection[],
   groups: readonly SiteMapGroup[],
 ): SiteMapSection[] {
-  const shown = new Set(groups.flatMap((group) => group.links.map((link) => link.href)))
+  // The map itself is the page being read: no link to it.
+  const shown = new Set([
+    SITE_MAP_PATH,
+    ...groups.flatMap((group) => group.links.map((link) => link.href)),
+  ])
   const keep = (link: SiteMapLink) => !shown.has(link.href) && !shown.has(pathOf(link.href))
   return sections
     .map((section) => ({

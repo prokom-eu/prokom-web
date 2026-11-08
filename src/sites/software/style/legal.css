@@ -330,6 +330,11 @@
     overflow-x: auto;
     background: var(--surface);
     scrollbar-width: none;
+    transition: top var(--dur-state) var(--ease-out);
+  }
+  /* The capsule hides while scrolling down (shared `CapsuleShell`): the chips take its place. */
+  :root:has(.cap-wrap[data-hidden]) .sw-lchips {
+    top: 0;
   }
   .sw-lchips a {
     display: inline-flex;

@@ -82,9 +82,8 @@ describe('restOfSiteMap', () => {
     { id: 'aktualnosci', title: 'Aktualności', links: [{ href: '/aktualnosci', label: 'Wpisy' }] },
   ]
 
-  it('keeps every address the cards do not link, and drops emptied sections', () => {
+  it('keeps every address the cards do not link, drops the map itself and emptied sections', () => {
     expect(restOfSiteMap(sections, groups)).toEqual([
-      { id: 'strony', title: 'Strony', links: [{ href: '/mapa-strony', label: 'Mapa strony' }] },
       {
         id: 'rozwiazania',
         title: 'Rozwiązania',
