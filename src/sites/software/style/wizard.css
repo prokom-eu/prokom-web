@@ -380,7 +380,21 @@
   font-size: 16px;
 }
 
-/* The live card: name, term, price, choices, points, tip. */
+/* The live card: the mock-up, name, term, price, choices, points, tip. */
+.wz-screen {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+/* Looping mock-ups stop while pointed at or off screen (WCAG 2.2.2; the mock-up takes no focus). */
+.wz-screen:hover .mk *,
+.wz-live[data-paused] .mk * {
+  animation-play-state: paused;
+}
+/* The phone price bar: only ≤ 600 px (below). */
+.wz-mbar {
+  display: none;
+}
 .wz-live {
   position: sticky;
   top: 96px;
@@ -485,11 +499,20 @@
   .wz-step {
     animation: wz-in var(--dur-state) var(--ease-out);
   }
+  /* A new mock-up fades in (ZMIANY-v24 §4.2 „przejście krzyżowe”). */
+  .wz-swap {
+    animation: wz-fade var(--dur-state) var(--ease-out) both;
+  }
   @media (hover: hover) and (pointer: fine) {
     :is(.wz-type, .wz-opt, .wz-ind):hover {
       border-color: var(--accent-line);
       transform: translateY(-2px);
     }
+  }
+}
+@keyframes wz-fade {
+  from {
+    opacity: 0;
   }
 }
 @keyframes wz-in {
@@ -511,6 +534,17 @@
   .wz-main {
     padding: 18px;
   }
+  /* The step bar: one row scrolled sideways, as on the phone board. */
+  .wz-steps {
+    flex-wrap: nowrap;
+    margin: 0 -18px;
+    padding: 0 18px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .wz-steps li {
+    flex: none;
+  }
   .wz-types,
   .wz-inds,
   .wz-opts,
@@ -522,5 +556,85 @@
   }
   .wz-price {
     font-size: 30px;
+  }
+  /* The live card folds into a price bar above Back / Next; the button unfolds it. */
+  .wz-mbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid var(--accent-line);
+    border-radius: 16px;
+    background: var(--accent-soft);
+  }
+  .wz-mbar > span {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .wz-mbar b {
+    overflow: hidden;
+    font: 800 14px var(--font-display);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .wz-mbar > span > span {
+    color: var(--accent-text);
+    font: 900 18px var(--font-display);
+  }
+  .wz-mbar button {
+    flex: none;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--accent-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--accent-text);
+    font: 800 13px var(--font-sans);
+  }
+  .wz-live:not([data-open]) {
+    display: none;
+  }
+  .wz-nav {
+    flex-wrap: wrap;
+  }
+}
+
+/* `/dobierz`: „Cztery kroki do startu” (ZMIANY-v24 §9.5, board `AU-kreator`). */
+.wz-four {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+.wz-four li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px;
+}
+.wz-four b {
+  color: var(--accent-text);
+  font: 900 46px/1 var(--font-display);
+  letter-spacing: -0.03em;
+}
+.wz-four h3 {
+  font: 900 22px/1.15 var(--font-display);
+  letter-spacing: -0.02em;
+}
+.wz-four p {
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.55;
+}
+@media (max-width: 960px) {
+  .wz-four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .wz-four {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

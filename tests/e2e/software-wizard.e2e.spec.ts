@@ -273,6 +273,49 @@ test.describe('Software wizard v3 — steps and links', () => {
     await expect(title(page)).toHaveText('Czego potrzebujesz?')
   })
 
+  test('/dobierz: one H1 in the hero, no second wizard heading, „Cztery kroki do startu”', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST, PATH))
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      'Zobacz cenę i termin, zanim zadzwonisz.',
+    )
+    await expect(main(page).getByText('Policz swój projekt.')).toHaveCount(0)
+    await expect(title(page)).toHaveText('Czego potrzebujesz?')
+    const four = main(page).getByRole('region', { name: 'Cztery kroki do startu' })
+    await expect(four.getByRole('heading', { level: 3 })).toHaveText([
+      'Odpowiadamy',
+      'Krótka rozmowa',
+      'Podgląd i wycena',
+      'Ty decydujesz',
+    ])
+  })
+
+  test('the live card draws the mock-up of the choices', async ({ page }) => {
+    await page.goto(site(HOST, `${PATH}?firma=gastro`))
+    await chooseKind(page, 'Rozbudowana strona')
+    await expect(live(page).locator('[data-mockup="site"]')).toBeVisible()
+    await page.goto(site(HOST, `${PATH}?rodzaj=automatyzacje`))
+    await expect(live(page).locator('[data-mockup="flow"]')).toBeVisible()
+    await page.goto(site(HOST, `${PATH}?rodzaj=przebudowa`))
+    await expect(live(page).locator('[data-mockup="before"]')).toBeVisible()
+  })
+
+  test('phone: the live card folds into a price bar that unfolds it (360 px)', async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 780 })
+    await page.goto(site(HOST, `${PATH}?rodzaj=system&firma=bud`))
+    const bar = page.locator('[data-wizard-bar]')
+    await expect(bar).toContainText(/od\s2\s990\szł/)
+    await expect(live(page)).toBeHidden()
+    const toggle = bar.getByRole('button', { name: 'Twój projekt na żywo' })
+    await expect(async () => {
+      await toggle.click()
+      await expect(toggle).toHaveAttribute('aria-expanded', 'true', { timeout: 1000 })
+    }).toPass()
+    await expect(live(page).locator('[data-mockup="dash"]')).toBeVisible()
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360)
+  })
+
   test('dark start, a question and the result pass axe', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' })
     const axe = async () => {
