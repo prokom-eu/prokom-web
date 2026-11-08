@@ -41,9 +41,12 @@ test.describe('Software hero v24', () => {
   test('arrow keys move between the tiles', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto(site(HOST))
-    await tabs(page).first().focus()
-    await page.keyboard.press('ArrowLeft')
-    await expect(tabs(page).nth(6)).toBeFocused()
+    // Keys work once the stage is hydrated: retried from the first tile until the arrow moves.
+    await expect(async () => {
+      await tabs(page).first().focus()
+      await page.keyboard.press('ArrowLeft')
+      await expect(tabs(page).nth(6)).toBeFocused({ timeout: 1000 })
+    }).toPass()
     await expect(word(page)).toHaveText('automatyzacje i AI.')
     await page.keyboard.press('Home')
     await expect(word(page)).toHaveText('stronę wizytówkę.')

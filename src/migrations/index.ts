@@ -82,6 +82,7 @@ import * as migration_20261104_205826_inst_v5_arch_news_image from './20261104_2
 import * as migration_20261105_204450_wsp_dane from './20261105_204450_wsp_dane'
 import * as migration_20261106_011831_swa1_solutions_preview from './20261106_011831_swa1_solutions_preview'
 import * as migration_20261106_020602_swa2_home_sections_v24 from './20261106_020602_swa2_home_sections_v24'
+import * as migration_20261106_021456_swa2_home_tech_pricing from './20261106_021456_swa2_home_tech_pricing'
 
 export const migrations = [
   {
@@ -503,5 +504,10 @@ export const migrations = [
     up: migration_20261106_020602_swa2_home_sections_v24.up,
     down: migration_20261106_020602_swa2_home_sections_v24.down,
     name: '20261106_020602_swa2_home_sections_v24',
+  },
+  {
+    up: migration_20261106_021456_swa2_home_tech_pricing.up,
+    down: migration_20261106_021456_swa2_home_tech_pricing.down,
+    name: '20261106_021456_swa2_home_tech_pricing',
   },
 ]

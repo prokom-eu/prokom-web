@@ -25,7 +25,9 @@ test.describe('Software start page', () => {
       'sytuacje',
       'oferta',
       'podglady',
+      'technologia',
       'dobierz',
+      'cennik',
       'proces',
       'faq',
       'kontakt',
@@ -60,6 +62,32 @@ test.describe('Software start page', () => {
     await page.mouse.move(0, 0)
     await page.clock.runFor(20_000)
     await expect(stageTabs(page).nth(4)).toHaveAttribute('aria-selected', 'true')
+  })
+
+  test('tech section: 4 tabs, the picked one shows its picture and „them vs us”', async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(site(HOST))
+    const tech = page.locator('#technologia')
+    const tabs = tech.getByRole('tab')
+    await expect(tabs).toHaveCount(4)
+    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
+    await tabs.nth(3).click()
+    await expect(tabs.nth(3)).toHaveAttribute('aria-selected', 'true')
+    await expect(tech.getByRole('tabpanel')).toContainText('PostgreSQL')
+    await expect(tech.getByRole('tabpanel')).toContainText('Strona od PRO-KOM')
+  })
+
+  test('price list: filters with counts, cards with the price from Solutions', async ({ page }) => {
+    await page.goto(site(HOST))
+    const pricing = page.locator('#cennik')
+    const cards = pricing.locator('.v-card')
+    await expect(cards).toHaveCount(16)
+    await pricing.getByRole('button', { name: /^Systemy · 4$/ }).click()
+    await expect(cards).toHaveCount(4)
+    await expect(cards.first()).toContainText(/od [\d\s]+zł/)
+    await expect(cards.first()).toHaveAttribute('href', /\/rozwiazania\?rozwiazanie=/)
   })
 
   test('the process does not switch itself with reduced motion', async ({ page }) => {
@@ -113,7 +141,9 @@ test.describe('Software start page', () => {
       'Od czego zaczynasz',
       'Oferta',
       'Podglądy na żywo',
+      'Jak robimy',
       'Kreator 60 s',
+      'Cennik',
       'Jak pracujemy',
       'Pytania',
       'Kontakt',
@@ -218,9 +248,11 @@ test.describe('Software start page — contact form', () => {
       route.fulfill({ status: 503, contentType: 'application/json', body: '{}' }),
     )
     await page.goto(site(HOST, '/#kontakt'))
-    // The form is a lazy widget (ADR-023): typing before it hydrates would be reset.
-    await page.waitForLoadState('networkidle')
     const section = contact(page)
+    // The form is a lazy widget (ADR-023): typing before it hydrates would be reset. An empty send
+    // moves focus to the first field only once it is hydrated (as in test 77).
+    await send(page).click()
+    await expect(section.getByLabel('Opisz krótko, po swojemu')).toBeFocused()
     await section.getByLabel('Opisz krótko, po swojemu').fill('Test błędu serwera.')
     await section.getByLabel('Imię i firma').fill('E2E')
     await section.getByLabel('E-mail albo telefon').fill('600 100 200')
