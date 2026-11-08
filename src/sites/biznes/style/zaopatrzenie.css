@@ -2404,23 +2404,21 @@
   border-color: var(--accent-text);
   box-shadow: 0 0 0 4px var(--glow);
 }
+/* The button itself covers the card (a real box: visible to tests and to pointer hit-testing);
+   the card content stays server HTML below it. */
 .zp-var-pick {
-  display: block;
-  width: 0;
-  height: 0;
-  padding: 0;
-}
-.zp-var-pick::after {
-  content: '';
   position: absolute;
   inset: 0;
   z-index: 1;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
   border-radius: var(--zp-r-lg);
+  background: none;
+  cursor: pointer;
 }
 .zp-var-pick:focus-visible {
-  outline: none;
-}
-.zp-var-pick:focus-visible::after {
   outline: 3px solid var(--accent-text);
   outline-offset: 3px;
 }
