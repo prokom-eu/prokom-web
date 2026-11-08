@@ -2,6 +2,8 @@ import type { ReactNode } from 'react'
 
 import { faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 
+import { PAGE_CONTAINER } from './pageContainer'
+
 export type FaqItem = { question: string; answer?: string | null }
 
 type Props = {
@@ -51,7 +53,9 @@ export function FaqBlock({
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd(answered)) }}
         />
       )}
-      <div className="mx-auto grid max-w-[1344px] gap-10 px-5 min-[768px]:px-8 min-[1000px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+      <div
+        className={`${PAGE_CONTAINER} grid gap-10 min-[1000px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]`}
+      >
         <div className="flex flex-col gap-3 min-[1000px]:sticky min-[1000px]:top-28 min-[1000px]:self-start">
           <p className="text-xs font-extrabold tracking-[0.12em] text-accent-text uppercase">
             {eyebrow}

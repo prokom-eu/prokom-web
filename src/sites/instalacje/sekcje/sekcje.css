@@ -1168,8 +1168,7 @@
 /* Round v5 (RUNDA-V5 §4): realization photos — a 4:3 cover that zooms a little and tells how
    many photos there are, the gallery in a modal <dialog>, the list cross-fading on a filter. */
 [data-line='instalacje'] {
-  & .rlimg.rlimgp,
-  & .sgrph.sgrphp {
+  & .rlimg.rlimgp {
     display: block;
     height: auto;
     aspect-ratio: 4 / 3;
@@ -1411,25 +1410,5 @@
   }
   & .nfsearch .btn {
     min-height: 56px;
-  }
-}
-
-/* Realizations with photos on a service page (`RealizationStrip`, RUNDA-V5 §11). */
-[data-line='instalacje'] {
-  & .rlstrip {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-    margin-top: 22px;
-  }
-  @media (max-width: 1100px) {
-    & .rlstrip {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  @media (max-width: 700px) {
-    & .rlstrip {
-      grid-template-columns: minmax(0, 1fr);
-    }
   }
 }
