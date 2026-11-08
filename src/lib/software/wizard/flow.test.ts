@@ -82,7 +82,7 @@ describe('wizard v3 — answers', () => {
   it('offers the kind’s features plus 2 of the industry, without repeats', () => {
     const plain = ids(pickOptions(w, typed('wizytowka'), 'feat'))
     expect(plain).toEqual(['telefon', 'mapa', 'opinie', 'galeria'])
-    const hotel = pickOptions(w, chooseIndustry(typed('wizytowka'), 'nocleg'), 'feat')
+    const hotel = pickOptions(w, chooseIndustry(w, typed('wizytowka'), 'nocleg'), 'feat')
     expect(hotel.map((o) => o.label)).toEqual([
       'Telefon i formularz',
       'Mapa i godziny',
@@ -91,7 +91,17 @@ describe('wizard v3 — answers', () => {
       'Zapytanie o termin bez prowizji portalu',
       'Pokoje z galerią i cenami',
     ])
-    expect(ids(pickOptions(w, chooseIndustry(typed('wizytowka'), 'inna'), 'feat'))).toEqual(plain)
+    expect(ids(pickOptions(w, chooseIndustry(w, typed('wizytowka'), 'inna'), 'feat'))).toEqual(
+      plain,
+    )
+  })
+
+  it('a new industry drops the features of the previous one', () => {
+    let a = chooseIndustry(w, typed('wizytowka'), 'nocleg')
+    a = toggle(w, a, 'feat', 'nocleg-1')
+    a = toggle(w, a, 'feat', 'mapa')
+    a = chooseIndustry(w, a, 'gastro')
+    expect(a.picks.feat).toEqual(['mapa'])
   })
 
   it('SEO is not an option of any step: it is in the price of every site', () => {
@@ -108,7 +118,7 @@ describe('wizard v3 — answers', () => {
     let a = typed('system', { size: '4-10', url: 'stara.pl' })
     a = toggle(w, a, 'sysf', 'czas')
     a = toggle(w, a, 'today', 'excel')
-    a = chooseType(w, chooseIndustry(a, 'bud'), 'firmowa')
+    a = chooseType(w, chooseIndustry(w, a, 'bud'), 'firmowa')
     expect(a.picks).toEqual({})
     expect(a.size).toBeNull()
     expect(a.url).toBe('')
@@ -137,7 +147,7 @@ describe('wizard v3 — answers', () => {
 
 describe('wizard v3 — summary, tip and preview (aurora.js)', () => {
   it('summarises the choices of the group as chips', () => {
-    let a = chooseIndustry(typed('system'), 'bud')
+    let a = chooseIndustry(w, typed('system'), 'bud')
     a = toggle(w, a, 'today', 'excel')
     a = toggle(w, a, 'sysf', 'czas')
     a = toggle(w, a, 'sysf', 'raporty')
@@ -153,7 +163,7 @@ describe('wizard v3 — summary, tip and preview (aurora.js)', () => {
   it.each<[string, WizardAnswers, RegExp]>([
     ['site from scratch', toggle(w, typed('firmowa'), 'have', 'zero'), /^Zaczynamy od zera\?/],
     ['site without texts', toggle(w, typed('firmowa'), 'have', 'logo'), /^Nie masz tekstów\?/],
-    ['hotel site', chooseIndustry(typed('wizytowka'), 'nocleg'), /obiektu noclegowego/],
+    ['hotel site', chooseIndustry(w, typed('wizytowka'), 'nocleg'), /obiektu noclegowego/],
     ['landing', typed('landing'), /^Landing najlepiej/],
     ['site', typed('rozbudowana'), /^W cenie każdej strony/],
     ['redo + Google', toggle(w, typed('przebudowa'), 'fix', 'google'), /darmowego audytu/],
@@ -176,17 +186,21 @@ describe('wizard v3 — summary, tip and preview (aurora.js)', () => {
     ['rozbudowana', typed('rozbudowana'), { kind: 'site', variant: 'rozbudowana' }],
     [
       'site + industry',
-      chooseIndustry(typed('rozbudowana'), 'gastro'),
+      chooseIndustry(w, typed('rozbudowana'), 'gastro'),
       { kind: 'site', variant: 'restauracja' },
     ],
     [
       'landing + industry',
-      chooseIndustry(typed('landing'), 'gastro'),
+      chooseIndustry(w, typed('landing'), 'gastro'),
       { kind: 'site', variant: 'landing' },
     ],
     ['redo', typed('przebudowa'), { kind: 'before', variant: 'przebudowa' }],
     ['sys', typed('system'), { kind: 'dash', variant: 'zamowienia' }],
-    ['sys + industry', chooseIndustry(typed('system'), 'bud'), { kind: 'dash', variant: 'czas' }],
+    [
+      'sys + industry',
+      chooseIndustry(w, typed('system'), 'bud'),
+      { kind: 'dash', variant: 'czas' },
+    ],
     ['auto', typed('automatyzacje'), { kind: 'flow', variant: 'sms' }],
     [
       'auto: invoices',

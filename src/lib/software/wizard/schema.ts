@@ -171,8 +171,6 @@ export const softwareWizardSchema = obj({
     prog: label,
     desc: label,
     url: label,
-    description: label,
-    note: label,
   }),
   ui: obj({
     eyebrow: label,
@@ -185,7 +183,9 @@ export const softwareWizardSchema = obj({
     showResult: label,
     restart: label,
     live: label,
-    stepOf: template('{n}'),
+    stepOf: template('{n}').refine((value) => value.includes('{m}'), {
+      message: 'Musi zawierać {m}.',
+    }),
     tipLabel: label,
     fullOffer: label,
     sizeQ: label,
@@ -232,17 +232,10 @@ export const softwareWizardSchema = obj({
 
   for (const group of WIZARD_GROUPS) {
     const steps = wizard.groups[group]
-    if (!steps) {
-      issue(['groups', group], 'Brak kroków grupy.')
-      continue
-    }
     if (steps[0] !== 'type' || steps[1] !== 'ind' || steps.at(-1) !== 'res') {
       issue(['groups', group], 'Kroki: type, ind, …, res.')
     }
     if (new Set(steps).size !== steps.length) issue(['groups', group], 'Powtórzony krok.')
-  }
-  for (const step of WIZARD_STEPS) {
-    if (!wizard.steps[step]) issue(['steps', step], 'Brak tekstów kroku.')
   }
 
   // „Co ma umieć” for every site kind, and only for them.
@@ -293,6 +286,11 @@ export const softwareWizardSchema = obj({
     checkWhen(rule.when, ['preview', i, 'when'])
     if (!isVariantOf(rule.kind, rule.variant)) {
       issue(['preview', i, 'variant'], 'Wariant nie pasuje do makiety.')
+    }
+    // The industry gives a site variant to a site mock-up and a system one to a panel.
+    const fits = { site: 'site', system: 'dash' } as const
+    if (rule.fromIndustry && fits[rule.fromIndustry] !== rule.kind) {
+      issue(['preview', i, 'fromIndustry'], 'Wariant branży nie pasuje do makiety.')
     }
   })
 })

@@ -1,5 +1,3 @@
-import { isDeepStrictEqual } from 'node:util'
-
 import { z } from 'zod'
 
 import { key } from '../schema'
@@ -37,12 +35,21 @@ export function parseWizardAnswers(wizard: SoftwareWizard, value: unknown): Wiza
   }
   const answers: WizardAnswers = { ...parsed.data, picks }
   if (!typeOf(wizard, answers)) return null
-  return isDeepStrictEqual(prune(wizard, answers), answers) ? answers : null
+  return sameAnswers(prune(wizard, answers), answers) ? answers : null
+}
+
+/** Plain comparison (no `node:util`: the folder is shared with the client). */
+function sameAnswers(a: WizardAnswers, b: WizardAnswers): boolean {
+  const scalars = ['type', 'industry', 'size', 'url', 'description', 'note'] as const
+  if (scalars.some((field) => a[field] !== b[field])) return false
+  return WIZARD_PICKS.every((pick) => (a.picks[pick] ?? []).join() === (b.picks[pick] ?? []).join())
 }
 
 /**
  * `Inquiries.wizard`: the answers named in Polish, flat and in step order — the mail prints one
- * line per key (`lib/inquiry/emails.ts`), the office reads them without the panel.
+ * line per key (`lib/inquiry/emails.ts`), the office reads them without the panel. One answer
+ * (the industry, the team size) is a text, ticks are a list; the client's own words go only to
+ * the message.
  */
 export function wizardRecord(
   wizard: SoftwareWizard,
@@ -53,11 +60,10 @@ export function wizardRecord(
   const type = typeOf(wizard, answers)
   if (type) record[summary.type] = type.label
   for (const row of summaryOf(wizard, answers)) {
-    record[row.label] = row.label === summary.industry ? (row.values[0] ?? '') : row.values
+    const single = row.label === summary.industry || row.label === summary.size
+    record[row.label] = single ? (row.values[0] ?? '') : row.values
   }
   if (answers.url) record[summary.url] = answers.url
-  if (answers.description) record[summary.description] = answers.description
-  if (answers.note) record[summary.note] = answers.note
   return record
 }
 

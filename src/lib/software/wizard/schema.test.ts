@@ -59,6 +59,12 @@ describe('Software wizard v3 schema', () => {
     )
   })
 
+  it('takes an industry variant only of the same mock-up', () => {
+    const wizard = clone()
+    wizard.preview[0] = { kind: 'site', variant: 'firmowa', fromIndustry: 'system' }
+    expect(issues(wizard)).toContain('preview.0.fromIndustry')
+  })
+
   it('wants a last tip and a last preview rule that always apply', () => {
     const wizard = clone()
     wizard.tips.push({ when: { groups: ['idk'] }, text: 'x' })

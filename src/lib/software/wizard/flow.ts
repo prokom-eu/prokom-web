@@ -120,8 +120,13 @@ export function chooseType(
   return prune(wizard, { ...answers, type })
 }
 
-export function chooseIndustry(answers: WizardAnswers, industry: string | null): WizardAnswers {
-  return { ...answers, industry }
+/** A new industry drops the features of the previous one from „Co ma umieć”. */
+export function chooseIndustry(
+  wizard: SoftwareWizard,
+  answers: WizardAnswers,
+  industry: string | null,
+): WizardAnswers {
+  return prune(wizard, { ...answers, industry })
 }
 
 /** Ticks or unticks an option; the exclusive one („Zaczynamy od zera”) clears the others. */

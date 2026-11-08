@@ -11,9 +11,9 @@ export const template = (token: string) =>
  * catalog cards (SW9) and the offer window (SWR3).
  */
 export const priceDisplaySchema = obj({
-  /** „od {cena} zł netto” — the result and the cards. */
+  /** „od {cena} zł netto” — the cards and the offer window. */
   template: template('{cena}'),
-  /** „od {cena} zł” — tiles of step 1 and add-ons. */
+  /** „od {cena} zł” — the wizard tiles and result (`priceSub` says „netto”). */
   short: template('{cena}'),
   /** Care from its lowest level: „od {cena} zł / mies.”. */
   monthTemplate: template('{cena}'),

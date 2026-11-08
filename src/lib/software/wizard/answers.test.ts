@@ -51,20 +51,18 @@ describe('wizard v3 — the inquiry', () => {
       Branża: 'Budowlanka i remonty',
       Dziś: ['Excel i arkusze'],
       'System ma': ['Czas pracy', 'Raporty dla szefa'],
-      Użytkownicy: ['11–30 osób'],
-      Uwagi: 'Pilne, przed sezonem.',
+      Użytkownicy: '11–30 osób',
     })
   })
 
-  it('keeps the address and the description of their groups', () => {
+  it('keeps the address; the client’s own words go only to the message (not twice in the mail)', () => {
     expect(wizardRecord(w, raw({ type: 'przebudowa', url: 'stara.pl' }))).toEqual({
       Rodzaj: 'Przebudowa starej strony',
       'Adres strony': 'stara.pl',
     })
-    expect(wizardRecord(w, raw({ type: 'nie-wiem', description: 'Ginie.' }))).toEqual({
-      Rodzaj: 'Nie wiem jeszcze',
-      Opis: 'Ginie.',
-    })
+    expect(
+      wizardRecord(w, raw({ type: 'nie-wiem', description: 'Ginie.', note: 'Pilne.' })),
+    ).toEqual({ Rodzaj: 'Nie wiem jeszcze' })
   })
 
   it('writes the message: the kind, then the client’s own words', () => {
