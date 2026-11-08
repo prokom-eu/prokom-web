@@ -40,9 +40,7 @@ test.describe('Instalacje home hero', () => {
     await expect(page.locator('h1')).toHaveText(
       'Monitoring, alarmy, Wi-Fi i smart home na Podhalu. Twój inteligentny obiekt na żywo.',
     )
-    await expect(page).toHaveTitle(
-      'Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje',
-    )
+    await expect(page).toHaveTitle('Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje')
     const description = await page.locator('meta[name="description"]').getAttribute('content')
     expect(description?.length ?? 999).toBeLessThanOrEqual(155)
   })
