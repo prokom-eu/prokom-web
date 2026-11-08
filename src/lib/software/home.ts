@@ -72,7 +72,8 @@ export const heroV24Schema = obj({
     )
     .min(1)
     .max(9),
-  trust: z.array(figure).min(1).max(4),
+  /** Not shown since 08.11 (Krystian: the figures go from the hero); kept so saved settings still read. */
+  trust: z.array(figure).max(4).optional(),
   industries: z.array(label).min(1),
 })
 

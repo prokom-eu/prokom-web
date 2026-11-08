@@ -19,7 +19,7 @@ function priceOf(slug: string, index: SolutionsIndex): Pick<StageSlide, 'price' 
 
 /**
  * Hero v24 of the Software start page (ZMIANY-v24 §4.1–4.1a, board `AU-pc`): the cosmic layer, the
- * pill, trust figures and the band of industries from the server; the H1 word, the choice panel,
+ * pill and the band of industries from the server; the H1 word, the choice panel,
  * the carousel and the caption in `HeroStage`. All mock-ups are rendered at once here (no loading
  * on a slide change) and handed to the client as children — it does not ship their code.
  */
@@ -72,14 +72,6 @@ export function HeroV24({ hero, index, isFirst = true }: Props) {
         windows={windows}
         isFirst={isFirst}
       />
-      <ul className="hx-trust">
-        {hero.trust.map((item) => (
-          <li key={item.v}>
-            <b>{item.v}</b>
-            <span>{item.l}</span>
-          </li>
-        ))}
-      </ul>
       <div className="hx-mq">
         <ul>
           {hero.industries.map((name) => (

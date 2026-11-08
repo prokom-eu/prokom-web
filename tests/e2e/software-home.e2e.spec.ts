@@ -109,9 +109,7 @@ test.describe('Software start page', () => {
   test('the wizard is a section of the page, its title an h2', async ({ page }) => {
     await page.goto(site(HOST))
     const wizard = page.locator('#dobierz')
-    await expect(wizard.getByRole('heading', { level: 2 })).toHaveText(
-      'Policz swój projekt. Bez dzwonienia.',
-    )
+    await expect(wizard.getByRole('heading', { level: 2 })).toHaveText('Policz swój projekt.')
     await expect(wizard.getByRole('heading', { level: 3 }).first()).toBeVisible()
   })
 
