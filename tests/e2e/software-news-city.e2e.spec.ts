@@ -14,7 +14,7 @@ test.describe('Software /aktualnosci', () => {
   test('the list in the Software look (no public post yet: the empty state)', async ({ page }) => {
     const response = await page.goto(site(HOST, '/aktualnosci'))
     expect(response?.status()).toBe(200)
-    await expect(page.locator('h1')).toHaveText('Konkretnie o stronach i systemach.')
+    await expect(page.locator('h1')).toHaveText('Aktualności bez lania wody.')
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toContainText('Aktualności')
   })
 
@@ -27,7 +27,7 @@ test.describe('Software /aktualnosci', () => {
 
   test('a category of another line is ignored', async ({ page }) => {
     await page.goto(site(HOST, '/aktualnosci?kategoria=kasy'))
-    await expect(page.locator('h1')).toHaveText('Konkretnie o stronach i systemach.')
+    await expect(page.locator('h1')).toHaveText('Aktualności bez lania wody.')
   })
 })
 

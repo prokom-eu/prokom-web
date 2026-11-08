@@ -1,4 +1,4 @@
-import { expect, type Page, test } from '@playwright/test'
+import { type CDPSession, expect, type Page, test } from '@playwright/test'
 
 import { site } from '../helpers'
 import { INST_HOST, INST_PAGES } from './pages'
@@ -15,11 +15,53 @@ import {
 const AUDIT_LIMIT_MS = 45_000
 
 /**
+ * Where the page's script stands: pauses it through the Chrome debugger and returns the top
+ * frames with a piece of the code around each — the CI build is minified, so the code tells more
+ * than the names. 08.11: the hung page did not answer at all. The debugger must be enabled before
+ * the hang (`Debugger.enable` itself waits for the blocked page); a pause then interrupts even a
+ * busy loop.
+ */
+async function blockedStack(cdp: CDPSession): Promise<string> {
+  try {
+    const paused = new Promise<string>((done) => {
+      cdp.once('Debugger.paused', (event) => {
+        void Promise.all(
+          event.callFrames.slice(0, 3).map(async (frame) => {
+            const { lineNumber, columnNumber = 0, scriptId } = frame.location
+            const file = frame.url.split('/').slice(-2).join('/') || '(inline)'
+            const { scriptSource } = await cdp
+              .send('Debugger.getScriptSource', { scriptId })
+              .catch(() => ({ scriptSource: '' }))
+            const line = scriptSource.split('\n')[lineNumber] ?? ''
+            const code = line.slice(Math.max(0, columnNumber - 120), columnNumber + 120)
+            return `${frame.functionName || '(anonymous)'} ${file}:${lineNumber + 1}:${columnNumber + 1}\n      ${code}`
+          }),
+        ).then((frames) => done(frames.join('\n    ← ')))
+      })
+    })
+    await cdp.send('Debugger.pause')
+    return await Promise.race([
+      paused,
+      new Promise<string>((done) => setTimeout(() => done('(no pause within 10 s)'), 10_000)),
+    ])
+  } catch (error) {
+    return `(debugger failed: ${String(error).slice(0, 120)})`
+  } finally {
+    await cdp.send('Debugger.resume').catch(() => undefined)
+  }
+}
+
+/**
  * The audit with its own limit. In CI an audit of a random page sometimes never returned and
  * held the test until its 180 s timeout (08.11, cause not found yet): now it fails after 45 s,
  * goes to the retry sooner and says where it stopped and whether the page still answers.
  */
-async function auditWithLimit(page: Page, width: number, where: string): Promise<PhoneProblem[]> {
+async function auditWithLimit(
+  page: Page,
+  cdp: CDPSession,
+  width: number,
+  where: string,
+): Promise<PhoneProblem[]> {
   let timer: ReturnType<typeof setTimeout> | undefined
   const limit = new Promise<never>((_, reject) => {
     timer = setTimeout(() => {
@@ -33,9 +75,16 @@ async function auditWithLimit(page: Page, width: number, where: string): Promise
       const blocked = new Promise<string>((done) =>
         setTimeout(() => done('the page does not answer (main thread blocked)'), 2000),
       )
-      void Promise.race([probe, blocked]).then((state) =>
-        reject(new Error(`Phone audit hung for ${AUDIT_LIMIT_MS / 1000} s at ${where}; ${state}.`)),
-      )
+      void Promise.race([probe, blocked]).then(async (state) => {
+        const stack = state.includes('blocked')
+          ? `\n  Script stack:\n    ${await blockedStack(cdp)}`
+          : ''
+        reject(
+          new Error(
+            `Phone audit hung for ${AUDIT_LIMIT_MS / 1000} s at ${where}; ${state}.${stack}`,
+          ),
+        )
+      })
     }, AUDIT_LIMIT_MS)
   })
   try {
@@ -55,6 +104,9 @@ for (const path of INST_PAGES) {
     test.slow()
     // Enter at 360 px — the narrowest phone, how people arrive; the rest by resizing.
     await page.setViewportSize({ width: PHONE_WIDTHS[0], height: 844 })
+    // For the stack of a hung audit (blockedStack): enabled before the page has any script.
+    const cdp = await page.context().newCDPSession(page)
+    await cdp.send('Debugger.enable')
     const response = await page.goto(site(INST_HOST, path))
     expect(response?.status(), path).toBe(200)
 
@@ -75,7 +127,7 @@ for (const path of INST_PAGES) {
       await page.setViewportSize({ width, height: 844 })
       for (const theme of THEMES) {
         await setTheme(page, theme)
-        for (const p of await auditWithLimit(page, width, `${path} ${width} px ${theme}`)) {
+        for (const p of await auditWithLimit(page, cdp, width, `${path} ${width} px ${theme}`)) {
           if (FAILING.has(p.kind)) failures.push(`${width} ${theme} ${p.kind}: ${p.detail}`)
         }
       }

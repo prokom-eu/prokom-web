@@ -26,10 +26,8 @@ async function withCart(page: Page, items: { id: string; q: number }[]) {
 async function openDrawer(page: Page) {
   // Before hydration the capsule's „Zapytanie” is a plain link to /zapytanie: wait for it.
   await hydrated(cartButton(page))
-  await expect(async () => {
-    await cartButton(page).click()
-    await expect(drawer(page)).toBeVisible({ timeout: 1000 })
-  }).toPass()
+  // Not clicked again once it shows: a second click closed a drawer that opened slowly.
+  await clickUntilVisible(cartButton(page), drawer(page))
 }
 
 test.describe('Biznes inquiry list', () => {

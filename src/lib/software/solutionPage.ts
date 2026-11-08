@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 import type { IconName } from '../catalog/options'
 import type { OfferView, RelatedCard } from './offer'
+import type { IndexPreview } from './solutionsIndex'
 import { firstIssue, label, obj } from './schema'
 
 /**
@@ -81,6 +82,8 @@ export type SolutionPageView = {
   title: { plain: string; accent: string | null }
   lead: string | null
   thumbnail: string | null
+  /** Mock-up of v24 (ZMIANY-v24 §8); missing → the thumbnail. */
+  preview: IndexPreview | null
   tiles: PageTile[]
   demo: SolutionDemo | null
   compare: { label: string; title: string; text: string | null }[]
@@ -224,6 +227,7 @@ export function buildSolutionPage({
     title: titleOf(view, page),
     lead: clean(page?.lead) ?? clean(view.lead),
     thumbnail: view.thumbnail ?? null,
+    preview: view.preview ?? null,
     tiles: tilesOf(view, page, price, priceFrom),
     demo,
     compare: (page?.compare ?? [])

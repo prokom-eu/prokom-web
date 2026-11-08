@@ -17,8 +17,16 @@ export const oferta = {
     `Pełna oferta · ${areas} obszarów · ${total} ${solutionsWord(total)}`,
   search: {
     placeholder: 'Szukaj: np. kamera, Wi-Fi dla gości, kościół, menu board',
+    // RUNDA-V5 §8: examples that change every 3 s while the field is empty and not focused.
+    hint: 'Szukaj, np. ',
+    hints: ['kamera do domku', 'Wi-Fi dla gości', 'nagłośnienie kościoła', 'zamek z kodem'],
     label: 'Szukaj w ofercie',
     clear: 'Wyczyść',
+  },
+  filters: {
+    open: 'Filtry',
+    title: 'Rodzaj obiektu',
+    show: (n: number) => `Pokaż ${n} ${solutionsWord(n)}`,
   },
   objects: { label: 'Rodzaj obiektu', all: 'Wszystkie' },
   count: (shown: number, total: number) => ({
@@ -34,10 +42,11 @@ export const oferta = {
     more: (n: number) => `Pokaż wszystkie (${n})`,
     less: 'Zwiń',
   },
+  // RUNDA-V5 §8: the phrase goes on to the planner's description (`/zaplanuj?opis=`).
   empty: {
-    before: 'Nic nie pasuje do tego wyszukiwania. Spróbuj innego słowa albo ',
-    link: 'opisz, czego potrzebujesz',
-    after: ', a odpowiemy, czy to robimy.',
+    heading: 'Nie mamy tego na liście.',
+    text: 'Opisz, czego szukasz — dobierzemy.',
+    button: 'Opisz, czego szukasz',
   },
   always: {
     eyebrow: 'W każdej instalacji',

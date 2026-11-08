@@ -5,13 +5,18 @@ import { expect, type Locator, type Page } from '@playwright/test'
 // acts once and then waits for the result fails after the whole test timeout — the main cause
 // of flaky e2e in CI (08.11: search, menu, seasonal bar, hero clock). Act through these.
 
-/** Waits until React has hydrated `target`, so its handlers (onClick, timers) are attached. */
+/**
+ * Waits until React has hydrated `target`, so its handlers (onClick, timers) are attached.
+ * Up to 15 s: on a busy CI runner the header hydrated after the default 5 s (08.11).
+ */
 export async function hydrated(target: Locator): Promise<void> {
   await expect
-    .poll(() =>
-      target.evaluate((element) =>
-        Object.keys(element).some((key) => key.startsWith('__reactProps$')),
-      ),
+    .poll(
+      () =>
+        target.evaluate((element) =>
+          Object.keys(element).some((key) => key.startsWith('__reactProps$')),
+        ),
+      { timeout: 15_000 },
     )
     .toBe(true)
 }

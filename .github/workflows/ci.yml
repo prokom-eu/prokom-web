@@ -38,6 +38,11 @@ jobs:
   # runs them. LINE_SHARED = files in a line's folder that code of every line imports
   # (SectionRail, RenderBlocks): they run all e2e too. A break across lines that slips through
   # shows up in the night run.
+  #
+  # The phone audit of Instalacje (telefon.e2e.spec.ts: ~40 pages × 3 widths × 2 themes, ~11 min
+  # on one worker) runs only at night, never on a PR (decision of Krystian 08.11): it took
+  # 1.5–3 min of every shard and now and then a page stalled it for 3+ min. Sessions of the line
+  # check the phone locally before a PR (audyt-telefon.mjs, porownaj.mjs).
   changes:
     name: changes
     runs-on: ubuntu-24.04
@@ -91,7 +96,7 @@ jobs:
             fi
           done <<< "$code"
           if [ "$full" = true ] || [ -z "$code" ]; then
-            { echo "e2e=all"; echo "phone=true"; echo "shards=[1,2,3,4,5,6,7,8]"; echo "total=8"; } >> "$GITHUB_OUTPUT"
+            { echo "e2e=all"; echo "phone=false"; echo "shards=[1,2,3,4,5,6,7,8]"; echo "total=8"; } >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -103,7 +108,7 @@ jobs:
             case "$line" in
               biznes) selected="$selected"$'\n'$(echo "$specs" | grep '^tests/e2e/biznes-' || true) ;;
               software) selected="$selected"$'\n'$(echo "$specs" | grep '^tests/e2e/software-' || true) ;;
-              instalacje) selected="$selected"$'\n'$(echo "$specs" | grep '^tests/e2e/instalacje/' || true); phone=true ;;
+              instalacje) selected="$selected"$'\n'$(echo "$specs" | grep '^tests/e2e/instalacje/' || true) ;;
             esac
           done
           echo "e2e=$(echo "$selected" | grep . | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
@@ -432,9 +437,9 @@ jobs:
           key: apt-playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
 
       # On the build above (`pnpm start`, playwright.config.ts): no route compiling on first visit.
-      # Two runs, each split into the same shards: Playwright cuts the list by test count in file
-      # order, so the ~40 slow phone tests of Instalacje (~11 min) would all land in one shard.
-      # Split on their own they add ~1.5–3 min to every shard instead.
+      # The phone audit (night run only, see `changes`) is a second run split into the same
+      # shards: Playwright cuts the list by test count in file order, so its ~40 slow tests would
+      # otherwise all land in one shard.
       - name: E2E tests (shard ${{ matrix.shard }}/${{ needs.changes.outputs.total }})
         if: github.event_name != 'push'
         env:

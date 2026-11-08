@@ -1055,3 +1055,117 @@
     }
   }
 }
+
+/* RUNDA-V5 §10: handover + standards, mistakes, common parts, the realization. Tokens only. */
+[data-line='instalacje'] {
+  & .ttho {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
+  }
+  & .ttlist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .ttlist li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+  & .ttlist li > svg {
+    flex: none;
+    margin-top: 2px;
+    color: var(--accent-text);
+  }
+  & .ttstd {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 26px;
+  }
+  & .ttstd .ttlist li {
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+  & .ttmis,
+  & .ttcom {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  & .ttmis p,
+  & .ttcom p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+  & .ttmis .ttavoid {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14.5px;
+  }
+  & .ttavoid span {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ok-text);
+    margin-bottom: 2px;
+  }
+  & .ttcom h3 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  & .ttcom h3 > svg {
+    color: var(--accent-text);
+  }
+  & .ttreal {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 28px;
+    padding: 18px;
+    align-items: center;
+  }
+  & .ttreal .rlimg {
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  & .ttrealb {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 8px 12px 8px 0;
+  }
+  & .ttrealb p {
+    margin: 0;
+    color: var(--ink-2);
+  }
+  @media (max-width: 1100px) {
+    & .ttho,
+    & .ttreal {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .ttrealb {
+      padding: 0 6px 6px;
+    }
+  }
+  /* Phone: one card per row — these carry two paragraphs each. */
+  @media (max-width: 700px) {
+    & :is(#bledy, #czesci-wspolne) .g4 {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}
