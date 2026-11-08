@@ -104,8 +104,8 @@ export const monitoring = {
 
   whatYouGet: {
     head: {
-      eyebrow: 'Monitoring od PRO-KOM',
-      heading: 'Twarz przy furtce, tablica przy bramie. Bez podglądania sąsiada.',
+      eyebrow: 'Co dostajesz',
+      heading: 'Co zobaczysz na kamerze przy furtce i przy bramie',
       lead: 'Każdą kamerę dobieramy do jej miejsca: furtki, podjazdu, parkingu, wejścia. Ustawiamy wykrywanie, strefy i czas nagrań, a potem uczymy Cię obsługi aplikacji.',
     } satisfies SectionHead,
     items: [
@@ -117,7 +117,7 @@ export const monitoring = {
       {
         icon: 'phone',
         title: 'Podgląd w telefonie',
-        text: 'Aplikacja producenta (np. Hik-Connect, DMSS albo aplikacja BCS): obraz na żywo, powiadomienia, przewijanie nagrań. Konfigurujemy ją razem z Tobą.',
+        text: 'Aplikacja producenta (np. Hik-Connect, DMSS albo aplikacja BCS): bieżący obraz, powiadomienia, przewijanie nagrań. Konfigurujemy ją razem z Tobą.',
       },
       {
         icon: 'eye',
@@ -145,9 +145,8 @@ export const monitoring = {
   system: {
     head: {
       eyebrow: 'Wersje instalacji',
-      heading: 'Kamery, rejestrator, dyski, zasilanie i aplikacja.',
-      accent: 'Zobacz cały system.',
-      lead: 'Kamera to tylko początek. Żeby nagrania nie ginęły przy burzy, mrozie czy zaniku prądu, potrzebny jest rejestrator, dyski do pracy 24/7, zasilanie, sieć i porządna aplikacja. Wybierz wersję i kliknij element schematu.',
+      heading: 'Z czego składa się monitoring domu i firmy',
+      lead: 'Żeby nagrania nie ginęły przy burzy, mrozie czy braku prądu, oprócz kamer potrzebny jest rejestrator, dysk do pracy przez całą dobę, zasilacz awaryjny i sieć. Wybierz wersję i kliknij element schematu, żeby zobaczyć, co robi.',
     } satisfies SectionHead,
     tabsLabel: 'Wersja instalacji',
     diagramLabel: 'Schemat systemu monitoringu:',
@@ -209,8 +208,8 @@ export const monitoring = {
         name: 'Rejestrator NVR',
         icon: 'cpu',
         place: 'Serce systemu',
-        text: 'Nagrywa wszystkie kamery naraz i trzyma nagrania w budynku, a nie w obcej chmurze. Analizuje obraz i wysyła powiadomienia.',
-        tip: 'Dobieramy go po przepustowości, a nie tylko po liczbie kanałów. Suma strumieni ze wszystkich kamer musi się w niej zmieścić z zapasem.',
+        text: 'Nagrywa wszystkie kamery naraz i trzyma nagrania na miejscu, w Twoim budynku. Analizuje obraz i wysyła powiadomienia.',
+        tip: 'Dobieramy go po liczbie kanałów i po przepustowości, czyli tym, ile danych przyjmie naraz. Suma strumieni ze wszystkich kamer musi się w niej zmieścić z zapasem.',
       },
       hdd: {
         name: 'Dyski do monitoringu',
@@ -244,14 +243,14 @@ export const monitoring = {
         name: 'Aplikacja i powiadomienia',
         icon: 'phone',
         place: 'W Twoim telefonie',
-        text: 'Podgląd na żywo, nagrania i powiadomienia o człowieku lub samochodzie w aplikacji producenta, np. Hik-Connect, DMSS albo aplikacji BCS.',
+        text: 'Bieżący podgląd, nagrania i powiadomienia o człowieku lub samochodzie w aplikacji producenta, np. Hik-Connect, DMSS albo aplikacji BCS.',
         tip: 'Każdy domownik albo pracownik dostaje własne konto z uprawnieniami, które ustawimy przy odbiorze. Pokazujemy, jak szybko znaleźć i zapisać nagranie.',
       },
       lnk: {
         name: 'Światłowód lub most radiowy',
         icon: 'fiber',
         place: 'Między budynkami',
-        text: 'Drugi budynek, parking albo brama dalej niż 100 metrów. Bez kopania rowu przez całą działkę.',
+        text: 'Łączy z rejestratorem drugi budynek, parking albo bramę dalej niż 100 metrów, bez kopania rowu przez całą działkę.',
         tip: 'Na dłuższe odcinki kładziemy światłowód. Tam, gdzie nie da się kopać, stawiamy most radiowy, który potrzebuje widoczności między punktami.',
       },
       lpr: {
@@ -389,8 +388,8 @@ export const monitoring = {
 
   types: {
     head: {
-      eyebrow: 'Jaką kamerę wybrać',
-      heading: 'Pięć rodzajów kamer. Każda do innego miejsca.',
+      eyebrow: 'Rodzaje kamer',
+      heading: 'Jakie kamery montujemy i gdzie się sprawdzają',
     },
     tabsLabel: 'Rodzaje kamer',
     fits: 'Gdzie pasuje',
@@ -434,9 +433,9 @@ export const monitoring = {
 
   dori: {
     head: {
-      eyebrow: 'Kalkulator: ile widać',
-      heading: 'Twarz czy tylko sylwetka? To zależy od odległości.',
-      lead: 'Norma PN-EN 62676-4 mówi, ile pikseli na metr potrzeba, żeby człowieka wykryć, obserwować, rozpoznać albo zidentyfikować. Sprawdź, jak zmienia się to z odległością.',
+      eyebrow: 'Kalkulator',
+      heading: 'Z jakiej odległości kamera pokaże twarz',
+      lead: 'Im dalej stoi człowiek, tym mniej pikseli obrazu przypada na metr. Sprawdź, z jakiej odległości kamera go wykryje, a z jakiej rozpoznasz twarz.',
     } satisfies SectionHead,
     resolution: 'Rozdzielczość kamery',
     lens: 'Obiektyw (kąt widzenia)',
@@ -459,8 +458,8 @@ export const monitoring = {
 
   recording: {
     head: {
-      eyebrow: 'Kalkulator: ile dni nagrań',
-      heading: 'Ile dni nagrań zmieści dysk przy Twoich kamerach.',
+      eyebrow: 'Kalkulator nagrań',
+      heading: 'Ile dni nagrań zmieści dysk w rejestratorze',
       lead: 'Nagrania zostają na rejestratorze w Twoim obiekcie. Policz, na ile dni wystarczy dysk przy nagrywaniu ciągłym.',
     } satisfies SectionHead,
     cameras: 'Liczba kamer',
@@ -484,7 +483,7 @@ export const monitoring = {
   privacy: {
     head: {
       eyebrow: 'Prywatność',
-      heading: 'Kadr i maski: kamera patrzy tylko tam, gdzie trzeba.',
+      heading: 'Jak ustawić kamerę, żeby nie nagrywała sąsiada',
       lead: 'Ustawiamy kadr, maski prywatności i czas nagrań. Podpowiemy też, gdzie powiesić tabliczkę o monitoringu i co na niej wpisać.',
     } satisfies SectionHead,
     yes: {
@@ -551,9 +550,8 @@ export const monitoring = {
   brands: {
     head: {
       eyebrow: 'Sprzęt',
-      heading: 'Dahua, Hikvision, BCS.',
-      accent: 'Dobieramy pod obiekt, nie pod markę.',
-      lead: 'To popularne marki monitoringu, a każda ma setki modeli. Nie sprzedajemy jednej linii. Kamerę, rejestrator i dysk dobieramy do miejsca: mrozu, światła nocą, odległości i tego, co ma być widać. Gdy budujemy też sieć, sprawdzamy, czy kamery tego samego producenta co sieć nie uproszczą obsługi.',
+      heading: 'Kamery Dahua, Hikvision i BCS dobrane do miejsca',
+      lead: 'To popularne marki monitoringu, a każda ma setki modeli. Kamerę, rejestrator i dysk dobieramy do miejsca: mrozu, światła nocą, odległości i tego, co ma być widać. Gdy budujemy też sieć, sprawdzamy, czy kamery tego samego producenta co sieć uproszczą obsługę.',
     } satisfies SectionHead,
     items: [
       {
@@ -604,7 +602,7 @@ export const monitoring = {
       {
         icon: 'cpu',
         title: 'Rejestrator i dysk',
-        text: 'NVR z zasilaniem PoE dla kamer i dyski do zapisu przez całą dobę, np. WD Purple albo Seagate SkyHawk.',
+        text: 'Rejestrator (NVR), który zasila kamery przez kabel sieciowy (PoE), i dyski do zapisu przez całą dobę, np. WD Purple albo Seagate SkyHawk.',
       },
     ] satisfies Feature[],
   },

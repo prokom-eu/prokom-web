@@ -115,8 +115,8 @@ export const ladowarki = {
 
   offer: {
     head: {
-      eyebrow: 'Oferta Elzab EcoPower',
-      heading: 'Trzy ładowarki. Od garażu po parking hotelu.',
+      eyebrow: 'Oferta Elzab',
+      heading: 'Ładowarki Elzab do garażu, pensjonatu i na parking',
       lead: 'Montujemy całą rodzinę ładowarek Elzab EcoPower. Elzab to polski producent z Zabrza. Model dobieramy do tego, kto będzie ładował, ile aut naraz i czy ładowanie ma być rozliczane.',
     } satisfies SectionHead,
     pick: 'Dobierz wersję',
@@ -141,8 +141,8 @@ export const ladowarki = {
   config: {
     head: {
       eyebrow: 'Dobór wersji',
-      heading: 'Złóż swoją ładowarkę.',
-      lead: 'Wybierz model i opcje. Pokażemy, czego taka wersja wymaga od instalacji. Dokładny model potwierdzimy po zdjęciu rozdzielnicy.',
+      heading: 'Dobierz model, moc i kolor ładowarki',
+      lead: 'Wybierz model i opcje, a pokażemy, czego taka wersja wymaga od instalacji. Dokładny model potwierdzimy po obejrzeniu rozdzielnicy.',
     } satisfies SectionHead,
     model: 'Model',
     colour: 'Kolor obudowy',
@@ -161,7 +161,7 @@ export const ladowarki = {
   },
 
   comparison: {
-    head: { eyebrow: 'Porównanie', heading: 'CC Home, CC Wall i CC City obok siebie.' },
+    head: { eyebrow: 'Porównanie', heading: 'Porównanie ładowarek CC Home, CC Wall i CC City' },
     feature: 'Cecha',
     swipe: 'Przesuń tabelę w bok, żeby zobaczyć CC City →',
     note: 'Przed zamówieniem potwierdzamy aktualne parametry i dostępność wybranej wersji.',
@@ -215,7 +215,7 @@ export const ladowarki = {
   /** Charging time calculator (`ev`). */
   calc: {
     eyebrow: 'Kalkulator',
-    heading: 'Ile potrwa ładowanie Twojego auta?',
+    heading: 'Ile trwa ładowanie auta elektrycznego',
     lead: 'Ustaw baterię, zakres ładowania i moc. Zobaczysz, czy mocniejsza ładowarka ma u Ciebie sens.',
     tips: [
       'Do ładowania nocą w domu zwykle wystarcza 7,4 albo 11 kW.',

@@ -49,7 +49,7 @@ test.describe('Instalacje full offer', () => {
   }) => {
     await open(page, '/uslugi')
     await page.getByRole('searchbox', { name: 'Szukaj w ofercie' }).fill('basen z falami')
-    await expect(page.locator('#lista .ofempty')).toContainText('Nie mamy tego na liście.')
+    await expect(page.locator('#lista .ofempty')).toContainText('Nie znaleźliśmy tego w ofercie')
     await expect(page.locator('#lista .ofempty a')).toHaveAttribute(
       'href',
       '/zaplanuj?opis=basen%20z%20falami',

@@ -125,7 +125,11 @@ function expectScreen(proto: Proto, state: ScreenState) {
   }).toEqual({
     fmt: ref.fmt,
     frame: ref.frame,
-    s: ref.s,
+    // INST-6 (runda v6 §2.2): no exclamation mark on the demo slide.
+    s: {
+      ...ref.s,
+      h: ref.s.h === 'Dzień dobry! Pogoda dziś' ? 'Dzień dobry, pogoda na dziś' : ref.s.h,
+    },
     clock: ref.clock,
     dots: ref.dots,
     sched: ref.sched,

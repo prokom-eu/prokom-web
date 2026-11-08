@@ -70,7 +70,7 @@ export const ekrany = {
         slides: [
           {
             kind: 'rec',
-            title: 'Dzień dobry! Pogoda dziś',
+            title: 'Dzień dobry, pogoda na dziś',
             items: [
               ['sun', '−4°', 'rano'],
               ['snow', 'śnieg', 'na stokach'],
@@ -232,8 +232,8 @@ export const ekrany = {
 
   where: {
     head: {
-      eyebrow: 'Gdzie montujemy ekrany',
-      heading: 'Witryna, kasa, recepcja. Każde miejsce potrzebuje innego ekranu.',
+      eyebrow: 'Gdzie montujemy',
+      heading: 'Ekrany w recepcji, restauracji, witrynie i sali',
       lead: 'Dobieramy ekran do miejsca, montujemy go, podłączamy odtwarzacz i ustawiamy harmonogram treści. Treść zmieniasz z telefonu albo zlecasz nam.',
     } satisfies SectionHead,
     items: [
@@ -302,8 +302,8 @@ export const ekrany = {
   /** Brightness for the place (`js`). */
   brightness: {
     head: {
-      eyebrow: 'Dobierz ekran do miejsca',
-      heading: 'W witrynie zwykły ekran po prostu zniknie.',
+      eyebrow: 'Jasność ekranu',
+      heading: 'Jaka jasność ekranu do witryny, sklepu i biura',
       lead: 'Jasność ekranu mierzy się w nitach. W środku sklepu wystarcza kilkaset, w witrynie w słońcu potrzeba kilku tysięcy. Wybierz miejsce, a pokażemy, jaka klasa ekranu ma sens.',
     } satisfies SectionHead,
     placesLabel: 'Miejsce ekranu',
@@ -368,8 +368,8 @@ export const ekrany = {
 
   tvOrScreen: {
     head: {
-      eyebrow: 'Telewizor czy ekran profesjonalny',
-      heading: 'Telewizor w witrynie to oszczędność tylko na starcie.',
+      eyebrow: 'Porównanie',
+      heading: 'Telewizor czy ekran profesjonalny do firmy',
       lead: 'Telewizor jest tańszy, ale nie jest robiony do pracy w firmie. Warunki gwarancji producentów telewizorów wyłączają albo ograniczają użytek inny niż domowy.',
     } satisfies SectionHead,
     columns: ['Telewizor domowy', 'Ekran profesjonalny'],
@@ -392,9 +392,9 @@ export const ekrany = {
   },
 
   content: {
-    eyebrow: 'Treści i zarządzanie',
-    heading: 'Zmieniasz menu z telefonu. Albo robimy to za Ciebie.',
-    lead: 'Samsung kończy sprzedaż MagicINFO w wersji lokalnej z końcem 2026 roku, a jego następcą jest VXT. Istniejące instalacje MagicINFO mają wsparcie do końca 2029 roku, ale MagicINFO Cloud przestaje działać już 28.02.2027. Nowe wdrożenia robimy na VXT, a licencję dobieramy do liczby ekranów i tego, kto zmienia treści.',
+    eyebrow: 'Treści na ekranach',
+    heading: 'Kto zmienia treści na ekranach: Ty albo my',
+    lead: 'Treść zmieniasz sam w aplikacji Samsung VXT albo zlecasz nam, a licencję dobieramy do liczby ekranów. MagicINFO Cloud przestaje działać 28.02.2027, więc tam przejście na VXT planujemy wcześniej. Lokalne MagicINFO ma wsparcie do końca 2029 roku.',
     items: [
       {
         icon: 'phone',
@@ -404,7 +404,7 @@ export const ekrany = {
       {
         icon: 'clock',
         title: 'Harmonogramy',
-        text: 'Śniadanie, obiad, kolacja. Treść zmienia się sama, także w weekendy i święta.',
+        text: 'Rano menu śniadań, po południu obiady, wieczorem kolacje. Treść zmienia się sama, także w weekendy i święta.',
       },
       {
         icon: 'doc',
@@ -418,7 +418,7 @@ export const ekrany = {
 
   led: {
     eyebrow: 'Ekrany LED',
-    heading: 'Z jakiej odległości oglądasz?',
+    heading: 'Jaki rozstaw pikseli wybrać do ekranu LED',
     lead: 'W ekranach LED liczy się rozstaw pikseli. Im mniejszy, tym bliżej można stać, ale tym drożej.',
     pitch: 'Rozstaw pikseli',
     closest: 'Najbliżej',
@@ -426,8 +426,8 @@ export const ekrany = {
     from: 'od',
     note: 'Reguła minimum: 1 mm rozstawu to ok. 1 m odległości. Komfortowo ok. 2,4 m na każdy 1 mm.',
     more: {
-      eyebrow: 'Ściany wideo i monitory interaktywne',
-      heading: 'Kiedy jeden ekran to za mało.',
+      eyebrow: 'Ściany wideo',
+      heading: 'Ściany wideo i monitory interaktywne do sal i szkół',
       items: [
         {
           icon: 'grid',
@@ -454,9 +454,9 @@ export const ekrany = {
   },
 
   outdoor: {
-    eyebrow: 'Ekrany zewnętrzne i w witrynie',
-    heading: 'Na zewnątrz w górach potrzebny jest inny ekran.',
-    lead: 'Słońce odbite od śniegu, mróz i wilgoć. Na zewnątrz montujemy ekrany do tego przeznaczone.',
+    eyebrow: 'Na zewnątrz',
+    heading: 'Jaki ekran wytrzyma mróz i słońce w górach',
+    lead: 'W górach ekran na zewnątrz musi znieść słońce odbite od śniegu, mróz i wilgoć. Dlatego montujemy tam tylko ekrany do tego przeznaczone.',
     items: [
       {
         icon: 'sun',

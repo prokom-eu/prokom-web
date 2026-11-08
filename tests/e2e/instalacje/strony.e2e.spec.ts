@@ -27,7 +27,21 @@ const LAW_EXEMPT = new Set([
 const LAW_ALL = new RegExp(LAW_WORDS.source, 'gu')
 // Runda v6 §2.2 (INST-6): pages with rewritten texts — no generated-copy phrasings in the whole
 // body (the frame too). Each INST-6 PR adds its pages.
-const COPY_CHECKED = new Set(['/'])
+const COPY_CHECKED = new Set([
+  '/',
+  // PR3: the services and the offer.
+  '/monitoring',
+  '/alarmy',
+  '/kontrola-dostepu',
+  '/sieci-wifi',
+  '/teletechnika',
+  '/anteny',
+  '/smart-home',
+  '/naglosnienie',
+  '/ekrany',
+  '/ladowarki-ev',
+  '/uslugi',
+])
 const COPY_ALL = new RegExp(COPY_WORDS.source, 'gu')
 const PLACEHOLDER = /\[[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ ]{2,}[:\]]/
 

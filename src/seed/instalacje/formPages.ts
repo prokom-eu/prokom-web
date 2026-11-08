@@ -76,14 +76,15 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
     blockType: 'instOffer',
     hero: {
       crumb: 'Pełna oferta',
-      h1a: 'Oferta instalacji na Podhalu:',
-      h1b: 'monitoring, alarmy, sieci, smart home, nagłośnienie.',
-      lead: 'Od kamery przy furtce po nagłośnienie kościoła i ekrany z treścią zmienianą zdalnie. Wybierz swój obiekt albo wpisz, czego szukasz, a pokażemy tylko to, co ma dla Ciebie sens.',
+      // INST-6 PR3 (runda v6 §2): the H1 says the offer and the region.
+      h1a: 'Instalacje dla domu, pensjonatu i firmy',
+      h1b: 'na Podhalu',
+      lead: 'Montujemy monitoring, alarmy, Wi-Fi, smart home, nagłośnienie, ekrany, anteny i ładowarki. Wybierz rodzaj obiektu albo wpisz, czego szukasz, a pokażemy pasujące rozwiązania.',
     },
     cta: {
       eyebrow: 'Pełna oferta',
-      heading: 'Nie wiesz, co wybrać? Pomożemy ułożyć zestaw.',
-      text: 'Opisz obiekt. Zaproponujemy, od czego zacząć, i wycenimy na piśmie.',
+      heading: 'Pomożemy ułożyć zestaw pod Twój obiekt',
+      text: 'Opisz obiekt, a zaproponujemy, od czego zacząć, i przygotujemy wycenę na piśmie.',
     },
   }),
   realizacje: () => ({

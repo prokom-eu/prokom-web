@@ -468,13 +468,14 @@
     font-size: clamp(38px, 4.1vw, 60px);
     line-height: 1;
   }
-  & .h1 .h1k {
+  & .pht2 .h1k {
     display: block;
     font-family: var(--font-sans);
     font-stretch: 100%;
     letter-spacing: 0.1em;
     line-height: 1.45;
-    margin-bottom: 20px;
+    /* Outside the h1 since INST-6: the column's gap is the spacing. */
+    margin-bottom: 0;
   }
   & .pkv {
     display: flex;

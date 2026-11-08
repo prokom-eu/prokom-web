@@ -58,10 +58,17 @@ function fresh(): Proto {
   return proto
 }
 
+/** Runda v6 §2 (INST-6): prototype texts rewritten in `dane/dostep.ts` (no exclamation marks). */
+const REWRITTEN: Readonly<Record<string, string>> = { 'Otwarte · witamy!': 'Otwarte · witamy' }
+
 function expectSame(proto: Proto, state: LockState) {
   const ref = proto.page(P, {}).kd
   const v = lockView(state)
-  expect([v.display, v.status, v.door]).toEqual([ref.disp, ref.dispS, ref.dcls])
+  expect([v.display, v.status, v.door]).toEqual([
+    ref.disp,
+    REWRITTEN[ref.dispS] ?? ref.dispS,
+    ref.dcls,
+  ])
   expect(
     v.log.map((l) => ({ cls: l.bad ? 'kl bad' : 'kl', ic: l.icon, t: l.when, s: l.text })),
   ).toEqual(ref.log)

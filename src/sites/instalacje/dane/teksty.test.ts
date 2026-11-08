@@ -3,11 +3,22 @@ import { describe, expect, it } from 'vitest'
 import { COPY_WORDS } from '../../../lib/instalacje/copyWords'
 import { LAW_WORDS } from '../../../lib/instalacje/lawWords'
 import { HOME_SEO, instalacjeHomeBlock } from '../../../seed/instalacje/home'
+import { alarmy } from './alarmy'
+import { anteny } from './anteny'
 import { architekci } from './architekci'
+import { dostep } from './dostep'
+import { ekrany } from './ekrany'
 import { glowna } from './glowna'
 import { glownaSekcje, FOR_WHO_CARDS, SERVICE_CARDS } from './glownaSekcje'
+import { ladowarki } from './ladowarki'
+import { monitoring } from './monitoring'
+import { naglosnienie } from './naglosnienie'
 import { navigation } from './nawigacja'
 import { nieZnaleziono } from './nieZnaleziono'
+import { oferta } from './oferta'
+import { sieci } from './sieci'
+import { smartHome } from './smartHome'
+import { teletechnika } from './teletechnika'
 
 /** Every string inside a value. */
 function texts(value: unknown, out: string[] = []): string[] {
@@ -19,7 +30,7 @@ function texts(value: unknown, out: string[] = []): string[] {
 
 /**
  * Runda v6 §2 (INST-6): the texts rewritten so far — PR2: the home page, the menus, the CTA band,
- * the footer and the 404. The next PRs add their modules here.
+ * the footer and the 404; PR3: the services and the offer. The next PRs add their modules here.
  */
 const REWRITTEN = {
   'home hero': instalacjeHomeBlock(),
@@ -29,6 +40,18 @@ const REWRITTEN = {
   'architects teaser': architekci.teaser,
   navigation,
   '404': nieZnaleziono,
+  // PR3: the service pages and the offer.
+  monitoring,
+  alarmy,
+  dostep,
+  sieci,
+  teletechnika,
+  anteny,
+  smartHome,
+  ladowarki,
+  naglosnienie,
+  ekrany,
+  oferta,
 }
 
 describe('texts after INST-6 (runda v6 §2.2)', () => {
@@ -37,7 +60,8 @@ describe('texts after INST-6 (runda v6 §2.2)', () => {
   })
 
   it.each(Object.entries(REWRITTEN))('%s: no law, no exclamation marks', (_, value) => {
-    expect(texts(value).filter((t) => LAW_WORDS.test(t) || /!/.test(t))).toEqual([])
+    // An exclamation mark after a word; the „!” symbol of a timeline legend is not a sentence.
+    expect(texts(value).filter((t) => LAW_WORDS.test(t) || /\p{L}!/u.test(t))).toEqual([])
   })
 
   it('section headings: one sentence without a trailing full stop, about 60 characters', () => {

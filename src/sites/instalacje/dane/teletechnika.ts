@@ -95,8 +95,8 @@ export const teletechnika = {
   scope: {
     head: {
       eyebrow: 'Zakres prac',
-      heading: 'Wszystko, co w budynku przewodzi sygnał.',
-      lead: 'Wchodzimy na budowę w stanie surowym, prowadzimy trasy, montujemy, mierzymy i oddajemy dokumentację. Jeden podwykonawca od całej teletechniki budynku.',
+      heading: 'Jakie instalacje teletechniczne wykonujemy w budynku',
+      lead: 'Wchodzimy na budowę w stanie surowym i zostajemy aż do odbioru. Całą teletechnikę budynku, od tras po pomiary i dokumentację, masz u jednego podwykonawcy.',
     } satisfies SectionHead,
     items: [
       {
@@ -141,9 +141,9 @@ export const teletechnika = {
   /** „Na każdym etapie budowy” (`#etapy`): the axis of the home process (`ProcessAxis`). */
   stages: {
     head: {
-      eyebrow: 'Na każdym etapie budowy',
-      heading: 'Od projektu do przekazania wspólnocie.',
-      lead: 'Wchodzimy wtedy, kiedy trzeba, a nie wtedy, kiedy jest za późno. Przy każdym etapie wiemy, co robimy i co sprawdzamy.',
+      eyebrow: 'Etapy budowy',
+      heading: 'Co robimy na każdym etapie budowy',
+      lead: 'Najlepiej zacząć przy projekcie albo w stanie surowym, zanim wejdą tynkarze. Przy każdym etapie mówimy, co robimy i co sprawdzamy.',
     } satisfies SectionHead,
     getLabel: 'Sprawdzamy',
     steps: [
@@ -196,8 +196,8 @@ export const teletechnika = {
   handover: {
     head: {
       eyebrow: 'Przy odbiorze',
-      heading: 'Co dostajesz, kiedy oddajemy budynek.',
-      lead: 'Dokumenty, z którymi wspólnota albo zarządca poradzi sobie bez nas — i z nami, gdy trzeba coś zmienić.',
+      heading: 'Jakie dokumenty dostajesz przy odbiorze',
+      lead: 'Wspólnota albo zarządca znajdzie w nich każdy przewód i każde gniazdo. Przydadzą się też za kilka lat, gdy trzeba będzie coś zmienić.',
     } satisfies SectionHead,
     items: [
       'Raport z pomiarów każdego toru, miedzianego i światłowodowego',
@@ -214,9 +214,9 @@ export const teletechnika = {
   /** „Błędy, które zatrzymują odbiór” (`#bledy`): four cards, each with how we avoid it. */
   mistakes: {
     head: {
-      eyebrow: 'Błędy, które zatrzymują odbiór',
-      heading: 'Cztery rzeczy, przez które odbiór się przesuwa.',
-      lead: 'Widzimy je na budowach najczęściej. Każdej da się uniknąć, jeśli pomyśli się o niej wcześniej.',
+      eyebrow: 'Częste błędy',
+      heading: 'Błędy, przez które odbiór teletechniki się przesuwa',
+      lead: 'Te cztery widzimy na budowach najczęściej. Każdego da się uniknąć, jeśli pomyśli się o nim wcześniej.',
     } satisfies SectionHead,
     avoidLabel: 'Jak tego unikamy',
     items: [
@@ -250,8 +250,8 @@ export const teletechnika = {
   /** „Także w częściach wspólnych” (`#czesci-wspolne`), with links to the service pages. */
   common: {
     head: {
-      eyebrow: 'Także w częściach wspólnych',
-      heading: 'Domofony, dostęp, monitoring i telewizja dla całego budynku.',
+      eyebrow: 'Części wspólne',
+      heading: 'Instalacje w częściach wspólnych budynku',
       lead: 'Robimy je w tym samym zakresie co okablowanie lokali, więc trasy i szafy planujemy raz.',
     } satisfies SectionHead,
     items: [
@@ -286,7 +286,7 @@ export const teletechnika = {
   pricing: {
     head: {
       eyebrow: 'Jak liczymy ofertę',
-      heading: 'Wycena pozycja po pozycji, z terminem wejścia ekipy.',
+      heading: 'Wycena pozycja po pozycji i termin wejścia ekipy',
       lead: 'Od przedmiaru do terminu na budowie w czterech krokach.',
     } satisfies SectionHead,
     steps: [
@@ -314,7 +314,7 @@ export const teletechnika = {
   },
 
   forWhom: {
-    head: { eyebrow: 'Dla kogo', heading: 'Pracujemy z tymi, którzy budują.' },
+    head: { eyebrow: 'Dla kogo', heading: 'Z kim pracujemy przy teletechnice budynków' },
     items: [
       {
         icon: 'apt',
@@ -344,8 +344,8 @@ export const teletechnika = {
   quote: {
     head: {
       eyebrow: 'Zapytanie ofertowe',
-      heading: 'Wyślij przedmiar. Odpowiemy wyceną.',
-      lead: 'Przedmiar, projekt albo choćby rzuty z opisem. Im więcej szczegółów, tym dokładniejsza oferta.',
+      heading: 'Opisz inwestycję, a przygotujemy wycenę',
+      lead: 'Wystarczy przedmiar, projekt albo choćby rzuty z opisem. Im więcej szczegółów, tym dokładniejsza oferta.',
     } satisfies SectionHead,
     category: 'Teletechnika — przedmiar',
     typeTitle: 'Rodzaj inwestycji',

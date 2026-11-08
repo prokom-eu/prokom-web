@@ -28,7 +28,7 @@ export const dostep = {
     expiredCode: '1357',
     empty: '— — — —',
     status: {
-      ok: 'Otwarte · witamy!',
+      ok: 'Otwarte · witamy',
       expired: 'Kod wygasł',
       bad: 'Błędny kod',
       typed: 'Naciśnij OK',
@@ -154,15 +154,15 @@ export const dostep = {
 
   methods: {
     head: {
-      eyebrow: 'Czym się otwiera',
-      heading: 'Czym otworzysz drzwi i co zostaje na wypadek awarii.',
-      lead: 'Dobieramy sposób otwierania do ludzi, którzy będą wchodzić: gości, pracowników, mieszkańców, serwisu.',
+      eyebrow: 'Sposoby otwierania',
+      heading: 'Czym otworzysz drzwi i jak wejdziesz przy awarii',
+      lead: 'Sposób otwierania dobieramy do tego, kto będzie wchodził: goście, pracownicy, mieszkańcy albo serwis.',
     } satisfies SectionHead,
     items: [
       {
         icon: 'keypad',
         title: 'Kod PIN',
-        text: 'Stały dla domowników, czasowy dla gości i serwisu. Wygasa sam.',
+        text: 'Stały dla domowników albo czasowy dla gości i serwisu, który po pobycie wygasa sam.',
         tag: 'Apartamenty, pensjonaty',
       },
       {
@@ -188,9 +188,9 @@ export const dostep = {
 
   apartments: {
     head: {
-      eyebrow: 'Apartamenty i pensjonaty',
-      heading: 'Rezerwacja wpada, kod wysyła się sam.',
-      lead: 'Zamek połączony z systemem rezerwacji tworzy kod ważny tylko w czasie pobytu i wysyła go gościowi. Ty nie jedziesz o 22:00 przekazać klucza.',
+      eyebrow: 'Dla apartamentów',
+      heading: 'Zamek z kodem połączony z systemem rezerwacji',
+      lead: 'Zamek połączony z systemem rezerwacji tworzy kod ważny tylko w czasie pobytu i wysyła go gościowi. Gość wchodzi sam, nawet gdy przyjeżdża o 22:00.',
     } satisfies SectionHead,
     flow: [
       {
@@ -241,9 +241,9 @@ export const dostep = {
   },
 
   company: {
-    eyebrow: 'Firma, hala, wspólnota',
-    heading: 'Magazynier do magazynu od 6:00, ekipa sprzątająca do biura po 18:00.',
-    lead: 'Karty albo breloki dla pracowników i mieszkańców, strefy, harmonogramy i historia wejść. W systemach online zgubioną kartę blokujesz od razu, bez wymiany zamków.',
+    eyebrow: 'Firmy i wspólnoty',
+    heading: 'Karty i breloki dla firmy, hali i wspólnoty',
+    lead: 'Pracownicy i mieszkańcy wchodzą na kartę albo brelok tylko tam i wtedy, gdzie mają wstęp, np. magazynier do magazynu od 6:00. W systemach online zgubioną kartę blokujesz od razu, bez wymiany zamków.',
     list: [
       {
         title: 'Strefy',
@@ -255,7 +255,7 @@ export const dostep = {
       },
       {
         title: 'Historia wejść',
-        text: 'Kto, którędy i kiedy. Przydaje się przy incydentach i kontroli dostępu do stref.',
+        text: 'Widzisz, kto, którędy i kiedy wszedł. Przydaje się przy incydentach i kontroli dostępu do stref.',
       },
       {
         title: 'Brama i szlaban',
@@ -270,10 +270,9 @@ export const dostep = {
 
   ids: {
     head: {
-      eyebrow: 'Brelok, karta, telefon, palec',
-      heading: 'Nie każda karta jest bezpieczna.',
-      accent: 'Sprawdź, czym się różnią.',
-      lead: 'Popularny brelok 125 kHz da się skopiować w kilkanaście sekund. Wybierz identyfikator, a pokażemy, gdzie ma sens.',
+      eyebrow: 'Identyfikatory',
+      heading: 'Które karty i breloki da się skopiować',
+      lead: 'Najtańszy, popularny brelok 125 kHz da się skopiować w kilkanaście sekund. Wybierz identyfikator, a pokażemy, gdzie ma sens.',
     } satisfies SectionHead,
     tabsLabel: 'Identyfikatory',
     resistance: 'Odporność na skopiowanie',
@@ -351,10 +350,9 @@ export const dostep = {
 
   locks: {
     head: {
-      eyebrow: 'Zwora, elektrozaczep, zamek',
-      heading: 'Co się dzieje z drzwiami,',
-      accent: 'gdy zabraknie prądu?',
-      lead: 'To pierwsze pytanie przy każdych drzwiach. Na drodze ewakuacyjnej drzwi mają się otworzyć, w magazynie raczej zostać zamknięte. Przełącz zasilanie.',
+      eyebrow: 'Zamki i prąd',
+      heading: 'Jak zachowają się drzwi, gdy zabraknie prądu',
+      lead: 'Na drodze ewakuacyjnej drzwi bez prądu mają się otworzyć, w magazynie raczej zostać zamknięte. Przełącz zasilanie i zobacz, jak działa każdy zamek.',
     } satisfies SectionHead,
     power: 'Zasilanie',
     on: 'Prąd jest',
@@ -407,8 +405,8 @@ export const dostep = {
   },
 
   failures: {
-    eyebrow: 'Gdy coś zawiedzie',
-    heading: 'Bateria, internet, prąd. Na każdy wypadek jest plan B.',
+    eyebrow: 'Awarie',
+    heading: 'Jak wejść, gdy padnie bateria, internet albo prąd',
     items: [
       {
         icon: 'battery',
@@ -433,7 +431,7 @@ export const dostep = {
     ] satisfies Feature[],
     check: {
       eyebrow: 'Wizja lokalna',
-      heading: 'Co sprawdzamy przy drzwiach, zanim podamy cenę.',
+      heading: 'Co sprawdzamy przy drzwiach, zanim podamy cenę',
       items: [
         {
           title: 'Drzwi',

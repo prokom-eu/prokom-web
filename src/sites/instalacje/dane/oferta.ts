@@ -1,7 +1,8 @@
 /*
- * Texts of the full offer `/uslugi` (`zrodlo/pages/Oferta.body.html` + `Oferta.js`), 1:1 with the
- * prototype. Areas and solutions come from the panel (`InstServices.offer`, `InstSolutions`); the
- * hero and the band before the footer from the page's block (`instOffer`).
+ * Texts of the full offer `/uslugi` (`zrodlo/pages/Oferta.body.html` + `Oferta.js`), rewritten
+ * „po ludzku” in INST-6 (runda v6 §2). Areas and solutions come from the panel
+ * (`InstServices.offer`, `InstSolutions`); the hero and the band before the footer from the page's
+ * block (`instOffer`).
  */
 
 /** „rozwiązanie / rozwiązania / rozwiązań” (the prototype's `offerN`). */
@@ -13,8 +14,9 @@ export function solutionsWord(n: number): string {
 }
 
 export const oferta = {
+  // Runda v6 §2.2: a short eyebrow — the counts without „Pełna oferta” (the crumb says it).
   eyebrow: (areas: number, total: number) =>
-    `Pełna oferta · ${areas} obszarów · ${total} ${solutionsWord(total)}`,
+    `${total} ${solutionsWord(total)} w ${areas} obszarach`,
   search: {
     placeholder: 'Szukaj: np. kamera, Wi-Fi dla gości, kościół, menu board',
     // RUNDA-V5 §8: examples that change every 3 s while the field is empty and not focused.
@@ -44,21 +46,21 @@ export const oferta = {
   },
   // RUNDA-V5 §8: the phrase goes on to the planner's description (`/zaplanuj?opis=`).
   empty: {
-    heading: 'Nie mamy tego na liście.',
-    text: 'Opisz, czego szukasz — dobierzemy.',
+    heading: 'Nie znaleźliśmy tego w ofercie',
+    text: 'Opisz, czego szukasz, a dobierzemy rozwiązanie.',
     button: 'Opisz, czego szukasz',
   },
   always: {
-    eyebrow: 'W każdej instalacji',
-    heading: 'Nie sprzedajemy pudełek. Oddajemy działający system.',
-    lead: 'Niezależnie od tego, czy to jedna kamera, czy cały pensjonat, zakres jest ten sam: od wizji lokalnej po serwis. Wszystko na piśmie przed montażem.',
+    eyebrow: 'Jak pracujemy',
+    heading: 'Co dostajesz przy każdej instalacji',
+    lead: 'Przy jednej kamerze i przy całym pensjonacie zakres jest ten sam, od wizji lokalnej po serwis. Wycenę i zakres prac dostajesz na piśmie przed montażem.',
     items: [
       'Wizja lokalna i doradztwo',
       'Projekt i wycena na piśmie, zwykle w wariantach do wyboru',
-      'Montaż czysto i w ustalonym terminie',
+      'Czysty montaż w ustalonym terminie',
       'Konfiguracja aplikacji i kont użytkowników',
       'Sprawdzenie działania przy Tobie',
-      'Pokazujemy obsługę i aplikację',
+      'Pokazujemy, jak obsługiwać system i aplikację',
       'Serwis, przeglądy i pomoc zdalna',
     ],
   },

@@ -53,7 +53,7 @@ export const anteny = {
   whatWeDo: {
     head: {
       eyebrow: 'Instalacje antenowe',
-      heading: 'Od jednej anteny na domu po instalację dla całego bloku.',
+      heading: 'Anteny dla domu, pensjonatu i całego bloku',
       lead: 'Antenę satelitarną trzeba wycelować z dokładnością do pojedynczych stopni. Ustawiamy ją miernikiem i używamy przewodów, wtyków i anten dobrej klasy.',
     },
     items: [
@@ -93,7 +93,7 @@ export const anteny = {
   mountains: {
     head: {
       eyebrow: 'Anteny w górach',
-      heading: 'Stok zasłania nadajnik, halny szarpie masztem.',
+      heading: 'Dlaczego w górach antenę ustawiamy miernikiem',
       lead: 'Na Podhalu antena ma trudniej niż na nizinach. Typ, wysokość i mocowanie dobieramy do miejsca: wiatru, stoku i tego, co zasłania nadajnik.',
     },
     items: [
@@ -122,10 +122,9 @@ export const anteny = {
 
   multiplexes: {
     head: {
-      eyebrow: `Telewizja naziemna, ${stanNa()}`,
-      heading: 'Pięć multipleksów w DVB-T2.',
-      accent: 'Jeden jeszcze czeka.',
-      lead: `MUX-8 nadaje jeszcze w starym DVB-T i w paśmie VHF. Termin zmiany jego standardu nie był ogłoszony (${stanNa()}).`,
+      eyebrow: 'Telewizja naziemna',
+      heading: 'Które multipleksy nadają już w DVB-T2',
+      lead: `Pięć z sześciu multipleksów, czyli pakietów kanałów, nadaje już w nowym standardzie DVB-T2. MUX-8 nadaje jeszcze w starym DVB-T i w paśmie VHF, a termin zmiany nie był ogłoszony (${stanNa()}).`,
     } satisfies SectionHead,
     items: [
       { name: 'MUX-1', standard: 'DVB-T2', text: 'Kanały ogólnodostępne', old: false },
@@ -144,8 +143,8 @@ export const anteny = {
 
   /** „Czy mój telewizor jest gotowy?” (`am.q1`, `am.q2`, results). */
   quiz: {
-    eyebrow: 'Czy mój telewizor jest gotowy?',
-    title: 'Sprawdź w 30 sekund.',
+    eyebrow: 'Test telewizora',
+    title: 'Sprawdź w 30 sekund, czy telewizor odbierze DVB-T2',
     text: 'Do odbioru DVB-T2 telewizor musi dekodować HEVC (H.265). Telewizory sprzedawane od 1.12.2019 powinny to mieć. Od 2023 r. TVP1 i Polsat nadają z anteny w DVB-T2/HEVC, więc ich odbiór to najprostszy test.',
     q1: {
       label: 'Kiedy kupiony telewizor?',
@@ -191,9 +190,9 @@ export const anteny = {
 
   filter: {
     head: {
-      eyebrow: 'Telewizja a 5G i LTE',
-      heading: 'Obraz się zacina, gdy obok stoi maszt telefonii?',
-      lead: 'Telewizja zajmuje dziś pasmo 470–694 MHz. Tuż nad nią pracują sieci LTE i 5G na 700 i 800 MHz. Silny sygnał komórkowy potrafi przesterować wzmacniacz antenowy.',
+      eyebrow: 'Filtr LTE/5G',
+      heading: 'Kiedy maszt telefonii zakłóca telewizję i co pomaga',
+      lead: 'Telewizja zajmuje dziś pasmo 470–694 MHz, a tuż nad nią pracują sieci komórkowe LTE i 5G na 700 i 800 MHz. Silny sygnał z masztu potrafi przeciążyć wzmacniacz antenowy i wtedy obraz się zacina.',
     },
     on: {
       label: 'Filtr LTE/5G włączony',
@@ -212,9 +211,8 @@ export const anteny = {
   satellite: {
     head: {
       eyebrow: 'Telewizja satelitarna',
-      heading: 'Ile telewizorów,',
-      accent: 'taki konwerter i taka instalacja.',
-      lead: 'Polsat Box i CANAL+ nadają z satelitów Hot Bird 13°E. Od liczby odbiorników zależy, czy wystarczy konwerter, czy potrzebny jest multiswitch albo instalacja jednoprzewodowa.',
+      heading: 'Jak podłączyć antenę satelitarną do kilku telewizorów',
+      lead: 'Polsat Box i CANAL+ nadają z satelitów Hot Bird 13°E. Od liczby odbiorników zależy, czy wystarczy sam konwerter (głowica na antenie), czy potrzebny jest multiswitch, czyli rozdzielacz sygnału, albo instalacja na jednym przewodzie.',
     } satisfies SectionHead,
     items: [
       {
@@ -250,8 +248,8 @@ export const anteny = {
   },
 
   guesthouse: {
-    eyebrow: 'Telewizja w pensjonacie i hotelu',
-    heading: 'Te same kanały w każdym pokoju, z jednej szafki.',
+    eyebrow: 'Dla pensjonatów',
+    heading: 'Telewizja w każdym pokoju pensjonatu i hotelu',
     items: [
       {
         icon: 'dish',
