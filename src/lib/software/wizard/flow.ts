@@ -71,6 +71,15 @@ export function stepsOf(wizard: SoftwareWizard, answers: WizardAnswers): WizardS
   return wizard.groups[groupOf(wizard, answers)]
 }
 
+/**
+ * What the live card, the mock-up and the tip show: before step 1 the default kind stands in
+ * (the board starts with „Strona firmowa”), without ticking its tile.
+ */
+export function shownAnswers(wizard: SoftwareWizard, answers: WizardAnswers): WizardAnswers {
+  if (answers.type) return answers
+  return { ...answers, type: wizard.defaultType ?? wizard.types[0]?.id ?? null }
+}
+
 /** Only the kind is required; the industry and every question may be skipped. */
 export function canNext(step: WizardStep, answers: WizardAnswers): boolean {
   return step !== 'type' || answers.type !== null

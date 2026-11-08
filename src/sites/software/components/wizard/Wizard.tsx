@@ -12,6 +12,7 @@ import {
   pickOptions,
   previewOf,
   resultOf,
+  shownAnswers,
   stepsOf,
   summaryOf,
   tilePriceOf,
@@ -103,10 +104,12 @@ export function Wizard({
   const index = Math.min(step, steps.length - 1)
   const key = steps[index] ?? 'type'
   const last = index === steps.length - 1
-  const result = resultOf(rules, answers, bySlug)
+  // Before step 1 the card shows the default kind; the tiles stay unticked.
+  const shown = shownAnswers(rules, answers)
+  const result = resultOf(rules, shown, bySlug)
   const summary = summaryOf(rules, answers)
-  const tip = tipOf(rules, answers)
-  const preview = previewOf(rules, answers)
+  const tip = tipOf(rules, shown)
+  const preview = previewOf(rules, shown)
   const Heading = headingLevel
   const StepHeading = headingLevel === 'h1' ? 'h2' : 'h3'
 

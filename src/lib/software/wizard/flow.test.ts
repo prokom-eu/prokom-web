@@ -11,6 +11,7 @@ import {
   previewOf,
   prune,
   resultOf,
+  shownAnswers,
   stepsOf,
   summaryOf,
   tipOf,
@@ -214,6 +215,21 @@ describe('wizard v3 — summary, tip and preview (aurora.js)', () => {
     ],
   ])('preview: %s', (_, answers, preview) => {
     expect(previewOf(w, answers)).toEqual(preview)
+  })
+})
+
+describe('wizard v3 — before a kind is chosen', () => {
+  it('the live card shows the default kind (board: Strona firmowa), not ticked', () => {
+    const shown = shownAnswers(w, EMPTY_ANSWERS)
+    expect(shown.type).toBe('firmowa')
+    expect(previewOf(w, shown)).toEqual({ kind: 'site', variant: 'firmowa' })
+    expect(tipOf(w, shown)).toMatch(/^W cenie każdej strony/)
+    expect(shownAnswers(w, typed('system')).type).toBe('system')
+  })
+
+  it('without a default kind the first one stands in', () => {
+    const { defaultType: _none, ...rules } = w
+    expect(shownAnswers(rules, EMPTY_ANSWERS).type).toBe('wizytowka')
   })
 })
 
