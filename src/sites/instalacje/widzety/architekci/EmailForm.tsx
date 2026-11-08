@@ -93,7 +93,7 @@ export function EmailForm({ kind, formToken }: Props) {
 
   if (sent) {
     return (
-      <b role="status" tabIndex={-1} ref={done} style={{ color: 'var(--ok)' }}>
+      <b role="status" tabIndex={-1} ref={done} style={{ color: 'var(--ok-text)' }}>
         {kind === 'checklist' ? T.pdfSent : T.newsSent}
       </b>
     )

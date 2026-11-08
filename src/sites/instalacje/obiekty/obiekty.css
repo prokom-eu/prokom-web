@@ -348,7 +348,11 @@
     padding: 5px 10px;
     border-radius: 999px;
     background: color-mix(in srgb, var(--c, var(--inst-plan-send-to)) 14%, transparent);
-    color: color-mix(in srgb, var(--c, var(--inst-plan-send-to)) 70%, var(--ink));
+    color: color-mix(
+      in srgb,
+      var(--c, var(--inst-plan-send-to)) var(--inst-hue-text-mix),
+      var(--ink)
+    );
   }
   & .sgchip i {
     width: 7px;
@@ -596,7 +600,7 @@
   }
   & .sgwho.o {
     background: color-mix(in srgb, var(--inst-promo-warm) 18%, transparent);
-    color: var(--warn);
+    color: var(--inst-warn-text);
   }
   & .sgwho.i {
     background: var(--accent-soft);
@@ -604,7 +608,7 @@
   }
   & .sgwho.r {
     background: color-mix(in srgb, var(--inst-scene-beam-ok) 18%, transparent);
-    color: var(--ok);
+    color: var(--ok-text);
   }
   & .sggw {
     position: relative;

@@ -414,6 +414,10 @@
     text-transform: uppercase;
     color: var(--ink-2);
   }
+  /* On a dark card (Alarmy „dom letniskowy”, Nagłośnienie) the --ink-2 of light pages vanishes. */
+  & [data-surface='dark'] .cq > span {
+    color: var(--inst-dark-lead);
+  }
   & .cres {
     border-radius: 20px;
     padding: 22px;
@@ -1169,7 +1173,6 @@
     font: 900 11px var(--font-display);
     font-style: normal;
     color: var(--ink-2);
-    opacity: 0.6;
   }
   & .sylg .syli > span {
     padding-right: 18px;
@@ -1243,7 +1246,6 @@
   }
   & .sycta span {
     font-size: 12.5px;
-    opacity: 0.85;
   }
   @media (max-width: 760px) {
     & .sylg {
