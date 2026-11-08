@@ -2,9 +2,7 @@ import { randomUUID } from 'node:crypto'
 
 import { expect, type Page, test } from '@playwright/test'
 
-import popularne from '../../seed/prokomsoftware/popularne.json' with { type: 'json' }
 import stronaGlowna from '../../seed/prokomsoftware/strona-glowna.json' with { type: 'json' }
-import technologie from '../../seed/prokomsoftware/technologie.json' with { type: 'json' }
 import { api, loginAsAdmin, site, tenantId } from './helpers'
 
 // SW2a-2 acceptance: Software settings belong to the Software line, their JSON is checked
@@ -22,13 +20,21 @@ const thanks = {
   more: { eyebrow: 'Zanim się odezwiemy', title: 'Zobacz, jak to wygląda u innych', cards: [] },
 }
 
-/** Home texts as the seed stores them, with the 12 cards pointing at `slugs`. */
+/**
+ * Home texts in the shape the schema takes after the v23 clean-up (D6): the process and comparison
+ * of the package and a v24 price list whose cards point at `slugs` (their addresses are checked).
+ */
 function home(slugs: string[]) {
-  const { homeOrder: _order, ...texts } = structuredClone(stronaGlowna)
   return {
-    ...texts,
-    technologies: technologie.layers,
-    popular: { order: slugs, tabs: popularne.tabs },
+    process: structuredClone(stronaGlowna.process),
+    compare: structuredClone(stronaGlowna.compare),
+    pricing: {
+      eyebrow: 'Cennik',
+      title: 'Cena i termin.',
+      all: 'Wszystko',
+      details: 'Szczegóły →',
+      groups: [{ label: 'Strony', solutions: slugs }],
+    },
   }
 }
 
