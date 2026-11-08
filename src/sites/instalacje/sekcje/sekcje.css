@@ -295,7 +295,7 @@
     padding: 4px 10px;
     border-radius: 8px;
     background: color-mix(in srgb, var(--h) 18%, transparent);
-    color: color-mix(in srgb, var(--h) 75%, var(--ink));
+    color: color-mix(in srgb, var(--h) var(--inst-hue-text-mix), var(--ink));
     font: 900 13px var(--font-display);
   }
   & .wfn {
@@ -557,7 +557,7 @@
     color: transparent;
   }
   & .inst-svc .phero .eye {
-    color: color-mix(in srgb, var(--h) 70%, var(--ink));
+    color: color-mix(in srgb, var(--h) var(--inst-hue-text-mix), var(--ink));
   }
   & .inst-svc .phero .eye::before {
     content: '';
@@ -581,7 +581,7 @@
     );
   }
   & .inst-svc > section[data-rv] .shead .eye {
-    color: color-mix(in srgb, var(--h) 72%, var(--ink));
+    color: color-mix(in srgb, var(--h) var(--inst-hue-text-mix), var(--ink));
   }
   & .inst-svc > section[data-rv] .shead .eye::before {
     content: '';

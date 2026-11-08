@@ -596,7 +596,7 @@
     border-radius: 8px;
     font: 900 11.5px var(--font-sans);
     background: var(--inst-il-dori-bg-3);
-    color: var(--inst-il-lkst-c);
+    color: color-mix(in srgb, var(--inst-il-lkst-c) var(--inst-hue-text-mix), var(--ink));
   }
   & .lki.open .lkst {
     background: var(--inst-switch-on-bg);
