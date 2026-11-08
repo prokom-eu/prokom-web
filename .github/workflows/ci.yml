@@ -46,6 +46,8 @@ jobs:
       code: ${{ steps.diff.outputs.code }}
       e2e: ${{ steps.diff.outputs.e2e }}
       phone: ${{ steps.diff.outputs.phone }}
+      shards: ${{ steps.diff.outputs.shards }}
+      total: ${{ steps.diff.outputs.total }}
     steps:
       # The PR's merge commit and its first parent (the current base) are enough for the diff.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -63,7 +65,7 @@ jobs:
           LINE_INSTALACJE: '^(src/sites/instalacje/|src/app/\(sites\)/\[domain\]/\(instalacje\)/|src/lib/instalacje/|seed/prokominstalacje/|src/seed/instalacje/|src/seed/shared/instalacje\.ts|docs/design/prokominstalacje/|tests/e2e/instalacje/|src/styles/tokens-instalacje)'
         run: |
           if [ "${{ github.event_name }}" != "pull_request" ]; then
-            { echo "code=true"; echo "e2e=all"; echo "phone=true"; } >> "$GITHUB_OUTPUT"
+            { echo "code=true"; echo "e2e=all"; echo "phone=true"; echo "shards=[1,2,3,4,5,6,7,8]"; echo "total=8"; } >> "$GITHUB_OUTPUT"
             exit 0
           fi
           # --no-renames: a file moved from src/ to docs/ also lists its old path.
@@ -72,7 +74,7 @@ jobs:
           code=$( { echo "$files" | grep -Ev "$DOCS_ONLY"; echo "$files" | grep -E "$ALWAYS_CODE"; } | sort -u || true)
           if [ -n "$files" ] && [ -z "$code" ]; then
             echo "Only documentation changed: build · e2e skipped."
-            echo "code=false" >> "$GITHUB_OUTPUT"
+            { echo "code=false"; echo "shards=[1]"; echo "total=1"; } >> "$GITHUB_OUTPUT"
             exit 0
           fi
           echo "code=true" >> "$GITHUB_OUTPUT"
@@ -89,7 +91,7 @@ jobs:
             fi
           done <<< "$code"
           if [ "$full" = true ] || [ -z "$code" ]; then
-            { echo "e2e=all"; echo "phone=true"; } >> "$GITHUB_OUTPUT"
+            { echo "e2e=all"; echo "phone=true"; echo "shards=[1,2,3,4,5,6,7,8]"; echo "total=8"; } >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -106,6 +108,9 @@ jobs:
           done
           echo "e2e=$(echo "$selected" | grep . | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
           echo "phone=$phone" >> "$GITHUB_OUTPUT"
+          # One line's e2e (~60 tests a shard at 8) fit in 4 shards: 7 runners per PR instead of
+          # 11, so 2–3 PRs at once do not wait for runners (20 parallel jobs on the free plan).
+          { echo "shards=[1,2,3,4]"; echo "total=4"; } >> "$GITHUB_OUTPUT"
 
   # Fast feedback (~1.5 min): most mistakes show up here, next to the slower e2e job.
   checks:
@@ -166,11 +171,11 @@ jobs:
       - name: Unit tests
         run: pnpm test
 
-  # E2E in 8 parallel shards (`playwright --shard`), each with its own database and server, so
+  # E2E in parallel shards (`playwright --shard`), each with its own database and server, so
   # the tests that edit content never meet. Tests are split one by one (fullyParallel in CI).
   # Target: a PR green in ~7 min. All e2e take ~38 min on one worker; each shard adds ~2 min of
-  # set-up (install, seed snapshot, build). 8 shards + 3 small jobs = 11 runners per PR, under
-  # the 20 parallel jobs of the free plan for two PRs at once (a few small jobs may wait).
+  # set-up (install, seed snapshot, build). All e2e: 8 shards (11 runners per PR); one line's
+  # e2e: 4 shards (7 runners) — `changes` picks it. The free plan runs 20 jobs at once.
   #
   # A push to develop/main runs one job without Playwright: fresh seed, snapshot save and build.
   # Why: the merged PR already passed full e2e on its merge commit, and 6 shards per merge filled
@@ -179,7 +184,7 @@ jobs:
   # `.next/cache` that PR runs restore. Risk: two PRs green on their own can break together
   # after squash — the next PR's CI (merge commit with current develop) or staging shows it.
   e2e:
-    name: ${{ github.event_name == 'push' && 'seed · build (no e2e on push)' || format('e2e ({0}/8)', matrix.shard) }}
+    name: ${{ github.event_name == 'push' && 'seed · build (no e2e on push)' || format('e2e ({0}/{1})', matrix.shard, needs.changes.outputs.total) }}
     needs: changes
     if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-24.04
@@ -187,7 +192,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: ${{ fromJSON(github.event_name == 'push' && '[1]' || '[1, 2, 3, 4, 5, 6, 7, 8]') }}
+        shard: ${{ fromJSON(github.event_name == 'push' && '[1]' || needs.changes.outputs.shards) }}
 
     # Database for the build and Playwright (same version as docker/compose.dev.yml).
     services:
@@ -379,10 +384,10 @@ jobs:
           key: apt-playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       # On the build above (`pnpm start`, playwright.config.ts): no route compiling on first visit.
-      # Two runs, each split into 8: Playwright cuts the list by test count in file order, so the
-      # ~40 slow phone tests of Instalacje (~11 min) would all land in one shard. Split on their
-      # own they add ~1.5 min to every shard instead.
-      - name: E2E tests (shard ${{ matrix.shard }}/8)
+      # Two runs, each split into the same shards: Playwright cuts the list by test count in file
+      # order, so the ~40 slow phone tests of Instalacje (~11 min) would all land in one shard.
+      # Split on their own they add ~1.5–3 min to every shard instead.
+      - name: E2E tests (shard ${{ matrix.shard }}/${{ needs.changes.outputs.total }})
         if: github.event_name != 'push'
         env:
           E2E_SERVER: start
@@ -393,9 +398,9 @@ jobs:
           files=""
           [ "$E2E_FILES" = all ] || files="$E2E_FILES"
           # $files unquoted on purpose: one argument per spec file.
-          pnpm test:e2e --shard=${{ matrix.shard }}/8 --pass-with-no-tests --grep-invert "$PHONE_TESTS" $files
+          pnpm test:e2e --shard=${{ matrix.shard }}/${{ needs.changes.outputs.total }} --pass-with-no-tests --grep-invert "$PHONE_TESTS" $files
           if [ "$E2E_PHONE" = true ]; then
-            pnpm test:e2e --shard=${{ matrix.shard }}/8 --pass-with-no-tests --grep "$PHONE_TESTS" tests/e2e/instalacje/telefon
+            pnpm test:e2e --shard=${{ matrix.shard }}/${{ needs.changes.outputs.total }} --pass-with-no-tests --grep "$PHONE_TESTS" tests/e2e/instalacje/telefon
           fi
 
       - name: Upload Playwright report
