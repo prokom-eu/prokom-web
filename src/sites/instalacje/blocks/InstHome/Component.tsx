@@ -132,7 +132,7 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
       <ArchTeaser tenantId={tenantId} />
       <RealizationsTeaser items={home.realizations} />
       <MountainsSection />
-      <ProcessSteps />
+      <ProcessSteps warrantyMonths={settings.warrantyMonths} />
       <ServiceTeaser />
       <Faq
         heading={t.heading}
