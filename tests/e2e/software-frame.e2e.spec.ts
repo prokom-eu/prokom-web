@@ -386,6 +386,29 @@ test.describe('Software „Zacznij od podglądu” band', () => {
 test.describe('Software footer', () => {
   test.use({ viewport: DESKTOP })
 
+  // AUDYT po SWA7 #10: the contact column splits in two, so no empty field under the links.
+  test('the contact column ends level with the link columns (±48 px)', async ({ page }) => {
+    await page.goto(site(HOST, '/mapa-strony'))
+    await footer(page).scrollIntoViewIfNeeded()
+    const heights = await page.evaluate(() =>
+      [...document.querySelectorAll('[data-footer-grid] > *')]
+        .filter((column) => (column as HTMLElement).offsetWidth > 0)
+        .map((column) => {
+          const top = column.getBoundingClientRect().top
+          const bottoms = [...column.querySelectorAll('*')]
+            .filter((child) => (child as HTMLElement).offsetHeight > 0)
+            .map((child) => child.getBoundingClientRect().bottom)
+          return {
+            contact: column.hasAttribute('data-footer-contact'),
+            height: Math.max(...bottoms) - top,
+          }
+        }),
+    )
+    const contact = heights.find((column) => column.contact)!.height
+    const tallest = Math.max(...heights.filter((c) => !c.contact).map((c) => c.height))
+    expect(contact - tallest).toBeLessThanOrEqual(48)
+  })
+
   test('columns, promises, contact, the lines band and the legal bar', async ({ page }) => {
     await page.goto(site(HOST, '/mapa-strony'))
     const foot = footer(page)

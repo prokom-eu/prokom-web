@@ -222,6 +222,35 @@
     gap: 36px;
   }
 }
+/* AUDYT po SWA7 #10: from 1200 px the contact column is wider and splits in two — the map with
+   the opening status beside the phone, e-mail and address — so it is no longer twice as tall
+   as the link columns (no empty field under Oferta / Firma). */
+@media (min-width: 1200px) {
+  [data-line='software'] [data-footer-grid] {
+    grid-template-columns: 1.1fr repeat(var(--cols), minmax(0, 0.75fr)) 1.75fr;
+  }
+  [data-line='software'] [data-footer-contact] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-content: start;
+    column-gap: 24px;
+  }
+  [data-line='software'] [data-footer-contact] > * {
+    grid-column: 2;
+  }
+  [data-line='software'] [data-footer-contact] > [data-footer-heading] {
+    grid-column: 1 / -1;
+  }
+  [data-line='software'] [data-footer-contact] > [data-address-map] {
+    grid-column: 1;
+    grid-row: 2 / span 4;
+    height: 100%;
+    min-height: 124px;
+  }
+  [data-line='software'] [data-footer-contact] > :is(.oh-status, :last-child:not(a)) {
+    grid-column: 1;
+  }
+}
 [data-line='software'] [data-footer-heading] {
   display: inline-flex;
   align-items: center;
