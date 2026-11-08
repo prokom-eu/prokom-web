@@ -7,7 +7,9 @@ import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../InstSectionLazy'
 import { SectionHead } from '../SectionHead'
 import { RealizationPhotos } from '../../widzety/realizacje/RealizationPhotosLazy'
-import { ShowAll } from './ShowAll'
+import { GorScene } from './GorScene'
+import { GorSnow } from './GorSnow'
+import { ProcessAxis } from './ProcessAxis'
 
 // Line art of the realization cards (`Main.js → ART`, `ART2`), by category of the work.
 const ART = {
@@ -104,44 +106,58 @@ export function RealizationsTeaser({ items }: { items: HomeRealization[] }) {
   )
 }
 
-/** „Góry i zima” (`#gory`): the mountain band with 6 challenges; on a phone 2, the rest behind a button. */
+// Three ridges of the „Na Podhalu…” band, back to front (viewBox 1280 × 200).
+const GOR_LAYERS = [
+  '0,200 0,96 120,52 210,80 330,24 420,66 520,30 610,72 720,18 820,60 930,34 1040,74 1150,40 1280,70 1280,200',
+  '0,200 0,126 80,96 170,118 260,70 350,106 450,84 540,120 640,76 740,112 830,90 930,124 1030,86 1130,116 1210,98 1280,112 1280,200',
+  '0,200 0,150 90,110 150,136 240,70 300,110 360,92 430,136 520,60 590,104 650,84 720,130 800,80 880,116 960,70 1040,124 1120,96 1200,130 1280,100 1280,200',
+] as const
+
+/**
+ * „Na Podhalu instalacja ma trudniej” (`#gory`, RUNDA-V5 §5): a band with three ridges that
+ * drift apart while scrolling (scroll-driven, static without support), light snowfall, and six
+ * cards with mini scenes — the first pair larger. On a phone the cards form a snapping row.
+ */
 export function MountainsSection() {
   const t = glownaSekcje.mountains
+  const rows = [t.cards.slice(0, 3), t.cards.slice(3)]
   return (
     <InstSection id="gory" className="xa-s xa-t0" style={{ padding: '0 0 100px' }}>
       <div className="wrap">
         <div className="gorband">
           <svg
-            viewBox="0 0 1280 160"
+            className="gorridge"
+            viewBox="0 0 1280 200"
             preserveAspectRatio="none"
             aria-hidden="true"
-            style={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              bottom: 0,
-              width: '100%',
-              height: 160,
-            }}
           >
-            <polygon
-              points="0,160 0,110 90,70 150,96 240,30 300,70 360,52 430,96 520,20 590,64 650,44 720,90 800,40 880,76 960,30 1040,84 1120,56 1200,90 1280,60 1280,160"
-              className="gormt"
-            />
+            {GOR_LAYERS.map((points, i) => (
+              <polygon key={i} points={points} className={`gormt gl${i + 1}`} />
+            ))}
           </svg>
-          <div style={{ position: 'relative', padding: '0 44px' }}>
+          <GorSnow />
+          <div className="gorin">
             <SectionHead eyebrow={t.eyebrow} heading={t.heading} lead={t.lead} leadWidth={420} />
-            <ShowAll className="g3 gorg" more={t.showAll} less={t.collapse}>
-              {t.cards.map((card) => (
-                <div key={card.title} className="card gor ri">
-                  <span className="ico">
-                    <InstIcon name={card.icon} size={24} />
-                  </span>
-                  <h3 className="h3">{card.title}</h3>
-                  <p>{card.text}</p>
+            <div className="gorg">
+              {rows.map((row, r) => (
+                <div key={r} className={`gorrow gorrow${r + 1}`}>
+                  {row.map((card) => (
+                    <div key={card.title} className="card gor ri">
+                      <span className="gsc" data-inst-sx="">
+                        <GorScene name={card.scene} />
+                      </span>
+                      <h3 className="h3">{card.title}</h3>
+                      <p>{card.text}</p>
+                      {card.fact ? (
+                        <p className="gorfact">
+                          <b>{card.fact.value}</b> <span>{card.fact.label}</span>
+                        </p>
+                      ) : null}
+                    </div>
+                  ))}
                 </div>
               ))}
-            </ShowAll>
+            </div>
           </div>
         </div>
       </div>
@@ -149,23 +165,35 @@ export function MountainsSection() {
   )
 }
 
-/** „Jak pracujemy” (`#proces`): six numbered steps on the tinted band. */
-export function ProcessSteps() {
+/**
+ * „Jak pracujemy” (`#proces`, RUNDA-V5 §6): six steps on an axis that draws itself while
+ * scrolling (scroll-driven, fully drawn without support or with reduced motion); every step
+ * says what you get. Vertical on a phone, folded after about three steps. Not `.steps` — `/serwis` keeps that card row.
+ */
+export function ProcessSteps({ warrantyMonths }: { warrantyMonths: number }) {
   const t = glownaSekcje.process
   return (
-    <InstSection id="proces" className="bnd bnd-tint xa-s" style={{ padding: '100px 0 104px' }}>
+    <InstSection
+      id="proces"
+      className="bnd bnd-tint xa-s"
+      style={{ padding: '100px 0 104px' }}
+      fold
+      foldHeight={980}
+    >
       <div className="wrap">
         <SectionHead eyebrow={t.eyebrow} heading={t.heading} lead={t.lead} leadWidth={430} />
-        <div className="steps">
-          {t.steps.map((step, i) => (
-            <div key={step.title} className="card step ri">
-              <span className="stn">{String(i + 1).padStart(2, '0')}</span>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <b style={{ fontSize: 17 }}>{step.title}</b>
-                <p>{step.text}</p>
-              </div>
-            </div>
-          ))}
+        <ProcessAxis
+          getLabel={t.getLabel}
+          steps={t.steps.map((step) => ({
+            ...step,
+            get: step.get.replace('{n}', String(warrantyMonths)),
+          }))}
+        />
+        <div className="proctr">
+          <p>{t.trust}</p>
+          <Link href="/zaplanuj" className="btn btn-p">
+            {t.cta} <InstIcon name="arrow" size={16} />
+          </Link>
         </div>
       </div>
     </InstSection>
