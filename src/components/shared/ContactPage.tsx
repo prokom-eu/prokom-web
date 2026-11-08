@@ -13,7 +13,7 @@ import { toTelHref } from '@/lib/site/link'
 import type { Line } from '@/lib/tenant/lines'
 
 import { AddressMap } from './AddressMap'
-import { ContactForm, type ContactFormProps } from './ContactForm'
+import { ContactForm } from './ContactForm'
 import { Contours } from './Contours'
 import { FaqBlock } from './FaqBlock'
 import { OpeningStatus } from './OpeningStatus'
@@ -30,11 +30,6 @@ export type ContactSlots = {
   afterRoutes?: ReactNode
   /** Above the form fields, e.g. Software „Twój projekt”. */
   formPrefill?: ReactNode
-  /**
-   * The line's own wrapper of the shared form — gets its props and returns the form, e.g. a client
-   * component that adds Software „Twój projekt” (`items`, `onSent`). Default: the form as it is.
-   */
-  form?: (props: ContactFormProps) => ReactNode
   /** Before „Dojazd i zasięg”. */
   afterForm?: ReactNode
   beforeFaq?: ReactNode
@@ -56,8 +51,6 @@ export type ContactPageProps = {
   showServiceArea?: boolean
   showOtherLines?: boolean
 }
-
-const defaultForm = (props: ContactFormProps) => <ContactForm {...props} />
 
 const CONTAINER = 'mx-auto max-w-[1344px] px-5 min-[768px]:px-8'
 const H2 =
@@ -277,7 +270,15 @@ export function ContactPage({
           <h2 id="kontakt-sprawy" className={H2}>
             Z czym dzwonisz?
           </h2>
-          <ul className="mt-8 grid gap-3 min-[900px]:grid-cols-3">
+          {/* Three routes in a row; four (Biznes, plan 0611 §8.2) two by two, then in one row. */}
+          <ul
+            className={cx(
+              'mt-8 grid gap-3',
+              routes.length === 4
+                ? 'min-[700px]:grid-cols-2 min-[1200px]:grid-cols-4'
+                : 'min-[900px]:grid-cols-3',
+            )}
+          >
             {routes.map((route, i) => {
               const accent = i === 0
               return (
@@ -359,18 +360,18 @@ export function ContactPage({
             )}
           </div>
           <div className="p-6 min-[768px]:p-10">
-            {(slots.form ?? defaultForm)({
-              formToken,
-              topics: contact.topics ?? [],
-              placeholder: contact.placeholder,
-              sendLabel: contact.sendLabel,
-              responsePromise: data.responsePromise,
-              consent: { ...consent, privacyHref: company.legal.privacy },
-              zones: company.serviceZones,
-              nextSteps: contact.nextSteps ?? [],
-              line,
-              prefill: slots.formPrefill,
-            })}
+            <ContactForm
+              formToken={formToken}
+              topics={contact.topics ?? []}
+              placeholder={contact.placeholder}
+              sendLabel={contact.sendLabel}
+              responsePromise={data.responsePromise}
+              consent={{ ...consent, privacyHref: company.legal.privacy }}
+              zones={company.serviceZones}
+              nextSteps={contact.nextSteps ?? []}
+              line={line}
+              prefill={slots.formPrefill}
+            />
           </div>
         </div>
       </section>

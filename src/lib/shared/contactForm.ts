@@ -1,3 +1,4 @@
+import { MAX_ITEMS } from '../cart/cart'
 import type { FormValues } from '../inquiry/form'
 import type { Line } from '../tenant/lines'
 import { readContact } from './contact'
@@ -44,14 +45,17 @@ export function sharedRulesFor(line: Line, itemCount = 0): Omit<SharedRules, 'co
 }
 
 /**
- * The list the line attaches to the form (Software „Twój projekt”, spec §6.0 `formPrefill`): with
+ * The list the line attaches to the form (Software „Twój projekt”, `registerFormAttachment`): with
  * items the inquiry becomes a `list`, each item once; without them nothing changes.
  */
 export function listPart(items: readonly string[]) {
-  if (items.length === 0) return {}
+  // Each once and within the server's limit: a stored list with a repeat or too many items would
+  // be refused as a whole, with nothing the visitor could change.
+  const unique = [...new Set(items)].slice(0, MAX_ITEMS)
+  if (unique.length === 0) return {}
   return {
     type: 'list' as const,
-    items: items.map((slug) => ({ slug, quantity: 1 })),
+    items: unique.map((slug) => ({ slug, quantity: 1 })),
   }
 }
 

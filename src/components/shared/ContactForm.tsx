@@ -19,6 +19,9 @@ import {
   type SharedRules,
 } from '@/lib/shared/contactForm'
 import type { Line } from '@/lib/tenant/lines'
+import { topicFromSearch } from '@/lib/shared/contactTopic'
+import { MESSAGE_MAX } from '@/lib/inquiry/limits'
+import { collectAttachments, withAttachments } from '@/lib/shared/formAttachment'
 import { PHRASE_PARAM } from '@/lib/shared/search/provider'
 import { findZone, zoneLabel, type ServiceZone } from '@/lib/shared/zones'
 
@@ -44,13 +47,7 @@ export type ContactFormProps = {
   line: Line
   /** Slot above the fields, e.g. Software „Twój projekt” (spec §6.0 `formPrefill`). */
   prefill?: ReactNode
-  /** Slugs the line sends with the form (Software „Twój projekt”): the inquiry becomes a list. */
-  items?: readonly string[]
-  /** Called once the inquiry is saved, with its number (e.g. to clear the line's list). */
-  onSent?: (number: string | null) => void
 }
-
-const NO_ITEMS: readonly string[] = []
 
 const EMPTY: SharedFormValues = {
   topic: null,
@@ -76,7 +73,8 @@ const FIELD_LABEL: Record<SharedField, string> = {
  * Errors: a list on top (`role="alert"`, links to the fields), the message under each field and
  * `aria-invalid`. Success: the number, the e-mail confirmation, next steps, „Wyślij kolejne”.
  * Saved through `POST /api/inquiry` (type `contact`, the tenant from the domain, the topic as the
- * subject); honeypot, signed time and the rate limit as in every form. `?fraza=` fills the message.
+ * subject); honeypot, signed time and the rate limit as in every form. `?fraza=` fills the message,
+ * `?temat=` picks the topic; parts a line registers (`registerFormAttachment`) join the message.
  */
 export function ContactForm({
   formToken,
@@ -89,15 +87,15 @@ export function ContactForm({
   nextSteps,
   line,
   prefill,
-  items = NO_ITEMS,
-  onSent,
 }: ContactFormProps) {
   const id = useId()
   const fid = (name: string) => `${id}-${name}`
-  const sharedRules: SharedRules = {
-    ...sharedRulesFor(line, items.length),
+  // The rules at sending: a list attached by the line makes the message optional (as the server).
+  const rulesFor = (itemCount: number): SharedRules => ({
+    ...sharedRulesFor(line, itemCount),
     consentMode: consent.mode,
-  }
+  })
+  const sharedRules = rulesFor(0)
   const [values, setValues] = useState<SharedFormValues>(EMPTY)
   const [errors, setErrors] = useState<Partial<Record<SharedField, string>>>({})
   const [formError, setFormError] = useState<string | null>(null)
@@ -108,12 +106,22 @@ export function ContactForm({
   const summary = useRef<HTMLDivElement>(null)
   const nameField = useRef<HTMLInputElement>(null)
 
-  // „Zapytaj o …” of the search (`?fraza=`, ADR-022 D2-2b): the phrase starts the message.
+  // „Zapytaj o …” of the search (`?fraza=`, ADR-022 D2-2b): the phrase starts the message;
+  // „Z czym dzwonisz?” (`?temat=`, plan 0611 §8.2) picks the topic chip, when the line has it.
+  // Read once on mount: the topics are props of the page (`shared.contact.topics`).
+  const topicList = useRef(topics)
   useEffect(() => {
-    const phrase = new URLSearchParams(window.location.search).get(PHRASE_PARAM)?.trim()
-    if (!phrase) return
+    const search = window.location.search
+    const phrase = new URLSearchParams(search).get(PHRASE_PARAM)?.trim()
+    const topic = topicFromSearch(search, topicList.current)
+    if (!phrase && !topic) return
     const timer = window.setTimeout(
-      () => setValues((current) => (current.message ? current : { ...current, message: phrase })),
+      () =>
+        setValues((current) => ({
+          ...current,
+          ...(phrase && !current.message && { message: phrase }),
+          ...(topic && !current.topic && { topic }),
+        })),
       0,
     )
     return () => window.clearTimeout(timer)
@@ -135,33 +143,39 @@ export function ContactForm({
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (lock.current) return
-    const found = checkContactForm(values, sharedRules)
+    const attached = collectAttachments()
+    const rules = rulesFor(attached.items.length)
+    const found = checkContactForm(values, rules)
     if (Object.keys(found).length) return showErrors(found)
     lock.current = true
     setSending(true)
+    const message = withAttachments(values.message, attached.texts)
     try {
       const response = await fetch('/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...buildInquiryBody(toInquiryValues(values), {
+          // The line's attachments (Biznes: the inquiry list) go under the message; its items
+          // (Software „Twój projekt”) make the inquiry a list.
+          ...buildInquiryBody(toInquiryValues({ ...values, message }), {
             href: window.location.href,
             formToken,
             category: values.topic,
           }),
-          ...listPart(items),
+          ...listPart(attached.items),
         }),
       })
       const outcome = readOutcome(
         response.status,
         await response.json().catch(() => null),
-        serverMessages(sharedRules),
+        serverMessages(rules),
       )
       if (outcome.kind === 'sent') {
+        // The line's parts that went out whole (Biznes then empties its list).
+        attached.sent(message)
         setSent({ number: outcome.number, email: values.contact.includes('@') })
         setErrors({})
         setFormError(null)
-        onSent?.(outcome.number)
       } else if (outcome.kind === 'invalid') {
         showErrors(toFormFields(outcome.fields), outcome.formError ?? null)
       } else {
@@ -306,7 +320,7 @@ export function ContactForm({
         value={values.message}
         onChange={(event) => set('message', event.target.value)}
         error={errors.message}
-        maxLength={5000}
+        maxLength={MESSAGE_MAX}
       />
       <ConsentField
         id={fid('consent')}

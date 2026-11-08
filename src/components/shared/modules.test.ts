@@ -2,6 +2,7 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
+import { CompanyCard } from './CompanyCard'
 import { FaqBlock } from './FaqBlock'
 import { RulesBento } from './RulesBento'
 import { StatsStrip, visibleStats } from './StatsStrip'
@@ -101,5 +102,41 @@ describe('Steps and VerifyCards', () => {
     )
     expect(markup.match(/<a /g)).toHaveLength(1)
     expect(markup).toContain('target="_blank" rel="noopener"')
+  })
+})
+
+describe('CompanyCard — logos of the authorisations (Biznes, plan 0611 §8.2)', () => {
+  const card = {
+    company: { name: 'PRO-KOM', nip: '7350001234', address: null, ceidgUrl: null },
+    phone: null,
+    email: null,
+    hours: [],
+    authTitle: 'Autoryzacje i partnerstwa',
+    auth: ['Autoryzowany serwis Posnet'],
+  }
+
+  it('without logos: the badges of the panel', () => {
+    const markup = html(createElement(CompanyCard, card))
+    expect(markup).toContain('Autoryzowany serwis Posnet')
+    expect(markup).not.toContain('data-auth-logo')
+  })
+
+  it('with logos: a tile per partner with its status under it, no badges', () => {
+    const markup = html(
+      createElement(CompanyCard, {
+        ...card,
+        authLogos: [
+          {
+            name: 'Posnet',
+            status: 'Autoryzowany serwis',
+            logo: { url: '/p.webp', width: 120, height: 40 },
+          },
+        ],
+      }),
+    )
+    expect(markup.match(/data-auth-logo/g)).toHaveLength(1)
+    expect(markup).toContain('alt="Posnet"')
+    expect(markup).toContain('Autoryzowany serwis')
+    expect(markup).not.toContain('Autoryzowany serwis Posnet')
   })
 })

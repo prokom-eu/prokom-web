@@ -4,6 +4,7 @@ import { ekrany } from '../../dane/ekrany'
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSectionLazy'
+import { RealizationStrip } from '../../sekcje/RealizationStrip'
 import { SectionHead } from '../../sekcje/SectionHead'
 import { BrightnessPicker, PixelPitch, TwoSalons } from './EkranyWidgetsLazy'
 
@@ -15,7 +16,7 @@ const SECTION = { padding: '0 0 104px' }
  * LED and interactive, outdoor. Folded on a phone as in `zrodlo/fold.json` (`tv-czy-ekran`,
  * `sciany-led`, `zewnatrz`; `cena` and `faq` by the shared sections).
  */
-export function EkranySections() {
+export async function EkranySections({ tenantId }: { tenantId: number }) {
   const { where, tvOrScreen, content, led, outdoor } = ekrany
   return (
     <>
@@ -46,6 +47,7 @@ export function EkranySections() {
               </Link>
             </span>
           </div>
+          <RealizationStrip tenantId={tenantId} items={where.realizations} />
         </div>
       </InstSection>
 

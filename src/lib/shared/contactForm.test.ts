@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { MAX_ITEMS } from '../cart/cart'
 import {
   checkContactForm,
   listPart,
@@ -81,7 +82,13 @@ describe('toInquiryValues', () => {
   })
 })
 
-describe('listPart — „Twój projekt” sent with the form (spec §6.0 formPrefill)', () => {
+describe('listPart — „Twój projekt” sent with the form', () => {
+  it('each item once and within the server’s limit (a refused list cannot be fixed)', () => {
+    expect(listPart(['a', 'b', 'a']).items?.map((item) => item.slug)).toEqual(['a', 'b'])
+    const many = Array.from({ length: MAX_ITEMS + 5 }, (_, i) => `s${i}`)
+    expect(listPart(many).items).toHaveLength(MAX_ITEMS)
+  })
+
   it('no items: nothing added, the server takes a contact', () => {
     expect(listPart([])).toEqual({})
   })

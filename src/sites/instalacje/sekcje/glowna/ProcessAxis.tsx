@@ -19,7 +19,7 @@ type Props = {
  * A process axis (RUNDA-V5 §6): numbered nodes on a line that draws itself while the list
  * scrolls through the screen. Each step's segment and node fill with the accent as the line
  * reaches them (`podhale-proces.css`, scroll-driven; drawn in full without support and with
- * reduced motion). Horizontal from 761 px, vertical on a phone. Server-rendered, no JS.
+ * reduced motion). Horizontal from 1101 px, vertical on a tablet and a phone. Server-rendered, no JS.
  */
 export function ProcessAxis({ steps, getLabel }: Props) {
   return (
