@@ -49,6 +49,19 @@ test.describe('/_wspolne/kontakt and /_wspolne/o-firmie — page templates', () 
     await expect(page).toHaveURL(/#formularz$/)
   })
 
+  test('`?temat=` picks the topic of the form, only one the line has (plan 0611 §8.2)', async ({
+    page,
+  }) => {
+    const form = page.locator('[data-contact-form]')
+    await page.goto(site('software.localhost', '/_wspolne/kontakt?temat=audyt#formularz'))
+    await expect(form.getByRole('button', { name: 'Audyt', exact: true })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await page.goto(site('software.localhost', '/_wspolne/kontakt?temat=nie-ma-takiego'))
+    await expect(form.locator('[aria-pressed="true"]')).toHaveCount(0)
+  })
+
   for (const width of [360, 390, 414]) {
     test(`no sideways scroll at ${width} px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 800 })
