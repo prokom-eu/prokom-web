@@ -1,11 +1,17 @@
+import Link from 'next/link'
+
+import { getInstalacjeRealizations } from '@/lib/instalacje/data'
+import { leadPhoto, matchRealization } from '@/lib/instalacje/realizations'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { teletechnika } from '../../dane/teletechnika'
 import { InstIcon } from '../../InstIcon'
+import { ProcessAxis } from '../../sekcje/glowna/ProcessAxis'
 import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
+import { RealizationPhotos } from '../realizacje/RealizationPhotosLazy'
 import { QuoteForm } from './QuoteFormLazy'
 
 const SECTION = { padding: '0 0 104px' }
@@ -14,10 +20,17 @@ const SECTION = { padding: '0 0 104px' }
  * The Teletechnika sections between the hero and the shared ones
  * (`zrodlo/pages/Teletechnika.body.html`): scope, for whom, the law and the quote form. The page
  * has no warranty, packages or price sections (the prototype's markup). Folded on a phone as in
- * `zrodlo/fold.json` (`zakres`; `faq` by the shared section).
+ * `zrodlo/fold.json` (`zakres`; `faq` by the shared section). Round v5 (RUNDA-V5 §10) adds the
+ * building stages, what you get at handover and the standards, the mistakes that stop a handover,
+ * the common parts, how the offer is counted and the realization — all folded on a phone.
  */
-export function TeletechnikaSections() {
-  const { scope, forWhom, law, quote } = teletechnika
+export async function TeletechnikaSections({ tenantId }: { tenantId: number }) {
+  const { scope, stages, handover, standards, mistakes, common, pricing, realization } =
+    teletechnika
+  const { forWhom, law, quote } = teletechnika
+  const withPhotos = (await getInstalacjeRealizations(tenantId)).filter((r) => r.photos.length > 0)
+  const match = matchRealization(realization.name, withPhotos)
+  const photos = match && leadPhoto(realization.photoHint, match.photos)
   // Rendered per request (minimum time to fill in, ADR-003).
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
   return (
@@ -38,6 +51,118 @@ export function TeletechnikaSections() {
           </div>
         </div>
       </InstSection>
+
+      <InstSection
+        id="etapy"
+        className="bnd bnd-tint"
+        fold
+        foldHeight={980}
+        style={{ padding: '96px 0 104px', marginBottom: 104 }}
+      >
+        <div className="wrap">
+          <SectionHead {...stages.head} />
+          <ProcessAxis steps={stages.steps} getLabel={stages.getLabel} />
+        </div>
+      </InstSection>
+
+      <InstSection id="przy-odbiorze" fold style={SECTION}>
+        <div className="wrap ttho">
+          <div className="ri">
+            <SectionHead {...handover.head} />
+            <ul className="ttlist">
+              {handover.items.map((item) => (
+                <li key={item}>
+                  <InstIcon name="check" size={18} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="card ttstd ri">
+            <b className="h3">{standards.title}</b>
+            <ul className="ttlist">
+              {standards.items.map((item) => (
+                <li key={item}>
+                  <InstIcon name="ruler" size={18} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </InstSection>
+
+      <InstSection id="bledy" fold style={SECTION}>
+        <div className="wrap">
+          <SectionHead {...mistakes.head} />
+          <div className="g4">
+            {mistakes.items.map((m) => (
+              <div key={m.title} className="card feat ttmis ri">
+                <span className="ico">
+                  <InstIcon name={m.icon} size={22} />
+                </span>
+                <h3 className="h3">{m.title}</h3>
+                <p>{m.text}</p>
+                <p className="ttavoid">
+                  <span>{mistakes.avoidLabel}</span>
+                  {m.avoid}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </InstSection>
+
+      <InstSection id="czesci-wspolne" fold style={SECTION}>
+        <div className="wrap">
+          <SectionHead {...common.head} />
+          <div className="g4">
+            {common.items.map((c) => (
+              <Link key={c.title} href={c.href} className="card feat ttcom ri">
+                <span className="ico">
+                  <InstIcon name={c.icon} size={22} />
+                </span>
+                <h3 className="h3">
+                  {c.title} <InstIcon name="arrow" size={16} />
+                </h3>
+                <p>{c.text}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </InstSection>
+
+      <InstSection id="jak-liczymy" fold style={SECTION}>
+        <div className="wrap">
+          <SectionHead {...pricing.head} />
+          <ProcessAxis steps={pricing.steps} />
+        </div>
+      </InstSection>
+
+      {photos ? (
+        <InstSection id="realizacja-t" style={SECTION}>
+          <div className="wrap">
+            <div className="card ttreal ri">
+              <div className="rlimg rlimgp">
+                <RealizationPhotos
+                  photos={photos}
+                  title={realization.name}
+                  sizes="(min-width: 1100px) 620px, 100vw"
+                />
+              </div>
+              <div className="ttrealb">
+                <span className="eye">{realization.eyebrow}</span>
+                <h2 className="h2">{realization.heading}</h2>
+                <span className="tag a">{realization.place}</span>
+                <p>{realization.text}</p>
+                <Link href={realization.all.href} className="btn btn-g">
+                  {realization.all.label}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </InstSection>
+      ) : null}
 
       <InstSection id="dla-kogo" style={SECTION}>
         <div className="wrap">
