@@ -296,7 +296,8 @@ test.describe('Instalacje page for architects', () => {
 
   test('FAQ, the contact person of the seed, sections in order', async ({ page }) => {
     await open(page)
-    await expect(page.locator('#faq details')).toHaveCount(10)
+    // Runda v6 §1.1: the question about the regulations of 2026 is gone (10 → 9).
+    await expect(page.locator('#faq details')).toHaveCount(9)
     // The seed's contact person (boss 01.11): the owner, with the line's phone and e-mail.
     const contact = page.locator('#opiekun')
     await expect(contact.locator('h2')).toHaveText('Tadeusz Wójciak')
