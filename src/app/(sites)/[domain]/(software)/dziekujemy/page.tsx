@@ -90,7 +90,7 @@ export default async function ThanksPage({ params, searchParams }: Props) {
           {steps.length > 0 ? (
             <ol className="sw-thx-steps">
               {steps.map((step, index) => (
-                <Glass as="li" key={`${index}-${step.title}`}>
+                <Glass as="li" key={`${index}-${step.title}`} featured={index === 0}>
                   <span className="sw-ln" aria-hidden="true">
                     {pad(index + 1)}
                   </span>

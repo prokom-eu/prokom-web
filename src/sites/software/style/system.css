@@ -23,6 +23,8 @@
 .sw-sys .sw-h1-page {
   max-width: 900px;
   margin-top: 14px;
+  /* Boards `AU-404`, `AU-dziekujemy`: 56 px on a computer, smaller than a subpage hero. */
+  font-size: clamp(36px, 4.4vw, 56px);
 }
 .sw-sys-lead {
   max-width: 600px;
@@ -241,6 +243,17 @@
   flex-direction: column;
   gap: 6px;
   padding: 20px;
+}
+/* Big outlined step number; the first card is the highlighted one (board `AU-dziekujemy`). */
+.sw-thx-steps .sw-ln {
+  margin-bottom: 8px;
+  font: 900 40px/1 var(--font-display);
+  color: transparent;
+  -webkit-text-stroke: 1.2px var(--accent-text);
+}
+.sw-thx-steps > li:first-child .sw-ln {
+  color: var(--ink);
+  -webkit-text-stroke: 0;
 }
 .sw-thx-steps h2 {
   margin: 0;
