@@ -165,10 +165,6 @@ const COOKIES = [
       { bold: 'pk-project' },
       ' — lista „Twój projekt”: wybrane rozwiązania, żeby nie znikały po odświeżeniu strony.',
     ],
-    [
-      { bold: 'pk-project-sent' },
-      ' — numer wysłanej wiadomości i nazwy rozwiązań, pokazywane na stronie podziękowania; tylko do zamknięcia karty.',
-    ],
     [{ bold: 'pk-sz-closed' }, ' — informacja, że zamknąłeś pasek z kampanią.'],
   ),
   h2('Jak to usunąć'),

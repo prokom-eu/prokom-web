@@ -90,6 +90,7 @@ import * as migration_20261108_132223_biznes_kategoria_miniatura from './2026110
 import * as migration_20261108_144103_swa4_cennik_v24 from './20261108_144103_swa4_cennik_v24'
 import * as migration_20261108_144351_swa4_kategorie_wpisow from './20261108_144351_swa4_kategorie_wpisow'
 import * as migration_20261108_155104_biznes_kontakt_o_firmie_bloki from './20261108_155104_biznes_kontakt_o_firmie_bloki'
+import * as migration_20261108_164054_swa5_firma_kontakt from './20261108_164054_swa5_firma_kontakt'
 
 export const migrations = [
   {
@@ -551,5 +552,10 @@ export const migrations = [
     up: migration_20261108_155104_biznes_kontakt_o_firmie_bloki.up,
     down: migration_20261108_155104_biznes_kontakt_o_firmie_bloki.down,
     name: '20261108_155104_biznes_kontakt_o_firmie_bloki',
+  },
+  {
+    up: migration_20261108_164054_swa5_firma_kontakt.up,
+    down: migration_20261108_164054_swa5_firma_kontakt.down,
+    name: '20261108_164054_swa5_firma_kontakt',
   },
 ]
