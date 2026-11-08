@@ -241,6 +241,8 @@ const icon = (value: string | undefined) => value?.replace(/^ikona:/, '') || und
 /**
  * Runda v6 §1.5 (icon review): package icons that said nothing or clashed, by the title they
  * stand next to (a price factor, a package, a problem quote, a day moment, a Podhale card).
+ * Matched by the title alone on purpose: a short title („Start”, „Montaż”, „Noc”) gets the same
+ * icon wherever it stands in the package — checked for every entry when this list was written.
  */
 export const ICON_FIXES: Readonly<Record<string, string>> = {
   // Price factors and packages of the service pages.

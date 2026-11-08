@@ -22,6 +22,8 @@ type Props = {
 export function PhotoOrArt({ image, sizes, className, art }: Props) {
   const ref = useRef<HTMLSpanElement>(null)
   const [failed, setFailed] = useState(false)
+  // The file, not the object: the cards pass a new `{ ...image, alt: '' }` on every render.
+  const src = image.sources[0]?.url
   useEffect(() => {
     const img = ref.current?.querySelector('img')
     if (!img) return
@@ -29,7 +31,7 @@ export function PhotoOrArt({ image, sizes, className, art }: Props) {
     if (img.complete && img.naturalWidth === 0) fail()
     img.addEventListener('error', fail)
     return () => img.removeEventListener('error', fail)
-  }, [image])
+  }, [src])
   if (failed) return <>{art}</>
   return (
     <span ref={ref} className="arpoa">

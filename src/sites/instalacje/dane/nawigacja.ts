@@ -69,7 +69,7 @@ export const navigation: Navigation = {
     {
       label: 'Pełna oferta',
       href: '/uslugi',
-      icon: 'users',
+      icon: 'layers',
       caption: 'Wszystkie rozwiązania w jednym miejscu',
     },
   ],

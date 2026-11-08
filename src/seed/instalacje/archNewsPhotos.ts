@@ -69,7 +69,10 @@ export async function seedArchNewsPhotos(payload: Payload, tenantId: number, cou
       // The card has its photo: only put the file back when it is gone from the disk.
       const id = typeof card.image === 'object' ? card.image.id : card.image
       const media = await payload.findByID({ collection: 'media', id, ...local })
-      if (mediaFileMissing(mediaDir(), media.filename)) {
+      // Only the package's own photo (same name, Payload may add „-1”): one picked in the panel
+      // is never replaced by the package file.
+      const ownPhoto = media.filename?.startsWith(path.parse(photo.file).name) ?? false
+      if (ownPhoto && mediaFileMissing(mediaDir(), media.filename)) {
         await payload.update({
           collection: 'media',
           id,

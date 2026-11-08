@@ -25,7 +25,7 @@
      grey parts); runda v6 §1.7.3: always in the brand's colours, a 3 px lift on hover. The shadow
      is a layer that fades in (motion only through transform/opacity). */
   & .brand {
-    flex: 0 0 calc((100% - (var(--brand-cols) - 1) * 10px) / var(--brand-cols) - 12px);
+    flex: 0 0 calc((100% - (var(--brand-cols) - 1) * 10px) / var(--brand-cols));
     /* The prototype has no box-sizing reset: min sizes plus padding (ADR-I003 §5 p. 6). */
     box-sizing: content-box;
     position: relative;
@@ -38,8 +38,9 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    /* 6 px at the sides: the wide Hikvision wordmark stays ≥ 24 px tall in a 1/6 tile (P1-6). */
-    padding: 12px 6px 9px;
+    /* No side padding: the wide Hikvision wordmark stays ≥ 24 px tall in a 1/6 tile down to
+       1101 px (P1-6; at 1280 px the tile is ~194 px wide → ~24.7 px). */
+    padding: 12px 0 9px;
     text-align: center;
     transition: translate var(--dur-hover) var(--ease-out);
   }

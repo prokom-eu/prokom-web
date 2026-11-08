@@ -405,7 +405,7 @@ export const glownaSekcje = {
       { icon: 'chat', title: 'Pomoc zdalna', text: 'Wiele usterek naprawiamy bez dojazdu.' },
       { icon: 'wrench', title: 'Naprawy i rozbudowa', text: 'Jeden numer do całej instalacji.' },
       {
-        icon: 'wrench',
+        icon: 'key',
         title: 'Przejęcie serwisu',
         text: 'Instalacje po firmach, które zniknęły.',
       },

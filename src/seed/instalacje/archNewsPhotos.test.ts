@@ -1,8 +1,8 @@
-import { existsSync, mkdtempSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 
-import { describe, expect, it } from 'vitest'
+import { afterAll, describe, expect, it } from 'vitest'
 
 import { ARCH_NEWS_MEDIA_DIR, archNewsPhotos, mediaFileMissing } from './archNewsPhotos'
 import { archNewsToImport } from './map'
@@ -34,6 +34,7 @@ describe('arch news photos', () => {
 describe('mediaFileMissing', () => {
   const dir = mkdtempSync(path.join(tmpdir(), 'inst-media-'))
   writeFileSync(path.join(dir, 'nowosc-04.webp'), 'x')
+  afterAll(() => rmSync(dir, { recursive: true, force: true }))
 
   it('is true only when the stored file is not on the disk', () => {
     expect(mediaFileMissing(dir, 'nowosc-04.webp')).toBe(false)
