@@ -98,4 +98,56 @@ describe('offerMenu (K4 mega menu v147c)', () => {
   it('counts products, brands and ready bundles', () => {
     expect(menu.totals).toEqual({ products: 4, brands: 3, bundles: 2 })
   })
+
+  it('prefers the panel thumbnail of a category (BIZ-1 mega menu)', () => {
+    const withThumb = offerMenu({
+      ...k4,
+      categories: k4.categories.map((item) =>
+        item.slug === 'drukarki-fiskalne' ? { ...item, menuImage: img('/menu.webp') } : item,
+      ),
+    })
+    const [kasy, drukarki] = withThumb.departments[0]!.categories
+    expect(drukarki!.image?.url).toBe('/menu.webp')
+    expect(kasy!.image?.url).toBe('/b.webp')
+  })
+
+  it('names 2–4 brands of each category, most products first, never PRO-KOM', () => {
+    const many = offerMenu({
+      ...k4,
+      products: [
+        ...k4.products,
+        product('e', 'sprzedaz', ['kasy-fiskalne'], { brand: 'posnet' }),
+        product('f', 'sprzedaz', ['kasy-fiskalne'], { brand: 'pro-kom' }),
+        product('g', 'sprzedaz', ['kasy-fiskalne'], { brand: 'fawag' }),
+        product('h', 'sprzedaz', ['kasy-fiskalne'], { brand: 'novitus' }),
+        product('i', 'sprzedaz', ['kasy-fiskalne'], { brand: 'sharp' }),
+      ],
+      brands: [
+        ...k4.brands,
+        { slug: 'pro-kom', name: 'PRO-KOM', status: null },
+        { slug: 'fawag', name: 'Fawag', status: null },
+        { slug: 'novitus', name: 'Novitus', status: null },
+        { slug: 'sharp', name: 'Sharp', status: null },
+      ],
+    } as Parameters<typeof offerMenu>[0])
+    const [kasy, drukarki] = many.departments[0]!.categories
+    expect(kasy!.brands).toEqual(['Posnet', 'Elzab', 'Fawag', 'Novitus'])
+    expect(drukarki!.brands).toEqual(['Posnet'])
+  })
+
+  it('gives a department its first top product as the featured card', () => {
+    const featured = offerMenu({
+      ...k4,
+      groups: k4.groups.map((item) =>
+        item.slug === 'sprzedaz' ? { ...item, top: ['b', 'a'] } : item,
+      ),
+    })
+    expect(featured.departments[0]!.featured).toMatchObject({
+      name: 'b',
+      href: '/produkt/b',
+      image: { url: '/b.webp' },
+      badge: 'Autoryzowany serwis',
+    })
+    expect(featured.departments[1]!.featured).toBeNull()
+  })
 })

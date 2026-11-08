@@ -100,6 +100,8 @@ export type CatalogIndex = {
     group: string
     icon?: IconName
     count: number
+    /** Thumbnail of the „Oferta ▾” mega menu (`menuImage`, BIZ-1); server only. */
+    menuImage?: IndexImage
     /**
      * Subcategories with listed products (K3b′), in the panel's order; `slug` only where the
      * subcategory has its own page `/oferta/<kategoria>/<slug>`.
@@ -359,12 +361,14 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         ? [{ name: label, ...(address && { slug: address }), count: subcategoryCount }]
         : []
     })
+    const menuImage = indexImages([category.menuImage], tenantId)[0]
     categories.push({
       slug: category.slug,
       name: category.name,
       group,
       ...(category.icon && { icon: category.icon }),
       count,
+      ...(menuImage && { menuImage }),
       ...(subcategories.length > 0 && { subcategories }),
     })
   }
@@ -458,6 +462,7 @@ export function searchIndex(index: CatalogIndex): CatalogIndex {
   return {
     ...index,
     products: index.products.map(({ video: _video, order: _order, ...product }) => product),
+    categories: index.categories.map(({ menuImage: _menuImage, ...category }) => category),
     groups: index.groups.map(
       ({ top: _top, wheelCards: _cards, wheelLink: _link, shortName: _short, ...group }) => group,
     ),
