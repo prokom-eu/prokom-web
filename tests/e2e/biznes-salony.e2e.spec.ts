@@ -7,7 +7,7 @@ import { site } from './helpers'
 const biznes = (path: string) => site('biznes.localhost', path)
 
 const cartButton = (page: Page) =>
-  page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
+  page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 
 /** JSON-LD blocks of the page, flattened (a block may hold a list). */
 async function jsonLdTypes(page: Page): Promise<string[]> {

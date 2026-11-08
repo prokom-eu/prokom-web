@@ -7,7 +7,7 @@ import { site } from './helpers'
 // films behind a facade, FAQ. Axe at 360 px in `a11y`.
 
 const cartButton = (page: Page) =>
-  page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
+  page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 
 test.describe('Biznes /gopos (K4h)', () => {
   test('shows the hero, the venues, the package and the FAQ', async ({ page }) => {

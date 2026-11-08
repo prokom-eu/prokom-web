@@ -8,7 +8,7 @@ import { site } from './helpers'
 // InsPunkty calculator, the whole offer, requirements, films, FAQ. Axe in `a11y`.
 
 const cartButton = (page: Page) =>
-  page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
+  page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 
 test.describe('Biznes /insert (K4h)', () => {
   test('shows the hero, the picker, KSeF, InsPunkty and the FAQ', async ({ page }) => {
