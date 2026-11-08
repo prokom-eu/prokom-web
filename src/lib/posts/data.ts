@@ -9,6 +9,15 @@ import { ksefPanel, type KsefPanel } from './ksefPanel'
 import { publishedUntil } from './publishedAt'
 import type { Line } from '../tenant/lines'
 import type { PostCategory } from './list'
+import {
+  SISTER_LINES,
+  sisterPostLinks,
+  sisterTenants,
+  type SisterPostLink,
+  type SisterPostRow,
+  type SisterTenant,
+  type SitePlace,
+} from './sister'
 import { postsTag } from './tags'
 import { buildPostView, type PostView } from './view'
 
@@ -143,3 +152,64 @@ export const getKsefPanel = (tenantId: number): Promise<KsefPanel | null> =>
     ['news-ksef', String(tenantId)],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
+
+/** Newest public posts of one sister tenant as bare rows: slug, title, date — nothing else. */
+const getTenantPostRows = (tenantId: number, limit: number): Promise<SisterPostRow[]> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'posts',
+        where: publicPosts(tenantId),
+        draft: false,
+        sort: '-publishedAt',
+        limit,
+        depth: 0,
+        // Only what a link card shows: no lead, body or cover leaves the query.
+        select: { slug: true, title: true, publishedAt: true },
+        overrideAccess: true,
+      })
+      return docs.map(({ slug, title, publishedAt }) => ({ slug, title, publishedAt }))
+    },
+    ['post-rows', String(tenantId), String(limit)],
+    { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/** Active Instalacje and Software tenants (they change with a new site only). */
+const getSisterTenantRows = (): Promise<SisterTenant[]> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'tenants',
+        where: {
+          and: [{ line: { in: [...SISTER_LINES] } }, { active: { equals: true } }],
+        },
+        limit: 10,
+        depth: 0,
+        select: { line: true, domains: true },
+        overrideAccess: true,
+      })
+      return docs.map(({ id, line, domains }) => ({ id, line, domains }))
+    },
+    ['sister-tenants'],
+    { revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Link cards to the newest posts of Instalacje and Software on their own sites, for the Biznes
+ * home news when Biznes has fewer than three posts (plan 0611 §7.1 pkt 12). Title, absolute
+ * link, date and line only (`SisterPostLink`); the excluded tenant's posts never come back.
+ */
+export async function getSisterLinePostLinks(
+  excludeTenantId: number,
+  limit: number,
+  place: SitePlace,
+): Promise<SisterPostLink[]> {
+  if (limit <= 0) return []
+  const tenants = sisterTenants(await getSisterTenantRows(), excludeTenantId)
+  const groups = await Promise.all(
+    tenants.map(async (tenant) => ({ tenant, posts: await getTenantPostRows(tenant.id, limit) })),
+  )
+  return sisterPostLinks(groups, excludeTenantId, limit, place)
+}

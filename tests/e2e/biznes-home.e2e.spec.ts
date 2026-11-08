@@ -1,20 +1,22 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 
 import { api, clickUntilVisible, hydrated, loginAsAdmin, site, tenantId } from './helpers'
 
 // B7a + K4c (v150): the Biznes home page — hero with the department wheel, „Szybki start”,
 // brands, „Najczęściej wybierane” (K36 §1, §11, §12; K35 7a). Data from `pnpm seed`.
 
-/** Top-level anchors of the home page in the order of plan 0611 §7.1 (B3-1, before B3-2). */
+/** Top-level anchors of the home page in the order of plan 0611 §7.1 (B3-1, B3-2). */
 const HOME_ANCHORS = [
   'start',
   'oferta',
   'zaopatrzenie',
   'marki',
   'wybierane',
+  'ksef',
   'plan',
   'jak-pracujemy',
   'fakty',
+  'aktualnosci',
   'faq',
   'kontakt',
 ]
@@ -98,7 +100,7 @@ test.describe('Biznes home page', () => {
     expect(text).not.toMatch(/leasing|\braty\b|\d+[,.]\d{2}\s*zł/i)
   })
 
-  // B3-1: plan 0611 §7.1 (KSeF and „Aktualności” come with B3-2, reviews stay off in the seed).
+  // Plan 0611 §7.1 (B3-1, B3-2: KSeF band from the seed's deadline, news; reviews off in the seed).
   test('sections in the order of plan 0611 §7.1', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const found = await page.evaluate((ids) => {
@@ -403,7 +405,9 @@ test.describe('Biznes home page: industries, plan, steps', () => {
     await expect(steps.getByRole('link', { name: /Zadzwoń/ })).toHaveAttribute('href', /^tel:/)
   })
 
-  test('v150 has no „Jedna firma czy pięć” and no news on the home page', async ({ page }) => {
+  test('v150 has no „Jedna firma czy pięć” and no old „Ostatnio w Aktualnościach”', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     await expect(page.locator('#jeden')).toHaveCount(0)
     await expect(page.getByText('Ostatnio w Aktualnościach')).toHaveCount(0)
@@ -538,9 +542,11 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
       'Zaopatrzenie firm',
       'Marki',
       'Najczęściej wybierane',
+      'KSeF',
       'Plan Twojej firmy',
       'Jak pracujemy',
       'O firmie',
+      'Aktualności',
       'Pytania',
       'Kontakt',
     ])
@@ -552,5 +558,154 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
       'aria-current',
       'location',
     )
+  })
+})
+
+// BIZ-2 B3-2 (plan 0611 §7.1 pkt 7, 12, 14): the KSeF band with the deadline from the panel,
+// „Aktualności” (3 cards, sister lines as links to their own sites), the contact with location.
+test.describe('Biznes home page: KSeF band, news, contact location', () => {
+  type Settings = { id: number; biznes?: Record<string, unknown> | null }
+
+  /** The Biznes settings with `biznes.ksef` changed for the callback, restored afterwards. */
+  async function withKsef(
+    page: Page,
+    ksef: Record<string, unknown>,
+    check: () => Promise<void>,
+  ): Promise<void> {
+    await loginAsAdmin(page)
+    const biznes = await tenantId(page, 'biznes')
+    const { json } = await api(
+      page,
+      'GET',
+      `/api/site-settings?where[tenant][equals]=${biznes}&depth=0`,
+    )
+    const [settings] = json.docs as Settings[]
+    if (!settings) throw new Error('Biznes settings missing — run pnpm seed.')
+    const original = settings.biznes ?? {}
+    const updated = await api(page, 'PATCH', `/api/site-settings/${settings.id}`, {
+      biznes: { ...original, ksef: { ...(original.ksef as object), ...ksef } },
+    })
+    expect(updated.status).toBe(200)
+    try {
+      await check()
+    } finally {
+      await page.goto('/admin/login')
+      const restored = await api(page, 'PATCH', `/api/site-settings/${settings.id}`, {
+        biznes: original,
+      })
+      expect(restored.status).toBe(200)
+    }
+  }
+
+  test('the band: deadline and heading from the panel, countdown, six steps → /ksef', async ({
+    page,
+  }) => {
+    const heading = `Termin KSeF z panelu E2E ${Date.now()}`
+    await withKsef(
+      page,
+      { deadline: '2099-01-01T00:00:00.000Z', textBefore: heading },
+      async () => {
+        await page.goto(site('biznes.localhost'))
+        const band = page.locator('#ksef')
+        await expect(band.getByRole('heading', { level: 2 })).toHaveText(heading)
+        await expect(band.locator('time')).toHaveText('1 stycznia 2099')
+        // Counted in the browser: whole numbers after hydration (the boxes are reserved before).
+        await expect(band.locator('[data-unit="days"]')).toHaveText(/^\d+$/)
+        const steps = band.getByRole('list', { name: 'Kroki przygotowania do KSeF' })
+        await expect(steps.getByRole('listitem')).toHaveCount(6)
+        await expect(band.getByRole('link', { name: /Przygotuj firmę do KSeF/ })).toHaveAttribute(
+          'href',
+          '/ksef',
+        )
+        // No penalty dates in the band (MF bill postponing penalties, 08.11.2026).
+        await expect(band).not.toContainText(/\bkar[ay]?\b/i)
+      },
+    )
+  })
+
+  test('from the deadline day on: the „after” heading, no countdown', async ({ page }) => {
+    const after = `KSeF obowiązuje E2E ${Date.now()}`
+    await withKsef(page, { deadline: '2020-01-01T00:00:00.000Z', textAfter: after }, async () => {
+      await page.goto(site('biznes.localhost'))
+      const band = page.locator('#ksef')
+      await expect(band.getByRole('heading', { level: 2 })).toHaveText(after)
+      await expect(band.locator('[data-testid="ksef-countdown"]')).toHaveCount(0)
+    })
+  })
+
+  test('no deadline in the panel: no band, no rail entry', async ({ page }) => {
+    await withKsef(page, { deadline: null }, async () => {
+      await page.setViewportSize({ width: 1440, height: 900 })
+      await page.goto(site('biznes.localhost'))
+      await expect(page.locator('#wybierane')).toBeVisible()
+      await expect(page.locator('#ksef')).toHaveCount(0)
+      const rail = page.locator('[data-site-rail]').getByRole('group', { name: 'Na tej stronie' })
+      await expect(rail.getByRole('link', { name: 'Plan Twojej firmy' })).toBeVisible()
+      await expect(rail.getByRole('link', { name: 'KSeF', exact: true })).toHaveCount(0)
+    })
+  })
+
+  test('„Aktualności”: at most three cards, sister lines link to their own sites', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost'))
+    const news = page.locator('#aktualnosci')
+    await expect(news.getByRole('heading', { level: 2 })).toBeVisible()
+    const cards = news.locator('[data-news-home] > li')
+    const count = await cards.count()
+    expect(count).toBeGreaterThan(0)
+    expect(count).toBeLessThanOrEqual(3)
+    // Seed: one Biznes post (KSeF) on /aktualnosci, the rest from Instalacje and Software.
+    await expect(news.locator('a[href^="/aktualnosci/"]').first()).toBeVisible()
+    const sister = news.locator('[data-sister-line]')
+    const sisterCount = await sister.count()
+    for (let i = 0; i < sisterCount; i++) {
+      const card = sister.nth(i)
+      await expect(card.getByRole('link')).toHaveAttribute(
+        'href',
+        // The line's domain in this environment (CI: SITE_ENV=local → `*.localhost` of the seed).
+        /^http:\/\/(instalacje|software)\.localhost(:\d+)?\/(poradnik|aktualnosci)\//,
+      )
+      // Title only — no lead and no cover from the other line (SEO).
+      await expect(card.locator('img')).toHaveCount(0)
+      await expect(card.locator('p')).toHaveCount(1)
+    }
+  })
+
+  test('contact: the location column — map, open status, address, phone, „Wyznacz trasę”', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site('biznes.localhost', '/#kontakt'))
+    const place = page.locator('#kontakt [data-contact-place]')
+    await expect(place.locator('[data-address-map]')).toBeVisible()
+    await expect(place.locator('[data-contact-address]')).toContainText('Orkana 16B')
+    await expect(place.locator('a[href^="tel:"]')).toBeVisible()
+    const route = place.getByRole('link', { name: /Wyznacz trasę/ })
+    await expect(route).toHaveAttribute('href', /^https:\/\//)
+    await expect(route).toHaveAttribute('target', '_blank')
+    // Live status (open, or closed with the next opening) above the heading.
+    await expect(page.locator('#kontakt-formularz')).toContainText(/Otwarte|Zamknięte/)
+    // The form keeps the chip of larger deliveries (B2-3).
+    await expect(
+      page.locator('#kontakt form').getByRole('button', { name: 'Większa dostawa sprzętu' }),
+    ).toBeVisible()
+  })
+
+  test.describe('on a phone', () => {
+    test.use({ viewport: { width: 390, height: 844 } })
+
+    test('the band, the news and the address with the route stay reachable', async ({ page }) => {
+      await page.goto(site('biznes.localhost'))
+      await expect(page.locator('#ksef').getByRole('heading', { level: 2 })).toBeVisible()
+      await expect(page.locator('#aktualnosci').getByRole('heading', { level: 2 })).toBeVisible()
+      const help = page.locator('#kontakt [data-phone-help]')
+      await expect(help.locator('[data-contact-address]')).toContainText('Orkana 16B')
+      await expect(help.getByRole('link', { name: /Wyznacz trasę/ })).toHaveAttribute(
+        'href',
+        /^https:\/\//,
+      )
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
+    })
   })
 })

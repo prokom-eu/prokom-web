@@ -20,6 +20,7 @@ import { BzContactPageBlock } from '../sites/biznes/blocks/BzContactPage/config'
 import { BzLocationBlock } from '../sites/biznes/blocks/BzLocation/config'
 import { BzProcurementPageBlock } from '../sites/biznes/blocks/BzProcurementPage/config'
 import { BzProcurementBlock } from '../sites/biznes/blocks/BzProcurement/config'
+import { BzNewsHomeBlock } from '../sites/biznes/blocks/BzNewsHome/config'
 import { InstContactBlock } from '../sites/instalacje/blocks/InstContact/config'
 import { InstHomeBlock } from '../sites/instalacje/blocks/InstHome/config'
 import { InstPlannerBlock } from '../sites/instalacje/blocks/InstPlanner/config'
@@ -83,6 +84,8 @@ export const BIZNES_BLOCKS: Block[] = [
   BzProcurementPageBlock,
   // BIZ-2 B2-3: „Zaopatrzenie firm” on the home page (ZAOPATRZENIE §8)
   BzProcurementBlock,
+  // BIZ-2 B3-2: „Aktualności” on the home page (plan 0611 §7.1 pkt 12)
+  BzNewsHomeBlock,
 ]
 
 /**

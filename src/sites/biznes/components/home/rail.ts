@@ -30,8 +30,9 @@ const field = (value: unknown, key: string): unknown =>
  * Plan 0611 §7.1 and the prototype's rail (`0611/prototyp-glowna.html`, `HOME_SEC`): the sections
  * with an anchor, by the block that renders them — `bzOffer` is „Oferta” (the systems are part of
  * it), `bzPlan` the plan with the industries (D8: no „Dla kogo” of its own), `bzReferences` the
- * reviews (a slot, only when shown). KSeF and „Aktualności” come with B3-2. A section the block
- * leaves out (empty data) gets no entry.
+ * reviews (a slot, only when shown), `bzKsef` the KSeF band and `bzNewsHome` the news (B3-2). A
+ * section the block leaves out (empty data) gets no entry; the shared rail also drops anchors
+ * missing on the page (no deadline = no band, no posts = no news).
  */
 const RAIL: Record<string, Entry[]> = {
   bzHero: [{ id: 'start', label: 'Start', icon: 'rocket' }],
@@ -40,6 +41,7 @@ const RAIL: Record<string, Entry[]> = {
   // On Biznes the shared Partners block is the brands section (`BrandsHome`).
   partners: [{ id: 'marki', label: 'Marki', icon: 'star' }],
   bzFeatured: [{ id: 'wybierane', label: 'Najczęściej wybierane', icon: 'grid' }],
+  bzKsef: [{ id: 'ksef', label: 'KSeF', icon: 'doc' }],
   bzPlan: [{ id: 'plan', label: 'Plan Twojej firmy', icon: 'map' }],
   bzSteps: [{ id: 'jak-pracujemy', label: 'Jak pracujemy', icon: 'compass' }],
   bzReferences: [
@@ -59,6 +61,7 @@ const RAIL: Record<string, Entry[]> = {
     },
   ],
   bzFacts: [{ id: 'fakty', label: 'O firmie', icon: 'shield' }],
+  bzNewsHome: [{ id: 'aktualnosci', label: 'Aktualności', icon: 'mega' }],
   faq: [{ id: 'faq', label: 'Pytania', icon: 'q' }],
   bzContact: [{ id: 'kontakt', label: 'Kontakt', icon: 'phone' }],
 }
