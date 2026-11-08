@@ -46719,12 +46719,6 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
-        },
-        "url": {
-          "name": "url",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
         }
       },
       "indexes": {
@@ -54339,7 +54333,12 @@
         "monitoring",
         "noclegi",
         "energia",
-        "dzwiek-obraz"
+        "dzwiek-obraz",
+        "alarmy",
+        "sieci",
+        "smart-home",
+        "ladowarki",
+        "anteny"
       ]
     },
     "public.enum_posts_status": {
@@ -54370,7 +54369,12 @@
         "monitoring",
         "noclegi",
         "energia",
-        "dzwiek-obraz"
+        "dzwiek-obraz",
+        "alarmy",
+        "sieci",
+        "smart-home",
+        "ladowarki",
+        "anteny"
       ]
     },
     "public.enum__posts_v_version_status": {
@@ -54944,6 +54948,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "509be3b1-23ce-4a48-9dfd-37d3947ee684",
+  "id": "850e6a07-7d99-4078-a6b0-f6a4f126f519",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { formatTextReport, planTextChange, TEXT_FIELDS } from './texts'
+import { formatTextReport, homeLayoutWithHero, planTextChange, TEXT_FIELDS } from './texts'
 
 const stored = {
   id: 7,
@@ -113,5 +113,49 @@ describe('formatTextReport', () => {
     expect(report).toContain('### inst-services · kam')
     expect(report).toContain('| hero.h1a | Stary nagłówek | ' + 'x'.repeat(117) + '… |')
     expect(formatTextReport([])).toContain('Brak różnic')
+  })
+})
+
+describe('homeLayoutWithHero (INST-6 PR2)', () => {
+  const layout = [
+    {
+      id: 'b1',
+      blockType: 'instHome',
+      hero: { eyebrow: 'E', h1a: 'Stary', trust: [{ id: 't', icon: 'pin', text: 'Salon' }] },
+    },
+    { id: 'b2', blockType: 'instService', service: 3 },
+  ]
+
+  it('puts the repo hero texts into the stored block, the rest as stored', () => {
+    const next = homeLayoutWithHero(layout, { h1a: 'Nowy', lead: 'Lead' })
+    expect(next).toEqual([
+      {
+        id: 'b1',
+        blockType: 'instHome',
+        hero: {
+          eyebrow: 'E',
+          h1a: 'Nowy',
+          lead: 'Lead',
+          trust: [{ id: 't', icon: 'pin', text: 'Salon' }],
+        },
+      },
+      layout[1],
+    ])
+  })
+
+  it('plans only the changed hero texts of the home page', () => {
+    const page = { id: 1, slug: 'home', layout, seo: { title: 'T' } }
+    const change = planTextChange('pages', 'home', page, {
+      seo: { title: 'T' },
+      layout: homeLayoutWithHero(layout, { h1a: 'Nowy' }),
+    })
+    expect(change?.changes).toEqual([
+      { path: 'layout[0].hero.h1a', before: 'Stary', after: 'Nowy' },
+    ])
+  })
+
+  it('gives null without the block or the layout', () => {
+    expect(homeLayoutWithHero([layout[1]], { h1a: 'Nowy' })).toBeNull()
+    expect(homeLayoutWithHero(undefined, { h1a: 'Nowy' })).toBeNull()
   })
 })

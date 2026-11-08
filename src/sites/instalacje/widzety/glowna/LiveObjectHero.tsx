@@ -537,7 +537,7 @@ export function LiveObjectHero({ backdrop, children }: Props) {
           </div>
         ) : null}
 
-        {/* Below 1024 px: the „Na żywo” card of the phone layout (unchanged). */}
+        {/* Below 1024 px: the status card of the phone layout (unchanged). */}
         <div className="glass hxstat">
           <div className="hxsh">
             <b>

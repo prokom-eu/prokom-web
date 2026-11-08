@@ -35,7 +35,7 @@ export const SERVICE_CARDS: ServiceCard[] = [
   {
     key: 'kam',
     description:
-      'Kamery, które widzą w nocy i w śniegu, z nagraniami u Ciebie, nie w obcej chmurze. Projektujemy cały system, nie tylko miejsca na kamery.',
+      'Kamery, które widzą w nocy i w śniegu. Nagrania zostają na rejestratorze w Twoim budynku, a podgląd masz w telefonie.',
     parts: ['kamery', 'rejestrator NVR', 'dyski 24/7', 'switch PoE', 'UPS', 'aplikacja'],
     highlights: [
       'Cztery wersje instalacji: od domu po duży obiekt',
@@ -61,7 +61,7 @@ export const SERVICE_CARDS: ServiceCard[] = [
   {
     key: 'alarm',
     description:
-      'Czujki, syreny i powiadomienia na telefon. Wideodomofon przy furtce, który odbierasz z drugiego końca Polski.',
+      'Czujki, syrena i powiadomienie w telefonie, gdy coś się dzieje. Wideodomofon przy furtce odbierasz nawet z drugiego końca Polski.',
     parts: ['centrala', 'czujki', 'syrena', 'moduł GSM'],
     highlights: ['Przewodowe lub bezprzewodowe, z aplikacją', 'Wideodomofon odbierany w telefonie'],
   },
@@ -75,14 +75,14 @@ export const SERVICE_CARDS: ServiceCard[] = [
   {
     key: 'wifi',
     description:
-      'Wi-Fi bez martwych stref, osobna sieć dla gości i dla kamer. Okablowanie, szafy rack i światłowody.',
+      'Wi-Fi w każdym pokoju i osobna sieć dla gości, kamer i kasy. Kładziemy też kable i światłowody, montujemy szafy na sprzęt sieciowy.',
     parts: ['punkty Wi-Fi', 'router', 'switch', 'szafa rack'],
     highlights: ['Osobne sieci: goście, kamery, kasa', 'Pomiar zasięgu przed i po montażu'],
   },
   {
     key: 'snd',
     description:
-      'Stałe nagłośnienie APART i innych marek: muzyka w tle, komunikaty, strefy z osobną głośnością i mowa zrozumiała w ostatniej ławce.',
+      'Stałe nagłośnienie APART i innych marek: muzyka w tle i komunikaty. Mowę słychać wyraźnie także w ostatniej ławce.',
     parts: ['głośniki', 'wzmacniacz strefowy', 'mikrofony', 'panel ścienny', 'komunikaty'],
     highlights: ['Restauracje, hotele, kościoły, sale obrad', 'Każda strefa z osobną głośnością'],
     big: true,
@@ -90,7 +90,7 @@ export const SERVICE_CARDS: ServiceCard[] = [
   {
     key: 'scr',
     description:
-      'Ekrany w witrynie, menu board, recepcja i ściany wideo. Treść zmieniasz z komputera na wszystkich ekranach naraz.',
+      'Ekrany w witrynie, menu nad ladą, ekran w recepcji i ściany wideo. Treść zmieniasz z komputera na wszystkich ekranach naraz.',
     parts: [
       'ekrany profesjonalne',
       'odtwarzacz w ekranie',
@@ -109,21 +109,21 @@ export const SERVICE_CARDS: ServiceCard[] = [
   {
     key: 'tel',
     description:
-      'Dla deweloperów i wykonawców: okablowanie, światłowód do lokali, RTV/SAT i domofony. Z pomiarami.',
+      'Dla deweloperów i wykonawców: okablowanie, światłowód do lokali, telewizja i domofony. Każde gniazdo mierzymy i opisujemy przed odbiorem.',
     parts: ['okablowanie', 'światłowód', 'RTV/SAT', 'pomiary'],
     highlights: ['Od przedmiaru do odbioru z protokołami', 'Pomiar i opis każdego gniazda'],
   },
   {
     key: 'ant',
     description:
-      'Anteny satelitarne i DVB-T2, instalacje zbiorcze i telewizja w pokojach. Ustawiane miernikiem.',
+      'Anteny satelitarne i naziemne (DVB-T2), instalacje zbiorcze i telewizja w pokojach. Antenę ustawiamy miernikiem sygnału.',
     parts: ['antena', 'konwerter', 'multiswitch', 'gniazda'],
     highlights: ['Ustawiane miernikiem sygnału', 'Ta sama telewizja w każdym pokoju'],
   },
   {
     key: 'ev',
     description:
-      'Ładowarki Elzab EcoPower: CC Home do garażu, CC Wall dla firm i obiektów, CC City na parking. Moc dobrana do przyłącza.',
+      'Ładowarki Elzab EcoPower: CC Home do garażu, CC Wall dla firm i obiektów, CC City na parking. Moc dobieramy do przyłącza budynku.',
     parts: ['CC Home', 'CC Wall', 'CC City', 'RFID'],
     highlights: ['Od 3,7 do 2×22 kW, polski producent', 'Montaż i pomoc w formalnościach'],
   },
@@ -273,9 +273,8 @@ export const glownaSekcje = {
     ] as const satisfies readonly TrustBrand[],
   },
   forWho: {
-    eyebrow: 'Dla kogo pracujemy',
-    heading: 'Od domu letniskowego',
-    accent: 'po halę i szkołę.',
+    eyebrow: 'Dla kogo',
+    heading: 'Instalacje dla domów, pensjonatów, firm i instytucji',
     lead: 'Każdy obiekt ma inne potrzeby. Wybierz swój, a pokażemy przekrój budynku, typowe problemy i zestawy, od których zaczynamy.',
     more: 'Zobacz rozwiązania',
     showAll: 'Pokaż wszystkie 12 obiektów',
@@ -284,10 +283,9 @@ export const glownaSekcje = {
     missingLink: 'Opisz, co masz →',
   },
   services: {
-    eyebrow: 'Dziesięć obszarów, jeden wykonawca',
-    heading: 'Jedna firma',
-    accent: 'od kamery po zamek w drzwiach.',
-    lead: 'Zamiast pięciu firm, które się nie znają: jeden projekt, jedna ekipa i jeden numer do serwisu. Nie wiesz, od czego zacząć? Wybierz swój obiekt wyżej albo opisz go w kreatorze.',
+    eyebrow: 'Usługi',
+    heading: 'Co projektujemy, montujemy i serwisujemy',
+    lead: 'Wszystkie instalacje planujemy razem, więc kable idą wspólnymi trasami, a do serwisu dzwonisz pod jeden numer. Nie wiesz, od czego zacząć? Wybierz swój obiekt wyżej albo opisz go w kreatorze.',
     areas: 'obszarów',
     since: 'od 2004',
     sinceNote: 'na Podhalu',
@@ -295,7 +293,7 @@ export const glownaSekcje = {
     details: 'Szczegóły',
     all: {
       eyebrow: 'Pełna oferta',
-      title: 'Wszystkie rozwiązania w jednym miejscu.',
+      title: 'Wszystkie 76 rozwiązań na jednej stronie',
       note: 'Filtr po rodzaju obiektu i wyszukiwarka.',
       button: 'Zobacz pełną ofertę',
     },
@@ -303,13 +301,13 @@ export const glownaSekcje = {
   realizations: {
     eyebrow: 'Realizacje',
     // The prototype's heading: the featured realizations are sound and multimedia.
-    heading: 'Wybrane realizacje: nagłośnienie i multimedia.',
+    heading: 'Nasze realizacje: nagłośnienie i multimedia',
     all: 'Wszystkie realizacje →',
   },
   mountains: {
-    eyebrow: 'Robimy to w górach, nie w biurowcu',
-    heading: 'Na Podhalu instalacja ma trudniej. Projektujemy to od początku.',
-    lead: 'Mróz, śnieg na kamerach, burze, słabe łącze i domy, w których nikogo nie ma przez pół roku. Znamy to z każdego montażu.',
+    eyebrow: 'Góry i zima',
+    heading: 'Jak przygotowujemy instalację na mróz, burze i słabe łącze',
+    lead: 'Na Podhalu kamery zbierają śnieg, burze uszkadzają sprzęt, a wiele domów stoi pustych przez pół roku. Każdą instalację planujemy pod te warunki.',
     cards: [
       {
         scene: 'snow',
@@ -338,20 +336,20 @@ export const glownaSekcje = {
       {
         scene: 'cal',
         title: 'Przegląd przed sezonem',
-        text: 'Przed zimą i przed latem: czyszczenie kamer, test dysków, akumulatorów, Wi-Fi i ładowarki. Zanim przyjadą goście, a nie po pierwszej awarii.',
+        text: 'Przed zimą i przed latem: czyszczenie kamer, test dysków, akumulatorów, Wi-Fi i ładowarki. Robimy to, zanim przyjadą goście.',
       },
       {
         scene: 'pin',
         title: 'Salon blisko Ciebie',
-        text: 'Rabka-Zdrój, blisko obiektów na Podhalu. Dużo usterek naprawiamy zdalnie, a gdy trzeba przyjechać, nie jedziemy z Krakowa.',
+        text: 'Salon w Rabce-Zdroju jest blisko obiektów na Podhalu. Wiele usterek naprawiamy zdalnie, a gdy trzeba przyjechać, dojazd jest krótki.',
       },
     ],
   },
   process: {
     eyebrow: 'Jak pracujemy',
-    // Runda v6 §1.6: no list of steps in the heading (final wording in INST-6).
+    // Runda v6 §1.6: no list of steps in the heading.
     heading: 'Jak wygląda współpraca: od telefonu do serwisu',
-    lead: 'Bez niespodzianek w połowie roboty. Cena i zakres są na piśmie przed montażem, a po montażu zostajemy w serwisie.',
+    lead: 'Cenę i zakres prac dostajesz na piśmie przed montażem. Po montażu zostajemy z Tobą w serwisie.',
     getLabel: 'Co dostajesz',
     steps: [
       {
@@ -396,9 +394,9 @@ export const glownaSekcje = {
     cta: 'Zaplanuj instalację',
   },
   service: {
-    eyebrow: 'Serwis i przeglądy',
-    heading: 'Montaż to początek. Zostajemy z Tobą.',
-    lead: 'Przeglądy przed sezonem, pomoc zdalna i naprawy pod jednym numerem. Przejmujemy też instalacje po firmach, które zniknęły z rynku.',
+    eyebrow: 'Serwis',
+    heading: 'Przeglądy, pomoc zdalna i naprawy po montażu',
+    lead: 'Do serwisu dzwonisz pod jeden numer, a wiele usterek naprawiamy zdalnie. Przejmujemy też instalacje po firmach, które zniknęły z rynku.',
     primary: 'Serwis i umowy →',
     secondary: 'Przejmijcie mój serwis',
     tiles: [
@@ -413,8 +411,8 @@ export const glownaSekcje = {
     ],
   },
   faq: {
-    eyebrow: 'Najczęstsze pytania',
-    heading: 'Zanim zadzwonisz.',
+    eyebrow: 'Pytania',
+    heading: 'Najczęstsze pytania o instalacje',
     guide: 'Poradnik: porady i odpowiedzi →',
     aside: {
       title: 'Nie ma Twojego pytania?',
@@ -469,10 +467,9 @@ export const glownaSekcje = {
     ],
   },
   plan: {
-    eyebrow: 'Zaplanuj instalację · 2 minuty',
-    heading: 'Powiedz, co planujesz.',
-    accent: 'Resztę ustalimy na miejscu.',
-    lead: 'Zaznacz, czego potrzebujesz, zostaw numer, a oddzwonimy i umówimy wizję lokalną. Bez zobowiązań, wycena na piśmie.',
+    eyebrow: 'Krótki formularz',
+    heading: 'Zaplanuj instalację — oddzwonimy w 1 dzień roboczy',
+    lead: 'Zaznacz, czego potrzebujesz, i zostaw numer. Oddzwonimy, umówimy wizję lokalną, a wycenę dostaniesz na piśmie.',
     step1: 'Co planujesz?',
     step1Note: 'możesz kilka',
     step2: 'Jaki obiekt?',
@@ -496,7 +493,7 @@ export const glownaSekcje = {
       limit: 'Wysłano już kilka zgłoszeń. Spróbuj za kilka minut albo zadzwoń.',
     },
     done: {
-      title: 'Dziękujemy! Oddzwonimy.',
+      title: 'Dziękujemy, oddzwonimy.',
       // „24 h” only as the answer to a request, on working days (spec §2).
       text: 'Odpowiemy do 24 h w dni robocze: zadzwonimy, żeby dopytać o szczegóły i umówić wizję lokalną.',
       number: 'Numer zgłoszenia',

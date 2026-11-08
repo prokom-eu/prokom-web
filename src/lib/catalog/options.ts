@@ -107,6 +107,13 @@ export const POST_CATEGORIES = [
   { label: 'Obiekty noclegowe', value: 'noclegi', line: 'instalacje' },
   { label: 'Energia', value: 'energia', line: 'instalacje' },
   { label: 'Dźwięk i obraz', value: 'dzwiek-obraz', line: 'instalacje' },
+  // Runda v6 §3.3 (INST-6 PR5): the guide hub's categories. „Przepisy”, „Energia” and „Dźwięk
+  // i obraz” stay as values (no data loss); the hub shows only the new set.
+  { label: 'Alarmy', value: 'alarmy', line: 'instalacje' },
+  { label: 'Sieci', value: 'sieci', line: 'instalacje' },
+  { label: 'Smart home', value: 'smart-home', line: 'instalacje' },
+  { label: 'Ładowarki', value: 'ladowarki', line: 'instalacje' },
+  { label: 'Anteny', value: 'anteny', line: 'instalacje' },
 ] as const
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i

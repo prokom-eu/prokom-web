@@ -54,7 +54,8 @@ export const glowna = {
       snd: { label: 'Nagłośnienie', short: 'Nagłośnienie', icon: 'spk' },
       scr: { label: 'Ekrany', short: 'Ekrany', icon: 'scr' },
     } satisfies Record<HeroLayer, { label: string; short: string; icon: string }>,
-    live: 'Na żywo',
+    // Runda v6 §2.2: no „na żywo” — the status line names what the scene shows now.
+    live: 'Teraz',
     empty: 'Włącz instalacje poniżej, a zobaczysz, co robią w tym obiekcie.',
     /** „+N instalacja/-e/-i więcej działa w tym obiekcie”. */
     more: {

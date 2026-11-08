@@ -8,8 +8,8 @@ import type { InstIconName } from '../icons'
 export const nieZnaleziono = {
   title: 'Nie znaleziono strony',
   eyebrow: 'Błąd 404',
-  heading: 'Tej strony tu nie ma.',
-  lead: 'Adres jest nieprawidłowy albo strona została przeniesiona. Zacznij od jednego z tych miejsc:',
+  heading: 'Nie znaleźliśmy tej strony',
+  lead: 'Adres może mieć literówkę albo strona zmieniła miejsce. Wybierz, czego szukasz:',
   links: [
     {
       href: '/uslugi',
@@ -33,7 +33,7 @@ export const nieZnaleziono = {
       href: '/zaplanuj',
       icon: 'send',
       title: 'Zaplanuj instalację',
-      text: 'Cztery kroki, wycena na piśmie.',
+      text: 'Formularz w 4 krokach, wycena na piśmie.',
     },
     {
       href: '/poradnik',

@@ -36,13 +36,7 @@ export function ForWhoGrid({ objects }: { objects: Map<ObjectKey, MenuEntry> }) 
   return (
     <InstSection id="dla-kogo" className="xa-s" style={{ padding: '96px 0' }}>
       <div className="wrap">
-        <SectionHead
-          eyebrow={t.eyebrow}
-          heading={t.heading}
-          accent={t.accent}
-          lead={t.lead}
-          leadWidth={440}
-        />
+        <SectionHead eyebrow={t.eyebrow} heading={t.heading} lead={t.lead} leadWidth={440} />
         <ShowAll className="obg" more={t.showAll} less={t.collapse}>
           {cards.map(({ key, object, description, set, hue, big }) => (
             <div key={key} className={`obc ri oh${hue}${big ? ' big' : ''}`}>

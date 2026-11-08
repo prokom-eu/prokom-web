@@ -92,26 +92,26 @@ export const navigation: Navigation = {
   ],
   megaServices: {
     eyebrow: 'Pełna oferta',
-    text: 'Wszystko z filtrem po rodzaju obiektu. Jeden wykonawca, jeden numer do serwisu.',
+    text: '76 rozwiązań z filtrem po rodzaju obiektu. Projekt, montaż i serwis robi u nas ta sama ekipa.',
     button: { label: 'Zobacz pełną ofertę →', href: '/uslugi' },
     link: { label: 'Nie wiesz, od czego zacząć? Zaplanuj →', href: '/zaplanuj' },
   },
   megaObjects: {
     eyebrow: 'Twój obiekt',
-    title: 'Każdy obiekt ma inne potrzeby. Zobacz, co ma sens u Ciebie.',
-    text: 'Przekrój budynku, typowe problemy i zestawy dobrane do rodzaju obiektu.',
+    title: 'Co warto zamontować w Twoim obiekcie',
+    text: 'Przekrój budynku, typowe kłopoty i zestawy dla 12 rodzajów obiektów.',
     button: { label: 'Zaplanuj instalację →', href: '/zaplanuj' },
     link: { label: 'Architekt lub projektant? Współpraca →', href: '/dla-architektow' },
   },
   ctaBand: {
-    eyebrow: 'Zaplanuj instalację',
-    title: 'Powiedz, co planujesz. Przyjedziemy i wszystko policzymy.',
-    text: 'Wizja lokalna, projekt i wycena na piśmie. Potem montaż, szkolenie i serwis pod jednym numerem.',
+    eyebrow: 'Wycena na piśmie',
+    title: 'Zaplanuj instalację — oddzwonimy w 1 dzień roboczy',
+    text: 'Opisz obiekt w formularzu albo zadzwoń. Przyjedziemy na wizję lokalną, a wycenę dostaniesz na piśmie przed montażem.',
     button: { label: 'Zaplanuj instalację · 2 minuty', href: '/zaplanuj' },
   },
   footer: {
     about:
-      'Monitoring, alarmy, kontrola dostępu, sieci i Wi-Fi, smart home Ampio, nagłośnienie, ekrany, anteny i teletechnika. Projekt, montaż i serwis na Podhalu i w Małopolsce. PRO-KOM Tadeusz Wójciak, od 2004 roku.',
+      'Projektujemy, montujemy i serwisujemy monitoring, alarmy, sieci Wi-Fi, smart home Ampio, nagłośnienie i ekrany. Pracujemy na Podhalu i w Małopolsce od 2004 roku. PRO-KOM Tadeusz Wójciak.',
     chips: [
       { label: 'Projekt · montaż · serwis' },
       { label: 'Podhale i Małopolska' },
