@@ -17,6 +17,8 @@ export type AnalyticsEvents = {
   /** The „Twój projekt” list sent with the contact form; `liczba` = number of items. */
   projekt_wyslij: { liczba: number }
   audyt_wyslij: undefined
+  /** „Skanuj podgląd →” of the sample card on `/audyt` — never the typed address. */
+  audyt_skan: undefined
   kontakt_wyslij: undefined
   /** Tab of the live previews on the start page. */
   podglad_otworz: { podglad: string }

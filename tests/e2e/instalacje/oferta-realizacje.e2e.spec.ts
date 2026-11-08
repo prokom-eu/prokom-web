@@ -44,11 +44,56 @@ test.describe('Instalacje full offer', () => {
     await expect(page.locator('.ofcnt')).toContainText('Pokazujemy 76 z 76')
   })
 
-  test('nothing found → a note with the planner link', async ({ page }) => {
+  test('nothing found → the planner with the phrase in the description (RUNDA-V5 §8)', async ({
+    page,
+  }) => {
     await open(page, '/uslugi')
-    await page.getByRole('searchbox', { name: 'Szukaj w ofercie' }).fill('qwertyzxc')
-    await expect(page.locator('#lista .note')).toContainText('Nic nie pasuje')
-    await expect(page.locator('#lista .note a')).toHaveAttribute('href', '/zaplanuj')
+    await page.getByRole('searchbox', { name: 'Szukaj w ofercie' }).fill('basen z falami')
+    await expect(page.locator('#lista .ofempty')).toContainText('Nie mamy tego na liście.')
+    await expect(page.locator('#lista .ofempty a')).toHaveAttribute(
+      'href',
+      '/zaplanuj?opis=basen%20z%20falami',
+    )
+  })
+
+  test('matched words are underlined, `?q=` starts the search, the filters stick', async ({
+    page,
+  }) => {
+    await open(page, '/uslugi?q=kamera')
+    await expect(page.getByRole('searchbox', { name: 'Szukaj w ofercie' })).toHaveValue('kamera')
+    await expect(page.locator('#o-kam .ofi mark').first()).toBeVisible()
+    await page.evaluate(() => window.scrollTo({ top: 1600, behavior: 'instant' }))
+    await expect
+      .poll(async () => (await page.locator('.ofsticky').boundingBox())?.y ?? -1)
+      .toBeLessThan(120)
+    expect((await page.locator('.ofsticky').boundingBox())?.y ?? -1).toBeGreaterThanOrEqual(0)
+  })
+})
+
+test.describe('Instalacje full offer on a phone', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+
+  test('filters open in a sheet, the chosen object shows on the button', async ({ page }) => {
+    await open(page, '/uslugi')
+    const open_ = page.getByRole('button', { name: 'Filtry' })
+    // Retried until hydrated (a click before that is lost).
+    await expect(async () => {
+      await open_.click()
+      await expect(page.getByRole('dialog', { name: 'Rodzaj obiektu' })).toBeVisible({
+        timeout: 500,
+      })
+    }).toPass()
+    await page
+      .getByRole('dialog', { name: 'Rodzaj obiektu' })
+      .getByRole('button', { name: 'Deweloper', exact: true })
+      .click()
+    await expect(page.getByRole('dialog', { name: 'Rodzaj obiektu' })).toBeHidden()
+    await expect(page.locator('.ofsf')).toHaveText('Deweloper')
+    await expect(page.locator('.ofcnt')).not.toContainText('76 z 76')
+    // One search field at a time: the compact one only after the hero's has scrolled away.
+    await expect(page.getByRole('searchbox', { name: 'Szukaj w ofercie' })).toHaveCount(1)
+    await page.evaluate(() => window.scrollTo({ top: 2000, behavior: 'instant' }))
+    await expect(page.locator('.ofsticky').getByRole('searchbox')).toBeVisible()
   })
 })
 

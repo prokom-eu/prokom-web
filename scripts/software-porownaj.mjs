@@ -28,6 +28,7 @@ const PAGES = {
   Glowna: '/',
   Oferta: '/rozwiazania',
   Kreator: '/dobierz',
+  Cennik: '/cennik',
   Audyt: '/audyt',
   OFirmie: '/o-firmie',
   Kontakt: '/kontakt',

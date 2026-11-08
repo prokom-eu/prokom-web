@@ -221,6 +221,13 @@ describe('planner rules of the site', () => {
     expect(plannerFromHash('#uslugi=kam', '?usluga=ant').services).toEqual(['kam'])
   })
 
+  it('takes the phrase of an empty offer search (`?opis=`) into the description, trimmed', () => {
+    expect(plannerFromHash('', '?opis=kamera%20do%20domku').message).toBe('Szukam: kamera do domku')
+    expect(plannerFromHash('', '?opis=%20%20').message).toBe('')
+    expect(plannerFromHash('', `?opis=${'a'.repeat(400)}`).message).toHaveLength(8 + 200)
+    expect(plannerFromHash('', '?opis=a%0Ab%00c').message).toBe('Szukam: a b c')
+  })
+
   it('asks for the name before the phone (the inquiry needs it)', () => {
     expect(stepError({ ...ready, name: ' ' }, 4)).toBe('name')
   })
