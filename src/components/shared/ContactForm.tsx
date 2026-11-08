@@ -19,6 +19,9 @@ import {
   type SharedRules,
 } from '@/lib/shared/contactForm'
 import type { Line } from '@/lib/tenant/lines'
+import { topicFromSearch } from '@/lib/shared/contactTopic'
+import { MESSAGE_MAX } from '@/lib/inquiry/limits'
+import { collectAttachments, withAttachments } from '@/lib/shared/formAttachment'
 import { PHRASE_PARAM } from '@/lib/shared/search/provider'
 import { findZone, zoneLabel, type ServiceZone } from '@/lib/shared/zones'
 
@@ -76,7 +79,8 @@ const FIELD_LABEL: Record<SharedField, string> = {
  * Errors: a list on top (`role="alert"`, links to the fields), the message under each field and
  * `aria-invalid`. Success: the number, the e-mail confirmation, next steps, „Wyślij kolejne”.
  * Saved through `POST /api/inquiry` (type `contact`, the tenant from the domain, the topic as the
- * subject); honeypot, signed time and the rate limit as in every form. `?fraza=` fills the message.
+ * subject); honeypot, signed time and the rate limit as in every form. `?fraza=` fills the message,
+ * `?temat=` picks the topic; parts a line registers (`registerFormAttachment`) join the message.
  */
 export function ContactForm({
   formToken,
@@ -108,12 +112,22 @@ export function ContactForm({
   const summary = useRef<HTMLDivElement>(null)
   const nameField = useRef<HTMLInputElement>(null)
 
-  // „Zapytaj o …” of the search (`?fraza=`, ADR-022 D2-2b): the phrase starts the message.
+  // „Zapytaj o …” of the search (`?fraza=`, ADR-022 D2-2b): the phrase starts the message;
+  // „Z czym dzwonisz?” (`?temat=`, plan 0611 §8.2) picks the topic chip, when the line has it.
+  // Read once on mount: the topics are props of the page (`shared.contact.topics`).
+  const topicList = useRef(topics)
   useEffect(() => {
-    const phrase = new URLSearchParams(window.location.search).get(PHRASE_PARAM)?.trim()
-    if (!phrase) return
+    const search = window.location.search
+    const phrase = new URLSearchParams(search).get(PHRASE_PARAM)?.trim()
+    const topic = topicFromSearch(search, topicList.current)
+    if (!phrase && !topic) return
     const timer = window.setTimeout(
-      () => setValues((current) => (current.message ? current : { ...current, message: phrase })),
+      () =>
+        setValues((current) => ({
+          ...current,
+          ...(phrase && !current.message && { message: phrase }),
+          ...(topic && !current.topic && { topic }),
+        })),
       0,
     )
     return () => window.clearTimeout(timer)
@@ -139,16 +153,24 @@ export function ContactForm({
     if (Object.keys(found).length) return showErrors(found)
     lock.current = true
     setSending(true)
+    const attached = collectAttachments()
     try {
       const response = await fetch('/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...buildInquiryBody(toInquiryValues(values), {
-            href: window.location.href,
-            formToken,
-            category: values.topic,
-          }),
+          ...buildInquiryBody(
+            // The line's attachments (Biznes: the inquiry list) go under the message.
+            toInquiryValues({
+              ...values,
+              message: withAttachments(values.message, attached.texts),
+            }),
+            {
+              href: window.location.href,
+              formToken,
+              category: values.topic,
+            },
+          ),
           ...listPart(items),
         }),
       })
@@ -158,6 +180,8 @@ export function ContactForm({
         serverMessages(sharedRules),
       )
       if (outcome.kind === 'sent') {
+        // The line's parts went out with the message (Biznes may empty its list).
+        attached.sent()
         setSent({ number: outcome.number, email: values.contact.includes('@') })
         setErrors({})
         setFormError(null)
@@ -306,7 +330,7 @@ export function ContactForm({
         value={values.message}
         onChange={(event) => set('message', event.target.value)}
         error={errors.message}
-        maxLength={5000}
+        maxLength={MESSAGE_MAX}
       />
       <ConsentField
         id={fid('consent')}

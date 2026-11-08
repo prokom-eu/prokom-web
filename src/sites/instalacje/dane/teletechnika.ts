@@ -133,6 +133,205 @@ export const teletechnika = {
     ] satisfies Feature[],
   },
 
+  /*
+   * RUNDA-V5 §10 — more content between the scope and the law. Only general, checkable facts,
+   * no new numbers without a source. Sentences that name a standard carry a TODO for the check
+   * at the editing stage.
+   */
+
+  /** „Na każdym etapie budowy” (`#etapy`): the axis of the home process (`ProcessAxis`). */
+  stages: {
+    head: {
+      eyebrow: 'Na każdym etapie budowy',
+      heading: 'Od projektu do przekazania wspólnocie.',
+      lead: 'Wchodzimy wtedy, kiedy trzeba, a nie wtedy, kiedy jest za późno. Przy każdym etapie wiemy, co robimy i co sprawdzamy.',
+    } satisfies SectionHead,
+    getLabel: 'Sprawdzamy',
+    steps: [
+      {
+        icon: 'doc',
+        title: 'Projekt i uzgodnienia',
+        text: 'Czytamy projekt teletechniki, trasy i miejsca na szafy.',
+        get: 'punkt styku dla operatorów i miejsce na szafy',
+      },
+      {
+        icon: 'build',
+        title: 'Stan surowy',
+        text: 'Piony, przepusty i rury z zapasem i pilotem.',
+        get: 'drożność rur, zanim wejdą tynkarze',
+      },
+      {
+        icon: 'net',
+        title: 'Przed tynkami',
+        text: 'Okablowanie lokali i skrzynki mieszkaniowe.',
+        get: 'opis każdego przewodu na obu końcach',
+      },
+      {
+        icon: 'tool',
+        title: 'Montaż osprzętu',
+        text: 'Gniazda, panele, szafy, multiswitche i domofony po wykończeniu.',
+        get: 'zgodność gniazd z rzutami',
+      },
+      {
+        icon: 'sliders',
+        title: 'Pomiary',
+        text: 'Mierzymy każdy tor, miedziany i światłowodowy.',
+        get: 'wynik każdego toru w raporcie',
+      },
+      {
+        icon: 'file',
+        title: 'Dokumentacja',
+        text: 'Dokumentacja powykonawcza zgodna z tym, co jest w ścianach.',
+        get: 'schematy pionów i opisy paneli',
+      },
+      {
+        icon: 'users',
+        title: 'Przekazanie',
+        text: 'Pokazujemy szafy, punkty styku i dokumenty wspólnocie lub zarządcy.',
+        get: 'komplet dokumentów u odbierającego',
+      },
+    ],
+  },
+
+  /** „Co dostajesz przy odbiorze” + „W jakich standardach pracujemy” (`#przy-odbiorze`). */
+  handover: {
+    head: {
+      eyebrow: 'Przy odbiorze',
+      heading: 'Co dostajesz, kiedy oddajemy budynek.',
+      lead: 'Dokumenty, z którymi wspólnota albo zarządca poradzi sobie bez nas — i z nami, gdy trzeba coś zmienić.',
+    } satisfies SectionHead,
+    items: [
+      'Raport z pomiarów każdego toru, miedzianego i światłowodowego',
+      'Opis gniazd i paneli zgodny z dokumentacją',
+      'Schematy pionów',
+      'Dokumentację powykonawczą w PDF i na papierze',
+      'Listę sprzętu z numerami seryjnymi tam, gdzie to ma znaczenie',
+    ],
+  },
+  standards: {
+    title: 'W jakich standardach pracujemy',
+    items: [
+      // TODO(krystian): check the exact wording of the standards at editing (RUNDA-V5 §10.3).
+      'Okablowanie strukturalne projektujemy i wykonujemy według norm z rodziny PN-EN 50173 (projektowanie) i PN-EN 50174 (instalacja).',
+      'Każdy tor mierzymy miernikiem, a wyniki trafiają do raportu.',
+      // TODO(krystian): confirm the fibre type in the flats with the boss (RUNDA-V5 §10.3).
+      'W lokalach stosujemy światłowód jednomodowy z włóknem odpornym na zginanie.',
+    ],
+  },
+
+  /** „Błędy, które zatrzymują odbiór” (`#bledy`): four cards, each with how we avoid it. */
+  mistakes: {
+    head: {
+      eyebrow: 'Błędy, które zatrzymują odbiór',
+      heading: 'Cztery rzeczy, przez które odbiór się przesuwa.',
+      lead: 'Widzimy je na budowach najczęściej. Każdej da się uniknąć, jeśli pomyśli się o niej wcześniej.',
+    } satisfies SectionHead,
+    avoidLabel: 'Jak tego unikamy',
+    items: [
+      {
+        icon: 'x',
+        title: 'Rury bez zapasu i pilota',
+        text: 'Przewodu nie da się przeciągnąć, a ściana jest już otynkowana.',
+        avoid: 'Rury z zapasem średnicy i pilotem, drożność sprawdzona przed tynkami.',
+      },
+      {
+        icon: 'bolt',
+        title: 'Zasilanie i teletechnika w jednej rurze',
+        text: 'Zakłócenia sygnału i problem przy odbiorze.',
+        avoid: 'Osobne trasy i rury, uzgodnione z elektrykiem na etapie projektu.',
+      },
+      {
+        icon: 'doc',
+        title: 'Brak opisów na panelach i gniazdach',
+        text: 'Nikt nie wie, który kabel idzie do którego mieszkania.',
+        avoid: 'Opis na obu końcach każdego przewodu, zgodny z dokumentacją.',
+      },
+      {
+        icon: 'layers',
+        title: 'Za mała skrzynka mieszkaniowa',
+        text: 'Router, terminal operatora i zasilacz się nie mieszczą, drzwiczki się nie zamykają.',
+        avoid: 'Skrzynka dobrana do sprzętu operatora, z zapasem na przyszłość.',
+      },
+    ],
+  },
+
+  /** „Także w częściach wspólnych” (`#czesci-wspolne`), with links to the service pages. */
+  common: {
+    head: {
+      eyebrow: 'Także w częściach wspólnych',
+      heading: 'Domofony, dostęp, monitoring i telewizja dla całego budynku.',
+      lead: 'Robimy je w tym samym zakresie co okablowanie lokali, więc trasy i szafy planujemy raz.',
+    } satisfies SectionHead,
+    items: [
+      {
+        icon: 'phone',
+        title: 'Domofony i wideodomofony',
+        text: 'Panele przy wejściach i bramie, monitory w lokalach.',
+        href: '/alarmy#domofony',
+      },
+      {
+        icon: 'lock',
+        title: 'Dostęp do klatek i garażu',
+        text: 'Breloki, czytniki i szlaban na wjeździe.',
+        href: '/kontrola-dostepu',
+      },
+      {
+        icon: 'cam',
+        title: 'Monitoring garażu i wejść',
+        text: 'Kamery w częściach wspólnych, nagrania w budynku.',
+        href: '/monitoring',
+      },
+      {
+        icon: 'tv',
+        title: 'RTV/SAT zbiorcza',
+        text: 'Jedna antena i multiswitch zamiast anten na balkonach.',
+        href: '/anteny',
+      },
+    ],
+  },
+
+  /** „Jak liczymy ofertę” (`#jak-liczymy`): four steps; the bill of quantities by e-mail. */
+  pricing: {
+    head: {
+      eyebrow: 'Jak liczymy ofertę',
+      heading: 'Wycena pozycja po pozycji, z terminem wejścia ekipy.',
+      lead: 'Od przedmiaru do terminu na budowie w czterech krokach.',
+    } satisfies SectionHead,
+    steps: [
+      {
+        icon: 'file',
+        title: 'Przedmiar albo projekt',
+        text: 'Przesyłasz go mailem po pierwszym kontakcie — bez wysyłania plików na stronie.',
+      },
+      {
+        icon: 'chat',
+        title: 'Pytania o budowę',
+        text: 'Pytamy o etap budowy, harmonogram i to, czego w przedmiarze brakuje.',
+      },
+      {
+        icon: 'doc',
+        title: 'Wycena pozycja po pozycji',
+        text: 'Każda pozycja przedmiaru osobno, bez jednej kwoty za całość.',
+      },
+      {
+        icon: 'cal',
+        title: 'Termin wejścia ekipy',
+        text: 'Ustalamy, kiedy wchodzimy na budowę i ile to potrwa.',
+      },
+    ],
+  },
+
+  /** The realization of this page (RUNDA-V5 §10.7): matched by name to a published one. */
+  realization: {
+    eyebrow: 'Realizacja',
+    heading: 'Przyłącza IT stanowisk biurowych w Blachotrapezie.',
+    name: 'Blachotrapez',
+    place: 'Rabka-Zdrój · stanowiska biurowe',
+    photoHint: 'stanowiska biurowe przyłącza IT okablowanie',
+    text: 'Przyłącza IT i okablowanie stanowisk biurowych.',
+    all: { label: 'Wszystkie realizacje →', href: '/realizacje' },
+  },
+
   forWhom: {
     head: { eyebrow: 'Dla kogo', heading: 'Pracujemy z tymi, którzy budują.' },
     items: [

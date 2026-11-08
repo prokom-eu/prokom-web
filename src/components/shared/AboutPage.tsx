@@ -11,7 +11,7 @@ import { toTelHref } from '@/lib/site/link'
 import type { Line } from '@/lib/tenant/lines'
 
 import { AddressMap } from './AddressMap'
-import { CompanyCard } from './CompanyCard'
+import { type AuthLogo, CompanyCard } from './CompanyCard'
 import { Contours } from './Contours'
 import { FamilyStrip } from './FamilyStrip'
 import { PageCrumbs, type Crumb } from './PageCrumbs'
@@ -41,6 +41,8 @@ export type AboutPageProps = {
   slots?: AboutSlots
   /** Optional section (spec §6.0) — on by default. */
   showVerify?: boolean
+  /** Logos of the line's authorisations in the company card (Biznes, plan 0611 §8.2). */
+  authLogos?: readonly AuthLogo[]
 }
 
 const CONTAINER = 'mx-auto max-w-[1344px] px-5 min-[768px]:px-8'
@@ -65,6 +67,7 @@ export function AboutPage({
   ],
   slots = {},
   showVerify = true,
+  authLogos,
 }: AboutPageProps) {
   const { company, lines } = shared
   const data = shared.line
@@ -148,6 +151,7 @@ export function AboutPage({
             hours={company.hours}
             authTitle={about.authTitle}
             auth={about.auth}
+            authLogos={authLogos}
           />
         </div>
       </section>

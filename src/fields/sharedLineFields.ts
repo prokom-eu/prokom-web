@@ -146,7 +146,7 @@ const contactFields: Field[] = [
     name: 'routes',
     label: 'Z czym dzwonisz?',
     type: 'array',
-    maxRows: 3,
+    maxRows: 4,
     fields: [
       text('title', 'Tytuł', true),
       textarea('text', 'Opis'),
