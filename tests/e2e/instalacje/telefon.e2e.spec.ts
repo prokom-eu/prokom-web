@@ -1,8 +1,49 @@
-import { expect, test } from '@playwright/test'
+import { expect, type Page, test } from '@playwright/test'
 
 import { site } from '../helpers'
 import { INST_HOST, INST_PAGES } from './pages'
-import { auditPhone, FAILING, PHONE_WIDTHS, setTheme, THEMES } from './phone-audit'
+import {
+  auditPhone,
+  FAILING,
+  PHONE_WIDTHS,
+  type PhoneProblem,
+  setTheme,
+  THEMES,
+} from './phone-audit'
+
+/** One audit normally takes ~3 s. */
+const AUDIT_LIMIT_MS = 45_000
+
+/**
+ * The audit with its own limit. In CI an audit of a random page sometimes never returned and
+ * held the test until its 180 s timeout (08.11, cause not found yet): now it fails after 45 s,
+ * goes to the retry sooner and says where it stopped and whether the page still answers.
+ */
+async function auditWithLimit(page: Page, width: number, where: string): Promise<PhoneProblem[]> {
+  let timer: ReturnType<typeof setTimeout> | undefined
+  const limit = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => {
+      // A 1 + 1 that does not come back in 2 s means the page's main thread is blocked.
+      const probe = page
+        .evaluate(() => 1 + 1)
+        .then(
+          () => 'the page still answers',
+          (error: unknown) => `the page fails: ${String(error).slice(0, 120)}`,
+        )
+      const blocked = new Promise<string>((done) =>
+        setTimeout(() => done('the page does not answer (main thread blocked)'), 2000),
+      )
+      void Promise.race([probe, blocked]).then((state) =>
+        reject(new Error(`Phone audit hung for ${AUDIT_LIMIT_MS / 1000} s at ${where}; ${state}.`)),
+      )
+    }, AUDIT_LIMIT_MS)
+  })
+  try {
+    return await Promise.race([auditPhone(page, width), limit])
+  } finally {
+    clearTimeout(timer)
+  }
+}
 
 // I14: MOBILE-APLIKACJA §10 on every address of the line — 360/390/414 px, light and dark.
 // One test per page (widths and themes switched in place, no reload) keeps CI short. The same
@@ -34,7 +75,7 @@ for (const path of INST_PAGES) {
       await page.setViewportSize({ width, height: 844 })
       for (const theme of THEMES) {
         await setTheme(page, theme)
-        for (const p of await auditPhone(page, width)) {
+        for (const p of await auditWithLimit(page, width, `${path} ${width} px ${theme}`)) {
           if (FAILING.has(p.kind)) failures.push(`${width} ${theme} ${p.kind}: ${p.detail}`)
         }
       }
