@@ -36,12 +36,8 @@ export function PostArt({ category, className }: { category: string; className?:
 }
 
 function Meta({ post, featured = false }: { post: SoftwarePostCard; featured?: boolean }) {
-  return (
-    <span className="sw-eyebrow">
-      {post.category}
-      {featured ? ` · ${T.featured}` : null}
-    </span>
-  )
+  const parts = [post.category, featured ? T.featured : null].filter(Boolean)
+  return parts.length > 0 ? <span className="sw-eyebrow">{parts.join(' · ')}</span> : null
 }
 
 function DateLine({ post }: { post: SoftwarePostCard }) {
