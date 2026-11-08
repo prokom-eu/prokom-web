@@ -245,7 +245,6 @@ export const objectPage = {
   },
   problems: { fixLabel: 'Co robimy' },
   day: { onScene: 'Na przekroju:', showPoint: 'Pokaż punkt' },
-  law: { eyebrow: 'Przepisy i obowiązki' },
   mountains: { eyebrow: 'Specyfika Podhala' },
   /** `#realizacje-s` (the clients agreed, boss 01.11.2026); the heading comes from the panel. */
   realizations: {

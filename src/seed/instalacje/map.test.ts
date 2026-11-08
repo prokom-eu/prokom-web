@@ -23,7 +23,8 @@ import {
   servicesToImport,
   solutionsToImport,
 } from './map'
-import { stanNa } from '../../sites/instalacje/dane/stanFaktow'
+import { LAW_WORDS } from '../../lib/instalacje/lawWords'
+import { withoutLaw } from './bezPrzepisow'
 
 const ids = (prefix: number) => (key: string) => prefix + key.length // any stable fake id
 const refs = { service: ids(100), object: ids(200) }
@@ -120,7 +121,9 @@ describe('objects', () => {
       expect(object.hotspots?.length).toBeGreaterThan(0)
       expect(object.problems?.length).toBeGreaterThan(0)
       expect(object.day?.length).toBeGreaterThan(0)
-      expect(object.law?.length).toBeGreaterThan(0)
+      expect(object.law).toEqual([]) // runda v6 §1.1
+      expect(object.anchors?.map((a) => a.anchorId)).not.toContain('przepisy')
+      expect(object.foldOnPhone?.map((f) => f.anchorId)).not.toContain('przepisy')
       expect(object.prepare?.length).toBeGreaterThan(0)
       expect(object.faq?.length).toBeGreaterThan(0)
       expect(object.relatedServices?.length).toBeGreaterThan(0)
@@ -274,9 +277,7 @@ describe('no photo promises (P0-2, audit 06.11)', () => {
   })
 
   it('no mapped text has a hard date of the facts (P1-7)', () => {
-    // The only date left is the one of `STAN_FAKTOW` (changes in one place).
-    const rest = allMapped().replaceAll(stanNa(), '')
-    expect(rest).not.toMatch(/(październik|października|październiku) 20\d\d/)
+    expect(allMapped()).not.toMatch(/(październik|października|październiku) 20\d\d/)
   })
 
   it('no page SEO names WhatsApp (decision 01.11)', () => {
@@ -284,7 +285,43 @@ describe('no photo promises (P0-2, audit 06.11)', () => {
   })
 })
 
+describe('no law (runda v6 §1.1)', () => {
+  it('no mapped text names law nor points at the gone „Przepisy” sections', () => {
+    const text = allMapped()
+    expect(text.match(new RegExp(LAW_WORDS.source, 'gu')) ?? []).toEqual([])
+    expect(text).not.toMatch(/sekcji (przepisów|„Przepisy”)/)
+  })
+
+  it('leaves out whole entries: a FAQ pair, an anchor, a fold, a chip', () => {
+    expect(
+      withoutLaw({
+        faq: [
+          ['Czy Wi-Fi dla gości wymaga rejestracji w UKE?', 'x'],
+          ['Zostaje?', 'tak'],
+        ],
+        anc: [
+          ['przepisy', 'Przepisy'],
+          ['faq', 'Pytania'],
+        ],
+        fold: ['przepisy', 'faq'],
+        kept: 'Ustawimy kadr',
+      }),
+    ).toEqual({
+      faq: [['Zostaje?', 'tak']],
+      anc: [['faq', 'Pytania']],
+      fold: ['faq'],
+      kept: 'Ustawimy kadr',
+    })
+  })
+})
+
 describe('forwardSeoTitle (P3-23 on existing databases)', () => {
+  it('moves the former guide title without „RODO” (runda v6 §1.1)', () => {
+    expect(
+      forwardSeoTitle('Poradnik: monitoring, RODO i Wi-Fi', 'Poradnik: monitoring, alarmy i Wi-Fi'),
+    ).toBe('Poradnik: monitoring, alarmy i Wi-Fi')
+  })
+
   it('moves a former default title to the new one', () => {
     expect(
       forwardSeoTitle(

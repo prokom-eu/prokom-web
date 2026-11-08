@@ -60,7 +60,6 @@ export const architekci = {
     { id: 'instalacje', label: 'Instalacje' },
     { id: 'nowosci', label: 'Nowe rozwiązania' },
     { id: 'deweloperzy', label: 'Deweloperzy' },
-    { id: 'przepisy', label: 'Przepisy' },
     { id: 'doswiadczenie', label: 'Doświadczenie' },
     { id: 'biblioteka', label: 'Biblioteka' },
     { id: 'faq', label: 'Pytania' },
@@ -71,7 +70,6 @@ export const architekci = {
     problemy: 700,
     checklista: 760,
     liczby: 900,
-    przepisy: 900,
     doswiadczenie: 760,
     biblioteka: 700,
     zasady: 640,
@@ -345,7 +343,7 @@ export const architekci = {
         plan: [
           'Miejsca kamer uzgodnione z detalem elewacji: okap, podbitka, gzyms.',
           'Puszka montażowa w ociepleniu, kabel do szafy rack.',
-          'Kąty bez sąsiadów i stref prywatnych, zgodnie z zasadami RODO.',
+          'Kąty bez sąsiadów i stref prywatnych.',
         ],
         look: ['Kamery w kolorze elewacji', 'Bez kabla na wierzchu'],
         brands: 'Hikvision · Dahua · BCS · Ubiquiti',
@@ -798,7 +796,7 @@ export const architekci = {
       items: [
         'Panele wideodomofonu przy wejściach, lista lokatorów',
         'Karty i breloki do klatek, rowerowni i śmietników',
-        'Monitoring wejść, holu i terenu z zasadami RODO',
+        'Monitoring wejść, holu i terenu z maskami prywatności',
         'Zbiorcza instalacja RTV/SAT dla całego budynku',
       ],
       why: 'Bezpieczeństwo to priorytet dla 50% szukających domu i 34% szukających mieszkania. Najwyżej oceniają czujniki, monitoring i alarm.',
@@ -849,102 +847,6 @@ export const architekci = {
     heading: string
     items: string[]
     why: string
-  }[],
-  lawSection: {
-    eyebrow: 'Przepisy 2026–2028',
-    heading: 'Co się zmienia w prawie',
-    accent: 'i co to znaczy dla instalacji.',
-    lead: 'Warunki techniczne, światłowód, ładowanie aut, najem krótkoterminowy i RODO. Śledzimy zmiany, żeby Twój projekt był zgodny z prawem w dniu złożenia wniosku.',
-    inProject: 'W projekcie',
-  },
-  /** Date of the law section (spec §2.5, ADR-I005 §6); check before I13. */
-  lawAsOf: STAN_FAKTOW.date,
-  timeline: [
-    { date: '2013', label: 'Instalacja telekom. w budynkach wielorodzinnych', now: false },
-    { date: '12.02.2026', label: 'GIA: gotowość na światłowód', now: false },
-    { date: '20.05.2026', label: 'Rejestr najmu krótkoterminowego', now: false },
-    { date: '29.05.2026', label: 'Termin wdrożenia EPBD', now: false },
-    { date: '20.09.2026', label: 'Koniec WT z 2002 r.', now: true },
-    { date: '20.03.2028', label: 'Koniec okresu przejściowego', now: false },
-  ],
-  law: [
-    {
-      date: '20.09.2026',
-      status: 'Okres przejściowy',
-      tone: 'warn',
-      title: 'Stare warunki techniczne tylko z oświadczeniem',
-      text: 'Rozporządzenie o warunkach technicznych z 2002 r. straciło moc. Do 20.03.2028 projekt można przygotować według starych przepisów, jeśli inwestor złoży oświadczenie (art. 102a Prawa budowlanego).',
-      inProject:
-        'Na starcie projektu ustal z inwestorem, według których przepisów projektujesz. Od tego zależą wymagania dla instalacji telekomunikacyjnej.',
-    },
-    {
-      date: 'w toku',
-      status: 'Czekamy',
-      tone: 'mut',
-      title: 'Nowe warunki techniczne',
-      text: `Nowe rozporządzenie o warunkach technicznych nie zostało jeszcze ogłoszone (${stanNa()}).`,
-      inProject: 'Przy każdym projekcie sprawdzamy aktualny stan prawny i dopasowujemy wytyczne.',
-    },
-    {
-      date: '12.02.2026',
-      status: 'Obowiązuje',
-      tone: 'ok',
-      title: 'Budynek gotowy na światłowód (GIA)',
-      text: 'Unijne rozporządzenie o infrastrukturze gigabitowej: budynki z wnioskiem o pozwolenie złożonym po 12.02.2026 mają mieć infrastrukturę gotową na światłowód i okablowanie światłowodowe. Budynki wielolokalowe także punkt dostępu.',
-      inProject:
-        'Rura od granicy działki, trasa do pomieszczenia technicznego i światłowód do punktu zakończenia sieci w budynku.',
-    },
-    {
-      date: 'w toku',
-      status: 'Projekt ustawy',
-      tone: 'mut',
-      title: 'Polska ustawa wdrażająca GIA',
-      text: 'Projekt nowelizacji megaustawy jest w przygotowaniu. Ma m.in. rozstrzygnąć, czy obowiązek obejmie domy jednorodzinne budowane na własne potrzeby.',
-      inProject:
-        'Do czasu uchwalenia rekomendujemy przygotowanie pod światłowód także w domu jednorodzinnym. To rura i trasa, niewielki koszt.',
-    },
-    {
-      date: 'od 2013',
-      status: 'Stare WT',
-      tone: 'ok',
-      title: 'Instalacja telekomunikacyjna w budynku wielorodzinnym',
-      text: 'Według rozdziału 8a starych warunków technicznych: punkt styku, kanalizacja teletechniczna, co najmniej 2 włókna jednomodowe, 2 skrętki i przewód koncentryczny do każdego mieszkania.',
-      inProject:
-        'Dla projektów na starych WT: punkt styku w szafie, skrzynki mieszkaniowe, piony i pomiary do dokumentacji.',
-    },
-    {
-      date: '29.05.2026',
-      status: 'Czeka na wdrożenie',
-      tone: 'warn',
-      title: 'Ładowanie aut w budynkach mieszkalnych (EPBD)',
-      text: 'Dyrektywa budynkowa: w nowych budynkach mieszkalnych z więcej niż 3 miejscami postojowymi okablowanie co najmniej 50% miejsc, kanały na pozostałe, co najmniej 1 punkt ładowania i 2 miejsca rowerowe na lokal. Termin wdrożenia minął, Polska jeszcze jej nie wdrożyła.',
-      inProject:
-        'Warto przewidzieć kanały i moc już teraz. Dołożenie ich po wykończeniu garażu kosztuje więcej.',
-    },
-    {
-      date: '20.05.2026',
-      status: 'Obowiązuje',
-      tone: 'ok',
-      title: 'Rejestr najmu krótkoterminowego',
-      text: 'Unijne rozporządzenie: każdy lokal na wynajem krótkoterminowy potrzebuje numeru rejestracyjnego. Polska ustawa o najmie krótkoterminowym przeszła przez Sejm 8.10.2026.',
-      inProject:
-        'Apartamenty inwestycyjne projektuj od razu pod zdalną obsługę: zamek z kodem, Wi-Fi dla gości, podgląd i serwis zdalny.',
-    },
-    {
-      date: 'zawsze',
-      status: 'Obowiązuje',
-      tone: 'ok',
-      title: 'Kamery a RODO',
-      text: 'Kamera przy domu, która obejmuje ulicę albo posesję sąsiada, podlega RODO (wyrok TSUE C-212/13). W firmie nagrania przechowuje się najwyżej 3 miesiące, a pracowników informuje 2 tygodnie przed uruchomieniem.',
-      inProject: 'Kąty kamer i maski prywatności ustalamy już na rzutach, nie po montażu.',
-    },
-  ] as {
-    date: string
-    status: string
-    tone: 'ok' | 'warn' | 'mut'
-    title: string
-    text: string
-    inProject: string
   }[],
   newsSection: {
     eyebrow: 'Nowe rozwiązania do projektów',
@@ -1240,14 +1142,9 @@ export const architekci = {
         'Podhale i Małopolskę, z salonu w Rabce-Zdroju. Przy większych inwestycjach jedziemy dalej, dojazd ustalamy indywidualnie.',
     },
     {
-      question: 'Według których przepisów projektować teletechnikę w 2026 r.?',
+      question: 'Czy w domu jednorodzinnym warto zaplanować światłowód?',
       answer:
-        'Stare warunki techniczne straciły moc 20.09.2026. Do 20.03.2028 można projektować według nich, jeśli inwestor złoży oświadczenie. Nowe warunki nie zostały jeszcze ogłoszone, dlatego stan prawny sprawdzamy przy każdym projekcie.',
-    },
-    {
-      question: 'Czy dom jednorodzinny musi mieć światłowód?',
-      answer:
-        'Unijne rozporządzenie GIA obejmuje nowe budynki z wnioskiem o pozwolenie po 12.02.2026. Polska ustawa, która może zwolnić domy budowane na własne potrzeby, jest w przygotowaniu. Rura pod światłowód kosztuje niewiele, więc rekomendujemy ją w każdym projekcie.',
+        'Tak. Rura pod światłowód kosztuje niewiele, więc rekomendujemy ją w każdym projekcie.',
     },
     {
       question: 'Kto zajmuje się serwisem po odbiorze?',

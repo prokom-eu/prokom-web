@@ -3,7 +3,7 @@ import type { PostCategory } from '@/lib/posts/list'
 /*
  * Texts of the guide `/poradnik` and of its posts `/poradnik/<slug>` (`zrodlo/pages/Poradnik.*`,
  * `PoradnikRodo.*`). The posts are `Posts` of the tenant (title, lead, content, SEO in the panel);
- * the short answers on the service pages and the widgets of the RODO post (summary, who does
+ * the short answers on the service pages and the widgets of the camera post (summary, who does
  * what, the self-check) live here. Without the prototype's internal note („W prototypie pełny
  * tekst ma pierwszy poradnik…”) and without source lists (spec §2).
  */
@@ -11,7 +11,6 @@ import type { PostCategory } from '@/lib/posts/list'
 /** The category chips of `/poradnik` (the prototype's `CATS`) → `POST_CATEGORIES` values. */
 export const GUIDE_CATEGORIES: { key: PostCategory | 'all'; label: string }[] = [
   { key: 'all', label: 'Wszystkie' },
-  { key: 'przepisy', label: 'Przepisy' },
   { key: 'monitoring', label: 'Monitoring' },
   { key: 'noclegi', label: 'Obiekty noclegowe' },
   { key: 'energia', label: 'Energia' },
@@ -30,7 +29,7 @@ export const GUIDE_ANSWERS: GuideAnswer[] = [
   {
     category: 'monitoring',
     title: 'Ile dni nagrań potrzebujesz i jaki dysk dobrać',
-    text: 'Kalkulator i wzór: liczba kamer, strumień, pojemność dysku. Do tego limity z Kodeksu pracy.',
+    text: 'Kalkulator i wzór: liczba kamer, strumień, pojemność dysku.',
     href: '/monitoring#nagrania',
   },
   {
@@ -41,15 +40,9 @@ export const GUIDE_ANSWERS: GuideAnswer[] = [
   },
   {
     category: 'energia',
-    title: 'Ładowarka dla gości pensjonatu: moc, UDT i formalności',
-    text: 'Co mówi ustawa o elektromobilności i kiedy ładowarka dla gości może być już stacją ogólnodostępną.',
+    title: 'Ładowarka dla gości pensjonatu: moc i formalności',
+    text: 'Jaką moc wybrać do pensjonatu i w czym pomagamy przed uruchomieniem ładowarki.',
     href: '/ladowarki-ev#formalnosci',
-  },
-  {
-    category: 'przepisy',
-    title: 'Wi-Fi dla gości: czy trzeba zgłaszać do UKE?',
-    text: 'Prawo komunikacji elektronicznej o Wi-Fi jako dodatku do noclegu.',
-    href: '/sieci-wifi#portal',
   },
   {
     category: 'noclegi',
@@ -58,34 +51,16 @@ export const GUIDE_ANSWERS: GuideAnswer[] = [
     href: '/kontrola-dostepu#apartamenty',
   },
   {
-    category: 'przepisy',
-    title: 'DSO czy zwykłe nagłośnienie? Kiedy przepisy wymagają systemu ostrzegawczego',
-    text: '§ 29 rozporządzenia MSWiA w praktyce: pensjonat, hotel, hala. DSO wykonują firmy z odpowiednimi uprawnieniami, my montujemy nagłośnienie użytkowe.',
-    href: '/naglosnienie#dso',
-  },
-  {
     category: 'dzwiek-obraz',
     title: 'DVB-T2 i anteny w górach',
     text: 'Od kiedy Małopolska nadaje w DVB-T2 i co zrobić, gdy stok zasłania nadajnik.',
     href: '/anteny#multipleksy',
   },
   {
-    category: 'przepisy',
-    title: 'Uchwała krajobrazowa w Zakopanem a ekrany i szyldy',
-    text: 'Terminy dostosowania i co sprawdzić przed montażem ekranu w witrynie.',
-    href: '/ekrany#zewnatrz',
-  },
-  {
     category: 'noclegi',
     title: 'Przegląd przed sezonem: co sprawdzamy',
     text: 'Kamery, dyski, Wi-Fi, zamki, ładowarka i ekrany przed feriami i wakacjami.',
     href: '/serwis#plany',
-  },
-  {
-    category: 'przepisy',
-    title: 'Odcisk palca w firmie: kiedy wolno',
-    text: 'Kodeks pracy i stanowisko UODO o biometrii przy rejestracji czasu pracy.',
-    href: '/kontrola-dostepu#firma',
   },
 ]
 
@@ -158,9 +133,9 @@ export const GUIDE_EXTRAS: Record<string, GuideExtras> = {
       'Sprawdź się',
     ],
     summary: [
-      'Monitoring w pensjonacie jest legalny, ale właściciel odpowiada za niego jak administrator danych.',
+      'Kamery w pensjonacie pilnują wejścia, parkingu i narciarni. Za monitoring odpowiada właściciel obiektu.',
       'Parking, wejście, narciarnia: tak. Pokoje, łazienki, sauna, posesje sąsiadów: nie.',
-      'Kodeks pracy: nagrania z monitoringu pracowników najwyżej 3 miesiące. EROD zaleca możliwie krótko, zwykle kilka dni.',
+      'Nagrania nadpisują się same po kilku dniach. Czas ustawiamy przy montażu.',
       'Sama naklejka z kamerą nie wystarczy. Potrzebna tabliczka i pełna informacja.',
     ],
     roles: {
@@ -175,11 +150,11 @@ export const GUIDE_EXTRAS: Record<string, GuideExtras> = {
         ],
       },
       you: {
-        title: 'Ty, jako administrator',
+        title: 'Ty, jako właściciel',
         items: [
           'Cel monitoringu',
           'Informacja dla gości i pracowników',
-          'Układ zbiorowy, regulamin pracy lub obwieszczenie',
+          'Zasady monitoringu dla pracowników',
           'Udostępnianie nagrań na wniosek',
         ],
       },
@@ -191,7 +166,7 @@ export const GUIDE_EXTRAS: Record<string, GuideExtras> = {
         'Posesja sąsiada i droga są zamaskowane',
         'Mikrofony w kamerach są wyłączone',
         'Nagrania nadpisują się automatycznie po ustalonym czasie',
-        'Przy wejściu w strefę wisi tabliczka z administratorem i celem',
+        'Przy wejściu w strefę wisi tabliczka o monitoringu',
         'Pełna informacja jest w recepcji lub na stronie',
         'Hasła do rejestratora są zmienione z fabrycznych',
       ],
@@ -200,20 +175,20 @@ export const GUIDE_EXTRAS: Record<string, GuideExtras> = {
       partial: (n, all) =>
         `${n} z ${all}. Brakujące punkty techniczne ustawimy przy przeglądzie. Przy pozostałych podpowiemy, co przygotować.`,
     },
-    featured: { icon: 'cam', sign: 'RODO' },
+    featured: { icon: 'cam', sign: null },
     aside: {
       icon: 'cam',
       title: 'Ustawimy monitoring według tego poradnika',
       text: 'Strefy, maski, czas nagrań i miejsca na tabliczki. Wycena po wizji lokalnej.',
-      link: { label: 'Monitoring i RODO', href: '/monitoring#rodo' },
+      link: { label: 'Kadr i maski prywatności', href: '/monitoring#rodo' },
     },
     readAlso: [
       { label: 'Ile dni nagrań i jaki dysk', href: '/monitoring#nagrania' },
-      { label: 'Wi-Fi dla gości a UKE', href: '/sieci-wifi#portal' },
+      { label: 'Wi-Fi dla gości', href: '/sieci-wifi#portal' },
       { label: 'Przegląd przed sezonem', href: '/serwis#plany' },
     ],
     band: {
-      eyebrow: 'Monitoring ustawiony pod RODO',
+      eyebrow: 'Kamery w pensjonacie',
       heading: 'Chcesz, żebyśmy sprawdzili Twój monitoring?',
       text: 'Przegląd kadrów, masek, czasu nagrań i haseł. Bez wymiany sprzętu, jeśli nie trzeba.',
     },
