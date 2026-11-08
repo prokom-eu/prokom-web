@@ -182,6 +182,7 @@ export function TrustBand() {
               <li
                 key={brand.name}
                 className="brand"
+                data-wide={'wide' in brand && brand.wide ? '' : undefined}
                 style={
                   brand.scale ? ({ '--brand-scale': brand.scale } as CSSProperties) : undefined
                 }
