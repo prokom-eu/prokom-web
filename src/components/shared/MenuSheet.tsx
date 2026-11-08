@@ -1,12 +1,14 @@
 'use client'
 
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 import { BottomSheet } from '@/components/BottomSheet'
 import { cx } from '@/components/ui/cx'
+import { Icon } from '@/components/ui/Icon'
 import { useThemeChoice, type ThemeChoice } from '@/components/useTheme'
 import { withGamingLast, type SharedLineKey } from '@/lib/shared/lines'
 import { onMenuRequest } from '@/lib/shared/menuOpen'
+import { requestSearch } from '@/lib/site/searchOpen'
 import type { OpeningHours } from '@/lib/shared/openingStatus'
 import type { SharedLine } from '@/lib/shared/project'
 import { toTelHref } from '@/lib/site/link'
@@ -26,6 +28,11 @@ export type MenuSheetProps = {
   themes?: boolean
   /** Media query of the desktop layout: an open sheet closes when it starts to match. */
   desktopQuery?: string
+  /**
+   * Label of the „Szukaj” button on top of the sheet (FUND-W PR1): up to 1080 px the capsule hides
+   * its loupe, so the sheet is the way to the line's search window. Only for lines that mount one.
+   */
+  search?: string
 }
 
 const THEMES: { value: ThemeChoice; label: string }[] = [
@@ -64,10 +71,11 @@ function ThemeChoiceSwitch() {
 }
 
 /**
- * Menu sheet of every line on the phone (spec §5 `MenuSheet`, board Telefon): the line's own list
- * as a slot, then the shared part — contact card (status, number, „Zadzwoń”), chips of the PRO-KOM
- * lines (with Gaming) and the theme switch. On the shared `BottomSheet` (`<dialog>`: focus kept
- * inside, Esc, a drag down or the backdrop closes it); opened by `requestMenu()`.
+ * Menu sheet of every line on the phone (spec §5 `MenuSheet`, board Telefon): the „Szukaj”
+ * button (lines with a search window), the line's own list as a slot, then the shared part —
+ * contact card (status, number, „Zadzwoń”), chips of the PRO-KOM lines (with Gaming) and the
+ * theme switch. On the shared `BottomSheet` (`<dialog>`: focus kept inside, Esc, a drag down or
+ * the backdrop closes it); opened by `requestMenu()`.
  */
 export function MenuSheet({
   children,
@@ -79,9 +87,18 @@ export function MenuSheet({
   now,
   themes,
   desktopQuery = '(min-width: 1081px)',
+  search,
 }: MenuSheetProps) {
   const [open, setOpen] = useState(false)
+  const searchNext = useRef(false)
   useEffect(() => onMenuRequest(() => setOpen(true)), [])
+  // The search window opens only when no other dialog is open: ask for it after the sheet's own
+  // effect (a child's effects run first) has closed the `<dialog>`.
+  useEffect(() => {
+    if (open || !searchNext.current) return
+    searchNext.current = false
+    requestSearch()
+  }, [open])
   const tel = phone ? toTelHref(phone) : null
 
   return (
@@ -94,6 +111,21 @@ export function MenuSheet({
       closeOnBack
     >
       <div className="flex flex-col gap-3.5 pb-2" data-menu-sheet>
+        {search && (
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            onClick={() => {
+              searchNext.current = true
+              setOpen(false)
+            }}
+            className="flex min-h-12 w-full items-center gap-3 rounded-2xl bg-surface-2 px-4 text-left font-bold text-ink-2 shadow-[inset_0_0_0_1px_var(--border)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text"
+            data-menu-search
+          >
+            <Icon name="search" className="size-[18px]" />
+            {search}
+          </button>
+        )}
         {children}
         {phone && tel && (
           <div className="flex items-center justify-between gap-3 rounded-2xl bg-line-dark px-3.5 py-3 text-line-dark-ink">

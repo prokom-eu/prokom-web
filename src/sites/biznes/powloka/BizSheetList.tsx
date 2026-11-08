@@ -5,8 +5,6 @@ import type { OfferMenu } from '@/lib/catalog/menu'
 import { plural } from '@/lib/plural'
 import type { PublicBiznesNavigation } from '@/lib/site/navigation'
 
-import { SheetSearch } from './SheetSearch'
-
 type Props = {
   offer: OfferMenu
   menu: PublicBiznesNavigation['menu']
@@ -17,14 +15,13 @@ const ROW =
 
 /**
  * The Biznes list in the shared „Menu” sheet (≤ 1080 px, ELEMENTY-WSPOLNE-BIZNES §1): the
- * catalog search, the departments as lists that unfold into their categories, then the other menu
+ * departments as lists that unfold into their categories, then the other menu
  * entries from the panel. The sheet adds the contact card, the lines and the theme switch.
  */
 export function BizSheetList({ offer, menu }: Props) {
   const links = menu.filter((item) => item.type === 'link' && item.href)
   return (
     <nav aria-label="Oferta i strony" className="flex flex-col gap-1">
-      <SheetSearch />
       {offer.departments.map((department) => (
         <details key={department.slug} className="group rounded-2xl bg-card">
           <summary className={`${ROW} cursor-pointer list-none [&::-webkit-details-marker]:hidden`}>
