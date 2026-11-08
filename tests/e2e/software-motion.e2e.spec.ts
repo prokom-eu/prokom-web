@@ -96,8 +96,9 @@ test.describe('Software motion with reduced motion', () => {
 
   test('the contact map pin does not pulse and an FAQ answer opens at once', async ({ page }) => {
     await page.goto(site(HOST, '/kontakt'))
-    await page.locator('#gdzie').scrollIntoViewIfNeeded()
-    const faq = page.locator('#faq details').nth(1)
+    // SWA5b: the shared Kontakt template — the map in the address card, the FAQ in `#pytania`.
+    await page.locator('[data-address-card]').scrollIntoViewIfNeeded()
+    const faq = page.locator('#pytania details').nth(1)
     await faq.locator('summary').click()
     await expect(faq).toHaveAttribute('open', '')
     expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])

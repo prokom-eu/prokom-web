@@ -56,7 +56,8 @@ test.describe('Software /cennik', () => {
     await expect(ask).toHaveAttribute('href', '/kontakt?poziom=rozszerzona')
     await ask.click()
     await expect(page).toHaveURL(/\/kontakt\?poziom=rozszerzona$/)
-    await expect(page.getByRole('radio', { name: 'Opieka lub ratunek' })).toBeChecked()
+    // SWA5b: the shared form; the level joins the message at sending (software-contact).
+    await expect(page.locator('[data-contact-page] [data-contact-form]')).toBeVisible()
   })
 
   test('audit kinds and the FAQ; the page ends with the footer band (no CTA of its own)', async ({

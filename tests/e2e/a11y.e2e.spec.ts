@@ -61,8 +61,8 @@ const SITES: {
       '/nie-ma-takiej-strony',
       '/polityka-prywatnosci',
       '/mapa-strony',
+      // `/jedna-firma` is a 301 to `/o-firmie#linie` since SWA5b (software-about).
       '/o-firmie',
-      '/jedna-firma',
       '/aktualnosci',
       '/miejscowosci/rabka-zdroj',
     ],

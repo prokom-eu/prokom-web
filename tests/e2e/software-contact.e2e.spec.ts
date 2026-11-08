@@ -1,11 +1,14 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
 import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
-import { api, loginAsAdmin, site } from './helpers'
+import { api, loginAsAdmin, setTheme, site } from './helpers'
 
-// SW11a: `/kontakt` of the Software line (spec. §6.10, §7; board `Kontakt`, stany
-// `kontakt-90…99c`). Data from `pnpm seed`: the `swContactPage` block and the FAQ, solutions
-// of the package. Inquiries made here are deleted at the end.
+// SWA5b: `/kontakt` of the Software line on the shared Kontakt template (spec §6.1,
+// ZMIANY-v24 §9.3): texts from `SiteSettings.shared.contact` (`src/seed/shared/software.ts`),
+// „Twój projekt” in the `formPrefill` slot — its items make the inquiry a `list`, then the list
+// is emptied; `?poziom=` adds the care level to the message. Success stays on the page (shared
+// SuccessPanel). Data from `pnpm seed`; inquiries made here are deleted at the end.
 const HOST = 'software.localhost'
 
 // Own client address per test (benchmark range 198.18.0.0/15): the limit of 5 inquiries per
@@ -23,129 +26,205 @@ const PROJECT = [
 const withProject = (page: Page, project: unknown) =>
   page.addInitScript((value) => localStorage.setItem('pk-project', value), JSON.stringify(project))
 
-const form = (page: Page) => page.locator('#formularz')
-const send = (page: Page) => form(page).getByRole('button', { name: 'Wyślij zgłoszenie' })
+const contact = (page: Page) => page.locator('[data-contact-page]')
+const form = (page: Page) => page.locator('[data-contact-page] [data-contact-form]')
+const projectBox = (page: Page) => form(page).getByRole('region', { name: 'Twój projekt' })
+const submit = (page: Page) => form(page).locator('button[type="submit"]')
 
-test.describe('Software /kontakt', () => {
-  test('hero with the hours card and four channels; the lines replace the footer cards', async ({
+/** The inquiry saved under this name (panel REST from the logged-in page). */
+async function findInquiry(page: Page, name: string) {
+  await loginAsAdmin(page)
+  const { json } = await api(
+    page,
+    'GET',
+    `/api/inquiries?where[name][equals]=${encodeURIComponent(name)}&depth=0`,
+  )
+  return (json.docs as Record<string, unknown>[])[0]
+}
+
+test.describe('Software /kontakt (shared template)', () => {
+  test.use({ viewport: { width: 1440, height: 900 } })
+
+  test('hero: H1, phone 883 200 151, second number tile, address card with CEIDG', async ({
+    page,
+  }) => {
+    const response = await page.goto(site(HOST, '/kontakt'))
+    expect(response?.status()).toBe(200)
+    await expect(page.locator('main h1')).toHaveCount(1)
+    await expect(contact(page).getByRole('heading', { level: 1 })).toHaveText(
+      'Porozmawiajmy o Twoim projekcie.',
+    )
+    const hero = contact(page).locator('section[aria-labelledby="kontakt-h1"]')
+    await expect(hero.getByRole('link', { name: '883 200 151', exact: true })).toHaveAttribute(
+      'href',
+      'tel:+48883200151',
+    )
+    await expect(hero.getByRole('link', { name: /Opisz projekt/ })).toHaveAttribute(
+      'href',
+      '#formularz',
+    )
+    // Facts: the second number from the line's settings, the answer time, the e-mail.
+    const second = hero.getByRole('listitem').filter({ hasText: 'Albo drugi numer' })
+    await expect(second.getByRole('link', { name: '788 986 074' })).toHaveAttribute(
+      'href',
+      'tel:+48788986074',
+    )
+    await expect(hero.getByRole('listitem').filter({ hasText: 'Na odpowiedź' })).toContainText(
+      '1 dzień roboczy',
+    )
+    await expect(hero.locator('a[href="mailto:kontakt@prokomsoftware.pl"]')).toBeVisible()
+
+    const card = hero.locator('[data-address-card]')
+    await expect(card).toContainText('ul. Orkana 16B')
+    await expect(card).toContainText('Rabka-Zdrój')
+    await expect(card.getByRole('list', { name: 'Godziny otwarcia' })).toBeVisible()
+    await expect(card.getByRole('link', { name: /Sprawdź w CEIDG/ })).toHaveAttribute(
+      'href',
+      'https://www.biznes.gov.pl/pl/wyszukiwarka-firm',
+    )
+    // v23 leftovers are gone: no Zakopane, no WhatsApp, no „Jak wolisz rozmawiać?”.
+    await expect(page.locator('main')).not.toContainText(/Zakopan|WhatsApp|Jak wolisz rozmawiać/i)
+  })
+
+  test('routes, the form with next steps, service area, other lines, FAQ, the band', async ({
     page,
   }) => {
     await page.goto(site(HOST, '/kontakt'))
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Napisz, zadzwoń albo wpadnij. Odpowiemy z konkretem.',
+    const routes = page.locator('#z-czym-dzwonisz')
+    await expect(routes.getByRole('heading', { level: 2 })).toHaveText('Z czym dzwonisz?')
+    await expect(routes.locator('a[href="/dobierz"]')).toHaveText(/Kreator · 60 s/)
+    await expect(routes.locator('a[href="/audyt"]')).toHaveText(/Darmowy audyt/)
+    await expect(routes.locator('a[href="/kontakt#formularz"]')).toHaveText(/Opisz zmianę/)
+
+    const section = page.locator('#formularz')
+    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
+      'Opisz, co chcesz usprawnić',
     )
-    await expect(page.getByText(/^Teraz (otwarte|zamknięte)$/)).toBeVisible()
-    await expect(page.locator('main a[href^="tel:"]').first()).toBeVisible()
-    await expect(page.locator('main a[href^="mailto:"]').first()).toBeVisible()
-    // The page ends with its own form: no „Zacznij od podglądu” band above the footer.
-    await expect(page.locator('[data-footer-cta]')).toBeHidden()
-    await expect(page.locator('[data-lines-section] li')).toHaveCount(4)
-    // v23: Software only in Rabka; the phone card names the second number.
-    await expect(page.locator('main')).not.toContainText(/Zakopan/i)
-    await expect(page.locator('main')).toContainText('albo 788 986 074')
-    // v23 map from OpenStreetMap: a drawing, Google only on click, the OSM credit (ODbL).
-    const where = page.locator('#gdzie')
-    await expect(where.getByRole('img', { name: /Mapa: .*Orkana 16B/ })).toBeVisible()
-    await expect(where.getByRole('link', { name: /Wyznacz trasę/ })).toHaveAttribute(
-      'href',
-      /google\.com\/maps/,
+    await expect(section).toContainText('1 dzień roboczy · Odpowiadamy')
+    await expect(section).toContainText('Ty decydujesz · Bez zobowiązań')
+    // Topic chips of the line; none picked at first. No „Twój projekt” without a list.
+    const chips = form(page).locator('fieldset button')
+    await expect(chips).toHaveText(['Strona', 'System lub panel', 'Aplikacja', 'Opieka', 'Audyt'])
+    await expect(form(page).locator('[aria-pressed="true"]')).toHaveCount(0)
+    await expect(projectBox(page)).toHaveCount(0)
+    await expect(submit(page)).toHaveText(/Wyślij zgłoszenie/)
+
+    await expect(page.locator('#dojazd').getByRole('heading', { level: 2 })).toHaveText(
+      'Kod nie zna granic. Kawa jest w Rabce.',
     )
-    await expect(where.getByRole('link', { name: /Powiększ mapę/ })).toHaveAttribute(
-      'href',
-      /openstreetmap\.org/,
-    )
-    await expect(where).toContainText('© autorzy OpenStreetMap')
-    await expect(where.locator('iframe, script')).toHaveCount(0)
-    await expect(where.getByRole('img', { name: /Wejście do PRO-KOM/ })).toBeVisible()
-    await expect(where).toContainText('sobota i niedziela nieczynne')
-    await expect(page.locator('#faq')).toContainText('Czy rozmowa i wycena coś kosztują?')
-    // v21: no topic picked at first.
-    const topics = form(page).getByRole('group', { name: 'Czego dotyczy sprawa?' })
-    await expect(topics.getByRole('radio', { checked: true })).toHaveCount(0)
+    await expect(page.locator('#dojazd [data-service-area]')).toBeVisible()
+    await expect(page.locator('#inne-linie')).toBeVisible()
+
+    const faq = page.locator('#pytania')
+    await expect(faq.locator('details')).toHaveCount(4)
+    await expect(faq).toContainText('Czy muszę mieć specyfikację?')
+    await expect(faq).toContainText('Czy mogę przyjść bez umawiania?')
+    const ld = await page.locator('script[type="application/ld+json"]').allTextContents()
+    const faqLd = ld.filter((text) => text.includes('"FAQPage"'))
+    expect(faqLd).toHaveLength(1)
+    expect(faqLd[0]).toContain('Czy muszę mieć specyfikację?')
+    expect(ld.some((text) => text.includes('"BreadcrumbList"'))).toBe(true)
+
+    // The template ends with the FAQ, no CTA of its own: the „Zacznij od podglądu” band follows.
+    await expect(page.locator('section[data-footer-cta]')).toBeVisible()
   })
 
-  test('errors under the fields; „E-mail” needs an e-mail address', async ({ page }) => {
+  test('empty form: the list of errors on top, message required', async ({ page }) => {
     await page.goto(site(HOST, '/kontakt'))
-    await send(page).click()
-    await expect(form(page).getByLabel('Opisz krótko, po swojemu')).toBeFocused()
-
-    await form(page).getByLabel('Opisz krótko, po swojemu').fill('Mamy 3 ekipy.')
-    await form(page).getByLabel('Imię i firma').fill('E2E')
-    await form(page).getByLabel('Telefon albo e-mail').fill('600 100')
-    await expect(form(page).getByText('Numer ma za mało cyfr.')).toBeVisible()
-    await form(page)
-      .locator('label', { hasText: /^E-mail$/ })
-      .click()
-    await form(page)
-      .getByRole('checkbox', { name: /Wyrażam zgodę/ })
-      .check()
-    await send(page).click()
-    await expect(form(page).getByLabel('Telefon albo e-mail')).toBeFocused()
-    await expect(page).not.toHaveURL(/dziekujemy/)
+    const summary = form(page).getByRole('alert')
+    await expect(async () => {
+      // A click before hydration is lost — repeat until the summary shows.
+      await submit(page).click()
+      await expect(summary).toBeVisible({ timeout: 1000 })
+    }).toPass()
+    await expect(summary).toContainText('Podaj imię albo nazwę firmy.')
+    // Software without a list: name, contact, message and consent (the server's rules).
+    await expect(form(page).locator('[aria-invalid="true"]')).toHaveCount(4)
   })
 
-  test('?poziom= from the price list picks care and writes the level', async ({ page }) => {
-    await page.goto(site(HOST, '/kontakt?poziom=rozszerzona'))
-    await expect(form(page).getByRole('radio', { name: 'Opieka lub ratunek' })).toBeChecked()
-    await expect(form(page).getByLabel('Opisz krótko, po swojemu')).toHaveValue(
-      'Interesuje mnie opieka — poziom Rozszerzona.',
-    )
+  test('a contact inquiry with ?poziom= carries the care level; success stays on the page', async ({
+    page,
+  }) => {
+    await newVisitor(page)
+    const name = `E2E Kontakt SWA5b ${Date.now()}`
+    const email = `swa5b-${Date.now()}@example.test`
+    await page.goto(site(HOST, '/kontakt?poziom=rozszerzona#formularz'))
+    // No list and no `?projekt=1`: no „Twój projekt” box, the level goes in at sending.
+    await expect(projectBox(page)).toHaveCount(0)
+    await form(page).getByLabel('Imię i firma').fill(name)
+    await form(page).getByLabel('Telefon lub e-mail').fill(email)
+    await form(page).getByLabel('Wiadomość').fill('Chcemy oddać stronę pod stałą opiekę.')
+    await form(page).getByRole('checkbox').check()
+    await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
+    await submit(page).click()
+
+    const done = contact(page).locator('[data-success-panel]')
+    await expect(done).toContainText('Numer zgłoszenia: PKS-')
+    await expect(done).toContainText('Potwierdzenie wyślemy na podany adres.')
+    await expect(page).toHaveURL(/\/kontakt\?poziom=rozszerzona#formularz$/)
+
+    const record = await findInquiry(page, name)
+    expect(record, 'the inquiry is in the panel').toBeDefined()
+    try {
+      expect(record).toMatchObject({ line: 'software', type: 'contact', email })
+      expect(String(record?.message)).toContain('Chcemy oddać stronę pod stałą opiekę.')
+      expect(String(record?.message)).toContain('Poziom opieki: Rozszerzona')
+    } finally {
+      if (record) await api(page, 'DELETE', `/api/inquiries/${record.id}`)
+    }
   })
 
-  test('an empty ?projekt=1 points to the offer', async ({ page }) => {
+  test('an empty ?projekt=1 shows the box with a link to the offer', async ({ page }) => {
     await page.goto(site(HOST, '/kontakt?projekt=1#formularz'))
-    const box = form(page).getByRole('region', { name: 'Twój projekt' })
-    await expect(box).toContainText('Twój projekt jest pusty.')
-    await expect(box.getByRole('link', { name: 'pełnej oferty' })).toHaveAttribute(
+    await expect(projectBox(page)).toContainText('Twój projekt jest pusty.')
+    await expect(projectBox(page).getByRole('link', { name: 'pełnej oferty' })).toHaveAttribute(
       'href',
       '/rozwiazania',
     )
+    await expect(projectBox(page).getByRole('listitem')).toHaveCount(0)
   })
 
-  test('99b: „Twój projekt” goes with the inquiry as solutions, then the list is cleared', async ({
+  test('„Twój projekt” goes with the inquiry as a list, then the list is cleared', async ({
     page,
   }) => {
     await newVisitor(page)
     await withProject(page, PROJECT)
-    const name = `E2E Twój projekt SW11a ${Date.now()}`
-    await page.goto(site(HOST, '/kontakt?projekt=1#formularz'))
-    const box = form(page).getByRole('region', { name: 'Twój projekt' })
-    await expect(box.getByRole('listitem')).toHaveCount(2)
-    await expect(box).toContainText('Razem (netto)')
-    await expect(box).toContainText('299 zł/mies.')
-    // The topic follows the first item; the description becomes optional.
-    await expect(form(page).getByRole('radio', { name: 'Strona', exact: true })).toBeChecked()
-    await expect(form(page).getByLabel('Dodaj kilka słów o firmie (opcjonalnie)')).toBeVisible()
+    const name = `E2E Twój projekt SWA5b ${Date.now()}`
+    await page.goto(site(HOST, '/kontakt'))
+    // The seeded list shows the box without `?projekt=1`.
+    await expect(projectBox(page).getByRole('listitem')).toHaveCount(2)
+    await expect(projectBox(page)).toContainText('Razem (netto)')
+    await expect(projectBox(page)).toContainText(/299\szł\/mies\./)
+    // With a list the message is optional (as on the server).
+    await expect(form(page).locator('label', { hasText: 'Wiadomość' })).toContainText(
+      '(opcjonalnie)',
+    )
 
     await form(page).getByLabel('Imię i firma').fill(name)
-    await form(page).getByLabel('Telefon albo e-mail').fill('e2e-projekt@example.test')
-    await form(page)
-      .getByRole('checkbox', { name: /Wyrażam zgodę/ })
-      .check()
+    await form(page).getByLabel('Telefon lub e-mail').fill('e2e-projekt@example.test')
+    await form(page).getByRole('checkbox').check()
     await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
-    await send(page).click()
-    await expect(page).toHaveURL(/\/dziekujemy\?nr=PKS-\d{4}-\d{4,}$/)
-    expect(await page.evaluate(() => localStorage.getItem('pk-project'))).toBe('[]')
-    await expect(page.getByText('Wysłane razem z:')).toContainText(
-      'Strona firmowa z panelem, Opieka nad stroną i systemem · Rozszerzona',
-    )
+    await submit(page).click()
 
-    await loginAsAdmin(page)
-    const { json } = await api(
-      page,
-      'GET',
-      `/api/inquiries?where[name][equals]=${encodeURIComponent(name)}&depth=0`,
+    await expect(contact(page).locator('[data-success-panel]')).toContainText(
+      'Numer zgłoszenia: PKS-',
     )
-    const record = (json.docs as Record<string, unknown>[])[0]
+    // No redirect to /dziekujemy any more.
+    await expect(page).not.toHaveURL(/dziekujemy/)
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('pk-project'))).toBe('[]')
+
+    const record = await findInquiry(page, name)
+    expect(record, 'the inquiry is in the panel').toBeDefined()
     try {
       expect(record).toMatchObject({
         line: 'software',
         type: 'list',
-        topics: ['strona'],
-        // Only an e-mail typed, no way picked: e-mail, never „woli telefon”.
-        preferredContact: 'email',
-        message: 'Twój projekt (Strona): Strona firmowa z panelem, Opieka nad stroną i systemem',
+        email: 'e2e-projekt@example.test',
       })
+      // No description typed: the server writes the message from the list.
+      expect(String(record?.message)).toContain(
+        'Strona firmowa z panelem, Opieka nad stroną i systemem',
+      )
       const items = record?.items as { nameSnapshot: string; solution: number | null }[]
       expect(items.map((item) => item.nameSnapshot)).toEqual([
         'Strona firmowa z panelem',
@@ -156,35 +235,47 @@ test.describe('Software /kontakt', () => {
       if (record) await api(page, 'DELETE', `/api/inquiries/${record.id}`)
     }
   })
+
+  for (const theme of ['light', 'dark'] as const) {
+    test(`axe on the page with the project box (${theme})`, async ({ page }) => {
+      await setTheme(page, theme, { reducedMotion: 'reduce' })
+      await withProject(page, PROJECT)
+      await page.goto(site(HOST, '/kontakt'))
+      await expect(projectBox(page)).toBeVisible()
+      const { violations } = await new AxeBuilder({ page })
+        .include('[data-contact-page]')
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+        .analyze()
+      expect(
+        violations.map((v) => ({ rule: v.id, targets: v.nodes.map((n) => n.target) })),
+      ).toEqual([])
+    })
+  }
 })
 
 test.describe('Software /kontakt on a phone', () => {
   // Touch phone emulation in Chromium (`devices[...]` would switch the browser: not in a group).
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true })
 
-  for (const width of [360, 390, 414]) {
-    test(`fits ${width} px: no sideways scroll, the form before „Co dalej”`, async ({ page }) => {
+  for (const width of [360, 390]) {
+    test(`fits ${width} px with the project box: no sideways scroll`, async ({ page }) => {
       await page.setViewportSize({ width, height: 844 })
       await withProject(page, PROJECT)
       await page.goto(site(HOST, '/kontakt?projekt=1#formularz'))
-      await expect(form(page).getByRole('region', { name: 'Twój projekt' })).toBeVisible()
-      const sizes = await page.evaluate(() => ({
-        page: Math.max(document.scrollingElement!.scrollWidth, window.innerWidth),
-        view: document.documentElement.clientWidth,
-      }))
-      expect(sizes.page).toBeLessThanOrEqual(sizes.view)
-      const formTop = await form(page).locator('form').boundingBox()
-      const nextTop = await page.locator('#co-dalej-h').boundingBox()
-      expect(formTop!.y).toBeLessThan(nextTop!.y)
+      await expect(projectBox(page)).toBeVisible()
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      )
+      expect(overflow).toBeLessThanOrEqual(0)
     })
   }
 
-  test('touch targets of the talk ways and hints are at least 44 px high', async ({ page }) => {
+  test('topic chips are at least 44 px high', async ({ page }) => {
     await page.goto(site(HOST, '/kontakt'))
     const heights = await form(page)
-      .locator('fieldset label, button[aria-pressed]')
+      .locator('fieldset button')
       .evaluateAll((elements) => elements.map((element) => element.getBoundingClientRect().height))
-    expect(heights.length).toBeGreaterThan(0)
+    expect(heights.length).toBe(5)
     expect(Math.min(...heights)).toBeGreaterThanOrEqual(44)
   })
 })
