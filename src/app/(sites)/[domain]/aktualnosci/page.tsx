@@ -104,12 +104,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbs) }}
       />
       <NewsHero chips={chips} current={category} />
-      {/* App-Aktualnosci: chips, the featured post and the list — no KSeF panel, no form. */}
-      {panel && !category && (
-        <div className="max-md:hidden">
-          <KsefPanel panel={panel} />
-        </div>
-      )}
+      {panel && !category && <KsefPanel panel={panel} />}
       <section aria-label="Wpisy" className="pt-6 pb-14 sm:pt-10 sm:pb-20">
         <Container wide>
           {shown.length > 0 ? (
@@ -119,15 +114,13 @@ export default async function NewsPage({ params, searchParams }: Props) {
           )}
         </Container>
       </section>
-      <div className="max-md:hidden">
-        <CatalogContactPanel
-          tenantId={tenant.id}
-          id="kontakt"
-          heading={NEWS_TEXTS.contactHeading}
-          lead={NEWS_TEXTS.contactLead}
-          callbackTime={settings?.biznes?.promises.callbackTime ?? null}
-        />
-      </div>
+      <CatalogContactPanel
+        tenantId={tenant.id}
+        id="kontakt"
+        heading={NEWS_TEXTS.contactHeading}
+        lead={NEWS_TEXTS.contactLead}
+        callbackTime={settings?.biznes?.promises.callbackTime ?? null}
+      />
     </>
   )
 }

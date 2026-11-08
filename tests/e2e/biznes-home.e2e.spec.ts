@@ -329,7 +329,7 @@ test.describe('Biznes home page: industries, plan, steps', () => {
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
     })
 
-    test('App-Start: plan scenes as links, the closing card instead of FAQ and the form', async ({
+    test('App-Start: plan scenes as links, FAQ shown, the help card instead of the form', async ({
       page,
     }) => {
       await page.goto(site('biznes.localhost'))
@@ -338,13 +338,14 @@ test.describe('Biznes home page: industries, plan, steps', () => {
         'href',
         /^\/plan-firmy\?scena=/,
       )
-      const last = page.getByRole('region', { name: 'Nie wiesz, co wybrać?' })
+      // D12: the help card keeps the form's heading; the FAQ is on the phone too (accordion).
+      const last = page.locator('#kontakt [data-phone-help]')
       await expect(last.getByRole('link', { name: /\d{3} \d{3} \d{3}/ })).toHaveAttribute(
         'href',
         /^tel:/,
       )
-      await expect(last.getByRole('button', { name: 'Wyślij zapytanie' })).toBeVisible()
-      await expect(page.locator('#faq')).toBeHidden()
+      await expect(last.getByRole('button', { name: 'Opisz, czego potrzebujesz' })).toBeVisible()
+      await expect(page.locator('#faq')).toBeVisible()
       // `#kontakt` lands on the closing card; the form itself is from 768 px.
       await expect(page.locator('#kontakt form')).toBeHidden()
     })

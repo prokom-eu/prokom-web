@@ -11,6 +11,7 @@ import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { SectionHead } from '../home/SectionHead'
 import { ProductStage } from '../ProductStage'
+import { CAROUSEL, CAROUSEL_ITEM } from '../brand/salon/carousel'
 
 /** „W cenie” (board: „Kupujesz kasę, dostajesz spokój.”): cards with an icon, title and text. */
 export function IncludedCards({ included }: { included: CategoryView['included'] }) {
@@ -19,22 +20,25 @@ export function IncludedCards({ included }: { included: CategoryView['included']
     <section aria-labelledby="w-cenie-h" className="py-14 sm:py-20">
       <Container wide>
         <SectionHead id="w-cenie-h" eyebrow={included.eyebrow} heading={included.title} />
-        <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Phone (D12): a compact list in two columns — small icon, title, short text. */}
+        <ul className="mt-8 grid gap-3 max-md:mt-5 max-md:grid-cols-2 max-md:gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {included.cards.map((card, position) => (
             <li
               key={position}
-              className="flex gap-4 rounded-[22px] bg-card p-5 shadow-[inset_0_0_0_1px_var(--border)]"
+              className="flex gap-4 rounded-[22px] bg-card p-5 shadow-[inset_0_0_0_1px_var(--border)] max-md:flex-col max-md:gap-2 max-md:rounded-[18px] max-md:p-3"
             >
               <span
                 aria-hidden="true"
-                className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-accent-text text-accent-ink"
+                className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-accent-text text-accent-ink max-md:size-8 max-md:rounded-lg"
               >
-                <Icon name={card.icon ?? 'check'} className="size-5" />
+                <Icon name={card.icon ?? 'check'} className="size-5 max-md:size-[18px]" />
               </span>
-              <span>
-                <span className="block font-extrabold text-ink">{card.title}</span>
+              <span className="min-w-0">
+                <span className="block font-extrabold text-ink max-md:text-[14px] max-md:leading-tight">
+                  {card.title}
+                </span>
                 {card.text && (
-                  <span className="mt-1 block text-[15px] leading-relaxed text-ink-2">
+                  <span className="mt-1 block text-[15px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
                     {card.text}
                   </span>
                 )}
@@ -124,9 +128,10 @@ export function BoughtWith({ heading, tiles }: { heading: string; tiles: BoughtW
         <h2 id="dobierane-h" className={BZ_H2}>
           {heading}
         </h2>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Phone (D12): a row that scrolls sideways, the next card peeks out. */}
+        <ul className={cx('mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4', CAROUSEL)}>
           {tiles.map((tile) => (
-            <li key={tile.slug}>
+            <li key={tile.slug} className={CAROUSEL_ITEM}>
               <Link
                 href={categoryHref(tile.slug)}
                 className="flex items-center gap-4 rounded-[20px] bg-card p-3 shadow-[inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_1px_var(--ink-3)]"

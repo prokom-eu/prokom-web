@@ -2,45 +2,39 @@ import { expect, test } from '@playwright/test'
 
 import { site } from './helpers'
 
-// Prompt 3 E5 (decyzja Krystiana 02.11 „telefon jak plansza”): below 768 px a page shows only
-// the sections of its phone board App-*; the rest stays in the page and on a computer.
+// Prompt 3 E5, changed by D12 (decyzja Krystiana 06.11 — odwraca „telefon jak plansza” z 02.11):
+// a phone shows every section of the page, long ones in a shorter form.
 const biznes = (path: string) => site('biznes.localhost', path)
 
 const PAGES = [
-  { path: '/ksef', hidden: '#faq' },
-  { path: '/ulga-na-kase-fiskalna', hidden: '#faq' },
-  { path: '/kontakt', hidden: '#formularz' },
-  { path: '/o-firmie', hidden: 'section[aria-labelledby^="lokalizacja-"]' },
+  { path: '/ksef', section: '#faq' },
+  { path: '/ulga-na-kase-fiskalna', section: '#faq' },
+  { path: '/kontakt', section: '#formularz' },
+  { path: '/o-firmie', section: 'section[aria-labelledby^="lokalizacja-"]' },
 ] as const
 
-for (const { path, hidden } of PAGES) {
-  test(`${path}: phone without the sections the board leaves out, no sideways scroll`, async ({
+for (const { path, section } of PAGES) {
+  test(`${path}: the phone shows the section a computer shows, no sideways scroll`, async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto(biznes(path))
-    await expect(page.locator(hidden)).toHaveCount(1)
-    await expect(page.locator(hidden)).toBeHidden()
+    await expect(page.locator(section)).toHaveCount(1)
+    await expect(page.locator(section)).toBeVisible()
     const { scrollWidth, innerWidth } = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
       innerWidth: window.innerWidth,
     }))
     expect(scrollWidth).toBe(innerWidth)
-    // No visible link points at the hidden contact form: on a phone it leads to /zapytanie.
-    const formLinks = page.locator('main a[href$="#formularz"]:visible')
-    await expect(formLinks).toHaveCount(0)
-
-    await page.setViewportSize({ width: 1440, height: 900 })
-    await expect(page.locator(hidden)).toBeVisible()
   })
 }
 
-test('O firmie on a phone: „Napisz do nas” leads to the inquiry page', async ({ page }) => {
+test('O firmie on a phone: „Napisz do nas” leads to the contact form', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto(biznes('/o-firmie'))
-  await expect(page.getByRole('link', { name: 'Napisz do nas' })).toHaveAttribute(
+  await expect(page.getByRole('link', { name: 'Napisz do nas' }).first()).toHaveAttribute(
     'href',
-    '/zapytanie',
+    '/kontakt#formularz',
   )
 })
 
@@ -99,17 +93,21 @@ for (const path of [
   '/aktualnosci',
   '/aktualnosci/ksef-od-1-stycznia-2027',
 ]) {
-  test(`${path}: phone without the contact form, no sideways scroll`, async ({ page }) => {
+  test(`${path}: phone ends with the help card instead of the form, no sideways scroll`, async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto(biznes(path))
-    // App-Branza / App-Aktualnosci / App-Wpis end without the form (the tab bar asks).
-    await expect(page.locator('#kontakt')).toBeHidden()
+    // D12: the long form becomes one help card with the same heading (call or describe).
+    await expect(page.locator('[data-phone-help]')).toBeVisible()
+    await expect(page.locator('#kontakt form')).toBeHidden()
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
     )
     expect(overflow).toBeLessThanOrEqual(0)
     await page.setViewportSize({ width: 1440, height: 900 })
-    await expect(page.locator('#kontakt')).toBeVisible()
+    await expect(page.locator('#kontakt form')).toBeVisible()
+    await expect(page.locator('[data-phone-help]')).toBeHidden()
   })
 }
 

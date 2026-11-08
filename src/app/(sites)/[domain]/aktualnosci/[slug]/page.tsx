@@ -171,15 +171,13 @@ export default async function PostPage({ params }: Props) {
           </Container>
         </section>
       )}
-      <div className="max-md:hidden">
-        <CatalogContactPanel
-          tenantId={tenant.id}
-          id="kontakt"
-          heading={post.contact.heading ?? NEWS_TEXTS.contactHeading}
-          lead={post.contact.lead ?? NEWS_TEXTS.contactLead}
-          callbackTime={settings?.biznes?.promises.callbackTime ?? null}
-        />
-      </div>
+      <CatalogContactPanel
+        tenantId={tenant.id}
+        id="kontakt"
+        heading={post.contact.heading ?? NEWS_TEXTS.contactHeading}
+        lead={post.contact.lead ?? NEWS_TEXTS.contactLead}
+        callbackTime={settings?.biznes?.promises.callbackTime ?? null}
+      />
     </>
   )
 }
