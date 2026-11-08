@@ -511,6 +511,8 @@
   background: color-mix(in srgb, var(--ink) 4%, transparent);
 }
 .v-tabs > button {
+  position: relative;
+  overflow: hidden;
   min-height: 44px;
   padding: 0 18px;
   border-radius: 10px;
@@ -525,6 +527,17 @@
 .v-tabs > button[aria-selected='true'] {
   background: var(--ink);
   color: var(--surface);
+}
+/* The tab switches itself every 6 s: a thin bar shows the time left (motion users only). */
+.v-tab-progress {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent);
+  transform-origin: left;
 }
 .v-tgrid {
   display: grid;
@@ -579,6 +592,8 @@
 }
 .v-gauge-arc {
   stroke: var(--accent);
+  stroke-dasharray: 100;
+  stroke-dashoffset: 30;
 }
 .v-gauge-needle {
   stroke: var(--ink);
@@ -854,11 +869,6 @@
     scale: 1.05;
   }
 }
-@media (max-width: 1200px) {
-  .v-cards {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 @media (max-width: 960px) {
   .v-tgrid {
     grid-template-columns: 1fr;
@@ -899,8 +909,11 @@
   }
 }
 @media (prefers-reduced-motion: no-preference) {
+  .v-tab-progress {
+    display: block;
+    animation: v-tab-progress 6s linear both;
+  }
   .v-gauge-arc {
-    stroke-dasharray: 100;
     stroke-dashoffset: 100;
     animation: v-arc 1.6s var(--ease-out) 0.2s forwards;
   }
@@ -910,6 +923,11 @@
   }
   .v-tgrid {
     animation: v-swap var(--dur-state) var(--ease-out) both;
+  }
+}
+@keyframes v-tab-progress {
+  from {
+    scale: 0 1;
   }
 }
 @keyframes v-arc {

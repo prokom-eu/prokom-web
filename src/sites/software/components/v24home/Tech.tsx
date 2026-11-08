@@ -118,6 +118,7 @@ export function TechSection({ tech }: { tech: Tech }) {
                   onKeyDown={tabs.onKeyDown}
                 >
                   {item.label}
+                  {on && tabs.rotating ? <i className="v-tab-progress" aria-hidden="true" /> : null}
                 </button>
               )
             })}

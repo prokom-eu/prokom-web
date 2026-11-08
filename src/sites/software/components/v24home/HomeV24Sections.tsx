@@ -2,9 +2,8 @@ import type { SoftwareHome } from '@/lib/software/home'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
 import { BentoSection } from './BentoLazy'
-import { pricingCards } from './HomeV24Blocks'
 import { PricingSection } from './PricingLazy'
-import { bentoSlugs, priceLines } from './prices'
+import { bentoSlugs, priceLines, pricingCards } from './prices'
 import { Promises } from './Promises'
 import { ShowroomSection } from './ShowroomLazy'
 import { Situations } from './SituationsLazy'
@@ -35,16 +34,7 @@ export function HomeV24Sections({ home, index }: Props) {
       {home.showroom && <ShowroomSection showroom={home.showroom} />}
       {home.tech && <TechSection tech={home.tech} />}
       {home.pricing && (
-        <PricingSection
-          eyebrow={home.pricing.eyebrow}
-          title={home.pricing.title}
-          em={home.pricing.em}
-          lead={home.pricing.lead}
-          all={home.pricing.all}
-          details={home.pricing.details}
-          groups={home.pricing.groups.map((group) => group.label)}
-          cards={pricingCards(home.pricing, index)}
-        />
+        <PricingSection pricing={home.pricing} cards={pricingCards(home.pricing, index)} />
       )}
     </>
   )

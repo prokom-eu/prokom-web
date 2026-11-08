@@ -61,3 +61,20 @@ describe('Software home texts schema', () => {
     expect(validateHome(value)).toMatch(/popular\.order/)
   })
 })
+
+describe('home.pricing (SWA2c-2)', () => {
+  it('does not take the same solution twice', () => {
+    const home = seedHome() as Record<string, unknown> & { pricing: { groups: unknown[] } }
+    const twice = {
+      ...home,
+      pricing: {
+        ...home.pricing,
+        groups: [
+          { label: 'Strony', solutions: ['strona-wizytowka'] },
+          { label: 'Inne', solutions: ['strona-wizytowka'] },
+        ],
+      },
+    }
+    expect(validateHome(twice)).toMatch(/strona-wizytowka/)
+  })
+})

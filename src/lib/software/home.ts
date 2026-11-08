@@ -198,7 +198,20 @@ export const homeV24SectionsSchema = {
     groups: z
       .array(obj({ label, solutions: z.array(slug).min(1) }))
       .min(1)
-      .max(6),
+      .max(6)
+      .superRefine((groups, ctx) => {
+        // One card per solution: a second one would count twice under „Wszystko”.
+        const seen = new Set<string>()
+        for (const solution of groups.flatMap((group) => group.solutions)) {
+          if (seen.has(solution)) {
+            ctx.addIssue({
+              code: 'custom',
+              message: `Rozwiązanie „${solution}” jest w cenniku dwa razy.`,
+            })
+          }
+          seen.add(solution)
+        }
+      }),
   }).optional(),
   /** Showroom „Tak może wyglądać Twoja strona albo system” — industries × 3 views. */
   showroom: obj({
