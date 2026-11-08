@@ -26,6 +26,18 @@ test.describe('/_wspolne — search window (1440 px)', () => {
     await expect(dialog(page)).toBeHidden()
   })
 
+  // AUDYT po SWA7 #9: the field fills its row; the row's accent line shows the focus, the field
+  // draws no glow of its own (it was cut into two bars at the sides).
+  test('the focused field draws no ring of its own, the row shows the focus', async ({ page }) => {
+    await page.goto(site('software.localhost', '/_wspolne'))
+    await page.locator('#wspolne-h1').click()
+    await pressUntilVisible(page, 'Control+k', dialog(page))
+    await expect(field(page)).toBeFocused()
+    await expect(field(page)).toHaveCSS('box-shadow', 'none')
+    await expect(field(page)).toHaveCSS('outline-style', 'none')
+    await expect(dialog(page).locator('.sdlg__field')).toHaveCSS('box-shadow', /inset/)
+  })
+
   test('the rail’s „Szukaj” opens it, focus returns to the button after Esc', async ({ page }) => {
     await page.goto(site('software.localhost', '/_wspolne'))
     const button = page
