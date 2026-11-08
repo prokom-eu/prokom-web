@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 
-import { cx } from '@/components/ui/cx'
 import { track } from '@/lib/analytics/track'
 import { keepTogether } from '@/lib/software/price'
 import {
@@ -11,6 +10,7 @@ import {
   chooseIndustry,
   chooseType,
   pickOptions,
+  previewOf,
   resultOf,
   stepsOf,
   summaryOf,
@@ -22,6 +22,9 @@ import {
 } from '@/lib/software/wizard/flow'
 import type { SoftwareWizard, WizardPick, WizardStep } from '@/lib/software/wizard/schema'
 
+import { Mockup } from '@/sites/software/components/mockups/Mockup'
+import { usePausedOffscreen } from '@/sites/software/components/v24home/usePausedOffscreen'
+
 import { WizardSend } from './WizardSend'
 
 export type WizardProps = {
@@ -31,8 +34,14 @@ export type WizardProps = {
   /** Preset by `?firma=`, `?rodzaj=`, `?tryb=opis`. */
   initial: { answers: WizardAnswers; step: number }
   formToken: string
-  /** `h1` on `/dobierz`, `h2` in the `#dobierz` section of the start page. */
+  /**
+   * Level of the wizard's title: `h2` in the `#dobierz` section of the start page; `h1` on
+   * `/dobierz`, where the page hero carries the H1 and the wizard drops its own head (`head`).
+   * The step titles are one level lower.
+   */
   headingLevel: 'h1' | 'h2'
+  /** The eyebrow, title and lead above the wizard (off on `/dobierz`, ZMIANY-v24 §9.5). */
+  head?: boolean
 }
 
 /** Multiple-choice questions of each step (`sysf` adds the team size, `redo` the address). */
@@ -69,7 +78,14 @@ function Icon({ d }: { d: string }) {
  * `Solutions`, the tip from the rules), the result sends the answers. One client island for
  * `/dobierz` and `#dobierz`; the behaviour is `lib/software/wizard/flow`.
  */
-export function Wizard({ rules, solutions, initial, formToken, headingLevel }: WizardProps) {
+export function Wizard({
+  rules,
+  solutions,
+  initial,
+  formToken,
+  headingLevel,
+  head = true,
+}: WizardProps) {
   const ids = useId()
   const [answers, setAnswers] = useState(initial.answers)
   const [step, setStep] = useState(initial.step)
@@ -78,6 +94,9 @@ export function Wizard({ rules, solutions, initial, formToken, headingLevel }: W
   const titleRef = useRef<HTMLHeadingElement>(null)
   const moved = useRef(false)
   const started = useRef(false)
+  // Phone: the live card folds into a price bar above Back / Next (ZMIANY-v24 §7.1).
+  const [liveOpen, setLiveOpen] = useState(false)
+  const liveRef = usePausedOffscreen<HTMLElement>()
   const bySlug = useMemo(() => new Map(solutions.map((s) => [s.slug, s])), [solutions])
 
   const steps = stepsOf(rules, answers)
@@ -87,6 +106,7 @@ export function Wizard({ rules, solutions, initial, formToken, headingLevel }: W
   const result = resultOf(rules, answers, bySlug)
   const summary = summaryOf(rules, answers)
   const tip = tipOf(rules, answers)
+  const preview = previewOf(rules, answers)
   const Heading = headingLevel
   const StepHeading = headingLevel === 'h1' ? 'h2' : 'h3'
 
@@ -280,13 +300,15 @@ export function Wizard({ rules, solutions, initial, formToken, headingLevel }: W
   const text = rules.steps[key]
   return (
     <div className="wz" data-wizard>
-      <header className="wz-head">
-        <p className="sw-eyebrow">{rules.ui.eyebrow}</p>
-        <Heading className="sw-h2">
-          {rules.ui.title} <em className="sw-em">{rules.ui.em}</em>
-        </Heading>
-        <p className="wz-lead">{rules.ui.lead}</p>
-      </header>
+      {head && (
+        <header className="wz-head">
+          <p className="sw-eyebrow">{rules.ui.eyebrow}</p>
+          <Heading className="sw-h2">
+            {rules.ui.title} <em className="sw-em">{rules.ui.em}</em>
+          </Heading>
+          <p className="wz-lead">{rules.ui.lead}</p>
+        </header>
+      )}
       <div className="wz-grid">
         <div className="wz-main sw-glass">
           <ol className="wz-steps" aria-label={rules.ui.stepsLabel}>
@@ -321,6 +343,20 @@ export function Wizard({ rules, solutions, initial, formToken, headingLevel }: W
             {text.lead && <p className="wz-sub">{text.lead}</p>}
             {stepBody()}
           </section>
+          <div className="wz-mbar" data-wizard-bar>
+            <span>
+              <b>{result.name}</b>
+              <span data-wizard-bar-price>{keepTogether(result.price)}</span>
+            </span>
+            <button
+              type="button"
+              aria-expanded={liveOpen}
+              aria-controls={`${ids}-live`}
+              onClick={() => setLiveOpen((open) => !open)}
+            >
+              {rules.ui.live}
+            </button>
+          </div>
           <div className="wz-nav">
             <button
               type="button"
@@ -358,7 +394,14 @@ export function Wizard({ rules, solutions, initial, formToken, headingLevel }: W
             )}
           </div>
         </div>
-        <aside className="wz-live sw-glass" aria-label={rules.ui.live} data-wizard-live>
+        <aside
+          ref={liveRef}
+          id={`${ids}-live`}
+          className="wz-live sw-glass"
+          aria-label={rules.ui.live}
+          data-open={liveOpen || undefined}
+          data-wizard-live
+        >
           <p className="wz-livehead">
             <span>{rules.ui.live}</span>
             <span>
@@ -367,6 +410,14 @@ export function Wizard({ rules, solutions, initial, formToken, headingLevel }: W
                 .replace('{m}', String(steps.length))}
             </span>
           </p>
+          <div className="wz-screen">
+            <Mockup
+              key={`${preview.kind}-${preview.variant}`}
+              kind={preview.kind}
+              variant={preview.variant}
+              className="wz-swap"
+            />
+          </div>
           <div className="wz-res">
             <p className="wz-name">
               <b data-wizard-name>{result.name}</b>
@@ -394,7 +445,7 @@ export function Wizard({ rules, solutions, initial, formToken, headingLevel }: W
               ))}
             </ul>
           )}
-          <div className={cx('wz-tip')} data-wizard-tip>
+          <div className="wz-tip" data-wizard-tip>
             <b>{rules.ui.tipLabel}</b>
             <p>{tip}</p>
           </div>
