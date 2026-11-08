@@ -8,5 +8,7 @@ services:
     environment:
       PROD_SITE_HOSTS: ${PROD_SITE_HOSTS:?set PROD_SITE_HOSTS}
       PROD_PANEL_HOST: ${PROD_PANEL_HOST:?set PROD_PANEL_HOST}
+      # `www.` names redirected to the domain without www (prod.conf.template).
+      PROD_WWW_HOSTS: ${PROD_WWW_HOSTS:?set PROD_WWW_HOSTS}
     volumes:
       - ./nginx/templates/prod.conf.template:/etc/nginx/templates/prod.conf.template:ro
