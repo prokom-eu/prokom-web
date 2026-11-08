@@ -50,7 +50,7 @@ test.describe('Instalacje home sections', () => {
   // scenes for 6 of 14 objects; the card itself links to the object page.
   test('no „Pokaż na żywo” on the „Dla kogo” cards', async ({ page }) => {
     await open(page)
-    await expect(page.locator('.obc').first()).toBeVisible()
+    await expect(page.locator('#dla-kogo .obc').first()).toBeVisible()
     await expect(page.locator('#dla-kogo').getByText('Pokaż na żywo')).toHaveCount(0)
   })
 
