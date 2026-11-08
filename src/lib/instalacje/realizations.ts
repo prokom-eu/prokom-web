@@ -33,3 +33,15 @@ export function byNewest(a: Ordered, b: Ordered): number {
 export function withPhotos<T extends { photos: readonly unknown[] }>(cards: readonly T[]): T[] {
   return cards.filter((card) => card.photos.length > 0)
 }
+
+/**
+ * The cards of the home band (runda v6 D2): the featured ones with a photo first, then other
+ * realizations with a photo, so hiding a photo-less card does not leave a hole in the row.
+ * The input is already in its order (`byNewest`); each group keeps it.
+ */
+export function homeRealizations<
+  T extends { featured?: boolean | null; photos: readonly unknown[] },
+>(cards: readonly T[], limit: number): T[] {
+  const shown = withPhotos(cards)
+  return [...shown.filter((c) => c.featured), ...shown.filter((c) => !c.featured)].slice(0, limit)
+}

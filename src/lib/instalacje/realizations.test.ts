@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { byNewest, publishWithoutConsent, withPhotos } from './realizations'
+import { byNewest, homeRealizations, publishWithoutConsent, withPhotos } from './realizations'
 
 describe('publishWithoutConsent', () => {
   it('refuses publishing without the client consent', () => {
@@ -68,5 +68,29 @@ describe('withPhotos (runda v6 D2: a realization without a photo is not shown an
 
   it('an empty list stays empty', () => {
     expect(withPhotos([])).toEqual([])
+  })
+})
+
+describe('homeRealizations (runda v6 D2: the home band stays full without photo-less cards)', () => {
+  const card = (id: number, featured: boolean, photos: number) => ({
+    id,
+    featured,
+    photos: Array.from({ length: photos }, () => ({ alt: 'x' })),
+  })
+
+  it('featured cards with photos first, then other cards with photos, up to the limit', () => {
+    const cards = [
+      card(1, true, 1),
+      card(2, true, 0),
+      card(3, false, 2),
+      card(4, true, 3),
+      card(5, false, 1),
+    ]
+    expect(homeRealizations(cards, 4).map((c) => c.id)).toEqual([1, 4, 3, 5])
+  })
+
+  it('never more than the limit and never a card without a photo', () => {
+    const cards = [card(1, false, 0), card(2, true, 1), card(3, false, 1), card(4, false, 1)]
+    expect(homeRealizations(cards, 2).map((c) => c.id)).toEqual([2, 3])
   })
 })
