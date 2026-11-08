@@ -23,7 +23,9 @@ export function LazyServiceScene({ sceneKey }: { sceneKey: ServiceKey }) {
       })
     if (typeof IntersectionObserver === 'undefined') {
       void load()
-      return
+      return () => {
+        gone = true
+      }
     }
     const io = new IntersectionObserver(
       ([entry]) => {

@@ -284,11 +284,12 @@ export const ICON_FIXES: Readonly<Record<string, string>> = {
 const iconFor = (title: string | undefined, value: string | undefined) =>
   (title && ICON_FIXES[title]) || icon(value)
 
-/** Runda v6 D3: a home tile line that claimed what the boss has not confirmed. */
+/** Runda v6 D3: package lines that claimed what the boss has not confirmed (our salon). */
 const TILE_FIXES: Readonly<Record<string, string>> = {
   'Wdrażamy to w naszym salonie w Rabce-Zdroju':
     'Cenę zmieniasz w jednym miejscu, ekrany odświeżają się same',
 }
+const withoutSalonClaim = (text: string) => text.replace(' Wdrażamy to w naszym salonie.', '')
 
 /** Runda v6 §1.5: a service or object icon that clashed with another meaning. */
 const MENU_ICONS: Readonly<Record<string, string>> = {
@@ -478,7 +479,7 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
     },
     offer: {
       family: valueOf(OFFER_FAMILIES, area.rodzina, 'offer family'),
-      description: area.opis,
+      description: withoutSalonClaim(area.opis),
       brands: area.marki,
     },
     hero: hero(d.hero),
