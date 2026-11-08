@@ -1,6 +1,3 @@
-import Link from 'next/link'
-
-import { LEGAL_NOTE } from '../../dane/prawo'
 import { monitoring } from '../../dane/monitoring'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSectionLazy'
@@ -14,11 +11,11 @@ const SECTION = { padding: '0 0 104px' }
 /**
  * The Monitoring sections between the hero and the shared ones
  * (`zrodlo/pages/Monitoring.body.html`): what you get, installation versions, camera types, the
- * DORI and recording calculators, RODO and the brands. Folded on a phone as in
+ * DORI and recording calculators, privacy (frame, masks, sign) and the brands. Folded on a phone as in
  * `zrodlo/fold.json` (`system`; `cena` and `faq` by the shared sections).
  */
 export function MonitoringSections({ planHref }: { planHref: string }) {
-  const { whatYouGet, system, types, dori, recording, rodo, brands } = monitoring
+  const { whatYouGet, system, types, dori, recording, privacy, brands } = monitoring
   return (
     <>
       <InstSection id="co-dostajesz" style={{ padding: '96px 0 104px' }}>
@@ -66,14 +63,15 @@ export function MonitoringSections({ planHref }: { planHref: string }) {
         </div>
       </InstSection>
 
+      {/* Section id kept as `rodo`: the anchor bar (seed, `lib/instalacje/anchors.ts`) points at it. */}
       <InstSection id="rodo" style={SECTION}>
         <div className="wrap">
-          <SectionHead {...rodo.head} />
-          <div className="rodo">
+          <SectionHead {...privacy.head} />
+          <div className="privacy">
             <div className="card rz ok ri">
-              <b className="h3">{rodo.yes.title}</b>
+              <b className="h3">{privacy.yes.title}</b>
               <ul>
-                {rodo.yes.items.map((item) => (
+                {privacy.yes.items.map((item) => (
                   <li key={item}>
                     <i>
                       <InstIcon name="check" size={14} strokeWidth={2.6} />
@@ -84,9 +82,9 @@ export function MonitoringSections({ planHref }: { planHref: string }) {
               </ul>
             </div>
             <div className="card rz nn ri">
-              <b className="h3">{rodo.no.title}</b>
+              <b className="h3">{privacy.no.title}</b>
               <ul>
-                {rodo.no.items.map((item) => (
+                {privacy.no.items.map((item) => (
                   <li key={item}>
                     <i>
                       <InstIcon name="x" size={14} strokeWidth={2.6} />
@@ -96,24 +94,24 @@ export function MonitoringSections({ planHref }: { planHref: string }) {
                 ))}
               </ul>
             </div>
-            <div className="sign ri" role="group" aria-label={rodo.sign.label}>
+            <div className="sign ri" role="group" aria-label={privacy.sign.label}>
               <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
                 <span className="sgi">
                   <InstIcon name="cam" size={34} />
                 </span>
-                <b>{rodo.sign.title}</b>
+                <b>{privacy.sign.title}</b>
               </div>
               <hr />
-              {rodo.sign.rows.map((row) => (
+              {privacy.sign.rows.map((row) => (
                 <span key={row.key}>
                   <b>{row.key}</b> {row.value}
                 </span>
               ))}
-              <span style={{ fontSize: 11.5, opacity: 0.75 }}>{rodo.sign.foot}</span>
+              <span style={{ fontSize: 11.5, opacity: 0.75 }}>{privacy.sign.foot}</span>
             </div>
           </div>
           <div className="g4 ri" style={{ marginTop: 18 }}>
-            {rodo.we.map((item) => (
+            {privacy.we.map((item) => (
               <div key={item.title} className="card feat" style={{ padding: 20 }}>
                 <span className="ico s">
                   <InstIcon name={item.icon} />
@@ -125,16 +123,12 @@ export function MonitoringSections({ planHref }: { planHref: string }) {
           </div>
           <div className="note w ri" style={{ marginTop: 18 }}>
             <InstIcon name="doc" size={20} />
-            <span>{rodo.neighbour}</span>
+            <span>{privacy.neighbour}</span>
           </div>
           <div className="note w ri" style={{ marginTop: 12 }}>
             <InstIcon name="users" size={20} />
             <span>
-              <b>{rodo.employees.title}</b> {rodo.employees.text}{' '}
-              <Link className="xb-lnk" href={rodo.employees.href}>
-                {rodo.employees.link}
-              </Link>
-              . {LEGAL_NOTE}
+              <b>{privacy.employees.title}</b> {privacy.employees.text}
             </span>
           </div>
         </div>

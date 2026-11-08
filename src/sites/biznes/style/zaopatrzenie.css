@@ -781,6 +781,9 @@
   color: color-mix(in srgb, var(--ink) 8%, transparent);
   font: 800 44px/1 var(--font-display);
 }
+.zp-gd-no::before {
+  content: attr(data-no);
+}
 
 /* Versus */
 .zp-vs {

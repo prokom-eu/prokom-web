@@ -1,5 +1,4 @@
 import { CHARGER_KEYS, ladowarki } from '../../dane/ladowarki'
-import { LEGAL_NOTE } from '../../dane/prawo'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
@@ -109,7 +108,7 @@ export function LadowarkiSections() {
       <InstSection id="formalnosci" fold style={SECTION}>
         <div className="wrap">
           <SectionHead {...rules.head} />
-          <div className="g2">
+          <div className="g3">
             {rules.items.map((f) => (
               <div key={f.title} className="card feat ri">
                 <span className="ico">
@@ -121,9 +120,6 @@ export function LadowarkiSections() {
               </div>
             ))}
           </div>
-          <p className="src ri" style={{ margin: '12px 0 1em' }}>
-            {LEGAL_NOTE}
-          </p>
         </div>
       </InstSection>
     </>

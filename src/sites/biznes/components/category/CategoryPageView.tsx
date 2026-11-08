@@ -18,6 +18,7 @@ import {
 } from '@/lib/catalog/category'
 import type { CatalogIndex, IndexSubcategory } from '@/lib/catalog/catalogIndex'
 import { CATALOG_PATH } from '@/lib/catalog/filters'
+import { categorySupplyBand, EMPTY_SUPPLY_LINKS } from '@/lib/biznes/procurement/links'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { getSiteSettings } from '@/lib/site/data'
 
@@ -156,6 +157,11 @@ export async function CategoryPageView({
           bySeriesFilter={bySeries}
           guide={guide}
           useCases={useCases}
+          supply={categorySupplyBand(
+            settings?.biznes?.procurement ?? EMPTY_SUPPLY_LINKS,
+            index,
+            category.slug,
+          )}
         />
       </Container>
       {/* D12: the phone shows these too, in a shorter form (compact list, row, accordion). */}

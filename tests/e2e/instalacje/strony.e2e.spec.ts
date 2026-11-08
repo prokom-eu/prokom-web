@@ -1,5 +1,6 @@
 import { expect, type Page, test } from '@playwright/test'
 
+import { LAW_WORDS } from '../../../src/lib/instalacje/lawWords'
 import { site } from '../helpers'
 import { INST_HOST, INST_PAGES } from './pages'
 
@@ -12,6 +13,16 @@ const PAGES = INST_PAGES
 // „[SZEF: …]”, „[CENA]”, „[TELEFON]” — notes of the prototype for the owner.
 const FORBIDDEN =
   /WhatsApp|wa\.me|W przygotowaniu|[Ww]yślij zdjęci|[Pp]rześlij rzuty|możesz wysłać wcześniej|[Zz]rób zdjęcie|wystarczą zdjęcia|dane przykładowe|przykładowe dane/
+// Runda v6 §1.1: no law on the pages. The legal pages are the firm's own duty, not content about
+// law; the camera post keeps its old text until INST-6 PR5 rewrites it (decision D1).
+// TODO(krystian): drop „/poradnik/monitoring-a-rodo” here once INST-6 PR5 is merged.
+const LAW_EXEMPT = new Set([
+  '/polityka-prywatnosci',
+  '/cookies',
+  '/dostepnosc',
+  '/poradnik/monitoring-a-rodo',
+])
+const LAW_ALL = new RegExp(LAW_WORDS.source, 'gu')
 const PLACEHOLDER = /\[[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ ]{2,}[:\]]/
 
 async function open(page: Page, path: string) {
@@ -42,6 +53,11 @@ for (const path of PAGES) {
       // no promise of sending photos or plans (no form takes files), no sample-data notes.
       expect(allText).not.toMatch(FORBIDDEN)
       expect(description ?? '').not.toMatch(FORBIDDEN)
+      if (!LAW_EXEMPT.has(path)) {
+        expect(allText.match(LAW_ALL) ?? [], 'law on the page').toEqual([])
+        expect(`${title} ${description ?? ''}`).not.toMatch(LAW_WORDS)
+        expect(allText).not.toMatch(/sekcji (przepisów|„Przepisy”)/)
+      }
       // No lists of sources on the page (spec §2): a line that is only the heading „Źródła”.
       // Sentences may start with the word (Nagłośnienie: „Źródła trafiają do miksera…”,
       // „Źródła muzyki”, „Źródła i mikrofony” — sound sources, not references).
@@ -100,16 +116,25 @@ test.describe('Instalacje line routes', () => {
 })
 
 // I13: the footer's legal links and `llms.txt` (SEO §2.4).
-// RUNDA-V5 §11: realizations named on a service page show their photos (seed: Blachotrapez with
-// the client's consent), related services show the scene of their home card.
+// Runda v6 §1.2: realizations only on `/realizacje` and the home page; related services show the
+// scene of their home card (RUNDA-V5 §11).
 test.describe('Instalacje service pages, round v5', () => {
-  test('Sieci shows the Blachotrapez photos and the related cards have scenes', async ({
+  test('service and object pages have no realizations, related cards have scenes', async ({
     page,
   }) => {
+    for (const path of [
+      '/sieci-wifi',
+      '/ekrany',
+      '/naglosnienie',
+      '/teletechnika',
+      '/dla-kogo/pensjonaty',
+      '/dla-architektow',
+    ]) {
+      await open(page, path)
+      await expect(page.locator('main .rl, main .rlstrip'), path).toHaveCount(0)
+      await expect(page.locator('#realizacje-n, #realizacja-t, #realizacje-s'), path).toHaveCount(0)
+    }
     await open(page, '/sieci-wifi')
-    const photo = page.locator('#okablowanie .rlstrip img').first()
-    await expect(photo).toBeVisible()
-    expect(await photo.getAttribute('alt')).not.toBe('')
     await expect(page.locator('#powiazane .relsc svg').first()).toBeVisible()
   })
 })

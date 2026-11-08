@@ -157,7 +157,7 @@ export const ekrany = {
           [8, 18, 'Oferta dnia'],
           [18, 24, 'Wieczór'],
         ],
-        note: 'Ekran w witrynie zmienia ofertę w ciągu dnia. Na zewnątrz i w Zakopanem najpierw sprawdzamy, co pozwalają lokalne przepisy.',
+        note: 'Ekran w witrynie zmienia ofertę w ciągu dnia. Na zewnątrz najpierw sprawdzamy, czy gmina pozwala na taki ekran.',
         slides: [
           {
             kind: 'win',
@@ -268,25 +268,10 @@ export const ekrany = {
         text: 'Sprzęt projekcyjny w salach szkoleniowych, konferencyjnych i klasach. Robiliśmy to m.in. w Blachotrapezie i w szkole w Rabce-Zdroju.',
       },
     ] satisfies IconText[],
-    tvBefore:
-      'Realizacje: sale Blachotrapezu (konferencyjna, szkoleniowa i marketingowa), Szkoła Podstawowa im. Adama Mickiewicza w Rabce-Zdroju, Caffe Europa w Nowym Sączu. Telewizję w pokojach gości robimy w ramach ',
+    tvBefore: 'Telewizję w pokojach gości robimy w ramach ',
     tvLink: { label: 'instalacji antenowych', href: '/anteny' },
     tvAfter: '. ',
     realizationsLink: { label: 'Zobacz realizacje →', href: '/realizacje' },
-    // RUNDA-V5 §11: the realizations named above, with their photos when published.
-    realizations: [
-      {
-        name: 'Blachotrapez',
-        place: 'Rabka-Zdrój · sale konferencyjna i szkoleniowa',
-        hint: 'projektor ekran sala',
-      },
-      {
-        name: 'Szkoła Podstawowa im. Adama Mickiewicza',
-        place: 'Rabka-Zdrój · klasy',
-        hint: 'projektor klasa',
-      },
-      { name: 'Caffe Europa', place: 'Nowy Sącz · kawiarnia', hint: 'ekran' },
-    ],
   },
 
   /** Demo: one price change, two screens of the salon (`sy`; the prototype: two salons). */
@@ -375,7 +360,7 @@ export const ekrany = {
         nits: 3500,
         range: 'od 2500 nitów',
         cls: 'Ekran zewnętrzny, np. OHDX 55" (3500 nitów, IP56, od −30°C)',
-        text: 'Deszcz, mróz i słońce odbite od śniegu. Tylko ekran przeznaczony na zewnątrz, a w Zakopanem najpierw sprawdzamy zasady uchwały krajobrazowej.',
+        text: 'Deszcz, mróz i słońce odbite od śniegu. Tylko ekran przeznaczony na zewnątrz.',
       },
     ],
     note: 'Zakres jest orientacyjny. Miejsce sprawdzamy w najjaśniejszej porze dnia.',
@@ -471,7 +456,7 @@ export const ekrany = {
   outdoor: {
     eyebrow: 'Ekrany zewnętrzne i w witrynie',
     heading: 'Na zewnątrz w górach potrzebny jest inny ekran.',
-    lead: 'Słońce odbite od śniegu, mróz i wilgoć. Na zewnątrz montujemy ekrany do tego przeznaczone, a w Zakopanem najpierw sprawdzamy zgodność z uchwałą krajobrazową.',
+    lead: 'Słońce odbite od śniegu, mróz i wilgoć. Na zewnątrz montujemy ekrany do tego przeznaczone.',
     items: [
       {
         icon: 'sun',
@@ -486,10 +471,9 @@ export const ekrany = {
       { icon: 'drop', title: 'Woda i pył', text: 'Obudowa IP56 i odporność na uderzenia IK10.' },
       {
         icon: 'doc',
-        title: 'Przepisy lokalne',
-        text: 'Uchwała krajobrazowa w Zakopanem i przepisy innych gmin. Sprawdzamy przed montażem.',
+        title: 'Formalności',
+        text: 'Przed montażem sprawdzamy, czy gmina pozwala na ekran w witrynie albo na elewacji.',
       },
     ] satisfies IconText[],
-    law: 'Zakopane: uchwała krajobrazowa (Dz. Urz. Woj. Małopolskiego z 3.06.2026, poz. 3134) obowiązuje od 4 lipca 2026 r. Istniejące reklamy i szyldy trzeba co do zasady dostosować w ciągu 12 miesięcy. Według materiałów miasta uchwała ogranicza m.in. nośniki o zmiennej, migającej treści, więc ekran w witrynie lub na elewacji może być mocno ograniczony. Ofertę na taki montaż w Zakopanem przygotowujemy dopiero po sprawdzeniu pełnego tekstu uchwały.',
   },
 } as const

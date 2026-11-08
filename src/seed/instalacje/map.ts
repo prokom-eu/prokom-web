@@ -1,38 +1,38 @@
 import adresy from '../../../seed/prokominstalacje/adresy.json'
-import noweRozwiazania from '../../../seed/prokominstalacje/architekci/nowe-rozwiazania.json'
-import apt from '../../../seed/prokominstalacje/obiekty/apt.json'
-import bud from '../../../seed/prokominstalacje/obiekty/bud.json'
-import dev from '../../../seed/prokominstalacje/obiekty/dev.json'
-import dom from '../../../seed/prokominstalacje/obiekty/dom.json'
-import firma from '../../../seed/prokominstalacje/obiekty/firma.json'
-import gmina from '../../../seed/prokominstalacje/obiekty/gmina.json'
-import hotel from '../../../seed/prokominstalacje/obiekty/hotel.json'
-import kosc from '../../../seed/prokominstalacje/obiekty/kosc.json'
-import pens from '../../../seed/prokominstalacje/obiekty/pens.json'
-import rest from '../../../seed/prokominstalacje/obiekty/rest.json'
-import sklep from '../../../seed/prokominstalacje/obiekty/sklep.json'
-import szk from '../../../seed/prokominstalacje/obiekty/szk.json'
-import oferta from '../../../seed/prokominstalacje/oferta-76.json'
-import Alarmy from '../../../seed/prokominstalacje/strony-zrzut/Alarmy.json'
-import Architekci from '../../../seed/prokominstalacje/strony-zrzut/Architekci.json'
-import Anteny from '../../../seed/prokominstalacje/strony-zrzut/Anteny.json'
-import Dostep from '../../../seed/prokominstalacje/strony-zrzut/Dostep.json'
-import Kontakt from '../../../seed/prokominstalacje/strony-zrzut/Kontakt.json'
-import Ladowarki from '../../../seed/prokominstalacje/strony-zrzut/Ladowarki.json'
-import Main from '../../../seed/prokominstalacje/strony-zrzut/Main.json'
-import Monitoring from '../../../seed/prokominstalacje/strony-zrzut/Monitoring.json'
-import Multimedia from '../../../seed/prokominstalacje/strony-zrzut/Multimedia.json'
-import Naglosnienie from '../../../seed/prokominstalacje/strony-zrzut/Naglosnienie.json'
-import OFirmie from '../../../seed/prokominstalacje/strony-zrzut/OFirmie.json'
-import Oferta from '../../../seed/prokominstalacje/strony-zrzut/Oferta.json'
-import Poradnik from '../../../seed/prokominstalacje/strony-zrzut/Poradnik.json'
-import Realizacje from '../../../seed/prokominstalacje/strony-zrzut/Realizacje.json'
-import Serwis from '../../../seed/prokominstalacje/strony-zrzut/Serwis.json'
-import Sieci from '../../../seed/prokominstalacje/strony-zrzut/Sieci.json'
-import SmartHome from '../../../seed/prokominstalacje/strony-zrzut/SmartHome.json'
-import Teletechnika from '../../../seed/prokominstalacje/strony-zrzut/Teletechnika.json'
-import Zaplanuj from '../../../seed/prokominstalacje/strony-zrzut/Zaplanuj.json'
-import wspolne from '../../../seed/prokominstalacje/wspolne.json'
+import rawNoweRozwiazania from '../../../seed/prokominstalacje/architekci/nowe-rozwiazania.json'
+import rawApt from '../../../seed/prokominstalacje/obiekty/apt.json'
+import rawBud from '../../../seed/prokominstalacje/obiekty/bud.json'
+import rawDev from '../../../seed/prokominstalacje/obiekty/dev.json'
+import rawDom from '../../../seed/prokominstalacje/obiekty/dom.json'
+import rawFirma from '../../../seed/prokominstalacje/obiekty/firma.json'
+import rawGmina from '../../../seed/prokominstalacje/obiekty/gmina.json'
+import rawHotel from '../../../seed/prokominstalacje/obiekty/hotel.json'
+import rawKosc from '../../../seed/prokominstalacje/obiekty/kosc.json'
+import rawPens from '../../../seed/prokominstalacje/obiekty/pens.json'
+import rawRest from '../../../seed/prokominstalacje/obiekty/rest.json'
+import rawSklep from '../../../seed/prokominstalacje/obiekty/sklep.json'
+import rawSzk from '../../../seed/prokominstalacje/obiekty/szk.json'
+import rawOffer76 from '../../../seed/prokominstalacje/oferta-76.json'
+import rawAlarmy from '../../../seed/prokominstalacje/strony-zrzut/Alarmy.json'
+import rawArchitekci from '../../../seed/prokominstalacje/strony-zrzut/Architekci.json'
+import rawAnteny from '../../../seed/prokominstalacje/strony-zrzut/Anteny.json'
+import rawDostep from '../../../seed/prokominstalacje/strony-zrzut/Dostep.json'
+import rawKontakt from '../../../seed/prokominstalacje/strony-zrzut/Kontakt.json'
+import rawLadowarki from '../../../seed/prokominstalacje/strony-zrzut/Ladowarki.json'
+import rawMain from '../../../seed/prokominstalacje/strony-zrzut/Main.json'
+import rawMonitoring from '../../../seed/prokominstalacje/strony-zrzut/Monitoring.json'
+import rawMultimedia from '../../../seed/prokominstalacje/strony-zrzut/Multimedia.json'
+import rawNaglosnienie from '../../../seed/prokominstalacje/strony-zrzut/Naglosnienie.json'
+import rawOFirmie from '../../../seed/prokominstalacje/strony-zrzut/OFirmie.json'
+import rawOferta from '../../../seed/prokominstalacje/strony-zrzut/Oferta.json'
+import rawPoradnik from '../../../seed/prokominstalacje/strony-zrzut/Poradnik.json'
+import rawRealizacje from '../../../seed/prokominstalacje/strony-zrzut/Realizacje.json'
+import rawSerwis from '../../../seed/prokominstalacje/strony-zrzut/Serwis.json'
+import rawSieci from '../../../seed/prokominstalacje/strony-zrzut/Sieci.json'
+import rawSmartHome from '../../../seed/prokominstalacje/strony-zrzut/SmartHome.json'
+import rawTeletechnika from '../../../seed/prokominstalacje/strony-zrzut/Teletechnika.json'
+import rawZaplanuj from '../../../seed/prokominstalacje/strony-zrzut/Zaplanuj.json'
+import rawWspolne from '../../../seed/prokominstalacje/wspolne.json'
 import {
   OBJECT_GROUPS,
   OBJECT_KEYS,
@@ -50,7 +50,7 @@ import type {
   InstSolution,
   Realization,
 } from '../../payload-types'
-import { stanNa } from '../../sites/instalacje/dane/stanFaktow'
+import { withoutLaw } from './bezPrzepisow'
 
 /**
  * Pure mapping of the Instalacje package (`seed/prokominstalacje/`, v4.0) to the collections
@@ -58,6 +58,42 @@ import { stanNa } from '../../sites/instalacje/dane/stanFaktow'
  * the real package files. UI keys of the prototype (`cls`, `on`, `open`, …) and drawings
  * (`art: [svg-path]`) are left out.
  */
+
+// Runda v6 §1.1: every package file without law (`bezPrzepisow.ts`).
+const noweRozwiazania = withoutLaw(rawNoweRozwiazania)
+const apt = withoutLaw(rawApt)
+const bud = withoutLaw(rawBud)
+const dev = withoutLaw(rawDev)
+const dom = withoutLaw(rawDom)
+const firma = withoutLaw(rawFirma)
+const gmina = withoutLaw(rawGmina)
+const hotel = withoutLaw(rawHotel)
+const kosc = withoutLaw(rawKosc)
+const pens = withoutLaw(rawPens)
+const rest = withoutLaw(rawRest)
+const sklep = withoutLaw(rawSklep)
+const szk = withoutLaw(rawSzk)
+const oferta = withoutLaw(rawOffer76)
+const Alarmy = withoutLaw(rawAlarmy)
+const Architekci = withoutLaw(rawArchitekci)
+const Anteny = withoutLaw(rawAnteny)
+const Dostep = withoutLaw(rawDostep)
+const Kontakt = withoutLaw(rawKontakt)
+const Ladowarki = withoutLaw(rawLadowarki)
+const Main = withoutLaw(rawMain)
+const Monitoring = withoutLaw(rawMonitoring)
+const Multimedia = withoutLaw(rawMultimedia)
+const Naglosnienie = withoutLaw(rawNaglosnienie)
+const OFirmie = withoutLaw(rawOFirmie)
+const Oferta = withoutLaw(rawOferta)
+const Poradnik = withoutLaw(rawPoradnik)
+const Realizacje = withoutLaw(rawRealizacje)
+const Serwis = withoutLaw(rawSerwis)
+const Sieci = withoutLaw(rawSieci)
+const SmartHome = withoutLaw(rawSmartHome)
+const Teletechnika = withoutLaw(rawTeletechnika)
+const Zaplanuj = withoutLaw(rawZaplanuj)
+const wspolne = withoutLaw(rawWspolne)
 
 type Data<T> = Omit<T, 'id' | 'tenant' | 'updatedAt' | 'createdAt' | '_status'>
 export type ServiceData = Data<InstService>
@@ -225,14 +261,9 @@ const PHOTO_PROMISES: Readonly<Record<string, string>> = {
     'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Opisz obiekt, a powiemy, czego się spodziewać.',
 }
 
-/** P1-7: dates of the facts in package sentences come from `STAN_FAKTOW`. */
-const DATED: Readonly<Record<string, string>> = {
-  'Nowe warunki techniczne nie zostały ogłoszone (stan na październik 2026). Projektujemy więc według dotychczasowych, które w okresie przejściowym stosuje się po oświadczeniu inwestora. Śledzimy zmiany i uprzedzamy, jeśli wpłyną na projekt.': `Nowe warunki techniczne nie zostały ogłoszone (${stanNa()}). Projektujemy więc według dotychczasowych, które w okresie przejściowym stosuje się po oświadczeniu inwestora. Śledzimy zmiany i uprzedzamy, jeśli wpłyną na projekt.`,
-}
-
-/** A package text without a photo promise (P0-2) nor a hard date of the facts (P1-7). */
+/** A package text without a photo promise (P0-2). */
 const noPhotos = <T extends string | undefined>(text: T): T =>
-  (text === undefined ? text : (PHOTO_PROMISES[text] ?? DATED[text] ?? text)) as T
+  (text === undefined ? text : (PHOTO_PROMISES[text] ?? text)) as T
 
 /**
  * P3-23 (audit 06.11): package titles too long for Google — with „ | PRO-KOM Instalacje” (21
@@ -257,6 +288,8 @@ const FORMER_OWN_TITLES: Readonly<Record<string, string>> = {
   'Dla architektów: smart home i teletechnika': 'Dla architektów: instalacje w projekcie',
   'Zaplanuj instalację na Podhalu w 2 minuty': 'Zaplanuj instalację w 2 minuty',
   'Serwis kamer, alarmów i sieci na Podhalu': 'Serwis kamer, alarmów i sieci, Podhale',
+  // Runda v6 §1.1: no „RODO” in the guide title.
+  'Poradnik: monitoring, RODO i Wi-Fi': 'Poradnik: monitoring, alarmy i Wi-Fi',
 }
 
 /**
@@ -331,6 +364,9 @@ const packages = (seed: SeedPackage[]): NonNullable<ServiceData['packages']> =>
 
 // --- services ---
 
+/** Runda v6 §1.2: realizations only on `/realizacje` and the home page — gone service sections. */
+export const GONE_SECTIONS: ReadonlySet<string> = new Set(['realizacje-n', 'realizacja-t'])
+
 /** Anchor bars changed after the prototype (RUNDA-V5 §10: new Teletechnika sections). */
 export const ANCHORS_V5: Partial<Record<string, { anchorId: string; name: string }[]>> = {
   tel: [
@@ -339,7 +375,6 @@ export const ANCHORS_V5: Partial<Record<string, { anchorId: string; name: string
     { anchorId: 'przy-odbiorze', name: 'Odbiór' },
     { anchorId: 'bledy', name: 'Błędy' },
     { anchorId: 'dla-kogo', name: 'Dla kogo' },
-    { anchorId: 'przepisy', name: 'Przepisy' },
     { anchorId: 'zapytanie', name: 'Zapytanie ofertowe' },
     { anchorId: 'faq', name: 'Pytania' },
   ],
@@ -389,7 +424,10 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
     },
     hero: hero(d.hero),
     anchors:
-      ANCHORS_V5[key] ?? d.anc.map((a) => ({ anchorId: a.href.replace(/^#/, ''), name: a.n })),
+      ANCHORS_V5[key] ??
+      d.anc
+        .map((a) => ({ anchorId: a.href.replace(/^#/, ''), name: a.n }))
+        .filter((a) => !GONE_SECTIONS.has(a.anchorId)),
     packagesIntro: {
       eyebrow: d.sx.pkg.eye,
       heading: d.sx.pkg.h,
@@ -471,12 +509,14 @@ export function objectData({ menu, page: o }: SeedObjectItem, refs: Refs): Objec
       services: (item.s ?? []).filter(isServiceKey),
       icon: icon(item.ic),
     })),
-    lawIntro: { heading: o.law.h, text: o.law.lead },
-    law: o.law.items.map((l) => ({ who: l.who, article: l.a, title: l.t, description: l.d })),
+    // Runda v6 §1.1: no law section — stored law is cleared (the fields stay in the schema).
+    lawIntro: { heading: null, text: null },
+    law: [],
     mountainsIntro: { heading: o.gory.h },
     mountains: o.gory.items.map((g) => ({ title: g.t, icon: icon(g.ic), description: g.d })),
-    realizationsHeading: o.realH,
-    realizations: o.real.map((r) => ({ title: r.t, place: r.m, description: r.d })),
+    // Runda v6 §1.2: no realizations on the object page — stored ones are cleared (fields stay).
+    realizationsHeading: null,
+    realizations: [],
     prepareIntro: { eyebrow: o.prepEye },
     prepare: o.prep,
     packagesHeading: o.pkgH,
@@ -681,7 +721,7 @@ const PAGE_FILES: {
     slug: 'poradnik',
     title: 'Poradnik',
     file: Poradnik,
-    seoTitle: 'Poradnik: monitoring, RODO i Wi-Fi',
+    seoTitle: 'Poradnik: monitoring, alarmy i Wi-Fi',
   },
 ]
 

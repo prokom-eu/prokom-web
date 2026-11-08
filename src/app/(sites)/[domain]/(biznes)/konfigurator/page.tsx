@@ -18,6 +18,7 @@ import {
   runWizard,
   type WizardState,
 } from '@/lib/catalog/wizardEngine'
+import { EMPTY_SUPPLY_LINKS, scaleSupply } from '@/lib/biznes/procurement/links'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 import { getSiteSettings } from '@/lib/site/data'
@@ -171,6 +172,7 @@ export default async function ConfiguratorPage({ params, searchParams }: Props) 
           formToken: issueFormToken(getEnv().PAYLOAD_SECRET),
           phone: phone && tel ? { label: phone, href: tel } : null,
           callbackTime: settings?.biznes?.promises.callbackTime?.trim() || null,
+          supply: scaleSupply(settings?.biznes?.procurement ?? EMPTY_SUPPLY_LINKS, index),
         }}
       />
     </Container>

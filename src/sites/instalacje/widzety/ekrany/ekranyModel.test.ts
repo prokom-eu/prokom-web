@@ -33,6 +33,20 @@ const source = readFileSync(
   ),
   'utf8',
 )
+// Round v6 §1.1 (owner 08.11.2026): no legal content on the page, so the two prototype texts
+// that went on about local rules in Zakopane are shortened on purpose. Everything else stays 1:1.
+const V6_TEXT: readonly (readonly [prefix: string, text: string])[] = [
+  [
+    'Ekran w witrynie zmienia ofertę w ciągu dnia. Na zewnątrz i w Zakopanem',
+    'Ekran w witrynie zmienia ofertę w ciągu dnia. Na zewnątrz najpierw sprawdzamy, czy gmina pozwala na taki ekran.',
+  ],
+  [
+    'Deszcz, mróz i słońce odbite od śniegu. Tylko ekran przeznaczony na zewnątrz, a w Zakopanem',
+    'Deszcz, mróz i słońce odbite od śniegu. Tylko ekran przeznaczony na zewnątrz.',
+  ],
+]
+const v6 = (text: string) => V6_TEXT.find(([prefix]) => text.startsWith(prefix))?.[1] ?? text
+
 type Pick = { pick: () => void }
 type Ref = {
   tv: {
@@ -116,7 +130,7 @@ function expectScreen(proto: Proto, state: ScreenState) {
     dots: ref.dots,
     sched: ref.sched,
     nowSt: ref.nowSt,
-    note: ref.note,
+    note: v6(ref.note),
     tabs: ref.tabs.map((t) => t.on),
   })
 }
@@ -188,7 +202,7 @@ describe('brightness', () => {
         vcls: ref.vcls,
         nits: ref.nits,
         cls: ref.cls,
-        txt: ref.txt,
+        txt: v6(ref.txt),
         bar: ref.bar,
         marks: ref.marks,
         scrSt: ref.scrSt,

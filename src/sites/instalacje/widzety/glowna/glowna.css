@@ -100,8 +100,9 @@
     font-size: 18px;
     max-width: 520px;
   }
+  /* Runda v6 §1.4: the H1 in one colour (the second half is not tinted). */
   & .hxk {
-    color: var(--hx-key);
+    color: inherit;
   }
   & .hpill {
     display: inline-flex;

@@ -52,7 +52,7 @@ test.describe('Biznes home page', () => {
     }).toPass()
   })
 
-  test('brands: sixteen from the panel with status and count, then all brands (K35 7a)', async ({
+  test('brands: two strips, panel order first, status and count, link to all (§9)', async ({
     page,
   }) => {
     await page.goto(site('biznes.localhost'))
@@ -60,15 +60,17 @@ test.describe('Biznes home page', () => {
     await expect(
       brands.getByRole('heading', { name: 'Marki, które znamy od środka.' }),
     ).toBeVisible()
-    // The desktop list (the phone grid before it is hidden).
-    const tiles = brands.locator('ul:visible').first().locator(':scope > li > a')
-    await expect(tiles).toHaveCount(16)
-    // The whole tile is read: name, description, status, count.
-    // Board order (W2): GoPOS first; the name is read once, before the description.
+    // ZAOPATRZENIE §9: two strips replace the 16 tiles; the first copies (the loop is hidden).
+    const tiles = brands.locator('.zp-marq-group:not([aria-hidden]) > li > a')
+    await expect(tiles).not.toHaveCount(0)
+    // The whole tile is read: name, description, count, status.
+    // Panel order (W2): GoPOS first; the name is read once, before the description.
     await expect(tiles.first()).toHaveAccessibleName(/^GoPOS: .*Autoryzowany partner/)
     await expect(tiles.first()).toContainText('Autoryzowany partner')
     await expect(tiles.first()).toContainText(/\d+ pozycj/)
-    await expect(brands.getByRole('link', { name: /Wszystkie marki/ })).toBeVisible()
+    await expect(brands.getByRole('link', { name: /^Wszystkie marki · \d+$/ })).toBeVisible()
+    // The banner of the old grid is gone.
+    await expect(brands).not.toContainText('Zobacz wszystkie marki')
     // K4-FINAL §1: no shortened status anywhere.
     await expect(brands).not.toContainText('Aut.')
     // POPRAWKI-0311 §D: logos in colour before any pointer — no grey filter.
@@ -253,8 +255,11 @@ test.describe('Biznes home page: industries, plan, steps', () => {
     await expect(plan.getByRole('heading', { level: 3, name: 'Sklep spożywczy' })).toBeVisible()
     await expect(plan).toContainText('186')
 
-    await scenes.filter({ hasText: 'Biuro' }).click()
-    await expect(plan.getByRole('heading', { level: 3, name: /^Biuro/ })).toBeVisible()
+    // A lazy island (ADR-023): a click before hydration is lost.
+    await clickUntilVisible(
+      scenes.filter({ hasText: 'Biuro' }),
+      plan.getByRole('heading', { level: 3, name: /^Biuro/ }),
+    )
     await expect(page).toHaveURL(/\?scena=biuro/)
 
     await page

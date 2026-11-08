@@ -39,6 +39,8 @@ test.describe('Instalacje home sections', () => {
     await expect(page.locator('.ut2')).toHaveCount(10)
     await expect(page.locator('.obc')).toHaveCount(12)
     await expect(page.locator('#realizacje .rl')).toHaveCount(4)
+    // Runda v6 D2: every card has a photo (featured first, then others with photos).
+    await expect(page.locator('#realizacje .rl:not(:has(img))')).toHaveCount(0)
     expect(await page.locator('main').innerText()).not.toMatch(/\[[A-ZĄĆĘŁŃÓŚŹŻ ]{3,}[:\]]/)
     const types = await page
       .locator('script[type="application/ld+json"]')
@@ -67,6 +69,49 @@ test.describe('Instalacje home sections', () => {
     await expect(steps.locator('.procg')).toHaveCount(6)
     await expect(steps.last().locator('.procg')).toContainText(/\d+ mies\. gwarancji na montaż/)
     await expect(page.locator('#proces .proctr a')).toHaveAttribute('href', '/zaplanuj')
+  })
+
+  // Runda v6 §1.6: with motion the axis plays once on entering the screen and ends full.
+  test('the process axis plays once and ends with every node and segment filled', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST, '/'))
+    const axis = page.locator('#proces .procw')
+    await expect(axis).toHaveAttribute('data-ready', '1')
+    await axis.scrollIntoViewIfNeeded()
+    await expect(axis).toHaveAttribute('data-on', '1')
+    await expect
+      .poll(() =>
+        axis
+          .locator('.procn')
+          .evaluateAll((nodes) => nodes.map((n) => getComputedStyle(n, '::before').opacity)),
+      )
+      .toEqual(['1', '1', '1', '1', '1', '1'])
+    await expect
+      .poll(() =>
+        axis
+          .locator('.procs:not(:last-child)')
+          .evaluateAll((items) => items.map((i) => getComputedStyle(i, '::after').transform)),
+      )
+      .toEqual(Array(5).fill('none'))
+  })
+
+  // Review of PR3a: on a low screen the tall vertical axis is never 35 % visible — it starts by
+  // its position on the screen, so the cards do not stay hidden.
+  test('on a low screen the vertical axis still plays and shows every card', async ({ page }) => {
+    await page.setViewportSize({ width: 844, height: 390 })
+    await page.goto(site(HOST, '/'))
+    const axis = page.locator('#proces .procw')
+    await axis.scrollIntoViewIfNeeded()
+    await page.mouse.wheel(0, 300)
+    await expect(axis).toHaveAttribute('data-on', '1')
+    await expect
+      .poll(() =>
+        axis
+          .locator('.procc')
+          .evaluateAll((cards) => cards.map((c) => getComputedStyle(c).opacity)),
+      )
+      .toEqual(Array(6).fill('1'))
   })
 
   // Round v5 (RUNDA-V5 §2): logos instead of names, served through next/image.

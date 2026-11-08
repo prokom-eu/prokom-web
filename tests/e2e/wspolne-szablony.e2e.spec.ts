@@ -78,6 +78,31 @@ test.describe('/_wspolne/kontakt and /_wspolne/o-firmie — page templates', () 
     })
   }
 
+  // Audit 08.11 §2 pkt 4: the big number in the Kontakt hero stays on one line on a phone.
+  for (const width of [360, 390, 414]) {
+    test(`the hero phone number is one line at ${width} px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 })
+      for (const host of HOSTS) {
+        await page.goto(site(host, '/_wspolne/kontakt'))
+        const number = page.locator('[data-contact-page] a.font-display[href^="tel:"]')
+        const { height, fontSize } = await number.evaluate((el) => ({
+          height: el.getBoundingClientRect().height,
+          fontSize: parseFloat(getComputedStyle(el).fontSize),
+        }))
+        expect(height).toBeLessThan(fontSize * 1.5)
+      }
+    })
+  }
+
+  // Audit 08.11 §2 pkt 7: the right half of the brand bar is a named landmark too.
+  test('the brand bar status and phone sit in a region landmark', async ({ page }) => {
+    for (const host of HOSTS) {
+      await page.goto(site(host, '/_wspolne/kontakt'))
+      const region = page.getByRole('region', { name: 'Godziny otwarcia i kontakt' })
+      await expect(region.locator('a[href^="tel:"]')).toBeVisible()
+    }
+  })
+
   for (const [host, theme] of HOSTS.flatMap((h) =>
     (['light', 'dark'] as const).map((t) => [h, t] as const),
   )) {
@@ -91,5 +116,37 @@ test.describe('/_wspolne/kontakt and /_wspolne/o-firmie — page templates', () 
         expect(results.violations).toEqual([])
       }
     })
+  }
+})
+
+// Audit 08.11 §2 pkt 1: from 1400 px the side rail (16 px from the edge, 64 px folded) never
+// covers the templates — their content starts at least 16 px after it, as the header capsule.
+// The preview pages have no rail, so the live Kontakt and O firmie of the lines on the templates.
+test.describe('Kontakt and O firmie keep clear of the side rail', () => {
+  for (const width of [1440, 1536]) {
+    for (const host of ['instalacje.localhost', 'software.localhost']) {
+      test(`${host} at ${width} px`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 900 })
+        for (const [path, root] of [
+          ['/kontakt', '[data-contact-page]'],
+          ['/o-firmie', '[data-about-page]'],
+        ] as const) {
+          await page.goto(site(host, path))
+          const rail = await page.locator('[data-site-rail]').boundingBox()
+          expect(rail).not.toBeNull()
+          const railEnd = (rail?.x ?? 0) + 64
+          const starts = await page
+            .locator(`${root} > section > div, ${root} > section > h2`)
+            .evaluateAll((nodes) =>
+              nodes.map(
+                (node) =>
+                  node.getBoundingClientRect().x + parseFloat(getComputedStyle(node).paddingLeft),
+              ),
+            )
+          expect(starts.length).toBeGreaterThan(2)
+          expect(Math.min(...starts)).toBeGreaterThanOrEqual(railEnd + 16)
+        }
+      })
+    }
   }
 })

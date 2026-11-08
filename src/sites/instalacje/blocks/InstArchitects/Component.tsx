@@ -5,12 +5,7 @@ import type { CSSProperties } from 'react'
 
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
-import {
-  getInstalacjeCards,
-  getInstalacjeHome,
-  getInstalacjeSettings,
-  getInstArchNews,
-} from '@/lib/instalacje/data'
+import { getInstalacjeCards, getInstalacjeSettings, getInstArchNews } from '@/lib/instalacje/data'
 import type { ServiceKey } from '@/lib/instalacje/options'
 import { serviceJsonLd } from '@/lib/instalacje/seo'
 import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo/jsonLd'
@@ -26,7 +21,6 @@ import { ArchHouseScene } from '../../sekcje/arch/ArchHouseSceneLazy'
 import { hotspotsHtml, INITIAL_ARCH_SCENE, safeHue } from '../../sekcje/arch/archScene'
 import { ARCH_SCENE } from '../../sekcje/arch/scene'
 import { InstSection } from '../../sekcje/InstSectionLazy'
-import { LEGAL_NOTE } from '../../dane/prawo'
 import { Faq } from '../../sekcje/Faq'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { SectionHead } from '../../sekcje/SectionHead'
@@ -55,12 +49,11 @@ const PATH = '/dla-architektow'
 export async function InstArchitectsBlock({ block, tenantId }: Props) {
   // The form token carries the render time (minimum fill time), so never from a cache.
   await connection()
-  const [cards, news, settings, site, home, host] = await Promise.all([
+  const [cards, news, settings, site, host] = await Promise.all([
     getInstalacjeCards(tenantId),
     getInstArchNews(tenantId),
     getInstalacjeSettings(tenantId),
     getSiteSettings(tenantId),
-    getInstalacjeHome(tenantId),
     headers().then((h) => h.get('host')),
   ])
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
@@ -371,49 +364,6 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
         </div>
       </InstSection>
 
-      <InstSection id="przepisy" style={{ padding: '0 0 104px' }} {...fold('przepisy')}>
-        <div className="wrap">
-          <SectionHead
-            eyebrow={A.lawSection.eyebrow}
-            heading={A.lawSection.heading}
-            accent={A.lawSection.accent}
-            lead={A.lawSection.lead}
-            leadWidth={440}
-          />
-          <div className="artlw ri">
-            <div className="artlline" />
-            {A.timeline.map((t) => (
-              <div key={t.date} className={t.now ? 'artl now' : 'artl'}>
-                <i />
-                <b>{t.date}</b>
-                <span>{t.label}</span>
-              </div>
-            ))}
-          </div>
-          <div className="arprz">
-            {A.law.map((r) => (
-              <div key={r.title} className="card arprc2 ri">
-                <div className="arprh">
-                  <span className={`arprst ${r.tone}`}>{r.status}</span>
-                  <span className="arprd2">{r.date}</span>
-                </div>
-                <b className="h3" style={{ fontSize: 20 }}>
-                  {r.title}
-                </b>
-                <p>{r.text}</p>
-                <div className="arprp">
-                  <em>{A.lawSection.inProject}</em>
-                  <span>{r.inProject}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="src ri" style={{ marginTop: 16 }}>
-            {LEGAL_NOTE} Stan na {A.lawAsOf}, aktualizujemy przy każdej zmianie.
-          </p>
-        </div>
-      </InstSection>
-
       <InstSection
         id="doswiadczenie"
         style={{ padding: '104px 0 96px' }}
@@ -438,27 +388,6 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
             ))}
           </div>
           <div className="arexg">
-            {/* Only realizations published with the client's consent (I2 hook). */}
-            {home.realizations.length > 0 && (
-              <div className="card arexr ri">
-                <span className="eye">{A.experienceSection.realizations}</span>
-                <div className="arexl">
-                  {home.realizations.map((r) => (
-                    <div key={r.id}>
-                      <b>{r.title}</b>
-                      <span>{[r.place, r.scope].filter(Boolean).join(' · ')}</span>
-                    </div>
-                  ))}
-                </div>
-                <Link
-                  href="/realizacje"
-                  className="btn btn-g btn-s"
-                  style={{ alignSelf: 'flex-start' }}
-                >
-                  {A.experienceSection.realizationsAll}
-                </Link>
-              </div>
-            )}
             <div className="card arexb ri">
               <span className="eye">{A.experienceSection.brands}</span>
               <div className="arexbr">

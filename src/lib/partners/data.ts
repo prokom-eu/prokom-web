@@ -67,31 +67,53 @@ export const getPartnerStatuses = cache(async (tenantId: number) => {
 })
 
 /**
- * Brands of the home page (K35 7a): `BiznesSettings.brands.home` of the tenant, in that order,
- * with logo, short description and status. Tenant filter on both reads.
+ * Brands of the home page strips (ZAOPATRZENIE §9): every partner of the tenant (logo or not) in
+ * the panel's order with its status and short description, and the ids of
+ * `BiznesSettings.brands.home` (the brands that lead). Tenant filter on both reads.
  */
-export const getHomeBrands = cache(async (tenantId: number): Promise<HomeBrand[]> => {
-  const payload = await getPayload({ config })
-  const {
-    docs: [settings],
-  } = await payload.find({
-    collection: 'biznes-settings',
-    where: { tenant: { equals: tenantId } },
-    limit: 1,
-    depth: 0,
-    select: { brands: true },
-    overrideAccess: true,
-  })
-  const ids = (settings?.brands?.home ?? []).flatMap((value) =>
-    typeof value === 'number' ? [value] : value ? [value.id] : [],
-  )
-  if (ids.length === 0) return []
-  const { docs } = await payload.find({
-    collection: 'partners',
-    where: { and: [{ id: { in: ids } }, { tenants: { in: [tenantId] } }] },
-    limit: ids.length,
-    depth: 0,
-    overrideAccess: true,
-  })
-  return orderHomeBrands(ids, docs)
-})
+export const getBrandStripData = cache(
+  async (tenantId: number): Promise<{ brands: HomeBrand[]; homeIds: number[] }> => {
+    const payload = await getPayload({ config })
+    const [{ docs: settings }, { docs }] = await Promise.all([
+      payload.find({
+        collection: 'biznes-settings',
+        where: { tenant: { equals: tenantId } },
+        limit: 1,
+        depth: 0,
+        select: { brands: true },
+        overrideAccess: true,
+      }),
+      payload.find({
+        collection: 'partners',
+        where: { tenants: { in: [tenantId] } },
+        sort: 'order',
+        limit: 200,
+        depth: 0,
+        // What a tile reads (`orderHomeBrands`); `filename` builds the file URLs of the logo.
+        select: {
+          name: true,
+          slug: true,
+          partnerStatus: true,
+          filename: true,
+          url: true,
+          width: true,
+          height: true,
+          sizes: true,
+          brandPage: { shortDescription: true },
+        },
+        // Server-side read; only the fields of `HomeBrand` leave here.
+        overrideAccess: true,
+      }),
+    ])
+    const homeIds = (settings[0]?.brands?.home ?? []).flatMap((value) =>
+      typeof value === 'number' ? [value] : value ? [value.id] : [],
+    )
+    return {
+      brands: orderHomeBrands(
+        docs.map((doc) => doc.id),
+        docs,
+      ),
+      homeIds,
+    }
+  },
+)

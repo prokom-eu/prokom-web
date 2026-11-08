@@ -95,7 +95,11 @@ test.describe('Software hero v24', () => {
     await expect(word(page)).toHaveText('rozbudowaną stronę.')
     // Leave the hero, so the click does not leave a keyboard focus behind.
     await page.mouse.move(700, 30)
-    await page.clock.fastForward(12000 + 4300)
+    // In two steps: the 4.2 s timer is set only after React re-renders the end of the rest,
+    // so one long jump could pass before that timer exists (flaky 08.11, #423).
+    await page.clock.fastForward(12000)
+    await expect(hero(page)).not.toHaveAttribute('data-hold', '')
+    await page.clock.fastForward(4300)
     await expect(word(page)).toHaveText('stronę hotelu.')
   })
 

@@ -15,7 +15,7 @@ import { navigation } from '../../dane/nawigacja'
 import { CtaBandView } from '../../powloka/CtaBandView'
 import { architekci } from '../../dane/architekci'
 import { Faq } from '../../sekcje/Faq'
-import { GuaranteeSection } from '../../sekcje/GuaranteeSection'
+import { TrustStrip } from '../../sekcje/TrustStrip'
 import { IlDefs } from '../../sekcje/IlDefs'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { Packages } from '../../sekcje/Packages'
@@ -57,9 +57,10 @@ type ServiceLayout = {
   /** Button of the CTA band instead of the planner (Teletechnika: to the quote form). */
   bandButton?: { label: string; href: string }
   /** Under the warranty section (Smart home: the Ampio warranty note). */
-  afterGuarantee?: ReactNode
+  /** Right under the trust band (Smart home: the Ampio warranty note). */
+  afterTrust?: ReactNode
 }
-type LayoutContext = { planHref: string; tenantId: number }
+type LayoutContext = { planHref: string }
 
 /** Pages built so far (I4, I7–I9); the other services show the shared sections until theirs. */
 const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = {
@@ -78,14 +79,14 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     sections: <DostepSections />,
     folded: ['cena', 'faq'],
   }),
-  wifi: ({ tenantId }) => ({
+  wifi: () => ({
     widget: <CoverageMap />,
-    sections: <SieciSections tenantId={tenantId} />,
+    sections: <SieciSections />,
     folded: ['cena', 'faq'],
   }),
-  tel: ({ tenantId }) => ({
+  tel: () => ({
     widget: <BuildingScene />,
-    sections: <TeletechnikaSections tenantId={tenantId} />,
+    sections: <TeletechnikaSections />,
     folded: ['faq'],
     guarantee: false,
     bandButton: teletechnika.bandButton,
@@ -94,16 +95,16 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     widget: <SmartPlan />,
     sections: <SmartSections planHref={planHref} />,
     folded: ['cena', 'faq'],
-    afterGuarantee: <SmartWarrantyNote />,
+    afterTrust: <SmartWarrantyNote />,
   }),
-  snd: ({ tenantId }) => ({
+  snd: () => ({
     widget: <ZoneMixer />,
-    sections: <NaglosnienieSections tenantId={tenantId} />,
+    sections: <NaglosnienieSections />,
     folded: ['cena', 'faq'],
   }),
-  scr: ({ tenantId }) => ({
+  scr: () => ({
     widget: <ScreenPreview />,
-    sections: <EkranySections tenantId={tenantId} />,
+    sections: <EkranySections />,
     folded: ['cena', 'faq'],
   }),
   ev: () => ({
@@ -142,7 +143,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
   const salons = salonsNote(company?.locations ?? [])
   const path = `/${service.slug}`
   const planHref = `/zaplanuj?usluga=${service.key}`
-  const layout = LAYOUTS[service.key]?.({ planHref, tenantId })
+  const layout = LAYOUTS[service.key]?.({ planHref })
   const folded = new Set(layout?.folded ?? [])
   const crumb = service.hero?.crumb || service.name
   const band = {
@@ -191,13 +192,6 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         widget={layout?.widget}
       />
       {layout?.sections}
-      {layout?.guarantee !== false && (
-        <GuaranteeSection
-          warrantyMonths={settings.warrantyMonths}
-          responseText={settings.responseText}
-        />
-      )}
-      {layout?.afterGuarantee}
       <Packages
         intro={service.packagesIntro}
         packages={service.packages}
@@ -224,6 +218,9 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         objects={service.similarObjects}
         extraLink={architekci.related}
       />
+      {/* Runda v6 §1.3: the trust band right above the CTA band (Teletechnika has none). */}
+      {layout?.guarantee !== false && <TrustStrip warrantyMonths={settings.warrantyMonths} />}
+      {layout?.afterTrust}
       <CtaBandView band={band} phone={phone} salons={salons} titleId="cta-service-title" page />
     </div>
   )

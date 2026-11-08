@@ -78,7 +78,8 @@ export function BrandBar({
           )
         })}
       </nav>
-      <div className="flex items-center gap-5">
+      {/* A named region: the right half is a landmark like the line switch (audit 08.11 §2 pkt 7). */}
+      <section aria-label="Godziny otwarcia i kontakt" className="flex items-center gap-5">
         <OpeningStatus hours={hours} holidays={holidays} now={now} />
         {slot?.label && slot.href && (
           <a
@@ -98,7 +99,7 @@ export function BrandBar({
             <b className="font-extrabold text-nav-ink">{phone}</b>
           </a>
         )}
-      </div>
+      </section>
     </div>
   )
 }

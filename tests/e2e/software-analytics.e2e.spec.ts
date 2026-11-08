@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { hydrated, site } from './helpers'
 
 // SW12: analytics events of the Software line (spec. §8.4, ADR-020). Umami is off in CI (no
 // `UMAMI_*`), so a stand-in `window.umami` records what `track()` sends. Data from `pnpm seed`.
@@ -52,17 +52,23 @@ test.describe('Software analytics (ADR-020)', () => {
     page,
   }) => {
     await page.goto(site(HOST))
-    await page.locator('#start [role="tab"]').nth(1).click()
+    // Each island is lazy (ADR-023): a click before hydration sends no event.
+    const heroTab = page.locator('#start [role="tab"]').nth(1)
+    await hydrated(heroTab)
+    await heroTab.click()
     const bento = page.locator('#oferta')
     await bento.scrollIntoViewIfNeeded()
-    await bento.locator('button[aria-pressed="false"]').first().click()
+    const variant = bento.locator('button[aria-pressed="false"]').first()
+    await hydrated(variant)
+    await variant.click()
     const showroom = page.locator('#podglady')
     await showroom.scrollIntoViewIfNeeded()
-    await showroom.locator('[role="tab"][aria-selected="false"]').first().click()
-    const names = (await events(page)).map(([name]) => name)
-    expect(names).toEqual(
-      expect.arrayContaining(['hero_slajd', 'oferta_wariant', 'branza_podglad']),
-    )
+    const industry = showroom.locator('[role="tab"][aria-selected="false"]').first()
+    await hydrated(industry)
+    await industry.click()
+    await expect
+      .poll(async () => (await events(page)).map(([name]) => name))
+      .toEqual(expect.arrayContaining(['hero_slajd', 'oferta_wariant', 'branza_podglad']))
     expect(await events(page)).toEqual(expect.arrayContaining([['hero_slajd', { nr: 2 }]]))
     await expectNoTypedValues(page)
   })

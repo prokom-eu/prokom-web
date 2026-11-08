@@ -19,6 +19,7 @@ import { FaqBlock } from './FaqBlock'
 import { OpeningStatus } from './OpeningStatus'
 import { OtherLines } from './OtherLines'
 import { PageCrumbs, type Crumb } from './PageCrumbs'
+import { PAGE_CONTAINER as CONTAINER } from './pageContainer'
 import { ServiceAreaMap } from './ServiceAreaMap'
 import { Steps } from './Steps'
 import { HeadingText } from './HeadingText'
@@ -53,7 +54,6 @@ export type ContactPageProps = {
   showOtherLines?: boolean
 }
 
-const CONTAINER = 'mx-auto max-w-[1344px] px-5 min-[768px]:px-8'
 const H2 =
   'font-display text-[clamp(32px,3.8vw,48px)] leading-none font-extrabold tracking-[-0.025em]'
 const FOCUS =
@@ -143,7 +143,8 @@ export function ContactPage({
                 <a
                   href={tel}
                   className={cx(
-                    'font-display text-[clamp(44px,5vw,66px)] leading-none font-extrabold text-line-dark-ink',
+                    // One line down to 360 px (audit 08.11 §2 pkt 4): scales with the screen below ~510 px.
+                    'font-display text-[min(8.6vw,clamp(44px,5vw,66px))] leading-none font-extrabold whitespace-nowrap text-line-dark-ink',
                     FOCUS,
                   )}
                 >

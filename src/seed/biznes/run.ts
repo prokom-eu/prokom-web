@@ -91,6 +91,7 @@ import { GOPOS_PHOTO_ALT, goposPhotoFiles, goposPhotoPath } from './k4Pages'
 import { k4PagesFile, seedBiznesK4Pages } from './k4PagesRun'
 import { seedBiznesTemplatePages } from './templatePages'
 import { seedBiznesProcurementPages } from './procurementPages'
+import { homeProcurementPackage, seedBiznesHomeProcurement } from './homeProcurement'
 import {
   brandLogoFile,
   galleryFileName,
@@ -118,6 +119,7 @@ import { seedBiznesIndustries } from './industries'
 import { seedBiznesNews } from './posts'
 import { seedBiznesLegal } from './legal'
 import { SERVICE_AREAS, upsertBiznesContact } from './contact'
+import { procurementLinksUpdate } from './procurementLinks'
 import { seedBiznesHome } from './home'
 import { navigationData, upgradedColumnLimit, upgradedHighlights, upgradedMenu } from './navigation'
 import { seedSharedData } from '../shared/run'
@@ -1187,6 +1189,25 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
   }
 
+  // --- „Zaopatrzenie — linki” (plan 0611 §6.4): only the empty fields ---
+  if (siteSettings) {
+    const current = await payload.findByID({
+      collection: 'site-settings',
+      id: siteSettings.id,
+      ...local,
+    })
+    const procurement = procurementLinksUpdate(current.biznes?.procurement)
+    count('site-settings procurement links', procurement ? 'updated' : false)
+    if (procurement) {
+      await payload.update({
+        collection: 'site-settings',
+        id: siteSettings.id,
+        data: { biznes: { ...current.biznes, procurement } },
+        ...local,
+      })
+    }
+  }
+
   // --- home page (B7): sections, department cards, the hero's trust line ---
   await seedBiznesHome(
     payload,
@@ -1290,7 +1311,22 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   await seedBiznesTemplatePages(payload, tenant.id, pageReport)
 
   // BIZ-2: /agd-rtv-dla-firm and /dostawy-it-dla-firm (ZAOPATRZENIE §2), media `zaop-*`.
-  await seedBiznesProcurementPages(payload, tenant.id, storedId, pageReport, note)
+  const procurementMedia = await seedBiznesProcurementPages(
+    payload,
+    tenant.id,
+    storedId,
+    pageReport,
+    note,
+    [homeProcurementPackage],
+  )
+  // B2-3: „Zaopatrzenie firm” on the home page, right after the offer (ZAOPATRZENIE §8).
+  await seedBiznesHomeProcurement(
+    payload,
+    tenant.id,
+    (name) => procurementMedia.get(name),
+    pageReport,
+    note,
+  )
 
   // --- category page content (B10a): the cash registers from the board ---
   await seedBiznesCategoryContent(payload, tenant.id, pageRefs.product, pageReport)

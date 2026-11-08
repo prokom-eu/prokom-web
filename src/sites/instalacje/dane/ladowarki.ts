@@ -250,7 +250,7 @@ export const ladowarki = {
   rules: {
     head: {
       eyebrow: 'Formalności',
-      heading: 'Przyłącze, UDT, wspólnota. Pomagamy przejść przez wszystko.',
+      heading: 'Sprawdzamy przyłącze i pomagamy w formalnościach',
     },
     items: [
       {
@@ -260,15 +260,9 @@ export const ladowarki = {
         note: 'Wycenę zaczynamy od rozdzielnicy i licznika — zdjęcia możesz wysłać w odpowiedzi na nasz e-mail.',
       },
       {
-        icon: 'shield',
-        title: 'Badanie UDT',
-        text: 'Ustawa o elektromobilności (art. 16) przewiduje badanie UDT przed oddaniem stacji do eksploatacji, także po naprawie lub modernizacji. Czy dotyczy Twojej ładowarki, zależy m.in. od tego, kto z niej korzysta. Sprawdzamy to przy projekcie i pomagamy w zgłoszeniu.',
-        note: '',
-      },
-      {
         icon: 'users',
         title: 'Ładowarka w bloku i we wspólnocie',
-        text: 'W budynku z więcej niż trzema lokalami mieszkalnymi potrzebna jest zgoda zarządcy. Zarządca w 30 dni od wniosku zleca ekspertyzę (nie trzeba jej, gdy budynek ma instalację pod ładowarki), a wniosek rozpatruje w 30 dni od jej otrzymania. We wspólnocie mieszkaniowej zgoda na punkt ładowania o mocy mniejszej niż 11 kW jest czynnością zwykłego zarządu.',
+        text: 'W bloku albo we wspólnocie potrzebna jest zgoda zarządcy. Pomagamy w formalnościach.',
         note: '',
       },
       {

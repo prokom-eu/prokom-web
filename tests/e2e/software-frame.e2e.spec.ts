@@ -316,6 +316,8 @@ test.describe('Software side rail (≥ 1400 px)', () => {
     await setProject(page, TWO)
     await page.reload()
     const action = rail(page).locator('.srail__item--action')
+    // The server HTML links to /dobierz; the list from the browser shows only after hydration.
+    await hydrated(action)
     await expect(action).toHaveAttribute('href', '/kontakt?projekt=1#formularz')
     await expect(action).toContainText('Twój projekt')
     await expect(action).toContainText('2')
