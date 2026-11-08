@@ -39,6 +39,8 @@ test.describe('Instalacje home sections', () => {
     await expect(page.locator('.ut2')).toHaveCount(10)
     await expect(page.locator('.obc')).toHaveCount(12)
     await expect(page.locator('#realizacje .rl')).toHaveCount(4)
+    // Runda v6 D2: every card has a photo (featured first, then others with photos).
+    await expect(page.locator('#realizacje .rl:not(:has(img))')).toHaveCount(0)
     expect(await page.locator('main').innerText()).not.toMatch(/\[[A-ZĄĆĘŁŃÓŚŹŻ ]{3,}[:\]]/)
     const types = await page
       .locator('script[type="application/ld+json"]')

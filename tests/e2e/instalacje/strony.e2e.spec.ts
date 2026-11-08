@@ -116,16 +116,25 @@ test.describe('Instalacje line routes', () => {
 })
 
 // I13: the footer's legal links and `llms.txt` (SEO §2.4).
-// RUNDA-V5 §11: realizations named on a service page show their photos (seed: Blachotrapez with
-// the client's consent), related services show the scene of their home card.
+// Runda v6 §1.2: realizations only on `/realizacje` and the home page; related services show the
+// scene of their home card (RUNDA-V5 §11).
 test.describe('Instalacje service pages, round v5', () => {
-  test('Sieci shows the Blachotrapez photos and the related cards have scenes', async ({
+  test('service and object pages have no realizations, related cards have scenes', async ({
     page,
   }) => {
+    for (const path of [
+      '/sieci-wifi',
+      '/ekrany',
+      '/naglosnienie',
+      '/teletechnika',
+      '/dla-kogo/pensjonaty',
+      '/dla-architektow',
+    ]) {
+      await open(page, path)
+      await expect(page.locator('main .rl, main .rlstrip'), path).toHaveCount(0)
+      await expect(page.locator('#realizacje-n, #realizacja-t, #realizacje-s'), path).toHaveCount(0)
+    }
     await open(page, '/sieci-wifi')
-    const photo = page.locator('#okablowanie .rlstrip img').first()
-    await expect(photo).toBeVisible()
-    expect(await photo.getAttribute('alt')).not.toBe('')
     await expect(page.locator('#powiazane .relsc svg').first()).toBeVisible()
   })
 })

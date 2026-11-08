@@ -12,7 +12,7 @@ import type {
 import { navigation } from '@/sites/instalacje/dane/nawigacja'
 
 import { buildMenu, type InstMenu, type MenuDoc } from './menu'
-import { byNewest, withPhotos } from './realizations'
+import { byNewest, homeRealizations, withPhotos } from './realizations'
 import { OFFER_FAMILIES, SERVICE_KEYS, SETTINGS_DEFAULTS } from './options'
 
 /** Far above the 10 services, 12 objects and 76 solutions of the package. */
@@ -290,8 +290,8 @@ function realizationImages(photos: unknown, tenantId: number): PublicImage[] {
 
 /**
  * What the home sections need beyond the menu (I6): the number of brands of the published offer
- * (`InstServices.offer.brands`, counted once each) and up to 4 published, featured realizations
- * with a photo (published = with the client's consent, I2; no photo = hidden, runda v6 D2). This tenant only, public fields only.
+ * (`InstServices.offer.brands`, counted once each) and up to 4 published realizations with a
+ * photo, the featured ones first (published = with the client's consent, I2; runda v6 D2). This tenant only, public fields only.
  */
 export const getInstalacjeHome = cache(
   async (tenantId: number): Promise<{ brands: number; realizations: HomeRealization[] }> => {
@@ -311,7 +311,7 @@ export const getInstalacjeHome = cache(
       }),
       payload.find({
         collection: 'realizations',
-        where: { and: [...(where.and ?? []), { featured: { equals: true } }] },
+        where,
         draft: false,
         depth: 1,
         limit: LIMIT,
@@ -323,6 +323,7 @@ export const getInstalacjeHome = cache(
           photos: true,
           year: true,
           legacyId: true,
+          featured: true,
         },
         overrideAccess: true,
       }),
@@ -334,16 +335,18 @@ export const getInstalacjeHome = cache(
     return {
       brands: brands.size,
       // Newest first, without a year after them, then the package order (`byNewest`); 4 cards.
-      realizations: withPhotos(
+      realizations: homeRealizations(
         [...realizations.docs].sort(byNewest).map((doc) => ({
           id: doc.id,
           title: doc.title,
           category: doc.category ?? null,
           place: doc.place ?? null,
           scope: doc.scope ?? null,
+          featured: doc.featured ?? false,
           photos: realizationImages(doc.photos, tenantId),
         })),
-      ).slice(0, 4),
+        4,
+      ).map(({ featured: _featured, ...card }) => card),
     }
   },
 )

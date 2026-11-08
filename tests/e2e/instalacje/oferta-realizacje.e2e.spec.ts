@@ -103,8 +103,10 @@ test.describe('Instalacje realizations', () => {
   test('shows the published realizations, filters by installation and object', async ({ page }) => {
     await open(page, '/realizacje')
     await expect(page.locator('.rgrid .rl:visible')).toHaveCount(6)
-    await page.getByRole('button', { name: 'Pokaż wszystkie (11)' }).click()
-    await expect(page.locator('.rgrid .rl:visible')).toHaveCount(11)
+    // Runda v6 D2: the 3 realizations without photos (Empik, Kaplica, FitBar) are hidden.
+    await page.getByRole('button', { name: 'Pokaż wszystkie (8)' }).click()
+    await expect(page.locator('.rgrid .rl:visible')).toHaveCount(8)
+    await expect(page.locator('.rgrid .rl:not(:has(img))')).toHaveCount(0)
 
     await page.getByRole('button', { name: /^Anteny/ }).click()
     await expect(page.locator('.rgrid .rl:visible')).toHaveCount(1)
@@ -112,7 +114,7 @@ test.describe('Instalacje realizations', () => {
 
     await page.getByRole('button', { name: /^Wszystkie/ }).click()
     await page.getByRole('button', { name: 'Kościoły' }).click()
-    await expect(page.locator('.rgrid .rl:visible')).toHaveCount(3)
+    await expect(page.locator('.rgrid .rl:visible')).toHaveCount(2)
     expect(await page.locator('main').innerText()).not.toMatch(/\[SZEF/)
   })
 
@@ -136,8 +138,8 @@ test.describe('Instalacje realizations', () => {
     await page.keyboard.press('Escape')
     await expect(gallery).toBeHidden()
     await expect(cover).toBeFocused()
-    // A realization without photos keeps its drawing.
-    await page.getByRole('button', { name: 'Pokaż wszystkie (11)' }).click()
-    await expect(page.locator('.rl', { hasText: 'FitBar' }).locator('.rlph')).toHaveCount(0)
+    // Runda v6 D2: a realization without photos is not on the page at all.
+    await page.getByRole('button', { name: 'Pokaż wszystkie (8)' }).click()
+    await expect(page.locator('.rgrid')).not.toContainText('FitBar')
   })
 })
