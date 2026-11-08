@@ -24,11 +24,11 @@ import {
 import type { SoftwareWizard, WizardPick, WizardStep } from '@/lib/software/wizard/schema'
 
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
+import { EmText } from '@/sites/software/components/ui/EmText'
 import { usePausedOffscreen } from '@/sites/software/components/v24home/usePausedOffscreen'
 
 import { WizardSend } from './WizardSend'
 import { PriceTween } from './PriceTween'
-import { EmText } from '@/sites/software/components/ui/EmText'
 
 export type WizardProps = {
   rules: SoftwareWizard

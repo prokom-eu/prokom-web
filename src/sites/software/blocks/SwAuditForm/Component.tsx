@@ -25,9 +25,10 @@ type Props = { block: SwAuditFormData; tenantId: number; isFirst: boolean }
 /**
  * `/audyt` of the Software line (ZMIANY-v24 §9.1, board `AU-audyt`): the subpage hero with the
  * quick audit form and the sample scan card, „Pięć rzeczy…” (the last card highlighted), the three
- * audit kinds and „Jak wygląda darmowy audyt”, then the shared band above the footer. Never cached: the form token carries the render
- * time. Prices and terms of the kinds from the tenant's published audit solution
- * (`Solutions.levels`); a missing one hides the section. A hero block: the H1 when first.
+ * audit kinds and „Jak wygląda darmowy audyt”, then the shared band above the footer. Never
+ * cached: the form token carries the render time. Prices and terms of the kinds from the
+ * tenant's published audit solution (`Solutions.levels`); a missing one hides the section.
+ * A hero block: the H1 when first.
  */
 export async function SwAuditFormBlock({ block, tenantId, isFirst }: Props) {
   await connection()

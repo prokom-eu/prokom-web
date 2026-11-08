@@ -247,7 +247,7 @@
     height: 100%;
     min-height: 124px;
   }
-  [data-line='software'] [data-footer-contact] > :is(.oh-status, :last-child:not(a)) {
+  [data-line='software'] [data-footer-contact] > :is(.oh-status, .oh-status ~ *) {
     grid-column: 1;
   }
 }
