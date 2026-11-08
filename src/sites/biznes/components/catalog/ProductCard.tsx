@@ -2,7 +2,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { cx } from '@/components/ui/cx'
-import { cardIcon, productBadges, productHref, type BadgeTone } from '@/lib/catalog/card'
+import {
+  cardIcon,
+  productBadges,
+  productHref,
+  productImageAlt,
+  type BadgeTone,
+} from '@/lib/catalog/card'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { serviceTile } from '@/lib/catalog/purchase'
 
@@ -86,7 +92,9 @@ export function ProductCard({
           {product.image ? (
             <Image
               src={product.image.url}
-              alt=""
+              // „Marka Model” (audit 0611 P0.5): the link is hidden from screen readers (the name
+              // below is the link), but search engines and a failed load read the picture's text.
+              alt={productImageAlt(brand?.name, product.name)}
               width={product.image.width}
               height={product.image.height}
               unoptimized
@@ -175,6 +183,7 @@ export function ProductCard({
           slug={product.slug}
           name={product.name}
           variant="card"
+          fly={home}
           className="absolute right-2.5 bottom-2.5 z-[2] max-sm:size-11 max-sm:px-0 sm:right-3 sm:bottom-3"
         />
       </ProductStage>
