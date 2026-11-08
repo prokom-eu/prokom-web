@@ -244,26 +244,15 @@
   background: color-mix(in srgb, var(--surface) 88%, transparent);
   backdrop-filter: blur(18px) saturate(1.5);
 }
-/* The price under the mock-up, as on the bar below. */
-.sw-offer-price {
+/* „Co dalej” under the mock-up (AUDYT po SWA7 #7): quote, payment, ownership. */
+.sw-offer-next {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 10px;
   padding: 14px 18px;
   border: 1px solid var(--accent-line);
   border-radius: 18px;
   background: var(--accent-soft);
-}
-.sw-offer-price span {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ink-2);
-}
-.sw-offer-price b {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 800;
-  color: var(--accent-text);
 }
 @media (prefers-reduced-motion: no-preference) {
   /* The next offer: the details fade in, the mock-up comes up 12 px. */

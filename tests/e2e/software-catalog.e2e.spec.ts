@@ -195,6 +195,8 @@ test.describe('Software offer window (spec. §5.1)', () => {
     await opener.click()
     const dialog = windowOf(page, 'Strona firmowa z panelem')
     await expect(dialog.getByRole('heading', { level: 2 })).toHaveText('Strona firmowa z panelem')
+    // AUDYT po SWA7 #8: the focus opens on the name, not on „←” with its ring.
+    await expect(dialog.getByRole('heading', { level: 2 })).toBeFocused()
     await expect(dialog).toContainText('1 / 29')
     // Three tiles (ZMIANY-v24 §6.1): price, term, care.
     await expect(dialog.locator('dl > div')).toHaveText([
@@ -214,6 +216,9 @@ test.describe('Software offer window (spec. §5.1)', () => {
     await expect(dialog).toContainText(/Potrzebujesz więcej\? Np\. więcej niż 5 podstron/)
     await expect(dialog).toContainText('Wycena na piśmie, ważna 30 dni')
     await expect(dialog).toContainText('30% zaliczki, reszta po odbiorze')
+    // AUDYT po SWA7 #7: under the mock-up „Co dalej”, the price only on the tile and the bar.
+    await expect(dialog.locator('.sw-offer-next')).toContainText('Co dalej')
+    await expect(dialog.locator('aside .sw-offer-price')).toHaveCount(0)
     await expect(dialog.getByRole('heading', { name: 'Jak to wygląda' })).toBeVisible()
     await expect(dialog).toContainText(/Co jest w cenie od 2\s490 zł\?/)
     await page.keyboard.press('Escape')
