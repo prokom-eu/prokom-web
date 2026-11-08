@@ -262,10 +262,8 @@ export const dostep = {
         text: 'Wjazd na plac i parking na pilota, kartę albo odczyt tablic.',
       },
     ],
-    register:
-      'Rejestr wejść pracowników może być uznany za „inną formę monitorowania” (art. 22³ § 4 Kp), dlatego stosujemy te same zasady informowania co przy kamerach.',
     biometrics:
-      'Odcisk palca pracownika można przetwarzać tylko z jego inicjatywy albo do dostępu do szczególnie ważnych informacji lub pomieszczeń (art. 22¹ᵃ § 3 i 22¹ᵇ Kp). Według stanowiska UODO rejestracja czasu pracy na podstawie biometrii nie jest zgodna z RODO. Dlatego w firmach proponujemy karty i breloki.',
+      'W firmach proponujemy karty i breloki. Odcisk palca zostawiamy do serwerowni, archiwum albo sejfu.',
     battery:
       'Zamki mają zasilanie bateryjne lub awaryjne i ostrzegają o słabej baterii. Przy każdych drzwiach planujemy też awaryjne otwarcie.',
   },
@@ -343,9 +341,9 @@ export const dostep = {
         icon: 'finger',
         level: 4,
         levelText: 'Wysoka technicznie',
-        text: 'Odcisku nie da się zgubić ani pożyczyć, ale to dane szczególnej kategorii według RODO. W firmie można go stosować tylko z inicjatywy pracownika albo do dostępu do szczególnie ważnych informacji lub pomieszczeń (art. 22¹ᵃ § 3 i 22¹ᵇ Kp).',
+        text: 'Odcisku nie da się zgubić ani pożyczyć. W firmie stosujemy go do szczególnie ważnych pomieszczeń.',
         fits: 'Serwerownia, archiwum, sejf',
-        careful: 'Nie do ewidencji czasu pracy (stanowisko UODO).',
+        careful: 'Do ewidencji czasu pracy lepsze są karty i breloki.',
         hue: 'var(--inst-hue-violet)',
       },
     ],
@@ -404,7 +402,7 @@ export const dostep = {
     ],
     fire: {
       title: 'Drzwi ewakuacyjne:',
-      text: 'przepisy przeciwpożarowe zabraniają zamykania ich w sposób, który uniemożliwia natychmiastowe użycie (§ 4 ust. 1 pkt 14 rozporządzenia o ochronie ppoż.). W pomieszczeniach dla ponad 300 osób przepisy techniczno-budowlane wymagają zamknięć przeciwpanicznych (norma PN-EN 1125). Rozwiązanie dla takich drzwi uzgadniamy z rzeczoznawcą ds. zabezpieczeń ppoż.',
+      text: 'przy braku prądu się otwierają. Montujemy na nich elektrozaczep rewersyjny albo przycisk awaryjny ze zwolnieniem z systemu pożarowego. Rozwiązanie uzgadniamy z rzeczoznawcą ds. zabezpieczeń ppoż.',
     },
   },
 
