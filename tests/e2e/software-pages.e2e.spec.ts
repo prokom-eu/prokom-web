@@ -10,54 +10,64 @@ const HOST = 'software.localhost'
 /** Wider than the window = horizontal scroll of the page (MOBILE-APLIKACJA §5 pkt 1). */
 const pageWidth = (page: Page) => page.evaluate(() => document.scrollingElement!.scrollWidth)
 
-test.describe('Software /dziekujemy', () => {
-  test('number, „Co dalej”, three cards, noindex, no CTA band', async ({ page }) => {
+test.describe('Software /dziekujemy (v24)', () => {
+  test('number, H1, three steps, buttons with the phone, noindex, no CTA band', async ({
+    page,
+  }) => {
     await page.goto(site(HOST, '/dziekujemy?nr=PKS-2026-0145'))
-    await expect(page.locator('h1')).toHaveText('Dziękujemy, mamy to.')
+    await expect(page.locator('h1')).toHaveText(
+      'Dziękujemy. Odezwiemy się w ciągu 1 dnia roboczego.',
+    )
     await expect(page.getByTestId('inquiry-number')).toHaveText('PKS-2026-0145')
-    await expect(page.getByRole('heading', { name: 'Co dalej' })).toBeVisible()
-    await expect(page.getByText('W ciągu 1 dnia roboczego')).toBeVisible()
-    await expect(
-      page.locator('main').getByRole('link', { name: /Podglądy do klikania/ }),
-    ).toHaveAttribute('href', '/#podglady')
-    await expect(
-      page.locator('main').getByRole('link', { name: /Aktualności i poradnik/ }),
-    ).toBeVisible()
+    const steps = page.locator('main ol li')
+    await expect(steps).toHaveCount(3)
+    await expect(steps.first()).toContainText('Odpowiadamy')
+    const main = page.locator('main')
+    await expect(main.getByRole('link', { name: /Zobacz podglądy/ })).toHaveAttribute(
+      'href',
+      '/#podglady',
+    )
+    await expect(main.locator('a[href^="tel:"]')).toBeVisible()
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
     await expect(page.locator('[data-footer-cta]')).toBeHidden()
-    await expect(page.locator('main')).not.toContainText('KSeF')
+  })
+
+  test('without a valid number there is no pill, the page still stands', async ({ page }) => {
+    await page.goto(site(HOST, '/dziekujemy?nr=<b>x</b>'))
+    await expect(page.getByTestId('inquiry-number')).toHaveCount(0)
+    await expect(page.locator('h1')).toContainText('Dziękujemy.')
   })
 })
 
-test.describe('Software 404', () => {
-  test('status 404 inside the frame: search, popular, wizard card, 6 tiles', async ({ page }) => {
+test.describe('Software 404 (v24)', () => {
+  test('status 404 inside the frame: planet, search field, six tiles, home and phone', async ({
+    page,
+  }) => {
     const response = await page.goto(site(HOST, '/nie-ma-takiej-strony'))
     expect(response?.status()).toBe(404)
-    await expect(page.locator('h1')).toHaveText('Tej strony tu nie ma. Reszta jest.')
+    await expect(page.locator('h1')).toHaveText('Tej strony tu nie ma.')
     await expect(page.locator('header')).toBeVisible()
-    const search = page.getByRole('search')
-    await expect(search.getByRole('button', { name: 'Szukaj' })).toBeVisible()
-    await expect(
-      page.locator('main').getByRole('link', { name: /Uruchom kreator/ }),
-    ).toHaveAttribute('href', '/dobierz')
-    await expect(
-      page.locator('main').getByRole('link', { name: /Nie wiesz, czego szukać/ }),
-    ).toContainText('4 krótkie kroki')
-    const places = page.locator('section', {
-      has: page.getByRole('heading', { name: 'Dokąd chcesz pójść?' }),
-    })
-    const tiles = places.getByRole('list').first()
+    const tiles = page.locator('main ul').first()
     await expect(tiles.getByRole('listitem')).toHaveCount(6)
-    // Tile prices come from the solutions (`{cena:<slug>}`), never a raw template.
-    await expect(tiles).toContainText(/od 999\szł netto/)
-    await expect(tiles).not.toContainText('{cena')
+    await expect(tiles.getByRole('link', { name: /Kreator 60 s/ })).toHaveAttribute(
+      'href',
+      '/dobierz',
+    )
+    // Facts are filled, never a raw template.
+    await expect(tiles).not.toContainText(/\[|\{cena/)
+    const main = page.locator('main')
+    await expect(main.getByRole('link', { name: /Strona główna/ })).toHaveAttribute('href', '/')
+    await expect(main.locator('a[href^="tel:"]')).toContainText('Zadzwoń:')
+    await expect(page.locator('[data-footer-cta]')).toBeHidden()
   })
 
-  test('the search opens the catalog with the query', async ({ page }) => {
+  test('the search field opens the search window', async ({ page }) => {
     await page.goto(site(HOST, '/nie-ma-takiej-strony'))
-    await page.getByRole('search').getByRole('searchbox').fill('pensjonat')
-    await page.getByRole('search').getByRole('button', { name: 'Szukaj' }).click()
-    await expect(page).toHaveURL(/\/rozwiazania\?q=pensjonat$/)
+    await page
+      .locator('main')
+      .getByRole('button', { name: /Czego szukasz/ })
+      .click()
+    await expect(page.getByRole('dialog')).toBeVisible()
   })
 
   test('another line keeps its own 404, not the Software one', async ({ page }) => {
@@ -139,6 +149,18 @@ test.describe('Software /mapa-strony', () => {
     await expect(main.locator('a[href^="/rozwiazania/"]').first()).toBeVisible()
     await expect(main.locator('a[href="/dziekujemy"]')).toHaveCount(0)
   })
+})
+
+test.describe('Software forms: the consent clause links the policy (ZMIANY-v24 §11)', () => {
+  // The wizard shows its consent only on the last step (`WizardSend`, same clause and link).
+  for (const path of ['/', '/kontakt', '/audyt']) {
+    test(`${path} form`, async ({ page }) => {
+      await page.goto(site(HOST, path))
+      const consent = page.locator('form input[type="checkbox"]').first()
+      await consent.scrollIntoViewIfNeeded()
+      await expect(page.locator('form a[href="/polityka-prywatnosci"]').first()).toBeVisible()
+    })
+  }
 })
 
 test.describe('Software system pages on the phone', () => {

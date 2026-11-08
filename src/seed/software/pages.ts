@@ -1,113 +1,52 @@
 import type { SoftwareNotFound, SoftwareThanks } from '../../lib/software/pages'
 
 /**
- * Start texts of `/dziekujemy` from the board `Dziekujemy` (the package has no JSON for it,
- * ADR-014 doprecyzowania SW2a 9). Numbers are facts: `[CZAS ODPOWIEDZI]`, `[DNI]`, `[GODZINY]`.
- * The lead leaves out the board's „Potwierdzenie … wysłaliśmy na podany adres e-mail”: e-mail
- * is optional in the forms, so the sentence would not always be true. No KSeF (ZMIANY-v21 §10.4).
+ * Start texts of `/dziekujemy` from the board `AU-dziekujemy` (TRESCI-v24). The response time is
+ * the fact `[CZAS ODPOWIEDZI]`; the phone button takes the line's number from the settings.
  */
 export const SOFTWARE_THANKS: SoftwareThanks = {
-  title: 'Dziękujemy,',
-  titleAccent: 'mamy to.',
-  lead: 'Twoja wiadomość trafiła prosto do PRO-KOM Software. Przeczyta ją osoba, która potem buduje Twoją stronę albo system.',
-  numberLabel: 'Zgłoszenie',
-  stepsTitle: 'Co dalej',
+  numberLabel: 'Zgłoszenie przyjęte · nr',
+  title: 'Dziękujemy.',
+  titleAccent: 'Odezwiemy się w ciągu [CZAS ODPOWIEDZI].',
+  // TRESCI-v24 promises a copy by e-mail; it goes only when the visitor gave an address
+  // (`lib/inquiry/emails.ts`), so the sentence says so.
+  lead: 'Jeśli podałeś e-mail, wysłaliśmy na niego kopię zgłoszenia. Pilna sprawa? Zadzwoń i podaj numer zgłoszenia.',
   steps: [
-    '**W ciągu [CZAS ODPOWIEDZI]** oddzwonimy albo odpiszemy, jak wolisz. Dopytamy o szczegóły.',
-    '**Krótka rozmowa, 30 minut**: u Ciebie, w salonie w Rabce albo online. Pokażesz, jak dziś pracujesz.',
-    '**Podgląd do klikania i wycena w [DNI] dni**, ważna 30 dni. Decydujesz Ty, bez zobowiązań.',
+    {
+      title: 'Odpowiadamy',
+      text: 'Oddzwonimy albo odpiszemy — jak wolisz. Dopytamy o to, czego brakuje.',
+    },
+    {
+      title: 'Rozmowa 30 min',
+      text: 'Telefon, wideo albo kawa w Rabce. Bezpłatnie, bez zobowiązań.',
+    },
+    { title: 'Podgląd i wycena', text: 'Szkic do klikania, zakres, cena i termin na piśmie.' },
   ],
-  urgent: 'Pilna sprawa? Zadzwoń:',
-  hours: '[GODZINY]',
-  more: {
-    eyebrow: 'Zanim się odezwiemy',
-    title: 'Zobacz, jak to wygląda u innych',
-    cards: [
-      {
-        title: 'Podglądy do klikania',
-        text: 'Przykładowe strony i panele, które możesz przeklikać na telefonie, zanim cokolwiek zamówisz.',
-        cta: 'Otwórz podglądy →',
-        href: '/#podglady',
-        icon: 'monitor',
-      },
-      {
-        title: 'Aktualności i poradnik',
-        text: 'Ile kosztuje strona, kiedy Excel przestaje wystarczać, WordPress czy strona od podstaw. Bez żargonu.',
-        cta: 'Czytaj poradnik →',
-        href: '/aktualnosci',
-        icon: 'doc',
-      },
-      {
-        title: 'Wróć na stronę główną',
-        text: 'Dorzuć do zgłoszenia kolejne rozwiązania przyciskiem „+ Dodaj do wyceny”, wycenimy całość naraz.',
-        cta: 'Strona główna →',
-        href: '/',
-        icon: 'home',
-      },
-    ],
-  },
+  actions: [
+    { label: 'Zobacz podglądy →', href: '/#podglady' },
+    { label: 'Poczytaj w Aktualnościach', href: '/aktualnosci' },
+  ],
 }
 
 /**
- * Start texts of the Software 404 from the board `NieZnaleziono`. Tile prices come from
- * `Solutions` (`{cena:<slug>}`): the cheapest website and system of the package.
+ * Start texts of the Software 404 from the board `AU-404` (TRESCI-v24). The offer tile says
+ * „rozwiązania z ceną i terminem” instead of the board's count (it would go stale); the contact
+ * tile shows the line's phone (`[TELEFON]`). Prices, if a tile names one, only as `{cena:<slug>}`.
  */
 export const SOFTWARE_NOT_FOUND: SoftwareNotFound = {
-  title: 'Tej strony tu nie ma.',
-  titleAccent: 'Reszta jest.',
-  lead: 'Adres mógł się zmienić albo w linku wkradła się literówka. Wpisz, czego szukasz, albo wybierz jedno z miejsc poniżej.',
-  search: {
-    label: 'np. zlecenia, pensjonat, sklep',
-    button: 'Szukaj',
-    popularLabel: 'Często szukane:',
-  },
-  wizard: {
-    title: 'Nie wiesz, czego szukać?',
-    text: 'Kreator dobierze rozwiązanie w 60 sekund: 4 krótkie kroki i cena od razu.',
-    cta: 'Uruchom kreator →',
-    href: '/dobierz',
-    icon: 'flash',
-  },
-  places: {
-    eyebrow: 'Popularne miejsca',
-    title: 'Dokąd chcesz pójść?',
-    tiles: [
-      {
-        title: 'Strony internetowe',
-        note: 'od {cena:strona-wizytowka} netto',
-        href: '/rozwiazania?kategoria=strony',
-        icon: 'site',
-      },
-      {
-        title: 'Systemy i panele',
-        note: 'od {cena:z-excela-do-systemu} netto',
-        href: '/rozwiazania?kategoria=systemy',
-        icon: 'panel',
-      },
-      { title: 'Cennik', note: 'ceny „od” i terminy', href: '/cennik', icon: 'cash' },
-      {
-        title: 'Podglądy do klikania',
-        note: 'zobacz, zanim zamówisz',
-        href: '/#podglady',
-        icon: 'monitor',
-      },
-      {
-        title: 'Darmowy audyt strony',
-        note: 'wynik w ciągu [CZAS]',
-        href: '/audyt',
-        icon: 'search',
-      },
-      {
-        title: 'Kontakt',
-        note: 'odpowiedź w ciągu [CZAS ODPOWIEDZI]',
-        href: '/kontakt',
-        icon: 'chat',
-      },
-    ],
-  },
-  brokenLink: {
-    text: 'Link na naszej stronie prowadzi donikąd? Daj znać, poprawimy go.',
-    cta: 'Zgłoś błędny link',
-    href: '/kontakt',
-  },
+  eyebrow: 'Błąd 404',
+  title: 'Tej strony',
+  titleAccent: 'tu nie ma.',
+  lead: 'Adres mógł się zmienić albo wkradła się literówka. Wszystko inne działa — wyszukaj albo wybierz, dokąd chcesz przejść.',
+  search: 'Czego szukasz? Np. „strona wizytówka”',
+  tiles: [
+    { title: 'Oferta', note: 'rozwiązania z ceną i terminem', href: '/rozwiazania', icon: 'grid' },
+    { title: 'Kreator 60 s', note: 'cena i termin od razu', href: '/dobierz', icon: 'flash' },
+    { title: 'Darmowy audyt', note: 'raport w ciągu [CZAS]', href: '/audyt', icon: 'search' },
+    { title: 'Podglądy', note: 'kliknij przykładowe strony', href: '/#podglady', icon: 'monitor' },
+    { title: 'Aktualności', note: 'poradniki i nowości', href: '/aktualnosci', icon: 'doc' },
+    { title: 'Kontakt', note: '[TELEFON]', href: '/kontakt', icon: 'phone' },
+  ],
+  home: 'Strona główna →',
+  call: 'Zadzwoń:',
 }

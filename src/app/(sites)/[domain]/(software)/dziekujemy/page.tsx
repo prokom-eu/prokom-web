@@ -2,17 +2,12 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { Container } from '@/components/ui/Container'
-import { cx } from '@/components/ui/cx'
-import { Icon } from '@/components/ui/Icon'
 import { getSiteSettings } from '@/lib/site/data'
-import { splitBold } from '@/lib/site/emphasis'
 import { toTelHref } from '@/lib/site/link'
 import { getSoftwareThanks } from '@/lib/software/data'
 import { fillText } from '@/lib/software/facts'
 import { inquiryNumberParam } from '@/lib/software/pages'
-import { Breadcrumbs } from '@/sites/software/components/Breadcrumbs'
-import { SectionHead } from '@/sites/software/components/home/SectionHead'
+import { Glass } from '@/sites/software/components/ui/Glass'
 import { softwareTextContext } from '@/sites/software/components/textContext'
 
 import { requireLine } from '../../tenant'
@@ -30,22 +25,13 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 }
 
-function Bold({ text }: { text: string }) {
-  return splitBold(text).map((part, index) =>
-    part.bold ? (
-      <strong key={index} className="text-ink">
-        {part.text}
-      </strong>
-    ) : (
-      <span key={index}>{part.text}</span>
-    ),
-  )
-}
+const pad = (n: number) => String(n).padStart(2, '0')
 
 /**
- * `/dziekujemy?nr=PKS-…` — board `Dziekujemy` (spec. §6.11): a card with the number, the H1 and
- * „Co dalej”, then three cards „W tym czasie…”. Texts from `SoftwareSettings.thanks` with facts
- * and prices filled; no CTA band, no e-mail sentence, no KSeF (ZMIANY-v21 §9, §10.4).
+ * `/dziekujemy?nr=PKS-…` — board `AU-dziekujemy` (ZMIANY-v24 §9.7): the cosmic layer, a check
+ * mark drawing itself (reduced motion: drawn at once), the number pill, H1, three step cards and
+ * the buttons with the line's phone last. Texts from `SoftwareSettings.thanks`, facts filled. No
+ * CTA band; `noindex`.
  */
 export default async function ThanksPage({ params, searchParams }: Props) {
   // The layout already guards; repeated here so the page never renders on its own.
@@ -60,138 +46,78 @@ export default async function ThanksPage({ params, searchParams }: Props) {
 
   const fill = (value: string | undefined) => fillText(value, context)
   const number = inquiryNumberParam(query.nr)
-  const steps = thanks.steps.map(fill).filter((step): step is string => Boolean(step))
-  const tel = settings?.phone ? toTelHref(settings.phone) : null
-  const hours = fill(thanks.hours)
+  const phone = settings?.phone ?? null
+  const tel = phone ? toTelHref(phone) : null
   // On production a text with a missing fact is `null`: the element goes, the page keeps an H1.
   const title = fill(thanks.title) ?? TITLE
   const accent = fill(thanks.titleAccent)
   const lead = fill(thanks.lead)
-  const stepsTitle = fill(thanks.stepsTitle)
-  const urgent = fill(thanks.urgent)
-  const cards = thanks.more.cards.flatMap((card) => {
-    const text = fill(card.text)
-    return text ? [{ ...card, text }] : []
+  const steps = thanks.steps.flatMap((step) => {
+    const text = fill(step.text)
+    return text ? [{ title: step.title, text }] : []
   })
 
   return (
     // `data-final-cta`: no CTA band after a sent inquiry (spec. §3.4, SWR2).
     <div data-final-cta>
-      <section className="pt-6 min-[641px]:pt-10">
-        <Container wide>
-          <Breadcrumbs current={TITLE} />
-          <div className="mt-3 grid gap-6 rounded-[28px] border border-border bg-card p-[18px] shadow-raised min-[641px]:p-8 min-[1081px]:grid-cols-[minmax(0,1fr)_minmax(0,480px)] min-[1081px]:items-center min-[1081px]:gap-10 min-[1081px]:p-11">
-            <div>
-              <span
-                aria-hidden="true"
-                className="grid size-[60px] place-items-center rounded-full bg-ok text-white ring-[10px] ring-ok/15 min-[641px]:size-[68px]"
+      <section className="sw-sys sw-thx">
+        <div className="hx-cos" aria-hidden="true">
+          <div className="s1" />
+          <div className="s2" />
+        </div>
+        <div className="v-wrap sw-sys-in">
+          <div className="sw-okc" aria-hidden="true">
+            <svg viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="36" />
+              <path d="M24 41l11 11 21-23" />
+            </svg>
+          </div>
+          {number ? (
+            <p className="sw-eyebrow sw-sys-eb">
+              {thanks.numberLabel}&nbsp;<span data-testid="inquiry-number">{number}</span>
+            </p>
+          ) : null}
+          <h1 className="sw-h1-page">
+            {title}
+            {accent ? (
+              <>
+                {' '}
+                <em className="sw-em-hero">{accent}</em>
+              </>
+            ) : null}
+          </h1>
+          {lead ? <p className="sw-sys-lead">{lead}</p> : null}
+          {steps.length > 0 ? (
+            <ol className="sw-thx-steps">
+              {steps.map((step, index) => (
+                <Glass as="li" key={step.title}>
+                  <span className="sw-ln" aria-hidden="true">
+                    {pad(index + 1)}
+                  </span>
+                  <h2>{step.title}</h2>
+                  <p>{step.text}</p>
+                </Glass>
+              ))}
+            </ol>
+          ) : null}
+          <div className="sw-sys-actions">
+            {thanks.actions.map((action, index) => (
+              <Link
+                key={action.href}
+                href={action.href}
+                className={index === 0 ? 'sw-sys-btn sw-sys-btn-main' : 'sw-sys-btn'}
               >
-                <Icon name="check" strokeWidth={2.6} className="size-7" />
-              </span>
-              {number ? (
-                <p className="mt-5 inline-flex rounded-full border border-accent-line bg-accent-soft px-3.5 py-1.5 text-sm font-extrabold text-accent-text">
-                  {thanks.numberLabel}&nbsp;<span data-testid="inquiry-number">{number}</span>
-                </p>
-              ) : null}
-              <h1 className="mt-4 font-display text-[40px] font-extrabold leading-[1.02] tracking-tight min-[641px]:text-[clamp(44px,5vw,64px)]">
-                {title}
-                {accent ? (
-                  <>
-                    {' '}
-                    <span className="text-grad-h1">{accent}</span>
-                  </>
-                ) : null}
-              </h1>
-              {lead ? (
-                <p className="mt-4 max-w-[52ch] text-lg text-ink-2 min-[641px]:text-xl">{lead}</p>
-              ) : null}
-            </div>
-            {stepsTitle && steps.length > 0 ? (
-              <div className="rounded-[22px] bg-surface-2 p-[18px] min-[641px]:p-6">
-                <h2 className="text-xs font-extrabold uppercase tracking-[0.14em] text-ink-2">
-                  {stepsTitle}
-                </h2>
-                <ol className="mt-4 flex flex-col gap-4">
-                  {steps.map((step, index) => (
-                    <li key={index} className="flex gap-3 text-ink-2">
-                      <span
-                        aria-hidden="true"
-                        className="grid size-7 shrink-0 place-items-center rounded-full bg-accent text-sm font-extrabold text-accent-ink"
-                      >
-                        {index + 1}
-                      </span>
-                      <span>
-                        <Bold text={step} />
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-                {tel && urgent && settings?.phone ? (
-                  <p className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1 border-t border-border pt-4">
-                    <Icon name="phone" className="size-4 self-center text-accent-text" />
-                    <span>{urgent}</span>
-                    <a
-                      href={tel}
-                      className="inline-flex min-h-11 items-center font-extrabold underline-offset-4 hover:underline"
-                    >
-                      {settings.phone}
-                    </a>
-                    {hours ? (
-                      <span className="basis-full pl-6 text-sm text-ink-2">{hours}</span>
-                    ) : null}
-                  </p>
-                ) : null}
-              </div>
+                {action.label}
+              </Link>
+            ))}
+            {tel ? (
+              <a href={tel} className="sw-sys-btn">
+                {phone}
+              </a>
             ) : null}
           </div>
-        </Container>
+        </div>
       </section>
-
-      {cards.length > 0 ? (
-        <section className="py-14 min-[641px]:py-20">
-          <Container wide>
-            <SectionHead eyebrow={thanks.more.eyebrow} title={thanks.more.title} lead={null} />
-            <ul className="mt-6 grid gap-3 min-[761px]:grid-cols-3">
-              {cards.map((card, index) => {
-                const strong = index === 0
-                return (
-                  <li key={`${index}-${card.href}`}>
-                    <Link
-                      href={card.href}
-                      className={cx(
-                        'flex h-full flex-col gap-3 rounded-[24px] p-[22px] transition-transform active:scale-[0.99]',
-                        strong ? 'bg-cta text-white shadow-raised' : 'border border-border bg-card',
-                      )}
-                    >
-                      {card.icon ? (
-                        <span
-                          aria-hidden="true"
-                          className={cx(
-                            'grid size-12 place-items-center rounded-[14px]',
-                            strong ? 'bg-white/16' : 'bg-accent-soft text-accent-text',
-                          )}
-                        >
-                          <Icon name={card.icon} className="size-5" />
-                        </span>
-                      ) : null}
-                      <h3 className="mt-2 font-display text-xl font-extrabold">{card.title}</h3>
-                      <p className={strong ? 'text-white/90' : 'text-ink-2'}>{card.text}</p>
-                      <span
-                        className={cx(
-                          'mt-auto pt-2 font-extrabold',
-                          strong ? 'text-white' : 'text-accent-text',
-                        )}
-                      >
-                        {card.cta}
-                      </span>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-          </Container>
-        </section>
-      ) : null}
     </div>
   )
 }
