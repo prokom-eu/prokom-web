@@ -206,10 +206,8 @@ test.describe('menu sheet „Szukaj” on a phone (390 px)', () => {
     }) => {
       await page.goto(site(host, path))
       const sheet = page.getByRole('dialog', { name: 'Menu' })
-      await clickUntilVisible(
-        page.locator('[data-site-header]').getByRole('button', { name: 'Menu' }).first(),
-        sheet,
-      )
+      const menu = page.locator('[data-site-header]').getByRole('button', { name: 'Menu' })
+      await clickUntilVisible(menu, sheet)
       await sheet.getByRole('button', { name: label }).click()
       await expect(sheet).toBeHidden()
       const search = page.locator('dialog[open]')
@@ -217,6 +215,7 @@ test.describe('menu sheet „Szukaj” on a phone (390 px)', () => {
       await expect(search.getByRole('searchbox')).toBeFocused()
       await page.keyboard.press('Escape')
       await expect(page.locator('dialog[open]')).toHaveCount(0)
+      await expect(menu).toBeFocused()
     })
   }
 })

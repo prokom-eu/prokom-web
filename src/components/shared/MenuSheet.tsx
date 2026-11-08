@@ -71,10 +71,11 @@ function ThemeChoiceSwitch() {
 }
 
 /**
- * Menu sheet of every line on the phone (spec §5 `MenuSheet`, board Telefon): the „Szukaj” button
- * (lines with a search window), the line's own list as a slot, then the shared part — contact card (status, number, „Zadzwoń”), chips of the PRO-KOM
- * lines (with Gaming) and the theme switch. On the shared `BottomSheet` (`<dialog>`: focus kept
- * inside, Esc, a drag down or the backdrop closes it); opened by `requestMenu()`.
+ * Menu sheet of every line on the phone (spec §5 `MenuSheet`, board Telefon): the „Szukaj”
+ * button (lines with a search window), the line's own list as a slot, then the shared part —
+ * contact card (status, number, „Zadzwoń”), chips of the PRO-KOM lines (with Gaming) and the
+ * theme switch. On the shared `BottomSheet` (`<dialog>`: focus kept inside, Esc, a drag down or
+ * the backdrop closes it); opened by `requestMenu()`.
  */
 export function MenuSheet({
   children,
@@ -118,7 +119,7 @@ export function MenuSheet({
               searchNext.current = true
               setOpen(false)
             }}
-            className="flex min-h-12 w-full items-center gap-3 rounded-2xl bg-surface-2 px-4 text-left font-bold text-ink-2 shadow-[inset_0_0_0_1px_var(--border)] focus-visible:outline-2 focus-visible:outline-accent-text"
+            className="flex min-h-12 w-full items-center gap-3 rounded-2xl bg-surface-2 px-4 text-left font-bold text-ink-2 shadow-[inset_0_0_0_1px_var(--border)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text"
             data-menu-search
           >
             <Icon name="search" className="size-[18px]" />
