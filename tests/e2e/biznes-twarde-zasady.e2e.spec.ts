@@ -27,6 +27,7 @@ test.describe('Biznes — twarde zasady (paczka 0611)', () => {
 
   for (const width of [360, 390]) {
     test(`bundle pages fit ${width} px without scrolling sideways`, async ({ page }) => {
+      test.slow() // every ready bundle page, one after another
       await page.setViewportSize({ width, height: 800 })
       await page.goto(site('biznes.localhost', '/zestawy'))
       const hrefs = await page

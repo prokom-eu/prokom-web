@@ -126,20 +126,31 @@ export async function seedBiznesK4Pages(
       report,
     )
     if (!done) note('strona K4 edytowana w panelu — bez zmian', slug)
-    if (done && slug === 'gopos') await upgradeStoredGopos(payload, tenantId, built.layout, report)
-    if (done && slug === 'opieka-it') {
-      await upgradeStoredPage(payload, tenantId, slug, upgradeCareIcons, built.layout, report)
-    }
+    const upgrade = done ? STORED_UPGRADES[slug] : undefined
+    if (upgrade) await upgradeStoredPage(payload, tenantId, slug, ...upgrade, built.layout, report)
   }
+}
+
+/** Pages whose stored copy gets an upgrade from the seed: slug → [report label, upgrade]. */
+const STORED_UPGRADES: Record<
+  string,
+  [string, (stored: PageBlock[], seed: PageBlock[]) => PageBlock[] | null]
+> = {
+  gopos: ['photos', upgradeGoposPhotos],
+  'opieka-it': ['icons', upgradeCareIcons],
 }
 
 const SEED_LOCAL = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
 
-/** D13: the area icons of `/opieka-it` on a page the seed created before (`upgradeCareIcons`). */
+/**
+ * An upgrade of a page the seed created before (the seed never overwrites a stored page):
+ * POPRAWKI-0311 GoPOS photos (`upgradeGoposPhotos`), D13 `/opieka-it` icons (`upgradeCareIcons`).
+ */
 async function upgradeStoredPage(
   payload: Payload,
   tenantId: number,
   slug: string,
+  what: string,
   upgrade: (stored: PageBlock[], seed: PageBlock[]) => PageBlock[] | null,
   seed: PageBlock[],
   report: Report,
@@ -153,33 +164,7 @@ async function upgradeStoredPage(
     ...SEED_LOCAL,
   })
   const layout = page && upgrade(page.layout ?? [], seed)
-  report(`pages ${slug} icons`, Boolean(layout))
-  if (!page || !layout) return
-  await payload.update({
-    collection: 'pages',
-    id: page.id,
-    data: { layout, _status: page._status ?? 'published' },
-    ...SEED_LOCAL,
-  })
-}
-
-/** POPRAWKI-0311: the GoPOS photos on a page the seed created before (`upgradeGoposPhotos`). */
-async function upgradeStoredGopos(
-  payload: Payload,
-  tenantId: number,
-  seed: PageBlock[],
-  report: Report,
-): Promise<void> {
-  const {
-    docs: [page],
-  } = await payload.find({
-    collection: 'pages',
-    where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: 'gopos' } }] },
-    limit: 1,
-    ...SEED_LOCAL,
-  })
-  const layout = page && upgradeGoposPhotos(page.layout ?? [], seed)
-  report('pages gopos photos', Boolean(layout))
+  report(`pages ${slug} ${what}`, Boolean(layout))
   if (!page || !layout) return
   await payload.update({
     collection: 'pages',

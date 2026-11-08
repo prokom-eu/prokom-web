@@ -15,7 +15,8 @@ export function hardSpaces(text: string): string {
 /**
  * Keys that hold an SVG path `d` in the K4 data: a hard space there is not a separator, so the
  * browser drops the icon (D13, `/opieka-it`). Matched by key, not by value: texts like „24 h”
- * look like a path too.
+ * look like a path too. `ic` and `ikona` (raw package keys) are a guard: today the seed renames
+ * them to `iconPath` before this runs.
  */
 const SVG_PATH_KEYS = new Set(['iconPath', 'ic', 'ikona'])
 
