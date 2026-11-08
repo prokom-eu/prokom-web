@@ -73,6 +73,8 @@ const VISIBLE_CATEGORIES = 6
 const VISIBLE_CATEGORIES_PHONE = 4
 
 function DepartmentCard({ group, phone = false }: { group: Department; phone?: boolean }) {
+  // Product pictures of the department (audit 0611 P0.5): their `alt` from the panel's image,
+  // which the seed fills with the product name (`seed/biznes/map.ts`, not always with the brand).
   const [big, small] = group.showcase?.images ?? []
   const statuses = group.showcase?.statuses ?? []
   return (
@@ -99,7 +101,7 @@ function DepartmentCard({ group, phone = false }: { group: Department; phone?: b
             {small && (
               <Image
                 src={small.url}
-                alt=""
+                alt={small.alt}
                 width={small.width}
                 height={small.height}
                 unoptimized
@@ -109,7 +111,7 @@ function DepartmentCard({ group, phone = false }: { group: Department; phone?: b
             {big && (
               <Image
                 src={big.url}
-                alt=""
+                alt={big.alt}
                 width={big.width}
                 height={big.height}
                 unoptimized
@@ -263,19 +265,26 @@ export async function BzOfferBlock({ block, tenantId }: Props) {
                 </li>
               ))}
             </ul>
-            <div className="mt-10 grid gap-4 max-md:hidden min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
+            {/* P3: the cards rise in one by one (`data-reveal-cards`, motion.css §3); the search
+                island sits in its own box, so the observer never marks a lazy root. */}
+            <div
+              data-reveal-cards=""
+              className="mt-10 grid gap-4 max-md:hidden min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3"
+            >
               {departments.map((group) => (
                 <div key={group.slug} className="flex [&>article]:flex-1">
                   <DepartmentCard group={group} />
                 </div>
               ))}
               {block.searchHeading && (
-                <SearchTile
-                  eyebrow={block.searchEyebrow ?? null}
-                  heading={block.searchHeading}
-                  searchLabel={`Szukaj w ${counts.products} ${plural(counts.products, ['pozycji', 'pozycjach', 'pozycjach'])}`}
-                  popular={index.search.popular}
-                />
+                <div className="flex [&>article]:flex-1">
+                  <SearchTile
+                    eyebrow={block.searchEyebrow ?? null}
+                    heading={block.searchHeading}
+                    searchLabel={`Szukaj w ${counts.products} ${plural(counts.products, ['pozycji', 'pozycjach', 'pozycjach'])}`}
+                    popular={index.search.popular}
+                  />
+                </div>
               )}
             </div>
           </>
@@ -294,7 +303,7 @@ export async function BzOfferBlock({ block, tenantId }: Props) {
                 {block.systemsNote && <p className="text-[15px] text-ink-3">{block.systemsNote}</p>}
               </div>
             )}
-            <div className="grid gap-4 min-[1080px]:grid-cols-3">
+            <div data-reveal-cards="" className="grid gap-4 min-[1080px]:grid-cols-3">
               {systems.map((system, i) => (
                 <SystemCard
                   key={system.id ?? i}

@@ -10,6 +10,9 @@ import { departmentRows, menuOrder, ROW_WIDE } from './order'
 
 export const CATALOG_PATH = '/oferta'
 
+/** Search words in the catalog address (`/oferta?szukaj=…`); also the home's `SearchAction`. */
+export const CATALOG_QUERY_PARAM = 'szukaj'
+
 /** Page of all brands (K33 §6). */
 export const BRANDS_PATH = '/marki'
 
@@ -81,7 +84,7 @@ const VIEW_LIST_PARAM = 'lista'
 const FLAG_ON = '1'
 
 const PARAM = {
-  query: 'szukaj',
+  query: CATALOG_QUERY_PARAM,
   kind: 'rodzaj',
   group: 'grupa',
   categories: 'kategoria',

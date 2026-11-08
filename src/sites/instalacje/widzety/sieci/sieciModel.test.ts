@@ -109,7 +109,7 @@ describe('coverage map', () => {
 /** Runda v6 §2 (INST-6): prototype texts rewritten in `dane/sieci.ts` (no „X, a nie Y”). */
 const REWRITTEN: Readonly<Record<string, string>> = {
   'Przez jedną taką ścianę jeszcze działa, przez dwie już słabo. W pensjonacie to argument za punktem w pokoju, a nie w korytarzu.':
-    sieci.lab.walls.texts.weak,
+    'Przez jedną taką ścianę jeszcze działa, przez dwie już słabo. Dlatego w pensjonacie punkt Wi-Fi montujemy w pokoju zamiast na korytarzu.',
 }
 
 describe('„Sprawdź sam”', () => {

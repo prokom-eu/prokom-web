@@ -28,10 +28,10 @@ import { OfferGallery } from './OfferGallery'
 
 /**
  * Phone ≤ 640 px: a sheet from the bottom; above: a wide glass modal in the middle (ZMIANY-v24
- * §6.1, AUDYT-0811 #5: up to 1320 × 880, radius 28, the page dimmed and blurred behind).
+ * §6.1, AUDYT-0811 #5, odbiór 08.11: up to 1480 × 920, radius 28, the page dimmed and blurred behind).
  */
 const PANEL =
-  'sw-offer-panel inset-0 m-auto h-[min(880px,calc(100dvh-48px))] max-h-none w-[min(1320px,calc(100vw-64px))] max-w-none rounded-[28px] min-[641px]:[&_[data-sheet-handle]]:hidden max-[640px]:inset-x-0 max-[640px]:bottom-0 max-[640px]:top-auto max-[640px]:h-auto max-[640px]:max-h-[94dvh] max-[640px]:w-full max-[640px]:rounded-b-none'
+  'sw-offer-panel inset-0 m-auto h-[min(920px,calc(100dvh-40px))] max-h-none w-[min(1480px,calc(100vw-48px))] max-w-none rounded-[28px] min-[641px]:[&_[data-sheet-handle]]:hidden max-[640px]:inset-x-0 max-[640px]:bottom-0 max-[640px]:top-auto max-[640px]:h-auto max-[640px]:max-h-[94dvh] max-[640px]:w-full max-[640px]:rounded-b-none'
 const BACKDROP = 'backdrop:bg-surface-dark/70 backdrop:backdrop-blur-md'
 const CONTENT = 'px-4 pb-6 pt-2.5 min-[641px]:px-7 min-[641px]:pt-0'
 

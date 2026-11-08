@@ -74,6 +74,7 @@ export async function BzNewsHomeBlock({
         <ul
           className="grid gap-3.5 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3"
           data-news-home
+          data-reveal-cards=""
         >
           {own.map((post, position) => (
             <li key={post.slug} className="flex">

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { COUNT_MS, countAt, countStart, parseCount } from './countUp'
+import { COUNT_MS, countAt, countStart, countsUp, parseCount } from './countUp'
 
 // SWV7: „PRO-KOM w liczbach” counts up once, 900 ms, ease-out.
 
@@ -25,5 +25,23 @@ describe('countAt', () => {
   it('counts a year only over its last years', () => {
     expect(countStart(2004)).toBe(1984)
     expect(countAt(2004, 0)).toBe(1984)
+  })
+})
+
+describe('countsUp (audit 0611 P3: „O firmie”)', () => {
+  it('counts figures of 10 and more', () => {
+    expect(countsUp('20+')).toBe(true)
+    expect(countsUp('300')).toBe(true)
+    expect(countsUp('10')).toBe(true)
+  })
+
+  it('leaves years, small numbers and texts as they are', () => {
+    expect(countsUp('2004')).toBe(false)
+    expect(countsUp('1900')).toBe(false)
+    expect(countsUp('2100')).toBe(false)
+    expect(countsUp('9')).toBe(false)
+    expect(countsUp('2 salony')).toBe(false)
+    expect(countsUp('1 200+')).toBe(false)
+    expect(countsUp('Rabka')).toBe(false)
   })
 })

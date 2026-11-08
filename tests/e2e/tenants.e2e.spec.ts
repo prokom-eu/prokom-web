@@ -11,6 +11,8 @@ const TENANTS = [
   {
     host: 'biznes.localhost',
     name: 'PRO-KOM Biznes',
+    // The start page's SEO title from the seed (B3-3, audit 0611 P0.3a, `src/seed/biznes/home.ts`).
+    title: 'Kasy fiskalne, komputery, opieka IT — Rabka | PRO-KOM Biznes',
     // `\s`: a hard space after „i” (K4-FINAL §1); a regex sees the raw text.
     h1: /^Kasy, komputery i\sprogramy dla firm\./,
     // No one-letter word: the H1 has hard spaces after them (K4-FINAL §1). Not „Kasy, komputery”

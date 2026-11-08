@@ -70,10 +70,16 @@ export function CartDrawer({ phone }: Props) {
   const catalog = useCatalogIndex(open)
   const index = catalog.index
   const titleId = useId()
-  const heading = useRef<HTMLHeadingElement>(null)
+  const heading = useRef<HTMLElement | null>(null)
   // A removed row (or a suggestion that moved onto the list) takes its focused button with it:
   // focus goes to the title, and the count below it is announced (keyboard, spec. §9 pkt 7).
   const focusTitle = () => heading.current?.focus()
+  // Audit 0611 P0.4: the closed drawer stays in the page, so its titles become headings only
+  // while it is open — the page's outline has no „Twoje zapytanie” H2 of a hidden window. The
+  // element itself stays the same (only the role changes): swapping `p` for `h2` on opening
+  // would remount the focusable title right when the dialog places the focus.
+  const headingRole = (level: 2 | 3) =>
+    open ? ({ role: 'heading', 'aria-level': level } as const) : {}
 
   useEffect(
     () =>
@@ -136,14 +142,17 @@ export function CartDrawer({ phone }: Props) {
     >
       <div className="flex items-center justify-between gap-3 border-b border-border px-6 pb-4 pt-5">
         <div>
-          <h2
-            ref={heading}
+          <p
+            {...headingRole(2)}
+            ref={(element: HTMLElement | null) => {
+              heading.current = element
+            }}
             id={titleId}
             tabIndex={-1}
             className="font-display text-xl font-extrabold outline-none"
           >
             Twoje zapytanie ({count})
-          </h2>
+          </p>
           <p className="text-sm text-ink-2" aria-live="polite">
             {count > 0
               ? `${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])} · bez cen, wycena na piśmie`
@@ -303,12 +312,13 @@ export function CartDrawer({ phone }: Props) {
 
             {suggestions.length > 0 && (
               <section aria-labelledby={`${titleId}-sug`} className="px-1 pt-2">
-                <h3
+                <p
+                  {...headingRole(3)}
                   id={`${titleId}-sug`}
                   className="mb-2 px-1 text-xs font-black uppercase tracking-[0.06em] text-ink-3"
                 >
                   Często dobierane razem
-                </h3>
+                </p>
                 <ul className="flex flex-col gap-1">
                   {suggestions.map((product) => (
                     <li key={product.slug} className="flex items-center gap-2 rounded-2xl p-2">
@@ -339,9 +349,13 @@ export function CartDrawer({ phone }: Props) {
               aria-labelledby={`${titleId}-form`}
               className="mt-2 rounded-2xl bg-surface-2 px-4 pt-4 pb-5"
             >
-              <h3 id={`${titleId}-form`} className="mb-3 font-display text-lg font-extrabold">
+              <p
+                {...headingRole(3)}
+                id={`${titleId}-form`}
+                className="mb-3 font-display text-lg font-extrabold"
+              >
                 Dokąd wysłać ofertę?
-              </h3>
+              </p>
               {token.status === 'ready' ? (
                 <ListForm
                   compact

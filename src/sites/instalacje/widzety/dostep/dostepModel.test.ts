@@ -59,7 +59,7 @@ function fresh(): Proto {
 }
 
 /** Runda v6 §2 (INST-6): prototype texts rewritten in `dane/dostep.ts` (no exclamation marks). */
-const REWRITTEN: Readonly<Record<string, string>> = { 'Otwarte · witamy!': dostep.lock.status.ok }
+const REWRITTEN: Readonly<Record<string, string>> = { 'Otwarte · witamy!': 'Otwarte · witamy' }
 
 function expectSame(proto: Proto, state: LockState) {
   const ref = proto.page(P, {}).kd

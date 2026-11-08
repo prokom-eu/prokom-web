@@ -2,10 +2,10 @@
 export const SMART: Readonly<Record<string, string>> = {
   // hero
   'Inteligentny dom i automatyka budynku · Ampio · Podhale': 'Smart home Ampio',
-  'Inteligentny dom, który działa': 'Smart home Ampio na Podhalu, który działa bez internetu',
+  'Inteligentny dom, który działa': 'Smart home Ampio na Podhalu, także bez internetu',
   'także bez internetu.': '',
   'Montujemy polski system Ampio w domach, apartamentach, pensjonatach i firmach. Światło, ogrzewanie, rolety, brama, alarm, kamery i energia w jednej aplikacji i na szklanych panelach. Sceny i czujniki działają lokalnie w budynku.':
-    'Montujemy polski system Ampio w domach, apartamentach, pensjonatach i firmach. Światłem, ogrzewaniem, roletami, bramą, alarmem i kamerami sterujesz z jednej aplikacji i szklanych paneli w ścianie, także gdy nie ma internetu.',
+    'Montujemy polski system Ampio w domach, apartamentach, pensjonatach i firmach. Światłem, ogrzewaniem, roletami, bramą, alarmem i kamerami sterujesz z jednej aplikacji i szklanych paneli w ścianie. W domu działa także bez internetu.',
   // packages
   'Od kilku scen do pełnej automatyki.': 'Ile automatyki potrzebuje mieszkanie, dom i pensjonat',
   'Zakres rośnie razem z potrzebami. System da się rozbudować później.':
