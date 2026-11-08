@@ -15,6 +15,7 @@ import type { SiteTenant } from '@/lib/tenant/byHost'
 import { BzContactBlock } from '@/sites/biznes/blocks/BzContact/Component'
 import { BzAboutPageBlock } from '@/sites/biznes/blocks/BzAboutPage/Component'
 import { BzContactPageBlock } from '@/sites/biznes/blocks/BzContactPage/Component'
+import { BzProcurementPageBlock } from '@/sites/biznes/blocks/BzProcurementPage/Component'
 import { BzLocationBlock } from '@/sites/biznes/blocks/BzLocation/Component'
 import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
@@ -74,6 +75,7 @@ const HERO_BLOCKS = new Set([
   'bzHero',
   'bzContactPage',
   'bzAboutPage',
+  'bzProcurementPage',
   'swHero',
   'swContactPage',
   'swPricing',
@@ -225,6 +227,8 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzContactPageBlock key={key} tenantId={tenant.id} />
           case 'bzAboutPage':
             return <BzAboutPageBlock key={key} tenantId={tenant.id} />
+          case 'bzProcurementPage':
+            return <BzProcurementPageBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzOrderFlow':
             return <BzOrderFlowBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzTimeline':

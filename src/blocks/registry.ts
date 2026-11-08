@@ -18,6 +18,7 @@ import { BzSectionBlock } from '../sites/biznes/blocks/BzSection/config'
 import { BzAboutPageBlock } from '../sites/biznes/blocks/BzAboutPage/config'
 import { BzContactPageBlock } from '../sites/biznes/blocks/BzContactPage/config'
 import { BzLocationBlock } from '../sites/biznes/blocks/BzLocation/config'
+import { BzProcurementPageBlock } from '../sites/biznes/blocks/BzProcurementPage/config'
 import { InstContactBlock } from '../sites/instalacje/blocks/InstContact/config'
 import { InstHomeBlock } from '../sites/instalacje/blocks/InstHome/config'
 import { InstPlannerBlock } from '../sites/instalacje/blocks/InstPlanner/config'
@@ -80,6 +81,8 @@ export const BIZNES_BLOCKS: Block[] = [
   // D3-B PR 2: /kontakt and /o-firmie on the shared templates (plan 0611 §8.2)
   BzContactPageBlock,
   BzAboutPageBlock,
+  // BIZ-2: /agd-rtv-dla-firm and /dostawy-it-dla-firm (ZAOPATRZENIE §2)
+  BzProcurementPageBlock,
 ]
 
 /**
