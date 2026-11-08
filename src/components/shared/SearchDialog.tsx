@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import {
   useCallback,
   useDeferredValue,
@@ -11,6 +11,7 @@ import {
   useRef,
   useState,
   type KeyboardEvent,
+  type ReactNode,
 } from 'react'
 
 import { Icon } from '@/components/ui/Icon'
@@ -22,6 +23,7 @@ import {
   contactWithPhrase,
   type SearchGroup,
   type SearchProvider,
+  type SearchResult,
 } from '@/lib/shared/search/provider'
 import { plural } from '@/lib/plural'
 import { toTelHref } from '@/lib/site/link'
@@ -42,6 +44,12 @@ export type SearchDialogProps = {
   /** Accessible name and the field's label, e.g. „Szukaj na stronie”. */
   label?: string
   placeholder?: string
+  /**
+   * The line's preview of a result (Biznes: photo, brand, status, „Do zapytania”). With it the
+   * window is wider and, from 900 px, shows the preview of the hovered or focused result — the
+   * first one by default — next to the list.
+   */
+  renderPreview?: (result: SearchResult) => ReactNode
 }
 
 /** The focus is in a field: „/” is typed there, not a shortcut. */
@@ -87,6 +95,7 @@ export function SearchDialog({
   phone,
   label = 'Szukaj na stronie',
   placeholder = 'Czego szukasz?',
+  renderPreview,
 }: SearchDialogProps) {
   const dialog = useRef<HTMLDialogElement>(null)
   const input = useRef<HTMLInputElement>(null)
@@ -95,7 +104,9 @@ export function SearchDialog({
   const [status, setStatus] = useState('')
   const [theme, setTheme] = useTheme()
   const pathname = usePathname()
+  const router = useRouter()
   const headingId = useId()
+  const [activeId, setActiveId] = useState<string | null>(null)
 
   const show = useCallback(() => {
     // Another modal (menu sheet, preview) owns the screen.
@@ -140,6 +151,17 @@ export function SearchDialog({
   )
   const matched = useMemo(() => matchActions(actions, trimmed), [actions, trimmed])
   const count = groups.reduce((sum, group) => sum + group.results.length, 0)
+  const results = useMemo(() => groups.flatMap((group) => group.results), [groups])
+  const active = results.find((result) => result.id === activeId) ?? results[0] ?? null
+
+  /** Enter in the field opens the first result, as the hint under the list says. */
+  const openFirst = () => {
+    const first = results[0]
+    if (!first) return
+    close()
+    if (isInternal(first.href)) router.push(first.href)
+    else window.location.assign(first.href)
+  }
 
   const run = (action: PaletteAction) => {
     if (action.kind === 'copy' && action.value) {
@@ -209,7 +231,14 @@ export function SearchDialog({
       <ul>
         {group.results.map((result) => (
           <li key={result.id}>
-            <Link href={result.href} className="sdlg__result" data-result>
+            <Link
+              href={result.href}
+              className="sdlg__result"
+              data-result
+              data-active={renderPreview && active?.id === result.id ? '' : undefined}
+              onFocus={() => setActiveId(result.id)}
+              onMouseEnter={() => setActiveId(result.id)}
+            >
               <span className="sdlg__icon">
                 <Icon name={railIcon(result.icon)} strokeWidth={2} className="size-4" />
               </span>
@@ -233,7 +262,7 @@ export function SearchDialog({
     <dialog
       ref={dialog}
       aria-labelledby={headingId}
-      className="sdlg"
+      className={renderPreview ? 'sdlg sdlg--preview' : 'sdlg'}
       data-search-dialog
       onClose={() => setStatus('')}
       onClick={(event) => {
@@ -267,6 +296,10 @@ export function SearchDialog({
                 event.preventDefault()
                 close()
               }
+              if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
+                event.preventDefault()
+                openFirst()
+              }
             }}
             placeholder={placeholder}
             aria-label={label}
@@ -284,110 +317,117 @@ export function SearchDialog({
           {status}
         </p>
 
-        <div className="sdlg__body" data-scroll-thin>
-          {!trimmed && (
-            <>
-              {actions.length > 0 && (
-                <div className="sdlg__chips" role="group" aria-label="Akcje">
-                  {actions.map((action) => actionItem(action, true))}
-                </div>
-              )}
-              {provider.popular && provider.popular.length > 0 && (
-                <section className="sdlg__group" aria-labelledby={`${headingId}-popular`}>
-                  <h3 id={`${headingId}-popular`} className="sdlg__title">
-                    Najczęściej szukane
-                  </h3>
-                  <div className="sdlg__chips">
-                    {provider.popular.map((phrase) => (
+        <div className="sdlg__split">
+          <div className="sdlg__body" data-scroll-thin>
+            {!trimmed && (
+              <>
+                {actions.length > 0 && (
+                  <div className="sdlg__chips" role="group" aria-label="Akcje">
+                    {actions.map((action) => actionItem(action, true))}
+                  </div>
+                )}
+                {provider.popular && provider.popular.length > 0 && (
+                  <section className="sdlg__group" aria-labelledby={`${headingId}-popular`}>
+                    <h3 id={`${headingId}-popular`} className="sdlg__title">
+                      Najczęściej szukane
+                    </h3>
+                    <div className="sdlg__chips">
+                      {provider.popular.map((phrase) => (
+                        <button
+                          key={phrase}
+                          type="button"
+                          className="sdlg__chip"
+                          data-result
+                          onClick={() => {
+                            setQuery(phrase)
+                            input.current?.focus()
+                          }}
+                        >
+                          {phrase}
+                        </button>
+                      ))}
+                    </div>
+                  </section>
+                )}
+                {recent.length > 0 && (
+                  <section className="sdlg__group" aria-labelledby={`${headingId}-recent`}>
+                    <div className="flex items-center justify-between">
+                      <h3 id={`${headingId}-recent`} className="sdlg__title">
+                        Ostatnio oglądane
+                      </h3>
                       <button
-                        key={phrase}
                         type="button"
-                        className="sdlg__chip"
-                        data-result
+                        className="sdlg__link"
                         onClick={() => {
-                          setQuery(phrase)
+                          clearRecent(line)
+                          setRecent([])
                           input.current?.focus()
                         }}
                       >
-                        {phrase}
+                        Wyczyść
                       </button>
-                    ))}
-                  </div>
-                </section>
-              )}
-              {recent.length > 0 && (
-                <section className="sdlg__group" aria-labelledby={`${headingId}-recent`}>
-                  <div className="flex items-center justify-between">
-                    <h3 id={`${headingId}-recent`} className="sdlg__title">
-                      Ostatnio oglądane
-                    </h3>
-                    <button
-                      type="button"
-                      className="sdlg__link"
-                      onClick={() => {
-                        clearRecent(line)
-                        setRecent([])
-                        input.current?.focus()
-                      }}
-                    >
-                      Wyczyść
-                    </button>
-                  </div>
-                  <ul>
-                    {recent.map((item) => (
-                      <li key={item.href}>
-                        <Link href={item.href} className="sdlg__result" data-result>
-                          <span className="sdlg__icon">
-                            <Icon name="clock" strokeWidth={2} className="size-4" />
-                          </span>
-                          <span className="flex min-w-0 flex-col">
-                            <span className="truncate font-bold">{item.title}</span>
-                            <span className="text-[13px] text-ink-2">
-                              {item.kind} · {viewedAt.format(item.at)}
+                    </div>
+                    <ul>
+                      {recent.map((item) => (
+                        <li key={item.href}>
+                          <Link href={item.href} className="sdlg__result" data-result>
+                            <span className="sdlg__icon">
+                              <Icon name="clock" strokeWidth={2} className="size-4" />
                             </span>
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              )}
-              {provider.empty().map(groupBlock)}
-            </>
-          )}
-
-          {trimmed && matched.length > 0 && (
-            <section className="sdlg__group" aria-labelledby={`${headingId}-actions`}>
-              <h3 id={`${headingId}-actions`} className="sdlg__title">
-                Akcje
-              </h3>
-              <ul>
-                {matched.map((action) => (
-                  <li key={action.kind}>{actionItem(action, false)}</li>
-                ))}
-              </ul>
-            </section>
-          )}
-          {trimmed && groups.map(groupBlock)}
-          {trimmed && count === 0 && matched.length === 0 && (
-            <div className="sdlg__none">
-              <p className="font-display text-lg font-extrabold">Nie znaleźliśmy „{trimmed}”</p>
-              <p className="text-ink-2">Napisz, czego szukasz — odpowiemy, czy to zrobimy.</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <Link href={ask} className="sdlg__cta" data-result>
-                  Zapytaj o „{trimmed}”
-                </Link>
-                {phone && tel && (
-                  <a href={tel} className="sdlg__chip" data-result>
-                    <Icon name="phone" strokeWidth={2} className="size-4" />
-                    {phone}
-                  </a>
+                            <span className="flex min-w-0 flex-col">
+                              <span className="truncate font-bold">{item.title}</span>
+                              <span className="text-[13px] text-ink-2">
+                                {item.kind} · {viewedAt.format(item.at)}
+                              </span>
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
                 )}
+                {provider.empty().map(groupBlock)}
+              </>
+            )}
+
+            {trimmed && matched.length > 0 && (
+              <section className="sdlg__group" aria-labelledby={`${headingId}-actions`}>
+                <h3 id={`${headingId}-actions`} className="sdlg__title">
+                  Akcje
+                </h3>
+                <ul>
+                  {matched.map((action) => (
+                    <li key={action.kind}>{actionItem(action, false)}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
+            {trimmed && groups.map(groupBlock)}
+            {trimmed && count === 0 && matched.length === 0 && (
+              <div className="sdlg__none">
+                <p className="font-display text-lg font-extrabold">Nie znaleźliśmy „{trimmed}”</p>
+                <p className="text-ink-2">Napisz, czego szukasz — odpowiemy, czy to zrobimy.</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Link href={ask} className="sdlg__cta" data-result>
+                    Zapytaj o „{trimmed}”
+                  </Link>
+                  {phone && tel && (
+                    <a href={tel} className="sdlg__chip" data-result>
+                      <Icon name="phone" strokeWidth={2} className="size-4" />
+                      {phone}
+                    </a>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
+          </div>
+          {renderPreview && trimmed && active && (
+            <aside className="sdlg__preview" aria-label={`Podgląd: ${active.title}`}>
+              {renderPreview(active)}
+            </aside>
           )}
         </div>
-        {/* Enter follows the focused result (Up/Down from the field), as in the Biznes search. */}
+        {/* Enter opens the first result, or the focused one (Up/Down from the field). */}
         <p className="sdlg__keys" aria-hidden="true">
           <span>↑↓ wybór</span>
           <span>Enter otwórz</span>

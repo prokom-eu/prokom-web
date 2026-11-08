@@ -1002,6 +1002,36 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   padding: 16px 12px 20px;
   overflow-y: auto;
 }
+.sdlg--preview {
+  width: min(960px, calc(100% - 32px));
+}
+.sdlg__split {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.sdlg__split > .sdlg__body {
+  flex: 1;
+  min-width: 0;
+}
+/* The preview of a result (a line's `renderPreview`): next to the list from 900 px. */
+.sdlg__preview {
+  display: none;
+}
+@media (min-width: 900px) {
+  .sdlg__preview {
+    display: block;
+    flex: none;
+    width: 320px;
+    padding: 16px;
+    overflow-y: auto;
+    border-left: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+}
+.sdlg__result[data-active] {
+  background: var(--surface-2);
+}
 .sdlg__group ul {
   display: flex;
   flex-direction: column;
