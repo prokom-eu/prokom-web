@@ -372,14 +372,16 @@ export function RelatedCards({
   onPick: (slug: string) => void
 }) {
   return (
-    <ul className="grid gap-3 min-[981px]:grid-cols-3">
+    // Cards side by side as many as fit (mock-up on top, the text under it), so long names never
+    // squeeze next to a picture (odbiór SWA7, 08.11).
+    <ul className="sw-offer-related">
       {cards.map((card) => (
         <li key={card.slug}>
           <button
             type="button"
             onClick={() => onPick(card.slug)}
             data-card=""
-            className="sw-glass grid w-full grid-cols-[112px_1fr] items-center gap-3 rounded-[18px] p-2.5 text-left"
+            className="sw-glass sw-offer-related-card"
           >
             {card.preview ? (
               <span className="sw-offer-related-pic">
@@ -388,14 +390,16 @@ export function RelatedCards({
             ) : (
               <OfferThumb src={card.thumbnail} />
             )}
-            <span className="min-w-0">
+            <span className="flex min-w-0 flex-1 flex-col">
               {card.label && (
-                <span className="block text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">
+                <span className="text-[11px] font-extrabold tracking-[0.14em] text-accent-text uppercase">
                   {card.label}
                 </span>
               )}
-              <span className="mt-0.5 block font-bold leading-snug">{card.name}</span>
-              <span className="mt-1 block text-sm font-bold text-ink-2">{card.price}</span>
+              <span className="mt-1 font-display text-[17px] leading-snug font-extrabold text-balance">
+                {card.name}
+              </span>
+              <span className="mt-auto pt-3 text-sm font-bold text-ink-2">{card.price}</span>
               <span className="sr-only"> — przejdź do szczegółów</span>
             </span>
           </button>
