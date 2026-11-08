@@ -1,7 +1,6 @@
 // The order of the former imports (`RenderBlocks` → block → widget): files share selectors,
 // e.g. `.zkticket` (glowna-sekcje, zaplanuj) and `.odi` (oferta, teletechnika).
 import '../widzety/architekci/architekci.css'
-import '../widzety/kontakt/kontakt.css'
 import '../widzety/glowna/glowna.css'
 import '../sekcje/glowna/glowna-sekcje.css'
 import '../widzety/zaplanuj/zaplanuj.css'
