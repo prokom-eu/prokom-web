@@ -34,7 +34,7 @@ export function SoftwareNews({ posts, category }: Props) {
         em={T.headingEm}
         lead={T.lead}
       />
-      <section aria-label="Wpisy" className="v-sec v-sec-first">
+      <section aria-label="Wpisy" className="sw-after-hero">
         <div className="v-wrap">
           <div className="sw-offer-bar">
             {chips.length > 1 ? (
@@ -51,9 +51,11 @@ export function SoftwareNews({ posts, category }: Props) {
                 ))}
               </nav>
             ) : null}
-            <p className="sw-offer-count ml-auto">
-              {shown.length} {plural(shown.length, [...T.count])}
-            </p>
+            {shown.length > 0 ? (
+              <p className="sw-offer-count ml-auto">
+                {shown.length} {plural(shown.length, [...T.count])}
+              </p>
+            ) : null}
           </div>
           {shown.length === 0 ? (
             <Glass className="p-6 text-lg text-ink-2 min-[641px]:p-8">{T.empty}</Glass>

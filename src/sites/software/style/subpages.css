@@ -29,6 +29,10 @@
 .sw-page-hero-aside {
   padding-top: 64px;
 }
+/* The first section right under the subpage hero (filters and cards): a short gap, as the boards. */
+.sw-after-hero {
+  padding-top: 32px;
+}
 
 /* Catalog `/rozwiazania` (`components/catalog/Catalog`) */
 .sw-offer-tiles {
