@@ -65,6 +65,13 @@ Test lokalny (S9b-1, 17.10): certyfikaty self-signed, porty 18080/18443, `SMOKE_
 - Test 17.10 (lokalnie): kopia stosu z obrazu → wysyłka `rclone` → odtworzenie na czystym stosie: liczby rekordów i suma kontrolna mediów zgodne, smoke zielony, logowanie admina działa; zły klucz przerywa przed zmianami; retencja usuwa stare pliki.
 - Procedury krok po kroku: `docs/runbook.md`.
 
+## Teksty Instalacji w panelu (runda v6 D4)
+Seed działa tylko lokalnie, więc teksty linii Instalacje przechowywane w panelu (usługi, obiekty, 76 rozwiązań, SEO stron, wpis Poradnika, liczby „O firmie”) przenosi na staging i produkcję `pnpm inst:texts` (`src/seed/instalacje/inst-texts.ts`, REST panelu). Ceny, relacje, kolory i media zostają z panelu.
+1. Po wdrożeniu obrazu: `INST_TEXTS_EMAIL` i `INST_TEXTS_PASSWORD` (admin tego panelu, z menedżera haseł) tylko na czas uruchomienia.
+2. Podgląd: `pnpm inst:texts https://<panel> --out=docs/tresci/inst-texts-<data>.md`. Domyślnie nic nie zapisuje, a raport „pole: było → będzie” czytamy przed zapisem.
+3. Zapis: `pnpm inst:texts https://<panel> --write --yes`. Poza komputerem lokalnym wymagane są `https` i `--yes`.
+4. Rekordy ze szkicem czekającym w panelu (np. ceny szefa) są pomijane i wypisane w raporcie: sprawdzić ręcznie. Strony i wpisy zachowują status publikacji, a szkic dostaje nową wersję szkicu. Na produkcji: po kopii `predeploy`.
+
 ## Cofnięcie wdrożenia
 Tylko obraz (migracje zgodne wstecz) albo obraz + baza z kopii `predeploy` — `docs/runbook.md` §4 i zasada migracji §5.
 
