@@ -12,6 +12,7 @@ import {
   videoJsonLd,
   serializeJsonLd,
   SOFTWARE_AREA_SERVED,
+  websiteSearchJsonLd,
 } from './jsonLd'
 import { pageRobots, robotsMeta, robotsTxt } from './robots'
 import { siteOrigin } from './origin'
@@ -491,5 +492,27 @@ describe('serviceJsonLd (solution page, SW10)', () => {
     expect(serviceJsonLd({ ...base, description: undefined, priceFrom: null })).not.toHaveProperty(
       'description',
     )
+  })
+})
+
+describe('websiteSearchJsonLd (audit 0611 P0.3b)', () => {
+  it('points the search action at the catalog query of the domain', () => {
+    const data = websiteSearchJsonLd({
+      origin: 'https://prokombiznes.pl',
+      name: 'PRO-KOM Biznes',
+      searchPath: '/oferta',
+      queryParam: 'szukaj',
+    })
+    expect(data).toMatchObject({
+      '@type': 'WebSite',
+      '@id': 'https://prokombiznes.pl/#website',
+      url: 'https://prokombiznes.pl/',
+      publisher: { '@id': 'https://prokombiznes.pl/#organization' },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: { urlTemplate: 'https://prokombiznes.pl/oferta?szukaj={search_term_string}' },
+        'query-input': 'required name=search_term_string',
+      },
+    })
   })
 })

@@ -129,13 +129,15 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
             )}
           </p>
           {trust.length > 0 && (
-            <ul className="grid gap-x-6 gap-y-2.5 max-md:hidden border-t border-border pt-5 sm:grid-cols-[auto_auto] sm:justify-start">
+            // §7.1 (prototyp-glowna `.trust`): the points as small chips in one wrapping row —
+            // the hero is ~100 px lower than with a two-column list (855 → ~760 px at 1440).
+            <ul className="flex flex-wrap gap-2 border-t border-border pt-5 max-md:hidden">
               {trust.map((item, i) => (
                 <li
                   key={item.id ?? i}
-                  className="flex items-center gap-2.5 text-sm font-bold text-ink-2"
+                  className="inline-flex items-center gap-[7px] rounded-full bg-surface-2 py-1.5 pr-3 pl-[9px] text-[13px] font-bold text-ink-2"
                 >
-                  <Icon name={item.icon} className="size-[17px] shrink-0 text-accent-text" />
+                  <Icon name={item.icon} className="size-[15px] shrink-0 text-ok-text" />
                   {item.text}
                 </li>
               ))}

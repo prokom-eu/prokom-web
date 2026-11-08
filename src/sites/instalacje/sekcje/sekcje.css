@@ -474,7 +474,8 @@
     font-stretch: 100%;
     letter-spacing: 0.1em;
     line-height: 1.45;
-    margin-bottom: 20px;
+    /* Outside the h1 since INST-6: the column's gap is the spacing. */
+    margin-bottom: 0;
   }
   & .pkv {
     display: flex;

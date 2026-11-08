@@ -81,6 +81,17 @@ export const HOME_TRUST_LINE = K4_TRUST_LINE
 export const HOME_DESCRIPTION =
   'Kasy fiskalne, komputery, programy i opieka IT dla firm z Podhala i Małopolski. Dobór, wdrożenie i serwis z Rabki-Zdroju.'
 
+/**
+ * SEO → Tytuł of the home page (audit 0611 P0.3a): the key phrases, ≤ 60 characters. The title
+ * template does not reach the start page, so it carries the site name itself.
+ */
+export const HOME_SEO_TITLE = 'Kasy fiskalne, komputery, opieka IT — Rabka | PRO-KOM Biznes'
+
+/** The home's SEO title to store: the seed's one only while the panel has none, else `null`. */
+export function nextHomeSeoTitle(stored: string | null | undefined): string | null {
+  return stored?.trim() ? null : HOME_SEO_TITLE
+}
+
 export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
   return [
     {
@@ -251,7 +262,7 @@ export async function seedBiznesHome(
       data: {
         title: 'Strona główna',
         slug: HOME_SLUG,
-        seo: { description: HOME_DESCRIPTION },
+        seo: { title: HOME_SEO_TITLE, description: HOME_DESCRIPTION },
         layout: seed,
         tenant: tenantId,
         _status: 'published',
@@ -268,7 +279,9 @@ export async function seedBiznesHome(
   const v150 = upgradeHomeV150(k4 ?? home.layout, seed) ?? k4
   // K31d′: the plan 2.0 texts and the scenes of the industry tiles.
   const layout = upgradeHomePlan(v150 ?? home.layout) ?? v150
-  const seo = nextDescription(home.seo?.description, HOME_DESCRIPTION)
+  const description = nextDescription(home.seo?.description, HOME_DESCRIPTION)
+  const title = nextHomeSeoTitle(home.seo?.title)
+  const seo = description || title
   report('pages home', layout !== null || seo !== null)
   if (layout || seo) {
     await payload.update({
@@ -276,7 +289,13 @@ export async function seedBiznesHome(
       id: home.id,
       data: {
         ...(layout && { layout, _status: 'published' as const }),
-        ...(seo && { seo: { ...home.seo, description: seo } }),
+        ...(seo && {
+          seo: {
+            ...home.seo,
+            ...(description && { description }),
+            ...(title && { title }),
+          },
+        }),
       },
       ...local,
     })

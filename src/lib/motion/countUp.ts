@@ -14,6 +14,17 @@ export function parseCount(text: string): { value: number; suffix: string } | nu
 }
 
 /**
+ * Does a figure of „O firmie” count up (audit 0611 P3)? Only counts of 10 and more: a year
+ * (1900–2100, „od 2004”) or a small number („2 salony”) just stays as it is.
+ */
+export function countsUp(text: string): boolean {
+  const parsed = parseCount(text)
+  if (!parsed) return false
+  const { value } = parsed
+  return value >= 10 && !(value >= 1900 && value <= 2100)
+}
+
+/**
  * Where the count starts: from 0 for counts, close below for a year (2004 counts up from 1984,
  * not through two thousand numbers in under a second).
  */

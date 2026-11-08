@@ -4,7 +4,7 @@
  */
 export const USLUGI_SEO: Readonly<Record<string, string>> = {
   'Alarmy Satel i Ajax, wideodomofony i domofony na Podhalu. Ochrona domu letniskowego zimą, powiadomienia na telefon, montaż z Rabki-Zdroju.':
-    'Alarmy Satel i Ajax, wideodomofony i domofony na Podhalu. Ochrona domu letniskowego zimą, powiadomienia na telefon i montaż z salonu w Rabce-Zdroju.',
+    'Alarmy Satel i Ajax, wideodomofony i domofony na Podhalu. Ochrona domu letniskowego zimą, powiadomienia w telefonie oraz montaż i serwis z Rabki-Zdroju.',
   'Teletechnika dla deweloperów i wykonawców w Małopolsce: światłowód do lokali, RTV/SAT, domofony, pomiary i dokumentacja powykonawcza.':
     'Teletechnika dla deweloperów i wykonawców w Małopolsce: światłowód do lokali, telewizja RTV/SAT, domofony, pomiar gniazd i dokumentacja do odbioru.',
   'Nagłośnienie APART dla restauracji, hoteli, kościołów, szkół i sal obrad na Podhalu. Muzyka w strefach, zrozumiała mowa i transmisja sesji.':

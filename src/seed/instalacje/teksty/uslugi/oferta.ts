@@ -35,7 +35,7 @@ export const OFERTA: Readonly<Record<string, string>> = {
 
   // --- alarm ---
   'Czujki, syreny i powiadomienia na telefon, a przy furtce wideodomofon, który odbierasz z dowolnego miejsca.':
-    'Alarm powiadamia Cię na telefonie, gdy ktoś wejdzie do domu albo firmy. Wideodomofon przy furtce odbierasz z dowolnego miejsca.',
+    'Alarm powiadamia Cię w telefonie, gdy ktoś wejdzie do domu albo firmy. Wideodomofon przy furtce odbierasz z dowolnego miejsca.',
   'Czujki ruchu i otwarcia, syrena, sterowanie z aplikacji.':
     'Czujki ruchu i otwarcia drzwi lub okien, syrena i powiadomienie na telefon. Alarm włączasz i wyłączasz w aplikacji.',
   'Do wykończonego domu, apartamentu i biura.':

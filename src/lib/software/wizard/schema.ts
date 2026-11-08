@@ -177,7 +177,8 @@ export const softwareWizardSchema = obj({
   ui: obj({
     eyebrow: label,
     title: label,
-    em: label,
+    /** Not shown since 08.11 („Policz swój projekt.” alone, Krystian); kept so saved settings read. */
+    em: label.optional(),
     lead: text,
     back: label,
     skip: label,
