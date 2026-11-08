@@ -99,6 +99,11 @@ type Props = {
   errors: Record<SoftwareContactField, string>
   formToken: string
   page?: ContactPageExtras
+  /**
+   * `v24`: the look of „Napisz po swojemu” (ZMIANY-v24 §4 pkt 10) — topics as chips, no „Wolisz
+   * kliknąć…” link (the wizard is a section above). Fields, errors and sending stay the same.
+   */
+  look?: 'v24'
 }
 
 const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
@@ -122,6 +127,7 @@ export function ContactForm({
   errors: messages,
   formToken,
   page,
+  look,
 }: Props) {
   const id = useId()
   const router = useRouter()
@@ -283,34 +289,53 @@ export function ContactForm({
       {showProject && summary ? <ProjectBox summary={summary} /> : null}
       <fieldset>
         <legend className={labelClass}>{texts.topicsLabel}</legend>
-        <div className="mt-2.5 grid grid-cols-2 gap-2 min-[641px]:grid-cols-3">
-          {topics.map((option) => (
-            <label
-              key={option.value}
-              data-tile
-              className={cx(
-                'flex min-h-12 cursor-pointer items-center gap-2 rounded-[14px] border-[1.5px] px-3 py-2 text-sm font-bold leading-tight has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-text',
-                currentTopic === option.value
-                  ? 'border-accent bg-accent-soft text-accent-text'
-                  : 'border-border bg-card text-ink hover:border-accent-line',
-              )}
-            >
-              <input
-                type="radio"
-                name={`${id}-topic`}
-                value={option.value}
-                checked={currentTopic === option.value}
-                onChange={() => setTopic(option.value)}
-                className="sr-only"
-              />
-              <Icon name={option.icon} className="size-[18px] shrink-0" />
-              {option.label}
-              {currentTopic === option.value ? (
-                <DrawnCheck className="ml-auto size-4 shrink-0" />
-              ) : null}
-            </label>
-          ))}
-        </div>
+        {look === 'v24' ? (
+          <div className="v-chips v-topics">
+            {topics.map((option) => (
+              <label key={option.value} className="sw-chip">
+                <input
+                  type="radio"
+                  name={`${id}-topic`}
+                  value={option.value}
+                  checked={currentTopic === option.value}
+                  onChange={() => setTopic(option.value)}
+                  className="sr-only"
+                />
+                {currentTopic === option.value ? <DrawnCheck className="size-3.5" /> : null}
+                {option.label}
+              </label>
+            ))}
+          </div>
+        ) : (
+          <div className="mt-2.5 grid grid-cols-2 gap-2 min-[641px]:grid-cols-3">
+            {topics.map((option) => (
+              <label
+                key={option.value}
+                data-tile
+                className={cx(
+                  'flex min-h-12 cursor-pointer items-center gap-2 rounded-[14px] border-[1.5px] px-3 py-2 text-sm font-bold leading-tight has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-text',
+                  currentTopic === option.value
+                    ? 'border-accent bg-accent-soft text-accent-text'
+                    : 'border-border bg-card text-ink hover:border-accent-line',
+                )}
+              >
+                <input
+                  type="radio"
+                  name={`${id}-topic`}
+                  value={option.value}
+                  checked={currentTopic === option.value}
+                  onChange={() => setTopic(option.value)}
+                  className="sr-only"
+                />
+                <Icon name={option.icon} className="size-[18px] shrink-0" />
+                {option.label}
+                {currentTopic === option.value ? (
+                  <DrawnCheck className="ml-auto size-4 shrink-0" />
+                ) : null}
+              </label>
+            ))}
+          </div>
+        )}
       </fieldset>
 
       <div className="flex flex-col gap-1.5">
@@ -495,7 +520,7 @@ export function ContactForm({
           <p className="text-[13px] text-ink-2 min-[641px]:max-w-[36ch] min-[641px]:order-last">
             {page.submitNote}
           </p>
-        ) : texts.alternativeLink ? (
+        ) : texts.alternativeLink && look !== 'v24' ? (
           <p className="text-[13px] text-ink-2">
             {texts.alternative ? `${texts.alternative} ` : null}
             <Link

@@ -6,7 +6,7 @@ import { offerMenu } from '@/lib/catalog/menu'
 import { partnerBadges, partnerStatusesByName } from '@/lib/partners/badges'
 import { getPartnerStatuses } from '@/lib/partners/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
-import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toTelHref } from '@/lib/site/link'
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
@@ -40,7 +40,6 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
   const tel = settings.phone ? toTelHref(settings.phone) : null
   const contact = {
     phone: settings.phone && tel ? { label: settings.phone, href: tel } : null,
-    whatsapp: biznes.whatsapp ? toWhatsAppHref(biznes.whatsapp) : null,
   }
   const hours = company?.locations[0]?.hours ?? null
   return (

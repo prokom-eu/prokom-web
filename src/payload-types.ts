@@ -476,10 +476,6 @@ export interface SiteSetting {
         }[]
       | null;
     /**
-     * Numer z kierunkowym, np. +48 889 003 889.
-     */
-    whatsapp?: string | null;
-    /**
      * [SZEF] np. „Autoryzowany serwis Posnet i Elzab · Autoryzowany partner GoPOS i InsERT” (K4-FINAL §1: pełne brzmienie statusów).
      */
     trustLine?: string | null;
@@ -3972,10 +3968,13 @@ export interface SwHomeSectionBlock {
  */
 export interface SwContactBlock {
   /**
-   * Jeden taki blok na stronę (kotwica #kontakt).
+   * Jeden taki blok na stronę (kotwica #kontakt). Na stronie głównej v24 formularz stoi obok FAQ, gdy blok FAQ jest bezpośrednio przed tym blokiem.
    */
   eyebrow: string;
   title: string;
+  /**
+   * Strona główna v24: zdanie pod nagłówkiem obok FAQ (np. „Odpowiadamy w ciągu [CZAS ODPOWIEDZI]. Zawsze człowiek.”). Pozostałe pola tej kolumny pokazuje tylko wygląd v23.
+   */
   sideTitle: string;
   sideText?: string | null;
   /**
@@ -4772,7 +4771,7 @@ export interface Inquiry {
    * Strona do audytu albo obecna strona z kreatora.
    */
   auditUrl?: string | null;
-  preferredContact?: ('phone' | 'whatsapp' | 'email' | 'meeting' | 'online') | null;
+  preferredContact?: ('phone' | 'email' | 'meeting' | 'online') | null;
   topics?: string[] | null;
   /**
    * Np. „Przed sezonem”.
@@ -5473,10 +5472,6 @@ export interface InstalacjeSetting {
   showPrices?: boolean | null;
   noPriceText: string;
   warrantyMonths: number;
-  /**
-   * Numer z kierunkowym, np. +48 889 003 889.
-   */
-  whatsapp?: string | null;
   /**
    * „24 h” to odpowiedź na zgłoszenie, nie przyjazd (spec §2).
    */
@@ -6359,7 +6354,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
               showInFooter?: T;
               id?: T;
             };
-        whatsapp?: T;
         trustLine?: T;
         serviceAreas?: T;
         promises?:
@@ -8978,7 +8972,6 @@ export interface InstalacjeSettingsSelect<T extends boolean = true> {
   showPrices?: T;
   noPriceText?: T;
   warrantyMonths?: T;
-  whatsapp?: T;
   responseText?: T;
   architects?:
     | T

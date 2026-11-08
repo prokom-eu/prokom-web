@@ -136,7 +136,9 @@ export async function WizardSection({ tenantId }: { tenantId: number }) {
   const props = await loadWizardProps(tenantId)
   if (!props) return null
   return (
-    <section id="dobierz" className="scroll-mt-24 py-10 min-[640px]:py-14">
+    // `overflow-x-clip`: the step slides in from 24 px to the right (motion.css), also on load —
+    // without the clip a phone widens the page by that much until it ends (as on `/dobierz`).
+    <section id="dobierz" className="scroll-mt-24 overflow-x-clip py-10 min-[640px]:py-14">
       <Container wide>
         <Wizard {...props} headingLevel="h2" />
       </Container>

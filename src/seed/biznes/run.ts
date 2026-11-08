@@ -1162,7 +1162,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
   }
 
-  // --- contact data of the line (decision 01.11.2026): phones, e-mail, WhatsApp, the office ---
+  // --- contact data of the line (decision 01.11.2026): phones, e-mail, the office ---
   await upsertBiznesContact(payload, tenant.id, count)
 
   // --- towns served (B8c): the footer and /kontakt list them ---

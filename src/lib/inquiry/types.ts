@@ -17,12 +17,11 @@ export const INQUIRY_TYPE_LABELS: Record<InquiryType, string> = {
  * How the customer wants to be contacted (plansza `Zapytanie`; Software wizard: `kreator.json` →
  * `contactPrefs[].inquiryValue`). A meeting and an online call are Software only.
  */
-export const PREFERRED_CONTACTS = ['phone', 'whatsapp', 'email', 'meeting', 'online'] as const
+export const PREFERRED_CONTACTS = ['phone', 'email', 'meeting', 'online'] as const
 export type PreferredContact = (typeof PREFERRED_CONTACTS)[number]
 
 export const PREFERRED_CONTACT_LABELS: Record<PreferredContact, string> = {
   phone: 'Telefon',
-  whatsapp: 'WhatsApp',
   email: 'E-mail',
   meeting: 'Spotkanie w salonie',
   online: 'Online',

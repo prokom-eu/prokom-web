@@ -89,7 +89,8 @@ function proto(s: PlannerState): Proto {
     stage: s.stage,
     ans: { ...s.answers },
     town: s.town,
-    via: s.via,
+    // The prototype's option 1 was a messenger, dropped in D10: e-mail is 2 there, 1 here.
+    via: s.via === 0 ? 0 : s.via + 1,
     when: s.when,
     cons: s.consent,
     name: s.name,
@@ -126,7 +127,7 @@ const STATES: [string, PlannerState][] = [
   ['step 3', { ...ready, step: 3, services: ['alarm', 'smart', 'snd', 'ev'], answers: {} }],
   ['ready', ready],
   ['bad phone', { ...ready, phone: '600 100' }],
-  ['e-mail chosen', { ...ready, via: 2, email: 'anna@' }],
+  ['e-mail chosen', { ...ready, via: 1, email: 'anna@' }],
   ['no consent', { ...ready, consent: false }],
   ['hotel', { ...ready, object: 'hotel', size: 2, services: ['wifi', 'kd'] }],
 ]
@@ -267,7 +268,7 @@ describe('planner rules of the site', () => {
   })
 
   it('goes to /wyslane with the number and the contact way only', () => {
-    expect(sentHref('PKI-2026-0007', 1)).toBe('/wyslane?nr=PKI-2026-0007&kontakt=whatsapp')
+    expect(sentHref('PKI-2026-0007', 1)).toBe('/wyslane?nr=PKI-2026-0007&kontakt=email')
     expect(sentHref(null, 0)).toBe('/wyslane?kontakt=phone')
   })
 })

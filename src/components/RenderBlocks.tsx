@@ -59,6 +59,8 @@ import { SwContactPageBlock } from '@/sites/software/blocks/SwContactPage/Compon
 import { SwHomeSectionBlock } from '@/sites/software/blocks/SwHomeSection/Component'
 import { SwPricingBlock } from '@/sites/software/blocks/SwPricing/Component'
 import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
+import { FaqContact } from '@/sites/software/components/v24home/FaqContact'
+import { faqContactPair } from '@/lib/software/faqContact'
 import { ScreenTitleMark } from '@/sites/biznes/components/mobile/ScreenTitleMark'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
@@ -176,7 +178,15 @@ export function RenderBlocks({ page, tenant }: Props) {
                 </PhoneHidden>
               )
             }
-            if (software) return <FaqSoftware key={key} block={block} tenantId={tenant.id} />
+            if (software) {
+              // v24: a FAQ with the contact block right after it is one section (ZMIANY-v24 §4).
+              const contact = blocks[i + 1]
+              // The second check only narrows the type for TypeScript; the pair says the same.
+              if (faqContactPair(blocks, i) === 'faq' && contact?.blockType === 'swContact') {
+                return <FaqContact key={key} faq={block} contact={contact} tenantId={tenant.id} />
+              }
+              return <FaqSoftware key={key} block={block} tenantId={tenant.id} />
+            }
             return <FaqBlock key={key} block={block} />
           case 'contact':
             return <ContactBlock key={key} block={block} tenantId={tenant.id} />
@@ -265,6 +275,8 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'swHomeSection':
             return <SwHomeSectionBlock key={key} block={block} tenantId={tenant.id} />
           case 'swContact':
+            // Rendered by the FAQ before it (`FaqContact`).
+            if (faqContactPair(blocks, i) === 'contact') return null
             return <SwContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'swAuditForm':
             return (
