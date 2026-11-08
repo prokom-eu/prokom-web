@@ -62,10 +62,11 @@ test.describe('Instalacje full offer', () => {
     await open(page, '/uslugi?q=kamera')
     await expect(page.getByRole('searchbox', { name: 'Szukaj w ofercie' })).toHaveValue('kamera')
     await expect(page.locator('#o-kam .ofi mark').first()).toBeVisible()
-    await page.evaluate(() => window.scrollTo(0, 1600))
-    const bar = await page.locator('.ofsticky').boundingBox()
-    expect(bar?.y ?? -1).toBeGreaterThanOrEqual(0)
-    expect(bar?.y ?? 999).toBeLessThan(120)
+    await page.evaluate(() => window.scrollTo({ top: 1600, behavior: 'instant' }))
+    await expect
+      .poll(async () => (await page.locator('.ofsticky').boundingBox())?.y ?? -1)
+      .toBeLessThan(120)
+    expect((await page.locator('.ofsticky').boundingBox())?.y ?? -1).toBeGreaterThanOrEqual(0)
   })
 })
 
@@ -89,6 +90,10 @@ test.describe('Instalacje full offer on a phone', () => {
     await expect(page.getByRole('dialog', { name: 'Rodzaj obiektu' })).toBeHidden()
     await expect(page.locator('.ofsf')).toHaveText('Deweloper')
     await expect(page.locator('.ofcnt')).not.toContainText('76 z 76')
+    // One search field at a time: the compact one only after the hero's has scrolled away.
+    await expect(page.getByRole('searchbox', { name: 'Szukaj w ofercie' })).toHaveCount(1)
+    await page.evaluate(() => window.scrollTo({ top: 2000, behavior: 'instant' }))
+    await expect(page.locator('.ofsticky').getByRole('searchbox')).toBeVisible()
   })
 })
 

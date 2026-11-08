@@ -184,6 +184,16 @@ export function OfferFilters({ areas }: { areas: OfferArea[] }) {
   const st = useOffer()
   const view = offerView(areas, st)
   const [sheet, setSheet] = useState(false)
+  // The compact search appears once the hero's search has scrolled away (RUNDA-V5 §8), so a
+  // phone never shows two search fields at once.
+  const [heroGone, setHeroGone] = useState(false)
+  useEffect(() => {
+    const hero = document.querySelector('.ofbar')
+    if (!hero || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(([entry]) => setHeroGone(!entry?.isIntersecting))
+    io.observe(hero)
+    return () => io.disconnect()
+  }, [])
   const chosen = CHIPS.find((c) => c.key === st.o)
   return (
     <div className="ofsticky">
@@ -192,7 +202,7 @@ export function OfferFilters({ areas }: { areas: OfferArea[] }) {
           <Chips />
         </div>
         <div className="ofs-phone">
-          <SearchField compact />
+          {heroGone ? <SearchField compact /> : <span className="ofs-gap" />}
           <button
             type="button"
             className={'ofsf' + (st.o ? ' on' : '')}
@@ -249,8 +259,6 @@ type ListProps = {
 export function OfferList({ areas, scenes = {}, hues = {} }: ListProps) {
   const st = useOffer()
   const view = offerView(areas, st)
-  // A key that changes with the filters: the results fade in again (`.ofg` remounts).
-  const pass = `${st.o}|${st.q.trim().toLowerCase()}`
   const timelines = view.areas.map((_, i) => `--oa${i}`).join(', ')
   return (
     <div className="wrap ofw" style={{ timelineScope: timelines } as CSSProperties}>
@@ -293,7 +301,10 @@ export function OfferList({ areas, scenes = {}, hues = {} }: ListProps) {
                 <span className="ico">{a.icon && <InstIcon name={a.icon} size={24} />}</span>
               )}
               <div className="ofat">
-                <span className="svk">{a.family}</span>
+                <span className="svk">
+                  {scenes[a.key] && a.icon ? <InstIcon name={a.icon} size={15} /> : null}
+                  {a.family}
+                </span>
                 <h2 className="h3" style={{ fontSize: 26, margin: 0 }}>
                   {a.name}
                 </h2>
@@ -315,7 +326,8 @@ export function OfferList({ areas, scenes = {}, hues = {} }: ListProps) {
                 ))}
               </div>
             )}
-            <div key={pass} className="ofg">
+            {/* Keyed by what is shown: changed results fade in again, unchanged ones stay. */}
+            <div key={a.items.map((i) => (i.hidden ? '' : i.name)).join('|')} className="ofg">
               {a.items.map((item, index) => (
                 <div
                   key={`${item.name}-${index}`}

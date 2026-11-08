@@ -27,7 +27,6 @@ export const oferta = {
     open: 'Filtry',
     title: 'Rodzaj obiektu',
     show: (n: number) => `Pokaż ${n} ${solutionsWord(n)}`,
-    clear: 'Wyczyść',
   },
   objects: { label: 'Rodzaj obiektu', all: 'Wszystkie' },
   count: (shown: number, total: number) => ({
