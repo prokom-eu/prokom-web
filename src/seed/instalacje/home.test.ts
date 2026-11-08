@@ -34,10 +34,9 @@ describe('Instalacje home seed', () => {
     expect(JSON.stringify(hero)).not.toMatch(/\[[A-ZĄĆĘŁŃÓŚŹŻ ]+\]/)
   })
 
-  it('takes the full home title from the package (no template on the start page)', () => {
-    expect(HOME_SEO.title).toBe(
-      'Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje',
-    )
+  it('has the full home title, at most 60 characters (no template on the start page)', () => {
+    expect(HOME_SEO.title).toBe('Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje')
+    expect(HOME_SEO.title.length).toBeLessThanOrEqual(60)
     expect(HOME_SEO.description.length).toBeLessThanOrEqual(155)
   })
 })

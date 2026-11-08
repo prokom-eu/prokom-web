@@ -209,10 +209,10 @@ describe('the whole import', () => {
 })
 
 describe('page SEO (I11)', () => {
-  it('keeps the planner title within 65 characters with the site name', () => {
+  it('keeps the planner title within 60 characters with the site name (P3-23)', () => {
     const page = pagesToImport().find((item) => item.slug === 'zaplanuj')
-    expect(page?.seo.title).toBe('Zaplanuj instalację na Podhalu w 2 minuty')
-    expect(`${page?.seo.title} | PRO-KOM Instalacje`.length).toBeLessThanOrEqual(65)
+    expect(page?.seo.title).toBe('Zaplanuj instalację w 2 minuty')
+    expect(`${page?.seo.title} | PRO-KOM Instalacje`.length).toBeLessThanOrEqual(60)
   })
 })
 
@@ -243,5 +243,21 @@ describe('architects’ „Nowe rozwiązania” (I16b)', () => {
       expect(item.data.illustration).toMatch(/^[MmLlHhVvCcSsQqTtAaZz0-9\s.,-]+$/)
       expect(item.data.params?.length).toBeGreaterThanOrEqual(2)
     }
+  })
+})
+
+describe('SEO titles (P3-23)', () => {
+  it('every page title fits 60 characters with the site name', () => {
+    const long = pagesToImport()
+      .map((page) => `${page.seo.title} | PRO-KOM Instalacje`)
+      .filter((title) => title.length > 60)
+    expect(long).toEqual([])
+  })
+
+  it('every object page title fits too', () => {
+    const long = objectsToImport()
+      .map((item) => `${objectData(item, refs).seo?.title} | PRO-KOM Instalacje`)
+      .filter((title) => title.length > 60)
+    expect(long).toEqual([])
   })
 })

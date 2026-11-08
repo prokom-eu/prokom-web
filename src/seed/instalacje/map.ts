@@ -201,9 +201,25 @@ const slugOf = (href: string) => mapHref(href).split('/').filter(Boolean).pop() 
 
 const icon = (value: string | undefined) => value?.replace(/^ikona:/, '') || undefined
 
+/**
+ * P3-23 (audit 06.11): package titles too long for Google — with „ | PRO-KOM Instalacje” (21
+ * characters) every title stays ≤ 60. Keyed by the package title without the site name.
+ */
+export const SHORT_SEO_TITLES: Readonly<Record<string, string>> = {
+  'Alarmy i wideodomofony Rabka-Zdrój, Podhale': 'Alarmy i wideodomofony na Podhalu',
+  'Dostęp, monitoring i sieć dla firm, Podhale': 'Dostęp, monitoring i sieć dla firm',
+  'Nagłośnienie i transmisja mszy dla parafii': 'Nagłośnienie kościoła i transmisja mszy',
+  'Monitoring placu budowy bez prądu, Podhale': 'Monitoring placu budowy bez prądu',
+  'Nagłośnienie lokali i kościołów, Podhale': 'Nagłośnienie lokali i kościołów',
+  'Alarm i kamery dla domu i domku, Podhale': 'Alarm i kamery w domu i domku, Podhale',
+  'Zamki z kodem dla apartamentów na wynajem': 'Zamki z kodem dla apartamentów na doby',
+  'Monitoring i alarm dla sklepów, Zakopane': 'Monitoring i alarm w sklepie, Zakopane',
+}
+
 /** The site name is added by the title template of the site settings. */
 export function seoTitle(title: string): string {
-  return title.replace(/\s*\|\s*PRO-KOM.*$/, '').trim()
+  const base = title.replace(/\s*\|\s*PRO-KOM.*$/, '').trim()
+  return SHORT_SEO_TITLES[base] ?? base
 }
 
 /** „Cena po wizji lokalnej” is the no-price text of the settings, not a price. */
@@ -554,7 +570,7 @@ const PAGE_FILES: {
     slug: 'zaplanuj',
     title: 'Zaplanuj instalację',
     file: Zaplanuj,
-    seoTitle: 'Zaplanuj instalację na Podhalu w 2 minuty',
+    seoTitle: 'Zaplanuj instalację w 2 minuty',
   },
   // The package's title (52 characters, no „|”) + „| PRO-KOM Instalacje” is over 65.
   {
@@ -568,14 +584,14 @@ const PAGE_FILES: {
     slug: 'serwis',
     title: 'Serwis',
     file: Serwis,
-    seoTitle: 'Serwis kamer, alarmów i sieci na Podhalu',
+    seoTitle: 'Serwis kamer, alarmów i sieci, Podhale',
   },
   // The package's title (spec §3) without „| PRO-KOM” + „| PRO-KOM Instalacje” has 71 characters.
   {
     slug: 'dla-architektow',
     title: 'Dla architektów',
     file: Architekci,
-    seoTitle: 'Dla architektów: smart home i teletechnika',
+    seoTitle: 'Dla architektów: instalacje w projekcie',
     // The package's description has 211 characters (the field: ≤ 160).
     seoDescription:
       'Współpraca z architektami na Podhalu i w Małopolsce: plan urządzeń na rzutach, wytyczne do projektu, smart home Ampio, głośniki do zabudowy, monitoring.',

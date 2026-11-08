@@ -41,7 +41,11 @@ export function instalacjeHomeBlock(): InstHome {
  * SEO of the home page from the package. The full title: the layout's title template applies
  * to subpages only, so the start page carries the line name itself.
  */
-export const HOME_SEO = { title: Main._title, description: Main._description }
+// P3-23: the package title had 66 characters — the start page has no template, so the full one.
+export const HOME_SEO = {
+  title: 'Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje',
+  description: Main._description,
+}
 
 /** The layout after seeding: the sample page is replaced, a missing `instHome` inserted. */
 export function mergeInstalacjeHome(
