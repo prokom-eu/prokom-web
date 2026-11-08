@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useId, useState, type KeyboardEvent } from 'react'
 
+import { track } from '@/lib/analytics/track'
 import type { SoftwareHome } from '@/lib/software/home'
 import { industryWizardHref } from '@/lib/software/industryPage'
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
@@ -70,7 +71,10 @@ export function ShowroomSection({ showroom }: { showroom: Showroom }) {
                   aria-controls={`${ids}-stage`}
                   tabIndex={on ? 0 : -1}
                   className="v-ind"
-                  onClick={() => setActive(index)}
+                  onClick={() => {
+                    setActive(index)
+                    track('branza_podglad', { branza: item.key })
+                  }}
                   onKeyDown={(event) => onTabKey(event, index)}
                 >
                   <span className="v-ii" aria-hidden="true">
