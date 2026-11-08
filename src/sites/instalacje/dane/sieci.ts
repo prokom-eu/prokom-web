@@ -130,8 +130,8 @@ export const sieci = {
         text: 'Szybki roaming między punktami dostępowymi w budynku.',
       },
     ],
-    uke: 'Udostępnianie gościom internetu przez Wi-Fi jako dodatek do noclegu nie jest działalnością telekomunikacyjną (Prawo komunikacji elektronicznej, art. 1 ust. 2). Zwykle nie trzeba niczego rejestrować w UKE.',
-    rodo: 'Jeśli logowanie zbiera e-mail albo telefon gościa, potrzebna jest klauzula informacyjna RODO, a do marketingu osobna zgoda. Pomożemy to ustawić. Najprościej: voucher bez danych osobowych.',
+    guestData:
+      'Najprościej logować gości voucherem, bez zbierania e-maili i telefonów. Jeśli chcesz zbierać kontakty do gości, pomożemy to ustawić.',
     /** Example screen of the guest portal (a picture of a phone). */
     screen: {
       title: 'Wi-Fi · Pensjonat',
@@ -190,7 +190,8 @@ export const sieci = {
         text: 'Gdy główne łącze padnie, router przełącza się na sieć komórkową.',
       },
     ] satisfies Feature[],
-    uke: 'Według UKE w 2024 roku ok. 16% gospodarstw domowych w Polsce nie miało dostępu do internetu 100 Mb/s. Na Podhalu też trafiamy na takie adresy. Wtedy budujemy łącze radiowe albo zapasowe LTE.',
+    slowLink:
+      'Na Podhalu wciąż trafiamy na adresy bez szybkiego internetu. Wtedy budujemy łącze radiowe albo zapasowe LTE.',
     // The client agreed to the publication (boss 01.11.2026); without the prototype's `[SZEF…]`.
     realization: 'Realizacja: okablowanie stanowisk biurowych w Blachotrapezie w Rabce-Zdroju.',
     // RUNDA-V5 §11: the same realization with its photos when published.
@@ -354,19 +355,7 @@ export const sieci = {
     ],
     band: {
       title: 'Pasmo 6 GHz w Polsce:',
-      text: '5945–6425 MHz udostępnione rozporządzeniem z 11.11.2023 (Dz.U. 2023 poz. 2567). Punkty o mocy LPI pracują tylko wewnątrz budynków, dlatego na zewnątrz i w mostach radiowych dalej używamy 5 GHz lub 60 GHz.',
+      text: '5945–6425 MHz. Punkty o mocy LPI pracują tylko wewnątrz budynków, dlatego na zewnątrz i w mostach radiowych dalej używamy 5 GHz lub 60 GHz.',
     },
-  },
-
-  nis2: {
-    eyebrow: 'Dla firm średnich i dużych oraz instytucji',
-    heading: 'NIS2 jest już w polskim prawie.',
-    text: 'Nowelizacja ustawy o krajowym systemie cyberbezpieczeństwa (Dz.U. 2026 poz. 252) obowiązuje od 3.04.2026. Obejmuje co do zasady średnie i duże firmy z wybranych sektorów, a także wiele podmiotów publicznych.',
-    items: [
-      'Osobne sieci dla urządzeń i gości',
-      'Aktualizacje i kopie konfiguracji',
-      'Dokumentacja sieci i dostępów',
-    ],
-    note: 'Nie robimy audytów prawnych. Przygotowujemy sieć i dokumentację techniczną, które ułatwiają spełnienie wymagań.',
   },
 }

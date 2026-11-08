@@ -17,19 +17,21 @@ test.describe('Instalacje guide', () => {
   test('the featured post leads to /poradnik/<slug>, chips filter the cards', async ({ page }) => {
     await open(page, '/poradnik')
     await expect(page.locator('.prfeat')).toHaveAttribute('href', '/poradnik/monitoring-a-rodo')
-    await expect(page.locator('.prc2')).toHaveCount(10)
+    // Runda v6 §1.1: no „Przepisy” chip nor the short answers about law.
+    await expect(page.getByRole('button', { name: 'Przepisy' })).toHaveCount(0)
+    await expect(page.locator('.prc2')).toHaveCount(6)
     await page.getByRole('button', { name: 'Energia' }).click()
     await expect(page.locator('.prc2')).toHaveCount(1)
     await expect(page.locator('.prc2')).toHaveAttribute('href', '/ladowarki-ev#formalnosci')
   })
 
-  test('the RODO post: table of contents, legal sentence, self-check, Article', async ({
+  test('the camera post: table of contents, no legal sentence, self-check, Article', async ({
     page,
   }) => {
     await open(page, '/poradnik/monitoring-a-rodo')
-    await expect(page.locator('h1')).toContainText('Monitoring w pensjonacie a RODO')
+    await expect(page.locator('h1')).toContainText('Gdzie powiesić kamery w pensjonacie')
     await expect(page.locator('.toc a')).toHaveCount(9)
-    await expect(page.locator('.prose')).toContainText('To nie jest porada prawna.')
+    await expect(page.locator('main')).not.toContainText('To nie jest porada prawna.')
     await expect(page.locator('.qz')).toContainText('2 z 7')
     const checks = page.locator('.qz .chk')
     for (const index of [1, 3, 4, 5, 6]) await checks.nth(index).click()

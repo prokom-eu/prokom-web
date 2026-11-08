@@ -193,7 +193,7 @@ export const alarmy = {
         icon: 'shield',
         name: 'Agencja ochrony (opcja)',
         text: 'Sygnał trafia do całodobowego centrum, które wysyła patrol.',
-        model: 'umowa z agencją z koncesją',
+        model: 'umowa z agencją ochrony',
       },
     } satisfies Record<
       AlarmElementKey,
@@ -397,7 +397,7 @@ export const alarmy = {
           text: 'Wystarczy zdjęcie starego unifonu albo monitora i panelu przy furtce. Po nim zwykle wiemy, czy przewody się nadadzą.',
         },
       ],
-      note: 'Rozpoznawania twarzy w panelach nie proponujemy domyślnie: to dane biometryczne i wymagają szczególnych podstaw z RODO.',
+      note: 'Rozpoznawania twarzy w panelach nie proponujemy domyślnie: to dane biometryczne.',
     },
   },
 
@@ -497,8 +497,6 @@ export const alarmy = {
       },
     ] satisfies Feature[],
     // TODO(krystian): agencja partnerska — prototyp: „Agencja partnerska: [SZEF].” (spec §12);
-    // zdanie wraca do notki, gdy szef poda nazwę.
-    licence:
-      'Montaż i serwis alarmów w domach, firmach i pensjonatach nie wymagają koncesji (poza obszarami i obiektami podlegającymi obowiązkowej ochronie). Całodobowe dozorowanie sygnałów to już ochrona fizyczna i prowadzi ją agencja z koncesją MSWiA.',
+    // zdanie wraca jako notka pod listą, gdy szef poda nazwę.
   },
 }

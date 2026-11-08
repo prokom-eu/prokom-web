@@ -10,7 +10,6 @@ import { toTelHref } from '@/lib/site/link'
 
 import { navigation } from '../dane/nawigacja'
 import { GUIDE_EXTRAS, poradnik as T } from '../dane/poradnik'
-import { LEGAL_NOTE } from '../dane/prawo'
 import { InstIcon } from '../InstIcon'
 import { CtaBandView } from '../powloka/CtaBandView'
 import { JsonLd } from '../sekcje/JsonLd'
@@ -213,9 +212,6 @@ export async function GuidePost({ post, tenantId, origin }: Props) {
                 />
               </>
             )}
-            <p className="src" style={{ marginTop: 14 }}>
-              {LEGAL_NOTE}
-            </p>
           </article>
           {extras && (
             <aside className="sticky" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
