@@ -107,14 +107,13 @@ test.describe('Software hero v24', () => {
     page,
   }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
-    // Full size of the window on a tall screen (shorter screens scale it down, AUDYT-0811 #0).
+    // A tall screen: the window follows the height left below the panel (AUDYT po SWA7 #2).
     await page.setViewportSize({ width: 1920, height: 1080 })
     await page.goto(site(HOST))
     const box = await active(page).boundingBox()
-    expect(Math.round(box?.width ?? 0)).toBe(760)
     await expect(hero(page).locator('.hx-win[data-rank="rx"]')).toHaveCount(4)
     const stage = await active(page).locator('.mk-stage').boundingBox()
-    expect(Math.abs((stage?.width ?? 0) - 760)).toBeLessThan(1)
+    expect(Math.abs((stage?.width ?? 0) - (box?.width ?? 0))).toBeLessThan(1)
   })
 
   test('no hydration errors', async ({ page }) => {
@@ -142,19 +141,35 @@ test.describe('Software hero v24', () => {
   }
 })
 
-// AUDYT-0811 #0: the mock-up shows on the first screen — at least its top half on a laptop.
-for (const [width, height] of [
-  [1440, 900],
-  [1366, 768],
-  [390, 844],
-] as const) {
-  test(`the active mock-up shows on the first screen at ${width}×${height}`, async ({ page }) => {
+// AUDYT-0811 #0 and AUDYT po SWA7 #1–#3: where the active mock-up sits on the first screen.
+// `full`: the whole window ends at that line; `half`: at least its top half is visible;
+// `min`: the window is never narrower (wide screens shrink the text first, not the window).
+const FIRST_SCREEN = [
+  { width: 1920, height: 1080, full: 1060, min: 700 },
+  { width: 1440, height: 900, half: true, min: 560 },
+  { width: 1366, height: 768, half: true, min: 560 },
+  { width: 1280, height: 720, half: true, min: 560 },
+  { width: 390, height: 844, aboveTabBar: 16 },
+] as const
+
+for (const size of FIRST_SCREEN) {
+  test(`the active mock-up sits on the first screen at ${size.width}×${size.height}`, async ({
+    page,
+  }) => {
+    const { width, height } = size
     await page.setViewportSize({ width, height })
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto(site(HOST))
     const box = await active(page).boundingBox()
     expect(box).not.toBeNull()
-    expect(box!.y).toBeLessThan(height - 0.5 * box!.height)
-    if (width < 600) expect(box!.y + box!.height).toBeLessThanOrEqual(height)
+    const bottom = box!.y + box!.height
+    if ('min' in size) expect(box!.width).toBeGreaterThanOrEqual(size.min - 0.5)
+    if ('full' in size) expect(bottom).toBeLessThanOrEqual(size.full)
+    if ('half' in size) expect(box!.y).toBeLessThan(height - 0.5 * box!.height)
+    if ('aboveTabBar' in size) {
+      const bar = await page.locator('[data-tab-bar]').boundingBox()
+      expect(bar).not.toBeNull()
+      expect(bottom).toBeLessThanOrEqual(bar!.y - size.aboveTabBar)
+    }
   })
 }
