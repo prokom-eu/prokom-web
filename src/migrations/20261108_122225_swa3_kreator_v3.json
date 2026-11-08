@@ -29291,12 +29291,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "menu_image_id": {
-          "name": "menu_image_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
         "description": {
           "name": "description",
           "type": "varchar",
@@ -29465,21 +29459,6 @@
           "method": "btree",
           "with": {}
         },
-        "catalog_categories_menu_image_idx": {
-          "name": "catalog_categories_menu_image_idx",
-          "columns": [
-            {
-              "expression": "menu_image_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "catalog_categories_hero_hero_image_idx": {
           "name": "catalog_categories_hero_hero_image_idx",
           "columns": [
@@ -29562,15 +29541,6 @@
           "tableFrom": "catalog_categories",
           "tableTo": "catalog_groups",
           "columnsFrom": ["group_id"],
-          "columnsTo": ["id"],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "catalog_categories_menu_image_id_media_id_fk": {
-          "name": "catalog_categories_menu_image_id_media_id_fk",
-          "tableFrom": "catalog_categories",
-          "tableTo": "media",
-          "columnsFrom": ["menu_image_id"],
           "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
@@ -58597,6 +58567,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "c0574376-0d72-49e7-890c-aca19c6aefbd",
+  "id": "624e10db-bcd5-414a-ad7e-ddbe0e3477f2",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

@@ -55,7 +55,7 @@ describe('Software copy budget (SWV9 §1, §5)', () => {
     expect(count(/od ilu kosztuje/gi)).toBe(0)
     expect(count(/Dzień dobry, Anna\b/g)).toBe(0)
     expect(code).not.toMatch(/Dzień dobry, Anna\b/) // the mock-ups greet in the vocative
-    expect(readFileSync(join(root, 'seed/prokomsoftware/kreator.json'), 'utf8')).not.toMatch(
+    expect(readFileSync(join(root, 'src/seed/software/wizard.ts'), 'utf8')).not.toMatch(
       /rezerwacje\./,
     )
   })

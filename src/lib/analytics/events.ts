@@ -9,11 +9,9 @@ export type AnalyticsEvents = {
   kreator_start: undefined
   /** Step the visitor reached, from 1. */
   kreator_krok: { krok: number }
-  /** Result id from `SoftwareSettings.wizard`. */
+  /** Kind id of the result (`SoftwareSettings.wizard.types[].id`). */
   kreator_wynik: { wynik: string }
   kreator_wyslij: undefined
-  /** „Potrzebujesz czegoś więcej?” — id of the ticked add-on. */
-  kreator_dodatek: { id: string }
   /** „+ Dodaj do wyceny” on a card or in the offer window. */
   projekt_dodaj: { slug: string }
   /** The „Twój projekt” list sent with the contact form; `liczba` = number of items. */

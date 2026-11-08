@@ -1,10 +1,10 @@
 import type { Payload } from 'payload'
 
-import { type SoftwareWizard, softwareWizardSchema } from './wizard'
+import { type SoftwareWizard, softwareWizardSchema } from './schema'
 
 /**
  * Valid wizard rules of a Software tenant (`SoftwareSettings.wizard`) — or `null`: none saved
- * yet, or of the pre-SW7 shape. Server-side read (`overrideAccess`) for the page and the inquiry.
+ * yet, or of an older shape (before v3 — the migration `swa3_kreator_v3` rewrites it). Server-side read (`overrideAccess`) for the page and the inquiry.
  */
 export async function readSoftwareWizard(
   payload: Payload,

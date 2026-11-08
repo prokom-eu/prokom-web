@@ -68,7 +68,7 @@ export async function InstPlannerBlock({ block, tenantId }: Props) {
       </svg>
       <div className="wrap" style={{ position: 'relative' }}>
         <nav className="crumb in d1" aria-label="Okruszki">
-          <Link href="/">Start</Link>
+          <Link href="/">Strona główna</Link>
           <span aria-hidden="true">/</span>
           <span aria-current="page" style={{ color: 'var(--ink)' }}>
             {hero?.crumb || 'Zaplanuj instalację'}

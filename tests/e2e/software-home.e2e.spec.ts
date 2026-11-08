@@ -108,7 +108,7 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const wizard = page.locator('#dobierz')
     await expect(wizard.getByRole('heading', { level: 2 })).toHaveText(
-      'Kilka kliknięć i od razu widzisz cenę, termin i podgląd',
+      'Policz swój projekt. Bez dzwonienia.',
     )
     await expect(wizard.getByRole('heading', { level: 3 }).first()).toBeVisible()
   })

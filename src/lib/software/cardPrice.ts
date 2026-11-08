@@ -1,6 +1,6 @@
 import { formatPrice } from './price'
 import type { IndexSolution } from './solutionsIndex'
-import type { PriceDisplay } from './wizard'
+import type { PriceDisplay } from './priceDisplay'
 
 /**
  * Price lines of a solution card (spec. §5; catalog and later „12 rzeczy”): the one „od” price

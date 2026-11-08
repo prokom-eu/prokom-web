@@ -6,7 +6,7 @@ import { cardPrice } from './cardPrice'
 import { SITUATIONS, SOLUTION_CATEGORIES, type SolutionCategory } from './options'
 import { formatPrice } from './price'
 import { firstIssue, label, obj, slug, text } from './schema'
-import type { PriceDisplay } from './wizard'
+import type { PriceDisplay } from './priceDisplay'
 
 /**
  * Offer window of a solution (spec. §5.1, board `Katalog`, `stany/okno-90…98`; ADR-014 v22 pkt 4,

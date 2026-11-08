@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { clickUntilVisible, setTheme, site } from './helpers'
+import { clickUntilVisible, hydrated, setTheme, site } from './helpers'
 
 // B4a: search overlay of the Biznes header (spec. §3.2, §8.2, §9 pkt 2 and 7). Catalog from
 // `pnpm seed`; the cases do not rely on synonyms (BiznesSettings), which other tests replace.
@@ -9,6 +9,15 @@ const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 
 const overlay = (page: Page) => page.getByRole('dialog', { name: 'Szukaj w ofercie' })
 const field = (page: Page) => overlay(page).getByRole('searchbox', { name: 'Szukaj w ofercie' })
+
+/**
+ * Types into the search field once it is hydrated: the overlay can show before its field
+ * listens, and a phrase typed then never reaches the search (flaky in CI, 08.11).
+ */
+async function typeIn(page: Page, text: string) {
+  await hydrated(field(page))
+  await field(page).fill(text)
+}
 
 /** "/" works once the header is hydrated: press until the overlay shows. */
 async function openWithSlash(page: Page) {
@@ -24,7 +33,7 @@ test.describe('Biznes search', () => {
     await openWithSlash(page)
     await expect(field(page)).toBeFocused()
 
-    await field(page).fill('kasa fiskalan')
+    await typeIn(page, 'kasa fiskalan')
     const results = overlay(page).getByRole('region', { name: /Produkty i usługi/ })
     await expect(results.getByRole('link').first()).toHaveAttribute('href', /^\/produkt\//)
     await expect(results.getByRole('link', { name: /Posnet Ergo Online/ })).toBeVisible()
@@ -47,7 +56,7 @@ test.describe('Biznes search', () => {
   }) => {
     await page.goto(site('biznes.localhost'))
     await openWithSlash(page)
-    await field(page).fill('kasa')
+    await typeIn(page, 'kasa')
     await overlay(page)
       .getByRole('button', { name: /^Podgląd: / })
       .first()
@@ -73,7 +82,7 @@ test.describe('Biznes search', () => {
     await page.goto(site('biznes.localhost'))
     await page.evaluate(() => localStorage.removeItem('pk-cart'))
     await openWithSlash(page)
-    await field(page).fill('kasa')
+    await typeIn(page, 'kasa')
     await overlay(page)
       .getByRole('button', { name: /^Podgląd: / })
       .first()
@@ -88,7 +97,7 @@ test.describe('Biznes search', () => {
   test('"/" can be typed in the search field', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await openWithSlash(page)
-    await field(page).fill('a/b')
+    await typeIn(page, 'a/b')
     await expect(field(page)).toHaveValue('a/b')
     await page.keyboard.press('Escape')
     await expect(overlay(page)).toBeHidden()
@@ -100,7 +109,7 @@ test.describe('Biznes search', () => {
       page.getByRole('button', { name: 'Szukaj w ofercie' }).first(),
       field(page),
     )
-    await field(page).fill('zxqvbn')
+    await typeIn(page, 'zxqvbn')
     await expect(
       overlay(page).getByText('Nie znaleźliśmy „zxqvbn”', { exact: false }),
     ).toBeVisible()
@@ -122,7 +131,7 @@ test.describe('Biznes search', () => {
     )
     await sheet.getByRole('button', { name: 'Szukaj w ofercie' }).click()
     await expect(field(page)).toBeFocused()
-    await field(page).fill('terminal')
+    await typeIn(page, 'terminal')
     await expect(
       overlay(page).getByRole('link', { name: /Terminal płatniczy PolCard/ }),
     ).toBeVisible()
@@ -133,7 +142,7 @@ test.describe('Biznes search', () => {
   test('closes on the backdrop, not on the empty inside', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await openWithSlash(page)
-    await field(page).fill('subiekt')
+    await typeIn(page, 'subiekt')
     const box = (await overlay(page).boundingBox())!
     // Empty margin of the dialog, left of the content column.
     await page.mouse.click(box.x + 4, box.y + box.height - 4)
@@ -148,7 +157,7 @@ test.describe('Biznes search', () => {
       await setTheme(page, colorScheme)
       await page.goto(site('biznes.localhost'))
       await openWithSlash(page)
-      await field(page).fill('kasa')
+      await typeIn(page, 'kasa')
       await expect(
         overlay(page)
           .getByRole('link', { name: /Posnet/ })

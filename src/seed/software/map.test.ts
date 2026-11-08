@@ -20,7 +20,7 @@ import {
   lowestLevelPrice,
   thumbnailError,
 } from '../../lib/software/solutionRules'
-import { softwareWizardSchema } from '../../lib/software/wizard'
+import { softwareWizardSchema } from '../../lib/software/wizard/schema'
 import { HOME_SECTION_TEXTS, homeWithSections } from './homeExtras'
 import {
   areaData,

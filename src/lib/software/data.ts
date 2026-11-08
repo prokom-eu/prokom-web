@@ -27,8 +27,9 @@ import { buildIndustryPage, type IndustryDoc, type IndustryPageView } from './in
 import { buildSolutionPage, type SolutionPageDoc, type SolutionPageView } from './solutionPage'
 import { buildSolutionsIndex, DEFAULT_PRICE_DISPLAY, type SolutionsIndex } from './solutionsIndex'
 import { solutionsTag } from './tags'
-import { type PriceDisplay, priceDisplaySchema, type SoftwareWizard } from './wizard'
-import { readSoftwareWizard } from './wizardRules'
+import { type PriceDisplay, priceDisplaySchema } from './priceDisplay'
+import { readSoftwareWizard } from './wizard/read'
+import type { SoftwareWizard } from './wizard/schema'
 
 /**
  * Facts [SZEF] of one Software tenant (`SiteSettings.software.facts`) — the tenant filter is
@@ -200,7 +201,7 @@ export const getSoftwareWizard = (tenantId: number): Promise<SoftwareWizard | nu
   cacheQuery(
     async () => readSoftwareWizard(await getPayload({ config }), tenantId),
     // The shape of the rules is part of the key: a schema change never serves a cached old shape.
-    ['software-wizard', 'sw7', String(tenantId)],
+    ['software-wizard', 'v3', String(tenantId)],
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

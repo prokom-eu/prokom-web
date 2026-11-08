@@ -43,6 +43,8 @@ test.describe('Biznes inquiry list', () => {
       page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }).first(),
       search,
     )
+    // The overlay can show before its field listens: typed then, the phrase is lost.
+    await hydrated(search.getByRole('searchbox'))
     await search.getByRole('searchbox').fill('terminal')
     // K4: results add through the quick preview (K33 §2.6).
     await search.getByRole('button', { name: 'Podgląd: Terminal płatniczy PolCard' }).click()
