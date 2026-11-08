@@ -60,6 +60,7 @@ export function rodoPost(): Pick<
         'Pracowników trzeba poinformować o monitoringu najpóźniej 2 tygodnie przed jego uruchomieniem, a teren oznaczyć najpóźniej dzień wcześniej. Cel, zakres i sposób monitoringu określa układ zbiorowy pracy, regulamin pracy albo obwieszczenie.',
       ),
     ]),
+    // TODO(krystian): INST-6 PR5 (D1) rewrites the lead, the content and this description without law.
     seo: {
       title: 'Gdzie powiesić kamery w pensjonacie',
       description:

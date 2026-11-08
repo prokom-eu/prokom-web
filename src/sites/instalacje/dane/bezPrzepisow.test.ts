@@ -1,11 +1,11 @@
 import { readdirSync } from 'node:fs'
-import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 import { describe, expect, it } from 'vitest'
 
 import { LAW_WORDS } from '../../../lib/instalacje/lawWords'
 
-const dir = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))
+const dir = fileURLToPath(new URL('.', import.meta.url))
 const files = readdirSync(dir).filter((f) => f.endsWith('.ts') && !f.endsWith('.test.ts'))
 
 /** Every string of a module's exports (functions called with a sample number where they take one). */
@@ -45,6 +45,11 @@ describe('no law on the Instalacje pages (runda v6 §1.1)', () => {
       'warunki techniczne',
       'koncesja',
       'uchwała krajobrazowa',
+      'według § 192e',
+      'stanowisko UODO',
+      'wytyczne EROD',
+      'art. 85 Pzp',
+      'zgodnie z przepisami',
     ])
       expect(bad).toMatch(LAW_WORDS)
     for (const ok of [

@@ -134,6 +134,25 @@ export const LAW_TEXTS: Readonly<Record<string, string | null>> = {
     'Poradnik PRO-KOM Instalacje: gdzie powiesić kamery, Wi-Fi w pensjonacie, alarm w domu letniskowym, anteny po halnym i więcej.',
   'Monitoring ustawiony pod RODO': 'Monitoring z maskami prywatności',
   'Kto, kiedy i którymi drzwiami. Ustawione pod RODO.': 'Kto, kiedy i którymi drzwiami.',
+  'Nie, jeśli sprzęt pracuje w paśmie dopuszczonym bez pozwolenia, np. 5470–5725 MHz na zewnątrz do 1 W EIRP z mechanizmem DFS. Dobieramy sprzęt i ustawienia zgodnie z przepisami.':
+    'Nie, jeśli sprzęt pracuje w paśmie, które nie wymaga pozwolenia, np. 5470–5725 MHz na zewnątrz do 1 W EIRP z mechanizmem DFS. Taki sprzęt dobieramy i ustawiamy.',
+  'Wejścia i wyjścia z czytników eksportujemy do programu rejestracji czasu pracy. Przed ofertą sprawdzamy, czy Twój program przyjmie eksport. Używamy kart, nie odcisku palca, zgodnie ze stanowiskiem UODO.':
+    'Wejścia i wyjścia z czytników eksportujemy do programu rejestracji czasu pracy. Przed ofertą sprawdzamy, czy Twój program przyjmie eksport. Do rejestracji czasu pracy używamy kart.',
+  'Nagrania z transmisji na żywo trzeba dostosować w 14 dni, najpóźniej w 2 miesiące.':
+    'Nagrania sesji często trzeba potem poprawiać, np. dodawać napisy.',
+  'UODO uznał, że gmina nie może dać policji stałego dostępu do obrazu na żywo.':
+    'Fragmenty nagrań przekazuje się na wniosek, bez stałego podglądu z zewnątrz.',
+  'Teletechnika dla deweloperów, § 192e | PRO-KOM Instalacje':
+    'Teletechnika dla deweloperów na Podhalu | PRO-KOM Instalacje',
+  'Instalacja telekomunikacyjna według § 192e: punkt styku, światłowód, skrętka i koncentryk do mieszkań, RTV/SAT, domofony i protokoły pomiarów do odbioru.':
+    'Instalacja telekomunikacyjna dla deweloperów: punkt styku, światłowód, skrętka i koncentryk do mieszkań, RTV/SAT, domofony i protokoły pomiarów.',
+  'Unifon albo wideodomofon z aplikacją w każdym mieszkaniu. Sygnalizacja dzwonkowa do mieszkań jest w § 192a.':
+    'Unifon albo wideodomofon z aplikacją w każdym mieszkaniu, z sygnalizacją dzwonkową do mieszkań.',
+  'Instalacja według § 192e z punktem styku i dostępem dla wielu operatorów.':
+    'Instalacja z punktem styku i dostępem dla wielu operatorów.',
+  'Liczymy kable, skrzynki i piony według § 192e i proponujemy przygotowanie pod smart i ładowarki.':
+    'Liczymy kable, skrzynki i piony i proponujemy przygotowanie pod smart i ładowarki.',
+  'Instalacja według § 192e i § 192f': 'Instalacja telekomunikacyjna do odbioru',
   'Lepiej nie. Kamera, która obejmuje drogę lub posesję sąsiada, podlega RODO. Ustawiamy kadr na Twoją posesję, a resztę maskujemy w obrazie.':
     'Lepiej nie. Ustawiamy kadr na Twoją posesję, a resztę maskujemy w obrazie.',
   'Od zgodności z warunkami technicznymi po osiedle premium.':
@@ -164,6 +183,11 @@ const cleanText = (text: string): string | null => {
   return LAW_FRAGMENTS.reduce((t, [from, to]) => t.replaceAll(from, to), text)
 }
 
+/**
+ * An array item to leave out. Broad on purpose: an object or tuple goes when any of its own texts
+ * is a `null` entry — in the package those are only anchors, folds and tabs of the gone law
+ * sections (`przepisy`, `Przepisy`, `#przepisy`) and the questions of dropped FAQ pairs.
+ */
 const isDropped = (value: unknown): boolean =>
   typeof value === 'string'
     ? cleanText(value) === null
