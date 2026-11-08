@@ -76,7 +76,7 @@ export function PostCardList({
 }) {
   const Title = headingLevel
   return (
-    <ul className="sw-post-grid">
+    <ul className="sw-post-grid" data-rise-group>
       {posts.map((post) => (
         <li key={post.slug}>
           <Link href={post.href} data-card className="sw-glass sw-post-card">

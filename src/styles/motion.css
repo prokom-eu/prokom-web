@@ -731,6 +731,31 @@
     [data-line='software'] [data-rise-group] > :nth-child(n + 5) {
       animation-range: entry 18% entry 84%;
     }
+    /* SWA7 (AUDYT-0811 P2 A1): headings come out of a blur; cards rise 28 px from 98.5%. The
+       shared templates (O firmie, Kontakt) take part through their own sections and cards. */
+    [data-line='software'] :is(h1, h2)[data-rise] {
+      animation-name: sw-rise-blur;
+    }
+    [data-line='software'] [data-rise-group] > * {
+      animation-name: sw-rise-card;
+    }
+    [data-line='software']
+      :is([data-about-page], [data-contact-page])
+      > section:not(:first-of-type),
+    [data-line='software'] :is([data-company-card], [data-footer-column], [data-footer-contact]) {
+      animation: sw-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 2% entry 60%;
+    }
+    [data-line='software'] [data-footer-column]:nth-of-type(2) {
+      animation-range: entry 6% entry 66%;
+    }
+    [data-line='software'] [data-footer-column]:nth-of-type(3) {
+      animation-range: entry 10% entry 72%;
+    }
+    [data-line='software'] [data-footer-contact] {
+      animation-range: entry 14% entry 78%;
+    }
 
     /* The highlighted word of a heading: its gradient moves along while the page scrolls. */
     [data-line='software'] .sw-em {
@@ -786,9 +811,28 @@
     :is([data-motion='button'], [data-motion='button-outline']):not(:disabled):hover::after {
     translate: 120% 0;
   }
-  /* Cards: besides the lift of §2, the accent edge. */
-  [data-line='software'] [data-card]:hover {
+  /* Cards (AUDYT-0811 P2 A3): up 4 px with `transform` — `translate` belongs to the entry on
+     scroll and would win over the hover once the entry has run — the accent edge and a violet
+     glow under them; pressed, a touch smaller. Glass cards in a rising row count as cards too. */
+  [data-line='software'] :is([data-card], [data-rise-group] > :is(a, button).sw-glass) {
+    transition:
+      transform var(--dur-state) var(--ease-out),
+      box-shadow 350ms var(--ease-out),
+      border-color var(--dur-hover) var(--ease-out);
+  }
+  [data-line='software'] :is([data-card], [data-rise-group] > :is(a, button).sw-glass):hover {
+    transform: translateY(-4px);
     border-color: var(--accent-line);
+    box-shadow: 0 26px 50px -30px var(--glow);
+  }
+  [data-line='software'] :is([data-card], [data-rise-group] > :is(a, button).sw-glass):active {
+    transform: translateY(-4px) scale(0.98);
+  }
+  [data-line='software']
+    :is([data-card], [data-rise-group] > :is(a, button).sw-glass):hover
+    [data-card-icon] {
+    scale: 1;
+    translate: 2px -2px;
   }
 }
 
@@ -797,6 +841,32 @@
     opacity: 0;
     translate: 0 38px;
     scale: 0.98;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@keyframes sw-rise-blur {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: none;
+  }
+}
+
+@keyframes sw-rise-card {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+    scale: 0.985;
   }
   to {
     opacity: 1;

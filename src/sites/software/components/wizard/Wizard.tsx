@@ -27,6 +27,7 @@ import { Mockup } from '@/sites/software/components/mockups/Mockup'
 import { usePausedOffscreen } from '@/sites/software/components/v24home/usePausedOffscreen'
 
 import { WizardSend } from './WizardSend'
+import { PriceTween } from './PriceTween'
 
 export type WizardProps = {
   rules: SoftwareWizard
@@ -90,6 +91,8 @@ export function Wizard({
   const ids = useId()
   const [answers, setAnswers] = useState(initial.answers)
   const [step, setStep] = useState(initial.step)
+  // The next step slides in from the right, a step back from the left (AUDYT-0811 P2 A10).
+  const [dir, setDir] = useState<'next' | 'back' | null>(null)
   // Name and contact of the result live here: a step back and forth keeps them.
   const [who, setWho] = useState({ name: '', contact: '' })
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -125,6 +128,7 @@ export function Wizard({
 
   function go(next: number) {
     moved.current = true
+    setDir(next < step ? 'back' : 'next')
     setStep(Math.max(0, Math.min(next, steps.length - 1)))
   }
 
@@ -313,7 +317,7 @@ export function Wizard({
         </header>
       )}
       <div className="wz-grid">
-        <div className="wz-main sw-glass">
+        <div className="wz-main sw-glass" data-wizard-dir={dir ?? undefined}>
           <ol className="wz-steps" aria-label={rules.ui.stepsLabel}>
             {steps.map((s, i) => (
               <li key={s}>
@@ -427,7 +431,7 @@ export function Wizard({
               <span>{keepTogether(result.term)}</span>
             </p>
             <p className="wz-price" data-wizard-price>
-              {keepTogether(result.price)}
+              <PriceTween text={keepTogether(result.price)} />
             </p>
             <p className="wz-net">{result.priceSub}</p>
           </div>

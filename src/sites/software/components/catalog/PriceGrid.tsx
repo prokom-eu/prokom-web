@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { plural } from '@/lib/plural'
 import { OFFER_GROUPS } from '@/lib/software/catalog'
@@ -10,6 +10,8 @@ import { offerHref, type PricingCard } from '@/lib/software/priceCards'
 import { SolutionDialog } from '../offer/SolutionDialogLazy'
 import { Chip } from '../ui/Chip'
 import { PriceCard } from './PriceCard'
+import { SlidingMark } from '../ui/SlidingMark'
+import { useFlip } from '../ui/useFlip'
 
 type Props = {
   /** Every published solution as a card, group by group (\`card.group\` = the group's short name). */
@@ -26,6 +28,8 @@ type Props = {
  */
 export function PriceGrid({ cards, offers, label }: Props) {
   const [filter, setFilter] = useState<string | null>(null)
+  const grid = useRef<HTMLUListElement>(null)
+  useFlip(grid, filter)
   const [open, setOpen] = useState<string | null>(null)
   const shown = filter ? cards.filter((card) => card.group === filter) : cards
   const groups = OFFER_GROUPS.map(({ short }) => short).filter((short) =>
@@ -43,13 +47,14 @@ export function PriceGrid({ cards, offers, label }: Props) {
             {group} · {cards.filter((card) => card.group === group).length}
           </Chip>
         ))}
+        <SlidingMark selector="[aria-pressed='true']" />
       </div>
       <p className="sr-only" role="status">
         {shown.length} {plural(shown.length, ['rozwiązanie', 'rozwiązania', 'rozwiązań'])}
       </p>
-      <ul className="v-cards">
+      <ul ref={grid} className="v-cards" data-rise-group>
         {shown.map((card) => (
-          <li key={card.slug}>
+          <li key={card.slug} data-flip={card.slug}>
             <PriceCard
               card={card}
               details="Szczegóły →"
