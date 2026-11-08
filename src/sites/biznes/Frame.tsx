@@ -9,9 +9,8 @@ import { TabBar } from '@/components/shared/TabBar'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { offerMenu } from '@/lib/catalog/menu'
 import { getSharedData } from '@/lib/shared/getSharedData'
-import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
-import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
+import type { PublicSiteSettings } from '@/lib/site/public'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { CartDrawer } from './components/CartDrawer'
@@ -29,7 +28,6 @@ type Props = {
   tenant: SiteTenant
   settings: PublicSiteSettings
   biznes: NonNullable<PublicSiteSettings['biznes']>
-  company: PublicCompanyData | null
   /** The promo bar, above the header. */
   promo: ReactNode
   children: ReactNode
@@ -42,11 +40,10 @@ type Props = {
  * centre — decyzja 08.11) and the menu sheet. Contact data, hours and lines come from the panel
  * (`CompanyData`, `SiteSettings.shared`); the inquiry drawer and the catalog search stay Biznes.
  */
-export async function BiznesFrame({ tenant, settings, biznes, company, promo, children }: Props) {
+export async function BiznesFrame({ tenant, settings, biznes, promo, children }: Props) {
   const [index, shared] = await Promise.all([getCatalogIndex(tenant.id), getSharedData(tenant.id)])
   const tel = settings.phone ? toTelHref(settings.phone) : null
   const phone = settings.phone && tel ? { label: settings.phone, href: tel } : null
-  const hours = company?.locations[0]?.hours ?? null
   const offer = offerMenu(index)
   const now = new Date().toISOString()
 
@@ -83,8 +80,6 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
         homeLabel={`${tenant.name} — strona główna`}
         menu={biznes.navigation.menu}
         offer={offer}
-        phone={phone}
-        hours={hours ? hoursSummary(hours) : null}
         cta={cta}
       />
       <PageTransition>{children}</PageTransition>
@@ -100,6 +95,7 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
           company={shared.company}
           contact={{
             phone: shared.line.phone,
+            phone2: settings.phone2,
             email: shared.line.email,
             hours: shared.company.hours,
             holidays: shared.company.holidays,

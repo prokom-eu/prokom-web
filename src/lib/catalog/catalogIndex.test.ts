@@ -500,8 +500,19 @@ describe('searchIndex (`GET /api/catalog-index`, K31c)', () => {
         },
       ],
       brands: [],
+      categories: [
+        {
+          slug: 'c',
+          name: 'C',
+          group: 'g',
+          count: 1,
+          menuImage: { url: '/m.webp', alt: 'C', width: 1, height: 1 },
+        },
+      ],
     } as unknown as CatalogIndex
     const result = searchIndex(index)
+    // The mega menu thumbnail is drawn on the server only.
+    expect(result.categories).toEqual([{ slug: 'c', name: 'C', group: 'g', count: 1 }])
     expect(result.products).toEqual([
       { slug: 'a', name: 'A' },
       { slug: 'b', name: 'B' },
