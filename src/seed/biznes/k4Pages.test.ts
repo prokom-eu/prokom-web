@@ -20,6 +20,7 @@ import {
   goposK4Layout,
   goposPhotoFiles,
   goposPhotoPath,
+  upgradeCareIcons,
   upgradeGoposPhotos,
   GOPOS_PHOTO_ALT,
   insertK4Layout,
@@ -91,6 +92,11 @@ describe.each([
     for (const block of sections(layout)) {
       if (block.source) expect(block.sourceUrl, block.source).toMatch(/^https:\/\//)
     }
+  })
+
+  it('keeps SVG icon paths free of hard spaces (D13)', () => {
+    const icons = JSON.stringify(layout).match(/"(?:iconPath|ic|ikona)":"[^"]*"/g) ?? []
+    for (const icon of icons) expect(icon).not.toContain(String.fromCharCode(0xa0))
   })
 })
 
@@ -240,6 +246,41 @@ describe('sourceLink', () => {
       'https://ksef.podatki.gov.pl',
     )
     expect(sourceLink('Dane producenta')).toBeUndefined()
+  })
+})
+
+describe('upgradeCareIcons (D13)', () => {
+  const fresh = opiekaK4Layout(firma, identity).layout
+  const hard = String.fromCharCode(0xa0)
+  const withAreas = (map: (area: Record<string, unknown>, i: number) => Record<string, unknown>) =>
+    fresh.map((block) =>
+      block.blockType === 'bzSection' && block.variant === 'care-areas'
+        ? {
+            ...block,
+            data: {
+              areas: (block.data as { areas: Record<string, unknown>[] }).areas.map(map),
+            },
+          }
+        : block,
+    )
+
+  it('fills missing icons and repairs hard spaces, keeping what the panel changed', () => {
+    const stored = withAreas((area, i) => {
+      const { iconPath, ...rest } = area
+      if (i === 0) return { ...rest, co: ['Zmienione w panelu'] }
+      if (i === 1) return { ...rest, iconPath: String(iconPath).replaceAll(' ', hard) }
+      return i === 2 ? { ...rest, iconPath: 'M1 1h2' } : rest
+    })
+    const upgraded = upgradeCareIcons(stored, fresh)!
+    const areas = dataOf(upgraded, 'care-areas')!.areas
+    const seedAreas = dataOf(fresh, 'care-areas')!.areas
+    expect(areas[0]!.iconPath).toBe(seedAreas[0]!.iconPath)
+    expect(areas[0]!.co).toEqual(['Zmienione w panelu'])
+    expect(areas[1]!.iconPath).toBe(seedAreas[1]!.iconPath)
+    // An icon chosen in the panel stays.
+    expect(areas[2]!.iconPath).toBe('M1 1h2')
+    for (const area of areas) expect(area.iconPath ?? '').not.toContain(hard)
+    expect(upgradeCareIcons(upgraded, fresh)).toBeNull()
   })
 })
 
