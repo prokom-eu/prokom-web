@@ -97,8 +97,11 @@ export const POST_CATEGORIES = [
   { label: 'Dofinansowania', value: 'dofinansowania', line: 'biznes' },
   { label: 'Programy', value: 'programy', line: 'biznes' },
   { label: 'Poradnik', value: 'poradnik', line: 'software' },
-  { label: 'Nowości', value: 'nowosci', line: 'software' },
-  { label: 'Realizacje', value: 'realizacje', line: 'software' },
+  // D7 (PRZEKAZANIE-v24 §0.1): „Nowości” → Poradnik, „Realizacje” → Strony (migration swa4_kategorie_wpisow).
+  { label: 'Strony', value: 'strony', line: 'software' },
+  { label: 'Systemy', value: 'systemy', line: 'software' },
+  { label: 'Automatyzacje', value: 'automatyzacje', line: 'software' },
+  { label: 'Bezpieczeństwo', value: 'bezpieczenstwo', line: 'software' },
   { label: 'Przepisy', value: 'przepisy', line: 'instalacje' },
   { label: 'Monitoring', value: 'monitoring', line: 'instalacje' },
   { label: 'Obiekty noclegowe', value: 'noclegi', line: 'instalacje' },

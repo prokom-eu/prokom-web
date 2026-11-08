@@ -87,7 +87,7 @@ export async function SwPricingBlock({ block, tenantId, isFirst }: Props) {
       </PageHero>
 
       {cards.length > 0 ? (
-        <section aria-labelledby="cennik-h" className="v-sec v-sec-first">
+        <section aria-labelledby="cennik-h" className="sw-after-hero">
           <div className="v-wrap">
             <h2 id="cennik-h" className="sr-only">
               Cennik rozwiązań
