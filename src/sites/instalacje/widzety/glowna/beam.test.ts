@@ -11,4 +11,8 @@ describe('beamOrigin', () => {
     expect(beamOrigin('10.5,5.2 40.5,25.2 60.5,15.2')).toEqual({ x: 0, y: 0 })
     expect(beamOrigin(' 12.3,40 2.3,10 ')).toEqual({ x: 10, y: 30 })
   })
+
+  it('gives the box corner for an empty polygon', () => {
+    expect(beamOrigin('')).toEqual({ x: 0, y: 0 })
+  })
 })

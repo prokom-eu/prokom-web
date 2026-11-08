@@ -8,6 +8,8 @@ export function beamOrigin(points: string): { x: number; y: number } {
     .trim()
     .split(/\s+/)
     .map((pair) => pair.split(',').map(Number) as [number, number])
+    .filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y))
+  if (!pairs.length) return { x: 0, y: 0 }
   const xs = pairs.map(([x]) => x)
   const ys = pairs.map(([, y]) => y)
   const [x0, y0] = pairs[0] ?? [0, 0]

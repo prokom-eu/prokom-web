@@ -232,6 +232,13 @@
   & .hoprog.stop {
     transition: none;
   }
+  /* P2-11 (WCAG 2.2.2): „Wstrzymaj animację” — every animation of the hero stands (snow, REC,
+     beams, the walker, the preview's sweep); the autoplay and the scene clock stop in JS. */
+  & .hx.still *,
+  & .hx.still *::before,
+  & .hx.still *::after {
+    animation-play-state: paused !important;
+  }
   & .hmrow {
     display: flex;
     gap: 8px;
@@ -1545,7 +1552,7 @@
     }
     /* P2-12 (audit 06.11): the first screen is the H1, the lead and the buttons; the scene comes
        under the object tabs, the chips scroll in one row and the camera preview stays for wider
-       screens (its state reads in „Na żywo”). The hero is ~1.3 screens instead of 2.5. */
+       screens (the dock's status line reads the state). The hero is ~1.65 screens instead of 2.5. */
     & .hxstage {
       order: 0;
       aspect-ratio: 650 / 520;

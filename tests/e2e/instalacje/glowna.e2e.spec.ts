@@ -123,28 +123,40 @@ test.describe('Instalacje home hero', () => {
     expect(await page.locator('.hxdst').innerText()).toBe(status)
   })
 
-  // P2-11 (WCAG 2.2.2): a visible pause stops the autoplay and its progress bar.
-  test('the pause button stops the autoplay and the progress bar', async ({ page }) => {
+  // P2-11 (WCAG 2.2.2): a visible pause stops the autoplay, its progress bar and the scene's
+  // animations; it stays after the first touch (the scene still moves then).
+  test('the pause button stops the autoplay, the progress bar and the animations', async ({
+    page,
+  }) => {
     await page.goto(site(HOST))
     await page.waitForLoadState('networkidle')
-    const pause = page.getByRole('button', { name: 'Wstrzymaj pokaz' })
+    const pause = page.getByRole('button', { name: 'Wstrzymaj animację' })
     await expect(pause).toHaveAttribute('aria-pressed', 'false')
     await pause.click()
     await expect(pause).toHaveAttribute('aria-pressed', 'true')
-    // Away from the hero: hover would pause it anyway — only the button keeps it stopped.
+    // Hover and focus pause the autoplay by themselves — take both away, so only the button
+    // can keep it stopped.
     await page.mouse.move(0, 0)
-    await page.locator('h1').evaluate((h1) => (h1 as HTMLElement).blur())
+    await pause.evaluate((button) => (button as HTMLElement).blur())
+    await expect(page.locator('#start :focus')).toHaveCount(0)
     const read = () =>
       page.evaluate(() => ({
         status: document.querySelector('.hxdst')?.textContent ?? '',
         tab: document.querySelector('.hotab.on')?.textContent ?? '',
         bar: getComputedStyle(document.querySelector('.hoprog')!).transform,
+        anim: getComputedStyle(document.querySelector('.hx .live')!).animationPlayState,
       }))
     const before = await read()
+    expect(before.anim).toBe('paused')
     await page.waitForTimeout(3000)
     expect(await read()).toEqual(before)
     await pause.click()
+    await pause.evaluate((button) => (button as HTMLElement).blur())
+    await page.mouse.move(0, 0)
     await expect(pause).toHaveAttribute('aria-pressed', 'false')
+    // After a touch the show stops but the scene keeps moving: the button stays.
+    await page.getByRole('button', { name: 'Dzień' }).click()
+    await expect(pause).toBeVisible()
   })
 
   // P2-11: where there is no room for the camera preview, a camera point opens it; Esc closes it.
