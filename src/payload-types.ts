@@ -371,7 +371,7 @@ export interface SiteSetting {
     legalNote?: string | null;
     contact?: {
       /**
-       * Wyróżniony fragment w **gwiazdkach**, np. „Porozmawiajmy o **Twoim projekcie.**”.
+       * Wyróżniony fragment w **gwiazdkach** — w nagłówku pokaże się w kolorze linii.
        */
       h1?: string | null;
       lead?: string | null;
@@ -425,7 +425,7 @@ export interface SiteSetting {
     };
     about?: {
       /**
-       * Wyróżniony fragment w **gwiazdkach**, np. „Porozmawiajmy o **Twoim projekcie.**”.
+       * Wyróżniony fragment w **gwiazdkach** — w nagłówku pokaże się w kolorze linii.
        */
       h1?: string | null;
       lead?: string | null;

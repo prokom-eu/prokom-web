@@ -1058,22 +1058,22 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
       opacity: 0;
     }
   }
-  .sdlg[open] :is(.sdlg__chips > *, .sdlg__group li) {
+  .sdlg[open] .sdlg__chips > * {
     animation: sdlg-item 300ms var(--ease-out) both;
   }
-  .sdlg[open] :is(.sdlg__chips > *, .sdlg__group li):nth-child(2) {
+  .sdlg[open] .sdlg__chips > *:nth-child(2) {
     animation-delay: 20ms;
   }
-  .sdlg[open] :is(.sdlg__chips > *, .sdlg__group li):nth-child(3) {
+  .sdlg[open] .sdlg__chips > *:nth-child(3) {
     animation-delay: 40ms;
   }
-  .sdlg[open] :is(.sdlg__chips > *, .sdlg__group li):nth-child(4) {
+  .sdlg[open] .sdlg__chips > *:nth-child(4) {
     animation-delay: 60ms;
   }
-  .sdlg[open] :is(.sdlg__chips > *, .sdlg__group li):nth-child(5) {
+  .sdlg[open] .sdlg__chips > *:nth-child(5) {
     animation-delay: 80ms;
   }
-  .sdlg[open] :is(.sdlg__chips > *, .sdlg__group li):nth-child(n + 6) {
+  .sdlg[open] .sdlg__chips > *:nth-child(n + 6) {
     animation-delay: 100ms;
   }
 }

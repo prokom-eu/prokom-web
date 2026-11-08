@@ -91,8 +91,7 @@ const contactFields: Field[] = [
   {
     ...text('h1', 'Nagłówek H1'),
     admin: {
-      description:
-        'Wyróżniony fragment w **gwiazdkach**, np. „Porozmawiajmy o **Twoim projekcie.**”.',
+      description: 'Wyróżniony fragment w **gwiazdkach** — w nagłówku pokaże się w kolorze linii.',
     },
   },
   textarea('lead', 'Wstęp'),
@@ -185,8 +184,7 @@ const aboutFields: Field[] = [
   {
     ...text('h1', 'Nagłówek H1'),
     admin: {
-      description:
-        'Wyróżniony fragment w **gwiazdkach**, np. „Porozmawiajmy o **Twoim projekcie.**”.',
+      description: 'Wyróżniony fragment w **gwiazdkach** — w nagłówku pokaże się w kolorze linii.',
     },
   },
   textarea('lead', 'Wstęp'),
