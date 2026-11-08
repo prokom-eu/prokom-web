@@ -119,13 +119,23 @@ export function SolutionDialog({
   }
 
   // A new solution starts at the top (its default level: `pick` is per slug).
+  const shown = useRef(false)
   useEffect(() => {
-    if (!slug) return
+    if (!slug) {
+      shown.current = false
+      return
+    }
     track('oferta_okno', { slug })
     top.current?.scrollIntoView({ block: 'start' })
-    // Focus left on a part of the previous window (gone now): to the new name.
+    // On opening the focus goes to the name, not to „←” — `showModal()` (BottomSheet, whose
+    // effect runs first) puts it on the first button, and its ring looked like an error
+    // (AUDYT po SWA7 #8). Later, focus left on a part of the previous window (gone now): too.
+    const opening = !shown.current
+    shown.current = true
     const active = document.activeElement
-    if (!active || active === document.body || !active.isConnected) heading.current?.focus()
+    if (opening || !active || active === document.body || !active.isConnected) {
+      heading.current?.focus({ preventScroll: true })
+    }
   }, [slug])
 
   useEffect(() => {
@@ -304,14 +314,23 @@ export function SolutionDialog({
 
   const guarantees =
     view.guarantees.length > 0 ? (
-      <ul className="space-y-1.5 text-sm font-bold">
-        {view.guarantees.map((item) => (
-          <li key={item} className="flex gap-2">
-            <Icon name="check" strokeWidth={2.6} className="mt-0.5 size-4 shrink-0 text-ok-text" />
-            {item}
-          </li>
-        ))}
-      </ul>
+      // AUDYT po SWA7 #7: under the mock-up „what happens next” (quote, payment, ownership), not
+      // a third price — the price is on the tile and on the bar below.
+      <div className="sw-offer-next">
+        <p className="sw-eyebrow">Co dalej</p>
+        <ul className="space-y-1.5 text-sm font-bold">
+          {view.guarantees.map((item) => (
+            <li key={item} className="flex gap-2">
+              <Icon
+                name="check"
+                strokeWidth={2.6}
+                className="mt-0.5 size-4 shrink-0 text-ok-text"
+              />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
     ) : null
 
   const who =
@@ -483,10 +502,6 @@ export function SolutionDialog({
               Zobacz podgląd na żywo
             </Link>
           )}
-          <p className="sw-offer-price">
-            <span>{bar.label}</span>
-            <b>{bar.price}</b>
-          </p>
           {guarantees}
         </aside>
       </div>
