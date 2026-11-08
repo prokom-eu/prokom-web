@@ -1,6 +1,7 @@
 import type { ServiceKey } from '@/lib/instalacje/options'
 
 import type { InstIconName } from '../icons'
+import { STAN_FAKTOW, stanNa } from './stanFaktow'
 
 /*
  * Texts of the page `/dla-architektow` (ADR-I005 §1, spec `prokominstalacje-architekci.md`),
@@ -663,7 +664,7 @@ export const architekci = {
     heading: 'Wymiary i parametry,',
     accent: 'które warto mieć pod ręką.',
     lead: 'Z kart katalogowych producentów i norm, z którymi pracujemy. Konkretny model może się różnić, dlatego ostateczne wartości podajemy w wytycznych do Twojego projektu.',
-    note: 'Stan na październik 2026. Wartości orientacyjne do wstępnego projektu, nie zastępują karty katalogowej wybranego modelu.',
+    note: `Stan na ${STAN_FAKTOW.month}. Wartości orientacyjne do wstępnego projektu, nie zastępują karty katalogowej wybranego modelu.`,
   },
   // Without three numbers of the package that have no source (review I16b, spec §2.3): the
   // motorised-zoom camera's 12 W, Ampio 90×160 mm / 2–18 fields, the rental law's fines.
@@ -857,7 +858,7 @@ export const architekci = {
     inProject: 'W projekcie',
   },
   /** Date of the law section (spec §2.5, ADR-I005 §6); check before I13. */
-  lawAsOf: '28.10.2026',
+  lawAsOf: STAN_FAKTOW.date,
   timeline: [
     { date: '2013', label: 'Instalacja telekom. w budynkach wielorodzinnych', now: false },
     { date: '12.02.2026', label: 'GIA: gotowość na światłowód', now: false },
@@ -881,7 +882,7 @@ export const architekci = {
       status: 'Czekamy',
       tone: 'mut',
       title: 'Nowe warunki techniczne',
-      text: 'Nowe rozporządzenie o warunkach technicznych nie zostało jeszcze ogłoszone (stan na październik 2026).',
+      text: `Nowe rozporządzenie o warunkach technicznych nie zostało jeszcze ogłoszone (${stanNa()}).`,
       inProject: 'Przy każdym projekcie sprawdzamy aktualny stan prawny i dopasowujemy wytyczne.',
     },
     {
@@ -961,7 +962,7 @@ export const architekci = {
     newsletterTitle: 'Nowe rozwiązania raz w miesiącu, na e-mail.',
     newsletterText:
       'Krótko: jedno rozwiązanie z parametrami, termin prezentacji, oferta dla pracowni. Wypiszesz się jednym kliknięciem.',
-    note: 'Parametry z kart katalogowych producentów, stan na październik 2026. Marki podajemy jako przykład: dobieramy sprzęt pod projekt.',
+    note: `Parametry z kart katalogowych producentów, ${stanNa()}. Marki podajemy jako przykład: dobieramy sprzęt pod projekt.`,
   },
   /** Filter (`NF`) and the card's category label (`CAT`): `sz` is „Dla pracowni” on a card. */
   newsFilters: [
