@@ -1024,7 +1024,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   padding: 16px 12px 20px;
   overflow-y: auto;
 }
-/* Entry (AUDYT-0811 #4): up 12 px from a slightly smaller size on a spring, the results follow
+/* Entry (AUDYT-0811 #4): up 12 px from a slightly smaller size on a spring, the chips follow
    20 ms apart; closing is quicker. Transitions on `[open]`, so the close animates too. */
 @media (prefers-reduced-motion: no-preference) {
   .sdlg,
@@ -1043,7 +1043,6 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   .sdlg:not([open]) {
     opacity: 0;
     translate: 0 12px;
-    scale: 0.98;
   }
   .sdlg:not([open])::backdrop {
     opacity: 0;
@@ -1052,10 +1051,20 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
     .sdlg[open] {
       opacity: 0;
       translate: 0 12px;
-      scale: 0.98;
     }
     .sdlg[open]::backdrop {
       opacity: 0;
+    }
+  }
+  /* A touch smaller at first — not on a phone, where the window fills the screen. */
+  @media (min-width: 768px) {
+    .sdlg:not([open]) {
+      scale: 0.98;
+    }
+    @starting-style {
+      .sdlg[open] {
+        scale: 0.98;
+      }
     }
   }
   .sdlg[open] .sdlg__chips > * {
