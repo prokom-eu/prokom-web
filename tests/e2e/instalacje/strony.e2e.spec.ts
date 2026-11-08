@@ -60,7 +60,12 @@ for (const path of PAGES) {
       expect(allText).not.toMatch(FORBIDDEN)
       expect(description ?? '').not.toMatch(FORBIDDEN)
       if (COPY_CHECKED.has(path)) {
-        const body = await page.locator('body').evaluate((b) => b.textContent ?? '')
+        // The visible text only: scripts hold RSC payloads and JSON-LD, not page copy.
+        const body = await page.locator('body').evaluate((b) => {
+          const copy = b.cloneNode(true) as HTMLElement
+          copy.querySelectorAll('script, style, template').forEach((e) => e.remove())
+          return copy.textContent ?? ''
+        })
         expect(body.match(COPY_ALL) ?? [], 'generated-copy phrasings').toEqual([])
         expect(`${title} ${description ?? ''}`).not.toMatch(COPY_WORDS)
       }

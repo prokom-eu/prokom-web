@@ -49,7 +49,7 @@ export const HOME_SEO = {
   title: 'Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje',
   description:
     'Monitoring, alarmy, Wi-Fi i smart home Ampio dla domów, pensjonatów i firm na Podhalu. ' +
-    'Projekt, montaż i serwis z Rabki-Zdroju, 24 miesiące gwarancji.',
+    'Projekt, montaż z 24-miesięczną gwarancją i serwis z Rabki-Zdroju.',
 }
 
 /** The layout after seeding: the sample page is replaced, a missing `instHome` inserted. */
