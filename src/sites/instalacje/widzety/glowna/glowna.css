@@ -23,7 +23,9 @@
     --hx-pip-w: clamp(220px, 18vw, 300px);
     position: relative;
     overflow: hidden;
-    block-size: clamp(640px, calc(100svh - var(--inst-hdr-h)), 920px);
+    /* P2-11: a minimum, not a fixed height — with text zoomed to 200% the hero grows instead of
+       cutting the text (the inner box takes the same minimum). */
+    min-block-size: clamp(640px, calc(100svh - var(--inst-hdr-h)), 920px);
     color: var(--hx-ink);
     transition: color var(--hx-t) var(--ease-out);
   }
@@ -43,8 +45,10 @@
     z-index: 2;
     max-width: 1440px;
     margin: 0 auto;
-    padding: 32px 48px 0;
-    height: 100%;
+    /* Room for the dock pinned to the bottom, growing with the text (zoom 200%: the text column
+       never runs under the dock; at 100% the minimum height is larger anyway). */
+    padding: 32px 48px max(var(--hx-dock-room), 9em);
+    min-block-size: inherit;
     box-sizing: border-box;
     pointer-events: none;
   }
@@ -223,6 +227,43 @@
   & .hx:hover .hoprog,
   & .hx:focus-within .hoprog {
     opacity: 0.25;
+  }
+  /* P2-11: paused — the bar stands where it was. */
+  & .hoprog.stop {
+    transition: none;
+  }
+  & .hmrow {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+  }
+  & .hxpause {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    min-width: 44px;
+    justify-content: center;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 16px;
+    color: var(--hx-tab-ink);
+    font-weight: 800;
+    font-size: 13.5px;
+    cursor: pointer;
+  }
+  & .hxpause svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    flex: none;
+  }
+  & .hxpause[aria-pressed='true'] {
+    color: var(--hx-tab-hover-ink);
+  }
+  & .hxpause:focus-visible {
+    outline: 2px solid var(--hx-accent);
+    outline-offset: 2px;
   }
   & .hmodes {
     display: flex;
@@ -1120,7 +1161,10 @@
     stroke: var(--hx-accent) !important;
     stroke-opacity: 0.6;
     stroke-width: 0.8 !important;
-    animation: inst-hx-cone 3s ease-in-out infinite;
+    /* RUNDA-V5 §1.5: the beam grows from its camera (--ox/--oy, `beam.ts`), then breathes. */
+    animation:
+      inst-hx-beam 0.52s var(--ease-out) both,
+      inst-hx-cone 3s ease-in-out 0.52s infinite;
   }
   & .scene .cone.ir {
     fill: var(--hx-cone-ir);
@@ -1316,8 +1360,18 @@
    tabs, the camera, the „Na żywo” card and the chips (RUNDA-V5 §1.4). */
 @media (max-width: 1023px) {
   [data-line='instalacje'] {
+    /* The text column has no sky behind it below 1024 px: the background follows the time of
+       day like the text colour (was only ≤ 760 px — on a tablet night text sat on the light page,
+       1.1:1). */
     & .hx {
-      block-size: auto;
+      min-block-size: 0;
+      background: var(--hx-phone-bg);
+    }
+    /* On the light phone background (day, winter) the 50–55% glass of the pill and the ghost
+       button left white text at 3.4–4.0:1 — the denser glass of the hero cards (P1-4). */
+    & .hpill,
+    & .hx .hbtn-g {
+      background: var(--hx-glass);
     }
     /* Not `display: none`: the building scene draws this backdrop through <use>, and gradients
        inside a hidden SVG do not paint. */
@@ -1411,9 +1465,6 @@
 
 @media (max-width: 760px) {
   [data-line='instalacje'] {
-    & .hx {
-      background: var(--hx-phone-bg);
-    }
     & .hxstage {
       margin: -2px -16px 20px;
     }
@@ -1457,6 +1508,27 @@
       width: 100%;
       box-sizing: border-box;
     }
+    /* The pause button next to the times of day: icon only, the name stays for screen readers. */
+    & .hmrow {
+      width: 100%;
+    }
+    & .hmrow .hmodes {
+      flex: 1;
+      min-width: 0;
+      width: auto;
+    }
+    & .hxpause {
+      padding: 0;
+      width: 54px;
+    }
+    & .hxpause .hxpl {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
     & .hmode {
       flex: 1;
       justify-content: center;
@@ -1470,6 +1542,51 @@
     & .hchipx {
       margin-left: 0;
       width: 100%;
+    }
+    /* P2-12 (audit 06.11): the first screen is the H1, the lead and the buttons; the scene comes
+       under the object tabs, the chips scroll in one row and the camera preview stays for wider
+       screens (its state reads in „Na żywo”). The hero is ~1.3 screens instead of 2.5. */
+    & .hxstage {
+      order: 0;
+      aspect-ratio: 650 / 520;
+      margin: 4px -16px 12px;
+    }
+    /* The scene fills the shorter box and is cropped (`slice`), not sized by its viewBox. */
+    & .hxstage .hxbld {
+      position: absolute;
+      inset: 0;
+    }
+    & .pip,
+    & .hxstat {
+      display: none;
+    }
+    /* The one-line status of the dock instead of the „Na żywo” card. */
+    & .hxdock .hxdst {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 0 8px;
+      font-size: 13px;
+    }
+    & .hxchips {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+    & .hxcrow {
+      min-width: 0;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+      margin: 0 -10px;
+      padding: 0 10px 2px;
+    }
+    & .hxcrow::-webkit-scrollbar {
+      display: none;
+    }
+    & .hxcrow .hchip {
+      flex: none;
+      scroll-snap-align: start;
     }
   }
 }
@@ -1706,6 +1823,16 @@
 @keyframes inst-hx-march {
   to {
     stroke-dashoffset: -22;
+  }
+}
+@keyframes inst-hx-beam {
+  from {
+    opacity: 0;
+    clip-path: circle(0 at var(--ox, 50%) var(--oy, 0));
+  }
+  to {
+    opacity: 1;
+    clip-path: circle(150% at var(--ox, 50%) var(--oy, 0));
   }
 }
 @keyframes inst-hx-cone {

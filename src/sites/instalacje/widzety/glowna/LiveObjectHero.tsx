@@ -36,6 +36,7 @@ import {
   previewTime,
   TICK_MS,
 } from './heroModel'
+import { beamOrigin } from './beam'
 import { HERO_OBJECT_EVENT } from './heroEvents'
 
 type Props = {
@@ -66,6 +67,11 @@ export function LiveObjectHero({ backdrop, children }: Props) {
   const [compact, setCompact] = useState(false)
   const [pipOpen, setPipOpen] = useState(false)
   const [paused, setPaused] = useState(false)
+  // P2-11: the visitor's own pause (button), the autoplay's progress frozen where it stopped.
+  const [userPaused, setUserPaused] = useState(false)
+  const [frozen, setFrozen] = useState<number | null>(null)
+  const [reduced, setReduced] = useState(true)
+  const progressBar = useRef<HTMLSpanElement>(null)
   const [tick, setTick] = useState(0)
   const [auto, setAuto] = useState(AUTOPLAY_START)
   const section = useRef<HTMLElement>(null)
@@ -80,12 +86,17 @@ export function LiveObjectHero({ backdrop, children }: Props) {
       setNarrow(narrowQuery.matches)
       setCompact(compactQuery.matches)
     }
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onMotion = () => setReduced(motionQuery.matches)
+    onMotion()
+    motionQuery.addEventListener('change', onMotion)
     onChange()
     narrowQuery.addEventListener('change', onChange)
     compactQuery.addEventListener('change', onChange)
     return () => {
       narrowQuery.removeEventListener('change', onChange)
       compactQuery.removeEventListener('change', onChange)
+      motionQuery.removeEventListener('change', onMotion)
     }
   }, [])
 
@@ -96,9 +107,23 @@ export function LiveObjectHero({ backdrop, children }: Props) {
       setScene(next.state)
     },
     AUTOPLAY_MS,
-    { enabled: !touched && !paused, target: section },
+    { enabled: !touched && !paused && !userPaused, target: section },
   )
   useInterval(() => setTick((n) => n + 1), TICK_MS, { enabled: true, target: section })
+
+  // Hover, focus or the button stop the autoplay: the progress bar stops where it is (its CSS
+  // transition would otherwise run on to the next step).
+  const stopped = paused || userPaused
+  useEffect(() => {
+    const bar = progressBar.current
+    if (!stopped || !bar) {
+      setFrozen(null)
+      return
+    }
+    const matrix = getComputedStyle(bar).transform
+    const scale = matrix.startsWith('matrix(') ? Number(matrix.slice(7).split(',')[0]) : NaN
+    setFrozen(Number.isFinite(scale) ? scale : null)
+  }, [stopped])
 
   const state: HeroState = { ...scene, narrow, tick }
   const sc = heroScene(state)
@@ -180,6 +205,12 @@ export function LiveObjectHero({ backdrop, children }: Props) {
       onPointerLeave={pause(false)}
       onFocus={pause(true)}
       onBlur={pause(false)}
+      onKeyDown={(event) => {
+        // P2-11: the camera preview opened from a camera point closes with Esc, focus goes back.
+        if (event.key !== 'Escape' || !pipOpen) return
+        setPipOpen(false)
+        section.current?.querySelector<SVGElement>('#hx-scena [role="button"]')?.focus()
+      }}
     >
       {/* Sky, mountains and forests across the whole section (RUNDA-V5 §1.3). Below 1024 px it is
           hidden and the building scene draws it itself through <use>, cropped like the building. */}
@@ -228,8 +259,9 @@ export function LiveObjectHero({ backdrop, children }: Props) {
                   {on && progress !== null ? (
                     // How far the autoplay is before it moves on to the next object.
                     <span
-                      className="hoprog"
-                      style={{ '--p': progress } as CSSProperties}
+                      ref={progressBar}
+                      className={frozen === null ? 'hoprog' : 'hoprog stop'}
+                      style={{ '--p': frozen ?? progress } as CSSProperties}
                       aria-hidden="true"
                     />
                   ) : null}
@@ -237,25 +269,46 @@ export function LiveObjectHero({ backdrop, children }: Props) {
               )
             })}
           </div>
-          <div ref={modeTabs} className="glass hmodes" role="group" aria-label={t.modesLabel}>
-            <SlidingPill
-              container={modeTabs}
-              active={scene.mode}
-              className="inst-pill"
-              radius={12}
-            />
-            {HERO_MODES.map((m) => (
+          <div className="hmrow">
+            <div ref={modeTabs} className="glass hmodes" role="group" aria-label={t.modesLabel}>
+              <SlidingPill
+                container={modeTabs}
+                active={scene.mode}
+                className="inst-pill"
+                radius={12}
+              />
+              {HERO_MODES.map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  className={scene.mode === m ? 'hmode on' : 'hmode'}
+                  aria-pressed={scene.mode === m}
+                  onClick={() => touch({ mode: m })}
+                >
+                  <InstIcon name={t.modes[m].icon} size={15} strokeWidth={2.2} />
+                  {t.modes[m].label}
+                </button>
+              ))}
+            </div>
+            {/* P2-11 (WCAG 2.2.2): a visible pause while the autoplay runs (none with reduced motion
+              or after the first touch — then nothing moves by itself). */}
+            {!touched && !reduced ? (
               <button
-                key={m}
                 type="button"
-                className={scene.mode === m ? 'hmode on' : 'hmode'}
-                aria-pressed={scene.mode === m}
-                onClick={() => touch({ mode: m })}
+                className="glass hxpause"
+                aria-pressed={userPaused}
+                onClick={() => setUserPaused((on) => !on)}
               >
-                <InstIcon name={t.modes[m].icon} size={15} strokeWidth={2.2} />
-                {t.modes[m].label}
+                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                  {userPaused ? (
+                    <path d="M5 3.5v9l7-4.5z" />
+                  ) : (
+                    <path d="M4.5 3h2.5v10H4.5zM9 3h2.5v10H9z" />
+                  )}
+                </svg>
+                <span className="hxpl">{t.pause}</span>
               </button>
-            ))}
+            ) : null}
           </div>
         </div>
 
@@ -335,9 +388,18 @@ export function LiveObjectHero({ backdrop, children }: Props) {
                 ))}
               </g>
               <g>
-                {sc.cones.map((f, i) => (
-                  <polygon key={`c${i}`} points={f.p} className={f.c} />
-                ))}
+                {sc.cones.map((f, i) => {
+                  // RUNDA-V5 §1.5: the beam grows from its camera (`clip-path`), see glowna.css.
+                  const o = beamOrigin(f.p)
+                  return (
+                    <polygon
+                      key={`c${i}`}
+                      points={f.p}
+                      className={f.c}
+                      style={{ '--ox': `${o.x}px`, '--oy': `${o.y}px` } as CSSProperties}
+                    />
+                  )
+                })}
                 {sc.scr.map((f, i) => (
                   <polygon key={`s${i}`} points={f.p} className={f.c} />
                 ))}
