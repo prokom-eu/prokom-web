@@ -373,6 +373,7 @@ export const WIZARD_V3: SoftwareWizard = {
     desc: 'Temat',
     url: 'Adres strony',
     description: 'Opis',
+    note: 'Uwagi',
   },
   ui: {
     eyebrow: 'Kreator · 60 sekund',

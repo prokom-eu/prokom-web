@@ -172,6 +172,7 @@ export const softwareWizardSchema = obj({
     desc: label,
     url: label,
     description: label,
+    note: label,
   }),
   ui: obj({
     eyebrow: label,
