@@ -1,7 +1,7 @@
 /**
  * Runda v6 D4: carries the Instalacje texts that live in the panel to another database through
  * its REST API (staging, production — the seed runs locally only). Desired values come from the
- * seed mapping (`map.ts` and friends), so a text change in the repo reaches the panel by one run.
+ * seed mapping (`map.ts`, `home.ts` and friends), so a text change in the repo reaches the panel by one run.
  * Only the text fields of `texts.ts`; prices, relations, colours and media stay the panel's.
  *
  *   pnpm inst:texts <panel URL> [--dry-run] [--out=<file.md>]     — preview (the default)
@@ -18,7 +18,10 @@ import dns from 'node:dns'
 import { writeFileSync } from 'node:fs'
 
 import { INSTALACJE_SHARED } from '../shared/instalacje'
+import { HOME_SLUG } from '../../lib/pages/slug'
 import { rodoPost } from './guide'
+import { INSTALACJE_FOOTER_TEXT } from './contact'
+import { HOME_HERO_TEXTS, HOME_SEO } from './home'
 import {
   objectData,
   objectsToImport,
@@ -28,7 +31,13 @@ import {
   servicesToImport,
   solutionsToImport,
 } from './map'
-import { formatTextReport, planTextChange, type TextChange, type TextCollection } from './texts'
+import {
+  formatTextReport,
+  homeLayoutWithHero,
+  planTextChange,
+  type TextChange,
+  type TextCollection,
+} from './texts'
 
 type Doc = { id: number | string; _status?: string } & Record<string, unknown>
 
@@ -153,6 +162,10 @@ async function main() {
   const pageDocs = byKey(pages, 'slug')
   for (const page of pagesToImport())
     plan('pages', page.slug, pageDocs.get(page.slug), { seo: page.seo })
+  // The home page: its SEO and the hero texts of the `instHome` block (INST-6 PR2).
+  const home = pageDocs.get(HOME_SLUG)
+  const homeLayout = home ? homeLayoutWithHero(home.layout, HOME_HERO_TEXTS) : null
+  plan('pages', HOME_SLUG, home, { seo: HOME_SEO, ...(homeLayout && { layout: homeLayout }) })
   const post = rodoPost()
   plan('posts', post.slug, byKey(posts, 'slug').get(post.slug), {
     title: post.title,
@@ -164,10 +177,12 @@ async function main() {
   // The shared group holds the panel's contact data too: only the line's „O firmie” numbers
   // (a group sent in part keeps its other fields on update).
   const site = settings[0]
-  if (site)
+  if (site) {
     plan('site-settings', 'shared.about.stats', site, {
       shared: { about: { stats: INSTALACJE_SHARED.about?.stats ?? [] } },
     })
+    plan('site-settings', 'footer.text', site, { footer: { text: INSTALACJE_FOOTER_TEXT } })
+  }
 
   const report = formatTextReport(changes)
   const head = `# Teksty Instalacji → ${base}\n\n${dryRun ? 'Podgląd, nic nie zapisano (zapis: --write).' : 'Zapis.'}\n\n`

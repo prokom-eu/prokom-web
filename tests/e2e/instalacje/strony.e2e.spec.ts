@@ -1,6 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, type Page, test } from '@playwright/test'
 
+import { COPY_WORDS } from '../../../src/lib/instalacje/copyWords'
 import { LAW_WORDS } from '../../../src/lib/instalacje/lawWords'
 import { site } from '../helpers'
 import { INST_HOST, INST_PAGES } from './pages'
@@ -24,6 +25,10 @@ const LAW_EXEMPT = new Set([
   '/poradnik/monitoring-a-rodo',
 ])
 const LAW_ALL = new RegExp(LAW_WORDS.source, 'gu')
+// Runda v6 §2.2 (INST-6): pages with rewritten texts — no generated-copy phrasings in the whole
+// body (the frame too). Each INST-6 PR adds its pages.
+const COPY_CHECKED = new Set(['/'])
+const COPY_ALL = new RegExp(COPY_WORDS.source, 'gu')
 const PLACEHOLDER = /\[[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ ]{2,}[:\]]/
 
 async function open(page: Page, path: string) {
@@ -54,6 +59,16 @@ for (const path of PAGES) {
       // no promise of sending photos or plans (no form takes files), no sample-data notes.
       expect(allText).not.toMatch(FORBIDDEN)
       expect(description ?? '').not.toMatch(FORBIDDEN)
+      if (COPY_CHECKED.has(path)) {
+        // The visible text only: scripts hold RSC payloads and JSON-LD, not page copy.
+        const body = await page.locator('body').evaluate((b) => {
+          const copy = b.cloneNode(true) as HTMLElement
+          copy.querySelectorAll('script, style, template').forEach((e) => e.remove())
+          return copy.textContent ?? ''
+        })
+        expect(body.match(COPY_ALL) ?? [], 'generated-copy phrasings').toEqual([])
+        expect(`${title} ${description ?? ''}`).not.toMatch(COPY_WORDS)
+      }
       if (!LAW_EXEMPT.has(path)) {
         expect(allText.match(LAW_ALL) ?? [], 'law on the page').toEqual([])
         expect(`${title} ${description ?? ''}`).not.toMatch(LAW_WORDS)

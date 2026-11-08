@@ -39,9 +39,7 @@ export async function PlanSection({ services, phone, email, salons, hours }: Pro
           <span className="eye" style={{ color: 'var(--inst-plan-accent)' }}>
             {t.eyebrow}
           </span>
-          <h2 className="h2">
-            {t.heading} <span className="acc">{t.accent}</span>
-          </h2>
+          <h2 className="h2">{t.heading}</h2>
           <p className="lead">{t.lead}</p>
         </div>
         <QuickPlanForm services={services} formToken={formToken} />

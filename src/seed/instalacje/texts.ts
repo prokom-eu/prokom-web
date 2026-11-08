@@ -63,9 +63,11 @@ export const TEXT_FIELDS: Readonly<Record<TextCollection, readonly string[]>> = 
     'seo',
   ],
   'inst-solutions': ['name', 'description'],
-  pages: ['seo'],
+  // `layout` on the home page only: the hero texts of its `instHome` block (`homeLayoutWithHero`).
+  pages: ['seo', 'layout'],
   posts: ['title', 'category', 'lead', 'content', 'seo'],
-  'site-settings': ['shared'],
+  // `footer`: only its line description (`footer.text`, INST-6 PR2).
+  'site-settings': ['shared', 'footer'],
 }
 
 type Stored = { id: number | string } & Record<string, unknown>
@@ -155,6 +157,24 @@ export function planTextChange(
     changes.push(...found, ...notes)
   }
   return changes.length ? { collection, key, id: stored.id, data, changes } : null
+}
+
+/**
+ * The home page's stored layout with the repo's hero texts in its `instHome` block; the trust
+ * points, the other blocks and the ids stay as stored. `null` when the page has no such block.
+ */
+export function homeLayoutWithHero(
+  layout: unknown,
+  hero: Readonly<Record<string, string>>,
+): unknown[] | null {
+  if (!Array.isArray(layout)) return null
+  let found = false
+  const next = layout.map((block) => {
+    if (!isRecord(block) || block.blockType !== 'instHome') return block
+    found = true
+    return { ...block, hero: { ...(isRecord(block.hero) ? block.hero : {}), ...hero } }
+  })
+  return found ? next : null
 }
 
 const MAX = 118

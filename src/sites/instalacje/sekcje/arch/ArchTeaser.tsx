@@ -33,9 +33,7 @@ export async function ArchTeaser({ tenantId }: { tenantId: number }) {
         <div className="arhm ri">
           <div className="arhmt">
             <span className="eye">{T.eyebrow}</span>
-            <h2 className="h2">
-              {T.heading} <span className="acc">{T.accent}</span>
-            </h2>
+            <h2 className="h2">{T.heading}</h2>
             <p className="lead">{T.lead}</p>
             <div className="arhml">
               {T.points.map((x) => (

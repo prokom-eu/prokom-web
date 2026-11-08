@@ -1213,10 +1213,9 @@ export const architekci = {
   },
   /** The home's `#architekci` (`Main.body.html`, `Main.js` → `arhm`, ADR-I005 §5). */
   teaser: {
-    eyebrow: 'Dla architektów, projektantów i deweloperów',
-    heading: 'Projektujesz dom albo inwestycję?',
-    accent: 'Technikę zaplanujemy z Tobą.',
-    lead: 'Plan urządzeń na rzutach i proste wytyczne do projektu: monitoring, sieć, smart home Ampio, dźwięk, ekrany i ładowarki. Bez kucia po tynkach i bez urządzeń, które psują wnętrze.',
+    eyebrow: 'Dla architektów',
+    heading: 'Instalacje w projekcie domu lub inwestycji',
+    lead: 'Nanosimy urządzenia na rzuty i dajemy proste wytyczne do projektu: monitoring, sieć, smart home Ampio, dźwięk, ekrany i ładowarki. Wszystko planujemy przed tynkami, więc potem nic nie trzeba kuć.',
     points: [
       {
         icon: 'ruler',
