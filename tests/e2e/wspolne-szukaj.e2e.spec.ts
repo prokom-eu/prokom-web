@@ -104,9 +104,28 @@ test.describe('/_wspolne — search window (1440 px)', () => {
     const firstTitle = (await results.first().locator('.font-bold').textContent()) ?? ''
     await expect(preview).toContainText(firstTitle)
     await results.nth(1).hover()
+    await page.waitForTimeout(150) // the 90 ms hover intent
     const secondTitle = (await results.nth(1).locator('.font-bold').textContent()) ?? ''
     await expect(preview).toContainText(secondTitle)
     await expect(results.nth(1)).toHaveAttribute('data-active', '')
+  })
+
+  test('the first item Enter opens is a matched action: „telefon” → the call link', async ({
+    page,
+  }) => {
+    await page.goto(site('software.localhost', '/_wspolne'))
+    await page.keyboard.press('Control+k')
+    await field(page).fill('telefon')
+    const first = dialog(page).locator('.sdlg__body [data-result]').first()
+    await expect(first).toHaveAttribute('href', /^tel:/)
+  })
+
+  test('on a phone the window with a preview fills the screen', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(site('software.localhost', '/_wspolne'))
+    await page.keyboard.press('Control+k')
+    const box = await dialog(page).boundingBox()
+    expect(Math.round(box?.width ?? 0)).toBe(390)
   })
 
   test('arrows move between results and back to the field', async ({ page }) => {

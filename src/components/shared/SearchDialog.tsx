@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import {
   useCallback,
   useDeferredValue,
@@ -80,11 +80,13 @@ const isInternal = (href: string) => href.startsWith('/') && !href.startsWith('/
 const resultsLabel = (count: number) => `${count} ${plural(count, ['wynik', 'wyniki', 'wyników'])}`
 
 /**
- * The search window of Instalacje and Software (spec §5.1 „Wyszukiwarka”, board 07): Ctrl/⌘ K, „/”
+ * The search window of the lines (spec §5.1 „Wyszukiwarka”, board 07): Ctrl/⌘ K, „/”
  * or the rail's „Szukaj” (`requestSearch`) open a modal `<dialog>` — the browser keeps focus
  * inside and gives it back on close. Empty: the line's actions as buttons, popular phrases, the
  * provider's shortcuts and (behind the flag) recently viewed. Typing: matching actions on top, then
- * the provider's groups; nothing found → „Zapytaj o …” and the phone. Up/Down, Enter, Esc.
+ * the provider's groups; nothing found → „Zapytaj o …” and the phone. Up/Down, Enter (the first
+ * item of the list: an action, a result or „Zapytaj o …”), Esc. With the line's `renderPreview`
+ * (Biznes) the window is wider and shows the preview of the hovered or focused result.
  */
 export function SearchDialog({
   provider,
@@ -104,15 +106,17 @@ export function SearchDialog({
   const [status, setStatus] = useState('')
   const [theme, setTheme] = useTheme()
   const pathname = usePathname()
-  const router = useRouter()
   const headingId = useId()
+  const body = useRef<HTMLDivElement>(null)
   const [activeId, setActiveId] = useState<string | null>(null)
+  const hoverTimer = useRef<number | undefined>(undefined)
 
   const show = useCallback(() => {
     // Another modal (menu sheet, preview) owns the screen.
     if (!dialog.current || document.querySelector('dialog[open]')) return
     setRecent(recentlyViewed ? readRecent(line) : [])
     setStatus('')
+    setActiveId(null)
     dialog.current.showModal()
     input.current?.focus()
   }, [line, recentlyViewed])
@@ -154,14 +158,20 @@ export function SearchDialog({
   const results = useMemo(() => groups.flatMap((group) => group.results), [groups])
   const active = results.find((result) => result.id === activeId) ?? results[0] ?? null
 
-  /** Enter in the field opens the first result, as the hint under the list says. */
+  /**
+   * Enter in the field: the first item of the list as shown — an action (`tel`, `trasa`…), a
+   * result or „Zapytaj o …” — through its own click, so links, actions and closing work as usual.
+   */
   const openFirst = () => {
-    const first = results[0]
-    if (!first) return
-    close()
-    if (isInternal(first.href)) router.push(first.href)
-    else window.location.assign(first.href)
+    if (!query.trim()) return
+    body.current?.querySelector<HTMLElement>('[data-result]')?.click()
   }
+  /** Hover picks the preview after 90 ms, so a diagonal move to the preview keeps it. */
+  const hoverResult = (id: string) => {
+    window.clearTimeout(hoverTimer.current)
+    hoverTimer.current = window.setTimeout(() => setActiveId(id), 90)
+  }
+  useEffect(() => () => window.clearTimeout(hoverTimer.current), [])
 
   const run = (action: PaletteAction) => {
     if (action.kind === 'copy' && action.value) {
@@ -237,7 +247,8 @@ export function SearchDialog({
               data-result
               data-active={renderPreview && active?.id === result.id ? '' : undefined}
               onFocus={() => setActiveId(result.id)}
-              onMouseEnter={() => setActiveId(result.id)}
+              onMouseEnter={() => hoverResult(result.id)}
+              onMouseLeave={() => window.clearTimeout(hoverTimer.current)}
             >
               <span className="sdlg__icon">
                 <Icon name={railIcon(result.icon)} strokeWidth={2} className="size-4" />
@@ -289,7 +300,10 @@ export function SearchDialog({
             ref={input}
             type="search"
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => {
+              setQuery(event.target.value)
+              setActiveId(null)
+            }}
             onKeyDown={(event) => {
               // In a search field Chrome's first Esc only clears the text: close at once.
               if (event.key === 'Escape') {
@@ -318,7 +332,7 @@ export function SearchDialog({
         </p>
 
         <div className="sdlg__split">
-          <div className="sdlg__body" data-scroll-thin>
+          <div ref={body} className="sdlg__body" data-scroll-thin>
             {!trimmed && (
               <>
                 {actions.length > 0 && (
@@ -427,7 +441,7 @@ export function SearchDialog({
             </aside>
           )}
         </div>
-        {/* Enter opens the first result, or the focused one (Up/Down from the field). */}
+        {/* Enter opens the first item of the list, or the focused one (Up/Down from the field). */}
         <p className="sdlg__keys" aria-hidden="true">
           <span>↑↓ wybór</span>
           <span>Enter otwórz</span>

@@ -1002,8 +1002,11 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   padding: 16px 12px 20px;
   overflow-y: auto;
 }
-.sdlg--preview {
-  width: min(960px, calc(100% - 32px));
+/* Wider with a preview — not on a phone, where the window fills the screen. */
+@media (min-width: 768px) {
+  .sdlg--preview {
+    width: min(960px, calc(100% - 32px));
+  }
 }
 .sdlg__split {
   display: flex;
