@@ -43,9 +43,11 @@ const SWIPE_PX = 40
 
 /**
  * The moving part of the v24 hero (ZMIANY-v24 §4.1a): H1 with the word of the slide, the choice
- * panel (tabs), the 3D carousel and the caption. A new slide every 4.2 s; a click, a key or a
- * swipe takes over and the clock comes back 12 s later. Stopped while the visitor points at or
- * focuses the hero, off screen, on a hidden tab and with reduced motion (slides by hand only).
+ * panel (tabs), the 3D carousel with arrows and the caption. A new slide every 4.2 s; a click, an
+ * arrow, a key or a swipe takes over and the clock comes back 12 s later. Pointing at the hero
+ * does not stop it (AUDYT-0811 #1 — it looked frozen). Keyboard focus rests the clock only
+ * (WCAG 2.2.2); off screen and on a hidden tab the cosmic layer and the band rest too. Reduced
+ * motion: slides by hand only.
  */
 export function HeroStage({
   title,
@@ -63,17 +65,16 @@ export function HeroStage({
   const [current, setCurrent] = useState(0)
   const [held, setHeld] = useState(false)
   const [paused, setPaused] = useState(false)
+  const [focused, setFocused] = useState(false)
   const [still, setStill] = useState(false)
   const root = useRef<HTMLDivElement>(null)
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const resume = useRef<number | undefined>(undefined)
   const swipe = useRef<number | null>(null)
-  const pointer = useRef(false)
-  const focus = useRef(false)
   const offscreen = useRef(false)
 
   const syncPause = useCallback(() => {
-    setPaused(pointer.current || focus.current || offscreen.current || document.hidden)
+    setPaused(offscreen.current || document.hidden)
   }, [])
 
   // Reduced motion: no clock (ZMIANY-v24 §4.1a); the tiles still switch by hand.
@@ -102,20 +103,21 @@ export function HeroStage({
   }, [syncPause])
 
   // The section carries the state, so the CSS of the cosmic layer and the band can follow it.
+  const resting = held || still || paused || focused
   useEffect(() => {
     const hero = root.current?.closest<HTMLElement>('.hx')
     if (!hero) return
     hero.toggleAttribute('data-paused', paused)
     // While the clock rests the progress bar of the tile stands full; it starts again from zero
     // together with the clock (a paused CSS bar would run ahead of the restarted clock).
-    hero.toggleAttribute('data-hold', held || still || paused)
-  }, [paused, held, still])
+    hero.toggleAttribute('data-hold', resting)
+  }, [paused, resting])
 
   useEffect(() => {
-    if (still || held || paused || count < 2) return
+    if (resting || count < 2) return
     const timer = window.setTimeout(() => setCurrent((i) => stepSlide(i, 1, count)), SLIDE_MS)
     return () => window.clearTimeout(timer)
-  }, [current, still, held, paused, count])
+  }, [current, resting, count])
 
   useEffect(() => () => window.clearTimeout(resume.current), [])
 
@@ -162,25 +164,14 @@ export function HeroStage({
   return (
     <div
       ref={root}
-      onPointerEnter={() => {
-        pointer.current = true
-        syncPause()
-      }}
-      onPointerLeave={() => {
-        pointer.current = false
-        syncPause()
-      }}
       onFocus={(event) => {
-        // Only keyboard focus pauses: a click also focuses the tile, and the clock must come back
-        // 12 s after it (ZMIANY-v24 §4.1).
-        if (!(event.target as Element).matches(':focus-visible')) return
-        focus.current = true
-        syncPause()
+        // Only keyboard focus rests the clock: a click also focuses the tile, and the clock must
+        // come back 12 s after it (ZMIANY-v24 §4.1).
+        if ((event.target as Element).matches(':focus-visible')) setFocused(true)
       }}
       onBlur={(event) => {
         if (event.currentTarget.contains(event.relatedTarget as Node | null)) return
-        focus.current = false
-        syncPause()
+        setFocused(false)
       }}
     >
       <div className="hx-wrap">
@@ -281,6 +272,35 @@ export function HeroStage({
               {mockup}
             </div>
           ))}
+          {count > 1 && (
+            <>
+              <button
+                type="button"
+                className="hx-arrow"
+                data-step="prev"
+                aria-label="Poprzedni slajd"
+                // Not the start of a swipe on the carousel under it.
+                onPointerDown={(event) => event.stopPropagation()}
+                onClick={() => {
+                  choose(stepSlide(current, -1, count))
+                }}
+              >
+                <ArrowIcon d="M15 5l-7 7 7 7" />
+              </button>
+              <button
+                type="button"
+                className="hx-arrow"
+                data-step="next"
+                aria-label="Następny slajd"
+                onPointerDown={(event) => event.stopPropagation()}
+                onClick={() => {
+                  choose(stepSlide(current, 1, count))
+                }}
+              >
+                <ArrowIcon d="M9 5l7 7-7 7" />
+              </button>
+            </>
+          )}
         </div>
 
         {/* Announced only after the visitor's own choice, not on every turn of the clock. */}
@@ -300,5 +320,22 @@ export function HeroStage({
         </div>
       </div>
     </div>
+  )
+}
+
+/** Chevron of the carousel arrows (1.5 px line, AUDYT-0811 #2). */
+function ArrowIcon({ d }: { d: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d={d} />
+    </svg>
   )
 }

@@ -3,6 +3,7 @@ import { connection } from 'next/server'
 import { Suspense } from 'react'
 
 import { AboutPage } from '@/components/shared/AboutPage'
+import { LineLogo } from '@/components/shared/LineLogo'
 import { ContactPage } from '@/components/shared/ContactPage'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
@@ -82,6 +83,13 @@ async function SoftwareAbout({ tenantId }: { tenantId: number }) {
       line="software"
       origin={siteOrigin(host, env.SITE_ENV) ?? ''}
       siteEnv={env.SITE_ENV}
+      // „Wizytówka firmy” and the logo on top of the company card (board AU-firma, AUDYT-0811 #13).
+      cardHeading={
+        <div className="flex items-center justify-between gap-3" data-card-heading>
+          <span className="sw-eyebrow">Wizytówka firmy</span>
+          <LineLogo line="software" alt="" on="auto" height={22} />
+        </div>
+      }
       slots={{
         afterRules: (
           <>
