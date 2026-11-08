@@ -141,7 +141,8 @@ export default async function SolutionsCatalogPage({ params }: Props) {
             id="w-cenie-h"
             align="center"
             eyebrow="W cenie każdej strony"
-            title="Bez dopłat za rzeczy oczywiste"
+            title="Bez dopłat"
+            em="za rzeczy oczywiste"
             width="max-w-none"
           />
           <ul className="sw-included">

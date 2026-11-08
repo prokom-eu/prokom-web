@@ -36,7 +36,8 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
   ],
   situations: {
     eyebrow: 'Od czego zaczynasz',
-    title: 'Z czym do nas przychodzisz?',
+    title: 'Z czym',
+    em: 'do nas przychodzisz?',
     lead: 'Wybierz swoją sytuację. Pokażemy rozwiązanie, cenę i czas.',
     offer: 'Zobacz ofertę',
     items: [
@@ -148,7 +149,8 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
   },
   showroom: {
     eyebrow: 'Kliknij swoją branżę',
-    title: 'Tak może wyglądać Twoja strona albo system',
+    title: 'Tak może wyglądać',
+    em: 'Twoja strona albo system',
     lead: 'Wybierz, czym zajmuje się firma. Pokażemy stronę, wersję na telefon i system dopasowany do Twojej branży.',
     modes: ['Strona', 'Na telefonie', 'System'],
     sitePrefix: 'Strona dla branży:',
@@ -271,7 +273,8 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
   },
   processHead: {
     eyebrow: 'Jak pracujemy',
-    title: 'Większość płacisz po odbiorze',
+    title: 'Większość płacisz',
+    em: 'po odbiorze',
     stage: 'Etap {num} · {t}',
   },
 }

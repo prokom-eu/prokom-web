@@ -2,6 +2,10 @@ import type { Block, Field } from 'payload'
 
 import { hrefField, linkGroup } from '../../../../blocks/fields'
 
+/** Panel hint for the H2 fields (AUDYT po SWA7 #5). */
+const EM_HINT =
+  'Część w gradiencie w **gwiazdkach**, np. „Trzy poziomy audytu — **pierwszy za darmo**”.'
+
 const text = (
   name: string,
   label: string,
@@ -66,7 +70,7 @@ export const SwPricingBlock: Block = {
           type: 'row',
           fields: [
             text('careEyebrow', 'Nad nagłówkiem', 40),
-            text('careTitle', 'Nagłówek (H2)', 80),
+            text('careTitle', 'Nagłówek (H2)', 80, false, EM_HINT),
           ],
         },
         textarea(
@@ -98,7 +102,7 @@ export const SwPricingBlock: Block = {
           type: 'row',
           fields: [
             text('auditEyebrow', 'Nad nagłówkiem', 40),
-            text('auditTitle', 'Nagłówek (H2)', 80),
+            text('auditTitle', 'Nagłówek (H2)', 80, false, EM_HINT),
           ],
         },
         textarea(

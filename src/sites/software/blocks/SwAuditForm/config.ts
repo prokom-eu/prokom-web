@@ -5,6 +5,9 @@ import { hrefField, linkGroup } from '../../../../blocks/fields'
 /** Icons of the report rows and the check cards (board `Audyt`). */
 export const AUDIT_ICONS = ['clock', 'phone', 'search', 'shield', 'users', 'doc'] as const
 
+/** Panel hint for the H2 fields (AUDYT po SWA7 #5). */
+const EM_HINT = 'Część w gradiencie w **gwiazdkach**, np. „Jak wygląda **darmowy audyt**”.'
+
 const text = (
   name: string,
   label: string,
@@ -141,7 +144,7 @@ export const SwAuditFormBlock: Block = {
           type: 'row',
           fields: [
             text('checksEyebrow', 'Nad nagłówkiem', 40),
-            text('checksTitle', 'Nagłówek (H2)', 80),
+            text('checksTitle', 'Nagłówek (H2)', 80, false, EM_HINT),
           ],
         },
         { name: 'checksLead', label: 'Wstęp', type: 'textarea', maxLength: 300 },
@@ -166,7 +169,7 @@ export const SwAuditFormBlock: Block = {
           type: 'row',
           fields: [
             text('levelsEyebrow', 'Nad nagłówkiem', 40),
-            text('levelsTitle', 'Nagłówek (H2)', 80),
+            text('levelsTitle', 'Nagłówek (H2)', 80, false, EM_HINT),
           ],
         },
         {
@@ -201,7 +204,7 @@ export const SwAuditFormBlock: Block = {
           type: 'row',
           fields: [
             text('stepsEyebrow', 'Nad nagłówkiem', 40),
-            text('stepsTitle', 'Nagłówek (H2)', 80),
+            text('stepsTitle', 'Nagłówek (H2)', 80, false, EM_HINT),
           ],
         },
         {
@@ -221,7 +224,12 @@ export const SwAuditFormBlock: Block = {
     },
     {
       type: 'collapsible',
-      label: 'Wezwanie na końcu',
+      label: 'Wezwanie na końcu (nie wyświetlane)',
+      admin: {
+        initCollapsed: true,
+        description:
+          'Od 08.11 strona kończy się wspólnym pasem „Zacznij od podglądu” (jeden CTA przed stopką). Pola zostają, żeby zapisane dane się wczytywały.',
+      },
       fields: [
         text('ctaTitle', 'Nagłówek (H2)', 60),
         { name: 'ctaText', label: 'Tekst', type: 'textarea', maxLength: 240 },

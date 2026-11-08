@@ -3,6 +3,7 @@ import type { FaqBlock, SwContactBlock } from '@/payload-types'
 import { swContactData } from '@/sites/software/blocks/SwContact/Component'
 import { ContactForm } from '@/sites/software/blocks/SwContact/ContactFormLazy'
 import { softwareFaq } from '@/sites/software/components/home/FaqSoftware'
+import { EmText } from '@/sites/software/components/ui/EmText'
 
 type Props = { faq: FaqBlock; contact: SwContactBlock; tenantId: number }
 
@@ -37,7 +38,7 @@ export async function FaqContact({ faq: faqBlock, contact: contactBlock, tenantI
               </p>
             )}
             <h2 id="faq-h" className="sw-h2 v-fc-h" data-rise>
-              {faq.heading}
+              <EmText text={faq.heading} />
             </h2>
             {faq.lead && <p className="v-lead">{faq.lead}</p>}
             <ul className="v-qs" data-rise-group>
@@ -61,7 +62,7 @@ export async function FaqContact({ faq: faqBlock, contact: contactBlock, tenantI
           <div id="kontakt" className="sw-glass v-contact" data-rise>
             <p className="sw-eyebrow">{contact.eyebrow}</p>
             <h2 id="kontakt-h" className="sw-h2 v-contact-h">
-              {contact.title}
+              <EmText text={contact.title} />
             </h2>
             {contact.sideTitle && <p className="v-contact-lead">{contact.sideTitle}</p>}
             <ContactForm {...contact.form} look="v24" />

@@ -34,7 +34,11 @@ test.describe('Software /audyt', () => {
     await expect(kinds).toContainText(`990${NBSP}zł`)
     await expect(kinds).toContainText('Polecamy')
     await expect(page.locator('#faq')).toContainText('Czy szybki audyt naprawdę jest darmowy?')
-    await expect(page.locator('[data-footer-cta]')).toBeHidden()
+    // One CTA before the footer (AUDYT po SWA7 #6): the shared band, no band of the block's own.
+    await expect(page.locator('[data-footer-cta]')).toBeVisible()
+    await expect(page.locator('[data-final-cta]')).toHaveCount(0)
+    // H2 with its highlighted part (AUDYT po SWA7 #5).
+    await expect(page.locator('#kroki-h em')).toHaveText('darmowy audyt')
   })
 
   test('„Skanuj podgląd →” plays the sample card with the typed address, sends nothing', async ({
