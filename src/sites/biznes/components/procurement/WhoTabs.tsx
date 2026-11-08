@@ -53,7 +53,7 @@ export function WhoTabs({
       <div className="zp-tabs" role="tablist" aria-label={label} onKeyDown={onKeyDown}>
         {tabs.map((tab, i) => (
           <button
-            key={tab.title}
+            key={`${i}-${tab.title}`}
             ref={(element) => {
               refs.current[i] = element
             }}

@@ -60,7 +60,7 @@ export function PageNav({ links, cta }: { links: Link[]; cta: Link | null }) {
             key={link.anchor}
             href={`#${link.anchor}`}
             className="zp-pnav-link"
-            aria-current={current === link.anchor ? 'true' : undefined}
+            aria-current={current === link.anchor ? 'location' : undefined}
           >
             {link.label}
           </a>

@@ -7,10 +7,9 @@ import { breadcrumbJsonLd, faqJsonLd, serializeJsonLd, serviceJsonLd } from '@/l
 import { toTelHref } from '@/lib/site/link'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
 
-import { FaqSearch } from './FaqSearch'
 import { HeroBrands, ProcurementHero } from './Hero'
 import { ProcIcon } from './icons'
-import { PageNav } from './PageNav'
+import { FaqSearch, PageNav } from './ProcurementIslands'
 import { ProcImage, type ResolvedBrand } from './parts'
 import {
   BrandsGrid,
@@ -162,7 +161,7 @@ export function ProcurementPage({
             }
           >
             {faq.map((item, i) => (
-              <details key={item.q} open={i === 0}>
+              <details key={`${i}-${item.q}`} open={i === 0}>
                 <summary>
                   {item.q}
                   <span className="zp-faq-plus" aria-hidden="true">

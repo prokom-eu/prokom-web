@@ -1488,6 +1488,28 @@
   }
 }
 
+/* Depth behind the mouse (§7): `SceneParallax` sets --mx/--my on the scene, each packshot moves by
+   its own --z. On the image, not the item, so it does not fight the entrance animation. */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .zp-scene-item img {
+    transform: translate3d(
+      calc(var(--mx, 0) * var(--z, 0) * -1px),
+      calc(var(--my, 0) * var(--z, 0) * -1px),
+      0
+    );
+    transition: transform 0.5s var(--zp-ease);
+  }
+}
+
+/* Reduced motion: the brand strip stands, so it scrolls by hand instead (tiles out of view stay
+   reachable). */
+@media (prefers-reduced-motion: reduce) {
+  .zp-marq-view {
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+}
+
 /* --- Tablet ---------------------------------------------------------------------------------- */
 @media (max-width: 1100px) {
   .zp-hero {

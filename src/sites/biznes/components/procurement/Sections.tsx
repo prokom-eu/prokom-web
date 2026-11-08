@@ -7,7 +7,7 @@ import { plural } from '@/lib/plural'
 
 import { ProcIcon } from './icons'
 import { BrandMark, Figure, ProcImage, SectionHead, SmartLink, type ResolvedBrand } from './parts'
-import { WhoTabs } from './WhoTabs'
+import { WhoTabs } from './ProcurementIslands'
 
 type Data = ProcurementPageData
 type Images = Record<number, IndexImage>
@@ -21,6 +21,22 @@ function flexOf(id: number | null, images: Images): number {
   return Math.min(1.8, Math.max(0.6, image.width / image.height))
 }
 
+/** Full names for screen readers (the month row itself is hidden from them). */
+const MONTH_NAMES = [
+  'styczeń',
+  'luty',
+  'marzec',
+  'kwiecień',
+  'maj',
+  'czerwiec',
+  'lipiec',
+  'sierpień',
+  'wrzesień',
+  'październik',
+  'listopad',
+  'grudzień',
+]
+
 function Seasons({ seasons }: { seasons: NonNullable<Data['seasons']> }) {
   return (
     <div className="zp-season zp-card">
@@ -32,7 +48,11 @@ function Seasons({ seasons }: { seasons: NonNullable<Data['seasons']> }) {
           </li>
         ))}
       </ol>
-      <p className="zp-legend">
+      <p className="sr-only">
+        {seasons.peakLabel}: {seasons.peak.map((month) => MONTH_NAMES[month - 1]).join(', ')}.{' '}
+        {seasons.goodLabel}.
+      </p>
+      <p className="zp-legend" aria-hidden="true">
         <span>
           <i className="is-peak" aria-hidden="true" />
           {seasons.peakLabel}
@@ -63,8 +83,8 @@ export function Who({
         id="zp-who"
         label={who.eyebrow ?? who.heading}
         tabs={who.tabs.map((tab) => ({ title: tab.title, icon: <ProcIcon name={tab.icon} /> }))}
-        panels={who.tabs.map((tab) => (
-          <Fragment key={tab.title}>
+        panels={who.tabs.map((tab, k) => (
+          <Fragment key={`${k}-${tab.title}`}>
             <div className="zp-stage">
               <div className="zp-stage-row">
                 {tab.images.map((id, j) => (
@@ -83,8 +103,8 @@ export function Who({
                 <h3>{tab.heading}</h3>
                 <p>{tab.text}</p>
               </div>
-              {tab.points.map((point) => (
-                <div key={point.title} className="zp-point zp-card">
+              {tab.points.map((point, k) => (
+                <div key={`${k}-${point.title}`} className="zp-point zp-card">
                   <span className="zp-point-n">
                     <ProcIcon name="check" />
                   </span>
@@ -122,7 +142,7 @@ export function Categories({
         lead={categories.lead}
       />
       <ul className="zp-cats" data-reveal-cards="">
-        {categories.list.map((item) => {
+        {categories.list.map((item, k) => {
           const count = item.category ? (counts[item.category] ?? 0) : 0
           const body = (
             <>
@@ -143,7 +163,7 @@ export function Categories({
             </>
           )
           return (
-            <li key={item.name}>
+            <li key={`${k}-${item.name}`}>
               {item.category ? (
                 <SmartLink href={categoryHref(item.category)} className="zp-cat zp-card">
                   {body}
@@ -193,7 +213,7 @@ export function Classes({
       <h3 className="sr-only">{classes.heading}</h3>
       <ul className="zp-vars" data-reveal-cards="">
         {classes.list.map((item, i) => (
-          <li key={item.name} className="zp-var">
+          <li key={`${i}-${item.name}`} className="zp-var">
             <span className="zp-var-tag">{item.name}</span>
             <h4>{item.for}</h4>
             <p>{item.text}</p>
@@ -228,7 +248,7 @@ export function Guide({ guide }: { guide: Data['guide'] }) {
       />
       <ul className="zp-guide" data-reveal-cards="">
         {guide.list.map((item, i) => (
-          <li key={item.title} className="zp-gd zp-card">
+          <li key={`${i}-${item.title}`} className="zp-gd zp-card">
             <span className="zp-gd-no" aria-hidden="true">
               {String(i + 1).padStart(2, '0')}
             </span>
@@ -265,8 +285,8 @@ export function Versus({ versus }: { versus: Data['versus'] }) {
             ✓ Zamawiasz przez PRO-KOM
           </div>
         </div>
-        {versus.rows.map((row) => (
-          <div key={row.title} className="zp-vs-row" role="row">
+        {versus.rows.map((row, k) => (
+          <div key={`${k}-${row.title}`} className="zp-vs-row" role="row">
             <div className="zp-vs-sit" role="rowheader">
               <span className="zp-vs-icon">
                 <ProcIcon name={row.icon} />
@@ -300,7 +320,7 @@ export function Steps({ steps }: { steps: Data['steps'] }) {
       />
       <ol className="zp-steps" data-reveal-cards="">
         {steps.items.map((step, i) => (
-          <li key={step.title} className="zp-step zp-card">
+          <li key={`${i}-${step.title}`} className="zp-step zp-card">
             <span className="zp-step-no" aria-hidden="true">
               {i + 1}
             </span>
@@ -334,7 +354,7 @@ export function Programs({
           {programs.list.map((item, i) => {
             const brand = brands[i]
             return (
-              <li key={item.name}>
+              <li key={`${i}-${item.name}`}>
                 {brand && <BrandMark brand={brand} />}
                 <small>{item.text}</small>
               </li>
@@ -357,7 +377,7 @@ export function Industries({ industries }: { industries: NonNullable<Data['indus
         lead={industries.lead}
       />
       <ul className="zp-whos" data-reveal-cards="">
-        {industries.list.map((item) => {
+        {industries.list.map((item, k) => {
           const body = (
             <>
               <span className="zp-wcard-icon">
@@ -368,7 +388,7 @@ export function Industries({ industries }: { industries: NonNullable<Data['indus
             </>
           )
           return (
-            <li key={item.name}>
+            <li key={`${k}-${item.name}`}>
               {item.href ? (
                 <SmartLink href={item.href} className="zp-wcard zp-card">
                   {body}
@@ -410,8 +430,8 @@ export function Care({ care }: { care: NonNullable<Data['care']> }) {
         </div>
         {care.rows.length > 0 && (
           <ul className="zp-panel" aria-label="Przykładowy raport opieki">
-            {care.rows.map((row) => (
-              <li key={row.title}>
+            {care.rows.map((row, k) => (
+              <li key={`${k}-${row.title}`}>
                 <span className="zp-panel-icon">
                   <ProcIcon name={row.icon} />
                 </span>
@@ -446,7 +466,7 @@ export function Combo({ combo, images }: { combo: NonNullable<Data['combo']>; im
           </SmartLink>
         </div>
         <ul className="zp-combo-tiles" data-reveal-cards="">
-          {combo.list.map((item) => {
+          {combo.list.map((item, k) => {
             const body = (
               <>
                 <div className="zp-pic">
@@ -458,7 +478,7 @@ export function Combo({ combo, images }: { combo: NonNullable<Data['combo']>; im
               </>
             )
             return (
-              <li key={item.title}>
+              <li key={`${k}-${item.title}`}>
                 {item.href ? (
                   <SmartLink href={item.href} className="zp-ct zp-card">
                     {body}
@@ -487,8 +507,8 @@ export function BrandsGrid({ head, brands }: { head: Data['brands']; brands: Res
         lead={head.lead}
       />
       <ul className="zp-brands" data-reveal-cards="">
-        {brands.map((brand) => (
-          <li key={brand.name}>
+        {brands.map((brand, k) => (
+          <li key={`${k}-${brand.name}`}>
             {brand.href ? (
               <SmartLink href={brand.href} className="zp-brand">
                 <BrandMark brand={brand} />
@@ -518,8 +538,8 @@ export function Facts({
     <section aria-label="Dlaczego PRO-KOM" className="zp-blk zp-wrap">
       {facts.length > 0 && (
         <ul className="zp-facts" data-reveal-cards="">
-          {facts.map((fact) => (
-            <li key={fact.label} className="zp-fact zp-card">
+          {facts.map((fact, k) => (
+            <li key={`${k}-${fact.label}`} className="zp-fact zp-card">
               <Figure text={fact.value} />
               <span>{fact.label}</span>
             </li>
@@ -534,8 +554,8 @@ export function Facts({
         >
           <h3>{documents.heading}</h3>
           <ul>
-            {documents.list.map((doc) => (
-              <li key={doc.title}>
+            {documents.list.map((doc, k) => (
+              <li key={`${k}-${doc.title}`}>
                 <span className="zp-docs-icon">
                   <ProcIcon name={doc.icon} />
                 </span>

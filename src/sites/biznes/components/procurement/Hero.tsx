@@ -4,7 +4,7 @@ import type { IndexImage } from '@/lib/catalog/catalogIndex'
 import type { ProcurementPageData } from '@/lib/biznes/procurement/schema'
 import { toTelHref } from '@/lib/site/link'
 
-import { BrandMarquee } from './BrandMarquee'
+import { BrandMarquee, SceneParallax } from './ProcurementIslands'
 import { iconPath, ProcIcon } from './icons'
 import { BrandMark, Figure, ProcImage, SmartLink, type ResolvedBrand } from './parts'
 
@@ -65,8 +65,8 @@ export function ProcurementHero({
         </div>
         {hero.stats.length > 0 && (
           <ul className="zp-stats">
-            {hero.stats.map((stat) => (
-              <li key={stat.label}>
+            {hero.stats.map((stat, k) => (
+              <li key={`${k}-${stat.label}`}>
                 <Figure text={stat.value} />
                 <span>{stat.label}</span>
               </li>
@@ -76,6 +76,7 @@ export function ProcurementHero({
       </div>
       <div className="zp-scene" aria-hidden="true">
         <div className="zp-floor" />
+        <SceneParallax />
         {hero.scene.map((item, i) => (
           <div
             key={i}
@@ -87,7 +88,7 @@ export function ProcurementHero({
         ))}
         {hero.chips.map((chip, i) => (
           <span
-            key={chip.text}
+            key={`${i}-${chip.text}`}
             className="zp-chip"
             data-live={chip.live ? '' : undefined}
             style={boxStyle(chip.box, { '--i': i })}
@@ -107,8 +108,8 @@ export function HeroBrands({ label, brands }: { label: string; brands: ResolvedB
   if (logos.length === 0) return null
   return (
     <BrandMarquee label={label} showLabel>
-      {logos.map((brand) => (
-        <li key={brand.name}>
+      {logos.map((brand, k) => (
+        <li key={`${k}-${brand.name}`}>
           {brand.href ? (
             <SmartLink href={brand.href} className="zp-marq-tile">
               <BrandMark brand={brand} />

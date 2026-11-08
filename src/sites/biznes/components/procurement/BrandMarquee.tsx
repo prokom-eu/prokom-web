@@ -84,6 +84,11 @@ export function BrandMarquee({
     }
     aimRef.current = aim
     const tick = (t: number) => {
+      // Focus on a tile out of view makes the browser scroll the view: move that into `x`.
+      if (row.scrollLeft) {
+        x -= row.scrollLeft
+        row.scrollLeft = 0
+      }
       const dt = Math.min(0.05, (t - (last || t)) / 1000)
       last = t
       v += (target - v) * Math.min(1, dt * EASE)
@@ -108,6 +113,12 @@ export function BrandMarquee({
     }
     const onFocusOut = () => {
       focus = false
+      if (row.scrollLeft) {
+        x -= row.scrollLeft
+        row.scrollLeft = 0
+        wrap()
+        track.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`
+      }
       aim()
     }
     row.addEventListener('pointerenter', onEnter)

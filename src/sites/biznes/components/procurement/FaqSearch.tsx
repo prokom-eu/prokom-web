@@ -12,21 +12,30 @@ function normalize(text: string): string {
 /**
  * Search over the FAQ (ZAOPATRZENIE §2 pkt 17): hides the `<details>` that do not contain the
  * words and opens the ones that do. The questions themselves are server HTML (`children`), so
- * they are all there without JavaScript; the field only filters them.
+ * they are all there without JavaScript; the field only filters them. Clearing the field brings
+ * back which questions were open before the search.
  */
 export function FaqSearch({ empty, children }: { empty: string; children: ReactNode }) {
   const listRef = useRef<HTMLDivElement>(null)
+  const openBefore = useRef<boolean[] | null>(null)
   const [none, setNone] = useState(false)
 
   const onInput = (value: string) => {
     const query = normalize(value.trim())
+    const items = [...(listRef.current?.querySelectorAll('details') ?? [])]
+    if (query && !openBefore.current) openBefore.current = items.map((item) => item.open)
     let hits = 0
-    for (const item of listRef.current?.querySelectorAll('details') ?? []) {
+    items.forEach((item, i) => {
       const hit = !query || normalize(item.textContent ?? '').includes(query)
       item.hidden = !hit
       if (hit) hits++
-      if (query && hit) item.open = true
-    }
+      if (query) {
+        if (hit) item.open = true
+      } else if (openBefore.current) {
+        item.open = openBefore.current[i] ?? false
+      }
+    })
+    if (!query) openBefore.current = null
     setNone(hits === 0)
   }
 
