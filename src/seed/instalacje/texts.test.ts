@@ -4,6 +4,7 @@ import {
   formatTextReport,
   homeLayoutWithHero,
   layoutWithBlockTexts,
+  overlay,
   planTextChange,
   TEXT_FIELDS,
 } from './texts'
@@ -187,5 +188,37 @@ describe('layoutWithBlockTexts (INST-6 PR3)', () => {
       },
     ])
     expect(layoutWithBlockTexts(layout, 'instGuide', { hero: { h1a: 'Nowy' } })).toBeNull()
+  })
+})
+
+describe('overlay (INST-6 PR4)', () => {
+  it('keeps the keys and rows typed in the panel, takes the repo texts', () => {
+    const stored = {
+      verify: [
+        { id: 'a', title: 'CEIDG', href: 'https://ceidg' },
+        { id: 'b', title: 'Google', href: 'https://g.page/x' },
+      ],
+      lead: 'Stary',
+    }
+    const desired = { verify: [{ title: 'CEIDG' }, { title: 'Opinie Google' }], lead: 'Nowy' }
+    expect(overlay(stored, desired)).toEqual({
+      verify: [
+        { id: 'a', title: 'CEIDG', href: 'https://ceidg' },
+        { id: 'b', title: 'Opinie Google', href: 'https://g.page/x' },
+      ],
+      lead: 'Nowy',
+    })
+    const change = planTextChange(
+      'site-settings',
+      's',
+      { id: 1, shared: { about: stored } },
+      {
+        shared: { about: overlay(stored, desired) },
+      },
+    )
+    expect(change?.changes.map((c) => c.path)).toEqual([
+      'shared.about.verify[1].title',
+      'shared.about.lead',
+    ])
   })
 })

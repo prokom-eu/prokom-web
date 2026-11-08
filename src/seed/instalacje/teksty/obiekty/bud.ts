@@ -24,4 +24,7 @@ export const BUD: Readonly<Record<string, string>> = {
     'Umów wizję na działce i pomiar zasięgu LTE',
   'Wizja lokalna, projekt i wycena na piśmie. Montaż masztu, przestawianie przy zmianie etapu i kable pod docelowe instalacje.':
     'Przyjedziemy na działkę, zmierzymy zasięg, dobierzemy zasilanie na zimę i podamy wycenę na piśmie. Potem stawiamy maszt, przestawiamy kamery przy zmianie etapu i kładziemy kable pod docelowe instalacje.',
+  // Spec §2: no source notes on the page.
+  'firm budowlanych zgłasza kradzieże (BauWatch 2026, raport firmy sprzedającej monitoring)':
+    'firm budowlanych zgłasza kradzieże',
 }

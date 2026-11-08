@@ -11,7 +11,7 @@ export const PENS: Readonly<Record<string, string>> = {
   // hero fact: a date from the regulation → a fact of the same file (#gory)
   '30.06.2026': '4 333',
   'od tego dnia czujka dymu w każdym pokoju':
-    'obiektów noclegowych bez kategorii w Zakopanem (09.2026)',
+    'obiekty noclegowe bez kategorii w Zakopanem (09.2026)',
   // hotspots without deadlines of the regulation
   'Od 30.06.2026 każdy pokój musi mieć autonomiczną czujkę dymu. Dobieramy czujki zgodne z normą, które mogą też powiadomić Cię na telefonie.':
     'Autonomiczna czujka dymu w każdym pokoju gości. Dobieramy czujki, które mogą też powiadomić Cię na telefonie.',

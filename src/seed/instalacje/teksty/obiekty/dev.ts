@@ -14,7 +14,7 @@ export const DEV: Readonly<Record<string, string>> = {
   'Gdzie teletechnika psuje odbiory': 'Gdzie teletechnika psuje odbiory mieszkań',
   'na końcu budowy.': '',
   'Do zawiadomienia o zakończeniu budowy dołącza się protokoły badań i sprawdzeń instalacji.':
-    'Do odbioru budynku potrzebne są protokoły pomiarów instalacji, a na końcu budowy często nikt ich nie ma.',
+    'Protokoły pomiarów oddajemy do odbioru budynku, a na końcu budowy często nikt ich nie ma.',
   'Na wadę zgłoszoną przy odbiorze deweloper ma 14 dni na odpowiedź i 30 dni na usunięcie.':
     'Każda wada zgłoszona przy odbiorze mieszkania to kolejna wizyta ekipy i niezadowolony kupujący.',
   // day, mountains, packages, FAQ
@@ -31,4 +31,6 @@ export const DEV: Readonly<Record<string, string>> = {
     'Opisz inwestycję i dostań ofertę z harmonogramem prac',
   'Wycena branży teletechnicznej, wejście w stanie surowym, pomiary i protokoły do odbioru, przekazanie wspólnocie w zakresie z umowy.':
     'Wyceniamy branżę teletechniczną z projektu albo przedmiaru i wchodzimy na budowę w stanie surowym. Na koniec oddajemy protokoły pomiarów i przekazujemy instalację wspólnocie w zakresie z umowy.',
+  // Spec §2: no source notes on the page.
+  'mieszkań w 2025 r. oddali deweloperzy (GUS)': 'mieszkań oddali deweloperzy w 2025 r.',
 }
