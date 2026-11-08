@@ -228,7 +228,14 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'bzAboutPage':
             return <BzAboutPageBlock key={key} tenantId={tenant.id} />
           case 'bzProcurementPage':
-            return <BzProcurementPageBlock key={key} block={block} tenantId={tenant.id} />
+            return (
+              <BzProcurementPageBlock
+                key={key}
+                block={block}
+                tenantId={tenant.id}
+                path={pagePath(page.slug)}
+              />
+            )
           case 'bzOrderFlow':
             return <BzOrderFlowBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzTimeline':

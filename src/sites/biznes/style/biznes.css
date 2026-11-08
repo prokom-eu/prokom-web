@@ -4,6 +4,7 @@
  */
 @import 'tailwindcss' source(none);
 @import '../../../styles/site.css';
+@import './zaopatrzenie.css';
 
 @source '..';
 
