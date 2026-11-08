@@ -65,27 +65,27 @@ export const SW_HERO: Extract<Block, { blockType: 'swHero' }> = {
 }
 
 /**
- * FAQ of the start page (spec. §4 pkt 11) — the shared block in the Software look; heading and
- * lead from the board `Main`, the 6 questions from `faq.json` → `homeFaq` (`[OPIEKA OD]` is
- * filled on render).
+ * FAQ of the start page (spec. §4 pkt 11) — the shared block in the Software look; heading of v24
+ * (`TRESCI-v24` § s_8, no lead: the form stands next to it), the 6 questions from `faq.json` →
+ * `homeFaq` (`[OPIEKA OD]` is filled on render).
  */
 export const SW_FAQ: Extract<Block, { blockType: 'faq' }> = {
   blockType: 'faq',
-  eyebrow: 'Zanim napiszesz',
-  heading: 'Pytania, które słyszymy najczęściej',
-  lead: 'Nie ma Twojego? Zadaj je w formularzu poniżej, odpowiadamy konkretnie.',
+  eyebrow: 'Pytania',
+  heading: 'Zanim napiszesz',
   items: faqPackage.homeFaq.map(({ q, a }) => ({ question: q, answer: a })),
 }
 
 /**
- * Contact block of the start page (spec. §4 pkt 12) — texts of the board `Main` v23; two
- * promises, no empty „najbliższy wolny termin” (ZMIANY-v23 §2: we don't know, we don't write).
+ * Contact block of the start page (spec. §4 pkt 12) — heading, the line under it („side title”)
+ * and the button of v24 (`TRESCI-v24` § s_8); the promises, audit card and side text are shown by
+ * the v23 look only (no empty „najbliższy wolny termin”, ZMIANY-v23 §2).
  */
 export const SW_CONTACT: Extract<Block, { blockType: 'swContact' }> = {
   blockType: 'swContact',
   eyebrow: 'Kontakt',
-  title: 'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy',
-  sideTitle: 'Najpierw zobaczysz, potem zapłacisz.',
+  title: 'Napisz po swojemu',
+  sideTitle: 'Odpowiadamy w ciągu [CZAS ODPOWIEDZI]. Zawsze człowiek.',
   sideText:
     'Po krótkiej rozmowie dostajesz: szkic rozwiązania, zakres, cenę i termin. Bez zobowiązań.',
   promises: [
@@ -103,7 +103,7 @@ export const SW_CONTACT: Extract<Block, { blockType: 'swContact' }> = {
   namePlaceholder: 'Anna, Twoja Firma',
   contactLabel: 'E-mail albo telefon',
   contactPlaceholder: 'jak mamy się odezwać?',
-  submit: 'Wyślij',
+  submit: 'Wyślij wiadomość',
   alternative: 'Wolisz kliknąć niż pisać?',
   alternativeLink: { label: 'Dobierz rozwiązanie w 60 sekund', href: '/#dobierz' },
 }

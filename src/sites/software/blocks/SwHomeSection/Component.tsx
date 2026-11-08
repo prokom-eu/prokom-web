@@ -7,7 +7,6 @@ import {
   HowWeBuildSection,
   LivePreviewsSection,
   PopularSection,
-  ProcessSection,
   TechnologiesSection,
   WhyNotWordpressSection,
   WizardSection,
@@ -15,6 +14,7 @@ import {
 import {
   BentoBlockSection,
   PricingBlockSection,
+  ProcessBlockSection,
   PromisesSection,
   ShowroomBlockSection,
   SituationsSection,
@@ -51,7 +51,7 @@ export function SwHomeSectionBlock({ block, tenantId }: Props) {
     case 'livePreviews':
       return <LivePreviewsSection tenantId={tenantId} />
     case 'process':
-      return <ProcessSection tenantId={tenantId} />
+      return <ProcessBlockSection tenantId={tenantId} />
     case 'wizard':
       return <WizardSection tenantId={tenantId} />
     case 'whyNotWordpress':

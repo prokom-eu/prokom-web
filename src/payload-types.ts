@@ -3976,6 +3976,9 @@ export interface SwContactBlock {
    */
   eyebrow: string;
   title: string;
+  /**
+   * Strona główna v24: zdanie pod nagłówkiem obok FAQ (np. „Odpowiadamy w ciągu [CZAS ODPOWIEDZI]. Zawsze człowiek.”). Pozostałe pola tej kolumny pokazuje tylko wygląd v23.
+   */
   sideTitle: string;
   sideText?: string | null;
   /**

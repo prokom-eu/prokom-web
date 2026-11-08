@@ -1,7 +1,12 @@
 import { getSoftwareHome, getSolutionsIndex } from '@/lib/software/data'
+import { fillText } from '@/lib/software/facts'
+import { processStages, stageEyebrow } from '@/lib/software/process'
+import { ProcessSection as ProcessV23Section } from '@/sites/software/components/home/HomeSections'
+import { softwareTextContext } from '@/sites/software/components/textContext'
 
 import { BentoSection } from './BentoLazy'
 import { PricingSection } from './PricingLazy'
+import { ProcessSection } from './ProcessLazy'
 import { bentoSlugs, priceLines, pricingCards } from './prices'
 import { Promises } from './Promises'
 import { ShowroomSection } from './ShowroomLazy'
@@ -51,4 +56,32 @@ export async function PricingBlockSection({ tenantId }: Props) {
   const pricing = home?.pricing
   if (!pricing) return null
   return <PricingSection pricing={pricing} cards={pricingCards(pricing, index)} />
+}
+
+/**
+ * „Większość płacisz po odbiorze” (v24): the stages of `home.process` with their facts filled; a
+ * home without `processHead` (saved before v24) keeps the v23 process until the data is pasted.
+ */
+export async function ProcessBlockSection({ tenantId }: Props) {
+  const [home, context] = await Promise.all([
+    getSoftwareHome(tenantId),
+    softwareTextContext(tenantId),
+  ])
+  if (!home) return null
+  const head = home.processHead
+  if (!head) return <ProcessV23Section tenantId={tenantId} />
+  const steps = processStages(home.process, (text) => fillText(text, context)).map((stage) => ({
+    num: stage.num,
+    name: stage.name,
+    duration: stage.duration,
+    eyebrow: stageEyebrow(head.stage, stage),
+    heading: stage.heading,
+    text: stage.text,
+    pay: stage.pay,
+    payNote: stage.payNote,
+  }))
+  if (steps.length === 0) return null
+  return (
+    <ProcessSection eyebrow={head.eyebrow} title={head.title} em={head.em ?? null} steps={steps} />
+  )
 }
