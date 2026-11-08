@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { clickUntilVisible, hydrated, setTheme, site } from './helpers'
+import { clickUntilVisible, hydrated, openInquiryDrawer, setTheme, site } from './helpers'
 
 // B4b: inquiry list `pk-cart` — counter, drawer, toast, shared between tabs (spec. §3.2, §8.1,
 // §9 pkt 3 and 7). Catalog from `pnpm seed`.
@@ -24,10 +24,7 @@ async function withCart(page: Page, items: { id: string; q: number }[]) {
 }
 
 async function openDrawer(page: Page) {
-  // Before hydration the capsule's „Zapytanie” is a plain link to /zapytanie: wait for it.
-  await hydrated(cartButton(page))
-  // Not clicked again once it shows: a second click closed a drawer that opened slowly.
-  await clickUntilVisible(cartButton(page), drawer(page))
+  await openInquiryDrawer(page, cartButton(page), drawer(page))
 }
 
 test.describe('Biznes inquiry list', () => {

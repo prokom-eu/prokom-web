@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test'
 
 import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
-import { api, loginAsAdmin, site } from './helpers'
+import { api, loginAsAdmin, openInquiryDrawer, site } from './helpers'
 
 // B8b: the inquiry list `/zapytanie` (spec. §6.3, plansza Zapytanie, kryterium §9 pkt 3 i 5):
 // items with quantities and notes → panel and Mailpit, number on the success screen, list
@@ -203,13 +203,11 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     await page.goto(site('biznes.localhost'))
     // The count in the title drops to 0 once the list is sent, so the name only starts with it.
     const drawer = page.getByRole('dialog', { name: /^Twoje zapytanie/ })
-    await expect(async () => {
-      await page
-        .locator('[data-site-header]')
-        .getByRole('link', { name: /^Zapytanie/ })
-        .click()
-      await expect(drawer).toBeVisible({ timeout: 1000 })
-    }).toPass()
+    await openInquiryDrawer(
+      page,
+      page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ }),
+      drawer,
+    )
     await expect(drawer.getByRole('link', { name: first.name })).toBeVisible()
 
     const contact = drawer.getByRole('region', { name: 'Dokąd wysłać ofertę?' })
