@@ -8,9 +8,9 @@ export const SOFTWARE_THANKS: SoftwareThanks = {
   numberLabel: 'Zgłoszenie przyjęte · nr',
   title: 'Dziękujemy.',
   titleAccent: 'Odezwiemy się w ciągu [CZAS ODPOWIEDZI].',
-  // TRESCI-v24 promises a copy by e-mail; it goes only when the visitor gave an address
-  // (`lib/inquiry/emails.ts`), so the sentence says so.
-  lead: 'Jeśli podałeś e-mail, wysłaliśmy na niego kopię zgłoszenia. Pilna sprawa? Zadzwoń i podaj numer zgłoszenia.',
+  // TRESCI-v24 promises „a copy” by e-mail; `lib/inquiry/emails.ts` sends only a confirmation
+  // with the number (no message, name or phone) and only when an address was given.
+  lead: 'Jeśli podałeś e-mail, wyślemy na niego potwierdzenie z numerem zgłoszenia. Pilna sprawa? Zadzwoń i podaj ten numer.',
   steps: [
     {
       title: 'Odpowiadamy',

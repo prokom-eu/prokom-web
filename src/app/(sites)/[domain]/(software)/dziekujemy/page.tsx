@@ -90,7 +90,7 @@ export default async function ThanksPage({ params, searchParams }: Props) {
           {steps.length > 0 ? (
             <ol className="sw-thx-steps">
               {steps.map((step, index) => (
-                <Glass as="li" key={step.title}>
+                <Glass as="li" key={`${index}-${step.title}`}>
                   <span className="sw-ln" aria-hidden="true">
                     {pad(index + 1)}
                   </span>
@@ -103,7 +103,7 @@ export default async function ThanksPage({ params, searchParams }: Props) {
           <div className="sw-sys-actions">
             {thanks.actions.map((action, index) => (
               <Link
-                key={action.href}
+                key={`${index}-${action.href}`}
                 href={action.href}
                 className={index === 0 ? 'sw-sys-btn sw-sys-btn-main' : 'sw-sys-btn'}
               >

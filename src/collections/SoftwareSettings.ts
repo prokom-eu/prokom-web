@@ -144,7 +144,7 @@ export const SoftwareSettings: CollectionConfig = {
       validate: validateNotFound,
       admin: {
         description:
-          'Teksty strony „nie znaleziono”. Ceny w podpisach kafli wpisuje się ręcznie — pilnuj ich przy zmianie cennika.',
+          'Teksty strony „nie znaleziono” (v24: nadtytuł, nagłówek, pole wyszukiwania, 6 kafli). Cena w podpisie kafla tylko jako {cena:<adres>}, fakty jak [TELEFON].',
       },
     },
   ],

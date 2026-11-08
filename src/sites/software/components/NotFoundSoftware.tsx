@@ -63,7 +63,7 @@ export async function NotFoundSoftware({ tenantId }: { tenantId: number }) {
         <SearchTrigger className="sw-404-search">
           <Icon name="search" className="size-5" />
           <span>{texts.search}</span>
-          <kbd>Ctrl K</kbd>
+          <kbd aria-hidden="true">Ctrl K</kbd>
         </SearchTrigger>
         <ul className="sw-404-tiles">
           {tiles.map((tile) => (

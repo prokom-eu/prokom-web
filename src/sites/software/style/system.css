@@ -126,6 +126,12 @@
   flex: none;
   color: var(--accent-text);
 }
+/* No keyboard on a touch screen: the shortcut goes. */
+@media (hover: none) {
+  .sw-404-search kbd {
+    display: none;
+  }
+}
 .sw-404-search kbd {
   margin-left: auto;
   padding: 3px 7px;
@@ -255,11 +261,11 @@
   }
   .sw-okc circle {
     stroke-dashoffset: 227;
-    animation: sw-draw var(--dur-sys-draw) var(--ease-out) 100ms forwards;
+    animation: sw-draw var(--dur-sys-draw) var(--ease-out) var(--dur-sys-draw-delay) forwards;
   }
   .sw-okc path {
     stroke-dashoffset: 60;
-    animation: sw-draw var(--dur-sys-tick) var(--ease-out) 800ms forwards;
+    animation: sw-draw var(--dur-sys-tick) var(--ease-out) var(--dur-sys-tick-delay) forwards;
   }
 }
 @keyframes sw-float {

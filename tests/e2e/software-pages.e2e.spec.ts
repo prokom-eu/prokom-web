@@ -156,8 +156,6 @@ test.describe('Software forms: the consent clause links the policy (ZMIANY-v24 Â
   for (const path of ['/', '/kontakt', '/audyt']) {
     test(`${path} form`, async ({ page }) => {
       await page.goto(site(HOST, path))
-      const consent = page.locator('form input[type="checkbox"]').first()
-      await consent.scrollIntoViewIfNeeded()
       await expect(page.locator('form a[href="/polityka-prywatnosci"]').first()).toBeVisible()
     })
   }

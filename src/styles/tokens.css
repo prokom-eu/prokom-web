@@ -1099,6 +1099,9 @@
   --dur-sys-draw: 1s;
   --dur-sys-tick: 600ms;
   --dur-sys-float: 6s;
+  /* The tick starts once the ring is nearly drawn. */
+  --dur-sys-draw-delay: 100ms;
+  --dur-sys-tick-delay: 800ms;
   /* Mock-ups (ZMIANY-v24 §8): bars grow, a log line slides in, a dot runs on the wire, the
      slider sweeps, the toast comes back, stars twinkle, a picture drifts; steps between items. */
   --dur-mk-bar: 900ms;
