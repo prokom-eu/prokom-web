@@ -17,6 +17,8 @@ import { CartCount } from './CartCount'
 
 /** Closing delay after the pointer leaves the mega menu (spec §8.1: 280 ms). */
 const CLOSE_DELAY = 280
+/** A click right after the hover opened the panel keeps it open (as Instalacje: 600 ms). */
+const TOGGLE_AFTER = 600
 
 type Props = {
   homeLabel: string
@@ -43,6 +45,7 @@ export function BizHeader({ homeLabel, menu, offer, phone, hours, cta }: Props) 
   const [open, setOpen] = useState(false)
   const [shownPath, setShownPath] = useState(pathname)
   const timer = useRef<number | undefined>(undefined)
+  const openedAt = useRef(0)
   const trigger = useRef<HTMLButtonElement>(null)
   const panel = useRef<HTMLDivElement>(null)
 
@@ -53,6 +56,12 @@ export function BizHeader({ homeLabel, menu, offer, phone, hours, cta }: Props) 
   }
 
   const keep = () => window.clearTimeout(timer.current)
+  /** `at`: the event's time stamp (no clock read in render code). */
+  const openNow = (at: number) => {
+    keep()
+    if (!open) openedAt.current = at
+    setOpen(true)
+  }
   const closeLater = () => {
     keep()
     timer.current = window.setTimeout(() => setOpen(false), CLOSE_DELAY)
@@ -100,7 +109,7 @@ export function BizHeader({ homeLabel, menu, offer, phone, hours, cta }: Props) 
       nav={nav}
       megaFor={() => (
         <div
-          onPointerEnter={(event) => hover(event) && (keep(), setOpen(true))}
+          onPointerEnter={(event) => hover(event) && openNow(event.timeStamp)}
           onPointerLeave={(event) => hover(event) && closeLater()}
         >
           <button
@@ -110,9 +119,12 @@ export function BizHeader({ homeLabel, menu, offer, phone, hours, cta }: Props) 
             aria-expanded={open}
             aria-controls="oferta-mega"
             aria-current={isCurrent(pathname, '/oferta') ? 'true' : undefined}
-            onClick={() => {
-              keep()
-              setOpen((value) => !value)
+            onClick={(event) => {
+              // The hover has just opened it: the click that follows must not close it.
+              if (open && event.timeStamp - openedAt.current > TOGGLE_AFTER) {
+                keep()
+                setOpen(false)
+              } else openNow(event.timeStamp)
             }}
           >
             {offerLabel}
