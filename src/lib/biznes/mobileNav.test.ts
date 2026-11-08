@@ -56,7 +56,7 @@ describe('parentPath', () => {
   })
 
   it('sends an industry to „Dla kogo” on the home page (there is no /branze page)', () => {
-    expect(parentPath('/branze/gastronomia')).toBe('/#dla-kogo')
+    expect(parentPath('/branze/gastronomia')).toBe('/#plan')
   })
 
   it('ignores a trailing slash', () => {

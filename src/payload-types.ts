@@ -2588,11 +2588,17 @@ export interface BzPlanBlock {
    * Np. „Kliknij urządzenie — otworzy się film i szczegóły”.
    */
   sceneNote?: string | null;
+  /**
+   * Etykieta karty zestawu branży (zestawy: Ustawienia Biznesu).
+   */
   moreLabel?: string | null;
   /**
    * Liczba pozycji dochodzi sama („· 17 poz.”).
    */
   inquiryLabel?: string | null;
+  /**
+   * Od 11.2026 (D8) nie wyświetla się na stronie głównej: branże wybiera się w planie (sceny w „Plany firmy”). Dane zostają.
+   */
   industries?: {
     /**
      * Sekcja „Dla kogo” (#dla-kogo), np. „Dla kogo pracujemy”.
@@ -4608,6 +4614,12 @@ export interface BiznesSetting {
         }[]
       | null;
   };
+  bundles?: {
+    /**
+     * Plan na głównej pokazuje przy branży pierwszy z tych zestawów, który jest przypisany do jej sceny planu i ma status „Gotowe”. Brak takiego = bez karty.
+     */
+    home?: (number | Bundle)[] | null;
+  };
   /**
    * Konfigurator 3.0 (/konfigurator): rodzaje firm, sytuacje, skale, potrzeby z listami produktów, pytania Tak/Nie, grupy zestawów i sceny planu. Zmieniaj ostrożnie — zapis sprawdza, czy reguły się zgadzają.
    */
@@ -4619,6 +4631,107 @@ export interface BiznesSetting {
     | string
     | number
     | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bundles".
+ */
+export interface Bundle {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Część adresu, np. „zestaw-kawiarnia-lada”.
+   */
+  slug: string;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  /**
+   * „Gotowe” po sprawdzeniu zgodności elementów. „Do sprawdzenia” = widoczny, ale bez Google, mapy strony, planu i stron branż.
+   */
+  contentStatus: 'ready' | 'needs-review';
+  hiddenItems?: string | null;
+  name: string;
+  area: 'sklep' | 'gastronomia' | 'noclegi' | 'biuro' | 'gabinet' | 'szkola' | 'siec' | 'ekrany';
+  /**
+   * Z paczki, np. „gastronomia-lada” — kreator dobiera po niej.
+   */
+  series: string;
+  /**
+   * Np. „Mały”, „Średni”, „Standard”.
+   */
+  level?: string | null;
+  /**
+   * Na stronach tych branż w sekcji „Gotowe zestawy” (tylko „Gotowe”).
+   */
+  industries?: (number | Industry)[] | null;
+  audience: string;
+  benefit: string;
+  description?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        /**
+         * Element bez widocznego produktu nie pokazuje się.
+         */
+        product?: (number | null) | Product;
+        role: string;
+        /**
+         * Liczba albo opis, np. „wg stanowisk”, „1–2”.
+         */
+        quantity: string;
+        mandatory?: boolean | null;
+        suggestedVersion?: string | null;
+        /**
+         * Nigdy na stronie. Pusto we wszystkich = można dać „Gotowe”.
+         */
+        toConfirm?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  swaps?:
+    | {
+        from?: (number | null) | Product;
+        to?: (number | null) | Product;
+        when: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Karty usług. Nieopublikowane nie pokazują się.
+   */
+  services?: (number | Product)[] | null;
+  reasons?: string[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Kategorie katalogu, np. „Dofinansowania”.
+   */
+  related?: (number | CatalogCategory)[] | null;
+  /**
+   * Z importu i dla zespołu — nigdy na stronie.
+   */
+  internalNotes?: string | null;
+  compatChecks?:
+    | {
+        pair: string;
+        source?: string | null;
+        status?: string | null;
+        id?: string | null;
+      }[]
     | null;
   updatedAt: string;
   createdAt: string;
@@ -4950,107 +5063,6 @@ export interface FloorPlan {
         product?: (number | null) | Product;
         label: string;
         description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bundles".
- */
-export interface Bundle {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  /**
-   * Część adresu, np. „zestaw-kawiarnia-lada”.
-   */
-  slug: string;
-  /**
-   * Mniejsza liczba = wcześniej.
-   */
-  order?: number | null;
-  /**
-   * „Gotowe” po sprawdzeniu zgodności elementów. „Do sprawdzenia” = widoczny, ale bez Google, mapy strony, planu i stron branż.
-   */
-  contentStatus: 'ready' | 'needs-review';
-  hiddenItems?: string | null;
-  name: string;
-  area: 'sklep' | 'gastronomia' | 'noclegi' | 'biuro' | 'gabinet' | 'szkola' | 'siec' | 'ekrany';
-  /**
-   * Z paczki, np. „gastronomia-lada” — kreator dobiera po niej.
-   */
-  series: string;
-  /**
-   * Np. „Mały”, „Średni”, „Standard”.
-   */
-  level?: string | null;
-  /**
-   * Na stronach tych branż w sekcji „Gotowe zestawy” (tylko „Gotowe”).
-   */
-  industries?: (number | Industry)[] | null;
-  audience: string;
-  benefit: string;
-  description?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  items?:
-    | {
-        /**
-         * Element bez widocznego produktu nie pokazuje się.
-         */
-        product?: (number | null) | Product;
-        role: string;
-        /**
-         * Liczba albo opis, np. „wg stanowisk”, „1–2”.
-         */
-        quantity: string;
-        mandatory?: boolean | null;
-        suggestedVersion?: string | null;
-        /**
-         * Nigdy na stronie. Pusto we wszystkich = można dać „Gotowe”.
-         */
-        toConfirm?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  swaps?:
-    | {
-        from?: (number | null) | Product;
-        to?: (number | null) | Product;
-        when: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Karty usług. Nieopublikowane nie pokazują się.
-   */
-  services?: (number | Product)[] | null;
-  reasons?: string[] | null;
-  faq?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Kategorie katalogu, np. „Dofinansowania”.
-   */
-  related?: (number | CatalogCategory)[] | null;
-  /**
-   * Z importu i dla zespołu — nigdy na stronie.
-   */
-  internalNotes?: string | null;
-  compatChecks?:
-    | {
-        pair: string;
-        source?: string | null;
-        status?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -8057,6 +8069,11 @@ export interface BiznesSettingsSelect<T extends boolean = true> {
               partners?: T;
               id?: T;
             };
+      };
+  bundles?:
+    | T
+    | {
+        home?: T;
       };
   wizard?: T;
   updatedAt?: T;

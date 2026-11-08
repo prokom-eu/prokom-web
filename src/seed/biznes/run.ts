@@ -92,6 +92,7 @@ import { k4PagesFile, seedBiznesK4Pages } from './k4PagesRun'
 import { seedBiznesTemplatePages } from './templatePages'
 import { seedBiznesProcurementPages } from './procurementPages'
 import { homeProcurementPackage, seedBiznesHomeProcurement } from './homeProcurement'
+import { homeBundlesUpdate, seedBiznesHomeBiz2 } from './homeBiz2'
 import {
   brandLogoFile,
   galleryFileName,
@@ -1053,6 +1054,17 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       })
     }
     count('biznes-settings brands', same ? false : 'updated')
+    // B3-1: the bundles of the home plan (`zestawy_na_glownej`), only while the panel has none.
+    const homeBundles = homeBundlesUpdate(settingsDoc.bundles?.home, (slug) => bundleIds.get(slug))
+    count('biznes-settings home bundles', homeBundles ? 'updated' : false)
+    if (homeBundles) {
+      await payload.update({
+        collection: 'biznes-settings',
+        id: settingsDoc.id,
+        data: { bundles: { home: homeBundles } },
+        ...local,
+      })
+    }
   }
 
   // --- header navigation in the site settings (created by `pnpm seed`), only while empty ---
@@ -1327,6 +1339,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     pageReport,
     note,
   )
+  // B3-1: the order of plan 0611 §7.1 and the texts of the plan with the industries (D8).
+  await seedBiznesHomeBiz2(payload, tenant.id, pageReport)
 
   // --- category page content (B10a): the cash registers from the board ---
   await seedBiznesCategoryContent(payload, tenant.id, pageRefs.product, pageReport)

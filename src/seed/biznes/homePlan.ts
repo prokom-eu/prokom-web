@@ -50,6 +50,18 @@ export const TILE_SCENES: Readonly<Record<string, string>> = {
   'Firma transportowa': 'biuro',
 }
 
+/**
+ * B3-1 (plan 0611 §7.1 pkt 8, D8; `0611/prototyp-glowna.html` `#plan`): one section of the plan
+ * and the industries — the industry tabs are the plan's scenes, the card „Gotowy zestaw dla tej
+ * branży” takes `moreLabel`. Hard spaces after one-letter words (K4-FINAL §1).
+ */
+export const PLAN_BIZ2 = {
+  eyebrow: 'Dla kogo pracujemy · Plan Twojej firmy',
+  heading: 'Wybierz branżę i\u00a0zobacz, co ustawimy w\u00a0Twoim lokalu.',
+  lead: 'Ponad 100 klientów firmowych z\u00a0Podhala i\u00a0Małopolski, od straganu po urząd gminy. Kliknij urządzenie na planie, a\u00a0całość dodasz do zapytania jednym kliknięciem.',
+  moreLabel: 'Gotowy zestaw dla tej branży',
+}
+
 export function planBlocks(industry: (seedSlug: string) => number | undefined): HomeBlock[] {
   const tile = (
     name: string,
@@ -71,16 +83,16 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
   return [
     {
       blockType: 'bzPlan',
-      eyebrow: 'Plan Twojej firmy',
-      heading: 'Zobacz, co ustawimy w Twoim lokalu.',
-      // K31d′: the board's lead 1:1 (the plan with the drawing is there now); scenes come from
-      // „Plany firmy” (`FloorPlans`).
-      lead: PLAN_LEAD,
+      // B3-1: the plan with the industries (scenes come from „Plany firmy”, `FloorPlans`).
+      eyebrow: PLAN_BIZ2.eyebrow,
+      heading: PLAN_BIZ2.heading,
+      lead: PLAN_BIZ2.lead,
       sceneNote: PLAN_LABELS.sceneNote,
-      moreLabel: PLAN_LABELS.moreLabel,
+      moreLabel: PLAN_BIZ2.moreLabel,
       inquiryLabel: PLAN_LABELS.inquiryLabel,
       industries: {
-        // v150 (board `#s4-real`): its own section „Dla kogo” before the plan.
+        // v150 (board `#s4-real`): its own section „Dla kogo” before the plan. Not shown since
+        // B3-1 (D8: the industries are the plan's tabs); kept as data of the block.
         eyebrow: 'Dla kogo pracujemy',
         heading: 'Firmy każdej wielkości, od straganu po urząd gminy',
         lead: 'Ponad 100 klientów firmowych: firm i instytucji z Podhala i Małopolski. Wybierz swoją branżę, a pokażemy plan lokalu z urządzeniami albo dobierzemy rozwiązanie w konfiguratorze.',

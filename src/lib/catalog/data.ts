@@ -451,6 +451,33 @@ export const getFloorPlans = (
   )()
 
 /**
+ * Slugs of `BiznesSettings.bundles.home` in the panel's order — bundles of this tenant only (the
+ * relation is checked again here). The plan on the home page picks its „Gotowy zestaw” from them.
+ */
+export const getHomeBundleSlugs = (tenantId: number): Promise<string[]> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'biznes-settings',
+        where: { tenant: { equals: tenantId } },
+        limit: 1,
+        depth: 1,
+        populate: { bundles: { slug: true, tenant: true } },
+        select: { bundles: true },
+        overrideAccess: true,
+      })
+      return (docs[0]?.bundles?.home ?? []).flatMap((bundle) =>
+        typeof bundle === 'object' && bundle && tenantIdOf(bundle.tenant) === tenantId
+          ? [bundle.slug]
+          : [],
+      )
+    },
+    ['home-bundles', String(tenantId)],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
  * The drawing of one scene, or `null` — checked again as a drawing here (`isSafeSvg`), the one gate
  * for the page and the route: a record saved before the allowlist or past the panel never goes out.
  */

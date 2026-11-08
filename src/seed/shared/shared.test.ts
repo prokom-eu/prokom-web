@@ -19,6 +19,7 @@ const anchors = (shared: SharedGroup) =>
 const BIZNES_HOME = [
   { blockType: 'bzHero' },
   { blockType: 'bzOffer', systems: [{ title: 'GoPOS' }] },
+  { blockType: 'bzProcurement' },
   { blockType: 'partners' },
   { blockType: 'bzFeatured' },
   { blockType: 'bzPlan', industries: { heading: 'Dla firm', tiles: [{ name: 'Sklep' }] } },
