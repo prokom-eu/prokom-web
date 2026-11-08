@@ -14,7 +14,7 @@ export const ALARM: Readonly<Record<string, string>> = {
   'Strefy, tryb nocny i czujki, które nie reagują na kota.':
     'Umów wizję lokalną i dobór czujek do Twojego domu',
   'Strefy, tryb nocny, czujki całodobowe i wideodomofon. Montaż, test czujek razem z Tobą i serwis.':
-    'Przyjedziemy, zaplanujemy strefy i czujki i podamy wycenę na piśmie. Po montażu testujemy czujki razem z Tobą i zajmujemy się serwisem.',
+    'Przyjedziemy, zaplanujemy strefy oraz czujki i podamy wycenę na piśmie. Po montażu testujemy czujki razem z Tobą i zajmujemy się serwisem.',
   // tile on the home page = SERVICE_CARDS (glownaSekcje.ts), menu caption
   'Czujki, syreny i powiadomienia na telefon. Wideodomofon przy furtce, który odbierasz z drugiego końca Polski.':
     'Czujki, syrena i powiadomienie w telefonie, gdy coś się dzieje. Wideodomofon przy furtce odbierasz nawet z drugiego końca Polski.',
