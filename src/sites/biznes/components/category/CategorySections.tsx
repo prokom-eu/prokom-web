@@ -140,7 +140,7 @@ export function BoughtWith({ heading, tiles }: { heading: string; tiles: BoughtW
                   {tile.image ? (
                     <Image
                       src={tile.image.url}
-                      alt=""
+                      alt={tile.image.alt}
                       width={tile.image.width}
                       height={tile.image.height}
                       unoptimized

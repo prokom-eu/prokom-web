@@ -124,7 +124,7 @@ export function GoposVenues({
                   <Image
                     unoptimized
                     src={thumb.url}
-                    alt=""
+                    alt={thumb.alt}
                     width={thumb.width}
                     height={thumb.height}
                   />
@@ -174,7 +174,7 @@ export function GoposVenues({
               key={venue.key}
               unoptimized
               src={image.url}
-              alt=""
+              alt={image.alt}
               width={image.width}
               height={image.height}
               className="gps-scene-img"

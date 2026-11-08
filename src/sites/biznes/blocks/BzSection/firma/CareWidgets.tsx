@@ -99,7 +99,7 @@ export function CareAreas({
               <Image
                 unoptimized
                 src={photo.image.url}
-                alt=""
+                alt={photo.image.alt}
                 width={photo.image.width}
                 height={photo.image.height}
                 className="max-h-full w-auto object-contain"
@@ -143,7 +143,7 @@ export function CareAreas({
                       <Image
                         unoptimized
                         src={product.image.url}
-                        alt=""
+                        alt={product.image.alt}
                         width={product.image.width}
                         height={product.image.height}
                         className="h-20 w-auto object-contain"

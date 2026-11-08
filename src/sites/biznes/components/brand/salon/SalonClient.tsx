@@ -346,7 +346,7 @@ function MiniModel({ product }: { product: IndexProduct }) {
         {product.image && (
           <Image
             src={product.image.url}
-            alt=""
+            alt={product.image.alt}
             width={product.image.width}
             height={product.image.height}
             unoptimized

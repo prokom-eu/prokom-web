@@ -141,7 +141,7 @@ export function GoposStage({
               <Image
                 unoptimized
                 src={device.image.url}
-                alt=""
+                alt={device.image.alt}
                 width={device.image.width}
                 height={device.image.height}
               />
