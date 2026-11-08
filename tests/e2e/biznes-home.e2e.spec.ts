@@ -255,8 +255,11 @@ test.describe('Biznes home page: industries, plan, steps', () => {
     await expect(plan.getByRole('heading', { level: 3, name: 'Sklep spożywczy' })).toBeVisible()
     await expect(plan).toContainText('186')
 
-    await scenes.filter({ hasText: 'Biuro' }).click()
-    await expect(plan.getByRole('heading', { level: 3, name: /^Biuro/ })).toBeVisible()
+    // A lazy island (ADR-023): a click before hydration is lost.
+    await clickUntilVisible(
+      scenes.filter({ hasText: 'Biuro' }),
+      plan.getByRole('heading', { level: 3, name: /^Biuro/ }),
+    )
     await expect(page).toHaveURL(/\?scena=biuro/)
 
     await page
