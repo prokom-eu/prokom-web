@@ -12,8 +12,8 @@ import { GorSnow } from './GorSnow'
 import { ProcessAxis } from './ProcessAxis'
 
 /**
- * „Realizacje” (`#realizacje`): up to 4 published, featured realizations with a photo (runda v6
- * D2: without one a card is hidden, the loader filters them). The
+ * „Realizacje” (`#realizacje`): up to 4 published realizations with a photo — the featured ones
+ * first, then others with a photo (runda v6 D2: a card without one is hidden). The
  * prototype shows four real clients, but a realization is published only with the client's
  * consent (I2) — without any the section is left out, no placeholders on the page.
  */
