@@ -73,3 +73,16 @@ describe('data-line → --accent* (ADR-007)', () => {
     expect(root).toMatchObject(accents('prokom'))
   })
 })
+
+describe('EU energy label classes (ZAOPATRZENIE §4, offer preview)', () => {
+  // The badge text: dark ink on A–F, black on G — AA for its 12 px bold letter.
+  const INK = color('--c-biznes-light-ink')
+  it.each(['a', 'b', 'c', 'd', 'e', 'f'])('class %s: dark letter has AA contrast', (label) => {
+    expect(contrastRatio(INK, color(`--c-energy-${label}`))).toBeGreaterThanOrEqual(4.5)
+  })
+  it('class g: black letter has AA contrast', () => {
+    expect(contrastRatio(color('--c-energy-ink-g'), color('--c-energy-g'))).toBeGreaterThanOrEqual(
+      4.5,
+    )
+  })
+})

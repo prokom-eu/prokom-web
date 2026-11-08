@@ -2,7 +2,10 @@ import { describe, expect, it } from 'vitest'
 
 import { CONSENT_CLAUSE } from '../../inquiry/consent'
 import { parseInquiryInput } from '../../inquiry/schema'
+import { MESSAGE_MAX } from '../../inquiry/limits'
 import {
+  COMPANY_MAX,
+  LIST_MAX,
   buildProcurementBody,
   checkProcurementForm,
   nipHint,
@@ -32,6 +35,23 @@ const LABELS = {
 }
 
 describe('procurement form (ZAOPATRZENIE §7, ADR-003)', () => {
+  it('keeps within the server limits: the company is also the name, the list leaves room for the extras', () => {
+    const body = buildProcurementBody(
+      {
+        ...VALUES,
+        company: 'F'.repeat(COMPANY_MAX),
+        who: ['Deweloper', 'Inwestor', 'Hotel / pensjonat', 'Biuro / firma'],
+        count: '500',
+        message: 'x'.repeat(LIST_MAX),
+      },
+      { href: 'http://biznes.localhost:3000/agd-rtv-dla-firm', formToken: 'token', ...LABELS },
+    )
+    expect(COMPANY_MAX).toBe(120)
+    expect(body.message.length).toBeLessThanOrEqual(MESSAGE_MAX)
+    const parsed = parseInquiryInput(body, 'biznes')
+    expect(parsed.success).toBe(true)
+  })
+
   it('asks for the company, a valid NIP, a phone or an e-mail and the consent', () => {
     expect(checkProcurementForm(VALUES)).toEqual({})
     const empty = { ...VALUES, company: ' ', nip: '', phone: '', consent: false }

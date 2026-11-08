@@ -23,7 +23,7 @@ export function ClassPick({ index, name }: { index: number; name: string }) {
       type="button"
       className="zp-var-pick"
       aria-pressed={on}
-      aria-label={`Klasa ${name}`}
+      aria-label={`Wybierz klasę ${name}`}
       onClick={() => {
         dispatch({ type: 'cls', index })
         notify(`Klasa „${name}” — zestaw i podgląd oferty zaktualizowane`)

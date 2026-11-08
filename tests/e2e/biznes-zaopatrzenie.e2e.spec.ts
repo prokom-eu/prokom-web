@@ -58,8 +58,8 @@ test.describe('Biznes „Zaopatrzenie firm” AGD (B2-1c)', () => {
     await expect(rows.filter({ hasText: name })).toHaveCount(0)
 
     // 7′: the class card is the offer variant (A/B/C).
-    await page.getByRole('button', { name: 'Klasa Premium' }).click()
-    await expect(page.getByRole('button', { name: 'Klasa Premium' })).toHaveAttribute(
+    await page.getByRole('button', { name: 'Wybierz klasę Premium' }).click()
+    await expect(page.getByRole('button', { name: 'Wybierz klasę Premium' })).toHaveAttribute(
       'aria-pressed',
       'true',
     )

@@ -2409,7 +2409,8 @@
   min-width: 32px;
   height: 20px;
   padding: 0 9px 0 7px;
-  /* Dark letters on every class: AA contrast on all seven colours (white fails on A and C–E). */
+  /* Dark letters on A–F (white fails on A and C–E), black on G (white and the ink fail there); AA checked in
+     `src/styles/tokens.test.ts`. */
   color: var(--c-biznes-light-ink);
   font: 900 12px var(--font-sans);
   clip-path: polygon(0 0, 76% 0, 100% 50%, 76% 100%, 0 100%);
@@ -2434,6 +2435,7 @@
 }
 .zp-ecl[data-e='G'] {
   background: var(--c-energy-g);
+  color: var(--c-energy-ink-g);
 }
 .zp-ecl[data-e='—'] {
   color: var(--c-biznes-light-ink-3);

@@ -89,6 +89,7 @@ export function ConfiguratorPanel({
   const { state, dispatch, data, services, totals, message, sendToForm, notify } = useProcurement()
   const [copied, setCopied] = useState(false)
   const moreTimer = useRef(0)
+  useEffect(() => () => window.clearTimeout(moreTimer.current), [])
   const countId = useId()
   const sumId = useId()
   const devices = useTween(totals.devices)
@@ -131,7 +132,7 @@ export function ConfiguratorPanel({
               >
                 −
               </button>
-              <output aria-live="polite">{state.count}</output>
+              <output>{state.count}</output>
               <button
                 type="button"
                 aria-label="Więcej"
@@ -205,6 +206,11 @@ export function ConfiguratorPanel({
                 window.clearTimeout(moreTimer.current)
                 moreTimer.current = window.setTimeout(() => dispatch({ type: 'more', value }), 300)
               }}
+              // Leaving the field (e.g. for „Wyślij do wyceny”) saves the last characters at once.
+              onBlur={(event) => {
+                window.clearTimeout(moreTimer.current)
+                dispatch({ type: 'more', value: event.target.value })
+              }}
             />
           </label>
         )}
@@ -246,7 +252,8 @@ export function ConfiguratorPanel({
             <span>{kindsWord(kinds)}</span>
           </div>
           <p className="sr-only" aria-live="polite">
-            {totals.devices} {devicesWord(totals.devices)}, {kinds} {kindsWord(kinds)}
+            {state.count} {unit}: {totals.devices} {devicesWord(totals.devices)}, {kinds}{' '}
+            {kindsWord(kinds)}
           </p>
         </div>
         <ul>
@@ -285,7 +292,12 @@ export function ConfiguratorPanel({
             Wyślij do wyceny
             <ProcIcon name="arrow" />
           </a>
-          <button type="button" className="zp-copy" aria-label="Kopiuj listę" onClick={copy}>
+          <button
+            type="button"
+            className="zp-copy"
+            aria-label={copied ? 'Skopiowano listę' : 'Kopiuj listę'}
+            onClick={copy}
+          >
             <ProcIcon name="copy" />
             <span aria-hidden="true">{copied ? 'Skopiowano' : 'Kopiuj'}</span>
           </button>

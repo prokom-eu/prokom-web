@@ -4,6 +4,8 @@ import { useRef, useState, type FormEvent } from 'react'
 
 import { TextLink } from '@/components/ui/TextLink'
 import {
+  COMPANY_MAX,
+  LIST_MAX,
   buildProcurementBody,
   checkProcurementForm,
   nipHint,
@@ -156,7 +158,7 @@ export function ProcurementForm({ form, formToken }: { form: Form; formToken: st
         name="company"
         label="Nazwa firmy"
         autoComplete="organization"
-        maxLength={200}
+        maxLength={COMPANY_MAX}
         required
         error={errors.company}
       />
@@ -242,7 +244,7 @@ export function ProcurementForm({ form, formToken }: { form: Form; formToken: st
         id="f-msg"
         name="message"
         label={form.messageLabel}
-        maxLength={5000}
+        maxLength={LIST_MAX}
         defaultValue={prefill?.message ?? ''}
         error={errors.message}
         className="zp-fld-w"

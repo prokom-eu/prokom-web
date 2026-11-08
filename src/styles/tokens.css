@@ -1311,6 +1311,8 @@
   --c-energy-e: #fdb913;
   --c-energy-f: #f37021;
   --c-energy-g: #ed1c24;
+  /* Letter on G: only black reaches AA on that red (white 4.4:1, the Biznes ink 4.2:1). */
+  --c-energy-ink-g: #000000;
 }
 
 [data-line='prokom'] {

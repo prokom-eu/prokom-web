@@ -1,12 +1,15 @@
 import { CONSENT_CLAUSE } from '../../inquiry/consent'
 import { BIZNES_FIELD_MESSAGES, sourceFromHref, type FieldName } from '../../inquiry/form'
 import { HONEYPOT_FIELD } from '../../inquiry/honeypot'
+import { MESSAGE_MAX } from '../../inquiry/limits'
 import { isValidNip, normalizeNip } from '../../site/company'
 
 /**
  * Browser side of the procurement form (ZAOPATRZENIE §7): a `contact` inquiry of the existing
  * contract (ADR-003) — the company is also the name, „Kiedy?” the deadline, the topic from the
- * page data; „Kim jesteś” and the count go into the message. The server validates the same.
+ * page data; „Kim jesteś” and the count go into the message. The company and the NIP are
+ * required here, in the browser; the server checks the NIP checksum when one is sent (for a
+ * `contact` inquiry it does not require them).
  */
 export type ProcurementFormValues = {
   company: string
@@ -56,6 +59,11 @@ export function nipHint(value: string): { text: string; tone: 'plain' | 'ok' | '
     : { text: PROCUREMENT_MESSAGES.nip, tone: 'bad' }
 }
 
+/** The company is also the inquiry `name`, which the server takes up to 120 characters. */
+export const COMPANY_MAX = 120
+/** The list field leaves room for „Kim jesteś” and the count put before it in the message. */
+export const LIST_MAX = MESSAGE_MAX - 400
+
 export function buildProcurementBody(
   values: ProcurementFormValues,
   options: {
@@ -70,7 +78,10 @@ export function buildProcurementBody(
     values.who.length > 0 ? `${options.whoLabel}: ${values.who.join(', ')}` : '',
     values.count.trim() ? `${options.countLabel}: ${values.count.trim()}` : '',
   ].filter(Boolean)
-  const message = [extras.join('\n'), values.message.trim()].filter(Boolean).join('\n\n')
+  const message = [extras.join('\n'), values.message.trim()]
+    .filter(Boolean)
+    .join('\n\n')
+    .slice(0, MESSAGE_MAX)
   return {
     type: 'contact',
     source: sourceFromHref(options.href),
