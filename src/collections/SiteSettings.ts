@@ -40,6 +40,57 @@ const text = (name: string, label: string, description?: string): Field => ({
  * „Zaopatrzenie — linki” (plan 0611 §6.4, ZAOPATRZENIE §10): texts of the hook-ins of the two
  * procurement pages. An empty field hides its hook-in; so does a page that is not published.
  */
+/**
+ * „KSeF — pas na głównej” (plan 0611 §7.1 pkt 7): the deadline the home band counts down to and
+ * its texts before and from that day on (K36 §3). No deadline = no band.
+ */
+const ksefGroup: Field = {
+  name: 'ksef',
+  label: 'KSeF — pas na stronie głównej',
+  type: 'group',
+  admin: {
+    description:
+      'Pas z odliczaniem między „Najczęściej wybierane” a planem. Bez terminu pas się nie pokazuje. Tylko fakty ze źródłem (komunikat MF).',
+  },
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'deadline',
+          label: 'Termin',
+          type: 'date',
+          admin: { date: { pickerAppearance: 'dayOnly', displayFormat: 'dd.MM.yyyy' } },
+        },
+        {
+          name: 'href',
+          label: 'Link przycisku',
+          type: 'text',
+          defaultValue: '/ksef',
+          validate: (value: unknown) =>
+            !value || (typeof value === 'string' && isValidNavHref(value))
+              ? true
+              : 'Ścieżka (/ksef), adres https://, mailto: albo tel:.',
+        },
+      ],
+    },
+    {
+      name: 'textBefore',
+      label: 'Nagłówek przed terminem',
+      type: 'text',
+      maxLength: 120,
+      admin: { description: 'Np. „Od 1 stycznia 2027 KSeF obejmie także najmniejsze firmy.”' },
+    },
+    {
+      name: 'textAfter',
+      label: 'Nagłówek od dnia terminu',
+      type: 'text',
+      maxLength: 120,
+      admin: { description: 'Pokazywany od dnia terminu, bez odliczania (K36 §3 „wersja po”).' },
+    },
+  ],
+}
+
 const procurementGroup: Field = {
   name: 'procurement',
   label: 'Zaopatrzenie — linki',
@@ -260,6 +311,7 @@ const biznesGroup: Field = {
         },
       ],
     },
+    ksefGroup,
     procurementGroup,
     biznesNavigation,
     biznesFooter,

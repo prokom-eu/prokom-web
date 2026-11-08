@@ -93,6 +93,7 @@ import { seedBiznesTemplatePages } from './templatePages'
 import { seedBiznesProcurementPages } from './procurementPages'
 import { homeProcurementPackage, seedBiznesHomeProcurement } from './homeProcurement'
 import { homeBundlesUpdate, seedBiznesHomeBiz2 } from './homeBiz2'
+import { seedBiznesHomeKsefNews } from './homeKsefNews'
 import {
   brandLogoFile,
   galleryFileName,
@@ -1341,6 +1342,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   )
   // B3-1: the order of plan 0611 §7.1 and the texts of the plan with the industries (D8).
   await seedBiznesHomeBiz2(payload, tenant.id, pageReport)
+  // B3-2: the KSeF band (deadline in the settings) and „Aktualności” (plan 0611 §7.1 pkt 7, 12).
+  await seedBiznesHomeKsefNews(payload, tenant.id, pageReport)
 
   // --- category page content (B10a): the cash registers from the board ---
   await seedBiznesCategoryContent(payload, tenant.id, pageRefs.product, pageReport)

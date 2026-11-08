@@ -25,16 +25,18 @@ export const BIZNES_SHARED: SharedGroup = {
   },
   rail: {
     sections: [
-      // B3-1: the order of plan 0611 §7.1 (KSeF and „Aktualności” come with B3-2).
+      // The order of plan 0611 §7.1 (B3-1; KSeF and „Aktualności” B3-2).
       { anchorId: 'start', label: 'Start', icon: 'rocket' },
       { anchorId: 'oferta', label: 'Oferta', icon: 'store' },
       { anchorId: 'zaopatrzenie', label: 'Zaopatrzenie firm', icon: 'box' },
       { anchorId: 'marki', label: 'Marki', icon: 'star' },
       { anchorId: 'wybierane', label: 'Najczęściej wybierane', icon: 'grid' },
+      { anchorId: 'ksef', label: 'KSeF', icon: 'doc' },
       { anchorId: 'plan', label: 'Plan Twojej firmy', icon: 'map' },
       { anchorId: 'jak-pracujemy', label: 'Jak pracujemy', icon: 'compass' },
       { anchorId: 'opinie', label: 'Opinie', icon: 'chat' },
       { anchorId: 'fakty', label: 'O firmie', icon: 'shield' },
+      { anchorId: 'aktualnosci', label: 'Aktualności', icon: 'mega' },
       { anchorId: 'faq', label: 'Pytania', icon: 'q' },
       { anchorId: 'kontakt', label: 'Kontakt', icon: 'phone' },
     ],
