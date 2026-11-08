@@ -998,6 +998,10 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   font-size: 17px;
   outline: none;
 }
+/* The line's global focus ring would draw a second frame inside the field. */
+.sdlg__field input:focus-visible {
+  outline: none;
+}
 .sdlg__field input::-webkit-search-cancel-button {
   display: none;
 }
