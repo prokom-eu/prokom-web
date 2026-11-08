@@ -6,22 +6,33 @@ import { site } from './helpers'
 // show, and small links are at least 24 px tall. Content from `pnpm seed`.
 const biznes = (path: string) => site('biznes.localhost', path)
 
-const PAGES = ['/oferta', '/oferta/laptopy', '/zestawy', '/marki/posnet', '/gopos']
+const PAGES = [
+  '/oferta',
+  '/oferta/laptopy',
+  '/zestawy',
+  '/marki/posnet',
+  '/gopos',
+  '/automaty-vendingowe',
+  '/branze/gastronomia',
+  '/ulga-na-kase-fiskalna',
+]
 
 test.describe('Biznes product photos and touch targets (B5-1)', () => {
   for (const path of PAGES) {
     test(`${path}: no product photo with an empty alt`, async ({ page }) => {
       await page.goto(biznes(path))
-      // Product and bundle cards: the photos inside the card link (brand logo chips are separate).
-      const empty = await page
-        .locator('main article a img, main article img[src*="/api/media"]')
-        .evaluateAll(
-          (images) =>
-            images.filter(
-              (image) =>
-                !(image as HTMLImageElement).alt.trim() && !image.closest('.pointer-events-none'),
-            ).length,
+      // Every photo from the media library, except brand logo chips (decorative, name next to it).
+      const counts = await page.locator('main img[src*="/api/media"]').evaluateAll((images) => {
+        const photos = images.filter(
+          (image) => !image.closest('.pointer-events-none, [data-logo], [data-brand-logo]'),
         )
+        return {
+          total: photos.length,
+          empty: photos.filter((image) => !(image as HTMLImageElement).alt.trim()).length,
+        }
+      })
+      expect(counts.total).toBeGreaterThan(0)
+      const empty = counts.empty
       expect(empty).toBe(0)
     })
   }
@@ -31,8 +42,9 @@ test.describe('Biznes product photos and touch targets (B5-1)', () => {
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto(biznes('/oferta/laptopy'))
+    // Labels of cards in a Lenovo series (the seed has ThinkBook / ThinkPad cards here).
     const transforms = await page
-      .locator('main article[data-card] p.text-xs')
+      .locator('main article[data-card] p.text-xs', { hasText: /Think/ })
       .evaluateAll((labels) => labels.map((label) => getComputedStyle(label).textTransform))
     // Grouped by series on this page: „Lenovo · ThinkBook”, never „LENOVO · THINKBOOK”.
     expect(transforms.length).toBeGreaterThan(0)

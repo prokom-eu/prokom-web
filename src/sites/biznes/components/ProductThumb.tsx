@@ -15,8 +15,8 @@ export function productSubtitle(product: IndexProduct, index: CatalogIndex): str
 
 /**
  * Small product picture of the search, the inquiry drawer and `/zapytanie`: the card image on
- * the studio, or without one the category icon (K31-ZMIANY §3, §4.10). Decorative — the name
- * is next to it.
+ * the studio, or without one the category icon (K31-ZMIANY §3, §4.10). Hidden from screen
+ * readers (the name is next to it); the photo keeps its „Marka Model” alt for search engines.
  */
 export function ProductThumb({
   product,
