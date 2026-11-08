@@ -4771,7 +4771,14 @@ export interface Bundle {
     | {
         pair: string;
         source?: string | null;
+        /**
+         * „potwierdzona”, „bez-integracji” (działa samodzielnie, strona mówi to wprost) albo „do_potwierdzenia” — ta ostatnia trzyma zestaw w „Do sprawdzenia”.
+         */
         status?: string | null;
+        /**
+         * Strona lub PDF producenta. Przy parze „potwierdzona” pokazuje się na karcie zestawu jako „Źródło ↗”.
+         */
+        url?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -8895,6 +8902,7 @@ export interface BundlesSelect<T extends boolean = true> {
         pair?: T;
         source?: T;
         status?: T;
+        url?: T;
         id?: T;
       };
   updatedAt?: T;

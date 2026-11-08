@@ -78,7 +78,14 @@ import {
   type K4BrandsFile,
 } from './k4Brands'
 import { k4ShowroomData, type K4Showroom } from './k4Showrooms'
-import { k4Bundle, k4Scene, k4ServiceSlugs, type K4Bundle, type K4Scene } from './k4Plans'
+import {
+  k4Bundle,
+  k4Scene,
+  k4ServiceSlugs,
+  packageCardStatus,
+  type K4Bundle,
+  type K4Scene,
+} from './k4Plans'
 import {
   K4_FEATURED,
   k4CategoryOrder,
@@ -881,6 +888,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   // K4a-2: texts and items of zestawy-k4.json over K3c (series, industries, notes stay). Cards of
   // K4 data include the new K4 cards, which K3.1 does not know.
   const k4CardsFor = cardsOf({ ...k31, cards })
+  // BIZ-3 §9.1: a bundle is „Gotowe” only with ready cards (the K4 status wins, like the card).
+  const cardStatus = packageCardStatus(cards, k4Catalog.produkty, k4CardsFor)
   const serviceSlug = k4ServiceSlugs(k4Catalog.produkty)
   const k4BundleData = k4BundlesFile.zestawy as Record<string, K4Bundle>
   const bundles: K3Bundle[] = k3Bundles.zestawy.map((base) => {
@@ -895,6 +904,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       industry: (slug) => industryIds.get(slug),
       category: (code) => categoryIds.get(code),
       hidden: hiddenCards,
+      cardStatus,
     })
     for (const item of bundle.elementy) {
       if (k4CardsFor(item.slug).some((slug) => hiddenCards.has(slug))) {
