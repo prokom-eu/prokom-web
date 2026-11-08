@@ -52,6 +52,9 @@
   --inst-scene-ground: var(--c-instalacje-light-scene-ground);
   --inst-go-text: var(--c-instalacje-light-ok-text);
   --inst-warn-text: var(--c-instalacje-light-warn-text);
+  /* P1-4 (audit 06.11): share of a service colour (`--h`, from the panel) in text mixed with
+     --ink — 46% keeps every hue of the line ≥ 4.5:1 on light surfaces (72% gave 2.8–4.3). */
+  --inst-hue-text-mix: 46%;
   /* Visualisation: buttons on --accent with --accent-ink; follows the theme with --accent. */
   --button-bg: var(--accent);
   /* Shell (I3): the same in both themes. */
@@ -1219,6 +1222,7 @@
   --inst-scene-ground: var(--c-instalacje-night-scene-ground);
   --inst-go-text: var(--c-instalacje-night-ok);
   --inst-warn-text: var(--c-instalacje-night-warn);
+  --inst-hue-text-mix: 72%;
   /* Home sections (I6). */
   --inst-band-soft: var(--c-instalacje-night-band-soft);
   --inst-band-tint: var(--c-instalacje-night-band-tint);
@@ -1450,6 +1454,7 @@
     --inst-scene-ground: var(--c-instalacje-night-scene-ground);
     --inst-go-text: var(--c-instalacje-night-ok);
     --inst-warn-text: var(--c-instalacje-night-warn);
+    --inst-hue-text-mix: 72%;
     /* Home sections (I6). */
     --inst-band-soft: var(--c-instalacje-night-band-soft);
     --inst-band-tint: var(--c-instalacje-night-band-tint);
