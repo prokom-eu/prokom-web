@@ -63,10 +63,10 @@ test.describe('Biznes search', () => {
     await expect(page.locator('dialog[open]')).toHaveCount(0)
     // Nothing invisible in the top layer: the header still takes clicks.
     await page
-      .getByRole('navigation', { name: 'Główna' })
-      .getByRole('button', { name: 'Oferta' })
+      .getByRole('navigation', { name: 'Menu główne' })
+      .getByRole('button', { name: /^Oferta/ })
       .click()
-    await expect(page.locator('[id$="-offer"]')).toBeVisible()
+    await expect(page.locator('#oferta-mega')).toBeVisible()
   })
 
   test('a second click in the preview opens the inquiry drawer', async ({ page }) => {
