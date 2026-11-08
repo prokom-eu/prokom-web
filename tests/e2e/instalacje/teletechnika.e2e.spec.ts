@@ -36,11 +36,12 @@ test.describe('Instalacje Teletechnika', () => {
     await open(page)
     const ids = await page.locator('main section[id]').evaluateAll((s) => s.map((x) => x.id))
     const at = (id: string) => ids.indexOf(id)
-    // RUNDA-V5 §10: after the scope, before the law.
+    // RUNDA-V5 §10: after the scope, before the quote form (no law section: runda v6 §1.1).
     for (const id of ['etapy', 'przy-odbiorze', 'bledy', 'czesci-wspolne', 'jak-liczymy']) {
       expect(at(id)).toBeGreaterThan(at('zakres'))
-      expect(at(id)).toBeLessThan(at('przepisy'))
+      expect(at(id)).toBeLessThan(at('zapytanie'))
     }
+    expect(at('przepisy')).toBe(-1)
     await expect(page.locator('#etapy .procs')).toHaveCount(7)
     await expect(page.locator('#etapy .procg')).toHaveCount(7)
     await expect(page.locator('#bledy .ttavoid')).toHaveCount(4)

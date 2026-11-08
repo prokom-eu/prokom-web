@@ -40,7 +40,7 @@ export const SERVICE_CARDS: ServiceCard[] = [
     highlights: [
       'Cztery wersje instalacji: od domu po duży obiekt',
       'Kolor w nocy i wykrywanie ludzi oraz aut',
-      'Maski prywatności i czas nagrań ustawione pod RODO',
+      'Maski prywatności i czas nagrań dopasowane do obiektu',
     ],
     big: true,
     wide: true,
@@ -140,7 +140,7 @@ export const FOR_WHO_CARDS: ForWhoCard[] = [
     key: 'pens',
     description:
       'Monitoring bez pokoi gości, Wi-Fi w każdym pokoju, telewizja i przegląd przed sezonem.',
-    set: ['Wi-Fi gości', 'Kamery RODO', 'TV w pokojach'],
+    set: ['Wi-Fi gości', 'Kamery z maskami', 'TV w pokojach'],
     hue: 2,
     big: true,
   },
@@ -279,7 +279,7 @@ export const glownaSekcje = {
     eyebrow: 'Dla kogo pracujemy',
     heading: 'Od domu letniskowego',
     accent: 'po halę i szkołę.',
-    lead: 'Każdy obiekt ma inne potrzeby i inne przepisy. Wybierz swój, a pokażemy przekrój budynku, typowe problemy i zestawy, od których zaczynamy.',
+    lead: 'Każdy obiekt ma inne potrzeby. Wybierz swój, a pokażemy przekrój budynku, typowe problemy i zestawy, od których zaczynamy.',
     more: 'Zobacz rozwiązania',
     showAll: 'Pokaż wszystkie 12 obiektów',
     collapse: 'Zwiń listę',
@@ -417,7 +417,7 @@ export const glownaSekcje = {
   faq: {
     eyebrow: 'Najczęstsze pytania',
     heading: 'Zanim zadzwonisz.',
-    guide: 'Poradnik: przepisy i porady →',
+    guide: 'Poradnik: porady i odpowiedzi →',
     aside: {
       title: 'Nie ma Twojego pytania?',
       text: 'Zadzwoń albo napisz. Opisz obiekt i to, co już w nim jest, a powiemy, od czego zacząć.',
@@ -442,9 +442,9 @@ export const glownaSekcje = {
           'Tak. Kamery nagrywają na rejestrator w obiekcie. Internet jest potrzebny tylko do podglądu z telefonu i powiadomień.',
       },
       {
-        question: 'Czy monitoring w pensjonacie albo firmie jest zgodny z RODO?',
+        question: 'Jak ustawiacie kamery w pensjonacie albo firmie?',
         answer:
-          'Pomagamy od strony technicznej: ustawiamy strefy i maski prywatności, czas przechowywania nagrań i miejsca na tabliczki informacyjne. Obowiązki administratora danych, np. regulamin monitoringu, zostają po Twojej stronie. Podpowiemy, co przygotować.',
+          'Tak, żeby obejmowały tylko to, co trzeba: ustawiamy strefy i maski prywatności, czas przechowywania nagrań i miejsca na tabliczki o monitoringu. Podpowiemy też, co napisać na tabliczce.',
       },
       {
         question: 'Mam instalację od innej firmy. Przejmiecie serwis?',

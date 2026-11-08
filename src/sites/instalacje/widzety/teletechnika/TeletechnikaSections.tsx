@@ -5,7 +5,6 @@ import { leadPhoto, matchRealization } from '@/lib/instalacje/realizations'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 
-import { LEGAL_NOTE } from '../../dane/prawo'
 import { teletechnika } from '../../dane/teletechnika'
 import { InstIcon } from '../../InstIcon'
 import { ProcessAxis } from '../../sekcje/glowna/ProcessAxis'
@@ -18,7 +17,7 @@ const SECTION = { padding: '0 0 104px' }
 
 /**
  * The Teletechnika sections between the hero and the shared ones
- * (`zrodlo/pages/Teletechnika.body.html`): scope, for whom, the law and the quote form. The page
+ * (`zrodlo/pages/Teletechnika.body.html`): scope, for whom and the quote form (no law: runda v6 §1.1). The page
  * has no warranty, packages or price sections (the prototype's markup). Folded on a phone as in
  * `zrodlo/fold.json` (`zakres`; `faq` by the shared section). Round v5 (RUNDA-V5 §10) adds the
  * building stages, what you get at handover and the standards, the mistakes that stop a handover,
@@ -27,7 +26,7 @@ const SECTION = { padding: '0 0 104px' }
 export async function TeletechnikaSections({ tenantId }: { tenantId: number }) {
   const { scope, stages, handover, standards, mistakes, common, pricing, realization } =
     teletechnika
-  const { forWhom, law, quote } = teletechnika // the sections the prototype already had
+  const { forWhom, quote } = teletechnika // the sections the prototype already had
   const withPhotos = (await getInstalacjeRealizations(tenantId)).filter((r) => r.photos.length > 0)
   const match = matchRealization(realization.name, withPhotos)
   const photos = match && leadPhoto(realization.photoHint, match.photos)
@@ -181,32 +180,6 @@ export async function TeletechnikaSections({ tenantId }: { tenantId: number }) {
           <div className="note ri" style={{ marginTop: 18 }}>
             <InstIcon name="build" size={20} />
             <span>{forWhom.note}</span>
-          </div>
-        </div>
-      </InstSection>
-
-      <InstSection id="przepisy" style={SECTION}>
-        <div className="wrap">
-          <div className="card dark ri tlaw" data-surface="dark">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <span className="eye tlaweye">{law.eyebrow}</span>
-              <h2 className="h2" style={{ fontSize: 'clamp(28px, 3vw, 42px)' }}>
-                {law.heading}
-              </h2>
-              <p className="lead">{law.lead}</p>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {law.items.map((p) => (
-                <div key={p.title} className="odi">
-                  <InstIcon name="doc" size={20} />
-                  <div>
-                    <b style={{ display: 'block' }}>{p.title}</b>
-                    <span className="tlawtx">{p.text}</span>
-                  </div>
-                </div>
-              ))}
-              <span className="tlawtx">{LEGAL_NOTE}</span>
-            </div>
           </div>
         </div>
       </InstSection>

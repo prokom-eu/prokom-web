@@ -1,6 +1,6 @@
 /*
  * Sieci i Wi-Fi page (I8): the coverage map in the hero, separate networks, the guest portal
- * screen, cabling, the four „Sprawdź sam” tools, the hardware, Wi-Fi standards and NIS2. Rules of
+ * screen, cabling, the four „Sprawdź sam” tools, the hardware and Wi-Fi standards. Rules of
  * `pk.css` v4.2 for the classes of `Sieci.body.html` and `Sieci.js` not already in the other page
  * sheets (one bundle for all service pages; without the `br`/`wl` widgets the markup does not
  * render), ported by `narzedzia/przenies-css.mjs`, then: inline styles as classes at the end,
@@ -507,12 +507,6 @@
   & .wfc .uhl svg {
     color: var(--h);
   }
-  & .bkc {
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
   & .hwcmp {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -706,21 +700,9 @@
   & .hwkeye {
     color: var(--inst-plan-accent);
   }
-  /* The prototype's <p> keeps the browser margin (1em), the preflight resets it. */
-  & .bkp {
-    color: var(--inst-deep-lead-2);
-    margin: 1em 0;
-  }
-  & .uhl.bkl {
-    color: var(--inst-plan-text);
-  }
   /* Lists on a dark card: the light-theme --ink-soft of `.uhl li` would vanish (P1-4). */
   & [data-surface='dark'] .uhl li {
     color: var(--inst-dark-lead);
-  }
-  & .bknote {
-    color: var(--inst-plan-note);
-    font-size: 13.5px;
   }
 }
 
