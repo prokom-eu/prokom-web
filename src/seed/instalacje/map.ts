@@ -596,9 +596,6 @@ const PAGE_FILES: {
     title: 'Kontakt',
     file: Kontakt,
     seoTitle: 'Kontakt i dojazd: Rabka-Zdrój i Podhale',
-    // The package's description names WhatsApp (decision 01.11: no WhatsApp).
-    seoDescription:
-      'Kontakt z PRO-KOM Instalacje w Rabce-Zdroju: telefon, e-mail, formularz i mapa stref dojazdu na Podhalu.',
   },
   // The package's title + „| PRO-KOM Instalacje” has 66 characters.
   {
