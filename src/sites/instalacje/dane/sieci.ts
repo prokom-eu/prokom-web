@@ -193,6 +193,14 @@ export const sieci = {
     uke: 'Według UKE w 2024 roku ok. 16% gospodarstw domowych w Polsce nie miało dostępu do internetu 100 Mb/s. Na Podhalu też trafiamy na takie adresy. Wtedy budujemy łącze radiowe albo zapasowe LTE.',
     // The client agreed to the publication (boss 01.11.2026); without the prototype's `[SZEF…]`.
     realization: 'Realizacja: okablowanie stanowisk biurowych w Blachotrapezie w Rabce-Zdroju.',
+    // RUNDA-V5 §11: the same realization with its photos when published.
+    realizations: [
+      {
+        name: 'Blachotrapez',
+        place: 'Rabka-Zdrój · stanowiska biurowe',
+        hint: 'biurowe przyłącza',
+      },
+    ],
   },
 
   lab: {

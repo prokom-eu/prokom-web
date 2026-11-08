@@ -22,6 +22,7 @@ import { InstSection } from '../../sekcje/InstSectionLazy'
 import { PageHero } from '../../sekcje/PageHero'
 import { Related } from '../../sekcje/Related'
 import { FaultForm } from '../../widzety/serwis/FaultFormLazy'
+import { PlanCards } from '../../widzety/serwis/PlanCardsLazy'
 import { salonsNote } from '../../powloka/salons'
 
 type Props = { block: InstServiceDeskBlockData; tenantId: number }
@@ -106,35 +107,7 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
               {S.plans.lead}
             </p>
           </div>
-          <div
-            className="plans"
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 18 }}
-          >
-            {S.plans.items.map((plan) => (
-              <div key={plan.name} className={'card plan ri' + (plan.hot ? ' hot' : '')}>
-                {plan.hot && (
-                  <span className="tag a" style={{ alignSelf: 'flex-start' }}>
-                    {S.plans.hot}
-                  </span>
-                )}
-                <h3 className="h3">{plan.name}</h3>
-                <span className="mut">{plan.text}</span>
-                <ul>
-                  {plan.features.map((feature) => (
-                    <li key={feature}>
-                      <i aria-hidden="true">
-                        <InstIcon name="check" size={16} strokeWidth={2.6} />
-                      </i>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <span className="prc" style={{ fontSize: 22, marginTop: 'auto' }}>
-                  {settings.noPriceText}
-                </span>
-              </div>
-            ))}
-          </div>
+          <PlanCards noPriceText={settings.noPriceText} />
         </div>
       </InstSection>
 

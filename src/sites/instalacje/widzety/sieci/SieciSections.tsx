@@ -4,6 +4,7 @@ import { LEGAL_NOTE } from '../../dane/prawo'
 import { sieci } from '../../dane/sieci'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSectionLazy'
+import { RealizationStrip } from '../../sekcje/RealizationStrip'
 import { SectionHead } from '../../sekcje/SectionHead'
 import {
   CableLab,
@@ -54,7 +55,7 @@ function LabCard({
  * phone as in `zrodlo/fold.json` (`podzial`, `portal`, `okablowanie`, `sprzet` to 900 px,
  * `standardy`; `cena` and `faq` by the shared sections).
  */
-export function SieciSections() {
+export async function SieciSections({ tenantId }: { tenantId: number }) {
   const { why, split, portal, cabling, lab, hardware, standards, nis2 } = sieci
   const S = portal.screen
   return (
@@ -181,6 +182,7 @@ export function SieciSections() {
           <p className="src ri" style={{ marginTop: 12 }}>
             {cabling.realization}
           </p>
+          <RealizationStrip tenantId={tenantId} items={cabling.realizations} />
         </div>
       </InstSection>
 

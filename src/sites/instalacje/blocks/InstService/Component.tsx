@@ -78,9 +78,9 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     sections: <DostepSections />,
     folded: ['cena', 'faq'],
   }),
-  wifi: () => ({
+  wifi: ({ tenantId }) => ({
     widget: <CoverageMap />,
-    sections: <SieciSections />,
+    sections: <SieciSections tenantId={tenantId} />,
     folded: ['cena', 'faq'],
   }),
   tel: ({ tenantId }) => ({
@@ -101,9 +101,9 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     sections: <NaglosnienieSections tenantId={tenantId} />,
     folded: ['cena', 'faq'],
   }),
-  scr: () => ({
+  scr: ({ tenantId }) => ({
     widget: <ScreenPreview />,
-    sections: <EkranySections />,
+    sections: <EkranySections tenantId={tenantId} />,
     folded: ['cena', 'faq'],
   }),
   ev: () => ({

@@ -764,3 +764,20 @@
     }
   }
 }
+
+/* RUNDA-V5 §11: the configurator's photo fades in when the model changes (opacity/transform). */
+@media (prefers-reduced-motion: no-preference) {
+  [data-line='instalacje'] .evcv .evi {
+    animation: inst-ev-swap 420ms var(--ease-out) both;
+  }
+}
+@keyframes inst-ev-swap {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
