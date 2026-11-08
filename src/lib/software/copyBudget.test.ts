@@ -8,8 +8,7 @@ import { describe, expect, it } from 'vitest'
 const root = process.cwd()
 const files = [
   ...readdirSync(join(root, 'seed/prokomsoftware'))
-    // SWA3: wizard v3 (`src/seed/software/wizard.ts`) replaces kreator.json — gone in SWA3b-1.
-    .filter((name) => name.endsWith('.json') && name !== 'kreator.json')
+    .filter((name) => name.endsWith('.json'))
     .map((name) => join(root, 'seed/prokomsoftware', name)),
   ...readdirSync(join(root, 'src/seed/software'))
     .filter((name) => name.endsWith('.ts') && !name.endsWith('.test.ts'))
@@ -56,7 +55,7 @@ describe('Software copy budget (SWV9 §1, §5)', () => {
     expect(count(/od ilu kosztuje/gi)).toBe(0)
     expect(count(/Dzień dobry, Anna\b/g)).toBe(0)
     expect(code).not.toMatch(/Dzień dobry, Anna\b/) // the mock-ups greet in the vocative
-    expect(readFileSync(join(root, 'seed/prokomsoftware/kreator.json'), 'utf8')).not.toMatch(
+    expect(readFileSync(join(root, 'src/seed/software/wizard.ts'), 'utf8')).not.toMatch(
       /rezerwacje\./,
     )
   })

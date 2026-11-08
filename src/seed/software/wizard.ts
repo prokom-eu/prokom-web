@@ -100,6 +100,8 @@ export const WIZARD_V3: SoftwareWizard = {
       },
     },
   ],
+  // The board starts with „Strona firmowa” in the live card.
+  defaultType: 'firmowa',
   groups: {
     site: ['type', 'ind', 'have', 'feat', 'res'],
     redo: ['type', 'ind', 'redo', 'fix', 'res'],
@@ -383,6 +385,7 @@ export const WIZARD_V3: SoftwareWizard = {
     next: 'Dalej →',
     showResult: 'Pokaż wynik →',
     restart: 'Zacznij od nowa',
+    stepsLabel: 'Kroki kreatora',
     live: 'Twój projekt na żywo',
     stepOf: 'krok {n} z {m}',
     tipLabel: 'Podpowiedź',
@@ -395,9 +398,11 @@ export const WIZARD_V3: SoftwareWizard = {
     urlPlaceholder: 'np. twojafirma.pl',
   },
   page: {
+    eyebrow: 'Kreator wyceny · 60 sekund',
     title: 'Zobacz cenę i termin,',
     em: 'zanim zadzwonisz.',
     lead: 'Kilka kliknięć dopasowanych do tego, co wybierzesz. Bez rejestracji i bez dodatków na siłę. Kontakt zostawiasz tylko wtedy, gdy chcesz wycenę na piśmie.',
+    stepsEyebrow: 'Co dalej po wysłaniu',
     stepsTitle: 'Cztery kroki do startu',
     steps: [
       { title: 'Odpowiadamy', text: 'W 1 dzień roboczy dzwonimy albo odpisujemy, jak wolisz.' },

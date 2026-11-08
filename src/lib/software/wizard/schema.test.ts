@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import kreatorV22 from '../../../../seed/prokomsoftware/kreator.json'
 import rozwiazania from '../../../../seed/prokomsoftware/rozwiazania.json'
 import { WIZARD_V3 } from '../../../seed/software/wizard'
+import { DEFAULT_PRICE_DISPLAY } from '../solutionsIndex'
 import { softwareWizardSchema, validateSoftwareWizard, wizardSolutionSlugs } from './schema'
 
 const clone = () => structuredClone(WIZARD_V3)
@@ -15,13 +15,14 @@ describe('Software wizard v3 schema', () => {
   })
 
   it('rejects the v22 shape, so a stored old wizard is rewritten', () => {
-    expect(validateSoftwareWizard(kreatorV22)).toMatch(/Reguły kreatora/)
+    const v22 = { steps: [], needs: {}, results: {}, priceDisplay: WIZARD_V3.priceDisplay }
+    expect(validateSoftwareWizard(v22)).toMatch(/Reguły kreatora/)
   })
 
-  it('keeps the v22 price display: the cards and the offer window read it too', () => {
-    const { _info, ...v22 } = kreatorV22.priceDisplay
-    expect(_info).toBeTruthy()
-    expect(WIZARD_V3.priceDisplay).toEqual(v22)
+  it('keeps the v22 price templates the cards and the offer window read', () => {
+    const { moreHint: _a, moreSelectedNote: _b, ...seed } = WIZARD_V3.priceDisplay
+    const { moreHint: _c, moreSelectedNote: _d, ...fallback } = DEFAULT_PRICE_DISPLAY
+    expect(seed).toEqual(fallback)
   })
 
   it('prices only with published solutions of the package', () => {

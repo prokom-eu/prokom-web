@@ -12,7 +12,7 @@ import {
   softwareWizardSchema,
   validateSoftwareWizard,
   wizardSolutionSlugs,
-} from '../lib/software/wizard'
+} from '../lib/software/wizard/schema'
 import { tenantIdOf } from '../lib/tenant/id'
 import { solutionsRevalidationHooks } from '../lib/software/revalidate'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
@@ -97,7 +97,7 @@ export const SoftwareSettings: CollectionConfig = {
       ),
       admin: {
         description:
-          'Potrzeby, pytania, wyniki i teksty kreatora (/dobierz). Ceny wyników biorą się z Rozwiązań (resultToSolutionSlug). Zapis sprawdza kształt i adresy rozwiązań.',
+          'Rodzaje, kroki, opcje, podpowiedzi i teksty kreatora v3 (/dobierz). Ceny i terminy biorą się z Rozwiązań (types[].solution). Zapis sprawdza kształt i adresy rozwiązań.',
       },
     },
     {

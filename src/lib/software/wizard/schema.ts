@@ -101,6 +101,8 @@ export const softwareWizardSchema = obj({
     )
     .min(1)
     .max(10),
+  /** The kind the live card shows before step 1 is answered (not ticked). Optional: the first. */
+  defaultType: key.optional(),
   /** Steps of each group: always `type`, `ind`, …, `res`. */
   groups: z.record(z.enum(WIZARD_GROUPS), z.array(z.enum(WIZARD_STEPS)).min(3).max(6)),
   steps: z.record(z.enum(WIZARD_STEPS), stepText),
@@ -182,6 +184,8 @@ export const softwareWizardSchema = obj({
     next: label,
     showResult: label,
     restart: label,
+    /** Name of the step bar for screen readers („Kroki kreatora”). */
+    stepsLabel: label,
     live: label,
     stepOf: template('{n}').refine((value) => value.includes('{m}'), {
       message: 'Musi zawierać {m}.',
@@ -197,9 +201,12 @@ export const softwareWizardSchema = obj({
   }),
   /** `/dobierz`: the hero and „Cztery kroki do startu” (ZMIANY-v24 §9.5). */
   page: obj({
+    /** Eyebrows of the hero and of the steps (optional: the wizard's own eyebrow stands in). */
+    eyebrow: label.optional(),
     title: label,
     em: label,
     lead: text,
+    stepsEyebrow: label.optional(),
     stepsTitle: label,
     steps: z.array(obj({ title: label, text })).length(4),
   }),
@@ -226,6 +233,9 @@ export const softwareWizardSchema = obj({
     issue(['industries'], 'Powtórzona branża.')
   }
 
+  if (wizard.defaultType && !typeIds.has(wizard.defaultType)) {
+    issue(['defaultType'], 'Nieznany rodzaj.')
+  }
   wizard.types.forEach((type, i) => {
     if (!type.solution && !type.noPrice) issue(['types', i, 'noPrice'], 'Wymagane bez rozwiązania.')
   })

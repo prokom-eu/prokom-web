@@ -435,8 +435,7 @@
     animation: sw-tile var(--dur-state) var(--ease-spring);
   }
 
-  /* Wizard: the next step slides in from the right, a step back from the left; the result's
-     parts pop in one after another (60 ms). */
+  /* Wizard (Konfigurator): the next step slides in from the right, a step back from the left. */
   :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
     [data-wizard-dir='next']
     > section {
@@ -446,27 +445,6 @@
     [data-wizard-dir='back']
     > section {
     animation: sw-step-back var(--dur-state) var(--ease-out);
-  }
-  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
-    [data-wizard-result]
-    > * {
-    animation: sw-reveal var(--dur-enter) var(--ease-out) backwards;
-    --reveal-y: 10px;
-  }
-  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
-    [data-wizard-result]
-    > :nth-child(2) {
-    animation-delay: 60ms;
-  }
-  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
-    [data-wizard-result]
-    > :nth-child(3) {
-    animation-delay: 120ms;
-  }
-  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
-    [data-wizard-result]
-    > :nth-child(n + 4) {
-    animation-delay: 180ms;
   }
 
   /* Toasts (phone, e-mail, „Twój projekt”) slide up from the bottom. */

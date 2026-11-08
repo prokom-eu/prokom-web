@@ -20,6 +20,9 @@ import {
  * `SoftwareSettings.wizard`; this module only reads them.
  */
 
+/** Address of the wizard page; `#dobierz` is its section on the start page. */
+export const WIZARD_PATH = '/dobierz'
+
 export type WizardAnswers = {
   /** `types[].id`; `null` until step 1. */
   type: string | null
@@ -66,6 +69,15 @@ function groupOf(wizard: SoftwareWizard, answers: WizardAnswers): WizardGroup {
 
 export function stepsOf(wizard: SoftwareWizard, answers: WizardAnswers): WizardStep[] {
   return wizard.groups[groupOf(wizard, answers)]
+}
+
+/**
+ * What the live card, the mock-up and the tip show: before step 1 the default kind stands in
+ * (the board starts with „Strona firmowa”), without ticking its tile.
+ */
+export function shownAnswers(wizard: SoftwareWizard, answers: WizardAnswers): WizardAnswers {
+  if (answers.type) return answers
+  return { ...answers, type: wizard.defaultType ?? wizard.types[0]?.id ?? null }
 }
 
 /** Only the kind is required; the industry and every question may be skipped. */

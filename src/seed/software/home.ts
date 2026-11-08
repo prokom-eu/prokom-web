@@ -47,7 +47,7 @@ export const SW_HERO: Extract<Block, { blockType: 'swHero' }> = {
       title: 'Chcę system, który ogarnie firmę',
       text: 'Zlecenia, grafik, klienci, magazyn, rozliczenia. Koniec z Excelem, kartkami i SMS-ami.',
       icon: 'panel',
-      href: '/dobierz?potrzeba=prog',
+      href: '/dobierz?rodzaj=system',
     },
     {
       title: 'Mam program, ale czegoś mu brakuje',

@@ -95,7 +95,7 @@ export async function SwAuditFormBlock({ block, tenantId, isFirst }: Props) {
                   errors={{
                     url: AUDIT_URL_MESSAGE,
                     name: SOFTWARE_CONTACT_MESSAGES.name,
-                    contact: wizard?.send.contact.any.error ?? FIELD_MESSAGES.email,
+                    contact: wizard?.send.contact.error ?? FIELD_MESSAGES.email,
                     consent: wizard?.send.errors.consent ?? FIELD_MESSAGES.consent,
                   }}
                   formToken={issueFormToken(getEnv().PAYLOAD_SECRET)}
