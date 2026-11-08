@@ -4,7 +4,6 @@ import Link from 'next/link'
 import type { CSSProperties } from 'react'
 
 import { getEnv } from '@/lib/env'
-import { MediaImage } from '@/components/MediaImage'
 import { issueFormToken } from '@/lib/inquiry/spam'
 import {
   getInstalacjeCards,
@@ -598,17 +597,11 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
         <InstSection id="opiekun" style={{ padding: '0 0 104px' }}>
           <div className="wrap">
             <div className="arop ri" data-surface="dark">
+              {/* No photos or silhouettes of people (rule 01.11): the drawing ruler of the page. */}
               <div className="aropp">
-                {contact.photo ? (
-                  <MediaImage image={contact.photo} sizes="160px" className="aropi" />
-                ) : (
-                  <div className="aropa" aria-hidden="true">
-                    <svg viewBox="0 0 120 120">
-                      <circle cx="60" cy="46" r="22" />
-                      <path d="M18 116c4-26 22-38 42-38s38 12 42 38" />
-                    </svg>
-                  </div>
-                )}
+                <div className="aropa" aria-hidden="true">
+                  <InstIcon name="ruler" size={72} />
+                </div>
               </div>
               <div className="aropt">
                 <span className="eye" style={{ color: 'var(--inst-dark-accent)' }}>

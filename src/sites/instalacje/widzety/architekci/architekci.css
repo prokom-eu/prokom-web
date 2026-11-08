@@ -953,13 +953,14 @@
       0 0 0 6px var(--inst-il-aropa-sh),
       0 30px 60px -30px var(--inst-band-button-glow);
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     overflow: hidden;
   }
   & .aropa svg {
-    width: 80%;
-    fill: var(--inst-il-aropa-fill);
+    width: 45%;
+    height: auto;
+    color: var(--inst-il-aropa-fill);
   }
   & .aropt {
     display: flex;
