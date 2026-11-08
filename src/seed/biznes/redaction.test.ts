@@ -12,8 +12,6 @@ import { CASH_REGISTERS_CONTENT } from './category'
 import { biznesHomeLayout } from './home'
 import { INDUSTRIES } from './industries'
 import {
-  aboutK4Layout,
-  contactK4Layout,
   goposK4Layout,
   insertK4Layout,
   ksefK4Layout,
@@ -67,8 +65,6 @@ const k4Layouts = {
   gopos: goposK4Layout(pages, identity).layout,
   insert: insertK4Layout(pages, identity).layout,
   'opieka-it': opiekaK4Layout(pages, identity).layout,
-  'o-firmie': aboutK4Layout(pages).layout,
-  kontakt: contactK4Layout(pages).layout,
   'automaty-vendingowe': vendingK4Layout(pages, identity).layout,
   ksef: ksefK4Layout(identity).layout,
   'ulga-na-kase-fiskalna': ulgaK4Layout(identity).layout,

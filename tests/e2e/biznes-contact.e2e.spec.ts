@@ -1,68 +1,142 @@
-import { expect, test } from '@playwright/test'
+import AxeBuilder from '@axe-core/playwright'
+import { expect, test, type APIRequestContext, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
+import { api, loginAsAdmin, setTheme, site } from './helpers'
 
-// K4i: `/kontakt` from K4 sections (K34 §8, K4-FINAL §5, plansza Web-Kontakt): hero with the
-// live status, four channels, the area map and the week of hours with today marked, „Z czym
-// dzwonisz?”, the form `#formularz` with topic chips, FAQ and the other lines. The form sending
-// itself is in `biznes-contact-form`.
+// D3-B PR 2 (docs/zadania/prokombiznes-0611.md §8.2): `/kontakt` of Biznes on the shared Kontakt
+// template — phone first, the salon card (Rabka only), „Z czym dzwonisz?” (4 matters, each picks
+// the topic of the form), the form with the inquiry list attached. Needs `pnpm seed` and
+// Mailpit; records made here are deleted.
 
-test.describe('Biznes /kontakt (K4i)', () => {
-  test('shows the hero, the channels, the week of hours, the form and the FAQ', async ({
+const MAILPIT = 'http://localhost:8025/api/v1'
+const CONTACT = '/kontakt'
+const page_ = (page: Page) => page.locator('[data-contact-page]')
+const form = (page: Page) => page.locator('[data-contact-form]')
+
+async function mailSubjects(request: APIRequestContext, query: string): Promise<string[]> {
+  const response = await request.get(`${MAILPIT}/search`, { params: { query } })
+  return ((await response.json()) as { messages: { Subject: string }[] }).messages.map(
+    (message) => message.Subject,
+  )
+}
+
+// Own client address per test: the per-IP limit (5 / 10 min) must not leak between runs.
+async function asNewVisitor(page: Page) {
+  const ip = `10.${[0, 0, 0].map(() => Math.floor(Math.random() * 250)).join('.')}`
+  await page.setExtraHTTPHeaders({ 'X-Real-IP': ip })
+}
+
+test.describe('Biznes /kontakt (shared template, §8.2)', () => {
+  test.use({ viewport: { width: 1440, height: 900 } })
+
+  test('hero: one H1, the phone first, e-mail and second number; Rabka only', async ({ page }) => {
+    const response = await page.goto(site('biznes.localhost', CONTACT))
+    expect(response?.status()).toBe(200)
+    await expect(page.locator('h1')).toHaveCount(1)
+    await expect(page.locator('h1')).toHaveText(
+      'Powiedz, czego potrzebuje firma. Resztę ustalimy na miejscu.',
+    )
+    const root = page_(page)
+    await expect(root.locator('a[href^="tel:"]').first()).toContainText('889 003 889')
+    await expect(root).toContainText('kontakt@prokombiznes.pl')
+    await expect(root).toContainText('883 200 151')
+    await expect(root).toContainText('Orkana 16B')
+    // The salon card names no other salon (D18: bez Zakopanego).
+    await expect(root.locator('address, [data-salon]').filter({ hasText: 'Zakopane' })).toHaveCount(
+      0,
+    )
+    // The company and the salon as structured data (the site layout), the breadcrumbs (template).
+    const ld = await page
+      .locator('script[type="application/ld+json"]')
+      .evaluateAll((nodes) => nodes.map((node) => node.textContent ?? '').join('\n'))
+    expect(ld).toContain('"LocalBusiness"')
+    expect(ld).toContain('"BreadcrumbList"')
+  })
+
+  test('„Z czym dzwonisz?”: 4 matters, each leads to the form with its topic picked', async ({
     page,
   }) => {
-    await page.goto(site('biznes.localhost', '/kontakt'))
-
-    await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('Zadzwoń, napisz')
-    await expect(page.getByRole('navigation', { name: 'Okruszki' })).toContainText('Kontakt')
-
-    await expect(page.locator('main a[href^="tel:"]').first()).toBeVisible()
-    await expect(
-      page.locator('main a[href^="mailto:kontakt@prokombiznes.pl"]').first(),
-    ).toBeVisible()
-    // Seven days, today marked in Polish time (the browser decides, the page is cached).
-    const week = page.locator('main li', { hasText: /^(Poniedziałek|Niedziela)/ })
-    await expect(week).toHaveCount(2)
-    await expect(page.locator('main [aria-current="date"]')).toHaveCount(1)
-
-    // Google Maps as a link (the route from the dark map, board Web-kontakt), never embedded.
-    await expect(page.getByRole('link', { name: /Wyznacz trasę/ }).first()).toHaveAttribute(
-      'href',
-      /^https:\/\/www\.google\.com\/maps\/dir\//,
+    await page.goto(site('biznes.localhost', CONTACT))
+    const routes = page_(page).locator('a[href*="temat="]')
+    await expect(routes).toHaveCount(4)
+    const href = (await routes.nth(1).getAttribute('href'))!
+    expect(href).toMatch(/^\/kontakt\?temat=.+#formularz$/)
+    await routes.nth(1).click()
+    await expect(page).toHaveURL(/temat=.*#formularz$/)
+    await expect(form(page).getByRole('button', { name: 'Awaria albo serwis' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
     )
-    await expect(page.locator('iframe')).toHaveCount(0)
-
-    const form = page.locator('#formularz')
-    await expect(form.getByRole('button', { name: 'Kasa fiskalna' })).toBeVisible()
-    await form.getByRole('button', { name: 'KSeF' }).click()
-    await expect(form.getByRole('button', { name: 'KSeF' })).toHaveAttribute('aria-pressed', 'true')
-    await expect(form.getByRole('button', { name: /^Wyślij · 1 temat$/ })).toBeVisible()
-    await expect(form.getByLabel(/^Miejscowość/)).toBeVisible()
-
-    await expect(page.locator('#faq details')).toHaveCount(4)
-    await expect(page.locator('#faq details').first()).toContainText('Dojeżdżacie do mnie?')
   })
 
-  test('describes the business as LocalBusiness', async ({ page }) => {
-    await page.goto(site('biznes.localhost', '/kontakt'))
-    const scripts = await page.locator('script[type="application/ld+json"]').allTextContents()
-    expect(scripts.join('\n')).toContain('"LocalBusiness"')
+  test('sent with the topic and the inquiry list: the record, the mail, the list emptied', async ({
+    page,
+    request,
+  }) => {
+    const marker = `E2E Kontakt Biznes ${Date.now()}`
+    await asNewVisitor(page)
+    await page.goto(site('biznes.localhost', '/'))
+    await page.evaluate(() =>
+      localStorage.setItem('pk-cart', JSON.stringify([{ id: 'posnet-ergo-online', q: 2 }])),
+    )
+    await page.goto(site('biznes.localhost', '/kontakt?temat=Awaria%20albo%20serwis#formularz'))
+    await expect(page.locator('[data-cart-attachment]')).toContainText('Posnet Ergo Online × 2')
+    const topic = form(page).getByRole('button', { name: 'Awaria albo serwis' })
+    await expect(topic).toHaveAttribute('aria-pressed', 'true')
+
+    await form(page).getByLabel('Imię i firma').fill(marker)
+    await form(page).getByLabel('Telefon lub e-mail').fill('600 100 200')
+    await form(page).getByRole('checkbox').check()
+    await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
+    await form(page).locator('button[type="submit"]').click()
+    await expect(page.locator('[data-success-panel]')).toBeVisible()
+    // Sent: the list is empty, as after the drawer's form.
+    expect(await page.evaluate(() => localStorage.getItem('pk-cart'))).toBe('[]')
+
+    await loginAsAdmin(page)
+    const { json } = await api(
+      page,
+      'GET',
+      `/api/inquiries?where[name][equals]=${encodeURIComponent(marker)}&depth=0`,
+    )
+    const [record] = json.docs as Record<string, unknown>[]
+    expect(record, 'the inquiry is in the panel').toBeDefined()
+    try {
+      expect(record).toMatchObject({
+        line: 'biznes',
+        type: 'contact',
+        category: 'Awaria albo serwis',
+        phone: '600 100 200',
+      })
+      expect(String(record?.message)).toContain('Lista „Do zapytania” (1 pozycja):')
+      expect(String(record?.message)).toContain('Posnet Ergo Online × 2')
+      await expect
+        .poll(() => mailSubjects(request, String(record?.number)), { timeout: 15_000 })
+        .toEqual(expect.arrayContaining([expect.stringContaining(String(record?.number))]))
+    } finally {
+      expect((await api(page, 'DELETE', `/api/inquiries/${record?.id}`)).status).toBe(200)
+    }
   })
 
-  test('no horizontal scroll on a phone', async ({ page }) => {
-    await page.setViewportSize({ width: 360, height: 800 })
-    await page.goto(site('biznes.localhost', '/kontakt'))
+  for (const theme of ['light', 'dark'] as const) {
+    test(`axe on the page (${theme})`, async ({ page }) => {
+      await setTheme(page, theme)
+      await page.emulateMedia({ reducedMotion: 'reduce' })
+      await page.goto(site('biznes.localhost', CONTACT))
+      const results = await new AxeBuilder({ page }).include('[data-contact-page]').analyze()
+      expect(results.violations).toEqual([])
+    })
+  }
+})
+
+for (const width of [360, 390]) {
+  test(`/kontakt fits ${width} px without scrolling sideways`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 })
+    await page.goto(site('biznes.localhost', CONTACT))
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
     )
     expect(overflow).toBeLessThanOrEqual(0)
   })
-
-  test('other lines keep their own contact page', async ({ page }) => {
-    await page.goto(site('instalacje.localhost', '/kontakt'))
-    // Instalacje: the shared Kontakt template with their own data (L2-I).
-    await expect(page.locator('[data-contact-page] [data-contact-form]')).toBeVisible()
-    await expect(page.getByRole('heading', { level: 1, name: 'Zadzwoń, napisz' })).toHaveCount(0)
-  })
-})
+}

@@ -2,8 +2,6 @@ import type { Payload } from 'payload'
 
 import file from '../../../seed/prokombiznes/k4/strony-k4.json'
 import {
-  aboutK4Layout,
-  contactK4Layout,
   goposK4Layout,
   insertK4Layout,
   ksefK4Layout,
@@ -59,20 +57,6 @@ export function k4PageSeeds(slugOf: SlugOf, mediaOf?: MediaOf) {
       description:
         'Opieka IT dla firm: komputery, serwer, sieć, kopie, poczta, kasy i POS pod jedną opieką, z czasem reakcji w umowie. Bezpłatny przegląd IT.',
       built: opiekaK4Layout(firma, slugOf),
-    },
-    {
-      slug: 'o-firmie',
-      title: 'O firmie',
-      description:
-        'PRO-KOM Tadeusz Wójciak z Rabki-Zdroju: od 2004 kasy, POS, programy i opieka IT dla firm z Podhala. Zasady, linie PRO-KOM, marki i dojazd.',
-      built: aboutK4Layout(firma),
-    },
-    {
-      slug: 'kontakt',
-      title: 'Kontakt',
-      description:
-        'Kontakt z PRO-KOM w Rabce-Zdroju: telefon, e-mail i formularz. Oddzwaniamy w ciągu 60 minut w godzinach pracy. Dojazd na całe Podhale.',
-      built: contactK4Layout(firma),
     },
     // K4j: new pages (D-K4-7), no older seed.
     {

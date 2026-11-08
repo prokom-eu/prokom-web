@@ -10,7 +10,7 @@ const PAGES = [
   { path: '/ksef', section: '#faq' },
   { path: '/ulga-na-kase-fiskalna', section: '#faq' },
   { path: '/kontakt', section: '#formularz' },
-  { path: '/o-firmie', section: 'section[aria-labelledby^="lokalizacja-"]' },
+  { path: '/o-firmie', section: '#wizyta' },
 ] as const
 
 for (const { path, section } of PAGES) {
@@ -29,12 +29,12 @@ for (const { path, section } of PAGES) {
   })
 }
 
-test('O firmie on a phone: „Napisz do nas” leads to the contact form', async ({ page }) => {
+test('O firmie on a phone: the visit card leads to Kontakt', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto(biznes('/o-firmie'))
-  await expect(page.getByRole('link', { name: 'Napisz do nas' }).first()).toHaveAttribute(
+  await expect(page.locator('#wizyta').getByRole('link', { name: 'Kontakt' })).toHaveAttribute(
     'href',
-    '/kontakt#formularz',
+    '/kontakt',
   )
 })
 

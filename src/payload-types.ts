@@ -2184,6 +2184,8 @@ export interface Page {
         | BzKsefBlock
         | BzLocationBlock
         | BzSectionBlock
+        | BzContactPageBlock
+        | BzAboutPageBlock
         | InstServiceBlock
         | InstHomeBlock
         | InstPlannerBlock
@@ -3126,6 +3128,24 @@ export interface BzSectionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzContactPageBlock".
+ */
+export interface BzContactPageBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzContactPage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzAboutPageBlock".
+ */
+export interface BzAboutPageBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzAboutPage';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6423,6 +6443,8 @@ export interface PagesSelect<T extends boolean = true> {
         bzKsef?: T | BzKsefBlockSelect<T>;
         bzLocation?: T | BzLocationBlockSelect<T>;
         bzSection?: T | BzSectionBlockSelect<T>;
+        bzContactPage?: T | BzContactPageBlockSelect<T>;
+        bzAboutPage?: T | BzAboutPageBlockSelect<T>;
         instService?: T | InstServiceBlockSelect<T>;
         instHome?: T | InstHomeBlockSelect<T>;
         instPlanner?: T | InstPlannerBlockSelect<T>;
@@ -6942,6 +6964,22 @@ export interface BzSectionBlockSelect<T extends boolean = true> {
   source?: T;
   sourceUrl?: T;
   data?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzContactPageBlock_select".
+ */
+export interface BzContactPageBlockSelect<T extends boolean = true> {
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzAboutPageBlock_select".
+ */
+export interface BzAboutPageBlockSelect<T extends boolean = true> {
   id?: T;
   blockName?: T;
 }

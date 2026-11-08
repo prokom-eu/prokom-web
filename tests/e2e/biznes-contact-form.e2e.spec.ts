@@ -83,12 +83,12 @@ test.describe('Biznes contact form v20 (B8a)', () => {
   test('required fields and a bad e-mail are explained next to them, at 768 px', async ({
     page,
   }) => {
-    // Below 768 px no page shows this form (boards App-Start, App-Kontakt: the phone card and
-    // the inquiry in the tab bar), so the narrowest check is at 768 px, on /kontakt.
+    // Below 768 px the home page shows the phone card instead of this form, so the narrowest
+    // check is at 768 px. (`/kontakt` has the shared form since D3-B PR 2: biznes-contact.)
     await page.setViewportSize({ width: 768, height: 1024 })
     await asNewVisitor(page)
-    await page.goto(site('biznes.localhost', '/kontakt#formularz'))
-    const contact = page.locator('#formularz')
+    await page.goto(site('biznes.localhost', '/#kontakt'))
+    const contact = page.locator('#kontakt')
     await contact.getByRole('button', { name: 'Wyślij zapytanie' }).click()
 
     const name = contact.getByLabel(/^Imię/)
@@ -109,7 +109,7 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     expect(overflow).toBe(false)
 
     const { violations } = await new AxeBuilder({ page })
-      .include('#formularz')
+      .include('#kontakt')
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze()
     expect(violations.map((v) => v.id)).toEqual([])

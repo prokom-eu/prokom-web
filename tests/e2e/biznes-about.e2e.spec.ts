@@ -1,64 +1,64 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
-import { site } from './helpers'
+import { setTheme, site } from './helpers'
 
-// K4i: `/o-firmie` from K4 sections (K34 §7, plansza Web-OFirmie): hero with the business card
-// from the panel and four authorizations, „Nie musisz wierzyć nam na słowo”, the principles,
-// four lines (decyzja Krystiana 01.11), brands, „Gdzie nas znaleźć”, the band.
+// D3-B PR 2 (docs/zadania/prokombiznes-0611.md §8.2): `/o-firmie` of Biznes on the shared O firmie
+// template — the company card with the four authorisation logos, the stats, rules, steps, the
+// lines, „Nie musisz wierzyć nam na słowo” and the visit card. No people, no photos. Data from
+// `pnpm seed`.
 const ABOUT = '/o-firmie'
 
-test.describe('Biznes about page (K4i)', () => {
-  test('shows the hero, the card from the panel, the principles, lines and brands', async ({
+test.describe('Biznes /o-firmie (shared template, §8.2)', () => {
+  test.use({ viewport: { width: 1440, height: 900 } })
+
+  test('one H1, the company card with NIP, CEIDG and four authorisation logos', async ({
     page,
   }) => {
     const response = await page.goto(site('biznes.localhost', ABOUT))
     expect(response?.status()).toBe(200)
-
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('PRO-KOM z Rabki-Zdroju')
+    await expect(page.locator('h1')).toHaveText(
+      'Lokalna firma IT, która zostaje z klientem na lata.',
+    )
     await expect(
       page.getByRole('navigation', { name: 'Okruszki' }).locator('[aria-current="page"]'),
     ).toHaveText('O firmie')
-    await expect(page.getByText('100+')).toBeVisible()
-    // In the page content: the phone menu (closed) shows partner statuses too (M1′).
-    const main = page.locator('main')
-    await expect(main.getByText('Autoryzowany serwis').first()).toBeVisible()
-    await expect(main.getByText('Autoryzowany partner').first()).toBeVisible()
-    await expect(page.getByRole('link', { name: /CEIDG/ }).first()).toHaveAttribute(
+    const card = page.locator('[data-company-card]')
+    await expect(card).toContainText('NIP')
+    await expect(card.getByRole('link', { name: /CEIDG/ })).toHaveAttribute(
       'href',
       /biznes\.gov\.pl/,
     )
+    const logos = card.locator('[data-auth-logo]')
+    await expect(logos).toHaveCount(4)
+    await expect(logos.locator('img').first()).toHaveAttribute('alt', /.+/)
+    // K4-FINAL §1: Posnet and Elzab „Autoryzowany serwis”, GoPOS and InsERT „Autoryzowany partner”.
+    await expect(logos.filter({ hasText: 'Autoryzowany serwis' })).toHaveCount(2)
+    await expect(logos.filter({ hasText: 'Autoryzowany partner' })).toHaveCount(2)
+  })
 
-    await expect(page.locator('#zasady li')).toHaveCount(8)
-    const lines = page.locator('#linie')
-    await expect(lines.getByRole('heading', { level: 2 })).toHaveText('Jedna firma, cztery linie')
-    await expect(lines.getByText('Jesteś tutaj')).toHaveCount(1)
+  test('stats from 2004, the sections of the template, no photos of people', async ({ page }) => {
+    await page.goto(site('biznes.localhost', ABOUT))
+    const root = page.locator('[data-about-page]')
+    await expect(root.locator('[data-stats-strip] li').first()).toContainText('2004')
+    for (const id of ['dlaczego', 'wspolpraca', 'linie', 'wizyta']) {
+      await expect(root.locator(`#${id}`)).toHaveCount(1)
+    }
+    // Images on the page are logos and maps only (zasada 01.11: bez zdjęć ludzi).
+    const pictures = await root
+      .locator('img')
+      .evaluateAll((images) => images.map((image) => image.getAttribute('alt') ?? ''))
+    expect(pictures.every((alt) => !/zespół|właściciel|pracown/i.test(alt))).toBe(true)
+  })
 
-    const brands = page.getByRole('region', {
-      name: 'Marki, które sprzedajemy, wdrażamy i serwisujemy',
+  for (const theme of ['light', 'dark'] as const) {
+    test(`axe on the page (${theme})`, async ({ page }) => {
+      await setTheme(page, theme)
+      await page.emulateMedia({ reducedMotion: 'reduce' })
+      await page.goto(site('biznes.localhost', ABOUT))
+      const results = await new AxeBuilder({ page }).include('[data-about-page]').analyze()
+      expect(results.violations).toEqual([])
     })
-    await expect(brands).toContainText('Pozostałe marki w ofercie')
-
-    // Address and phone from the panel, Google Maps as links (no iframe).
-    const location = page.locator('section[aria-labelledby^="lokalizacja"]')
-    await expect(location.locator('a[href^="tel:"]').first()).toBeVisible()
-    await expect(page.locator('iframe')).toHaveCount(0)
-  })
-
-  test('no prices, „Aut.” or another e-mail than the line inbox', async ({ page }) => {
-    await page.goto(site('biznes.localhost', ABOUT))
-    const text = await page.locator('main').innerText()
-    expect(text).not.toMatch(/leasing|\braty\b|\d\s?zł|\bAut\./i)
-    const emails = text.match(/[\w.+-]+@[\w.-]+\.\w+/g) ?? []
-    expect(emails.every((email) => email === 'kontakt@prokombiznes.pl')).toBe(true)
-  })
-
-  test('no horizontal scroll on a phone', async ({ page }) => {
-    await page.setViewportSize({ width: 360, height: 800 })
-    await page.goto(site('biznes.localhost', ABOUT))
-    const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-    )
-    expect(overflow).toBeLessThanOrEqual(0)
-  })
+  }
 })

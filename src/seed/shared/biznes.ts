@@ -6,6 +6,14 @@ import { CONTACT_FAQ_TODO, type SharedGroup, VERIFY_CEIDG, VERIFY_GOOGLE } from 
  * and 883 200 151, no landline) and the K4-FINAL §1 statuses. Rail = the sections of today's
  * Biznes rail (`sites/biznes/components/home/rail.ts`, MAPA-DZIS §10.1).
  */
+/** Topics of the Kontakt form; the first four are the matters of „Z czym dzwonisz?” (§8.2). */
+const BIZNES_TOPICS = [
+  'Kasa, POS albo terminal',
+  'Awaria albo serwis',
+  'KSeF, programy i opieka IT',
+  'Większa dostawa sprzętu',
+] as const
+
 export const BIZNES_SHARED: SharedGroup = {
   phoneLabel: 'Biznes:',
   responsePromise: 'Oddzwaniamy w godzinach pracy',
@@ -69,36 +77,45 @@ export const BIZNES_SHARED: SharedGroup = {
   legalNote:
     'Oferta skierowana do przedsiębiorców i instytucji · Logotypy należą do ich właścicieli',
   contact: {
-    h1: 'Zadzwoń, napisz albo wpadnij do Rabki.',
+    // Plan 0611 §8.2: H1, the facts bar and „Z czym dzwonisz?” — 4 matters, each picks its
+    // topic in the form (`?temat=`, the topics below) and scrolls to it.
+    h1: 'Powiedz, czego potrzebuje firma. Resztę ustalimy na miejscu.',
     lead: 'Kasy, programy, komputery i opieka IT — jeden numer do wszystkiego. Wycenę przygotujemy na piśmie.',
     writeCta: 'Napisz do nas',
     placeKind: 'salon',
     facts: [
       { kind: 'email', label: 'E-mail', icon: 'mail' },
       { kind: 'phone2', label: 'Drugi numer', icon: 'phone' },
-      { kind: 'text', label: 'Odpowiedź', value: 'W godzinach pracy', icon: 'clock' },
+      // D18: „Oddzwonimy w 60 minut” (odstępstwo Biznesu od szablonów).
+      { kind: 'text', label: 'Odpowiedź', value: 'Oddzwonimy w 60 minut', icon: 'clock' },
     ],
     routes: [
       {
-        title: 'Coś przestało działać',
+        title: 'Kasa, POS albo terminal',
+        text: 'Dobór pod branżę, fiskalizacja i wdrożenie w lokalu.',
+        cta: 'Zaznacz w formularzu',
+        href: `/kontakt?temat=${encodeURIComponent(BIZNES_TOPICS[0])}#formularz`,
+      },
+      {
+        title: 'Awaria albo serwis',
         text: 'Kasa, terminal, komputer albo sieć. Powiedz, co się dzieje — ustalimy, co dalej.',
-        cta: 'Zgłoś awarię',
-        href: '/kontakt#formularz',
+        cta: 'Zaznacz w formularzu',
+        href: `/kontakt?temat=${encodeURIComponent(BIZNES_TOPICS[1])}#formularz`,
       },
       {
-        title: 'Otwieram firmę lub lokal',
-        text: 'Dobierzemy kasę, terminal i program pod Twoją branżę.',
-        cta: 'Otwórz konfigurator',
-        href: '/konfigurator',
+        title: 'KSeF, programy i opieka IT',
+        text: 'Programy sprzedażowe, KSeF i stała opieka nad komputerami i siecią.',
+        cta: 'Zaznacz w formularzu',
+        href: `/kontakt?temat=${encodeURIComponent(BIZNES_TOPICS[2])}#formularz`,
       },
       {
-        title: 'Przegląd albo serwis kasy',
-        text: 'Przegląd okresowy, przeniesienie serwisu, zmiana stawek.',
-        cta: 'Napisz w formularzu',
-        href: '/kontakt#formularz',
+        title: 'Większa dostawa sprzętu',
+        text: 'Komputery, drukarki i sieć dla kilku stanowisk — wycena na piśmie.',
+        cta: 'Zaznacz w formularzu',
+        href: `/kontakt?temat=${encodeURIComponent(BIZNES_TOPICS[3])}#formularz`,
       },
     ],
-    topics: ['Kasa lub terminal', 'Komputery', 'Programy', 'Opieka IT', 'Inne'],
+    topics: [...BIZNES_TOPICS, 'Inna sprawa'],
     formTitle: 'Napisz, czego potrzebujesz.',
     placeholder: 'np. Otwieramy kawiarnię w grudniu, potrzebujemy kasy i terminala.',
     sendLabel: 'Wyślij zapytanie',
