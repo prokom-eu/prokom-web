@@ -365,6 +365,41 @@ export function itemListJsonLd({
   }
 }
 
+/**
+ * `WebSite` of a home page with the site search for search engines (audit 0611 P0.3b): the
+ * search box points at the catalog's own query parameter (Biznes: `/oferta?szukaj=`, see
+ * `lib/catalog/filters`). Published by the Organization the layout emits (`/#organization`).
+ */
+export function websiteSearchJsonLd({
+  origin,
+  name,
+  searchPath,
+  queryParam,
+}: {
+  origin: string
+  name: string
+  searchPath: string
+  queryParam: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${origin}/#website`,
+    name,
+    url: `${origin}/`,
+    inLanguage: 'pl-PL',
+    publisher: { '@id': `${origin}/#organization` },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${origin}${searchPath}?${queryParam}={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  }
+}
+
 /** JSON for `<script type="application/ld+json">`; `<` escaped so text cannot end the tag (Next docs). */
 export function serializeJsonLd(data: unknown): string {
   return JSON.stringify(data).replace(/</g, '\\u003c')

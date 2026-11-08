@@ -310,9 +310,7 @@ export function Wizard({
       {head && (
         <header className="wz-head">
           <p className="sw-eyebrow">{rules.ui.eyebrow}</p>
-          <Heading className="sw-h2">
-            {rules.ui.title} <em className="sw-em">{rules.ui.em}</em>
-          </Heading>
+          <Heading className="sw-h2">{rules.ui.title}</Heading>
           <p className="wz-lead">{rules.ui.lead}</p>
         </header>
       )}

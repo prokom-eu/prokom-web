@@ -72,11 +72,6 @@ export const HOME_HERO: SoftwareHeroV24 = {
       icon: 'M12 2l2.2 5.8L20 10l-5.8 2.2L12 18l-2.2-5.8L4 10l5.8-2.2zM19 16l1 2.5 2.5 1-2.5 1L19 23l-1-2.5-2.5-1 2.5-1z',
     },
   ],
-  trust: [
-    { v: '5–7 dni', l: 'podgląd do klikania' },
-    { v: '< 2,5 s', l: 'strona na telefonie' },
-    { v: '100%', l: 'kod i dane Twoje' },
-  ],
   industries: [
     'Biura rachunkowe',
     'Firmy transportowe',

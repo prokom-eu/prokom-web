@@ -16,7 +16,8 @@ export function CartCount({ className }: { className: string }) {
   const [bumps, setBumps] = useState(0)
   useEffect(() => onCartAdded(() => setBumps((n) => n + 1)), [])
   return (
-    <em key={bumps} data-bump={bumps > 0 ? '' : undefined} className={className}>
+    // `data-cart-count`: where „+ do zapytania” flies to (`flyToCart`).
+    <em key={bumps} data-cart-count="" data-bump={bumps > 0 ? '' : undefined} className={className}>
       {count}
       <span className="sr-only"> {plural(count, ['pozycja', 'pozycje', 'pozycji'])}</span>
     </em>

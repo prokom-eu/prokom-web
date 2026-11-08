@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { CountUp } from '@/components/motion/CountUp'
+import { countsUp } from '@/lib/motion/countUp'
 import { brandLogo } from '@/lib/catalog/brandLogo'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { getSiteSettings } from '@/lib/site/data'
@@ -24,6 +25,14 @@ function Quote({ quote, highlight }: { quote: string; highlight?: string | null 
       {quote.slice(at + highlight.length)}”
     </>
   )
+}
+
+/**
+ * A figure of „O firmie” (audit 0611 P3): counts of 10 and more count up once on the way down
+ * (`CountUp`: not on the first screen, not with reduced motion); a year or a small number stays.
+ */
+function Figure({ text }: { text: string }) {
+  return countsUp(text) ? <CountUp text={text} /> : <>{text}</>
 }
 
 /** `Partners` is shared between lines: only partners shown on this site, with a logo. */
@@ -101,7 +110,7 @@ function FactsCard({
               >
                 <dt className="text-[14.5px] font-semibold text-ink-2">{stat.label}</dt>
                 <dd className="font-display text-[clamp(2.125rem,3.4vw,2.875rem)] leading-none font-extrabold tracking-[-0.01em] text-ink font-stretch-112%">
-                  <CountUp text={stat.value} />
+                  <Figure text={stat.value} />
                 </dd>
               </div>
             ))}
@@ -254,7 +263,7 @@ export async function BzFactsBlock({ block, tenantId }: Props) {
                   >
                     <dt className="text-[12.5px] leading-snug text-ink-2">{stat.label}</dt>
                     <dd className="font-display text-[26px] leading-none font-extrabold text-ink">
-                      <CountUp text={stat.value} />
+                      <Figure text={stat.value} />
                     </dd>
                   </div>
                 ))}
