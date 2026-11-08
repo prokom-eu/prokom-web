@@ -202,6 +202,24 @@ const slugOf = (href: string) => mapHref(href).split('/').filter(Boolean).pop() 
 const icon = (value: string | undefined) => value?.replace(/^ikona:/, '') || undefined
 
 /**
+ * P0-2 (audit 06.11): the package asks to send photos, but no Instalacje form takes files
+ * (decision „bez przesyłania plików”). The same wording as the code's fallbacks since L1-I.
+ */
+const PHOTO_PROMISES: Readonly<Record<string, string>> = {
+  'Wyślij zdjęcia do wyceny': 'Opisz obiekt do wyceny',
+  'Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.':
+    'Opisz obiekt albo obecną instalację. Powiemy, od czego zacząć i czego się spodziewać.',
+  'Wyślij zdjęcie rozdzielnicy. Powiemy, którą ładowarkę da się podłączyć.':
+    'Opisz rozdzielnicę i przyłącze. Powiemy, którą ładowarkę da się podłączyć.',
+  'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Wyślij zdjęcia, a powiemy, czego się spodziewać.':
+    'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Opisz obiekt, a powiemy, czego się spodziewać.',
+}
+
+/** A package text without a photo promise (P0-2). */
+const noPhotos = <T extends string | undefined>(text: T): T =>
+  (text !== undefined && PHOTO_PROMISES[text] !== undefined ? PHOTO_PROMISES[text] : text) as T
+
+/**
  * P3-23 (audit 06.11): package titles too long for Google — with „ | PRO-KOM Instalacje” (21
  * characters) every title stays ≤ 60. Keyed by the package title without the site name.
  */
@@ -331,15 +349,15 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
     priceIntro: {
       eyebrow: d.sx.cena.eye,
       heading: d.sx.cena.h,
-      text: d.sx.cena.p,
-      button: d.sx.cena.btn,
+      text: noPhotos(d.sx.cena.p),
+      button: noPhotos(d.sx.cena.btn),
     },
     priceFactors: d.cena.map((c) => ({ title: c.t, icon: icon(c.ic), description: c.d })),
     faqHeading: d.sx.faqH,
     faq: d.faq.map((f) => ({ question: f.q, answer: f.a })),
     faqAside: {
       title: d.sx.faqA.t,
-      text: d.sx.faqA.d,
+      text: noPhotos(d.sx.faqA.d),
       button: d.sx.faqA.cta,
       href: optionalHref(d.sx.faqA.href),
     },
@@ -352,7 +370,7 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
       d.segRel.map((r) => r.k),
       refs.object,
     ),
-    cta: { eyebrow: d.ctaEye, heading: d.ctaH, text: d.ctaP },
+    cta: { eyebrow: d.ctaEye, heading: noPhotos(d.ctaH), text: noPhotos(d.ctaP) },
   }
 }
 
@@ -578,6 +596,9 @@ const PAGE_FILES: {
     title: 'Kontakt',
     file: Kontakt,
     seoTitle: 'Kontakt i dojazd: Rabka-Zdrój i Podhale',
+    // The package's description names WhatsApp (decision 01.11: no WhatsApp).
+    seoDescription:
+      'Kontakt z PRO-KOM Instalacje w Rabce-Zdroju: telefon, e-mail, formularz i mapa stref dojazdu na Podhalu.',
   },
   // The package's title + „| PRO-KOM Instalacje” has 66 characters.
   {

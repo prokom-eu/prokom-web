@@ -261,3 +261,13 @@ describe('SEO titles (P3-23)', () => {
     expect(long).toEqual([])
   })
 })
+
+describe('no photo promises (P0-2, audit 06.11)', () => {
+  it('no mapped text asks to send photos or plans — no form takes files', () => {
+    expect(allMapped()).not.toMatch(/[Ww]yślij zdjęci|[Pp]rześlij rzuty|[Ww]yślesz zdjęci/)
+  })
+
+  it('no page SEO names WhatsApp (decision 01.11)', () => {
+    expect(JSON.stringify(pagesToImport())).not.toMatch(/whats\s?app/i)
+  })
+})
