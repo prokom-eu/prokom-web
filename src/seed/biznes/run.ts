@@ -89,6 +89,7 @@ import {
 } from './k4Home'
 import { GOPOS_PHOTO_ALT, goposPhotoFiles, goposPhotoPath } from './k4Pages'
 import { k4PagesFile, seedBiznesK4Pages } from './k4PagesRun'
+import { seedBiznesTemplatePages } from './templatePages'
 import {
   brandLogoFile,
   galleryFileName,
@@ -1283,6 +1284,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     note,
     (file) => goposPhotos.get(file),
   )
+
+  // D3-B PR 2: /o-firmie and /kontakt on the shared templates (replaces their K4 layouts).
+  await seedBiznesTemplatePages(payload, tenant.id, pageReport)
 
   // --- category page content (B10a): the cash registers from the board ---
   await seedBiznesCategoryContent(payload, tenant.id, pageRefs.product, pageReport)

@@ -12,11 +12,8 @@ import {
   type SectionVariant,
 } from '../../lib/biznes/pages/sections'
 import { forbiddenContent } from '../../lib/catalog/contentRules'
-import { hardSpaces } from '../../lib/text/hardSpace'
 import type { BzSectionBlock, FaqBlock } from '../../payload-types'
 import {
-  aboutK4Layout,
-  contactK4Layout,
   goposK4Layout,
   goposPhotoFiles,
   goposPhotoPath,
@@ -34,7 +31,6 @@ import {
   type K4PagesFile,
   type K4VendingFile,
 } from './k4Pages'
-import { BIZNES_CONTACT } from './contact'
 import type { PageBlock } from './page'
 
 const pages = file as unknown as K4PagesFile
@@ -55,8 +51,6 @@ describe.each([
   ['gopos', goposK4Layout(pages, identity).layout],
   ['insert', insertK4Layout(pages, identity).layout],
   ['opieka-it', opiekaK4Layout(firma, identity).layout],
-  ['o-firmie', aboutK4Layout(firma).layout],
-  ['kontakt', contactK4Layout(firma).layout],
   ['automaty-vendingowe', vendingK4Layout(vending, identity).layout],
   ['ksef', ksefK4Layout(identity).layout],
   ['ulga-na-kase-fiskalna', ulgaK4Layout(identity).layout],
@@ -321,47 +315,6 @@ describe('/opieka-it (K4i)', () => {
     const kinds = sections(without).map((block) => block.variant)
     expect(kinds).not.toContain('care-hero')
     expect(kinds).not.toContain('seats')
-  })
-})
-
-describe('/o-firmie (K4i)', () => {
-  const { layout } = aboutK4Layout(firma)
-
-  it('shows 4 lines (decyzja Krystiana 01.11) and „100+ klientów firmowych”', () => {
-    expect(dataOf(layout, 'lines')?.lines).toHaveLength(4)
-    const lines = sections(layout).find((block) => block.variant === 'lines')
-    expect(lines?.heading).toBe('Jedna firma, cztery linie')
-    expect(JSON.stringify(layout)).toContain('100+')
-    expect(JSON.stringify(layout)).not.toContain('firm i instytucji pod opieką')
-  })
-
-  it('names the statuses in full words and groups the other brands', () => {
-    const hero = dataOf(layout, 'about-hero')!
-    expect(hero.authorizations.map((a) => a.status)).toEqual([
-      'Autoryzowany serwis',
-      'Autoryzowany serwis',
-      'Autoryzowany partner',
-      'Autoryzowany partner',
-    ])
-    expect(dataOf(layout, 'brands')?.groups.map((g) => g.k)).toContain(
-      hardSpaces('Pozostałe marki w ofercie'),
-    )
-  })
-})
-
-describe('/kontakt (K4i)', () => {
-  const { layout } = contactK4Layout(firma)
-
-  it('has the form with the topic chips at #formularz', () => {
-    const form = sections(layout).find((block) => block.variant === 'contact-form')
-    expect(form?.anchor).toBe('formularz')
-    expect(dataOf(layout, 'contact-form')?.topics).toContain('Kasa fiskalna')
-  })
-
-  it('names only Rabka and the line inbox (K4-FINAL §1, contact of 01.11.2026)', () => {
-    const emails = JSON.stringify(layout).match(/[\w.+-]+@[\w.-]+/g) ?? []
-    expect(emails.every((email) => email === BIZNES_CONTACT.email)).toBe(true)
-    expect(JSON.stringify(layout)).not.toMatch(/ul. [^"]*Zakopane/)
   })
 })
 
