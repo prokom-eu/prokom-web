@@ -67,13 +67,9 @@ export function PageHero({ hero, name, anchors, phone, widget, parent = SERVICES
           </nav>
           <div className="phw">
             <div className="pht2">
+              {/* INST-6: the eyebrow above the h1, not in it — the h1 says the service and the region. */}
+              {hero?.eyebrow && <p className="eye h1k in d2">{hero.eyebrow}</p>}
               <h1 className="h1 in d2">
-                {hero?.eyebrow && (
-                  <>
-                    <span className="eye h1k">{hero.eyebrow}</span>
-                    <span className="vh">: </span>
-                  </>
-                )}
                 {hero?.h1a || name} {hero?.h1b && <span className="acc">{hero.h1b}</span>}
               </h1>
               {hero?.lead && <p className="lead in d3">{hero.lead}</p>}
