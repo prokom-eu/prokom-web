@@ -13,7 +13,7 @@ export const BIZNES_SHARED: SharedGroup = {
   headerCta: { label: 'Zapytanie', href: '/zapytanie', counter: 'inquiry' },
   tabBar: {
     second: { label: 'Oferta', href: '/oferta' },
-    center: { label: 'Zapytanie', href: '/zapytanie', icon: 'list' },
+    center: { label: 'Zapytanie', href: '/zapytanie', icon: 'doc' },
   },
   rail: {
     sections: [

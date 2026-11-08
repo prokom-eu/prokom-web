@@ -8,7 +8,6 @@ import { getPublishedPage } from '@/lib/pages/data'
 import { pageMetadata } from '@/lib/pages/metadata'
 import { getSiteSettings } from '@/lib/site/data'
 import { HOME_SLUG } from '@/lib/pages/slug'
-import { railItems } from '@/sites/biznes/components/home/rail'
 import { softwareRailItems } from '@/sites/software/components/home/rail'
 
 import { requireTenant } from './tenant'
@@ -33,33 +32,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /** Start page of a tenant: its published page with the `home` slug. */
 export default async function TenantHomePage({ params }: Props) {
   const tenant = await requireTenant(params)
-  const [page, settings] = await Promise.all([
-    getPublishedPage(tenant.id, HOME_SLUG),
-    getSiteSettings(tenant.id),
-  ])
+  const page = await getPublishedPage(tenant.id, HOME_SLUG)
   if (!page) notFound()
-  // The floating section rail of the home page, from the blocks on it: Biznes (spec. §3.7)
-  // from 1400 px, Software (spec. §3.3) above 1400 px.
+  // The floating section rail of the Software home page (spec. §3.3) above 1400 px. Biznes and
+  // Instalacje use the shared side rail of their frame (D3-B, L1-I).
   const blocks = renderableBlocks(tenant.line, page.layout)
-  const rail: RailItem[] =
-    tenant.line === 'biznes'
-      ? railItems(blocks, {
-          reviews: Boolean(settings?.biznes?.showReviews),
-          placeholders: process.env.NODE_ENV !== 'production',
-        })
-      : tenant.line === 'software'
-        ? softwareRailItems(blocks)
-        : []
+  const rail: RailItem[] = tenant.line === 'software' ? softwareRailItems(blocks) : []
   return (
     <>
       {rail.length > 0 && (
         <SectionRail
           items={rail}
-          from={tenant.line === 'software' ? 1401 : 1400}
-          // Biznes: „Szukaj” on top of the rail (K33 §2.4).
-          search={tenant.line === 'biznes'}
-          // Software and Biznes (R2): glide to the section, a sliding marker.
-          glide={tenant.line === 'software' || tenant.line === 'biznes'}
+          from={1401}
+          // Software: glide to the section, a sliding marker.
+          glide
         />
       )}
       <RenderBlocks page={page} tenant={tenant} />

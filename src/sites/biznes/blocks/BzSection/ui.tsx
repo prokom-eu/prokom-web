@@ -106,6 +106,10 @@ export function SectionShell({
       id={id}
       aria-labelledby={labelled ? `${id}-h` : undefined}
       aria-label={labelled ? undefined : (block.eyebrow ?? undefined)}
+      // „Na tej stronie” of the shared side rail (plan 0611 §8.1 pkt 4): a section with its own
+      // anchor and heading; the short label is the eyebrow when there is one.
+      data-rail-section={block.anchor && block.heading ? '' : undefined}
+      data-rail-label={block.anchor && block.heading ? (block.eyebrow ?? block.heading) : undefined}
       // Phone (boards App-*): the head is the H2 alone (no label, no lead).
       className={cx('scroll-mt-28', padding, SURFACE[block.surface], className)}
     >

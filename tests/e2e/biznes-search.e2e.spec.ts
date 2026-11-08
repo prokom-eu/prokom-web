@@ -96,7 +96,11 @@ test.describe('Biznes search', () => {
 
   test('a phrase with no results offers to ask about it', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    await page.getByRole('button', { name: 'Szukaj w ofercie' }).first().click()
+    // A click before hydration is lost (dev on 2 cores in CI): retry until the window opens.
+    await expect(async () => {
+      await page.getByRole('button', { name: 'Szukaj w ofercie' }).first().click()
+      await expect(overlay(page)).toBeVisible({ timeout: 1000 })
+    }).toPass()
     await field(page).fill('zxqvbn')
     await expect(
       overlay(page).getByText('Nie znaleźliśmy „zxqvbn”', { exact: false }),
@@ -107,10 +111,19 @@ test.describe('Biznes search', () => {
     )
   })
 
-  test('the magnifier opens it on a phone', async ({ page }) => {
+  test('the menu sheet opens it on a phone (no room for the loupe in the capsule)', async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 360, height: 780 })
     await page.goto(site('biznes.localhost'))
-    await page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }).click()
+    await expect(async () => {
+      await page.locator('[data-site-header]').getByRole('button', { name: 'Menu' }).click()
+      await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible({ timeout: 1000 })
+    }).toPass()
+    await page
+      .getByRole('dialog', { name: 'Menu' })
+      .getByRole('button', { name: 'Szukaj w ofercie' })
+      .click()
     await expect(field(page)).toBeFocused()
     await field(page).fill('terminal')
     await expect(

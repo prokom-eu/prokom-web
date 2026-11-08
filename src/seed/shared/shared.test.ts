@@ -29,14 +29,16 @@ const BIZNES_HOME = [
   { blockType: 'bzContact' },
 ]
 
-// L1-I: an unknown name falls back to a page icon in the rail. Instalacje only for now — Biznes
-// („list”) and Software („wand”) get theirs in D3-B / D3-S (STAN-instalacje, uwaga dla D3).
-describe('shared.rail — Instalacje icons come from the shared set', () => {
+// L1-I / D3-B: an unknown name falls back to a page icon in the rail. Software („wand”) gets
+// its icon in D3-S (STAN-instalacje, uwaga dla D3).
+describe('shared.rail — Instalacje and Biznes icons come from the shared set', () => {
   it('rail sections and the tab bar action', () => {
-    const icons = [
-      ...(INSTALACJE_SHARED.rail?.sections ?? []).map((section) => section.icon),
-      INSTALACJE_SHARED.tabBar?.center?.icon,
-    ].filter(Boolean)
+    const icons = [INSTALACJE_SHARED, BIZNES_SHARED]
+      .flatMap((shared) => [
+        ...(shared.rail?.sections ?? []).map((section) => section.icon),
+        shared.tabBar?.center?.icon,
+      ])
+      .filter(Boolean)
     expect(icons.filter((icon) => !isIconName(icon))).toEqual([])
   })
 })

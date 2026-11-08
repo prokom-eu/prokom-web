@@ -60,7 +60,6 @@ import { SwPricingBlock } from '@/sites/software/blocks/SwPricing/Component'
 import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
 import { FaqContact } from '@/sites/software/components/v24home/FaqContact'
 import { faqContactPair } from '@/lib/software/faqContact'
-import { ScreenTitleMark } from '@/sites/biznes/components/mobile/ScreenTitleMark'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
 
@@ -112,7 +111,6 @@ export function RenderBlocks({ page, tenant }: Props) {
   const software = tenant.line === 'software'
   return (
     <>
-      {biznes && page.slug !== HOME_SLUG && <ScreenTitleMark name={page.title} />}
       {/* Linked only where an Instalacje block renders, not on the other lines. */}
       {blocks.some((block) => INSTALACJE_BLOCK_SLUGS.includes(block.blockType)) && (
         <InstalacjeBlockStyles />
