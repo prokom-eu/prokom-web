@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Container } from '@/components/ui/Container'
 import { Heading } from '@/components/ui/Heading'
 import { TextLink } from '@/components/ui/TextLink'
+import { biznesDescription } from '@/lib/biznes/seo'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { SITE_MAP_PATH, type SiteMapLink } from '@/lib/seo/siteLinks'
@@ -28,9 +29,16 @@ const SOFTWARE_DESCRIPTION =
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireTenant(params)
   const settings = await getSiteSettings(tenant.id)
-  const description = tenant.line === 'software' ? SOFTWARE_DESCRIPTION : DESCRIPTION
+  const description =
+    tenant.line === 'software'
+      ? SOFTWARE_DESCRIPTION
+      : tenant.line === 'biznes'
+        ? biznesDescription(DESCRIPTION)
+        : DESCRIPTION
+  // Biznes: 30–60 characters with the suffix (audit 0611 P1-8); the H1 stays „Mapa strony”.
+  const title = tenant.line === 'biznes' ? `${TITLE} — wszystkie podstrony` : TITLE
   return {
-    title: TITLE,
+    title,
     description,
     alternates: { canonical: SITE_MAP_PATH },
     robots: robotsMeta(getEnv().SITE_ENV),
@@ -39,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: 'pl_PL',
       siteName: tenant.name,
       url: SITE_MAP_PATH,
-      title: TITLE,
+      title,
       description,
       // Biznes opted in to the line's mark when no picture is set (audit 0611 P1-9).
       images: ogImages(

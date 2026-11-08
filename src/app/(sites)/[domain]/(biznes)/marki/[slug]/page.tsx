@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { fitTitle } from '@/lib/biznes/seo'
 import { notFound, permanentRedirect } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
@@ -70,13 +71,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, salon, brand } = await load(params)
   const page = salon
     ? {
-        title: salonTitle(salon.h1a, salon.h1b),
+        title: fitTitle(salonTitle(salon.h1a, salon.h1b)),
         description: salon.lead ? biznesDescription(salon.lead) : undefined,
         slug: salon.slug,
       }
     : brand
       ? {
-          title: brandTitle(brand.name, brand.shortDescription),
+          title: fitTitle(brandTitle(brand.name, brand.shortDescription), 'dla firm — Rabka-Zdrój'),
           description: brand.shortDescription
             ? biznesDescription(brand.shortDescription)
             : undefined,

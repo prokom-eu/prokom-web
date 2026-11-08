@@ -61,8 +61,38 @@ export const seoGroup: Field = {
   label: 'SEO',
   type: 'group',
   fields: [
-    { name: 'title', label: 'Tytuł w wyszukiwarce', type: 'text', maxLength: 70 },
-    { name: 'description', label: 'Opis', type: 'textarea', maxLength: 160 },
+    {
+      name: 'title',
+      label: 'Tytuł w wyszukiwarce',
+      type: 'text',
+      maxLength: 70,
+      admin: {
+        components: {
+          afterInput: [
+            {
+              path: '/fields/admin/SeoCounter#SeoCounter',
+              clientProps: { min: 13, max: 43, note: '(bez nazwy strony z szablonu)' },
+            },
+          ],
+        },
+      },
+    },
+    {
+      name: 'description',
+      label: 'Opis',
+      type: 'textarea',
+      maxLength: 160,
+      admin: {
+        components: {
+          afterInput: [
+            {
+              path: '/fields/admin/SeoCounter#SeoCounter',
+              clientProps: { min: 100, max: 155 },
+            },
+          ],
+        },
+      },
+    },
   ],
 }
 

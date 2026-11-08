@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { biznesDescription, fitTitle } from '../biznes/seo'
 import { brandAsset } from '../brand/lines'
 import type { PublicImage } from '../media/public'
 import type { Line } from '../tenant/lines'
@@ -40,10 +41,15 @@ export function ogImages(
  */
 export function pageMetadata({ title, slug, seo }: PageSeo, site: SiteSeo): Metadata {
   const metadata: Metadata = {}
-  const seoTitle = seo?.title?.trim()
+  // Biznes subpages: 30–60 characters with the suffix, descriptions 100–155 (audit 0611 P1-8).
+  const fit = site.line === 'biznes' && slug !== HOME_SLUG
+  const panelTitle = seo?.title?.trim()
+  const seoTitle = panelTitle && fit ? fitTitle(panelTitle) : panelTitle
   if (seoTitle) metadata.title = seoTitle
-  else if (slug !== HOME_SLUG) metadata.title = title
-  if (seo?.description) metadata.description = seo.description
+  else if (slug !== HOME_SLUG) metadata.title = fit ? fitTitle(title) : title
+  const description =
+    seo?.description && fit ? biznesDescription(seo.description) : seo?.description
+  if (description) metadata.description = description
   const path = pagePath(slug)
   metadata.alternates = { canonical: path }
   metadata.openGraph = {
@@ -52,7 +58,7 @@ export function pageMetadata({ title, slug, seo }: PageSeo, site: SiteSeo): Meta
     siteName: site.name,
     url: path,
     title: seoTitle || (slug === HOME_SLUG ? site.name : title),
-    description: seo?.description ?? undefined,
+    description: description ?? undefined,
     images: ogImages(site.ogImage, site.line),
   }
   return metadata

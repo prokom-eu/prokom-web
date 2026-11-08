@@ -100,6 +100,15 @@ export const Pages: CollectionConfig = {
           maxLength: PAGE_SEO_TITLE_MAX,
           admin: {
             description: 'Puste = tytuł podstrony. Szablon z ustawień strony dopisze nazwę.',
+            // With „ | PRO-KOM Biznes” (17 characters) the whole title is 30–60 (audit 0611 P1-8).
+            components: {
+              afterInput: [
+                {
+                  path: '/fields/admin/SeoCounter#SeoCounter',
+                  clientProps: { min: 13, max: 43, note: '(bez nazwy strony z szablonu)' },
+                },
+              ],
+            },
           },
         },
         {
@@ -107,7 +116,17 @@ export const Pages: CollectionConfig = {
           label: 'Opis',
           type: 'textarea',
           maxLength: 160,
-          admin: { description: 'Puste = domyślny opis z ustawień strony.' },
+          admin: {
+            description: 'Puste = domyślny opis z ustawień strony.',
+            components: {
+              afterInput: [
+                {
+                  path: '/fields/admin/SeoCounter#SeoCounter',
+                  clientProps: { min: 100, max: 155 },
+                },
+              ],
+            },
+          },
         },
       ],
     },

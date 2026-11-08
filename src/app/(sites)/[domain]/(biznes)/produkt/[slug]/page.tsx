@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { fitTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { bentoTiles } from '@/lib/catalog/bento'
@@ -90,12 +91,14 @@ async function load(params: Props['params']) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, product } = await load(params)
   if (!product) return {}
-  const title =
+  // 30–60 characters with the site's suffix (audit 0611 P1-8: cards had ~69).
+  const title = fitTitle(
     product.seo.title ??
-    productTitle(
-      product.shortName ?? product.heading,
-      product.variants.map((variant) => variant.name),
-    )
+      productTitle(
+        product.shortName ?? product.heading,
+        product.variants.map((variant) => variant.name),
+      ),
+  )
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = product.seo.description ?? product.benefit
   const description = descriptionSource ? biznesDescription(descriptionSource) : undefined
