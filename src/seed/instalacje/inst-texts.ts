@@ -19,7 +19,7 @@ import { writeFileSync } from 'node:fs'
 
 import { INSTALACJE_SHARED } from '../shared/instalacje'
 import { HOME_SLUG } from '../../lib/pages/slug'
-import { rodoPost } from './guide'
+import { formerSlugOf, guidePostsToImport } from './guide'
 import { INSTALACJE_FOOTER_TEXT } from './contact'
 import { FORM_PAGE_BLOCKS } from './formPages'
 import { HOME_HERO_TEXTS, HOME_SEO } from './home'
@@ -180,14 +180,20 @@ async function main() {
   const home = pageDocs.get(HOME_SLUG)
   const homeLayout = home ? homeLayoutWithHero(home.layout, HOME_HERO_TEXTS) : null
   plan('pages', HOME_SLUG, home, { seo: HOME_SEO, ...(homeLayout && { layout: homeLayout }) })
-  const post = rodoPost()
-  plan('posts', post.slug, byKey(posts, 'slug').get(post.slug), {
-    title: post.title,
-    category: post.category,
-    lead: post.lead,
-    content: post.content,
-    seo: post.seo,
-  })
+  // INST-6 PR5: the guide posts of `dane/wpisy` — found by slug, or by the former slug (D1: the
+  // slug changes too); a post missing in the panel is created on `--write`.
+  const postDocs = byKey(posts, 'slug')
+  const newPosts: ReturnType<typeof guidePostsToImport> = []
+  for (const post of guidePostsToImport()) {
+    const former = formerSlugOf(post.slug)
+    const doc = postDocs.get(post.slug) ?? (former ? postDocs.get(former) : undefined)
+    if (!doc) {
+      newPosts.push(post)
+      continue
+    }
+    const { publishedAt: _publishedAt, ...texts } = post
+    plan('posts', post.slug, doc, texts)
+  }
   // The shared group holds the panel's contact data too: only the line's template texts (a group
   // sent in part keeps its other fields on update — checked locally, INST-6 PR2).
   const site = settings[0]
@@ -214,7 +220,10 @@ async function main() {
   const head = `# Teksty Instalacji → ${base}\n\n${dryRun ? 'Podgląd, nic nie zapisano (zapis: --write).' : 'Zapis.'}\n\n`
   const tail =
     (drafts.length ? `\nSzkic w panelu — pominięte, sprawdź ręcznie: ${drafts.join(', ')}\n` : '') +
-    (missing.length ? `\nBrak w panelu (pominięte): ${missing.join(', ')}\n` : '')
+    (missing.length ? `\nBrak w panelu (pominięte): ${missing.join(', ')}\n` : '') +
+    (newPosts.length
+      ? `\nNowe wpisy Poradnika (utworzone przy --write): ${newPosts.map((p) => p.slug).join(', ')}\n`
+      : '')
   console.log(head + report + tail)
   if (out) writeFileSync(out, head + report + tail)
   if (dryRun) return
@@ -235,7 +244,19 @@ async function main() {
       failed.push(`${c.collection} · ${c.key}: ${error instanceof Error ? error.message : error}`)
     }
   }
-  console.log(`Gotowe: ${changes.length - failed.length} z ${changes.length} rekordów.`)
+  for (const post of newPosts) {
+    try {
+      await api('/api/posts?depth=0', {
+        method: 'POST',
+        body: JSON.stringify({ ...post, tenant, _status: 'published' }),
+      })
+      console.log(`utworzono: posts · ${post.slug}`)
+    } catch (error) {
+      failed.push(`posts · ${post.slug}: ${error instanceof Error ? error.message : error}`)
+    }
+  }
+  const all = changes.length + newPosts.length
+  console.log(`Gotowe: ${all - failed.length} z ${all} rekordów.`)
   if (failed.length) {
     console.error(`Niezapisane:\n${failed.join('\n')}`)
     process.exitCode = 1
