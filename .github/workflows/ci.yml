@@ -249,17 +249,32 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      # Browser and apt caches are keyed by the Playwright version, not the whole lockfile: any
+      # dependency bump used to miss them, and every shard downloaded Chromium again (08.11: one
+      # download stalled for 11 min).
+      - name: Playwright version
+        id: pw
+        if: github.event_name != 'push'
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+
       # Chromium of the pinned Playwright version; system libraries are installed every time.
       - id: playwright-cache
         if: github.event_name != 'push'
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
 
+      # A stalled download is cut after 150 s and tried again (up to 3 times).
       - name: Install Playwright (Chromium only)
         if: github.event_name != 'push' && steps.playwright-cache.outputs.cache-hit != 'true'
-        run: pnpm exec playwright install chromium
+        timeout-minutes: 9
+        run: |
+          for attempt in 1 2 3; do
+            timeout 150 pnpm exec playwright install chromium && exit 0
+            echo "Chromium download failed or stalled (attempt $attempt), trying again."
+          done
+          exit 1
 
       # System libraries for Chromium come from apt. The Ubuntu mirror is sometimes very slow
       # (8–12 min instead of ~12 s), so the downloaded .deb files are cached: apt keeps them in
@@ -270,7 +285,7 @@ jobs:
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/apt-archives
-          key: apt-playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          key: apt-playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
           restore-keys: apt-playwright-${{ runner.os }}-
 
       # apt runs in the background while the database and the build are prepared; the
@@ -381,7 +396,7 @@ jobs:
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/apt-archives
-          key: apt-playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          key: apt-playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
 
       # On the build above (`pnpm start`, playwright.config.ts): no route compiling on first visit.
       # Two runs, each split into the same shards: Playwright cuts the list by test count in file
