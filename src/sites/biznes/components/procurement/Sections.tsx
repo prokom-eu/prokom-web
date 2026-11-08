@@ -7,7 +7,7 @@ import { plural } from '@/lib/plural'
 
 import { ProcIcon } from './icons'
 import { BrandMark, Figure, ProcImage, SectionHead, SmartLink, type ResolvedBrand } from './parts'
-import { WhoTabs } from './ProcurementIslands'
+import { ClassPick, WhoTabs } from './ProcurementIslands'
 
 type Data = ProcurementPageData
 type Images = Record<number, IndexImage>
@@ -179,28 +179,25 @@ export function Categories({
   )
 }
 
-/** Sections whose interactive part comes in B2-1c: the heading and an empty slot for the island. */
+/** A section whose body is an island of the configurator: the heading, then the children. */
 export function Shell({
   id,
   head,
-  slot,
   children,
 }: {
   id: string
   head: { eyebrow?: string; heading: string; lead?: string }
-  slot: 'configurator' | 'offer'
   children?: ReactNode
 }) {
   return (
     <section id={id} aria-labelledby={`zp-${id}-h`} className="zp-blk zp-wrap">
       <SectionHead id={`zp-${id}-h`} {...head} />
-      <div data-procurement-slot={slot} />
       {children}
     </section>
   )
 }
 
-/** 7′. Three classes (AGD): static cards for now; choosing a class drives the configurator later. */
+/** 7′. Three classes (AGD): picking a card sets the configurator's class and the offer variant. */
 export function Classes({
   classes,
   hints,
@@ -214,6 +211,7 @@ export function Classes({
       <ul className="zp-vars" data-reveal-cards="">
         {classes.list.map((item, i) => (
           <li key={`${i}-${item.name}`} className="zp-var">
+            <ClassPick index={i} name={item.name} />
             <span className="zp-var-tag">{item.name}</span>
             <h4>{item.for}</h4>
             <p>{item.text}</p>
@@ -308,8 +306,8 @@ export function Versus({ versus }: { versus: Data['versus'] }) {
   )
 }
 
-/** 10. „Jak pracujemy”: four steps; the schedule (gantt) comes in B2-1c into its slot. */
-export function Steps({ steps }: { steps: Data['steps'] }) {
+/** 10. „Jak pracujemy”: four steps, then the schedule counted from the configurator. */
+export function Steps({ steps, children }: { steps: Data['steps']; children?: ReactNode }) {
   return (
     <section id="steps" aria-labelledby="zp-steps-h" className="zp-blk zp-wrap">
       <SectionHead
@@ -329,7 +327,7 @@ export function Steps({ steps }: { steps: Data['steps'] }) {
           </li>
         ))}
       </ol>
-      <div data-procurement-slot="gantt" />
+      {children}
     </section>
   )
 }

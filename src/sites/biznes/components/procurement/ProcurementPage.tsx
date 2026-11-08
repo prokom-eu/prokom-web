@@ -1,6 +1,8 @@
 import Link from 'next/link'
 
+import { LineLogo } from '@/components/shared/LineLogo'
 import { fillHours } from '@/lib/biznes/procurement/hours'
+import type { Service } from '@/lib/biznes/procurement/logic'
 import type { ProcurementPageData } from '@/lib/biznes/procurement/schema'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
 import { breadcrumbJsonLd, faqJsonLd, serializeJsonLd, serviceJsonLd } from '@/lib/seo/jsonLd'
@@ -9,8 +11,16 @@ import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
 
 import { HeroBrands, ProcurementHero } from './Hero'
 import { ProcIcon } from './icons'
-import { FaqSearch, PageNav } from './ProcurementIslands'
-import { ProcImage, type ResolvedBrand } from './parts'
+import {
+  ConfiguratorPanel,
+  FaqSearch,
+  OfferPreview,
+  PageNav,
+  ProcurementConfigurator,
+  ProcurementForm,
+  Schedule,
+} from './ProcurementIslands'
+import { NextSteps, ProcImage, type ResolvedBrand } from './parts'
 import {
   BrandsGrid,
   Care,
@@ -46,6 +56,10 @@ export type ProcurementContext = {
   crossPublished: boolean
   /** Example brands per class (block field, §0 pkt 6), by class index. */
   classHints: readonly string[]
+  /** IT services before the delivery (block field, §0 pkt 2); none → no toggles. */
+  services: Service[]
+  /** Signed "form shown at" token of the inquiry form (`lib/inquiry/spam`). */
+  formToken: string
 }
 
 /** Where the service is offered (ZAOPATRZENIE §1). */
@@ -53,8 +67,8 @@ const AREA_SERVED = ['Podhale', 'Małopolska'] as const
 
 /**
  * „Zaopatrzenie firm” template (ZAOPATRZENIE §2): the sections in the spec's order, each only
- * when its data exists. The configurator, offer preview, schedule and form are islands of
- * B2-1c — here their sections carry the headings and an empty `data-procurement-slot`.
+ * when its data exists. One client state (`ProcurementConfigurator`, §3) wraps the page; the
+ * configurator, offer preview, schedule, hero chip, class cards and form are its islands.
  */
 export function ProcurementPage({
   data,
@@ -100,139 +114,175 @@ export function ProcurementPage({
     breadcrumbJsonLd(crumbs.map(({ name, href }) => ({ name, url: context.origin + href }))),
   ]
 
+  const { configurator } = data
   return (
     <div className="zp" data-procurement={data.variant}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
-      />
-      <div className="zp-wrap">
-        <div className="zp-crumbs">
-          <Breadcrumbs items={crumbs} />
-        </div>
-        <ProcurementHero hero={data.hero} phone={context.phone} images={images} />
-        <HeroBrands label={data.hero.marquee} brands={brands} />
-      </div>
-      {links.length > 0 && (
-        <PageNav links={links} cta={{ anchor: 'formularz', label: 'Wyślij zapytanie' }} />
-      )}
-
-      {data.who && <Who who={data.who} seasons={data.seasons} images={images} />}
-      {data.categories && (
-        <Categories categories={data.categories} counts={context.categoryCounts} images={images} />
-      )}
-      <Shell id="zestaw" head={data.configurator} slot="configurator" />
-      <Shell id="oferta" head={data.offer} slot="offer">
-        {data.classes && data.classes.list.length > 0 && (
-          <Classes classes={data.classes} hints={context.classHints} />
-        )}
-      </Shell>
-      <Guide guide={data.guide} />
-      <Versus versus={data.versus} />
-      <Steps steps={data.steps} />
-      {data.programs && (
-        <Programs programs={data.programs} brands={data.programs.list.map(context.resolveBrand)} />
-      )}
-      {data.industries && <Industries industries={data.industries} />}
-      {data.care && <Care care={data.care} />}
-      {data.combo && <Combo combo={data.combo} images={images} />}
-      <BrandsGrid head={data.brands} brands={brands} />
-      <Facts facts={data.facts} documents={data.documents} />
-
-      {faq.length > 0 && (
-        <section id="faq" aria-labelledby="zp-faq-h" className="zp-blk zp-wrap">
-          <div className="zp-head" data-reveal="">
-            <div>
-              <p className="zp-eyebrow">Pytania</p>
-              <h2 id="zp-faq-h">Zanim wyślesz zapytanie</h2>
-            </div>
-            {context.phone && tel && (
-              <p className="zp-head-lead">
-                Nie ma tu Twojego pytania? Zadzwoń: <a href={tel}>{context.phone}</a>
-                {context.hours && `, ${context.hours}`}.
-              </p>
-            )}
+      <ProcurementConfigurator
+        data={configurator}
+        services={context.services}
+        phone={context.phone}
+      >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+        />
+        <div className="zp-wrap">
+          <div className="zp-crumbs">
+            <Breadcrumbs items={crumbs} />
           </div>
-          <FaqSearch
-            empty={
-              context.phone
-                ? `Nie mamy jeszcze odpowiedzi na to pytanie. Zadzwoń: ${context.phone} albo napisz w formularzu niżej.`
-                : 'Nie mamy jeszcze odpowiedzi na to pytanie. Napisz w formularzu niżej.'
-            }
-          >
-            {faq.map((item, i) => (
-              <details key={`${i}-${item.q}`} open={i === 0}>
-                <summary>
-                  {item.q}
-                  <span className="zp-faq-plus" aria-hidden="true">
-                    <ProcIcon name="plus" />
-                  </span>
-                </summary>
-                <p>{item.a}</p>
-              </details>
-            ))}
-          </FaqSearch>
-        </section>
-      )}
+          <ProcurementHero hero={data.hero} phone={context.phone} images={images} />
+          <HeroBrands label={data.hero.marquee} brands={brands} />
+        </div>
+        {links.length > 0 && (
+          <PageNav links={links} cta={{ anchor: 'formularz', label: 'Wyślij zapytanie' }} />
+        )}
 
-      <section id="formularz" aria-labelledby="zp-form-h" className="zp-blk zp-wrap">
-        <div className="zp-formx">
-          <div className="zp-form-side">
-            <p className="zp-eyebrow">Zapytanie · tylko dla firm</p>
-            <h2 id="zp-form-h">{data.form.heading}</h2>
-            {data.form.lead && <p>{data.form.lead}</p>}
-            <ul className="zp-contact">
+        {data.who && <Who who={data.who} seasons={data.seasons} images={images} />}
+        {data.categories && (
+          <Categories
+            categories={data.categories}
+            counts={context.categoryCounts}
+            images={images}
+          />
+        )}
+        <Shell id="zestaw" head={configurator}>
+          <ConfiguratorPanel
+            labels={{
+              typeLabel: configurator.typeLabel,
+              countLabel: configurator.countLabel,
+              classLabel: configurator.classLabel,
+              servicesLabel: configurator.servicesLabel,
+              more: configurator.more,
+              deliveryLabel: configurator.delivery.label,
+            }}
+            classHints={context.classHints}
+            images={images}
+          />
+        </Shell>
+        <Shell id="oferta" head={data.offer}>
+          <OfferPreview
+            offer={data.offer}
+            logo={<LineLogo line="biznes" alt="PRO-KOM Biznes" on="light" height={28} />}
+          />
+          {data.classes && data.classes.list.length > 0 && (
+            <Classes classes={data.classes} hints={context.classHints} />
+          )}
+        </Shell>
+        <Guide guide={data.guide} />
+        <Versus versus={data.versus} />
+        <Steps steps={data.steps}>
+          <Schedule gantt={data.steps.gantt} />
+        </Steps>
+        {data.programs && (
+          <Programs
+            programs={data.programs}
+            brands={data.programs.list.map(context.resolveBrand)}
+          />
+        )}
+        {data.industries && <Industries industries={data.industries} />}
+        {data.care && <Care care={data.care} />}
+        {data.combo && <Combo combo={data.combo} images={images} />}
+        <BrandsGrid head={data.brands} brands={brands} />
+        <Facts facts={data.facts} documents={data.documents} />
+
+        {faq.length > 0 && (
+          <section id="faq" aria-labelledby="zp-faq-h" className="zp-blk zp-wrap">
+            <div className="zp-head" data-reveal="">
+              <div>
+                <p className="zp-eyebrow">Pytania</p>
+                <h2 id="zp-faq-h">Zanim wyślesz zapytanie</h2>
+              </div>
               {context.phone && tel && (
-                <li>
-                  <a href={tel}>
-                    <span className="zp-contact-icon">
-                      <ProcIcon name="phone" />
-                    </span>
-                    {context.phone}
-                  </a>
-                </li>
+                <p className="zp-head-lead">
+                  Nie ma tu Twojego pytania? Zadzwoń: <a href={tel}>{context.phone}</a>
+                  {context.hours && `, ${context.hours}`}.
+                </p>
               )}
-              {context.email && (
-                <li>
-                  <a href={`mailto:${context.email}`}>
-                    <span className="zp-contact-icon">
-                      <ProcIcon name="mail" />
+            </div>
+            <FaqSearch
+              empty={
+                context.phone
+                  ? `Nie mamy jeszcze odpowiedzi na to pytanie. Zadzwoń: ${context.phone} albo napisz w formularzu niżej.`
+                  : 'Nie mamy jeszcze odpowiedzi na to pytanie. Napisz w formularzu niżej.'
+              }
+            >
+              {faq.map((item, i) => (
+                <details key={`${i}-${item.q}`} open={i === 0}>
+                  <summary>
+                    {item.q}
+                    <span className="zp-faq-plus" aria-hidden="true">
+                      <ProcIcon name="plus" />
                     </span>
-                    {context.email}
-                  </a>
-                </li>
-              )}
-              {context.hours && (
-                <li>
-                  <span className="zp-contact-row">
-                    <span className="zp-contact-icon">
-                      <ProcIcon name="clock" />
-                    </span>
-                    {context.hours}
-                  </span>
-                </li>
-              )}
-            </ul>
-          </div>
-          <div className="zp-form-slot" data-procurement-slot="form" />
-        </div>
-        {data.cross && context.crossPublished && (
-          <Link href={`/${data.cross.page}`} className="zp-cross zp-card">
-            <span className="zp-cross-pics" aria-hidden="true">
-              {data.cross.images.map((id, i) => (
-                <ProcImage key={i} id={id} images={images} decorative />
+                  </summary>
+                  <p>{item.a}</p>
+                </details>
               ))}
-            </span>
-            <span>
-              <b>{data.cross.title}</b>
-              <span className="zp-cross-text">{data.cross.text}</span>
-            </span>
-            <span className="zp-cross-arrow" aria-hidden="true">
-              <ProcIcon name="arrow" />
-            </span>
-          </Link>
+            </FaqSearch>
+          </section>
         )}
-      </section>
+
+        <section id="formularz" aria-labelledby="zp-form-h" className="zp-blk zp-wrap">
+          <div className="zp-formx">
+            <div className="zp-form-side">
+              <p className="zp-eyebrow">Zapytanie · tylko dla firm</p>
+              <h2 id="zp-form-h">{data.form.heading}</h2>
+              {data.form.lead && <p>{data.form.lead}</p>}
+              <ul className="zp-contact">
+                {context.phone && tel && (
+                  <li>
+                    <a href={tel}>
+                      <span className="zp-contact-icon">
+                        <ProcIcon name="phone" />
+                      </span>
+                      {context.phone}
+                    </a>
+                  </li>
+                )}
+                {context.email && (
+                  <li>
+                    <a href={`mailto:${context.email}`}>
+                      <span className="zp-contact-icon">
+                        <ProcIcon name="mail" />
+                      </span>
+                      {context.email}
+                    </a>
+                  </li>
+                )}
+                {context.hours && (
+                  <li>
+                    <span className="zp-contact-row">
+                      <span className="zp-contact-icon">
+                        <ProcIcon name="clock" />
+                      </span>
+                      {context.hours}
+                    </span>
+                  </li>
+                )}
+              </ul>
+              <NextSteps next={data.form.next} className="zp-next" />
+            </div>
+            <div className="zp-form-main">
+              <ProcurementForm form={data.form} formToken={context.formToken} />
+            </div>
+          </div>
+          {data.cross && context.crossPublished && (
+            <Link href={`/${data.cross.page}`} className="zp-cross zp-card">
+              <span className="zp-cross-pics" aria-hidden="true">
+                {data.cross.images.map((id, i) => (
+                  <ProcImage key={i} id={id} images={images} decorative />
+                ))}
+              </span>
+              <span>
+                <b>{data.cross.title}</b>
+                <span className="zp-cross-text">{data.cross.text}</span>
+              </span>
+              <span className="zp-cross-arrow" aria-hidden="true">
+                <ProcIcon name="arrow" />
+              </span>
+            </Link>
+          )}
+        </section>
+      </ProcurementConfigurator>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import type { IndexImage } from '@/lib/catalog/catalogIndex'
 import type { ProcurementPageData } from '@/lib/biznes/procurement/schema'
 import { toTelHref } from '@/lib/site/link'
 
-import { BrandMarquee, SceneParallax } from './ProcurementIslands'
+import { BrandMarquee, LiveChipText, SceneParallax } from './ProcurementIslands'
 import { iconPath, ProcIcon } from './icons'
 import { BrandMark, Figure, ProcImage, SmartLink, type ResolvedBrand } from './parts'
 
@@ -22,7 +22,7 @@ function boxStyle(box: Box, extra: Record<string, string | number>): CSSProperti
 /**
  * Hero of a procurement page (ZAOPATRZENIE §2 pkt 1): navy card with the H1, the action and the
  * line's phone (from the panel), the figures, and the scene of packshots placed by `box` with
- * the chips (the `live` chip is static until the configurator drives it, B2-1c).
+ * the chips (the `live` chip shows the configurator's state, §3).
  */
 export function ProcurementHero({
   hero,
@@ -94,7 +94,7 @@ export function ProcurementHero({
             style={boxStyle(chip.box, { '--i': i })}
           >
             <i>{iconPath(chip.icon) ? <ProcIcon name={chip.icon} /> : chip.icon}</i>
-            <span>{chip.text}</span>
+            {chip.live ? <LiveChipText /> : <span>{chip.text}</span>}
           </span>
         ))}
       </div>

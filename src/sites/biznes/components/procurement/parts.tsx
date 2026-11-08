@@ -4,6 +4,7 @@ import type { ReactNode } from 'react'
 
 import { CountUp } from '@/components/motion/CountUp'
 import { cx } from '@/components/ui/cx'
+import type { ProcurementPageData } from '@/lib/biznes/procurement/schema'
 import type { IndexImage, IndexLogo } from '@/lib/catalog/catalogIndex'
 import { parseCount } from '@/lib/motion/countUp'
 
@@ -115,4 +116,27 @@ export function Figure({ text, className }: { text: string; className?: string }
   const parsed = parseCount(text)
   const still = !parsed || parsed.value < 10 || (parsed.value >= 1900 && parsed.value <= 2100)
   return <b className={cx(className)}>{still ? text : <CountUp text={text} />}</b>
+}
+
+/** „Co dalej” (1, 2, 3) from the page data: beside the form and on the thank-you card. */
+export function NextSteps({
+  next,
+  className,
+}: {
+  next: ProcurementPageData['form']['next']
+  className: string
+}) {
+  if (!next?.length) return null
+  return (
+    <ol className={className}>
+      {next.map((step, i) => (
+        <li key={`${i}-${step.text}`}>
+          <i aria-hidden="true">{i + 1}</i>
+          <span>
+            {step.title && <b>{step.title}</b>} {step.text}
+          </span>
+        </li>
+      ))}
+    </ol>
+  )
 }
