@@ -1,4 +1,3 @@
-import type { HeroObject } from './glowna'
 import type { ObjectKey, ServiceKey } from './types'
 
 /**
@@ -17,8 +16,6 @@ export type ForWhoCard = {
   /** Colour pair `oh1`–`oh5` of the prototype and the wide card. */
   hue: 1 | 2 | 3 | 4 | 5
   big?: boolean
-  /** „Pokaż na żywo”: the hero object it switches to. */
-  live?: HeroObject
 }
 
 /** Service card of `#uslugi` (`SVX`), in the order of the prototype's grid. */
@@ -138,7 +135,6 @@ export const FOR_WHO_CARDS: ForWhoCard[] = [
     set: ['Kamery', 'Alarm', 'Smart home'],
     hue: 1,
     big: true,
-    live: 'dom',
   },
   {
     key: 'pens',
@@ -147,7 +143,6 @@ export const FOR_WHO_CARDS: ForWhoCard[] = [
     set: ['Wi-Fi gości', 'Kamery RODO', 'TV w pokojach'],
     hue: 2,
     big: true,
-    live: 'pens',
   },
   {
     key: 'apt',
@@ -161,7 +156,6 @@ export const FOR_WHO_CARDS: ForWhoCard[] = [
     description: 'Karty do pokoi, sieć na setki urządzeń, nagłośnienie sal i ekrany w recepcji.',
     set: ['Karty', 'Sieć', 'Nagłośnienie'],
     hue: 4,
-    live: 'hotel',
   },
   {
     key: 'rest',
@@ -169,21 +163,18 @@ export const FOR_WHO_CARDS: ForWhoCard[] = [
       'Muzyka na sali i tarasie, mikrofony na przemówienia, menu board i kamery przy kasie.',
     set: ['Nagłośnienie', 'Menu board', 'Kamery'],
     hue: 5,
-    live: 'rest',
   },
   {
     key: 'sklep',
     description: 'Kamery sali i kas, alarm, ekran w witrynie i muzyka z komunikatami.',
     set: ['Kamery', 'Alarm', 'Witryna'],
     hue: 1,
-    live: 'sklep',
   },
   {
     key: 'firma',
     description: 'Sieć firmowa, karty dla pracowników, kamery placu i rampy, brama na karty.',
     set: ['Sieć', 'Karty', 'Kamery placu'],
     hue: 2,
-    live: 'firma',
   },
   {
     key: 'kosc',
@@ -289,7 +280,6 @@ export const glownaSekcje = {
     heading: 'Od domu letniskowego',
     accent: 'po halę i szkołę.',
     lead: 'Każdy obiekt ma inne potrzeby i inne przepisy. Wybierz swój, a pokażemy przekrój budynku, typowe problemy i zestawy, od których zaczynamy.',
-    live: 'Pokaż na żywo',
     more: 'Zobacz rozwiązania',
     showAll: 'Pokaż wszystkie 12 obiektów',
     collapse: 'Zwiń listę',

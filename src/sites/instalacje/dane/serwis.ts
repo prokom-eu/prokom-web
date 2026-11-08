@@ -141,6 +141,7 @@ export const serwis = {
     heading: 'Przegląd przed sezonem, zanim przyjadą goście.',
     lead: 'Wybierz poziom opieki. Zakres i terminy przyjazdu zapisujemy w umowie.',
     hot: 'Najczęściej wybierany',
+    switchLabel: 'Poziom opieki',
     items: [
       {
         name: 'Przegląd',

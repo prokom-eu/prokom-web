@@ -273,6 +273,20 @@ export const ekrany = {
     tvLink: { label: 'instalacji antenowych', href: '/anteny' },
     tvAfter: '. ',
     realizationsLink: { label: 'Zobacz realizacje →', href: '/realizacje' },
+    // RUNDA-V5 §11: the realizations named above, with their photos when published.
+    realizations: [
+      {
+        name: 'Blachotrapez',
+        place: 'Rabka-Zdrój · sale konferencyjna i szkoleniowa',
+        hint: 'projektor ekran sala',
+      },
+      {
+        name: 'Szkoła Podstawowa im. Adama Mickiewicza',
+        place: 'Rabka-Zdrój · klasy',
+        hint: 'projektor klasa',
+      },
+      { name: 'Caffe Europa', place: 'Nowy Sącz · kawiarnia', hint: 'ekran' },
+    ],
   },
 
   /** Demo: one price change, two screens of the salon (`sy`; the prototype: two salons). */

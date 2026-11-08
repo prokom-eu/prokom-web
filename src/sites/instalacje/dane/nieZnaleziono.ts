@@ -2,7 +2,8 @@ import type { InstIconName } from '../icons'
 
 /*
  * Texts of the Instalacje 404 page (audit before staging, P2 5). The prototype has no such page:
- * a short message and the ways on — services, objects, works, planner, service desk, contact.
+ * a short message, a search of the offer and the ways on — services, objects, works, planner,
+ * guide, contact (RUNDA-V5 §11).
  */
 export const nieZnaleziono = {
   title: 'Nie znaleziono strony',
@@ -35,10 +36,10 @@ export const nieZnaleziono = {
       text: 'Cztery kroki, wycena na piśmie.',
     },
     {
-      href: '/serwis',
-      icon: 'wrench',
-      title: 'Serwis',
-      text: 'Zgłoś usterkę istniejącej instalacji.',
+      href: '/poradnik',
+      icon: 'book',
+      title: 'Poradnik',
+      text: 'Odpowiedzi na pytania o monitoring, przepisy i obiekty na wynajem.',
     },
     {
       href: '/kontakt',
@@ -47,5 +48,10 @@ export const nieZnaleziono = {
       text: 'Telefon, e-mail i dojazd do salonu.',
     },
   ] satisfies { href: string; icon: InstIconName; title: string; text: string }[],
+  search: {
+    label: 'Szukaj w ofercie',
+    placeholder: 'np. kamera do domku, Wi-Fi dla gości',
+    button: 'Szukaj',
+  },
   home: 'Strona główna',
 } as const

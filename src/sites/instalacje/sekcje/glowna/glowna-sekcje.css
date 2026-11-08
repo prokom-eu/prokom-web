@@ -450,10 +450,6 @@
     outline: 3px solid var(--obi);
     outline-offset: 3px;
   }
-  & .obl {
-    position: relative;
-    z-index: 2;
-  }
   & .obc.big {
     grid-column: span 2;
     min-height: 260px;
@@ -594,17 +590,6 @@
     align-items: center;
     margin-top: auto;
     padding-top: 8px;
-  }
-  & .obl {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 800;
-    padding: 7px 11px;
-    border-radius: 999px;
-    background: var(--obi);
-    color: var(--ob);
   }
   & .obl2 {
     font-size: 13px;
