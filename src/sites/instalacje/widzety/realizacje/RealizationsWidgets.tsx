@@ -90,7 +90,7 @@ export function RealizationGrid({ items }: { items: RealizationItem[] }) {
                 <RealizationPhotos
                   photos={r.photos}
                   title={r.title}
-                  sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw"
+                  sizes="(min-width: 1100px) 420px, (min-width: 700px) 50vw, 100vw"
                 />
               </div>
             ) : (
