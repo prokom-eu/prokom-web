@@ -10,11 +10,11 @@ import {
   validateThanks,
 } from './pages'
 
-// Start texts from the boards `Dziekujemy` and `NieZnaleziono` — what the seed stores (SW3).
+// Start texts from the boards `AU-dziekujemy` and `AU-404` (v24) — what the seed stores.
 const thanks = SOFTWARE_THANKS
 const notFound = SOFTWARE_NOT_FOUND
 
-describe('thanks page texts', () => {
+describe('thanks page texts (v24)', () => {
   it('accept the texts of the board', () => {
     expect(thanksSchema.safeParse(thanks).error?.issues).toBeUndefined()
   })
@@ -23,27 +23,38 @@ describe('thanks page texts', () => {
     expect(validateThanks({ ...thanks, titel: 'x' })).toMatch(/^Strona „Dziękujemy”/)
   })
 
-  it('allow at most 3 cards', () => {
-    const cards = Array.from({ length: 4 }, () => thanks.more.cards[0])
-    expect(validateThanks({ ...thanks, more: { ...thanks.more, cards } })).toMatch(/more\.cards/)
+  it('have one to three steps, each with a title', () => {
+    expect(validateThanks({ ...thanks, steps: [] })).toMatch(/steps/)
+    const steps = Array.from({ length: 4 }, () => thanks.steps[0])
+    expect(validateThanks({ ...thanks, steps })).toMatch(/steps/)
+    expect(validateThanks({ ...thanks, steps: [{ text: 'bez tytułu' }] })).toMatch(/steps/)
+  })
+
+  it('reject the v23 shape (stored before SWA6), so the page asks for new texts', () => {
+    expect(validateThanks({ ...thanks, more: { eyebrow: 'x', title: 'y', cards: [] } })).toMatch(
+      /^Strona „Dziękujemy”/,
+    )
+  })
+
+  it('reject an unsafe link in the buttons', () => {
+    const actions = [{ label: 'x', href: 'javascript:alert(1)' }]
+    expect(validateThanks({ ...thanks, actions })).toMatch(/actions/)
   })
 })
 
-describe('404 page texts', () => {
+describe('404 page texts (v24)', () => {
   it('accept the texts of the board', () => {
     expect(notFoundSchema.safeParse(notFound).error?.issues).toBeUndefined()
   })
 
   it('allow at most 6 tiles', () => {
-    const tiles = Array.from({ length: 7 }, () => notFound.places.tiles[0])
-    expect(validateNotFound({ ...notFound, places: { ...notFound.places, tiles } })).toMatch(
-      /places\.tiles/,
-    )
+    const tiles = Array.from({ length: 7 }, () => notFound.tiles[0])
+    expect(validateNotFound({ ...notFound, tiles })).toMatch(/tiles/)
   })
 
   it('reject an unsafe link', () => {
-    const wizard = { ...notFound.wizard, href: 'javascript:alert(1)' }
-    expect(validateNotFound({ ...notFound, wizard })).toMatch(/wizard\.href/)
+    const tiles = [{ ...notFound.tiles[0], href: 'javascript:alert(1)' }]
+    expect(validateNotFound({ ...notFound, tiles })).toMatch(/tiles/)
   })
 })
 

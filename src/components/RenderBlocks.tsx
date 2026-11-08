@@ -57,14 +57,12 @@ import { SwAuditFormBlock } from '@/sites/software/blocks/SwAuditForm/Component'
 import { SwHomeSectionBlock } from '@/sites/software/blocks/SwHomeSection/Component'
 import { SwPricingBlock } from '@/sites/software/blocks/SwPricing/Component'
 import { SwSharedPageBlock } from '@/sites/software/blocks/SwSharedPage/Component'
+import { SwLegal } from '@/sites/software/blocks/SwLegal/Component'
 import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
 import { FaqContact } from '@/sites/software/components/v24home/FaqContact'
 import { faqContactPair } from '@/lib/software/faqContact'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
-
-/** The Software privacy policy is a draft until the owner approves it (spec. §6.11, §13 pkt 24). */
-const PRIVACY_SLUG = 'polityka-prywatnosci'
 
 // Blocks that carry the page's H1 when they come first (otherwise the title is the H1).
 const HERO_BLOCKS = new Set([
@@ -77,6 +75,7 @@ const HERO_BLOCKS = new Set([
   'swPricing',
   'swAuditForm',
   'swSharedPage',
+  'swLegal',
   'instService',
   'instHome',
   'instPlanner',
@@ -142,15 +141,7 @@ export function RenderBlocks({ page, tenant }: Props) {
         switch (block.blockType) {
           case 'hero':
             if (software) {
-              return (
-                <SwPageHero
-                  key={key}
-                  block={block}
-                  isFirst={i === 0}
-                  pageTitle={page.title}
-                  draft={page.slug === PRIVACY_SLUG && getEnv().SITE_ENV !== 'production'}
-                />
-              )
+              return <SwPageHero key={key} block={block} isFirst={i === 0} pageTitle={page.title} />
             }
             return <HeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'richText':
@@ -277,6 +268,17 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <SwPricingBlock key={key} block={block} tenantId={tenant.id} isFirst={i === 0} />
           case 'swSharedPage':
             return <SwSharedPageBlock key={key} block={block} tenantId={tenant.id} />
+          case 'swLegal':
+            return (
+              <SwLegal
+                key={key}
+                block={block}
+                isFirst={i === 0}
+                pageTitle={page.title}
+                tenantId={tenant.id}
+                draftAllowed={getEnv().SITE_ENV !== 'production'}
+              />
+            )
           case 'instService':
             return <InstServiceBlock key={key} block={block} tenantId={tenant.id} />
           case 'instHome':

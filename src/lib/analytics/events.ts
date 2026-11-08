@@ -20,8 +20,12 @@ export type AnalyticsEvents = {
   /** „Skanuj podgląd →” of the sample card on `/audyt` — never the typed address. */
   audyt_skan: undefined
   kontakt_wyslij: undefined
-  /** Tab of the live previews on the start page. */
-  podglad_otworz: { podglad: string }
+  /** A tile of the hero picker clicked (ZMIANY-v24 §13); `nr` = slide from 1. */
+  hero_slajd: { nr: number }
+  /** A variant chip of the offer bento (`labelKey` of its label). */
+  oferta_wariant: { wariant: string }
+  /** An industry of the showroom opened (its key). */
+  branza_podglad: { branza: string }
   /** The phone menu sheet. */
   menu_otworz: undefined
   /** Item of the phone bottom bar (its key, e.g. `oferta`). */

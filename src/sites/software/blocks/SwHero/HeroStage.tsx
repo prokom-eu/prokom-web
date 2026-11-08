@@ -12,6 +12,7 @@ import {
   type ReactNode,
 } from 'react'
 
+import { track } from '@/lib/analytics/track'
 import { RESUME_MS, SLIDE_MS, rankOf, stepSlide } from '@/lib/software/heroStage'
 
 export type StageSlide = {
@@ -232,7 +233,11 @@ export function HeroStage({
                   aria-controls={`${ids}-stage`}
                   tabIndex={selected ? 0 : -1}
                   className="hx-tile"
-                  onClick={() => choose(index)}
+                  onClick={() => {
+                    choose(index)
+                    // Clicks only — not the timer, keys or swipes (ZMIANY-v24 §13).
+                    track('hero_slajd', { nr: index + 1 })
+                  }}
                   onKeyDown={(event) => onTabKey(event, index)}
                 >
                   <span className="si" aria-hidden="true">

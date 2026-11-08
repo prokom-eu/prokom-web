@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 import { track } from '@/lib/analytics/track'
-import { registerFormAttachment } from '@/lib/shared/formAttachment'
+import { notifyFormAttachments, registerFormAttachment } from '@/lib/shared/formAttachment'
 import { projectActions, useProject } from '@/lib/software/projectStore'
 import { type ProjectSolution, summarizeProject } from '@/lib/software/projectSummary'
 
@@ -22,9 +22,13 @@ export function ProjectPrefill({ solutions }: { solutions: readonly ProjectSolut
   const summary = summarizeProject(project, solutions)
   // The attachment reads the newest list at sending, registered once.
   const latest = useRef({ summary })
+  const slugs = summary.slugs.join(',')
   useEffect(() => {
     latest.current = { summary }
   })
+  // The form shows „(opcjonalnie)” at the message while the list has items. Keep this effect
+  // after the one above: React runs effects in order, and the form then reads the new list.
+  useEffect(() => notifyFormAttachments(), [slugs])
   useEffect(
     () =>
       registerFormAttachment(
