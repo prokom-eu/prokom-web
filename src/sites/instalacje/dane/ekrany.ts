@@ -274,29 +274,35 @@ export const ekrany = {
     realizationsLink: { label: 'Zobacz realizacje →', href: '/realizacje' },
   },
 
-  /** Demo: one price change, two screens of the salon (`sy`; the prototype: two salons). */
+  /** Demo: one change, two screens of a sample shop (`sy`; the prototype: two salons). */
   sync: {
-    // Runda v6 D3: neutral — no claim about our own salon without the boss's confirmation, and no
-    // PRO-KOM prices: the demo is a sample shop with sample prices.
-    eyebrow: 'Ceny na ekranach',
-    heading: 'Jedna zmiana ceny — wszystkie ekrany w sklepie',
-    lead: 'Cenę zmieniasz w jednym miejscu, a ekrany w witrynie i przy ladzie odświeżają się same. Kliknij w demo i sprawdź, jak to działa.',
-    lowerPhone: 'Obniż cenę smartfona o 100 zł',
+    // Runda v6 D3 + audit 09.11: neutral — no claim about our own salon and no equipment prices
+    // at all: the demo shows the day's discounts on accessories of a sample shop.
+    eyebrow: 'Promocje na ekranach',
+    heading: 'Jedna zmiana promocji — wszystkie ekrany w sklepie',
+    lead: 'Promocję zmieniasz w jednym miejscu, a ekrany w witrynie i przy ladzie odświeżają się same. Kliknij w demo i sprawdź, jak to działa.',
+    raiseCase: 'Zwiększ rabat na etui',
     promo: 'Promocja na słuchawki',
-    reset: 'Przywróć ceny',
-    log: 'Demo z przykładowymi cenami. Kliknij przycisk powyżej.',
+    reset: 'Przywróć promocje',
+    log: 'Demo z przykładowymi promocjami. Kliknij przycisk powyżej.',
     sent: 'Zmiana wysłana o',
     updated: 'oba ekrany zaktualizowane',
-    phoneChange: 'smartfon 128 GB:',
+    caseChange: 'etui do telefonu:',
     promoOn: 'promocja na słuchawki',
     promoOff: 'koniec promocji',
-    resetDone: 'ceny wyjściowe',
-    pricesOfDay: 'Ceny dnia',
-    salon: 'Demo · Przykładowy sklep ·',
+    resetDone: 'promocje wyjściowe',
+    offersOfDay: 'Promocja dnia',
+    footer: 'Przykładowy sklep ·',
     synced: 'zsynchronizowano',
-    salons: ['Witryna', 'Lada'],
-    products: ['Smartfon 128 GB', 'Smartfon 256 GB', 'Tablet 11 cali', 'Słuchawki bezprzewodowe'],
-    prices: [1899, 2599, 1499, 349],
+    screens: ['Witryna', 'Lada'],
+    products: [
+      'Etui do telefonu',
+      'Folie ochronne',
+      'Ładowarki i kable',
+      'Słuchawki bezprzewodowe',
+    ],
+    /** Discounts in percent (no prices — spec §2). */
+    discounts: [20, 10, 15, 10],
   },
 
   /** Brightness for the place (`js`). */
