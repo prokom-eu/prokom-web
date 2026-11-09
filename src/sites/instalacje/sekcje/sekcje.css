@@ -1110,6 +1110,17 @@
       overflow: hidden;
       mask-image: linear-gradient(var(--inst-mask) calc(100% - 170px), transparent);
     }
+    /* The faded edge belongs to the button: a tap there unfolds the section instead of hitting a
+       few-pixel sliver of a cut control (axe target-size on /dla-architektow, audit 09.11). */
+    & .foldhit {
+      display: none;
+    }
+    & section[data-fo='0'] .foldhit {
+      display: block;
+      position: absolute;
+      inset: auto -20px 100%;
+      height: 120px;
+    }
     & section[data-fo='1'] .foldb svg {
       transform: rotate(180deg);
     }
