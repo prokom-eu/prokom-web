@@ -125,6 +125,17 @@ Kroki:
 - Nie przerywaj (Ctrl+C) w kroku 4: zatrzymana aplikacja nie wstanie sama — wtedy `docker start prokom-staging-app-1` i sprawdzenie baz (`prokom_staging`, `_new`, `_old`).
 - Lokalna kopia (testowe zapytania, skróty haseł) i wgrane pliki na serwerze są kasowane na końcu, także po błędzie.
 
+## 2b. Zgodność treści: staging = treść z kodu
+
+Po każdym `staging-content.sh` i przed `prod-content.sh` (§3a) — **obowiązkowo** (NAPRAWA-0911: na stagingu leżały strony sprzed obecnego seeda i nikt tego nie widział):
+```bash
+node scripts/porownaj-tresc.mjs http://biznes.localhost:3001 https://staging.prokombiznes.pl
+```
+- A = ten sam commit lokalnie po `pnpm seed` (`pnpm build && pnpm start` albo `pnpm dev`), B = staging. Login stagingu: `TRESC_AUTH_B=użytkownik:hasło`; bez hasła przez tunel do aplikacji: `ssh -L 3999:127.0.0.1:<APP_PORT> prokom-vps` i B = `http://127.0.0.1:3999` z `TRESC_HOST_B=staging.prokombiznes.pl`.
+- 18 stron (główna, GoPOS, InsERT, Opieka IT, O firmie, Kontakt, KSeF, Ulga, Automaty, AGD, Dostawy IT, Zestawy, 3 salony, 3 kategorie): liczba H2 i `<section>` w `<main>` i długość tekstu. Czerwony (exit 1), gdy B ma mniej niż 80% A — strona sprzed obecnego seeda albo ucięta treść.
+- Czerwony → produkcji nie wdrażamy; strony ze starym układem: §2a „Strony sprzed obecnego seeda”.
+- Import treści (`staging-content-apply.sh`, `prod-content-apply.sh`) sprawdza dodatkowo smoke z `SMOKE_CONTENT=1`: H2 w `<main>` — `/gopos` ≥ 8, `/insert` ≥ 8, `/opieka-it` ≥ 6, `/o-firmie` ≥ 4, `/kontakt` ≥ 4; czerwony = import się cofa (stara baza wraca). Zwykłe wdrożenie (`deploy.sh`) tych progów nie sprawdza.
+
 ## 3. Wdrożenie produkcji
 
 Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR-004). Warunek: przebieg „Lighthouse” po ostatnim wdrożeniu stagingu (tym obrazem) zielony (budżet, ADR-021); anulowany przebieg się nie liczy — Actions → Lighthouse → Run workflow.
@@ -143,6 +154,7 @@ Pipeline przenosi kod, nie treść, a `pnpm seed*` na produkcji jest zablokowany
 ```bash
 SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/prod-content.sh biznes
 ```
+- **Przed:** `porownaj-tresc.mjs` lokalnie ↔ staging zielony (§2b) — produkcja kopiuje staging.
 - **Kiedy:** raz, przy pierwszym wdrożeniu produkcji — po utworzeniu stosu (`$prod up -d postgres`) i ustawieniu w `.env.prod` `APP_IMAGE_TAG` = tag stagingu, **przed** krokiem 4 z §3 (`up -d app`). Podaj wszystkie linie, które startują razem (`biznes`, `software`, `instalacje`).
 - **Kolejna linia później** (gdy produkcja już działa): **nie tym skryptem** — w panelu produkcji Strony → tenant linii → Domeny: dopisz domenę produkcji (środowisko „Produkcja”), a jej treść uzupełnij w panelu produkcji. Skrypt odmawia, gdy produkcja ma już domenę produkcji, zapytanie albo wpis w logu usunięć (sprawdza też ponownie po zatrzymaniu aplikacji).
 - **Co robi** (`scripts/server/prod-content-apply.sh`, wysyłany przez ssh z tego checkoutu): kopia `predeploy` produkcji, jeśli ma już tabele → zrzut bazy stagingu **bez wierszy** zapytań, logu usunięć, sesji i blokad edycji (te dane nie opuszczają stagingu) odtworzony obok (`prokom_prod_new`) → domena produkcji każdej podanej linii dopisana do jej tenanta (`prokombiznes.pl`, `prokomsoftware.pl`, `prokominstalacje.pl`) → zdjęcia stagingu obok (bez pozostałości `.old`/`.failed`) → krótka zamiana baz i zdjęć; błąd cofa dokładnie te kroki zamiany, które się wykonały.
