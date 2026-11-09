@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest'
 
 import { type CamMode, monitoring, SYSTEM_ELEMENT_KEYS } from '../../dane/monitoring'
 import {
+  diagramName,
   dori,
   INITIAL_NVR,
   nvrNoteKey,
@@ -152,5 +153,25 @@ describe('installation versions', () => {
     expect(stepElement(home, 'cam', -1)).toBe('app')
     expect(stepElement(home, 'app', 1)).toBe('cam')
     expect(stepElement(home, 'ptz', 1)).toBe('hdd')
+  })
+})
+
+// WCAG 2.5.3 (axe `label-content-name-mismatch`, audit 09.11): a diagram element's name starts
+// with its visible caption; the element's full name follows only when the caption lacks it.
+describe('diagramName', () => {
+  it('starts with the visible caption and adds the element name', () => {
+    expect(diagramName(['Drugi budynek', 'lub brama, parking'], 'Łącze do drugiego budynku')).toBe(
+      'Drugi budynek lub brama, parking — Łącze do drugiego budynku',
+    )
+  })
+
+  it('does not repeat a name the caption already holds', () => {
+    expect(diagramName(['Switch PoE'], 'Switch PoE')).toBe('Switch PoE')
+    expect(diagramName(['Szafa rack'], 'szafa RACK')).toBe('Szafa rack')
+  })
+
+  it('uses the element name when nothing is visible', () => {
+    expect(diagramName([], 'Ochrona przepięciowa')).toBe('Ochrona przepięciowa')
+    expect(diagramName(['', '  '], 'Dyski do monitoringu')).toBe('Dyski do monitoringu')
   })
 })
