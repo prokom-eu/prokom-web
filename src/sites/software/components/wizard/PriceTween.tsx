@@ -10,9 +10,11 @@ const TWEEN_MS = 450
  * The wizard's price that counts to its new value (AUDYT-0811 P2 A10) instead of jumping. Screen
  * readers and reduced motion get the final text at once; a text without an amount just swaps.
  */
-export function PriceTween({ text }: { text: string }) {
-  const [shown, setShown] = useState(text)
-  const last = useRef(text)
+export function PriceTween({ text, from }: { text: string; from?: string | null }) {
+  // `from`: a price mounted anew (the next offer in the window, OKNO-OFERTY-PREMIUM §2.5)
+  // starts at the previous one and counts to its own — painted so from the first frame.
+  const [shown, setShown] = useState(from || text)
+  const last = useRef(from || text)
 
   useEffect(() => {
     const from = splitPrice(last.current)

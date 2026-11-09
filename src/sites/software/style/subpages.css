@@ -256,6 +256,13 @@
     order: -1;
   }
 }
+@media (max-width: 767px) {
+  /* A sideways swipe on the mock-up is the next offer (§2.6): the browser keeps only the
+     vertical scroll, so the touch is not cancelled. */
+  .sw-offer-aside {
+    touch-action: pan-y;
+  }
+}
 @media (min-width: 981px) {
   .sw-offer-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -287,6 +294,265 @@
 @media (max-width: 980px) {
   .sw-offer-aside .sw-offer-shot {
     max-height: min(400px, 60vw);
+  }
+}
+
+/* The smart preview (§2.2): areas lit from „W cenie”, numbered markers, the toast, the glow. */
+.sw-offer-glow {
+  position: relative;
+  isolation: isolate;
+}
+.sw-offer-glow::before {
+  content: '';
+  position: absolute;
+  inset: 8% 6% 18%;
+  z-index: -1;
+  border-radius: 40px;
+  background: radial-gradient(closest-side, var(--glow), transparent);
+  filter: blur(36px);
+  opacity: 0.7;
+  translate: var(--glow-x, 0) var(--glow-y, 0);
+  transition: translate var(--dur-state) var(--ease-out);
+  pointer-events: none;
+}
+.sw-offer-shot [data-spot] {
+  transition:
+    opacity var(--dur-state) var(--ease-out),
+    box-shadow var(--dur-state) var(--ease-out);
+}
+.sw-offer-shot[data-spot-on] [data-spot]:not([data-lit]) {
+  opacity: 0.8;
+}
+.sw-offer-shot[data-spot-on] .mk-stage {
+  filter: saturate(0.85);
+}
+.sw-offer-shot [data-spot][data-lit] {
+  /* No position here: some parts of the mock-up are placed absolutely. */
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 0 22px 4px var(--glow);
+}
+.sw-offer-devices > button[data-lit] {
+  box-shadow: inset 0 0 0 2px var(--accent-text);
+}
+.sw-offer-devices > button[aria-pressed='true'][data-lit] {
+  box-shadow: inset 0 0 0 2px var(--accent-ink);
+}
+.sw-offer-device-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 11px;
+  font-weight: 900;
+}
+.sw-offer-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  translate: calc(var(--mx) - 14px) calc(var(--my) - 14px);
+}
+.sw-offer-marker > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--surface);
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 6px 16px -6px var(--glow);
+  color: var(--accent-ink);
+  font-size: 12px;
+  font-weight: 900;
+}
+.sw-offer-toast {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: inline-flex;
+  max-width: calc(100% - 24px);
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px -12px var(--glow);
+  font-size: 12px;
+  font-weight: 700;
+  /* Comes in once and leaves after 5 s, so it never stays over the mock-up's tiles (§2.2 E). */
+  animation: sw-offer-toast 5.6s var(--ease-out) 0.4s both;
+  pointer-events: none;
+}
+@keyframes sw-offer-toast {
+  0% {
+    opacity: 0;
+    translate: 0 8px;
+  }
+  8%,
+  90% {
+    opacity: 1;
+    translate: 0 0;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 4px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sw-offer-shot [data-marker][data-lit] > span {
+    animation: sw-offer-pulse 700ms var(--ease-out) 1;
+  }
+  /* Without View Transitions the new device simply fades in (with them the frame morphs). */
+  @supports not (view-transition-name: none) {
+    .sw-offer-shot > .mk {
+      animation: sw-offer-device var(--dur-state) var(--ease-out) both;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sw-offer-glow::before {
+    translate: none;
+    transition: none;
+  }
+  .sw-offer-toast {
+    animation-name: sw-offer-toast-still;
+  }
+}
+@keyframes sw-offer-toast-still {
+  0%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes sw-offer-pulse {
+  50% {
+    scale: 1.35;
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+}
+@keyframes sw-offer-device {
+  from {
+    opacity: 0;
+    scale: 0.98;
+  }
+}
+
+/* Points of „W cenie” (§2.2): the numbered ones are buttons that light their area. */
+.sw-offer-points {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sw-offer-points > li > :is(button, span) {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 10px 6px 6px;
+  border-radius: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+.sw-offer-points > li > button:is(:hover, :focus-visible) {
+  background: var(--accent-soft);
+}
+.sw-offer-point-number {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 13px;
+  font-weight: 900;
+}
+.sw-offer-extra {
+  min-height: 44px;
+  padding-block: 8px;
+  color: var(--ink);
+  text-align: left;
+}
+.sw-offer-extra > span {
+  color: var(--accent-text);
+  font-weight: 900;
+}
+.sw-offer-extra[aria-pressed='true'] {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+
+/* „Czym różni się od: …” (§2.3 P2): folded, two columns when open. */
+.sw-offer-compare {
+  padding-top: 20px;
+  border-top: 1px dashed var(--border);
+}
+.sw-offer-compare > summary {
+  display: flex;
+  min-height: 44px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink-2);
+  list-style: none;
+}
+.sw-offer-compare > summary::-webkit-details-marker {
+  display: none;
+}
+.sw-offer-compare > summary b {
+  color: var(--ink);
+}
+.sw-offer-compare-sign {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-weight: 900;
+}
+.sw-offer-compare[open] .sw-offer-compare-sign {
+  rotate: 45deg;
+}
+.sw-offer-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 12px;
+}
+.sw-offer-compare-grid > :first-child {
+  padding-right: 20px;
+  border-right: 1px solid var(--border);
+}
+@media (max-width: 480px) {
+  .sw-offer-compare-grid {
+    gap: 12px;
+  }
+  .sw-offer-compare-grid > :first-child {
+    padding-right: 12px;
   }
 }
 
@@ -500,12 +766,59 @@
   text-align: center;
 }
 @media (prefers-reduced-motion: no-preference) {
-  /* The next offer: the details fade in, the mock-up comes up 12 px. */
-  .sw-offer-swap {
-    animation: sw-offer-swap var(--dur-sheet) var(--ease-out) both;
+  /* The next offer (OKNO-OFERTY-PREMIUM §2.5): the details come 24 px from the side of the
+     move with a fade, the mock-up cross-fades; the price counts (`PriceTween`). */
+  .sw-offer-swap > .sw-offer-main {
+    animation: sw-offer-from-side var(--dur-hover) var(--ease-out) both;
+  }
+  .sw-offer-swap[data-dir='-1'] > .sw-offer-main {
+    --swap-from: -24px;
   }
   .sw-offer-swap > .sw-offer-aside > :first-child {
-    animation: sw-offer-mock 450ms var(--ease-spring) both;
+    animation: sw-offer-swap var(--dur-hover) var(--ease-out) both;
+  }
+  /* The offer the window opened with: no side move, its sections come in one by one (40 ms). */
+  .sw-offer-swap[data-intro] > .sw-offer-main {
+    animation: none;
+  }
+  .sw-offer-swap[data-intro] {
+    /* 40 ms between the sections, from the press token (120 ms). */
+    --offer-stagger: calc(var(--dur-press) / 3);
+  }
+  .sw-offer-swap[data-intro] .sw-offer-block {
+    animation: sw-offer-rise var(--dur-state) var(--ease-out) both;
+  }
+  .sw-offer-swap[data-intro] #oferta-jak {
+    animation-delay: var(--offer-stagger);
+  }
+  .sw-offer-swap[data-intro] #oferta-dla-kogo {
+    animation-delay: calc(var(--offer-stagger) * 2);
+  }
+  .sw-offer-swap[data-intro] #oferta-pytania {
+    animation-delay: calc(var(--offer-stagger) * 3);
+  }
+  /* Phone (§2.6): the sheet slides up from the bottom up to 767 px and grows to full height. */
+  @media (max-width: 767px) {
+    [data-line='software'] dialog.sw-offer-panel[data-motion] {
+      transition:
+        translate var(--dur-sheet) var(--ease-out),
+        max-height var(--dur-sheet) var(--ease-out),
+        opacity var(--dur-state) var(--ease-out),
+        display var(--dur-sheet) allow-discrete,
+        overlay var(--dur-sheet) allow-discrete;
+    }
+    [data-line='software'] dialog.sw-offer-panel[data-motion]:not([open]) {
+      opacity: 1;
+      scale: 1;
+      translate: 0 100%;
+    }
+    @starting-style {
+      [data-line='software'] dialog.sw-offer-panel[data-motion][open] {
+        opacity: 1;
+        scale: 1;
+        translate: 0 100%;
+      }
+    }
   }
   /* The window comes in from a blur on a spring (450 ms) and leaves quicker (200 ms). */
   @media (min-width: 768px) {
@@ -535,11 +848,57 @@
     opacity: 0;
   }
 }
-@keyframes sw-offer-mock {
+@keyframes sw-offer-from-side {
+  from {
+    opacity: 0;
+    translate: var(--swap-from, 24px) 0;
+  }
+}
+@keyframes sw-offer-rise {
   from {
     opacity: 0;
     translate: 0 12px;
   }
+}
+
+/* Shared elements (§2.5, View Transitions): the card's mock-up grows into the window's, and a
+   device switch morphs the frame. Only while the flags are on (`offerTransition.ts`). */
+html[data-offer-vt],
+html[data-offer-vt] :not(.v-card-th, .sw-offer-shot, .sw-offer-shot > .mk) {
+  /* Other named parts (the header of page transitions) would be drawn over the window. */
+  view-transition-name: none !important;
+}
+html[data-offer-transition] dialog[open] .sw-offer-shot {
+  view-transition-name: sw-offer-shot;
+}
+/* While its mock-up grows from the card the window only fades in (no blur or scale): one effect,
+   and only the mock-up is captured (`data-offer-vt`), so the page is not photographed. */
+html[data-offer-transition] [data-line='software'] dialog.sw-offer-panel[data-motion] {
+  filter: none;
+  transition:
+    opacity var(--dur-state) var(--ease-out),
+    display var(--dur-state) allow-discrete,
+    overlay var(--dur-state) allow-discrete;
+}
+@starting-style {
+  html[data-offer-transition] [data-line='software'] dialog.sw-offer-panel[data-motion][open] {
+    filter: none;
+    opacity: 0;
+    scale: 1;
+  }
+}
+html[data-offer-device] .sw-offer-shot > .mk {
+  view-transition-name: sw-offer-device;
+}
+::view-transition-group(sw-offer-shot),
+::view-transition-group(sw-offer-device) {
+  animation-duration: var(--dur-sheet);
+  animation-timing-function: var(--ease-out);
+}
+::view-transition-old(sw-offer-device),
+::view-transition-new(sw-offer-device) {
+  height: 100%;
+  object-fit: contain;
 }
 .sw-offer-shot {
   height: 300px;
@@ -548,23 +907,6 @@
   background: color-mix(in srgb, var(--ink) 4%, var(--surface));
   overflow: hidden;
 }
-.sw-offer-thumb {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 112px;
-  padding: 6px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ink-2);
-}
-.sw-offer-thumb.is-on {
-  border-color: var(--accent-line);
-  color: var(--ink);
-}
-.sw-offer-thumb-pic,
 .sw-offer-related-pic {
   display: block;
   height: 64px;
