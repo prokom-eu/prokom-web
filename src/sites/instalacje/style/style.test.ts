@@ -3,6 +3,8 @@ import { basename, dirname, join, relative, resolve } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
+import { SERVICE_KEYS } from '@/lib/instalacje/options'
+
 const SRC = 'src'
 const LINE = join(SRC, 'sites', 'instalacje')
 const STYLE = join(LINE, 'style')
@@ -58,5 +60,46 @@ describe('Instalacje stylesheets stay off the other lines', () => {
 
   it('LineStyles is a Client Component', () => {
     expect(readFileSync(LINE_STYLES, 'utf8').startsWith("'use client'")).toBe(true)
+  })
+})
+
+// LCP on phones (audit 09.11): a page links only its kind's sheets. Files share selectors
+// (e.g. `.zkticket` in glowna-sekcje and zaplanuj, `.odi` in oferta and teletechnika), so every
+// module keeps them in one cascade order — the order of the former all-blocks module.
+const CASCADE = [
+  'widzety/architekci/architekci.css',
+  'widzety/glowna/glowna.css',
+  'sekcje/sceny.css',
+  'sekcje/glowna/glowna-sekcje.css',
+  'sekcje/glowna/podhale-proces.css',
+  'widzety/zaplanuj/zaplanuj.css',
+  'widzety/serwis/serwis.css',
+  'widzety/oferta/oferta.css',
+  'widzety/realizacje/realizacje.css',
+  'widzety/firma/firma.css',
+  'widzety/alarmy/alarmy.css',
+  'widzety/anteny/anteny.css',
+  'widzety/dostep/dostep.css',
+  'widzety/sieci/sieci.css',
+  'widzety/teletechnika/teletechnika.css',
+  'widzety/monitoring/monitoring.css',
+  'widzety/smart/smart.css',
+  'widzety/ekrany/ekrany.css',
+  'widzety/ladowarki/ladowarki.css',
+  'widzety/naglosnienie/naglosnienie.css',
+].map((sheet) => join(LINE, sheet))
+
+describe('page stylesheets (one module per page kind)', () => {
+  it('keep the line’s cascade order in every module', () => {
+    for (const styleModule of styleModules) {
+      const sheets = importsOf(styleModule).filter((target) => CASCADE.includes(target))
+      const order = sheets.map((sheet) => CASCADE.indexOf(sheet))
+      expect(order, styleModule).toEqual([...order].sort((a, b) => a - b))
+    }
+  })
+
+  it('every service has its page module', () => {
+    const text = readFileSync(LINE_STYLES, 'utf8')
+    for (const { value } of SERVICE_KEYS) expect(text, value).toContain(`  ${value}: dynamic(`)
   })
 })
