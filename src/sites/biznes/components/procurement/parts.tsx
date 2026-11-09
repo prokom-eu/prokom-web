@@ -58,7 +58,9 @@ export function ProcImage({
   return (
     <Image
       src={image.url}
-      alt={decorative ? '' : image.alt}
+      // Decorative (the name is next to it): hidden from screen readers, the alt for search engines.
+      alt={image.alt}
+      aria-hidden={decorative || undefined}
       width={image.width}
       height={image.height}
       unoptimized
