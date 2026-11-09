@@ -68,6 +68,7 @@ export function OfferGallery({
   const shotRef = useRef<HTMLDivElement>(null)
   const glow = useRef<HTMLDivElement>(null)
   const shots = preview ? galleryShots(preview) : []
+  const mobilePoint = points.find((point) => point.spots.includes('mobile'))
   const shot = shots[Math.min(active, shots.length - 1)] ?? shots[0]
   const shotKey = shot ? `${shot.kind}-${shot.variant ?? ''}` : ''
   const pointsKey = points.map((point) => `${point.number}:${point.spots.join('+')}`).join(' ')
@@ -81,6 +82,9 @@ export function OfferGallery({
     const place = () => {
       frame = 0
       const frameBox = box.getBoundingClientRect()
+      // The window grows in from 96 % (and the mock-up from 98 %): positions are taken in the
+      // box's own pixels, so a scale of the ancestors does not move the markers.
+      const scale = frameBox.width / (box.offsetWidth || frameBox.width) || 1
       const parts = Array.from(box.querySelectorAll('[data-spot]'))
       const next: Marker[] = []
       for (const point of points) {
@@ -100,8 +104,8 @@ export function OfferGallery({
         next.push({
           number: point.number,
           label: point.label,
-          x: Math.max(0, rect.left - frameBox.left - 8),
-          y: Math.max(0, rect.top - frameBox.top - 8),
+          x: Math.max(0, (rect.left - frameBox.left) / scale - 8),
+          y: Math.max(0, (rect.top - frameBox.top) / scale - 8),
         })
       }
       setMarkers(next)
@@ -112,9 +116,13 @@ export function OfferGallery({
     schedule()
     const sizes = new ResizeObserver(schedule)
     sizes.observe(box)
+    // The mock-up's own entrance and a late font move its parts: measure again after them.
+    box.addEventListener('animationend', schedule)
+    void document.fonts.ready.then(schedule)
     return () => {
       if (frame) cancelAnimationFrame(frame)
       sizes.disconnect()
+      box.removeEventListener('animationend', schedule)
     }
     // `points` is read through its key: a new array of the same points needs no new markers.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -229,10 +237,15 @@ export function OfferGallery({
               type="button"
               aria-pressed={i === active}
               onClick={() => setActive(i)}
-              // „Wygodna na telefonie” lights the phone view (§2.2).
+              // „Wygodna na telefonie” lights the phone view (§2.2); its number stands here.
               data-spot={item.kind === 'phone' ? 'mobile' : undefined}
             >
               {item.label}
+              {item.kind === 'phone' && mobilePoint && (
+                <span aria-hidden="true" className="sw-offer-device-number">
+                  {mobilePoint.number}
+                </span>
+              )}
             </button>
           ))}
         </div>

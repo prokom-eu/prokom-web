@@ -32,7 +32,7 @@ export const SPOT_WORDS: Record<SpotKey, readonly RegExp[]> = {
   panel: [/\bpanel/, /zmieniasz sam/, /\brole\b/, /kont(a|ami) dla/],
   galeria: [/galeri/, /zdjęci/, /realizacj/],
   opinie: [/opini/, /recenzj/],
-  rezerwacja: [/rezerwac/, /zapisy/, /\btermin/],
+  rezerwacja: [/rezerw/, /zapisy/, /\btermin/],
   jezyki: [/język/, /\bpl · en/, /\ben\b/],
   sklep: [/koszyk/, /płatnoś/, /produkt/, /\bblik\b/, /odbi[óo]r/],
   blog: [/\bblog/, /wpis/, /poradnik/, /aktualnoś/],

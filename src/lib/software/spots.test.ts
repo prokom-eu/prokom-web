@@ -28,6 +28,11 @@ describe('spots (OKNO-OFERTY-PREMIUM §2.2)', () => {
     expect(spotAttr('Korzyści', 'w 5 sekund')).toBeUndefined()
   })
 
+  it('every form of „rezerwacja” (Zarezerwuj, Rezerwuj, rezerwacji)', () => {
+    expect(spotAttr('Zarezerwuj stolik')).toBe('rezerwacja')
+    expect(spotsOf('Formularz rezerwacji stolika')).toEqual(['formularz', 'rezerwacja'])
+  })
+
   it('a point without a known word stays plain', () => {
     expect(spotsOf('Jeden moduł na gotowym fundamencie')).toEqual([])
   })

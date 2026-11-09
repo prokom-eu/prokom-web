@@ -9,7 +9,7 @@ import { track } from '@/lib/analytics/track'
 import { stripBold } from '@/lib/site/emphasis'
 import type { OfferView } from '@/lib/software/offer'
 import { askHref, extrasLabel } from '@/lib/software/offerExtras'
-import { MAX_PROJECT_ITEMS, PROJECT_SEND_HREF } from '@/lib/software/project'
+import { MAX_PROJECT_ITEMS } from '@/lib/software/project'
 import { heroHead } from '@/lib/software/heroPrice'
 import { projectActions, useProject } from '@/lib/software/projectStore'
 import { type SpotKey, spotsOf } from '@/lib/software/spots'
@@ -330,7 +330,9 @@ export function SolutionDialog({
         <span className="block truncate text-xs font-bold text-ink-2">
           {fullFor === view.slug && !added
             ? `Twój projekt ma już ${MAX_PROJECT_ITEMS} pozycji — usuń którąś, żeby dodać tę.`
-            : (extrasLabel(extras) ?? (added ? `✓ W wycenie · ${bar.label}` : bar.label))}
+            : [added ? '✓ W wycenie' : null, extrasLabel(extras) ?? (added ? bar.label : null)]
+                .filter(Boolean)
+                .join(' · ') || bar.label}
         </span>
         <span className="block font-display text-xl font-extrabold text-accent-text">
           {bar.price}
@@ -339,7 +341,7 @@ export function SolutionDialog({
       {added ? (
         <Link
           ref={send}
-          href={PROJECT_SEND_HREF}
+          href={askHref(view.name, extras)}
           data-motion="button-outline"
           className="inline-flex min-h-12 min-w-12 items-center justify-center gap-2 rounded-full border border-accent-line px-4 font-bold text-accent-text min-[768px]:px-5"
         >
@@ -363,7 +365,7 @@ export function SolutionDialog({
         </button>
       )}
       {/* „Zapytaj o tę ofertę →” (ZMIANY-v24 §6.1): the solution goes into „Twój projekt”, so the
-          contact form opens with it (the form reads only `?projekt=1`). */}
+          contact form opens with it (`?projekt=1`); chosen chips start its message (`?fraza=`). */}
       <Link
         href={askHref(view.name, extras)}
         aria-label="Zapytaj o tę ofertę"

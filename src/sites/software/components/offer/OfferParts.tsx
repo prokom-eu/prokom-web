@@ -144,7 +144,7 @@ export function IncludedPoints({
       {points.length > 0 && (
         <ul className="sw-offer-points mt-3">
           {points.map((point) => (
-            <li key={point.text} id={point.number ? `oferta-punkt-${point.number}` : undefined}>
+            <li key={point.text}>
               {point.number ? (
                 <button
                   type="button"

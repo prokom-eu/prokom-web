@@ -24,9 +24,10 @@ export function mockupSpots(kind: MockupKind | null, variant: string | null): Se
     // The second button of the hero and of the phone screen (`Site.tsx`).
     'Zadzwoń',
     `${site.widget.title} ${site.widget.button}`,
-    ...site.widget.rows.map((row) => `${row.label} ${row.value}`),
     ...(kind === 'site'
       ? [
+          // The phone screen draws no rows of the widget.
+          ...site.widget.rows.map((row) => `${row.label} ${row.value}`),
           ...site.nav,
           ...site.widget.chips.map(([label]) => label),
           ...site.features.map(([, title, note]) => `${title} ${note}`),
