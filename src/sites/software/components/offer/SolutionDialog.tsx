@@ -207,7 +207,11 @@ export function SolutionDialog({
 
   // The window's sections, for the tabs in the header (§2.1) — only those this offer has.
   const hasScope =
-    price.kind !== 'levels' || levels !== null || view.benefits.items.length > 0 || !!view.example
+    (price.kind === 'included' && (price.items.length > 0 || Boolean(price.more))) ||
+    (price.kind === 'ask' && Boolean(price.text || price.note)) ||
+    levels !== null ||
+    view.benefits.items.length > 0 ||
+    Boolean(view.example)
   const hasHow = steps.length > 0 || view.needs.length > 0
   const hasWho = Boolean(view.forWhom) || view.situations.length > 0
   const tabs: TabItem[] = [
@@ -274,7 +278,11 @@ export function SolutionDialog({
     <div className="flex items-center gap-3 min-[768px]:px-3">
       <p className="min-w-0 flex-1" aria-live="polite">
         <span className="block truncate text-xs font-bold text-ink-2">
-          {added ? `✓ W wycenie · ${bar.label}` : bar.label}
+          {fullFor === view.slug && !added
+            ? `Twój projekt ma już ${MAX_PROJECT_ITEMS} pozycji — usuń którąś, żeby dodać tę.`
+            : added
+              ? `✓ W wycenie · ${bar.label}`
+              : bar.label}
         </span>
         <span className="block font-display text-xl font-extrabold text-accent-text">
           {bar.price}
@@ -290,7 +298,7 @@ export function SolutionDialog({
           <span aria-hidden="true">
             ✓<span className="max-[767px]:hidden"> W wycenie · Wyślij</span>
           </span>
-          <span className="sr-only">Wyślij do wyceny</span>
+          <span className="sr-only">W wycenie · Wyślij do wyceny</span>
           <Icon name="arrow" strokeWidth={2.4} className="size-4 max-[767px]:hidden" />
         </Link>
       ) : (
@@ -323,16 +331,17 @@ export function SolutionDialog({
         <span className="min-[768px]:hidden">Zapytaj</span>
         <Icon name="arrow" strokeWidth={2.4} className="size-4" />
       </Link>
-      {fullFor === view.slug && !added && (
-        <p role="status" className="sr-only">
-          Twój projekt ma już {MAX_PROJECT_ITEMS} pozycji — usuń którąś, żeby dodać tę.
-        </p>
-      )}
     </div>
   )
 
   const heroPrice: HeroPrice | null = level
-    ? { kind: 'amount', before: '', amount: level.amount, after: level.suffix }
+    ? {
+        kind: 'amount',
+        before: '',
+        amount: level.amount,
+        // A free level („0 zł”) has no „/ mies.”.
+        after: level.price === level.amount ? '' : level.suffix,
+      }
     : price.kind === 'included'
       ? { kind: 'amount', ...heroHead(price.head) }
       : price.kind === 'ask'
@@ -357,37 +366,10 @@ export function SolutionDialog({
       closeOnBack={closeOnBack}
     >
       <div ref={top} className="scroll-mt-24" />
-      {/* §2.2 D: the mock-up is the biggest thing — first on the phone, on the right and stuck
-          from 981 px (58 % from 1280 px). `key`: the next offer (←/→) fades in. */}
+      {/* §2.2 D: the mock-up is the biggest thing — on the right and stuck from 981 px (58 % from
+          1280 px), shown first on the phone by CSS; in the DOM after the details, so the reading
+          and Tab order follow the wide layout. `key`: the next offer (←/→) fades in. */}
       <div key={view.slug} className="sw-offer-swap sw-offer-grid mt-5">
-        <aside className="sw-offer-aside min-w-0">
-          <OfferGallery
-            key={view.slug}
-            preview={view.preview}
-            thumbnail={view.thumbnail}
-            overlay={
-              view.toast && (
-                <span
-                  aria-hidden="true"
-                  className="absolute bottom-3 left-4 z-10 inline-flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-xl bg-surface-dark px-3 py-2 text-xs font-bold text-white shadow-raised"
-                >
-                  <span className="size-1.5 shrink-0 rounded-full bg-ok" />
-                  <span className="truncate">{view.toast}</span>
-                </span>
-              )
-            }
-          />
-          {view.hasLivePreview && (
-            <Link
-              href={`/rozwiazania/${view.slug}`}
-              className="mt-2 inline-flex min-h-11 items-center gap-2 font-bold text-accent-text"
-            >
-              Zobacz podgląd na żywo
-              <Icon name="arrow" strokeWidth={2.4} className="size-4" />
-            </Link>
-          )}
-        </aside>
-
         <div className="sw-offer-main min-w-0">
           <div className="flex flex-wrap gap-2">
             {view.label && <OfferBadge>{view.label}</OfferBadge>}
@@ -509,6 +491,34 @@ export function SolutionDialog({
             )}
           </section>
         </div>
+
+        <aside className="sw-offer-aside min-w-0">
+          <OfferGallery
+            key={view.slug}
+            preview={view.preview}
+            thumbnail={view.thumbnail}
+            overlay={
+              view.toast && (
+                <span
+                  aria-hidden="true"
+                  className="absolute bottom-3 left-4 z-10 inline-flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-xl bg-surface-dark px-3 py-2 text-xs font-bold text-white shadow-raised"
+                >
+                  <span className="size-1.5 shrink-0 rounded-full bg-ok" />
+                  <span className="truncate">{view.toast}</span>
+                </span>
+              )
+            }
+          />
+          {view.hasLivePreview && (
+            <Link
+              href={`/rozwiazania/${view.slug}`}
+              className="mt-2 inline-flex min-h-11 items-center gap-2 font-bold text-accent-text"
+            >
+              Zobacz podgląd na żywo
+              <Icon name="arrow" strokeWidth={2.4} className="size-4" />
+            </Link>
+          )}
+        </aside>
       </div>
     </BottomSheet>
   )

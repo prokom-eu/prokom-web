@@ -76,8 +76,13 @@ export function SectionTabs({ items, resetKey }: { items: readonly TabItem[]; re
     let frame = 0
     const spy = () => {
       frame = 0
+      // Not shown yet (`showModal()` runs after this effect): nothing to measure.
+      if (scroller.clientHeight === 0) return
       const top = scroller.getBoundingClientRect().top + SPY_OFFSET
-      const atEnd = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 4
+      // The end lights the last tab only when the window scrolls at all (a short offer: „Zakres”).
+      const scrolls = scroller.scrollHeight > scroller.clientHeight + 4
+      const atEnd =
+        scrolls && scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 4
       let current: HTMLElement | undefined = sections[0]
       for (const section of sections) {
         if (section.getBoundingClientRect().top <= top) current = section
@@ -88,11 +93,14 @@ export function SectionTabs({ items, resetKey }: { items: readonly TabItem[]; re
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(spy)
     }
-    spy()
     scroller.addEventListener('scroll', schedule, { passive: true })
+    // Every `showModal()` takes the window from 0 to its size: measure again then.
+    const sizes = new ResizeObserver(schedule)
+    sizes.observe(scroller)
     return () => {
       if (frame) cancelAnimationFrame(frame)
       scroller.removeEventListener('scroll', schedule)
+      sizes.disconnect()
     }
   }, [ids, resetKey])
 
@@ -132,16 +140,18 @@ export function ShortcutHint() {
   const hint = useRef<HTMLParagraphElement>(null)
 
   useEffect(() => {
+    // Only where it is shown (≥ 1280 px, CSS) and there is a keyboard to use it.
+    if (!window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1280px)').matches) {
+      return
+    }
+    const element = hint.current
+    if (!element) return
     try {
       if (window.sessionStorage.getItem(HINT_KEY)) return
       window.sessionStorage.setItem(HINT_KEY, '1')
     } catch {
       // No storage: show it anyway.
     }
-    // Only where there is a keyboard to use it.
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
-    const element = hint.current
-    if (!element) return
     element.classList.add('is-on')
     const hide = () => element.classList.remove('is-on')
     const timer = window.setTimeout(hide, HINT_MS)
@@ -149,6 +159,7 @@ export function ShortcutHint() {
     return () => {
       window.clearTimeout(timer)
       window.removeEventListener('keydown', hide)
+      hide()
     }
   }, [])
 

@@ -73,7 +73,6 @@ export function PriceHero({
                 <b className="sw-offer-price-big sw-offer-price-text">{price.text}</b>
               )}
             </dd>
-            <span aria-hidden="true" className="sw-offer-price-line" />
           </div>
         )}
         {term && (

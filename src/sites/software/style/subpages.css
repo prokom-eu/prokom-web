@@ -251,6 +251,11 @@
   gap: 24px;
   align-items: start;
 }
+@media (max-width: 980px) {
+  .sw-offer-aside {
+    order: -1;
+  }
+}
 @media (min-width: 981px) {
   .sw-offer-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -309,13 +314,13 @@
   font-weight: 700;
   color: var(--ink-2);
 }
-.sw-offer-price-line {
-  display: block;
-  width: 140px;
+.sw-offer-price::after {
+  /* A row of its own; the 140 px line is its background. */
+  content: '';
+  flex-basis: 100%;
   height: 2px;
   margin-top: 12px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--em-from), var(--em-to));
+  background: linear-gradient(90deg, var(--em-from), var(--em-to)) left / 140px 100% no-repeat;
 }
 .sw-offer-fact {
   display: flex;
@@ -378,7 +383,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
+  width: 32px;
   height: 44px;
 }
 .sw-offer-dot::before {
@@ -425,6 +430,12 @@
   translate: -50% 0;
   opacity: 1;
 }
+@media (prefers-reduced-motion: reduce) {
+  .sw-offer-dot::before,
+  .sw-offer-dot::after {
+    transition: none;
+  }
+}
 
 /* Tabs of the sections, lit while scrolling (§2.1) — the rail's sliding pill. */
 .sw-offer-tabs {
@@ -443,7 +454,7 @@
 .sw-offer-tabs > a {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
+  min-height: 44px;
   padding-inline: 14px;
   border-radius: 999px;
   color: var(--ink-2);
