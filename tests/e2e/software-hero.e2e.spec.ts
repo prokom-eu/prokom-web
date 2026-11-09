@@ -141,13 +141,13 @@ test.describe('Software hero v24', () => {
   }
 })
 
-// AUDYT-0811 #0 and AUDYT po SWA7 #1–#3: where the active mock-up sits on the first screen.
-// `full`: the whole window ends at that line; `half`: at least its top half is visible;
-// `min`: the window is never narrower (wide screens shrink the text first, not the window).
+// AUDYT-0811 #0, AUDYT po SWA7 #1–#3 and AUDYT-0911 wieczór #1: where the active mock-up sits
+// on the first screen. `full`: the whole window ends at that line; `half`: at least its top half
+// is visible; `min`: the window is never narrower (wide screens shrink the text first).
 const FIRST_SCREEN = [
   { width: 1920, height: 1080, full: 1060, min: 700 },
-  { width: 1440, height: 900, half: true, min: 560 },
-  { width: 1366, height: 768, half: true, min: 560 },
+  { width: 1440, height: 900, full: 900, min: 560 },
+  { width: 1366, height: 768, full: 768, min: 560 },
   { width: 1280, height: 720, half: true, min: 560 },
   { width: 390, height: 844, aboveTabBar: 16 },
 ] as const

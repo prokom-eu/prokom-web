@@ -1414,6 +1414,67 @@
   }
 }
 
+/* SWA10 (AUDYT-0911 wieczór #1): on the most common laptops (1440×900, 1366×768) the whole
+   window fits on the first screen — tighter text and tiles, and the window width follows the
+   height left below the panel (never below 560 px). 1280×720 keeps the block above. */
+@media (min-width: 1280px) and (min-height: 741px) and (max-height: 900px) {
+  .hx {
+    --hx-w: clamp(560px, calc((100svh - 506px) / 0.6566), var(--hx-w-max));
+    padding-top: 14px;
+  }
+  .hx-pill {
+    padding-block: 4px;
+  }
+  .hx-h1 {
+    margin-top: 10px;
+    font-size: clamp(56px, 8vh, 72px);
+  }
+  .hx-lead {
+    margin-top: 8px;
+  }
+  .hx-cmd {
+    margin-top: 12px;
+  }
+  .hx-q {
+    padding: 2px 12px 8px;
+    font-size: 14px;
+  }
+  .hx-tiles {
+    padding-top: 6px;
+  }
+  .hx-tile {
+    min-height: 52px;
+    padding-block: 8px;
+  }
+  .hx-flow {
+    margin-top: 4px;
+    height: calc(var(--hx-w) * 0.6566 + 24px);
+  }
+  .hx-win {
+    top: 10px;
+  }
+}
+/* 1366×768: the badge above the H1 gives way to the window (the band of industries below the
+   hero still says "every industry"). */
+@media (min-width: 1280px) and (min-height: 741px) and (max-height: 820px) {
+  .hx {
+    padding-top: 6px;
+  }
+  .hx-pill {
+    display: none;
+  }
+  .hx-h1 {
+    margin-top: 0;
+    font-size: 52px;
+  }
+  .hx-q {
+    padding-block: 0 6px;
+  }
+  .hx-tile {
+    min-height: 48px;
+  }
+}
+
 /* AUDYT po SWA7 #2: on a tall desktop (1920×1080) the whole window fits on the first screen —
    less air above the H1 and between the lead and the tiles (the compact tiles and the one-line
    lead are in the short-screen blocks above), and the window width follows the height left
