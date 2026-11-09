@@ -613,6 +613,12 @@ html[data-line='instalacje'].pk-lock body {
     transition: top var(--dur-state) var(--ease-out);
   }
 }
+/* The tablet search button (next to Menu, shown with it up to 1080 px): phones have the app bar. */
+@media (max-width: 767px) {
+  [data-line='instalacje'] .isearch-t {
+    display: none;
+  }
+}
 @media (min-width: 1400px) {
   [data-line='instalacje'] {
     & .isearch,
