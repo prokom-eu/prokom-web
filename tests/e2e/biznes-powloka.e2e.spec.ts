@@ -90,6 +90,38 @@ test.describe('Biznes shell — computer', () => {
     await expect(rail.getByRole('group', { name: 'Na tej stronie' })).toBeAttached()
   })
 
+  test('home page: the capsule pill follows the section being read (§8.1 pkt 2)', async ({
+    page,
+  }) => {
+    await page.goto(biznes())
+    const nav = capsule(page).getByRole('navigation', { name: 'Menu główne' })
+    const marked = nav.locator('[data-spy]')
+    // Section top 200 px under the window's top edge: past the rail's 40% line.
+    const readAt = async (id: string) =>
+      page.evaluate((anchor) => {
+        const section = document.getElementById(anchor)!
+        window.scrollTo({
+          top: section.getBoundingClientRect().top + window.scrollY - 200,
+          behavior: 'instant',
+        })
+      }, id)
+    await readAt('zaopatrzenie')
+    await expect(marked).toHaveAttribute('data-cap-key', 'oferta')
+    await expect(nav.locator('.cap-pill')).toHaveAttribute('data-on', '')
+    await readAt('marki')
+    await expect(marked).toHaveAttribute('data-cap-key', '/marki')
+    await readAt('kontakt')
+    await expect(marked).toHaveAttribute('data-cap-key', '/kontakt')
+    // A section no entry stands for hides the pill.
+    await readAt('plan')
+    await expect(marked).toHaveCount(0)
+    await expect(nav.locator('.cap-pill')).not.toHaveAttribute('data-on', '')
+    // Subpages keep `aria-current="page"` and have no pill.
+    await page.goto(biznes('/marki'))
+    await expect(nav.locator('.cap-pill')).toHaveCount(0)
+    await expect(nav.getByRole('link', { name: 'Marki' })).toHaveAttribute('aria-current', 'page')
+  })
+
   test('footer: the panel columns, the lines band and the legal bar', async ({ page }) => {
     await page.goto(biznes())
     const footer = page.locator('[data-site-footer]')

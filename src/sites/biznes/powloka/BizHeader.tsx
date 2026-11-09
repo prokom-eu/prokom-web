@@ -27,6 +27,20 @@ type Props = {
   offer: OfferMenu
   /** `shared.headerCta`: „Zapytanie” with the count of the inquiry list. */
   cta: { label: string; href: string } | null
+  /** Anchors of the home page sections from the panel (`shared.rail`), in page order. */
+  homeSections?: readonly string[]
+}
+
+/**
+ * Plan 0611 §8.1 pkt 2: the home page sections each menu entry stands for — the capsule's pill
+ * glides to the entry of the section being read. Keys as in `nav` below („Oferta ▾” = `oferta`,
+ * links by their address); other sections (hero, plan, FAQ…) hide the pill.
+ */
+const HOME_SPY: Record<string, readonly string[]> = {
+  oferta: ['oferta', 'zaopatrzenie', 'wybierane'],
+  '/marki': ['marki'],
+  '/o-firmie': ['fakty'],
+  '/kontakt': ['kontakt'],
 }
 
 /** The current menu entry of a subpage (`aria-current="page"` and the pill). */
@@ -39,7 +53,7 @@ const isCurrent = (pathname: string, href: string) =>
  * (the mega menu — opens on hover or click, closes 280 ms after the pointer leaves, Esc returns
  * focus), the search loupe, the theme switch and „Zapytanie” with the live count.
  */
-export function BizHeader({ homeLabel, menu, offer, cta }: Props) {
+export function BizHeader({ homeLabel, menu, offer, cta, homeSections }: Props) {
   const pathname = usePathname() ?? '/'
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(0)
@@ -108,8 +122,9 @@ export function BizHeader({ homeLabel, menu, offer, cta }: Props) {
           label: item.label,
           href: item.href,
           current: isCurrent(pathname, item.href),
+          sections: HOME_SPY[item.href],
         }
-      : { key: 'oferta', label: item.label },
+      : { key: 'oferta', label: item.label, sections: HOME_SPY.oferta },
   )
 
   return (
@@ -117,6 +132,7 @@ export function BizHeader({ homeLabel, menu, offer, cta }: Props) {
       line="biznes"
       homeLabel={homeLabel}
       nav={nav}
+      spyStops={pathname === '/' ? homeSections : undefined}
       megaFor={() => (
         <div
           onPointerEnter={(event) => hover(event) && openNow(event.timeStamp)}
