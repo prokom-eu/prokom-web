@@ -146,9 +146,15 @@ export function GoposVenues({
       >
         <div key={venue.key} className="gps-swap flex flex-col gap-4 text-ink max-md:gap-3">
           <h3 className="font-display text-[clamp(1.5rem,2.5vw,2.125rem)] leading-tight font-extrabold text-balance max-md:text-[21px]">
-            {/* The venue's name, not its H1 halves: for the first venue those repeated the page's
-                H1 word for word (audit 0611 P1-3). */}
-            {venue.tab}: <em className="text-ok-text not-italic">{venue.h1b}</em>
+            {/* The first venue is the page's own (its halves are the H1 of the hero): only its
+                name here, so the H1 is not said twice (audit 0611 P1-3); the others keep theirs. */}
+            {index === 0 ? (
+              venue.tab
+            ) : (
+              <>
+                {venue.h1a} <em className="text-ok-text not-italic">{venue.h1b}</em>
+              </>
+            )}
           </h3>
           <p className="leading-relaxed text-pretty text-ink-2 max-md:text-sm">{venue.lead}</p>
           <div>

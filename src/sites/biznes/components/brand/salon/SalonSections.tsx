@@ -109,13 +109,16 @@ function SectionHead({
 }
 
 export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }) {
+  // Plan cards (either section) first; „cała oferta” is only there when models are left for it.
   const offer = view.plans
     ? { href: '#oferta', label: 'Porównaj warianty', short: 'Warianty' }
-    : {
-        href: '#oferta-cala',
-        label: `Zobacz ofertę · ${view.familyCount}`,
-        short: `Oferta · ${view.familyCount}`,
-      }
+    : view.morePlans && view.family.length === 0
+      ? { href: '#oferta2', label: 'Porównaj warianty', short: 'Warianty' }
+      : {
+          href: '#oferta-cala',
+          label: `Zobacz ofertę · ${view.familyCount}`,
+          short: `Oferta · ${view.familyCount}`,
+        }
   // With the card the board shows two photos: the first product large on the right, the second
   // smaller on the left; without it up to three with their labels.
   const photos = view.heroCard ? view.hero.slice(0, 2).reverse() : view.hero
@@ -865,7 +868,7 @@ export function SalonFaq({
 export function familyHeading(view: SalonView) {
   // Under the plan cards the list shows the rest of the offer (plan models are not repeated).
   const rest = new Set(view.family.flatMap((tab) => tab.products.map((p) => p.slug))).size
-  return view.plans
+  return view.plans || view.morePlans
     ? {
         eyebrow: `Pozostała oferta · ${rest} ${plural(rest, ['pozycja', 'pozycje', 'pozycji'])}`,
         title: 'Reszta oferty, według rodzaju',
