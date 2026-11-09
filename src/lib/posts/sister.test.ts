@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
-import { sisterPostLinks, sisterTenants, tenantOrigin, type SitePlace } from './sister'
+import {
+  SISTER_LEAD_MAX,
+  sisterPostLinks,
+  sisterTenants,
+  teaser,
+  tenantOrigin,
+  type SitePlace,
+} from './sister'
 
 const domains = (name: string) => [
   { host: `${name}.localhost`, environment: 'local' },
@@ -12,7 +19,8 @@ const INSTALACJE = { id: 2, line: 'instalacje', domains: domains('instalacje') }
 const SOFTWARE = { id: 3, line: 'software', domains: domains('software') }
 const PROD: SitePlace = { siteEnv: 'production' }
 
-// Rows as a careless query might return them: lead, body and cover must never come out.
+// Rows as a careless query might return them: body and cover must never come out, the lead only
+// as a short teaser.
 const row = (slug: string, publishedAt: string) => ({
   slug,
   title: `Wpis ${slug}`,
@@ -44,12 +52,14 @@ describe('sisterPostLinks — title and link only (SEO: no copied text)', () => 
     expect(sisterPostLinks(groups, BIZNES.id, 2, PROD)).toEqual([
       {
         title: 'Wpis strona',
+        lead: 'Lead, który zostaje na swojej domenie.',
         href: 'https://prokomsoftware.pl/aktualnosci/strona',
         publishedAt: '2026-11-06T10:00:00.000Z',
         line: 'software',
       },
       {
         title: 'Wpis pompa',
+        lead: 'Lead, który zostaje na swojej domenie.',
         href: 'https://prokominstalacje.pl/poradnik/pompa',
         publishedAt: '2026-11-05T10:00:00.000Z',
         line: 'instalacje',
@@ -57,10 +67,21 @@ describe('sisterPostLinks — title and link only (SEO: no copied text)', () => 
     ])
   })
 
-  it('never returns lead, body or cover — exactly four fields', () => {
+  it('never returns body or cover — exactly five fields, the lead as a teaser', () => {
     for (const link of sisterPostLinks(groups, BIZNES.id, 10, PROD)) {
-      expect(Object.keys(link).sort()).toEqual(['href', 'line', 'publishedAt', 'title'])
+      expect(Object.keys(link).sort()).toEqual(['href', 'lead', 'line', 'publishedAt', 'title'])
     }
+  })
+
+  it('teaser: at most 140 characters, cut at a word with „…”; no lead = null', () => {
+    const long = `${'Pompa ciepła w domu z lat 90. '.repeat(10)}koniec`
+    const cut = teaser(long)!
+    expect(cut.length).toBeLessThanOrEqual(SISTER_LEAD_MAX)
+    expect(cut.endsWith('…')).toBe(true)
+    expect(cut).not.toMatch(/\s…$/)
+    expect(teaser('  Krótki   wstęp. ')).toBe('Krótki wstęp.')
+    expect(teaser('')).toBeNull()
+    expect(teaser(null)).toBeNull()
   })
 
   it('never returns the own (Biznes) posts, even when they are passed in', () => {

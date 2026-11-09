@@ -5,12 +5,18 @@ import { postHref } from './list'
 export const SISTER_LINES = ['instalacje', 'software'] as const satisfies readonly Line[]
 export type SisterLine = (typeof SISTER_LINES)[number]
 
+/** At most this many characters of the other line's lead (NAPRAWA-0911 §4). */
+export const SISTER_LEAD_MAX = 140
+
 /**
- * A link card to another line's post: the title and the address on that line's own site — never
- * its lead, body or cover (the text stays on its domain, SEO rule: no copied text).
+ * A link card to another line's post: the title, a short teaser of its lead and the address on
+ * that line's own site — never its body or cover (the text stays on its domain: a teaser of
+ * ≤ 140 characters with a link to the source, not a copy; NAPRAWA-0911 §4).
  */
 export type SisterPostLink = {
   title: string
+  /** The lead cut to `SISTER_LEAD_MAX` at a word, with „…”; `null` when the post has none. */
+  lead: string | null
   /** Absolute, on the line's site in this environment, e.g. `https://prokominstalacje.pl/poradnik/…`. */
   href: string
   publishedAt: string
@@ -25,7 +31,22 @@ export type SisterTenant = {
 }
 /** Where the page is served: the environment (`SITE_ENV`) and, locally, the app's port. */
 export type SitePlace = { siteEnv: 'production' | 'staging' | 'local'; port?: string | null }
-export type SisterPostRow = { slug: string; title: string; publishedAt?: string | null }
+export type SisterPostRow = {
+  slug: string
+  title: string
+  publishedAt?: string | null
+  lead?: string | null
+}
+
+/** A lead cut at a word to `max` characters, with „…” when cut. */
+export function teaser(text: string | null | undefined, max = SISTER_LEAD_MAX): string | null {
+  const clean = text?.replace(/\s+/g, ' ').trim()
+  if (!clean) return null
+  if (clean.length <= max) return clean
+  const cut = clean.slice(0, max - 1)
+  const word = cut.lastIndexOf(' ')
+  return `${(word > max * 0.6 ? cut.slice(0, word) : cut).replace(/[\s,.;:–—-]+$/, '')}…`
+}
 
 const isSisterLine = (line: unknown): line is SisterLine =>
   SISTER_LINES.includes(line as SisterLine)
@@ -57,8 +78,8 @@ export function sisterTenants<T extends SisterTenant>(
 }
 
 /**
- * Newest first, at most `limit`, each reduced to `SisterPostLink` (only the four fields are
- * copied, whatever the rows carry). Rows of the excluded tenant or another line are dropped.
+ * Newest first, at most `limit`, each reduced to `SisterPostLink` (only its five fields — the
+ * lead as a short teaser — whatever the rows carry). Rows of the excluded tenant or another line are dropped.
  */
 export function sisterPostLinks(
   groups: readonly { tenant: SisterTenant; posts: readonly SisterPostRow[] }[],
@@ -77,6 +98,7 @@ export function sisterPostLinks(
       if (!title || !post.slug || !post.publishedAt) continue
       links.push({
         title,
+        lead: teaser(post.lead),
         href: `${origin}${postHref(post.slug, tenant.line)}`,
         publishedAt: post.publishedAt,
         line: tenant.line,
