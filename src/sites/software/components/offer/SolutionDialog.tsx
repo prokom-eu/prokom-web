@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { type PointerEvent, useEffect, useRef, useState } from 'react'
 
 import { BottomSheet } from '@/components/BottomSheet'
 import { Icon } from '@/components/ui/Icon'
@@ -42,8 +42,13 @@ import {
  * page dimmed and blurred behind).
  */
 const PANEL =
-  'sw-offer-panel inset-0 m-auto h-[min(920px,calc(100dvh-40px))] max-h-none w-[min(1480px,calc(100vw-48px))] max-w-none rounded-[28px] min-[768px]:[&_[data-sheet-handle]]:hidden max-[767px]:inset-x-0 max-[767px]:bottom-0 max-[767px]:top-auto max-[767px]:h-auto max-[767px]:max-h-[94dvh] max-[767px]:w-full max-[767px]:rounded-b-none'
+  'sw-offer-panel inset-0 m-auto h-[min(920px,calc(100dvh-40px))] max-h-none w-[min(1480px,calc(100vw-48px))] max-w-none rounded-[28px] min-[768px]:[&_[data-sheet-handle]]:hidden max-[767px]:inset-x-0 max-[767px]:bottom-0 max-[767px]:top-auto max-[767px]:h-auto max-[767px]:w-full max-[767px]:rounded-b-none'
 const BACKDROP = 'backdrop:bg-surface-dark/70 backdrop:backdrop-blur-md'
+/** Phone (§2.6): the sheet stops at 70 % and goes full height once read or pulled up. */
+const SHEET_HALF = 'sw-offer-sheet max-[767px]:max-h-[70dvh]'
+const SHEET_FULL = 'sw-offer-sheet max-[767px]:max-h-[94dvh]'
+/** A swipe across the phone's mock-up: at least this far, and mostly sideways. */
+const SWIPE_PX = 60
 const CONTENT = 'px-4 pb-6 pt-2.5 min-[768px]:px-7 min-[768px]:pt-0'
 
 type Props = {
@@ -61,6 +66,26 @@ type Props = {
    * closes it (`BottomSheet` `closeOnBack`). The catalog drives history itself (`?rozwiazanie=`).
    */
   closeOnBack?: boolean
+}
+
+/** A touch gesture on the phone: `onEnd` gets how far it went (end − start). */
+function phoneGesture(
+  event: PointerEvent<HTMLElement>,
+  onEnd: (dx: number, dy: number) => void,
+): void {
+  if (event.pointerType === 'mouse' || !window.matchMedia('(max-width: 767px)').matches) return
+  const { clientX: x, clientY: y } = event
+  const stop = () => {
+    window.removeEventListener('pointerup', end)
+    window.removeEventListener('pointercancel', stop)
+  }
+  // The browser took the touch for scrolling: no gesture.
+  const end = (up: globalThis.PointerEvent) => {
+    stop()
+    onEnd(up.clientX - x, up.clientY - y)
+  }
+  window.addEventListener('pointerup', end)
+  window.addEventListener('pointercancel', stop)
 }
 
 function Chevron({ back = false }: { back?: boolean }) {
@@ -110,6 +135,15 @@ export function SolutionDialog({
   const [litPoint, setLitPoint] = useState<number | null>(null)
   /** Chips of „Potrzebujesz więcej?” chosen for the open solution (§2.3). */
   const [chosen, setChosen] = useState<{ slug: string; extras: string[] } | null>(null)
+  /** Which way the last switch went (§2.5): the details come in from that side. */
+  const [direction, setDirection] = useState<1 | -1>(1)
+  /** The offer the window opened with: only its sections come in one by one (§2.5). */
+  const [first, setFirst] = useState<string | null>(null)
+  if (!isOpen && first !== null) setFirst(null)
+  if (isOpen && first === null && slug) setFirst(slug)
+  /** Phone sheet at full height (§2.6). */
+  const [expanded, setExpanded] = useState(false)
+  if (!isOpen && expanded) setExpanded(false)
   const heading = useRef<HTMLHeadingElement>(null)
   const top = useRef<HTMLDivElement>(null)
   const send = useRef<HTMLAnchorElement>(null)
@@ -123,7 +157,10 @@ export function SolutionDialog({
   const position = view ? list.indexOf(view.slug) : -1
   const added = view ? project.some((item) => item.id === view.slug) : false
 
-  const go = (next: string) => {
+  const go = (next: string, way?: 1 | -1) => {
+    const from = current.current ? list.indexOf(current.current) : -1
+    const to = list.indexOf(next)
+    setDirection(way ?? (to >= 0 && from >= 0 && to < from ? -1 : 1))
     current.current = next
     onSwitch(next)
   }
@@ -134,7 +171,7 @@ export function SolutionDialog({
     // Outside the list (opened from „Dobrze łączy się z”): → starts at the first, ← at the last.
     const index = from < 0 ? (direction === 1 ? 0 : list.length - 1) : from + direction
     const next = list[(index + list.length) % list.length]
-    if (next) go(next)
+    if (next) go(next, direction)
   }
 
   // A new solution starts at the top (its default level: `pick` is per slug).
@@ -156,6 +193,30 @@ export function SolutionDialog({
       heading.current?.focus({ preventScroll: true })
     }
   }, [slug])
+
+  // Phone: reading on (the sheet's content scrolls) takes it to full height.
+  useEffect(() => {
+    if (!isOpen || expanded) return
+    const sheet = heading.current?.closest('dialog')
+    if (!sheet) return
+    const phone = window.matchMedia('(max-width: 767px)')
+    const onScroll = () => {
+      if (phone.matches && sheet.scrollTop > 8) setExpanded(true)
+    }
+    sheet.addEventListener('scroll', onScroll, { passive: true })
+    return () => sheet.removeEventListener('scroll', onScroll)
+  }, [isOpen, expanded])
+
+  // Pulled up by the top: full height (pulled down: `BottomSheet` closes it).
+  const pullUp = (event: PointerEvent<HTMLElement>) =>
+    phoneGesture(event, (_dx, dy) => {
+      if (dy < -30) setExpanded(true)
+    })
+  // Across the mock-up: the next or previous offer (§2.6), not a vertical scroll.
+  const swipe = (event: PointerEvent<HTMLElement>) =>
+    phoneGesture(event, (dx, dy) => {
+      if (Math.abs(dx) >= SWIPE_PX && Math.abs(dx) > Math.abs(dy) * 1.5) step(dx < 0 ? 1 : -1)
+    })
 
   useEffect(() => {
     if (added && focusSend.current) {
@@ -278,7 +339,10 @@ export function SolutionDialog({
   })
 
   const header = (
-    <div className="sw-offer-head -mx-4 flex items-center gap-3 border-b border-border px-4 py-3 min-[768px]:-mx-7 min-[768px]:px-7">
+    <div
+      onPointerDown={pullUp}
+      className="sw-offer-head -mx-4 flex items-center gap-3 border-b border-border px-4 py-3 min-[768px]:-mx-7 min-[768px]:px-7"
+    >
       {list.length > 1 && (
         <div className="flex shrink-0 items-center rounded-full border border-border bg-surface-2 p-1">
           <button
@@ -408,7 +472,7 @@ export function SolutionDialog({
       headingRef={heading}
       header={header}
       stickyHeader
-      panelClassName={PANEL}
+      panelClassName={`${PANEL} ${expanded ? SHEET_FULL : SHEET_HALF}`}
       backdropClassName={BACKDROP}
       contentClassName={CONTENT}
       footer={footer}
@@ -419,7 +483,12 @@ export function SolutionDialog({
       {/* §2.2 D: the mock-up is the biggest thing — on the right and stuck from 981 px (58 % from
           1280 px), shown first on the phone by CSS; in the DOM after the details, so the reading
           and Tab order follow the wide layout. `key`: the next offer (←/→) fades in. */}
-      <div key={view.slug} className="sw-offer-swap sw-offer-grid mt-5">
+      <div
+        key={view.slug}
+        data-dir={direction}
+        data-intro={view.slug === first ? '' : undefined}
+        className="sw-offer-swap sw-offer-grid mt-5"
+      >
         <div className="sw-offer-main min-w-0">
           <div className="flex flex-wrap gap-2">
             {view.label && <OfferBadge>{view.label}</OfferBadge>}
@@ -552,7 +621,7 @@ export function SolutionDialog({
           </section>
         </div>
 
-        <aside className="sw-offer-aside min-w-0">
+        <aside onPointerDown={swipe} className="sw-offer-aside min-w-0">
           <OfferGallery
             key={view.slug}
             preview={view.preview}

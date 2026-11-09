@@ -4,6 +4,8 @@ import type { MouseEvent } from 'react'
 import type { PricingCard } from '@/lib/software/priceCards'
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
 
+import { openOfferFrom } from '../offer/offerTransition'
+
 type Props = {
   card: PricingCard
   /** Hover label on the mock-up („Szczegóły →”). */
@@ -32,7 +34,8 @@ export function PriceCard({ card, details, href, onOpen }: Props) {
       onClick={(event) => {
         if (!onOpen || !plainClick(event)) return
         event.preventDefault()
-        onOpen()
+        // The card's mock-up grows into the window's (OKNO-OFERTY-PREMIUM §2.5).
+        openOfferFrom(event.currentTarget, onOpen)
       }}
     >
       <div className="v-card-th" aria-hidden="true">

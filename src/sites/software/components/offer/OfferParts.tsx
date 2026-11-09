@@ -11,6 +11,7 @@ import type {
 } from '@/lib/software/offer'
 
 import { Mockup } from '../mockups/Mockup'
+import { PriceTween } from '../wizard/PriceTween'
 import { OfferThumb } from './OfferThumb'
 
 /** Parts of the offer window (ZMIANY-v24 §6.1, v24 glass look) — presentational only. */
@@ -66,7 +67,9 @@ export function PriceHero({
               {price.kind === 'amount' ? (
                 <>
                   {price.before && <span className="sw-offer-price-small">{price.before} </span>}
-                  <b className="sw-offer-price-big">{price.amount}</b>
+                  <b className="sw-offer-price-big">
+                    <PriceTween text={price.amount} memory="offer-window" />
+                  </b>
                   {price.after && <span className="sw-offer-price-small"> {price.after}</span>}
                 </>
               ) : (
