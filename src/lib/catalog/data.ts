@@ -122,7 +122,9 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
           payload.find({ collection: 'biznes-settings', where: inTenant, limit: 1, ...read }),
           payload.find({
             collection: 'bundles',
-            where: inTenant,
+            // „Gotowe” only: a bundle still „Do sprawdzenia” is never linked — not in the search
+            // nor in the mega menu count (BIZ-3 §9.2).
+            where: { and: [inTenant, { contentStatus: { equals: 'ready' } }] },
             limit: MAX_RECORDS,
             sort: 'order',
             select: { slug: true, name: true, items: { product: true, mandatory: true } },
