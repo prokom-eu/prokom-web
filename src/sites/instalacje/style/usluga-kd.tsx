@@ -1,5 +1,6 @@
-// Stylesheets of the service page: access control, in the line's cascade order (`style.test.ts`).
+// Stylesheets of the service page: access control, in the order of `cascade.ts`.
 import '../sekcje/sceny.css'
+import '../sekcje/sceny-ruch.css'
 import '../widzety/serwis/serwis.css'
 import '../widzety/firma/firma.css'
 import '../widzety/alarmy/alarmy.css'

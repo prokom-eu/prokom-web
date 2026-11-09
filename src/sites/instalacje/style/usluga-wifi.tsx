@@ -1,5 +1,6 @@
-// Stylesheets of the service page: networks and Wi-Fi, in the line's cascade order (`style.test.ts`).
+// Stylesheets of the service page: networks and Wi-Fi, in the order of `cascade.ts`.
 import '../sekcje/sceny.css'
+import '../sekcje/sceny-ruch.css'
 import '../sekcje/glowna/glowna-sekcje.css'
 import '../widzety/serwis/serwis.css'
 import '../widzety/firma/firma.css'

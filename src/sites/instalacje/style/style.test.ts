@@ -3,7 +3,7 @@ import { basename, dirname, join, relative, resolve } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
-import { SERVICE_KEYS } from '@/lib/instalacje/options'
+import { PAGE_SHEET_ORDER } from './cascade'
 
 const SRC = 'src'
 const LINE = join(SRC, 'sites', 'instalacje')
@@ -63,43 +63,70 @@ describe('Instalacje stylesheets stay off the other lines', () => {
   })
 })
 
-// LCP on phones (audit 09.11): a page links only its kind's sheets. Files share selectors
-// (e.g. `.zkticket` in glowna-sekcje and zaplanuj, `.odi` in oferta and teletechnika), so every
-// module keeps them in one cascade order — the order of the former all-blocks module.
-const CASCADE = [
-  'widzety/architekci/architekci.css',
-  'widzety/glowna/glowna.css',
-  'sekcje/sceny.css',
-  'sekcje/glowna/glowna-sekcje.css',
-  'sekcje/glowna/podhale-proces.css',
-  'widzety/zaplanuj/zaplanuj.css',
-  'widzety/serwis/serwis.css',
-  'widzety/oferta/oferta.css',
-  'widzety/realizacje/realizacje.css',
-  'widzety/firma/firma.css',
-  'widzety/alarmy/alarmy.css',
-  'widzety/anteny/anteny.css',
-  'widzety/dostep/dostep.css',
-  'widzety/sieci/sieci.css',
-  'widzety/teletechnika/teletechnika.css',
-  'widzety/monitoring/monitoring.css',
-  'widzety/smart/smart.css',
-  'widzety/ekrany/ekrany.css',
-  'widzety/ladowarki/ladowarki.css',
-  'widzety/naglosnienie/naglosnienie.css',
-].map((sheet) => join(LINE, sheet))
+// LCP on phones (audit 09.11): a page links only its kind's sheets (`LineStyles.tsx`), each module
+// in the order of `cascade.ts`.
+const ORDER = PAGE_SHEET_ORDER.map((sheet) => join(LINE, sheet))
+/** Modules of the frame and the pages outside blocks (their own sheets, not in the order list). */
+const OTHER_MODULES = ['frame', 'obiekty', 'poradnik', 'wyslane', 'tailwind'].map((name) =>
+  join(STYLE, `${name}.tsx`),
+)
+const pageModules = styleModules.filter((file) => !OTHER_MODULES.includes(file))
+const cssImports = (file: string) => importsOf(file).filter((target) => target.endsWith('.css'))
 
 describe('page stylesheets (one module per page kind)', () => {
-  it('keep the line’s cascade order in every module', () => {
-    for (const styleModule of styleModules) {
-      const sheets = importsOf(styleModule).filter((target) => CASCADE.includes(target))
-      const order = sheets.map((sheet) => CASCADE.indexOf(sheet))
-      expect(order, styleModule).toEqual([...order].sort((a, b) => a - b))
+  it('import only sheets from the order list, in its order', () => {
+    expect(pageModules.length).toBeGreaterThan(10)
+    for (const pageModule of pageModules) {
+      const sheets = cssImports(pageModule)
+      expect(
+        sheets.filter((sheet) => !ORDER.includes(sheet)),
+        pageModule,
+      ).toEqual([])
+      const order = sheets.map((sheet) => ORDER.indexOf(sheet))
+      expect(order, pageModule).toEqual([...order].sort((a, b) => a - b))
     }
   })
 
-  it('every service has its page module', () => {
-    const text = readFileSync(LINE_STYLES, 'utf8')
-    for (const { value } of SERVICE_KEYS) expect(text, value).toContain(`  ${value}: dynamic(`)
+  it('every sheet in the order list exists and some page links it', () => {
+    const linked = new Set(pageModules.flatMap(cssImports))
+    for (const sheet of ORDER) expect(linked.has(sheet), sheet).toBe(true)
+  })
+})
+
+// Review 09.11: the scenes moved without their keyframes. Every animation a module's sheets use
+// has its keyframes in the same module, in the frame or in the shared styles.
+const keyframesOf = (file: string) =>
+  [...readFileSync(file, 'utf8').matchAll(/@keyframes\s+([\w-]+)/g)].map(([, name]) => name!)
+const NOT_NAMES =
+  /^(ease|ease-in|ease-out|ease-in-out|linear|step-start|step-end|alternate|alternate-reverse|normal|reverse|infinite|forwards|backwards|both|none|running|paused|var|cubic-bezier|steps)$/
+const animationsOf = (file: string) => {
+  const css = readFileSync(file, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '')
+  const names = new Set<string>()
+  for (const [, value] of css.matchAll(/animation(?:-name)?\s*:\s*([^;]+);/g))
+    for (const token of value!.replace(/\([^)]*\)/g, ' ').split(/[\s,]+/))
+      if (/^[a-z][\w-]*-[\w-]+$/i.test(token) && !NOT_NAMES.test(token)) names.add(token)
+  return names
+}
+
+describe('stylesheet keyframes', () => {
+  const shared = files(join(SRC, 'styles')).filter((file) => file.endsWith('.css'))
+  const frame = cssImports(join(STYLE, 'frame.tsx'))
+  const always = new Set([...shared, ...frame].flatMap(keyframesOf))
+
+  // The „Dla kogo” pages link the scenes without their motion (`sceny-ruch.css`): there the
+  // scenes have always stood still.
+  const STILL = new Map([[join(STYLE, 'obiekty.tsx'), join(LINE, 'sekcje', 'sceny.css')]])
+
+  it('every animation of a module has its keyframes where the module is linked', () => {
+    const missing = styleModules.flatMap((styleModule) => {
+      const sheets = cssImports(styleModule).filter((sheet) => STILL.get(styleModule) !== sheet)
+      const available = new Set([...always, ...sheets.flatMap(keyframesOf)])
+      return sheets.flatMap((sheet) =>
+        [...animationsOf(sheet)]
+          .filter((name) => !available.has(name))
+          .map((name) => `${basename(styleModule)} → ${basename(sheet)}: ${name}`),
+      )
+    })
+    expect(missing).toEqual([])
   })
 })

@@ -1,4 +1,4 @@
-// Stylesheets of the the planner /zaplanuj (InstPlanner), in the line's cascade order (`style.test.ts`).
+// Stylesheets of the planner, /zaplanuj (InstPlanner), in the order of `cascade.ts`.
 import '../sekcje/glowna/glowna-sekcje.css'
 import '../widzety/zaplanuj/zaplanuj.css'
 

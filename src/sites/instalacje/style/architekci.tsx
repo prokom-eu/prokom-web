@@ -1,4 +1,4 @@
-// Stylesheets of the „Dla architektów” (InstArchitects), in the line's cascade order (`style.test.ts`).
+// Stylesheets of „Dla architektów” (InstArchitects), in the order of `cascade.ts`.
 import '../widzety/architekci/architekci.css'
 import '../sekcje/glowna/glowna-sekcje.css'
 import '../widzety/firma/firma.css'

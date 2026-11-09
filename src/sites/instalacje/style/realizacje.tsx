@@ -1,4 +1,4 @@
-// Stylesheets of the /realizacje (InstRealizations), in the line's cascade order (`style.test.ts`).
+// Stylesheets of /realizacje (InstRealizations), in the order of `cascade.ts`.
 import '../sekcje/glowna/glowna-sekcje.css'
 import '../widzety/realizacje/realizacje.css'
 import '../widzety/firma/firma.css'

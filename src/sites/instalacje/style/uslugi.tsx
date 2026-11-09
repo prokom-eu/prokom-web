@@ -1,5 +1,6 @@
-// Stylesheets of the the offer /uslugi (InstOffer), in the line's cascade order (`style.test.ts`).
+// Stylesheets of the offer, /uslugi (InstOffer), in the order of `cascade.ts`.
 import '../sekcje/sceny.css'
+import '../sekcje/sceny-ruch.css'
 import '../widzety/oferta/oferta.css'
 import '../widzety/teletechnika/teletechnika.css'
 import '../widzety/monitoring/monitoring.css'

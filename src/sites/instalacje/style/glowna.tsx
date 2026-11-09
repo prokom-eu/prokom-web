@@ -1,7 +1,8 @@
-// Stylesheets of the home page (InstHome), in the line's cascade order (`style.test.ts`).
+// Stylesheets of the home page (InstHome), in the order of `cascade.ts`.
 import '../widzety/architekci/architekci.css'
 import '../widzety/glowna/glowna.css'
 import '../sekcje/sceny.css'
+import '../sekcje/sceny-ruch.css'
 import '../sekcje/glowna/glowna-sekcje.css'
 import '../sekcje/glowna/podhale-proces.css'
 import '../widzety/zaplanuj/zaplanuj.css'

@@ -1,9 +1,10 @@
 /*
  * Scenes of the service cards (`SERVICE_SCENES`, `.sx*`, colours from `--sx-*` under
- * `[data-inst-sx]`) — runda v6 §1.7.1: their own sheet, linked by the home and service blocks and by
- * the „Dla kogo” pages (`style/blocks.tsx`, `style/obiekty.tsx`). Without it the related cards of
- * the object pages drew black rectangles (an SVG with no fill rule). Moved 1:1 from
- * `glowna-sekcje.css`; the keyframes stay there, so outside the home blocks the scenes stand still.
+ * `[data-inst-sx]`) — runda v6 §1.7.1: their own sheet, linked by the home and service page modules
+ * and by the „Dla kogo” pages (`style/*.tsx`). Without it the related cards of the object pages drew
+ * black rectangles (an SVG with no fill rule). Moved 1:1 from `glowna-sekcje.css`; the keyframes
+ * live in `sceny-ruch.css` (not linked on the „Dla kogo” pages), and the related cards stop their
+ * scenes anyway (`.relsc`, `sekcje.css`) — the scenes move on the home page.
  */
 [data-line='instalacje'] {
   & .sxsky {

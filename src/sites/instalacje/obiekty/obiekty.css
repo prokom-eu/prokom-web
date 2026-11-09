@@ -1187,17 +1187,6 @@
   }
 }
 
-@keyframes inst-fadein {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 @keyframes inst-conef {
   0%,
   100% {

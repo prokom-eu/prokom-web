@@ -1,5 +1,6 @@
-// Stylesheets of the service page: antennas, in the line's cascade order (`style.test.ts`).
+// Stylesheets of the service page: antennas, in the order of `cascade.ts`.
 import '../sekcje/sceny.css'
+import '../sekcje/sceny-ruch.css'
 import '../widzety/serwis/serwis.css'
 import '../widzety/firma/firma.css'
 import '../widzety/anteny/anteny.css'
