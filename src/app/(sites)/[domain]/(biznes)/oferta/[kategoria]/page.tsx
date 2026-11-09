@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { fitTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { categoryHref } from '@/lib/catalog/category'
@@ -30,7 +31,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, category } = await load(params)
   if (!category) return {}
   const settings = await getSiteSettings(tenant.id)
-  const title = category.seo.title ?? category.name
+  // 30–60 characters with the site's suffix (audit 0611 P1-8): „Laptopy dla firm — Rabka-Zdrój”.
+  const title = fitTitle(category.seo.title ?? category.name, 'dla firm — Rabka-Zdrój')
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = category.seo.description ?? category.lead
   const description = descriptionSource ? biznesDescription(descriptionSource) : undefined

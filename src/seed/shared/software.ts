@@ -97,7 +97,7 @@ export const SOFTWARE_SHARED: SharedGroup = {
       },
     ],
     topics: ['Strona', 'System lub panel', 'Aplikacja', 'Opieka', 'Audyt'],
-    formTitle: 'Opisz, co chcesz usprawnić',
+    formTitle: 'Opisz, co chcesz **usprawnić**',
     placeholder:
       'Opisz krótko, po swojemu — np. mamy grafik ekip w Excelu, chcemy aplikację na telefon.',
     sendLabel: 'Wyślij zgłoszenie →',
@@ -119,7 +119,7 @@ export const SOFTWARE_SHARED: SharedGroup = {
         text: 'Płacisz dopiero po podpisaniu umowy: 30% zaliczki, reszta po odbiorze albo po etapach.',
       },
     ],
-    mapTitle: 'Kod nie zna granic. Kawa jest w Rabce.',
+    mapTitle: 'Kod nie zna granic. **Kawa jest w Rabce.**',
     mapLead:
       'Projekty prowadzimy zdalnie w całej Polsce — rozmowy, podglądy i odbiór przez przeglądarkę. Na Podhalu i w Małopolsce chętnie przyjedziemy do Ciebie.',
     salonKeys: ['rabka'],

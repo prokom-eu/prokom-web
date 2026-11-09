@@ -79,12 +79,15 @@ export function BrandBar({
         })}
       </nav>
       {/* A named region: the right half is a landmark like the line switch (audit 08.11 §2 pkt 7). */}
-      <section aria-label="Godziny otwarcia i kontakt" className="flex items-center gap-5">
+      <section
+        aria-label="Godziny otwarcia i kontakt"
+        className="flex items-center gap-5 self-stretch"
+      >
         <OpeningStatus hours={hours} holidays={holidays} now={now} />
         {slot?.label && slot.href && (
           <a
             href={slot.href}
-            className="flex items-center gap-[5px] rounded-md font-bold text-nav-active-ink hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nav-active-ink"
+            className="flex items-center gap-[5px] self-stretch rounded-md font-bold text-nav-active-ink hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nav-active-ink"
           >
             {slot.label}
             <Icon name="arrow" strokeWidth={2.4} className="size-[15px]" />
@@ -93,10 +96,12 @@ export function BrandBar({
         {phone && tel && (
           <a
             href={tel}
-            className="rounded-md hover:text-nav-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nav-active-ink"
+            className="flex items-center self-stretch rounded-md hover:text-nav-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nav-active-ink"
           >
-            {phoneLabel && <>{phoneLabel} </>}
-            <b className="font-extrabold text-nav-ink">{phone}</b>
+            <span>
+              {phoneLabel && <>{phoneLabel} </>}
+              <b className="font-extrabold text-nav-ink">{phone}</b>
+            </span>
           </a>
         )}
       </section>

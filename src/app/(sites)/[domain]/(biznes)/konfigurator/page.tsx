@@ -35,9 +35,9 @@ type Props = {
 }
 
 export const metadata: Metadata = {
-  title: 'Konfigurator — dobierz rozwiązanie dla firmy',
+  title: 'Konfigurator — dobierz rozwiązanie',
   description:
-    'Trzy krótkie pytania o Twoją firmę i wynik: kasa, terminal, program, komputery i sieć dobrane z uzasadnieniem. Bez rejestracji — do zapytania trafia tylko to, co wybierzesz.',
+    'Trzy pytania o Twoją firmę i wynik: kasa, terminal, program, komputery i sieć z uzasadnieniem. Bez rejestracji, do zapytania tylko to, co wybierzesz.',
   alternates: { canonical: CONFIGURATOR_PATH },
 }
 

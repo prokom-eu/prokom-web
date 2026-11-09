@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { splitBold } from './emphasis'
+import { splitBold, stripBold } from './emphasis'
 
 describe('splitBold', () => {
   it('returns plain text as one part', () => {
@@ -25,5 +25,12 @@ describe('splitBold', () => {
 
   it('leaves an unclosed ** as text', () => {
     expect(splitBold('5 ** 3 i dalej')).toEqual([{ text: '5 ** 3 i dalej', bold: false }])
+  })
+})
+
+describe('stripBold', () => {
+  it('drops the ** marks and keeps the words', () => {
+    expect(stripBold('W cenie **każdego projektu**')).toBe('W cenie każdego projektu')
+    expect(stripBold('Kontakt')).toBe('Kontakt')
   })
 })

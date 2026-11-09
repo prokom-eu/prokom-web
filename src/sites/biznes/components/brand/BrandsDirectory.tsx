@@ -297,7 +297,7 @@ function BrandCard({ tile }: { tile: BrandTile }) {
             <ProductStage key={photo.url} as="span" className="aspect-square rounded-xl">
               <Image
                 src={photo.url}
-                alt=""
+                alt={photo.alt}
                 width={photo.width}
                 height={photo.height}
                 unoptimized

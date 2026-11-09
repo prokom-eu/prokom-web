@@ -19,13 +19,13 @@ import {
 import type { CatalogIndex, IndexSubcategory } from '@/lib/catalog/catalogIndex'
 import { CATALOG_PATH } from '@/lib/catalog/filters'
 import { categorySupplyBand, EMPTY_SUPPLY_LINKS } from '@/lib/biznes/procurement/links'
-import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
+import { productHref } from '@/lib/catalog/card'
+import { breadcrumbJsonLd, itemListJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { getSiteSettings } from '@/lib/site/data'
 
 import type { Crumb } from '../Breadcrumbs'
 import { CatalogContactPanel } from '../catalog/CatalogContactPanel'
 import { FaqBiznes } from '../home/FaqBiznes'
-import { HowInquiryWorks } from '../HowInquiryWorks'
 import { CategoryGrid } from './CategoryGrid'
 import { CategoryHero, type CategoryChip } from './CategoryHero'
 import { BoughtWith, CategoryFacts, IncludedCards } from './CategorySections'
@@ -89,6 +89,14 @@ export async function CategoryPageView({
   const breadcrumbs = breadcrumbJsonLd(
     crumbs.map(({ name, href }) => ({ name, url: origin + href })),
   )
+  // ItemList of the listed cards (audit 0611 P1-9, K33 §8 pkt 5): names and addresses, no prices.
+  const itemList = itemListJsonLd({
+    name: subcategory?.name ?? category.name,
+    items: products.map((product) => ({
+      name: product.name,
+      url: origin + productHref(product.slug),
+    })),
+  })
 
   // The client island gets only these products, not the whole catalog.
   const bySeries = seriesFilter(true, products).length > 0
@@ -133,7 +141,9 @@ export async function CategoryPageView({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbs) }}
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd(products.length > 0 ? [breadcrumbs, itemList] : breadcrumbs),
+        }}
       />
       <CategoryHero
         title={hero.title}
@@ -183,8 +193,8 @@ export async function CategoryPageView({
           }}
         />
       )}
-      <HowInquiryWorks callbackTime={callback} />
-      {/* `#kontakt` (the grid's help card links here) wraps the form and the phone card. */}
+      {/* `#kontakt` (the grid's help card links here): one help block — the form with the
+          inquiry steps as its heading (audit 0611 P1-2), on a phone the steps and the card. */}
       <div id="kontakt" className="scroll-mt-24">
         <CatalogContactPanel
           tenantId={tenantId}
@@ -193,6 +203,7 @@ export async function CategoryPageView({
           lead={category.contact.lead}
           callbackTime={callback}
           topic={category.name}
+          withSteps
         />
         <NotListedCard />
       </div>

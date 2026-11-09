@@ -278,7 +278,17 @@ export type GuideData = {
 }
 
 /** The card the side panel shows. */
-export type CategoryGuide = { title: string; text: string; button: string; href: string }
+export type CategoryGuide = {
+  title: string
+  text: string
+  button: string
+  href: string
+  /**
+   * A real picker (the salon's „Dobierz…”, a card from the panel): shown as the side card. The
+   * default „Zapytaj o dobór” only repeats the help block under the grid (audit 0611 P1-2).
+   */
+  picker: boolean
+}
 
 /** Address of the vending page (K4j); its button needs the page published. */
 export const VENDING_PATH = '/automaty-vendingowe'
@@ -315,6 +325,7 @@ export function categoryGuide({
       text: 'Odpowiedz na 3 pytania w salonie marki, a podpowiemy serię.',
       button: slug === 'komputery' ? 'Dobierz komputer' : 'Dobierz laptop',
       href: showroomHref,
+      picker: true,
     }
   }
   // The first card that can be shown: a vending button needs the vending page.
@@ -328,6 +339,7 @@ export function categoryGuide({
       text: text(own.text) ?? '',
       button: text(own.button)!,
       href: own.action === 'vending' ? VENDING_PATH : choiceInquiryHref(name),
+      picker: true,
     }
   }
   return {
@@ -335,12 +347,8 @@ export function categoryGuide({
     text: 'Napisz, do czego potrzebujesz, a dobierzemy model i przygotujemy ofertę.',
     button: 'Zapytaj o dobór',
     href: choiceInquiryHref(name),
+    picker: false,
   }
-}
-
-/** Columns the „Nie wiesz, którą wybrać?” card takes: the rest of the last row, or a full row. */
-export function helpCardSpan(count: number, columns: number): number {
-  return columns - (count % columns)
 }
 
 /** Tiles of the main categories of the related products: each once, not this category. */

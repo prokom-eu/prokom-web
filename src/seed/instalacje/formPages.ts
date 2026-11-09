@@ -135,7 +135,8 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
       crumb: 'Poradnik',
       eyebrow: 'Poradnik · technika i praktyka',
       h1a: 'Poradnik:',
-      h1b: 'monitoring, Wi-Fi i instalacje w obiektach na Podhalu.',
+      // Audit 09.11: a heading without a full stop (runda v6 §2.2).
+      h1b: 'monitoring, Wi-Fi i instalacje w obiektach na Podhalu',
       lead: 'Odpowiedzi, zanim zadasz pytanie. Krótkie poradniki dla właścicieli domów, pensjonatów i firm. Piszemy tak, jak tłumaczymy klientom na wizji lokalnej.',
     },
     cta: {

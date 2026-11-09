@@ -208,7 +208,7 @@
 }
 /* The window's own scrollbar (odbiór SWA7): a slim thumb on a clear track, kept between the
    glass top and bottom and away from the rounded corners. */
-@media (min-width: 641px) {
+@media (min-width: 768px) {
   [data-line='software'] .sw-offer-panel::-webkit-scrollbar {
     width: 12px;
   }
@@ -233,7 +233,7 @@
 
 /* Glass top and bottom (AUDYT-0811 #5): the details scroll under them, blurred. The phone's sheet
    stays as it was. */
-@media (min-width: 641px) {
+@media (min-width: 768px) {
   .sw-offer-panel [data-sheet-top] {
     background: transparent;
     box-shadow: none;
@@ -244,26 +244,271 @@
   background: color-mix(in srgb, var(--surface) 88%, transparent);
   backdrop-filter: blur(18px) saturate(1.5);
 }
-/* „Co dalej” under the mock-up (AUDYT po SWA7 #7): quote, payment, ownership. */
+/* The decision window (OKNO-OFERTY-PREMIUM §2): the mock-up first on the phone; from 981 px two
+   columns with the mock-up stuck on the right, 58 % wide from 1280 px. */
+.sw-offer-grid {
+  display: grid;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 980px) {
+  .sw-offer-aside {
+    order: -1;
+  }
+}
+@media (min-width: 981px) {
+  .sw-offer-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+  }
+  .sw-offer-aside {
+    position: sticky;
+    top: 88px;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .sw-offer-main {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+@media (min-width: 1280px) {
+  .sw-offer-grid {
+    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+  }
+}
+/* The big mock-up keeps the window's proportions and never pushes its views below the bar. */
+.sw-offer-aside .sw-offer-shot {
+  height: auto;
+  aspect-ratio: 16 / 10;
+  max-height: calc(min(920px, 100dvh - 40px) - 260px);
+  width: 100%;
+}
+@media (max-width: 980px) {
+  .sw-offer-aside .sw-offer-shot {
+    max-height: min(400px, 60vw);
+  }
+}
+
+/* The price as the hero (§2.1 A). */
+.sw-offer-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
+  color: var(--ink);
+}
+.sw-offer-price-big {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 4.2vw, 56px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.sw-offer-price-text {
+  font-size: clamp(28px, 2.6vw, 36px);
+  color: var(--accent-text);
+}
+.sw-offer-price-small {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.sw-offer-price::after {
+  /* A row of its own; the 140 px line is its background. */
+  content: '';
+  flex-basis: 100%;
+  height: 2px;
+  margin-top: 12px;
+  background: linear-gradient(90deg, var(--em-from), var(--em-to)) left / 140px 100% no-repeat;
+}
+.sw-offer-fact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  font-size: 15px;
+}
+.sw-offer-fact dt {
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.sw-offer-fact dd {
+  font-weight: 800;
+  color: var(--ink);
+}
 .sw-offer-next {
+  margin-top: 18px;
+}
+
+/* One layer instead of boxes (§2.3 B): blocks and parts apart by space and a thin line. */
+.sw-offer-block {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 14px 18px;
-  border: 1px solid var(--accent-line);
-  border-radius: 18px;
+  gap: 28px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 96px;
+}
+.sw-offer-part + .sw-offer-part,
+.sw-offer-block > * + .sw-offer-part {
+  padding-top: 24px;
+  border-top: 1px dashed var(--border);
+}
+.sw-offer-quote {
+  padding: 16px 18px 16px 20px;
+  border-left: 3px solid var(--accent);
+  border-radius: 4px 18px 18px 4px;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+.sw-offer-step > div + p {
+  margin-top: 10px;
+}
+
+/* Dots of the category's offers (§2.1 H): the current one glows, the name in a tip. */
+.sw-offer-dots {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+@media (min-width: 768px) {
+  .sw-offer-dots {
+    display: flex;
+  }
+}
+.sw-offer-dot {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 44px;
+}
+.sw-offer-dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 28%, transparent);
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    scale var(--dur-hover) var(--ease-out);
+}
+.sw-offer-dot:hover::before {
+  background: var(--accent-text);
+}
+.sw-offer-dot[aria-current='true']::before {
+  scale: 1.25;
+  background: var(--accent);
+  box-shadow: 0 0 10px 1px var(--glow);
+}
+.sw-offer-dot::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 50%;
+  z-index: 20;
+  translate: -50% 4px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 12px 30px -16px var(--glow);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--dur-hover) var(--ease-out),
+    translate var(--dur-hover) var(--ease-out);
+}
+.sw-offer-dot:is(:hover, :focus-visible)::after {
+  translate: -50% 0;
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sw-offer-dot::before,
+  .sw-offer-dot::after {
+    transition: none;
+  }
+}
+
+/* Tabs of the sections, lit while scrolling (§2.1) — the rail's sliding pill. */
+.sw-offer-tabs {
+  position: relative;
+  isolation: isolate;
+  display: none;
+  align-items: center;
+  gap: 2px;
+  margin-inline: auto;
+}
+@media (min-width: 1100px) {
+  .sw-offer-tabs {
+    display: flex;
+  }
+}
+.sw-offer-tabs > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 14px;
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.sw-offer-tabs > a:hover,
+.sw-offer-tabs > a[aria-current='location'] {
+  color: var(--ink);
+}
+.sw-offer-tabs:not([data-has-mark]) > a[aria-current='location'] {
   background: var(--accent-soft);
+}
+
+/* „← → oferty · Esc zamknij” once per session (§2.1). */
+.sw-offer-hint {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity var(--dur-state) var(--ease-out);
+}
+@media (min-width: 1280px) {
+  .sw-offer-hint {
+    display: flex;
+  }
+}
+.sw-offer-hint.is-on {
+  opacity: 1;
+}
+.sw-offer-hint kbd {
+  min-width: 22px;
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-2);
+  font-family: inherit;
+  text-align: center;
 }
 @media (prefers-reduced-motion: no-preference) {
   /* The next offer: the details fade in, the mock-up comes up 12 px. */
   .sw-offer-swap {
     animation: sw-offer-swap var(--dur-sheet) var(--ease-out) both;
   }
-  .sw-offer-swap > aside > :first-child {
+  .sw-offer-swap > .sw-offer-aside > :first-child {
     animation: sw-offer-mock 450ms var(--ease-spring) both;
   }
   /* The window comes in from a blur on a spring (450 ms) and leaves quicker (200 ms). */
-  @media (min-width: 641px) {
+  @media (min-width: 768px) {
     [data-line='software'] dialog.sw-offer-panel[data-motion] {
       transition:
         translate 450ms var(--ease-spring),

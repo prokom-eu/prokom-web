@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { fitTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { MediaImage } from '@/components/MediaImage'
@@ -51,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, industry } = await load(params)
   if (!industry) return {}
   const settings = await getSiteSettings(tenant.id)
-  const title = industry.seo.title ?? industry.name
+  const title = fitTitle(industry.seo.title ?? industry.name, 'dla firm — Rabka-Zdrój')
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = industry.seo.description ?? industry.lead
   const description = descriptionSource ? biznesDescription(descriptionSource) : undefined

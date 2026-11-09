@@ -43,7 +43,7 @@ export const FIELD_CREW_PAGE = {
       text: 'Ile godzin tygodniowo odzyskasz, policzymy razem na Twoich zleceniach. Nie obiecujemy procentów z internetu.',
     },
   ],
-  deliverablesTitle: 'W cenie wdrożenia',
+  deliverablesTitle: 'W cenie **wdrożenia**',
   choice: {
     title: 'Z przeglądarki czy ze sklepu?',
     note: 'Doradzimy, nie dosprzedamy: dla ekip w terenie zwykle wystarczy wersja z przeglądarki.',

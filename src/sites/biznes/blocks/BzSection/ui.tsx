@@ -175,7 +175,7 @@ export function SourceLine({ block, className }: { block: BzSectionData; classNa
           href={block.sourceUrl}
           rel="noopener"
           target="_blank"
-          className="underline-offset-2 hover:underline"
+          className="inline-flex min-h-6 items-center underline-offset-2 hover:underline"
         >
           {block.source}
           <span className="sr-only"> (otwiera się w nowej karcie)</span>

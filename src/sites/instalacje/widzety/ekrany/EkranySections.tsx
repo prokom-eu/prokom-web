@@ -147,9 +147,9 @@ export function EkranySections() {
 
       <InstSection id="zewnatrz" fold style={SECTION}>
         <div className="wrap">
-          <div className="card dark ri tlaw scr-out" data-surface="dark">
+          <div className="card dark card-split ri scr-out" data-surface="dark">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <span className="eye tlaweye">{outdoor.eyebrow}</span>
+              <span className="eye">{outdoor.eyebrow}</span>
               <h2 className="h2" style={{ fontSize: 'clamp(28px, 3vw, 42px)' }}>
                 {outdoor.heading}
               </h2>
@@ -161,7 +161,7 @@ export function EkranySections() {
                   <InstIcon name={e.icon} size={20} />
                   <div>
                     <b style={{ display: 'block' }}>{e.title}</b>
-                    <span className="tlawtx">{e.text}</span>
+                    <span>{e.text}</span>
                   </div>
                 </div>
               ))}

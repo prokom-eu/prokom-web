@@ -14,7 +14,7 @@ import { AddressMap } from './AddressMap'
 import { type AuthLogo, CompanyCard } from './CompanyCard'
 import { Contours } from './Contours'
 import { FamilyStrip } from './FamilyStrip'
-import { HeadingText } from './HeadingText'
+import { AccentText, HeadingText } from './HeadingText'
 import { PageCrumbs, type Crumb } from './PageCrumbs'
 import { PAGE_CONTAINER as CONTAINER } from './pageContainer'
 import { RulesBento } from './RulesBento'
@@ -47,6 +47,9 @@ export type AboutPageProps = {
   authLogos?: readonly AuthLogo[]
   /** Top row of the company card (Software: „Wizytówka firmy” + logo, AUDYT-0811 #13). */
   cardHeading?: ReactNode
+  /** The line's class for the highlighted word of the section H2s (Software: `sw-em`, AUDYT-0911
+   * #1). Without it the H2s stay plain text. */
+  headingEmClass?: string
 }
 
 const H2 =
@@ -72,6 +75,7 @@ export function AboutPage({
   showVerify = true,
   authLogos,
   cardHeading,
+  headingEmClass,
 }: AboutPageProps) {
   const { company, lines } = shared
   const data = shared.line
@@ -176,7 +180,7 @@ export function AboutPage({
           data-rail-icon="star"
         >
           <h2 id="o-firmie-zasady" className={H2}>
-            Dlaczego PRO-KOM
+            <AccentText text="Dlaczego **PRO-KOM**" emClass={headingEmClass} />
           </h2>
           <RulesBento rules={about.rules} className="mt-8" />
         </section>
@@ -193,7 +197,7 @@ export function AboutPage({
           data-rail-icon="compass"
         >
           <h2 id="o-firmie-kroki" className={H2}>
-            Jak to wygląda krok po kroku
+            <AccentText text="Jak to wygląda **krok po kroku**" emClass={headingEmClass} />
           </h2>
           <Steps steps={about.steps} className="mt-8" />
         </section>
@@ -209,8 +213,12 @@ export function AboutPage({
         data-rail-icon="grid"
       >
         <h2 id="o-firmie-linie" className={H2}>
-          {lineCount} {plural(lineCount, ['linia', 'linie', 'linii'])}
-          {gaming ? ' i marka PRO-KOM Gaming' : ' PRO-KOM'}
+          <AccentText
+            text={`${lineCount} ${plural(lineCount, ['linia', 'linie', 'linii'])} ${
+              gaming ? 'i marka **PRO-KOM Gaming**' : '**PRO-KOM**'
+            }`}
+            emClass={headingEmClass}
+          />
         </h2>
         <FamilyStrip lines={lines} current={line} className="mt-8" />
       </section>
@@ -224,7 +232,7 @@ export function AboutPage({
           data-rail-icon="shield"
         >
           <h2 id="o-firmie-sprawdz" className={H2}>
-            Nie musisz wierzyć nam na słowo
+            <AccentText text="Nie musisz wierzyć **nam na słowo**" emClass={headingEmClass} />
           </h2>
           <VerifyCards items={about.verify} className="mt-8" />
         </section>
@@ -247,7 +255,11 @@ export function AboutPage({
                 id="o-firmie-wizyta"
                 className="font-display text-[clamp(28px,3vw,40px)] leading-tight font-extrabold text-line-dark-ink"
               >
-                Wpadnij do nas — {address.street}, {address.city}.
+                <AccentText
+                  text={`Wpadnij do nas — **${address.street}, ${address.city}.**`}
+                  emClass={headingEmClass}
+                  band
+                />
               </h2>
               {about.visitText && <p className="max-w-[48ch]">{about.visitText}</p>}
               <div className="mt-auto flex flex-wrap gap-3">

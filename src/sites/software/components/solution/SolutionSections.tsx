@@ -8,6 +8,7 @@ import type { SolutionPageView } from '@/lib/software/solutionPage'
 
 import { Mockup } from '../mockups/Mockup'
 import { OfferThumb } from '../offer/OfferThumb'
+import { EmText } from '../ui/EmText'
 import { PageHero } from '../ui/PageHero'
 import { AddToProject } from './AddToProject'
 
@@ -136,7 +137,7 @@ export function SolutionOffer({ page }: Page) {
                 id="co-dostajesz-h"
                 className="mt-2 font-display text-2xl font-extrabold min-[641px]:text-[28px]"
               >
-                {deliverables.title}
+                <EmText text={deliverables.title} />
               </h2>
             </div>
             <p className="rounded-2xl border border-accent-line bg-accent-soft px-4 py-2.5 text-right">
@@ -295,7 +296,7 @@ export function SolutionHowItWorks({ page }: Page) {
             id="jak-dziala-h"
             className="mt-2 font-display text-2xl font-extrabold min-[641px]:text-[28px]"
           >
-            Jak to wygląda
+            Jak to <em className="sw-em">wygląda</em>
           </h2>
           <ol className="mt-5 flex flex-col gap-2.5">
             {page.steps.map((step, i) => (
