@@ -100,6 +100,8 @@ export function CareAreas({
                 unoptimized
                 src={photo.image.url}
                 alt={photo.image.alt}
+                // The name is in the text next to it: the alt serves search engines only.
+                aria-hidden
                 width={photo.image.width}
                 height={photo.image.height}
                 className="max-h-full w-auto object-contain"
@@ -144,6 +146,8 @@ export function CareAreas({
                         unoptimized
                         src={product.image.url}
                         alt={product.image.alt}
+                        // The name is in the text next to it: the alt serves search engines only.
+                        aria-hidden
                         width={product.image.width}
                         height={product.image.height}
                         className="h-20 w-auto object-contain"

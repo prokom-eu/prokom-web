@@ -421,6 +421,8 @@ export function CategoryGrid({
                           <Image
                             src={option.image.url}
                             alt={option.image.alt}
+                            // The name is in the text next to it: the alt serves search engines only.
+                            aria-hidden
                             width={option.image.width}
                             height={option.image.height}
                             unoptimized

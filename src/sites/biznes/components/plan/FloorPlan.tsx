@@ -54,6 +54,8 @@ function Thumb({ product, size }: { product: PlanProduct; size: 'point' | 'list'
     <Image
       src={product.image.url}
       alt={product.image.alt}
+      // The name is in the text next to it: the alt serves search engines only.
+      aria-hidden
       width={product.image.width}
       height={product.image.height}
       unoptimized
