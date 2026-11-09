@@ -2610,12 +2610,12 @@
     font-size: 14.5px;
     line-height: 1.25;
   }
+  /* Wraps instead of an ellipsis: the cut spec value had no other place to be read (audit 09.11). */
   & .arnwk {
     font-size: 12px;
+    line-height: 1.35;
     color: var(--ink-2);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow-wrap: anywhere;
   }
   & .arnxd {
     position: sticky;
