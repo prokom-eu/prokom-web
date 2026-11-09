@@ -94,7 +94,7 @@ export const FIELD_CREW_PAGE = {
   ],
   contact: {
     eyebrow: 'Porozmawiajmy o Twoich ekipach',
-    title: 'Pokaż nam dzień ekipy, a wycenimy aplikację pod niego',
+    title: 'Pokaż nam **dzień ekipy**, a wycenimy aplikację pod niego',
     lead: 'Krótka rozmowa, potem podgląd, cena i plan etapów w 5–7 dni. Bez zobowiązań.',
     quoteCaption: 'Opisz ekipy i zlecenia, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
   },

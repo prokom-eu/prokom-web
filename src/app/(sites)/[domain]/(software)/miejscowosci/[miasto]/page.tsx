@@ -15,6 +15,7 @@ import { fillText } from '@/lib/software/facts'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { Buttons } from '@/sites/software/components/about/Buttons'
 import { FaqSection } from '@/sites/software/components/FaqSection'
+import { EmText } from '@/sites/software/components/ui/EmText'
 import { Glass } from '@/sites/software/components/ui/Glass'
 import { PageHero } from '@/sites/software/components/ui/PageHero'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
@@ -218,7 +219,9 @@ export default async function CityPage({ params }: Props) {
           <div className="v-wrap">
             <Glass featured className="sw-cta">
               <div className="max-w-[620px]">
-                <h2 className="sw-h2 sw-cta-title">{city.cta.title}</h2>
+                <h2 className="sw-h2 sw-cta-title">
+                  <EmText text={city.cta.title} />
+                </h2>
                 {city.cta.text ? (
                   <p className="mt-3 text-lg text-ink-2 min-[641px]:text-xl">{city.cta.text}</p>
                 ) : null}

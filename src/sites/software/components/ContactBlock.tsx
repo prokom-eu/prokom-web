@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import type { IconName } from '@/lib/catalog/options'
+import { EmText } from '@/sites/software/components/ui/EmText'
 
 import { WandIcon } from './FrameIcons'
 
@@ -49,7 +50,9 @@ export function ContactBlock({ eyebrow, title, lead, quoteCaption, phone }: Prop
               id="kontakt-tytul"
               className="mt-2 font-display text-3xl font-extrabold leading-tight sm:text-4xl"
             >
-              {title || 'Powiedz, co chcesz usprawnić, a resztę dobierzemy razem'}
+              <EmText
+                text={title || 'Powiedz, co chcesz **usprawnić**, a resztę dobierzemy razem'}
+              />
             </h2>
             {lead && <p className="mt-3 text-lg text-ink-2">{lead}</p>}
           </div>

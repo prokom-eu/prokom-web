@@ -32,7 +32,7 @@ export const INDUSTRY_PAGE_TEXTS = {
       },
       contact: {
         eyebrow: 'Porozmawiajmy o Twojej firmie',
-        title: 'Pokaż, jak dziś pracują Twoje ekipy',
+        title: 'Pokaż, jak dziś pracują **Twoje ekipy**',
         lead: '30 minut rozmowy u Ciebie, w salonie w Rabce albo online. Potem szkic do klikania i wycena, bez zobowiązań.',
         points: [
           'Odpowiadamy w ciągu [CZAS ODPOWIEDZI]',
