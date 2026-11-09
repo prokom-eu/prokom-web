@@ -9,32 +9,38 @@ import { track } from '@/lib/analytics/track'
 import { stripBold } from '@/lib/site/emphasis'
 import type { OfferView } from '@/lib/software/offer'
 import { MAX_PROJECT_ITEMS, PROJECT_SEND_HREF } from '@/lib/software/project'
+import { heroHead } from '@/lib/software/heroPrice'
 import { projectActions, useProject } from '@/lib/software/projectStore'
 
+import { OfferGallery } from './OfferGallery'
+import { CategoryDots, SectionTabs, ShortcutHint, type TabItem } from './OfferNav'
 import {
   AskCard,
+  CheckDot,
   CheckList,
   CompareTable,
-  Fact,
+  ExampleQuote,
+  type HeroPrice,
   IncludedChips,
   LevelChoice,
   LiveBadge,
   OfferBadge,
   OfferSection,
+  PriceHero,
   Questions,
   RelatedCards,
   Steps,
 } from './OfferParts'
-import { OfferGallery } from './OfferGallery'
 
 /**
- * Phone ≤ 640 px: a sheet from the bottom; above: a wide glass modal in the middle (ZMIANY-v24
- * §6.1, AUDYT-0811 #5, odbiór 08.11: up to 1480 × 920, radius 28, the page dimmed and blurred behind).
+ * Phone ≤ 767 px (OKNO-OFERTY-PREMIUM §2.6): a sheet from the bottom; above: a wide glass modal
+ * in the middle (ZMIANY-v24 §6.1, AUDYT-0811 #5, odbiór 08.11: up to 1480 × 920, radius 28, the
+ * page dimmed and blurred behind).
  */
 const PANEL =
-  'sw-offer-panel inset-0 m-auto h-[min(920px,calc(100dvh-40px))] max-h-none w-[min(1480px,calc(100vw-48px))] max-w-none rounded-[28px] min-[641px]:[&_[data-sheet-handle]]:hidden max-[640px]:inset-x-0 max-[640px]:bottom-0 max-[640px]:top-auto max-[640px]:h-auto max-[640px]:max-h-[94dvh] max-[640px]:w-full max-[640px]:rounded-b-none'
+  'sw-offer-panel inset-0 m-auto h-[min(920px,calc(100dvh-40px))] max-h-none w-[min(1480px,calc(100vw-48px))] max-w-none rounded-[28px] min-[768px]:[&_[data-sheet-handle]]:hidden max-[767px]:inset-x-0 max-[767px]:bottom-0 max-[767px]:top-auto max-[767px]:h-auto max-[767px]:max-h-[94dvh] max-[767px]:w-full max-[767px]:rounded-b-none'
 const BACKDROP = 'backdrop:bg-surface-dark/70 backdrop:backdrop-blur-md'
-const CONTENT = 'px-4 pb-6 pt-2.5 min-[641px]:px-7 min-[641px]:pt-0'
+const CONTENT = 'px-4 pb-6 pt-2.5 min-[768px]:px-7 min-[768px]:pt-0'
 
 type Props = {
   /** Windows of the tenant's published solutions by slug (`getOfferViews`). */
@@ -71,10 +77,11 @@ function Chevron({ back = false }: { back?: boolean }) {
 }
 
 /**
- * The offer window (v24 look, ZMIANY-v24 §6.1) — one component for the catalog, the price page
- * and the industry page. On the shared `BottomSheet`: native modal `<dialog>` (focus stays inside, Esc,
- * focus back on the card), a tap on the backdrop, a pull down on the phone. ←/→ move along
- * `list`; „+ Dodaj do wyceny” turns into „Wyślij do wyceny →”, which takes the focus.
+ * The offer window (v24 look, OKNO-OFERTY-PREMIUM „okno decyzji”) — one component for the
+ * catalog, the price page and the industry page. On the shared `BottomSheet`: native modal
+ * `<dialog>` (focus stays inside, Esc, focus back on the card), a tap on the backdrop, a pull down
+ * on the phone. ←/→ and the category dots move along `list`; the tabs scroll to the sections;
+ * „+ Do wyceny” turns into „✓ W wycenie · Wyślij →”, which takes the focus.
  */
 export function SolutionDialog({
   views,
@@ -108,15 +115,18 @@ export function SolutionDialog({
   const position = view ? list.indexOf(view.slug) : -1
   const added = view ? project.some((item) => item.id === view.slug) : false
 
+  const go = (next: string) => {
+    current.current = next
+    onSwitch(next)
+  }
+
   const step = (direction: 1 | -1) => {
     if (list.length < 2) return
     const from = current.current ? list.indexOf(current.current) : -1
     // Outside the list (opened from „Dobrze łączy się z”): → starts at the first, ← at the last.
     const index = from < 0 ? (direction === 1 ? 0 : list.length - 1) : from + direction
     const next = list[(index + list.length) % list.length]
-    if (!next) return
-    current.current = next
-    onSwitch(next)
+    if (next) go(next)
   }
 
   // A new solution starts at the top (its default level: `pick` is per slug).
@@ -195,10 +205,32 @@ export function SolutionDialog({
     if (adding) track('oferta_dodaj', { slug: view.slug })
   }
 
+  // The window's sections, for the tabs in the header (§2.1) — only those this offer has.
+  const hasScope =
+    (price.kind === 'included' && (price.items.length > 0 || Boolean(price.more))) ||
+    (price.kind === 'ask' && Boolean(price.text || price.note)) ||
+    levels !== null ||
+    view.benefits.items.length > 0 ||
+    Boolean(view.example)
+  const hasHow = steps.length > 0 || view.needs.length > 0
+  const hasWho = Boolean(view.forWhom) || view.situations.length > 0
+  const tabs: TabItem[] = [
+    ...(hasScope ? [{ id: 'oferta-zakres', label: 'Zakres' }] : []),
+    ...(hasHow ? [{ id: 'oferta-jak', label: 'Jak to wygląda' }] : []),
+    ...(hasWho ? [{ id: 'oferta-dla-kogo', label: 'Dla kogo' }] : []),
+    { id: 'oferta-pytania', label: 'Pytania' },
+  ]
+
+  // Dots of the offers of this category in the window's list (§2.1 H).
+  const dots = list.flatMap((item) => {
+    const other = views[item]
+    return other && other.category === view.category ? [{ slug: item, name: other.name }] : []
+  })
+
   const header = (
-    <div className="sw-offer-head -mx-4 flex items-center gap-3 border-b border-border px-4 py-3 min-[641px]:-mx-7 min-[641px]:px-7">
+    <div className="sw-offer-head -mx-4 flex items-center gap-3 border-b border-border px-4 py-3 min-[768px]:-mx-7 min-[768px]:px-7">
       {list.length > 1 && (
-        <div className="flex items-center rounded-full border border-border bg-surface-2 p-1">
+        <div className="flex shrink-0 items-center rounded-full border border-border bg-surface-2 p-1">
           <button
             type="button"
             onClick={() => step(-1)}
@@ -222,7 +254,13 @@ export function SolutionDialog({
           </button>
         </div>
       )}
-      <p className="sw-eyebrow hidden min-[641px]:block">Oferta · {view.categoryName}</p>
+      {dots.length > 1 ? (
+        <CategoryDots items={dots} current={view.slug} label={view.categoryName} onPick={go} />
+      ) : (
+        <p className="sw-eyebrow hidden min-[768px]:block">Oferta · {view.categoryName}</p>
+      )}
+      <SectionTabs items={tabs} resetKey={view.slug} />
+      <ShortcutHint />
       <button
         type="button"
         onClick={() => onClose()}
@@ -234,126 +272,82 @@ export function SolutionDialog({
     </div>
   )
 
+  // The bar (§2.4 G): the price and the state on the left; „+ Do wyceny” (turns into
+  // „✓ W wycenie · Wyślij →” and takes the focus), then the main step „Zapytaj o tę ofertę →”.
   const footer = (
-    <div className="flex flex-wrap items-center gap-3 min-[641px]:px-3">
+    <div className="flex items-center gap-3 min-[768px]:px-3">
       <p className="min-w-0 flex-1" aria-live="polite">
-        <span className="block text-xs font-bold text-ink-2">
-          {added ? `✓ W wycenie · ${bar.label}` : bar.label}
+        <span className="block truncate text-xs font-bold text-ink-2">
+          {fullFor === view.slug && !added
+            ? `Twój projekt ma już ${MAX_PROJECT_ITEMS} pozycji — usuń którąś, żeby dodać tę.`
+            : added
+              ? `✓ W wycenie · ${bar.label}`
+              : bar.label}
         </span>
         <span className="block font-display text-xl font-extrabold text-accent-text">
           {bar.price}
         </span>
       </p>
-      <Link
-        href="/dobierz"
-        className="hidden min-h-12 items-center rounded-full border border-border bg-card px-5 font-bold min-[641px]:inline-flex"
-      >
-        Dobierz w kreatorze
-      </Link>
-      {!added && (
-        // „Zapytaj o tę ofertę →” (ZMIANY-v24 §6.1): the solution goes into „Twój projekt”, so the
-        // contact form opens with it (the form reads only `?projekt=1`).
-        <Link
-          href={PROJECT_SEND_HREF}
-          onClick={() => {
-            if (projectActions.toggle(view.slug, projectName)) {
-              track('oferta_dodaj', { slug: view.slug })
-            }
-          }}
-          className="inline-flex min-h-12 items-center gap-2 rounded-full border border-border bg-card px-5 font-bold"
-        >
-          Zapytaj o tę ofertę <span aria-hidden="true">→</span>
-        </Link>
-      )}
       {added ? (
         <Link
           ref={send}
           href={PROJECT_SEND_HREF}
-          data-motion="button"
-          className="inline-flex min-h-12 items-center gap-2 rounded-full bg-button px-5 font-bold text-accent-ink"
+          data-motion="button-outline"
+          className="inline-flex min-h-12 min-w-12 items-center justify-center gap-2 rounded-full border border-accent-line px-4 font-bold text-accent-text min-[768px]:px-5"
         >
-          Wyślij do wyceny
-          <Icon name="arrow" strokeWidth={2.4} className="size-4" />
+          <span aria-hidden="true">
+            ✓<span className="max-[767px]:hidden"> W wycenie · Wyślij</span>
+          </span>
+          <span className="sr-only">W wycenie · Wyślij do wyceny</span>
+          <Icon name="arrow" strokeWidth={2.4} className="size-4 max-[767px]:hidden" />
         </Link>
       ) : (
         <button
           type="button"
           onClick={add}
-          data-motion="button"
-          className="inline-flex min-h-12 items-center rounded-full bg-button px-5 font-bold text-accent-ink"
+          data-motion="button-outline"
+          className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-full border border-border px-4 font-bold min-[768px]:px-5"
         >
-          <span aria-hidden="true">+ Dodaj do wyceny</span>
+          <span aria-hidden="true">
+            +<span className="max-[767px]:hidden"> Do wyceny</span>
+          </span>
           <span className="sr-only">Dodaj do wyceny: {projectName}</span>
         </button>
       )}
-      {fullFor === view.slug && !added && (
-        <p role="status" className="w-full text-xs font-bold text-ink-2">
-          Twój projekt ma już {MAX_PROJECT_ITEMS} pozycji — usuń którąś, żeby dodać tę.
-        </p>
-      )}
+      {/* „Zapytaj o tę ofertę →” (ZMIANY-v24 §6.1): the solution goes into „Twój projekt”, so the
+          contact form opens with it (the form reads only `?projekt=1`). */}
+      <Link
+        href={PROJECT_SEND_HREF}
+        aria-label="Zapytaj o tę ofertę"
+        onClick={() => {
+          if (!added && projectActions.toggle(view.slug, projectName)) {
+            track('oferta_dodaj', { slug: view.slug })
+          }
+        }}
+        data-motion="button"
+        className="inline-flex min-h-12 items-center gap-2 rounded-full bg-button px-5 font-bold text-accent-ink"
+      >
+        <span className="max-[767px]:hidden">Zapytaj o tę ofertę</span>
+        <span className="min-[768px]:hidden">Zapytaj</span>
+        <Icon name="arrow" strokeWidth={2.4} className="size-4" />
+      </Link>
     </div>
   )
 
-  // Three tiles (ZMIANY-v24 §6.1): price „od”, term, care „od”.
-  const priceValue = level
-    ? level.price
+  const heroPrice: HeroPrice | null = level
+    ? {
+        kind: 'amount',
+        before: '',
+        amount: level.amount,
+        // A free level („0 zł”) has no „/ mies.”.
+        after: level.price === level.amount ? '' : level.suffix,
+      }
     : price.kind === 'included'
-      ? [price.head.before, price.head.amount, price.head.after].filter(Boolean).join(' ')
+      ? { kind: 'amount', ...heroHead(price.head) }
       : price.kind === 'ask'
-        ? price.title
+        ? { kind: 'text', text: price.title }
         : null
   const termValue = level ? level.term : view.term
-  const facts = (
-    <dl className="mt-5 grid grid-cols-2 gap-2.5 min-[641px]:grid-cols-3">
-      {/* „Cena”: the value already says „od” (or „Zapytaj o wycenę”). */}
-      {priceValue && <Fact label="Cena" value={priceValue} />}
-      {/* A level without its time in the panel: no empty tile (decyzja SWD2 3). */}
-      {termValue && <Fact label={view.termLabel} value={termValue} />}
-      {view.careFrom && <Fact label="Opieka od" value={view.careFrom} />}
-    </dl>
-  )
-
-  const guarantees =
-    view.guarantees.length > 0 ? (
-      // AUDYT po SWA7 #7: under the mock-up „what happens next” (quote, payment, ownership), not
-      // a third price — the price is on the tile and on the bar below.
-      <div className="sw-offer-next">
-        <p className="sw-eyebrow">Co dalej</p>
-        <ul className="space-y-1.5 text-sm font-bold">
-          {view.guarantees.map((item) => (
-            <li key={item} className="flex gap-2">
-              <Icon
-                name="check"
-                strokeWidth={2.6}
-                className="mt-0.5 size-4 shrink-0 text-ok-text"
-              />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-    ) : null
-
-  const who =
-    view.forWhom || view.situations.length > 0 ? (
-      <OfferSection title="Dla kogo">
-        {view.forWhom && <p className="text-ink-2">{view.forWhom}</p>}
-        {view.situations.length > 0 && (
-          <ul className="mt-3 space-y-1.5 text-sm">
-            {view.situations.map((item) => (
-              <li key={item} className="flex gap-2">
-                <Icon
-                  name="check"
-                  strokeWidth={2.6}
-                  className="mt-0.5 size-4 shrink-0 text-ok-text"
-                />
-                {item}
-              </li>
-            ))}
-          </ul>
-        )}
-      </OfferSection>
-    ) : null
 
   return (
     <BottomSheet
@@ -372,13 +366,11 @@ export function SolutionDialog({
       closeOnBack={closeOnBack}
     >
       <div ref={top} className="scroll-mt-24" />
-      {/* 7/5 (AUDYT-0811 #5): the details on the left, the mock-up with the price kept in view on
-          the right. `key`: the next offer (←/→) fades in and its mock-up slides up. */}
-      <div
-        key={view.slug}
-        className="sw-offer-swap mt-5 grid items-start gap-6 min-[981px]:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] min-[981px]:gap-8"
-      >
-        <div className="min-w-0">
+      {/* §2.2 D: the mock-up is the biggest thing — on the right and stuck from 981 px (58 % from
+          1280 px), shown first on the phone by CSS; in the DOM after the details, so the reading
+          and Tab order follow the wide layout. `key`: the next offer (←/→) fades in. */}
+      <div key={view.slug} className="sw-offer-swap sw-offer-grid mt-5">
+        <div className="sw-offer-main min-w-0">
           <div className="flex flex-wrap gap-2">
             {view.label && <OfferBadge>{view.label}</OfferBadge>}
             {view.hasLivePreview && <LiveBadge />}
@@ -386,31 +378,36 @@ export function SolutionDialog({
           <h2
             ref={heading}
             tabIndex={-1}
-            className="mt-3 font-display text-3xl font-extrabold leading-tight outline-none min-[641px]:text-[40px]"
+            className="mt-3 font-display text-3xl font-extrabold leading-tight outline-none min-[768px]:text-[40px]"
           >
             {view.name}
           </h2>
           {view.lead && <p className="mt-2 text-lg text-ink-2">{view.lead}</p>}
-          {facts}
-          <div className="mt-4 space-y-3">
-            {price.kind === 'included' && <IncludedChips price={price} />}
-            {price.kind === 'ask' && <AskCard price={price} />}
-            {levels && (
-              <LevelChoice
-                title={levels.title}
-                levels={levels.levels}
-                selected={selected}
-                onPick={choose}
-              />
-            )}
-            {view.note && (
-              <p className="rounded-2xl border border-accent-line bg-accent-soft px-4 py-3 text-sm">
-                {view.note}
-              </p>
-            )}
-          </div>
-          <div className="mt-6 grid items-start gap-4 min-[1200px]:grid-cols-[repeat(2,minmax(0,1fr))]">
-            <div className="min-w-0 space-y-4">
+          <PriceHero
+            price={heroPrice}
+            termLabel={view.termLabel}
+            term={termValue || null}
+            careFrom={view.careFrom}
+            next={view.guarantees}
+          />
+          {view.note && (
+            <p className="mt-5 rounded-2xl border border-accent-line bg-accent-soft px-4 py-3 text-sm">
+              {view.note}
+            </p>
+          )}
+
+          {hasScope && (
+            <section id="oferta-zakres" aria-label="Zakres" className="sw-offer-block">
+              {price.kind === 'included' && <IncludedChips price={price} />}
+              {price.kind === 'ask' && <AskCard price={price} />}
+              {levels && (
+                <LevelChoice
+                  title={levels.title}
+                  levels={levels.levels}
+                  selected={selected}
+                  onPick={choose}
+                />
+              )}
               {levels && levels.rows.length > 0 && (
                 <CompareTable
                   title={levels.monthly ? 'Porównanie poziomów' : 'Porównanie audytów'}
@@ -426,28 +423,17 @@ export function SolutionDialog({
                   <CheckList items={view.benefits.items} />
                 </OfferSection>
               )}
-            </div>
-            <div className="min-w-0 space-y-4">
-              {view.example && (
-                <OfferSection
-                  title="Przykład z życia"
-                  aside={<span className="sw-chip min-h-0 py-0.5 text-xs">Przykład</span>}
-                >
-                  <p className="border-l-4 border-accent-line pl-4 text-ink-2">{view.example}</p>
-                </OfferSection>
-              )}
-              {who}
-            </div>
-          </div>
-
-          {steps.length > 0 && (
-            <OfferSection title="Jak to wygląda" className="mt-4">
-              <Steps steps={steps} />
-            </OfferSection>
+              {view.example && <ExampleQuote text={view.example} />}
+            </section>
           )}
 
-          {(view.needs.length > 0 || view.faq.length > 0) && (
-            <div className="mt-4 grid items-start gap-4 min-[1200px]:grid-cols-[repeat(2,minmax(0,1fr))]">
+          {hasHow && (
+            <section id="oferta-jak" aria-label="Jak to wygląda" className="sw-offer-block">
+              {steps.length > 0 && (
+                <OfferSection title="Jak to wygląda">
+                  <Steps steps={steps} />
+                </OfferSection>
+              )}
               {view.needs.length > 0 && (
                 <OfferSection title="Co od Ciebie">
                   <ul className="flex flex-wrap gap-2">
@@ -460,24 +446,53 @@ export function SolutionDialog({
                   {view.needsHint && <p className="mt-3 text-sm text-ink-2">{view.needsHint}</p>}
                 </OfferSection>
               )}
-              {view.faq.length > 0 && (
-                <OfferSection title="Pytania, które słyszymy">
-                  {/* `key`: a new solution starts with its first answer open. */}
-                  <Questions key={view.slug} faq={view.faq} />
-                </OfferSection>
-              )}
-            </div>
+            </section>
           )}
 
-          {view.related.length > 0 && (
-            <OfferSection title="Często łączone z" className="mt-4">
-              <RelatedCards cards={view.related} onPick={onSwitch} />
-            </OfferSection>
+          {hasWho && (
+            <section id="oferta-dla-kogo" aria-label="Dla kogo" className="sw-offer-block">
+              <OfferSection title="Dla kogo">
+                {view.forWhom && <p className="text-ink-2">{view.forWhom}</p>}
+                {view.situations.length > 0 && (
+                  <ul className="mt-3 flex flex-col gap-1.5 text-sm">
+                    {view.situations.map((item) => (
+                      <li key={item} className="flex gap-2">
+                        <CheckDot small />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </OfferSection>
+            </section>
           )}
+
+          <section id="oferta-pytania" aria-label="Pytania" className="sw-offer-block">
+            {view.faq.length > 0 && (
+              <OfferSection title="Pytania, które słyszymy">
+                {/* `key`: a new solution starts with its first answer open. */}
+                <Questions key={view.slug} faq={view.faq} />
+              </OfferSection>
+            )}
+            {/* §2.4: the wizard is a way out of the window — a text link here, not in the bar. */}
+            <p className="sw-offer-part text-ink-2">
+              Nie wiesz, czy to dla Ciebie?{' '}
+              <Link
+                href="/dobierz"
+                className="inline-flex min-h-11 items-center gap-1 font-bold text-accent-text underline-offset-4 hover:underline"
+              >
+                Kreator 60 s <span aria-hidden="true">→</span>
+              </Link>
+            </p>
+            {view.related.length > 0 && (
+              <OfferSection title="Często łączone z">
+                <RelatedCards cards={view.related} onPick={go} />
+              </OfferSection>
+            )}
+          </section>
         </div>
 
-        {/* The mock-up, the price and the guarantees stay in view while the details scroll. */}
-        <aside className="min-w-0 space-y-4 min-[981px]:sticky min-[981px]:top-[88px]">
+        <aside className="sw-offer-aside min-w-0">
           <OfferGallery
             key={view.slug}
             preview={view.preview}
@@ -495,15 +510,14 @@ export function SolutionDialog({
             }
           />
           {view.hasLivePreview && (
-            // The full solution page with its live preview comes with SW10.
             <Link
               href={`/rozwiazania/${view.slug}`}
-              className="mt-2 flex min-h-12 items-center justify-center rounded-full border border-border bg-card px-4 font-bold text-accent-text"
+              className="mt-2 inline-flex min-h-11 items-center gap-2 font-bold text-accent-text"
             >
               Zobacz podgląd na żywo
+              <Icon name="arrow" strokeWidth={2.4} className="size-4" />
             </Link>
           )}
-          {guarantees}
         </aside>
       </div>
     </BottomSheet>

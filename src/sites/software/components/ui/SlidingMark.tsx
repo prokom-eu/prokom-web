@@ -41,7 +41,7 @@ export function SlidingMark({ selector }: { selector: string }) {
       subtree: true,
       childList: true,
       attributes: true,
-      attributeFilter: ['aria-pressed', 'aria-selected'],
+      attributeFilter: ['aria-pressed', 'aria-selected', 'aria-current'],
     })
     // The row and each item: a chip can grow (a late font) while the row keeps its width.
     const sizes = new ResizeObserver(schedule)
