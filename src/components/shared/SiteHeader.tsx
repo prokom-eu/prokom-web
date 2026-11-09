@@ -5,6 +5,7 @@ import type { SharedLineKey } from '@/lib/shared/lines'
 
 import { CAPSULE } from './capsule'
 import { CapsuleShell } from './CapsuleShell'
+import { CapsuleSpy } from './CapsuleSpy'
 import { LineLogo } from './LineLogo'
 
 /** A menu entry of the line (data and order from the panel, as today). */
@@ -15,6 +16,8 @@ export type CapsuleNavItem = {
   href?: string
   /** The current page: pill + `aria-current="page"` (not for home page sections). */
   current?: boolean
+  /** Home page sections this entry stands for — the scroll-spy pill (`spyStops`). */
+  sections?: readonly string[]
 }
 
 export type SiteHeaderProps = {
@@ -24,6 +27,9 @@ export type SiteHeaderProps = {
   nav: readonly CapsuleNavItem[]
   /** The line's mega menu for an entry without `href`: trigger + panel (`CAPSULE.link`, `.mega`). */
   megaFor?: (key: string) => ReactNode
+  /** Home page only: every anchored section in order — turns on the scroll-spy pill that glides
+   *  under the entry whose `sections` hold the section being read (plan 0611 §8.1 pkt 2). */
+  spyStops?: readonly string[]
   /** Right-hand buttons before the action: search, theme, „Twój projekt” (`CAPSULE.*`) — from
    *  1081 px; on phones they live in the menu sheet (board 11). */
   actions?: ReactNode
@@ -48,6 +54,7 @@ export function SiteHeader({
   homeLabel,
   nav,
   megaFor,
+  spyStops,
   actions,
   cta,
   menuButton,
@@ -61,6 +68,12 @@ export function SiteHeader({
           <LineLogo line={line} alt="" eager />
         </Link>
         <nav aria-label="Menu główne" className="cap__nav">
+          {spyStops && spyStops.length > 0 && (
+            <CapsuleSpy
+              entries={nav.map(({ key, sections }) => ({ key, sections }))}
+              stops={spyStops}
+            />
+          )}
           <ul>
             {nav.map((item) => {
               // An entry without a link is a mega trigger; with no mega from the line it is left
@@ -76,7 +89,11 @@ export function SiteHeader({
               ) : (
                 megaFor?.(item.key)
               )
-              return content ? <li key={item.key}>{content}</li> : null
+              return content ? (
+                <li key={item.key} data-cap-key={item.key}>
+                  {content}
+                </li>
+              ) : null
             })}
           </ul>
         </nav>
