@@ -30,7 +30,8 @@ test.describe('Biznes category page', () => {
     )
 
     const scripts = await page.locator('script[type="application/ld+json"]').allTextContents()
-    const data = scripts.map((text) => JSON.parse(text) as JsonLd)
+    // One script may carry several objects (breadcrumbs + the product ItemList, #454).
+    const data = scripts.flatMap((text) => [JSON.parse(text) as JsonLd | JsonLd[]].flat())
     const crumbs = data.find((item) => item['@type'] === 'BreadcrumbList')
     expect(crumbs?.itemListElement).toEqual([
       expect.objectContaining({ position: 1, item: site('biznes.localhost', '/') }),
