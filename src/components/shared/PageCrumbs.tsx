@@ -28,7 +28,8 @@ export function PageCrumbs({ items, onDark, className }: Props) {
                   <a
                     href={item.path}
                     className={cx(
-                      'underline-offset-4 hover:underline',
+                      // Phone: a 24 px row to tap (WCAG 2.5.8, AUDYT-0911 noc #4); PC as it was.
+                      'inline-flex items-center underline-offset-4 hover:underline max-[899px]:min-h-6',
                       onDark ? 'text-line-dark-text' : 'text-ink-2',
                     )}
                   >
