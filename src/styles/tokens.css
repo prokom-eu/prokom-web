@@ -10,6 +10,8 @@
  *   --surface, --surface-2, --surface-3, --card, --surface-dark (dark rhythm blocks)
  *   --ink, --ink-2, --ink-3 (text, secondary, tertiary), --border, --glow, --grid (Software only)
  *   --st1, --st2, --st3, --sth, --shd (studio under product photos — Biznes, K31-ZMIANY §3)
+ *   --plate, --plate-shadow (white plate a product photo stands on — white in both themes, as
+ *   many packshots have a white background; NAPRAWA-0911 §3)
  *   --border-input (form fields, ≥ 3:1 on every surface — WCAG 1.4.11; `--border` is decorative)
  *   --ok, --warn (status dots: open / partner, closed; ≥ 3:1; on Biznes `--warn` is also small
  *   orange text on cards and `surface-2`, ≥ 4.5:1 — themes.test.ts), --ok-text (small green labels)
@@ -67,6 +69,8 @@
   --c-biznes-light-st3: #e1e8f4;
   --c-biznes-light-sth: rgba(36, 79, 176, 0.055);
   --c-biznes-light-shd: rgba(13, 19, 38, 0.26);
+  /* White plate under product photos (NAPRAWA-0911 §3): photos with a white background. */
+  --c-biznes-light-plate-shadow: rgba(13, 19, 38, 0.1);
   /* Biznes — dark theme of the visualisation. */
   --c-biznes-night-surface: #060a15;
   --c-biznes-night-surface-2: #0b1222;
@@ -84,6 +88,7 @@
   --c-biznes-night-st3: #0a1226;
   --c-biznes-night-sth: rgba(143, 176, 244, 0.06);
   --c-biznes-night-shd: rgba(0, 0, 0, 0.6);
+  --c-biznes-night-plate-shadow: rgba(0, 0, 0, 0.45);
   /* Biznes — dark rhythm blocks, the same in both themes. */
   --c-biznes-navy: #0a1430;
   /* Need tiles of the home page (icon squares, tags), from boards/Main.dc.html. */
@@ -1028,6 +1033,8 @@
   --st3: var(--surface-3);
   --sth: transparent;
   --shd: transparent;
+  --plate: var(--surface);
+  --plate-shadow: transparent;
   --chip: var(--surface-2);
   --glow-2: transparent;
   --dot: transparent;
@@ -1360,6 +1367,8 @@
   --st3: var(--c-biznes-light-st3);
   --sth: var(--c-biznes-light-sth);
   --shd: var(--c-biznes-light-shd);
+  --plate: var(--c-white);
+  --plate-shadow: var(--c-biznes-light-plate-shadow);
   --tone-green: var(--c-biznes-tone-green);
   --tone-green-2: var(--c-biznes-tone-green-2);
   --tone-red: var(--c-biznes-tone-red);
@@ -1568,6 +1577,8 @@
   --st3: var(--c-biznes-night-st3);
   --sth: var(--c-biznes-night-sth);
   --shd: var(--c-biznes-night-shd);
+  --plate: var(--c-white);
+  --plate-shadow: var(--c-biznes-night-plate-shadow);
   --ok: var(--c-ok-night);
   --ok-text: var(--c-ok-night);
   --warn: var(--c-warn-night);
