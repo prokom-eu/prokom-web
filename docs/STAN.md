@@ -211,6 +211,11 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
   - Wcześniejsze: prawo użycia zdjęć producentów, loga Honeywell i Zebra, kanały kontaktu działów i obietnice od szefa (Asana, 20.10).
 
 ### prokomsoftware.pl — folder `prokom-web-software` (od 06.11; PORT 3003, baza `prokom_web_swa`)
+- **SWA11 (09.11, noc) — hero telefonu wg wysokości + drobiazgi (`v24/AUDYT-0911-NOC.md`): 2 niezależne PR-y od `origin/develop`.**
+  - `Gałęzie:` `feat/swa11-hero-telefon` (Software: #1–#3, #4 na /dobierz) · `feat/wsp-okruszki` (wspólne `PageCrumbs`: #4 na /kontakt i /o-firmie).
+  - `Decyzja Krystiana 09.11:` #2 (b) — tablet poziomo (1024–1279) dostaje regułę laptopów z SWA10.
+  - `Zrobione:` telefon (≤ 600 px) — szerokość okna z `100svh` (fallback `100vh`) pod panelem; przy wysokości ≤ 820 ciaśniejsze odstępy i H1 42 px, przy ≤ 760 bez plakietki, H1 38 px, kafle z ikoną obok nazwy. Pomiar (okno → dolny pasek): 360×640 555/563, 375×667 578/590, 390×664 555/587, 360×740 607/663, 360×800 712/723, 390×844 bez zmian 738/767. Tablet: 1180×820 okno 395–763, 1024×768 357–725; 1280×720, 1366×768 i 834×1112 bez zmian. Znaczniki pulpitu: `data-spot-at` (`end` / `before` / `above`) — ① prawy róg „Klienci”, ② nad „Anna · biuro”, ③ z lewej plakietki „Telefon”. Okruszki 24 px. e2e `software-hero` +6 rozmiarów.
+  - `Następny krok:` Krystian scala oba PR-y, potem `/wdrozenie staging` Software (z kolejką SWA10 i dopiskiem SWA8c).
 - **SWA10 (09.11, wieczór) — szlif po audycie 09.11 wieczór (`v24/AUDYT-0911-WIECZOR.md`, gałąź `docs/software-audyt-0911-wieczor`): 2 niezależne PR-y od `origin/develop`.**
   - `Gałęzie:` `feat/swa10-szlif` (Software: #1–#4, #8) · `feat/wsp-stopka-dotyk` (wspólne: #5–#7).
   - `Decyzje Krystiana 09.11:` #1 opcja (b) — całe okno makiety w hero na 1440×900 i 1366×768 (1280×720 i 1024×768 bez zmian); na 1366×768 plakietka „Dla każdej firmy… od 2004” ukryta (okno zostaje 560 px). #2 `data-spot` w makiecie pulpitu systemów; aplikacje, automatyzacje i opieka mają puste „W cenie” — bez punktów (zakresu ofert nie zmieniamy).
