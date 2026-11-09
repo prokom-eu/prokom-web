@@ -10,13 +10,24 @@ Co robić krok po kroku przy wdrożeniu, cofnięciu, odtworzeniu z kopii i awari
 | Stos stagingu | projekt `prokom-staging`: `compose.prod.yml` + `compose.staging.yml`, zmienne `.env.staging` | baza `prokom_staging` |
 | Nginx + certbot | projekt `prokom-proxy`: `docker/compose.proxy.yml` (staging) + `compose.proxy.prod.yml` (domeny produkcji, od startu produkcji), zmienne `.env.proxy` | jedyny z portami 80/443 |
 
-**Uruchamianie proxy (stan od 3.11.2026 — Gaming na produkcji, prokom-web jeszcze nie):** zawsze ze wszystkimi nakładkami, które mają certyfikat i zmienne w `.env.proxy` — pominięta nakładka wyłącza tę domenę:
+**Uruchamianie proxy (stan od 9.11.2026 — produkcja prokom-web i Gaming):** zawsze ze wszystkimi nakładkami, które mają certyfikat i zmienne w `.env.proxy` — pominięta nakładka wyłącza tę domenę:
 ```bash
 cd /srv/prokom/prokom-web
-docker compose --env-file .env.proxy -f docker/compose.proxy.yml \
+docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml \
   -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml up -d nginx
 ```
-Po starcie produkcji prokom-web dochodzi `-f docker/compose.proxy.prod.yml` (§3). Odnawianie certyfikatów: kontener `certbot` (`renew --webroot`) — także tych wystawionych `--standalone`.
+Odnawianie certyfikatów: kontener `certbot` (`renew --webroot`) — także tych wystawionych `--standalone`.
+
+**Nginx widzi stare pliki po wdrożeniu stagingu (9.11.2026):** wdrożenie podmienia katalogi `docker/nginx/` na serwerze, a działający kontener ma podpięty katalog sprzed podmiany (`/etc/nginx/snippets/` pusty). Strony działają, ale każdy `nginx -s reload` — także automatyczny co 6 h po odnowieniu certyfikatu — kończy się błędem `open() "/etc/nginx/snippets/…" failed`. Sprawdzenie: `docker exec prokom-proxy-nginx-1 nginx -t`. Naprawa: komenda wyżej z `--force-recreate` (kilka sekund przerwy). Przed każdą zmianą domen proxy zacznij od `nginx -t`.
+
+**Nowy certyfikat bez zatrzymywania Nginx** (domeny, których Nginx jeszcze nie obsługuje — domyślny blok odpowiada 444, więc `--webroot` sam nie przejdzie): tymczasowy blok tylko na porcie 80 w katalogu `sites` (tmpfs, znika przy restarcie), certyfikat, usunięcie bloku:
+```bash
+docker exec prokom-proxy-nginx-1 sh -c 'printf "server {\n  listen 80;\n  server_name <domeny>;\n  include /etc/nginx/snippets/acme.conf;\n}\n" > /etc/nginx/sites/zz-acme-tmp.conf && nginx -t && nginx -s reload'
+docker compose --env-file .env.proxy -f docker/compose.proxy.yml run --rm --entrypoint certbot certbot \
+  certonly --webroot -w /var/www/certbot --cert-name <nazwa> --non-interactive --agree-tos -d <domena> -d …
+docker exec prokom-proxy-nginx-1 sh -c 'rm -f /etc/nginx/sites/zz-acme-tmp.conf && nginx -t && nginx -s reload'
+```
+Poszerzenie istniejącego certyfikatu: to samo z `--expand` i pełną listą jego domen.
 | Kopie | `scripts/backup.sh`, `scripts/restore.sh`, zmienne `.env.backup` | lokalnie `../backups/`, poza serwerem `RCLONE_REMOTE` |
 | Sekrety | `.env.*` w repo (poza Gitem), plik hasła stagingu `../secrets/` | wartości w menedżerze haseł |
 | Klucz prywatny `age` | **tylko** menedżer haseł („prokom-web backup age”) | na serwerze jest tylko klucz publiczny |
@@ -140,7 +151,7 @@ node scripts/porownaj-tresc.mjs http://biznes.localhost:3001 https://staging.pro
 
 Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR-004). Warunek: przebieg „Lighthouse” po ostatnim wdrożeniu stagingu (tym obrazem) zielony (budżet, ADR-021); anulowany przebieg się nie liczy — Actions → Lighthouse → Run workflow.
 
-**Pierwsze wdrożenie produkcji (raz):** rekordy `@`, `www` i panelu produkcji wg `docs/dns.md` (PR, potem Seohost) → certyfikat `prokom-prod` (`docs/wdrozenia.md` → „Nginx i staging”, krok 3) → zmienne `PROD_*` w `.env.proxy` → Nginx z nakładką: `docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml up -d`. Od tej chwili proxy uruchamiasz zawsze z oboma plikami. Do crona dopisz linię `backup.sh prod` (§1.8).
+**Pierwsze wdrożenie produkcji (raz):** rekordy `@`, `www` i panelu produkcji wg `docs/dns.md` (PR, potem Seohost) → certyfikat `prokom-prod` (bez przestoju — §0 „Nowy certyfikat bez zatrzymywania Nginx”) → zmienne `PROD_*` w `.env.proxy` → Nginx z nakładką (komenda w §0). Do crona dopisz linię `backup.sh prod` (§1.8). **Zrobione 9.11.2026** (start samej linii Software): kolejne linie dochodzą wg §3a „Kolejna linia później” + poszerzenie certyfikatu (`--expand`) + domeny w `PROD_SITE_HOSTS` / `PROD_WWW_HOSTS`.
 1. Kopia przed wdrożeniem: `scripts/backup.sh prod predeploy` — musi się skończyć `done`.
 2. Zapisz obecny tag (punkt powrotu): `grep APP_IMAGE_TAG .env.prod`.
 3. W `.env.prod`: `APP_IMAGE_TAG=<SHA ze stagingu>`. Przy pierwszym wdrożeniu produkcji: teraz treść startowa (§3a).
