@@ -1,4 +1,4 @@
-import { splitBold } from '@/lib/site/emphasis'
+import { splitBold, stripBold } from '@/lib/site/emphasis'
 
 /** The `<em>` of a band heading: a line may paint `[data-heading-em]` (Software: the v24 band). */
 function BandEm({ children }: { children: string }) {
@@ -48,7 +48,6 @@ export function AccentText({
   emClass?: string
   band?: boolean
 }) {
-  const parts = splitBold(text)
-  if (!emClass) return <>{parts.map((part) => part.text).join('')}</>
+  if (!emClass) return <>{stripBold(text)}</>
   return band ? <HeadingText text={text} /> : <HeadingText text={text} emClass={emClass} />
 }

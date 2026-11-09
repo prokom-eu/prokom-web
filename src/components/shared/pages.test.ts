@@ -285,4 +285,20 @@ describe('H2 highlight only for a line that asks for it (AUDYT-0911 #1)', () => 
       /<em class="sw-em">PRO-KOM( Gaming)?<\/em><\/h2>/,
     )
   })
+
+  it('a panel map title with **stars**: <em> only for the line with its class', () => {
+    const withTitle = {
+      shared: {
+        ...shared,
+        line: {
+          ...shared.line,
+          contact: { ...shared.line.contact, mapTitle: 'Kawa **w Rabce.**' },
+        },
+      } as SharedData,
+    }
+    expect(contact(withTitle)).toContain('>Kawa w Rabce.</h2>')
+    expect(contact({ ...withTitle, headingEmClass: 'sw-em' })).toContain(
+      'Kawa <em class="sw-em">w Rabce.</em></h2>',
+    )
+  })
 })

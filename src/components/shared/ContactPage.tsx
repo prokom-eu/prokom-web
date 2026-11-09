@@ -20,10 +20,10 @@ import { OpeningStatus } from './OpeningStatus'
 import { OtherLines } from './OtherLines'
 import { PageCrumbs, type Crumb } from './PageCrumbs'
 import { PAGE_CONTAINER as CONTAINER } from './pageContainer'
-import { TAP_AREA } from './tapArea'
 import { ServiceAreaMap } from './ServiceAreaMap'
 import { Steps } from './Steps'
 import { AccentText, HeadingText } from './HeadingText'
+import { TAP_AREA } from './tapArea'
 
 /** The line's own sections in named places (spec §6.0) — the template never knows their content. */
 export type ContactSlots = {
@@ -398,7 +398,8 @@ export function ContactPage({
           data-rail-icon="map"
         >
           <h2 id="kontakt-dojazd" className={H2}>
-            <HeadingText text={contact.mapTitle || 'Dojazd i zasięg'} emClass={headingEmClass} />
+            {/* A light section: only a line with its own class gets the `<em>`. */}
+            <AccentText text={contact.mapTitle || 'Dojazd i zasięg'} emClass={headingEmClass} />
           </h2>
           {contact.mapLead && <p className="mt-3 max-w-[60ch] text-ink-2">{contact.mapLead}</p>}
           <ServiceAreaMap
