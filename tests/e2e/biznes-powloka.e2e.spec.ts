@@ -120,6 +120,14 @@ test.describe('Biznes shell — computer', () => {
     await page.goto(biznes('/marki'))
     await expect(nav.locator('.cap-pill')).toHaveCount(0)
     await expect(nav.getByRole('link', { name: 'Marki' })).toHaveAttribute('aria-current', 'page')
+    // Back home by a client navigation: the sections arrive after the frame, the pill still works.
+    await capsule(page)
+      .getByRole('link', { name: /strona główna/ })
+      .click()
+    await expect(page).toHaveURL(biznes())
+    await page.locator('#marki').waitFor()
+    await readAt('marki')
+    await expect(marked).toHaveAttribute('data-cap-key', '/marki')
   })
 
   test('footer: the panel columns, the lines band and the legal bar', async ({ page }) => {
