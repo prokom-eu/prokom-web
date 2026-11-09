@@ -1,4 +1,5 @@
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
+import { withoutRepeatedBlocks } from '@/lib/biznes/pages/repeats'
 import { ContactBlock } from '@/blocks/Contact/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
 import { HeroBlock } from '@/blocks/Hero/Component'
@@ -111,8 +112,10 @@ function opensWithHero(block: NonNullable<PublicPage['layout']>[number] | undefi
  * a contact column; on Software, FAQ takes the line's look (SW8b).
  */
 export function RenderBlocks({ page, tenant }: Props) {
-  const blocks = renderableBlocks(tenant.line, page.layout)
   const biznes = tenant.line === 'biznes'
+  // Biznes: a block another block on the page already says is left out (BIZ-3 §10.3).
+  const renderable = renderableBlocks(tenant.line, page.layout)
+  const blocks = biznes ? withoutRepeatedBlocks(renderable) : renderable
   const software = tenant.line === 'software'
   return (
     <>

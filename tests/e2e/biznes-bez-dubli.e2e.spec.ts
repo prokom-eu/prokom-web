@@ -39,4 +39,38 @@ test.describe('Biznes subpages without repetition (B5-3)', () => {
       expect(highlights.some((text) => text.includes(value.trim()))).toBe(false)
     }
   })
+
+  test('a salon: service and rollout in one block, plan models not repeated below', async ({
+    page,
+  }) => {
+    await page.goto(biznes('/marki/posnet'))
+    const care = page.getByRole('region', { name: /Uruchomimy/ })
+    await expect(care.locator('#serwis')).toHaveCount(1)
+    await expect(care.locator('#wdrozenie')).toHaveCount(1)
+    const plans = await page
+      .locator('#oferta a[href^="/produkt/"]')
+      .evaluateAll((links) => links.map((link) => link.getAttribute('href')))
+    const rest = await page
+      .locator('#oferta-cala a[href^="/produkt/"]')
+      .evaluateAll((links) => links.map((link) => link.getAttribute('href')))
+    expect(plans.length).toBeGreaterThan(0)
+    for (const href of plans) expect(rest).not.toContain(href)
+  })
+
+  test('GoPOS: no second module list, the venue does not repeat the H1', async ({ page }) => {
+    await page.goto(biznes('/gopos'))
+    await expect(page.locator('#moduly')).toHaveCount(0)
+    await expect(page.locator('#pakiet')).toHaveCount(1)
+    const h1 = (await page.getByRole('heading', { level: 1 }).innerText()).replace(/\s+/g, ' ')
+    const venue = (await page.locator('#lokal h3').first().innerText()).replace(/\s+/g, ' ')
+    expect(venue).not.toBe(h1)
+  })
+
+  test('an industry links to /gopos instead of repeating its order steps', async ({ page }) => {
+    await page.goto(biznes('/branze/gastronomia'))
+    await expect(page.getByRole('link', { name: /Zobacz, jak działa GoPOS/ })).toHaveAttribute(
+      'href',
+      '/gopos',
+    )
+  })
 })

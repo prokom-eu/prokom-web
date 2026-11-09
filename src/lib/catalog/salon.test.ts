@@ -153,11 +153,21 @@ describe('buildSalonView', () => {
   })
 
   it('keeps family tabs with listed products and counts each product once', () => {
-    const view = build()!
+    const view = build(showroom({ plans: { items: [] } }))!
     expect(view.family.map((tab) => [tab.title, tab.products.map((p) => p.slug)])).toEqual([
       ['Kasy', ['ergo', 'neo']],
       ['Drukarki', ['hx', 'ergo']],
     ])
+    expect(view.familyCount).toBe(3)
+  })
+
+  it('leaves the plan models out of „cała oferta” — shown once (audit 0611 P1-3)', () => {
+    const view = build()!
+    // Ergo, Bingo and HX are plan cards above; a tab left empty disappears.
+    expect(view.family.map((tab) => [tab.title, tab.products.map((p) => p.slug)])).toEqual([
+      ['Kasy', ['neo']],
+    ])
+    // The hero's „Zobacz ofertę · N” still counts the whole offer.
     expect(view.familyCount).toBe(3)
   })
 

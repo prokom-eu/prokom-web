@@ -17,7 +17,6 @@ import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { biznesDescription } from '@/lib/biznes/seo'
 import { EMPTY_SUPPLY_LINKS, industrySupplyTiles } from '@/lib/biznes/procurement/links'
-import { BzOrderFlowBlock } from '@/sites/biznes/blocks/BzOrderFlow/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { CatalogContactPanel } from '@/sites/biznes/components/catalog/CatalogContactPanel'
@@ -25,6 +24,7 @@ import { CatalogHero } from '@/sites/biznes/components/catalog/CatalogHero'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 import {
   IndustryBundles,
+  IndustryFlowLink,
   IndustryProducts,
   OtherIndustriesSection,
 } from '@/sites/biznes/components/industry/IndustrySections'
@@ -158,7 +158,7 @@ export default async function IndustryPage({ params }: Props) {
         )}
       />
       {industry.day && <BzTimelineBlock block={industry.day} tone="accent" />}
-      {industry.flow && <BzOrderFlowBlock block={industry.flow} tenantId={tenant.id} />}
+      {industry.flow && <IndustryFlowLink heading={industry.flow.heading} />}
       {industry.faq.items.length > 0 && (
         <FaqBiznes
           tenantId={tenant.id}

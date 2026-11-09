@@ -118,9 +118,12 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
     }).toPass()
     await expect(page.getByRole('table')).toBeVisible()
     const offer = page.locator('#oferta-cala')
-    await expect(offer.getByRole('heading', { level: 2 })).toHaveText(/^Pełna oferta · \d+$/, {
-      useInnerText: true,
-    })
+    await expect(offer.getByRole('heading', { level: 2 })).toHaveText(
+      /^(Pełna|Pozostała) oferta · \d+$/,
+      {
+        useInnerText: true,
+      },
+    )
     // Only the product cards (a card has its own lists of badges).
     const cards = offer.locator('ul[data-salon-products] > li')
     const visible = () =>
