@@ -60,7 +60,8 @@ export function BrandBar({
               href={line.url ?? undefined}
               aria-current={isCurrent ? 'page' : undefined}
               className={cx(
-                'flex items-center gap-[7px] rounded-md hover:text-nav-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nav-active-ink',
+                // A touch screen (a tablet held wide) gets 24 px rows; a mouse keeps the bar as is.
+                'flex items-center gap-[7px] rounded-md pointer-coarse:min-h-6 hover:text-nav-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nav-active-ink',
                 isCurrent ? 'font-extrabold text-nav-ink' : 'font-semibold',
               )}
             >
