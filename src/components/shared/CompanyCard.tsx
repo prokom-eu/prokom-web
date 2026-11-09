@@ -67,7 +67,11 @@ export function CompanyCard({
       ? ([
           [
             'Telefon',
-            <a key="tel" href={tel} className="font-bold underline-offset-2 hover:underline">
+            <a
+              key="tel"
+              href={tel}
+              className="inline-flex min-h-10 items-center font-bold underline-offset-2 hover:underline"
+            >
               {phone}
             </a>,
           ],
@@ -80,7 +84,7 @@ export function CompanyCard({
             <a
               key="mail"
               href={`mailto:${email}`}
-              className="font-bold underline-offset-2 hover:underline"
+              className="inline-flex min-h-10 items-center font-bold [overflow-wrap:anywhere] underline-offset-2 hover:underline"
             >
               {email}
             </a>,
@@ -152,7 +156,7 @@ export function CompanyCard({
           href={company.ceidgUrl}
           target="_blank"
           rel="noopener"
-          className="text-sm font-bold text-accent-text underline-offset-2 hover:underline"
+          className="inline-flex min-h-6 items-center text-sm font-bold text-accent-text underline-offset-2 hover:underline"
         >
           Dane sprawdzisz w CEIDG po numerze NIP →<span className="sr-only"> (nowe okno)</span>
         </a>
