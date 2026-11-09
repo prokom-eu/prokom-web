@@ -63,7 +63,7 @@ test.describe('Instalacje home sections', () => {
     const cards = page.locator('#gory .gor')
     await expect(cards).toHaveCount(6)
     await expect(cards.locator('.gsc svg')).toHaveCount(6)
-    await expect(cards.first().locator('.gorfact')).toContainText('−28,5°C')
+    await expect(page.locator('#gory .gorfact')).toContainText('−28,5°C')
     const steps = page.locator('#proces .procs')
     await expect(steps).toHaveCount(6)
     await expect(steps.locator('.procg')).toHaveCount(6)

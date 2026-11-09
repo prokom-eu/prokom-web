@@ -66,12 +66,12 @@ const GOR_LAYERS = [
 
 /**
  * „Na Podhalu instalacja ma trudniej” (`#gory`, RUNDA-V5 §5): a band with three ridges that
- * drift apart while scrolling (scroll-driven, static without support), light snowfall, and six
- * cards with mini scenes — the first pair larger. On a phone the cards form a snapping row.
+ * drift apart while scrolling (scroll-driven, static without support) and light snowfall. Compact
+ * since 09.11 (Krystian): the head with the frost fact on the right, six equal cards in a 3 × 2
+ * grid — a mini scene beside a title and one sentence. On a phone the cards form a snapping row.
  */
 export function MountainsSection() {
   const t = glownaSekcje.mountains
-  const rows = [t.cards.slice(0, 3), t.cards.slice(3)]
   return (
     <InstSection id="gory" className="xa-s xa-t0" style={{ padding: '0 0 100px' }}>
       <div className="wrap">
@@ -88,24 +88,28 @@ export function MountainsSection() {
           </svg>
           <GorSnow />
           <div className="gorin">
-            <SectionHead eyebrow={t.eyebrow} heading={t.heading} lead={t.lead} leadWidth={420} />
+            <div className="gorhead ri">
+              <div>
+                <span className="eye">{t.eyebrow}</span>
+                <h2 className="h2">{t.heading}</h2>
+                <p className="lead">{t.lead}</p>
+              </div>
+              <p className="gorfact">
+                <b>{t.fact.value}</b>
+                <span>{t.fact.label}</span>
+                <span className="gorfactn">{t.fact.note}</span>
+              </p>
+            </div>
             <div className="gorg" role="region" tabIndex={0} aria-label={t.heading}>
-              {rows.map((row, r) => (
-                <div key={r} className={`gorrow gorrow${r + 1}`}>
-                  {row.map((card) => (
-                    <div key={card.title} className="card gor ri">
-                      <span className="gsc" data-inst-sx="">
-                        <GorScene name={card.scene} />
-                      </span>
-                      <h3 className="h3">{card.title}</h3>
-                      <p>{card.text}</p>
-                      {card.fact ? (
-                        <p className="gorfact">
-                          <b>{card.fact.value}</b> <span>{card.fact.label}</span>
-                        </p>
-                      ) : null}
-                    </div>
-                  ))}
+              {t.cards.map((card) => (
+                <div key={card.title} className="card gor ri">
+                  <span className="gsc" data-inst-sx="">
+                    <GorScene name={card.scene} />
+                  </span>
+                  <div className="gortx">
+                    <h3 className="h3">{card.title}</h3>
+                    <p>{card.text}</p>
+                  </div>
                 </div>
               ))}
             </div>
