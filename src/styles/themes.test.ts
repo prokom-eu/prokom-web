@@ -426,3 +426,18 @@ describe.each(['light', 'dark'] as const)('Biznes wizard card, %s theme', (mode)
     expect(contrastRatio(hex('--surface-dark', s), hex('--ok', s))).toBeGreaterThanOrEqual(4.5)
   })
 })
+
+describe('white plate under product photos (NAPRAWA-0911 §3)', () => {
+  it.each(['light', 'dark'] as const)(
+    'Biznes %s: the plate is white (packshots with a white background)',
+    (mode) => {
+      expect(hex('--plate', scope('biznes', mode)).toLowerCase()).toBe('#ffffff')
+      expect(scope('biznes', mode)['--plate-shadow']).toBeTruthy()
+    },
+  )
+
+  it('other lines: the plate is their surface, no shadow', () => {
+    expect(scope('software', 'light')['--plate']).toBe('var(--surface)')
+    expect(scope('software', 'light')['--plate-shadow']).toBe('transparent')
+  })
+})
