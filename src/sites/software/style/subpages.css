@@ -256,6 +256,13 @@
     order: -1;
   }
 }
+@media (max-width: 767px) {
+  /* A sideways swipe on the mock-up is the next offer (§2.6): the browser keeps only the
+     vertical scroll, so the touch is not cancelled. */
+  .sw-offer-aside {
+    touch-action: pan-y;
+  }
+}
 @media (min-width: 981px) {
   .sw-offer-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -408,9 +415,11 @@
   .sw-offer-shot [data-marker][data-lit] > span {
     animation: sw-offer-pulse 700ms var(--ease-out) 1;
   }
-  /* Without View Transitions the new device simply fades in. */
-  html:not([data-offer-device]) .sw-offer-shot > .mk {
-    animation: sw-offer-device var(--dur-state) var(--ease-out) both;
+  /* Without View Transitions the new device simply fades in (with them the frame morphs). */
+  @supports not (view-transition-name: none) {
+    .sw-offer-shot > .mk {
+      animation: sw-offer-device var(--dur-state) var(--ease-out) both;
+    }
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -717,17 +726,21 @@
   .sw-offer-swap[data-intro] > .sw-offer-main {
     animation: none;
   }
+  .sw-offer-swap[data-intro] {
+    /* 40 ms between the sections, from the press token (120 ms). */
+    --offer-stagger: calc(var(--dur-press) / 3);
+  }
   .sw-offer-swap[data-intro] .sw-offer-block {
     animation: sw-offer-rise var(--dur-state) var(--ease-out) both;
   }
   .sw-offer-swap[data-intro] #oferta-jak {
-    animation-delay: 40ms;
+    animation-delay: var(--offer-stagger);
   }
   .sw-offer-swap[data-intro] #oferta-dla-kogo {
-    animation-delay: 80ms;
+    animation-delay: calc(var(--offer-stagger) * 2);
   }
   .sw-offer-swap[data-intro] #oferta-pytania {
-    animation-delay: 120ms;
+    animation-delay: calc(var(--offer-stagger) * 3);
   }
   /* Phone (§2.6): the sheet slides up from the bottom up to 767 px and grows to full height. */
   @media (max-width: 767px) {
@@ -796,7 +809,7 @@
 /* Shared elements (§2.5, View Transitions): the card's mock-up grows into the window's, and a
    device switch morphs the frame. Only while the flags are on (`offerTransition.ts`). */
 html[data-offer-vt],
-html[data-offer-vt] :not(.v-card-th, .sw-offer-shot) {
+html[data-offer-vt] :not(.v-card-th, .sw-offer-shot, .sw-offer-shot > .mk) {
   /* Other named parts (the header of page transitions) would be drawn over the window. */
   view-transition-name: none !important;
 }

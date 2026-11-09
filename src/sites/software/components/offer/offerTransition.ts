@@ -47,11 +47,12 @@ export function openOfferFrom(card: HTMLElement, open: () => void): void {
         wait()
       }),
   )
-  void transition.finished.finally(() => {
+  const clean = () => {
     root.removeAttribute(FLAG)
     root.removeAttribute(ROOT_FLAG)
     picture.style.viewTransitionName = ''
-  })
+  }
+  transition.finished.then(clean, clean)
 }
 
 const DEVICE_FLAG = 'data-offer-device'
@@ -69,7 +70,13 @@ export function switchDevice(update: () => void): void {
     return
   }
   const root = document.documentElement
+  // Only the frame is captured (the page and its named header stay live, under the window).
   root.setAttribute(DEVICE_FLAG, '')
+  root.setAttribute(ROOT_FLAG, '')
   const transition = doc.startViewTransition(update)
-  void transition.finished.finally(() => root.removeAttribute(DEVICE_FLAG))
+  const clean = () => {
+    root.removeAttribute(DEVICE_FLAG)
+    root.removeAttribute(ROOT_FLAG)
+  }
+  transition.finished.then(clean, clean)
 }

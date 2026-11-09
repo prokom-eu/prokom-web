@@ -139,11 +139,25 @@ export function SolutionDialog({
   const [direction, setDirection] = useState<1 | -1>(1)
   /** The offer the window opened with: only its sections come in one by one (§2.5). */
   const [first, setFirst] = useState<string | null>(null)
-  if (!isOpen && first !== null) setFirst(null)
-  if (isOpen && first === null && slug) setFirst(slug)
   /** Phone sheet at full height (§2.6). */
   const [expanded, setExpanded] = useState(false)
-  if (!isOpen && expanded) setExpanded(false)
+  /** The amount of the hero price shown last, while the window stays open (§2.5). */
+  const [trail, setTrail] = useState<{ key: string; amount: string; from: string | null }>({
+    key: '',
+    amount: '',
+    from: null,
+  })
+  // Reset when the window opens — not when it closes, so the closing window stays as it was.
+  const [wasOpen, setWasOpen] = useState(isOpen)
+  const opening = isOpen && !wasOpen
+  if (isOpen !== wasOpen) {
+    setWasOpen(isOpen)
+    if (isOpen) {
+      setFirst(slug)
+      setExpanded(false)
+      setTrail({ key: '', amount: '', from: null })
+    }
+  }
   const heading = useRef<HTMLHeadingElement>(null)
   const top = useRef<HTMLDivElement>(null)
   const send = useRef<HTMLAnchorElement>(null)
@@ -161,6 +175,8 @@ export function SolutionDialog({
     const from = current.current ? list.indexOf(current.current) : -1
     const to = list.indexOf(next)
     setDirection(way ?? (to >= 0 && from >= 0 && to < from ? -1 : 1))
+    // Back on the first offer later: a side move, not the opening's sections again.
+    setFirst('')
     current.current = next
     onSwitch(next)
   }
@@ -462,6 +478,12 @@ export function SolutionDialog({
         ? { kind: 'text', text: price.title }
         : null
   const termValue = level ? level.term : view.term
+  const heroAmount = heroPrice?.kind === 'amount' ? heroPrice.amount : ''
+  const trailKey = `${view.slug}|${heroAmount}`
+  if (trail.key !== trailKey) {
+    // On opening the price starts as it is; only a switch inside the open window counts.
+    setTrail({ key: trailKey, amount: heroAmount, from: opening ? null : trail.amount || null })
+  }
 
   return (
     <BottomSheet
@@ -504,6 +526,7 @@ export function SolutionDialog({
           {view.lead && <p className="mt-2 text-lg text-ink-2">{view.lead}</p>}
           <PriceHero
             price={heroPrice}
+            priceFrom={trail.key === trailKey ? trail.from : null}
             termLabel={view.termLabel}
             term={termValue || null}
             careFrom={view.careFrom}
