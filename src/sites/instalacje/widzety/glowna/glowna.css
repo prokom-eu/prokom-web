@@ -1471,6 +1471,24 @@
   }
 }
 
+/* Tablet portrait (audit 09.11): the full-width scene on top pushed the H1 and „Zaplanuj
+   instalację” below the first screen of an iPad. Text first, as on the phone, and the scene under
+   the object tabs in a box capped at ~45% of the screen (cropped with `slice`). */
+@media (min-width: 761px) and (max-width: 1023px) {
+  [data-line='instalacje'] {
+    & .hxstage {
+      order: 0;
+      aspect-ratio: auto;
+      block-size: min(45vh, 520px);
+      margin: 20px -48px 8px;
+    }
+    & .hxstage .hxbld {
+      position: absolute;
+      inset: 0;
+    }
+  }
+}
+
 @media (max-width: 760px) {
   [data-line='instalacje'] {
     & .hxstage {
