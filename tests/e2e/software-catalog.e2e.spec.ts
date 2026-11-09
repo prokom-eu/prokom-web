@@ -449,6 +449,19 @@ test.describe('Software catalog, SEO and sitemap', () => {
 test.describe('Software catalog on the phone', () => {
   test.use({ viewport: { width: 390, height: 844 } })
 
+  test('the offer sheet stops at 70 %, goes full while reading, × closes', async ({ page }) => {
+    // OKNO-OFERTY-PREMIUM §2.6: two stops of the sheet; a pull down closes it (by hand on a phone).
+    await page.goto(site(HOST, `${PATH}?rozwiazanie=strona-wizytowka`))
+    const dialog = windowOf(page, 'Strona wizytówka')
+    await expect(dialog).toBeVisible()
+    const height = async () => (await dialog.boundingBox())?.height ?? 0
+    await expect.poll(height).toBeLessThan(844 * 0.72)
+    await dialog.evaluate((element) => element.scrollTo(0, 200))
+    await expect.poll(height).toBeGreaterThan(844 * 0.9)
+    await dialog.getByRole('button', { name: 'Zamknij' }).click()
+    await expect(page.locator('dialog[open]')).toHaveCount(0)
+  })
+
   test('tiles, chips and the search; a chip filters the cards', async ({ page }) => {
     await page.goto(site(HOST, PATH))
     await ready(page)

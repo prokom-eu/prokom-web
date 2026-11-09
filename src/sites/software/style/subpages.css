@@ -256,6 +256,13 @@
     order: -1;
   }
 }
+@media (max-width: 767px) {
+  /* A sideways swipe on the mock-up is the next offer (§2.6): the browser keeps only the
+     vertical scroll, so the touch is not cancelled. */
+  .sw-offer-aside {
+    touch-action: pan-y;
+  }
+}
 @media (min-width: 981px) {
   .sw-offer-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -408,8 +415,11 @@
   .sw-offer-shot [data-marker][data-lit] > span {
     animation: sw-offer-pulse 700ms var(--ease-out) 1;
   }
-  .sw-offer-shot .mk {
-    animation: sw-offer-device var(--dur-state) var(--ease-out) both;
+  /* Without View Transitions the new device simply fades in (with them the frame morphs). */
+  @supports not (view-transition-name: none) {
+    .sw-offer-shot > .mk {
+      animation: sw-offer-device var(--dur-state) var(--ease-out) both;
+    }
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -701,12 +711,59 @@
   text-align: center;
 }
 @media (prefers-reduced-motion: no-preference) {
-  /* The next offer: the details fade in, the mock-up comes up 12 px. */
-  .sw-offer-swap {
-    animation: sw-offer-swap var(--dur-sheet) var(--ease-out) both;
+  /* The next offer (OKNO-OFERTY-PREMIUM §2.5): the details come 24 px from the side of the
+     move with a fade, the mock-up cross-fades; the price counts (`PriceTween`). */
+  .sw-offer-swap > .sw-offer-main {
+    animation: sw-offer-from-side var(--dur-hover) var(--ease-out) both;
+  }
+  .sw-offer-swap[data-dir='-1'] > .sw-offer-main {
+    --swap-from: -24px;
   }
   .sw-offer-swap > .sw-offer-aside > :first-child {
-    animation: sw-offer-mock 450ms var(--ease-spring) both;
+    animation: sw-offer-swap var(--dur-hover) var(--ease-out) both;
+  }
+  /* The offer the window opened with: no side move, its sections come in one by one (40 ms). */
+  .sw-offer-swap[data-intro] > .sw-offer-main {
+    animation: none;
+  }
+  .sw-offer-swap[data-intro] {
+    /* 40 ms between the sections, from the press token (120 ms). */
+    --offer-stagger: calc(var(--dur-press) / 3);
+  }
+  .sw-offer-swap[data-intro] .sw-offer-block {
+    animation: sw-offer-rise var(--dur-state) var(--ease-out) both;
+  }
+  .sw-offer-swap[data-intro] #oferta-jak {
+    animation-delay: var(--offer-stagger);
+  }
+  .sw-offer-swap[data-intro] #oferta-dla-kogo {
+    animation-delay: calc(var(--offer-stagger) * 2);
+  }
+  .sw-offer-swap[data-intro] #oferta-pytania {
+    animation-delay: calc(var(--offer-stagger) * 3);
+  }
+  /* Phone (§2.6): the sheet slides up from the bottom up to 767 px and grows to full height. */
+  @media (max-width: 767px) {
+    [data-line='software'] dialog.sw-offer-panel[data-motion] {
+      transition:
+        translate var(--dur-sheet) var(--ease-out),
+        max-height var(--dur-sheet) var(--ease-out),
+        opacity var(--dur-state) var(--ease-out),
+        display var(--dur-sheet) allow-discrete,
+        overlay var(--dur-sheet) allow-discrete;
+    }
+    [data-line='software'] dialog.sw-offer-panel[data-motion]:not([open]) {
+      opacity: 1;
+      scale: 1;
+      translate: 0 100%;
+    }
+    @starting-style {
+      [data-line='software'] dialog.sw-offer-panel[data-motion][open] {
+        opacity: 1;
+        scale: 1;
+        translate: 0 100%;
+      }
+    }
   }
   /* The window comes in from a blur on a spring (450 ms) and leaves quicker (200 ms). */
   @media (min-width: 768px) {
@@ -736,11 +793,57 @@
     opacity: 0;
   }
 }
-@keyframes sw-offer-mock {
+@keyframes sw-offer-from-side {
+  from {
+    opacity: 0;
+    translate: var(--swap-from, 24px) 0;
+  }
+}
+@keyframes sw-offer-rise {
   from {
     opacity: 0;
     translate: 0 12px;
   }
+}
+
+/* Shared elements (§2.5, View Transitions): the card's mock-up grows into the window's, and a
+   device switch morphs the frame. Only while the flags are on (`offerTransition.ts`). */
+html[data-offer-vt],
+html[data-offer-vt] :not(.v-card-th, .sw-offer-shot, .sw-offer-shot > .mk) {
+  /* Other named parts (the header of page transitions) would be drawn over the window. */
+  view-transition-name: none !important;
+}
+html[data-offer-transition] dialog[open] .sw-offer-shot {
+  view-transition-name: sw-offer-shot;
+}
+/* While its mock-up grows from the card the window only fades in (no blur or scale): one effect,
+   and only the mock-up is captured (`data-offer-vt`), so the page is not photographed. */
+html[data-offer-transition] [data-line='software'] dialog.sw-offer-panel[data-motion] {
+  filter: none;
+  transition:
+    opacity var(--dur-state) var(--ease-out),
+    display var(--dur-state) allow-discrete,
+    overlay var(--dur-state) allow-discrete;
+}
+@starting-style {
+  html[data-offer-transition] [data-line='software'] dialog.sw-offer-panel[data-motion][open] {
+    filter: none;
+    opacity: 0;
+    scale: 1;
+  }
+}
+html[data-offer-device] .sw-offer-shot > .mk {
+  view-transition-name: sw-offer-device;
+}
+::view-transition-group(sw-offer-shot),
+::view-transition-group(sw-offer-device) {
+  animation-duration: var(--dur-sheet);
+  animation-timing-function: var(--ease-out);
+}
+::view-transition-old(sw-offer-device),
+::view-transition-new(sw-offer-device) {
+  height: 100%;
+  object-fit: contain;
 }
 .sw-offer-shot {
   height: 300px;
