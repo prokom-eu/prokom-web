@@ -10,7 +10,8 @@
  *   `payload run` drops them and the run stays a preview)
  *
  * Login: INST_TEXTS_EMAIL / INST_TEXTS_PASSWORD (an admin of that panel); locally falls back to
- * SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD. A non-local address must be https and writes only with
+ * SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD; staging behind its site password also INST_TEXTS_BASIC
+ * (`user:password` of the nginx password file). A non-local address must be https and writes only with
  * `--write --yes`; read the preview report first. Records with a draft waiting in the panel are
  * left out (listed in the report); pages and posts keep their publication state.
  */
@@ -37,6 +38,7 @@ import {
   homeLayoutWithHero,
   layoutWithBlockTexts,
   overlay,
+  panelHeaders,
   planTextChange,
   type TextChange,
   type TextCollection,
@@ -89,10 +91,12 @@ async function main() {
   const password =
     process.env.INST_TEXTS_PASSWORD || (local ? process.env.SEED_ADMIN_PASSWORD : undefined)
   if (!email || !password) throw new Error('Brak INST_TEXTS_EMAIL / INST_TEXTS_PASSWORD.')
+  // Staging: the nginx site password as `user:password` (empty elsewhere).
+  const sitePassword = process.env.INST_TEXTS_BASIC || undefined
 
   const login = await fetch(`${base}/api/users/login`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: panelHeaders(undefined, sitePassword),
     body: JSON.stringify({ email, password }),
   })
   if (!login.ok) throw new Error(`Logowanie: ${login.status}`)
@@ -101,7 +105,7 @@ async function main() {
   async function api<T>(path: string, init?: RequestInit): Promise<T> {
     const res = await fetch(`${base}${path}`, {
       ...init,
-      headers: { 'Content-Type': 'application/json', Authorization: `JWT ${token}` },
+      headers: panelHeaders(token, sitePassword),
     })
     if (!res.ok) {
       const body = (await res.text()).slice(0, 300)
