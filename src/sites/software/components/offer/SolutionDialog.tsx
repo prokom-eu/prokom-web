@@ -1,18 +1,22 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { type PointerEvent, useEffect, useRef, useState } from 'react'
 
 import { BottomSheet } from '@/components/BottomSheet'
 import { Icon } from '@/components/ui/Icon'
 import { track } from '@/lib/analytics/track'
 import { stripBold } from '@/lib/site/emphasis'
 import type { OfferView } from '@/lib/software/offer'
-import { MAX_PROJECT_ITEMS, PROJECT_SEND_HREF } from '@/lib/software/project'
+import { askHref, extrasLabel } from '@/lib/software/offerExtras'
+import { MAX_PROJECT_ITEMS } from '@/lib/software/project'
 import { heroHead } from '@/lib/software/heroPrice'
+import { neighbourOf } from '@/lib/software/offerCompare'
 import { projectActions, useProject } from '@/lib/software/projectStore'
+import { type SpotKey, spotsOf } from '@/lib/software/spots'
+import { mockupSpots } from '@/sites/software/components/mockups/spots'
 
-import { OfferGallery } from './OfferGallery'
+import { OfferGallery, type SpotPoint } from './OfferGallery'
 import { CategoryDots, SectionTabs, ShortcutHint, type TabItem } from './OfferNav'
 import {
   AskCard,
@@ -21,10 +25,12 @@ import {
   CompareTable,
   ExampleQuote,
   type HeroPrice,
-  IncludedChips,
+  type IncludedPoint,
+  IncludedPoints,
   LevelChoice,
   LiveBadge,
   OfferBadge,
+  OfferCompare,
   OfferSection,
   PriceHero,
   Questions,
@@ -38,8 +44,13 @@ import {
  * page dimmed and blurred behind).
  */
 const PANEL =
-  'sw-offer-panel inset-0 m-auto h-[min(920px,calc(100dvh-40px))] max-h-none w-[min(1480px,calc(100vw-48px))] max-w-none rounded-[28px] min-[768px]:[&_[data-sheet-handle]]:hidden max-[767px]:inset-x-0 max-[767px]:bottom-0 max-[767px]:top-auto max-[767px]:h-auto max-[767px]:max-h-[94dvh] max-[767px]:w-full max-[767px]:rounded-b-none'
+  'sw-offer-panel inset-0 m-auto h-[min(920px,calc(100dvh-40px))] max-h-none w-[min(1480px,calc(100vw-48px))] max-w-none rounded-[28px] min-[768px]:[&_[data-sheet-handle]]:hidden max-[767px]:inset-x-0 max-[767px]:bottom-0 max-[767px]:top-auto max-[767px]:h-auto max-[767px]:w-full max-[767px]:rounded-b-none'
 const BACKDROP = 'backdrop:bg-surface-dark/70 backdrop:backdrop-blur-md'
+/** Phone (§2.6): the sheet stops at 70 % and goes full height once read or pulled up. */
+const SHEET_HALF = 'sw-offer-sheet max-[767px]:max-h-[70dvh]'
+const SHEET_FULL = 'sw-offer-sheet max-[767px]:max-h-[94dvh]'
+/** A swipe across the phone's mock-up: at least this far, and mostly sideways. */
+const SWIPE_PX = 60
 const CONTENT = 'px-4 pb-6 pt-2.5 min-[768px]:px-7 min-[768px]:pt-0'
 
 type Props = {
@@ -57,6 +68,26 @@ type Props = {
    * closes it (`BottomSheet` `closeOnBack`). The catalog drives history itself (`?rozwiazanie=`).
    */
   closeOnBack?: boolean
+}
+
+/** A touch gesture on the phone: `onEnd` gets how far it went (end − start). */
+function phoneGesture(
+  event: PointerEvent<HTMLElement>,
+  onEnd: (dx: number, dy: number) => void,
+): void {
+  if (event.pointerType === 'mouse' || !window.matchMedia('(max-width: 767px)').matches) return
+  const { clientX: x, clientY: y } = event
+  const stop = () => {
+    window.removeEventListener('pointerup', end)
+    window.removeEventListener('pointercancel', stop)
+  }
+  // The browser took the touch for scrolling: no gesture.
+  const end = (up: globalThis.PointerEvent) => {
+    stop()
+    onEnd(up.clientX - x, up.clientY - y)
+  }
+  window.addEventListener('pointerup', end)
+  window.addEventListener('pointercancel', stop)
 }
 
 function Chevron({ back = false }: { back?: boolean }) {
@@ -102,6 +133,33 @@ export function SolutionDialog({
   const [pick, setPick] = useState<{ slug: string; index: number } | null>(null)
   /** The list was full when this solution was added (no toast then, so the window says it). */
   const [fullFor, setFullFor] = useState<string | null>(null)
+  /** The point of „W cenie” whose area is lit on the mock-up (§2.2). */
+  const [litPoint, setLitPoint] = useState<number | null>(null)
+  /** Chips of „Potrzebujesz więcej?” chosen for the open solution (§2.3). */
+  const [chosen, setChosen] = useState<{ slug: string; extras: string[] } | null>(null)
+  /** Which way the last switch went (§2.5): the details come in from that side. */
+  const [direction, setDirection] = useState<1 | -1>(1)
+  /** The offer the window opened with: only its sections come in one by one (§2.5). */
+  const [first, setFirst] = useState<string | null>(null)
+  /** Phone sheet at full height (§2.6). */
+  const [expanded, setExpanded] = useState(false)
+  /** The amount of the hero price shown last, while the window stays open (§2.5). */
+  const [trail, setTrail] = useState<{ key: string; amount: string; from: string | null }>({
+    key: '',
+    amount: '',
+    from: null,
+  })
+  // Reset when the window opens — not when it closes, so the closing window stays as it was.
+  const [wasOpen, setWasOpen] = useState(isOpen)
+  const opening = isOpen && !wasOpen
+  if (isOpen !== wasOpen) {
+    setWasOpen(isOpen)
+    if (isOpen) {
+      setFirst(slug)
+      setExpanded(false)
+      setTrail({ key: '', amount: '', from: null })
+    }
+  }
   const heading = useRef<HTMLHeadingElement>(null)
   const top = useRef<HTMLDivElement>(null)
   const send = useRef<HTMLAnchorElement>(null)
@@ -115,7 +173,12 @@ export function SolutionDialog({
   const position = view ? list.indexOf(view.slug) : -1
   const added = view ? project.some((item) => item.id === view.slug) : false
 
-  const go = (next: string) => {
+  const go = (next: string, way?: 1 | -1) => {
+    const from = current.current ? list.indexOf(current.current) : -1
+    const to = list.indexOf(next)
+    setDirection(way ?? (to >= 0 && from >= 0 && to < from ? -1 : 1))
+    // Back on the first offer later: a side move, not the opening's sections again.
+    setFirst('')
     current.current = next
     onSwitch(next)
   }
@@ -126,7 +189,7 @@ export function SolutionDialog({
     // Outside the list (opened from „Dobrze łączy się z”): → starts at the first, ← at the last.
     const index = from < 0 ? (direction === 1 ? 0 : list.length - 1) : from + direction
     const next = list[(index + list.length) % list.length]
-    if (next) go(next)
+    if (next) go(next, direction)
   }
 
   // A new solution starts at the top (its default level: `pick` is per slug).
@@ -148,6 +211,30 @@ export function SolutionDialog({
       heading.current?.focus({ preventScroll: true })
     }
   }, [slug])
+
+  // Phone: reading on (the sheet's content scrolls) takes it to full height.
+  useEffect(() => {
+    if (!isOpen || expanded) return
+    const sheet = heading.current?.closest('dialog')
+    if (!sheet) return
+    const phone = window.matchMedia('(max-width: 767px)')
+    const onScroll = () => {
+      if (phone.matches && sheet.scrollTop > 8) setExpanded(true)
+    }
+    sheet.addEventListener('scroll', onScroll, { passive: true })
+    return () => sheet.removeEventListener('scroll', onScroll)
+  }, [isOpen, expanded])
+
+  // Pulled up by the top: full height (pulled down: `BottomSheet` closes it).
+  const pullUp = (event: PointerEvent<HTMLElement>) =>
+    phoneGesture(event, (_dx, dy) => {
+      if (dy < -30) setExpanded(true)
+    })
+  // Across the mock-up: the next or previous offer (§2.6), not a vertical scroll.
+  const swipe = (event: PointerEvent<HTMLElement>) =>
+    phoneGesture(event, (dx, dy) => {
+      if (Math.abs(dx) >= SWIPE_PX && Math.abs(dx) > Math.abs(dy) * 1.5) step(dx < 0 ? 1 : -1)
+    })
 
   useEffect(() => {
     if (added && focusSend.current) {
@@ -192,6 +279,48 @@ export function SolutionDialog({
   const bar = level ? { label: level.barLabel, price: level.price } : view.bar
   const projectName = level ? level.projectName : view.name
 
+  // Points of „W cenie” with an area on this offer's mock-up get a number (§2.2); the others stay
+  // plain — no area, no light.
+  const areas = mockupSpots(view.preview?.kind ?? null, view.preview?.variant ?? null)
+  let counter = 0
+  const included: (IncludedPoint & { spots: SpotKey[] })[] =
+    price.kind === 'included'
+      ? price.items.map((text) => {
+          const spots = spotsOf(text).filter((spot) => areas.has(spot))
+          return { text, spots, number: spots.length > 0 ? ++counter : null }
+        })
+      : []
+  const spotPoints: SpotPoint[] = included.flatMap((point) =>
+    point.number ? [{ number: point.number, label: point.text, spots: point.spots }] : [],
+  )
+  const litSpots = spotPoints.find((point) => point.number === litPoint)?.spots ?? null
+  const extras = chosen?.slug === view.slug ? chosen.extras : []
+  const toggleExtra = (extra: string) =>
+    setChosen({
+      slug: view.slug,
+      extras: extras.includes(extra)
+        ? extras.filter((item) => item !== extra)
+        : view.extras.filter((item) => item === extra || extras.includes(item)),
+    })
+  // A tap on a point lights its area and brings the mock-up into view (the phone: above).
+  const showPoint = (number: number) => {
+    setLitPoint(number)
+    const shot = document.querySelector('.sw-offer-panel .sw-offer-shot')
+    const box = shot?.getBoundingClientRect()
+    if (shot && box && (box.top < 80 || box.bottom > window.innerHeight - 80)) {
+      const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      shot.scrollIntoView({ block: 'center', behavior: still ? 'auto' : 'smooth' })
+    }
+  }
+  // A click on a marker goes to its point and lights it.
+  const goToPoint = (number: number) => {
+    const point = document.querySelector<HTMLButtonElement>(`[data-point="${number}"]`)
+    if (!point) return
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    point.scrollIntoView({ block: 'center', behavior: still ? 'auto' : 'smooth' })
+    point.focus({ preventScroll: true })
+  }
+
   const add = () => {
     // `toggle` also takes an item out: only an addition counts as `oferta_dodaj`.
     const adding = !project.some((item) => item.id === view.slug)
@@ -228,7 +357,10 @@ export function SolutionDialog({
   })
 
   const header = (
-    <div className="sw-offer-head -mx-4 flex items-center gap-3 border-b border-border px-4 py-3 min-[768px]:-mx-7 min-[768px]:px-7">
+    <div
+      onPointerDown={pullUp}
+      className="sw-offer-head -mx-4 flex items-center gap-3 border-b border-border px-4 py-3 min-[768px]:-mx-7 min-[768px]:px-7"
+    >
       {list.length > 1 && (
         <div className="flex shrink-0 items-center rounded-full border border-border bg-surface-2 p-1">
           <button
@@ -280,9 +412,9 @@ export function SolutionDialog({
         <span className="block truncate text-xs font-bold text-ink-2">
           {fullFor === view.slug && !added
             ? `Twój projekt ma już ${MAX_PROJECT_ITEMS} pozycji — usuń którąś, żeby dodać tę.`
-            : added
-              ? `✓ W wycenie · ${bar.label}`
-              : bar.label}
+            : [added ? '✓ W wycenie' : null, extrasLabel(extras) ?? (added ? bar.label : null)]
+                .filter(Boolean)
+                .join(' · ') || bar.label}
         </span>
         <span className="block font-display text-xl font-extrabold text-accent-text">
           {bar.price}
@@ -291,7 +423,7 @@ export function SolutionDialog({
       {added ? (
         <Link
           ref={send}
-          href={PROJECT_SEND_HREF}
+          href={askHref(view.name, extras)}
           data-motion="button-outline"
           className="inline-flex min-h-12 min-w-12 items-center justify-center gap-2 rounded-full border border-accent-line px-4 font-bold text-accent-text min-[768px]:px-5"
         >
@@ -315,9 +447,9 @@ export function SolutionDialog({
         </button>
       )}
       {/* „Zapytaj o tę ofertę →” (ZMIANY-v24 §6.1): the solution goes into „Twój projekt”, so the
-          contact form opens with it (the form reads only `?projekt=1`). */}
+          contact form opens with it (`?projekt=1`); chosen chips start its message (`?fraza=`). */}
       <Link
-        href={PROJECT_SEND_HREF}
+        href={askHref(view.name, extras)}
         aria-label="Zapytaj o tę ofertę"
         onClick={() => {
           if (!added && projectActions.toggle(view.slug, projectName)) {
@@ -348,6 +480,13 @@ export function SolutionDialog({
         ? { kind: 'text', text: price.title }
         : null
   const termValue = level ? level.term : view.term
+  const neighbour = neighbourOf(view, views, list)
+  const heroAmount = heroPrice?.kind === 'amount' ? heroPrice.amount : ''
+  const trailKey = `${view.slug}|${heroAmount}`
+  if (trail.key !== trailKey) {
+    // On opening the price starts as it is; only a switch inside the open window counts.
+    setTrail({ key: trailKey, amount: heroAmount, from: opening ? null : trail.amount || null })
+  }
 
   return (
     <BottomSheet
@@ -358,7 +497,7 @@ export function SolutionDialog({
       headingRef={heading}
       header={header}
       stickyHeader
-      panelClassName={PANEL}
+      panelClassName={`${PANEL} ${expanded ? SHEET_FULL : SHEET_HALF}`}
       backdropClassName={BACKDROP}
       contentClassName={CONTENT}
       footer={footer}
@@ -369,7 +508,12 @@ export function SolutionDialog({
       {/* §2.2 D: the mock-up is the biggest thing — on the right and stuck from 981 px (58 % from
           1280 px), shown first on the phone by CSS; in the DOM after the details, so the reading
           and Tab order follow the wide layout. `key`: the next offer (←/→) fades in. */}
-      <div key={view.slug} className="sw-offer-swap sw-offer-grid mt-5">
+      <div
+        key={view.slug}
+        data-dir={direction}
+        data-intro={view.slug === first ? '' : undefined}
+        className="sw-offer-swap sw-offer-grid mt-5"
+      >
         <div className="sw-offer-main min-w-0">
           <div className="flex flex-wrap gap-2">
             {view.label && <OfferBadge>{view.label}</OfferBadge>}
@@ -385,6 +529,7 @@ export function SolutionDialog({
           {view.lead && <p className="mt-2 text-lg text-ink-2">{view.lead}</p>}
           <PriceHero
             price={heroPrice}
+            priceFrom={trail.key === trailKey ? trail.from : null}
             termLabel={view.termLabel}
             term={termValue || null}
             careFrom={view.careFrom}
@@ -398,7 +543,20 @@ export function SolutionDialog({
 
           {hasScope && (
             <section id="oferta-zakres" aria-label="Zakres" className="sw-offer-block">
-              {price.kind === 'included' && <IncludedChips price={price} />}
+              {price.kind === 'included' && (
+                <IncludedPoints
+                  points={included}
+                  more={price.more}
+                  extras={view.extras}
+                  chosen={extras}
+                  onLight={setLitPoint}
+                  onShow={showPoint}
+                  onToggleExtra={toggleExtra}
+                />
+              )}
+              {neighbour && (
+                <OfferCompare current={view} other={neighbour} onOpen={() => go(neighbour.slug)} />
+              )}
               {price.kind === 'ask' && <AskCard price={price} />}
               {levels && (
                 <LevelChoice
@@ -492,22 +650,15 @@ export function SolutionDialog({
           </section>
         </div>
 
-        <aside className="sw-offer-aside min-w-0">
+        <aside onPointerDown={swipe} className="sw-offer-aside min-w-0">
           <OfferGallery
             key={view.slug}
             preview={view.preview}
             thumbnail={view.thumbnail}
-            overlay={
-              view.toast && (
-                <span
-                  aria-hidden="true"
-                  className="absolute bottom-3 left-4 z-10 inline-flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-xl bg-surface-dark px-3 py-2 text-xs font-bold text-white shadow-raised"
-                >
-                  <span className="size-1.5 shrink-0 rounded-full bg-ok" />
-                  <span className="truncate">{view.toast}</span>
-                </span>
-              )
-            }
+            toast={view.toast}
+            points={spotPoints}
+            lit={litSpots}
+            onMarker={goToPoint}
           />
           {view.hasLivePreview && (
             <Link
