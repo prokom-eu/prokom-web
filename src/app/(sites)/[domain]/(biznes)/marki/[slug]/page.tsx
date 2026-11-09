@@ -11,7 +11,6 @@ import {
   brandTitle,
 } from '@/lib/catalog/brand'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
-import { DEFAULTS } from '@/lib/catalog/category'
 import { getBrandView, getCatalogIndex, getSalonDoc, getSalonSlugOfBrand } from '@/lib/catalog/data'
 import { BRANDS_PATH } from '@/lib/catalog/filters'
 import { buildSalonView, salonTitle, type SalonView } from '@/lib/catalog/salon'
@@ -25,7 +24,7 @@ import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { biznesDescription } from '@/lib/biznes/seo'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
-import { BrandAbout, BrandHero } from '@/sites/biznes/components/brand/BrandSections'
+import { BrandAbout, BrandCta, BrandHero } from '@/sites/biznes/components/brand/BrandSections'
 import { SalonChooser, SalonFamily } from '@/sites/biznes/components/brand/salon/SalonClient'
 import {
   familyHeading,
@@ -37,9 +36,7 @@ import {
   SalonService,
   SectionHead,
 } from '@/sites/biznes/components/brand/salon/SalonSections'
-import { CatalogContactPanel } from '@/sites/biznes/components/catalog/CatalogContactPanel'
 import { CategoryGrid } from '@/sites/biznes/components/category/CategoryGrid'
-import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
 
 import { requestOrigin, requireLine } from '../../../tenant'
 
@@ -118,6 +115,8 @@ export default async function BrandPage({ params }: Props) {
 
   const [settings, origin] = await Promise.all([getSiteSettings(tenant.id), requestOrigin()])
   const callback = settings?.biznes?.promises.callbackTime ?? null
+  const tel = settings?.phone ? toTelHref(settings.phone) : null
+  const phone = settings?.phone && tel ? { label: settings.phone, href: tel } : null
   const products = brandProducts(index, brand.slug)
   const crumbs: Crumb[] = [
     { name: 'Strona główna', href: '/' },
@@ -145,23 +144,15 @@ export default async function BrandPage({ params }: Props) {
       <BrandHero brand={brand} crumbs={crumbs} count={products.length} />
       <BrandAbout brand={brand} />
       <Container wide className="pb-14 sm:pb-20">
+        {/* No help card in the grid: the page ends with one call to action (audit 0611 P1-4). */}
         <CategoryGrid
           index={islandIndex(index, products)}
-          help={DEFAULTS.help}
           printersHref={null}
           segments="category"
           title="W katalogu"
         />
       </Container>
-      <HowInquiryWorks callbackTime={callback} />
-      <CatalogContactPanel
-        tenantId={tenant.id}
-        id="kontakt"
-        heading={DEFAULTS.contact.heading}
-        lead={DEFAULTS.contact.lead}
-        callbackTime={callback}
-        topic={brand.name}
-      />
+      <BrandCta brand={brand.name} callbackTime={callback} phone={phone} />
     </>
   )
 }

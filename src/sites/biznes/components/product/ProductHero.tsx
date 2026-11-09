@@ -115,7 +115,7 @@ export function ProductHero({
         )}
 
         {highlights.length > 0 && (
-          <ul className="grid grid-cols-3 gap-2.5 sm:gap-3">
+          <ul data-highlights="" className="grid grid-cols-3 gap-2.5 sm:gap-3">
             {highlights.map((feature) => (
               <li
                 key={feature}

@@ -222,6 +222,14 @@ describe('k4Relations (polecane, podobne)', () => {
 })
 
 describe('K4 package (katalog-k4.json)', () => {
+  it('recommends register accessories before network gear on registers (audit 0611 P1-13)', () => {
+    for (const card of k4Catalog.produkty.filter((item) => item.kategoria === 'kasy')) {
+      const labels = (card.polecane ?? []).map((item) => item.etykieta)
+      const network = labels.indexOf('Sieć i Wi-Fi')
+      if (network >= 0) expect(network, card.slug_seed).toBe(labels.length - 1)
+    }
+  })
+
   const cards: K4Card[] = k4Catalog.produkty
 
   it('has 422 cards: 162 new, 129 changed, 131 typography', () => {
