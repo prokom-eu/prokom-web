@@ -130,10 +130,22 @@ Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR
 **Pierwsze wdrożenie produkcji (raz):** rekordy `@`, `www` i panelu produkcji wg `docs/dns.md` (PR, potem Seohost) → certyfikat `prokom-prod` (`docs/wdrozenia.md` → „Nginx i staging”, krok 3) → zmienne `PROD_*` w `.env.proxy` → Nginx z nakładką: `docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml up -d`. Od tej chwili proxy uruchamiasz zawsze z oboma plikami. Do crona dopisz linię `backup.sh prod` (§1.8).
 1. Kopia przed wdrożeniem: `scripts/backup.sh prod predeploy` — musi się skończyć `done`.
 2. Zapisz obecny tag (punkt powrotu): `grep APP_IMAGE_TAG .env.prod`.
-3. W `.env.prod`: `APP_IMAGE_TAG=<SHA ze stagingu>`.
+3. W `.env.prod`: `APP_IMAGE_TAG=<SHA ze stagingu>`. Przy pierwszym wdrożeniu linii: teraz treść startowa (§3a).
 4. `$prod pull app && $prod up -d app`
 5. Zdrowie jak wyżej (`prokom-prod-app-1`), potem smoke: `PANEL_HOST=<panel> bash scripts/smoke.sh https://127.0.0.1 <domeny…>`.
 6. Smoke czerwony albo aplikacja nie wstaje w ~3 min → **4. Cofnięcie**.
+
+## 3a. Treść startowa produkcji (raz na uruchomienie linii)
+
+Pipeline przenosi kod, nie treść, a `pnpm seed*` na produkcji jest zablokowany. Pierwsza treść produkcji to **kopia stagingu** — tej treści, którą szef zaakceptował — bez ruchu testowego. Z komputera (Git Bash):
+```bash
+SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/prod-content.sh biznes
+```
+- **Kiedy:** przy pierwszym wdrożeniu produkcji — po utworzeniu stosu (`$prod up -d postgres`) i ustawieniu w `.env.prod` `APP_IMAGE_TAG` = tag stagingu, **przed** krokiem 4 z §3 (`up -d app`). Kolejna linia (np. `software`) później tym samym skryptem — wtedy aplikacja produkcji działa, skrypt ją zatrzymuje na chwilę, sprawdza zdrowie i smoke.
+- **Co robi** (`scripts/server/prod-content-apply.sh`, wysyłany przez ssh z tego checkoutu): kopia `predeploy` produkcji, jeśli ma już treść → zrzut bazy stagingu odtworzony obok (`prokom_prod_new`) → usunięte zapytania, log usunięć, sesje logowania i blokady edycji → domena produkcji każdej podanej linii dopisana do jej tenanta (`prokombiznes.pl`, `prokomsoftware.pl`, `prokominstalacje.pl`, środowisko „production”) → zdjęcia stagingu obok → krótka zamiana baz i zdjęć; błąd po zamianie = stara baza i zdjęcia wracają. Konta (`Users`) przechodzą razem z treścią.
+- **Zatrzymuje się, niczego nie zmieniając**, gdy produkcja ma już zapytania (od startu treść produkcji edytuje się w jej panelu — skrypt nie służy do odświeżania), gdy tagi obrazów stagingu i produkcji się różnią albo bez wpisania `prokom-prod`.
+- Linia, której nie podasz, nie ma domeny produkcji — produkcja odpowiada dla niej 404, dopóki jej nie uruchomisz.
+- Po skrypcie: e-mail powiadomień tenanta (Strony → „E-mail powiadomień”) i Dane firmy sprawdzić w panelu produkcji; jedno próbne zapytanie z formularza.
 
 ## 4. Cofnięcie wdrożenia
 
