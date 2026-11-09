@@ -295,6 +295,9 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 .cap {
   --cap-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   position: relative;
+  /* Own stacking context also without backdrop-filter: the spy pill (z-index -1) stays above
+     the capsule's background and under its links. */
+  isolation: isolate;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -347,12 +350,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 [data-scrolled] .cap__logo {
   transform: scale(0.86);
 }
-.cap__nav {
-  position: relative;
-}
 .cap__nav ul {
-  position: relative;
-  z-index: 1;
   display: flex;
   align-items: center;
   gap: 2px;
@@ -361,10 +359,13 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   list-style: none;
 }
 /* Home page scroll-spy (plan 0611 §8.1 pkt 2): one pill glides under the entry of the section
-   being read; `CapsuleSpy` sets its place and width. Under the links, which stay transparent. */
+   being read; `CapsuleSpy` sets its place and size, measured from the capsule (the mega menus
+   are placed from it too, so the menu itself gets no `position`). It glides only while shown:
+   appearing, it takes its place at once and fades in. */
 .cap-pill {
   position: absolute;
-  top: 50%;
+  z-index: -1;
+  top: 0;
   left: 0;
   width: var(--pill-w, 0);
   height: var(--pill-h, 42px);
@@ -372,14 +373,15 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   background: var(--nav-active-bg);
   opacity: 0;
   pointer-events: none;
-  transform: translate(var(--pill-x, 0), -50%);
+  transform: translate(var(--pill-x, 0), var(--pill-y, 0));
+  transition: opacity 200ms;
+}
+.cap-pill[data-on] {
+  opacity: 1;
   transition:
     transform 380ms var(--cap-ease),
     width 380ms var(--cap-ease),
     opacity 200ms;
-}
-.cap-pill[data-on] {
-  opacity: 1;
 }
 .cap__nav [data-spy] .cap-link {
   color: var(--nav-active-ink);
@@ -637,6 +639,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   .cap-link,
   .cap-link svg,
   .cap-pill,
+  .cap-pill[data-on],
   .cap-btn,
   .cap-cta {
     transition: none;

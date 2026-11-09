@@ -29,15 +29,17 @@ export function CapsuleSpy({ entries, stops }: Props) {
     const nav = element?.parentElement
     if (!element || !nav) return
     const spyEntries = JSON.parse(entriesKey) as SpyEntry[]
-    const sections = stopsKey
-      .split(' ')
-      .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => section !== null)
+    const ids = stopsKey.split(' ')
     let frame = 0
     let marked: HTMLElement | null = null
 
     const update = () => {
       frame = 0
+      // Looked up on every frame: after a client navigation to the home page the frame mounts
+      // before the page's sections are in the DOM (as `SiteRail`, which reads them late).
+      const sections = ids
+        .map((id) => document.getElementById(id))
+        .filter((section): section is HTMLElement => section !== null)
       const root = document.scrollingElement ?? document.documentElement
       const atBottom = window.scrollY >= root.scrollHeight - window.innerHeight - 2
       const id = activeSection(
@@ -54,17 +56,23 @@ export function CapsuleSpy({ entries, stops }: Props) {
         item?.setAttribute('data-spy', '')
         marked = item
       }
-      if (!item) {
+      // Measured from the capsule (`offsetParent`), where the pill and the mega menus sit.
+      const origin = element.offsetParent
+      if (!item || !origin) {
         element.removeAttribute('data-on')
         return
       }
-      // The link, not the list item: the pill takes the link's own box (padding included).
       const box = (item.querySelector('.cap-link') ?? item).getBoundingClientRect()
-      const origin = nav.getBoundingClientRect()
-      element.style.setProperty('--pill-x', `${box.left - origin.left}px`)
+      const from = origin.getBoundingClientRect()
+      element.style.setProperty('--pill-x', `${box.left - from.left - origin.clientLeft}px`)
+      element.style.setProperty('--pill-y', `${box.top - from.top - origin.clientTop}px`)
       element.style.setProperty('--pill-w', `${box.width}px`)
       element.style.setProperty('--pill-h', `${box.height}px`)
-      element.setAttribute('data-on', '')
+      if (!element.hasAttribute('data-on')) {
+        // Appearing: the place applies without a glide (transitions only while shown).
+        void element.offsetWidth
+        element.setAttribute('data-on', '')
+      }
     }
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(update)
@@ -72,10 +80,19 @@ export function CapsuleSpy({ entries, stops }: Props) {
     schedule()
     window.addEventListener('scroll', schedule, { passive: true })
     window.addEventListener('resize', schedule, { passive: true })
+    // Links change width without a scroll or resize: web fonts, the scrolled capsule's padding.
+    const resized = new ResizeObserver(schedule)
+    resized.observe(nav)
+    if (element.offsetParent) resized.observe(element.offsetParent)
+    // The scrolled capsule's padding moves the links over 220 ms.
+    const capsule = element.closest('.cap')
+    capsule?.addEventListener('transitionend', schedule)
     return () => {
       if (frame) cancelAnimationFrame(frame)
       window.removeEventListener('scroll', schedule)
       window.removeEventListener('resize', schedule)
+      resized.disconnect()
+      capsule?.removeEventListener('transitionend', schedule)
       marked?.removeAttribute('data-spy')
     }
   }, [entriesKey, stopsKey])
