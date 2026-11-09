@@ -24,6 +24,7 @@ import { Related } from '../../sekcje/Related'
 import { FaultForm } from '../../widzety/serwis/FaultFormLazy'
 import { PlanCards } from '../../widzety/serwis/PlanCardsLazy'
 import { salonsNote } from '../../powloka/salons'
+import { PageStyles } from '../../style/LineStyles'
 
 type Props = { block: InstServiceDeskBlockData; tenantId: number }
 
@@ -68,6 +69,7 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
   return (
     // `data-inst-il`: the illustration palette, like the service pages (the tracker's ring).
     <div className="inst-svc" data-inst-il="" style={{ '--h': hueColor } as CSSProperties}>
+      <PageStyles kind="serviceDesk" />
       {origin && (
         <>
           <JsonLd

@@ -374,3 +374,16 @@ html[data-line='instalacje'] :is(input, textarea, select, .zkfl, .zktown, .hzkf,
     translate: -14px 0;
   }
 }
+
+/* Fade-in of a swapped panel: the „Dla kogo” pages (`obiekty.css`) and „Dla architektów”
+   (`architekci.css`) — here, in the frame, because those sheets are not linked together. */
+@keyframes inst-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

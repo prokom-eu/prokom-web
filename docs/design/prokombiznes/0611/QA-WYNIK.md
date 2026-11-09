@@ -80,6 +80,8 @@ Przed poprawką okruszka „Start” (pomiar 1):
 
 ## 7. Do decyzji / otwarte
 
+- **Dopisek 09.11 wieczór (NAPRAWA-0911, PR `revert/biznes-salony-pelne`):** przycinanie z B5-3b (#458) wycofane — salony znów z pełną kartą hero (opisy, chipy), pełną „Całą ofertą” i osobnymi blokami Serwis i Wdrożenie; GoPOS — pierwszy lokal z pełnym nagłówkiem; branża — kroki „Jak to działa” zamiast odnośnika. Punkt P1-3 audytu 0611 („dublowanie”) cofnięty decyzją Krystiana (audyt stagingu 09.11 §2).
+
 - **Zestawy ukryte (3)** — po drugim badaniu w QA zestaw z programem i wagą etykietującą „Gotowy” (20/23); pytania do Insoft (Dibal G-325), Elzab (Windows 11), GoPOS (kiosk K2): `docs/STAN.md`, `docs/zadania/zestawy-zgodnosci.md`.
 - **GoPOS:** scalenie listy modułów z konfiguratorem pakietu (§10.3) — niezrobione, opis w #458 i STAN.
 - **Konfigurator:** kwoty 700 zł / 0 zł i zdanie o łączeniu terminala z kasą (wyżej, §4).
