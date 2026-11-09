@@ -98,6 +98,11 @@
   & .dark .mut {
     color: var(--inst-dark-lead);
   }
+  /* Audit 09.11 (axe, 2.85:1): an eyebrow on a dark card takes the accent for dark surfaces —
+     the light theme's accent text is too dark there (7.35:1 light, 9.28:1 dark theme). */
+  & .dark .eye {
+    color: var(--accent-on-dark);
+  }
   & .card.dark .h3 {
     color: var(--inst-dark-ink);
   }
