@@ -347,13 +347,42 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 [data-scrolled] .cap__logo {
   transform: scale(0.86);
 }
+.cap__nav {
+  position: relative;
+}
 .cap__nav ul {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 2px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+/* Home page scroll-spy (plan 0611 §8.1 pkt 2): one pill glides under the entry of the section
+   being read; `CapsuleSpy` sets its place and width. Under the links, which stay transparent. */
+.cap-pill {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: var(--pill-w, 0);
+  height: var(--pill-h, 42px);
+  border-radius: 12px;
+  background: var(--nav-active-bg);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(var(--pill-x, 0), -50%);
+  transition:
+    transform 380ms var(--cap-ease),
+    width 380ms var(--cap-ease),
+    opacity 200ms;
+}
+.cap-pill[data-on] {
+  opacity: 1;
+}
+.cap__nav [data-spy] .cap-link {
+  color: var(--nav-active-ink);
 }
 .cap-link {
   display: flex;
@@ -607,6 +636,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   .cap__logo,
   .cap-link,
   .cap-link svg,
+  .cap-pill,
   .cap-btn,
   .cap-cta {
     transition: none;

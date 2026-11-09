@@ -44,8 +44,8 @@ describe('SiteHeader — capsule (NAGLOWEK-KAPSULA §2, §6)', () => {
 
   it('leaves out a mega entry the line gives no menu for (no empty list item)', () => {
     const html = render({ megaFor: undefined })
-    expect(html).not.toContain('<li></li>')
-    expect(html.match(/<li>/g)).toHaveLength(2)
+    expect(html).not.toMatch(/<li[^>]*><\/li>/)
+    expect(html.match(/<li[\s>]/g)).toHaveLength(2)
   })
 
   it('renders links from the data and the line mega menu in its slot', () => {
@@ -66,6 +66,16 @@ describe('SiteHeader — capsule (NAGLOWEK-KAPSULA §2, §6)', () => {
     const html = render()
     expect(html).toContain('<span class="cap-cta__long">Zaplanuj instalację</span>')
     expect(html).toContain('<span class="cap-cta__short">Zaplanuj</span>')
+  })
+
+  it('the scroll-spy pill only with home page stops; every entry carries its key', () => {
+    expect(render()).not.toContain('cap-pill')
+    expect(render({ spyStops: [] })).not.toContain('cap-pill')
+    const html = render({ spyStops: ['start', 'realizacje', 'kontakt'] })
+    expect(html).toContain('<span class="cap-pill" aria-hidden="true"></span>')
+    // The pill comes before the list: it slides under the links, not over them.
+    expect(html.indexOf('cap-pill')).toBeLessThan(html.indexOf('<ul>'))
+    expect(html).toContain('data-cap-key="realizacje"')
   })
 
   it('a fixed preview state sets data-scrolled and drops the sentinel', () => {
