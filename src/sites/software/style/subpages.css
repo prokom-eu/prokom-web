@@ -336,8 +336,17 @@
 .sw-offer-devices > button[data-lit] {
   box-shadow: inset 0 0 0 2px var(--accent-text);
 }
+/* AUDYT-0911 wieczór #8: the switch is glass with an accent outline, so the full violet stays
+   for the main step of the bar („Zapytaj o tę ofertę”). */
+.sw-offer-devices .sw-segment-pill {
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px var(--accent-text);
+}
+.sw-offer-devices > button[aria-pressed='true'] {
+  color: var(--accent-text);
+}
 .sw-offer-devices > button[aria-pressed='true'][data-lit] {
-  box-shadow: inset 0 0 0 2px var(--accent-ink);
+  box-shadow: inset 0 0 0 2px var(--accent-text);
 }
 .sw-offer-device-number {
   display: inline-flex;
