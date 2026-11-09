@@ -153,7 +153,7 @@ export const getKsefPanel = (tenantId: number): Promise<KsefPanel | null> =>
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
-/** Newest public posts of one sister tenant as bare rows: slug, title, date — nothing else. */
+/** Newest public posts of one sister tenant as bare rows: slug, title, date, lead — no body or cover. */
 const getTenantPostRows = (tenantId: number, limit: number): Promise<SisterPostRow[]> =>
   cacheQuery(
     async () => {
@@ -165,11 +165,11 @@ const getTenantPostRows = (tenantId: number, limit: number): Promise<SisterPostR
         sort: '-publishedAt',
         limit,
         depth: 0,
-        // Only what a link card shows: no lead, body or cover leaves the query.
-        select: { slug: true, title: true, publishedAt: true },
+        // Only what a link card shows (the lead becomes a short teaser): no body or cover.
+        select: { slug: true, title: true, publishedAt: true, lead: true },
         overrideAccess: true,
       })
-      return docs.map(({ slug, title, publishedAt }) => ({ slug, title, publishedAt }))
+      return docs.map(({ slug, title, publishedAt, lead }) => ({ slug, title, publishedAt, lead }))
     },
     ['post-rows', String(tenantId), String(limit)],
     { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },

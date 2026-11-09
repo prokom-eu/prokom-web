@@ -34,12 +34,7 @@ test.describe('Biznes industry page', () => {
 
     const day = page.getByRole('region', { name: 'Dzień w restauracji' })
     await expect(day.getByRole('heading', { name: '11:00 — Otwarcie' })).toBeVisible()
-    // B5-3b: the order steps live on `/gopos` — the industry links there instead.
-    await expect(page.locator('#jak-to-dziala')).toHaveCount(0)
-    await expect(page.getByRole('link', { name: 'Zobacz, jak działa GoPOS' })).toHaveAttribute(
-      'href',
-      '/gopos',
-    )
+    await expect(page.locator('#jak-to-dziala')).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Zanim zdecydujesz' })).toBeVisible()
 
     const scripts = await page.locator('script[type="application/ld+json"]').allTextContents()
