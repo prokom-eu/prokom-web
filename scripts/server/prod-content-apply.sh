@@ -170,7 +170,11 @@ docker run --rm -v "$src_media:/s:ro" "$helper" \
   media_dst 'rm -rf /m/.incoming /m/.old; mkdir /m/.incoming; tar -C /m/.incoming -xf -; chown -R 1000:1000 /m/.incoming'
 
 log "switch"
-[ "$app_exists" = 0 ] || docker stop "$dst_app" >/dev/null
+if [ "$app_exists" = 1 ]; then
+  # The data cache in the container survives a restart: cleared, so no page of the old database.
+  docker exec "$dst_app" sh -c 'rm -rf /app/.next/cache/fetch-cache/*' </dev/null || true
+  docker stop "$dst_app" >/dev/null
+fi
 # An inquiry may have come in while the copy was made: the app is stopped now, check again.
 if ! first_launch_guard "$dst_db"; then
   [ "$app_exists" = 0 ] || docker start "$dst_app" >/dev/null
