@@ -257,7 +257,11 @@ export function buildSalonView(
   }))
 
   const serviceItems = items(doc.service?.items)
-  const steps = items(doc.rollout?.steps)
+  // Service and rollout share one block (audit 0611 P1-3): a step the service already lists
+  // („Fiskalizacja”, „Przeglądy…”) is not said again — compared by its first word.
+  const firstWord = (title: string) => title.trim().split(/\s+/)[0]!.toLocaleLowerCase('pl')
+  const inService = new Set(serviceItems.map((item) => firstWord(item.title)))
+  const steps = items(doc.rollout?.steps).filter((step) => !inService.has(firstWord(step.title)))
   const href = text(doc.rollout?.buttonHref)
 
   const facts = (doc.brandFacts ?? []).flatMap((fact) =>

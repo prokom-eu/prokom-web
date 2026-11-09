@@ -203,7 +203,7 @@ export function OtherIndustriesSection({
  * Instead of the order steps of the GoPOS page repeated on the industry page (audit 0611 P1-3):
  * one line with the link to `/gopos`, where the whole flow plays.
  */
-export function IndustryFlowLink({ heading }: { heading: string }) {
+export function IndustryFlowLink({ heading, lead }: { heading: string; lead: string | null }) {
   return (
     <section aria-labelledby="zamowienie-h" className="py-10 max-md:py-6">
       <Container wide>
@@ -212,9 +212,7 @@ export function IndustryFlowLink({ heading }: { heading: string }) {
             <h2 id="zamowienie-h" className={cx(BZ_H2, 'max-md:text-[22px] max-md:leading-[1.1]')}>
               {heading}
             </h2>
-            <p className="text-ink-2">
-              Sala, kuchnia, płatność i raport w jednym systemie — krok po kroku na stronie GoPOS.
-            </p>
+            <p className="text-ink-2">{lead ?? 'Krok po kroku na stronie GoPOS.'}</p>
           </div>
           <Link
             href="/gopos"

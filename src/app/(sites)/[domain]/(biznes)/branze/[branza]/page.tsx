@@ -158,7 +158,9 @@ export default async function IndustryPage({ params }: Props) {
         )}
       />
       {industry.day && <BzTimelineBlock block={industry.day} tone="accent" />}
-      {industry.flow && <IndustryFlowLink heading={industry.flow.heading} />}
+      {industry.flow && (
+        <IndustryFlowLink heading={industry.flow.heading} lead={industry.flow.lead ?? null} />
+      )}
       {industry.faq.items.length > 0 && (
         <FaqBiznes
           tenantId={tenant.id}

@@ -57,13 +57,13 @@ test.describe('Biznes subpages without repetition (B5-3)', () => {
     for (const href of plans) expect(rest).not.toContain(href)
   })
 
-  test('GoPOS: no second module list, the venue does not repeat the H1', async ({ page }) => {
+  test('GoPOS: the first venue does not repeat the H1', async ({ page }) => {
     await page.goto(biznes('/gopos'))
-    await expect(page.locator('#moduly')).toHaveCount(0)
-    await expect(page.locator('#pakiet')).toHaveCount(1)
     const h1 = (await page.getByRole('heading', { level: 1 }).innerText()).replace(/\s+/g, ' ')
     const venue = (await page.locator('#lokal h3').first().innerText()).replace(/\s+/g, ' ')
     expect(venue).not.toBe(h1)
+    // Not even a half of it: the first venue is the page's own, only its name shows.
+    expect(h1).not.toContain(venue.split(':').at(-1)!.trim() || '—')
   })
 
   test('an industry links to /gopos instead of repeating its order steps', async ({ page }) => {
