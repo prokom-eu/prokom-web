@@ -50,7 +50,7 @@ Pierwsze uruchomienie na serwerze (S10, szczegóły w runbooku):
    ```bash
    docker compose --env-file .env.proxy -f docker/compose.proxy.yml run --rm -p 80:80 --entrypoint certbot certbot certonly --standalone --cert-name prokom-prod -d prokombiznes.pl -d …
    ```
-   W S10 najpierw tylko `--cert-name prokom-staging` (domeny stagingu i panel stagingu); `--cert-name prokom-prod` dla domen produkcji i `panel.pro-kom.eu` — przy pierwszym wdrożeniu produkcji (runbook §3), gdy ich rekordy wskazują serwer. Później odnawia kontener `certbot` (`renew --webroot`, co 12 h; przy odnowieniu zapisuje webroot w miejsce `standalone`), a Nginx przeładowuje się co 6 h.
+   W S10 najpierw tylko `--cert-name prokom-staging` (domeny stagingu i panel stagingu); `--cert-name prokom-prod` dla domen produkcji i `panel.prokombiznes.pl` — przy pierwszym wdrożeniu produkcji (runbook §3), gdy ich rekordy wskazują serwer. Później odnawia kontener `certbot` (`renew --webroot`, co 12 h; przy odnowieniu zapisuje webroot w miejsce `standalone`), a Nginx przeładowuje się co 6 h.
 4. `docker compose --env-file .env.proxy -f docker/compose.proxy.yml up -d` (od startu produkcji: dodatkowo `-f docker/compose.proxy.prod.yml`; od stagingu Gaming: `-f docker/compose.proxy.gaming-staging.yml`, od produkcji Gaming także `-f docker/compose.proxy.gaming-prod.yml`), potem stosy aplikacji.
 5. Smoke przez Nginx: `PANEL_HOST=<panel> bash scripts/smoke.sh https://127.0.0.1 <domeny…>` (staging: `SMOKE_AUTH=użytkownik:hasło`).
 
