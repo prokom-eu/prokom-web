@@ -140,7 +140,9 @@ export function BoughtWith({ heading, tiles }: { heading: string; tiles: BoughtW
                   {tile.image ? (
                     <Image
                       src={tile.image.url}
-                      alt=""
+                      alt={tile.image.alt}
+                      // The name is in the text next to it: the alt serves search engines only.
+                      aria-hidden
                       width={tile.image.width}
                       height={tile.image.height}
                       unoptimized

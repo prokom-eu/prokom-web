@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Container } from '@/components/ui/Container'
 import { Heading } from '@/components/ui/Heading'
 import { TextLink } from '@/components/ui/TextLink'
+import { biznesDescription } from '@/lib/biznes/seo'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { SITE_MAP_PATH, type SiteMapLink } from '@/lib/seo/siteLinks'
@@ -11,10 +12,10 @@ import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import { restOfSiteMap, softwareSiteMapGroups } from '@/lib/software/siteMap'
-import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
+import { BreadcrumbJsonLd, Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { SoftwareSiteMap } from '@/sites/software/components/sitemap/SoftwareSiteMap'
 
-import { requireTenant } from '../tenant'
+import { requestOrigin, requireTenant } from '../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
@@ -28,9 +29,16 @@ const SOFTWARE_DESCRIPTION =
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireTenant(params)
   const settings = await getSiteSettings(tenant.id)
-  const description = tenant.line === 'software' ? SOFTWARE_DESCRIPTION : DESCRIPTION
+  const description =
+    tenant.line === 'software'
+      ? SOFTWARE_DESCRIPTION
+      : tenant.line === 'biznes'
+        ? biznesDescription(DESCRIPTION)
+        : DESCRIPTION
+  // Biznes: 30–60 characters with the suffix (audit 0611 P1-8); the H1 stays „Mapa strony”.
+  const title = tenant.line === 'biznes' ? `${TITLE} — wszystkie podstrony` : TITLE
   return {
-    title: TITLE,
+    title,
     description,
     alternates: { canonical: SITE_MAP_PATH },
     robots: robotsMeta(getEnv().SITE_ENV),
@@ -39,9 +47,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: 'pl_PL',
       siteName: tenant.name,
       url: SITE_MAP_PATH,
-      title: TITLE,
+      title,
       description,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      // Biznes opted in to the line's mark when no picture is set (audit 0611 P1-9).
+      images: ogImages(
+        settings?.seo.ogImage ?? null,
+        tenant.line === 'biznes' ? 'biznes' : undefined,
+      ),
     },
   }
 }
@@ -78,17 +90,17 @@ export default async function SiteMapPage({ params }: Props) {
     })
     return <SoftwareSiteMap title={TITLE} groups={groups} rest={restOfSiteMap(sections, groups)} />
   }
+  const crumbs = [
+    { name: 'Strona główna', href: '/' },
+    { name: TITLE, href: SITE_MAP_PATH },
+  ]
   return (
     <Container className="py-12 sm:py-16">
       {/* Breadcrumbs like every Biznes subpage; other lines have none yet. */}
       {tenant.line === 'biznes' && (
         <div className="mb-6">
-          <Breadcrumbs
-            items={[
-              { name: 'Strona główna', href: '/' },
-              { name: TITLE, href: SITE_MAP_PATH },
-            ]}
-          />
+          <Breadcrumbs items={crumbs} />
+          <BreadcrumbJsonLd items={crumbs} origin={await requestOrigin()} />
         </div>
       )}
       <Heading level={1} size="xl">

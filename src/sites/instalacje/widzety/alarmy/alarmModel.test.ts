@@ -150,6 +150,12 @@ describe('intercom question', () => {
   it.each([0, 1, 2])('answer %i as the prototype', (dmq) => {
     const ref = reference({ dmq })
     const a = alarmy.intercoms.question.answers[dmq]!
-    expect([a.result, a.text]).toEqual([ref.dm.r, ref.dm.rs])
+    // Audit 09.11: no promise of sending a photo (no form takes files, ADR-I002 §4).
+    const text =
+      ref.dm.rs ===
+      'Wystarczy zdjęcie starego unifonu albo monitora i panelu przy furtce. Po nim zwykle wiemy, czy przewody się nadadzą.'
+        ? 'Wystarczy, że podasz markę starego unifonu albo monitora i panelu przy furtce. Po tym zwykle wiemy, czy przewody się nadadzą.'
+        : ref.dm.rs
+    expect([a.result, a.text]).toEqual([ref.dm.r, text])
   })
 })

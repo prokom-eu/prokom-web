@@ -864,9 +864,11 @@ export const architekci = {
     ask: 'Zapytaj o to w projekcie',
     prev: 'Poprzednie rozwiązanie',
     next: 'Następne rozwiązanie',
+    // TODO(krystian): czy newsletter startuje w v1 (zapis idzie przez /api/inquiry, bez wysyłki
+    // i bez linku wypisu — audit 09.11).
     newsletterTitle: 'Nowe rozwiązania raz w miesiącu na e-mail',
     newsletterText:
-      'W każdym mailu jedno rozwiązanie z parametrami, termin prezentacji i oferta dla pracowni. Wypiszesz się jednym kliknięciem.',
+      'W każdym mailu jedno rozwiązanie z parametrami, termin prezentacji i oferta dla pracowni. Wypiszesz się, odpisując na dowolny mail od nas.',
     note: `Parametry z kart katalogowych producentów, ${stanNa()}. Marki podajemy jako przykład: dobieramy sprzęt pod projekt.`,
   },
   /** Filter (`NF`) and the card's category label (`CAT`): `sz` is „Dla pracowni” on a card. */
@@ -1210,7 +1212,7 @@ export const architekci = {
     newsSent: 'Zapisane. Pierwszy e-mail z nowościami wkrótce.',
     // ADR-I005 §3 / spec §2.7: a separate consent for commercial e-mails, never pre-ticked.
     marketing:
-      'Zgadzam się na otrzymywanie informacji handlowych PRO-KOM e-mailem (nowe rozwiązania, prezentacje). Zgodę mogę wycofać w każdej chwili.',
+      'Zgadzam się na otrzymywanie informacji handlowych PRO-KOM e-mailem (nowe rozwiązania, prezentacje). Zgodę wycofam, odpisując na dowolny mail od PRO-KOM.',
   },
   /** The home's `#architekci` (`Main.body.html`, `Main.js` → `arhm`, ADR-I005 §5). */
   teaser: {

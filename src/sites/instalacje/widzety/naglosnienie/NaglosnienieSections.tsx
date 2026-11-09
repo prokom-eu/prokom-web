@@ -121,9 +121,9 @@ export function NaglosnienieSections() {
 
       <InstSection id="dso" fold style={SECTION}>
         <div className="wrap">
-          <div className="card dark ri tlaw" data-surface="dark">
+          <div className="card dark card-split ri" data-surface="dark">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <span className="eye tlaweye">{dso.eyebrow}</span>
+              <span className="eye">{dso.eyebrow}</span>
               <h2 className="h2" style={{ fontSize: 'clamp(28px, 3vw, 42px)' }}>
                 {dso.heading}
               </h2>

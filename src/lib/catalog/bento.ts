@@ -88,13 +88,28 @@ export function shortenValue(value: string, max = TILE_MAX): string {
 
 const norm = (label: string) => label.trim().toLowerCase()
 
+const flat = (text: string) => text.replace(/\s+/g, ' ').trim().toLocaleLowerCase('pl')
+
 /**
  * The „W skrócie” bento (K31-ZMIANY §4 pkt 3): parameters of the priority list first (a name
  * starting with it counts: „Pamięć RAM (stan/max)”), then the rest in order — 5 tiles, or 3
- * when there are 3–4 parameters (no orphan tile); none below 3.
+ * when there are 3–4 parameters (no orphan tile); none below 3. A parameter whose value the
+ * hero already shows among its `highlights` is left out (audit 0611 P1-13: „0,6 kg” 4×), unless
+ * that leaves fewer than 3.
  */
-export function bentoTiles(specs: readonly Row[]): BentoTile[] {
-  const rows = specs.filter((row) => row.label.trim() && row.value.trim())
+export function bentoTiles(specs: readonly Row[], highlights: readonly string[] = []): BentoTile[] {
+  const valid = specs.filter((row) => row.label.trim() && row.value.trim())
+  const shown = highlights.map(flat)
+  // A value of 3+ characters, matched as whole words („0,6 kg”), never a stray „1” or „Tak”.
+  const repeats = (value: string) => {
+    const needle = flat(value)
+    if (needle.length < 3) return false
+    const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const word = new RegExp(`(^|[\\s(,;:])${escaped}($|[\\s),;:.])`, 'u')
+    return shown.some((text) => word.test(text))
+  }
+  const fresh = valid.filter((row) => !repeats(row.value))
+  const rows = fresh.length >= 3 ? fresh : valid
   const chosen: Row[] = []
   for (const key of PRIORITY) {
     const row = rows.find((item) => !chosen.includes(item) && norm(item.label).startsWith(key))

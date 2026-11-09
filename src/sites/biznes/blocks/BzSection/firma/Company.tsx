@@ -167,14 +167,17 @@ export async function AboutHero({
                   <dt className="text-ink-2">Telefon</dt>
                   <dd className="font-bold">
                     {c.phone && c.tel && (
-                      <a href={c.tel} className="hover:underline">
+                      <a href={c.tel} className="inline-flex min-h-10 items-center hover:underline">
                         {c.phone}
                       </a>
                     )}
                     {c.phone2 && c.phone2Tel && (
                       <>
                         {' · '}
-                        <a href={c.phone2Tel} className="hover:underline">
+                        <a
+                          href={c.phone2Tel}
+                          className="inline-flex min-h-10 items-center hover:underline"
+                        >
                           {c.phone2}
                         </a>
                       </>
@@ -186,7 +189,10 @@ export async function AboutHero({
                 <>
                   <dt className="text-ink-2">E-mail</dt>
                   <dd className="font-bold">
-                    <a href={`mailto:${c.email}`} className="hover:underline">
+                    <a
+                      href={`mailto:${c.email}`}
+                      className="inline-flex min-h-10 items-center [overflow-wrap:anywhere] hover:underline"
+                    >
                       {c.email}
                     </a>
                   </dd>
