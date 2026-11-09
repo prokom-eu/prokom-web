@@ -6,6 +6,7 @@
 // Prints only pages outside the limits (title 30–60, description 100–155, no BreadcrumbList on a
 // page with crumbs, no og:image); `--all` prints every page. `--links` also checks every internal
 // link found on the pages that is not in the sitemap (status other than 200 / redirect).
+// `--json` prints `{ rows, links }`.
 import { request } from 'node:http'
 
 const args = process.argv.slice(2)

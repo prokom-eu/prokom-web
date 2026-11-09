@@ -1,9 +1,13 @@
+import type { ProcurementPageData } from './schema'
+
 /**
- * Links of the procurement pages (BIZ-3 QA): the package names categories and industries by
- * short codes („/oferta/siec”, „/branze/biura-uslugi”) that the site does not have — 7 links
- * answered 404. Before rendering, a `href` to a category or industry missing on this site and a
- * `category` the catalog does not list are left out: the tile renders without a link. Other
- * links (`/kontakt`, `#zestaw`, outside addresses) stay as they are.
+ * Links of the procurement pages (BIZ-3 QA): the package named categories and industries by
+ * short codes („/oferta/siec”, „/branze/biura-uslugi”) the site does not have — 7 links answered
+ * 404. Before rendering, an optional link of a tile to a category or industry missing on this
+ * site is left out and the tile renders without a link. Only the three lists whose link is
+ * optional (`categories`, `industries`, `combo`); a required link (buttons, `combo.link`) stays
+ * — the page never renders a link without its address. Only the first segment is checked:
+ * `/oferta/<kategoria>/<podkategoria>` counts as live while the category is listed.
  */
 export type SiteTargets = {
   categories: ReadonlySet<string>
@@ -11,21 +15,40 @@ export type SiteTargets = {
   industries: ReadonlySet<string>
 }
 
-function isLive(href: string, site: SiteTargets): boolean {
+export function isLiveHref(href: string, site: SiteTargets): boolean {
   const [, section, slug] = href.split(/[?#]/)[0]!.split('/')
   if (section === 'oferta' && slug) return site.categories.has(slug)
   if (section === 'branze' && slug) return site.industries.has(slug)
   return true
 }
 
-export function pruneDeadLinks<T>(data: T, site: SiteTargets): T {
-  if (Array.isArray(data)) return data.map((item) => pruneDeadLinks(item, site)) as T
-  if (typeof data !== 'object' || data === null) return data
-  const result: Record<string, unknown> = {}
-  for (const [key, value] of Object.entries(data)) {
-    if (key === 'href' && typeof value === 'string' && !isLive(value, site)) continue
-    if (key === 'category' && typeof value === 'string' && !site.categories.has(value)) continue
-    result[key] = pruneDeadLinks(value, site)
+const withoutDeadHref = <T extends { href?: string }>(item: T, site: SiteTargets): T => {
+  if (!item.href || isLiveHref(item.href, site)) return item
+  const { href: _dead, ...rest } = item
+  return rest as T
+}
+
+export function pruneDeadLinks(data: ProcurementPageData, site: SiteTargets): ProcurementPageData {
+  return {
+    ...data,
+    ...(data.categories && {
+      categories: {
+        ...data.categories,
+        list: data.categories.list.map((item) => {
+          if (!item.category || site.categories.has(item.category)) return item
+          const { category: _dead, ...rest } = item
+          return rest
+        }),
+      },
+    }),
+    ...(data.industries && {
+      industries: {
+        ...data.industries,
+        list: data.industries.list.map((item) => withoutDeadHref(item, site)),
+      },
+    }),
+    ...(data.combo && {
+      combo: { ...data.combo, list: data.combo.list.map((item) => withoutDeadHref(item, site)) },
+    }),
   }
-  return result as T
 }

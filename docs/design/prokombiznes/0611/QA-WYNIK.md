@@ -23,14 +23,14 @@ Po poprawkach z QA: **525 z 532 adresów w normie.**
 Po poprawkach z QA: **112 ze 120 widoków bez uwag.**
 
 - Przewijanie w bok: 0 (360/390 sprawdzane też w e2e). Jedno H1 na każdej stronie. Błędy konsoli: 0.
-- Zdjęcia z biblioteki mediów bez `alt`: 0 (przed poprawkami QA: 17 na głównej — koło działów, 3 i 7 na stronach Zaopatrzenia).
+- Zdjęcia z biblioteki mediów z pustym `alt`: 0. Przed poprawkami QA 17 na głównej (koło działów) i 3 + 7 na stronach Zaopatrzenia — były to zdjęcia dekoracyjne z `alt=""` (poprawne wg WCAG, axe ich nie zgłaszał); dostały opis „Marka Model” dla wyszukiwarek i `aria-hidden`, jak reszta zdjęć produktów (B5-1).
 - axe WCAG 2.1 AA (jasny 1440): 0 na 30 stronach w drugim przebiegu; w pierwszym `/marki` `label-content-name-mismatch` ×40 (poprawione) i 1 węzeł na `/agd-rtv-dla-firm`, który nie powtórzył się w osobnym przebiegu (prawdopodobnie pasek marek w ruchu).
 - Białe bloki w ciemnym motywie (8 widoków): celowo — logo marki na białym kaflu (`/marki/dibal`), „papier” podglądu oferty i panel na stronach Zaopatrzenia; **do rozważenia:** kafle automatów na `/automaty-vendingowe` (3 × biały kafel z packshotem — przy zdjęciach z białym tłem zostają, przy wyciętych można przejść na tło studia jak w B5-1).
 - Wysokość `main` na telefonie (390): np. `/marki/posnet` 5 474 px (cel ≤ ~6 000), `/` 9 881 px.
 
 ## 3. Linki spoza sitemap
 
-Linki wewnętrzne zebrane ze wszystkich 532 stron, spoza `sitemap.xml`:
+Linki wewnętrzne zebrane ze wszystkich 532 stron, spoza `sitemap.xml` (audyt 06.11 podawał 39 — liczone na 121 stronach i przed B4-2/B5, które zmieniły listy zestawów, branż i okruszki; tu pomiar na całej mapie):
 
 - **przed poprawką: 29, w tym 7 × 404** — wszystkie na stronach Zaopatrzenia: `/oferta/siec`, `/oferta/term`, `/oferta/kasy` (AGD → „Do recepcji”), `/oferta/mfp`, `/branze/biura-uslugi`, `/branze/szkoly-instytucje`, `/branze/magazyn-produkcja` (IT → „Dla kogo”, „Co dostarczamy”);
 - **po poprawce: 22, błędnych 0** — reszta to `/zapytanie` (celowo poza mapą), `/kreator` (301 do konfiguratora), `/manifest.webmanifest` i 17 kart produktów „do sprawdzenia” spoza mapy, linkowanych z list kategorii i marek (plan §13 #6 — bez zmian, karty odpowiadają 200).
@@ -71,10 +71,10 @@ Przed poprawką okruszka „Start” (pomiar 1):
 ## 6. Poprawione w QA (commity na tej gałęzi)
 
 - Mega menu „23 zestawy” i Ctrl K z ukrytymi zestawami → indeks katalogu tylko z „Gotowymi” (19).
-- 7 martwych linków (404) na `/agd-rtv-dla-firm` i `/dostawy-it-dla-firm` (kody kategorii z paczki, nieaktywne branże) → slugi w paczce + `pruneDeadLinks` (link do strony, której nie ma, renderuje się jako kafel bez linku — działa też na danych z panelu stagingu).
+- 7 martwych linków (404) na `/agd-rtv-dla-firm` i `/dostawy-it-dla-firm` (kody kategorii z paczki, nieaktywne branże) → slugi w paczce + `pruneDeadLinks` (opcjonalny link kafla do strony, której nie ma, znika i kafel renderuje się bez linku — działa też na danych z panelu stagingu; wymagane linki przycisków zostają).
 - Okruszek „Start” → „Strona główna” (Lighthouse SEO 89 → 100).
 - `/marki`: nazwa linku kafla bez widocznego tekstu (axe `label-content-name-mismatch` ×40, WCAG 2.5.3) → widoczny tekst + dopisek dla czytników.
-- Koło działów na głównej i kafle Zaopatrzenia: zdjęcia z `alt` + `aria-hidden` (17 + 10 zdjęć bez opisu).
+- Koło działów na głównej i kafle Zaopatrzenia: dekoracyjne zdjęcia (`alt=""`) dostały opis dla wyszukiwarek + `aria-hidden` (17 + 10).
 - `/konfigurator`: `BreadcrumbList` i `og:image`.
 - Wcześniej w nocy (CI #454): `alt` z B5-1 w przycisku zmieniał jego nazwę („Posnet … Sklep z dużą liczbą towarów”) → zdjęcia w przyciskach i linkach z tekstem `aria-hidden`.
 

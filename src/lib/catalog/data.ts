@@ -161,7 +161,7 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
         })),
       })
     },
-    ['catalog-index-k4e', String(tenantId)],
+    ['catalog-index-k4f', String(tenantId)],
     { tags: [catalogTag(tenantId), pagesTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )(),
 )
