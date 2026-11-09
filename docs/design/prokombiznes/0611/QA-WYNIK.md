@@ -70,7 +70,7 @@ Przed poprawką okruszka „Start” (pomiar 1):
 
 ## 6. Poprawione w QA (commity na tej gałęzi)
 
-- Mega menu „23 zestawy” i Ctrl K z ukrytymi zestawami → indeks katalogu tylko z „Gotowymi” (19).
+- Mega menu „23 zestawy” i Ctrl K z ukrytymi zestawami → indeks katalogu tylko z „Gotowymi” (19, po drugim badaniu 20).
 - 7 martwych linków (404) na `/agd-rtv-dla-firm` i `/dostawy-it-dla-firm` (kody kategorii z paczki, nieaktywne branże) → slugi w paczce + `pruneDeadLinks` (opcjonalny link kafla do strony, której nie ma, znika i kafel renderuje się bez linku — działa też na danych z panelu stagingu; wymagane linki przycisków zostają).
 - Okruszek „Start” → „Strona główna” (Lighthouse SEO 89 → 100).
 - `/marki`: nazwa linku kafla bez widocznego tekstu (axe `label-content-name-mismatch` ×40, WCAG 2.5.3) → widoczny tekst + dopisek dla czytników.
@@ -80,7 +80,7 @@ Przed poprawką okruszka „Start” (pomiar 1):
 
 ## 7. Do decyzji / otwarte
 
-- **Zestawy ukryte (4)** — pytania do Insoft, Elzab, GoPOS: `docs/STAN.md` (B4-1).
+- **Zestawy ukryte (3)** — po drugim badaniu w QA zestaw z programem i wagą etykietującą „Gotowy” (20/23); pytania do Insoft (Dibal G-325), Elzab (Windows 11), GoPOS (kiosk K2): `docs/STAN.md`, `docs/zadania/zestawy-zgodnosci.md`.
 - **GoPOS:** scalenie listy modułów z konfiguratorem pakietu (§10.3) — niezrobione, opis w #458 i STAN.
 - **Konfigurator:** kwoty 700 zł / 0 zł i zdanie o łączeniu terminala z kasą (wyżej, §4).
 - ~~7 krótkich tytułów produktów~~ — po pomiarze: krótka nazwa modelu (< 13 znaków) dostaje nazwę kategorii („Sunmi L3 — Kolektory danych | PRO-KOM Biznes”); do potwierdzenia pomiarem w CI/stagingu.

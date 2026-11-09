@@ -318,8 +318,7 @@
      "rola": "drukarka etykiet półkowych",
      "ilosc": 1,
      "wariant_sugerowany": "DT2x (54 mm, bez taśmy)",
-     "obowiazkowy": false,
-     "do_potwierdzenia": "Sterownik / współpraca z PC-Market — karta PC-Market wymienia drukarki etykiet ogólnie."
+     "obowiazkowy": false
     },
     {
      "slug": "pol",
@@ -398,7 +397,7 @@
     }
    ],
    "kolejnosc": 3,
-   "status": "do-sprawdzenia"
+   "status": "gotowe"
   },
   {
    "slug": "zestaw-sklep-spozywczy-market-pos",
@@ -457,8 +456,7 @@
      "rola": "drukarka fiskalna online",
      "ilosc": "wg stanowisk",
      "wariant_sugerowany": "Thermal HD ONLINE, papier 80 mm, wyświetlacz wolnostojący",
-     "obowiazkowy": true,
-     "do_potwierdzenia": "Model drukarki na aktualnej liście zgodności Insoft (PC-POS wymienia markę Posnet, karta: „model online z aktualnej listy zgodności Insoft”)."
+     "obowiazkowy": true
     },
     {
      "slug": "szuf",
@@ -3384,8 +3382,9 @@
   {
    "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
    "para": "Godex DT2x ↔ PC-Market",
-   "zrodlo_w_karcie": "pcm: „Urządzenia = … drukarki etykiet” (bez modeli)",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "Insoft: „PC-Market obsługuje dowolną drukarkę kodów kreskowych posiadającą sterownik dla Windows”; sterownik Windows DT2x — Seagull (dostawca sterowników Godex)",
+   "status": "potwierdzona",
+   "url": "https://www.insoft.com.pl/publik.nsf/ece871686de51e57c12570ff0054cf6c/e8f57912dcf222c5c12571d300491986?OpenDocument"
   },
   {
    "zestaw": "zestaw-sklep-spozywczy-market-pos",
@@ -3414,8 +3413,9 @@
   {
    "zestaw": "zestaw-sklep-spozywczy-market-pos",
    "para": "PC-POS ↔ Posnet Thermal HD",
-   "zrodlo_w_karcie": "pcpos: „drukarki fiskalne (m.in. Elzab, Posnet, …)” + „przy wycenie dobieramy model online z aktualnej listy zgodności Insoft”",
-   "status": "do_potwierdzenia"
+   "zrodlo_w_karcie": "Insoft, nowości PC-POS 7.6.62: „Posnet HD Online - problem z anulowanymi paragonami” — model obsługiwany od 7.6.62",
+   "status": "potwierdzona",
+   "url": "https://www.insoft.com.pl/Publik.nsf/0/73ed1b19159b8c7fc125864e00732adb/$FILE/Nowo%C5%9Bci%207.6.62.pdf"
   },
   {
    "zestaw": "zestaw-sklep-spozywczy-market-pos",
@@ -4041,6 +4041,13 @@
    "zrodlo_w_karcie": "Samsung: „The embedded MagicINFO™ S10 player”; licencja osobno",
    "status": "potwierdzona",
    "url": "https://www.samsung.com/au/business/smart-signage/uhd-4k-signage/crystal-uhd-signage-qbc-lh55qbcebgcxxy/"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
+   "para": "Godex DT2x ↔ sterownik Windows",
+   "zrodlo_w_karcie": "Seagull Scientific (sterowniki BarTender) — sterownik Windows dla Godex DT2x",
+   "status": "potwierdzona",
+   "url": "https://www.bartendersoftware.com/resources/printer-drivers/godex/godex-dt2x"
   }
  ]
 }
