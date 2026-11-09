@@ -19,7 +19,7 @@ import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
-const TITLE = 'Plan Twojej firmy — co ustawimy w Twoim lokalu'
+const TITLE = 'Plan Twojej firmy — co ustawimy w lokalu'
 const DESCRIPTION =
   'Wybierz rodzaj firmy i zobacz na planie lokalu, gdzie stanie kasa, terminal, komputer czy router. Całość dodasz do zapytania jednym kliknięciem.'
 

@@ -141,7 +141,9 @@ export function GoposStage({
               <Image
                 unoptimized
                 src={device.image.url}
-                alt=""
+                alt={device.image.alt}
+                // The name is in the text next to it: the alt serves search engines only.
+                aria-hidden
                 width={device.image.width}
                 height={device.image.height}
               />

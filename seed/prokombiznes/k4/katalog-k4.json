@@ -163,10 +163,6 @@
    },
    "polecane": [
     {
-     "slug": "udr7",
-     "etykieta": "Sieć i Wi-Fi"
-    },
-    {
      "slug": "pol",
      "etykieta": "Płatności kartą"
     },
@@ -177,6 +173,10 @@
     {
      "slug": "szuf",
      "etykieta": "Szuflada"
+    },
+    {
+     "slug": "udr7",
+     "etykieta": "Sieć i Wi-Fi"
     }
    ],
    "zestawy": [

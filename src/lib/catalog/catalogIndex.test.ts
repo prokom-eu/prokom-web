@@ -302,6 +302,26 @@ describe('buildCatalogIndex images', () => {
       build([image(1, 'a.webp', { requiresConsent: true }), image(2, 'b.webp')]).image?.url,
     ).toBe('/api/media/file/b-480x360.webp')
   })
+
+  it('describes the card photo as „Marka Model” wherever it shows (audit 0611 P0-7)', () => {
+    expect(build([image(1, 'a.webp')]).image?.alt).toBe('P')
+    const branded = buildCatalogIndex({
+      tenantId: TENANT,
+      products: [
+        {
+          ...product([image(1, 'a.webp')]),
+          name: 'Ergo ONLINE',
+          brand: { id: 3, slug: 'posnet', name: 'Posnet', tenants: [TENANT] },
+        } as unknown as Product,
+      ],
+      categories: [],
+      groups: [],
+      industries: [],
+      pages: [],
+      settings: null,
+    }).products[0]!
+    expect(branded.image?.alt).toBe('Posnet Ergo ONLINE')
+  })
 })
 
 describe('buildCatalogIndex group showcase (home page offer cards)', () => {

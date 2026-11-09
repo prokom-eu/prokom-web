@@ -4,6 +4,8 @@
  */
 export const NEWS_TEXTS = {
   title: 'Aktualności',
+  /** `<title>` within 30–60 characters with the suffix (audit 0611 P1-8). */
+  seoTitle: 'Aktualności — KSeF, kasy, przepisy dla firm',
   heading: 'Przepisy, terminy i programy po ludzku',
   lead: 'Piszemy o tym, co zmienia się dla małych firm z Podhala: KSeF, kasy, terminale, dofinansowania, bezpieczeństwo. Każdy wpis ze źródłem i datą sprawdzenia.',
   description:

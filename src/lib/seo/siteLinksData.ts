@@ -3,6 +3,7 @@ import {
   getBundles,
   getCatalogIndex,
   getFloorPlans,
+  getWizardRules,
   getPublishedProductList,
 } from '../catalog/data'
 import { buildPlanScenes } from '../catalog/floorPlan'
@@ -34,6 +35,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     objectPages,
     cities,
     plans,
+    rules,
   ] = await Promise.all([
     getPublishedPageList(tenant.id),
     catalog ? getCatalogIndex(tenant.id) : null,
@@ -45,6 +47,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     instalacje ? getInstalacjeObjectList(tenant.id) : null,
     software ? getCityList(tenant.id) : null,
     catalog ? getFloorPlans(tenant.id) : null,
+    catalog ? getWizardRules(tenant.id) : null,
   ])
   // Every published product is listed (as `sitemap.xml` always did); the index adds the
   // categories, the product list the dates for `<lastmod>`.
@@ -61,6 +64,8 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
         ? bundles.filter((bundle) => bundle.indexable).map(({ slug, name }) => ({ slug, name }))
         : null,
       plan: Boolean(plans && buildPlanScenes(plans.records, new Set(indexed.keys())).length),
+      // `/konfigurator` answers 404 without rules in the panel: listed only with them.
+      configurator: Boolean(rules),
       products: products.map(({ slug, name, updatedAt }) => ({
         slug,
         name: indexed.get(slug)?.name ?? name,
