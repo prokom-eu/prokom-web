@@ -276,8 +276,12 @@ function BrandCard({ tile }: { tile: BrandTile }) {
       data-logo-shine=""
       className="relative flex w-full min-w-0 flex-col gap-3 rounded-3xl bg-card p-4 max-md:gap-2 max-md:rounded-[20px] max-md:p-2.5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
     >
+      {/* „wejdź do salonu” in the name says it already: the badge stays out of the link name. */}
       {tile.salon && (
-        <span className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[11px] font-black tracking-[0.06em] text-surface uppercase max-md:-top-2 max-md:right-3 max-md:px-2 max-md:py-0.5 max-md:text-[9px]">
+        <span
+          aria-hidden="true"
+          className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[11px] font-black tracking-[0.06em] text-surface uppercase max-md:-top-2 max-md:right-3 max-md:px-2 max-md:py-0.5 max-md:text-[9px]"
+        >
           Salon
         </span>
       )}

@@ -26,8 +26,12 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
     await expect(page.getByRole('table')).toBeVisible()
     await page.getByRole('button', { name: 'Zwiń tabelę' }).click()
     await expect(page.getByRole('table')).toBeHidden()
+    // B5-3b: service and rollout share one block.
     await expect(
-      page.getByRole('heading', { level: 2, name: /^Autoryzowany serwis/ }),
+      page.getByRole('heading', { level: 2, name: 'Uruchomimy i zadbamy o to po zakupie' }),
+    ).toBeVisible()
+    await expect(
+      page.getByRole('heading', { level: 3, name: /^Autoryzowany serwis/ }),
     ).toBeVisible()
     await expect(
       page.getByRole('heading', { level: 2, name: 'Pytania o kasy Posnet' }),
@@ -106,7 +110,8 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
-    await page.goto(biznes('/marki/lenovo'))
+    // Brother: „Laserowe czarno-białe” keeps 6 models besides the plan cards (B5-3b).
+    await page.goto(biznes('/marki/brother'))
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toBeHidden()
     await expect(page.getByRole('table')).toBeHidden()
     // The label changes to „Zwiń tabelę” once open: find the button by either name.
@@ -129,7 +134,7 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
     const visible = () =>
       cards.evaluateAll((items) => items.filter((li) => li.checkVisibility()).length)
     expect(await visible()).toBeLessThanOrEqual(4)
-    // Lenovo has a kind with more than four models: the rest after „Pokaż wszystkie”.
+    // Brother has a kind with more than four models: the rest after „Pokaż wszystkie”.
     const more = offer.getByRole('button', { name: /^Pokaż wszystkie/ })
     for (const tab of await offer
       .getByRole('group', { name: 'Rodzaje' })
