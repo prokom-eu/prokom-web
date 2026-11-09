@@ -115,7 +115,10 @@ export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos, imag
                     TILES[0],
                   )}
                 >
-                  <span className={cx('absolute inset-[6%] -z-10', STAGE_PLATE)} />
+                  <span
+                    aria-hidden="true"
+                    className={cx('pointer-events-none absolute inset-[6%] -z-10', STAGE_PLATE)}
+                  />
                   <MediaImage
                     image={{ ...image, alt: '' }}
                     sizes="(min-width: 1080px) 28vw, 1px"
@@ -134,7 +137,10 @@ export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos, imag
                       TILES[position],
                     )}
                   >
-                    <span className={cx('absolute inset-[6%] -z-10', STAGE_PLATE)} />
+                    <span
+                      aria-hidden="true"
+                      className={cx('pointer-events-none absolute inset-[6%] -z-10', STAGE_PLATE)}
+                    />
                     <Image
                       src={photo.url}
                       alt={photo.alt}

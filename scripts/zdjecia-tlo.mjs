@@ -109,11 +109,12 @@ async function main() {
       const found = classify({ data, width: info.width, height: info.height })
       if (found)
         rows.push({ slug: slugOf(file), file: relative(ROOT, file).split(sep).join('/'), ...found })
-    } catch (error) {
+    } catch {
+      // No error text: sharp names the absolute path (no absolute paths in docs).
       rows.push({
         slug: slugOf(file),
-        file: relative(ROOT, file),
-        problem: `nie da się odczytać (${error.message})`,
+        file: relative(ROOT, file).split(sep).join('/'),
+        problem: 'nie da się odczytać',
         share: 1,
       })
     }
@@ -144,7 +145,9 @@ async function main() {
         `- **białe tło** — brzeg zdjęcia nieprzezroczysty i prawie biały (produkt na białym prostokącie). Od NAPRAWA-0911 karty stoją na białej płycie, więc to już nie razi, ale przezroczyste zdjęcie wygląda lepiej w hero i galerii.\n` +
         `- **otoczka** — tło przezroczyste, ale kontur produktu w większości bardzo jasny: biały „obłok” po wycinaniu. Do poprawy w pierwszej kolejności.\n\n` +
         `Poprawka: ponowne wycięcie do przezroczystego WebP/PNG (Krystian) albo zdjęcie producenta z przezroczystością — ten sam plik w paczce, potem \`pnpm seed:biznes\` i import na staging. Na górze zdjęcia ze zrzutów z audytu (Sunmi D3 PRO, PolCard).\n\n` +
-        `Sprawdzone ręcznie 09.11: główne zdjęcie Sunmi D3 PRO (\`d3-01\`) i plansza \`p-sunmi-d3-pro\` są wycięte czysto (przezroczyste tło, bez otoczki) — „obłok” ze zrzutu to jasny środek gradientu studia i „blat” pod podstawą, które od NAPRAWA-0911 przykrywa biała płyta. Białe tło mają zdjęcia galerii D3 (\`d3-03\`, \`d3-04\`). Zdjęcia PolCard skrypt uznaje za przezroczyste — biały prostokąt ze zrzutu znika razem z płytą.\n\n` +
+        `To lista do przejrzenia, nie do ślepej poprawki: czysto wycięty biały produkt (drukarka, terminal) też ma jasny kontur i trafia do „otoczki”.
+
+` +
         `${table}\n`,
     )
     console.log(`docs/zadania/zdjecia-do-wyciecia.md: ${rows.length} z ${all.length} zdjęć`)

@@ -18,7 +18,8 @@ export const STAGE_PLATE =
 /**
  * „Studio” under every product photo (K31-ZMIANY §3, spec. §3.8): a soft radial gradient, the
  * „desk” from 70% of the height and a shadow under the product, and on top of them the white
- * plate (`STAGE_PLATE`, 6% in from the edge) the photo stands on. Size, corners and padding come
+ * plate (`STAGE_PLATE`, 6% in from the edge) the photo stands on — the desk and shadow then show
+ * only without a photo (`StageFallback`, where the plate is hidden). Size, corners and padding come
  * from `className`; the photo (or `StageFallback`) is the child. No hooks — works in server and
  * client components alike.
  */
@@ -36,6 +37,9 @@ export function ProductStage({
     <Tag
       className={cx(
         'relative isolate flex items-center justify-center overflow-hidden',
+        // Without a photo (StageFallback) no plate: its text is theme-coloured, and the studio
+        // with its desk and shadow is the background it was designed on.
+        '[&:has([data-stage-fallback])>[data-stage-plate]]:hidden',
         STAGE_BG,
         className,
       )}
@@ -97,6 +101,7 @@ export function StageFallback({
   const tile = (
     <span
       aria-hidden="true"
+      data-stage-fallback={size === 'sm' ? '' : undefined}
       className={cx(
         'flex shrink-0 items-center justify-center bg-card text-accent-text shadow-[0_14px_30px_-18px_var(--glow),inset_0_0_0_1px_var(--border)]',
         TILE[size],
@@ -109,6 +114,7 @@ export function StageFallback({
   return (
     // `lg` sits above the desk line (70% of the height), as on the board.
     <span
+      data-stage-fallback=""
       className={cx(
         'relative flex flex-col items-center gap-3 px-4 text-center',
         size === 'lg' && 'mb-20 sm:mb-24',
@@ -143,6 +149,7 @@ function ServiceTile({ icon, size, name }: { icon: IconName; size: FallbackSize;
   return (
     <span
       data-surface="dark"
+      data-stage-fallback=""
       className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-surface-dark bg-[radial-gradient(ellipse_at_85%_0%,var(--glow),transparent_60%)] px-4 text-center text-white"
     >
       <span

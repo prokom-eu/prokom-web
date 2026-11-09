@@ -7,7 +7,7 @@ Wygenerowane: `node scripts/zdjecia-tlo.mjs` (NAPRAWA-0911 §3b, audyt stagingu 
 
 Poprawka: ponowne wycięcie do przezroczystego WebP/PNG (Krystian) albo zdjęcie producenta z przezroczystością — ten sam plik w paczce, potem `pnpm seed:biznes` i import na staging. Na górze zdjęcia ze zrzutów z audytu (Sunmi D3 PRO, PolCard).
 
-Sprawdzone ręcznie 09.11: główne zdjęcie Sunmi D3 PRO (`d3-01`) i plansza `p-sunmi-d3-pro` są wycięte czysto (przezroczyste tło, bez otoczki) — „obłok” ze zrzutu to jasny środek gradientu studia i „blat” pod podstawą, które od NAPRAWA-0911 przykrywa biała płyta. Białe tło mają zdjęcia galerii D3 (`d3-03`, `d3-04`). Zdjęcia PolCard skrypt uznaje za przezroczyste — biały prostokąt ze zrzutu znika razem z płytą.
+To lista do przejrzenia, nie do ślepej poprawki: czysto wycięty biały produkt (drukarka, terminal) też ma jasny kontur i trafia do „otoczki”.
 
 | slug | plik | problem |
 |---|---|---|
