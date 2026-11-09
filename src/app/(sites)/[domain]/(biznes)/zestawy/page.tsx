@@ -27,7 +27,7 @@ import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
-const TITLE = 'Gotowe zestawy dla firm — sprzęt, program i usługi'
+const TITLE = 'Gotowe zestawy: sprzęt, program, usługi'
 const DESCRIPTION =
   'Zestawy dla sklepu, gastronomii, noclegów, biura, gabinetu i szkoły: sprzęt, program i wdrożenie, które działają razem. Wycena na piśmie.'
 
