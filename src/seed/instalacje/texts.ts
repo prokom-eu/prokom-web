@@ -229,3 +229,17 @@ export function formatTextReport(changes: readonly TextChange[]): string {
   }
   return parts.join('\n')
 }
+
+/**
+ * Headers of a request to the panel. Staging sits behind an nginx site password (Basic auth),
+ * which takes the Authorization header — then the Payload token travels as its cookie instead
+ * (accepted from a client without Origin while `csrf` is empty: no `serverURL` in the config).
+ */
+export function panelHeaders(token: string | undefined, sitePassword?: string) {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+  if (sitePassword) {
+    headers.Authorization = `Basic ${Buffer.from(sitePassword).toString('base64')}`
+    if (token) headers.Cookie = `payload-token=${token}`
+  } else if (token) headers.Authorization = `JWT ${token}`
+  return headers
+}
