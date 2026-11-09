@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { stripBold } from '../../lib/site/emphasis'
 import { softwareWizardSchema } from '../../lib/software/wizard/schema'
 import { WIZARD_V3 } from '../../seed/software/wizard'
 import { WIZARD_V3_FROZEN } from './software_wizard_v3'
@@ -15,6 +16,10 @@ describe('frozen wizard v3 of the migration swa3_kreator_v3', () => {
     )
     // The live card starts with the board's kind; the page keeps its eyebrows (SWA3b-2 review).
     expect(WIZARD_V3_FROZEN.defaultType).toBe(WIZARD_V3.defaultType)
-    expect(WIZARD_V3_FROZEN.page).toEqual(WIZARD_V3.page)
+    // The seed later marked the highlighted word (`**…**`, AUDYT-0911 #1); the words are the same.
+    expect(WIZARD_V3_FROZEN.page).toEqual({
+      ...WIZARD_V3.page,
+      stepsTitle: stripBold(WIZARD_V3.page.stepsTitle),
+    })
   })
 })

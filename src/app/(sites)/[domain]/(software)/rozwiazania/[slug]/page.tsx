@@ -127,7 +127,7 @@ export default async function SolutionPage({ params }: Props) {
         <FaqSection
           id="pytania"
           eyebrow={page.faq.eyebrow}
-          heading="Zanim zapytasz"
+          heading="Zanim **zapytasz**"
           lead={
             <>
               Nie ma Twojego?{' '}
