@@ -290,6 +290,191 @@
   }
 }
 
+/* The smart preview (§2.2): areas lit from „W cenie”, numbered markers, the toast, the glow. */
+.sw-offer-glow {
+  position: relative;
+  isolation: isolate;
+}
+.sw-offer-glow::before {
+  content: '';
+  position: absolute;
+  inset: 8% 6% 18%;
+  z-index: -1;
+  border-radius: 40px;
+  background: radial-gradient(closest-side, var(--glow), transparent);
+  filter: blur(36px);
+  opacity: 0.7;
+  translate: var(--glow-x, 0) var(--glow-y, 0);
+  transition: translate var(--dur-state) var(--ease-out);
+  pointer-events: none;
+}
+.sw-offer-shot [data-spot] {
+  transition:
+    opacity var(--dur-state) var(--ease-out),
+    box-shadow var(--dur-state) var(--ease-out);
+}
+.sw-offer-shot[data-spot-on] [data-spot]:not([data-lit]) {
+  opacity: 0.8;
+}
+.sw-offer-shot[data-spot-on] .mk-stage {
+  filter: saturate(0.85);
+}
+.sw-offer-shot [data-spot][data-lit] {
+  /* No position here: some parts of the mock-up are placed absolutely. */
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 0 22px 4px var(--glow);
+}
+.sw-offer-devices > button[data-lit] {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+.sw-offer-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  translate: calc(var(--mx) - 14px) calc(var(--my) - 14px);
+}
+.sw-offer-marker > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--surface);
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 6px 16px -6px var(--glow);
+  color: var(--accent-ink);
+  font-size: 12px;
+  font-weight: 900;
+}
+.sw-offer-toast {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: inline-flex;
+  max-width: calc(100% - 24px);
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px -12px var(--glow);
+  font-size: 12px;
+  font-weight: 700;
+  /* Comes in once and leaves after 5 s, so it never stays over the mock-up's tiles (§2.2 E). */
+  animation: sw-offer-toast 5.6s var(--ease-out) 0.4s both;
+  pointer-events: none;
+}
+@keyframes sw-offer-toast {
+  0% {
+    opacity: 0;
+    translate: 0 8px;
+  }
+  8%,
+  90% {
+    opacity: 1;
+    translate: 0 0;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 4px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sw-offer-shot [data-marker][data-lit] > span {
+    animation: sw-offer-pulse 700ms var(--ease-out) 1;
+  }
+  .sw-offer-shot .mk {
+    animation: sw-offer-device var(--dur-state) var(--ease-out) both;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sw-offer-glow::before {
+    translate: none;
+    transition: none;
+  }
+  .sw-offer-toast {
+    animation-name: sw-offer-toast-still;
+  }
+}
+@keyframes sw-offer-toast-still {
+  0%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes sw-offer-pulse {
+  50% {
+    scale: 1.35;
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+}
+@keyframes sw-offer-device {
+  from {
+    opacity: 0;
+    scale: 0.98;
+  }
+}
+
+/* Points of „W cenie” (§2.2): the numbered ones are buttons that light their area. */
+.sw-offer-points {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sw-offer-points > li > :is(button, span) {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 10px 6px 6px;
+  border-radius: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+.sw-offer-points > li > button:is(:hover, :focus-visible) {
+  background: var(--accent-soft);
+}
+.sw-offer-point-number {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 13px;
+  font-weight: 900;
+}
+.sw-offer-extra {
+  min-height: 44px;
+  padding-block: 8px;
+  color: var(--ink);
+  text-align: left;
+}
+.sw-offer-extra > span {
+  color: var(--accent-text);
+  font-weight: 900;
+}
+.sw-offer-extra[aria-pressed='true'] {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+
 /* The price as the hero (§2.1 A). */
 .sw-offer-price {
   display: flex;

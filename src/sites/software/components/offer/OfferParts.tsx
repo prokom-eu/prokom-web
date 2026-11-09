@@ -111,29 +111,105 @@ export function PriceHero({
   )
 }
 
-/** „W cenie” (ZMIANY-v24 §6.1): what the „od” price includes as chips, then „Potrzebujesz więcej?”. */
-export function IncludedChips({ price }: { price: Extract<OfferPrice, { kind: 'included' }> }) {
-  if (price.items.length === 0 && !price.more) return null
+/** A point of „W cenie” with its number on the mock-up (`null`: no area there, a plain point). */
+export type IncludedPoint = { text: string; number: number | null }
+
+/**
+ * „W cenie” (OKNO-OFERTY-PREMIUM §2.2): what the „od” price includes. A point with an area on
+ * the mock-up carries its number; a hover or the focus lights the area, a tap does it too and
+ * brings the mock-up into view on the phone. Then „Potrzebujesz więcej?”: chips of the extras
+ * (no prices — quoted in writing) or, without them, the sentence as before.
+ */
+export function IncludedPoints({
+  points,
+  more,
+  extras,
+  chosen,
+  onLight,
+  onShow,
+  onToggleExtra,
+}: {
+  points: readonly IncludedPoint[]
+  more: string | null
+  extras: readonly string[]
+  chosen: readonly string[]
+  onLight: (number: number | null) => void
+  onShow: (number: number) => void
+  onToggleExtra: (extra: string) => void
+}) {
+  if (points.length === 0 && !more && extras.length === 0) return null
   return (
     <div>
       <h3 className={EYEBROW}>W cenie</h3>
-      {price.items.length > 0 && (
-        <ul className="mt-3 flex flex-wrap gap-2">
-          {price.items.map((item) => (
-            <li key={item} className="sw-chip text-ink">
-              <Icon name="check" strokeWidth={2.6} className="size-3.5 text-accent-text" />
-              {item}
+      {points.length > 0 && (
+        <ul className="sw-offer-points mt-3">
+          {points.map((point) => (
+            <li key={point.text} id={point.number ? `oferta-punkt-${point.number}` : undefined}>
+              {point.number ? (
+                <button
+                  type="button"
+                  data-point={point.number}
+                  onMouseEnter={() => onLight(point.number)}
+                  onMouseLeave={() => onLight(null)}
+                  onFocus={() => onLight(point.number)}
+                  onBlur={() => onLight(null)}
+                  onClick={() => point.number && onShow(point.number)}
+                  aria-describedby="oferta-punkty-opis"
+                >
+                  <span aria-hidden="true" className="sw-offer-point-number">
+                    {point.number}
+                  </span>
+                  {point.text}
+                </button>
+              ) : (
+                <span>
+                  <CheckDot />
+                  {point.text}
+                </span>
+              )}
             </li>
           ))}
         </ul>
       )}
-      {price.more && (
-        <p className="mt-4 flex gap-2.5 text-sm text-ink-2">
-          <span aria-hidden="true" className="font-bold text-accent-text">
-            +
-          </span>
-          {price.more}
+      {points.some((point) => point.number) && (
+        <p id="oferta-punkty-opis" className="sr-only">
+          Pokazuje to miejsce na makiecie.
         </p>
+      )}
+      {extras.length > 0 ? (
+        <div className="mt-5">
+          <p className="flex flex-wrap items-baseline gap-x-2 text-sm font-bold">
+            Potrzebujesz więcej?
+            <span className="font-normal text-ink-2">Dodaj do zapytania — wycenimy w 5–7 dni.</span>
+          </p>
+          <ul className="mt-3 flex flex-wrap gap-2" aria-label="Potrzebujesz więcej?">
+            {extras.map((extra) => {
+              const on = chosen.includes(extra)
+              return (
+                <li key={extra}>
+                  <button
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => onToggleExtra(extra)}
+                    className="sw-chip sw-offer-extra"
+                  >
+                    <span aria-hidden="true">{on ? '✓' : '+'}</span>
+                    {extra}
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      ) : (
+        more && (
+          <p className="mt-4 flex gap-2.5 text-sm text-ink-2">
+            <span aria-hidden="true" className="font-bold text-accent-text">
+              +
+            </span>
+            {more}
+          </p>
+        )
       )}
     </div>
   )

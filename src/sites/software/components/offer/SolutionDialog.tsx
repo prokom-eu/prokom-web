@@ -8,11 +8,14 @@ import { Icon } from '@/components/ui/Icon'
 import { track } from '@/lib/analytics/track'
 import { stripBold } from '@/lib/site/emphasis'
 import type { OfferView } from '@/lib/software/offer'
+import { askHref, extrasLabel } from '@/lib/software/offerExtras'
 import { MAX_PROJECT_ITEMS, PROJECT_SEND_HREF } from '@/lib/software/project'
 import { heroHead } from '@/lib/software/heroPrice'
 import { projectActions, useProject } from '@/lib/software/projectStore'
+import { type SpotKey, spotsOf } from '@/lib/software/spots'
+import { mockupSpots } from '@/sites/software/components/mockups/spots'
 
-import { OfferGallery } from './OfferGallery'
+import { OfferGallery, type SpotPoint } from './OfferGallery'
 import { CategoryDots, SectionTabs, ShortcutHint, type TabItem } from './OfferNav'
 import {
   AskCard,
@@ -21,7 +24,8 @@ import {
   CompareTable,
   ExampleQuote,
   type HeroPrice,
-  IncludedChips,
+  type IncludedPoint,
+  IncludedPoints,
   LevelChoice,
   LiveBadge,
   OfferBadge,
@@ -102,6 +106,10 @@ export function SolutionDialog({
   const [pick, setPick] = useState<{ slug: string; index: number } | null>(null)
   /** The list was full when this solution was added (no toast then, so the window says it). */
   const [fullFor, setFullFor] = useState<string | null>(null)
+  /** The point of „W cenie” whose area is lit on the mock-up (§2.2). */
+  const [litPoint, setLitPoint] = useState<number | null>(null)
+  /** Chips of „Potrzebujesz więcej?” chosen for the open solution (§2.3). */
+  const [chosen, setChosen] = useState<{ slug: string; extras: string[] } | null>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const top = useRef<HTMLDivElement>(null)
   const send = useRef<HTMLAnchorElement>(null)
@@ -192,6 +200,48 @@ export function SolutionDialog({
   const bar = level ? { label: level.barLabel, price: level.price } : view.bar
   const projectName = level ? level.projectName : view.name
 
+  // Points of „W cenie” with an area on this offer's mock-up get a number (§2.2); the others stay
+  // plain — no area, no light.
+  const areas = mockupSpots(view.preview?.kind ?? null, view.preview?.variant ?? null)
+  let counter = 0
+  const included: (IncludedPoint & { spots: SpotKey[] })[] =
+    price.kind === 'included'
+      ? price.items.map((text) => {
+          const spots = spotsOf(text).filter((spot) => areas.has(spot))
+          return { text, spots, number: spots.length > 0 ? ++counter : null }
+        })
+      : []
+  const spotPoints: SpotPoint[] = included.flatMap((point) =>
+    point.number ? [{ number: point.number, label: point.text, spots: point.spots }] : [],
+  )
+  const litSpots = spotPoints.find((point) => point.number === litPoint)?.spots ?? null
+  const extras = chosen?.slug === view.slug ? chosen.extras : []
+  const toggleExtra = (extra: string) =>
+    setChosen({
+      slug: view.slug,
+      extras: extras.includes(extra)
+        ? extras.filter((item) => item !== extra)
+        : view.extras.filter((item) => item === extra || extras.includes(item)),
+    })
+  // A tap on a point lights its area and brings the mock-up into view (the phone: above).
+  const showPoint = (number: number) => {
+    setLitPoint(number)
+    const shot = document.querySelector('.sw-offer-panel .sw-offer-shot')
+    const box = shot?.getBoundingClientRect()
+    if (shot && box && (box.top < 80 || box.bottom > window.innerHeight - 80)) {
+      const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      shot.scrollIntoView({ block: 'center', behavior: still ? 'auto' : 'smooth' })
+    }
+  }
+  // A click on a marker goes to its point and lights it.
+  const goToPoint = (number: number) => {
+    const point = document.querySelector<HTMLButtonElement>(`[data-point="${number}"]`)
+    if (!point) return
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    point.scrollIntoView({ block: 'center', behavior: still ? 'auto' : 'smooth' })
+    point.focus({ preventScroll: true })
+  }
+
   const add = () => {
     // `toggle` also takes an item out: only an addition counts as `oferta_dodaj`.
     const adding = !project.some((item) => item.id === view.slug)
@@ -280,9 +330,7 @@ export function SolutionDialog({
         <span className="block truncate text-xs font-bold text-ink-2">
           {fullFor === view.slug && !added
             ? `Twój projekt ma już ${MAX_PROJECT_ITEMS} pozycji — usuń którąś, żeby dodać tę.`
-            : added
-              ? `✓ W wycenie · ${bar.label}`
-              : bar.label}
+            : (extrasLabel(extras) ?? (added ? `✓ W wycenie · ${bar.label}` : bar.label))}
         </span>
         <span className="block font-display text-xl font-extrabold text-accent-text">
           {bar.price}
@@ -317,7 +365,7 @@ export function SolutionDialog({
       {/* „Zapytaj o tę ofertę →” (ZMIANY-v24 §6.1): the solution goes into „Twój projekt”, so the
           contact form opens with it (the form reads only `?projekt=1`). */}
       <Link
-        href={PROJECT_SEND_HREF}
+        href={askHref(view.name, extras)}
         aria-label="Zapytaj o tę ofertę"
         onClick={() => {
           if (!added && projectActions.toggle(view.slug, projectName)) {
@@ -398,7 +446,17 @@ export function SolutionDialog({
 
           {hasScope && (
             <section id="oferta-zakres" aria-label="Zakres" className="sw-offer-block">
-              {price.kind === 'included' && <IncludedChips price={price} />}
+              {price.kind === 'included' && (
+                <IncludedPoints
+                  points={included}
+                  more={price.more}
+                  extras={view.extras}
+                  chosen={extras}
+                  onLight={setLitPoint}
+                  onShow={showPoint}
+                  onToggleExtra={toggleExtra}
+                />
+              )}
               {price.kind === 'ask' && <AskCard price={price} />}
               {levels && (
                 <LevelChoice
@@ -497,17 +555,10 @@ export function SolutionDialog({
             key={view.slug}
             preview={view.preview}
             thumbnail={view.thumbnail}
-            overlay={
-              view.toast && (
-                <span
-                  aria-hidden="true"
-                  className="absolute bottom-3 left-4 z-10 inline-flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-xl bg-surface-dark px-3 py-2 text-xs font-bold text-white shadow-raised"
-                >
-                  <span className="size-1.5 shrink-0 rounded-full bg-ok" />
-                  <span className="truncate">{view.toast}</span>
-                </span>
-              )
-            }
+            toast={view.toast}
+            points={spotPoints}
+            lit={litSpots}
+            onMarker={goToPoint}
           />
           {view.hasLivePreview && (
             <Link

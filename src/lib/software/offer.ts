@@ -222,6 +222,11 @@ export type OfferView = {
   bar: { label: string; price: string }
   /** „Opieka od” tile (ZMIANY-v24 §6.1): the lowest care level; none on care and audit. */
   careFrom: string | null
+  /**
+   * „Potrzebujesz więcej?” as chips (OKNO-OFERTY-PREMIUM §2.3): `Solutions.moreExamples` of a
+   * priced solution, no prices; empty → the sentence of `price.more` stays.
+   */
+  extras: string[]
 }
 
 /** Fills the page tokens (`[FAKT]`, `{termin}`, `{cena:<slug>}`); `null` = drop the text. */
@@ -440,6 +445,7 @@ export function buildOfferView(solution: OfferSolution, options: BuildOptions): 
       price: solution.priceFrom === null ? 'po rozmowie' : priceLine(solution, display),
     },
     careFrom: hasLevels ? null : (options.careFrom ?? null),
+    extras: hasPrice ? solution.moreExamples : [],
   }
 }
 

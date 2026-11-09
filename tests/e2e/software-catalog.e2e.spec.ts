@@ -213,7 +213,12 @@ test.describe('Software offer window (spec. §5.1)', () => {
     )
     await expect(dialog.locator('.sw-offer-shot [data-mockup="phone"]')).toHaveCount(1)
     await expect(dialog).toContainText('Do 5 podstron: oferta, realizacje, opinie, kontakt')
-    await expect(dialog).toContainText(/Potrzebujesz więcej\? Np\. więcej niż 5 podstron/)
+    // „Potrzebujesz więcej?” as chips of `moreExamples`, no prices (OKNO-OFERTY-PREMIUM §2.3).
+    await expect(
+      dialog
+        .getByRole('list', { name: 'Potrzebujesz więcej?' })
+        .getByRole('button', { name: /więcej niż 5 podstron/ }),
+    ).toHaveAttribute('aria-pressed', 'false')
     await expect(dialog).toContainText('Wycena na piśmie, ważna 30 dni')
     await expect(dialog).toContainText('30% zaliczki, reszta po odbiorze')
     // „Co dalej” under the hero price (§2.2), no price block next to the mock-up.
@@ -369,6 +374,33 @@ test.describe('Software offer window (spec. §5.1)', () => {
     await dots.getByRole('button', { name: 'Strona firmowa z panelem' }).click()
     await expect(page).toHaveURL(/rozwiazanie=strona-firmowa-z-panelem$/)
     await expect(windowOf(page, 'Strona firmowa z panelem')).toBeVisible()
+  })
+
+  test('a point lights its area on the mock-up; chosen chips start the inquiry', async ({
+    page,
+  }) => {
+    // OKNO-OFERTY-PREMIUM §2.2–§2.3: a point of „W cenie” with an area on the mock-up.
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site(HOST, `${PATH}?rozwiazanie=strona-wizytowka`))
+    const dialog = windowOf(page, 'Strona wizytówka')
+    const point = dialog.locator('[data-point="1"]')
+    await hydrated(point)
+    await point.focus()
+    await expect(dialog.locator('.sw-offer-shot')).toHaveAttribute('data-spot-on', '')
+    await expect(dialog.locator('.sw-offer-shot [data-spot][data-lit]').first()).toBeVisible()
+    await expect(dialog.getByRole('button', { name: /^Pokaż w cenie: Jedna strona/ })).toBeVisible()
+    const more = dialog.getByRole('list', { name: 'Potrzebujesz więcej?' })
+    await more.getByRole('button', { name: /galeria i opinie klientów/ }).click()
+    await expect(more.getByRole('button', { name: /galeria i opinie klientów/ })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await expect(dialog).toContainText('W zapytaniu: galeria i opinie klientów')
+    await dialog.getByRole('link', { name: /^Zapytaj o tę ofertę/ }).click()
+    await expect(page).toHaveURL(/\/kontakt\?projekt=1&fraza=.*#formularz$/)
+    await expect(
+      page.locator('[data-contact-page] [data-contact-form]').getByLabel('Wiadomość'),
+    ).toHaveValue('Strona wizytówka — dodatkowo: galeria i opinie klientów')
   })
 
   test('„Często łączone z” switches the window to that solution', async ({ page }) => {
