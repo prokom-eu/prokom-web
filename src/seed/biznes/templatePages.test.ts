@@ -25,6 +25,14 @@ describe('templateLayout (/kontakt and /o-firmie on the shared templates, plan 0
     expect(templateLayout(edited as never, 'bzContactPage')).toBeNull()
   })
 
+  it('SEED_REPLACE_PAGES: a page of the 31.10 import (contact card + FAQ) moves to the template', () => {
+    const old = [{ blockType: 'bzContact' }, { blockType: 'faq' }]
+    expect(templateLayout(old as never, 'bzContactPage')).toBeNull()
+    expect(templateLayout(old as never, 'bzContactPage', true)).toEqual([block])
+    // Already on the template: nothing to replace.
+    expect(templateLayout([block] as never, 'bzContactPage', true)).toBeNull()
+  })
+
   it('covers both pages with their own block, titles and descriptions', () => {
     expect(TEMPLATE_PAGES.map((page) => [page.slug, page.block])).toEqual([
       ['o-firmie', 'bzAboutPage'],

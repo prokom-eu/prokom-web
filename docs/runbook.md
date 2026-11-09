@@ -119,6 +119,7 @@ Kroki:
 
 - **Zostaje:** konta (`Users`), zapytania, tenanty (e-mail powiadomień, domeny `staging`) — importy linii tenanty tylko czytają, kont ani zapytań nie dotykają.
 - **Nadpisuje:** to, co jest w paczkach: katalog Biznesu („pola z paczki wygrywają z edycją w panelu”), **globalne Dane firmy** (`seed:biznes` — nazwa, NIP i **salony = tylko Rabka**; salon dodany w panelu stagingu zniknie) i **ustawienia stron** (`site-settings`) wszystkich trzech linii. Przed odświeżeniem zapytaj szefa, czy czegoś nie poprawiał na stagingu.
+- **Strony sprzed obecnego seeda** (np. GoPOS, InsERT, Opieka IT, O firmie, Kontakt z importu 31.10): seed nie nadpisuje strony, w której widzi obce bloki — traktuje ją jak edytowaną w panelu (raport „strona K4 edytowana w panelu — bez zmian”). Gdy w historii wersji strony nie ma edycji z panelu, wymień ją jednorazowo: `SEED_REPLACE_PAGES=gopos,insert,opieka-it,o-firmie,kontakt SSH=… bash scripts/staging-content.sh biznes` — układ wskazanych stron zastępuje wersja z paczki (tytuł i SEO zostają). Najpierw zapytaj szefa, czy czegoś na nich nie poprawiał.
 - **Ginie:** zapytania wysłane między zrzutem a zamianą (minuty) — są w kopii `predeploy`.
 - Nie przerywaj (Ctrl+C) w kroku 4: zatrzymana aplikacja nie wstanie sama — wtedy `docker start prokom-staging-app-1` i sprawdzenie baz (`prokom_staging`, `_new`, `_old`).
 - Lokalna kopia (testowe zapytania, skróty haseł) i wgrane pliki na serwerze są kasowane na końcu, także po błędzie.
