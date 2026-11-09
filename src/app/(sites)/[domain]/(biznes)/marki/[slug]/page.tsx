@@ -32,8 +32,7 @@ import {
   SalonFaq,
   SalonHero,
   SalonPlans,
-  SalonRollout,
-  SalonService,
+  SalonServiceRollout,
   SectionHead,
 } from '@/sites/biznes/components/brand/salon/SalonSections'
 import { CategoryGrid } from '@/sites/biznes/components/category/CategoryGrid'
@@ -262,8 +261,7 @@ async function Salon({
           </section>
         )}
         {view.chooser && <SalonChooser chooser={view.chooser} brand={brand} />}
-        {view.service && <SalonService service={view.service} phone={phone} />}
-        {view.rollout && <SalonRollout rollout={view.rollout} />}
+        <SalonServiceRollout service={view.service} rollout={view.rollout} phone={phone} />
         {view.about && <SalonAbout about={view.about} headings={view.headings} />}
         <SalonFaq
           faq={view.faq}
