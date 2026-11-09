@@ -403,6 +403,25 @@ test.describe('Software offer window (spec. §5.1)', () => {
     ).toHaveValue('Strona wizytówka — dodatkowo: galeria i opinie klientów')
   })
 
+  test('„Czym różni się od” shows the neighbour side by side and opens it', async ({ page }) => {
+    // OKNO-OFERTY-PREMIUM §2.3 P2: the next offer of the category, folded until asked.
+    await page.goto(site(HOST, `${PATH}?rozwiazanie=strona-wizytowka`))
+    const dialog = windowOf(page, 'Strona wizytówka')
+    const compare = dialog.locator('.sw-offer-compare')
+    await compare.locator('summary').click()
+    await expect(compare).toHaveAttribute('open', '')
+    const open = compare.getByRole('button', { name: /^Zobacz: / })
+    const name = ((await open.textContent()) ?? '').replace(/^Zobacz:\s*/, '').replace(/\s*→$/, '')
+    // The second column is the neighbour, with its own „W cenie”.
+    await expect(compare.getByRole('heading', { level: 4 })).toHaveText([
+      'Strona wizytówka',
+      name.trim(),
+    ])
+    await expect(compare.getByRole('list', { name: `W cenie: ${name.trim()}` })).toBeVisible()
+    await open.click()
+    await expect(windowOf(page, name.trim())).toBeVisible()
+  })
+
   test('„Często łączone z” switches the window to that solution', async ({ page }) => {
     await page.goto(site(HOST, `${PATH}?rozwiazanie=strona-firmowa-z-panelem`))
     const dialog = windowOf(page, 'Strona firmowa z panelem')
