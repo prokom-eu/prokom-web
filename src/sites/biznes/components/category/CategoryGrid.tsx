@@ -24,7 +24,7 @@ import { CATALOG_PAGE_SIZE, CATALOG_PAGE_SIZE_PHONE } from '@/lib/catalog/filter
 import { plural } from '@/lib/plural'
 import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
-import { ProductCard } from '../catalog/ProductCard'
+import { FIRST_ROW, ProductCard } from '../catalog/ProductCard'
 import { SupplyBand } from '../SupplyBand'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
 import { usePhone } from '../mobile/usePhone'
@@ -335,6 +335,8 @@ export function CategoryGrid({
                         index={index}
                         position={position}
                         meta={bySeries ? 'series' : 'category'}
+                        // The grid sits below the category header: no high priority here.
+                        picture={position < FIRST_ROW ? 'eager' : 'lazy'}
                       />
                     </li>
                     {supply && position + 1 === Math.min(SUPPLY_AFTER, visible.length) && (

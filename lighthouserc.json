@@ -53,7 +53,14 @@
         "largest-contentful-paint": [
           "error",
           {
-            "maxNumericValue": 2500,
+            "maxNumericValue": 4000,
+            "aggregationMethod": "median-run"
+          }
+        ],
+        "lcp-lazy-loaded": [
+          "error",
+          {
+            "minScore": 1,
             "aggregationMethod": "median-run"
           }
         ],

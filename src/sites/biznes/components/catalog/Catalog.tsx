@@ -29,7 +29,7 @@ import { SearchIcon } from '../SearchIcon'
 import { CatalogFilters } from './CatalogFilters'
 import { EmptyResult } from './EmptyResult'
 import { FilterSheet } from './FilterSheet'
-import { ProductCard } from './ProductCard'
+import { FIRST_ROW, ProductCard } from './ProductCard'
 import { usePhone } from '../mobile/usePhone'
 
 /** The URL follows the search box after a short pause, not on every key. */
@@ -404,6 +404,8 @@ export function Catalog({ index }: { index: CatalogIndex }) {
                     position={position}
                     layout={view.view}
                     onPreview={() => setPreview(position)}
+                    // The first card is the largest paint of `/oferta` (Lighthouse LCP, ADR-025).
+                    picture={position === 0 ? 'priority' : position < FIRST_ROW ? 'eager' : 'lazy'}
                   />
                 </li>
               ))}
