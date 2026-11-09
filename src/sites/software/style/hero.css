@@ -1328,7 +1328,7 @@
 /* Short laptop screens (AUDYT-0811 #0) and a tall desktop (AUDYT po SWA7 #2): the tiles turn
    compact — the icon next to the name, about 64 px instead of 96 — and the field above them is
    lower, so the carousel moves up. */
-@media (min-width: 1200px) and (max-height: 900px), (min-width: 1280px) and (min-height: 1000px) {
+@media (min-width: 1024px) and (max-height: 900px), (min-width: 1280px) and (min-height: 1000px) {
   /* One line of lead instead of two on a wide, short screen. */
   .hx-lead {
     max-width: 960px;
@@ -1377,8 +1377,9 @@
     --hx-w: clamp(560px, calc((100svh - 470px) * 1.55), var(--hx-w-max));
   }
 }
-/* SWA10: the same tight text and tiles on every short laptop up to 900 px high. */
-@media (min-width: 1280px) and (max-height: 900px) {
+/* SWA10: the same tight text and tiles on every short laptop up to 900 px high; SWA11 #2: also
+   a tablet held wide (from 1024 px). */
+@media (min-width: 1024px) and (max-height: 900px) {
   .hx {
     padding-top: 14px;
   }
@@ -1418,7 +1419,7 @@
 /* SWA10 (AUDYT-0911 wieczór #1): on the most common laptops (1440×900, 1366×768) the whole
    window fits on the first screen — its width follows the height left below the panel (never
    below 560 px). 1280×720 keeps the block above. */
-@media (min-width: 1280px) and (min-height: 741px) and (max-height: 900px) {
+@media (min-width: 1024px) and (min-height: 741px) and (max-height: 900px) {
   .hx {
     --hx-w: clamp(560px, calc((100svh - 506px) / 0.6566), var(--hx-w-max));
   }
@@ -1431,7 +1432,7 @@
 }
 /* 1366×768: the badge above the H1 gives way to the window (the band of industries below the
    hero still says "every industry"). */
-@media (min-width: 1280px) and (min-height: 741px) and (max-height: 820px) {
+@media (min-width: 1024px) and (min-height: 741px) and (max-height: 820px) {
   .hx {
     padding-top: 6px;
   }
@@ -1489,6 +1490,18 @@
   }
   .hx-h1 {
     font-size: clamp(52px, min(7vw, 9.4vh), 84px);
+  }
+}
+/* SWA11 #2: a tablet held wide (1024–1200) keeps the laptop H1 of the short-screen blocks above
+   (the block before sets its own size for every width up to 1200). */
+@media (min-width: 1024px) and (max-width: 1200px) and (min-height: 741px) and (max-height: 900px) {
+  .hx-h1 {
+    font-size: clamp(56px, 8vh, 72px);
+  }
+}
+@media (min-width: 1024px) and (max-width: 1200px) and (min-height: 741px) and (max-height: 820px) {
+  .hx-h1 {
+    font-size: 52px;
   }
 }
 @media (max-width: 960px) {
@@ -1632,6 +1645,75 @@
   }
   .hx-cos .rb {
     filter: blur(40px);
+  }
+}
+
+/* SWA11 (AUDYT-0911 noc #1): a phone keeps the whole window above the tab bar. The window width
+   follows the height left under the panel (`svh`: Safari and Chrome with their bars shown), and
+   a short screen tightens the text first. 390×844 and taller stay as above. */
+@media (max-width: 600px) {
+  .hx {
+    /* 0.6566: window height / width; 86px: the tab bar and its air below the window.
+       `--hx-above`: where the window starts with today's title and lead from the panel — a much
+       longer lead pushes the window down again (e2e software-hero watches it on the seed). */
+    --hx-w: clamp(240px, calc((100svh - var(--hx-above) - 86px) / 0.6566), var(--hx-w-max));
+    --hx-above: 528px;
+  }
+}
+@media (max-width: 600px) and (max-height: 820px) {
+  .hx {
+    --hx-above: 502px;
+  }
+  .hx-h1 {
+    margin-top: 6px;
+    font-size: 42px;
+  }
+  .hx-lead {
+    margin-top: 6px;
+  }
+  .hx-cmd {
+    margin-top: 8px;
+  }
+  .hx-flow {
+    margin-top: 6px;
+  }
+}
+@media (max-width: 600px) and (max-height: 760px) {
+  .hx {
+    --hx-above: 400px;
+    padding-top: 10px;
+  }
+  /* The badge gives way to the window (the band of industries below still says it). */
+  .hx-pill {
+    display: none;
+  }
+  .hx-h1 {
+    margin-top: 0;
+    font-size: 38px;
+  }
+  .hx-lead {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  /* Tiles: the icon beside the name, one low row. */
+  .hx-tiles {
+    padding-top: 6px;
+  }
+  .hx-tile {
+    flex-direction: row;
+    align-items: center;
+    flex-basis: 132px;
+    gap: 6px;
+    padding: 6px 8px;
+    text-align: left;
+  }
+  .hx-tile .si {
+    flex: none;
+    width: 24px;
+    height: 24px;
+  }
+  .hx-tile .sn {
+    display: none;
   }
 }
 
