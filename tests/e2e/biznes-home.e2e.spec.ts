@@ -672,15 +672,19 @@ test.describe('Biznes home page: KSeF band, news, contact location', () => {
       const teaser = card.locator('p.line-clamp-2')
       if (await teaser.count()) expect((await teaser.innerText()).length).toBeLessThanOrEqual(140)
     }
-    // Cards as tall as their content: no empty field over 120 px (the 09.11 white cards).
-    const empty = await news.locator('[data-news-card]').evaluateAll((articles) =>
+    // Cards as tall as their content: no empty field over 120 px (the 09.11 white cards, where
+    // „Czytaj…” sat at the bottom with an empty middle) — between any two pieces of the text and
+    // under the last one.
+    const gaps = await news.locator('[data-news-card]').evaluateAll((articles) =>
       articles.map((article) => {
         const body = article.querySelector(':scope > div:last-child')
-        const last = body?.lastElementChild?.getBoundingClientRect().bottom ?? 0
-        return article.getBoundingClientRect().bottom - last
+        const parts = [...(body?.children ?? [])].map((part) => part.getBoundingClientRect())
+        const between = parts.slice(1).map((part, i) => part.top - parts[i]!.bottom)
+        const under = article.getBoundingClientRect().bottom - (parts.at(-1)?.bottom ?? 0)
+        return Math.max(under, ...between)
       }),
     )
-    for (const gap of empty) expect(gap).toBeLessThanOrEqual(120)
+    for (const gap of gaps) expect(gap).toBeLessThanOrEqual(120)
   })
 
   test('contact: the location column — map, open status, address, phone, „Wyznacz trasę”', async ({

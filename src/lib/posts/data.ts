@@ -153,7 +153,7 @@ export const getKsefPanel = (tenantId: number): Promise<KsefPanel | null> =>
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
-/** Newest public posts of one sister tenant as bare rows: slug, title, date — nothing else. */
+/** Newest public posts of one sister tenant as bare rows: slug, title, date, lead — no body or cover. */
 const getTenantPostRows = (tenantId: number, limit: number): Promise<SisterPostRow[]> =>
   cacheQuery(
     async () => {

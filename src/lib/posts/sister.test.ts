@@ -38,7 +38,7 @@ describe('sisterTenants — tenant isolation', () => {
   })
 })
 
-describe('sisterPostLinks — title and link only (SEO: no copied text)', () => {
+describe('sisterPostLinks — title, link and a short teaser (SEO: no copied body)', () => {
   const groups = [
     { tenant: BIZNES, posts: [row('ksef-biznes', '2026-11-07T10:00:00.000Z')] },
     { tenant: INSTALACJE, posts: [row('pompa', '2026-11-05T10:00:00.000Z')] },

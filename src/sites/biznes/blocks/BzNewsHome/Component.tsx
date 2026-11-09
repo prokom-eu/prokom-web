@@ -32,7 +32,8 @@ const STRETCH = 'outline-hidden after:absolute after:inset-0 after:content-[""]'
 const GRID: Record<number, string> = {
   1: 'grid-cols-1',
   2: 'min-[640px]:grid-cols-2',
-  3: 'min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3',
+  // Two columns on a tablet: the third card takes the whole second row.
+  3: 'min-[640px]:grid-cols-2 min-[640px]:[&>li:nth-child(3)]:col-span-2 min-[1080px]:grid-cols-3 min-[1080px]:[&>li:nth-child(3)]:col-span-1',
 }
 
 /**
@@ -109,12 +110,12 @@ export async function BzNewsHomeBlock({
                       className="h-full max-h-[180px] w-auto max-w-full object-contain drop-shadow-[0_24px_28px_var(--glow)]"
                     />
                   ) : (
-                    // No cover: the tile with the line's icon — never an empty field.
+                    // No cover: a tile with the line's mark — never an empty field.
                     <span
                       aria-hidden="true"
-                      className="flex size-20 items-center justify-center rounded-[24px] bg-card text-accent-text shadow-[0_14px_30px_-18px_var(--glow),inset_0_0_0_1px_var(--border)]"
+                      className="flex h-20 items-center justify-center rounded-[24px] bg-card px-6 shadow-[0_14px_30px_-18px_var(--glow),inset_0_0_0_1px_var(--border)]"
                     >
-                      <Icon name="doc" className="size-9" strokeWidth={2} />
+                      <LineLogo line="biznes" alt="" height={28} />
                     </span>
                   )}
                 </div>
@@ -145,7 +146,8 @@ export async function BzNewsHomeBlock({
                 >
                   <div className="flex flex-1 flex-col gap-2 p-[22px]">
                     <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] font-extrabold text-ink-2">
-                      <LineLogo line={link.line} alt={LINE_NAME[link.line]} height={20} />
+                      {/* The name is in the link („strona …”): the mark is decoration here. */}
+                      <LineLogo line={link.line} alt="" height={20} />
                       {published && <time dateTime={published.dateTime}>{published.date}</time>}
                     </p>
                     <h3 className={TITLE}>
