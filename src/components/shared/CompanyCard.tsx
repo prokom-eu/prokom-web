@@ -156,7 +156,7 @@ export function CompanyCard({
           href={company.ceidgUrl}
           target="_blank"
           rel="noopener"
-          className="inline-flex min-h-6 items-center text-sm font-bold text-accent-text underline-offset-2 hover:underline"
+          className="text-sm font-bold text-accent-text underline-offset-2 hover:underline"
         >
           Dane sprawdzisz w CEIDG po numerze NIP →<span className="sr-only"> (nowe okno)</span>
         </a>
