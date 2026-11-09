@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type {
+  OfferView,
   OfferCell,
   OfferLevel,
   OfferPrice,
@@ -218,6 +219,71 @@ export function IncludedPoints({
         )
       )}
     </div>
+  )
+}
+
+/**
+ * „Czym różni się od: …” (OKNO-OFERTY-PREMIUM §2.3 P2): the offer and its neighbour in the
+ * category side by side — price, term and „W cenie” — folded until asked; a button opens the
+ * neighbour. Data of both windows only, no new prices.
+ */
+export function OfferCompare({
+  current,
+  other,
+  onOpen,
+}: {
+  current: OfferView
+  other: OfferView
+  onOpen: () => void
+}) {
+  const column = (view: OfferView) => {
+    const price = view.price.kind === 'included' ? view.price : null
+    return (
+      <div key={view.slug} className="flex min-w-0 flex-col gap-2">
+        <p className="font-display text-lg font-extrabold leading-snug">{view.name}</p>
+        {price && (
+          <p className="font-bold text-accent-text">
+            {[price.head.before, price.head.amount, price.head.after].filter(Boolean).join(' ')}
+          </p>
+        )}
+        <p className="text-sm text-ink-2">
+          {view.termLabel}: {view.term}
+        </p>
+        {price && (
+          <ul className="mt-1 flex flex-col gap-1.5 text-sm">
+            {price.items.map((item) => (
+              <li key={item} className="flex gap-2">
+                <CheckDot small />
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    )
+  }
+  return (
+    <details className="sw-offer-compare">
+      <summary>
+        <span>
+          Czym różni się od: <b>{other.name}</b>
+        </span>
+        <span aria-hidden="true" className="sw-offer-compare-sign">
+          +
+        </span>
+      </summary>
+      <div className="sw-offer-compare-grid">
+        {column(current)}
+        {column(other)}
+      </div>
+      <button
+        type="button"
+        onClick={onOpen}
+        className="mt-4 inline-flex min-h-11 items-center gap-2 font-bold text-accent-text"
+      >
+        Zobacz: {other.name} <span aria-hidden="true">→</span>
+      </button>
+    </details>
   )
 }
 

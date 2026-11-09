@@ -11,6 +11,7 @@ import type { OfferView } from '@/lib/software/offer'
 import { askHref, extrasLabel } from '@/lib/software/offerExtras'
 import { MAX_PROJECT_ITEMS } from '@/lib/software/project'
 import { heroHead } from '@/lib/software/heroPrice'
+import { neighbourOf } from '@/lib/software/offerCompare'
 import { projectActions, useProject } from '@/lib/software/projectStore'
 import { type SpotKey, spotsOf } from '@/lib/software/spots'
 import { mockupSpots } from '@/sites/software/components/mockups/spots'
@@ -29,6 +30,7 @@ import {
   LevelChoice,
   LiveBadge,
   OfferBadge,
+  OfferCompare,
   OfferSection,
   PriceHero,
   Questions,
@@ -478,6 +480,7 @@ export function SolutionDialog({
         ? { kind: 'text', text: price.title }
         : null
   const termValue = level ? level.term : view.term
+  const neighbour = neighbourOf(view, views, list)
   const heroAmount = heroPrice?.kind === 'amount' ? heroPrice.amount : ''
   const trailKey = `${view.slug}|${heroAmount}`
   if (trail.key !== trailKey) {
@@ -550,6 +553,9 @@ export function SolutionDialog({
                   onShow={showPoint}
                   onToggleExtra={toggleExtra}
                 />
+              )}
+              {neighbour && (
+                <OfferCompare current={view} other={neighbour} onOpen={() => go(neighbour.slug)} />
               )}
               {price.kind === 'ask' && <AskCard price={price} />}
               {levels && (
