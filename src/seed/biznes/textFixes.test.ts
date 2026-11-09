@@ -124,6 +124,13 @@ describe('KSeF post and relief (D17, K4-FINAL §1)', () => {
     expect(fixTexts({ p: hardSpaces(oldPos) }).p).toBe(hardSpaces(KSEF_POS_PARAGRAPH))
   })
 
+  it('also the older wording with a dash (staging 09.11); another text stays', () => {
+    const dashed = oldPos.replace('KSeF: z programu', 'KSeF — z programu')
+    expect(fixTexts({ p: dashed }).p).toBe(KSEF_POS_PARAGRAPH)
+    const edited = `${dashed} Dopisek z panelu.`
+    expect(fixTexts({ p: edited }).p).toBe(edited)
+  })
+
   it('says once that the relief is settled in the VAT return, idempotently', () => {
     for (const text of [KSEF_RELIEF_PARAGRAPH, RELIEF_FAQ_ANSWER]) {
       expect(text.match(/deklaracji VAT/g)).toHaveLength(1)

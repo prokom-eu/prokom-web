@@ -198,8 +198,8 @@ if [ "$app_exists" = 1 ]; then
   [ "$status" = healthy ] || { log "app not healthy ($status)"; exit 1; }
   log "app healthy"
   PANEL_HOST="$(env_value "$dst_env" PANEL_HOST)" \
-    bash "$repo/scripts/smoke.sh" "http://127.0.0.1:$(env_value "$dst_env" APP_PORT)" "${hosts[@]}" </dev/null >"$work/smoke.log" ||
-    { tail -5 "$work/smoke.log"; exit 1; }
+    SMOKE_CONTENT=1 bash "$repo/scripts/smoke.sh" "http://127.0.0.1:$(env_value "$dst_env" APP_PORT)" "${hosts[@]}" </dev/null >"$work/smoke.log" ||
+    { grep FAIL "$work/smoke.log" || tail -5 "$work/smoke.log"; exit 1; }
   log "$(tail -1 "$work/smoke.log")"
 else
   log "no app container yet — next: up -d app, health and smoke test (runbook §3)"

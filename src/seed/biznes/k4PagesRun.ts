@@ -109,6 +109,7 @@ export async function seedBiznesK4Pages(
         layout: built.layout,
       },
       report,
+      note,
     )
     if (!done) note('strona K4 edytowana w panelu — bez zmian', slug)
     const upgrade = done ? STORED_UPGRADES[slug] : undefined

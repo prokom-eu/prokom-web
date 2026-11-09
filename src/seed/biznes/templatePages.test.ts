@@ -25,7 +25,7 @@ describe('templateLayout (/kontakt and /o-firmie on the shared templates, plan 0
     expect(templateLayout(edited as never, 'bzContactPage')).toBeNull()
   })
 
-  it('SEED_REPLACE_PAGES: a page of the 31.10 import (contact card + FAQ) moves to the template', () => {
+  it('--zamien-strony: a page of the 31.10 import (contact card + FAQ) moves to the template', () => {
     const old = [{ blockType: 'bzContact' }, { blockType: 'faq' }]
     expect(templateLayout(old as never, 'bzContactPage')).toBeNull()
     expect(templateLayout(old as never, 'bzContactPage', true)).toEqual([block])

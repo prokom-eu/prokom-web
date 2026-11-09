@@ -3,10 +3,12 @@ import type { Payload } from 'payload'
 import type { Page } from '../../payload-types'
 import { nextDescription } from './description'
 import { mergeHomeLayout } from './home'
+import { backupLayout, describeLayout, hasSeedLayout, pagesToReplace } from './replacePages'
 
 export type PageBlock = NonNullable<Page['layout']>[number]
 
 type Report = (name: string, changed: boolean) => void
+type Note = (what: string, item: string) => void
 
 const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
 
@@ -25,21 +27,6 @@ type SeedPage = {
 }
 
 /**
- * Slugs whose stored layout the seed replaces with its own: `SEED_REPLACE_PAGES` (comma list).
- * A one-off for a database whose pages predate the current seed and so look „edited in the
- * panel” to the guards below (staging 09.11: GoPOS, InsERT, Opieka IT, O firmie, Kontakt from
- * the 31.10 import) — runbook §2a. Unset = nothing replaced: panel edits are never overwritten.
- */
-export function pagesToReplace(value = process.env.SEED_REPLACE_PAGES): ReadonlySet<string> {
-  return new Set(
-    (value ?? '')
-      .split(',')
-      .map((slug) => slug.trim())
-      .filter(Boolean),
-  )
-}
-
-/**
  * A K4 page (K4hij): created when missing; a page already on K4 sections only gains missing
  * block types. Any other page was edited in the panel: it is left alone and returned as
  * `false` for the seed report. (The B9 layouts it used to replace went with their blocks.)
@@ -49,6 +36,7 @@ export async function upsertK4Page(
   tenantId: number,
   page: SeedPage,
   report: Report,
+  note?: Note,
 ): Promise<boolean> {
   const {
     docs: [found],
@@ -58,7 +46,11 @@ export async function upsertK4Page(
     limit: 1,
     ...local,
   })
-  if (found && pagesToReplace().has(page.slug)) {
+  // NAPRAWA-0911: a named page gets the seed's layout even when it looks edited (replacePages).
+  const replace =
+    found && pagesToReplace().has(page.slug) && !hasSeedLayout(found.layout, page.layout)
+  if (replace) {
+    const file = backupLayout(page.slug, found.layout)
     await payload.update({
       collection: 'pages',
       id: found.id,
@@ -66,9 +58,13 @@ export async function upsertK4Page(
       ...local,
     })
     report(`pages ${page.slug} replaced`, true)
-    return true
+    note?.(
+      'strona zamieniona (przed → po)',
+      `${page.slug}: ${describeLayout(found.layout)} → ${describeLayout(page.layout)}; kopia ${file}`,
+    )
+    // Now a K4 page: the usual rules below also bring its SEO description up to date.
   }
-  if (found && !found.layout?.some((block) => block.blockType === 'bzSection')) {
+  if (found && !replace && !found.layout?.some((block) => block.blockType === 'bzSection')) {
     report(`pages ${page.slug}`, false)
     return false
   }

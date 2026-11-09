@@ -78,8 +78,8 @@ done
 log "app healthy"
 read -r -a hosts <<<"$(env_value .env.proxy STAGING_SITE_HOSTS)"
 PANEL_HOST="$(env_value .env.staging PANEL_HOST)" \
-  bash "$repo/scripts/smoke.sh" "http://127.0.0.1:$(env_value .env.staging APP_PORT)" "${hosts[@]}" >"$dir/smoke.log" ||
-  { tail -5 "$dir/smoke.log"; exit 1; }
+  SMOKE_CONTENT=1 bash "$repo/scripts/smoke.sh" "http://127.0.0.1:$(env_value .env.staging APP_PORT)" "${hosts[@]}" >"$dir/smoke.log" ||
+  { grep FAIL "$dir/smoke.log" || tail -5 "$dir/smoke.log"; exit 1; }
 log "$(tail -1 "$dir/smoke.log")"
 
 # Success: the old copies go; the uploaded files (personal data) too.
