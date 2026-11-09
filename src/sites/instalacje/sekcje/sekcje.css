@@ -104,6 +104,23 @@
   & .dark .eye {
     color: var(--inst-dark-accent);
   }
+  /* Audit 09.11: a dark card with the text on the left and the details on the right (the
+     prototype's inline layout of `/ekrany#zewnatrz` and `/naglosnienie#dso`, never ported). */
+  & .card-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 36px;
+    padding: 44px;
+    border-radius: 30px;
+  }
+  @media (max-width: 900px) {
+    & .card-split {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+      padding: 28px 22px;
+      border-radius: 24px;
+    }
+  }
   & .card.dark .h3 {
     color: var(--inst-dark-ink);
   }

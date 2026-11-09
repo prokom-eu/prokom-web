@@ -147,7 +147,7 @@ export function EkranySections() {
 
       <InstSection id="zewnatrz" fold style={SECTION}>
         <div className="wrap">
-          <div className="card dark ri scr-out" data-surface="dark">
+          <div className="card dark card-split ri scr-out" data-surface="dark">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <span className="eye">{outdoor.eyebrow}</span>
               <h2 className="h2" style={{ fontSize: 'clamp(28px, 3vw, 42px)' }}>
