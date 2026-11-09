@@ -113,7 +113,7 @@ Komendy (uruchamia Krystian, po scaleniu #454 do `develop` pipeline wdraża stag
 gh pr merge 458 --squash
 ```
 ```bash
-gh pr merge <PR QA> --squash
+gh pr merge 463 --squash
 ```
 ```bash
 gh pr merge 454 --squash
