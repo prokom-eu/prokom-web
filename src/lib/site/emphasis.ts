@@ -4,6 +4,13 @@ export type TextPart = { text: string; bold: boolean }
  * Text typed in the panel with bold fragments marked `**like this**` (a lead with one strong
  * sentence, plansza Dzial). Pairs only: an unclosed `**` stays as plain text.
  */
+/** The text without its `**` marks (a heading shown where nothing is highlighted). */
+export function stripBold(value: string): string {
+  return splitBold(value)
+    .map((part) => part.text)
+    .join('')
+}
+
 export function splitBold(value: string): TextPart[] {
   const parts: TextPart[] = []
   const pattern = /\*\*(.+?)\*\*/g
