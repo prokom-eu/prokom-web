@@ -109,13 +109,16 @@ function SectionHead({
 }
 
 export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }) {
+  // Plan cards (either section) first; „cała oferta” is only there when models are left for it.
   const offer = view.plans
     ? { href: '#oferta', label: 'Porównaj warianty', short: 'Warianty' }
-    : {
-        href: '#oferta-cala',
-        label: `Zobacz ofertę · ${view.familyCount}`,
-        short: `Oferta · ${view.familyCount}`,
-      }
+    : view.morePlans && view.family.length === 0
+      ? { href: '#oferta2', label: 'Porównaj warianty', short: 'Warianty' }
+      : {
+          href: '#oferta-cala',
+          label: `Zobacz ofertę · ${view.familyCount}`,
+          short: `Oferta · ${view.familyCount}`,
+        }
   // With the card the board shows two photos: the first product large on the right, the second
   // smaller on the left; without it up to three with their labels.
   const photos = view.heroCard ? view.hero.slice(0, 2).reverse() : view.hero
@@ -258,31 +261,17 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
                     {view.heroCard.title}
                   </p>
                 )}
+                {/* Two lines, titles only: the service block below says the rest (audit P1-3). */}
                 <ul className="flex flex-col gap-3">
-                  {view.heroCard.items.map((item) => (
+                  {view.heroCard.items.slice(0, 2).map((item) => (
                     <li key={item.title} className="flex gap-3">
                       <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-lg bg-ok/20 text-ok">
                         <Icon name="check" strokeWidth={3} className="size-3.5" />
                       </span>
-                      <span className="flex flex-col">
-                        <b className="text-sm font-extrabold">{item.title}</b>
-                        {item.text && <small className="text-xs text-white/70">{item.text}</small>}
-                      </span>
+                      <b className="text-sm font-extrabold">{item.title}</b>
                     </li>
                   ))}
                 </ul>
-                {view.heroCard.chips.length > 0 && (
-                  <ul className="flex flex-wrap gap-1.5 pt-4">
-                    {view.heroCard.chips.map((chip) => (
-                      <li
-                        key={chip}
-                        className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold"
-                      >
-                        {chip}
-                      </li>
-                    ))}
-                  </ul>
-                )}
               </div>
             )}
           </div>
@@ -517,12 +506,15 @@ function DarkPanel({
 function PanelItems({
   items,
   numbered,
+  single = false,
 }: {
   items: { title: string; text: string | null }[]
   numbered: boolean
+  /** One column (a half of the service and rollout panel). */
+  single?: boolean
 }) {
   return (
-    <ol className="grid gap-3 max-md:gap-2 min-[768px]:grid-cols-2">
+    <ol className={cx('grid gap-3 max-md:gap-2', !single && 'min-[768px]:grid-cols-2')}>
       {items.map((item, i) => (
         <li
           key={item.title}
@@ -616,6 +608,95 @@ export function SalonRollout({ rollout }: { rollout: NonNullable<SalonView['roll
         </ul>
       )}
     </DarkPanel>
+  )
+}
+
+/**
+ * Service and rollout in one block (audit 0611 P1-3: the same promises showed three times):
+ * one navy panel, a column each with its steps and button; `#serwis` and `#wdrozenie` stay as
+ * anchors. With only one of them the panel of that one renders.
+ */
+export function SalonServiceRollout({
+  service,
+  rollout,
+  phone,
+}: {
+  service: SalonView['service']
+  rollout: SalonView['rollout']
+  phone: { label: string; href: string } | null
+}) {
+  if (!service || !rollout) {
+    if (service) return <SalonService service={service} phone={phone} />
+    if (rollout) return <SalonRollout rollout={rollout} />
+    return null
+  }
+  const label = rollout.button ?? 'Zapytaj o wdrożenie'
+  const column = 'flex scroll-mt-28 flex-col gap-4 max-md:gap-3'
+  return (
+    <section
+      aria-labelledby="serwis-wdrozenie-h"
+      data-surface="dark"
+      className="relative overflow-hidden rounded-[32px] bg-surface-dark px-5 py-9 text-white ring-1 ring-white/10 ring-inset max-md:rounded-[24px] max-md:px-[18px] max-md:py-6 min-[768px]:px-12 min-[768px]:py-12"
+    >
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_80%_at_90%_10%,color-mix(in_srgb,var(--ok)_22%,transparent),transparent_70%)]"
+      />
+      <div className="relative flex flex-col gap-8 max-md:gap-5">
+        <div className="flex flex-col gap-3">
+          <Eyebrow dark>Serwis i wdrożenie</Eyebrow>
+          <h2
+            id="serwis-wdrozenie-h"
+            className={cx(BZ_H2, 'max-md:text-[22px] max-md:leading-[1.1]')}
+          >
+            Uruchomimy i zadbamy o to po zakupie
+          </h2>
+        </div>
+        <div className="grid gap-8 max-md:gap-6 min-[1080px]:grid-cols-2">
+          <div id="serwis" className={column}>
+            <h3 className="font-display text-xl font-extrabold">{service.title ?? 'Serwis'}</h3>
+            {service.description && (
+              <p className="text-white/80 max-md:text-sm">{service.description}</p>
+            )}
+            <PanelItems items={service.items} numbered={false} single />
+            <div className="flex flex-wrap gap-3 max-md:flex-col max-md:[&>*]:w-full">
+              <SalonAsk
+                items={service.product ? [{ id: service.product.slug }] : []}
+                className={LIGHT_BUTTON}
+              >
+                Zgłoś kasę do serwisu
+              </SalonAsk>
+              {phone && (
+                <a href={phone.href} className={GLASS_BUTTON}>
+                  {phone.label}
+                </a>
+              )}
+            </div>
+          </div>
+          <div id="wdrozenie" className={column}>
+            <h3 className="font-display text-xl font-extrabold">{rollout.title ?? 'Wdrożenie'}</h3>
+            {rollout.description && (
+              <p className="text-white/80 max-md:text-sm">{rollout.description}</p>
+            )}
+            {rollout.steps.length > 0 && <PanelItems items={rollout.steps} numbered single />}
+            <div className="flex flex-wrap gap-3 max-md:flex-col max-md:[&>*]:w-full">
+              {rollout.href ? (
+                <Link href={rollout.href} className={LIGHT_BUTTON}>
+                  {label}
+                </Link>
+              ) : (
+                <SalonAsk
+                  items={rollout.products.map((product) => ({ id: product.slug }))}
+                  className={LIGHT_BUTTON}
+                >
+                  {label}
+                </SalonAsk>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -785,11 +866,13 @@ export function SalonFaq({
 
 /** Eyebrow and title of the full offer, with or without the recommended models above. */
 export function familyHeading(view: SalonView) {
-  return view.plans
+  // Under the plan cards the list shows the rest of the offer (plan models are not repeated).
+  const rest = new Set(view.family.flatMap((tab) => tab.products.map((p) => p.slug))).size
+  return view.plans || view.morePlans
     ? {
-        eyebrow: `Pełna oferta · ${view.familyCount} ${plural(view.familyCount, ['pozycja', 'pozycje', 'pozycji'])}`,
-        title: 'Wszystko w ofercie, według rodzaju',
-        phoneTitle: `Pełna oferta · ${view.familyCount}`,
+        eyebrow: `Pozostała oferta · ${rest} ${plural(rest, ['pozycja', 'pozycje', 'pozycji'])}`,
+        title: 'Reszta oferty, według rodzaju',
+        phoneTitle: `Pozostała oferta · ${rest}`,
       }
     : {
         eyebrow: view.headings.offer,

@@ -67,7 +67,7 @@ export default async function CatalogPage({ params }: Props) {
   const [index, origin] = await Promise.all([getCatalogIndex(tenant.id), requestOrigin()])
   const brands = brandCount(index)
   const crumbs = [
-    { name: 'Start', href: '/' },
+    { name: 'Strona główna', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
   ]
   // Counts from the database (K4-FINAL §4.4).

@@ -198,3 +198,31 @@ export function OtherIndustriesSection({
     </section>
   )
 }
+
+/**
+ * Instead of the order steps of the GoPOS page repeated on the industry page (audit 0611 P1-3):
+ * one line with the link to `/gopos`, where the whole flow plays.
+ */
+export function IndustryFlowLink({ heading, lead }: { heading: string; lead: string | null }) {
+  return (
+    <section aria-labelledby="zamowienie-h" className="py-10 max-md:py-6">
+      <Container wide>
+        <div className="flex flex-col items-start gap-4 rounded-[26px] bg-surface-2 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div className="flex flex-col gap-1.5">
+            <h2 id="zamowienie-h" className={cx(BZ_H2, 'max-md:text-[22px] max-md:leading-[1.1]')}>
+              {heading}
+            </h2>
+            <p className="text-ink-2">{lead ?? 'Krok po kroku na stronie GoPOS.'}</p>
+          </div>
+          <Link
+            href="/gopos"
+            className="inline-flex min-h-12 shrink-0 items-center gap-2 rounded-2xl bg-accent-text px-5 font-extrabold text-accent-ink hover:bg-ink hover:text-surface"
+          >
+            Zobacz, jak działa GoPOS
+            <Icon name="arrow" strokeWidth={2.4} className="size-4" />
+          </Link>
+        </div>
+      </Container>
+    </section>
+  )
+}

@@ -1,4 +1,5 @@
 import { headers } from 'next/headers'
+import { pruneDeadLinks } from '@/lib/biznes/procurement/deadLinks'
 import { connection } from 'next/server'
 
 import { getSectionImages } from '@/lib/biznes/pages/images'
@@ -108,5 +109,10 @@ export async function BzProcurementPageBlock({ block, tenantId, path }: Props) {
     services: (block.services ?? []).map(({ label, kind }) => ({ label, kind })),
     formToken: issueFormToken(getEnv().PAYLOAD_SECRET),
   }
-  return <ProcurementPage data={data} context={context} />
+  // Links to categories or industries this site does not have render as plain tiles (QA BIZ-3).
+  const live = pruneDeadLinks(data, {
+    categories: new Set(index.categories.map((category) => category.slug)),
+    industries: new Set(index.industries.filter((item) => item.active).map((item) => item.slug)),
+  })
+  return <ProcurementPage data={live} context={context} />
 }

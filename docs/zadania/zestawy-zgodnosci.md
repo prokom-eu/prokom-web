@@ -4,8 +4,8 @@ Data sprawdzenia: 08.11.2026. Źródła wyłącznie oficjalne (producenci, listy
 
 ## Wynik
 
-- **19 z 23 zestawów „Gotowe”** (wcześniej 3). Status liczy seed (`bundleBlockers` w `src/seed/biznes/k3Bundles.ts`): zestaw jest „Gotowy” tylko bez otwartego pytania, bez pary „do_potwierdzenia” i z samymi gotowymi kartami.
-- **4 zestawy „Do sprawdzenia”** do odpowiedzi dystrybutora (bez `sitemap.xml` i z `noindex`; od B4-2 także poza `/zestawy` i linkami): `zestaw-sklep-spozywczy-program-waga-etykiet` (Godex ↔ PC-Market), `zestaw-sklep-spozywczy-market-pos` (Thermal HD ONLINE i Dibal G-325 ↔ PC-POS), `zestaw-sklep-etykiety-inwentaryzacja` (elzAPP MAG Serwer na Windows 11, Zebra ZD421 ↔ PC-Market / elzAPP), `zestaw-bar-kiosk-numerki` (Sunmi K2 poza listą GoKiosk, brak kiosku z listy w katalogu). Pytania i adresaci — `docs/STAN.md`.
+- **19 z 23 zestawów „Gotowe”** (wcześniej 3); po drugim badaniu 09.11 — **20 z 23** (uzupełnienie na końcu). Status liczy seed (`bundleBlockers` w `src/seed/biznes/k3Bundles.ts`): zestaw jest „Gotowy” tylko bez otwartego pytania, bez pary „do_potwierdzenia” i z samymi gotowymi kartami.
+- **4 zestawy „Do sprawdzenia”** (od 09.11 — 3) do odpowiedzi dystrybutora (bez `sitemap.xml` i z `noindex`; od B4-2 także poza `/zestawy` i linkami): `zestaw-sklep-spozywczy-program-waga-etykiet` (Godex ↔ PC-Market), `zestaw-sklep-spozywczy-market-pos` (Thermal HD ONLINE i Dibal G-325 ↔ PC-POS), `zestaw-sklep-etykiety-inwentaryzacja` (elzAPP MAG Serwer na Windows 11, Zebra ZD421 ↔ PC-Market / elzAPP), `zestaw-bar-kiosk-numerki` (Sunmi K2 poza listą GoKiosk, brak kiosku z listy w katalogu). Pytania i adresaci — `docs/STAN.md`.
 - Karty poprawione i oznaczone „gotowe”: `gopos-all-in-one`, `numerki`, `insert-inspunkty-ksef`, `samsung-om`, `synology-dyski-hat` (karta z podziału K3.1, status w `karty-podzial-tresci.json`); poprawiona też karta szuflady Elzab ELZ-350 (12 V, kabel RJ).
 - Zmiany składu: UPS z listy zgodności Synology (Back-UPS Pro BR650MI zamiast BXR750MI-GR; Smart-UPS SMT1500IC zamiast Smart-UPS C), skaner Sunmi 2D zamiast Blink 2 (kawiarnia), komputer Avtek OPS jako opcja (sala), terminal przenośny Move 3500 przy Mini ONLINE.
 - Statusy par: `potwierdzona`, `bez-integracji` (element działa samodzielnie i strona mówi to wprost), `do_potwierdzenia` (trzyma zestaw w „Do sprawdzenia”). Adres źródła w polu `url` — na karcie zestawu jako „Źródło ↗” (PR B4-2).
@@ -92,3 +92,14 @@ Data sprawdzenia: 08.11.2026. Źródła wyłącznie oficjalne (producenci, listy
 - Integrację terminala PolCard z kasą Elzab (Mini ONLINE, Jota ONLINE) uruchamia PolCard — teksty nie obiecują działania „od razu po wyjęciu z pudełka”.
 - Karta `v3` (Sunmi V3) — opis „4G” niepotwierdzony na stronach GoPOS i Sunmi; usunięty z zestawu bistro, sama karta — wpis w `docs/STAN.md` → „Pomysły na później”.
 - `TODO(krystian)`: potwierdzić, że karta `skaner` (Elzab, indeks 2005271) to Sunmi NS020 sprzedawany przez GoPOS.
+
+## Uzupełnienie 09.11 (QA BIZ-3) — drugie badanie ukrytych zestawów
+
+| Zestaw | Pozycja | Werdykt | Źródło | Cytat (≤ 15 słów) | Zmiana |
+|---|---|---|---|---|---|
+| `sklep-spozywczy-program-waga-etykiet` | Godex DT2x ↔ PC-Market | potwierdzone | [insoft.com.pl](https://www.insoft.com.pl/publik.nsf/ece871686de51e57c12570ff0054cf6c/e8f57912dcf222c5c12571d300491986?OpenDocument) | „PC-Market obsługuje dowolną drukarkę kodów kreskowych posiadającą sterownik dla Windows” | Sterownik Windows DT2x — [Seagull (BarTender)](https://www.bartendersoftware.com/resources/printer-drivers/godex/godex-dt2x). **Zestaw „Gotowy” (20/23).** |
+| `sklep-spozywczy-market-pos` | Posnet Thermal HD ONLINE ↔ PC-POS | potwierdzone | [insoft.com.pl (nowości 7.6.62)](https://www.insoft.com.pl/Publik.nsf/0/73ed1b19159b8c7fc125864e00732adb/$FILE/Nowo%C5%9Bci%207.6.62.pdf) | „Posnet HD Online - problem z anulowanymi paragonami” | Obsługiwany najpóźniej od PC-POS 7.6.62. Zestaw dalej ukryty: waga Dibal G-325. |
+| `sklep-spozywczy-market-pos` | Dibal G-325 ↔ PC-POS | dystrybutor | [insoft.com.pl](https://www.insoft.com.pl/listasprzetu) | „Nowy sterownik dla wagi przykasowej Dibal G310” | Insoft wymienia G310, nie G-325 — pytanie do Insoft (czy sterownik G310 obsługuje G-325). |
+| `sklep-etykiety-inwentaryzacja` | elzAPP MAG – Serwer ↔ Windows 11 | dystrybutor | [elzab.com.pl (instrukcja)](https://www.elzab.com.pl/download/io/instrukcja_obslugi_elzapp_mag.pdf) | „elzAPP MAG-Serwer działa na komputerach z systemem Windows od wersji Windows 7.” | Windows 11 nienazwany wprost — pytanie do Elzab bez zmian. |
+| `bar-kiosk-numerki` | Sunmi K2 ↔ GoKiosk | dystrybutor | [gopos.pl/gokiosk](https://gopos.pl/gokiosk) | „Wszystkie urządzenia są w pełni kompatybilne z systemem GoKiosk.” | K2 poza listą; na liście GoPOS m.in. Sunmi FLEX 3 22″/27″ — do rozważenia karta kiosku FLEX 3 w katalogu. |
+

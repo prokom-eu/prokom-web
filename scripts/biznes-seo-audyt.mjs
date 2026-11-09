@@ -4,7 +4,9 @@
 //   node scripts/biznes-seo-audyt.mjs [origin] [--all] [--json]
 // origin defaults to http://biznes.localhost:$PORT (PORT from the environment, else 3001).
 // Prints only pages outside the limits (title 30–60, description 100–155, no BreadcrumbList on a
-// page with crumbs, no og:image); `--all` prints every page.
+// page with crumbs, no og:image); `--all` prints every page. `--links` also checks every internal
+// link found on the pages that is not in the sitemap (status other than 200 / redirect).
+// `--json` prints `{ rows, links }`.
 import { request } from 'node:http'
 
 const args = process.argv.slice(2)
@@ -13,6 +15,8 @@ const origin =
   `http://biznes.localhost:${process.env.PORT ?? 3001}`
 const all = args.includes('--all')
 const json = args.includes('--json')
+const checkLinks = args.includes('--links')
+const found = new Map()
 
 // Node does not resolve `*.localhost`: connect to 127.0.0.1 with the Host header of the site.
 const target = new URL(origin)
@@ -70,6 +74,12 @@ async function measure(path) {
   const description = meta(html, 'description')
   const types = [...html.matchAll(/"@type":"([A-Za-z]+)"/g)].map((m) => m[1])
   const crumbs = /aria-label="(Okruszki|Ścieżka)/.test(html)
+  if (checkLinks) {
+    for (const [, href] of html.matchAll(/href="(\/[^"#?]*)/g)) {
+      if (/^\/(_next|api|admin)/.test(href) || /\.\w{2,4}$/.test(href)) continue
+      if (!found.has(href)) found.set(href, path)
+    }
+  }
   const row = {
     path,
     status: response.status,
@@ -94,8 +104,18 @@ await Promise.all(Array.from({ length: 4 }, worker))
 rows.sort((a, b) => a.path.localeCompare(b.path))
 process.stderr.write('\n')
 
+const linkRows = []
+if (checkLinks) {
+  const listed = new Set(paths)
+  const extra = [...found.keys()].filter((href) => !listed.has(href))
+  for (const href of extra) {
+    const { status } = await get(href)
+    linkRows.push({ href, status, from: found.get(href) })
+  }
+}
+
 if (json) {
-  console.log(JSON.stringify(rows, null, 2))
+  console.log(JSON.stringify({ rows, links: linkRows }, null, 2))
 } else {
   for (const row of rows) {
     if (all || row.problems.length) {
@@ -104,4 +124,9 @@ if (json) {
   }
   const bad = rows.filter((row) => row.problems.length).length
   console.log(`\nStron: ${rows.length} · z uwagami: ${bad}`)
+  if (checkLinks) {
+    const broken = linkRows.filter((row) => row.status >= 400)
+    console.log(`Linki spoza sitemap: ${linkRows.length} · błędne: ${broken.length}`)
+    for (const row of linkRows) console.log(`  ${row.status}\t${row.href}\t(z ${row.from})`)
+  }
 }

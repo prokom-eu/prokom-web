@@ -232,9 +232,22 @@ export function buildSalonView(
     }),
   }))
 
-  const family = (doc.family ?? []).flatMap((tab) => {
-    const products = pickAll(tab.products)
-    return products.length > 0 ? [{ title: tab.title, iconPath: text(tab.iconPath), products }] : []
+  const plans = plansOf(doc.plans)
+  const morePlans = plansOf(doc.morePlans)
+  // Models of the plan cards show above „cała oferta”: listed there once (audit 0611 P1-3).
+  const inPlans = new Set(
+    [plans, morePlans].flatMap((section) =>
+      section ? [...section.main, ...section.alt].flatMap((card) => card.product?.slug ?? []) : [],
+    ),
+  )
+  const allFamily = (doc.family ?? []).map((tab) => ({
+    title: tab.title,
+    iconPath: text(tab.iconPath),
+    products: pickAll(tab.products),
+  }))
+  const family = allFamily.flatMap((tab) => {
+    const products = tab.products.filter((product) => !inPlans.has(product.slug))
+    return products.length > 0 ? [{ ...tab, products }] : []
   })
 
   const options = (doc.chooser?.options ?? []).map((option) => ({
@@ -244,7 +257,11 @@ export function buildSalonView(
   }))
 
   const serviceItems = items(doc.service?.items)
-  const steps = items(doc.rollout?.steps)
+  // Service and rollout share one block (audit 0611 P1-3): a step the service already lists
+  // („Fiskalizacja”, „Przeglądy…”) is not said again — compared by its first word.
+  const firstWord = (title: string) => title.trim().split(/\s+/)[0]!.toLocaleLowerCase('pl')
+  const inService = new Set(serviceItems.map((item) => firstWord(item.title)))
+  const steps = items(doc.rollout?.steps).filter((step) => !inService.has(firstWord(step.title)))
   const href = text(doc.rollout?.buttonHref)
 
   const facts = (doc.brandFacts ?? []).flatMap((fact) =>
@@ -294,14 +311,15 @@ export function buildSalonView(
           }
         : null,
     facts: salonFacts(doc.facts, brandCounts),
-    plans: plansOf(doc.plans),
-    morePlans: plansOf(doc.morePlans),
+    plans,
+    morePlans,
     compare:
       columns.length > 0 && rows.length > 0
         ? { title: text(doc.compare?.title), columns, rows }
         : null,
     family,
-    familyCount: new Set(family.flatMap((tab) => tab.products.map((product) => product.slug))).size,
+    familyCount: new Set(allFamily.flatMap((tab) => tab.products.map((product) => product.slug)))
+      .size,
     chooser: options.some((option) => option.products.length > 0 || option.why)
       ? { question: heading(doc.chooser?.question), options }
       : null,

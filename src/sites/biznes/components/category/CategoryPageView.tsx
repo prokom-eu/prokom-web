@@ -74,7 +74,7 @@ export async function CategoryPageView({
   // K4 board: Start / Oferta / category [/ subcategory] — a subcategory named like its
   // category is not repeated (K36 §13).
   const crumbs: Crumb[] = [
-    { name: 'Start', href: '/' },
+    { name: 'Strona główna', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
     // A subcategory named like its category: one item, with the address of this page (the
     // last item of BreadcrumbList is the page itself).
