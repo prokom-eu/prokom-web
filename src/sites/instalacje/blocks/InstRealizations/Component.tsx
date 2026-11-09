@@ -13,6 +13,7 @@ import {
   RealizationFilters,
   RealizationGrid,
 } from '../../widzety/realizacje/RealizationsWidgetsLazy'
+import { PageStyles } from '../../style/LineStyles'
 
 type Props = { block: InstRealizationsBlockData; tenantId: number }
 
@@ -31,6 +32,7 @@ export async function InstRealizationsBlock({ block, tenantId }: Props) {
   const crumb = block.hero?.crumb || 'Realizacje'
   return (
     <>
+      <PageStyles kind="realizations" />
       {origin && (
         <JsonLd
           data={breadcrumbJsonLd([

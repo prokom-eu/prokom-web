@@ -17,6 +17,7 @@ import type { OfferArea, OfferCategory } from '../../widzety/oferta/offerModel'
 import { OfferBar, OfferFilters, OfferList } from '../../widzety/oferta/OfferWidgetsLazy'
 import { SERVICE_SCENES } from '../../sekcje/glowna/sceny'
 import { isServiceKey } from '@/lib/instalacje/plan'
+import { PageStyles } from '../../style/LineStyles'
 
 type Props = { block: InstOfferBlockData; tenantId: number }
 
@@ -66,6 +67,7 @@ export async function InstOfferBlock({ block, tenantId }: Props) {
 
   return (
     <>
+      <PageStyles kind="offer" />
       {origin && (
         <JsonLd
           data={[

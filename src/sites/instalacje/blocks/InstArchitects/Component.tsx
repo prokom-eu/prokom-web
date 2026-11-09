@@ -35,6 +35,7 @@ import { SolutionsExplorer } from '../../widzety/architekci/SolutionsExplorerLaz
 import { StageTabs } from '../../widzety/architekci/StageTabsLazy'
 
 import { Count } from '../../sekcje/Count'
+import { PageStyles } from '../../style/LineStyles'
 
 type Props = { block: InstArchitectsBlockData; tenantId: number }
 
@@ -90,6 +91,7 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
     // The prototype's page hue (`pkSt: --h` = the line's turquoise, Monitoring's colour):
     // section eyebrows and odd sections take it, like the service pages.
     <div className="inst-svc inst-ar" style={{ '--h': safeHue(hues.kam) } as CSSProperties}>
+      <PageStyles kind="architects" />
       {origin && (
         <>
           <JsonLd

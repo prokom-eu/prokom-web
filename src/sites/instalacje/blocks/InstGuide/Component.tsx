@@ -17,6 +17,7 @@ import { PageCtaBand } from '../../sekcje/PageCtaBand'
 import { SplitHero } from '../../sekcje/SplitHero'
 import { updatedLabel } from '../../widzety/poradnik/guideMeta'
 import { InstSection } from '../../sekcje/InstSectionLazy'
+import { PageStyles } from '../../style/LineStyles'
 
 type Props = { block: InstGuideBlockData; tenantId: number }
 
@@ -98,6 +99,7 @@ export async function InstGuideBlock({ block, tenantId }: Props) {
 
   return (
     <>
+      <PageStyles kind="guide" />
       {origin && (
         <JsonLd
           data={[
