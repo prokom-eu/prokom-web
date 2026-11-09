@@ -78,7 +78,7 @@ export function BundleHero({
                   <ProductStage className="aspect-square rounded-xl sm:rounded-[22px]">
                     <Image
                       src={photo.url}
-                      alt=""
+                      alt={photo.alt}
                       width={photo.width}
                       height={photo.height}
                       unoptimized
@@ -266,7 +266,7 @@ export function BundlesHero({
                   >
                     <Image
                       src={photo.url}
-                      alt=""
+                      alt={photo.alt}
                       width={photo.width}
                       height={photo.height}
                       unoptimized

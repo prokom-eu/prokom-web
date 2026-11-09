@@ -13,14 +13,14 @@ import {
   INITIAL_SCREEN,
   INITIAL_SYNC,
   ledView,
-  lowerPhone,
-  resetPrices,
+  resetOffers,
   SCREEN_KEYS,
   type ScreenState,
   screenView,
   type SyncState,
   syncLog,
   syncRows,
+  raiseCase,
   togglePromo,
 } from './ekranyModel'
 
@@ -188,9 +188,9 @@ export function TwoSalons() {
   }
   const rows = syncRows(state)
   const buttons = [
-    { label: SY.lowerPhone, action: lowerPhone },
+    { label: SY.raiseCase, action: raiseCase },
     { label: SY.promo, action: togglePromo },
-    { label: SY.reset, action: resetPrices },
+    { label: SY.reset, action: resetOffers },
   ]
 
   return (
@@ -218,24 +218,24 @@ export function TwoSalons() {
         </span>
       </div>
       <div className="syns" aria-hidden="true">
-        {SY.salons.map((salon) => (
+        {SY.screens.map((salon) => (
           <div key={salon} className="synsc">
             <div className={state.version ? 'synf fl' : 'synf'} key={state.version}>
               <div className="synh">
                 <b>{salon}</b>
                 <span>
-                  {SY.pricesOfDay} · {date}
+                  {SY.offersOfDay} · {date}
                 </span>
               </div>
               {rows.map((r) => (
                 <div key={r.name} className={r.cls}>
                   <span>{r.name}</span>
                   <i />
-                  <b>{r.price}</b>
+                  <b>{r.value}</b>
                 </div>
               ))}
               <div className="synft">
-                {SY.salon} {salon}
+                {SY.footer} {salon}
               </div>
             </div>
             <span className="synl">

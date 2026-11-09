@@ -21,18 +21,17 @@ test.describe('Biznes category page', () => {
     const grid = page.locator('[data-category-grid]')
     await expect(grid.getByRole('article')).toHaveCount(11)
     await expect(page.getByRole('status').filter({ hasText: 'pasuje' })).toHaveText('11 kas pasuje')
-    // K4: „Nie wiesz, co wybrać?” in the side panel asks with the category's name (K36 §13).
+    // BIZ-3 B5-3a: no default „Zapytaj o dobór” card beside the grid (it repeated the help
+    // block); the register picker under the grid is the choice here.
     const panel = page.getByRole('complementary', { name: 'Filtry' })
-    await expect(panel.getByRole('link', { name: 'Zapytaj o dobór' })).toHaveAttribute(
-      'href',
-      /^\/zapytanie\?fraza=Dob%C3%B3r%3A%20Kasy%20fiskalne/,
-    )
+    await expect(panel.getByRole('link', { name: 'Zapytaj o dobór' })).toHaveCount(0)
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toHaveText(
       /^Start\s*\/\s*Oferta\s*\/\s*Kasy fiskalne$/,
     )
 
     const scripts = await page.locator('script[type="application/ld+json"]').allTextContents()
-    const data = scripts.map((text) => JSON.parse(text) as JsonLd)
+    // One script may carry several objects (breadcrumbs + the product ItemList, #454).
+    const data = scripts.flatMap((text) => [JSON.parse(text) as JsonLd | JsonLd[]].flat())
     const crumbs = data.find((item) => item['@type'] === 'BreadcrumbList')
     expect(crumbs?.itemListElement).toEqual([
       expect.objectContaining({ position: 1, item: site('biznes.localhost', '/') }),

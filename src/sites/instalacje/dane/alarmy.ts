@@ -396,7 +396,7 @@ export const alarmy = {
         {
           label: 'Nie wiem',
           result: 'Sprawdzimy na wizji lokalnej',
-          text: 'Wystarczy zdjęcie starego unifonu albo monitora i panelu przy furtce. Po nim zwykle wiemy, czy przewody się nadadzą.',
+          text: 'Wystarczy, że podasz markę starego unifonu albo monitora i panelu przy furtce. Po tym zwykle wiemy, czy przewody się nadadzą.',
         },
       ],
       note: 'Rozpoznawania twarzy w panelach nie proponujemy domyślnie: to dane biometryczne.',

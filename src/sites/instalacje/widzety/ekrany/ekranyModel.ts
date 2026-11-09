@@ -51,12 +51,15 @@ export function autoplayStep(s: ScreenState, n: number, touched: boolean): Scree
   return { ...s, slide }
 }
 
-// ── Demo: two salons (`sy`) ──────────────────────────────────────────────────────────────
+// ── Demo: one change, two screens (`sy`) ───────────────────────────────────────────────
 
 const SY = ekrany.sync
+/** The discount of the headphones while the promotion is on. */
+const PROMO = 25
+const MAX_DISCOUNT = 50
 
 export type SyncState = {
-  prices: readonly number[]
+  discounts: readonly number[]
   /** Number of changes sent (0 = none yet). */
   version: number
   /** Message of the last change, without its time. */
@@ -64,26 +67,35 @@ export type SyncState = {
   /** Row highlighted by the last change (−1 = none). */
   hot: number
 }
-export const INITIAL_SYNC: SyncState = { prices: SY.prices, version: 0, message: '', hot: -1 }
+export const INITIAL_SYNC: SyncState = {
+  discounts: SY.discounts,
+  version: 0,
+  message: '',
+  hot: -1,
+}
 
-const send = (s: SyncState, prices: readonly number[], message: string, hot: number) => ({
-  prices,
+const send = (s: SyncState, discounts: readonly number[], message: string, hot: number) => ({
+  discounts,
   version: s.version + 1,
   message,
   hot,
 })
 
-export function lowerPhone(s: SyncState): SyncState {
-  const p = Math.max(999, s.prices[0]! - 100)
-  return send(s, [p, ...s.prices.slice(1)], `${SY.phoneChange} ${p} zł`, 0)
+const percent = (n: number) => `−${n}%`
+
+/** +5 points on the phone cases, up to 50%. */
+export function raiseCase(s: SyncState): SyncState {
+  const d = Math.min(MAX_DISCOUNT, s.discounts[0]! + 5)
+  return send(s, [d, ...s.discounts.slice(1)], `${SY.caseChange} ${percent(d)}`, 0)
 }
 
 export function togglePromo(s: SyncState): SyncState {
-  const p = s.prices[3] === 349 ? 279 : 349
-  return send(s, [...s.prices.slice(0, 3), p], p === 279 ? SY.promoOn : SY.promoOff, 3)
+  const on = s.discounts[3] !== PROMO
+  const d = on ? PROMO : SY.discounts[3]!
+  return send(s, [...s.discounts.slice(0, 3), d], on ? SY.promoOn : SY.promoOff, 3)
 }
 
-export const resetPrices = (s: SyncState): SyncState => send(s, SY.prices, SY.resetDone, -1)
+export const resetOffers = (s: SyncState): SyncState => send(s, SY.discounts, SY.resetDone, -1)
 
 /** Log line after a change; `time` = HH:MM:SS of the click. */
 export const syncLog = (s: SyncState, time: string) =>
@@ -92,11 +104,11 @@ export const syncLog = (s: SyncState, time: string) =>
 export function syncRows(s: SyncState) {
   return SY.products.map((name, i) => ({
     name,
-    price: `${s.prices[i]!.toLocaleString('pl-PL')} zł`,
+    value: percent(s.discounts[i]!),
     cls:
       'synr' +
       (s.version && s.hot === i ? ' hot' : '') +
-      (i === 3 && s.prices[3] === 279 ? ' promo' : ''),
+      (i === 3 && s.discounts[3] === PROMO ? ' promo' : ''),
   }))
 }
 

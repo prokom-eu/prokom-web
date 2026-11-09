@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { connection } from 'next/server'
 
 import { Container } from '@/components/ui/Container'
@@ -36,6 +37,8 @@ type Props = {
    * address — instead of the channel tiles (`ContactPlace`).
    */
   showLocation?: boolean
+  /** Under the lead: the steps of an inquiry as the form's heading (categories, audit P1-2). */
+  steps?: ReactNode
 }
 
 type Channel = { label: string; value: string; href: string; icon: IconName }
@@ -58,6 +61,7 @@ export async function ContactPanel({
   topicsLabel,
   accentSecondSentence = false,
   showLocation = false,
+  steps,
 }: Props) {
   const [first, accent] = accentSecondSentence ? splitSentence(heading) : [heading, null]
   await connection()
@@ -100,6 +104,7 @@ export async function ContactPanel({
               )}
             </h2>
             {lead && <p className="leading-relaxed text-white/80">{lead}</p>}
+            {steps}
             {shared && <ContactPlace shared={shared} />}
             {!shared && channels.length > 0 && (
               <ul className="flex flex-col gap-2.5">

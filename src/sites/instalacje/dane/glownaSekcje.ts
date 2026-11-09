@@ -497,7 +497,7 @@ export const glownaSekcje = {
       // „24 h” only as the answer to a request, on working days (spec §2).
       text: 'Odpowiemy do 24 h w dni robocze: zadzwonimy, żeby dopytać o szczegóły i umówić wizję lokalną.',
       number: 'Numer zgłoszenia',
-      more: 'Dodaj zdjęcia i szczegóły →',
+      more: 'Dodaj szczegóły w kreatorze →',
       again: 'Nowe zgłoszenie',
     },
     ticket: {
@@ -510,7 +510,7 @@ export const glownaSekcje = {
     },
     alt: {
       title: 'Chcesz opisać więcej?',
-      text: 'Pełny kreator: pytania o szczegóły i zdjęcia obiektu.',
+      text: 'Pełny kreator: kilka pytań o obiekt i instalacje.',
       link: 'Otwórz kreator →',
     },
     steps: ['Oddzwaniamy', 'Wizja lokalna', 'Wycena na piśmie'],
