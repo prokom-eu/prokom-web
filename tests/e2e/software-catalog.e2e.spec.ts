@@ -410,9 +410,14 @@ test.describe('Software offer window (spec. §5.1)', () => {
     const compare = dialog.locator('.sw-offer-compare')
     await compare.locator('summary').click()
     await expect(compare).toHaveAttribute('open', '')
-    await expect(compare).toContainText('Gotowa pod Google')
     const open = compare.getByRole('button', { name: /^Zobacz: / })
     const name = ((await open.textContent()) ?? '').replace(/^Zobacz:\s*/, '').replace(/\s*→$/, '')
+    // The second column is the neighbour, with its own „W cenie”.
+    await expect(compare.getByRole('heading', { level: 4 })).toHaveText([
+      'Strona wizytówka',
+      name.trim(),
+    ])
+    await expect(compare.getByRole('list', { name: `W cenie: ${name.trim()}` })).toBeVisible()
     await open.click()
     await expect(windowOf(page, name.trim())).toBeVisible()
   })

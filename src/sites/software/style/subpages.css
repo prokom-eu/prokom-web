@@ -547,6 +547,14 @@
   padding-right: 20px;
   border-right: 1px solid var(--border);
 }
+@media (max-width: 480px) {
+  .sw-offer-compare-grid {
+    gap: 12px;
+  }
+  .sw-offer-compare-grid > :first-child {
+    padding-right: 12px;
+  }
+}
 
 /* The price as the hero (§2.1 A). */
 .sw-offer-price {

@@ -30,6 +30,8 @@ describe('neighbourOf (OKNO-OFERTY-PREMIUM §2.3 P2)', () => {
   it('outside the list it walks all offers; alone in the category — nothing', () => {
     expect(neighbourOf(views.b, views, ['x'])?.slug).toBe('c')
     expect(neighbourOf(views.x, views, ['a', 'x'])).toBeNull()
+    // Alone in a narrowed list, but the category has more offers.
+    expect(neighbourOf(views.a, views, ['a', 'x'])?.slug).toBe('b')
   })
 
   it('offers without „W cenie” points are not compared', () => {

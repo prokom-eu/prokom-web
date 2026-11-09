@@ -239,8 +239,8 @@ export function OfferCompare({
   const column = (view: OfferView) => {
     const price = view.price.kind === 'included' ? view.price : null
     return (
-      <div key={view.slug} className="flex min-w-0 flex-col gap-2">
-        <p className="font-display text-lg font-extrabold leading-snug">{view.name}</p>
+      <div key={view.slug} className="flex min-w-0 flex-col gap-2 [overflow-wrap:anywhere]">
+        <h4 className="font-display text-lg font-extrabold leading-snug">{view.name}</h4>
         {price && (
           <p className="font-bold text-accent-text">
             {[price.head.before, price.head.amount, price.head.after].filter(Boolean).join(' ')}
@@ -250,7 +250,7 @@ export function OfferCompare({
           {view.termLabel}: {view.term}
         </p>
         {price && (
-          <ul className="mt-1 flex flex-col gap-1.5 text-sm">
+          <ul aria-label={`W cenie: ${view.name}`} className="mt-1 flex flex-col gap-1.5 text-sm">
             {price.items.map((item) => (
               <li key={item} className="flex gap-2">
                 <CheckDot small />

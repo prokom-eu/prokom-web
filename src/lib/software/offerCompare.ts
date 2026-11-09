@@ -13,12 +13,16 @@ export function neighbourOf(
   const priced = (item: OfferView | undefined): item is OfferView =>
     Boolean(item && item.price.kind === 'included' && item.price.items.length > 0)
   if (!priced(view)) return null
-  const order = list.includes(view.slug) ? list : Object.keys(views)
-  const same = order.filter((slug) => views[slug]?.category === view.category)
-  const at = same.indexOf(view.slug)
-  for (let step = 1; step < same.length; step++) {
-    const next = views[same[(at + step) % same.length] ?? '']
-    if (priced(next) && next.slug !== view.slug) return next
+  const walk = (order: readonly string[]) => {
+    const same = order.filter((slug) => views[slug]?.category === view.category)
+    const at = same.indexOf(view.slug)
+    if (at < 0) return null
+    for (let step = 1; step < same.length; step++) {
+      const next = views[same[(at + step) % same.length] ?? '']
+      if (priced(next)) return next
+    }
+    return null
   }
-  return null
+  // A narrowed list (a search) may hold one offer of the category: then all offers.
+  return (list.includes(view.slug) ? walk(list) : null) ?? walk(Object.keys(views))
 }
