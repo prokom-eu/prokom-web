@@ -150,6 +150,12 @@ const FIRST_SCREEN = [
   { width: 1366, height: 768, full: 768, min: 560 },
   { width: 1280, height: 720, half: true, min: 560 },
   { width: 390, height: 844, aboveTabBar: 16 },
+  // AUDYT-0911 noc #1: short phones and 390×664 (Safari with its bars) — the window ends above
+  // the tab bar; the width follows the height under the panel (`svh`).
+  { width: 360, height: 640, aboveTabBar: 0 },
+  { width: 375, height: 667, aboveTabBar: 0 },
+  { width: 390, height: 664, aboveTabBar: 0 },
+  { width: 360, height: 740, aboveTabBar: 0 },
 ] as const
 
 for (const size of FIRST_SCREEN) {

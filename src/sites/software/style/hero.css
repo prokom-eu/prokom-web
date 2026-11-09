@@ -1635,6 +1635,74 @@
   }
 }
 
+/* SWA11 (AUDYT-0911 noc #1): a phone keeps the whole window above the tab bar. The window width
+   follows the height left under the panel (`svh`: Safari and Chrome with their bars shown), and
+   a short screen tightens the text first. 390×844 and taller stay as above. */
+@media (max-width: 600px) {
+  .hx {
+    /* 0.6566: window height / width; the tab bar and its air below the window. */
+    --hx-w: clamp(240px, calc((100vh - var(--hx-above) - 86px) / 0.6566), var(--hx-w-max));
+    --hx-w: clamp(240px, calc((100svh - var(--hx-above) - 86px) / 0.6566), var(--hx-w-max));
+    --hx-above: 528px;
+  }
+}
+@media (max-width: 600px) and (max-height: 820px) {
+  .hx {
+    --hx-above: 502px;
+  }
+  .hx-h1 {
+    margin-top: 6px;
+    font-size: 42px;
+  }
+  .hx-lead {
+    margin-top: 6px;
+  }
+  .hx-cmd {
+    margin-top: 8px;
+  }
+  .hx-flow {
+    margin-top: 6px;
+  }
+}
+@media (max-width: 600px) and (max-height: 760px) {
+  .hx {
+    --hx-above: 400px;
+    padding-top: 10px;
+  }
+  /* The badge gives way to the window (the band of industries below still says it). */
+  .hx-pill {
+    display: none;
+  }
+  .hx-h1 {
+    margin-top: 0;
+    font-size: 38px;
+  }
+  .hx-lead {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  /* Tiles: the icon beside the name, one low row. */
+  .hx-tiles {
+    padding-top: 6px;
+  }
+  .hx-tile {
+    flex-direction: row;
+    align-items: center;
+    flex-basis: 132px;
+    gap: 6px;
+    padding: 6px 8px;
+    text-align: left;
+  }
+  .hx-tile .si {
+    flex: none;
+    width: 24px;
+    height: 24px;
+  }
+  .hx-tile .sn {
+    display: none;
+  }
+}
+
 /* --- Motion: drifting stars and ribbons, spinning orbits, the cursor, the progress of the
    active tile, the word coming in, the glint of the new window, the band. Paused while the
    hero is off screen or the visitor points at / focuses it (`data-paused`, HeroStage;
