@@ -688,7 +688,12 @@ export function SalonAbout({
               {about.sources.map((source, i) => (
                 <span key={source.host}>
                   {i > 0 && ' · '}
-                  <a href={source.url} rel="noopener" target="_blank" className="underline">
+                  <a
+                    href={source.url}
+                    rel="noopener"
+                    target="_blank"
+                    className="inline-flex min-h-6 items-center underline"
+                  >
                     {source.host}
                   </a>
                 </span>

@@ -4,7 +4,7 @@ import { MediaImage } from '@/components/MediaImage'
 import { Container } from '@/components/ui/Container'
 import type { BrandView } from '@/lib/catalog/brand'
 import { plural } from '@/lib/plural'
-import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
+import { BZ_H1, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { PageLink } from '../PageLink'
@@ -158,5 +158,54 @@ export function BrandAbout({ brand }: { brand: BrandView }) {
         )}
       </div>
     </Container>
+  )
+}
+
+/**
+ * The one call to action at the end of a brand page without a salon (audit 0611 P1-4): instead
+ * of the steps, the form and a help card in the grid — on a phone these made the page longer
+ * than on a computer. `#kontakt` stays the anchor of the page.
+ */
+export function BrandCta({
+  brand,
+  callbackTime,
+  phone,
+}: {
+  brand: string
+  callbackTime: string | null
+  phone: { label: string; href: string } | null
+}) {
+  return (
+    <section id="kontakt" aria-labelledby="marka-cta-h" className="scroll-mt-24 pb-16 sm:pb-24">
+      <Container wide>
+        <div
+          data-surface="dark"
+          className="relative isolate flex flex-col gap-5 overflow-hidden rounded-[26px] bg-surface-dark bg-[radial-gradient(circle_at_90%_0%,var(--glow),transparent_55%)] p-7 text-white sm:rounded-[32px] sm:p-10 lg:flex-row lg:items-center lg:justify-between"
+        >
+          <div className="flex max-w-[60ch] flex-col gap-2.5">
+            <h2 id="marka-cta-h" className={`${BZ_H2} text-white`}>
+              Interesuje Cię {brand}? Dobierzemy i wycenimy.
+            </h2>
+            <p className="leading-relaxed text-white/80">
+              Dodaj produkty do zapytania albo napisz, czego szukasz. Wycena na piśmie, bez
+              zobowiązań.{callbackTime ? ` ${callbackTime} w godzinach pracy.` : ''}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <PageLink href="/kontakt#formularz" kind="light" arrow>
+              Napisz do nas
+            </PageLink>
+            {phone && (
+              <a
+                href={phone.href}
+                className="inline-flex min-h-[52px] items-center rounded-2xl px-6 font-extrabold text-white ring-[1.5px] ring-white/35 ring-inset hover:bg-white/10"
+              >
+                {phone.label}
+              </a>
+            )}
+          </div>
+        </div>
+      </Container>
+    </section>
   )
 }

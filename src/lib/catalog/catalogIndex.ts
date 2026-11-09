@@ -14,6 +14,7 @@ import { tenantIdOf } from '../tenant/id'
 import { brandLogo } from './brandLogo'
 import { HOME_SLUG } from '../pages/slug'
 import type { FeaturedGroup, IconName } from './options'
+import { productImageAlt } from './card'
 import { normalizeText } from './normalize'
 import { wizardSchema } from './wizard'
 
@@ -288,7 +289,9 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
     const subcategory = optional(product.subcategory)
     const series = optional(product.series)
     const badge = optional(product.badge)
-    const image = cardImage(product.images, tenantId)
+    const photo = cardImage(product.images, tenantId)
+    // Every list shows the card photo with the same name (audit 0611 P0-7): „Marka Model”.
+    const image = photo && { ...photo, alt: productImageAlt(brand?.name, product.name) }
     const features = product.features ?? []
     const hay = normalizeText(
       [

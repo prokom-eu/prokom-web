@@ -24,6 +24,7 @@ describe('buildSiteMap', () => {
     const map = buildSiteMap({
       pages,
       catalog: {
+        configurator: true,
         categories: [
           { slug: 'kasy-fiskalne', name: 'Kasy fiskalne' },
           { slug: 'drukarki-fiskalne', name: 'Drukarki fiskalne' },
@@ -44,18 +45,19 @@ describe('buildSiteMap', () => {
     expect(map.map(({ id }) => id)).toEqual([
       'strony',
       'oferta',
+      'konfigurator',
       'branze',
       'produkty',
       'aktualnosci',
     ])
     expect(map[1]?.links[0]).toEqual({ href: '/oferta', label: 'Cały katalog' })
-    expect(map[2]?.links).toEqual([{ href: '/branze/gastronomia', label: 'Gastronomia' }])
+    expect(map[3]?.links).toEqual([{ href: '/branze/gastronomia', label: 'Gastronomia' }])
     // Each product once, under its main category; empty groups are left out.
-    expect(map[3]?.groups?.map(({ title, links }) => [title, links.map((l) => l.label)])).toEqual([
+    expect(map[4]?.groups?.map(({ title, links }) => [title, links.map((l) => l.label)])).toEqual([
       ['Kasy fiskalne', ['Elzab K10', 'Posnet Ergo']],
       ['Drukarki fiskalne', ['Posnet Thermal']],
     ])
-    expect(map[4]?.links.map(({ href }) => href)).toEqual(['/aktualnosci', '/aktualnosci/ksef'])
+    expect(map[5]?.links.map(({ href }) => href)).toEqual(['/aktualnosci', '/aktualnosci/ksef'])
   })
 
   it('lists subcategory pages under their category and the brand pages (K3b′)', () => {
@@ -109,6 +111,17 @@ describe('buildSiteMap', () => {
     ])
     const none = buildSiteMap({ pages: [], catalog, news: null })
     expect(none.find(({ id }) => id === 'plan')).toBeUndefined()
+  })
+
+  it('lists /konfigurator when the panel has its rules (audit 0611 P1-10)', () => {
+    const catalog = { categories: [], industries: [], products: [] }
+    const map = buildSiteMap({ pages: [], catalog: { ...catalog, configurator: true }, news: null })
+    expect(map.find(({ id }) => id === 'konfigurator')?.links).toEqual([
+      { href: '/konfigurator', label: 'Konfigurator — dobierz rozwiązanie' },
+    ])
+    expect(siteMapPaths(map).map(({ path }) => path)).toContain('/konfigurator')
+    const noRules = buildSiteMap({ pages: [], catalog, news: null })
+    expect(noRules.find(({ id }) => id === 'konfigurator')).toBeUndefined()
   })
 
   it('keeps a published product whose category is not listed, under „Pozostałe”', () => {

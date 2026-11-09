@@ -73,7 +73,7 @@ export function uniqueVersions(names: readonly string[]): string[] {
  * Longest `<title>` before the site's template („ | PRO-KOM Biznes”, 17 characters): search
  * results cut titles above ~70 characters (audit 01.11).
  */
-export const PRODUCT_TITLE_MAX = 53
+export const PRODUCT_TITLE_MAX = 43
 
 /**
  * `<title>` of the page: the name (short when the panel has one), plus 2–3 models for a card

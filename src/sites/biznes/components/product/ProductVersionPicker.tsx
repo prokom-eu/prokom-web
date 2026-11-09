@@ -65,7 +65,7 @@ export function VersionChips() {
               }
             }}
             className={cx(
-              'min-h-9 shrink-0 rounded-xl px-2.5 text-sm font-bold whitespace-nowrap transition-shadow',
+              'min-h-10 shrink-0 rounded-xl px-2.5 text-sm font-bold whitespace-nowrap transition-shadow',
               picked
                 ? 'bg-accent-soft text-accent-text shadow-[inset_0_0_0_1.5px_var(--accent-text)]'
                 : 'bg-card text-ink shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)]',
@@ -99,7 +99,7 @@ export function YourVersion({ benefit }: { benefit: string | null }) {
         <button
           type="button"
           onClick={scrollToConfigurator}
-          className="min-h-9 text-sm font-extrabold text-accent-text hover:underline"
+          className="min-h-11 text-sm font-extrabold text-accent-text hover:underline"
         >
           Zmień wersję ↓
         </button>
