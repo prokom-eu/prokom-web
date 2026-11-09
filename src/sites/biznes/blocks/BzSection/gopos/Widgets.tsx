@@ -125,6 +125,8 @@ export function GoposVenues({
                     unoptimized
                     src={thumb.url}
                     alt={thumb.alt}
+                    // The name is in the text next to it: the alt serves search engines only.
+                    aria-hidden
                     width={thumb.width}
                     height={thumb.height}
                   />
@@ -183,6 +185,8 @@ export function GoposVenues({
               unoptimized
               src={image.url}
               alt={image.alt}
+              // The name is in the text next to it: the alt serves search engines only.
+              aria-hidden
               width={image.width}
               height={image.height}
               className="gps-scene-img"

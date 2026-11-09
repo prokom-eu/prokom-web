@@ -77,6 +77,8 @@ export function InsertPicker({
                 unoptimized
                 src={program.image.url}
                 alt={program.image.alt}
+                // The name is in the text next to it: the alt serves search engines only.
+                aria-hidden
                 width={program.image.width}
                 height={program.image.height}
                 className="max-h-full w-auto object-contain"
