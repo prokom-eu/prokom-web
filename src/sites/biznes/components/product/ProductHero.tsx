@@ -14,7 +14,7 @@ import { ProductGallery } from './ProductGallery'
 import { VersionChips, YourVersion } from './ProductVersionPicker'
 
 /** Three highlights from `features` (K31-ZMIANY §4 pkt 1). */
-const HIGHLIGHTS = 3
+export const HIGHLIGHTS = 3
 
 const CHIP =
   'inline-flex min-h-8 items-center rounded-xl px-2.5 text-[0.82rem] font-extrabold transition-colors'

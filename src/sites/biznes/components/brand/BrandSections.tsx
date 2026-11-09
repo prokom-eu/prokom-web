@@ -184,12 +184,11 @@ export function BrandCta({
         >
           <div className="flex max-w-[60ch] flex-col gap-2.5">
             <h2 id="marka-cta-h" className={`${BZ_H2} text-white`}>
-              Potrzebujesz sprzętu {brand}? Dobierzemy i wycenimy.
+              Interesuje Cię {brand}? Dobierzemy i wycenimy.
             </h2>
             <p className="leading-relaxed text-white/80">
               Dodaj produkty do zapytania albo napisz, czego szukasz. Wycena na piśmie, bez
-              zobowiązań
-              {callbackTime ? ` — ${callbackTime.toLocaleLowerCase('pl')} w godzinach pracy` : ''}.
+              zobowiązań.{callbackTime ? ` ${callbackTime} w godzinach pracy.` : ''}
             </p>
           </div>
           <div className="flex flex-wrap gap-3">

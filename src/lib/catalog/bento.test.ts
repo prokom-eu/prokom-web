@@ -111,6 +111,17 @@ describe('bentoTiles', () => {
     expect(tiles.map((tile) => tile.label)).not.toContain('Waga')
     expect(tiles.map((tile) => tile.label)).not.toContain('Ekran')
     expect(tiles).toHaveLength(3)
+    // A short value or a part of a word is not a repeat.
+    expect(
+      bentoTiles(
+        [
+          { label: 'Porty', value: 'USB' },
+          { label: 'Gwarancja', value: '1' },
+          { label: 'Kolor', value: 'czarny' },
+        ],
+        ['USB-C i HDMI', '1 rok', 'czarnyszary'],
+      ),
+    ).toHaveLength(3)
     // Too few left without the highlights: the bento keeps them rather than vanish.
     expect(bentoTiles(ergo.slice(0, 3), ['0,6 kg'])).toHaveLength(3)
   })

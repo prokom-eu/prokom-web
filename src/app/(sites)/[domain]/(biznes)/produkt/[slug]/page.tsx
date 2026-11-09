@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { HIGHLIGHTS } from '@/sites/biznes/components/product/ProductHero'
 import { fitTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
@@ -159,7 +160,7 @@ export default async function ProductPage({ params }: Props) {
     : null
 
   // Without the values the hero already shows in its 3 highlights (audit 0611 P1-13).
-  const tiles = bentoTiles(product.specs, product.features.slice(0, 3))
+  const tiles = bentoTiles(product.specs, product.features.slice(0, HIGHLIGHTS))
   const variantNames = uniqueVersions(product.variants.map((variant) => variant.name))
   // „Do tego zwykle dobierają”: `polecane` of K4, then „pasuje do”; a card without them keeps
   // the phrase matching of K31b (K36 §13 W14).

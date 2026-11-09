@@ -33,6 +33,8 @@ test.describe('Biznes subpages without repetition (B5-3)', () => {
     await page.goto(biznes('/produkt/posnet-ergo-online'))
     const highlights = await page.locator('main ul[data-highlights] li').allInnerTexts()
     const bento = await page.locator('main [data-bento] [data-tile-value]').allInnerTexts()
+    expect(highlights.length).toBeGreaterThan(0)
+    expect(bento.length).toBeGreaterThan(0)
     for (const value of bento) {
       expect(highlights.some((text) => text.includes(value.trim()))).toBe(false)
     }
