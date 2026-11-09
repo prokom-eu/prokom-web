@@ -34,6 +34,12 @@ describe('spots (OKNO-OFERTY-PREMIUM §2.2)', () => {
   })
 
   it('a point without a known word stays plain', () => {
-    expect(spotsOf('Jeden moduł na gotowym fundamencie')).toEqual([])
+    expect(spotsOf('Kopia zapasowa i zabezpieczenie')).toEqual([])
+  })
+
+  it('the three points of a system light its panel (SWA10 #2)', () => {
+    expect(spotsOf('Jeden moduł na gotowym fundamencie')).toEqual(['modul'])
+    expect(spotsOf('Do 5 użytkowników')).toEqual(['uzytkownicy'])
+    expect(spotsOf('Dostęp z komputera i telefonu')).toEqual(['mobile'])
   })
 })
