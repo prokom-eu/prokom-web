@@ -9,8 +9,16 @@ export const STAGE_BG =
   'bg-[radial-gradient(120%_90%_at_50%_18%,var(--st1)_0%,var(--st2)_50%,var(--st3)_100%)]'
 
 /**
+ * White plate the photo stands on (NAPRAWA-0911 §3): many packshots have a white background,
+ * which on the studio gradient showed as a white rectangle. White in both themes (`--plate`).
+ */
+export const STAGE_PLATE =
+  'rounded-[clamp(8px,9%,20px)] bg-plate shadow-[0_10px_24px_-14px_var(--plate-shadow),inset_0_0_0_1px_var(--plate-shadow)]'
+
+/**
  * „Studio” under every product photo (K31-ZMIANY §3, spec. §3.8): a soft radial gradient, the
- * „desk” from 70% of the height and a shadow under the product. Size, corners and padding come
+ * „desk” from 70% of the height and a shadow under the product, and on top of them the white
+ * plate (`STAGE_PLATE`, 6% in from the edge) the photo stands on. Size, corners and padding come
  * from `className`; the photo (or `StageFallback`) is the child. No hooks — works in server and
  * client components alike.
  */
@@ -39,6 +47,11 @@ export function ProductStage({
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-[20%] bottom-[11%] -z-10 h-[7%] rounded-[50%] bg-[radial-gradient(closest-side,var(--shd),transparent)] opacity-75"
+      />
+      <span
+        aria-hidden="true"
+        data-stage-plate=""
+        className={cx('pointer-events-none absolute inset-[6%] -z-10', STAGE_PLATE)}
       />
       {children}
     </Tag>
