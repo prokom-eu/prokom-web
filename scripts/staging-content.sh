@@ -107,6 +107,10 @@ export SMTP_HOST=127.0.0.1 SMTP_PORT=1025 MAIL_FROM_ADDRESS=seed@example.invalid
 unset MAIL_SENDERS SMTP_USER SMTP_PASS SMTP_PASS_PROKOM SMTP_PASS_BIZNES SMTP_PASS_SOFTWARE \
   SMTP_PASS_INSTALACJE SENTRY_DSN SEED_GALLERY_LIMIT UMAMI_URL UMAMI_WEBSITES
 pnpm payload migrate
+# ZAMIEN_STRONY=gopos,insert,… (runbook §2a): the Biznes seed replaces these stored pages with its
+# layout even when they look edited; the old layouts go to tmp/strony-backup-<date>.json here.
+[ -z "${ZAMIEN_STRONY:-}" ] || log "pages replaced by the seed: $ZAMIEN_STRONY"
+export ZAMIEN_STRONY="${ZAMIEN_STRONY:-}"
 for l in "${lines[@]}"; do pnpm "seed:$l"; done
 
 log "upload: database and media back to staging"

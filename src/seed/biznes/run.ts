@@ -1332,7 +1332,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   )
 
   // D3-B PR 2: /o-firmie and /kontakt on the shared templates (replaces their K4 layouts).
-  await seedBiznesTemplatePages(payload, tenant.id, pageReport)
+  await seedBiznesTemplatePages(payload, tenant.id, pageReport, note)
 
   // BIZ-2: /agd-rtv-dla-firm and /dostawy-it-dla-firm (ZAOPATRZENIE §2), media `zaop-*`.
   const procurementMedia = await seedBiznesProcurementPages(

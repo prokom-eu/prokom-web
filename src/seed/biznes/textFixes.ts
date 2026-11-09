@@ -71,6 +71,11 @@ export const WHOLE_TEXT_FIXES: readonly Fix[] = [
     'Kasa dalej drukuje paragony. Ale od 1.01.2027 faktura do paragonu dla firmy idzie wyłącznie przez KSeF: z programu lub aplikacji, nie z kasy. Paragon z NIP do 450 zł przestaje być fakturą uproszczoną w B2B. W gastronomii i hotelu konfigurujemy to w GoPOS i NFHotel.',
     KSEF_POS_PARAGRAPH,
   ],
+  // The same paragraph as the seed wrote it before the dash clean-up (staging 09.11 still had it).
+  [
+    'Kasa dalej drukuje paragony. Ale od 1.01.2027 faktura do paragonu dla firmy idzie wyłącznie przez KSeF — z programu lub aplikacji, nie z kasy. Paragon z NIP do 450 zł przestaje być fakturą uproszczoną w B2B. W gastronomii i hotelu konfigurujemy to w GoPOS i NFHotel.',
+    KSEF_POS_PARAGRAPH,
+  ],
   [
     'Firmy, które dopiero zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Zakup nie później niż 6 miesięcy od rozpoczęcia ewidencji; brak przeglądu w 3 lata oznacza zwrot ulgi.',
     KSEF_RELIEF_PARAGRAPH,
