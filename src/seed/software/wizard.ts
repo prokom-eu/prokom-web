@@ -112,7 +112,7 @@ export const WIZARD_V3: SoftwareWizard = {
   steps: {
     type: {
       label: 'Rodzaj',
-      title: 'Czego potrzebujesz?',
+      title: 'Czego **potrzebujesz?**',
       lead: 'Wybierz jedno. Nie wiesz? Zaznacz ostatni kafelek.',
     },
     ind: {
@@ -402,7 +402,7 @@ export const WIZARD_V3: SoftwareWizard = {
     em: 'zanim zadzwonisz.',
     lead: 'Kilka kliknięć dopasowanych do tego, co wybierzesz. Bez rejestracji i bez dodatków na siłę. Kontakt zostawiasz tylko wtedy, gdy chcesz wycenę na piśmie.',
     stepsEyebrow: 'Co dalej po wysłaniu',
-    stepsTitle: 'Cztery kroki do startu',
+    stepsTitle: 'Cztery kroki **do startu**',
     steps: [
       { title: 'Odpowiadamy', text: 'W 1 dzień roboczy dzwonimy albo odpisujemy, jak wolisz.' },
       { title: 'Krótka rozmowa', text: '30 minut u Ciebie w firmie, w Rabce-Zdroju albo online.' },

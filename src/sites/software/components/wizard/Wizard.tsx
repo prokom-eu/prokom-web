@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/track'
+import { stripBold } from '@/lib/site/emphasis'
 import { keepTogether } from '@/lib/software/price'
 import {
   canNext,
@@ -147,7 +148,7 @@ export function Wizard({
     return (
       <fieldset className="wz-group" key={pick}>
         {title && <legend className="wz-q">{title}</legend>}
-        {!title && <legend className="sr-only">{rules.steps[key].title}</legend>}
+        {!title && <legend className="sr-only">{stripBold(rules.steps[key].title)}</legend>}
         <div className="wz-opts">
           {options.map((option) => {
             const on = picked.includes(option.id)
@@ -346,7 +347,7 @@ export function Wizard({
             aria-labelledby={`${ids}-t`}
           >
             <StepHeading id={`${ids}-t`} ref={titleRef} tabIndex={-1} className="wz-title">
-              {text.title}
+              <EmText text={text.title} />
             </StepHeading>
             {text.lead && <p className="wz-sub">{text.lead}</p>}
             {stepBody()}

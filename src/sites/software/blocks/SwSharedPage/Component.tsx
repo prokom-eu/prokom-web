@@ -58,6 +58,8 @@ async function SoftwareContact({ tenantId }: { tenantId: number }) {
       origin={siteOrigin(host, env.SITE_ENV) ?? ''}
       now={new Date().toISOString()}
       formToken={issueFormToken(env.PAYLOAD_SECRET)}
+      // The highlighted word of the H2s in the v24 gradient (AUDYT-0911 #1).
+      headingEmClass="sw-em"
       slots={{
         formPrefill: (
           // `useSearchParams` (`?projekt=1`, `?poziom=`) needs a boundary of its own.
@@ -83,6 +85,7 @@ async function SoftwareAbout({ tenantId }: { tenantId: number }) {
       line="software"
       origin={siteOrigin(host, env.SITE_ENV) ?? ''}
       siteEnv={env.SITE_ENV}
+      headingEmClass="sw-em"
       // „Wizytówka firmy” and the logo on top of the company card (board AU-firma, AUDYT-0811 #13).
       cardHeading={
         <div className="flex items-center justify-between gap-3" data-card-heading>

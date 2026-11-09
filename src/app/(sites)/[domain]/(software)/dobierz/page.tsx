@@ -1,3 +1,4 @@
+import { EmText } from '@/sites/software/components/ui/EmText'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -90,7 +91,7 @@ export default async function WizardPage({ params, searchParams }: Props) {
         <section aria-labelledby="cztery-kroki" className="mt-24">
           {page.stepsEyebrow && <p className="sw-eyebrow text-center">{page.stepsEyebrow}</p>}
           <h2 id="cztery-kroki" className="sw-h2 mt-4 text-center">
-            {page.stepsTitle}
+            <EmText text={page.stepsTitle} />
           </h2>
           <ol className="wz-four">
             {page.steps.map((item, i) => (
