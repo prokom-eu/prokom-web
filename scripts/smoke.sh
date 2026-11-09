@@ -47,14 +47,21 @@ failures=0
 
 # check_h2 <minimum> <host> <path>: H2 in <main> of the page (content imports only).
 check_h2() {
-  local min="$1" host="$2" path="$3" count opts=(-s --max-time 30)
+  local min="$1" host="$2" path="$3" count=0 attempt opts=(-s --max-time 30)
   [ -n "${SMOKE_AUTH:-}" ] && opts+=(-u "$SMOKE_AUTH")
   [ "${SMOKE_INSECURE:-}" = 1 ] && opts+=(-k)
-  # One line, then only what is between <main …> and </main> (frame headings left out).
-  count=$(curl "${opts[@]}" --connect-to "${host}:${port}:${address}:${port}" \
-    "${scheme}://${host}:${port}${path}" | tr '\n' ' ' |
-    sed -n 's/.*<main[ >]\(.*\)<\/main>.*/\1/p' | grep -o '<h2[ >]' | wc -l || true)
-  count="${count//[[:space:]]/}"
+  # Right after a content import the app may answer from its data cache (stale-while-revalidate,
+  # PAGE_CACHE_SECONDS): the first request serves the old page and refreshes it in the background.
+  # So a page below the minimum is asked again, up to 4 times, 5 s apart.
+  for attempt in 1 2 3 4; do
+    # One line, then only what is between <main …> and </main> (frame headings left out).
+    count=$(curl "${opts[@]}" --connect-to "${host}:${port}:${address}:${port}" \
+      "${scheme}://${host}:${port}${path}" | tr '\n' ' ' |
+      sed -n 's/.*<main[ >]\(.*\)<\/main>.*/\1/p' | grep -o '<h2[ >]' | wc -l || true)
+    count="${count//[[:space:]]/}"
+    [ "${count:-0}" -ge "$min" ] && break
+    [ "$attempt" -lt 4 ] && sleep 5
+  done
   if [ "${count:-0}" -ge "$min" ]; then
     echo "ok    h2=${count} ${host}${path} (min ${min})"
   else

@@ -60,6 +60,9 @@ on_exit() {
 trap on_exit EXIT
 
 log "switch (app stopped for a moment)"
+# The app's data cache lives in the container (.next/cache/fetch-cache) and survives a restart:
+# without clearing it, the first requests would serve pages of the old database.
+docker exec "$app" sh -c 'rm -rf /app/.next/cache/fetch-cache/*' </dev/null || true
 docker stop "$app" >/dev/null
 switched=1
 psql_admin "drop database if exists ${db}_old with (force)"
