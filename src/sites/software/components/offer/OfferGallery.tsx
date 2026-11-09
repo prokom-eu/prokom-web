@@ -1,12 +1,14 @@
 'use client'
 
 import { type CSSProperties, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 
 import { isVariantOf, type MockupKind } from '@/lib/software/mockups'
 import type { SpotKey } from '@/lib/software/spots'
 import type { IndexPreview } from '@/lib/software/solutionsIndex'
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
 
+import { switchDevice } from './offerTransition'
 import { OfferThumb } from './OfferThumb'
 
 type Shot = { kind: MockupKind; variant: string | null; label: string }
@@ -237,7 +239,7 @@ export function OfferGallery({
               key={item.kind}
               type="button"
               aria-pressed={i === active}
-              onClick={() => setActive(i)}
+              onClick={() => switchDevice(() => flushSync(() => setActive(i)))}
               // „Wygodna na telefonie” lights the phone view (§2.2); its number stands here.
               data-spot={item.kind === 'phone' ? 'mobile' : undefined}
             >
