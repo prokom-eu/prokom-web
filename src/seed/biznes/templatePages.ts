@@ -1,7 +1,7 @@
 import type { Payload } from 'payload'
 
 import type { PageBlock } from './page'
-import { upsertBiznesPage } from './page'
+import { pagesToReplace, upsertBiznesPage } from './page'
 
 type Report = (name: string, changed: boolean) => void
 type TemplateBlock = 'bzAboutPage' | 'bzContactPage'
@@ -37,14 +37,17 @@ const K4_BLOCKS = new Set(['bzSection', 'faq', 'bzLocation'])
 /**
  * The layout a template page should get, or `null` to leave it: a new page and the old K4 layout
  * (the seed's own block types only) get the template block alone; a page already on it or
- * edited in the panel (other blocks) stays.
+ * edited in the panel (other blocks) stays — unless it is named in `SEED_REPLACE_PAGES`
+ * (`replace`, runbook §2a).
  */
 export function templateLayout(
   stored: readonly PageBlock[] | undefined,
   block: TemplateBlock,
+  replace = false,
 ): PageBlock[] | null {
   const fresh = [{ blockType: block }] as PageBlock[]
   if (!stored?.length) return fresh
+  if (replace) return stored.length === 1 && stored[0]!.blockType === block ? null : fresh
   if (stored.some((item) => item.blockType === block)) return null
   return stored.every((item) => K4_BLOCKS.has(item.blockType)) ? fresh : null
 }
@@ -64,7 +67,7 @@ export async function seedBiznesTemplatePages(
       limit: 1,
       ...local,
     })
-    const layout = templateLayout(page?.layout ?? undefined, block)
+    const layout = templateLayout(page?.layout ?? undefined, block, pagesToReplace().has(slug))
     if (!page) {
       await upsertBiznesPage(
         payload,
