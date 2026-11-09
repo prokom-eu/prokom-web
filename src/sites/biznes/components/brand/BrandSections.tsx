@@ -4,7 +4,7 @@ import { MediaImage } from '@/components/MediaImage'
 import { Container } from '@/components/ui/Container'
 import type { BrandView } from '@/lib/catalog/brand'
 import { plural } from '@/lib/plural'
-import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
+import { BZ_H1, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { PageLink } from '../PageLink'
@@ -183,10 +183,7 @@ export function BrandCta({
           className="relative isolate flex flex-col gap-5 overflow-hidden rounded-[26px] bg-surface-dark bg-[radial-gradient(circle_at_90%_0%,var(--glow),transparent_55%)] p-7 text-white sm:rounded-[32px] sm:p-10 lg:flex-row lg:items-center lg:justify-between"
         >
           <div className="flex max-w-[60ch] flex-col gap-2.5">
-            <h2
-              id="marka-cta-h"
-              className="font-display text-[clamp(1.4rem,2.4vw,2rem)] leading-[1.1] font-extrabold"
-            >
+            <h2 id="marka-cta-h" className={`${BZ_H2} text-white`}>
               Potrzebujesz sprzętu {brand}? Dobierzemy i wycenimy.
             </h2>
             <p className="leading-relaxed text-white/80">
