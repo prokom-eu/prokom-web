@@ -1,6 +1,6 @@
 import { Container } from '@/components/ui/Container'
 
-import { InquirySteps } from '../HowInquiryWorks'
+import { InquirySteps } from '../InquirySteps'
 import { ContactPanel } from '../forms/ContactPanel'
 import { PhoneHelpCard } from './PhoneHelpCard'
 

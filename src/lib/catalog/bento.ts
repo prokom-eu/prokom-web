@@ -100,7 +100,15 @@ const flat = (text: string) => text.replace(/\s+/g, ' ').trim().toLocaleLowerCas
 export function bentoTiles(specs: readonly Row[], highlights: readonly string[] = []): BentoTile[] {
   const valid = specs.filter((row) => row.label.trim() && row.value.trim())
   const shown = highlights.map(flat)
-  const fresh = valid.filter((row) => !shown.some((text) => text.includes(flat(row.value))))
+  // A value of 3+ characters, matched as whole words („0,6 kg”), never a stray „1” or „Tak”.
+  const repeats = (value: string) => {
+    const needle = flat(value)
+    if (needle.length < 3) return false
+    const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const word = new RegExp(`(^|[\\s(,;:])${escaped}($|[\\s),;:.])`, 'u')
+    return shown.some((text) => word.test(text))
+  }
+  const fresh = valid.filter((row) => !repeats(row.value))
   const rows = fresh.length >= 3 ? fresh : valid
   const chosen: Row[] = []
   for (const key of PRIORITY) {
