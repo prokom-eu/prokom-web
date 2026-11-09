@@ -1,3 +1,6 @@
+import { Container } from '@/components/ui/Container'
+
+import { InquirySteps } from '../HowInquiryWorks'
 import { ContactPanel } from '../forms/ContactPanel'
 import { PhoneHelpCard } from './PhoneHelpCard'
 
@@ -10,6 +13,8 @@ type Props = {
   callbackTime: string | null
   /** What the page is about (category, industry): the phone card writes it into the inquiry. */
   topic?: string | null
+  /** The steps of an inquiry as the heading of the form — one help block (audit 0611 P1-2). */
+  withSteps?: boolean
 }
 
 /**
@@ -18,7 +23,15 @@ type Props = {
  * the help card with the same heading takes the form's place (D12). `id` names the whole block, so
  * an anchor (`#kontakt`) lands on the form on a computer and on the card on a phone.
  */
-export function CatalogContactPanel({ tenantId, id, heading, lead, callbackTime, topic }: Props) {
+export function CatalogContactPanel({
+  tenantId,
+  id,
+  heading,
+  lead,
+  callbackTime,
+  topic,
+  withSteps = false,
+}: Props) {
   return (
     <div id={id} className="scroll-mt-24">
       <div className="max-md:hidden">
@@ -29,6 +42,7 @@ export function CatalogContactPanel({ tenantId, id, heading, lead, callbackTime,
           lead={[lead, callbackTime && `${callbackTime} w godzinach pracy.`]
             .filter(Boolean)
             .join(' ')}
+          steps={withSteps ? <InquirySteps callbackTime={callbackTime} /> : undefined}
           formHeading="Formularz zapytania"
           formNote="Pola z gwiazdką są wymagane. Resztę dopiszemy razem przez telefon."
           promises={[callbackTime, 'Wycena na piśmie', 'Bez zobowiązań'].filter(
@@ -41,6 +55,12 @@ export function CatalogContactPanel({ tenantId, id, heading, lead, callbackTime,
           }
         />
       </div>
+      {withSteps && (
+        // D12: the phone keeps the steps too, above the help card that replaces the form.
+        <Container wide className="pt-10 min-[768px]:hidden">
+          <InquirySteps callbackTime={callbackTime} tone="light" />
+        </Container>
+      )}
       <PhoneHelpCard tenantId={tenantId} id={`${id}-help`} heading={heading} topic={topic} />
     </div>
   )
