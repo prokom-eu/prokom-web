@@ -20,9 +20,10 @@ import { OpeningStatus } from './OpeningStatus'
 import { OtherLines } from './OtherLines'
 import { PageCrumbs, type Crumb } from './PageCrumbs'
 import { PAGE_CONTAINER as CONTAINER } from './pageContainer'
+import { TAP_AREA } from './tapArea'
 import { ServiceAreaMap } from './ServiceAreaMap'
 import { Steps } from './Steps'
-import { HeadingText } from './HeadingText'
+import { AccentText, HeadingText } from './HeadingText'
 
 /** The line's own sections in named places (spec §6.0) — the template never knows their content. */
 export type ContactSlots = {
@@ -52,6 +53,9 @@ export type ContactPageProps = {
   /** Optional sections (spec §6.0) — on by default. */
   showServiceArea?: boolean
   showOtherLines?: boolean
+  /** The line's class for the highlighted word of the section H2s (Software: `sw-em`, AUDYT-0911
+   * #1). Without it the H2s written here stay plain text. */
+  headingEmClass?: string
 }
 
 const H2 =
@@ -78,6 +82,7 @@ export function ContactPage({
   slots = {},
   showServiceArea = true,
   showOtherLines = true,
+  headingEmClass,
 }: ContactPageProps) {
   const { company, lines } = shared
   const data = shared.line
@@ -249,7 +254,10 @@ export function ContactPage({
                       href={company.ceidgUrl}
                       target="_blank"
                       rel="noopener"
-                      className="font-bold text-accent-text underline-offset-4 hover:underline"
+                      className={cx(
+                        'font-bold text-accent-text underline-offset-4 hover:underline',
+                        TAP_AREA,
+                      )}
                     >
                       Sprawdź w CEIDG →<span className="sr-only"> (nowe okno)</span>
                     </a>
@@ -271,7 +279,7 @@ export function ContactPage({
           data-rail-icon="compass"
         >
           <h2 id="kontakt-sprawy" className={H2}>
-            Z czym dzwonisz?
+            <AccentText text="Z czym **dzwonisz?**" emClass={headingEmClass} />
           </h2>
           {/* Three routes in a row; four (Biznes, plan 0611 §8.2) two by two, then in one row. */}
           <ul
@@ -309,7 +317,7 @@ export function ContactPage({
                     <a
                       href={route.href}
                       className={cx(
-                        'mt-auto inline-flex items-center justify-between gap-3 font-extrabold',
+                        'mt-auto inline-flex min-h-11 items-center justify-between gap-3 font-extrabold',
                         accent ? 'text-accent-ink' : 'text-accent-text',
                       )}
                     >
@@ -351,7 +359,7 @@ export function ContactPage({
               id="kontakt-formularz"
               className="font-display text-[clamp(28px,3vw,40px)] leading-tight font-extrabold text-line-dark-ink"
             >
-              {contact.formTitle || 'Napisz, oddzwonimy'}
+              <HeadingText text={contact.formTitle || 'Napisz, oddzwonimy'} />
             </h2>
             {contact.nextSteps && contact.nextSteps.length > 0 && (
               <>
@@ -390,7 +398,7 @@ export function ContactPage({
           data-rail-icon="map"
         >
           <h2 id="kontakt-dojazd" className={H2}>
-            {contact.mapTitle || 'Dojazd i zasięg'}
+            <HeadingText text={contact.mapTitle || 'Dojazd i zasięg'} emClass={headingEmClass} />
           </h2>
           {contact.mapLead && <p className="mt-3 max-w-[60ch] text-ink-2">{contact.mapLead}</p>}
           <ServiceAreaMap
@@ -411,7 +419,10 @@ export function ContactPage({
           data-rail-icon="grid"
         >
           <h2 id="kontakt-linie" className={H2}>
-            Inna sprawa? Każda linia ma swój zespół.
+            <AccentText
+              text="Inna sprawa? Każda linia ma **swój zespół.**"
+              emClass={headingEmClass}
+            />
           </h2>
           <OtherLines lines={lines} current={line} className="mt-8" />
         </section>
@@ -419,7 +430,13 @@ export function ContactPage({
 
       {slots.beforeFaq}
 
-      <FaqBlock id="pytania" eyebrow="Pytania" title="Zanim zadzwonisz" items={contact.faq ?? []} />
+      <FaqBlock
+        id="pytania"
+        eyebrow="Pytania"
+        title="Zanim **zadzwonisz**"
+        emClass={headingEmClass}
+        items={contact.faq ?? []}
+      />
     </div>
   )
 }

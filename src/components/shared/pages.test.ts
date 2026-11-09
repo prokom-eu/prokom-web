@@ -264,3 +264,25 @@ describe('H1 highlight, contact facts, company card heading', () => {
     expect(markup).toMatch(/data-company-card[^>]*><p data-card-heading="">Wizytówka firmy<\/p><dl/)
   })
 })
+
+describe('H2 highlight only for a line that asks for it (AUDYT-0911 #1)', () => {
+  const about = (props: Partial<Parameters<typeof AboutPage>[0]> = {}) =>
+    renderToStaticMarkup(createElement(AboutPage, { ...common, siteEnv: 'local', ...props }))
+
+  it('without headingEmClass the H2s are plain text, stars never leak', () => {
+    for (const markup of [contact(), about()]) {
+      expect(markup).not.toContain('**')
+      expect(markup).not.toMatch(/<h2[^>]*>[^<]*<em/)
+    }
+    expect(contact()).toContain('>Z czym dzwonisz?</h2>')
+  })
+
+  it('with headingEmClass the chosen word becomes <em class=…>', () => {
+    expect(contact({ headingEmClass: 'sw-em' })).toContain(
+      'Z czym <em class="sw-em">dzwonisz?</em></h2>',
+    )
+    expect(about({ headingEmClass: 'sw-em' })).toMatch(
+      /<em class="sw-em">PRO-KOM( Gaming)?<\/em><\/h2>/,
+    )
+  })
+})
