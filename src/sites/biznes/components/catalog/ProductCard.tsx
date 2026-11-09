@@ -37,7 +37,13 @@ type Props = {
   meta?: 'category' | 'series'
   /** „Podgląd” on the picture: opens the quick preview of the list (catalog grid only). */
   onPreview?: () => void
+  /** First row of a list at the top of the page: its picture is the largest paint (LCP), so it
+   *  loads at once and with high priority instead of lazily. */
+  eager?: boolean
 }
+
+/** Cards of the first row (3 from 1101 px, 2 on a phone) whose pictures load at once. */
+export const FIRST_ROW = 3
 
 /**
  * Card of the catalog as on the board `Web-oferta` (`.pc`, prompt 2 W1): a square studio
@@ -53,6 +59,7 @@ export function ProductCard({
   variant = 'catalog',
   meta = 'category',
   onPreview,
+  eager = false,
 }: Props) {
   const list = layout === 'list'
   const home = variant === 'home'
@@ -98,6 +105,7 @@ export function ProductCard({
               width={product.image.width}
               height={product.image.height}
               unoptimized
+              {...(eager ? { loading: 'eager' as const, fetchPriority: 'high' as const } : {})}
               className={cx(
                 'relative h-[78%] w-[78%] object-contain transition-transform duration-300 group-hover/card:scale-[1.03] motion-reduce:transition-none',
                 STAGE_SHADOW,
