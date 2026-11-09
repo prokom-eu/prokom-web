@@ -127,7 +127,7 @@ export default async function IndustryPage({ params }: Props) {
             <div>
               <p className="sw-eyebrow">{page.problems.eyebrow}</p>
               <h2 id="problemy-h" className="sw-h2 mt-4">
-                Kliknij swój problem, a pokażemy, co na to mamy
+                Kliknij swój <em className="sw-em">problem</em>, a pokażemy, co na to mamy
               </h2>
             </div>
             {page.problems.lead && (
@@ -147,7 +147,8 @@ export default async function IndustryPage({ params }: Props) {
               <div>
                 <p className="sw-eyebrow">{page.solutions.eyebrow}</p>
                 <h2 id="rozwiazania-h" className="sw-h2 mt-4 max-w-[22ch]">
-                  Sześć rzeczy, od których zaczynają firmy takie jak Twoja
+                  <em className="sw-em">Sześć rzeczy</em>, od których zaczynają firmy takie jak
+                  Twoja
                 </h2>
               </div>
               <Link

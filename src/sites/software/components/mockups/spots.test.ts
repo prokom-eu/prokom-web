@@ -25,7 +25,7 @@ describe('points of „W cenie” on the mock-ups (OKNO-OFERTY-PREMIUM §3)', ()
 
   it('the page offers light at least two points of their mock-up', () => {
     // Pages (site mock-ups) are where the points matter most; the report below lists the rest.
-    // „landing-page” (1) and the panels, flows and apps (0) are reported in the PR instead.
+    // „landing-page” (1), the flows, apps and care (no „W cenie”: 0) are reported in the PR.
     const pages = [
       'strona-wizytowka',
       'strona-firmowa-z-panelem',
@@ -35,6 +35,14 @@ describe('points of „W cenie” on the mock-ups (OKNO-OFERTY-PREMIUM §3)', ()
       'sklep-internetowy',
     ]
     for (const slug of pages) expect(coverage[slug], slug).toBeGreaterThanOrEqual(2)
+  })
+
+  it('the system offers light at least two points of their panel (SWA10 #2)', () => {
+    const systems = Object.entries(SOLUTION_PREVIEWS)
+      .filter(([, preview]) => preview.kind === 'dash')
+      .map(([slug]) => slug)
+    expect(systems).toHaveLength(10)
+    for (const slug of systems) expect(coverage[slug], slug).toBeGreaterThanOrEqual(2)
   })
 
   it('reports the coverage of all 29 offers (fewer than 2 → listed in the PR)', () => {

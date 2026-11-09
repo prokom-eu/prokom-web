@@ -12,10 +12,13 @@ import { SITES } from './data'
  * Areas a mock-up can light up (OKNO-OFERTY-PREMIUM §2.2), read from the same sample texts the
  * parts are drawn from (`data-spot` in `Site.tsx`): the call button, the menu, the widget (its
  * rows and chips), the features. A
- * page with a phone version also has `mobile` (the „Telefon” view of the gallery).
+ * page with a phone version also has `mobile` (the „Telefon” view of the gallery). A system
+ * panel has its own three parts (`data-spot` in `Panels.tsx`).
  */
 export function mockupSpots(kind: MockupKind | null, variant: string | null): Set<SpotKey> {
   const spots = new Set<SpotKey>()
+  // A system panel (`MockDash`): the active module, the user accounts, the phone badge.
+  if (kind === 'dash') return new Set<SpotKey>(['modul', 'uzytkownicy', 'mobile'])
   if (kind !== 'site' && kind !== 'phone') return spots
   const name = (isVariantOf(kind, variant) ? variant : SITE_VARIANTS[0]) as SiteVariant
   const site = SITES[name]

@@ -19,6 +19,9 @@ export const SPOT_KEYS = [
   'jezyki',
   'sklep',
   'blog',
+  // System panels (`MockDash`): the module menu and the user accounts.
+  'modul',
+  'uzytkownicy',
 ] as const
 export type SpotKey = (typeof SPOT_KEYS)[number]
 
@@ -36,6 +39,8 @@ export const SPOT_WORDS: Record<SpotKey, readonly RegExp[]> = {
   jezyki: [/język/, /\bpl · en/, /\ben\b/],
   sklep: [/koszyk/, /płatnoś/, /produkt/, /\bblik\b/, /odbi[óo]r/],
   blog: [/\bblog/, /wpis/, /poradnik/, /aktualnoś/],
+  modul: [/moduł/],
+  uzytkownicy: [/użytkownik/],
 }
 
 /** Every area the text names, in `SPOT_KEYS` order; „na telefonie” never counts as the call. */

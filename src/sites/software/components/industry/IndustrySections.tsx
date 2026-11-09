@@ -5,6 +5,7 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { IndustryPageView } from '@/lib/software/industryPage'
 
+import { EmText } from '../ui/EmText'
 import { PageHero } from '../ui/PageHero'
 
 type Page = { page: IndustryPageView }
@@ -134,7 +135,7 @@ export function OfflineBox({ page }: Page) {
                 {box.accent && (
                   <>
                     {' '}
-                    <span className="text-accent-on-dark">{box.accent}</span>
+                    <em className="sw-em-band">{box.accent}</em>
                   </>
                 )}
               </h2>
@@ -206,7 +207,7 @@ export function IndustryContact({ page, phone }: ContactProps) {
               id="kontakt-tytul"
               className="mt-3 font-display text-[32px] font-extrabold leading-[1.05] min-[641px]:text-5xl"
             >
-              {contact.title}
+              <EmText text={contact.title} emClass="sw-em-band" />
             </h2>
             {contact.lead && <p className="mt-4 text-lg text-white/80">{contact.lead}</p>}
             {contact.points.length > 0 && (

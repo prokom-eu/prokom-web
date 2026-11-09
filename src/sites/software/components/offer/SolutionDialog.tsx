@@ -90,6 +90,12 @@ function phoneGesture(
   window.addEventListener('pointercancel', stop)
 }
 
+/** „od 3 490 zł netto” → the amount and a flag for the small „netto” after it. */
+function splitNet(price: string): { amount: string; net: boolean } {
+  const amount = price.replace(/\s+netto$/, '')
+  return { amount, net: amount !== price }
+}
+
 function Chevron({ back = false }: { back?: boolean }) {
   return (
     <svg
@@ -277,6 +283,7 @@ export function SolutionDialog({
   const steps = level ? level.steps : view.steps
   const choose = (index: number) => setPick({ slug: view.slug, index })
   const bar = level ? { label: level.barLabel, price: level.price } : view.bar
+  const barPrice = splitNet(bar.price)
   const projectName = level ? level.projectName : view.name
 
   // Points of „W cenie” with an area on this offer's mock-up get a number (§2.2); the others stay
@@ -407,7 +414,7 @@ export function SolutionDialog({
   // The bar (§2.4 G): the price and the state on the left; „+ Do wyceny” (turns into
   // „✓ W wycenie · Wyślij →” and takes the focus), then the main step „Zapytaj o tę ofertę →”.
   const footer = (
-    <div className="flex items-center gap-3 min-[768px]:px-3">
+    <div className="flex items-center gap-3 max-[399px]:gap-2 min-[768px]:px-3">
       <p className="min-w-0 flex-1" aria-live="polite">
         <span className="block truncate text-xs font-bold text-ink-2">
           {fullFor === view.slug && !added
@@ -416,8 +423,15 @@ export function SolutionDialog({
                 .filter(Boolean)
                 .join(' · ') || bar.label}
         </span>
-        <span className="block font-display text-xl font-extrabold text-accent-text">
-          {bar.price}
+        {/* One line on the phone too (AUDYT-0911 wieczór #4): „netto” small after the amount. */}
+        <span className="block truncate font-display text-xl font-extrabold text-accent-text max-[767px]:text-[19px]">
+          {barPrice.amount}
+          {barPrice.net && (
+            <>
+              {' '}
+              <small className="font-sans text-xs font-bold text-ink-2">netto</small>
+            </>
+          )}
         </span>
       </p>
       {added ? (
@@ -457,7 +471,7 @@ export function SolutionDialog({
           }
         }}
         data-motion="button"
-        className="inline-flex min-h-12 items-center gap-2 rounded-full bg-button px-5 font-bold text-accent-ink"
+        className="inline-flex min-h-12 items-center gap-2 rounded-full bg-button px-5 font-bold text-accent-ink max-[399px]:px-4"
       >
         <span className="max-[767px]:hidden">Zapytaj o tę ofertę</span>
         <span className="min-[768px]:hidden">Zapytaj</span>

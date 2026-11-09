@@ -20,12 +20,12 @@ export function MockDash({ variant }: { variant: DashVariant }) {
           Twoja Firma
         </b>
         {dash.nav.map((item, i) => (
-          <span key={item} data-on={i === 1 || undefined}>
+          <span key={item} data-on={i === 1 || undefined} data-spot={i === 1 ? 'modul' : undefined}>
             {item}
           </span>
         ))}
-        <span className="mk-user">
-          <i>AN</i>Anna · biuro
+        <span className="mk-user" data-spot="uzytkownicy">
+          <i>AN</i>Anna · biuro<small>+4</small>
         </span>
       </div>
       <div className="mk-main">
@@ -34,6 +34,9 @@ export function MockDash({ variant }: { variant: DashVariant }) {
             <small>{dash.crumb}</small>
             <b>{dash.title}</b>
           </div>
+          <i className="mk-device" data-spot="mobile">
+            Telefon
+          </i>
           <span>{dash.button}</span>
         </div>
         <div className="mk-kpis">

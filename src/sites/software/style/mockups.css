@@ -724,6 +724,27 @@
   font-size: 9px;
   font-weight: 900;
 }
+/* „+4” and the phone badge below are parts of „W cenie” (SWA10 #2): only in the offer window,
+   the hero and the cards keep the plain panel. */
+.mk-user > small,
+.mk-device {
+  display: none;
+}
+.sw-offer-shot .mk-user {
+  white-space: nowrap;
+}
+.sw-offer-shot .mk-user > small {
+  display: inline;
+}
+.mk-user > small {
+  margin-left: auto;
+  padding: 1px 5px;
+  border-radius: 99px;
+  background: var(--mk-dark-3);
+  color: var(--mk-white);
+  font-size: 8.5px;
+  font-weight: 800;
+}
 .mk-main {
   padding: 16px 18px;
   display: flex;
@@ -735,6 +756,30 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
+}
+/* „Dostęp z komputera i telefonu”: a small badge with a phone outline next to the button. */
+.sw-offer-shot .mk-device {
+  display: inline-flex;
+}
+.mk-device {
+  margin-left: auto;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border: 1px solid var(--mk-line);
+  border-radius: 8px;
+  color: var(--mk-mute);
+  font-style: normal;
+  font-size: 9.5px;
+  font-weight: 800;
+}
+.mk-device::before {
+  content: '';
+  width: 7px;
+  height: 11px;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
 }
 .mk-main-head small {
   display: block;
