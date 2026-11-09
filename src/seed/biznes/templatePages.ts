@@ -93,7 +93,8 @@ export async function seedBiznesTemplatePages(
     await payload.update({
       collection: 'pages',
       id: page.id,
-      data: { layout, _status: page._status ?? 'published' },
+      // A named replacement publishes, as the K4 pages do; a template move keeps the status.
+      data: { layout, _status: replace.has(slug) ? 'published' : (page._status ?? 'published') },
       ...local,
     })
   }

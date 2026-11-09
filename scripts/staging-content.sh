@@ -109,7 +109,12 @@ unset MAIL_SENDERS SMTP_USER SMTP_PASS SMTP_PASS_PROKOM SMTP_PASS_BIZNES SMTP_PA
 pnpm payload migrate
 # ZAMIEN_STRONY=gopos,insert,… (runbook §2a): the Biznes seed replaces these stored pages with its
 # layout even when they look edited; the old layouts go to tmp/strony-backup-<date>.json here.
-[ -z "${ZAMIEN_STRONY:-}" ] || log "pages replaced by the seed: $ZAMIEN_STRONY"
+if [ -n "${ZAMIEN_STRONY:-}" ]; then
+  case " ${lines[*]} " in
+    *" biznes "*) log "pages replaced by the Biznes seed: $ZAMIEN_STRONY" ;;
+    *) log "ZAMIEN_STRONY set, but biznes is not imported — nothing will be replaced" ;;
+  esac
+fi
 export ZAMIEN_STRONY="${ZAMIEN_STRONY:-}"
 for l in "${lines[@]}"; do pnpm "seed:$l"; done
 

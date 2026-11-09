@@ -75,9 +75,11 @@ describe('upsertK4Page with a page named for replacement', () => {
 
   afterEach(() => {
     vi.unstubAllEnvs()
+    vi.restoreAllMocks()
   })
 
   it('without the flag an old page stays (looks edited in the panel)', async () => {
+    vi.stubEnv('ZAMIEN_STRONY', '')
     const { payload, update } = fakePayload(blocks('bzOrderFlow', 'faq'))
     expect(await upsertK4Page(payload, 1, page, () => {})).toBe(false)
     expect(update).not.toHaveBeenCalled()
@@ -100,6 +102,18 @@ describe('upsertK4Page with a page named for replacement', () => {
       expect.objectContaining({ id: 6, data: { layout: seed, _status: 'published' } }),
     )
     expect(notes[0]).toMatch(/^gopos: 2 bl\. \(bzOrderFlow, faq\) → 3 bl\. \(bzSection×2, faq\)/)
+  })
+
+  it('after the replacement the page also gets the seed SEO description (one run is enough)', async () => {
+    vi.stubEnv('ZAMIEN_STRONY', 'gopos')
+    vi.spyOn(process, 'cwd').mockReturnValue(mkdtempSync(join(tmpdir(), 'seed-')))
+    const { payload, update } = fakePayload(blocks('bzOrderFlow', 'faq'))
+    const description =
+      'GoPOS w Rabce-Zdroju: system dla gastronomii z wdrożeniem i serwisem na miejscu.'
+    await upsertK4Page(payload, 1, { ...page, description }, () => {})
+    expect(update).toHaveBeenCalledWith(
+      expect.objectContaining({ data: expect.objectContaining({ seo: { description } }) }),
+    )
   })
 
   it('a second run on the replaced page changes nothing', async () => {

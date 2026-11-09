@@ -101,6 +101,8 @@ for host in "${hosts[@]}"; do
   # News: Biznes and Software (B11, SW11b).
   if [[ "$host" == *biznes* || "$host" == *software* ]]; then expected=200; else expected=404; fi
   check "$expected" "$host" /aktualnosci
+  # Full pages 09.11: 12 / 10 / 9 / 5 / 4 H2; the 31.10 pages: 5 / 4 / 3 / 3 / 3. /kontakt has no
+  # margin — a heading removed from the shared contact template needs this threshold lowered.
   if [ "${SMOKE_CONTENT:-}" = 1 ] && [[ "$host" == *biznes* ]]; then
     check_h2 8 "$host" /gopos
     check_h2 8 "$host" /insert

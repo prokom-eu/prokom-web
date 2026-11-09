@@ -47,7 +47,9 @@ export async function upsertK4Page(
     ...local,
   })
   // NAPRAWA-0911: a named page gets the seed's layout even when it looks edited (replacePages).
-  if (found && pagesToReplace().has(page.slug) && !hasSeedLayout(found.layout, page.layout)) {
+  const replace =
+    found && pagesToReplace().has(page.slug) && !hasSeedLayout(found.layout, page.layout)
+  if (replace) {
     const file = backupLayout(page.slug, found.layout)
     await payload.update({
       collection: 'pages',
@@ -60,9 +62,9 @@ export async function upsertK4Page(
       'strona zamieniona (przed → po)',
       `${page.slug}: ${describeLayout(found.layout)} → ${describeLayout(page.layout)}; kopia ${file}`,
     )
-    return true
+    // Now a K4 page: the usual rules below also bring its SEO description up to date.
   }
-  if (found && !found.layout?.some((block) => block.blockType === 'bzSection')) {
+  if (found && !replace && !found.layout?.some((block) => block.blockType === 'bzSection')) {
     report(`pages ${page.slug}`, false)
     return false
   }

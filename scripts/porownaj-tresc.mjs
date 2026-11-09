@@ -11,6 +11,7 @@
 // `*.localhost` is reached at 127.0.0.1 with the Host header (Node does not resolve it).
 import { request as httpRequest } from 'node:http'
 import { request as httpsRequest } from 'node:https'
+import { isIP } from 'node:net'
 import { fileURLToPath } from 'node:url'
 
 export const PAGES = [
@@ -67,7 +68,9 @@ function get(origin, path, auth, siteHost) {
         host: local ? '127.0.0.1' : target.hostname,
         port: target.port || (target.protocol === 'https:' ? 443 : 80),
         path: target.pathname + target.search,
-        servername: target.hostname,
+        // SNI: the site's name, never an IP (a tunnel address).
+        servername:
+          siteHost?.split(':')[0] || (isIP(target.hostname) ? undefined : target.hostname),
         headers: {
           host: siteHost || target.host,
           ...(auth && { authorization: `Basic ${Buffer.from(auth).toString('base64')}` }),
@@ -93,15 +96,16 @@ async function main([a, b] = process.argv.slice(2)) {
   }
   const rows = []
   for (const path of PAGES) {
-    const [ra, rb] = [
-      await get(a, path, process.env.TRESC_AUTH_A, process.env.TRESC_HOST_A),
-      await get(b, path, process.env.TRESC_AUTH_B, process.env.TRESC_HOST_B),
-    ]
+    // A network error is a row of the table, not a crash: the other pages are still measured.
+    const fetchOne = (origin, auth, host) =>
+      get(origin, path, auth, host).catch((error) => ({ status: 0, html: '', error }))
+    const ra = await fetchOne(a, process.env.TRESC_AUTH_A, process.env.TRESC_HOST_A)
+    const rb = await fetchOne(b, process.env.TRESC_AUTH_B, process.env.TRESC_HOST_B)
     const ma = measure(ra.html)
     const mb = measure(rb.html)
     const problems = [
-      ra.status !== 200 && `A: HTTP ${ra.status}`,
-      rb.status !== 200 && `B: HTTP ${rb.status}`,
+      ra.status !== 200 && `A: ${ra.error?.code ?? `HTTP ${ra.status}`}`,
+      rb.status !== 200 && `B: ${rb.error?.code ?? `HTTP ${rb.status}`}`,
       ...shortfalls(ma, mb).map((key) => `${key} ${mb[key]}/${ma[key]}`),
     ].filter(Boolean)
     rows.push({ path, ma, mb, problems })
