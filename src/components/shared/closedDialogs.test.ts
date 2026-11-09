@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
 import { BottomSheet } from '../BottomSheet'
+import { MenuSheet } from './MenuSheet'
 import { SearchDialog } from './SearchDialog'
 
 // Audit 0611 P0.4: a closed window stays in the page, so it must not add headings to the outline.
@@ -30,6 +31,21 @@ describe('closed windows have no headings', () => {
       }),
     )
     expect(markup).toContain('Szukaj w ofercie')
+    expect(markup).not.toMatch(HEADING)
+  })
+
+  it('the menu sheet (its „Linie PRO-KOM” too)', () => {
+    const markup = renderToStaticMarkup(
+      createElement(MenuSheet, {
+        lines: [],
+        current: 'biznes',
+        phone: null,
+        hours: [],
+        holidays: [],
+        now: '2026-11-09T10:00:00+01:00',
+      }),
+    )
+    expect(markup).toContain('Linie PRO-KOM')
     expect(markup).not.toMatch(HEADING)
   })
 
