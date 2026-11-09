@@ -196,7 +196,7 @@ export default async function ProductPage({ params }: Props) {
   ]
 
   const crumbs: Crumb[] = [
-    { name: 'Start', href: '/' },
+    { name: 'Strona główna', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
     ...(category && categoryLink ? [{ name: category.name, href: categoryLink }] : []),
     { name: product.heading, href: productHref(product.slug) },

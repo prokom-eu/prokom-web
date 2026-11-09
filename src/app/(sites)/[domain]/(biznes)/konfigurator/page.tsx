@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ogImages } from '@/lib/pages/metadata'
 import { notFound } from 'next/navigation'
 import { connection } from 'next/server'
 
@@ -23,11 +24,11 @@ import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
-import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
+import { BreadcrumbJsonLd, Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { Configurator } from '@/sites/biznes/components/configurator/Configurator'
 import { linkKey, type ConfiguratorProduct } from '@/sites/biznes/components/configurator/types'
 
-import { requireLine } from '../../tenant'
+import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = {
   params: Promise<{ domain: string }>
@@ -39,7 +40,14 @@ export const metadata: Metadata = {
   description:
     'Trzy pytania o Twoją firmę i wynik: kasa, terminal, program, komputery i sieć z uzasadnieniem. Bez rejestracji, do zapytania tylko to, co wybierzesz.',
   alternates: { canonical: CONFIGURATOR_PATH },
+  // QA BIZ-3: the only page of the map without a preview picture — the line's mark.
+  openGraph: { images: ogImages(null, 'biznes'), url: CONFIGURATOR_PATH },
 }
+
+const CRUMBS = [
+  { name: 'Strona główna', href: '/' },
+  { name: 'Konfigurator', href: CONFIGURATOR_PATH },
+]
 
 const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value)
 
@@ -155,12 +163,8 @@ export default async function ConfiguratorPage({ params, searchParams }: Props) 
 
   return (
     <Container wide className="pt-5 pb-28 sm:pt-6 sm:pb-24">
-      <Breadcrumbs
-        items={[
-          { name: 'Strona główna', href: '/' },
-          { name: 'Konfigurator', href: CONFIGURATOR_PATH },
-        ]}
-      />
+      <Breadcrumbs items={CRUMBS} />
+      <BreadcrumbJsonLd items={CRUMBS} origin={await requestOrigin()} />
       <Configurator
         data={{
           rules,

@@ -123,4 +123,9 @@ if (json) {
   }
   const bad = rows.filter((row) => row.problems.length).length
   console.log(`\nStron: ${rows.length} · z uwagami: ${bad}`)
+  if (checkLinks) {
+    const broken = linkRows.filter((row) => row.status >= 400)
+    console.log(`Linki spoza sitemap: ${linkRows.length} · błędne: ${broken.length}`)
+    for (const row of linkRows) console.log(`  ${row.status}\t${row.href}\t(z ${row.from})`)
+  }
 }

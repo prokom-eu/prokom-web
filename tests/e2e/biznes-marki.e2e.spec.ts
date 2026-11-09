@@ -18,11 +18,11 @@ test.describe('Biznes /marki (K4f)', () => {
     ).toBeVisible()
 
     // Kyocera sits in the theme showroom „Druk”; HP has none — the offer filtered by the brand.
-    await expect(page.getByRole('link', { name: /^Kyocera — wejdź do salonu/ })).toHaveAttribute(
+    await expect(page.getByRole('link', { name: /Kyocera — wejdź do salonu/ })).toHaveAttribute(
       'href',
       '/marki/druk',
     )
-    await expect(page.getByRole('link', { name: /^HP — zobacz ofertę/ })).toHaveAttribute(
+    await expect(page.getByRole('link', { name: /HP — zobacz ofertę/ })).toHaveAttribute(
       'href',
       '/oferta?marka=hp',
     )

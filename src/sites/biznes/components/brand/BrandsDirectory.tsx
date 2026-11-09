@@ -273,7 +273,6 @@ function BrandCard({ tile }: { tile: BrandTile }) {
   return (
     <Link
       href={tile.href}
-      aria-label={`${tile.name} — ${tile.salon ? 'wejdź do salonu' : 'zobacz ofertę'}`}
       data-logo-shine=""
       className="relative flex w-full min-w-0 flex-col gap-3 rounded-3xl bg-card p-4 max-md:gap-2 max-md:rounded-[20px] max-md:p-2.5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
     >
@@ -284,7 +283,11 @@ function BrandCard({ tile }: { tile: BrandTile }) {
       )}
       <Logo tile={tile} className="h-[76px] px-4 max-md:h-[60px] max-md:px-3" />
       <span className="flex flex-col gap-0.5">
-        <b className="font-extrabold text-ink max-md:text-[15px]">{tile.name}</b>
+        <b className="font-extrabold text-ink max-md:text-[15px]">
+          {tile.name}
+          {/* The visible text names the link; the action is added for screen readers (WCAG 2.5.3). */}
+          <span className="sr-only"> — {tile.salon ? 'wejdź do salonu' : 'zobacz ofertę'}</span>
+        </b>
         {tile.description && (
           <small className="text-sm leading-snug text-ink-2 max-md:line-clamp-2 max-md:text-xs">
             {tile.description}
