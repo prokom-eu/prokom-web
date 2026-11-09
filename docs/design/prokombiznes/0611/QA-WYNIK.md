@@ -83,7 +83,7 @@ Przed poprawką okruszka „Start” (pomiar 1):
 - **Zestawy ukryte (4)** — pytania do Insoft, Elzab, GoPOS: `docs/STAN.md` (B4-1).
 - **GoPOS:** scalenie listy modułów z konfiguratorem pakietu (§10.3) — niezrobione, opis w #458 i STAN.
 - **Konfigurator:** kwoty 700 zł / 0 zł i zdanie o łączeniu terminala z kasą (wyżej, §4).
-- **7 krótkich tytułów produktów** (< 30 znaków z dopiskiem, np. „Sunmi L3 | PRO-KOM Biznes”) — nazwa produktu bez dopisku „dla firm”; do uzupełnienia w panelu (SEO → Tytuł) albo zostawić (krótka nazwa modelu jest czytelna).
+- ~~7 krótkich tytułów produktów~~ — po pomiarze: krótka nazwa modelu (< 13 znaków) dostaje nazwę kategorii („Sunmi L3 — Kolektory danych | PRO-KOM Biznes”); do potwierdzenia pomiarem w CI/stagingu.
 - §13: #4 (zdjęcia GoPOS z ludźmi), #5 (301 `/marki/gopos`, `/marki/insert`), #10 („czas reakcji ustalamy w umowie”) — bez zmian, czekają.
 - Strefa wspólna (`feat/wsp-*`): telefon i e-mail w `CompanyCard` 19 px; `SearchDialog` — pole zostaje wypełnione po ponownym otwarciu; H2 ukrytych okien (`SearchDialog`, `BottomSheet`) — zamówienie z B3-3.
 - Wydajność < 90 — ADR-023.

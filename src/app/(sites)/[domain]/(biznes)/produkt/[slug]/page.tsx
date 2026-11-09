@@ -92,13 +92,15 @@ async function load(params: Props['params']) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, product } = await load(params)
   if (!product) return {}
-  // 30–60 characters with the site's suffix (audit 0611 P1-8: cards had ~69).
+  // 30–60 characters with the site's suffix (audit 0611 P1-8: cards had ~69); a short model
+  // name gets its category („Sunmi L3 — Kolektory danych”, QA BIZ-3).
   const title = fitTitle(
     product.seo.title ??
       productTitle(
         product.shortName ?? product.heading,
         product.variants.map((variant) => variant.name),
       ),
+    product.category ? `— ${product.category.name}` : undefined,
   )
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = product.seo.description ?? product.benefit
