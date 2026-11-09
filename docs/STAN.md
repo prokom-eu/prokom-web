@@ -216,6 +216,10 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
   - Wcześniejsze: prawo użycia zdjęć producentów, loga Honeywell i Zebra, kanały kontaktu działów i obietnice od szefa (Asana, 20.10).
 
 ### prokomsoftware.pl — folder `prokom-web-software` (od 06.11; PORT 3003, baza `prokom_web_swa`)
+- **Lighthouse Software (10.11, noc) — gałąź `fix/software-lighthouse`.** Pomiar 45 stron × mobile/desktop na lokalnym buildzie produkcyjnym (Lighthouse 12.8.2): desktop Performance 98–100, mobile 81–91 (symulowany LCP 3,8–5,0 s przy rzeczywistym 0,1–0,7 s — Lighthouse liczy pobranie ~400–530 KB fontów, CSS i JS przy wolnym 4G). Lighthouse CI na stagingu (09.11 22:47): główna Software **P 58–60** przez TBT 1,7–1,9 s (style i układ 3550 elementów), `/rozwiazania` 98, `/polityka-prywatnosci` 99. Decyzja Krystiana: poprawki tylko bez zmiany wyglądu i ruchu.
+  - `Zrobione:` `content-visibility: auto` na makietach `.mk` (już przycinają z marginesem 32 px, rozmiar z rodzica — piksele bez zmian poza wygładzaniem tekstu); token `--mk-b-acc-text` #876213 (4,65:1); opis meta `/dziekujemy` (SEO 88 → 100). Główna na wolnym CPU (×12, mediana z 3): P 55 → 67, TBT 1314 → 544 ms, „Style & Layout” 8,8 → 4,6 s.
+  - `Zostaje (świadomie):` blady szary tekst makiet pulpitu (`--mk-faint`, kontrast 2,6 — dekoracja), „kontrast” nagłówków w trakcie animacji wejścia (fałszywy alarm), symulowany LCP na telefonie. Główna w CI prawdopodobnie nadal < 90.
+  - `Pomysły (do decyzji):` lżejsza hydratacja głównej (wyspy klienta później), ukryte okna hero bez renderu z `transition-behavior: allow-discrete` (ryzyko w starszym Safari).
 - **SWA11 (09.11, noc) — hero telefonu wg wysokości + drobiazgi (`v24/AUDYT-0911-NOC.md`): 2 niezależne PR-y od `origin/develop`.**
   - `Gałęzie:` `feat/swa11-hero-telefon` (Software: #1–#3, #4 na /dobierz) · `feat/wsp-okruszki` (wspólne `PageCrumbs`: #4 na /kontakt i /o-firmie).
   - `Decyzja Krystiana 09.11:` #2 (b) — tablet poziomo (1024–1279) dostaje regułę laptopów z SWA10.
