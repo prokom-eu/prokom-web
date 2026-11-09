@@ -3,7 +3,7 @@
 - Status: **proponowana** (do akceptacji Krystiana w PR `perf/lighthouse-lcp`)
 - Data: 09.11.2026
 - Decyduje: Krystian
-- Powiązane: ADR-021 (Lighthouse CI po wdrożeniu stagingu), ADR-023 (paczki JS i CSS per linia), `docs/jakosc.md` (Definition of Done), runbook §3 (zielony Lighthouse = warunek produkcji).
+- Powiązane: ADR-021 (Lighthouse CI po wdrożeniu stagingu), ADR-023 (paczki JS i CSS per linia — **zmienia jego stanowisko z opcji D** „nie akceptować wyniku Lantern” wyłącznie dla osobnego progu LCP; wydajność ≥ 90 zostaje), `docs/jakosc.md` (Definition of Done), runbook §3 (zielony Lighthouse = warunek produkcji).
 
 ## Kontekst
 Czerwony przebieg Lighthouse na stagingu blokuje wdrożenie produkcji. Przebieg 09.11 po wdrożeniu `d2c036d`, już z nową treścią Biznesu, mediana z 3:
@@ -47,15 +47,21 @@ Pierwsze dwa to strata dla odwiedzającego. Trzecie to praca na kilka sesji w tr
 ## Decyzja
 1. **Wydajność ≥ 90 zostaje błędem** (bez zmian). Ocena wydajności nadal zawiera LCP z Lanterna z wagą 25%, więc strona z naprawdę wolnym LCP nie przejdzie.
 2. **LCP z Lanterna:**
-   - **błąd od 4 s** — granica „słabego” LCP wg Google;
+   - **osobna asercja: błąd od 4 s** — granica „słabego” LCP wg Google;
    - **cel 2,5 s zostaje** jako ostrzeżenie: przebieg pokazuje strony powyżej 2,5 s (adnotacja w Actions), ale nie blokuje produkcji.
-3. **Prawdziwe wolne LCP poprawiamy w kodzie.** Pierwsza poprawka w tym samym PR: na `/oferta` elementem LCP było zdjęcie pierwszej karty z `loading="lazy"`. Teraz pierwszy rząd katalogu i kategorii ładuje się od razu, z wysokim priorytetem.
-4. CLS ≤ 0,1, dostępność, dobre praktyki i SEO ≥ 90 — bez zmian.
+   - **Faktyczny limit jest ostrzejszy.** Krzywa LCP na telefonie ma 2,5 s = wynik 0,9 i 4 s = 0,5. Przy LCP 4 s wydajność wynosi najwyżej ~87, czyli poniżej 90. W praktyce blokuje więc **LCP powyżej ~3,6 s, przez wydajność ≥ 90**, a próg 4 s jest tylko zabezpieczeniem. Instalacje (3,46–3,70 s) nie mają zapasu: drobna regresja zrobi przebieg czerwonym.
+3. **Założenie tej decyzji pilnowane w przebiegu:**
+   - **`lcp-lazy-loaded` = błąd** — zdjęcie, które jest LCP, nie może się ładować leniwie (dokładnie dzisiejszy błąd `/oferta`);
+   - **ostrzeżenie, gdy zaobserwowany LCP przychodzi > 300 ms po pierwszej treści** — wtedy LCP nie jest tekstem z klatki FCP i rozjazd może być prawdziwy, nie tylko z symulacji.
+4. **Prawdziwe wolne LCP poprawiamy w kodzie.** Pierwsza poprawka w tym samym PR: na `/oferta` elementem LCP było zdjęcie pierwszej karty z `loading="lazy"`. Teraz:
+   - pierwszy rząd katalogu i kategorii ładuje się od razu (`loading="eager"`);
+   - wysoki priorytet (`fetchPriority="high"`) ma tylko pierwsza karta `/oferta`, czyli element LCP. W kategoriach siatka jest pod nagłówkiem, a więcej obrazów o wysokim priorytecie konkurowałoby z CSS i fontami.
+5. CLS ≤ 0,1, dostępność, dobre praktyki i SEO ≥ 90 — bez zmian.
 
 ## Konsekwencje
 - \+ Bramka produkcji przepuszcza strony, które naprawdę malują treść w ~1 s, i nadal zatrzymuje stronę z prawdziwym problemem. Przykład: `/oferta` przed poprawką — wydajność 0,80, LCP 4,66 s.
 - \+ Strony nic nie tracą: animacje, widżety i układ zostają.
-- − Szacunek LCP między 2,5 a 4 s nie blokuje. Ostrzeżenia w przebiegu trzeba czytać.
+- − Szacunek LCP między 2,5 a ~3,6 s (powyżej blokuje już wydajność) nie blokuje. Ostrzeżenia w przebiegu trzeba czytać. Przestaje być wykrywana regresja LCP z obrazu, który ładuje się od razu, ale wolno (np. ciężkie zdjęcie hero), dopóki wydajność ≥ 90 — sygnałem jest ostrzeżenie „LCP … ms after FCP”.
 - − Do poprawy osobno (wpisy w `docs/STAN.md` → „Pomysły na później”). Każda z tych rzeczy obniża też szacunek LCP:
   - CSS Instalacji w 11 arkuszach blokujących render (115 KB);
   - 4 wstępnie ładowane pliki fontów (126 KB) — przycięcie osi wagi do używanych;

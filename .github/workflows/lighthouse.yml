@@ -1,9 +1,8 @@
 # Performance budget (S10, docs/jakosc.md): after every successful staging deploy, Lighthouse
 # (mobile, 3 runs, median run) on the home page and one subpage of each site. Budget:
-# Performance, Accessibility, Best Practices, SEO ≥ 90, LCP ≤ 4 s (2.5 s goal = warning, ADR-025),
-# CLS ≤ 0.1 — over budget =
-# red run, which blocks a production deploy (runbook §3). Staging sends noindex on purpose, so
-# the SEO audits "is-crawlable" and "robots-txt" are skipped (Lighthouse fetches robots.txt
+# Performance, Accessibility, Best Practices, SEO ≥ 90, LCP ≤ 4 s and an eagerly loaded LCP image
+# (2.5 s goal = warning, ADR-025), CLS ≤ 0.1 — over budget = red run, which blocks a production
+# deploy (runbook §3). Staging sends noindex on purpose, so the SEO audits "is-crawlable" and "robots-txt" are skipped (Lighthouse fetches robots.txt
 # without the staging login and gets the 401 page; the smoke test checks robots.txt). Pages: lighthouserc.json. Reports: artifact
 # "lighthouse". Staging is behind basic auth: a separate login only for this — secret
 # STAGING_BASIC_AUTH holds the ready base64 token (`staging-login.sh lighthouse`, runbook §1.9),
@@ -79,16 +78,23 @@ jobs:
           retention-days: 30
           if-no-files-found: ignore
 
-      # ADR-025: the Lantern LCP blocks from 4 s; the 2.5 s goal shows as a warning per page.
-      - name: LCP over 2.5 s (warning)
+      - name: Lighthouse — budget
+        run: npx --yes @lhci/cli@0.15.1 assert
+
+      # ADR-025, after the budget and never failing it: the 2.5 s LCP goal per page, and a page
+      # whose LCP is not painted with the first content (the assumption of ADR-025).
+      - name: LCP warnings
         if: always()
+        continue-on-error: true
         run: |
           [ -f .lighthouseci/reports/manifest.json ] || exit 0
           jq -r '.[] | select(.isRepresentativeRun) | "\(.url) \(.jsonPath)"' .lighthouseci/reports/manifest.json |
             while read -r url file; do
-              lcp="$(jq '.audits["largest-contentful-paint"].numericValue | floor' "$file")"
+              # -1 = no value (a page with a runtime error): skipped, never a failure of this step.
+              read -r lcp gap < <(jq -r '[(try (.audits["largest-contentful-paint"].numericValue | floor) catch -1),
+                (try (.audits.metrics.details.items[0] | .observedLargestContentfulPaint - .observedFirstContentfulPaint | floor) catch 0)]
+                | @tsv' "$file") || continue
+              [ "${lcp:--1}" -ge 0 ] || continue
               [ "$lcp" -le 2500 ] || echo "::warning title=LCP ${lcp} ms::$url — goal 2500 ms (ADR-025)"
+              [ "${gap:-0}" -le 300 ] || echo "::warning title=LCP ${gap} ms after FCP::$url — the largest paint comes later than the first content: check it (ADR-025)"
             done
-
-      - name: Lighthouse — budget
-        run: npx --yes @lhci/cli@0.15.1 assert

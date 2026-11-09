@@ -6,7 +6,7 @@ import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 
 vi.mock('../AddToCartButtonLazy', () => ({ AddToCartButton: () => null }))
 
-const { FIRST_ROW, ProductCard } = await import('./ProductCard')
+const { ProductCard } = await import('./ProductCard')
 
 const product: IndexProduct = {
   slug: 'posnet-ergo-online',
@@ -22,7 +22,7 @@ const product: IndexProduct = {
   popularity: 0,
   registerTypes: [],
   hay: 'ergo',
-  image: { url: '/api/media/file/ergo.webp', width: 480, height: 480 },
+  image: { url: '/api/media/file/ergo.webp', width: 480, height: 480, alt: '' },
 }
 
 const index = {
@@ -31,27 +31,29 @@ const index = {
   categories: [],
 } as unknown as CatalogIndex
 
-const picture = (eager?: boolean) => {
+const img = (picture?: 'lazy' | 'eager' | 'priority') => {
   const html = renderToStaticMarkup(
-    createElement(ProductCard, { product, index, position: 0, eager }),
+    createElement(ProductCard, { product, index, position: 0, picture }),
   )
   return html.match(/<img[^>]*alt="Posnet Ergo Online"[^>]*>/)?.[0] ?? ''
 }
 
-describe('ProductCard: the first row is the largest paint (Lighthouse LCP)', () => {
-  it('a first-row picture loads at once with high priority', () => {
-    const img = picture(true)
-    expect(img).toContain('loading="eager"')
-    expect(img).toContain('fetchPriority="high"')
+describe('ProductCard: pictures of the first row (Lighthouse LCP, ADR-025)', () => {
+  it('priority: loads at once with high priority', () => {
+    const tag = img('priority')
+    expect(tag).toContain('loading="eager"')
+    expect(tag).toContain('fetchPriority="high"')
   })
 
-  it('other pictures stay lazy', () => {
-    const img = picture()
-    expect(img).toContain('loading="lazy"')
-    expect(img).not.toContain('fetchPriority')
+  it('eager: loads at once, normal priority', () => {
+    const tag = img('eager')
+    expect(tag).toContain('loading="eager"')
+    expect(tag).not.toContain('fetchPriority')
   })
 
-  it('the first row is three cards (three columns from 1101 px, two on a phone)', () => {
-    expect(FIRST_ROW).toBe(3)
+  it('by default the picture stays lazy', () => {
+    const tag = img()
+    expect(tag).toContain('loading="lazy"')
+    expect(tag).not.toContain('fetchPriority')
   })
 })

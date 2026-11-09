@@ -57,6 +57,13 @@
             "aggregationMethod": "median-run"
           }
         ],
+        "lcp-lazy-loaded": [
+          "error",
+          {
+            "minScore": 1,
+            "aggregationMethod": "median-run"
+          }
+        ],
         "cumulative-layout-shift": [
           "error",
           {

@@ -335,7 +335,8 @@ export function CategoryGrid({
                         index={index}
                         position={position}
                         meta={bySeries ? 'series' : 'category'}
-                        eager={position < FIRST_ROW}
+                        // The grid sits below the category header: no high priority here.
+                        picture={position < FIRST_ROW ? 'eager' : 'lazy'}
                       />
                     </li>
                     {supply && position + 1 === Math.min(SUPPLY_AFTER, visible.length) && (

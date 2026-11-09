@@ -404,7 +404,8 @@ export function Catalog({ index }: { index: CatalogIndex }) {
                     position={position}
                     layout={view.view}
                     onPreview={() => setPreview(position)}
-                    eager={position < FIRST_ROW}
+                    // The first card is the largest paint of `/oferta` (Lighthouse LCP, ADR-025).
+                    picture={position === 0 ? 'priority' : position < FIRST_ROW ? 'eager' : 'lazy'}
                   />
                 </li>
               ))}
