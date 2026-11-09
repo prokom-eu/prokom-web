@@ -1824,9 +1824,6 @@ export interface Industry {
         }[]
       | null;
   };
-  /**
-   * Na stronie branży: nagłówek, wstęp i przycisk „Zobacz, jak działa GoPOS” (kroki są na /gopos).
-   */
   flow?: {
     eyebrow?: string | null;
     /**

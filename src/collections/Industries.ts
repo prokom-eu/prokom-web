@@ -143,13 +143,7 @@ export const Industries: CollectionConfig = {
         },
         {
           name: 'flow',
-          label: 'Jak to działa — odnośnik do GoPOS',
-          // BIZ-3 §10.3: the steps live on /gopos; the industry shows the heading, the lead and
-          // the link only (the other fields stay for the GoPOS-like card, not shown here).
-          admin: {
-            description:
-              'Na stronie branży: nagłówek, wstęp i przycisk „Zobacz, jak działa GoPOS” (kroki są na /gopos).',
-          },
+          label: 'Jak to działa (granatowa karta)',
           type: 'group',
           fields: optionalFields(BzOrderFlowBlock.fields),
         },
