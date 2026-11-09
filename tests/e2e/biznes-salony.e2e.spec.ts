@@ -31,7 +31,8 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
     ).toBeVisible()
     // NAPRAWA-0911: the full salon is back (B5-3b trimming withdrawn) — the rollout is its own
     // block, the hero card has its points with descriptions, the whole offer lists every model.
-    await expect(page.locator('#wdrozenie').getByRole('heading', { level: 2 })).toBeVisible()
+    // The rollout panel's own H2 (`DarkPanel` names it `wdrozenie-h`).
+    await expect(page.locator('h2#wdrozenie-h')).toBeVisible()
     const heroCard = page.locator('[data-salon-hero-card] > li')
     expect(await heroCard.count()).toBeGreaterThanOrEqual(3)
     await expect(heroCard.first().locator('small')).not.toBeEmpty()
