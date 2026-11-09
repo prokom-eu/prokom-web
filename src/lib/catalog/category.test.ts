@@ -13,7 +13,6 @@ import {
   categorySeries,
   filterCategoryProducts,
   findSubcategory,
-  helpCardSpan,
   registerOptions,
   seriesFilter,
   seriesFromParam,
@@ -118,6 +117,8 @@ describe('categoryGuide (K36 §13)', () => {
       text: 'Napisz, do czego potrzebujesz, a dobierzemy model i przygotujemy ofertę.',
       button: 'Zapytaj o dobór',
       href: choiceInquiryHref('Niszczarki'),
+      // Not a picker: no side card, the help block under the grid says it (audit 0611 P1-2).
+      picker: false,
     })
     expect(choiceInquiryHref('Niszczarki')).toBe('/zapytanie?fraza=Dob%C3%B3r%3A%20Niszczarki')
   })
@@ -305,16 +306,6 @@ describe('subcategories (K3b′)', () => {
       'Zasilacze UPS dla firm — APC',
     )
     expect(subcategoryTitle('Projektory', [])).toBe('Projektory dla firm')
-  })
-})
-
-describe('helpCardSpan', () => {
-  it('fills the rest of the last row, or a whole row when it is full', () => {
-    expect(helpCardSpan(7, 3)).toBe(2)
-    expect(helpCardSpan(8, 3)).toBe(1)
-    expect(helpCardSpan(9, 3)).toBe(3)
-    expect(helpCardSpan(7, 2)).toBe(1)
-    expect(helpCardSpan(0, 3)).toBe(3)
   })
 })
 

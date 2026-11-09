@@ -26,7 +26,6 @@ import { getSiteSettings } from '@/lib/site/data'
 import type { Crumb } from '../Breadcrumbs'
 import { CatalogContactPanel } from '../catalog/CatalogContactPanel'
 import { FaqBiznes } from '../home/FaqBiznes'
-import { HowInquiryWorks } from '../HowInquiryWorks'
 import { CategoryGrid } from './CategoryGrid'
 import { CategoryHero, type CategoryChip } from './CategoryHero'
 import { BoughtWith, CategoryFacts, IncludedCards } from './CategorySections'
@@ -194,8 +193,8 @@ export async function CategoryPageView({
           }}
         />
       )}
-      <HowInquiryWorks callbackTime={callback} />
-      {/* `#kontakt` (the grid's help card links here) wraps the form and the phone card. */}
+      {/* `#kontakt` (the grid's help card links here): one help block — the form with the
+          inquiry steps as its heading (audit 0611 P1-2), on a phone the steps and the card. */}
       <div id="kontakt" className="scroll-mt-24">
         <CatalogContactPanel
           tenantId={tenantId}
@@ -204,6 +203,7 @@ export async function CategoryPageView({
           lead={category.contact.lead}
           callbackTime={callback}
           topic={category.name}
+          withSteps
         />
         <NotListedCard />
       </div>
