@@ -737,7 +737,7 @@
   display: inline;
 }
 .mk-user > small {
-  margin-left: auto;
+  margin-left: 4px;
   padding: 1px 5px;
   border-radius: 99px;
   background: var(--mk-dark-3);

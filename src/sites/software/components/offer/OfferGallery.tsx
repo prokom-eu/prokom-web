@@ -103,8 +103,16 @@ export function OfferGallery({
         }
         if (!part) continue
         const rect = part.getBoundingClientRect()
-        let x = Math.max(0, (rect.left - frameBox.left) / scale - 8)
-        const y = Math.max(0, (rect.top - frameBox.top) / scale - 8)
+        // The dot sits on the top-left corner; a small part of a scaled panel says where it has
+        // room (`data-spot-at`, AUDYT-0911 noc #3): „end” — the top-right corner, „before” —
+        // outside on the left at half height, „above” — outside over the middle. The dot's
+        // centre is 8 px right/down of (x, y).
+        const at = part.getAttribute('data-spot-at')
+        const left =
+          at === 'end' ? rect.right : at === 'above' ? rect.left + rect.width / 2 : rect.left
+        const top = at === 'before' ? rect.top + rect.height / 2 : rect.top
+        let x = Math.max(0, (left - frameBox.left) / scale - (at === 'before' ? 22 : 8))
+        const y = Math.max(0, (top - frameBox.top) / scale - (at === 'above' ? 22 : 8))
         // Two points on the same part: the next marker stands beside the previous one.
         while (next.some((marker) => Math.abs(marker.x - x) < 24 && Math.abs(marker.y - y) < 24)) {
           x += 30
