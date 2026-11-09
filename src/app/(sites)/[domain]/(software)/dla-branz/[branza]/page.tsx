@@ -170,7 +170,7 @@ export default async function IndustryPage({ params }: Props) {
       <FaqSection
         id="pytania"
         eyebrow={page.faq.eyebrow}
-        heading="Zanim zapytasz"
+        heading="Zanim **zapytasz**"
         lead={
           <>
             Nie ma Twojego pytania?{' '}

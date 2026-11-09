@@ -46,12 +46,19 @@ test.describe('Instalacje capsule (desktop)', () => {
           .map((animation) => animation.finished.catch(() => undefined)),
       ),
     )
-    // Through the gap between the capsule and the panel (the bridge), slowly, like a hand.
+    // Through the gap between the capsule and the panel (the bridge), like a hand: straight down
+    // into the panel, then across to the item. A long diagonal can leave the menu, and on a slow
+    // runner the crossing outlasts the 280 ms close delay (flaky in CI).
     const item = panel.getByRole('link').first()
     const href = await item.getAttribute('href')
-    const box = await item.boundingBox()
-    if (!box) throw new Error('no menu item box')
-    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 25 })
+    const [buttonBox, panelBox, box] = await Promise.all([
+      button.boundingBox(),
+      panel.boundingBox(),
+      item.boundingBox(),
+    ])
+    if (!buttonBox || !panelBox || !box) throw new Error('no menu box')
+    await page.mouse.move(buttonBox.x + buttonBox.width / 2, panelBox.y + 16, { steps: 6 })
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 10 })
     await expect(panel).toBeVisible()
     await item.click()
     await expect(page).toHaveURL(new RegExp(`${href}$`))

@@ -44,13 +44,8 @@ test.describe('Biznes home: SEO and accessibility (B3-3)', () => {
   }) => {
     await page.goto(site(HOST))
     await page.waitForLoadState('networkidle')
-    // TODO(krystian): the shared search window and the menu sheet (`SearchDialog`, `BottomSheet`)
-    // still keep their H2 while closed — drop these exclusions after the `feat/wsp-*` fix.
-    const closedH2 = await page
-      .locator(
-        'dialog:not([open]):not([data-search-dialog]):not([aria-label="Menu"]) :is(h2, [role="heading"])',
-      )
-      .count()
+    // The shared search window and the menu sheet too: their titles are headings only while open.
+    const closedH2 = await page.locator('dialog:not([open]) :is(h2, h3, [role="heading"])').count()
     expect(closedH2).toBe(0)
     await expect(page.locator('#start').getByRole('heading', { level: 2 })).toHaveCount(0)
     await expect(page.locator('#start .bzw-cc h2, #start .bzw-cc [role="heading"]')).toHaveCount(0)

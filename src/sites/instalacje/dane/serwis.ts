@@ -269,7 +269,7 @@ export const serwis = {
     {
       question: 'Co przygotować przed przyjazdem serwisu?',
       answer:
-        'Opis objawów, zdjęcie urządzenia i komunikatu błędu, dostęp do rejestratora albo szafy i dane logowania, jeśli je masz. Często to wystarczy, żeby rozwiązać problem zdalnie.',
+        'Opis objawów i treść komunikatu błędu, dostęp do rejestratora albo szafy i dane logowania, jeśli je masz. Często to wystarczy, żeby rozwiązać problem zdalnie.',
     },
   ],
   relatedHeading: 'Serwis kamer, alarmów, Wi-Fi i smart home',

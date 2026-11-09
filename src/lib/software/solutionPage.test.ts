@@ -141,7 +141,7 @@ describe('full solution page (board Rozwiazanie, field crew app)', () => {
   })
 
   it('lists eight deliverables with icons and the extras', () => {
-    expect(page.deliverables.title).toBe('W cenie wdrożenia')
+    expect(page.deliverables.title).toBe('W cenie **wdrożenia**')
     expect(page.deliverables.items).toHaveLength(8)
     expect(page.deliverables.items.every((item) => item.icon !== null)).toBe(true)
     expect(page.deliverables.extra).toEqual(demo.extra)

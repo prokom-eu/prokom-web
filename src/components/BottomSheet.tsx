@@ -40,7 +40,7 @@ type Props = {
    */
   desktopQuery?: string
   /** `tabIndex={-1}` heading, for contents that move focus to it (`ProjectList`). */
-  headingRef?: RefObject<HTMLHeadingElement | null>
+  headingRef?: RefObject<HTMLParagraphElement | HTMLHeadingElement | null>
   /** Replaces the heading row (title and ×), e.g. tabs; it must bring its own close button. */
   header?: ReactNode
   /** Replaces the default size and position classes of the panel (`DEFAULT_PANEL`). */
@@ -280,13 +280,16 @@ export function BottomSheet({
           />
           {header ?? (
             <div className="mt-3 flex items-center justify-between gap-3">
-              <h2
+              {/* Audit 0611 P0.4: a heading only while open — the closed sheet stays in the page
+                  and must not add an H2 to its outline. Same element, only the role changes. */}
+              <p
                 ref={headingRef}
                 tabIndex={-1}
+                {...(open ? ({ role: 'heading', 'aria-level': 2 } as const) : {})}
                 className="font-display text-[28px] font-extrabold leading-tight outline-none"
               >
                 {title}
-              </h2>
+              </p>
               <button
                 type="button"
                 onClick={() => onClose()}

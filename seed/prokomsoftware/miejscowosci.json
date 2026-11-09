@@ -32,7 +32,7 @@
           ]
         ]
       },
-      "whoTitle": "Dla kogo pracujemy najczęściej",
+      "whoTitle": "Dla kogo pracujemy **najczęściej**",
       "whoLead": "Rabka-Zdrój to uzdrowisko i turystyka, ale też usługi i handel dla mieszkańców. Każda z tych firm potrzebuje czegoś innego.",
       "who": [
         {
@@ -60,7 +60,7 @@
           "solution": "strona-firmowa-z-panelem"
         }
       ],
-      "localTitle": "Blisko, czyli prościej",
+      "localTitle": "Blisko, **czyli prościej**",
       "local": [
         [
           "Spotkanie w 10 minut",

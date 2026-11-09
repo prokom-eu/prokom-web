@@ -148,9 +148,13 @@ export function MenuSheet({
           </div>
         )}
         <div className="flex flex-col gap-2">
-          <h3 className="text-[11.5px] font-extrabold tracking-[0.12em] text-ink-2 uppercase">
+          {/* A heading only while open (audit 0611 P0.4), as the sheet's title. */}
+          <p
+            {...(open ? ({ role: 'heading', 'aria-level': 3 } as const) : {})}
+            className="text-[11.5px] font-extrabold tracking-[0.12em] text-ink-2 uppercase"
+          >
             Linie PRO-KOM
-          </h3>
+          </p>
           <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
             {withGamingLast(lines).map((line) => {
               const Tag = line.url ? 'a' : 'span'

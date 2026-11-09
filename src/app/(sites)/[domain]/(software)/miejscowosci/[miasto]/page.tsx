@@ -184,7 +184,7 @@ export default async function CityPage({ params }: Props) {
       <FaqSection
         id="pytania"
         eyebrow={city.locative ? `Pytania ${city.locative}` : 'Pytania'}
-        heading="Najczęściej pytacie o to"
+        heading="Najczęściej **pytacie o to**"
         lead={null}
         items={faq}
       />

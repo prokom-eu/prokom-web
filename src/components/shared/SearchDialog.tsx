@@ -109,6 +109,11 @@ export function SearchDialog({
   const headingId = useId()
   const body = useRef<HTMLDivElement>(null)
   const [activeId, setActiveId] = useState<string | null>(null)
+  // Audit 0611 P0.4: the closed window stays in the page, so its titles are headings only while
+  // it is open (no „Szukaj” H2 in the outline of every page).
+  const [open, setOpen] = useState(false)
+  const headingRole = (level: 2 | 3) =>
+    open ? ({ role: 'heading', 'aria-level': level } as const) : {}
   const hoverTimer = useRef<number | undefined>(undefined)
 
   const show = useCallback(() => {
@@ -118,6 +123,7 @@ export function SearchDialog({
     setStatus('')
     setActiveId(null)
     dialog.current.showModal()
+    setOpen(true)
     input.current?.focus()
   }, [line, recentlyViewed])
 
@@ -237,9 +243,9 @@ export function SearchDialog({
 
   const groupBlock = (group: SearchGroup) => (
     <section key={group.key} className="sdlg__group" aria-labelledby={`${headingId}-${group.key}`}>
-      <h3 id={`${headingId}-${group.key}`} className="sdlg__title">
+      <p id={`${headingId}-${group.key}`} {...headingRole(3)} className="sdlg__title">
         {group.title}
-      </h3>
+      </p>
       <ul>
         {group.results.map((result) => (
           <li key={result.id}>
@@ -277,7 +283,10 @@ export function SearchDialog({
       aria-labelledby={headingId}
       className={renderPreview ? 'sdlg sdlg--preview' : 'sdlg'}
       data-search-dialog
-      onClose={() => setStatus('')}
+      onClose={() => {
+        setStatus('')
+        setOpen(false)
+      }}
       onClick={(event) => {
         const box = dialog.current?.getBoundingClientRect()
         const outside =
@@ -293,9 +302,9 @@ export function SearchDialog({
       }}
     >
       <div className="flex max-h-[inherit] flex-col" onKeyDown={moveFocus}>
-        <h2 id={headingId} className="sr-only">
+        <p id={headingId} {...headingRole(2)} className="sr-only">
           {label}
-        </h2>
+        </p>
         <div className="sdlg__field">
           <Icon name="search" strokeWidth={2.2} className="size-[22px] text-accent-text" />
           <input
@@ -344,9 +353,9 @@ export function SearchDialog({
                 )}
                 {provider.popular && provider.popular.length > 0 && (
                   <section className="sdlg__group" aria-labelledby={`${headingId}-popular`}>
-                    <h3 id={`${headingId}-popular`} className="sdlg__title">
+                    <p id={`${headingId}-popular`} {...headingRole(3)} className="sdlg__title">
                       Najczęściej szukane
-                    </h3>
+                    </p>
                     <div className="sdlg__chips">
                       {provider.popular.map((phrase) => (
                         <button
@@ -368,9 +377,9 @@ export function SearchDialog({
                 {recent.length > 0 && (
                   <section className="sdlg__group" aria-labelledby={`${headingId}-recent`}>
                     <div className="flex items-center justify-between">
-                      <h3 id={`${headingId}-recent`} className="sdlg__title">
+                      <p id={`${headingId}-recent`} {...headingRole(3)} className="sdlg__title">
                         Ostatnio oglądane
-                      </h3>
+                      </p>
                       <button
                         type="button"
                         className="sdlg__link"
@@ -408,9 +417,9 @@ export function SearchDialog({
 
             {trimmed && matched.length > 0 && (
               <section className="sdlg__group" aria-labelledby={`${headingId}-actions`}>
-                <h3 id={`${headingId}-actions`} className="sdlg__title">
+                <p id={`${headingId}-actions`} {...headingRole(3)} className="sdlg__title">
                   Akcje
-                </h3>
+                </p>
                 <ul>
                   {matched.map((action) => (
                     <li key={action.kind}>{actionItem(action, false)}</li>
