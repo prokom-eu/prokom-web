@@ -101,12 +101,13 @@ export function OfferGallery({
         }
         if (!part) continue
         const rect = part.getBoundingClientRect()
-        next.push({
-          number: point.number,
-          label: point.label,
-          x: Math.max(0, (rect.left - frameBox.left) / scale - 8),
-          y: Math.max(0, (rect.top - frameBox.top) / scale - 8),
-        })
+        let x = Math.max(0, (rect.left - frameBox.left) / scale - 8)
+        const y = Math.max(0, (rect.top - frameBox.top) / scale - 8)
+        // Two points on the same part: the next marker stands beside the previous one.
+        while (next.some((marker) => Math.abs(marker.x - x) < 24 && Math.abs(marker.y - y) < 24)) {
+          x += 30
+        }
+        next.push({ number: point.number, label: point.label, x, y })
       }
       setMarkers(next)
     }
