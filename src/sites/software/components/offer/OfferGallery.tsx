@@ -36,6 +36,11 @@ export type SpotPoint = { number: number; label: string; spots: readonly SpotKey
 
 type Marker = { number: number; label: string; x: number; y: number }
 
+/** The dot of a marker: its centre is `DOT_OFFSET` right/down of (x, y), `DOT_OUTSIDE` puts it
+ * wholly outside an edge (its radius 12 + 2 px of air). */
+const DOT_OFFSET = 8
+const DOT_OUTSIDE = DOT_OFFSET + 14
+
 const matches = (element: Element, spots: readonly SpotKey[]) => {
   const own = (element.getAttribute('data-spot') ?? '').split(' ')
   return spots.some((spot) => own.includes(spot))
@@ -105,14 +110,19 @@ export function OfferGallery({
         const rect = part.getBoundingClientRect()
         // The dot sits on the top-left corner; a small part of a scaled panel says where it has
         // room (`data-spot-at`, AUDYT-0911 noc #3): „end” — the top-right corner, „before” —
-        // outside on the left at half height, „above” — outside over the middle. The dot's
-        // centre is 8 px right/down of (x, y).
+        // outside on the left at half height, „above” — outside over the middle.
         const at = part.getAttribute('data-spot-at')
         const left =
           at === 'end' ? rect.right : at === 'above' ? rect.left + rect.width / 2 : rect.left
         const top = at === 'before' ? rect.top + rect.height / 2 : rect.top
-        let x = Math.max(0, (left - frameBox.left) / scale - (at === 'before' ? 22 : 8))
-        const y = Math.max(0, (top - frameBox.top) / scale - (at === 'above' ? 22 : 8))
+        let x = Math.max(
+          0,
+          (left - frameBox.left) / scale - (at === 'before' ? DOT_OUTSIDE : DOT_OFFSET),
+        )
+        const y = Math.max(
+          0,
+          (top - frameBox.top) / scale - (at === 'above' ? DOT_OUTSIDE : DOT_OFFSET),
+        )
         // Two points on the same part: the next marker stands beside the previous one.
         while (next.some((marker) => Math.abs(marker.x - x) < 24 && Math.abs(marker.y - y) < 24)) {
           x += 30

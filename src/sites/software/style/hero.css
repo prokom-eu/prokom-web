@@ -1653,8 +1653,9 @@
    a short screen tightens the text first. 390×844 and taller stay as above. */
 @media (max-width: 600px) {
   .hx {
-    /* 0.6566: window height / width; the tab bar and its air below the window. */
-    --hx-w: clamp(240px, calc((100vh - var(--hx-above) - 86px) / 0.6566), var(--hx-w-max));
+    /* 0.6566: window height / width; 86px: the tab bar and its air below the window.
+       `--hx-above`: where the window starts with today's title and lead from the panel — a much
+       longer lead pushes the window down again (e2e software-hero watches it on the seed). */
     --hx-w: clamp(240px, calc((100svh - var(--hx-above) - 86px) / 0.6566), var(--hx-w-max));
     --hx-above: 528px;
   }

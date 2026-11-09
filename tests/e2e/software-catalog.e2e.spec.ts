@@ -549,3 +549,27 @@ test.describe('Software catalog accessibility', () => {
     })
   }
 })
+
+// SWA10 #2, SWA11 #3 (AUDYT-0911 noc): a system lights three points of its panel, and the
+// numbered dots stand beside their parts — not on the avatar or the phone badge.
+test('system offer: ① ② ③ on the panel without covering it', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto(site(HOST, `${PATH}?rozwiazanie=crm-dla-malej-i-sredniej-firmy`))
+  const dialog = windowOf(page, 'CRM dla małej i średniej firmy')
+  const shot = dialog.locator('.sw-offer-shot')
+  await expect(shot.locator('[data-marker]')).toHaveCount(3)
+  const overlaps = async (marker: string, part: string) => {
+    const dot = await shot.locator(`[data-marker="${marker}"] > span`).boundingBox()
+    const box = await shot.locator(part).boundingBox()
+    expect(dot, marker).not.toBeNull()
+    expect(box, part).not.toBeNull()
+    return (
+      dot!.x < box!.x + box!.width &&
+      box!.x < dot!.x + dot!.width &&
+      dot!.y < box!.y + box!.height &&
+      box!.y < dot!.y + dot!.height
+    )
+  }
+  expect(await overlaps('2', '.mk-user > i')).toBe(false)
+  expect(await overlaps('3', '.mk-device')).toBe(false)
+})
