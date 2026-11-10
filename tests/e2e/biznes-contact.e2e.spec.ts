@@ -6,8 +6,10 @@ import { api, loginAsAdmin, setTheme, site } from './helpers'
 
 // D3-B PR 2 (docs/zadania/prokombiznes-0611.md §8.2): `/kontakt` of Biznes on the shared Kontakt
 // template — phone first, the salon card (Rabka only), „Z czym dzwonisz?” (4 matters, each picks
-// the topic of the form), the form with the inquiry list attached. Needs `pnpm seed` and
-// Mailpit; records made here are deleted.
+// the topic of the form), the form with the inquiry list attached. PREMIUM-1011: the form is the
+// home page's (`ContactPanelCard`, topic chips sent as `topics`), the week's hours with „dziś”,
+// „Zanim zadzwonisz” with the list card. Needs `pnpm seed` and Mailpit; records made here are
+// deleted.
 
 const MAILPIT = 'http://localhost:8025/api/v1'
 const CONTACT = '/kontakt'
@@ -85,12 +87,12 @@ test.describe('Biznes /kontakt (shared template, §8.2)', () => {
     const topic = form(page).getByRole('button', { name: 'Awaria albo serwis' })
     await expect(topic).toHaveAttribute('aria-pressed', 'true')
 
-    await form(page).getByLabel('Imię i firma').fill(marker)
-    await form(page).getByLabel('Telefon lub e-mail').fill('600 100 200')
+    await form(page).getByLabel('Imię lub firma').fill(marker)
+    await form(page).getByLabel('Telefon').fill('600 100 200')
     await form(page).getByRole('checkbox').check()
     await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
     await form(page).locator('button[type="submit"]').click()
-    await expect(page.locator('[data-success-panel]')).toBeVisible()
+    await expect(page.getByText('Dziękujemy, zapytanie wysłane.')).toBeVisible()
     // Sent: the list is empty, as after the drawer's form.
     expect(await page.evaluate(() => localStorage.getItem('pk-cart'))).toBe('[]')
 
@@ -106,7 +108,7 @@ test.describe('Biznes /kontakt (shared template, §8.2)', () => {
       expect(record).toMatchObject({
         line: 'biznes',
         type: 'contact',
-        category: 'Awaria albo serwis',
+        topics: ['Awaria albo serwis'],
         phone: '600 100 200',
       })
       expect(String(record?.message)).toContain('Lista „Do zapytania” (1 pozycja):')
@@ -117,6 +119,32 @@ test.describe('Biznes /kontakt (shared template, §8.2)', () => {
     } finally {
       expect((await api(page, 'DELETE', `/api/inquiries/${record?.id}`)).status).toBe(200)
     }
+  })
+
+  test('PREMIUM-1011: the week with „dziś”, „Zanim zadzwonisz” with the list card, no footer band', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost', '/'))
+    await page.evaluate(() =>
+      localStorage.setItem('pk-cart', JSON.stringify([{ id: 'posnet-ergo-online', q: 1 }])),
+    )
+    await page.goto(site('biznes.localhost', CONTACT))
+    const week = page.locator('[data-week-hours] tr')
+    await expect(week).toHaveCount(7)
+    await expect(week.first()).toContainText('Poniedziałek')
+    await expect(page.locator('[data-week-hours] tr[aria-current="date"]')).toHaveCount(1)
+    const faq = page.locator('#pytania')
+    await expect(faq.locator('details')).toHaveCount(4)
+    await expect(faq.locator('details').first()).toContainText('Dojeżdżacie do mnie?')
+    const listCard = page.locator('[data-inquiry-list-card]')
+    await expect(listCard.getByRole('link')).toHaveText('Twoje zapytanie (1)')
+    await expect(listCard.getByRole('link')).toHaveAttribute('href', '/zapytanie')
+    // „Inna sprawa?”: four tiles in one row at 1440 px, no orphan.
+    const tops = await page
+      .locator('[data-other-lines] > li')
+      .evaluateAll((items) => items.map((item) => Math.round(item.getBoundingClientRect().top)))
+    expect(new Set(tops).size).toBe(1)
+    await expect(page.locator('[data-lines-band]')).toBeHidden()
   })
 
   for (const theme of ['light', 'dark'] as const) {

@@ -10,8 +10,9 @@ import { toTelHref } from '@/lib/site/link'
  * with the pin and „Wyznacz trasę ↗”, then phone, e-mail and the address with hours — instead of
  * the channel tiles that repeated the footer. Every value from the panel (`CompanyData`, the
  * line's settings); the drawing is of the office, so the map shows only for the first salon.
+ * `map={false}` where the page shows the map already (`/kontakt`, its hero card).
  */
-export function ContactPlace({ shared }: { shared: SharedData }) {
+export function ContactPlace({ shared, map = true }: { shared: SharedData; map?: boolean }) {
   const { company, line } = shared
   const salon = shared.salons[0] ?? null
   const address = salonAddress(salon)
@@ -20,7 +21,7 @@ export function ContactPlace({ shared }: { shared: SharedData }) {
   const hours = salon ? hoursSummary(salon.hours) : null
   return (
     <div className="flex flex-col gap-4" data-contact-place>
-      {salon && address && (
+      {map && salon && address && (
         <AddressMap
           variant="dark"
           height={190}
