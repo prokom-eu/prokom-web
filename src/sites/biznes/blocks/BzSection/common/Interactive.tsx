@@ -1,18 +1,30 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useId, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import type { SectionData } from '@/lib/biznes/pages/sections'
 import { productHref } from '@/lib/catalog/card'
+import type { IndexImage } from '@/lib/catalog/catalogIndex'
 
 import { VideoFacade } from '../../../components/VideoFacade'
 import { useSwap } from '../../../components/motion/useSwap'
 import { CARD, TAB_KEYS } from '../ui'
 
-/** `videos`: the picked film behind the facade (ADR-016) and the list of films next to it. */
-export function VideoPicker({ data }: { data: SectionData<'videos'> }) {
+/**
+ * `videos`: the picked film behind the facade (ADR-016) and the list of films next to it. The
+ * poster shows the producer's device or box when given (Web-gopos, Web-insert) — a photo from our
+ * catalog, nothing from YouTube before the click.
+ */
+export function VideoPicker({
+  data,
+  poster = null,
+}: {
+  data: SectionData<'videos'>
+  poster?: IndexImage | null
+}) {
   const [current, setCurrent] = useState(0)
   const video = data.videos[current] ?? data.videos[0]!
   return (
@@ -21,6 +33,18 @@ export function VideoPicker({ data }: { data: SectionData<'videos'> }) {
         key={video.id}
         video={{ id: video.id, title: video.t, channel: video.k, lang: null }}
         label={data.label}
+        poster={
+          poster ? (
+            <Image
+              unoptimized
+              src={poster.url}
+              alt={poster.alt}
+              width={poster.width}
+              height={poster.height}
+              className="max-h-full w-auto object-contain"
+            />
+          ) : undefined
+        }
       />
       <div className="flex min-w-0 flex-col gap-2">
         {/* Phone (App-GoPOS „Filmy”): the titles in one row of pills under the player. */}

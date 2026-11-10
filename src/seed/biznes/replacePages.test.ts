@@ -44,6 +44,35 @@ describe('layout helpers', () => {
     expect(blockTypes(null)).toEqual([])
   })
 
+  it('PREMIUM-1011: the same types but other section data is not the seed layout', () => {
+    const seed = [
+      { blockType: 'bzSection', variant: 'gopos-hub', data: { orders: [{ c: 'Glovo' }] } },
+      { blockType: 'faq', heading: 'Pytania' },
+    ] as unknown as PageBlock[]
+    // Payload adds row ids and keys the seed does not set: still the same layout.
+    const stored = [
+      {
+        id: 'a1',
+        blockType: 'bzSection',
+        variant: 'gopos-hub',
+        anchor: null,
+        data: { orders: [{ c: 'Glovo' }] },
+      },
+      { id: 'a2', blockType: 'faq', heading: 'Pytania', items: [] },
+    ] as unknown as PageBlock[]
+    expect(hasSeedLayout(stored, seed)).toBe(true)
+    const older = [
+      { blockType: 'bzSection', variant: 'gopos-hub', data: {} },
+      { blockType: 'faq', heading: 'Pytania' },
+    ] as unknown as PageBlock[]
+    expect(hasSeedLayout(older, seed)).toBe(false)
+    const otherVariant = [
+      { blockType: 'bzSection', variant: 'cards', data: { orders: [{ c: 'Glovo' }] } },
+      { blockType: 'faq', heading: 'Pytania' },
+    ] as unknown as PageBlock[]
+    expect(hasSeedLayout(otherVariant, seed)).toBe(false)
+  })
+
   it('describes a layout for the report', () => {
     expect(describeLayout(blocks('bzSection', 'bzSection', 'faq'))).toBe('3 bl. (bzSection×2, faq)')
     expect(describeLayout([])).toBe('0 bl. (—)')

@@ -9,6 +9,7 @@ import {
   buildBundleView,
   itemNote,
   listBundle,
+  readyBundlesInOrder,
   type BundleView,
 } from './bundle'
 
@@ -227,5 +228,20 @@ describe('filterBundleCards', () => {
     expect(slugs({ area: 'gastronomia', industry: null, size: null })).toEqual(['a', 'c'])
     expect(slugs({ area: null, industry: 'noclegi', size: null })).toEqual(['c'])
     expect(slugs({ area: 'gastronomia', industry: null, size: 'Duży' })).toEqual(['c'])
+  })
+})
+
+describe('readyBundlesInOrder (GoPOS „Gotowe zestawy dla gastronomii”, PREMIUM-1011)', () => {
+  const ready = (slug: string, indexable = true): BundleView => ({ ...view, slug, indexable })
+  const listed = [ready('bistro'), ready('kawiarnia'), ready('foodtruck', false), ready('inny')]
+
+  it('keeps the order of the page, only „Gotowe” bundles of the list', () => {
+    expect(
+      readyBundlesInOrder(['foodtruck', 'kawiarnia', 'bistro', 'brak'], listed).map((b) => b.slug),
+    ).toEqual(['kawiarnia', 'bistro'])
+  })
+
+  it('nothing ready — nothing to show', () => {
+    expect(readyBundlesInOrder(['foodtruck'], listed)).toEqual([])
   })
 })

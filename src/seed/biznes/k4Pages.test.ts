@@ -203,8 +203,19 @@ describe('/gopos (K4h)', () => {
     }
   })
 
-  it('leaves the gastronomy bundles out (K32 §3) and knows every board id', () => {
-    expect(JSON.stringify(layout)).not.toContain('zestaw-gastro')
+  it('shows the gastronomy bundles after the devices (PREMIUM-1011, reverses K32 §3)', () => {
+    const variants = layout.flatMap((block) =>
+      block.blockType === 'bzSection' ? [block.variant] : [],
+    )
+    expect(variants.indexOf('bundles')).toBe(variants.indexOf('products') + 1)
+    expect(dataOf(layout, 'bundles')?.slugs).toEqual([
+      'zestaw-gastro-foodtruck',
+      'zestaw-kawiarnia-lada',
+      'zestaw-restauracja-bistro',
+    ])
+  })
+
+  it('knows every board id', () => {
     expect(missing).toEqual([])
   })
 })
@@ -220,6 +231,24 @@ describe('/insert (K4h)', () => {
   it('InsPunkty start at 40 + 30', () => {
     const data = dataOf(insertK4Layout(pages, identity).layout, 'insert-points')!
     expect(data.defaults).toEqual([40, 30])
+  })
+
+  it('PREMIUM-1011: the box composition from `insert.orb`, nexo in the middle', () => {
+    const data = dataOf(insertK4Layout(pages, identity).layout, 'insert-hero')!
+    expect(data.orbit?.center).toBe('nexo')
+    expect(data.orbit?.items.map((item) => item.slug)).toEqual([
+      'rachmistrz',
+      'rewizor',
+      'gratyfikant',
+      'gestor',
+      'biuro',
+      's123',
+    ])
+    // A program missing in the catalog drops out; without nexo the shelf stays.
+    const noRewizor = insertK4Layout(pages, (id) => (id === 'rewizor' ? undefined : id))
+    expect(dataOf(noRewizor.layout, 'insert-hero')!.orbit?.items).toHaveLength(5)
+    const noNexo = insertK4Layout(pages, (id) => (id === 'nexo' ? undefined : id))
+    expect(dataOf(noNexo.layout, 'insert-hero')!.orbit).toBeUndefined()
   })
 
   it('drops the KSeF sections and reports the ids when the database lacks them', () => {

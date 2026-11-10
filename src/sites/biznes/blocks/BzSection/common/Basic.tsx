@@ -328,6 +328,7 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
           </li>
         ))}
       </ul>
+      {data.lines && <TableLines lines={data.lines} />}
     </SectionShell>
   )
 }
@@ -389,5 +390,41 @@ export function ChipsSection({ block, data }: Props & { data: SectionData<'chips
         </details>
       )}
     </SectionShell>
+  )
+}
+
+/**
+ * „Linie InsERT” under the comparison (PREMIUM-1011, `insert.lines`): a card per line with its
+ * tagline and who it is for — the step after „123, GT czy nexo?”. Facts of the package only.
+ */
+function TableLines({ lines }: { lines: NonNullable<SectionData<'table'>['lines']> }) {
+  return (
+    <div className="mt-10 max-md:mt-6" data-table-lines>
+      <h3 className="font-display text-xl font-extrabold">{lines.t}</h3>
+      <ul
+        className="mt-4 grid gap-3 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4"
+        data-reveal-cards=""
+      >
+        {lines.items.map((line) => (
+          <li key={line.t} className={cx(CARD, 'flex flex-col gap-2 p-5 text-ink')}>
+            <b className="font-display text-lg font-extrabold">{line.t}</b>
+            <span className="text-[13px] font-extrabold tracking-[0.04em] text-accent-text uppercase">
+              {line.s}
+            </span>
+            <ul className="mt-1 flex flex-col gap-1.5 text-[15px] text-ink-2">
+              {line.b.map((point) => (
+                <li key={point} className="flex gap-2">
+                  <span aria-hidden="true" className="text-ok-text">
+                    ✓
+                  </span>
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+      {lines.source && <p className="mt-3 text-[13px] text-ink-2">{lines.source}</p>}
+    </div>
   )
 }

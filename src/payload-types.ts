@@ -3058,6 +3058,7 @@ export interface BzSectionBlock {
     | 'tabs'
     | 'chips'
     | 'products'
+    | 'bundles'
     | 'gopos-hero'
     | 'gopos-venues'
     | 'gopos-areas'

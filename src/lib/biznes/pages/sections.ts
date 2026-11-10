@@ -69,10 +69,18 @@ const actionsSchema = z.object({
 const videosSchema = z.object({
   label: text,
   note: z.string().optional(),
+  /** Product whose photo is the frame of the poster (Web-gopos: the All in One, Web-insert: the
+   * nexo box); without it the poster is the plain navy one. */
+  poster: z.string().trim().min(1).max(120).optional(),
   videos: z
     .array(z.object({ id: z.string().regex(/^[\w-]{6,20}$/), t: text, k: text }))
     .min(1)
     .max(8),
+})
+
+/** `bundles`: ready bundles by slug, in this order (GoPOS „Gotowe zestawy dla gastronomii”). */
+const bundlesSchema = z.object({
+  slugs: z.array(z.string().trim().min(1).max(120)).min(1).max(6),
 })
 
 /** `table`: a comparison; on a phone each column becomes a card. */
@@ -81,6 +89,17 @@ const tableSchema = z.object({
   rows: z.array(z.object({ k: text, v: z.array(text) })).max(12),
   /** Two value columns as „without” and „with” (board `Web-opieka-it`): red ✕ and green ✓. */
   contrast: z.boolean().optional(),
+  /** Cards under the table (InsERT „Linie InsERT”, PREMIUM-1011): name, tagline, points. */
+  lines: z
+    .object({
+      t: text,
+      items: z
+        .array(z.object({ t: text, s: text, b: z.array(text).max(4) }))
+        .min(1)
+        .max(4),
+      source: z.string().optional(),
+    })
+    .optional(),
 })
 
 /** `tabs`: groups of entries (InsERT „Cała oferta”); an entry may link to its product card. */
@@ -131,6 +150,7 @@ export const SECTION_SCHEMAS = {
   tabs: tabsSchema,
   chips: chipsSchema,
   products: productsSchema,
+  bundles: bundlesSchema,
   // GoPOS (K4h).
   'gopos-hero': goposHeroSchema,
   'gopos-venues': goposVenuesSchema,
@@ -184,6 +204,7 @@ export const SECTION_VARIANTS: readonly { value: SectionVariant; label: string }
   { value: 'tabs', label: 'Zakładki z pozycjami' },
   { value: 'chips', label: 'Grupy etykiet (integracje)' },
   { value: 'products', label: 'Produkty z katalogu' },
+  { value: 'bundles', label: 'Gotowe zestawy' },
   { value: 'gopos-hero', label: 'GoPOS: hero' },
   { value: 'gopos-venues', label: 'GoPOS: Twój lokal' },
   { value: 'gopos-areas', label: 'GoPOS: obszary i moduły' },

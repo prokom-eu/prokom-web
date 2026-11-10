@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from 'react'
 
+import { cx } from '@/components/ui/cx'
 import type { ProductVideo } from '@/lib/catalog/product'
 
 const LANGUAGES: Record<string, string> = {
@@ -80,7 +81,16 @@ export function VideoFacade({
             <span className="text-xs font-extrabold tracking-[0.12em] text-white/75 uppercase">
               {label}
             </span>
-            <span className="font-display text-[clamp(1.2rem,2.4vw,1.9rem)] leading-tight font-extrabold font-stretch-106%">
+            <span
+              className={cx(
+                'font-display leading-tight font-extrabold font-stretch-106%',
+                // With the photo on the right the column is narrow: a smaller title keeps clear
+                // of the play button (Web-gopos, Web-insert).
+                poster
+                  ? 'text-[clamp(1.05rem,1.6vw,1.45rem)]'
+                  : 'text-[clamp(1.2rem,2.4vw,1.9rem)]',
+              )}
+            >
               {video.title}
             </span>
             <span className="text-sm text-white/75">{videoMeta(video)}</span>

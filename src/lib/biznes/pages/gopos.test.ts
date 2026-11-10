@@ -13,6 +13,7 @@ import {
   ticketStep,
   toggleModule,
   type GoposModule,
+  queueAt,
 } from './gopos'
 
 const MODULES: GoposModule[] = [
@@ -120,5 +121,14 @@ describe('GoPOS section data (POPRAWKI-0311 §A, §B)', () => {
     expect(goposVenuesSchema.parse({ venues: [{ ...venue, image: 'd3' }] }).venues[0]!.image).toBe(
       'd3',
     )
+  })
+})
+
+describe('queueAt (GoHub queue, PREMIUM-1011)', () => {
+  it('brings the last order to the top at each step and comes round', () => {
+    expect(queueAt(['a', 'b', 'c'], 0)).toEqual(['a', 'b', 'c'])
+    expect(queueAt(['a', 'b', 'c'], 1)).toEqual(['c', 'a', 'b'])
+    expect(queueAt(['a', 'b', 'c'], 3)).toEqual(['a', 'b', 'c'])
+    expect(queueAt([], 5)).toEqual([])
   })
 })

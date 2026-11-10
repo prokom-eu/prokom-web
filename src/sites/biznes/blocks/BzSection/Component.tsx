@@ -22,6 +22,7 @@ import {
   StepsSection,
   TableSection,
 } from './common/Basic'
+import { BundlesSection } from './common/Bundles'
 import { TabsPicker, VideoPicker } from './common/InteractiveLazy'
 import { ProductGrid, productsBySlug } from './common/Products'
 import { Audience, CareHero, StartCalendar } from './firma/Care'
@@ -62,6 +63,7 @@ type Props = {
 /** Kinds that read the catalog (product cards, pictures, brand logos). */
 const NEEDS_INDEX: ReadonlySet<SectionVariant> = new Set([
   'products',
+  'bundles',
   'gopos-hero',
   'gopos-venues',
   'insert-hero',
@@ -138,12 +140,22 @@ async function render(
       const data = parseSectionData('chips', block.data)
       return data && <ChipsSection block={block} data={data} />
     }
+    case 'bundles': {
+      const data = parseSectionData('bundles', block.data)
+      return (
+        data &&
+        index && <BundlesSection block={block} data={data} index={index} tenantId={tenantId} />
+      )
+    }
     case 'videos': {
       const data = parseSectionData('videos', block.data)
+      // The catalog only when the films have a poster frame.
+      const catalog = data?.poster ? (index ?? (await getCatalogIndex(tenantId))) : null
+      const [frame] = data?.poster && catalog ? productsBySlug(catalog, [data.poster]) : []
       return (
         data && (
           <SectionShell block={block}>
-            <VideoPicker data={data} />
+            <VideoPicker data={data} poster={frame?.image ?? null} />
           </SectionShell>
         )
       )
@@ -214,7 +226,7 @@ async function render(
       return (
         data && (
           <SectionShell block={block}>
-            <GoposHub data={data} />
+            <GoposHub data={data} onDark={block.surface === 'dark'} />
           </SectionShell>
         )
       )

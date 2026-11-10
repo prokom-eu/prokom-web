@@ -90,6 +90,28 @@ test.describe('Biznes /gopos (K4h)', () => {
     ).toContainText('GoHub')
   })
 
+  test('PREMIUM-1011: ready gastronomy bundles, the GoHub queue and the film poster', async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(site('biznes.localhost', '/gopos'))
+    const bundles = page.locator('[data-bundles-section] > li')
+    // Only „Gotowe” bundles — each links to its page, each can go to the inquiry.
+    expect(await bundles.count()).toBeGreaterThan(0)
+    for (const tile of await bundles.all()) {
+      await expect(tile.locator('a[href^="/zestawy/"]').first()).toBeVisible()
+      await expect(tile.getByRole('button', { name: /Dodaj zestaw do zapytania/ })).toBeVisible()
+    }
+    // Reduced motion: the queue stands still, the newest order says „teraz”.
+    const queue = page.locator('[data-order-queue] li')
+    await expect(queue).toHaveCount(3)
+    await expect(queue.first()).toContainText('teraz')
+    // The poster frame is our catalog photo; YouTube only after the click.
+    const film = page.locator('#film-gopos')
+    await expect(film.locator('img')).toHaveCount(1)
+    await expect(film.locator('iframe')).toHaveCount(0)
+  })
+
   test('no prices, leasing or instalments on the page', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/gopos'))
     const text = await page.locator('main').innerText()
