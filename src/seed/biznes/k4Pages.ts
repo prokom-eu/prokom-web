@@ -89,6 +89,10 @@ export type K4PagesFile = {
     hub: { plat: string[]; out: Pair[]; lead: string; src: string }
     ksef: string[]
     devs: string[]
+    /** Ready bundles for gastronomy (bundle slugs), PREMIUM-1011. */
+    zes?: string[]
+    /** GoHub queue: platform, items, time (PREMIUM-1011). */
+    ord?: [string, string, string][]
     pakiety: {
       h: string[]
       rows: [string, string, string][]
@@ -322,6 +326,9 @@ export function upgradeCareSupplyLink(stored: PageBlock[], seed: PageBlock[]): P
   return changed ? next : null
 }
 
+/** The poster frame of a `videos` section, when the product is in the catalog. */
+const withPoster = (slug: string | undefined) => (slug ? { poster: slug } : {})
+
 /** `/gopos` (K4h, K32 §3, plansza Web-GoPOS). */
 export function goposK4Layout(
   file: K4PagesFile,
@@ -448,6 +455,8 @@ export function goposK4Layout(
     }),
     section({
       variant: 'gopos-hub',
+      // Web-gopos: the queue on navy (PREMIUM-1011).
+      surface: 'dark',
       eyebrow: 'Dowozy · GoHub',
       heading: 'Pięć aplikacji z zamówieniami w jednej kolejce',
       lead: g.hub.lead,
@@ -458,6 +467,8 @@ export function goposK4Layout(
         hubSlug: r.one('gohub') ?? 'gohub',
         platforms: g.hub.plat,
         out: g.hub.out.map(([t, d]) => ({ t, d })),
+        // PREMIUM-1011: the live queue of orders (`gopos.ord`).
+        orders: (g.ord ?? []).map(([c, d, t]) => ({ c, d, t })),
       },
     }),
     section({
@@ -488,6 +499,20 @@ export function goposK4Layout(
             eyebrow: 'Sprzęt pod GoPOS',
             heading: 'Urządzenia, które wdrażamy z GoPOS',
             data: { slugs: devices, visible: 4 },
+          }),
+        ]
+      : []),
+    // PREMIUM-1011: the three gastronomy bundles of the package (only „Gotowe” are shown).
+    ...(g.zes?.length
+      ? [
+          section({
+            variant: 'bundles',
+            anchor: 'zestawy',
+            surface: 'muted',
+            eyebrow: 'Gotowe zestawy',
+            heading: 'Gotowe zestawy dla gastronomii',
+            lead: 'Sprzęt dobrany pod lokal i sprawdzony ze sobą. Dodaj zestaw do zapytania — wycenę dostaniesz na piśmie.',
+            data: { slugs: g.zes },
           }),
         ]
       : []),
@@ -532,6 +557,8 @@ export function goposK4Layout(
         label: 'Film GoPOS',
         note: 'Filmy z oficjalnego kanału GoPOS. Odtwarzają się po kliknięciu.',
         videos: g.vids.map(({ id, t, k }) => ({ id, t, k })),
+        // Web-gopos: the All in One on the poster (PREMIUM-1011).
+        ...withPoster(r.one('gopos-all-in-one')),
       },
     }),
     section({
@@ -721,6 +748,8 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
         label: 'Film InsERT',
         note: 'Filmy z oficjalnego kanału InsERT. Odtwarzają się po kliknięciu.',
         videos: i.vids.map(({ id, t, k }) => ({ id, t, k })),
+        // Web-insert: the Subiekt nexo box on the poster (PREMIUM-1011).
+        ...withPoster(r.one('nexo')),
       },
     }),
     faq('Pytania', 'Pytania o programy InsERT', i.faq),

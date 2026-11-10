@@ -203,8 +203,19 @@ describe('/gopos (K4h)', () => {
     }
   })
 
-  it('leaves the gastronomy bundles out (K32 §3) and knows every board id', () => {
-    expect(JSON.stringify(layout)).not.toContain('zestaw-gastro')
+  it('shows the gastronomy bundles after the devices (PREMIUM-1011, reverses K32 §3)', () => {
+    const variants = layout.flatMap((block) =>
+      block.blockType === 'bzSection' ? [block.variant] : [],
+    )
+    expect(variants.indexOf('bundles')).toBe(variants.indexOf('products') + 1)
+    expect(dataOf(layout, 'bundles')?.slugs).toEqual([
+      'zestaw-gastro-foodtruck',
+      'zestaw-kawiarnia-lada',
+      'zestaw-restauracja-bistro',
+    ])
+  })
+
+  it('knows every board id', () => {
     expect(missing).toEqual([])
   })
 })
