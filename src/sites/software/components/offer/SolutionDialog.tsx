@@ -44,11 +44,13 @@ import {
  * page dimmed and blurred behind).
  */
 const PANEL =
-  'sw-offer-panel inset-0 m-auto h-[min(920px,calc(100dvh-40px))] max-h-none w-[min(1480px,calc(100vw-48px))] max-w-none rounded-[28px] min-[768px]:[&_[data-sheet-handle]]:hidden max-[767px]:inset-x-0 max-[767px]:bottom-0 max-[767px]:top-auto max-[767px]:h-auto max-[767px]:w-full max-[767px]:rounded-b-none'
+  'sw-offer-panel inset-0 m-auto h-[min(920px,calc(100svh-40px))] max-h-none w-[min(1480px,calc(100vw-48px))] max-w-none rounded-[28px] min-[768px]:[&_[data-sheet-handle]]:hidden max-[767px]:inset-x-0 max-[767px]:bottom-0 max-[767px]:top-auto max-[767px]:h-auto max-[767px]:w-full max-[767px]:rounded-b-none'
 const BACKDROP = 'backdrop:bg-surface-dark/70 backdrop:backdrop-blur-md'
-/** Phone (§2.6): the sheet stops at 70 % and goes full height once read or pulled up. */
-const SHEET_HALF = 'sw-offer-sheet max-[767px]:max-h-[70dvh]'
-const SHEET_FULL = 'sw-offer-sheet max-[767px]:max-h-[94dvh]'
+/**
+ * Phone: one height from the start, like an app (AUDYT-PROD-TELEFON §2 #7–#8) — no 70 % stop that
+ * grew mid-gesture, and `svh`, which does not follow Chrome's bars as they hide and show.
+ */
+const SHEET = 'sw-offer-sheet max-[767px]:max-h-[92svh]'
 /** A swipe across the phone's mock-up: at least this far, and mostly sideways. */
 const SWIPE_PX = 60
 const CONTENT = 'px-4 pb-6 pt-2.5 min-[768px]:px-7 min-[768px]:pt-0'
@@ -147,8 +149,6 @@ export function SolutionDialog({
   const [direction, setDirection] = useState<1 | -1>(1)
   /** The offer the window opened with: only its sections come in one by one (§2.5). */
   const [first, setFirst] = useState<string | null>(null)
-  /** Phone sheet at full height (§2.6). */
-  const [expanded, setExpanded] = useState(false)
   /** The amount of the hero price shown last, while the window stays open (§2.5). */
   const [trail, setTrail] = useState<{ key: string; amount: string; from: string | null }>({
     key: '',
@@ -162,7 +162,6 @@ export function SolutionDialog({
     setWasOpen(isOpen)
     if (isOpen) {
       setFirst(slug)
-      setExpanded(false)
       setTrail({ key: '', amount: '', from: null })
     }
   }
@@ -218,24 +217,6 @@ export function SolutionDialog({
     }
   }, [slug])
 
-  // Phone: reading on (the sheet's content scrolls) takes it to full height.
-  useEffect(() => {
-    if (!isOpen || expanded) return
-    const sheet = heading.current?.closest('dialog')
-    if (!sheet) return
-    const phone = window.matchMedia('(max-width: 767px)')
-    const onScroll = () => {
-      if (phone.matches && sheet.scrollTop > 8) setExpanded(true)
-    }
-    sheet.addEventListener('scroll', onScroll, { passive: true })
-    return () => sheet.removeEventListener('scroll', onScroll)
-  }, [isOpen, expanded])
-
-  // Pulled up by the top: full height (pulled down: `BottomSheet` closes it).
-  const pullUp = (event: PointerEvent<HTMLElement>) =>
-    phoneGesture(event, (_dx, dy) => {
-      if (dy < -30) setExpanded(true)
-    })
   // Across the mock-up: the next or previous offer (§2.6), not a vertical scroll.
   const swipe = (event: PointerEvent<HTMLElement>) =>
     phoneGesture(event, (dx, dy) => {
@@ -364,10 +345,7 @@ export function SolutionDialog({
   })
 
   const header = (
-    <div
-      onPointerDown={pullUp}
-      className="sw-offer-head -mx-4 flex items-center gap-3 border-b border-border px-4 py-3 min-[768px]:-mx-7 min-[768px]:px-7"
-    >
+    <div className="sw-offer-head -mx-4 flex items-center gap-3 border-b border-border px-4 py-3 min-[768px]:-mx-7 min-[768px]:px-7">
       {list.length > 1 && (
         <div className="flex shrink-0 items-center rounded-full border border-border bg-surface-2 p-1">
           <button
@@ -511,7 +489,7 @@ export function SolutionDialog({
       headingRef={heading}
       header={header}
       stickyHeader
-      panelClassName={`${PANEL} ${expanded ? SHEET_FULL : SHEET_HALF}`}
+      panelClassName={`${PANEL} ${SHEET}`}
       backdropClassName={BACKDROP}
       contentClassName={CONTENT}
       footer={footer}
