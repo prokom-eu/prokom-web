@@ -5,6 +5,7 @@ import { PAGE_CONTAINER } from '@/components/shared/pageContainer'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { toTelHref } from '@/lib/site/link'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { BTN, BTN_ON_DARK } from '../../blocks/BzSection/ui'
 
@@ -29,10 +30,7 @@ export function TalkBand({ phone }: { phone: string | null | undefined }) {
           <p className="text-xs font-extrabold tracking-[0.12em] text-on-dark-text uppercase">
             Porozmawiajmy
           </p>
-          <h2
-            id="o-firmie-rozmowa"
-            className="font-display text-[clamp(28px,3.2vw,40px)] leading-[1.05] font-extrabold text-line-dark-ink"
-          >
+          <h2 id="o-firmie-rozmowa" className={cx(BZ_H2, 'text-line-dark-ink')}>
             Opowiedz, jak pracuje Twoja firma.
           </h2>
           <p>Przyjedziemy albo zadzwonimy. Wycenę dostajesz na piśmie, bez zobowiązań.</p>

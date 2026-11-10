@@ -7,8 +7,15 @@ import { BZ_H1, BZ_H2, BZ_LEAD } from './typography'
 
 const ROOTS = ['src/sites/biznes', 'src/app/(sites)/[domain]/(biznes)']
 
-/** H2s that are not section headings: the plan dialog and the wizard step titles. */
-const OWN_SIZE = ['components/plan/PlanPointDialog.tsx', 'components/configurator/Configurator.tsx']
+/**
+ * H2s that are not section headings — the plan dialog and the wizard step titles — and the
+ * brands section of O firmie, which keeps the shared template's scale (decision 09.11).
+ */
+const OWN_SIZE = [
+  'components/plan/PlanPointDialog.tsx',
+  'components/configurator/Configurator.tsx',
+  'components/about/AboutBrands.tsx',
+]
 
 /** H1s rebuilt with the new hero cards of PR 4 (board Web-kategoria-*, salons). */
 const OWN_H1 = ['components/catalog/CatalogHero.tsx', 'components/brand/salon/SalonSections.tsx']
