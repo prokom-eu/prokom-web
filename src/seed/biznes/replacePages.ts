@@ -1,6 +1,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
+import { hasSameValues } from '../compare'
 import type { PageBlock } from './page'
 
 /**
@@ -30,11 +31,17 @@ export function pagesToReplace(
 export const blockTypes = (layout: readonly PageBlock[] | null | undefined): string[] =>
   (layout ?? []).map((block) => block.blockType)
 
-/** The stored page already has the seed's blocks (a second run changes nothing). */
+/**
+ * The stored page already has the seed's blocks with the seed's values (a second run changes
+ * nothing). Values, not only block types (PREMIUM-1011): K4 pages are all `bzSection` blocks, so a
+ * new variant, surface or section data would otherwise never reach a replaced page. Keys the seed
+ * does not set (row ids, panel-only fields) are ignored (`hasSameValues`).
+ */
 export const hasSeedLayout = (
   stored: readonly PageBlock[] | null | undefined,
   seed: readonly PageBlock[],
-): boolean => blockTypes(stored).join(' ') === blockTypes(seed).join(' ')
+): boolean =>
+  blockTypes(stored).join(' ') === blockTypes(seed).join(' ') && hasSameValues(stored, seed)
 
 /** „4 bloki (bzOrderFlow, bzTimeline, faq, bzContact)” — for the report „przed → po”. */
 export function describeLayout(layout: readonly PageBlock[] | null | undefined): string {
