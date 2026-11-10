@@ -178,8 +178,20 @@ export const BIZNES_SHARED: SharedGroup = {
     ],
     verify: [
       VERIFY_CEIDG,
-      { title: 'Lista serwisów Posnet', text: '[Krystian: link do listy u producenta]' },
-      { title: 'Partnerzy InsERT', text: '[Krystian: link do wyszukiwarki partnerów]' },
+      // Checked 10.11.2026 (PREMIUM-1011). Posnet and Elzab publish no list of their services:
+      // Posnet's page leads to the tax portal search of service technicians' authorisations.
+      {
+        title: 'Autoryzowany serwis Posnet i Elzab',
+        text: 'Uprawnienia serwisanta kas sprawdzisz w wyszukiwarce na portalu podatkowym — prowadzi do niej strona Posnet.',
+        href: 'https://www.posnet.com.pl/wyszukiwarka-uprawnien-serwisantow-na-portalu-podatkowym',
+      },
+      // InsERT: the firm's profile on the partner list; GoPOS lists it under „małopolskie”.
+      {
+        title: 'Autoryzowany partner GoPOS i InsERT',
+        text: 'PRO-KOM na liście partnerów InsERT. GoPOS: gopos.pl → Kontakt → „Znajdź autoryzowanego Partnera”, województwo małopolskie.',
+        href: 'https://www.insert.com.pl/siec_sprzedazy/262239,pro-kom-tadeusz-wojciak,rabka-zdroj.html',
+      },
+      // TODO(krystian): link to the Google Business card — until then the card stays hidden.
       VERIFY_GOOGLE,
     ],
     visitText:
