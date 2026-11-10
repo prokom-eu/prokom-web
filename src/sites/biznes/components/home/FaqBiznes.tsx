@@ -15,8 +15,9 @@ type Props = {
   block: FaqBlockData
   tenantId: number
   /**
-   * In place of the contact card under the heading (Opieka IT: „Ile masz stanowisk?”,
-   * `faqSeatsPair`). Shown on a phone too — it is content, not a shortcut.
+   * A card in the right column, after the questions in the page's order (Opieka IT: „Ile masz
+   * stanowisk?”, `faqSeatsPair`, Web-opieka-it); with it the contact card is left out. On a phone
+   * it comes under the questions.
    */
   aside?: ReactNode
 }
@@ -44,9 +45,20 @@ export async function FaqBiznes({ block, tenantId, aside }: Props) {
       />
       <Container
         wide
-        className="grid gap-10 max-md:gap-4 min-[1080px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)]"
+        className={cx(
+          'grid gap-10 max-md:gap-4',
+          aside
+            ? 'gap-y-6 min-[1080px]:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]'
+            : 'min-[1080px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)]',
+        )}
       >
-        <div className="min-[1080px]:sticky min-[1080px]:top-28 min-[1080px]:self-start">
+        <div
+          className={cx(
+            aside
+              ? 'min-[1080px]:col-start-1'
+              : 'min-[1080px]:sticky min-[1080px]:top-28 min-[1080px]:self-start',
+          )}
+        >
           {block.eyebrow && (
             <p className="mb-3 text-[13px] font-extrabold tracking-[0.08em] text-accent-text uppercase max-md:hidden">
               {block.eyebrow}
@@ -58,7 +70,6 @@ export async function FaqBiznes({ block, tenantId, aside }: Props) {
           {block.lead && (
             <p className={`${BZ_LEAD} mt-4 max-w-[46ch] text-ink-2 max-md:hidden`}>{block.lead}</p>
           )}
-          {aside}
           {!aside && (phone || email) && (
             // Phone (boards App-*): the questions only; the contact card is one tap away
             // under „Kontakt” in the tab bar.
@@ -87,7 +98,12 @@ export async function FaqBiznes({ block, tenantId, aside }: Props) {
             </div>
           )}
         </div>
-        <ol className="flex flex-col gap-2.5 max-md:gap-2">
+        <ol
+          className={cx(
+            'flex flex-col gap-2.5 max-md:gap-2',
+            Boolean(aside) && 'min-[1080px]:col-start-1',
+          )}
+        >
           {block.items.map((item, i) => (
             <li key={item.id ?? i}>
               <details
@@ -123,6 +139,11 @@ export async function FaqBiznes({ block, tenantId, aside }: Props) {
             </li>
           ))}
         </ol>
+        {aside && (
+          <div className="min-[1080px]:col-start-2 min-[1080px]:row-span-2 min-[1080px]:row-start-1 min-[1080px]:sticky min-[1080px]:top-28 min-[1080px]:self-start">
+            {aside}
+          </div>
+        )}
       </Container>
     </section>
   )

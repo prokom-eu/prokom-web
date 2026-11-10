@@ -162,7 +162,11 @@ export function RenderBlocks({ page, tenant }: Props) {
             if (biznes) {
               // Opieka IT: „Ile masz stanowisk?” right after the FAQ is a card in its column.
               const seats = blocks[i + 1]
-              if (faqSeatsPair(blocks, i) === 'faq' && seats?.blockType === 'bzSection') {
+              if (
+                faqSeatsPair(blocks, i) === 'faq' &&
+                seats?.blockType === 'bzSection' &&
+                parseSectionData('seats', seats.data)
+              ) {
                 return (
                   <FaqBiznes
                     key={key}
@@ -253,7 +257,9 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzNewsHomeBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzSection': {
             // Rendered by the FAQ before it (`SeatsAside`).
-            if (faqSeatsPair(blocks, i) === 'seats') return null
+            if (faqSeatsPair(blocks, i) === 'seats' && parseSectionData('seats', block.data)) {
+              return null
+            }
             const section = (
               <BzSectionBlock
                 key={key}

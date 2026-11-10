@@ -1080,7 +1080,7 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
               surface: 'muted',
               eyebrow: 'Bezpłatny przegląd IT',
               heading: 'Sprawdzamy, zanim cokolwiek zaproponujemy',
-              lead: 'Wiesz, co w IT firmy jest pilne, co może poczekać i czego nie musisz kupować.',
+              lead: 'W jednym raporcie: co jest pilne, co może poczekać i czego nie trzeba kupować.',
               data: {
                 slug: review,
                 label: 'Umów przegląd',
