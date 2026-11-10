@@ -62,6 +62,11 @@ export const heroV24Schema = obj({
       obj({
         /** Word of the H1 for this slide („stronę firmową.”). */
         word: label,
+        /**
+         * Shorter word for a phone (≤ 600 px), so it fits one line of the H1 („automatyzacje.”
+         * for „automatyzacje i AI.”, AUDYT-PROD-TELEFON #14). Without it the phone shows `word`.
+         */
+        wordShort: label.optional(),
         name: label,
         text: label,
         /** Price and term come from this solution. */
@@ -71,7 +76,17 @@ export const heroV24Schema = obj({
       }),
     )
     .min(1)
-    .max(9),
+    .max(9)
+    .superRefine((slides, ctx) =>
+      slides.forEach((slide, i) => {
+        if (slide.wordShort && slide.wordShort.length >= slide.word.length)
+          ctx.addIssue({
+            code: 'custom',
+            path: [i, 'wordShort'],
+            message: 'Krótkie słowo musi być krótsze niż słowo slajdu.',
+          })
+      }),
+    ),
   /** Not shown since 08.11 (Krystian: the figures go from the hero); kept so saved settings still read. */
   trust: z.array(figure).max(4).optional(),
   industries: z.array(label).min(1),

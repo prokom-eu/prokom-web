@@ -17,6 +17,8 @@ import { RESUME_MS, SLIDE_MS, rankOf, stepSlide } from '@/lib/software/heroStage
 
 export type StageSlide = {
   word: string
+  /** The phone's shorter word (≤ 600 px), if the panel gives one. */
+  wordShort?: string
   name: string
   text: string
   icon: string
@@ -178,7 +180,17 @@ export function HeroStage({
         <Title className="hx-h1">
           {title}{' '}
           <span className="hx-word">
-            <span key={current}>{slide.word}</span>
+            <span key={current}>
+              {slide.wordShort ? (
+                <>
+                  {/* One of the two is shown (`display`), so the heading reads one word. */}
+                  <span className="hx-word-full">{slide.word}</span>
+                  <span className="hx-word-short">{slide.wordShort}</span>
+                </>
+              ) : (
+                slide.word
+              )}
+            </span>
           </span>
         </Title>
         <p className="hx-lead">{lead}</p>
@@ -317,6 +329,12 @@ export function HeroStage({
             <span>{slide.term}</span>
           </div>
           <Link href={slide.href}>{offer}</Link>
+        </div>
+        {/* Phone (≤ 600 px): which slide of how many — the tiles above and a swipe choose. */}
+        <div className="hx-dots" aria-hidden="true">
+          {slides.map((item, i) => (
+            <i key={item.name} data-on={i === current ? '' : undefined} />
+          ))}
         </div>
       </div>
     </div>

@@ -26,6 +26,7 @@ function priceOf(slug: string, index: SolutionsIndex): Pick<StageSlide, 'price' 
 export function HeroV24({ hero, index, isFirst = true }: Props) {
   const slides: StageSlide[] = hero.slides.map((slide) => ({
     word: slide.word,
+    wordShort: slide.wordShort,
     name: slide.name,
     text: slide.text,
     icon: slide.icon,
