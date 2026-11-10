@@ -24,13 +24,12 @@ const H = 440
 /** How far a box drifts with the pointer: the satellites more than the centre (depth). */
 const DRIFT_CENTRE = 6
 const DRIFT_SATELLITE = 14
-const BADGE_PLACES = ['left-[4%] top-[2%]', 'right-[-2%] top-[46%]', 'left-[22%] bottom-0'] as const
 const FOCUS =
   'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-on-dark-text'
 
 /**
  * The InsERT hero composition (Web-insert, PREMIUM-1011): Subiekt nexo in the middle, the other
- * programs around it on two faint rings, the partner badges floating between them. Each box opens
+ * programs around it on two faint rings, the partner badges in a row under them. Each box opens
  * its card. A slight parallax follows the pointer — only with a fine pointer and without reduced
  * motion; on a phone the boxes are a row to swipe.
  */
@@ -83,7 +82,7 @@ export function InsertOrbit({
   })
 
   return (
-    <>
+    <div className="min-w-0">
       {/* Phone: the boxes as a row to swipe, the centre first. */}
       <ul
         className="-mx-4 flex snap-x snap-mandatory gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] min-[768px]:hidden"
@@ -93,12 +92,15 @@ export function InsertOrbit({
           <li key={box.slug} className="w-[34%] shrink-0 snap-start">
             <Link
               href={productHref(box.slug)}
-              className="flex flex-col items-center gap-1.5 rounded-2xl bg-white/5 p-2.5 ring-1 ring-white/10"
+              className={cx(
+                'flex flex-col items-center gap-1.5 rounded-2xl bg-white/5 p-2.5 ring-1 ring-white/10',
+                FOCUS,
+              )}
             >
               <Image
                 unoptimized
                 src={box.image.url}
-                alt={box.name}
+                alt=""
                 width={box.image.width}
                 height={box.image.height}
                 className="h-20 w-auto object-contain"
@@ -133,7 +135,8 @@ export function InsertOrbit({
           >
             <Image
               unoptimized
-              priority
+              fetchPriority="high"
+              loading="eager"
               src={center.image.url}
               alt={center.name}
               width={center.image.width}
@@ -162,7 +165,7 @@ export function InsertOrbit({
               <Image
                 unoptimized
                 src={box.image.url}
-                alt={box.name}
+                alt=""
                 width={box.image.width}
                 height={box.image.height}
                 className="w-full object-contain transition-transform group-hover:-translate-y-1"
@@ -178,21 +181,22 @@ export function InsertOrbit({
             </Link>
           </span>
         ))}
-        {badges.map((badge, i) => (
-          <span
+      </div>
+      {/* The partner badges in a row under the composition: on the board they would cover a box
+          at some widths. */}
+      <ul className="mt-2 flex flex-wrap justify-center gap-2 max-md:hidden">
+        {badges.map((badge) => (
+          <li
             key={badge}
-            className={cx(
-              'absolute z-[3] inline-flex items-center gap-1.5 rounded-full bg-surface-dark/80 px-3.5 py-2 text-[13px] font-extrabold whitespace-nowrap ring-1 ring-white/15 backdrop-blur',
-              BADGE_PLACES[i % BADGE_PLACES.length],
-            )}
+            className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.08] px-3.5 py-2 text-[13px] font-extrabold ring-1 ring-white/15"
           >
             <span aria-hidden="true" className="text-ok">
               ✓
             </span>
             {badge}
-          </span>
+          </li>
         ))}
-      </div>
-    </>
+      </ul>
+    </div>
   )
 }

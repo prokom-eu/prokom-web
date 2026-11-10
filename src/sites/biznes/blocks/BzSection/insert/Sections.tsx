@@ -54,7 +54,10 @@ export function InsertHero({
     orbit && centerImage
       ? {
           slug: orbit.center,
-          name: boxes.find((box) => box.slug === orbit.center)?.name ?? 'Subiekt nexo',
+          name:
+            boxes.find((box) => box.slug === orbit.center)?.name ??
+            productsBySlug(index, [orbit.center])[0]?.name ??
+            'Subiekt nexo',
           image: centerImage,
         }
       : null
@@ -68,7 +71,7 @@ export function InsertHero({
     <section
       aria-labelledby="insert-h"
       data-surface="dark"
-      // Phone (App-InsERT): a card with a margin, the programs as small text tiles.
+      // Phone (App-InsERT): a card with a margin, the programs as a row of boxes to swipe.
       className="relative isolate overflow-hidden bg-surface-dark pt-6 pb-12 text-white max-md:mx-4 max-md:mt-3 max-md:rounded-[26px] max-md:pt-5 max-md:pb-5 min-[768px]:pt-8 min-[768px]:pb-16"
     >
       <Container wide>
@@ -223,7 +226,7 @@ export function InsertKsef({
               key={item.d}
               className={cx(GLASS, 'flex flex-col gap-1 px-5 py-4 max-md:px-4 max-md:py-3')}
             >
-              <em className="font-display text-lg font-extrabold text-accent-on-dark not-italic max-md:text-[15px]">
+              <em className="font-display text-lg font-extrabold text-on-dark-text not-italic max-md:text-[15px]">
                 {item.d}
               </em>
               <b className="font-display text-xl font-extrabold max-md:text-base">{item.t}</b>

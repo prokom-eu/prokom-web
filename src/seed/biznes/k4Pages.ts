@@ -690,6 +690,8 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
               lines: {
                 t: 'Linie InsERT',
                 items: i.lines.map(([t, s, b]) => ({ t, s, b })),
+                // TODO(krystian): the package gives no source for `insert.lines` — the line is
+                // the session's, after `allSrc` (insert.com.pl, 26.10.2026). Confirm or change.
                 source: 'Linie i ich zastosowanie według insert.com.pl · stan na 26.10.2026',
               },
             }
