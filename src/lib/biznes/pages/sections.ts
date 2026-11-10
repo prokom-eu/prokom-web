@@ -10,6 +10,7 @@ import {
   contactHeroSchema,
   linesSchema,
   seatsSchema,
+  careReviewSchema,
   startCalendarSchema,
   switchStepsSchema,
 } from './firma'
@@ -169,6 +170,7 @@ export const SECTION_SCHEMAS = {
   'switch-steps': switchStepsSchema,
   audience: audienceSchema,
   'start-calendar': startCalendarSchema,
+  'care-review': careReviewSchema,
   seats: seatsSchema,
   'about-hero': aboutHeroSchema,
   lines: linesSchema,
@@ -220,6 +222,7 @@ export const SECTION_VARIANTS: readonly { value: SectionVariant; label: string }
   { value: 'switch-steps', label: 'Kroki z przełącznikiem' },
   { value: 'audience', label: 'Dla kogo' },
   { value: 'start-calendar', label: 'Na start i terminy' },
+  { value: 'care-review', label: 'Opieka IT: bezpłatny przegląd' },
   { value: 'seats', label: 'Ile masz stanowisk?' },
   { value: 'about-hero', label: 'O firmie: hero z wizytówką' },
   { value: 'lines', label: 'Linie PRO-KOM' },

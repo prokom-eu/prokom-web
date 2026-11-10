@@ -3074,6 +3074,7 @@ export interface BzSectionBlock {
     | 'switch-steps'
     | 'audience'
     | 'start-calendar'
+    | 'care-review'
     | 'seats'
     | 'about-hero'
     | 'lines'

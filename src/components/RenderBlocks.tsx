@@ -22,6 +22,7 @@ import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
 import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
 import { BzSectionBlock } from '@/sites/biznes/blocks/BzSection/Component'
+import { SeatsAside } from '@/sites/biznes/blocks/BzSection/firma/SeatsAside'
 import { HERO_VARIANTS, parseSectionData, type SectionVariant } from '@/lib/biznes/pages/sections'
 import { isProcurementPage } from '@/lib/biznes/procurement/schema'
 import { BzKsefBlock } from '@/sites/biznes/blocks/BzKsef/Component'
@@ -62,6 +63,7 @@ import { SwSharedPageBlock } from '@/sites/software/blocks/SwSharedPage/Componen
 import { SwLegal } from '@/sites/software/blocks/SwLegal/Component'
 import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
 import { FaqContact } from '@/sites/software/components/v24home/FaqContact'
+import { faqSeatsPair } from '@/lib/biznes/pages/faqSeats'
 import { faqContactPair } from '@/lib/software/faqContact'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
@@ -158,6 +160,18 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <CallToActionBlock key={key} block={block} />
           case 'faq':
             if (biznes) {
+              // Opieka IT: „Ile masz stanowisk?” right after the FAQ is a card in its column.
+              const seats = blocks[i + 1]
+              if (faqSeatsPair(blocks, i) === 'faq' && seats?.blockType === 'bzSection') {
+                return (
+                  <FaqBiznes
+                    key={key}
+                    block={block}
+                    tenantId={tenant.id}
+                    aside={<SeatsAside block={seats} tenantId={tenant.id} />}
+                  />
+                )
+              }
               return <FaqBiznes key={key} block={block} tenantId={tenant.id} />
             }
             if (software) {
@@ -238,6 +252,8 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'bzNewsHome':
             return <BzNewsHomeBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzSection': {
+            // Rendered by the FAQ before it (`SeatsAside`).
+            if (faqSeatsPair(blocks, i) === 'seats') return null
             const section = (
               <BzSectionBlock
                 key={key}

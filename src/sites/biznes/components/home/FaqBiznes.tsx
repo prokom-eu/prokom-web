@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react'
+
 import { cx } from '@/components/ui/cx'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
@@ -12,6 +14,11 @@ import { LiveHours } from './LiveHours'
 type Props = {
   block: FaqBlockData
   tenantId: number
+  /**
+   * In place of the contact card under the heading (Opieka IT: „Ile masz stanowisk?”,
+   * `faqSeatsPair`). Shown on a phone too — it is content, not a shortcut.
+   */
+  aside?: ReactNode
 }
 
 /** The field is optional in the shared block: never an empty `h2` the section points to. */
@@ -22,7 +29,7 @@ const DEFAULT_HEADING = 'Najczęstsze pytania'
  * with a small contact card, numbered question cards on the right, the first one open.
  * `<details>` works without JavaScript; `FAQPage` JSON-LD as in the shared block.
  */
-export async function FaqBiznes({ block, tenantId }: Props) {
+export async function FaqBiznes({ block, tenantId, aside }: Props) {
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const phone = settings?.phone ?? null
   const tel = phone ? toTelHref(phone) : null
@@ -51,7 +58,8 @@ export async function FaqBiznes({ block, tenantId }: Props) {
           {block.lead && (
             <p className={`${BZ_LEAD} mt-4 max-w-[46ch] text-ink-2 max-md:hidden`}>{block.lead}</p>
           )}
-          {(phone || email) && (
+          {aside}
+          {!aside && (phone || email) && (
             // Phone (boards App-*): the questions only; the contact card is one tap away
             // under „Kontakt” in the tab bar.
             <div className="mt-6 max-w-[420px] rounded-[22px] bg-card p-5 shadow-[0_24px_48px_-32px_var(--glow),inset_0_0_0_1px_var(--border)] max-md:hidden">

@@ -76,6 +76,28 @@ export const audienceSchema = z.object({
     .max(6),
 })
 
+/**
+ * `care-review` (#przeglad-it, PREMIUM-1011): what the free IT review checks, what the written
+ * report says (the hero's status colours) and „Umów przegląd”. No price, no subscription.
+ */
+export const careReviewSchema = z.object({
+  /** The review's card, put on the inquiry list by the button. */
+  slug,
+  label: text,
+  note: text,
+  checks: z.array(text).min(1).max(8),
+  report: z.object({
+    title: text,
+    rows: z
+      .array(z.object({ t: text, d: text, tone: z.enum(REPORT_TONES) }))
+      .min(1)
+      .max(4),
+    foot: z.string().optional(),
+  }),
+  /** Short facts by the button („bezpłatnie”, „bez zobowiązań”). */
+  facts: z.array(text).max(3).default([]),
+})
+
 /** `start-calendar`: first weeks of care and the calendar of dates that are easy to miss. */
 export const startCalendarSchema = z.object({
   start: z.object({

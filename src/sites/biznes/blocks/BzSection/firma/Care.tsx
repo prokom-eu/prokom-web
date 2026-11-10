@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import { Container } from '@/components/ui/Container'
+import { Icon } from '@/components/ui/Icon'
 import { cx } from '@/components/ui/cx'
 import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
@@ -12,7 +13,7 @@ import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
 import { AddActionButton } from '../AddActionButton'
 import { productsBySlug } from '../common/Products'
-import { BTN, BTN_ON_DARK, CARD, EYEBROW, SectionShell, withTrail } from '../ui'
+import { BTN, BTN_ON_DARK, BTN_PRIMARY, CARD, EYEBROW, SectionShell, withTrail } from '../ui'
 
 const TONE: Record<SectionData<'care-hero'>['report']['rows'][number]['tone'], string> = {
   ok: 'bg-ok/15 text-ok-text',
@@ -215,28 +216,29 @@ export function StartCalendar({
   return (
     <SectionShell block={block}>
       <div className="grid gap-5 min-[1080px]:grid-cols-2">
-        {/* Phone (App-Opieka): „Na start” as a dark list; the calendar is not on the board. */}
+        {/* Web-opieka-it (PREMIUM-1011): „Na start” as a navy panel with tiles 2 × 3; on a phone
+            one column (App-Opieka). The calendar card next to it stays light. */}
         <div
-          className={cx(
-            CARD,
-            'flex flex-col gap-4 p-6 text-ink max-md:gap-2.5 max-md:bg-surface-dark max-md:p-[18px] max-md:text-white max-md:shadow-none sm:p-7',
-          )}
+          data-surface="dark"
+          className="relative isolate flex flex-col gap-4 overflow-hidden rounded-[22px] bg-surface-dark p-6 text-white max-md:gap-3 max-md:p-[18px] sm:p-7"
+          data-start-panel
         >
-          <p className={cx(EYEBROW, 'text-accent-text max-md:text-accent-on-dark')}>
-            {data.start.eyebrow}
-          </p>
+          <p className={cx(EYEBROW, 'text-on-dark-text')}>{data.start.eyebrow}</p>
           <h3 className="font-display text-[1.5rem] leading-tight font-extrabold">
             {data.start.heading}
           </h3>
-          <ol className="flex flex-col gap-3">
+          <ol className="grid gap-2.5 min-[560px]:grid-cols-2" data-reveal-cards="">
             {data.start.items.map((item, i) => (
-              <li key={item.t} className="flex gap-3">
-                <i className="flex size-8 shrink-0 items-center justify-center rounded-full bg-surface-2 font-display font-extrabold text-accent-text not-italic">
+              <li
+                key={item.t}
+                className="flex gap-3 rounded-[18px] bg-white/[0.06] p-4 ring-1 ring-white/12 max-md:p-3"
+              >
+                <i className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/12 font-display font-extrabold text-white not-italic">
                   {i + 1}
                 </i>
                 <span className="flex flex-col">
                   <b className="font-extrabold">{item.t}</b>
-                  <small className="text-[14px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:text-white/70">
+                  <small className="text-[14px] leading-relaxed text-white/75 max-md:text-[13px]">
                     {item.d}
                   </small>
                 </span>
@@ -270,4 +272,93 @@ export function StartCalendar({
       </div>
     </SectionShell>
   )
+}
+
+/**
+ * „Bezpłatny przegląd IT” (#przeglad-it, PREMIUM-1011): on the left the eight areas we check, on
+ * the right a sample of the written report in the hero's status colours, then „Umów przegląd”
+ * (puts the review on the inquiry list) with the short facts. No price, no subscription.
+ */
+export function CareReview({
+  block,
+  data,
+}: {
+  block: BzSectionData
+  data: SectionData<'care-review'>
+}) {
+  return (
+    <SectionShell block={block}>
+      <div className="grid gap-5 min-[1080px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+        <div className={cx(CARD, 'flex flex-col gap-4 p-6 text-ink sm:p-7')}>
+          <h3 className="font-display text-[1.3rem] leading-tight font-extrabold">Co sprawdzamy</h3>
+          <ul className="grid gap-2.5 min-[560px]:grid-cols-2" data-review-checks>
+            {data.checks.map((check) => (
+              <li key={check} className="flex items-start gap-2.5">
+                <span
+                  aria-hidden="true"
+                  className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-ok/15 text-ok-text"
+                >
+                  <Icon name="check" className="size-3.5" strokeWidth={2.6} />
+                </span>
+                <span className="font-bold">{check}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={cx(CARD, 'flex flex-col gap-4 p-6 text-ink sm:p-7')}>
+          <h3 className="font-display text-[1.3rem] leading-tight font-extrabold">Co dostajesz</h3>
+          <div className="rounded-[18px] bg-surface-2 p-4" data-review-report>
+            <p className="flex items-center gap-2 text-[14px] font-extrabold">
+              <Icon name="doc" className="size-4 text-accent-text" />
+              {data.report.title}
+            </p>
+            <ul className="mt-3 flex flex-col gap-2">
+              {data.report.rows.map((row) => (
+                <li
+                  key={row.t}
+                  className="flex items-center justify-between gap-3 rounded-xl bg-card px-3 py-2.5"
+                >
+                  <span className="flex flex-col">
+                    <b className="text-[15px] font-extrabold">{row.t}</b>
+                    <small className="text-[13px] text-ink-2">{row.d}</small>
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={cx('size-3 shrink-0 rounded-full', DOT[row.tone])}
+                  />
+                </li>
+              ))}
+            </ul>
+            {data.report.foot && <p className="mt-3 text-[13px] text-ink-2">{data.report.foot}</p>}
+          </div>
+          <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-3">
+            <AddActionButton
+              slug={data.slug}
+              label={data.label}
+              note={data.note}
+              className={BTN_PRIMARY}
+            />
+            {data.facts.length > 0 && (
+              <ul className="flex flex-wrap gap-x-3 gap-y-1 text-[14px] font-bold text-ink-2">
+                {data.facts.map((fact) => (
+                  <li key={fact} className="inline-flex items-center gap-1">
+                    <Icon name="check" className="size-3.5 text-ok-text" strokeWidth={2.6} />
+                    {fact}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      </div>
+    </SectionShell>
+  )
+}
+
+/** The status dot of a report row: the hero report's colours (`TONE`), as solid dots. */
+const DOT: Record<SectionData<'care-review'>['report']['rows'][number]['tone'], string> = {
+  ok: 'bg-ok',
+  warn: 'bg-promo',
+  urgent: 'bg-[var(--c-biznes-tone-red)]',
+  due: 'bg-accent-text',
 }
