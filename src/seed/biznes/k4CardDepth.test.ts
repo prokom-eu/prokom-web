@@ -13,7 +13,10 @@ const cards = (k4Catalog as { produkty: Card[] }).produkty
 const ready = cards.filter((card) => card.status === 'gotowe')
 const length = (card: Card) => card.opis.join(' ').length
 
-/** Audit §7: descriptions under 900 characters on the page. */
+/**
+ * Audit §7: descriptions under 900 characters on the page (which adds the side panel). The JSON
+ * paragraphs alone (characters with spaces) must reach 1000 — the target with a margin.
+ */
 const SHORT_DESCRIPTIONS = [
   'pomoc-zdalna',
   'tusze-tonery',
