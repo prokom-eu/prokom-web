@@ -8,7 +8,7 @@ Przygotował Claude Code 08.11.2026 (decyzja Krystiana 08.11: „przygotuj wszys
 
 | Warunek | Stan | Skąd |
 |---|---|---|
-| Akceptacja szefa w Asanie | ☐ czeka na przegląd stagingu | plan §5 |
+| Akceptacja szefa w Asanie | ✅ potwierdzona przez Krystiana 10.11; produkcja uruchomiona 10.11 (`docs/stan/STAN-instalacje.md`) | plan §5 |
 | Strony prawne | ✅ teksty gotowe (Claude, bez prawnika — decyzja Krystiana 08.11); ☐ wkleić w panelu stagingu i produkcji | `docs/tresci/prokominstalacje-strony-prawne.md` |
 | Przepisy na `/dla-architektow`, liczby „Dla kogo” (P1-7) | ✅ pominięte — zostają z datą „stan na” (decyzja Krystiana 08.11) | `dane/stanFaktow.ts` |
 | Licencje zdjęć producentów (P1-10) | ✅ w porządku (Krystian 08.11) | — |
