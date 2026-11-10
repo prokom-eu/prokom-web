@@ -263,7 +263,6 @@ export function BottomSheet({
           data-sheet-top={stickyHeader ? '' : undefined}
           className={
             [
-              dragToClose ? 'touch-none' : '',
               stickyHeader
                 ? 'sticky top-0 z-10 bg-surface shadow-[-32px_0_0_var(--surface),32px_0_0_var(--surface)]'
                 : '',
@@ -272,12 +271,18 @@ export function BottomSheet({
               .join(' ') || undefined
           }
         >
-          {/* `data-sheet-handle`: a line may hide it where the sheet is a modal (`panelClassName`). */}
+          {/* `data-sheet-handle`: a line may hide it where the sheet is a modal (`panelClassName`).
+              A finger pulls the sheet by this 44 × 24 px strip only (`touch-none`): the rest of
+              the top keeps the browser's scrolling and sideways panning (AUDYT-PROD-TELEFON §2
+              #9 — a touch-none header swallowed every gesture started on it). A mouse drags
+              from the whole top. The negative margin keeps the old 6 px in the layout. */}
           <span
             aria-hidden="true"
             data-sheet-handle
-            className="mx-auto block h-1.5 w-11 rounded-full bg-border"
-          />
+            className={`mx-auto -my-[9px] flex h-6 w-11 items-center ${dragToClose ? 'touch-none' : ''}`}
+          >
+            <span className="block h-1.5 w-full rounded-full bg-border" />
+          </span>
           {header ?? (
             <div className="mt-3 flex items-center justify-between gap-3">
               {/* Audit 0611 P0.4: a heading only while open — the closed sheet stays in the page
