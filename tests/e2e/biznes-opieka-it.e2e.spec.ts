@@ -54,6 +54,25 @@ test.describe('Biznes /opieka-it (K4i)', () => {
     expect(cart.map((item: { uwaga?: string }) => item.uwaga)).toEqual(['Stanowiska: 4–10'])
   })
 
+  test('PREMIUM-1011: „Na start” 2 × 3, seats next to the FAQ, the free review section', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost', '/opieka-it'))
+    await expect(page.locator('[data-start-panel] li')).toHaveCount(6)
+    // „Ile masz stanowisk?” is a card in the FAQ's column — no section of its own.
+    const card = page.locator('#faq [data-seats-card]')
+    await expect(card.getByRole('heading', { level: 3 })).toHaveText('Ile masz stanowisk?')
+    await expect(
+      page.locator('section').filter({ has: page.locator('[data-seats-card]') }),
+    ).toHaveCount(1)
+    // The review: 8 areas, the report in three statuses, „Umów przegląd” lists the review.
+    const review = page.locator('#przeglad-it')
+    await expect(review.locator('[data-review-checks] li')).toHaveCount(8)
+    await expect(review.locator('[data-review-report] li')).toHaveCount(3)
+    await review.getByRole('button', { name: 'Umów przegląd' }).click()
+    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')
+  })
+
   test('no prices, no price model and no calculator (K4-FINAL §1)', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/opieka-it'))
     const text = await page.locator('main').innerText()

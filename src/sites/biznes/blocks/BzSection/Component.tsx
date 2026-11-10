@@ -25,7 +25,7 @@ import {
 import { BundlesSection } from './common/Bundles'
 import { TabsPicker, VideoPicker } from './common/InteractiveLazy'
 import { ProductGrid, productsBySlug } from './common/Products'
-import { Audience, CareHero, StartCalendar } from './firma/Care'
+import { Audience, CareHero, CareReview, StartCalendar } from './firma/Care'
 import { CareAreas, Seats, SwitchSteps } from './firma/CareWidgetsLazy'
 import {
   AboutHero,
@@ -324,6 +324,10 @@ async function render(
     case 'start-calendar': {
       const data = parseSectionData('start-calendar', block.data)
       return data && <StartCalendar block={block} data={data} />
+    }
+    case 'care-review': {
+      const data = parseSectionData('care-review', block.data)
+      return data && <CareReview block={block} data={data} />
     }
     case 'seats': {
       const data = parseSectionData('seats', block.data)

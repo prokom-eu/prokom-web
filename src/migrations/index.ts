@@ -101,6 +101,7 @@ import * as migration_20261108_225143_inst_poradnik_kategorie from './20261108_2
 import * as migration_20261108_230919_biznes_zestawy_zrodla from './20261108_230919_biznes_zestawy_zrodla'
 import * as migration_20261109_193038_swa10_em from './20261109_193038_swa10_em'
 import * as migration_20261110_213130_biznes_sekcja_zestawy from './20261110_213130_biznes_sekcja_zestawy'
+import * as migration_20261110_220524_biznes_sekcja_przeglad_it from './20261110_220524_biznes_sekcja_przeglad_it'
 
 export const migrations = [
   {
@@ -617,5 +618,10 @@ export const migrations = [
     up: migration_20261110_213130_biznes_sekcja_zestawy.up,
     down: migration_20261110_213130_biznes_sekcja_zestawy.down,
     name: '20261110_213130_biznes_sekcja_zestawy',
+  },
+  {
+    up: migration_20261110_220524_biznes_sekcja_przeglad_it.up,
+    down: migration_20261110_220524_biznes_sekcja_przeglad_it.down,
+    name: '20261110_220524_biznes_sekcja_przeglad_it',
   },
 ]
