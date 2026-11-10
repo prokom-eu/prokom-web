@@ -62,9 +62,16 @@ test.describe('Biznes /opieka-it (K4i)', () => {
     // „Ile masz stanowisk?” is a card in the FAQ's column — no section of its own.
     const card = page.locator('#faq [data-seats-card]')
     await expect(card.getByRole('heading', { level: 3 })).toHaveText('Ile masz stanowisk?')
-    await expect(
-      page.locator('section').filter({ has: page.locator('[data-seats-card]') }),
-    ).toHaveCount(1)
+    await expect(page.getByRole('heading', { name: 'Ile masz stanowisk?' })).toHaveCount(1)
+    // In the page's order the card comes after the questions (headings stay in place).
+    const after = await page.evaluate(() => {
+      const last = [...document.querySelectorAll('#faq details')].at(-1)
+      const card = document.querySelector('#faq [data-seats-card]')
+      return Boolean(
+        last && card && last.compareDocumentPosition(card) & Node.DOCUMENT_POSITION_FOLLOWING,
+      )
+    })
+    expect(after).toBe(true)
     // The review: 8 areas, the report in three statuses, „Umów przegląd” lists the review.
     const review = page.locator('#przeglad-it')
     await expect(review.locator('[data-review-checks] li')).toHaveCount(8)

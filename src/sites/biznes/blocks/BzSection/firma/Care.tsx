@@ -18,7 +18,7 @@ import { BTN, BTN_ON_DARK, BTN_PRIMARY, CARD, EYEBROW, SectionShell, withTrail }
 const TONE: Record<SectionData<'care-hero'>['report']['rows'][number]['tone'], string> = {
   ok: 'bg-ok/15 text-ok-text',
   warn: 'bg-promo/25 text-ink',
-  urgent: 'bg-[color-mix(in_srgb,var(--c-biznes-tone-red)_18%,transparent)] text-ink',
+  urgent: 'bg-tone-red/18 text-ink',
   due: 'bg-accent-text/12 text-h1-accent',
 }
 
@@ -359,6 +359,6 @@ export function CareReview({
 const DOT: Record<SectionData<'care-review'>['report']['rows'][number]['tone'], string> = {
   ok: 'bg-ok',
   warn: 'bg-promo',
-  urgent: 'bg-[var(--c-biznes-tone-red)]',
+  urgent: 'bg-tone-red',
   due: 'bg-accent-text',
 }
