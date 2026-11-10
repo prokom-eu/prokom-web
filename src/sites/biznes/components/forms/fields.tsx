@@ -35,8 +35,14 @@ function Label({ id, label, required }: Pick<Base, 'id' | 'label' | 'required'>)
   )
 }
 
-function aria(id: string, error?: string, hint?: string) {
-  const describedBy = [hint ? `${id}-hint` : '', error ? `${id}-error` : ''].filter(Boolean)
+/**
+ * `aria-invalid` and `aria-describedby` of a field: its hint, its error and any description the
+ * caller adds (e.g. the zone hint of „Miejscowość”) — joined, never one replacing another.
+ */
+function aria(id: string, error?: string, hint?: string, extra?: string) {
+  const describedBy = [hint ? `${id}-hint` : '', error ? `${id}-error` : '', extra ?? ''].filter(
+    Boolean,
+  )
   return {
     'aria-invalid': error ? true : undefined,
     'aria-describedby': describedBy.length > 0 ? describedBy.join(' ') : undefined,
@@ -64,6 +70,7 @@ export function IconField({
   error,
   icon,
   className,
+  'aria-describedby': describedBy,
   ...rest
 }: IconFieldProps) {
   return (
@@ -80,8 +87,8 @@ export function IconField({
         <input
           id={id}
           required={required}
-          {...aria(id, error, hint)}
           {...rest}
+          {...aria(id, error, hint, describedBy)}
           className={cx(CONTROL, 'h-[54px] pr-4', icon ? 'pl-11' : 'pl-4')}
         />
       </span>
