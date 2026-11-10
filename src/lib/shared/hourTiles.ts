@@ -7,10 +7,10 @@ const WEEKDAYS = ['mon', 'tue', 'wed', 'thu', 'fri']
 /** "09:00" → "9:00", as on the boards. */
 const display = (time: string) => time.replace(/^0(?=\d:)/, '')
 
-/** The hours of one day as „9:00–17:00”, or „Zamknięte” when no row covers it. */
-function valueFor(hours: OpeningHours, day: string): string {
+/** The hours of one day as „9:00–17:00”, or `closed` when no row covers it. */
+function valueFor(hours: OpeningHours, day: string, closed = 'Zamknięte'): string {
   const row = hours.find((item) => item.days.includes(day))
-  return row ? `${display(row.opens)}–${display(row.closes)}` : 'Zamknięte'
+  return row ? `${display(row.opens)}–${display(row.closes)}` : closed
 }
 
 /**
@@ -48,8 +48,10 @@ const WEEK: readonly (readonly [string, string])[] = [
  * hours or „nieczynne”, `today` (a weekday key in Poland, `warsawWeekday`) marked.
  */
 export function weekHours(hours: OpeningHours, today: string): WeekDay[] {
-  return WEEK.map(([key, label]) => {
-    const value = valueFor(hours, key)
-    return { key, label, value: value === 'Zamknięte' ? 'nieczynne' : value, today: key === today }
-  })
+  return WEEK.map(([key, label]) => ({
+    key,
+    label,
+    value: valueFor(hours, key, 'nieczynne'),
+    today: key === today,
+  }))
 }

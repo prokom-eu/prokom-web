@@ -34,14 +34,17 @@ export type ContactSlots = {
   /** Above the form fields, e.g. Software „Twój projekt”. */
   formPrefill?: ReactNode
   /**
-   * The line's own form section in place of the shared one (Biznes: the home form, one component
-   * for both pages). It must keep the `#formularz` anchor — routes and CTAs scroll to it.
+   * The line's own form in place of the shared panel (Biznes: the home form, one component for
+   * both pages). Only the content changes: the `#formularz` section with its scroll margin and
+   * rail entry stays here (routes, `?temat=…#formularz` and CTAs scroll to it); `formPrefill` is
+   * then the line's business. The slot brings its own H2.
    */
   form?: ReactNode
   /** Before „Dojazd i zasięg”. */
   afterForm?: ReactNode
   beforeFaq?: ReactNode
-  /** Under the FAQ heading, e.g. Biznes „Masz listę pozycji z katalogu?”. */
+  /** Under the FAQ heading, e.g. Biznes „Masz listę pozycji z katalogu?” — shown with the FAQ,
+   * which needs at least one answered question. */
   faqAside?: ReactNode
 }
 
@@ -258,37 +261,43 @@ export function ContactPage({
                   </ul>
                 )}
                 {week.length > 0 && (
-                  <table className="mx-2 text-sm" data-week-hours>
-                    <caption className="sr-only">Godziny otwarcia</caption>
-                    <tbody>
-                      {week.map((day) => (
-                        <tr
-                          key={day.key}
-                          className={cx(day.today && 'bg-accent-soft font-extrabold')}
-                          aria-current={day.today ? 'date' : undefined}
-                        >
-                          <th
-                            scope="row"
-                            className={cx(
-                              'rounded-l-xl py-1.5 pl-3 text-left',
-                              day.today ? 'font-extrabold' : 'font-semibold',
-                            )}
-                          >
-                            {day.label}
-                            {day.today && <span className="text-accent-text"> · dziś</span>}
-                          </th>
-                          <td
-                            className={cx(
-                              'rounded-r-xl py-1.5 pr-3 text-right tabular-nums',
-                              day.value === 'nieczynne' ? 'text-ink-2' : 'font-bold',
-                            )}
-                          >
-                            {day.value}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <div className="px-2">
+                    <table
+                      className="w-full border-separate border-spacing-0 text-sm"
+                      data-week-hours
+                    >
+                      <caption className="sr-only">Godziny otwarcia</caption>
+                      <tbody>
+                        {week.map((day) => {
+                          const cell = cx('py-1.5', day.today && 'bg-accent-soft font-extrabold')
+                          return (
+                            <tr key={day.key} aria-current={day.today ? 'date' : undefined}>
+                              <th
+                                scope="row"
+                                className={cx(
+                                  cell,
+                                  'rounded-l-xl pl-3 text-left',
+                                  !day.today && 'font-semibold',
+                                )}
+                              >
+                                {day.label}
+                                {day.today && <span> · dziś</span>}
+                              </th>
+                              <td
+                                className={cx(
+                                  cell,
+                                  'rounded-r-xl pr-3 text-right tabular-nums',
+                                  day.value === 'nieczynne' ? 'text-ink-2' : 'font-bold',
+                                )}
+                              >
+                                {day.value}
+                              </td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
                 )}
                 <p className="flex flex-wrap justify-between gap-2 px-2 text-sm text-ink-2">
                   <span>
@@ -387,14 +396,14 @@ export function ContactPage({
 
       {slots.afterRoutes}
 
-      {slots.form ?? (
-        <section
-          id="formularz"
-          aria-labelledby="kontakt-formularz"
-          className={cx(CONTAINER, 'scroll-mt-28 py-16')}
-          data-rail-section="Formularz"
-          data-rail-icon="chat"
-        >
+      <section
+        id="formularz"
+        aria-labelledby={slots.form ? undefined : 'kontakt-formularz'}
+        className={cx(CONTAINER, 'scroll-mt-28 py-16')}
+        data-rail-section="Formularz"
+        data-rail-icon="chat"
+      >
+        {slots.form ?? (
           <div className="grid overflow-hidden rounded-[30px] border border-border bg-card min-[1000px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
             <div className="relative isolate flex flex-col gap-5 overflow-hidden bg-line-dark p-8 text-line-dark-text min-[768px]:p-10">
               <Contours />
@@ -431,8 +440,8 @@ export function ContactPage({
               />
             </div>
           </div>
-        </section>
-      )}
+        )}
+      </section>
 
       {slots.afterForm}
 
