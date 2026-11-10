@@ -65,6 +65,7 @@ export const HOME_HERO: SoftwareHeroV24 = {
     },
     {
       word: 'automatyzacje i AI.',
+      wordShort: 'automatyzacje.',
       name: 'Automatyzacje i AI',
       text: 'SMS-y, faktury i odpowiedzi idą same',
       solution: 'asystent-ai-do-zapytan',

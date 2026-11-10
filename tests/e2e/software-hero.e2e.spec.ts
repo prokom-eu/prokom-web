@@ -47,7 +47,8 @@ test.describe('Software hero v24', () => {
       await page.keyboard.press('ArrowLeft')
       await expect(tabs(page).nth(6)).toBeFocused({ timeout: 1000 })
     }).toPass()
-    await expect(word(page)).toHaveText('automatyzacje i AI.')
+    // The phone's short word is in the DOM too (hidden here): the visible text counts.
+    await expect(word(page)).toHaveText('automatyzacje i AI.', { useInnerText: true })
     await page.keyboard.press('Home')
     await expect(word(page)).toHaveText('stronę wizytówkę.')
   })
@@ -153,6 +154,7 @@ const FIRST_SCREEN = [
   { width: 1180, height: 820, full: 820, min: 560 },
   { width: 1024, height: 768, full: 768, min: 560 },
   { width: 390, height: 844, aboveTabBar: 16 },
+  { width: 412, height: 915, aboveTabBar: 16 },
   // AUDYT-0911 noc #1: short phones and 390×664 (Safari with its bars) — the window ends above
   // the tab bar; the width follows the height under the panel (`svh`).
   { width: 360, height: 640, aboveTabBar: 0 },
@@ -182,3 +184,57 @@ for (const size of FIRST_SCREEN) {
     }
   })
 }
+
+// SWA12b (AUDYT-PROD-TELEFON §3): a phone shows one window, its caption on the window's bottom
+// edge and the dots of the slides above the tab bar (no dots from 700 px down).
+for (const size of [
+  { width: 390, height: 844 },
+  { width: 412, height: 915 },
+  { width: 390, height: 664 },
+  { width: 375, height: 667 },
+  { width: 360, height: 640 },
+]) {
+  test(`one window, the caption inside it and the dots above the tab bar at ${size.width}×${size.height}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(size)
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(site(HOST))
+    const win = (await active(page).boundingBox())!
+    const visibleWindows = await hero(page)
+      .locator('.hx-win')
+      .evaluateAll(
+        (list) => list.filter((el) => getComputedStyle(el).visibility === 'visible').length,
+      )
+    expect(visibleWindows).toBe(1)
+    const caption = (await hero(page).locator('.hx-cap').boundingBox())!
+    expect(caption.y).toBeGreaterThanOrEqual(win.y)
+    expect(caption.y + caption.height).toBeLessThanOrEqual(win.y + win.height)
+    const bar = (await page.locator('[data-tab-bar]').boundingBox())!
+    const dots = hero(page).locator('.hx-dots')
+    if (size.height > 700) {
+      const box = (await dots.boundingBox())!
+      expect(box.y + box.height).toBeLessThanOrEqual(bar.y)
+    } else {
+      await expect(dots).toBeHidden()
+    }
+  })
+}
+
+test('the phone shows the short word of a slide in one line (SWA12b #14)', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto(site(HOST))
+  await hydrated(tabs(page).first())
+  // As a finger does: the row goes sideways first, then the last tile is tapped.
+  await hero(page)
+    .locator('.hx-tiles')
+    .evaluate((row) => (row.scrollLeft = row.scrollWidth))
+  const last = (await tabs(page).last().boundingBox())!
+  await page.mouse.click(last.x + last.width / 2, last.y + last.height / 2)
+  await expect(word(page)).toHaveText('automatyzacje.', { useInnerText: true })
+  // The word itself (its box reserves two lines for the long words): one line high.
+  const short = word(page).locator('.hx-word-short')
+  const size = await short.evaluate((el) => parseFloat(getComputedStyle(el).fontSize))
+  expect((await short.boundingBox())!.height).toBeLessThan(size * 1.6)
+})
