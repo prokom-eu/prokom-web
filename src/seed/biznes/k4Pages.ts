@@ -111,6 +111,10 @@ export type K4PagesFile = {
   insert: {
     pill: string
     shelf: [string, string, string][]
+    /** Hero composition (PREMIUM-1011): program, its line, centre on a 500 × 440 board. */
+    orb?: { n: string; d: string; cx: number; cy: number }[]
+    /** InsERT lines: name, tagline, „dla kogo” points (PREMIUM-1011). */
+    lines?: [string, string, string[]][]
     stats: Pair[]
     statsSrc: string
     q: { q: string; o: { t: string; k: string }[] }[]
@@ -324,6 +328,23 @@ export function upgradeCareSupplyLink(stored: PageBlock[], seed: PageBlock[]): P
     return { ...block, data: { ...data, link } }
   })
   return changed ? next : null
+}
+
+/**
+ * The composition of the InsERT hero (`insert.orb`, PREMIUM-1011): the programs are named as on
+ * the shelf, so the shelf gives their board ids; a program missing in the catalog drops out, and
+ * without Subiekt nexo there is no composition (the shelf stays).
+ */
+function insertOrbit(i: K4PagesFile['insert'], r: ReturnType<typeof resolver>) {
+  const center = r.one('nexo')
+  if (!center || !i.orb?.length) return {}
+  const idOf = new Map(i.shelf.map(([id, name]) => [name, id]))
+  const items = i.orb.flatMap((item) => {
+    const id = idOf.get(item.n)
+    const slug = id ? r.one(id) : undefined
+    return slug ? [{ slug, n: item.n, d: item.d, x: item.cx, y: item.cy }] : []
+  })
+  return { orbit: { center, items } }
 }
 
 /** The poster frame of a `videos` section, when the product is in the catalog. */
@@ -630,6 +651,7 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
           { label: 'Który Subiekt dla mnie?', href: '#ktory' },
           { label: 'KSeF w InsERT', href: '#ksef' },
         ],
+        ...insertOrbit(i, r),
       },
     }),
     section({
@@ -659,13 +681,28 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       surface: 'muted',
       eyebrow: 'Porównanie',
       heading: 'Subiekt 123, GT czy nexo?',
-      data: { head: ['Cecha', ...i.cmpH], rows: i.cmp },
+      data: {
+        head: ['Cecha', ...i.cmpH],
+        rows: i.cmp,
+        // PREMIUM-1011: the four InsERT lines under the comparison (`insert.lines`).
+        ...(i.lines?.length
+          ? {
+              lines: {
+                t: 'Linie InsERT',
+                items: i.lines.map(([t, s, b]) => ({ t, s, b })),
+                source: 'Linie i ich zastosowanie według insert.com.pl · stan na 26.10.2026',
+              },
+            }
+          : {}),
+      },
     }),
     ...(ksefSlug
       ? [
           section({
             variant: 'insert-ksef',
             anchor: 'ksef',
+            // Web-insert: the timeline in glass cards on navy (PREMIUM-1011).
+            surface: 'dark',
             eyebrow: 'KSeF w programach InsERT',
             heading: 'Program jest gotowy, przygotujmy firmę',
             lead: i.ksefLead,
