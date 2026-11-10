@@ -73,3 +73,13 @@ export function postListCards(
     cover: publicImage(post.cover, tenantId),
   }))
 }
+
+/** Wider than this, a cover is a wordmark (the KSeF post: 480 × 142), not a picture. */
+const WORDMARK_RATIO = 2.4
+
+/**
+ * A cover that is a wordmark (audit 10.11 §9): shown small on a white tile like the line's mark,
+ * not stretched over the card's picture field.
+ */
+export const coverIsWordmark = (cover: { width: number; height: number }) =>
+  cover.height > 0 && cover.width / cover.height > WORDMARK_RATIO

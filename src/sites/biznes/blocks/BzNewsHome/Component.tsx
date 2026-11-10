@@ -6,7 +6,7 @@ import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { getEnv } from '@/lib/env'
-import { postDate } from '@/lib/posts/cards'
+import { coverIsWordmark, postDate } from '@/lib/posts/cards'
 import { getPostList, getSisterLinePostLinks } from '@/lib/posts/data'
 import { NEWS_PATH } from '@/lib/posts/list'
 import type { SisterLine } from '@/lib/posts/sister'
@@ -102,7 +102,17 @@ export async function BzNewsHomeBlock({
                     wide && 'min-[768px]:h-auto min-[768px]:w-[40%]',
                   )}
                 >
-                  {post.cover ? (
+                  {post.cover && coverIsWordmark(post.cover) ? (
+                    // A wordmark (KSeF): small on a white tile, like the line's mark below.
+                    <span className="flex h-20 items-center justify-center rounded-[24px] bg-plate px-6 shadow-[0_14px_30px_-18px_var(--glow),inset_0_0_0_1px_var(--border)]">
+                      <MediaImage
+                        image={post.cover}
+                        sizes="160px"
+                        eager={false}
+                        className="h-auto max-h-9 w-auto max-w-[160px] object-contain"
+                      />
+                    </span>
+                  ) : post.cover ? (
                     <MediaImage
                       image={post.cover}
                       sizes="(min-width: 1080px) 30vw, (min-width: 640px) 45vw, 90vw"
