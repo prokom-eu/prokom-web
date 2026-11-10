@@ -21,6 +21,15 @@ Zmierzone na stronie głównej (390 px):
 | Rozmycia stałe | 12 elementów z `filter: blur`, 6 z `backdrop-filter` (kapsuła, pole hero, podpis, strzałki, wyszukiwarka) | każda warstwa z rozmyciem to dodatkowe przeliczenie przy przewijaniu |
 | Nasłuch przewijania | `CapsuleSpy`, `SiteRail`, `SwRail` mierzą sekcje (`getBoundingClientRect`) w każdej klatce przewijania, także na telefonie, gdzie szyny nie widać | wymuszony układ przy każdym ruchu palca |
 
+### 1a. Pomiar na produkcji (10.11, wieczór, Chrome na PC, `prokomsoftware.pl`)
+- **Wszystko się wyświetla.** Po przewinięciu całej strony głównej nie zostaje żaden niewidoczny nagłówek, akapit ani element listy. Elementy, które w czasie szybkiego przewijania miały jeszcze `opacity: 0`, to wejścia sekcji i zmieniające się same zakładki (Technologie, Proces). Kilka sekund później widać wszystkie. Ponowny test po 7 s: 0 „zawieszonych”.
+- **Gdzie idzie czas klatki (Long Animation Frames API):**
+  - w spoczynku: 3 długie klatki w 4 s, skrypt ok. 37 ms na klatkę,
+  - przy przewijaniu od góry do stopki: 15 długich klatek, **skrypt ok. 4 ms, styl i układ ok. 1 ms**, reszta to **malowanie i składanie warstw**.
+  - Wąskim gardłem nie jest JavaScript, tylko malowanie: rozmycia (`filter`, `backdrop-filter`), `background-position` w `sw-em`, `left` w `mk-travel`, duże świecące warstwy. To potwierdza §1.
+  - Uwaga: karta pomiarowa miała okno 4655 px szerokości przy pomniejszeniu, więc bezwzględne czasy klatek (średnio 437 ms) są zawyżone i nie odpowiadają telefonowi. Wiarygodne są proporcje (skrypt / układ / malowanie) i lista animacji.
+- **Animacje nieskończone na produkcji:** te same 6 rodzajów (`hx-blink`, `hx-glint`, `mk-drift`, `mk-twinkle`, `mk-wipe`, `mk-travel`) działają także na dole strony. 41 animacji w stanie `running` przy stopce.
+
 **Dlaczego paski Chrome „skaczą”.** Chrome na Androidzie chowa paski przy przewijaniu w dół, a pokazuje przy przewijaniu w górę i przy zatrzymaniu gestu. Gdy strona gubi klatki, gest przewijania się rwie. Chrome odczytuje to jako koniec i nowy początek przewijania, więc pasek wraca i znowu znika. Układ jest stabilny: wysokość dokumentu nie zmienia się przy przewijaniu, przesunięcia układu są śladowe (CLS ≈ 0,03), `html`/`body` bez blokady przewijania. Zostaje więc obciążenie, czyli tabela wyżej.
 
 **Czy da się wyłączyć paski Chrome?** Na zwykłej stronie nie. To pasek przeglądarki, a nie strony. Bez pasków działa tylko strona **zainstalowana jako aplikacja** (PWA, `display: standalone`) albo tryb pełnoekranowy po kliknięciu (Fullscreen API). Żadne z nich nie jest dobrym rozwiązaniem dla strony firmowej. Rozwiązanie to płynna strona: wtedy paski chowają się i pokazują raz, gładko, jak na każdej szybkiej stronie.
