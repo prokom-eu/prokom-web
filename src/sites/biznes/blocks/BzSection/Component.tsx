@@ -64,7 +64,6 @@ type Props = {
 const NEEDS_INDEX: ReadonlySet<SectionVariant> = new Set([
   'products',
   'bundles',
-  'videos',
   'gopos-hero',
   'gopos-venues',
   'insert-hero',
@@ -150,7 +149,9 @@ async function render(
     }
     case 'videos': {
       const data = parseSectionData('videos', block.data)
-      const [frame] = data?.poster && index ? productsBySlug(index, [data.poster]) : []
+      // The catalog only when the films have a poster frame.
+      const catalog = data?.poster ? (index ?? (await getCatalogIndex(tenantId))) : null
+      const [frame] = data?.poster && catalog ? productsBySlug(catalog, [data.poster]) : []
       return (
         data && (
           <SectionShell block={block}>

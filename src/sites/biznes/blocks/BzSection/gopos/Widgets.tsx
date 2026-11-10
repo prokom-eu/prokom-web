@@ -21,7 +21,7 @@ import { productHref } from '@/lib/catalog/card'
 
 import { useSwap } from '../../../components/motion/useSwap'
 import { BTN_OUTLINE, BTN_PRIMARY, CARD, EYEBROW, TAB_KEYS } from '../ui'
-import { Ticket, useReducedMotion } from './Stage'
+import { PauseButton, Ticket, useReducedMotion } from './Stage'
 import { goposActions, pickedOr, useGopos } from './store'
 
 /** POPRAWKI-0311 §B: the venue's ticket moves through its statuses every 1.8 s. */
@@ -396,9 +396,9 @@ export function GoposHub({
       <div className="flex flex-col items-center gap-4">
         <div
           className={cx(
-            'flex flex-col items-center justify-center gap-1 rounded-full p-6 text-center',
+            'flex flex-col items-center justify-center gap-1 p-6 text-center',
             onDark
-              ? 'size-44 bg-ok text-surface-dark shadow-[0_0_0_14px_color-mix(in_srgb,var(--ok)_14%,transparent),0_0_60px_-6px_var(--ok)]'
+              ? 'size-44 rounded-full bg-ok text-surface-dark shadow-[0_0_0_14px_color-mix(in_srgb,var(--ok)_14%,transparent),0_0_60px_-6px_var(--ok)]'
               : 'rounded-[22px] bg-ok-text text-surface',
           )}
         >
@@ -513,6 +513,8 @@ function OrderQueue({
           </li>
         ))}
       </ol>
+      {/* WCAG 2.2.2: a pause within reach on touch screens too (hidden with reduced motion). */}
+      <PauseButton className="mx-auto mt-3 block" />
     </div>
   )
 }
