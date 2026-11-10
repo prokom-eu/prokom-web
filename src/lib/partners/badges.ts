@@ -7,8 +7,9 @@ export const joinNames = (names: readonly string[]) =>
   names.length < 2 ? (names[0] ?? '') : `${names.slice(0, -1).join(', ')} i ${names.at(-1)}`
 
 /** Names in the order K4-FINAL §1 writes them („Posnet i Elzab”, „GoPOS i InsERT”), the rest after. */
-const K4_ORDER = ['posnet', 'elzab', 'gopos', 'insert']
-const k4Rank = (name: string) => {
+export const K4_ORDER = ['posnet', 'elzab', 'gopos', 'insert']
+/** Place in `K4_ORDER` of a brand name or slug (lower-cased); any other brand comes after. */
+export const k4Rank = (name: string) => {
   const rank = K4_ORDER.indexOf(name.toLowerCase())
   return rank === -1 ? K4_ORDER.length : rank
 }

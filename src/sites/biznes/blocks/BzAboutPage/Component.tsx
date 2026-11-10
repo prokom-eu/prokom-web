@@ -5,7 +5,7 @@ import type { AuthLogo } from '@/components/shared/CompanyCard'
 import { aboutBrands } from '@/lib/biznes/aboutBrands'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { getEnv } from '@/lib/env'
-import { partnerStatusLabel } from '@/lib/partners/badges'
+import { K4_ORDER, partnerStatusLabel } from '@/lib/partners/badges'
 import { siteOrigin } from '@/lib/seo/origin'
 import { getSharedData } from '@/lib/shared/getSharedData'
 
@@ -13,9 +13,6 @@ import { AboutBrands } from '../../components/about/AboutBrands'
 import { TalkBand } from '../../components/about/TalkBand'
 
 type Props = { tenantId: number }
-
-/** The four authorisations of the company card, in this order (K4-FINAL §1). */
-const AUTHORISED = ['posnet', 'elzab', 'gopos', 'insert']
 
 /**
  * `/o-firmie` of Biznes (plan 0611 §8.2, Web-o-firmie) = the shared O firmie template on
@@ -33,7 +30,8 @@ export async function BzAboutPageBlock({ tenantId }: Props) {
     headers().then((h) => h.get('host')),
   ])
   if (!shared) return null
-  const authLogos = AUTHORISED.flatMap((slug): AuthLogo[] => {
+  // The four authorisations of the company card, in the order of K4-FINAL §1.
+  const authLogos = K4_ORDER.flatMap((slug): AuthLogo[] => {
     const brand = index.brands.find((item) => item.slug === slug)
     const status = partnerStatusLabel(brand?.status)
     return brand?.logo && status?.startsWith('Autoryzowany')

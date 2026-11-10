@@ -1,6 +1,6 @@
 import { brandTarget } from '@/lib/catalog/brand'
 import type { CatalogIndex, IndexLogo } from '@/lib/catalog/catalogIndex'
-import { partnerStatusLabel } from '@/lib/partners/badges'
+import { k4Rank, partnerStatusLabel } from '@/lib/partners/badges'
 import type { Partner } from '@/payload-types'
 
 export type AboutBrand = { slug: string; name: string; logo: IndexLogo; href: string | null }
@@ -14,13 +14,6 @@ const ROWS: readonly NonNullable<Partner['partnerStatus']>[] = [
   'cooperation',
 ]
 
-/** Names in the order K4-FINAL §1 writes them („Posnet i Elzab”, „GoPOS i InsERT”). */
-const K4_ORDER = ['posnet', 'elzab', 'gopos', 'insert']
-const rank = (slug: string) => {
-  const i = K4_ORDER.indexOf(slug)
-  return i === -1 ? K4_ORDER.length : i
-}
-
 /**
  * „Marki, które sprzedajemy, wdrażamy i serwisujemy” of O firmie (Web-o-firmie): a row per status
  * confirmed in the panel (`Partners.partnerStatus`) and the wall of the other catalog brands with
@@ -31,30 +24,34 @@ export function aboutBrands(brands: CatalogIndex['brands']): {
   rows: AboutBrandRow[]
   others: AboutBrand[]
 } {
-  const withLogo = brands.flatMap((brand): (AboutBrand & { status: string | null })[] =>
-    brand.logo
-      ? [
-          {
-            slug: brand.slug,
-            name: brand.name,
-            logo: brand.logo,
-            href: brandTarget(brand),
-            status: brand.status ?? null,
-          },
-        ]
-      : [],
+  const withLogo = brands.flatMap(
+    (brand): (AboutBrand & { status: Partner['partnerStatus'] | null })[] =>
+      brand.logo
+        ? [
+            {
+              slug: brand.slug,
+              name: brand.name,
+              logo: brand.logo,
+              href: brandTarget(brand),
+              status: brand.status ?? null,
+            },
+          ]
+        : [],
   )
-  const strip = ({ status: _status, ...brand }: AboutBrand & { status: string | null }) => brand
+  const strip = ({
+    status: _status,
+    ...brand
+  }: AboutBrand & { status: Partner['partnerStatus'] | null }) => brand
   const rows = ROWS.flatMap((status): AboutBrandRow[] => {
     const label = partnerStatusLabel(status)
     const items = withLogo
       .filter((brand) => brand.status === status)
-      .sort((a, b) => rank(a.slug) - rank(b.slug) || a.name.localeCompare(b.name, 'pl'))
+      .sort((a, b) => k4Rank(a.slug) - k4Rank(b.slug) || a.name.localeCompare(b.name, 'pl'))
       .map(strip)
     return label && items.length > 0 ? [{ label, brands: items }] : []
   })
   const others = withLogo
-    .filter((brand) => !ROWS.includes(brand.status as (typeof ROWS)[number]))
+    .filter((brand) => !brand.status || !ROWS.includes(brand.status))
     .sort((a, b) => a.name.localeCompare(b.name, 'pl'))
     .map(strip)
   return { rows, others }

@@ -188,7 +188,7 @@ export const BIZNES_SHARED: SharedGroup = {
       // InsERT: the firm's profile on the partner list; GoPOS lists it under „małopolskie”.
       {
         title: 'Autoryzowany partner GoPOS i InsERT',
-        text: 'PRO-KOM na liście partnerów InsERT i w wyszukiwarce partnerów GoPOS (województwo małopolskie).',
+        text: 'PRO-KOM na liście partnerów InsERT. GoPOS: gopos.pl → Kontakt → „Znajdź autoryzowanego Partnera”, województwo małopolskie.',
         href: 'https://www.insert.com.pl/siec_sprzedazy/262239,pro-kom-tadeusz-wojciak,rabka-zdroj.html',
       },
       // TODO(krystian): link to the Google Business card — until then the card stays hidden.

@@ -36,8 +36,9 @@
 }
 
 /* O firmie and Kontakt have their own section of the lines (`FamilyStrip`, `OtherLines`): the
-   footer's lines band right under it would repeat it (audit 10.11 §4, §5). */
-[data-line='biznes'] body:has([data-family-strip], [data-other-lines]) [data-lines-band] {
+   footer's lines band right under it would repeat it (audit 10.11 §4, §5). Keyed to the pages,
+   not the components — the `/_wspolne` preview shows both with the footer band. */
+[data-line='biznes'] body:has([data-about-page], [data-contact-page]) [data-lines-band] {
   display: none;
 }
 
