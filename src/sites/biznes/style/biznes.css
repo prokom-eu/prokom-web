@@ -35,6 +35,12 @@
   display: none;
 }
 
+/* O firmie and Kontakt have their own section of the lines (`FamilyStrip`, `OtherLines`): the
+   footer's lines band right under it would repeat it (audit 10.11 §4, §5). */
+[data-line='biznes'] body:has([data-family-strip], [data-other-lines]) [data-lines-band] {
+  display: none;
+}
+
 /* Biznes page transitions on phones (`PageTransition`, the same motion as Software): the content
    fades out and rises in; header and tab bar keep their own names, so they stay. */
 @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {

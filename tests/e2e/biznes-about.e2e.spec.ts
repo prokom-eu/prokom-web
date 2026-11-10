@@ -52,6 +52,32 @@ test.describe('Biznes /o-firmie (shared template, §8.2)', () => {
     expect(pictures.every((alt) => !/zespół|właściciel|pracown/i.test(alt))).toBe(true)
   })
 
+  test('PREMIUM-1011: brands by status, verify cards with links, talk band, no footer lines band', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost', ABOUT))
+    const brands = page.locator('[data-about-brands]')
+    await expect(brands.getByRole('heading', { level: 2 })).toHaveText(
+      'Marki, które sprzedajemy, wdrażamy i serwisujemy',
+    )
+    // Statuses only from K4-FINAL §1, in its order.
+    await expect(brands.locator('[data-brand-row] dt')).toHaveText([
+      'Autoryzowany serwis',
+      'Autoryzowany partner',
+      'Partner',
+      'We współpracy',
+    ])
+    await expect(brands.getByText('Logotypy należą do ich właścicieli.')).toBeVisible()
+    // A card without a link stays hidden (plan 0611 §8.2): every shown card opens a source.
+    const cards = page.locator('[data-verify-cards] > li')
+    expect(await cards.count()).toBeGreaterThan(0)
+    expect(await cards.locator('a[href^="https://"]').count()).toBe(await cards.count())
+    await expect(
+      page.locator('[data-talk-band]').getByRole('link', { name: 'Napisz do nas' }),
+    ).toHaveAttribute('href', '/kontakt#formularz')
+    await expect(page.locator('[data-lines-band]')).toBeHidden()
+  })
+
   for (const theme of ['light', 'dark'] as const) {
     test(`axe on the page (${theme})`, async ({ page }) => {
       await setTheme(page, theme)
