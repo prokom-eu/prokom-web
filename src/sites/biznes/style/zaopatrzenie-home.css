@@ -482,6 +482,20 @@
     .zh-tile:hover .zh-tile-status {
       opacity: 0;
       translate: -50% 10px;
+      transition-delay: 0s;
+      transition-duration: 0.15s;
+    }
+    /* The pill and the description share the bottom band (audit 10.11 §9): never both visible —
+       the pill leaves first, the description comes after it; back the other way round. */
+    .zh-tile-status {
+      transition-delay: 0.15s;
+    }
+    .zh-tile-info {
+      transition-duration: 0.15s;
+    }
+    .zh-tile:hover .zh-tile-info {
+      transition-delay: 0.15s;
+      transition-duration: 0.3s;
     }
     .zh-tile:hover::after {
       animation: zp-shine 0.9s var(--zh-ease);
