@@ -244,3 +244,11 @@ test.describe('Instalacje unconfirmed claims stay off the pages', () => {
     await expect(page.locator('main')).not.toContainText('W jakich standardach pracujemy')
   })
 })
+
+// Decision 10.11: no labour cost figure in the hero of /dla-kogo/firmy.
+test('/dla-kogo/firmy: no amount in zł on the page, the hero says „od 2004”', async ({ page }) => {
+  await open(page, '/dla-kogo/firmy')
+  const text = await page.locator('main').evaluate((m) => m.textContent ?? '')
+  expect(text).not.toMatch(/ds?zł/)
+  await expect(page.locator('main').first()).toContainText('od 2004')
+})

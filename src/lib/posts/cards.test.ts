@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { postListCards } from './cards'
+import { coverIsWordmark, postListCards } from './cards'
 
 const post = (slug: string, extra: Record<string, unknown> = {}) => ({
   slug,
@@ -87,5 +87,14 @@ describe('postListCards', () => {
       { cover: null, lead: null },
       { cover: null, lead: null },
     ])
+  })
+})
+
+describe('coverIsWordmark (Aktualności on the home page, audit 10.11 §9)', () => {
+  it('a wide wordmark is not a picture; a photo or a square is', () => {
+    expect(coverIsWordmark({ width: 480, height: 142 })).toBe(true)
+    expect(coverIsWordmark({ width: 1200, height: 800 })).toBe(false)
+    expect(coverIsWordmark({ width: 480, height: 480 })).toBe(false)
+    expect(coverIsWordmark({ width: 480, height: 0 })).toBe(false)
   })
 })
