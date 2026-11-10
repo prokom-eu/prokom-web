@@ -38,7 +38,7 @@ export function VideoPicker({
             <Image
               unoptimized
               src={poster.url}
-              alt=""
+              alt={poster.alt}
               width={poster.width}
               height={poster.height}
               className="max-h-full w-auto object-contain"
