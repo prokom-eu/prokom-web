@@ -233,6 +233,24 @@ describe('/insert (K4h)', () => {
     expect(data.defaults).toEqual([40, 30])
   })
 
+  it('PREMIUM-1011: the box composition from `insert.orb`, nexo in the middle', () => {
+    const data = dataOf(insertK4Layout(pages, identity).layout, 'insert-hero')!
+    expect(data.orbit?.center).toBe('nexo')
+    expect(data.orbit?.items.map((item) => item.slug)).toEqual([
+      'rachmistrz',
+      'rewizor',
+      'gratyfikant',
+      'gestor',
+      'biuro',
+      's123',
+    ])
+    // A program missing in the catalog drops out; without nexo the shelf stays.
+    const noRewizor = insertK4Layout(pages, (id) => (id === 'rewizor' ? undefined : id))
+    expect(dataOf(noRewizor.layout, 'insert-hero')!.orbit?.items).toHaveLength(5)
+    const noNexo = insertK4Layout(pages, (id) => (id === 'nexo' ? undefined : id))
+    expect(dataOf(noNexo.layout, 'insert-hero')!.orbit).toBeUndefined()
+  })
+
   it('drops the KSeF sections and reports the ids when the database lacks them', () => {
     const { layout, missing } = insertK4Layout(pages, (id) =>
       id === 'ksef' || id === 'insert-inspunkty-ksef' ? undefined : id,

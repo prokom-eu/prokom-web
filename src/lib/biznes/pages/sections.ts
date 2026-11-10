@@ -89,6 +89,17 @@ const tableSchema = z.object({
   rows: z.array(z.object({ k: text, v: z.array(text) })).max(12),
   /** Two value columns as „without” and „with” (board `Web-opieka-it`): red ✕ and green ✓. */
   contrast: z.boolean().optional(),
+  /** Cards under the table (InsERT „Linie InsERT”, PREMIUM-1011): name, tagline, points. */
+  lines: z
+    .object({
+      t: text,
+      items: z
+        .array(z.object({ t: text, s: text, b: z.array(text).max(4) }))
+        .min(1)
+        .max(4),
+      source: z.string().optional(),
+    })
+    .optional(),
 })
 
 /** `tabs`: groups of entries (InsERT „Cała oferta”); an entry may link to its product card. */
