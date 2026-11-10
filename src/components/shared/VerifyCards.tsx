@@ -22,7 +22,12 @@ export function VerifyCards({ items, className }: Props) {
   if (items.length === 0) return null
   return (
     <ul
-      className={cx('grid gap-3 min-[640px]:grid-cols-2 min-[1000px]:grid-cols-4', className)}
+      className={cx(
+        'grid gap-3 min-[640px]:grid-cols-2',
+        // As many columns as cards (up to four): three cards never leave an empty fourth place.
+        items.length === 3 ? 'min-[1000px]:grid-cols-3' : 'min-[1000px]:grid-cols-4',
+        className,
+      )}
       data-verify-cards
     >
       {items.map((item, i) => {
