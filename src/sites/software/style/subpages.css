@@ -288,7 +288,7 @@
 .sw-offer-aside .sw-offer-shot {
   height: auto;
   aspect-ratio: 16 / 10;
-  max-height: calc(min(920px, 100dvh - 40px) - 260px);
+  max-height: calc(min(920px, 100svh - 40px) - 260px);
   width: 100%;
 }
 @media (max-width: 980px) {
@@ -806,12 +806,11 @@
   .sw-offer-swap[data-intro] #oferta-pytania {
     animation-delay: calc(var(--offer-stagger) * 3);
   }
-  /* Phone (§2.6): the sheet slides up from the bottom up to 767 px and grows to full height. */
+  /* Phone (§2.6): the sheet slides up from the bottom up to 767 px, at its one height. */
   @media (max-width: 767px) {
     [data-line='software'] dialog.sw-offer-panel[data-motion] {
       transition:
         translate var(--dur-sheet) var(--ease-out),
-        max-height var(--dur-sheet) var(--ease-out),
         opacity var(--dur-state) var(--ease-out),
         display var(--dur-sheet) allow-discrete,
         overlay var(--dur-sheet) allow-discrete;
