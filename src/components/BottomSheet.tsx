@@ -176,12 +176,24 @@ export function BottomSheet({
     if (!element) return
     element.style.transition = animate ? 'transform .2s ease' : 'none'
     element.style.transform = dy > 0 ? `translateY(${dy}px)` : ''
+    // Back in place: the sheet's own CSS transitions (opening, closing) apply again.
+    if (dy <= 0) {
+      const clear = () => (element.style.transition = '')
+      if (animate) element.addEventListener('transitionend', clear, { once: true })
+      else clear()
+    }
   }
 
   const dragHandlers = dragToClose
     ? {
         onPointerDown: (event: PointerEvent<HTMLDivElement>) => {
           if (event.pointerType === 'mouse' && event.button !== 0) return
+          // A finger pulls by the handle only; elsewhere on the top it scrolls (see the handle).
+          if (
+            event.pointerType !== 'mouse' &&
+            !(event.target as Element).closest('[data-sheet-handle]')
+          )
+            return
           drag.current = { y: event.clientY, time: event.timeStamp, dy: 0, active: false }
         },
         onPointerMove: (event: PointerEvent<HTMLDivElement>) => {
@@ -211,8 +223,9 @@ export function BottomSheet({
           else moveSheet(0, true)
         },
         onPointerCancel: () => {
+          const state = drag.current
           drag.current = null
-          moveSheet(0, true)
+          if (state?.active) moveSheet(0, true)
         },
       }
     : {}
