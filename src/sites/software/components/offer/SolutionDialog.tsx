@@ -46,9 +46,10 @@ import {
 const PANEL =
   'sw-offer-panel inset-0 m-auto h-[min(920px,calc(100svh-40px))] max-h-none w-[min(1480px,calc(100vw-48px))] max-w-none rounded-[28px] min-[768px]:[&_[data-sheet-handle]]:hidden max-[767px]:inset-x-0 max-[767px]:bottom-0 max-[767px]:top-auto max-[767px]:h-auto max-[767px]:w-full max-[767px]:rounded-b-none'
 const BACKDROP = 'backdrop:bg-surface-dark/70 backdrop:backdrop-blur-md'
-/** Phone (§2.6): the sheet stops at 70 % and goes full height once read or pulled up. */
-/* Phone: one height from the start, like an app (AUDYT-PROD-TELEFON §2 #7–#8) — no 70 % stop
-   that grew mid-gesture, and `svh`, which does not follow Chrome's bars as they hide and show. */
+/**
+ * Phone: one height from the start, like an app (AUDYT-PROD-TELEFON §2 #7–#8) — no 70 % stop that
+ * grew mid-gesture, and `svh`, which does not follow Chrome's bars as they hide and show.
+ */
 const SHEET = 'sw-offer-sheet max-[767px]:max-h-[92svh]'
 /** A swipe across the phone's mock-up: at least this far, and mostly sideways. */
 const SWIPE_PX = 60

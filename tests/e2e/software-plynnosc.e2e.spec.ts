@@ -66,14 +66,10 @@ test.describe('Software on a phone — motion and the offer sheet', () => {
     await page.goto(site(HOST, '/rozwiazania?rozwiazanie=strona-wizytowka'))
     const dialog = page.getByRole('dialog', { name: 'Strona wizytówka', exact: true })
     await expect(dialog).toBeVisible()
-    // Measured where the sheet stops, not while it slides up (the mock-ups loop forever).
+    // Measured where the sheet stops, not while it slides up: its own animations only (a
+    // paused animation inside, below the fold, would never finish).
     await dialog.evaluate((element) =>
-      Promise.all(
-        element
-          .getAnimations({ subtree: true })
-          .filter((animation) => animation.effect?.getComputedTiming().iterations !== Infinity)
-          .map((animation) => animation.finished),
-      ),
+      Promise.all(element.getAnimations().map((animation) => animation.finished)),
     )
     const box = (await dialog.boundingBox())!
     // 92svh at once (no 70 % stop) and standing on the bottom edge.
