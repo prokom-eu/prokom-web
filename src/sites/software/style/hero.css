@@ -2002,6 +2002,8 @@
     font-size: 0;
   }
   .hx-cap a::after {
+    /* Safari before 17.4 drops the whole declaration with an alternative: the plain one first. */
+    content: '→';
     content: '→' / '';
     font-size: 18px;
   }
@@ -2025,19 +2027,9 @@
     width: 20px;
     background: var(--accent);
   }
-  /* The row of tiles fades at its edges and snaps: it plainly goes on sideways. */
+  /* The row of tiles fades at its right edge (it already snaps, ≤ 960 px): it plainly goes on. */
   .hx-tiles {
-    scroll-snap-type: x mandatory;
-    mask-image: linear-gradient(
-      90deg,
-      transparent 0,
-      var(--hero-black) 12px,
-      var(--hero-black) calc(100% - 48px),
-      transparent 100%
-    );
-  }
-  .hx-tile {
-    scroll-snap-align: start;
+    mask-image: linear-gradient(90deg, var(--hero-black) calc(100% - 48px), transparent 100%);
   }
 }
 /* Room on the first screen (e2e software-hero): the window gives up the 21 px of the dots (and

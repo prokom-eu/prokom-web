@@ -332,8 +332,8 @@ export function HeroStage({
         </div>
         {/* Phone (≤ 600 px): which slide of how many — the tiles above and a swipe choose. */}
         <div className="hx-dots" aria-hidden="true">
-          {slides.map((item, i) => (
-            <i key={item.name} data-on={i === current ? '' : undefined} />
+          {slides.map((_, i) => (
+            <i key={i} data-on={i === current ? '' : undefined} />
           ))}
         </div>
       </div>

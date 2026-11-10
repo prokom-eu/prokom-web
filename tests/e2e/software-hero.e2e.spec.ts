@@ -233,6 +233,8 @@ test('the phone shows the short word of a slide in one line (SWA12b #14)', async
   const last = (await tabs(page).last().boundingBox())!
   await page.mouse.click(last.x + last.width / 2, last.y + last.height / 2)
   await expect(word(page)).toHaveText('automatyzacje.', { useInnerText: true })
-  const line = await word(page).evaluate((el) => parseFloat(getComputedStyle(el).lineHeight))
-  expect((await word(page).boundingBox())!.height).toBeLessThan(line * 1.5)
+  // The word itself (its box reserves two lines for the long words): one line high.
+  const short = word(page).locator('.hx-word-short')
+  const size = await short.evaluate((el) => parseFloat(getComputedStyle(el).fontSize))
+  expect((await short.boundingBox())!.height).toBeLessThan(size * 1.6)
 })
