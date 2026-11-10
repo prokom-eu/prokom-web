@@ -20,6 +20,7 @@ import type { SiteTenant } from '@/lib/tenant/byHost'
 import { PageTransition } from './PageTransition'
 import { ContactToast } from './components/ContactToast'
 import { ProjectToast } from './components/ProjectToast'
+import { MotionGate } from './powloka/MotionGate'
 import { PhoneSignals } from './powloka/PhoneSignals'
 import { PreviewGuard } from './powloka/PreviewGuard'
 import { StartBand } from './powloka/StartBand'
@@ -138,6 +139,7 @@ export async function SoftwareFrame({
       />
       <PageTransition>{children}</PageTransition>
       <ContactToast />
+      <MotionGate />
       {navigation.startBand && (
         <StartBand band={navigation.startBand} phone={line?.phone ?? null} />
       )}

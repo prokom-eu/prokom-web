@@ -1783,7 +1783,12 @@
   .hx-mq:is(:hover, :focus-within) ul {
     animation-play-state: paused;
   }
-  .hx[data-paused] :is(.hx-cos *, .hx-mq ul, .hx-win::after, .mk *, .hx-tile::after) {
+  /* Pseudo-elements cannot stand inside `:is()` (the browser drops them silently), so the glint
+     and the tile's bar have their own selectors (AUDYT-PROD-TELEFON §1: both ran on every
+     screen of the page, the cursor too). */
+  .hx[data-paused] :is(.hx-cos *, .hx-mq ul, .mk *, .hx-typ),
+  .hx[data-paused] .hx-win::after,
+  .hx[data-paused] .hx-tile::after {
     animation-play-state: paused;
   }
   .hx[data-hold] .hx-tile[aria-selected='true']::after {
@@ -1876,5 +1881,33 @@
 @keyframes hx-band {
   to {
     transform: translateX(-50%);
+  }
+}
+
+/* --- Phone without costly filters (AUDYT-PROD-TELEFON §1 #5): the ribbons and the beam are
+   radial and conic gradients that are already soft, so they keep their shape without the blur
+   that each moving layer would compute again on every frame; the choice panel and the caption
+   get a dense glass without `backdrop-filter` (the capsule and the tab bar keep theirs); the word
+   of the heading comes in without the blur. --------------------------------------------------- */
+@media (max-width: 767px) {
+  .hx-cos .rb,
+  .hx-cos .beam {
+    filter: none;
+  }
+  .hx-cmd,
+  .hx-cap {
+    background: color-mix(in srgb, var(--card) 92%, transparent);
+    backdrop-filter: none;
+  }
+}
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  .hx-word > span {
+    animation-name: hx-word-flat;
+  }
+}
+@keyframes hx-word-flat {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
 }
