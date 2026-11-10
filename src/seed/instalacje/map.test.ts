@@ -393,3 +393,13 @@ describe('icon review (runda v6 §1.5)', () => {
     expect(objects.find((o) => o.key === 'dev')?.icon).toBe('apt')
   })
 })
+
+describe('hero facts of the objects (decision 10.11)', () => {
+  it('/dla-kogo/firmy shows „od 2004 / na Podhalu”, no labour cost in zł', () => {
+    const firma = objectsToImport()
+      .map((item) => objectData(item, refs))
+      .find((o) => o.key === 'firma')
+    expect(firma?.hero?.facts?.[0]).toMatchObject({ value: 'od 2004', label: 'na Podhalu' })
+    expect(JSON.stringify(firma?.hero)).not.toMatch(/zł|koszt pracy/)
+  })
+})
