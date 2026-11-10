@@ -22,6 +22,8 @@ const TITLE = 'Dziękujemy'
 // After a form: personal, nothing to index, not in the sitemap (spec. §2, §6.11).
 export const metadata: Metadata = {
   title: TITLE,
+  // Still described (Lighthouse SEO), though never indexed.
+  description: 'Dziękujemy za zapytanie. Odezwiemy się w ciągu 1 dnia roboczego.',
   robots: { index: false, follow: true },
 }
 

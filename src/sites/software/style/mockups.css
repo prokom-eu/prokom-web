@@ -14,6 +14,10 @@
   overflow-clip-margin: 32px;
   aspect-ratio: 640 / 420;
   container-type: inline-size;
+  /* Lighthouse 10.11: a mock-up away from the screen is laid out and painted only when it comes
+     near (30 of them on the start page, 2 100 of its 3 550 elements). It already clips with the
+     32 px margin and its size comes from the parent, so nothing moves or gets cut. */
+  content-visibility: auto;
   color: var(--mk-ink);
   font-family: var(--font-sans);
   text-align: left;
