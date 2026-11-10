@@ -55,7 +55,8 @@ describe('whileMatches', () => {
     expect(stop).toHaveBeenCalledTimes(1)
   })
 
-  it('names the layouts of the CSS (wspolne.css: links from 1081 px, rail from 1400 px)', () => {
+  // The CSS side (rail hidden below 1400 px) is guarded by the e2e `wspolne-szyna`.
+  it('keeps the thresholds of wspolne.css (capsule links from 1081 px, rail from 1400 px)', () => {
     expect(CAPSULE_LINKS_QUERY).toBe('(min-width: 1081px)')
     expect(RAIL_QUERY).toBe('(min-width: 1400px)')
   })

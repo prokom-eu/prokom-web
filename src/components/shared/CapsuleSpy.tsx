@@ -110,5 +110,7 @@ function spy(
     resized.disconnect()
     capsule?.removeEventListener('transitionend', schedule)
     marked?.removeAttribute('data-spy')
+    // Shown again later (a wider window), the pill takes its place without a glide.
+    element.removeAttribute('data-on')
   }
 }
