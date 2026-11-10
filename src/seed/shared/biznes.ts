@@ -1,4 +1,4 @@
-import { CONTACT_FAQ_TODO, type SharedGroup, VERIFY_CEIDG, VERIFY_GOOGLE } from './types'
+import { type SharedGroup, VERIFY_CEIDG, VERIFY_GOOGLE } from './types'
 
 /**
  * Shared fields of prokombiznes.pl (spec §4.2, §6.3): texts of the boards Chrome, Footer,
@@ -121,7 +121,8 @@ export const BIZNES_SHARED: SharedGroup = {
       },
     ],
     topics: [...BIZNES_TOPICS, 'Inna sprawa'],
-    formTitle: 'Napisz, czego potrzebujesz.',
+    // Board Web-kontakt: the second sentence in the accent (`accentSecondSentence`).
+    formTitle: 'Powiedz, czego potrzebujesz. Resztą zajmiemy się my.',
     placeholder: 'np. Otwieramy kawiarnię w grudniu, potrzebujemy kasy i terminala.',
     sendLabel: 'Wyślij zapytanie',
     nextSteps: [
@@ -133,7 +134,30 @@ export const BIZNES_SHARED: SharedGroup = {
     mapTitle: 'Dojeżdżamy na całe Podhale i Małopolskę.',
     mapLead: 'Salon jest w Rabce-Zdroju. Do firm przyjeżdżamy z kasą, sprzętem i programem.',
     salonKeys: ['rabka'],
-    faq: CONTACT_FAQ_TODO,
+    // „Zanim zadzwonisz” — the four questions of the board Web-kontakt (K4), its answers; hours and
+    // „60 minut” as everywhere else in Biznes (D18, decision 01.11).
+    faq: [
+      {
+        question: 'Dojeżdżacie do mnie?',
+        answer:
+          'Tak — na całe Podhale i Małopolskę: Nowy Targ, Zakopane, Limanowa, Mszana Dolna, Myślenice, Nowy Sącz, Kraków. Dalej też, po ustaleniu.',
+      },
+      {
+        question: 'Czy mogę przyjechać z kasą do serwisu?',
+        answer:
+          'Tak, ul. Orkana 16B w Rabce-Zdroju, pn–pt 9:00–17:00. Warto zadzwonić wcześniej — przygotujemy części i papier do kasy.',
+      },
+      {
+        question: 'Jak szybko odpowiadacie?',
+        answer:
+          'Oddzwaniamy w ciągu 60 minut w godzinach pracy (pn–pt 9:00–17:00). Klienci z umową opieki IT mają dodatkowo czas reakcji zapisany w umowie.',
+      },
+      {
+        question: 'Czy dostanę wycenę bez wizyty?',
+        answer:
+          'Tak. Opisz firmę w formularzu albo zadzwoń — większość wycen przygotowujemy zdalnie, na piśmie.',
+      },
+    ],
   },
   about: {
     h1: 'Lokalna firma IT, która zostaje z klientem na lata.',
