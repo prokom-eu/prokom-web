@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { hourTiles } from './hourTiles'
+import { hourTiles, weekHours } from './hourTiles'
 
 const HOURS = [
   { days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' },
@@ -24,5 +24,28 @@ describe('hourTiles (spec §6.1 hour tiles)', () => {
 
   it('with no hours every tile says „Zamknięte”', () => {
     expect(hourTiles([], 'mon').every((tile) => tile.value === 'Zamknięte')).toBe(true)
+  })
+})
+
+describe('weekHours (Kontakt „week” layout, Web-kontakt)', () => {
+  it('lists the seven days from Monday, a day without a row as „nieczynne”', () => {
+    expect(weekHours(HOURS, 'tue').map(({ label, value }) => `${label} ${value}`)).toEqual([
+      'Poniedziałek 9:00–17:00',
+      'Wtorek 9:00–17:00',
+      'Środa 9:00–17:00',
+      'Czwartek 9:00–17:00',
+      'Piątek 9:00–17:00',
+      'Sobota 9:00–14:00',
+      'Niedziela nieczynne',
+    ])
+  })
+
+  it('marks only today', () => {
+    expect(
+      weekHours(HOURS, 'fri')
+        .filter((day) => day.today)
+        .map((day) => day.key),
+    ).toEqual(['fri'])
+    expect(weekHours(HOURS, 'sun').findIndex((day) => day.today)).toBe(6)
   })
 })

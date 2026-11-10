@@ -4,7 +4,7 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { serializeJsonLd } from '@/lib/seo/jsonLd'
 import { formConsent } from '@/lib/shared/consent'
-import { hourTiles } from '@/lib/shared/hourTiles'
+import { hourTiles, weekHours } from '@/lib/shared/hourTiles'
 import { isIconName } from '@/lib/shared/icons'
 import { lineSalons, pageBreadcrumbsJsonLd, PLACE_KIND_LABEL } from '@/lib/shared/pages'
 import type { SharedData } from '@/lib/shared/project'
@@ -33,9 +33,16 @@ export type ContactSlots = {
   afterRoutes?: ReactNode
   /** Above the form fields, e.g. Software „Twój projekt”. */
   formPrefill?: ReactNode
+  /**
+   * The line's own form section in place of the shared one (Biznes: the home form, one component
+   * for both pages). It must keep the `#formularz` anchor — routes and CTAs scroll to it.
+   */
+  form?: ReactNode
   /** Before „Dojazd i zasięg”. */
   afterForm?: ReactNode
   beforeFaq?: ReactNode
+  /** Under the FAQ heading, e.g. Biznes „Masz listę pozycji z katalogu?”. */
+  faqAside?: ReactNode
 }
 
 export type ContactPageProps = {
@@ -56,6 +63,8 @@ export type ContactPageProps = {
   /** The line's class for the highlighted word of the section H2s (Software: `sw-em`, AUDYT-0911
    * #1). Without it the H2s written here stay plain text. */
   headingEmClass?: string
+  /** Hours in the address card: three tiles (default) or the seven days with „dziś” (Web-kontakt). */
+  hoursLayout?: 'tiles' | 'week'
 }
 
 const H2 =
@@ -83,6 +92,7 @@ export function ContactPage({
   showServiceArea = true,
   showOtherLines = true,
   headingEmClass,
+  hoursLayout = 'tiles',
 }: ContactPageProps) {
   const { company, lines } = shared
   const data = shared.line
@@ -93,7 +103,9 @@ export function ContactPage({
   const tel = data.phone ? toTelHref(data.phone) : null
   const consent = formConsent(company.consent)
   const where = salon ? `${salon.street}, ${salon.postalCode} ${salon.city}` : null
-  const tiles = hours.length ? hourTiles(hours, warsawWeekday(new Date(now))) : []
+  const today = warsawWeekday(new Date(now))
+  const tiles = hours.length && hoursLayout === 'tiles' ? hourTiles(hours, today) : []
+  const week = hours.length && hoursLayout === 'week' ? weekHours(hours, today) : []
   const routes = contact.routes ?? []
   // The map drawing is of the office (Orkana 16B) and the route is `CompanyData.mapsUrl` — shown only
   // when the card is that salon; another first salon gets its address and hours without a map.
@@ -245,6 +257,39 @@ export function ContactPage({
                     ))}
                   </ul>
                 )}
+                {week.length > 0 && (
+                  <table className="mx-2 text-sm" data-week-hours>
+                    <caption className="sr-only">Godziny otwarcia</caption>
+                    <tbody>
+                      {week.map((day) => (
+                        <tr
+                          key={day.key}
+                          className={cx(day.today && 'bg-accent-soft font-extrabold')}
+                          aria-current={day.today ? 'date' : undefined}
+                        >
+                          <th
+                            scope="row"
+                            className={cx(
+                              'rounded-l-xl py-1.5 pl-3 text-left',
+                              day.today ? 'font-extrabold' : 'font-semibold',
+                            )}
+                          >
+                            {day.label}
+                            {day.today && <span className="text-accent-text"> · dziś</span>}
+                          </th>
+                          <td
+                            className={cx(
+                              'rounded-r-xl py-1.5 pr-3 text-right tabular-nums',
+                              day.value === 'nieczynne' ? 'text-ink-2' : 'font-bold',
+                            )}
+                          >
+                            {day.value}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
                 <p className="flex flex-wrap justify-between gap-2 px-2 text-sm text-ink-2">
                   <span>
                     {company.name} · NIP {company.nip}
@@ -342,50 +387,52 @@ export function ContactPage({
 
       {slots.afterRoutes}
 
-      <section
-        id="formularz"
-        aria-labelledby="kontakt-formularz"
-        className={cx(CONTAINER, 'scroll-mt-28 py-16')}
-        data-rail-section="Formularz"
-        data-rail-icon="chat"
-      >
-        <div className="grid overflow-hidden rounded-[30px] border border-border bg-card min-[1000px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          <div className="relative isolate flex flex-col gap-5 overflow-hidden bg-line-dark p-8 text-line-dark-text min-[768px]:p-10">
-            <Contours />
-            <p className="text-xs font-extrabold tracking-[0.12em] text-on-dark-text uppercase">
-              Formularz
-            </p>
-            <h2
-              id="kontakt-formularz"
-              className="font-display text-[clamp(28px,3vw,40px)] leading-tight font-extrabold text-line-dark-ink"
-            >
-              <HeadingText text={contact.formTitle || 'Napisz, oddzwonimy'} />
-            </h2>
-            {contact.nextSteps && contact.nextSteps.length > 0 && (
-              <>
-                <p className="mt-4 text-xs font-extrabold tracking-[0.12em] text-on-dark-text uppercase">
-                  Co dalej po wysłaniu
-                </p>
-                <Steps steps={contact.nextSteps} orientation="vertical" onDark />
-              </>
-            )}
+      {slots.form ?? (
+        <section
+          id="formularz"
+          aria-labelledby="kontakt-formularz"
+          className={cx(CONTAINER, 'scroll-mt-28 py-16')}
+          data-rail-section="Formularz"
+          data-rail-icon="chat"
+        >
+          <div className="grid overflow-hidden rounded-[30px] border border-border bg-card min-[1000px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+            <div className="relative isolate flex flex-col gap-5 overflow-hidden bg-line-dark p-8 text-line-dark-text min-[768px]:p-10">
+              <Contours />
+              <p className="text-xs font-extrabold tracking-[0.12em] text-on-dark-text uppercase">
+                Formularz
+              </p>
+              <h2
+                id="kontakt-formularz"
+                className="font-display text-[clamp(28px,3vw,40px)] leading-tight font-extrabold text-line-dark-ink"
+              >
+                <HeadingText text={contact.formTitle || 'Napisz, oddzwonimy'} />
+              </h2>
+              {contact.nextSteps && contact.nextSteps.length > 0 && (
+                <>
+                  <p className="mt-4 text-xs font-extrabold tracking-[0.12em] text-on-dark-text uppercase">
+                    Co dalej po wysłaniu
+                  </p>
+                  <Steps steps={contact.nextSteps} orientation="vertical" onDark />
+                </>
+              )}
+            </div>
+            <div className="p-6 min-[768px]:p-10">
+              <ContactForm
+                formToken={formToken}
+                topics={contact.topics ?? []}
+                placeholder={contact.placeholder}
+                sendLabel={contact.sendLabel}
+                responsePromise={data.responsePromise}
+                consent={{ ...consent, privacyHref: company.legal.privacy }}
+                zones={company.serviceZones}
+                nextSteps={contact.nextSteps ?? []}
+                line={line}
+                prefill={slots.formPrefill}
+              />
+            </div>
           </div>
-          <div className="p-6 min-[768px]:p-10">
-            <ContactForm
-              formToken={formToken}
-              topics={contact.topics ?? []}
-              placeholder={contact.placeholder}
-              sendLabel={contact.sendLabel}
-              responsePromise={data.responsePromise}
-              consent={{ ...consent, privacyHref: company.legal.privacy }}
-              zones={company.serviceZones}
-              nextSteps={contact.nextSteps ?? []}
-              line={line}
-              prefill={slots.formPrefill}
-            />
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {slots.afterForm}
 
@@ -437,6 +484,7 @@ export function ContactPage({
         title="Zanim **zadzwonisz**"
         emClass={headingEmClass}
         items={contact.faq ?? []}
+        aside={slots.faqAside}
       />
     </div>
   )

@@ -30,3 +30,26 @@ export function hourTiles(hours: OpeningHours, today: string): HourTile[] {
     { key: 'sun', label: 'Niedziela', value: valueFor(hours, 'sun'), today: today === 'sun' },
   ]
 }
+
+export type WeekDay = { key: string; label: string; value: string; today: boolean }
+
+const WEEK: readonly (readonly [string, string])[] = [
+  ['mon', 'Poniedziałek'],
+  ['tue', 'Wtorek'],
+  ['wed', 'Środa'],
+  ['thu', 'Czwartek'],
+  ['fri', 'Piątek'],
+  ['sat', 'Sobota'],
+  ['sun', 'Niedziela'],
+]
+
+/**
+ * The seven days of the contact card's „week” layout (Web-kontakt): Monday first, each with its
+ * hours or „nieczynne”, `today` (a weekday key in Poland, `warsawWeekday`) marked.
+ */
+export function weekHours(hours: OpeningHours, today: string): WeekDay[] {
+  return WEEK.map(([key, label]) => {
+    const value = valueFor(hours, key)
+    return { key, label, value: value === 'Zamknięte' ? 'nieczynne' : value, today: key === today }
+  })
+}

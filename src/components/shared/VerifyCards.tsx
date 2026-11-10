@@ -6,6 +6,14 @@ export type VerifyItem = { title: string; text?: string | null; href?: string | 
 type Props = { items: readonly VerifyItem[]; className?: string }
 
 /**
+ * The cards to show. With `linkedOnly` (Biznes, plan 0611 §8.2 „puste = karta ukryta”) a card
+ * whose link is still empty in the panel is left out; other lines keep it as a plain card.
+ */
+export function shownVerify(items: readonly VerifyItem[], linkedOnly: boolean): VerifyItem[] {
+  return linkedOnly ? items.filter((item) => Boolean(item.href)) : [...items]
+}
+
+/**
  * „Nie musisz wierzyć nam na słowo” (spec §6.2 pkt 6, `VerifyCards`): four cards with an outside
  * source (CEIDG, producer lists, reviews) from `shared.about.verify`. A card with an address opens
  * it in a new tab; one without (a link still to come) is a plain card.
