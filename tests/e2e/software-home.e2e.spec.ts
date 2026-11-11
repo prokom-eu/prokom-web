@@ -50,7 +50,10 @@ test.describe('Software start page', () => {
 
     const height = async () => (await page.locator('#proces').boundingBox())?.height
     const before = await height()
+    // The stages switch only while the section is on the screen (SWA13 #1).
+    await page.locator('#proces').scrollIntoViewIfNeeded()
     await page.mouse.move(0, 0)
+    await page.clock.runFor(300)
     await page.clock.runFor(6300)
     await expect(stageTabs(page).nth(1)).toHaveAttribute('aria-selected', 'true')
     expect(await height()).toBe(before)
