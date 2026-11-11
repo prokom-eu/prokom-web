@@ -122,10 +122,17 @@ async function render(
   switch (variant) {
     case 'stats':
       return <StatsSection block={block} />
-    case 'cards':
-      return <CardsSection block={block} />
+    case 'cards': {
+      // Real screens on the cards (PRODUKCJA-BIZNES-1211 §3) — by Media id.
+      const shots = parseSectionData('cards', block.data)?.shots ?? []
+      const ids = shots.flatMap((shot) => (shot?.image !== undefined ? [shot.image] : []))
+      const images = ids.length > 0 ? await getSectionImages(tenantId, ids) : {}
+      return <CardsSection block={block} shots={shots} images={images} />
+    }
     case 'steps':
-      return <StepsSection block={block} />
+      return (
+        <StepsSection block={block} axis={parseSectionData('steps', block.data)?.axis === true} />
+      )
     case 'cases':
       return <CasesSection block={block} />
     case 'band': {
@@ -213,12 +220,13 @@ async function render(
     }
     case 'gopos-areas': {
       const data = parseSectionData('gopos-areas', block.data)
+      if (!data) return null
+      const ids = data.areas.flatMap((area) => (area.image !== undefined ? [area.image] : []))
+      const images = ids.length > 0 ? await getSectionImages(tenantId, ids) : {}
       return (
-        data && (
-          <SectionShell block={block}>
-            <GoposAreas data={data} />
-          </SectionShell>
-        )
+        <SectionShell block={block}>
+          <GoposAreas data={data} images={images} />
+        </SectionShell>
       )
     }
     case 'gopos-hub': {

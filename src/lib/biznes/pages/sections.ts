@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { ICON_NAMES } from '../../shared/icons'
 import {
   aboutHeroSchema,
   audienceSchema,
@@ -121,7 +122,16 @@ const tabsSchema = z.object({
 
 /** `chips`: groups of short labels (GoPOS integrations) with an optional total tile. */
 const chipsSchema = z.object({
-  groups: z.array(z.object({ t: text, items: z.array(text).min(1).max(10) })).max(10),
+  groups: z
+    .array(
+      z.object({
+        t: text,
+        items: z.array(text).min(1).max(10),
+        /** Icon of the group's kind (PRODUKCJA-BIZNES-1211 §3: tiles, not bare chips). */
+        ic: z.enum(ICON_NAMES).optional(),
+      }),
+    )
+    .max(10),
   total: z.object({ v: text, t: text }).optional(),
   /** Groups shown before „Pokaż wszystkie”; 0 = all. */
   visible: z.number().int().min(0).default(0),
@@ -136,14 +146,38 @@ const productsSchema = z.object({
 const empty = z.object({}).passthrough()
 
 /**
+ * `cards`: an optional picture per card, by the card's position (PRODUKCJA-BIZNES-1211 §3 — real
+ * GoPOS screens): `phone` — a screen in a phone frame, `screen` — a device photo, `doc` — a drawn
+ * invoice (no image). `null` = a card without a picture.
+ */
+const cardsSchema = z
+  .object({
+    shots: z
+      .array(
+        z
+          .object({
+            frame: z.enum(['phone', 'screen', 'doc']),
+            image: z.number().int().positive().optional(),
+          })
+          .nullable(),
+      )
+      .max(16)
+      .optional(),
+  })
+  .passthrough()
+
+/** `stepsSchema`: `axis` draws the steps on one line with numbered stops (GoPOS rollout). */
+const stepsSchema = z.object({ axis: z.boolean().optional() }).passthrough()
+
+/**
  * Kinds of the K4 section (`bzSection`, decyzja Krystiana 01.11 — hybryda): texts, cards and
  * FAQ are the block's fields, the data of a widget is JSON checked by its schema here.
  */
 export const SECTION_SCHEMAS = {
   // Shared kinds: the block's items carry the content.
   stats: empty,
-  cards: empty,
-  steps: empty,
+  cards: cardsSchema,
+  steps: stepsSchema,
   cases: empty,
   band: actionsSchema,
   videos: videosSchema,

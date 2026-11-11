@@ -133,6 +133,27 @@ describe('/gopos (K4h)', () => {
     expect(venues[0]!.h1a).toMatch(/^Restauracja/)
   })
 
+  it('shows real screens on the cards and areas, plans and an axis (PRODUKCJA-BIZNES-1211 §3)', () => {
+    const ids = new Map<string, number>()
+    const mediaOf = (file: string) => {
+      if (!ids.has(file)) ids.set(file, ids.size + 1)
+      return ids.get(file)
+    }
+    const built = goposK4Layout(pages, identity, mediaOf).layout
+    const areas = dataOf(built, 'gopos-areas')!.areas
+    expect(areas.every((area) => typeof area.image === 'number')).toBe(true)
+    const shots = dataOf(built, 'cards')!.shots!
+    expect(shots.map((shot) => shot?.frame)).toEqual(['doc', 'screen', 'phone'])
+    expect(shots[2]!.image).toBe(ids.get('ekran-gopos-now.webp'))
+    const tiers = dataOf(built, 'gopos-package')!.tiers!
+    expect(tiers.head).toEqual(['Basic', 'Pro', 'Unlimited'])
+    expect(tiers.rows.map((row) => row.t)).toEqual(['GoOrder', 'GoHub', 'GoCRM'])
+    expect(dataOf(built, 'steps')!.axis).toBe(true)
+    expect(dataOf(built, 'chips')!.groups.every((group) => group.ic)).toBe(true)
+    const stats = sections(built).find((block) => block.variant === 'stats')!
+    expect(stats.items?.every((item) => item.icon)).toBe(true)
+  })
+
   it('lights the KDS screen at the kitchen step', () => {
     const hero = dataOf(layout, 'gopos-hero')!
     expect(hero.flow[1]!.k).toBe('Kuchnia')
@@ -212,7 +233,8 @@ describe('/gopos (K4h)', () => {
       expect(GOPOS_PHOTO_ALT[file], file).toBeTruthy()
       expect(existsSync(goposPhotoPath(file)), file).toBe(true)
     }
-    expect(goposPhotoFiles(pages)).toHaveLength(9)
+    // 9 of the design package + 3 producer screens of PRODUKCJA-BIZNES-1211 §3.
+    expect(goposPhotoFiles(pages)).toHaveLength(12)
   })
 
   it('leaves the device list out when no device is known (the panel needs one)', () => {

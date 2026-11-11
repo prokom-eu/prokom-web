@@ -129,7 +129,14 @@ const packageStart = {
 export const goposAreasSchema = z.object({
   ...packageStart,
   areas: z
-    .array(z.object({ t: text, items: z.array(areaItemSchema).min(1).max(10) }))
+    .array(
+      z.object({
+        t: text,
+        items: z.array(areaItemSchema).min(1).max(10),
+        /** A real GoPOS screen of the area (PRODUKCJA-BIZNES-1211 §3), a Media id. */
+        image: mediaId.optional(),
+      }),
+    )
     .min(1)
     .max(6),
   ext: z.object({
@@ -183,6 +190,17 @@ export const goposPackageSchema = z.object({
     addons: z.array(text).max(16),
     source: z.string().optional(),
   }),
+  /**
+   * Modules with Basic / Pro / Unlimited limits, shown on the page — not behind a button
+   * (PRODUKCJA-BIZNES-1211 §3 pkt 6). No prices: the producer's limits only.
+   */
+  tiers: z
+    .object({
+      head: z.array(text).length(3),
+      rows: z.array(z.object({ t: text, k: text, v: z.array(text).length(3) })).max(10),
+      source: z.string().optional(),
+    })
+    .optional(),
 })
 
 /** Modules in the package: the core ones and the picked ones, in the list's order. */

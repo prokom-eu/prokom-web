@@ -33,7 +33,49 @@ export const GOPOS_PHOTO_ALT: Record<string, string> = {
   'ekosystem.webp': 'GoPOS: kiosk, aplikacja, kasa, ekran kuchni i panel online',
   'reczny-v3.webp': 'GoPOS All in One — urządzenie ręczne',
   'aio-stand.webp': 'Stanowisko GoPOS z drukarką',
+  // Screens of the producer's materials (PRODUKCJA-BIZNES-1211 §3; zgoda szefa 12.11), in
+  // `seed/prokombiznes/media/gopos-ekrany` — sources in its ZRODLA.md.
+  'ekran-gopos-now.webp':
+    'Aplikacja GoPOS Now w telefonie: goście na sali, paragony, rachunki na żywo',
+  'ekran-gopos-kds.webp': 'Ekran kuchenny GoKDS z zamówieniami w kolumnach',
+  'ekran-gopos-emenu.webp': 'E-Menu GoPOS w telefonie i kod QR na stoliku',
 }
+
+/** Session screens (not the design package): their own folder. */
+const GOPOS_SCREEN_FILES = new Set([
+  'ekran-gopos-now.webp',
+  'ekran-gopos-kds.webp',
+  'ekran-gopos-emenu.webp',
+])
+
+/** A screen per area of „Cały lokal” (by the area's title in the package). */
+const GOPOS_AREA_SCREENS: Record<string, string> = {
+  'Sala i sprzedaż': 'ekran-d3.webp',
+  'Kuchnia i wydawka': 'ekran-gopos-kds.webp',
+  'Online i dowozy': 'ekran-gopos-emenu.webp',
+  'Zarządzanie lokalem': 'ekosystem.webp',
+}
+
+/** Pictures of the three cards „KSeF, praca bez internetu i utarg w telefonie”. */
+const GOPOS_CARD_SHOTS: { frame: 'doc' | 'screen' | 'phone'; file?: string }[] = [
+  { frame: 'doc' },
+  { frame: 'screen', file: 'kasa-d3.webp' },
+  { frame: 'phone', file: 'ekran-gopos-now.webp' },
+]
+
+/** Icon of an integration group (tiles, PRODUKCJA-BIZNES-1211 §3 pkt 7). */
+const INTEGRATION_ICONS: Record<string, IconName> = {
+  Dowozy: 'car',
+  Kurierzy: 'box',
+  Płatności: 'card',
+  Fiskalizacja: 'cash',
+  Hotel: 'bed',
+  Dokumenty: 'doc',
+  Marketing: 'mega',
+}
+
+/** Icons of the four numbers „GoPOS w liczbach”, in their order. */
+const GOPOS_STAT_ICONS: IconName[] = ['store', 'cal', 'plug', 'star']
 
 const isPhotoFile = (value: string) => value.endsWith('.webp')
 
@@ -44,13 +86,20 @@ export function goposPhotoFiles(file: K4PagesFile): string[] {
     ...new Set([
       ...g.hero.stage.flatMap((device) => (device.img ? [device.img] : [])),
       ...Object.values(g.segImg).filter(isPhotoFile),
+      ...g.areas.flatMap((area) => {
+        const screen = GOPOS_AREA_SCREENS[area.t]
+        return screen ? [screen] : []
+      }),
+      ...GOPOS_CARD_SHOTS.flatMap((shot) => (shot.file ? [shot.file] : [])),
     ]),
   ]
 }
 
-/** Path of a GoPOS photo of the package (relative to the repo). */
+/** Path of a GoPOS photo (relative to the repo): the package's scene or the session's screens. */
 export const goposPhotoPath = (name: string) =>
-  path.join('seed', 'prokombiznes', 'k4', 'media', 'gopos-scena', name)
+  GOPOS_SCREEN_FILES.has(name)
+    ? path.join('seed', 'prokombiznes', 'media', 'gopos-ekrany', name)
+    : path.join('seed', 'prokombiznes', 'k4', 'media', 'gopos-scena', name)
 
 type Pair = [string, string]
 
@@ -406,6 +455,21 @@ export function goposK4Layout(
   })
   const presentation = { slug: core, note: GOPOS_PRESENTATION_NOTE }
   const devices = r.many(g.devs)
+  /** `{ image }` of an uploaded photo, nothing when it is not uploaded (tests, first run). */
+  const withImage = (file: string | undefined) => {
+    const image = file ? mediaOf(file) : undefined
+    return image !== undefined ? { image } : {}
+  }
+  // Modules with all three plans (GoOrder, GoHub, GoCRM) → the Basic / Pro / Unlimited table.
+  const TIERS = ['Basic', 'Pro', 'Unlimited']
+  const tiers = {
+    head: TIERS,
+    rows: g.ext.flatMap((item) => {
+      const v = TIERS.map((tier) => item.v.find(([n]) => n === tier)?.[1])
+      return v.every((value): value is string => !!value) ? [{ t: item.t, k: item.k, v }] : []
+    }),
+    source: g.extSrc,
+  }
 
   const layout: PageBlock[] = [
     section({
@@ -444,7 +508,11 @@ export function goposK4Layout(
       variant: 'stats',
       surface: 'muted',
       eyebrow: 'GoPOS w liczbach',
-      items: g.stats.map(([title, text]) => ({ title, text })),
+      items: g.stats.map(([title, text], i) => ({
+        title,
+        text,
+        ...(GOPOS_STAT_ICONS[i] && { icon: GOPOS_STAT_ICONS[i] }),
+      })),
       source: g.statsSrc,
     }),
     section({
@@ -483,6 +551,7 @@ export function goposK4Layout(
         core,
         areas: g.areas.map((area) => ({
           t: area.t,
+          ...withImage(GOPOS_AREA_SCREENS[area.t]),
           items: area.it.map(([t, d, id]) => {
             const slug = id ? r.one(id) : undefined
             return { t, d, ...(slug ? { slug } : {}) }
@@ -540,6 +609,12 @@ export function goposK4Layout(
         },
       ],
       source: 'Źródło: gopos.pl · stan na 26.10.2026',
+      data: {
+        shots: GOPOS_CARD_SHOTS.map((shot) => ({
+          frame: shot.frame,
+          ...withImage(shot.file),
+        })),
+      },
     }),
     // A list with nothing known is left out: the panel would refuse it (at least one product).
     ...(devices.length > 0
@@ -584,6 +659,7 @@ export function goposK4Layout(
           addons: g.pakiety.dod,
           source: g.pakiety.src,
         },
+        ...(tiers.rows.length > 0 && { tiers }),
       },
     }),
     section({
@@ -616,6 +692,7 @@ export function goposK4Layout(
       eyebrow: 'Wdrożenie',
       heading: 'Od prezentacji do pierwszego sezonu',
       items: g.steps.map(([title, text]) => ({ title, text })),
+      data: { axis: true },
     }),
     section({
       variant: 'chips',
@@ -624,7 +701,11 @@ export function goposK4Layout(
       heading: 'GoPOS dogaduje się z tym, czego już używasz',
       source: g.integSrc,
       data: {
-        groups: g.integ.map(([t, items]) => ({ t, items })),
+        groups: g.integ.map(([t, items]) => ({
+          t,
+          items,
+          ...(INTEGRATION_ICONS[t] && { ic: INTEGRATION_ICONS[t] }),
+        })),
         total: { v: '30+', t: 'integracji według GoPOS' },
         visible: 3,
       },

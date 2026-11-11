@@ -199,11 +199,19 @@ export function GoposVenues({
 }
 
 /** Areas of GoPOS (#moduly): tabs; a module of the package is marked „w pakiecie”. */
-export function GoposAreas({ data }: { data: SectionData<'gopos-areas'> }) {
+export function GoposAreas({
+  data,
+  images = {},
+}: {
+  data: SectionData<'gopos-areas'>
+  /** Screens of the areas by Media id (PRODUKCJA-BIZNES-1211 §3). */
+  images?: Record<string, IndexImage>
+}) {
   const state = useGopos()
   const picked = pickedOr(state, data.initial)
   const tabs = useTabs(data.areas.length)
   const area = data.areas[tabs.current] ?? data.areas[0]!
+  const screen = area.image !== undefined ? images[String(area.image)] : undefined
   const [ext, setExt] = useState(0)
   const extra = data.ext.items[ext]
   return (
@@ -248,7 +256,26 @@ export function GoposAreas({ data }: { data: SectionData<'gopos-areas'> }) {
           role="tabpanel"
           {...tabs.swap}
           aria-labelledby={`${tabs.base}-t${tabs.current}`}
+          className={cx(
+            screen &&
+              'grid items-start gap-4 min-[820px]:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]',
+          )}
         >
+          {screen && (
+            // The area's real GoPOS screen, on the white plate (both themes).
+            <figure className="flex items-center justify-center rounded-[22px] bg-plate p-4 shadow-[0_14px_30px_-20px_var(--plate-shadow),inset_0_0_0_1px_var(--plate-shadow)] min-[820px]:order-2 min-[820px]:sticky min-[820px]:top-24">
+              <Image
+                key={screen.url}
+                src={screen.url}
+                alt={screen.alt}
+                width={screen.width}
+                height={screen.height}
+                sizes="(max-width: 820px) 92vw, 420px"
+                unoptimized
+                className="max-h-[340px] w-auto object-contain max-md:max-h-[220px]"
+              />
+            </figure>
+          )}
           <ul className={cx(CARD, 'flex flex-col divide-y divide-border p-2 text-ink')}>
             {area.items.map((item) => {
               const inPackage =
@@ -616,12 +643,13 @@ export function GoposPackage({ data }: { data: SectionData<'gopos-package'> }) {
           {data.note && <p className="text-[13px] leading-relaxed text-white/75">{data.note}</p>}
         </aside>
       </div>
-      <details className="group mt-6">
-        <summary className="inline-flex min-h-12 cursor-pointer list-none items-center gap-2 rounded-2xl px-5 font-extrabold text-ink shadow-[inset_0_0_0_1.5px_var(--border)] [&::-webkit-details-marker]:hidden">
-          <span className="group-open:hidden">Porównaj Basic i Pro</span>
-          <span className="hidden group-open:inline">Zwiń porównanie</span>
-        </summary>
-        <div className="mt-5 grid gap-5 min-[1080px]:grid-cols-2">
+      {/* Plans on the page, not behind a button (PRODUKCJA-BIZNES-1211 §3 pkt 6). No prices. */}
+      <h3 className="mt-10 font-display text-[1.4rem] leading-tight font-extrabold text-ink max-md:mt-8 max-md:text-lg">
+        Basic, Pro czy Unlimited — co różni pakiety
+      </h3>
+      {data.tiers && <TierTable tiers={data.tiers} />}
+      <div className="mt-5">
+        <div className="grid gap-5 min-[1080px]:grid-cols-2">
           <div className={cx(CARD, 'overflow-x-auto p-2')}>
             <table className="w-full text-left text-[15px] text-ink">
               <thead>
@@ -677,7 +705,71 @@ export function GoposPackage({ data }: { data: SectionData<'gopos-package'> }) {
             </p>
           </div>
         </div>
-      </details>
+      </div>
     </>
+  )
+}
+
+/**
+ * Modules with Basic / Pro / Unlimited limits: a table on a computer, a card per module on a phone
+ * (PRODUKCJA-BIZNES-1211 §3, MOBILE-APLIKACJA §4 — tables as cards).
+ */
+function TierTable({ tiers }: { tiers: NonNullable<SectionData<'gopos-package'>['tiers']> }) {
+  return (
+    <div className="mt-4" data-gopos-tiers>
+      <div className={cx(CARD, 'overflow-x-auto p-2 max-md:hidden')}>
+        <table className="w-full text-left text-[15px] text-ink">
+          <caption className="sr-only">
+            Limity modułów GoPOS w pakietach Basic, Pro i Unlimited
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col" className="px-4 py-3 font-extrabold">
+                Moduł
+              </th>
+              {tiers.head.map((cell) => (
+                <th key={cell} scope="col" className="px-4 py-3 font-extrabold">
+                  {cell}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {tiers.rows.map((row) => (
+              <tr key={row.t} className="border-t border-border">
+                <th scope="row" className="px-4 py-3">
+                  <b className="block font-extrabold">{row.t}</b>
+                  <small className="text-[13px] text-ink-2">{row.k}</small>
+                </th>
+                {row.v.map((value, i) => (
+                  <td key={i} className={cx('px-4 py-3', i === 2 && 'font-extrabold')}>
+                    {value}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <ul className="flex flex-col gap-2.5 md:hidden">
+        {tiers.rows.map((row) => (
+          <li key={row.t} className={cx(CARD, 'p-4 text-ink')}>
+            <b className="font-extrabold">{row.t}</b>
+            <span className="ml-2 text-[13px] text-ink-2">{row.k}</span>
+            <dl className="mt-2 grid grid-cols-3 gap-2">
+              {row.v.map((value, i) => (
+                <div key={i} className="rounded-xl bg-surface-2 p-2">
+                  <dt className="text-[11px] font-extrabold tracking-[0.06em] text-ink-2 uppercase">
+                    {tiers.head[i]}
+                  </dt>
+                  <dd className="text-[13px] leading-snug">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </li>
+        ))}
+      </ul>
+      {tiers.source && <p className="mt-2 text-[13px] text-ink-2">{tiers.source}</p>}
+    </div>
   )
 }

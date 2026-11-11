@@ -1,7 +1,11 @@
+import Image from 'next/image'
+import type { CSSProperties } from 'react'
+
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
 import type { SectionData } from '@/lib/biznes/pages/sections'
+import type { IndexImage } from '@/lib/catalog/catalogIndex'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 
 import { PhaseText } from '../k4j/ClientLazy'
@@ -35,6 +39,20 @@ export function StatsSection({ block }: Props) {
             <dd className="font-display text-[clamp(2rem,3.4vw,2.8rem)] leading-none font-extrabold">
               {item.title}
             </dd>
+            {/* An icon over the number (PRODUKCJA-BIZNES-1211 §3: not a bare white band). */}
+            {item.icon && (
+              <dd
+                aria-hidden="true"
+                className={cx(
+                  'mb-2 flex size-11 items-center justify-center rounded-xl max-md:size-9',
+                  dark
+                    ? 'bg-white/10 text-white'
+                    : 'bg-card text-accent-text shadow-[inset_0_0_0_1px_var(--border)]',
+                )}
+              >
+                <Icon name={item.icon} strokeWidth={2.2} className="size-5 max-md:size-4" />
+              </dd>
+            )}
           </div>
         ))}
       </dl>
@@ -70,8 +88,68 @@ function CardLink({ href, label }: { href: string; label: string }) {
   )
 }
 
-/** `cards`: three or four cards with an optional icon, label and link. */
-export function CardsSection({ block }: Props) {
+type Shot = NonNullable<NonNullable<SectionData<'cards'>['shots']>[number]>
+
+/**
+ * A card's picture (PRODUKCJA-BIZNES-1211 §3): a screen in a drawn phone, a device photo on the
+ * white plate, or a drawn invoice marked „KSeF” (an illustration, not a screenshot).
+ */
+function CardShot({ shot, image }: { shot: Shot; image?: IndexImage }) {
+  if (shot.frame === 'doc') {
+    return (
+      <div
+        aria-hidden="true"
+        className="relative mx-auto flex h-44 w-full max-w-[220px] flex-col gap-2 rounded-xl bg-plate p-4 text-left text-[11px] text-surface-dark shadow-[0_14px_30px_-18px_var(--plate-shadow),inset_0_0_0_1px_var(--plate-shadow)] max-md:h-32 max-md:p-3"
+      >
+        <span className="font-extrabold tracking-[0.08em] uppercase">Faktura VAT</span>
+        <span className="h-1.5 w-3/4 rounded bg-current opacity-15" />
+        <span className="h-1.5 w-1/2 rounded bg-current opacity-15" />
+        <span className="mt-1 h-1.5 w-full rounded bg-current opacity-10" />
+        <span className="h-1.5 w-full rounded bg-current opacity-10" />
+        <span className="h-1.5 w-2/3 rounded bg-current opacity-10" />
+        <span className="absolute right-3 bottom-3 rounded-md bg-surface-dark px-2 py-1 font-extrabold text-white">
+          KSeF ✓
+        </span>
+      </div>
+    )
+  }
+  if (!image) return null
+  if (shot.frame === 'phone') {
+    return (
+      <div className="mx-auto h-44 w-[110px] overflow-hidden rounded-[22px] border-[5px] border-surface-dark bg-plate shadow-[0_18px_34px_-18px_var(--plate-shadow)] max-md:h-32 max-md:w-[82px] max-md:rounded-[16px] max-md:border-4">
+        <Image
+          src={image.url}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          sizes="120px"
+          unoptimized
+          className="h-full w-full object-cover object-top"
+        />
+      </div>
+    )
+  }
+  return (
+    <div className="flex h-44 items-center justify-center rounded-xl bg-plate p-2 max-md:h-32">
+      <Image
+        src={image.url}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+        sizes="(max-width: 768px) 45vw, 320px"
+        unoptimized
+        className="max-h-full w-auto object-contain"
+      />
+    </div>
+  )
+}
+
+/** `cards`: three or four cards with an optional icon (or picture), label and link. */
+export function CardsSection({
+  block,
+  shots = [],
+  images = {},
+}: Props & { shots?: SectionData<'cards'>['shots']; images?: Record<string, IndexImage> }) {
   const list = items(block)
   // Phone (boards App-*): cards with a link swipe in one row (App-Kontakt, App-OFirmie); plain
   // cards sit two by two in small tiles (App-GoPOS).
@@ -98,7 +176,17 @@ export function CardsSection({ block }: Props) {
                 : 'max-md:min-w-0 max-md:rounded-[18px] max-md:p-3.5',
             )}
           >
-            {item.icon && (
+            {shots?.[i] && (
+              <div className="mb-2">
+                <CardShot
+                  shot={shots[i]!}
+                  image={
+                    shots[i]!.image !== undefined ? images[String(shots[i]!.image)] : undefined
+                  }
+                />
+              </div>
+            )}
+            {item.icon && !shots?.[i] && (
               <span
                 aria-hidden="true"
                 className="mb-1 flex size-11 items-center justify-center rounded-xl bg-surface-2 text-accent-text max-md:size-9"
@@ -125,9 +213,10 @@ export function CardsSection({ block }: Props) {
   )
 }
 
-/** `steps`: numbered steps in a row (on a phone one under another). */
-export function StepsSection({ block }: Props) {
+/** `steps`: numbered steps in a row (on a phone one under another); `axis` — on one line. */
+export function StepsSection({ block, axis = false }: Props & { axis?: boolean }) {
   const list = items(block)
+  if (axis) return <StepsAxis block={block} list={list} />
   return (
     <SectionShell block={block}>
       {/* Phone (App-Ulga, App-GoPOS): a numbered column, the circle left, the text right. */}
@@ -165,6 +254,49 @@ export function StepsSection({ block }: Props) {
           </li>
         ))}
       </ol>
+    </SectionShell>
+  )
+}
+
+/**
+ * Steps on one axis (PRODUKCJA-BIZNES-1211 §3 pkt 7, GoPOS rollout): numbered stops on a line,
+ * the text under each — on a phone the line runs down the left with the text beside it.
+ */
+function StepsAxis({ block, list }: { block: BzSectionData; list: Item[] }) {
+  return (
+    <SectionShell block={block}>
+      <div className="relative" data-steps-axis>
+        <span
+          aria-hidden="true"
+          className="absolute top-5 right-[8%] left-[8%] h-0.5 bg-accent-text/35 max-md:top-2 max-md:bottom-2 max-md:left-[1.1rem] max-md:right-auto max-md:h-auto max-md:w-0.5"
+        />
+        <ol
+          className="relative grid gap-5 max-md:pl-12 min-[768px]:gap-4 min-[768px]:[grid-template-columns:repeat(var(--steps),minmax(0,1fr))]"
+          style={{ '--steps': list.length } as CSSProperties}
+        >
+          {list.map((item, i) => (
+            <li
+              key={item.id ?? i}
+              className="relative flex flex-col gap-2 text-ink min-[768px]:items-center min-[768px]:text-center"
+            >
+              <span
+                aria-hidden="true"
+                className="relative z-[1] flex size-10 shrink-0 items-center justify-center rounded-full bg-accent-text font-display text-[15px] font-extrabold text-accent-ink ring-8 ring-surface max-md:absolute max-md:top-0 max-md:-left-12 max-md:size-9 max-md:text-sm"
+              >
+                {i + 1}
+              </span>
+              <h3 className="font-display text-[1.1rem] leading-tight font-extrabold max-md:text-base min-[768px]:mt-2">
+                {item.title}
+              </h3>
+              {item.text && (
+                <p className="text-[15px] leading-relaxed text-pretty text-ink-2 max-md:text-[13px] max-md:leading-snug">
+                  {item.text}
+                </p>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
     </SectionShell>
   )
 }
@@ -339,9 +471,21 @@ export function ChipsSection({ block, data }: Props & { data: SectionData<'chips
   const rest = data.visible > 0 ? data.groups.slice(data.visible) : []
   const group = (g: (typeof data.groups)[number]) => (
     <li key={g.t} className={cx(CARD, 'flex flex-col gap-3 p-5 text-ink max-md:gap-2 max-md:p-4')}>
-      <h3 className="font-extrabold max-md:text-[11px] max-md:tracking-[0.08em] max-md:text-accent-text max-md:uppercase">
-        {g.t}
-      </h3>
+      <div className="flex items-center gap-3">
+        {g.ic && (
+          <span
+            aria-hidden="true"
+            className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-surface-2 text-accent-text max-md:size-8"
+          >
+            <Icon name={g.ic} strokeWidth={2.2} className="size-5 max-md:size-4" />
+          </span>
+        )}
+        <h3 className="flex-1 font-extrabold max-md:text-[13px]">{g.t}</h3>
+        {/* How many in the group (PRODUKCJA-BIZNES-1211 §3: tiles with a count). */}
+        <span className="rounded-full bg-surface-2 px-2.5 py-1 text-[13px] font-extrabold text-ink-2">
+          {g.items.length}
+        </span>
+      </div>
       <ul className="flex flex-wrap gap-2 max-md:gap-1.5">
         {g.items.map((chip) => (
           <li
