@@ -166,6 +166,8 @@ for (const [device, use] of [
     test.use(use)
 
     test('at most five requests in the background after the load', async ({ page }) => {
+      // Next prefetches only in production: the count means something on the CI build only.
+      test.skip(process.env.E2E_SERVER !== 'start', 'prefetch runs only on the production build')
       const background: string[] = []
       let loaded = false
       page.on('load', () => (loaded = true))

@@ -11,8 +11,9 @@ const MARGIN = '900px 0px'
  * sizes (`aria-hidden` mock-ups of the price cards): until then an empty element holds its place,
  * so nothing moves. Server and hydration render the empty element too.
  */
-export function NearScreen({ children }: { children: ReactNode }) {
-  const [near, setNear] = useState(false)
+export function NearScreen({ children, eager = false }: { children: ReactNode; eager?: boolean }) {
+  // `eager`: drawn at once (the same component where the page has few of them).
+  const [near, setNear] = useState(eager)
   const holder = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {

@@ -15,6 +15,8 @@ type Props = {
   href: string
   /** Opens the window in place (catalog, price page); a plain click only. */
   onOpen?: () => void
+  /** The mock-up mounts only near the screen (the start page's price list, SWA13 #7). */
+  lazyThumb?: boolean
 }
 
 const plainClick = (event: MouseEvent) =>
@@ -26,7 +28,7 @@ const plainClick = (event: MouseEvent) =>
  * opens the offer window (`?rozwiazanie=`). The link is named by its visible text (no `aria-label`:
  * a name in another order than the text fails WCAG 2.5.3 „label in name”, axe).
  */
-export function PriceCard({ card, details, href, onOpen }: Props) {
+export function PriceCard({ card, details, href, onOpen, lazyThumb = false }: Props) {
   return (
     <Link
       href={href}
@@ -41,8 +43,8 @@ export function PriceCard({ card, details, href, onOpen }: Props) {
     >
       <div className="v-card-th" aria-hidden="true">
         {card.mockup && (
-          // Mounted near the screen only (16 cards × ~70 elements on the start page, SWA13 #7).
-          <NearScreen>
+          // On the start page mounted near the screen only (16 cards × ~70 elements, SWA13 #7).
+          <NearScreen eager={!lazyThumb}>
             <Mockup kind={card.mockup.kind} variant={card.mockup.variant} fit="contain" />
           </NearScreen>
         )}

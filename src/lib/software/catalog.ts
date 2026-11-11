@@ -105,6 +105,7 @@ function first(params: ParamSource, name: string): string | null {
 export function parseCatalogState(params: ParamSource): SoftwareCatalogState {
   const situation = first(params, PARAM.situation)
   const group = first(params, PARAM.group)
+  const solution = first(params, PARAM.solution)
   return {
     query: (first(params, PARAM.query) ?? '').slice(0, MAX_QUERY),
     category: parseGroup(first(params, PARAM.category)),
@@ -112,7 +113,7 @@ export function parseCatalogState(params: ParamSource): SoftwareCatalogState {
       (Object.entries(SITUATION_PARAMS).find(([, word]) => word === situation)?.[0] as
         Situation | undefined) ?? null,
     group: INDUSTRY_GROUPS.find(({ value }) => value === group)?.value ?? null,
-    solution: ((value) => (isSlug(value) ? value : null))(first(params, PARAM.solution)),
+    solution: isSlug(solution) ? solution : null,
   }
 }
 

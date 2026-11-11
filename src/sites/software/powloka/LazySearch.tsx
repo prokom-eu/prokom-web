@@ -29,8 +29,12 @@ export function LazySearch(props: SearchDialogProps) {
     const load = (phrase?: string) => {
       if (pending.current) return
       pending.current = { phrase }
-      void import('@/components/shared/SearchDialog').then(
+      import('@/components/shared/SearchDialog').then(
         (module) => alive && setDialog(() => module.SearchDialog),
+        // A failed fetch (network, a new deployment): the next shortcut tries again.
+        () => {
+          pending.current = null
+        },
       )
     }
     const onKey = (event: KeyboardEvent) => {
