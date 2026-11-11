@@ -155,3 +155,30 @@ test('the phone hero runs at most four endless animations', async ({ page }) => 
   )
   expect(endless).toBeLessThanOrEqual(4)
 })
+
+// SWA13 #5: links prefetch on intent only (`IntentLink`), so a visit to the start page fetches
+// little in the background (it was 11 on a phone, 43 on a wide screen: every visible link).
+for (const [device, use] of [
+  ['phone', { viewport: PHONE, hasTouch: true, isMobile: true }],
+  ['computer', { viewport: { width: 1440, height: 900 }, hasTouch: false, isMobile: false }],
+] as const) {
+  test.describe(`Software start page on a ${device} — background requests`, () => {
+    test.use(use)
+
+    test('at most five requests in the background after the load', async ({ page }) => {
+      // Next prefetches only in production: the count means something on the CI build only.
+      test.skip(process.env.E2E_SERVER !== 'start', 'prefetch runs only on the production build')
+      const background: string[] = []
+      let loaded = false
+      page.on('load', () => (loaded = true))
+      page.on('request', (request) => {
+        if (loaded && ['fetch', 'xhr'].includes(request.resourceType())) {
+          background.push(new URL(request.url()).pathname + new URL(request.url()).search)
+        }
+      })
+      await page.goto(site(HOST, '/'), { waitUntil: 'load' })
+      await page.waitForTimeout(5000)
+      expect(background.length, background.join('\n')).toBeLessThanOrEqual(5)
+    })
+  })
+}

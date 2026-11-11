@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 type Crumb = { name: string; href?: string }
 
