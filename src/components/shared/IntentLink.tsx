@@ -15,14 +15,16 @@ import {
  * view, so the capsule, the tab bar and the footer fetched every page they name in the background
  * on each visit (`prefetch={false}` would also drop the prefetch on hover in the App Router).
  * The pattern is Next's „Hover-triggered prefetch” (`docs/01-app/02-guides/prefetching.md`):
- * `false` until intent, then `null` — the default prefetch. Everything else passes to the link.
+ * `false` until intent, then `null` — the default prefetch. Everything else passes to the link
+ * (`prefetch` itself is not taken: this link decides it). A link reached without a pointer or
+ * focus (a screen reader's own navigation) is fetched on the click, as a plain request.
  */
 export function IntentLink({
   onMouseEnter,
   onTouchStart,
   onFocus,
   ...rest
-}: ComponentProps<typeof Link>) {
+}: Omit<ComponentProps<typeof Link>, 'prefetch'>) {
   const [intent, setIntent] = useState(false)
   return (
     <Link
