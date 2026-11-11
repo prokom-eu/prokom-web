@@ -105,20 +105,30 @@ const tableSchema = z.object({
 })
 
 /** `tabs`: groups of entries (InsERT „Cała oferta”); an entry may link to its product card. */
-const tabsSchema = z.object({
-  tabs: z
-    .array(
-      z.object({
-        t: text,
-        items: z
-          .array(z.object({ t: text, l: z.string().optional(), d: text, slug: slug.optional() }))
-          .min(1)
-          .max(12),
-      }),
-    )
-    .min(1)
-    .max(12),
-})
+const tabsSchema = z
+  .object({
+    tabs: z
+      .array(
+        z.object({
+          t: text,
+          items: z
+            .array(z.object({ t: text, l: z.string().optional(), d: text, slug: slug.optional() }))
+            .max(12)
+            .default([]),
+          /**
+           * A program in action (PRODUKCJA-BIZNES-1211 §4): its real screen (Media id) and its
+           * card — the points and „Dodaj do zapytania” come from the card.
+           */
+          shot: z.object({ image: z.number().int().positive().optional(), slug }).optional(),
+        }),
+      )
+      .min(1)
+      .max(12),
+  })
+  // Each tab shows something: its entries or its program's screen.
+  .refine((value) => value.tabs.every((tab) => tab.items.length > 0 || tab.shot), {
+    message: 'Każda zakładka ma pozycje albo ekran programu.',
+  })
 
 /** `chips`: groups of short labels (GoPOS integrations) with an optional total tile. */
 const chipsSchema = z.object({
