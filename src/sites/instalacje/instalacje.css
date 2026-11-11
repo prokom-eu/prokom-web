@@ -104,12 +104,26 @@ html[data-line='instalacje'].pk-lock body {
     height: 8px;
     border-radius: 50%;
     background: var(--ok);
-    animation: inst-ping 2.4s ease-out infinite;
     margin-right: 7px;
     vertical-align: 1px;
+    position: relative;
+  }
+  /* The ring around the dot grows and fades (transform + opacity, report 11.11.2026; before:
+     an animated box-shadow, repainted on every frame). 8 px × 3.5 = the old 10 px spread. */
+  & .live::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--inst-live-ping);
+    opacity: 0;
+    animation: inst-ping 2.4s ease-out infinite;
+    pointer-events: none;
   }
   & .live.off {
     background: var(--warn);
+  }
+  & .live.off::after {
     animation: none;
   }
 
@@ -512,7 +526,7 @@ html[data-line='instalacje'].pk-lock body {
 @media (prefers-reduced-motion: reduce) {
   [data-line='instalacje'] {
     & .imega,
-    & .live {
+    & .live::after {
       animation: none;
     }
     & .anchors {
@@ -523,11 +537,13 @@ html[data-line='instalacje'].pk-lock body {
 
 @keyframes inst-ping {
   0% {
-    box-shadow: 0 0 0 0 var(--inst-live-ping);
+    transform: scale(1);
+    opacity: 1;
   }
   80%,
   100% {
-    box-shadow: 0 0 0 10px transparent;
+    transform: scale(3.5);
+    opacity: 0;
   }
 }
 

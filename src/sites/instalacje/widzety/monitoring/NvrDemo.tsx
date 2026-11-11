@@ -238,6 +238,7 @@ function Scene({ index, state }: { index: number; state: NvrState }) {
             </g>
             {deter && (
               <>
+                <circle className="strobeb" cx="300" cy="40" r="8" />
                 <circle className="strobe" cx="300" cy="40" r="8" />
                 <rect
                   x="8"
