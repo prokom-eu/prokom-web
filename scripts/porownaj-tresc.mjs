@@ -98,7 +98,9 @@ function get(origin, path, auth, siteHost) {
 async function visibility(origin) {
   const { chromium } = await import('@playwright/test')
   const { hiddenAfterScroll, PAGES: VISIBLE_PAGES } = await import('./widocznosc.mjs')
-  const auth = process.env.TRESC_AUTH?.split(':')
+  // user:password — split at the first colon only (a password may have one).
+  const raw = process.env.TRESC_AUTH
+  const auth = raw ? [raw.slice(0, raw.indexOf(':')), raw.slice(raw.indexOf(':') + 1)] : null
   const browser = await chromium.launch()
   let bad = 0
   for (const width of [1440, 390]) {
@@ -108,16 +110,20 @@ async function visibility(origin) {
         reducedMotion: 'no-preference',
         ...(auth && { httpCredentials: { username: auth[0], password: auth[1] } }),
       })
-      const response = await page
-        .goto(new URL(path, origin).href, { timeout: 180_000 })
-        .catch((error) => ({ status: () => 0, error }))
-      const status = response?.status() ?? 0
-      const hidden = status === 200 ? await hiddenAfterScroll(page) : []
+      // One page failing (network, crash) is a row of the report, not the end of the run.
+      let result
+      try {
+        const response = await page.goto(new URL(path, origin).href, { timeout: 180_000 })
+        const status = response?.status() ?? 0
+        const hidden = status === 200 ? await hiddenAfterScroll(page) : []
+        result =
+          status !== 200
+            ? `HTTP ${status}`
+            : hidden.map((h) => `${h.element} — ${h.why} — ${h.rule}`).join('; ') || 'ok'
+      } catch (error) {
+        result = `błąd: ${error instanceof Error ? error.message.split('\n')[0] : error}`
+      }
       await page.close()
-      const result =
-        status !== 200
-          ? `HTTP ${status}`
-          : hidden.map((h) => `${h.element} — ${h.why} — ${h.rule}`).join('; ') || 'ok'
       if (result !== 'ok') bad++
       console.log(`${path}	${width}	${result}`)
     }
