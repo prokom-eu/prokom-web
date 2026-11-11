@@ -53,6 +53,8 @@ export function useAutoTabs(count: number, intervalMs: number) {
     const observer = new IntersectionObserver(([entry]) => setOffscreen(!entry?.isIntersecting))
     observer.observe(section)
     const syncHidden = () => setHidden(document.hidden)
+    // A page opened in a background tab starts hidden: no progress bar until it is seen.
+    syncHidden()
     document.addEventListener('visibilitychange', syncHidden)
     return () => {
       observer.disconnect()
