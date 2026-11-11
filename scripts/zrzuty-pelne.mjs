@@ -28,7 +28,11 @@ const widths = (option('widths') || '1440,390').split(',').map(Number)
 const themes = (option('themes') || 'light,dark').split(',')
 const pages = option('pages')?.split(',') ?? PAGES
 const OUT = resolve('tmp/zrzuty-pelne')
-const auth = process.env.ZRZUTY_AUTH?.split(':')
+// user:password — split at the first colon only (a password may have one).
+const rawAuth = process.env.ZRZUTY_AUTH
+const auth = rawAuth
+  ? [rawAuth.slice(0, rawAuth.indexOf(':')), rawAuth.slice(rawAuth.indexOf(':') + 1)]
+  : null
 
 const fileName = (path, width, theme) =>
   `${path === '/' ? 'glowna' : path.slice(1).replaceAll('/', '_')}-${width}-${theme}.png`
@@ -53,7 +57,7 @@ for (const path of pages) {
       }, theme)
       const file = fileName(path, width, theme)
       try {
-        const response = await page.goto(origin + path, { timeout: 180_000 })
+        const response = await page.goto(new URL(path, origin).href, { timeout: 180_000 })
         const hidden = await hiddenAfterScroll(page)
         await page.screenshot({ path: join(OUT, file), fullPage: true })
         rows.push({ path, width, theme, file, status: response?.status() ?? 0, hidden })
