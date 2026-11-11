@@ -1,10 +1,11 @@
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import type { MouseEvent } from 'react'
 
 import type { PricingCard } from '@/lib/software/priceCards'
-import { Mockup } from '@/sites/software/components/mockups/Mockup'
+import { Mockup } from '@/sites/software/components/mockups/MockupLazy'
 
 import { openOfferFrom } from '../offer/offerTransition'
+import { NearScreen } from '../ui/NearScreen'
 
 type Props = {
   card: PricingCard
@@ -40,7 +41,10 @@ export function PriceCard({ card, details, href, onOpen }: Props) {
     >
       <div className="v-card-th" aria-hidden="true">
         {card.mockup && (
-          <Mockup kind={card.mockup.kind} variant={card.mockup.variant} fit="contain" />
+          // Mounted near the screen only (16 cards × ~70 elements on the start page, SWA13 #7).
+          <NearScreen>
+            <Mockup kind={card.mockup.kind} variant={card.mockup.variant} fit="contain" />
+          </NearScreen>
         )}
         <span className="v-card-more">{details}</span>
       </div>

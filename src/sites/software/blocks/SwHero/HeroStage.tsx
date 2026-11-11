@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import {
   useCallback,
   useEffect,
@@ -275,15 +275,20 @@ export function HeroStage({
             swipe.current = null
           }}
         >
-          {windows.map((mockup, index) => (
-            <div
-              key={`${index}-${slides[index]?.name ?? ''}`}
-              className="hx-win"
-              data-rank={rankOf(index, current, count)}
-            >
-              {mockup}
-            </div>
-          ))}
+          {windows.map((mockup, index) => {
+            const rank = rankOf(index, current, count)
+            return (
+              <div
+                key={`${index}-${slides[index]?.name ?? ''}`}
+                className="hx-win"
+                data-rank={rank}
+              >
+                {/* Only the window in front and its neighbours draw their mock-up; the hidden
+                    ones (`rx`) stay empty until their turn comes near (SWA13 #7: DOM). */}
+                {rank === 'rx' ? null : mockup}
+              </div>
+            )
+          })}
           {count > 1 && (
             <>
               <button

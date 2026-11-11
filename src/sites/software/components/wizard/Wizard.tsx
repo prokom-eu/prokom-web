@@ -1,6 +1,7 @@
 'use client'
 
-import Link from 'next/link'
+import dynamic from 'next/dynamic'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/track'
@@ -24,12 +25,14 @@ import {
 } from '@/lib/software/wizard/flow'
 import type { SoftwareWizard, WizardPick, WizardStep } from '@/lib/software/wizard/schema'
 
-import { Mockup } from '@/sites/software/components/mockups/Mockup'
+import { Mockup } from '@/sites/software/components/mockups/MockupLazy'
 import { EmText } from '@/sites/software/components/ui/EmText'
 import { usePausedOffscreen } from '@/sites/software/components/v24home/usePausedOffscreen'
 
-import { WizardSend } from './WizardSend'
 import { PriceTween } from './PriceTween'
+
+/** The last step's form, loaded when the visitor gets there (AUDYT-WYDAJNOSC-1111 #6). */
+const WizardSend = dynamic(() => import('./WizardSend').then((m) => m.WizardSend))
 
 export type WizardProps = {
   rules: SoftwareWizard

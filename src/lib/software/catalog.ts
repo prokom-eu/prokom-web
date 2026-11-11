@@ -1,5 +1,6 @@
+import { CATALOG_PATH } from './catalogPath'
 import { INDUSTRY_GROUPS, SITUATIONS, type SolutionCategory } from './options'
-import { slug as slugSchema } from './schema'
+import { isSlug } from './slug'
 import { searchSolutions, type PreparedSolutionSearch } from './search'
 import type { IndexSolution, SolutionsIndex } from './solutionsIndex'
 
@@ -10,7 +11,7 @@ import type { IndexSolution, SolutionsIndex } from './solutionsIndex'
  * Biznes pattern, `lib/catalog/filters.ts`). One value per filter, as on the board.
  */
 
-export const CATALOG_PATH = '/rozwiazania'
+export { CATALOG_PATH }
 
 /** Longest search phrase read from the URL. */
 const MAX_QUERY = 100
@@ -111,7 +112,7 @@ export function parseCatalogState(params: ParamSource): SoftwareCatalogState {
       (Object.entries(SITUATION_PARAMS).find(([, word]) => word === situation)?.[0] as
         Situation | undefined) ?? null,
     group: INDUSTRY_GROUPS.find(({ value }) => value === group)?.value ?? null,
-    solution: slugSchema.safeParse(first(params, PARAM.solution)).data ?? null,
+    solution: ((value) => (isSlug(value) ? value : null))(first(params, PARAM.solution)),
   }
 }
 

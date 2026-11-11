@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { notFound } from 'next/navigation'
 
 import { getSiteSettings } from '@/lib/site/data'
