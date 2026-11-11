@@ -7,7 +7,7 @@ import {
   parseSectionData,
   type SectionVariant,
 } from '@/lib/biznes/pages/sections'
-import { supplyHrefVisible } from '@/lib/biznes/procurement/links'
+import { withVisibleSupplyLink } from '@/lib/biznes/procurement/links'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import type { CatalogIndex, IndexImage } from '@/lib/catalog/catalogIndex'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
@@ -25,7 +25,7 @@ import {
 import { BundlesSection } from './common/Bundles'
 import { TabsPicker, VideoPicker } from './common/InteractiveLazy'
 import { ProductGrid, productsBySlug } from './common/Products'
-import { Audience, CareHero, StartCalendar } from './firma/Care'
+import { Audience, CareHero, CareReview, StartCalendar } from './firma/Care'
 import { CareAreas, Seats, SwitchSteps } from './firma/CareWidgetsLazy'
 import {
   AboutHero,
@@ -325,19 +325,17 @@ async function render(
       const data = parseSectionData('start-calendar', block.data)
       return data && <StartCalendar block={block} data={data} />
     }
+    case 'care-review': {
+      const data = parseSectionData('care-review', block.data)
+      return data && <CareReview block={block} data={data} />
+    }
     case 'seats': {
       const data = parseSectionData('seats', block.data)
       return (
         data && (
           <SectionShell block={block}>
             {/* A link to a procurement page only once it is published (plan 0611 §6.4). */}
-            <Seats
-              data={
-                data.link && index && !supplyHrefVisible(data.link.href, index)
-                  ? { ...data, link: undefined }
-                  : data
-              }
-            />
+            <Seats data={index ? withVisibleSupplyLink(data, index) : data} />
           </SectionShell>
         )
       )

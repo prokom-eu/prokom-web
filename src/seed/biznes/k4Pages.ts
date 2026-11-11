@@ -829,6 +829,34 @@ export type K4FirmaFile = {
 // Texts of the board (`Strona.dc.html`, views `opieka`, `ofirmie`, `kontakt`) that the data file
 // does not carry — copied 1:1, the hours as „pn–pt 9:00–17:00” (K4-FINAL §1).
 type ReportTone = 'ok' | 'warn' | 'urgent' | 'due'
+/**
+ * „Bezpłatny przegląd IT” (PREMIUM-1011): the facts of the review's catalog card
+ * (`katalog-k4.json → przeglad-it`: description §2–3, parameters) — 8 areas, the written report
+ * (fine / fix now / plan for later / nothing to buy), free, no obligations, at your firm.
+ */
+const CARE_REVIEW = {
+  checks: [
+    'Komputery',
+    'Sieć i Wi-Fi',
+    'Kopie zapasowe',
+    'Antywirus',
+    'Licencje',
+    'Poczta',
+    'Kasy i terminale',
+    'Terminy: przeglądy kas, odnowienia licencji, podpis kwalifikowany',
+  ],
+  report: {
+    title: 'Raport z przeglądu',
+    rows: [
+      { t: 'W porządku', d: 'co działa i nie wymaga zmian', tone: 'ok' as const },
+      { t: 'Do poprawy od razu', d: 'co trzeba poprawić teraz', tone: 'urgent' as const },
+      { t: 'Do zaplanowania', d: 'co może poczekać na później', tone: 'warn' as const },
+    ],
+    foot: 'I czego nie musisz kupować. Raport należy do Ciebie.',
+  },
+  facts: ['bezpłatnie', 'bez zobowiązań', 'u Ciebie w firmie'],
+}
+
 const CARE_REPORT_ROWS: { t: string; d: string; s: string; tone: ReportTone }[] = [
   {
     t: 'Kopie zapasowe',
@@ -1043,6 +1071,25 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
           link: CARE_SUPPLY_LINK,
         },
       }),
+      // PREMIUM-1011: what the free review checks and gives, before the closing band.
+      ...(review
+        ? [
+            section({
+              variant: 'care-review',
+              anchor: 'przeglad-it',
+              surface: 'muted',
+              eyebrow: 'Bezpłatny przegląd IT',
+              heading: 'Sprawdzamy, zanim cokolwiek zaproponujemy',
+              lead: 'W jednym raporcie: co jest pilne, co może poczekać i czego nie trzeba kupować.',
+              data: {
+                slug: review,
+                label: 'Umów przegląd',
+                note: 'Bezpłatny przegląd IT',
+                ...CARE_REVIEW,
+              },
+            }),
+          ]
+        : []),
       section({
         variant: 'band',
         eyebrow: 'Opieka IT z Rabki-Zdroju',
