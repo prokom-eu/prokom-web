@@ -9,6 +9,11 @@
 // http://127.0.0.1:3999 (ssh -L 3999:127.0.0.1:<APP_PORT> prokom-vps) with
 // TRESC_HOST_B=staging.prokombiznes.pl — the app directly, without the staging login.
 // `*.localhost` is reached at 127.0.0.1 with the Host header (Node does not resolve it).
+// Visibility (PRODUKCJA-BIZNES-1211 P0, runbook §2b — required after every content import):
+//   node scripts/porownaj-tresc.mjs --widocznosc https://staging.prokombiznes.pl
+// opens the pages of scripts/widocznosc.mjs in Chromium (1440 and 390, motion on), scrolls like
+// a visitor and fails (exit 1) on any section still hidden — H2 counts cannot see that.
+// Login: TRESC_AUTH = user:password. Not through a tunnel (Chromium sets its own Host header).
 import { request as httpRequest } from 'node:http'
 import { request as httpsRequest } from 'node:https'
 import { isIP } from 'node:net'
@@ -89,7 +94,48 @@ function get(origin, path, auth, siteHost) {
   })
 }
 
+/** `--widocznosc <origin>`: sections hidden after scrolling, per page and width. */
+async function visibility(origin) {
+  const { chromium } = await import('@playwright/test')
+  const { hiddenAfterScroll, PAGES: VISIBLE_PAGES } = await import('./widocznosc.mjs')
+  const auth = process.env.TRESC_AUTH?.split(':')
+  const browser = await chromium.launch()
+  let bad = 0
+  for (const width of [1440, 390]) {
+    for (const path of VISIBLE_PAGES) {
+      const page = await browser.newPage({
+        viewport: { width, height: width > 800 ? 900 : 844 },
+        reducedMotion: 'no-preference',
+        ...(auth && { httpCredentials: { username: auth[0], password: auth[1] } }),
+      })
+      const response = await page
+        .goto(new URL(path, origin).href, { timeout: 180_000 })
+        .catch((error) => ({ status: () => 0, error }))
+      const status = response?.status() ?? 0
+      const hidden = status === 200 ? await hiddenAfterScroll(page) : []
+      await page.close()
+      const result =
+        status !== 200
+          ? `HTTP ${status}`
+          : hidden.map((h) => `${h.element} — ${h.why} — ${h.rule}`).join('; ') || 'ok'
+      if (result !== 'ok') bad++
+      console.log(`${path}	${width}	${result}`)
+    }
+  }
+  await browser.close()
+  console.log(`
+Widoczność: ${bad ? `${bad} stron z problemem` : 'wszystkie sekcje widoczne'}`)
+  process.exit(bad ? 1 : 0)
+}
+
 async function main([a, b] = process.argv.slice(2)) {
+  if (a === '--widocznosc') {
+    if (!b) {
+      console.error('usage: node scripts/porownaj-tresc.mjs --widocznosc <adres>')
+      process.exit(2)
+    }
+    return visibility(b)
+  }
   if (!a || !b) {
     console.error('usage: node scripts/porownaj-tresc.mjs <adres A (wzór)> <adres B (sprawdzany)>')
     process.exit(2)

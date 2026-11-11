@@ -18,6 +18,7 @@ Zadanie jest skończone, gdy:
 - [ ] Telefon 360 px, tablet, komputer — bez poziomego przewijania.
 - [ ] Kolory i fonty tylko z tokenów (`docs/marka.md`); tekst w kolorze linii używa `--accent-text`.
 - [ ] Teksty zgodne ze specyfikacją strony; brak „lorem ipsum” na produkcji.
+- [ ] **prokombiznes.pl — każdy PR z UI (od 12.11, PRODUKCJA-BIZNES-1211 P0):** e2e `tests/e2e/biznes-widocznosc.e2e.spec.ts` zielony i `node scripts/zrzuty-pelne.mjs [origin] [--widths=1440,390] [--themes=light,dark] [--pages=/gopos,…]` — przewijanie jak użytkownik, ruch włączony, nic nie wymuszone; wynik `tmp/zrzuty-pelne/index.html` (zrzuty zmienionych stron w opisie PR). Liczenie H2 w HTML nie widzi sekcji, której nie widać.
 
 ## SEO
 - [ ] `title` i `description` unikalne dla każdej podstrony.
