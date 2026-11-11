@@ -109,21 +109,29 @@ html[data-line='instalacje'].pk-lock body {
     position: relative;
   }
   /* The ring around the dot grows and fades (transform + opacity, report 11.11.2026; before:
-     an animated box-shadow, repainted on every frame). 8 px × 3.5 = the old 10 px spread. */
+     an animated box-shadow, repainted on every frame). 8 px × 3.5 = the old 10 px spread. The
+     ring is `::before`, the dot is drawn again on top by `::after`, so like the old shadow the
+     ring shows only outside the dot. */
+  & .live::before,
   & .live::after {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: 50%;
+    pointer-events: none;
+  }
+  & .live::before {
     background: var(--inst-live-ping);
     opacity: 0;
     animation: inst-ping 2.4s ease-out infinite;
-    pointer-events: none;
+  }
+  & .live::after {
+    background: inherit;
   }
   & .live.off {
     background: var(--warn);
   }
-  & .live.off::after {
+  & .live.off::before {
     animation: none;
   }
 
@@ -526,7 +534,7 @@ html[data-line='instalacje'].pk-lock body {
 @media (prefers-reduced-motion: reduce) {
   [data-line='instalacje'] {
     & .imega,
-    & .live::after {
+    & .live::before {
       animation: none;
     }
     & .anchors {

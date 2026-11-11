@@ -21,6 +21,20 @@ const runningIn = (page: Page, selector?: string) =>
     selector,
   )
 
+/** Looping animations that are live — also the ones paused off screen (`data-off`). */
+const looping = (page: Page) =>
+  page.evaluate(
+    () =>
+      document
+        .getAnimations()
+        .filter(
+          (animation) =>
+            animation.playState !== 'idle' &&
+            animation.playState !== 'finished' &&
+            animation.effect?.getTiming().iterations === Infinity,
+        ).length,
+  )
+
 const scrollTo = (page: Page, where: 'top' | 'middle' | 'bottom') =>
   page.evaluate((to) => {
     const max = document.documentElement.scrollHeight
@@ -57,9 +71,10 @@ test.describe('Instalacje animations with reduced motion', () => {
   for (const path of REDUCED) {
     test(`nothing loops on ${path}`, async ({ page }) => {
       await page.goto(site(INST_HOST, path))
+      // Scrolled through, so the scenes loaded near the screen are there too.
       for (const where of ['top', 'middle', 'bottom'] as const) {
         await scrollTo(page, where)
-        await expect.poll(() => runningIn(page)).toBe(0)
+        await expect.poll(() => looping(page)).toBe(0)
       }
     })
   }

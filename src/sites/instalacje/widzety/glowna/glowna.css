@@ -1107,7 +1107,7 @@
   /* Twinkling (report 11.11.2026): the lights twinkle as 3 groups per kind (`twinkle.ts`), one
      opacity animation per group instead of one per light; the group carries the light's opacity
      (with reduced motion it stays there), the circles only fade in at night. Phase shift between
-     the groups instead of the old per-light delay. On a phone one group of each — ~60 lights. */
+     the groups instead of the old per-light delay. */
   & .scene .tw-star {
     --tw-dur: 3.2s;
     opacity: 0.8;
@@ -1128,12 +1128,6 @@
   }
   & .scene.night .tw3 {
     animation-delay: calc(var(--tw-dur) * -1.33);
-  }
-  @media (max-width: 767px) {
-    & .scene .tw2,
-    & .scene .tw3 {
-      display: none;
-    }
   }
   & .scene .moonh {
     fill: var(--hx-moon-halo);
