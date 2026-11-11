@@ -2934,7 +2934,8 @@
     & .arw,
     & .arfib,
     & .arlbl i {
-      animation: none;
+      /* `!important`: `.ars.m-in .arlbl i` out-ranks `.arlbl i`. */
+      animation: none !important;
     }
   }
 
