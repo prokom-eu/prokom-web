@@ -32,6 +32,10 @@ export function autoRotates(state: {
   picked: boolean
   stopped: boolean
   paused: boolean
+  /** The section is away from the screen (SWA13 #1): nobody sees it switch. */
+  offscreen?: boolean
+  /** The browser tab is hidden. */
+  hidden?: boolean
 }): boolean {
   return (
     state.count > 1 &&
@@ -39,6 +43,8 @@ export function autoRotates(state: {
     state.desktop &&
     !state.picked &&
     !state.stopped &&
-    !state.paused
+    !state.paused &&
+    !state.offscreen &&
+    !state.hidden
   )
 }
