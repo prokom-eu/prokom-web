@@ -29,8 +29,10 @@ export const PAGES = [
 
 /** Pause after each scroll step: the reveal observer and lazy islands get their turn. */
 const STEP_MS = 250
-/** After the last step: every rise-in (≤ ~0.8 s with the card queue) has finished. */
-const SETTLE_MS = 1000
+/** After the last step: at least this long, so the last rise-ins have started. */
+const SETTLE_MS = 600
+/** …and then until no finite animation runs (a rise-in with the card queue: ≤ ~0.8 s). */
+const ANIMATIONS_MS = 5000
 
 /**
  * Scrolls `page` (a Playwright page) like a visitor — three quarters of a window at a time, top to
@@ -54,6 +56,21 @@ export async function hiddenAfterScroll(page) {
     y += Math.round(inner * 0.75)
   }
   await page.waitForTimeout(SETTLE_MS)
+  // Not a bare sleep: on a busy CI runner a rise-in may still be at opacity 0.9 after 1 s.
+  await page
+    .waitForFunction(
+      () =>
+        !document
+          .getAnimations()
+          .some(
+            (animation) =>
+              animation.playState === 'running' &&
+              animation.effect?.getComputedTiming().iterations !== Infinity,
+          ),
+      undefined,
+      { timeout: ANIMATIONS_MS },
+    )
+    .catch(() => {})
   return page.evaluate(collectHidden)
 }
 
@@ -97,24 +114,42 @@ function collectHidden() {
     return `<${element.tagName.toLowerCase()}> ${label.replace(/\s+/g, ' ').slice(0, 60)}`
   }
 
+  // The page's content only: a reveal target in a closed menu panel is not something missed.
   const offscreen = new Set([
     ...document.querySelectorAll('main section'),
-    ...document.querySelectorAll('[data-reveal]'),
+    ...document.querySelectorAll('main [data-reveal]'),
   ])
   const targets = new Set([
     ...offscreen,
-    ...[...document.querySelectorAll('[data-reveal-cards]')].flatMap((list) => [...list.children]),
+    ...[...document.querySelectorAll('main [data-reveal-cards]')].flatMap((list) => [
+      ...list.children,
+    ]),
   ])
+  /** Opacity as seen: the element's times every ancestor's (opacity is not inherited). */
+  const seen = (element) => {
+    let opacity = 1
+    let faintest = element
+    let faintestOpacity = 1
+    for (let node = element; node && node !== document.body; node = node.parentElement) {
+      const own = Number(getComputedStyle(node).opacity)
+      opacity *= own
+      if (own < faintestOpacity) {
+        faintestOpacity = own
+        faintest = node
+      }
+    }
+    return { opacity, faintest }
+  }
   const problems = []
   for (const element of targets) {
     if (element.getClientRects().length === 0) continue
     const style = getComputedStyle(element)
-    const opacity = Number(style.opacity)
+    const { opacity, faintest } = seen(element)
     if (opacity < 0.99) {
       problems.push({
         element: describe(element),
-        why: `opacity ${opacity}`,
-        rule: ruleFor(element),
+        why: `opacity ${Math.round(opacity * 100) / 100}${faintest === element ? '' : ` (przez ${describe(faintest)})`}`,
+        rule: ruleFor(faintest),
       })
       continue
     }
