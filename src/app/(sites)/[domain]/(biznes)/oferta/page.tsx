@@ -14,10 +14,10 @@ import { ogImages } from '@/lib/pages/metadata'
 import { plural } from '@/lib/plural'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
-import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
+import { BreadcrumbJsonLd, Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { Catalog } from '@/sites/biznes/components/catalog/Catalog'
 
-import { requireLine } from '../../tenant'
+import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = {
   params: Promise<{ domain: string }>
@@ -64,8 +64,12 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 /** Offer `/oferta` (K4 board `Web-Oferta`): header on the server, the list as a client island. */
 export default async function CatalogPage({ params }: Props) {
   const tenant = await requireLine(params, 'biznes')
-  const index = await getCatalogIndex(tenant.id)
+  const [index, origin] = await Promise.all([getCatalogIndex(tenant.id), requestOrigin()])
   const brands = brandCount(index)
+  const crumbs = [
+    { name: 'Strona główna', href: '/' },
+    { name: 'Oferta', href: CATALOG_PATH },
+  ]
   // Counts from the database (K4-FINAL §4.4).
   const stats = [
     {
@@ -89,12 +93,8 @@ export default async function CatalogPage({ params }: Props) {
           stays for readers), no breadcrumbs, lead or numbers. */}
       <div className="mx-auto w-full max-w-7xl px-4 pb-6 pt-5 max-md:pb-0 max-md:pt-3 sm:px-6 md:pt-7 lg:px-8">
         <div className="max-md:hidden">
-          <Breadcrumbs
-            items={[
-              { name: 'Start', href: '/' },
-              { name: 'Oferta', href: CATALOG_PATH },
-            ]}
-          />
+          <Breadcrumbs items={crumbs} />
+          <BreadcrumbJsonLd items={crumbs} origin={origin} />
         </div>
         <div className="mt-5 flex flex-col gap-6 max-md:mt-0 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">

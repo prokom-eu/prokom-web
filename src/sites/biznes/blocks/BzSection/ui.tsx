@@ -112,6 +112,8 @@ export function SectionShell({
       data-rail-label={block.anchor && block.heading ? (block.eyebrow ?? block.heading) : undefined}
       // Phone (boards App-*): the head is the H2 alone (no label, no lead).
       className={cx('scroll-mt-28', padding, SURFACE[block.surface], className)}
+      // Navy: the focus ring in the on-dark accent (`site.css`, WCAG 2.4.7).
+      data-surface={dark ? 'dark' : undefined}
     >
       {/* The content rises in once when it starts below the screen (`RevealObserver`, prompt 4
           R1); the section's own background stays still. */}
@@ -175,7 +177,7 @@ export function SourceLine({ block, className }: { block: BzSectionData; classNa
           href={block.sourceUrl}
           rel="noopener"
           target="_blank"
-          className="underline-offset-2 hover:underline"
+          className="inline-flex min-h-6 items-center underline-offset-2 hover:underline"
         >
           {block.source}
           <span className="sr-only"> (otwiera się w nowej karcie)</span>

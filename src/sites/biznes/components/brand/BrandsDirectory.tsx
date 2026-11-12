@@ -11,7 +11,7 @@ import { normalizeText } from '@/lib/catalog/normalize'
 import { openCartDrawer } from '@/lib/cart/store'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { plural } from '@/lib/plural'
-import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
+import { BZ_H1, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { PathIcon } from '../product/PathIcon'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
@@ -182,9 +182,7 @@ export function BrandsDirectory({
             role="status"
             className="flex flex-col items-start gap-3 rounded-3xl bg-surface-2 p-6 sm:p-8"
           >
-            <h2 className="font-display text-2xl font-extrabold text-ink">
-              Nie mamy jeszcze salonu tej marki
-            </h2>
+            <h2 className={cx(BZ_H2, 'text-ink')}>Nie mamy jeszcze salonu tej marki</h2>
             <p className="max-w-[60ch] text-ink-2">
               Dostarczamy więcej marek, niż pokazujemy. Napisz, czego szukasz, a sprawdzimy
               u&nbsp;dystrybutorów.
@@ -195,7 +193,7 @@ export function BrandsDirectory({
 
         <div className="flex flex-col gap-4 rounded-3xl bg-surface-2 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
           <div className="flex flex-col gap-1">
-            <h2 className="font-display text-xl font-extrabold text-ink">Szukasz innej marki?</h2>
+            <h2 className={cx(BZ_H2, 'text-ink')}>Szukasz innej marki?</h2>
             <p className="max-w-[70ch] text-ink-2">
               Współpracujemy z&nbsp;dystrybutorami sprzętu i&nbsp;oprogramowania w&nbsp;całej
               Polsce. Sprawdzimy dostępność i&nbsp;przygotujemy ofertę.
@@ -273,18 +271,25 @@ function BrandCard({ tile }: { tile: BrandTile }) {
   return (
     <Link
       href={tile.href}
-      aria-label={`${tile.name} — ${tile.salon ? 'wejdź do salonu' : 'zobacz ofertę'}`}
       data-logo-shine=""
       className="relative flex w-full min-w-0 flex-col gap-3 rounded-3xl bg-card p-4 max-md:gap-2 max-md:rounded-[20px] max-md:p-2.5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
     >
+      {/* „wejdź do salonu” in the name says it already: the badge stays out of the link name. */}
       {tile.salon && (
-        <span className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[11px] font-black tracking-[0.06em] text-surface uppercase max-md:-top-2 max-md:right-3 max-md:px-2 max-md:py-0.5 max-md:text-[9px]">
+        <span
+          aria-hidden="true"
+          className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[11px] font-black tracking-[0.06em] text-surface uppercase max-md:-top-2 max-md:right-3 max-md:px-2 max-md:py-0.5 max-md:text-[9px]"
+        >
           Salon
         </span>
       )}
       <Logo tile={tile} className="h-[76px] px-4 max-md:h-[60px] max-md:px-3" />
       <span className="flex flex-col gap-0.5">
-        <b className="font-extrabold text-ink max-md:text-[15px]">{tile.name}</b>
+        <b className="font-extrabold text-ink max-md:text-[15px]">
+          {tile.name}
+          {/* The visible text names the link; the action is added for screen readers (WCAG 2.5.3). */}
+          <span className="sr-only"> — {tile.salon ? 'wejdź do salonu' : 'zobacz ofertę'}</span>
+        </b>
         {tile.description && (
           <small className="text-sm leading-snug text-ink-2 max-md:line-clamp-2 max-md:text-xs">
             {tile.description}
@@ -297,7 +302,7 @@ function BrandCard({ tile }: { tile: BrandTile }) {
             <ProductStage key={photo.url} as="span" className="aspect-square rounded-xl">
               <Image
                 src={photo.url}
-                alt=""
+                alt={photo.alt}
                 width={photo.width}
                 height={photo.height}
                 unoptimized

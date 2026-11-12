@@ -306,42 +306,44 @@ export const glownaSekcje = {
   },
   mountains: {
     eyebrow: 'Góry i zima',
-    heading: 'Jak przygotowujemy instalację na mróz, burze i słabe łącze',
-    lead: 'Na Podhalu kamery zbierają śnieg, burze uszkadzają sprzęt, a wiele domów stoi pustych przez pół roku. Każdą instalację planujemy pod te warunki.',
+    heading: 'Instalacja gotowa na mróz, burze i słabe łącze',
+    lead: 'Na Podhalu kamery zbierają śnieg, burze psują sprzęt, a wiele domów stoi pustych pół roku. Każdą instalację planujemy pod te warunki.',
+    // Source: RMF24, 7.02.2023 (the prototype's fact list, `prototyp/firmy.html`).
+    fact: {
+      value: '−28,5°C',
+      label: 'Kotlina Orawsko-Nowotarska, 7.02.2023',
+      note: 'Tyle musi wytrzymać kamera na zewnątrz.',
+    },
     cards: [
       {
         scene: 'snow',
         title: 'Mróz i śnieg',
-        text: 'Dobieramy kamery i obudowy do górskiej zimy i montujemy je tak, żeby jak najmniej zbierały śnieg. Obraz ustawiamy pod odblask od śniegu i wieczorne światło.',
-        // Source: RMF24, 7.02.2023 (the prototype's fact list, `prototyp/firmy.html`).
-        // TODO(krystian): RUNDA-V5 §5 wants a number-fact on every card — only this one has a
-        // checked source; add the others with their sources (`docs/tresci/`) or keep one.
-        fact: { value: '−28,5°C', label: 'Kotlina Orawsko-Nowotarska, 7.02.2023' },
+        text: 'Kamery i obudowy na górską zimę, montaż tak, żeby nie zbierały śniegu. Obraz ustawiony pod odblask.',
       },
       {
         scene: 'storm',
         title: 'Burze i przepięcia',
-        text: 'Ochrona przepięciowa zmniejsza ryzyko uszkodzeń po burzy, a zasilacz UPS podtrzymuje kamery i alarm przy krótkich zanikach prądu.',
+        text: 'Ochrona przepięciowa i zasilacz UPS: kamery i alarm działają przy krótkich zanikach prądu.',
       },
       {
         scene: 'off',
         title: 'Słabe łącze',
-        text: 'Nagrania zapisują się w obiekcie, a Ampio steruje domem lokalnie. Gdy internet zniknie, instalacja działa dalej, a podgląd z telefonu wraca razem z łączem.',
+        text: 'Nagrania zostają na rejestratorze w budynku, Ampio działa lokalnie. Bez internetu instalacja pracuje dalej.',
       },
       {
         scene: 'home',
         title: 'Domy na wynajem i letnie',
-        text: 'Podgląd z daleka, nagrzanie domu przed przyjazdem, ochrona przed zamarzaniem i zalaniem. Dla domów, w których nikogo nie ma przez kilka miesięcy.',
+        text: 'Podgląd z daleka, nagrzanie domu przed przyjazdem, ochrona przed zamarzaniem i zalaniem.',
       },
       {
         scene: 'cal',
         title: 'Przegląd przed sezonem',
-        text: 'Przed zimą i przed latem: czyszczenie kamer, test dysków, akumulatorów, Wi-Fi i ładowarki. Robimy to, zanim przyjadą goście.',
+        text: 'Przed zimą i latem: czyszczenie kamer, test dysków, akumulatorów, Wi-Fi i ładowarek.',
       },
       {
         scene: 'pin',
         title: 'Salon blisko Ciebie',
-        text: 'Salon w Rabce-Zdroju jest blisko obiektów na Podhalu. Wiele usterek naprawiamy zdalnie, a gdy trzeba przyjechać, dojazd jest krótki.',
+        text: 'Salon w Rabce-Zdroju. Wiele usterek naprawiamy zdalnie, a dojazd na Podhalu jest krótki.',
       },
     ],
   },
@@ -497,7 +499,7 @@ export const glownaSekcje = {
       // „24 h” only as the answer to a request, on working days (spec §2).
       text: 'Odpowiemy do 24 h w dni robocze: zadzwonimy, żeby dopytać o szczegóły i umówić wizję lokalną.',
       number: 'Numer zgłoszenia',
-      more: 'Dodaj zdjęcia i szczegóły →',
+      more: 'Dodaj szczegóły w kreatorze →',
       again: 'Nowe zgłoszenie',
     },
     ticket: {
@@ -510,7 +512,7 @@ export const glownaSekcje = {
     },
     alt: {
       title: 'Chcesz opisać więcej?',
-      text: 'Pełny kreator: pytania o szczegóły i zdjęcia obiektu.',
+      text: 'Pełny kreator: kilka pytań o obiekt i instalacje.',
       link: 'Otwórz kreator →',
     },
     steps: ['Oddzwaniamy', 'Wizja lokalna', 'Wycena na piśmie'],

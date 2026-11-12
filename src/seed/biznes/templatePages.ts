@@ -2,8 +2,10 @@ import type { Payload } from 'payload'
 
 import type { PageBlock } from './page'
 import { upsertBiznesPage } from './page'
+import { backupLayout, describeLayout, pagesToReplace } from './replacePages'
 
 type Report = (name: string, changed: boolean) => void
+type Note = (what: string, item: string) => void
 type TemplateBlock = 'bzAboutPage' | 'bzContactPage'
 
 const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
@@ -37,14 +39,17 @@ const K4_BLOCKS = new Set(['bzSection', 'faq', 'bzLocation'])
 /**
  * The layout a template page should get, or `null` to leave it: a new page and the old K4 layout
  * (the seed's own block types only) get the template block alone; a page already on it or
- * edited in the panel (other blocks) stays.
+ * edited in the panel (other blocks) stays — unless it is named in `--zamien-strony` /
+ * `ZAMIEN_STRONY` (`replace`, `replacePages.ts`, runbook §2a).
  */
 export function templateLayout(
   stored: readonly PageBlock[] | undefined,
   block: TemplateBlock,
+  replace = false,
 ): PageBlock[] | null {
   const fresh = [{ blockType: block }] as PageBlock[]
   if (!stored?.length) return fresh
+  if (replace) return stored.length === 1 && stored[0]!.blockType === block ? null : fresh
   if (stored.some((item) => item.blockType === block)) return null
   return stored.every((item) => K4_BLOCKS.has(item.blockType)) ? fresh : null
 }
@@ -54,7 +59,9 @@ export async function seedBiznesTemplatePages(
   payload: Payload,
   tenantId: number,
   report: Report,
+  note?: Note,
 ): Promise<void> {
+  const replace = pagesToReplace()
   for (const { slug, title, description, block } of TEMPLATE_PAGES) {
     const {
       docs: [page],
@@ -64,7 +71,7 @@ export async function seedBiznesTemplatePages(
       limit: 1,
       ...local,
     })
-    const layout = templateLayout(page?.layout ?? undefined, block)
+    const layout = templateLayout(page?.layout ?? undefined, block, replace.has(slug))
     if (!page) {
       await upsertBiznesPage(
         payload,
@@ -76,10 +83,18 @@ export async function seedBiznesTemplatePages(
     }
     report(`pages ${slug} template`, Boolean(layout))
     if (!layout) continue
+    if (replace.has(slug)) {
+      const file = backupLayout(slug, page.layout)
+      note?.(
+        'strona zamieniona (przed → po)',
+        `${slug}: ${describeLayout(page.layout)} → ${describeLayout(layout)}; kopia ${file}`,
+      )
+    }
     await payload.update({
       collection: 'pages',
       id: page.id,
-      data: { layout, _status: page._status ?? 'published' },
+      // A named replacement publishes, as the K4 pages do; a template move keeps the status.
+      data: { layout, _status: replace.has(slug) ? 'published' : (page._status ?? 'published') },
       ...local,
     })
   }

@@ -80,7 +80,7 @@ export function ProcurementPage({
 }) {
   const { images } = context
   const crumbs: Crumb[] = [
-    { name: 'Start', href: '/' },
+    { name: 'Strona główna', href: '/' },
     { name: 'Oferta', href: '/oferta' },
     // ZAOPATRZENIE §1: no `/zaopatrzenie-firm` page — the crumb leads to the offer.
     { name: 'Zaopatrzenie firm', href: '/oferta' },

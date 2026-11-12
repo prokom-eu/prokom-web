@@ -53,7 +53,9 @@ function Thumb({ product, size }: { product: PlanProduct; size: 'point' | 'list'
   return product.image ? (
     <Image
       src={product.image.url}
-      alt=""
+      alt={product.image.alt}
+      // The name is in the text next to it: the alt serves search engines only.
+      aria-hidden
       width={product.image.width}
       height={product.image.height}
       unoptimized
@@ -303,6 +305,8 @@ export function FloorPlan({
                       as="span"
                       className={cx(
                         'size-11 rounded-full bg-white shadow-[0_6px_16px_-6px_var(--shd),0_0_0_2px_var(--surface-dark)] transition-transform group-hover:scale-110 lg:size-12',
+                        // A round point: the plate follows the circle (no square edges inside).
+                        '[&>[data-stage-plate]]:rounded-full',
                         (active || hot === point.n) && 'scale-110',
                         active && 'fp-active',
                       )}

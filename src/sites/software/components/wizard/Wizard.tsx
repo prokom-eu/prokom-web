@@ -1,9 +1,11 @@
 'use client'
 
-import Link from 'next/link'
-import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import dynamic from 'next/dynamic'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
+import { Suspense, useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/track'
+import { stripBold } from '@/lib/site/emphasis'
 import { keepTogether } from '@/lib/software/price'
 import {
   canNext,
@@ -23,12 +25,15 @@ import {
 } from '@/lib/software/wizard/flow'
 import type { SoftwareWizard, WizardPick, WizardStep } from '@/lib/software/wizard/schema'
 
-import { Mockup } from '@/sites/software/components/mockups/Mockup'
+import { Mockup } from '@/sites/software/components/mockups/MockupLazy'
 import { EmText } from '@/sites/software/components/ui/EmText'
 import { usePausedOffscreen } from '@/sites/software/components/v24home/usePausedOffscreen'
 
-import { WizardSend } from './WizardSend'
 import { PriceTween } from './PriceTween'
+
+/** The last step's form, loaded when the visitor gets there (AUDYT-WYDAJNOSC-1111 #6). */
+const loadSend = () => import('./WizardSend')
+const WizardSend = dynamic(() => loadSend().then((m) => m.WizardSend))
 
 export type WizardProps = {
   rules: SoftwareWizard
@@ -92,6 +97,10 @@ export function Wizard({
   const ids = useId()
   const [answers, setAnswers] = useState(initial.answers)
   const [step, setStep] = useState(initial.step)
+  // Past the first step the last step's form is fetched ahead, so „Dalej” never waits for it.
+  useEffect(() => {
+    if (step > 0) void loadSend()
+  }, [step])
   // The next step slides in from the right, a step back from the left (AUDYT-0811 P2 A10).
   const [dir, setDir] = useState<'next' | 'back' | null>(null)
   // Name and contact of the result live here: a step back and forth keeps them.
@@ -147,7 +156,7 @@ export function Wizard({
     return (
       <fieldset className="wz-group" key={pick}>
         {title && <legend className="wz-q">{title}</legend>}
-        {!title && <legend className="sr-only">{rules.steps[key].title}</legend>}
+        {!title && <legend className="sr-only">{stripBold(rules.steps[key].title)}</legend>}
         <div className="wz-opts">
           {options.map((option) => {
             const on = picked.includes(option.id)
@@ -224,14 +233,17 @@ export function Wizard({
     }
     if (key === 'res') {
       return (
-        <WizardSend
-          send={rules.send}
-          answers={answers}
-          onNote={(note) => setAnswers((current) => ({ ...current, note }))}
-          who={who}
-          onWho={setWho}
-          formToken={formToken}
-        />
+        // Not in the server HTML: its own boundary, so a slow fetch shows room, not a dead step.
+        <Suspense fallback={<div className="min-h-80" aria-busy="true" />}>
+          <WizardSend
+            send={rules.send}
+            answers={answers}
+            onNote={(note) => setAnswers((current) => ({ ...current, note }))}
+            who={who}
+            onWho={setWho}
+            formToken={formToken}
+          />
+        </Suspense>
       )
     }
     return (
@@ -346,7 +358,7 @@ export function Wizard({
             aria-labelledby={`${ids}-t`}
           >
             <StepHeading id={`${ids}-t`} ref={titleRef} tabIndex={-1} className="wz-title">
-              {text.title}
+              <EmText text={text.title} />
             </StepHeading>
             {text.lead && <p className="wz-sub">{text.lead}</p>}
             {stepBody()}

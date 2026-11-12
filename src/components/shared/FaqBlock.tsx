@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 
 import { faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 
+import { AccentText } from './HeadingText'
 import { PAGE_CONTAINER } from './pageContainer'
 
 export type FaqItem = { question: string; answer?: string | null }
@@ -10,8 +11,10 @@ type Props = {
   /** The section anchor; its heading id is `<id>-title` (two blocks on a page stay distinct). */
   id: string
   eyebrow?: string
-  /** H2, e.g. „Zanim zadzwonisz”. */
+  /** H2, e.g. „Zanim zadzwonisz”; a `**part**` is highlighted only with `emClass`. */
   title: string
+  /** The line's class for the highlighted part of the title (AUDYT-0911 #1). */
+  emClass?: string
   lead?: string | null
   items: readonly FaqItem[]
   /** Under the lead on the left, e.g. a contact card (status, phone, e-mail). */
@@ -30,6 +33,7 @@ export function FaqBlock({
   id,
   eyebrow = 'Pytania',
   title,
+  emClass,
   lead,
   items,
   aside,
@@ -64,7 +68,7 @@ export function FaqBlock({
             id={`${id}-title`}
             className="font-display text-[clamp(32px,3.8vw,48px)] leading-none font-extrabold tracking-[-0.025em]"
           >
-            {title}
+            <AccentText text={title} emClass={emClass} />
           </h2>
           {lead && <p className="text-ink-2">{lead}</p>}
           {aside}

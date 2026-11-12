@@ -121,7 +121,7 @@ test.describe('Instalacje realizations', () => {
   // Round v5 (RUNDA-V5 §4): photos from pro-kom.eu (`pnpm seed`), the gallery in a <dialog>.
   test('a card with photos opens the gallery: arrows, keys, counter, Esc', async ({ page }) => {
     await open(page, '/realizacje')
-    const cover = page.getByRole('button', { name: /^Blachotrapez: 17 zdjęć/ })
+    const cover = page.getByRole('button', { name: /^17 zdjęć — Blachotrapez/ })
     await cover.click()
     const gallery = page.getByRole('dialog', { name: 'Zdjęcia: Blachotrapez' })
     await expect(gallery).toBeVisible()

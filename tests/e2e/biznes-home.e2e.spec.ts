@@ -645,7 +645,7 @@ test.describe('Biznes home page: KSeF band, news, contact location', () => {
     })
   })
 
-  test('„Aktualności”: at most three cards, sister lines link to their own sites', async ({
+  test('„Aktualności”: at most three cards, no empty fields, sister lines link to their own sites', async ({
     page,
   }) => {
     await page.goto(site('biznes.localhost'))
@@ -666,10 +666,25 @@ test.describe('Biznes home page: KSeF band, news, contact location', () => {
         // The line's domain in this environment (CI: SITE_ENV=local → `*.localhost` of the seed).
         /^http:\/\/(instalacje|software)\.localhost(:\d+)?\/(poradnik|aktualnosci)\//,
       )
-      // Title only — no lead and no cover from the other line (SEO).
-      await expect(card.locator('img')).toHaveCount(0)
-      await expect(card.locator('p')).toHaveCount(1)
+      // NAPRAWA-0911 §4: the line's mark and a short teaser — never the other line's cover.
+      await expect(card.locator('img[data-line-logo]').first()).toBeAttached()
+      await expect(card.locator('img:not([data-line-logo])')).toHaveCount(0)
+      const teaser = card.locator('p.line-clamp-2')
+      if (await teaser.count()) expect((await teaser.innerText()).length).toBeLessThanOrEqual(140)
     }
+    // Cards as tall as their content: no empty field over 120 px (the 09.11 white cards, where
+    // „Czytaj…” sat at the bottom with an empty middle) — between any two pieces of the text and
+    // under the last one.
+    const gaps = await news.locator('[data-news-card]').evaluateAll((articles) =>
+      articles.map((article) => {
+        const body = article.querySelector(':scope > div:last-child')
+        const parts = [...(body?.children ?? [])].map((part) => part.getBoundingClientRect())
+        const between = parts.slice(1).map((part, i) => part.top - parts[i]!.bottom)
+        const under = article.getBoundingClientRect().bottom - (parts.at(-1)?.bottom ?? 0)
+        return Math.max(under, ...between)
+      }),
+    )
+    for (const gap of gaps) expect(gap).toBeLessThanOrEqual(120)
   })
 
   test('contact: the location column — map, open status, address, phone, „Wyznacz trasę”', async ({

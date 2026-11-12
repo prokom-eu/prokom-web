@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { HIGHLIGHTS } from '@/sites/biznes/components/product/ProductHero'
+import { fitTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { bentoTiles } from '@/lib/catalog/bento'
@@ -90,12 +92,16 @@ async function load(params: Props['params']) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, product } = await load(params)
   if (!product) return {}
-  const title =
+  // 30–60 characters with the site's suffix (audit 0611 P1-8: cards had ~69); a short model
+  // name gets its category („Sunmi L3 — Kolektory danych”, QA BIZ-3).
+  const title = fitTitle(
     product.seo.title ??
-    productTitle(
-      product.shortName ?? product.heading,
-      product.variants.map((variant) => variant.name),
-    )
+      productTitle(
+        product.shortName ?? product.heading,
+        product.variants.map((variant) => variant.name),
+      ),
+    product.category ? `— ${product.category.name}` : undefined,
+  )
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = product.seo.description ?? product.benefit
   const description = descriptionSource ? biznesDescription(descriptionSource) : undefined
@@ -155,7 +161,8 @@ export default async function ProductPage({ params }: Props) {
       ))
     : null
 
-  const tiles = bentoTiles(product.specs)
+  // Without the values the hero already shows in its 3 highlights (audit 0611 P1-13).
+  const tiles = bentoTiles(product.specs, product.features.slice(0, HIGHLIGHTS))
   const variantNames = uniqueVersions(product.variants.map((variant) => variant.name))
   // „Do tego zwykle dobierają”: `polecane` of K4, then „pasuje do”; a card without them keeps
   // the phrase matching of K31b (K36 §13 W14).
@@ -191,7 +198,7 @@ export default async function ProductPage({ params }: Props) {
   ]
 
   const crumbs: Crumb[] = [
-    { name: 'Start', href: '/' },
+    { name: 'Strona główna', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
     ...(category && categoryLink ? [{ name: category.name, href: categoryLink }] : []),
     { name: product.heading, href: productHref(product.slug) },

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from './IntentLink'
 import { Fragment } from 'react'
 
 import { cx } from '@/components/ui/cx'
@@ -66,8 +66,9 @@ export function LegalBar({ company, legalNote, year, extraLinks = [], className 
               ))}
           </Fragment>
         ))}
+        {/* The skip link at the very top of every page (`[domain]/layout.tsx`, `id="gora"`). */}
         <a
-          href="#"
+          href="#gora"
           className={cx(
             linkClass,
             'gap-1.5 border border-line-dark-rule px-2.5 py-1.5 hover:no-underline hover:bg-line-dark-current',

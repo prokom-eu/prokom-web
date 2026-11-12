@@ -60,7 +60,7 @@ export function RealizationPhotos({ photos, title, sizes }: Props) {
         type="button"
         className="rlph"
         onClick={open}
-        aria-label={`${title}: ${label} — otwórz galerię`}
+        aria-label={`${label} — ${title}, otwórz galerię`}
         aria-haspopup="dialog"
       >
         <MediaImage image={cover} sizes={sizes} className="rlphi" />

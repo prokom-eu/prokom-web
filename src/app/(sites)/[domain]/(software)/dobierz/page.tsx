@@ -1,5 +1,6 @@
+import { EmText } from '@/sites/software/components/ui/EmText'
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
@@ -63,15 +64,22 @@ export default async function WizardPage({ params, searchParams }: Props) {
     <div className="overflow-x-clip pt-6 pb-16 sm:pt-10 sm:pb-24">
       <Container wide>
         <nav aria-label="Okruszki" className="mb-6 text-sm text-ink-2">
-          <ol className="flex flex-wrap gap-2">
+          <ol className="flex flex-wrap items-center gap-2">
             <li>
-              <Link href="/" className="hover:text-ink hover:underline">
+              <Link
+                href="/"
+                className="inline-flex min-h-6 items-center hover:text-ink hover:underline"
+              >
                 Strona główna
               </Link>
             </li>
             <li aria-hidden="true">›</li>
             <li>
-              <Link href={WIZARD_PATH} aria-current="page" className="text-ink">
+              <Link
+                href={WIZARD_PATH}
+                aria-current="page"
+                className="inline-flex min-h-6 items-center text-ink"
+              >
                 Kreator
               </Link>
             </li>
@@ -90,7 +98,7 @@ export default async function WizardPage({ params, searchParams }: Props) {
         <section aria-labelledby="cztery-kroki" className="mt-24">
           {page.stepsEyebrow && <p className="sw-eyebrow text-center">{page.stepsEyebrow}</p>}
           <h2 id="cztery-kroki" className="sw-h2 mt-4 text-center">
-            {page.stepsTitle}
+            <EmText text={page.stepsTitle} />
           </h2>
           <ol className="wz-four">
             {page.steps.map((item, i) => (

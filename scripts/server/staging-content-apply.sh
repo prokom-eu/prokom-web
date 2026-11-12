@@ -60,6 +60,9 @@ on_exit() {
 trap on_exit EXIT
 
 log "switch (app stopped for a moment)"
+# The app's data cache lives in the container (.next/cache/fetch-cache) and survives a restart:
+# without clearing it, the first requests would serve pages of the old database.
+docker exec "$app" sh -c 'rm -rf /app/.next/cache/fetch-cache/*' </dev/null || true
 docker stop "$app" >/dev/null
 switched=1
 psql_admin "drop database if exists ${db}_old with (force)"
@@ -78,8 +81,8 @@ done
 log "app healthy"
 read -r -a hosts <<<"$(env_value .env.proxy STAGING_SITE_HOSTS)"
 PANEL_HOST="$(env_value .env.staging PANEL_HOST)" \
-  bash "$repo/scripts/smoke.sh" "http://127.0.0.1:$(env_value .env.staging APP_PORT)" "${hosts[@]}" >"$dir/smoke.log" ||
-  { tail -5 "$dir/smoke.log"; exit 1; }
+  SMOKE_CONTENT=1 bash "$repo/scripts/smoke.sh" "http://127.0.0.1:$(env_value .env.staging APP_PORT)" "${hosts[@]}" >"$dir/smoke.log" ||
+  { grep FAIL "$dir/smoke.log" || tail -5 "$dir/smoke.log"; exit 1; }
 log "$(tail -1 "$dir/smoke.log")"
 
 # Success: the old copies go; the uploaded files (personal data) too.

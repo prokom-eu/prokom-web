@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from './IntentLink'
 import type { ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
@@ -14,13 +14,13 @@ import { AddressMap } from './AddressMap'
 import { type AuthLogo, CompanyCard } from './CompanyCard'
 import { Contours } from './Contours'
 import { FamilyStrip } from './FamilyStrip'
-import { HeadingText } from './HeadingText'
+import { AccentText, HeadingText } from './HeadingText'
 import { PageCrumbs, type Crumb } from './PageCrumbs'
 import { PAGE_CONTAINER as CONTAINER } from './pageContainer'
 import { RulesBento } from './RulesBento'
 import { StatsStrip } from './StatsStrip'
 import { Steps } from './Steps'
-import { VerifyCards } from './VerifyCards'
+import { shownVerify, VerifyCards } from './VerifyCards'
 
 /** The line's own sections in named places (spec §6.0). */
 export type AboutSlots = {
@@ -43,10 +43,17 @@ export type AboutPageProps = {
   slots?: AboutSlots
   /** Optional section (spec §6.0) — on by default. */
   showVerify?: boolean
+  /** Hide a „Sprawdź nas” card whose link is empty (Biznes, plan 0611 §8.2); off by default. */
+  verifyLinkedOnly?: boolean
+  /** Numbers of 10 and more count up when they come into view (`CountUp`); off by default. */
+  countStats?: boolean
   /** Logos of the line's authorisations in the company card (Biznes, plan 0611 §8.2). */
   authLogos?: readonly AuthLogo[]
   /** Top row of the company card (Software: „Wizytówka firmy” + logo, AUDYT-0811 #13). */
   cardHeading?: ReactNode
+  /** The line's class for the highlighted word of the section H2s (Software: `sw-em`, AUDYT-0911
+   * #1). Without it the H2s stay plain text. */
+  headingEmClass?: string
 }
 
 const H2 =
@@ -70,8 +77,11 @@ export function AboutPage({
   ],
   slots = {},
   showVerify = true,
+  verifyLinkedOnly = false,
+  countStats = false,
   authLogos,
   cardHeading,
+  headingEmClass,
 }: AboutPageProps) {
   const { company, lines } = shared
   const data = shared.line
@@ -82,6 +92,7 @@ export function AboutPage({
   const lineCount = lines.filter((item) => item.kind === 'linia').length
   const gaming = lines.some((item) => item.key === 'gaming')
   const jsonLd = pageBreadcrumbsJsonLd(origin, breadcrumbs)
+  const verify = shownVerify(about.verify ?? [], verifyLinkedOnly)
 
   return (
     <div data-about-page>
@@ -162,7 +173,7 @@ export function AboutPage({
       </section>
 
       <div className={cx(CONTAINER, 'relative z-[1] -mt-9')}>
-        <StatsStrip stats={aboutStats(about.stats, lines)} siteEnv={siteEnv} />
+        <StatsStrip stats={aboutStats(about.stats, lines)} siteEnv={siteEnv} countUp={countStats} />
       </div>
 
       {slots.afterStats}
@@ -176,7 +187,7 @@ export function AboutPage({
           data-rail-icon="star"
         >
           <h2 id="o-firmie-zasady" className={H2}>
-            Dlaczego PRO-KOM
+            <AccentText text="Dlaczego **PRO-KOM**" emClass={headingEmClass} />
           </h2>
           <RulesBento rules={about.rules} className="mt-8" />
         </section>
@@ -193,7 +204,7 @@ export function AboutPage({
           data-rail-icon="compass"
         >
           <h2 id="o-firmie-kroki" className={H2}>
-            Jak to wygląda krok po kroku
+            <AccentText text="Jak to wygląda **krok po kroku**" emClass={headingEmClass} />
           </h2>
           <Steps steps={about.steps} className="mt-8" />
         </section>
@@ -209,13 +220,17 @@ export function AboutPage({
         data-rail-icon="grid"
       >
         <h2 id="o-firmie-linie" className={H2}>
-          {lineCount} {plural(lineCount, ['linia', 'linie', 'linii'])}
-          {gaming ? ' i marka PRO-KOM Gaming' : ' PRO-KOM'}
+          <AccentText
+            text={`${lineCount} ${plural(lineCount, ['linia', 'linie', 'linii'])} ${
+              gaming ? 'i marka **PRO-KOM Gaming**' : '**PRO-KOM**'
+            }`}
+            emClass={headingEmClass}
+          />
         </h2>
         <FamilyStrip lines={lines} current={line} className="mt-8" />
       </section>
 
-      {showVerify && about.verify && about.verify.length > 0 && (
+      {showVerify && verify.length > 0 && (
         <section
           id="sprawdz"
           aria-labelledby="o-firmie-sprawdz"
@@ -224,9 +239,9 @@ export function AboutPage({
           data-rail-icon="shield"
         >
           <h2 id="o-firmie-sprawdz" className={H2}>
-            Nie musisz wierzyć nam na słowo
+            <AccentText text="Nie musisz wierzyć **nam na słowo**" emClass={headingEmClass} />
           </h2>
-          <VerifyCards items={about.verify} className="mt-8" />
+          <VerifyCards items={verify} className="mt-8" />
         </section>
       )}
 
@@ -247,7 +262,11 @@ export function AboutPage({
                 id="o-firmie-wizyta"
                 className="font-display text-[clamp(28px,3vw,40px)] leading-tight font-extrabold text-line-dark-ink"
               >
-                Wpadnij do nas — {address.street}, {address.city}.
+                <AccentText
+                  text={`Wpadnij do nas — **${address.street}, ${address.city}.**`}
+                  emClass={headingEmClass}
+                  band
+                />
               </h2>
               {about.visitText && <p className="max-w-[48ch]">{about.visitText}</p>}
               <div className="mt-auto flex flex-wrap gap-3">

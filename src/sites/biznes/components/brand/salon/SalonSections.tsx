@@ -258,7 +258,7 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
                     {view.heroCard.title}
                   </p>
                 )}
-                <ul className="flex flex-col gap-3">
+                <ul data-salon-hero-card className="flex flex-col gap-3">
                   {view.heroCard.items.map((item) => (
                     <li key={item.title} className="flex gap-3">
                       <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-lg bg-ok/20 text-ok">
@@ -688,7 +688,12 @@ export function SalonAbout({
               {about.sources.map((source, i) => (
                 <span key={source.host}>
                   {i > 0 && ' · '}
-                  <a href={source.url} rel="noopener" target="_blank" className="underline">
+                  <a
+                    href={source.url}
+                    rel="noopener"
+                    target="_blank"
+                    className="inline-flex min-h-6 items-center underline"
+                  >
                     {source.host}
                   </a>
                 </span>

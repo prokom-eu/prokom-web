@@ -5,6 +5,7 @@ import {
   homeLayoutWithHero,
   layoutWithBlockTexts,
   overlay,
+  panelHeaders,
   planTextChange,
   TEXT_FIELDS,
 } from './texts'
@@ -220,5 +221,30 @@ describe('overlay (INST-6 PR4)', () => {
       'shared.about.verify[1].title',
       'shared.about.lead',
     ])
+  })
+})
+
+describe('panel request headers (staging behind a site password)', () => {
+  it('no site password: the token in the Authorization header', () => {
+    expect(panelHeaders('t0k')).toEqual({
+      'Content-Type': 'application/json',
+      Authorization: 'JWT t0k',
+    })
+  })
+
+  it('site password: Basic for nginx, the token as the Payload cookie', () => {
+    expect(panelHeaders('t0k', 'szef:haslo')).toEqual({
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${Buffer.from('szef:haslo').toString('base64')}`,
+      Cookie: 'payload-token=t0k',
+    })
+  })
+
+  it('login (no token yet) carries only the site password', () => {
+    expect(panelHeaders(undefined, 'szef:haslo')).toEqual({
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${Buffer.from('szef:haslo').toString('base64')}`,
+    })
+    expect(panelHeaders(undefined)).toEqual({ 'Content-Type': 'application/json' })
   })
 })

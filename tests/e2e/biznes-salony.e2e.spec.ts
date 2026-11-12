@@ -29,6 +29,18 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
     await expect(
       page.getByRole('heading', { level: 2, name: /^Autoryzowany serwis/ }),
     ).toBeVisible()
+    // NAPRAWA-0911: the full salon is back (B5-3b trimming withdrawn) — the rollout is its own
+    // block, the hero card has its points with descriptions, the whole offer lists every model.
+    // The rollout panel's own H2 (`DarkPanel` names it `wdrozenie-h`).
+    await expect(page.locator('h2#wdrozenie-h')).toBeVisible()
+    const heroCard = page.locator('[data-salon-hero-card] > li')
+    expect(await heroCard.count()).toBeGreaterThanOrEqual(3)
+    await expect(heroCard.first().locator('small')).not.toBeEmpty()
+    const offer = page.locator('#oferta-cala')
+    await expect(offer).toContainText(/Pełna oferta · \d+/)
+    // The first kind („Kasy fiskalne”) lists all its registers (5 in the package), also the 3 of the
+    // plan cards above — the trimmed version left 2.
+    expect(await offer.locator('ul[data-salon-products] > li').count()).toBeGreaterThanOrEqual(4)
     await expect(
       page.getByRole('heading', { level: 2, name: 'Pytania o kasy Posnet' }),
     ).toBeVisible()

@@ -3,10 +3,12 @@ import type { Payload } from 'payload'
 import type { Page } from '../../payload-types'
 import { nextDescription } from './description'
 import { mergeHomeLayout } from './home'
+import { backupLayout, describeLayout, hasSeedLayout, pagesToReplace } from './replacePages'
 
 export type PageBlock = NonNullable<Page['layout']>[number]
 
 type Report = (name: string, changed: boolean) => void
+type Note = (what: string, item: string) => void
 
 const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
 
@@ -34,6 +36,7 @@ export async function upsertK4Page(
   tenantId: number,
   page: SeedPage,
   report: Report,
+  note?: Note,
 ): Promise<boolean> {
   const {
     docs: [found],
@@ -43,7 +46,25 @@ export async function upsertK4Page(
     limit: 1,
     ...local,
   })
-  if (found && !found.layout?.some((block) => block.blockType === 'bzSection')) {
+  // NAPRAWA-0911: a named page gets the seed's layout even when it looks edited (replacePages).
+  const replace =
+    found && pagesToReplace().has(page.slug) && !hasSeedLayout(found.layout, page.layout)
+  if (replace) {
+    const file = backupLayout(page.slug, found.layout)
+    await payload.update({
+      collection: 'pages',
+      id: found.id,
+      data: { layout: page.layout, _status: 'published' },
+      ...local,
+    })
+    report(`pages ${page.slug} replaced`, true)
+    note?.(
+      'strona zamieniona (przed → po)',
+      `${page.slug}: ${describeLayout(found.layout)} → ${describeLayout(page.layout)}; kopia ${file}`,
+    )
+    // Now a K4 page: the usual rules below also bring its SEO description up to date.
+  }
+  if (found && !replace && !found.layout?.some((block) => block.blockType === 'bzSection')) {
     report(`pages ${page.slug}`, false)
     return false
   }

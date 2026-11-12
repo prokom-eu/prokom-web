@@ -37,7 +37,16 @@ type Props = {
   meta?: 'category' | 'series'
   /** „Podgląd” on the picture: opens the quick preview of the list (catalog grid only). */
   onPreview?: () => void
+  /**
+   * Picture loading. `eager`: first row of a list — loads at once, not when scrolled to.
+   * `priority`: also fetched with high priority — only the card that is the largest paint (LCP)
+   * at the top of the page (first card of `/oferta`); more would compete with CSS and fonts.
+   */
+  picture?: 'lazy' | 'eager' | 'priority'
 }
+
+/** Cards of the first row (3 from 1101 px, 2 on a phone) whose pictures load at once. */
+export const FIRST_ROW = 3
 
 /**
  * Card of the catalog as on the board `Web-oferta` (`.pc`, prompt 2 W1): a square studio
@@ -53,6 +62,7 @@ export function ProductCard({
   variant = 'catalog',
   meta = 'category',
   onPreview,
+  picture = 'lazy',
 }: Props) {
   const list = layout === 'list'
   const home = variant === 'home'
@@ -98,6 +108,8 @@ export function ProductCard({
               width={product.image.width}
               height={product.image.height}
               unoptimized
+              loading={picture === 'lazy' ? undefined : 'eager'}
+              fetchPriority={picture === 'priority' ? 'high' : undefined}
               className={cx(
                 'relative h-[78%] w-[78%] object-contain transition-transform duration-300 group-hover/card:scale-[1.03] motion-reduce:transition-none',
                 STAGE_SHADOW,
@@ -190,10 +202,23 @@ export function ProductCard({
 
       <div className="flex min-w-0 flex-1 flex-col gap-2">
         {eyebrow && (
-          <p className="text-xs font-extrabold tracking-[0.07em] text-ink-2 uppercase">{eyebrow}</p>
+          // A series keeps its own spelling („ThinkPad T i X13”, audit 0611 P3), a category is caps.
+          <p
+            className={cx(
+              'text-xs font-extrabold text-ink-2',
+              meta === 'series' && product.series
+                ? 'tracking-[0.02em]'
+                : 'tracking-[0.07em] uppercase',
+            )}
+          >
+            {eyebrow}
+          </p>
         )}
         <h3 className="text-[15px] leading-[1.25] font-extrabold sm:text-[17px]">
-          <Link href={href} className="text-ink hover:text-accent-text">
+          <Link
+            href={href}
+            className="inline-flex min-h-6 items-center text-ink hover:text-accent-text"
+          >
             {product.name}
           </Link>
         </h3>

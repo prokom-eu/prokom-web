@@ -154,7 +154,22 @@ export const goposHubSchema = z.object({
   hubSlug: slug,
   platforms: z.array(text).max(8),
   out: z.array(z.object({ t: text, d: text })).max(4),
+  /** The live queue (PREMIUM-1011): channel, items, time — „Glovo · 2 pozycje · na adres · teraz”. */
+  orders: z
+    .array(z.object({ c: text, d: text, t: text }))
+    .max(4)
+    .default([]),
 })
+
+/**
+ * The GoHub queue after `step` arrivals: the newest order on top, the oldest leaves at the
+ * bottom — the same few orders come round again.
+ */
+export function queueAt<T>(orders: readonly T[], step: number): T[] {
+  if (orders.length === 0) return []
+  const shift = ((step % orders.length) + orders.length) % orders.length
+  return [...orders.slice(orders.length - shift), ...orders.slice(0, orders.length - shift)]
+}
 
 /** `gopos-package` (#pakiet): the configurator and the folded Basic / Pro comparison. */
 export const goposPackageSchema = z.object({

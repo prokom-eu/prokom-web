@@ -9,6 +9,7 @@ import type { PublicImage } from '@/lib/media/public'
 import { BZ_H1_CARD, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
+import { STAGE_BG, STAGE_PLATE } from '../ProductStage'
 
 export type CategoryChip = { name: string; href: string; count: number; current: boolean }
 
@@ -101,7 +102,7 @@ export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos, imag
             )}
           </div>
           {(image || shown.length > 0) && (
-            // Catalog photos have a white background: white tiles in both themes.
+            // Photos on the studio gradient (its night tones in the dark theme, MOBILE §4.7).
             <ul
               aria-hidden="true"
               className="grid grid-cols-[1.45fr_1fr] grid-rows-2 items-center gap-3 max-[1079px]:hidden"
@@ -109,10 +110,15 @@ export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos, imag
               {image && (
                 <li
                   className={cx(
-                    'flex items-center justify-center overflow-hidden rounded-[22px] bg-white p-4 shadow-[0_30px_50px_-30px_var(--glow)]',
+                    'relative isolate flex items-center justify-center overflow-hidden rounded-[22px] p-4 shadow-[0_30px_50px_-30px_var(--glow)]',
+                    STAGE_BG,
                     TILES[0],
                   )}
                 >
+                  <span
+                    aria-hidden="true"
+                    className={cx('pointer-events-none absolute inset-[6%] -z-10', STAGE_PLATE)}
+                  />
                   <MediaImage
                     image={{ ...image, alt: '' }}
                     sizes="(min-width: 1080px) 28vw, 1px"
@@ -126,13 +132,18 @@ export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos, imag
                   <li
                     key={photo.url}
                     className={cx(
-                      'flex items-center justify-center rounded-[22px] bg-white p-4 shadow-[0_30px_50px_-30px_var(--glow)]',
+                      'relative isolate flex items-center justify-center rounded-[22px] p-4 shadow-[0_30px_50px_-30px_var(--glow)]',
+                      STAGE_BG,
                       TILES[position],
                     )}
                   >
+                    <span
+                      aria-hidden="true"
+                      className={cx('pointer-events-none absolute inset-[6%] -z-10', STAGE_PLATE)}
+                    />
                     <Image
                       src={photo.url}
-                      alt=""
+                      alt={photo.alt}
                       width={photo.width}
                       height={photo.height}
                       unoptimized

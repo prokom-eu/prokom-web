@@ -50,7 +50,10 @@ test.describe('Software start page', () => {
 
     const height = async () => (await page.locator('#proces').boundingBox())?.height
     const before = await height()
+    // The stages switch only while the section is on the screen (SWA13 #1).
+    await page.locator('#proces').scrollIntoViewIfNeeded()
     await page.mouse.move(0, 0)
+    await page.clock.runFor(300)
     await page.clock.runFor(6300)
     await expect(stageTabs(page).nth(1)).toHaveAttribute('aria-selected', 'true')
     expect(await height()).toBe(before)
@@ -285,12 +288,14 @@ test.describe('Software start page on a phone', () => {
         expect(box?.height ?? 0).toBeGreaterThanOrEqual(44)
       }
       // Hero v24 on a phone (ZMIANY-v24 §10): one window — 320 px since SWA8, so it ends above
-      // the tab bar (AUDYT po SWA7 #3) — the tiles in a row, the caption button across the width.
+      // the tab bar (AUDYT po SWA7 #3) — the tiles in a row; the caption's offer is a round →
+      // on the window's edge since SWA12b, still a 44 px target.
       const hero = page.locator('#start')
       const active = await hero.locator('.hx-win[data-rank="r0"]').boundingBox()
       expect(Math.round(active?.width ?? 0)).toBe(320)
       const capButton = await hero.locator('.hx-cap a').boundingBox()
-      expect(capButton?.width ?? 0).toBeGreaterThan(width - 80)
+      expect(capButton?.width ?? 0).toBeGreaterThanOrEqual(44)
+      expect(capButton?.height ?? 0).toBeGreaterThanOrEqual(44)
       // Kontakt v24: the card under the FAQ (one column), topics as large targets.
       const faq = await page.locator('#faq-h').boundingBox()
       const form = await page.locator('#kontakt form').boundingBox()

@@ -1,4 +1,4 @@
-import { CONTACT_FAQ_TODO, type SharedGroup, VERIFY_CEIDG, VERIFY_GOOGLE } from './types'
+import { type SharedGroup, VERIFY_CEIDG, VERIFY_GOOGLE } from './types'
 
 /**
  * Shared fields of prokombiznes.pl (spec §4.2, §6.3): texts of the boards Chrome, Footer,
@@ -121,7 +121,8 @@ export const BIZNES_SHARED: SharedGroup = {
       },
     ],
     topics: [...BIZNES_TOPICS, 'Inna sprawa'],
-    formTitle: 'Napisz, czego potrzebujesz.',
+    // Board Web-kontakt: the second sentence in the accent (`accentSecondSentence`).
+    formTitle: 'Powiedz, czego potrzebujesz. Resztą zajmiemy się my.',
     placeholder: 'np. Otwieramy kawiarnię w grudniu, potrzebujemy kasy i terminala.',
     sendLabel: 'Wyślij zapytanie',
     nextSteps: [
@@ -133,7 +134,30 @@ export const BIZNES_SHARED: SharedGroup = {
     mapTitle: 'Dojeżdżamy na całe Podhale i Małopolskę.',
     mapLead: 'Salon jest w Rabce-Zdroju. Do firm przyjeżdżamy z kasą, sprzętem i programem.',
     salonKeys: ['rabka'],
-    faq: CONTACT_FAQ_TODO,
+    // „Zanim zadzwonisz” — the four questions of the board Web-kontakt (K4), its answers; hours and
+    // „60 minut” as everywhere else in Biznes (D18, decision 01.11).
+    faq: [
+      {
+        question: 'Dojeżdżacie do mnie?',
+        answer:
+          'Tak — na całe Podhale i Małopolskę: Nowy Targ, Zakopane, Limanowa, Mszana Dolna, Myślenice, Nowy Sącz, Kraków. Dalej też, po ustaleniu.',
+      },
+      {
+        question: 'Czy mogę przyjechać z kasą do serwisu?',
+        answer:
+          'Tak, ul. Orkana 16B w Rabce-Zdroju, pn–pt 9:00–17:00. Warto zadzwonić wcześniej — przygotujemy części i papier do kasy.',
+      },
+      {
+        question: 'Jak szybko odpowiadacie?',
+        answer:
+          'Oddzwaniamy w ciągu 60 minut w godzinach pracy (pn–pt 9:00–17:00). Klienci z umową opieki IT mają dodatkowo czas reakcji zapisany w umowie.',
+      },
+      {
+        question: 'Czy dostanę wycenę bez wizyty?',
+        answer:
+          'Tak. Opisz firmę w formularzu albo zadzwoń — większość wycen przygotowujemy zdalnie, na piśmie.',
+      },
+    ],
   },
   about: {
     h1: 'Lokalna firma IT, która zostaje z klientem na lata.',
@@ -178,8 +202,20 @@ export const BIZNES_SHARED: SharedGroup = {
     ],
     verify: [
       VERIFY_CEIDG,
-      { title: 'Lista serwisów Posnet', text: '[Krystian: link do listy u producenta]' },
-      { title: 'Partnerzy InsERT', text: '[Krystian: link do wyszukiwarki partnerów]' },
+      // Checked 10.11.2026 (PREMIUM-1011). Posnet and Elzab publish no list of their services:
+      // Posnet's page leads to the tax portal search of service technicians' authorisations.
+      {
+        title: 'Autoryzowany serwis Posnet i Elzab',
+        text: 'Uprawnienia serwisanta kas sprawdzisz w wyszukiwarce na portalu podatkowym — prowadzi do niej strona Posnet.',
+        href: 'https://www.posnet.com.pl/wyszukiwarka-uprawnien-serwisantow-na-portalu-podatkowym',
+      },
+      // InsERT: the firm's profile on the partner list; GoPOS lists it under „małopolskie”.
+      {
+        title: 'Autoryzowany partner GoPOS i InsERT',
+        text: 'PRO-KOM na liście partnerów InsERT. GoPOS: gopos.pl → Kontakt → „Znajdź autoryzowanego Partnera”, województwo małopolskie.',
+        href: 'https://www.insert.com.pl/siec_sprzedazy/262239,pro-kom-tadeusz-wojciak,rabka-zdroj.html',
+      },
+      // TODO(krystian): link to the Google Business card — until then the card stays hidden.
       VERIFY_GOOGLE,
     ],
     visitText:

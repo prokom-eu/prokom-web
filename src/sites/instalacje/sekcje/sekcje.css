@@ -64,6 +64,7 @@
     font-weight: 800;
   }
   & .src {
+    max-width: 70ch;
     font-size: 12.5px;
     color: var(--ink-2);
   }
@@ -97,6 +98,29 @@
   & .dark .lead,
   & .dark .mut {
     color: var(--inst-dark-lead);
+  }
+  /* Audit 09.11 (axe, 2.85:1): an eyebrow on a dark card takes the dark card's accent — the
+     light theme's accent text is too dark there. The same colour as the other dark cards'
+     eyebrows (`--inst-plan-accent`); the pair with `--inst-dark-card` is in the contrast test. */
+  & .dark .eye {
+    color: var(--inst-dark-accent);
+  }
+  /* Audit 09.11: a dark card with the text on the left and the details on the right (the
+     prototype's inline layout of `/ekrany#zewnatrz` and `/naglosnienie#dso`, never ported). */
+  & .card-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 36px;
+    padding: 44px;
+    border-radius: 30px;
+  }
+  @media (max-width: 900px) {
+    & .card-split {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+      padding: 28px 22px;
+      border-radius: 24px;
+    }
   }
   & .card.dark .h3 {
     color: var(--inst-dark-ink);
@@ -490,6 +514,15 @@
     gap: 28px;
     padding-top: 6px;
   }
+  /* The hero facts stay in one row from 1024 px — three wrapped as 2 + 1 (audit 09.11). */
+  @media (min-width: 1024px) {
+    & .pkv {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, max-content);
+      gap: 24px;
+    }
+  }
   & .pkv .kv b {
     font-size: 34px;
   }
@@ -806,7 +839,9 @@
   & .fq summary span {
     flex: 1;
   }
+  /* ~70 characters a line on wide screens (2560 px gave ~113); the padding sits outside the measure. */
   & .fq p {
+    max-width: calc(70ch + 92px);
     margin: 0;
     padding: 0 22px 20px 70px;
     color: var(--ink-2);
@@ -1074,6 +1109,17 @@
       max-height: var(--fmh, 640px);
       overflow: hidden;
       mask-image: linear-gradient(var(--inst-mask) calc(100% - 170px), transparent);
+    }
+    /* The faded edge belongs to the button: a tap there unfolds the section instead of hitting a
+       few-pixel sliver of a cut control (axe target-size on /dla-architektow, audit 09.11). */
+    & .foldhit {
+      display: none;
+    }
+    & section[data-fo='0'] .foldhit {
+      display: block;
+      position: absolute;
+      inset: auto -20px 100%;
+      height: 120px;
     }
     & section[data-fo='1'] .foldb svg {
       transform: rotate(180deg);

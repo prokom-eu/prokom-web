@@ -198,11 +198,11 @@ test.describe('Software offer window (spec. §5.1)', () => {
     // AUDYT po SWA7 #8: the focus opens on the name, not on „←” with its ring.
     await expect(dialog.getByRole('heading', { level: 2 })).toBeFocused()
     await expect(dialog).toContainText('1 / 29')
-    // Three tiles (ZMIANY-v24 §6.1): price, term, care.
-    await expect(dialog.locator('dl > div')).toHaveText([
-      /^Cena\s*od\s2\s490\s*zł netto$/,
+    // The price as the hero, the term and care as rows (OKNO-OFERTY-PREMIUM §2.1).
+    await expect(dialog.locator('.sw-offer-hero dl > div')).toHaveText([
+      /^Cena\s*od\s+2\s490\s+zł\s+netto$/,
       /^Termin\s*od 2 tygodni$/,
-      /^Opieka od\s*od 149 zł \/ mies\.$/,
+      /^Opieka\s*od 149 zł \/ mies\.$/,
     ])
     // The gallery switches the big mock-up to the phone version.
     const views = dialog.getByRole('group', { name: 'Widok makiety' })
@@ -213,10 +213,15 @@ test.describe('Software offer window (spec. §5.1)', () => {
     )
     await expect(dialog.locator('.sw-offer-shot [data-mockup="phone"]')).toHaveCount(1)
     await expect(dialog).toContainText('Do 5 podstron: oferta, realizacje, opinie, kontakt')
-    await expect(dialog).toContainText(/Potrzebujesz więcej\? Np\. więcej niż 5 podstron/)
+    // „Potrzebujesz więcej?” as chips of `moreExamples`, no prices (OKNO-OFERTY-PREMIUM §2.3).
+    await expect(
+      dialog
+        .getByRole('list', { name: 'Potrzebujesz więcej?' })
+        .getByRole('button', { name: /więcej niż 5 podstron/ }),
+    ).toHaveAttribute('aria-pressed', 'false')
     await expect(dialog).toContainText('Wycena na piśmie, ważna 30 dni')
     await expect(dialog).toContainText('30% zaliczki, reszta po odbiorze')
-    // AUDYT po SWA7 #7: under the mock-up „Co dalej”, the price only on the tile and the bar.
+    // „Co dalej” under the hero price (§2.2), no price block next to the mock-up.
     await expect(dialog.locator('.sw-offer-next')).toContainText('Co dalej')
     await expect(dialog.locator('aside .sw-offer-price')).toHaveCount(0)
     await expect(dialog.getByRole('heading', { name: 'Jak to wygląda' })).toBeVisible()
@@ -297,7 +302,8 @@ test.describe('Software offer window (spec. §5.1)', () => {
     await ready(page)
     await card(page, 'Strona wizytówka').click()
     const dialog = windowOf(page, 'Strona wizytówka')
-    await dialog.getByRole('link', { name: 'Dobierz w kreatorze' }).click()
+    // §2.4: the wizard is a text link in „Pytania”, not a button of the bar.
+    await dialog.getByRole('link', { name: 'Kreator 60 s' }).click()
     await expect(page).toHaveURL(/\/dobierz$/)
     await page.waitForTimeout(500)
     await expect(page).toHaveURL(/\/dobierz$/)
@@ -340,6 +346,80 @@ test.describe('Software offer window (spec. §5.1)', () => {
     await ask.click()
     await expect(page).toHaveURL(/\/kontakt\?projekt=1#formularz$/)
     await expect(page.getByRole('button', { name: /^Twój projekt/ })).toContainText('1')
+  })
+
+  test('section tabs scroll the window and follow it; category dots switch the offer', async ({
+    page,
+  }) => {
+    // OKNO-OFERTY-PREMIUM §2.1: tabs from 1100 px, dots of the category next to the counter.
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site(HOST, `${PATH}?rozwiazanie=strona-wizytowka`))
+    const dialog = windowOf(page, 'Strona wizytówka')
+    const tabs = dialog.getByRole('navigation', { name: 'Sekcje oferty' })
+    await expect(tabs.getByRole('link', { name: 'Zakres' })).toHaveAttribute(
+      'aria-current',
+      'location',
+    )
+    await tabs.getByRole('link', { name: 'Pytania' }).click()
+    await expect(tabs.getByRole('link', { name: 'Pytania' })).toHaveAttribute(
+      'aria-current',
+      'location',
+    )
+    await expect(dialog.locator('#oferta-pytania')).toBeInViewport()
+    const dots = dialog.getByRole('navigation', { name: 'Oferty: Strony' })
+    await expect(dots.getByRole('button', { name: 'Strona wizytówka' })).toHaveAttribute(
+      'aria-current',
+      'true',
+    )
+    await dots.getByRole('button', { name: 'Strona firmowa z panelem' }).click()
+    await expect(page).toHaveURL(/rozwiazanie=strona-firmowa-z-panelem$/)
+    await expect(windowOf(page, 'Strona firmowa z panelem')).toBeVisible()
+  })
+
+  test('a point lights its area on the mock-up; chosen chips start the inquiry', async ({
+    page,
+  }) => {
+    // OKNO-OFERTY-PREMIUM §2.2–§2.3: a point of „W cenie” with an area on the mock-up.
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site(HOST, `${PATH}?rozwiazanie=strona-wizytowka`))
+    const dialog = windowOf(page, 'Strona wizytówka')
+    const point = dialog.locator('[data-point="1"]')
+    await hydrated(point)
+    await point.focus()
+    await expect(dialog.locator('.sw-offer-shot')).toHaveAttribute('data-spot-on', '')
+    await expect(dialog.locator('.sw-offer-shot [data-spot][data-lit]').first()).toBeVisible()
+    await expect(dialog.getByRole('button', { name: /^Pokaż w cenie: Jedna strona/ })).toBeVisible()
+    const more = dialog.getByRole('list', { name: 'Potrzebujesz więcej?' })
+    await more.getByRole('button', { name: /galeria i opinie klientów/ }).click()
+    await expect(more.getByRole('button', { name: /galeria i opinie klientów/ })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await expect(dialog).toContainText('W zapytaniu: galeria i opinie klientów')
+    await dialog.getByRole('link', { name: /^Zapytaj o tę ofertę/ }).click()
+    await expect(page).toHaveURL(/\/kontakt\?projekt=1&fraza=.*#formularz$/)
+    await expect(
+      page.locator('[data-contact-page] [data-contact-form]').getByLabel('Wiadomość'),
+    ).toHaveValue('Strona wizytówka — dodatkowo: galeria i opinie klientów')
+  })
+
+  test('„Czym różni się od” shows the neighbour side by side and opens it', async ({ page }) => {
+    // OKNO-OFERTY-PREMIUM §2.3 P2: the next offer of the category, folded until asked.
+    await page.goto(site(HOST, `${PATH}?rozwiazanie=strona-wizytowka`))
+    const dialog = windowOf(page, 'Strona wizytówka')
+    const compare = dialog.locator('.sw-offer-compare')
+    await compare.locator('summary').click()
+    await expect(compare).toHaveAttribute('open', '')
+    const open = compare.getByRole('button', { name: /^Zobacz: / })
+    const name = ((await open.textContent()) ?? '').replace(/^Zobacz:\s*/, '').replace(/\s*→$/, '')
+    // The second column is the neighbour, with its own „W cenie”.
+    await expect(compare.getByRole('heading', { level: 4 })).toHaveText([
+      'Strona wizytówka',
+      name.trim(),
+    ])
+    await expect(compare.getByRole('list', { name: `W cenie: ${name.trim()}` })).toBeVisible()
+    await open.click()
+    await expect(windowOf(page, name.trim())).toBeVisible()
   })
 
   test('„Często łączone z” switches the window to that solution', async ({ page }) => {
@@ -387,6 +467,15 @@ test.describe('Software catalog, SEO and sitemap', () => {
 
 test.describe('Software catalog on the phone', () => {
   test.use({ viewport: { width: 390, height: 844 } })
+
+  // The sheet's height and the finger scroll: `software-plynnosc.e2e.spec.ts` (SWA12a).
+  test('the offer sheet closes by ×', async ({ page }) => {
+    await page.goto(site(HOST, `${PATH}?rozwiazanie=strona-wizytowka`))
+    const dialog = windowOf(page, 'Strona wizytówka')
+    await expect(dialog).toBeVisible()
+    await dialog.getByRole('button', { name: 'Zamknij' }).click()
+    await expect(page.locator('dialog[open]')).toHaveCount(0)
+  })
 
   test('tiles, chips and the search; a chip filters the cards', async ({ page }) => {
     await page.goto(site(HOST, PATH))
@@ -455,4 +544,28 @@ test.describe('Software catalog accessibility', () => {
       expect((await axe(page).analyze()).violations).toEqual([])
     })
   }
+})
+
+// SWA10 #2, SWA11 #3 (AUDYT-0911 noc): a system lights three points of its panel, and the
+// numbered dots stand beside their parts — not on the avatar or the phone badge.
+test('system offer: ① ② ③ on the panel without covering it', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto(site(HOST, `${PATH}?rozwiazanie=crm-dla-malej-i-sredniej-firmy`))
+  const dialog = windowOf(page, 'CRM dla małej i średniej firmy')
+  const shot = dialog.locator('.sw-offer-shot')
+  await expect(shot.locator('[data-marker]')).toHaveCount(3)
+  const overlaps = async (marker: string, part: string) => {
+    const dot = await shot.locator(`[data-marker="${marker}"] > span`).boundingBox()
+    const box = await shot.locator(part).boundingBox()
+    expect(dot, marker).not.toBeNull()
+    expect(box, part).not.toBeNull()
+    return (
+      dot!.x < box!.x + box!.width &&
+      box!.x < dot!.x + dot!.width &&
+      dot!.y < box!.y + box!.height &&
+      box!.y < dot!.y + dot!.height
+    )
+  }
+  expect(await overlaps('2', '.mk-user > i')).toBe(false)
+  expect(await overlaps('3', '.mk-device')).toBe(false)
 })

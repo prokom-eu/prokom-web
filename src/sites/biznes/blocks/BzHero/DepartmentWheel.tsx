@@ -259,7 +259,8 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                         <>
                           <Image
                             src={item.image.url}
-                            alt=""
+                            alt={item.image.alt}
+                            aria-hidden
                             width={item.image.width}
                             height={item.image.height}
                             unoptimized

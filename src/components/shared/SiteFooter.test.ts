@@ -64,7 +64,13 @@ describe('LegalBar (spec §5)', () => {
   it('four legal links from CompanyData.legal in a fixed order, then „Do góry”', () => {
     const markup = html(createElement(LegalBar, { company, year: 2026 }))
     const hrefs = [...markup.matchAll(/href="([^"]+)"/g)].map((m) => m[1])
-    expect(hrefs).toEqual(['/polityka-prywatnosci', '/cookies', '/dostepnosc', '/mapa-strony', '#'])
+    expect(hrefs).toEqual([
+      '/polityka-prywatnosci',
+      '/cookies',
+      '/dostepnosc',
+      '/mapa-strony',
+      '#gora',
+    ])
   })
 
   it('the line’s own legal pages go right after the privacy policy (Software: Regulamin)', () => {

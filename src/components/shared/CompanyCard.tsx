@@ -8,6 +8,8 @@ import type { SharedCompany } from '@/lib/shared/project'
 import { toTelHref } from '@/lib/site/link'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 
+import { TAP_AREA } from './tapArea'
+
 type Props = {
   company: Pick<SharedCompany, 'name' | 'nip' | 'address' | 'ceidgUrl'>
   /** The line's phone and e-mail (not the company's). */
@@ -67,7 +69,11 @@ export function CompanyCard({
       ? ([
           [
             'Telefon',
-            <a key="tel" href={tel} className="font-bold underline-offset-2 hover:underline">
+            <a
+              key="tel"
+              href={tel}
+              className="inline-flex min-h-10 items-center font-bold underline-offset-2 hover:underline"
+            >
               {phone}
             </a>,
           ],
@@ -80,7 +86,7 @@ export function CompanyCard({
             <a
               key="mail"
               href={`mailto:${email}`}
-              className="font-bold underline-offset-2 hover:underline"
+              className="inline-flex min-h-10 items-center font-bold [overflow-wrap:anywhere] underline-offset-2 hover:underline"
             >
               {email}
             </a>,
@@ -152,7 +158,10 @@ export function CompanyCard({
           href={company.ceidgUrl}
           target="_blank"
           rel="noopener"
-          className="text-sm font-bold text-accent-text underline-offset-2 hover:underline"
+          className={cx(
+            'self-start text-sm font-bold text-accent-text underline-offset-2 hover:underline',
+            TAP_AREA,
+          )}
         >
           Dane sprawdzisz w CEIDG po numerze NIP →<span className="sr-only"> (nowe okno)</span>
         </a>

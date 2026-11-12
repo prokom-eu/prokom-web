@@ -186,8 +186,9 @@ export function TrustBand() {
                   width={brand.width}
                   height={brand.height}
                   alt={`Logo ${brand.name}`}
-                  // The logo field's real width: 6 / 4 / 3 columns, a 194 px tile in the phone row.
-                  sizes="(min-width: 1101px) 190px, (min-width: 761px) 220px, 200px"
+                  // Audit 09.11: twice the tile (about 205 px on 6 / 4 / 3 columns and in the phone
+                  // row), so a sharp file is fetched even at 1× (files narrower than that come whole).
+                  sizes="(min-width: 1101px) 410px, (min-width: 761px) 440px, 410px"
                   className="brandl"
                 />
                 <span>{brand.kind}</span>

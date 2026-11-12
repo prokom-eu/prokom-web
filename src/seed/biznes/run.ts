@@ -78,6 +78,7 @@ import {
   type K4BrandsFile,
 } from './k4Brands'
 import { k4ShowroomData, type K4Showroom } from './k4Showrooms'
+import { seedBiznesPageSeo } from './pageSeo'
 import {
   k4Bundle,
   k4Scene,
@@ -95,8 +96,9 @@ import {
   k4WheelProducts,
 } from './k4Home'
 import { GOPOS_PHOTO_ALT, goposPhotoFiles, goposPhotoPath } from './k4Pages'
-import { k4PagesFile, seedBiznesK4Pages } from './k4PagesRun'
-import { seedBiznesTemplatePages } from './templatePages'
+import { k4PageSeeds, k4PagesFile, seedBiznesK4Pages } from './k4PagesRun'
+import { pagesToReplace } from './replacePages'
+import { seedBiznesTemplatePages, TEMPLATE_PAGES } from './templatePages'
 import { seedBiznesProcurementPages } from './procurementPages'
 import { homeProcurementPackage, seedBiznesHomeProcurement } from './homeProcurement'
 import { homeBundlesUpdate, seedBiznesHomeBiz2 } from './homeBiz2'
@@ -1331,7 +1333,15 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   )
 
   // D3-B PR 2: /o-firmie and /kontakt on the shared templates (replaces their K4 layouts).
-  await seedBiznesTemplatePages(payload, tenant.id, pageReport)
+  await seedBiznesTemplatePages(payload, tenant.id, pageReport, note)
+  // --zamien-strony / ZAMIEN_STRONY: a slug the seed has no page for would do nothing silently.
+  const replaceable = new Set([
+    ...k4PageSeeds((id) => slugByKey.get(id)).map((seed) => seed.slug),
+    ...TEMPLATE_PAGES.map((seed) => seed.slug),
+  ])
+  for (const slug of pagesToReplace()) {
+    if (!replaceable.has(slug)) note('ZAMIEN_STRONY: nieznana strona (bez zmian)', slug)
+  }
 
   // BIZ-2: /agd-rtv-dla-firm and /dostawy-it-dla-firm (ZAOPATRZENIE §2), media `zaop-*`.
   const procurementMedia = await seedBiznesProcurementPages(
@@ -1369,6 +1379,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- corrected wording in pages seeded earlier (old contact, 01.11.2026) ---
   await seedBiznesTextFixes(payload, tenant.id, pageReport)
+
+  // --- SEO of panel pages (BIZ-3 §10.2): titles into empty fields, descriptions under 100 ---
+  await seedBiznesPageSeo(payload, tenant.id, pageReport)
 
   // --- shared data of the company and the line (D1, spec elementów wspólnych §4) ---
   await seedSharedData(payload, 'biznes', tenant.id, count)

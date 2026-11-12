@@ -3771,21 +3771,21 @@
       "title": "Wi-Fi dla gości",
       "text": "Ubiquiti UniFi — osobna, bezpieczna sieć dla gości",
       "note": "Konfigurujemy na miejscu",
-      "href": "/oferta/siec"
+      "href": "/oferta/siec-wifi"
      },
      {
       "image": "zaop-pol",
       "title": "Terminal płatniczy",
       "text": "PolCard — karta i telefon przy recepcji",
       "note": "Polska Bezgotówkowa",
-      "href": "/oferta/term"
+      "href": "/oferta/terminale-platnicze"
      },
      {
       "image": "zaop-ergo",
       "title": "Kasa fiskalna",
       "text": "Posnet dla pensjonatu z recepcją",
       "note": "Autoryzowany serwis Posnet",
-      "href": "/oferta/kasy"
+      "href": "/oferta/kasy-fiskalne"
      }
     ]
    },
@@ -4130,13 +4130,13 @@
       "image": "zaop-mfp",
       "name": "Urządzenia wielofunkcyjne",
       "brands": "druk, skan, kopiowanie",
-      "category": "mfp"
+      "category": "drukarki-wielofunkcyjne"
      },
      {
       "image": "zaop-u7",
       "name": "Sieć i Wi-Fi",
       "brands": "Ubiquiti, TP-Link, firewalle",
-      "category": "siec"
+      "category": "siec-wifi"
      }
     ]
    },

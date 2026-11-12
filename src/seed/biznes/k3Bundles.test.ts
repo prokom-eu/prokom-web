@@ -69,7 +69,7 @@ describe('bundleData (K3c, K3-KATALOG §7)', () => {
   it('keeps internal fields in the panel fields only', () => {
     const kawiarnia = bySlug('zestaw-kawiarnia-lada')
     const market = bySlug('zestaw-sklep-spozywczy-market-pos')
-    expect(market.items.find((item) => item.toConfirm)?.toConfirm).toMatch(/Insoft/)
+    expect(market.items.find((item) => item.toConfirm)?.toConfirm).toMatch(/PC-POS/)
     expect(kawiarnia.compatChecks.length).toBeGreaterThan(0)
     expect(kawiarnia.compatChecks.find((check) => check.url)?.url).toMatch(/^https:\/\//)
     const notes = bySlug('zestaw-sklep-spozywczy-program-waga-etykiet').internalNotes

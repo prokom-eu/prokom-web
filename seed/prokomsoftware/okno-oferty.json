@@ -8,7 +8,7 @@
   },
   "categories": {
     "strony": {
-      "benefitsTitle": "W cenie każdego projektu",
+      "benefitsTitle": "W cenie **każdego projektu**",
       "benefits": [
         { "text": "Działa na telefonie i komputerze", "skipIf": "komputer" },
         { "text": "Podstawy SEO i widoczność w Google i AI", "skipIf": "google" },
@@ -44,7 +44,7 @@
       ]
     },
     "systemy": {
-      "benefitsTitle": "Co dostajesz",
+      "benefitsTitle": "Co **dostajesz**",
       "benefits": [
         { "text": "Wdrażamy etapami, bez przestoju", "skipIf": "etap" },
         { "text": "Szkolenie zespołu na Twoich danych", "skipIf": "szkolen" },
@@ -84,7 +84,7 @@
       ]
     },
     "aplikacje": {
-      "benefitsTitle": "Co dostajesz",
+      "benefitsTitle": "Co **dostajesz**",
       "benefits": [
         { "text": "Kod, aplikacja i dostępy należą do Twojej firmy", "skipIf": "należą" },
         { "text": "Eksport danych na każde żądanie", "skipIf": "eksport" }
@@ -117,7 +117,7 @@
       ]
     },
     "automatyzacje": {
-      "benefitsTitle": "Co dostajesz",
+      "benefitsTitle": "Co **dostajesz**",
       "benefits": [{ "text": "Działa z programami, które już masz", "skipIf": "programy" }],
       "situations": {
         "R": "Masz program i chcesz, żeby powtarzalne rzeczy robił sam",
@@ -148,7 +148,7 @@
       ]
     },
     "opieka": {
-      "benefitsTitle": "W każdym poziomie dostajesz",
+      "benefitsTitle": "W każdym poziomie **dostajesz**",
       "benefits": [],
       "situations": {},
       "levelsTitle": "Wybierz poziom opieki",
@@ -194,7 +194,7 @@
       }
     },
     "przejecie-po-innym-wykonawcy": {
-      "benefitsTitle": "Co dostajesz",
+      "benefitsTitle": "Co **dostajesz**",
       "more": "Dokumentacja i przeniesienie na nasz serwer? Wycenimy po sprawdzeniu, co zastaliśmy.",
       "ownership": "Dostępy zapisane na Twoją firmę",
       "situations": { "R": "Masz stronę albo system, ale nie masz do nich haseł ani kontaktu z twórcą" },
@@ -207,7 +207,7 @@
     },
     "audyt-strony-lub-programu": {
       "note": "Pełny audyt odliczamy od projektu zamówionego w ciągu 60 dni.",
-      "benefitsTitle": "Przy każdym audycie",
+      "benefitsTitle": "Przy **każdym audycie**",
       "cardFeatures": false,
       "levelsTitle": "Wybierz rodzaj audytu",
       "defaultLevel": 0,

@@ -10,7 +10,7 @@ import { ProductStage, STAGE_SHADOW } from '../ProductStage'
 /**
  * Bundle tile (`k31/screens/Web-Zestawy-1440`): photos of up to 3 required items on the studio,
  * „Obszar · Poziom”, the name, the benefit and „N elementów · zobacz zestaw”. The whole tile is
- * the link; photos are decorative (the name says it).
+ * the link; photos carry the „Marka Model” alt of the catalog index.
  */
 export function BundleCard({
   bundle,
@@ -41,7 +41,7 @@ export function BundleCard({
           <Image
             key={photo.url}
             src={photo.url}
-            alt=""
+            alt={photo.alt}
             width={photo.width}
             height={photo.height}
             unoptimized

@@ -186,6 +186,16 @@ export function matchSupplySearch(
 }
 
 /** A link to a procurement page stays only while that page is published (footer, Opieka IT). */
+/** The data with its procurement link only while that page is published (plan 0611 §6.4). */
+export function withVisibleSupplyLink<T extends { link?: { href: string } | undefined }>(
+  data: T,
+  index: Pages,
+): T {
+  return data.link && !supplyHrefVisible(data.link.href, index)
+    ? { ...data, link: undefined }
+    : data
+}
+
 export function supplyHrefVisible(href: string, index: Pages): boolean {
   const path = href.split(/[?#]/)[0]
   const kind = (Object.keys(SUPPLY_PAGE) as SupplyKind[]).find(

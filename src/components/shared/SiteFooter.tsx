@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from './IntentLink'
 import type { CSSProperties, ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
@@ -49,13 +49,18 @@ export type SiteFooterProps = {
 const headingClass = 'text-xs font-extrabold tracking-[0.12em] text-line-dark-ink uppercase'
 const linkClass =
   'rounded-md hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-dark-text'
+/** Phone (< 900 px, MOBILE-APLIKACJA §5): a whole 44 px row to tap. `block` and padding, not
+ * flex — a line may set its own `display` on the links (Software: `inline-block`). */
+const tapClass = 'max-[899px]:block max-[899px]:min-h-11 max-[899px]:py-2.5'
+/** The contact links: exactly 44 px (the big phone too), so the folded footer stays short (D15). */
+const contactTapClass = 'max-[899px]:flex max-[899px]:min-h-11 max-[899px]:items-center'
 
 function ColumnLinks({ column }: { column: FooterColumn }) {
   return (
-    <ul className="flex flex-col gap-[11px]" data-footer-links>
+    <ul className="flex flex-col gap-[11px] max-[899px]:gap-0" data-footer-links>
       {column.links.map((link) => (
         <li key={`${link.href}-${link.label}`}>
-          <Link href={link.href} className={linkClass}>
+          <Link href={link.href} className={cx(linkClass, tapClass)}>
             {link.label}
           </Link>
         </li>
@@ -153,8 +158,8 @@ export function SiteFooter({
             </div>
           )}
 
-          <div className="flex flex-col gap-2.5 min-[900px]:gap-3" data-footer-contact>
-            <h2 className={headingClass} data-footer-heading>
+          <div className="flex flex-col gap-1 min-[900px]:gap-3" data-footer-contact>
+            <h2 className={cx(headingClass, 'max-[899px]:mb-1.5')} data-footer-heading>
               Kontakt
             </h2>
             {address && (
@@ -174,6 +179,7 @@ export function SiteFooter({
                 href={tel}
                 className={cx(
                   linkClass,
+                  contactTapClass,
                   'font-display text-[22px] font-extrabold text-line-dark-ink',
                 )}
               >
@@ -181,14 +187,14 @@ export function SiteFooter({
               </a>
             )}
             {contact.phone2 && tel2 && (
-              <a href={tel2} className={cx(linkClass, 'font-bold')}>
+              <a href={tel2} className={cx(linkClass, contactTapClass, 'font-bold')}>
                 Drugi numer: {contact.phone2}
               </a>
             )}
             {contact.email && (
               <a
                 href={`mailto:${contact.email}`}
-                className={cx(linkClass, 'font-bold text-on-dark-text')}
+                className={cx(linkClass, contactTapClass, 'font-bold text-on-dark-text')}
               >
                 {contact.email}
               </a>

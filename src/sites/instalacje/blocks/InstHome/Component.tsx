@@ -27,6 +27,7 @@ import { type HomeService, ServicesGrid, TrustBand } from '../../sekcje/glowna/S
 import { JsonLd } from '../../sekcje/JsonLd'
 import { HeroBackdrop } from '../../widzety/glowna/HeroBackdrop'
 import { LiveObjectHero } from '../../widzety/glowna/LiveObjectHeroLazy'
+import { PageStyles } from '../../style/LineStyles'
 
 type Props = { block: InstHomeBlockData; tenantId: number }
 
@@ -95,6 +96,7 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
 
   return (
     <>
+      <PageStyles kind="home" />
       {origin && <JsonLd data={websiteJsonLd({ origin, name: SITE_NAME })} />}
       <LiveObjectHero backdrop={<HeroBackdrop />}>
         <div className="hxt">

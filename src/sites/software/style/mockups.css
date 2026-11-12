@@ -14,6 +14,10 @@
   overflow-clip-margin: 32px;
   aspect-ratio: 640 / 420;
   container-type: inline-size;
+  /* Lighthouse 10.11: a mock-up away from the screen is laid out and painted only when it comes
+     near (30 of them on the start page, 2 100 of its 3 550 elements). It already clips with the
+     32 px margin and its size comes from the parent, so nothing moves or gets cut. */
+  content-visibility: auto;
   color: var(--mk-ink);
   font-family: var(--font-sans);
   text-align: left;
@@ -724,6 +728,27 @@
   font-size: 9px;
   font-weight: 900;
 }
+/* „+4” and the phone badge below are parts of „W cenie” (SWA10 #2): only in the offer window,
+   the hero and the cards keep the plain panel. */
+.mk-user > small,
+.mk-device {
+  display: none;
+}
+.sw-offer-shot .mk-user {
+  white-space: nowrap;
+}
+.sw-offer-shot .mk-user > small {
+  display: inline;
+}
+.mk-user > small {
+  margin-left: 4px;
+  padding: 1px 5px;
+  border-radius: 99px;
+  background: var(--mk-dark-3);
+  color: var(--mk-white);
+  font-size: 8.5px;
+  font-weight: 800;
+}
 .mk-main {
   padding: 16px 18px;
   display: flex;
@@ -735,6 +760,30 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
+}
+/* „Dostęp z komputera i telefonu”: a small badge with a phone outline next to the button. */
+.sw-offer-shot .mk-device {
+  display: inline-flex;
+}
+.mk-device {
+  margin-left: auto;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border: 1px solid var(--mk-line);
+  border-radius: 8px;
+  color: var(--mk-mute);
+  font-style: normal;
+  font-size: 9.5px;
+  font-weight: 800;
+}
+.mk-device::before {
+  content: '';
+  width: 7px;
+  height: 11px;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
 }
 .mk-main-head small {
   display: block;
@@ -910,9 +959,11 @@
   margin-top: 18px;
 }
 .mk-wire {
+  /* The dot's path: the wire minus the dot (`mk-travel` moves it by transform). */
+  --mk-wire-w: 73px;
   position: absolute;
   top: 50px;
-  width: 73px;
+  width: var(--mk-wire-w);
   height: 2px;
   background: var(--mk-violet-line);
 }
@@ -1291,6 +1342,12 @@
   .mk-art .drift {
     animation: mk-drift var(--dur-mk-drift) ease-in-out infinite alternate;
   }
+  /* AUDYT-PROD-TELEFON §1 #1: a mock-up away from the screen (`data-still`, MotionGate) and every
+     mock-up of a hidden tab stand still; they go on where they stopped. */
+  .mk[data-still] *,
+  html[data-tab-hidden] .mk * {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes mk-bar {
@@ -1298,9 +1355,11 @@
     transform: scaleY(0.05);
   }
 }
+/* `transform`, not `left` (AUDYT-PROD-TELEFON §1 #2): the dot glides on the compositor instead of
+   laying the mock-up out again on every frame. */
 @keyframes mk-travel {
   0% {
-    left: 0;
+    transform: translateX(0);
     opacity: 0;
   }
   10%,
@@ -1308,7 +1367,7 @@
     opacity: 1;
   }
   100% {
-    left: calc(100% - 10px);
+    transform: translateX(calc(var(--mk-wire-w) - 10px));
     opacity: 0;
   }
 }

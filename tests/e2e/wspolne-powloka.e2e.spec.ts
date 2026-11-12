@@ -47,8 +47,12 @@ for (const { host, name } of LINES) {
         .poll(async () => Math.round((await capsule(page).boundingBox())?.height ?? 0))
         .toBe(72)
 
-      await scrollTo(page, 400)
-      await expect(wrapper(page)).toHaveAttribute('data-scrolled', '')
+      // A scroll before the capsule's code has arrived (ADR-023) is not seen: scroll again.
+      await expect(async () => {
+        await scrollTo(page, 0)
+        await scrollTo(page, 400)
+        await expect(wrapper(page)).toHaveAttribute('data-scrolled', '', { timeout: 1000 })
+      }).toPass()
       await expect
         .poll(async () => Math.round((await capsule(page).boundingBox())?.height ?? 0))
         .toBe(60)

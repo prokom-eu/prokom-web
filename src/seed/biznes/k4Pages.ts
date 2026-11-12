@@ -74,6 +74,7 @@ export type K4PagesFile = {
       h1a: string
       h1b: string
       lead: string
+      leadM?: string
       mods: string[]
       tk: [string, string, string[]]
     }[]
@@ -89,6 +90,10 @@ export type K4PagesFile = {
     hub: { plat: string[]; out: Pair[]; lead: string; src: string }
     ksef: string[]
     devs: string[]
+    /** Ready bundles for gastronomy (bundle slugs), PREMIUM-1011. */
+    zes?: string[]
+    /** GoHub queue: platform, items, time (PREMIUM-1011). */
+    ord?: [string, string, string][]
     pakiety: {
       h: string[]
       rows: [string, string, string][]
@@ -107,6 +112,10 @@ export type K4PagesFile = {
   insert: {
     pill: string
     shelf: [string, string, string][]
+    /** Hero composition (PREMIUM-1011): program, its line, centre on a 500 × 440 board. */
+    orb?: { n: string; d: string; cx: number; cy: number }[]
+    /** InsERT lines: name, tagline, „dla kogo” points (PREMIUM-1011). */
+    lines?: [string, string, string[]][]
     stats: Pair[]
     statsSrc: string
     q: { q: string; o: { t: string; k: string }[] }[]
@@ -142,6 +151,35 @@ export type K4PagesFile = {
 export type K4Layout = { layout: PageBlock[]; missing: string[] }
 
 const GOPOS_PRESENTATION_NOTE = 'Prezentacja GoPOS w lokalu'
+
+/**
+ * H1 of `/gopos` as on the board (K31 §13.1): short, the second line in the accent. The phrase
+ * „GoPOS dla gastronomii” moves to the pill, the lead and the SEO title (PRODUKCJA-BIZNES-1211 §3).
+ */
+export const GOPOS_H1 = { heading: 'Sala, kuchnia i dowozy.', accent: 'Jeden system.' }
+const GOPOS_PHRASE = 'GoPOS dla gastronomii'
+
+/** The pill with the phrase first, the partner status (K4-FINAL §1) after it. */
+export function goposPill(pill: string): string {
+  return pill.startsWith(GOPOS_PHRASE) ? pill : `${GOPOS_PHRASE} · ${pill.split(' · ')[0]}`
+}
+
+/** The lead with the phrase: „Wdrażamy GoPOS w …” → „Wdrażamy GoPOS dla gastronomii w …”. */
+export function goposLead(lead: string): string {
+  return lead.includes(GOPOS_PHRASE) ? lead : lead.replace(/\bGoPOS\b/, GOPOS_PHRASE)
+}
+
+/**
+ * A venue tab whose heading is the page's old H1 (the restaurant tab, back with the revert of
+ * #486): the venue's name and its own short sentence from `leadM` instead — „Restauracja:
+ * zamówienie przy stoliku, kuchnia na ekranie”. Other venues keep their headings.
+ */
+export function venueHeading(venue: { t: string; h1a: string; h1b: string; leadM?: string }) {
+  if (!venue.h1a.startsWith(GOPOS_PHRASE)) return { h1a: venue.h1a, h1b: venue.h1b }
+  const parts = (venue.leadM ?? '').replace(/\.$/, '').split(', ').slice(0, 2).join(', ')
+  const sentence = parts.charAt(0).toLowerCase() + parts.slice(1)
+  return { h1a: `${venue.t}:`, h1b: sentence || venue.h1b }
+}
 const OFFER_CRUMB = { name: 'Oferta', href: '/oferta' }
 const OFFICE_PHONE = { label: BIZNES_CONTACT.phone, href: BIZNES_CONTACT.phoneHref }
 
@@ -322,6 +360,26 @@ export function upgradeCareSupplyLink(stored: PageBlock[], seed: PageBlock[]): P
   return changed ? next : null
 }
 
+/**
+ * The composition of the InsERT hero (`insert.orb`, PREMIUM-1011): the programs are named as on
+ * the shelf, so the shelf gives their board ids; a program missing in the catalog drops out, and
+ * without Subiekt nexo there is no composition (the shelf stays).
+ */
+function insertOrbit(i: K4PagesFile['insert'], r: ReturnType<typeof resolver>) {
+  const center = r.one('nexo')
+  if (!center || !i.orb?.length) return {}
+  const idOf = new Map(i.shelf.map(([id, name]) => [name, id]))
+  const items = i.orb.flatMap((item) => {
+    const id = idOf.get(item.n)
+    const slug = id ? r.one(id) : undefined
+    return slug ? [{ slug, n: item.n, d: item.d, x: item.cx, y: item.cy }] : []
+  })
+  return { orbit: { center, items } }
+}
+
+/** The poster frame of a `videos` section, when the product is in the catalog. */
+const withPoster = (slug: string | undefined) => (slug ? { poster: slug } : {})
+
 /** `/gopos` (K4h, K32 §3, plansza Web-GoPOS). */
 export function goposK4Layout(
   file: K4PagesFile,
@@ -353,12 +411,12 @@ export function goposK4Layout(
     section({
       variant: 'gopos-hero',
       surface: 'dark',
-      heading: g.hero.h1a,
-      headingAccent: g.hero.h1b,
-      lead: g.hero.lead,
+      heading: GOPOS_H1.heading,
+      headingAccent: GOPOS_H1.accent,
+      lead: goposLead(g.hero.lead),
       data: {
         trail: [OFFER_CRUMB],
-        pill: g.hero.pill,
+        pill: goposPill(g.hero.pill),
         presentation,
         proof: g.hero.proof.map(({ t, d }) => ({ t, d })),
         stage: g.hero.stage.flatMap((device) => {
@@ -403,8 +461,7 @@ export function goposK4Layout(
           return {
             key: venue.k,
             tab: venue.t,
-            h1a: venue.h1a,
-            h1b: venue.h1b,
+            ...venueHeading(venue),
             lead: venue.lead,
             ...(image !== undefined ? { image } : {}),
             modules: venueModules(venue.mods),
@@ -448,6 +505,8 @@ export function goposK4Layout(
     }),
     section({
       variant: 'gopos-hub',
+      // Web-gopos: the queue on navy (PREMIUM-1011).
+      surface: 'dark',
       eyebrow: 'Dowozy · GoHub',
       heading: 'Pięć aplikacji z zamówieniami w jednej kolejce',
       lead: g.hub.lead,
@@ -458,6 +517,8 @@ export function goposK4Layout(
         hubSlug: r.one('gohub') ?? 'gohub',
         platforms: g.hub.plat,
         out: g.hub.out.map(([t, d]) => ({ t, d })),
+        // PREMIUM-1011: the live queue of orders (`gopos.ord`).
+        orders: (g.ord ?? []).map(([c, d, t]) => ({ c, d, t })),
       },
     }),
     section({
@@ -488,6 +549,20 @@ export function goposK4Layout(
             eyebrow: 'Sprzęt pod GoPOS',
             heading: 'Urządzenia, które wdrażamy z GoPOS',
             data: { slugs: devices, visible: 4 },
+          }),
+        ]
+      : []),
+    // PREMIUM-1011: the three gastronomy bundles of the package (only „Gotowe” are shown).
+    ...(g.zes?.length
+      ? [
+          section({
+            variant: 'bundles',
+            anchor: 'zestawy',
+            surface: 'muted',
+            eyebrow: 'Gotowe zestawy',
+            heading: 'Gotowe zestawy dla gastronomii',
+            lead: 'Sprzęt dobrany pod lokal i sprawdzony ze sobą. Dodaj zestaw do zapytania — wycenę dostaniesz na piśmie.',
+            data: { slugs: g.zes },
           }),
         ]
       : []),
@@ -532,6 +607,8 @@ export function goposK4Layout(
         label: 'Film GoPOS',
         note: 'Filmy z oficjalnego kanału GoPOS. Odtwarzają się po kliknięciu.',
         videos: g.vids.map(({ id, t, k }) => ({ id, t, k })),
+        // Web-gopos: the All in One on the poster (PREMIUM-1011).
+        ...withPoster(r.one('gopos-all-in-one')),
       },
     }),
     section({
@@ -603,6 +680,7 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
           { label: 'Który Subiekt dla mnie?', href: '#ktory' },
           { label: 'KSeF w InsERT', href: '#ksef' },
         ],
+        ...insertOrbit(i, r),
       },
     }),
     section({
@@ -632,13 +710,30 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       surface: 'muted',
       eyebrow: 'Porównanie',
       heading: 'Subiekt 123, GT czy nexo?',
-      data: { head: ['Cecha', ...i.cmpH], rows: i.cmp },
+      data: {
+        head: ['Cecha', ...i.cmpH],
+        rows: i.cmp,
+        // PREMIUM-1011: the four InsERT lines under the comparison (`insert.lines`).
+        ...(i.lines?.length
+          ? {
+              lines: {
+                t: 'Linie InsERT',
+                items: i.lines.map(([t, s, b]) => ({ t, s, b })),
+                // TODO(krystian): the package gives no source for `insert.lines` — the line is
+                // the session's, after `allSrc` (insert.com.pl, 26.10.2026). Confirm or change.
+                source: 'Linie i ich zastosowanie według insert.com.pl · stan na 26.10.2026',
+              },
+            }
+          : {}),
+      },
     }),
     ...(ksefSlug
       ? [
           section({
             variant: 'insert-ksef',
             anchor: 'ksef',
+            // Web-insert: the timeline in glass cards on navy (PREMIUM-1011).
+            surface: 'dark',
             eyebrow: 'KSeF w programach InsERT',
             heading: 'Program jest gotowy, przygotujmy firmę',
             lead: i.ksefLead,
@@ -721,6 +816,8 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
         label: 'Film InsERT',
         note: 'Filmy z oficjalnego kanału InsERT. Odtwarzają się po kliknięciu.',
         videos: i.vids.map(({ id, t, k }) => ({ id, t, k })),
+        // Web-insert: the Subiekt nexo box on the poster (PREMIUM-1011).
+        ...withPoster(r.one('nexo')),
       },
     }),
     faq('Pytania', 'Pytania o programy InsERT', i.faq),
@@ -761,6 +858,34 @@ export type K4FirmaFile = {
 // Texts of the board (`Strona.dc.html`, views `opieka`, `ofirmie`, `kontakt`) that the data file
 // does not carry — copied 1:1, the hours as „pn–pt 9:00–17:00” (K4-FINAL §1).
 type ReportTone = 'ok' | 'warn' | 'urgent' | 'due'
+/**
+ * „Bezpłatny przegląd IT” (PREMIUM-1011): the facts of the review's catalog card
+ * (`katalog-k4.json → przeglad-it`: description §2–3, parameters) — 8 areas, the written report
+ * (fine / fix now / plan for later / nothing to buy), free, no obligations, at your firm.
+ */
+const CARE_REVIEW = {
+  checks: [
+    'Komputery',
+    'Sieć i Wi-Fi',
+    'Kopie zapasowe',
+    'Antywirus',
+    'Licencje',
+    'Poczta',
+    'Kasy i terminale',
+    'Terminy: przeglądy kas, odnowienia licencji, podpis kwalifikowany',
+  ],
+  report: {
+    title: 'Raport z przeglądu',
+    rows: [
+      { t: 'W porządku', d: 'co działa i nie wymaga zmian', tone: 'ok' as const },
+      { t: 'Do poprawy od razu', d: 'co trzeba poprawić teraz', tone: 'urgent' as const },
+      { t: 'Do zaplanowania', d: 'co może poczekać na później', tone: 'warn' as const },
+    ],
+    foot: 'I czego nie musisz kupować. Raport należy do Ciebie.',
+  },
+  facts: ['bezpłatnie', 'bez zobowiązań', 'u Ciebie w firmie'],
+}
+
 const CARE_REPORT_ROWS: { t: string; d: string; s: string; tone: ReportTone }[] = [
   {
     t: 'Kopie zapasowe',
@@ -975,6 +1100,25 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
           link: CARE_SUPPLY_LINK,
         },
       }),
+      // PREMIUM-1011: what the free review checks and gives, before the closing band.
+      ...(review
+        ? [
+            section({
+              variant: 'care-review',
+              anchor: 'przeglad-it',
+              surface: 'muted',
+              eyebrow: 'Bezpłatny przegląd IT',
+              heading: 'Sprawdzamy, zanim cokolwiek zaproponujemy',
+              lead: 'W jednym raporcie: co jest pilne, co może poczekać i czego nie trzeba kupować.',
+              data: {
+                slug: review,
+                label: 'Umów przegląd',
+                note: 'Bezpłatny przegląd IT',
+                ...CARE_REVIEW,
+              },
+            }),
+          ]
+        : []),
       section({
         variant: 'band',
         eyebrow: 'Opieka IT z Rabki-Zdroju',

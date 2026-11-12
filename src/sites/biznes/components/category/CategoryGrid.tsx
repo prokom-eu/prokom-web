@@ -13,7 +13,6 @@ import {
   categoryBrands,
   categoryIndustries,
   filterCategoryProducts,
-  helpCardSpan,
   registerOptions,
   SERIES_PARAM,
   seriesFilter,
@@ -25,7 +24,7 @@ import { CATALOG_PAGE_SIZE, CATALOG_PAGE_SIZE_PHONE } from '@/lib/catalog/filter
 import { plural } from '@/lib/plural'
 import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
-import { ProductCard } from '../catalog/ProductCard'
+import { FIRST_ROW, ProductCard } from '../catalog/ProductCard'
 import { SupplyBand } from '../SupplyBand'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
 import { usePhone } from '../mobile/usePhone'
@@ -33,8 +32,6 @@ import { usePhone } from '../mobile/usePhone'
 type Props = {
   /** Index with only this category's products (the page never sends the whole catalog). */
   index: CatalogIndex
-  /** Dark card at the end of the grid — brand pages; category pages use `guide` instead. */
-  help?: { title: string; text: string }
   /** „…potrzebujesz drukarki fiskalnej, nie kasy →” — only when that category is listed. */
   printersHref: string | null
   /** Segments above the grid: brands (category page) or main categories (brand page, K3b′). */
@@ -65,13 +62,6 @@ type Props = {
 /** The phone shows the procurement band after this many cards (§6.4 #2). */
 const SUPPLY_AFTER = 6
 
-const SPAN_2: Record<number, string> = { 1: 'col-span-1', 2: 'col-span-2' }
-const SPAN_3: Record<number, string> = {
-  1: 'lg:col-span-1',
-  2: 'lg:col-span-2',
-  3: 'lg:col-span-3',
-}
-
 // Phone (board App-Kategoria): the segments as chips in one row to swipe.
 const SEGMENT =
   'relative inline-flex min-h-11 shrink-0 cursor-pointer items-center rounded-xl px-4 text-sm font-extrabold whitespace-nowrap text-ink-2 max-md:bg-card max-md:shadow-[inset_0_0_0_1px_var(--border)] max-md:has-checked:bg-accent-text max-md:has-checked:text-accent-ink max-md:has-checked:shadow-none has-checked:bg-card has-checked:text-ink has-checked:shadow-[0_6px_16px_-10px_var(--glow),inset_0_0_0_1px_var(--border)] has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent-text'
@@ -82,12 +72,11 @@ const CHIP =
 
 /**
  * Products of a category (spec. §6.1): the cash register picker (when the products have types),
- * brand segments, the grid with the „Nie wiesz, którą wybrać?” card and „Pokaż kolejne”. The
+ * brand segments, the grid and „Pokaż kolejne”. The
  * choice lives only in the browser — the page keeps one address for search engines.
  */
 export function CategoryGrid({
   index,
-  help,
   printersHref,
   segments = 'brand',
   chips = null,
@@ -253,10 +242,9 @@ export function CategoryGrid({
             />
           )}
           <div className="min-w-0">
-            {guide && (
+            {guide &&
               // Phones and tablets: the side panel is hidden, its card goes above the grid.
-              <GuideCard guide={guide} className="mt-6 max-md:hidden lg:hidden" />
-            )}
+              guide.picker && <GuideCard guide={guide} className="mt-6 max-md:hidden lg:hidden" />}
             <div className="mt-8 flex flex-wrap items-center justify-between gap-4 max-md:mt-3 max-md:gap-3">
               <div className="flex flex-wrap items-center gap-3">
                 <p role="status" className="text-ink-2">
@@ -347,6 +335,8 @@ export function CategoryGrid({
                         index={index}
                         position={position}
                         meta={bySeries ? 'series' : 'category'}
+                        // The grid sits below the category header: no high priority here.
+                        picture={position < FIRST_ROW ? 'eager' : 'lazy'}
                       />
                     </li>
                     {supply && position + 1 === Math.min(SUPPLY_AFTER, visible.length) && (
@@ -359,35 +349,6 @@ export function CategoryGrid({
                     )}
                   </Fragment>
                 ))}
-                {more === 0 && !guide && help && (
-                  <li
-                    className={cx(
-                      'flex',
-                      SPAN_2[helpCardSpan(visible.length, 2)],
-                      SPAN_3[helpCardSpan(visible.length, 3)],
-                    )}
-                  >
-                    <div
-                      data-surface="dark"
-                      className="relative isolate flex w-full flex-col items-start justify-center gap-4 overflow-hidden rounded-[18px] bg-surface-dark bg-[radial-gradient(ellipse_at_85%_0%,var(--glow),transparent_60%)] p-6 text-white sm:rounded-3xl sm:p-8"
-                    >
-                      <p className="text-[13px] font-extrabold tracking-[0.08em] text-accent-on-dark uppercase">
-                        Nie wiesz, którą wybrać?
-                      </p>
-                      <h3 className="max-w-[24ch] font-display text-[clamp(1.35rem,2.2vw,1.9rem)] leading-[1.08] font-extrabold">
-                        {help.title}
-                      </h3>
-                      <p className="max-w-[48ch] leading-relaxed text-white/80">{help.text}</p>
-                      <a
-                        href="#kontakt"
-                        className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-white px-5 font-extrabold text-surface-dark hover:bg-white/85"
-                      >
-                        Zadzwoń albo napisz
-                        <Icon name="arrow" strokeWidth={2.4} className="size-4" />
-                      </a>
-                    </div>
-                  </li>
-                )}
               </ul>
             )}
 
@@ -461,7 +422,9 @@ export function CategoryGrid({
                         {option.image && (
                           <Image
                             src={option.image.url}
-                            alt=""
+                            alt={option.image.alt}
+                            // The name is in the text next to it: the alt serves search engines only.
+                            aria-hidden
                             width={option.image.width}
                             height={option.image.height}
                             unoptimized
@@ -569,7 +532,7 @@ function CategoryAside({
             </fieldset>
           ),
       )}
-      <GuideCard guide={guide} />
+      {guide.picker && <GuideCard guide={guide} />}
     </aside>
   )
 }

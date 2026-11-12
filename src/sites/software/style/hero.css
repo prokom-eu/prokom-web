@@ -1095,6 +1095,8 @@
   width: calc(100% - 28px);
   border-radius: 3px;
   background: var(--hv);
+  /* The bar fills by `scaleX` from the left (SWA13 #2): the compositor, not a layout per frame. */
+  transform-origin: left;
 }
 
 /* --- Carousel ----------------------------------------------------------------------------- */
@@ -1328,7 +1330,7 @@
 /* Short laptop screens (AUDYT-0811 #0) and a tall desktop (AUDYT po SWA7 #2): the tiles turn
    compact — the icon next to the name, about 64 px instead of 96 — and the field above them is
    lower, so the carousel moves up. */
-@media (min-width: 1200px) and (max-height: 900px), (min-width: 1280px) and (min-height: 1000px) {
+@media (min-width: 1024px) and (max-height: 900px), (min-width: 1280px) and (min-height: 1000px) {
   /* One line of lead instead of two on a wide, short screen. */
   .hx-lead {
     max-width: 960px;
@@ -1377,7 +1379,9 @@
     --hx-w: clamp(560px, calc((100svh - 470px) * 1.55), var(--hx-w-max));
   }
 }
-@media (min-width: 1280px) and (max-height: 820px) {
+/* SWA10: the same tight text and tiles on every short laptop up to 900 px high; SWA11 #2: also
+   a tablet held wide (from 1024 px). */
+@media (min-width: 1024px) and (max-height: 900px) {
   .hx {
     padding-top: 14px;
   }
@@ -1411,6 +1415,41 @@
   }
   .hx-win {
     top: 10px;
+  }
+}
+
+/* SWA10 (AUDYT-0911 wieczór #1): on the most common laptops (1440×900, 1366×768) the whole
+   window fits on the first screen — its width follows the height left below the panel (never
+   below 560 px). 1280×720 keeps the block above. */
+@media (min-width: 1024px) and (min-height: 741px) and (max-height: 900px) {
+  .hx {
+    --hx-w: clamp(560px, calc((100svh - 506px) / 0.6566), var(--hx-w-max));
+  }
+  .hx-h1 {
+    font-size: clamp(56px, 8vh, 72px);
+  }
+  .hx-tile {
+    min-height: 52px;
+  }
+}
+/* 1366×768: the badge above the H1 gives way to the window (the band of industries below the
+   hero still says "every industry"). */
+@media (min-width: 1024px) and (min-height: 741px) and (max-height: 820px) {
+  .hx {
+    padding-top: 6px;
+  }
+  .hx-pill {
+    display: none;
+  }
+  .hx-h1 {
+    margin-top: 0;
+    font-size: 52px;
+  }
+  .hx-q {
+    padding-block: 0 6px;
+  }
+  .hx-tile {
+    min-height: 48px;
   }
 }
 
@@ -1453,6 +1492,18 @@
   }
   .hx-h1 {
     font-size: clamp(52px, min(7vw, 9.4vh), 84px);
+  }
+}
+/* SWA11 #2: a tablet held wide (1024–1200) keeps the laptop H1 of the short-screen blocks above
+   (the block before sets its own size for every width up to 1200). */
+@media (min-width: 1024px) and (max-width: 1200px) and (min-height: 741px) and (max-height: 900px) {
+  .hx-h1 {
+    font-size: clamp(56px, 8vh, 72px);
+  }
+}
+@media (min-width: 1024px) and (max-width: 1200px) and (min-height: 741px) and (max-height: 820px) {
+  .hx-h1 {
+    font-size: 52px;
   }
 }
 @media (max-width: 960px) {
@@ -1599,6 +1650,75 @@
   }
 }
 
+/* SWA11 (AUDYT-0911 noc #1): a phone keeps the whole window above the tab bar. The window width
+   follows the height left under the panel (`svh`: Safari and Chrome with their bars shown), and
+   a short screen tightens the text first. 390×844 and taller stay as above. */
+@media (max-width: 600px) {
+  .hx {
+    /* 0.6566: window height / width; 86px: the tab bar and its air below the window.
+       `--hx-above`: where the window starts with today's title and lead from the panel — a much
+       longer lead pushes the window down again (e2e software-hero watches it on the seed). */
+    --hx-w: clamp(240px, calc((100svh - var(--hx-above) - 86px) / 0.6566), var(--hx-w-max));
+    --hx-above: 528px;
+  }
+}
+@media (max-width: 600px) and (max-height: 820px) {
+  .hx {
+    --hx-above: 502px;
+  }
+  .hx-h1 {
+    margin-top: 6px;
+    font-size: 42px;
+  }
+  .hx-lead {
+    margin-top: 6px;
+  }
+  .hx-cmd {
+    margin-top: 8px;
+  }
+  .hx-flow {
+    margin-top: 6px;
+  }
+}
+@media (max-width: 600px) and (max-height: 760px) {
+  .hx {
+    --hx-above: 400px;
+    padding-top: 10px;
+  }
+  /* The badge gives way to the window (the band of industries below still says it). */
+  .hx-pill {
+    display: none;
+  }
+  .hx-h1 {
+    margin-top: 0;
+    font-size: 38px;
+  }
+  .hx-lead {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  /* Tiles: the icon beside the name, one low row. */
+  .hx-tiles {
+    padding-top: 6px;
+  }
+  .hx-tile {
+    flex-direction: row;
+    align-items: center;
+    flex-basis: 132px;
+    gap: 6px;
+    padding: 6px 8px;
+    text-align: left;
+  }
+  .hx-tile .si {
+    flex: none;
+    width: 24px;
+    height: 24px;
+  }
+  .hx-tile .sn {
+    display: none;
+  }
+}
+
 /* --- Motion: drifting stars and ribbons, spinning orbits, the cursor, the progress of the
    active tile, the word coming in, the glint of the new window, the band. Paused while the
    hero is off screen or the visitor points at / focuses it (`data-paused`, HeroStage;
@@ -1665,7 +1785,12 @@
   .hx-mq:is(:hover, :focus-within) ul {
     animation-play-state: paused;
   }
-  .hx[data-paused] :is(.hx-cos *, .hx-mq ul, .hx-win::after, .mk *, .hx-tile::after) {
+  /* Pseudo-elements cannot stand inside `:is()` (the browser drops them silently), so the glint
+     and the tile's bar have their own selectors (AUDYT-PROD-TELEFON §1: both ran on every
+     screen of the page, the cursor too). */
+  .hx[data-paused] :is(.hx-cos *, .hx-mq ul, .mk *, .hx-typ),
+  .hx[data-paused] .hx-win::after,
+  .hx[data-paused] .hx-tile::after {
     animation-play-state: paused;
   }
   .hx[data-hold] .hx-tile[aria-selected='true']::after {
@@ -1733,10 +1858,10 @@
 }
 @keyframes hx-fill {
   from {
-    width: 0;
+    transform: scaleX(0);
   }
   to {
-    width: calc(100% - 28px);
+    transform: scaleX(1);
   }
 }
 @keyframes hx-word {
@@ -1758,5 +1883,205 @@
 @keyframes hx-band {
   to {
     transform: translateX(-50%);
+  }
+}
+
+/* --- Phone without costly filters (AUDYT-PROD-TELEFON §1 #5): the ribbons and the beam are
+   radial and conic gradients that are already soft, so they keep their shape without the blur
+   that each moving layer would compute again on every frame; the choice panel and the caption
+   get a dense glass without `backdrop-filter` (the capsule and the tab bar keep theirs); the word
+   of the heading comes in without the blur. --------------------------------------------------- */
+@media (max-width: 767px) {
+  .hx-cos .rb,
+  .hx-cos .beam {
+    filter: none;
+  }
+  .hx-cmd,
+  .hx-cap {
+    background: color-mix(in srgb, var(--card) 92%, transparent);
+    backdrop-filter: none;
+  }
+}
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  .hx-word > span {
+    animation-name: hx-word-flat;
+  }
+}
+@keyframes hx-word-flat {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* --- SWA12b (AUDYT-PROD-TELEFON §3): the phone as an app — one window instead of the cut 3D
+   carousel, its caption a glass bar on the window's bottom edge, dots of the slides below, the
+   tiles fading at the edges and snapping, a shorter word where the panel gives one. ---------- */
+.hx-dots,
+.hx-word .hx-word-short {
+  display: none;
+}
+@media (max-width: 600px) {
+  .hx-word .hx-word-full {
+    display: none;
+  }
+  .hx-word .hx-word-short {
+    display: inline;
+  }
+  /* One window: the others wait beside it, hidden; a change fades and slides it 24 px. */
+  .hx-flow {
+    perspective: none;
+  }
+  .hx-win:not([data-rank='r0']) {
+    transform: translateX(24px);
+    opacity: 0;
+    visibility: hidden;
+    filter: none;
+  }
+  .hx-win[data-rank='rl'] {
+    transform: translateX(-24px);
+  }
+  /* The caption: number, name and price on the window's bottom edge, the offer as a round →
+     (its text stays for screen readers; the arrow has an empty alternative). */
+  .hx-cap {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'ic name link'
+      'ic price link';
+    column-gap: 10px;
+    row-gap: 0;
+    align-items: center;
+    box-sizing: border-box;
+    width: calc(var(--hx-w) - 16px);
+    height: 60px;
+    /* Up over the window: 8 px above its bottom edge (the flow ends 10 px below the window). */
+    margin: -78px auto 0;
+    padding: 8px 8px 8px 10px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--card) 90%, transparent);
+  }
+  .hx-cap > div {
+    display: contents;
+  }
+  .hx-cap .ic {
+    grid-area: ic;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+  .hx-cap > div:first-of-type > b {
+    grid-area: name;
+    min-width: 0;
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .hx-cap .div > b {
+    grid-area: price;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--accent-text);
+    font-size: 12.5px;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .hx-cap > div:first-of-type > span,
+  .hx-cap .div > span {
+    display: none;
+  }
+  .hx-cap a {
+    grid-area: link;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    border-radius: 999px;
+    font-size: 0;
+  }
+  .hx-cap a::after {
+    /* Safari before 17.4 drops the whole declaration with an alternative: the plain one first. */
+    content: '→';
+    content: '→' / '';
+    font-size: 18px;
+  }
+  .hx-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    height: 7px;
+    margin-top: 18px;
+  }
+  .hx-dots i {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--ink-3) 45%, transparent);
+    transition:
+      width var(--dur-state) var(--ease-out),
+      background-color var(--dur-state) var(--ease-out);
+  }
+  .hx-dots i[data-on] {
+    width: 20px;
+    background: var(--accent);
+  }
+  /* The row of tiles fades at its right edge (it already snaps, ≤ 960 px): it plainly goes on. */
+  .hx-tiles {
+    mask-image: linear-gradient(90deg, var(--hero-black) calc(100% - 48px), transparent 100%);
+  }
+}
+/* Room on the first screen (e2e software-hero): the window gives up the 21 px of the dots (and
+   their air above the tab bar) — `--hx-above` is where the window starts, so the window ends that
+   much higher; a short screen gets the air under the capsule the pill no longer gives (#10). */
+@media (max-width: 600px) {
+  .hx {
+    --hx-above: 547px;
+  }
+}
+@media (max-width: 600px) and (max-height: 820px) {
+  .hx {
+    --hx-above: 523px;
+  }
+}
+@media (max-width: 600px) and (max-height: 760px) {
+  .hx {
+    --hx-above: 443px;
+    padding-top: 32px;
+  }
+}
+/* 700 px and lower: 12 px of air, no dots (the tiles show the slide), a window from 220 px. */
+@media (max-width: 600px) and (max-height: 700px) {
+  .hx {
+    --hx-above: 412px;
+    --hx-w: clamp(220px, calc((100svh - var(--hx-above) - 86px) / 0.6566), var(--hx-w-max));
+    padding-top: 22px;
+  }
+  .hx-dots {
+    display: none;
+  }
+}
+
+/* --- SWA13 #3 (AUDYT-WYDAJNOSC-1111): the phone and touch screens keep four endless motions of
+   the hero — the twinkle of the near stars, one ribbon, the glint of the window and the cursor.
+   The far stars, the drift, the other ribbons, the orbits, the beam, the band and the mock-ups
+   in the windows stand in their frame (the first screen is the heaviest moment of the page). A
+   computer with a fine pointer keeps it all. ----------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) and (max-width: 767px),
+  (prefers-reduced-motion: no-preference) and (pointer: coarse) {
+  .hx-cos .s1 {
+    animation: hx-twinkle var(--dur-hx-twinkle) ease-in-out infinite;
+  }
+  .hx-cos .s2,
+  .hx-cos .rb.b,
+  .hx-cos .rb.c,
+  .hx-cos .orb,
+  .hx-cos .beam,
+  .hx-mq ul,
+  .hx .mk * {
+    animation: none;
   }
 }

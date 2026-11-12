@@ -22,7 +22,10 @@ export function ProductBento({
   if (!first) return null
   return (
     <ProductSection id={id} eyebrow="Najważniejsze" heading={`${heading} w skrócie`}>
-      <ul className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-3 lg:grid-rows-2 lg:gap-3.5">
+      <ul
+        data-bento=""
+        className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-3 lg:grid-rows-2 lg:gap-3.5"
+      >
         <li
           data-surface="dark"
           className="col-span-2 flex flex-col gap-3 rounded-[24px] bg-surface-dark p-5 text-white ring-1 ring-white/10 ring-inset max-md:gap-2 max-md:rounded-[20px] max-md:p-4 md:p-6 lg:col-span-1 lg:row-span-2"
@@ -51,7 +54,10 @@ export function ProductBento({
             <span className="mt-1.5 text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase max-md:mt-0.5 max-md:text-[10.5px]">
               {tile.label}
             </span>
-            <span className="text-[1.08rem] leading-snug font-extrabold text-ink max-md:text-[14px]">
+            <span
+              data-tile-value=""
+              className="text-[1.08rem] leading-snug font-extrabold text-ink max-md:text-[14px]"
+            >
               {tile.value}
             </span>
           </li>

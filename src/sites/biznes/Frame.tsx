@@ -86,6 +86,7 @@ export async function BiznesFrame({ tenant, settings, biznes, promo, children }:
         menu={biznes.navigation.menu}
         offer={offer}
         cta={cta}
+        homeSections={(line?.rail?.sections ?? []).map((section) => section.anchorId)}
       />
       <PageTransition>{children}</PageTransition>
       {/* Sections rise in once as they come into view (`motion.css` §3, prompt 4 R1). */}

@@ -30,7 +30,7 @@ test.describe('/_wspolne — footer (1440 px)', () => {
         '/cookies',
         '/dostepnosc',
         '/mapa-strony',
-        '#',
+        '#gora',
       ])
     }
     expect(new Set(lines).size).toBe(1)
@@ -117,6 +117,25 @@ test.describe('/_wspolne — phone', () => {
       await expect(opener).toBeFocused()
     })
   }
+
+  // AUDYT-0911 wieczór #5 (MOBILE-APLIKACJA §5): on the phone every footer link is a 44 px row.
+  test('every footer link is a 44 px row on the phone', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    for (const host of HOSTS) {
+      await page.goto(site(host, '/'))
+      const foot = page.locator('[data-site-footer]').last()
+      for (const summary of await foot.locator('details > summary').all()) await summary.click()
+      const heights = await foot
+        .locator('[data-footer-links] a, [data-footer-contact] > a')
+        .evaluateAll((links) =>
+          links
+            .filter((link) => link instanceof HTMLElement && link.offsetParent)
+            .map((link) => link.getBoundingClientRect().height),
+        )
+      expect(heights.length, host).toBeGreaterThan(3)
+      for (const height of heights) expect(height, host).toBeGreaterThanOrEqual(43.5)
+    }
+  })
 
   test('the space under the page keeps the end of the footer clear of the tab bar', async ({
     page,

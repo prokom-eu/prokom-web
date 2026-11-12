@@ -91,7 +91,7 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
 
   it('strona firmowa: „W cenie każdego projektu” without repeating the price card', () => {
     const { benefits } = viewOf('strona-firmowa-z-panelem')
-    expect(benefits.title).toBe('W cenie każdego projektu')
+    expect(benefits.title).toBe('W cenie **każdego projektu**')
     expect(benefits.items).toEqual([
       'Działa na telefonie i komputerze',
       'Podstawy SEO i widoczność w Google i AI',
@@ -242,7 +242,7 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
       '1 tydzień',
       '2 tygodnie',
     ])
-    expect(view.benefits.title).toBe('Przy każdym audycie')
+    expect(view.benefits.title).toBe('Przy **każdym audycie**')
     expect(view.benefits.items[0]).toBe('Zgłoszenie bez logowania i zobowiązań')
     expect(view.needs).toEqual(['Adres strony lub programu', 'Telefon albo e-mail do raportu'])
   })

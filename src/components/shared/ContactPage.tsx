@@ -4,7 +4,7 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { serializeJsonLd } from '@/lib/seo/jsonLd'
 import { formConsent } from '@/lib/shared/consent'
-import { hourTiles } from '@/lib/shared/hourTiles'
+import { hourTiles, weekHours } from '@/lib/shared/hourTiles'
 import { isIconName } from '@/lib/shared/icons'
 import { lineSalons, pageBreadcrumbsJsonLd, PLACE_KIND_LABEL } from '@/lib/shared/pages'
 import type { SharedData } from '@/lib/shared/project'
@@ -22,7 +22,8 @@ import { PageCrumbs, type Crumb } from './PageCrumbs'
 import { PAGE_CONTAINER as CONTAINER } from './pageContainer'
 import { ServiceAreaMap } from './ServiceAreaMap'
 import { Steps } from './Steps'
-import { HeadingText } from './HeadingText'
+import { AccentText, HeadingText } from './HeadingText'
+import { TAP_AREA } from './tapArea'
 
 /** The line's own sections in named places (spec §6.0) — the template never knows their content. */
 export type ContactSlots = {
@@ -32,9 +33,19 @@ export type ContactSlots = {
   afterRoutes?: ReactNode
   /** Above the form fields, e.g. Software „Twój projekt”. */
   formPrefill?: ReactNode
+  /**
+   * The line's own form in place of the shared panel (Biznes: the home form, one component for
+   * both pages). Only the content changes: the `#formularz` section with its scroll margin and
+   * rail entry stays here (routes, `?temat=…#formularz` and CTAs scroll to it); `formPrefill` is
+   * then the line's business. The slot brings its own H2.
+   */
+  form?: ReactNode
   /** Before „Dojazd i zasięg”. */
   afterForm?: ReactNode
   beforeFaq?: ReactNode
+  /** Under the FAQ heading, e.g. Biznes „Masz listę pozycji z katalogu?” — shown with the FAQ,
+   * which needs at least one answered question. */
+  faqAside?: ReactNode
 }
 
 export type ContactPageProps = {
@@ -52,6 +63,11 @@ export type ContactPageProps = {
   /** Optional sections (spec §6.0) — on by default. */
   showServiceArea?: boolean
   showOtherLines?: boolean
+  /** The line's class for the highlighted word of the section H2s (Software: `sw-em`, AUDYT-0911
+   * #1). Without it the H2s written here stay plain text. */
+  headingEmClass?: string
+  /** Hours in the address card: three tiles (default) or the seven days with „dziś” (Web-kontakt). */
+  hoursLayout?: 'tiles' | 'week'
 }
 
 const H2 =
@@ -78,6 +94,8 @@ export function ContactPage({
   slots = {},
   showServiceArea = true,
   showOtherLines = true,
+  headingEmClass,
+  hoursLayout = 'tiles',
 }: ContactPageProps) {
   const { company, lines } = shared
   const data = shared.line
@@ -88,7 +106,9 @@ export function ContactPage({
   const tel = data.phone ? toTelHref(data.phone) : null
   const consent = formConsent(company.consent)
   const where = salon ? `${salon.street}, ${salon.postalCode} ${salon.city}` : null
-  const tiles = hours.length ? hourTiles(hours, warsawWeekday(new Date(now))) : []
+  const today = warsawWeekday(new Date(now))
+  const tiles = hours.length && hoursLayout === 'tiles' ? hourTiles(hours, today) : []
+  const week = hours.length && hoursLayout === 'week' ? weekHours(hours, today) : []
   const routes = contact.routes ?? []
   // The map drawing is of the office (Orkana 16B) and the route is `CompanyData.mapsUrl` — shown only
   // when the card is that salon; another first salon gets its address and hours without a map.
@@ -240,6 +260,45 @@ export function ContactPage({
                     ))}
                   </ul>
                 )}
+                {week.length > 0 && (
+                  <div className="px-2">
+                    <table
+                      className="w-full border-separate border-spacing-0 text-sm"
+                      data-week-hours
+                    >
+                      <caption className="sr-only">Godziny otwarcia</caption>
+                      <tbody>
+                        {week.map((day) => {
+                          const cell = cx('py-1.5', day.today && 'bg-accent-soft font-extrabold')
+                          return (
+                            <tr key={day.key} aria-current={day.today ? 'date' : undefined}>
+                              <th
+                                scope="row"
+                                className={cx(
+                                  cell,
+                                  'rounded-l-xl pl-3 text-left',
+                                  !day.today && 'font-semibold',
+                                )}
+                              >
+                                {day.label}
+                                {day.today && <span> · dziś</span>}
+                              </th>
+                              <td
+                                className={cx(
+                                  cell,
+                                  'rounded-r-xl pr-3 text-right tabular-nums',
+                                  day.value === 'nieczynne' ? 'text-ink-2' : 'font-bold',
+                                )}
+                              >
+                                {day.value}
+                              </td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
                 <p className="flex flex-wrap justify-between gap-2 px-2 text-sm text-ink-2">
                   <span>
                     {company.name} · NIP {company.nip}
@@ -249,7 +308,10 @@ export function ContactPage({
                       href={company.ceidgUrl}
                       target="_blank"
                       rel="noopener"
-                      className="font-bold text-accent-text underline-offset-4 hover:underline"
+                      className={cx(
+                        'font-bold text-accent-text underline-offset-4 hover:underline',
+                        TAP_AREA,
+                      )}
                     >
                       Sprawdź w CEIDG →<span className="sr-only"> (nowe okno)</span>
                     </a>
@@ -271,7 +333,7 @@ export function ContactPage({
           data-rail-icon="compass"
         >
           <h2 id="kontakt-sprawy" className={H2}>
-            Z czym dzwonisz?
+            <AccentText text="Z czym **dzwonisz?**" emClass={headingEmClass} />
           </h2>
           {/* Three routes in a row; four (Biznes, plan 0611 §8.2) two by two, then in one row. */}
           <ul
@@ -309,7 +371,7 @@ export function ContactPage({
                     <a
                       href={route.href}
                       className={cx(
-                        'mt-auto inline-flex items-center justify-between gap-3 font-extrabold',
+                        'mt-auto inline-flex min-h-11 items-center justify-between gap-3 font-extrabold',
                         accent ? 'text-accent-ink' : 'text-accent-text',
                       )}
                     >
@@ -336,47 +398,49 @@ export function ContactPage({
 
       <section
         id="formularz"
-        aria-labelledby="kontakt-formularz"
+        aria-labelledby={slots.form ? undefined : 'kontakt-formularz'}
         className={cx(CONTAINER, 'scroll-mt-28 py-16')}
         data-rail-section="Formularz"
         data-rail-icon="chat"
       >
-        <div className="grid overflow-hidden rounded-[30px] border border-border bg-card min-[1000px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          <div className="relative isolate flex flex-col gap-5 overflow-hidden bg-line-dark p-8 text-line-dark-text min-[768px]:p-10">
-            <Contours />
-            <p className="text-xs font-extrabold tracking-[0.12em] text-on-dark-text uppercase">
-              Formularz
-            </p>
-            <h2
-              id="kontakt-formularz"
-              className="font-display text-[clamp(28px,3vw,40px)] leading-tight font-extrabold text-line-dark-ink"
-            >
-              {contact.formTitle || 'Napisz, oddzwonimy'}
-            </h2>
-            {contact.nextSteps && contact.nextSteps.length > 0 && (
-              <>
-                <p className="mt-4 text-xs font-extrabold tracking-[0.12em] text-on-dark-text uppercase">
-                  Co dalej po wysłaniu
-                </p>
-                <Steps steps={contact.nextSteps} orientation="vertical" onDark />
-              </>
-            )}
+        {slots.form ?? (
+          <div className="grid overflow-hidden rounded-[30px] border border-border bg-card min-[1000px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+            <div className="relative isolate flex flex-col gap-5 overflow-hidden bg-line-dark p-8 text-line-dark-text min-[768px]:p-10">
+              <Contours />
+              <p className="text-xs font-extrabold tracking-[0.12em] text-on-dark-text uppercase">
+                Formularz
+              </p>
+              <h2
+                id="kontakt-formularz"
+                className="font-display text-[clamp(28px,3vw,40px)] leading-tight font-extrabold text-line-dark-ink"
+              >
+                <HeadingText text={contact.formTitle || 'Napisz, oddzwonimy'} />
+              </h2>
+              {contact.nextSteps && contact.nextSteps.length > 0 && (
+                <>
+                  <p className="mt-4 text-xs font-extrabold tracking-[0.12em] text-on-dark-text uppercase">
+                    Co dalej po wysłaniu
+                  </p>
+                  <Steps steps={contact.nextSteps} orientation="vertical" onDark />
+                </>
+              )}
+            </div>
+            <div className="p-6 min-[768px]:p-10">
+              <ContactForm
+                formToken={formToken}
+                topics={contact.topics ?? []}
+                placeholder={contact.placeholder}
+                sendLabel={contact.sendLabel}
+                responsePromise={data.responsePromise}
+                consent={{ ...consent, privacyHref: company.legal.privacy }}
+                zones={company.serviceZones}
+                nextSteps={contact.nextSteps ?? []}
+                line={line}
+                prefill={slots.formPrefill}
+              />
+            </div>
           </div>
-          <div className="p-6 min-[768px]:p-10">
-            <ContactForm
-              formToken={formToken}
-              topics={contact.topics ?? []}
-              placeholder={contact.placeholder}
-              sendLabel={contact.sendLabel}
-              responsePromise={data.responsePromise}
-              consent={{ ...consent, privacyHref: company.legal.privacy }}
-              zones={company.serviceZones}
-              nextSteps={contact.nextSteps ?? []}
-              line={line}
-              prefill={slots.formPrefill}
-            />
-          </div>
-        </div>
+        )}
       </section>
 
       {slots.afterForm}
@@ -390,7 +454,8 @@ export function ContactPage({
           data-rail-icon="map"
         >
           <h2 id="kontakt-dojazd" className={H2}>
-            {contact.mapTitle || 'Dojazd i zasięg'}
+            {/* A light section: only a line with its own class gets the `<em>`. */}
+            <AccentText text={contact.mapTitle || 'Dojazd i zasięg'} emClass={headingEmClass} />
           </h2>
           {contact.mapLead && <p className="mt-3 max-w-[60ch] text-ink-2">{contact.mapLead}</p>}
           <ServiceAreaMap
@@ -411,7 +476,10 @@ export function ContactPage({
           data-rail-icon="grid"
         >
           <h2 id="kontakt-linie" className={H2}>
-            Inna sprawa? Każda linia ma swój zespół.
+            <AccentText
+              text="Inna sprawa? Każda linia ma **swój zespół.**"
+              emClass={headingEmClass}
+            />
           </h2>
           <OtherLines lines={lines} current={line} className="mt-8" />
         </section>
@@ -419,7 +487,14 @@ export function ContactPage({
 
       {slots.beforeFaq}
 
-      <FaqBlock id="pytania" eyebrow="Pytania" title="Zanim zadzwonisz" items={contact.faq ?? []} />
+      <FaqBlock
+        id="pytania"
+        eyebrow="Pytania"
+        title="Zanim **zadzwonisz**"
+        emClass={headingEmClass}
+        items={contact.faq ?? []}
+        aside={slots.faqAside}
+      />
     </div>
   )
 }

@@ -5,6 +5,7 @@ import { type KeyboardEvent, type ReactNode, useState } from 'react'
 import { monitoring, type SystemElementKey } from '../../dane/monitoring'
 import { InstIcon } from '../../InstIcon'
 import {
+  diagramName,
   inVersion,
   shownElement,
   stepElement,
@@ -50,8 +51,11 @@ function Label({
 }) {
   return (
     <foreignObject x={x} y={y} width={w} height={h} className="fo">
-      {title != null && <div className={`fot ${className}`}>{title}</div>}
-      {sub != null && <div className="fot sym">{sub}</div>}
+      {/* The spaces keep the captions apart in the element's text („4 MP kamery IP”, not
+          „4 MPkamery IP”) — the name must contain it (WCAG 2.5.3); between blocks they render
+          as nothing. */}
+      {title != null && <div className={`fot ${className}`}>{title}</div>}{' '}
+      {sub != null && <div className="fot sym">{sub}</div>}{' '}
     </foreignObject>
   )
 }
@@ -70,6 +74,21 @@ export function SystemDiagram({ planHref }: { planHref: string }) {
   const keys = versionElements(version)
   const flow = `fl${versionIndex}`
 
+  /** Visible captions inside each element (the `Label`s below) — the start of its name. */
+  const L = T.labels
+  const captions: Partial<Record<SystemElementKey, readonly string[]>> = {
+    lnk: [L.secondBuilding, L.secondBuildingSub],
+    cam: [version.camLabel, L.cameras],
+    ptz: [L.ptz, L.ptzSub],
+    lpr: [L.lpr, L.lprSub],
+    sw: [L.switch],
+    rack: [L.rack],
+    nvr: [L.nvr, version.nvrLabel],
+    ups: [L.ups, version.upsLabel],
+    rtr: [L.router, L.routerSub, L.vlan],
+    app: [L.app, L.appSub],
+  }
+
   /** Props of a clickable diagram element (`.sye`). */
   const el = (key: SystemElementKey) => ({
     className: `sye sy-${key}${inVersion(version, key) ? ' on' : ''}${shown === key ? ' sel' : ''}`,
@@ -83,7 +102,7 @@ export function SystemDiagram({ planHref }: { planHref: string }) {
     tabIndex: 0,
     role: 'button',
     'aria-pressed': shown === key,
-    'aria-label': T.elements[key].name,
+    'aria-label': diagramName(captions[key] ?? [], T.elements[key].name),
   })
 
   return (

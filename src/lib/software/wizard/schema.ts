@@ -4,6 +4,7 @@ import { DASH_VARIANTS, isVariantOf, MOCKUP_KINDS, SITE_VARIANTS } from '../mock
 import { WIZARD_FIRMS } from '../options'
 import { priceDisplaySchema, template } from '../priceDisplay'
 import { firstIssue, key, label, obj, slug, svgPath, text } from '../schema'
+import { WIZARD_GROUPS, WIZARD_PICKS, WIZARD_STEPS, type WizardPick } from './steps'
 
 /**
  * Wizard v3 „Aurora” (`/dobierz` and `#dobierz`, ZMIANY-v24 §7, ADR-014 v24 pkt 3): one JSON value
@@ -12,47 +13,18 @@ import { firstIssue, key, label, obj, slug, svgPath, text } from '../schema'
  * data here, not code. Prices and terms are never here: they come from `Solutions` (`solution`).
  */
 
-/** Groups of kinds — each asks its own questions (§7.1). */
-export const WIZARD_GROUPS = ['site', 'redo', 'sys', 'auto', 'idk'] as const
-export type WizardGroup = (typeof WIZARD_GROUPS)[number]
-
-/** Steps the wizard knows how to draw; a group picks its own sequence. */
-export const WIZARD_STEPS = [
-  'type',
-  'ind',
-  'have',
-  'feat',
-  'redo',
-  'fix',
-  'today',
-  'sysf',
-  'auto',
-  'desc',
-  'res',
-] as const
-export type WizardStep = (typeof WIZARD_STEPS)[number]
-
-/** Multiple-choice answers and the step that asks them. */
-export const PICK_STEPS = {
-  have: 'have',
-  feat: 'feat',
-  redo: 'redo',
-  fix: 'fix',
-  today: 'today',
-  sysf: 'sysf',
-  auto: 'auto',
-  prog: 'auto',
-  desc: 'desc',
-} as const satisfies Record<string, WizardStep>
-export type WizardPick = keyof typeof PICK_STEPS
-export const WIZARD_PICKS = Object.keys(PICK_STEPS) as WizardPick[]
-
-/** The team size — one answer, asked in the `sysf` step only (never for sites). */
-export const SIZE_STEP: WizardStep = 'sysf'
-/** The address of the current site — asked in the `redo` step. */
-export const URL_STEP: WizardStep = 'redo'
-/** „Opisz po swojemu” — the free text of the `desc` step. */
-export const DESCRIPTION_STEP: WizardStep = 'desc'
+export {
+  DESCRIPTION_STEP,
+  PICK_STEPS,
+  SIZE_STEP,
+  URL_STEP,
+  WIZARD_GROUPS,
+  WIZARD_PICKS,
+  WIZARD_STEPS,
+  type WizardGroup,
+  type WizardPick,
+  type WizardStep,
+} from './steps'
 
 const option = obj({ id: key, label })
 const options = z.array(option).min(1).max(12)

@@ -222,7 +222,22 @@ export function InstHeader({ homeLabel, navigation, menu, withShared }: Props) {
         </>
       }
       cta={{ label: navigation.cta.label, shortLabel: 'Zaplanuj', href: navigation.cta.href }}
-      menuButton={withShared ? <MenuButton /> : undefined}
+      menuButton={
+        withShared ? (
+          <>
+            {/* Tablets have no rail and no app bar: the search stays one tap away (audit 09.11). */}
+            <button
+              type="button"
+              className={`${CAPSULE.iconButton} isearch-t`}
+              aria-label="Szukaj na stronie"
+              onClick={() => requestSearch()}
+            >
+              <Icon name="search" strokeWidth={2.2} className="size-[18px]" />
+            </button>
+            <MenuButton />
+          </>
+        ) : undefined
+      }
     />
   )
 }

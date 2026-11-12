@@ -1,12 +1,12 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
 
 import { labelKey } from '@/lib/analytics/events'
 import { track } from '@/lib/analytics/track'
 import type { SoftwareHome } from '@/lib/software/home'
-import { Mockup } from '@/sites/software/components/mockups/Mockup'
+import { Mockup } from '@/sites/software/components/mockups/MockupLazy'
 import { Chip } from '@/sites/software/components/ui/Chip'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 

@@ -1,8 +1,11 @@
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import type { MouseEvent } from 'react'
 
 import type { PricingCard } from '@/lib/software/priceCards'
-import { Mockup } from '@/sites/software/components/mockups/Mockup'
+import { Mockup } from '@/sites/software/components/mockups/MockupLazy'
+
+import { openOfferFrom } from '../offer/offerTransition'
+import { NearScreen } from '../ui/NearScreen'
 
 type Props = {
   card: PricingCard
@@ -12,6 +15,8 @@ type Props = {
   href: string
   /** Opens the window in place (catalog, price page); a plain click only. */
   onOpen?: () => void
+  /** The mock-up mounts only near the screen (the start page's price list, SWA13 #7). */
+  lazyThumb?: boolean
 }
 
 const plainClick = (event: MouseEvent) =>
@@ -23,7 +28,7 @@ const plainClick = (event: MouseEvent) =>
  * opens the offer window (`?rozwiazanie=`). The link is named by its visible text (no `aria-label`:
  * a name in another order than the text fails WCAG 2.5.3 „label in name”, axe).
  */
-export function PriceCard({ card, details, href, onOpen }: Props) {
+export function PriceCard({ card, details, href, onOpen, lazyThumb = false }: Props) {
   return (
     <Link
       href={href}
@@ -32,12 +37,16 @@ export function PriceCard({ card, details, href, onOpen }: Props) {
       onClick={(event) => {
         if (!onOpen || !plainClick(event)) return
         event.preventDefault()
-        onOpen()
+        // The card's mock-up grows into the window's (OKNO-OFERTY-PREMIUM §2.5).
+        openOfferFrom(event.currentTarget, onOpen)
       }}
     >
       <div className="v-card-th" aria-hidden="true">
         {card.mockup && (
-          <Mockup kind={card.mockup.kind} variant={card.mockup.variant} fit="contain" />
+          // On the start page mounted near the screen only (16 cards × ~70 elements, SWA13 #7).
+          <NearScreen eager={!lazyThumb}>
+            <Mockup kind={card.mockup.kind} variant={card.mockup.variant} fit="contain" />
+          </NearScreen>
         )}
         <span className="v-card-more">{details}</span>
       </div>
