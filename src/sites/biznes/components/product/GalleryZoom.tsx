@@ -32,6 +32,7 @@ export function GalleryZoom({
   onClose: () => void
 }) {
   const dialog = useRef<HTMLDialogElement>(null)
+  const touch = useRef<number | null>(null)
   useEffect(() => {
     const element = dialog.current
     if (!element) return
@@ -50,6 +51,17 @@ export function GalleryZoom({
       onKeyDown={(event) => {
         if (event.key === 'ArrowRight') onMove(1)
         if (event.key === 'ArrowLeft') onMove(-1)
+      }}
+      onTouchStart={(event) => {
+        touch.current = event.touches[0]?.clientX ?? null
+      }}
+      onTouchEnd={(event) => {
+        // A swipe moves on, as in the gallery.
+        const start = touch.current
+        const end = event.changedTouches[0]?.clientX
+        touch.current = null
+        if (start !== null && end !== undefined && Math.abs(end - start) > 40)
+          onMove(end < start ? 1 : -1)
       }}
       onClick={(event) => {
         // A click on the backdrop (the dialog itself, outside its box) closes it.
@@ -101,7 +113,7 @@ export function GalleryZoom({
                 type="button"
                 onClick={() => onMove(delta)}
                 aria-label={label}
-                className={`absolute top-1/2 flex size-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-surface-dark shadow-[0_8px_20px_-10px_var(--plate-shadow),inset_0_0_0_1px_var(--plate-shadow)] ${delta < 0 ? 'left-3' : 'right-3'}`}
+                className={`absolute top-1/2 flex size-12 -translate-y-1/2 items-center justify-center rounded-full bg-plate text-surface-dark shadow-[0_8px_20px_-10px_var(--plate-shadow),inset_0_0_0_1px_var(--plate-shadow)] ${delta < 0 ? 'left-3' : 'right-3'}`}
               >
                 <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                   <path

@@ -36,7 +36,8 @@ const catalog = index([
   product('toner-kyocera', { brand: 'kyocera', name: 'Toner Kyocera TK-4145' }),
   product('toner-brother', { brand: 'brother', name: 'Toner Brother TN-2420' }),
   product('brother-mfc', { brand: 'brother', name: 'Brother MFC-L2922DW' }),
-  product('tusze-tonery', { kind: 'service', name: 'Tusze i tonery' }),
+  product('tusze-tonery', { kind: 'service', name: 'Tusze i tonery', subcategory: 'tusze-tonery' }),
+  product('hp-smart-tank', { brand: 'hp', name: 'HP Smart Tank 790 ze zbiornikami tuszu' }),
   product('serwis-drukarek', { kind: 'service', name: 'Serwis drukarek' }),
   product('lenovo-thinkbook', { brand: 'lenovo', categories: ['laptopy'] }),
   product('lenovo-stacja', {
@@ -48,13 +49,16 @@ const catalog = index([
 ])
 
 describe('„Do tego zwykle dobierają” — at least 3 (PRODUKCJA-BIZNES-1211 §1)', () => {
-  it('fills an MFP with its consumable first (own brand), then the category’s service', () => {
+  it('fills an MFP with its own brand’s and PRO-KOM’s consumables, then a service', () => {
     const cards = fillSuggestions(catalog, 'kyocera-taskalfa', [])
     expect(cards.map((card) => [card.product.slug, card.label])).toEqual([
       ['toner-kyocera', 'Eksploatacja'],
-      ['toner-brother', 'Eksploatacja'],
-      ['tusze-tonery', 'Usługa'],
+      ['tusze-tonery', 'Eksploatacja'],
+      ['serwis-drukarek', 'Usługa'],
     ])
+    // Never another brand's toner, never a printer whose name mentions ink.
+    expect(cards.map((card) => card.product.slug)).not.toContain('toner-brother')
+    expect(cards.map((card) => card.product.slug)).not.toContain('hp-smart-tank')
   })
 
   it('keeps the card’s own picks first and never repeats one', () => {

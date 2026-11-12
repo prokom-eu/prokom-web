@@ -365,12 +365,7 @@ export function ProductSources({
       }).format(new Date(checkedAt))
     : null
   return (
-    <ProductSection
-      id={id}
-      eyebrow="Źródła"
-      heading="Skąd są te informacje"
-      aside={checked ? `sprawdzono ${checked}` : undefined}
-    >
+    <ProductSection id={id} eyebrow="Źródła" heading="Skąd są te informacje">
       <ul className="max-w-4xl">
         {sources.map((source) => (
           <li key={source.url} className="border-b border-border">

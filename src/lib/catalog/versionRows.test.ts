@@ -26,6 +26,24 @@ describe('version table rows (PRODUKCJA-BIZNES-1211 §1)', () => {
     ).toEqual([])
   })
 
+  it('never puts a value in a look-alike column (VC-50 vs PVC-50) or one of two models', () => {
+    expect(
+      versionRows(
+        ['VC-50', 'PVC-50'],
+        [{ label: 'Zakres', value: 'VC-50: 50 kg; PVC-50: 60 / 150 / 300 kg' }],
+      ),
+    ).toEqual([{ label: 'Zakres', values: ['50 kg', '60 / 150 / 300 kg'] }])
+    expect(
+      versionRows(
+        ['DT2x', 'DT4x', 'DT200'],
+        [{ label: 'Szerokość', value: 'DT2x i DT200: 54 mm; DT4x: 108 mm' }],
+      ),
+    ).toEqual([])
+    expect(versionRows(['S', 'SM', 'SC'], [{ label: 'X', value: 'S: 1; SM: 2' }])).toEqual([
+      { label: 'X', values: ['1', '2', null] },
+    ])
+  })
+
   it('needs two versions', () => {
     expect(versionRows(['Jedna'], [{ label: 'X', value: 'Jedna: 1; Druga: 2' }])).toEqual([])
   })

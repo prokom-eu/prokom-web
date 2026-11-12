@@ -41,8 +41,16 @@ export const COMMON_SERVICES: readonly string[] = ['pomoc-zdalna', 'przeglad-it'
 /** Main categories of accessories: a same-brand product there fits a device of the brand. */
 const ACCESSORY_CATEGORIES = new Set(['akcesoria-pos', 'klawiatury-myszy-sluchawki'])
 
-/** Consumables by name or subcategory: toner, ink, paper rolls, labels, ribbons. */
-const CONSUMABLE = /toner|tusz|eksploatac|rolk|etykiet|taśm|bęben|papier/i
+/** Subcategories of consumables (the PRO-KOM „Tusze i tonery” card lives in `tusze-tonery`). */
+const CONSUMABLE_SUBCATEGORIES = new Set(['tusze-tonery'])
+
+/**
+ * A consumable: in a consumables subcategory, or named as one from its first word („Toner
+ * Kyocera TK-4145”) — never a device whose name mentions ink tanks or labels.
+ */
+const isConsumable = (product: IndexProduct) =>
+  CONSUMABLE_SUBCATEGORIES.has(product.subcategory ?? '') ||
+  /^(toner|tusz|rolk|taśm|bęben|papier)/i.test(product.name.trim())
 
 export type FillContext = {
   /** Products sold with this card in a ready bundle (`W zestawach`), in the bundles' order. */
@@ -73,18 +81,15 @@ export function fillSuggestions(
   const main = self.categories[0]
   const others = index.products.filter((product) => product.slug !== slug)
 
-  // 1. Consumables of the same category, the same brand first.
-  const consumables = others.filter(
-    (product) =>
+  // 1. Consumables of the same category: of the same brand, or PRO-KOM's own (no brand).
+  for (const product of others) {
+    if (
       product.categories[0] === main &&
-      product.kind !== 'service' &&
-      CONSUMABLE.test(`${product.name} ${product.subcategory ?? ''}`),
-  )
-  for (const product of [
-    ...consumables.filter((item) => self.brand && item.brand === self.brand),
-    ...consumables,
-  ])
-    add(product, 'Eksploatacja')
+      isConsumable(product) &&
+      (!product.brand || product.brand === self.brand)
+    )
+      add(product, 'Eksploatacja')
+  }
 
   // 2. Accessories of the same brand (a dock to a laptop, a drawer to a register).
   if (self.brand) {
