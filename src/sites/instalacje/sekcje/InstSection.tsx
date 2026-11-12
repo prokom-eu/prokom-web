@@ -13,7 +13,8 @@ import { FOLD_HIT, foldHitBox } from './foldHit'
 import { useReveal } from './useReveal'
 
 /** Controls a tap can hit in the folded part (the fold's own button aside). */
-const CONTROLS = 'a[href], button:not(.foldb), summary, input, select, textarea, [tabindex]'
+const CONTROLS =
+  'a[href], button:not(.foldb), summary, input, select, textarea, [tabindex]:not([tabindex="-1"])'
 
 type Props = {
   /** Section id = the prototype's id (anchors, `porownaj.mjs`). */
@@ -54,11 +55,12 @@ export function InstSection({
       const button = section.querySelector('.foldb')
       if (!button || getComputedStyle(button).display === 'none') return
       const { top: edge, height } = button.getBoundingClientRect()
+      const end = section.getBoundingClientRect().bottom - edge
       const controls = [...section.querySelectorAll(CONTROLS)].map((el) => {
         const r = el.getBoundingClientRect()
         return { top: r.top - edge, bottom: r.bottom - edge }
       })
-      const box = foldHitBox(controls, height)
+      const box = foldHitBox(controls, height, end)
       const plain = box.above === FOLD_HIT && box.below === 0
       setHit((prev) =>
         plain ? null : prev?.above === box.above && prev.below === box.below ? prev : box,
@@ -66,6 +68,8 @@ export function InstSection({
     }
     const ro = new ResizeObserver(measure)
     ro.observe(section)
+    // The folded part keeps its height; a change inside it (a widget's tab, an image) does not.
+    section.querySelectorAll(':scope > .wrap > *').forEach((child) => ro.observe(child))
     // The rise-in of the content (`.ri`) moves the controls after the first measure.
     section.addEventListener('transitionend', measure)
     section.addEventListener('animationend', measure)

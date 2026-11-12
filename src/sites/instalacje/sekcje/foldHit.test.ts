@@ -27,11 +27,23 @@ describe('foldHitBox', () => {
     expect(foldHitBox(controls, BUTTON).above).toBe(156)
   })
 
+  it('never reaches above the faded edge', () => {
+    // Each taken control leaves a sliver of the next one: 120 → 131 → 151 → 173, held at 170.
+    const chain = [
+      { top: -172, bottom: -145 },
+      { top: -150, bottom: -125 },
+      { top: -130, bottom: -100 },
+    ]
+    expect(foldHitBox(chain, BUTTON).above).toBe(170)
+  })
+
   it('reaches under the button as far as a control cut by the fold (audit 10.11)', () => {
     // The question starts 18 px above the button and its box ends 64 px below its top.
     expect(foldHitBox([{ top: -18, bottom: 64 }], BUTTON).below).toBe(65)
     // Cut by the edge but ending beside the button: the zone spans the whole button.
     expect(foldHitBox([{ top: -8, bottom: 49 }], BUTTON).below).toBe(BUTTON)
+    // A tall control (a card) cut by the fold: the zone stops at the section's bottom.
+    expect(foldHitBox([{ top: -10, bottom: 400 }], BUTTON, 128).below).toBe(128)
     // Controls of the unfolded part further down do not count.
     expect(foldHitBox([{ top: 74, bottom: 155 }], BUTTON).below).toBe(0)
   })

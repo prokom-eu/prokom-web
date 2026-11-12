@@ -323,7 +323,7 @@
     /* A long label breaks into two lines inside the bar, and the bar is at least as wide as its
        longest word („jednorazowo”); a short bar at the end of the week stays in its row. */
     & .kbar {
-      left: min(var(--l), calc(100% - 34px));
+      left: min(var(--l), calc(100% - 40px));
       width: max(var(--w), 26px);
       min-width: min-content;
       justify-content: center;

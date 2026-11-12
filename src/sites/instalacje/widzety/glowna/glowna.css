@@ -1619,6 +1619,8 @@
        their room, so the dock does not jump while the autoplay changes the text. */
     & .hxdock .hxdtx {
       flex: 1 0 100%;
+      /* After the „+N” of more layers, which stays in the first line (no third line, no jump). */
+      order: 1;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;

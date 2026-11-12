@@ -2,6 +2,8 @@
 export const FOLD_HIT = 120
 /** The smallest visible part of a control (WCAG 2.2 target size, axe `target-size`). */
 export const MIN_TARGET = 24
+/** The zone never reaches above the faded edge (the mask's gradient, `sekcje.css`). */
+export const FOLD_FADE = 170
 
 type Box = { top: number; bottom: number }
 
@@ -17,6 +19,8 @@ type Box = { top: number; bottom: number }
 export function foldHitBox(
   controls: readonly Box[],
   buttonHeight: number,
+  /** The section's bottom edge (from the button's top): the zone stays in its section. */
+  maxBelow = Number.POSITIVE_INFINITY,
 ): { above: number; below: number } {
   let above = FOLD_HIT
   // Taking one control may cut the next one up, so until nothing changes.
@@ -25,8 +29,8 @@ export function foldHitBox(
     for (const { top, bottom } of controls) {
       const edge = -above
       if (top < edge && bottom > edge && edge - top < MIN_TARGET) {
-        above = Math.ceil(-top) + 1
-        grown = true
+        above = Math.min(FOLD_FADE, Math.ceil(-top) + 1)
+        grown = above > -edge
       }
     }
   }
@@ -36,5 +40,5 @@ export function foldHitBox(
   for (const { top, bottom } of controls) {
     if (top < 0 && bottom > 0) below = Math.max(below, buttonHeight, Math.ceil(bottom) + 1)
   }
-  return { above, below }
+  return { above, below: Math.min(below, Math.floor(maxBelow)) }
 }
