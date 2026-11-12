@@ -2,34 +2,17 @@
   "gopos-all-in-one": [
     "Wymiary"
   ],
-  "t10": [
-    "Procesor"
-  ],
   "posnet-bileterka-e-podroznik": [
-    "Wymiary"
-  ],
-  "elzab-zewnetrzny-wyswietlacz-klienta": [
     "Wymiary"
   ],
   "posnet-werion": [
     "Wymiary"
-  ],
-  "posnet-wyswietlacz-pos": [
-    "Wymiary"
-  ],
-  "dibal-dmi-610": [
-    "Zakres ważenia",
-    "Wymiary szalki"
   ],
   "skaner": [
     "Waga"
   ],
   "zebra-drukarka-etykiet-zd421": [
     "Wymiary"
-  ],
-  "zebra-tc22-tc27": [
-    "Typ",
-    "Rozdzielczość"
   ],
   "sato-metkownice-judo-kendo": [
     "Typ",
@@ -50,17 +33,6 @@
   ],
   "sunmi-blink-blink-2": [
     "Waga"
-  ],
-  "sunmi-l2s-pro-l2ks": [
-    "Typ",
-    "Rozdzielczość"
-  ],
-  "sunmi-l3": [
-    "Typ",
-    "Rozdzielczość"
-  ],
-  "zebra-zc100-zc300": [
-    "Typ"
   ],
   "optivendi-chlebomat": [
     "Wymiary"

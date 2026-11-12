@@ -11,6 +11,12 @@ import gaps from '../../lib/biznes/requiredSpecs.gaps.json'
 /** Categories whose partition is done (partia 1: kasy, drukarki fiskalne, terminale). */
 const DONE = ['kasy', 'druk', 'term']
 
+/**
+ * Partia 2 (POS, kioski, skanery i etykiety, wagi, kasoterminale, akcesoria POS): texts done;
+ * the parameters some producers do not publish stay on the list (parametry-braki-sprawdzone.md).
+ */
+const DONE_TEXT = [...DONE, 'pos', 'kiosk', 'kody', 'wagi', 'mob', 'akc']
+
 export const MIN_DESCRIPTION = 1000
 export const MIN_FAQ = 4
 export const MIN_RECOMMENDED = 3
@@ -27,6 +33,9 @@ type Card = {
 const cards = (catalog as unknown as { produkty: Card[] }).produkty
 const known = new Set(cards.map((card) => card.slug_seed))
 const done = cards.filter((card) => card.status === 'gotowe' && DONE.includes(card.kategoria))
+const doneText = cards.filter(
+  (card) => card.status === 'gotowe' && DONE_TEXT.includes(card.kategoria),
+)
 
 describe('production thresholds of the finished partitions (PRODUKCJA-BIZNES-1211 §1)', () => {
   it('covers some cards', () => {
@@ -34,20 +43,20 @@ describe('production thresholds of the finished partitions (PRODUKCJA-BIZNES-121
   })
 
   it(`description ≥ ${MIN_DESCRIPTION} characters`, () => {
-    const short = done
+    const short = doneText
       .map((card) => [card.slug_seed, card.opis.join(' ').length] as const)
       .filter(([, length]) => length < MIN_DESCRIPTION)
     expect(short).toEqual([])
   })
 
   it(`FAQ ≥ ${MIN_FAQ}`, () => {
-    expect(done.filter((card) => card.faq.length < MIN_FAQ).map((card) => card.slug_seed)).toEqual(
-      [],
-    )
+    expect(
+      doneText.filter((card) => card.faq.length < MIN_FAQ).map((card) => card.slug_seed),
+    ).toEqual([])
   })
 
   it(`„Do tego zwykle dobierają” ≥ ${MIN_RECOMMENDED} real cards of the package`, () => {
-    const few = done.filter(
+    const few = doneText.filter(
       (card) =>
         (card.polecane ?? []).filter((item) => known.has(item.slug) && item.slug !== card.slug_seed)
           .length < MIN_RECOMMENDED,
