@@ -22,6 +22,12 @@ import {
 const L = dostep.lock
 const TABS = Object.keys(L.tabs) as AccessTab[]
 
+/** Bar place as variables: on a phone `dostep.css` keeps a short bar inside its row. */
+function barStyle(bar: Parameters<typeof barPosition>[0]): CSSProperties {
+  const { left, width } = barPosition(bar)
+  return { '--l': left, '--w': width } as CSSProperties
+}
+
 const keyLabel = (k: Key) =>
   k === 'C' ? L.keysLabel.clear : k === 'OK' ? L.keysLabel.ok : `${L.keysLabel.digit} ${k}`
 
@@ -133,7 +139,7 @@ export function LockDemo() {
                   <span
                     key={i}
                     className={b.state ? `kbar ${b.state}` : 'kbar'}
-                    style={barPosition(b)}
+                    style={barStyle(b)}
                   >
                     {b.label}
                   </span>
