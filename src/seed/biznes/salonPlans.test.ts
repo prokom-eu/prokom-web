@@ -41,14 +41,16 @@ describe('salon plan tiles (PRODUKCJA-BIZNES-1211 §2)', () => {
     const unknown = Object.entries(all).flatMap(([name, salon]) =>
       [salon.plans, salon.plans2].flatMap((plan) =>
         (plan?.it ?? []).flatMap((item) =>
-          item.p && !cards.has(item.p) && item.p !== 'softpos' ? [`${name}: ${item.p}`] : [],
+          item.p && !cards.has(item.p) ? [`${name}: ${item.p}`] : [],
         ),
       ),
     )
     expect(unknown).toEqual([])
   })
 
-  it('a device tile has its own photo (software and services: a product tile)', () => {
+  // Device photos may come from the K3 / v2 galleries (not in `zdjecia`): the check is that no
+  // device tile points at a card flagged as having no photo at all.
+  it('no device tile points at a card without any photo', () => {
     const missing = Object.entries(all).flatMap(([name, salon]) =>
       [salon.plans, salon.plans2].flatMap((plan) =>
         (plan?.it ?? []).flatMap((item) => {
@@ -80,5 +82,19 @@ describe('new K4 cards never take an older card’s sheet id', () => {
       .filter((card) => card.zmiana_k4 === 'nowa' && owner.has(card.slug_seed))
       .map((card) => `${card.slug_seed} → ${owner.get(card.slug_seed)}`)
     expect(taken).toEqual([])
+  })
+})
+
+describe('features of the new model cards (review 13.11)', () => {
+  it('are whole phrases: no cut word, no lone number, no open bracket', () => {
+    const slugs = /^(polcard|eset|m365|eurocert)-/
+    const bad = (catalog as unknown as { produkty: (Card & { cechy: string[] })[] }).produkty
+      .filter((card) => slugs.test(card.slug_seed) && card.slug_seed !== 'm365-poczta')
+      .flatMap((card) =>
+        card.cechy
+          .filter((feature) => /^\d+$|\($|\s$/.test(feature) || feature.length > 40)
+          .map((feature) => `${card.slug_seed}: „${feature}”`),
+      )
+    expect(bad).toEqual([])
   })
 })

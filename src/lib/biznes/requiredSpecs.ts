@@ -226,7 +226,7 @@ export function missingSpecs(
   const slots = REQUIRED_SPECS[category]
   if (!slots) return null
   return slots
-    .filter((s) => !params.some((param) => param.v?.trim() !== '' && s.match.test(param.k)))
+    .filter((s) => !params.some((param) => (param.v ?? '').trim() !== '' && s.match.test(param.k)))
     .map((s) => s.label)
 }
 

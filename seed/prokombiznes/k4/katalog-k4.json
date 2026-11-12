@@ -7264,7 +7264,7 @@
    "korzysc": "Przyjmujesz płatność kartą, telefonem albo BLIK-iem tam, gdzie jest klient: przy stoliku, na targu, w dostawie.",
    "opis": [
     "Ingenico Move 2500 to przenośny terminal płatniczy w usłudze PolCard dla firm, które sprzedają w ruchu: małych kawiarni i restauracji, foodtrucków, sprzedaży na targach i bazarach, usług u klienta i dostaw. Łączy się przez sieć komórkową 3G/4G (opcjonalnie z dwiema kartami SIM), więc nie potrzebuje Wi-Fi w lokalu ani kabla.",
-    "Terminal czyta pasek magnetyczny, chip i karty zbliżeniowe, przyjmuje płatności telefonem i zegarkiem (Apple Pay, Google Pay) oraz BLIK. Ma kolorowy ekran 2,4\", klawiaturę numeryczną i wbudowaną drukarkę potwierdzeń. Akumulator litowo-jonowy 2900 mAh wystarcza według PolCard do 12 godzin pracy, a ładujesz go przez micro-USB z komputera, ładowarki samochodowej albo powerbanku. Terminal waży 320 g. W usłudze PolCard dostępne są m.in. cashback, napiwki, preautoryzacja, DCC, płatności MO/TO i ratalne oraz logowanie kasjerów.",
+    "Terminal czyta pasek magnetyczny, chip i karty zbliżeniowe, przyjmuje płatności telefonem i zegarkiem (Apple Pay, Google Pay) oraz BLIK. Ma kolorowy ekran 2,4\", klawiaturę numeryczną i wbudowaną drukarkę potwierdzeń. Akumulator litowo-jonowy 2900 mAh wystarcza według PolCard do 12 godzin pracy, a ładujesz go przez micro-USB z komputera, ładowarki samochodowej albo powerbanku. Terminal waży 320 g. W usłudze PolCard dostępne są m.in. cashback, napiwki, preautoryzacja, DCC, płatności MO/TO oraz logowanie kasjerów.",
     "Przy zakupie pomagamy wybrać model do sposobu sprzedaży, uruchamiamy terminal i pokazujemy obsługę: płatność, zwrot, zamknięcie dnia. Gdy pracujesz na kasie fiskalnej, możemy połączyć ją z terminalem, żeby kwota nie była wpisywana dwa razy. Paragon nadal wystawia kasa — terminal drukuje tylko potwierdzenie płatności."
    ],
    "cechy": [
@@ -7299,7 +7299,7 @@
     },
     {
      "k": "Usługi dodatkowe",
-     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, płatności ratalne, karty przedpłacone, doładowania telefonów"
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, karty przedpłacone, doładowania telefonów"
     },
     {
      "k": "Drukarka",
@@ -7402,7 +7402,8 @@
    "zdjecia": [
     "media/produkty/polcard-move-2500-01.webp",
     "media/produkty/polcard-move-2500-02.webp"
-   ]
+   ],
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "polcard-move-3500",
@@ -7418,7 +7419,7 @@
    "korzysc": "Płatność przy stoliku, na sali albo u klienta — terminal działa przez Wi-Fi lokalu albo sieć komórkową.",
    "opis": [
     "Ingenico Move 3500 to przenośny terminal płatniczy w usłudze PolCard dla gastronomii i sieci restauracji, hoteli i turystyki, transportu, taxi i usług u klienta. Sprawdza się przy płatności przy stoliku i na sali, w foodtrucku oraz w sezonowych punktach na plaży czy przy atrakcjach turystycznych. Łączy się przez Wi-Fi albo sieć komórkową 3G/4G (opcjonalnie dual SIM), więc może pracować w pełni bezprzewodowo.",
-    "Terminal czyta pasek, chip i karty zbliżeniowe oraz przyjmuje płatności telefonem, zegarkiem i brelokiem z NFC, a także BLIK, Apple Pay i Google Pay. Ma kolorowy ekran 3,2\", procesor Cortex A5 i drukarkę do 30 linii na sekundę. Akumulator wystarcza według PolCard do 12 godzin bez ładowania; ładujesz go w dołączonej podstawce, z powerbanku, ładowarki samochodowej albo komputera. Waży 320 g. Dostępne są m.in. napiwki, cashback, preautoryzacja, DCC, MO/TO, logowanie kasjerów i płatności ratalne, a PolCard podaje integrację z ponad 200 rozwiązaniami kasowymi.",
+    "Terminal czyta pasek, chip i karty zbliżeniowe oraz przyjmuje płatności telefonem, zegarkiem i brelokiem z NFC, a także BLIK, Apple Pay i Google Pay. Ma kolorowy ekran 3,2\", procesor Cortex A5 i drukarkę do 30 linii na sekundę. Akumulator wystarcza według PolCard do 12 godzin bez ładowania; ładujesz go w dołączonej podstawce, z powerbanku, ładowarki samochodowej albo komputera. Waży 320 g. Dostępne są m.in. napiwki, cashback, preautoryzacja, DCC, MO/TO, logowanie kasjerów, a PolCard podaje integrację z ponad 200 rozwiązaniami kasowymi.",
     "Dobieramy terminal do lokalu, uruchamiamy go i szkolimy zespół z płatności, zwrotów i zamknięcia dnia. Gdy pracujesz na kasie albo systemie sprzedaży (np. GoPOS), łączymy go z terminalem, żeby kwota przechodziła automatycznie. Paragon fiskalny wystawia kasa — terminal drukuje potwierdzenie płatności."
    ],
    "cechy": [
@@ -7453,7 +7454,7 @@
     },
     {
      "k": "Usługi dodatkowe",
-     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, płatności ratalne, karty przedpłacone, integracja z kasą lub systemem kasowym"
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, karty przedpłacone, integracja z kasą lub systemem kasowym"
     },
     {
      "k": "Drukarka",
@@ -7559,7 +7560,8 @@
    "seria": "PolCard — terminale Ingenico",
    "zdjecia": [
     "media/produkty/polcard-move-3500.webp"
-   ]
+   ],
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "polcard-axium-dx-8000",
@@ -7724,7 +7726,8 @@
    "seria": "PolCard — terminale Ingenico",
    "zdjecia": [
     "media/produkty/polcard-axium-dx-8000.webp"
-   ]
+   ],
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "polcard-axium-dx-4000-portable",
@@ -7889,7 +7892,8 @@
    "seria": "PolCard — terminale Ingenico",
    "zdjecia": [
     "media/produkty/polcard-axium-dx-4000-portable.webp"
-   ]
+   ],
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "polcard-desk-3200-desk-1500",
@@ -7936,7 +7940,7 @@
     },
     {
      "k": "Usługi dodatkowe",
-     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, płatności ratalne, karty przedpłacone i flotowe"
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, karty przedpłacone i flotowe"
     },
     {
      "k": "Drukarka",
@@ -8047,7 +8051,8 @@
    "seria": "PolCard — terminale Ingenico",
    "zdjecia": [
     "media/produkty/polcard-desk-3200-desk-1500.webp"
-   ]
+   ],
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "softpos",
@@ -77480,17 +77485,17 @@
    "opis": [
     "Microsoft 365 Apps for business to plan dla firm, które potrzebują klasycznych aplikacji Office i miejsca na pliki, a pocztę mają już u innego dostawcy. Obejmuje do 300 użytkowników.",
     "Daje klasyczne aplikacje Word, Excel, PowerPoint, Outlook i OneNote do zainstalowania na komputerach, tabletach i telefonach oraz 1 TB w OneDrive na użytkownika. Nie ma w nim skrzynki pocztowej Exchange ani czatu i rozmów w Teams — to odróżnia go od Business Standard. Outlook może obsługiwać pocztę firmową z dotychczasowego serwera.",
-    "Zakładamy dzierżawę Microsoft 365 albo przejmujemy istniejącą, podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach i szkolimy zespół. Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams. Gdy firma zechce przenieść pocztę do Microsoft, wystarczy plan Business Standard — ma skrzynkę Exchange i Teams."
+    "Pomagamy uruchomić Microsoft 365: podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach (usługa „Poczta firmowa i wdrożenie Microsoft 365”). Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams. Gdy firma zechce przenieść pocztę do Microsoft, wystarczy plan Business Standard — ma skrzynkę Exchange i Teams."
    ],
    "cechy": [
-    "subskrypcja na użytkownika (CSP / NCE)",
-    "do 300",
-    "klasyczne Word"
+    "Office na komputery",
+    "OneDrive 1 TB",
+    "bez poczty Exchange"
    ],
    "parametry": [
     {
      "k": "Model licencji",
-     "v": "subskrypcja na użytkownika (CSP / NCE)"
+     "v": "subskrypcja na użytkownika"
     },
     {
      "k": "Limit użytkowników",
@@ -77564,12 +77569,17 @@
      "url": "https://www.microsoft.com/pl-pl/microsoft-365/business/compare-all-microsoft-365-business-products",
      "etykieta": "Strona producenta — Microsoft",
      "host": "microsoft.com"
+    },
+    {
+     "url": "https://learn.microsoft.com/en-us/partner-center/customers/new-commerce-license-based",
+     "etykieta": "Dokumentacja producenta — Microsoft (NCE)",
+     "host": "learn.microsoft.com"
     }
    ],
    "wyrozniki": [
-    "subskrypcja na użytkownika (CSP / NCE)",
-    "do 300",
-    "klasyczne Word"
+    "Office na komputery",
+    "OneDrive 1 TB",
+    "bez poczty Exchange"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -77594,7 +77604,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "Microsoft 365 dla firm"
+   "seria": "Microsoft 365 dla firm",
+   "sprawdzono": null
   },
   {
    "slug_seed": "m365-business-premium",
@@ -77611,17 +77622,17 @@
    "opis": [
     "Microsoft 365 Business Premium to plan dla firm, które oprócz Office, poczty i Teams chcą zarządzać laptopami i telefonami pracowników oraz chronić konta przed przejęciem. Obejmuje do 300 użytkowników.",
     "Ma wszystko, co Business Standard: klasyczne aplikacje Office (także Access na PC) na do 5 komputerach, 5 tabletach i 5 telefonach, skrzynkę 100 GB, 1 TB w OneDrive i Teams. Archiwum poczty ma 1,5 TB. Do tego dochodzi Intune (plan 1) do zarządzania urządzeniami, Microsoft Defender dla Firm do ochrony komputerów oraz zaawansowane zarządzanie tożsamością (Entra) — m.in. dostęp warunkowy. To dobry wybór, gdy pracownicy pracują zdalnie albo na własnym sprzęcie.",
-    "Zakładamy dzierżawę Microsoft 365 albo przejmujemy istniejącą, podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach i szkolimy zespół. Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams."
+    "Pomagamy uruchomić Microsoft 365: podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach (usługa „Poczta firmowa i wdrożenie Microsoft 365”). Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams."
    ],
    "cechy": [
-    "subskrypcja na użytkownika (CSP / NCE)",
-    "do 300",
-    "klasyczne Word"
+    "Intune i Defender dla Firm",
+    "archiwum poczty 1,5 TB",
+    "Office na 5 komputerach"
    ],
    "parametry": [
     {
      "k": "Model licencji",
-     "v": "subskrypcja na użytkownika (CSP / NCE)"
+     "v": "subskrypcja na użytkownika"
     },
     {
      "k": "Limit użytkowników",
@@ -77699,12 +77710,17 @@
      "url": "https://www.microsoft.com/pl-pl/microsoft-365/business/compare-all-microsoft-365-business-products",
      "etykieta": "Strona producenta — Microsoft",
      "host": "microsoft.com"
+    },
+    {
+     "url": "https://learn.microsoft.com/en-us/partner-center/customers/new-commerce-license-based",
+     "etykieta": "Dokumentacja producenta — Microsoft (NCE)",
+     "host": "learn.microsoft.com"
     }
    ],
    "wyrozniki": [
-    "subskrypcja na użytkownika (CSP / NCE)",
-    "do 300",
-    "klasyczne Word"
+    "Intune i Defender dla Firm",
+    "archiwum poczty 1,5 TB",
+    "Office na 5 komputerach"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -77729,7 +77745,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "Microsoft 365 dla firm"
+   "seria": "Microsoft 365 dla firm",
+   "sprawdzono": null
   },
   {
    "slug_seed": "m365-business-standard",
@@ -77744,19 +77761,19 @@
    "podtytul": "Klasyczne aplikacje Office, poczta firmowa, Teams i OneDrive",
    "korzysc": "Word, Excel, Outlook i PowerPoint na 5 komputerach na osobę, do tego poczta, Teams i 1 TB na pliki.",
    "opis": [
-    "Microsoft 365 Business Standard to plan dla firm, które pracują w klasycznych aplikacjach Office i potrzebują firmowej poczty oraz Teams. Obejmuje do 300 użytkowników i jest najczęściej wybieranym planem w biurach.",
+    "Microsoft 365 Business Standard to plan dla firm, które pracują w klasycznych aplikacjach Office i potrzebują firmowej poczty oraz Teams. Obejmuje do 300 użytkowników.",
     "Każdy użytkownik może zainstalować klasyczne aplikacje Word, Excel, PowerPoint, Outlook i OneNote na do 5 komputerach PC lub Mac, 5 tabletach i 5 telefonach. Ma skrzynkę 100 GB z archiwum 50 GB, 1 TB w OneDrive oraz Teams z czatem, rozmowami i spotkaniami. Poczta jest chroniona filtrem spamu i złośliwego oprogramowania. Zaawansowane zabezpieczenia urządzeń (Intune, Defender dla Firm) są w planie Business Premium.",
-    "Zakładamy dzierżawę Microsoft 365 albo przejmujemy istniejącą, podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach i szkolimy zespół. Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams."
+    "Pomagamy uruchomić Microsoft 365: podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach (usługa „Poczta firmowa i wdrożenie Microsoft 365”). Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams."
    ],
    "cechy": [
-    "subskrypcja na użytkownika (CSP / NCE)",
-    "do 300",
-    "klasyczne Word"
+    "Office na 5 komputerach",
+    "poczta 100 GB",
+    "Teams i OneDrive 1 TB"
    ],
    "parametry": [
     {
      "k": "Model licencji",
-     "v": "subskrypcja na użytkownika (CSP / NCE)"
+     "v": "subskrypcja na użytkownika"
     },
     {
      "k": "Limit użytkowników",
@@ -77834,12 +77851,17 @@
      "url": "https://www.microsoft.com/pl-pl/microsoft-365/business/compare-all-microsoft-365-business-products",
      "etykieta": "Strona producenta — Microsoft",
      "host": "microsoft.com"
+    },
+    {
+     "url": "https://learn.microsoft.com/en-us/partner-center/customers/new-commerce-license-based",
+     "etykieta": "Dokumentacja producenta — Microsoft (NCE)",
+     "host": "learn.microsoft.com"
     }
    ],
    "wyrozniki": [
-    "subskrypcja na użytkownika (CSP / NCE)",
-    "do 300",
-    "klasyczne Word"
+    "Office na 5 komputerach",
+    "poczta 100 GB",
+    "Teams i OneDrive 1 TB"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -77864,7 +77886,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "Microsoft 365 dla firm"
+   "seria": "Microsoft 365 dla firm",
+   "sprawdzono": null
   },
   {
    "slug_seed": "m365-business-basic",
@@ -77881,17 +77904,17 @@
    "opis": [
     "Microsoft 365 Business Basic to najprostszy plan dla firm, które potrzebują profesjonalnej poczty na własnej domenie, spotkań i czatu w Teams oraz miejsca na pliki, a dokumenty edytują w przeglądarce lub na telefonie. Plan obejmuje do 300 użytkowników.",
     "Każdy użytkownik ma skrzynkę pocztową 100 GB z archiwum 50 GB, 1 TB w OneDrive i Teams z czatem, rozmowami i spotkaniami. Word, Excel, PowerPoint i Outlook są dostępne w wersji przeglądarkowej i mobilnej, bez klasycznych aplikacji na komputer. Poczta jest chroniona filtrem spamu i złośliwego oprogramowania. Jeśli zespół pracuje w klasycznych aplikacjach Office, lepszy jest plan Business Standard.",
-    "Zakładamy dzierżawę Microsoft 365 albo przejmujemy istniejącą, podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach i szkolimy zespół. Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams."
+    "Pomagamy uruchomić Microsoft 365: podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach (usługa „Poczta firmowa i wdrożenie Microsoft 365”). Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams."
    ],
    "cechy": [
-    "subskrypcja na użytkownika (CSP / NCE)",
-    "do 300",
-    "wersje w przeglądarce i mobilne (bez kla"
+    "poczta 100 GB",
+    "Office w przeglądarce",
+    "Teams i OneDrive 1 TB"
    ],
    "parametry": [
     {
      "k": "Model licencji",
-     "v": "subskrypcja na użytkownika (CSP / NCE)"
+     "v": "subskrypcja na użytkownika"
     },
     {
      "k": "Limit użytkowników",
@@ -77969,12 +77992,17 @@
      "url": "https://www.microsoft.com/pl-pl/microsoft-365/business/compare-all-microsoft-365-business-products",
      "etykieta": "Strona producenta — Microsoft",
      "host": "microsoft.com"
+    },
+    {
+     "url": "https://learn.microsoft.com/en-us/partner-center/customers/new-commerce-license-based",
+     "etykieta": "Dokumentacja producenta — Microsoft (NCE)",
+     "host": "learn.microsoft.com"
     }
    ],
    "wyrozniki": [
-    "subskrypcja na użytkownika (CSP / NCE)",
-    "do 300",
-    "wersje w przeglądarce i mobilne (bez kla"
+    "poczta 100 GB",
+    "Office w przeglądarce",
+    "Teams i OneDrive 1 TB"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -77999,7 +78027,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "Microsoft 365 dla firm"
+   "seria": "Microsoft 365 dla firm",
+   "sprawdzono": null
   },
   {
    "slug_seed": "microsoft-windows-11-pro",
@@ -83698,12 +83727,12 @@
    "opis": [
     "ESET PROTECT Elite to najwyższy pakiet ESET PROTECT dla organizacji, które chcą nie tylko blokować zagrożenia, ale też widzieć i badać incydenty w całej sieci. ESET pozycjonuje go dla firm dowolnej wielkości, a moduł XDR szczególnie dla większych klientów.",
     "Zawiera wszystko, co Complete — ochronę urządzeń, szyfrowanie dysków, sandbox w chmurze, ochronę serwerów pocztowych i aplikacji w chmurze, zarządzanie podatnościami — i dodaje uwierzytelnianie wieloskładnikowe (MFA z aplikacją mobilną) oraz XDR (Extended Detection & Response) jako część konsoli ESET PROTECT. Chroni stacje robocze, serwery i maszyny wirtualne (Windows, macOS, Linux, Exchange, AWS, Azure, GCP), telefony z iOS i Androidem oraz aplikacje w chmurze: Exchange Online, OneDrive, SharePoint Online, Teams, Gmail i Google Drive. ESET LiveAI jest płatnym dodatkiem.",
-    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach, przenosimy zasady z poprzedniego antywirusa i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie."
+    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie."
    ],
    "cechy": [
-    "pakiet ESET PROTECT — poziom Elite",
-    "Complete + uwierzytelnianie wieloskładni",
-    "Windows"
+    "XDR",
+    "MFA",
+    "ochrona aplikacji w chmurze"
    ],
    "parametry": [
     {
@@ -83742,7 +83771,7 @@
     },
     {
      "q": "Czy przeniesiecie nas z innego antywirusa?",
-     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program, instalujemy ESET na komputerach i serwerach i sprawdzamy, czy każde urządzenie jest widoczne w konsoli."
+     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program i instalujemy ESET na komputerach i serwerach."
     }
    ],
    "polecane": [
@@ -83775,9 +83804,9 @@
     }
    ],
    "wyrozniki": [
-    "pakiet ESET PROTECT — poziom Elite",
-    "Complete + uwierzytelnianie wieloskładni",
-    "Windows"
+    "XDR",
+    "MFA",
+    "ochrona aplikacji w chmurze"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -83802,7 +83831,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "ESET — pakiety dla firm"
+   "seria": "ESET — pakiety dla firm",
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "eset-pakiet-complete",
@@ -83819,12 +83849,12 @@
    "opis": [
     "ESET PROTECT Complete to wielowarstwowy pakiet dla firm, w których największym zagrożeniem jest poczta: fałszywe faktury, załączniki i linki. Według ESET obejmuje od 5 do nielimitowanej liczby urządzeń.",
     "Ma wszystko, co Advanced — ochronę komputerów, serwerów i telefonów, pełne szyfrowanie dysków, sandbox w chmurze i ochronę maszyn w chmurze — a dodaje ochronę aplikacji w chmurze dla Microsoft 365 i Google Workspace, zabezpieczenie serwerów pocztowych (Exchange i IBM) oraz zarządzanie podatnościami i poprawkami na stacjach roboczych i w programach innych producentów. ESET wymienia ochronę Windows, Windows Server, Exchange Server, Linuxa, macOS, Androida, iOS oraz maszyn w AWS, Azure i Google Cloud. Zarządza się nim w konsoli ESET PROTECT.",
-    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach, przenosimy zasady z poprzedniego antywirusa i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie."
+    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie."
    ],
    "cechy": [
-    "pakiet ESET PROTECT — poziom Complete",
-    "od 5 do nielimitowanej liczby urządzeń (",
-    "Advanced + ochrona Microsoft 365 i Googl"
+    "ochrona Microsoft 365",
+    "serwery pocztowe",
+    "zarządzanie podatnościami"
    ],
    "parametry": [
     {
@@ -83867,7 +83897,7 @@
     },
     {
      "q": "Czy przeniesiecie nas z innego antywirusa?",
-     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program, instalujemy ESET na komputerach i serwerach i sprawdzamy, czy każde urządzenie jest widoczne w konsoli."
+     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program i instalujemy ESET na komputerach i serwerach."
     }
    ],
    "polecane": [
@@ -83900,9 +83930,9 @@
     }
    ],
    "wyrozniki": [
-    "pakiet ESET PROTECT — poziom Complete",
-    "od 5 do nielimitowanej liczby urządzeń (",
-    "Advanced + ochrona Microsoft 365 i Googl"
+    "ochrona Microsoft 365",
+    "serwery pocztowe",
+    "zarządzanie podatnościami"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -83927,7 +83957,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "ESET — pakiety dla firm"
+   "seria": "ESET — pakiety dla firm",
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "eset-pakiet-advanced",
@@ -83944,12 +83975,12 @@
    "opis": [
     "ESET PROTECT Advanced to pakiet dla firm, które obok antywirusa chcą zabezpieczyć dane na laptopach i lepiej bronić się przed nowymi zagrożeniami. ESET opisuje go jako kompletną ochronę IT dla firm każdej wielkości.",
     "Obejmuje wszystko, co Entry: ochronę stacji roboczych, serwerów i urządzeń mobilnych (Android, iOS, w tym MDM i funkcje antykradzieżowe) oraz AI Security. Dodaje pełne szyfrowanie dysków komputerów z Windows i macOS — zgubiony laptop nie ujawni danych — oraz sandbox w chmurze (LiveGuard), który analizuje podejrzane pliki, zanim trafią do użytkownika. ESET wymienia też ochronę maszyn w chmurze (Cloud Workload Protection). Zarządza się nim w konsoli ESET PROTECT w chmurze albo lokalnie.",
-    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach, przenosimy zasady z poprzedniego antywirusa i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie. Wybór pakietu zaczynamy od listy urządzeń i tego, z czego firma korzysta: poczty Microsoft 365, serwera plików, laptopów pracujących poza biurem."
+    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie. Wybór pakietu zaczynamy od listy urządzeń i tego, z czego firma korzysta: poczty Microsoft 365, serwera plików, laptopów pracujących poza biurem."
    ],
    "cechy": [
-    "pakiet ESET PROTECT — poziom Advanced",
-    "Entry + pełne szyfrowanie dysków (Window",
-    "Windows"
+    "szyfrowanie dysków",
+    "sandbox w chmurze",
+    "Windows, macOS, Linux"
    ],
    "parametry": [
     {
@@ -83992,7 +84023,7 @@
     },
     {
      "q": "Czy przeniesiecie nas z innego antywirusa?",
-     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program, instalujemy ESET na komputerach i serwerach i sprawdzamy, czy każde urządzenie jest widoczne w konsoli."
+     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program i instalujemy ESET na komputerach i serwerach."
     }
    ],
    "polecane": [
@@ -84025,9 +84056,9 @@
     }
    ],
    "wyrozniki": [
-    "pakiet ESET PROTECT — poziom Advanced",
-    "Entry + pełne szyfrowanie dysków (Window",
-    "Windows"
+    "szyfrowanie dysków",
+    "sandbox w chmurze",
+    "Windows, macOS, Linux"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -84052,7 +84083,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "ESET — pakiety dla firm"
+   "seria": "ESET — pakiety dla firm",
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "eset-pakiet-entry",
@@ -84069,12 +84101,12 @@
    "opis": [
     "ESET PROTECT Entry to podstawowy pakiet z rodziny ESET PROTECT dla firm, które chcą zarządzać ochroną wszystkich urządzeń z jednego miejsca. ESET kieruje go do przedsiębiorstw niezależnie od wielkości: od kilku stanowisk w biurze po większą sieć z serwerami.",
     "Pakiet obejmuje nowoczesną ochronę stacji roboczych (technologia ESET LiveSense), ochronę systemów serwerowych i urządzeń mobilnych oraz podstawową wersję AI Security (monitorowanie zachowań i ochronę agenta). Chroni komputery i serwery z Windows, macOS i Linuxem oraz telefony z Androidem i iOS. Całością zarządza się w konsoli ESET PROTECT dostępnej w chmurze albo instalowanej lokalnie, a licencja liczona jest na urządzenie. Szyfrowanie dysków i sandbox w chmurze są dopiero w pakiecie Advanced.",
-    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach, przenosimy zasady z poprzedniego antywirusa i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie."
+    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie."
    ],
    "cechy": [
-    "pakiet ESET PROTECT — poziom podstawowy",
-    "ochrona stacji roboczych (LiveSense)",
-    "Windows"
+    "komputery, serwery i telefony",
+    "konsola w chmurze lub lokalnie",
+    "licencja na urządzenie"
    ],
    "parametry": [
     {
@@ -84117,7 +84149,7 @@
     },
     {
      "q": "Czy przeniesiecie nas z innego antywirusa?",
-     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program, instalujemy ESET na komputerach i serwerach i sprawdzamy, czy każde urządzenie jest widoczne w konsoli."
+     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program i instalujemy ESET na komputerach i serwerach."
     }
    ],
    "polecane": [
@@ -84150,9 +84182,9 @@
     }
    ],
    "wyrozniki": [
-    "pakiet ESET PROTECT — poziom podstawowy",
-    "ochrona stacji roboczych (LiveSense)",
-    "Windows"
+    "komputery, serwery i telefony",
+    "konsola w chmurze lub lokalnie",
+    "licencja na urządzenie"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -84177,7 +84209,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "ESET — pakiety dla firm"
+   "seria": "ESET — pakiety dla firm",
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "eset-small-business-security",
@@ -84197,9 +84230,9 @@
     "Instalujemy program na komputerach, telefonach i serwerze, łączymy je z kontem ESET HOME i pokazujemy, gdzie sprawdzić stan ochrony. Gdy firma urośnie albo potrzebuje zarządzania podatnościami, przejście na pakiety ESET PROTECT jest kolejnym krokiem."
    ],
    "cechy": [
-    "pakiet ochrony dla małej firmy",
     "5–25 urządzeń",
-    "ochrona przed złośliwym oprogramowaniem "
+    "bez konsoli administratora",
+    "VPN i ochrona bankowości"
    ],
    "parametry": [
     {
@@ -84242,7 +84275,7 @@
     },
     {
      "q": "Czy przeniesiecie nas z innego antywirusa?",
-     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program, instalujemy ESET na komputerach i serwerach i sprawdzamy, czy każde urządzenie jest widoczne w konsoli."
+     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program i instalujemy ESET na komputerach i serwerach."
     }
    ],
    "polecane": [
@@ -84275,9 +84308,9 @@
     }
    ],
    "wyrozniki": [
-    "pakiet ochrony dla małej firmy",
     "5–25 urządzeń",
-    "ochrona przed złośliwym oprogramowaniem "
+    "bez konsoli administratora",
+    "VPN i ochrona bankowości"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -84302,7 +84335,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "ESET — pakiety dla firm"
+   "seria": "ESET — pakiety dla firm",
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "fw",
@@ -84813,12 +84847,12 @@
    "opis": [
     "Pieczęć elektroniczna w chmurze ECSigner to kwalifikowana pieczęć z danymi przedsiębiorstwa bez karty i czytnika. EuroCert poleca ją firmom z wieloma osobami i lokalizacjami, które pieczętują pojedyncze dokumenty: dokumentację firmową i pracowniczą, archiwa, świadectwa, a także uwierzytelniają się w usługach takich jak Krajowy System e-Faktur.",
     "Pieczęć składa się na plikach PDF i XML (PAdES, XAdES) w programie SecureDoc z zestawu albo w Adobe Reader. W pakiecie jest certyfikat na 1, 2 albo 3 lata, aplikacja mobilna (Android, iOS) i na komputer (Windows, macOS), portal i wsparcie techniczne. Można dodawać i usuwać użytkowników, przy czym w danej chwili pieczętuje jedna osoba. Weryfikacja obejmuje pełnomocnika i dane organizacji: stacjonarnie w punkcie, online podpisem kwalifikowanym albo przez wideoweryfikację. Potrzebny jest dokument umocowania, np. odpis KRS lub CEIDG albo pełnomocnictwo.",
-    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS."
+    "Pomagamy wybrać formę podpisu i przygotować się do weryfikacji tożsamości u EuroCert, a po wydaniu instalujemy oprogramowanie i sprawdzamy podpisywanie dokumentów oraz logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS."
    ],
    "cechy": [
-    "pieczęć w chmurze",
-    "firmy i instytucje (sektor prywatny i pu",
-    "1"
+    "bez karty i czytnika",
+    "kilku użytkowników",
+    "PDF i XML"
    ],
    "parametry": [
     {
@@ -84902,9 +84936,9 @@
     }
    ],
    "wyrozniki": [
-    "pieczęć w chmurze",
-    "firmy i instytucje (sektor prywatny i pu",
-    "1"
+    "bez karty i czytnika",
+    "kilku użytkowników",
+    "PDF i XML"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -84929,7 +84963,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "EuroCert — podpis i pieczęć"
+   "seria": "EuroCert — podpis i pieczęć",
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "eurocert-pieczec-karta",
@@ -84946,12 +84981,12 @@
    "opis": [
     "Kwalifikowana pieczęć elektroniczna to odpowiednik firmowej pieczątki w świecie cyfrowym. Wydaje się ją podmiotom z osobowością prawną — spółkom, fundacjom, instytucjom — i zawiera tylko dane podmiotu: nazwę i NIP, bez danych osoby. Potwierdza, że dokument pochodzi od firmy i nie został zmieniony.",
     "W zestawie jest certyfikat kwalifikowany na 1, 2 albo 3 lata, karta kryptograficzna (SIM albo Standard) z czytnikiem USB-A lub USB-C albo bez czytnika, oprogramowanie do składania i weryfikacji pieczęci, weryfikacja danych podmiotu i zdalne wsparcie. EuroCert wymienia zastosowania: rejestracja i uwierzytelnianie w KSeF, zaświadczenia i pisma urzędowe, e-Kadry, faktury elektroniczne, dokumenty przetargowe i regulaminy. Pieczęć nie służy do masowego pieczętowania maszynowego (M2M). Zależnie od systemu identyfikatorem jest NIP, REGON albo KRS.",
-    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS."
+    "Pomagamy wybrać formę podpisu i przygotować się do weryfikacji tożsamości u EuroCert, a po wydaniu instalujemy oprogramowanie i sprawdzamy podpisywanie dokumentów oraz logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS."
    ],
    "cechy": [
-    "karta kryptograficzna SIM lub Standard",
-    "podmioty z osobowością prawną: firmy",
-    "1"
+    "pieczęć firmy: nazwa i NIP",
+    "uwierzytelnienie w KSeF",
+    "karta SIM lub Standard"
    ],
    "parametry": [
     {
@@ -85036,9 +85071,9 @@
     }
    ],
    "wyrozniki": [
-    "karta kryptograficzna SIM lub Standard",
-    "podmioty z osobowością prawną: firmy",
-    "1"
+    "pieczęć firmy: nazwa i NIP",
+    "uwierzytelnienie w KSeF",
+    "karta SIM lub Standard"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -85063,7 +85098,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "EuroCert — podpis i pieczęć"
+   "seria": "EuroCert — podpis i pieczęć",
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "eurocert-ecsigner-online",
@@ -85080,12 +85116,12 @@
    "opis": [
     "ECSigner z weryfikacją online to ten sam kwalifikowany podpis w chmurze co ECSigner, ale tożsamość potwierdzasz w całości przez internet. Sprawdza się, gdy podpis jest potrzebny szybko, a wizyta w punkcie jest kłopotliwa.",
     "Procedura online trwa ok. 20–30 minut, a po pozytywnej weryfikacji podpisu można użyć tego samego dnia. Potrzebny jest ważny paszport albo polski lub niemiecki dowód osobisty (inne dokumenty, np. prawo jazdy czy karta pobytu, nie są akceptowane), komputer, smartfon, internet i kod aktywacyjny z e-maila. W pakiecie jest certyfikat na 1, 2 albo 3 lata, aplikacja mobilna (Android, iOS) i na komputer (Windows, macOS), portal i wsparcie techniczne. Podpis ma moc podpisu własnoręcznego w UE (eIDAS).",
-    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS. Certyfikat jest ważny 1, 2 albo 3 lata; po tym czasie odnawia się go albo wydaje nowy, a my przypominamy o terminie, żeby podpis nie wygasł w trakcie rozliczeń."
+    "Pomagamy wybrać formę podpisu i przygotować się do weryfikacji tożsamości u EuroCert, a po wydaniu instalujemy oprogramowanie i sprawdzamy podpisywanie dokumentów oraz logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS. Certyfikat jest ważny 1, 2 albo 3 lata; po tym czasie odnawia się go albo wydaje nowy."
    ],
    "cechy": [
-    "podpis w chmurze",
-    "online",
-    "paszport albo polski lub niemiecki dowód"
+    "weryfikacja przez internet",
+    "podpis tego samego dnia",
+    "paszport lub dowód PL/DE"
    ],
    "parametry": [
     {
@@ -85165,9 +85201,9 @@
     }
    ],
    "wyrozniki": [
-    "podpis w chmurze",
-    "online",
-    "paszport albo polski lub niemiecki dowód"
+    "weryfikacja przez internet",
+    "podpis tego samego dnia",
+    "paszport lub dowód PL/DE"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -85192,7 +85228,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "EuroCert — podpis i pieczęć"
+   "seria": "EuroCert — podpis i pieczęć",
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "eurocert-ecsigner",
@@ -85209,12 +85246,12 @@
    "opis": [
     "ECSigner to kwalifikowany podpis elektroniczny EuroCert w chmurze. Zamiast karty i czytnika masz aplikację w telefonie: logujesz się hasłem i jednorazowym kodem, a dokument podpisujesz na komputerze. Wybierają go osoby, które pracują na kilku komputerach albo w terenie, także jako podpis biznesowy z danymi firmy.",
     "W pakiecie jest certyfikat kwalifikowany na 1, 2 albo 3 lata, aplikacja mobilna (Android, iOS), aplikacja na komputer (Windows, macOS), dostęp do portalu EuroCert i wsparcie techniczne przez cały okres ważności. Podpis ma moc podpisu własnoręcznego w UE (eIDAS), a EuroCert podaje, że zakres użycia w systemach państwowych jest taki sam jak przy podpisie na karcie (z zastrzeżeniem, że nie każdy program firm trzecich go obsługuje). Tożsamość potwierdza się w punkcie sprzedaży (ok. 20 minut) albo u klienta (VIP).",
-    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS."
+    "Pomagamy wybrać formę podpisu i przygotować się do weryfikacji tożsamości u EuroCert, a po wydaniu instalujemy oprogramowanie i sprawdzamy podpisywanie dokumentów oraz logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS."
    ],
    "cechy": [
-    "podpis w chmurze",
-    "certyfikat kwalifikowany",
-    "1"
+    "bez karty i czytnika",
+    "kod z telefonu",
+    "Windows i macOS"
    ],
    "parametry": [
     {
@@ -85294,9 +85331,9 @@
     }
    ],
    "wyrozniki": [
-    "podpis w chmurze",
-    "certyfikat kwalifikowany",
-    "1"
+    "bez karty i czytnika",
+    "kod z telefonu",
+    "Windows i macOS"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -85321,7 +85358,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "EuroCert — podpis i pieczęć"
+   "seria": "EuroCert — podpis i pieczęć",
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "eurocert-podpis-classic",
@@ -85338,12 +85376,12 @@
    "opis": [
     "Zestaw Classic to kwalifikowany podpis elektroniczny EuroCert dla osoby fizycznej na karcie wielkości karty bankomatowej z czytnikiem biurkowym. EuroCert poleca go do pracy przy komputerze stacjonarnym, np. w biurze rachunkowym albo w dziale kadr.",
     "W zestawie jest czytnik Gemalto IDBridge CT30 (USB 2.0), karta Standard, certyfikat kwalifikowany ważny 1, 2 albo 3 lata i oprogramowanie do składania podpisu (PAdES, XAdES). Moc prawna i zastosowania są takie same jak w zestawie Token: ZUS (Płatnik), JPK, e-deklaracje, ePUAP, eKRS, przetargi, umowy i e-faktury, także logowanie do KSeF. Kto ma już czytnik stykowy, może kupić samą kartę, a po zmianie nazwiska — nowy certyfikat. Tożsamość potwierdza się w punkcie partnerskim albo u klienta (usługa VIP).",
-    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS. Certyfikat jest ważny 1, 2 albo 3 lata; po tym czasie odnawia się go albo wydaje nowy, a my przypominamy o terminie, żeby podpis nie wygasł w trakcie rozliczeń."
+    "Pomagamy wybrać formę podpisu i przygotować się do weryfikacji tożsamości u EuroCert, a po wydaniu instalujemy oprogramowanie i sprawdzamy podpisywanie dokumentów oraz logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS. Certyfikat jest ważny 1, 2 albo 3 lata; po tym czasie odnawia się go albo wydaje nowy."
    ],
    "cechy": [
-    "karta Standard z czytnikiem biurkowym",
-    "czytnik Gemalto IDBridge CT30 USB",
-    "1"
+    "karta i czytnik biurkowy",
+    "certyfikat na 1–3 lata",
+    "do pracy przy jednym komputerze"
    ],
    "parametry": [
     {
@@ -85423,9 +85461,9 @@
     }
    ],
    "wyrozniki": [
-    "karta Standard z czytnikiem biurkowym",
-    "czytnik Gemalto IDBridge CT30 USB",
-    "1"
+    "karta i czytnik biurkowy",
+    "certyfikat na 1–3 lata",
+    "do pracy przy jednym komputerze"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -85450,7 +85488,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "EuroCert — podpis i pieczęć"
+   "seria": "EuroCert — podpis i pieczęć",
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "eurocert-podpis-token",
@@ -85467,12 +85506,12 @@
    "opis": [
     "Zestaw Token to kwalifikowany podpis elektroniczny EuroCert dla osoby fizycznej, wydawany na karcie SIM w małym czytniku USB, który nosi się jak pendrive. Sprawdza się u przedsiębiorców i księgowych, którzy podpisują dokumenty na różnych komputerach.",
     "W zestawie jest czytnik FEITIAN R301 (USB 2.0, na karty SIM), karta SIM, certyfikat kwalifikowany ważny 1, 2 albo 3 lata oraz oprogramowanie do składania podpisu w formatach PAdES i XAdES. Podpis ma moc podpisu własnoręcznego w całej UE (eIDAS) i służy m.in. do e-deklaracji, ZUS (Płatnik), JPK, ePUAP, eKRS, przetargów elektronicznych (JEDZ), umów i e-faktur. Tożsamość potwierdza się w punkcie partnerskim EuroCert (spotkanie ok. 20 minut, podpis gotowy od razu) z dowodem osobistym, paszportem albo kartą stałego pobytu.",
-    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS. Certyfikat jest ważny 1, 2 albo 3 lata; po tym czasie odnawia się go albo wydaje nowy, a my przypominamy o terminie, żeby podpis nie wygasł w trakcie rozliczeń."
+    "Pomagamy wybrać formę podpisu i przygotować się do weryfikacji tożsamości u EuroCert, a po wydaniu instalujemy oprogramowanie i sprawdzamy podpisywanie dokumentów oraz logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS. Certyfikat jest ważny 1, 2 albo 3 lata; po tym czasie odnawia się go albo wydaje nowy."
    ],
    "cechy": [
-    "karta SIM w czytniku USB (token)",
-    "czytnik FEITIAN R301 USB",
-    "1"
+    "karta SIM w czytniku USB",
+    "certyfikat na 1–3 lata",
+    "ZUS, JPK, KSeF"
    ],
    "parametry": [
     {
@@ -85557,9 +85596,9 @@
     }
    ],
    "wyrozniki": [
-    "karta SIM w czytniku USB (token)",
-    "czytnik FEITIAN R301 USB",
-    "1"
+    "karta SIM w czytniku USB",
+    "certyfikat na 1–3 lata",
+    "ZUS, JPK, KSeF"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -85584,7 +85623,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "EuroCert — podpis i pieczęć"
+   "seria": "EuroCert — podpis i pieczęć",
+   "sprawdzono": "2026-11-12"
   },
   {
    "slug_seed": "piecz",

@@ -113,6 +113,7 @@ import {
   mediaData,
   PREVIOUS_CATEGORY_SLUGS,
   productUpdateData,
+  laterDate,
   searchData,
   seedDate,
   skipMediaFile,
@@ -609,11 +610,17 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
           sources: {
             ...k3Data.sources,
             links: k4Fields.sourceLinks,
-            // A K4 card's sources were checked with the package (`katalog-k4.json → sprawdzono`):
-            // the date shows at each source (PRODUKCJA-BIZNES-1211 §1); a later K3 date stays.
-            checkedAt:
-              k3Data.sources.checkedAt ??
-              (k4Fields.sourceLinks.length > 0 ? seedDate(k4Catalog.sprawdzono) : null),
+            // The date shows at each source (PRODUKCJA-BIZNES-1211 §1): the card's own
+            // `sprawdzono` (`null` = not confirmed, no date), else the package's; the later of it
+            // and the K3 date (and the stored one, `productUpdateData`) wins.
+            checkedAt: laterDate(
+              k3Data.sources.checkedAt,
+              k4Fields.sourceLinks.length === 0
+                ? null
+                : k4 && 'sprawdzono' in k4
+                  ? seedDate((k4 as { sprawdzono?: string | null }).sprawdzono)
+                  : seedDate(k4Catalog.sprawdzono),
+            ),
           },
         }
       : k3Data
