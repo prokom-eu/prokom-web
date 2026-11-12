@@ -67,6 +67,29 @@ test.describe('Instalacje animations off screen', () => {
   })
 })
 
+test.describe('Instalacje sections skipped from the first render', () => {
+  test.use({ viewport: DESKTOP })
+
+  test('content sections after the hero are skipped while far away; hero and footer are not', async ({
+    page,
+  }) => {
+    await page.goto(site(INST_HOST))
+    // Before any scroll (TBT: the browser does not lay out the rest of the page at load).
+    await expect(page.locator('#faq')).toHaveCSS('content-visibility', 'auto')
+    await expect(
+      page
+        .locator('#faq h2')
+        .first()
+        .evaluate((el) => el.checkVisibility({ contentVisibilityAuto: true })),
+    ).resolves.toBe(false)
+    // The hero is the LCP; the footer's mountains rise above it (containment would clip them).
+    await expect(page.locator('#start')).toHaveCSS('content-visibility', 'visible')
+    // In view the footer has no containment (off screen `[data-off]` skips it like any section).
+    await scrollTo(page, 'bottom')
+    await expect(page.locator('#top > footer')).toHaveCSS('content-visibility', 'visible')
+  })
+})
+
 const REDUCED = INST_PAGES.filter(
   (path) =>
     path === '/' ||

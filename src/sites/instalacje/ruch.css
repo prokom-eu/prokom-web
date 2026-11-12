@@ -404,8 +404,17 @@ html[data-line='instalacje'] :is(#tresc section, #top > section, #top > footer) 
 html[data-line='instalacje'] [data-off]:is(section, footer) {
   content-visibility: auto;
 }
+/* From the first render, before any JS (TBT, report 11.11.2026 part 3): the content sections after
+   the first one and the CTA band are skipped by the browser while far from the screen — loading
+   `/` on a phone laid out the whole ~12 000 px page in long tasks (TBT ~440 → ~250 ms, Pixel 7
+   CPU×4). Measured on every page of the line at 1440 and 390 px: no section moves and nothing
+   that sticks out of one is visible (only clipped carousels, an off-screen honeypot field) — so
+   the containment changes nothing in view. Not the footer: its mountains (`.ftmt`) rise above it. */
+html[data-line='instalacje'] :is(#tresc > section ~ section, #top > section) {
+  content-visibility: auto;
+}
 @media print {
-  html[data-line='instalacje'] [data-off] {
+  html[data-line='instalacje'] :is([data-off], #tresc > section ~ section, #top > section) {
     content-visibility: visible;
   }
 }
