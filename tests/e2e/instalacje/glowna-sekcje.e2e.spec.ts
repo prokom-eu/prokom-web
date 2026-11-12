@@ -1,7 +1,7 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { FORM_MIN_FILL_MS } from '../../../src/lib/inquiry/spam'
-import { api, loginAsAdmin, site } from '../helpers'
+import { api, hydrated, loginAsAdmin, site } from '../helpers'
 
 // I6: the home sections below the hero (KOMPONENTY §3, spec §5.1/§6, MOBILE-APLIKACJA §10).
 // Data from `pnpm seed`: realizations published with the clients' consent (boss 01.11.2026).
@@ -183,6 +183,8 @@ test.describe('Instalacje home sections', () => {
     await open(page, '/#zaplanuj')
     const form = page.locator('#zaplanuj')
     const send = form.getByRole('button', { name: 'Zamów oddzwonienie' })
+    // Sent before the form hydrates (ADR-023), the browser submits it natively (GET ?name=…).
+    await hydrated(send)
     await send.click()
     await expect(form.getByRole('alert')).toHaveText('Zaznacz przynajmniej jedną instalację.')
 
