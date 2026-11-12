@@ -42,8 +42,29 @@ test.describe('Biznes /insert (K4h)', () => {
     await expect(page.locator('[data-table-lines] > ul > li')).toHaveCount(4)
     await expect(page.locator('[data-table-lines]')).toContainText('InsERT nexo PRO+')
     await expect(
-      page.locator('section').filter({ hasText: 'Zobacz programy w działaniu' }).locator('img'),
+      page.locator('section').filter({ hasText: 'Filmy o programach InsERT' }).locator('img'),
     ).toHaveCount(1)
+  })
+
+  test('PRODUKCJA-BIZNES-1211: programs in action, program care with the form topic', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site('biznes.localhost', '/insert'))
+    // Five programs, each with its real screen and „Dodaj do zapytania”.
+    const programs = page.locator('#programy')
+    await expect(programs.getByRole('tab')).toHaveCount(5)
+    await expect(programs.getByRole('tabpanel').locator('figure img')).toHaveCount(1)
+    await programs.getByRole('tab', { name: 'Rewizor' }).click()
+    await expect(programs.getByRole('tabpanel')).toContainText('Rewizor')
+    await expect(
+      programs.getByRole('tabpanel').getByRole('button', { name: /Dodaj do zapytania/ }),
+    ).toBeVisible()
+    // Program care: five tiles and the form with its topic.
+    await expect(page.locator('#opieka li')).toHaveCount(5)
+    await expect(
+      page.getByRole('link', { name: 'Zapytaj o opiekę nad programem' }),
+    ).toHaveAttribute('href', /\/kontakt\?temat=KSeF%2C%20programy%20i%20opieka%20IT#formularz/)
   })
 
   test('PREMIUM-1011: on a phone the boxes are a row to swipe', async ({ page }) => {

@@ -11,7 +11,8 @@ import type { IndexImage } from '@/lib/catalog/catalogIndex'
 
 import { VideoFacade } from '../../../components/VideoFacade'
 import { useSwap } from '../../../components/motion/useSwap'
-import { CARD, TAB_KEYS } from '../ui'
+import { AddActionButton } from '../AddActionButton'
+import { BTN_PRIMARY, CARD, TAB_KEYS } from '../ui'
 
 /**
  * `videos`: the picked film behind the facade (ADR-016) and the list of films next to it. The
@@ -80,13 +81,99 @@ export function VideoPicker({
 }
 
 /** `tabs`: groups of entries behind tabs (arrow keys move between tabs). */
-export function TabsPicker({ data }: { data: SectionData<'tabs'> }) {
+/** A program of a tab, from its catalog card (server side, `tabsExtras`). */
+export type TabProgram = {
+  name: string
+  image?: IndexImage
+  benefit?: string
+  features: string[]
+}
+
+/**
+ * A program in action (PRODUKCJA-BIZNES-1211 §4): its real screen on the white plate, three
+ * points of its card and „Dodaj do zapytania”.
+ */
+function ProgramShot({
+  slug,
+  screen,
+  program,
+}: {
+  slug: string
+  screen?: IndexImage
+  program?: TabProgram
+}) {
+  const name = program?.name ?? slug
+  return (
+    <div className="mt-5 grid items-center gap-6 max-md:mt-3 max-md:gap-4 min-[1000px]:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+      {screen && (
+        <figure className="overflow-hidden rounded-[22px] bg-plate p-3 shadow-[0_18px_40px_-26px_var(--plate-shadow),inset_0_0_0_1px_var(--plate-shadow)]">
+          <Image
+            unoptimized
+            src={screen.url}
+            alt={screen.alt}
+            width={screen.width}
+            height={screen.height}
+            className="h-auto w-full rounded-xl object-contain"
+          />
+        </figure>
+      )}
+      <div className="flex flex-col gap-4 text-ink max-md:gap-3">
+        <h3 className="font-display text-[1.5rem] leading-tight font-extrabold max-md:text-xl">
+          {name}
+        </h3>
+        {program?.benefit && (
+          <p className="leading-relaxed text-pretty text-ink-2">{program.benefit}</p>
+        )}
+        {program && program.features.length > 0 && (
+          <ul className="flex flex-col gap-2">
+            {program.features.map((feature) => (
+              <li key={feature} className="flex gap-2 text-[15px] leading-snug">
+                <span aria-hidden="true" className="font-extrabold text-ok-text">
+                  ✓
+                </span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="flex flex-wrap items-center gap-3">
+          <AddActionButton
+            slug={slug}
+            label="Dodaj do zapytania"
+            note={`Pokaz programu: ${name}`}
+            className={BTN_PRIMARY}
+          />
+          <Link
+            href={productHref(slug)}
+            className="inline-flex min-h-11 items-center font-extrabold text-accent-text hover:underline"
+          >
+            Karta programu<span className="sr-only">: {name}</span> →
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function TabsPicker({
+  data,
+  programs = {},
+  screens = {},
+}: {
+  data: SectionData<'tabs'>
+  programs?: Record<string, TabProgram>
+  screens?: Record<string, IndexImage>
+}) {
   const [current, setCurrent] = useState(0)
   const swap = useSwap(current)
   const base = useId()
-  const tab = data.tabs[current] ?? data.tabs[0]!
+  // A program tab whose card is not in the catalog (unpublished, slug changed in the panel) is
+  // left out: no raw slug as a heading, no „Dodaj” of a missing product.
+  const tabs = data.tabs.filter((item) => !item.shot || programs[item.shot.slug])
+  const tab = tabs[current] ?? tabs[0]
+  if (!tab) return null
   const move = (delta: number) => {
-    const next = (current + delta + data.tabs.length) % data.tabs.length
+    const next = (current + delta + tabs.length) % tabs.length
     setCurrent(next)
     document.getElementById(`${base}-t${next}`)?.focus()
   }
@@ -94,17 +181,17 @@ export function TabsPicker({ data }: { data: SectionData<'tabs'> }) {
     <div>
       <div
         role="tablist"
-        aria-label="Obszary"
+        aria-label={tabs.some((item) => item.shot) ? 'Programy' : 'Obszary'}
         className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2"
         onKeyDown={(event) => {
           if (TAB_KEYS.has(event.key)) event.preventDefault()
           if (event.key === 'ArrowRight') move(1)
           if (event.key === 'ArrowLeft') move(-1)
           if (event.key === 'Home') move(-current)
-          if (event.key === 'End') move(data.tabs.length - 1 - current)
+          if (event.key === 'End') move(tabs.length - 1 - current)
         }}
       >
-        {data.tabs.map((item, i) => (
+        {tabs.map((item, i) => (
           <button
             key={item.t}
             id={`${base}-t${i}`}
@@ -122,43 +209,86 @@ export function TabsPicker({ data }: { data: SectionData<'tabs'> }) {
             )}
           >
             {item.t}
-            <span className="text-[13px] opacity-70">{item.items.length}</span>
+            {item.items.length > 0 && (
+              <span className="text-[13px] opacity-70">{item.items.length}</span>
+            )}
           </button>
         ))}
       </div>
       <div id={`${base}-p`} role="tabpanel" aria-labelledby={`${base}-t${current}`} {...swap}>
+        {tab.shot && (
+          <ProgramShot
+            slug={tab.shot.slug}
+            screen={tab.shot.image !== undefined ? screens[String(tab.shot.image)] : undefined}
+            program={programs[tab.shot.slug]}
+          />
+        )}
         {/* Phone (App-InsERT „Cała oferta”): the entries as rows of one list. */}
-        <ul className="mt-5 grid gap-4 max-md:mt-3 max-md:gap-0 max-md:divide-y max-md:divide-border max-md:rounded-[20px] max-md:px-4 max-md:shadow-[inset_0_0_0_1px_var(--border)] min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
-          {tab.items.map((item) => (
-            <li
-              key={item.t}
-              className={cx(
-                CARD,
-                'flex flex-col gap-1.5 p-5 text-ink max-md:gap-0.5 max-md:rounded-none max-md:bg-transparent max-md:px-0 max-md:py-3 max-md:shadow-none',
-              )}
-            >
-              {item.l && (
-                <span className="text-[13px] font-extrabold text-ink-2 max-md:text-[11px]">
-                  {item.l}
-                </span>
-              )}
-              <b className="font-display text-[1.1rem] font-extrabold max-md:text-[15px]">
-                {item.t}
-              </b>
-              <span className="text-[15px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
-                {item.d}
-              </span>
-              {item.slug && (
-                <Link
-                  href={productHref(item.slug)}
-                  className="mt-auto pt-2 font-extrabold text-accent-text hover:underline max-md:pt-1 max-md:text-[13px]"
-                >
-                  Zobacz kartę →
-                </Link>
-              )}
-            </li>
-          ))}
-        </ul>
+        {tab.items.length > 0 && (
+          <ul className="mt-5 grid gap-4 max-md:mt-3 max-md:gap-0 max-md:divide-y max-md:divide-border max-md:rounded-[20px] max-md:px-4 max-md:shadow-[inset_0_0_0_1px_var(--border)] min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
+            {tab.items.map((item) => (
+              <li
+                key={item.t}
+                className={cx(
+                  CARD,
+                  'flex flex-col gap-1.5 p-5 text-ink max-md:gap-0.5 max-md:rounded-none max-md:bg-transparent max-md:px-0 max-md:py-3 max-md:shadow-none',
+                )}
+              >
+                <div className="flex items-start gap-3">
+                  {/* The program's box from its card (PRODUKCJA-BIZNES-1211 §4). */}
+                  {item.slug && programs[item.slug]?.image && (
+                    <Image
+                      unoptimized
+                      src={programs[item.slug]!.image!.url}
+                      alt=""
+                      width={programs[item.slug]!.image!.width}
+                      height={programs[item.slug]!.image!.height}
+                      className="h-20 w-16 shrink-0 object-contain max-md:h-14 max-md:w-11"
+                    />
+                  )}
+                  <div className="flex min-w-0 flex-col gap-1">
+                    {item.l && (
+                      <span className="text-[13px] font-extrabold text-ink-2 max-md:text-[11px]">
+                        {item.l}
+                      </span>
+                    )}
+                    <b className="font-display text-[1.1rem] font-extrabold max-md:text-[15px]">
+                      {item.t}
+                    </b>
+                    <span className="text-[15px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
+                      {item.d}
+                    </span>
+                  </div>
+                </div>
+                {item.slug && programs[item.slug]?.benefit && (
+                  <p className="text-[14px] leading-snug text-ink-2 max-md:hidden">
+                    {programs[item.slug]!.benefit}
+                  </p>
+                )}
+                {item.slug && (programs[item.slug]?.features.length ?? 0) > 0 && (
+                  <ul className="flex flex-col gap-1 max-md:hidden">
+                    {programs[item.slug]!.features.map((feature) => (
+                      <li key={feature} className="flex gap-2 text-[14px] leading-snug">
+                        <span aria-hidden="true" className="text-ok-text">
+                          ✓
+                        </span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {item.slug && (
+                  <Link
+                    href={productHref(item.slug)}
+                    className="mt-auto pt-2 font-extrabold text-accent-text hover:underline max-md:pt-1 max-md:text-[13px]"
+                  >
+                    Zobacz kartę →
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   )

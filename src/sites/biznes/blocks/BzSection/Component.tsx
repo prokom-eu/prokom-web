@@ -23,6 +23,7 @@ import {
   TableSection,
 } from './common/Basic'
 import { BundlesSection } from './common/Bundles'
+import type { TabProgram } from './common/Interactive'
 import { TabsPicker, VideoPicker } from './common/InteractiveLazy'
 import { ProductGrid, productsBySlug } from './common/Products'
 import { Audience, CareHero, CareReview, StartCalendar } from './firma/Care'
@@ -63,6 +64,7 @@ type Props = {
 /** Kinds that read the catalog (product cards, pictures, brand logos). */
 const NEEDS_INDEX: ReadonlySet<SectionVariant> = new Set([
   'products',
+  'tabs',
   'bundles',
   'gopos-hero',
   'gopos-venues',
@@ -99,6 +101,34 @@ async function imagesOf(
     images[id] = image
   }
   return images
+}
+
+/**
+ * What the tabs show next to their texts (PRODUKCJA-BIZNES-1211 §4): each program's box, „for
+ * whom” and three points from its catalog card, and the real screens of „Zobacz program w
+ * działaniu” by Media id. Plain data for the client widget.
+ */
+async function tabsExtras(
+  data: NonNullable<ReturnType<typeof parseSectionData<'tabs'>>>,
+  index: CatalogIndex | null,
+  tenantId: number,
+) {
+  const slugs = data.tabs.flatMap((tab) => [
+    ...tab.items.flatMap((item) => (item.slug ? [item.slug] : [])),
+    ...(tab.shot ? [tab.shot.slug] : []),
+  ])
+  const programs: Record<string, TabProgram> = {}
+  for (const product of index ? productsBySlug(index, slugs) : []) {
+    programs[product.slug] = {
+      name: product.name,
+      ...(product.image && { image: product.image }),
+      ...(product.benefit && { benefit: product.benefit }),
+      features: product.features.slice(0, 3),
+    }
+  }
+  const ids = data.tabs.flatMap((tab) => (tab.shot?.image !== undefined ? [tab.shot.image] : []))
+  const screens = ids.length > 0 ? await getSectionImages(tenantId, ids) : {}
+  return { programs, screens }
 }
 
 /**
@@ -172,7 +202,7 @@ async function render(
       return (
         data && (
           <SectionShell block={block}>
-            <TabsPicker data={data} />
+            <TabsPicker data={data} {...await tabsExtras(data, index, tenantId)} />
           </SectionShell>
         )
       )

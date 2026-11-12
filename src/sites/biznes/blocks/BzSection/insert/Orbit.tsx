@@ -103,7 +103,7 @@ export function InsertOrbit({
                 alt=""
                 width={box.image.width}
                 height={box.image.height}
-                className="h-20 w-auto object-contain"
+                className="h-24 w-auto object-contain"
               />
               <span className="text-center text-xs leading-tight font-extrabold">{box.name}</span>
             </Link>
@@ -113,7 +113,7 @@ export function InsertOrbit({
 
       <div
         ref={board}
-        className="relative mx-auto aspect-[500/440] w-full max-w-[600px] max-md:hidden"
+        className="relative mx-auto aspect-[500/440] w-full max-w-[680px] max-md:hidden"
         data-insert-orbit
       >
         {[0.62, 0.92].map((size) => (
@@ -125,7 +125,7 @@ export function InsertOrbit({
           />
         ))}
         <span
-          className="absolute top-1/2 left-1/2 z-[2] w-[34%] -translate-x-1/2 -translate-y-1/2"
+          className="absolute top-1/2 left-1/2 z-[2] w-[40%] -translate-x-1/2 -translate-y-1/2"
           data-orbit-center
         >
           <Link
@@ -148,7 +148,7 @@ export function InsertOrbit({
         {items.map((box) => (
           <span
             key={box.slug}
-            className="absolute z-[1] w-[17%] -translate-x-1/2 -translate-y-1/2"
+            className="absolute z-[1] w-[20%] -translate-x-1/2 -translate-y-1/2"
             style={{
               left: `${((box.x ?? W / 2) / W) * 100}%`,
               top: `${((box.y ?? H / 2) / H) * 100}%`,
