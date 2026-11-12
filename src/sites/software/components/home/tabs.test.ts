@@ -45,6 +45,12 @@ describe('autoRotates (audyt 01.11 P1 #19)', () => {
     expect(autoRotates({ ...base, paused: true })).toBe(false)
   })
 
+  it('rests while the section is off screen or the browser tab hidden, goes on after (SWA13 #1)', () => {
+    expect(autoRotates({ ...base, offscreen: true })).toBe(false)
+    expect(autoRotates({ ...base, hidden: true })).toBe(false)
+    expect(autoRotates({ ...base, offscreen: false, hidden: false })).toBe(true)
+  })
+
   it('never with reduced motion or a single tab', () => {
     expect(autoRotates({ ...base, reducedMotion: true })).toBe(false)
     expect(autoRotates({ ...base, count: 1 })).toBe(false)

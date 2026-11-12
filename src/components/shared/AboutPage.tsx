@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from './IntentLink'
 import type { ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'

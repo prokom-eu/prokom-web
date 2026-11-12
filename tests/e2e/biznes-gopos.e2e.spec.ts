@@ -22,7 +22,7 @@ test.describe('Biznes /gopos (K4h)', () => {
     await page.goto(site('biznes.localhost', '/gopos'))
 
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toHaveText(/Sala, kuchnia i dowozy\.\s*Jeden system\./)
+    await expect(page.locator('h1')).toHaveText(/Sala,\skuchnia\si\sdowozy\.\s*Jeden\ssystem\./)
     // The phrase stays for search engines and visitors in the pill (PRODUKCJA-BIZNES-1211 §3).
     await expect(page.locator('section[aria-labelledby="gopos-h"]')).toContainText(
       'GoPOS dla gastronomii',

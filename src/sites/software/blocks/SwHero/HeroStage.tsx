@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import {
   useCallback,
   useEffect,
@@ -69,6 +69,12 @@ export function HeroStage({
   const [paused, setPaused] = useState(false)
   const [focused, setFocused] = useState(false)
   const [still, setStill] = useState(false)
+  // Windows whose mock-up is drawn (SWA13 #7): the front one and its neighbours at first, then
+  // every window once it came near — a window leaving to the back keeps its mock-up while it
+  // fades out. Grown during render, so the window in front never shows an empty frame.
+  const [drawn, setDrawn] = useState<ReadonlySet<number>>(() => near(0, count))
+  const nearNow = near(current, count)
+  if ([...nearNow].some((index) => !drawn.has(index))) setDrawn(new Set([...drawn, ...nearNow]))
   const root = useRef<HTMLDivElement>(null)
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const resume = useRef<number | undefined>(undefined)
@@ -275,15 +281,18 @@ export function HeroStage({
             swipe.current = null
           }}
         >
-          {windows.map((mockup, index) => (
-            <div
-              key={`${index}-${slides[index]?.name ?? ''}`}
-              className="hx-win"
-              data-rank={rankOf(index, current, count)}
-            >
-              {mockup}
-            </div>
-          ))}
+          {windows.map((mockup, index) => {
+            const rank = rankOf(index, current, count)
+            return (
+              <div
+                key={`${index}-${slides[index]?.name ?? ''}`}
+                className="hx-win"
+                data-rank={rank}
+              >
+                {drawn.has(index) || rank !== 'rx' ? mockup : null}
+              </div>
+            )
+          })}
           {count > 1 && (
             <>
               <button
@@ -356,4 +365,13 @@ function ArrowIcon({ d }: { d: string }) {
       <path d={d} />
     </svg>
   )
+}
+
+/** The window in front and its two neighbours (ranks `r0`, `r1`, `rl`). */
+function near(current: number, count: number): Set<number> {
+  const set = new Set<number>()
+  for (let index = 0; index < count; index++) {
+    if (rankOf(index, current, count) !== 'rx') set.add(index)
+  }
+  return set
 }

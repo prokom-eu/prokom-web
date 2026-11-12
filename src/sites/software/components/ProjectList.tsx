@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { type RefObject, useEffect, useRef } from 'react'
 
 import { Icon } from '@/components/ui/Icon'

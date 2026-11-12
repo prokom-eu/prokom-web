@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 import { OFFER_GROUPS, offerGroup } from '@/lib/software/catalog'
 import { getOfferViews, getPricingSource, getSolutionsIndex } from '@/lib/software/data'

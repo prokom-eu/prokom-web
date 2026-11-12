@@ -1,18 +1,16 @@
 import { formatPrice } from '../price'
 import type { IndexSolution } from '../solutionsIndex'
+import type { SoftwareWizard, WizardCondition, WizardType } from './schema'
 import {
   DESCRIPTION_STEP,
   PICK_STEPS,
   SIZE_STEP,
-  type SoftwareWizard,
   URL_STEP,
   WIZARD_PICKS,
-  type WizardCondition,
   type WizardGroup,
   type WizardPick,
   type WizardStep,
-  type WizardType,
-} from './schema'
+} from './steps'
 
 /**
  * Behaviour of wizard v3 (ZMIANY-v24 §7.1, `v24/wzorzec/aurora.js`): pure functions shared by the

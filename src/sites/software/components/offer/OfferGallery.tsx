@@ -6,7 +6,7 @@ import { flushSync } from 'react-dom'
 import { isVariantOf, type MockupKind } from '@/lib/software/mockups'
 import type { SpotKey } from '@/lib/software/spots'
 import type { IndexPreview } from '@/lib/software/solutionsIndex'
-import { Mockup } from '@/sites/software/components/mockups/Mockup'
+import { Mockup } from '@/sites/software/components/mockups/MockupLazy'
 
 import { switchDevice } from './offerTransition'
 import { OfferThumb } from './OfferThumb'
