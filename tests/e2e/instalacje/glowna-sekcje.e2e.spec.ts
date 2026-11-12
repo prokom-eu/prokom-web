@@ -102,9 +102,13 @@ test.describe('Instalacje home sections', () => {
     await page.setViewportSize({ width: 844, height: 390 })
     await page.goto(site(HOST, '/'))
     const axis = page.locator('#proces .procw')
-    await axis.scrollIntoViewIfNeeded()
-    await page.mouse.wheel(0, 300)
-    await expect(axis).toHaveAttribute('data-on', '1')
+    // A scroll before the axis watches the screen (data-ready, ADR-023) is not seen: scroll again.
+    await expect(axis).toHaveAttribute('data-ready', '1', { timeout: 15_000 })
+    await expect(async () => {
+      await axis.scrollIntoViewIfNeeded()
+      await page.mouse.wheel(0, 300)
+      await expect(axis).toHaveAttribute('data-on', '1', { timeout: 1000 })
+    }).toPass()
     await expect
       .poll(() =>
         axis
