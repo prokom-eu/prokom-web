@@ -85,6 +85,8 @@ test.describe('/_software — v24 foundation', () => {
   test('the segment switches with aria-pressed', async ({ page }) => {
     await page.goto(site(HOST, '/_software'))
     const group = page.getByRole('group', { name: 'Widok podglądu' })
+    // A click before the island hydrates (ADR-023) is lost.
+    await hydrated(group.getByRole('button', { name: 'System' }))
     await group.getByRole('button', { name: 'System' }).click()
     await expect(group.getByRole('button', { name: 'System' })).toHaveAttribute(
       'aria-pressed',
