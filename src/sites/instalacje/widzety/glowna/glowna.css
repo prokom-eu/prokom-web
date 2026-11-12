@@ -1411,13 +1411,15 @@
       height: 0;
       overflow: hidden;
     }
-    /* Here the building scene draws the backdrop through <use>, whose copy does not animate;
-       the hidden original's loops only cost CPU (report 11.11.2026, part 2: ~44 → 25 % on a
-       phone with the hero in view) and change nothing on screen. */
+    /* Here the building scene draws the backdrop through <use>, whose copy does not animate in
+       Chromium; the hidden original's loops only cost CPU (report 11.11.2026, part 2: ~44 → 25 %
+       on a phone with the hero in view). `none`, not paused: a browser that animates <use> copies
+       (WebKit, Gecko) shows the backdrop at rest — the reduced-motion look — instead of a frame
+       frozen at 0 % (dim stars, shifted clouds). */
     & .hxsvg *,
     & .hxsvg *::before,
     & .hxsvg *::after {
-      animation-play-state: paused !important;
+      animation: none !important;
     }
     & .hxin {
       display: flex;

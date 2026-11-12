@@ -404,6 +404,11 @@ html[data-line='instalacje'] :is(#tresc section, #top > section, #top > footer) 
 html[data-line='instalacje'] [data-off]:is(section, footer) {
   content-visibility: auto;
 }
+@media print {
+  html[data-line='instalacje'] [data-off] {
+    content-visibility: visible;
+  }
+}
 /* A hidden tab: everything stands (toggled rarely, so restyling the page is fine). */
 html[data-line='instalacje'][data-off] *,
 html[data-line='instalacje'][data-off] *::before,

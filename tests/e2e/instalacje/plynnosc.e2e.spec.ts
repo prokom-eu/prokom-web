@@ -21,7 +21,7 @@ const runningIn = (page: Page, selector?: string) =>
     selector,
   )
 
-/** Looping animations that are live — also the ones paused off screen (`data-off`). */
+/** Looping animations that are live — running or paused (the hero's pause button, a hidden tab). */
 const looping = (page: Page) =>
   page.evaluate(
     () =>
