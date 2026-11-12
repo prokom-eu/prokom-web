@@ -48,8 +48,16 @@ test.describe('Instalacje full offer', () => {
     page,
   }) => {
     await open(page, '/uslugi')
-    await page.getByRole('searchbox', { name: 'Szukaj w ofercie' }).fill('basen z falami')
-    await expect(page.locator('#lista .ofempty')).toContainText('Nie znaleźliśmy tego w ofercie')
+    // Typed before the list's code has arrived (ADR-023), the phrase is not searched: type again.
+    const search = page.getByRole('searchbox', { name: 'Szukaj w ofercie' })
+    await expect(async () => {
+      await search.fill('')
+      await search.fill('basen z falami')
+      await expect(page.locator('#lista .ofempty')).toContainText(
+        'Nie znaleźliśmy tego w ofercie',
+        { timeout: 1000 },
+      )
+    }).toPass()
     await expect(page.locator('#lista .ofempty a')).toHaveAttribute(
       'href',
       '/zaplanuj?opis=basen%20z%20falami',
