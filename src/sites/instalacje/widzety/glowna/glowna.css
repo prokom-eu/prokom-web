@@ -1411,6 +1411,14 @@
       height: 0;
       overflow: hidden;
     }
+    /* Here the building scene draws the backdrop through <use>, whose copy does not animate;
+       the hidden original's loops only cost CPU (report 11.11.2026, part 2: ~44 → 25 % on a
+       phone with the hero in view) and change nothing on screen. */
+    & .hxsvg *,
+    & .hxsvg *::before,
+    & .hxsvg *::after {
+      animation-play-state: paused !important;
+    }
     & .hxin {
       display: flex;
       flex-direction: column;
