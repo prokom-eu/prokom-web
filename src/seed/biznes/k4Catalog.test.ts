@@ -232,10 +232,11 @@ describe('K4 package (katalog-k4.json)', () => {
 
   const cards: K4Card[] = k4Catalog.produkty
 
-  it('has 422 cards: 162 new, 129 changed, 131 typography', () => {
+  // + 5 PolCard terminals of PRODUKCJA-BIZNES-1211 (sesja 2: a card per model, not one card).
+  it('has 427 cards: 167 new, 129 changed, 131 typography', () => {
     const count = (kind: string) => cards.filter((card) => card.zmiana_k4 === kind).length
-    expect(cards).toHaveLength(422)
-    expect([count('nowa'), count('zmieniona'), count('drobne')]).toEqual([162, 129, 131])
+    expect(cards).toHaveLength(427)
+    expect([count('nowa'), count('zmieniona'), count('drobne')]).toEqual([167, 129, 131])
   })
 
   it('points polecane and podobne only at cards of the package or of the K3.1 split', () => {
@@ -289,8 +290,8 @@ describe('k4NewCards (K4-FINAL §4.3, 162 new cards)', () => {
 
   it('builds the cards the repo does not have, in the K3 shape', () => {
     const fresh = k4NewCards(cards, repo)
-    expect(fresh).toHaveLength(162)
-    expect(new Set(fresh.map((card) => card.slug_seed)).size).toBe(162)
+    expect(fresh).toHaveLength(167)
+    expect(new Set(fresh.map((card) => card.slug_seed)).size).toBe(167)
     const macbook = fresh.find((card) => card.slug_seed === 'apple-macbook-air-m5')
     expect(macbook).toMatchObject({
       marka: 'Apple',

@@ -1,7 +1,7 @@
 {
  "wersja": "K4 (wizualizacja v150)",
  "sprawdzono": "2026-10-29",
- "liczba": 422,
+ "liczba": 427,
  "zmiany": {
   "zmieniona": 129,
   "drobne": 131,
@@ -7247,7 +7247,807 @@
      "v": "pasek magnetyczny, chip EMV, zbliżeniowy (NFC)"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico"
+  },
+  {
+   "slug_seed": "ingenico-move-2500",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "sprz",
+   "kategoria": "term",
+   "marka": "PolCard",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Ingenico Move 2500 (PolCard)",
+   "krotka": "Ingenico Move 2500",
+   "podtytul": "Przenośny terminal płatniczy z łącznością 3G/4G i drukarką",
+   "korzysc": "Przyjmujesz płatność kartą, telefonem albo BLIK-iem tam, gdzie jest klient: przy stoliku, na targu, w dostawie.",
+   "opis": [
+    "Ingenico Move 2500 to przenośny terminal płatniczy w usłudze PolCard dla firm, które sprzedają w ruchu: małych kawiarni i restauracji, foodtrucków, sprzedaży na targach i bazarach, usług u klienta i dostaw. Łączy się przez sieć komórkową 3G/4G (opcjonalnie z dwiema kartami SIM), więc nie potrzebuje Wi-Fi w lokalu ani kabla.",
+    "Terminal czyta pasek magnetyczny, chip i karty zbliżeniowe, przyjmuje płatności telefonem i zegarkiem (Apple Pay, Google Pay) oraz BLIK. Ma kolorowy ekran 2,4\", klawiaturę numeryczną i wbudowaną drukarkę potwierdzeń. Akumulator litowo-jonowy 2900 mAh wystarcza według PolCard do 12 godzin pracy, a ładujesz go przez micro-USB z komputera, ładowarki samochodowej albo powerbanku. Terminal waży 320 g. W usłudze PolCard dostępne są m.in. cashback, napiwki, preautoryzacja, DCC, płatności MO/TO i ratalne oraz logowanie kasjerów.",
+    "Przy zakupie pomagamy wybrać model do sposobu sprzedaży, uruchamiamy terminal i pokazujemy obsługę: płatność, zwrot, zamknięcie dnia. Gdy pracujesz na kasie fiskalnej, możemy połączyć ją z terminalem, żeby kwota nie była wpisywana dwa razy. Paragon nadal wystawia kasa — terminal drukuje tylko potwierdzenie płatności."
+   ],
+   "cechy": [
+    "3G/4G, dual SIM",
+    "do 12 h na baterii",
+    "320 g"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "przenośny terminal płatniczy z drukarką"
+    },
+    {
+     "k": "Łączność",
+     "v": "3G/4G (opcja dual SIM); micro-USB host i slave"
+    },
+    {
+     "k": "Ekran",
+     "v": "kolorowy 2,4\""
+    },
+    {
+     "k": "Klawiatura",
+     "v": "numeryczna z klawiszami funkcyjnymi"
+    },
+    {
+     "k": "Czytnik kart",
+     "v": "pasek magnetyczny, chip EMV, zbliżeniowy (NFC)"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Usługi dodatkowe",
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, płatności ratalne, karty przedpłacone, doładowania telefonów"
+    },
+    {
+     "k": "Drukarka",
+     "v": "wbudowana, potwierdzenia płatności"
+    },
+    {
+     "k": "Zasilanie / akumulator",
+     "v": "Li-ion 2900 mAh, do 12 h pracy; ładowanie micro-USB (komputer, ładowarka samochodowa, powerbank)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "168 × 81 × 58 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "320 g"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "PCI PTS 5.x"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy Move 2500 działa bez Wi-Fi?",
+     "a": "Tak. Terminal łączy się przez sieć komórkową 3G/4G, opcjonalnie z dwiema kartami SIM. Wi-Fi nie jest potrzebne."
+    },
+    {
+     "q": "Na jak długo wystarcza bateria?",
+     "a": "PolCard podaje do 12 godzin pracy po pełnym naładowaniu akumulatora 2900 mAh. Naładujesz go przez micro-USB, także z ładowarki samochodowej albo powerbanku."
+    },
+    {
+     "q": "Czy przyjmę BLIK i płatność telefonem?",
+     "a": "Tak. Terminal przyjmuje BLIK, Apple Pay i Google Pay oraz karty z paskiem, chipem i zbliżeniowe."
+    },
+    {
+     "q": "Czy terminal wystawia paragon fiskalny?",
+     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "ergo",
+     "etykieta": "Kasa fiskalna"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis terminali"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Beauty"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-move-2500/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    }
+   ],
+   "wyrozniki": [
+    "3G/4G, dual SIM",
+    "do 12 h na baterii",
+    "320 g"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Łączność",
+     "v": "3G/4G (opcja dual SIM); micro-USB host i slave"
+    },
+    {
+     "k": "Ekran",
+     "v": "kolorowy 2,4\""
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Drukarka",
+     "v": "wbudowana, potwierdzenia płatności"
+    },
+    {
+     "k": "Waga",
+     "v": "320 g"
+    }
+   ],
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico",
+   "zdjecia": [
+    "media/produkty/ingenico-move-2500-01.webp",
+    "media/produkty/ingenico-move-2500-02.webp"
+   ]
+  },
+  {
+   "slug_seed": "ingenico-move-3500",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "sprz",
+   "kategoria": "term",
+   "marka": "PolCard",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Ingenico Move 3500 (PolCard)",
+   "krotka": "Ingenico Move 3500",
+   "podtytul": "Przenośny terminal płatniczy z 3G/4G i Wi-Fi, szybką drukarką i podstawką",
+   "korzysc": "Płatność przy stoliku, na sali albo u klienta — terminal działa przez Wi-Fi lokalu albo sieć komórkową.",
+   "opis": [
+    "Ingenico Move 3500 to przenośny terminal płatniczy w usłudze PolCard dla gastronomii i sieci restauracji, hoteli i turystyki, transportu, taxi i usług u klienta. Sprawdza się przy płatności przy stoliku i na sali, w foodtrucku oraz w sezonowych punktach na plaży czy przy atrakcjach turystycznych. Łączy się przez Wi-Fi albo sieć komórkową 3G/4G (opcjonalnie dual SIM), więc może pracować w pełni bezprzewodowo.",
+    "Terminal czyta pasek, chip i karty zbliżeniowe oraz przyjmuje płatności telefonem, zegarkiem i brelokiem z NFC, a także BLIK, Apple Pay i Google Pay. Ma kolorowy ekran 3,2\", procesor Cortex A5 i drukarkę do 30 linii na sekundę. Akumulator wystarcza według PolCard do 12 godzin bez ładowania; ładujesz go w dołączonej podstawce, z powerbanku, ładowarki samochodowej albo komputera. Waży 320 g. Dostępne są m.in. napiwki, cashback, preautoryzacja, DCC, MO/TO, logowanie kasjerów i płatności ratalne, a PolCard podaje integrację z ponad 200 rozwiązaniami kasowymi.",
+    "Dobieramy terminal do lokalu, uruchamiamy go i szkolimy zespół z płatności, zwrotów i zamknięcia dnia. Gdy pracujesz na kasie albo systemie sprzedaży (np. GoPOS), łączymy go z terminalem, żeby kwota przechodziła automatycznie. Paragon fiskalny wystawia kasa — terminal drukuje potwierdzenie płatności."
+   ],
+   "cechy": [
+    "3G/4G i Wi-Fi",
+    "drukarka 30 linii/s",
+    "podstawka w zestawie"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "przenośny terminal płatniczy z drukarką"
+    },
+    {
+     "k": "Łączność",
+     "v": "3G/4G (opcja dual SIM) i Wi-Fi; micro-USB host i slave"
+    },
+    {
+     "k": "Ekran",
+     "v": "kolorowy 3,2\""
+    },
+    {
+     "k": "Procesor",
+     "v": "Cortex A5"
+    },
+    {
+     "k": "Czytnik kart",
+     "v": "pasek magnetyczny, chip EMV, zbliżeniowy (NFC)"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Usługi dodatkowe",
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, płatności ratalne, karty przedpłacone, integracja z kasą lub systemem kasowym"
+    },
+    {
+     "k": "Drukarka",
+     "v": "wbudowana, do 30 linii/s"
+    },
+    {
+     "k": "Zasilanie / akumulator",
+     "v": "akumulator do 12 h bez ładowania; ładowanie micro-USB z podstawki, powerbanku, ładowarki samochodowej lub komputera"
+    },
+    {
+     "k": "Współpraca z kasą",
+     "v": "integracja z ponad 200 rozwiązaniami kasowymi (wg PolCard)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "169 × 78 × 57 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "320 g"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "PCI PTS 5.x"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy Move 3500 nadaje się do płatności przy stoliku?",
+     "a": "Tak. To terminal przenośny z Wi-Fi i 3G/4G, z którym kelner podchodzi do gościa; PolCard poleca go właśnie do gastronomii, płatności przy stoliku i na sali."
+    },
+    {
+     "q": "Czym różni się od Move 2500?",
+     "a": "Move 3500 ma dodatkowo Wi-Fi, większy ekran (3,2\" zamiast 2,4\"), szybką drukarkę do 30 linii/s i podstawkę do ładowania. Obydwa ważą 320 g i działają do 12 godzin na baterii."
+    },
+    {
+     "q": "Czy połączycie terminal z kasą lub GoPOS?",
+     "a": "Tak. PolCard podaje integrację z ponad 200 rozwiązaniami kasowymi; łączymy terminal z kasą albo systemem sprzedaży, żeby kwota przechodziła sama."
+    },
+    {
+     "q": "Czy terminal wystawia paragon fiskalny?",
+     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "ergo",
+     "etykieta": "Kasa fiskalna"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis terminali"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Beauty"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-move-3500/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    }
+   ],
+   "wyrozniki": [
+    "3G/4G i Wi-Fi",
+    "drukarka 30 linii/s",
+    "podstawka w zestawie"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Łączność",
+     "v": "3G/4G (opcja dual SIM) i Wi-Fi; micro-USB host i slave"
+    },
+    {
+     "k": "Ekran",
+     "v": "kolorowy 3,2\""
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Drukarka",
+     "v": "wbudowana, do 30 linii/s"
+    },
+    {
+     "k": "Waga",
+     "v": "320 g"
+    }
+   ],
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico",
+   "zdjecia": [
+    "media/produkty/ingenico-move-3500.webp"
+   ]
+  },
+  {
+   "slug_seed": "ingenico-axium-dx-8000",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "sprz",
+   "kategoria": "term",
+   "marka": "PolCard",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Ingenico Axium DX 8000 (PolCard)",
+   "krotka": "Ingenico Axium DX 8000",
+   "podtytul": "Terminal płatniczy z Androidem, dotykowym ekranem 6\", 4G i Wi-Fi 5 GHz",
+   "korzysc": "Duży dotykowy ekran i Android: wygodna obsługa płatności, napiwków i potwierdzeń przy kliencie.",
+   "opis": [
+    "Ingenico Axium DX 8000 to przenośny terminal płatniczy z Androidem 10 w usłudze PolCard dla firm, które chcą obsługiwać płatności na dużym, dotykowym ekranie: restauracji, hoteli, punktów usługowych i sprzedaży u klienta. Łączy się przez 4G oraz Wi-Fi w pasmach 2,4 i 5 GHz, a ładuje w podstawie albo przez USB-C.",
+    "Ma kolorowy, dotykowy ekran IPS 6\" HD+ (720 × 1440 px), procesor Cortex A53, 2 GB RAM i 16 GB pamięci flash z kartą microSD do 128 GB. Czyta pasek magnetyczny, chip EMV i karty zbliżeniowe, przyjmuje BLIK, Apple Pay i Google Pay. Wbudowana drukarka drukuje do 40 linii na sekundę na rolce 40 mm × 18 m. Akumulator Li-ion ma 3350 mAh, terminal waży 450 g i pracuje w temperaturze od -10 do 50 °C. Dostępne są m.in. napiwki, cashback, preautoryzacja, DCC i MO/TO. Certyfikat bezpieczeństwa: PCI PTS 6.x.",
+    "Pomagamy zdecydować, czy potrzebujesz terminala z Androidem, czy wystarczy prostszy Move. Uruchamiamy terminal, pokazujemy obsługę i — gdy pracujesz na kasie albo systemie sprzedaży — łączymy je, żeby kwota przechodziła automatycznie. Paragon fiskalny nadal wystawia kasa lub drukarka fiskalna."
+   ],
+   "cechy": [
+    "Android 10, ekran 6\"",
+    "4G i Wi-Fi 2,4/5 GHz",
+    "drukarka 40 linii/s"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "przenośny terminal płatniczy z Androidem i drukarką"
+    },
+    {
+     "k": "System",
+     "v": "Android 10"
+    },
+    {
+     "k": "Procesor",
+     "v": "Cortex A53"
+    },
+    {
+     "k": "Pamięć",
+     "v": "2 GB RAM, 16 GB flash, microSD do 128 GB"
+    },
+    {
+     "k": "Ekran",
+     "v": "dotykowy IPS 6\" HD+, 720 × 1440 px"
+    },
+    {
+     "k": "Łączność",
+     "v": "4G, Wi-Fi 2,4 i 5 GHz, USB-C"
+    },
+    {
+     "k": "Czytnik kart",
+     "v": "pasek magnetyczny (3 ścieżki), chip EMV, zbliżeniowy (NFC)"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Usługi dodatkowe",
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwek, karty przedpłacone"
+    },
+    {
+     "k": "Drukarka",
+     "v": "do 40 linii/s, rolka 40 mm × 18 m"
+    },
+    {
+     "k": "Zasilanie / akumulator",
+     "v": "Li-ion 3350 mAh, zasilacz 7,2 V / 2 A, podstawa ładująca"
+    },
+    {
+     "k": "Warunki pracy",
+     "v": "od -10 do 50 °C, wilgotność do 90% bez kondensacji"
+    },
+    {
+     "k": "Wymiary",
+     "v": "198 × 83 × 62 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "450 g"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "PCI PTS 6.x"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Po co terminal z Androidem?",
+     "a": "Duży dotykowy ekran ułatwia obsługę płatności, napiwków i potwierdzeń przy kliencie. DX 8000 ma ekran 6\" i Androida 10."
+    },
+    {
+     "q": "Czy DX 8000 działa w Wi-Fi 5 GHz?",
+     "a": "Tak. PolCard podaje łączność 4G oraz Wi-Fi w pasmach 2,4 i 5 GHz."
+    },
+    {
+     "q": "Jak szybko drukuje potwierdzenia?",
+     "a": "Do 40 linii na sekundę, na rolce o szerokości 40 mm i długości 18 m."
+    },
+    {
+     "q": "Czy terminal wystawia paragon fiskalny?",
+     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "gopos",
+     "etykieta": "System sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis terminali"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Beauty"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-dx-8000/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    }
+   ],
+   "wyrozniki": [
+    "Android 10, ekran 6\"",
+    "4G i Wi-Fi 2,4/5 GHz",
+    "drukarka 40 linii/s"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Ekran",
+     "v": "dotykowy IPS 6\" HD+, 720 × 1440 px"
+    },
+    {
+     "k": "Łączność",
+     "v": "4G, Wi-Fi 2,4 i 5 GHz, USB-C"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Drukarka",
+     "v": "do 40 linii/s, rolka 40 mm × 18 m"
+    },
+    {
+     "k": "Waga",
+     "v": "450 g"
+    }
+   ],
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico",
+   "zdjecia": [
+    "media/produkty/ingenico-axium-dx-8000.webp"
+   ]
+  },
+  {
+   "slug_seed": "ingenico-axium-dx-4000-portable",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "sprz",
+   "kategoria": "term",
+   "marka": "PolCard",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Ingenico Axium DX 4000 Portable (PolCard)",
+   "krotka": "Ingenico Axium DX 4000 Portable",
+   "podtytul": "Kompaktowy terminal płatniczy z Androidem, ekranem 5\", 4G i Wi-Fi",
+   "korzysc": "Android i ekran dotykowy w mniejszej obudowie — terminal, który łatwo nosić po sali i w terenie.",
+   "opis": [
+    "Ingenico Axium DX 4000 Portable to kompaktowy terminal płatniczy z Androidem 10 w usłudze PolCard. To mniejszy brat DX 8000 dla firm, które chcą obsługi na ekranie dotykowym w poręcznej obudowie: lokali, punktów usługowych i sprzedaży u klienta. Łączy się przez 4G i Wi-Fi 2,4 GHz, ładuje w podstawie albo przez USB-C.",
+    "Ma kolorowy, dotykowy ekran 5\" (854 × 480 px), procesor Cortex A53 1,4 GHz, 1 GB RAM i 8 GB pamięci flash z kartą microSD do 128 GB. Czyta pasek magnetyczny, chip EMV i karty zbliżeniowe, przyjmuje BLIK, Apple Pay i Google Pay. Drukarka drukuje do 40 linii na sekundę na rolce 40 mm × 18 m. Akumulator Li-ion ma 2200 mAh, a terminal waży 430 g i pracuje w temperaturze od -10 do 50 °C. Dostępne są m.in. napiwki, cashback, preautoryzacja, DCC i MO/TO. Certyfikat bezpieczeństwa: PCI PTS 6.x.",
+    "Pomagamy wybrać między DX 4000 a większym DX 8000 albo prostszym Move, uruchamiamy terminal i pokazujemy obsługę. Gdy pracujesz na kasie lub systemie sprzedaży, łączymy je, żeby kwota przechodziła automatycznie; paragon wystawia kasa."
+   ],
+   "cechy": [
+    "Android 10, ekran 5\"",
+    "4G i Wi-Fi",
+    "430 g"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "przenośny terminal płatniczy z Androidem i drukarką"
+    },
+    {
+     "k": "System",
+     "v": "Android 10"
+    },
+    {
+     "k": "Procesor",
+     "v": "Cortex A53, 1,4 GHz"
+    },
+    {
+     "k": "Pamięć",
+     "v": "1 GB RAM, 8 GB flash, microSD do 128 GB"
+    },
+    {
+     "k": "Ekran",
+     "v": "dotykowy 5\", 854 × 480 px"
+    },
+    {
+     "k": "Łączność",
+     "v": "4G, Wi-Fi 2,4 GHz, USB-C"
+    },
+    {
+     "k": "Czytnik kart",
+     "v": "pasek magnetyczny (3 ścieżki), chip EMV, zbliżeniowy (NFC)"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Usługi dodatkowe",
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwek, karty przedpłacone"
+    },
+    {
+     "k": "Drukarka",
+     "v": "do 40 linii/s, rolka 40 mm × 18 m"
+    },
+    {
+     "k": "Zasilanie / akumulator",
+     "v": "Li-ion 2200 mAh, zasilacz 7,2 V, podstawa ładująca"
+    },
+    {
+     "k": "Warunki pracy",
+     "v": "od -10 do 50 °C, wilgotność do 90% bez kondensacji"
+    },
+    {
+     "k": "Wymiary",
+     "v": "177,6 × 80 × 56,5 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "430 g"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "PCI PTS 6.x"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czym różni się DX 4000 od DX 8000?",
+     "a": "DX 4000 ma mniejszy ekran (5\" zamiast 6\"), Wi-Fi tylko 2,4 GHz, 1 GB RAM zamiast 2 GB i akumulator 2200 mAh zamiast 3350 mAh. Waży 430 g, DX 8000 — 450 g."
+    },
+    {
+     "q": "Czy DX 4000 przyjmuje BLIK?",
+     "a": "Tak, a także Apple Pay, Google Pay i karty z paskiem, chipem i zbliżeniowe."
+    },
+    {
+     "q": "Jak go ładować?",
+     "a": "W podstawie ładującej albo przez USB-C z zasilacza 7,2 V."
+    },
+    {
+     "q": "Czy terminal wystawia paragon fiskalny?",
+     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "gopos",
+     "etykieta": "System sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis terminali"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Beauty"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-dx-4000-portable/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    }
+   ],
+   "wyrozniki": [
+    "Android 10, ekran 5\"",
+    "4G i Wi-Fi",
+    "430 g"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Ekran",
+     "v": "dotykowy 5\", 854 × 480 px"
+    },
+    {
+     "k": "Łączność",
+     "v": "4G, Wi-Fi 2,4 GHz, USB-C"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Drukarka",
+     "v": "do 40 linii/s, rolka 40 mm × 18 m"
+    },
+    {
+     "k": "Waga",
+     "v": "430 g"
+    }
+   ],
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico",
+   "zdjecia": [
+    "media/produkty/ingenico-axium-dx-4000-portable.webp"
+   ]
+  },
+  {
+   "slug_seed": "ingenico-desk-3200-desk-1500",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "sprz",
+   "kategoria": "term",
+   "marka": "PolCard",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Ingenico Desk 3200 + PIN-pad Desk 1500 (PolCard)",
+   "krotka": "Ingenico Desk 3200 + Desk 1500",
+   "podtytul": "Stacjonarny terminal przy kasie z PIN-padem dla klienta",
+   "korzysc": "Terminal stoi przy kasie, a klient płaci na własnym PIN-padzie — kwota przychodzi z kasy sama.",
+   "opis": [
+    "Ingenico Desk 3200 to stacjonarny terminal płatniczy w usłudze PolCard dla sprzedaży przy stanowisku kasowym: sklepów, marketów, stacji paliw, piekarni, punktów usługowych i lokali gastronomicznych. Jest stale podłączony do zasilania, więc nie wymaga ładowania baterii, a łączy się przez Ethernet albo sieć 3G (opcjonalnie dual SIM). PolCard oferuje go razem z PIN-padem Desk 1500, który stoi po stronie klienta.",
+    "Desk 3200 ma czarno-biały ekran 2,7\", klawiaturę i drukarkę potwierdzeń, multiport RS-232/USB oraz czyta pasek, chip i karty zbliżeniowe. Przyjmuje BLIK, Apple Pay i Google Pay. PIN-pad Desk 1500 ma kolorowy ekran 2,8\" i czytnik kart, nie ma drukarki i nie potrzebuje osobnego zasilacza — korzysta z terminala głównego. Desk 3200 waży 308 g (173 × 87 × 35 mm), Desk 1500 — 254 g (180 × 83 × 43 mm). Kwota z kasy fiskalnej może być przesyłana na terminal automatycznie; PolCard podaje integrację z ponad 200 rozwiązaniami kasowymi. Dostępne są m.in. cashback, preautoryzacja, DCC, MO/TO i karty flotowe.",
+    "Ustawiamy zestaw przy kasie, łączymy go z kasą lub systemem sprzedaży i uczymy zespół płatności, zwrotów i zamknięcia dnia. Paragon fiskalny wystawia kasa — terminal drukuje potwierdzenie płatności."
+   ],
+   "cechy": [
+    "Ethernet i 3G",
+    "PIN-pad dla klienta",
+    "kwota z kasy automatycznie"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "stacjonarny terminal płatniczy z PIN-padem dla klienta"
+    },
+    {
+     "k": "Łączność",
+     "v": "Desk 3200: Ethernet i 3G (opcja dual SIM), multiport RS-232 / USB; Desk 1500: przez terminal główny"
+    },
+    {
+     "k": "Ekran",
+     "v": "Desk 3200: czarno-biały 2,7\"; Desk 1500: kolorowy 2,8\""
+    },
+    {
+     "k": "Czytnik kart",
+     "v": "pasek magnetyczny, chip EMV, zbliżeniowy (NFC) — w obu urządzeniach"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Usługi dodatkowe",
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, płatności ratalne, karty przedpłacone i flotowe"
+    },
+    {
+     "k": "Drukarka",
+     "v": "Desk 3200: wbudowana; Desk 1500: bez drukarki"
+    },
+    {
+     "k": "Zasilanie",
+     "v": "Desk 3200: stałe zasilanie sieciowe; Desk 1500: z terminala głównego, bez zasilacza"
+    },
+    {
+     "k": "Współpraca z kasą",
+     "v": "kwota z kasy przesyłana automatycznie; integracja z ponad 200 rozwiązaniami kasowymi (wg PolCard)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "Desk 3200: 173 × 87 × 35 mm; Desk 1500: 180 × 83 × 43 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "Desk 3200: 308 g; Desk 1500: 254 g"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "Desk 3200: PCI PTS 4.x; Desk 1500: PCI PTS 5.x"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Po co PIN-pad Desk 1500?",
+     "a": "Klient płaci i wpisuje PIN na własnym urządzeniu po swojej stronie lady, a terminal Desk 3200 zostaje przy kasjerze. Desk 1500 korzysta z łączności i zasilania terminala głównego."
+    },
+    {
+     "q": "Czy terminal łączy się z kasą fiskalną?",
+     "a": "Tak. Kwota z kasy może być przesyłana na terminal automatycznie; PolCard podaje integrację z ponad 200 rozwiązaniami kasowymi."
+    },
+    {
+     "q": "Czy Desk 3200 działa bez internetu w lokalu?",
+     "a": "Może łączyć się przez Ethernet albo przez sieć 3G z kartą SIM (opcjonalnie dwie karty)."
+    },
+    {
+     "q": "Czy terminal wystawia paragon fiskalny?",
+     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "hd",
+     "etykieta": "Drukarka fiskalna"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis terminali"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Beauty"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-desk-3200/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    },
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-desk-1500/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    }
+   ],
+   "wyrozniki": [
+    "Ethernet i 3G",
+    "PIN-pad dla klienta",
+    "kwota z kasy automatycznie"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Łączność",
+     "v": "Desk 3200: Ethernet i 3G (opcja dual SIM), multiport RS-232 / USB; Desk 1500: przez terminal główny"
+    },
+    {
+     "k": "Ekran",
+     "v": "Desk 3200: czarno-biały 2,7\"; Desk 1500: kolorowy 2,8\""
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Drukarka",
+     "v": "Desk 3200: wbudowana; Desk 1500: bez drukarki"
+    },
+    {
+     "k": "Waga",
+     "v": "Desk 3200: 308 g; Desk 1500: 254 g"
+    }
+   ],
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico",
+   "zdjecia": [
+    "media/produkty/ingenico-desk-3200-desk-1500.webp"
+   ]
   },
   {
    "slug_seed": "softpos",
