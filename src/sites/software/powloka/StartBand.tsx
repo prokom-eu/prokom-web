@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 import type { SoftwareNavigation } from '@/lib/software/navigation'
 import { toTelHref } from '@/lib/site/link'

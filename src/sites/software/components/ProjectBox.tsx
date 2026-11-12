@@ -1,10 +1,10 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
-import { CATALOG_PATH } from '@/lib/software/catalog'
+import { CATALOG_PATH } from '@/lib/software/catalogPath'
 import { projectActions } from '@/lib/software/projectStore'
 import type { ProjectSummary } from '@/lib/software/projectSummary'
 import { OfferThumb } from '@/sites/software/components/offer/OfferThumb'

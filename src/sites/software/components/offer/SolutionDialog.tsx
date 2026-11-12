@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { type PointerEvent, useEffect, useRef, useState } from 'react'
 
 import { BottomSheet } from '@/components/BottomSheet'
