@@ -513,18 +513,23 @@
     flex-wrap: wrap;
     gap: 28px;
     padding-top: 6px;
+    /* The facts size their figures to the row (cqi below). */
+    container-type: inline-size;
   }
-  /* The hero facts stay in one row from 1024 px — three wrapped as 2 + 1 (audit 09.11). */
-  @media (min-width: 1024px) {
+  /* One row of equal columns from 761 px (audit 09.11: no 2 + 1). Columns sized by their content
+     let a long value wrap word by word or run into the next one („Bez abonamentu”, 12.11). */
+  @media (min-width: 761px) {
     & .pkv {
       display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(0, max-content);
+      grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
       gap: 24px;
     }
   }
+  /* The figure fits its column: ~7.5 em is the widest word of a fact („abonamentu”, „instalacji”)
+     in the display face, so one column / 7.5 never overflows; capped at the former 34 px. */
   & .pkv .kv b {
-    font-size: 34px;
+    font-size: clamp(20px, calc((100cqi - (var(--n, 3) - 1) * 24px) / var(--n, 3) / 7.5), 34px);
+    text-wrap: balance;
   }
   & .ill {
     position: relative;

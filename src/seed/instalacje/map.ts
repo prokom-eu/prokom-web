@@ -393,14 +393,12 @@ const ids = (keys: string[], ref: (key: string) => number | undefined): number[]
   keys.map(ref).filter((id): id is number => id !== undefined)
 
 /**
- * Hero facts of the package replaced by the line's own fact, keyed by the package value (decision
- * of Krystian 10.11: no labour cost figure on `/dla-kogo/firmy` — „od 2004 / na Podhalu” as on
- * the service heroes).
+ * The first hero fact of every „Dla kogo” page (decisions of Krystian 10.11 and 12.11): the
+ * package had an outside statistic there (GUS, police, a US study, deadlines of acts) that did not
+ * fit the page — the line's own fact instead, as on the service heroes. The other two facts
+ * (warranty, answer time) stay.
  */
-export const HERO_FACT_FIXES: Readonly<Record<string, { value: string; label: string }>> = {
-  '10 736 zł': { value: 'od 2004', label: 'na Podhalu' },
-}
-const fixFact = (fact: { value: string; label: string }) => HERO_FACT_FIXES[fact.value] ?? fact
+export const OBJECT_FIRST_FACT = { value: 'od 2004', label: 'na Podhalu' } as const
 
 function hero(seed: SeedHero): ServiceData['hero'] {
   return {
@@ -410,15 +408,18 @@ function hero(seed: SeedHero): ServiceData['hero'] {
     h1b: seed.h1b,
     lead: seed.lead,
     facts: (seed.kv ?? []).map((fact) =>
-      fixFact(
-        Array.isArray(fact)
-          ? { value: fact[0] ?? '', label: fact[1] ?? '' }
-          : { value: fact.b, label: fact.s },
-      ),
+      Array.isArray(fact)
+        ? { value: fact[0] ?? '', label: fact[1] ?? '' }
+        : { value: fact.b, label: fact.s },
     ),
     tags: (seed.tags ?? []).map((tag) => (typeof tag === 'string' ? tag : tag.n)),
     cta: { text: seed.cta, href: optionalHref(seed.ctaHref) },
   }
+}
+
+function withObjectFact(value: ObjectData['hero']): ObjectData['hero'] {
+  const [, ...rest] = value?.facts ?? []
+  return { ...value, facts: [{ ...OBJECT_FIRST_FACT }, ...rest] }
 }
 
 function withoutCta(value: ServiceData['hero']): ObjectData['hero'] {
@@ -564,7 +565,7 @@ export function objectData({ menu, page: o }: SeedObjectItem, refs: Refs): Objec
     menuCaption: menu.s,
     forWhom: o.dla,
     // Object pages have no hero button: the key is left out, so the stored empty group compares equal.
-    hero: withoutCta(hero(o.hero)),
+    hero: withObjectFact(withoutCta(hero(o.hero))),
     sceneTitle: o.sceneT,
     hotspots: o.hs.map((h) => ({ description: h.d })),
     anchors: o.anc.map(([anchorId = '', name = '']) => ({ anchorId, name })),

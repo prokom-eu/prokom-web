@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
@@ -86,7 +87,7 @@ export function PageHero({ hero, name, anchors, phone, widget, parent = SERVICES
                 )}
               </div>
               {hero?.facts && hero.facts.length > 0 && (
-                <div className="pkv in d5">
+                <div className="pkv in d5" style={{ '--n': hero.facts.length } as CSSProperties}>
                   {hero.facts.map((fact) => (
                     <div key={fact.id ?? fact.value} className="kv">
                       <b>
