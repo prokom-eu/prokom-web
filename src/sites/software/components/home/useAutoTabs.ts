@@ -16,9 +16,11 @@ import { autoRotates, tabKeyTarget } from './tabs'
 /**
  * Self-switching ARIA tabs of the Software start page (spec. §8.3: areas, previews, process):
  * the next tab every `intervalMs`, only on the desktop, until the visitor picks one or points at
- * the section (then never again — audyt 01.11 P1 #19), paused while focus is inside and while
- * the browser tab is hidden, never with `prefers-reduced-motion` (`autoRotates`). `rotating`
- * drives the progress bar. Spread `region` on the element around the tabs and panels.
+ * the section (then never again — audyt 01.11 P1 #19), paused while focus is inside, while the
+ * section is off screen and while the browser tab is hidden (SWA13 #1: no renders, transitions
+ * and progress bars nobody sees; back on screen it goes on from the current tab), never with
+ * `prefers-reduced-motion` (`autoRotates`). `rotating` drives the progress bar. Spread `region`
+ * on the element around the tabs and panels (its `ref` watches the screen).
  */
 const MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
@@ -38,9 +40,27 @@ export function useAutoTabs(count: number, intervalMs: number) {
   const [picked, setPicked] = useState(false)
   const [paused, setPaused] = useState(false)
   const [stopped, setStopped] = useState(false)
+  const [offscreen, setOffscreen] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const [section, setSection] = useState<HTMLElement | null>(null)
   // `false` on the server and in hydration: nothing claims to switch before the screen is known.
   const screen = useSyncExternalStore(subscribeScreen, screenAllows, () => false)
   const buttons = useRef<(HTMLButtonElement | null)[]>([])
+
+  // Off screen and on a hidden tab it rests (SWA13 #1); the element comes from `region.ref`.
+  useEffect(() => {
+    if (!section) return
+    const observer = new IntersectionObserver(([entry]) => setOffscreen(!entry?.isIntersecting))
+    observer.observe(section)
+    const syncHidden = () => setHidden(document.hidden)
+    // A page opened in a background tab starts hidden: no progress bar until it is seen.
+    syncHidden()
+    document.addEventListener('visibilitychange', syncHidden)
+    return () => {
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', syncHidden)
+    }
+  }, [section])
 
   useEffect(() => {
     const rotate = autoRotates({
@@ -50,13 +70,15 @@ export function useAutoTabs(count: number, intervalMs: number) {
       picked,
       stopped,
       paused,
+      offscreen,
+      hidden,
     })
     if (!rotate) return
     const timer = window.setInterval(() => {
       if (!document.hidden) setActive((current) => (current + 1) % count)
     }, intervalMs)
     return () => window.clearInterval(timer)
-  }, [picked, stopped, paused, count, intervalMs, screen])
+  }, [picked, stopped, paused, offscreen, hidden, count, intervalMs, screen])
 
   /** Never past the list (the panel may lose an entry on a live preview). */
   const current = Math.min(active, Math.max(count - 1, 0))
@@ -87,6 +109,8 @@ export function useAutoTabs(count: number, intervalMs: number) {
       picked,
       stopped,
       paused,
+      offscreen,
+      hidden,
     }),
     /** Will switch by itself on this screen once nothing holds it (focus only pauses). */
     selfSwitching: screen && count > 1 && !picked && !stopped,
@@ -96,6 +120,7 @@ export function useAutoTabs(count: number, intervalMs: number) {
       buttons.current[index] = element
     },
     region: {
+      ref: setSection,
       // A mouse over the section stops it for good; a touch is not hovering.
       onPointerEnter: (event: PointerEvent<HTMLElement>) => {
         if (event.pointerType === 'mouse') setStopped(true)

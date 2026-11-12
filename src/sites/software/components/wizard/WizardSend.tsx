@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { useRouter } from 'next/navigation'
 import { type FormEvent, useId, useRef, useState } from 'react'
 

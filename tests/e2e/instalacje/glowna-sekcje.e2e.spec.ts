@@ -1,7 +1,7 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { FORM_MIN_FILL_MS } from '../../../src/lib/inquiry/spam'
-import { api, loginAsAdmin, site } from '../helpers'
+import { api, hydrated, loginAsAdmin, site } from '../helpers'
 
 // I6: the home sections below the hero (KOMPONENTY §3, spec §5.1/§6, MOBILE-APLIKACJA §10).
 // Data from `pnpm seed`: realizations published with the clients' consent (boss 01.11.2026).
@@ -102,9 +102,13 @@ test.describe('Instalacje home sections', () => {
     await page.setViewportSize({ width: 844, height: 390 })
     await page.goto(site(HOST, '/'))
     const axis = page.locator('#proces .procw')
-    await axis.scrollIntoViewIfNeeded()
-    await page.mouse.wheel(0, 300)
-    await expect(axis).toHaveAttribute('data-on', '1')
+    // A scroll before the axis watches the screen (data-ready, ADR-023) is not seen: scroll again.
+    await expect(axis).toHaveAttribute('data-ready', '1', { timeout: 15_000 })
+    await expect(async () => {
+      await axis.scrollIntoViewIfNeeded()
+      await page.mouse.wheel(0, 300)
+      await expect(axis).toHaveAttribute('data-on', '1', { timeout: 1000 })
+    }).toPass()
     await expect
       .poll(() =>
         axis
@@ -183,6 +187,8 @@ test.describe('Instalacje home sections', () => {
     await open(page, '/#zaplanuj')
     const form = page.locator('#zaplanuj')
     const send = form.getByRole('button', { name: 'Zamów oddzwonienie' })
+    // Sent before the form hydrates (ADR-023), the browser submits it natively (GET ?name=…).
+    await hydrated(send)
     await send.click()
     await expect(form.getByRole('alert')).toHaveText('Zaznacz przynajmniej jedną instalację.')
 

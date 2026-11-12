@@ -1353,16 +1353,19 @@
   }
 }
 
-/* Reduced motion (spec §5): hotspot pulses and effects stand still. */
+/* Reduced motion (spec §5): hotspot pulses and effects, the fireplace glow stand still.
+   `!important`: `.hs.on .hsfx.ring` and `.hsfx.cone` out-rank these selectors (report
+   11.11.2026: 18 animations still ran on /dla-kogo/pensjonaty). */
 @media (prefers-reduced-motion: reduce) {
   [data-line='instalacje'] {
     & .hs .hsh,
     & .hs.on .hsfx,
     & .hsfx,
+    & .sgglow,
     & .sginfo,
     & .sginfo > *,
     & .sgdc {
-      animation: none;
+      animation: none !important;
     }
   }
 }

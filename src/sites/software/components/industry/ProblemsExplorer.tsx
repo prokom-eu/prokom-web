@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
@@ -8,7 +8,7 @@ import { Icon } from '@/components/ui/Icon'
 import type { IndustryProblem } from '@/lib/software/industryPage'
 import { projectActions, useProject } from '@/lib/software/projectStore'
 
-import { Mockup } from '../mockups/Mockup'
+import { Mockup } from '../mockups/MockupLazy'
 import { OfferThumb } from '../offer/OfferThumb'
 
 type Props = { problems: IndustryProblem[] }
