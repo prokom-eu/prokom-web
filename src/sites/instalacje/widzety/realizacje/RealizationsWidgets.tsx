@@ -97,7 +97,8 @@ export function RealizationGrid({ items }: { items: RealizationItem[] }) {
                   {r.category}
                 </span>
               )}
-              <b className="h3">{r.title}</b>
+              {/* Right under the H1 of `/realizacje`: level 2 (the look of a card title). */}
+              <h2 className="h3">{r.title}</h2>
               {r.place && <span>{r.place}</span>}
               {r.description && (
                 <span style={{ fontSize: 13.5, color: 'var(--ink-soft)' }}>{r.description}</span>
