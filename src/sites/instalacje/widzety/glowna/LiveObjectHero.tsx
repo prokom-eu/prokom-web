@@ -215,8 +215,10 @@ export function LiveObjectHero({ backdrop, children }: Props) {
         }
       }}
     >
-      {/* Sky, mountains and forests across the whole section (RUNDA-V5 §1.3). Below 1024 px it is
-          hidden and the building scene draws it itself through <use>, cropped like the building. */}
+      {/* Sky, mountains and forests across the whole section (RUNDA-V5 §1.3). Below 1024 px the
+          building scene holds it instead, cropped like the building — the element itself, not a
+          <use> copy: in a <use> tree the page's rules (`.scene .cloud`…) do not apply, so the
+          clouds, snow caps and lights came out black. */}
       <svg
         className={`hxsvg scene ${scene.mode}`}
         viewBox="0 0 1440 1000"
@@ -224,7 +226,7 @@ export function LiveObjectHero({ backdrop, children }: Props) {
         aria-hidden="true"
         focusable="false"
       >
-        {backdrop}
+        {narrow ? null : backdrop}
         {narrow ? null : flakes}
       </svg>
 
@@ -326,7 +328,7 @@ export function LiveObjectHero({ backdrop, children }: Props) {
             role={camButtons ? 'group' : 'img'}
             aria-label={sc.aria}
           >
-            {narrow ? <use href="#hx-bd" /> : null}
+            {narrow ? backdrop : null}
             <g key={scene.obj} className="hxobj">
               <g>
                 {sc.gnd.map((f, i) => (
