@@ -23,6 +23,7 @@ import {
   TableSection,
 } from './common/Basic'
 import { BundlesSection } from './common/Bundles'
+import type { TabProgram } from './common/Interactive'
 import { TabsPicker, VideoPicker } from './common/InteractiveLazy'
 import { ProductGrid, productsBySlug } from './common/Products'
 import { Audience, CareHero, CareReview, StartCalendar } from './firma/Care'
@@ -63,6 +64,7 @@ type Props = {
 /** Kinds that read the catalog (product cards, pictures, brand logos). */
 const NEEDS_INDEX: ReadonlySet<SectionVariant> = new Set([
   'products',
+  'tabs',
   'bundles',
   'gopos-hero',
   'gopos-venues',
@@ -102,6 +104,34 @@ async function imagesOf(
 }
 
 /**
+ * What the tabs show next to their texts (PRODUKCJA-BIZNES-1211 §4): each program's box, „for
+ * whom” and three points from its catalog card, and the real screens of „Zobacz program w
+ * działaniu” by Media id. Plain data for the client widget.
+ */
+async function tabsExtras(
+  data: NonNullable<ReturnType<typeof parseSectionData<'tabs'>>>,
+  index: CatalogIndex | null,
+  tenantId: number,
+) {
+  const slugs = data.tabs.flatMap((tab) => [
+    ...tab.items.flatMap((item) => (item.slug ? [item.slug] : [])),
+    ...(tab.shot ? [tab.shot.slug] : []),
+  ])
+  const programs: Record<string, TabProgram> = {}
+  for (const product of index ? productsBySlug(index, slugs) : []) {
+    programs[product.slug] = {
+      name: product.name,
+      ...(product.image && { image: product.image }),
+      ...(product.benefit && { benefit: product.benefit }),
+      features: product.features.slice(0, 3),
+    }
+  }
+  const ids = data.tabs.flatMap((tab) => (tab.shot?.image !== undefined ? [tab.shot.image] : []))
+  const screens = ids.length > 0 ? await getSectionImages(tenantId, ids) : {}
+  return { programs, screens }
+}
+
+/**
  * K4 section (`bzSection`): picks the look by the kind. Data that does not fit the kind hides the
  * section instead of breaking the page — the panel refuses such data on save anyway.
  */
@@ -122,10 +152,17 @@ async function render(
   switch (variant) {
     case 'stats':
       return <StatsSection block={block} />
-    case 'cards':
-      return <CardsSection block={block} />
+    case 'cards': {
+      // Real screens on the cards (PRODUKCJA-BIZNES-1211 §3) — by Media id.
+      const shots = parseSectionData('cards', block.data)?.shots ?? []
+      const ids = shots.flatMap((shot) => (shot?.image !== undefined ? [shot.image] : []))
+      const images = ids.length > 0 ? await getSectionImages(tenantId, ids) : {}
+      return <CardsSection block={block} shots={shots} images={images} />
+    }
     case 'steps':
-      return <StepsSection block={block} />
+      return (
+        <StepsSection block={block} axis={parseSectionData('steps', block.data)?.axis === true} />
+      )
     case 'cases':
       return <CasesSection block={block} />
     case 'band': {
@@ -165,7 +202,7 @@ async function render(
       return (
         data && (
           <SectionShell block={block}>
-            <TabsPicker data={data} />
+            <TabsPicker data={data} {...await tabsExtras(data, index, tenantId)} />
           </SectionShell>
         )
       )
@@ -213,12 +250,13 @@ async function render(
     }
     case 'gopos-areas': {
       const data = parseSectionData('gopos-areas', block.data)
+      if (!data) return null
+      const ids = data.areas.flatMap((area) => (area.image !== undefined ? [area.image] : []))
+      const images = ids.length > 0 ? await getSectionImages(tenantId, ids) : {}
       return (
-        data && (
-          <SectionShell block={block}>
-            <GoposAreas data={data} />
-          </SectionShell>
-        )
+        <SectionShell block={block}>
+          <GoposAreas data={data} images={images} />
+        </SectionShell>
       )
     }
     case 'gopos-hub': {

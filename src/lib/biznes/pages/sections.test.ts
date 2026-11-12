@@ -39,3 +39,27 @@ describe('K4 section kinds', () => {
     ).toHaveLength(2)
   })
 })
+
+describe('section data added by PRODUKCJA-BIZNES-1211 §3 (no migration — older data still fits)', () => {
+  it('cards: old `{}` and pictures by position, with gaps', () => {
+    expect(parseSectionData('cards', {})).not.toBeNull()
+    expect(parseSectionData('cards', undefined)).not.toBeNull()
+    const data = parseSectionData('cards', {
+      shots: [{ frame: 'doc' }, null, { frame: 'phone', image: 7 }],
+    })
+    expect(data?.shots?.map((shot) => shot?.frame ?? null)).toEqual(['doc', null, 'phone'])
+    expect(parseSectionData('cards', { shots: [{ frame: 'poster' }] })).toBeNull()
+  })
+
+  it('steps: old `{}` and `axis`', () => {
+    expect(parseSectionData('steps', {})?.axis).toBeUndefined()
+    expect(parseSectionData('steps', { axis: true })?.axis).toBe(true)
+  })
+
+  it('chips: an icon of the set only', () => {
+    const group = { t: 'Dowozy', items: ['Glovo'] }
+    expect(parseSectionData('chips', { groups: [group] })).not.toBeNull()
+    expect(parseSectionData('chips', { groups: [{ ...group, ic: 'car' }] })).not.toBeNull()
+    expect(parseSectionData('chips', { groups: [{ ...group, ic: 'rakieta' }] })).toBeNull()
+  })
+})

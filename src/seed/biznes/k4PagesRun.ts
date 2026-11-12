@@ -49,7 +49,7 @@ export function k4PageSeeds(slugOf: SlugOf, mediaOf?: MediaOf) {
       replaces: [
         'Subiekt i programy InsERT z PRO-KOM: dobór programu, instalacja, przeniesienie danych, połączenie z kasą, KSeF i szkolenie na Twoich dokumentach.',
       ],
-      built: insertK4Layout(pages, slugOf),
+      built: insertK4Layout(pages, slugOf, mediaOf),
     },
     {
       slug: 'opieka-it',

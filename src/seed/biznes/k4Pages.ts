@@ -33,7 +33,107 @@ export const GOPOS_PHOTO_ALT: Record<string, string> = {
   'ekosystem.webp': 'GoPOS: kiosk, aplikacja, kasa, ekran kuchni i panel online',
   'reczny-v3.webp': 'GoPOS All in One — urządzenie ręczne',
   'aio-stand.webp': 'Stanowisko GoPOS z drukarką',
+  // Screens of the producer's materials (PRODUKCJA-BIZNES-1211 §3; zgoda szefa 12.11), in
+  // `seed/prokombiznes/media/gopos-ekrany` — sources in its ZRODLA.md.
+  'ekran-gopos-now.webp':
+    'Aplikacja GoPOS Now w telefonie: goście na sali, paragony, rachunki na żywo',
+  // `/insert` screens (same upload list; alts also in INSERT_SCREENS — a test keeps them equal).
+  'ekran-subiekt-nexo.webp': 'Subiekt nexo: okno programu z listą dokumentów sprzedaży',
+  'ekran-subiekt-gt.webp': 'Subiekt GT: okno programu z fakturą sprzedaży',
+  'ekran-rachmistrz.webp': 'Rachmistrz nexo: okno programu z księgą przychodów i rozchodów',
+  'ekran-rewizor.webp': 'Rewizor nexo: okno programu z dekretacją dokumentów',
+  'ekran-gratyfikant.webp': 'Gratyfikant nexo: okno programu z listą pracowników',
+  'ekran-gopos-hub.webp':
+    'GoHub w GoPOS: zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt i Bolt Food w jednej kolejce',
 }
+
+/** Session screens (not the design package): their own folder. */
+const GOPOS_SCREEN_FILES = new Set(['ekran-gopos-now.webp', 'ekran-gopos-hub.webp'])
+
+/**
+ * „Zobacz program w działaniu” on `/insert` (PRODUKCJA-BIZNES-1211 §4): a real screen of each
+ * program from InsERT's materials (the product galleries of the package; sources in
+ * `seed/prokombiznes/media/insert-ekrany/ZRODLA.md`). Board id → file and alt text.
+ */
+export const INSERT_SCREENS: { id: string; tab: string; file: string; alt: string }[] = [
+  {
+    id: 'nexo',
+    tab: 'Subiekt nexo',
+    file: 'ekran-subiekt-nexo.webp',
+    alt: 'Subiekt nexo: okno programu z listą dokumentów sprzedaży',
+  },
+  {
+    id: 'gt',
+    tab: 'Subiekt GT',
+    file: 'ekran-subiekt-gt.webp',
+    alt: 'Subiekt GT: okno programu z fakturą sprzedaży',
+  },
+  {
+    id: 'rachmistrz',
+    tab: 'Rachmistrz',
+    file: 'ekran-rachmistrz.webp',
+    alt: 'Rachmistrz nexo: okno programu z księgą przychodów i rozchodów',
+  },
+  {
+    id: 'rewizor',
+    tab: 'Rewizor',
+    file: 'ekran-rewizor.webp',
+    alt: 'Rewizor nexo: okno programu z dekretacją dokumentów',
+  },
+  {
+    id: 'gratyfikant',
+    tab: 'Gratyfikant',
+    file: 'ekran-gratyfikant.webp',
+    alt: 'Gratyfikant nexo: okno programu z listą pracowników',
+  },
+]
+const INSERT_SCREEN_FILES = new Set(INSERT_SCREENS.map((screen) => screen.file))
+
+/** Icons of „Licencja to dopiero początek” (by the tile's title in the package). */
+const INSERT_TILE_ICONS: Record<string, IconName> = {
+  'Instalacja i konfiguracja': 'monitor',
+  'Przeniesienie danych': 'arrow',
+  'Kasa i drukarka fiskalna': 'cash',
+  'Szkolenie na Twoich danych': 'grad',
+  'Aktualizacje i odnowienia': 'refresh',
+  'Pomoc zdalna': 'remote',
+}
+
+/** Icons of „InsERT w liczbach”, in their order. */
+const INSERT_STAT_ICONS: IconName[] = ['cal', 'key', 'doc', 'clock']
+
+/** The contact form's topic for program care (`shared.contact.topics`, `?temat=`). */
+const INSERT_CARE_HREF = `/kontakt?temat=${encodeURIComponent('KSeF, programy i opieka IT')}#formularz`
+
+/** A screen per area of „Cały lokal” (by the area's title in the package). */
+const GOPOS_AREA_SCREENS: Record<string, string> = {
+  'Sala i sprzedaż': 'ekran-d3.webp',
+  // Screens only — no people, no readable menu prices (zasady 01.11, K4-FINAL §1).
+  'Kuchnia i wydawka': 'kuchnia-kds.webp',
+  'Online i dowozy': 'ekran-gopos-hub.webp',
+  'Zarządzanie lokalem': 'ekosystem.webp',
+}
+
+/** Pictures of the three cards „KSeF, praca bez internetu i utarg w telefonie”. */
+const GOPOS_CARD_SHOTS: { frame: 'doc' | 'screen' | 'phone'; file?: string }[] = [
+  { frame: 'doc' },
+  { frame: 'screen', file: 'kasa-d3.webp' },
+  { frame: 'phone', file: 'ekran-gopos-now.webp' },
+]
+
+/** Icon of an integration group (tiles, PRODUKCJA-BIZNES-1211 §3 pkt 7). */
+const INTEGRATION_ICONS: Record<string, IconName> = {
+  Dowozy: 'car',
+  Kurierzy: 'box',
+  Płatności: 'card',
+  Fiskalizacja: 'cash',
+  Hotel: 'bed',
+  Dokumenty: 'doc',
+  Marketing: 'mega',
+}
+
+/** Icons of the four numbers „GoPOS w liczbach”, in their order. */
+const GOPOS_STAT_ICONS: IconName[] = ['store', 'cal', 'plug', 'star']
 
 const isPhotoFile = (value: string) => value.endsWith('.webp')
 
@@ -44,13 +144,24 @@ export function goposPhotoFiles(file: K4PagesFile): string[] {
     ...new Set([
       ...g.hero.stage.flatMap((device) => (device.img ? [device.img] : [])),
       ...Object.values(g.segImg).filter(isPhotoFile),
+      ...g.areas.flatMap((area) => {
+        const screen = GOPOS_AREA_SCREENS[area.t]
+        return screen ? [screen] : []
+      }),
+      ...GOPOS_CARD_SHOTS.flatMap((shot) => (shot.file ? [shot.file] : [])),
+      // `/insert` screens go up the same way (one list of K4 page photos).
+      ...INSERT_SCREENS.map((screen) => screen.file),
     ]),
   ]
 }
 
-/** Path of a GoPOS photo of the package (relative to the repo). */
+/** Path of a GoPOS photo (relative to the repo): the package's scene or the session's screens. */
 export const goposPhotoPath = (name: string) =>
-  path.join('seed', 'prokombiznes', 'k4', 'media', 'gopos-scena', name)
+  GOPOS_SCREEN_FILES.has(name)
+    ? path.join('seed', 'prokombiznes', 'media', 'gopos-ekrany', name)
+    : INSERT_SCREEN_FILES.has(name)
+      ? path.join('seed', 'prokombiznes', 'media', 'insert-ekrany', name)
+      : path.join('seed', 'prokombiznes', 'k4', 'media', 'gopos-scena', name)
 
 type Pair = [string, string]
 
@@ -406,6 +517,21 @@ export function goposK4Layout(
   })
   const presentation = { slug: core, note: GOPOS_PRESENTATION_NOTE }
   const devices = r.many(g.devs)
+  /** `{ image }` of an uploaded photo, nothing when it is not uploaded (tests, first run). */
+  const withImage = (file: string | undefined) => {
+    const image = file ? mediaOf(file) : undefined
+    return image !== undefined ? { image } : {}
+  }
+  // Modules with all three plans (GoOrder, GoHub, GoCRM) → the Basic / Pro / Unlimited table.
+  const TIERS = ['Basic', 'Pro', 'Unlimited']
+  const tiers = {
+    head: TIERS,
+    rows: g.ext.flatMap((item) => {
+      const v = TIERS.map((tier) => item.v.find(([n]) => n === tier)?.[1])
+      return v.every((value): value is string => !!value) ? [{ t: item.t, k: item.k, v }] : []
+    }),
+    source: g.extSrc,
+  }
 
   const layout: PageBlock[] = [
     section({
@@ -444,7 +570,11 @@ export function goposK4Layout(
       variant: 'stats',
       surface: 'muted',
       eyebrow: 'GoPOS w liczbach',
-      items: g.stats.map(([title, text]) => ({ title, text })),
+      items: g.stats.map(([title, text], i) => ({
+        title,
+        text,
+        ...(GOPOS_STAT_ICONS[i] && { icon: GOPOS_STAT_ICONS[i] }),
+      })),
       source: g.statsSrc,
     }),
     section({
@@ -483,6 +613,7 @@ export function goposK4Layout(
         core,
         areas: g.areas.map((area) => ({
           t: area.t,
+          ...withImage(GOPOS_AREA_SCREENS[area.t]),
           items: area.it.map(([t, d, id]) => {
             const slug = id ? r.one(id) : undefined
             return { t, d, ...(slug ? { slug } : {}) }
@@ -540,6 +671,12 @@ export function goposK4Layout(
         },
       ],
       source: 'Źródło: gopos.pl · stan na 26.10.2026',
+      data: {
+        shots: GOPOS_CARD_SHOTS.map((shot) => ({
+          frame: shot.frame,
+          ...withImage(shot.file),
+        })),
+      },
     }),
     // A list with nothing known is left out: the panel would refuse it (at least one product).
     ...(devices.length > 0
@@ -584,6 +721,7 @@ export function goposK4Layout(
           addons: g.pakiety.dod,
           source: g.pakiety.src,
         },
+        ...(tiers.rows.length > 0 && { tiers }),
       },
     }),
     section({
@@ -616,6 +754,7 @@ export function goposK4Layout(
       eyebrow: 'Wdrożenie',
       heading: 'Od prezentacji do pierwszego sezonu',
       items: g.steps.map(([title, text]) => ({ title, text })),
+      data: { axis: true },
     }),
     section({
       variant: 'chips',
@@ -624,7 +763,11 @@ export function goposK4Layout(
       heading: 'GoPOS dogaduje się z tym, czego już używasz',
       source: g.integSrc,
       data: {
-        groups: g.integ.map(([t, items]) => ({ t, items })),
+        groups: g.integ.map(([t, items]) => ({
+          t,
+          items,
+          ...(INTEGRATION_ICONS[t] && { ic: INTEGRATION_ICONS[t] }),
+        })),
         total: { v: '30+', t: 'integracji według GoPOS' },
         visible: 3,
       },
@@ -647,9 +790,20 @@ export function goposK4Layout(
 }
 
 /** `/insert` (K4h, K33 §7, K34 §5, plansza Web-InsERT). */
-export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
+export function insertK4Layout(
+  file: K4PagesFile,
+  slugOf: SlugOf,
+  mediaOf: MediaOf = () => undefined,
+): K4Layout {
   const i = file.insert
   const r = resolver(slugOf)
+  const screens = INSERT_SCREENS.flatMap((screen) => {
+    const slug = r.one(screen.id)
+    const image = mediaOf(screen.file)
+    return slug
+      ? [{ t: screen.tab, items: [], shot: { slug, ...(image !== undefined && { image }) } }]
+      : []
+  })
   const ksefSlug = r.one('ksef')
   const pointsSlug = r.one('insert-inspunkty-ksef')
   const rules = i.rules.flatMap((rule) => {
@@ -687,7 +841,11 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       variant: 'stats',
       surface: 'muted',
       eyebrow: 'InsERT w liczbach',
-      items: i.stats.map(([title, text]) => ({ title, text })),
+      items: i.stats.map(([title, text], index) => ({
+        title,
+        text,
+        ...(INSERT_STAT_ICONS[index] && { icon: INSERT_STAT_ICONS[index] }),
+      })),
       source: i.statsSrc,
     }),
     // Without the fallback rule (no conditions) the picker could name a program by chance.
@@ -727,6 +885,20 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
           : {}),
       },
     }),
+    // PRODUKCJA-BIZNES-1211 §4: each program's real screen, three points of its card, „Dodaj”.
+    ...(screens.length > 0
+      ? [
+          section({
+            variant: 'tabs',
+            anchor: 'programy',
+            eyebrow: 'Programy od środka',
+            heading: 'Zobacz program w działaniu',
+            lead: 'Prawdziwe okna programów InsERT. Wybierz program — pokażemy go też na żywo, na Twoich dokumentach.',
+            source: 'Zrzuty ekranu z materiałów InsERT (insert.com.pl)',
+            data: { tabs: screens },
+          }),
+        ]
+      : []),
     ...(ksefSlug
       ? [
           section({
@@ -792,7 +964,11 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       surface: 'muted',
       eyebrow: 'Wdrożenie z PRO-KOM',
       heading: 'Licencja to dopiero początek. Liczy się wdrożenie.',
-      items: i.tiles.map(({ t, d }) => ({ title: t, text: d })),
+      items: i.tiles.map(({ t, d }) => ({
+        title: t,
+        text: d,
+        ...(INSERT_TILE_ICONS[t] && { icon: INSERT_TILE_ICONS[t] }),
+      })),
     }),
     section({
       variant: 'insert-requirements',
@@ -811,7 +987,8 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       variant: 'videos',
       surface: 'muted',
       eyebrow: 'Filmy InsERT',
-      heading: 'Zobacz programy w działaniu',
+      // „Zobacz program w działaniu” is the screens section now (PRODUKCJA-BIZNES-1211 §4).
+      heading: 'Filmy o programach InsERT',
       data: {
         label: 'Film InsERT',
         note: 'Filmy z oficjalnego kanału InsERT. Odtwarzają się po kliknięciu.',
@@ -821,12 +998,54 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       },
     }),
     faq('Pytania', 'Pytania o programy InsERT', i.faq),
+    // PRODUKCJA-BIZNES-1211 §4 pkt 5: what program care is, then the topic of the form — not a
+    // bare phone number. Facts of the package: the tiles (updates, data, remote help) and the
+    // band's promise („Przejmiemy opiekę: aktualizacje, KSeF, uprawnienia, pomoc zdalna”).
+    section({
+      variant: 'cards',
+      anchor: 'opieka',
+      surface: 'muted',
+      eyebrow: 'Opieka nad programem',
+      heading: 'Masz już program InsERT? Przejmiemy opiekę.',
+      items: [
+        {
+          title: 'Program zawsze w aktualnej wersji',
+          text: 'Pilnujemy terminów pakietów aktualizacji i odnowień, więc program nadąża za przepisami.',
+          icon: 'refresh',
+        },
+        {
+          title: 'KSeF w programie',
+          text: 'Ustawiamy wysyłkę i pobieranie e-faktur w KSeF, uprawnienia i InsPunkty w Portfelu InsERT.',
+          icon: 'doc',
+        },
+        {
+          title: 'Dane z poprzedniego programu',
+          text: 'Przenosimy kartoteki towarów i kontrahentów z innego programu albo z Excela.',
+          icon: 'arrow',
+        },
+        {
+          title: 'Pomoc bez wizyty',
+          text: 'Łączymy się zdalnie z Twoim komputerem i rozwiązujemy problem bez czekania na serwisanta.',
+          icon: 'remote',
+        },
+        {
+          title: 'Przejęcie opieki od innego partnera',
+          text: 'Masz program od kogoś innego? Sprawdzimy licencje, wersję i ustawienia, a dalej opiekujemy się nim my.',
+          icon: 'shield',
+        },
+      ],
+    }),
     section({
       variant: 'band',
-      eyebrow: 'Opieka nad programem',
-      heading: 'Masz już program InsERT?',
-      lead: 'Przejmiemy opiekę: aktualizacje, KSeF, uprawnienia, pomoc zdalna.',
-      data: { actions: [{ ...OFFICE_PHONE, primary: true }] },
+      eyebrow: 'Zapytaj o opiekę',
+      heading: 'Opowiedz, jaki masz program.',
+      lead: 'Napisz, który program i ile stanowisk — oddzwonimy z propozycją opieki.',
+      data: {
+        actions: [
+          { label: 'Zapytaj o opiekę nad programem', href: INSERT_CARE_HREF, primary: true },
+          OFFICE_PHONE,
+        ],
+      },
     }),
   ]
   return { layout, missing: [...r.missing] }

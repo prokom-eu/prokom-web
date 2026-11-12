@@ -21,6 +21,9 @@ import {
   upgradeCareSupplyLink,
   upgradeGoposPhotos,
   GOPOS_PHOTO_ALT,
+  goposLead,
+  goposPill,
+  INSERT_SCREENS,
   insertK4Layout,
   KSEF_SWITCH_DATE,
   ksefK4Layout,
@@ -31,6 +34,7 @@ import {
   type K4FirmaFile,
   type K4PagesFile,
   type K4VendingFile,
+  venueHeading,
 } from './k4Pages'
 import type { PageBlock } from './page'
 
@@ -133,6 +137,27 @@ describe('/gopos (K4h)', () => {
     expect(venues[0]!.h1a).toMatch(/^Restauracja/)
   })
 
+  it('shows real screens on the cards and areas, plans and an axis (PRODUKCJA-BIZNES-1211 §3)', () => {
+    const ids = new Map<string, number>()
+    const mediaOf = (file: string) => {
+      if (!ids.has(file)) ids.set(file, ids.size + 1)
+      return ids.get(file)
+    }
+    const built = goposK4Layout(pages, identity, mediaOf).layout
+    const areas = dataOf(built, 'gopos-areas')!.areas
+    expect(areas.every((area) => typeof area.image === 'number')).toBe(true)
+    const shots = dataOf(built, 'cards')!.shots!
+    expect(shots.map((shot) => shot?.frame)).toEqual(['doc', 'screen', 'phone'])
+    expect(shots[2]!.image).toBe(ids.get('ekran-gopos-now.webp'))
+    const tiers = dataOf(built, 'gopos-package')!.tiers!
+    expect(tiers.head).toEqual(['Basic', 'Pro', 'Unlimited'])
+    expect(tiers.rows.map((row) => row.t)).toEqual(['GoOrder', 'GoHub', 'GoCRM'])
+    expect(dataOf(built, 'steps')!.axis).toBe(true)
+    expect(dataOf(built, 'chips')!.groups.every((group) => group.ic)).toBe(true)
+    const stats = sections(built).find((block) => block.variant === 'stats')!
+    expect(stats.items?.every((item) => item.icon)).toBe(true)
+  })
+
   it('lights the KDS screen at the kitchen step', () => {
     const hero = dataOf(layout, 'gopos-hero')!
     expect(hero.flow[1]!.k).toBe('Kuchnia')
@@ -212,7 +237,8 @@ describe('/gopos (K4h)', () => {
       expect(GOPOS_PHOTO_ALT[file], file).toBeTruthy()
       expect(existsSync(goposPhotoPath(file)), file).toBe(true)
     }
-    expect(goposPhotoFiles(pages)).toHaveLength(9)
+    // 9 of the design package + 2 GoPOS and 5 InsERT screens of PRODUKCJA-BIZNES-1211.
+    expect(goposPhotoFiles(pages)).toHaveLength(16)
   })
 
   it('leaves the device list out when no device is known (the panel needs one)', () => {
@@ -242,6 +268,46 @@ describe('/gopos (K4h)', () => {
 })
 
 describe('/insert (K4h)', () => {
+  it('shows five programs in action with their screens (PRODUKCJA-BIZNES-1211 §4)', () => {
+    const ids = new Map<string, number>()
+    const mediaOf = (file: string) => {
+      if (!ids.has(file)) ids.set(file, ids.size + 1)
+      return ids.get(file)
+    }
+    const built = insertK4Layout(pages, identity, mediaOf).layout
+    const screens = sections(built).find((b) => b.anchor === 'programy')!
+    const tabs = parseSectionData('tabs', screens.data)!.tabs
+    expect(tabs.map((tab) => tab.t)).toEqual([
+      'Subiekt nexo',
+      'Subiekt GT',
+      'Rachmistrz',
+      'Rewizor',
+      'Gratyfikant',
+    ])
+    expect(tabs.every((tab) => typeof tab.shot?.image === 'number')).toBe(true)
+    for (const screen of INSERT_SCREENS) {
+      expect(existsSync(goposPhotoPath(screen.file)), screen.file).toBe(true)
+      expect(GOPOS_PHOTO_ALT[screen.file]).toBe(screen.alt)
+    }
+  })
+
+  it('offers program care with the form topic, icons on the tiles (§4 pkt 4–5)', () => {
+    const built = insertK4Layout(pages, identity).layout
+    const care = sections(built).find((b) => b.anchor === 'opieka')!
+    expect(care.items).toHaveLength(5)
+    expect(care.items?.every((item) => item.icon)).toBe(true)
+    const tiles = sections(built).find((b) =>
+      b.heading?.replace(/ /g, ' ').startsWith('Licencja to dopiero'),
+    )!
+    expect(tiles.items?.every((item) => item.icon)).toBe(true)
+    const band = dataOf(built, 'band')!
+    expect(band.actions[0]).toMatchObject({ href: expect.stringContaining('/kontakt?temat=') })
+    // The form's topic (`shared.contact.topics`) is in the link.
+    expect(decodeURIComponent((band.actions[0] as { href: string }).href)).toContain(
+      'KSeF, programy i opieka IT',
+    )
+  })
+
   it('„Który Subiekt”: 3 combinations give 123 / GT / nexo', () => {
     const data = dataOf(insertK4Layout(pages, identity).layout, 'insert-picker')!
     expect(pickProgram(data.questions, data.rules, [1, 0, 0]).slug).toBe('s123')
@@ -459,5 +525,34 @@ describe('/ulga-na-kase-fiskalna (K4j)', () => {
 
   it('shows the 4 cash registers of the board', () => {
     expect(dataOf(layout, 'products')?.slugs).toEqual(['ergo', 'k10', 'minilt', 'pospay2'])
+  })
+})
+
+describe('GoPOS H1 helpers (PRODUKCJA-BIZNES-1211 §3)', () => {
+  it('puts the phrase in front of the pill once, keeps the partner status', () => {
+    expect(goposPill('Autoryzowany partner GoPOS · Podhale i Małopolska')).toBe(
+      'GoPOS dla gastronomii · Autoryzowany partner GoPOS',
+    )
+    expect(goposPill('GoPOS dla gastronomii · X')).toBe('GoPOS dla gastronomii · X')
+  })
+
+  it('names the phrase in the lead once', () => {
+    expect(goposLead('Wdrażamy GoPOS w kawiarniach.')).toBe(
+      'Wdrażamy GoPOS dla gastronomii w kawiarniach.',
+    )
+    expect(goposLead('GoPOS dla gastronomii w Rabce.')).toBe('GoPOS dla gastronomii w Rabce.')
+  })
+
+  it('gives a tab that repeats the old H1 its venue and own sentence; others stay', () => {
+    const old = { t: 'Restauracja', h1a: 'GoPOS dla gastronomii:', h1b: 'sala…' }
+    expect(
+      venueHeading({ ...old, leadM: 'Zamówienie przy stoliku, kuchnia na ekranie, X.' }),
+    ).toEqual({ h1a: 'Restauracja:', h1b: 'zamówienie przy stoliku, kuchnia na ekranie' })
+    // Without `leadM` the second line stays as it was.
+    expect(venueHeading(old)).toEqual({ h1a: 'Restauracja:', h1b: 'sala…' })
+    expect(venueHeading({ t: 'Kawiarnia', h1a: 'Lada', h1b: 'w jednym systemie' })).toEqual({
+      h1a: 'Lada',
+      h1b: 'w jednym systemie',
+    })
   })
 })
