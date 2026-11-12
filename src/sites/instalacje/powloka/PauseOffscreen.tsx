@@ -7,6 +7,18 @@ import { useEffect } from 'react'
 const WATCHED = '#tresc section, #top > section, #top > footer'
 /** A section starts moving a little before it comes into view. */
 const MARGIN = '100px 0px'
+/** Sections skipped from the first render on a fresh visit (`data-cve`, `ruch.css`). */
+const EARLY = '#tresc > section ~ section, #top > section'
+
+/**
+ * Before any paint, on a fresh visit without an anchor: sections below the hero are skipped from
+ * the first render (`data-cve` on `<html>`, `ruch.css`; TBT of `/` on a phone 476 → 245 ms). Not
+ * after a reload or „back” to the page: the browser puts the scroll back by pixels, and sections
+ * never rendered have no height of their own yet (only the 900 px placeholder) — it would land
+ * elsewhere. Inline in the frame (`Frame.tsx`), before the sections are parsed.
+ */
+export const EARLY_SKIP_SCRIPT =
+  "try{var n=performance.getEntriesByType('navigation')[0];if(!location.hash&&(!n||n.type==='navigate'))document.documentElement.setAttribute('data-cve','')}catch(e){}"
 
 /**
  * Stops the work on everything the visitor cannot see (report 11.11.2026: 263 looping
@@ -52,6 +64,46 @@ export function PauseOffscreen() {
       io.disconnect()
       mo?.disconnect()
       for (const el of watched) el.removeAttribute('data-off')
+    }
+  }, [pathname])
+
+  // After an early-skipped load: each section is rendered once, one per idle moment, so it keeps
+  // its real height (`contain-intrinsic-size: auto`) — a later „back” after a client navigation
+  // then puts the scroll where it was. Then `data-cve` goes and off-screen sections are skipped
+  // under `data-off` only, as on any other visit.
+  useEffect(() => {
+    const root = document.documentElement
+    if (!root.hasAttribute('data-cve')) return
+    const idle: (cb: () => void) => number = window.requestIdleCallback
+      ? (cb) => window.requestIdleCallback(cb, { timeout: 2000 })
+      : (cb) => window.setTimeout(cb, 200)
+    const cancelIdle = (id: number) =>
+      window.cancelIdleCallback ? window.cancelIdleCallback(id) : window.clearTimeout(id)
+    const pending = [...document.querySelectorAll(EARLY)]
+    let current: Element | undefined
+    let handle = 0
+    let frame = 0
+    const next = () => {
+      current = pending.shift()
+      if (!current) {
+        root.removeAttribute('data-cve')
+        return
+      }
+      const el = current
+      el.setAttribute('data-measure', '')
+      // Two frames: the section is laid out and painted once, and its size is remembered.
+      frame = requestAnimationFrame(() => {
+        frame = requestAnimationFrame(() => {
+          el.removeAttribute('data-measure')
+          handle = idle(next)
+        })
+      })
+    }
+    handle = idle(next)
+    return () => {
+      cancelIdle(handle)
+      cancelAnimationFrame(frame)
+      current?.removeAttribute('data-measure')
     }
   }, [pathname])
   return null
