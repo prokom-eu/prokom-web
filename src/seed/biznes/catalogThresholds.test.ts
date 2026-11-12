@@ -11,12 +11,6 @@ import gaps from '../../lib/biznes/requiredSpecs.gaps.json'
 /** Categories whose partition is done (partia 1: kasy, drukarki fiskalne, terminale). */
 const DONE = ['kasy', 'druk', 'term']
 
-/**
- * Partia 2 (POS, kioski, skanery i etykiety, wagi, kasoterminale, akcesoria POS): texts done;
- * the parameters some producers do not publish stay on the list (parametry-braki-sprawdzone.md).
- */
-const DONE_TEXT = [...DONE, 'pos', 'kiosk', 'kody', 'wagi', 'mob', 'akc']
-
 export const MIN_DESCRIPTION = 1000
 export const MIN_FAQ = 4
 export const MIN_RECOMMENDED = 3
@@ -32,6 +26,11 @@ type Card = {
 
 const cards = (catalog as unknown as { produkty: Card[] }).produkty
 const known = new Set(cards.map((card) => card.slug_seed))
+/**
+ * Texts (description, FAQ, recommendations): every category since partie 2–8 (13.11) — the
+ * parameters some producers do not publish stay on the list (parametry-braki-sprawdzone.md).
+ */
+const DONE_TEXT = [...new Set(cards.map((card) => card.kategoria))]
 const done = cards.filter((card) => card.status === 'gotowe' && DONE.includes(card.kategoria))
 const doneText = cards.filter(
   (card) => card.status === 'gotowe' && DONE_TEXT.includes(card.kategoria),
