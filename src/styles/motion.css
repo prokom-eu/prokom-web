@@ -517,6 +517,11 @@
   box-shadow: none;
 }
 
+/* The enlarged product photo (`GalleryZoom`): the page under it does not scroll. */
+html:has(dialog[data-gallery-zoom][open]) {
+  overflow: hidden;
+}
+
 /* --- 5. Page and theme transitions ---------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
   /* `PageTransition`: the old page `sw-page-out`, the new `sw-page-in`; header and bottom bar

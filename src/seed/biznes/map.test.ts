@@ -492,3 +492,17 @@ describe('search settings', () => {
     expect(data.popular).toHaveLength(8)
   })
 })
+
+describe('laterDate — the check date only moves forward (review 13.11)', () => {
+  it('keeps the later of the package and the stored date', async () => {
+    const { laterDate } = await import('./map')
+    expect(laterDate('2026-10-29T00:00:00.000Z', '2026-11-12T00:00:00.000Z')).toBe(
+      '2026-11-12T00:00:00.000Z',
+    )
+    expect(laterDate('2026-11-13T00:00:00.000Z', '2026-11-12T00:00:00.000Z')).toBe(
+      '2026-11-13T00:00:00.000Z',
+    )
+    expect(laterDate(null, '2026-11-12T00:00:00.000Z')).toBe('2026-11-12T00:00:00.000Z')
+    expect(laterDate(undefined, null)).toBeNull()
+  })
+})
