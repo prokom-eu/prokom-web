@@ -7,7 +7,8 @@
 // Dla każdej strony:
 //   cpuGora / cpuDol — procesor w bezczynności (Performance.getMetrics TaskDuration przez 5 s) z hero
 //                      w kadrze i po przewinięciu na dół, w % jednego rdzenia (już z dławieniem ×4),
-//   animacjeDol      — liczba animacji „running” po przewinięciu na dół (cel 0 poza stopką),
+//   animacjeDol      — liczba animacji „running” po przewinięciu na dół, renderowanych (bez treści
+//                      pominiętej przez content-visibility; cel 0 poza tym, co widać na dole),
 //   klatkaSr / klatkaP95 — czas klatki (ms) w trakcie przewijania kółkiem od góry do dołu,
 //   tbt              — suma (długie zadanie − 50 ms) przez 10 s od wejścia na stronę.
 // Wynik: tabela markdown na stdout (do opisu PR).
@@ -85,7 +86,11 @@ async function measure(route) {
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await sleep(1500);
   const running = await page.evaluate((details) => {
-    const list = document.getAnimations().filter((a) => a.playState === 'running');
+    // Rendered ones only: loops in a section skipped by `content-visibility` cost nothing.
+    const list = document.getAnimations().filter((a) => {
+      const t = a.effect && a.effect.target;
+      return a.playState === 'running' && (!t || t.checkVisibility({ contentVisibilityAuto: true }));
+    });
     if (!details) return { count: list.length };
     const by = {};
     for (const a of list) {
