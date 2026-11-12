@@ -2,7 +2,7 @@
 
 Wygenerowane przez `node scripts/parametry-braki.ts` z `seed/prokombiznes/k4/katalog-k4.json`. Nie edytuj ręcznie. Obowiązkowe klucze kategorii są w `src/lib/biznes/requiredSpecs.ts`.
 
-**Stan:** 431 gotowych kart · 160 z brakami · 284 brakujących pól.
+**Stan:** 431 gotowych kart · 150 z brakami · 269 brakujących pól.
 
 Zasada: brak uzupełniamy **tylko** ze strony albo PDF-u producenta (źródło karty, data w `sprawdzono`). Gdy producent danej wartości nie podaje, wpis zostaje tutaj z dopiskiem, gdzie szukano. Nie zgadujemy. Po uzupełnieniu uruchom skrypt ponownie. Test `requiredSpecs.test.ts` pilnuje, żeby lista tylko malała. Uzupełnianie idzie kategoriami w sesjach 3–4 (KATALOG-DANE-2).
 
@@ -102,23 +102,6 @@ Zasada: brak uzupełniamy **tylko** ze strony albo PDF-u producenta (źródło k
 | `lenovo-thinkpad-t14s-2-in-1-gen-2` | System | [źródło karty](https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_T14s_2_in_1_Gen_2/ThinkPad_T14s_2_in_1_Gen_2_Spec.pdf) |
 | `apple-macbook-pro-m5` | Procesor, System, Wymiary | [źródło karty](https://www.apple.com/pl/macbook-pro/specs/) |
 
-## kody (12)
-
-| slug | brakuje | gdzie szukać |
-|---|---|---|
-| `skaner` | Waga | [źródło karty](https://www.elzab.com.pl/download/reklamowe/Product_guide_2D_handheld_scanner.pdf) |
-| `zebra-drukarka-etykiet-zd421` | Wymiary | [źródło karty](https://www.zebra.com/content/dam/zebra_dam/en/tech-specs/zd421-tech-specs-en-us.pdf) |
-| `zebra-tc22-tc27` | Typ, Rozdzielczość | [źródło karty](https://www.zebra.com/us/en/products/spec-sheets/mobile-computers/handheld/tc22-tc27.html) |
-| `sato-metkownice-judo-kendo` | Typ, Rozdzielczość, Interfejsy | [źródło karty](https://www.satoeurope.com/ru/pdf/products/hand-labelling-devices/sato-kendo-brochure.pdf) |
-| `zebra-drukarka-biurkowa-zd230` | Waga | [źródło karty](https://www.zebra.com/us/en/products/printers/desktop/zd200-series.html) |
-| `brother-pt-d610btvp` | Rozdzielczość | [źródło karty](https://store.brother.pl/devices/label%20printer/p%20touch/pt/ptd610btvp) |
-| `brother-td-4420dn-td-4520dn` | Wymiary | [źródło karty](https://store.brother.pl/devices/label%20printer/td/td4420dn) |
-| `elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka` | Waga | [źródło karty](https://www.elzab.com.pl/pl/kody-kreskowe/czytniki-kodow-kreskowych/reczne2d/elzab-bs80-2d) |
-| `sunmi-blink-blink-2` | Waga | [źródło karty](https://www.sunmi.com/en/blink2/) |
-| `sunmi-l2s-pro-l2ks` | Typ, Rozdzielczość | [źródło karty](https://www.sunmi.com/en/l2s-pro/) |
-| `sunmi-l3` | Typ, Rozdzielczość | [źródło karty](https://www.sunmi.com/en/l3/) |
-| `zebra-zc100-zc300` | Typ | [źródło karty](https://www.posnet.com.pl/produkty/product/610/zebra-zc100) |
-
 ## vend (10)
 
 | slug | brakuje | gdzie szukać |
@@ -164,6 +147,19 @@ Zasada: brak uzupełniamy **tylko** ze strony albo PDF-u producenta (źródło k
 | `logitech-rally-bar-mini` | Przekątna, Rozdzielczość, Montaż | [źródło karty](https://www.logitech.com/pl-pl/products/video-conferencing/room-solutions/rallybarmini.html) |
 | `logitech-tap-ip` | Rozdzielczość, Złącza | [źródło karty](https://www.logitech.com/pl-pl/products/video-conferencing/room-solutions/tap-ip.html) |
 
+## kody (8)
+
+| slug | brakuje | gdzie szukać |
+|---|---|---|
+| `skaner` | Waga | [źródło karty](https://www.elzab.com.pl/download/reklamowe/Product_guide_2D_handheld_scanner.pdf) |
+| `zebra-drukarka-etykiet-zd421` | Wymiary | [źródło karty](https://www.zebra.com/content/dam/zebra_dam/en/tech-specs/zd421-tech-specs-en-us.pdf) |
+| `sato-metkownice-judo-kendo` | Typ, Rozdzielczość, Interfejsy | [źródło karty](https://www.satoeurope.com/ru/pdf/products/hand-labelling-devices/sato-kendo-brochure.pdf) |
+| `zebra-drukarka-biurkowa-zd230` | Waga | [źródło karty](https://www.zebra.com/us/en/products/printers/desktop/zd200-series.html) |
+| `brother-pt-d610btvp` | Rozdzielczość | [źródło karty](https://store.brother.pl/devices/label%20printer/p%20touch/pt/ptd610btvp) |
+| `brother-td-4420dn-td-4520dn` | Wymiary | [źródło karty](https://store.brother.pl/devices/label%20printer/td/td4420dn) |
+| `elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka` | Waga | [źródło karty](https://www.elzab.com.pl/pl/kody-kreskowe/czytniki-kodow-kreskowych/reczne2d/elzab-bs80-2d) |
+| `sunmi-blink-blink-2` | Waga | [źródło karty](https://www.sunmi.com/en/blink2/) |
+
 ## monitory (6)
 
 | slug | brakuje | gdzie szukać |
@@ -204,28 +200,6 @@ Zasada: brak uzupełniamy **tylko** ze strony albo PDF-u producenta (źródło k
 | `logitech-c925e` | Kompatybilność | [źródło karty](https://www.logitech.com/pl-pl/products/webcams/c925e-business-webcam.html) |
 | `logitech-zone-wireless-2` | Kompatybilność | [źródło karty](https://www.logitech.com/pl-pl/products/headsets/zone-wireless-2.html) |
 
-## akc (3)
-
-| slug | brakuje | gdzie szukać |
-|---|---|---|
-| `elzab-zewnetrzny-wyswietlacz-klienta` | Wymiary | [źródło karty](https://www.elzab.com.pl/pl/akcesoria-i-dodatki/wyposazenie-dodatkowe/wyswietlacze/zewnetrzny-wyswietlacz-klienta) |
-| `posnet-werion` | Wymiary | [źródło karty](https://www.posnet.com.pl/produkty/product/201/weryfikator-cen-werion) |
-| `posnet-wyswietlacz-pos` | Wymiary | [źródło karty](https://www.posnet.com.pl/produkty/product/274/wyswietlacz-pos) |
-
-## druk (2)
-
-| slug | brakuje | gdzie szukać |
-|---|---|---|
-| `fbox` | Waga | [źródło karty](https://www.posnet.com.pl/produkty/product/595/fawag-box) |
-| `elzab-drukarka-stacji-paliw-df-6-online` | Łączność z CRK, Komunikacja z komputerem | [źródło karty](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/kasy-specjalizowane-online/elzab-df-6-online) |
-
-## pos (2)
-
-| slug | brakuje | gdzie szukać |
-|---|---|---|
-| `gopos-all-in-one` | Wymiary | [źródło karty](https://gopos.pl/all-in-one) |
-| `t10` | Procesor | [źródło karty](https://www.elzab.com.pl/pl/fiskalne-posy-i-kasoterminale/elzab-t10-online-elzapp-sklep) |
-
 ## niszczarki (2)
 
 | slug | brakuje | gdzie szukać |
@@ -247,17 +221,23 @@ Zasada: brak uzupełniamy **tylko** ze strony albo PDF-u producenta (źródło k
 | `m365-poczta` | Dla kogo / forma | — (brak źródła) |
 | `pomoc-zdalna` | Zakres, Dla kogo / forma | — (brak źródła) |
 
+## pos (1)
+
+| slug | brakuje | gdzie szukać |
+|---|---|---|
+| `gopos-all-in-one` | Wymiary | [źródło karty](https://gopos.pl/all-in-one) |
+
 ## mob (1)
 
 | slug | brakuje | gdzie szukać |
 |---|---|---|
 | `posnet-bileterka-e-podroznik` | Wymiary | [źródło karty](https://www.posnet.com.pl/produkty/product/597/bileterka-e-podroznik) |
 
-## wagi (1)
+## akc (1)
 
 | slug | brakuje | gdzie szukać |
 |---|---|---|
-| `dibal-dmi-610` | Zakres ważenia, Wymiary szalki | [źródło karty](https://www.dibal.com/en/weight-indicators-dmi-610) |
+| `posnet-werion` | Wymiary | [źródło karty](https://www.posnet.com.pl/produkty/product/201/weryfikator-cen-werion) |
 
 ## progb (1)
 
