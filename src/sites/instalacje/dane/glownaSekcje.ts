@@ -277,8 +277,6 @@ export const glownaSekcje = {
     heading: 'Instalacje dla domów, pensjonatów, firm i instytucji',
     lead: 'Każdy obiekt ma inne potrzeby. Wybierz swój, a pokażemy przekrój budynku, typowe problemy i zestawy, od których zaczynamy.',
     more: 'Zobacz rozwiązania',
-    showAll: 'Pokaż wszystkie 12 obiektów',
-    collapse: 'Zwiń listę',
     missing: 'Nie ma tu Twojego obiektu? Pracujemy też dla innych firm i instytucji.',
     missingLink: 'Opisz, co masz →',
   },

@@ -10,7 +10,6 @@ import type { ObjectKey } from '../../dane/types'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../InstSectionLazy'
 import { SectionHead } from '../SectionHead'
-import { ShowAll } from './ShowAll'
 import { Arrow } from '../../Arrow'
 
 const t = glownaSekcje.forWho
@@ -37,7 +36,7 @@ export function ForWhoGrid({ objects }: { objects: Map<ObjectKey, MenuEntry> }) 
     <InstSection id="dla-kogo" className="xa-s" style={{ padding: '96px 0' }}>
       <div className="wrap">
         <SectionHead eyebrow={t.eyebrow} heading={t.heading} lead={t.lead} leadWidth={440} />
-        <ShowAll className="obg" more={t.showAll} less={t.collapse}>
+        <div className="obg">
           {cards.map(({ key, object, description, set, hue, big }) => (
             <div key={key} className={`obc ri oh${hue}${big ? ' big' : ''}`}>
               <div className="oba" aria-hidden="true">
@@ -76,7 +75,7 @@ export function ForWhoGrid({ objects }: { objects: Map<ObjectKey, MenuEntry> }) 
               </div>
             </div>
           ))}
-        </ShowAll>
+        </div>
         <p className="ri" style={{ margin: '22px 0 0', color: 'var(--ink-2)', fontSize: 15 }}>
           {t.missing}{' '}
           <Link href="/zaplanuj" style={{ color: 'var(--accent-text)', fontWeight: 800 }}>

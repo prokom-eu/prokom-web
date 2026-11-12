@@ -687,9 +687,6 @@
     color: var(--inst-deep-note);
     margin-top: 2px;
   }
-  & .mobmore {
-    display: none;
-  }
   @media (max-width: 1100px) {
     & .srvb {
       grid-template-columns: minmax(0, 1fr);
@@ -703,15 +700,6 @@
     }
     & .srvg {
       grid-template-columns: minmax(0, 1fr);
-    }
-    & .mobmore {
-      display: flex;
-      width: 100%;
-      justify-content: center;
-      margin-top: 14px;
-    }
-    & .obg:not(.all) .obc:nth-child(n + 7) {
-      display: none;
     }
     & .steps {
       display: flex !important;
@@ -1844,8 +1832,30 @@
       padding-bottom: 76px !important;
     }
   }
+  /* „Dla kogo” on a phone: one row with snap up to 760 px (INST-4: the grid cut to six cards with
+     „Pokaż wszystkie” was left only for 701–760 px). */
+  @media (max-width: 760px) {
+    & #dla-kogo .obg {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 12px;
+      margin: 0 -16px;
+      padding: 4px 16px 14px;
+      scroll-padding: 0 16px;
+      scrollbar-width: none;
+    }
+    & #dla-kogo .obg::-webkit-scrollbar {
+      display: none;
+    }
+    & #dla-kogo .obg .obc {
+      display: flex !important;
+      flex: 0 0 80%;
+      scroll-snap-align: start;
+      min-height: 0;
+    }
+  }
   @media (max-width: 700px) {
-    & #dla-kogo .obg,
     & #gory .gorg,
     & .trust .brands {
       display: flex;
@@ -1857,25 +1867,15 @@
       scroll-padding: 0 16px;
       scrollbar-width: none;
     }
-    & #dla-kogo .obg::-webkit-scrollbar,
     & #gory .gorg::-webkit-scrollbar,
     & .trust .brands::-webkit-scrollbar {
       display: none;
-    }
-    & #dla-kogo .obg .obc {
-      display: flex !important;
-      flex: 0 0 80%;
-      scroll-snap-align: start;
-      min-height: 0;
     }
     & #gory .gorg .gor {
       display: flex !important;
       flex: 0 0 84%;
       scroll-snap-align: start;
       padding: 16px;
-    }
-    & #dla-kogo .mobmore {
-      display: none;
     }
     /* Phone: one row with snap, edges fading out (no automatic carousel, RUNDA-V5 §2). */
     & .trust .brands {
