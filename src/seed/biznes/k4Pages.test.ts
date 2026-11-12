@@ -21,6 +21,7 @@ import {
   upgradeCareSupplyLink,
   upgradeGoposPhotos,
   GOPOS_PHOTO_ALT,
+  INSERT_SCREENS,
   insertK4Layout,
   KSEF_SWITCH_DATE,
   ksefK4Layout,
@@ -233,8 +234,8 @@ describe('/gopos (K4h)', () => {
       expect(GOPOS_PHOTO_ALT[file], file).toBeTruthy()
       expect(existsSync(goposPhotoPath(file)), file).toBe(true)
     }
-    // 9 of the design package + 3 producer screens of PRODUKCJA-BIZNES-1211 §3.
-    expect(goposPhotoFiles(pages)).toHaveLength(12)
+    // 9 of the design package + 3 GoPOS and 5 InsERT screens of PRODUKCJA-BIZNES-1211.
+    expect(goposPhotoFiles(pages)).toHaveLength(17)
   })
 
   it('leaves the device list out when no device is known (the panel needs one)', () => {
@@ -264,6 +265,46 @@ describe('/gopos (K4h)', () => {
 })
 
 describe('/insert (K4h)', () => {
+  it('shows five programs in action with their screens (PRODUKCJA-BIZNES-1211 §4)', () => {
+    const ids = new Map<string, number>()
+    const mediaOf = (file: string) => {
+      if (!ids.has(file)) ids.set(file, ids.size + 1)
+      return ids.get(file)
+    }
+    const built = insertK4Layout(pages, identity, mediaOf).layout
+    const screens = sections(built).find((b) => b.anchor === 'programy')!
+    const tabs = parseSectionData('tabs', screens.data)!.tabs
+    expect(tabs.map((tab) => tab.t)).toEqual([
+      'Subiekt nexo',
+      'Subiekt GT',
+      'Rachmistrz',
+      'Rewizor',
+      'Gratyfikant',
+    ])
+    expect(tabs.every((tab) => typeof tab.shot?.image === 'number')).toBe(true)
+    for (const screen of INSERT_SCREENS) {
+      expect(existsSync(goposPhotoPath(screen.file)), screen.file).toBe(true)
+      expect(GOPOS_PHOTO_ALT[screen.file]).toBe(screen.alt)
+    }
+  })
+
+  it('offers program care with the form topic, icons on the tiles (§4 pkt 4–5)', () => {
+    const built = insertK4Layout(pages, identity).layout
+    const care = sections(built).find((b) => b.anchor === 'opieka')!
+    expect(care.items).toHaveLength(5)
+    expect(care.items?.every((item) => item.icon)).toBe(true)
+    const tiles = sections(built).find((b) =>
+      b.heading?.replace(/ /g, ' ').startsWith('Licencja to dopiero'),
+    )!
+    expect(tiles.items?.every((item) => item.icon)).toBe(true)
+    const band = dataOf(built, 'band')!
+    expect(band.actions[0]).toMatchObject({ href: expect.stringContaining('/kontakt?temat=') })
+    // The form's topic (`shared.contact.topics`) is in the link.
+    expect(decodeURIComponent((band.actions[0] as { href: string }).href)).toContain(
+      'KSeF, programy i opieka IT',
+    )
+  })
+
   it('„Który Subiekt”: 3 combinations give 123 / GT / nexo', () => {
     const data = dataOf(insertK4Layout(pages, identity).layout, 'insert-picker')!
     expect(pickProgram(data.questions, data.rules, [1, 0, 0]).slug).toBe('s123')
