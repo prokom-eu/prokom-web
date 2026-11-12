@@ -74,6 +74,7 @@ export type K4PagesFile = {
       h1a: string
       h1b: string
       lead: string
+      leadM?: string
       mods: string[]
       tk: [string, string, string[]]
     }[]
@@ -150,6 +151,35 @@ export type K4PagesFile = {
 export type K4Layout = { layout: PageBlock[]; missing: string[] }
 
 const GOPOS_PRESENTATION_NOTE = 'Prezentacja GoPOS w lokalu'
+
+/**
+ * H1 of `/gopos` as on the board (K31 §13.1): short, the second line in the accent. The phrase
+ * „GoPOS dla gastronomii” moves to the pill, the lead and the SEO title (PRODUKCJA-BIZNES-1211 §3).
+ */
+export const GOPOS_H1 = { heading: 'Sala, kuchnia i dowozy.', accent: 'Jeden system.' }
+const GOPOS_PHRASE = 'GoPOS dla gastronomii'
+
+/** The pill with the phrase first, the partner status (K4-FINAL §1) after it. */
+export function goposPill(pill: string): string {
+  return pill.startsWith(GOPOS_PHRASE) ? pill : `${GOPOS_PHRASE} · ${pill.split(' · ')[0]}`
+}
+
+/** The lead with the phrase: „Wdrażamy GoPOS w …” → „Wdrażamy GoPOS dla gastronomii w …”. */
+export function goposLead(lead: string): string {
+  return lead.includes(GOPOS_PHRASE) ? lead : lead.replace(/\bGoPOS\b/, GOPOS_PHRASE)
+}
+
+/**
+ * A venue tab whose heading is the page's old H1 (the restaurant tab, back with the revert of
+ * #486): the venue's name and its own short sentence from `leadM` instead — „Restauracja:
+ * zamówienie przy stoliku, kuchnia na ekranie”. Other venues keep their headings.
+ */
+export function venueHeading(venue: { t: string; h1a: string; h1b: string; leadM?: string }) {
+  if (!venue.h1a.startsWith(GOPOS_PHRASE)) return { h1a: venue.h1a, h1b: venue.h1b }
+  const parts = (venue.leadM ?? '').replace(/\.$/, '').split(', ').slice(0, 2).join(', ')
+  const sentence = parts.charAt(0).toLowerCase() + parts.slice(1)
+  return { h1a: `${venue.t}:`, h1b: sentence || venue.h1b }
+}
 const OFFER_CRUMB = { name: 'Oferta', href: '/oferta' }
 const OFFICE_PHONE = { label: BIZNES_CONTACT.phone, href: BIZNES_CONTACT.phoneHref }
 
@@ -381,12 +411,12 @@ export function goposK4Layout(
     section({
       variant: 'gopos-hero',
       surface: 'dark',
-      heading: g.hero.h1a,
-      headingAccent: g.hero.h1b,
-      lead: g.hero.lead,
+      heading: GOPOS_H1.heading,
+      headingAccent: GOPOS_H1.accent,
+      lead: goposLead(g.hero.lead),
       data: {
         trail: [OFFER_CRUMB],
-        pill: g.hero.pill,
+        pill: goposPill(g.hero.pill),
         presentation,
         proof: g.hero.proof.map(({ t, d }) => ({ t, d })),
         stage: g.hero.stage.flatMap((device) => {
@@ -431,8 +461,7 @@ export function goposK4Layout(
           return {
             key: venue.k,
             tab: venue.t,
-            h1a: venue.h1a,
-            h1b: venue.h1b,
+            ...venueHeading(venue),
             lead: venue.lead,
             ...(image !== undefined ? { image } : {}),
             modules: venueModules(venue.mods),

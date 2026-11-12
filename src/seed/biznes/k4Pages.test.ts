@@ -112,6 +112,27 @@ describe('/gopos (K4h)', () => {
     }
   })
 
+  it('says the H1 short, keeps „GoPOS dla gastronomii” in the pill and lead (K31 §13.1)', () => {
+    const hero = sections(layout).find((b) => b.variant === 'gopos-hero')!
+    const plain = (value?: string | null) => value?.replace(/ /g, ' ')
+    expect(plain(hero.heading)).toBe('Sala, kuchnia i dowozy.')
+    expect(plain(hero.headingAccent)).toBe('Jeden system.')
+    expect(dataOf(layout, 'gopos-hero')!.pill).toMatch(/^GoPOS dla gastronomii · /)
+    expect(dataOf(layout, 'gopos-hero')!.pill).toContain('Autoryzowany partner GoPOS')
+    expect(plain(hero.lead)).toContain('GoPOS dla gastronomii')
+  })
+
+  it('never repeats the H1 in a venue tab (PRODUKCJA-BIZNES-1211 §3 pkt 2)', () => {
+    const hero = sections(layout).find((b) => b.variant === 'gopos-hero')!
+    const h1 = `${hero.heading} ${hero.headingAccent}`
+    const venues = dataOf(layout, 'gopos-venues')!.venues
+    for (const venue of venues) {
+      expect(`${venue.h1a} ${venue.h1b}`).not.toBe(h1)
+      expect(venue.h1a).not.toMatch(/GoPOS dla gastronomii/)
+    }
+    expect(venues[0]!.h1a).toMatch(/^Restauracja/)
+  })
+
   it('lights the KDS screen at the kitchen step', () => {
     const hero = dataOf(layout, 'gopos-hero')!
     expect(hero.flow[1]!.k).toBe('Kuchnia')

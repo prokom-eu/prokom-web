@@ -89,7 +89,10 @@ export function GoposHero({ block, data, index, images, crumbs }: Props) {
             </div>
             <h1 id="gopos-h" className={cx(BZ_H1, 'max-md:text-[30px] max-md:leading-[1.05]')}>
               {block.heading || crumbs.at(-1)?.name}{' '}
-              {block.headingAccent && <em className="text-ok not-italic">{block.headingAccent}</em>}
+              {/* Second line in the accent (K31 §13.1: „Sala, kuchnia i dowozy. Jeden system.”). */}
+              {block.headingAccent && (
+                <em className="block text-ok not-italic">{block.headingAccent}</em>
+              )}
             </h1>
             {block.lead && (
               <p

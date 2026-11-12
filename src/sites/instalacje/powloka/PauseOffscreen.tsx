@@ -9,12 +9,12 @@ const WATCHED = '#tresc section, #top > section, #top > footer'
 const MARGIN = '100px 0px'
 
 /**
- * Pauses the CSS animations of everything the visitor cannot see (report 11.11.2026: 263
- * looping animations on `/` kept the CPU at 98–100 % with the hero scrolled away). Marks each
- * watched section off screen with `data-off`, and the whole document while the tab is hidden;
- * `ruch.css` sets `animation-play-state: paused` under `[data-off]`. Paused, not removed: a scene
- * goes on from the same frame, so nothing jumps. The scenes' timers stop on their own off screen
- * (`useInterval`). Renders nothing; without JS everything simply keeps moving.
+ * Stops the work on everything the visitor cannot see (report 11.11.2026: 263 looping
+ * animations on `/` kept the CPU at 98–100 % with the hero scrolled away). Marks each watched
+ * section off screen with `data-off` — `ruch.css` gives it `content-visibility: auto`, so the
+ * browser skips its style, layout and paint — and the whole document while the tab is hidden
+ * (animations paused). The scenes' timers stop on their own off screen (`useInterval`). Renders
+ * nothing; without JS everything is simply rendered and moving.
  */
 export function PauseOffscreen() {
   const pathname = usePathname()
