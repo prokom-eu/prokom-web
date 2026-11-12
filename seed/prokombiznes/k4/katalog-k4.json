@@ -62475,8 +62475,20 @@
      "v": "druk, kopia, skan"
     },
     {
-     "k": "Prędkość druku (2320)",
-     "v": "23 str./min A4, 10 str./min A3"
+     "k": "Prędkość druku",
+     "v": "TASKalfa 2320: 23 str./min A4, 10 str./min A3; TASKalfa 2020: 20 str./min A4, 10 str./min A3"
+    },
+    {
+     "k": "Pierwsza strona",
+     "v": "ok. 5,7 s"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "600 × 600 dpi (druk, skan, kopia), tryb Fast 1200 (1800 × 600 dpi)"
+    },
+    {
+     "k": "Format",
+     "v": "A3"
     },
     {
      "k": "Skanowanie",
@@ -62501,6 +62513,14 @@
     {
      "k": "Bezpieczeństwo",
      "v": "skrzynka wydruków z kodem PIN, druk poufny"
+    },
+    {
+     "k": "Pobór mocy",
+     "v": "druk: 450 W (2320) / 378 W (2020); gotowość 74 W; uśpienie 1,1 W"
+    },
+    {
+     "k": "Eksploatacja",
+     "v": "toner TK-4145 na 16 000 stron (pokrycie 6% A4)"
     }
    ],
    "warianty_opis": [
@@ -62510,7 +62530,7 @@
     },
     {
      "model": "TASKalfa 2020",
-     "roznica": "model z tej samej serii (wspólna karta katalogowa producenta)"
+     "roznica": "20 str./min A4, 10 str./min A3; pobór mocy przy druku 378 W (2320: 450 W)"
     }
    ],
    "faq": [
@@ -62563,9 +62583,9 @@
      "host": "kyoceradocumentsolutions.eu"
     },
     {
-     "url": "https://www.kyoceradocumentsolutions.eu/content/download-center/eu/documents/datasheet/DS_TASKalfa_2020_2320_final_pdf.download.pdf",
-     "etykieta": "Dokument PDF — Kyocera",
-     "host": "kyoceradocumentsolutions.eu · PDF"
+     "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/TASKALFA2020.html",
+     "etykieta": "Strona producenta — Kyocera (TASKalfa 2020)",
+     "host": "kyoceradocumentsolutions.eu"
     }
    ],
    "wyrozniki": [
@@ -67785,7 +67805,7 @@
     },
     {
      "model": "Avtek OPS i7-13650HX 16 GB / 512 GB / Win 11 Pro (1TV428)",
-     "roznica": "jak wyżej, dysk SSD 512 GB; strona produktu wymienia zgodność z TS 9 Mate G"
+     "roznica": "14 rdzeni, 16 GB RAM, SSD 512 GB, 6× USB 3.0, Wi-Fi 5 / BT 4.2; strona produktu wymienia zgodność z TS 9 Mate G"
     }
    ],
    "faq": [
@@ -76715,7 +76735,7 @@
     },
     {
      "model": "Windows 11 Pro ENG 64-bit OEM — FQC-10528",
-     "roznica": "Jak wyżej, angielska wersja językowa."
+     "roznica": "Do nowego komputera składanego lub modernizowanego; licencja zostaje z tym komputerem. Angielska wersja językowa."
     },
     {
      "model": "Windows 11 Pro ESD — FQC-10572",
