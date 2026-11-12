@@ -3,6 +3,8 @@ import { HIGHLIGHTS } from '@/sites/biznes/components/product/ProductHero'
 import { fitTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
+import { fillSuggestions } from '@/lib/biznes/related'
+import { versionRows } from '@/lib/catalog/versionRows'
 import { bentoTiles } from '@/lib/catalog/bento'
 import { brandPageHref } from '@/lib/catalog/brand'
 import { BUNDLES_PATH, bundleCard, bundlesWithProduct, listBundles } from '@/lib/catalog/bundle'
@@ -167,21 +169,27 @@ export default async function ProductPage({ params }: Props) {
   // „Do tego zwykle dobierają”: `polecane` of K4, then „pasuje do”; a card without them keeps
   // the phrase matching of K31b (K36 §13 W14).
   const recommended = recommendedProducts(index, product.slug, product.recommended)
-  const suggestions =
-    recommended.length > 0
-      ? { cards: recommended, chips: [] }
-      : suggestedProducts(index, prepareSearch(index), product.slug, product.suggestions)
   // Colours (K32 §9): their pictures open the gallery, then the card's own photos.
   const gallery = productGallery(product.colors, product.images)
   const family = familyProducts(index, product.slug)
   // „W zestawach” (spec. §6.2 pkt 7, K3c): up to 3 bundles listing this card.
   const products = new Map(index.products.map((item) => [item.slug, item]))
-  const bundles = bundlesWithProduct(
+  const withProduct = bundlesWithProduct(
     listBundles(allBundles, new Set(products.keys())),
     product.slug,
   )
-    .slice(0, 3)
-    .map((bundle) => bundleCard(bundle, products))
+  const bundles = withProduct.slice(0, 3).map((bundle) => bundleCard(bundle, products))
+  const picked =
+    recommended.length > 0
+      ? { cards: recommended, chips: [] }
+      : suggestedProducts(index, prepareSearch(index), product.slug, product.suggestions)
+  // At least 3 (PRODUKCJA-BIZNES-1211 §1): consumables, accessories, bundle mates, service.
+  const suggestions = {
+    cards: fillSuggestions(index, product.slug, picked.cards, {
+      bundleMates: withProduct.flatMap((bundle) => bundle.items.map((item) => item.product)),
+    }),
+    chips: picked.chips,
+  }
   const video = product.videos.length > 0
   const hasVersions = variantNames.length >= 2
 
@@ -302,7 +310,14 @@ export default async function ProductPage({ params }: Props) {
         {product.configurator && <ProductConfigurator config={product.configurator} />}
         <ProductVideos id={ID.video} videos={product.videos} poster={product.images[0] ?? null} />
         <ProductSpecs id={ID.specs} rows={product.specs} />
-        <ProductVersions id={ID.versions} variants={product.variants} />
+        <ProductVersions
+          id={ID.versions}
+          variants={product.variants}
+          rows={versionRows(
+            product.variants.map((variant) => variant.name),
+            product.specs,
+          )}
+        />
         {bundles.length > 0 && (
           <ProductSection
             id={ID.bundles}

@@ -240,7 +240,8 @@ export function TabsPicker({
                     <Image
                       unoptimized
                       src={programs[item.slug]!.image!.url}
-                      alt=""
+                      // The box is the program's picture: named for readers and search (QA 13.11).
+                      alt={`Pudełko programu ${programs[item.slug]!.name}`}
                       width={programs[item.slug]!.image!.width}
                       height={programs[item.slug]!.image!.height}
                       className="h-20 w-16 shrink-0 object-contain max-md:h-14 max-md:w-11"

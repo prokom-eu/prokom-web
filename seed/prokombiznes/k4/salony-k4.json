@@ -2913,7 +2913,7 @@
        "instalacja na każdym urządzeniu osobno",
        "licencja 1–5 lat"
       ],
-      "p": "eset",
+      "p": "eset-small-business-security",
       "tag": "",
       "alt": true,
       "im": ""
@@ -2927,7 +2927,7 @@
        "jedna konsola w chmurze lub lokalnie",
        "5–99 stanowisk"
       ],
-      "p": "eset",
+      "p": "eset-pakiet-entry",
       "tag": "",
       "alt": false,
       "im": ""
@@ -2941,7 +2941,7 @@
        "pełne szyfrowanie dysków (RODO)",
        "odtwarzanie plików po ransomware"
       ],
-      "p": "eset",
+      "p": "eset-pakiet-advanced",
       "tag": "polecamy na start",
       "alt": false,
       "im": ""
@@ -2955,7 +2955,7 @@
        "ochrona Microsoft 365 i Google Workspace",
        "zarządzanie podatnościami i łatkami"
       ],
-      "p": "eset",
+      "p": "eset-pakiet-complete",
       "tag": "",
       "alt": false,
       "im": ""
@@ -2968,7 +2968,7 @@
        "logowanie wieloskładnikowe (MFA)",
        "od 26 stanowisk"
       ],
-      "p": "eset",
+      "p": "eset-pakiet-elite",
       "tag": "",
       "alt": true,
       "im": ""
@@ -3033,7 +3033,26 @@
      "n": "ESET"
     }
    ],
-   "fam": [],
+   "fam": [
+    {
+     "t": "ESET PROTECT",
+     "ic": "M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z",
+     "p": [
+      "eset-pakiet-entry",
+      "eset-pakiet-advanced",
+      "eset-pakiet-complete",
+      "eset-pakiet-elite"
+     ]
+    },
+    {
+     "t": "Mała firma i przegląd",
+     "ic": "M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z",
+     "p": [
+      "eset-small-business-security",
+      "eset"
+     ]
+    }
+   ],
    "n": 5,
    "fakty": [
     {
@@ -3194,7 +3213,7 @@
        "Teams, OneDrive 1 TB",
        "Office w przeglądarce i na telefonie"
       ],
-      "p": "microsoft-365-business",
+      "p": "m365-business-basic",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3207,7 +3226,7 @@
        "Word, Excel, PowerPoint, Outlook na komputerze",
        "na 5 PC/Mac, 5 tabletach, 5 telefonach"
       ],
-      "p": "microsoft-365-business",
+      "p": "m365-business-standard",
       "tag": "polecamy na start",
       "alt": false,
       "im": ""
@@ -3220,7 +3239,7 @@
        "Intune: zarządzanie laptopami i telefonami",
        "Defender dla Firm i rozszerzona ochrona kont"
       ],
-      "p": "microsoft-365-business",
+      "p": "m365-business-premium",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3233,7 +3252,7 @@
        "bez firmowej poczty",
        "bez czatu Teams"
       ],
-      "p": "microsoft-365-business",
+      "p": "m365-apps-for-business",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3359,7 +3378,27 @@
      "n": "Microsoft"
     }
    ],
-   "fam": [],
+   "fam": [
+    {
+     "t": "Microsoft 365",
+     "ic": "M7 18a5 5 0 01-.6-10A6 6 0 0118 9a4 4 0 01-1 9z",
+     "p": [
+      "m365-business-basic",
+      "m365-business-standard",
+      "m365-business-premium",
+      "m365-apps-for-business"
+     ]
+    },
+    {
+     "t": "Office i Windows",
+     "ic": "M4 5h16v10H4z M2 19h20",
+     "p": [
+      "microsoft-office-2024",
+      "microsoft-windows-11-pro",
+      "microsoft-windows-server-cal"
+     ]
+    }
+   ],
    "n": 6,
    "fakty": [
     {
@@ -3440,7 +3479,7 @@
        "ZUS, e-KRS, JPK, ePUAP, umowy",
        "logowanie do KSeF"
       ],
-      "p": "euro",
+      "p": "eurocert-podpis-token",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3453,7 +3492,7 @@
        "te same zastosowania co Token",
        "certyfikat na 1, 2 lub 3 lata"
       ],
-      "p": "euro",
+      "p": "eurocert-podpis-classic",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3466,7 +3505,7 @@
        "potwierdzenie kodem z telefonu",
        "weryfikacja w punkcie lub u klienta"
       ],
-      "p": "euro",
+      "p": "eurocert-ecsigner",
       "tag": "najwygodniejszy",
       "alt": false,
       "im": ""
@@ -3479,7 +3518,7 @@
        "tożsamość potwierdzasz zdalnie",
        "podpis gotowy tego samego dnia"
       ],
-      "p": "euro",
+      "p": "eurocert-ecsigner-online",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3492,7 +3531,7 @@
        "pieczętowanie także bez internetu",
        "uwierzytelnienie firmy w KSeF bez ZAW-FA"
       ],
-      "p": "piecz",
+      "p": "eurocert-pieczec-karta",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3505,7 +3544,7 @@
        "potwierdzenie kodem OTP",
        "jedna osoba pieczętuje naraz"
       ],
-      "p": "piecz",
+      "p": "eurocert-pieczec-chmura",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3598,7 +3637,27 @@
      "n": "EuroCert"
     }
    ],
-   "fam": [],
+   "fam": [
+    {
+     "t": "Podpis kwalifikowany",
+     "ic": "M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6",
+     "p": [
+      "eurocert-podpis-token",
+      "eurocert-podpis-classic",
+      "eurocert-ecsigner",
+      "eurocert-ecsigner-online"
+     ]
+    },
+    {
+     "t": "Pieczęć elektroniczna",
+     "ic": "M7 18a5 5 0 01-.6-10A6 6 0 0118 9a4 4 0 01-1 9z",
+     "p": [
+      "eurocert-pieczec-karta",
+      "eurocert-pieczec-chmura",
+      "piecz"
+     ]
+    }
+   ],
    "n": 6,
    "fakty": [
     {
@@ -3621,7 +3680,63 @@
     "EuroCert to polski dostawca usług zaufania z siedzibą w Warszawie. Wydaje kwalifikowane podpisy i pieczęcie elektroniczne zgodne z eIDAS.",
     "W katalogu EuroCert to kwalifikowany podpis elektroniczny (zestaw Token, Classic, sama karta, w chmurze ECSigner) i kwalifikowana pieczęć elektroniczna dla firm i instytucji (na karcie lub w chmurze). Dla właścicieli firm, księgowych, spółek, szkół i urzędów.",
     "Podpis lub pieczęć przydaje się do KSeF, ZUS, e-KRS, JPK i umów elektronicznych. Certyfikat wydaje się na 1–3 lata; weryfikacja tożsamości odbywa się w punkcie, u klienta lub online. Przed wyborem podpisu w chmurze warto sprawdzić zgodność z używanym programem."
-   ]
+   ],
+   "cmp": {
+    "h": "Porównanie podpisów",
+    "cols": [
+     "Zestaw Token",
+     "Zestaw Classic",
+     "ECSigner",
+     "ECSigner online"
+    ],
+    "rows": [
+     [
+      "Forma",
+      [
+       "karta SIM w czytniku USB",
+       "karta i czytnik biurkowy",
+       "chmura, kod z telefonu",
+       "chmura, kod z telefonu"
+      ]
+     ],
+     [
+      "Czytnik w zestawie",
+      [
+       1,
+       1,
+       0,
+       0
+      ]
+     ],
+     [
+      "Weryfikacja online",
+      [
+       0,
+       0,
+       0,
+       1
+      ]
+     ],
+     [
+      "Ważność certyfikatu",
+      [
+       "1, 2 lub 3 lata",
+       "1, 2 lub 3 lata",
+       "1, 2 lub 3 lata",
+       "1, 2 lub 3 lata"
+      ]
+     ],
+     [
+      "Systemy",
+      [
+       "komputer z czytnikiem",
+       "komputer z czytnikiem",
+       "Windows, macOS + Android, iOS",
+       "Windows, macOS + Android, iOS"
+      ]
+     ]
+    ]
+   }
   },
   "PolCard": {
    "pillM": "Terminale płatnicze",
@@ -3688,7 +3803,7 @@
        "akumulator do 12 h",
        "320 g"
       ],
-      "p": "pol",
+      "p": "polcard-move-2500",
       "tag": "",
       "alt": false,
       "im": "/_blob/99b033822451f55697e454080d87105b"
@@ -3701,7 +3816,7 @@
        "szybka drukarka",
        "320 g"
       ],
-      "p": "pol",
+      "p": "polcard-move-3500",
       "tag": "polecamy na start",
       "alt": false,
       "im": "/_blob/8092bd976139b00ed6a6e5152c1d65f1"
@@ -3714,7 +3829,7 @@
        "4G i Wi-Fi 2,4/5 GHz",
        "Android"
       ],
-      "p": "pol",
+      "p": "polcard-axium-dx-8000",
       "tag": "",
       "alt": false,
       "im": "/_blob/02d6b94e3ccc80041a09243856f2b0d9"
@@ -3727,7 +3842,7 @@
        "4G i Wi-Fi",
        "Android"
       ],
-      "p": "pol",
+      "p": "polcard-axium-dx-4000-portable",
       "tag": "",
       "alt": false,
       "im": "/_blob/8dc67f2be7786eaa7ca949bb5b83e850"
@@ -3740,7 +3855,7 @@
        "PIN-pad dla klienta Desk 1500",
        "połączenie z kasą"
       ],
-      "p": "pol",
+      "p": "polcard-desk-3200-desk-1500",
       "tag": "",
       "alt": false,
       "im": "/_blob/7958e4d1f8e98e9fa90e20387d5088e7"
@@ -3812,7 +3927,7 @@
     "b": "Zapytaj o terminal",
     "act": "kontakt",
     "p": [
-     "pol",
+     "polcard-move-3500",
      "softpos",
      "ergo",
      "hx"
@@ -3847,7 +3962,27 @@
      "n": "PolCard"
     }
    ],
-   "fam": [],
+   "fam": [
+    {
+     "t": "Terminale przenośne",
+     "ic": "M7 2h10v20H7z M11 18h2",
+     "p": [
+      "polcard-move-2500",
+      "polcard-move-3500",
+      "polcard-axium-dx-8000",
+      "polcard-axium-dx-4000-portable"
+     ]
+    },
+    {
+     "t": "Przy kasie i w telefonie",
+     "ic": "M3 13h18v6H3z M6 13V5h12v8 M9 17h6",
+     "p": [
+      "polcard-desk-3200-desk-1500",
+      "softpos",
+      "pol"
+     ]
+    }
+   ],
    "n": 6,
    "fakty": [
     {
@@ -3875,7 +4010,79 @@
     "PolCard to znak towarowy Fiserv Polska S.A., krajowej instytucji płatniczej z siedzibą w Warszawie. Firma podaje, że działa na polskim rynku od ponad 30 lat i wprowadziła w Polsce pierwsze terminale oraz rodzime karty płatnicze; w 2021 roku First Data Polska połączyła się z Fiserv Polska.",
     "W katalogu PolCard to terminale płatnicze (na urządzeniach Ingenico) i aplikacja PolCard Go, która zamienia telefon w terminal. Dla sklepów, gastronomii, usług, sprzedaży mobilnej i hoteli.",
     "Terminal to usługa: obok urządzenia liczy się umowa na akceptację płatności. Przy wyborze sprawdź, czy terminal ma współpracować z kasą lub programem sprzedaży; producent PC-Gastronom wymienia PolCard wśród obsługiwanych akceptantów."
-   ]
+   ],
+   "cmp": {
+    "h": "Porównanie terminali",
+    "cols": [
+     "Move 2500",
+     "Move 3500",
+     "Axium DX 8000",
+     "Axium DX 4000",
+     "Desk 3200 + 1500"
+    ],
+    "rows": [
+     [
+      "Łączność",
+      [
+       "3G/4G",
+       "3G/4G i Wi-Fi",
+       "4G, Wi-Fi 2,4/5 GHz",
+       "4G, Wi-Fi 2,4 GHz",
+       "Ethernet i 3G"
+      ]
+     ],
+     [
+      "Ekran",
+      [
+       "2,4\" kolorowy",
+       "3,2\" kolorowy",
+       "6\" dotykowy",
+       "5\" dotykowy",
+       "2,7\" mono + 2,8\" PIN-pad"
+      ]
+     ],
+     [
+      "Akumulator",
+      [
+       "2900 mAh, do 12 h",
+       "do 12 h",
+       "3350 mAh",
+       "2200 mAh",
+       "zasilanie sieciowe"
+      ]
+     ],
+     [
+      "Waga",
+      [
+       "320 g",
+       "320 g",
+       "450 g",
+       "430 g",
+       "308 g + 254 g"
+      ]
+     ],
+     [
+      "Android",
+      [
+       0,
+       0,
+       1,
+       1,
+       0
+      ]
+     ],
+     [
+      "Przenośny",
+      [
+       1,
+       1,
+       1,
+       1,
+       0
+      ]
+     ]
+    ]
+   }
   },
   "Samsung": {
    "pillM": "Ekrany dla firm",
@@ -4116,7 +4323,28 @@
      "n": "Samsung"
     }
    ],
-   "fam": [],
+   "fam": [
+    {
+     "t": "Monitory profesjonalne",
+     "ic": "M3 4h18v12H3z M8 20h8 M12 16v4",
+     "p": [
+      "samsung-qbc",
+      "samsung-qmc",
+      "samsung-qhc",
+      "samsung-om",
+      "samsung-waf"
+     ]
+    },
+    {
+     "t": "Telefony i tablety",
+     "ic": "M7 2h10v20H7z M11 18h2",
+     "p": [
+      "samsung-galaxy-s26",
+      "samsung-galaxy-s26-ultra",
+      "samsung-galaxy-tab-s12"
+     ]
+    }
+   ],
    "n": 8,
    "fakty": [],
    "opis": [
@@ -4673,7 +4901,27 @@
      "n": "Avtek"
     }
    ],
-   "fam": [],
+   "fam": [
+    {
+     "t": "Monitory interaktywne",
+     "ic": "M3 4h18v12H3z M8 20h8 M12 16v4",
+     "p": [
+      "avtek-ts-9-lite-g",
+      "avtek-ts-9-mate-g",
+      "avtek",
+      "avtek-ts-8-connect",
+      "avtek-ts-7-1-lite"
+     ]
+    },
+    {
+     "t": "Komputery OPS i akcesoria",
+     "ic": "M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z",
+     "p": [
+      "avtek-ops",
+      "avtek-akcesoria-monitory"
+     ]
+    }
+   ],
    "n": 8,
    "fakty": [
     {

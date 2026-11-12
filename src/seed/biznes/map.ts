@@ -352,6 +352,16 @@ export function productData(
 }
 
 /** A date of the package (`2026-10-23`) as Payload returns it, so a re-run sees no change. */
+/** The later of two ISO dates (either may be missing). */
+export function laterDate(
+  a: string | null | undefined,
+  b: string | null | undefined,
+): string | null {
+  if (!a) return b ?? null
+  if (!b) return a
+  return new Date(a).getTime() >= new Date(b).getTime() ? a : b
+}
+
 export function seedDate(value: string | null | undefined): string | null {
   if (!value) return null
   const date = new Date(value)
@@ -373,7 +383,8 @@ export function productUpdateData<
     contentStatus: data.contentStatus === 'ready' ? 'ready' : stored.contentStatus,
     sources: {
       ...data.sources,
-      checkedAt: data.sources.checkedAt ?? stored.sources?.checkedAt ?? null,
+      // Only forward: an older package date never replaces a later one set in the panel.
+      checkedAt: laterDate(data.sources.checkedAt, stored.sources?.checkedAt ?? null),
     },
   }
 }
