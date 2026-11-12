@@ -1,8 +1,19 @@
 'use client'
 
-import { type CSSProperties, type FocusEvent, type ReactNode, useRef, useState } from 'react'
+import {
+  type CSSProperties,
+  type FocusEvent,
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 
+import { FOLD_HIT, foldHitBox } from './foldHit'
 import { useReveal } from './useReveal'
+
+/** Controls a tap can hit in the folded part (the fold's own button aside). */
+const CONTROLS = 'a[href], button:not(.foldb), summary, input, select, textarea, [tabindex]'
 
 type Props = {
   /** Section id = the prototype's id (anchors, `porownaj.mjs`). */
@@ -34,6 +45,36 @@ export function InstSection({
   const ref = useRef<HTMLElement>(null)
   const on = useReveal(ref)
   const [open, setOpen] = useState(false)
+  const [hit, setHit] = useState<{ above: number; below: number } | null>(null)
+  // The faded edge's tap zone grows over a control that would otherwise stay as a sliver.
+  useEffect(() => {
+    const section = ref.current
+    if (!fold || open || !section || typeof ResizeObserver === 'undefined') return
+    const measure = () => {
+      const button = section.querySelector('.foldb')
+      if (!button || getComputedStyle(button).display === 'none') return
+      const { top: edge, height } = button.getBoundingClientRect()
+      const controls = [...section.querySelectorAll(CONTROLS)].map((el) => {
+        const r = el.getBoundingClientRect()
+        return { top: r.top - edge, bottom: r.bottom - edge }
+      })
+      const box = foldHitBox(controls, height)
+      const plain = box.above === FOLD_HIT && box.below === 0
+      setHit((prev) =>
+        plain ? null : prev?.above === box.above && prev.below === box.below ? prev : box,
+      )
+    }
+    const ro = new ResizeObserver(measure)
+    ro.observe(section)
+    // The rise-in of the content (`.ri`) moves the controls after the first measure.
+    section.addEventListener('transitionend', measure)
+    section.addEventListener('animationend', measure)
+    return () => {
+      ro.disconnect()
+      section.removeEventListener('transitionend', measure)
+      section.removeEventListener('animationend', measure)
+    }
+  }, [fold, open])
   const classes = [reveal ? `rv${on ? ' on' : ''}` : '', className ?? ''].join(' ').trim()
   // Keyboard focus inside the folded part would be hidden under the mask: unfold first.
   const onFocus = (event: FocusEvent<HTMLElement>) => {
@@ -59,7 +100,13 @@ export function InstSection({
           onClick={() => setOpen((value) => !value)}
         >
           {/* The faded edge above the button, part of it (CSS: folded only). */}
-          <span className="foldhit" aria-hidden="true" />
+          <span
+            className="foldhit"
+            aria-hidden="true"
+            style={
+              hit ? { top: -hit.above, bottom: 'auto', height: hit.above + hit.below } : undefined
+            }
+          />
           <span>{open ? 'Zwiń sekcję' : 'Pokaż całą sekcję'}</span>
           <svg
             width="16"
