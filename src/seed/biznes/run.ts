@@ -114,6 +114,7 @@ import {
   PREVIOUS_CATEGORY_SLUGS,
   productUpdateData,
   searchData,
+  seedDate,
   skipMediaFile,
   type SeedCatalog,
 } from './map'
@@ -605,7 +606,15 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       ? {
           ...k3Data,
           configurator: k4Fields.configurator,
-          sources: { ...k3Data.sources, links: k4Fields.sourceLinks },
+          sources: {
+            ...k3Data.sources,
+            links: k4Fields.sourceLinks,
+            // A K4 card's sources were checked with the package (`katalog-k4.json → sprawdzono`):
+            // the date shows at each source (PRODUKCJA-BIZNES-1211 §1); a later K3 date stays.
+            checkedAt:
+              k3Data.sources.checkedAt ??
+              (k4Fields.sourceLinks.length > 0 ? seedDate(k4Catalog.sprawdzono) : null),
+          },
         }
       : k3Data
     const k4Panel =

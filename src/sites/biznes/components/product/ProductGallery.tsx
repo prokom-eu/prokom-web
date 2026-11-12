@@ -11,6 +11,7 @@ import type { PublicImage } from '@/lib/media/public'
 
 import { useSwap } from '../motion/useSwap'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
+import { GalleryZoom } from './GalleryZoom'
 import { useProductConfig } from './ProductConfig'
 
 type Props = {
@@ -59,6 +60,7 @@ export function ProductGallery({
     if (slide !== null && slide !== undefined) setActive(slide)
   }
   const touch = useRef<number | null>(null)
+  const [zoom, setZoom] = useState(false)
   const count = images.length
   const image = images[active]
   // R2: after the visitor picks another picture it fades in; not on load (LCP).
@@ -182,6 +184,17 @@ export function ProductGallery({
               <StageFallback icon={icon} size="lg" name={name} service={service} />
             )}
           </ProductStage>
+          {image && (
+            // The photo enlarged in a dialog (PRODUKCJA-BIZNES-1211 §1); under the other buttons.
+            <button
+              type="button"
+              onClick={() => setZoom(true)}
+              aria-label={`Powiększ zdjęcie ${active + 1} z ${count}: ${name}`}
+              aria-haspopup="dialog"
+              data-gallery-open=""
+              className="absolute inset-0 z-0 cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-accent-text"
+            />
+          )}
           {/* The logo loads at once (audit 01.11: a lazy one left an empty white badge); on a
               phone too, as on the board App-Produkt. */}
           {brand && (
@@ -257,6 +270,14 @@ export function ProductGallery({
             className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0_0_0_1px_var(--border)]"
           />
         </div>
+        <GalleryZoom
+          name={name}
+          images={images}
+          active={active}
+          open={zoom}
+          onMove={go}
+          onClose={() => setZoom(false)}
+        />
 
         {count > 1 && count <= MAX_DOTS && (
           <div className="flex justify-center gap-1.5 lg:hidden">
