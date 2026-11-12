@@ -756,3 +756,13 @@
     transform: scaleX(1);
   }
 }
+
+/* Touch targets on a phone (MOBILE-APLIKACJA §10: chips and controls 44 px, standalone links a
+   24 px line; measured on every page of the line at 390 px, 12.11). */
+@media (pointer: coarse), (max-width: 760px) {
+  [data-line='instalacje'] {
+    & .ofn {
+      min-height: 44px;
+    }
+  }
+}
