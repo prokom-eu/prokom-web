@@ -4724,7 +4724,8 @@
    "opis": [
     "Sunmi D3 PRO to stacjonarny terminal POS z Androidem do kasy w restauracji, kawiarni, sklepie czy recepcji. Może też pracować jako kiosk informacyjny lub stanowisko samoobsługowe. Instalujesz na nim aplikację sprzedażową, np. system gastronomiczny lub sklepowy.",
     "Ma dotykowy ekran 15,6\" Full HD, 6-rdzeniowy procesor Qualcomm do 2,4 GHz, 4 GB RAM i 64 GB pamięci (microSD do 1 TB). Chłodzenie jest pasywne, więc pracuje cicho. Opcjonalny ekran klienta ok. 10\" jest dotykowy i ma NFC — pokaże zamówienie, reklamy lub ankietę i może przyjąć płatność zbliżeniową (SoftPOS). Urządzenie ma 3 lata gwarancji producenta.",
-    "Ma porty USB 3.0, 2 × USB 2.0, USB-C, RS232, LAN, gniazdo szuflady i audio, Wi-Fi 2,4/5 GHz i Bluetooth 5.0. Drukarkę fiskalną, szufladę i czytnik kodów dobierasz osobno. System SUNMI OS (Android 13) jest bez usług Google; wymaga rejestracji urządzenia na serwerach Sunmi."
+    "Ma porty USB 3.0, 2 × USB 2.0, USB-C, RS232, LAN, gniazdo szuflady i audio, Wi-Fi 2,4/5 GHz i Bluetooth 5.0. Drukarkę fiskalną, szufladę i czytnik kodów dobierasz osobno. System SUNMI OS (Android 13) jest bez usług Google; wymaga rejestracji urządzenia na serwerach Sunmi.",
+    "Przy zakupie przygotowujemy stanowisko do pracy: instalujemy i konfigurujemy program sprzedaży, podłączamy drukarkę fiskalną, szufladę, skaner i terminal płatniczy i szkolimy zespół. Stanowiskami POS i terminalami zajmuje się też nasz serwis."
    ],
    "cechy": [
     "ekran 15,6\" FHD",
@@ -4942,7 +4943,8 @@
    "opis": [
     "Sunmi T2s LITE to smukły stacjonarny terminal POS z Androidem do kasy w restauracji, kawiarni, sklepie czy recepcji. Instalujesz na nim aplikację sprzedażową, a paragon fiskalny drukuje dołączona drukarka fiskalna.",
     "Ma dotykowy ekran 15,6\" Full HD, 8-rdzeniowy procesor do 2,2 GHz, 3 GB RAM i 32 GB pamięci (opcja 4 GB / 64 GB). Ma wbudowany czytnik NFC i paska magnetycznego, np. do kart lojalnościowych. W wersji z drugim ekranem klient widzi zamówienie na dotykowym ekranie 10,1\". Producent oferuje też wersję 15,6\" + 15,6\".",
-    "Ma 5 portów USB, RS232, gniazdo szuflady, LAN, audio, Wi-Fi 2,4/5 GHz i Bluetooth 5.0, a w opcji modem 4G. Postawisz go na ladzie albo zamontujesz na uchwycie VESA. System to Android 9 — przed zakupem sprawdź zgodność wybranej aplikacji sprzedażowej."
+    "Ma 5 portów USB, RS232, gniazdo szuflady, LAN, audio, Wi-Fi 2,4/5 GHz i Bluetooth 5.0, a w opcji modem 4G. Postawisz go na ladzie albo zamontujesz na uchwycie VESA. System to Android 9 — przed zakupem sprawdź zgodność wybranej aplikacji sprzedażowej.",
+    "Przy zakupie przygotowujemy stanowisko do pracy: instalujemy i konfigurujemy program sprzedaży, podłączamy drukarkę fiskalną, szufladę, skaner i terminal płatniczy i szkolimy zespół. Stanowiskami POS i terminalami zajmuje się też nasz serwis."
    ],
    "cechy": [
     "ekran 15,6\" FHD",
@@ -5021,6 +5023,10 @@
     {
      "q": "Czy zamontuję go na ścianie lub ramieniu?",
      "a": "Tak, przez uchwyt VESA (akcesorium opcjonalne)."
+    },
+    {
+     "q": "Czy przygotujecie stanowisko do pracy?",
+     "a": "Tak. Instalujemy program sprzedaży, podłączamy drukarkę fiskalną, szufladę, skaner i terminal płatniczy i szkolimy zespół."
     }
    ],
    "konfigurator": {
@@ -5158,7 +5164,8 @@
    "opis": [
     "Vero to kompaktowy POS „wszystko w jednym” z rodziny Posnet SAiO: drukarka fiskalna ONLINE, komputer z Androidem i aplikacja sprzedażowa w jednej obudowie. Pasuje do sklepu spożywczego, małego sklepu wielobranżowego, kawiarni, baru, restauracji i punktu usług.",
     "Ma dotykowy ekran 10,1\" (1280 × 800), procesor 4 × Cortex-A53 1,8 GHz, 2 GB RAM, kartę microSD 32 GB (obsługa do 256 GB) i Androida 11 w dystrybucji Posnet. Drukarka fiskalna bierze rolkę 57 mm o długości 60 m i drukuje do 30 linii/s, a klient widzi kwoty na osobnym wyświetlaczu. Baza do 250 000 towarów. Obsługuje e-paragony.",
-    "Aplikację sprzedażową wybierasz w abonamencie: iPOS, Netis mKasNet albo GoPOS. Przez USB, Ethernet i Bluetooth podłączysz czytnik kodów (np. FAWAGscan), wagę (np. Fawag WS-1), drukarkę bonów, szufladę 6–24 V, klawiaturę, mysz i terminal płatniczy. Łączy się przez Wi-Fi 2,4 GHz lub kabel LAN."
+    "Aplikację sprzedażową wybierasz w abonamencie: iPOS, Netis mKasNet albo GoPOS. Przez USB, Ethernet i Bluetooth podłączysz czytnik kodów (np. FAWAGscan), wagę (np. Fawag WS-1), drukarkę bonów, szufladę 6–24 V, klawiaturę, mysz i terminal płatniczy. Łączy się przez Wi-Fi 2,4 GHz lub kabel LAN.",
+    "Przy zakupie przygotowujemy stanowisko do pracy: instalujemy i konfigurujemy program sprzedaży, podłączamy drukarkę fiskalną, szufladę, skaner i terminal płatniczy i szkolimy zespół. Stanowiskami POS i terminalami zajmuje się też nasz serwis."
    ],
    "cechy": [
     "ekran 10,1\"",
@@ -5634,6 +5641,20 @@
      "l": "en",
      "d": "seria"
     }
+   ],
+   "polecane": [
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z terminalem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis POS"
+    },
+    {
+     "slug": "hd",
+     "etykieta": "Drukarka fiskalna"
+    }
    ]
   },
   {
@@ -5650,7 +5671,8 @@
    "opis": [
     "Zestaw Trio Online + TrioTAB to stanowisko sprzedaży z polskiego Posnetu: drukarka fiskalna Trio i tablet kasjerski 10,1\" z Androidem 14. Pasuje do małego sklepu, kawiarni, punktu usług i stoiska w galerii, a po zdjęciu tabletu — do przyjmowania zamówień przy stolikach albo w ogródku.",
     "Tablet ma procesor 4 × Cortex-A53 2,0 GHz, 3 GB RAM, 32 GB pamięci i wbudowany skaner kodów 2D (zasięg 9–28 cm), który na stacji czyta kody automatycznie, a w ręku po naciśnięciu przycisku. Drukarka Trio ma bazę 250 000 towarów, wymienny akumulator (ponad 60 000 linii) i drukuje faktury VAT. Opcjonalnie tablet dostaje NFC do płatności SoftPOS.",
-    "Tablet wpinasz w uchwyt TrioGRIP na drukarce: zasilanie i połączenie z drukarką łączą się magnetycznie, bez kabli. Uchwyt dodaje port USB i gniazdo szuflady 6 V. Aplikację sprzedażową instalujesz na Androidzie (APK). Wersje Trio z Wi-Fi drukują paragony także po zdjęciu tabletu."
+    "Tablet wpinasz w uchwyt TrioGRIP na drukarce: zasilanie i połączenie z drukarką łączą się magnetycznie, bez kabli. Uchwyt dodaje port USB i gniazdo szuflady 6 V. Aplikację sprzedażową instalujesz na Androidzie (APK). Wersje Trio z Wi-Fi drukują paragony także po zdjęciu tabletu.",
+    "Przy zakupie przygotowujemy stanowisko do pracy: instalujemy i konfigurujemy program sprzedaży, podłączamy drukarkę fiskalną, szufladę, skaner i terminal płatniczy i szkolimy zespół. Stanowiskami POS i terminalami zajmuje się też nasz serwis."
    ],
    "cechy": [
     "ekran 10,1\"",
@@ -5781,6 +5803,14 @@
     {
      "slug": "szuf",
      "etykieta": "Szuflada"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z terminalem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis POS"
     }
    ],
    "branze": [
@@ -5848,7 +5878,8 @@
    "opis": [
     "T10 ONLINE to fiskalny POS „wszystko w jednym”: drukarka fiskalna, komputer z Androidem, dotykowy ekran 10,1\", ekran dla klienta i czytnik NFC w jednej kompaktowej obudowie. Pasuje do sklepu, punktu usługowego i małej gastronomii, gdzie liczy się porządek na ladzie.",
     "Aplikacja sprzedażowa jest w zestawie z urządzeniem — wybierasz wersję elzAPP Sklep (baza towarów, użytkownicy, rabaty, różne płatności) albo elzAPP POS (do pracy z bazą PC-Market jako zintegrowany system kasowy). Szybka drukarka (do 160 mm/s) bierze rolki 60 m. Baza do 500 000 towarów, wydruki niefiskalne o dowolnej treści.",
-    "Ma 5 portów USB-A (waga, czytnik kodów), LAN, gniazdo szuflady i czytnik micro SD, a także Wi-Fi 2,4 GHz, Bluetooth i NFC. Elzab podaje współpracę elzAPP Sklep z programami m.in. Subiekt GT, PC-Market, KC-Firma, HiperMarket, MiniMag i Quattro. Akumulator Li-Ion podtrzymuje pracę przy zaniku prądu."
+    "Ma 5 portów USB-A (waga, czytnik kodów), LAN, gniazdo szuflady i czytnik micro SD, a także Wi-Fi 2,4 GHz, Bluetooth i NFC. Elzab podaje współpracę elzAPP Sklep z programami m.in. Subiekt GT, PC-Market, KC-Firma, HiperMarket, MiniMag i Quattro. Akumulator Li-Ion podtrzymuje pracę przy zaniku prądu.",
+    "Przy zakupie przygotowujemy stanowisko do pracy: instalujemy i konfigurujemy program sprzedaży, podłączamy drukarkę fiskalną, szufladę, skaner i terminal płatniczy i szkolimy zespół. Stanowiskami POS i terminalami zajmuje się też nasz serwis."
    ],
    "cechy": [
     "ekran 10,1\" dotykowy",
@@ -5907,6 +5938,10 @@
     {
      "k": "Aplikacja",
      "v": "elzAPP Sklep lub elzAPP POS (w zestawie z urządzeniem)"
+    },
+    {
+     "k": "Procesor",
+     "v": "czterordzeniowy (Quad-core)"
     }
    ],
    "warianty_opis": [
@@ -6060,7 +6095,8 @@
    "opis": [
     "Pospay2 ONLINE to kasoterminal: kasa fiskalna, drukarka fiskalna i terminal płatniczy w jednym małym urządzeniu z Androidem (platforma Pax A50). Pasuje do małego sklepu, stoiska na targu, mobilnej gastronomii, salonu urody, gabinetu, kancelarii, trenera personalnego, serwisanta czy dostawcy.",
     "Ma ekran dotykowy 4,5\" (1280 × 720) i wyświetlacz klienta 2 × 16 znaków. Drukuje na rolce 57 mm (14 m). Pracuje w trybie kasy (4 000 towarów, 200 kasjerów) albo drukarki (100 000 towarów). Ma dwa akumulatory: 6800 mAh w drukarce i 2500 mAh w terminalu. Waży ok. 0,6 kg z papierem. Obsługuje e-paragony w wybranych wersjach oprogramowania.",
-    "Przyjmuje karty, płatności telefonem, zegarkiem i BLIK. Rozliczenia płatności prowadzi wybrany agent: Planet Pay albo eService. Z CRK łączy się przez modem GSM z kartą SIM albo Wi-Fi. Sprzedaż prowadzisz w aplikacji POS-UP, a w wersji iPOS — w iPOS z panelem iPOS web."
+    "Przyjmuje karty, płatności telefonem, zegarkiem i BLIK. Rozliczenia płatności prowadzi wybrany agent: Planet Pay albo eService. Z CRK łączy się przez modem GSM z kartą SIM albo Wi-Fi. Sprzedaż prowadzisz w aplikacji POS-UP, a w wersji iPOS — w iPOS z panelem iPOS web.",
+    "Przy zakupie urządzenie trafia do Ciebie gotowe do sprzedaży: fiskalizujemy je, wpisujemy towary i stawki VAT i pokazujemy obsługę. Jako autoryzowany serwis Posnet robimy też obowiązkowe przeglądy techniczne co najmniej raz na 2 lata — przypomnimy o terminie."
    ],
    "cechy": [
     "kasa + terminal",
@@ -6249,6 +6285,20 @@
      "l": "pl",
      "d": "model"
     }
+   ],
+   "polecane": [
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja"
+    },
+    {
+     "slug": "przkas",
+     "etykieta": "Przegląd kasy"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z terminalem"
+    }
    ]
   },
   {
@@ -6265,7 +6315,8 @@
    "opis": [
     "Sunmi V3 MIX to tablet firmowy z wbudowaną drukarką do zamówień przy stoliku, obsługi gościa „jeden na jeden” w recepcji lub salonie, sprzedaży w okienku drive-thru i sprawdzania stanów w magazynie. W stacji ładującej działa też jak stanowisko kasowe na ladzie.",
     "Ma ekran 10,1\" HD IPS, 6-rdzeniowy procesor Qualcomm, 4 GB RAM / 32 GB i SUNMI OS 4.0 (Android 13). Drukarka 58 mm albo 80 mm (do 70 mm/s), profesjonalny skaner 2D i czytnik NFC (karty Mifare, FeLica, ISO 14443/15693) do płatności SoftPOS. Wymienny akumulator 2600 mAh, logowanie odciskiem palca, waga ok. 670 g.",
-    "Łączy się przez Wi-Fi 2,4/5 GHz i Bluetooth, ma GPS i dwa gniazda nano SIM. Opcjonalna podstawa (obrotowa lub stała) ładuje tablet i dodaje 3 porty USB, RJ11 (szuflada) i RJ45 (sieć). Do tego opcjonalny ekran klienta 6,7\" na USB. Paragon fiskalny wymaga osobnej drukarki fiskalnej."
+    "Łączy się przez Wi-Fi 2,4/5 GHz i Bluetooth, ma GPS i dwa gniazda nano SIM. Opcjonalna podstawa (obrotowa lub stała) ładuje tablet i dodaje 3 porty USB, RJ11 (szuflada) i RJ45 (sieć). Do tego opcjonalny ekran klienta 6,7\" na USB. Paragon fiskalny wymaga osobnej drukarki fiskalnej.",
+    "Przy zakupie urządzenie trafia do Ciebie gotowe do sprzedaży: fiskalizujemy je, wpisujemy towary i stawki VAT i pokazujemy obsługę. Robimy też obowiązkowe przeglądy techniczne co najmniej raz na 2 lata — przypomnimy o terminie."
    ],
    "cechy": [
     "ekran 10,1\"",
@@ -6403,6 +6454,14 @@
     {
      "slug": "hd",
      "etykieta": "Drukarka fiskalna"
+    },
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja"
+    },
+    {
+     "slug": "przkas",
+     "etykieta": "Przegląd kasy"
     }
    ],
    "branze": [
@@ -6487,7 +6546,8 @@
    "opis": [
     "K2 Pay Online to przenośny kasoterminal: kasa fiskalna i terminal płatniczy w jednym urządzeniu z Androidem. Pasuje do salonu kosmetycznego, gabinetu, fizjoterapeuty, kuriera, serwisanta i małej gastronomii — wszędzie tam, gdzie chcesz wystawić paragon i przyjąć kartę przy kliencie.",
     "Ma kolorowy ekran dotykowy 5\" (720 × 1280) dla obsługi i wyświetlacz OLED dla klienta. Drukuje na rolce 57 mm o długości 6 m. Baza do 500 000 towarów z nazwą do 64 znaków i bez limitu grup. Przyjmuje karty płatnicze oraz Google Pay i Apple Pay — płatności obsługuje operator płatności wskazany przez Elzab, potrzebna jest osobna umowa. Sprzedaż prowadzisz w aplikacji ELZAB MOJA@PKA.",
-    "Z CRK łączy się przez Wi-Fi albo sieć komórkową (GSM). Ładujesz go przez USB-C. Waży 0,53 kg bez papieru. Urządzenie obsługuje jednego kasjera — przy kilku osobach na zmianie warto mieć to na uwadze."
+    "Z CRK łączy się przez Wi-Fi albo sieć komórkową (GSM). Ładujesz go przez USB-C. Waży 0,53 kg bez papieru. Urządzenie obsługuje jednego kasjera — przy kilku osobach na zmianie warto mieć to na uwadze.",
+    "Przy zakupie urządzenie trafia do Ciebie gotowe do sprzedaży: fiskalizujemy je, wpisujemy towary i stawki VAT i pokazujemy obsługę. Jako autoryzowany serwis Elzab robimy też obowiązkowe przeglądy techniczne co najmniej raz na 2 lata — przypomnimy o terminie."
    ],
    "cechy": [
     "kasa + terminal",
@@ -6616,6 +6676,20 @@
      "l": "pl",
      "d": "model"
     }
+   ],
+   "polecane": [
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja"
+    },
+    {
+     "slug": "przkas",
+     "etykieta": "Przegląd kasy"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z terminalem"
+    }
    ]
   },
   {
@@ -6632,7 +6706,8 @@
    "opis": [
     "Sunmi V3 to przenośny terminal z drukarką do przyjmowania zamówień przy stoliku, wydawania numerków w kolejce, drukowania etykiet na kubki i jedzenie, inwentaryzacji w sklepie i obsługi dostaw. Pasuje do restauracji, kawiarni, bubble tea, sklepu i firmy kurierskiej.",
     "Ma ekran 6,75\" HD+ (720 × 1600), procesor Qualcomm, system SUNMI OS na Androidzie 13 i wymienny akumulator 3100 mAh. Wbudowana drukarka 58 mm (do 80 mm/s, rolka śr. 50 mm) drukuje paragony i etykiety, także wycinane i z czarnym znacznikiem. Aparat 5 Mpix czyta kody 1D i 2D, a w opcji jest laserowy skaner 2D i NFC do płatności SoftPOS. Logowanie odciskiem palca.",
-    "Łączy się przez 4G (w wersji z modemem, karta nano SIM), Wi-Fi 2,4/5 GHz i Bluetooth 5.0, ma GPS. Pracuje w temperaturze od −10 do 50 °C. Do terminala dobierzesz stację ładującą, pasek na rękę i smycz. To nie jest kasa fiskalna — paragon fiskalny wymaga osobnej drukarki lub kasy fiskalnej."
+    "Łączy się przez 4G (w wersji z modemem, karta nano SIM), Wi-Fi 2,4/5 GHz i Bluetooth 5.0, ma GPS. Pracuje w temperaturze od −10 do 50 °C. Do terminala dobierzesz stację ładującą, pasek na rękę i smycz. To nie jest kasa fiskalna — paragon fiskalny wymaga osobnej drukarki lub kasy fiskalnej.",
+    "Przy zakupie urządzenie trafia do Ciebie gotowe do sprzedaży: fiskalizujemy je, wpisujemy towary i stawki VAT i pokazujemy obsługę. Robimy też obowiązkowe przeglądy techniczne co najmniej raz na 2 lata — przypomnimy o terminie."
    ],
    "cechy": [
     "ekran 6,75\"",
@@ -6725,6 +6800,10 @@
     {
      "slug": "hd",
      "etykieta": "Drukarka fiskalna"
+    },
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja"
     }
    ],
    "zestawy": [
@@ -6808,7 +6887,8 @@
    "opis": [
     "Evo to mobilny POS „wszystko w jednym” z rodziny Posnet SAiO: drukarka fiskalna ONLINE, tablet z Androidem i aplikacja sprzedażowa. Pasuje do małej firmy, w której liczy się mobilność, szybkość i mało miejsca: kawiarni, food trucka, salonu, sprzedaży na stoisku.",
     "Ma ekran dotykowy 5,5\" w pionie, procesor 4 × Cortex-A53 2,0 GHz, 32 GB pamięci (microSD do 256 GB) i Androida 12. Drukarka fiskalna bierze rolkę 57 mm o długości 30 m, a duży akumulator drukarki ma 5000 mAh. Baza do 250 000 towarów i osobny wyświetlacz dla klienta. Wbudowane NFC z aplikacją Planet Pay POSapp zamienia Evo w terminal płatniczy: Visa, Mastercard, BLIK, Apple Pay, Google Pay.",
-    "Aplikację sprzedażową wybierasz: POS-UP albo iPOS (z panelem iPOS web). Przez USB podłączysz czytnik kodów lub hub, a przez Bluetooth i Wi-Fi 2,4/5 GHz łączysz się z siecią. Obsługuje e-paragony. Posnet poleca do niego czytniki kodów z listy producenta i wagę Fawag WS-1."
+    "Aplikację sprzedażową wybierasz: POS-UP albo iPOS (z panelem iPOS web). Przez USB podłączysz czytnik kodów lub hub, a przez Bluetooth i Wi-Fi 2,4/5 GHz łączysz się z siecią. Obsługuje e-paragony. Posnet poleca do niego czytniki kodów z listy producenta i wagę Fawag WS-1.",
+    "Przy zakupie urządzenie trafia do Ciebie gotowe do sprzedaży: fiskalizujemy je, wpisujemy towary i stawki VAT i pokazujemy obsługę. Jako autoryzowany serwis Posnet robimy też obowiązkowe przeglądy techniczne co najmniej raz na 2 lata — przypomnimy o terminie."
    ],
    "cechy": [
     "Android 12",
@@ -6939,6 +7019,14 @@
     {
      "slug": "skaner",
      "etykieta": "Skaner kodów"
+    },
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja"
+    },
+    {
+     "slug": "przkas",
+     "etykieta": "Przegląd kasy"
     }
    ],
    "branze": [
@@ -7018,7 +7106,8 @@
    "opis": [
     "Bileterka e-podróżnik to urządzenie do sprzedaży biletów w komunikacji pasażerskiej: w autobusie, busie lub minibusie. Łączy moduł sprzedaży e-podróżnik firmy Teroplan, wirtualną kasę fiskalną Posnet i moduł płatności Planet Pay. Pasuje do przewoźnika, który sprzedaje bilety kierowcy i online.",
     "Działa na terminalu Pax A920 Pro z ekranem 5,5\" IPS (1440 × 720) i drukarką termiczną 57 mm (80 mm/s). Sprzedaje bilety normalne, ulgowe, okresowe, jednorazowe i grupowe, z dopłatami do ulg, a układ biletu da się skonfigurować. Wbudowany skaner czyta bilety elektroniczne z kodów QR. Akumulator 5150 mAh, waga 390 g.",
-    "Przyjmuje karty zbliżeniowe, chipowe i magnetyczne, Google Pay, Apple Pay i BLIK. Z CRK łączy się przez dołączoną kartę SIM (GPRS/LTE) albo Wi-Fi — zależnie od wersji. Współpracuje z biletomatami i kasami dworcowymi w systemie Informica 2.0 i łączy sprzedaż online ze sprzedażą w pojeździe. W pojeździe montujesz ją na dedykowanym uchwycie."
+    "Przyjmuje karty zbliżeniowe, chipowe i magnetyczne, Google Pay, Apple Pay i BLIK. Z CRK łączy się przez dołączoną kartę SIM (GPRS/LTE) albo Wi-Fi — zależnie od wersji. Współpracuje z biletomatami i kasami dworcowymi w systemie Informica 2.0 i łączy sprzedaż online ze sprzedażą w pojeździe. W pojeździe montujesz ją na dedykowanym uchwycie.",
+    "Przy zakupie urządzenie trafia do Ciebie gotowe do sprzedaży: fiskalizujemy je, wpisujemy towary i stawki VAT i pokazujemy obsługę. Jako autoryzowany serwis Posnet robimy też obowiązkowe przeglądy techniczne co najmniej raz na 2 lata — przypomnimy o terminie."
    ],
    "cechy": [
     "bilety i kasa",
@@ -7126,7 +7215,21 @@
      "v": "terminal Pax A920 Pro"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "polecane": [
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja"
+    },
+    {
+     "slug": "przkas",
+     "etykieta": "Przegląd kasy"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z terminalem"
+    }
+   ]
   },
   {
    "slug_seed": "pol",
@@ -8520,7 +8623,8 @@
    "opis": [
     "Sunmi K2 to kiosk samoobsługowy: klient sam zamawia i płaci, a obsługa ma więcej czasu na resztę. Wersja restauracyjna służy do zamówień z menu (fast food, bistro, food court), sklepowa — do samodzielnego skanowania zakupów, a są też wersje dla przychodni i rozszerzona (np. bilety, karty, paszporty).",
     "Ma dotykowy ekran 23,8\" Full HD, wbudowaną drukarkę 80 mm z obcinaczem (do 250 mm/s, opcja 58 mm), skaner kodów 1D/2D z papieru i ekranu telefonu oraz NFC. Najnowsza konfiguracja ma procesor Qualcomm do 2,7 GHz, 6 GB RAM / 128 GB i SUNMI OS na Androidzie 13. Dwa głośniki 3 W i 7-kolorowy wskaźnik stanu.",
-    "Łączy się przez gigabitowy LAN, Wi-Fi (2,4/5/6 GHz) i Bluetooth; ma 5 portów USB i HDMI. Montujesz go na ścianie albo na podstawie podłogowej (także ze stolikiem na koszyk). Płatności kartą wymagają dołączenia terminala Sunmi serii P w uchwycie albo SoftPOS przez NFC. Paragon fiskalny wymaga drukarki fiskalnej zgodnej z programem."
+    "Łączy się przez gigabitowy LAN, Wi-Fi (2,4/5/6 GHz) i Bluetooth; ma 5 portów USB i HDMI. Montujesz go na ścianie albo na podstawie podłogowej (także ze stolikiem na koszyk). Płatności kartą wymagają dołączenia terminala Sunmi serii P w uchwycie albo SoftPOS przez NFC. Paragon fiskalny wymaga drukarki fiskalnej zgodnej z programem.",
+    "Przy zakupie ustawiamy urządzenie w lokalu, łączymy je z systemem sprzedaży i drukarką, sprawdzamy przepływ zamówienia od ekranu do kuchni i szkolimy zespół. Urządzeniami POS zajmuje się też nasz serwis."
    ],
    "cechy": [
     "ekran 23,8\" Full HD",
@@ -8776,7 +8880,8 @@
    "opis": [
     "Sunmi FLEX 3 KDS to ekran kuchenny (KDS — system wyświetlania zamówień) dla restauracji, baru, pizzerii czy fast foodu. Zamiast papierowych bonów zamówienia z kasy trafiają od razu na ekran na stanowisku przygotowania, gotowania i wydawki, z alertem dźwiękowym przy nowym zamówieniu i wyróżnionymi uwagami, np. o alergiach.",
     "Obudowa jest aluminiowa, odporna na pył i wodę (IP55) i z powłoką przeciw odciskom — tłuszcz zmyjesz i wytrzesz. Ekran dotykowy Full HD reaguje na mokre dłonie, rękawiczki i resztki oleju. Wybierasz rozmiar 15,6\", 18,5\" albo 22\". Ma procesor Qualcomm, 4 GB RAM / 64 GB, SUNMI OS 4.0 (Android 13) z usługami Google.",
-    "Łączy się przez gigabitowy LAN, Wi-Fi 2,4/5 GHz i Bluetooth 5.0. Montujesz go na uchwycie VESA 100 × 100. Zasilanie z zasilacza albo jednym kablem sieciowym przez PoE (moduł opcjonalny). Do działania potrzebny jest program gastronomiczny z obsługą KDS."
+    "Łączy się przez gigabitowy LAN, Wi-Fi 2,4/5 GHz i Bluetooth 5.0. Montujesz go na uchwycie VESA 100 × 100. Zasilanie z zasilacza albo jednym kablem sieciowym przez PoE (moduł opcjonalny). Do działania potrzebny jest program gastronomiczny z obsługą KDS.",
+    "Przy zakupie ustawiamy urządzenie w lokalu, łączymy je z systemem sprzedaży i drukarką, sprawdzamy przepływ zamówienia od ekranu do kuchni i szkolimy zespół. Urządzeniami POS zajmuje się też nasz serwis."
    ],
    "cechy": [
     "IP55",
@@ -8909,6 +9014,14 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "gopos",
+     "etykieta": "System sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z systemem"
     }
    ],
    "zestawy": [
@@ -8996,7 +9109,8 @@
    "opis": [
     "SKL to duża, metalowa szuflada kasowa do sklepu, piekarni, baru czy recepcji pensjonatu, w których przy kasie jest dużo gotówki. Podłączasz ją do kasy lub drukarki fiskalnej, a ta otwiera ją sama przy każdej sprzedaży gotówkowej.",
     "Ma 8 przegród na banknoty ułożonych na dwóch poziomach, dopasowanych do banknotów złotowych i euro, wyjmowany pojemnik na monety z 9 przegródkami oraz miejsce na dokumenty. Wózek jeździ na metalowych prowadnicach kulkowych, więc chodzi płynnie i cicho. Otworzysz ją poleceniem z kasy, kluczykiem albo awaryjnie przez otwór w spodzie obudowy.",
-    "Łączy się kablem RJ12 (1,5 m) i otwiera impulsem 5–12 V, więc według Posnet pasuje do większości urządzeń fiskalnych na rynku. Przed zakupem sprawdź napięcie wyjścia szuflady w swojej kasie. Szufladę można zamontować pod blatem na opcjonalnych metalowych szynach."
+    "Łączy się kablem RJ12 (1,5 m) i otwiera impulsem 5–12 V, więc według Posnet pasuje do większości urządzeń fiskalnych na rynku. Przed zakupem sprawdź napięcie wyjścia szuflady w swojej kasie. Szufladę można zamontować pod blatem na opcjonalnych metalowych szynach.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą. Wycenę z podłączeniem i montażem przygotujemy na piśmie, z modelem dobranym do Twojego stanowiska."
    ],
    "cechy": [
     "8 + 9 przegród",
@@ -9071,6 +9185,14 @@
     {
      "slug": "hd",
      "etykieta": "Drukarka fiskalna"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
     }
    ],
    "podobne": [
@@ -9304,7 +9426,8 @@
    "opis": [
     "Veri Basic to prosta sprawdzarka cen do sklepu spożywczego, drogerii czy sklepu z artykułami przemysłowymi. Wieszasz ją na ścianie lub regale, a klient sam skanuje kod kreskowy i odczytuje cenę na wyświetlaczu, bez szukania sprzedawcy.",
     "Ma podświetlany wyświetlacz 2 × 16 znaków (znaki 9 mm) i jednoliniowy skaner laserowy kodów kreskowych. Między skanami wyświetla Twoje teksty reklamowe. Podłączasz ją kablem RS-232 bezpośrednio do kasy fiskalnej lub komputera, bez dodatkowych urządzeń; ceny bierze z bazy towarów kasy albo programu na zapleczu.",
-    "Na jednej linii o długości do 300 m połączysz do 10 weryfikatorów. Posnet udostępnia sterowniki ODBC dla programów dostępnych na rynku. Zasilacz jest w komplecie. To konstrukcja prostsza od modeli z ekranem graficznym — nie czyta kodów QR i nie pokazuje grafik."
+    "Na jednej linii o długości do 300 m połączysz do 10 weryfikatorów. Posnet udostępnia sterowniki ODBC dla programów dostępnych na rynku. Zasilacz jest w komplecie. To konstrukcja prostsza od modeli z ekranem graficznym — nie czyta kodów QR i nie pokazuje grafik.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą. Wycenę z podłączeniem i montażem przygotujemy na piśmie, z modelem dobranym do Twojego stanowiska."
    ],
    "cechy": [
     "wyświetlacz 2×16",
@@ -9379,6 +9502,14 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
     }
    ],
    "podobne": [
@@ -9445,7 +9576,8 @@
    "opis": [
     "Zewnętrzny wyświetlacz klienta ELZAB stoi na ladzie i pokazuje klientowi ceny i kwotę do zapłaty. Przydaje się tam, gdzie wbudowany wyświetlacz kasy jest dla klienta słabo widoczny — np. przy wysokiej ladzie w sklepie, piekarni czy barze.",
     "To kolorowy ekran TFT 480 × 272 pikseli na słupku z regulacją wysokości od 16,5 do 42,7 cm. Kolory tła i czcionki ustawisz sam (do 65 tys. barw), a gdy nikt nie płaci, wyświetla się kolorowa grafika wygaszacza, np. z Twoim logo. Podstawa ma 8 × 8 cm, więc zajmuje mało miejsca; w zestawie są podkładki i taśma rzepowa do przyklejenia jej do blatu.",
-    "Według instrukcji Elzab wyświetlacz podłącza się do urządzeń ELZAB Delta Max E (homologacja 2017), Sigma, Mera+ i Zeta — przez złącze RS232 lub RJ-12, zależnie od urządzenia. Przewód ma ok. 2,2 m. Przed zakupem potwierdź zgodność z Twoją kasą."
+    "Według instrukcji Elzab wyświetlacz podłącza się do urządzeń ELZAB Delta Max E (homologacja 2017), Sigma, Mera+ i Zeta — przez złącze RS232 lub RJ-12, zależnie od urządzenia. Przewód ma ok. 2,2 m. Przed zakupem potwierdź zgodność z Twoją kasą.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą. Wycenę z podłączeniem i montażem przygotujemy na piśmie, z modelem dobranym do Twojego stanowiska."
    ],
    "cechy": [
     "kolorowy TFT",
@@ -9492,6 +9624,10 @@
     {
      "k": "Typ",
      "v": "wolnostojący wyświetlacz klienta"
+    },
+    {
+     "k": "Wymiary",
+     "v": "wysokość 16,5–42,7 cm, szerokość wyświetlacza 11,5 cm, podstawa 8 × 8 cm, kabel do 220 cm"
     }
    ],
    "faq": [
@@ -9506,12 +9642,24 @@
     {
      "q": "Jak wysoko można go ustawić?",
      "a": "Słupek reguluje się od 16,5 do 42,7 cm."
+    },
+    {
+     "q": "Czy akcesorium będzie pasować do mojej kasy?",
+     "a": "Podaj model kasy albo drukarki — sprawdzimy zgodność przed zakupem i podłączymy akcesorium przy montażu."
     }
    ],
    "polecane": [
     {
      "slug": "hd",
      "etykieta": "Drukarka fiskalna"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
     }
    ],
    "podobne": [
@@ -9579,7 +9727,8 @@
    "opis": [
     "ELZ-FT460 to szuflada typu Flip Top — otwiera się do góry i montuje się na krawędzi blatu, więc nie potrzebuje miejsca od frontu ani pod ladą. Sprawdzi się w boksach kasowych, w kioskach, na stoiskach i w lokalach, gdzie przy kasie po prostu brakuje miejsca na zwykłą szufladę.",
     "Ma wymienny wkład (kasetkę) na pieniądze z dodatkową pokrywą z zamkiem. Kasetkę można przenieść na zaplecze z zabezpieczoną gotówką, a każdy kasjer może mieć własną — to porządek przy zmianie zmiany. Wkład ma 6 przegródek na banknoty i 8 na bilon, a zamek według poradnika Elzab ma 100 kombinacji. Szuflada jest stalowa, czarna i ma czujnik otwarcia (microswitch).",
-    "W zestawie jest kabel 2 m z wtyczką RJ-12, a szuflada jest sterowana napięciem 24 V. Przed zakupem sprawdź, czy Twoja kasa lub drukarka steruje szufladą 24 V. Zapasowy wkład z pokrywą kupisz osobno."
+    "W zestawie jest kabel 2 m z wtyczką RJ-12, a szuflada jest sterowana napięciem 24 V. Przed zakupem sprawdź, czy Twoja kasa lub drukarka steruje szufladą 24 V. Zapasowy wkład z pokrywą kupisz osobno.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą. Wycenę z podłączeniem i montażem przygotujemy na piśmie, z modelem dobranym do Twojego stanowiska."
    ],
    "cechy": [
     "otwierana do góry",
@@ -9650,6 +9799,14 @@
     {
      "slug": "szuf",
      "etykieta": "Szuflada"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
     }
    ],
    "podobne": [
@@ -9719,7 +9876,8 @@
    "opis": [
     "Szuflady aktywne ELZ-350 (średnia) i ELZ-410 (duża) to metalowe szuflady kasowe do wybranych urządzeń ELZAB: kasy K10 oraz drukarek fiskalnych Zeta i D10. W tych urządzeniach szufladę i zasilacz podłącza się bezpośrednio do gniazda zasilania urządzenia — dlatego szuflada ma przewód 1,4 m zakończony wtykiem DC 2.1/5.5, a nie zwykłą wtyczką RJ.",
     "Mają zamek trzypozycyjny (otwieranie kluczem, otwieranie elektromagnesem, blokada), według poradnika Elzab z 20 kombinacjami. Szerokość przegródek na banknoty jest regulowana, a dociski trzymają banknoty na miejscu. Podwójna szczelina pozwala wsunąć czek, bon lub talon bez otwierania szuflady. W razie awarii otworzysz ją dźwignią od spodu.",
-    "Wybierz rozmiar: średnia ma 4 przegródki na banknoty, duża 5 (na banknoty o nominałach 10, 20, 50, 100 i 200); obie 9 przegródek na bilon. Do montażu pod blatem dokupisz uchwyty, a do zmiany utargu — zapasowy wkład z pokrywą."
+    "Wybierz rozmiar: średnia ma 4 przegródki na banknoty, duża 5 (na banknoty o nominałach 10, 20, 50, 100 i 200); obie 9 przegródek na bilon. Do montażu pod blatem dokupisz uchwyty, a do zmiany utargu — zapasowy wkład z pokrywą.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą."
    ],
    "cechy": [
     "do K10, Zeta, D10",
@@ -9908,7 +10066,21 @@
      "v": "trzypozycyjny (klucz / elektromagnes / blokada)"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "polecane": [
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
+    },
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja"
+    }
+   ]
   },
   {
    "slug_seed": "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro",
@@ -10070,6 +10242,14 @@
     {
      "slug": "szuf",
      "etykieta": "Szuflada"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
     }
    ],
    "podobne": [
@@ -10154,7 +10334,8 @@
    "opis": [
     "ELZ-410 to duża, metalowa szuflada kasowa w kolorze grafitowym, podłączana do kasy lub drukarki fiskalnej kablem z wtyczką RJ (w zestawie). Ma szerokość 410 mm i jest przeznaczona tam, gdzie gotówka to główna forma płatności: market, piekarnia, stacja, sklep z dużym ruchem.",
     "Ma 5 pojemników na banknoty (na nominały 10, 20, 50, 100 i 200 — inny banknot schowasz pod wkładem na bilon) i 9 przegródek na bilon o regulowanej szerokości. Zamek trzypozycyjny ma 20 kombinacji, jest podwójna szczelina na czeki i bony oraz dźwignia awaryjnego otwierania od spodu. Wózek jest metalowy i jedzie na teflonowych rolkach. Wersja PRO ma prowadnice kulkowe — jest cichsza, płynniej chodzi, ma większą nośność i 7 przegród na banknoty.",
-    "Sterowanie to 12 V (poradnik Elzab: 12/24 V) — sprawdź zgodność z kasą. Do montażu pod blatem dokupisz uchwyt, do kas Posnet i ELZAB Alfa/Mini są osobne kable, a adapter zamienia ją w szufladę do K10, Zety i D10."
+    "Sterowanie to 12 V (poradnik Elzab: 12/24 V) — sprawdź zgodność z kasą. Do montażu pod blatem dokupisz uchwyt, do kas Posnet i ELZAB Alfa/Mini są osobne kable, a adapter zamienia ją w szufladę do K10, Zety i D10.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą."
    ],
    "cechy": [
     "złącze RJ",
@@ -10292,6 +10473,14 @@
     {
      "slug": "szuf",
      "etykieta": "Szuflada"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
     }
    ],
    "podobne": [
@@ -10366,7 +10555,8 @@
    "opis": [
     "FT460 to szuflada typu flip-top — otwiera się do góry, a nie wysuwa do przodu. Sprawdza się w boksach kasowych, ladach i stoiskach, gdzie nie ma miejsca na klasyczną szufladę pod kasą, np. w kiosku, na stacji czy w punkcie z wąską ladą.",
     "Obudowa jest ze stali malowanej, a wymienny wkład z trwałego tworzywa ma 6 przegród na banknoty i 8 na bilon. Otwiera się na polecenie z kasy (impuls 6 V) albo kluczykiem. Kabel z wtykiem RJ12 (1,2 m) jest wyjmowany, co ułatwia montaż w zabudowie. Pracuje w temperaturze 0–45 °C.",
-    "Posnet projektował ją do współpracy ze wszystkimi kasami POSNET. Do wyboru jest wkład otwarty (FT460) albo wkład z zamykaną pokrywą (FT460LL); do wersji otwartej dostępna jest też opcjonalna stalowa pokrywa wkładu."
+    "Posnet projektował ją do współpracy ze wszystkimi kasami POSNET. Do wyboru jest wkład otwarty (FT460) albo wkład z zamykaną pokrywą (FT460LL); do wersji otwartej dostępna jest też opcjonalna stalowa pokrywa wkładu.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą. Wycenę z podłączeniem i montażem przygotujemy na piśmie, z modelem dobranym do Twojego stanowiska. Szuflada pracuje w temperaturze 0–45 °C, a jako opcja jest stalowa pokrywa wkładu i zapasowy wkład FT460LL."
    ],
    "cechy": [
     "otwierana do góry",
@@ -10437,6 +10627,10 @@
     {
      "q": "Ile miejsca zajmuje?",
      "a": "460 mm szerokości, 170 mm głębokości i 100 mm wysokości; montuje się ją w zabudowie lady."
+    },
+    {
+     "q": "Czy akcesorium będzie pasować do mojej kasy?",
+     "a": "Podaj model kasy albo drukarki — sprawdzimy zgodność przed zakupem i podłączymy akcesorium przy montażu."
     }
    ],
    "konfigurator": {
@@ -10473,6 +10667,14 @@
     {
      "slug": "hd",
      "etykieta": "Drukarka fiskalna"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
     }
    ],
    "podobne": [
@@ -10540,7 +10742,8 @@
    "opis": [
     "Klasyczna szuflada kasowa pod kasę lub drukarkę fiskalną. MK330 jest kompaktowa i pasuje na małe stanowiska — kiosk, gabinet, recepcję pensjonatu. MK350 jest średniej wielkości i głębsza, więc lepiej sprawdzi się w sklepie czy barze z większą ilością gotówki.",
     "Obie mają 4 przegrody na banknoty, wyjmowany pojemnik na bilon z 8 przegródkami i szczelinę do wsuwania czeków lub bonów. Wózek jeździ na łożyskach kulkowych. Otworzysz je poleceniem z kasy, kluczykiem albo awaryjnie przez otwór w spodzie obudowy.",
-    "Łączą się kablem RJ12 (1,2 m). MK330 otwiera impuls 6 V, a MK350 występuje w wersji 6 V albo 24 V — wybierz tę, która pasuje do Twojej kasy. Posnet przeznacza je do urządzeń fiskalnych POSNET, ale według producenta współpracują też z większością urządzeń na rynku."
+    "Łączą się kablem RJ12 (1,2 m). MK330 otwiera impuls 6 V, a MK350 występuje w wersji 6 V albo 24 V — wybierz tę, która pasuje do Twojej kasy. Posnet przeznacza je do urządzeń fiskalnych POSNET, ale według producenta współpracują też z większością urządzeń na rynku.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą. Wycenę z podłączeniem i montażem przygotujemy na piśmie, z modelem dobranym do Twojego stanowiska."
    ],
    "cechy": [
     "4 + 8 przegród",
@@ -10611,6 +10814,10 @@
     {
      "q": "Jak otworzyć szufladę w razie awarii?",
      "a": "Kluczykiem albo przez otwór awaryjny w spodzie obudowy."
+    },
+    {
+     "q": "Czy akcesorium będzie pasować do mojej kasy?",
+     "a": "Podaj model kasy albo drukarki — sprawdzimy zgodność przed zakupem i podłączymy akcesorium przy montażu."
     }
    ],
    "konfigurator": {
@@ -10656,6 +10863,14 @@
     {
      "slug": "hd",
      "etykieta": "Drukarka fiskalna"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
     }
    ],
    "podobne": [
@@ -10953,7 +11168,8 @@
    "opis": [
     "WeriON to sprawdzarka cen z ekranem dotykowym 10,1 cala, montowana na ścianie w sali sprzedaży. Klient skanuje towar i widzi cenę, a z programem WeriOn Max także zdjęcie, opis, skład, wartości odżywcze i alergeny. Pasuje do marketu, sklepu ze zdrową żywnością, drogerii czy delikatesów.",
     "Działa na Androidzie i łączy się z serwerem danych przez Wi-Fi albo kablem LAN — przy kablu może być zasilana przez PoE, bez osobnego gniazdka. Program WeriOn Max pokazuje ceny promocyjne i poprzednie, gazetkę, reklamy wideo i przewijany pasek z tekstem, pozwala wyszukać towar po nazwie, sprawdzić jego dostępność, obsłużyć kody towarów ważonych i podpiąć program lojalnościowy.",
-    "Do wyboru są dwie wersje skanera: tylko kody 1D (zwykłe kody kreskowe) albo 1D i 2D (czyta też kody QR). Uchwyt ścienny jest w zestawie. Treści konfigurujesz i zmieniasz zdalnie w oprogramowaniu WeriOn."
+    "Do wyboru są dwie wersje skanera: tylko kody 1D (zwykłe kody kreskowe) albo 1D i 2D (czyta też kody QR). Uchwyt ścienny jest w zestawie. Treści konfigurujesz i zmieniasz zdalnie w oprogramowaniu WeriOn.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą."
    ],
    "cechy": [
     "ekran dotykowy 10,1\"",
@@ -11082,6 +11298,14 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
     }
    ],
    "podobne": [
@@ -11143,7 +11367,8 @@
    "opis": [
     "Wyświetlacz stawiasz przy stanowisku kasowym, żeby klient widział nazwę towaru, cenę i kwotę do zapłaty. Pasuje do komputerowych stanowisk POS, terminali sprzedażowych i wag — np. w sklepie z programem sprzedaży na komputerze, w barze czy na stoisku z wagą.",
     "Ma alfanumeryczny ekran LCD 4 linie po 20 znaków (może też udawać popularny wyświetlacz 2 × 20) i obsługuje polskie znaki w kilku stronach kodowych. Łączy się przez port szeregowy RS232 (COM) i rozumie protokoły VT-100 i VT-52/QNXT, więc obsłuży go wiele programów sprzedażowych. Parametry transmisji ustawisz pod swój program.",
-    "Może być zasilany z portu COM przez przewód sygnałowy albo z zasilacza, który jest w komplecie, razem z kablem 2,7 m. Standardowo ma wysokość 20 cm; dla wysokiej lady wybierz wersję 30, 40 lub 50 cm."
+    "Może być zasilany z portu COM przez przewód sygnałowy albo z zasilacza, który jest w komplecie, razem z kablem 2,7 m. Standardowo ma wysokość 20 cm; dla wysokiej lady wybierz wersję 30, 40 lub 50 cm.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą. Wycenę z podłączeniem i montażem przygotujemy na piśmie, z modelem dobranym do Twojego stanowiska."
    ],
    "cechy": [
     "4 × 20 znaków",
@@ -11190,6 +11415,10 @@
     {
      "k": "Dokumentacja",
      "v": "instrukcja użytkownika (PDF) u producenta"
+    },
+    {
+     "k": "Wymiary",
+     "v": "wysokość 20 cm w wersji standardowej (opcja 30, 40 lub 50 cm)"
     }
    ],
    "faq": [
@@ -11249,6 +11478,10 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
     }
    ],
    "podobne": [
@@ -11316,7 +11549,8 @@
    "opis": [
     "ELZ-MAX to niefiskalna drukarka paragonowa, czyli drukarka do wydruków, które nie są paragonem fiskalnym. W restauracji drukuje zamówienia na kuchnię i rachunki przed zapłatą, w kantorze potwierdzenia wymiany, w gabinecie czy punkcie usług potwierdzenia wizyty lub wypożyczenia, a w sklepie kupony i stan konta lojalnościowego. Nada się też do biletów wstępu.",
     "Drukuje do 250 mm/s na papierze 80 mm i sama obcina wydruk (całkowicie lub częściowo). Ma w standardzie cztery złącza: RS232, USB, LAN i Wi-Fi, więc podłączysz ją do komputera, systemu POS albo do sieci bez kabla. Drukuje kody kreskowe i kody QR, obsługuje polskie strony kodowe, a wbudowany głośnik i dioda LED dają znać o nowym zamówieniu. Można ją powiesić na ścianie.",
-    "W zestawie jest zasilacz i adapter do papieru 57 mm. Drukarka obsługuje wszystkie szuflady Elzab z kablem RJ12 i działa z Windows 11/10/8/7/XP, Linuxem i macOS. Do ustawień Elzab udostępnia konfigurator i sterownik POS."
+    "W zestawie jest zasilacz i adapter do papieru 57 mm. Drukarka obsługuje wszystkie szuflady Elzab z kablem RJ12 i działa z Windows 11/10/8/7/XP, Linuxem i macOS. Do ustawień Elzab udostępnia konfigurator i sterownik POS.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą."
    ],
    "cechy": [
     "250 mm/s",
@@ -11411,6 +11645,10 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
     }
    ],
    "podobne": [
@@ -11476,7 +11714,8 @@
    "opis": [
     "ELZ-RP332A to niefiskalna drukarka paragonowa (bonowa). Drukuje zamówienia na kuchnię, rachunki przed zapłatą, potwierdzenia usług, wyniki z laboratorium, kupony czy bilety wstępu — wszystko, co nie jest paragonem fiskalnym. Sprawdzi się w restauracji, aptece, kantorze i w punkcie usługowym.",
     "Drukuje do 250 mm/s na papierze 80 mm i sama obcina wydruk. Ma w standardzie trzy złącza: RS232, USB i LAN, więc podłączysz ją do komputera, systemu POS albo do sieci przewodowej. Drukuje kody kreskowe i kody QR, a wbudowany głośnik działa jak dzwonek przy nowym zamówieniu. Można ją powiesić na ścianie. Jest cięższa i większa od ELZ-MAX (2,3 kg), ale nie ma Wi-Fi.",
-    "W zestawie jest zasilacz i adapter do papieru 57 mm. Obsługuje szuflady Elzab z wtyczką RJ12 (średnie, duże i Gamma). Działa z Windows 10/8/7/XP/2003, Linuxem i macOS; Elzab udostępnia sterowniki i narzędzie konfiguracyjne."
+    "W zestawie jest zasilacz i adapter do papieru 57 mm. Obsługuje szuflady Elzab z wtyczką RJ12 (średnie, duże i Gamma). Działa z Windows 10/8/7/XP/2003, Linuxem i macOS; Elzab udostępnia sterowniki i narzędzie konfiguracyjne.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą."
    ],
    "cechy": [
     "250 mm/s",
@@ -11563,6 +11802,10 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
     }
    ],
    "podobne": [
@@ -11628,7 +11871,8 @@
    "opis": [
     "ELZ-RPP02B to mała, mobilna drukarka termiczna na papier 58 mm. Przyda się wszędzie, gdzie drukujesz w ruchu: w taksówce, przy dostawach, w sprzedaży na targu czy podczas wizyty u klienta. Waży 294 g razem z baterią i papierem.",
     "Łączy się przez Bluetooth albo USB, więc drukuje z komputera, laptopa, tabletu i smartfona. Elzab przetestował ją z kasą Elzab w postaci oprogramowania (kasą wirtualną) dla taksówek — m.in. pod kątem poprawności wydruku paragonu, kontroli papieru i połączenia ze smartfonem. Wytrzymuje upadek z 1,2 m i pracuje od −10 °C do 50 °C. Drukuje kody kreskowe i QR.",
-    "Zasila ją akumulator Li-ion 1600 mAh. W zestawie są bateria, ładowarka z kablem USB, etui ochronne i rolka papieru. Pamiętaj: sama drukarka nie jest fiskalna — paragon fiskalny wydrukuje tylko w parze z kasą wirtualną lub aplikacją, która go wystawia."
+    "Zasila ją akumulator Li-ion 1600 mAh. W zestawie są bateria, ładowarka z kablem USB, etui ochronne i rolka papieru. Pamiętaj: sama drukarka nie jest fiskalna — paragon fiskalny wydrukuje tylko w parze z kasą wirtualną lub aplikacją, która go wystawia.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą. Wycenę z podłączeniem i montażem przygotujemy na piśmie, z modelem dobranym do Twojego stanowiska."
    ],
    "cechy": [
     "Bluetooth i USB",
@@ -11754,7 +11998,21 @@
      "v": "8 × 8 pkt/mm (203 dpi)"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "polecane": [
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
+    },
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja"
+    }
+   ]
   },
   {
    "slug_seed": "posnet-klawiatura-bb10s-rs-usb",
@@ -11772,7 +12030,8 @@
    "opis": [
     "BB10S to mała klawiatura z 10 przyciskami do obsługi ekranów kuchennych (KDS). Kucharz przyjmuje, przesuwa w kolejce i zamyka zamówienia jednym naciśnięciem, zamiast dotykać ekranu brudnymi rękami. Posnet poleca ją jako zamiennik drukarki bonów w kuchni, a dzięki wytrzymałości także do zakładów produkcyjnych.",
     "Ma stalową obudowę i trwałe przyciski z wyczuwalnym kliknięciem. Działa na przewodzie nawet do 100 m, więc komputer może stać daleko od stanowiska. Każdy przycisk wysyła stały kod przez port szeregowy, dlatego klawiaturę wymienisz na nową bez ponownej konfiguracji stanowiska. Wersja USB ma dodatkowo panel z poliestru chroniący przed zalaniem, gniazdo RJ45 i mocowanie magnetyczne.",
-    "Współpracuje z programami KDS, które obsługują port szeregowy — Posnet wymienia m.in. X2System, FoodSoft.KDS i Simple Gastronomy. Przed zakupem sprawdź, czy Twój program ją obsługuje."
+    "Współpracuje z programami KDS, które obsługują port szeregowy — Posnet wymienia m.in. X2System, FoodSoft.KDS i Simple Gastronomy. Przed zakupem sprawdź, czy Twój program ją obsługuje.",
+    "Przed zakupem sprawdzamy, czy akcesorium pasuje do Twojej kasy, drukarki albo stanowiska, a przy montażu podłączamy je i sprawdzamy działanie razem z kasą."
    ],
    "cechy": [
     "10 przycisków",
@@ -11901,6 +12160,14 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie"
+    },
+    {
+     "slug": "srvkas",
+     "etykieta": "Serwis kas"
     }
    ],
    "branze": [
@@ -11964,7 +12231,8 @@
    "opis": [
     "Prima 2 to płaska waga sklepowa (niekalkulacyjna) do stanowiska kasowego — pokazuje wagę, a cenę liczy kasa fiskalna albo system POS. Pasuje do sklepu spożywczego, piekarni, warzywniaka, stoiska na bazarze, a także do magazynu, hurtowni i gastronomii. Może też pracować samodzielnie.",
     "Ma złącza RS-232 i USB oraz programowalny protokół, więc łączy się z kasami ELZAB i wieloma innymi kasami i terminalami POS. Wynik wysyłasz klawiszem na wadze lub kasie, automatycznie albo w sposób ciągły. Szalka jest ze stali nierdzewnej dopuszczonej do kontaktu z żywnością, klawiatura membranowa wodoszczelna, a tryb oszczędzania energii zmniejsza pobór prądu.",
-    "Elzab publikuje tabelę konfiguracji z kasami ELZAB (m.in. Mini, Jota, Alfa, Delta) — do niektórych podłączysz kilka wag przez rozdzielacz. Dołożysz wyświetlacz na słupku dla klienta. Zachowaj deklarację zgodności z kompletu — jest potrzebna przy ponownej legalizacji. Zasilacz zamawia się osobno."
+    "Elzab publikuje tabelę konfiguracji z kasami ELZAB (m.in. Mini, Jota, Alfa, Delta) — do niektórych podłączysz kilka wag przez rozdzielacz. Dołożysz wyświetlacz na słupku dla klienta. Zachowaj deklarację zgodności z kompletu — jest potrzebna przy ponownej legalizacji. Zasilacz zamawia się osobno.",
+    "Przy zakupie łączymy wagę z kasą albo programem sprzedaży, wpisujemy towary ważone i sprawdzamy, czy masa i cena przechodzą poprawnie (usługa „Połączenie kasy z programem, wagą i terminalem”). Wagi do rozliczeń z klientem muszą mieć legalizację — przy wyborze podpowiadamy, którą wersję zamówić."
    ],
    "cechy": [
     "RS-232 i USB",
@@ -12099,7 +12367,21 @@
      "v": "waga legalizowana"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "polecane": [
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "neo",
+     "etykieta": "Kasa systemowa"
+    },
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja kasy"
+    }
+   ]
   },
   {
    "slug_seed": "dibal-d-545-s-545",
@@ -12117,7 +12399,8 @@
    "opis": [
     "Wagi DIBAL serii 545 ważą towar i drukują etykietę albo paragon z wagą i ceną. Są dla średnich i dużych sklepów — z działem mięsnym, serami, warzywami — w których kilka wag pracuje w sieci i pobiera ceny z programu sprzedaży. Wersja samoobsługowa D-545SS pozwala klientom samym ważyć owoce i warzywa.",
     "Mają zakres 6/15 kg (działka 2/5 g), legalizację, bazę 10 000 towarów i 20 sprzedawców. Do każdego towaru zapiszesz długi tekst o składzie i alergenach (wymóg rozporządzenia UE 1169/2011). Drukarka termiczna 203 dpi drukuje etykiety od 30 × 30 do 60 × 100 mm, paragony albo na papierze ciągłym; etykiety zmienia się kasetowo, a w D-545DB mechanizm wysuwa się w szufladzie. Łączą się przez Ethernet, opcjonalnie Wi-Fi.",
-    "Wagę i wygląd etykiet programujesz w bezpłatnym programie Dibal DFS pod Windows, a przez przeglądarkę zajrzysz do wag zdalnie (DWS). Wagi współpracują m.in. z programami KC Firma, Hipermarket, Small Business, WF-MAG, Sklep, PC-Market i Magnat."
+    "Wagę i wygląd etykiet programujesz w bezpłatnym programie Dibal DFS pod Windows, a przez przeglądarkę zajrzysz do wag zdalnie (DWS). Wagi współpracują m.in. z programami KC Firma, Hipermarket, Small Business, WF-MAG, Sklep, PC-Market i Magnat.",
+    "Przy zakupie łączymy wagę z kasą albo programem sprzedaży, wpisujemy towary ważone i sprawdzamy, czy masa i cena przechodzą poprawnie (usługa „Połączenie kasy z programem, wagą i terminalem”). Wagi do rozliczeń z klientem muszą mieć legalizację — przy wyborze podpowiadamy, którą wersję zamówić."
    ],
    "cechy": [
     "6/15 kg, legalizacja",
@@ -12381,7 +12664,8 @@
    "opis": [
     "Neptun 2 to moduł ważący do montażu w blacie boksu kasowego, łączony w jednej obudowie z zaawansowanym skanerem kodów. Jest przeznaczony do supermarketów i większych sklepów z dużym ruchem, gdzie liczy się każda sekunda przy kasie.",
     "Kasjer kładzie towar na skanerze — w tym samym momencie towar jest ważony i czytany jest jego kod, bez obracania produktu. Wyświetlacz LCD na obrotowym słupku z regulacją wysokości i pochylenia pokazuje masę, cenę jednostkową, należność i nazwę towaru. Konstrukcja jest odporna na przeciążenia, z nierdzewnymi elementami i powłoką galwaniczną, ma tryb oszczędzania energii i tarowanie w całym zakresie.",
-    "Wagi rodziny CAT 27 spełniają przepisy dla wag do rozliczeń handlowych, mają zatwierdzenie typu WE i są legalizowane przed wprowadzeniem do obrotu. Skalibrowaną wagę można zamontować w skanerze już pracującym w sklepie, bez jego demontażu. Wynik trafia do kasy lub POS przez RS-232; Elzab wymienia m.in. skanery bioptyczne, m.in. Zebra MP7000."
+    "Wagi rodziny CAT 27 spełniają przepisy dla wag do rozliczeń handlowych, mają zatwierdzenie typu WE i są legalizowane przed wprowadzeniem do obrotu. Skalibrowaną wagę można zamontować w skanerze już pracującym w sklepie, bez jego demontażu. Wynik trafia do kasy lub POS przez RS-232; Elzab wymienia m.in. skanery bioptyczne, m.in. Zebra MP7000.",
+    "Przy zakupie łączymy wagę z kasą albo programem sprzedaży, wpisujemy towary ważone i sprawdzamy, czy masa i cena przechodzą poprawnie (usługa „Połączenie kasy z programem, wagą i terminalem”). Wagi do rozliczeń z klientem muszą mieć legalizację — przy wyborze podpowiadamy, którą wersję zamówić."
    ],
    "cechy": [
     "do zabudowy w ladzie",
@@ -12460,6 +12744,14 @@
     {
      "slug": "skaner",
      "etykieta": "Skaner kodów"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "neo",
+     "etykieta": "Kasa systemowa"
     }
    ],
    "podobne": [
@@ -12526,7 +12818,8 @@
    "opis": [
     "WS-1 to waga do sklepu, piekarni, warzywniaka, na targ i do magazynu. Ma bardzo dużą, grubą szalkę ze stali nierdzewnej (352 × 265 mm), na której zmieszczą się też towary o nietypowym kształcie, i dwa wyświetlacze — sprzedawca i klient widzą wynik jednocześnie. Instrukcja podaje klasę dokładności III.",
     "Łączy się z kasą fiskalną lub komputerem przez dwa porty RS-232 (gniazda RJ45) albo USB, a z opcjonalnym modułem Bluetooth — z tabletem z Androidem. Ma wbudowane protokoły kas POSNET, ELZAB, Optimus i Euro. Do tego tara z blokadą, automatyczne zerowanie, liczenie sztuk i progi wagowe (kontrola min–max).",
-    "Występuje w kilku zakresach — od 1,5 kg z działką 0,5 g do 15 kg z działką 5 g, jedno- lub dwuzakresowo. Pracuje z sieci, a z opcjonalnym akumulatorem ok. 8 godzin, np. na stoisku bez gniazdka. Pamiętaj, że waga używana do sprzedaży na wagę musi mieć ważną legalizację."
+    "Występuje w kilku zakresach — od 1,5 kg z działką 0,5 g do 15 kg z działką 5 g, jedno- lub dwuzakresowo. Pracuje z sieci, a z opcjonalnym akumulatorem ok. 8 godzin, np. na stoisku bez gniazdka. Pamiętaj, że waga używana do sprzedaży na wagę musi mieć ważną legalizację.",
+    "Przy zakupie łączymy wagę z kasą albo programem sprzedaży, wpisujemy towary ważone i sprawdzamy, czy masa i cena przechodzą poprawnie (usługa „Połączenie kasy z programem, wagą i terminalem”). Wagi do rozliczeń z klientem muszą mieć legalizację — przy wyborze podpowiadamy, którą wersję zamówić."
    ],
    "cechy": [
     "klasa III",
@@ -12729,7 +13022,21 @@
      "v": "dwa: LED i graficzny LCD (sprzedawca i klient)"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "polecane": [
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "neo",
+     "etykieta": "Kasa systemowa"
+    },
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja kasy"
+    }
+   ]
   },
   {
    "slug_seed": "dibal-d-955",
@@ -12747,7 +13054,8 @@
    "opis": [
     "DIBAL D-955 to waga etykietująca z ekranem dotykowym od strony obsługi i kolorowym wyświetlaczem TFT dla klienta. Waży towar i drukuje etykietę, paragon albo wydruk na papierze ciągłym. Jest dla średnich i dużych sklepów z ladą mięsną, serową czy garmażeryjną, w których wagi pracują w sieci.",
     "Klawisze ustawiasz na ekranie dotykowym, więc dopasujesz je do swojego asortymentu, a na ekranie klienta wyświetlisz zdjęcia towarów polecanych. Waga ma zakres 6/15 kg, bazę 10 000 towarów, Ethernet (opcjonalnie Wi-Fi) i złącze skanera. Drukuje do 100 mm/s na etykietach od 30 × 30 do 60 × 100 mm, papier zakłada się kasetowo, a waga ostrzega o kończących się etykietach. Raporty wyeksportujesz na pendrive.",
-    "Wagę programujesz z komputera bezpłatnymi programami Dibal DFS lub RMS (projektowanie etykiet w module DLD jest płatne). Waga współpracuje m.in. z programami KC Firma, Subiekt, Small Business, WF-MAG, PC-Market, Sklep i Magnat."
+    "Wagę programujesz z komputera bezpłatnymi programami Dibal DFS lub RMS (projektowanie etykiet w module DLD jest płatne). Waga współpracuje m.in. z programami KC Firma, Subiekt, Small Business, WF-MAG, PC-Market, Sklep i Magnat.",
+    "Przy zakupie łączymy wagę z kasą albo programem sprzedaży, wpisujemy towary ważone i sprawdzamy, czy masa i cena przechodzą poprawnie (usługa „Połączenie kasy z programem, wagą i terminalem”). Wagi do rozliczeń z klientem muszą mieć legalizację — przy wyborze podpowiadamy, którą wersję zamówić."
    ],
    "cechy": [
     "ekran dotykowy",
@@ -12997,7 +13305,8 @@
    "opis": [
     "SPC to prosta waga kalkulacyjna do małego sklepu spożywczego, piekarni, warzywniaka, a zwłaszcza na bazar i targ. Pokazuje wagę, cenę za kilogram i należność na podświetlanych wyświetlaczach dla sprzedawcy i klienta.",
     "Ma wbudowany akumulator — producent podaje do 70 godzin pracy bez prądu — i pracuje nawet w −10 °C. Zapamięta 10 cen pod klawiszami bezpośrednimi, ma stałą tarę, tarowanie w całym zakresie i automatyczne wyłączanie oszczędzające baterię. Klawiatura jest wodoszczelna, a szalka ze stali nierdzewnej łatwo się czyści. Typ wagi ma zatwierdzenie WE dla klasy III do sprzedaży bezpośredniej.",
-    "Wybierasz wersję płaską (S) lub z wyświetlaczem klienta na wysięgniku (T). Wersje z dopiskiem RS mają złącze RS-232 i przesyłają wynik do kasy fiskalnej lub komputera; wersje bez RS pracują samodzielnie. Dostępny jest schemat podłączenia SPC RS do kas Elzab."
+    "Wybierasz wersję płaską (S) lub z wyświetlaczem klienta na wysięgniku (T). Wersje z dopiskiem RS mają złącze RS-232 i przesyłają wynik do kasy fiskalnej lub komputera; wersje bez RS pracują samodzielnie. Dostępny jest schemat podłączenia SPC RS do kas Elzab.",
+    "Przy zakupie łączymy wagę z kasą albo programem sprzedaży, wpisujemy towary ważone i sprawdzamy, czy masa i cena przechodzą poprawnie (usługa „Połączenie kasy z programem, wagą i terminalem”). Wagi do rozliczeń z klientem muszą mieć legalizację — przy wyborze podpowiadamy, którą wersję zamówić."
    ],
    "cechy": [
     "akumulator do 100 h",
@@ -13194,7 +13503,21 @@
      "v": "zatwierdzenie typu WE, klasa III, sprzedaż bezpośrednia"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "polecane": [
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "neo",
+     "etykieta": "Kasa systemowa"
+    },
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja kasy"
+    }
+   ]
   },
   {
    "slug_seed": "dibal-w-025",
@@ -13212,7 +13535,8 @@
    "opis": [
     "W-025 z serii Wind to waga etykietująca do stoisk z mięsem, wędlinami, serami, rybami i warzywami w małych i średnich sklepach. Waży, liczy należność i drukuje etykietę albo paragon, z którym klient idzie do kasy, a wagi można łączyć w sieć.",
     "Zapamięta do 10 000 towarów (zależnie od wersji) z cenami normalnymi i promocyjnymi oraz długim tekstem o składzie i alergenach, zgodnie z rozporządzeniem UE 1169/2011. Ma 20 sprzedawców, raporty sprzedaży i prostą obsługę stanów. Drukarka termiczna drukuje do 100 mm/s na etykietach od 30 × 30 do 60 × 100 mm, paragonach lub papierze ciągłym. Podświetlane wyświetlacze LCD są po obu stronach. Seria 500 Dibal ma certyfikat badania typu WE dla klasy III.",
-    "Wagi programujesz w bezpłatnych programach Dibal DFS lub RMS, a przez przeglądarkę zajrzysz do nich zdalnie (DWS). Łączą się przez Ethernet i mają złącze skanera. Współpracują m.in. z programami KC Firma, Subiekt, Small Business, WF-MAG i PC-Market."
+    "Wagi programujesz w bezpłatnych programach Dibal DFS lub RMS, a przez przeglądarkę zajrzysz do nich zdalnie (DWS). Łączą się przez Ethernet i mają złącze skanera. Współpracują m.in. z programami KC Firma, Subiekt, Small Business, WF-MAG i PC-Market.",
+    "Przy zakupie łączymy wagę z kasą albo programem sprzedaży, wpisujemy towary ważone i sprawdzamy, czy masa i cena przechodzą poprawnie (usługa „Połączenie kasy z programem, wagą i terminalem”). Wagi do rozliczeń z klientem muszą mieć legalizację — przy wyborze podpowiadamy, którą wersję zamówić."
    ],
    "cechy": [
     "drukarka etykiet",
@@ -13433,7 +13757,8 @@
    "opis": [
     "G-325 to waga kalkulacyjna do stanowiska kasowego w sklepie spożywczym, warzywniaku, piekarni czy na stoisku. Pokazuje wagę, cenę za kilogram i należność na podświetlanych wyświetlaczach po stronie sprzedawcy i klienta.",
     "Przez złącze RS-232 przesyła wynik do kasy fiskalnej, systemu POS lub komputera. Ma 40 wbudowanych protokołów kas i do 60 kolejnych wgrasz z komputera, a w zestawie jest sterownik OPOS. Zapamięta 100 cen (18 pod klawiszami bezpośrednimi), ma tarę stałą i ręczne zerowanie, a klawiatura jest wodoszczelna. Jedna waga działa jako płaska albo z wysięgnikiem — słupek jest w zestawie. Opcjonalnie dobierzesz szalkę włoską (miskę).",
-    "Wersja G-325 B ma wbudowany akumulator 6 V / 4,5 Ah — do ok. 120 godzin pracy przy wyłączonym podświetleniu, przydatny na targu albo przy braku gniazdka. Typ wagi ma zatwierdzenie do sprzedaży bezpośredniej, a producent oferuje weryfikację metrologiczną."
+    "Wersja G-325 B ma wbudowany akumulator 6 V / 4,5 Ah — do ok. 120 godzin pracy przy wyłączonym podświetleniu, przydatny na targu albo przy braku gniazdka. Typ wagi ma zatwierdzenie do sprzedaży bezpośredniej, a producent oferuje weryfikację metrologiczną.",
+    "Przy zakupie łączymy wagę z kasą albo programem sprzedaży, wpisujemy towary ważone i sprawdzamy, czy masa i cena przechodzą poprawnie (usługa „Połączenie kasy z programem, wagą i terminalem”). Wagi do rozliczeń z klientem muszą mieć legalizację — przy wyborze podpowiadamy, którą wersję zamówić."
    ],
    "cechy": [
     "RS-232, 100 protokołów",
@@ -13617,7 +13942,21 @@
      "v": "podświetlane LCD 5 cyfr dla sprzedawcy i klienta"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "polecane": [
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "neo",
+     "etykieta": "Kasa systemowa"
+    },
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja kasy"
+    }
+   ]
   },
   {
    "slug_seed": "elzab-wago-skaner-neptun-2-mgl-9550i-9900i",
@@ -13635,7 +13974,8 @@
    "opis": [
     "To gotowy zestaw do lady kasowej: waga ELZAB Neptun 2 zabudowana w dwupłaszczyznowym (bioptycznym) skanerze. Górna szyba skanera z hartowanego szkła jest jednocześnie szalką wagi. Przeznaczony dla supermarketów i sklepów z dużym ruchem przy kasie.",
     "Skaner to kamera (imager), która czyta kod jako całość — kody kreskowe i 2D (m.in. QR, Data Matrix, PDF417), także źle wydrukowane lub uszkodzone. Taca All-Weights pozwala ważyć długie towary oparte o pionową szybę, a ScaleSentry pilnuje podczerwienią, czy towar nie wystaje poza wagę — jeśli tak, kasjer dostaje ostrzeżenie, a waga nie wyśle wyniku do POS. Zestaw współpracuje z systemami zabezpieczeń towaru (EAS) Checkpoint i Sensormatic.",
-    "Wynik ważenia i kod trafiają do systemu POS; skaner łączy się przez RS-232, IBM 46XX lub USB, a 9900i także przez Ethernet. Wyświetlacz wagi stoi na obrotowym słupku; możesz dołożyć wyświetlacz dla klienta i kosz montażowy."
+    "Wynik ważenia i kod trafiają do systemu POS; skaner łączy się przez RS-232, IBM 46XX lub USB, a 9900i także przez Ethernet. Wyświetlacz wagi stoi na obrotowym słupku; możesz dołożyć wyświetlacz dla klienta i kosz montażowy.",
+    "Przy zakupie łączymy wagę z kasą albo programem sprzedaży, wpisujemy towary ważone i sprawdzamy, czy masa i cena przechodzą poprawnie (usługa „Połączenie kasy z programem, wagą i terminalem”). Wagi do rozliczeń z klientem muszą mieć legalizację — przy wyborze podpowiadamy, którą wersję zamówić."
    ],
    "cechy": [
     "skaner bioptyczny",
@@ -13766,6 +14106,14 @@
     {
      "slug": "skaner",
      "etykieta": "Skaner kodów"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "neo",
+     "etykieta": "Kasa systemowa"
     }
    ],
    "podobne": [
@@ -13837,7 +14185,8 @@
    "opis": [
     "DMI-610 to miernik wagowy, czyli terminal z wyświetlaczem i klawiaturą, który podłącza się do platformy wagowej. Dostępny jest też jako gotowa waga pomostowa 60, 150 lub 300 kg. Służy do ważenia na zapleczu sklepu, w magazynie, hurtowni, przetwórni i na linii pakowania — skrzynek, beczek, paczek czy palet.",
     "Ma duży, czerwony wyświetlacz LED (cyfry 25 mm) widoczny z daleka i lampki trybów pracy. Poza ważeniem i tarą sumuje, liczy sztuki i kontroluje wagę w zakresie minimum–cel–maksimum. Ma dwa porty RS-232, więc wyśle wynik do komputera, drukarki lub ręcznej wagi-etykieciarki Dibal. Wersja ze stali nierdzewnej ma więcej opcji: Ethernet, RS-485, wejścia/wyjścia do sterowania dozowaniem i wyjście analogowe.",
-    "Ważne: wskaźnik DMI-610 ma certyfikat do wag nieprzeznaczonych do sprzedaży bezpośredniej klientom — to waga kontrolna i magazynowa, nie do ważenia towaru przy kliencie. Producent oferuje weryfikację metrologiczną zestawu miernik + platforma."
+    "Ważne: wskaźnik DMI-610 ma certyfikat do wag nieprzeznaczonych do sprzedaży bezpośredniej klientom — to waga kontrolna i magazynowa, nie do ważenia towaru przy kliencie. Producent oferuje weryfikację metrologiczną zestawu miernik + platforma.",
+    "Przy zakupie łączymy wagę z kasą albo programem sprzedaży, wpisujemy towary ważone i sprawdzamy, czy masa i cena przechodzą poprawnie (usługa „Połączenie kasy z programem, wagą i terminalem”). Wagi do rozliczeń z klientem muszą mieć legalizację — przy wyborze podpowiadamy, którą wersję zamówić."
    ],
    "cechy": [
     "liczenie sztuk",
@@ -13896,6 +14245,14 @@
     {
      "k": "Oprogramowanie",
      "v": "DCM (konfiguracja, kopie, dane), aplikacja DMI App"
+    },
+    {
+     "k": "Zakres ważenia",
+     "v": "60 kg, 150 kg lub 300 kg (trzy wersje)"
+    },
+    {
+     "k": "Wymiary szalki",
+     "v": "520 × 420 mm"
     }
    ],
    "warianty_opis": [
@@ -13994,6 +14351,14 @@
     {
      "slug": "godex-g500-g530",
      "etykieta": "Etykiety"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "neo",
+     "etykieta": "Kasa systemowa"
     }
    ],
    "podobne": [
@@ -14065,7 +14430,8 @@
    "opis": [
     "To rodzina prostych wag do zaplecza sklepu, magazynu, małej produkcji i gastronomii: mierniki VC do podłączenia platformy, gotowa waga pomostowa PVC-50 i mała waga stołowa PS-50. Służą do kontroli dostaw, ważenia skrzynek, beczek i paczek oraz sprawdzania porcji czy towaru na stoisku z warzywami.",
     "Wszystkie mają podświetlane wyświetlacze LCD, tarowanie w całym zakresie i wbudowany akumulator 6 V / 4 Ah — mierniki VC i PVC-50 do 100 godzin pracy, PS-50 do 70 godzin według producenta. VC-50 i PVC-50 liczą sztuki, VC-80 INOX ma bardzo duże cyfry (52 mm) i alarm przekroczenia progów. PS-50 ma tylko trzy klawisze: ważenie, tara i zmiana jednostki.",
-    "To wagi bez komunikacji z kasą i bez drukarki. PS-50 ma zatwierdzenie typu UE dla klasy III, a mierniki VC mają opcjonalną wersję z weryfikacją metrologiczną (M). Do mierników dobierz platformę wagową i kolumnę 330 lub 660 mm."
+    "To wagi bez komunikacji z kasą i bez drukarki. PS-50 ma zatwierdzenie typu UE dla klasy III, a mierniki VC mają opcjonalną wersję z weryfikacją metrologiczną (M). Do mierników dobierz platformę wagową i kolumnę 330 lub 660 mm.",
+    "Przy zakupie łączymy wagę z kasą albo programem sprzedaży, wpisujemy towary ważone i sprawdzamy, czy masa i cena przechodzą poprawnie (usługa „Połączenie kasy z programem, wagą i terminalem”). Wagi do rozliczeń z klientem muszą mieć legalizację — przy wyborze podpowiadamy, którą wersję zamówić."
    ],
    "cechy": [
     "akumulator do 100 h",
@@ -14286,7 +14652,21 @@
      "v": "do 6000 działek, platforma do 4 czujników"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "polecane": [
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "neo",
+     "etykieta": "Kasa systemowa"
+    },
+    {
+     "slug": "fiskalizacja",
+     "etykieta": "Fiskalizacja kasy"
+    }
+   ]
   },
   {
    "slug_seed": "zebra-ds2208-ds2278",
@@ -14303,7 +14683,8 @@
    "opis": [
     "Zebra DS2208 (przewodowy) i DS2278 (bezprzewodowy) to ręczne skanery 2D do sklepu, apteki, gastronomii, hotelu, biura, biblioteki i urzędu. Skanujesz towary, faktury z kodem, karty lojalnościowe i dokumenty z kodem QR.",
     "Czytają kody 1D i 2D (QR, Data Matrix, PDF417, Aztec i inne) w dowolnym ułożeniu, także słabej jakości. DS2208 czyta również kody z ekranów urządzeń. Wytrzymują wielokrotne upadki z 1,5 m na beton i mają szczelność IP52. DS2208 przychodzi gotowy do pracy z kablem i podstawką; kabel sam rozpoznaje rodzaj złącza, a skaner pasuje do kabli starszego LS2208. DS2278 łączy się przez Bluetooth — do 10 m, a z podstawką-ładowarką CR2278 do 100 m — i na baterii 2400 mAh robi do 50 000 skanów.",
-    "Interfejsy: USB, RS-232, emulacja klawiatury i TGCS (IBM). Producent daje 5 lat gwarancji na DS2208 i 3 lata na DS2278 (akumulator 1 rok). Do DS2278 warto dobrać podstawkę CR2278."
+    "Interfejsy: USB, RS-232, emulacja klawiatury i TGCS (IBM). Producent daje 5 lat gwarancji na DS2208 i 3 lata na DS2278 (akumulator 1 rok). Do DS2278 warto dobrać podstawkę CR2278.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "kody 1D i 2D",
@@ -14439,6 +14820,14 @@
     {
      "slug": "pol",
      "etykieta": "Płatności kartą"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
     }
    ],
    "zestawy": [
@@ -14511,7 +14900,8 @@
    "opis": [
     "Ręczny skaner kodów Sunmi do sklepu, kawiarni, apteki czy punktu usługowego. Podłączasz go kablem USB do kasy, terminala POS albo komputera i od razu skanujesz towary, bez instalowania dodatkowych programów.",
     "Czyta zwykłe kody kreskowe (1D) i kody 2D, czyli także QR, Data Matrix i PDF417. Odczyta kody wyświetlane na ekranie telefonu i z kart lojalnościowych. Kod EAN z opakowania złapie z odległości od 5,5 do 30 cm, w dowolnym ułożeniu. Po odczycie daje sygnał dźwiękiem, diodą i wibracją, więc kasjer wie, że kod wszedł, nawet w głośnym lokalu. Wytrzymuje upadek z 1,2 m.",
-    "Możesz dokupić automatyczną podstawkę: skaner odłożony na nią czyta kody sam, bez naciskania spustu — wygodne przy dużym ruchu. Pracuje z systemami Windows, Android, iOS i Linux, więc pasuje do większości kas i programów sprzedaży."
+    "Możesz dokupić automatyczną podstawkę: skaner odłożony na nią czyta kody sam, bez naciskania spustu — wygodne przy dużym ruchu. Pracuje z systemami Windows, Android, iOS i Linux, więc pasuje do większości kas i programów sprzedaży.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "kody 1D i 2D (QR)",
@@ -14638,6 +15028,10 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
     }
    ],
    "podobne": [
@@ -14705,7 +15099,8 @@
    "opis": [
     "Biurkowa drukarka etykiet Zebra ZD421 dla sklepu internetowego, magazynu, apteki, przychodni czy biura. Drukujesz etykiety kurierskie 100 × 150 mm, produktowe, adresowe i kody. Zastępuje popularne Zebry GK420.",
     "Masz trzy wersje: ZD421d (termiczna, bez taśmy), ZD421t (termotransfer z rolki taśmy 74 lub 300 m) i ZD421c (taśma w kasecie, którą wkłada się w kilka sekund). Standardowo 203 dpi, opcjonalnie 300 dpi do małych kodów. Szerokość druku 104 mm, prędkość do 152 mm/s. Obudowa otwiera się jak muszla, a ikony stanu pokazują, co się dzieje.",
-    "W standardzie jest USB, USB Host i Bluetooth LE. Ethernet, RS-232 i Wi-Fi z Bluetooth 4.1 to moduły, które można doinstalować także po zakupie — podobnie jak odklejak i obcinak. Języki ZPL i EPL pasują do większości programów i platform kurierskich. Gwarancja producenta 2 lata."
+    "W standardzie jest USB, USB Host i Bluetooth LE. Ethernet, RS-232 i Wi-Fi z Bluetooth 4.1 to moduły, które można doinstalować także po zakupie — podobnie jak odklejak i obcinak. Języki ZPL i EPL pasują do większości programów i platform kurierskich. Gwarancja producenta 2 lata.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "taśma w kasecie",
@@ -14953,7 +15348,8 @@
    "opis": [
     "QL-820NWBc to szybka drukarka etykiet do sklepu, kuchni czy biura. Drukuje termicznie, więc nie potrzebuje tuszu ani tonera — tylko rolek z etykietami DK. Robi do 110 etykiet na minutę, a na specjalnej taśmie DK-22251 drukuje w dwóch kolorach: czarnym i czerwonym, np. do wyróżnienia promocji lub daty ważności.",
     "Łączy się na wszystkie sposoby: USB, kabel sieciowy, Wi-Fi, Wi-Fi Direct i Bluetooth, obsługuje też AirPrint. Szablony etykiet zapisane w pamięci możesz drukować bez komputera, wybierając je na wyświetlaczu. Wbudowana obcinarka tnie etykiety na dowolną długość.",
-    "QL-1110NWBc to szeroka wersja do etykiet do 103,6 mm — np. etykiet wysyłkowych dla kurierów i dużych etykiet magazynowych."
+    "QL-1110NWBc to szeroka wersja do etykiet do 103,6 mm — np. etykiet wysyłkowych dla kurierów i dużych etykiet magazynowych.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz. Wycenę z podłączeniem i montażem przygotujemy na piśmie, z modelem dobranym do Twojego stanowiska."
    ],
    "cechy": [
     "do 110 etykiet/min",
@@ -15020,6 +15416,10 @@
     {
      "q": "Kiedy wybrać QL-1110NWBc?",
      "a": "Gdy potrzebujesz szerokich etykiet — do 103,6 mm, np. wysyłkowych 4-calowych. Łączność jest taka sama jak w QL-820NWBc."
+    },
+    {
+     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
+     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
     }
    ],
    "polecane": [
@@ -15113,7 +15513,8 @@
    "opis": [
     "Biurkowe drukarki termotransferowe Godex dla sklepu, piekarni, apteki, jubilera, optyka czy małej produkcji. Drukujesz etykiety produktowe z składem i datą, kody na regały, metki jubilerskie i etykiety na opakowania. Mogą też drukować termicznie, bez taśmy.",
     "Mieszczą taśmę barwiącą 300 m, więc wymieniasz ją rzadziej niż przy krótkich taśmach. Podwójny czujnik odstępu pozwala drukować na etykietach ułożonych w dwóch lub więcej rzędach. G500 ma 203 dpi i drukuje do 127 mm/s, G530 ma 300 dpi do bardzo drobnych kodów, np. na biżuterię czy okulary. Szerokość druku to ok. 108 mm, więc obsłużą też etykiety 100 mm. W standardzie są USB, RS-232 i Ethernet.",
-    "Języki EZPL, GEPL i GZPL (zgodny z Zebrą) pozwalają drukować z większości programów sprzedaży, a etykiety zaprojektujesz w programie Godex GoLabel po polsku. Opcjonalnie dobierzesz obcinak, dozownik (odklejak), nawijak i zewnętrzny odwijak większych rolek. Producent ma już nowszą wersję G500+/G530+ — przy wycenie sprawdzimy aktualną."
+    "Języki EZPL, GEPL i GZPL (zgodny z Zebrą) pozwalają drukować z większości programów sprzedaży, a etykiety zaprojektujesz w programie Godex GoLabel po polsku. Opcjonalnie dobierzesz obcinak, dozownik (odklejak), nawijak i zewnętrzny odwijak większych rolek. Producent ma już nowszą wersję G500+/G530+ — przy wycenie sprawdzimy aktualną.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "taśma 300 m",
@@ -15250,6 +15651,14 @@
     {
      "slug": "skaner",
      "etykieta": "Skaner kodów"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
     }
    ],
    "podobne": [
@@ -15339,7 +15748,8 @@
    "opis": [
     "Zebra TC22 i TC27 to wytrzymałe komputery mobilne wyglądające jak smartfon, dla handlu, magazynu, gastronomii, hoteli i serwisu w terenie. Sprawdzają ceny i stany, przyjmują dostawy, zbierają zamówienia, a z odpowiednią aplikacją mogą przyjmować płatności zbliżeniowe.",
     "Mają ekran 6 cali Full HD+ czytelny na zewnątrz, obsługę w lekkich rękawiczkach, dwa przyciski skanowania i profesjonalny skaner Zebra (SE4710 albo SE55 o zwiększonym zasięgu). Wytrzymują wielokrotne upadki z 1,5 m na beton (w etui) i mają szczelność IP68/IP65. Akumulator jest wymienny — standardowy 3800 mAh lub powiększony 5200 mAh na długą zmianę. TC22 pracuje w Wi-Fi 6E i Bluetooth, a TC27 ma dodatkowo modem 5G/4G (nano-SIM i eSIM) do pracy poza firmą.",
-    "W środku są NFC (karty, płatności, Apple VAS i Google Smart Tap), aparat 16 Mpx i gniazdo microSD do 2 TB. Dobierz ładowarkę lub kołyskę, etui i uchwyt pistoletowy, a do odczytu RFID — nakładkę RFD40/RFD90."
+    "W środku są NFC (karty, płatności, Apple VAS i Google Smart Tap), aparat 16 Mpx i gniazdo microSD do 2 TB. Dobierz ładowarkę lub kołyskę, etui i uchwyt pistoletowy, a do odczytu RFID — nakładkę RFD40/RFD90.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "Wi-Fi 6E, 5G (TC27)",
@@ -15402,6 +15812,14 @@
     {
      "k": "Wymiary/waga",
      "v": "165 × 76 × 12,5 mm; 236 g (3800 mAh), 262 g (5200 mAh)"
+    },
+    {
+     "k": "Typ",
+     "v": "komputer mobilny (kolektor danych z Androidem)"
+    },
+    {
+     "k": "Odczyt kodów",
+     "v": "moduł skanujący 1D/2D: SE55 z IntelliFocus (zaawansowany zasięg) albo SE4710"
     }
    ],
    "warianty_opis": [
@@ -15492,6 +15910,14 @@
     {
      "slug": "eset",
      "etykieta": "Ochrona"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
     }
    ],
    "branze": [
@@ -15742,6 +16168,10 @@
     {
      "slug": "skaner",
      "etykieta": "Skaner kodów"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
     }
    ],
    "podobne": [
@@ -15962,6 +16392,10 @@
     {
      "slug": "skaner",
      "etykieta": "Skaner kodów"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
     }
    ],
    "podobne": [
@@ -16035,7 +16469,8 @@
    "opis": [
     "Biurkowe drukarki termotransferowe Godex dla sklepu, apteki, gabinetu, biura i małego magazynu. Drukujesz etykiety produktowe, adresowe, kody na półki i opakowania. Mogą też drukować termicznie, bez taśmy barwiącej.",
     "GE300/GE330 to następcy popularnych G300/G330: szybsze, mniejsze i lżejsze (1,8 kg), z przyciskiem kalibracji, który ułatwia zmianę rozmiaru etykiet. GE300 ma 203 dpi i drukuje do 127 mm/s, GE330 ma 300 dpi do drobnych kodów, np. u jubilera czy optyka. Szerokość druku ok. 108 mm wystarczy na etykiety 100 mm. W standardzie są USB, RS-232 i Ethernet, a jako opcje: obcinak, Bluetooth, Wi-Fi i zegar czasu rzeczywistego.",
-    "Taśma barwiąca ma do 110 m (gilza 0,5\"). Języki EZPL, GEPL i GZPL (zgodny z Zebrą) pozwalają drukować z popularnych programów, a etykiety zaprojektujesz w programie Godex GoLabel. Sterowniki są dla Windows, macOS i Linuxa."
+    "Taśma barwiąca ma do 110 m (gilza 0,5\"). Języki EZPL, GEPL i GZPL (zgodny z Zebrą) pozwalają drukować z popularnych programów, a etykiety zaprojektujesz w programie Godex GoLabel. Sterowniki są dla Windows, macOS i Linuxa.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "opcja Wi-Fi i BT",
@@ -16186,6 +16621,10 @@
     {
      "slug": "skaner",
      "etykieta": "Skaner kodów"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
     }
    ],
    "podobne": [
@@ -16260,7 +16699,8 @@
    "opis": [
     "Przemysłowe drukarki Godex z serii GX4000i do magazynów, centrów wysyłkowych, hurtowni i zakładów produkcyjnych, w których etykiety drukuje się bez przerwy przez całą zmianę. Sprawdzą się przy etykietach logistycznych, paletowych, produktowych i znamionowych.",
     "Mają metalową obudowę, duży 5-calowy ekran dotykowy z regulacją kąta i filmami instruktażowymi (np. jak założyć taśmę) oraz przycisk szybkiej kalibracji. Przyjmują rolki etykiet do 203 mm i taśmy do 450 m. Model GX4200i (203 dpi) drukuje do 406 mm/s, GX4300i (300 dpi) do 305 mm/s, a GX4600i (600 dpi) pozwala drukować bardzo małe etykiety, np. na elektronikę i podzespoły. Szerokość druku to ok. 104 mm.",
-    "Złącza: RS-232, USB, Ethernet i trzy porty USB Host (np. skaner, klawiatura, pendrive). Języki EZPL, GEPL, GZPL i GDPL przełączają się automatycznie, co ułatwia podłączenie do systemów magazynowych. Dostępne są wersje UES z 5-letnią gwarancją."
+    "Złącza: RS-232, USB, Ethernet i trzy porty USB Host (np. skaner, klawiatura, pendrive). Języki EZPL, GEPL, GZPL i GDPL przełączają się automatycznie, co ułatwia podłączenie do systemów magazynowych. Dostępne są wersje UES z 5-letnią gwarancją.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "do 406 mm/s",
@@ -16391,6 +16831,14 @@
     {
      "slug": "godex-g500-g530",
      "etykieta": "Etykiety"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
     }
    ],
    "podobne": [
@@ -16469,7 +16917,8 @@
    "opis": [
     "Kompaktowe drukarki etykiet Godex do etykiet o szerokości do 54 mm: ceny w sklepie, oznaczenia próbek w laboratorium, etykiety apteczne, metki, opaski identyfikacyjne dla pacjentów. Zmieszczą się na zatłoczonej ladzie czy w recepcji gabinetu.",
     "Drukują termotransferowo (z taśmą — trwalej) albo termicznie. RT200 to wersja podstawowa z diodami stanu, drukująca do 127 mm/s. RT200i ma kolorowy wyświetlacz z przyciskami, port USB Host i szybszy druk do 177 mm/s, a po podłączeniu klawiatury USB może drukować bez komputera. Oba modele mają w standardzie USB, RS-232, Ethernet oraz zegar czasu rzeczywistego, a przycisk kalibracji ułatwia częstą zmianę rozmiaru etykiet.",
-    "Wersja medyczna RT200i ma białą obudowę i jest przeznaczona do szpitali, przychodni, laboratoriów i gabinetów. Opcje: obcinak, dozownik etykiet, nawijak, a w RT200i także moduł Bluetooth. Etykiety zaprojektujesz w programie Godex GoLabel."
+    "Wersja medyczna RT200i ma białą obudowę i jest przeznaczona do szpitali, przychodni, laboratoriów i gabinetów. Opcje: obcinak, dozownik etykiet, nawijak, a w RT200i także moduł Bluetooth. Etykiety zaprojektujesz w programie Godex GoLabel.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "etykiety do 54 mm",
@@ -16615,6 +17064,10 @@
     {
      "slug": "skaner",
      "etykieta": "Skaner kodów"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
     }
    ],
    "podobne": [
@@ -16708,7 +17161,8 @@
    "opis": [
     "Kompaktowe drukarki Godex z głowicą 300 dpi do małych etykiet, na których liczy się ostrość: metki jubilerskie, etykiety na oprawki okularów, małe kody w aptece, oznaczenia probówek w laboratorium. Mało miejsca na ladzie — tyle co RT200.",
     "Drukują termotransferowo (z taśmą) lub termicznie, na szerokość do 56,9 mm. RT230 to wersja z diodami stanu, drukująca do 102 mm/s. RT230i ma kolorowy wyświetlacz z przyciskami, port USB Host i druk do 127 mm/s, a z klawiaturą USB może drukować bez komputera. Obie mają USB, RS-232 i Ethernet w standardzie, zegar czasu rzeczywistego oraz przycisk kalibracji.",
-    "Taśma barwiąca ma do 110 m. Opcje: obcinak, dozownik etykiet, nawijak, w RT230i także Bluetooth. Języki EZPL, GEPL i GZPL ułatwiają druk z programów sprzedaży, a projekt etykiety przygotujesz w programie Godex GoLabel."
+    "Taśma barwiąca ma do 110 m. Opcje: obcinak, dozownik etykiet, nawijak, w RT230i także Bluetooth. Języki EZPL, GEPL i GZPL ułatwiają druk z programów sprzedaży, a projekt etykiety przygotujesz w programie Godex GoLabel.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "300 dpi",
@@ -16795,6 +17249,10 @@
     {
      "q": "Czy RT230i działa bez komputera?",
      "a": "Tak, z klawiaturą USB drukuje w trybie samodzielnym."
+    },
+    {
+     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
+     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
     }
    ],
    "konfigurator": {
@@ -16845,6 +17303,10 @@
     {
      "slug": "skaner",
      "etykieta": "Skaner kodów"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
     }
    ],
    "podobne": [
@@ -16933,7 +17395,8 @@
    "opis": [
     "Ręczne metkownice SATO do szybkiego oznaczania towaru ceną, datą lub krótkim kodem. Przydadzą się w małym sklepie spożywczym, piekarni, kiosku, sklepie z odzieżą czy na stoisku targowym — wszędzie tam, gdzie ceny nakleja się na towar ręcznie, a drukarka etykiet byłaby przesadą.",
     "KENDO 26 drukuje jeden rząd znaków na etykiecie 26 × 12 mm, z większymi znakami (4,5–5 mm), a w rolce ma 1500 etykiet. JUDO 26 drukuje dwa rzędy — np. cenę w górnym i datę w dolnym — i mieści 1200 etykiet w rolce. Liczba pól w rzędzie zależy od wybranej głowicy (6, 8 lub 10). Tusz jest w wałku nasączonym, który wymienia się jednym ruchem. Metkownice ważą ok. 280–300 g.",
-    "Do metkownic dobierasz etykiety (np. białe, kolorowe, zrywalne) i wałki tuszujące. Nie potrzebują zasilania ani programu."
+    "Do metkownic dobierasz etykiety (np. białe, kolorowe, zrywalne) i wałki tuszujące. Nie potrzebują zasilania ani programu.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "1 lub 2 rzędy",
@@ -16996,6 +17459,10 @@
     {
      "q": "Czy wydrukuję cenę i datę na jednej etykiecie?",
      "a": "Tak, w dwurzędowej JUDO 26."
+    },
+    {
+     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
+     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
     }
    ],
    "konfigurator": {
@@ -17042,6 +17509,14 @@
     {
      "slug": "godex-g500-g530",
      "etykieta": "Etykiety"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
     }
    ],
    "branze": [
@@ -17105,7 +17580,8 @@
    "opis": [
     "Biurkowa drukarka etykiet Zebra ZD230 do sklepu internetowego, biura, magazynu czy apteki. Drukujesz etykiety kurierskie 100 × 150 mm, adresowe, produktowe i kody kreskowe. To prosta, podstawowa drukarka z jedną diodą stanu i jednym przyciskiem.",
     "Jest w dwóch wersjach: ZD230d drukuje termicznie (bez taśmy, mniejsza obudowa), a ZD230t termotransferowo, z taśmą 74 m lub 300 m — etykiety są wtedy trwalsze. Rozdzielczość 203 dpi, szerokość druku 104 mm, prędkość do 152 mm/s. Używa języków ZPL i EPL, które obsługuje większość programów sprzedaży i platform kurierskich.",
-    "Podstawowa łączność to USB; fabrycznie można zamówić Ethernet albo Wi-Fi z Bluetooth. Fabrycznie montuje się też odklejak lub obcinak — trzeba o tym zdecydować przy zamówieniu. Producent daje 2 lata gwarancji."
+    "Podstawowa łączność to USB; fabrycznie można zamówić Ethernet albo Wi-Fi z Bluetooth. Fabrycznie montuje się też odklejak lub obcinak — trzeba o tym zdecydować przy zamówieniu. Producent daje 2 lata gwarancji.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "etykiety 100 mm",
@@ -17256,6 +17732,10 @@
     {
      "slug": "skaner",
      "etykieta": "Skaner kodów"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
     }
    ],
    "podobne": [
@@ -17338,7 +17818,8 @@
    "opis": [
     "PT-D610BTVP to profesjonalna drukarka etykiet z klawiaturą QWERTY i podświetlanym wyświetlaczem. Drukuje na taśmach TZe od 3,5 do 24 mm, a automatyczna obcinarka odcina gotową etykietę. Możesz pisać wprost na urządzeniu albo projektować etykiety na komputerze (P-touch Editor) lub w telefonie (aplikacja iPrint&Label) i wysyłać je przez Bluetooth lub USB.",
     "Taśmy TZe są laminowane, więc etykiety są odporne na wodę, ścieranie, chemię i wysokie temperatury. Sprawdzą się na regałach w magazynie i sklepie, na pojemnikach w kuchni, w szafie serwerowej czy przy oznaczaniu sprzętu w szkole i gabinecie.",
-    "Urządzenie zapamiętuje do 99 etykiet do szybkiego ponownego druku. W zestawie jest zasilacz, kabel USB, taśma startowa i walizka."
+    "Urządzenie zapamiętuje do 99 etykiet do szybkiego ponownego druku. W zestawie jest zasilacz, kabel USB, taśma startowa i walizka.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "taśmy 3,5–24 mm",
@@ -17403,12 +17884,24 @@
     {
      "q": "Czy etykiety wytrzymają w kuchni lub na zewnątrz?",
      "a": "Laminowane taśmy TZe są według producenta odporne na wodę, ścieranie, chemikalia i skrajne temperatury."
+    },
+    {
+     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
+     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
     }
    ],
    "polecane": [
     {
      "slug": "godex-g500-g530",
      "etykieta": "Etykiety"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
     }
    ],
    "podobne": [
@@ -17485,7 +17978,8 @@
    "opis": [
     "TD-4420DN to 4-calowa biurkowa drukarka etykiet z serii TD-4D, przeznaczona do pracy ciągłej w magazynie, sklepie czy na produkcji. Drukuje termicznie (bez tuszu i taśmy barwiącej) do 203 mm na sekundę, z rozdzielczością 203 dpi, co wystarcza do czytelnych kodów kreskowych.",
     "Ma wbudowaną kartę sieciową, USB i port szeregowy, więc korzysta z niej kilka stanowisk albo starszy system. Rozumie popularne języki drukarek etykiet (m.in. ZPL II, EPL2, CPCL, DPL), co ułatwia zastąpienie drukarki innej marki bez zmian w oprogramowaniu. Mieści rolki o średnicy do 127 mm.",
-    "TD-4520DN ma wyższą rozdzielczość 300 dpi — lepszą do małych kodów 2D i drobnego tekstu. Opcjonalnie dokupisz obcinarkę lub dyspenser (odklejacz) etykiet."
+    "TD-4520DN ma wyższą rozdzielczość 300 dpi — lepszą do małych kodów 2D i drobnego tekstu. Opcjonalnie dokupisz obcinarkę lub dyspenser (odklejacz) etykiet.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz. Wycenę z podłączeniem i montażem przygotujemy na piśmie, z modelem dobranym do Twojego stanowiska."
    ],
    "cechy": [
     "etykiety do 104 mm",
@@ -17560,6 +18054,10 @@
     {
      "q": "Czy potrzebuje taśmy barwiącej?",
      "a": "Nie. Seria TD-4D drukuje termicznie bezpośrednio na etykietach termicznych."
+    },
+    {
+     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
+     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
     }
    ],
    "polecane": [
@@ -17648,7 +18146,8 @@
    "opis": [
     "Seria PJ-800 to najmniejsze drukarki A4 Brother: mają 25,5 cm długości, 3 cm wysokości i ważą ok. 480 g bez akumulatora. Drukują termicznie, więc nie potrzebują tuszu, tonera ani taśmy — tylko papieru termicznego. Wydruk A4 trwa kilka sekund, maksymalnie 13,5 strony na minutę.",
     "To narzędzie dla serwisantów, instalatorów, przedstawicieli handlowych i opieki domowej: protokół odbioru, umowa czy dokument dostawy wychodzi od razu na miejscu. Z opcjonalnym akumulatorem drukarka robi do ok. 600 kartek A4 na jednym ładowaniu i pracuje w temperaturze od -10 do 50 °C. Można ją zamontować w samochodzie.",
-    "PJ-822 łączy się przez USB-C. PJ-862 dodaje Bluetooth i NFC do parowania z telefonem, a PJ-883 także Wi-Fi z AirPrint i Mopria. Modele PJ-823 i PJ-863 to wersje z wyższą rozdzielczością 300 dpi."
+    "PJ-822 łączy się przez USB-C. PJ-862 dodaje Bluetooth i NFC do parowania z telefonem, a PJ-883 także Wi-Fi z AirPrint i Mopria. Modele PJ-823 i PJ-863 to wersje z wyższą rozdzielczością 300 dpi.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "A4 bez tuszu",
@@ -17731,12 +18230,24 @@
     {
      "q": "Czy zadziała z naszą aplikacją mobilną?",
      "a": "Producent udostępnia SDK dla iOS, Androida i Windows, a drukarka obsługuje emulację ZPL2 i ESC/P. Integrację sprawdzimy z Twoim dostawcą oprogramowania."
+    },
+    {
+     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
+     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
     }
    ],
    "polecane": [
     {
      "slug": "eset",
      "etykieta": "Ochrona"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
     }
    ],
    "podobne": [
@@ -17816,7 +18327,8 @@
    "opis": [
     "RJ-3055WB to lekka (375 g) drukarka noszona przy pasku lub na ramieniu. Drukuje termicznie paragony i etykiety o szerokości druku do 72 mm — pasują rolki paragonowe 58 i 79 mm oraz etykiety, np. 76 × 44 mm. Prędkość to do 101 mm na sekundę.",
     "Łączy się z telefonem, terminalem lub tabletem przez Bluetooth albo Wi-Fi (2,4 i 5 GHz), a z komputerem przez USB. Obsługuje popularne języki drukarek (ESC/POS, CPCL, emulacje ZPL2 i EPL2) i ma darmowe SDK, więc łatwo ją połączyć z aplikacją do sprzedaży, zamówień czy dostaw.",
-    "Wytrzymuje upadek z 1,8 m (2,5 m w opcjonalnym etui) i ma szczelność IP42, a w etui IP54. RJ-3035B to wersja tylko z Bluetooth, za to z dłuższą pracą na akumulatorze. Mniejsze RJ-2035B i RJ-2055WB drukują do 48 mm."
+    "Wytrzymuje upadek z 1,8 m (2,5 m w opcjonalnym etui) i ma szczelność IP42, a w etui IP54. RJ-3035B to wersja tylko z Bluetooth, za to z dłuższą pracą na akumulatorze. Mniejsze RJ-2035B i RJ-2055WB drukują do 48 mm.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "paragony i etykiety 72 mm",
@@ -17891,12 +18403,24 @@
     {
      "q": "Czy wytrzyma pracę w trasie?",
      "a": "Producent podaje odporność na upadek z 1,8 m i klasę IP42, a z etui PA-CC-003 — upadek z 2,5 m i IP54."
+    },
+    {
+     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
+     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
     }
    ],
    "polecane": [
     {
      "slug": "eset",
      "etykieta": "Ochrona"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
     }
    ],
    "podobne": [
@@ -17975,7 +18499,8 @@
    "opis": [
     "ELZAB BS80 2D USB KIT to ręczny czytnik kodów w zestawie z podstawką — do sklepu, apteki, kawiarni, punktu usługowego i biura. Podłączasz go przez USB do kasy, terminala POS lub komputera i skanujesz towary, karty lojalnościowe czy kupony. Jest niewielki, lekki i ma ergonomiczny kształt, a zasilanie (5 V) bierze prosto z portu USB.",
     "Czyta kody kreskowe (1D) i kody 2D: QR, Data Matrix, PDF417 i inne, także wyświetlane na ekranie telefonu klienta. Kod EAN-13 odczyta z odległości 3–20 cm, a kod QR z 2–15 cm. Ma białe podświetlenie i czerwony celownik, który pomaga trafić w kod, a każdy udany odczyt potwierdza sygnałem dźwiękowym i świetlnym.",
-    "Możesz skanować, naciskając spust, albo — po zaprogramowaniu kodem konfiguracyjnym — zostawić czytnik na podstawce i tylko przesuwać pod nim towar. Podstawka jest w zestawie, więc nic nie dokupujesz. Czytnik wytrzymuje upadek z 1,2 m i pracuje w temperaturze od -20 do 50 °C. Gwarancja producenta wynosi 12 miesięcy."
+    "Możesz skanować, naciskając spust, albo — po zaprogramowaniu kodem konfiguracyjnym — zostawić czytnik na podstawce i tylko przesuwać pod nim towar. Podstawka jest w zestawie, więc nic nie dokupujesz. Czytnik wytrzymuje upadek z 1,2 m i pracuje w temperaturze od -20 do 50 °C. Gwarancja producenta wynosi 12 miesięcy.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "kody 1D i 2D",
@@ -18052,6 +18577,10 @@
     {
      "q": "Jak włączyć skanowanie automatyczne?",
      "a": "Czytnik trzeba zaprogramować (kodem konfiguracyjnym z instrukcji) — wtedy czyta kody samoczynnie na podstawce."
+    },
+    {
+     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
+     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
     }
    ],
    "polecane": [
@@ -18062,6 +18591,10 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
     }
    ],
    "zestawy": [
@@ -18124,7 +18657,8 @@
    "opis": [
     "FAWAGscan to ręczny skaner kodów marki Fawag (Lubelskie Fabryki Wag należące do Posnet), przeznaczony do sklepów, punktów usługowych, gastronomii, lekkiej produkcji, banków i urzędów. Podłączasz go do kasy, drukarki fiskalnej lub komputera i od razu skanujesz — producent podkreśla, że nie wymaga dodatkowej integracji.",
     "Czyta kody kreskowe i 2D (QR, Data Matrix, PDF417 i inne) z odległości do 32 cm, także kody słabej jakości i wyświetlane na ekranie telefonu, np. karty lojalnościowe w aplikacji. Obudowa z tworzywa ABS+PC wytrzymuje wielokrotne upadki na beton z 3 m, a skaner pracuje od -20 do 60 °C, więc poradzi sobie też na stoisku zewnętrznym. Kabel wyjmuje się bez narzędzi.",
-    "W zestawie jest elastyczna podstawka, którą można przykręcić do blatu — skaner czyta wtedy kody automatycznie. Interfejsy USB, USB-COM i RS-232. Szczególnie pasuje do kasy Fawag lite i drukarki Fawag box, ale współpracuje z dowolnym urządzeniem fiskalnym."
+    "W zestawie jest elastyczna podstawka, którą można przykręcić do blatu — skaner czyta wtedy kody automatycznie. Interfejsy USB, USB-COM i RS-232. Szczególnie pasuje do kasy Fawag lite i drukarki Fawag box, ale współpracuje z dowolnym urządzeniem fiskalnym.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "upadki z 3 m",
@@ -18207,6 +18741,14 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
     }
    ],
    "zestawy": [
@@ -18274,7 +18816,8 @@
    "opis": [
     "Sunmi Blink to mały, stojący czytnik ustawiany przy kasie przodem do klienta. Klient sam przykłada do niego telefon z kodem QR (kupon, bilet, karta lojalnościowa w aplikacji) albo plastikową kartę. Sprawdzi się w kawiarni, restauracji z aplikacją lojalnościową, kinie, przy wejściu na wydarzenie czy w sklepie z programem rabatowym.",
     "Okienko 7,5 × 7,5 cm jest pochylone pod kątem 45°, a ramka pokazuje, gdzie przyłożyć kod. Odczyt sygnalizuje dioda i dźwięk. Metalowa rama z gumową stopką stoi stabilnie. Blink 2 ma lepszą kamerę (1 Mpx, 60 klatek/s), czyta kod w ok. 0,1 s i według producenta obsługuje więcej rodzajów kodów, także popularne kody kreskowe. Pierwszy Blink czyta tylko QR i Code 128.",
-    "Zasilanie i dane idą jednym kablem USB, więc podłączysz go do kasy POS, tabletu lub komputera z Windows, Androidem, iOS lub Linuxem. Blink 2 jest w wersji z wtykiem USB-A lub USB-C (bezpośrednio do tabletu). To czytnik dla klienta — do skanowania towarów przez kasjera lepszy jest ręczny skaner."
+    "Zasilanie i dane idą jednym kablem USB, więc podłączysz go do kasy POS, tabletu lub komputera z Windows, Androidem, iOS lub Linuxem. Blink 2 jest w wersji z wtykiem USB-A lub USB-C (bezpośrednio do tabletu). To czytnik dla klienta — do skanowania towarów przez kasjera lepszy jest ręczny skaner.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "QR z telefonu",
@@ -18353,6 +18896,10 @@
     {
      "q": "Czy potrzebuje osobnego zasilacza?",
      "a": "Nie, zasilanie idzie przez kabel USB."
+    },
+    {
+     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
+     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
     }
    ],
    "konfigurator": {
@@ -18410,6 +18957,10 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
     }
    ],
    "podobne": [
@@ -18552,6 +19103,14 @@
     {
      "k": "Wymiary/waga",
      "v": "L2s Pro: 154,4 × 74,6 × 17,1 mm, ok. 250 g; L2Ks: 160 × 64,5 × 14,4 mm, ok. 243,5 g"
+    },
+    {
+     "k": "Typ",
+     "v": "terminal mobilny (kolektor danych z Androidem)"
+    },
+    {
+     "k": "Odczyt kodów",
+     "v": "skaner 2D (area imager Sunmi SS1100), kody 1D i 2D"
     }
    ],
    "warianty_opis": [
@@ -18636,6 +19195,14 @@
     {
      "slug": "godex-g500-g530",
      "etykieta": "Etykiety"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
     }
    ],
    "podobne": [
@@ -18730,7 +19297,8 @@
    "opis": [
     "Sunmi L3 to nowy kolektor danych z dużym ekranem dla sklepu, hurtowni, magazynu, apteki i firm kurierskich. Robisz nim inwentaryzację, przyjmujesz dostawy, kompletujesz zamówienia online i sprawdzasz ceny na sali. Działa na Androidzie 14 z usługami Google, więc zainstalujesz na nim aplikację magazynową lub kolektorową.",
     "Ma ekran 6,75 cala czytelny także w rękawicach, skaner 2D, który radzi sobie z uszkodzonymi kodami, i ośmiordzeniowy procesor. Akumulator 5000 mAh jest wymienny i wystarcza na ok. 10 godzin pracy. Obudowa ma szczelność IP68 i wytrzymuje upadek z 1,5 m na beton. W środku są Wi-Fi 2,4/5 GHz, 4G, Bluetooth 5.2, NFC i GPS (także Galileo).",
-    "Producent oferuje wersje z czytnikiem RFID UHF (odczyt do 300 etykiet na sekundę z 4 m) i z wymianą baterii bez wyłączania — przy zamówieniu potwierdzamy wariant. Do L3 dobierzesz ładowarkę 4 akumulatorów, uchwyt pistoletowy i stację dokującą."
+    "Producent oferuje wersje z czytnikiem RFID UHF (odczyt do 300 etykiet na sekundę z 4 m) i z wymianą baterii bez wyłączania — przy zamówieniu potwierdzamy wariant. Do L3 dobierzesz ładowarkę 4 akumulatorów, uchwyt pistoletowy i stację dokującą.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "ekran 6,75\"",
@@ -18789,6 +19357,14 @@
     {
      "k": "Wymiary/waga",
      "v": "175 × 79 × 15 mm, 282 g"
+    },
+    {
+     "k": "Typ",
+     "v": "terminal mobilny (kolektor danych z Androidem)"
+    },
+    {
+     "k": "Odczyt kodów",
+     "v": "skaner 2D (area imager), kody 1D i 2D"
     }
    ],
    "faq": [
@@ -18916,6 +19492,20 @@
      "l": "en",
      "d": "model"
     }
+   ],
+   "polecane": [
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
+    },
+    {
+     "slug": "neo",
+     "etykieta": "Kasa fiskalna"
+    }
    ]
   },
   {
@@ -18933,7 +19523,8 @@
    "opis": [
     "Drukarki kart plastikowych Zebra do drukowania kart lojalnościowych, podarunkowych, członkowskich (np. siłownia, klub), identyfikatorów pracowników, legitymacji i kart dostępu w hotelu. Zamiast zamawiać karty w drukarni, drukujesz je u siebie, pojedynczo lub w małych seriach.",
     "ZC100 drukuje jednostronnie, w kolorze lub na czarno, w rozdzielczości 300 dpi — to model do małych nakładów. ZC300 drukuje jedno- lub dwustronnie (wersja dwustronna), szybciej (do 900 kart/h na czarno), ma Ethernet w standardzie i może kodować karty zbliżeniowe MIFARE i stykowe (chipowe). Obie mają taśmy Load-N-Go, które łatwo się wymienia, wyświetlacz stanu i podajnik na 100 kart.",
-    "Do drukarki dobierasz karty PVC, taśmy barwiące (kolorowa YMCKO lub czarna) i program do projektowania kart. Jeśli karty mają otwierać drzwi lub działać w systemie lojalnościowym, wybierz koder (pasek magnetyczny, MIFARE) zgodny z Twoim systemem."
+    "Do drukarki dobierasz karty PVC, taśmy barwiące (kolorowa YMCKO lub czarna) i program do projektowania kart. Jeśli karty mają otwierać drzwi lub działać w systemie lojalnościowym, wybierz koder (pasek magnetyczny, MIFARE) zgodny z Twoim systemem.",
+    "Przy zakupie podłączamy urządzenie do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy odczyt lub wydruk na Twoich towarach (usługa „Połączenie kasy z programem, wagą i terminalem”). Pomagamy też dobrać etykiety, taśmy i ustawienia wydruku do tego, co znakujesz."
    ],
    "cechy": [
     "300 dpi kolor",
@@ -18996,6 +19587,10 @@
     {
      "k": "Gwarancja",
      "v": "ZC100: 2 lata; ZC300: 3 lata na drukarkę i głowicę (wg Zebra)"
+    },
+    {
+     "k": "Typ",
+     "v": "drukarka kart plastikowych"
     }
    ],
    "warianty_opis": [
@@ -19081,6 +19676,14 @@
     {
      "slug": "gt",
      "etykieta": "Program sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z programem"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis"
     }
    ],
    "branze": [
