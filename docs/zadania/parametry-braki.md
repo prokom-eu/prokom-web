@@ -2,7 +2,7 @@
 
 Wygenerowane przez `node scripts/parametry-braki.ts` z `seed/prokombiznes/k4/katalog-k4.json`. Nie edytuj ręcznie. Obowiązkowe klucze kategorii są w `src/lib/biznes/requiredSpecs.ts`.
 
-**Stan:** 411 gotowych kart · 160 z brakami · 284 brakujących pól.
+**Stan:** 431 gotowych kart · 160 z brakami · 284 brakujących pól.
 
 Zasada: brak uzupełniamy **tylko** ze strony albo PDF-u producenta (źródło karty, data w `sprawdzono`). Gdy producent danej wartości nie podaje, wpis zostaje tutaj z dopiskiem, gdzie szukano. Nie zgadujemy. Po uzupełnieniu uruchom skrypt ponownie. Test `requiredSpecs.test.ts` pilnuje, żeby lista tylko malała. Uzupełnianie idzie kategoriami w sesjach 3–4 (KATALOG-DANE-2).
 
