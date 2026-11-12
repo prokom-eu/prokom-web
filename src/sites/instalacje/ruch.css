@@ -388,13 +388,23 @@ html[data-line='instalacje'] :is(input, textarea, select, .zkfl, .zktown, .hzkf,
   }
 }
 
-/* Off screen nothing loops (report 11.11.2026, CPU at rest): `PauseOffscreen` marks sections
-   out of view and the document of a hidden tab with `data-off`; their animations stand on the
-   frame they reached and go on from it when the section comes back. */
-html[data-line='instalacje'] [data-off],
-html[data-line='instalacje'] [data-off] *,
-html[data-line='instalacje'] [data-off] *::before,
-html[data-line='instalacje'] [data-off] *::after,
+/* Off screen nothing is rendered (report 11.11.2026): `PauseOffscreen` marks sections out of
+   view with `data-off`, and the browser then skips their style, layout and paint — looping
+   scenes there cost next to nothing (~4 % CPU at the bottom of `/`, before 100 %), and every
+   frame of a scene in view no longer re-layers the paint of the whole page (`Layerize`; hero in
+   view on a phone ~80 → ~25 %). Only under `data-off`, so a section in view has no containment at
+   all (`content-visibility` clips what sticks out); the height a section last had stays
+   (`contain-intrinsic-size: auto`), so nothing jumps. Content stays in the accessibility tree
+   and find-in-page (`auto`, not `hidden`). Not `animation-play-state: paused` on the sections'
+   descendants: each toggle restyled the whole subtree and made scrolling jerky (p90 frame
+   33 → 17 ms without it). */
+html[data-line='instalacje'] :is(#tresc section, #top > section, #top > footer) {
+  contain-intrinsic-size: auto 900px;
+}
+html[data-line='instalacje'] [data-off]:is(section, footer) {
+  content-visibility: auto;
+}
+/* A hidden tab: everything stands (toggled rarely, so restyling the page is fine). */
 html[data-line='instalacje'][data-off] *,
 html[data-line='instalacje'][data-off] *::before,
 html[data-line='instalacje'][data-off] *::after {

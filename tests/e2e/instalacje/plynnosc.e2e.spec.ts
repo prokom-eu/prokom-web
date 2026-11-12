@@ -3,9 +3,9 @@ import { expect, type Page, test } from '@playwright/test'
 import { site } from '../helpers'
 import { INST_HOST, INST_PAGES } from './pages'
 
-// Smoothness and battery (report 11.11.2026): animations run only where they can be seen —
-// off screen they stand (`PauseOffscreen` + `[data-off]` in ruch.css), and with reduced motion
-// nothing loops anywhere. Data from `pnpm seed`.
+// Smoothness and battery (report 11.11.2026): scenes are rendered only where they can be seen —
+// off screen the browser skips them (`PauseOffscreen` + `[data-off]` → `content-visibility: auto`
+// in ruch.css), and with reduced motion nothing loops anywhere. Data from `pnpm seed`.
 
 const DESKTOP = { width: 1440, height: 1000 }
 
@@ -44,15 +44,25 @@ const scrollTo = (page: Page, where: 'top' | 'middle' | 'bottom') =>
 test.describe('Instalacje animations off screen', () => {
   test.use({ viewport: DESKTOP })
 
-  test('the home hero stands once it is scrolled away, and moves again when back', async ({
+  test('the home hero is skipped once it is scrolled away, and moves again when back', async ({
     page,
   }) => {
     await page.goto(site(INST_HOST))
+    const hero = page.locator('#start')
+    // Its content is skipped by the renderer (no style, layout, paint — the loops cost nothing).
+    const skipped = () =>
+      hero.evaluate(
+        (element) => !element.querySelector('h1')?.checkVisibility({ contentVisibilityAuto: true }),
+      )
     await expect.poll(() => runningIn(page, '#start')).toBeGreaterThan(0)
     await scrollTo(page, 'bottom')
-    await expect.poll(() => runningIn(page, '#start')).toBe(0)
-    await expect(page.locator('#start')).toHaveAttribute('data-off', '')
+    await expect(hero).toHaveAttribute('data-off', '')
+    await expect(hero).toHaveCSS('content-visibility', 'auto')
+    await expect.poll(skipped).toBe(true)
     await scrollTo(page, 'top')
+    // In view: no containment at all (nothing clipped), rendered and moving.
+    await expect(hero).toHaveCSS('content-visibility', 'visible')
+    await expect.poll(skipped).toBe(false)
     await expect.poll(() => runningIn(page, '#start')).toBeGreaterThan(0)
   })
 })
