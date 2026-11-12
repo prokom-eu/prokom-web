@@ -188,6 +188,8 @@
   & .kbar {
     box-sizing: content-box;
     position: absolute;
+    left: var(--l);
+    width: var(--w);
     top: 3px;
     bottom: 3px;
     border-radius: 6px;
@@ -298,8 +300,38 @@
     & .klog {
       grid-template-columns: 1fr;
     }
+    /* Audit 10.11: in a 64 px column „Sprzątanie” was cut and the bars were too short for their
+       labels. On a phone the row name stands above its bar, which gets the full width; a short
+       bar (cleaning 11–14) is at least as wide as its label. */
     & .kgrid {
-      grid-template-columns: 64px repeat(7, minmax(0, 1fr));
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 4px 0;
+    }
+    & .kgrid > div:first-child {
+      display: none;
+    }
+    & .krn,
+    & .krow {
+      grid-column: 1 / -1;
+    }
+    & .krn {
+      padding: 6px 0 0;
+    }
+    & .krow {
+      height: 30px;
+    }
+    /* A long label breaks into two lines inside the bar, and the bar is at least as wide as its
+       longest word („jednorazowo”); a short bar at the end of the week stays in its row. */
+    & .kbar {
+      left: min(var(--l), calc(100% - 34px));
+      width: max(var(--w), 26px);
+      min-width: min-content;
+      justify-content: center;
+      padding: 0 4px;
+      font-size: 10px;
+      line-height: 11px;
+      white-space: normal;
+      text-align: center;
     }
     & .aptflow {
       grid-template-columns: 1fr;
