@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { Fragment } from 'react'
+import { cx } from '@/components/ui/cx'
+import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 
 export type Crumb = { name: string; href: string }
 
@@ -17,7 +19,8 @@ export function Breadcrumbs({
         {items.map((item, position) => {
           const current = position === items.length - 1
           return (
-            <Fragment key={item.href}>
+            // Position in the key: two crumbs may share an address (Zaopatrzenie → /oferta).
+            <Fragment key={`${position}-${item.href}`}>
               {position > 0 && <li aria-hidden="true">/</li>}
               <li>
                 {current ? (
@@ -28,9 +31,13 @@ export function Breadcrumbs({
                 ) : (
                   <Link
                     href={item.href}
-                    className={
-                      onDark ? 'hover:text-white hover:underline' : 'hover:text-ink hover:underline'
-                    }
+                    // At least 24 px tall: a target of its own (WCAG 2.5.8, audit 0611 P3).
+                    className={cx(
+                      'inline-flex min-h-6 items-center',
+                      onDark
+                        ? 'hover:text-white hover:underline'
+                        : 'hover:text-ink hover:underline',
+                    )}
                   >
                     {item.name}
                   </Link>
@@ -41,5 +48,19 @@ export function Breadcrumbs({
         })}
       </ol>
     </nav>
+  )
+}
+
+/** `BreadcrumbList` of the same crumbs (absolute addresses), for pages without their own. */
+export function BreadcrumbJsonLd({ items, origin }: { items: Crumb[]; origin: string }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: serializeJsonLd(
+          breadcrumbJsonLd(items.map(({ name, href }) => ({ name, url: origin + href }))),
+        ),
+      }}
+    />
   )
 }

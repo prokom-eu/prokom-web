@@ -6,6 +6,7 @@ import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'rea
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { scaleSupplyLinks } from '@/lib/biznes/procurement/links'
 import type { IconName } from '@/lib/catalog/options'
 import { planHref } from '@/lib/catalog/floorPlan'
 import {
@@ -21,6 +22,7 @@ import {
 import type { WizardScale, WizardStage } from '@/lib/catalog/wizard'
 import { cartActions, openCartDrawer, useCart } from '@/lib/cart/store'
 import { plural } from '@/lib/plural'
+import { BZ_H1 } from '@/sites/biznes/typography'
 
 import { BundleCard } from '../bundle/BundleCard'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
@@ -69,8 +71,8 @@ const RECS: [string, string, string] = ['rekomendacja', 'rekomendacje', 'rekomen
 
 /** Where the note of a situation leads on the result (K35 §1.4). */
 const NOTE_LINKS: Partial<Record<WizardStage, { label: string; href: string }>> = {
-  nowa: { label: 'Ulga na kasę — szczegóły', href: '/ulga-na-kase-fiskalna' },
-  ksef: { label: 'KSeF — co zrobić przed 2027', href: '/ksef' },
+  nowa: { label: 'Ulga na kasę: szczegóły', href: '/ulga-na-kase-fiskalna' },
+  ksef: { label: 'KSeF: co zrobić przed 2027', href: '/ksef' },
 }
 
 const CARD = 'rounded-[24px] bg-card shadow-[inset_0_0_0_1px_var(--border)]'
@@ -124,6 +126,14 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
   const { rules, products } = data
   const [state, setState] = useState<WizardState>(data.initial.state)
   const [step, setStep] = useState(data.initial.step)
+  // R2: the next step slides in from the right, a step back from the left (`data-wizard-dir`,
+  // motion.css §4); nothing on load.
+  const [shownStep, setShownStep] = useState(step)
+  const [direction, setDirection] = useState<'next' | 'back' | undefined>(undefined)
+  if (shownStep !== step) {
+    setShownStep(step)
+    setDirection(step > shownStep ? 'next' : 'back')
+  }
   const [copied, setCopied] = useState(false)
   const [added, setAdded] = useState<string | null>(null)
   const topRef = useRef<HTMLDivElement>(null)
@@ -138,6 +148,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
     [rules, state, products, data.bundles],
   )
   const kr = formatKr(state, result.selected)
+  const supplyLinks = data.supply ? scaleSupplyLinks(data.supply, state.firm, state.scale) : []
   const tops = result.needs.map((need) => need.top)
   const allTopsIn = tops.length > 0 && tops.every(inCart)
 
@@ -259,9 +270,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
             <span aria-hidden="true" className="h-0.5 w-5 bg-current" />
             Konfigurator · {eyebrow}
           </p>
-          <h1 className="mt-2 font-display text-[clamp(2rem,4.4vw,3.3rem)] leading-[1.02] font-extrabold tracking-tight text-ink">
-            {heading}
-          </h1>
+          <h1 className={`${BZ_H1} mt-2 text-ink`}>{heading}</h1>
           <p className="mt-3 max-w-[38rem] text-[15.5px] leading-relaxed text-ink-2">
             {step === 3
               ? 'Do każdej potrzeby: nasz wybór z uzasadnieniem i dwie inne opcje. Dodaj wszystko jednym kliknięciem albo wybierz pojedynczo.'
@@ -330,8 +339,12 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 <span aria-hidden="true" className="block h-1 w-full rounded-full bg-surface-3">
                   <span
                     className={cx(
-                      'block h-full rounded-full',
-                      i < step ? 'w-full bg-ok-text' : i === step ? 'w-1/2 bg-accent' : 'w-0',
+                      'block h-full w-full origin-left rounded-full transition-[scale,background-color] duration-(--dur-state) ease-(--ease-out) motion-reduce:transition-none',
+                      i < step
+                        ? 'scale-x-100 bg-ok-text'
+                        : i === step
+                          ? 'scale-x-50 bg-accent'
+                          : 'scale-x-0 bg-accent',
                     )}
                   />
                 </span>
@@ -341,15 +354,18 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
         })}
       </ol>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_330px] lg:items-start">
-        <section aria-labelledby={`${formId}-step`} className="min-w-0">
+      <div
+        data-wizard-dir={direction}
+        className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_330px] lg:items-start"
+      >
+        <section key={step} aria-labelledby={`${formId}-step`} className="min-w-0">
           {step === 0 && (
             <div className={cx(CARD, 'p-5 sm:p-7')}>
               <StepHeading id={`${formId}-step`} innerRef={headingRef}>
                 Jaką firmę prowadzisz?
               </StepHeading>
               <p className="mt-1 text-[14.5px] text-ink-2">
-                Wybierz najbliższą — od tego zależą kolejne pytania i typowe potrzeby. Przejdziemy
+                Wybierz najbliższą. Od tego zależą kolejne pytania i typowe potrzeby. Przejdziemy
                 dalej sami.
               </p>
               <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -450,7 +466,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 Ile stanowisk lub kas?
               </h3>
               <p className="mt-1 text-[14px] text-ink-2">
-                Pomoże dobrać skalę — od jednej kasy po kilka budynków.
+                Pomoże dobrać skalę: od jednej kasy po kilka budynków.
               </p>
               <div className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
                 {rules.scales.map((option, i) => (
@@ -477,9 +493,9 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 </button>
                 <p className="text-[13px] text-ink-3">
                   {!state.stage
-                    ? 'Wybierz sytuację i skalę — przejdziemy dalej sami.'
+                    ? 'Wybierz sytuację i skalę, a przejdziemy dalej sami.'
                     : !state.scale
-                      ? 'Jeszcze skala — i przechodzimy dalej.'
+                      ? 'Jeszcze skala i przechodzimy dalej.'
                       : ''}
                 </p>
               </div>
@@ -492,7 +508,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 Kilka szczegółów o {FIRM_LOCATIVE[state.firm ?? ''] ?? 'Twojej firmie'}
               </StepHeading>
               <p className="mt-1 text-[14.5px] text-ink-2">
-                Zaznaczyliśmy najczęstsze odpowiedzi — popraw tylko to, co się nie zgadza.
+                Zaznaczyliśmy najczęstsze odpowiedzi. Popraw tylko to, co się nie zgadza.
               </p>
               <ul className="mt-4 flex flex-col gap-2.5">
                 {result.questions.map((q) => {
@@ -744,6 +760,29 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 </div>
               ) : null}
 
+              {data.supply && supplyLinks.length > 0 && (
+                <div data-supply-card className={cx(CARD, 'p-5 sm:p-6')}>
+                  <p className="font-display text-[18px] font-extrabold text-ink">
+                    {data.supply.title}
+                  </p>
+                  {data.supply.text && (
+                    <p className="mt-1 text-[14px] text-ink-2">{data.supply.text}</p>
+                  )}
+                  <div className="mt-2 flex flex-wrap gap-x-5">
+                    {supplyLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="inline-flex min-h-11 items-center gap-1 text-[14px] font-extrabold text-accent-text"
+                      >
+                        {link.label}
+                        <Icon name="arrow" className="size-4" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div
                 data-surface="dark"
                 className="rounded-[22px] bg-surface-dark p-5 text-white sm:p-6"
@@ -752,7 +791,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 <ol className="mt-3 grid gap-3 sm:grid-cols-3">
                   {(
                     [
-                      ['Wysyłasz zapytanie', 'z listą i opisem firmy — bez rejestracji'],
+                      ['Wysyłasz zapytanie', 'z listą i opisem firmy, bez rejestracji'],
                       [data.callbackTime ?? 'Odezwiemy się', 'w godzinach pracy'],
                       ['Oferta na piśmie', 'warianty do wyboru, bez zobowiązań'],
                     ] as const
@@ -840,7 +879,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                   </>
                 ) : (
                   <p className="rounded-xl bg-surface-2 p-3 text-[13.5px] text-ink-2">
-                    Wybierz branżę — tutaj zobaczysz, jak powstaje Twój zestaw.
+                    Wybierz branżę, a tutaj zobaczysz, jak powstaje Twój zestaw.
                   </p>
                 )}
                 {data.phone && (
@@ -867,8 +906,12 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
         </aside>
       </div>
 
-      {/* Phone: the step, the count and the main button, above the site's own bar. */}
-      <div className="sticky bottom-[84px] z-20 mt-6 flex items-center gap-3 rounded-2xl bg-card p-3 shadow-[0_18px_40px_-20px_var(--shd),inset_0_0_0_1px_var(--border)] sm:bottom-4 lg:hidden">
+      {/* Phone: the step, the count and the main button. It is the screen's sticky action
+          (MOBILE-APLIKACJA §1), so the tab bar hides on this page (`data-sticky-action`). */}
+      <div
+        data-sticky-action
+        className="sticky bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-20 mt-6 flex items-center gap-3 rounded-2xl bg-card p-3 shadow-[0_18px_40px_-20px_var(--shd),inset_0_0_0_1px_var(--border)] md:bottom-4 lg:hidden"
+      >
         <div className="min-w-0 flex-1">
           <p className="text-[14px] font-extrabold text-ink">
             {step === 3 ? 'Wynik' : `Pytanie ${Math.min(step + 1, 3)} z 3`}

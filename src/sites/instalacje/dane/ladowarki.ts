@@ -115,22 +115,22 @@ export const ladowarki = {
 
   offer: {
     head: {
-      eyebrow: 'Oferta Elzab EcoPower',
-      heading: 'Trzy ładowarki. Od garażu po parking hotelu.',
+      eyebrow: 'Oferta Elzab',
+      heading: 'Ładowarki Elzab do garażu, pensjonatu i na parking',
       lead: 'Montujemy całą rodzinę ładowarek Elzab EcoPower. Elzab to polski producent z Zabrza. Model dobieramy do tego, kto będzie ładował, ile aut naraz i czy ładowanie ma być rozliczane.',
     } satisfies SectionHead,
     pick: 'Dobierz wersję',
     extrasHeading: 'W ofercie także',
     extras: [
       {
-        icon: 'build',
+        icon: 'ev',
         title: 'Podstawa do CC Wall',
         text: 'Ładowarka ścienna staje na parkingu bez ściany.',
       },
       { icon: 'plug', title: 'Przewód 7,5 m', text: 'Do CC Wall, w wersji 1- lub 3-fazowej.' },
       { icon: 'card', title: 'Karty RFID', text: 'Dla gości, pracowników i floty.' },
       {
-        icon: 'cloud',
+        icon: 'euro',
         title: 'Rozliczanie ładowania',
         text: 'OCPP i aplikacja, gdy ładowanie ma być płatne.',
       },
@@ -141,8 +141,8 @@ export const ladowarki = {
   config: {
     head: {
       eyebrow: 'Dobór wersji',
-      heading: 'Złóż swoją ładowarkę.',
-      lead: 'Wybierz model i opcje. Pokażemy, czego taka wersja wymaga od instalacji. Dokładny model potwierdzimy po zdjęciu rozdzielnicy.',
+      heading: 'Dobierz model, moc i kolor ładowarki',
+      lead: 'Wybierz model i opcje, a pokażemy, czego taka wersja wymaga od instalacji. Dokładny model potwierdzimy po obejrzeniu rozdzielnicy.',
     } satisfies SectionHead,
     model: 'Model',
     colour: 'Kolor obudowy',
@@ -161,7 +161,7 @@ export const ladowarki = {
   },
 
   comparison: {
-    head: { eyebrow: 'Porównanie', heading: 'CC Home, CC Wall i CC City obok siebie.' },
+    head: { eyebrow: 'Porównanie', heading: 'Porównanie ładowarek CC Home, CC Wall i CC City' },
     feature: 'Cecha',
     swipe: 'Przesuń tabelę w bok, żeby zobaczyć CC City →',
     note: 'Przed zamówieniem potwierdzamy aktualne parametry i dostępność wybranej wersji.',
@@ -215,7 +215,7 @@ export const ladowarki = {
   /** Charging time calculator (`ev`). */
   calc: {
     eyebrow: 'Kalkulator',
-    heading: 'Ile potrwa ładowanie Twojego auta?',
+    heading: 'Ile trwa ładowanie auta elektrycznego',
     lead: 'Ustaw baterię, zakres ładowania i moc. Zobaczysz, czy mocniejsza ładowarka ma u Ciebie sens.',
     tips: [
       'Do ładowania nocą w domu zwykle wystarcza 7,4 albo 11 kW.',
@@ -250,25 +250,19 @@ export const ladowarki = {
   rules: {
     head: {
       eyebrow: 'Formalności',
-      heading: 'Przyłącze, UDT, wspólnota. Pomagamy przejść przez wszystko.',
+      heading: 'Sprawdzamy przyłącze i pomagamy w formalnościach',
     },
     items: [
       {
         icon: 'bolt',
         title: 'Moc przyłącza',
         text: 'Sprawdzamy rozdzielnicę i moc umowną. 11 kW wymaga trzech faz. Gdy mocy jest mało, ustawiamy niższą moc albo dzielenie mocy między stacje.',
-        note: 'Wycenę zaczynamy od zdjęcia rozdzielnicy i licznika.',
-      },
-      {
-        icon: 'shield',
-        title: 'Badanie UDT',
-        text: 'Ustawa o elektromobilności (art. 16) przewiduje badanie UDT przed oddaniem stacji do eksploatacji, także po naprawie lub modernizacji. Czy dotyczy Twojej ładowarki, zależy m.in. od tego, kto z niej korzysta. Sprawdzamy to przy projekcie i pomagamy w zgłoszeniu.',
-        note: '',
+        note: 'Wycenę zaczynamy od rozdzielnicy i licznika — zdjęcia możesz wysłać w odpowiedzi na nasz e-mail.',
       },
       {
         icon: 'users',
         title: 'Ładowarka w bloku i we wspólnocie',
-        text: 'W budynku z więcej niż trzema lokalami mieszkalnymi potrzebna jest zgoda zarządcy. Zarządca w 30 dni od wniosku zleca ekspertyzę (nie trzeba jej, gdy budynek ma instalację pod ładowarki), a wniosek rozpatruje w 30 dni od jej otrzymania. We wspólnocie mieszkaniowej zgoda na punkt ładowania o mocy mniejszej niż 11 kW jest czynnością zwykłego zarządu.',
+        text: 'W bloku albo we wspólnocie potrzebna jest zgoda zarządcy. Pomagamy w formalnościach.',
         note: '',
       },
       {

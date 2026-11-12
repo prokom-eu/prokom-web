@@ -19,5 +19,5 @@ export function formatPrice(price: number): string {
 export function keepTogether(text: string): string {
   return text
     .replace(/(^|\s)(od|w|do)\s(?=\d)/g, `$1$2${NBSP}`)
-    .replace(/(\d)\s(?=(zł|tyg|tydz|dni|dzień|dnia|mies|godz|h\b))/g, `$1${NBSP}`)
+    .replace(/(\d)\s(?=(zł|tyg|tydz|dni|dzień|dnia|mies|godz|h\b|s\b))/g, `$1${NBSP}`)
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { track } from '@/lib/analytics/track'
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 
 import { readOutcome } from '@/lib/inquiry/form'
@@ -36,8 +37,8 @@ const CHOICES: { key: Choice; title: string; options: readonly string[] }[] = [
 ]
 
 /**
- * „Wyślij rzuty” (`#wyslij`, `ar.fm`): role, stage and object as chips, name, studio, phone
- * (the line's rule), town, a link to the plans instead of a file (spec §2.6), message, consent.
+ * „Umów konsultację projektu” (`#wyslij`, `ar.fm`; round v5: no plan link): role, stage and object as chips, name, studio, phone
+ * (the line's rule), town, message, consent.
  * A contact inquiry „Architekci · projekt”; after sending the summary and the number in place,
  * like the service desk form (I11).
  */
@@ -91,8 +92,10 @@ export function ArchitectForm({ formToken, phone, email }: Props) {
         phone: T.errors.phone,
         consent: T.errors.consent,
       })
-      if (outcome.kind === 'sent') setSent({ number: outcome.number })
-      else if (outcome.kind === 'invalid') {
+      if (outcome.kind === 'sent') {
+        track('kontakt_wyslij')
+        setSent({ number: outcome.number })
+      } else if (outcome.kind === 'invalid') {
         const [key, text] = outcome.formError ? [] : (Object.entries(outcome.fields)[0] ?? [])
         if (key && text) fail(key as ProjectError, text)
         else fail('form', outcome.formError ?? T.errors.failed)
@@ -230,21 +233,6 @@ export function ArchitectForm({ formToken, phone, email }: Props) {
           />
         </label>
       </div>
-      <label className="arfg">
-        <span className="arfl">{T.link}</span>
-        <input
-          className="zin"
-          type="url"
-          inputMode="url"
-          placeholder={T.linkPlaceholder}
-          maxLength={500}
-          value={state.link}
-          onChange={(e) => change({ link: e.target.value })}
-        />
-        <span className="mut" style={{ fontSize: 13 }}>
-          {T.linkNote}
-        </span>
-      </label>
       <label className="arfg">
         <span className="arfl">{T.message}</span>
         <textarea

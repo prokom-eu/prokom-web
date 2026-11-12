@@ -104,9 +104,9 @@ export const monitoring = {
 
   whatYouGet: {
     head: {
-      eyebrow: 'Monitoring od PRO-KOM',
-      heading: 'Kamery, które widzą to, co trzeba. I nie widzą tego, czego nie wolno.',
-      lead: 'Dobieramy kamery do miejsca, a nie do katalogu. Ustawiamy wykrywanie, strefy i czas nagrań, a potem uczymy Cię obsługi aplikacji.',
+      eyebrow: 'Co dostajesz',
+      heading: 'Co zobaczysz na kamerze przy furtce i przy bramie',
+      lead: 'Każdą kamerę dobieramy do jej miejsca: furtki, podjazdu, parkingu, wejścia. Ustawiamy wykrywanie, strefy i czas nagrań, a potem uczymy Cię obsługi aplikacji.',
     } satisfies SectionHead,
     items: [
       {
@@ -117,7 +117,7 @@ export const monitoring = {
       {
         icon: 'phone',
         title: 'Podgląd w telefonie',
-        text: 'Aplikacja producenta (np. Hik-Connect, DMSS albo aplikacja BCS): obraz na żywo, powiadomienia, przewijanie nagrań. Konfigurujemy ją razem z Tobą.',
+        text: 'Aplikacja producenta (np. Hik-Connect, DMSS albo aplikacja BCS): bieżący obraz, powiadomienia, przewijanie nagrań. Konfigurujemy ją razem z Tobą.',
       },
       {
         icon: 'eye',
@@ -130,7 +130,7 @@ export const monitoring = {
         text: 'Kamery z jasnym obiektywem F1.0 i ciepłym doświetleniem pokazują kolory po zmroku. Albo dyskretna podczerwień, gdy światło przeszkadza gościom.',
       },
       {
-        icon: 'bell',
+        icon: 'siren',
         title: 'Odstraszanie',
         text: 'Kamera z białym światłem, syreną i własnym komunikatem głosowym reaguje, zanim ktoś wejdzie do narciarni czy garażu.',
       },
@@ -145,9 +145,8 @@ export const monitoring = {
   system: {
     head: {
       eyebrow: 'Wersje instalacji',
-      heading: 'Monitoring to cały system.',
-      accent: 'Zobacz, co wchodzi w skład.',
-      lead: 'Kamera to tylko początek. Żeby nagrania nie ginęły przy burzy, mrozie czy zaniku prądu, potrzebny jest rejestrator, dyski do pracy 24/7, zasilanie, sieć i porządna aplikacja. Wybierz wersję i kliknij element schematu.',
+      heading: 'Z czego składa się monitoring domu i firmy',
+      lead: 'Żeby nagrania nie ginęły przy burzy, mrozie czy braku prądu, oprócz kamer potrzebny jest rejestrator, dysk do pracy przez całą dobę, zasilacz awaryjny i sieć. Wybierz wersję i kliknij element schematu, żeby zobaczyć, co robi.',
     } satisfies SectionHead,
     tabsLabel: 'Wersja instalacji',
     diagramLabel: 'Schemat systemu monitoringu:',
@@ -209,8 +208,8 @@ export const monitoring = {
         name: 'Rejestrator NVR',
         icon: 'cpu',
         place: 'Serce systemu',
-        text: 'Nagrywa wszystkie kamery naraz i trzyma nagrania w budynku, a nie w obcej chmurze. Analizuje obraz i wysyła powiadomienia.',
-        tip: 'Dobieramy go po przepustowości, a nie tylko po liczbie kanałów. Suma strumieni ze wszystkich kamer musi się w niej zmieścić z zapasem.',
+        text: 'Nagrywa wszystkie kamery naraz i trzyma nagrania na miejscu, w Twoim budynku. Analizuje obraz i wysyła powiadomienia.',
+        tip: 'Dobieramy go po liczbie kanałów i po przepustowości, czyli tym, ile danych przyjmie naraz. Suma strumieni ze wszystkich kamer musi się w niej zmieścić z zapasem.',
       },
       hdd: {
         name: 'Dyski do monitoringu',
@@ -228,7 +227,7 @@ export const monitoring = {
       },
       rack: {
         name: 'Szafa rack',
-        icon: 'build',
+        icon: 'rack',
         place: 'Porządek w technice',
         text: 'Rejestrator, router, UPS i opisane kable w jednym zamykanym miejscu. Serwisant od razu wie, co jest czym.',
         tip: 'Szafę montujemy w ogrzewanym pomieszczeniu. Gdy stoi w niej kilka urządzeń PoE, dokładamy wentylację.',
@@ -238,20 +237,20 @@ export const monitoring = {
         icon: 'wifi',
         place: 'Bezpieczeństwo',
         text: 'Kamery mają własną sieć (VLAN), oddzieloną od Wi-Fi gości, kas i komputerów. Goście korzystają z internetu, ale nie zobaczą kamer.',
-        tip: 'Zmieniamy hasła fabryczne, aktualizujemy oprogramowanie i nie wystawiamy rejestratora wprost do internetu. Podatności w kamerach to realny problem, a nie straszak.',
+        tip: 'Zmieniamy hasła fabryczne, aktualizujemy oprogramowanie i nie wystawiamy rejestratora wprost do internetu. Podatności w kamerach to realny problem.',
       },
       app: {
         name: 'Aplikacja i powiadomienia',
         icon: 'phone',
         place: 'W Twoim telefonie',
-        text: 'Podgląd na żywo, nagrania i powiadomienia o człowieku lub samochodzie w aplikacji producenta, np. Hik-Connect, DMSS albo aplikacji BCS.',
+        text: 'Bieżący podgląd, nagrania i powiadomienia o człowieku lub samochodzie w aplikacji producenta, np. Hik-Connect, DMSS albo aplikacji BCS.',
         tip: 'Każdy domownik albo pracownik dostaje własne konto z uprawnieniami, które ustawimy przy odbiorze. Pokazujemy, jak szybko znaleźć i zapisać nagranie.',
       },
       lnk: {
         name: 'Światłowód lub most radiowy',
         icon: 'fiber',
         place: 'Między budynkami',
-        text: 'Drugi budynek, parking albo brama dalej niż 100 metrów. Bez kopania rowu przez całą działkę.',
+        text: 'Łączy z rejestratorem drugi budynek, parking albo bramę dalej niż 100 metrów, bez kopania rowu przez całą działkę.',
         tip: 'Na dłuższe odcinki kładziemy światłowód. Tam, gdzie nie da się kopać, stawiamy most radiowy, który potrzebuje widoczności między punktami.',
       },
       lpr: {
@@ -263,7 +262,7 @@ export const monitoring = {
       },
       ptz: {
         name: 'Kamera obrotowa PTZ',
-        icon: 'eye',
+        icon: 'cam',
         place: 'Duży plac',
         text: 'Obraca się i przybliża obraz, żeby z jednego miejsca obejrzeć cały plac albo parking.',
         tip: 'Kamera PTZ pobiera więcej prądu niż zwykła, dlatego przy jej montażu liczymy budżet mocy switcha.',
@@ -298,7 +297,7 @@ export const monitoring = {
       },
       {
         name: 'Firma',
-        icon: 'shop',
+        icon: 'office',
         sub: '6–8 kamer',
         cams: 8,
         camLabel: '8 × 4 MP',
@@ -389,8 +388,8 @@ export const monitoring = {
 
   types: {
     head: {
-      eyebrow: 'Jaką kamerę wybrać',
-      heading: 'Pięć rodzajów kamer. Każda do innego miejsca.',
+      eyebrow: 'Rodzaje kamer',
+      heading: 'Jakie kamery montujemy i gdzie się sprawdzają',
     },
     tabsLabel: 'Rodzaje kamer',
     fits: 'Gdzie pasuje',
@@ -434,9 +433,9 @@ export const monitoring = {
 
   dori: {
     head: {
-      eyebrow: 'Kalkulator: ile widać',
-      heading: 'Twarz czy tylko sylwetka? To zależy od odległości.',
-      lead: 'Norma PN-EN 62676-4 mówi, ile pikseli na metr potrzeba, żeby człowieka wykryć, obserwować, rozpoznać albo zidentyfikować. Sprawdź, jak zmienia się to z odległością.',
+      eyebrow: 'Kalkulator',
+      heading: 'Z jakiej odległości kamera pokaże twarz',
+      lead: 'Im dalej stoi człowiek, tym mniej pikseli obrazu przypada na metr. Sprawdź, z jakiej odległości kamera go wykryje, a z jakiej rozpoznasz twarz.',
     } satisfies SectionHead,
     resolution: 'Rozdzielczość kamery',
     lens: 'Obiektyw (kąt widzenia)',
@@ -459,8 +458,8 @@ export const monitoring = {
 
   recording: {
     head: {
-      eyebrow: 'Kalkulator: ile dni nagrań',
-      heading: 'Dysk dobieramy do liczby kamer. I do przepisów.',
+      eyebrow: 'Kalkulator nagrań',
+      heading: 'Ile dni nagrań zmieści dysk w rejestratorze',
       lead: 'Nagrania zostają na rejestratorze w Twoim obiekcie. Policz, na ile dni wystarczy dysk przy nagrywaniu ciągłym.',
     } satisfies SectionHead,
     cameras: 'Liczba kamer',
@@ -479,14 +478,13 @@ export const monitoring = {
       few: 'To mało. Przy takiej liczbie kamer warto większy dysk albo nagrywanie przy ruchu.',
       ok: 'Czas przechowywania ustawiamy w rejestratorze, a starsze nagrania nadpisują się same.',
     },
-    law: 'Monitoring pracowników: nagrania najwyżej 3 miesiące od nagrania, chyba że są dowodem w postępowaniu (Kodeks pracy, art. 22²). EROD zaleca, by nagrania co do zasady usuwać automatycznie po kilku dniach. Dłuższy czas, zwłaszcza ponad 72 godziny, administrator musi uzasadnić celem monitoringu.',
   },
 
-  rodo: {
+  privacy: {
     head: {
-      eyebrow: 'Monitoring i RODO',
-      heading: 'Gdzie kamera może patrzeć, a gdzie nie.',
-      lead: 'Technikę ustawiamy tak, żeby pomagała Ci spełnić przepisy: strefy, maski, czas nagrań, tabliczki. Dokumenty, np. regulamin monitoringu, przygotowuje właściciel. Podpowiemy, co w nich ująć.',
+      eyebrow: 'Prywatność',
+      heading: 'Jak ustawić kamerę, żeby nie nagrywała sąsiada',
+      lead: 'Ustawiamy kadr, maski prywatności i czas nagrań. Podpowiemy też, gdzie powiesić tabliczkę o monitoringu i co na niej wpisać.',
     } satisfies SectionHead,
     yes: {
       title: 'Tak, z rozsądkiem',
@@ -504,7 +502,7 @@ export const monitoring = {
         'Pokoje gości i apartamenty',
         'Łazienki, toalety, szatnie',
         'Sauna, strefa SPA, przebieralnie',
-        'Stołówka, palarnia i pokój związków zawodowych (Kodeks pracy dopuszcza tylko wąskie wyjątki)',
+        'Stołówka, palarnia i pokój związków zawodowych',
         'Okna, ogrody i działki sąsiadów',
       ],
     },
@@ -513,24 +511,23 @@ export const monitoring = {
       label: 'Przykład tabliczki informującej o monitoringu',
       title: 'Obiekt monitorowany',
       rows: [
-        { key: 'Administrator:', value: 'nazwa obiektu, adres, kontakt' },
+        { key: 'Kto monitoruje:', value: 'nazwa obiektu, adres, kontakt' },
         { key: 'Cel:', value: 'bezpieczeństwo osób i ochrona mienia' },
         { key: 'Czas przechowywania:', value: 'liczba dni, np. 3' },
-        { key: 'Twoje prawa:', value: 'm.in. dostęp do nagrań, usunięcie, sprzeciw' },
         { key: 'Pełna informacja:', value: 'recepcja lub adres strony' },
       ],
-      foot: 'Przykład układu tabliczki według wytycznych EROD 3/2019. Treść ustala administrator.',
+      foot: 'Przykład układu tabliczki. Treść ustala właściciel obiektu.',
     },
     we: [
       {
-        icon: 'layers',
+        icon: 'grid',
         title: 'Strefy i maski',
         text: 'Zaczerniamy w obrazie to, czego kamera nie powinna nagrywać.',
       },
       {
         icon: 'clock',
         title: 'Czas nagrań',
-        text: 'Ustawiamy nadpisywanie po tylu dniach, ile wynika z celu.',
+        text: 'Ustawiamy, po ilu dniach stare nagrania nadpisują się same.',
       },
       {
         icon: 'lock',
@@ -543,22 +540,18 @@ export const monitoring = {
         text: 'Pokazujemy, gdzie powiesić oznaczenia i co na nich wpisać.',
       },
     ] satisfies Feature[],
-    neighbour:
-      'Kamera przy domu, która obejmuje choćby część drogi albo działki sąsiada, nie jest już „czysto domowym” użyciem i podlega RODO (wyrok TSUE C-212/13, Ryneš). Ustawimy kadr i maski tak, żeby patrzyła na Twoją posesję.',
+    neighbour: 'Ustawimy kadr i maski tak, żeby kamera patrzyła tylko na Twoją posesję.',
     employees: {
-      title: 'Masz pracowników?',
-      text: 'Kodeks pracy (art. 22²) wymaga, by cel i zasięg monitoringu ustalić w regulaminie pracy albo obwieszczeniu, poinformować pracowników najpóźniej 2 tygodnie przed uruchomieniem kamer i oznaczyć monitorowany teren najpóźniej dzień wcześniej. Więcej w',
-      link: 'poradniku o monitoringu i RODO',
-      href: '/poradnik/monitoring-a-rodo',
+      title: 'Monitorujesz pracowników?',
+      text: 'Pomożemy ustawić kamery tak, żeby obejmowały tylko to, co trzeba.',
     },
   },
 
   brands: {
     head: {
       eyebrow: 'Sprzęt',
-      heading: 'Dahua, Hikvision, BCS.',
-      accent: 'Dobieramy pod obiekt, nie pod markę.',
-      lead: 'To popularne marki monitoringu, a każda ma setki modeli. Nie sprzedajemy jednej linii. Kamerę, rejestrator i dysk dobieramy do miejsca: mrozu, światła nocą, odległości i tego, co ma być widać. Gdy budujemy też sieć, sprawdzamy, czy kamery tego samego producenta co sieć nie uproszczą obsługi.',
+      heading: 'Kamery Dahua, Hikvision i BCS dobrane do miejsca',
+      lead: 'To popularne marki monitoringu, a każda ma setki modeli. Kamerę, rejestrator i dysk dobieramy do miejsca: mrozu, światła nocą, odległości i tego, co ma być widać. Gdy budujemy też sieć, sprawdzamy, czy kamery tego samego producenta co sieć uproszczą obsługę.',
     } satisfies SectionHead,
     items: [
       {
@@ -609,7 +602,7 @@ export const monitoring = {
       {
         icon: 'cpu',
         title: 'Rejestrator i dysk',
-        text: 'NVR z zasilaniem PoE dla kamer i dyski do zapisu przez całą dobę, np. WD Purple albo Seagate SkyHawk.',
+        text: 'Rejestrator (NVR), który zasila kamery przez kabel sieciowy (PoE), i dyski do zapisu przez całą dobę, np. WD Purple albo Seagate SkyHawk.',
       },
     ] satisfies Feature[],
   },

@@ -33,6 +33,26 @@ export const insertHeroSchema = z.object({
   boxes: z.array(z.object({ slug, name: text })).max(8),
   badges: z.array(text).max(3),
   actions: z.array(z.object({ label: text, href: text })).max(2),
+  /**
+   * The composition of boxes (Web-insert, `insert.orb`, PREMIUM-1011): Subiekt nexo in the middle,
+   * the programs around it at `x`/`y` of a 500 × 440 board, each with its short line.
+   */
+  orbit: z
+    .object({
+      center: slug,
+      items: z
+        .array(
+          z.object({
+            slug,
+            n: text,
+            d: text,
+            x: z.number().min(0).max(500),
+            y: z.number().min(0).max(440),
+          }),
+        )
+        .max(6),
+    })
+    .optional(),
 })
 
 /** `insert-picker` (#ktory): „Który Subiekt dla mnie?”. */

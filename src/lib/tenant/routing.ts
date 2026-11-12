@@ -24,8 +24,9 @@ const PANEL_ONLY_PREFIXES = ['/admin', '/api']
 // from a dot in the path once let `/<other domain>` skip the rewrite and render that tenant.
 // Add a folder here when one is added to `public/`.
 // `/software/rozwiazania`: thumbnails of the Software solutions (SWR3, spec. §5.2).
-// `/instalacje/ev`: photos of the Elzab EcoPower chargers (Instalacje I9, spec §2.5).
-const PUBLIC_PREFIXES = ['/brand', '/software/rozwiazania', '/instalacje/ev']
+// `/instalacje/ev`: photos of the Elzab EcoPower chargers (Instalacje I9, spec §2.5);
+// `/instalacje/marki`: brand logos of the home page (RUNDA-V5 §2).
+const PUBLIC_PREFIXES = ['/brand', '/software/rozwiazania', '/instalacje/ev', '/instalacje/marki']
 // The one part of the Payload API a site domain needs: files of the upload collections, which
 // Payload serves only after its `read` access (tenant of the `Host`, see `lib/media/access`).
 const UPLOAD_FILE = /^\/api\/(media|partners)\/file\/[^/]+$/
@@ -41,6 +42,9 @@ const CATALOG_INDEX_PATH = '/api/catalog-index'
 // Solutions index of the Software site (ADR-014 §4): the same kind of handler, read only; it
 // answers 404 on domains of other lines.
 const SOLUTIONS_INDEX_PATH = '/api/solutions-index'
+// Search index of the Instalacje site (L1-I, spec §5.1): the same kind of handler, read only; it
+// answers 404 on domains of other lines.
+const INST_SEARCH_INDEX_PATH = '/api/inst-search-index'
 // One drawing of „Plan Twojej firmy” (K31d′): read only, a scene slug; the handler answers 404
 // on domains of other lines and re-checks the drawing.
 const PLAN_SVG = /^\/api\/plan-svg\/[a-z0-9-]{1,60}$/
@@ -55,6 +59,11 @@ const ANALYTICS_PATHS: Record<string, string> = { '/script.js': 'GET', '/api/sen
 // Not a valid page slug, so `[domain]/[slug]` answers with the site's 404 page.
 export const NOT_FOUND_SEGMENT = '_404'
 
+/** A file from one of the `public/` folders the sites use. */
+function isPublicFile(pathname: string): boolean {
+  return PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(`${prefix}/`))
+}
+
 function startsWithSegment(pathname: string, prefix: string): boolean {
   return pathname === prefix || pathname.startsWith(`${prefix}/`)
 }
@@ -63,7 +72,7 @@ function startsWithSegment(pathname: string, prefix: string): boolean {
  * Decides what the proxy does with a request (ADR-006):
  * - panel domain: only the admin panel and the Payload API,
  * - any other domain: never the admin or the API (only uploaded image files, inquiries and their form token, the
- *   catalog and solutions indexes, plan drawings, the analytics proxy and the health check); pages are rewritten to
+ *   catalog, solutions and Instalacje search indexes, plan drawings, the analytics proxy and the health check); pages are rewritten to
  *   `/<host>/<path>`, where the `[domain]` layout resolves the tenant (unknown → 404).
  */
 export function decideRoute({
@@ -73,7 +82,9 @@ export function decideRoute({
   panelHost,
 }: RouteInput): RouteDecision {
   const host = normalizeHost(rawHost)
-  if (!host) return { type: 'notFound' }
+  // The `next/image` optimizer fetches local files without any headers (Next 16
+  // `fetchInternalImage`): the public folders answer without a host, everything else is 404.
+  if (!host) return isPublicFile(pathname) ? { type: 'next' } : { type: 'notFound' }
   if (pathname === HEALTH_PATH && READ_METHODS.includes(method)) return { type: 'next' }
 
   const panelOnly = PANEL_ONLY_PREFIXES.some((prefix) => startsWithSegment(pathname, prefix))
@@ -94,8 +105,9 @@ export function decideRoute({
   if (pathname === INQUIRY_TOKEN_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === CATALOG_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === SOLUTIONS_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
+  if (pathname === INST_SEARCH_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (PLAN_SVG.test(pathname) && READ_METHODS.includes(method)) return { type: 'next' }
   if (panelOnly) return { type: 'notFoundPage', pathname: `/${host}/${NOT_FOUND_SEGMENT}` }
-  if (PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(`${prefix}/`))) return { type: 'next' }
+  if (isPublicFile(pathname)) return { type: 'next' }
   return { type: 'rewrite', pathname: pathname === '/' ? `/${host}` : `/${host}${pathname}` }
 }

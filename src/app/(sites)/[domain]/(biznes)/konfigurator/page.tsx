@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ogImages } from '@/lib/pages/metadata'
 import { notFound } from 'next/navigation'
 import { connection } from 'next/server'
 
@@ -18,15 +19,16 @@ import {
   runWizard,
   type WizardState,
 } from '@/lib/catalog/wizardEngine'
+import { EMPTY_SUPPLY_LINKS, scaleSupply } from '@/lib/biznes/procurement/links'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
-import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
+import { BreadcrumbJsonLd, Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { Configurator } from '@/sites/biznes/components/configurator/Configurator'
 import { linkKey, type ConfiguratorProduct } from '@/sites/biznes/components/configurator/types'
 
-import { requireLine } from '../../tenant'
+import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = {
   params: Promise<{ domain: string }>
@@ -34,11 +36,18 @@ type Props = {
 }
 
 export const metadata: Metadata = {
-  title: 'Konfigurator — dobierz rozwiązanie dla firmy',
+  title: 'Konfigurator — dobierz rozwiązanie',
   description:
-    'Trzy krótkie pytania o Twoją firmę i wynik: kasa, terminal, program, komputery i sieć dobrane z uzasadnieniem. Bez rejestracji — do zapytania trafia tylko to, co wybierzesz.',
+    'Trzy pytania o Twoją firmę i wynik: kasa, terminal, program, komputery i sieć z uzasadnieniem. Bez rejestracji, do zapytania tylko to, co wybierzesz.',
   alternates: { canonical: CONFIGURATOR_PATH },
+  // QA BIZ-3: the only page of the map without a preview picture — the line's mark.
+  openGraph: { images: ogImages(null, 'biznes'), url: CONFIGURATOR_PATH },
 }
+
+const CRUMBS = [
+  { name: 'Strona główna', href: '/' },
+  { name: 'Konfigurator', href: CONFIGURATOR_PATH },
+]
 
 const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value)
 
@@ -110,7 +119,8 @@ export default async function ConfiguratorPage({ params, searchParams }: Props) 
     ? runWizard(rules, linked, (slug) => slug in products, []).needs.length
     : 0
   const step = linked ? (linkedNeeds > 0 ? 3 : 2) : state.firm ? 1 : 0
-  const listed = listBundles(allBundles, new Set(bySlug.keys()))
+  // „Gotowe” only: a bundle still „Do sprawdzenia” is never linked (BIZ-3 §9.2).
+  const listed = listBundles(allBundles, new Set(bySlug.keys())).filter((b) => b.indexable)
   const bundleCards = Object.fromEntries(
     listed.map((bundle) => [bundle.slug, bundleCard(bundle, bySlug)]),
   )
@@ -153,12 +163,8 @@ export default async function ConfiguratorPage({ params, searchParams }: Props) 
 
   return (
     <Container wide className="pt-5 pb-28 sm:pt-6 sm:pb-24">
-      <Breadcrumbs
-        items={[
-          { name: 'Strona główna', href: '/' },
-          { name: 'Konfigurator', href: CONFIGURATOR_PATH },
-        ]}
-      />
+      <Breadcrumbs items={CRUMBS} />
+      <BreadcrumbJsonLd items={CRUMBS} origin={await requestOrigin()} />
       <Configurator
         data={{
           rules,
@@ -171,6 +177,7 @@ export default async function ConfiguratorPage({ params, searchParams }: Props) 
           formToken: issueFormToken(getEnv().PAYLOAD_SECRET),
           phone: phone && tel ? { label: phone, href: tel } : null,
           callbackTime: settings?.biznes?.promises.callbackTime?.trim() || null,
+          supply: scaleSupply(settings?.biznes?.procurement ?? EMPTY_SUPPLY_LINKS, index),
         }}
       />
     </Container>

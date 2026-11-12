@@ -1,5 +1,5 @@
 {
- "_uwaga": "Seed kolekcji InstArchNews (ADR-I005). kategoria = klucz usługi (kolor z hues()) albo \"sz\" (szkolenia/oferty, kolor --warn). doPotwierdzenia = znacznik [SZEF], w panelu pole notatki; na produkcji nie może zostać. ilustracja = ścieżka SVG 200x120 (obrys).",
+ "_uwaga": "Seed kolekcji InstArchNews (ADR-I005). kategoria = klucz usługi (kolor z hues()) albo \"sz\" (szkolenia/oferty, kolor --warn). doPotwierdzenia = znacznik [SZEF], w panelu pole notatki; na produkcji nie może zostać. ilustracja = ścieżka SVG 200x120 (obrys). zdjecie (RUNDA-V5 §7.2) = zdjęcie produktu z oficjalnej strony producenta (zrodlo), plik w media/; bez zdjęcia karta zostaje z ilustracją SVG.",
  "kategorie": {
   "snd": "Dźwięk",
   "scr": "Obraz",
@@ -80,7 +80,12 @@
     "Łazienka"
    ],
    "doPotwierdzenia": "[SZEF: marki Hi-Fi u nas]",
-   "ilustracja": "M40 40h120M70 40v-6h60v6M100 52a26 8 0 1 0 .1 0M84 62l-8 14M116 62l8 14"
+   "ilustracja": "M40 40h120M70 40v-6h60v6M100 52a26 8 0 1 0 .1 0M84 62l-8 14M116 62l8 14",
+   "zdjecie": {
+    "plik": "nowosc-02.webp",
+    "alt": "Głośnik sufitowy KEF Ci200RR bez ramki — widok z przodu",
+    "zrodlo": "https://eu.kef.com/products/ci200rr"
+   }
   },
   {
    "kategoria": "snd",
@@ -151,7 +156,12 @@
     "Restauracja"
    ],
    "doPotwierdzenia": null,
-   "ilustracja": "M40 46h120v30H40zM56 61h20M140 61a5 5 0 1 0 .1 0M40 86l-14 14M160 86l14 14"
+   "ilustracja": "M40 46h120v30H40zM56 61h20M140 61a5 5 0 1 0 .1 0M40 86l-14 14M160 86l14 14",
+   "zdjecie": {
+    "plik": "nowosc-04.webp",
+    "alt": "Wzmacniacz Sonos Amp Multi do głośników w suficie",
+    "zrodlo": "https://www.sonos.com/pl-pl/shop/amp-multi"
+   }
   },
   {
    "kategoria": "snd",
@@ -187,7 +197,12 @@
     "Lobby"
    ],
    "doPotwierdzenia": "[SZEF: dostępność marki u nas]",
-   "ilustracja": "M44 40a16 16 0 1 0 .1 0M112 30a20 20 0 1 0 .1 0M158 74a14 14 0 1 0 .1 0M60 42l34 -6M128 44l20 20M44 72v20h114"
+   "ilustracja": "M44 40a16 16 0 1 0 .1 0M112 30a20 20 0 1 0 .1 0M158 74a14 14 0 1 0 .1 0M60 42l34 -6M128 44l20 20M44 72v20h114",
+   "zdjecie": {
+    "plik": "nowosc-05.webp",
+    "alt": "Głośniki Molecule Audio jako kompozycja na ścianie salonu",
+    "zrodlo": "https://www.molecule-audio.com/"
+   }
   },
   {
    "kategoria": "scr",
@@ -259,7 +274,12 @@
     "Sala konferencyjna"
    ],
    "doPotwierdzenia": null,
-   "ilustracja": "M30 24h140v62H30zM70 98h60v10H70zM100 98l-40 -12M100 98l40 -12"
+   "ilustracja": "M30 24h140v62H30zM70 98h60v10H70zM100 98l-40 -12M100 98l40 -12",
+   "zdjecie": {
+    "plik": "nowosc-07.webp",
+    "alt": "Projektor laserowy Epson EH-LS800B",
+    "zrodlo": "https://www.epson.pl/pl_PL/produkty/projector/kino-domowe/eh-ls800b/p/36911"
+   }
   },
   {
    "kategoria": "scr",
@@ -295,7 +315,12 @@
     "Apartament premium"
    ],
    "doPotwierdzenia": "[SZEF: dostępność marki u nas]",
-   "ilustracja": "M30 30h140M80 30v12h40V30M70 42h60v40H70zM100 90v14M90 98l10 8 10 -8"
+   "ilustracja": "M30 30h140M80 30v12h40V30M70 42h60v40H70zM100 90v14M90 98l10 8 10 -8",
+   "zdjecie": {
+    "plik": "nowosc-08.webp",
+    "alt": "Telewizor na podnośniku Future Automation wysuwany z mebla w sypialni",
+    "zrodlo": "https://www.futureautomation.co.uk/"
+   }
   },
   {
    "kategoria": "scr",
@@ -331,7 +356,12 @@
     "Hotel"
    ],
    "doPotwierdzenia": null,
-   "ilustracja": "M60 18h80v74H60zM92 92v16M76 108h48M72 34h56M72 46h40M72 58h50"
+   "ilustracja": "M60 18h80v74H60zM92 92v16M76 108h48M72 34h56M72 46h40M72 58h50",
+   "zdjecie": {
+    "plik": "nowosc-09.webp",
+    "alt": "Wyświetlacz Samsung Smart Signage OMN-S do witryn",
+    "zrodlo": "https://www.samsung.com/pl/business/smart-signage/uhd-4k-signage/omn-s-4000nit-24hr-ip5x-lh55omnesgbxen/"
+   }
   },
   {
    "kategoria": "smart",
@@ -367,7 +397,12 @@
     "Hotel"
    ],
    "doPotwierdzenia": null,
-   "ilustracja": "M60 22h80v80H60zM80 44a7 7 0 1 0 .1 0M120 44a7 7 0 1 0 .1 0M80 80a7 7 0 1 0 .1 0M120 80a7 7 0 1 0 .1 0"
+   "ilustracja": "M60 22h80v80H60zM80 44a7 7 0 1 0 .1 0M120 44a7 7 0 1 0 .1 0M80 80a7 7 0 1 0 .1 0M120 80a7 7 0 1 0 .1 0",
+   "zdjecie": {
+    "plik": "nowosc-10.webp",
+    "alt": "Szklane panele dotykowe Ampio z własnymi ikonami",
+    "zrodlo": "https://ampio.com/pl/sterowanie/panele-dotykowe-ampio"
+   }
   },
   {
    "kategoria": "smart",
@@ -402,7 +437,12 @@
     "Apartament"
    ],
    "doPotwierdzenia": null,
-   "ilustracja": "M100 30a30 30 0 1 0 .1 0M100 46v30M84 62h32M60 100h80"
+   "ilustracja": "M100 30a30 30 0 1 0 .1 0M100 46v30M84 62h32M60 100h80",
+   "zdjecie": {
+    "plik": "nowosc-11.webp",
+    "alt": "Wnętrze z panelem sterowania Ampio na ścianie",
+    "zrodlo": "https://ampio.com/pl/sterowanie/panele-dotykowe-ampio"
+   }
   },
   {
    "kategoria": "wifi",
@@ -438,7 +478,12 @@
     "Biuro"
    ],
    "doPotwierdzenia": null,
-   "ilustracja": "M100 66a30 9 0 1 0 .1 0M70 46a40 40 0 0 1 60 0M80 54a26 26 0 0 1 40 0M100 66v-34"
+   "ilustracja": "M100 66a30 9 0 1 0 .1 0M70 46a40 40 0 0 1 60 0M80 54a26 26 0 0 1 40 0M100 66v-34",
+   "zdjecie": {
+    "plik": "nowosc-12.webp",
+    "alt": "Punkt dostępowy Wi-Fi 7 UniFi U7 Pro do montażu na suficie",
+    "zrodlo": "https://store.ui.com/us/en/products/u7-pro"
+   }
   },
   {
    "kategoria": "wifi",
@@ -474,7 +519,12 @@
     "Apartamenty"
    ],
    "doPotwierdzenia": null,
-   "ilustracja": "M66 26h68v76H66zM82 80h12v10H82zM106 80h12v10h-12zM84 48a24 24 0 0 1 32 0M90 56a14 14 0 0 1 20 0"
+   "ilustracja": "M66 26h68v76H66zM82 80h12v10H82zM106 80h12v10h-12zM84 48a24 24 0 0 1 32 0M90 56a14 14 0 0 1 20 0",
+   "zdjecie": {
+    "plik": "nowosc-13.webp",
+    "alt": "Punkt dostępowy UniFi U7 In-Wall do puszki ściennej",
+    "zrodlo": "https://store.ui.com/us/en/products/u7-iw"
+   }
   },
   {
    "kategoria": "kam",
@@ -581,7 +631,12 @@
     "Pensjonat"
    ],
    "doPotwierdzenia": "[SZEF: dostępność marki u nas]",
-   "ilustracja": "M70 24h60v80H70zM100 52a12 12 0 1 0 .1 0M96 64h8v20h-8zM140 40h20M140 52h14"
+   "ilustracja": "M70 24h60v80H70zM100 52a12 12 0 1 0 .1 0M96 64h8v20h-8zM140 40h20M140 52h14",
+   "zdjecie": {
+    "plik": "nowosc-16.webp",
+    "alt": "Zamek Nuki Smart Lock z wkładkami",
+    "zrodlo": "https://nuki.io/pl/"
+   }
   },
   {
    "kategoria": "kam",
@@ -617,7 +672,12 @@
     "Remont"
    ],
    "doPotwierdzenia": null,
-   "ilustracja": "M40 34h50v60H40zM110 34h50v60h-50zM65 54v20M135 54v20"
+   "ilustracja": "M40 34h50v60H40zM110 34h50v60h-50zM65 54v20M135 54v20",
+   "zdjecie": {
+    "plik": "nowosc-17.webp",
+    "alt": "Włącznik Ajax LightSwitch",
+    "zrodlo": "https://ajax.systems/products/lightswitch-1-gang-jeweller/"
+   }
   },
   {
    "kategoria": "ev",
@@ -653,7 +713,12 @@
     "Garaż podziemny"
    ],
    "doPotwierdzenia": null,
-   "ilustracja": "M70 22h50v80H70zM96 40l-10 20h14l-8 20M120 60h24v34M144 94a8 8 0 1 0 .1 0"
+   "ilustracja": "M70 22h50v80H70zM96 40l-10 20h14l-8 20M120 60h24v34M144 94a8 8 0 1 0 .1 0",
+   "zdjecie": {
+    "plik": "nowosc-18.webp",
+    "alt": "Ładowarka Elzab EcoPower CC Wall, biała obudowa z czarnym frontem",
+    "zrodlo": "zdjęcie z repo (Ładowarki, I9)"
+   }
   },
   {
    "kategoria": "sz",
@@ -714,7 +779,7 @@
     }
    ],
    "wProjekcie": [
-    "Wyślij rzuty i etap projektu",
+    "Opisz projekt i jego etap",
     "Oddzwonimy z propozycją zakresu"
    ],
    "przyklady": "",

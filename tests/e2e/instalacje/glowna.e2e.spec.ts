@@ -2,7 +2,9 @@ import { expect, type Page, test } from '@playwright/test'
 
 import { site } from '../helpers'
 
-// I5: the home hero „Twój obiekt na żywo” (spec §5.1, KOMPONENTY §3, MOBILE-APLIKACJA §6/§10).
+// I5: the home hero „Twój obiekt na żywo” (spec §5.1, KOMPONENTY §3, MOBILE-APLIKACJA §6/§10);
+// round v5 (RUNDA-V5 §1): new heading, the „Na żywo” status in the dock from 1024 px. The layout
+// in six window sizes: hero-uklad.e2e.spec.ts.
 // Data from `pnpm seed` (`seed:instalacje` publishes the home page with its `instHome` block).
 // Reduced motion: the autoplay waits, so the hero stays in its starting state.
 const HOST = 'instalacje.localhost'
@@ -11,7 +13,10 @@ const hero = (page: Page) => page.locator('#start')
 
 async function open(page: Page) {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  return page.goto(site(HOST))
+  const response = await page.goto(site(HOST))
+  // ADR-023: the hero's widgets hydrate from their own chunks; a key before that is lost.
+  await page.waitForLoadState('networkidle')
+  return response
 }
 
 test.describe('Instalacje home hero', () => {
@@ -25,19 +30,18 @@ test.describe('Instalacje home hero', () => {
     const noJs = await browser.newContext({ javaScriptEnabled: false })
     const plain = await noJs.newPage()
     await plain.goto(site(HOST))
-    await expect(plain.locator('h1')).toContainText('Twój obiekt')
+    await expect(plain.locator('h1')).toContainText(/smart\shome na\sPodhalu/)
     await expect(plain.locator('#start .lead')).toContainText('Wybierz obiekt obok')
     await noJs.close()
 
     const response = await open(page)
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveCount(1)
+    // INST-6 PR2: the H1 says the service and the region (runda v6 §2.3).
     await expect(page.locator('h1')).toHaveText(
-      'Monitoring, alarmy, Wi-Fi i smart home na Podhalu. Twój obiekt na żywo.',
+      /^Projekt, montaż i\sserwis w\sjednej firmie\. Monitoring, alarmy, Wi-Fi i\ssmart home na\sPodhalu$/,
     )
-    await expect(page).toHaveTitle(
-      'Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje',
-    )
+    await expect(page).toHaveTitle('Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje')
     const description = await page.locator('meta[name="description"]').getAttribute('content')
     expect(description?.length ?? 999).toBeLessThanOrEqual(155)
   })
@@ -50,8 +54,9 @@ test.describe('Instalacje home hero', () => {
       'true',
     )
     await expect(page.getByRole('button', { name: 'Noc' })).toHaveAttribute('aria-pressed', 'true')
-    await expect(page.locator('.hxsh b')).toHaveText('Na żywo · Pensjonat')
-    await expect(page.locator('.hxli b')).toHaveText(['Wi-Fi i sieć', 'Kamery'])
+    await expect(page.locator('.hxdst b')).toHaveText('Teraz · Pensjonat · Noc')
+    await expect(page.locator('.hxdtx')).toContainText('Osobna sieć dla gości')
+    await expect(page.locator('.hxstat')).toBeHidden()
     await expect(page.locator('.pip')).toBeVisible()
     await expect(hero(page).getByRole('link', { name: 'Zaplanuj instalację' })).toHaveAttribute(
       'href',
@@ -66,7 +71,7 @@ test.describe('Instalacje home hero', () => {
     await page.getByRole('tab', { name: 'Dom', exact: true }).click()
     await page.getByRole('button', { name: 'Zima' }).click()
     await expect(hero(page)).toHaveAttribute('data-hx-time', 'winter')
-    await expect(page.locator('.hxsh b')).toHaveText('Na żywo · Dom')
+    await expect(page.locator('.hxdst b')).toHaveText('Teraz · Dom · Zima')
     await expect(page.locator('.flk')).toHaveCount(90)
 
     const chips = page.getByRole('group', { name: 'Instalacje widoczne na obiekcie' })
@@ -77,16 +82,17 @@ test.describe('Instalacje home hero', () => {
       'aria-pressed',
       'true',
     )
-    await expect(page.locator('.hxli').first()).toContainText('Na zewnątrz −12°')
+    await expect(page.locator('.hxdtx')).toContainText('Na zewnątrz −12°')
     await expect(chips.getByRole('link', { name: 'Zaplanuj taki zestaw →' })).toHaveAttribute(
       'href',
       '/zaplanuj#obiekt=dom&uslugi=wifi,smart',
     )
 
-    await chips.getByRole('button', { name: 'Pokaż wszystko' }).click()
-    await expect(page.locator('.hxmore')).toContainText('+6 instalacji więcej')
-    await chips.getByRole('button', { name: 'Wyłącz wszystko' }).click()
-    await expect(page.locator('.hxempty')).toBeVisible()
+    // The dock has no „Pokaż wszystko” (RUNDA-V5 §1.3): it stays in the phone layout.
+    await expect(chips.getByRole('button', { name: 'Pokaż wszystko' })).toBeHidden()
+    for (const name of ['Alarm', 'Domofon i dostęp', 'Ładowarka EV', 'Nagłośnienie', 'Ekrany'])
+      await chips.getByRole('button', { name: new RegExp(name) }).click()
+    await expect(page.locator('.hxdst em')).toHaveText('+5')
   })
 
   test('the object tabs move with the arrow keys', async ({ page }) => {
@@ -106,24 +112,84 @@ test.describe('Instalacje home hero', () => {
 
   test('plays by itself without reduced motion and stops at the first touch', async ({ page }) => {
     await page.goto(site(HOST))
-    await expect(page.locator('.hxmore')).toBeVisible({ timeout: 6000 })
+    await expect(page.locator('.hxdst em')).toBeVisible({ timeout: 6000 })
+    await expect(page.locator('.hoprog')).toBeVisible()
     await page.getByRole('button', { name: 'Dzień' }).click()
-    const panel = await page.locator('.hxl').innerText()
+    await expect(page.locator('.hoprog')).toHaveCount(0)
+    const status = await page.locator('.hxdst').innerText()
+    await page.mouse.move(0, 0)
     await page.waitForTimeout(2600)
-    expect(await page.locator('.hxl').innerText()).toBe(panel)
+    expect(await page.locator('.hxdst').innerText()).toBe(status)
+  })
+
+  // P2-11 (WCAG 2.2.2): a visible pause stops the autoplay, its progress bar and the scene's
+  // animations; it stays after the first touch (the scene still moves then).
+  test('the pause button stops the autoplay, the progress bar and the animations', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST))
+    await page.waitForLoadState('networkidle')
+    const pause = page.getByRole('button', { name: 'Wstrzymaj animację' })
+    await expect(pause).toHaveAttribute('aria-pressed', 'false')
+    await pause.click()
+    await expect(pause).toHaveAttribute('aria-pressed', 'true')
+    // Hover and focus pause the autoplay by themselves — take both away, so only the button
+    // can keep it stopped.
+    await page.mouse.move(0, 0)
+    await pause.evaluate((button) => (button as HTMLElement).blur())
+    await expect(page.locator('#start :focus')).toHaveCount(0)
+    const read = () =>
+      page.evaluate(() => ({
+        status: document.querySelector('.hxdst')?.textContent ?? '',
+        tab: document.querySelector('.hotab.on')?.textContent ?? '',
+        bar: getComputedStyle(document.querySelector('.hoprog')!).transform,
+        anim: getComputedStyle(document.querySelector('.hx .live')!).animationPlayState,
+      }))
+    const before = await read()
+    expect(before.anim).toBe('paused')
+    await page.waitForTimeout(3000)
+    expect(await read()).toEqual(before)
+    await pause.click()
+    await pause.evaluate((button) => (button as HTMLElement).blur())
+    await page.mouse.move(0, 0)
+    await expect(pause).toHaveAttribute('aria-pressed', 'false')
+    // After a touch the show stops but the scene keeps moving: the button stays.
+    await page.getByRole('button', { name: 'Dzień' }).click()
+    await expect(pause).toBeVisible()
+  })
+
+  // P2-11: where there is no room for the camera preview, a camera point opens it; Esc closes it.
+  test('Esc closes the camera preview opened from a camera point', async ({ page }) => {
+    await page.setViewportSize({ width: 1366, height: 768 })
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(site(HOST))
+    await page.waitForLoadState('networkidle')
+    const point = page.locator('#hx-scena [role="button"]').first()
+    await point.focus()
+    await page.keyboard.press('Enter')
+    await expect(page.locator('.pip')).toBeVisible()
+    await page.keyboard.press('Escape')
+    await expect(page.locator('.pip')).toBeHidden()
+    await expect(point).toBeFocused()
   })
 })
 
 test.describe('Instalacje home hero on a phone', () => {
   for (const width of [360, 390, 414]) {
-    test(`no horizontal scroll at ${width} px, the scene above the text`, async ({ page }) => {
+    // P2-12 (audit 06.11): the first screen is the H1, the lead and the buttons; the scene comes
+    // under them and the whole hero stays well under two screens (was ~2.5).
+    test(`no horizontal scroll at ${width} px, H1, lead and buttons first`, async ({ page }) => {
       await page.setViewportSize({ width, height: 844 })
       await open(page)
       const scroll = await page.evaluate(() => document.documentElement.scrollWidth)
       expect(scroll).toBe(width)
-      const scene = await page.locator('.hxsvg').boundingBox()
+      const scene = await page.locator('.hxbld').boundingBox()
       const heading = await page.locator('h1').boundingBox()
-      expect(scene && heading && scene.y < heading.y).toBe(true)
+      expect(scene && heading && heading.y < scene.y).toBe(true)
+      const lastButton = await page.locator('.hxt .btn').last().boundingBox()
+      expect((lastButton?.y ?? 9999) + (lastButton?.height ?? 0)).toBeLessThanOrEqual(844)
+      const hero = await page.locator('#start').boundingBox()
+      expect(hero?.height ?? 9999).toBeLessThanOrEqual(844 * 1.8)
     })
   }
 

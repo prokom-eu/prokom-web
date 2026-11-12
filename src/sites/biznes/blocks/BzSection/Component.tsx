@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react'
 
+import { getSectionImages } from '@/lib/biznes/pages/images'
 import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
 import {
   isSectionVariant,
   parseSectionData,
   type SectionVariant,
 } from '@/lib/biznes/pages/sections'
+import { withVisibleSupplyLink } from '@/lib/biznes/procurement/links'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import type { CatalogIndex, IndexImage } from '@/lib/catalog/catalogIndex'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
@@ -20,10 +22,11 @@ import {
   StepsSection,
   TableSection,
 } from './common/Basic'
-import { TabsPicker, VideoPicker } from './common/Interactive'
+import { BundlesSection } from './common/Bundles'
+import { TabsPicker, VideoPicker } from './common/InteractiveLazy'
 import { ProductGrid, productsBySlug } from './common/Products'
-import { Audience, CareHero, StartCalendar } from './firma/Care'
-import { CareAreas, Seats, SwitchSteps } from './firma/CareWidgets'
+import { Audience, CareHero, CareReview, StartCalendar } from './firma/Care'
+import { CareAreas, Seats, SwitchSteps } from './firma/CareWidgetsLazy'
 import {
   AboutHero,
   BrandsSection,
@@ -32,7 +35,7 @@ import {
   LinesSection,
 } from './firma/Company'
 import { GoposHero } from './gopos/Hero'
-import { KsefChecklist, KsefQuizWidget } from './k4j/Client'
+import { KsefChecklist, KsefQuizWidget } from './k4j/ClientLazy'
 import {
   AppMockup,
   CatalogTabs,
@@ -45,9 +48,9 @@ import {
   VendingPicker,
   YesNo,
 } from './k4j/Sections'
-import { GoposAreas, GoposHub, GoposPackage, GoposVenues } from './gopos/Widgets'
+import { GoposAreas, GoposHub, GoposPackage, GoposVenues } from './gopos/WidgetsLazy'
 import { InsertHero, InsertKsef, InsertRequirements } from './insert/Sections'
-import { InsertPicker, InsertPoints } from './insert/Widgets'
+import { InsertPicker, InsertPoints } from './insert/WidgetsLazy'
 import { SectionShell } from './ui'
 
 type Props = {
@@ -60,12 +63,14 @@ type Props = {
 /** Kinds that read the catalog (product cards, pictures, brand logos). */
 const NEEDS_INDEX: ReadonlySet<SectionVariant> = new Set([
   'products',
+  'bundles',
   'gopos-hero',
   'gopos-venues',
   'insert-hero',
   'insert-picker',
   'insert-requirements',
   'care-areas',
+  'seats',
   'audience',
   'about-hero',
   'brands',
@@ -75,13 +80,23 @@ const NEEDS_INDEX: ReadonlySet<SectionVariant> = new Set([
   'ksef-penalties',
 ])
 
-const imagesOf = (index: CatalogIndex, slugs: readonly (string | undefined)[]) => {
+/**
+ * Pictures of a section by key: a product slug → the card's photo, a Media id (POPRAWKI-0311)
+ * → that photo (keyed by the id as text).
+ */
+async function imagesOf(
+  index: CatalogIndex,
+  tenantId: number,
+  keys: readonly (string | number | undefined)[],
+) {
   const images: Record<string, IndexImage> = {}
-  for (const product of productsBySlug(
-    index,
-    slugs.filter((s): s is string => Boolean(s)),
-  )) {
+  const slugs = keys.filter((key): key is string => typeof key === 'string' && key !== '')
+  for (const product of productsBySlug(index, slugs)) {
     if (product.image) images[product.slug] = product.image
+  }
+  const ids = keys.filter((key): key is number => typeof key === 'number')
+  for (const [id, image] of Object.entries(await getSectionImages(tenantId, ids))) {
+    images[id] = image
   }
   return images
 }
@@ -97,13 +112,13 @@ export async function BzSectionBlock({ block, tenantId, crumbs }: Props) {
   return render(block, variant, index, crumbs, tenantId)
 }
 
-function render(
+async function render(
   block: BzSectionData,
   variant: SectionVariant,
   index: CatalogIndex | null,
   crumbs: readonly Crumb[],
   tenantId: number,
-): ReactNode {
+): Promise<ReactNode> {
   switch (variant) {
     case 'stats':
       return <StatsSection block={block} />
@@ -125,12 +140,22 @@ function render(
       const data = parseSectionData('chips', block.data)
       return data && <ChipsSection block={block} data={data} />
     }
+    case 'bundles': {
+      const data = parseSectionData('bundles', block.data)
+      return (
+        data &&
+        index && <BundlesSection block={block} data={data} index={index} tenantId={tenantId} />
+      )
+    }
     case 'videos': {
       const data = parseSectionData('videos', block.data)
+      // The catalog only when the films have a poster frame.
+      const catalog = data?.poster ? (index ?? (await getCatalogIndex(tenantId))) : null
+      const [frame] = data?.poster && catalog ? productsBySlug(catalog, [data.poster]) : []
       return (
         data && (
           <SectionShell block={block}>
-            <VideoPicker data={data} />
+            <VideoPicker data={data} poster={frame?.image ?? null} />
           </SectionShell>
         )
       )
@@ -160,7 +185,13 @@ function render(
     }
     case 'gopos-hero': {
       const data = parseSectionData('gopos-hero', block.data)
-      return data && index && <GoposHero block={block} data={data} index={index} crumbs={crumbs} />
+      if (!data || !index) return null
+      const images = await imagesOf(
+        index,
+        tenantId,
+        data.stage.map((device) => device.image),
+      )
+      return <GoposHero block={block} data={data} index={index} images={images} crumbs={crumbs} />
     }
     case 'gopos-venues': {
       const data = parseSectionData('gopos-venues', block.data)
@@ -170,8 +201,9 @@ function render(
           <SectionShell block={block}>
             <GoposVenues
               data={data}
-              images={imagesOf(
+              images={await imagesOf(
                 index,
+                tenantId,
                 data.venues.map((venue) => venue.image),
               )}
             />
@@ -194,7 +226,7 @@ function render(
       return (
         data && (
           <SectionShell block={block}>
-            <GoposHub data={data} />
+            <GoposHub data={data} onDark={block.surface === 'dark'} />
           </SectionShell>
         )
       )
@@ -207,7 +239,7 @@ function render(
             block={block}
             aside={
               <span className="rounded-full bg-surface-2 px-3.5 py-2 text-[14px] font-extrabold text-ink-2">
-                bez cen — wycena na piśmie
+                bez cen · wycena na piśmie
               </span>
             }
           >
@@ -266,7 +298,7 @@ function render(
       const products = Object.fromEntries(
         productsBySlug(
           index,
-          data.areas.flatMap((area) => area.products),
+          data.areas.flatMap((area) => [...area.products, ...(area.image ? [area.image] : [])]),
         ).map((p) => [p.slug, { slug: p.slug, name: p.name, image: p.image }]),
       )
       return (
@@ -293,12 +325,17 @@ function render(
       const data = parseSectionData('start-calendar', block.data)
       return data && <StartCalendar block={block} data={data} />
     }
+    case 'care-review': {
+      const data = parseSectionData('care-review', block.data)
+      return data && <CareReview block={block} data={data} />
+    }
     case 'seats': {
       const data = parseSectionData('seats', block.data)
       return (
         data && (
           <SectionShell block={block}>
-            <Seats data={data} />
+            {/* A link to a procurement page only once it is published (plan 0611 §6.4). */}
+            <Seats data={index ? withVisibleSupplyLink(data, index) : data} />
           </SectionShell>
         )
       )

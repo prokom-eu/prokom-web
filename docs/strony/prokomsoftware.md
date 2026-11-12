@@ -11,6 +11,8 @@
 - **Pojemność:** 2–3 projekty miesięcznie. Strona ma przyciągać dopasowane zapytania, nie maksymalną liczbę.
 
 
+> **v24 „Aurora” (06.11.2026, wizualizacja finalna):** ciemne szkło i fioletowe światło, ciemny motyw domyślnie, nowe hero (7 slajdów, karuzela 3D), nowa strona główna (10 sekcji), kreator v3, makiety zamiast miniatur, powłoka i O firmie / Kontakt na elementach wspólnych, nowe strony prawne — `docs/design/prokomsoftware/v24/ZMIANY-v24.md` **wygrywa z tą specyfikacją i z v23 tam, gdzie się różnią** (kolejność: `PRZEKAZANIE-v24.md`, sesje SWA1–SWA6).
+
 > **v23 (01.11.2026, wizualizacja finalna):** kolory, dane firmy, usunięcie Zakopanego i sekcji Realizacje, O firmie, hero na telefonie, mapa i ruch — `docs/design/prokomsoftware/ZMIANY-v23.md` **wygrywa z tą specyfikacją tam, gdzie się różnią** (kolejność wprowadzania: `PRZEKAZANIE-v23.md`, decyzje kolorów: ADR-015 „Rozstrzygnięcia v23”).
 
 ## 1. Twarde zasady

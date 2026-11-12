@@ -10,7 +10,7 @@
      "Drukarka fiskalna Posnet Thermal HD",
      "Terminal PolCard"
     ],
-    "n": "GoPOS — sprzedaż, sala, raporty",
+    "n": "GoPOS: sprzedaż, sala, raporty",
     "d": "Prowadzisz sprzedaż, salę, kuchnię i dowozy w jednym systemie, a wyniki sprawdzasz w telefonie."
    },
    {
@@ -105,7 +105,7 @@
     "k": "Kuchnia",
     "s": "kds",
     "t": "Od razu na ekranie",
-    "d": "Danie pojawia się na ekranie kuchni — bez papierowych bonów."
+    "d": "Danie pojawia się na ekranie kuchni, bez papierowych bonów."
    },
    {
     "k": "Płatność",
@@ -138,7 +138,7 @@
   "steps": [
    [
     "Prezentacja u Ciebie",
-    "Pokazujemy GoPOS na sprzęcie w Twoim lokalu — z kilkoma Twoimi daniami na ekranie."
+    "Pokazujemy GoPOS na sprzęcie w Twoim lokalu, z kilkoma Twoimi daniami na ekranie."
    ],
    [
     "Konfiguracja u nas",
@@ -146,7 +146,7 @@
    ],
    [
     "Montaż i fiskalizacja",
-    "Sprzęt, drukarka fiskalna, terminal i Wi-Fi — w terminie, który nie zatrzymuje lokalu."
+    "Sprzęt, drukarka fiskalna, terminal i Wi-Fi montujemy w terminie, który nie zatrzymuje lokalu."
    ],
    [
     "Szkolenie zespołu",
@@ -160,7 +160,7 @@
   "faq": [
    {
     "q": "GoPOS to zakup czy abonament?",
-    "a": "GoPOS działa w abonamencie (umowa z GoPOS): pakiet Basic albo Pro i wybrane moduły. Sprzęt — stanowiska Sunmi, drukarkę fiskalną, terminal — kupujesz u nas, a my wdrażamy całość."
+    "a": "GoPOS działa w abonamencie (umowa z GoPOS): pakiet Basic albo Pro i wybrane moduły. Sprzęt (stanowiska Sunmi, drukarkę fiskalną, terminal) kupujesz u nas, a my wdrażamy całość."
    },
    {
     "q": "Co, jeśli padnie internet w szczycie?",
@@ -168,19 +168,19 @@
    },
    {
     "q": "Na jakim sprzęcie działa GoPOS?",
-    "a": "Na urządzeniach Sunmi z Androidem — stanowisku D3 PRO, terminalach V3 i V3 MIX, ekranie kuchni FLEX 3 — oraz na GoPOS All in One. Do tego drukarka fiskalna Posnet i terminal płatniczy. Sprzęt dobieramy do lokalu i konfigurujemy przed dostawą."
+    "a": "Na urządzeniach Sunmi z Androidem (stanowisku D3 PRO, terminalach V3 i V3 MIX, ekranie kuchni FLEX 3) oraz na GoPOS All in One. Do tego drukarka fiskalna Posnet i terminal płatniczy. Sprzęt dobieramy do lokalu i konfigurujemy przed dostawą."
    },
    {
     "q": "Czy muszę od razu brać wszystkie moduły?",
-    "a": "Nie. Na start wystarczy GoPOS — sprzedaż, sala i raporty. Kuchnię na ekranach, dowozy czy program dla stałych gości dokładasz wtedy, kiedy są potrzebne."
+    "a": "Nie. Na start wystarczy GoPOS: sprzedaż, sala i raporty. Kuchnię na ekranach, dowozy czy program dla stałych gości dokładasz wtedy, kiedy są potrzebne."
    },
    {
     "q": "Czy wystawię fakturę do KSeF?",
-    "a": "Tak — GoPOS wystawia faktury, które trafiają do KSeF. Przy wdrożeniu ustawimy uprawnienia i przetestujemy wysyłkę."
+    "a": "Tak. GoPOS wystawia faktury, które trafiają do KSeF. Przy wdrożeniu ustawimy uprawnienia i przetestujemy wysyłkę."
    },
    {
     "q": "Mam zamówienia z Pyszne.pl, Glovo, Wolt…",
-    "a": "Moduł GoHub zbiera zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt i Bolt Food w jednym systemie — bez kilku tabletów na ladzie."
+    "a": "Moduł GoHub zbiera zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt i Bolt Food w jednym systemie, bez kilku tabletów na ladzie."
    },
    {
     "q": "Czy zobaczę utarg, gdy nie ma mnie w lokalu?",
@@ -188,7 +188,7 @@
    },
    {
     "q": "Mam już inny system. Jak przejść?",
-    "a": "Przygotowujemy GoPOS równolegle: menu, stoliki, drukarki. Stary system wyłączamy dopiero wtedy, gdy nowy działa — najlepiej poza sezonem."
+    "a": "Przygotowujemy GoPOS równolegle: menu, stoliki, drukarki. Stary system wyłączamy dopiero wtedy, gdy nowy działa, najlepiej poza sezonem."
    }
   ],
   "vids": [
@@ -219,8 +219,8 @@
    }
   ],
   "hero": {
-   "h1a": "Sala, kuchnia i dowozy.",
-   "h1b": "Jeden system.",
+   "h1a": "GoPOS dla gastronomii:",
+   "h1b": "sala, kuchnia i dowozy w jednym systemie",
    "lead": "Wdrażamy GoPOS w restauracjach, kawiarniach, food truckach i hotelach. Dobieramy sprzęt, wgrywamy Twoje menu, fiskalizujemy drukarkę i szkolimy zespół w lokalu.",
    "proof": [
     {
@@ -248,26 +248,30 @@
     {
      "s": "kds",
      "k": "Kuchnia",
-     "pos": "right:0;top:19%;width:44%;height:42%",
-     "lab": "right:3%;top:57%"
+     "pos": "right:0;top:4%;width:46%;height:36%",
+     "lab": "right:4%;top:-14px",
+     "img": "kuchnia-kds.webp"
     },
     {
      "s": "d3",
      "k": "Kasa i raporty",
-     "pos": "left:13%;top:12%;width:60%;height:66%",
-     "lab": "left:47%;top:71%"
+     "pos": "left:2%;top:10%;width:50%;height:54%",
+     "lab": "left:6%;top:-6px",
+     "img": "ekran-d3.webp"
     },
     {
      "s": "v3mix",
      "k": "Sala",
-     "pos": "left:0;bottom:2%;width:30%;height:38%",
-     "lab": "left:2%;bottom:41%"
+     "pos": "left:46%;bottom:3%;width:32%;height:38%",
+     "lab": "left:4%;top:-4px",
+     "img": "sala-v3mix.webp"
     },
     {
      "s": "pol",
      "k": "Płatność",
-     "pos": "right:3%;bottom:0;width:22%;height:33%",
-     "lab": "right:27%;bottom:5%"
+     "pos": "right:2%;bottom:2%;width:15%;height:42%",
+     "lab": "right:30%;top:-14px",
+     "img": "platnosc-polcard.webp"
     }
    ],
    "stageM": [
@@ -305,8 +309,8 @@
    {
     "k": "rest",
     "t": "Restauracja",
-    "h1a": "Sala, kuchnia i dowozy.",
-    "h1b": "Jeden system.",
+    "h1a": "GoPOS dla gastronomii:",
+    "h1b": "sala, kuchnia i dowozy w jednym systemie",
     "lead": "Kelner przyjmuje zamówienie przy stoliku, kuchnia widzi je na ekranie, a rachunek zamykasz kartą przy gościu. Dobieramy sprzęt, wgrywamy Twoje menu i szkolimy zespół w lokalu.",
     "leadM": "Zamówienie przy stoliku, kuchnia na ekranie, płatność kartą przy gościu.",
     "mods": [
@@ -328,8 +332,8 @@
    {
     "k": "kaw",
     "t": "Kawiarnia",
-    "h1a": "Lada, kolejka i zamówienia online.",
-    "h1b": "Jeden system.",
+    "h1a": "Lada, kolejka i zamówienia online",
+    "h1b": "w jednym systemie",
     "lead": "Szybka sprzedaż przy ladzie na dużym ekranie, zamówienia z własnego sklepu online i program dla stałych gości. Wszystko w jednym systemie, z drukarką fiskalną i terminalem.",
     "leadM": "Sprzedaż przy ladzie, zamówienia online i program dla stałych gości.",
     "mods": [
@@ -351,9 +355,9 @@
    {
     "k": "dow",
     "t": "Pizzeria i dowozy",
-    "h1a": "Telefon, aplikacje i kierowcy.",
-    "h1b": "Jedna kolejka zamówień.",
-    "lead": "Zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt, Bolt Food i z własnego sklepu trafiają do jednej kolejki — na kasę i ekran kuchni. Bez kilku tabletów na ladzie.",
+    "h1a": "Telefon, aplikacje i kierowcy",
+    "h1b": "w jednej kolejce zamówień",
+    "lead": "Zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt, Bolt Food i z własnego sklepu trafiają do jednej kolejki: na kasę i ekran kuchni. Bez kilku tabletów na ladzie.",
     "leadM": "Zamówienia z aplikacji dostaw i własnego sklepu w jednej kolejce.",
     "mods": [
      "gohub",
@@ -374,9 +378,9 @@
    {
     "k": "ft",
     "t": "Food truck i sezon",
-    "h1a": "Sprzedaż, paragon i karta.",
-    "h1b": "Z jednego urządzenia.",
-    "lead": "GoPOS All in One łączy system sprzedaży, wirtualną kasę fiskalną i terminal płatniczy w jednym urządzeniu — tam, gdzie liczy się miejsce i szybki start sezonu.",
+    "h1a": "Sprzedaż, paragon i karta",
+    "h1b": "z jednego urządzenia",
+    "lead": "GoPOS All in One łączy system sprzedaży, wirtualną kasę fiskalną i terminal płatniczy w jednym urządzeniu. Sprawdza się tam, gdzie liczy się miejsce i szybki start sezonu.",
     "leadM": "System sprzedaży, kasa fiskalna i terminal w jednym urządzeniu.",
     "mods": [
      "numerki"
@@ -582,7 +586,7 @@
     ]
    }
   ],
-  "areasSrc": "Moduły według gopos.pl · stan na 26.10.2026. Część modułów działa w wybranych pakietach — dobierzemy je do lokalu.",
+  "areasSrc": "Moduły według gopos.pl · stan na 26.10.2026. Część modułów działa w wybranych pakietach, dobierzemy je do lokalu.",
   "hub": {
    "plat": [
     "Uber Eats",
@@ -609,7 +613,7 @@
    "src": "Integracje według gopos.pl/gohub · stan na 26.10.2026"
   },
   "ksef": [
-   "Faktury sprzedażowe, zaliczkowe i korekty — z terminala POS i z aplikacji webowej",
+   "Faktury sprzedażowe, zaliczkowe i korekty z terminala POS i z aplikacji webowej",
    "Po wpisaniu NIP dane firmy pobierają się z bazy GUS",
    "Podgląd statusu wysyłki każdej faktury",
    "Wysyłka do KSeF automatyczna albo ręczna"
@@ -696,7 +700,7 @@
     "Drukarki bonowe i własne szablony wydruku",
     "Faktury do rachunków, proformy, zaliczkowe i korygujące",
     "Wiele walut",
-    "Live Orders — zamówienia na żywo",
+    "Live Orders: zamówienia na żywo",
     "Zewnętrzni kurierzy",
     "GoPOS Now i raporty",
     "Rejestracja czasu pracy i logi pracowników",
@@ -866,7 +870,7 @@
     "Płatności",
     [
      "Terminale płatnicze",
-     "SoftPOS — płatność telefonem",
+     "SoftPOS: płatność telefonem",
      "Płatności GoPOS"
     ]
    ],
@@ -899,13 +903,13 @@
     ]
    ]
   ],
-  "integSrc": "Według gopos.pl · stan na 26.10.2026. GoPOS podaje ponad 30 integracji — dobierzemy te, których potrzebuje Twój lokal.",
+  "integSrc": "Według gopos.pl · stan na 26.10.2026. GoPOS podaje ponad 30 integracji, a my dobierzemy te, których potrzebuje Twój lokal.",
   "segImg": {
-   "rest": "d3",
-   "kaw": "v3mix",
-   "dow": "kds",
-   "ft": "v3",
-   "hot": "d3"
+   "rest": "zestaw-restauracja.webp",
+   "kaw": "kasa-d3.webp",
+   "dow": "ekosystem.webp",
+   "ft": "reczny-v3.webp",
+   "hot": "aio-stand.webp"
   }
  },
  "insert": {
@@ -994,26 +998,26 @@
      "web"
     ],
     "s": "s123",
-    "why": "Faktury i KSeF z przeglądarki — logujesz się z dowolnego komputera, nic nie instalujesz. Dobre dla małej firmy usługowej i handlowej."
+    "why": "Faktury i KSeF z przeglądarki: logujesz się z dowolnego komputera, nic nie instalujesz. Dobre dla małej firmy usługowej i handlowej."
    },
    {
     "when": [
      "multi"
     ],
     "s": "nexo",
-    "why": "Kilka magazynów, oddziały i uprawnienia pracowników — to zadanie dla linii nexo (w wersji PRO dla większych firm)."
+    "why": "Kilka magazynów, oddziały i uprawnienia pracowników to zadanie dla linii nexo (w wersji PRO dla większych firm)."
    },
    {
     "when": [
      "gt"
     ],
     "s": "gt",
-    "why": "Jeśli GT działa i znasz go — możesz zostać. GT obsługuje KSeF, a licencja obejmuje 3 stanowiska."
+    "why": "Jeśli GT działa i znasz go, możesz zostać. GT obsługuje KSeF, a licencja obejmuje 3 stanowiska."
    },
    {
     "when": [],
     "s": "nexo",
-    "why": "Nową firmę stawiamy od razu na nexo — nowoczesny program z KSeF, który rośnie razem z firmą."
+    "why": "Nową firmę stawiamy od razu na nexo: program z KSeF, wieloma magazynami i sklepem internetowym, który rośnie razem z firmą."
    }
   ],
   "cmpH": [
@@ -1043,13 +1047,13 @@
     "v": [
      "moduł magazyn",
      "sprzedaż i magazyn, 10 poziomów cen",
-     "wiele magazynów; PRO — oddziały i uprawnienia"
+     "wiele magazynów; PRO: oddziały i uprawnienia"
     ]
    },
    {
     "k": "KSeF",
     "v": [
-     "tak — bez InsPunktów",
+     "tak, bez InsPunktów",
      "tak",
      "tak"
     ]
@@ -1059,7 +1063,7 @@
     "v": [
      "mała firma usługowa lub handlowa",
      "firmy, które znają GT i chcą przy nim zostać",
-     "sklep, hurtownia, warsztat — firma, która rośnie"
+     "sklep, hurtownia, warsztat: firma, która rośnie"
     ]
    }
   ],
@@ -1097,7 +1101,7 @@
     "g": "Biura rachunkowe"
    }
   ],
-  "ksefLead": "KSeF obowiązuje już większość firm. Najmniejsi i faktury z kas mają czas do końca 2026 roku. Program InsERT jest gotowy — trzeba jeszcze przygotować firmę.",
+  "ksefLead": "KSeF obowiązuje już większość firm. Najmniejsi i faktury z kas mają czas do końca 2026 roku. Program InsERT jest gotowy, trzeba jeszcze przygotować firmę.",
   "kt": [
    {
     "d": "1 lutego 2026",
@@ -1119,7 +1123,7 @@
   "chk": [
    [
     "Uwierzytelnienie firmy",
-    "profil zaufany, podpis lub pieczęć — dobierzemy"
+    "profil zaufany, podpis lub pieczęć: dobierzemy"
    ],
    [
     "Uprawnienia dla księgowej",
@@ -1146,7 +1150,7 @@
    {
     "ic": "M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z",
     "t": "Instalacja i konfiguracja",
-    "d": "Program, stanowiska, użytkownicy i uprawnienia — gotowe do pracy pierwszego dnia."
+    "d": "Program, stanowiska, użytkownicy i uprawnienia gotowe do pracy pierwszego dnia."
    },
    {
     "ic": "M4 7h16 M4 12h10 M4 17h7 M17 14l3 3-3 3",
@@ -1166,7 +1170,7 @@
    {
     "ic": "M4 4v6h6 M20 20v-6h-6 M5 15a8 8 0 0014 3 M19 9A8 8 0 005 6",
     "t": "Aktualizacje i odnowienia",
-    "d": "Pilnujemy terminów pakietów aktualizacji — zmiany przepisów nie zaskoczą programu."
+    "d": "Pilnujemy terminów pakietów aktualizacji, więc zmiany przepisów nie zaskoczą programu."
    },
    {
     "ic": "M4 5h16v11H4z M8 20h8 M12 16v4",
@@ -1176,12 +1180,12 @@
   ],
   "faq": [
    {
-    "q": "Subiekt GT czy nexo — co wybrać?",
-    "a": "Jeśli pracujesz na GT i wszystko działa — możesz zostać, GT obsługuje KSeF. Nową firmę albo firmę, która rośnie (więcej magazynów, stanowisk, integracji), stawiamy od razu na nexo."
+    "q": "Subiekt GT czy nexo: co wybrać?",
+    "a": "Jeśli pracujesz na GT i wszystko działa, możesz zostać. GT obsługuje KSeF. Nową firmę albo firmę, która rośnie (więcej magazynów, stanowisk, integracji), stawiamy od razu na nexo."
    },
    {
     "q": "Czy mogę przetestować program przed zakupem?",
-    "a": "Tak. Programy stacjonarne InsERT mają 45-dniową wersję testową z pełną funkcjonalnością, a Subiekt 123 — miesiąc bezpłatnego testu. Pomożemy zainstalować wersję testową i wgrać kilka Twoich towarów."
+    "a": "Tak. Programy stacjonarne InsERT mają 45-dniową wersję testową z pełną funkcjonalnością, a Subiekt 123 miesiąc bezpłatnego testu. Pomożemy zainstalować wersję testową i wgrać kilka Twoich towarów."
    },
    {
     "q": "Jaki komputer jest potrzebny do Subiekta nexo?",
@@ -1189,7 +1193,7 @@
    },
    {
     "q": "Czy przeniesiecie dane z mojego obecnego programu?",
-    "a": "Tak — kartoteki towarów i kontrahentów przenosimy z innego programu albo z Excela. Zakres ustalamy przed wdrożeniem."
+    "a": "Tak. Kartoteki towarów i kontrahentów przenosimy z innego programu albo z Excela. Zakres ustalamy przed wdrożeniem."
    },
    {
     "q": "Czy Subiekt będzie współpracował z moją drukarką fiskalną?",
@@ -1201,7 +1205,7 @@
    },
    {
     "q": "Pracuję z biurem rachunkowym. Czy to ma znaczenie?",
-    "a": "Tak — ustawimy program tak, żeby biuro dostawało dane w wygodnej formie, i nadamy księgowej uprawnienia w KSeF."
+    "a": "Tak. Ustawimy program tak, żeby biuro dostawało dane w wygodnej formie, i nadamy księgowej uprawnienia w KSeF."
    }
   ],
   "vids": [
@@ -1280,7 +1284,7 @@
    "notes": [
     [
      "Subiekt 123",
-     "kupiony przez firmę nie korzysta z InsPunktów — KSeF działa w nim w ramach limitu dokumentów licencji."
+     "kupiony przez firmę nie korzysta z InsPunktów. KSeF działa w nim w ramach limitu dokumentów licencji."
     ],
     [
      "Biuro rachunkowe",
@@ -1303,7 +1307,7 @@
      "rachmistrz"
     ],
     "h": "Dla sklepu",
-    "d": "Subiekt nexo z drukarką fiskalną i skanerem kodów, a księga przychodów w Rachmistrzu — albo dane prosto do biura rachunkowego."
+    "d": "Subiekt nexo z drukarką fiskalną i skanerem kodów, a księga przychodów w Rachmistrzu albo dane prosto do biura rachunkowego."
    },
    {
     "k": "hurt",
@@ -1324,7 +1328,7 @@
      "nexo"
     ],
     "h": "Dla usług i warsztatu",
-    "d": "Mała firma usługowa wystawia faktury i wysyła je do KSeF z przeglądarki w Subiekcie 123. Warsztat z magazynem części — Subiekt nexo."
+    "d": "Mała firma usługowa wystawia faktury i wysyła je do KSeF z przeglądarki w Subiekcie 123. Warsztat z magazynem części pracuje w Subiekcie nexo."
    },
    {
     "k": "biuro",
@@ -1425,7 +1429,7 @@
     "aplikacja mobilna InsERT"
    ],
    [
-    "POS — interfejs dotykowy",
+    "POS: interfejs dotykowy",
     "sprzedaż na ekranie dotykowym"
    ],
    [
@@ -1637,7 +1641,7 @@
       null
      ],
      [
-      "POS — interfejs dotykowy",
+      "POS: interfejs dotykowy",
       "moduł",
       "sprzedaż na ekranie dotykowym",
       null
@@ -1676,7 +1680,7 @@
    ],
    [
     "InsERT nexo",
-    "nowoczesna linia",
+    "linia z KSeF i sklepem internetowym",
     [
      "małe i średnie firmy",
      "wiele programów w jednym oknie",
@@ -1712,23 +1716,23 @@
    ],
    [
     "Gdy Portfel wygaśnie",
-    "Przez miesiąc trwa karencja — zakup abonamentu przywraca Portfel ze wszystkimi punktami. Po karencji niewykorzystane punkty przepadają."
+    "Przez miesiąc trwa karencja: zakup abonamentu przywraca Portfel ze wszystkimi punktami. Po karencji niewykorzystane punkty przepadają."
    ],
    [
     "Punkty na start",
     "Bezpłatne InsPunkty są w abonamencie Subiekta, Rachmistrza i Rewizora; 25 punktów dostajesz za aktywację Portfela przez Portal Dokumentów lub Sello NX."
    ]
   ],
-  "portfelSrc": "Źródło: insert.com.pl — „Portfel InsERT i InsPunkty” · stan na 26.10.2026"
+  "portfelSrc": "Źródło: insert.com.pl, „Portfel InsERT i InsPunkty” · stan na 26.10.2026"
  },
  "opieka_it": {
   "h1a": "Opieka IT dla firm.",
   "h1b": "Od komputera po kasę.",
-  "lead": "Komputery, serwer, sieć, kopie, poczta, kasy i POS pod jedną opieką z Rabki-Zdroju. Zakres i czas reakcji zapisujemy w umowie, pomagamy zdalnie i na miejscu — na Podhalu i w Małopolsce.",
+  "lead": "Komputery, serwer, sieć, kopie, poczta, kasy i POS pod jedną opieką z Rabki-Zdroju. Zakres i czas reakcji ustalamy w umowie, pomagamy zdalnie i na miejscu na Podhalu i w Małopolsce.",
   "chips": [
    "Pomoc zdalna i na miejscu",
    "Komputery, sieć i kasy w jednym zgłoszeniu",
-   "Zakres zapisany w umowie",
+   "Zakres ustalony w umowie",
    "Dokumentacja należy do Ciebie"
   ],
   "areas": [
@@ -1741,7 +1745,7 @@
      "Konfiguracja nowych komputerów i przeniesienie danych",
      "Aktualizacje Windows i programów",
      "Konta użytkowników i uprawnienia",
-     "Diagnoza i naprawa — zdalnie albo na miejscu"
+     "Diagnoza i naprawa zdalnie albo na miejscu"
     ],
     "p": [
      "lenovo-thinkcentre-neo-50s-55s",
@@ -1756,7 +1760,7 @@
     "img": "synology-diskstation-plus-2-4",
     "co": [
      "Serwer plików albo NAS dla zespołu",
-     "Uprawnienia do folderów — każdy widzi to, co powinien",
+     "Uprawnienia do folderów: każdy widzi to, co powinien",
      "UPS, który chroni serwer przy zaniku prądu",
      "Plan wymiany sprzętu przed końcem gwarancji"
     ],
@@ -1773,7 +1777,7 @@
     "img": "synology-diskstation-value-j",
     "co": [
      "Kopie według zasady 3-2-1: trzy kopie, dwa nośniki, jedna poza firmą",
-     "Test odtworzenia — nie tylko komunikat „kopia wykonana”",
+     "Test odtworzenia, nie tylko komunikat „kopia wykonana”",
      "Kopie poczty i plików z Microsoft 365",
      "Plan na dzień, w którym dysk odmówi posłuszeństwa"
     ],
@@ -1807,7 +1811,7 @@
      "Wi-Fi dla zespołu i osobna sieć dla gości",
      "Kasa i terminal w swojej, stabilnej części sieci",
      "VPN do biura dla pracy zdalnej",
-     "Ubiquiti UniFi albo TP-Link Omada — zarządzane z jednego panelu"
+     "Ubiquiti UniFi albo TP-Link Omada zarządzane z jednego panelu"
     ],
     "p": [
      "u7",
@@ -1840,7 +1844,7 @@
      "Kasy i drukarki fiskalne Posnet i Elzab",
      "Systemy POS, GoPOS i terminale płatnicze",
      "Programy InsERT i KSeF",
-     "Jedno zgłoszenie — także gdy problem jest na styku kasy i komputera"
+     "Jedno zgłoszenie, także gdy problem jest na styku kasy i komputera"
     ],
     "p": [
      "srvkas",
@@ -1857,7 +1861,7 @@
      "Spis sprzętu, programów i licencji",
      "Kto ma dostęp do czego",
      "Terminy licencji, gwarancji, przeglądów kas i podpisu kwalifikowanego",
-     "Dokumentację przekazujemy firmie — jest Twoja"
+     "Dokumentację przekazujemy firmie, jest Twoja"
     ],
     "p": [
      "euro",
@@ -1872,11 +1876,11 @@
    ],
    [
     "Porządki na start",
-    "Kopie, aktualizacje, antywirus, dostępy i dokumentacja — doprowadzamy do stanu, który da się utrzymać."
+    "Kopie, aktualizacje, antywirus, dostępy i dokumentację doprowadzamy do stanu, który da się utrzymać."
    ],
    [
     "Bieżąca opieka",
-    "Zgłoszenia telefonem albo mailem. Pomagamy zdalnie, a gdy trzeba — przyjeżdżamy."
+    "Zgłoszenia telefonem albo mailem. Pomagamy zdalnie, a gdy trzeba, przyjeżdżamy."
    ],
    [
     "Planowanie z wyprzedzeniem",
@@ -1960,15 +1964,15 @@
   "faq": [
    {
     "q": "Co obejmuje opieka IT?",
-    "a": "Zakres ustalamy po rozmowie i spisie sprzętu: komputery, serwer, sieć, kopie, poczta, kasy i programy. Zapisujemy go w umowie razem z czasem reakcji. To, co wykracza poza zakres, wyceniamy przed wykonaniem."
+    "a": "Zakres ustalamy po rozmowie i spisie sprzętu: komputery, serwer, sieć, kopie, poczta, kasy i programy. Ustalamy go w umowie razem z czasem reakcji. To, co wykracza poza zakres, wyceniamy przed wykonaniem."
    },
    {
     "q": "Jak zgłaszam problem?",
-    "a": "Telefonicznie pod numerem 889 003 889 albo mailem na biznes@pro-kom.eu, pn–pt 9:00–17:00. Rozmawiasz z zespołem, który zna Twoją firmę i jej sprzęt."
+    "a": "Telefonicznie pod numerem 889 003 889 albo mailem na kontakt@prokombiznes.pl, pn–pt 9:00–17:00. Rozmawiasz z zespołem, który zna Twoją firmę i jej sprzęt."
    },
    {
     "q": "Pomagacie zdalnie czy przyjeżdżacie?",
-    "a": "Jedno i drugie. Większość spraw rozwiązujemy zdalnie, za Twoją zgodą. Gdy trzeba wymienić sprzęt albo coś sprawdzić na miejscu, przyjeżdżamy z Rabki-Zdroju — na Podhale i do Małopolski."
+    "a": "Jedno i drugie. Większość spraw rozwiązujemy zdalnie, za Twoją zgodą. Gdy trzeba wymienić sprzęt albo coś sprawdzić na miejscu, przyjeżdżamy z Rabki-Zdroju na Podhale i do Małopolski."
    },
    {
     "q": "Mam już informatyka albo inną firmę. Jak wygląda przejęcie?",
@@ -1976,11 +1980,11 @@
    },
    {
     "q": "Czy zajmujecie się też kasami i programami?",
-    "a": "Tak — kasy i drukarki fiskalne, POS, terminale, programy InsERT i GoPOS. Nie musisz szukać osobnej firmy do kasy i osobnej do komputerów."
+    "a": "Tak: kasy i drukarki fiskalne, POS, terminale, programy InsERT i GoPOS. Nie musisz szukać osobnej firmy do kasy i osobnej do komputerów."
    },
    {
     "q": "Czy kopie są sprawdzane?",
-    "a": "Tak. W opiece planujemy test odtworzenia — kopia, której nikt nie odtworzył, nie daje pewności, że dane wrócą."
+    "a": "Tak. W opiece planujemy test odtworzenia. Kopia, której nikt nie odtworzył, nie daje pewności, że dane wrócą."
    },
    {
     "q": "Czy pomożecie przy KSeF?",
@@ -1988,14 +1992,14 @@
    },
    {
     "q": "Ile kosztuje opieka IT?",
-    "a": "Wycenę przygotowujemy od zakresu: liczby stanowisk, serwera, sieci i kas. Dostajesz ją na piśmie po rozmowie."
+    "a": "Wycenę przygotowujemy od zakresu: liczby stanowisk, serwera, sieci i kas. Przygotowujemy ją po rozmowie."
    }
   ]
  },
  "automaty_vendingowe": {
   "pill": "Automaty vendingowe · jako partner Optivendi",
-  "h1a": "Sprzedaż, która działa całą dobę.",
-  "h1b": "Bez obsługi.",
+  "h1a": "Automaty vendingowe dla firm.",
+  "h1b": "Sprzedaż przez całą dobę.",
   "lead": "Pieczywo o świcie, obiad na zmianie, pizza w nocy, klucz do pokoju po północy. Dobieramy automat do Twojego produktu i miejsca, a Optivendi dostarcza maszynę z polskim oprogramowaniem i serwisem.",
   "hero": [
    "/_blob/8bc594a86271d80dbfc1a831bd54b647",
@@ -2039,7 +2043,7 @@
    {
     "t": "Świeża żywność",
     "img": "/_blob/bd9f2fb3aa4f7481599368e618d3a20f",
-    "d": "Sałatki, kanapki, nabiał, owoce — w chłodzonych automatach z windą i mikromarketach, które mieszczą od kilkuset do ponad tysiąca produktów.",
+    "d": "Sałatki, kanapki, nabiał i owoce w chłodzonych automatach z windą i mikromarketach, które mieszczą od kilkuset do ponad tysiąca produktów.",
     "p": [
      "optivendi-winda-2026",
      "optivendi-micromarket",
@@ -2050,7 +2054,7 @@
    {
     "t": "Pieczywo i ciasta",
     "img": "/_blob/52dfdef91f925ffd3e740368907cdcdd",
-    "d": "Piekarnia i cukiernia sprzedają także przed otwarciem i po zamknięciu — pieczywo w skrytkach, torty w chłodzonych witrynach.",
+    "d": "Piekarnia i cukiernia sprzedają także przed otwarciem i po zamknięciu: pieczywo w skrytkach, torty w chłodzonych witrynach.",
     "p": [
      "optivendi-chlebomat",
      "optivendi-tortomat",
@@ -2078,7 +2082,7 @@
    {
     "t": "Mrożonki",
     "img": "/_blob/b0d4117ed848a9088004184694d5eb12",
-    "d": "Lody, pierogi, mięso, owoce morza — w stałej temperaturze −18 °C, z odbiorem na wysokości pasa.",
+    "d": "Lody, pierogi, mięso i owoce morza w stałej temperaturze −18 °C, z odbiorem na wysokości pasa.",
     "p": [
      "optivendi-mrozonki"
     ]
@@ -2104,7 +2108,7 @@
    ],
    [
     "Konfiguracja",
-    "Płatności, temperatura, oklejenie w Twoich barwach, ekran i oferta — Optivendi przygotowuje maszynę pod Ciebie."
+    "Płatności, temperatura, oklejenie w Twoich barwach, ekran i oferta: Optivendi przygotowuje maszynę pod Ciebie."
    ],
    [
     "Dostawa i uruchomienie",
@@ -2177,7 +2181,7 @@
     "/_blob/8bc594a86271d80dbfc1a831bd54b647"
    ]
   ],
-  "ref": "Według Optivendi ich automaty pracują m.in. w piekarniach Kastelik, Byrdziak i Petra, w Piernikowej Chacie w Ustroniu, u Zakręconych Słoików, a obiadomaty — na wybranych stacjach paliw Grosar.",
+  "ref": "Według Optivendi ich automaty pracują m.in. w piekarniach Kastelik, Byrdziak i Petra, w Piernikowej Chacie w Ustroniu, u Zakręconych Słoików, a obiadomaty na wybranych stacjach paliw Grosar.",
   "refSrc": "Źródło: optivendi.pl/strona/o-firmie · stan na 26.10.2026",
   "grp": [
    [
@@ -2200,15 +2204,15 @@
    },
    {
     "q": "Kto uzupełnia towar?",
-    "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+    "a": "Ty albo Twój dostawca. Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
    },
    {
     "q": "Czy automat może stać na zewnątrz?",
-    "a": "Większość maszyn jest przeznaczona do wnętrz (przedsionek sklepu, hol, korytarz). Na zewnątrz — tylko w pełnej obudowie ochronnej; wyjątkiem jest Pelletomat, zbudowany do pracy na zewnątrz. Miejsce zawsze oglądamy przed ofertą."
+    "a": "Większość maszyn jest przeznaczona do wnętrz (przedsionek sklepu, hol, korytarz). Na zewnątrz tylko w pełnej obudowie ochronnej; wyjątkiem jest Pelletomat, zbudowany do pracy na zewnątrz. Miejsce zawsze oglądamy przed ofertą."
    },
    {
     "q": "Jak płacą klienci?",
-    "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+    "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić, np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
    },
    {
     "q": "A paragon fiskalny?",
@@ -2216,11 +2220,11 @@
    },
    {
     "q": "Jak wygląda serwis?",
-    "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+    "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy także pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
    },
    {
     "q": "Ile trwa dostawa?",
-    "a": "Optivendi podaje, że ma w magazynie ok. 100 automatów, a część jest dostępna od ręki. Termin dla konkretnej konfiguracji potwierdzamy przy ofercie."
+    "a": "Optivendi podaje, że ma w magazynie ok. 100 automatów, a część jest dostępna od razu. Termin dla konkretnej konfiguracji potwierdzamy przy ofercie."
    }
   ],
   "src": [
@@ -2247,10 +2251,9 @@
   "nip": "7352511447",
   "tel": "889 003 889",
   "telHref": "tel:+48889003889",
-  "tel2": "18 267 65 11",
-  "tel2Href": "tel:+48182676511",
-  "wa": "https://wa.me/48889003889",
-  "mail": "biznes@pro-kom.eu",
+  "tel2": "883 200 151",
+  "tel2Href": "tel:+48883200151",
+  "mail": "kontakt@prokombiznes.pl",
   "godz": "pn–pt 9:00–17:00",
   "maps": "https://www.google.com/maps/search/?api=1&query=PRO-KOM+ul.+Orkana+16B+Rabka-Zdr%C3%B3j",
   "rabka": [
@@ -2356,7 +2359,7 @@
    [
     "M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2",
     "Jeden telefon do wszystkiego",
-    "Kasa, komputer, sieć, program, podpis — ten sam numer i ludzie, którzy znają Twoją firmę."
+    "Kasa, komputer, sieć, program, podpis: ten sam numer i ludzie, którzy znają Twoją firmę."
    ],
    [
     "M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z M12 12a2 2 0 100-4 2 2 0 000 4z",
@@ -2366,7 +2369,7 @@
    [
     "M12 7v5l3 2 M12 21a9 9 0 100-18 9 9 0 000 18z",
     "Uczciwe terminy",
-    "Czas reakcji w godzinach roboczych zapisujemy w umowie. Nie obiecujemy terminów, których nie da się dotrzymać."
+    "Czas reakcji w godzinach roboczych ustalamy w umowie. Nie obiecujemy terminów, których nie da się dotrzymać."
    ],
    [
     "M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6",
@@ -2386,7 +2389,7 @@
    [
     "M3 7l9-4 9 4-9 4-9-4z M7 9v5c0 1.7 2.2 3 5 3s5-1.3 5-3V9",
     "Szkolimy, nie tylko instalujemy",
-    "Zespół umie obsłużyć kasę, program i serwer, zanim wyjedziemy. Nowy pracownik — doszkolimy."
+    "Zespół umie obsłużyć kasę, program i serwer, zanim wyjedziemy. Nowego pracownika doszkolimy."
    ]
   ],
   "linie": [
@@ -2407,7 +2410,7 @@
    [
     "Software",
     "Strony, panele i aplikacje na zamówienie",
-    "Strony firmowe, panele klienta i integracje — także ta strona powstała u nas.",
+    "Strony firmowe, panele klienta i integracje. Ta strona też powstała u nas.",
     "prokomsoftware.pl",
     false
    ],
@@ -2464,21 +2467,21 @@
    [
     "M12 9v4 M12 17h.01 M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z",
     "Awaria kasy lub komputera",
-    "Zadzwoń na 889 003 889. Najpierw próbujemy zdalnie, a jeśli trzeba — serwisant jedzie z Rabki.",
+    "Zadzwoń na 889 003 889. Najpierw próbujemy zdalnie, a jeśli trzeba, serwisant jedzie z Rabki.",
     "Zadzwoń teraz",
     "tel"
    ],
    [
     "M3 21h18 M5 21V8l7-5 7 5v13 M9 21v-6h6v6",
     "Nowa firma, nowy lokal",
-    "Kasa, terminal, program, komputery i sieć — z fiskalizacją i szkoleniem. Opisz firmę, przygotujemy zestaw.",
+    "Kasa, terminal, program, komputery i sieć z fiskalizacją i szkoleniem. Opisz firmę, przygotujemy zestaw.",
     "Dobierz zestaw",
     "kreator"
    ],
    [
     "M8 3v3 M16 3v3 M4 8h16 M5 5h14v16H5z M9 13l2 2 4-4",
     "Przegląd kasy fiskalnej",
-    "Obowiązkowy co najmniej raz na 2 lata. Podaj numer unikatowy kasy albo nazwę firmy — sprawdzimy termin i umówimy serwisanta.",
+    "Obowiązkowy co najmniej raz na 2 lata. Podaj numer unikatowy kasy albo nazwę firmy, a sprawdzimy termin i umówimy serwisanta.",
     "Umów przegląd",
     "form"
    ]
@@ -2491,24 +2494,24 @@
    "KSeF",
    "Opieka IT / komputery",
    "Sieć i kopie danych",
-   "Nie wiem — doradźcie"
+   "Nie wiem, doradźcie"
   ],
   "faq": [
    {
     "q": "Dojeżdżacie do mnie?",
-    "a": "Tak — na całe Podhale i Małopolskę: Nowy Targ, Zakopane, Limanowa, Mszana Dolna, Myślenice, Nowy Sącz, Kraków. Dalej też, po ustaleniu."
+    "a": "Tak, na całe Podhale i Małopolskę: Nowy Targ, Zakopane, Limanowa, Mszana Dolna, Myślenice, Nowy Sącz, Kraków. Dalej też, po ustaleniu."
    },
    {
     "q": "Czy mogę przyjechać z kasą do serwisu?",
-    "a": "Tak, ul. Orkana 16B w Rabce-Zdroju, pn–pt 9:00–17:00. Warto zadzwonić wcześniej — przygotujemy części i papier do kasy."
+    "a": "Tak, ul. Orkana 16B w Rabce-Zdroju, pn–pt 9:00–17:00. Warto zadzwonić wcześniej, przygotujemy części i papier do kasy."
    },
    {
     "q": "Jak szybko odpowiadacie?",
-    "a": "Oddzwaniamy w ciągu 60 minut w godzinach pracy (pn–pt 9:00–17:00). Klienci z umową opieki IT mają dodatkowo czas reakcji zapisany w umowie."
+    "a": "Oddzwaniamy w ciągu 60 minut w godzinach pracy (pn–pt 9:00–17:00). Klienci z umową opieki IT mają dodatkowo czas reakcji ustalony w umowie."
    },
    {
     "q": "Czy dostanę wycenę bez wizyty?",
-    "a": "Tak. Opisz firmę w formularzu albo zadzwoń — większość wycen przygotowujemy zdalnie, na piśmie."
+    "a": "Tak. Opisz firmę w formularzu albo zadzwoń. Większość wycen przygotowujemy zdalnie."
    }
   ]
  },
@@ -2516,7 +2519,7 @@
   "opieka": {
    "h1a": "Informatyk, który zna Twoją firmę.",
    "h1b": "W stałej opiece.",
-   "lead": "Komputery, serwer, sieć, kopie, poczta, kasy i POS — pod jedną opieką, z zakresem i czasem reakcji zapisanym w umowie. Pomoc zdalna i serwisant z Rabki.",
+   "lead": "Komputery, serwer, sieć, kopie, poczta, kasy i POS — pod jedną opieką, z zakresem i czasem reakcji ustalonym w umowie. Pomoc zdalna i serwisant z Rabki.",
    "chips": [
     "Czas reakcji w umowie",
     "Jeden opiekun",
@@ -2530,7 +2533,7 @@
     ],
     [
      "Umowa dopasowana do firmy",
-     "Od jednego stanowiska po kilka lokalizacji z serwerem. Zakres i czas reakcji zapisane w umowie."
+     "Od jednego stanowiska po kilka lokalizacji z serwerem. Zakres i czas reakcji ustalone w umowie."
     ],
     [
      "Przejęcie bez przestoju",
@@ -2607,7 +2610,7 @@
    ],
    "przeglad": [
     "Komputery, kasa, sieć i dane — sprawdzone w całości",
-    "Raport na piśmie: co pilne, co może poczekać",
+    "Raport: co pilne, co może poczekać",
     "Mówimy też, czego nie musisz kupować"
    ],
    "faq": [
@@ -2617,7 +2620,7 @@
     },
     {
      "q": "Reakcja to naprawa?",
-     "a": "Nie — reakcja to kontakt i rozpoczęcie działania w godzinach pracy. Czas reakcji zapisujemy w umowie; czas naprawy zależy od usterki i części."
+     "a": "Nie — reakcja to kontakt i rozpoczęcie działania w godzinach pracy. Czas reakcji ustalamy w umowie; czas naprawy zależy od usterki i części."
     },
     {
      "q": "Mam już informatyka. Jak wygląda przejęcie?",
@@ -2821,7 +2824,7 @@
  "wyszukiwarka": {
   "strony": [
    {
-    "n": "GoPOS — system dla gastronomii",
+    "n": "GoPOS: system dla gastronomii",
     "d": "Autoryzowany partner · wdrożenie i serwis",
     "go": {
      "w": "gopos"
@@ -2829,7 +2832,7 @@
     "kw": "gopos gastronomia restauracja kawiarnia bar pos kds dowozy pizzeria"
    },
    {
-    "n": "InsERT — Subiekt i programy",
+    "n": "InsERT: Subiekt i programy",
     "d": "Autoryzowany partner · KSeF i wdrożenia",
     "go": {
      "w": "insert"
@@ -2853,7 +2856,7 @@
     "kw": "automat vending chlebomat pizzomat obiadomat kawomat lodomat boxomat skrytki"
    },
    {
-    "n": "Konfigurator — dobierz rozwiązanie",
+    "n": "Konfigurator: dobierz rozwiązanie",
     "d": "3 pytania · rekomendacje dla Twojej firmy",
     "go": {
      "w": "kreator"
@@ -2902,14 +2905,14 @@
    },
    {
     "n": "Awaria? Zadzwoń: 889 003 889",
-    "d": "Kasa, komputer, drukarka, sieć — 889 003 889",
+    "d": "Kasa, komputer, drukarka, sieć: 889 003 889",
     "go": {
      "w": "kontakt"
     },
     "kw": "awaria naprawa serwis nie dziala zepsula zglos"
    },
    {
-    "n": "KSeF — koniec wyjątków 1 stycznia 2027",
+    "n": "KSeF: koniec wyjątków 1 stycznia 2027",
     "d": "Kogo dotyczy, terminy, kary i 6 kroków",
     "go": {
      "w": "ksef"
@@ -2917,7 +2920,7 @@
     "kw": "ksef e-faktura krajowy system e-faktur 2027 kary certyfikat"
    },
    {
-    "n": "Ulga na kasę fiskalną — do 700 zł",
+    "n": "Ulga na kasę fiskalną: do 700 zł",
     "d": "Kto może skorzystać, warunki, kiedy trzeba oddać",
     "go": {
      "w": "ulga"
@@ -2971,5 +2974,1832 @@
    "drukarka etykiet",
    "waga"
   ]
+ },
+ "zaopatrzenie": {
+  "agd": {
+   "variant": "agd",
+   "seo": {
+    "title": "AGD i RTV dla firm, deweloperów i hoteli"
+   },
+   "hero": {
+    "title": "AGD i RTV dla firm",
+    "crumb": "AGD i RTV dla firm",
+    "pill": "Tylko dla firm · Podhale i Małopolska",
+    "heading": "AGD i RTV dla firm.",
+    "headingAccent": "Na cały obiekt naraz.",
+    "lead": "Wyposażamy apartamenty, pensjonaty, inwestycje deweloperskie i biura w sprzęt Samsung, Bosch, Amica i innych znanych marek. Jedno zapytanie, jedna faktura na firmę, dostawa na termin — także etapami.",
+    "action": {
+     "label": "Ułóż zestaw i wyślij",
+     "href": "#zestaw"
+    },
+    "marquee": "Dostarczamy sprzęt marek",
+    "stats": [
+     {
+      "value": "od 2004",
+      "label": "firma z Rabki-Zdroju"
+     },
+     {
+      "value": "100+",
+      "label": "klientów firmowych"
+     },
+     {
+      "value": "1 za 1",
+      "label": "odbiór starego sprzętu przy dostawie",
+      "when": "pickup"
+     }
+    ],
+    "scene": [
+     {
+      "image": "p-fridge-sbs",
+      "box": {
+       "left": "0",
+       "top": "6%",
+       "width": "33%",
+       "height": "88%"
+      }
+     },
+     {
+      "image": "p-oven-bosch",
+      "box": {
+       "left": "36%",
+       "top": "3%",
+       "width": "30%",
+       "height": "40%"
+      }
+     },
+     {
+      "image": "p-hob-bosch",
+      "box": {
+       "left": "67%",
+       "top": "14%",
+       "width": "29%",
+       "height": "25%"
+      }
+     },
+     {
+      "image": "p-washer",
+      "box": {
+       "left": "35%",
+       "bottom": "4%",
+       "width": "30%",
+       "height": "47%",
+       "z": 2
+      }
+     },
+     {
+      "image": "p-dw45-bosch",
+      "box": {
+       "left": "68%",
+       "bottom": "4%",
+       "width": "27%",
+       "height": "52%",
+       "z": 2
+      }
+     }
+    ],
+    "chips": [
+     {
+      "text": "12 × kawalerka · 84 szt.",
+      "box": {
+       "left": "22%",
+       "top": "44%"
+      },
+      "icon": "✓",
+      "live": true
+     },
+     {
+      "text": "Faktura VAT na firmę",
+      "box": {
+       "left": "0",
+       "bottom": "1%"
+      },
+      "icon": "✓"
+     },
+     {
+      "text": "Dostawa etapami",
+      "box": {
+       "right": "0",
+       "top": "-2%"
+      },
+      "icon": "→"
+     }
+    ]
+   },
+   "nav": [
+    {
+     "anchor": "who",
+     "label": "Dla kogo"
+    },
+    {
+     "anchor": "zestaw",
+     "label": "Ułóż zestaw"
+    },
+    {
+     "anchor": "oferta",
+     "label": "Podgląd oferty"
+    },
+    {
+     "anchor": "guide",
+     "label": "Na co patrzymy"
+    },
+    {
+     "anchor": "vs",
+     "label": "Z nami i bez"
+    },
+    {
+     "anchor": "steps",
+     "label": "Harmonogram"
+    },
+    {
+     "anchor": "brands",
+     "label": "Marki"
+    },
+    {
+     "anchor": "faq",
+     "label": "Pytania"
+    }
+   ],
+   "who": {
+    "eyebrow": "Dla kogo",
+    "heading": "Powiedz, co wyposażasz. Resztę dobierzemy.",
+    "lead": "Deweloper potrzebuje czegoś innego niż pensjonat. Wybierz swój przypadek — pokażemy, od czego zaczynamy i jak wygląda dostawa.",
+    "tabs": [
+     {
+      "title": "Deweloperzy",
+      "icon": "crane",
+      "images": [
+       "p-fridge-glass",
+       "p-oven-muf",
+       "p-dw45-elx"
+      ],
+      "caption": {
+       "title": "Jeden standard w wielu lokalach",
+       "text": "Ten sam model w każdym mieszkaniu i dostawy w rytmie budowy."
+      },
+      "heading": "Sprzęt do całej inwestycji, bez magazynu na placu budowy",
+      "text": "Zestawienie przygotujemy z rzutów albo ze standardu wykończenia. Dostawy rozkładamy na etapy, klatka po klatce.",
+      "points": [
+       {
+        "title": "Zestawienie z rzutów",
+        "sub": "albo z Twojego standardu wykończenia"
+       },
+       {
+        "title": "Ten sam model w każdym lokalu",
+        "sub": "spójny wygląd i łatwiejszy serwis"
+       },
+       {
+        "title": "Dostawy etapami",
+        "sub": "pod harmonogram odbiorów"
+       },
+       {
+        "title": "Faktura na inwestycję lub etap",
+        "sub": "tak, jak rozlicza się budowa"
+       }
+      ]
+     },
+     {
+      "title": "Inwestorzy i apartamenty",
+      "icon": "key",
+      "images": [
+       "p-washer",
+       "p-tv-lg",
+       "p-hob-frame"
+      ],
+      "caption": {
+       "title": "Lokal gotowy do wynajmu",
+       "text": "Sprzęt na miejscu w dniu odbioru kluczy."
+      },
+      "heading": "Apartament na wynajem wyposażony, zanim przyjedziesz",
+      "text": "Mieszkasz daleko? Dobierzemy sprzęt do apartamentu i dostarczymy go na termin odbioru lokalu.",
+      "points": [
+       {
+        "title": "Gotowe zestawy",
+        "sub": "na kawalerkę i mieszkanie 2-pokojowe"
+       },
+       {
+        "title": "Dostawa pod odbiór lokalu",
+        "sub": "od dewelopera albo po remoncie"
+       },
+       {
+        "title": "Sprzęt pod intensywny najem",
+        "sub": "proste w obsłudze, łatwe w czyszczeniu"
+       },
+       {
+        "title": "Faktura VAT na firmę",
+        "sub": "na działalność najmu"
+       }
+      ]
+     },
+     {
+      "title": "Hotele i pensjonaty",
+      "icon": "bed",
+      "seasons": true,
+      "images": [
+       "p-tv-lg",
+       "p-minibar",
+       "p-kettle-philips"
+      ],
+      "caption": {
+       "title": "Pokoje gotowe przed sezonem",
+       "text": "Wymiana partiami, bez zamykania obiektu."
+      },
+      "heading": "Nowe telewizory i lodówki w pokojach — poza szczytem sezonu",
+      "text": "Wymieniamy sprzęt partiami, pokój po pokoju, w terminie ustalonym pod Twoje rezerwacje.",
+      "points": [
+       {
+        "title": "Wymiana partiami",
+        "sub": "obiekt pracuje normalnie"
+       },
+       {
+        "title": "Ten sam telewizor w każdym pokoju",
+        "sub": "jeden pilot, jedno menu dla gości"
+       },
+       {
+        "title": "Odbiór starego sprzętu",
+        "sub": "przy dostawie nowego, 1 za 1",
+        "when": "pickup"
+       },
+       {
+        "title": "Termin pod rezerwacje",
+        "sub": "zwykle przed zimą albo latem"
+       }
+      ]
+     },
+     {
+      "title": "Biura i firmy",
+      "icon": "office",
+      "images": [
+       "p-coffee-latte",
+       "p-fridge-black",
+       "p-mw-whirl"
+      ],
+      "caption": {
+       "title": "Kuchnia socjalna i sala",
+       "text": "Razem z komputerami, w jednym zapytaniu."
+      },
+      "heading": "Kuchnia, sala spotkań i komputery z jednego zamówienia",
+      "text": "Lodówka, zmywarka, ekspres i telewizor do sali — razem ze sprzętem IT. Jeden kontakt i jedna faktura.",
+      "points": [
+       {
+        "title": "Kuchnia socjalna od A do Z",
+        "sub": "lodówka, zmywarka, mikrofala, ekspres"
+       },
+       {
+        "title": "Telewizor do sali spotkań",
+        "sub": "pod prezentacje i wideokonferencje"
+       },
+       {
+        "title": "Razem z IT",
+        "sub": "laptopy, monitory, sieć — to też nasze"
+       },
+       {
+        "title": "Jedna faktura",
+        "sub": "na całość zamówienia"
+       }
+      ]
+     }
+    ]
+   },
+   "seasons": {
+    "heading": "Kiedy wymieniać sprzęt na Podhalu",
+    "peak": [
+     1,
+     2,
+     3,
+     7,
+     8,
+     12
+    ],
+    "peakLabel": "sezon — obiekt pełny",
+    "goodLabel": "dobre okno na wymianę: kwiecień–czerwiec i wrzesień–listopad"
+   },
+   "configurator": {
+    "eyebrow": "Ułóż zestaw",
+    "heading": "Policz sprzęt na wszystkie lokale w minutę.",
+    "lead": "Wybierz typ lokalu i ich liczbę, odznacz, czego nie potrzebujesz. Listę wyślesz do wyceny jednym kliknięciem — każdą wycenę przygotowujemy pod Twój termin.",
+    "typeLabel": "Typ lokalu",
+    "countLabel": "Liczba lokali",
+    "unit": [
+     "lokal",
+     "lokale",
+     "lokali"
+    ],
+    "start": 12,
+    "types": [
+     {
+      "title": "Kawalerka",
+      "short": "kawalerka",
+      "slug": "kawalerka",
+      "items": [
+       {
+        "image": "p-fridge-bi",
+        "name": "Lodówka do zabudowy",
+        "desc": "z zamrażarką",
+        "qty": 1,
+        "params": "177 cm, do zabudowy",
+        "energy": "E"
+       },
+       {
+        "image": "p-hob-sam",
+        "name": "Płyta indukcyjna",
+        "desc": "2–4 pola",
+        "qty": 1,
+        "params": "indukcja, 2–4 pola",
+        "energy": "—"
+       },
+       {
+        "image": "p-mw-sam-bi",
+        "name": "Mikrofala z grillem",
+        "desc": "do zabudowy, zamiast piekarnika",
+        "qty": 1,
+        "params": "do zabudowy, z grillem",
+        "energy": "—"
+       },
+       {
+        "image": "p-hood-bosch",
+        "name": "Okap",
+        "desc": "podszafkowy lub kominowy",
+        "qty": 1,
+        "params": "60 cm, podszafkowy",
+        "energy": "B"
+       },
+       {
+        "image": "p-dw45-bosch",
+        "name": "Zmywarka 45 cm",
+        "desc": "do zabudowy",
+        "qty": 1,
+        "params": "45 cm, do zabudowy",
+        "energy": "D"
+       },
+       {
+        "image": "p-washer-beko",
+        "name": "Pralka",
+        "desc": "do 7 kg",
+        "qty": 1,
+        "params": "7 kg, 60 × 85 cm",
+        "energy": "A"
+       },
+       {
+        "image": "p-tv-lg",
+        "name": "Telewizor 43\"",
+        "desc": "Smart TV",
+        "qty": 1,
+        "params": "43\", 4K, Smart TV",
+        "energy": "F"
+       }
+      ]
+     },
+     {
+      "title": "Mieszkanie 2 pokoje",
+      "short": "mieszkanie",
+      "slug": "mieszkanie",
+      "items": [
+       {
+        "image": "p-fridge-bi",
+        "name": "Lodówka do zabudowy",
+        "desc": "z zamrażarką",
+        "qty": 1,
+        "params": "177 cm, do zabudowy",
+        "energy": "E"
+       },
+       {
+        "image": "p-hob-bosch",
+        "name": "Płyta indukcyjna",
+        "desc": "4 pola",
+        "qty": 1,
+        "params": "indukcja, 4 pola, 60 cm",
+        "energy": "—"
+       },
+       {
+        "image": "p-oven-sam",
+        "name": "Piekarnik",
+        "desc": "do zabudowy",
+        "qty": 1,
+        "params": "do zabudowy, termoobieg",
+        "energy": "A"
+       },
+       {
+        "image": "p-hood-amica",
+        "name": "Okap",
+        "desc": "kominowy lub podszafkowy",
+        "qty": 1,
+        "params": "60 cm, kominowy",
+        "energy": "B"
+       },
+       {
+        "image": "p-dw60-amica",
+        "name": "Zmywarka 60 cm",
+        "desc": "wolnostojąca lub do zabudowy",
+        "qty": 1,
+        "params": "60 cm",
+        "energy": "D"
+       },
+       {
+        "image": "p-wd-bosch",
+        "name": "Pralko-suszarka",
+        "desc": "oszczędza miejsce",
+        "qty": 1,
+        "params": "pranie i suszenie",
+        "energy": "D"
+       },
+       {
+        "image": "p-tv-sam-uhd",
+        "name": "Telewizory 43\" i 50\"",
+        "desc": "salon i sypialnia",
+        "qty": 2,
+        "params": "43\" i 50\", 4K",
+        "energy": "F"
+       },
+       {
+        "image": "p-mw-whirl",
+        "name": "Mikrofala",
+        "desc": "wolnostojąca",
+        "qty": 1,
+        "params": "25 l, wolnostojąca",
+        "energy": "—"
+       }
+      ]
+     },
+     {
+      "title": "Pokój w pensjonacie",
+      "short": "pokój",
+      "slug": "pokoj",
+      "items": [
+       {
+        "image": "p-tv-lg",
+        "name": "Telewizor 32–43\"",
+        "desc": "z trybem hotelowym na życzenie",
+        "qty": 1,
+        "params": "43\", 4K, Smart TV",
+        "energy": "F"
+       },
+       {
+        "image": "p-minibar",
+        "name": "Lodówka podblatowa",
+        "desc": "do pokoju lub aneksu",
+        "qty": 1,
+        "params": "podblatowa, do pokoju",
+        "energy": "—"
+       },
+       {
+        "image": "p-kettle-bosch",
+        "name": "Czajnik",
+        "desc": "z podstawą 360°",
+        "qty": 1,
+        "params": "1,7 l, podstawa 360°",
+        "energy": "—"
+       }
+      ]
+     },
+     {
+      "title": "Kuchnia w biurze",
+      "short": "kuchnia",
+      "slug": "kuchnia",
+      "items": [
+       {
+        "image": "p-fridge-sbs",
+        "name": "Lodówka side by side",
+        "desc": "duża pojemność",
+        "qty": 1,
+        "params": "178 × 91 cm, side by side",
+        "energy": "E"
+       },
+       {
+        "image": "p-dw60-sam",
+        "name": "Zmywarka 60 cm",
+        "desc": "krótkie programy",
+        "qty": 1,
+        "params": "60 cm, krótkie programy",
+        "energy": "D"
+       },
+       {
+        "image": "p-mw-whirl",
+        "name": "Mikrofala",
+        "desc": "wolnostojąca",
+        "qty": 2,
+        "params": "25 l, wolnostojąca",
+        "energy": "—"
+       },
+       {
+        "image": "p-coffee-latte",
+        "name": "Ekspres do kawy",
+        "desc": "automatyczny, z mlekiem",
+        "qty": 1,
+        "params": "automatyczny, z mlekiem",
+        "energy": "—"
+       },
+       {
+        "image": "p-kettle-philips",
+        "name": "Czajnik",
+        "desc": "1,7 l",
+        "qty": 1,
+        "params": "1,7 l",
+        "energy": "—"
+       },
+       {
+        "image": "p-tv-sam-oled",
+        "name": "Telewizor do sali 55–65\"",
+        "desc": "do prezentacji",
+        "qty": 1,
+        "params": "55–65\", 4K",
+        "energy": "F"
+       }
+      ]
+     }
+    ],
+    "classLabel": "Klasa sprzętu",
+    "classes": [
+     "Ekonomiczny",
+     "Standard",
+     "Premium"
+    ],
+    "defaultClass": 1,
+    "more": "Coś jeszcze? Np. odkurzacz, żelazko, suszarka do ubrań…",
+    "delivery": {
+     "label": "Dostawa",
+     "options": [
+      {
+       "label": "Naraz",
+       "stages": 1
+      },
+      {
+       "label": "2 etapy",
+       "stages": 2
+      },
+      {
+       "label": "3 etapy",
+       "stages": 3
+      },
+      {
+       "label": "4 etapy",
+       "stages": 4
+      }
+     ],
+     "defaultStages": 3,
+     "word": [
+      "etap",
+      "etapy",
+      "etapów"
+     ],
+     "unit": [
+      "lokal",
+      "lokale",
+      "lokali"
+     ],
+     "set": [
+      "komplet",
+      "komplety",
+      "kompletów"
+     ]
+    }
+   },
+   "offer": {
+    "eyebrow": "Podgląd oferty",
+    "heading": "Tak wygląda oferta, którą od nas dostaniesz",
+    "lead": "Podgląd liczy się z zestawu powyżej — zmień typ lokalu, liczbę albo klasę i patrz, jak zmienia się dokument. Ceny są tylko w ofercie, bo zależą od ilości, klasy i terminu.",
+    "columns": [
+     "Pozycja",
+     "Wymiary i parametry",
+     "Klasa",
+     "Szt.",
+     "Cena netto"
+    ],
+    "variants": [
+     "A · Ekonomiczny",
+     "B · Standard",
+     "C · Premium"
+    ],
+    "callouts": [
+     {
+      "title": "Wymiary i parametry",
+      "text": "Każdy model z wymiarami, żeby pasował do wnęk z rzutu."
+     },
+     {
+      "title": "Klasa energetyczna",
+      "text": "Przy każdym urządzeniu — z etykietą i kartą produktu w załączniku."
+     },
+     {
+      "title": "Warianty obok siebie",
+      "text": "Ekonomiczny, standard i premium w jednym dokumencie."
+     },
+     {
+      "title": "Terminy i etapy",
+      "text": "Dostawy rozpisane na etapy, z odbiorem starego sprzętu."
+     }
+    ],
+    "footer": [
+     {
+      "text": "Dostawa: {delivery}"
+     },
+     {
+      "text": "Odbiór starego sprzętu 1 za 1",
+      "when": "pickup"
+     },
+     {
+      "text": "Faktura VAT na firmę"
+     },
+     {
+      "text": "Karty produktów w załączniku"
+     }
+    ],
+    "note": "Ceny nie są publikowane na stronie — zależą od ilości, klasy i terminu. Dostaniesz je w ofercie na piśmie.",
+    "example": {
+     "number": "nr 0142/11/2026",
+     "validity": "ważna 14 dni"
+    }
+   },
+   "classes": {
+    "heading": "Trzy klasy sprzętu — wybierz punkt wyjścia",
+    "list": [
+     {
+      "name": "Ekonomiczny",
+      "for": "Najem na start i budżetowe lokale",
+      "text": "Sprawdzone modele podstawowe: mniej funkcji, prosta obsługa dla gości.",
+      "points": [
+       "Podstawowe programy i funkcje",
+       "Wolnostojące albo do zabudowy",
+       "Najniższy koszt kompletu"
+      ]
+     },
+     {
+      "name": "Standard",
+      "for": "Większość apartamentów i biur",
+      "text": "Lepsza klasa energetyczna, ciszej i solidniej — rozsądny wybór na lata najmu.",
+      "points": [
+       "Niższe rachunki za prąd",
+       "Cichsza praca w małym lokalu",
+       "Więcej modeli do zabudowy"
+      ]
+     },
+     {
+      "name": "Premium",
+      "for": "Apartamenty premium i wymagający goście",
+      "text": "Spójny wygląd całej kuchni, najcichsze modele i funkcje, które goście zauważają.",
+      "points": [
+       "Komplet jednej marki i linii",
+       "Najcichsze i najoszczędniejsze modele",
+       "Czarne szkło, stal, pełna zabudowa"
+      ]
+     }
+    ]
+   },
+   "guide": {
+    "eyebrow": "Na co patrzymy",
+    "heading": "Sześć rzeczy, które sprawdzamy, zanim zaproponujemy model",
+    "lead": "Sprzęt do najmu i obiektów wybiera się inaczej niż do własnej kuchni. To są pytania, które zadajemy przy każdym zestawie.",
+    "list": [
+     {
+      "icon": "ruler",
+      "title": "Wymiary wnęk",
+      "text": "Sprawdzamy rzut: zmywarka 45 czy 60 cm, lodówka 178 czy 194 cm. Pomyłka o dwa centymetry to zwrot i nowe zamówienie."
+     },
+     {
+      "icon": "bolt",
+      "title": "Rachunek za prąd",
+      "text": "W najmie prąd często płaci właściciel. Klasy energetyczne zestawiamy obok siebie, żebyś wybrał świadomie."
+     },
+     {
+      "icon": "quiet",
+      "title": "Cisza w małym lokalu",
+      "text": "W kawalerce lodówka i zmywarka stoją kilka metrów od łóżka. Przy małych lokalach porównujemy głośność."
+     },
+     {
+      "icon": "hand",
+      "title": "Prosto dla gościa",
+      "text": "Gość nie czyta instrukcji. Wybieramy sprzęt z czytelnym panelem i kilkoma podstawowymi programami."
+     },
+     {
+      "icon": "tv",
+      "title": "Telewizor do obiektu",
+      "text": "W pokojach gościnnych przydaje się tryb hotelowy: blokada głośności i ustawień, kanał startowy. Dobierzemy takie modele na życzenie."
+     },
+     {
+      "icon": "copy",
+      "title": "Ten sam model wszędzie",
+      "text": "Jedna instrukcja dla sprzątających, jedna lista części, prostszy serwis — i spójny wygląd wszystkich lokali."
+     }
+    ]
+   },
+   "versus": {
+    "eyebrow": "Z nami i bez",
+    "heading": "Te same zakupy. Dwa różne tygodnie.",
+    "lead": "Sytuacje, które znają deweloperzy i właściciele obiektów. Różnica jest w tym, kto pilnuje szczegółów.",
+    "rows": [
+     {
+      "icon": "crane",
+      "title": "12 kompletów do inwestycji",
+      "without": "12 koszyków w sklepie, różne terminy dostaw, a model bywa wycofany w trakcie.",
+      "with": "Jedna lista, ten sam model w każdym lokalu, terminy ustalone z góry."
+     },
+     {
+      "icon": "key",
+      "title": "Klucze odbierasz za 3 miesiące",
+      "without": "Kupujesz teraz i szukasz, gdzie przechować sprzęt.",
+      "with": "Ustalamy dostawę pod termin odbioru lokalu."
+     },
+     {
+      "icon": "trash",
+      "title": "Stara lodówka w pensjonacie",
+      "without": "Szukasz, kto ją wywiezie i za ile.",
+      "with": "Zabieramy ją przy dostawie nowej — 1 za 1, bez opłat.",
+      "when": "pickup"
+     },
+     {
+      "icon": "doc",
+      "title": "Rozliczenie inwestycji",
+      "without": "Kilka faktur z różnych sklepów do zebrania.",
+      "with": "Jedna faktura na firmę — na całość albo na etap."
+     },
+     {
+      "icon": "wrench",
+      "title": "Usterka w środku sezonu",
+      "without": "Infolinia sklepu i czekanie na kuriera.",
+      "with": "Dzwonisz do Rabki-Zdroju. Zgłoszenie gwarancyjne przyjmujemy na miejscu.",
+      "when": "warranty"
+     }
+    ]
+   },
+   "steps": {
+    "eyebrow": "Jak pracujemy",
+    "heading": "Od listy sprzętu do odbioru lokalu",
+    "lead": "Cztery kroki i jeden kontakt — od pierwszego telefonu do ostatniej dostawy.",
+    "items": [
+     {
+      "title": "Lista albo rzut",
+      "text": "Wysyłasz listę, rzut albo standard wykończenia. {callback} w godzinach pracy.",
+      "when": "callback",
+      "fallback": {
+       "title": "Lista albo rzut",
+       "text": "Wysyłasz listę, rzut albo standard wykończenia."
+      }
+     },
+     {
+      "title": "Dobór w 2–3 wariantach",
+      "text": "Proponujemy modele w kilku klasach, z kartami produktów i etykietami energetycznymi."
+     },
+     {
+      "title": "Harmonogram dostaw",
+      "text": "Ustalamy terminy pod budowę, odbiory lokali albo sezon — całość naraz albo etapami."
+     },
+     {
+      "title": "Dostawa i odbiór starego",
+      "text": "Sprzęt trafia pod wskazany adres, stary zabieramy 1 za 1. Faktura na Twoją firmę.",
+      "when": "pickup",
+      "fallback": {
+       "title": "Dostawa pod adres",
+       "text": "Sprzęt trafia pod wskazany adres, w ustalonym terminie. Faktura na Twoją firmę."
+      }
+     }
+    ],
+    "gantt": {
+     "title": "Twój harmonogram dostaw",
+     "note": "Liczony z zestawu powyżej · przykład, terminy ustalamy w ofercie",
+     "unit": "tydz."
+    }
+   },
+   "combo": {
+    "eyebrow": "Przy okazji",
+    "heading": "Apartament to nie tylko AGD.",
+    "lead": "Wi-Fi dla gości, terminal do płatności kartą i kasa w recepcji to nasza codzienność od 2004 roku. Dołożysz je do tego samego zapytania.",
+    "link": {
+     "label": "Wszystko dla hoteli i pensjonatów",
+     "href": "/branze/noclegi"
+    },
+    "list": [
+     {
+      "image": "zaop-u7",
+      "title": "Wi-Fi dla gości",
+      "text": "Ubiquiti UniFi — osobna, bezpieczna sieć dla gości",
+      "note": "Konfigurujemy na miejscu",
+      "href": "/oferta/siec-wifi"
+     },
+     {
+      "image": "zaop-pol",
+      "title": "Terminal płatniczy",
+      "text": "PolCard — karta i telefon przy recepcji",
+      "note": "Polska Bezgotówkowa",
+      "href": "/oferta/terminale-platnicze"
+     },
+     {
+      "image": "zaop-ergo",
+      "title": "Kasa fiskalna",
+      "text": "Posnet dla pensjonatu z recepcją",
+      "note": "Autoryzowany serwis Posnet",
+      "href": "/oferta/kasy-fiskalne"
+     }
+    ]
+   },
+   "brands": {
+    "eyebrow": "Marki",
+    "heading": "Sprzęt znanych producentów, z pełną gwarancją",
+    "lead": "Dobieramy modele producentów, z którymi pracuje nasz hurtownik — jednej z największych sieci AGD w Polsce.",
+    "list": [
+     {
+      "name": "Samsung",
+      "partner": "samsung"
+     },
+     {
+      "name": "LG",
+      "image": "zaop-logo-lg",
+      "when": "lg"
+     },
+     {
+      "name": "Bosch",
+      "image": "zaop-logo-bosch"
+     },
+     {
+      "name": "Siemens",
+      "image": "zaop-logo-siemens"
+     },
+     {
+      "name": "Amica",
+      "image": "zaop-logo-amica"
+     },
+     {
+      "name": "Beko",
+      "image": "zaop-logo-beko"
+     },
+     {
+      "name": "Whirlpool"
+     },
+     {
+      "name": "Gorenje",
+      "image": "zaop-logo-gorenje"
+     },
+     {
+      "name": "Philips",
+      "image": "zaop-logo-philips"
+     },
+     {
+      "name": "Kernau"
+     }
+    ]
+   },
+   "facts": [
+    {
+     "value": "22 lata",
+     "label": "w Rabce-Zdroju — firma działa od 2004 roku"
+    },
+    {
+     "value": "100+",
+     "label": "klientów firmowych: sklepy, biura, gastronomia, noclegi"
+    },
+    {
+     "value": "1 kontakt",
+     "label": "na AGD, RTV, komputery, kasy i sieć Wi-Fi"
+    }
+   ],
+   "documents": {
+    "heading": "Z każdą dostawą",
+    "list": [
+     {
+      "icon": "doc",
+      "title": "Faktura VAT na firmę",
+      "sub": "na całość albo na etap"
+     },
+     {
+      "icon": "bolt",
+      "title": "Etykiety energetyczne",
+      "sub": "i karty produktów do oferty"
+     },
+     {
+      "icon": "shield",
+      "title": "Karty gwarancyjne",
+      "sub": "gwarancja producenta"
+     },
+     {
+      "icon": "trash",
+      "title": "Odbiór starego sprzętu",
+      "sub": "zasada 1 za 1, bez opłat",
+      "when": "pickup"
+     }
+    ]
+   },
+   "faq": [
+    {
+     "q": "Czy sprzedajecie osobom prywatnym?",
+     "a": "Nie. Ta oferta jest tylko dla firm: deweloperów, inwestorów, obiektów noclegowych i biur. W zapytaniu prosimy o NIP."
+    },
+    {
+     "q": "Czy możecie dostarczyć sprzęt etapami?",
+     "a": "Tak. Terminy dostaw ustalamy w ofercie — pod harmonogram budowy, odbiory lokali albo sezon."
+    },
+    {
+     "q": "Czy zabieracie stary sprzęt?",
+     "a": "Tak. Przy dostawie nowego odbieramy bezpłatnie zużyty sprzęt tego samego rodzaju — zasada 1 za 1.",
+     "when": "pickup"
+    },
+    {
+     "q": "Jak szybko dostanę wycenę?",
+     "a": "{callback} w godzinach pracy ({hours}) i doprecyzowujemy listę. Wycenę wysyłamy, gdy lista jest jasna — w kilku wariantach cenowych, z kartami produktów.",
+     "when": "callback",
+     "fallback": {
+      "q": "Jak szybko dostanę wycenę?",
+      "a": "Najpierw oddzwaniamy w godzinach pracy ({hours}) i doprecyzowujemy listę. Wycenę wysyłamy, gdy lista jest jasna — w kilku wariantach cenowych, z kartami produktów."
+     }
+    },
+    {
+     "q": "Jaka jest gwarancja?",
+     "a": "Pełna gwarancja producenta. Zgłoszenie gwarancyjne możesz złożyć u nas — nie musisz szukać serwisu.",
+     "when": "warranty",
+     "fallback": {
+      "q": "Jaka jest gwarancja?",
+      "a": "Pełna gwarancja producenta, z kartą gwarancyjną dla każdego urządzenia."
+     }
+    },
+    {
+     "q": "Czy do apartamentu dołożycie Wi-Fi albo terminal płatniczy?",
+     "a": "Tak. Sieć Wi-Fi, terminal i kasa fiskalna to nasza codzienność — wszystko w jednym zapytaniu."
+    }
+   ],
+   "form": {
+    "heading": "Wyślij listę",
+    "lead": "Wystarczy lista, rzut albo kilka słów o obiekcie. Ofertę dostaniesz w wariantach, bez zobowiązań.",
+    "who": [
+     "Deweloper",
+     "Inwestor",
+     "Hotel / pensjonat",
+     "Biuro / firma"
+    ],
+    "whoLabel": "Kim jesteś",
+    "countLabel": "Liczba lokali lub pokoi",
+    "messageLabel": "Lista sprzętu lub opis obiektu",
+    "topic": "Większa dostawa sprzętu",
+    "deadlineLabel": "Planowany termin",
+    "deadlines": [
+     "Jak najszybciej",
+     "W ciągu miesiąca",
+     "Za 1–3 miesiące",
+     "Później — etapami"
+    ],
+    "next": [
+     {
+      "title": "{callback}",
+      "text": "w godzinach pracy i doprecyzowujemy listę.",
+      "when": "callback",
+      "fallback": {
+       "title": "Oddzwaniamy w godzinach pracy",
+       "text": "i doprecyzowujemy listę."
+      }
+     },
+     {
+      "title": "Oferta na piśmie",
+      "text": "— modele, parametry, warianty i terminy."
+     },
+     {
+      "title": "Dostawa pod Twój termin",
+      "text": "— naraz albo etapami."
+     }
+    ]
+   },
+   "cross": {
+    "page": "dostawy-it-dla-firm",
+    "title": "Kupujesz też komputery?",
+    "text": "Dostawy laptopów, komputerów i monitorów — gotowe do pracy w dniu dostawy.",
+    "images": [
+     "zaop-thinkbook",
+     "zaop-dellmon"
+    ]
+   }
+  },
+  "it": {
+   "variant": "it",
+   "seo": {
+    "title": "Dostawy komputerów i laptopów dla firm"
+   },
+   "hero": {
+    "title": "Dostawy IT dla firm",
+    "crumb": "Dostawy sprzętu IT dla firm",
+    "pill": "Dostawy sprzętu IT · Podhale i Małopolska",
+    "heading": "Komputery dla firm.",
+    "headingAccent": "Gotowe do pracy w dniu dostawy.",
+    "lead": "Dostarczamy całe stanowiska — od kilku do kilkudziesięciu naraz. Dobieramy Lenovo, Dell, HP albo Apple i przygotowujemy sprzęt do pracy przed dostawą, w zakresie ustalonym w ofercie.",
+    "action": {
+     "label": "Policz stanowiska",
+     "href": "#zestaw"
+    },
+    "marquee": "Pracujemy z producentami",
+    "stats": [
+     {
+      "value": "od 2004",
+      "label": "składamy i serwisujemy komputery"
+     },
+     {
+      "value": "100+",
+      "label": "klientów firmowych"
+     }
+    ],
+    "scene": [
+     {
+      "image": "zaop-thinkvision",
+      "box": {
+       "left": "30%",
+       "top": "0",
+       "width": "52%",
+       "height": "62%"
+      }
+     },
+     {
+      "image": "zaop-thinkcentre",
+      "box": {
+       "left": "80%",
+       "top": "22%",
+       "width": "14%",
+       "height": "46%"
+      }
+     },
+     {
+      "image": "zaop-thinkbook",
+      "box": {
+       "left": "2%",
+       "bottom": "8%",
+       "width": "46%",
+       "height": "46%",
+       "z": 2
+      }
+     },
+     {
+      "image": "zaop-macbook",
+      "box": {
+       "left": "58%",
+       "bottom": "5%",
+       "width": "38%",
+       "height": "32%",
+       "z": 3
+      }
+     }
+    ],
+    "chips": [
+     {
+      "text": "Windows 11 Pro i programy",
+      "box": {
+       "left": "0",
+       "top": "8%"
+      },
+      "icon": "✓"
+     },
+     {
+      "text": "Numery inwentarzowe",
+      "box": {
+       "right": "0",
+       "top": "64%"
+      },
+      "icon": "#",
+      "when": "services"
+     },
+     {
+      "text": "Dane przeniesione",
+      "box": {
+       "left": "22%",
+       "bottom": "0"
+      },
+      "icon": "→",
+      "when": "services"
+     }
+    ]
+   },
+   "nav": [
+    {
+     "anchor": "cats",
+     "label": "Co dostarczamy"
+    },
+    {
+     "anchor": "zestaw",
+     "label": "Policz stanowiska"
+    },
+    {
+     "anchor": "prep",
+     "label": "Przygotowanie"
+    },
+    {
+     "anchor": "oferta",
+     "label": "Podgląd oferty"
+    },
+    {
+     "anchor": "guide",
+     "label": "Na co patrzymy"
+    },
+    {
+     "anchor": "vs",
+     "label": "Z nami i bez"
+    },
+    {
+     "anchor": "steps",
+     "label": "Harmonogram"
+    },
+    {
+     "anchor": "progs",
+     "label": "Programy"
+    },
+    {
+     "anchor": "faq",
+     "label": "Pytania"
+    }
+   ],
+   "categories": {
+    "eyebrow": "Co dostarczamy",
+    "heading": "Cały sprzęt do biura z jednego źródła",
+    "lead": "Pojedyncze modele znajdziesz w katalogu. Tu zamawiasz je hurtowo — z przygotowaniem i dostawą.",
+    "list": [
+     {
+      "image": "zaop-thinkbook",
+      "name": "Laptopy",
+      "brands": "Lenovo, Dell, Apple, HP",
+      "category": "laptopy"
+     },
+     {
+      "image": "zaop-aio",
+      "name": "Komputery i All-in-One",
+      "brands": "biurowe, Tiny, stacje robocze",
+      "category": "komputery"
+     },
+     {
+      "image": "zaop-dellmon",
+      "name": "Monitory",
+      "brands": "22–49\", z USB-C i kamerą",
+      "category": "monitory"
+     },
+     {
+      "image": "zaop-dock",
+      "name": "Stacje dokujące",
+      "brands": "jeden kabel do laptopa",
+      "category": "komputery",
+      "note": "w dziale Komputery"
+     },
+     {
+      "image": "zaop-mfp",
+      "name": "Urządzenia wielofunkcyjne",
+      "brands": "druk, skan, kopiowanie",
+      "category": "drukarki-wielofunkcyjne"
+     },
+     {
+      "image": "zaop-u7",
+      "name": "Sieć i Wi-Fi",
+      "brands": "Ubiquiti, TP-Link, firewalle",
+      "category": "siec-wifi"
+     }
+    ]
+   },
+   "configurator": {
+    "eyebrow": "Policz stanowiska",
+    "heading": "Złóż stanowisko, wpisz liczbę osób — resztę przygotujemy.",
+    "lead": "Wybierz rodzaj pracy i liczbę stanowisk. Zaznacz, co mamy zrobić przed dostawą — listę wyślesz do wyceny jednym kliknięciem.",
+    "typeLabel": "Rodzaj stanowiska",
+    "countLabel": "Liczba stanowisk",
+    "unit": [
+     "stanowisko",
+     "stanowiska",
+     "stanowisk"
+    ],
+    "start": 12,
+    "types": [
+     {
+      "title": "Biuro",
+      "short": "biuro",
+      "slug": "biuro",
+      "items": [
+       {
+        "image": "zaop-thinkbook",
+        "name": "Laptop 14\"",
+        "desc": "Intel Core / AMD Ryzen, 16 GB",
+        "qty": 1
+       },
+       {
+        "image": "zaop-dellmon",
+        "name": "Monitor 24\"",
+        "desc": "Full HD, regulacja wysokości",
+        "qty": 1
+       },
+       {
+        "image": "zaop-dock",
+        "name": "Stacja dokująca USB-C",
+        "desc": "monitor, sieć i ładowanie",
+        "qty": 1
+       },
+       {
+        "image": null,
+        "icon": "keyboard",
+        "name": "Klawiatura i mysz",
+        "desc": "bezprzewodowe",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "title": "Księgowość i ERP",
+      "short": "księgowość",
+      "slug": "ksiegowosc",
+      "items": [
+       {
+        "image": "zaop-thinkcentre",
+        "name": "Komputer Tiny",
+        "desc": "cichy, pod biurkiem",
+        "qty": 1
+       },
+       {
+        "image": "zaop-thinkvision",
+        "name": "Monitory 24\"",
+        "desc": "dwa ekrany na stanowisko",
+        "qty": 2
+       },
+       {
+        "image": null,
+        "icon": "keyboard",
+        "name": "Klawiatura i mysz",
+        "desc": "przewodowe",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "title": "Projektant i CAD",
+      "short": "CAD",
+      "slug": "cad",
+      "items": [
+       {
+        "image": "zaop-thinkpad",
+        "name": "Laptop do pracy z grafiką",
+        "desc": "karta graficzna, 32 GB",
+        "qty": 1
+       },
+       {
+        "image": "zaop-thinkvision",
+        "name": "Monitor 27\" QHD",
+        "desc": "dokładne kolory",
+        "qty": 1
+       },
+       {
+        "image": "zaop-dock",
+        "name": "Stacja dokująca",
+        "desc": "Thunderbolt",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "title": "Recepcja i sala",
+      "short": "recepcja",
+      "slug": "recepcja",
+      "items": [
+       {
+        "image": "zaop-aio",
+        "name": "Komputer All-in-One",
+        "desc": "kamera i głośniki w obudowie",
+        "qty": 1
+       },
+       {
+        "image": "zaop-mfp",
+        "name": "Urządzenie wielofunkcyjne",
+        "desc": "druk, skan, kopia",
+        "qty": 1
+       },
+       {
+        "image": "zaop-u7",
+        "name": "Punkt dostępowy Wi-Fi",
+        "desc": "osobna sieć dla gości",
+        "qty": 1
+       }
+      ]
+     }
+    ],
+    "servicesLabel": "Przed dostawą zrobimy",
+    "more": "Coś jeszcze? Np. serwer, dysk sieciowy, drukarka etykiet…",
+    "delivery": {
+     "label": "Dostawa",
+     "options": [
+      {
+       "label": "Jedna tura",
+       "stages": 1
+      },
+      {
+       "label": "2 tury",
+       "stages": 2
+      },
+      {
+       "label": "3 tury",
+       "stages": 3
+      }
+     ],
+     "defaultStages": 2,
+     "word": [
+      "tura",
+      "tury",
+      "tur"
+     ],
+     "unit": [
+      "stanowisko",
+      "stanowiska",
+      "stanowisk"
+     ],
+     "set": [
+      "stanowisko",
+      "stanowiska",
+      "stanowisk"
+     ]
+    }
+   },
+   "prep": {
+    "eyebrow": "Przygotowanie",
+    "heading": "Każdy komputer wyjeżdża z Rabki gotowy do pracy",
+    "lead": "Zanim sprzęt trafi na biurko, przechodzi przez naszą listę kontrolną. W dniu dostawy zostaje podłączenie i podpis na protokole.",
+    "tag": "Stanowisko 07 · Księgowość",
+    "image": "zaop-thinkbook",
+    "list": [
+     {
+      "title": "Windows 11 Pro i aktualizacje",
+      "sub": "system w wersji dla firm, wszystkie poprawki"
+     },
+     {
+      "title": "Konto użytkownika i poczta",
+      "sub": "Microsoft 365, podpis, kalendarz"
+     },
+     {
+      "title": "Programy do pracy",
+      "sub": "np. Subiekt, Office, przeglądarka, PDF"
+     },
+     {
+      "title": "Drukarki i skanery",
+      "sub": "podłączone do sieci w Twojej firmie"
+     },
+     {
+      "title": "Szyfrowanie dysku",
+      "sub": "BitLocker — dane bezpieczne po kradzieży"
+     },
+     {
+      "title": "Antywirus ESET",
+      "sub": "aktywny i zarządzany od pierwszego dnia"
+     },
+     {
+      "title": "Dane ze starego komputera",
+      "sub": "pliki, zakładki, ustawienia programów",
+      "when": "services"
+     },
+     {
+      "title": "Etykieta inwentarzowa",
+      "sub": "numer na obudowie i w liście sprzętu",
+      "when": "services"
+     }
+    ]
+   },
+   "offer": {
+    "eyebrow": "Podgląd oferty",
+    "heading": "Oferta z konkretnymi modelami, nie z ogólnikami",
+    "lead": "Podgląd liczy się z listy stanowisk powyżej. W prawdziwej ofercie są modele z numerami katalogowymi, ceny i termin dostawy — w dwóch wariantach.",
+    "columns": [
+     "Pozycja",
+     "Parametry",
+     "Szt.",
+     "Cena netto"
+    ],
+    "variants": [
+     "A · Optymalny",
+     "B · Wydajniejszy"
+    ],
+    "callouts": [
+     {
+      "title": "Konkretne parametry",
+      "text": "Procesor, pamięć, dysk i system — nie ogólnik „laptop i5”."
+     },
+     {
+      "title": "Usługi osobno",
+      "text": "Każda czynność przed dostawą rozpisana w osobnej pozycji."
+     },
+     {
+      "title": "Dwa warianty",
+      "text": "Optymalny i wydajniejszy — porównasz obok siebie."
+     },
+     {
+      "title": "Tury i termin",
+      "text": "Dostawa w turach, tak żeby firma nie stała."
+     }
+    ],
+    "footer": [
+     {
+      "text": "Przygotowanie w Rabce-Zdroju"
+     },
+     {
+      "text": "Dostawa: {delivery}"
+     },
+     {
+      "text": "Lista numerów seryjnych",
+      "when": "services"
+     },
+     {
+      "text": "Faktura VAT na firmę"
+     }
+    ],
+    "note": "Ceny nie są publikowane na stronie — zależą od ilości, klasy i terminu. Dostaniesz je w ofercie na piśmie.",
+    "example": {
+     "number": "nr 0142/11/2026",
+     "validity": "ważna 14 dni"
+    }
+   },
+   "guide": {
+    "eyebrow": "Na co patrzymy",
+    "heading": "Sześć zasad, według których dobieramy komputery dla firm",
+    "lead": "Laptop z marketu i laptop dla firmy potrafią wyglądać tak samo. Różnicę widać po dwóch latach — i przy pierwszej awarii.",
+    "list": [
+     {
+      "icon": "chip",
+      "title": "Wersje dla firm",
+      "text": "Windows 11 Pro, moduł TPM i gwarancja dla firm — nie modele konsumenckie, które z zewnątrz wyglądają tak samo."
+     },
+     {
+      "icon": "refresh",
+      "title": "Zapas na 4–5 lat",
+      "text": "16 GB pamięci i dysk SSD z zapasem. Taniej kupić raz dobrze, niż za dwa lata dokładać pamięć."
+     },
+     {
+      "icon": "copy",
+      "title": "Ten sam model w firmie",
+      "text": "Jedna stacja dokująca, jeden zasilacz, jeden obraz systemu. Szybszy serwis i łatwe zastępstwa."
+     },
+     {
+      "icon": "wrench",
+      "title": "Gwarancja pod Twoją pracę",
+      "text": "Tam, gdzie przestój kosztuje, dobieramy modele z gwarancją u klienta i dłuższym okresem."
+     },
+     {
+      "icon": "user",
+      "title": "Wygoda przy biurku",
+      "text": "Monitor z regulacją wysokości i jeden kabel USB-C do laptopa — porządek na biurku i zdrowsze plecy."
+     },
+     {
+      "icon": "lock",
+      "title": "Bezpieczeństwo od pierwszego dnia",
+      "text": "Szyfrowanie dysku, antywirus ESET i kopie zapasowe ustawiamy przed dostawą, a nie po pierwszym incydencie."
+     }
+    ]
+   },
+   "versus": {
+    "eyebrow": "Z nami i bez",
+    "heading": "Te same komputery. Dwa różne poniedziałki.",
+    "lead": "Sytuacje, które zna każda firma. Różnica jest w tym, kto zrobi robotę przed dostawą.",
+    "rows": [
+     {
+      "icon": "box",
+      "title": "15 nowych laptopów",
+      "without": "Paczki na recepcji, każdy laptop trzeba skonfigurować samemu.",
+      "with": "Przyjeżdżają gotowe: system, programy, konta, drukarki."
+     },
+     {
+      "icon": "user",
+      "title": "Nowy pracownik w poniedziałek",
+      "without": "Pierwszy dzień schodzi na instalowanie programów.",
+      "with": "Stanowisko gotowe pierwszego dnia."
+     },
+     {
+      "icon": "lock",
+      "title": "Stary komputer z danymi klientów",
+      "without": "Leży w szafie albo trafia do kosza razem z danymi.",
+      "with": "Usuwamy dane i zabieramy sprzęt przy dostawie.",
+      "when": "pickup"
+     },
+     {
+      "icon": "doc",
+      "title": "Księgowa pyta o numery seryjne",
+      "without": "Spisujesz je z naklejek, laptop po laptopie.",
+      "with": "Dostajesz listę sprzętu z numerami seryjnymi i inwentarzowymi.",
+      "when": "services"
+     },
+     {
+      "icon": "wrench",
+      "title": "Awaria na gwarancji",
+      "without": "Sam zgłaszasz do producenta i pakujesz sprzęt.",
+      "with": "Zgłaszasz u nas, resztą zajmujemy się my.",
+      "when": "warranty"
+     }
+    ]
+   },
+   "steps": {
+    "eyebrow": "Jak pracujemy",
+    "heading": "Od listy stanowisk do działającego biura",
+    "lead": "Sprzęt przygotowujemy w Rabce-Zdroju, więc w dniu dostawy zostaje tylko podłączenie.",
+    "items": [
+     {
+      "title": "Lista stanowisk",
+      "text": "Ile osób, do jakiej pracy, jakie programy. {callback} w godzinach pracy.",
+      "when": "callback",
+      "fallback": {
+       "title": "Lista stanowisk",
+       "text": "Ile osób, do jakiej pracy, jakie programy."
+      }
+     },
+     {
+      "title": "Oferta w 2 wariantach",
+      "text": "Konkretne modele Lenovo, Dell, HP albo Apple — z terminem dostawy."
+     },
+     {
+      "title": "Przygotowanie w Rabce",
+      "text": "System, programy, drukarki, konta i opis sprzętu — zanim cokolwiek przyjedzie do firmy."
+     },
+     {
+      "title": "Dostawa i montaż",
+      "text": "Podłączamy na biurkach, przenosimy dane, zabieramy stary sprzęt. Faktura na firmę.",
+      "when": "pickup",
+      "fallback": {
+       "title": "Dostawa i montaż",
+       "text": "Podłączamy sprzęt na biurkach. Faktura na firmę."
+      }
+     }
+    ],
+    "gantt": {
+     "title": "Twój harmonogram wymiany",
+     "note": "Liczony z listy powyżej · przykład w dniach roboczych",
+     "unit": "dz."
+    }
+   },
+   "programs": {
+    "eyebrow": "Programy",
+    "heading": "Gotowe z programami, na których pracujesz",
+    "lead": "Instalujemy i ustawiamy programy przed dostawą — tak, żeby pierwszego dnia działała sprzedaż, księgowość i poczta. Jesteśmy autoryzowanym partnerem InsERT.",
+    "list": [
+     {
+      "name": "InsERT",
+      "partner": "insert",
+      "text": "Subiekt, Rachmistrz, Rewizor"
+     },
+     {
+      "name": "Microsoft",
+      "partner": "microsoft",
+      "text": "Microsoft 365 i Windows"
+     },
+     {
+      "name": "ESET",
+      "partner": "eset",
+      "text": "ochrona stanowisk"
+     },
+     {
+      "name": "Comarch",
+      "partner": "comarch",
+      "text": "Comarch ERP"
+     }
+    ]
+   },
+   "industries": {
+    "eyebrow": "Dla kogo",
+    "heading": "Biuro, szkoła, recepcja czy hala",
+    "lead": "Każda branża ma swoją stronę z programami i zestawami — dostawę zrobimy dla każdej.",
+    "list": [
+     {
+      "icon": "office",
+      "name": "Biura i kancelarie",
+      "text": "stanowiska, druk, Microsoft 365",
+      "href": "/branze/biura-uslugi"
+     },
+     {
+      "icon": "school",
+      "name": "Szkoły i instytucje",
+      "text": "pracownie, sale, ekrany interaktywne",
+      "href": "/branze/szkoly-instytucje"
+     },
+     {
+      "icon": "bed",
+      "name": "Hotele i pensjonaty",
+      "text": "recepcja, Wi-Fi dla gości",
+      "href": "/branze/noclegi"
+     },
+     {
+      "icon": "shop",
+      "name": "Handel i gastronomia",
+      "text": "komputery przy kasach i na zapleczu",
+      "href": "/branze/handel"
+     },
+     {
+      "icon": "box",
+      "name": "Magazyn i produkcja",
+      "text": "komputery, drukarki etykiet, sieć",
+      "href": "/branze/magazyn-produkcja"
+     }
+    ]
+   },
+   "care": {
+    "eyebrow": "Po dostawie",
+    "heading": "Sieć sprzedaje i znika. My zostajemy.",
+    "lead": "Sprzęt, który dostarczamy, możemy wziąć pod opiekę: kopie zapasowe, aktualizacje, antywirus i serwis — z jednym numerem telefonu.",
+    "actions": [
+     {
+      "label": "Bezpłatny przegląd IT",
+      "href": "/opieka-it#przeglad"
+     },
+     {
+      "label": "Opieka IT",
+      "href": "/opieka-it"
+     }
+    ],
+    "rows": [
+     {
+      "icon": "cloud",
+      "title": "Kopie zapasowe",
+      "sub": "sprawdzone odtworzenie",
+      "status": "ok",
+      "label": "w porządku"
+     },
+     {
+      "icon": "refresh",
+      "title": "Aktualizacje Windows",
+      "sub": "24 z 24 stanowisk",
+      "status": "ok",
+      "label": "w porządku"
+     },
+     {
+      "icon": "shield",
+      "title": "Antywirus ESET",
+      "sub": "aktywny na wszystkich",
+      "status": "ok",
+      "label": "w porządku"
+     },
+     {
+      "icon": "clock",
+      "title": "Gwarancje sprzętu",
+      "sub": "pierwsza kończy się za 23 mies.",
+      "status": "warn",
+      "label": "termin"
+     }
+    ]
+   },
+   "brands": {
+    "eyebrow": "Marki",
+    "heading": "Producenci, z którymi pracujemy na co dzień",
+    "lead": "Kupujemy u oficjalnych dystrybutorów — z gwarancją producenta i w wersjach dla firm, z Windows 11 Pro.",
+    "list": [
+     {
+      "name": "Lenovo",
+      "partner": "lenovo"
+     },
+     {
+      "name": "Dell",
+      "partner": "dell"
+     },
+     {
+      "name": "HP",
+      "partner": "hp"
+     },
+     {
+      "name": "Apple",
+      "partner": "apple"
+     },
+     {
+      "name": "Microsoft",
+      "partner": "microsoft"
+     },
+     {
+      "name": "Brother",
+      "partner": "brother"
+     },
+     {
+      "name": "Konica Minolta",
+      "partner": "konica-minolta"
+     },
+     {
+      "name": "Ubiquiti",
+      "partner": "ubiquiti"
+     },
+     {
+      "name": "Logitech",
+      "partner": "logitech"
+     },
+     {
+      "name": "Samsung",
+      "partner": "samsung"
+     }
+    ]
+   },
+   "facts": [
+    {
+     "value": "22 lata",
+     "label": "składamy, wdrażamy i serwisujemy komputery w firmach"
+    },
+    {
+     "value": "100+",
+     "label": "klientów firmowych na Podhalu i w Małopolsce"
+    },
+    {
+     "value": "1 kontakt",
+     "label": "na komputery, drukarki, sieć, kasy i programy"
+    }
+   ],
+   "documents": {
+    "heading": "Z każdą dostawą",
+    "list": [
+     {
+      "icon": "doc",
+      "title": "Faktura VAT",
+      "sub": "powyżej 15 000 zł z podzieloną płatnością"
+     },
+     {
+      "icon": "copy",
+      "title": "Lista sprzętu",
+      "sub": "numery seryjne i inwentarzowe",
+      "when": "services"
+     },
+     {
+      "icon": "shield",
+      "title": "Gwarancja producenta",
+      "sub": "zgłoszenia przez nas",
+      "when": "warranty",
+      "fallback": {
+       "icon": "shield",
+       "title": "Gwarancja producenta",
+       "sub": "karty gwarancyjne w komplecie"
+      }
+     },
+     {
+      "icon": "lock",
+      "title": "Konta i hasła",
+      "sub": "przekazane bezpiecznie"
+     }
+    ]
+   },
+   "faq": [
+    {
+     "q": "Od ilu sztuk to „większa dostawa”?",
+     "a": "Nie ma minimum. Ta strona jest dla zamówień od kilku stanowisk w górę — pojedynczy sprzęt znajdziesz w katalogu."
+    },
+    {
+     "q": "Ile trwa realizacja?",
+     "a": "Zależy od modeli i dostępności u dystrybutora. Konkretny termin podajemy w ofercie."
+    },
+    {
+     "q": "Czy skonfigurujecie sprzęt pod nasze programy?",
+     "a": "Tak. Instalujemy system, programy (np. Subiekt, Microsoft 365), drukarki i konta — tak, żeby w dniu dostawy wszystko działało.",
+     "when": "services",
+     "fallback": {
+      "q": "Czy skonfigurujecie sprzęt pod nasze programy?",
+      "a": "Tak. Zakres przygotowania ustalamy w ofercie — pod programy, na których pracujesz."
+     }
+    },
+    {
+     "q": "Co ze starym sprzętem i danymi?",
+     "a": "Zabieramy go przy dostawie. Dane usuwamy, a sprzęt przekazujemy do utylizacji albo zwracamy, jeśli chcesz go zatrzymać.",
+     "when": "pickup"
+    },
+    {
+     "q": "Jak wygląda gwarancja i serwis?",
+     "a": "Obowiązuje gwarancja producenta, a zgłoszenie robisz u nas. Przy modelach z gwarancją on-site technik producenta przyjeżdża do firmy.",
+     "when": "warranty",
+     "fallback": {
+      "q": "Jak wygląda gwarancja i serwis?",
+      "a": "Obowiązuje gwarancja producenta. Przy modelach z gwarancją on-site technik producenta przyjeżdża do firmy."
+     }
+    },
+    {
+     "q": "Faktura powyżej 15 000 zł brutto?",
+     "a": "Wystawiamy ją z mechanizmem podzielonej płatności, jak wymagają przepisy dla komputerów i monitorów."
+    }
+   ],
+   "form": {
+    "heading": "Wyślij listę stanowisk",
+    "lead": "Napisz, ile osób i do jakiej pracy. Ofertę dostaniesz w dwóch wariantach, z terminem dostawy.",
+    "who": [
+     "Laptopy",
+     "Komputery",
+     "Monitory",
+     "Drukarki",
+     "Sieć i Wi-Fi",
+     "Serwer"
+    ],
+    "whoLabel": "Czego potrzebujesz",
+    "whoMulti": true,
+    "countLabel": "Liczba stanowisk",
+    "messageLabel": "Lista stanowisk lub opis",
+    "topic": "Większa dostawa sprzętu",
+    "deadlineLabel": "Planowany termin",
+    "deadlines": [
+     "Jak najszybciej",
+     "W ciągu miesiąca",
+     "Za 1–3 miesiące",
+     "Później — w turach"
+    ],
+    "next": [
+     {
+      "title": "{callback}",
+      "text": "w godzinach pracy i doprecyzowujemy listę.",
+      "when": "callback",
+      "fallback": {
+       "title": "Oddzwaniamy w godzinach pracy",
+       "text": "i doprecyzowujemy listę."
+      }
+     },
+     {
+      "title": "Oferta na piśmie",
+      "text": "— konkretne modele w dwóch wariantach, z terminem."
+     },
+     {
+      "title": "Gotowe do pracy",
+      "text": "— dostawa w turach, tak żeby firma nie stała."
+     }
+    ]
+   },
+   "cross": {
+    "page": "agd-rtv-dla-firm",
+    "title": "Wyposażasz też kuchnię albo apartamenty?",
+    "text": "AGD i RTV dla firm, deweloperów i obiektów noclegowych — jedno zapytanie.",
+    "images": [
+     "p-fridge-black",
+     "p-washer"
+    ]
+   }
+  }
  }
 }

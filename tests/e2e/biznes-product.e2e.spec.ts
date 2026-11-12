@@ -102,7 +102,7 @@ test.describe('Biznes product page 2.0', () => {
 
     await addToInquiry(page, 'Posnet Ergo Online')
     await expect(
-      page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ }),
+      page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ }),
     ).toHaveAccessibleName('Zapytanie 1 pozycja')
   })
 
@@ -195,7 +195,7 @@ test.describe('Biznes product page 2.0', () => {
     await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
     await contact.getByRole('button', { name: /^Wyślij zapytanie/ }).click()
     await expect(
-      page.getByRole('status').filter({ hasText: 'Dziękujemy — mamy Twoją listę.' }),
+      page.getByRole('status').filter({ hasText: 'Dziękujemy, mamy Twoją listę.' }),
     ).toBeVisible()
 
     await loginAsAdmin(page)
@@ -275,9 +275,11 @@ test.describe('Biznes product page 2.0', () => {
     ).toHaveAttribute('href', '/produkt/szuflada-posnet-skl')
     await expect(suggestions).toContainText('Szuflada')
     // A cash register: fiscalisation in the strip and in „Co robimy przy zakupie”.
-    await expect(page.getByText('— fiskalizacja i szkolenie na miejscu')).toBeVisible()
     await expect(
-      page.getByText('Dobór, fiskalizacja, szkolenie i serwis — w jednej ofercie.'),
+      page.getByText('fiskalizacja i szkolenie na miejscu', { exact: true }),
+    ).toBeVisible()
+    await expect(
+      page.getByText('Dobór, fiskalizacja, szkolenie i serwis w jednej ofercie.'),
     ).toBeVisible()
   })
 
@@ -378,8 +380,8 @@ test.describe('Biznes product page 2.0', () => {
   test('a card „Do sprawdzenia” has a page, but noindex, no FAQPage and no place in the site maps', async ({
     page,
   }) => {
-    // K3 (K3a-2): Samsung OM is „do-sprawdzenia”, Posnet Ergo „gotowe”.
-    const review = '/produkt/samsung-om'
+    // Yoga Pro 7 15 is „do-sprawdzenia” (Samsung OM „gotowe” since B4-1), Posnet Ergo „gotowe”.
+    const review = '/produkt/lenovo-yoga-pro-7-15'
     const response = await page.goto(site('biznes.localhost', review))
     expect(response?.status()).toBe(200)
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
@@ -394,8 +396,9 @@ test.describe('Biznes product page 2.0', () => {
     expect(xml).toContain(site('biznes.localhost', ERGO))
     expect(xml).not.toContain(review)
     await page.goto(site('biznes.localhost', '/mapa-strony'))
-    await expect(page.locator(`a[href="${review}"]`)).toHaveCount(0)
-    await expect(page.locator(`a[href="${ERGO}"]`)).toHaveCount(1)
+    // The site map itself (`main`): the header's mega menu has its own „Najczęściej wybierane” card.
+    await expect(page.locator(`main a[href="${review}"]`)).toHaveCount(0)
+    await expect(page.locator(`main a[href="${ERGO}"]`)).toHaveCount(1)
   })
 
   test('the Biznes sitemap lists the catalog and products, other sites do not', async ({
@@ -408,5 +411,29 @@ test.describe('Biznes product page 2.0', () => {
 
     await page.goto(site('instalacje.localhost', '/sitemap.xml'))
     expect(await page.content()).not.toContain('/produkt/')
+  })
+})
+
+// Prompt 3 E3: the product on a phone as the board App-Produkt.
+test.describe('Biznes product on a phone', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+
+  test('versions in a row, the description folds', async ({ page }) => {
+    // The screen title of the top bar went with the K4 header (D3-B: the shared capsule).
+    await page.goto(site('biznes.localhost', THINKBOOK))
+    const versions = page.getByRole('button', { name: 'G8 IRL (Intel)' }).locator('..')
+    const size = await versions.evaluate((el) => [el.scrollWidth, el.clientWidth])
+    expect(size[0]).toBeGreaterThan(size[1])
+
+    // Board App-Produkt: „Zadzwoń” next to „Dodaj do zapytania” in the bottom bar.
+    const bar = page.locator('[data-sticky-action]')
+    await expect(bar.getByRole('link', { name: /^Zadzwoń/ })).toHaveAttribute('href', /^tel:/)
+
+    const more = page.locator('#opis button[aria-expanded]')
+    await expect(more).toHaveText('Czytaj cały opis')
+    await more.click()
+    await expect(more).toHaveAttribute('aria-expanded', 'true')
+    await expect(more).toHaveText('Zwiń opis')
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
   })
 })

@@ -7,7 +7,17 @@ import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { postListCards, type PostListCard } from './cards'
 import { ksefPanel, type KsefPanel } from './ksefPanel'
 import { publishedUntil } from './publishedAt'
+import type { Line } from '../tenant/lines'
 import type { PostCategory } from './list'
+import {
+  SISTER_LINES,
+  sisterPostLinks,
+  sisterTenants,
+  type SisterPostLink,
+  type SisterPostRow,
+  type SisterTenant,
+  type SitePlace,
+} from './sister'
 import { postsTag } from './tags'
 import { buildPostView, type PostView } from './view'
 
@@ -34,8 +44,11 @@ export type PostListItem = PostListCard & {
   updatedAt: string
 }
 
-/** All public posts of one tenant, newest first — the list, its filters and the sitemap. */
-export const getPostList = (tenantId: number): Promise<PostListItem[]> =>
+/**
+ * All public posts of one tenant, newest first — the list, its filters and the sitemap. `line`
+ * picks the address of a post (`postHref`: `/poradnik/…` on Instalacje).
+ */
+export const getPostList = (tenantId: number, line?: Line | null): Promise<PostListItem[]> =>
   cacheQuery(
     async () => {
       const payload = await getPayload({ config })
@@ -59,18 +72,41 @@ export const getPostList = (tenantId: number): Promise<PostListItem[]> =>
         },
         overrideAccess: true,
       })
-      const cards = new Map(postListCards(docs, tenantId).map((card) => [card.slug, card]))
+      const cards = new Map(postListCards(docs, tenantId, line).map((card) => [card.slug, card]))
       return docs.flatMap((doc) => {
         const card = cards.get(doc.slug)
         return card ? [{ ...card, categoryValue: doc.category, updatedAt: doc.updatedAt }] : []
       })
     },
-    ['post-list', String(tenantId)],
+    ['post-list', String(tenantId), line ?? ''],
+    { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Has the tenant at least one public post? The Software menu shows „Aktualności” only then
+ * (SWV8 P0 #3) — same filter and cache tag as the list, so publishing a post shows the link.
+ */
+export const hasPublicPosts = (tenantId: number): Promise<boolean> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { totalDocs } = await payload.count({
+        collection: 'posts',
+        where: publicPosts(tenantId),
+        overrideAccess: true,
+      })
+      return totalDocs > 0
+    },
+    ['post-any', String(tenantId)],
     { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
 /** One public post of the tenant as `PostView`, or `null` (unknown, draft, future, other site). */
-export const getPostView = (tenantId: number, slug: string): Promise<PostView | null> =>
+export const getPostView = (
+  tenantId: number,
+  slug: string,
+  line?: Line | null,
+): Promise<PostView | null> =>
   cacheQuery(
     async () => {
       const payload = await getPayload({ config })
@@ -89,9 +125,9 @@ export const getPostView = (tenantId: number, slug: string): Promise<PostView | 
         overrideAccess: true,
       })
       const post = docs[0]
-      return post ? buildPostView(post, tenantId, new Date()) : null
+      return post ? buildPostView(post, tenantId, new Date(), line) : null
     },
-    ['post-view', String(tenantId), slug],
+    ['post-view', String(tenantId), slug, line ?? ''],
     { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
@@ -116,3 +152,64 @@ export const getKsefPanel = (tenantId: number): Promise<KsefPanel | null> =>
     ['news-ksef', String(tenantId)],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
+
+/** Newest public posts of one sister tenant as bare rows: slug, title, date, lead — no body or cover. */
+const getTenantPostRows = (tenantId: number, limit: number): Promise<SisterPostRow[]> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'posts',
+        where: publicPosts(tenantId),
+        draft: false,
+        sort: '-publishedAt',
+        limit,
+        depth: 0,
+        // Only what a link card shows (the lead becomes a short teaser): no body or cover.
+        select: { slug: true, title: true, publishedAt: true, lead: true },
+        overrideAccess: true,
+      })
+      return docs.map(({ slug, title, publishedAt, lead }) => ({ slug, title, publishedAt, lead }))
+    },
+    ['post-rows', String(tenantId), String(limit)],
+    { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/** Active Instalacje and Software tenants (they change with a new site only). */
+const getSisterTenantRows = (): Promise<SisterTenant[]> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'tenants',
+        where: {
+          and: [{ line: { in: [...SISTER_LINES] } }, { active: { equals: true } }],
+        },
+        limit: 10,
+        depth: 0,
+        select: { line: true, domains: true },
+        overrideAccess: true,
+      })
+      return docs.map(({ id, line, domains }) => ({ id, line, domains }))
+    },
+    ['sister-tenants'],
+    { revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Link cards to the newest posts of Instalacje and Software on their own sites, for the Biznes
+ * home news when Biznes has fewer than three posts (plan 0611 §7.1 pkt 12). Title, absolute
+ * link, date and line only (`SisterPostLink`); the excluded tenant's posts never come back.
+ */
+export async function getSisterLinePostLinks(
+  excludeTenantId: number,
+  limit: number,
+  place: SitePlace,
+): Promise<SisterPostLink[]> {
+  if (limit <= 0) return []
+  const tenants = sisterTenants(await getSisterTenantRows(), excludeTenantId)
+  const groups = await Promise.all(
+    tenants.map(async (tenant) => ({ tenant, posts: await getTenantPostRows(tenant.id, limit) })),
+  )
+  return sisterPostLinks(groups, excludeTenantId, limit, place)
+}

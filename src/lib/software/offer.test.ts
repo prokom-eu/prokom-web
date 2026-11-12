@@ -6,6 +6,7 @@ import okno from '../../../seed/prokomsoftware/okno-oferty.json'
 import { solutionData, solutionsToImport } from '../../seed/software/map'
 import {
   buildOfferView,
+  careFromLine,
   type OfferSolution,
   offerSolutionOf,
   type OfferSolutionDoc,
@@ -77,7 +78,7 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
         'Panel do zmian i formularz prosto do Ciebie',
         'Gotowa pod Google i AI',
       ],
-      more: 'Potrzebujesz więcej? Np. więcej niż 5 podstron, aktualności i blog, kolejny język — wycenimy na piśmie w 5–7 dni.',
+      more: 'Potrzebujesz więcej? Np. więcej niż 5 podstron, aktualności i blog, kolejny język — wycenimy w 5–7 dni.',
     })
     expect(view.guarantees).toEqual([
       'Wycena na piśmie, ważna 30 dni',
@@ -90,7 +91,7 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
 
   it('strona firmowa: „W cenie każdego projektu” without repeating the price card', () => {
     const { benefits } = viewOf('strona-firmowa-z-panelem')
-    expect(benefits.title).toBe('W cenie każdego projektu')
+    expect(benefits.title).toBe('W cenie **każdego projektu**')
     expect(benefits.items).toEqual([
       'Działa na telefonie i komputerze',
       'Podstawy SEO i widoczność w Google i AI',
@@ -155,7 +156,7 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
       kind: 'ask',
       title: 'Zapytaj o wycenę',
       note: 'Odpowiadamy w ciągu [CZAS ODPOWIEDZI].',
-      text: 'Cena zależy od ekranów i programów, które już masz. Po krótkiej rozmowie dostajesz cenę i termin na piśmie.',
+      text: 'Cena zależy od ekranów i programów, które już masz. Po krótkiej rozmowie dostajesz cenę i termin.',
     })
     expect(view.term).toBe('po krótkiej rozmowie')
     expect(view.steps[1]?.name).toBe('Wycena na piśmie')
@@ -241,7 +242,7 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
       '1 tydzień',
       '2 tygodnie',
     ])
-    expect(view.benefits.title).toBe('Przy każdym audycie')
+    expect(view.benefits.title).toBe('Przy **każdym audycie**')
     expect(view.benefits.items[0]).toBe('Zgłoszenie bez logowania i zobowiązań')
     expect(view.needs).toEqual(['Adres strony lub programu', 'Telefon albo e-mail do raportu'])
   })
@@ -334,5 +335,40 @@ describe('offer texts of the seed', () => {
       expect(view.faq.length, slug).toBeGreaterThanOrEqual(3)
       if (view.price.kind === 'included') expect(view.price.items.length, slug).toBeGreaterThan(0)
     }
+  })
+})
+
+describe('offer window v24: mock-up and „Opieka od” (ZMIANY-v24 §6.1)', () => {
+  it('carries the solution mock-up, also on the related cards', () => {
+    expect(viewOf('strona-wizytowka').preview).toEqual({ kind: 'site', variant: 'wizytowka' })
+    expect(relatedCard(solutions.get('asystent-ai-do-zapytan')!, display).preview).toEqual({
+      kind: 'flow',
+      variant: 'ai',
+    })
+  })
+
+  it('„Opieka od” is the cheapest monthly care level, not the free audit', () => {
+    const line = careFromLine([...solutions.values()], display)
+    expect(line).toMatch(/^od 149 zł/)
+  })
+
+  it('no care solution → no tile; care and audit windows show their own levels instead', () => {
+    expect(careFromLine([solutions.get('strona-wizytowka')!], display)).toBeNull()
+    const care = buildOfferView(solutions.get('opieka-nad-strona-i-systemem')!, {
+      offer,
+      display,
+      related: [],
+      fill,
+      careFrom: 'od 149 zł / mies.',
+    })
+    expect(care.careFrom).toBeNull()
+    const page = buildOfferView(solutions.get('strona-wizytowka')!, {
+      offer,
+      display,
+      related: [],
+      fill,
+      careFrom: 'od 149 zł / mies.',
+    })
+    expect(page.careFrom).toBe('od 149 zł / mies.')
   })
 })

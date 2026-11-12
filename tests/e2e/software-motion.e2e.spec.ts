@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { hydrated, site } from './helpers'
 
 // SWV5 (MOBILE-APLIKACJA §4 pkt 10, ZMIANY-v23 §5): motion of the Software line — the rail
 // glides, sections rise in on scroll, and with reduced motion nothing moves at all.
@@ -16,7 +16,7 @@ const animations = (page: Page) =>
   )
 
 /** Our animations: sections, the phone panel card, the map pin, page transitions. */
-const OURS = /^(sw-|panel-in|map-pulse)/
+const OURS = /^(sw-|hx-|mk-|panel-in|map-pulse)/
 
 const scrollBehavior = (page: Page) =>
   page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)
@@ -27,19 +27,21 @@ test.describe('Software motion', () => {
   test('the rail glides to a section, focuses it and its heading arrives', async ({ page }) => {
     await page.goto(site(HOST))
     expect(await scrollBehavior(page)).toBe('smooth')
-    // Section headings rise in while scrolling (Chromium supports `animation-timeline`).
-    expect((await animations(page)).map((a) => a.name)).toContain('sw-rise')
-    await page
-      .getByRole('navigation', { name: 'Na tej stronie' })
-      .locator('a[href="#jak-robimy"]')
-      .click()
-    await expect(page).toHaveURL(/#jak-robimy$/)
-    await expect(page.locator('#jak-robimy')).toBeFocused()
+    // The shared side rail (SWA5a) is folded to its icons: a hand points at it first, it opens.
+    const rail = page.locator('[data-site-rail]')
+    await hydrated(rail.getByRole('button', { name: /Szukaj/ }))
+    await rail.hover({ position: { x: 32, y: 32 } })
+    await expect
+      .poll(() => rail.evaluate((nav) => getComputedStyle(nav).clipPath))
+      .toBe('inset(0px round 22px)')
+    await rail.locator('a[href="#proces"]').click()
+    await expect(page).toHaveURL(/#proces$/)
+    await expect(page.locator('#proces')).toBeFocused()
     // Lands where a plain anchor jump would (the section's scroll margin), marked as arrived.
     await expect
       .poll(() =>
         page.evaluate(() => {
-          const section = document.getElementById('jak-robimy')
+          const section = document.getElementById('proces')
           if (!section) return 'missing'
           const top = Math.round(section.getBoundingClientRect().top)
           const margin = Math.round(Number.parseFloat(getComputedStyle(section).scrollMarginTop))
@@ -47,6 +49,10 @@ test.describe('Software motion', () => {
         }),
       )
       .toBe('arrived')
+    // v24: the heading rises in with the scroll alone (`data-rise`, CSS) and is there on arrival.
+    const head = page.locator('#proces h2')
+    await expect(head).toHaveAttribute('data-rise')
+    await expect.poll(() => head.evaluate((el) => getComputedStyle(el).opacity)).toBe('1')
   })
 })
 
@@ -56,20 +62,33 @@ test.describe('Software motion with reduced motion', () => {
   test('the start page does not move', async ({ page }) => {
     await page.goto(site(HOST))
     expect(await scrollBehavior(page)).toBe('auto')
+    // Nothing waits hidden for a rise-in (SWV7).
+    expect(await page.locator('[data-reveal-pending]').count()).toBe(0)
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2))
     expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])
   })
 
-  test('the phone hero card shows its notifications at once', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 })
+  test('the hero stands on its first slide, tiles still switch by hand', async ({ page }) => {
+    await page.clock.install()
     await page.goto(site(HOST))
-    await expect(page.locator('#start').getByText('Faktura wysłana sama')).toBeVisible()
+    const word = page.locator('#start .hx-word')
+    await expect(word).toHaveText('stronę wizytówkę.')
+    await page.clock.fastForward(9000)
+    await expect(word).toHaveText('stronę wizytówkę.')
+    const tile = page.locator('#start').getByRole('tab', { name: /Restauracja/ })
+    await hydrated(tile)
+    await tile.click()
+    await expect(word).toHaveText('stronę restauracji.')
     expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])
   })
 
   test('a page change swaps without a transition', async ({ page }) => {
     await page.goto(site(HOST))
-    await page.locator('header').getByRole('link', { name: 'Kontakt' }).first().click()
+    await page
+      .locator('[data-site-header]')
+      .getByRole('navigation', { name: 'Menu główne' })
+      .getByRole('link', { name: 'Kontakt' })
+      .click()
     const during = await animations(page)
     expect(during.filter((a) => a.pseudo.includes('view-transition'))).toEqual([])
     await expect(page).toHaveURL(/\/kontakt$/)
@@ -77,8 +96,9 @@ test.describe('Software motion with reduced motion', () => {
 
   test('the contact map pin does not pulse and an FAQ answer opens at once', async ({ page }) => {
     await page.goto(site(HOST, '/kontakt'))
-    await page.locator('#gdzie').scrollIntoViewIfNeeded()
-    const faq = page.locator('#faq details').nth(1)
+    // SWA5b: the shared Kontakt template — the map in the address card, the FAQ in `#pytania`.
+    await page.locator('[data-address-card]').scrollIntoViewIfNeeded()
+    const faq = page.locator('#pytania details').nth(1)
     await faq.locator('summary').click()
     await expect(faq).toHaveAttribute('open', '')
     expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])

@@ -3,8 +3,10 @@ import { describe, expect, it } from 'vitest'
 import { prepareSearch } from '../search'
 import { buildCatalogIndex } from './catalogIndex'
 import {
+  brandCount,
   activeFilters,
   CATALOG_PAGE_SIZE,
+  CATALOG_PAGE_SIZE_PHONE,
   catalogQueryString,
   catalogSeo,
   clearFilters,
@@ -240,6 +242,18 @@ describe('runCatalog on the seed package', () => {
     expect(run({ page: 99 }).visible).toHaveLength(225)
     expect(run({ page: 2 }).visible).toEqual(run({}).results.slice(0, 48))
   })
+
+  it('on a phone a page is 10 (board App-Kategoria: „Pokaż kolejne 10”)', () => {
+    const phone = (state: Partial<CatalogState>) =>
+      runCatalog(
+        index,
+        search,
+        { ...DEFAULT_STATE, ...state },
+        { pageSize: CATALOG_PAGE_SIZE_PHONE },
+      )
+    expect(phone({}).visible).toHaveLength(10)
+    expect(phone({ page: 3 }).visible).toEqual(run({}).results.slice(0, 30))
+  })
 })
 
 describe('activeFilters', () => {
@@ -334,5 +348,16 @@ describe('catalogSeo (ADR-012 §2.2)', () => {
         canonical: '/oferta',
       })
     }
+  })
+})
+
+describe('brandCount (audit 01.11: one number for the home page and Szybki start)', () => {
+  it('counts the brands without the company itself', () => {
+    const brands = [
+      { slug: 'posnet', name: 'Posnet', status: 'authorized-service' as const },
+      { slug: 'pro-kom', name: 'PRO-KOM', status: 'none' as const },
+      { slug: 'dell', name: 'Dell', status: 'none' as const },
+    ]
+    expect(brandCount({ brands })).toBe(2)
   })
 })

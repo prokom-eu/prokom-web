@@ -155,9 +155,13 @@ test.describe('not found', () => {
     test(`${path} shows the site's 404 inside its header and footer`, async ({ page }) => {
       const response = await page.goto(site('biznes.localhost', path))
       expect(response?.status()).toBe(404)
-      await expect(page.getByRole('heading', { level: 1 })).toHaveText('Nie znaleziono strony')
+      // Biznes 404 (audit 01.11): the search and the popular places.
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tej strony tu nie ma.')
       await expect(page.locator('header')).toBeVisible()
-      await expect(page.getByRole('link', { name: 'Przejdź na stronę główną' })).toBeVisible()
+      await expect(
+        page.locator('main').getByRole('button', { name: 'Szukaj w ofercie', exact: true }),
+      ).toBeVisible()
+      await expect(page.locator('main').getByRole('link', { name: /Strona główna/ })).toBeVisible()
     })
   }
 

@@ -4,16 +4,12 @@ import type { Wizard } from '../catalog/wizard'
 import { parseKr, wizardProfile } from '../catalog/wizardEngine'
 import { parsePlanAnswers, planContact, planSummary } from '../instalacje/plan'
 import { errorFields, log } from '../log'
-import type { ContactField, SoftwareWizard } from '../software/wizard'
-import {
-  addOnSlugsOf,
-  contactPrefOf,
-  needOf,
-  parseSoftwareAnswers,
-  resultIdOf,
-  wizardMessage,
-  wizardSummary as softwareWizardSummary,
-} from '../software/wizardFlow'
+import type { ConfirmationLimiter } from '../mail/confirmationLimit'
+import type { MailContext } from '../mail/context'
+import type { MailLogo } from '../mail/logo'
+import { parseWizardAnswers, wizardMessage, wizardRecord } from '../software/wizard/answers'
+import { typeOf } from '../software/wizard/flow'
+import type { SoftwareWizard } from '../software/wizard/schema'
 import { normalizeHost } from '../tenant/host'
 import type { Line } from '../tenant/lines'
 import {
@@ -61,7 +57,19 @@ export type SubmitDeps = {
   findSoftwareWizard: (tenantId: number) => Promise<SoftwareWizard | null>
   /** Returns the record after the hooks, so with the number (`Inquiries.assignNumber`). */
   save: (data: NewInquiry) => Promise<{ id: number; number?: string | null }>
-  sendEmail: (email: Email) => Promise<unknown>
+  /** Sends from the sender of the tenant's line (`lib/mail/senders`, S10d). */
+  sendEmail: (email: Email, line: Line) => Promise<unknown>
+  /**
+   * Phones, e-mail, company and privacy page of the tenant's line for the mails (spec MAILE §2) —
+   * from `getSharedData` (D1-1). `null` without shared data: the mails go without those parts.
+   */
+  mailContext: (tenant: { id: number; name: string }, host: string) => Promise<MailContext | null>
+  /** The line's logo for the confirmation (`lib/mail/logo`); `origin` = the line's site. */
+  mailLogo: (line: Line, origin: string | null) => MailLogo | null
+  /** The line's sender address (`lib/mail/senders`) — where a reply to the confirmation lands. */
+  senderAddress: (line: Line) => string
+  /** At most 3 confirmations per address in 24 h (spec MAILE §6.3). */
+  confirmations: Pick<ConfirmationLimiter, 'allow'>
   panelUrl: (id: number) => string
   /** The site's address for a `Host` (`siteOrigin`), or `null` — links to the site in a record. */
   siteOrigin: (host: string) => string | null
@@ -142,6 +150,9 @@ async function composeWizard(
   return { summary: wizardProfile(rules, state, deps.siteOrigin(host) ?? '') }
 }
 
+/** What the contact field must hold (Instalacje: an e-mail for „E-mail”). */
+type ContactField = 'phone' | 'email' | 'any'
+
 type ComposedWizard = {
   /** Absent: the items sent by the browser stand (Konfigurator 3.0). */
   items?: SavedItem[]
@@ -150,7 +161,7 @@ type ComposedWizard = {
   message?: string
   preferredContact?: InquiryInput['preferredContact']
   auditUrl?: string
-  /** Software: what the chosen contact preference needs (`contactPrefs[].field`). */
+  /** What the chosen contact preference needs (Instalacje). */
   contactField?: ContactField
   /** Instalacje: the services come from the answers, not from the sent topics. */
   topics?: string[]
@@ -199,10 +210,10 @@ export function siteUrl(text: string): string | undefined {
 }
 
 /**
- * The Software wizard's answers as an inquiry (spec. §6.3): checked against this site's rules,
- * the recommended solution and the added add-ons as items (published, this tenant), the answers named for people,
- * the message written here and the contact preference mapped — or `null` when the answers do
- * not fit the rules (or there are none).
+ * The Software wizard v3 answers as an inquiry (ZMIANY-v24 §7.2): checked against this site's
+ * rules, the kind's solution as the item (published, this tenant; none for „Nie wiem jeszcze”),
+ * the answers named in Polish and the message written here — or `null` when the answers do not
+ * fit the rules (or there are none). A valid site address goes to `auditUrl` (printed once).
  */
 async function composeSoftwareWizard(
   deps: SubmitDeps,
@@ -210,26 +221,21 @@ async function composeSoftwareWizard(
   input: unknown,
 ): Promise<ComposedWizard | null> {
   const rules = await deps.findSoftwareWizard(tenantId)
-  const answers = rules ? parseSoftwareAnswers(rules, input) : null
+  const answers = rules ? parseWizardAnswers(rules, input) : null
   if (!rules || !answers) return null
-  // The recommended solution first, then the added add-ons (each solution once).
-  const result = rules.resultToSolutionSlug[resultIdOf(rules, answers)] ?? null
-  const slugs = [...new Set([...(result ? [result] : []), ...addOnSlugsOf(rules, answers)])]
-  const found = slugs.length > 0 ? await deps.findSolutions(tenantId, slugs) : []
-  const bySlug = new Map(found.map((solution) => [solution.slug, solution]))
-  const items = slugs.flatMap((slug) => {
-    const solution = bySlug.get(slug)
-    return solution ? [{ solution: solution.id, nameSnapshot: solution.name, quantity: 1 }] : []
-  })
-  const when = rules.whens.find((option) => option.id === answers.when)?.n
+  const slug = typeOf(rules, answers)?.solution
+  const found = slug ? await deps.findSolutions(tenantId, [slug]) : []
+  const items = found.map((solution) => ({
+    solution: solution.id,
+    nameSnapshot: solution.name,
+    quantity: 1,
+  }))
+  const auditUrl = siteUrl(answers.url)
   return {
     items,
-    summary: softwareWizardSummary(rules, answers),
+    summary: wizardRecord(rules, auditUrl ? { ...answers, url: '' } : answers),
     message: wizardMessage(rules, answers),
-    preferredContact: contactPrefOf(rules, answers)?.inquiryValue,
-    contactField: contactPrefOf(rules, answers)?.field,
-    ...(when && { when }),
-    ...(needOf(rules, answers)?.url && { auditUrl: siteUrl(answers.url) }),
+    ...(auditUrl && { auditUrl }),
   }
 }
 
@@ -389,6 +395,24 @@ export async function submitInquiryWith(
     })),
     consent: { clauseVersion: input.consent.clauseVersion, acceptedAt },
   }
+  let context: MailContext | null = null
+  try {
+    context = await deps.mailContext(tenant, normalized ?? '')
+    if (!context) deps.log.warn({ tenant: tenant.id, inquiry: id }, 'Mail without shared data')
+  } catch (error) {
+    deps.log.error({ tenant: tenant.id, inquiry: id, ...errorFields(error) }, 'Mail context failed')
+  }
+  const sentAt = new Date(deps.now())
+  // The limit counts before sending: the inquiry is saved anyway, only the confirmation waits.
+  const confirmation = !forEmail.email
+    ? 'none'
+    : deps.confirmations.allow(forEmail.email)
+      ? 'sent'
+      : 'limited'
+  if (confirmation === 'limited') {
+    deps.log.info({ tenant: tenant.id, inquiry: id, confirmation }, 'Confirmation limited')
+  }
+
   const emails: { kind: string; email: Email }[] = []
   if (tenant.notificationEmail) {
     emails.push({
@@ -396,15 +420,27 @@ export async function submitInquiryWith(
       email: notificationEmail(forEmail, {
         to: tenant.notificationEmail,
         panelUrl: deps.panelUrl(id),
+        confirmation,
+        context,
+        sentAt,
       }),
     })
   } else {
     deps.log.warn({ tenant: tenant.id, inquiry: id }, 'Tenant has no notification e-mail')
   }
-  const confirmation = confirmationEmail(forEmail)
-  if (confirmation) emails.push({ kind: 'confirmation', email: confirmation })
+  if (confirmation === 'sent') {
+    const mail = confirmationEmail(forEmail, {
+      context,
+      logo: deps.mailLogo(tenant.line, context?.origin ?? null),
+      sentAt,
+      replyAddress: deps.senderAddress(tenant.line),
+    })
+    if (mail) emails.push({ kind: 'confirmation', email: mail })
+  }
 
-  const results = await Promise.allSettled(emails.map(({ email }) => deps.sendEmail(email)))
+  const results = await Promise.allSettled(
+    emails.map(({ email }) => deps.sendEmail(email, tenant.line)),
+  )
   results.forEach((result, i) => {
     if (result.status === 'rejected') {
       deps.log.error(
@@ -425,6 +461,11 @@ const store = globalThis as typeof globalThis & {
 // 5 inquiries per 10 minutes from one address — plenty for a person, little for a script.
 const limiter = (store[LIMITER_KEY] ??= createRateLimiter({ limit: 5, windowMs: 10 * 60_000 }))
 
+const CONFIRMATIONS_KEY = Symbol.for('prokom.confirmationLimiter')
+const confirmationStore = globalThis as typeof globalThis & {
+  [CONFIRMATIONS_KEY]?: ConfirmationLimiter
+}
+
 /**
  * Accepts an inquiry from a site form (ADR-003): tenant from `Host`, spam checks, validation,
  * save, e-mails. In 2027 `save` moves to the PRO-KOM System API; the forms stay as they are.
@@ -434,14 +475,27 @@ export async function submitInquiry(
   context: { requestId: string },
 ): Promise<SubmitResult> {
   // Imported lazily, like `lib/tenant/byHost`: keeps the Payload config out of unit tests.
-  const [{ getPayload }, { default: config }, { getEnv }, { getTenantByHost }, { siteOrigin }] =
-    await Promise.all([
-      import('payload'),
-      import('@payload-config'),
-      import('../env'),
-      import('../tenant/byHost'),
-      import('../seo/origin'),
-    ])
+  const [
+    { getPayload },
+    { default: config },
+    { getEnv },
+    { getTenantByHost },
+    { siteOrigin },
+    { mailLogo },
+    { lineCopy },
+    { createConfirmationLimiter },
+    { senderFor },
+  ] = await Promise.all([
+    import('payload'),
+    import('@payload-config'),
+    import('../env'),
+    import('../tenant/byHost'),
+    import('../seo/origin'),
+    import('../mail/logo'),
+    import('../mail/lineCopy'),
+    import('../mail/confirmationLimit'),
+    import('../mail/senders'),
+  ])
   const payload = await getPayload({ config })
   const env = getEnv()
 
@@ -502,7 +556,7 @@ export async function submitInquiry(
         return docs.map(({ id, slug, name }) => ({ id, slug, name }))
       },
       findSoftwareWizard: async (tenantId) => {
-        const { readSoftwareWizard } = await import('../software/wizardRules')
+        const { readSoftwareWizard } = await import('../software/wizard/read')
         return readSoftwareWizard(payload, tenantId)
       },
       findWizard: async (tenantId) => {
@@ -511,7 +565,32 @@ export async function submitInquiry(
       },
       save: (data) =>
         payload.create({ collection: 'inquiries', data, depth: 0, overrideAccess: true }),
-      sendEmail: (email) => payload.sendEmail(email),
+      sendEmail: async (email, line) => {
+        const { sendLineEmail } = await import('../mail/send')
+        return sendLineEmail(payload, line, email)
+      },
+      mailContext: async (tenant, host) => {
+        const [{ getSharedData }, { toMailContext }] = await Promise.all([
+          import('../shared/getSharedData'),
+          import('../mail/context'),
+        ])
+        return toMailContext(
+          await getSharedData(tenant.id),
+          siteOrigin(host, env.SITE_ENV),
+          tenant.name,
+        )
+      },
+      // With `MAIL_LOGO_FROM_SITE` the logo is an image from the line's own domain (ADR-024 pkt 3).
+      mailLogo: (line, origin) =>
+        mailLogo(
+          lineCopy(line).logo,
+          lineCopy(line).label,
+          env.MAIL_LOGO_FROM_SITE && origin?.startsWith('https://') ? origin : undefined,
+        ),
+      senderAddress: (line) => senderFor(line, env).address,
+      confirmations: (confirmationStore[CONFIRMATIONS_KEY] ??= createConfirmationLimiter({
+        secret: env.PAYLOAD_SECRET,
+      })),
       siteOrigin: (host) => siteOrigin(host, env.SITE_ENV),
       panelUrl: (id) => {
         // Same scheme rules as the sites; locally the panel runs on the request's port.

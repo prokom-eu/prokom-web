@@ -2,12 +2,10 @@ import type { CSSProperties } from 'react'
 
 import { anteny } from '../../dane/anteny'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
 import { FilterSpectrum } from './FilterSpectrum'
 import { TvQuiz } from './TvQuiz'
-
-import './anteny.css'
 
 const SECTION = { padding: '0 0 104px' }
 
@@ -34,15 +32,9 @@ function Features({
 }
 
 /** Icon list of the guesthouse cards (`.kdl`). */
-function IconList({
-  items,
-  dark = false,
-}: {
-  items: readonly { icon: string; title: string; text: string }[]
-  dark?: boolean
-}) {
+function IconList({ items }: { items: readonly { icon: string; title: string; text: string }[] }) {
   return (
-    <div className={dark ? 'kdl dk' : 'kdl'}>
+    <div className="kdl">
       {items.map((item) => (
         <div key={item.title}>
           <span className="ico s">
@@ -146,18 +138,10 @@ export function AntenySections() {
 
       <InstSection id="pensjonat-tv" fold style={SECTION}>
         <div className="wrap">
-          <div className="g2" style={{ gap: 18, alignItems: 'stretch' }}>
-            <div className="card kdk ri">
-              <span className="eye">{guesthouse.eyebrow}</span>
-              <h2 className="h3">{guesthouse.heading}</h2>
-              <IconList items={guesthouse.items} />
-            </div>
-            <div className="card dark kdk ri" data-surface="dark">
-              <span className="eye kdeye">{guesthouse.fees.eyebrow}</span>
-              <b className="h3">{guesthouse.fees.heading}</b>
-              <IconList items={guesthouse.fees.items} dark />
-              <span className="kdnote">{guesthouse.fees.note}</span>
-            </div>
+          <div className="card kdk ri">
+            <span className="eye">{guesthouse.eyebrow}</span>
+            <h2 className="h3">{guesthouse.heading}</h2>
+            <IconList items={guesthouse.items} />
           </div>
         </div>
       </InstSection>

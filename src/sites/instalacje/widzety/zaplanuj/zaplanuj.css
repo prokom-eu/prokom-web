@@ -3,8 +3,7 @@
  * for the classes of `Zaplanuj.body.html` and the state classes of `Zaplanuj.js`, ported by
  * `narzedzia/przenies-css.mjs` (map `przenies-css.strony.json`), colours only from tokens.
  * `.zkseg`/`.zksg` come from `sekcje.css`; the ticket classes repeat the home page's rules
- * because `glowna-sekcje.css` loads on `/` only. On this page the footer hides its „Zaplanuj”
- * card (prototype `.xa-zapmark`) and the frame's CTA band (prototype meta `cta: false`).
+ * because `glowna-sekcje.css` loads on `/` only. On this page the frame's CTA band hides (prototype meta `cta: false`).
  */
 [data-line='instalacje'] {
   & .zkh .hglow2 {
@@ -575,7 +574,7 @@
     background: var(--surface-3);
     font-size: 12.5px;
     color: var(--ink-soft);
-    animation: inst-zkin 0.3s ease;
+    animation: inst-zkin 0.3s var(--ease-out);
   }
   & .zktips {
     grid-column: 2;
@@ -731,7 +730,7 @@
     text-align: center;
     gap: 16px;
     padding: 48px 26px 40px;
-    animation: inst-zkin 0.5s ease;
+    animation: inst-zkin 0.5s var(--ease-out);
   }
   & .zkok svg {
     width: 88px;
@@ -743,7 +742,7 @@
     stroke-width: 2.5;
     stroke-dasharray: 160;
     stroke-dashoffset: 160;
-    animation: inst-zkdr 0.7s ease forwards;
+    animation: inst-zkdr 0.7s var(--ease-out) forwards;
   }
   & .zkok path {
     fill: none;
@@ -753,7 +752,7 @@
     stroke-linejoin: round;
     stroke-dasharray: 40;
     stroke-dashoffset: 40;
-    animation: inst-zkdr 0.45s 0.55s ease forwards;
+    animation: inst-zkdr 0.45s 0.55s var(--ease-out) forwards;
   }
   & .zkdtl {
     display: grid;
@@ -849,7 +848,7 @@
     font-size: 12px;
     font-weight: 800;
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--h) 60%, transparent);
-    animation: inst-zkin 0.3s ease;
+    animation: inst-zkin 0.3s var(--ease-out);
   }
   & .zktag svg {
     color: var(--h);
@@ -884,7 +883,7 @@
     border-radius: 20px;
     background: color-mix(in srgb, var(--inst-promo-warm) 12%, var(--card));
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--inst-promo-warm) 35%, transparent);
-    animation: inst-zkin 0.4s ease;
+    animation: inst-zkin 0.4s var(--ease-out);
   }
   & .zkhi {
     flex: none;
@@ -1131,10 +1130,6 @@
     stroke-dashoffset: 0;
   }
 }
-[data-line='instalacje'] .inst-page:has(.xa-zapmark) .ftci.plan {
-  display: none;
-}
-
 /* The consent is a real checkbox (hidden) in the prototype's look: its focus shows on the box. */
 [data-line='instalacje'] .zkcons:has(input:focus-visible) {
   outline: 2px solid var(--accent);

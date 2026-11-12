@@ -1,5 +1,6 @@
 import { publicImage, type PublicImage } from '../media/public'
 import { tenantIdOf } from '../tenant/id'
+import type { Line } from '../tenant/lines'
 import { categoryLabel, postHref } from './list'
 
 export type PostCard = {
@@ -45,12 +46,12 @@ export function postDate(
 const ownPosts = <T extends PostLike>(posts: readonly T[], tenantId: number) =>
   posts.filter((post) => tenantIdOf(post.tenant) === tenantId)
 
-const card = (post: PostLike): PostCard => {
+const card = (post: PostLike, line?: Line | null): PostCard => {
   const published = postDate(post.publishedAt)
   return {
     slug: post.slug,
     title: post.title,
-    href: postHref(post.slug),
+    href: postHref(post.slug, line),
     category: categoryLabel(post.category),
     date: published?.date ?? null,
     dateTime: published?.dateTime ?? null,
@@ -58,13 +59,27 @@ const card = (post: PostLike): PostCard => {
 }
 
 /**
- * Cards of `/aktualnosci` and „Czytaj też”. Posts of another tenant are dropped here too,
- * whatever the query did; the cover only when public.
+ * Cards of `/aktualnosci` and „Czytaj też” (the Instalacje guide with its `line`: `/poradnik/…`).
+ * Posts of another tenant are dropped here too, whatever the query did; the cover only when public.
  */
-export function postListCards(posts: readonly PostListLike[], tenantId: number): PostListCard[] {
+export function postListCards(
+  posts: readonly PostListLike[],
+  tenantId: number,
+  line?: Line | null,
+): PostListCard[] {
   return ownPosts(posts, tenantId).map((post) => ({
-    ...card(post),
+    ...card(post, line),
     lead: post.lead?.trim() || null,
     cover: publicImage(post.cover, tenantId),
   }))
 }
+
+/** Wider than this, a cover is a wordmark (the KSeF post: 480 × 142), not a picture. */
+const WORDMARK_RATIO = 2.4
+
+/**
+ * A cover that is a wordmark (audit 10.11 §9): shown small on a white tile like the line's mark,
+ * not stretched over the card's picture field.
+ */
+export const coverIsWordmark = (cover: { width: number; height: number }) =>
+  cover.height > 0 && cover.width / cover.height > WORDMARK_RATIO

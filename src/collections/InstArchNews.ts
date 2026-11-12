@@ -4,6 +4,7 @@ import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 import { adminOnly } from '../lib/auth/access'
 import { publishWithMarker } from '../lib/instalacje/archNews'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
+import { imageField } from './catalogFields'
 
 const FIELD_NAMES: Record<string, string> = {
   title: 'Tytuł',
@@ -135,6 +136,9 @@ export const InstArchNews: CollectionConfig = {
       maxRows: 6,
       fields: [{ name: 'name', label: 'Miejsce', type: 'text', required: true }],
     },
+    // Round v5 (RUNDA-V5 §7.2): product photo from the maker's official page; without it the
+    // card keeps the SVG illustration below.
+    imageField('image', 'Zdjęcie produktu', false),
     {
       type: 'collapsible',
       label: 'Ilustracja (technicznie)',

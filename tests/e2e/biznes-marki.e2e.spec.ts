@@ -11,20 +11,18 @@ test.describe('Biznes /marki (K4f)', () => {
   }) => {
     const response = await page.goto(biznes('/marki'))
     expect(response?.status()).toBe(200)
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Marki, które znamy od środka.',
-    )
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Wszystkie marki w ofercie')
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/marki$/)
     await expect(
       page.getByRole('heading', { level: 2, name: 'Kasy, POS i płatności' }),
     ).toBeVisible()
 
     // Kyocera sits in the theme showroom „Druk”; HP has none — the offer filtered by the brand.
-    await expect(page.getByRole('link', { name: /^Kyocera — wejdź do salonu/ })).toHaveAttribute(
+    await expect(page.getByRole('link', { name: /Kyocera — wejdź do salonu/ })).toHaveAttribute(
       'href',
       '/marki/druk',
     )
-    await expect(page.getByRole('link', { name: /^HP — zobacz ofertę/ })).toHaveAttribute(
+    await expect(page.getByRole('link', { name: /HP — zobacz ofertę/ })).toHaveAttribute(
       'href',
       '/oferta?marka=hp',
     )
@@ -50,14 +48,20 @@ test.describe('Biznes /marki (K4f)', () => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(biznes('/kontakt'))
     await expect(
-      page.getByRole('navigation', { name: 'Główna' }).getByRole('link', { name: 'Marki' }),
+      page.getByRole('navigation', { name: 'Menu główne' }).getByRole('link', { name: 'Marki' }),
     ).toHaveAttribute('href', '/marki')
     await expect(
       page.getByRole('contentinfo').getByRole('link', { name: 'Wszystkie marki' }),
     ).toHaveAttribute('href', '/marki')
+    // The shared side rail (D3-B): on a subpage its „Strona główna” group leads to the brands
+    // section of the home page. Kontakt is on the shared template (#401) with its own sections, so
+    // once the rail reads them the group folds (`hidden`) under „Na tej stronie” — a CSS locator
+    // finds the link in both states (a role query skips hidden elements and raced the rail).
     await expect(
-      page.getByRole('navigation', { name: 'Menu boczne' }).getByRole('link', { name: 'Marki' }),
-    ).toHaveAttribute('href', '/marki')
+      page.locator('[data-site-rail] [role="group"][aria-label="Strona główna"] a', {
+        hasText: 'Marki',
+      }),
+    ).toHaveAttribute('href', '/#marki')
   })
 
   test('has no horizontal scroll at 390 px', async ({ page }) => {

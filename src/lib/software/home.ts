@@ -1,14 +1,15 @@
 import { z } from 'zod'
 
-import { ICON_NAMES } from '../catalog/options'
-import { firstIssue, href, key, label, link, obj, slug, svgPath, text } from './schema'
+import { DASH_VARIANTS, isVariantOf, MOCKUP_KINDS, SITE_VARIANTS } from './mockups'
+import { WIZARD_FIRMS } from './options'
+import { firstIssue, key, label, obj, slug, svgPath, text } from './schema'
 
 /**
  * Texts of the fixed sections of the Software start page and `/o-firmie` (`SoftwareSettings.home`,
  * ADR-014 rozstrz. SW0 7, v20 6). The sections themselves are components placed by `swHomeSection`
  * blocks; their order is the order of those blocks, so `homeOrder` of the package is not stored
- * (decision SWD1 D2). Shape: `strona-glowna.json` 1:1, plus `technologie.json` → `technologies`
- * and `popularne.json` → `popular` (the seed of SW3 puts them together).
+ * (decision SWD1 D2). From `strona-glowna.json` only the process stages and the comparison stay;
+ * the v23 sections and their keys went with the clean-up (decision D6, 08.11).
  */
 
 /** Table cell; may be empty (the corner above the row names). */
@@ -33,107 +34,238 @@ const table = obj({
 /** `{v: value, l: label}` — a figure with its caption. */
 const figure = obj({ v: label, l: label })
 
-/** Eyebrow, H2 and lead of a start page section. */
-const sectionHead = { eyebrow: label, title: label, lead: text }
-
-/** A card of „Jak robimy”: badge on the picture („< 2,5 s”; optional), name, text, the gain. */
-const howWeBuildCard = obj({ badge: label.optional(), name: label, text, gain: text })
+/** Mock-up of a slide: one of the kinds and its variant (`lib/software/mockups`). */
+const mockup = obj({ kind: z.enum(MOCKUP_KINDS), variant: key.nullable() }).refine(
+  (value) => isVariantOf(value.kind, value.variant),
+  { message: 'Wariant makiety nie pasuje do rodzaju.' },
+)
 
 /**
- * Headings and small texts of the start page sections built in SW5 — the board `Main` keeps them
- * in its HTML, not in `strona-glowna.json` (ADR-014 doprecyzowania SW5). The wizard section has
- * none: its heading is the wizard's own (`wizard.ui`). Facts (`[OPIEKA OD]`) are filled on render.
+ * Hero v24 (ZMIANY-v24 §4.1): „Zrobimy Ci” + the changing word, 7 solutions with their mock-ups in
+ * the 3D carousel, the caption with the price and term of the solution (from `Solutions`), trust
+ * figures and the band of industries. Optional: while it is missing no hero is shown.
  */
-export const homeSectionsSchema = obj({
-  areas: obj({
-    ...sectionHead,
-    /** Caption above the area price („Cena”). */
-    priceCaption: label,
-    /** Button to the wizard next to the area's own CTA („Dobierz w 60 s”). */
-    wizardButton: label,
-  }),
-  popular: obj({
-    ...sectionHead,
-    /** Number of visible cards: [1, 2–4, 5+] with `{n}`. */
-    count: z.tuple([label, label, label]),
-    /** Shown after the count („kliknij kartę, żeby zobaczyć szczegóły”). */
-    hint: label,
-    /** „A gdy już masz stronę lub system”: links under the cards and the button to the catalog. */
-    after: obj({
+export const heroV24Schema = obj({
+  pill: label,
+  /** Bold end of the pill („od 2004”). */
+  pillBadge: label,
+  /** First line of the H1 („Zrobimy Ci”); the second is the word of the slide. */
+  title: label,
+  lead: text,
+  /** Line of the choice panel („Czego potrzebuje Twoja firma?”) and its key hint („wybierz”). */
+  query: label,
+  queryHint: label,
+  /** Button of the caption („Zobacz ofertę →”). */
+  offer: label,
+  slides: z
+    .array(
+      obj({
+        /** Word of the H1 for this slide („stronę firmową.”). */
+        word: label,
+        /**
+         * Shorter word for a phone (≤ 600 px), so it fits one line of the H1 („automatyzacje.”
+         * for „automatyzacje i AI.”, AUDYT-PROD-TELEFON #14). Without it the phone shows `word`.
+         */
+        wordShort: label.optional(),
+        name: label,
+        text: label,
+        /** Price and term come from this solution. */
+        solution: slug,
+        mockup,
+        icon: svgPath,
+      }),
+    )
+    .min(1)
+    .max(9)
+    .superRefine((slides, ctx) =>
+      slides.forEach((slide, i) => {
+        if (slide.wordShort && slide.wordShort.length >= slide.word.length)
+          ctx.addIssue({
+            code: 'custom',
+            path: [i, 'wordShort'],
+            message: 'Krótkie słowo musi być krótsze niż słowo slajdu.',
+          })
+      }),
+    ),
+  /** Not shown since 08.11 (Krystian: the figures go from the hero); kept so saved settings still read. */
+  trust: z.array(figure).max(4).optional(),
+  industries: z.array(label).min(1),
+})
+
+export type SoftwareHeroV24 = z.infer<typeof heroV24Schema>
+
+/** Eyebrow, H2 (with its highlighted part in `em`) and lead of a v24 section (ZMIANY-v24 §2). */
+const WIZARD_FIRM_VALUES = WIZARD_FIRMS.map((firm) => firm.value) as [
+  (typeof WIZARD_FIRMS)[number]['value'],
+  ...(typeof WIZARD_FIRMS)[number]['value'][],
+]
+
+const headV24 = { eyebrow: label, title: label, em: label.optional(), lead: text.optional() }
+
+/**
+ * Sections of the v24 start page after the hero (ZMIANY-v24 §4 pkt 2–5, SWA2b). Prices and terms
+ * come from the solutions they point to. Optional: a home saved before v24 has none.
+ */
+export const homeV24SectionsSchema = {
+  /** 3 promise cards under the hero (replace „Zasady”). */
+  promises: z
+    .array(obj({ title: label, text, icon: z.array(svgPath).min(1).max(3) }))
+    .min(1)
+    .max(4)
+    .optional(),
+  /** „Z czym do nas przychodzisz?” — 4 situations, each with its solution and mock-up. */
+  situations: obj({
+    ...headV24,
+    /** Link of an open situation („Zobacz ofertę”). */
+    offer: label,
+    items: z
+      .array(
+        obj({
+          short: label,
+          question: label,
+          answer: text,
+          solution: slug,
+          mockup,
+          phone: z.boolean().optional(),
+        }),
+      )
+      .min(1)
+      .max(4),
+  }).optional(),
+  /** Bento „Cztery rzeczy. Zrobione najlepiej.” — sites, rebuild, systems, automations. */
+  bento: obj({
+    ...headV24,
+    details: label,
+    /** Hint of the before/after slider („⇆ Przeciągnij: stara i nowa strona.”). */
+    dragHint: label,
+    sites: obj({
       title: label,
-      items: z
-        .array(obj({ title: label, text: label, href, icon: z.enum(ICON_NAMES) }))
-        .min(1)
-        .max(4),
-      button: link,
+      variants: z
+        .array(obj({ label, solution: slug, variant: z.enum(SITE_VARIANTS), text }))
+        .min(1),
     }),
-  }),
-  /** SW6 — optional: a home saved in SW5 has none until the seed (or the panel) adds them. */
-  livePreviews: obj({
-    ...sectionHead,
-    /** Next to the tabs: [switching itself, after the visitor's pick]. */
-    hint: z.tuple([label, label]),
-    /** Link to the preview's `href` („Otwórz pełny podgląd”). */
-    open: label,
-    /** „Twój projekt”: [add, already added]. */
-    add: z.tuple([label, label]),
-  }).optional(),
-  process: obj({
-    ...sectionHead,
-    /** Eyebrow of the stage panel; `{num}` and `{t}` from the stage. */
-    stage: label,
-    /** Column headings: what you get, what you do. */
-    get: label,
-    you: label,
-  }).optional(),
-  /** SW8a — „Zasady”: heading of the guarantee cards and the „Czasem powiemy” block. */
-  guarantees: obj({
-    eyebrow: label,
-    title: label,
-    /** v21: eyebrow pill „Uczciwa rada przed wyceną” and the button „Zapytaj, co się opłaca”. */
-    sayNo: obj({ eyebrow: label, title: label, text, link }),
+    rebuild: obj({ title: label, solution: slug }),
+    systems: obj({
+      title: label,
+      variants: z.array(obj({ label, solution: slug, variant: z.enum(DASH_VARIANTS) })).min(1),
+    }),
+    automations: obj({
+      eyebrow: label,
+      title: label,
+      text,
+      /** Link of the card („Wycena po rozmowie · szczegóły”). */
+      link: label,
+      variants: z
+        .array(obj({ label, solution: slug, variant: z.enum(['sms', 'faktury', 'raporty', 'ai']) }))
+        .min(1),
+    }),
   }).optional(),
   /**
-   * SWR5 — „Jak robimy” (spec. §4 pkt 8): three cards in a fixed order (speed, safety, Google
-   * and AI — each with its own picture), the threshold source and the result line apart: a fact
-   * empty on production drops `result`, never the source (v23: no `[WYNIK]`, we don't know it).
+   * „Nie składamy stron z szablonu” — 4 tabs (fast, safe, found in Google and AI, built on), each
+   * with its picture, text, an optional figure with its source and „them vs us” (ZMIANY-v24 §4.2).
    */
-  howWeBuild: obj({
-    ...sectionHead,
-    /** Caption over each card's gain („Zyskujesz”). */
-    gainLabel: label,
-    cards: z.tuple([howWeBuildCard, howWeBuildCard, howWeBuildCard]),
-    source: text,
-    result: text,
+  tech: obj({
+    ...headV24,
+    tabs: z
+      .array(
+        obj({
+          label,
+          title: label,
+          text,
+          stat: obj({ v: label, t: text }).optional(),
+          them: z.tuple([label, label]),
+          us: z.tuple([label, label]),
+          visual: z.discriminatedUnion('kind', [
+            obj({ kind: z.literal('speed'), value: label, caption: label }),
+            obj({ kind: z.literal('security'), pills: z.array(label).min(1).max(4) }),
+            obj({
+              kind: z.literal('search'),
+              query: label,
+              ours: z.tuple([label, label, label]),
+              other: z.tuple([label, label]),
+              ai: z.tuple([label, label]),
+            }),
+            obj({
+              kind: z.literal('stack'),
+              rows: z
+                .array(z.tuple([label, label]))
+                .min(1)
+                .max(6),
+            }),
+          ]),
+        }),
+      )
+      .min(1)
+      .max(4),
   }).optional(),
-  /** SWR5 — „Z czego budujemy” (spec. §4 pkt 10): headings; the layers are `technologies`. */
-  technologies: obj({
-    ...sectionHead,
-    /** Name of the tab list for screen readers („Warstwy systemu”). */
-    tabsLabel: label,
-    /** „Co zyskujesz”, „Dlaczego tak:”. */
-    gainLabel: label,
-    whyLabel: label,
+  /** „Cena i termin. Od razu.” — filters by group, cards of the solutions with their mock-ups. */
+  pricing: obj({
+    ...headV24,
+    /** First filter („Wszystko”). */
+    all: label,
+    details: label,
+    groups: z
+      .array(obj({ label, solutions: z.array(slug).min(1) }))
+      .min(1)
+      .max(6)
+      .superRefine((groups, ctx) => {
+        // One card per solution: a second one would count twice under „Wszystko”.
+        const seen = new Set<string>()
+        for (const solution of groups.flatMap((group) => group.solutions)) {
+          if (seen.has(solution)) {
+            ctx.addIssue({
+              code: 'custom',
+              message: `Rozwiązanie „${solution}” jest w cenniku dwa razy.`,
+            })
+          }
+          seen.add(solution)
+        }
+      }),
   }).optional(),
+  /**
+   * „Większość płacisz po odbiorze” (ZMIANY-v24 §4 pkt 9): heading of the v24 process; the stages
+   * stay in `process`. `stage` = eyebrow of the stage card, `{num}` and `{t}` filled.
+   */
+  processHead: obj({ ...headV24, stage: label }).optional(),
+  /** Showroom „Tak może wyglądać Twoja strona albo system” — industries × 3 views. */
+  showroom: obj({
+    ...headV24,
+    /** Labels of the views: site, phone, system. */
+    modes: z.tuple([label, label, label]),
+    /** „Strona dla branży:” / „System:” before the industry name. */
+    sitePrefix: label,
+    systemPrefix: label,
+    /** The 3 points of every system view after its own first one. */
+    systemFeatures: z.array(label).min(1).max(3),
+    cta: label,
+    industries: z
+      .array(
+        obj({
+          /** `?firma=` of the wizard (`/dobierz?firma=<key>`): one of its industries. */
+          key: z.enum(WIZARD_FIRM_VALUES),
+          name: label,
+          icon: svgPath,
+          site: z.enum(SITE_VARIANTS),
+          system: z.enum(DASH_VARIANTS),
+          systemName: label,
+          features: z.array(label).min(1).max(4),
+        }),
+      )
+      .min(1)
+      .max(12),
+  }).optional(),
+}
+
+/**
+ * Small texts of the start page sections kept in `sections` (ADR-014 doprecyzowania SW5): after
+ * the v23 clean-up (decision D6, 08.11) only the comparison of `/o-firmie`.
+ */
+export const homeSectionsSchema = obj({
   /**
    * SW11b — „Freelancer, agencja czy PRO-KOM?” on `/o-firmie` (spec. §6.6, stany/70): the
    * heading and the two switch labels; the rows are `compare` of the package.
    */
   compare: obj({ eyebrow: label, title: label, tabs: z.tuple([label, label]) }).optional(),
-  /**
-   * SWV3 — card „Twoja Firma · panel” of the phone hero (MOBILE-APLIKACJA §3a pkt 5): a sample
-   * of what the client's panel shows, notifications sliding in one by one, and the footer pair.
-   */
-  heroPanel: obj({
-    title: label,
-    /** Status next to the title („na żywo”). */
-    live: label,
-    items: z
-      .array(obj({ icon: z.enum(ICON_NAMES), title: label, sub: label, time: label }))
-      .min(1)
-      .max(3),
-    footer: obj({ label, value: label }),
-  }).optional(),
 })
 
 export type SoftwareHomeSections = z.infer<typeof homeSectionsSchema>
@@ -155,77 +287,40 @@ export const homeSchema = obj({
       }),
     )
     .min(1),
-  processShort: z.array(obj({ num: label, title: label, text })),
-  guarantees: z.array(obj({ title: label, text, icon: svgPath })),
+  /** Rows of „Freelancer, agencja czy PRO-KOM?” (`/o-firmie`). */
   compare: table,
-  /** [key, name, icon] of the modules on the hero mock-up. */
-  heroModules: z.array(z.tuple([key, label, svgPath])),
-  livePreviews: z.record(
-    key,
-    obj({
-      label,
-      icon: svgPath,
-      tag: label,
-      title: label,
-      text,
-      href,
-      /** Floating notes of the mock-up: `a`/`b` with their small lines `as`/`bs`. */
-      a: label,
-      as: label,
-      b: label,
-      bs: label,
-      steps: z.array(z.tuple([label, text])),
-    }),
-  ),
-  whyNotWordpress: obj({
-    eyebrow: label,
-    title: label,
-    lead: text,
-    /** Every fact with its source (spec. §4, plan SW8a). */
-    facts: z.array(obj({ v: label, t: text, src: label })).min(1),
-    compare: table,
-    cta: obj({ title: label, text, buttons: z.array(link).min(1), link }),
-  }),
-  /** Sample quote in the process section — a clearly made-up customer. */
-  proceduralMock: obj({
-    number: label,
-    title: label,
-    rows: z.array(z.tuple([label, label])).min(1),
-    total: label,
-    term: label,
-    totalLabel: label,
-  }),
-  technologies: z
-    .array(
-      obj({
-        n: label,
-        s: label,
-        t: z.array(label),
-        ic: svgPath,
-        gain: text,
-        why: text,
-        m: z.array(figure),
-        proof: text,
-      }),
-    )
-    .min(1),
-  popular: obj({
-    /** The 12 cards in order: solution slugs (v22 — no generic cards). */
-    order: z.array(slug).min(1).max(12),
-    /** [category key, label] of the filter tabs. */
-    tabs: z.array(z.tuple([key, label])).min(1),
-  }),
-  /** Optional: a home saved before SW5 has none; the sections that need it are then skipped. */
+  /** Optional: a home saved before SW5 has none; the comparison is then skipped. */
   sections: homeSectionsSchema.optional(),
+  /** Hero v24 (SWA2a); missing → no hero until the data is pasted. */
+  hero: heroV24Schema.optional(),
+  ...homeV24SectionsSchema,
 })
 
 export type SoftwareHome = z.infer<typeof homeSchema>
 
-/** Solution slugs the „12 rzeczy” cards point to (checked against `Solutions` on save). */
+/** Solution slugs the v24 sections point to (checked on save). */
 export function homeSolutionSlugs(home: SoftwareHome): string[] {
-  return [...home.popular.order]
+  const bento = home.bento
+  return [
+    ...(home.hero?.slides.map((slide) => slide.solution) ?? []),
+    ...(home.situations?.items.map((item) => item.solution) ?? []),
+    ...(bento
+      ? [
+          ...bento.sites.variants.map((v) => v.solution),
+          bento.rebuild.solution,
+          ...bento.systems.variants.map((v) => v.solution),
+          ...bento.automations.variants.map((v) => v.solution),
+        ]
+      : []),
+    ...(home.pricing?.groups.flatMap((group) => group.solutions) ?? []),
+  ]
 }
 
 export function validateHome(value: unknown): true | string {
   return firstIssue(homeSchema, value, 'Teksty strony głównej')
 }
+
+export type SoftwareHomeV24 = Pick<
+  SoftwareHome,
+  'promises' | 'situations' | 'bento' | 'showroom' | 'tech' | 'pricing' | 'processHead'
+>

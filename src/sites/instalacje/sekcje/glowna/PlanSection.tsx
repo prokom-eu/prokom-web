@@ -6,8 +6,9 @@ import { issueFormToken } from '@/lib/inquiry/spam'
 
 import { glownaSekcje } from '../../dane/glownaSekcje'
 import { InstIcon } from '../../InstIcon'
-import { type PlanService, QuickPlanForm } from '../../widzety/glowna/QuickPlanForm'
-import { InstSection } from '../InstSection'
+import type { PlanService } from '../../widzety/glowna/QuickPlanForm'
+import { QuickPlanForm } from '../../widzety/glowna/QuickPlanFormLazy'
+import { InstSection } from '../InstSectionLazy'
 import type { Phone } from '../types'
 
 const t = glownaSekcje.plan
@@ -19,8 +20,6 @@ type Props = {
   phone: Phone | null
   email: string | null
   salons: Salon[]
-  /** `https://wa.me/…` of the line, `null` without a number in the panel. */
-  whatsapp: string | null
   /** First opening hours of the company data („pn–pt 9:00–17:00”). */
   hours: string | null
 }
@@ -30,7 +29,7 @@ type Props = {
  * cards below it (phone and e-mail of the line, salons from the company data). The form token
  * is issued per request, so the page is rendered on demand (like the Software contact).
  */
-export async function PlanSection({ services, phone, email, salons, whatsapp, hours }: Props) {
+export async function PlanSection({ services, phone, email, salons, hours }: Props) {
   await connection()
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
   return (
@@ -40,9 +39,7 @@ export async function PlanSection({ services, phone, email, salons, whatsapp, ho
           <span className="eye" style={{ color: 'var(--inst-plan-accent)' }}>
             {t.eyebrow}
           </span>
-          <h2 className="h2">
-            {t.heading} <span className="acc">{t.accent}</span>
-          </h2>
+          <h2 className="h2">{t.heading}</h2>
           <p className="lead">{t.lead}</p>
         </div>
         <QuickPlanForm services={services} formToken={formToken} />
@@ -57,19 +54,14 @@ export async function PlanSection({ services, phone, email, salons, whatsapp, ho
               <span>{hours ?? t.contact.hours}</span>
             </div>
           )}
-          {(email || whatsapp) && (
+          {email && (
             <div className="card ct ri">
               <span className="ico">
-                <InstIcon name="chat" size={22} />
+                <InstIcon name="mail" size={22} />
               </span>
-              <b>{whatsapp ? t.contact.mail : t.contact.mailOnly}</b>
+              <b>{t.contact.mail}</b>
               <span>{t.contact.mailNote}</span>
-              {whatsapp && (
-                <a href={whatsapp} target="_blank" rel="noopener noreferrer">
-                  WhatsApp
-                </a>
-              )}
-              {email && <a href={`mailto:${email}`}>{email}</a>}
+              <a href={`mailto:${email}`}>{email}</a>
             </div>
           )}
           {salons.map((salon) => (

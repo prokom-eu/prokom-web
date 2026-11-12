@@ -35,23 +35,27 @@ export const glowna = {
   hero: {
     objectsLabel: 'Rodzaj obiektu',
     modesLabel: 'Pora i pogoda',
+    /** P2-11 (WCAG 2.2.2): the autoplay and the scene's animations stop with a button. */
+    pause: 'Wstrzymaj animację',
     chipsLabel: 'Instalacje widoczne na obiekcie',
     modes: {
       day: { label: 'Dzień', icon: 'sun' },
       night: { label: 'Noc', icon: 'moon' },
       winter: { label: 'Zima', icon: 'snow' },
     } satisfies Record<HeroMode, { label: string; icon: string }>,
+    /** `short`: the chip in the dock from 1024 px — part of `label` (WCAG 2.5.3). */
     layers: {
-      kam: { label: 'Kamery', icon: 'cam' },
-      alarm: { label: 'Alarm', icon: 'bell' },
-      kd: { label: 'Domofon i dostęp', icon: 'lock' },
-      wifi: { label: 'Wi-Fi i sieć', icon: 'wifi' },
-      smart: { label: 'Smart home Ampio', icon: 'home' },
-      ev: { label: 'Ładowarka EV', icon: 'bolt' },
-      snd: { label: 'Nagłośnienie', icon: 'spk' },
-      scr: { label: 'Ekrany', icon: 'scr' },
-    } satisfies Record<HeroLayer, { label: string; icon: string }>,
-    live: 'Na żywo',
+      kam: { label: 'Kamery', short: 'Kamery', icon: 'cam' },
+      alarm: { label: 'Alarm', short: 'Alarm', icon: 'bell' },
+      kd: { label: 'Domofon i dostęp', short: 'Domofon', icon: 'lock' },
+      wifi: { label: 'Wi-Fi i sieć', short: 'Wi-Fi', icon: 'wifi' },
+      smart: { label: 'Smart home Ampio', short: 'Smart home', icon: 'smart' },
+      ev: { label: 'Ładowarka EV', short: 'EV', icon: 'bolt' },
+      snd: { label: 'Nagłośnienie', short: 'Nagłośnienie', icon: 'spk' },
+      scr: { label: 'Ekrany', short: 'Ekrany', icon: 'scr' },
+    } satisfies Record<HeroLayer, { label: string; short: string; icon: string }>,
+    // Runda v6 §2.2: no „na żywo” — the status line names what the scene shows now.
+    live: 'Teraz',
     empty: 'Włącz instalacje poniżej, a zobaczysz, co robią w tym obiekcie.',
     /** „+N instalacja/-e/-i więcej działa w tym obiekcie”. */
     more: {

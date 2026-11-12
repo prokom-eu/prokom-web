@@ -86,14 +86,13 @@ describe('otherIndustries', () => {
     ],
   })
 
-  it('links the active industries (marking this one) and names the rest as „Wkrótce”', () => {
+  it('links the active industries only, marking this one', () => {
     expect(otherIndustries(catalog, 'handel')).toEqual({
       active: [
         { slug: 'gastronomia', name: 'Gastronomia', href: '/branze/gastronomia', current: false },
         { slug: 'handel', name: 'Handel i sklepy', href: '/branze/handel', current: true },
         { slug: 'noclegi', name: 'Hotele i pensjonaty', href: '/branze/noclegi', current: false },
       ],
-      soon: ['Biura i usługi', 'Beauty i usługi'],
     })
   })
 })

@@ -1,6 +1,7 @@
 import { MAX_NOTE } from '../cart/cart'
 import { optionHelp } from './configHelp'
 import { variantKey, variantSlug, withoutBrackets } from './productName'
+import { normalizeText } from './normalize'
 
 /**
  * Configurator 2.0 (K31-ZMIANY §13.7): the visitor picks a version before the inquiry. Not a
@@ -182,6 +183,17 @@ export function configNote(config: Configurator, state: ConfigState): string {
     if (value) parts.push(`${option.name}: ${value === ADVISE ? 'doradźcie' : value}`)
   })
   return parts.join(' · ')
+}
+
+/**
+ * `?kolor=<nazwa>` (KOLO-HERO v3: the wheel opens the iPhone in burgundy): index of the colour
+ * named in the address, compared without case and Polish letters; `null` keeps the default.
+ */
+export function colorFromQuery(colors: readonly string[], value: string | null): number | null {
+  const wanted = normalizeText(value ?? '')
+  if (!wanted) return null
+  const index = colors.findIndex((color) => normalizeText(color) === wanted)
+  return index === -1 ? null : index
 }
 
 /**

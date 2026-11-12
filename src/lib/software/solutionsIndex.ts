@@ -1,8 +1,9 @@
 import type { SoftwareSetting, Solution } from '@/payload-types'
 
 import { normalizeText } from '../catalog/normalize'
+import { isMockupKind, isVariantOf, type MockupKind } from './mockups'
 import { INDUSTRY_GROUPS, SITUATIONS, SOLUTION_CATEGORIES, type SolutionCategory } from './options'
-import { type PriceDisplay, priceDisplaySchema } from './wizard'
+import { type PriceDisplay, priceDisplaySchema } from './priceDisplay'
 
 /**
  * Index of the Software solutions for the catalog, the menu sheet and the 404 search (ADR-014
@@ -34,11 +35,16 @@ export type IndexSolution = {
   leadTime: string | null
   /** Thumbnail file in `public/` (`/software/rozwiazania/<slug>.svg`). */
   thumbnail?: string
+  /** Mock-up of v24 (ZMIANY-v24 §8); missing → the thumbnail stays. */
+  preview?: IndexPreview
   /** Levels of care and audit (pkt 2); empty for the other solutions. */
   levels: IndexLevel[]
   /** Normalized text the search matches (`normalizeText`). */
   hay: string
 }
+
+/** Kind and variant of the mock-up (`Solutions.preview`, checked here). */
+export type IndexPreview = { kind: MockupKind; variant: string | null }
 
 /** A level of care or audit: its own price and reaction time / term. */
 export type IndexLevel = {
@@ -61,8 +67,8 @@ export type SolutionsIndex = {
 }
 
 /**
- * Templates of the package (`kreator.json` → `priceDisplay`), used when the settings are not
- * saved yet or no longer match the schema — the catalog still shows prices.
+ * Price templates (as `priceDisplay` of the wizard seed), used when the settings are not saved
+ * yet or no longer match the schema — the catalog still shows prices.
  */
 export const DEFAULT_PRICE_DISPLAY: PriceDisplay = {
   template: 'od {cena} zł netto',
@@ -71,14 +77,14 @@ export const DEFAULT_PRICE_DISPLAY: PriceDisplay = {
   levelMonthTemplate: '{cena} zł / mies.',
   fallback: 'Zapytaj o wycenę',
   termFallback: 'po krótkiej rozmowie',
-  priceSub: 'netto · stała cena na piśmie',
-  moreHint: 'Dodatki wycenimy na piśmie w 5–7 dni.',
-  moreSelectedNote: 'Dodatki wycenimy na piśmie w 5–7 dni.',
+  priceSub: 'netto · stała cena za zakres',
+  moreHint: 'Dodatki wycenimy w 5–7 dni.',
+  moreSelectedNote: 'Dodatki wycenimy w 5–7 dni.',
   noPrice: {
     price: 'Zapytaj o wycenę',
     term: 'po krótkiej rozmowie',
-    priceSub: 'cena na piśmie w 5–7 dni',
-    termSub: 'cenę i termin dostaniesz na piśmie w 5–7 dni',
+    priceSub: 'cena w 5–7 dni',
+    termSub: 'cenę i termin dostaniesz w 5–7 dni',
     mobileBar: 'Zapytaj o wycenę',
   },
   scopeIntro: 'Tyle kosztuje podstawa.',
@@ -105,6 +111,7 @@ export type IndexedSolutionDoc = Pick<
   | 'priceNote'
   | 'priceMonthly'
   | 'thumbnail'
+  | 'preview'
   | 'levels'
 >
 
@@ -137,6 +144,14 @@ function indexLevels(levels: IndexedSolutionDoc['levels']): IndexLevel[] {
   )
 }
 
+/** A mock-up only when the kind is known and the variant belongs to it. */
+export function indexPreview(preview: IndexedSolutionDoc['preview']): IndexPreview | undefined {
+  const kind = preview?.kind
+  const variant = preview?.variant ?? null
+  if (!isMockupKind(kind) || !isVariantOf(kind, variant)) return undefined
+  return { kind, variant }
+}
+
 function indexSolution(doc: IndexedSolutionDoc): IndexSolution {
   const features = (doc.features ?? []).map((feature) => feature.trim()).filter(Boolean)
   return {
@@ -157,6 +172,7 @@ function indexSolution(doc: IndexedSolutionDoc): IndexSolution {
     priceFrom: isPrice(doc.priceFrom) ? doc.priceFrom : null,
     leadTime: text(doc.leadTime) ?? null,
     thumbnail: text(doc.thumbnail),
+    preview: indexPreview(doc.preview),
     levels: indexLevels(doc.levels),
     hay: normalizeText(
       [doc.name, doc.label, doc.tag, doc.lead, ...features, doc.forWhom, doc.keywords]

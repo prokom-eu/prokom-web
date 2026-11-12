@@ -86,7 +86,7 @@ export const OBJECT_SCENES: Record<
       { title: 'Zamek z kodem w drzwiach apartamentu', service: 'kd' },
       { title: 'Kod do bramy i klatki, za zgodą wspólnoty', service: 'kd' },
       { title: 'Czujka zalania pod pralką', service: 'alarm' },
-      { title: 'Czujka dymu, obowiązkowa przy najmie', service: 'alarm' },
+      { title: 'Czujka dymu z powiadomieniem', service: 'alarm' },
       { title: 'Ogrzewanie: pusty lokal i przyjazd gościa', service: 'smart' },
       { title: 'Punkt Wi-Fi zamiast routera w szafce', service: 'wifi' },
       { title: 'Telewizor z DVB-T2 i aplikacjami', service: 'ant' },
@@ -245,32 +245,37 @@ export const objectPage = {
   },
   problems: { fixLabel: 'Co robimy' },
   day: { onScene: 'Na przekroju:', showPoint: 'Pokaż punkt' },
-  law: { eyebrow: 'Przepisy i obowiązki' },
-  mountains: { eyebrow: 'Specyfika Podhala' },
-  /** `#realizacje-s` (the clients agreed, boss 01.11.2026); the heading comes from the panel. */
-  realizations: {
-    eyebrow: 'Nasze realizacje',
-    /** When the panel has no heading (`realizationsHeading`). */
-    heading: 'Realizacje w podobnych obiektach.',
-    all: { label: 'Wszystkie realizacje →', href: '/realizacje' },
-  },
+  mountains: { eyebrow: 'Góry i zima' },
   prepare: {
     eyebrow: 'Przed wizytą',
-    heading: 'Przygotuj to, a wycena będzie szybsza.',
-    lead: 'Zaznacz, co już masz. Zdjęcia możesz wysłać w formularzu albo przez WhatsApp.',
+    heading: 'Co przygotować przed wizją lokalną',
+    lead: 'Zaznacz, co już masz w obiekcie, a wycena będzie szybsza. Resztę zobaczymy na miejscu.',
     /** Church, school and municipality (`build_seg.py`: `kosc`, `szk`, `gmina`). */
-    leadInstitution:
-      'Zaznaczenie, co już jest, przyspieszy wycenę. Zdjęcia można wysłać w formularzu albo przez WhatsApp.',
+    leadInstitution: 'Zaznaczenie, co już jest, przyspieszy wycenę. Resztę sprawdzimy na miejscu.',
     of: 'z',
-    cta: 'Wyślij zdjęcia i opis →',
+    cta: 'Opisz obiekt →',
     ctaDone: 'Gotowe, wyślij zgłoszenie →',
   },
   packages: {
     eyebrowPrefix: 'Zestawy dla',
     note: 'To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie.',
   },
-  faqHeading: 'Zanim zadzwonisz.',
-  relatedHeading: 'Usługi, które łączymy w tym obiekcie.',
+  faqHeading: 'Najczęstsze pytania',
+  /** „Co jeszcze montujemy w …” per object: the heading names the object (redakcja §3c). */
+  relatedHeadings: {
+    dom: 'Co jeszcze montujemy w domach',
+    apt: 'Co jeszcze montujemy w apartamentach',
+    pens: 'Co jeszcze montujemy w pensjonatach',
+    hotel: 'Co jeszcze montujemy w hotelach',
+    rest: 'Co jeszcze montujemy w restauracjach',
+    sklep: 'Co jeszcze montujemy w sklepach',
+    firma: 'Co jeszcze montujemy w firmach i halach',
+    kosc: 'Co jeszcze montujemy w kościołach',
+    szk: 'Co jeszcze montujemy w szkołach',
+    gmina: 'Co jeszcze montujemy w urzędach',
+    dev: 'Co jeszcze montujemy w inwestycjach',
+    bud: 'Co jeszcze montujemy na budowach',
+  } satisfies Record<ObjectKey, string>,
   similarHeading: 'Podobne obiekty',
 } as const
 

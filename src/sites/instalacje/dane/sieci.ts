@@ -56,7 +56,7 @@ export const sieci = {
     s: {
       name: 'Smart i TV',
       hue: 'var(--inst-hue-violet)',
-      icon: 'home',
+      icon: 'tv',
       text: 'Telewizory, ekran w recepcji, sterowanie Ampio, ładowarka.',
       extra: 'urządzenia IoT',
     },
@@ -67,8 +67,8 @@ export const sieci = {
 
   why: {
     head: {
-      eyebrow: 'Dlaczego Wi-Fi nie działa',
-      heading: 'Mocniejszy router zwykle nie pomaga. Pomaga plan.',
+      eyebrow: 'Słaby zasięg',
+      heading: 'Dlaczego Wi-Fi nie działa w całym domu i jak to naprawić',
       lead: 'W pensjonatach i domach na Podhalu widzimy ciągle te same przyczyny. Zwykle da się je naprawić bez zmiany operatora.',
     } satisfies SectionHead,
     items: [
@@ -83,9 +83,9 @@ export const sieci = {
         text: 'Beton, cegła, kamień i stropy osłabiają sygnał. Zwykle każde piętro potrzebuje swojego punktu.',
       },
       {
-        icon: 'layers',
+        icon: 'wifi',
         title: 'Mesh bez kabla',
-        text: 'Każdy skok radiowy obniża prędkość. Ubiquiti zaleca najwyżej dwa skoki bezprzewodowe.',
+        text: 'Mesh to punkty Wi-Fi połączone ze sobą radiowo. Każdy taki skok obniża prędkość, a Ubiquiti zaleca najwyżej dwa skoki bezprzewodowe.',
       },
       {
         icon: 'lock',
@@ -97,8 +97,8 @@ export const sieci = {
 
   split: {
     head: {
-      eyebrow: 'Osobne sieci w jednym budynku',
-      heading: 'Gość nie zobaczy Twoich kamer ani kasy.',
+      eyebrow: 'Podział sieci',
+      heading: 'Osobna sieć dla gości, kamer i kasy',
       lead: 'Jeden kabel, jedno łącze, ale kilka oddzielnych sieci. Kliknij sieć, żeby zobaczyć, co do niej należy.',
     } satisfies SectionHead,
     nodes: [
@@ -110,7 +110,7 @@ export const sieci = {
 
   portal: {
     eyebrow: 'Wi-Fi dla gości',
-    heading: 'Strona logowania z Twoim logo. Hasło na pobyt, nie na zawsze.',
+    heading: 'Wi-Fi dla gości z Twoim logo i hasłem na czas pobytu',
     lead: 'Portal gościa pokazuje ekran powitalny obiektu. Możesz dać voucher z limitem czasu, prędkości albo transferu, hasło z recepcji albo logowanie jednym kliknięciem. Urządzenia gości są od siebie odizolowane.',
     list: [
       {
@@ -130,8 +130,8 @@ export const sieci = {
         text: 'Szybki roaming między punktami dostępowymi w budynku.',
       },
     ],
-    uke: 'Udostępnianie gościom internetu przez Wi-Fi jako dodatek do noclegu nie jest działalnością telekomunikacyjną (Prawo komunikacji elektronicznej, art. 1 ust. 2). Zwykle nie trzeba niczego rejestrować w UKE.',
-    rodo: 'Jeśli logowanie zbiera e-mail albo telefon gościa, potrzebna jest klauzula informacyjna RODO, a do marketingu osobna zgoda. Pomożemy to ustawić. Najprościej: voucher bez danych osobowych.',
+    guestData:
+      'Najprościej logować gości voucherem, bez zbierania e-maili i telefonów. Jeśli chcesz zbierać kontakty do gości, pomożemy to ustawić.',
     /** Example screen of the guest portal (a picture of a phone). */
     screen: {
       title: 'Wi-Fi · Pensjonat',
@@ -154,8 +154,8 @@ export const sieci = {
 
   cabling: {
     head: {
-      eyebrow: 'Kable, szafy, światłowody',
-      heading: 'Dobre Wi-Fi zaczyna się od kabla.',
+      eyebrow: 'Okablowanie',
+      heading: 'Okablowanie i światłowód między budynkami',
       lead: 'Punkty dostępowe podłączamy przewodem, a budynki łączymy światłowodem albo mostem radiowym. W górach, gdzie stok zasłania sygnał, to często jedyna droga.',
     } satisfies SectionHead,
     items: [
@@ -165,7 +165,7 @@ export const sieci = {
         text: 'Gniazda w pokojach, przy telewizorach i w miejscach na punkty dostępowe.',
       },
       {
-        icon: 'cpu',
+        icon: 'rack',
         title: 'Szafa rack',
         text: 'Porządek w technice: router, switch PoE, rejestrator, UPS i opisane przewody.',
       },
@@ -175,7 +175,7 @@ export const sieci = {
         text: 'Światłowody jedno- i wielomodowe: układanie, spawanie i pomiary. Pensjonat, domki i hala w jednej sieci.',
       },
       {
-        icon: 'mountain',
+        icon: 'ant',
         title: 'Mosty radiowe',
         text: 'Połączenie punkt–punkt tam, gdzie kabla nie da się przekopać.',
       },
@@ -185,21 +185,20 @@ export const sieci = {
         text: 'UPS dla routera i kamer, żeby krótki zanik prądu nie wyłączał sieci.',
       },
       {
-        icon: 'globe',
+        icon: 'lte',
         title: 'Łącze zapasowe LTE',
         text: 'Gdy główne łącze padnie, router przełącza się na sieć komórkową.',
       },
     ] satisfies Feature[],
-    uke: 'Według UKE w 2024 roku ok. 16% gospodarstw domowych w Polsce nie miało dostępu do internetu 100 Mb/s. Na Podhalu też trafiamy na takie adresy. Wtedy budujemy łącze radiowe albo zapasowe LTE.',
-    // The client agreed to the publication (boss 01.11.2026); without the prototype's `[SZEF…]`.
-    realization: 'Realizacja: okablowanie stanowisk biurowych w Blachotrapezie w Rabce-Zdroju.',
+    slowLink:
+      'Na Podhalu wciąż trafiamy na adresy bez szybkiego internetu. Wtedy budujemy łącze radiowe albo zapasowe LTE.',
   },
 
   lab: {
     head: {
       eyebrow: 'Sprawdź sam',
-      heading: 'Cztery decyzje, które przesądzają o sieci.',
-      lead: 'Mury, kabel, połączenie budynków i zapasowe łącze. Pobaw się suwakami, a zobaczysz, dlaczego zawsze zaczynamy od wizji lokalnej.',
+      heading: 'Cztery decyzje, od których zależy działanie sieci',
+      lead: 'Sprawdź, ile sygnału zabiera ściana, jaki kabel wybrać, jak połączyć budynki i co się dzieje, gdy padnie internet. Zobaczysz, dlaczego zawsze zaczynamy od wizji lokalnej.',
     } satisfies SectionHead,
     walls: {
       kicker: 'Mury a Wi-Fi',
@@ -212,7 +211,7 @@ export const sieci = {
           'Tyle tłumi typowa ściana. Gruby mur kamienny albo ceglany zabiera wyraźnie więcej. Przez dwie takie ściany sygnał już słabnie.',
         blocks:
           'Za taką przegrodą sygnał praktycznie znika. Potrzebny jest osobny punkt Wi-Fi po drugiej stronie, podłączony kablem.',
-        weak: 'Przez jedną taką ścianę jeszcze działa, przez dwie już słabo. W pensjonacie to argument za punktem w pokoju, a nie w korytarzu.',
+        weak: 'Przez jedną taką ścianę jeszcze działa, przez dwie już słabo. Dlatego w pensjonacie punkt Wi-Fi montujemy w pokoju zamiast na korytarzu.',
         light: 'Lekka przegroda, sygnał przejdzie bez większych strat.',
       },
     },
@@ -255,9 +254,8 @@ export const sieci = {
 
   hardware: {
     head: {
-      eyebrow: 'Z czego składa się dobra sieć',
-      heading: 'Cztery elementy zamiast routera od operatora.',
-      accent: 'Jedna aplikacja do wszystkich.',
+      eyebrow: 'Sprzęt sieciowy',
+      heading: 'Z czego składa się sieć w pensjonacie i firmie',
       lead: 'Sieć w obiekcie to system: brama z zaporą, przełącznik, który zasila urządzenia po kablu, punkty Wi-Fi i panel, z którego wszystko widać. Markę sprzętu dobieramy po wizji lokalnej.',
     } satisfies SectionHead,
     careful: 'Na co uważać:',
@@ -278,23 +276,23 @@ export const sieci = {
         icon: 'wifi',
         title: 'Punkty dostępowe',
         text: 'Sufitowe na korytarze i sale, ścienne w miejscu gniazdka w pokojach, zewnętrzne na taras i parking. Telefon sam przełącza się między nimi.',
-        tip: 'na kabel, nie mesh. Każdy skok radiowy obniża prędkość.',
+        tip: 'punkty podłączamy kablem, bo każdy skok radiowy w mesh obniża prędkość.',
       },
       {
         icon: 'sliders',
         title: 'Panel i aplikacja',
         text: 'Cała sieć w jednym miejscu: kto jest podłączony, który punkt ma problem, aktualizacje. Jeśli masz u nas opiekę, widzimy awarię zdalnie, często zanim zadzwonisz.',
-        tip: 'konto administratora ma być na Ciebie, a nie na instalatora.',
+        tip: 'konto administratora ma być założone na Ciebie jako właściciela.',
       },
     ],
     brands: {
       eyebrow: 'Na czym budujemy',
-      title: 'Sprzęt dobieramy do budynku, nie odwrotnie.',
+      title: 'Na jakim sprzęcie budujemy sieci',
       text: 'Najczęściej pracujemy na systemach Ubiquiti UniFi albo TP-Link Omada, a przy mostach radiowych także MikroTik. Markę dobieramy po wizji lokalnej: do liczby pokoi, kamer, budynków i tego, kto będzie siecią zarządzał.',
     },
     always: {
       eyebrow: 'Niezależnie od marki',
-      title: 'To dostajesz w każdej sieci.',
+      title: 'Co dostajesz w każdej sieci',
       items: [
         'Osobna sieć gości z portalem logowania',
         'Zasilanie punktów i kamer jednym kablem (PoE)',
@@ -305,8 +303,8 @@ export const sieci = {
 
   standards: {
     head: {
-      eyebrow: 'Wi-Fi 6, 6E i 7',
-      heading: 'Co naprawdę zmieniają nowe standardy.',
+      eyebrow: 'Nowe standardy',
+      heading: 'Co dają Wi-Fi 6, 6E i 7 w domu i firmie',
       lead: 'Nowszy standard nie zawsze znaczy „szybciej u każdego”. Pełną korzyść mają nowe telefony i laptopy, a starsze urządzenia dalej działają.',
     } satisfies SectionHead,
     items: [
@@ -346,19 +344,7 @@ export const sieci = {
     ],
     band: {
       title: 'Pasmo 6 GHz w Polsce:',
-      text: '5945–6425 MHz udostępnione rozporządzeniem z 11.11.2023 (Dz.U. 2023 poz. 2567). Punkty o mocy LPI pracują tylko wewnątrz budynków, dlatego na zewnątrz i w mostach radiowych dalej używamy 5 GHz lub 60 GHz.',
+      text: '5945–6425 MHz. Punkty o mocy LPI pracują tylko wewnątrz budynków, dlatego na zewnątrz i w mostach radiowych dalej używamy 5 GHz lub 60 GHz.',
     },
-  },
-
-  nis2: {
-    eyebrow: 'Dla firm średnich i dużych oraz instytucji',
-    heading: 'NIS2 jest już w polskim prawie.',
-    text: 'Nowelizacja ustawy o krajowym systemie cyberbezpieczeństwa (Dz.U. 2026 poz. 252) obowiązuje od 3.04.2026. Obejmuje co do zasady średnie i duże firmy z wybranych sektorów, a także wiele podmiotów publicznych.',
-    items: [
-      'Osobne sieci dla urządzeń i gości',
-      'Aktualizacje i kopie konfiguracji',
-      'Dokumentacja sieci i dostępów',
-    ],
-    note: 'Nie robimy audytów prawnych. Przygotowujemy sieć i dokumentację techniczną, które ułatwiają spełnienie wymagań.',
   },
 }

@@ -8,7 +8,7 @@ import { site } from './helpers'
 // InsPunkty calculator, the whole offer, requirements, films, FAQ. Axe in `a11y`.
 
 const cartButton = (page: Page) =>
-  page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
+  page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 
 test.describe('Biznes /insert (K4h)', () => {
   test('shows the hero, the picker, KSeF, InsPunkty and the FAQ', async ({ page }) => {
@@ -23,6 +23,34 @@ test.describe('Biznes /insert (K4h)', () => {
     await expect(page.locator('#ksef')).toContainText('dni do 1 stycznia 2027')
     await expect(page.locator('#inspunkty')).toBeVisible()
     await expect(page.locator('#faq details')).toHaveCount(7)
+  })
+
+  test('PREMIUM-1011: the box composition, KSeF on navy, the InsERT lines, the film poster', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site('biznes.localhost', '/insert'))
+    // Subiekt nexo in the middle, the programs around it, each opening its card.
+    const orbit = page.locator('[data-insert-orbit]')
+    await expect(orbit.locator('[data-orbit-center] a')).toHaveAttribute('href', /^\/produkt\//)
+    expect(await orbit.locator('a[href^="/produkt/"]').count()).toBeGreaterThanOrEqual(5)
+    // KSeF: three dates in the glass timeline, six steps, the two actions.
+    const ksef = page.locator('#ksef')
+    await expect(ksef.locator('[data-ksef-timeline] > li')).toHaveCount(3)
+    await expect(ksef.getByRole('link', { name: 'InsPunkty — opłaty za KSeF' })).toBeVisible()
+    // The four InsERT lines under the comparison.
+    await expect(page.locator('[data-table-lines] > ul > li')).toHaveCount(4)
+    await expect(page.locator('[data-table-lines]')).toContainText('InsERT nexo PRO+')
+    await expect(
+      page.locator('section').filter({ hasText: 'Zobacz programy w działaniu' }).locator('img'),
+    ).toHaveCount(1)
+  })
+
+  test('PREMIUM-1011: on a phone the boxes are a row to swipe', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(site('biznes.localhost', '/insert'))
+    await expect(page.locator('[data-insert-carousel]')).toBeVisible()
+    await expect(page.locator('[data-insert-orbit]')).toBeHidden()
   })
 
   test('„Który Subiekt”: three combinations give 123, GT and nexo', async ({ page }) => {

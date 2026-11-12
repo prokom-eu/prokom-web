@@ -248,6 +248,33 @@ describe('decideRoute — site domains', () => {
     }
   })
 
+  it('lets the Instalacje search index through on site domains, read only (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'instalacje.localhost',
+          pathname: '/api/inst-search-index',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'instalacje.localhost',
+        pathname: '/api/inst-search-index',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual({ type: 'notFoundPage', pathname: '/instalacje.localhost/_404' })
+    for (const pathname of ['/api/inst-search-index/', '/api/inst-search-index/x', '/api/inst']) {
+      expect(route('instalacje.localhost', pathname)).toEqual({
+        type: 'notFoundPage',
+        pathname: '/instalacje.localhost/_404',
+      })
+    }
+  })
+
   it.each(['/robots.txt', '/sitemap.xml'])('rewrites %s to the domain segment', (pathname) => {
     expect(route('software.localhost:3000', pathname)).toEqual({
       type: 'rewrite',
@@ -277,8 +304,9 @@ describe('decideRoute — site domains', () => {
     })
   })
 
-  it('serves the charger photos of Instalacje (I9) — only that folder', () => {
+  it('serves the charger photos (I9) and brand logos (round v5) of Instalacje — only those', () => {
     expect(route('instalacje.localhost', '/instalacje/ev/home.webp')).toEqual({ type: 'next' })
+    expect(route('instalacje.localhost', '/instalacje/marki/dahua.webp')).toEqual({ type: 'next' })
     // `/instalacje` itself stays a page path of the tenant.
     expect(route('instalacje.localhost', '/instalacje/cennik')).toEqual({
       type: 'rewrite',
@@ -309,6 +337,17 @@ describe('decideRoute — site domains', () => {
 describe('decideRoute — invalid host', () => {
   it.each([null, '', 'evil.pl/x'])('returns 404 for %j', (host) => {
     expect(route(host, '/')).toEqual({ type: 'notFound' })
+  })
+
+  // The `next/image` optimizer fetches a local file with an internal request without any headers
+  // (Next 16 `fetchInternalImage`): the public folders must not depend on the host, or every
+  // optimized image from `public/` answers 404 (round v5: charger photos, brand logos).
+  it('still serves the public folders, and only those', () => {
+    expect(route(null, '/instalacje/marki/dahua.webp')).toEqual({ type: 'next' })
+    expect(route(null, '/instalacje/ev/home.webp')).toEqual({ type: 'next' })
+    expect(route(null, '/brand/logo.svg')).toEqual({ type: 'next' })
+    expect(route(null, '/instalacje/cennik')).toEqual({ type: 'notFound' })
+    expect(route(null, '/admin')).toEqual({ type: 'notFound' })
   })
 })
 

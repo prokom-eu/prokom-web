@@ -1,11 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-  careLevelFromParam,
-  levelSlug,
-  type ProjectSolution,
-  summarizeProject,
-} from './projectSummary'
+import { type ProjectSolution, summarizeProject } from './projectSummary'
 
 const NBSP = String.fromCharCode(0xa0)
 const nb = (text: string) => text.replace(/ /g, NBSP)
@@ -82,10 +77,9 @@ describe('„Twój projekt” on /kontakt (spec. §6.10, ZMIANY-v21 §10.6, §11
     expect(summary.sumLabel).toBe('Cena (netto)')
     expect(summary.sum).toBe(nb('od 2 490 zł'))
     expect(summary.note).toBe(
-      'Lista pójdzie razem ze zgłoszeniem. Dokładną cenę i termin dostaniesz na piśmie w 5–7 dni.',
+      'Lista pójdzie razem ze zgłoszeniem. Dokładną cenę i termin dostaniesz w 5–7 dni.',
     )
     expect(summary.slugs).toEqual([site.slug])
-    expect(summary.topic).toBe('strona')
   })
 
   it('sums one-off prices; care goes apart per month with the level price from its name', () => {
@@ -116,7 +110,6 @@ describe('„Twój projekt” on /kontakt (spec. §6.10, ZMIANY-v21 §10.6, §11
       sub: 'poziom opieki dobierzemy razem',
     })
     expect(summary.sum).toBe(nb('od 149 zł/mies.'))
-    expect(summary.topic).toBe('opieka')
   })
 
   it('gives the audit its own topic and the free level „0 zł”', () => {
@@ -125,7 +118,6 @@ describe('„Twój projekt” on /kontakt (spec. §6.10, ZMIANY-v21 §10.6, §11
       solutions,
     )
     expect(summary.rows[0]).toMatchObject({ price: nb('0 zł'), sub: 'Szybki' })
-    expect(summary.topic).toBe('audyt')
   })
 
   it('prices apps „po rozmowie” and says so in the note', () => {
@@ -143,7 +135,6 @@ describe('„Twój projekt” on /kontakt (spec. §6.10, ZMIANY-v21 §10.6, §11
     })
     expect(summary.sum).toBe(nb('od 3 490 zł'))
     expect(summary.note).toMatch(/^Jedna pozycja jest wyceniana po krótkiej rozmowie\. /)
-    expect(summary.topic).toBe('mobile')
   })
 
   it('shows an item no longer offered „do wyceny”, but never sends it', () => {
@@ -158,25 +149,9 @@ describe('„Twój projekt” on /kontakt (spec. §6.10, ZMIANY-v21 §10.6, §11
     expect(summary.slugs).toEqual([app.slug])
     expect(summary.sum).toBe('po rozmowie')
     expect(summary.note).toMatch(/^Część pozycji wyceniamy po krótkiej rozmowie\. /)
-    expect(summary.topic).toBe('mobile')
   })
 
   it('is empty for an empty list', () => {
-    expect(summarizeProject([], solutions)).toMatchObject({ rows: [], slugs: [], topic: null })
-  })
-})
-
-describe('?poziom= from the price list (spec. §6.4, §6.10)', () => {
-  it('names the care level by its address', () => {
-    expect(levelSlug('Rozszerzona')).toBe('rozszerzona')
-    expect(levelSlug('Strona + program albo dostępność')).toBe('strona-program-albo-dostepnosc')
-    expect(careLevelFromParam('rozszerzona', solutions)).toBe('Rozszerzona')
-    expect(careLevelFromParam('systemy', solutions)).toBe('Systemy')
-  })
-
-  it('ignores an unknown or missing level', () => {
-    expect(careLevelFromParam('pelny', solutions)).toBeNull()
-    expect(careLevelFromParam(undefined, solutions)).toBeNull()
-    expect(careLevelFromParam(['rozszerzona'], solutions)).toBe('Rozszerzona')
+    expect(summarizeProject([], solutions)).toMatchObject({ rows: [], slugs: [] })
   })
 })

@@ -1,0 +1,9 @@
+<!-- PROCESS -->
+<section id="proces" class="au-sec">
+<div class="wrap au-proc">
+<div style="position:sticky;top:110px"><div class="au-eb">Jak pracujemy</div><h2 class="au-h2" style="font-size:50px">Większość płacisz po odbiorze</h2>
+<div key="{{stepKey}}" class="au-glass" style="margin-top:26px;padding:26px;animation:upIn .5s var(--ease) both"><span class="au-eb" style="font-size:11px">Etap {{cs.n}} · {{cs.time}}</span><h3 style="margin:8px 0 0;font:900 22px/1.2 Archivo">{{cs.h}}</h3><p style="margin:10px 0 16px;color:var(--fg2);line-height:1.6">{{cs.p}}</p><div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><b style="font:900 32px Archivo;color:var(--vt)">{{cs.pay}}</b><span style="font-size:13px;color:var(--fg3)">{{cs.payd}}</span></div></div></div>
+<div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{steps}}" as="s" hint-placeholder-count="5"><button class="au-st {{s.o}}" onClick="{{s.pick}}"><span class="n">{{s.n}}</span><b>{{s.t}}</b><span style="font-size:13px">{{s.time}}</span></button></sc-for></div>
+</div>
+</section>
+

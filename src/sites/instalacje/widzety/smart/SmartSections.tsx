@@ -1,6 +1,6 @@
 import { smartHome } from '../../dane/smartHome'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
 import {
   SmartApp,
@@ -9,9 +9,7 @@ import {
   SmartFailure,
   SmartPanel,
   SmartRooms,
-} from './SmartWidgets'
-
-import './smart.css'
+} from './SmartWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 
@@ -40,9 +38,7 @@ export function SmartSections({ planHref }: { planHref: string }) {
         <div className="wrap split" style={{ alignItems: 'center' }}>
           <div className="ri" style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
             <span className="eye">{why.eyebrow}</span>
-            <h2 className="h2">
-              {why.heading} <span className="acc">{why.accent}</span>
-            </h2>
+            <h2 className="h2">{why.heading}</h2>
             <p className="lead">{why.lead}</p>
             <ul className="list">
               {why.list.map((w) => (
@@ -187,7 +183,7 @@ export function SmartSections({ planHref }: { planHref: string }) {
   )
 }
 
-/** Note on the Ampio warranty under the shared warranty section (`.xc-gwn`). */
+/** Note on the Ampio warranty right under the trust band (`.xc-gwn`, runda v6 §1.3). */
 export function SmartWarrantyNote() {
   return (
     <div className="wrap xc-gwn">

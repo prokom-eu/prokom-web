@@ -1,36 +1,42 @@
 import { expect, test } from '@playwright/test'
 
-import { site } from './helpers'
+import { hydrated, site } from './helpers'
 
-// SW11a: `/cennik` of the Software line (spec. §6.4, v22; board `Cennik`, stan `89b`). Data from
-// `pnpm seed`: the `swPricing` block and the FAQ, solutions of the package (prices, levels).
+// SWA4b: `/cennik` v24 (ZMIANY-v24 §6.3). Data from `pnpm seed`: the `swPricing` block and the
+// FAQ, solutions of the package (prices, levels): strony 7, przebudowa i opieka 4, systemy 13,
+// automatyzacje 5.
 const HOST = 'software.localhost'
 const NBSP = ' '
 
 test.describe('Software /cennik', () => {
-  test('hero card, 5 tabs with counts, one „od” price per solution', async ({ page }) => {
+  test('subpage hero, every solution as a price card, the groups filter, a card opens the window', async ({
+    page,
+  }) => {
     await page.goto(site(HOST, '/cennik'))
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Ceny bez gwiazdek. Na piśmie.',
+      // A non-breaking space after the dash (SWV9 N3).
+      /^Ile to kosztuje —\sbez małego druku$/,
     )
     await expect(page.getByText(/^Wszystkie 29 rozwiązań/)).toBeVisible()
-    await expect(page.getByText('Najczęściej wybierana')).toBeVisible()
 
-    const tabs = page.getByRole('tablist', { name: 'Kategorie cennika' }).getByRole('tab')
-    await expect(tabs).toHaveCount(5)
-    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
-    const panel = page.getByRole('tabpanel')
-    await expect(panel.getByRole('heading', { level: 3 })).toHaveCount(8)
-    const card = panel.getByRole('listitem').filter({ hasText: 'Strona wizytówka' })
-    await expect(card).toContainText(`od${NBSP}999${NBSP}zł`)
-    await expect(card).toContainText('W cenie')
+    const cards = page.locator('section[aria-labelledby="cennik-h"] a.v-card')
+    await expect(cards).toHaveCount(29)
+    const wizytowka = cards.filter({
+      has: page.locator('.v-card-bd > b', { hasText: /^Strona wizytówka$/ }),
+    })
+    await expect(wizytowka).toContainText(`od${NBSP}999${NBSP}zł`)
 
-    // Keyboard of the ARIA tabs: the arrow moves to „Aplikacje” after two steps.
-    await tabs.first().focus()
-    await page.keyboard.press('ArrowRight')
-    await page.keyboard.press('ArrowRight')
-    await expect(tabs.nth(2)).toHaveAttribute('aria-selected', 'true')
-    await expect(panel.getByRole('listitem').first()).toContainText('Zapytaj o wycenę')
+    const groups = page.getByRole('group', { name: 'Grupy cennika' })
+    await hydrated(groups.getByRole('button', { name: /^Wszystko/ }))
+    await groups.getByRole('button', { name: /^Przebudowa i opieka · 4$/ }).click()
+    await expect(cards).toHaveCount(4)
+
+    await cards.first().click()
+    await expect(
+      page.getByRole('dialog', { name: 'Przebudowa starej strony', exact: true }),
+    ).toBeVisible()
+    // The window keeps no address here (the phone's „back” closes it).
+    await expect(page).toHaveURL(/\/cennik$/)
   })
 
   test('care levels from the solution, each asking the contact form with its level', async ({
@@ -47,20 +53,23 @@ test.describe('Software /cennik', () => {
     await expect(care).toContainText(`299${NBSP}zł`)
     await expect(care).toContainText('Polecamy')
     const ask = care.getByRole('link', { name: 'Zapytaj o opiekę Rozszerzoną →' })
-    await expect(ask).toHaveAttribute('href', '/kontakt?poziom=rozszerzona')
+    await expect(ask).toHaveAttribute(
+      'href',
+      '/kontakt?temat=Opieka&fraza=Interesuje%20mnie%20opieka%20%E2%80%94%20poziom%20Rozszerzona.#formularz',
+    )
     await ask.click()
-    await expect(page).toHaveURL(/\/kontakt\?poziom=rozszerzona$/)
-    await expect(page.getByRole('radio', { name: 'Opieka lub ratunek' })).toBeChecked()
+    await expect(page).toHaveURL(/\/kontakt\?temat=Opieka&fraza=/)
+    // SWA5b: the shared form with the level written in the message (software-contact).
+    await expect(page.locator('[data-contact-page] [data-contact-form]')).toBeVisible()
   })
 
-  test('audit kinds, „Tego nie dopłacasz”, FAQ and its own CTA instead of the footer band', async ({
+  test('audit kinds and the FAQ; the page ends with the footer band (no CTA of its own)', async ({
     page,
   }) => {
     await page.goto(site(HOST, '/cennik'))
     await expect(page.locator('#audyt')).toContainText(`990${NBSP}zł`)
-    await expect(page.getByText('Tego nie dopłacasz.')).toBeVisible()
     await expect(page.locator('#faq')).toContainText('Co oznacza cena „od”?')
-    await expect(page.locator('[data-footer-cta]')).toBeHidden()
+    await expect(page.locator('[data-footer-cta]')).toBeVisible()
   })
 })
 

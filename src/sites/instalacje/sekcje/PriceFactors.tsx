@@ -3,7 +3,7 @@ import Link from 'next/link'
 import type { InstService } from '@/payload-types'
 
 import { InstIcon } from '../InstIcon'
-import { InstSection } from './InstSection'
+import { InstSection } from './InstSectionLazy'
 
 type Props = {
   intro: InstService['priceIntro']
@@ -24,7 +24,7 @@ export function PriceFactors({ intro, factors, planHref, fold }: Props) {
           {intro?.text && <p className="lead">{intro.text}</p>}
           <div className="flex flex-wrap gap-2.5">
             <Link href={planHref} className="btn btn-p">
-              {intro?.button || 'Wyślij zdjęcia do wyceny'}
+              {intro?.button || 'Opisz obiekt do wyceny'}
             </Link>
           </div>
         </div>

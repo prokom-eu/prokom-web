@@ -1,19 +1,23 @@
 import { type CSSProperties, Fragment, type ReactNode } from 'react'
 
-import { LEGAL_NOTE } from '../../dane/prawo'
 import { sieci } from '../../dane/sieci'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { CableLab, FailoverLab, LinkLab, PortalCode, VlanButtons, WallLab } from './SieciWidgets'
-
-import './sieci.css'
+import {
+  CableLab,
+  FailoverLab,
+  LinkLab,
+  PortalCode,
+  VlanButtons,
+  WallLab,
+} from './SieciWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 
-function Checks({ items, className }: { items: readonly string[]; className?: string }) {
+function Checks({ items }: { items: readonly string[] }) {
   return (
-    <ul className={className ? `uhl ${className}` : 'uhl'}>
+    <ul className="uhl">
       {items.map((x) => (
         <li key={x}>
           <InstIcon name="check" size={13} strokeWidth={2.8} />
@@ -45,12 +49,12 @@ function LabCard({
 /**
  * The Sieci i Wi-Fi sections between the hero and the shared ones
  * (`zrodlo/pages/Sieci.body.html`): why Wi-Fi fails, separate networks, the guest portal,
- * cabling, the four „Sprawdź sam” tools, the hardware, Wi-Fi standards and NIS2. Folded on a
+ * cabling, the four „Sprawdź sam” tools, the hardware and Wi-Fi standards. Folded on a
  * phone as in `zrodlo/fold.json` (`podzial`, `portal`, `okablowanie`, `sprzet` to 900 px,
  * `standardy`; `cena` and `faq` by the shared sections).
  */
 export function SieciSections() {
-  const { why, split, portal, cabling, lab, hardware, standards, nis2 } = sieci
+  const { why, split, portal, cabling, lab, hardware, standards } = sieci
   const S = portal.screen
   return (
     <>
@@ -110,14 +114,8 @@ export function SieciSections() {
               ))}
             </ul>
             <div className="note">
-              <InstIcon name="doc" size={20} />
-              <span>{portal.uke}</span>
-            </div>
-            <div className="note">
               <InstIcon name="lock" size={20} />
-              <span>
-                {portal.rodo} {LEGAL_NOTE}
-              </span>
+              <span>{portal.guestData}</span>
             </div>
           </div>
           <div className="ri">
@@ -171,11 +169,8 @@ export function SieciSections() {
           </div>
           <div className="note ri" style={{ marginTop: 18 }}>
             <InstIcon name="globe" size={20} />
-            <span>{cabling.uke}</span>
+            <span>{cabling.slowLink}</span>
           </div>
-          <p className="src ri" style={{ marginTop: 12 }}>
-            {cabling.realization}
-          </p>
         </div>
       </InstSection>
 
@@ -248,26 +243,8 @@ export function SieciSections() {
           <div className="note ri" style={{ marginTop: 16 }}>
             <InstIcon name="doc" size={20} />
             <span>
-              <b>{standards.band.title}</b> {standards.band.text} {LEGAL_NOTE}
+              <b>{standards.band.title}</b> {standards.band.text}
             </span>
-          </div>
-        </div>
-      </InstSection>
-
-      <InstSection id="zapas" style={SECTION}>
-        <div className="wrap">
-          <div style={{ display: 'grid' }}>
-            <div className="card dark bkc ri" data-surface="dark">
-              <span className="eye hwkeye">{nis2.eyebrow}</span>
-              <h2 className="h3" style={{ fontSize: 26 }}>
-                {nis2.heading}
-              </h2>
-              <p className="bkp">{nis2.text}</p>
-              <Checks items={nis2.items} className="bkl" />
-              <span className="bknote">
-                {nis2.note} {LEGAL_NOTE}
-              </span>
-            </div>
           </div>
         </div>
       </InstSection>

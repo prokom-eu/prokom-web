@@ -29,6 +29,11 @@ describe('keepTogether', () => {
     expect(keepTogether('od 149 zł / mies.')).toBe(`od${NBSP}149${NBSP}zł / mies.`)
   })
 
+  it('keeps „60 s” of the wizard button on one line (audyt P1 #13)', () => {
+    expect(keepTogether('Dobierz w 60 s')).toBe(`Dobierz w${NBSP}60${NBSP}s`)
+    expect(keepTogether('2 sklepy')).toBe('2 sklepy')
+  })
+
   it('leaves other spaces alone', () => {
     expect(keepTogether('Zapytaj o wycenę')).toBe('Zapytaj o wycenę')
     expect(keepTogether('po krótkiej rozmowie')).toBe('po krótkiej rozmowie')

@@ -1,6 +1,6 @@
 /*
  * Teletechnika page (I8): the building cross-section in the hero (`.ttx`: stages, layers,
- * numbered elements), scope, for whom, the law and the quote form. Rules of `pk.css` v4.2 for the
+ * numbered elements), scope, for whom and the quote form. Rules of `pk.css` v4.2 for the
  * classes of `Teletechnika.body.html`, `Teletechnika.js` and the scene (`scena.ts`) not already in
  * the other page sheets (one bundle for all service pages), ported by
  * `narzedzia/przenies-css.mjs` (scene colours: `--inst-il-ttx-*` pairs, `--il-*`), then: without
@@ -39,7 +39,7 @@
     flex-direction: column;
     gap: 12px;
   }
-  & .zpq h3 {
+  & .zpq :is(h2, h3) {
     margin: 0;
     font-size: 16px;
     font-weight: 800;
@@ -47,7 +47,7 @@
     gap: 10px;
     align-items: center;
   }
-  & .zpq h3 em {
+  & .zpq :is(h2, h3) em {
     font-style: normal;
     width: 26px;
     height: 26px;
@@ -215,7 +215,7 @@
     }
   }
   & .zp {
-    animation: inst-tt-fadein 0.35s ease;
+    animation: inst-tt-fadein 0.35s var(--ease-out);
   }
   & .flw {
     padding: 20px;
@@ -858,7 +858,8 @@
   @media (max-width: 760px) {
     & .xc-ttnums {
       display: grid;
-      grid-template-columns: repeat(9, minmax(0, 1fr));
+      /* Two rows (5 + 4): nine in one row are 32 px wide at 360 px, below the 44 px target. */
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 4px;
       margin: 10px 0 2px;
     }
@@ -964,26 +965,6 @@
   }
 
   /* Inline styles of `Teletechnika.body.html` as classes. */
-  & .card.tlaw {
-    padding: 44px;
-    border-radius: 30px;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-    gap: 36px;
-  }
-  @media (max-width: 760px) {
-    & .card.tlaw {
-      grid-template-columns: 1fr;
-      padding: 26px;
-    }
-  }
-  & .tlaweye {
-    color: var(--inst-plan-accent);
-  }
-  & .tlawtx {
-    color: var(--inst-deep-lead-2);
-    font-size: 14px;
-  }
   /* No upload in v1: the drop area only says how to send the bill of quantities. */
   & .drop.tqfiles {
     cursor: default;
@@ -1051,6 +1032,73 @@
     & .ttx .tthl.on rect,
     & .ttx .ttm .pul {
       animation: none;
+    }
+  }
+}
+
+/* RUNDA-V5 §10: handover, mistakes, common parts. Tokens only. */
+[data-line='instalacje'] {
+  & .ttlist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .ttlist li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+  & .ttlist li > svg {
+    flex: none;
+    margin-top: 2px;
+    color: var(--accent-text);
+  }
+  & .ttmis,
+  & .ttcom {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  & .ttmis p,
+  & .ttcom p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+  & .ttmis .ttavoid {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14.5px;
+  }
+  & .ttavoid span {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ok-text);
+    margin-bottom: 2px;
+  }
+  & .ttcom h3 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  & .ttcom h3 > svg {
+    color: var(--accent-text);
+  }
+  /* Phone: one card per row — these carry two paragraphs each. */
+  @media (max-width: 700px) {
+    & :is(#bledy, #czesci-wspolne) .g4 {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 }

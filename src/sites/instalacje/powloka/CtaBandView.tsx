@@ -1,11 +1,12 @@
 import Link from 'next/link'
 
 import type { Navigation } from '../dane/types'
+import { InstIcon } from '../InstIcon'
 
 export type CtaBandProps = {
   band: Navigation['ctaBand']
   phone: { label: string; href: string } | null
-  /** „Salony: Rabka-Zdrój, ul. Orkana 16B” (every location of the company data) */
+  /** „Salon: Rabka-Zdrój, ul. Orkana 16B” — `salonsNote()` of the company data's locations */
   salons: string
   /** Id of the heading (two bands in one HTML must not share it). */
   titleId: string
@@ -39,7 +40,13 @@ export function CtaBandView({ band, phone, salons, titleId, page = false }: CtaB
                 Zadzwoń: <b>{phone.label}</b>
               </a>
             )}
-            {salons && <span className="note">Salony: {salons}</span>}
+            {/* P2-16: plain text with a pin — the shared `.note` box looked like a disabled field. */}
+            {salons && (
+              <span className="ctan">
+                <InstIcon name="pin" size={16} />
+                {salons}
+              </span>
+            )}
           </div>
         </div>
       </div>

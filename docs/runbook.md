@@ -9,6 +9,25 @@ Co robić krok po kroku przy wdrożeniu, cofnięciu, odtworzeniu z kopii i awari
 | Stos produkcji | projekt `prokom-prod`: `docker/compose.prod.yml`, zmienne `.env.prod` | kontenery `prokom-prod-app-1`, `prokom-prod-postgres-1` |
 | Stos stagingu | projekt `prokom-staging`: `compose.prod.yml` + `compose.staging.yml`, zmienne `.env.staging` | baza `prokom_staging` |
 | Nginx + certbot | projekt `prokom-proxy`: `docker/compose.proxy.yml` (staging) + `compose.proxy.prod.yml` (domeny produkcji, od startu produkcji), zmienne `.env.proxy` | jedyny z portami 80/443 |
+
+**Uruchamianie proxy (stan od 9.11.2026 — produkcja prokom-web i Gaming):** zawsze ze wszystkimi nakładkami, które mają certyfikat i zmienne w `.env.proxy` — pominięta nakładka wyłącza tę domenę:
+```bash
+cd /srv/prokom/prokom-web
+docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml \
+  -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml up -d nginx
+```
+Odnawianie certyfikatów: kontener `certbot` (`renew --webroot`) — także tych wystawionych `--standalone`.
+
+**Nginx widzi stare pliki po wdrożeniu stagingu (9.11.2026):** wdrożenie podmienia katalogi `docker/nginx/` na serwerze, a działający kontener ma podpięty katalog sprzed podmiany (`/etc/nginx/snippets/` pusty). Strony działają, ale każdy `nginx -s reload` — także automatyczny co 6 h po odnowieniu certyfikatu — kończy się błędem `open() "/etc/nginx/snippets/…" failed`. Sprawdzenie: `docker exec prokom-proxy-nginx-1 nginx -t`. Naprawa: komenda wyżej z `--force-recreate` (kilka sekund przerwy). Przed każdą zmianą domen proxy zacznij od `nginx -t`.
+
+**Nowy certyfikat bez zatrzymywania Nginx** (domeny, których Nginx jeszcze nie obsługuje — domyślny blok odpowiada 444, więc `--webroot` sam nie przejdzie): tymczasowy blok tylko na porcie 80 w katalogu `sites` (tmpfs, znika przy restarcie), certyfikat, usunięcie bloku:
+```bash
+docker exec prokom-proxy-nginx-1 sh -c 'printf "server {\n  listen 80;\n  server_name <domeny>;\n  include /etc/nginx/snippets/acme.conf;\n}\n" > /etc/nginx/sites/zz-acme-tmp.conf && nginx -t && nginx -s reload'
+docker compose --env-file .env.proxy -f docker/compose.proxy.yml run --rm --entrypoint certbot certbot \
+  certonly --webroot -w /var/www/certbot --cert-name <nazwa> --non-interactive --agree-tos -d <domena> -d …
+docker exec prokom-proxy-nginx-1 sh -c 'rm -f /etc/nginx/sites/zz-acme-tmp.conf && nginx -t && nginx -s reload'
+```
+Poszerzenie istniejącego certyfikatu: to samo z `--expand` i pełną listą jego domen.
 | Kopie | `scripts/backup.sh`, `scripts/restore.sh`, zmienne `.env.backup` | lokalnie `../backups/`, poza serwerem `RCLONE_REMOTE` |
 | Sekrety | `.env.*` w repo (poza Gitem), plik hasła stagingu `../secrets/` | wartości w menedżerze haseł |
 | Klucz prywatny `age` | **tylko** menedżer haseł („prokom-web backup age”) | na serwerze jest tylko klucz publiczny |
@@ -73,6 +92,12 @@ Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019). Strefa czasu serwera zostaje **UTC*
      - próba alarmu: w Better Stack „Pause”/„Resume” nie wystarczy — zatrzymaj na chwilę aplikację stagingu (`$staging stop app`, po alercie `$staging start app`) i sprawdź, że mail z alertem doszedł na telefon.
    - **Sentry** (region EU, projekt `prokom-web`, założony 1.11; repozytorium **nie** podłączone, kreator `npx @sentry/wizard` nieużywany): `SENTRY_DSN=<DSN>` w `.env.staging` (wpisane 1.11; później `.env.prod`) — działa od pierwszego wdrożenia obrazu z S10c. W ustawieniach (organizacja → Security & Privacy): Data Scrubber i domyślne filtry włączone, „Prevent Storing of IP Addresses” włączone, „Global Sensitive Fields”: `email`, `phone`, `telefon`, `name`, `imie`, `message`, `wiadomosc`, `tresc`. Do Sentry trafiają błędy Server Components, route handlerów, akcji panelu i nieobsłużone odrzucenia — **nie** błędy, które Payload sam obsługuje w swoim REST API (te tylko w logach). Dane osobowe wycinane w kodzie (`src/lib/sentry.ts`: także wartości z treści błędów — parametry zapytań, e-maile, telefony).
    - **Lighthouse CI:** workflow „Lighthouse” po każdym udanym „Deploy staging” (mediana z 3 przebiegów); raporty JSON w artefakcie `lighthouse` przebiegu (30 dni, bez nagłówka z loginem). Login `lighthouse` w `../secrets/staging.htpasswd`; sekret `STAGING_BASIC_AUTH` = **sam token base64** `lighthouse:<hasło>` (to, co `staging-login.sh lighthouse` wypisuje jako „Only the token”), ustawiony 1.11 wprost z serwera do `gh secret set` — nigdzie nie zapisany.
+   - **`staging.htpasswd` zmieniaj tylko w miejscu** (`cat nowy > staging.htpasswd`, jak robi `staging-login.sh`): Nginx widzi go przez montowanie pojedynczego pliku, więc `sed -i` albo `mv` tworzą nowy plik, którego kontener nie widzi — login działa dopiero po `docker restart prokom-proxy-nginx-1` (tak było 1.11 z `lighthouse` i `monitor`).
+10. **Poczta** (S10d, `docs/dns.md` „Poczta”): hosting poczty Seohost (DirectAdmin `srv128408.seohost.com.pl`), skrzynki `kontakt@<domena>` dla Biznesu, Software, Instalacji i Gaming. Domena dodana w hostingu (bez SSL i PHP) → rekordy poczty z „Zarządzanie DNS” hostingu przepisane do stref Seohost (A `mail`, MX, SPF, DKIM, DMARC — bez A `@`/`www` hostingu; hosting zakłada skrzynkę dopiero, gdy domena ma MX) → skrzynki (2000 MB, limit 300 wysłanych dziennie ≈ 150 zapytań na stronę — przy większym ruchu podnieść w hostingu; hasła w menedżerze haseł).
+   - aplikacja: `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/mail-login.sh staging'` — hasła trzech skrzynek, sprawdzone logowaniem SMTP, do `.env.staging` (`SMTP_*`, `MAIL_FROM_ADDRESS`, `MAIL_SENDERS`, `SMTP_PASS_<LINIA>`), potem `$staging up -d app`; poprzedni plik zostaje jako `.env.staging.bak`; aplikacja nie wstanie, gdy `SMTP_PASS_<LINIA>` nie ma pary w `MAIL_SENDERS` (literówka); produkcja: to samo z `prod`;
+   - próba: `ssh prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/mail-test.sh staging <adres> [linia]'` — po mailu z każdej strony; adres z mail-tester.com (wynik 10/10, 2.11) i własne skrzynki Gmail/Outlook (Odebrane, nie Spam).
+   - **maile linii w marce** (D1-2, `docs/design/wspolne/MAILE.md`, ADR-024): podgląd 3 linii × potwierdzenie i powiadomienie na `https://staging.<domena>/_maile` (za hasłem stagingu; na produkcji 404) — po każdej zmianie maili i po zmianie danych w panelu (telefon, e-mail, Dane firmy). Lokalnie wysyłka próbna `pnpm mail:samples <adres>` (6 maili przez nadawców linii, do Mailpit `localhost:8025`; przy `SITE_ENV=production` odmawia). Na stagingu: formularz na każdej stronie (potwierdzenie + powiadomienie z Reply-To) i `mail-test.sh` na mail-tester (≥ 9/10). TODO(krystian): `mail:samples` na stagingu — obraz nie ma narzędzi do uruchamiania skryptów TS (decyzja: przycisk wysyłki na `/_maile` albo skrypt w kontenerze).
+   - logo w mailach to załącznik `cid:logo` (`public/brand/mail/`, w obrazie razem z `public/`); po starcie domen produkcji można ustawić `MAIL_LOGO_BASE_URL=https://<domena>` (logo z adresu — lżejszy mail, bez spinacza).
 
 ## 2. Wdrożenie stagingu (pipeline, S10b)
 
@@ -89,17 +114,68 @@ Dziennik: `../deploys.log` (`<czas> staging <stary> -> <nowy> ok | FAILED, rolle
 
 **Klucz pipeline'u (raz, zrobione 1.11):** środowisko GitHub `staging` (Settings → Environments; wdrożenia tylko z gałęzi `develop`) z sekretem `STAGING_SSH_KEY` (klucz prywatny ed25519, wygenerowany na serwerze i przekazany wprost do `gh secret set` — nigdzie nie zapisany) oraz zmiennymi `STAGING_SSH_TARGET=<admin>@<IP>` i `STAGING_SSH_KNOWN_HOSTS=<IP> ssh-ed25519 …` (z `/etc/ssh/ssh_host_ed25519_key.pub` serwera — przypięty klucz hosta). Na serwerze w `~/.ssh/authorized_keys` admina: `restrict,command="/home/<admin>/bin/prokom-deploy-gate" ssh-ed25519 … github-deploy-staging` (`restrict` wyłącza też scp/sftp, przekierowania i terminal). Bramka leży poza plikami wdrożenia, więc wdrożenie jej nie podmienia — zmiana bramki: `install -m 700 scripts/server/deploy-gate.sh ~/bin/prokom-deploy-gate` ręcznie. Klucz pozwala tylko wybrać obraz z GHCR (zbudowany przez „Image” z `develop`); kto może scalić do `develop`, ten wdraża kod na serwer — dlatego `develop` tylko przez PR z zielonym CI. Nowy klucz: usuń linię `github-deploy-staging`, wygeneruj parę jak wyżej.
 
+## 2a. Odświeżenie treści stagingu (paczki linii)
+
+Pipeline przenosi kod i migracje, ale **nie treść**: `pnpm seed*` jest na stagingu zablokowany, a obraz nie ma paczek `seed/` ani zdjęć `docs/design/`. Nowe strony z importów linii (np. Instalacje `/dla-kogo/pensjonaty`) pojawiają się na stagingu dopiero po odświeżeniu — inaczej 404 i czerwony Lighthouse.
+
+Z komputera (Git Bash), w checkoucie, w którym `src/`, `seed/`, `docs/design/`, `package.json` i `pnpm-lock.yaml` są **takie jak w commicie stagingu** (skrypt sprawdza; najprościej `git fetch && git switch --detach <APP_IMAGE_TAG>`):
+```bash
+SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/staging-content.sh [biznes software instalacje]
+```
+Kroki:
+1. `backup.sh staging predeploy` (B2) — błąd kopii zatrzymuje skrypt;
+2. `pnpm install --frozen-lockfile`, zrzut bazy i mediów stagingu, tymczasowy Postgres na komputerze (`127.0.0.1:54331`, usuwany na końcu);
+3. `pnpm payload migrate` + `pnpm seed:<linia>` (zmienne ustawione w skrypcie — `.env` z folderu ich nie nadpisze; pełne galerie);
+4. na serwerze `scripts/server/staging-content-apply.sh` (z tego checkoutu, przez ssh), pod blokadą wdrożeń: **przygotowanie obok** — nowa baza `prokom_staging_new` i media w `.incoming`, gdy aplikacja jeszcze działa; potem krótka **zamiana** (aplikacja zatrzymana na kilka–kilkanaście sekund, bazy i media przez zmianę nazw) → `healthy` + smoke; **błąd po zamianie = automatyczny powrót** starej bazy i mediów (nieudana kopia zostaje jako `prokom_staging_failed` / `.failed` do obejrzenia); sukces → stare kopie i wgrane pliki usunięte, wpis w `../deploys.log`.
+
+- **Zostaje:** konta (`Users`), zapytania, tenanty (e-mail powiadomień, domeny `staging`) — importy linii tenanty tylko czytają, kont ani zapytań nie dotykają.
+- **Nadpisuje:** to, co jest w paczkach: katalog Biznesu („pola z paczki wygrywają z edycją w panelu”), **globalne Dane firmy** (`seed:biznes` — nazwa, NIP i **salony = tylko Rabka**; salon dodany w panelu stagingu zniknie) i **ustawienia stron** (`site-settings`) wszystkich trzech linii. Przed odświeżeniem zapytaj szefa, czy czegoś nie poprawiał na stagingu.
+- **Strony sprzed obecnego seeda** (np. GoPOS, InsERT, Opieka IT, O firmie, Kontakt z importu 31.10): seed nie nadpisuje strony, w której widzi obce bloki — traktuje ją jak edytowaną w panelu (raport „strona K4 edytowana w panelu — bez zmian”). Gdy w historii wersji strony (`_pages_v`) nie ma edycji z panelu i szef niczego na niej nie poprawiał, wymień ją jednorazowo: `ZAMIEN_STRONY=gopos,insert,opieka-it,o-firmie,kontakt SSH=… bash scripts/staging-content.sh biznes` (lokalnie: `pnpm seed:biznes -- --zamien-strony=…`). Układ wskazanych stron zastępuje wersja z paczki (tytuł zostaje, opis SEO wg zwykłych reguł seeda), stary układ trafia do `tmp/strony-backup-<data>.json` w folderze, z którego uruchamiasz, a raport seeda pokazuje „strona zamieniona (przed → po)” (nieznany slug: „ZAMIEN_STRONY: nieznana strona”). Powtórka na stronie z tymi samymi blokami **i wartościami** nic nie zmienia. Od PREMIUM-1011 seed porównuje też wartości sekcji (rodzaj, tło, teksty, dane), nie tylko typy bloków: **każda poprawka treści w panelu na wskazanej stronie (nagłówek, lead, dane sekcji) zostanie nadpisana** wersją z paczki — stara jest tylko w `tmp/strony-backup-<data>.json`. Zanim podasz stronę, zapytaj szefa, czy niczego na niej nie poprawiał. **Zmienną ustawiaj tylko jako prefiks jednego wywołania, nigdy `export`** — przy zmianie sekcji w kodzie albo edycji w panelu kolejny przebieg z tą samą listą zamieniłby stronę znowu.
+- **Po każdym odświeżeniu:** `node scripts/porownaj-tresc.mjs <lokalnie po pnpm seed> https://staging.<domena>` (§2b) — zielony = treść stagingu jak z kodu.
+- **Ginie:** zapytania wysłane między zrzutem a zamianą (minuty) — są w kopii `predeploy`.
+- Nie przerywaj (Ctrl+C) w kroku 4: zatrzymana aplikacja nie wstanie sama — wtedy `docker start prokom-staging-app-1` i sprawdzenie baz (`prokom_staging`, `_new`, `_old`).
+- Lokalna kopia (testowe zapytania, skróty haseł) i wgrane pliki na serwerze są kasowane na końcu, także po błędzie.
+
+## 2b. Zgodność treści: staging = treść z kodu
+
+Po każdym `staging-content.sh` i przed `prod-content.sh` (§3a) — **obowiązkowo** (NAPRAWA-0911: na stagingu leżały strony sprzed obecnego seeda i nikt tego nie widział):
+```bash
+node scripts/porownaj-tresc.mjs http://biznes.localhost:3001 https://staging.prokombiznes.pl
+```
+- A = ten sam commit lokalnie po `pnpm seed` (`pnpm build && pnpm start` albo `pnpm dev`), B = staging. Login stagingu: `TRESC_AUTH_B=użytkownik:hasło`; bez hasła przez tunel do aplikacji: `ssh -L 3999:127.0.0.1:<APP_PORT> prokom-vps` i B = `http://127.0.0.1:3999` z `TRESC_HOST_B=staging.prokombiznes.pl`.
+- 18 stron (główna, GoPOS, InsERT, Opieka IT, O firmie, Kontakt, KSeF, Ulga, Automaty, AGD, Dostawy IT, Zestawy, 3 salony, 3 kategorie): liczba H2 i `<section>` w `<main>` i długość tekstu. Czerwony (exit 1), gdy B ma mniej niż 80% A — strona sprzed obecnego seeda albo ucięta treść.
+- Czerwony → produkcji nie wdrażamy; strony ze starym układem: §2a „Strony sprzed obecnego seeda”.
+- **Widoczność — też obowiązkowo po każdym imporcie treści** (PRODUKCJA-BIZNES-1211 P0: sekcje były w HTML, więc H2 się zgadzały, ale nie było ich widać):
+  ```bash
+  TRESC_AUTH=użytkownik:hasło node scripts/porownaj-tresc.mjs --widocznosc https://staging.prokombiznes.pl
+  ```
+  20 stron z `scripts/widocznosc.mjs` w 1440 i 390, z ruchem, przewijane jak przez użytkownika; czerwony = sekcja z opacity 0 / ukryta / poza ekranem (podaje stronę, sekcję i regułę CSS). Bez tunelu (Chromium ustawia własny nagłówek Host).
+- Import treści (`staging-content-apply.sh`, `prod-content-apply.sh`) sprawdza dodatkowo smoke z `SMOKE_CONTENT=1`: H2 w `<main>` — `/gopos` ≥ 8, `/insert` ≥ 8, `/opieka-it` ≥ 6, `/o-firmie` ≥ 4, `/kontakt` ≥ 4; czerwony = import się cofa (stara baza wraca). Zwykłe wdrożenie (`deploy.sh`) tych progów nie sprawdza. **Dopóki strony Biznesu na stagingu są stare, cofa się każdy import — także `staging-content.sh software` / `instalacje`** (smoke sprawdza host Biznesu w każdym imporcie): pierwsze odświeżenie po NAPRAWA-0911 to `ZAMIEN_STRONY=gopos,insert,opieka-it,o-firmie,kontakt bash scripts/staging-content.sh biznes [software instalacje]`.
+
 ## 3. Wdrożenie produkcji
 
 Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR-004). Warunek: przebieg „Lighthouse” po ostatnim wdrożeniu stagingu (tym obrazem) zielony (budżet, ADR-021); anulowany przebieg się nie liczy — Actions → Lighthouse → Run workflow.
 
-**Pierwsze wdrożenie produkcji (raz):** rekordy `@`, `www` i panelu produkcji wg `docs/dns.md` (PR, potem Seohost) → certyfikat `prokom-prod` (`docs/wdrozenia.md` → „Nginx i staging”, krok 3) → zmienne `PROD_*` w `.env.proxy` → Nginx z nakładką: `docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml up -d`. Od tej chwili proxy uruchamiasz zawsze z oboma plikami. Do crona dopisz linię `backup.sh prod` (§1.8).
+**Pierwsze wdrożenie produkcji (raz):** rekordy `@`, `www` i panelu produkcji wg `docs/dns.md` (PR, potem Seohost) → certyfikat `prokom-prod` (bez przestoju — §0 „Nowy certyfikat bez zatrzymywania Nginx”) → zmienne `PROD_*` w `.env.proxy` → Nginx z nakładką (komenda w §0). Do crona dopisz linię `backup.sh prod` (§1.8). **Zrobione 9.11.2026** (start samej linii Software): kolejne linie dochodzą wg §3a „Kolejna linia później” + poszerzenie certyfikatu (`--expand`) + domeny w `PROD_SITE_HOSTS` / `PROD_WWW_HOSTS`.
 1. Kopia przed wdrożeniem: `scripts/backup.sh prod predeploy` — musi się skończyć `done`.
 2. Zapisz obecny tag (punkt powrotu): `grep APP_IMAGE_TAG .env.prod`.
-3. W `.env.prod`: `APP_IMAGE_TAG=<SHA ze stagingu>`.
+3. W `.env.prod`: `APP_IMAGE_TAG=<SHA ze stagingu>`. Przy pierwszym wdrożeniu produkcji: teraz treść startowa (§3a).
 4. `$prod pull app && $prod up -d app`
 5. Zdrowie jak wyżej (`prokom-prod-app-1`), potem smoke: `PANEL_HOST=<panel> bash scripts/smoke.sh https://127.0.0.1 <domeny…>`.
 6. Smoke czerwony albo aplikacja nie wstaje w ~3 min → **4. Cofnięcie**.
+
+## 3a. Treść startowa produkcji (tylko pierwsze uruchomienie)
+
+Pipeline przenosi kod, nie treść, a `pnpm seed*` na produkcji jest zablokowany. Pierwsza treść produkcji to **kopia stagingu** — tej treści, którą szef zaakceptował — bez ruchu testowego. Z komputera (Git Bash):
+```bash
+SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/prod-content.sh biznes
+```
+- **Przed:** `porownaj-tresc.mjs` lokalnie ↔ staging zielony (§2b) — produkcja kopiuje staging.
+- **Kiedy:** raz, przy pierwszym wdrożeniu produkcji — po utworzeniu stosu (`$prod up -d postgres`) i ustawieniu w `.env.prod` `APP_IMAGE_TAG` = tag stagingu, **przed** krokiem 4 z §3 (`up -d app`). Podaj wszystkie linie, które startują razem (`biznes`, `software`, `instalacje`).
+- **Kolejna linia później** (gdy produkcja już działa): **nie tym skryptem** — w panelu produkcji Strony → tenant linii → Domeny: dopisz domenę produkcji (środowisko „Produkcja”), a jej treść uzupełnij w panelu produkcji. Skrypt odmawia, gdy produkcja ma już domenę produkcji, zapytanie albo wpis w logu usunięć (sprawdza też ponownie po zatrzymaniu aplikacji).
+- **Co robi** (`scripts/server/prod-content-apply.sh`, wysyłany przez ssh z tego checkoutu): kopia `predeploy` produkcji, jeśli ma już tabele → zrzut bazy stagingu **bez wierszy** zapytań, logu usunięć, sesji i blokad edycji (te dane nie opuszczają stagingu) odtworzony obok (`prokom_prod_new`) → domena produkcji każdej podanej linii dopisana do jej tenanta (`prokombiznes.pl`, `prokomsoftware.pl`, `prokominstalacje.pl`) → zdjęcia stagingu obok (bez pozostałości `.old`/`.failed`) → krótka zamiana baz i zdjęć; błąd cofa dokładnie te kroki zamiany, które się wykonały.
+- Zatrzymuje się, niczego nie zmieniając, także gdy tagi stagingu (`.env.staging` i działający kontener) i produkcji się różnią albo bez wpisania `prokom-prod`.
+- **Po skrypcie:** konta (`Users`) przeszły ze stagingu (skrypt wypisuje ich liczbę wg roli) — w panelu produkcji usuń konta testowe i zmień hasła; sprawdź e-mail powiadomień tenanta (Strony → „E-mail powiadomień”) i Dane firmy; ostrzeżenie o adresach `staging.` w treści = popraw je w panelu; jedno próbne zapytanie z formularza.
 
 ## 4. Cofnięcie wdrożenia
 

@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
@@ -8,12 +8,13 @@ import { Icon } from '@/components/ui/Icon'
 import type { IndustryProblem } from '@/lib/software/industryPage'
 import { projectActions, useProject } from '@/lib/software/projectStore'
 
+import { Mockup } from '../mockups/MockupLazy'
 import { OfferThumb } from '../offer/OfferThumb'
 
 type Props = { problems: IndustryProblem[] }
 
 /**
- * „Kliknij swój problem. Pokażemy, co na to mamy.” (spec. §6.2, board `Branza`): the problems as
+ * „Kliknij swój problem, a pokażemy, co na to mamy” (spec. §6.2, board `Branza`): the problems as
  * buttons, the panel shows the answer — what we have, its points, the link and „+ Dodaj do
  * wyceny” (the problem's solution). The illustration is the solution's thumbnail (spec. §5.2).
  * Phone: the problems in a scrolled row above the panel.
@@ -120,11 +121,12 @@ export function ProblemsExplorer({ problems }: Props) {
                   added ? `W wycenie: ${solution.name}` : `Dodaj do wyceny: ${solution.name}`
                 }
                 onClick={() => setFull(!projectActions.toggle(solution.slug, solution.name))}
+                data-motion={added ? 'button-outline' : 'button'}
                 className={cx(
-                  'inline-flex min-h-12 items-center justify-center rounded-2xl px-5 font-extrabold active:scale-[0.98] motion-reduce:transition-none',
+                  'inline-flex min-h-12 items-center justify-center rounded-full px-5 font-extrabold',
                   added
-                    ? 'bg-card text-accent-text ring-2 ring-accent-line'
-                    : 'bg-button text-accent-ink shadow-raised',
+                    ? 'border border-accent-line bg-card text-accent-text'
+                    : 'bg-button text-accent-ink',
                 )}
               >
                 {added ? '✓ W wycenie' : '+ Dodaj do wyceny'}
@@ -138,7 +140,17 @@ export function ProblemsExplorer({ problems }: Props) {
           </div>
         </div>
         <div className="flex items-center bg-stage p-5 min-[641px]:p-7">
-          <OfferThumb src={solution?.thumbnail ?? undefined} className="w-full" />
+          {solution?.preview ? (
+            <span className="sw-offer-shot block w-full">
+              <Mockup
+                kind={solution.preview.kind}
+                variant={solution.preview.variant}
+                fit="contain"
+              />
+            </span>
+          ) : (
+            <OfferThumb src={solution?.thumbnail ?? undefined} className="w-full" />
+          )}
         </div>
       </div>
     </div>

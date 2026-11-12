@@ -5,11 +5,41 @@ import type { NewCartItem } from '../../cart/cart'
 /** Note of every position the GoPOS package adds to the inquiry (board: `n: 'Pakiet GoPOS'`). */
 export const GOPOS_PACKAGE_NOTE = 'Pakiet GoPOS'
 
-/** Step of the order the ticket shows before anything is picked: the kitchen (K32 §3). */
-export const INITIAL_TICKET_STEP = 1
+/**
+ * Step the order starts on: the hall (POPRAWKI-0311 §A — the flow plays 1 → 4 from there, and
+ * stays on it with reduced motion). K32 §3 started on the kitchen.
+ */
+export const INITIAL_TICKET_STEP = 0
 
 const text = z.string().trim().min(1)
 const slug = z.string().trim().min(1).max(120)
+/** A picture uploaded to Media (POPRAWKI-0311: the GoPOS photos with the screen on). */
+const mediaId = z.number().int().positive()
+/** CSS placement in the stage, `left:2%;top:10%;…` — read by `stagePlacement`. */
+const placement = z.string().trim().max(160)
+
+const PLACEMENT_KEYS = new Set(['left', 'right', 'top', 'bottom', 'width', 'height'])
+const LENGTH = /^-?(\d+(\.\d+)?)(%|px)$|^0$/
+
+export type StagePlacement = Partial<
+  Record<'left' | 'right' | 'top' | 'bottom' | 'width' | 'height', string>
+>
+
+/**
+ * `pos` / `lab` of a stage device (`strony-k4.json → gopos.hero.stage`) as a style object. Only
+ * the sides and the size, only plain `%` or `px` lengths: a value typed in the panel never turns
+ * into anything else in the page's `style`.
+ */
+export function stagePlacement(value: string | undefined): StagePlacement {
+  const result: StagePlacement = {}
+  for (const pair of (value ?? '').split(';')) {
+    const [key, raw] = pair.split(':').map((part) => part.trim())
+    if (key && raw && PLACEMENT_KEYS.has(key) && LENGTH.test(raw)) {
+      result[key as keyof StagePlacement] = raw
+    }
+  }
+  return result
+}
 
 export const goposModuleSchema = z.object({
   /** Product slug: the inquiry position and the link to the card. */
@@ -44,8 +74,22 @@ export const goposHeroSchema = z.object({
   /** „Umów prezentację”: the product it lists and the position's note. */
   presentation: z.object({ slug, note: text }),
   proof: z.array(z.object({ t: text, d: text })).max(4),
-  /** Devices on the stage; `step` = the flow step they light up with. */
-  stage: z.array(z.object({ slug, label: text, step: z.number().int().min(0).max(3) })).max(4),
+  /**
+   * Devices on the stage; `step` = the flow step they light up with. `image`: the photo with the
+   * screen on (else the card's first photo); `pos` / `lab`: where the device and its label sit.
+   */
+  stage: z
+    .array(
+      z.object({
+        slug,
+        label: text,
+        step: z.number().int().min(0).max(3),
+        image: mediaId.optional(),
+        pos: placement.optional(),
+        lab: placement.optional(),
+      }),
+    )
+    .max(4),
   flow: z.array(flowStepSchema).length(4),
   ticket: ticketSchema,
 })
@@ -60,8 +104,8 @@ export const goposVenuesSchema = z.object({
         h1a: text,
         h1b: text,
         lead: text,
-        /** Product slug of the picture. */
-        image: slug.optional(),
+        /** The venue's picture: a Media id (POPRAWKI-0311 §B) or, as before, a product slug. */
+        image: z.union([mediaId, slug]).optional(),
         modules: z.array(z.object({ slug, name: text })).max(6),
         ticket: ticketSchema,
       }),
@@ -110,7 +154,22 @@ export const goposHubSchema = z.object({
   hubSlug: slug,
   platforms: z.array(text).max(8),
   out: z.array(z.object({ t: text, d: text })).max(4),
+  /** The live queue (PREMIUM-1011): channel, items, time — „Glovo · 2 pozycje · na adres · teraz”. */
+  orders: z
+    .array(z.object({ c: text, d: text, t: text }))
+    .max(4)
+    .default([]),
 })
+
+/**
+ * The GoHub queue after `step` arrivals: the newest order on top, the oldest leaves at the
+ * bottom — the same few orders come round again.
+ */
+export function queueAt<T>(orders: readonly T[], step: number): T[] {
+  if (orders.length === 0) return []
+  const shift = ((step % orders.length) + orders.length) % orders.length
+  return [...orders.slice(orders.length - shift), ...orders.slice(0, orders.length - shift)]
+}
 
 /** `gopos-package` (#pakiet): the configurator and the folded Basic / Pro comparison. */
 export const goposPackageSchema = z.object({
@@ -171,5 +230,5 @@ export function packageItems(
   }))
 }
 
-/** Step the ticket shows: the picked one, the kitchen before any pick. */
+/** Step the stage and its ticket show: the current one, the hall before the first. */
 export const ticketStep = (picked: number | null) => picked ?? INITIAL_TICKET_STEP

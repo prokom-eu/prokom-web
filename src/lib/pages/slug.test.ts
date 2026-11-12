@@ -35,13 +35,18 @@ function routeSegments(): string[] {
   )
 }
 
+/** Route directories that hold only nested routes: their own path is a page (ADR-I002 §0). */
+const PAGE_LISTS = new Set(['poradnik'])
+
 describe('RESERVED_PAGE_SLUGS', () => {
-  it.each(routeSegments().filter((name) => !name.includes('.')))(
-    'covers the route /%s',
-    (segment) => {
-      expect(RESERVED_PAGE_SLUGS).toContain(segment)
-    },
-  )
+  // `%5F…` = a route starting with `_` (e.g. `/_maile`): a page slug cannot hold `_` anyway.
+  it.each(
+    routeSegments().filter(
+      (name) => !name.includes('.') && !PAGE_LISTS.has(name) && !name.startsWith('%5F'),
+    ),
+  )('covers the route /%s', (segment) => {
+    expect(RESERVED_PAGE_SLUGS).toContain(segment)
+  })
 
   // Software routes (ADR-014 §2, v20 pkt 11): reserved before their pages exist (SW9–SW11).
   it.each(['rozwiazania', 'dobierz', 'dla-branz', 'miejscowosci', 'dziekujemy'])(

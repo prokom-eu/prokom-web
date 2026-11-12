@@ -8,6 +8,7 @@ import {
   OLD_FEATURED,
   OLD_HERO,
   upgradeHomeK4,
+  V150_BRANDS_LEAD,
 } from './homeK4'
 
 type Block = { blockType: string; [key: string]: unknown }
@@ -27,7 +28,7 @@ describe('upgradeHomeK4 (K4c, K36 §1)', () => {
     const next = upgradeHomeK4(layout)
     expect(next?.[0]).toMatchObject({ ...K4_HERO, pill: 'Rabka-Zdrój' })
     expect(K4_HERO.heading).toBe('Kasy, komputery i programy dla firm.')
-    expect(K4_HERO.headingAccent).toBe('Wszystko z jednego miejsca — z Rabki.')
+    expect(K4_HERO.headingAccent).toBe('Wszystko z jednego miejsca w Rabce.')
   })
 
   it('puts the v150 texts into „Najczęściej wybierane”', () => {
@@ -52,6 +53,13 @@ describe('upgradeHomeK4 (K4c, K36 §1)', () => {
     // The editor puts the brands back before the departments: the seed leaves it.
     const reordered = [once[0], once[3], once[1], once[2], ...once.slice(4)] as typeof once
     expect(upgradeHomeK4(reordered)).toBeNull()
+  })
+
+  it('shortens the v150 brands lead for the two strips (B2-3), an edited lead stays', () => {
+    const v150 = [{ blockType: 'bzOffer' }, { blockType: 'partners', lead: V150_BRANDS_LEAD }]
+    expect(upgradeHomeK4(v150)?.[1]).toMatchObject({ lead: K4_BRANDS.lead })
+    const edited = [{ blockType: 'bzOffer' }, { blockType: 'partners', lead: 'Nasz opis' }]
+    expect(upgradeHomeK4(edited)).toBeNull()
   })
 
   it('keeps what the panel changed, field by field', () => {

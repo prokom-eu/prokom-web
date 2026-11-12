@@ -75,6 +75,11 @@ export const biznesNavigation: Field = {
               label: 'Kropka „partner”',
               type: 'checkbox',
               defaultValue: false,
+              admin: {
+                // The screen reader reads „(autoryzowany partner)” (K4-FINAL §1).
+                description:
+                  'Tylko autoryzowani partnerzy (GoPOS, InsERT) — czytnik ekranu czyta „autoryzowany partner”.',
+              },
             },
           ],
         },

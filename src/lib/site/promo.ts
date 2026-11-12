@@ -46,7 +46,7 @@ export function isValidPromoRange(
 /** `localStorage` key of a closed seasonal bar; the value is its campaign id (spec. §3.6). */
 export const PROMO_CLOSED_KEY = 'pk-sz-closed'
 
-/** Attribute on `<html>` that hides the bar (`[data-promo-bar]` in globals.css). */
+/** Attribute on `<html>` that hides the bar (`[data-promo-bar]` in styles/site.css). */
 export const PROMO_CLOSED_ATTRIBUTE = 'data-sz-closed'
 
 /**

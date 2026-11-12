@@ -12,13 +12,24 @@ export function hardSpaces(text: string): string {
   return once(once(text))
 }
 
-/** `hardSpaces` on every string of a value (plain data: objects, arrays). */
+/**
+ * Keys that hold an SVG path `d` in the K4 data: a hard space there is not a separator, so the
+ * browser drops the icon (D13, `/opieka-it`). Matched by key, not by value: texts like „24 h”
+ * look like a path too. `ic` and `ikona` (raw package keys) are a guard: today the seed renames
+ * them to `iconPath` before this runs.
+ */
+const SVG_PATH_KEYS = new Set(['iconPath', 'ic', 'ikona'])
+
+/** `hardSpaces` on every string of a value (plain data: objects, arrays), except SVG paths. */
 export function hardSpacesDeep<T>(value: T): T {
   if (typeof value === 'string') return hardSpaces(value) as T
   if (Array.isArray(value)) return value.map(hardSpacesDeep) as T
   if (value && typeof value === 'object') {
     return Object.fromEntries(
-      Object.entries(value).map(([key, item]) => [key, hardSpacesDeep(item)]),
+      Object.entries(value).map(([key, item]) => [
+        key,
+        SVG_PATH_KEYS.has(key) ? item : hardSpacesDeep(item),
+      ]),
     ) as T
   }
   return value

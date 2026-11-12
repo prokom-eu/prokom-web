@@ -1,6 +1,6 @@
 # ADR-015: Wygląd prokomsoftware.pl z wizualizacji — kolory, motyw ciemny, gradient
 
-- **Status:** przyjęta (22.10.2026, SW0); uzupełniona o wizualizację v20 (25.10.2026, SWD1) i v22 (30.10.2026, SWD2 — pkt [propozycja] do potwierdzenia przez Krystiana) — rozstrzygnięcia na końcu
+- **Status:** przyjęta (22.10.2026, SW0); uzupełniona o wizualizację v20 (25.10.2026, SWD1), v22 (30.10.2026, SWD2), v23 (01.11.2026) i **v24 Aurora (06.11.2026)** — rozstrzygnięcia na końcu (v24 wygrywa ze sprzecznymi)
 - **Data:** 2026-10-18
 - **Decyduje:** Krystian
 - **Rozszerza:** ADR-013 (mechanizm tokenów neutralnych per linia i motywu ciemnego). **Doprecyzowuje dla Software** pkt 3 (kolor interfejsu może być ciemniejszą pochodną koloru linii; znak bez zmian) i pkt 4 (lista miejsc z gradientem — niżej). Po przyjęciu dopisać odsyłacz w ADR-013.
@@ -110,3 +110,15 @@ Krystian po przeglądzie wersji lokalnej: kolory wyglądają „jak z generatora
 7. **Pasek przewijania** linii Software: cienki, kciuk z akcentu zmieszanego z `--border`, przy najechaniu `--accent`.
 8. **Oczekiwane różnice przy porównaniu zrzutów** — znikają te z v20/v22 dotyczące gradientów; kod ma wyglądać jak zrzuty v23.
 9. **Test kontrastu** (`themes.test.ts`): pary na płaskich tłach zamiast par na gradientach.
+
+## Rozstrzygnięcia v24 „Aurora” (Krystian, 06.11.2026 — wizualizacja finalna v24)
+
+Krystian po przeglądzie trzech kierunków (Monolit, Aurora, Holo) wybrał **Aurorę**: ciemne szkło + kontrolowane fioletowe światło, „premium jak aplikacja”, i zaakceptował wizualizację v24 (`docs/design/prokomsoftware/v24/`). Te punkty **zastępują** v23 pkt 1, 2 i 5 (oraz v20/v22 tam, gdzie sprzeczne). Zasady bez zmian: żadnych wartości kolorów poza `src/styles/tokens.css`, kontrast AA w obu motywach.
+
+1. **Domyślny motyw Software: ciemny** (dotąd: systemowy). Jasny zostaje do wyboru, zapamiętany w `pk-theme`.
+2. **Światło tylko z rodziny fioletu Software** (`--c-software*`: `#6E45D4`, `#9670EE`, `#5B33C4`, lawenda, biel). Zamknięta lista miejsc z gradientem/poświatą: wyróżnione słowo nagłówka (`em`), warstwa kosmiczna i karuzela hero, pas „Zacznij od podglądu” nad stopką, karta/kafel wyróżniony, szkło kart i CTA kapsuły, ilustracje kategorii Aktualności (jedyne inne barwy — jako kod kategorii). Bez różu i błękitu (powód decyzji v23 zostaje w mocy).
+3. **Szkło:** karty na półprzezroczystym tle (`--glass-card`), panele i okna z `backdrop-filter` (kapsuła, szyna, okna, dolny pasek, panel wyboru hero). `--glow` wraca jako fiolet (ciemny `rgba(110,69,212,.42)`, jasny `rgba(150,112,238,.28)`).
+4. **Makiety przykładowych firm we własnych kolorach** (motywy a–f z `v24/boards/Vis.dc.html`) jako tokeny `--mk-*` — cofa decyzję z 28.10 („makiety w kolorach tokenów linii”).
+5. **Stopka** wg planszy wspólnej 02: tło `#161A17` w obu motywach, akcent `#9670EE` (tokeny D2 `--footer-bg` / `--line-dark`).
+6. **Strażniki:** `themes.test.ts` zamiast „brak tokenów gradientu” sprawdza, że tokeny światła Software mają odcień fioletu albo są neutralne, i liczy kontrast tekstu na szkle i na CTA (≥ 4,5:1).
+7. **Hero — wygląd przed wynikiem Lighthouse:** dla strony głównej Software Lighthouse jest mierzony, ale nie blokuje odbioru (wyjątek od DoD, decyzja Krystiana 06.11.2026). Podstrony — dalej cel ≥ 90 bez upraszczania wyglądu.

@@ -65,7 +65,8 @@ test.describe('HTML site map', () => {
     expect(response?.status()).toBe(200)
     const text = await page.locator('main').innerText()
     expect(text).not.toContain('Produkty i usługi')
-    expect(text).not.toContain('Polityka prywatności')
+    // Not „Polityka prywatności”: Instalacje have their own legal pages since I13.
+    expect(text).not.toContain('Aktualności')
     await expect(page.locator('main a[href^="/oferta"], main a[href^="/aktualnosci"]')).toHaveCount(
       0,
     )

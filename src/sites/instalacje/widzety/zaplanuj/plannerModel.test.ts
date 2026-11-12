@@ -89,7 +89,8 @@ function proto(s: PlannerState): Proto {
     stage: s.stage,
     ans: { ...s.answers },
     town: s.town,
-    via: s.via,
+    // The prototype's option 1 was a messenger, dropped in D10: e-mail is 2 there, 1 here.
+    via: s.via === 0 ? 0 : s.via + 1,
     when: s.when,
     cons: s.consent,
     name: s.name,
@@ -126,7 +127,7 @@ const STATES: [string, PlannerState][] = [
   ['step 3', { ...ready, step: 3, services: ['alarm', 'smart', 'snd', 'ev'], answers: {} }],
   ['ready', ready],
   ['bad phone', { ...ready, phone: '600 100' }],
-  ['e-mail chosen', { ...ready, via: 2, email: 'anna@' }],
+  ['e-mail chosen', { ...ready, via: 1, email: 'anna@' }],
   ['no consent', { ...ready, consent: false }],
   ['hotel', { ...ready, object: 'hotel', size: 2, services: ['wifi', 'kd'] }],
 ]
@@ -220,6 +221,13 @@ describe('planner rules of the site', () => {
     expect(plannerFromHash('#uslugi=kam', '?usluga=ant').services).toEqual(['kam'])
   })
 
+  it('takes the phrase of an empty offer search (`?opis=`) into the description, trimmed', () => {
+    expect(plannerFromHash('', '?opis=kamera%20do%20domku').message).toBe('Szukam: kamera do domku')
+    expect(plannerFromHash('', '?opis=%20%20').message).toBe('')
+    expect(plannerFromHash('', `?opis=${'a'.repeat(400)}`).message).toHaveLength(8 + 200)
+    expect(plannerFromHash('', '?opis=a%0Ab%00c').message).toBe('Szukam: a b c')
+  })
+
   it('asks for the name before the phone (the inquiry needs it)', () => {
     expect(stepError({ ...ready, name: ' ' }, 4)).toBe('name')
   })
@@ -267,7 +275,7 @@ describe('planner rules of the site', () => {
   })
 
   it('goes to /wyslane with the number and the contact way only', () => {
-    expect(sentHref('PKI-2026-0007', 1)).toBe('/wyslane?nr=PKI-2026-0007&kontakt=whatsapp')
+    expect(sentHref('PKI-2026-0007', 1)).toBe('/wyslane?nr=PKI-2026-0007&kontakt=email')
     expect(sentHref(null, 0)).toBe('/wyslane?kontakt=phone')
   })
 })

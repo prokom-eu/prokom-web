@@ -2,9 +2,7 @@ import { randomUUID } from 'node:crypto'
 
 import { expect, type Page, test } from '@playwright/test'
 
-import popularne from '../../seed/prokomsoftware/popularne.json' with { type: 'json' }
 import stronaGlowna from '../../seed/prokomsoftware/strona-glowna.json' with { type: 'json' }
-import technologie from '../../seed/prokomsoftware/technologie.json' with { type: 'json' }
 import { api, loginAsAdmin, site, tenantId } from './helpers'
 
 // SW2a-2 acceptance: Software settings belong to the Software line, their JSON is checked
@@ -12,23 +10,30 @@ import { api, loginAsAdmin, site, tenantId } from './helpers'
 
 const unique = () => `${Date.now()}${Math.floor(Math.random() * 1000)}`
 
+// The v24 shape of `SoftwareSettings.thanks` (SWA6b, `thanksSchema` in `lib/software/pages`).
 const thanks = {
+  numberLabel: 'Numer zgłoszenia',
   title: 'Dziękujemy, mamy to.',
   lead: 'Twoja wiadomość trafiła prosto do zespołu PRO-KOM Software.',
-  numberLabel: 'Numer zgłoszenia',
-  stepsTitle: 'Co dalej',
-  steps: ['**Krótka rozmowa, 30 minut**: u Ciebie, w salonie albo online.'],
-  urgent: 'Pilna sprawa? Zadzwoń:',
-  more: { eyebrow: 'Zanim się odezwiemy', title: 'Zobacz, jak to wygląda u innych.', cards: [] },
+  steps: [{ title: 'Krótka rozmowa, 30 minut', text: 'U Ciebie, w salonie albo online.' }],
+  actions: [{ label: 'Zobacz podglądy →', href: '/#podglady' }],
 }
 
-/** Home texts as the seed stores them, with the 12 cards pointing at `slugs`. */
+/**
+ * Home texts in the shape the schema takes after the v23 clean-up (D6): the process and comparison
+ * of the package and a v24 price list whose cards point at `slugs` (their addresses are checked).
+ */
 function home(slugs: string[]) {
-  const { homeOrder: _order, ...texts } = structuredClone(stronaGlowna)
   return {
-    ...texts,
-    technologies: technologie.layers,
-    popular: { order: slugs, tabs: popularne.tabs },
+    process: structuredClone(stronaGlowna.process),
+    compare: structuredClone(stronaGlowna.compare),
+    pricing: {
+      eyebrow: 'Cennik',
+      title: 'Cena i termin.',
+      all: 'Wszystko',
+      details: 'Szczegóły →',
+      groups: [{ label: 'Strony', solutions: slugs }],
+    },
   }
 }
 
@@ -200,7 +205,7 @@ test.describe('/dziekujemy', () => {
       expect(response?.status()).toBe(200)
       await expect(view.locator('h1')).toHaveText(thanks.title)
       await expect(view.getByTestId('inquiry-number')).toHaveText('PKS-2026-0142')
-      await expect(view.locator('ol strong')).toHaveText('Krótka rozmowa, 30 minut')
+      await expect(view.locator('main ol li h2')).toHaveText('Krótka rozmowa, 30 minut')
       await expect(view.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
 
       await view.goto(site('software.localhost', '/dziekujemy?nr=%3Cb%3Ex%3C%2Fb%3E'))

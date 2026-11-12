@@ -1,11 +1,10 @@
 import type { Payload } from 'payload'
 
 import { HOME_SLUG } from '../../lib/pages/slug'
-import { SOFTWARE_ABOUT_SLUG, SOFTWARE_ONE_FIRM_SLUG } from './about'
 import { SOFTWARE_AUDIT_SLUG } from './audit'
-import { SOFTWARE_CONTACT_SLUG } from './contact'
-import { SOFTWARE_PRIVACY_SLUG } from './legal'
+import { SOFTWARE_PRIVACY_SLUG, SOFTWARE_TERMS_SLUG } from './legal'
 import { SOFTWARE_PRICING_SLUG } from './pricing'
+import { SOFTWARE_ABOUT_SLUG, SOFTWARE_CONTACT_SLUG } from './sharedPages'
 
 type Count = (name: string, result: boolean | 'updated') => void
 type Seo = { title?: string | null; description?: string | null }
@@ -16,14 +15,15 @@ type Seo = { title?: string | null; description?: string | null }
 /** Titles and descriptions of the Software pages kept in the panel (spec. §9). */
 export const SOFTWARE_PAGE_SEO: Readonly<Record<string, Seo>> = {
   [HOME_SLUG]: {
-    title: 'Strony, systemy i aplikacje dla firm — Rabka-Zdrój, Podhale | PRO-KOM Software',
+    // ≤ 60 characters: longer titles are cut in results (audyt 01.11 P2).
+    title: 'Strony i systemy dla firm — Rabka-Zdrój | PRO-KOM Software',
     description:
-      'Strony internetowe, systemy dla firm i aplikacje z Rabki-Zdroju. Cena „od” i termin od razu, wycena na piśmie, opieka po starcie.',
+      'Strony internetowe, systemy dla firm i aplikacje z Rabki-Zdroju. Cena „od” i termin od razu, stała wycena, opieka po starcie.',
   },
   [SOFTWARE_PRICING_SLUG]: {
     title: 'Cennik stron, systemów i opieki',
     description:
-      'Ceny „od” stron, sklepów i systemów dla firm oraz poziomy opieki po starcie. Stała cena na piśmie przed rozpoczęciem pracy.',
+      'Ceny „od” stron, sklepów i systemów dla firm oraz poziomy opieki po starcie. Stała cena przed rozpoczęciem pracy.',
   },
   [SOFTWARE_AUDIT_SLUG]: {
     description:
@@ -33,17 +33,25 @@ export const SOFTWARE_PAGE_SEO: Readonly<Record<string, Seo>> = {
     description:
       'Jak PRO-KOM Software przetwarza dane z formularzy i kreatora: kto jest administratorem, jak długo przechowujemy dane i jakie masz prawa.',
   },
+  [SOFTWARE_TERMS_SLUG]: {
+    description:
+      'Regulamin strony PRO-KOM Software: formularz kontaktowy, kreator wyceny, darmowy audyt, ceny orientacyjne i reklamacje.',
+  },
+  cookies: {
+    description:
+      'PRO-KOM Software nie śledzi odwiedzających: bez cookies reklamowych i bez banera zgód. Lista zapisów w przeglądarce i jak je usunąć.',
+  },
+  dostepnosc: {
+    description:
+      'Deklaracja dostępności prokomsoftware.pl: WCAG 2.1 AA, obsługa klawiaturą, kontrast, ograniczenie ruchu i jak zgłosić barierę.',
+  },
   [SOFTWARE_CONTACT_SLUG]: {
     description:
-      'Napisz albo zadzwoń do PRO-KOM Software w Rabce-Zdroju. Odpowiadamy w sprawie stron, systemów i aplikacji, wycena na piśmie.',
+      'Napisz albo zadzwoń do PRO-KOM Software w Rabce-Zdroju. Odpowiadamy w sprawie stron, systemów i aplikacji, wycena w 5–7 dni.',
   },
   [SOFTWARE_ABOUT_SLUG]: {
     description:
       'PRO-KOM Software z Rabki-Zdroju: kto zbuduje Twoją stronę albo system, jak pracujemy i z czego budujemy.',
-  },
-  [SOFTWARE_ONE_FIRM_SLUG]: {
-    description:
-      'Strona, system, kasy, sieć i serwis od jednej firmy z Rabki-Zdroju. Jeden numer telefonu zamiast kilku dostawców.',
   },
 }
 

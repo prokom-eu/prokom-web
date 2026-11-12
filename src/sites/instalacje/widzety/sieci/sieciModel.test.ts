@@ -106,13 +106,19 @@ describe('coverage map', () => {
   })
 })
 
+/** Runda v6 §2 (INST-6): prototype texts rewritten in `dane/sieci.ts` (no „X, a nie Y”). */
+const REWRITTEN: Readonly<Record<string, string>> = {
+  'Przez jedną taką ścianę jeszcze działa, przez dwie już słabo. W pensjonacie to argument za punktem w pokoju, a nie w korytarzu.':
+    'Przez jedną taką ścianę jeszcze działa, przez dwie już słabo. Dlatego w pensjonacie punkt Wi-Fi montujemy w pokoju zamiast na korytarzu.',
+}
+
 describe('„Sprawdź sam”', () => {
   it.each([0, 1].flatMap((wb) => [0, 1, 2, 3, 4, 5].map((ww) => [wb, ww] as const)))(
     'wall: band %i, wall %i as the prototype',
     (wb, ww) => {
       const ref = reference({ wb, ww }).lb
       const v = wall(wb, ww)
-      expect([v.db, v.bars, v.text]).toEqual([ref.db, ref.bars, ref.txt])
+      expect([v.db, v.bars, v.text]).toEqual([ref.db, ref.bars, REWRITTEN[ref.txt] ?? ref.txt])
     },
   )
 

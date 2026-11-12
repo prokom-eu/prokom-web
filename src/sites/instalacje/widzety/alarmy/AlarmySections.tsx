@@ -1,11 +1,8 @@
-import { LEGAL_NOTE } from '../../dane/prawo'
 import { alarmy } from '../../dane/alarmy'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { AlarmVersions, DoorPhone, HolidayHouse, IntercomQuestion } from './AlarmWidgets'
-
-import './alarmy.css'
+import { AlarmVersions, DoorPhone, HolidayHouse, IntercomQuestion } from './AlarmWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 
@@ -47,7 +44,8 @@ export function AlarmySections() {
       <InstSection id="przewod" fold style={SECTION}>
         <div className="wrap">
           <SectionHead {...compare.head} />
-          <div className="tblw ri">
+          {/* Scrolls sideways on a phone: a named region that takes focus (runda v6 §1.8). */}
+          <div className="tblw ri" role="region" tabIndex={0} aria-label={compare.head.heading}>
             <table className="tbl">
               <thead>
                 <tr>
@@ -179,12 +177,6 @@ export function AlarmySections() {
                 </div>
               </div>
             ))}
-            <div className="note ri">
-              <InstIcon name="doc" size={20} />
-              <span>
-                {agency.licence} {LEGAL_NOTE}
-              </span>
-            </div>
           </div>
         </div>
       </InstSection>

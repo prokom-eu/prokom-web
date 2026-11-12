@@ -67,7 +67,9 @@ describe('fault form as the prototype', () => {
   it('lists the same systems and urgencies', () => {
     const ref = sv({}).sv
     expect(serwis.form.systems.map((s) => s.label)).toEqual(ref.sys.map((s) => s.n))
-    expect(serwis.form.systems.map((s) => s.icon)).toEqual(ref.sys.map((s) => s.ic))
+    // Runda v6 §1.5: Smart home has its own icon (the prototype reused the house of „Dom”).
+    const v6: Record<string, string> = { home: 'smart' }
+    expect(serwis.form.systems.map((s) => s.icon)).toEqual(ref.sys.map((s) => v6[s.ic] ?? s.ic))
     expect(serwis.form.urgency).toEqual(ref.urg.map((u) => u.n))
   })
 

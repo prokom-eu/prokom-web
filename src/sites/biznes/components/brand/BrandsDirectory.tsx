@@ -11,6 +11,7 @@ import { normalizeText } from '@/lib/catalog/normalize'
 import { openCartDrawer } from '@/lib/cart/store'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { plural } from '@/lib/plural'
+import { BZ_H1, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { PathIcon } from '../product/PathIcon'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
@@ -62,15 +63,12 @@ export function BrandsDirectory({
               <span aria-hidden="true" className="h-px w-4 bg-current" />
               Salony marek
             </p>
-            <h1
-              id="marki-h1"
-              className="font-display text-[clamp(2.1rem,4vw,3.6rem)] leading-[1.02] font-extrabold tracking-[-0.025em] text-balance"
-            >
-              Marki, które znamy od&nbsp;środka.
+            <h1 id="marki-h1" className={BZ_H1}>
+              Wszystkie marki w&nbsp;ofercie
             </h1>
-            <p className="max-w-[56ch] text-[clamp(1rem,1.3vw,1.15rem)] leading-relaxed text-white/80">
+            <p className={`${BZ_LEAD} max-w-[56ch] text-white/80`}>
               {total} {plural(total, ['marka', 'marki', 'marek'])}: od kas fiskalnych po serwery.
-              Przy każdej pomożemy wybrać model, wdrożymy i&nbsp;zajmiemy się serwisem —
+              Przy każdej pomożemy wybrać model, wdrożymy i&nbsp;zajmiemy się serwisem,
               a&nbsp;salony producentów pokazują serie, porównania i&nbsp;gotowe konfiguracje.
             </p>
             <label htmlFor={searchId} className="sr-only">
@@ -125,7 +123,7 @@ export function BrandsDirectory({
         </div>
       </section>
 
-      <div className="sticky top-[74px] z-20 sm:top-[84px] mt-6 rounded-2xl bg-card/95 p-1.5 shadow-[inset_0_0_0_1px_var(--border)] backdrop-blur">
+      <div className="sticky top-[68px] z-20 sm:top-[84px] mt-6 rounded-2xl bg-card/95 p-1.5 shadow-[inset_0_0_0_1px_var(--border)] backdrop-blur">
         <div role="group" aria-label="Grupy marek" className="flex gap-1 overflow-x-auto">
           <Tab
             active={tab === ALL}
@@ -164,7 +162,12 @@ export function BrandsDirectory({
                 {group.description && <p className="text-ink-2">{group.description}</p>}
               </div>
             </div>
-            <ul className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,285px),1fr))]">
+            {/* Phone: two small tiles per row, without the product photos. */}
+            <ul
+              data-reveal-cards=""
+              data-logo-cascade=""
+              className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,285px),1fr))] max-md:grid-cols-2 max-md:gap-2.5"
+            >
               {tiles.map((tile) => (
                 <li key={tile.id} className="flex">
                   <BrandCard tile={tile} />
@@ -179,11 +182,9 @@ export function BrandsDirectory({
             role="status"
             className="flex flex-col items-start gap-3 rounded-3xl bg-surface-2 p-6 sm:p-8"
           >
-            <h2 className="font-display text-2xl font-extrabold text-ink">
-              Nie mamy jeszcze salonu tej marki
-            </h2>
+            <h2 className={cx(BZ_H2, 'text-ink')}>Nie mamy jeszcze salonu tej marki</h2>
             <p className="max-w-[60ch] text-ink-2">
-              Dostarczamy więcej marek, niż pokazujemy. Napisz, czego szukasz — sprawdzimy
+              Dostarczamy więcej marek, niż pokazujemy. Napisz, czego szukasz, a sprawdzimy
               u&nbsp;dystrybutorów.
             </p>
             <AskButton />
@@ -192,10 +193,10 @@ export function BrandsDirectory({
 
         <div className="flex flex-col gap-4 rounded-3xl bg-surface-2 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
           <div className="flex flex-col gap-1">
-            <h2 className="font-display text-xl font-extrabold text-ink">Szukasz innej marki?</h2>
+            <h2 className={cx(BZ_H2, 'text-ink')}>Szukasz innej marki?</h2>
             <p className="max-w-[70ch] text-ink-2">
-              Współpracujemy z&nbsp;dystrybutorami sprzętu i&nbsp;oprogramowania w&nbsp;całej Polsce
-              — sprawdzimy dostępność i&nbsp;przygotujemy ofertę.
+              Współpracujemy z&nbsp;dystrybutorami sprzętu i&nbsp;oprogramowania w&nbsp;całej
+              Polsce. Sprawdzimy dostępność i&nbsp;przygotujemy ofertę.
             </p>
           </div>
           <AskButton />
@@ -243,7 +244,7 @@ function Logo({
   eager?: boolean
 }) {
   return tile.logo ? (
-    <span className={cx(PLATE, className)}>
+    <span data-logo-plate="" className={cx(PLATE, className)}>
       {/* The name is next to it: the logo is decoration here. */}
       <Image
         src={tile.logo.url}
@@ -270,28 +271,38 @@ function BrandCard({ tile }: { tile: BrandTile }) {
   return (
     <Link
       href={tile.href}
-      aria-label={`${tile.name} — ${tile.salon ? 'wejdź do salonu' : 'zobacz ofertę'}`}
-      className="relative flex w-full flex-col gap-3 rounded-3xl bg-card p-4 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
+      data-logo-shine=""
+      className="relative flex w-full min-w-0 flex-col gap-3 rounded-3xl bg-card p-4 max-md:gap-2 max-md:rounded-[20px] max-md:p-2.5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
     >
+      {/* „wejdź do salonu” in the name says it already: the badge stays out of the link name. */}
       {tile.salon && (
-        <span className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[11px] font-black tracking-[0.06em] text-surface uppercase">
+        <span
+          aria-hidden="true"
+          className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[11px] font-black tracking-[0.06em] text-surface uppercase max-md:-top-2 max-md:right-3 max-md:px-2 max-md:py-0.5 max-md:text-[9px]"
+        >
           Salon
         </span>
       )}
-      <Logo tile={tile} className="h-[76px] px-4" />
+      <Logo tile={tile} className="h-[76px] px-4 max-md:h-[60px] max-md:px-3" />
       <span className="flex flex-col gap-0.5">
-        <b className="font-extrabold text-ink">{tile.name}</b>
+        <b className="font-extrabold text-ink max-md:text-[15px]">
+          {tile.name}
+          {/* The visible text names the link; the action is added for screen readers (WCAG 2.5.3). */}
+          <span className="sr-only"> — {tile.salon ? 'wejdź do salonu' : 'zobacz ofertę'}</span>
+        </b>
         {tile.description && (
-          <small className="text-sm leading-snug text-ink-2">{tile.description}</small>
+          <small className="text-sm leading-snug text-ink-2 max-md:line-clamp-2 max-md:text-xs">
+            {tile.description}
+          </small>
         )}
       </span>
       {tile.photos.length > 0 && (
-        <span aria-hidden="true" className="grid grid-cols-3 gap-1.5">
+        <span aria-hidden="true" className="grid grid-cols-3 gap-1.5 max-md:hidden">
           {tile.photos.map((photo) => (
             <ProductStage key={photo.url} as="span" className="aspect-square rounded-xl">
               <Image
                 src={photo.url}
-                alt=""
+                alt={photo.alt}
                 width={photo.width}
                 height={photo.height}
                 unoptimized
@@ -314,7 +325,7 @@ function BrandCard({ tile }: { tile: BrandTile }) {
           </span>
         )}
         <span className="ml-auto inline-flex items-center gap-1 text-sm text-accent-text">
-          {tile.salon ? 'Wejdź do salonu' : 'Zobacz ofertę'}
+          <span className="max-md:hidden">{tile.salon ? 'Wejdź do salonu' : 'Zobacz ofertę'}</span>
           <Icon name="arrow" strokeWidth={2.4} className="size-4" />
         </span>
       </span>

@@ -3,6 +3,10 @@ import type { Payload } from 'payload'
 import type { CatalogCategory } from '../../payload-types'
 import { isBlank, missingFields } from './fill'
 
+/** FAQ of /oferta/kasy-fiskalne: the relief and how it is settled (K4-FINAL §1). */
+export const RELIEF_FAQ_ANSWER =
+  'Firmy, które po raz pierwszy zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto kasy, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Ulgę rozliczasz w deklaracji VAT, zwykle razem z księgową. Warunki (m.in. terminy i obowiązkowy przegląd) sprawdzimy z Tobą przy zamówieniu.'
+
 type Report = (name: string, changed: boolean) => void
 
 const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
@@ -50,18 +54,19 @@ export function renamedIncludedEyebrow(
 
 export const CASH_REGISTERS_CONTENT: Content = {
   hero: {
-    title: 'Kasy fiskalne online. Dobrane, zafiskalizowane, z serwisem w Rabce.',
-    lead: 'Posnet, Elzab i Fawag — od kieszonkowej kasy dla mechanika po kasę systemową do sklepu ze skanerem. Programujemy, fiskalizujemy, szkolimy i pilnujemy przeglądów.',
+    // Short H1 of the hero card (board `Web-kategoria-kasy`); `<title>` is `seo.title` or the name.
+    title: 'Kasy fiskalne',
+    lead: 'Posnet, Elzab i Fawag: od kieszonkowej kasy dla mechanika po kasę systemową do sklepu ze skanerem. Programujemy, fiskalizujemy, szkolimy i pilnujemy przeglądów.',
     highlights: ['Fiskalizacja i szkolenie'],
   },
   includedSection: {
     eyebrow: INCLUDED_EYEBROW,
-    title: 'Kupujesz kasę, dostajesz spokój.',
+    title: 'Co dostajesz z kasą',
     cards: [
       {
         icon: 'doc',
         title: 'Dobór do branży',
-        text: 'Mówimy, która kasa wystarczy — i której nie potrzebujesz. Bez przepłacania za funkcje.',
+        text: 'Mówimy, która kasa wystarczy i której nie potrzebujesz. Bez przepłacania za funkcje.',
       },
       {
         icon: 'shield',
@@ -86,24 +91,24 @@ export const CASH_REGISTERS_CONTENT: Content = {
       {
         icon: 'wrench',
         title: 'Serwis z Rabki',
-        text: 'Awaria? Najpierw pomoc zdalna, potem serwisant — na całym Podhalu i w Małopolsce.',
+        text: 'Awaria? Najpierw pomoc zdalna, potem serwisant na całym Podhalu i w Małopolsce.',
       },
     ],
   },
   facts: {
     eyebrow: 'Przepisy w pigułce',
-    title: 'Trzy rzeczy, które warto wiedzieć przed zakupem.',
+    title: 'Trzy rzeczy, które warto wiedzieć przed zakupem',
     items: [
       {
         value: '700 zł',
         title: 'Ulga na pierwszą kasę online',
-        text: '90% ceny netto kasy, maksymalnie 700 zł — dla firm, które pierwszy raz zaczynają ewidencję na kasie. Brak przeglądu w terminie oznacza zwrot ulgi.',
+        text: '90% ceny netto kasy, maksymalnie 700 zł, dla firm, które pierwszy raz zaczynają ewidencję na kasie. Brak przeglądu w terminie oznacza zwrot ulgi.',
         source: 'Art. 111 ust. 4 ustawy o VAT · sprawdzono 15.10.2026',
       },
       {
         value: '2 lata',
         title: 'Przegląd techniczny kasy',
-        text: 'Obowiązkowy co najmniej raz na 2 lata, u serwisanta upoważnionego przez producenta. Przypominamy o terminie — nie musisz go pilnować.',
+        text: 'Obowiązkowy co najmniej raz na 2 lata, u serwisanta upoważnionego przez producenta. Przypominamy o terminie, nie musisz go pilnować.',
         source: 'Rozporządzenie MF, Dz.U. 2019 poz. 816',
       },
       {
@@ -120,14 +125,13 @@ export const CASH_REGISTERS_CONTENT: Content = {
   },
   faq: [
     {
-      question: 'Kasa czy drukarka fiskalna — co wybrać?',
+      question: 'Kasa czy drukarka fiskalna: co wybrać?',
       answer:
         'Kasa działa samodzielnie: ma klawiaturę i własną bazę towarów. Drukarka fiskalna współpracuje z programem sprzedażowym albo POS (Subiekt, PC-Market, GoPOS) i to program jest „mózgiem”. Masz program albo planujesz GoPOS — wybierz drukarkę. Chcesz po prostu sprzedawać — kasę.',
     },
     {
       question: 'Czy przysługuje mi ulga na zakup kasy online?',
-      answer:
-        'Firmy, które po raz pierwszy zaczynają ewidencję na kasie online, mogą odliczyć 90% ceny netto kasy, maksymalnie 700 zł (art. 111 ust. 4 ustawy o VAT). Warunki — m.in. terminy i obowiązkowy przegląd — sprawdzimy z Tobą przy zamówieniu.',
+      answer: RELIEF_FAQ_ANSWER,
     },
     {
       question: 'Jak często trzeba robić przegląd kasy?',
@@ -137,7 +141,7 @@ export const CASH_REGISTERS_CONTENT: Content = {
     {
       question: 'Mam kasę z innego serwisu. Przejmiecie ją?',
       answer:
-        'Tak. Zmiana serwisu to formalność, którą załatwiamy po naszej stronie — Ty podpisujesz jeden dokument. Kasa pracuje bez przerwy.',
+        'Tak. Zmiana serwisu to formalność, którą załatwiamy po naszej stronie. Ty podpisujesz jeden dokument. Kasa pracuje bez przerwy.',
     },
     {
       question: 'Czy kasa przyjmie płatność kartą lub BLIK?',
@@ -146,12 +150,12 @@ export const CASH_REGISTERS_CONTENT: Content = {
     },
   ],
   help: {
-    title: 'Powiedz, co sprzedajesz — dobierzemy kasę w 5 minut rozmowy.',
+    title: 'Powiedz, co sprzedajesz, a dobierzemy kasę',
     text: 'Bez przepłacania za funkcje, których nie użyjesz.',
   },
   contact: {
-    heading: 'Nie wiesz, która kasa? Zadzwoń — dobierzemy w 5 minut rozmowy.',
-    lead: 'Powiedz, co sprzedajesz i ile masz towarów. Przygotujemy propozycję na piśmie.',
+    heading: 'Nie wiesz, która kasa? Zadzwoń, pomożemy wybrać.',
+    lead: 'Powiedz, co sprzedajesz i ile masz towarów. Przygotujemy propozycję.',
   },
 }
 

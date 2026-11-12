@@ -3,10 +3,12 @@ import Link from 'next/link'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { NoBreak } from '@/components/ui/NoBreak'
 import { productHref } from '@/lib/catalog/card'
 import type { IndexProduct } from '@/lib/catalog/catalogIndex'
 import type { PlanCard, PlanSection, SalonView } from '@/lib/catalog/salon'
 import { plural } from '@/lib/plural'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../../Breadcrumbs'
 import { ProductStage, STAGE_SHADOW } from '../../ProductStage'
@@ -57,28 +59,49 @@ function SectionHead({
   lead,
   id,
   note = false,
+  phoneTitle,
 }: {
   eyebrow: string
   title: string
   lead?: string | null
   id: string
   note?: boolean
+  /** Shorter H2 below 768 px (board App-Marka: „Pełna oferta · 44”). */
+  phoneTitle?: string
 }) {
+  // Below 768 px as the phone screens (board App-Salon-*): no eyebrow, a 22 px H2 with a short
+  // „bez cen” pill on its right, the lead in small type.
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-      <div className="flex max-w-3xl flex-col gap-3">
-        <Eyebrow>{eyebrow}</Eyebrow>
+    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3 gap-y-3 min-[768px]:flex min-[768px]:items-end min-[768px]:justify-between">
+      <div className="flex max-w-3xl flex-col gap-3 max-md:contents">
+        <div className="max-md:hidden">
+          <Eyebrow>{eyebrow}</Eyebrow>
+        </div>
         <h2
           id={id}
-          className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
+          className={`${BZ_H2} text-ink max-md:col-start-1 max-md:row-start-1 max-md:self-center max-md:text-[22px] max-md:leading-[1.1]`}
         >
-          {title}
+          {phoneTitle ? (
+            <>
+              <span className="max-md:hidden">
+                <NoBreak text={title} />
+              </span>
+              <span className="min-[768px]:hidden">{phoneTitle}</span>
+            </>
+          ) : (
+            <NoBreak text={title} />
+          )}
         </h2>
-        {lead && <p className="text-ink-2 sm:text-lg">{lead}</p>}
+        {lead && (
+          <p className="text-ink-2 max-md:col-span-2 max-md:text-sm max-md:leading-relaxed min-[768px]:text-lg">
+            <NoBreak text={lead} />
+          </p>
+        )}
       </div>
       {note && (
-        <span className="self-start rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold text-ink-2 sm:self-end">
-          bez cen — oferta na piśmie
+        <span className="rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold text-ink-2 max-md:col-start-2 max-md:whitespace-nowrap max-md:row-start-1 max-md:self-center min-[768px]:self-end">
+          <span className="max-md:hidden">bez cen · oferta na piśmie</span>
+          <span className="min-[768px]:hidden">bez cen</span>
         </span>
       )}
     </div>
@@ -98,11 +121,14 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
   const photos = view.heroCard ? view.hero.slice(0, 2).reverse() : view.hero
   return (
     <>
-      <Breadcrumbs items={crumbs} />
+      {/* Board App-Salon-*: no breadcrumbs on a phone, the top bar names the brand. */}
+      <div className="max-md:hidden">
+        <Breadcrumbs items={crumbs} />
+      </div>
       <section
         aria-labelledby="salon-h1"
         data-surface="dark"
-        className="relative mt-5 overflow-hidden rounded-[28px] bg-surface-dark px-5 py-8 text-white ring-1 ring-white/10 ring-inset sm:rounded-[36px] sm:px-12 sm:py-12 lg:px-14"
+        className="relative mt-5 overflow-hidden max-md:mt-0 rounded-[28px] bg-surface-dark px-5 py-8 text-white ring-1 ring-white/10 ring-inset min-[768px]:rounded-[36px] min-[768px]:px-12 min-[768px]:py-12 lg:px-14"
       >
         <span
           aria-hidden="true"
@@ -147,17 +173,19 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
               id="salon-h1"
               className="font-display max-[1079px]:order-1 text-[clamp(2rem,3.3vw,3rem)] leading-[1.06] font-extrabold tracking-[-0.025em] text-balance"
             >
-              {view.h1a}
+              <NoBreak text={view.h1a} />
               {view.h1b && (
                 <>
                   {' '}
-                  <em className="block text-accent-on-dark not-italic">{view.h1b}</em>
+                  <em className="block text-accent-on-dark not-italic">
+                    <NoBreak text={view.h1b} />
+                  </em>
                 </>
               )}
             </h1>
             {view.lead && (
               <p className="max-w-[58ch] text-[clamp(0.95rem,1.3vw,1.15rem)] leading-relaxed text-white/80 max-[1079px]:order-1">
-                {view.lead}
+                <NoBreak text={view.lead} />
               </p>
             )}
             <div className="grid grid-cols-2 gap-3 max-[1079px]:order-4 min-[1080px]:flex min-[1080px]:flex-wrap">
@@ -230,7 +258,7 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
                     {view.heroCard.title}
                   </p>
                 )}
-                <ul className="flex flex-col gap-3">
+                <ul data-salon-hero-card className="flex flex-col gap-3">
                   {view.heroCard.items.map((item) => (
                     <li key={item.title} className="flex gap-3">
                       <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-lg bg-ok/20 text-ok">
@@ -280,7 +308,7 @@ function PlanItem({
   return (
     <article
       className={cx(
-        'relative flex h-full flex-col gap-4 rounded-3xl bg-card p-5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)]',
+        'relative flex h-full flex-col gap-4 rounded-3xl bg-card p-5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] max-md:gap-3 max-md:rounded-[22px] max-md:p-3.5',
         card.tag &&
           'shadow-[0_20px_50px_-30px_var(--accent-text),inset_0_0_0_2px_var(--accent-text)]',
       )}
@@ -290,16 +318,22 @@ function PlanItem({
           {card.tag}
         </span>
       )}
-      <div className={cx('flex gap-4', compact && !big ? 'items-center' : 'flex-col')}>
+      {/* Phone: every card with its photo across the top, as on the board (also the secondary). */}
+      <div
+        className={cx(
+          'flex gap-4 max-md:gap-3',
+          compact && !big ? 'items-center max-md:flex-col max-md:items-stretch' : 'flex-col',
+        )}
+      >
         {card.product?.image && (
           <ProductStage
             className={cx(
               'shrink-0 rounded-2xl',
               big
-                ? 'h-[168px] w-full min-[761px]:h-[210px]'
+                ? 'h-[168px] w-full min-[768px]:h-[210px]'
                 : compact
-                  ? 'size-[76px]'
-                  : 'h-[168px] w-full min-[761px]:h-[96px]',
+                  ? 'size-[76px] max-md:h-[168px] max-md:w-full'
+                  : 'h-[168px] w-full min-[768px]:h-[96px]',
             )}
           >
             <Photo product={card.product} className="max-h-[78%] max-w-[80%]" />
@@ -311,11 +345,13 @@ function PlanItem({
               {card.audience}
             </p>
           )}
-          <h3 className="font-display text-xl font-extrabold text-ink">{card.name}</h3>
+          <h3 className="font-display text-xl font-extrabold text-ink max-md:text-[17px]">
+            {card.name}
+          </h3>
         </div>
       </div>
       {card.features.length > 0 && (
-        <ul className="flex flex-1 flex-col gap-2 border-y border-border py-4">
+        <ul className="flex flex-1 flex-col gap-2 border-y border-border py-4 max-md:gap-1.5 max-md:py-3 max-md:text-[13px]">
           {card.features.map((feature) => (
             <li key={feature} className="flex gap-2.5 text-ink-2">
               <Icon
@@ -334,18 +370,18 @@ function PlanItem({
           items={ask}
           className={cx(
             ASK_BUTTON,
-            'max-[760px]:w-full max-[760px]:justify-between max-[760px]:bg-transparent max-[760px]:px-0 max-[760px]:text-accent-text max-[760px]:shadow-none max-[760px]:hover:bg-transparent',
+            'max-md:w-full max-md:justify-between max-md:bg-transparent max-md:px-0 max-md:text-accent-text max-md:shadow-none max-md:hover:bg-transparent',
           )}
         >
-          <span className="max-[760px]:hidden">Zapytaj</span>
-          <span className="min-[761px]:hidden">Zapytaj o ten wariant</span>
-          <Icon name="arrow" strokeWidth={2.4} className="size-4 min-[761px]:hidden" />
+          <span className="max-md:hidden">Zapytaj</span>
+          <span className="min-[768px]:hidden">Zapytaj o ten wariant</span>
+          <Icon name="arrow" strokeWidth={2.4} className="size-4 min-[768px]:hidden" />
         </SalonAsk>
         {card.product && (
           <Link
             href={productHref(card.product.slug)}
             aria-label={`Szczegóły: ${card.product.name}`}
-            className="inline-flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-accent-text hover:underline max-[760px]:hidden"
+            className="inline-flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-accent-text hover:underline max-md:hidden"
           >
             Szczegóły
             <Icon name="arrow" strokeWidth={2.4} className="size-4" />
@@ -377,17 +413,21 @@ export function SalonPlans({
     section.main.length === 4 ? 'min-[1200px]:grid-cols-4' : 'min-[1080px]:grid-cols-3'
   const altCols = section.alt.length === 3 ? 'min-[1080px]:grid-cols-3' : 'min-[900px]:grid-cols-2'
   return (
-    <section id={id} aria-labelledby={`${id}-h`} className="flex scroll-mt-28 flex-col gap-8">
+    <section
+      id={id}
+      aria-labelledby={`${id}-h`}
+      className="flex scroll-mt-28 flex-col gap-8 max-md:gap-4"
+    >
       <SectionHead
         id={`${id}-h`}
         eyebrow={section.eyebrow ?? eyebrow}
-        title={section.title ?? `${brand} — polecane modele`}
+        title={section.title ?? `Polecane modele ${brand}`}
         lead={section.lead}
         note
       />
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 max-md:gap-6">
         {section.main.length > 0 && (
-          <ul className={cx('grid gap-4 pt-3 min-[761px]:grid-cols-2', mainCols, CAROUSEL)}>
+          <ul className={cx('grid gap-4 pt-3 min-[768px]:grid-cols-2', mainCols, CAROUSEL)}>
             {section.main.map((card) => (
               <li key={card.name} className={cx('flex flex-col pt-3', CAROUSEL_ITEM)}>
                 <PlanItem card={card} brand={brand} compact={false} big={section.big} />
@@ -396,13 +436,13 @@ export function SalonPlans({
           </ul>
         )}
         {compare && (
-          <div className="order-2 max-[760px]:order-3">
+          <div className="order-2 max-md:order-3">
             <SalonCompare compare={compare} />
           </div>
         )}
         {section.alt.length > 0 && (
-          <div className="order-3 flex flex-col gap-4 max-[760px]:order-2">
-            <h3 className="font-display text-xl font-extrabold text-ink">
+          <div className="order-3 flex flex-col gap-4 max-md:order-2 max-md:gap-3">
+            <h3 className="font-display text-xl font-extrabold text-ink max-md:text-base">
               {section.altTitle ?? 'Też w ofercie'}
             </h3>
             <ul className={cx('grid gap-4', altCols, CAROUSEL)}>
@@ -441,7 +481,7 @@ function DarkPanel({
     <section
       aria-labelledby={`${id}-h`}
       data-surface="dark"
-      className="relative overflow-hidden rounded-[32px] bg-surface-dark px-5 py-9 text-white ring-1 ring-white/10 ring-inset sm:px-12 sm:py-12"
+      className="relative overflow-hidden rounded-[32px] bg-surface-dark px-5 py-9 text-white ring-1 ring-white/10 ring-inset max-md:rounded-[24px] max-md:px-[18px] max-md:py-6 min-[768px]:px-12 min-[768px]:py-12"
     >
       <span
         aria-hidden="true"
@@ -452,17 +492,21 @@ function DarkPanel({
             : 'bg-[radial-gradient(50%_80%_at_90%_10%,color-mix(in_srgb,var(--warn)_20%,transparent),transparent_70%)]',
         )}
       />
-      <div className="relative grid gap-8 min-[1080px]:grid-cols-2 min-[1080px]:items-center">
-        <div className="flex flex-col gap-4">
+      {/* On a phone the button comes last, under the steps (board App-Salon-*). */}
+      <div className="relative grid gap-8 max-md:gap-4 min-[1080px]:grid-cols-2 min-[1080px]:items-center">
+        <div className="flex flex-col gap-4 max-md:contents">
           <Eyebrow dark>{eyebrow}</Eyebrow>
-          <h2
-            id={`${id}-h`}
-            className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance"
-          >
+          <h2 id={`${id}-h`} className={cx(BZ_H2, 'max-md:text-[22px] max-md:leading-[1.1]')}>
             {title}
           </h2>
-          {description && <p className="max-w-[60ch] text-white/80">{description}</p>}
-          <div className="flex flex-wrap gap-3 pt-2">{actions}</div>
+          {description && (
+            <p className="max-w-[60ch] text-white/80 max-md:text-sm max-md:leading-relaxed">
+              {description}
+            </p>
+          )}
+          <div className="flex flex-wrap gap-3 pt-2 max-md:order-last max-md:flex-col max-md:pt-1 max-md:[&>*]:w-full">
+            {actions}
+          </div>
         </div>
         {children}
       </div>
@@ -478,18 +522,20 @@ function PanelItems({
   numbered: boolean
 }) {
   return (
-    <ol className="grid gap-3 min-[560px]:grid-cols-2">
+    <ol className="grid gap-3 max-md:gap-2 min-[768px]:grid-cols-2">
       {items.map((item, i) => (
         <li
           key={item.title}
-          className="flex gap-3 rounded-2xl bg-white/5 p-4 ring-1 ring-white/12 ring-inset"
+          className="flex gap-3 rounded-2xl bg-white/5 p-4 ring-1 ring-white/12 ring-inset max-md:items-center max-md:px-3 max-md:py-2.5"
         >
           <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-ok text-sm font-extrabold text-surface-dark">
             {numbered ? i + 1 : <Icon name="check" strokeWidth={3} className="size-3.5" />}
           </span>
           <span className="flex flex-col gap-0.5">
-            <b className="font-extrabold">{item.title}</b>
-            {item.text && <small className="text-sm text-white/70">{item.text}</small>}
+            <b className="font-extrabold max-md:text-sm">{item.title}</b>
+            {item.text && (
+              <small className="text-sm text-white/70 max-md:text-xs">{item.text}</small>
+            )}
           </span>
         </li>
       ))}
@@ -582,32 +628,35 @@ export function SalonAbout({
 }) {
   const [first, ...rest] = about.paragraphs
   return (
-    <section aria-labelledby="o-marce-h" className="flex flex-col gap-6">
+    <section aria-labelledby="o-marce-h" className="flex flex-col gap-6 max-md:gap-4">
       <div className="flex flex-col gap-3">
-        <Eyebrow>O marce</Eyebrow>
-        <h2
-          id="o-marce-h"
-          className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
-        >
+        <div className="max-md:hidden">
+          <Eyebrow>O marce</Eyebrow>
+        </div>
+        <h2 id="o-marce-h" className={`${BZ_H2} text-ink max-md:text-[22px] max-md:leading-[1.1]`}>
           {headings.facts}
         </h2>
       </div>
-      <div className="grid gap-6 min-[1080px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] min-[1080px]:gap-8">
+      <div className="grid gap-6 max-md:gap-4 min-[1080px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] min-[1080px]:gap-8">
         {about.facts.length > 0 && (
-          <dl className="grid gap-3 self-start min-[560px]:grid-cols-2">
+          // Phone: facts 2 × 2 in small tiles (board App-Salon-*).
+          <dl className="grid grid-cols-2 gap-3 self-start max-md:gap-2">
             {about.facts.map((fact) => (
-              <div key={fact.label} className="flex flex-col gap-1 rounded-2xl bg-surface-2 p-4">
-                <dt className="text-xs font-black tracking-[0.08em] text-ink-2 uppercase">
+              <div
+                key={fact.label}
+                className="flex min-w-0 flex-col gap-1 rounded-2xl bg-surface-2 p-4 max-md:p-3"
+              >
+                <dt className="text-xs font-black tracking-[0.08em] break-words text-ink-2 uppercase max-md:text-[11px]">
                   {fact.label}
                 </dt>
-                <dd className="font-extrabold text-ink">{fact.value}</dd>
+                <dd className="font-extrabold break-words text-ink max-md:text-sm">{fact.value}</dd>
               </div>
             ))}
           </dl>
         )}
         <div
           className={cx(
-            'flex flex-col gap-4 text-ink-2',
+            'flex flex-col gap-4 text-ink-2 max-md:gap-3 max-md:text-sm',
             // Without facts the text keeps its column, as on the board.
             about.facts.length === 0 && 'min-[1080px]:col-start-2',
           )}
@@ -615,7 +664,7 @@ export function SalonAbout({
           {first && <p className="leading-relaxed">{first}</p>}
           {rest.length > 0 && (
             <details className="group">
-              <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-full bg-card px-5 text-sm font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)] [&::-webkit-details-marker]:hidden">
+              <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-full bg-card px-5 text-sm font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)] max-md:flex max-md:min-h-12 max-md:justify-between max-md:rounded-2xl [&::-webkit-details-marker]:hidden">
                 <span className="group-open:hidden">{headings.more}</span>
                 <span className="hidden group-open:inline">Zwiń</span>
                 <Icon
@@ -639,7 +688,12 @@ export function SalonAbout({
               {about.sources.map((source, i) => (
                 <span key={source.host}>
                   {i > 0 && ' · '}
-                  <a href={source.url} rel="noopener" target="_blank" className="underline">
+                  <a
+                    href={source.url}
+                    rel="noopener"
+                    target="_blank"
+                    className="inline-flex min-h-6 items-center underline"
+                  >
                     {source.host}
                   </a>
                 </span>
@@ -668,12 +722,14 @@ export function SalonFaq({
       aria-labelledby="pytania-h"
       className="grid gap-8 min-[1080px]:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] min-[1080px]:items-start"
     >
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 max-md:gap-3">
         <div className="flex flex-col gap-3">
-          <Eyebrow>Pytania</Eyebrow>
+          <div className="max-md:hidden">
+            <Eyebrow>Pytania</Eyebrow>
+          </div>
           <h2
             id="pytania-h"
-            className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
+            className={`${BZ_H2} text-ink max-md:text-[22px] max-md:leading-[1.1]`}
           >
             {faq.length > 0 ? headings.faq : 'Masz pytanie?'}
           </h2>
@@ -682,7 +738,7 @@ export function SalonFaq({
           <div className="flex flex-col border-t border-border">
             {faq.map((item, i) => (
               <details key={item.question} open={i === 0} className="group border-b border-border">
-                <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 font-extrabold text-ink [&::-webkit-details-marker]:hidden">
+                <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 font-extrabold text-ink max-md:py-3 [&::-webkit-details-marker]:hidden">
                   {item.question}
                   <Icon
                     name="arrow"
@@ -690,7 +746,9 @@ export function SalonFaq({
                     className="size-4 shrink-0 rotate-90 transition-transform group-open:-rotate-90"
                   />
                 </summary>
-                <p className="pb-5 leading-relaxed text-ink-2">{item.answer}</p>
+                <p className="pb-5 leading-relaxed text-ink-2 max-md:pb-4 max-md:text-sm">
+                  {item.answer}
+                </p>
               </details>
             ))}
           </div>
@@ -699,13 +757,15 @@ export function SalonFaq({
       <aside
         id="sl-ask"
         aria-labelledby="sl-ask-h"
-        className="flex scroll-mt-28 flex-col gap-4 rounded-3xl bg-surface-2 p-6"
+        // Phone: only the button across the screen (board App-Salon-*); the heading stays for
+        // screen readers.
+        className="flex scroll-mt-28 flex-col gap-4 rounded-3xl bg-surface-2 p-6 max-md:bg-transparent max-md:p-0"
       >
-        <h3 id="sl-ask-h" className="font-display text-2xl font-extrabold text-ink">
+        <h3 id="sl-ask-h" className="font-display text-2xl font-extrabold text-ink max-md:sr-only">
           {hasPlans ? 'Nie wiesz, co wybrać?' : 'Nie wiesz, który model?'}
         </h3>
-        <p className="text-ink-2">
-          Napisz, czego potrzebujesz — dobierzemy model i przygotujemy ofertę na piśmie.
+        <p className="text-ink-2 max-md:hidden">
+          Napisz, czego potrzebujesz, a dobierzemy model i przygotujemy ofertę.
         </p>
         <SalonAsk
           items={[]}
@@ -714,7 +774,9 @@ export function SalonFaq({
           {headings.ask}
         </SalonAsk>
         {contact.length > 0 && (
-          <p className="text-center text-sm font-semibold text-ink-2">{contact.join(' · ')}</p>
+          <p className="text-center text-sm font-semibold text-ink-2 max-md:hidden">
+            {contact.join(' · ')}
+          </p>
         )}
       </aside>
     </section>
@@ -727,8 +789,13 @@ export function familyHeading(view: SalonView) {
     ? {
         eyebrow: `Pełna oferta · ${view.familyCount} ${plural(view.familyCount, ['pozycja', 'pozycje', 'pozycji'])}`,
         title: 'Wszystko w ofercie, według rodzaju',
+        phoneTitle: `Pełna oferta · ${view.familyCount}`,
       }
-    : { eyebrow: view.headings.offer, title: 'Wszystkie urządzenia w jednym miejscu' }
+    : {
+        eyebrow: view.headings.offer,
+        title: 'Wszystkie urządzenia w jednym miejscu',
+        phoneTitle: `Oferta · ${view.familyCount}`,
+      }
 }
 
 export { SectionHead }

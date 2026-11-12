@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { isSvgPath, svgPathText } from '../../catalog/svg'
 
 // Data of the K4i sections (Opieka IT, O firmie, Kontakt — K34 §6–§8, K35 §0, K36 §13). The
 // company card, phones, hours and address come from the panel (CompanyData, SiteSettings), not
@@ -39,6 +40,12 @@ export const careAreasSchema = z.object({
         co: z.array(text).min(1).max(8),
         products: z.array(slug).max(4).default([]),
         image: slug.optional(),
+        /** Icon of the tab (SVG path „d”, board `Web-opieka-it`). */
+        iconPath: z
+          .string()
+          .transform(svgPathText)
+          .refine(isSvgPath, 'Ikona: ścieżka SVG („d”).')
+          .optional(),
       }),
     )
     .min(1)
@@ -69,6 +76,28 @@ export const audienceSchema = z.object({
     .max(6),
 })
 
+/**
+ * `care-review` (#przeglad-it, PREMIUM-1011): what the free IT review checks, what the written
+ * report says (the hero's status colours) and „Umów przegląd”. No price, no subscription.
+ */
+export const careReviewSchema = z.object({
+  /** The review's card, put on the inquiry list by the button. */
+  slug,
+  label: text,
+  note: text,
+  checks: z.array(text).min(1).max(8),
+  report: z.object({
+    title: text,
+    rows: z
+      .array(z.object({ t: text, d: text, tone: z.enum(REPORT_TONES) }))
+      .min(1)
+      .max(4),
+    foot: z.string().optional(),
+  }),
+  /** Short facts by the button („bezpłatnie”, „bez zobowiązań”). */
+  facts: z.array(text).max(3).default([]),
+})
+
 /** `start-calendar`: first weeks of care and the calendar of dates that are easy to miss. */
 export const startCalendarSchema = z.object({
   start: z.object({
@@ -91,6 +120,8 @@ export const seatsSchema = z.object({
   /** Button without a pick, and the note without one. */
   label: text,
   note: text,
+  /** A link under the button (plan 0611 §6.4 #9: „Dostawy IT — gotowe do pracy”). */
+  link: link.optional(),
 })
 
 /** `about-hero`: O firmie hero with the business card from the panel and 4 authorizations. */

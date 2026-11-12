@@ -1,8 +1,12 @@
+import path from 'node:path'
+
 import type { SectionData, SectionVariant } from '../../lib/biznes/pages/sections'
 import type { IconName } from '../../lib/catalog/options'
 import { hardSpaces, hardSpacesDeep } from '../../lib/text/hardSpace'
 import type { BzSectionBlock, FaqBlock } from '../../payload-types'
+import { isSvgPath, svgPathText } from '../../lib/catalog/svg'
 import type { PageBlock } from './page'
+import { BIZNES_CONTACT } from './contact'
 
 /**
  * Subpages of the K4 package (K4hij, `seed/prokombiznes/k4/strony-k4.json`) as page layouts
@@ -13,6 +17,40 @@ import type { PageBlock } from './page'
 
 /** Short id of the board → slug of the product in the database; `undefined` when unknown. */
 export type SlugOf = (shortId: string) => string | undefined
+
+/** Media id of an uploaded package photo (`k4-gopos-<file>`), by its file name. */
+export type MediaOf = (file: string) => number | undefined
+
+/** Photos of the GoPOS page with the screen on (POPRAWKI-0311 §A, §B): file → alt text. */
+export const GOPOS_PHOTO_ALT: Record<string, string> = {
+  'sala-v3mix.webp': 'Sunmi V3 MIX z GoPOS na sali',
+  'kuchnia-kds.webp': 'Ekran kuchenny GoPOS KDS z kolejką zamówień',
+  'platnosc-polcard.webp': 'Terminal płatniczy PolCard',
+  'ekran-d3.webp': 'Sunmi D3 PRO z GoPOS',
+  'zestaw-restauracja.webp':
+    'Zestaw GoPOS dla restauracji: kasa, Sunmi V3 MIX, terminal i drukarka',
+  'kasa-d3.webp': 'Sunmi D3 PRO z GoPOS i ekranem dla klienta',
+  'ekosystem.webp': 'GoPOS: kiosk, aplikacja, kasa, ekran kuchni i panel online',
+  'reczny-v3.webp': 'GoPOS All in One — urządzenie ręczne',
+  'aio-stand.webp': 'Stanowisko GoPOS z drukarką',
+}
+
+const isPhotoFile = (value: string) => value.endsWith('.webp')
+
+/** Every photo file the GoPOS page names: the stage and the venues. */
+export function goposPhotoFiles(file: K4PagesFile): string[] {
+  const g = file.gopos
+  return [
+    ...new Set([
+      ...g.hero.stage.flatMap((device) => (device.img ? [device.img] : [])),
+      ...Object.values(g.segImg).filter(isPhotoFile),
+    ]),
+  ]
+}
+
+/** Path of a GoPOS photo of the package (relative to the repo). */
+export const goposPhotoPath = (name: string) =>
+  path.join('seed', 'prokombiznes', 'k4', 'media', 'gopos-scena', name)
 
 type Pair = [string, string]
 
@@ -25,7 +63,8 @@ export type K4PagesFile = {
       h1b: string
       lead: string
       proof: { t: string; d: string }[]
-      stage: { s: string; k: string }[]
+      /** `pos` / `lab`: placement on the stage; `img`: the photo with the screen on (03.11). */
+      stage: { s: string; k: string; pos?: string; lab?: string; img?: string }[]
       flowDev: Record<string, number>
     }
     flow: { k: string; t: string; d: string }[]
@@ -35,9 +74,11 @@ export type K4PagesFile = {
       h1a: string
       h1b: string
       lead: string
+      leadM?: string
       mods: string[]
       tk: [string, string, string[]]
     }[]
+    /** A venue's picture: a photo file of `media/gopos-scena` (03.11) or a product id. */
     segImg: Record<string, string>
     mods: { s: string; core: boolean; n: string; d: string; hw: string[] }[]
     stats: Pair[]
@@ -49,6 +90,10 @@ export type K4PagesFile = {
     hub: { plat: string[]; out: Pair[]; lead: string; src: string }
     ksef: string[]
     devs: string[]
+    /** Ready bundles for gastronomy (bundle slugs), PREMIUM-1011. */
+    zes?: string[]
+    /** GoHub queue: platform, items, time (PREMIUM-1011). */
+    ord?: [string, string, string][]
     pakiety: {
       h: string[]
       rows: [string, string, string][]
@@ -67,6 +112,10 @@ export type K4PagesFile = {
   insert: {
     pill: string
     shelf: [string, string, string][]
+    /** Hero composition (PREMIUM-1011): program, its line, centre on a 500 × 440 board. */
+    orb?: { n: string; d: string; cx: number; cy: number }[]
+    /** InsERT lines: name, tagline, „dla kogo” points (PREMIUM-1011). */
+    lines?: [string, string, string[]][]
     stats: Pair[]
     statsSrc: string
     q: { q: string; o: { t: string; k: string }[] }[]
@@ -102,8 +151,37 @@ export type K4PagesFile = {
 export type K4Layout = { layout: PageBlock[]; missing: string[] }
 
 const GOPOS_PRESENTATION_NOTE = 'Prezentacja GoPOS w lokalu'
+
+/**
+ * H1 of `/gopos` as on the board (K31 §13.1): short, the second line in the accent. The phrase
+ * „GoPOS dla gastronomii” moves to the pill, the lead and the SEO title (PRODUKCJA-BIZNES-1211 §3).
+ */
+export const GOPOS_H1 = { heading: 'Sala, kuchnia i dowozy.', accent: 'Jeden system.' }
+const GOPOS_PHRASE = 'GoPOS dla gastronomii'
+
+/** The pill with the phrase first, the partner status (K4-FINAL §1) after it. */
+export function goposPill(pill: string): string {
+  return pill.startsWith(GOPOS_PHRASE) ? pill : `${GOPOS_PHRASE} · ${pill.split(' · ')[0]}`
+}
+
+/** The lead with the phrase: „Wdrażamy GoPOS w …” → „Wdrażamy GoPOS dla gastronomii w …”. */
+export function goposLead(lead: string): string {
+  return lead.includes(GOPOS_PHRASE) ? lead : lead.replace(/\bGoPOS\b/, GOPOS_PHRASE)
+}
+
+/**
+ * A venue tab whose heading is the page's old H1 (the restaurant tab, back with the revert of
+ * #486): the venue's name and its own short sentence from `leadM` instead — „Restauracja:
+ * zamówienie przy stoliku, kuchnia na ekranie”. Other venues keep their headings.
+ */
+export function venueHeading(venue: { t: string; h1a: string; h1b: string; leadM?: string }) {
+  if (!venue.h1a.startsWith(GOPOS_PHRASE)) return { h1a: venue.h1a, h1b: venue.h1b }
+  const parts = (venue.leadM ?? '').replace(/\.$/, '').split(', ').slice(0, 2).join(', ')
+  const sentence = parts.charAt(0).toLowerCase() + parts.slice(1)
+  return { h1a: `${venue.t}:`, h1b: sentence || venue.h1b }
+}
 const OFFER_CRUMB = { name: 'Oferta', href: '/oferta' }
-const OFFICE_PHONE = { label: '889 003 889', href: 'tel:+48889003889' }
+const OFFICE_PHONE = { label: BIZNES_CONTACT.phone, href: BIZNES_CONTACT.phoneHref }
 
 /**
  * Sources are shown only as links (K4-FINAL §1): the address is the first domain (with a path)
@@ -164,8 +242,150 @@ function resolver(slugOf: SlugOf) {
   return { one, many, missing }
 }
 
+type SectionLike = { blockType: string; variant?: string | null; data?: unknown }
+type StageDevice = { slug?: string; image?: unknown; pos?: unknown; lab?: unknown }
+type StageData = { stage?: StageDevice[] }
+type VenuesData = { venues?: { key?: string; image?: unknown }[] }
+
+const isSection = (block: PageBlock, variant: string): block is PageBlock & SectionLike =>
+  block.blockType === 'bzSection' && (block as SectionLike).variant === variant
+
+/**
+ * POPRAWKI-0311: a stored `/gopos` keeps its blocks (the seed never overwrites a page), so the
+ * photos with the screen on come in here — only where they are still the old seed's: a hero
+ * stage with no photo at all gets each device's photo and placement (by slug; label and step
+ * stay), a venue picture that is still a product slug gets the photo. Everything else, edited in
+ * the panel or not, stays. `null` when nothing changes.
+ */
+export function upgradeGoposPhotos(stored: PageBlock[], seed: PageBlock[]): PageBlock[] | null {
+  const seedHero = seed.find((block) => isSection(block, 'gopos-hero')) as SectionLike | undefined
+  const seedVenues = seed.find((block) => isSection(block, 'gopos-venues')) as
+    SectionLike | undefined
+  let changed = false
+  const next = stored.map((block) => {
+    if (isSection(block, 'gopos-hero') && seedHero) {
+      const data = (block.data ?? {}) as StageData
+      const fresh = new Map(
+        ((seedHero.data as StageData).stage ?? []).map((device) => [device.slug, device]),
+      )
+      const stage = data.stage ?? []
+      const noPhotos = stage.every((device) => device.image === undefined)
+      const merged = stage.map((device) => {
+        const seedDevice = fresh.get(device.slug)
+        if (seedDevice?.image === undefined) return device
+        const { image, pos, lab } = seedDevice
+        return {
+          ...device,
+          image,
+          ...(pos !== undefined && { pos }),
+          ...(lab !== undefined && { lab }),
+        }
+      })
+      if (noPhotos && merged.some((device) => device.image !== undefined)) {
+        changed = true
+        return { ...block, data: { ...data, stage: merged } }
+      }
+    }
+    if (isSection(block, 'gopos-venues') && seedVenues) {
+      const data = (block.data ?? {}) as VenuesData
+      const fresh = new Map(
+        ((seedVenues.data as VenuesData).venues ?? []).map((venue) => [venue.key, venue.image]),
+      )
+      let venueChanged = false
+      const venues = (data.venues ?? []).map((venue) => {
+        const image = fresh.get(venue.key)
+        const old = venue.image === undefined || typeof venue.image === 'string'
+        if (old && typeof image === 'number') {
+          venueChanged = true
+          return { ...venue, image }
+        }
+        return venue
+      })
+      if (venueChanged) {
+        changed = true
+        return { ...block, data: { ...data, venues } }
+      }
+    }
+    return block
+  })
+  return changed ? next : null
+}
+
+type CareArea = { t?: string; iconPath?: string }
+
+/**
+ * D13 (`/opieka-it`): a stored page keeps its blocks, so the area icons come in here. A missing
+ * icon gets the seed's (matched by the area title), an icon with hard spaces from an older seed
+ * is repaired; an icon set in the panel stays. `null` when nothing changes.
+ */
+export function upgradeCareIcons(stored: PageBlock[], seed: PageBlock[]): PageBlock[] | null {
+  const seedBlock = seed.find((block) => isSection(block, 'care-areas')) as SectionLike | undefined
+  const fresh = new Map(
+    (((seedBlock?.data ?? {}) as { areas?: CareArea[] }).areas ?? []).map((area) => [
+      area.t,
+      area.iconPath,
+    ]),
+  )
+  let changed = false
+  const next = stored.map((block) => {
+    if (!isSection(block, 'care-areas')) return block
+    const data = (block.data ?? {}) as { areas?: CareArea[] }
+    const areas = (data.areas ?? []).map((area) => {
+      const iconPath = area.iconPath ? svgPathText(area.iconPath) : fresh.get(area.t)
+      if (!iconPath || iconPath === area.iconPath) return area
+      changed = true
+      return { ...area, iconPath }
+    })
+    return changed ? { ...block, data: { ...data, areas } } : block
+  })
+  return changed ? next : null
+}
+
+/**
+ * Plan 0611 §6.4 #9: „Ile masz stanowisk?” of a stored `/opieka-it` gets the seed's link when it
+ * has none; its texts stay. `null` = nothing to change.
+ */
+export function upgradeCareSupplyLink(stored: PageBlock[], seed: PageBlock[]): PageBlock[] | null {
+  const seedBlock = seed.find((block) => isSection(block, 'seats')) as SectionLike | undefined
+  const link = ((seedBlock?.data ?? {}) as { link?: unknown }).link
+  if (!link) return null
+  let changed = false
+  const next = stored.map((block) => {
+    if (!isSection(block, 'seats')) return block
+    const data = (block.data ?? {}) as { link?: unknown }
+    if (data.link) return block
+    changed = true
+    return { ...block, data: { ...data, link } }
+  })
+  return changed ? next : null
+}
+
+/**
+ * The composition of the InsERT hero (`insert.orb`, PREMIUM-1011): the programs are named as on
+ * the shelf, so the shelf gives their board ids; a program missing in the catalog drops out, and
+ * without Subiekt nexo there is no composition (the shelf stays).
+ */
+function insertOrbit(i: K4PagesFile['insert'], r: ReturnType<typeof resolver>) {
+  const center = r.one('nexo')
+  if (!center || !i.orb?.length) return {}
+  const idOf = new Map(i.shelf.map(([id, name]) => [name, id]))
+  const items = i.orb.flatMap((item) => {
+    const id = idOf.get(item.n)
+    const slug = id ? r.one(id) : undefined
+    return slug ? [{ slug, n: item.n, d: item.d, x: item.cx, y: item.cy }] : []
+  })
+  return { orbit: { center, items } }
+}
+
+/** The poster frame of a `videos` section, when the product is in the catalog. */
+const withPoster = (slug: string | undefined) => (slug ? { poster: slug } : {})
+
 /** `/gopos` (K4h, K32 §3, plansza Web-GoPOS). */
-export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
+export function goposK4Layout(
+  file: K4PagesFile,
+  slugOf: SlugOf,
+  mediaOf: MediaOf = () => undefined,
+): K4Layout {
   const g = file.gopos
   const r = resolver(slugOf)
   const modules = g.mods.flatMap((mod) => {
@@ -191,18 +411,30 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
     section({
       variant: 'gopos-hero',
       surface: 'dark',
-      heading: g.hero.h1a,
-      headingAccent: g.hero.h1b,
-      lead: g.hero.lead,
+      heading: GOPOS_H1.heading,
+      headingAccent: GOPOS_H1.accent,
+      lead: goposLead(g.hero.lead),
       data: {
         trail: [OFFER_CRUMB],
-        pill: g.hero.pill,
+        pill: goposPill(g.hero.pill),
         presentation,
         proof: g.hero.proof.map(({ t, d }) => ({ t, d })),
         stage: g.hero.stage.flatMap((device) => {
           const slug = r.one(device.s)
           const step = g.hero.flowDev[device.s]
-          return slug && step !== undefined ? [{ slug, label: device.k, step }] : []
+          const image = device.img ? mediaOf(device.img) : undefined
+          return slug && step !== undefined
+            ? [
+                {
+                  slug,
+                  label: device.k,
+                  step,
+                  ...(image !== undefined && { image }),
+                  ...(device.pos && { pos: device.pos }),
+                  ...(device.lab && { lab: device.lab }),
+                },
+              ]
+            : []
         }),
         flow: g.flow.map(({ k, t, d }) => ({ k, t, d })),
         ticket: ticket(g.seg[0]!.tk),
@@ -220,17 +452,18 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       anchor: 'lokal',
       eyebrow: 'Twój lokal',
       heading: 'GoPOS ustawiony pod to, jak pracujesz',
-      lead: 'Wybierz rodzaj lokalu — pokażemy, jak wygląda dzień pracy i od jakiego pakietu zacząć.',
+      lead: 'Wybierz rodzaj lokalu. Pokażemy, jak wygląda dzień pracy i od jakiego pakietu zacząć.',
       data: {
         venues: g.seg.map((venue) => {
-          const image = g.segImg[venue.k] ? r.one(g.segImg[venue.k]!) : undefined
+          // A photo file → its Media id; an older product id → the card's photo.
+          const source = g.segImg[venue.k]
+          const image = !source ? undefined : isPhotoFile(source) ? mediaOf(source) : r.one(source)
           return {
             key: venue.k,
             tab: venue.t,
-            h1a: venue.h1a,
-            h1b: venue.h1b,
+            ...venueHeading(venue),
             lead: venue.lead,
-            ...(image ? { image } : {}),
+            ...(image !== undefined ? { image } : {}),
             modules: venueModules(venue.mods),
             ticket: ticket(venue.tk),
           }
@@ -272,8 +505,10 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
     }),
     section({
       variant: 'gopos-hub',
+      // Web-gopos: the queue on navy (PREMIUM-1011).
+      surface: 'dark',
       eyebrow: 'Dowozy · GoHub',
-      heading: 'Pięć aplikacji z zamówieniami. Jedna kolejka.',
+      heading: 'Pięć aplikacji z zamówieniami w jednej kolejce',
       lead: g.hub.lead,
       source: g.hub.src,
       data: {
@@ -282,6 +517,8 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
         hubSlug: r.one('gohub') ?? 'gohub',
         platforms: g.hub.plat,
         out: g.hub.out.map(([t, d]) => ({ t, d })),
+        // PREMIUM-1011: the live queue of orders (`gopos.ord`).
+        orders: (g.ord ?? []).map(([c, d, t]) => ({ c, d, t })),
       },
     }),
     section({
@@ -293,12 +530,12 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
         { title: 'Faktury do KSeF prosto z kasy', text: `${g.ksef.join('. ')}.`, icon: 'doc' },
         {
           title: 'Gdy padnie internet',
-          text: 'System działa także przy chwilowym braku internetu — sprzedaż się nie przerywa, a dane zsynchronizują się, gdy połączenie wróci.',
+          text: 'System działa także przy chwilowym braku internetu: sprzedaż się nie przerywa, a dane zsynchronizują się, gdy połączenie wróci.',
           icon: 'refresh',
         },
         {
           title: 'Lokal w telefonie',
-          text: 'Aplikacja GoPOS Now pokazuje sprzedaż i raporty w telefonie — z dowolnego miejsca, także gdy nie ma Cię w lokalu.',
+          text: 'Aplikacja GoPOS Now pokazuje sprzedaż i raporty w telefonie z dowolnego miejsca, także gdy nie ma Cię w lokalu.',
           icon: 'chart',
         },
       ],
@@ -312,6 +549,20 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
             eyebrow: 'Sprzęt pod GoPOS',
             heading: 'Urządzenia, które wdrażamy z GoPOS',
             data: { slugs: devices, visible: 4 },
+          }),
+        ]
+      : []),
+    // PREMIUM-1011: the three gastronomy bundles of the package (only „Gotowe” are shown).
+    ...(g.zes?.length
+      ? [
+          section({
+            variant: 'bundles',
+            anchor: 'zestawy',
+            surface: 'muted',
+            eyebrow: 'Gotowe zestawy',
+            heading: 'Gotowe zestawy dla gastronomii',
+            lead: 'Sprzęt dobrany pod lokal i sprawdzony ze sobą. Dodaj zestaw do zapytania — wycenę dostaniesz na piśmie.',
+            data: { slugs: g.zes },
           }),
         ]
       : []),
@@ -356,6 +607,8 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
         label: 'Film GoPOS',
         note: 'Filmy z oficjalnego kanału GoPOS. Odtwarzają się po kliknięciu.',
         videos: g.vids.map(({ id, t, k }) => ({ id, t, k })),
+        // Web-gopos: the All in One on the poster (PREMIUM-1011).
+        ...withPoster(r.one('gopos-all-in-one')),
       },
     }),
     section({
@@ -427,6 +680,7 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
           { label: 'Który Subiekt dla mnie?', href: '#ktory' },
           { label: 'KSeF w InsERT', href: '#ksef' },
         ],
+        ...insertOrbit(i, r),
       },
     }),
     section({
@@ -443,7 +697,7 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
             variant: 'insert-picker',
             anchor: 'ktory',
             eyebrow: 'Który Subiekt dla mnie?',
-            heading: 'Trzy pytania — i wiesz, od czego zacząć',
+            heading: 'Trzy pytania, żeby wiedzieć, od czego zacząć',
             data: {
               questions: i.q.map((question) => ({ q: question.q, options: question.o })),
               rules,
@@ -456,15 +710,32 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       surface: 'muted',
       eyebrow: 'Porównanie',
       heading: 'Subiekt 123, GT czy nexo?',
-      data: { head: ['Cecha', ...i.cmpH], rows: i.cmp },
+      data: {
+        head: ['Cecha', ...i.cmpH],
+        rows: i.cmp,
+        // PREMIUM-1011: the four InsERT lines under the comparison (`insert.lines`).
+        ...(i.lines?.length
+          ? {
+              lines: {
+                t: 'Linie InsERT',
+                items: i.lines.map(([t, s, b]) => ({ t, s, b })),
+                // TODO(krystian): the package gives no source for `insert.lines` — the line is
+                // the session's, after `allSrc` (insert.com.pl, 26.10.2026). Confirm or change.
+                source: 'Linie i ich zastosowanie według insert.com.pl · stan na 26.10.2026',
+              },
+            }
+          : {}),
+      },
     }),
     ...(ksefSlug
       ? [
           section({
             variant: 'insert-ksef',
             anchor: 'ksef',
+            // Web-insert: the timeline in glass cards on navy (PREMIUM-1011).
+            surface: 'dark',
             eyebrow: 'KSeF w programach InsERT',
-            heading: 'Program jest gotowy. Przygotujmy firmę.',
+            heading: 'Program jest gotowy, przygotujmy firmę',
             lead: i.ksefLead,
             source: i.ksefSrc,
             data: {
@@ -520,7 +791,7 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       variant: 'cards',
       surface: 'muted',
       eyebrow: 'Wdrożenie z PRO-KOM',
-      heading: 'Program to licencja. Spokój to wdrożenie.',
+      heading: 'Licencja to dopiero początek. Liczy się wdrożenie.',
       items: i.tiles.map(({ t, d }) => ({ title: t, text: d })),
     }),
     section({
@@ -545,9 +816,11 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
         label: 'Film InsERT',
         note: 'Filmy z oficjalnego kanału InsERT. Odtwarzają się po kliknięciu.',
         videos: i.vids.map(({ id, t, k }) => ({ id, t, k })),
+        // Web-insert: the Subiekt nexo box on the poster (PREMIUM-1011).
+        ...withPoster(r.one('nexo')),
       },
     }),
-    faq('Pytania', 'Zanim wybierzesz program', i.faq),
+    faq('Pytania', 'Pytania o programy InsERT', i.faq),
     section({
       variant: 'band',
       eyebrow: 'Opieka nad programem',
@@ -563,7 +836,7 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
 export type K4FirmaFile = {
   opieka_it: {
     lead: string
-    areas: { t: string; img?: string; co: string[]; p: string[] }[]
+    areas: { t: string; ic?: string; img?: string; co: string[]; p: string[] }[]
     steps: Pair[]
     dla: [string, string, string[], string | null][]
     start: Pair[]
@@ -585,6 +858,34 @@ export type K4FirmaFile = {
 // Texts of the board (`Strona.dc.html`, views `opieka`, `ofirmie`, `kontakt`) that the data file
 // does not carry — copied 1:1, the hours as „pn–pt 9:00–17:00” (K4-FINAL §1).
 type ReportTone = 'ok' | 'warn' | 'urgent' | 'due'
+/**
+ * „Bezpłatny przegląd IT” (PREMIUM-1011): the facts of the review's catalog card
+ * (`katalog-k4.json → przeglad-it`: description §2–3, parameters) — 8 areas, the written report
+ * (fine / fix now / plan for later / nothing to buy), free, no obligations, at your firm.
+ */
+const CARE_REVIEW = {
+  checks: [
+    'Komputery',
+    'Sieć i Wi-Fi',
+    'Kopie zapasowe',
+    'Antywirus',
+    'Licencje',
+    'Poczta',
+    'Kasy i terminale',
+    'Terminy: przeglądy kas, odnowienia licencji, podpis kwalifikowany',
+  ],
+  report: {
+    title: 'Raport z przeglądu',
+    rows: [
+      { t: 'W porządku', d: 'co działa i nie wymaga zmian', tone: 'ok' as const },
+      { t: 'Do poprawy od razu', d: 'co trzeba poprawić teraz', tone: 'urgent' as const },
+      { t: 'Do zaplanowania', d: 'co może poczekać na później', tone: 'warn' as const },
+    ],
+    foot: 'I czego nie musisz kupować. Raport należy do Ciebie.',
+  },
+  facts: ['bezpłatnie', 'bez zobowiązań', 'u Ciebie w firmie'],
+}
+
 const CARE_REPORT_ROWS: { t: string; d: string; s: string; tone: ReportTone }[] = [
   {
     t: 'Kopie zapasowe',
@@ -612,7 +913,7 @@ const CARE_SITUATIONS: [string, string, string][] = [
   ],
   [
     'Pracownik odchodzi z firmy',
-    'Jego hasła, poczta i dostępy do programów zostają aktywne — czasem miesiącami.',
+    'Jego hasła, poczta i dostępy do programów zostają aktywne, czasem miesiącami.',
     'Zamykamy dostępy od razu, a skrzynkę i pliki przekazujemy następcy.',
   ],
   [
@@ -635,7 +936,7 @@ const CARE_SITUATIONS: [string, string, string][] = [
 const CARE_ON_CALL: Pair[] = [
   [
     'Zgłaszasz',
-    'Telefon 889 003 889 albo e-mail biznes@pro-kom.eu, pn–pt 9:00–17:00. Rozmawiasz z zespołem, który zna Twoją firmę.',
+    `Telefon ${BIZNES_CONTACT.phone} albo e-mail ${BIZNES_CONTACT.email}, ${BIZNES_CONTACT.hoursText}. Rozmawiasz z zespołem, który zna Twoją firmę.`,
   ],
   [
     'Diagnoza zdalna',
@@ -643,7 +944,7 @@ const CARE_ON_CALL: Pair[] = [
   ],
   [
     'Na miejscu, gdy trzeba',
-    'Gdy trzeba wymienić sprzęt albo coś sprawdzić — przyjeżdżamy z Rabki-Zdroju.',
+    'Gdy trzeba wymienić sprzęt albo coś sprawdzić, przyjeżdżamy z Rabki-Zdroju.',
   ],
   [
     'Zamknięte i zapisane',
@@ -657,61 +958,12 @@ const CARE_CALENDAR: [string, string, string][] = [
   ['MAR', 'Podpis kwalifikowany', 'koniec ważności certyfikatu'],
   ['MAJ', 'Kasa fiskalna', 'przegląd techniczny'],
   ['WRZ', 'Microsoft 365', 'liczba licencji po sezonie'],
-  ['LIS', 'Serwer', 'koniec gwarancji — decyzja'],
+  ['LIS', 'Serwer', 'koniec gwarancji: decyzja'],
 ]
-
-const trustLinks = (maps: string) => [
-  {
-    title: 'Dane w rejestrze',
-    text: 'Nazwa, adres i NIP — w publicznej wyszukiwarce firm CEIDG.',
-    label: 'Sprawdź w CEIDG',
-    href: 'https://www.biznes.gov.pl/pl/wyszukiwarka-firm',
-  },
-  {
-    title: 'Autoryzowany serwis Posnet i Elzab',
-    text: 'Autoryzację serwisu kas potwierdzają producenci — na swoich stronach.',
-    label: 'Strona Posnet',
-    href: 'https://www.posnet.com.pl',
-  },
-  {
-    title: 'Autoryzowany partner GoPOS i InsERT',
-    text: 'Status partnera sprawdzisz u producentów systemów, z którymi pracujemy.',
-    label: 'Strona InsERT',
-    href: 'https://www.insert.com.pl',
-  },
-  {
-    title: 'Opinie klientów',
-    text: 'Opinie o PRO-KOM w Google i Panoramie Firm — pisane przez klientów, nie przez nas.',
-    label: 'Opinie w Google',
-    href: maps,
-  },
-]
-
-/** Who each line is for (board `LN4`; the data file has the other texts). */
-const LINE_AUDIENCE: Record<string, string> = {
-  Biznes: 'dla firm, gastronomii, biur i instytucji',
-  Instalacje: 'domy, firmy, pensjonaty, szkoły',
-  Software: 'firmy z Podhala i całej Polski',
-  Tech: 'Rabka-Zdrój i okolice',
-}
 
 const CARE_NOTE = 'Opieka IT'
-
-function linesData(file: K4FirmaFile) {
-  // Decyzja Krystiana 01.11: the 4 lines of the data file (the board's Zakopane is left out).
-  // TODO(krystian): linia Zakopane — dopisać, gdy będzie jej tekst i adres.
-  return {
-    lines: file.firma.linie.map(([n, t, d, u, here]) => ({
-      n,
-      t,
-      d,
-      w: LINE_AUDIENCE[n] ?? 'firmy i klienci indywidualni',
-      u,
-      here,
-    })),
-    note: 'pro-kom.eu — wspólne wejście do wszystkich linii, aktualności i realizacji. Nowa strona PRO-KOM — wkrótce.',
-  }
-}
+/** Plan 0611 §6.4 #9: new hardware → the IT deliveries (hidden until that page is published). */
+const CARE_SUPPLY_LINK = { label: 'Dostawy IT — gotowe do pracy', href: '/dostawy-it-dla-firm' }
 
 /** `/opieka-it` (K4i, K34 §6, K35 §0, plansza Web-Opieka; H1 z planszy — decyzja Krystiana 01.11). */
 export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
@@ -728,9 +980,9 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
         variant: 'care-hero',
         // „Bezpłatny przegląd IT” in the menu shortcuts and the footer leads here.
         anchor: 'przeglad',
-        heading: 'Komputery, sieć i kasy pod jedną opieką.',
-        headingAccent: 'Jeden numer, gdy coś stanie.',
-        lead: 'Przejmujemy IT w firmie: komputery, serwer, kopie danych, sieć, pocztę, kasy i programy. Zakres i czas reakcji zapisujemy w umowie. Pomagamy zdalnie i na miejscu — z Rabki-Zdroju na całe Podhale i Małopolskę.',
+        heading: 'Opieka IT dla firm:',
+        headingAccent: 'komputery, sieć i kasy pod jedną opieką',
+        lead: 'Przejmujemy IT w firmie: komputery, serwer, kopie danych, sieć, pocztę, kasy i programy. Zakres i czas reakcji ustalamy w umowie. Pomagamy zdalnie i na miejscu, z Rabki-Zdroju na całe Podhale i Małopolskę.',
         data: {
           trail: [OFFER_CRUMB],
           pill: 'Opieka informatyczna · Podhale i Małopolska',
@@ -751,9 +1003,9 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
             summary: {
               n: '3',
               t: '3 sprawy do poprawy',
-              d: 'Plan naprawy i wycenę opieki dostajesz na piśmie.',
+              d: 'Plan naprawy i wycenę opieki dostajesz po przeglądzie.',
             },
-            badges: ['Bezpłatny przegląd na start', 'Licencje i przeglądy kas — przypominamy'],
+            badges: ['Bezpłatny przegląd na start', 'Przypominamy o licencjach i przeglądach kas'],
           },
         },
       }),
@@ -767,22 +1019,29 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
       heading: 'Osiem obszarów, jeden numer telefonu',
       lead: 'Wybierz obszar i zobacz, czym się zajmujemy i na jakim sprzęcie pracujemy.',
       data: {
-        areas: o.areas.map((area) => ({
-          t: area.t,
-          co: area.co,
-          products: r.many(area.p).slice(0, 4),
-        })),
+        areas: o.areas.map((area) => {
+          // Board `Web-opieka-it`: an icon per area in the tabs, the device photo in the panel.
+          const image = area.img ? r.one(area.img) : undefined
+          return {
+            t: area.t,
+            co: area.co,
+            products: r.many(area.p).slice(0, 4),
+            ...(area.ic && isSvgPath(area.ic) ? { iconPath: area.ic } : {}),
+            ...(image ? { image } : {}),
+          }
+        }),
       },
     }),
     section({
       variant: 'table',
       surface: 'muted',
       eyebrow: 'Z opieką i bez',
-      heading: 'Te same sytuacje. Dwa różne dni w firmie.',
+      heading: 'Te same sytuacje w firmie z opieką i bez niej',
       lead: 'Sytuacje, które zdarzają się w każdej firmie. Różnica jest w tym, czy ktoś był przygotowany, zanim się wydarzyły.',
       data: {
         head: ['Sytuacja', 'Bez stałej opieki', 'Z opieką PRO-KOM'],
         rows: CARE_SITUATIONS.map(([k, without, withCare]) => ({ k, v: [without, withCare] })),
+        contrast: true,
       },
     }),
     section({
@@ -832,9 +1091,34 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
         variant: 'seats',
         eyebrow: 'Wycena od zakresu',
         heading: 'Ile masz stanowisk?',
-        lead: 'Zaznacz — dopiszemy to do zapytania, a wycenę od zakresu dostaniesz na piśmie.',
-        data: { slug: care, options: o.stan, label: 'Zapytaj o opiekę IT', note: CARE_NOTE },
+        lead: 'Zaznacz, a dopiszemy to do zapytania. Wycenę przygotujemy od zakresu.',
+        data: {
+          slug: care,
+          options: o.stan,
+          label: 'Zapytaj o opiekę IT',
+          note: CARE_NOTE,
+          link: CARE_SUPPLY_LINK,
+        },
       }),
+      // PREMIUM-1011: what the free review checks and gives, before the closing band.
+      ...(review
+        ? [
+            section({
+              variant: 'care-review',
+              anchor: 'przeglad-it',
+              surface: 'muted',
+              eyebrow: 'Bezpłatny przegląd IT',
+              heading: 'Sprawdzamy, zanim cokolwiek zaproponujemy',
+              lead: 'W jednym raporcie: co jest pilne, co może poczekać i czego nie trzeba kupować.',
+              data: {
+                slug: review,
+                label: 'Umów przegląd',
+                note: 'Bezpłatny przegląd IT',
+                ...CARE_REVIEW,
+              },
+            }),
+          ]
+        : []),
       section({
         variant: 'band',
         eyebrow: 'Opieka IT z Rabki-Zdroju',
@@ -850,158 +1134,6 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
     )
   }
   return { layout, missing: [...r.missing] }
-}
-
-/** `/o-firmie` (K4i, K34 §7, plansza Web-OFirmie). */
-export function aboutK4Layout(file: K4FirmaFile): K4Layout {
-  const f = file.firma
-  const location: PageBlock = {
-    blockType: 'bzLocation',
-    eyebrow: 'Gdzie nas znaleźć',
-    lead: 'Biuro, salon i serwis w jednym miejscu. Dojeżdżamy do firm na całym Podhalu i w Małopolsce.',
-    areaLabel: 'Dojeżdżamy na całe Podhale i Małopolskę',
-    phoneNote: 'oferty i serwis',
-  }
-  const layout: PageBlock[] = [
-    section({
-      variant: 'about-hero',
-      heading: 'Lokalna firma IT,',
-      headingAccent: 'która zostaje z klientem na lata.',
-      lead: 'Od 2004 roku sprzedajemy, wdrażamy i serwisujemy kasy fiskalne, komputery, programy i sieci dla firm i instytucji z Podhala i Małopolski. Biuro, salon i serwis mamy w jednym miejscu — w Rabce-Zdroju. Telefon odbiera zespół, który zna Twoją firmę, a nie infolinia.',
-      data: {
-        pill: 'O firmie · PRO-KOM Tadeusz Wójciak',
-        actions: [{ label: 'Jak pracujemy', href: '#zasady' }],
-        // „100+ klientów firmowych” (K4-FINAL §1) — the data file, not the board's wording.
-        stats: f.stats.map(([v, k]) => ({ v, k })),
-        authorizations: [
-          { brand: 'posnet', status: 'Autoryzowany serwis' },
-          { brand: 'elzab', status: 'Autoryzowany serwis' },
-          { brand: 'gopos', status: 'Autoryzowany partner' },
-          { brand: 'insert', status: 'Autoryzowany partner' },
-        ],
-        register: {
-          label: 'Dane sprawdzisz w CEIDG po numerze NIP',
-          href: 'https://www.biznes.gov.pl/pl/wyszukiwarka-firm',
-        },
-      },
-    }),
-    section({
-      variant: 'cards',
-      eyebrow: 'Zaufanie',
-      heading: 'Nie musisz wierzyć nam na słowo.',
-      lead: 'Wszystko, co piszemy o sobie, możesz sprawdzić w niezależnych źródłach — zanim do nas zadzwonisz.',
-      items: trustLinks(f.maps),
-    }),
-    section({
-      variant: 'cards',
-      anchor: 'zasady',
-      surface: 'muted',
-      eyebrow: 'Jak pracujemy',
-      heading: 'Osiem zasad, które łatwo sprawdzić.',
-      lead: 'Bez obietnic z ulotki — tak pracujemy na co dzień.',
-      items: f.zasady.map(([, title, text], i) => ({
-        title,
-        text,
-        label: String(i + 1).padStart(2, '0'),
-      })),
-    }),
-    section({
-      variant: 'lines',
-      anchor: 'linie',
-      eyebrow: 'Rodzina PRO-KOM',
-      heading: f.linie.length === 4 ? 'Jedna firma, cztery linie.' : 'Jedna firma, kilka linii.',
-      lead: 'Każda linia ma swoją stronę i swoich specjalistów — a za wszystkim stoi ta sama firma z Rabki-Zdroju.',
-      data: linesData(file),
-    }),
-    section({
-      variant: 'brands',
-      surface: 'muted',
-      eyebrow: 'Autoryzacje i partnerzy',
-      heading: 'Marki, które sprzedajemy, wdrażamy i serwisujemy',
-      data: {
-        groups: f.aut.map(([k, names]) => ({ k, names })),
-        note: 'Logotypy należą do ich właścicieli.',
-        action: { label: 'Cała oferta', href: '/oferta' },
-      },
-    }),
-    location,
-    section({
-      variant: 'band',
-      eyebrow: 'Porozmawiajmy',
-      heading: 'Opowiedz, jak pracuje Twoja firma.',
-      lead: 'Przyjedziemy albo zadzwonimy. Wycenę dostajesz na piśmie, bez zobowiązań.',
-      data: {
-        actions: [
-          { label: 'Napisz do nas', href: '/kontakt#formularz', primary: true },
-          OFFICE_PHONE,
-        ],
-      },
-    }),
-  ]
-  return { layout, missing: [] }
-}
-
-/** Where „Z czym dzwonisz?” cards lead (data file: `tel`, `kreator`, `form`). */
-const TOPIC_LINKS: Record<string, string> = {
-  tel: OFFICE_PHONE.href,
-  kreator: '/konfigurator',
-  form: '#formularz',
-}
-
-/** `/kontakt` (K4i, K34 §8, K4-FINAL §5, plansza Web-Kontakt). */
-export function contactK4Layout(file: K4FirmaFile): K4Layout {
-  const f = file.firma
-  const layout: PageBlock[] = [
-    section({
-      variant: 'contact-hero',
-      heading: 'Zadzwoń, napisz',
-      headingAccent: 'albo wpadnij do Rabki.',
-      lead: 'Jeden numer do ofert, serwisu, programów i awarii. Odbiera zespół z Rabki-Zdroju, który zna Twoją firmę — w godzinach pracy oddzwaniamy w ciągu 60 minut.',
-      data: {
-        bringNote:
-          'Z kasą do przeglądu możesz przyjechać sam — zadzwoń wcześniej, przygotujemy części i papier.',
-      },
-    }),
-    section({
-      variant: 'cards',
-      eyebrow: 'Z czym dzwonisz?',
-      heading: 'Najczęstsze sprawy — od razu wiesz, co dalej',
-      // TODO(krystian): [SZEF] „przegląd kasy co najmniej raz na 2 lata” — fakt prawny bez źródła.
-      items: f.tematy.map(([, title, text, label, go]) => ({
-        title,
-        text,
-        label,
-        href: TOPIC_LINKS[go] ?? '#formularz',
-      })),
-    }),
-    section({
-      variant: 'contact-form',
-      anchor: 'formularz',
-      eyebrow: 'Napisz do nas',
-      heading: 'Powiedz, czego potrzebujesz.',
-      headingAccent: 'Resztą zajmiemy się my.',
-      lead: 'Oddzwonimy w godzinach pracy z konkretną propozycją. Wycena na piśmie, bez zobowiązań.',
-      data: {
-        topics: f.need,
-        bullets: [
-          'Bez zakładania konta',
-          'Bez newslettera i spamu',
-          'Odpowiada człowiek z Rabki, nie infolinia',
-        ],
-        successText: 'Oddzwaniamy w ciągu 60 minut w godzinach pracy.',
-      },
-    }),
-    faq('Pytania o kontakt', 'Dojazd, godziny, wyceny', f.faq),
-    section({
-      variant: 'lines',
-      surface: 'muted',
-      eyebrow: 'Inne linie PRO-KOM',
-      heading: 'Szukasz monitoringu, strony albo naprawy telefonu?',
-      lead: 'To też my — każda linia ma swoją stronę i swoich specjalistów.',
-      data: linesData(file),
-    }),
-  ]
-  return { layout, missing: [] }
 }
 
 /** The part of `strony-k4.json` the vending page uses. */
@@ -1027,7 +1159,7 @@ export type K4VendingFile = {
 /** The KSeF and relief texts switch on this day (D-K4-7, Europe/Warsaw). */
 export const KSEF_SWITCH_DATE = '2027-01-01'
 
-const VENDING_NOTE = 'Automat vendingowy — dobór'
+const VENDING_NOTE = 'Automat vendingowy: dobór'
 
 /** `/automaty-vendingowe` (K4j, K32 §2, plansza Web-Vending). */
 export function vendingK4Layout(file: K4VendingFile, slugOf: SlugOf): K4Layout {
@@ -1057,8 +1189,8 @@ export function vendingK4Layout(file: K4VendingFile, slugOf: SlugOf): K4Layout {
       variant: 'vending-picker',
       anchor: 'co',
       eyebrow: 'Co chcesz sprzedawać?',
-      heading: 'Zacznij od produktu. Automat dobierzemy.',
-      lead: 'Wybierz, co ma się sprzedawać — pokażemy maszyny, które się do tego nadają.',
+      heading: 'Zacznij od produktu, automat dobierzemy',
+      lead: 'Wybierz, co ma się sprzedawać, a pokażemy maszyny, które się do tego nadają.',
       data: {
         tabs: v.co.flatMap((tab) => {
           const slugs = r.many(tab.p)
@@ -1077,7 +1209,7 @@ export function vendingK4Layout(file: K4VendingFile, slugOf: SlugOf): K4Layout {
     section({
       variant: 'app-mockup',
       eyebrow: 'Oprogramowanie Optivendi',
-      heading: 'Automat w Twoim telefonie.',
+      heading: 'Automat w Twoim telefonie',
       lead: v.soft.lead,
       source: v.soft.src,
       data: {
@@ -1114,7 +1246,7 @@ export function vendingK4Layout(file: K4VendingFile, slugOf: SlugOf): K4Layout {
       data: {
         category: 'automaty-vendingowe',
         tabs: v.grp.map(([t]) => ({ t, subcategory: t })),
-        note: 'bez cen — oferta na piśmie',
+        note: 'bez cen · oferta na piśmie',
       },
     }),
     faq('Pytania', 'Zanim postawisz automat', v.faq),
@@ -1125,8 +1257,8 @@ export function vendingK4Layout(file: K4VendingFile, slugOf: SlugOf): K4Layout {
     section({
       variant: 'band',
       eyebrow: 'Automaty vendingowe',
-      heading: 'Sprzedawaj także wtedy, gdy Cię nie ma.',
-      lead: 'Pokażemy, który automat pasuje do Twojego miejsca, i przygotujemy ofertę razem z Optivendi — jako jej partner.',
+      heading: 'Sprzedawaj także wtedy, gdy Cię nie ma',
+      lead: 'Pokażemy, który automat pasuje do Twojego miejsca, i przygotujemy ofertę razem z Optivendi jako jej partner.',
       data: {
         actions: [
           { label: 'Zapytaj o automat', href: '/kontakt#formularz', primary: true },
@@ -1200,7 +1332,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
       variant: 'ksef-quiz',
       eyebrow: 'Sprawdź w 30 sekund',
       heading: 'Czy KSeF dotyczy mojej firmy?',
-      lead: 'Trzy pytania — i wiesz, co musisz zrobić i do kiedy.',
+      lead: 'Trzy pytania, po których wiesz, co musisz zrobić i do kiedy.',
       data: {
         switchDate: KSEF_SWITCH_DATE,
         questions: [
@@ -1234,13 +1366,13 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
           consumer: {
             t: 'Faktury dla konsumentów nie muszą trafiać do KSeF',
             l: [
-              'Możesz je wysyłać do KSeF dobrowolnie. Pamiętaj, że faktury od dostawców odbierasz już w KSeF — potrzebny jest dostęp do systemu.',
+              'Możesz je wysyłać do KSeF dobrowolnie. Pamiętaj, że faktury od dostawców odbierasz już w KSeF, więc potrzebny jest dostęp do systemu.',
             ],
           },
           now: {
             t: 'Już teraz wystawiasz faktury w KSeF',
             l: [
-              'Obowiązek dla Twojej firmy działa od 1 kwietnia 2026 r. Sprawdź program, uprawnienia i procedurę na wypadek awarii — od 1 stycznia 2027 r. za błędy grożą kary.',
+              'Obowiązek dla Twojej firmy działa od 1 kwietnia 2026 r. Sprawdź program, uprawnienia i procedurę na wypadek awarii. Od 1 stycznia 2027 r. za błędy grożą kary.',
             ],
           },
           soon: {
@@ -1257,7 +1389,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
             ],
           },
           registerNote:
-            'Faktury z kasy fiskalnej do końca 2026 r. mogą być poza KSeF. Od 2027 r. faktura dla firmy do paragonu z kasy online trafia do KSeF — program sprzedaży musi to obsłużyć.',
+            'Faktury z kasy fiskalnej do końca 2026 r. mogą być poza KSeF. Od 2027 r. faktura dla firmy do paragonu z kasy online trafia do KSeF, a program sprzedaży musi to obsłużyć.',
         },
       },
     }),
@@ -1281,7 +1413,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
           },
           {
             t: 'Certyfikat KSeF',
-            d: 'Certyfikat jest potrzebny w trybie offline — do drugiego kodu QR na fakturze.',
+            d: 'Certyfikat jest potrzebny w trybie offline, do drugiego kodu QR na fakturze.',
             w: 'tryb offline i awaria',
           },
           {
@@ -1291,7 +1423,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
           },
           {
             t: 'Procedura na awarię',
-            d: 'Offline24 — dosłanie do następnego dnia roboczego, awaria KSeF — w ciągu 7 dni roboczych. Ustal, kto to robi.',
+            d: 'Offline24: dosłanie do następnego dnia roboczego; awaria KSeF: w ciągu 7 dni roboczych. Ustal, kto to robi.',
             w: 'kto, kiedy, jak',
           },
           {
@@ -1313,17 +1445,26 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
             { v: 'do 100%', k: 'kwoty VAT wykazanej na fakturze' },
             { v: 'do 18,7%', k: 'kwoty brutto, gdy faktura jest bez VAT' },
           ],
-          text: 'Kary przewiduje art. 106ni ustawy o VAT — m.in. za wystawienie faktury poza KSeF albo za niedosłanie w terminie faktury z trybu offline.',
+          text: 'Kary przewiduje art. 106ni ustawy o VAT, m.in. za wystawienie faktury poza KSeF albo za niedosłanie w terminie faktury z trybu offline.',
           before: 'W 2026 r. obowiązuje okres przejściowy bez tych kar.',
           after: 'Okres przejściowy bez kar skończył się 31 grudnia 2026 r.',
         },
+        ...(ask
+          ? {
+              ask: {
+                slug: ask,
+                label: 'Przygotujcie moją firmę do KSeF',
+                note: 'Przygotowanie firmy do KSeF',
+              },
+            }
+          : {}),
         help: {
           eyebrow: 'Jak pomagamy',
           heading: 'Od programu po pierwszą fakturę',
           items: [
             {
               t: 'Programy InsERT z KSeF',
-              d: 'Subiekt, Rachmistrz i Rewizor — wybór, wdrożenie i szkolenie (autoryzowany partner).',
+              d: 'Subiekt, Rachmistrz i Rewizor: wybór, wdrożenie i szkolenie (autoryzowany partner).',
             },
             {
               t: 'Uprawnienia i certyfikat',
@@ -1331,11 +1472,11 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
             },
             {
               t: 'Kasy i POS',
-              d: 'Kasy online Posnet i Elzab, GoPOS — żeby faktury do paragonów szły tak, jak wymagają przepisy.',
+              d: 'Kasy online Posnet i Elzab oraz GoPOS, żeby faktury do paragonów szły tak, jak wymagają przepisy.',
             },
             {
               t: 'Podpis kwalifikowany',
-              d: 'EuroCert — podpis lub pieczęć do e-deklaracji i dokumentów.',
+              d: 'EuroCert: podpis lub pieczęć do e-deklaracji i dokumentów.',
             },
           ],
           products: r.many(['ksef', 'nexo', 'euro']),
@@ -1354,15 +1495,15 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
       },
       {
         q: 'Czy faktury dla konsumentów też muszą być w KSeF?',
-        a: 'Nie muszą — można je wysyłać do KSeF dobrowolnie.',
+        a: 'Nie muszą. Można je wysyłać do KSeF dobrowolnie.',
       },
       {
         q: 'Co, jeśli KSeF nie działa?',
-        a: 'Fakturę wystawiasz w trybie offline lub awaryjnym i dosyłasz: w trybie offline24 do następnego dnia roboczego, przy awarii KSeF — w ciągu 7 dni roboczych od jej zakończenia.',
+        a: 'Fakturę wystawiasz w trybie offline lub awaryjnym i dosyłasz: w trybie offline24 do następnego dnia roboczego, przy awarii KSeF w ciągu 7 dni roboczych od jej zakończenia.',
       },
       {
         q: 'Czy pomożecie, jeśli mamy inny program niż InsERT?',
-        a: 'Tak — sprawdzimy, czy Twój program obsługuje KSeF, i pomożemy z uprawnieniami. Jeśli program nie daje rady, zaproponujemy zmianę.',
+        a: 'Tak. Sprawdzimy, czy Twój program obsługuje KSeF, i pomożemy z uprawnieniami. Jeśli program nie daje rady, zaproponujemy zmianę.',
       },
     ]),
     section({
@@ -1387,7 +1528,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
             url: 'https://bnbn.pl/ksef-zpp-apel-kary-od-stycznia-2027/',
           },
         ],
-        note: 'Stan na 28.10.2026. To informacja ogólna, nie porada podatkowa — szczegóły potwierdź z księgową.',
+        note: 'Stan na 28.10.2026. To informacja ogólna, nie porada podatkowa. Szczegóły potwierdź z księgową.',
       },
     }),
   )
@@ -1397,7 +1538,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
         variant: 'band',
         eyebrow: 'KSeF z PRO-KOM',
         heading: 'Zdążmy przed 1 stycznia.',
-        lead: 'Sprawdzimy program, nadamy uprawnienia, przygotujemy certyfikat i przetestujemy pierwsze faktury — u Ciebie w firmie albo zdalnie.',
+        lead: 'Sprawdzimy program, nadamy uprawnienia, przygotujemy certyfikat i przetestujemy pierwsze faktury u Ciebie w firmie albo zdalnie.',
         data: {
           after: { date: KSEF_SWITCH_DATE, heading: 'Sprawdźmy Twój KSeF.' },
           actions: [
@@ -1423,9 +1564,9 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
   const layout: PageBlock[] = [
     section({
       variant: 'ulga-hero',
-      heading: 'Ulga na kasę fiskalną.',
-      headingAccent: 'Do 700 zł zwrotu za każdą kasę.',
-      lead: 'Jeśli zaczynasz ewidencję sprzedaży na kasie online, odliczysz 90% ceny netto każdej kasy zgłoszonej na start — maksymalnie 700 zł na kasę. Ulgę rozlicza Twoja księgowa, a my dbamy o to, żeby kasa była zafiskalizowana i gotowa w terminie.',
+      heading: 'Ulga na kasę fiskalną:',
+      headingAccent: 'do 700 zł zwrotu za każdą kasę',
+      lead: 'Jeśli zaczynasz ewidencję sprzedaży na kasie online, odliczysz 90% ceny netto każdej kasy zgłoszonej na start, maksymalnie 700 zł na kasę. Ulgę rozlicza Twoja księgowa, a my dbamy o to, żeby kasa była zafiskalizowana i gotowa w terminie.',
       data: {
         trail: [{ name: 'Kasy fiskalne', href: '/oferta/kasy-fiskalne' }],
         pill: 'Nowa firma · pierwsza kasa fiskalna',
@@ -1436,7 +1577,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
           {
             k: 'Kto rozlicza',
             v: 'Księgowa',
-            d: 'Czynny podatnik VAT — w JPK_V7; zwolniony z VAT — wniosek do urzędu skarbowego',
+            d: 'Czynny podatnik VAT: w JPK_V7; zwolniony z VAT: wniosek do urzędu skarbowego',
           },
         ],
         actions: [{ label: 'Zobacz kasy fiskalne', href: '/oferta/kasy-fiskalne' }],
@@ -1452,7 +1593,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
           items: [
             'Zaczynasz ewidencję sprzedaży na kasie online w obowiązującym terminie.',
             'Zaczynasz ewidencję dobrowolnie, a firma wcześniej nie używała kasy rejestrującej.',
-            'Każda kasa zgłoszona w dniu rozpoczęcia ewidencji — ulga na każdą z nich.',
+            'Każda kasa zgłoszona w dniu rozpoczęcia ewidencji. Ulga przysługuje na każdą z nich.',
           ],
         },
         no: {
@@ -1474,7 +1615,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
         {
           title: 'Kupujesz kasę online',
           label: 'Ty',
-          text: 'Na fakturę — i płacisz całą kwotę. Dobieramy model do Twojej sprzedaży.',
+          text: 'Na fakturę, płacisz całą kwotę. Dobieramy model do Twojej sprzedaży.',
         },
         {
           title: 'Fiskalizacja i zgłoszenie',
@@ -1489,7 +1630,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
         {
           title: 'Rozliczenie ulgi',
           label: 'Twoja księgowa',
-          text: 'Czynny podatnik VAT — w pliku JPK_V7. Zwolniony z VAT — wniosek do urzędu skarbowego o zwrot na konto.',
+          text: 'Czynny podatnik VAT rozlicza ulgę w pliku JPK_V7. Zwolniony z VAT składa wniosek do urzędu skarbowego o zwrot na konto.',
         },
       ],
     }),
@@ -1521,7 +1662,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
           }),
         ]
       : []),
-    faq('Pytania', 'Ulga na kasę — pytania', [
+    faq('Pytania', 'Pytania o ulgę na kasę', [
       {
         q: 'Ile wynosi ulga na kasę fiskalną?',
         a: '90% ceny netto kasy, maksymalnie do 700 zł na każdą kasę zgłoszoną w dniu rozpoczęcia ewidencji. Ulgę rozlicza Twoja księgowa.',
@@ -1560,7 +1701,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
             url: 'https://www.infakt.pl/blog/zwrot-ulgi-na-kase-fiskalna-2/',
           },
         ],
-        note: 'Stan na 28.10.2026. To informacja ogólna, nie porada podatkowa — ulgę rozlicza Twoja księgowa.',
+        note: 'Stan na 28.10.2026. To informacja ogólna, nie porada podatkowa. Ulgę rozlicza Twoja księgowa.',
       },
     }),
     section({

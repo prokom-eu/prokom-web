@@ -9,7 +9,8 @@ import { pagesTag } from '../pages/tags'
 import { buildBrandView, type BrandView } from './brand'
 import { buildBundleView, type BundleView } from './bundle'
 import type { BrandsPageInput } from './brandsPage'
-import { brandLogo, buildCatalogIndex, type CatalogIndex } from './catalogIndex'
+import { brandLogo } from './brandLogo'
+import { buildCatalogIndex, type CatalogIndex } from './catalogIndex'
 import { buildCategoryView, type CategoryView } from './category'
 import { planParams, type FloorPlanRecord, type PlanProductDetails } from './floorPlan'
 import { buildIndustryView, type IndustryView } from './industry'
@@ -51,6 +52,7 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
             select: {
               slug: true,
               name: true,
+              shortName: true,
               kind: true,
               brand: true,
               categories: true,
@@ -72,6 +74,9 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
               featured: true,
               featuredOrder: true,
               featuredGroup: true,
+              wheelImage: true,
+              wheelName: true,
+              wheelColor: true,
             },
             overrideAccess: true,
           }),
@@ -81,6 +86,13 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
             limit: MAX_RECORDS,
             sort: 'order',
             ...read,
+            // 1: the mega menu thumbnail comes populated (`menuImage`, checked by `publicImage`);
+            // of the other relations only what the index reads.
+            depth: 1,
+            populate: {
+              'catalog-groups': { slug: true },
+              products: { slug: true, tenant: true },
+            },
           }),
           payload.find({
             collection: 'catalog-groups',
@@ -110,7 +122,9 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
           payload.find({ collection: 'biznes-settings', where: inTenant, limit: 1, ...read }),
           payload.find({
             collection: 'bundles',
-            where: inTenant,
+            // „Gotowe” only: a bundle still „Do sprawdzenia” is never linked — not in the search
+            // nor in the mega menu count (BIZ-3 §9.2).
+            where: { and: [inTenant, { contentStatus: { equals: 'ready' } }] },
             limit: MAX_RECORDS,
             sort: 'order',
             select: { slug: true, name: true, items: { product: true, mandatory: true } },
@@ -147,7 +161,7 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
         })),
       })
     },
-    ['catalog-index-k4d', String(tenantId)],
+    ['catalog-index-k4f', String(tenantId)],
     { tags: [catalogTag(tenantId), pagesTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )(),
 )
@@ -347,6 +361,8 @@ export const getBundles = (tenantId: number): Promise<BundleView[]> =>
           related: true,
           industries: true,
           contentStatus: true,
+          // Name, status and official source of a pair only — its notes stay in the panel.
+          compatChecks: { pair: true, status: true, url: true },
         },
         overrideAccess: true,
       })
@@ -435,6 +451,33 @@ export const getFloorPlans = (
       return { records, details }
     },
     ['floor-plans', String(tenantId)],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Slugs of `BiznesSettings.bundles.home` in the panel's order — bundles of this tenant only (the
+ * relation is checked again here). The plan on the home page picks its „Gotowy zestaw” from them.
+ */
+export const getHomeBundleSlugs = (tenantId: number): Promise<string[]> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'biznes-settings',
+        where: { tenant: { equals: tenantId } },
+        limit: 1,
+        depth: 1,
+        populate: { bundles: { slug: true, tenant: true } },
+        select: { bundles: true },
+        overrideAccess: true,
+      })
+      return (docs[0]?.bundles?.home ?? []).flatMap((bundle) =>
+        typeof bundle === 'object' && bundle && tenantIdOf(bundle.tenant) === tenantId
+          ? [bundle.slug]
+          : [],
+      )
+    },
+    ['home-bundles', String(tenantId)],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

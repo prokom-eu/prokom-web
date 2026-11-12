@@ -21,7 +21,8 @@ const categoryHref = (slug: string) => `/oferta/${encodeURIComponent(slug)}`
 
 /**
  * Categories of a department card (board `#s4-dz`): the first six, the rest after „Wszystkie
- * kategorie · N” (in place, „Zwiń kategorie” folds them), then „Cały dział”.
+ * kategorie · N” (in place, „Zwiń kategorie” folds them), then „Cały dział”. The phone card
+ * (board App-Start) has no unfolding: „Cały dział” shows them all.
  */
 export function DepartmentCategories({ groupName, categories, visible, allHref, style }: Props) {
   const [open, setOpen] = useState(false)
@@ -46,7 +47,7 @@ export function DepartmentCategories({ groupName, categories, visible, allHref, 
           ))}
         </ul>
       )}
-      <div className="mt-auto pt-4">
+      <div className="mt-auto pt-4 max-md:pt-3">
         <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border pt-3.5">
           {more ? (
             <button
@@ -54,7 +55,7 @@ export function DepartmentCategories({ groupName, categories, visible, allHref, 
               aria-expanded={open}
               aria-controls={listId}
               onClick={() => setOpen((value) => !value)}
-              className="inline-flex min-h-10 items-center gap-1.5 rounded-lg px-1 text-[13px] font-bold text-ink-2 hover:text-ink"
+              className="inline-flex min-h-10 items-center gap-1.5 rounded-lg px-1 text-[13px] font-bold text-ink-2 hover:text-ink max-md:hidden"
             >
               {open ? 'Zwiń kategorie' : `Wszystkie kategorie · ${categories.length}`}
               <Icon

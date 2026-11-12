@@ -2,17 +2,22 @@ import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { daysUntil } from '@/lib/site/days'
 import type { BzKsefBlock as BzKsefBlockData } from '@/payload-types'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { hasLink, PageLink } from '../../components/PageLink'
+import { BzKsefBand } from './Band'
 import { DayCount } from './DayCount'
 
 /**
  * KSeF with a day counter (spec. §6.6 pkt 4, plansza Insert), `#ksef`: a navy card with the big
  * number of days, what the date means, an optional button and the things to prepare. Once the
- * day has passed the counter goes and the label above becomes the heading.
+ * day has passed the counter goes and the label above becomes the heading. The `band` variant is
+ * the home page band (`Band.tsx`, plan 0611 §7.1 pkt 7).
  */
-export function BzKsefBlock({ block }: { block: BzKsefBlockData }) {
-  const counting = daysUntil(block.date, new Date()) !== null
+export function BzKsefBlock({ block, tenantId }: { block: BzKsefBlockData; tenantId: number }) {
+  if (block.variant === 'band') return <BzKsefBand block={block} tenantId={tenantId} />
+  const date = block.date ?? null
+  const counting = date !== null && daysUntil(date, new Date()) !== null
   return (
     <section id="ksef" aria-labelledby="ksef-h" className="scroll-mt-24 py-6 sm:py-10">
       <Container wide>
@@ -30,17 +35,14 @@ export function BzKsefBlock({ block }: { block: BzKsefBlockData }) {
                 )}
                 <h2 id="ksef-h" className="flex flex-col">
                   <DayCount
-                    date={block.date}
+                    date={date}
                     className="font-display text-[clamp(5rem,10vw,8rem)] leading-[0.9] font-extrabold tracking-[-0.03em] tabular-nums font-stretch-112%"
                   />
                   <span className="mt-2 text-2xl font-bold">{block.dateLabel}</span>
                 </h2>
               </>
             ) : (
-              <h2
-                id="ksef-h"
-                className="font-display text-[clamp(1.8rem,3vw,2.4rem)] leading-tight font-extrabold"
-              >
+              <h2 id="ksef-h" className={BZ_H2}>
                 {block.eyebrow || 'KSeF'}
               </h2>
             )}

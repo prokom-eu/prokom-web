@@ -14,7 +14,7 @@ export type NavSection = { id: string; label: string }
 /**
  * Sticky bar of the product page (K31-ZMIANY §4 pkt 2): only the sections that exist, the one
  * in view underlined, and a mini card with the CTA (its picture only when there is a photo).
- * Below the header on a desktop; on a phone the bottom bar carries the CTA (M1).
+ * Below the header on a desktop; on a phone `StickyAction` carries the CTA (M1′).
  */
 export function ProductSectionNav({
   sections,

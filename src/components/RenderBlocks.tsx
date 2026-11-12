@@ -4,7 +4,7 @@ import { FaqBlock } from '@/blocks/Faq/Component'
 import { HeroBlock } from '@/blocks/Hero/Component'
 import { InquiryFormBlock } from '@/blocks/InquiryForm/Component'
 import { PartnersBlock } from '@/blocks/Partners/Component'
-import { renderableBlocks } from '@/blocks/registry'
+import { INSTALACJE_BLOCK_SLUGS, renderableBlocks } from '@/blocks/registry'
 import { RichTextBlock } from '@/blocks/RichText/Component'
 import { ServiceGridBlock } from '@/blocks/ServiceGrid/Component'
 import { Heading } from '@/components/ui/Heading'
@@ -13,13 +13,20 @@ import type { PublicPage } from '@/lib/pages/data'
 import { HOME_SLUG, pagePath } from '@/lib/pages/slug'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 import { BzContactBlock } from '@/sites/biznes/blocks/BzContact/Component'
+import { BzAboutPageBlock } from '@/sites/biznes/blocks/BzAboutPage/Component'
+import { BzContactPageBlock } from '@/sites/biznes/blocks/BzContactPage/Component'
+import { BzProcurementPageBlock } from '@/sites/biznes/blocks/BzProcurementPage/Component'
+import { BzProcurementBlock } from '@/sites/biznes/blocks/BzProcurement/Component'
 import { BzLocationBlock } from '@/sites/biznes/blocks/BzLocation/Component'
 import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
 import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
 import { BzSectionBlock } from '@/sites/biznes/blocks/BzSection/Component'
+import { SeatsAside } from '@/sites/biznes/blocks/BzSection/firma/SeatsAside'
 import { HERO_VARIANTS, parseSectionData, type SectionVariant } from '@/lib/biznes/pages/sections'
+import { isProcurementPage } from '@/lib/biznes/procurement/schema'
 import { BzKsefBlock } from '@/sites/biznes/blocks/BzKsef/Component'
+import { BzNewsHomeBlock } from '@/sites/biznes/blocks/BzNewsHome/Component'
 import { QuickStart } from '@/sites/biznes/components/home/QuickStart'
 import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
 import { BzOrderFlowBlock } from '@/sites/biznes/blocks/BzOrderFlow/Component'
@@ -28,11 +35,9 @@ import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
 import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
 import { getEnv } from '@/lib/env'
+import { foldedOnPhone } from '@/lib/biznes/pages/phone'
+import { FoldOnPhone } from '@/sites/biznes/components/mobile/FoldOnPhone'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
-import { SwLinesBlock } from '@/sites/software/blocks/SwLines/Component'
-import { SwPageHeroBlock } from '@/sites/software/blocks/SwPageHero/Component'
-import { SwStepsBlock } from '@/sites/software/blocks/SwSteps/Component'
-import { SwTeamBlock } from '@/sites/software/blocks/SwTeam/Component'
 import { SwCallToAction } from '@/sites/software/components/SwCallToAction'
 import { SwPageHero } from '@/sites/software/components/SwPageHero'
 import { SwRichText } from '@/sites/software/components/SwRichText'
@@ -43,35 +48,48 @@ import { InstContactBlock } from '@/sites/instalacje/blocks/InstContact/Componen
 import { InstHomeBlock } from '@/sites/instalacje/blocks/InstHome/Component'
 import { InstPlannerBlock } from '@/sites/instalacje/blocks/InstPlanner/Component'
 import { InstServiceDeskBlock } from '@/sites/instalacje/blocks/InstServiceDesk/Component'
+import { InstOfferBlock } from '@/sites/instalacje/blocks/InstOffer/Component'
+import { InstRealizationsBlock } from '@/sites/instalacje/blocks/InstRealizations/Component'
+import { InstAboutBlock } from '@/sites/instalacje/blocks/InstAbout/Component'
+import { InstGuideBlock } from '@/sites/instalacje/blocks/InstGuide/Component'
 import { InstServiceBlock } from '@/sites/instalacje/blocks/InstService/Component'
+import { BlockStyles as InstalacjeBlockStyles } from '@/sites/instalacje/style/LineStyles'
 import { SwHeroBlock } from '@/sites/software/blocks/SwHero/Component'
 import { SwContactBlock } from '@/sites/software/blocks/SwContact/Component'
 import { SwAuditFormBlock } from '@/sites/software/blocks/SwAuditForm/Component'
-import { SwContactPageBlock } from '@/sites/software/blocks/SwContactPage/Component'
 import { SwHomeSectionBlock } from '@/sites/software/blocks/SwHomeSection/Component'
 import { SwPricingBlock } from '@/sites/software/blocks/SwPricing/Component'
+import { SwSharedPageBlock } from '@/sites/software/blocks/SwSharedPage/Component'
+import { SwLegal } from '@/sites/software/blocks/SwLegal/Component'
 import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
+import { FaqContact } from '@/sites/software/components/v24home/FaqContact'
+import { faqSeatsPair } from '@/lib/biznes/pages/faqSeats'
+import { faqContactPair } from '@/lib/software/faqContact'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
-
-/** The Software privacy policy is a draft until the owner approves it (spec. §6.11, §13 pkt 24). */
-const PRIVACY_SLUG = 'polityka-prywatnosci'
 
 // Blocks that carry the page's H1 when they come first (otherwise the title is the H1).
 const HERO_BLOCKS = new Set([
   'hero',
   'bzHero',
+  'bzContactPage',
+  'bzAboutPage',
+  'bzProcurementPage',
   'swHero',
-  'swContactPage',
   'swPricing',
   'swAuditForm',
-  'swPageHero',
+  'swSharedPage',
+  'swLegal',
   'instService',
   'instHome',
   'instPlanner',
   'instContact',
   'instServiceDesk',
   'instArchitects',
+  'instOffer',
+  'instRealizations',
+  'instAbout',
+  'instGuide',
 ])
 
 /** First block carries the H1: a hero block, or a K4 section of a hero kind (K4hij). */
@@ -82,6 +100,8 @@ function opensWithHero(block: NonNullable<PublicPage['layout']>[number] | undefi
     const variant = block.variant as SectionVariant
     return HERO_VARIANTS.has(variant) && parseSectionData(variant, block.data) !== null
   }
+  // Procurement data that does not fit renders nothing either (BIZ-2).
+  if (block.blockType === 'bzProcurementPage') return isProcurementPage(block.data, block.variant)
   return HERO_BLOCKS.has(block.blockType)
 }
 
@@ -98,6 +118,10 @@ export function RenderBlocks({ page, tenant }: Props) {
   const software = tenant.line === 'software'
   return (
     <>
+      {/* Linked only where an Instalacje block renders, not on the other lines. */}
+      {blocks.some((block) => INSTALACJE_BLOCK_SLUGS.includes(block.blockType)) && (
+        <InstalacjeBlockStyles />
+      )}
       {!opensWithHero(blocks[0]) && (
         <Section className="pb-0 sm:pb-0">
           {/* Biznes subpages open with breadcrumbs, like every other Biznes page (B11b). */}
@@ -121,15 +145,7 @@ export function RenderBlocks({ page, tenant }: Props) {
         switch (block.blockType) {
           case 'hero':
             if (software) {
-              return (
-                <SwPageHero
-                  key={key}
-                  block={block}
-                  isFirst={i === 0}
-                  pageTitle={page.title}
-                  draft={page.slug === PRIVACY_SLUG && getEnv().SITE_ENV !== 'production'}
-                />
-              )
+              return <SwPageHero key={key} block={block} isFirst={i === 0} pageTitle={page.title} />
             }
             return <HeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'richText':
@@ -143,8 +159,34 @@ export function RenderBlocks({ page, tenant }: Props) {
             }
             return <CallToActionBlock key={key} block={block} />
           case 'faq':
-            if (biznes) return <FaqBiznes key={key} block={block} tenantId={tenant.id} />
-            if (software) return <FaqSoftware key={key} block={block} tenantId={tenant.id} />
+            if (biznes) {
+              // Opieka IT: „Ile masz stanowisk?” right after the FAQ is a card in its column.
+              const seats = blocks[i + 1]
+              if (
+                faqSeatsPair(blocks, i) === 'faq' &&
+                seats?.blockType === 'bzSection' &&
+                parseSectionData('seats', seats.data)
+              ) {
+                return (
+                  <FaqBiznes
+                    key={key}
+                    block={block}
+                    tenantId={tenant.id}
+                    aside={<SeatsAside block={seats} tenantId={tenant.id} />}
+                  />
+                )
+              }
+              return <FaqBiznes key={key} block={block} tenantId={tenant.id} />
+            }
+            if (software) {
+              // v24: a FAQ with the contact block right after it is one section (ZMIANY-v24 §4).
+              const contact = blocks[i + 1]
+              // The second check only narrows the type for TypeScript; the pair says the same.
+              if (faqContactPair(blocks, i) === 'faq' && contact?.blockType === 'swContact') {
+                return <FaqContact key={key} faq={block} contact={contact} tenantId={tenant.id} />
+              }
+              return <FaqSoftware key={key} block={block} tenantId={tenant.id} />
+            }
             return <FaqBlock key={key} block={block} />
           case 'contact':
             return <ContactBlock key={key} block={block} tenantId={tenant.id} />
@@ -190,14 +232,35 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzLocation':
             return <BzLocationBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzContactPage':
+            return <BzContactPageBlock key={key} tenantId={tenant.id} />
+          case 'bzAboutPage':
+            return <BzAboutPageBlock key={key} tenantId={tenant.id} />
+          case 'bzProcurementPage':
+            return (
+              <BzProcurementPageBlock
+                key={key}
+                block={block}
+                tenantId={tenant.id}
+                path={pagePath(page.slug)}
+              />
+            )
+          case 'bzProcurement':
+            return <BzProcurementBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzOrderFlow':
             return <BzOrderFlowBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzTimeline':
             return <BzTimelineBlock key={key} block={block} />
           case 'bzKsef':
-            return <BzKsefBlock key={key} block={block} />
-          case 'bzSection':
-            return (
+            return <BzKsefBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzNewsHome':
+            return <BzNewsHomeBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzSection': {
+            // Rendered by the FAQ before it (`SeatsAside`).
+            if (faqSeatsPair(blocks, i) === 'seats' && parseSectionData('seats', block.data)) {
+              return null
+            }
+            const section = (
               <BzSectionBlock
                 key={key}
                 block={block}
@@ -208,11 +271,22 @@ export function RenderBlocks({ page, tenant }: Props) {
                 ]}
               />
             )
+            if (foldedOnPhone(page.slug, block) && block.heading) {
+              return (
+                <FoldOnPhone key={key} title={block.heading} note={block.lead}>
+                  {section}
+                </FoldOnPhone>
+              )
+            }
+            return section
+          }
           case 'swHero':
             return <SwHeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'swHomeSection':
             return <SwHomeSectionBlock key={key} block={block} tenantId={tenant.id} />
           case 'swContact':
+            // Rendered by the FAQ before it (`FaqContact`).
+            if (faqContactPair(blocks, i) === 'contact') return null
             return <SwContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'swAuditForm':
             return (
@@ -220,26 +294,19 @@ export function RenderBlocks({ page, tenant }: Props) {
             )
           case 'swPricing':
             return <SwPricingBlock key={key} block={block} tenantId={tenant.id} isFirst={i === 0} />
-          case 'swContactPage':
+          case 'swSharedPage':
+            return <SwSharedPageBlock key={key} block={block} tenantId={tenant.id} />
+          case 'swLegal':
             return (
-              <SwContactPageBlock key={key} block={block} tenantId={tenant.id} isFirst={i === 0} />
-            )
-          case 'swPageHero':
-            return (
-              <SwPageHeroBlock
+              <SwLegal
                 key={key}
                 block={block}
-                tenantId={tenant.id}
                 isFirst={i === 0}
                 pageTitle={page.title}
+                tenantId={tenant.id}
+                draftAllowed={getEnv().SITE_ENV !== 'production'}
               />
             )
-          case 'swSteps':
-            return <SwStepsBlock key={key} block={block} tenantId={tenant.id} />
-          case 'swTeam':
-            return <SwTeamBlock key={key} block={block} tenantId={tenant.id} />
-          case 'swLines':
-            return <SwLinesBlock key={key} block={block} tenantId={tenant.id} />
           case 'instService':
             return <InstServiceBlock key={key} block={block} tenantId={tenant.id} />
           case 'instHome':
@@ -252,6 +319,14 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <InstServiceDeskBlock key={key} block={block} tenantId={tenant.id} />
           case 'instArchitects':
             return <InstArchitectsBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instOffer':
+            return <InstOfferBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instRealizations':
+            return <InstRealizationsBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instAbout':
+            return <InstAboutBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instGuide':
+            return <InstGuideBlock key={key} block={block} tenantId={tenant.id} />
         }
       })}
     </>

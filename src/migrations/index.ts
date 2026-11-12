@@ -70,6 +70,38 @@ import * as migration_20261101_131620_drop_bloki_b9 from './20261101_131620_drop
 import * as migration_20261101_134030_inst_architects_news_settings from './20261101_134030_inst_architects_news_settings'
 import * as migration_20261101_134538_software_v23_contact_map from './20261101_134538_software_v23_contact_map'
 import * as migration_20261101_145203_k31d_plan from './20261101_145203_k31d_plan'
+import * as migration_20261101_152600_inst_post_categories from './20261101_152600_inst_post_categories'
+import * as migration_20261101_152645_inst_i12_blocks from './20261101_152645_inst_i12_blocks'
+import * as migration_20261101_155018_software_swv6_industry_links from './20261101_155018_software_swv6_industry_links'
+import * as migration_20261101_200251_software_swv8_texts from './20261101_200251_software_swv8_texts'
+import * as migration_20261101_205557_software_swv8_seo from './20261101_205557_software_swv8_seo'
+import * as migration_20261101_212117_software_swv9_copy from './20261101_212117_software_swv9_copy'
+import * as migration_20261101_225103_biznes_owner_quote from './20261101_225103_biznes_owner_quote'
+import * as migration_20261103_220030_biznes_kolo_v3 from './20261103_220030_biznes_kolo_v3'
+import * as migration_20261104_205826_inst_v5_arch_news_image from './20261104_205826_inst_v5_arch_news_image'
+import * as migration_20261105_204450_wsp_dane from './20261105_204450_wsp_dane'
+import * as migration_20261106_011831_swa1_solutions_preview from './20261106_011831_swa1_solutions_preview'
+import * as migration_20261106_020602_swa2_home_sections_v24 from './20261106_020602_swa2_home_sections_v24'
+import * as migration_20261106_021456_swa2_home_tech_pricing from './20261106_021456_swa2_home_tech_pricing'
+import * as migration_20261108_095701_usun_whatsapp from './20261108_095701_usun_whatsapp'
+import * as migration_20261108_105821_swa2_sprzatanie_v23 from './20261108_105821_swa2_sprzatanie_v23'
+import * as migration_20261108_122225_swa3_kreator_v3 from './20261108_122225_swa3_kreator_v3'
+import * as migration_20261108_132223_biznes_kategoria_miniatura from './20261108_132223_biznes_kategoria_miniatura'
+import * as migration_20261108_144103_swa4_cennik_v24 from './20261108_144103_swa4_cennik_v24'
+import * as migration_20261108_144351_swa4_kategorie_wpisow from './20261108_144351_swa4_kategorie_wpisow'
+import * as migration_20261108_155104_biznes_kontakt_o_firmie_bloki from './20261108_155104_biznes_kontakt_o_firmie_bloki'
+import * as migration_20261108_164054_swa5_firma_kontakt from './20261108_164054_swa5_firma_kontakt'
+import * as migration_20261108_173428_biznes_zaopatrzenie_strona from './20261108_173428_biznes_zaopatrzenie_strona'
+import * as migration_20261108_174411_swa6_strony_prawne from './20261108_174411_swa6_strony_prawne'
+import * as migration_20261108_190544_biznes_glowna_zaopatrzenie from './20261108_190544_biznes_glowna_zaopatrzenie'
+import * as migration_20261108_193425_biznes_zaopatrzenie_linki from './20261108_193425_biznes_zaopatrzenie_linki'
+import * as migration_20261108_200552_biznes_glowna_zestawy from './20261108_200552_biznes_glowna_zestawy'
+import * as migration_20261108_204810_biznes_glowna_ksef_aktualnosci from './20261108_204810_biznes_glowna_ksef_aktualnosci'
+import * as migration_20261108_225143_inst_poradnik_kategorie from './20261108_225143_inst_poradnik_kategorie'
+import * as migration_20261108_230919_biznes_zestawy_zrodla from './20261108_230919_biznes_zestawy_zrodla'
+import * as migration_20261109_193038_swa10_em from './20261109_193038_swa10_em'
+import * as migration_20261110_213130_biznes_sekcja_zestawy from './20261110_213130_biznes_sekcja_zestawy'
+import * as migration_20261110_220524_biznes_sekcja_przeglad_it from './20261110_220524_biznes_sekcja_przeglad_it'
 
 export const migrations = [
   {
@@ -431,5 +463,165 @@ export const migrations = [
     up: migration_20261101_145203_k31d_plan.up,
     down: migration_20261101_145203_k31d_plan.down,
     name: '20261101_145203_k31d_plan',
+  },
+  {
+    up: migration_20261101_152600_inst_post_categories.up,
+    down: migration_20261101_152600_inst_post_categories.down,
+    name: '20261101_152600_inst_post_categories',
+  },
+  {
+    up: migration_20261101_152645_inst_i12_blocks.up,
+    down: migration_20261101_152645_inst_i12_blocks.down,
+    name: '20261101_152645_inst_i12_blocks',
+  },
+  {
+    up: migration_20261101_155018_software_swv6_industry_links.up,
+    down: migration_20261101_155018_software_swv6_industry_links.down,
+    name: '20261101_155018_software_swv6_industry_links',
+  },
+  {
+    up: migration_20261101_200251_software_swv8_texts.up,
+    down: migration_20261101_200251_software_swv8_texts.down,
+    name: '20261101_200251_software_swv8_texts',
+  },
+  {
+    up: migration_20261101_205557_software_swv8_seo.up,
+    down: migration_20261101_205557_software_swv8_seo.down,
+    name: '20261101_205557_software_swv8_seo',
+  },
+  {
+    up: migration_20261101_212117_software_swv9_copy.up,
+    down: migration_20261101_212117_software_swv9_copy.down,
+    name: '20261101_212117_software_swv9_copy',
+  },
+  {
+    up: migration_20261101_225103_biznes_owner_quote.up,
+    down: migration_20261101_225103_biznes_owner_quote.down,
+    name: '20261101_225103_biznes_owner_quote',
+  },
+  {
+    up: migration_20261103_220030_biznes_kolo_v3.up,
+    down: migration_20261103_220030_biznes_kolo_v3.down,
+    name: '20261103_220030_biznes_kolo_v3',
+  },
+  {
+    up: migration_20261104_205826_inst_v5_arch_news_image.up,
+    down: migration_20261104_205826_inst_v5_arch_news_image.down,
+    name: '20261104_205826_inst_v5_arch_news_image',
+  },
+  {
+    up: migration_20261105_204450_wsp_dane.up,
+    down: migration_20261105_204450_wsp_dane.down,
+    name: '20261105_204450_wsp_dane',
+  },
+  {
+    up: migration_20261106_011831_swa1_solutions_preview.up,
+    down: migration_20261106_011831_swa1_solutions_preview.down,
+    name: '20261106_011831_swa1_solutions_preview',
+  },
+  {
+    up: migration_20261106_020602_swa2_home_sections_v24.up,
+    down: migration_20261106_020602_swa2_home_sections_v24.down,
+    name: '20261106_020602_swa2_home_sections_v24',
+  },
+  {
+    up: migration_20261106_021456_swa2_home_tech_pricing.up,
+    down: migration_20261106_021456_swa2_home_tech_pricing.down,
+    name: '20261106_021456_swa2_home_tech_pricing',
+  },
+  {
+    up: migration_20261108_095701_usun_whatsapp.up,
+    down: migration_20261108_095701_usun_whatsapp.down,
+    name: '20261108_095701_usun_whatsapp',
+  },
+  {
+    up: migration_20261108_105821_swa2_sprzatanie_v23.up,
+    down: migration_20261108_105821_swa2_sprzatanie_v23.down,
+    name: '20261108_105821_swa2_sprzatanie_v23',
+  },
+  {
+    up: migration_20261108_122225_swa3_kreator_v3.up,
+    down: migration_20261108_122225_swa3_kreator_v3.down,
+    name: '20261108_122225_swa3_kreator_v3',
+  },
+  {
+    up: migration_20261108_132223_biznes_kategoria_miniatura.up,
+    down: migration_20261108_132223_biznes_kategoria_miniatura.down,
+    name: '20261108_132223_biznes_kategoria_miniatura',
+  },
+  {
+    up: migration_20261108_144103_swa4_cennik_v24.up,
+    down: migration_20261108_144103_swa4_cennik_v24.down,
+    name: '20261108_144103_swa4_cennik_v24',
+  },
+  {
+    up: migration_20261108_144351_swa4_kategorie_wpisow.up,
+    down: migration_20261108_144351_swa4_kategorie_wpisow.down,
+    name: '20261108_144351_swa4_kategorie_wpisow',
+  },
+  {
+    up: migration_20261108_155104_biznes_kontakt_o_firmie_bloki.up,
+    down: migration_20261108_155104_biznes_kontakt_o_firmie_bloki.down,
+    name: '20261108_155104_biznes_kontakt_o_firmie_bloki',
+  },
+  {
+    up: migration_20261108_164054_swa5_firma_kontakt.up,
+    down: migration_20261108_164054_swa5_firma_kontakt.down,
+    name: '20261108_164054_swa5_firma_kontakt',
+  },
+  {
+    up: migration_20261108_173428_biznes_zaopatrzenie_strona.up,
+    down: migration_20261108_173428_biznes_zaopatrzenie_strona.down,
+    name: '20261108_173428_biznes_zaopatrzenie_strona',
+  },
+  {
+    up: migration_20261108_174411_swa6_strony_prawne.up,
+    down: migration_20261108_174411_swa6_strony_prawne.down,
+    name: '20261108_174411_swa6_strony_prawne',
+  },
+  {
+    up: migration_20261108_190544_biznes_glowna_zaopatrzenie.up,
+    down: migration_20261108_190544_biznes_glowna_zaopatrzenie.down,
+    name: '20261108_190544_biznes_glowna_zaopatrzenie',
+  },
+  {
+    up: migration_20261108_193425_biznes_zaopatrzenie_linki.up,
+    down: migration_20261108_193425_biznes_zaopatrzenie_linki.down,
+    name: '20261108_193425_biznes_zaopatrzenie_linki',
+  },
+  {
+    up: migration_20261108_200552_biznes_glowna_zestawy.up,
+    down: migration_20261108_200552_biznes_glowna_zestawy.down,
+    name: '20261108_200552_biznes_glowna_zestawy',
+  },
+  {
+    up: migration_20261108_204810_biznes_glowna_ksef_aktualnosci.up,
+    down: migration_20261108_204810_biznes_glowna_ksef_aktualnosci.down,
+    name: '20261108_204810_biznes_glowna_ksef_aktualnosci',
+  },
+  {
+    up: migration_20261108_225143_inst_poradnik_kategorie.up,
+    down: migration_20261108_225143_inst_poradnik_kategorie.down,
+    name: '20261108_225143_inst_poradnik_kategorie',
+  },
+  {
+    up: migration_20261108_230919_biznes_zestawy_zrodla.up,
+    down: migration_20261108_230919_biznes_zestawy_zrodla.down,
+    name: '20261108_230919_biznes_zestawy_zrodla',
+  },
+  {
+    up: migration_20261109_193038_swa10_em.up,
+    down: migration_20261109_193038_swa10_em.down,
+    name: '20261109_193038_swa10_em',
+  },
+  {
+    up: migration_20261110_213130_biznes_sekcja_zestawy.up,
+    down: migration_20261110_213130_biznes_sekcja_zestawy.down,
+    name: '20261110_213130_biznes_sekcja_zestawy',
+  },
+  {
+    up: migration_20261110_220524_biznes_sekcja_przeglad_it.up,
+    down: migration_20261110_220524_biznes_sekcja_przeglad_it.down,
+    name: '20261110_220524_biznes_sekcja_przeglad_it',
   },
 ]

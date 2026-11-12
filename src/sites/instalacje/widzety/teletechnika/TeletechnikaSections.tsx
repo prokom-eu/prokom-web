@@ -1,25 +1,29 @@
+import Link from 'next/link'
+
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 
-import { LEGAL_NOTE } from '../../dane/prawo'
 import { teletechnika } from '../../dane/teletechnika'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { ProcessAxis } from '../../sekcje/glowna/ProcessAxis'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { QuoteForm } from './QuoteForm'
-
-import './teletechnika.css'
+import { QuoteForm } from './QuoteFormLazy'
 
 const SECTION = { padding: '0 0 104px' }
 
 /**
  * The Teletechnika sections between the hero and the shared ones
- * (`zrodlo/pages/Teletechnika.body.html`): scope, for whom, the law and the quote form. The page
+ * (`zrodlo/pages/Teletechnika.body.html`): scope, for whom and the quote form (no law: runda v6 §1.1). The page
  * has no warranty, packages or price sections (the prototype's markup). Folded on a phone as in
- * `zrodlo/fold.json` (`zakres`; `faq` by the shared section).
+ * `zrodlo/fold.json` (`zakres`; `faq` by the shared section). Round v5 (RUNDA-V5 §10) adds the
+ * building stages, what you get at handover, the mistakes that stop a handover,
+ * the common parts and how the offer is counted — all folded on a phone. Realizations live on
+ * `/realizacje` only (runda v6 §1.2).
  */
 export function TeletechnikaSections() {
-  const { scope, forWhom, law, quote } = teletechnika
+  const { scope, stages, handover, mistakes, common, pricing } = teletechnika
+  const { forWhom, quote } = teletechnika // the sections the prototype already had
   // Rendered per request (minimum time to fill in, ADR-003).
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
   return (
@@ -41,6 +45,82 @@ export function TeletechnikaSections() {
         </div>
       </InstSection>
 
+      <InstSection
+        id="etapy"
+        className="bnd bnd-tint"
+        fold
+        foldHeight={980}
+        style={{ padding: '96px 0 104px', marginBottom: 104 }}
+      >
+        <div className="wrap">
+          <SectionHead {...stages.head} />
+          <ProcessAxis steps={stages.steps} getLabel={stages.getLabel} />
+        </div>
+      </InstSection>
+
+      <InstSection id="przy-odbiorze" fold style={SECTION}>
+        <div className="wrap">
+          <div className="ri">
+            <SectionHead {...handover.head} />
+            <ul className="ttlist">
+              {handover.items.map((item) => (
+                <li key={item}>
+                  <InstIcon name="check" size={18} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </InstSection>
+
+      <InstSection id="bledy" fold style={SECTION}>
+        <div className="wrap">
+          <SectionHead {...mistakes.head} />
+          <div className="g4">
+            {mistakes.items.map((m) => (
+              <div key={m.title} className="card feat ttmis ri">
+                <span className="ico">
+                  <InstIcon name={m.icon} size={22} />
+                </span>
+                <h3 className="h3">{m.title}</h3>
+                <p>{m.text}</p>
+                <p className="ttavoid">
+                  <span>{mistakes.avoidLabel}</span>
+                  {m.avoid}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </InstSection>
+
+      <InstSection id="czesci-wspolne" fold style={SECTION}>
+        <div className="wrap">
+          <SectionHead {...common.head} />
+          <div className="g4">
+            {common.items.map((c) => (
+              <Link key={c.title} href={c.href} className="card feat ttcom ri">
+                <span className="ico">
+                  <InstIcon name={c.icon} size={22} />
+                </span>
+                <h3 className="h3">
+                  {c.title} <InstIcon name="arrow" size={16} />
+                </h3>
+                <p>{c.text}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </InstSection>
+
+      <InstSection id="jak-liczymy" fold style={SECTION}>
+        <div className="wrap">
+          <SectionHead {...pricing.head} />
+          <ProcessAxis steps={pricing.steps} />
+        </div>
+      </InstSection>
+
       <InstSection id="dla-kogo" style={SECTION}>
         <div className="wrap">
           <SectionHead {...forWhom.head} />
@@ -58,32 +138,6 @@ export function TeletechnikaSections() {
           <div className="note ri" style={{ marginTop: 18 }}>
             <InstIcon name="build" size={20} />
             <span>{forWhom.note}</span>
-          </div>
-        </div>
-      </InstSection>
-
-      <InstSection id="przepisy" style={SECTION}>
-        <div className="wrap">
-          <div className="card dark ri tlaw" data-surface="dark">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <span className="eye tlaweye">{law.eyebrow}</span>
-              <h2 className="h2" style={{ fontSize: 'clamp(28px, 3vw, 42px)' }}>
-                {law.heading}
-              </h2>
-              <p className="lead">{law.lead}</p>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {law.items.map((p) => (
-                <div key={p.title} className="odi">
-                  <InstIcon name="doc" size={20} />
-                  <div>
-                    <b style={{ display: 'block' }}>{p.title}</b>
-                    <span className="tlawtx">{p.text}</span>
-                  </div>
-                </div>
-              ))}
-              <span className="tlawtx">{LEGAL_NOTE}</span>
-            </div>
           </div>
         </div>
       </InstSection>

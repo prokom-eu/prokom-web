@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { setTheme, site } from './helpers'
+import { hydrated, setTheme, site } from './helpers'
 
 // ADR-007 / ADR-013 / ADR-015: every line passes axe (WCAG 2.1 A/AA) in each of its themes, the layout
 // holds at 360 px and the dark theme switch works. Seed pages: `home` and `kontakt` (and the Biznes
@@ -61,8 +61,8 @@ const SITES: {
       '/nie-ma-takiej-strony',
       '/polityka-prywatnosci',
       '/mapa-strony',
+      // `/jedna-firma` is a 301 to `/o-firmie#linie` since SWA5b (software-about).
       '/o-firmie',
-      '/jedna-firma',
       '/aktualnosci',
       '/miejscowosci/rabka-zdroj',
     ],
@@ -72,7 +72,12 @@ const PATHS = ['/', '/kontakt']
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 
 async function expectNoViolations(page: Page) {
-  const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze()
+  // Software mock-ups (`data-mockup`) are decorative pictures of sample firms in their own brand
+  // colours (ADR-015 v24 pkt 4, `aria-hidden`); axe still measures text inside them.
+  const { violations } = await new AxeBuilder({ page })
+    .exclude('[data-mockup]')
+    .withTags(WCAG)
+    .analyze()
   // Rule ids and targets only, so a failure reads well in the CI log.
   expect(violations.map((v) => ({ rule: v.id, targets: v.nodes.map((n) => n.target) }))).toEqual([])
 }
@@ -128,17 +133,28 @@ test.describe('phone width (360 px)', () => {
 test.describe('dark theme switch', () => {
   for (const { host } of SITES.filter(({ dark, themeSwitch = true }) => dark && themeSwitch)) {
     test(`toggles, is announced and survives a reload (${host})`, async ({ page }) => {
+      // A stored light choice, written once: Software starts dark without one (ADR-015 v24).
+      // Not `setTheme`: its init script would write „light” again on the reload below.
       await page.emulateMedia({ colorScheme: 'light' })
       await page.goto(site(host))
+      await page.evaluate(() => localStorage.setItem('pk-theme', 'light'))
+      await page.reload()
       const toggle = page.getByRole('button', { name: 'Tryb ciemny' })
       await expect(toggle).toHaveAttribute('aria-pressed', 'false')
 
-      await toggle.click()
-      await expect(toggle).toHaveAttribute('aria-pressed', 'true')
+      // Clicked again only while still off: right after hydration the stored choice is read and
+      // could undo a click that came first (flaky in CI on Software).
+      await hydrated(toggle)
+      await expect(async () => {
+        if ((await toggle.getAttribute('aria-pressed')) !== 'true') await toggle.click()
+        await expect(toggle).toHaveAttribute('aria-pressed', 'true', { timeout: 1000 })
+      }).toPass()
       await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
 
       await page.reload()
       await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+      // The button shows the stored choice once hydrated (slow on a busy CI runner).
+      await hydrated(page.getByRole('button', { name: 'Tryb ciemny' }))
       await expect(page.getByRole('button', { name: 'Tryb ciemny' })).toHaveAttribute(
         'aria-pressed',
         'true',
@@ -156,7 +172,8 @@ test.describe('main navigation', () => {
       if (/hydrat/i.test(message.text())) hydrationErrors.push(message.text())
     })
     await page.goto(site('biznes.localhost', '/kontakt'))
-    const nav = page.getByRole('navigation', { name: 'Główna' })
+    // The shared header capsule (D3-B): „Menu główne”.
+    const nav = page.getByRole('navigation', { name: 'Menu główne' })
     await expect(nav.getByRole('link', { name: 'Kontakt' })).toHaveAttribute('aria-current', 'page')
     await page.waitForLoadState('networkidle')
     expect(hydrationErrors).toEqual([])

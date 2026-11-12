@@ -18,7 +18,7 @@ const HELP: [RegExp, string][] = [
   ],
   [
     /^procesor/,
-    'Od procesora zależy szybkość pracy. Do biura i programów sprzedażowych wystarczy podstawowy, do grafiki, CAD i wielu programów naraz — mocniejszy.',
+    'Od procesora zależy szybkość pracy. Do biura i programów sprzedażowych wystarczy podstawowy, do grafiki, CAD i wielu programów naraz mocniejszy.',
   ],
   [
     /^pamięć|^ram\b/,
@@ -38,21 +38,21 @@ const HELP: [RegExp, string][] = [
   ],
   [
     /^gwarancja/,
-    '„Na miejscu” (on-site) — serwisant naprawia u Ciebie; „kurier” — sprzęt jedzie do serwisu i wraca.',
+    '„Na miejscu” (on-site): serwisant naprawia u Ciebie; „kurier”: sprzęt jedzie do serwisu i wraca.',
   ],
   [
     /przekątn|^rozmiar/,
-    'Większy ekran jest wygodniejszy, mniejszy — lżejszy i zajmuje mniej miejsca.',
+    'Większy ekran jest wygodniejszy, a mniejszy lżejszy i zajmuje mniej miejsca.',
   ],
   [
     /licencj|abonament|pakiet|^plan/,
-    'Zakres programu lub usługi. Nie wiesz, który wybrać — zostaw „Doradźcie”.',
+    'Zakres programu lub usługi. Nie wiesz, który wybrać, zostaw „Doradźcie”.',
   ],
   [/stanowisk|użytkownik/, 'Ile osób lub komputerów będzie pracować jednocześnie.'],
   [/wwan|^modem/, 'Modem LTE/5G daje internet z karty SIM, bez Wi-Fi.'],
   [
     /montaż|^podstawa|uchwyt/,
-    'Jak urządzenie będzie stało lub wisiało — pomożemy dobrać przy wizycie.',
+    'Jak urządzenie będzie stało lub wisiało, pomożemy dobrać przy wizycie.',
   ],
 ]
 

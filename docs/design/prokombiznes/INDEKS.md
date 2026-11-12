@@ -1,5 +1,7 @@
 # prokombiznes.pl — indeks materiałów dla Claude Code
 
+> **Od 08.11.2026 — paczka 0611 (decyzje Krystiana 05–06.11, D1–D18).** Plan i źródło prawdy: `docs/zadania/prokombiznes-0611.md` (sesje F, BIZ-1, BIZ-2, BIZ-3). Materiały w `0611/`: `ZAOPATRZENIE.md` (dwie nowe podstrony i sekcja na głównej), `AUDYT-GLOWNA-0611.md`, `AUDYT-PODSTRONY-0611.md`, `ELEMENTY-WSPOLNE-BIZNES.md`, prototypy `prototyp-glowna.html` (główna, O firmie, Kontakt, kapsuła, mega menu, szyna, Ctrl K, stopka) i `prototyp-zaopatrzenie.html` (AGD, IT, wpis na głównej); packshoty w `seed/prokombiznes/zaopatrzenie/media/`. **Dla strony głównej, Zaopatrzenia i elementów wspólnych paczka 0611 ma pierwszeństwo przed K4 v150** (K4-FINAL, K36, MOBILE-APLIKACJA, PROMPTY-PO-AUDYCIE) — co odwraca, mówi ADR-017 „Rozstrzygnięcia 06.11”.
+
 > **Od 30.10.2026 — K4 (wersja finalna, wizualizacja v150).** Czytaj najpierw `K4-FINAL.md` (specyfikacja zbiorcza) i `PRZEKAZANIE-K4.md` (sesje i prompty); Krystian — `START-K4.md`.
 > **Kolejność ważności od K4:** `K4-FINAL.md` → decyzje repo (ADR-017, ADR-012 „Rozstrzygnięcia”) → plansze `k4/boards/` → dane `seed/prokombiznes/k4/` → `k4/zmiany/K36…K32-ZMIANY.md` → `MOBILE-APLIKACJA.md` → `K31-ZMIANY.md` → `K3-KATALOG.md` → `ZMIANY-v20.md` → `docs/strony/prokombiznes.md`.
 >
@@ -11,6 +13,10 @@
 > | `k4/zmiany/` | opisy rund K3.2–K3.6 (szczegóły widoków) |
 > | `k4/audyty/` | audyty wersji finalnej — lista kontrolna odbioru |
 > | `seed/prokombiznes/k4/` | katalog 422 kart, kategorie, marki, salony, strony, listy, plany, zestawy, konfigurator, zdjęcia nowych kart |
+>
+> **03.11 — poprawki po przeglądzie Krystiana:** koło działów v3 (`kolo/KOLO-HERO.md` + `kolo/prototyp.html`), scena i lokale GoPOS, „O firmie”, kolorowe loga marek (`poprawki-0311/POPRAWKI-0311.md`, `sekcje.html`); sesja i prompt — `poprawki-0311/PRZEKAZANIE-0311.md`. Wygrywają z K4-FINAL i R2 w tych miejscach.
+>
+> **Elementy wspólne linii (01.11, ADR-022):** pasek marki, stopka, dolny pasek, Kontakt i O firmie — `docs/design/wspolne/WSPOLNE-ELEMENTY.md` (+ `MAPA-DZIS.md`), plan `docs/zadania/wspolne-elementy.md`; zastępują odpowiednie części K4 (sesje L1-B, L2-B).
 >
 > Poniżej indeks z 25.10 (K3/K3.1) — obowiązuje tam, gdzie K4 nic nie zmienia. Zasada z §5 „bez obietnic czasu” jest nieaktualna: „Oddzwaniamy w ciągu 60 minut w godzinach pracy” potwierdzone przez szefa 27.10.
 

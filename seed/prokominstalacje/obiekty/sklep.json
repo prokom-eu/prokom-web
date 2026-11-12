@@ -69,7 +69,7 @@
   "eye": "Co słyszymy od właścicieli sklepów",
   "h": "Sześć problemów, które kosztują sklep",
   "ha": "najwięcej.",
-  "lead": "Kamery i alarm planujemy pod konkretne ryzyko w Twoim sklepie, a nie według ilości. Najpierw pytamy, co i gdzie ginie."
+  "lead": "Kamery i alarm planujemy pod konkretne ryzyko w Twoim sklepie. Najpierw pytamy, co i gdzie ginie."
  },
  "prob": [
   {
@@ -329,7 +329,7 @@
   ],
   [
    "Czy nagranie z kamery przyda się policji?",
-   "Może się przydać, jeśli twarz jest czytelna, a obraz ma poprawną datę i godzinę. Dlatego kamerę przy wejściu montujemy na wysokości twarzy i synchronizujemy czas rejestratora. Uczymy, jak wyeksportować fragment w kilka minut."
+   "Może się przydać, jeśli twarz jest czytelna, a obraz ma poprawną datę i godzinę. Kamerę przy wejściu montujemy na wysokości twarzy i synchronizujemy czas rejestratora. Uczymy, jak wyeksportować fragment w kilka minut."
   ],
   [
    "Czy ekran w witrynie musi być specjalny?",

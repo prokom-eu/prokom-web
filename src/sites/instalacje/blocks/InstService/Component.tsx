@@ -12,37 +12,41 @@ import { toTelHref } from '@/lib/site/link'
 import type { InstServiceBlock as InstServiceBlockData } from '@/payload-types'
 
 import { navigation } from '../../dane/nawigacja'
+import type { ServiceKey } from '../../dane/types'
 import { CtaBandView } from '../../powloka/CtaBandView'
 import { architekci } from '../../dane/architekci'
 import { Faq } from '../../sekcje/Faq'
-import { GuaranteeSection } from '../../sekcje/GuaranteeSection'
+import { FromGuide } from '../../sekcje/FromGuide'
+import { TrustStrip } from '../../sekcje/TrustStrip'
 import { IlDefs } from '../../sekcje/IlDefs'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { Packages } from '../../sekcje/Packages'
 import { PageHero } from '../../sekcje/PageHero'
 import { PriceFactors } from '../../sekcje/PriceFactors'
 import { Related } from '../../sekcje/Related'
-import { AntennaAim } from '../../widzety/anteny/AntennaAim'
+import { AntennaAim } from '../../widzety/anteny/AntennaAimLazy'
 import { AlarmySections } from '../../widzety/alarmy/AlarmySections'
-import { HouseDemo } from '../../widzety/alarmy/HouseDemo'
+import { HouseDemo } from '../../widzety/alarmy/HouseDemoLazy'
 import { AntenySections } from '../../widzety/anteny/AntenySections'
 import { DostepSections } from '../../widzety/dostep/DostepSections'
-import { LockDemo } from '../../widzety/dostep/DostepWidgets'
+import { LockDemo } from '../../widzety/dostep/DostepWidgetsLazy'
 import { SieciSections } from '../../widzety/sieci/SieciSections'
-import { CoverageMap } from '../../widzety/sieci/SieciWidgets'
-import { BuildingScene } from '../../widzety/teletechnika/BuildingScene'
+import { CoverageMap } from '../../widzety/sieci/SieciWidgetsLazy'
+import { BuildingScene } from '../../widzety/teletechnika/BuildingSceneLazy'
 import { TeletechnikaSections } from '../../widzety/teletechnika/TeletechnikaSections'
 import { teletechnika } from '../../dane/teletechnika'
 import { MonitoringSections } from '../../widzety/monitoring/MonitoringSections'
-import { NvrDemo } from '../../widzety/monitoring/NvrDemo'
+import { NvrDemoLazy } from '../../widzety/monitoring/NvrDemoLazy'
 import { SmartSections, SmartWarrantyNote } from '../../widzety/smart/SmartSections'
-import { SmartPlan } from '../../widzety/smart/SmartWidgets'
+import { SmartPlan } from '../../widzety/smart/SmartWidgetsLazy'
 import { EkranySections } from '../../widzety/ekrany/EkranySections'
-import { ScreenPreview } from '../../widzety/ekrany/EkranyWidgets'
+import { ScreenPreview } from '../../widzety/ekrany/EkranyWidgetsLazy'
 import { LadowarkiSections } from '../../widzety/ladowarki/LadowarkiSections'
-import { ChargerShowcase } from '../../widzety/ladowarki/LadowarkiWidgets'
+import { ChargerShowcase } from '../../widzety/ladowarki/LadowarkiWidgetsLazy'
 import { NaglosnienieSections } from '../../widzety/naglosnienie/NaglosnienieSections'
-import { ZoneMixer } from '../../widzety/naglosnienie/NaglosnienieWidgets'
+import { ZoneMixer } from '../../widzety/naglosnienie/NaglosnienieWidgetsLazy'
+import { salonsNote } from '../../powloka/salons'
+import { PageStyles } from '../../style/LineStyles'
 
 type Props = { block: InstServiceBlockData; tenantId: number }
 
@@ -56,14 +60,15 @@ type ServiceLayout = {
   /** Button of the CTA band instead of the planner (Teletechnika: to the quote form). */
   bandButton?: { label: string; href: string }
   /** Under the warranty section (Smart home: the Ampio warranty note). */
-  afterGuarantee?: ReactNode
+  /** Right under the trust band (Smart home: the Ampio warranty note). */
+  afterTrust?: ReactNode
 }
 type LayoutContext = { planHref: string }
 
 /** Pages built so far (I4, I7–I9); the other services show the shared sections until theirs. */
 const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = {
   kam: ({ planHref }) => ({
-    widget: <NvrDemo />,
+    widget: <NvrDemoLazy />,
     sections: <MonitoringSections planHref={planHref} />,
     folded: ['cena', 'faq'],
   }),
@@ -93,7 +98,7 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     widget: <SmartPlan />,
     sections: <SmartSections planHref={planHref} />,
     folded: ['cena', 'faq'],
-    afterGuarantee: <SmartWarrantyNote />,
+    afterTrust: <SmartWarrantyNote />,
   }),
   snd: () => ({
     widget: <ZoneMixer />,
@@ -138,7 +143,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
   const origin = siteOrigin(host, getEnv().SITE_ENV)
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
-  const salons = (company?.locations ?? []).map((l) => `${l.city}, ${l.street}`).join(' · ')
+  const salons = salonsNote(company?.locations ?? [])
   const path = `/${service.slug}`
   const planHref = `/zaplanuj?usluga=${service.key}`
   const layout = LAYOUTS[service.key]?.({ planHref })
@@ -161,6 +166,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
       data-inst-il=""
       style={{ '--h': service.color || undefined } as CSSProperties}
     >
+      <PageStyles kind={service.key} />
       <IlDefs />
       {origin && (
         <>
@@ -175,8 +181,8 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
           />
           <JsonLd
             data={breadcrumbJsonLd([
-              { name: 'Start', url: `${origin}/` },
-              { name: 'Usługi', url: `${origin}/#uslugi` },
+              { name: 'Strona główna', url: `${origin}/` },
+              { name: 'Usługi', url: `${origin}/uslugi` },
               { name: crumb, url: `${origin}${path}` },
             ])}
           />
@@ -190,13 +196,6 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         widget={layout?.widget}
       />
       {layout?.sections}
-      {layout?.guarantee !== false && (
-        <GuaranteeSection
-          warrantyMonths={settings.warrantyMonths}
-          responseText={settings.responseText}
-        />
-      )}
-      {layout?.afterGuarantee}
       <Packages
         intro={service.packagesIntro}
         packages={service.packages}
@@ -216,6 +215,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         phone={phone}
         fold={folded.has('faq')}
       />
+      <FromGuide tenantId={tenantId} service={service.key as ServiceKey} path={path} />
       <Related
         tenantId={tenantId}
         heading={service.relatedHeading}
@@ -223,6 +223,9 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         objects={service.similarObjects}
         extraLink={architekci.related}
       />
+      {/* Runda v6 §1.3: the trust band right above the CTA band (Teletechnika has none). */}
+      {layout?.guarantee !== false && <TrustStrip warrantyMonths={settings.warrantyMonths} />}
+      {layout?.afterTrust}
       <CtaBandView band={band} phone={phone} salons={salons} titleId="cta-service-title" page />
     </div>
   )

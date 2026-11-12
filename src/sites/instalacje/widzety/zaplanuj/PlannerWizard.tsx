@@ -9,12 +9,14 @@ import {
   PRIVACY_POLICY_LINK_TEXT,
   PRIVACY_POLICY_PATH,
 } from '@/lib/inquiry/consent'
+import { track } from '@/lib/analytics/track'
 import { linkInText, readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import {
   PLAN_SIZES,
   PLAN_STAGES,
   PLAN_VIA,
+  viaIsEmail,
   PLAN_WHEN,
   PLANNER_OBJECTS,
 } from '@/lib/instalacje/plan'
@@ -78,6 +80,7 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
   const [state, setState] = useState<PlannerState>(INITIAL_PLANNER)
   const [error, setError] = useState<{ key: PlannerError | 'form'; text: string } | null>(null)
   const [busy, setBusy] = useState(false)
+  const [dir, setDir] = useState<'next' | 'back'>('next')
   const honeypot = useRef<HTMLInputElement>(null)
   const card = useRef<HTMLFormElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
@@ -100,8 +103,9 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
     if (!moved.current) return
     const box = card.current
     if (box) {
-      const header = document.querySelector('.hdr')
-      const offset = (header ? header.getBoundingClientRect().height : 0) + 12
+      // L1-I: the shared header capsule (sticky; 0 px while it hides on a phone).
+      const header = document.querySelector('[data-site-header]:not([data-hidden])')
+      const offset = (header ? header.getBoundingClientRect().bottom : 0) + 12
       const top = box.getBoundingClientRect().top
       if (top < offset || top > window.innerHeight * 0.4) {
         const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -121,6 +125,7 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
   const change = (part: Partial<PlannerState>) => set({ ...state, ...part })
   const goStep = (step: PlannerStep) => {
     moved.current = true
+    setDir(step < state.step ? 'back' : 'next')
     set({ ...state, step })
   }
   const focusField = (key: string) => {
@@ -151,7 +156,12 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
   async function next() {
     const missing = stepError(state, step)
     if (missing) return showError(missing)
-    if (step < 4) return goStep((step + 1) as PlannerStep)
+    if (step < 4) {
+      // Statistics (ADR-020, SEO §5): the start once, then the step reached — no answers.
+      if (step === 1) track('kreator_start')
+      track('kreator_krok', { krok: step + 1 })
+      return goStep((step + 1) as PlannerStep)
+    }
     setBusy(true)
     try {
       const response = await fetch('/api/inquiry', {
@@ -172,6 +182,7 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
         consent: Z.errors.consent,
       })
       if (outcome.kind === 'sent') {
+        track('kreator_wyslij')
         router.push(sentHref(outcome.number, state.via))
         return
       }
@@ -202,7 +213,8 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
   const navHint = plannerNavHint(state)
 
   return (
-    <div className="zkw">
+    // `data-dir`: a step back slides in from the left (ruch.css §8).
+    <div className="zkw" data-dir={dir}>
       {/* A form: Enter in a field goes to the next step and sends on the last one. The checks
           are ours (`stepError`), not the browser's. */}
       <form
@@ -560,19 +572,21 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
                 <label className="zkfl full">
                   <span>
                     {Z.step4.email}{' '}
-                    <i>{state.via === 2 ? Z.step4.emailRequired : Z.step4.emailOptional}</i>
+                    <i>{viaIsEmail(state.via) ? Z.step4.emailRequired : Z.step4.emailOptional}</i>
                   </span>
                   <input
                     ref={emailField}
                     className={
                       'zkin' +
-                      (state.via === 2 && state.email && !emailOk(state.email) ? ' xa-bad' : '')
+                      (viaIsEmail(state.via) && state.email && !emailOk(state.email)
+                        ? ' xa-bad'
+                        : '')
                     }
                     type="email"
                     placeholder={Z.step4.emailPlaceholder}
                     autoComplete="email"
                     maxLength={254}
-                    required={state.via === 2}
+                    required={viaIsEmail(state.via)}
                     value={state.email}
                     onChange={(e) => change({ email: e.target.value })}
                     {...invalid('email')}

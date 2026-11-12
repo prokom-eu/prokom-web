@@ -11,12 +11,13 @@ import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary, weekHours } from '@/lib/site/hoursSummary'
-import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toTelHref } from '@/lib/site/link'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
+import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { AreaMap } from '../../../components/AreaMap'
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
-import { ContactForm } from '../../../components/forms/ContactForm'
+import { ContactForm } from '../../../components/forms/ContactFormLazy'
 import { LiveHours } from '../../../components/home/LiveHours'
 import {
   BTN_OUTLINE,
@@ -35,20 +36,15 @@ async function contactData(tenantId: number) {
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const phone = settings?.phone ?? null
   const location = company?.locations[0] ?? null
-  // The landline: a company phone other than the line's main number.
-  const landline =
-    company?.phones.find((item) => item.number.replace(/\D/g, '') !== phone?.replace(/\D/g, ''))
-      ?.number ?? null
-  const whatsapp = settings?.biznes?.whatsapp ?? null
+  // The line's second phone; `CompanyData` phones are shared by all lines.
+  const phone2 = settings?.phone2 ?? null
   return {
     company,
     phone,
     tel: phone ? toTelHref(phone) : null,
-    landline,
-    landlineTel: landline ? toTelHref(landline) : null,
+    phone2,
+    phone2Tel: phone2 ? toTelHref(phone2) : null,
     email: settings?.email ?? null,
-    whatsapp: whatsapp ? toWhatsAppHref(whatsapp) : null,
-    whatsappNumber: whatsapp,
     location,
     hours: location?.hours ?? [],
     address: location ? `${location.street}, ${location.postalCode} ${location.city}` : null,
@@ -80,37 +76,40 @@ export async function AboutHero({
     brand: index.brands.find((brand) => brand.slug === item.brand),
   }))
   return (
-    <section aria-labelledby="o-firmie-h" className="bg-surface-2 pt-6 pb-14 sm:pt-8 sm:pb-20">
+    <section
+      aria-labelledby="o-firmie-h"
+      className="bg-surface-2 pt-6 pb-14 max-md:pt-4 max-md:pb-8 min-[768px]:pt-8 min-[768px]:pb-20"
+    >
       <Container wide>
-        <div className="mb-7">
+        <div className="mb-7 max-md:hidden">
           <Breadcrumbs items={crumbs} />
         </div>
-        <div className="grid items-start gap-10 min-[1080px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-          <div className="flex flex-col gap-6 text-ink">
+        <div className="grid items-start gap-10 max-md:gap-5 min-[1080px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+          <div className="flex flex-col gap-6 text-ink max-md:gap-3.5">
             <p
               className={cx(
                 EYEBROW,
-                'inline-flex items-center gap-2 self-start rounded-full bg-card px-3.5 py-2 text-accent-text shadow-[inset_0_0_0_1px_var(--border)]',
+                'inline-flex items-center gap-2 self-start rounded-full bg-card px-3.5 py-2 text-accent-text shadow-[inset_0_0_0_1px_var(--border)] max-md:px-3 max-md:py-1.5 max-md:text-[11px] max-md:tracking-normal max-md:normal-case',
               )}
             >
               <span aria-hidden="true" className="size-2 rounded-full bg-ok" />
               {data.pill}
             </p>
-            <h1
-              id="o-firmie-h"
-              className="font-display text-[clamp(2.2rem,4.2vw,3.8rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-110% text-balance"
-            >
+            <h1 id="o-firmie-h" className={cx(BZ_H1, 'max-md:text-[30px] max-md:leading-[1.05]')}>
               {block.heading || crumbs.at(-1)?.name}{' '}
               {block.headingAccent && (
                 <em className="text-accent-text not-italic">{block.headingAccent}</em>
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[60ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
+              <p
+                className={`${BZ_LEAD} max-w-[60ch] text-pretty text-ink-2 max-md:text-[14.5px] max-md:leading-relaxed`}
+              >
                 {block.lead}
               </p>
             )}
-            <div className="flex flex-wrap gap-3">
+            {/* Phone (App-OFirmie): no hero buttons, the call is in the tab bar and at the end. */}
+            <div className="flex flex-wrap gap-3 max-md:hidden">
               {c.phone && c.tel && (
                 <a href={c.tel} className={BTN_PRIMARY}>
                   Zadzwoń: {c.phone}
@@ -122,20 +121,29 @@ export async function AboutHero({
                 </a>
               ))}
             </div>
-            <dl className="grid grid-cols-2 gap-4 border-t border-border pt-5 min-[640px]:grid-cols-4">
+            <dl className="grid grid-cols-2 gap-4 border-t border-border pt-5 max-md:gap-2 max-md:border-0 max-md:pt-1 min-[640px]:grid-cols-4">
               {data.stats.map((stat) => (
-                <div key={stat.k} className="flex flex-col-reverse gap-1">
-                  <dt className="text-[14px] leading-snug text-ink-2">{stat.k}</dt>
-                  <dd className="font-display text-[clamp(1.6rem,2.6vw,2.2rem)] leading-none font-extrabold">
+                <div
+                  key={stat.k}
+                  className="flex flex-col-reverse gap-1 max-md:min-w-0 max-md:rounded-[16px] max-md:bg-card max-md:p-3 max-md:shadow-[inset_0_0_0_1px_var(--border)]"
+                >
+                  <dt className="text-[14px] leading-snug text-ink-2 max-md:text-xs">{stat.k}</dt>
+                  <dd className="font-display text-[clamp(1.6rem,2.6vw,2.2rem)] leading-none font-extrabold max-md:text-[24px]">
                     {stat.v}
                   </dd>
                 </div>
               ))}
             </dl>
           </div>
-          <div className={cx(CARD, 'flex flex-col gap-5 p-6 text-ink sm:p-7')}>
-            <p className={cx(EYEBROW, 'text-ink-2')}>Dane firmy</p>
-            <dl className="grid gap-x-5 gap-y-2.5 text-[15px] min-[480px]:grid-cols-[110px_1fr]">
+          <div
+            className={cx(
+              CARD,
+              'flex flex-col gap-5 p-6 text-ink max-md:gap-3.5 max-md:p-4 sm:p-7',
+            )}
+          >
+            <p className={cx(EYEBROW, 'text-ink-2 max-md:text-[11px]')}>Dane firmy</p>
+            {/* Phone (App-OFirmie): label and value side by side in small type. */}
+            <dl className="grid gap-x-5 gap-y-2.5 text-[15px] max-md:grid-cols-[72px_minmax(0,1fr)] max-md:gap-x-3 max-md:gap-y-1.5 max-md:text-[13.5px] min-[480px]:grid-cols-[110px_1fr]">
               {c.company?.name && (
                 <>
                   <dt className="text-ink-2">Firma</dt>
@@ -154,20 +162,23 @@ export async function AboutHero({
                   <dd className="font-bold">{c.company.nip}</dd>
                 </>
               )}
-              {(c.phone || c.landline) && (
+              {(c.phone || c.phone2) && (
                 <>
                   <dt className="text-ink-2">Telefon</dt>
                   <dd className="font-bold">
                     {c.phone && c.tel && (
-                      <a href={c.tel} className="hover:underline">
+                      <a href={c.tel} className="inline-flex min-h-10 items-center hover:underline">
                         {c.phone}
                       </a>
                     )}
-                    {c.landline && c.landlineTel && (
+                    {c.phone2 && c.phone2Tel && (
                       <>
                         {' · '}
-                        <a href={c.landlineTel} className="hover:underline">
-                          {c.landline}
+                        <a
+                          href={c.phone2Tel}
+                          className="inline-flex min-h-10 items-center hover:underline"
+                        >
+                          {c.phone2}
                         </a>
                       </>
                     )}
@@ -178,7 +189,10 @@ export async function AboutHero({
                 <>
                   <dt className="text-ink-2">E-mail</dt>
                   <dd className="font-bold">
-                    <a href={`mailto:${c.email}`} className="hover:underline">
+                    <a
+                      href={`mailto:${c.email}`}
+                      className="inline-flex min-h-10 items-center [overflow-wrap:anywhere] hover:underline"
+                    >
                       {c.email}
                     </a>
                   </dd>
@@ -191,11 +205,11 @@ export async function AboutHero({
                 </>
               )}
             </dl>
-            <ul className="grid grid-cols-2 gap-3 min-[640px]:grid-cols-4">
+            <ul className="grid grid-cols-2 gap-3 max-md:grid-cols-4 max-md:gap-1.5 min-[640px]:grid-cols-4">
               {logos.map((item) => (
                 <li
                   key={item.status + (item.brand?.slug ?? '')}
-                  className="flex flex-col items-center gap-2 rounded-2xl bg-surface-2 p-3 text-center"
+                  className="flex flex-col items-center gap-2 rounded-2xl bg-surface-2 p-3 text-center max-md:min-w-0 max-md:gap-1 max-md:rounded-xl max-md:p-1.5"
                 >
                   <span className="flex h-9 items-center">
                     {item.brand?.logo ? (
@@ -211,7 +225,7 @@ export async function AboutHero({
                       <b className="font-extrabold">{item.brand?.name ?? item.name}</b>
                     )}
                   </span>
-                  <small className="text-[12.5px] leading-tight font-bold text-ink-2">
+                  <small className="text-[12.5px] leading-tight font-bold text-ink-2 max-md:text-[9.5px] max-md:break-words">
                     {item.status}
                   </small>
                 </li>
@@ -248,7 +262,8 @@ export function LinesSection({
 }) {
   return (
     <SectionShell block={block}>
-      <ul className="grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
+      {/* Phone (App-OFirmie „Rodzina PRO-KOM”): the lines in one row to swipe. */}
+      <ul className="grid gap-4 max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-3 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none] min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
         {data.lines.map((line) => {
           const card = (
             <>
@@ -262,16 +277,23 @@ export function LinesSection({
                   </em>
                 )}
               </span>
-              <b className="font-display text-[1.15rem] leading-tight font-extrabold">{line.t}</b>
-              <span className="text-[15px] leading-relaxed text-ink-2">{line.d}</span>
-              <small className="text-[13px] text-ink-2">{line.w}</small>
+              <b className="font-display text-[1.15rem] leading-tight font-extrabold max-md:text-[15px]">
+                {line.t}
+              </b>
+              <span className="text-[15px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
+                {line.d}
+              </span>
+              <small className="text-[13px] text-ink-2 max-md:hidden">{line.w}</small>
               <span className="mt-auto pt-2 text-[14px] font-extrabold text-accent-text">
                 {line.u}
               </span>
             </>
           )
           return (
-            <li key={line.n}>
+            <li
+              key={line.n}
+              className="max-md:relative max-md:w-[66%] max-md:shrink-0 max-md:snap-start"
+            >
               {line.here ? (
                 <div
                   className={cx(
@@ -330,13 +352,14 @@ export function BrandsSection({
         {data.groups.map((group) => (
           <div key={group.k} className="flex flex-col gap-3">
             <h3 className="font-extrabold text-ink">{group.k}</h3>
-            <ul className="flex flex-wrap gap-3">
+            {/* Phone (App-OFirmie): small logo tiles, three in a row. */}
+            <ul className="flex flex-wrap gap-3 max-md:grid max-md:grid-cols-3 max-md:gap-2">
               {group.names.map((name) => {
                 const brand = byName.get(name.toLowerCase())
                 return (
                   <li
                     key={name}
-                    className="flex h-16 min-w-[120px] items-center justify-center rounded-2xl bg-card px-4 shadow-[inset_0_0_0_1px_var(--border)]"
+                    className="flex h-16 min-w-[120px] items-center justify-center rounded-2xl bg-card px-4 shadow-[inset_0_0_0_1px_var(--border)] max-md:h-12 max-md:min-w-0 max-md:rounded-xl max-md:px-2"
                   >
                     {brand?.logo ? (
                       <Image
@@ -345,7 +368,7 @@ export function BrandsSection({
                         alt={brand.name}
                         width={brand.logo.width}
                         height={brand.logo.height}
-                        className="h-auto max-h-8 w-auto max-w-[110px] object-contain"
+                        className="h-auto max-h-8 w-auto max-w-[110px] object-contain max-md:max-h-6 max-md:max-w-full"
                       />
                     ) : (
                       <span className="font-extrabold text-ink">{name}</span>
@@ -368,13 +391,12 @@ type Channel = {
   note: string
   cta: string
   href: string
-  icon: 'phone' | 'chat' | 'mail' | 'doc'
-  external?: boolean
+  icon: 'phone' | 'mail' | 'doc'
 }
 
 /**
  * Kontakt hero (K34 §8, plansza Web-Kontakt): live status, H1, the 60-minute promise in the lead,
- * four channels and the landline; on the right the area map, the address and the week of hours
+ * four channels and the second phone; on the right the area map, the address and the week of hours
  * with today marked, the company data. Everything from the panel — one source for every page.
  */
 export async function ContactHero({
@@ -400,15 +422,14 @@ export async function ContactHero({
       icon: 'phone',
     })
   }
-  if (c.whatsapp && c.whatsappNumber) {
+  if (c.phone2 && c.phone2Tel) {
     channels.push({
-      label: 'WhatsApp',
-      value: c.whatsappNumber,
-      note: 'wyślij zdjęcie usterki albo tabliczki znamionowej',
-      cta: 'Napisz',
-      href: c.whatsapp,
-      icon: 'chat',
-      external: true,
+      label: 'Drugi telefon',
+      value: c.phone2,
+      note: 'gdy pierwszy numer jest zajęty',
+      cta: 'Zadzwoń',
+      href: c.phone2Tel,
+      icon: 'phone',
     })
   }
   if (c.email) {
@@ -430,74 +451,118 @@ export async function ContactHero({
     icon: 'doc',
   })
   return (
-    <section aria-labelledby="kontakt-h" className="bg-surface-2 pt-6 pb-14 sm:pt-8 sm:pb-20">
+    <section
+      aria-labelledby="kontakt-h"
+      className="bg-surface-2 pt-6 pb-14 max-md:pt-4 max-md:pb-8 min-[768px]:pt-8 min-[768px]:pb-20"
+    >
       <Container wide>
-        <div className="mb-7">
+        <div className="mb-7 max-md:hidden">
           <Breadcrumbs items={crumbs} />
         </div>
-        <div className="grid items-start gap-10 min-[1080px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-          <div className="flex flex-col gap-6 text-ink">
-            <LiveHours hours={c.hours} className="text-sm text-ink" />
-            <h1
-              id="kontakt-h"
-              className="font-display text-[clamp(2.2rem,4.2vw,3.8rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-110% text-balance"
-            >
+        <div className="grid items-start gap-10 max-md:gap-6 min-[1080px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+          <div className="flex flex-col gap-6 text-ink max-md:gap-3.5">
+            <LiveHours hours={c.hours} className="text-sm text-ink max-md:text-[13px]" />
+            <h1 id="kontakt-h" className={cx(BZ_H1, 'max-md:text-[30px] max-md:leading-[1.05]')}>
               {block.heading || crumbs.at(-1)?.name}{' '}
               {block.headingAccent && (
                 <em className="text-accent-text not-italic">{block.headingAccent}</em>
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[60ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
+              <p
+                className={`${BZ_LEAD} max-w-[60ch] text-pretty text-ink-2 max-md:text-[14.5px] max-md:leading-relaxed`}
+              >
                 {block.lead}
               </p>
             )}
-            <ul className="grid gap-3 min-[640px]:grid-cols-2">
-              {channels.map((channel) => (
-                <li key={channel.label}>
-                  <a
-                    href={channel.href}
-                    {...(channel.external ? { rel: 'noopener', target: '_blank' } : {})}
-                    className={cx(
-                      CARD,
-                      'flex h-full flex-col gap-1 p-5 text-ink hover:shadow-[inset_0_0_0_1.5px_var(--ink)]',
-                    )}
+            {/* Phone (App-Kontakt): the phone card large, the other channels as short rows. With
+                an odd number of cards the phone card takes the whole row (1 + 2), so the grid
+                has no gap. */}
+            <ul className="grid gap-3 max-md:gap-2 min-[640px]:grid-cols-2">
+              {channels.map((channel, i) => {
+                // Board `Web-kontakt`: the phone card in the accent, the action at the top right.
+                const lead = i === 0 && channel.icon === 'phone'
+                return (
+                  <li
+                    key={channel.label}
+                    className={cx(lead && channels.length % 2 === 1 && 'min-[640px]:col-span-2')}
                   >
-                    <span
-                      aria-hidden="true"
-                      className="mb-2 flex size-10 items-center justify-center rounded-xl bg-surface-2 text-accent-text"
+                    <a
+                      href={channel.href}
+                      className={cx(
+                        'flex h-full flex-col gap-1 rounded-[22px] p-5 transition-shadow motion-reduce:transition-none max-md:rounded-[18px] max-md:p-4',
+                        !lead && 'max-md:gap-0 max-md:py-3',
+                        lead
+                          ? 'bg-accent-text text-accent-ink shadow-[0_24px_44px_-26px_var(--accent-text)] hover:shadow-[0_24px_44px_-20px_var(--accent-text)]'
+                          : cx(CARD, 'text-ink hover:shadow-[inset_0_0_0_1.5px_var(--ink)]'),
+                      )}
                     >
-                      <Icon name={channel.icon} className="size-5" />
-                    </span>
-                    <small className="text-[13px] text-ink-2">{channel.label}</small>
-                    <b className="text-[17px] font-extrabold break-words">{channel.value}</b>
-                    <span className="text-[14px] text-ink-2">{channel.note}</span>
-                    <em className="mt-2 text-[14px] font-extrabold text-accent-text not-italic">
-                      {channel.cta} →
-                    </em>
-                    {channel.external && (
-                      <span className="sr-only"> (otwiera się w nowej karcie)</span>
-                    )}
-                  </a>
-                </li>
-              ))}
+                      <span
+                        className={cx(
+                          'mb-3 flex items-start justify-between gap-3 max-md:mb-1.5',
+                          !lead && 'max-md:hidden',
+                        )}
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={cx(
+                            'flex size-10 items-center justify-center rounded-xl',
+                            lead ? 'bg-white/15' : 'bg-surface-2 text-accent-text',
+                          )}
+                        >
+                          <Icon name={channel.icon} className="size-5" />
+                        </span>
+                        <em
+                          className={cx(
+                            'text-[14px] font-extrabold not-italic',
+                            !lead && 'text-accent-text',
+                          )}
+                        >
+                          {channel.cta} →
+                        </em>
+                      </span>
+                      <small
+                        className={cx(
+                          'text-[12px] font-extrabold tracking-[0.08em] uppercase',
+                          lead ? 'text-accent-ink' : 'text-ink-2',
+                        )}
+                      >
+                        {channel.label}
+                      </small>
+                      <b
+                        className={cx(
+                          'text-[19px] leading-tight font-extrabold break-words',
+                          lead ? 'max-md:text-[26px]' : 'max-md:text-base',
+                        )}
+                      >
+                        {channel.value}
+                      </b>
+                      <span
+                        className={cx(
+                          'text-[13.5px]',
+                          lead ? 'text-accent-ink' : 'text-ink-2 max-md:hidden',
+                        )}
+                      >
+                        {channel.note}
+                      </span>
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
-            {c.landline && c.landlineTel && (
-              <a href={c.landlineTel} className="self-start text-[15px] text-ink-2 hover:underline">
-                Telefon stacjonarny: <b className="text-ink">{c.landline}</b>
-              </a>
-            )}
           </div>
-          <div className="flex flex-col gap-5">
+          {/* Board `Web-kontakt`: one card — the dark area map on top, address and hours below. */}
+          <div className="flex flex-col overflow-hidden rounded-[22px] bg-card shadow-[0_30px_60px_-36px_var(--glow),inset_0_0_0_1px_var(--border)]">
             {c.company && (
               <AreaMap
+                variant="dark"
                 label="Dojeżdżamy na całe Podhale i Małopolskę"
                 companyName={c.company.name}
                 street={c.location ? `${c.location.street}, ${c.location.city}` : null}
                 fullAddress={c.address}
               />
             )}
-            <div className={cx(CARD, 'flex flex-col gap-4 p-5 text-ink')}>
+            <div className="flex flex-col gap-4 p-5 text-ink sm:p-6">
               {c.address && (
                 <p className="flex flex-col">
                   <b className="font-extrabold">{c.location?.street}</b>

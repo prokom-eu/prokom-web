@@ -24,14 +24,17 @@ export function OfferThumb({ src, eager = false, className }: Props) {
       />
     )
   }
+  // The frame clips the picture, which grows a little when its card is hovered (SWV7).
   return (
-    <Image
-      src={src}
-      alt=""
-      width={280}
-      height={170}
-      loading={eager ? 'eager' : 'lazy'}
-      className={cx('thumb-dim aspect-[280/170] h-auto w-full rounded-2xl', className)}
-    />
+    <div data-card-media className={cx('overflow-hidden rounded-2xl', className)}>
+      <Image
+        src={src}
+        alt=""
+        width={280}
+        height={170}
+        loading={eager ? 'eager' : 'lazy'}
+        className="thumb-dim aspect-[280/170] h-auto w-full"
+      />
+    </div>
   )
 }

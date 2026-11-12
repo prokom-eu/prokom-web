@@ -376,7 +376,7 @@ export function CatalogFilters({
         </span>
         <p className="font-bold text-ink">Nie wiesz, co wybrać?</p>
         <p className="text-sm leading-snug text-ink-2">
-          Odpowiedz na kilka prostych pytań — pokażemy rozwiązania dobrane do Twojej firmy.
+          Odpowiedz na kilka prostych pytań, a pokażemy rozwiązania dobrane do Twojej firmy.
         </p>
         <Link
           href="/konfigurator"

@@ -3,12 +3,13 @@ import type { CollectionConfig, Field } from 'payload'
 import { adminOnly } from '../lib/auth/access'
 import { tenantImageFilter } from '../lib/media/access'
 import { DEPARTMENTS } from '../lib/site/departments'
-import { isValidNavHref, toWhatsAppHref } from '../lib/site/link'
+import { isValidNavHref } from '../lib/site/link'
 import { isValidTitleTemplate } from '../lib/site/title'
 import { FACT_KEY } from '../lib/software/facts'
 import { validateNavigation } from '../lib/software/navigation'
 import { LINES } from '../lib/tenant/lines'
 import { copyTenantLine, onLine } from '../lib/tenant/copyLine'
+import { sharedLineFields } from '../fields/sharedLineFields'
 import { biznesFooter } from './biznesFooter'
 import { biznesNavigation } from './biznesNavigation'
 
@@ -34,6 +35,167 @@ const text = (name: string, label: string, description?: string): Field => ({
   type: 'textarea',
   ...(description && { admin: { description } }),
 })
+
+/**
+ * „KSeF — pas na głównej” (plan 0611 §7.1 pkt 7): the deadline the home band counts down to and
+ * its texts before and from that day on (K36 §3). No deadline = no band.
+ */
+const ksefGroup: Field = {
+  name: 'ksef',
+  label: 'KSeF — pas na stronie głównej',
+  type: 'group',
+  admin: {
+    description:
+      'Pas z odliczaniem między „Najczęściej wybierane” a planem. Bez terminu pas się nie pokazuje. Tylko fakty ze źródłem (komunikat MF).',
+  },
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'deadline',
+          label: 'Termin',
+          type: 'date',
+          admin: { date: { pickerAppearance: 'dayOnly', displayFormat: 'dd.MM.yyyy' } },
+        },
+        {
+          name: 'href',
+          label: 'Link przycisku',
+          type: 'text',
+          defaultValue: '/ksef',
+          validate: (value: unknown) =>
+            !value || (typeof value === 'string' && isValidNavHref(value))
+              ? true
+              : 'Ścieżka (/ksef), adres https://, mailto: albo tel:.',
+        },
+      ],
+    },
+    {
+      name: 'textBefore',
+      label: 'Nagłówek przed terminem',
+      type: 'text',
+      maxLength: 120,
+      admin: { description: 'Np. „Od 1 stycznia 2027 KSeF obejmie także najmniejsze firmy.”' },
+    },
+    {
+      name: 'textAfter',
+      label: 'Nagłówek od dnia terminu',
+      type: 'text',
+      maxLength: 120,
+      admin: { description: 'Pokazywany od dnia terminu, bez odliczania (K36 §3 „wersja po”).' },
+    },
+  ],
+}
+
+/**
+ * „Zaopatrzenie — linki” (plan 0611 §6.4, ZAOPATRZENIE §10): texts of the hook-ins of the two
+ * procurement pages. An empty field hides its hook-in; so does a page that is not published.
+ */
+const procurementGroup: Field = {
+  name: 'procurement',
+  label: 'Zaopatrzenie — linki',
+  type: 'group',
+  admin: {
+    description:
+      'Odnośniki do stron „AGD i RTV dla firm” i „Dostawy IT dla firm” w reszcie strony. Puste pole = odnośnik niewidoczny.',
+  },
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'categoryBand',
+          label: 'Pas nad siatką kategorii',
+          type: 'text',
+          admin: { placeholder: 'np. Kupujesz 5 sztuk lub więcej?' },
+        },
+        {
+          name: 'categoryBandCta',
+          label: 'Link pasa',
+          type: 'text',
+          admin: { description: 'Puste = tytuł strony „Dostawy IT dla firm”.' },
+        },
+      ],
+    },
+    {
+      name: 'itCategories',
+      label: 'Kategorie z pasem i linkiem na karcie produktu',
+      type: 'text',
+      hasMany: true,
+      admin: { description: 'Adresy kategorii, np. laptopy, komputery, monitory.' },
+    },
+    {
+      name: 'productLink',
+      label: 'Link na karcie produktu (pod „Do zapytania”)',
+      type: 'text',
+      admin: { placeholder: 'np. Potrzebujesz kilku sztuk? Policz stanowiska' },
+    },
+    {
+      name: 'industryTiles',
+      label: 'Kafle na stronach branż',
+      type: 'array',
+      labels: { singular: 'Kafel', plural: 'Kafle' },
+      admin: { initCollapsed: true },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'industry',
+              label: 'Branża (adres)',
+              type: 'text',
+              required: true,
+              admin: { placeholder: 'np. noclegi' },
+            },
+            {
+              name: 'page',
+              label: 'Strona',
+              type: 'select',
+              required: true,
+              options: [
+                { label: 'AGD i RTV dla firm', value: 'agd' },
+                { label: 'Dostawy IT dla firm', value: 'it' },
+              ],
+            },
+          ],
+        },
+        { name: 'title', label: 'Tytuł', type: 'text', required: true, maxLength: 80 },
+        { name: 'text', label: 'Opis', type: 'text', maxLength: 160 },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'scaleTitle',
+          label: 'Konfigurator — karta przy skali „Ponad 10”',
+          type: 'text',
+          admin: { placeholder: 'np. Przy tej skali zrobimy dostawę' },
+        },
+        { name: 'scaleText', label: 'Opis karty', type: 'text', maxLength: 200 },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'searchAgd',
+          label: 'Wyszukiwarka — frazy AGD',
+          type: 'text',
+          hasMany: true,
+          admin: { description: 'Podpowiedź „AGD i RTV dla firm” na górze wyników.' },
+        },
+        {
+          name: 'searchIt',
+          label: 'Wyszukiwarka — frazy IT',
+          type: 'text',
+          hasMany: true,
+          admin: { description: 'Podpowiedź „Dostawy IT dla firm” na górze wyników.' },
+        },
+      ],
+    },
+  ],
+}
 
 /**
  * Data of the Biznes line (ADR-012, rozstrzygnięcie 2). Shown in the panel only for Biznes;
@@ -86,28 +248,13 @@ const biznesGroup: Field = {
       ],
     },
     {
-      type: 'row',
-      fields: [
-        {
-          name: 'whatsapp',
-          label: 'WhatsApp',
-          type: 'text',
-          validate: (value: unknown) =>
-            !value || (typeof value === 'string' && toWhatsAppHref(value) !== null)
-              ? true
-              : 'Numer telefonu, np. +48 889 003 889.',
-          admin: { description: 'Numer z kierunkowym, np. +48 889 003 889.' },
-        },
-        {
-          name: 'trustLine',
-          label: 'Linia zaufania',
-          type: 'text',
-          admin: {
-            description:
-              '[SZEF] np. „Autoryzowany serwis Posnet i Elzab · Autoryzowany partner GoPOS i InsERT” (K4-FINAL §1: pełne brzmienie statusów).',
-          },
-        },
-      ],
+      name: 'trustLine',
+      label: 'Linia zaufania',
+      type: 'text',
+      admin: {
+        description:
+          '[SZEF] np. „Autoryzowany serwis Posnet i Elzab · Autoryzowany partner GoPOS i InsERT” (K4-FINAL §1: pełne brzmienie statusów).',
+      },
     },
     {
       name: 'serviceAreas',
@@ -152,8 +299,20 @@ const biznesGroup: Field = {
           defaultValue: false,
           admin: { description: 'Tylko logo z pisemną zgodą (obrazy bez „Wymaga zgody”).' },
         },
+        {
+          name: 'showOwnerQuote',
+          label: 'Pokaż słowo od właściciela',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            description:
+              'Cytat właściciela na stronie głównej. Włącz dopiero, gdy szef zatwierdzi treść.',
+          },
+        },
       ],
     },
+    ksefGroup,
+    procurementGroup,
     biznesNavigation,
     biznesFooter,
   ],
@@ -303,6 +462,7 @@ export const SiteSettings: CollectionConfig = {
         },
       ],
     },
+    sharedLineFields,
     biznesGroup,
     softwareGroup,
   ],

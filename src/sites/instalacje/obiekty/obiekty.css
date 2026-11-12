@@ -1,5 +1,5 @@
 /*
- * „Dla kogo” pages (I10): the cross-section card, problems, day timeline, law, Podhale band,
+ * „Dla kogo” pages (I10): the cross-section card, problems, day timeline, Podhale band,
  * checklist. Ported from pk.css by narzedzia/przenies-css.mjs (classes of `Seg*.body.html` and
  * `build_seg.py`), colours only from tokens (`--inst-sg-*`, `--inst-il-*`). The prototype's
  * generic `.cone`, `.ring`, `.arc` apply here only as hotspot effects (`.hsfx`).
@@ -309,7 +309,7 @@
       color-mix(in srgb, var(--c) 10%, var(--card)),
       var(--card) 60%
     );
-    animation: inst-fadein 0.35s ease;
+    animation: inst-fadein 0.35s var(--ease-out);
   }
   & .sgno {
     display: grid;
@@ -348,7 +348,11 @@
     padding: 5px 10px;
     border-radius: 999px;
     background: color-mix(in srgb, var(--c, var(--inst-plan-send-to)) 14%, transparent);
-    color: color-mix(in srgb, var(--c, var(--inst-plan-send-to)) 70%, var(--ink));
+    color: color-mix(
+      in srgb,
+      var(--c, var(--inst-plan-send-to)) var(--inst-hue-text-mix),
+      var(--ink)
+    );
   }
   & .sgchip i {
     width: 7px;
@@ -498,7 +502,7 @@
     padding: 32px;
     position: relative;
     overflow: hidden;
-    animation: inst-fadein 0.4s ease;
+    animation: inst-fadein 0.4s var(--ease-out);
   }
   & .sgdc::after {
     content: '';
@@ -552,59 +556,6 @@
     height: 100%;
     background: var(--h, var(--inst-plan-send-to));
     transition: width 0.5s;
-  }
-  & .sglg {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-  }
-  & .sglc {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 24px;
-  }
-  & .sglc p {
-    margin: 0;
-    color: var(--ink-2);
-    font-size: 14.5px;
-    line-height: 1.55;
-  }
-  & .sglt {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-  }
-  & .sglt code {
-    font:
-      700 12px ui-monospace,
-      Menlo,
-      monospace;
-    padding: 4px 8px;
-    border-radius: 8px;
-    background: var(--surface-2);
-    color: var(--ink-soft);
-  }
-  & .sgwho {
-    font-size: 11.5px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 4px 9px;
-    border-radius: 999px;
-  }
-  & .sgwho.o {
-    background: color-mix(in srgb, var(--inst-promo-warm) 18%, transparent);
-    color: var(--warn);
-  }
-  & .sgwho.i {
-    background: var(--accent-soft);
-    color: var(--accent-text);
-  }
-  & .sgwho.r {
-    background: color-mix(in srgb, var(--inst-scene-beam-ok) 18%, transparent);
-    color: var(--ok);
   }
   & .sggw {
     position: relative;
@@ -665,49 +616,6 @@
     color: var(--inst-plan-accent);
     text-decoration: underline;
     margin-top: auto;
-  }
-  & .sgrg {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-  }
-  & .sgrc {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 16px 16px 22px;
-    transition: transform 0.2s;
-  }
-  @media (hover: hover) {
-    & .sgrc:hover {
-      transform: translateY(-3px);
-    }
-  }
-  & .sgrc p {
-    margin: 0;
-    color: var(--ink-2);
-    font-size: 14.5px;
-  }
-  & .sgrph {
-    display: grid;
-    place-items: center;
-    gap: 6px;
-    aspect-ratio: 16/9;
-    border-radius: 16px;
-    margin-bottom: 8px;
-    background: repeating-linear-gradient(
-      45deg,
-      var(--surface-2),
-      var(--surface-2) 10px,
-      var(--surface-3) 10px,
-      var(--surface-3) 20px
-    );
-    color: var(--ink-2);
-  }
-  & .sgrph em {
-    font-style: normal;
-    font-size: 12px;
-    font-weight: 700;
   }
   & .sgck {
     display: grid;
@@ -800,9 +708,7 @@
     color: var(--inst-il-sgscr-fill);
   }
   @media (max-width: 1100px) {
-    & .sgpg,
-    & .sglg,
-    & .sgrg {
+    & .sgpg {
       grid-template-columns: 1fr 1fr;
     }
     & .sggg {
@@ -815,19 +721,32 @@
   }
   @media (max-width: 700px) {
     & .sgpg,
-    & .sglg,
-    & .sgrg,
     & .sggg {
       grid-template-columns: 1fr;
     }
     & .sgdl {
       flex-direction: row;
       overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0 20px;
       margin: 0 -20px;
       padding: 0 20px 6px;
+      scrollbar-width: none;
+      /* Fade at the edges (the padding area), so a cut card reads as „more to the side”. */
+      mask-image: linear-gradient(
+        90deg,
+        transparent,
+        var(--inst-mask) 14px,
+        var(--inst-mask) calc(100% - 14px),
+        transparent
+      );
+    }
+    & .sgdl::-webkit-scrollbar {
+      display: none;
     }
     & .sgdb {
       flex: 0 0 auto;
+      scroll-snap-align: start;
       grid-template-columns: 1fr;
       gap: 2px;
       padding: 12px 14px;
@@ -1231,6 +1150,12 @@
       cursor: pointer;
       scroll-snap-align: start;
     }
+    /* Touch target on a phone (MOBILE-APLIKACJA §10; prototype 40 px). */
+    @media (pointer: coarse), (max-width: 760px) {
+      & .sglgb {
+        min-height: 44px;
+      }
+    }
     & .sglgb span {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1259,17 +1184,6 @@
       min-height: 236px;
       align-items: start;
     }
-  }
-}
-
-@keyframes inst-fadein {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
   }
 }
 
@@ -1360,7 +1274,7 @@
 [data-line='instalacje'] .sginfo {
   & > .sgno,
   & > .sgit {
-    animation: inst-fadein 0.35s ease;
+    animation: inst-fadein 0.35s var(--ease-out);
   }
 }
 
@@ -1439,16 +1353,19 @@
   }
 }
 
-/* Reduced motion (spec §5): hotspot pulses and effects stand still. */
+/* Reduced motion (spec §5): hotspot pulses and effects, the fireplace glow stand still.
+   `!important`: `.hs.on .hsfx.ring` and `.hsfx.cone` out-rank these selectors (report
+   11.11.2026: 18 animations still ran on /dla-kogo/pensjonaty). */
 @media (prefers-reduced-motion: reduce) {
   [data-line='instalacje'] {
     & .hs .hsh,
     & .hs.on .hsfx,
     & .hsfx,
+    & .sgglow,
     & .sginfo,
     & .sginfo > *,
     & .sgdc {
-      animation: none;
+      animation: none !important;
     }
   }
 }
@@ -1464,6 +1381,90 @@
     & .sgdh {
       width: 44px;
       height: 44px;
+    }
+  }
+}
+
+/*
+ * „Doba w …” on a computer (RUNDA-V5 §11): the moments on an axis of hours, nodes fill up to the
+ * current one and the accent line slides there (transform only; no motion with reduced motion).
+ * Below 1101 px the list and the card stay as they were.
+ */
+[data-line='instalacje'] {
+  & .sgdfill {
+    display: none;
+  }
+  @media (min-width: 1101px) {
+    & .sgday {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 26px;
+    }
+    & .sgdl {
+      position: relative;
+      flex-direction: row;
+      gap: 10px;
+      padding-top: 34px;
+    }
+    & .sgdl::before,
+    & .sgdfill {
+      content: '';
+      position: absolute;
+      top: 13px;
+      left: calc(50% / var(--n));
+      width: calc(100% - 100% / var(--n));
+      height: 3px;
+      border-radius: 3px;
+      background: var(--border);
+    }
+    & .sgdfill {
+      display: block;
+      background: var(--h, var(--inst-plan-send-to));
+      transform-origin: left center;
+      transform: scaleX(var(--p));
+    }
+    & .sgdb {
+      flex: 1;
+      min-width: 0;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+      text-align: center;
+      overflow: visible;
+      padding: 12px 10px;
+    }
+    & .sgdb .sgdbar {
+      display: none;
+    }
+    /* The node of the moment on the axis. */
+    & .sgdb::before {
+      content: '';
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      margin-left: -8px;
+      border-radius: 50%;
+      background: var(--card);
+      box-shadow: inset 0 0 0 2px var(--border);
+    }
+    & .sgdb b {
+      overflow-wrap: anywhere;
+    }
+    & .sgdb.past::before,
+    & .sgdb.on::before {
+      background: var(--h, var(--inst-plan-send-to));
+      box-shadow: none;
+    }
+    & .sgdb.on::before {
+      scale: 1.25;
+    }
+  }
+  @media (min-width: 1101px) and (prefers-reduced-motion: no-preference) {
+    & .sgdfill {
+      transition: transform var(--dur-sheet) var(--ease-out);
+    }
+    & .sgdb::before {
+      transition: scale var(--dur-state) var(--ease-out);
     }
   }
 }

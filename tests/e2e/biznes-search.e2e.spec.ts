@@ -1,14 +1,23 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { setTheme, site } from './helpers'
+import { clickUntilVisible, hydrated, setTheme, site } from './helpers'
 
-// B4a: search overlay of the Biznes header (spec. §3.2, §8.2, §9 pkt 2 and 7). Catalog from
-// `pnpm seed`; the cases do not rely on synonyms (BiznesSettings), which other tests replace.
+// Ctrl K of Biznes on the shared search dialog (plan 0611 §8.1 pkt 5; before: B4a overlay).
+// Catalog from `pnpm seed`; the cases do not rely on synonyms (BiznesSettings), which other tests replace.
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 
 const overlay = (page: Page) => page.getByRole('dialog', { name: 'Szukaj w ofercie' })
 const field = (page: Page) => overlay(page).getByRole('searchbox', { name: 'Szukaj w ofercie' })
+
+/**
+ * Types into the search field once it is hydrated: the overlay can show before its field
+ * listens, and a phrase typed then never reaches the search (flaky in CI, 08.11).
+ */
+async function typeIn(page: Page, text: string) {
+  await hydrated(field(page))
+  await field(page).fill(text)
+}
 
 /** "/" works once the header is hydrated: press until the overlay shows. */
 async function openWithSlash(page: Page) {
@@ -24,7 +33,7 @@ test.describe('Biznes search', () => {
     await openWithSlash(page)
     await expect(field(page)).toBeFocused()
 
-    await field(page).fill('kasa fiskalan')
+    await typeIn(page, 'kasa fiskalan')
     const results = overlay(page).getByRole('region', { name: /Produkty i usługi/ })
     await expect(results.getByRole('link').first()).toHaveAttribute('href', /^\/produkt\//)
     await expect(results.getByRole('link', { name: /Posnet Ergo Online/ })).toBeVisible()
@@ -41,54 +50,66 @@ test.describe('Biznes search', () => {
     await expect(overlay(page)).toBeHidden()
   })
 
-  // K33 §2.6: the quick preview steps through the results and closes with the search.
-  test('the quick preview steps with arrows and „Pełna karta” leaves a usable page', async ({
+  // Plan 0611 §8.1 pkt 5: the preview of the focused result next to the list (from 900 px).
+  test('the preview shows the product, adds it to the inquiry and leads to its card', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 900 })
+    await page.goto(site('biznes.localhost'))
+    await page.evaluate(() => localStorage.removeItem('pk-cart'))
+    await openWithSlash(page)
+    await typeIn(page, 'kasa')
+    const results = overlay(page).getByRole('region', { name: /Produkty i usługi/ })
+    const first = results.getByRole('link').first()
+    await expect(first).toHaveAttribute('href', /^\/produkt\//)
+    const name = (await first.locator('.font-bold').first().textContent())!.trim()
+    const preview = overlay(page).getByRole('complementary', { name: `Podgląd: ${name}` })
+    await expect(preview).toBeVisible()
+    await expect(preview.getByRole('link', { name: 'Karta →' })).toHaveAttribute(
+      'href',
+      (await first.getAttribute('href'))!,
+    )
+    // The second result takes the preview when it gets the focus.
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await expect(preview).toBeHidden()
+
+    await page.keyboard.press('ArrowUp')
+    await preview.getByRole('button', { name: /^Do zapytania/ }).click()
+    await expect(preview.getByRole('button', { name: /^W zapytaniu/ })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+
+    // „Karta →” leaves a usable page: nothing invisible stays in the top layer.
+    await preview.getByRole('link', { name: 'Karta →' }).click()
+    await expect(page).toHaveURL(/\/produkt\//)
+    await expect(page.locator('dialog[open]')).toHaveCount(0)
+    await page
+      .getByRole('navigation', { name: 'Menu główne' })
+      .getByRole('button', { name: /^Oferta/ })
+      .click()
+    await expect(page.locator('#oferta-mega')).toBeVisible()
+  })
+
+  test('„tel” brings the contact actions on top, „Pokaż wszystkie” leads to the catalog', async ({
     page,
   }) => {
     await page.goto(site('biznes.localhost'))
     await openWithSlash(page)
-    await field(page).fill('kasa')
-    await overlay(page)
-      .getByRole('button', { name: /^Podgląd: / })
-      .first()
-      .click()
-    // The preview is a dialog inside the search dialog: the inner one (last) is it.
-    const preview = page.locator('dialog[open]').last()
-    await expect(preview).toContainText('1 / ')
-    await page.keyboard.press('ArrowRight')
-    await expect(preview).toContainText('2 / ')
-    await preview.getByRole('link', { name: 'Pełna karta →' }).click()
-    await expect(page).toHaveURL(/\/produkt\//)
-    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-    await expect(page.locator('dialog[open]')).toHaveCount(0)
-    // Nothing invisible in the top layer: the header still takes clicks.
-    await page
-      .getByRole('navigation', { name: 'Główna' })
-      .getByRole('button', { name: 'Oferta' })
-      .click()
-    await expect(page.locator('[id$="-offer"]')).toBeVisible()
-  })
-
-  test('a second click in the preview opens the inquiry drawer', async ({ page }) => {
-    await page.goto(site('biznes.localhost'))
-    await page.evaluate(() => localStorage.removeItem('pk-cart'))
-    await openWithSlash(page)
-    await field(page).fill('kasa')
-    await overlay(page)
-      .getByRole('button', { name: /^Podgląd: / })
-      .first()
-      .click()
-    // The preview is a dialog inside the search dialog: the inner one (last) is it.
-    const preview = page.locator('dialog[open]').last()
-    await preview.getByRole('button', { name: '+ Do zapytania' }).click()
-    await preview.getByRole('button', { name: '✓ W zapytaniu' }).click()
-    await expect(page.getByRole('dialog', { name: /Twoje zapytanie/ })).toBeVisible()
+    await typeIn(page, 'tel')
+    const actions = overlay(page).locator('[data-result]').first()
+    await expect(actions).toHaveAttribute('href', /^tel:/)
+    await typeIn(page, 'laptop')
+    await expect(
+      overlay(page).getByRole('link', { name: /^Wszystkie wyniki w ofercie/ }),
+    ).toHaveAttribute('href', '/oferta?szukaj=laptop')
   })
 
   test('"/" can be typed in the search field', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await openWithSlash(page)
-    await field(page).fill('a/b')
+    await typeIn(page, 'a/b')
     await expect(field(page)).toHaveValue('a/b')
     await page.keyboard.press('Escape')
     await expect(overlay(page)).toBeHidden()
@@ -96,8 +117,11 @@ test.describe('Biznes search', () => {
 
   test('a phrase with no results offers to ask about it', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    await page.getByRole('button', { name: 'Szukaj w ofercie' }).first().click()
-    await field(page).fill('zxqvbn')
+    await clickUntilVisible(
+      page.getByRole('button', { name: 'Szukaj w ofercie' }).first(),
+      field(page),
+    )
+    await typeIn(page, 'zxqvbn')
     await expect(
       overlay(page).getByText('Nie znaleźliśmy „zxqvbn”', { exact: false }),
     ).toBeVisible()
@@ -107,12 +131,19 @@ test.describe('Biznes search', () => {
     )
   })
 
-  test('the magnifier opens it on a phone', async ({ page }) => {
+  test('the menu sheet opens it on a phone (no room for the loupe in the capsule)', async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 360, height: 780 })
     await page.goto(site('biznes.localhost'))
-    await page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }).click()
+    const sheet = page.getByRole('dialog', { name: 'Menu' })
+    await clickUntilVisible(
+      page.locator('[data-site-header]').getByRole('button', { name: 'Menu' }),
+      sheet,
+    )
+    await sheet.getByRole('button', { name: 'Szukaj w ofercie' }).click()
     await expect(field(page)).toBeFocused()
-    await field(page).fill('terminal')
+    await typeIn(page, 'terminal')
     await expect(
       overlay(page).getByRole('link', { name: /Terminal płatniczy PolCard/ }),
     ).toBeVisible()
@@ -123,7 +154,7 @@ test.describe('Biznes search', () => {
   test('closes on the backdrop, not on the empty inside', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await openWithSlash(page)
-    await field(page).fill('subiekt')
+    await typeIn(page, 'subiekt')
     const box = (await overlay(page).boundingBox())!
     // Empty margin of the dialog, left of the content column.
     await page.mouse.click(box.x + 4, box.y + box.height - 4)
@@ -138,12 +169,22 @@ test.describe('Biznes search', () => {
       await setTheme(page, colorScheme)
       await page.goto(site('biznes.localhost'))
       await openWithSlash(page)
-      await field(page).fill('kasa')
+      await typeIn(page, 'kasa')
       await expect(
         overlay(page)
           .getByRole('link', { name: /Posnet/ })
           .first(),
       ).toBeVisible()
+      // R2: the dialog scales in and the results rise in; axe reads the colours once they stand
+      // still (looping animations, e.g. the brand marquee, are left out).
+      await page.evaluate(() =>
+        Promise.all(
+          document
+            .getAnimations()
+            .filter((animation) => animation.effect?.getComputedTiming().endTime !== Infinity)
+            .map((animation) => animation.finished.catch(() => undefined)),
+        ),
+      )
       const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze()
       expect(
         violations.map((v) => ({ rule: v.id, targets: v.nodes.map((n) => n.target) })),

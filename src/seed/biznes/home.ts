@@ -13,6 +13,7 @@ import {
   OLD_TRUST_LINE,
   upgradeHomeK4,
 } from './homeK4'
+import { nextDescription } from './description'
 import { planBlocks } from './homePlan'
 import { upgradeHomePlan } from './homePlanK31d'
 import { upgradeHomeV150 } from './homeV150'
@@ -76,6 +77,21 @@ export const GROUP_DESCRIPTIONS: Record<string, string> = {
  */
 export const HOME_TRUST_LINE = K4_TRUST_LINE
 
+/** SEO → Opis of the home page (audit 01.11.2026; ≤ 155 characters, unique on the site). */
+export const HOME_DESCRIPTION =
+  'Kasy fiskalne, komputery, programy i opieka IT dla firm z Podhala i Małopolski. Dobór, wdrożenie i serwis z Rabki-Zdroju.'
+
+/**
+ * SEO → Tytuł of the home page (audit 0611 P0.3a): the key phrases, ≤ 60 characters. The title
+ * template does not reach the start page, so it carries the site name itself.
+ */
+export const HOME_SEO_TITLE = 'Kasy fiskalne, komputery, opieka IT — Rabka | PRO-KOM Biznes'
+
+/** The home's SEO title to store: the seed's one only while the panel has none, else `null`. */
+export function nextHomeSeoTitle(stored: string | null | undefined): string | null {
+  return stored?.trim() ? null : HOME_SEO_TITLE
+}
+
 export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
   return [
     {
@@ -101,12 +117,12 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
       blockType: 'bzOffer',
       eyebrow: 'Oferta',
       // v150 (board `#s4-dz`); the label gets „· 5 działów · N pozycji” on the page.
-      heading: 'Kasy, komputery, programy, sieć i serwis — wybierz dział.',
-      lead: 'Sprzęt, programy i usługi od {marki} marek — każdy dział z doborem, wdrożeniem i serwisem. Cen nie ma na stronie: dodajesz pozycje do zapytania, a wycenę dostajesz na piśmie, pod swoją firmę.',
+      heading: 'Kasy, komputery, programy, sieć i serwis',
+      lead: 'Sprzęt, programy i usługi od {marki} marek. Każdy dział z doborem, wdrożeniem i serwisem. Cen nie ma na stronie: dodajesz pozycje do zapytania, a wycenę przygotujemy pod Twoją firmę.',
       catalogLabel: 'Cała oferta',
       // Board `#s4-dz`: the sixth tile (hard space after a one-letter word, K4-FINAL §1).
       searchEyebrow: 'Nie wiesz, w którym dziale szukać?',
-      searchHeading: 'Wpisz, czego potrzebujesz — znajdziemy to za\u00a0Ciebie.',
+      searchHeading: 'Wpisz, czego potrzebujesz, a znajdziemy to za\u00a0Ciebie.',
       systemsHeading: 'Systemy, które wdrażamy od początku do końca',
       systemsNote: 'Dwa autoryzowane partnerstwa i nasza usługa opieki IT',
       systems: [
@@ -245,9 +261,8 @@ export async function seedBiznesHome(
       collection: 'pages',
       data: {
         title: 'Strona główna',
-        // TODO(krystian): meta description strony głównej (SEO → Opis) — Lighthouse SEO 92 bez
-        // niej (B7d); treść do panelu, seed jej nie wymyśla.
         slug: HOME_SLUG,
+        seo: { title: HOME_SEO_TITLE, description: HOME_DESCRIPTION },
         layout: seed,
         tenant: tenantId,
         _status: 'published',
@@ -264,12 +279,24 @@ export async function seedBiznesHome(
   const v150 = upgradeHomeV150(k4 ?? home.layout, seed) ?? k4
   // K31d′: the plan 2.0 texts and the scenes of the industry tiles.
   const layout = upgradeHomePlan(v150 ?? home.layout) ?? v150
-  report('pages home', layout !== null)
-  if (layout) {
+  const description = nextDescription(home.seo?.description, HOME_DESCRIPTION)
+  const title = nextHomeSeoTitle(home.seo?.title)
+  const seo = description || title
+  report('pages home', layout !== null || seo !== null)
+  if (layout || seo) {
     await payload.update({
       collection: 'pages',
       id: home.id,
-      data: { layout, _status: 'published' },
+      data: {
+        ...(layout && { layout, _status: 'published' as const }),
+        ...(seo && {
+          seo: {
+            ...home.seo,
+            ...(description && { description }),
+            ...(title && { title }),
+          },
+        }),
+      },
       ...local,
     })
   }

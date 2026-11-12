@@ -93,8 +93,18 @@ test.describe('Instalacje service desk', () => {
     await expect(page.locator('#plany .plan')).toHaveCount(3)
     await expect(page.locator('#plany')).not.toContainText('zł')
     await expect(page.locator('#powiazane .relc')).toHaveCount(4)
-    // The plan cards' rules never reach the footer's „Zaplanuj” card (`.ftci.plan`).
-    await expect(page.locator('#stopka .ftci.plan')).toHaveCSS('flex-direction', 'row')
+    // The plan cards' rules stay in the section: the shared footer has no `.plan` of its own.
+    await expect(page.locator('[data-site-footer] .plan')).toHaveCount(0)
+    // RUNDA-V5 §11: the level switch — the middle plan first, a click moves the choice.
+    const level = page.getByRole('group', { name: 'Poziom opieki' })
+    await expect(level.getByRole('button', { name: 'Sezon' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await expect(async () => {
+      await level.getByRole('button', { name: 'Pełna opieka' }).click()
+      await expect(page.locator('#plany .plan.on')).toContainText('Pełna opieka', { timeout: 500 })
+    }).toPass()
   })
 
   test('has no accessibility violations in the fault form', async ({ page }) => {

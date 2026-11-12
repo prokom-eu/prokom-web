@@ -73,17 +73,19 @@ test.describe('Biznes contact form v20 (B8a)', () => {
       })
       // No e-mail given: only the office notification, with the number in the subject.
       await expect
-        .poll(() => subjects(request, `"${marker}"`), { timeout: 15_000 })
-        .toContain(`Zapytanie ${String(record?.number)} — Biznes`)
+        .poll(() => subjects(request, String(record?.number)), { timeout: 15_000 })
+        .toContain(`[Biznes] ${String(record?.number)} · Kontakt · ${marker}`)
     } finally {
       expect((await api(page, 'DELETE', `/api/inquiries/${record?.id}`)).status).toBe(200)
     }
   })
 
-  test('required fields and a bad e-mail are explained next to them, at 390 px', async ({
+  test('required fields and a bad e-mail are explained next to them, at 768 px', async ({
     page,
   }) => {
-    await page.setViewportSize({ width: 390, height: 844 })
+    // Below 768 px the home page shows the phone card instead of this form, so the narrowest
+    // check is at 768 px. (`/kontakt` has the shared form since D3-B PR 2: biznes-contact.)
+    await page.setViewportSize({ width: 768, height: 1024 })
     await asNewVisitor(page)
     await page.goto(site('biznes.localhost', '/#kontakt'))
     const contact = page.locator('#kontakt')
@@ -100,7 +102,7 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     // A phone or an e-mail (K4-FINAL §5): the missing contact is reported on the phone only.
     await expect(contact.getByLabel(/^lub e-mail/)).not.toHaveAttribute('aria-invalid', 'true')
 
-    // One column on a phone: no horizontal scroll.
+    // No horizontal scroll at the narrowest width with the form.
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth > window.innerWidth,
     )

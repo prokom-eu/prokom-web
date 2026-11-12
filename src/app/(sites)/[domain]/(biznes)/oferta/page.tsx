@@ -5,7 +5,7 @@ import { getCatalogIndex } from '@/lib/catalog/data'
 import {
   CATALOG_PATH,
   catalogSeo,
-  OWN_BRAND_SLUG,
+  brandCount,
   parseCatalogState,
   type ParamSource,
 } from '@/lib/catalog/filters'
@@ -14,10 +14,10 @@ import { ogImages } from '@/lib/pages/metadata'
 import { plural } from '@/lib/plural'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
-import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
+import { BreadcrumbJsonLd, Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { Catalog } from '@/sites/biznes/components/catalog/Catalog'
 
-import { requireLine } from '../../tenant'
+import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = {
   params: Promise<{ domain: string }>
@@ -25,9 +25,12 @@ type Props = {
 }
 
 const TITLE = 'Cała oferta dla firm'
+/** Meta description (≤ 155 characters, audit 01.11); the lead below is longer. */
+const DESCRIPTION =
+  'Sprzęt, programy i usługi dla firm z doborem, wdrożeniem i serwisem. Dodaj pozycje do zapytania, a wycenę dostaniesz na piśmie.'
 /** Lead of the K4 board `Web-Oferta`. */
 const LEAD =
-  'Sprzęt, programy i usługi dla firm i instytucji — z doborem, wdrożeniem i serwisem. Cen nie podajemy na stronie: dodaj pozycje do zapytania, a wycenę dostaniesz na piśmie.'
+  'Sprzęt, programy i usługi dla firm i instytucji, z doborem, wdrożeniem i serwisem. Cen nie podajemy na stronie: dodaj pozycje do zapytania, a przygotujemy wycenę.'
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'biznes')
@@ -41,7 +44,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   )
   return {
     title: TITLE,
-    description: LEAD,
+    description: DESCRIPTION,
     alternates: { canonical: seo.canonical },
     // Staging stays closed whatever the view; elsewhere a filtered view is not indexed.
     robots:
@@ -52,8 +55,8 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       siteName: tenant.name,
       url: seo.canonical,
       title: TITLE,
-      description: LEAD,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      description: DESCRIPTION,
+      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }
@@ -61,8 +64,12 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 /** Offer `/oferta` (K4 board `Web-Oferta`): header on the server, the list as a client island. */
 export default async function CatalogPage({ params }: Props) {
   const tenant = await requireLine(params, 'biznes')
-  const index = await getCatalogIndex(tenant.id)
-  const brands = index.brands.filter((brand) => brand.slug !== OWN_BRAND_SLUG).length
+  const [index, origin] = await Promise.all([getCatalogIndex(tenant.id), requestOrigin()])
+  const brands = brandCount(index)
+  const crumbs = [
+    { name: 'Strona główna', href: '/' },
+    { name: 'Oferta', href: CATALOG_PATH },
+  ]
   // Counts from the database (K4-FINAL §4.4).
   const stats = [
     {
@@ -82,25 +89,25 @@ export default async function CatalogPage({ params }: Props) {
 
   return (
     <>
-      <div className="mx-auto w-full max-w-7xl px-4 pb-6 pt-5 sm:px-6 sm:pt-7 lg:px-8">
-        <Breadcrumbs
-          items={[
-            { name: 'Start', href: '/' },
-            { name: 'Oferta', href: CATALOG_PATH },
-          ]}
-        />
-        <div className="mt-5 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      {/* Board App-Oferta: on a phone the search comes first — the title is in the top bar (the H1
+          stays for readers), no breadcrumbs, lead or numbers. */}
+      <div className="mx-auto w-full max-w-7xl px-4 pb-6 pt-5 max-md:pb-0 max-md:pt-3 sm:px-6 md:pt-7 lg:px-8">
+        <div className="max-md:hidden">
+          <Breadcrumbs items={crumbs} />
+          <BreadcrumbJsonLd items={crumbs} origin={origin} />
+        </div>
+        <div className="mt-5 flex flex-col gap-6 max-md:mt-0 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">
+            <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text max-md:hidden">
               Oferta
             </p>
-            <Heading level={1} className="mt-2">
+            <Heading level={1} className="mt-2 max-md:sr-only">
               {TITLE}
             </Heading>
-            <p className="mt-3 text-lg leading-relaxed text-ink-2">{LEAD}</p>
+            <p className="mt-3 text-lg leading-relaxed text-ink-2 max-md:hidden">{LEAD}</p>
           </div>
           {stats.length > 0 && (
-            <dl className="grid grid-cols-3 gap-2 lg:min-w-[380px]">
+            <dl className="grid grid-cols-3 gap-2 max-md:hidden lg:min-w-[380px]">
               {stats.map((stat) => (
                 <div
                   key={stat.label}

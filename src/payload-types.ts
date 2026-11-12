@@ -293,6 +293,180 @@ export interface SiteSetting {
      */
     ogImage?: (number | null) | Media;
   };
+  /**
+   * Pasek marki, nagłówek, telefon, szyna, stopka, Kontakt i O firmie (spec elementów wspólnych §4.2). Tekst ze znacznikiem [SZEF…] albo [Krystian…] nie pokazuje się na stronie.
+   */
+  shared?: {
+    phoneLabel?: string | null;
+    /**
+     * Puste = godziny z Danych firmy.
+     */
+    hours?: string | null;
+    /**
+     * Krótko, pod przyciskiem formularza i w stopce.
+     */
+    responsePromise?: string | null;
+    brandBarSlot?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    headerCta?: {
+      label?: string | null;
+      href?: string | null;
+      counter?: ('none' | 'inquiry' | 'project') | null;
+    };
+    /**
+     * Start, Kontakt i Menu są stałe.
+     */
+    tabBar?: {
+      second?: {
+        label?: string | null;
+        href?: string | null;
+      };
+      center?: {
+        label?: string | null;
+        href?: string | null;
+        icon?: string | null;
+      };
+    };
+    rail?: {
+      /**
+       * W kolejności sekcji strony głównej. Pozycja bez sekcji o tym id na stronie się nie pokazuje.
+       */
+      sections?:
+        | {
+            anchorId: string;
+            label: string;
+            icon: string;
+            id?: string | null;
+          }[]
+        | null;
+      searchPopular?: string[] | null;
+      searchShortcuts?:
+        | {
+            label: string;
+            href: string;
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * Grupy słów oddzielone przecinkiem, np. „kamera, monitoring, CCTV”.
+       */
+      synonyms?: string[] | null;
+    };
+    footerPromises?: string[] | null;
+    footerColumns?:
+      | {
+          heading: string;
+          links?:
+            | {
+                label: string;
+                href: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    legalNote?: string | null;
+    contact?: {
+      /**
+       * Wyróżniony fragment w **gwiazdkach** — w nagłówku pokaże się w kolorze linii.
+       */
+      h1?: string | null;
+      lead?: string | null;
+      writeCta?: string | null;
+      placeKind?: ('salon' | 'spotkanie' | 'serwis') | null;
+      /**
+       * E-mail i telefony linii wybierz jako rodzaj — wartość przyjdzie z pól linii wyżej, bez przepisywania.
+       */
+      facts?:
+        | {
+            kind: 'text' | 'email' | 'phone' | 'phone2';
+            label: string;
+            value?: string | null;
+            icon?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      routes?:
+        | {
+            title: string;
+            text?: string | null;
+            cta?: string | null;
+            href?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      topics?: string[] | null;
+      formTitle?: string | null;
+      placeholder?: string | null;
+      sendLabel?: string | null;
+      nextSteps?:
+        | {
+            title: string;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      mapTitle?: string | null;
+      mapLead?: string | null;
+      /**
+       * Np. „rabka”. Pokazujemy tylko opublikowane salony.
+       */
+      salonKeys?: string[] | null;
+      faq?:
+        | {
+            question: string;
+            answer?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    about?: {
+      /**
+       * Wyróżniony fragment w **gwiazdkach** — w nagłówku pokaże się w kolorze linii.
+       */
+      h1?: string | null;
+      lead?: string | null;
+      authTitle?: string | null;
+      auth?: string[] | null;
+      stats?:
+        | {
+            value: string;
+            label: string;
+            /**
+             * Np. „do potwierdzenia przez szefa” — liczba z plakietką nie idzie na produkcję.
+             */
+            flag?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      rules?:
+        | {
+            title: string;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      steps?:
+        | {
+            title: string;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      verify?:
+        | {
+            title: string;
+            text?: string | null;
+            href?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      visitText?: string | null;
+    };
+  };
   biznes?: {
     /**
      * W nagłówku zostaje jeden numer główny (telefon linii wyżej).
@@ -307,10 +481,6 @@ export interface SiteSetting {
           id?: string | null;
         }[]
       | null;
-    /**
-     * Numer z kierunkowym, np. +48 889 003 889.
-     */
-    whatsapp?: string | null;
     /**
      * [SZEF] np. „Autoryzowany serwis Posnet i Elzab · Autoryzowany partner GoPOS i InsERT” (K4-FINAL §1: pełne brzmienie statusów).
      */
@@ -334,6 +504,59 @@ export interface SiteSetting {
      */
     showClientLogos?: boolean | null;
     /**
+     * Cytat właściciela na stronie głównej. Włącz dopiero, gdy szef zatwierdzi treść.
+     */
+    showOwnerQuote?: boolean | null;
+    /**
+     * Pas z odliczaniem między „Najczęściej wybierane” a planem. Bez terminu pas się nie pokazuje. Tylko fakty ze źródłem (komunikat MF).
+     */
+    ksef?: {
+      deadline?: string | null;
+      href?: string | null;
+      /**
+       * Np. „Od 1 stycznia 2027 KSeF obejmie także najmniejsze firmy.”
+       */
+      textBefore?: string | null;
+      /**
+       * Pokazywany od dnia terminu, bez odliczania (K36 §3 „wersja po”).
+       */
+      textAfter?: string | null;
+    };
+    /**
+     * Odnośniki do stron „AGD i RTV dla firm” i „Dostawy IT dla firm” w reszcie strony. Puste pole = odnośnik niewidoczny.
+     */
+    procurement?: {
+      categoryBand?: string | null;
+      /**
+       * Puste = tytuł strony „Dostawy IT dla firm”.
+       */
+      categoryBandCta?: string | null;
+      /**
+       * Adresy kategorii, np. laptopy, komputery, monitory.
+       */
+      itCategories?: string[] | null;
+      productLink?: string | null;
+      industryTiles?:
+        | {
+            industry: string;
+            page: 'agd' | 'it';
+            title: string;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      scaleTitle?: string | null;
+      scaleText?: string | null;
+      /**
+       * Podpowiedź „AGD i RTV dla firm” na górze wyników.
+       */
+      searchAgd?: string[] | null;
+      /**
+       * Podpowiedź „Dostawy IT dla firm” na górze wyników.
+       */
+      searchIt?: string[] | null;
+    };
+    /**
      * Nagłówek: kolejność menu i mega menu Oferta.
      */
     navigation?: {
@@ -348,6 +571,9 @@ export interface SiteSetting {
              * Wymagany dla zwykłej pozycji.
              */
             href?: string | null;
+            /**
+             * Tylko autoryzowani partnerzy (GoPOS, InsERT) — czytnik ekranu czyta „autoryzowany partner”.
+             */
             partner?: boolean | null;
             id?: string | null;
           }[]
@@ -504,6 +730,10 @@ export interface CatalogGroup {
   tenant?: (number | null) | Tenant;
   name: string;
   /**
+   * Etykieta działu na kole strony głównej, gdy nazwa jest długa (np. „Sieć i ochrona”).
+   */
+  shortName?: string | null;
+  /**
    * Część adresu, np. „sprzedaz”.
    */
   slug: string;
@@ -587,7 +817,75 @@ export interface CatalogGroup {
    * Do 5 produktów działu na początku listy „Polecane” w ofercie.
    */
   topProducts?: (number | Product)[] | null;
+  /**
+   * Do 6 produktów; koło rozkłada wszystkie pozycje równo.
+   */
   wheelProducts?: (number | Product)[] | null;
+  /**
+   * Np. „Opieka IT dla firm” → /opieka-it. Puste = brak.
+   */
+  wheelLink?: {
+    label?: string | null;
+    href?: string | null;
+    icon?:
+      | (
+          | 'shield'
+          | 'cal'
+          | 'users'
+          | 'store'
+          | 'bolt'
+          | 'doc'
+          | 'life'
+          | 'arrow'
+          | 'check'
+          | 'phone'
+          | 'mail'
+          | 'pin'
+          | 'clock'
+          | 'monitor'
+          | 'remote'
+          | 'bell'
+          | 'wallet'
+          | 'chat'
+          | 'wrench'
+          | 'rocket'
+          | 'map'
+          | 'star'
+          | 'q'
+          | 'flash'
+          | 'grad'
+          | 'server'
+          | 'compass'
+          | 'panel'
+          | 'site'
+          | 'grid'
+          | 'plug'
+          | 'ticket'
+          | 'lifebuoy'
+          | 'chart'
+          | 'sign'
+          | 'cash'
+          | 'search'
+          | 'x'
+          | 'bed'
+          | 'food'
+          | 'refresh'
+          | 'globe'
+          | 'box'
+          | 'car'
+          | 'home'
+          | 'mountain'
+          | 'heart'
+          | 'bag'
+          | 'card'
+          | 'target'
+          | 'key'
+          | 'mega'
+          | 'mount'
+          | 'brief'
+        )
+      | null;
+  };
   /**
    * Mniejsza liczba = wcześniej.
    */
@@ -653,6 +951,18 @@ export interface Product {
    * Galeria w tej kolejności; pierwsze jest główne (karta).
    */
   images?: (number | Media)[] | null;
+  /**
+   * Wycięte zdjęcie bez tła do koła na stronie głównej. Bez niego koło bierze pierwsze zdjęcie galerii.
+   */
+  wheelImage?: (number | null) | Media;
+  /**
+   * Krótka nazwa w dymku, np. „Apple MacBook Air (M5)”.
+   */
+  wheelName?: string | null;
+  /**
+   * Nazwa koloru z listy Kolory, np. „burgund”: koło otwiera kartę z tym kolorem.
+   */
+  wheelColor?: string | null;
   /**
    * Wersje jednej karty, np. „Jota ONLINE BT/WiFi”, i czym się różnią.
    */
@@ -1024,6 +1334,10 @@ export interface CatalogCategory {
       )
     | null;
   /**
+   * Zdjęcie produktu wycięte z tła, kwadrat. Puste = zdjęcie produktu z kategorii.
+   */
+  menuImage?: (number | null) | Media;
+  /**
    * Jedno zdanie pod nazwą w menu i na kafelku.
    */
   description?: string | null;
@@ -1063,6 +1377,9 @@ export interface CatalogCategory {
      */
     title?: string | null;
     lead?: string | null;
+    /**
+     * Nieużywane od wersji v150: karta kategorii nie pokazuje zalet (plansze Web-kategoria).
+     */
     highlights?: string[] | null;
     image?: (number | null) | Media;
   };
@@ -1278,7 +1595,7 @@ export interface Industry {
     wizardFirm?:
       ('nocleg' | 'gastro' | 'bud' | 'turyst' | 'uroda' | 'moto' | 'handel' | 'biuro' | 'prod' | 'inna') | null;
     /**
-     * Np. „Złóż system dla swojej firmy. W 60 sekund.”
+     * Np. „Złóż system dla swojej firmy w 60 sekund”.
      */
     wizardTitle?: string | null;
     problems?:
@@ -1448,7 +1765,7 @@ export interface Industry {
        */
       hubCaption?: string | null;
       /**
-       * Np. „Co boli w budowlance”.
+       * Np. „Co zabiera czas w budowlance”.
        */
       problemsEyebrow?: string | null;
       /**
@@ -1664,6 +1981,41 @@ export interface Solution {
    * Plik z repozytorium: /software/rozwiazania/<adres>.svg (ilustracje zmienia projektant).
    */
   thumbnail?: string | null;
+  /**
+   * Makieta v24 na kartach, w oknie oferty i w hero (ZMIANY-v24 §8). Puste = zostaje miniatura SVG.
+   */
+  preview?: {
+    kind?: ('site' | 'dash' | 'flow' | 'care' | 'before' | 'phone') | null;
+    /**
+     * Przykładowa firma na makiecie; opieka nie ma wariantu.
+     */
+    variant?:
+      | (
+          | 'wizytowka'
+          | 'firmowa'
+          | 'rozbudowana'
+          | 'landing'
+          | 'pensjonat'
+          | 'restauracja'
+          | 'przebudowa'
+          | 'budowlanka'
+          | 'turystyka'
+          | 'uroda'
+          | 'warsztat'
+          | 'sklep'
+          | 'biuro'
+          | 'produkcja'
+          | 'zamowienia'
+          | 'crm'
+          | 'czas'
+          | 'excel'
+          | 'sms'
+          | 'faktury'
+          | 'raporty'
+          | 'ai'
+        )
+      | null;
+  };
   /**
    * Co jest w cenie „od” (3–5 punktów).
    */
@@ -1887,22 +2239,28 @@ export interface Page {
         | BzKsefBlock
         | BzLocationBlock
         | BzSectionBlock
+        | BzContactPageBlock
+        | BzAboutPageBlock
+        | BzProcurementPageBlock
+        | BzProcurementBlock
+        | BzNewsHomeBlock
         | InstServiceBlock
         | InstHomeBlock
         | InstPlannerBlock
         | InstContactBlock
         | InstServiceDeskBlock
         | InstArchitectsBlock
+        | InstOfferBlock
+        | InstRealizationsBlock
+        | InstAboutBlock
+        | InstGuideBlock
         | SwHeroBlock
         | SwHomeSectionBlock
         | SwContactBlock
-        | SwContactPageBlock
         | SwPricingBlock
         | SwAuditFormBlock
-        | SwPageHeroBlock
-        | SwStepsBlock
-        | SwTeamBlock
-        | SwLinesBlock
+        | SwSharedPageBlock
+        | SwLegalBlock
       )[]
     | null;
   seo?: {
@@ -2252,14 +2610,20 @@ export interface BzPlanBlock {
    * Np. „Kliknij urządzenie — otworzy się film i szczegóły”.
    */
   sceneNote?: string | null;
+  /**
+   * Etykieta karty zestawu branży (zestawy: Ustawienia Biznesu).
+   */
   moreLabel?: string | null;
   /**
    * Liczba pozycji dochodzi sama („· 17 poz.”).
    */
   inquiryLabel?: string | null;
+  /**
+   * Od 11.2026 (D8) nie wyświetla się na stronie głównej: branże wybiera się w planie (sceny w „Plany firmy”). Dane zostają.
+   */
   industries?: {
     /**
-     * Sekcja „Dla kogo” (#dla-kogo), np. „Dla kogo pracujemy”.
+     * Nie wyświetlana od B3-1 (branże są w sekcji planu); zostaje w danych.
      */
     eyebrow?: string | null;
     /**
@@ -2497,9 +2861,14 @@ export interface BzReferencesBlock {
  */
 export interface BzFactsBlock {
   /**
-   * Sekcja ma kotwicę #fakty — ten blok wstaw na stronie tylko raz.
+   * Sekcja ma kotwicę #fakty — ten blok wstaw na stronie tylko raz. Bez słowa właściciela nagłówek jest widoczny, z nim — tylko dla czytników ekranu.
    */
   heading: string;
+  /**
+   * Dokładnie ten fragment nagłówka dostaje kolor akcentu.
+   */
+  headingAccent?: string | null;
+  lead?: string | null;
   owner: {
     label?: string | null;
     quote: string;
@@ -2627,15 +2996,16 @@ export interface BzTimelineBlock {
  * via the `definition` "BzKsefBlock".
  */
 export interface BzKsefBlock {
+  variant: 'full' | 'band';
   /**
    * Sekcja ma kotwicę #ksef — blok tylko raz na stronie.
    */
   eyebrow?: string | null;
-  date: string;
+  date?: string | null;
   /**
    * Np. „dni do 1 stycznia 2027”.
    */
-  dateLabel: string;
+  dateLabel?: string | null;
   text?: string | null;
   link?: {
     label?: string | null;
@@ -2688,6 +3058,7 @@ export interface BzSectionBlock {
     | 'tabs'
     | 'chips'
     | 'products'
+    | 'bundles'
     | 'gopos-hero'
     | 'gopos-venues'
     | 'gopos-areas'
@@ -2703,6 +3074,7 @@ export interface BzSectionBlock {
     | 'switch-steps'
     | 'audience'
     | 'start-calendar'
+    | 'care-review'
     | 'seats'
     | 'about-hero'
     | 'lines'
@@ -2820,6 +3192,111 @@ export interface BzSectionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzContactPageBlock".
+ */
+export interface BzContactPageBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzContactPage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzAboutPageBlock".
+ */
+export interface BzAboutPageBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzAboutPage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProcurementPageBlock".
+ */
+export interface BzProcurementPageBlock {
+  variant: 'agd' | 'it';
+  oldEquipmentPickup?: boolean | null;
+  onsiteWarranty?: boolean | null;
+  showLG?: boolean | null;
+  /**
+   * Przełączniki w konfiguratorze IT i wiersze „Usługa” w podglądzie oferty. Propozycja z paczki: instalacja systemu i programów; przeniesienie danych; numery inwentarzowe i lista seryjnych; montaż na stanowiskach i test sieci; odbiór starego sprzętu z usunięciem danych.
+   */
+  services?:
+    | {
+        label: string;
+        kind: 'system' | 'data' | 'inventory' | 'mount' | 'pickup';
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * W kolejności klas: Ekonomiczny, Standard, Premium. Propozycja z paczki: „Amica, Beko”; „Samsung, Bosch, Beko”; „Bosch, Siemens, Samsung”.
+   */
+  classHints?:
+    | {
+        brands: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Teksty, konfigurator, FAQ i formularz (ZAOPATRZENIE §2). Zdjęcia to numery z Media. Po imporcie z paczki (`pnpm seed:biznes`) wygrywa paczka.
+   */
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzProcurementPage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProcurementBlock".
+ */
+export interface BzProcurementBlock {
+  eyebrow?: string | null;
+  heading: string;
+  lead?: string | null;
+  /**
+   * Dwie karty (AGD, IT) z kalkulatorem i pasek korzyści. Zdjęcia to numery z Media. „Odbiór starego sprzętu” pokazuje się po zaznaczeniu flagi na stronie AGD, oddzwanianie — z obietnicy w Ustawieniach strony. Po imporcie z paczki (`pnpm seed:biznes`) wygrywa paczka.
+   */
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzProcurement';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzNewsHomeBlock".
+ */
+export interface BzNewsHomeBlock {
+  /**
+   * Sekcja ma kotwicę #aktualnosci — blok tylko raz na stronie.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  lead?: string | null;
+  /**
+   * Np. „Wszystkie aktualności” → /aktualnosci. Pusty = bez linku.
+   */
+  allLabel?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzNewsHome';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3336,6 +3813,138 @@ export interface InstArchitectsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstOfferBlock".
+ */
+export interface InstOfferBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instOffer';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstRealizationsBlock".
+ */
+export interface InstRealizationsBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instRealizations';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstAboutBlock".
+ */
+export interface InstAboutBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instAbout';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstGuideBlock".
+ */
+export interface InstGuideBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instGuide';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SwHeroBlock".
  */
 export interface SwHeroBlock {
@@ -3507,17 +4116,7 @@ export interface SwHomeSectionBlock {
   /**
    * Każda sekcja raz na stronie (ma swoją kotwicę, np. #oferta). Teksty sekcji edytuje się w Ustawieniach Software → strona główna.
    */
-  section:
-    | 'areas'
-    | 'popular'
-    | 'livePreviews'
-    | 'process'
-    | 'wizard'
-    | 'whyNotWordpress'
-    | 'guarantees'
-    | 'howWeBuild'
-    | 'technologies'
-    | 'compare';
+  section: 'process' | 'wizard' | 'compare' | 'promises' | 'situations' | 'bento' | 'showroom' | 'tech' | 'pricing';
   id?: string | null;
   blockName?: string | null;
   blockType: 'swHomeSection';
@@ -3528,10 +4127,13 @@ export interface SwHomeSectionBlock {
  */
 export interface SwContactBlock {
   /**
-   * Jeden taki blok na stronę (kotwica #kontakt).
+   * Jeden taki blok na stronę (kotwica #kontakt). Na stronie głównej v24 formularz stoi obok FAQ, gdy blok FAQ jest bezpośrednio przed tym blokiem.
    */
   eyebrow: string;
   title: string;
+  /**
+   * Strona główna v24: zdanie pod nagłówkiem obok FAQ (np. „Odpowiadamy w ciągu [CZAS ODPOWIEDZI]. Zawsze człowiek.”). Pozostałe pola tej kolumny pokazuje tylko wygląd v23.
+   */
   sideTitle: string;
   sideText?: string | null;
   /**
@@ -3578,134 +4180,6 @@ export interface SwContactBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SwContactPageBlock".
- */
-export interface SwContactPageBlock {
-  eyebrow: string;
-  title: string;
-  titleAccent?: string | null;
-  lead: string;
-  /**
-   * Po godzinach z Danych firmy, np. „formularz działa całą dobę”. Status otwarte / zamknięte liczy się sam (czas w Polsce).
-   */
-  hoursNote?: string | null;
-  /**
-   * Telefon i e-mail z Ustawień linii, adres salonu z Danych firmy. Fakty w nawiasach ([GODZINY], [CZAS ODPOWIEDZI]…) z Ustawień linii.
-   */
-  channels?:
-    | {
-        kind: 'phone' | 'email' | 'salon' | 'online';
-        label: string;
-        badge?: string | null;
-        /**
-         * Tylko salon i online; telefon i e-mail z ustawień.
-         */
-        value?: string | null;
-        text?: string | null;
-        href?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  stepsTitle: string;
-  steps?:
-    | {
-        when: string;
-        title: string;
-        text?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  shortcuts?:
-    | {
-        icon: 'wand' | 'search';
-        title: string;
-        href: string;
-        text?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  formEyebrow: string;
-  formTitle: string;
-  /**
-   * Tematy są stałe (spec. §7) — zapisują się w zgłoszeniu.
-   */
-  topicsLabel: string;
-  messageLabel: string;
-  messagePlaceholder?: string | null;
-  projectMessageLabel: string;
-  projectMessagePlaceholder?: string | null;
-  hintsLabel?: string | null;
-  /**
-   * Kliknięta dopisuje się do opisu. Bez tematu: podpowiedzi „Bez tematu”; ostatnia „Wszystkie tematy” dochodzi zawsze.
-   */
-  hints?:
-    | {
-        topic: 'none' | 'all' | 'strona' | 'system' | 'mobile' | 'laczenie' | 'opieka' | 'audyt';
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  nameLabel: string;
-  namePlaceholder?: string | null;
-  contactLabel: string;
-  contactPlaceholder?: string | null;
-  contactHint?: string | null;
-  talkLabel: string;
-  submit: string;
-  submitNote?: string | null;
-  linesEyebrow?: string | null;
-  linesTitle?: string | null;
-  /**
-   * Pusty nagłówek albo brak kart = bez sekcji.
-   */
-  linesText?: string | null;
-  lines?:
-    | {
-        line: 'biznes' | 'instalacje' | 'tech' | 'prokom';
-        label: string;
-        text: string;
-        linkLabel: string;
-        href: string;
-        id?: string | null;
-      }[]
-    | null;
-  linesMore?: {
-    label?: string | null;
-    href?: string | null;
-  };
-  meetEyebrow?: string | null;
-  meetTitle?: string | null;
-  /**
-   * Fakty w nawiasach ([GODZINY], [CZAS ODPOWIEDZI]…) z Ustawień linii.
-   */
-  meetLead?: string | null;
-  /**
-   * Pierwsze jest wyróżnione. Fakty w nawiasach ([GODZINY], [CZAS ODPOWIEDZI]…) z Ustawień linii.
-   */
-  places?:
-    | {
-        title: string;
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  mapCaption?: string | null;
-  navigateLabel?: string | null;
-  mapZoomLabel?: string | null;
-  /**
-   * Pusty = bez mapy. Mapa to rysunek z danych OpenStreetMap w kodzie; Mapy Google otwierają się dopiero po kliknięciu (bez ciasteczek).
-   */
-  mapHref?: string | null;
-  entrancePhoto?: (number | null) | Media;
-  entranceCaption?: string | null;
-  companyTitle?: string | null;
-  companyNote?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'swContactPage';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SwPricingBlock".
  */
 export interface SwPricingBlock {
@@ -3724,31 +4198,10 @@ export interface SwPricingBlock {
     label?: string | null;
     href?: string | null;
   };
-  /**
-   * Cena i termin z rozwiązania. Puste = bez karty.
-   */
-  featured?: (number | null) | Solution;
-  featuredBadge?: string | null;
-  featuredPoints?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  tableEyebrow?: string | null;
-  tableTitle: string;
-  /**
-   * Kolejność i liczba pozycji z rozwiązań (kategoria). Bez wpisu zakładka ma nazwę kategorii i nie ma noty.
-   */
-  tabs?:
-    | {
-        category: 'strony' | 'systemy' | 'aplikacje' | 'automatyzacje' | 'opieka';
-        label?: string | null;
-        note?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   careEyebrow?: string | null;
+  /**
+   * Część w gradiencie w **gwiazdkach**, np. „Trzy poziomy audytu — **pierwszy za darmo**”.
+   */
   careTitle?: string | null;
   /**
    * Poziomy, ceny i czasy reakcji z rozwiązania z poziomami miesięcznymi. Pusty nagłówek = bez sekcji.
@@ -3760,6 +4213,9 @@ export interface SwPricingBlock {
   careButton?: string | null;
   careNote?: string | null;
   auditEyebrow?: string | null;
+  /**
+   * Część w gradiencie w **gwiazdkach**, np. „Trzy poziomy audytu — **pierwszy za darmo**”.
+   */
   auditTitle?: string | null;
   /**
    * Rodzaje z rozwiązania „audyt”. Pusty nagłówek = bez sekcji.
@@ -3767,25 +4223,6 @@ export interface SwPricingBlock {
   auditLead?: string | null;
   auditButton?: string | null;
   auditHref?: string | null;
-  includedEyebrow?: string | null;
-  includedTitle?: string | null;
-  includedItems?:
-    | {
-        title: string;
-        text?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  ctaTitle?: string | null;
-  ctaText?: string | null;
-  ctaPrimary?: {
-    label?: string | null;
-    href?: string | null;
-  };
-  ctaSecondary?: {
-    label?: string | null;
-    href?: string | null;
-  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'swPricing';
@@ -3827,6 +4264,9 @@ export interface SwAuditFormBlock {
       }[]
     | null;
   checksEyebrow?: string | null;
+  /**
+   * Część w gradiencie w **gwiazdkach**, np. „Jak wygląda **darmowy audyt**”.
+   */
   checksTitle?: string | null;
   checksLead?: string | null;
   /**
@@ -3841,6 +4281,9 @@ export interface SwAuditFormBlock {
       }[]
     | null;
   levelsEyebrow?: string | null;
+  /**
+   * Część w gradiencie w **gwiazdkach**, np. „Jak wygląda **darmowy audyt**”.
+   */
   levelsTitle?: string | null;
   /**
    * Ceny i terminy z rozwiązania „audyt” (poziomy). Pusty nagłówek = bez sekcji.
@@ -3854,6 +4297,9 @@ export interface SwAuditFormBlock {
       }[]
     | null;
   stepsEyebrow?: string | null;
+  /**
+   * Część w gradiencie w **gwiazdkach**, np. „Jak wygląda **darmowy audyt**”.
+   */
   stepsTitle?: string | null;
   /**
    * Fakty w nawiasach ([CZAS]…) z Ustawień linii.
@@ -3881,402 +4327,63 @@ export interface SwAuditFormBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SwPageHeroBlock".
+ * via the `definition` "SwSharedPageBlock".
  */
-export interface SwPageHeroBlock {
-  eyebrow?: string | null;
-  title: string;
-  titleAccent?: string | null;
+export interface SwSharedPageBlock {
   /**
-   * Fakty w nawiasach ([GODZINY], [ADRES]…) z Ustawień linii.
+   * Treści: Ustawienia strony → Wspólne elementy linii (Kontakt albo O firmie).
    */
-  lead?: string | null;
-  primary?: {
-    label?: string | null;
-    href?: string | null;
-  };
-  secondary?: {
-    label?: string | null;
-    href?: string | null;
-  };
-  visual: 'none' | 'photos' | 'lines';
-  photos?:
-    | {
-        /**
-         * Zdjęcia osób tylko za ich zgodą (spec. §6.6).
-         */
-        photo?: (number | null) | Media;
-        /**
-         * Tekst alternatywny po wgraniu; przed wgraniem — zaślepka, tylko poza produkcją.
-         */
-        photoCaption: string;
-        id?: string | null;
-      }[]
-    | null;
-  badge?: {
-    status?: string | null;
-    title?: string | null;
-    text?: string | null;
-  };
-  hub?: {
-    title?: string | null;
-    text?: string | null;
-  };
-  nodes?:
-    | {
-        name: string;
-        icon?:
-          | (
-              | 'shield'
-              | 'cal'
-              | 'users'
-              | 'store'
-              | 'bolt'
-              | 'doc'
-              | 'life'
-              | 'arrow'
-              | 'check'
-              | 'phone'
-              | 'mail'
-              | 'pin'
-              | 'clock'
-              | 'monitor'
-              | 'remote'
-              | 'bell'
-              | 'wallet'
-              | 'chat'
-              | 'wrench'
-              | 'rocket'
-              | 'map'
-              | 'star'
-              | 'q'
-              | 'flash'
-              | 'grad'
-              | 'server'
-              | 'compass'
-              | 'panel'
-              | 'site'
-              | 'grid'
-              | 'plug'
-              | 'ticket'
-              | 'lifebuoy'
-              | 'chart'
-              | 'sign'
-              | 'cash'
-              | 'search'
-              | 'x'
-              | 'bed'
-              | 'food'
-              | 'refresh'
-              | 'globe'
-              | 'box'
-              | 'car'
-              | 'home'
-              | 'mountain'
-              | 'heart'
-              | 'bag'
-              | 'card'
-              | 'target'
-              | 'key'
-              | 'mega'
-              | 'mount'
-              | 'brief'
-            )
-          | null;
-        text?: string | null;
-        current?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
+  template: 'contact' | 'about';
   id?: string | null;
   blockName?: string | null;
-  blockType: 'swPageHero';
+  blockType: 'swSharedPage';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SwStepsBlock".
+ * via the `definition` "SwLegalBlock".
  */
-export interface SwStepsBlock {
-  variant: 'stats' | 'cards' | 'timeline';
+export interface SwLegalBlock {
   eyebrow?: string | null;
+  /**
+   * Wyróżniona część w **gwiazdkach**, np. „Polityka **prywatności.**”.
+   */
   heading: string;
   lead?: string | null;
   /**
-   * Fakty w nawiasach ([GODZINY], [ADRES]…) z Ustawień linii.
+   * Np. „1.0”. Puste — bez plakietki.
    */
-  items: {
-    /**
-     * Liczby i oś czasu: „2004”, „100+”, „[ROK SERWIS KAS]”.
-     */
-    marker?: string | null;
-    icon?:
-      | (
-          | 'shield'
-          | 'cal'
-          | 'users'
-          | 'store'
-          | 'bolt'
-          | 'doc'
-          | 'life'
-          | 'arrow'
-          | 'check'
-          | 'phone'
-          | 'mail'
-          | 'pin'
-          | 'clock'
-          | 'monitor'
-          | 'remote'
-          | 'bell'
-          | 'wallet'
-          | 'chat'
-          | 'wrench'
-          | 'rocket'
-          | 'map'
-          | 'star'
-          | 'q'
-          | 'flash'
-          | 'grad'
-          | 'server'
-          | 'compass'
-          | 'panel'
-          | 'site'
-          | 'grid'
-          | 'plug'
-          | 'ticket'
-          | 'lifebuoy'
-          | 'chart'
-          | 'sign'
-          | 'cash'
-          | 'search'
-          | 'x'
-          | 'bed'
-          | 'food'
-          | 'refresh'
-          | 'globe'
-          | 'box'
-          | 'car'
-          | 'home'
-          | 'mountain'
-          | 'heart'
-          | 'bag'
-          | 'card'
-          | 'target'
-          | 'key'
-          | 'mega'
-          | 'mount'
-          | 'brief'
-        )
-      | null;
-    title?: string | null;
-    text?: string | null;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'swSteps';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SwTeamBlock".
- */
-export interface SwTeamBlock {
-  variant: 'people' | 'places';
-  eyebrow?: string | null;
-  heading: string;
-  lead?: string | null;
+  version?: string | null;
   /**
-   * Fakty w nawiasach ([GODZINY], [ADRES]…) z Ustawień linii.
+   * Np. „listopad 2026”. Puste — bez plakietki.
    */
-  members: {
-    role?: string | null;
-    name: string;
-    text?: string | null;
-    /**
-     * Miejsca: adres, telefon, godziny, NIP — każda w nowej linii.
-     */
-    details?: string | null;
-    /**
-     * Zdjęcia osób tylko za ich zgodą (spec. §6.6).
-     */
-    photo?: (number | null) | Media;
-    /**
-     * Tekst alternatywny po wgraniu; przed wgraniem — zaślepka, tylko poza produkcją.
-     */
-    photoCaption: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'swTeam';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SwLinesBlock".
- */
-export interface SwLinesBlock {
-  variant: 'lines' | 'examples';
-  eyebrow?: string | null;
-  heading: string;
-  lead?: string | null;
+  updated?: string | null;
   /**
-   * Fakty w nawiasach ([GODZINY], [ADRES]…) z Ustawień linii.
+   * Baner „Wersja robocza…” nad nagłówkiem — tylko poza produkcją. Odznacz po akceptacji tekstu.
    */
-  lines?:
-    | {
-        name: string;
-        icon?:
-          | (
-              | 'shield'
-              | 'cal'
-              | 'users'
-              | 'store'
-              | 'bolt'
-              | 'doc'
-              | 'life'
-              | 'arrow'
-              | 'check'
-              | 'phone'
-              | 'mail'
-              | 'pin'
-              | 'clock'
-              | 'monitor'
-              | 'remote'
-              | 'bell'
-              | 'wallet'
-              | 'chat'
-              | 'wrench'
-              | 'rocket'
-              | 'map'
-              | 'star'
-              | 'q'
-              | 'flash'
-              | 'grad'
-              | 'server'
-              | 'compass'
-              | 'panel'
-              | 'site'
-              | 'grid'
-              | 'plug'
-              | 'ticket'
-              | 'lifebuoy'
-              | 'chart'
-              | 'sign'
-              | 'cash'
-              | 'search'
-              | 'x'
-              | 'bed'
-              | 'food'
-              | 'refresh'
-              | 'globe'
-              | 'box'
-              | 'car'
-              | 'home'
-              | 'mountain'
-              | 'heart'
-              | 'bag'
-              | 'card'
-              | 'target'
-              | 'key'
-              | 'mega'
-              | 'mount'
-              | 'brief'
-            )
-          | null;
-        /**
-         * Np. „prokombiznes.pl”, „ul. Orkana 16B · [GODZINY]”.
-         */
-        address?: string | null;
-        href?: string | null;
-        points?:
-          | {
-              text: string;
-              id?: string | null;
-            }[]
-          | null;
-        /**
-         * Tylko karta tej strony: link do katalogu rozwiązań, np. „Zobacz ofertę →”.
-         */
-        cta?: string | null;
-        current?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
-  examples?:
-    | {
-        eyebrow?: string | null;
-        title: string;
-        text?: string | null;
-        rows?:
-          | {
-              line: string;
-              icon?:
-                | (
-                    | 'shield'
-                    | 'cal'
-                    | 'users'
-                    | 'store'
-                    | 'bolt'
-                    | 'doc'
-                    | 'life'
-                    | 'arrow'
-                    | 'check'
-                    | 'phone'
-                    | 'mail'
-                    | 'pin'
-                    | 'clock'
-                    | 'monitor'
-                    | 'remote'
-                    | 'bell'
-                    | 'wallet'
-                    | 'chat'
-                    | 'wrench'
-                    | 'rocket'
-                    | 'map'
-                    | 'star'
-                    | 'q'
-                    | 'flash'
-                    | 'grad'
-                    | 'server'
-                    | 'compass'
-                    | 'panel'
-                    | 'site'
-                    | 'grid'
-                    | 'plug'
-                    | 'ticket'
-                    | 'lifebuoy'
-                    | 'chart'
-                    | 'sign'
-                    | 'cash'
-                    | 'search'
-                    | 'x'
-                    | 'bed'
-                    | 'food'
-                    | 'refresh'
-                    | 'globe'
-                    | 'box'
-                    | 'car'
-                    | 'home'
-                    | 'mountain'
-                    | 'heart'
-                    | 'bag'
-                    | 'card'
-                    | 'target'
-                    | 'key'
-                    | 'mega'
-                    | 'mount'
-                    | 'brief'
-                  )
-                | null;
-              text: string;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
+  draft?: boolean | null;
+  askTitle?: string | null;
+  askText?: string | null;
+  /**
+   * Każdy nagłówek H2 = numerowana sekcja i pozycja spisu treści.
+   */
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   id?: string | null;
   blockName?: string | null;
-  blockType: 'swLines';
+  blockType: 'swLegal';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4325,7 +4432,7 @@ export interface Inquiry {
    * Strona do audytu albo obecna strona z kreatora.
    */
   auditUrl?: string | null;
-  preferredContact?: ('phone' | 'whatsapp' | 'email' | 'meeting' | 'online') | null;
+  preferredContact?: ('phone' | 'email' | 'meeting' | 'online') | null;
   topics?: string[] | null;
   /**
    * Np. „Przed sezonem”.
@@ -4392,9 +4499,29 @@ export interface Post {
    */
   slug: string;
   /**
-   * Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Nowości, Realizacje.
+   * Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Strony, Systemy, Automatyzacje, Bezpieczeństwo. Instalacje: Przepisy, Monitoring, Obiekty noclegowe, Energia, Dźwięk i obraz.
    */
-  category: 'ksef' | 'kasy' | 'terminale' | 'dofinansowania' | 'programy' | 'poradnik' | 'nowosci' | 'realizacje';
+  category:
+    | 'ksef'
+    | 'kasy'
+    | 'terminale'
+    | 'dofinansowania'
+    | 'programy'
+    | 'poradnik'
+    | 'strony'
+    | 'systemy'
+    | 'automatyzacje'
+    | 'bezpieczenstwo'
+    | 'przepisy'
+    | 'monitoring'
+    | 'noclegi'
+    | 'energia'
+    | 'dzwiek-obraz'
+    | 'alarmy'
+    | 'sieci'
+    | 'smart-home'
+    | 'ladowarki'
+    | 'anteny';
   /**
    * Puste przy publikacji → dzisiejsza data.
    */
@@ -4551,6 +4678,12 @@ export interface BiznesSetting {
         }[]
       | null;
   };
+  bundles?: {
+    /**
+     * Plan na głównej pokazuje przy branży pierwszy z tych zestawów, który jest przypisany do jej sceny planu i ma status „Gotowe”. Brak takiego = bez karty.
+     */
+    home?: (number | Bundle)[] | null;
+  };
   /**
    * Konfigurator 3.0 (/konfigurator): rodzaje firm, sytuacje, skale, potrzeby z listami produktów, pytania Tak/Nie, grupy zestawów i sceny planu. Zmieniaj ostrożnie — zapis sprawdza, czy reguły się zgadzają.
    */
@@ -4562,6 +4695,114 @@ export interface BiznesSetting {
     | string
     | number
     | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bundles".
+ */
+export interface Bundle {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Część adresu, np. „zestaw-kawiarnia-lada”.
+   */
+  slug: string;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  /**
+   * „Gotowe” po sprawdzeniu zgodności elementów. „Do sprawdzenia” = widoczny, ale bez Google, mapy strony, planu i stron branż.
+   */
+  contentStatus: 'ready' | 'needs-review';
+  hiddenItems?: string | null;
+  name: string;
+  area: 'sklep' | 'gastronomia' | 'noclegi' | 'biuro' | 'gabinet' | 'szkola' | 'siec' | 'ekrany';
+  /**
+   * Z paczki, np. „gastronomia-lada” — kreator dobiera po niej.
+   */
+  series: string;
+  /**
+   * Np. „Mały”, „Średni”, „Standard”.
+   */
+  level?: string | null;
+  /**
+   * Na stronach tych branż w sekcji „Gotowe zestawy” (tylko „Gotowe”).
+   */
+  industries?: (number | Industry)[] | null;
+  audience: string;
+  benefit: string;
+  description?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        /**
+         * Element bez widocznego produktu nie pokazuje się.
+         */
+        product?: (number | null) | Product;
+        role: string;
+        /**
+         * Liczba albo opis, np. „wg stanowisk”, „1–2”.
+         */
+        quantity: string;
+        mandatory?: boolean | null;
+        suggestedVersion?: string | null;
+        /**
+         * Nigdy na stronie. Pusto we wszystkich = można dać „Gotowe”.
+         */
+        toConfirm?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  swaps?:
+    | {
+        from?: (number | null) | Product;
+        to?: (number | null) | Product;
+        when: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Karty usług. Nieopublikowane nie pokazują się.
+   */
+  services?: (number | Product)[] | null;
+  reasons?: string[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Kategorie katalogu, np. „Dofinansowania”.
+   */
+  related?: (number | CatalogCategory)[] | null;
+  /**
+   * Z importu i dla zespołu — nigdy na stronie.
+   */
+  internalNotes?: string | null;
+  compatChecks?:
+    | {
+        pair: string;
+        source?: string | null;
+        /**
+         * „potwierdzona”, „bez-integracji” (działa samodzielnie, strona mówi to wprost) albo „do_potwierdzenia” — ta ostatnia trzyma zestaw w „Do sprawdzenia”.
+         */
+        status?: string | null;
+        /**
+         * Strona lub PDF producenta. Przy parze „potwierdzona” pokazuje się na karcie zestawu jako „Źródło ↗”.
+         */
+        url?: string | null;
+        id?: string | null;
+      }[]
     | null;
   updatedAt: string;
   createdAt: string;
@@ -4787,7 +5028,7 @@ export interface SoftwareSetting {
     popular?: string[] | null;
   };
   /**
-   * Potrzeby, pytania, wyniki i teksty kreatora (/dobierz). Ceny wyników biorą się z Rozwiązań (resultToSolutionSlug). Zapis sprawdza kształt i adresy rozwiązań.
+   * Rodzaje, kroki, opcje, podpowiedzi i teksty kreatora v3 (/dobierz). Ceny i terminy biorą się z Rozwiązań (types[].solution). Zapis sprawdza kształt i adresy rozwiązań.
    */
   wizard?:
     | {
@@ -4835,7 +5076,7 @@ export interface SoftwareSetting {
     | boolean
     | null;
   /**
-   * Teksty strony „nie znaleziono”. Ceny w podpisach kafli wpisuje się ręcznie — pilnuj ich przy zmianie cennika.
+   * Teksty strony „nie znaleziono” (v24: nadtytuł, nagłówek, pole wyszukiwania, 6 kafli). Cena w podpisie kafla tylko jako {cena:<adres>}, fakty jak [TELEFON].
    */
   notFound?:
     | {
@@ -4901,107 +5142,6 @@ export interface FloorPlan {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bundles".
- */
-export interface Bundle {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  /**
-   * Część adresu, np. „zestaw-kawiarnia-lada”.
-   */
-  slug: string;
-  /**
-   * Mniejsza liczba = wcześniej.
-   */
-  order?: number | null;
-  /**
-   * „Gotowe” po sprawdzeniu zgodności elementów. „Do sprawdzenia” = widoczny, ale bez Google, mapy strony, planu i stron branż.
-   */
-  contentStatus: 'ready' | 'needs-review';
-  hiddenItems?: string | null;
-  name: string;
-  area: 'sklep' | 'gastronomia' | 'noclegi' | 'biuro' | 'gabinet' | 'szkola' | 'siec' | 'ekrany';
-  /**
-   * Z paczki, np. „gastronomia-lada” — kreator dobiera po niej.
-   */
-  series: string;
-  /**
-   * Np. „Mały”, „Średni”, „Standard”.
-   */
-  level?: string | null;
-  /**
-   * Na stronach tych branż w sekcji „Gotowe zestawy” (tylko „Gotowe”).
-   */
-  industries?: (number | Industry)[] | null;
-  audience: string;
-  benefit: string;
-  description?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  items?:
-    | {
-        /**
-         * Element bez widocznego produktu nie pokazuje się.
-         */
-        product?: (number | null) | Product;
-        role: string;
-        /**
-         * Liczba albo opis, np. „wg stanowisk”, „1–2”.
-         */
-        quantity: string;
-        mandatory?: boolean | null;
-        suggestedVersion?: string | null;
-        /**
-         * Nigdy na stronie. Pusto we wszystkich = można dać „Gotowe”.
-         */
-        toConfirm?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  swaps?:
-    | {
-        from?: (number | null) | Product;
-        to?: (number | null) | Product;
-        when: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Karty usług. Nieopublikowane nie pokazują się.
-   */
-  services?: (number | Product)[] | null;
-  reasons?: string[] | null;
-  faq?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Kategorie katalogu, np. „Dofinansowania”.
-   */
-  related?: (number | CatalogCategory)[] | null;
-  /**
-   * Z importu i dla zespołu — nigdy na stronie.
-   */
-  internalNotes?: string | null;
-  compatChecks?:
-    | {
-        pair: string;
-        source?: string | null;
-        status?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "instalacje-settings".
  */
 export interface InstalacjeSetting {
@@ -5013,10 +5153,6 @@ export interface InstalacjeSetting {
   showPrices?: boolean | null;
   noPriceText: string;
   warrantyMonths: number;
-  /**
-   * Numer z kierunkowym, np. +48 889 003 889.
-   */
-  whatsapp?: string | null;
   /**
    * „24 h” to odpowiedź na zgłoszenie, nie przyjazd (spec §2).
    */
@@ -5074,6 +5210,9 @@ export interface Realization {
    * Bez zgody realizacja zostaje wersją roboczą.
    */
   clientConsent?: boolean | null;
+  /**
+   * Pierwszeństwo na stronie głównej. Wolne miejsca (do 4) uzupełniają inne opublikowane realizacje ze zdjęciem. Realizacja bez zdjęcia nie pokazuje się nigdzie.
+   */
   featured?: boolean | null;
   title: string;
   /**
@@ -5085,6 +5224,10 @@ export interface Realization {
   scope?: string | null;
   description?: string | null;
   services?: ('kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev')[] | null;
+  /**
+   * Filtr „Każdy obiekt” na /realizacje.
+   */
+  kind?: ('firma' | 'kosciol' | 'gastro' | 'sklep' | 'szkola' | 'dom') | null;
   photos?: (number | Media)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -5339,6 +5482,7 @@ export interface InstArchNew {
         id?: string | null;
       }[]
     | null;
+  image?: (number | null) | Media;
   illustration?: string | null;
   /**
    * Mniejsza liczba = wcześniej.
@@ -5722,6 +5866,165 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         description?: T;
         ogImage?: T;
       };
+  shared?:
+    | T
+    | {
+        phoneLabel?: T;
+        hours?: T;
+        responsePromise?: T;
+        brandBarSlot?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        headerCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              counter?: T;
+            };
+        tabBar?:
+          | T
+          | {
+              second?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              center?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    icon?: T;
+                  };
+            };
+        rail?:
+          | T
+          | {
+              sections?:
+                | T
+                | {
+                    anchorId?: T;
+                    label?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              searchPopular?: T;
+              searchShortcuts?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              synonyms?: T;
+            };
+        footerPromises?: T;
+        footerColumns?:
+          | T
+          | {
+              heading?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        legalNote?: T;
+        contact?:
+          | T
+          | {
+              h1?: T;
+              lead?: T;
+              writeCta?: T;
+              placeKind?: T;
+              facts?:
+                | T
+                | {
+                    kind?: T;
+                    label?: T;
+                    value?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              routes?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    cta?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              topics?: T;
+              formTitle?: T;
+              placeholder?: T;
+              sendLabel?: T;
+              nextSteps?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              mapTitle?: T;
+              mapLead?: T;
+              salonKeys?: T;
+              faq?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+            };
+        about?:
+          | T
+          | {
+              h1?: T;
+              lead?: T;
+              authTitle?: T;
+              auth?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    flag?: T;
+                    id?: T;
+                  };
+              rules?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              steps?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              verify?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              visitText?: T;
+            };
+      };
   biznes?:
     | T
     | {
@@ -5735,7 +6038,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
               showInFooter?: T;
               id?: T;
             };
-        whatsapp?: T;
         trustLine?: T;
         serviceAreas?: T;
         promises?:
@@ -5748,6 +6050,36 @@ export interface SiteSettingsSelect<T extends boolean = true> {
             };
         showReviews?: T;
         showClientLogos?: T;
+        showOwnerQuote?: T;
+        ksef?:
+          | T
+          | {
+              deadline?: T;
+              href?: T;
+              textBefore?: T;
+              textAfter?: T;
+            };
+        procurement?:
+          | T
+          | {
+              categoryBand?: T;
+              categoryBandCta?: T;
+              itCategories?: T;
+              productLink?: T;
+              industryTiles?:
+                | T
+                | {
+                    industry?: T;
+                    page?: T;
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              scaleTitle?: T;
+              scaleText?: T;
+              searchAgd?: T;
+              searchIt?: T;
+            };
         navigation?:
           | T
           | {
@@ -5857,22 +6189,28 @@ export interface PagesSelect<T extends boolean = true> {
         bzKsef?: T | BzKsefBlockSelect<T>;
         bzLocation?: T | BzLocationBlockSelect<T>;
         bzSection?: T | BzSectionBlockSelect<T>;
+        bzContactPage?: T | BzContactPageBlockSelect<T>;
+        bzAboutPage?: T | BzAboutPageBlockSelect<T>;
+        bzProcurementPage?: T | BzProcurementPageBlockSelect<T>;
+        bzProcurement?: T | BzProcurementBlockSelect<T>;
+        bzNewsHome?: T | BzNewsHomeBlockSelect<T>;
         instService?: T | InstServiceBlockSelect<T>;
         instHome?: T | InstHomeBlockSelect<T>;
         instPlanner?: T | InstPlannerBlockSelect<T>;
         instContact?: T | InstContactBlockSelect<T>;
         instServiceDesk?: T | InstServiceDeskBlockSelect<T>;
         instArchitects?: T | InstArchitectsBlockSelect<T>;
+        instOffer?: T | InstOfferBlockSelect<T>;
+        instRealizations?: T | InstRealizationsBlockSelect<T>;
+        instAbout?: T | InstAboutBlockSelect<T>;
+        instGuide?: T | InstGuideBlockSelect<T>;
         swHero?: T | SwHeroBlockSelect<T>;
         swHomeSection?: T | SwHomeSectionBlockSelect<T>;
         swContact?: T | SwContactBlockSelect<T>;
-        swContactPage?: T | SwContactPageBlockSelect<T>;
         swPricing?: T | SwPricingBlockSelect<T>;
         swAuditForm?: T | SwAuditFormBlockSelect<T>;
-        swPageHero?: T | SwPageHeroBlockSelect<T>;
-        swSteps?: T | SwStepsBlockSelect<T>;
-        swTeam?: T | SwTeamBlockSelect<T>;
-        swLines?: T | SwLinesBlockSelect<T>;
+        swSharedPage?: T | SwSharedPageBlockSelect<T>;
+        swLegal?: T | SwLegalBlockSelect<T>;
       };
   seo?:
     | T
@@ -6200,6 +6538,8 @@ export interface BzReferencesBlockSelect<T extends boolean = true> {
  */
 export interface BzFactsBlockSelect<T extends boolean = true> {
   heading?: T;
+  headingAccent?: T;
+  lead?: T;
   owner?:
     | T
     | {
@@ -6312,6 +6652,7 @@ export interface BzTimelineBlockSelect<T extends boolean = true> {
  * via the `definition` "BzKsefBlock_select".
  */
 export interface BzKsefBlockSelect<T extends boolean = true> {
+  variant?: T;
   eyebrow?: T;
   date?: T;
   dateLabel?: T;
@@ -6370,6 +6711,72 @@ export interface BzSectionBlockSelect<T extends boolean = true> {
   source?: T;
   sourceUrl?: T;
   data?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzContactPageBlock_select".
+ */
+export interface BzContactPageBlockSelect<T extends boolean = true> {
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzAboutPageBlock_select".
+ */
+export interface BzAboutPageBlockSelect<T extends boolean = true> {
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProcurementPageBlock_select".
+ */
+export interface BzProcurementPageBlockSelect<T extends boolean = true> {
+  variant?: T;
+  oldEquipmentPickup?: T;
+  onsiteWarranty?: T;
+  showLG?: T;
+  services?:
+    | T
+    | {
+        label?: T;
+        kind?: T;
+        id?: T;
+      };
+  classHints?:
+    | T
+    | {
+        brands?: T;
+        id?: T;
+      };
+  data?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProcurementBlock_select".
+ */
+export interface BzProcurementBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  data?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzNewsHomeBlock_select".
+ */
+export interface BzNewsHomeBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  allLabel?: T;
   id?: T;
   blockName?: T;
 }
@@ -6553,6 +6960,158 @@ export interface InstArchitectsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstOfferBlock_select".
+ */
+export interface InstOfferBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstRealizationsBlock_select".
+ */
+export interface InstRealizationsBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstAboutBlock_select".
+ */
+export interface InstAboutBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstGuideBlock_select".
+ */
+export interface InstGuideBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SwHeroBlock_select".
  */
 export interface SwHeroBlockSelect<T extends boolean = true> {
@@ -6641,108 +7200,6 @@ export interface SwContactBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SwContactPageBlock_select".
- */
-export interface SwContactPageBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  title?: T;
-  titleAccent?: T;
-  lead?: T;
-  hoursNote?: T;
-  channels?:
-    | T
-    | {
-        kind?: T;
-        label?: T;
-        badge?: T;
-        value?: T;
-        text?: T;
-        href?: T;
-        id?: T;
-      };
-  stepsTitle?: T;
-  steps?:
-    | T
-    | {
-        when?: T;
-        title?: T;
-        text?: T;
-        id?: T;
-      };
-  shortcuts?:
-    | T
-    | {
-        icon?: T;
-        title?: T;
-        href?: T;
-        text?: T;
-        id?: T;
-      };
-  formEyebrow?: T;
-  formTitle?: T;
-  topicsLabel?: T;
-  messageLabel?: T;
-  messagePlaceholder?: T;
-  projectMessageLabel?: T;
-  projectMessagePlaceholder?: T;
-  hintsLabel?: T;
-  hints?:
-    | T
-    | {
-        topic?: T;
-        text?: T;
-        id?: T;
-      };
-  nameLabel?: T;
-  namePlaceholder?: T;
-  contactLabel?: T;
-  contactPlaceholder?: T;
-  contactHint?: T;
-  talkLabel?: T;
-  submit?: T;
-  submitNote?: T;
-  linesEyebrow?: T;
-  linesTitle?: T;
-  linesText?: T;
-  lines?:
-    | T
-    | {
-        line?: T;
-        label?: T;
-        text?: T;
-        linkLabel?: T;
-        href?: T;
-        id?: T;
-      };
-  linesMore?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-      };
-  meetEyebrow?: T;
-  meetTitle?: T;
-  meetLead?: T;
-  places?:
-    | T
-    | {
-        title?: T;
-        text?: T;
-        id?: T;
-      };
-  mapCaption?: T;
-  navigateLabel?: T;
-  mapZoomLabel?: T;
-  mapHref?: T;
-  entrancePhoto?: T;
-  entranceCaption?: T;
-  companyTitle?: T;
-  companyNote?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SwPricingBlock_select".
  */
 export interface SwPricingBlockSelect<T extends boolean = true> {
@@ -6762,24 +7219,6 @@ export interface SwPricingBlockSelect<T extends boolean = true> {
         label?: T;
         href?: T;
       };
-  featured?: T;
-  featuredBadge?: T;
-  featuredPoints?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
-  tableEyebrow?: T;
-  tableTitle?: T;
-  tabs?:
-    | T
-    | {
-        category?: T;
-        label?: T;
-        note?: T;
-        id?: T;
-      };
   careEyebrow?: T;
   careTitle?: T;
   careLead?: T;
@@ -6790,29 +7229,6 @@ export interface SwPricingBlockSelect<T extends boolean = true> {
   auditLead?: T;
   auditButton?: T;
   auditHref?: T;
-  includedEyebrow?: T;
-  includedTitle?: T;
-  includedItems?:
-    | T
-    | {
-        title?: T;
-        text?: T;
-        id?: T;
-      };
-  ctaTitle?: T;
-  ctaText?: T;
-  ctaPrimary?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-      };
-  ctaSecondary?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-      };
   id?: T;
   blockName?: T;
 }
@@ -6895,144 +7311,27 @@ export interface SwAuditFormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SwPageHeroBlock_select".
+ * via the `definition` "SwSharedPageBlock_select".
  */
-export interface SwPageHeroBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  title?: T;
-  titleAccent?: T;
-  lead?: T;
-  primary?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-      };
-  secondary?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-      };
-  visual?: T;
-  photos?:
-    | T
-    | {
-        photo?: T;
-        photoCaption?: T;
-        id?: T;
-      };
-  badge?:
-    | T
-    | {
-        status?: T;
-        title?: T;
-        text?: T;
-      };
-  hub?:
-    | T
-    | {
-        title?: T;
-        text?: T;
-      };
-  nodes?:
-    | T
-    | {
-        name?: T;
-        icon?: T;
-        text?: T;
-        current?: T;
-        id?: T;
-      };
+export interface SwSharedPageBlockSelect<T extends boolean = true> {
+  template?: T;
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SwStepsBlock_select".
+ * via the `definition` "SwLegalBlock_select".
  */
-export interface SwStepsBlockSelect<T extends boolean = true> {
-  variant?: T;
+export interface SwLegalBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
   lead?: T;
-  items?:
-    | T
-    | {
-        marker?: T;
-        icon?: T;
-        title?: T;
-        text?: T;
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SwTeamBlock_select".
- */
-export interface SwTeamBlockSelect<T extends boolean = true> {
-  variant?: T;
-  eyebrow?: T;
-  heading?: T;
-  lead?: T;
-  members?:
-    | T
-    | {
-        role?: T;
-        name?: T;
-        text?: T;
-        details?: T;
-        photo?: T;
-        photoCaption?: T;
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SwLinesBlock_select".
- */
-export interface SwLinesBlockSelect<T extends boolean = true> {
-  variant?: T;
-  eyebrow?: T;
-  heading?: T;
-  lead?: T;
-  lines?:
-    | T
-    | {
-        name?: T;
-        icon?: T;
-        address?: T;
-        href?: T;
-        points?:
-          | T
-          | {
-              text?: T;
-              id?: T;
-            };
-        cta?: T;
-        current?: T;
-        id?: T;
-      };
-  examples?:
-    | T
-    | {
-        eyebrow?: T;
-        title?: T;
-        text?: T;
-        rows?:
-          | T
-          | {
-              line?: T;
-              icon?: T;
-              text?: T;
-              id?: T;
-            };
-        id?: T;
-      };
+  version?: T;
+  updated?: T;
+  draft?: T;
+  askTitle?: T;
+  askText?: T;
+  body?: T;
   id?: T;
   blockName?: T;
 }
@@ -7229,6 +7528,7 @@ export interface InquiryDeletionsSelect<T extends boolean = true> {
 export interface CatalogGroupsSelect<T extends boolean = true> {
   tenant?: T;
   name?: T;
+  shortName?: T;
   slug?: T;
   icon?: T;
   description?: T;
@@ -7250,6 +7550,13 @@ export interface CatalogGroupsSelect<T extends boolean = true> {
       };
   topProducts?: T;
   wheelProducts?: T;
+  wheelLink?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        icon?: T;
+      };
   order?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -7264,6 +7571,7 @@ export interface CatalogCategoriesSelect<T extends boolean = true> {
   slug?: T;
   group?: T;
   icon?: T;
+  menuImage?: T;
   description?: T;
   subcategories?:
     | T
@@ -7569,6 +7877,9 @@ export interface ProductsSelect<T extends boolean = true> {
   badge?: T;
   keywords?: T;
   images?: T;
+  wheelImage?: T;
+  wheelName?: T;
+  wheelColor?: T;
   variants?:
     | T
     | {
@@ -7855,6 +8166,11 @@ export interface BiznesSettingsSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  bundles?:
+    | T
+    | {
+        home?: T;
+      };
   wizard?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -7902,6 +8218,12 @@ export interface SolutionsSelect<T extends boolean = true> {
         id?: T;
       };
   thumbnail?: T;
+  preview?:
+    | T
+    | {
+        kind?: T;
+        variant?: T;
+      };
   included?: T;
   moreExamples?: T;
   example?: T;
@@ -8178,7 +8500,6 @@ export interface InstalacjeSettingsSelect<T extends boolean = true> {
   showPrices?: T;
   noPriceText?: T;
   warrantyMonths?: T;
-  whatsapp?: T;
   responseText?: T;
   architects?:
     | T
@@ -8538,6 +8859,7 @@ export interface RealizationsSelect<T extends boolean = true> {
   scope?: T;
   description?: T;
   services?: T;
+  kind?: T;
   photos?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -8602,6 +8924,7 @@ export interface BundlesSelect<T extends boolean = true> {
         pair?: T;
         source?: T;
         status?: T;
+        url?: T;
         id?: T;
       };
   updatedAt?: T;
@@ -8817,6 +9140,7 @@ export interface InstArchNewsSelect<T extends boolean = true> {
         name?: T;
         id?: T;
       };
+  image?: T;
   illustration?: T;
   order?: T;
   featured?: T;
@@ -8912,11 +9236,47 @@ export interface CompanyDatum {
     number: string;
     id?: string | null;
   }[];
+  mapsUrl?: string | null;
+  ceidgUrl?: string | null;
+  legal?: {
+    privacy?: string | null;
+    cookies?: string | null;
+    accessibility?: string | null;
+    sitemap?: string | null;
+  };
+  /**
+   * Jeszcze nie działa: formularze pokazują klauzulę z kodu i zawsze pole do zaznaczenia (ADR-022 „Rozstrzygnięcia D2-3a”). Nie zmieniaj przed opinią prawnika i osobnym ADR.
+   */
+  consent?: {
+    mode?: ('checkbox' | 'info') | null;
+    version?: string | null;
+    clause?: string | null;
+  };
+  /**
+   * Włącz dopiero po opinii prawnika (zapis na urządzeniu użytkownika).
+   */
+  recentlyViewed?: boolean | null;
   locations: {
     name: string;
+    /**
+     * Np. „rabka”, „zakopane” — po nim linie wybierają salony.
+     */
+    key?: string | null;
+    /**
+     * Wyłącz, dopóki adres i godziny nie są potwierdzone.
+     */
+    published?: boolean | null;
     street: string;
     postalCode: string;
     city: string;
+    /**
+     * Z OpenStreetMap, np. 49.6086 i 19.9602.
+     */
+    geo?: {
+      lat?: number | null;
+      lng?: number | null;
+    };
+    parkingNote?: string | null;
     /**
      * Dni, w które oddział jest zamknięty, pomiń.
      */
@@ -8930,6 +9290,41 @@ export interface CompanyDatum {
       | null;
     id?: string | null;
   }[];
+  holidays?:
+    | {
+        date: string;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Na stronach tylko opublikowane, w kolejności „Kolejność”.
+   */
+  lines?:
+    | {
+        key: 'prokom' | 'biznes' | 'instalacje' | 'software' | 'tech' | 'zakopane' | 'gaming';
+        name: string;
+        kind: 'linia' | 'marka';
+        order: number;
+        domain?: string | null;
+        url?: string | null;
+        logoLabel?: string | null;
+        color?: string | null;
+        colorOnDark?: string | null;
+        published?: boolean | null;
+        description?: string | null;
+        descriptionLong?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  serviceZones?:
+    | {
+        name: string;
+        towns?: string[] | null;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Widoczny na wybranych stronach, gdy ma tekst i trwa okres od–do.
    */
@@ -8983,13 +9378,40 @@ export interface CompanyDataSelect<T extends boolean = true> {
         number?: T;
         id?: T;
       };
+  mapsUrl?: T;
+  ceidgUrl?: T;
+  legal?:
+    | T
+    | {
+        privacy?: T;
+        cookies?: T;
+        accessibility?: T;
+        sitemap?: T;
+      };
+  consent?:
+    | T
+    | {
+        mode?: T;
+        version?: T;
+        clause?: T;
+      };
+  recentlyViewed?: T;
   locations?:
     | T
     | {
         name?: T;
+        key?: T;
+        published?: T;
         street?: T;
         postalCode?: T;
         city?: T;
+        geo?:
+          | T
+          | {
+              lat?: T;
+              lng?: T;
+            };
+        parkingNote?: T;
         hours?:
           | T
           | {
@@ -8998,6 +9420,38 @@ export interface CompanyDataSelect<T extends boolean = true> {
               closes?: T;
               id?: T;
             };
+        id?: T;
+      };
+  holidays?:
+    | T
+    | {
+        date?: T;
+        label?: T;
+        id?: T;
+      };
+  lines?:
+    | T
+    | {
+        key?: T;
+        name?: T;
+        kind?: T;
+        order?: T;
+        domain?: T;
+        url?: T;
+        logoLabel?: T;
+        color?: T;
+        colorOnDark?: T;
+        published?: T;
+        description?: T;
+        descriptionLong?: T;
+        id?: T;
+      };
+  serviceZones?:
+    | T
+    | {
+        name?: T;
+        towns?: T;
+        note?: T;
         id?: T;
       };
   promoBar?:
@@ -9081,6 +9535,45 @@ export interface TaskSchedulePublish {
     } | null;
   };
   output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalTableBlock".
+ */
+export interface LegalTableBlock {
+  /**
+   * Np. „Cele i podstawy przetwarzania danych”. Niewidoczny na stronie.
+   */
+  caption?: string | null;
+  head1: string;
+  head2: string;
+  head3?: string | null;
+  head4?: string | null;
+  /**
+   * Komórki kolumn bez nagłówka są pomijane.
+   */
+  rows?:
+    | {
+        c1: string;
+        c2?: string | null;
+        c3?: string | null;
+        c4?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'legalTable';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalNoteBlock".
+ */
+export interface LegalNoteBlock {
+  text: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'legalNote';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

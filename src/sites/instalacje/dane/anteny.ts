@@ -1,3 +1,5 @@
+import { stanNa } from './stanFaktow'
+
 /**
  * Fixed texts of the Anteny page (ADR-I002 §1): the sections that are not in `InstServices`
  * and the widgets. Transcribed from `zrodlo/pages/Anteny.js` + `Anteny.body.html` (v4.2) the way
@@ -51,8 +53,8 @@ export const anteny = {
   whatWeDo: {
     head: {
       eyebrow: 'Instalacje antenowe',
-      heading: 'Od jednej anteny na domu po instalację dla całego bloku.',
-      lead: 'Antenę satelitarną trzeba wycelować z dokładnością do pojedynczych stopni. Dlatego ustawiamy ją miernikiem, a nie „na oko”, i używamy przewodów, wtyków i anten dobrej klasy.',
+      heading: 'Anteny dla domu, pensjonatu i całego bloku',
+      lead: 'Antenę satelitarną trzeba wycelować z dokładnością do pojedynczych stopni. Ustawiamy ją miernikiem i używamy przewodów, wtyków i anten dobrej klasy.',
     },
     items: [
       {
@@ -61,12 +63,12 @@ export const anteny = {
         text: 'Antena satelitarna i naziemna DVB-T2, rozprowadzenie do kilku telewizorów, pomiar sygnału przy każdym gnieździe.',
       },
       {
-        icon: 'build',
+        icon: 'apt',
         title: 'Instalacje zbiorcze w blokach',
         text: 'Jedna antena dla wszystkich mieszkańców zamiast lasu talerzy na balkonach. Multiswitche i rozprowadzenie do lokali.',
       },
       {
-        icon: 'wrench',
+        icon: 'tool',
         title: 'Modernizacja starych instalacji',
         text: 'Wymiana wzmacniaczy, przewodów i gniazd w istniejących instalacjach zbiorczych, z pomiarami po modernizacji.',
       },
@@ -81,7 +83,7 @@ export const anteny = {
         text: 'Ustawiamy anteny profesjonalnym miernikiem poziomu i jakości sygnału. Wynik pokazujemy przy odbiorze.',
       },
       {
-        icon: 'shield',
+        icon: 'wrench',
         title: 'Opieka po montażu',
         text: 'Konserwacja w gwarancji i opieka po gwarancji: przestawiona przez wiatr antena, zalane złącze, nowy telewizor.',
       },
@@ -91,8 +93,8 @@ export const anteny = {
   mountains: {
     head: {
       eyebrow: 'Anteny w górach',
-      heading: 'Stok zasłania nadajnik, halny szarpie masztem.',
-      lead: 'Na Podhalu antena ma trudniej niż na nizinach. Dobieramy jej typ, wysokość i mocowanie do miejsca, a nie do katalogu.',
+      heading: 'Dlaczego w górach antenę ustawiamy miernikiem',
+      lead: 'Na Podhalu antena ma trudniej niż na nizinach. Typ, wysokość i mocowanie dobieramy do miejsca: wiatru, stoku i tego, co zasłania nadajnik.',
     },
     items: [
       {
@@ -101,7 +103,7 @@ export const anteny = {
         text: 'Stok albo las między domem a nadajnikiem. Pomaga wyższy maszt, inne miejsce montażu albo antena kierunkowa.',
       },
       {
-        icon: 'storm',
+        icon: 'wind',
         title: 'Halny i wichury',
         text: 'Mocowania i maszty dobieramy z zapasem. W Zakopanem halny dawał porywy 33 m/s (grudzień 2013).',
       },
@@ -111,7 +113,7 @@ export const anteny = {
         text: 'Mokry śnieg na czaszy osłabia sygnał. Dobieramy miejsce montażu tak, żeby antenę dało się bezpiecznie odśnieżyć.',
       },
       {
-        icon: 'bolt',
+        icon: 'storm',
         title: 'Burze',
         text: 'Uziemienie i ochrona przepięciowa instalacji antenowej, żeby piorun nie trafił przez przewód do telewizora.',
       },
@@ -120,10 +122,9 @@ export const anteny = {
 
   multiplexes: {
     head: {
-      eyebrow: 'Telewizja naziemna, stan na październik 2026',
-      heading: 'Pięć multipleksów w DVB-T2.',
-      accent: 'Jeden jeszcze czeka.',
-      lead: 'MUX-8 nadaje jeszcze w starym DVB-T i w paśmie VHF. Termin zmiany jego standardu nie był ogłoszony (stan na październik 2026).',
+      eyebrow: 'Telewizja naziemna',
+      heading: 'Które multipleksy nadają już w DVB-T2',
+      lead: `Pięć z sześciu multipleksów, czyli pakietów kanałów, nadaje już w nowym standardzie DVB-T2. MUX-8 nadaje jeszcze w starym DVB-T i w paśmie VHF, a termin zmiany nie był ogłoszony (${stanNa()}).`,
     } satisfies SectionHead,
     items: [
       { name: 'MUX-1', standard: 'DVB-T2', text: 'Kanały ogólnodostępne', old: false },
@@ -142,9 +143,9 @@ export const anteny = {
 
   /** „Czy mój telewizor jest gotowy?” (`am.q1`, `am.q2`, results). */
   quiz: {
-    eyebrow: 'Czy mój telewizor jest gotowy?',
-    title: 'Sprawdź w 30 sekund.',
-    text: 'Przepisy wymagają od odbiorników DVB-T2 dekodowania HEVC (H.265). Telewizory sprzedawane od 1.12.2019 powinny to mieć. Od 2023 r. TVP1 i Polsat nadają z anteny w DVB-T2/HEVC, więc ich odbiór to najprostszy test.',
+    eyebrow: 'Test telewizora',
+    title: 'Sprawdź w 30 sekund, czy telewizor odbierze DVB-T2',
+    text: 'Do odbioru DVB-T2 telewizor musi dekodować HEVC (H.265). Telewizory sprzedawane od 1.12.2019 powinny to mieć. Od 2023 r. TVP1 i Polsat nadają z anteny w DVB-T2/HEVC, więc ich odbiór to najprostszy test.',
     q1: {
       label: 'Kiedy kupiony telewizor?',
       options: ['Od grudnia 2019', 'Wcześniej', 'Nie wiem'],
@@ -189,9 +190,9 @@ export const anteny = {
 
   filter: {
     head: {
-      eyebrow: 'Telewizja a 5G i LTE',
-      heading: 'Obraz się zacina, gdy obok stoi maszt telefonii?',
-      lead: 'Telewizja zajmuje dziś pasmo 470–694 MHz. Tuż nad nią pracują sieci LTE i 5G na 700 i 800 MHz. Silny sygnał komórkowy potrafi przesterować wzmacniacz antenowy.',
+      eyebrow: 'Filtr LTE/5G',
+      heading: 'Kiedy maszt telefonii zakłóca telewizję i co pomaga',
+      lead: 'Telewizja zajmuje dziś pasmo 470–694 MHz, a tuż nad nią pracują sieci komórkowe LTE i 5G na 700 i 800 MHz. Silny sygnał z masztu potrafi przeciążyć wzmacniacz antenowy i wtedy obraz się zacina.',
     },
     on: {
       label: 'Filtr LTE/5G włączony',
@@ -210,9 +211,8 @@ export const anteny = {
   satellite: {
     head: {
       eyebrow: 'Telewizja satelitarna',
-      heading: 'Ile telewizorów,',
-      accent: 'taki konwerter i taka instalacja.',
-      lead: 'Polsat Box i CANAL+ nadają z satelitów Hot Bird 13°E. Od liczby odbiorników zależy, czy wystarczy konwerter, czy potrzebny jest multiswitch albo instalacja jednoprzewodowa.',
+      heading: 'Jak podłączyć antenę satelitarną do kilku telewizorów',
+      lead: 'Polsat Box i CANAL+ nadają z satelitów Hot Bird 13°E. Od liczby odbiorników zależy, czy wystarczy sam konwerter (głowica na antenie), czy potrzebny jest multiswitch, czyli rozdzielacz sygnału, albo instalacja na jednym przewodzie.',
     } satisfies SectionHead,
     items: [
       {
@@ -248,8 +248,8 @@ export const anteny = {
   },
 
   guesthouse: {
-    eyebrow: 'Telewizja w pensjonacie i hotelu',
-    heading: 'Te same kanały w każdym pokoju, z jednej szafki.',
+    eyebrow: 'Dla pensjonatów',
+    heading: 'Telewizja w każdym pokoju pensjonatu i hotelu',
     items: [
       {
         icon: 'dish',
@@ -267,24 +267,5 @@ export const anteny = {
         text: 'Transmodulator przerabia wybrane kanały SAT na DVB-T lub DVB-C w wewnętrznej sieci obiektu. Dotyczy to kanałów niekodowanych albo płatnych w ramach umowy hotelowej z operatorem (np. Polsat Box, CANAL+). Bez takiej umowy płatnych kanałów nie wolno rozprowadzać po pokojach.',
       },
     ] satisfies Feature[],
-    fees: {
-      eyebrow: 'Zanim powiesisz telewizory w pokojach',
-      heading: 'Dwie opłaty, o których warto wiedzieć.',
-      items: [
-        {
-          icon: 'doc',
-          title: 'Abonament RTV za każdy telewizor',
-          text: 'Firma płaci za każdy odbiornik osobno. W 2026 r. to 30,50 zł miesięcznie za telewizor. Sądy uznają, że telewizor gotowy do odbioru w pokoju hotelowym podlega opłacie.',
-        },
-        {
-          icon: 'music',
-          title: 'Licencje organizacji zbiorowego zarządzania',
-          text: 'TSUE (C-306/05) uznał telewizję w pokojach hotelowych za publiczne udostępnianie utworów. Licencje rozlicza się z kilkoma organizacjami, m.in. ZAiKS i STOART. Przykład: STOART za audio w pokojach od 1,10 do 5,00 zł netto za pokój miesięcznie (tabela od 1.04.2026). Dla telewizorów STOART ma osobną tabelę.',
-        },
-      ] satisfies Feature[],
-      // TODO(krystian): spec §2 — przy przepisach tylko „To nie jest porada prawna.”; zdanie z wzorca
-      // zostawione do decyzji (dopisać / zastąpić).
-      note: 'To obowiązki obiektu, nie instalatora. Informujemy o nich przy projekcie, ale nie zastępujemy porady prawnej.',
-    },
   },
 } as const

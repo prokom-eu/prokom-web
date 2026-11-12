@@ -1,75 +1,12 @@
+import { ICON_NAMES } from '../shared/icons'
+
 /**
  * Fixed option lists of the Biznes catalog (ADR-012). They are database enums, so a new
  * value needs a migration — fine for lists that change with the design, not with the content.
  */
 
-/**
- * Line icons of the design, one set for every line (ADR-014 rozstrz. 8): Biznes
- * (`seed/prokombiznes/ikony.json`, B2) and Software (`seed/prokomsoftware/ikony.json`, SW3).
- */
-export const ICON_NAMES = [
-  'shield',
-  'cal',
-  'users',
-  'store',
-  'bolt',
-  'doc',
-  'life',
-  'arrow',
-  'check',
-  'phone',
-  'mail',
-  'pin',
-  'clock',
-  'monitor',
-  'remote',
-  'bell',
-  'wallet',
-  'chat',
-  'wrench',
-  'rocket',
-  'map',
-  'star',
-  'q',
-  'flash',
-  'grad',
-  'server',
-  'compass',
-  // Software (`seed/prokomsoftware/ikony.json`, SW3).
-  'panel',
-  'site',
-  'grid',
-  'plug',
-  'ticket',
-  'lifebuoy',
-  'chart',
-  'sign',
-  'cash',
-  'search',
-  'x',
-  'bed',
-  'food',
-  'refresh',
-  'globe',
-  'box',
-  'car',
-  'home',
-  'mountain',
-  'heart',
-  'bag',
-  'card',
-  'target',
-  'key',
-  'mega',
-  'mount',
-  'brief',
-] as const
-
-export type IconName = (typeof ICON_NAMES)[number]
-
-export function isIconName(value: unknown): value is IconName {
-  return typeof value === 'string' && (ICON_NAMES as readonly string[]).includes(value)
-}
+// Icon names live with the shared elements (D2-2); the catalog keeps these imports working.
+export { ICON_NAMES, isIconName, type IconName } from '../shared/icons'
 
 export const ICON_OPTIONS = ICON_NAMES.map((name) => ({ label: name, value: name }))
 
@@ -148,8 +85,10 @@ export const WIZARD_BUSINESS_TYPES = [
 ] as const
 
 /**
- * Post categories = filters of `/aktualnosci` (spec. §6.9). One list for all lines (ADR-014
- * rozstrz. SW0 2); a post may only take a category of its tenant's line (`lib/posts/list`).
+ * Post categories = filters of `/aktualnosci` (spec. §6.9) and of the Instalacje `/poradnik`
+ * (ADR-I002 „Posts”, the prototype's `Poradnik.js`). One list for all lines (ADR-014 rozstrz.
+ * SW0 2); a post may only take a category of its tenant's line (`lib/posts/list`). Values are
+ * unique across the lines (one database enum).
  */
 export const POST_CATEGORIES = [
   { label: 'KSeF', value: 'ksef', line: 'biznes' },
@@ -158,8 +97,23 @@ export const POST_CATEGORIES = [
   { label: 'Dofinansowania', value: 'dofinansowania', line: 'biznes' },
   { label: 'Programy', value: 'programy', line: 'biznes' },
   { label: 'Poradnik', value: 'poradnik', line: 'software' },
-  { label: 'Nowości', value: 'nowosci', line: 'software' },
-  { label: 'Realizacje', value: 'realizacje', line: 'software' },
+  // D7 (PRZEKAZANIE-v24 §0.1): „Nowości” → Poradnik, „Realizacje” → Strony (migration swa4_kategorie_wpisow).
+  { label: 'Strony', value: 'strony', line: 'software' },
+  { label: 'Systemy', value: 'systemy', line: 'software' },
+  { label: 'Automatyzacje', value: 'automatyzacje', line: 'software' },
+  { label: 'Bezpieczeństwo', value: 'bezpieczenstwo', line: 'software' },
+  { label: 'Przepisy', value: 'przepisy', line: 'instalacje' },
+  { label: 'Monitoring', value: 'monitoring', line: 'instalacje' },
+  { label: 'Obiekty noclegowe', value: 'noclegi', line: 'instalacje' },
+  { label: 'Energia', value: 'energia', line: 'instalacje' },
+  { label: 'Dźwięk i obraz', value: 'dzwiek-obraz', line: 'instalacje' },
+  // Runda v6 §3.3 (INST-6 PR5): the guide hub's categories. „Przepisy”, „Energia” and „Dźwięk
+  // i obraz” stay as values (no data loss); the hub shows only the new set.
+  { label: 'Alarmy', value: 'alarmy', line: 'instalacje' },
+  { label: 'Sieci', value: 'sieci', line: 'instalacje' },
+  { label: 'Smart home', value: 'smart-home', line: 'instalacje' },
+  { label: 'Ładowarki', value: 'ladowarki', line: 'instalacje' },
+  { label: 'Anteny', value: 'anteny', line: 'instalacje' },
 ] as const
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i

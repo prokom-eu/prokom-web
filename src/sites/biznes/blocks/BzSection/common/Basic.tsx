@@ -1,13 +1,20 @@
-import Link from 'next/link'
-
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
 import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 
-import { PhaseText } from '../k4j/Client'
-import { CARD, EYEBROW, HeadingText, SectionActions, SectionShell, sectionId } from '../ui'
+import { PhaseText } from '../k4j/ClientLazy'
+import {
+  CARD,
+  EYEBROW,
+  H2,
+  HeadingText,
+  SectionActions,
+  SectionShell,
+  SiteLink,
+  sectionId,
+} from '../ui'
 
 type Props = { block: BzSectionData }
 type Item = NonNullable<BzSectionData['items']>[number]
@@ -18,7 +25,7 @@ const items = (block: BzSectionData): Item[] => block.items ?? []
 export function StatsSection({ block }: Props) {
   const dark = block.surface === 'dark'
   return (
-    <SectionShell block={block} className="py-10 sm:py-14">
+    <SectionShell block={block}>
       <dl className="grid grid-cols-2 gap-x-6 gap-y-8 min-[900px]:grid-cols-4">
         {items(block).map((item, i) => (
           <div key={item.id ?? i} className="flex flex-col-reverse gap-1.5">
@@ -49,7 +56,7 @@ function CardLink({ href, label }: { href: string; label: string }) {
       </a>
     )
   }
-  if (/^(tel|mailto):|^#/.test(href)) {
+  if (/^(tel|mailto):/.test(href)) {
     return (
       <a href={href} className={className}>
         {label} →
@@ -57,40 +64,59 @@ function CardLink({ href, label }: { href: string; label: string }) {
     )
   }
   return (
-    <Link href={href} className={className}>
+    <SiteLink href={href} className={className}>
       {label} →
-    </Link>
+    </SiteLink>
   )
 }
 
 /** `cards`: three or four cards with an optional icon, label and link. */
 export function CardsSection({ block }: Props) {
   const list = items(block)
+  // Phone (boards App-*): cards with a link swipe in one row (App-Kontakt, App-OFirmie); plain
+  // cards sit two by two in small tiles (App-GoPOS).
+  const row = list.some((item) => item.href)
   return (
     <SectionShell block={block}>
       <ul
         className={cx(
           'grid gap-4 min-[640px]:grid-cols-2',
           list.length % 4 === 0 ? 'min-[1080px]:grid-cols-4' : 'min-[1080px]:grid-cols-3',
+          row
+            ? 'max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-3 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none]'
+            : 'max-md:grid-cols-2 max-md:gap-2.5',
         )}
       >
         {list.map((item, i) => (
-          <li key={item.id ?? i} className={cx(CARD, 'flex flex-col gap-2.5 p-6 text-ink sm:p-7')}>
+          <li
+            key={item.id ?? i}
+            className={cx(
+              CARD,
+              'flex flex-col gap-2.5 p-6 text-ink sm:p-7 max-md:gap-1.5',
+              row
+                ? 'max-md:relative max-md:w-[66%] max-md:shrink-0 max-md:snap-start max-md:p-4'
+                : 'max-md:min-w-0 max-md:rounded-[18px] max-md:p-3.5',
+            )}
+          >
             {item.icon && (
               <span
                 aria-hidden="true"
-                className="mb-1 flex size-11 items-center justify-center rounded-xl bg-surface-2 text-accent-text"
+                className="mb-1 flex size-11 items-center justify-center rounded-xl bg-surface-2 text-accent-text max-md:size-9"
               >
-                <Icon name={item.icon} strokeWidth={2.2} className="size-5" />
+                <Icon name={item.icon} strokeWidth={2.2} className="size-5 max-md:size-4" />
               </span>
             )}
             {item.label && !item.href && (
-              <p className={cx(EYEBROW, 'text-accent-text')}>{item.label}</p>
+              <p className={cx(EYEBROW, 'text-accent-text max-md:text-[11px]')}>{item.label}</p>
             )}
-            <h3 className="font-display text-[1.2rem] leading-tight font-extrabold text-balance">
+            <h3 className="font-display text-[1.2rem] leading-tight font-extrabold text-balance max-md:text-[15px]">
               {item.title}
             </h3>
-            {item.text && <p className="leading-relaxed text-pretty text-ink-2">{item.text}</p>}
+            {item.text && (
+              <p className="leading-relaxed text-pretty text-ink-2 max-md:text-[13px] max-md:leading-snug">
+                {item.text}
+              </p>
+            )}
             {item.href && <CardLink href={item.href} label={item.label || 'Zobacz więcej'} />}
           </li>
         ))}
@@ -104,25 +130,38 @@ export function StepsSection({ block }: Props) {
   const list = items(block)
   return (
     <SectionShell block={block}>
+      {/* Phone (App-Ulga, App-GoPOS): a numbered column, the circle left, the text right. */}
       <ol
         className={cx(
-          'grid gap-4 min-[640px]:grid-cols-2',
+          'grid gap-4 max-md:gap-3 min-[768px]:grid-cols-2',
           list.length >= 5 ? 'min-[1080px]:grid-cols-5' : 'min-[1080px]:grid-cols-4',
         )}
       >
         {list.map((item, i) => (
-          <li key={item.id ?? i} className={cx(CARD, 'flex flex-col gap-2 p-6 text-ink')}>
+          <li
+            key={item.id ?? i}
+            className={cx(
+              CARD,
+              'flex flex-col gap-2 p-6 text-ink max-md:grid max-md:grid-cols-[2.25rem_minmax(0,1fr)] max-md:gap-x-3 max-md:gap-y-0.5 max-md:rounded-none max-md:bg-transparent max-md:p-0 max-md:shadow-none',
+            )}
+          >
             <span
               aria-hidden="true"
-              className="mb-2 flex size-10 items-center justify-center rounded-full bg-accent-text font-display text-[15px] font-extrabold text-accent-ink"
+              className="mb-2 flex size-10 items-center justify-center rounded-full bg-accent-text font-display text-[15px] font-extrabold text-accent-ink max-md:row-span-3 max-md:mb-0 max-md:size-9 max-md:text-sm"
             >
               {i + 1}
             </span>
-            {item.label && <p className={cx(EYEBROW, 'text-ink-2')}>{item.label}</p>}
-            <h3 className="font-display text-[1.1rem] leading-tight font-extrabold">
+            {item.label && (
+              <p className={cx(EYEBROW, 'text-ink-2 max-md:text-[10.5px]')}>{item.label}</p>
+            )}
+            <h3 className="font-display text-[1.1rem] leading-tight font-extrabold max-md:text-base">
               {item.title}
             </h3>
-            {item.text && <p className="text-[15px] leading-relaxed text-ink-2">{item.text}</p>}
+            {item.text && (
+              <p className="text-[15px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
+                {item.text}
+              </p>
+            )}
           </li>
         ))}
       </ol>
@@ -134,18 +173,25 @@ export function StepsSection({ block }: Props) {
 export function CasesSection({ block }: Props) {
   return (
     <SectionShell block={block}>
-      <ul className="grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
+      {/* Phone (App-GoPOS „Wyniki klientów”): the results in one row to swipe. */}
+      <ul className="grid gap-4 max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-3 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none] min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
         {items(block).map((item, i) => (
           <li
             key={item.id ?? i}
             className={cx(
-              'flex flex-col gap-2 rounded-[22px] p-6',
+              'flex flex-col gap-2 rounded-[22px] p-6 max-md:w-[52%] max-md:shrink-0 max-md:snap-start max-md:gap-1 max-md:p-4',
               i === 0 ? 'bg-surface-dark text-white' : cx(CARD, 'text-ink'),
             )}
           >
-            <p className="font-display text-[2.4rem] leading-none font-extrabold">{item.label}</p>
-            <p className={i === 0 ? 'text-white/85' : 'text-ink-2'}>{item.text}</p>
-            <p className="mt-auto pt-3 font-extrabold">{item.title}</p>
+            <p className="font-display text-[2.4rem] leading-none font-extrabold max-md:text-[30px]">
+              {item.label}
+            </p>
+            <p className={cx('max-md:text-[13px]', i === 0 ? 'text-white/85' : 'text-ink-2')}>
+              {item.text}
+            </p>
+            <p className="mt-auto pt-3 font-extrabold max-md:pt-1.5 max-md:text-[13px]">
+              {item.title}
+            </p>
           </li>
         ))}
       </ul>
@@ -160,18 +206,16 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
     <section
       id={id}
       aria-labelledby={block.heading ? `${id}-h` : undefined}
-      className="scroll-mt-28 px-4 py-12 sm:px-6 sm:py-16 lg:px-8"
+      className="scroll-mt-28 px-4 py-12 max-md:py-6 sm:px-6 sm:py-16 lg:px-8"
     >
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[28px] bg-surface-dark px-6 py-10 text-white sm:px-10 min-[900px]:flex-row min-[900px]:items-center min-[900px]:justify-between">
+      {/* Phone (App-OFirmie, App-GoPOS): a compact card, the buttons across it. */}
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[28px] bg-surface-dark px-6 py-10 text-white max-md:gap-4 max-md:rounded-[24px] max-md:px-[18px] max-md:py-6 sm:px-10 min-[900px]:flex-row min-[900px]:items-center min-[900px]:justify-between">
         <div className="max-w-[44rem]">
           {block.eyebrow && (
-            <p className={cx(EYEBROW, 'mb-3 text-accent-on-dark')}>{block.eyebrow}</p>
+            <p className={cx(EYEBROW, 'mb-3 text-accent-on-dark max-md:hidden')}>{block.eyebrow}</p>
           )}
           {block.heading && (
-            <h2
-              id={`${id}-h`}
-              className="font-display text-[clamp(1.8rem,3.2vw,2.6rem)] leading-tight font-extrabold text-balance"
-            >
+            <h2 id={`${id}-h`} className={H2}>
               {data.after ? (
                 <PhaseText
                   date={data.after.date}
@@ -184,17 +228,33 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
               )}
             </h2>
           )}
-          {block.lead && <p className="mt-3 leading-relaxed text-white/80">{block.lead}</p>}
+          {block.lead && (
+            <p className="mt-3 leading-relaxed text-white/80 max-md:mt-2 max-md:text-[13.5px]">
+              {block.lead}
+            </p>
+          )}
         </div>
-        <SectionActions actions={data.actions} onDark className="shrink-0" />
+        <SectionActions
+          actions={data.actions}
+          onDark
+          className="shrink-0 max-md:grid max-md:grid-cols-1 max-md:gap-2"
+        />
       </div>
     </section>
   )
 }
 
 /** `table`: a comparison; on a phone each column is a card in a horizontal strip. */
+/** `contrast` tables (board `Web-opieka-it`): the „without” column in red, the „with” in green. */
+const CONTRAST_HEAD = [
+  'bg-[color-mix(in_srgb,var(--c-biznes-tone-red)_12%,transparent)] text-ink',
+  'bg-ok/15 text-ok-text',
+]
+const CONTRAST_CELL = ['text-ink-2', 'bg-ok/5 font-bold text-ink']
+
 export function TableSection({ block, data }: Props & { data: SectionData<'table'> }) {
   const [, ...columns] = data.head
+  const contrast = data.contrast === true && columns.length === 2
   return (
     <SectionShell block={block}>
       <div className={cx(CARD, 'hidden overflow-hidden min-[761px]:block')}>
@@ -202,8 +262,22 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
           <thead>
             <tr className="bg-surface-2">
               {data.head.map((cell, i) => (
-                <th key={i} scope="col" className="px-5 py-4 font-display font-extrabold text-ink">
-                  {cell}
+                <th
+                  key={i}
+                  scope="col"
+                  className={cx(
+                    'px-5 py-4 font-display font-extrabold text-ink',
+                    contrast && i > 0 && CONTRAST_HEAD[i - 1],
+                  )}
+                >
+                  {contrast && i > 0 ? (
+                    <span className="inline-flex items-center gap-2">
+                      <span aria-hidden="true">{i === 1 ? '✕' : '✓'}</span>
+                      {cell}
+                    </span>
+                  ) : (
+                    cell
+                  )}
                 </th>
               ))}
             </tr>
@@ -215,7 +289,10 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
                   {row.k}
                 </th>
                 {row.v.map((cell, i) => (
-                  <td key={i} className="px-5 py-4 text-ink-2">
+                  <td
+                    key={i}
+                    className={cx('px-5 py-4', contrast ? CONTRAST_CELL[i] : 'text-ink-2')}
+                  >
                     {cell}
                   </td>
                 ))}
@@ -227,7 +304,19 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
       <ul className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 min-[761px]:hidden">
         {columns.map((column, c) => (
           <li key={column} className={cx(CARD, 'w-[82%] shrink-0 snap-start p-5 text-ink')}>
-            <h3 className="font-display text-lg font-extrabold">{column}</h3>
+            <h3
+              className={cx(
+                'font-display text-lg font-extrabold',
+                contrast && cx('-mx-5 -mt-5 mb-1 rounded-t-[22px] px-5 py-3', CONTRAST_HEAD[c]),
+              )}
+            >
+              {contrast && (
+                <span aria-hidden="true" className="mr-2">
+                  {c === 0 ? '✕' : '✓'}
+                </span>
+              )}
+              {column}
+            </h3>
             <dl className="mt-3 flex flex-col gap-3">
               {data.rows.map((row) => (
                 <div key={row.k}>
@@ -239,6 +328,7 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
           </li>
         ))}
       </ul>
+      {data.lines && <TableLines lines={data.lines} />}
     </SectionShell>
   )
 }
@@ -248,11 +338,16 @@ export function ChipsSection({ block, data }: Props & { data: SectionData<'chips
   const visible = data.visible > 0 ? data.groups.slice(0, data.visible) : data.groups
   const rest = data.visible > 0 ? data.groups.slice(data.visible) : []
   const group = (g: (typeof data.groups)[number]) => (
-    <li key={g.t} className={cx(CARD, 'flex flex-col gap-3 p-5 text-ink')}>
-      <h3 className="font-extrabold">{g.t}</h3>
-      <ul className="flex flex-wrap gap-2">
+    <li key={g.t} className={cx(CARD, 'flex flex-col gap-3 p-5 text-ink max-md:gap-2 max-md:p-4')}>
+      <h3 className="font-extrabold max-md:text-[11px] max-md:tracking-[0.08em] max-md:text-accent-text max-md:uppercase">
+        {g.t}
+      </h3>
+      <ul className="flex flex-wrap gap-2 max-md:gap-1.5">
         {g.items.map((chip) => (
-          <li key={chip} className="rounded-full bg-surface-2 px-3 py-1.5 text-[14px] text-ink-2">
+          <li
+            key={chip}
+            className="rounded-full bg-surface-2 px-3 py-1.5 text-[14px] text-ink-2 max-md:px-2.5 max-md:py-1 max-md:text-[13px]"
+          >
             {chip}
           </li>
         ))}
@@ -260,11 +355,22 @@ export function ChipsSection({ block, data }: Props & { data: SectionData<'chips
     </li>
   )
   return (
-    <SectionShell block={block}>
-      <ul className="grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
+    <SectionShell
+      block={block}
+      // Phone (App-GoPOS „Integracje 30+”): the count as a pill next to the heading.
+      aside={
+        data.total ? (
+          <span className="shrink-0 rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold text-ink-2 md:hidden">
+            {data.total.v}
+          </span>
+        ) : null
+      }
+    >
+      <ul className="grid gap-4 max-md:gap-2 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
         {visible.map(group)}
         {data.total && (
-          <li className="flex flex-col justify-center gap-1 rounded-[22px] bg-accent-text p-5 text-accent-ink">
+          // Phone: the count is the pill next to the heading (`aside`), not a big card.
+          <li className="flex flex-col justify-center gap-1 rounded-[22px] bg-accent-text p-5 text-accent-ink max-md:hidden">
             <span className="font-display text-[2.4rem] leading-none font-extrabold">
               {data.total.v}
             </span>
@@ -284,5 +390,41 @@ export function ChipsSection({ block, data }: Props & { data: SectionData<'chips
         </details>
       )}
     </SectionShell>
+  )
+}
+
+/**
+ * „Linie InsERT” under the comparison (PREMIUM-1011, `insert.lines`): a card per line with its
+ * tagline and who it is for — the step after „123, GT czy nexo?”. Facts of the package only.
+ */
+function TableLines({ lines }: { lines: NonNullable<SectionData<'table'>['lines']> }) {
+  return (
+    <div className="mt-10 max-md:mt-6" data-table-lines>
+      <h3 className="font-display text-xl font-extrabold">{lines.t}</h3>
+      <ul
+        className="mt-4 grid gap-3 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4"
+        data-reveal-cards=""
+      >
+        {lines.items.map((line) => (
+          <li key={line.t} className={cx(CARD, 'flex flex-col gap-2 p-5 text-ink')}>
+            <b className="font-display text-lg font-extrabold">{line.t}</b>
+            <span className="text-[13px] font-extrabold tracking-[0.04em] text-accent-text uppercase">
+              {line.s}
+            </span>
+            <ul className="mt-1 flex flex-col gap-1.5 text-[15px] text-ink-2">
+              {line.b.map((point) => (
+                <li key={point} className="flex gap-2">
+                  <span aria-hidden="true" className="text-ok-text">
+                    ✓
+                  </span>
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+      {lines.source && <p className="mt-3 text-[13px] text-ink-2">{lines.source}</p>}
+    </div>
   )
 }

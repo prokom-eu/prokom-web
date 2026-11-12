@@ -222,6 +222,14 @@ describe('k4Relations (polecane, podobne)', () => {
 })
 
 describe('K4 package (katalog-k4.json)', () => {
+  it('recommends register accessories before network gear on registers (audit 0611 P1-13)', () => {
+    for (const card of k4Catalog.produkty.filter((item) => item.kategoria === 'kasy')) {
+      const labels = (card.polecane ?? []).map((item) => item.etykieta)
+      const network = labels.indexOf('Sieć i Wi-Fi')
+      if (network >= 0) expect(network, card.slug_seed).toBe(labels.length - 1)
+    }
+  })
+
   const cards: K4Card[] = k4Catalog.produkty
 
   it('has 422 cards: 162 new, 129 changed, 131 typography', () => {
@@ -390,4 +398,22 @@ describe('mapa-slugow-k4.json', () => {
       expect(splits.get(old), old).toBe(item['301'])
     }
   })
+})
+
+describe('HP only with original supplies (K4-FINAL §1, audit 01.11)', () => {
+  const cards = (k4Catalog as unknown as { produkty: K4Card[] }).produkty
+  const bySlug = new Map(cards.map((card) => [card.slug_seed, card]))
+  const hp = cards.filter((card) => card.slug_seed.startsWith('hp-'))
+
+  it.each(hp.map((card) => card.slug_seed))(
+    '%s names no „zamiennik”, nor do its suggestions',
+    (slug) => {
+      const card = bySlug.get(slug)!
+      const suggested = (card.polecane ?? []).map((item) => [
+        item.etykieta,
+        bySlug.get(item.slug)?.nazwa,
+      ])
+      expect(JSON.stringify([card, suggested])).not.toMatch(/zamiennik/i)
+    },
+  )
 })

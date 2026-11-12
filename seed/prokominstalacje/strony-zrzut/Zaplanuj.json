@@ -314,12 +314,6 @@
      "cls": "zksg on"
     },
     {
-     "n": "WhatsApp",
-     "ic": "ikona:chat",
-     "on": "false",
-     "cls": "zksg"
-    },
-    {
      "n": "E-mail",
      "ic": "ikona:mail",
      "on": "false",

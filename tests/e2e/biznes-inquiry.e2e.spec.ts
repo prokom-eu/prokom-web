@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test'
 
 import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
-import { api, loginAsAdmin, site } from './helpers'
+import { api, loginAsAdmin, openInquiryDrawer, site } from './helpers'
 
 // B8b: the inquiry list `/zapytanie` (spec. §6.3, plansza Zapytanie, kryterium §9 pkt 3 i 5):
 // items with quantities and notes → panel and Mailpit, number on the success screen, list
@@ -73,16 +73,14 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     const contact = form(page)
     await contact.getByLabel(/^Imię/).fill(marker)
     await contact.getByRole('textbox', { name: /^Telefon/ }).fill('600 100 200')
-    await contact.getByLabel('Miejscowość').fill('Nowy Targ')
-    // The chips are radios under their labels: a click on the label, as a person does.
-    await contact.locator('label', { hasText: 'WhatsApp' }).click()
-    await contact.locator('label', { hasText: 'Przed sezonem' }).click()
-    await expect(contact.getByRole('radio', { name: 'WhatsApp' })).toBeChecked()
+    // K4-FINAL §5 (prompt 2 W3): the same fields as the drawer — no city, contact or deadline.
+    await expect(contact.getByLabel('Miejscowość')).toHaveCount(0)
+    await expect(contact.getByRole('radio')).toHaveCount(0)
     await contact.getByLabel(/Wyrażam zgodę/).check()
     await waitMinimumFillTime(page)
     await contact.getByRole('button', { name: 'Wyślij zapytanie (2 pozycje)' }).click()
 
-    const done = page.getByRole('status').filter({ hasText: 'Dziękujemy — mamy Twoją listę.' })
+    const done = page.getByRole('status').filter({ hasText: 'Dziękujemy, mamy Twoją listę.' })
     await expect(done).toBeFocused()
     await expect(done).toContainText(/Zapytanie nr PKB-\d{4}-\d{4,}/)
     await expect(done).toContainText(`${first.name} ×2, ${second.name}`)
@@ -99,9 +97,7 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
       expect(record).toMatchObject({
         type: 'list',
         phone: '600 100 200',
-        city: 'Nowy Targ',
-        preferredContact: 'whatsapp',
-        deadline: 'Przed sezonem',
+        preferredContact: 'phone',
         items: [
           expect.objectContaining({
             nameSnapshot: first.name,
@@ -127,7 +123,8 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     // The list comes from the browser after hydration: wait for it, then send.
     await expect(page.getByRole('link', { name: first.name })).toBeVisible()
     const contact = form(page)
-    await contact.getByRole('button', { name: /^Wyślij zapytanie/ }).click()
+    // At 390 px only the sticky „Wyślij zapytanie · N poz.” shows (M1′).
+    await contact.getByRole('button', { name: /^Wyślij zapytanie · / }).click()
 
     const name = contact.getByLabel(/^Imię/)
     await expect(name).toBeFocused()
@@ -206,13 +203,11 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     await page.goto(site('biznes.localhost'))
     // The count in the title drops to 0 once the list is sent, so the name only starts with it.
     const drawer = page.getByRole('dialog', { name: /^Twoje zapytanie/ })
-    await expect(async () => {
-      await page
-        .getByRole('banner')
-        .getByRole('button', { name: /^Zapytanie/ })
-        .click()
-      await expect(drawer).toBeVisible({ timeout: 1000 })
-    }).toPass()
+    await openInquiryDrawer(
+      page,
+      page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ }),
+      drawer,
+    )
     await expect(drawer.getByRole('link', { name: first.name })).toBeVisible()
 
     const contact = drawer.getByRole('region', { name: 'Dokąd wysłać ofertę?' })

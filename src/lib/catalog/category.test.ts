@@ -7,14 +7,12 @@ import {
   buildCategoryView,
   categoryBrands,
   categoryGuide,
-  categoryPill,
   choiceInquiryHref,
   categoryIndustries,
   categoryProducts,
   categorySeries,
   filterCategoryProducts,
   findSubcategory,
-  helpCardSpan,
   registerOptions,
   seriesFilter,
   seriesFromParam,
@@ -116,9 +114,11 @@ describe('categoryGuide (K36 §13)', () => {
     })
     expect(guide).toEqual({
       title: 'Nie wiesz, co wybrać?',
-      text: 'Napisz, do czego potrzebujesz — dobierzemy model i przygotujemy ofertę na piśmie.',
+      text: 'Napisz, do czego potrzebujesz, a dobierzemy model i przygotujemy ofertę.',
       button: 'Zapytaj o dobór',
       href: choiceInquiryHref('Niszczarki'),
+      // Not a picker: no side card, the help block under the grid says it (audit 0611 P1-2).
+      picker: false,
     })
     expect(choiceInquiryHref('Niszczarki')).toBe('/zapytanie?fraza=Dob%C3%B3r%3A%20Niszczarki')
   })
@@ -309,16 +309,6 @@ describe('subcategories (K3b′)', () => {
   })
 })
 
-describe('helpCardSpan', () => {
-  it('fills the rest of the last row, or a whole row when it is full', () => {
-    expect(helpCardSpan(7, 3)).toBe(2)
-    expect(helpCardSpan(8, 3)).toBe(1)
-    expect(helpCardSpan(9, 3)).toBe(3)
-    expect(helpCardSpan(7, 2)).toBe(1)
-    expect(helpCardSpan(0, 3)).toBe(3)
-  })
-})
-
 describe('boughtWithTiles', () => {
   const image = { url: '/d.webp', alt: 'Drukarka', width: 480, height: 480 }
   const catalog = index(
@@ -463,37 +453,6 @@ describe('buildCategoryView', () => {
     expect(view.image?.alt).toBe('Kasy')
     expect(view.boughtWith).toEqual(['druk'])
     expect(buildCategoryView(category({ hero: { image: image as Media } }), 2).image).toBeNull()
-  })
-})
-
-describe('categoryPill', () => {
-  const brands: CatalogIndex['brands'] = [
-    { slug: 'elzab', name: 'Elzab', status: 'authorized-service' },
-    { slug: 'fawag', name: 'Fawag', status: 'none' },
-    { slug: 'posnet', name: 'Posnet', status: 'authorized-service' },
-    { slug: 'gopos', name: 'GoPOS', status: 'authorized-partner' },
-  ]
-
-  it('names the group, counts models and lists confirmed partner statuses', () => {
-    const products = [
-      product('a', { brand: 'posnet' }),
-      product('b', { brand: 'elzab' }),
-      product('c', { brand: 'fawag' }),
-      product('d', { brand: 'posnet' }),
-    ]
-    expect(categoryPill('Kasy i sprzedaż', products, index(products, { brands }))).toBe(
-      'Kasy i sprzedaż · 4 modele · autoryzowany serwis Posnet i Elzab',
-    )
-  })
-
-  it('counts positions when not everything is a device, and skips missing statuses', () => {
-    const products = [product('a', { kind: 'service' }), product('b', { brand: 'gopos' })]
-    expect(categoryPill(null, products, index(products, { brands }))).toBe(
-      '2 pozycje · autoryzowany partner GoPOS',
-    )
-    expect(categoryPill('Serwis', [product('x', { kind: 'service' })], index([]))).toBe(
-      'Serwis · 1 pozycja',
-    )
   })
 })
 

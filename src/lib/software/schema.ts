@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+import { SLUG_PATTERN } from './slug'
+
 import { isValidNavHref } from '../site/link'
 
 /**
@@ -24,7 +26,7 @@ export const text = z.string().trim().min(1).max(1200)
 export const key = z.string().regex(/^[a-zA-Z0-9]+(?:[-_][a-zA-Z0-9]+)*$/)
 
 /** Solution slug (`Solutions.slug`). */
-export const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
+export const slug = z.string().regex(SLUG_PATTERN)
 
 /** Link of the navigation: a path, https://, mailto:, tel: or an anchor on the page (`#kontakt`). */
 export const href = z

@@ -106,6 +106,13 @@ Wszystkie formularze: imię (gdzie jest), telefon (walidacja PL), zgoda RODO z l
 - Treść każdej strony jest w `seed/prokominstalacje/` (zrzut danych z wizualizacji). Seed jest **jedynym źródłem tekstów** — nie przepisywać tekstów „z pamięci” ani ze zrzutów ekranu.
 - Dane wspólne: `seed/prokominstalacje/wspolne.json` (usługi, obiekty, kolory, nawigacja, dane kontaktowe z placeholderami).
 - Edytowalne w panelu (Payload, tenant `instalacje`): dane kontaktowe i godziny, teksty hero i sekcji, FAQ, zestawy, czynniki ceny, ceny „od” (z przełącznikiem), realizacje, wpisy, SEO każdej strony. W kodzie: układ, sceny SVG, logika kalkulatorów i symulatorów (ADR-I002).
+- **Zasady pisania (redakcja 01.11.2026, `docs/tresci/prokominstalacje-redakcja.md` §6)** — dla każdej nowej i zmienianej treści:
+  1. Najpierw konkret (kto, gdzie, kiedy, ile), potem obietnica. Hasło bez konkretu wyrzucamy.
+  2. Najwyżej jedna antyteza „X, a nie Y” na ekran.
+  3. Zakazane frazesy: „śpisz spokojnie”, „mówi za Ciebie”, „wszystko się dogada”, „mocny punkt”, „najlepiej przekonuje”, „kompleksowo”, „innowacyjny”.
+  4. H2 sekcji powtarzalnej zawiera nazwę usługi albo obiektu.
+  5. H1 bez powtórzonego słowa i nie dłuższy niż ok. 90 znaków razem z nadtytułem, jeśli ten jest w H1.
+  6. Zdanie od „Dlatego” tylko wtedy, gdy naprawdę wynika z poprzedniego.
 
 ## 8. Wygląd
 - Tokeny: `docs/design/prokominstalacje/tokens.css` → `src/styles/tokens.css` (bez wyboru gościa motyw za ustawieniem systemu, jak Biznes i Software — decyzja I0, ADR-I003 §6; przełącznik zapamiętany). Kroje: Archivo (nagłówki) i Manrope (tekst) — pliki lokalne już w repo (`next/font/local`).

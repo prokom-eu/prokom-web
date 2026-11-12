@@ -6,7 +6,8 @@ import { cardPrice } from './cardPrice'
 import { SITUATIONS, SOLUTION_CATEGORIES, type SolutionCategory } from './options'
 import { formatPrice } from './price'
 import { firstIssue, label, obj, slug, text } from './schema'
-import type { PriceDisplay } from './wizard'
+import type { PriceDisplay } from './priceDisplay'
+import { indexPreview, type IndexPreview } from './solutionsIndex'
 
 /**
  * Offer window of a solution (spec. §5.1, board `Katalog`, `stany/okno-90…98`; ADR-014 v22 pkt 4,
@@ -104,6 +105,8 @@ export type OfferSolution = {
   hasLivePreview: boolean
   toast?: string
   thumbnail?: string
+  /** Mock-up of v24 (ZMIANY-v24 §8); missing → the thumbnail. */
+  preview?: IndexPreview
   priceFrom: number | null
   priceMonthly: boolean
   leadTime: string | null
@@ -124,12 +127,13 @@ export type OfferSolution = {
   faq: { q: string; a: string }[]
 }
 
-/** A card of „Dobrze łączy się z”. */
+/** A card of „Często łączone z”. */
 export type RelatedCard = {
   slug: string
   name: string
   label?: string
   thumbnail?: string
+  preview?: IndexPreview
   /** „od 1 999 zł netto”, „od 149 zł / mies.”, „Zapytaj o wycenę”. */
   price: string
 }
@@ -193,6 +197,7 @@ export type OfferView = {
   hasLivePreview: boolean
   toast?: string
   thumbnail?: string
+  preview?: IndexPreview
   forWhom?: string
   /** First two parts of „Dla kogo” for the fact tile. */
   forWhomShort?: string
@@ -215,6 +220,13 @@ export type OfferView = {
   related: RelatedCard[]
   /** Sticky bar of a solution without levels. */
   bar: { label: string; price: string }
+  /** „Opieka od” tile (ZMIANY-v24 §6.1): the lowest care level; none on care and audit. */
+  careFrom: string | null
+  /**
+   * „Potrzebujesz więcej?” as chips (OKNO-OFERTY-PREMIUM §2.3): `Solutions.moreExamples` of a
+   * priced solution, no prices; empty → the sentence of `price.more` stays.
+   */
+  extras: string[]
 }
 
 /** Fills the page tokens (`[FAKT]`, `{termin}`, `{cena:<slug>}`); `null` = drop the text. */
@@ -285,6 +297,7 @@ export function relatedCard(solution: OfferSolution, display: PriceDisplay): Rel
     name: solution.name,
     label: solution.label,
     thumbnail: solution.thumbnail,
+    preview: solution.preview,
     price: priceLine(solution, display),
   }
 }
@@ -311,6 +324,8 @@ type BuildOptions = {
   /** Cards of the related solutions, published ones of the same tenant, in order. */
   related: RelatedCard[]
   fill: FillText
+  /** „od 149 zł / mies.” of the cheapest care level of the tenant (`careFromLine`). */
+  careFrom?: string | null
 }
 
 /**
@@ -407,6 +422,7 @@ export function buildOfferView(solution: OfferSolution, options: BuildOptions): 
     hasLivePreview: solution.hasLivePreview,
     toast: solution.toast,
     thumbnail: solution.thumbnail,
+    preview: solution.preview,
     forWhom: solution.forWhom,
     forWhomShort: solution.forWhom?.split(',').slice(0, 2).join(','),
     termLabel: hasLevels ? (solution.priceMonthly ? 'Czas reakcji' : 'Wynik') : 'Termin',
@@ -428,7 +444,25 @@ export function buildOfferView(solution: OfferSolution, options: BuildOptions): 
       label: solution.priceFrom === null ? 'Cena i termin' : `Termin ${term}`,
       price: solution.priceFrom === null ? 'po rozmowie' : priceLine(solution, display),
     },
+    careFrom: hasLevels ? null : (options.careFrom ?? null),
+    extras: hasPrice ? solution.moreExamples : [],
   }
+}
+
+/**
+ * „od 149 zł / mies.”: the cheapest level of the monthly care solutions (levels priced per month,
+ * ADR-014) — `null` when the tenant publishes none.
+ */
+export function careFromLine(
+  solutions: readonly OfferSolution[],
+  display: PriceDisplay,
+): string | null {
+  const prices = solutions
+    .filter((solution) => solution.priceMonthly)
+    .flatMap((solution) => solution.levels.map((level) => level.price))
+    .filter((price) => price > 0)
+  if (prices.length === 0) return null
+  return priceLine({ priceFrom: Math.min(...prices), priceMonthly: true, leadTime: null }, display)
 }
 
 function levelsPrice(
@@ -488,6 +522,7 @@ export type OfferSolutionDoc = Pick<
   | 'hasLivePreview'
   | 'toast'
   | 'thumbnail'
+  | 'preview'
   | 'priceFrom'
   | 'priceMonthly'
   | 'leadTime'
@@ -526,6 +561,7 @@ export function offerSolutionOf(doc: OfferSolutionDoc): OfferSolution {
     hasLivePreview: Boolean(doc.hasLivePreview),
     toast: clean(doc.toast),
     thumbnail: clean(doc.thumbnail),
+    preview: indexPreview(doc.preview),
     priceFrom: isPrice(doc.priceFrom) ? doc.priceFrom : null,
     priceMonthly: Boolean(doc.priceMonthly),
     leadTime: clean(doc.leadTime) ?? null,

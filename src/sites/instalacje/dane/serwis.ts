@@ -8,7 +8,8 @@ import type { InstIconName } from '../icons'
  * after-hours rules, how often remote checks run — open questions for the boss), no prices of
  * the care plans (spec §2), the
  * consent is `CONSENT_CLAUSE`, the form asks for a name (the inquiry needs it). The hero and the
- * band before the footer are edited in the panel (`instServiceDesk` block).
+ * band before the footer are edited in the panel (`instServiceDesk` block). INST-6 PR4 (runda v6
+ * §2): section headings as one sentence about the topic.
  */
 
 type System = { label: string; icon: InstIconName; service: ServiceKey | null; symptoms: string[] }
@@ -54,7 +55,7 @@ export const serwis = {
       },
       {
         label: 'Smart home',
-        icon: 'home',
+        icon: 'smart',
         service: 'smart',
         symptoms: ['Scena nie działa', 'Brak sterowania z telefonu', 'Ogrzewanie', 'Inne'],
       },
@@ -121,7 +122,7 @@ export const serwis = {
     symptom: 'Objaw',
     urgency: 'Pilność',
     steps: [
-      { title: 'Przyjęte', text: 'Zgłoszenie jest u nas', icon: 'check' },
+      { title: 'Przyjęte', text: 'Zgłoszenie jest u nas', icon: 'mail' },
       {
         title: 'Odpowiedź',
         text: 'Do 24 h w dni robocze oddzwonimy albo odpiszemy',
@@ -132,15 +133,16 @@ export const serwis = {
         text: 'Najpierw zdalnie, za Twoją zgodą. Jeśli trzeba, ustalamy termin przyjazdu',
         icon: 'cal',
       },
-      { title: 'Naprawione', text: 'Potwierdzamy zakres wykonanych prac', icon: 'star' },
+      { title: 'Naprawione', text: 'Potwierdzamy zakres wykonanych prac', icon: 'check' },
     ] satisfies { title: string; text: string; icon: InstIconName }[],
     note: 'Tak zwykle przebiega zgłoszenie.',
   },
   plans: {
     eyebrow: 'Opieka serwisowa',
-    heading: 'Instalacja ma działać w sezonie, a nie tylko w dniu odbioru.',
+    heading: 'Przeglądy przed sezonem i stała opieka serwisowa',
     lead: 'Wybierz poziom opieki. Zakres i terminy przyjazdu zapisujemy w umowie.',
     hot: 'Najczęściej wybierany',
+    switchLabel: 'Poziom opieki',
     items: [
       {
         name: 'Przegląd',
@@ -177,9 +179,9 @@ export const serwis = {
     ],
   },
   takeover: {
-    eyebrow: 'Instalacja od innej firmy',
-    heading: 'Przejmiemy serwis. Bez wymiany wszystkiego.',
-    lead: 'Firma, która montowała, zniknęła albo nie odbiera? Zaczynamy od sprawdzenia, co jest, a dopiero potem proponujemy zmiany.',
+    eyebrow: 'Po innej firmie',
+    heading: 'Serwis instalacji, którą montowała inna firma',
+    lead: 'Firma, która montowała, zniknęła albo nie odbiera telefonu? Najpierw spisujemy, co jest zamontowane, a dopiero potem proponujemy naprawę albo zmiany.',
     steps: [
       {
         n: '01',
@@ -204,19 +206,23 @@ export const serwis = {
     ],
   },
   remote: {
-    eyebrow: 'Zdalnie i na miejscu',
-    heading: 'Dużo naprawiamy, zanim ktokolwiek wsiądzie do auta.',
+    eyebrow: 'Zdalna pomoc',
+    heading: 'Co sprawdzimy zdalnie, zanim przyjedziemy',
     lead: 'Za Twoją zgodą łączymy się z urządzeniami zdalnie. Jeśli trzeba przyjechać, jedziemy z salonu w Rabce-Zdroju.',
     items: [
       { icon: 'cam', title: 'Kamery', text: 'Ustawienia, nagrywanie, aplikacja.' },
       { icon: 'wifi', title: 'Sieć i Wi-Fi', text: 'Punkty dostępowe, vouchery, aktualizacje.' },
-      { icon: 'home', title: 'Smart home', text: 'Sceny, harmonogramy, zmiany ustawień.' },
+      { icon: 'smart', title: 'Smart home', text: 'Sceny, harmonogramy, zmiany ustawień.' },
       { icon: 'scr', title: 'Ekrany', text: 'Treści i harmonogramy.' },
       { icon: 'lock', title: 'Zamki', text: 'Kody, integracje, historia.' },
-      { icon: 'bolt', title: 'Ładowarki', text: 'Karty RFID i konfiguracja (modele online).' },
+      {
+        icon: 'bolt',
+        title: 'Ładowarki',
+        text: 'Karty zbliżeniowe RFID i ustawienia (modele z internetem).',
+      },
     ] satisfies { icon: InstIconName; title: string; text: string }[],
   },
-  faqHeading: 'Pytania o serwis.',
+  faqHeading: 'Pytania o serwis i przeglądy',
   faqAside: {
     title: 'Coś nie działa?',
     text: 'Opisz usterkę w formularzu. Odpowiemy do 24 h w dni robocze: oddzwonimy albo odpiszemy.',
@@ -248,7 +254,7 @@ export const serwis = {
     {
       question: 'Jak szybko reagujecie?',
       answer:
-        'Na każde zgłoszenie odpowiadamy do 24 h w dni robocze: oddzwonimy albo odpiszemy. To czas na odpowiedź, a nie na przyjazd technika. Część usterek da się rozwiązać zdalnie, a gdy potrzebny jest przyjazd, termin ustalamy w rozmowie. Przy umowie serwisowej masz pierwszeństwo.',
+        'Na każde zgłoszenie odpowiadamy do 24 h w dni robocze: oddzwonimy albo odpiszemy. Część usterek rozwiązujemy zdalnie, a gdy trzeba przyjechać, termin ustalamy w rozmowie. Przy umowie serwisowej masz pierwszeństwo.',
     },
     {
       question: 'Czy naprawy w gwarancji są bezpłatne?',
@@ -263,10 +269,10 @@ export const serwis = {
     {
       question: 'Co przygotować przed przyjazdem serwisu?',
       answer:
-        'Opis objawów, zdjęcie urządzenia i komunikatu błędu, dostęp do rejestratora albo szafy i dane logowania, jeśli je masz. Często to wystarczy, żeby rozwiązać problem zdalnie.',
+        'Opis objawów i treść komunikatu błędu, dostęp do rejestratora albo szafy i dane logowania, jeśli je masz. Często to wystarczy, żeby rozwiązać problem zdalnie.',
     },
   ],
-  relatedHeading: 'Serwisujemy wszystko, co montujemy.',
+  relatedHeading: 'Serwis kamer, alarmów, Wi-Fi i smart home',
   related: ['kam', 'alarm', 'wifi', 'smart'] satisfies ServiceKey[],
   bandButton: { label: 'Zgłoś usterkę', href: '#zglos' },
 } as const

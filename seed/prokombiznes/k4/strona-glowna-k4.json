@@ -480,41 +480,81 @@
    "g": "sprz",
    "p": [
     "ergo",
+    "k10",
     "d3",
     "pol"
-   ]
+   ],
+   "nazwy": {
+    "ergo": "Posnet Ergo Online",
+    "k10": "Elzab K10 Online",
+    "d3": "Sunmi D3 PRO",
+    "pol": "Terminal płatniczy PolCard"
+   }
   },
   {
    "g": "biuro",
    "p": [
+    "apple-iphone-18-pro",
+    "apple-macbook-air-m5",
     "lenovo-thinkbook-14-g8-g9",
-    "apple-iphone-17",
-    "brother-mfc-l2922dw-mfc-l2862dw"
-   ]
+    "lenovo-thinkcentre-neo-50s-55s",
+    "konica-minolta-bizhub-c3321i",
+    "comex-cover-core-one"
+   ],
+   "nazwy": {
+    "apple-iphone-18-pro": "Apple iPhone 18 Pro",
+    "apple-macbook-air-m5": "Apple MacBook Air (M5)",
+    "lenovo-thinkbook-14-g8-g9": "Lenovo ThinkBook 14",
+    "lenovo-thinkcentre-neo-50s-55s": "Lenovo ThinkCentre neo 50s",
+    "konica-minolta-bizhub-c3321i": "Konica Minolta bizhub C3321i",
+    "comex-cover-core-one": "UPS COMEX COVER CORE ONE"
+   },
+   "kolory": {
+    "apple-iphone-18-pro": "burgund"
+   }
   },
   {
    "g": "prog",
    "p": [
-    "nexo",
     "gopos",
-    "microsoft-365-business"
-   ]
+    "nexo",
+    "microsoft-office-2024"
+   ],
+   "nazwy": {
+    "gopos": "GoPOS dla gastronomii",
+    "nexo": "InsERT Subiekt nexo",
+    "microsoft-office-2024": "Microsoft Office 2024 dla firm"
+   }
   },
   {
    "g": "bezp",
+   "krotka": "Sieć i ochrona",
    "p": [
     "u7",
-    "udr7",
-    "eset"
-   ]
+    "eset",
+    "euro"
+   ],
+   "nazwy": {
+    "u7": "Ubiquiti UniFi U7 Pro",
+    "eset": "ESET PROTECT",
+    "euro": "Podpis kwalifikowany EuroCert"
+   }
   },
   {
    "g": "usl",
    "p": [
-    "k10",
-    "synology-diskstation-plus-2-4",
-    "lenovo-thinkcentre-neo-50s-55s"
-   ]
+    "ksef",
+    "przkas"
+   ],
+   "nazwy": {
+    "ksef": "Wdrożenie KSeF w firmie",
+    "przkas": "Przegląd kasy fiskalnej"
+   },
+   "link": {
+    "n": "Opieka IT dla firm",
+    "href": "/opieka-it",
+    "ic": "lifebuoy"
+   }
   }
  ],
  "dzialy_hero": [
@@ -687,5 +727,205 @@
   "pozycji": 427,
   "marek": 39,
   "kategorii": 427
+ },
+ "zaopatrzenie": {
+  "eyebrow": "Zaopatrzenie firm",
+  "heading": "Wyposażasz cały obiekt albo całe biuro? Dostarczymy wszystko naraz.",
+  "lead": "Dwie oferty tylko dla firm: AGD i RTV dla deweloperów, apartamentów i hoteli oraz komputery dla biur — od kilku do kilkudziesięciu sztuk. Jedno zapytanie, jedna faktura, terminy pod Ciebie.",
+  "cards": [
+   {
+    "page": "agd-rtv-dla-firm",
+    "badge": "Deweloperzy · apartamenty · hotele",
+    "title": "AGD i RTV",
+    "titleAccent": "na cały obiekt naraz",
+    "text": "Lodówki, płyty, zmywarki, pralki i telewizory znanych marek. Ten sam model w każdym lokalu, dostawy etapami pod odbiory.",
+    "scene": [
+     {
+      "image": "p-fridge-sbs",
+      "box": {
+       "left": "1%",
+       "bottom": "6%",
+       "width": "25%",
+       "height": "94%",
+       "z": 10
+      }
+     },
+     {
+      "image": "p-tv-lg",
+      "box": {
+       "left": "27%",
+       "top": "0",
+       "width": "44%",
+       "height": "44%",
+       "z": 22
+      }
+     },
+     {
+      "image": "p-washer",
+      "box": {
+       "left": "30%",
+       "bottom": "4%",
+       "width": "27%",
+       "height": "52%",
+       "z": 16
+      }
+     },
+     {
+      "image": "p-dw45-bosch",
+      "box": {
+       "left": "59%",
+       "bottom": "4%",
+       "width": "23%",
+       "height": "56%",
+       "z": 12
+      }
+     },
+     {
+      "image": "p-kettle-philips",
+      "box": {
+       "left": "84%",
+       "bottom": "5%",
+       "width": "13%",
+       "height": "26%",
+       "z": 26
+      }
+     }
+    ],
+    "pills": [
+     {
+      "label": "Dostawy etapami"
+     },
+     {
+      "label": "Odbiór starego 1 za 1",
+      "when": "pickup"
+     },
+     {
+      "label": "Faktura na firmę"
+     }
+    ],
+    "calculator": {
+     "types": [
+      {
+       "label": "Kawalerka",
+       "slug": "kawalerka"
+      },
+      {
+       "label": "2 pokoje",
+       "slug": "mieszkanie"
+      },
+      {
+       "label": "Pokój hotelowy",
+       "slug": "pokoj"
+      }
+     ],
+     "count": 12
+    },
+    "cta": "AGD i RTV dla firm",
+    "note": "Ułóż zestaw i wyślij do wyceny"
+   },
+   {
+    "page": "dostawy-it-dla-firm",
+    "badge": "Biura · szkoły · instytucje",
+    "title": "Komputery dla firm",
+    "titleAccent": "gotowe w dniu dostawy",
+    "text": "Laptopy, komputery i monitory Lenovo, Dell, HP i Apple — z systemem, programami i przeniesionymi danymi.",
+    "scene": [
+     {
+      "image": "zaop-thinkvision",
+      "box": {
+       "left": "22%",
+       "top": "0",
+       "width": "50%",
+       "height": "62%",
+       "z": 20
+      }
+     },
+     {
+      "image": "zaop-thinkcentre",
+      "box": {
+       "left": "76%",
+       "top": "18%",
+       "width": "13%",
+       "height": "48%",
+       "z": 12
+      }
+     },
+     {
+      "image": "zaop-thinkbook",
+      "box": {
+       "left": "0",
+       "bottom": "4%",
+       "width": "44%",
+       "height": "50%",
+       "z": 14
+      }
+     },
+     {
+      "image": "zaop-macbook",
+      "box": {
+       "left": "52%",
+       "bottom": "2%",
+       "width": "38%",
+       "height": "36%",
+       "z": 24
+      }
+     }
+    ],
+    "pills": [
+     {
+      "label": "System i programy"
+     },
+     {
+      "label": "Dane przeniesione"
+     },
+     {
+      "label": "Numery seryjne"
+     }
+    ],
+    "calculator": {
+     "types": [
+      {
+       "label": "Biuro",
+       "slug": "biuro"
+      },
+      {
+       "label": "Księgowość",
+       "slug": "ksiegowosc"
+      },
+      {
+       "label": "CAD",
+       "slug": "cad"
+      }
+     ],
+     "count": 12
+    },
+    "cta": "Dostawy IT dla firm",
+    "note": "Policz stanowiska i wyślij"
+   }
+  ],
+  "benefits": [
+   {
+    "icon": "doc",
+    "title": "Jedna faktura VAT",
+    "text": "na całość albo na etap"
+   },
+   {
+    "icon": "cal",
+    "title": "Terminy pod Ciebie",
+    "text": "naraz, etapami albo w turach"
+   },
+   {
+    "icon": "trash",
+    "title": "Odbiór starego sprzętu",
+    "text": "przy dostawie nowego",
+    "when": "pickup"
+   },
+   {
+    "icon": "phone",
+    "title": "{callback}",
+    "text": "w godzinach pracy",
+    "when": "callback"
+   }
+  ]
  }
 }

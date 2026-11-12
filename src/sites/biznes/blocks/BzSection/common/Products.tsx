@@ -28,12 +28,15 @@ export function ProductGrid({
 }) {
   const shown = visible > 0 ? products.slice(0, visible) : products
   const rest = visible > 0 ? products.slice(visible) : []
-  const grid = 'grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4'
+  // Phone (App-Ulga, App-GoPOS): one row of cards to swipe, the next card peeking out.
+  const grid =
+    'grid gap-4 max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-3 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none] min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4'
+  const item = 'flex max-md:relative max-md:w-[170px] max-md:shrink-0 max-md:snap-start'
   return (
     <>
       <ul className={grid}>
         {shown.map((product, i) => (
-          <li key={product.slug} className="flex">
+          <li key={product.slug} className={item}>
             <ProductCard product={product} index={index} position={i} variant="home" />
           </li>
         ))}
@@ -48,7 +51,7 @@ export function ProductGrid({
           </summary>
           <ul className={`mt-5 ${grid}`}>
             {rest.map((product, i) => (
-              <li key={product.slug} className="flex">
+              <li key={product.slug} className={item}>
                 <ProductCard
                   product={product}
                   index={index}

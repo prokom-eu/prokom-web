@@ -16,6 +16,10 @@ Pliki danych widżetów (ADR-I002 „Pliki danych w kodzie”): każda sesja str
 Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w strefie wspólnej (ADR-I001 §3) = osobny mały PR `inst/wsp-*` scalony od razu. Nowy pomysł w trakcie = wpis w STAN („Pomysły”), nie „przy okazji”. Telefon w każdej sesji z UI (MOBILE-APLIKACJA §10). SEO w każdej sesji z nową stroną (SEO §2.2–2.3).
 
 ## 1. Sesje i szacunek
+
+**Od 06.11.2026 obowiązuje plan domknięcia** `docs/zadania/prokominstalacje-domkniecie.md` (sesje FUND-W, INST-2 … PROD z promptami; ma pierwszeństwo przed tabelą niżej i przed V5-C/V5-D jako osobnymi sesjami — weszły do INST-4). Audyt 06.11: `docs/audyty/prokominstalacje-audyt-0611.md`.
+
+**Runda v5 (03.11.2026):** `docs/design/prokominstalacje/RUNDA-V5.md` — prompty sesji w §12; ma pierwszeństwo przed prototypem v4.2.
 **Od 30.10 obowiązuje plan przyspieszenia** (`prokominstalacje-przyspieszenie.md`: narzędzia po I6, tokeny wszystkich stron jednym PR, auto-merge małych PR-ów, jeden folder i sesje połączone — 31.10) — pozostałe ≈ 22 wieczory → ≈ 15; tabela niżej to szacunek pierwotny.
 
 | Sesja | Zakres | Wieczory | Zależy od |
@@ -40,8 +44,14 @@ Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w
 | **I16a** | `/dla-architektow` cz. 1: blok `InstArchitects`, `ArchHouseScene`, hero i sekcje 1–6 (`prokominstalacje-architekci.md`) | 2 | I3, I4 |
 | **I16b** | cz. 2: kolekcja `InstArchNews` + seed, Nowe rozwiązania, Checklista, Liczby, Deweloperzy, Przepisy | 1,5 | I16a |
 | **I16c** | cz. 3: Opiekun, formularze, FAQ, sekcja `#architekci` na głównej (`ArchTeaser`), linki, SEO | 1 | I16b, I6, I11 |
-| **I15** | staging → akceptacja szefa → produkcja | 1 | I14 + [SZEF] |
-| | **Razem** | **≈ 31,5** | |
+| **V5-A** | runda v5: hero, logo marek, Dla kogo, domknięcie ruchu (`RUNDA-V5.md` §1–§3, §9) | 1,5 | I-M |
+| **V5-B** | runda v5: realizacje ze zdjęciami (migracja `photos`), architekci bez przesyłania plików, zdjęcia Nowych rozwiązań (§4, §7) | 1,5 | V5-A |
+| **I15** | staging → akceptacja szefa → produkcja | 1 | V5-B + [SZEF] |
+| **V5-C** | po stagingu: Na Podhalu, Jak pracujemy, Pełna oferta, Teletechnika (§5, §6, §8, §10) | 1,5–2 | I15 (staging) |
+| **V5-D** | po stagingu: ulepszenia podstron (§11) | 0,5–1 | V5-C |
+| | **Razem** | **≈ 37** | |
+
+**Elementy wspólne (01.11, `docs/zadania/wspolne-elementy.md` §1):** **L1-I** zastępuje powłokę z I3 (`topb`/`hdr`/`ftr2`) i dolny pasek z I14; **L2-I** zastępuje `/kontakt` (I11) i `/o-firmie` (I12).
 
 **Uczciwie o terminie:** ≈ 31,5 wieczoru (27 + 4,75 na stronę dla architektów, W-A + I16a–c) to sama budowa bez bufora. Terminy poniżej liczone dla 27 — I16 przesuwa je o ok. 2 tygodnie przy 2–3 sesjach w tygodniu. Równoległa praca nad Biznesem (produkcja), Gaming (20.11) i Software nie skraca tej liczby — rozkłada ją w czasie. Przy 2–3 sesjach Instalacji w tygodniu produkcja wypada w styczniu; przy 4–5 w tygodniu — w połowie grudnia. Kolejność linii ustala szef (Asana). **Kolejność cięcia, jeśli trzeba zdążyć z wersją 1:** Realizacje (zostają placeholdery, bez strony) → Poradnik (sam wpis RODO) → Oferta bez wyszukiwarki literówek → strony obiektów 9–12 (gminy, kościoły, szkoły, budowy) jako druga fala. **Bez cięć:** strona główna z hero, 10 usług, Zaplanuj, Kontakt, Serwis, telefon jak aplikacja, SEO techniczne, strony prawne.
 

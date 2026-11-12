@@ -1,6 +1,8 @@
 // K4c — home page v150 (K36 §1, K4-FINAL §2): what the seed changes in a home page it created
 // earlier. Only values still equal to the old seed text are replaced, so edits in the panel win.
 
+import { BRANDS_LEAD } from '../../lib/partners/strips'
+
 type Block = { blockType: string }
 type Fields = Record<string, unknown>
 type Trust = { icon: string; text: string }
@@ -22,7 +24,7 @@ export const OLD_HERO = {
 export const K4_HERO = {
   // Hard spaces after one-letter words in headings (K4-FINAL §1).
   heading: 'Kasy, komputery i programy dla firm.',
-  headingAccent: 'Wszystko z jednego miejsca — z Rabki.',
+  headingAccent: 'Wszystko z jednego miejsca w Rabce.',
   lead: 'Dobieramy, wdrażamy i serwisujemy wszystko, na czym pracuje firma: od kasy fiskalnej i terminala, przez komputery i programy, po sieć i serwer. Jeden partner z Rabki zamiast kilku firm i infolinii.',
   cta: { label: 'Dobierz rozwiązanie dla firmy', href: '/konfigurator' },
   // K4-FINAL §1: one wording of the client count.
@@ -52,8 +54,12 @@ export const OLD_BRANDS = {
 }
 export const K4_BRANDS = {
   heading: 'Marki, które znamy od środka.',
-  lead: 'Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony producentów — każdy z doborem modelu, porównaniem i serwisem.',
+  // B2-3 (ZAOPATRZENIE §9): the lead shortened for the two strips.
+  lead: BRANDS_LEAD,
 }
+/** The v150 lead of the 16-tile grid, replaced by the short one while unedited. */
+export const V150_BRANDS_LEAD =
+  'Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony producentów, każdy z doborem modelu, porównaniem i serwisem.'
 
 /** The hero's trust line (`SiteSettings.biznes.trustLine`) before K4 and now (K4-FINAL §1). */
 export const OLD_TRUST_LINE = 'Serwis Posnet i Elzab · partner GoPOS i InsERT'
@@ -97,6 +103,7 @@ function upgradeBrands<T extends Block>(block: T): T {
   for (const key of ['heading', 'lead'] as const) {
     if (next[key] === OLD_BRANDS[key]) next[key] = K4_BRANDS[key]
   }
+  if (next.lead === V150_BRANDS_LEAD) next.lead = K4_BRANDS.lead
   return next as T
 }
 

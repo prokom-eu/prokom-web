@@ -12,13 +12,12 @@ import type { InstObject } from '@/payload-types'
 
 import { navigation } from '../dane/nawigacja'
 import { type BuiltObjectKey, OBJECT_SCENES, objectPage } from '../dane/obiekty'
-import { LEGAL_NOTE } from '../dane/prawo'
 import type { ServiceKey } from '../dane/types'
 import { InstIcon } from '../InstIcon'
 import { CtaBandView } from '../powloka/CtaBandView'
 import { Faq } from '../sekcje/Faq'
-import { GuaranteeSection } from '../sekcje/GuaranteeSection'
-import { InstSection } from '../sekcje/InstSection'
+import { TrustStrip } from '../sekcje/TrustStrip'
+import { InstSection } from '../sekcje/InstSectionLazy'
 import { JsonLd } from '../sekcje/JsonLd'
 import { Packages } from '../sekcje/Packages'
 import { PageHero } from '../sekcje/PageHero'
@@ -38,14 +37,14 @@ import { OBJECT_SCENE_ART } from './sceny'
 import { PrepChecklist } from './PrepChecklist'
 import type { DayMoment, ObjectHotspot, ServiceChip } from './types'
 import { architekci } from '../dane/architekci'
-
-import './obiekty.css'
+import { salonsNote } from '../powloka/salons'
+import { Arrow } from '../Arrow'
+import { ObjectPageStyles } from '../style/LineStyles'
 
 type Props = { tenantId: number; object: InstObject; sceneKey: BuiltObjectKey; origin: string }
 
 const SECTION = { padding: '0 0 104px' } satisfies CSSProperties
 const hueOf = (color: string) => ({ '--c': color }) as CSSProperties
-const WHO: Record<string, string> = { Instalator: 'i', Razem: 'r' }
 // The Podhale band (`#gory`): the same ridge as the prototype's `.sggm`.
 const RIDGE =
   'M0 160 L0 110 L120 70 L210 98 L330 30 L420 82 L520 50 L640 104 L760 40 L860 90 L980 56 L1090 96 L1200 64 L1200 160 Z'
@@ -55,11 +54,11 @@ const serviceLabel = (key: ServiceKey) => SERVICE_KEYS.find((s) => s.value === k
 const ARCH_OBJECTS = new Set(['dev', 'bud'])
 /**
  * Page of one object „Dla kogo” (`/dla-kogo/<slug>`, KOMPONENTY §5, `build_seg.py`): hero with
- * the cross-section, problems with what we do, day / year timeline, law (no sources, the legal
- * sentence), Podhale, checklist „Przed wizytą”, warranty, packages, FAQ, related services and
+ * the cross-section, problems with what we do, day / year timeline (no law
+ * section: runda v6 §1.1), Podhale, checklist „Przed wizytą”, warranty, packages, FAQ, related services and
  * similar objects, the CTA band — all texts from the panel (`InstObjects`), hotspot titles and
- * the drawing from code. Realizations („Nasze realizacje”, the clients agreed — boss 01.11.2026)
- * from the panel; the photo slot keeps the icon without the prototype's „Miejsce na zdjęcie”.
+ * the drawing from code. No realizations here: they live on `/realizacje` and the home page only
+ * (runda v6 §1.2).
  */
 export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) {
   const [cards, settings, site, company] = await Promise.all([
@@ -70,7 +69,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
   ])
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
-  const salons = (company?.locations ?? []).map((l) => `${l.city}, ${l.street}`).join(' · ')
+  const salons = salonsNote(company?.locations ?? [])
   const planHref = objectPlanHref(object.key)
   const path = objectHref(object.slug)
   const crumb = object.hero?.crumb || object.name
@@ -133,6 +132,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
       data-inst-il=""
       style={{ '--h': object.color || undefined } as CSSProperties}
     >
+      <ObjectPageStyles />
       <JsonLd
         data={serviceJsonLd({
           origin,
@@ -144,7 +144,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
       />
       <JsonLd
         data={breadcrumbJsonLd([
-          { name: 'Start', url: `${origin}/` },
+          { name: 'Strona główna', url: `${origin}/` },
           { name: objectPage.parent.label, url: `${origin}${objectPage.parent.href}` },
           { name: crumb, url: `${origin}${path}` },
         ])}
@@ -197,7 +197,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
                     {s?.href && (
                       <Link href={s.href} className="sgchip">
                         <i />
-                        {s.name} →
+                        {s.name} <Arrow />
                       </Link>
                     )}
                   </article>
@@ -217,33 +217,6 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
               lead={object.dayIntro?.text ?? undefined}
             />
             <DayTimeline moments={moments} hotspotColors={hotspots.map((h) => h.color)} />
-          </div>
-        </InstSection>
-      )}
-
-      {object.law && object.law.length > 0 && (
-        <InstSection id="przepisy" style={SECTION} {...foldOf('przepisy')}>
-          <div className="wrap">
-            <SectionHead
-              eyebrow={objectPage.law.eyebrow}
-              heading={object.lawIntro?.heading ?? ''}
-              lead={object.lawIntro?.text ?? undefined}
-            />
-            <div className="sglg">
-              {object.law.map((l) => (
-                <article key={l.id ?? l.title} className="card sglc ri">
-                  <div className="sglt">
-                    {l.who && <span className={`sgwho ${WHO[l.who] ?? 'o'}`}>{l.who}</span>}
-                    {l.article && <code>{l.article}</code>}
-                  </div>
-                  <b className="h3">{l.title}</b>
-                  {l.description && <p>{l.description}</p>}
-                </article>
-              ))}
-            </div>
-            <p className="src ri" style={{ marginTop: 12, marginBottom: '1em' }}>
-              {LEGAL_NOTE}
-            </p>
           </div>
         </InstSection>
       )}
@@ -284,36 +257,6 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
         </InstSection>
       )}
 
-      {object.realizations && object.realizations.length > 0 && (
-        <InstSection id="realizacje-s" style={SECTION} {...foldOf('realizacje-s')}>
-          <div className="wrap">
-            <div className="shead ri">
-              <div>
-                <span className="eye">{objectPage.realizations.eyebrow}</span>
-                <h2 className="h2">
-                  {object.realizationsHeading || objectPage.realizations.heading}
-                </h2>
-              </div>
-              <Link href={objectPage.realizations.all.href} className="btn btn-g btn-s">
-                {objectPage.realizations.all.label}
-              </Link>
-            </div>
-            <div className="sgrg">
-              {object.realizations.map((r) => (
-                <div key={r.id ?? r.title} className="card sgrc ri">
-                  <span className="sgrph" aria-hidden="true">
-                    <InstIcon name="camera2" size={26} strokeWidth={1.6} />
-                  </span>
-                  <b className="h3">{r.title}</b>
-                  {r.place && <span className="mut">{r.place}</span>}
-                  {r.description && <p>{r.description}</p>}
-                </div>
-              ))}
-            </div>
-          </div>
-        </InstSection>
-      )}
-
       {object.prepare && object.prepare.length > 0 && (
         <InstSection id="przygotuj" style={SECTION} {...foldOf('przygotuj')}>
           <div className="wrap">
@@ -327,10 +270,6 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
         </InstSection>
       )}
 
-      <GuaranteeSection
-        warrantyMonths={settings.warrantyMonths}
-        responseText={settings.responseText}
-      />
       <Packages
         intro={{
           eyebrow: object.forWhom
@@ -352,13 +291,14 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
       />
       <Related
         tenantId={tenantId}
-        heading={objectPage.relatedHeading}
+        heading={objectPage.relatedHeadings[object.key]}
         services={object.relatedServices}
         objects={similar}
         objectsHeading={objectPage.similarHeading}
         // Developers and building sites lead to the page for architects (spec §7).
         extraLink={ARCH_OBJECTS.has(object.key) ? architekci.related : undefined}
       />
+      <TrustStrip warrantyMonths={settings.warrantyMonths} />
       <CtaBandView band={band} phone={phone} salons={salons} titleId="cta-object-title" page />
     </div>
   )

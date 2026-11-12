@@ -32,7 +32,7 @@ export type FloorPlanLabels = {
 }
 
 export const DEFAULT_PLAN_LABELS: FloorPlanLabels = {
-  listNote: 'Kliknij urządzenie — otworzy się film i szczegóły',
+  listNote: 'Kliknij urządzenie, a otworzy się film i szczegóły',
   inquiryLabel: 'Dodaj cały plan do zapytania',
   bundlesLabel: 'Gotowe zestawy',
 }

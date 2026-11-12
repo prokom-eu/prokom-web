@@ -123,6 +123,14 @@ describe('k4CategoryData', () => {
     expect(data('niszczarki').subcategories.every((row) => row.slug === null)).toBe(true)
   })
 
+  it('gives the vending category its own title (the page /automaty-vendingowe has the name)', () => {
+    expect(data('vend')).toMatchObject({
+      slug: 'automaty-vendingowe',
+      seo: { title: 'Automaty vendingowe — modele Optivendi' },
+    })
+    expect(data('laptopy')).not.toHaveProperty('seo')
+  })
+
   it('leaves the help card of a category alone until K4d (B10a texts of kasy stay)', () => {
     expect(data('kasy')).not.toHaveProperty('help')
     expect(data('vend')).not.toHaveProperty('help')

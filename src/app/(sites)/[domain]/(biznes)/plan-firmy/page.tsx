@@ -9,18 +9,19 @@ import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
-import { FloorPlan } from '@/sites/biznes/components/plan/FloorPlan'
+import { FloorPlan } from '@/sites/biznes/components/plan/FloorPlanLazy'
 import { loadFloorPlan } from '@/sites/biznes/components/plan/planData'
 import { PlanStats } from '@/sites/biznes/components/plan/PlanStats'
 import { DEFAULT_PLAN_LABELS } from '@/sites/biznes/components/plan/types'
+import { BZ_H1 } from '@/sites/biznes/typography'
 
 import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
-const TITLE = 'Plan Twojej firmy — co ustawimy w Twoim lokalu'
+const TITLE = 'Plan Twojej firmy — co ustawimy w lokalu'
 const DESCRIPTION =
-  'Wybierz rodzaj firmy i zobacz na planie lokalu, gdzie stanie kasa, terminal, komputer czy router. Film i szczegóły każdego urządzenia, całość do zapytania jednym kliknięciem.'
+  'Wybierz rodzaj firmy i zobacz na planie lokalu, gdzie stanie kasa, terminal, komputer czy router. Całość dodasz do zapytania jednym kliknięciem.'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'biznes')
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: PLAN_PATH,
       title: TITLE,
       description: DESCRIPTION,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }
@@ -74,13 +75,13 @@ export default async function PlanPage({ params }: Props) {
               <span aria-hidden="true" className="h-0.5 w-5 bg-current" />
               Plan Twojej firmy
             </p>
-            <h1 className="mt-2 font-display text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.02] font-extrabold tracking-tight text-balance text-ink">
-              Zobacz, co ustawimy w Twoim lokalu.
+            <h1 className={`${BZ_H1} mt-2 text-ink`}>
+              Plan Twojej firmy: kliknij urządzenie i zobacz, co pasuje
             </h1>
           </div>
           <div>
             <p className="text-[16px] leading-relaxed text-ink-2">
-              Wybierz rodzaj firmy i kliknij urządzenie. Obok zobaczysz film i szczegóły — a całość
+              Wybierz rodzaj firmy. Przy każdym urządzeniu zobaczysz film i szczegóły, a całość
               dodasz do zapytania jednym kliknięciem.
             </p>
             <div className="mt-4">

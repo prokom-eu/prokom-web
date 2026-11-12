@@ -13,9 +13,9 @@ import type { InstPlannerBlock as InstPlannerBlockData } from '@/payload-types'
 
 import { zaplanuj as Z } from '../../dane/zaplanuj'
 import { InstIcon } from '../../InstIcon'
-import { PlannerWizard, type PlannerService } from '../../widzety/zaplanuj/PlannerWizard'
-
-import '../../widzety/zaplanuj/zaplanuj.css'
+import type { PlannerService } from '../../widzety/zaplanuj/PlannerWizard'
+import { PlannerWizard } from '../../widzety/zaplanuj/PlannerWizardLazy'
+import { PageStyles } from '../../style/LineStyles'
 
 // The mountain ridges behind the hero (`Zaplanuj.body.html`).
 const RIDGE_1 =
@@ -60,6 +60,7 @@ export async function InstPlannerBlock({ block, tenantId }: Props) {
 
   return (
     <section id="hero" className="phero zkh" style={{ paddingBottom: 96 }}>
+      <PageStyles kind="planner" />
       <div className="hgrid" />
       <div className="hglow" />
       <div className="hglow2" />
@@ -69,7 +70,7 @@ export async function InstPlannerBlock({ block, tenantId }: Props) {
       </svg>
       <div className="wrap" style={{ position: 'relative' }}>
         <nav className="crumb in d1" aria-label="Okruszki">
-          <Link href="/">Start</Link>
+          <Link href="/">Strona główna</Link>
           <span aria-hidden="true">/</span>
           <span aria-current="page" style={{ color: 'var(--ink)' }}>
             {hero?.crumb || 'Zaplanuj instalację'}

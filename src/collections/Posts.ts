@@ -104,7 +104,7 @@ export const Posts: CollectionConfig = {
       admin: {
         position: 'sidebar',
         description:
-          'Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Nowości, Realizacje.',
+          'Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Strony, Systemy, Automatyzacje, Bezpieczeństwo. Instalacje: Przepisy, Monitoring, Obiekty noclegowe, Energia, Dźwięk i obraz.',
       },
     },
     {

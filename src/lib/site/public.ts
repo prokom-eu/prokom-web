@@ -1,5 +1,6 @@
 import type { CompanyDatum, SiteSetting } from '@/payload-types'
 
+import type { SupplyLinks } from '../biznes/procurement/links'
 import { publicImage, type PublicImage } from '../media/public'
 import { navigationSchema, type SoftwareNavigation } from '../software/navigation'
 import { tenantIdOf } from '../tenant/id'
@@ -7,6 +8,7 @@ import type { Department } from './departments'
 import type { Line } from '../tenant/lines'
 import { toPublicNavigation, type PublicBiznesNavigation } from './navigation'
 import { isValidNavHref } from './link'
+import { defaultOgImage } from './ogDefault'
 import { isPromoActive } from './promo'
 
 type Link = { label: string; href: string }
@@ -62,7 +64,6 @@ export type PublicBiznesSettings = {
     hours: string | null
     showInFooter: boolean
   }[]
-  whatsapp: string | null
   trustLine: string | null
   serviceAreas: string[]
   promises: {
@@ -73,9 +74,23 @@ export type PublicBiznesSettings = {
   }
   showReviews: boolean
   showClientLogos: boolean
+  /** „Słowo od właściciela” on the home page: only after the owner approved the quote. */
+  showOwnerQuote: boolean
   navigation: PublicBiznesNavigation
   /** Link columns of the footer (spec. §3.4). */
   footer: { important: Link[]; company: Link[] }
+  /** „Zaopatrzenie — linki” (plan 0611 §6.4): hook-ins of the two procurement pages. */
+  procurement: SupplyLinks
+  /** „KSeF — pas na stronie głównej” (plan 0611 §7.1 pkt 7); `null` without a deadline. */
+  ksef: PublicKsefBand | null
+}
+
+export type PublicKsefBand = {
+  /** The deadline as stored (a date from the panel). */
+  deadline: string
+  textBefore: string | null
+  textAfter: string | null
+  href: string
 }
 
 function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicBiznesSettings {
@@ -88,7 +103,6 @@ function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicB
       hours: row.hours ?? null,
       showInFooter: row.showInFooter ?? false,
     })),
-    whatsapp: group?.whatsapp ?? null,
     trustLine: group?.trustLine ?? null,
     serviceAreas: group?.serviceAreas ?? [],
     promises: {
@@ -99,11 +113,46 @@ function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicB
     },
     showReviews: group?.showReviews ?? false,
     showClientLogos: group?.showClientLogos ?? false,
+    showOwnerQuote: group?.showOwnerQuote ?? false,
     navigation: toPublicNavigation(group?.navigation, tenantId),
     footer: {
       important: toValidLinks(group?.footer?.important),
       company: toValidLinks(group?.footer?.company),
     },
+    procurement: toSupplyLinks(group?.procurement),
+    ksef: toKsefBand(group?.ksef),
+  }
+}
+
+function toKsefBand(group: NonNullable<SiteSetting['biznes']>['ksef']): PublicKsefBand | null {
+  const deadline = group?.deadline
+  if (!deadline || Number.isNaN(new Date(deadline).getTime())) return null
+  return {
+    deadline,
+    textBefore: textOrNull(group.textBefore),
+    textAfter: textOrNull(group.textAfter),
+    href: textOrNull(group.href) ?? '/ksef',
+  }
+}
+
+const textOrNull = (value: string | null | undefined) => value?.trim() || null
+
+function toSupplyLinks(group: NonNullable<SiteSetting['biznes']>['procurement']): SupplyLinks {
+  return {
+    categoryBand: textOrNull(group?.categoryBand),
+    categoryBandCta: textOrNull(group?.categoryBandCta),
+    itCategories: group?.itCategories ?? [],
+    productLink: textOrNull(group?.productLink),
+    industryTiles: (group?.industryTiles ?? []).map(({ industry, page, title, text }) => ({
+      industry,
+      page,
+      title,
+      text: textOrNull(text),
+    })),
+    scaleTitle: textOrNull(group?.scaleTitle),
+    scaleText: textOrNull(group?.scaleText),
+    searchAgd: group?.searchAgd ?? [],
+    searchIt: group?.searchIt ?? [],
   }
 }
 
@@ -159,7 +208,10 @@ export function toPublicSiteSettings(doc: SiteSetting, line: Line | null): Publi
       titleTemplate: doc.seo?.titleTemplate ?? null,
       description: doc.seo?.description ?? null,
       // Populated when read with depth 1; only a public image of this tenant (`publicImage`).
-      ogImage: tenantId === null ? null : publicImage(doc.seo?.ogImage, tenantId),
+      // Without one, the line's own file (`defaultOgImage`), so a shared link is never bare.
+      ogImage:
+        (tenantId === null ? null : publicImage(doc.seo?.ogImage, tenantId)) ??
+        defaultOgImage(line),
     },
     biznes: line === 'biznes' && tenantId !== null ? toPublicBiznes(doc.biznes, tenantId) : null,
     software: line === 'software' ? toPublicSoftware(doc.software) : null,

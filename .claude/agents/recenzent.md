@@ -25,7 +25,7 @@ Jesteś recenzentem kodu w repo prokom-web (Next.js + Payload CMS 3, multi-tenan
 4. **Baza:** zmiana schematu ma migrację w repo? Migracja bezpieczna na danych produkcyjnych?
 5. **Bezpieczeństwo i RODO:** walidacja wejścia na serwerze, uprawnienia kolekcji, brak sekretów, dane osobowe nie trafiają do logów.
 6. **SEO i dostępność:** metadane, jeden H1, `alt`, kontrast, etykiety formularzy, sitemap/robots per domena.
-7. **Wydajność:** `next/image`, zbędne komponenty klienckie, cache per tenant.
+7. **Wydajność:** `next/image`, zbędne komponenty klienckie, cache per tenant. Nowy ciężki widżet kliencki importowany z komponentu serwerowego (blok CMS, sekcja, strona) → leniwe opakowanie `<Plik>Lazy.tsx` (`next/dynamic`, ADR-023), bo trasa `[domain]` jest wspólna dla linii.
 8. **Prostota:** da się prościej? Martwy kod, duplikaty, zbędne zależności (nowa zależność wymaga uzasadnienia).
 9. **Dokumentacja:** `docs/STAN.md` aktualny, nowe zmienne w `.env.example`, decyzje w ADR.
 10. Uruchom `pnpm lint && pnpm typecheck && pnpm test` i podaj wynik. `build` tylko przy zmianie konfiguracji Next/Payload, zależności, `proxy.ts`, migracji albo Dockera — inaczej robi go CI.

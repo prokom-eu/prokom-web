@@ -48,7 +48,7 @@ export const naglosnienie = {
     } satisfies Record<VenueKey, { name: string; icon: string; zones: readonly string[] }>,
     sources: [
       { name: 'Muzyka w tle', icon: 'music' },
-      { name: 'Mikrofon', icon: 'spk' },
+      { name: 'Mikrofon', icon: 'mic' },
       { name: 'Telewizor, AUX', icon: 'tv' },
     ],
     source: 'Źródło',
@@ -69,7 +69,7 @@ export const naglosnienie = {
   objects: {
     head: {
       eyebrow: 'Gdzie nagłaśniamy',
-      heading: 'Inaczej gra restauracja, inaczej kościół.',
+      heading: 'Nagłośnienie restauracji, hotelu, kościoła i szkoły',
       lead: 'W restauracji muzyka ma być tłem dla rozmowy. W kościele najważniejsze jest, żeby każde słowo było zrozumiałe w ostatniej ławce. Dobieramy sprzęt do akustyki wnętrza.',
     } satisfies SectionHead,
     brands:
@@ -129,10 +129,9 @@ export const naglosnienie = {
 
   apart: {
     head: {
-      eyebrow: 'APART · nasz mocny punkt',
-      heading: 'Sprzęt zrobiony do nagłośnienia na stałe.',
-      accent: 'Od głośnika w suficie po kolumnę w kościele.',
-      lead: 'APART to marka nagłośnienia instalacyjnego założona w Belgii, od 2019 część amerykańskiej grupy Biamp. Głośniki, wzmacniacze, strefy, mikrofony i źródła muzyki od jednego producenta. Kliknij rodzinę, żeby zobaczyć, gdzie ją montujemy.',
+      eyebrow: 'Sprzęt APART',
+      heading: 'Jakie głośniki APART montujemy i gdzie się sprawdzają',
+      lead: 'APART to marka nagłośnienia montowanego na stałe, założona w Belgii, od 2019 w amerykańskiej grupie Biamp. Głośniki, wzmacniacze, strefy, mikrofony i źródła muzyki są od jednego producenta. Kliknij rodzinę, żeby zobaczyć, gdzie ją montujemy.',
     } satisfies SectionHead,
     where: 'Gdzie montujemy',
     models: 'Przykładowe modele',
@@ -335,8 +334,8 @@ export const naglosnienie = {
   /** Signal chain of a zone system (`chn`). */
   chain: {
     head: {
-      eyebrow: 'Jak działa system strefowy',
-      heading: 'Muzyka, mikrofon i gong. Każda strefa po swojemu.',
+      eyebrow: 'System strefowy',
+      heading: 'Jak muzyka i komunikaty trafiają do każdej strefy',
       lead: 'Źródła trafiają do miksera strefowego, potem do wzmacniacza i do głośników. Komunikat ma pierwszeństwo: muzyka sama się ścisza, gdy ktoś mówi do mikrofonu.',
     } satisfies SectionHead,
     tabsLabel: 'Rodzaj linii',
@@ -347,9 +346,9 @@ export const naglosnienie = {
     /** Sources: name, icon, whether it speaks during an announcement. */
     sources: [
       { name: 'Muzyka i radio', icon: 'music', speaks: false },
-      { name: 'Mikrofon przy kasie', icon: 'chat', speaks: true },
+      { name: 'Mikrofon przy kasie', icon: 'mic', speaks: true },
       { name: 'Gong', icon: 'bell', speaks: true },
-      { name: 'Wejście alarmowe', icon: 'shield', speaks: false },
+      { name: 'Wejście alarmowe', icon: 'siren', speaks: false },
     ],
     priority: 'PRIORYTET: MIKROFON',
     panel: 'Panel ścienny w każdej strefie',
@@ -396,9 +395,9 @@ export const naglosnienie = {
 
   /** Church: speech intelligibility (`ko`). */
   church: {
-    eyebrow: 'Nagłośnienie kościoła',
-    heading: 'Głośniej nie znaczy wyraźniej.',
-    lead: 'W pogłosowym wnętrzu podgłośnienie zwiększa też pogłos, a słowa zlewają się ze sobą. Pomaga dobór i ustawienie głośników, na przykład kolumn, które kierują dźwięk na ławki, a nie na sklepienie. Przesuń suwaki i zobacz, co się dzieje ze zrozumiałością.',
+    eyebrow: 'Kościoły',
+    heading: 'Dlaczego w kościele słowa się zlewają i jak to naprawić',
+    lead: 'W pogłosowym wnętrzu podgłośnienie zwiększa też pogłos i słowa zlewają się ze sobą. Pomaga dobór i ustawienie głośników, na przykład kolumn, które kierują dźwięk na ławki zamiast na sklepienie. Przesuń suwaki i zobacz, co się dzieje ze zrozumiałością.',
     points: [
       {
         title: 'Kolumny zamiast zwykłych głośników',
@@ -410,7 +409,7 @@ export const naglosnienie = {
       },
       {
         title: 'Pętla indukcyjna',
-        text: 'Przesyła mowę prosto do aparatu słuchowego. Podmioty publiczne muszą zapewnić wsparcie słyszenia, np. pętlę indukcyjną. Dla parafii to wybór dobrowolny.',
+        text: 'Przesyła mowę prosto do aparatu słuchowego, z pominięciem pogłosu wnętrza.',
       },
       {
         title: 'Nagłośnienie przed kościołem',
@@ -434,8 +433,8 @@ export const naglosnienie = {
 
   /** Calculator: how many speakers (`ig`). */
   calc: {
-    eyebrow: 'Kalkulator: ile głośników',
-    heading: 'Szybki szacunek dla Twojej sali.',
+    eyebrow: 'Kalkulator',
+    heading: 'Ile głośników potrzebuje Twoja sala',
     area: 'Powierzchnia',
     areaLabel: 'Powierzchnia w metrach kwadratowych',
     height: 'Wysokość sufitu',
@@ -456,9 +455,9 @@ export const naglosnienie = {
 
   council: {
     head: {
-      eyebrow: 'Gminy, szkoły, sale obrad',
-      heading: 'Sesja rady słyszalna, nagrana i transmitowana.',
-      lead: 'Ustawa o samorządzie gminnym wymaga transmisji i utrwalania obrad rady oraz urządzeń do imiennego wykazu głosowań. Nagłośnienie to jeden z elementów takiego systemu.',
+      eyebrow: 'Sale obrad',
+      heading: 'Nagłośnienie sali obrad z nagrywaniem i transmisją sesji',
+      lead: 'Nagłośnienie to jeden z elementów systemu do sesji rady, obok nagrywania, transmisji i głosowania.',
     } satisfies SectionHead,
     items: [
       {
@@ -468,10 +467,9 @@ export const naglosnienie = {
         source: 'Mikrofony konferencyjne m.in. Audio-Technica',
       },
       {
-        icon: 'camera2',
+        icon: 'play',
         title: 'Nagrywanie i transmisja',
         text: 'Obrady rady gminy są transmitowane i utrwalane, a nagrania trafiają do BIP i na stronę gminy.',
-        source: 'Art. 20 ust. 1b ustawy o samorządzie gminnym',
       },
       {
         icon: 'check',
@@ -479,120 +477,22 @@ export const naglosnienie = {
         text: 'Głosowania jawne odbywają się za pomocą urządzeń, które utrwalają imienny wykaz głosów radnych.',
         // TODO(krystian): the voting system partner (the prototype: „system głosowania z
         // partnerem [SZEF]”, spec §12).
-        source: 'Art. 14 ust. 2–4 u.s.g.',
       },
       {
         icon: 'users',
         title: 'Pętla indukcyjna',
-        text: 'Podmioty publiczne muszą zapewnić urządzenia wspierające słyszenie, np. pętle indukcyjne, systemy FM albo inne rozwiązania techniczne.',
-        source: 'Ustawa o zapewnianiu dostępności, art. 6 pkt 3 lit. b',
+        text: 'Urządzenia wspierające słyszenie w sali: pętla indukcyjna, system FM albo inne rozwiązanie techniczne.',
       },
     ],
   },
 
   dso: {
-    eyebrow: 'Nagłośnienie a DSO',
-    heading: 'Dźwiękowy system ostrzegawczy to osobna sprawa.',
-    lead: 'DSO ostrzega ludzi w razie pożaru i musi mieć świadectwo dopuszczenia CNBOP-PIB. Przepisy wymagają go tylko w wybranych budynkach. Typowy pensjonat na Podhalu, z mniej niż 200 miejscami noclegowymi i niebędący budynkiem wysokim, zwykle go nie potrzebuje. Decyduje projekt i rzeczoznawca do spraw zabezpieczeń przeciwpożarowych.',
+    eyebrow: 'Ostrzeganie przy pożarze',
+    heading: 'Czym nagłośnienie różni się od systemu ostrzegawczego DSO',
+    lead: 'DSO ostrzega ludzi w razie pożaru. Czy Twój budynek go potrzebuje, decyduje projekt i rzeczoznawca do spraw zabezpieczeń przeciwpożarowych.',
     // TODO(krystian): the DSO company we recommend (the prototype: „[SZEF: firma DSO do
     // polecania]”, spec §12).
     partner:
       'Nie jesteśmy wykonawcą DSO. Wykonuje go wyspecjalizowana firma z uprawnieniami, którą możemy wskazać. Nasze nagłośnienie muzyki łączymy z DSO tak, żeby w razie alarmu się wyciszało.',
-    listLabel: 'DSO jest wymagany m.in. w (§ 29 ust. 1 rozporządzenia MSWiA)',
-    items: [
-      {
-        icon: 'hotel',
-        text: 'budynki zamieszkania zbiorowego z ponad 200 miejscami noclegowymi albo budynki wysokie i wysokościowe',
-      },
-      { icon: 'tv', text: 'kina i teatry z ponad 600 miejscami' },
-      { icon: 'users', text: 'sale widowiskowe i sportowe z ponad 1500 miejscami' },
-      {
-        icon: 'shop',
-        text: 'budynki handlowe ze strefą ZL I powyżej 8000 m² (jedna kondygnacja) lub 5000 m² (więcej kondygnacji)',
-      },
-      {
-        icon: 'plus',
-        text: 'szpitale i sanatoria z ponad 200 łóżkami oraz inne obiekty wymienione w rozporządzeniu',
-      },
-    ],
-  },
-
-  licences: {
-    eyebrow: 'Muzyka w lokalu',
-    heading: 'Głośniki to jedno. Prawo do muzyki to drugie.',
-    lead: 'Odtwarzanie muzyki dla klientów to publiczne korzystanie z utworów i zwykle wymaga opłat. Mówimy o tym przed montażem, żeby nie było niespodzianki przy pierwszej kontroli.',
-    items: [
-      {
-        icon: 'music',
-        title: 'Radio w lokalu to też publiczne odtwarzanie',
-        text: 'Prawo autorskie pozwala odbierać radio i telewizję w miejscu ogólnodostępnym bez opłat tylko wtedy, gdy nie łączy się to z korzyścią majątkową (art. 24 ust. 2).',
-      },
-      {
-        icon: 'users',
-        title: 'Organizacje zbiorowego zarządzania',
-        text: 'Opłaty pobierają m.in. ZAiKS, STOART, SAWP i ZPAV. Według Ministerstwa Kultury można też licencjonować muzykę bezpośrednio.',
-      },
-      {
-        icon: 'play',
-        title: 'Muzyka licencjonowana do lokali',
-        text: 'Serwisy muzyki dla firm mają własne licencje. Podłączamy je do systemu tak samo jak każde inne źródło.',
-      },
-    ] satisfies IconText[],
-    /** After the legal note (spec §2.10) instead of the prototype's „To informacja, nie porada prawna.” */
-    fees: 'Wysokość opłat ustalasz z organizacjami zbiorowego zarządzania albo dostawcą licencjonowanej muzyki.',
-  },
-
-  /**
-   * „Realizacje nagłośnienia” (`#realizacje-n`, `rn` of the prototype): the clients agreed to the
-   * publication (boss 01.11.2026). 1:1 without the `[SZEF…]` note; `art` = the prototype's icon.
-   */
-  realizations: {
-    eyebrow: 'Realizacje nagłośnienia',
-    heading: 'Kościoły, sklepy i lokale od Krakowa po Zakopane.',
-    all: { label: 'Wszystkie realizacje →', href: '/realizacje' },
-    items: [
-      {
-        kind: 'Sklep',
-        name: 'Empik Zakopane i Kraków',
-        place: 'Nagłośnienie sal sprzedaży',
-        art: 'snd',
-      },
-      {
-        kind: 'Kościół',
-        name: 'Parafia św. Teresy',
-        place: 'Rabka-Zdrój · instalacja audiowizualna i nagłośnienie chóru',
-        art: 'ch',
-      },
-      {
-        kind: 'Kościół',
-        name: 'Jasna Górka, Ślemień',
-        place: 'Parafia Narodzenia św. Jana Chrzciciela · nagłośnienie',
-        art: 'ch',
-      },
-      {
-        kind: 'Kaplica',
-        name: 'Kaplica Sióstr Nazaretanek',
-        place: 'Rabka-Zdrój · nagłośnienie',
-        art: 'ch',
-      },
-      {
-        kind: 'Gastronomia',
-        name: 'Restauracja „Aleksandra”',
-        place: 'Mszana Dolna · instalacja audiowizualna',
-        art: 'cf',
-      },
-      {
-        kind: 'Gastronomia',
-        name: 'Caffe Europa i FitBar',
-        place: 'Nowy Sącz · nagłośnienie lokali',
-        art: 'cf',
-      },
-    ],
-    /** The prototype's `ART` (`Naglosnienie.js`). */
-    art: {
-      snd: 'M30 120v-40h28l34-26v92l-34-26zM120 70a40 40 0 0 1 0 60M145 50a70 70 0 0 1 0 100M170 30a100 100 0 0 1 0 140',
-      ch: 'M120 30v26M108 42h24M70 160V96l50-40 50 40v64M106 160v-34h28v34M30 160h180',
-      cf: 'M50 80h100v44a36 36 0 0 1-36 36H86a36 36 0 0 1-36-36zM150 92h16a18 18 0 0 1 0 36h-16M80 40c-8 10 8 18 0 28M110 40c-8 10 8 18 0 28',
-    },
   },
 } as const

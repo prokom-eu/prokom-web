@@ -2,11 +2,11 @@
   "homeFaq": [
     {
       "q": "Ile to kosztuje, także co miesiąc?",
-      "a": "Każde rozwiązanie ma cenę „od”, a dokładną kwotę za stały zakres dostajesz na piśmie po krótkiej rozmowie. Utrzymanie: serwer w Polsce, kopie i aktualizacje od [OPIEKA OD] zł miesięcznie. Bez opieki płacisz tylko za serwer i domenę."
+      "a": "Każde rozwiązanie ma cenę „od”, a dokładną kwotę za stały zakres dostajesz po krótkiej rozmowie. Utrzymanie: serwer w Polsce, kopie i aktualizacje od [OPIEKA OD] zł miesięcznie. Bez opieki płacisz tylko za serwer i domenę."
     },
     {
       "q": "Ile to trwa?",
-      "a": "Wizytówka i landing {termin:strona-wizytowka}, strona firmowa {termin:strona-firmowa-z-panelem}, system {termin:z-excela-do-systemu} (pierwszy moduł), rozbudowana strona i sklep {termin:sklep-internetowy}. Dokładny termin dostajesz na piśmie razem z wyceną, a postęp oglądasz co tydzień."
+      "a": "Wizytówka i landing {termin:strona-wizytowka}, strona firmowa {termin:strona-firmowa-z-panelem}, system {termin:z-excela-do-systemu} (pierwszy moduł), rozbudowana strona i sklep {termin:sklep-internetowy}. Dokładny termin dostajesz razem z wyceną, a postęp oglądasz co tydzień."
     },
     {
       "q": "Czy sam zmienię treści?",
@@ -44,7 +44,7 @@
     },
     {
       "q": "Ile to kosztuje i kiedy płacę?",
-      "a": "Cena „od” jest wyżej, dokładna na piśmie po jednej rozmowie. Płacisz po odbiorze każdego etapu, pierwszy pracuje po [CZAS PIERWSZEGO ETAPU]."
+      "a": "Cena „od” jest wyżej, dokładna po jednej rozmowie. Płacisz po odbiorze każdego etapu, pierwszy pracuje po [CZAS PIERWSZEGO ETAPU]."
     }
   ]
 }

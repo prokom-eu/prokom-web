@@ -11,23 +11,26 @@ type InstHome = Extract<Block, { blockType: 'instHome' }>
 
 const NBSP = ' '
 
+/** The hero's texts (INST-6 PR2, runda v6 §2: the H1 says the service and the region). */
+export const HOME_HERO_TEXTS = {
+  eyebrow: 'Rabka-Zdrój · Podhale i Małopolska',
+  kicker: `Projekt, montaż i${NBSP}serwis w${NBSP}jednej firmie`,
+  h1a: `Monitoring, alarmy, Wi-Fi i${NBSP}smart home`,
+  h1b: `na${NBSP}Podhalu`,
+  lead:
+    `Instalujemy w${NBSP}domach, pensjonatach, hotelach i${NBSP}firmach na Podhalu ` +
+    `i${NBSP}w${NBSP}Małopolsce. Wybierz obiekt obok i${NBSP}zobacz, co robi każda instalacja.`,
+}
+
 /**
- * The home page block with the hero texts of the prototype (`zrodlo/pages/Main.body.html`,
- * `#start` — the package's `Main.json` has no hero texts, ADR-I002 §5). Non-breaking spaces
- * as in the prototype.
+ * The home page block (`zrodlo/pages/Main.body.html`, `#start` — the package's `Main.json` has
+ * no hero texts, ADR-I002 §5), texts of INST-6. Non-breaking spaces after one-letter words.
  */
 export function instalacjeHomeBlock(): InstHome {
   return {
     blockType: 'instHome',
     hero: {
-      eyebrow: 'Rabka-Zdrój · Podhale i Małopolska',
-      kicker: `Monitoring, alarmy, Wi-Fi i${NBSP}smart home na Podhalu`,
-      h1a: 'Twój obiekt',
-      h1b: `na${NBSP}żywo.`,
-      lead:
-        `Kamery, alarm, sieć, zamki, ładowarka, nagłośnienie i${NBSP}sterowanie budynkiem. ` +
-        `Projektujemy wszystko razem, montujemy i${NBSP}serwisujemy jako jedna firma ` +
-        `z${NBSP}Rabki-Zdroju. Wybierz obiekt obok i${NBSP}zobacz, co robi każda instalacja.`,
+      ...HOME_HERO_TEXTS,
       trust: [
         { icon: 'check', text: 'Na Podhalu od 2004 r.' },
         { icon: 'pin', text: 'Salon w Rabce-Zdroju' },
@@ -38,10 +41,16 @@ export function instalacjeHomeBlock(): InstHome {
 }
 
 /**
- * SEO of the home page from the package. The full title: the layout's title template applies
- * to subpages only, so the start page carries the line name itself.
+ * SEO of the home page, written here (P3-23: the package's title had 66 characters; INST-6: the
+ * description 140–155). The full title — the layout's title template applies to subpages only,
+ * so the start page carries the line name itself.
  */
-export const HOME_SEO = { title: Main._title, description: Main._description }
+export const HOME_SEO = {
+  title: 'Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje',
+  description:
+    'Monitoring, alarmy, Wi-Fi i smart home Ampio dla domów, pensjonatów i firm na Podhalu. ' +
+    'Projekt, montaż z 24-miesięczną gwarancją i serwis z Rabki-Zdroju.',
+}
 
 /** The layout after seeding: the sample page is replaced, a missing `instHome` inserted. */
 export function mergeInstalacjeHome(
@@ -87,7 +96,9 @@ export async function seedInstalacjeHome(payload: Payload, tenantId: number, cou
     return
   }
   const layout = mergeInstalacjeHome(home.layout, seed)
-  const seo = home.seo?.title?.trim() ? null : HOME_SEO
+  // SEO when the page has none, or still the package's former title (P3-23: 66 characters).
+  const former = home.seo?.title === Main._title
+  const seo = home.seo?.title?.trim() && !former ? null : HOME_SEO
   if (!layout && !seo) {
     count('home', 'skipped')
     return

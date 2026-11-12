@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import type { CompanyDatum, SiteSetting } from '@/payload-types'
 
 import nawigacja from '../../../seed/prokomsoftware/nawigacja.json'
+import { EMPTY_SUPPLY_LINKS } from '../biznes/procurement/links'
 import { toPublicCompanyData, toPublicSiteSettings } from './public'
 
 const company: CompanyDatum = {
@@ -105,7 +106,6 @@ describe('toPublicSiteSettings', () => {
     contactChannels: [
       { id: 'k', department: 'fiscal', phone: '+48 18 222 22 22', showInFooter: true },
     ],
-    whatsapp: '+48 889 003 889',
     serviceAreas: ['Rabka-Zdrój', 'Nowy Targ'],
     promises: { callbackTime: 'Oddzwonimy w 60 minut' },
     showReviews: true,
@@ -123,7 +123,6 @@ describe('toPublicSiteSettings', () => {
           showInFooter: true,
         },
       ],
-      whatsapp: '+48 889 003 889',
       trustLine: null,
       serviceAreas: ['Rabka-Zdrój', 'Nowy Targ'],
       promises: {
@@ -134,6 +133,7 @@ describe('toPublicSiteSettings', () => {
       },
       showReviews: true,
       showClientLogos: false,
+      showOwnerQuote: false,
       navigation: {
         menu: [],
         shortcuts: [],
@@ -142,6 +142,58 @@ describe('toPublicSiteSettings', () => {
         cards: [],
       },
       footer: { important: [], company: [] },
+      procurement: EMPTY_SUPPLY_LINKS,
+      ksef: null,
+    })
+  })
+
+  it('maps the KSeF band: blank texts as null, the link /ksef by default', () => {
+    const withKsef: SiteSetting['biznes'] = {
+      ksef: { deadline: '2027-01-01T00:00:00.000Z', textBefore: ' Przed. ', textAfter: '' },
+    }
+    expect(toPublicSiteSettings({ ...base, biznes: withKsef }, 'biznes').biznes?.ksef).toEqual({
+      deadline: '2027-01-01T00:00:00.000Z',
+      textBefore: 'Przed.',
+      textAfter: null,
+      href: '/ksef',
+    })
+    const linked: SiteSetting['biznes'] = {
+      ksef: { deadline: '2027-01-01', href: '/ksef#kroki' },
+    }
+    expect(toPublicSiteSettings({ ...base, biznes: linked }, 'biznes').biznes?.ksef?.href).toBe(
+      '/ksef#kroki',
+    )
+  })
+
+  it('no KSeF band without a valid deadline', () => {
+    for (const deadline of [null, undefined, '', 'nie-data']) {
+      const group: SiteSetting['biznes'] = { ksef: { deadline, textBefore: 'Przed.' } }
+      expect(toPublicSiteSettings({ ...base, biznes: group }, 'biznes').biznes?.ksef).toBeNull()
+    }
+  })
+
+  it('maps „Zaopatrzenie — linki”, empty texts as null', () => {
+    const withLinks: SiteSetting['biznes'] = {
+      procurement: {
+        categoryBand: 'Kupujesz 5 sztuk lub więcej?',
+        categoryBandCta: '  ',
+        itCategories: ['laptopy'],
+        industryTiles: [
+          { id: 't', industry: 'noclegi', page: 'agd', title: 'Telewizory i lodówki do pokoi' },
+        ],
+        searchAgd: ['agd'],
+      },
+    }
+    expect(
+      toPublicSiteSettings({ ...base, biznes: withLinks }, 'biznes').biznes?.procurement,
+    ).toEqual({
+      ...EMPTY_SUPPLY_LINKS,
+      categoryBand: 'Kupujesz 5 sztuk lub więcej?',
+      itCategories: ['laptopy'],
+      industryTiles: [
+        { industry: 'noclegi', page: 'agd', title: 'Telewizory i lodówki do pokoi', text: null },
+      ],
+      searchAgd: ['agd'],
     })
   })
 
@@ -185,8 +237,8 @@ describe('toPublicSiteSettings — Software', () => {
 
   it('maps the navigation on the Software line', () => {
     expect(
-      toPublicSiteSettings({ ...base, software }, 'software').software?.navigation?.tabBar.items,
-    ).toHaveLength(5)
+      toPublicSiteSettings({ ...base, software }, 'software').software?.navigation?.header.length,
+    ).toBe(nawigacja.header.length)
   })
 
   // Like the Biznes group (ADR-012, rozstrzygnięcie 2): never on another line's domain.
@@ -198,7 +250,7 @@ describe('toPublicSiteSettings — Software', () => {
   )
 
   it('has no navigation when it is empty or was saved past the validation', () => {
-    const broken = { ...nawigacja, tabBar: { items: [] } }
+    const broken = { ...nawigacja, header: [] }
     expect(toPublicSiteSettings({ ...base, software: {} }, 'software').software).toEqual({
       navigation: null,
     })

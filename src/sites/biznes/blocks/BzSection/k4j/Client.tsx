@@ -2,6 +2,7 @@
 
 import { useId, useState, useSyncExternalStore, type ReactNode } from 'react'
 
+import { useRevealCards } from '@/components/motion/RevealObserver'
 import { cx } from '@/components/ui/cx'
 import {
   isAfterSwitch,
@@ -58,6 +59,8 @@ export function KsefTimeline({
   serverStatuses: readonly TimelineStatus[]
 }) {
   const after = useAfterSwitch(switchDate, serverAfter)
+  // R2: the milestones rise in one after another, once (`RevealObserver`).
+  const revealCards = useRevealCards()
   const dates = points.map((point) => point.date)
   const statuses = useSyncExternalStore(
     noop,
@@ -65,13 +68,13 @@ export function KsefTimeline({
     () => serverStatuses.join('|'),
   ).split('|') as TimelineStatus[]
   return (
-    <ol className="flex flex-col gap-2.5">
+    <ol {...revealCards} className="flex flex-col gap-2.5">
       {points.map((point, i) => {
         const status: TimelineStatus = after ? 'obowiązuje' : (statuses[i] ?? 'wkrótce')
         return (
           <li
             key={point.date}
-            className="flex items-start gap-3 rounded-2xl bg-white/5 p-3 ring-1 ring-white/10"
+            className="flex items-start gap-3 rounded-2xl bg-white/5 p-3 ring-1 ring-white/10 max-md:items-center max-md:bg-transparent max-md:px-1 max-md:py-1.5 max-md:ring-0"
           >
             <span
               aria-hidden="true"
@@ -85,11 +88,14 @@ export function KsefTimeline({
               )}
             />
             <span className="flex min-w-0 flex-1 flex-col">
-              <em className="text-[13px] font-extrabold text-white not-italic">{point.d}</em>
-              <b className="font-extrabold">{point.t}</b>
-              <small className="text-[13.5px] text-white/75">{point.s}</small>
+              <em className="text-[13px] font-extrabold text-white not-italic max-md:text-[11px] max-md:text-white/75">
+                {point.d}
+              </em>
+              <b className="font-extrabold max-md:text-sm max-md:leading-snug">{point.t}</b>
+              {/* Phone (App-KSeF): date, name and status only. */}
+              <small className="text-[13.5px] text-white/75 max-md:hidden">{point.s}</small>
             </span>
-            <strong className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[12px] font-extrabold">
+            <strong className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[12px] font-extrabold max-md:px-2 max-md:text-[11px]">
               {status}
             </strong>
           </li>
@@ -113,14 +119,17 @@ export function KsefQuizWidget({
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const result = ksefQuizResult(quiz, answers, after)
   return (
-    <div className="grid gap-6 min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div className="flex flex-col gap-5">
+    // Phone (App-KSeF): the questions in one card, two equal answers side by side, a short result.
+    <div className="grid gap-6 max-md:gap-0 max-md:rounded-[22px] max-md:p-4 max-md:shadow-[inset_0_0_0_1px_var(--border)] min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="flex flex-col gap-5 max-md:gap-3.5">
         {visibleQuestions(quiz, after).map((question) => {
           const current = answers[question.key] ?? question.options[0]!.k
           return (
-            <fieldset key={question.key} className="flex flex-col gap-2.5">
-              <legend className="mb-1 font-extrabold text-ink">{question.t}</legend>
-              <div className="flex flex-wrap gap-2">
+            <fieldset key={question.key} className="flex min-w-0 flex-col gap-2.5 max-md:gap-2">
+              <legend className="mb-1 font-extrabold text-ink max-md:mb-2 max-md:text-sm">
+                {question.t}
+              </legend>
+              <div className="flex flex-wrap gap-2 max-md:grid max-md:grid-cols-2 max-md:gap-1 max-md:rounded-xl max-md:bg-surface-2 max-md:p-1">
                 {question.options.map((option) => (
                   <button
                     key={option.k}
@@ -128,10 +137,10 @@ export function KsefQuizWidget({
                     aria-pressed={current === option.k}
                     onClick={() => setAnswers((prev) => ({ ...prev, [question.key]: option.k }))}
                     className={cx(
-                      'min-h-11 rounded-full px-4 font-extrabold transition-colors',
+                      'min-h-11 rounded-full px-4 font-extrabold transition-colors max-md:rounded-[10px] max-md:px-2 max-md:text-[13px]',
                       current === option.k
-                        ? 'bg-ink text-surface'
-                        : 'bg-card text-ink shadow-[inset_0_0_0_1px_var(--border)]',
+                        ? 'bg-ink text-surface max-md:bg-accent-text max-md:text-accent-ink'
+                        : 'bg-card text-ink shadow-[inset_0_0_0_1px_var(--border)] max-md:bg-transparent max-md:shadow-none',
                     )}
                   >
                     {option.n}
@@ -145,11 +154,22 @@ export function KsefQuizWidget({
       <div
         aria-live="polite"
         data-testid="ksef-result"
-        className={cx(CARD, 'flex flex-col gap-3 p-6 text-ink')}
+        className={cx(
+          CARD,
+          'flex flex-col gap-3 p-6 text-ink max-md:mt-4 max-md:gap-1.5 max-md:bg-surface-2 max-md:p-3.5 max-md:shadow-none',
+        )}
       >
-        <b className="font-display text-[1.4rem] leading-tight font-extrabold">{result.t}</b>
-        {result.l.map((line) => (
-          <p key={line} className="leading-relaxed text-ink-2">
+        <b className="font-display text-[1.4rem] leading-tight font-extrabold max-md:text-base">
+          {result.t}
+        </b>
+        {result.l.map((line, i) => (
+          <p
+            key={line}
+            className={cx(
+              'leading-relaxed text-ink-2 max-md:text-[13px]',
+              i > 0 && 'max-md:hidden',
+            )}
+          >
             {line}
           </p>
         ))}
@@ -208,7 +228,7 @@ export function KsefChecklist({
       <p className="font-extrabold text-ink" aria-live="polite" data-testid="ksef-progress">
         {current.length} z {steps.length} gotowe
       </p>
-      <ol className="grid gap-3 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
+      <ol className="grid gap-3 max-md:gap-2 min-[768px]:grid-cols-2 min-[1080px]:grid-cols-3">
         {steps.map((step, i) => {
           const on = current.includes(i)
           return (
@@ -217,15 +237,16 @@ export function KsefChecklist({
                 type="button"
                 aria-pressed={on}
                 onClick={() => toggle(i)}
+                // Phone (App-KSeF): one row — tick box, the step and its short note.
                 className={cx(
-                  'flex size-full flex-col gap-1.5 rounded-[22px] bg-card p-5 text-left text-ink transition-shadow',
+                  'flex size-full flex-col gap-1.5 rounded-[22px] bg-card p-5 text-left text-ink transition-shadow max-md:grid max-md:grid-cols-[auto_minmax(0,1fr)] max-md:gap-x-3 max-md:gap-y-0.5 max-md:rounded-[16px] max-md:px-3.5 max-md:py-3',
                   on
                     ? 'shadow-[inset_0_0_0_2px_var(--ok-text)]'
                     : 'shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)]',
                 )}
               >
-                <span className="flex items-center justify-between">
-                  <span className="font-display text-[13px] font-extrabold text-ink-2">
+                <span className="flex items-center justify-between max-md:row-span-2 max-md:self-center">
+                  <span className="font-display text-[13px] font-extrabold text-ink-2 max-md:hidden">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span
@@ -238,9 +259,13 @@ export function KsefChecklist({
                     ✓
                   </span>
                 </span>
-                <b className="font-extrabold">{step.t}</b>
-                <span className="text-[14.5px] leading-relaxed text-ink-2">{step.d}</span>
-                <small className="mt-auto pt-1 text-[13px] text-ink-2">{step.w}</small>
+                <b className="font-extrabold max-md:text-sm">{step.t}</b>
+                <span className="text-[14.5px] leading-relaxed text-ink-2 max-md:hidden">
+                  {step.d}
+                </span>
+                <small className="mt-auto pt-1 text-[13px] text-ink-2 max-md:pt-0 max-md:text-xs">
+                  {step.w}
+                </small>
               </button>
             </li>
           )

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { partnerBadges, partnerStatusLabel } from './badges'
+import { partnerBadges, partnerStatusLabel, partnerStatusesByName } from './badges'
 
 describe('partnerBadges', () => {
   it('names each authorized partner and joins the authorized services', () => {
@@ -11,6 +11,21 @@ describe('partnerBadges', () => {
         { name: 'InsERT', status: 'authorized-partner' },
         { name: 'Elzab', status: 'authorized-service' },
         { name: 'Comarch', status: 'none' },
+      ]),
+    ).toEqual([
+      { label: 'Autoryzowany partner GoPOS', kind: 'partner' },
+      { label: 'Autoryzowany partner InsERT', kind: 'partner' },
+      { label: 'Autoryzowany serwis Posnet i Elzab', kind: 'service' },
+    ])
+  })
+
+  it('names the services as K4-FINAL §1 does, whatever the panel order', () => {
+    expect(
+      partnerBadges([
+        { name: 'Elzab', status: 'authorized-service' },
+        { name: 'InsERT', status: 'authorized-partner' },
+        { name: 'GoPOS', status: 'authorized-partner' },
+        { name: 'Posnet', status: 'authorized-service' },
       ]),
     ).toEqual([
       { label: 'Autoryzowany partner GoPOS', kind: 'partner' },
@@ -43,5 +58,23 @@ describe('partnerStatusLabel', () => {
     expect(partnerStatusLabel('cooperation')).toBe('We współpracy')
     expect(partnerStatusLabel('none')).toBeNull()
     expect(partnerStatusLabel(null)).toBeNull()
+  })
+})
+
+describe('partnerStatusesByName', () => {
+  it('maps each partner with a confirmed status to its label', () => {
+    expect(
+      partnerStatusesByName([
+        { name: 'GoPOS', status: 'authorized-partner' },
+        { name: 'Posnet', status: 'authorized-service' },
+        { name: 'COMEX', status: 'cooperation' },
+        { name: 'Bez statusu', status: 'none' },
+        { name: 'Pusty', status: null },
+      ]),
+    ).toEqual({
+      GoPOS: 'Autoryzowany partner',
+      Posnet: 'Autoryzowany serwis',
+      COMEX: 'We współpracy',
+    })
   })
 })

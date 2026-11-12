@@ -42,11 +42,9 @@ export function industryProducts(
 
 export type OtherIndustries = {
   active: { slug: string; name: string; href: string; current: boolean }[]
-  /** Inactive industries — named as „Wkrótce”, without a page. */
-  soon: string[]
 }
 
-/** „Inne branże”: the active industries in the panel order and the rest as „Wkrótce”. */
+/** „Inne branże”: the active industries in the panel order; inactive ones are not named (BIZ-3). */
 export function otherIndustries(index: CatalogIndex, current: string): OtherIndustries {
   return {
     active: index.industries
@@ -57,7 +55,6 @@ export function otherIndustries(index: CatalogIndex, current: string): OtherIndu
         href: industryHref(slug),
         current: slug === current,
       })),
-    soon: index.industries.filter((industry) => !industry.active).map((industry) => industry.name),
   }
 }
 
@@ -90,7 +87,7 @@ const DEFAULTS = {
   products: { eyebrow: 'Zestaw dla branży', title: 'Sprzęt i programy, które wdrażamy.' },
   faq: { eyebrow: 'Pytania i odpowiedzi', title: 'Zanim zdecydujesz' },
   contact: {
-    heading: 'Powiedz, czego potrzebujesz. Resztę dobierzemy.',
+    heading: 'Powiedz, czego potrzebujesz, a resztę dobierzemy',
     lead: 'Przygotujemy zestaw na piśmie, bez zobowiązań.',
   },
 } as const

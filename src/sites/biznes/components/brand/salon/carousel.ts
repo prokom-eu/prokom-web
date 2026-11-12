@@ -1,4 +1,7 @@
-/** Products on a phone: a horizontal carousel, cards at 80% width (K4-FINAL §7). */
+/**
+ * Products on a phone: a horizontal carousel, cards at ~74% width so the next one peeks out
+ * (board App-Salon-*: 286 of 390 px). The row keeps room for the focus ring (`-my-2 py-2`).
+ */
 export const CAROUSEL =
-  'max-[760px]:-mx-4 max-[760px]:flex max-[760px]:snap-x max-[760px]:snap-mandatory max-[760px]:gap-3 max-[760px]:overflow-x-auto max-[760px]:px-4 max-[760px]:pb-2'
-export const CAROUSEL_ITEM = 'max-[760px]:w-[80%] max-[760px]:shrink-0 max-[760px]:snap-start'
+  'max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-3 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none]'
+export const CAROUSEL_ITEM = 'max-md:relative max-md:w-[74%] max-md:shrink-0 max-md:snap-start'

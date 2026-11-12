@@ -58,6 +58,7 @@ export function FilterSheet({ activeCount, resultCount, titleRef, children }: Pr
         Filtry{activeCount > 0 && ` (${activeCount})`}
       </button>
       <dialog
+        data-motion="sheet"
         ref={dialog}
         aria-labelledby={titleId}
         onClick={(event) => {

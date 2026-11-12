@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { fitTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { MediaImage } from '@/components/MediaImage'
@@ -14,6 +15,8 @@ import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
+import { biznesDescription } from '@/lib/biznes/seo'
+import { EMPTY_SUPPLY_LINKS, industrySupplyTiles } from '@/lib/biznes/procurement/links'
 import { BzOrderFlowBlock } from '@/sites/biznes/blocks/BzOrderFlow/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
@@ -30,8 +33,8 @@ import { requestOrigin, requireLine } from '../../../tenant'
 
 type Props = { params: Promise<{ domain: string; branza: string }> }
 
-/** „Branże” in the breadcrumbs: the industries grid of the home page (there is no list page). */
-const INDUSTRIES_CRUMB = '/#dla-kogo'
+/** „Branże” in the breadcrumbs: the plan with the industries on the home page (D8; no list page). */
+const INDUSTRIES_CRUMB = '/#plan'
 
 async function load(params: Props['params']) {
   const tenant = await requireLine(params, 'biznes')
@@ -49,8 +52,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, industry } = await load(params)
   if (!industry) return {}
   const settings = await getSiteSettings(tenant.id)
-  const title = industry.seo.title ?? industry.name
-  const description = industry.seo.description ?? industry.lead ?? undefined
+  const title = fitTitle(industry.seo.title ?? industry.name, 'dla firm — Rabka-Zdrój')
+  // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
+  const descriptionSource = industry.seo.description ?? industry.lead
+  const description = descriptionSource ? biznesDescription(descriptionSource) : undefined
   const canonical = industryHref(industry.slug)
   return {
     title,
@@ -64,7 +69,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title,
       description,
-      images: ogImages(industry.image ?? settings?.seo.ogImage ?? null),
+      images: ogImages(industry.image ?? settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }
@@ -134,7 +139,7 @@ export default async function IndustryPage({ params }: Props) {
               image={industry.image}
               sizes="(min-width: 1080px) 45vw, 100vw"
               eager
-              className="mx-auto h-auto w-full max-w-[560px] object-contain drop-shadow-[0_32px_40px_var(--glow)]"
+              className="mx-auto h-auto w-full max-w-[560px] object-contain drop-shadow-[0_32px_40px_var(--glow)] max-md:max-h-[220px] max-md:w-auto"
             />
           )
         }
@@ -146,6 +151,11 @@ export default async function IndustryPage({ params }: Props) {
         total={total}
         index={cardIndex}
         catalogHref={catalogHref({ ...DEFAULT_STATE, industries: [industry.slug] })}
+        supply={industrySupplyTiles(
+          settings?.biznes?.procurement ?? EMPTY_SUPPLY_LINKS,
+          index,
+          industry.slug,
+        )}
       />
       {industry.day && <BzTimelineBlock block={industry.day} tone="accent" />}
       {industry.flow && <BzOrderFlowBlock block={industry.flow} tenantId={tenant.id} />}
@@ -171,6 +181,7 @@ export default async function IndustryPage({ params }: Props) {
         heading={industry.contact.heading}
         lead={industry.contact.lead}
         callbackTime={callback}
+        topic={industry.name}
       />
     </>
   )

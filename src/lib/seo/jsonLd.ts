@@ -1,4 +1,5 @@
 import { brandAsset } from '../brand/lines'
+import { toTelHref } from '../site/link'
 import type { PublicCompanyData } from '../site/public'
 import type { Line } from '../tenant/lines'
 
@@ -12,6 +13,37 @@ const DAYS: Record<string, string> = {
   sun: 'Sunday',
 }
 
+const WEEK = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const
+const SHORT: Record<string, string> = {
+  mon: 'Mo',
+  tue: 'Tu',
+  wed: 'We',
+  thu: 'Th',
+  fri: 'Fr',
+  sat: 'Sa',
+  sun: 'Su',
+}
+
+/**
+ * One row of hours in the schema.org text form: „Mo-Fr 09:00-17:00”, consecutive days as a range
+ * („Mo,We 09:00-12:00” otherwise). Search engines read it next to `openingHoursSpecification`.
+ */
+export function openingHoursText(row: { days: readonly string[]; opens: string; closes: string }) {
+  const indexes = [...new Set(row.days.map((day) => WEEK.indexOf(day as (typeof WEEK)[number])))]
+    .filter((index) => index >= 0)
+    .sort((a, b) => a - b)
+  const ranges: string[] = []
+  for (let i = 0; i < indexes.length; i++) {
+    const start = indexes[i]!
+    let end = start
+    while (indexes[i + 1] === end + 1) end = indexes[++i]!
+    const from = SHORT[WEEK[start]!]
+    const to = SHORT[WEEK[end]!]
+    ranges.push(end - start >= 1 ? `${from}-${to}` : `${from}`)
+  }
+  return `${ranges.join(',')} ${row.opens}-${row.closes}`
+}
+
 type OrganizationInput = {
   company: PublicCompanyData
   tenant: { name: string; line: Line }
@@ -20,6 +52,22 @@ type OrganizationInput = {
   origin: string
 }
 
+/** Where the Software line works (its texts: Podhale, Małopolska and remotely in Poland). */
+export const SOFTWARE_AREA_SERVED = ['Rabka-Zdrój', 'Podhale', 'Małopolska', 'Polska'] as const
+
+/**
+ * The Software office for search engines (audyt 01.11 P2): its place on the map — the same point
+ * as the contact map (`scripts/software-osm-map.mjs`, ul. Orkana 16B) — and the line's image.
+ * `CompanyData` has no coordinates; Software has one office, so they live here.
+ */
+const SOFTWARE_OFFICE = {
+  geo: { '@type': 'GeoCoordinates', latitude: 49.60994, longitude: 19.95339 },
+  image: '/brand/prokom-software_og.png',
+} as const
+
+/** `tel:+48…` from the panel's number as schema.org wants it (E.164): `+48883200151`. */
+const e164 = (phone: string | undefined) => (phone ? toTelHref(phone)?.slice(4) : undefined)
+
 /**
  * `Organization` (the line as the public face of the company) plus one `LocalBusiness` per
  * branch with its opening hours — all from `CompanyData`, so a change in the panel updates it.
@@ -27,7 +75,8 @@ type OrganizationInput = {
  */
 export function organizationJsonLd({ company, tenant, contact, origin }: OrganizationInput) {
   const orgId = `${origin}/#organization`
-  const telephone = contact.phone ?? company.phones[0]?.number
+  const telephone = e164(contact.phone ?? company.phones[0]?.number)
+  const email = contact.email ?? company.email
   const organization = {
     '@type': 'Organization',
     '@id': orgId,
@@ -36,7 +85,7 @@ export function organizationJsonLd({ company, tenant, contact, origin }: Organiz
     url: `${origin}/`,
     logo: origin + brandAsset(tenant.line, 'poziome_kolor.svg'),
     telephone,
-    email: contact.email ?? company.email,
+    email,
     taxID: company.nip,
   }
   // Software works only in Rabka (prokomsoftware ZMIANY-v23 §1): its pages name only the main
@@ -50,6 +99,12 @@ export function organizationJsonLd({ company, tenant, contact, origin }: Organiz
     parentOrganization: { '@id': orgId },
     url: `${origin}/`,
     telephone,
+    email,
+    ...(tenant.line === 'software' && {
+      geo: SOFTWARE_OFFICE.geo,
+      image: origin + SOFTWARE_OFFICE.image,
+      areaServed: SOFTWARE_AREA_SERVED,
+    }),
     address: {
       '@type': 'PostalAddress',
       streetAddress: location.street,
@@ -57,6 +112,7 @@ export function organizationJsonLd({ company, tenant, contact, origin }: Organiz
       addressLocality: location.city,
       addressCountry: 'PL',
     },
+    openingHours: location.hours.map(openingHoursText),
     openingHoursSpecification: location.hours.map(({ days, opens, closes }) => ({
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: days.flatMap((day) => (DAYS[day] ? [`https://schema.org/${DAYS[day]}`] : [])),
@@ -222,12 +278,15 @@ export function serviceJsonLd({
   url,
   provider,
   priceFrom,
+  areaServed,
 }: {
   name: string
   description: string | undefined
   url: string
   provider: string
   priceFrom: number | null
+  /** Places the service is offered in (`SOFTWARE_AREA_SERVED`). */
+  areaServed?: readonly string[]
 }) {
   return {
     '@context': 'https://schema.org',
@@ -236,6 +295,7 @@ export function serviceJsonLd({
     ...(description && { description }),
     url,
     provider: { '@type': 'Organization', name: provider },
+    ...(areaServed && { areaServed }),
     ...(priceFrom !== null && {
       offers: {
         '@type': 'Offer',
@@ -302,6 +362,41 @@ export function itemListJsonLd({
       name: item.name,
       url: item.url,
     })),
+  }
+}
+
+/**
+ * `WebSite` of a home page with the site search for search engines (audit 0611 P0.3b): the
+ * search box points at the catalog's own query parameter (Biznes: `/oferta?szukaj=`, see
+ * `lib/catalog/filters`). Published by the Organization the layout emits (`/#organization`).
+ */
+export function websiteSearchJsonLd({
+  origin,
+  name,
+  searchPath,
+  queryParam,
+}: {
+  origin: string
+  name: string
+  searchPath: string
+  queryParam: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${origin}/#website`,
+    name,
+    url: `${origin}/`,
+    inLanguage: 'pl-PL',
+    publisher: { '@id': `${origin}/#organization` },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${origin}${searchPath}?${queryParam}={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
   }
 }
 

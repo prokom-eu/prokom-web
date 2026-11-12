@@ -28,6 +28,8 @@ async function open(page: Page, motion: 'reduce' | 'no-preference' = 'reduce') {
   await page.emulateMedia({ reducedMotion: motion })
   const response = await page.goto(site(HOST, '/dla-architektow'))
   expect(response?.status()).toBe(200)
+  // ADR-023: the page's widgets hydrate lazily; a click before their code arrives is lost.
+  await page.waitForLoadState('networkidle')
 }
 
 test.describe('Instalacje page for architects', () => {
@@ -121,17 +123,17 @@ test.describe('Instalacje page for architects', () => {
     const list = page.locator('#checklista')
     await expect(list.locator('.arckt .h3')).toHaveText('20 rzeczy do przewidzenia')
     await list.locator('.arci').first().click()
-    await expect(list.locator('.arckp span')).toHaveText('1 / 20')
+    await expect(list.locator('.arckp .arckn')).toHaveText('1 / 20')
     // Another object clears the ticks; fewer systems, fewer items.
     await list.getByRole('button', { name: 'Apartament, mieszkanie' }).click()
-    await expect(list.locator('.arckp span')).toHaveText(/^0 \//)
+    await expect(list.locator('.arckp .arckn')).toHaveText(/^0 \//)
     await list.locator('.arci').first().click()
     await page.reload()
     await expect(list.getByRole('button', { name: 'Apartament, mieszkanie' })).toHaveAttribute(
       'aria-pressed',
       'true',
     )
-    await expect(list.locator('.arckp span')).toHaveText(/^1 \//)
+    await expect(list.locator('.arckp .arckn')).toHaveText(/^1 \//)
   })
 
   test('„Nowe rozwiązania”: filter with counts, previous/next within it', async ({ page }) => {
@@ -150,14 +152,44 @@ test.describe('Instalacje page for architects', () => {
     await expect(news).not.toContainText('Głośniki pod gładzią')
   })
 
-  test('developers and law: tabs, no price promise, the legal note', async ({ page }) => {
+  // Review of PR3b: the fallback never hides photos that load (lazy thumbnails included).
+  test('„Nowe rozwiązania”: photos that load stay photos', async ({ page }) => {
+    await open(page)
+    const news = page.locator('#nowosci')
+    await news.scrollIntoViewIfNeeded()
+    await news.locator('.arnwi:has(.arnwthp)').first().click()
+    const photo = news.locator('.arnxap img')
+    await expect(photo).toBeVisible()
+    await expect
+      .poll(() => photo.evaluate((img) => (img as HTMLImageElement).naturalWidth))
+      .toBeGreaterThan(0)
+    const thumbs = news.locator('.arnwthp img')
+    expect(await thumbs.count()).toBeGreaterThan(0)
+  })
+
+  // Runda v6 §1.7.2: a card whose photo file is missing shows its drawing, not a broken image.
+  test('„Nowe rozwiązania”: a photo that does not load gives way to the drawing', async ({
+    page,
+  }) => {
+    await page.route('**/api/media/file/nowosc-*', (route) => route.abort())
+    await open(page)
+    const news = page.locator('#nowosci')
+    await news.scrollIntoViewIfNeeded()
+    // A card that has a photo in the seed (its thumbnail keeps the photo frame class).
+    await news.locator('.arnwi:has(.arnwthp)').first().click()
+    await expect(news.locator('.arnxap svg').first()).toBeVisible()
+    await expect(news.locator('.arnxap img')).toHaveCount(0)
+    await expect(news.locator('.arnwthp img')).toHaveCount(0)
+  })
+
+  test('developers: tabs, no price promise, no law section', async ({ page }) => {
     await open(page)
     const dev = page.locator('#deweloperzy')
     await dev.getByRole('tab', { name: 'Garaż i parking' }).click()
     await expect(dev.getByRole('tabpanel')).toContainText('Elzab EcoPower')
     await expect(dev).toContainText('Nie obiecujemy, że smart home podniesie cenę lokalu')
-    await expect(page.locator('#przepisy')).toContainText('To nie jest porada prawna. Stan na')
-    await expect(page.locator('#przepisy .arprc2')).toHaveCount(8)
+    // Runda v6 §1.1: no law on the page.
+    await expect(page.locator('#przepisy')).toHaveCount(0)
   })
 
   test('a card published in the panel shows; one with a marker cannot be published', async ({
@@ -204,14 +236,15 @@ test.describe('Instalacje page for architects', () => {
     }
   })
 
-  test('„Wyślij rzuty”: asks for what is missing, saves „Architekci · projekt”', async ({
+  // Round v5 (RUNDA-V5 §7.1): a consultation, no files and no plan link through the site.
+  test('„Umów konsultację projektu”: asks for what is missing, saves „Architekci · projekt”', async ({
     page,
   }) => {
     await page.setExtraHTTPHeaders({ 'X-Real-IP': clientIp })
     const name = `E2E Architekt ${Date.now()}`
     await open(page)
     const form = page.locator('#wyslij form')
-    const send = form.getByRole('button', { name: 'Wyślij do opiekuna' })
+    const send = form.getByRole('button', { name: 'Umów konsultację' })
     await send.click()
     await expect(form.getByRole('alert')).toContainText('Podaj imię')
     await form.getByLabel('Imię i nazwisko').fill(name)
@@ -220,7 +253,8 @@ test.describe('Instalacje page for architects', () => {
     await form.getByLabel('Telefon').fill('600 100 200')
     await form.getByRole('button', { name: 'Deweloper' }).click()
     await form.getByLabel('Pracownia lub firma').fill('Pracownia E2E')
-    await form.getByLabel('Link do rzutów').fill('https://example.test/rzuty')
+    await expect(form.getByLabel(/Link do rzutów/)).toHaveCount(0)
+    await expect(form.locator('input[type="file"]')).toHaveCount(0)
     await form.locator('label.consent input').check()
     await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
     await send.click()
@@ -237,7 +271,7 @@ test.describe('Instalacje page for architects', () => {
         company: 'Pracownia E2E',
         phone: '600 100 200',
       })
-      expect(String(record?.message)).toContain('Link do rzutów: https://example.test/rzuty')
+      expect(String(record?.message)).not.toMatch(/link do rzutów/i)
     } finally {
       if (record) await api(page, 'DELETE', `/api/inquiries/${record.id}`)
     }
@@ -292,7 +326,8 @@ test.describe('Instalacje page for architects', () => {
 
   test('FAQ, the contact person of the seed, sections in order', async ({ page }) => {
     await open(page)
-    await expect(page.locator('#faq details')).toHaveCount(10)
+    // Runda v6 §1.1: the question about the regulations of 2026 is gone (10 → 9).
+    await expect(page.locator('#faq details')).toHaveCount(9)
     // The seed's contact person (boss 01.11): the owner, with the line's phone and e-mail.
     const contact = page.locator('#opiekun')
     await expect(contact.locator('h2')).toHaveText('Tadeusz Wójciak')

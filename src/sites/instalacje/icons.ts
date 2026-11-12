@@ -96,6 +96,44 @@ export const INST_ICONS = {
   menu: 'M4 7h16M4 12h16M4 17h16',
   chevronDown: 'M6 9l6 6 6-6',
   chevronRight: 'M9 6l6 6-6 6',
+  // Runda v6 §1.5: our own icons in the same style (24×24 stroke) where the set had none — the
+  // alarm elements had „×”, a sun, a shield or an antenna in their place.
+  /** Glass break detector: a pane with a crack. */
+  glassBreak: 'M4 3h16v18H4zM12 3l-2 5 3 3-2 4 2 6M13 11l4-2M10 8l-4 1',
+  /** Outdoor detector: a dome detector on its bracket under the sun. */
+  pirOut:
+    'M3 13a6 6 0 0 1 12 0zM9 13v4M6 17h6M19 3v1.5M19 9.5V11M15 7h1.5M21.5 7H23M19 5.5a1.5 1.5 0 1 0 .01 0',
+  /** Security agency: a patrol car with a beacon. */
+  patrol:
+    'M4 15l2-5h12l2 5v4H4zM7 19v2M17 19v2M7.5 16h.01M16.5 16h.01M12 10V7M10 7h4M8.5 4.5L10 6M15.5 4.5L14 6',
+  /** Alarm keypad: a panel with number keys. */
+  keypad:
+    'M5 2h14v20H5zM8 6h8M8 11h.01M12 11h.01M16 11h.01M8 14.5h.01M12 14.5h.01M16 14.5h.01M8 18h.01M12 18h.01M16 18h.01',
+  /** Control panel: a box that sends a signal. */
+  panel: 'M3 5h12v14H3zM6 9h6M6 13h6M6 16h3M18 9a4 4 0 0 1 0 6M20.5 6.5a8 8 0 0 1 0 11',
+  /** Siren with a lamp: a dome with light rays. */
+  siren:
+    'M7 18v-5a5 5 0 0 1 10 0v5M5 18h14v3H5zM12 5V2M5.6 7.6L3.5 5.5M18.4 7.6l2.1-2.1M2 13h2M20 13h2',
+  /** Flood detector: a drop over a wave. */
+  flood: 'M12 2s-5 6-5 9.5a5 5 0 0 0 10 0C17 8 12 2 12 2zM2 20c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0',
+  /** Smart home: a house with a switch inside (the object „Dom” keeps `home`). */
+  smart: 'M3 11l9-7 9 7v9H3zM9 13h6v5H9zM12 14.5v2',
+  /** Microphone on a stand. */
+  mic: 'M9 3h6v9a3 3 0 0 1-6 0zM5 11a7 7 0 0 0 14 0M12 18v3M8 21h8',
+  /** Rack cabinet: shelves with lights. */
+  rack: 'M5 2h14v20H5zM5 8h14M5 14h14M8 5h.01M8 11h.01M8 17h.01M11 5h5M11 11h5M11 17h5',
+  /** EV charger: a post with a cable and a plug (`bolt` stays for power). */
+  ev: 'M5 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16M3 21h14M8 7h4M11 11l-2 3h3l-2 3M15 9h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 0 3 0V8l-2-2',
+  /** Refused: a crossed circle (an access log line, not „×”). */
+  ban: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM5.6 5.6l12.8 12.8',
+  /** About: „i” in a circle. */
+  info: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 11v6M12 7.5h.01',
+  /** Ventilation: a fan in a ring. */
+  fan: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 12c0-3 1-5 3-5s2 3-3 5zM12 12c3 0 5 1 5 3s-3 2-5-3zM12 12c0 3-1 5-3 5s-2-3 3-5zM12 12c-3 0-5-1-5-3s3-2 5 3z',
+  /** Wind (the halny): wavy lines with curls. */
+  wind: 'M3 8h11a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h8',
+  /** LTE link: an aerial and signal bars. */
+  lte: 'M6 21V9M3 5l3 4 3-4M13 21v-3M17 21v-7M21 21V9',
 } as const satisfies Record<string, string>
 
 export type InstIconName = keyof typeof INST_ICONS

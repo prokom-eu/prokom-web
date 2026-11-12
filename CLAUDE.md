@@ -32,7 +32,8 @@ src/
   collections/  globals/  blocks/
   components/              # wspólne komponenty (szkielet: BrandBar, SiteHeader, SiteFooter)
   components/ui/           # komponenty bazowe: Container, Section, Heading, Button, TextLink
-  styles/tokens.css        # JEDYNE miejsce z wartościami kolorów (ADR-007, ADR-013); testy kontrastu obok
+  styles/tokens*.css       # JEDYNE miejsce z wartościami kolorów (ADR-007, ADR-013; Instalacje: tokens-instalacje.css); testy kontrastu obok
+  styles/site.css          # style wspólne; arkusz Tailwind per linia w sites/<linia>/style (ADR-023 „CSS per linia”)
   sites/<tenant>/          # tylko to, co naprawdę unikalne dla jednej strony
   lib/                     # tenant, brand (linie, motyw), seo, inquiry, env
   proxy.ts                 # Next 16: dawne middleware.ts (lib/tenant/routing)
@@ -44,7 +45,7 @@ seed/<strona>/             # dane startowe strony z pakietu (JSON 1:1, poza Pret
 ## Lokalnie
 - Domeny dev: `biznes.localhost:3000`, `instalacje.localhost:3002` (folder prokom-instal), `software.localhost:3000`, panel: `panel.localhost:3000/admin` (`PANEL_HOST=panel.localhost` w `.env`). Sam `localhost:3000` to nieznana domena → 404. Port to `PORT` z `.env` folderu (`prokom-web-biznes`: 3001, drugi folder strony: kolejny wolny) — `pnpm dev` i Playwright biorą go stamtąd. Każdy folder ma **własny** port: Playwright (`reuseExistingServer`) podłącza się do każdego serwera na porcie, także z innego folderu. Jeden folder = jeden `pnpm dev`; gdy serwer działa już na innym porcie niż `PORT` z `.env`, uruchom Playwright z `PORT=<port> pnpm test:e2e …`. W `pnpm dev` dane z Payload nie są cache'owane (`lib/cache.ts`), więc wynik `pnpm seed*` widać od razu.
 - `docker compose -f docker/compose.dev.yml up -d` — PostgreSQL (na hoście port **54320**, bo 5432/5433 bywają zajęte przez natywny PostgreSQL) + Mailpit (SMTP `localhost:1025`, podgląd maili: `localhost:8025`).
-- Komendy: `pnpm dev`, `pnpm build`, `pnpm start`, `pnpm lint`, `pnpm typecheck`, `pnpm format` / `pnpm format:check`, `pnpm test` (Vitest, `src/**/*.test.ts`), `pnpm test:e2e` (Playwright, `tests/e2e`, wymaga działającej bazy po `pnpm seed`; testy edytujące treść logują się adminem z `SEED_ADMIN_*` — Playwright sam wczytuje `.env`), `pnpm generate:types`, `pnpm generate:importmap`, `pnpm payload migrate:create <nazwa>`, `pnpm payload migrate`, `docker build -t prokom-web:local .`, `bash scripts/smoke.sh <adres> [domeny…]` (S9a: obraz i smoke test, `docs/wdrozenia.md`), `scripts/backup.sh` / `scripts/restore.sh` (S9b-2: kopie na serwerze — procedury w `docs/runbook.md`), `pnpm seed` (tylko lokalnie; admin z `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`, na produkcji zablokowany; na końcu importuje katalog Biznesu), `pnpm seed:biznes` (sam katalog Biznesu z `seed/prokombiznes/` + obrazy z `docs/design/prokombiznes/boards/media/` i galerie z `seed/prokombiznes/media/`, idempotentny: pola z paczki wygrywają z edycją w panelu, rekord zapisywany tylko przy różnicy; status treści i data sprawdzenia tylko „w przód”). Zmiana schematu: `docs/sposob-pracy.md` → „Zmiana schematu bazy”.
+- Komendy: `pnpm dev`, `pnpm build`, `pnpm start`, `pnpm lint`, `pnpm typecheck`, `pnpm format` / `pnpm format:check`, `pnpm test` (Vitest, `src/**/*.test.ts`), `pnpm test:e2e` (Playwright, `tests/e2e`, wymaga działającej bazy po `pnpm seed`; testy edytujące treść logują się adminem z `SEED_ADMIN_*` — Playwright sam wczytuje `.env`), `pnpm generate:types`, `pnpm generate:importmap`, `pnpm payload migrate:create <nazwa>`, `pnpm payload migrate`, `docker build -t prokom-web:local .`, `bash scripts/smoke.sh <adres> [domeny…]` (S9a: obraz i smoke test, `docs/wdrozenia.md`), `scripts/backup.sh` / `scripts/restore.sh` (S9b-2: kopie na serwerze — procedury w `docs/runbook.md`), `pnpm seed` (tylko lokalnie; admin z `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`, na produkcji zablokowany; na końcu importuje katalog Biznesu), `pnpm seed:biznes` (sam katalog Biznesu z `seed/prokombiznes/` + obrazy z `docs/design/prokombiznes/boards/media/` i galerie z `seed/prokombiznes/media/`, idempotentny: pola z paczki wygrywają z edycją w panelu, rekord zapisywany tylko przy różnicy; status treści i data sprawdzenia tylko „w przód”). `node scripts/software-porownaj.mjs [Strona…]` (SWA1b: zrzuty Software 1440/1280/834/390 × ciemny/jasny obok `v24/screens` → `tmp/zrzuty-v24/index.html`; `SW_WIDTHS`, `SW_THEMES`), `pnpm mail:samples <adres>` (D1-2: 6 maili linii przez nadawców linii — lokalnie do Mailpit; podgląd maili `/_maile`, na produkcji 404). Zmiana schematu: `docs/sposob-pracy.md` → „Zmiana schematu bazy”.
 - pnpm: wersja z `packageManager` (11.x). Wywołuj `pnpm` bezpośrednio — sam przełącza się na przypiętą wersję. Nie używaj `corepack pnpm`: psuje `webServer` w Playwright.
 - System Krystiana: Windows, repo w `D:\PRO-KOM\repos\prokom-web`. Końce linii: LF (`.gitattributes`).
 
@@ -55,7 +56,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - Nie zakładaj, że lokalna baza ma jakieś dane — dane testowe tylko z `pnpm seed` (powtarzalny, idempotentny). Każda migracja w repo, bo CI, staging i produkcja odtwarzają bazę z migracji.
 - Żadnych ścieżek bezwzględnych (`D:\...`, `C:\Users\...`) w kodzie, skryptach ani dokumentacji — tylko ścieżki względne do katalogu repo.
 - Nowa zmienna środowiskowa → `.env.example` z opisem (Krystian przenosi wartości przez menedżer haseł).
-- **Biznes w jednym folderze (decyzja Krystiana 30.10):** sesje po kolei wg kolejki `docs/zadania/prokombiznes.md` §7.1 — sesje połączone, 2–3 PR-y piętrowo w jednej sesji, bez drugiego folderu. Najwyżej dwie sesje piszące kod naraz we wszystkich liniach (Biznes, Software, Instalacje).
+- **Biznes w jednym folderze (decyzja Krystiana 30.10):** sesje po kolei wg kolejki `docs/zadania/prokombiznes.md` §7.1 — sesje połączone, 2–3 PR-y piętrowo w jednej sesji, bez drugiego folderu. Po audycie 01.11 (decyzja 01.11): prompty 2–5 w dwóch sesjach §7.2, sesja A do 6 PR-ów. Najwyżej dwie sesje piszące kod naraz we wszystkich liniach (Biznes, Software, Instalacje).
 - **Dwie strony równolegle = dwa foldery (git worktree)**, każdy z własną gałęzią, `PORT` i bazą (`docs/sposob-pracy.md` → „Dwie strony równolegle”). Pracujesz tylko w folderze swojej sesji: nie przełączasz go na gałąź drugiej strony, nie otwierasz `develop`, nowe gałęzie zakładasz od `origin/develop`. W `docs/STAN.md` edytujesz tylko podsekcję swojej strony.
 
 ## Zasady kodu
@@ -117,11 +118,17 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
   TDD wg docs/jakosc.md i fundament.md (od S2 dla logiki), nie dla szkieletu z szablonu.
 - Przy sprzeczności skilla z tym plikiem albo ze specyfikacją wygrywa ten plik i specyfikacja.
 
+## Elementy wspólne linii (Biznes, Instalacje, Software)
+- Spec `docs/design/wspolne/WSPOLNE-ELEMENTY.md` (+ `plansze/`, `MAPA-DZIS.md`), plan `docs/zadania/wspolne-elementy.md` (F = fundament, L = sesje linii), ADR-022.
+- Komponenty wspólne w `src/components/shared` (bez Payload, bez importów z `src/sites/*`), loader w `src/lib/shared`. Sesje linii nie zmieniają tych folderów ani wspólnych pól/migracji — brak → osobny PR `feat/wsp-*`.
+- Dane: firma w `CompanyData` (salony = `locations[]`), linia w grupie `shared` w `SiteSettings` (ADR-022 „Poprawki w F0”).
+- Zasady 01.11: bez WhatsAppa, bez zdjęć ludzi, dane kontaktowe tylko z panelu, nazwa „Tech”, przy pro-kom.eu bez sklepu, Gaming tylko jako odnośnik.
+
 ## prokombiznes.pl
 - **Od 30.10.2026 etap K4 (wersja finalna v150):** `docs/design/prokombiznes/K4-FINAL.md` + `PRZEKAZANIE-K4.md`, decyzje — ADR-017, plan sesji — `docs/zadania/prokombiznes.md` §7.
 - Wzorzec: `docs/design/prokombiznes/INDEKS.md` (kolejność ważności dokumentów); decyzje repo (adresy `/oferta/…`, model per tenant) — ADR-017 i ADR-012 „Rozstrzygnięcia”, plan sesji — `docs/zadania/prokombiznes.md` §7 (historia: §6).
 - Telefon = osobny układ jak aplikacja (`MOBILE-APLIKACJA.md`), jego §4 to Definition of Done każdej sesji z UI.
-- Zero cen, tylko Rabka, biznes@pro-kom.eu; statusy tylko: Posnet/Elzab „Autoryzowany serwis”, GoPOS/InsERT „Autoryzowany partner”, Optivendi „Partner”, COMEX „We współpracy”; HP tylko oryginalne wkłady (K4-FINAL §1).
+- Zero cen, tylko Rabka, kontakt@prokombiznes.pl, tel. 889 003 889 i 883 200 151, pn–pt 9–17 (decyzja 01.11.2026); statusy tylko: Posnet/Elzab „Autoryzowany serwis”, GoPOS/InsERT „Autoryzowany partner”, Optivendi „Partner”, COMEX „We współpracy”; HP tylko oryginalne wkłady (K4-FINAL §1).
 
 <!-- BEGIN:nextjs-agent-rules -->
 
@@ -134,14 +141,16 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 <!-- END:nextjs-agent-rules -->
 
 ## prokomsoftware.pl
-- Plan sesji: `docs/zadania/prokomsoftware.md`. **Od 01.11.2026 wersja finalna v23:** `docs/design/prokomsoftware/ZMIANY-v23.md` + `PRZEKAZANIE-v23.md` (sesje SWV1–SWV5), kolory — ADR-015 „Rozstrzygnięcia v23”. Historia: `PRZEKAZANIE-v22.md`.
+- Plan sesji: `docs/zadania/prokomsoftware.md`. **Od 06.11.2026 wersja finalna v24 „Aurora”:** `docs/design/prokomsoftware/v24/ZMIANY-v24.md` (spec.) + `PRZEKAZANIE-v24.md` (duże sesje SWA1–SWA6, prompty), plansze `v24/boards`, decyzje — ADR-015 i ADR-014 „Rozstrzygnięcia v24” (ciemny motyw domyślnie, fioletowe światło, hero przed Lighthouse). Historia: v23 (`ZMIANY-v23.md`, `PRZEKAZANIE-v23.md`).
+- **Folder sesji SWA (od 06.11):** worktree `prokom-web-software` — `PORT=3003`, baza `prokom_web_swa` (w `prokom-web` pracują sesje D2).
 - **Telefon = osobny układ „jak najlepsza aplikacja”** (`docs/design/prokomsoftware/MOBILE-APLIKACJA.md`); jego §5 to Definition of Done każdej sesji z UI.
 
 ## Linia Instalacje (prokominstalacje.pl) — worktree `prokom-instal`
 
 Jeśli pracujesz w folderze `prokom-instal` albo na gałęzi `inst/*`:
 - Najpierw przeczytaj `docs/stan/STAN-instalacje.md`, potem `docs/zadania/prokominstalacje.md` (rytuał i prompty), `docs/strony/prokominstalacje.md` (spec, §2 = decyzje nie do zmiany) i ADR-I001 w `docs/decyzje/` (worktree, `PORT=3002`, baza `prokom_web_instalacje`, strefa wspólna, migracje).
-- Wzorzec wyglądu = `docs/design/prokominstalacje/` (prototyp v4.0 + `MOBILE-APLIKACJA.md`, `KOMPONENTY.md`, `MAPA-STRON.md`). Każda sekcja z UI: `narzedzia/porownaj.mjs` w 1440 i 390, jasny i ciemny, przed PR.
+- Wzorzec wyglądu = `docs/design/prokominstalacje/` (prototyp v4.0 + `MOBILE-APLIKACJA.md`, `KOMPONENTY.md`, `MAPA-STRON.md`). **Od 03.11.2026 runda v5:** `docs/design/prokominstalacje/RUNDA-V5.md` (hero, logo marek, Dla kogo, realizacje ze zdjęciami, architekci bez przesyłania plików; prompty sesji V5-A…D w §12) ma pierwszeństwo przed prototypem. Każda sekcja z UI: `narzedzia/porownaj.mjs` w 1440 i 390, jasny i ciemny, przed PR.
+- **Od 06.11.2026 plan domknięcia do produkcji:** `docs/zadania/prokominstalacje-domkniecie.md` (FUND-W, INST-2 L2-I + audyt 06.11, INST-3 staging, INST-4 = V5-C + V5-D, PROD — prompty w §4).
 - Pliki strefy wspólnej (ADR-I001 §3) zmieniasz tylko w osobnym małym PR `inst/wsp-*`. Stan sesji zapisujesz w `docs/stan/STAN-instalacje.md` (`/inst-koniec`), nie w `docs/STAN.md`.
 - Na stronie Instalacji: zero cen sprzętu, zero list źródeł, „24 h” tylko jako odpowiedź na zgłoszenie, gwarancja 24 mies. na montaż.
 - **Tryb szybki (decyzja Krystiana 30.10, `docs/zadania/prokominstalacje-przyspieszenie.md`):** małe PR-y bez logiki (strefa wspólna `inst/wsp-*`: tokeny + test, dokumenty, poprawki testów) — commit, PR i auto-merge po zielonym CI bez osobnego „ok” (diff czyta w PR). Duże PR-y z logiką: commity na gałęzi bez pytania, Krystian czyta diff raz przed `/pr`; `/przeglad` bez zmian (formularze, migracje, tenant, dostęp). Sesja z gotowym promptem z §3: bez osobnej rundy „plan → ok”, pytanie tylko o decyzję, której prompt nie rozstrzyga.

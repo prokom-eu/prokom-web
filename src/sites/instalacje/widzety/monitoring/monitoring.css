@@ -1,7 +1,7 @@
 /*
  * Monitoring page (I7): the recorder preview in the hero (camera scenes `.cs`, detection,
  * timeline), installation versions (`.sy*`), camera types, the DORI and recording calculators,
- * RODO and the brands. Rules of `pk.css` v4.2 for the classes of `Monitoring.body.html`, ported
+ * privacy (frame, masks, sign) and the brands. Rules of `pk.css` v4.2 for the classes of `Monitoring.body.html`, ported
  * with the prototype's class names by `narzedzia/przenies-css.mjs` (map
  * `przenies-css.strony.json`, scene colours from `--il-*` / `--sx-*` under `data-inst-il` /
  * `data-inst-sx` on the service page), then fixed by hand: inline styles of the prototype as
@@ -138,9 +138,20 @@
     position: absolute;
     top: 0;
     bottom: 0;
+    /* The whole bar slides (transform, report 11.11.2026), the 2 px line is its left edge;
+       `.tline` clips it, so at the end it is out of sight as with the old `left: 100%`. */
+    left: 0;
+    width: 100%;
+    animation: inst-mon-scan 9s linear infinite;
+  }
+  & .tline b::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
     width: 2px;
     background: var(--inst-plan-white);
-    animation: inst-mon-scan 9s linear infinite;
   }
   & .tlx {
     display: flex;
@@ -353,8 +364,15 @@
     transform-origin: 50% 100%;
     transform-box: fill-box;
   }
+  /* Deterrent light: a blue layer blinks over the red one (opacity, report 11.11.2026); steps(2)
+     shows it at 0 and 50 % — the same two colours as the old fill animation. */
+  & .strobeb {
+    fill: var(--il-false);
+  }
   & .strobe {
-    animation: inst-mon-strobe 0.7s steps(2) infinite;
+    fill: var(--il-strobe);
+    opacity: 0;
+    animation: inst-mon-flash 0.7s steps(2) infinite;
   }
   & .pmask {
     fill: var(--il-mask);
@@ -413,6 +431,10 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--ink-2);
+  }
+  /* On a dark card (Alarmy „dom letniskowy”, Nagłośnienie) the --ink-2 of light pages vanishes. */
+  & [data-surface='dark'] .cq > span {
+    color: var(--inst-dark-lead);
   }
   & .cres {
     border-radius: 20px;
@@ -475,8 +497,8 @@
     position: absolute;
     bottom: 14px;
     transition:
-      left 0.4s ease,
-      transform 0.4s ease;
+      left 0.4s var(--ease-out),
+      transform 0.4s var(--ease-out);
     transform-origin: bottom center;
   }
   & .dori .cam0 {
@@ -501,7 +523,7 @@
     background: var(--inst-plan-send-to);
     color: var(--inst-band-button-ink);
   }
-  & .rodo {
+  & .privacy {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 340px;
     gap: 18px;
@@ -620,7 +642,7 @@
     grid-template-columns: 260px minmax(0, 1fr);
     gap: 28px;
     align-items: center;
-    animation: inst-mon-fadein 0.35s ease;
+    animation: inst-mon-fadein 0.35s var(--ease-out);
   }
   & .typc svg {
     width: 100%;
@@ -645,10 +667,10 @@
     fill: var(--warn);
   }
   @media (max-width: 1100px) {
-    & .rodo {
+    & .privacy {
       grid-template-columns: 1fr 1fr;
     }
-    & .rodo .sign {
+    & .privacy .sign {
       grid-column: 1/-1;
     }
     & .typw {
@@ -671,7 +693,7 @@
       left: 5px;
       top: 5px;
     }
-    & .rodo {
+    & .privacy {
       grid-template-columns: 1fr;
     }
     & .typc {
@@ -886,7 +908,7 @@
     opacity: 0;
     pointer-events: none;
     transition:
-      opacity 0.5s ease,
+      opacity 0.5s var(--ease-out),
       transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     transform-box: fill-box;
     transform-origin: center;
@@ -952,7 +974,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    animation: inst-mon-fadeUp 0.4s ease;
+    animation: inst-mon-fadeUp 0.4s var(--ease-out);
   }
   & .syinfo p {
     margin: 0;
@@ -1107,6 +1129,12 @@
     cursor: pointer;
     transition: background 0.2s;
   }
+  /* Touch target on a phone (MOBILE-APLIKACJA §10; prototype 40 px). */
+  @media (pointer: coarse), (max-width: 760px) {
+    & .synav button {
+      height: 44px;
+    }
+  }
   @media (hover: hover) {
     & .synav button:hover {
       background: var(--accent);
@@ -1163,7 +1191,6 @@
     font: 900 11px var(--font-display);
     font-style: normal;
     color: var(--ink-2);
-    opacity: 0.6;
   }
   & .sylg .syli > span {
     padding-right: 18px;
@@ -1237,7 +1264,6 @@
   }
   & .sycta span {
     font-size: 12.5px;
-    opacity: 0.85;
   }
   @media (max-width: 760px) {
     & .sylg {
@@ -1416,10 +1442,6 @@
   & .evbar.cres-bar {
     background: var(--inst-plan-line);
   }
-  & .note.cres-note {
-    background: var(--inst-foot-glow);
-    color: var(--inst-plan-card-ink);
-  }
 }
 
 @keyframes inst-mon-fadein {
@@ -1452,10 +1474,19 @@
 
 @keyframes inst-mon-scan {
   from {
-    left: 0;
+    transform: translateX(0);
   }
   to {
-    left: 100%;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes inst-mon-flash {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

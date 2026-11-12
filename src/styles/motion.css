@@ -1,0 +1,943 @@
+/*
+ * Motion of the Software, Instalacje and Biznes lines — one system (SWV7; MOBILE-APLIKACJA §4,
+ * ZMIANY-v23 §5; Instalacje: audit before staging §3, session I-M; Biznes: prompt 4 R1, 03.11).
+ * Shared rules use `:is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])` —
+ * the same specificity as the former
+ * `[data-line='software']`, so nothing changes for Software (`:where` would drop it to zero and
+ * let component classes win). Header, mega menu, sheets, parallax, reading progress and page
+ * transitions stay Software-only: Instalacje has its own (`sites/instalacje/instalacje.css`).
+ * Keyframes keep their `sw-` names.
+ * Curves and times are tokens (`tokens.css`: --ease-*, --dur-*). Only transform/translate/scale,
+ * opacity, filter and clip-path move — nothing changes the layout (no CLS). Hover only with a fine
+ * pointer; on touch the press state instead. With `prefers-reduced-motion: reduce` nothing moves:
+ * colours still change, quickly.
+ * Hooks in the markup: `data-reveal`, `data-reveal-cards` (sections and card lists rising in,
+ * `RevealObserver`), `data-motion="button|button-outline"`, `data-card`, `data-icon="arrow"`,
+ * `data-motion` on sheets (`BottomSheet`), `data-site-header`, `data-tab-bar`.
+ */
+
+/* --- 1. Every clickable element changes smoothly --------------------------------------------
+   In the `base` layer: Tailwind's utilities (`@layer utilities`) win over it, so a component's
+   own `transition-*` or `motion-reduce:transition-none` still decides (a style outside any layer
+   would beat every utility). The transform family springs back after a press; colours and
+   shadows ease out. With reduced motion only colours, shadows and outlines change, quickly. */
+@layer base {
+  :where([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    :where(a, button, summary, [role='tab'], [role='switch'], input, select, textarea, label) {
+    transition-property:
+      color, background-color, border-color, box-shadow, outline-color, outline-offset, opacity,
+      filter, text-decoration-color, translate, scale, transform;
+    transition-duration: var(--dur-hover);
+    transition-timing-function:
+      var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out),
+      var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-spring),
+      var(--ease-spring), var(--ease-spring);
+  }
+
+  /* Focus ring grows into place (outline-offset 0 → 3 px), never hidden (WCAG 2.4.7). */
+  :where([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    :where(a, button, summary, [role='tab'], input, select, textarea) {
+    outline-offset: 0;
+  }
+  :where([data-line='software'], [data-line='instalacje'], [data-line='biznes']) :focus-visible {
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+      :where(a, button, summary, [role='tab'], [role='switch'], input, select, textarea, label) {
+      transition-property:
+        color, background-color, border-color, box-shadow, outline-color, opacity,
+        text-decoration-color;
+      transition-duration: 150ms;
+      transition-timing-function: var(--ease-out);
+    }
+  }
+}
+
+/* Buttons of the system (`Button`, `data-motion`): their own `transition-colors` would leave the
+   press and the lift without a transition, so these win over the component's utility. */
+:is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+  :is([data-motion='button'], [data-motion='button-outline']) {
+  transition-property:
+    color, background-color, border-color, box-shadow, filter, translate, scale, transform;
+  transition-duration: var(--dur-hover);
+  transition-timing-function:
+    var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out),
+    var(--ease-spring), var(--ease-spring), var(--ease-spring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    :is([data-motion='button'], [data-motion='button-outline']) {
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-duration: 150ms;
+  }
+}
+
+/* No grey tap rectangle, no double-tap zoom delay (MOBILE-APLIKACJA §4 pkt 1). */
+:is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+  :is(a, button, summary, [role='tab'], label) {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Press: a quick shrink, then the spring of the rule above brings it back. Inline text links
+     are untouched (a transform does not apply to inline boxes). */
+  [data-line='software']
+    :is(a, button, summary, [role='tab']):not(:disabled, [data-stretched]):active {
+    transform: scale(0.97);
+    transition-duration: var(--dur-press);
+  }
+  /* Instalacje: the `scale` property, not `transform` — the prototype's CSS positions points of
+     scenes and pins with `transform: translate(…)`, which a pressed `transform` would undo. */
+  [data-line='instalacje']
+    :is(a, button, summary, [role='tab']):not(:disabled, [data-stretched]):active {
+    scale: 0.97;
+    transition-duration: var(--dur-press);
+  }
+  /* Biznes (prompt 4 R1): `transform` as Software — Tailwind v4 `translate-*`/`scale-*` classes
+     are separate properties, so a pressed card or button keeps its own offset. */
+  [data-line='biznes']
+    :is(a, button, summary, [role='tab']):not(:disabled, [data-stretched]):active {
+    transform: scale(0.97);
+    transition-duration: var(--dur-press);
+  }
+  /* A button stretched over its card (`data-stretched`) must not get a transform: it would
+     become the containing block of its `::after` and a press elsewhere on the card would never
+     click. The card (`data-card`) answers instead. */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-card] {
+    transition:
+      translate var(--dur-state) var(--ease-out),
+      box-shadow var(--dur-state) var(--ease-out),
+      border-color var(--dur-hover) var(--ease-out),
+      transform var(--dur-press) var(--ease-out);
+  }
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-card]:has([data-stretched]:active) {
+    transform: scale(0.985);
+  }
+
+  /* The picture of a card grows inside its frame (`data-card-media`: the frame of an `<img>`, or
+     a drawn scene clipped by its card). */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-card-media] img,
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-card-media]:not(:has(img)) {
+    transition: scale var(--dur-state) var(--ease-out);
+  }
+
+  /* Arrows in links and buttons, icons in cards. */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-icon='arrow'],
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-card]
+    [data-card-icon] {
+    transition:
+      translate var(--dur-hover) var(--ease-out),
+      scale var(--dur-hover) var(--ease-out);
+  }
+}
+
+/* --- 2. Hover — mouse and trackpad only ------------------------------------------------------ */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    :is(a, button):hover
+    [data-icon='arrow'] {
+    translate: 3px 0;
+  }
+
+  /* Main buttons: a tone lighter, a bigger shadow, 1 px up. */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-motion='button']:not(:disabled):hover {
+    filter: brightness(1.07);
+    translate: 0 -1px;
+    box-shadow: 0 14px 28px -16px var(--shadow);
+  }
+
+  /* Outline buttons: the soft accent fills from the middle, the border turns accent. */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-motion='button-outline']:not(:disabled):hover {
+    border-color: var(--accent-line);
+  }
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-motion='button-outline']:not(:disabled):hover::before {
+    opacity: 1;
+    scale: 1;
+  }
+
+  /* Cards: up 4 px, softer shadow, accent edge, the icon a touch bigger. */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-card]:hover {
+    translate: 0 -4px;
+    box-shadow: 0 22px 40px -28px var(--shadow);
+  }
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-card]:hover
+    [data-card-icon] {
+    scale: 1.06;
+  }
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-card]:hover
+    [data-card-media]
+    img,
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-card]:hover
+    [data-card-media]:not(:has(img)) {
+    scale: 1.03;
+  }
+
+  /* Contact map: a slight zoom of the drawing while the visitor points at „Wyznacz trasę”. */
+  [data-line='software'] [data-osm-map]:has([data-route]:hover) > svg {
+    scale: 1.04;
+  }
+
+  /* Text links keep their real underline (WCAG 1.4.1: not told apart by colour alone); on
+     hover only its colour changes — the transition of §1. */
+}
+
+/* The map drawing zooms from its centre (see hover above). */
+[data-line='software'] [data-osm-map] > svg {
+  transition: scale var(--dur-enter) var(--ease-out);
+}
+
+/* Reading progress starts empty; without scroll-driven animations (or with reduced motion) it
+   stays hidden. */
+[data-line='software'] [data-reading-progress] {
+  scale: 0 1;
+}
+
+/* Pseudo-elements of the hover effects (also without hover, to sit still). */
+:is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+  [data-motion='button-outline'] {
+  position: relative;
+  isolation: isolate;
+}
+:is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+  [data-motion='button-outline']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--accent-soft);
+  opacity: 0;
+  scale: 0.85;
+  transition:
+    opacity var(--dur-hover) var(--ease-out),
+    scale var(--dur-hover) var(--ease-out);
+}
+/* Printed: nothing waits hidden for a rise-in that never comes. */
+@media print {
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-reveal-pending] {
+    opacity: 1 !important;
+  }
+}
+
+/* --- 3. Scroll ------------------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  html:is([data-line='software'], [data-line='biznes']) {
+    scroll-behavior: smooth;
+  }
+
+  /* Rising in, once (`RevealObserver`): only what starts below the screen waits hidden
+     (`data-reveal-pending`); without JavaScript everything is simply there. Cards follow one by
+     one, 60 ms apart (at most 6 in the queue), on a phone shorter and at most 3. */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-reveal-pending] {
+    opacity: 0;
+  }
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-revealed] {
+    animation: sw-reveal var(--dur-enter) var(--ease-out) backwards;
+    animation-delay: calc(min(var(--reveal-i, 0), 5) * 60ms);
+  }
+  @media (max-width: 1080px) {
+    :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-revealed] {
+      --reveal-y: 10px;
+      animation-delay: calc(min(var(--reveal-i, 0), 2) * 60ms);
+    }
+  }
+
+  /* Mock-ups of the hero and the live previews drift a little against the page (≤ 20 px),
+     scroll-driven, desktop only. */
+  @supports (animation-timeline: view()) {
+    @media (min-width: 1081px) {
+      [data-line='software'] [data-parallax] {
+        animation: sw-parallax linear both;
+        animation-timeline: view();
+        animation-range: cover;
+      }
+    }
+  }
+
+  /* Reading progress of a post: the line grows with the scroll. */
+  @supports (animation-timeline: scroll()) {
+    [data-line='software'] [data-reading-progress] {
+      animation: sw-progress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+
+  /* The rail glided to a section (`lib/shared/smoothScroll`): its heading arrives. Software
+     has the v24 arrival (§6 below). */
+  [data-line='biznes'] [data-arrive] h2 {
+    animation: sw-arrive 1.3s var(--ease-out);
+  }
+}
+
+/* --- 4. Opening and closing ----------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* FAQ answers open softly (the content of `<details>` is rendered on open). */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    details[open]
+    > :not(summary) {
+    animation: sw-faq var(--dur-state) var(--ease-out);
+  }
+
+  /* Sheets and windows (`BottomSheet`): a sheet slides up from the bottom, a window (≥ 641 px)
+     grows from .96; the page behind dims softly. Closing is the same way back, faster. */
+  :is([data-line='software'], [data-line='biznes']) dialog[data-motion] {
+    transition:
+      translate var(--dur-sheet) var(--ease-out),
+      scale var(--dur-sheet) var(--ease-out),
+      opacity var(--dur-state) var(--ease-out),
+      display var(--dur-sheet) allow-discrete,
+      overlay var(--dur-sheet) allow-discrete;
+  }
+  :is([data-line='software'], [data-line='biznes']) dialog[data-motion]:not([open]) {
+    transition-duration:
+      var(--dur-state), var(--dur-state), 160ms, var(--dur-state), var(--dur-state);
+  }
+  :is([data-line='software'], [data-line='biznes']) dialog[data-motion='sheet']:not([open]) {
+    translate: 0 100%;
+  }
+  @starting-style {
+    :is([data-line='software'], [data-line='biznes']) dialog[data-motion='sheet'][open] {
+      translate: 0 100%;
+    }
+  }
+  @media (min-width: 641px) {
+    :is([data-line='software'], [data-line='biznes']) dialog[data-motion='dialog']:not([open]) {
+      opacity: 0;
+      scale: 0.96;
+    }
+    @starting-style {
+      :is([data-line='software'], [data-line='biznes']) dialog[data-motion='dialog'][open] {
+        opacity: 0;
+        scale: 0.96;
+      }
+    }
+  }
+  @media (max-width: 640px) {
+    :is([data-line='software'], [data-line='biznes']) dialog[data-motion='dialog']:not([open]) {
+      translate: 0 100%;
+    }
+    @starting-style {
+      :is([data-line='software'], [data-line='biznes']) dialog[data-motion='dialog'][open] {
+        translate: 0 100%;
+      }
+    }
+  }
+  :is([data-line='software'], [data-line='biznes']) dialog[data-motion]::backdrop {
+    transition:
+      opacity var(--dur-sheet) var(--ease-out),
+      display var(--dur-sheet) allow-discrete,
+      overlay var(--dur-sheet) allow-discrete;
+  }
+  :is([data-line='software'], [data-line='biznes']) dialog[data-motion]:not([open])::backdrop {
+    opacity: 0;
+  }
+  @starting-style {
+    :is([data-line='software'], [data-line='biznes']) dialog[data-motion][open]::backdrop {
+      opacity: 0;
+    }
+  }
+
+  /* Biznes: the inquiry drawer slides in from the right; the search dims and blurs the page. */
+  [data-line='biznes'] dialog[data-motion='drawer']:not([open]) {
+    translate: 100% 0;
+  }
+  @starting-style {
+    [data-line='biznes'] dialog[data-motion='drawer'][open] {
+      translate: 100% 0;
+    }
+  }
+  [data-line='biznes'] dialog[data-backdrop='blur']::backdrop {
+    backdrop-filter: blur(6px);
+  }
+}
+
+/* --- 4b. Forms ------------------------------------------------------------------------------
+   Focus: border and a soft accent glow grow in (the transition of §1); the label of the field
+   darkens. Always, also with reduced motion — it is a state, not a movement. Software only:
+   the fields of Instalacje keep the prototype's own focus (an inset accent border, e.g.
+   `.zkta:focus`), which this glow would replace. Not the search window's field: it fills its
+   row edge to edge and the row shows the focus with its accent line (`.sdlg__field`); the glow
+   was cut at the top and bottom into two violet bars at the sides (AUDYT po SWA7 #9). */
+[data-line='software']
+  :is(input:not([type='radio'], [type='checkbox'], [type='hidden']), textarea, select):not(
+    .sdlg__field input
+  ):focus {
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+[data-line='software'] :has(> :is(input, textarea, select):focus) > label {
+  color: var(--ink);
+}
+
+/* Spinner in a sending button. */
+:is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-spinner] {
+  animation: sw-spin 0.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* A tick draws itself (chosen topic, sent form); the chosen tile answers with a small spring. */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-check] {
+    stroke-dasharray: 1;
+    animation: sw-check var(--dur-state) var(--ease-out) both;
+  }
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-tile]:has(input:checked) {
+    animation: sw-tile var(--dur-state) var(--ease-spring);
+  }
+
+  /* Wizard (Konfigurator): the next step slides in from the right, a step back from the left. */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-wizard-dir='next']
+    > section {
+    animation: sw-step-next var(--dur-state) var(--ease-out);
+  }
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [data-wizard-dir='back']
+    > section {
+    animation: sw-step-back var(--dur-state) var(--ease-out);
+  }
+
+  /* Toasts (phone, e-mail, „Twój projekt”) slide up from the bottom. */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-toast] {
+    animation: sw-reveal var(--dur-state) var(--ease-out);
+    --reveal-y: 12px;
+  }
+
+  /* A field found wrong shakes once (±4 px) and its message slides in. */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes'])
+    [aria-invalid='true'] {
+    animation: sw-shake 300ms var(--ease-out);
+  }
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) form [id$='-error'] {
+    animation: sw-faq var(--dur-state) var(--ease-out);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* A still marker instead of a spinning one. */
+  :is([data-line='software'], [data-line='instalacje'], [data-line='biznes']) [data-spinner] {
+    animation: none;
+    border-right-color: currentColor;
+    opacity: 0.6;
+  }
+}
+
+/* --- 4c. Biznes: sections and subpages (prompt 4 R2) ---------------------------------------
+   Hooks: `data-swap` (a tab's content after a change, `useSwap`), `data-cascade` (items that join
+   a list: filter, search results, the inquiry drawer; `--reveal-i` = position), `data-bump` (the
+   inquiry counter, remounted on a new count), `data-fade` (gallery picture after a change),
+   `data-plan-point` (points of the floor plan; brand logos: `biznes.css`),
+   `data-pill-list` (a button group with a `SlidingPill`). Nothing here runs on page load: every
+   hook is set only after the visitor did something, or by the rise-in (`data-revealed`). */
+@media (prefers-reduced-motion: no-preference) {
+  /* A tab's new content fades in with a small rise. Two names, so each change restarts it. */
+  [data-line='biznes'] [data-swap='a'] {
+    animation: bz-swap-a var(--dur-state) var(--ease-out);
+  }
+  [data-line='biznes'] [data-swap='b'] {
+    animation: bz-swap-b var(--dur-state) var(--ease-out);
+  }
+  [data-line='biznes'] [data-cascade] {
+    animation: sw-reveal var(--dur-state) var(--ease-out) backwards;
+    animation-delay: calc(min(var(--reveal-i, 0), 8) * 40ms);
+    --reveal-y: 8px;
+  }
+  [data-line='biznes'] [data-bump] {
+    animation: bz-bump var(--dur-state) var(--ease-spring);
+  }
+  [data-line='biznes'] [data-fade] {
+    animation: bz-fade var(--dur-state) var(--ease-out);
+  }
+  /* The floor plan's points pulse once when the plan rises in. */
+  [data-line='biznes'] [data-revealed] [data-plan-point]::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    box-shadow: 0 0 0 2px var(--accent);
+    opacity: 0;
+    pointer-events: none;
+    animation: bz-ping 1.1s var(--ease-out) 0.3s;
+  }
+}
+
+/* Side rail (R2, Krystian 03.11): opens a little slower and softer than a hover, the labels
+   follow one after another, the icon of the pointed entry grows a little. Clicking a section
+   glides there and its heading arrives (`SectionRail` `glide`, §3); the marker slides along. */
+[data-line='biznes'] [data-rail-box] {
+  transition-duration: var(--dur-state);
+  transition-timing-function: var(--ease-out);
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Only the rail's own labels: K4 sections carry `data-rail-label` too (the rail reads it), and
+     a bare `[data-rail-label]` kept them at opacity 0 (PRODUKCJA-BIZNES-1211 P0). */
+  [data-line='biznes'] [data-rail-box] [data-rail-label] {
+    opacity: 0;
+    translate: -6px 0;
+    transition:
+      opacity var(--dur-hover) var(--ease-out),
+      translate var(--dur-state) var(--ease-out);
+  }
+  [data-line='biznes'] nav:is(:hover, :focus-within) [data-rail-box] [data-rail-label] {
+    opacity: 1;
+    translate: none;
+    transition-delay: calc(60ms + min(var(--rail-i, 0), 10) * 18ms);
+  }
+  [data-line='biznes'] [data-rail-box] a > svg {
+    transition: scale var(--dur-hover) var(--ease-spring);
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-line='biznes'] [data-rail-box] a:hover > svg {
+    scale: 1.1;
+  }
+}
+
+/* With a sliding pill drawn, the chosen button gives up its own background: the pill carries it. */
+[data-line='biznes']
+  [data-pill-list]:has(> [data-sliding-pill])
+  > :is([aria-pressed='true'], [aria-selected='true']) {
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* --- 5. Page and theme transitions ---------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* `PageTransition`: the old page `sw-page-out`, the new `sw-page-in`; header and bottom bar
+     have their own names, so they stay. */
+  [data-line='software'] [data-site-header] {
+    view-transition-name: sw-header;
+  }
+  [data-line='software'] [data-tab-bar] {
+    view-transition-name: sw-tab-bar;
+  }
+  /* v24 (ZMIANY §5.1): the old page leaves upwards into a blur, the new one rises in. */
+  html[data-line='software']::view-transition-old(.sw-page-out) {
+    animation: sw-vt-out var(--dur-page-out) var(--ease-exit) both;
+  }
+  html[data-line='software']::view-transition-new(.sw-page-in) {
+    animation: sw-vt-in var(--dur-page-in) var(--ease-expo-out) both;
+  }
+
+  /* Theme switch (`revealTheme`): the new theme opens in a circle from the button. Header and
+     bar join the page for that moment, so the whole screen changes at once. */
+  html[data-line='software'][data-theme-reveal] [data-site-header],
+  html[data-line='software'][data-theme-reveal] [data-tab-bar] {
+    view-transition-name: none;
+  }
+  html:is([data-line='software'], [data-line='instalacje'])[data-theme-reveal]::view-transition-old(
+      root
+    ) {
+    animation: none;
+  }
+  html:is([data-line='software'], [data-line='instalacje'])[data-theme-reveal]::view-transition-new(
+      root
+    ) {
+    animation: sw-theme-reveal var(--dur-enter) var(--ease-in-out);
+  }
+}
+
+/* Reduced motion: every part of a view transition swaps at once. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-line='software']::view-transition-group(*),
+  html[data-line='software']::view-transition-old(*),
+  html[data-line='software']::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+@keyframes sw-reveal {
+  from {
+    opacity: 0;
+    translate: 0 var(--reveal-y, 16px);
+  }
+}
+
+@keyframes sw-parallax {
+  from {
+    translate: 0 20px;
+  }
+  to {
+    translate: 0 -20px;
+  }
+}
+
+@keyframes sw-progress {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes sw-spin {
+  to {
+    rotate: 1turn;
+  }
+}
+
+@keyframes sw-check {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sw-tile {
+  0% {
+    scale: 0.96;
+  }
+}
+
+@keyframes sw-shake {
+  20%,
+  60% {
+    translate: -4px 0;
+  }
+  40%,
+  80% {
+    translate: 4px 0;
+  }
+}
+
+@keyframes sw-step-next {
+  from {
+    opacity: 0;
+    translate: 24px 0;
+  }
+}
+
+@keyframes sw-step-back {
+  from {
+    opacity: 0;
+    translate: -24px 0;
+  }
+}
+
+@keyframes sw-arrive {
+  0% {
+    opacity: 0.35;
+    translate: 0 10px;
+  }
+  35% {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+@keyframes sw-faq {
+  from {
+    opacity: 0;
+    translate: 0 -6px;
+  }
+}
+
+@keyframes sw-vt-out {
+  to {
+    opacity: 0;
+    translate: 0 -14px;
+    filter: blur(6px);
+  }
+}
+
+@keyframes sw-vt-in {
+  from {
+    opacity: 0;
+    translate: 0 22px;
+    filter: blur(8px);
+  }
+}
+
+@keyframes sw-theme-reveal {
+  from {
+    clip-path: circle(0 at var(--reveal-x, 50%) var(--reveal-y-origin, 0));
+  }
+  to {
+    clip-path: circle(150vmax at var(--reveal-x, 50%) var(--reveal-y-origin, 0));
+  }
+}
+
+@keyframes bz-swap-a {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+
+@keyframes bz-swap-b {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+
+@keyframes bz-bump {
+  50% {
+    scale: 1.15;
+  }
+}
+
+@keyframes bz-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes bz-ping {
+  0% {
+    opacity: 0.9;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 1.6;
+  }
+}
+
+/* --- 6. Software v24 „Aurora” (ZMIANY-v24 §5, pattern `v24/wzorzec/aurora.css` „v5: ruch premium”) */
+/* The entry and the `em` sweep animate `translate`, `scale`, `opacity` and `background-position`,
+   never `transform` — that stays for hover and press, so nothing fights. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Rising in on scroll, no JavaScript: `data-rise` on one element, `data-rise-group` on a row
+       of cards (each next card a little later). Unsupported browsers simply show everything. */
+    [data-line='software'] :is([data-rise], [data-rise-group] > *) {
+      animation: sw-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 2% entry 60%;
+    }
+    [data-line='software'] [data-rise-group] > :nth-child(2) {
+      animation-range: entry 6% entry 66%;
+    }
+    [data-line='software'] [data-rise-group] > :nth-child(3) {
+      animation-range: entry 10% entry 72%;
+    }
+    [data-line='software'] [data-rise-group] > :nth-child(4) {
+      animation-range: entry 14% entry 78%;
+    }
+    [data-line='software'] [data-rise-group] > :nth-child(n + 5) {
+      animation-range: entry 18% entry 84%;
+    }
+    /* SWA7 (AUDYT-0811 P2 A1): headings come out of a blur; cards rise 28 px. The
+       shared templates (O firmie, Kontakt) take part through their own sections and cards. */
+    [data-line='software'] :is(h1, h2)[data-rise] {
+      animation-name: sw-rise-blur;
+    }
+    [data-line='software'] [data-rise-group] > * {
+      animation-name: sw-rise-card;
+    }
+    [data-line='software']
+      :is([data-about-page], [data-contact-page])
+      > section:not(:first-of-type),
+    [data-line='software'] :is([data-company-card], [data-footer-column], [data-footer-contact]) {
+      animation: sw-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 2% entry 60%;
+    }
+    [data-line='software'] [data-footer-column]:nth-of-type(2) {
+      animation-range: entry 6% entry 66%;
+    }
+    [data-line='software'] [data-footer-column]:nth-of-type(3) {
+      animation-range: entry 10% entry 72%;
+    }
+    [data-line='software'] [data-footer-contact] {
+      animation-range: entry 14% entry 78%;
+    }
+
+    /* The highlighted word of a heading: its gradient moves along while the page scrolls. */
+    [data-line='software'] .sw-em {
+      animation: sw-em linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 40%;
+    }
+    /* A phone (AUDYT-PROD-TELEFON §1 #3–#4): the word's gradient stands where it ends (no
+       repaint of every visible heading on every frame of the scroll) and headings rise without
+       the blur, the costliest filter. A computer keeps both. */
+    @media (hover: none) and (pointer: coarse), (max-width: 767px) {
+      [data-line='software'] .sw-em {
+        animation: none;
+      }
+      [data-line='software'] :is(h1, h2)[data-rise] {
+        animation-name: sw-rise;
+      }
+    }
+  }
+
+  /* Arrival after a glide (`data-arrive`, set by the rail for 1.4 s = `--dur-beam`): eyebrow and
+     heading come out of a blur, a violet beam crosses the top of the section (the section is
+     `relative` for good, see the layer below — nothing moves while the beam runs). */
+  [data-line='software'] [data-arrive] :is(h1, h2, .sw-eyebrow) {
+    animation: sw-aurora-arrive var(--dur-arrive) var(--ease-out) both;
+  }
+  [data-line='software'] [data-arrive] h2 {
+    animation-delay: 60ms;
+  }
+  [data-line='software'] [data-arrive]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 3;
+    width: min(1100px, 92%);
+    height: 2px;
+    translate: -50% 0;
+    background: linear-gradient(90deg, transparent, var(--beam), transparent);
+    box-shadow: 0 0 24px 2px var(--beam-glow);
+    pointer-events: none;
+    animation: sw-beam var(--dur-beam) var(--ease-out) both;
+  }
+
+  /* Buttons: a streak of light runs across on hover (the press is in §1); the button frame is in
+     the layer below. */
+  [data-line='software'] :is([data-motion='button'], [data-motion='button-outline'])::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(110deg, transparent 30%, var(--sheen) 50%, transparent 70%);
+    translate: -120% 0;
+    transition: translate var(--dur-sheen) var(--ease-out);
+    pointer-events: none;
+  }
+  [data-line='software'] [data-motion='button-outline']::after {
+    background: linear-gradient(110deg, transparent 30%, var(--sheen-ghost) 50%, transparent 70%);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-line='software']
+    :is([data-motion='button'], [data-motion='button-outline']):not(:disabled):hover::after {
+    translate: 120% 0;
+  }
+  /* Cards (AUDYT-0811 P2 A3): up 4 px with `transform` — `translate` belongs to the entry on
+     scroll and would win over the hover once the entry has run — the accent edge and a violet
+     glow under them; pressed, a touch smaller. Glass cards in a rising row count as cards too. */
+  [data-line='software'] :is([data-card], [data-rise-group] > :is(a, button).sw-glass) {
+    transition:
+      transform var(--dur-state) var(--ease-out),
+      box-shadow 350ms var(--ease-out),
+      border-color var(--dur-hover) var(--ease-out);
+  }
+  [data-line='software'] :is([data-card], [data-rise-group] > :is(a, button).sw-glass):hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-line);
+    box-shadow: 0 26px 50px -30px var(--glow);
+  }
+  [data-line='software'] :is([data-card], [data-rise-group] > :is(a, button).sw-glass):active {
+    transform: translateY(-4px) scale(0.98);
+  }
+  [data-line='software']
+    :is([data-card], [data-rise-group] > :is(a, button).sw-glass):hover
+    [data-card-icon] {
+    scale: 1;
+    translate: 2px -2px;
+  }
+}
+
+/* No `scale`: a card, chip or button keeps its real size while it comes in (44 px targets are
+   measured as they are, MOBILE-APLIKACJA §5). */
+@keyframes sw-rise {
+  from {
+    opacity: 0;
+    translate: 0 38px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes sw-rise-blur {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: none;
+  }
+}
+
+@keyframes sw-rise-card {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes sw-em {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@keyframes sw-aurora-arrive {
+  0% {
+    opacity: 0.15;
+    translate: 0 22px;
+    filter: blur(8px);
+  }
+  60% {
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    translate: 0 0;
+    filter: none;
+  }
+}
+
+@keyframes sw-beam {
+  0% {
+    opacity: 0;
+    scale: 0.2 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 1 1;
+  }
+}
+
+/* Frames of the v24 effects, in the `base` layer so a component's own position or overflow
+   classes still win: rail targets carry the arrival beam, buttons clip their light streak. */
+@layer base {
+  [data-line='software'] :where(section[id], [data-arrive]) {
+    position: relative;
+  }
+  [data-line='software'] :where([data-motion='button'], [data-motion='button-outline']) {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+}

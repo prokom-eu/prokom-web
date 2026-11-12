@@ -1,43 +1,44 @@
 import adresy from '../../../seed/prokominstalacje/adresy.json'
-import noweRozwiazania from '../../../seed/prokominstalacje/architekci/nowe-rozwiazania.json'
-import apt from '../../../seed/prokominstalacje/obiekty/apt.json'
-import bud from '../../../seed/prokominstalacje/obiekty/bud.json'
-import dev from '../../../seed/prokominstalacje/obiekty/dev.json'
-import dom from '../../../seed/prokominstalacje/obiekty/dom.json'
-import firma from '../../../seed/prokominstalacje/obiekty/firma.json'
-import gmina from '../../../seed/prokominstalacje/obiekty/gmina.json'
-import hotel from '../../../seed/prokominstalacje/obiekty/hotel.json'
-import kosc from '../../../seed/prokominstalacje/obiekty/kosc.json'
-import pens from '../../../seed/prokominstalacje/obiekty/pens.json'
-import rest from '../../../seed/prokominstalacje/obiekty/rest.json'
-import sklep from '../../../seed/prokominstalacje/obiekty/sklep.json'
-import szk from '../../../seed/prokominstalacje/obiekty/szk.json'
-import oferta from '../../../seed/prokominstalacje/oferta-76.json'
-import Alarmy from '../../../seed/prokominstalacje/strony-zrzut/Alarmy.json'
-import Architekci from '../../../seed/prokominstalacje/strony-zrzut/Architekci.json'
-import Anteny from '../../../seed/prokominstalacje/strony-zrzut/Anteny.json'
-import Dostep from '../../../seed/prokominstalacje/strony-zrzut/Dostep.json'
-import Kontakt from '../../../seed/prokominstalacje/strony-zrzut/Kontakt.json'
-import Ladowarki from '../../../seed/prokominstalacje/strony-zrzut/Ladowarki.json'
-import Main from '../../../seed/prokominstalacje/strony-zrzut/Main.json'
-import Monitoring from '../../../seed/prokominstalacje/strony-zrzut/Monitoring.json'
-import Multimedia from '../../../seed/prokominstalacje/strony-zrzut/Multimedia.json'
-import Naglosnienie from '../../../seed/prokominstalacje/strony-zrzut/Naglosnienie.json'
-import OFirmie from '../../../seed/prokominstalacje/strony-zrzut/OFirmie.json'
-import Oferta from '../../../seed/prokominstalacje/strony-zrzut/Oferta.json'
-import Poradnik from '../../../seed/prokominstalacje/strony-zrzut/Poradnik.json'
-import Realizacje from '../../../seed/prokominstalacje/strony-zrzut/Realizacje.json'
-import Serwis from '../../../seed/prokominstalacje/strony-zrzut/Serwis.json'
-import Sieci from '../../../seed/prokominstalacje/strony-zrzut/Sieci.json'
-import SmartHome from '../../../seed/prokominstalacje/strony-zrzut/SmartHome.json'
-import Teletechnika from '../../../seed/prokominstalacje/strony-zrzut/Teletechnika.json'
-import Zaplanuj from '../../../seed/prokominstalacje/strony-zrzut/Zaplanuj.json'
-import wspolne from '../../../seed/prokominstalacje/wspolne.json'
+import rawNoweRozwiazania from '../../../seed/prokominstalacje/architekci/nowe-rozwiazania.json'
+import rawApt from '../../../seed/prokominstalacje/obiekty/apt.json'
+import rawBud from '../../../seed/prokominstalacje/obiekty/bud.json'
+import rawDev from '../../../seed/prokominstalacje/obiekty/dev.json'
+import rawDom from '../../../seed/prokominstalacje/obiekty/dom.json'
+import rawFirma from '../../../seed/prokominstalacje/obiekty/firma.json'
+import rawGmina from '../../../seed/prokominstalacje/obiekty/gmina.json'
+import rawHotel from '../../../seed/prokominstalacje/obiekty/hotel.json'
+import rawKosc from '../../../seed/prokominstalacje/obiekty/kosc.json'
+import rawPens from '../../../seed/prokominstalacje/obiekty/pens.json'
+import rawRest from '../../../seed/prokominstalacje/obiekty/rest.json'
+import rawSklep from '../../../seed/prokominstalacje/obiekty/sklep.json'
+import rawSzk from '../../../seed/prokominstalacje/obiekty/szk.json'
+import rawOffer76 from '../../../seed/prokominstalacje/oferta-76.json'
+import rawAlarmy from '../../../seed/prokominstalacje/strony-zrzut/Alarmy.json'
+import rawArchitekci from '../../../seed/prokominstalacje/strony-zrzut/Architekci.json'
+import rawAnteny from '../../../seed/prokominstalacje/strony-zrzut/Anteny.json'
+import rawDostep from '../../../seed/prokominstalacje/strony-zrzut/Dostep.json'
+import rawKontakt from '../../../seed/prokominstalacje/strony-zrzut/Kontakt.json'
+import rawLadowarki from '../../../seed/prokominstalacje/strony-zrzut/Ladowarki.json'
+import rawMain from '../../../seed/prokominstalacje/strony-zrzut/Main.json'
+import rawMonitoring from '../../../seed/prokominstalacje/strony-zrzut/Monitoring.json'
+import rawMultimedia from '../../../seed/prokominstalacje/strony-zrzut/Multimedia.json'
+import rawNaglosnienie from '../../../seed/prokominstalacje/strony-zrzut/Naglosnienie.json'
+import rawOFirmie from '../../../seed/prokominstalacje/strony-zrzut/OFirmie.json'
+import rawOferta from '../../../seed/prokominstalacje/strony-zrzut/Oferta.json'
+import rawPoradnik from '../../../seed/prokominstalacje/strony-zrzut/Poradnik.json'
+import rawRealizacje from '../../../seed/prokominstalacje/strony-zrzut/Realizacje.json'
+import rawSerwis from '../../../seed/prokominstalacje/strony-zrzut/Serwis.json'
+import rawSieci from '../../../seed/prokominstalacje/strony-zrzut/Sieci.json'
+import rawSmartHome from '../../../seed/prokominstalacje/strony-zrzut/SmartHome.json'
+import rawTeletechnika from '../../../seed/prokominstalacje/strony-zrzut/Teletechnika.json'
+import rawZaplanuj from '../../../seed/prokominstalacje/strony-zrzut/Zaplanuj.json'
+import rawWspolne from '../../../seed/prokominstalacje/wspolne.json'
 import {
   OBJECT_GROUPS,
   OBJECT_KEYS,
   OFFER_CATEGORIES,
   OFFER_FAMILIES,
+  REALIZATION_KINDS,
   SERVICE_GROUPS,
   SERVICE_KEYS,
 } from '../../lib/instalacje/options'
@@ -49,6 +50,8 @@ import type {
   InstSolution,
   Realization,
 } from '../../payload-types'
+import { withoutLaw } from './bezPrzepisow'
+import { rewritten } from './teksty'
 
 /**
  * Pure mapping of the Instalacje package (`seed/prokominstalacje/`, v4.0) to the collections
@@ -57,6 +60,44 @@ import type {
  * (`art: [svg-path]`) are left out.
  */
 
+// Runda v6: every package file without law (§1.1, `bezPrzepisow.ts`), then with the texts of
+// INST-6 (§2, `teksty/`).
+const clean = <T>(file: T): T => rewritten(withoutLaw(file))
+const noweRozwiazania = clean(rawNoweRozwiazania)
+const apt = clean(rawApt)
+const bud = clean(rawBud)
+const dev = clean(rawDev)
+const dom = clean(rawDom)
+const firma = clean(rawFirma)
+const gmina = clean(rawGmina)
+const hotel = clean(rawHotel)
+const kosc = clean(rawKosc)
+const pens = clean(rawPens)
+const rest = clean(rawRest)
+const sklep = clean(rawSklep)
+const szk = clean(rawSzk)
+const oferta = clean(rawOffer76)
+const Alarmy = clean(rawAlarmy)
+const Architekci = clean(rawArchitekci)
+const Anteny = clean(rawAnteny)
+const Dostep = clean(rawDostep)
+const Kontakt = clean(rawKontakt)
+const Ladowarki = clean(rawLadowarki)
+const Main = clean(rawMain)
+const Monitoring = clean(rawMonitoring)
+const Multimedia = clean(rawMultimedia)
+const Naglosnienie = clean(rawNaglosnienie)
+const OFirmie = clean(rawOFirmie)
+const Oferta = clean(rawOferta)
+const Poradnik = clean(rawPoradnik)
+const Realizacje = clean(rawRealizacje)
+const Serwis = clean(rawSerwis)
+const Sieci = clean(rawSieci)
+const SmartHome = clean(rawSmartHome)
+const Teletechnika = clean(rawTeletechnika)
+const Zaplanuj = clean(rawZaplanuj)
+const wspolne = clean(rawWspolne)
+
 type Data<T> = Omit<T, 'id' | 'tenant' | 'updatedAt' | 'createdAt' | '_status'>
 export type ServiceData = Data<InstService>
 export type ObjectData = Data<InstObject>
@@ -64,6 +105,7 @@ export type RealizationData = Data<Realization>
 
 type ServiceKey = (typeof SERVICE_KEYS)[number]['value']
 type ObjectKey = (typeof OBJECT_KEYS)[number]['value']
+type RealizationKind = (typeof REALIZATION_KINDS)[number]['value']
 type OfferCategory = (typeof OFFER_CATEGORIES)[number]['value']
 
 /** Ids of the imported records by key: relations need them, so `run.ts` creates records first. */
@@ -195,13 +237,139 @@ export function mapHref(href: string): string {
 const optionalHref = (href: string | undefined) => (href ? mapHref(href) : undefined)
 
 /** Page slug from a prototype link (`SegDom.dc.html` → `dom`, last path segment). */
-const slugOf = (href: string) => mapHref(href).split('/').filter(Boolean).pop() ?? HOME_SLUG
+export const slugOf = (href: string) => mapHref(href).split('/').filter(Boolean).pop() ?? HOME_SLUG
 
 const icon = (value: string | undefined) => value?.replace(/^ikona:/, '') || undefined
 
+/**
+ * Runda v6 §1.5 (icon review): package icons that said nothing or clashed, by the title they
+ * stand next to (a price factor, a package, a problem quote, a day moment, a Podhale card).
+ * Matched by the title alone on purpose: a short title („Start”, „Montaż”, „Noc”) gets the same
+ * icon wherever it stands in the package — checked for every entry when this list was written.
+ */
+export const ICON_FIXES: Readonly<Record<string, string>> = {
+  // Price factors and packages of the service pages.
+  'Wysokość montażu': 'crane',
+  'Etap budowy': 'crane',
+  Programowanie: 'sliders',
+  Start: 'light',
+  Montaż: 'tool',
+  Treści: 'play',
+  Rozdzielnica: 'grid',
+  'Uziemienie i ochrona': 'bolt',
+  // „Dla kogo” pages.
+  '„Z koparki zniknęło paliwo”': 'crane',
+  'Paliwo: 39% wobec średnio 25,4%': 'car',
+  'Ktoś przy kontenerze': 'siren',
+  '„Lokator zgłasza: nie działa domofon”': 'phone',
+  '„Kucie po tynkach”': 'tool',
+  '„Wspólnota nie ma haseł”': 'lock',
+  Urządzenia: 'tool',
+  '„Hasła ma były informatyk”': 'lock',
+  '„Policja chce stały podgląd”': 'cam',
+  '„Mieszkaniec nie słyszy w okienku”': 'spk',
+  'Punkt obsługi': 'users',
+  '„Przy ambonie piszczy”': 'mic',
+  'Mikrofon dla kantora i lektora': 'mic',
+  Komfort: 'layers',
+  '„Na weselu piszczy mikrofon”': 'mic',
+  Przemówienia: 'mic',
+  '„Zginęły narty”': 'cam',
+  '„W nocy ktoś wybił szybę”': 'glassBreak',
+  Zamknięcie: 'lock',
+  Noc: 'moon',
+  '„W toaletach palą e-papierosy”': 'fire',
+  '„Impreza, skarga wspólnoty”': 'spk',
+  'Za głośno': 'spk',
+  'Zgodność Wi-Fi': 'wifi',
+  'Zasilanie awaryjne': 'battery',
+}
+const iconFor = (title: string | undefined, value: string | undefined) =>
+  (title && ICON_FIXES[title]) || icon(value)
+
+/** Runda v6 D3: package lines that claimed what the boss has not confirmed (our salon). */
+const TILE_FIXES: Readonly<Record<string, string>> = {
+  'Wdrażamy to w naszym salonie w Rabce-Zdroju':
+    'Cenę zmieniasz w jednym miejscu, ekrany odświeżają się same',
+}
+const withoutSalonClaim = (text: string) => text.replace(' Wdrażamy to w naszym salonie.', '')
+
+/** Runda v6 §1.5: a service or object icon that clashed with another meaning. */
+const MENU_ICONS: Readonly<Record<string, string>> = {
+  smart: 'smart', // the object „Dom” keeps `home`
+  ev: 'ev', // `bolt` stays for power, surges and storms
+  dev: 'apt', // `build` is Teletechnika and the building works
+}
+
+/**
+ * P0-2 (audit 06.11): the package asks to send photos, but no Instalacje form takes files
+ * (decision „bez przesyłania plików”). The same wording as the code's fallbacks since L1-I.
+ */
+// Photos are welcome only as a reply to our e-mail (audit 06.11 P0-2, the allowed wording).
+const PHOTO_PROMISES: Readonly<Record<string, string>> = {
+  'Zależy od liczby kamer, tras kabli, wysokości montażu i rodzaju kamer. Po wizji lokalnej dostajesz wycenę na piśmie, zwykle w wariantach. Zdjęcia obiektu możesz wysłać wcześniej.':
+    'Zależy od liczby kamer, tras kabli, wysokości montażu i rodzaju kamer. Po wizji lokalnej dostajesz wycenę na piśmie, zwykle w wariantach. Zdjęcia obiektu możesz wysłać w odpowiedzi na nasz e-mail.',
+  'Do wyceny wystarczą zdjęcia rozdzielnicy, licznika i miejsca montażu. Ostateczną cenę podajemy na piśmie.':
+    'Do wstępnej wyceny wystarczy opis rozdzielnicy, licznika i miejsca montażu — zdjęcia możesz wysłać w odpowiedzi na nasz e-mail. Ostateczną cenę podajemy na piśmie.',
+  'Zrób zdjęcie dachu albo miejsca na antenę i napisz, ile telewizorów chcesz podłączyć.':
+    'Opisz dach albo miejsce na antenę i napisz, ile telewizorów chcesz podłączyć. Zdjęcia możesz wysłać w odpowiedzi na nasz e-mail.',
+  'Najwięcej zmieniają drzwi i integracje. Zrób zdjęcie drzwi z obu stron i boku skrzydła, a powiemy, jaki zamek pasuje.':
+    'Najwięcej zmieniają drzwi i integracje. Opisz drzwi, a zdjęcia z obu stron i boku skrzydła możesz wysłać w odpowiedzi na nasz e-mail. Powiemy, jaki zamek pasuje.',
+  'Wyślij zdjęcia do wyceny': 'Opisz obiekt do wyceny',
+  'Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.':
+    'Opisz obiekt albo obecną instalację. Powiemy, od czego zacząć i czego się spodziewać.',
+  'Wyślij zdjęcie rozdzielnicy. Powiemy, którą ładowarkę da się podłączyć.':
+    'Opisz rozdzielnicę i przyłącze. Powiemy, którą ładowarkę da się podłączyć.',
+  'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Wyślij zdjęcia, a powiemy, czego się spodziewać.':
+    'Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Opisz obiekt, a powiemy, czego się spodziewać.',
+}
+
+/** A package text without a photo promise (P0-2). */
+const noPhotos = <T extends string | undefined>(text: T): T =>
+  (text === undefined ? text : (PHOTO_PROMISES[text] ?? text)) as T
+
+/**
+ * P3-23 (audit 06.11): package titles too long for Google — with „ | PRO-KOM Instalacje” (21
+ * characters) every title stays ≤ 60. Keyed by the package title without the site name.
+ */
+export const SHORT_SEO_TITLES: Readonly<Record<string, string>> = {
+  'Alarmy i wideodomofony Rabka-Zdrój, Podhale': 'Alarmy i wideodomofony na Podhalu',
+  'Dostęp, monitoring i sieć dla firm, Podhale': 'Dostęp, monitoring i sieć dla firm',
+  'Nagłośnienie i transmisja mszy dla parafii': 'Nagłośnienie kościoła i transmisja mszy',
+  'Monitoring placu budowy bez prądu, Podhale': 'Monitoring placu budowy bez prądu',
+  'Nagłośnienie lokali i kościołów, Podhale': 'Nagłośnienie lokali i kościołów',
+  'Alarm i kamery dla domu i domku, Podhale': 'Alarm i kamery w domu i domku, Podhale',
+  'Zamki z kodem dla apartamentów na wynajem': 'Zamki z kodem dla apartamentów na doby',
+  'Monitoring i alarm dla sklepów, Zakopane': 'Monitoring i alarm w sklepie, Zakopane',
+}
+
+/**
+ * Titles the seed wrote before P3-23 (fixed pages with an own title) → their successors. With
+ * `SHORT_SEO_TITLES` they let the seed move an existing page forward (`forwardSeoTitle`).
+ */
+const FORMER_OWN_TITLES: Readonly<Record<string, string>> = {
+  'Dla architektów: smart home i teletechnika': 'Dla architektów: instalacje w projekcie',
+  'Zaplanuj instalację na Podhalu w 2 minuty': 'Zaplanuj instalację w 2 minuty',
+  'Serwis kamer, alarmów i sieci na Podhalu': 'Serwis kamer, alarmów i sieci, Podhale',
+  // Runda v6 §1.1: no „RODO” in the guide title.
+  'Poradnik: monitoring, RODO i Wi-Fi': 'Poradnik: monitoring, alarmy i Wi-Fi',
+}
+
+/**
+ * The new SEO title for a page that still has a former default of the seed, else `null`. Pages
+ * are created once and then belong to the panel; only an untouched old default moves forward,
+ * so CI snapshots, local and older databases follow P3-23 and a title edited in the panel stays.
+ */
+export function forwardSeoTitle(current: string | null | undefined, wanted: string): string | null {
+  if (!current || current === wanted) return null
+  const next = SHORT_SEO_TITLES[current] ?? FORMER_OWN_TITLES[current]
+  return next === wanted ? wanted : null
+}
+
 /** The site name is added by the title template of the site settings. */
 export function seoTitle(title: string): string {
-  return title.replace(/\s*\|\s*PRO-KOM.*$/, '').trim()
+  const base = title.replace(/\s*\|\s*PRO-KOM.*$/, '').trim()
+  return SHORT_SEO_TITLES[base] ?? base
 }
 
 /** „Cena po wizji lokalnej” is the no-price text of the settings, not a price. */
@@ -224,6 +392,16 @@ const isServiceKey = (key: string | undefined): key is ServiceKey =>
 const ids = (keys: string[], ref: (key: string) => number | undefined): number[] =>
   keys.map(ref).filter((id): id is number => id !== undefined)
 
+/**
+ * Hero facts of the package replaced by the line's own fact, keyed by the package value (decision
+ * of Krystian 10.11: no labour cost figure on `/dla-kogo/firmy` — „od 2004 / na Podhalu” as on
+ * the service heroes).
+ */
+export const HERO_FACT_FIXES: Readonly<Record<string, { value: string; label: string }>> = {
+  '10 736 zł': { value: 'od 2004', label: 'na Podhalu' },
+}
+const fixFact = (fact: { value: string; label: string }) => HERO_FACT_FIXES[fact.value] ?? fact
+
 function hero(seed: SeedHero): ServiceData['hero'] {
   return {
     crumb: seed.crumb,
@@ -232,9 +410,11 @@ function hero(seed: SeedHero): ServiceData['hero'] {
     h1b: seed.h1b,
     lead: seed.lead,
     facts: (seed.kv ?? []).map((fact) =>
-      Array.isArray(fact)
-        ? { value: fact[0] ?? '', label: fact[1] ?? '' }
-        : { value: fact.b, label: fact.s },
+      fixFact(
+        Array.isArray(fact)
+          ? { value: fact[0] ?? '', label: fact[1] ?? '' }
+          : { value: fact.b, label: fact.s },
+      ),
     ),
     tags: (seed.tags ?? []).map((tag) => (typeof tag === 'string' ? tag : tag.n)),
     cta: { text: seed.cta, href: optionalHref(seed.ctaHref) },
@@ -249,7 +429,7 @@ function withoutCta(value: ServiceData['hero']): ObjectData['hero'] {
 const packages = (seed: SeedPackage[]): NonNullable<ServiceData['packages']> =>
   seed.map((pkg) => ({
     name: pkg.n,
-    icon: icon(pkg.ic),
+    icon: iconFor(pkg.n, pkg.ic),
     description: pkg.d,
     items: pkg.f ?? [],
     price: price(pkg.pr),
@@ -258,6 +438,22 @@ const packages = (seed: SeedPackage[]): NonNullable<ServiceData['packages']> =>
   }))
 
 // --- services ---
+
+/** Runda v6 §1.2: realizations only on `/realizacje` and the home page — gone service sections. */
+export const GONE_SECTIONS: ReadonlySet<string> = new Set(['realizacje-n', 'realizacja-t'])
+
+/** Anchor bars changed after the prototype (RUNDA-V5 §10: new Teletechnika sections). */
+export const ANCHORS_V5: Partial<Record<string, { anchorId: string; name: string }[]>> = {
+  tel: [
+    { anchorId: 'zakres', name: 'Zakres' },
+    { anchorId: 'etapy', name: 'Etapy budowy' },
+    { anchorId: 'przy-odbiorze', name: 'Odbiór' },
+    { anchorId: 'bledy', name: 'Błędy' },
+    { anchorId: 'dla-kogo', name: 'Dla kogo' },
+    { anchorId: 'zapytanie', name: 'Zapytanie ofertowe' },
+    { anchorId: 'faq', name: 'Pytania' },
+  ],
+}
 
 export type SeedServiceItem = {
   menu: (typeof wspolne.SV)[number]
@@ -285,43 +481,47 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
     slug: slugOf(menu.href),
     name: menu.n,
     group: valueOf(SERVICE_GROUPS, menu.g, 'menu group'),
-    icon: icon(menu.ic),
+    icon: MENU_ICONS[menu.k] ?? icon(menu.ic),
     color: wspolne.HU[key],
     menuCaption: menu.s,
     tile: {
       description: tile.d,
       parts: tile.parts,
-      highlights: tile.hl,
+      highlights: tile.hl.map((h) => TILE_FIXES[h] ?? h),
       items: tile.pl,
       priceFrom: price(tile.pr),
       wide: tile.big,
     },
     offer: {
       family: valueOf(OFFER_FAMILIES, area.rodzina, 'offer family'),
-      description: area.opis,
+      description: withoutSalonClaim(area.opis),
       brands: area.marki,
     },
     hero: hero(d.hero),
-    anchors: d.anc.map((a) => ({ anchorId: a.href.replace(/^#/, ''), name: a.n })),
+    anchors:
+      ANCHORS_V5[key] ??
+      d.anc
+        .map((a) => ({ anchorId: a.href.replace(/^#/, ''), name: a.n }))
+        .filter((a) => !GONE_SECTIONS.has(a.anchorId)),
     packagesIntro: {
       eyebrow: d.sx.pkg.eye,
       heading: d.sx.pkg.h,
       text: d.sx.pkg.p,
-      note: d.sx.pkg.note,
+      note: noPhotos(d.sx.pkg.note),
     },
     packages: packages(d.pkgs),
     priceIntro: {
       eyebrow: d.sx.cena.eye,
       heading: d.sx.cena.h,
-      text: d.sx.cena.p,
-      button: d.sx.cena.btn,
+      text: noPhotos(d.sx.cena.p),
+      button: noPhotos(d.sx.cena.btn),
     },
-    priceFactors: d.cena.map((c) => ({ title: c.t, icon: icon(c.ic), description: c.d })),
+    priceFactors: d.cena.map((c) => ({ title: c.t, icon: iconFor(c.t, c.ic), description: c.d })),
     faqHeading: d.sx.faqH,
-    faq: d.faq.map((f) => ({ question: f.q, answer: f.a })),
+    faq: d.faq.map((f) => ({ question: f.q, answer: noPhotos(f.a) })),
     faqAside: {
       title: d.sx.faqA.t,
-      text: d.sx.faqA.d,
+      text: noPhotos(d.sx.faqA.d),
       button: d.sx.faqA.cta,
       href: optionalHref(d.sx.faqA.href),
     },
@@ -334,7 +534,7 @@ export function serviceData({ menu, page }: SeedServiceItem, refs: Refs): Servic
       d.segRel.map((r) => r.k),
       refs.object,
     ),
-    cta: { eyebrow: d.ctaEye, heading: d.ctaH, text: d.ctaP },
+    cta: { eyebrow: d.ctaEye, heading: noPhotos(d.ctaH), text: noPhotos(d.ctaP) },
   }
 }
 
@@ -359,7 +559,7 @@ export function objectData({ menu, page: o }: SeedObjectItem, refs: Refs): Objec
     slug: slugOf(menu.href),
     name: menu.n,
     group: valueOf(OBJECT_GROUPS, menu.g, 'object group'),
-    icon: icon(menu.ic),
+    icon: MENU_ICONS[menu.k] ?? icon(menu.ic),
     color: o.h,
     menuCaption: menu.s,
     forWhom: o.dla,
@@ -374,7 +574,7 @@ export function objectData({ menu, page: o }: SeedObjectItem, refs: Refs): Objec
       description: p.d,
       fix: p.fix,
       service: isServiceKey(p.s) ? p.s : undefined,
-      icon: icon(p.ic),
+      icon: iconFor(p.q, p.ic),
     })),
     dayIntro: { eyebrow: o.day.eye, heading: o.day.h, text: o.day.lead },
     day: o.day.items.map((item) => ({
@@ -382,20 +582,26 @@ export function objectData({ menu, page: o }: SeedObjectItem, refs: Refs): Objec
       name: item.n,
       description: item.d,
       services: (item.s ?? []).filter(isServiceKey),
-      icon: icon(item.ic),
+      icon: iconFor(item.n, item.ic),
     })),
-    lawIntro: { heading: o.law.h, text: o.law.lead },
-    law: o.law.items.map((l) => ({ who: l.who, article: l.a, title: l.t, description: l.d })),
+    // Runda v6 §1.1: no law section — stored law is cleared (the fields stay in the schema).
+    lawIntro: { heading: null, text: null },
+    law: [],
     mountainsIntro: { heading: o.gory.h },
-    mountains: o.gory.items.map((g) => ({ title: g.t, icon: icon(g.ic), description: g.d })),
-    realizationsHeading: o.realH,
-    realizations: o.real.map((r) => ({ title: r.t, place: r.m, description: r.d })),
+    mountains: o.gory.items.map((g) => ({
+      title: g.t,
+      icon: iconFor(g.t, g.ic),
+      description: g.d,
+    })),
+    // Runda v6 §1.2: no realizations on the object page — stored ones are cleared (fields stay).
+    realizationsHeading: null,
+    realizations: [],
     prepareIntro: { eyebrow: o.prepEye },
     prepare: o.prep,
     packagesHeading: o.pkgH,
     packages: packages(o.pkgs),
     faqHeading: o.faqH,
-    faq: o.faq.map(([question = '', answer = '']) => ({ question, answer })),
+    faq: o.faq.map(([question = '', answer = '']) => ({ question, answer: noPhotos(answer) })),
     relatedServices: ids(o.rel, refs.service),
     cta: { eyebrow: ctaEyebrow, heading: ctaHeading, text: ctaText },
     foldOnPhone: o.fold.map((entry) => {
@@ -494,8 +700,30 @@ export function archNewsToImport(): ArchNewsItem[] {
  * publication (boss 01.11.2026, ADR-I002 §2). The home page shows the first ones (`Main.rl`,
  * shorter names) → featured.
  */
+/**
+ * Services and object kind of each realization for the filters of `/realizacje` (I12): the
+ * prototype's table `R` of `zrodlo/pages/Realizacje.js` (columns 6 and 7), in the order of
+ * `Realizacje.json` — the package snapshot has no such keys.
+ */
+const REALIZATION_FILTERS: { services: ServiceKey[]; kind: RealizationKind }[] = [
+  { services: ['snd', 'scr', 'wifi'], kind: 'firma' },
+  { services: ['snd', 'scr'], kind: 'kosciol' },
+  { services: ['snd'], kind: 'sklep' },
+  { services: ['snd', 'scr'], kind: 'gastro' },
+  { services: ['scr', 'snd'], kind: 'gastro' },
+  { services: ['snd'], kind: 'gastro' },
+  { services: ['snd'], kind: 'kosciol' },
+  { services: ['snd'], kind: 'kosciol' },
+  { services: ['scr'], kind: 'szkola' },
+  { services: ['scr'], kind: 'sklep' },
+  { services: ['ant'], kind: 'dom' },
+]
+
 export function realizationsToImport(): (RealizationData & { legacyId: number })[] {
   const featured = Main.dane.rl.length
+  if (REALIZATION_FILTERS.length !== Realizacje.dane.rl.list.length) {
+    throw new Error('Seed (Instalacje): REALIZATION_FILTERS does not match Realizacje.json.')
+  }
   return Realizacje.dane.rl.list.map((r, index) => ({
     legacyId: index + 1,
     title: r.n,
@@ -506,6 +734,8 @@ export function realizationsToImport(): (RealizationData & { legacyId: number })
     // The clients agreed to the publication (boss 01.11.2026).
     clientConsent: true,
     featured: index < featured,
+    services: REALIZATION_FILTERS[index]?.services,
+    kind: REALIZATION_FILTERS[index]?.kind,
   }))
 }
 
@@ -521,13 +751,14 @@ const PAGE_FILES: {
   /** Own description when the package's is over 160 characters. */
   seoDescription?: string
 }[] = [
-  { slug: 'uslugi', title: 'Pełna oferta', file: Oferta },
+  // I12: the package's titles of the four pages + „| PRO-KOM Instalacje” have 73–76 characters.
+  { slug: 'uslugi', title: 'Pełna oferta', file: Oferta, seoTitle: 'Oferta instalacji na Podhalu' },
   // The package's title has 57 characters + „| PRO-KOM Instalacje” (SEO §2.2: ≤ 65 in all).
   {
     slug: 'zaplanuj',
     title: 'Zaplanuj instalację',
     file: Zaplanuj,
-    seoTitle: 'Zaplanuj instalację na Podhalu w 2 minuty',
+    seoTitle: 'Zaplanuj instalację w 2 minuty',
   },
   // The package's title (52 characters, no „|”) + „| PRO-KOM Instalacje” is over 65.
   {
@@ -541,21 +772,36 @@ const PAGE_FILES: {
     slug: 'serwis',
     title: 'Serwis',
     file: Serwis,
-    seoTitle: 'Serwis kamer, alarmów i sieci na Podhalu',
+    seoTitle: 'Serwis kamer, alarmów i sieci, Podhale',
   },
   // The package's title (spec §3) without „| PRO-KOM” + „| PRO-KOM Instalacje” has 71 characters.
   {
     slug: 'dla-architektow',
     title: 'Dla architektów',
     file: Architekci,
-    seoTitle: 'Dla architektów: smart home i teletechnika',
+    seoTitle: 'Dla architektów: instalacje w projekcie',
     // The package's description has 211 characters (the field: ≤ 160).
     seoDescription:
       'Współpraca z architektami na Podhalu i w Małopolsce: plan urządzeń na rzutach, wytyczne do projektu, smart home Ampio, głośniki do zabudowy, monitoring.',
   },
-  { slug: 'o-firmie', title: 'O firmie', file: OFirmie },
-  { slug: 'realizacje', title: 'Realizacje', file: Realizacje },
-  { slug: 'poradnik', title: 'Poradnik', file: Poradnik },
+  {
+    slug: 'o-firmie',
+    title: 'O firmie',
+    file: OFirmie,
+    seoTitle: 'O firmie: instalacje na Podhalu od 2004',
+  },
+  {
+    slug: 'realizacje',
+    title: 'Realizacje',
+    file: Realizacje,
+    seoTitle: 'Realizacje: nagłośnienie i multimedia',
+  },
+  {
+    slug: 'poradnik',
+    title: 'Poradnik',
+    file: Poradnik,
+    seoTitle: 'Poradnik: monitoring, alarmy i Wi-Fi',
+  },
 ]
 
 /**

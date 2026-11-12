@@ -109,7 +109,7 @@
     gap: 14px;
     position: sticky;
     top: 96px;
-    animation: inst-snd-fadeUp 0.35s ease;
+    animation: inst-snd-fadeUp 0.35s var(--ease-out);
   }
   & .apd p {
     margin: 0;
@@ -783,7 +783,7 @@
     animation: inst-snd-pulse 0.8s infinite;
   }
   & .mxp .m_vp {
-    animation: inst-snd-mxin 0.5s ease both;
+    animation: inst-snd-mxin 0.5s var(--ease-out) both;
   }
   & .cons {
     display: grid;
@@ -1284,13 +1284,6 @@
   & .snd-dso-tx {
     color: var(--inst-band-note);
     font-size: 14px;
-  }
-  & .snd-dso-lbl {
-    color: var(--inst-dark-lead);
-    font-size: 13px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
   }
 }
 

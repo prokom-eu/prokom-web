@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 import { brandAsset, HORIZONTAL_LOGO_SIZE as LOGO } from '@/lib/brand/lines'
 import { hasDarkTheme } from '@/lib/brand/theme'
@@ -16,7 +16,7 @@ export function SiteLogo({
   const dark = hasDarkTheme(tenant.line)
   const alt = `${tenant.name} — strona główna`
   return (
-    <Link href="/" className="shrink-0">
+    <Link href="/" className="shrink-0" data-site-logo>
       <Image
         src={brandAsset(tenant.line, 'poziome_kolor.svg')}
         alt={alt}

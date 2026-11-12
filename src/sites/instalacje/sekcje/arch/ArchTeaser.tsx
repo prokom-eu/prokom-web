@@ -5,12 +5,10 @@ import type { ServiceKey } from '@/lib/instalacje/options'
 
 import { architekci as A } from '../../dane/architekci'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../InstSection'
-import { ArchHouseScene } from './ArchHouseScene'
+import { InstSection } from '../InstSectionLazy'
+import { ArchHouseScene } from './ArchHouseSceneLazy'
 import { hotspotsHtml, INITIAL_ARCH_SCENE } from './archScene'
 import { ARCH_SCENE } from './scene'
-
-import '../../widzety/architekci/architekci.css'
 
 const T = A.teaser
 const PAGE = '/dla-architektow'
@@ -35,9 +33,7 @@ export async function ArchTeaser({ tenantId }: { tenantId: number }) {
         <div className="arhm ri">
           <div className="arhmt">
             <span className="eye">{T.eyebrow}</span>
-            <h2 className="h2">
-              {T.heading} <span className="acc">{T.accent}</span>
-            </h2>
+            <h2 className="h2">{T.heading}</h2>
             <p className="lead">{T.lead}</p>
             <div className="arhml">
               {T.points.map((x) => (
@@ -57,7 +53,7 @@ export async function ArchTeaser({ tenantId }: { tenantId: number }) {
                 {T.more}
               </Link>
               <Link href={`${PAGE}#wyslij`} className="btn btn-g">
-                <InstIcon name="upload" />
+                <InstIcon name="cal" />
                 {T.send}
               </Link>
             </div>

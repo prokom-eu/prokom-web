@@ -9,8 +9,17 @@ export const STAGE_BG =
   'bg-[radial-gradient(120%_90%_at_50%_18%,var(--st1)_0%,var(--st2)_50%,var(--st3)_100%)]'
 
 /**
+ * White plate the photo stands on (NAPRAWA-0911 §3): many packshots have a white background,
+ * which on the studio gradient showed as a white rectangle. White in both themes (`--plate`).
+ */
+export const STAGE_PLATE =
+  'rounded-[clamp(8px,9%,20px)] bg-plate shadow-[0_10px_24px_-14px_var(--plate-shadow),inset_0_0_0_1px_var(--plate-shadow)]'
+
+/**
  * „Studio” under every product photo (K31-ZMIANY §3, spec. §3.8): a soft radial gradient, the
- * „desk” from 70% of the height and a shadow under the product. Size, corners and padding come
+ * „desk” from 70% of the height and a shadow under the product, and on top of them the white
+ * plate (`STAGE_PLATE`, 6% in from the edge) the photo stands on — the desk and shadow then show
+ * only without a photo (`StageFallback`, where the plate is hidden). Size, corners and padding come
  * from `className`; the photo (or `StageFallback`) is the child. No hooks — works in server and
  * client components alike.
  */
@@ -28,6 +37,9 @@ export function ProductStage({
     <Tag
       className={cx(
         'relative isolate flex items-center justify-center overflow-hidden',
+        // Without a photo (StageFallback) no plate: its text is theme-coloured, and the studio
+        // with its desk and shadow is the background it was designed on.
+        '[&:has([data-stage-fallback])>[data-stage-plate]]:hidden',
         STAGE_BG,
         className,
       )}
@@ -39,6 +51,11 @@ export function ProductStage({
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-[20%] bottom-[11%] -z-10 h-[7%] rounded-[50%] bg-[radial-gradient(closest-side,var(--shd),transparent)] opacity-75"
+      />
+      <span
+        aria-hidden="true"
+        data-stage-plate=""
+        className={cx('pointer-events-none absolute inset-[6%] -z-10', STAGE_PLATE)}
       />
       {children}
     </Tag>
@@ -84,6 +101,7 @@ export function StageFallback({
   const tile = (
     <span
       aria-hidden="true"
+      data-stage-fallback={size === 'sm' ? '' : undefined}
       className={cx(
         'flex shrink-0 items-center justify-center bg-card text-accent-text shadow-[0_14px_30px_-18px_var(--glow),inset_0_0_0_1px_var(--border)]',
         TILE[size],
@@ -96,6 +114,7 @@ export function StageFallback({
   return (
     // `lg` sits above the desk line (70% of the height), as on the board.
     <span
+      data-stage-fallback=""
       className={cx(
         'relative flex flex-col items-center gap-3 px-4 text-center',
         size === 'lg' && 'mb-20 sm:mb-24',
@@ -115,8 +134,8 @@ export function StageFallback({
         )}
       >
         {size === 'lg'
-          ? 'Zdjęcie producenta pojawi się wkrótce. Pełna specyfikacja — poniżej.'
-          : 'Zdjęcie producenta wkrótce'}
+          ? 'Zdjęcia producenta jeszcze nie ma. Pełna specyfikacja jest poniżej.'
+          : 'Bez zdjęcia producenta'}
       </span>
     </span>
   )
@@ -130,6 +149,7 @@ function ServiceTile({ icon, size, name }: { icon: IconName; size: FallbackSize;
   return (
     <span
       data-surface="dark"
+      data-stage-fallback=""
       className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-surface-dark bg-[radial-gradient(ellipse_at_85%_0%,var(--glow),transparent_60%)] px-4 text-center text-white"
     >
       <span

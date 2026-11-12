@@ -3,7 +3,6 @@
 import { type CSSProperties, useState } from 'react'
 
 import { monitoring } from '../../dane/monitoring'
-import { InstIcon } from '../../InstIcon'
 
 const T = monitoring.types
 const DASH_ACCENT: CSSProperties = {
@@ -91,9 +90,7 @@ export function CameraTypes() {
             aria-pressed={index === i}
             onClick={() => setIndex(i)}
           >
-            <span className="ico s">
-              <InstIcon name="cam" />
-            </span>
+            {/* Runda v6 §1.5: no icon — the same camera next to all five types said nothing. */}
             {t.name}
           </button>
         ))}
@@ -109,11 +106,11 @@ export function CameraTypes() {
           </p>
           <div className="g2" style={{ gap: 12 }}>
             <div className="note" style={{ flexDirection: 'column', gap: 6 }}>
-              <b style={{ color: 'var(--ok)' }}>{T.fits}</b>
+              <b style={{ color: 'var(--ok-text)' }}>{T.fits}</b>
               <span>{type.fits}</span>
             </div>
             <div className="note" style={{ flexDirection: 'column', gap: 6 }}>
-              <b style={{ color: 'var(--warn)' }}>{T.careful}</b>
+              <b style={{ color: 'var(--inst-warn-text)' }}>{T.careful}</b>
               <span>{type.careful}</span>
             </div>
           </div>

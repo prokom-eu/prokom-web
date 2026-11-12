@@ -1,16 +1,15 @@
+import { BUILT_HOME_SECTIONS, type HomeSectionValue } from '@/lib/software/homeSections'
 import type { SwHomeSectionBlock as SwHomeSectionBlockData } from '@/payload-types'
+import { CompareSection, WizardSection } from '@/sites/software/components/home/HomeSections'
 import {
-  AreasSection,
-  CompareSection,
-  GuaranteesSection,
-  HowWeBuildSection,
-  LivePreviewsSection,
-  PopularSection,
-  ProcessSection,
-  TechnologiesSection,
-  WhyNotWordpressSection,
-  WizardSection,
-} from '@/sites/software/components/home/HomeSections'
+  BentoBlockSection,
+  PricingBlockSection,
+  ProcessBlockSection,
+  PromisesSection,
+  ShowroomBlockSection,
+  SituationsSection,
+  TechBlockSection,
+} from '@/sites/software/components/v24home/HomeV24Blocks'
 
 type Props = { block: SwHomeSectionBlockData; tenantId: number }
 
@@ -19,25 +18,24 @@ type Props = { block: SwHomeSectionBlockData; tenantId: number }
  * A section without a component renders nothing.
  */
 export function SwHomeSectionBlock({ block, tenantId }: Props) {
+  if (!BUILT_HOME_SECTIONS.includes(block.section as HomeSectionValue)) return null
   switch (block.section) {
-    case 'areas':
-      return <AreasSection tenantId={tenantId} />
-    case 'popular':
-      return <PopularSection tenantId={tenantId} />
-    case 'livePreviews':
-      return <LivePreviewsSection tenantId={tenantId} />
+    case 'promises':
+      return <PromisesSection tenantId={tenantId} />
+    case 'situations':
+      return <SituationsSection tenantId={tenantId} />
+    case 'bento':
+      return <BentoBlockSection tenantId={tenantId} />
+    case 'showroom':
+      return <ShowroomBlockSection tenantId={tenantId} />
+    case 'tech':
+      return <TechBlockSection tenantId={tenantId} />
+    case 'pricing':
+      return <PricingBlockSection tenantId={tenantId} />
     case 'process':
-      return <ProcessSection tenantId={tenantId} />
+      return <ProcessBlockSection tenantId={tenantId} />
     case 'wizard':
       return <WizardSection tenantId={tenantId} />
-    case 'whyNotWordpress':
-      return <WhyNotWordpressSection tenantId={tenantId} />
-    case 'guarantees':
-      return <GuaranteesSection tenantId={tenantId} />
-    case 'howWeBuild':
-      return <HowWeBuildSection tenantId={tenantId} />
-    case 'technologies':
-      return <TechnologiesSection tenantId={tenantId} />
     case 'compare':
       return <CompareSection tenantId={tenantId} />
     default:

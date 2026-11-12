@@ -69,6 +69,7 @@ export function PlanPointDialog({ scene, points, products, current, onMove, onCl
 
   return (
     <dialog
+      data-motion="dialog"
       ref={dialog}
       aria-labelledby={headingId}
       onClose={() => {
@@ -151,7 +152,7 @@ export function PlanPointDialog({ scene, points, products, current, onMove, onCl
                     }
                   />
                   <p className="mt-2 text-[12px] text-ink-3">
-                    Film z oficjalnego kanału producenta — odtwarza się po kliknięciu (YouTube bez
+                    Film z oficjalnego kanału producenta. Odtwarza się po kliknięciu (YouTube bez
                     plików cookie).
                   </p>
                 </>

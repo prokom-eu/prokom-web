@@ -87,7 +87,7 @@ export const alarmy = {
   flow: {
     head: {
       eyebrow: 'Jak to działa',
-      heading: 'Od otwartego okna do powiadomienia w kilka sekund.',
+      heading: 'Jak działa alarm: od czujki do powiadomienia w telefonie',
       lead: 'Czujki pilnują drzwi, okien i pomieszczeń. Centrala decyduje, co zrobić. Ty dostajesz powiadomienie, a jeśli chcesz, sygnał trafia też do agencji ochrony.',
     } satisfies SectionHead,
     items: [
@@ -117,20 +117,22 @@ export const alarmy = {
   versions: {
     head: {
       eyebrow: 'Wersje alarmu',
-      heading: 'Inny alarm do mieszkania, inny do pustego domu w górach.',
+      heading: 'Z czego składa się alarm w mieszkaniu, domu i firmie',
       lead: 'Wybierz obiekt. Pokażemy, z jakich elementów zwykle składamy system i co każdy z nich robi. Przykładowe urządzenia z bezprzewodowej linii Satel ABAX 2 i Ajax.',
     } satisfies SectionHead,
     tabsLabel: 'Wersja alarmu',
+    /** Runda v6 §1.5: the label of an element outside the chosen version. */
+    outside: 'Poza zestawem',
     note: 'Zasięgi radiowe podaje się dla otwartej przestrzeni, w budynku są krótsze. Konkretne urządzenia dobieramy po wizji lokalnej.',
     elements: {
       cen: {
-        icon: 'cpu',
+        icon: 'panel',
         name: 'Centrala z akumulatorem',
-        text: 'Mózg systemu. Przy braku prądu pracuje na akumulatorze, przy braku internetu wysyła powiadomienia przez sieć komórkową.',
+        text: 'Steruje całym systemem. Przy braku prądu pracuje na akumulatorze, przy braku internetu wysyła powiadomienia przez sieć komórkową.',
         model: 'np. Satel z kontrolerem ABAX 2, Ajax Hub 2',
       },
       kl: {
-        icon: 'grid',
+        icon: 'keypad',
         name: 'Klawiatura i piloty',
         text: 'Uzbrajanie przy wejściu, pilot dla domowników, a do tego aplikacja w telefonie.',
         model: 'manipulator, breloki',
@@ -148,25 +150,25 @@ export const alarmy = {
         model: 'czujki magnetyczne',
       },
       gb: {
-        icon: 'x',
+        icon: 'glassBreak',
         name: 'Czujki zbicia szyby',
         text: 'Przy dużych przeszkleniach, witrynach i drzwiach tarasowych.',
         model: 'np. Satel AGD-200: do 6 m',
       },
       out: {
-        icon: 'sun2',
+        icon: 'pirOut',
         name: 'Czujki zewnętrzne',
-        text: 'Alarm, gdy ktoś jest jeszcze na podwórku, a nie dopiero w domu.',
+        text: 'Alarm włącza się, gdy ktoś jest jeszcze na podwórku, zanim dojdzie do drzwi.',
         model: 'np. Satel AOD-210: praca od −40°C',
       },
       sir: {
-        icon: 'bell',
+        icon: 'siren',
         name: 'Sygnalizator z lampą',
         text: 'Głośny sygnał i błyskające światło odstraszają i pokazują, gdzie jest alarm.',
         model: 'np. Satel ASP-200 R: do 105 dB',
       },
       fl: {
-        icon: 'drop',
+        icon: 'flood',
         name: 'Czujki zalania i temperatury',
         text: 'Woda pod pralką albo spadek temperatury w kotłowni od razu w telefonie.',
         model: 'np. Satel AFD-200: bateria do 5 lat',
@@ -184,16 +186,16 @@ export const alarmy = {
         model: 'np. Ajax MotionCam: bateria do 4 lat',
       },
       lte: {
-        icon: 'ant',
+        icon: 'lte',
         name: 'Łączność LTE i Ethernet',
         text: 'Dwie drogi powiadomień. Gdy jedna zawiedzie, działa druga.',
         model: 'moduł GSM/LTE, dwie karty SIM',
       },
       ag: {
-        icon: 'shield',
+        icon: 'patrol',
         name: 'Agencja ochrony (opcja)',
         text: 'Sygnał trafia do całodobowego centrum, które wysyła patrol.',
-        model: 'umowa z agencją z koncesją',
+        model: 'umowa z agencją ochrony',
       },
     } satisfies Record<
       AlarmElementKey,
@@ -229,8 +231,8 @@ export const alarmy = {
 
   compare: {
     head: {
-      eyebrow: 'Przewodowy czy bezprzewodowy',
-      heading: 'Dobieramy system do budynku, a nie odwrotnie.',
+      eyebrow: 'Porównanie',
+      heading: 'Alarm przewodowy czy bezprzewodowy: który wybrać',
     },
     /** Head of the first column, for screen readers only (the prototype leaves it empty). */
     rowHead: 'Cecha',
@@ -283,13 +285,13 @@ export const alarmy = {
     ],
     grade: {
       title: 'Firma, sklep, pensjonat:',
-      text: 'centralę i czujki dobieramy w klasie zabezpieczeń (Grade według normy EN 50131), której wymaga Twój ubezpieczyciel. Warto sprawdzić to w polisie przed wyceną.',
+      text: 'centralę i czujki dobieramy w klasie zabezpieczeń (Grade), której wymaga Twój ubezpieczyciel. Warto sprawdzić to w polisie przed wyceną.',
     },
   },
 
   doorPhone: {
     eyebrow: 'Wideodomofony z aplikacją',
-    heading: 'Kurier przy furtce, a Ty na stoku. Otwierasz z telefonu.',
+    heading: 'Wideodomofon, który odbierzesz w telefonie',
     lead: 'Wideodomofon dzwoni do panelu w domu i do aplikacji w telefonie. Widzisz, kto stoi przy furtce, rozmawiasz i otwierasz furtkę albo bramę. Dla pensjonatu: gość zgłasza się przy wejściu, nawet gdy recepcja jest zamknięta.',
     list: [
       {
@@ -332,7 +334,7 @@ export const alarmy = {
   intercoms: {
     head: {
       eyebrow: 'Domofony i wideodomofony',
-      heading: 'Od furtki przy domu po wejście do bloku.',
+      heading: 'Wymiana domofonu w domu, bloku i pensjonacie',
       lead: 'Dobieramy system do tego, co już masz w ścianie. Stary domofon na dwóch żyłach często da się wymienić na wideodomofon bez kucia, a w nowym domu kładziemy przewód sieciowy.',
     } satisfies SectionHead,
     cases: [
@@ -394,17 +396,17 @@ export const alarmy = {
         {
           label: 'Nie wiem',
           result: 'Sprawdzimy na wizji lokalnej',
-          text: 'Wystarczy zdjęcie starego unifonu albo monitora i panelu przy furtce. Po nim zwykle wiemy, czy przewody się nadadzą.',
+          text: 'Wystarczy, że podasz markę starego unifonu albo monitora i panelu przy furtce. Po tym zwykle wiemy, czy przewody się nadadzą.',
         },
       ],
-      note: 'Rozpoznawania twarzy w panelach nie proponujemy domyślnie: to dane biometryczne i wymagają szczególnych podstaw z RODO.',
+      note: 'Rozpoznawania twarzy w panelach nie proponujemy domyślnie: to dane biometryczne.',
     },
   },
 
   holiday: {
-    eyebrow: 'Dom letniskowy i apartament na wynajem',
-    heading: 'Nikogo nie ma od miesiąca. Alarm i tak pilnuje.',
-    lead: 'Przesuń suwak i zobacz zimę w pustym domu. Oprócz czujek ruchu dokładamy czujki, które działają całą dobę: zalanie, temperatura, dym. Satel AFD-200 wykrywa wodę i mierzy temperaturę, a bateria wystarcza według producenta do 5 lat.',
+    eyebrow: 'Dom letniskowy',
+    heading: 'Alarm w domu, w którym nikt nie mieszka na stałe',
+    lead: 'Oprócz czujek ruchu dokładamy czujki, które działają całą dobę: zalania, temperatury i dymu. Satel AFD-200 wykrywa wodę i mierzy temperaturę, a bateria według producenta wystarcza do 5 lat. Przesuń suwak i zobacz zimę w pustym domu.',
     day: 'Dzień',
     sinceLeaving: 'od wyjazdu',
     sliderLabel: 'Dzień od wyjazdu',
@@ -476,8 +478,8 @@ export const alarmy = {
   },
 
   agency: {
-    eyebrow: 'Powiadomienia czy agencja ochrony',
-    heading: 'Kto reaguje, gdy alarm zawyje?',
+    eyebrow: 'Agencja ochrony',
+    heading: 'Powiadomienie w telefonie czy agencja ochrony',
     lead: 'Najprościej: Ty, przez aplikację i SMS. Jeśli nie możesz odbierać powiadomień, sygnał może trafić do całodobowego centrum agencji ochrony, która wyśle patrol.',
     items: [
       {
@@ -497,8 +499,6 @@ export const alarmy = {
       },
     ] satisfies Feature[],
     // TODO(krystian): agencja partnerska — prototyp: „Agencja partnerska: [SZEF].” (spec §12);
-    // zdanie wraca do notki, gdy szef poda nazwę.
-    licence:
-      'Montaż i serwis alarmów w domach, firmach i pensjonatach nie wymagają koncesji (poza obszarami i obiektami podlegającymi obowiązkowej ochronie). Całodobowe dozorowanie sygnałów to już ochrona fizyczna i prowadzi ją agencja z koncesją MSWiA.',
+    // zdanie wraca jako notka pod listą, gdy szef poda nazwę.
   },
 }

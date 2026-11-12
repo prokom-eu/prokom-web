@@ -1,22 +1,20 @@
 import fakty from '../../../seed/prokomsoftware/fakty.json'
 import branze from '../../../seed/prokomsoftware/branze.json'
 import ikony from '../../../seed/prokomsoftware/ikony.json'
-import kreator from '../../../seed/prokomsoftware/kreator.json'
 import miejscowosci from '../../../seed/prokomsoftware/miejscowosci.json'
 import nawigacja from '../../../seed/prokomsoftware/nawigacja.json'
 import obszary from '../../../seed/prokomsoftware/obszary.json'
 import oknoOferty from '../../../seed/prokomsoftware/okno-oferty.json'
-import popularne from '../../../seed/prokomsoftware/popularne.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
 import stronaGlowna from '../../../seed/prokomsoftware/strona-glowna.json'
-import technologie from '../../../seed/prokomsoftware/technologie.json'
 import wpisy from '../../../seed/prokomsoftware/wpisy.json'
 import wyszukiwarka from '../../../seed/prokomsoftware/wyszukiwarka.json'
 import { isIconName } from '../../lib/catalog/options'
 import type { City, Industry, Post, Solution, SolutionArea } from '../../payload-types'
 import { h2, p, richText, ul } from '../biznes/lexical'
 import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
-import { HOME_SECTION_TEXTS, REBUILD_BUTTON } from './homeExtras'
+import { HOME_SECTION_TEXTS } from './homeExtras'
+import { withoutIndustryLinks } from '../../lib/software/industryLinks'
 import { INDUSTRY_PAGE_TEXTS } from './industryPages'
 import {
   FIELD_CREW_DELIVERABLES,
@@ -24,7 +22,10 @@ import {
   FIELD_CREW_PAGE,
   FIELD_CREW_SLUG,
 } from './solutionPages'
-import { wizardSeed } from './wizardExtras'
+import { WIZARD_V3 } from './wizard'
+import { HOME_HERO } from './homeHero'
+import { HOME_V24 } from './homeV24'
+import { SOLUTION_PREVIEWS } from './previews'
 
 /**
  * Pure mapping of the Software package (`seed/prokomsoftware/`, v20) to the shapes of the
@@ -99,8 +100,7 @@ function levelData(level: SeedLevel): NonNullable<SolutionData['levels']>[number
 /**
  * Card, one „od” price and term, levels and the texts of the offer window of one solution
  * (ADR-014 v22 pkt 1–4). „Dobrze łączy się z” (`related`) needs the ids of the other solutions —
- * `relatedIds`, written after all are imported. The 12 cards of the start page
- * are these solutions in the order of `SoftwareSettings.home.popular` (v22: no card fields).
+ * `relatedIds`, written after all are imported.
  */
 export function solutionData(item: SeedSolution): SolutionData {
   return {
@@ -126,6 +126,7 @@ export function solutionData(item: SeedSolution): SolutionData {
     levels: levelsOf(item).map(levelData),
     levelRows: item.levelRows ?? [],
     thumbnail: item.thumbnail,
+    preview: SOLUTION_PREVIEWS[item.slug] ?? { kind: null, variant: null },
     included: item.included ?? [],
     moreExamples: item.moreExamples ?? solutionPageExtra(item.slug),
     example: item.example,
@@ -263,6 +264,11 @@ export function cityData(item: SeedCity, ref: SolutionRef): CityData {
 
 type SeedIndustryPage = (typeof branze.pagesAtStart)[number]
 
+/** Slugs of the industry pages the seed makes active (the ones with a text). */
+export function activeIndustrySlugs(): Set<string> {
+  return new Set(branze.pagesAtStart.filter((page) => page.active).map((page) => page.slug))
+}
+
 /** Page contents of the package by name (`pagesAtStart[].content`). */
 const INDUSTRY_CONTENTS = { budowlanka: branze.budowlanka } as const
 
@@ -350,8 +356,10 @@ type SeedSection = SeedPost['sections'][number]
 /** Package categories (`Poradnik`) → values of `POST_CATEGORIES`. */
 const POST_CATEGORY: Record<string, Post['category']> = {
   Poradnik: 'poradnik',
-  Nowości: 'nowosci',
-  Realizacje: 'realizacje',
+  Strony: 'strony',
+  Systemy: 'systemy',
+  Automatyzacje: 'automatyzacje',
+  Bezpieczeństwo: 'bezpieczenstwo',
 }
 
 function sectionNodes(section: SeedSection): object[] {
@@ -448,6 +456,19 @@ export function softwareContactUpdate(current: Contact): Contact | null {
   return Object.keys(update).length > 0 ? update : null
 }
 
+/** The line under the logo of the shared footer (ZMIANY-v24 §3.6, `SiteSettings.footer.text`). */
+export const SOFTWARE_FOOTER_TEXT =
+  'Strony, systemy, aplikacje i automatyzacje dla firm. Zobaczysz, zanim zapłacisz.'
+
+/**
+ * The footer text to write: the line description while the panel holds the sample of
+ * `pnpm seed` („… — dane przykładowe.”) or nothing; `null` keeps what an editor typed.
+ */
+export function softwareFooterText(current: string | null | undefined): string | null {
+  const text = current?.trim() ?? ''
+  return text === '' || text.endsWith('dane przykładowe.') ? SOFTWARE_FOOTER_TEXT : null
+}
+
 /** Facts of the package missing in the panel: values saved there are never changed. */
 export function missingFacts(
   stored: readonly { key?: string | null }[] | null | undefined,
@@ -458,30 +479,27 @@ export function missingFacts(
 }
 
 /**
- * Settings JSON 1:1 with the package (ADR-014 doprecyzowania SW2a 6). `home` = the start page
- * texts without `homeOrder` (the section order is the order of the page blocks, D2) + the
- * technology layers + the 12 cards + the section headings of the board (SW5) + the price token
- * of the rebuild button (SW8a).
+ * Settings JSON 1:1 with the package (ADR-014 doprecyzowania SW2a 6). `home` = of the start page
+ * package only the process stages and the comparison rows (the v23 sections went with the clean-up,
+ * decision D6, 08.11) + the comparison heading (SW11b) + hero and sections of v24.
  */
 export function softwareSettingsData() {
-  const { homeOrder: _order, ...homeTexts } = structuredClone(stronaGlowna)
-  // The rebuild price comes from `Solutions`, not from the text (ADR-014 doprecyzowania SW8a).
-  homeTexts.whyNotWordpress.cta.buttons = homeTexts.whyNotWordpress.cta.buttons.map((button) =>
-    button[0] === REBUILD_BUTTON.package ? [REBUILD_BUTTON.token, ...button.slice(1)] : button,
-  )
+  const { process, compare } = structuredClone(stronaGlowna)
   return {
-    navigation: structuredClone(nawigacja),
+    // Only links to industry pages that exist (the index and inactive industries 404, SWV6).
+    navigation: withoutIndustryLinks(structuredClone(nawigacja), activeIndustrySlugs()),
     search: {
       synonyms: wyszukiwarka.synonyms.map(({ phrase, expansions }) => ({ phrase, expansions })),
       stopWords: wyszukiwarka.stopWords,
       popular: wyszukiwarka.popular,
     },
-    wizard: wizardSeed(kreator),
+    wizard: WIZARD_V3,
     home: {
-      ...homeTexts,
-      technologies: structuredClone(technologie.layers),
-      popular: { order: structuredClone(popularne.order), tabs: structuredClone(popularne.tabs) },
+      process,
+      compare,
       sections: structuredClone(HOME_SECTION_TEXTS),
+      hero: structuredClone(HOME_HERO),
+      ...structuredClone(HOME_V24),
     },
     offer: structuredClone(oknoOferty),
     thanks: structuredClone(SOFTWARE_THANKS),

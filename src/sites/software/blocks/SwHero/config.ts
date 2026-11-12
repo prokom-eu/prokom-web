@@ -4,10 +4,10 @@ import { hrefField, linkGroup } from '../../../../blocks/fields'
 import { ICON_OPTIONS } from '../../../../lib/catalog/options'
 
 /**
- * Hero of the Software start page with the „Twój system” mock-up and the 4 intent tiles
- * (spec. §4 pkt 1–2, ADR-014 rozstrz. SW0 7). Texts are edited here; the modules of the mock-up
- * come from `SoftwareSettings.home.heroModules`. Facts (`[CZAS ODPOWIEDZI]`) and `**bold**` are
- * filled on render.
+ * Hero of the Software start page (spec. §4 pkt 1–2, ADR-014 rozstrz. SW0 7). Since v24 the block
+ * only marks where the hero stands — its texts come from `SoftwareSettings.home.hero`; the fields
+ * below are the v23 hero's and are not shown (decision D6, 08.11; removing their columns is a
+ * separate migration, `docs/STAN.md` → „Pomysły na później”).
  */
 export const SwHeroBlock: Block = {
   slug: 'swHero',

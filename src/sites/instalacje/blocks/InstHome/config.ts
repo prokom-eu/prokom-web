@@ -19,7 +19,7 @@ export const InstHomeBlock: Block = {
     {
       type: 'group',
       name: 'hero',
-      label: 'Hero „Twój obiekt na żywo”',
+      label: 'Hero strony głównej',
       admin: {
         description:
           'Tekst obok sceny. Scenę (obiekty, pory, instalacje) i jej opisy zmienia się w kodzie.',

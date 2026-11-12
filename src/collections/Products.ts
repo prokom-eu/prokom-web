@@ -166,6 +166,42 @@ export const Products: CollectionConfig = {
               'Galeria w tej kolejności; pierwsze jest główne (karta).',
             ),
             {
+              // KOLO-HERO v3: how the card looks on the homepage wheel (only when a department
+              // lists it in „Produkty przy dziale na kole”).
+              type: 'collapsible',
+              label: 'Koło na stronie głównej',
+              admin: { initCollapsed: true },
+              fields: [
+                imageField(
+                  'wheelImage',
+                  'Zdjęcie na kole',
+                  false,
+                  'Wycięte zdjęcie bez tła do koła na stronie głównej. Bez niego koło bierze pierwsze zdjęcie galerii.',
+                ),
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'wheelName',
+                      label: 'Nazwa na kole',
+                      type: 'text',
+                      maxLength: 40,
+                      admin: { description: 'Krótka nazwa w dymku, np. „Apple MacBook Air (M5)”.' },
+                    },
+                    {
+                      name: 'wheelColor',
+                      label: 'Kolor na kole',
+                      type: 'text',
+                      admin: {
+                        description:
+                          'Nazwa koloru z listy Kolory, np. „burgund”: koło otwiera kartę z tym kolorem.',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
               name: 'variants',
               label: 'Wersje',
               type: 'array',

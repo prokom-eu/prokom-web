@@ -22,7 +22,7 @@ describe('SOFTWARE_PAGE_SEO (spec. §9)', () => {
   it('leaves the site name to the title template and has no placeholders', () => {
     // The start page shares the layout's segment, so the template does not reach it.
     expect(SOFTWARE_PAGE_SEO[HOME_SLUG]?.title).toBe(
-      'Strony, systemy i aplikacje dla firm — Rabka-Zdrój, Podhale | PRO-KOM Software',
+      'Strony i systemy dla firm — Rabka-Zdrój | PRO-KOM Software',
     )
     for (const [slug, { title, description }] of Object.entries(SOFTWARE_PAGE_SEO)) {
       if (slug !== HOME_SLUG) expect(title ?? '', slug).not.toContain('PRO-KOM Software')

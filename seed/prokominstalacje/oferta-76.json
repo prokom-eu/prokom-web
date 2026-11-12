@@ -1,5 +1,5 @@
 {
- "_uwaga": "Pełna oferta: 76 rozwiązań w 10 obszarach (źródło: zrodlo/common.js → offer()). Pole obiekty = kategorie filtra Oferty (słownik niżej), NIE klucze InstObjects.",
+ "_uwaga": "Pełna oferta: 76 rozwiązań w 10 obszarach (źródło: zrodlo/common.js → offer()). Pole obiekty = kategorie filtra Oferty (słownik niżej), NIE klucze InstObjects. Brzmienia z FIX/AFIX strony Oferta.js wpisane do danych (I12).",
  "slownikFiltra": {
   "dom": "Dom",
   "apt": "Apartament",
@@ -54,7 +54,7 @@
     },
     {
      "nazwa": "Kamery z kolorem w nocy i detekcją AI",
-     "opis": "Odróżniają człowieka i auto od kota, liści i śniegu.",
+     "opis": "Rozpoznają ludzi i auta, dzięki czemu jest mniej fałszywych alarmów od zwierząt, liści i śniegu.",
      "obiekty": [
       "dom",
       "apt",
@@ -84,7 +84,7 @@
     },
     {
      "nazwa": "Switche PoE, UPS i szafa rack",
-     "opis": "Kamera zasilana tym samym kablem, którym przesyła obraz. Działa też przy zaniku prądu.",
+     "opis": "Kamera zasilana tym samym kablem, którym przesyła obraz. Z zasilaczem UPS system działa jeszcze przez pewien czas po zaniku prądu.",
      "obiekty": [
       "dom",
       "apt",
@@ -119,8 +119,8 @@
      "kolejnosc": 8
     },
     {
-     "nazwa": "Monitoring zgodny z zasadami RODO",
-     "opis": "Maski prywatności, czas przechowywania i oznakowanie terenu.",
+     "nazwa": "Monitoring ustawiony pod RODO",
+     "opis": "Maski prywatności, czas nagrań i miejsca na tabliczki.",
      "obiekty": [
       "dom",
       "apt",
@@ -252,7 +252,7 @@
    "rozwiazania": [
     {
      "nazwa": "Zamki z kodem do apartamentów",
-     "opis": "Kod ważny tylko w czasie pobytu, wysyłany z systemu rezerwacji.",
+     "opis": "Kod ważny tylko w czasie pobytu, wysyłany automatycznie, jeśli Twój system rezerwacji to obsługuje.",
      "obiekty": [
       "apt",
       "pens"
@@ -269,7 +269,7 @@
     },
     {
      "nazwa": "Karty i breloki dla pracowników",
-     "opis": "Strefy, godziny wejść, blokada zgubionej karty w minutę.",
+     "opis": "Strefy, godziny wejść, blokada zgubionej karty od ręki.",
      "obiekty": [
       "firma",
       "sklep",
@@ -297,7 +297,7 @@
     },
     {
      "nazwa": "Harmonogramy i historia wejść",
-     "opis": "Kto, kiedy i którymi drzwiami. Z zasadami RODO.",
+     "opis": "Kto, kiedy i którymi drzwiami. Ustawione pod RODO.",
      "obiekty": [
       "firma",
       "inst",
@@ -351,7 +351,7 @@
     },
     {
      "nazwa": "Okablowanie strukturalne",
-     "opis": "Gniazda, patchpanele i pomiary każdego toru z protokołem.",
+     "opis": "Gniazda, patchpanele i pomiary torów. Zakres dokumentacji ustalamy przed instalacją.",
      "obiekty": [
       "firma",
       "dev",
@@ -402,7 +402,7 @@
     },
     {
      "nazwa": "Zdalny nadzór nad siecią",
-     "opis": "Widzimy awarię, zanim zadzwonisz, wiele rzeczy naprawiamy zdalnie.",
+     "opis": "Przy umowie z nadzorem często widzimy awarię, zanim zadzwonisz. Wiele rzeczy naprawiamy zdalnie.",
      "obiekty": [
       "dom",
       "apt",
@@ -426,7 +426,7 @@
    "rozwiazania": [
     {
      "nazwa": "Instalacja telekomunikacyjna w nowym budynku",
-     "opis": "Gotowa na internet, telefon i telewizję, zgodnie z megaustawą.",
+     "opis": "Gotowa na internet, telefon i telewizję, zgodnie z przepisami o instalacji telekomunikacyjnej w nowych budynkach (tzw. megaustawa).",
      "obiekty": [
       "dev"
      ],
@@ -469,7 +469,7 @@
     },
     {
      "nazwa": "Pomiary i dokumentacja powykonawcza",
-     "opis": "Protokoły pomiarów i opis tras do odbioru.",
+     "opis": "Protokoły pomiarów i opis tras do odbioru budynku. W firmach i instytucjach zakres dokumentacji ustalamy przed instalacją.",
      "obiekty": [
       "dev",
       "firma",
@@ -733,7 +733,7 @@
    "usluga": "scr",
    "nazwaUslugi": "Ekrany i digital signage",
    "rodzina": "Komfort i obraz",
-   "opis": "Ekrany profesjonalne do pracy wiele godzin dziennie i treść zmieniana zdalnie. Sami używamy tego w naszych salonach.",
+   "opis": "Ekrany profesjonalne do pracy wiele godzin dziennie i treść zmieniana zdalnie. Wdrażamy to w naszym salonie.",
    "marki": [
     "Samsung",
     "Avtek",

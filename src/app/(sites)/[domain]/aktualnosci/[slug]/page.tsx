@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { biznesDescription, fitTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
@@ -31,6 +32,7 @@ import { SOFTWARE_NEWS_TEXTS } from '@/sites/software/components/news/texts'
 import { getSolutionsIndex } from '@/lib/software/data'
 import type { PostView } from '@/lib/posts/view'
 import { isPostCategory, newsListHref } from '@/lib/posts/list'
+import { metaDescription } from '@/lib/seo/description'
 
 import { requestOrigin, requireNewsTenant } from '../../tenant'
 
@@ -53,8 +55,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, post } = await load(params)
   if (!post) return {}
   const settings = await getSiteSettings(tenant.id)
-  const title = post.seo.title ?? post.title
-  const description = post.seo.description ?? post.lead ?? undefined
+  // Biznes: 30–60 characters with the suffix (audit 0611 P1-8: the KSeF post had 91).
+  const title =
+    tenant.line === 'biznes'
+      ? fitTitle(post.seo.title ?? post.title)
+      : (post.seo.title ?? post.title)
+  // Cut to what results show in full (audit 01.11: the KSeF post had 210 characters).
+  const descriptionSource = post.seo.description ?? post.lead
+  const description = descriptionSource
+    ? tenant.line === 'biznes'
+      ? biznesDescription(descriptionSource)
+      : metaDescription(descriptionSource)
+    : undefined
   return {
     title,
     description,
@@ -140,7 +152,7 @@ export default async function PostPage({ params }: Props) {
       <article aria-labelledby="post-h">
         <PostHeader post={post} crumbs={crumbs} />
         <Container wide className="pb-14 sm:pb-20">
-          <div className="grid gap-12 min-[1080px]:grid-cols-[minmax(0,1fr)_340px] min-[1080px]:gap-24">
+          <div className="grid gap-12 max-md:gap-0 min-[1080px]:grid-cols-[minmax(0,1fr)_340px] min-[1080px]:gap-24">
             <div className="max-w-[46rem]">
               <PostTocMobile outline={outline} />
               {post.summary && <PostSummary text={post.summary} />}
@@ -154,7 +166,8 @@ export default async function PostPage({ params }: Props) {
         </Container>
       </article>
       {products.length > 0 && (
-        <section aria-labelledby="produkty-h" className="bg-surface-2 py-14 sm:py-20">
+        // App-Wpis ends with the sources and the sticky „Zapytaj”: no products, no form.
+        <section aria-labelledby="produkty-h" className="bg-surface-2 py-14 max-md:hidden sm:py-20">
           <Container wide>
             <SectionHead id="produkty-h" heading={NEWS_TEXTS.related} />
             <ul className="mt-8 grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:grid-cols-3">

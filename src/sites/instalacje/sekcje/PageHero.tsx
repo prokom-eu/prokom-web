@@ -6,6 +6,7 @@ import type { InstService } from '@/payload-types'
 import { InstIcon } from '../InstIcon'
 import { AnchorsBar } from '../powloka/AnchorsBar'
 import type { Phone } from './types'
+import { Count } from './Count'
 
 type Props = {
   hero: InstService['hero']
@@ -22,7 +23,8 @@ type Props = {
   parent?: { label: string; href: string } | null
 }
 
-const SERVICES = { label: 'Usługi', href: '/#uslugi' }
+// The full offer since I12 (before: the home section `#uslugi`).
+const SERVICES = { label: 'Usługi', href: '/uslugi' }
 
 // The mountain ridges behind the hero (`zrodlo/inc/pheroA.html`).
 const RIDGE_1 =
@@ -53,7 +55,7 @@ export function PageHero({ hero, name, anchors, phone, widget, parent = SERVICES
         </svg>
         <div className="wrap">
           <nav className="crumb in d1" aria-label="Okruszki">
-            <Link href="/">Start</Link>
+            <Link href="/">Strona główna</Link>
             <span aria-hidden="true">/</span>
             {parent && (
               <>
@@ -65,13 +67,9 @@ export function PageHero({ hero, name, anchors, phone, widget, parent = SERVICES
           </nav>
           <div className="phw">
             <div className="pht2">
+              {/* INST-6: the eyebrow above the h1, not in it — the h1 says the service and the region. */}
+              {hero?.eyebrow && <p className="eye h1k in d2">{hero.eyebrow}</p>}
               <h1 className="h1 in d2">
-                {hero?.eyebrow && (
-                  <>
-                    <span className="eye h1k">{hero.eyebrow}</span>
-                    <span className="vh">: </span>
-                  </>
-                )}
                 {hero?.h1a || name} {hero?.h1b && <span className="acc">{hero.h1b}</span>}
               </h1>
               {hero?.lead && <p className="lead in d3">{hero.lead}</p>}
@@ -91,7 +89,9 @@ export function PageHero({ hero, name, anchors, phone, widget, parent = SERVICES
                 <div className="pkv in d5">
                   {hero.facts.map((fact) => (
                     <div key={fact.id ?? fact.value} className="kv">
-                      <b>{fact.value}</b>
+                      <b>
+                        <Count text={fact.value} />
+                      </b>
                       <span>{fact.label}</span>
                     </div>
                   ))}

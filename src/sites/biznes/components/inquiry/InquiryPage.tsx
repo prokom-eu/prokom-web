@@ -10,6 +10,7 @@ import { cartActions, useCart } from '@/lib/cart/store'
 import { useCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { itemsSummary } from '@/lib/inquiry/listForm'
 import { plural } from '@/lib/plural'
+import { BZ_H1 } from '@/sites/biznes/typography'
 
 import { AddToCartButton } from '../AddToCartButton'
 import { ProductThumb, productSubtitle } from '../ProductThumb'
@@ -114,7 +115,7 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
   const callback = callbackTime?.trim() || null
   const promises = [
     callback && (hours ? `${callback} (${hours})` : callback),
-    'Wycena na piśmie, z wariantami',
+    'Wycena z wariantami',
     'Bez zobowiązań, bez newslettera',
   ].filter((promise): promise is string => Boolean(promise))
 
@@ -155,12 +156,9 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
           {breadcrumbs}
           <div className="mt-4 flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
-              <h1 className="font-display text-[clamp(2.5rem,4.4vw,3.75rem)] leading-[0.98] font-extrabold tracking-[-0.02em] text-ink">
-                Twoje zapytanie
-              </h1>
+              <h1 className={`${BZ_H1} text-ink`}>Twoje zapytanie</h1>
               <p className="mt-4 text-lg leading-relaxed text-ink-2">
-                Sprawdź listę, dopisz uwagi i zostaw telefon. Przygotujemy wycenę na piśmie — z
-                wariantami, bez zobowiązań.
+                Sprawdź listę, dopisz uwagi i zostaw telefon. Przygotujemy wycenę z wariantami.
               </p>
             </div>
             <Steps sent={sent !== null} />
@@ -182,7 +180,7 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
                 <SearchIcon size={18} />
               </span>
               <p>
-                Szukałeś: <b>„{ask}”</b> — dopiszemy to do zapytania. Sprawdzimy dostępność u
+                Szukałeś: <b>„{ask}”</b>. Dopiszemy to do zapytania. Sprawdzimy dostępność u
                 dystrybutorów.
               </p>
               <button
@@ -218,7 +216,7 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
                 Lista jest pusta
               </p>
               <p className="max-w-[52ch] text-ink-2">
-                Dodawaj produkty i usługi przyciskiem „Do zapytania” w katalogu — albo po prostu
+                Dodawaj produkty i usługi przyciskiem „Do zapytania” w katalogu albo po prostu
                 napisz w formularzu obok, czego potrzebujesz.
               </p>
               <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
@@ -453,9 +451,7 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
                 </p>
               )}
               <p className="font-display text-[26px] leading-[1.1] font-extrabold text-ink">
-                {sent.hadItems
-                  ? 'Dziękujemy — mamy Twoją listę.'
-                  : 'Dziękujemy, zapytanie wysłane.'}
+                {sent.hadItems ? 'Dziękujemy, mamy Twoją listę.' : 'Dziękujemy, zapytanie wysłane.'}
               </p>
               <p className="leading-relaxed text-ink-2">
                 {sent.emailed &&
@@ -477,7 +473,7 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
                   { title: 'Zapytanie przyjęte', text: sent.items, done: true },
                   {
                     title: callback ?? 'Oddzwaniamy',
-                    text: `w godzinach pracy${hours ? `, ${hours}` : ''} — dopytamy o szczegóły`,
+                    text: `w godzinach pracy${hours ? `, ${hours}` : ''}. Dopytamy o szczegóły`,
                   },
                   {
                     title: 'Wycena na piśmie',
@@ -485,7 +481,7 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
                   },
                   {
                     title: 'Dostawa i wdrożenie',
-                    text: 'konfiguracja, fiskalizacja, szkolenie — u Ciebie',
+                    text: 'konfiguracja, fiskalizacja i szkolenie u Ciebie',
                   },
                 ].map((step, i, all) => (
                   <li key={step.title} className="relative grid grid-cols-[34px_1fr] gap-3 pb-4">

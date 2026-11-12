@@ -1,3 +1,4 @@
+import { existsSync } from 'fs'
 import { readFile } from 'fs/promises'
 import path from 'path'
 import type { Payload, Where } from 'payload'
@@ -20,6 +21,7 @@ import media from '../../../seed/prokombiznes/media.json'
 import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
 import search from '../../../seed/prokombiznes/wyszukiwarka.json'
 import { wizardSchema } from '../../lib/catalog/wizard'
+import { seedBiznesTextFixes } from './textFixes'
 import { k4Wizard, type K4WizardFile } from './k4Wizard'
 import { mapConcurrent } from '../concurrency'
 import { parseGalleryLimit, SEED_CONTEXT } from '../config'
@@ -76,9 +78,31 @@ import {
   type K4BrandsFile,
 } from './k4Brands'
 import { k4ShowroomData, type K4Showroom } from './k4Showrooms'
-import { k4Bundle, k4Scene, k4ServiceSlugs, type K4Bundle, type K4Scene } from './k4Plans'
-import { K4_FEATURED, k4CategoryOrder, k4GroupProducts, k4HomeProductFields } from './k4Home'
-import { seedBiznesK4Pages } from './k4PagesRun'
+import { seedBiznesPageSeo } from './pageSeo'
+import {
+  k4Bundle,
+  k4Scene,
+  k4ServiceSlugs,
+  packageCardStatus,
+  type K4Bundle,
+  type K4Scene,
+} from './k4Plans'
+import {
+  K4_FEATURED,
+  k4CategoryOrder,
+  k4GroupProducts,
+  k4HomeProductFields,
+  k4WheelImageFile,
+  k4WheelProducts,
+} from './k4Home'
+import { GOPOS_PHOTO_ALT, goposPhotoFiles, goposPhotoPath } from './k4Pages'
+import { k4PageSeeds, k4PagesFile, seedBiznesK4Pages } from './k4PagesRun'
+import { pagesToReplace } from './replacePages'
+import { seedBiznesTemplatePages, TEMPLATE_PAGES } from './templatePages'
+import { seedBiznesProcurementPages } from './procurementPages'
+import { homeProcurementPackage, seedBiznesHomeProcurement } from './homeProcurement'
+import { homeBundlesUpdate, seedBiznesHomeBiz2 } from './homeBiz2'
+import { seedBiznesHomeKsefNews } from './homeKsefNews'
 import {
   brandLogoFile,
   galleryFileName,
@@ -105,9 +129,12 @@ import { seedBiznesCategoryContent } from './category'
 import { seedBiznesIndustries } from './industries'
 import { seedBiznesNews } from './posts'
 import { seedBiznesLegal } from './legal'
-import { SERVICE_AREAS } from './contact'
+import { SERVICE_AREAS, upsertBiznesContact } from './contact'
+import { procurementLinksUpdate } from './procurementLinks'
 import { seedBiznesHome } from './home'
 import { navigationData, upgradedColumnLimit, upgradedHighlights, upgradedMenu } from './navigation'
+import { seedSharedData } from '../shared/run'
+import { MENU_IMAGES, MENU_MEDIA_DIR, menuImageUpdate, menuUploadName } from './menuImages'
 
 /** Files of the design package, relative to the repo root (where `pnpm seed` runs). */
 const MEDIA_DIR = path.join('docs', 'design', 'prokombiznes', 'boards', 'media')
@@ -705,6 +732,44 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     count('catalog-groups K4 lists', same ? false : 'updated')
   }
 
+  // --- wheel cards (KOLO-HERO v3): cut-out photo, short name and colour of each card ---
+  for (const [slug, fields] of k4WheelProducts(k4HomeFile)) {
+    const id = productIds.get(slug)
+    if (id === undefined) throw new Error(`Seed (Biznes): wheel card "${slug}" missing.`)
+    const photo = k4WheelImageFile(slug)
+    let wheelImage: number | null = storedId(photo.uploadName) ?? null
+    // A service without a photo (przegląd kasy) shows its icon on the wheel.
+    if (wheelImage === null && existsSync(photo.filePath)) {
+      const data = await readFile(path.resolve(photo.filePath))
+      wheelImage = (
+        await payload.create({
+          collection: 'media',
+          data: {
+            alt: `${fields.wheelName} — zdjęcie na kole`,
+            source: 'paczka 03.11.2026 (wycięte z paczki K3/K4), prawo użycia do potwierdzenia',
+            requiresConsent: false,
+            tenant: tenant.id,
+          },
+          file: { data, mimetype: 'image/webp', name: photo.uploadName, size: data.length },
+          ...local,
+        })
+      ).id
+      count('media (koło)', true)
+    }
+    const stored = await payload.findByID({ collection: 'products', id, ...local })
+    const update = { ...fields, wheelImage }
+    const same = hasSameValues(stored, update)
+    if (!same) {
+      await payload.update({
+        collection: 'products',
+        id,
+        data: { ...update, _status: stored._status ?? 'draft' },
+        ...local,
+      })
+    }
+    count('products koło', same ? false : 'updated')
+  }
+
   // --- K4 polecane and podobne (ADR-017 pkt 10), once every card has its record ---
   log(`products with K4 content: ${JSON.stringify(k4Changes)}`)
   const linked = [...k4Cards.values()].filter((card) => productIds.has(card.slug_seed))
@@ -825,6 +890,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   // K4a-2: texts and items of zestawy-k4.json over K3c (series, industries, notes stay). Cards of
   // K4 data include the new K4 cards, which K3.1 does not know.
   const k4CardsFor = cardsOf({ ...k31, cards })
+  // BIZ-3 §9.1: a bundle is „Gotowe” only with ready cards (the K4 status wins, like the card).
+  const cardStatus = packageCardStatus(cards, k4Catalog.produkty, k4CardsFor)
   const serviceSlug = k4ServiceSlugs(k4Catalog.produkty)
   const k4BundleData = k4BundlesFile.zestawy as Record<string, K4Bundle>
   const bundles: K3Bundle[] = k3Bundles.zestawy.map((base) => {
@@ -839,6 +906,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       industry: (slug) => industryIds.get(slug),
       category: (code) => categoryIds.get(code),
       hidden: hiddenCards,
+      cardStatus,
     })
     for (const item of bundle.elementy) {
       if (k4CardsFor(item.slug).some((slug) => hiddenCards.has(slug))) {
@@ -999,6 +1067,17 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       })
     }
     count('biznes-settings brands', same ? false : 'updated')
+    // B3-1: the bundles of the home plan (`zestawy_na_glownej`), only while the panel has none.
+    const homeBundles = homeBundlesUpdate(settingsDoc.bundles?.home, (slug) => bundleIds.get(slug))
+    count('biznes-settings home bundles', homeBundles ? 'updated' : false)
+    if (homeBundles) {
+      await payload.update({
+        collection: 'biznes-settings',
+        id: settingsDoc.id,
+        data: { bundles: { home: homeBundles } },
+        ...local,
+      })
+    }
   }
 
   // --- header navigation in the site settings (created by `pnpm seed`), only while empty ---
@@ -1113,24 +1192,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
   }
 
-  // --- WhatsApp: the line's own (sample) number, spec. §1 "ten sam numer na WhatsApp" ---
-  if (siteSettings) {
-    const current = await payload.findByID({
-      collection: 'site-settings',
-      id: siteSettings.id,
-      ...local,
-    })
-    const whatsappMissing = !current.biznes?.whatsapp && Boolean(current.phone)
-    count('site-settings whatsapp', whatsappMissing)
-    if (whatsappMissing) {
-      await payload.update({
-        collection: 'site-settings',
-        id: siteSettings.id,
-        data: { biznes: { ...current.biznes, whatsapp: current.phone } },
-        ...local,
-      })
-    }
-  }
+  // --- contact data of the line (decision 01.11.2026): phones, e-mail, the office ---
+  await upsertBiznesContact(payload, tenant.id, count)
 
   // --- towns served (B8c): the footer and /kontakt list them ---
   if (siteSettings) {
@@ -1146,6 +1209,25 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
         collection: 'site-settings',
         id: siteSettings.id,
         data: { biznes: { ...current.biznes, serviceAreas: SERVICE_AREAS } },
+        ...local,
+      })
+    }
+  }
+
+  // --- „Zaopatrzenie — linki” (plan 0611 §6.4): only the empty fields ---
+  if (siteSettings) {
+    const current = await payload.findByID({
+      collection: 'site-settings',
+      id: siteSettings.id,
+      ...local,
+    })
+    const procurement = procurementLinksUpdate(current.biznes?.procurement)
+    count('site-settings procurement links', procurement ? 'updated' : false)
+    if (procurement) {
+      await payload.update({
+        collection: 'site-settings',
+        id: siteSettings.id,
+        data: { biznes: { ...current.biznes, procurement } },
         ...local,
       })
     }
@@ -1171,8 +1253,117 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     product: (shortId: string) => productIds.get(shortId),
   }
   const pageReport = (name: string, changed: boolean) => count(name, changed ? 'updated' : false)
+  // POPRAWKI-0311: the GoPOS photos with the screen on, uploaded once as `k4-gopos-<file>`.
+  const goposPhotos = new Map<string, number>()
+  for (const file of goposPhotoFiles(k4PagesFile)) {
+    const uploadName = `k4-gopos-${file}`
+    const stored = storedId(uploadName)
+    count('media (GoPOS)', stored === undefined)
+    if (stored !== undefined) {
+      goposPhotos.set(file, stored)
+      continue
+    }
+    const data = await readFile(path.resolve(goposPhotoPath(file)))
+    const created = await payload.create({
+      collection: 'media',
+      data: {
+        alt: GOPOS_PHOTO_ALT[file] ?? 'GoPOS',
+        source: 'paczka 03.11.2026 (wycięte z paczki K3/K4), prawo użycia do potwierdzenia',
+        requiresConsent: false,
+        tenant: tenant.id,
+      },
+      file: { data, mimetype: 'image/webp', name: uploadName, size: data.length },
+      ...local,
+    })
+    goposPhotos.set(file, created.id)
+  }
+  // BIZ-1: thumbnails of the „Oferta ▾” mega menu (`menu-c-*.webp`), on categories still without one.
+  for (const [slug, file] of Object.entries(MENU_IMAGES)) {
+    // K4 categories are seeded after the K3 map (`categoryIds`): look the slug up in the database.
+    const {
+      docs: [category],
+    } = await payload.find({
+      collection: 'catalog-categories',
+      where: { and: [{ tenant: { equals: tenant.id } }, { slug: { equals: slug } }] },
+      select: { menuImage: true, name: true },
+      limit: 1,
+      ...local,
+    })
+    if (!category) continue
+    const categoryId = category.id
+    const uploadName = menuUploadName(file)
+    let imageId = storedId(uploadName)
+    count('media (menu)', imageId === undefined)
+    if (imageId === undefined) {
+      const data = await readFile(path.resolve(MENU_MEDIA_DIR, file))
+      imageId = (
+        await payload.create({
+          collection: 'media',
+          data: {
+            alt: category.name,
+            source: 'prototyp 0611 (miniatury menu „Oferta”), zdjęcia produktów z paczek K3/K4',
+            requiresConsent: false,
+            tenant: tenant.id,
+          },
+          file: { data, mimetype: 'image/webp', name: uploadName, size: data.length },
+          ...local,
+        })
+      ).id
+    }
+    const menuImage = menuImageUpdate(category.menuImage, imageId)
+    count('catalog-categories (menu)', menuImage === null ? false : 'updated')
+    if (menuImage !== null) {
+      await payload.update({
+        collection: 'catalog-categories',
+        id: categoryId,
+        data: { menuImage },
+        ...local,
+      })
+    }
+  }
+
   // K4h: /gopos and /insert from the K4 package (B9 layout replaced while untouched).
-  await seedBiznesK4Pages(payload, tenant.id, (id) => slugByKey.get(id), pageReport, note)
+  await seedBiznesK4Pages(
+    payload,
+    tenant.id,
+    (id) => slugByKey.get(id),
+    pageReport,
+    note,
+    (file) => goposPhotos.get(file),
+  )
+
+  // D3-B PR 2: /o-firmie and /kontakt on the shared templates (replaces their K4 layouts).
+  await seedBiznesTemplatePages(payload, tenant.id, pageReport, note)
+  // --zamien-strony / ZAMIEN_STRONY: a slug the seed has no page for would do nothing silently.
+  const replaceable = new Set([
+    ...k4PageSeeds((id) => slugByKey.get(id)).map((seed) => seed.slug),
+    ...TEMPLATE_PAGES.map((seed) => seed.slug),
+  ])
+  for (const slug of pagesToReplace()) {
+    if (!replaceable.has(slug)) note('ZAMIEN_STRONY: nieznana strona (bez zmian)', slug)
+  }
+
+  // BIZ-2: /agd-rtv-dla-firm and /dostawy-it-dla-firm (ZAOPATRZENIE §2), media `zaop-*`.
+  const procurementMedia = await seedBiznesProcurementPages(
+    payload,
+    tenant.id,
+    storedId,
+    pageReport,
+    note,
+    [homeProcurementPackage],
+  )
+  // B2-3: „Zaopatrzenie firm” on the home page, right after the offer (ZAOPATRZENIE §8).
+  await seedBiznesHomeProcurement(
+    payload,
+    tenant.id,
+    (name) => procurementMedia.get(name),
+    pageReport,
+    note,
+  )
+  // B3-1: the order of plan 0611 §7.1 and the texts of the plan with the industries (D8).
+  await seedBiznesHomeBiz2(payload, tenant.id, pageReport)
+  // B3-2: the KSeF band (deadline in the settings) and „Aktualności” (plan 0611 §7.1 pkt 7, 12).
+  await seedBiznesHomeKsefNews(payload, tenant.id, pageReport)
 
   // --- category page content (B10a): the cash registers from the board ---
   await seedBiznesCategoryContent(payload, tenant.id, pageRefs.product, pageReport)
@@ -1185,6 +1376,15 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- legal pages (B11b): privacy policy, cookies, accessibility (drafts to approve) ---
   await seedBiznesLegal(payload, tenant.id, pageReport)
+
+  // --- corrected wording in pages seeded earlier (old contact, 01.11.2026) ---
+  await seedBiznesTextFixes(payload, tenant.id, pageReport)
+
+  // --- SEO of panel pages (BIZ-3 §10.2): titles into empty fields, descriptions under 100 ---
+  await seedBiznesPageSeo(payload, tenant.id, pageReport)
+
+  // --- shared data of the company and the line (D1, spec elementów wspólnych §4) ---
+  await seedSharedData(payload, 'biznes', tenant.id, count)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

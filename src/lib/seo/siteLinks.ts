@@ -5,6 +5,7 @@ import { productHref } from '../catalog/card'
 import { categoryHref, subcategoryHref } from '../catalog/category'
 import { BRANDS_PATH, CATALOG_PATH } from '../catalog/filters'
 import { PLAN_PATH } from '../catalog/floorPlan'
+import { CONFIGURATOR_PATH } from '../catalog/wizardEngine'
 import { industryHref } from '../catalog/industry'
 import { objectHref } from '../instalacje/menu'
 import { HOME_SLUG, pagePath } from '../pages/slug'
@@ -13,7 +14,7 @@ import { NEWS_PATH, postHref } from '../posts/list'
 import { CATALOG_PATH as SOLUTIONS_PATH } from '../software/catalog'
 import { cityHref } from '../software/cities'
 import { industryPageHref } from '../software/industryPage'
-import { WIZARD_PATH } from '../software/wizardFlow'
+import { WIZARD_PATH } from '../software/wizard/flow'
 
 export const SITE_MAP_PATH = '/mapa-strony'
 
@@ -49,11 +50,15 @@ export type SiteMapInput = {
     bundles?: readonly { slug: string; name: string }[] | null
     /** „Plan Twojej firmy” has a scene to show (K31d′): `/plan-firmy` is listed. */
     plan?: boolean
+    /** The panel has configurator rules: `/konfigurator` is listed (audit 0611 P1-10). */
+    configurator?: boolean
     /** `categories[0]` is the main category. */
     products: readonly ({ slug: string; name: string; categories: readonly string[] } & Dated)[]
   } | null
   /** Posts of a line with news; `null` on lines without it. */
   news: { posts: readonly ({ slug: string; title: string } & Dated)[] } | null
+  /** Instalacje: posts of the guide `/poradnik/<slug>` (I12); absent elsewhere. */
+  guide?: { posts: readonly ({ slug: string; title: string } & Dated)[] } | null
   /** Software: the catalog and the page of every published solution (SW10); absent elsewhere. */
   solutions?: { items: readonly { slug: string; name: string }[] } | null
   /** Software: active industry pages `/dla-branz/[branza]` (SW10b); absent elsewhere. */
@@ -75,6 +80,7 @@ export function buildSiteMap({
   pages,
   catalog,
   news,
+  guide,
   solutions,
   industryPages,
   cities,
@@ -148,6 +154,14 @@ export function buildSiteMap({
             label: bundle.name,
           })),
         ],
+      })
+    }
+    // The configurator is indexable (canonical) and in no other list (audit 0611 P1-10).
+    if (catalog.configurator) {
+      sections.push({
+        id: 'konfigurator',
+        title: 'Konfigurator',
+        links: [{ href: CONFIGURATOR_PATH, label: 'Konfigurator — dobierz rozwiązanie' }],
       })
     }
     if (catalog.plan) {
@@ -238,6 +252,19 @@ export function buildSiteMap({
           updatedAt: post.updatedAt,
         })),
       ],
+    })
+  }
+
+  // The list `/poradnik` is a page (listed with the pages); here only the posts.
+  if (guide && guide.posts.length > 0) {
+    sections.push({
+      id: 'poradnik',
+      title: 'Poradnik',
+      links: guide.posts.map((post) => ({
+        href: postHref(post.slug, 'instalacje'),
+        label: post.title,
+        updatedAt: post.updatedAt,
+      })),
     })
   }
   return sections

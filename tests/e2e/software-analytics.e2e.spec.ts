@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { hydrated, site } from './helpers'
 
 // SW12: analytics events of the Software line (spec. §8.4, ADR-020). Umami is off in CI (no
 // `UMAMI_*`), so a stand-in `window.umami` records what `track()` sends. Data from `pnpm seed`.
@@ -48,6 +48,31 @@ test.describe('Software analytics (ADR-020)', () => {
     expect((await request.get(site(HOST, '/_s/api/websites'))).status()).toBe(404)
   })
 
+  test('v24 start page: hero tile, bento variant, showroom industry (ZMIANY-v24 §13)', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST))
+    // Each island is lazy (ADR-023): a click before hydration sends no event.
+    const heroTab = page.locator('#start [role="tab"]').nth(1)
+    await hydrated(heroTab)
+    await heroTab.click()
+    const bento = page.locator('#oferta')
+    await bento.scrollIntoViewIfNeeded()
+    const variant = bento.locator('button[aria-pressed="false"]').first()
+    await hydrated(variant)
+    await variant.click()
+    const showroom = page.locator('#podglady')
+    await showroom.scrollIntoViewIfNeeded()
+    const industry = showroom.locator('[role="tab"][aria-selected="false"]').first()
+    await hydrated(industry)
+    await industry.click()
+    await expect
+      .poll(async () => (await events(page)).map(([name]) => name))
+      .toEqual(expect.arrayContaining(['hero_slajd', 'oferta_wariant', 'branza_podglad']))
+    expect(await events(page)).toEqual(expect.arrayContaining([['hero_slajd', { nr: 2 }]]))
+    await expectNoTypedValues(page)
+  })
+
   test('the offer window: opening it and adding from it', async ({ page }) => {
     await page.goto(site(HOST, '/rozwiazania?rozwiazanie=strona-firmowa-z-panelem'))
     const dialog = page.getByRole('dialog', { name: 'Strona firmowa z panelem', exact: true })
@@ -64,19 +89,22 @@ test.describe('Software analytics (ADR-020)', () => {
     )
   })
 
-  test('the wizard: start, steps, „więcej”, result, add-on and field errors', async ({ page }) => {
+  test('the wizard: start, steps, result and field errors', async ({ page }) => {
     await page.goto(site(HOST, '/dobierz'))
     const main = page.getByRole('main')
     const button = (name: string | RegExp) => main.getByRole('button', { name })
-    await main.getByRole('button', { name: /^Strona dla firmy/ }).click()
+    const title = main.locator('[data-wizard-step]').getByRole('heading')
+    // The first click may come before hydration: repeat it until the step changes.
+    await expect(async () => {
+      await button(/^Strona firmowa/).click()
+      await expect(title).toHaveText('Jaka to firma?', { timeout: 1000 })
+    }).toPass()
     await button('Pensjonat, hotel, apartamenty').click()
-    await main.getByLabel('Rezerwacja z zaliczką online').check()
-    await button('Nic, zaczynam od zera').click()
-    await button('Przed sezonem zimowym').click()
+    await button(/Zaczynamy od zera$/).click()
+    await button('Dalej →').click()
     await button('Pokaż wynik →').click()
-    await button(/^Opieka nad stroną/).click()
     await main.locator('form button[type="submit"]').click()
-    await expect(main.getByText('Wpisz numer telefonu (9 cyfr).')).toBeVisible()
+    await expect(main.getByText('Wpisz telefon albo adres e-mail.')).toBeVisible()
 
     const recorded = await events(page)
     const names = recorded.map(([name]) => name)
@@ -86,12 +114,12 @@ test.describe('Software analytics (ADR-020)', () => {
         ['kreator_krok', { krok: 2 }],
         ['kreator_krok', { krok: 3 }],
         ['kreator_krok', { krok: 4 }],
-        ['kreator_wynik', { wynik: 'pensjonat' }],
+        ['kreator_krok', { krok: 5 }],
+        ['kreator_wynik', { wynik: 'firmowa' }],
         ['formularz_blad', { formularz: 'kreator', pole: 'contact' }],
         ['formularz_blad', { formularz: 'kreator', pole: 'consent' }],
       ]),
     )
-    expect(names.filter((name) => name === 'kreator_dodatek')).toHaveLength(2)
     expect(names).not.toContain('kreator_wyslij')
     await expectNoTypedValues(page)
   })
@@ -113,9 +141,10 @@ test.describe('Software analytics (ADR-020)', () => {
 test.describe('Software analytics on a phone (ADR-020)', () => {
   test.use({ viewport: { width: 390, height: 844 } })
 
+  // The shared bar and sheet report through the frame's `PhoneSignals` (SWA5a).
   test('bottom bar items and the menu sheet', async ({ page }) => {
     await page.goto(site(HOST, '/dziekujemy'))
-    const bar = page.getByRole('navigation', { name: 'Pasek nawigacji' })
+    const bar = page.getByRole('navigation', { name: 'Pasek aplikacji' })
     await bar.getByRole('button', { name: 'Menu' }).click()
     await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible()
     expect(await events(page)).toEqual([

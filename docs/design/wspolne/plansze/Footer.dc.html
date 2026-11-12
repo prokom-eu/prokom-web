@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Stopka trzech linii PRO-KOM</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Manrope:wght@400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}
+</style>
+</helmet>
+<div style="width: 1440px; height: 3280px; box-sizing: border-box; background: #E3E6DF; color: #121613; font-family: Manrope, system-ui, sans-serif; display: flex; flex-direction: column">
+
+  <div style="padding: 48px 80px 30px; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #367E23">02 · Powłoka</span>
+      <h2 style="margin: 0; font-family: Archivo, sans-serif; font-stretch: 108%; font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -0.02em">Stopka: góra linii, dół wspólny</h2>
+      <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #4F5650; max-width: 760px">Kolumny z linkami należą do linii. Pas linii PRO-KOM i pasek prawny są identyczne na każdej stronie. Tło stopki to ciemny kolor linii.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 700; align-items: flex-end">
+      <span style="display: flex; align-items: center; gap: 8px"><span style="width: 28px; height: 10px; border-radius: 3px; border: 1.5px dashed #767C74"></span>A · kolumny linii</span>
+      <span style="display: flex; align-items: center; gap: 8px"><span style="width: 28px; height: 10px; border-radius: 3px; background: #121613"></span>B · pas linii PRO-KOM (1:1)</span>
+      <span style="display: flex; align-items: center; gap: 8px"><span style="width: 28px; height: 10px; border-radius: 3px; background: #121613"></span>C · pasek prawny (1:1)</span>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 26px">
+    <sc-for list="{{lines}}" as="l" hint-placeholder-count="3">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="padding: 0 80px; display: flex; align-items: center; gap: 10px; font-size: 13px; color: #2E342F">
+          <span style="display: flex; align-items: center; gap: 8px; font-family: Archivo, sans-serif; font-weight: 800; font-size: 15px; color: #121613"><span style="width: 18px; height: 4px; border-radius: 2px; background: {{l.brand}}"></span>{{l.name}}</span>
+          <span style="color: #4F5650">tło {{l.bg}} · akcent na ciemnym {{l.onDark}}</span>
+        </div>
+        <footer style="position: relative; background: {{l.bg}}; color: {{l.text}}; font-size: 14px">
+          <sc-if value="{{l.ridge}}" hint-placeholder-val="{{ false }}">
+            <svg aria-hidden="true" width="1440" height="26" viewBox="0 0 1440 26" style="display: block; position: absolute; top: -25px; left: 0"><path d="M0 26 L0 18 L120 8 L210 16 L330 4 L470 18 L560 10 L690 20 L820 6 L940 16 L1060 9 L1180 19 L1300 7 L1440 15 L1440 26 Z" fill="{{l.bg}}"/></svg>
+          </sc-if>
+          <div style="max-width: 1280px; margin: 0 auto; padding: 52px 0 0">
+            <div style="display: grid; grid-template-columns: {{l.cols}}; gap: 40px; padding: 18px; margin: 0 -18px; border-radius: 18px; border: 1.5px dashed {{l.dashed}}">
+              <div style="display: flex; flex-direction: column; gap: 16px">
+                <dc-import name="Logo" label="{{l.label}}" accent="{{l.onDark}}" dark="{{true}}" size="{{28}}" hint-size="170px,34px"></dc-import>
+                <p style="margin: 0; line-height: 1.6; max-width: 330px">{{l.desc}}</p>
+                <div style="display: flex; flex-direction: column; gap: 8px">
+                  <sc-for list="{{l.promises}}" as="p" hint-placeholder-count="3">
+                    <span style="display: flex; align-items: center; gap: 9px; font-weight: 700; color: {{l.ink}}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{l.onDarkText}}" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{p}}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <sc-for list="{{l.columns}}" as="c" hint-placeholder-count="3">
+                <nav aria-label="{{c.h}}" style="display: flex; flex-direction: column; gap: 11px">
+                  <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: {{l.ink}}">{{c.h}}</span>
+                  <sc-for list="{{c.items}}" as="i" hint-placeholder-count="5">
+                    <a href="#">{{i}}</a>
+                  </sc-for>
+                </nav>
+              </sc-for>
+              <div style="display: flex; flex-direction: column; gap: 12px">
+                <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: {{l.ink}}">Kontakt</span>
+                <a href="#" aria-label="Wyznacz trasę do PRO-KOM, ul. Orkana 16B" style="display: block; position: relative; border-radius: 14px; overflow: hidden; border: 1px solid {{l.line}}">
+                  <dc-import name="Mapa" accent="{{l.onDark}}" dark="{{true}}" label="{{false}}" h="{{118}}" radius="{{14}}" hint-size="100%,118px"></dc-import>
+                  <span style="position: absolute; left: 8px; bottom: 8px; padding: 5px 9px; border-radius: 9px; background: rgba(255,255,255,0.94); color: #121613; font-size: 12px; font-weight: 800">Wyznacz trasę ↗</span>
+                </a>
+                <a href="#" style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 22px; color: {{l.ink}}">{{l.phone}}</a>
+                <a href="#" style="color: {{l.onDarkText}}; font-weight: 700">{{l.email}}</a>
+                <span style="line-height: 1.5">ul. Orkana 16B<br>34-700 Rabka-Zdrój</span>
+                <span style="display: flex; align-items: center; gap: 8px; color: {{l.ink}}; font-weight: 700"><span style="width: 8px; height: 8px; border-radius: 50%; background: #7BD36A"></span>{{l.hours}}</span>
+                <span style="font-size: 13px">{{l.response}}</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 34px; padding-top: 26px; border-top: 1px solid {{l.line}}; display: flex; flex-direction: column; gap: 14px">
+              <div style="display: flex; justify-content: space-between; align-items: center">
+                <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: {{l.ink}}">Jedna firma — linie PRO-KOM</span>
+                <span style="font-size: 12.5px">Każda linia ma swój zespół i swój numer</span>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px">
+                <sc-for list="{{l.band}}" as="b" hint-placeholder-count="5">
+                  <a href="#" aria-current="{{b.aria}}" style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 14px; border-radius: 14px; background: {{b.bg}}; border: 1px solid {{b.border}}; text-decoration: none; min-height: 100px; box-sizing: border-box">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start">
+                      <sc-if value="{{b.line}}" hint-placeholder-val="{{ true }}"><dc-import name="Logo" label="{{b.label}}" accent="{{b.c}}" dark="{{true}}" size="{{15}}" hint-size="92px,22px"></dc-import></sc-if>
+                      <sc-if value="{{b.gaming}}" hint-placeholder-val="{{ false }}"><span style="display: flex; flex-direction: column; gap: 2px; line-height: 1"><span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 13px; color: #ECE4D0">PRO-KOM</span><span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 11px; letter-spacing: 0.32em; color: #F2C230">GAMING</span></span></sc-if>
+                      <sc-if value="{{b.cur}}" hint-placeholder-val="{{ false }}">
+                        <span style="font-size: 10.5px; font-weight: 800; padding: 3px 7px; border-radius: 999px; background: {{b.c}}; color: #0B0F0C">Jesteś tutaj</span>
+                      </sc-if>
+                      <sc-if value="{{b.notCur}}" hint-placeholder-val="{{ true }}">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="opacity: 0.7"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                      </sc-if>
+                    </div>
+                    <span style="font-size: 13px; line-height: 1.4; color: {{l.text}}">{{b.d}}</span>
+                    <span style="font-size: 12px; font-weight: 700; color: {{l.ink}}; margin-top: auto">{{b.dom}}</span>
+                  </a>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="margin-top: 26px; padding: 18px 0 22px; border-top: 1px solid {{l.line}}; display: flex; justify-content: space-between; align-items: center; gap: 24px; font-size: 12.5px">
+              <div style="display: flex; flex-direction: column; gap: 4px">
+                <span style="color: {{l.ink}}">© 2026 PRO-KOM Tadeusz Wójciak · ul. Orkana 16B, 34-700 Rabka-Zdrój · NIP 7352511447</span>
+                <span>{{l.legalNote}}</span>
+              </div>
+              <nav aria-label="Informacje prawne" style="display: flex; gap: 18px; align-items: center; color: {{l.ink}}">
+                <a href="#">Polityka prywatności</a><a href="#">Cookies</a><a href="#">Dostępność</a><a href="#">Mapa strony</a>
+                <a href="#" style="display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 10px; border: 1px solid {{l.line}}">Do góry<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
+              </nav>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3280}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const lines = [
+      { name: 'Biznes', label: 'BIZNES', brand: '#244FB0', onDark: '#4A7BE0', onDarkText: '#8DADF0', bg: '#0A1430', text: '#AEB8D2', ink: '#FFFFFF', line: 'rgba(255,255,255,0.12)', dashed: 'rgba(255,255,255,0.22)', card: 'rgba(255,255,255,0.04)',
+        ridge: false, cols: '1.5fr repeat(3, minmax(0, 1fr)) 1.25fr',
+        desc: 'Kasy fiskalne, systemy POS, programy, komputery i opieka IT dla firm z Podhala i Małopolski.',
+        promises: ['Serwis Posnet i Elzab', 'Partner GoPOS i InsERT', 'Wycena na piśmie'],
+        columns: [
+          { h: 'Oferta', items: ['Cała oferta', 'Gotowe zestawy', 'Plan Twojej firmy', 'Wszystkie marki', 'Konfigurator'] },
+          { h: 'Usługi', items: ['Opieka IT', 'GoPOS', 'InsERT', 'Bezpłatny przegląd IT', 'KSeF'] },
+          { h: 'Firma', items: ['O firmie', 'Aktualności', 'Kontakt i dojazd'] }
+        ],
+        phone: '889 003 889', email: 'biznes@pro-kom.eu', response: 'Oddzwaniamy w godzinach pracy',
+        legalNote: 'Oferta skierowana do przedsiębiorców i instytucji · Logotypy należą do ich właścicieli' },
+      { name: 'Instalacje', label: 'INSTALACJE', brand: '#0093B3', onDark: '#12B6D8', onDarkText: '#4CCBE6', bg: '#071214', text: '#9FB0B4', ink: '#F2F6F7', line: 'rgba(255,255,255,0.1)', dashed: 'rgba(255,255,255,0.2)', card: 'rgba(255,255,255,0.035)',
+        ridge: true, cols: '1.5fr repeat(3, minmax(0, 1fr)) 1.25fr',
+        desc: 'Monitoring, alarmy, sieci i Wi-Fi, smart home, nagłośnienie i ekrany. Projekt, montaż i serwis.',
+        promises: ['Projekt · montaż · serwis', '24 miesiące gwarancji na montaż', 'Wycena na piśmie'],
+        columns: [
+          { h: 'Usługi', items: ['Monitoring i kamery', 'Alarmy i wideodomofony', 'Sieci i Wi-Fi', 'Smart home Ampio', 'Ładowarki samochodów', 'Pełna oferta'] },
+          { h: 'Dla kogo', items: ['Dom i domek letniskowy', 'Pensjonat', 'Hotel', 'Firma, biuro i hala', 'Gmina i urząd', 'Deweloper'] },
+          { h: 'Firma', items: ['Dla architektów', 'Realizacje', 'Poradnik', 'Serwis i przeglądy', 'O firmie'] }
+        ],
+        phone: '889 003 889', email: 'kontakt@prokominstalacje.pl', response: 'Odpowiedź do 24 h w dni robocze',
+        legalNote: 'Logotypy należą do ich właścicieli' },
+      { name: 'Software', label: 'SOFTWARE', brand: '#8B61E3', onDark: '#9670EE', onDarkText: '#B49BF5', bg: '#161A17', text: '#A9AFA9', ink: '#F4F5F1', line: 'rgba(255,255,255,0.1)', dashed: 'rgba(255,255,255,0.2)', card: 'rgba(255,255,255,0.035)',
+        ridge: false, cols: '1.5fr repeat(2, minmax(0, 1fr)) 1.25fr',
+        desc: 'Strony, systemy, aplikacje i automatyzacje dla firm. Zobaczysz, zanim zapłacisz.',
+        promises: ['Kod, domena i dane należą do Ciebie', 'Serwer w Polsce, kopia co noc', 'Cena i termin na piśmie'],
+        columns: [
+          { h: 'Oferta', items: ['Strony internetowe', 'Systemy i panele', 'Aplikacje mobilne', 'Automatyzacje i AI', 'Opieka i utrzymanie', 'Cennik'] },
+          { h: 'Firma', items: ['O firmie', 'Jedna firma do wszystkiego', 'Aktualności', 'Darmowy audyt'] }
+        ],
+        phone: '883 200 151', email: 'kontakt@prokomsoftware.pl', response: 'Odpowiedź w 1 dzień roboczy',
+        legalNote: 'Statystyki bez ciasteczek śledzących' },
+      { name: 'Tech', label: 'TECH', brand: '#D13A2E', onDark: '#E2483A', onDarkText: '#F29185', bg: '#1A1312', text: '#B9AEAC', ink: '#F6F1F0', line: 'rgba(255,255,255,0.1)', dashed: 'rgba(255,255,255,0.2)', card: 'rgba(255,255,255,0.035)',
+        ridge: false, cols: '1.5fr repeat(3, minmax(0, 1fr)) 1.25fr',
+        desc: 'Serwis telefonów, laptopów, tabletów, drukarek i konsol w Rabce-Zdroju. Folie Hammer Glass wycinane na miejscu.',
+        promises: ['Diagnoza i wycena przed naprawą', 'Odbiór osobiście lub kurierem', 'Otwarte także w soboty'],
+        columns: [
+          { h: 'Usługi', items: ['Naprawa telefonów', 'Naprawa laptopów', 'Naprawa tabletów', 'Drukarki i konsole', 'Komputery stacjonarne'] },
+          { h: 'Sklep', items: ['Akcesoria GSM', 'Ładowarki i kable', 'Etui i ochrona', 'Hammer Glass CUT', 'Folie ochronne'] },
+          { h: 'Informacje', items: ['O firmie', 'FAQ', 'Blog', 'Obsługiwane miejscowości', 'Regulamin serwisu'] }
+        ],
+        phone: '883 200 151', email: 'sklep@pro-kom.eu', response: 'Wycena przed naprawą · bez niespodzianek',
+        legalNote: 'Regulamin serwisu · Logotypy należą do ich właścicieli' }
+    ];
+    const band = [
+      { n: 'PRO-KOM', label: '', c: '#4FB034', d: 'Wszystkie linie PRO-KOM', dom: 'pro-kom.eu' },
+      { n: 'Biznes', label: 'BIZNES', c: '#4A7BE0', d: 'Kasy, komputery, opieka IT', dom: 'prokombiznes.pl' },
+      { n: 'Instalacje', label: 'INSTALACJE', c: '#12B6D8', d: 'Monitoring, sieci, smart home', dom: 'prokominstalacje.pl' },
+      { n: 'Software', label: 'SOFTWARE', c: '#9670EE', d: 'Strony, systemy, aplikacje', dom: 'prokomsoftware.pl' },
+      { n: 'Tech', label: 'TECH', c: '#E2483A', d: 'Naprawy telefonów i komputerów', dom: 'prokomserwis.pl' },
+      { n: 'Gaming', label: '', c: '#F2C230', d: 'Komputery gamingowe · marka PRO-KOM', dom: 'prokomgaming.pl', isGaming: true }
+    ];
+    return {
+      lines: lines.map((l) => ({
+        ...l,
+        hours: l.name === 'Tech' ? 'Otwarte · pn–pt 9–17 · sob 9–14' : 'Otwarte · pn–pt 9:00–17:00',
+        band: band.map((b) => {
+          const cur = b.n === l.name;
+          const g = !!b.isGaming;
+          return { ...b, cur: cur, notCur: !cur, aria: cur ? 'page' : 'false', gaming: g, line: !g,
+            bg: g ? '#080C0B' : (cur ? 'rgba(255,255,255,0.08)' : l.card), border: g ? 'rgba(242,194,48,0.45)' : (cur ? b.c : l.line) };
+        })
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

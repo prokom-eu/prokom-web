@@ -1,11 +1,8 @@
-import { LEGAL_NOTE } from '../../dane/prawo'
 import { dostep } from '../../dane/dostep'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { IdTypes, LocksPower } from './DostepWidgets'
-
-import './dostep.css'
+import { IdTypes, LocksPower } from './DostepWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 
@@ -52,7 +49,13 @@ export function DostepSections() {
               </div>
             ))}
           </div>
-          <div className="tblw ri" style={{ marginTop: 22 }}>
+          <div
+            className="tblw ri"
+            style={{ marginTop: 22 }}
+            role="region"
+            tabIndex={0}
+            aria-label={apartments.head.heading}
+          >
             <table className="tbl">
               <thead>
                 <tr>
@@ -104,14 +107,8 @@ export function DostepSections() {
           </div>
           <div className="ri" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div className="note w">
-              <InstIcon name="doc" size={20} />
-              <span>{company.register}</span>
-            </div>
-            <div className="note w">
               <InstIcon name="finger" size={20} />
-              <span>
-                {company.biometrics} {LEGAL_NOTE}
-              </span>
+              <span>{company.biometrics}</span>
             </div>
             <div className="note">
               <InstIcon name="battery" size={20} />
@@ -136,7 +133,7 @@ export function DostepSections() {
             <div className="note" style={{ margin: 0 }}>
               <InstIcon name="fire" />
               <span>
-                <b>{locks.fire.title}</b> {locks.fire.text} {LEGAL_NOTE}
+                <b>{locks.fire.title}</b> {locks.fire.text}
               </span>
             </div>
           </div>

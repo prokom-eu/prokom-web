@@ -12,7 +12,8 @@ import type {
 import { navigation } from '@/sites/instalacje/dane/nawigacja'
 
 import { buildMenu, type InstMenu, type MenuDoc } from './menu'
-import { SETTINGS_DEFAULTS } from './options'
+import { byNewest, homeRealizations, withPhotos } from './realizations'
+import { OFFER_FAMILIES, SERVICE_KEYS, SETTINGS_DEFAULTS } from './options'
 
 /** Far above the 10 services, 12 objects and 76 solutions of the package. */
 const LIMIT = 500
@@ -204,8 +205,6 @@ export type InstalacjeSiteSettings = {
   noPriceText: string
   warrantyMonths: number
   responseText: string
-  /** WhatsApp number of the line (the panel validates it), `null` when not set. */
-  whatsapp: string | null
   /** „Twój opiekun” of /dla-architektow; `null` = no name yet (or still a boss's marker). */
   architects: ArchitectsContact | null
 }
@@ -213,7 +212,6 @@ export type InstalacjeSiteSettings = {
 export type ArchitectsContact = {
   name: string
   role: string | null
-  photo: PublicImage | null
   phone: string | null
   email: string | null
   quote: string | null
@@ -243,7 +241,6 @@ export const getInstalacjeSettings = cache(
         noPriceText: true,
         warrantyMonths: true,
         responseText: true,
-        whatsapp: true,
         architects: true,
       },
       overrideAccess: true,
@@ -254,22 +251,19 @@ export const getInstalacjeSettings = cache(
       noPriceText: doc?.noPriceText || SETTINGS_DEFAULTS.noPriceText,
       warrantyMonths: doc?.warrantyMonths ?? SETTINGS_DEFAULTS.warrantyMonths,
       responseText: doc?.responseText || SETTINGS_DEFAULTS.responseText,
-      whatsapp: doc?.whatsapp || null,
-      architects: architectsContact(doc?.architects, tenantId),
+      architects: architectsContact(doc?.architects),
     }
   },
 )
 
 function architectsContact(
   group: InstalacjeSettingsDoc['architects'] | undefined,
-  tenantId: number,
 ): ArchitectsContact | null {
   const name = pageText(group?.name)
   if (!group || !name) return null
   return {
     name,
     role: pageText(group.role),
-    photo: publicImage(group.photo, tenantId),
     phone: pageText(group.phone),
     email: pageText(group.email),
     quote: pageText(group.quote),
@@ -283,12 +277,21 @@ export type HomeRealization = {
   category: string | null
   place: string | null
   scope: string | null
+  /** Round v5 (RUNDA-V5 §4): the photos, the cover first; never empty (runda v6 D2). */
+  photos: PublicImage[]
+}
+
+/** Photos of a realization the public site may show (this tenant, no consent needed). */
+function realizationImages(photos: unknown, tenantId: number): PublicImage[] {
+  return (Array.isArray(photos) ? photos : [])
+    .map((photo) => publicImage(photo, tenantId))
+    .filter((image): image is PublicImage => image !== null)
 }
 
 /**
  * What the home sections need beyond the menu (I6): the number of brands of the published offer
- * (`InstServices.offer.brands`, counted once each) and up to 4 published, featured realizations
- * (published = with the client's consent, I2). This tenant only, public fields only.
+ * (`InstServices.offer.brands`, counted once each) and up to 4 published realizations with a
+ * photo, the featured ones first (published = with the client's consent, I2; runda v6 D2). This tenant only, public fields only.
  */
 export const getInstalacjeHome = cache(
   async (tenantId: number): Promise<{ brands: number; realizations: HomeRealization[] }> => {
@@ -308,13 +311,20 @@ export const getInstalacjeHome = cache(
       }),
       payload.find({
         collection: 'realizations',
-        where: { and: [...(where.and ?? []), { featured: { equals: true } }] },
+        where,
         draft: false,
-        depth: 0,
-        limit: 4,
-        // Newest first; without a year the package order (`legacyId`), as in the prototype.
-        sort: ['-year', 'legacyId'],
-        select: { title: true, category: true, place: true, scope: true },
+        depth: 1,
+        limit: LIMIT,
+        select: {
+          title: true,
+          category: true,
+          place: true,
+          scope: true,
+          photos: true,
+          year: true,
+          legacyId: true,
+          featured: true,
+        },
         overrideAccess: true,
       }),
     ])
@@ -324,13 +334,19 @@ export const getInstalacjeHome = cache(
     brands.delete('')
     return {
       brands: brands.size,
-      realizations: realizations.docs.map((doc) => ({
-        id: doc.id,
-        title: doc.title,
-        category: doc.category ?? null,
-        place: doc.place ?? null,
-        scope: doc.scope ?? null,
-      })),
+      // Newest first, without a year after them, then the package order (`byNewest`); 4 cards.
+      realizations: homeRealizations(
+        [...realizations.docs].sort(byNewest).map((doc) => ({
+          id: doc.id,
+          title: doc.title,
+          category: doc.category ?? null,
+          place: doc.place ?? null,
+          scope: doc.scope ?? null,
+          featured: doc.featured ?? false,
+          photos: realizationImages(doc.photos, tenantId),
+        })),
+        4,
+      ).map(({ featured: _featured, ...card }) => card),
     }
   },
 )
@@ -347,6 +363,8 @@ export type ArchNewsCard = {
   examples: string | null
   places: string[]
   illustration: string | null
+  /** Round v5 (RUNDA-V5 §7.2): the product photo; without it the card keeps its SVG. */
+  image: PublicImage | null
   featured: boolean
 }
 
@@ -362,10 +380,11 @@ export const getInstArchNews = cache(async (tenantId: number): Promise<ArchNewsC
     where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
     sort: ['order', 'id'],
     draft: false,
-    depth: 0,
+    depth: 1,
     limit: LIMIT,
     overrideAccess: true,
     select: {
+      image: true,
       title: true,
       category: true,
       type: true,
@@ -389,6 +408,126 @@ export const getInstArchNews = cache(async (tenantId: number): Promise<ArchNewsC
     examples: d.examples ?? null,
     places: (d.places ?? []).map((p) => p.name),
     illustration: d.illustration ?? null,
+    image: publicImage(d.image, tenantId),
     featured: d.featured ?? false,
   }))
 })
+
+/** One area of the full offer `/uslugi` (I12): a published service and its published solutions. */
+export type OfferAreaData = {
+  key: string
+  name: string
+  /** Accent of the service (panel value, `--h`). */
+  color: string | null
+  icon: string | null
+  href: string | null
+  family: string
+  description: string
+  brands: string[]
+  solutions: { name: string; description: string; categories: string[] }[]
+}
+
+/**
+ * The full offer of this tenant (I12): published services in the menu order with their offer
+ * texts, each with its published solutions (`InstSolutions`, by `order`). Public fields only;
+ * fresh on every request like the menu.
+ */
+export const getInstalacjeOffer = cache(async (tenantId: number): Promise<OfferAreaData[]> => {
+  const payload = await getPayload({ config })
+  const where: Where = {
+    and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }],
+  }
+  const published = { where, draft: false, depth: 0, limit: LIMIT, overrideAccess: true } as const
+  const [services, solutions] = await Promise.all([
+    payload.find({
+      collection: 'inst-services',
+      ...published,
+      select: { key: true, name: true, icon: true, slug: true, offer: true, color: true },
+    }),
+    payload.find({
+      collection: 'inst-solutions',
+      ...published,
+      sort: ['order', 'legacyId'],
+      select: { name: true, description: true, service: true, categories: true },
+    }),
+  ])
+  const order = new Map(SERVICE_KEYS.map((s, index) => [s.value as string, index]))
+  return [...services.docs]
+    .sort((a, b) => (order.get(a.key) ?? 99) - (order.get(b.key) ?? 99))
+    .map((s) => ({
+      key: s.key,
+      name: s.name,
+      color: s.color ?? null,
+      icon: s.icon ?? null,
+      href: s.slug ? `/${s.slug}` : null,
+      family: OFFER_FAMILIES.find((f) => f.value === s.offer?.family)?.label ?? '',
+      description: s.offer?.description ?? '',
+      brands: (s.offer?.brands ?? []).map((b) => b.trim()).filter(Boolean),
+      solutions: solutions.docs
+        .filter((x) => (typeof x.service === 'object' ? x.service?.id : x.service) === s.id)
+        .map((x) => ({
+          name: x.name,
+          description: x.description ?? '',
+          categories: x.categories ?? [],
+        })),
+    }))
+})
+
+/** A published realization for `/realizacje` (I12): public fields only; photos since v5. */
+export type RealizationCard = {
+  id: number
+  title: string
+  category: string | null
+  place: string | null
+  scope: string | null
+  description: string | null
+  year: number | null
+  services: string[]
+  kind: string | null
+  photos: PublicImage[]
+}
+
+/**
+ * The published realizations of this tenant (published = with the client's consent, the hook of
+ * `Realizations`) that have a photo (runda v6 D2), newest first, without a year after them, then
+ * in the package order (`byNewest`). Fresh on every request.
+ */
+export const getInstalacjeRealizations = cache(
+  async (tenantId: number): Promise<RealizationCard[]> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'realizations',
+      where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
+      draft: false,
+      depth: 1,
+      limit: LIMIT,
+      select: {
+        legacyId: true,
+        photos: true,
+        title: true,
+        category: true,
+        place: true,
+        scope: true,
+        description: true,
+        year: true,
+        services: true,
+        kind: true,
+      },
+      overrideAccess: true,
+    })
+    return withPhotos(
+      [...docs].sort(byNewest).map((d) => ({
+        id: d.id,
+        title: d.title,
+        category: d.category ?? null,
+        place: d.place ?? null,
+        scope: d.scope ?? null,
+        description: d.description ?? null,
+        year: d.year ?? null,
+        services: d.services ?? [],
+        kind: d.kind ?? null,
+        photos: realizationImages(d.photos, tenantId),
+      })),
+    )
+  },
+)

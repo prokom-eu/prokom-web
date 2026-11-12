@@ -177,8 +177,8 @@ describe('buildSalonView', () => {
   it('names the headings after the brand, or neutrally for a salon of several brands', () => {
     expect(build()!.headings).toEqual({
       offer: 'Oferta Posnet',
-      facts: 'Posnet w kilku faktach',
-      faq: 'Zanim wybierzesz Posnet',
+      facts: 'O marce Posnet',
+      faq: 'Pytania o Posnet',
       ask: 'Zapytaj o Posnet',
       more: 'Więcej o marce Posnet',
     })
@@ -191,7 +191,7 @@ describe('buildSalonView', () => {
     )!
     expect(druk.headings).toEqual({
       offer: 'Oferta',
-      facts: 'W kilku faktach',
+      facts: 'O markach',
       faq: 'Pytania o druk',
       ask: 'Zapytaj o ofertę',
       more: 'Więcej o markach',

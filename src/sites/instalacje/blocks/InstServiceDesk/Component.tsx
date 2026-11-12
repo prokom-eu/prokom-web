@@ -18,12 +18,13 @@ import { InstIcon } from '../../InstIcon'
 import { CtaBandView } from '../../powloka/CtaBandView'
 import { Faq } from '../../sekcje/Faq'
 import { JsonLd } from '../../sekcje/JsonLd'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { PageHero } from '../../sekcje/PageHero'
 import { Related } from '../../sekcje/Related'
-import { FaultForm } from '../../widzety/serwis/FaultForm'
-
-import '../../widzety/serwis/serwis.css'
+import { FaultForm } from '../../widzety/serwis/FaultFormLazy'
+import { PlanCards } from '../../widzety/serwis/PlanCardsLazy'
+import { salonsNote } from '../../powloka/salons'
+import { PageStyles } from '../../style/LineStyles'
 
 type Props = { block: InstServiceDeskBlockData; tenantId: number }
 
@@ -49,7 +50,7 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
   const origin = siteOrigin(host, getEnv().SITE_ENV)
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
-  const salons = (company?.locations ?? []).map((l) => `${l.city}, ${l.street}`).join(' · ')
+  const salons = salonsNote(company?.locations ?? [])
   const { hero, cta } = block
   const crumb = hero?.crumb || 'Serwis i przeglądy'
   const related = S.related.flatMap((key) => cards.services.filter((s) => s.key === key))
@@ -68,6 +69,7 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
   return (
     // `data-inst-il`: the illustration palette, like the service pages (the tracker's ring).
     <div className="inst-svc" data-inst-il="" style={{ '--h': hueColor } as CSSProperties}>
+      <PageStyles kind="serviceDesk" />
       {origin && (
         <>
           <JsonLd
@@ -81,7 +83,7 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
           />
           <JsonLd
             data={breadcrumbJsonLd([
-              { name: 'Start', url: `${origin}/` },
+              { name: 'Strona główna', url: `${origin}/` },
               { name: crumb, url: `${origin}${PATH}` },
             ])}
           />
@@ -107,35 +109,7 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
               {S.plans.lead}
             </p>
           </div>
-          <div
-            className="plans"
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 18 }}
-          >
-            {S.plans.items.map((plan) => (
-              <div key={plan.name} className={'card plan ri' + (plan.hot ? ' hot' : '')}>
-                {plan.hot && (
-                  <span className="tag a" style={{ alignSelf: 'flex-start' }}>
-                    {S.plans.hot}
-                  </span>
-                )}
-                <h3 className="h3">{plan.name}</h3>
-                <span className="mut">{plan.text}</span>
-                <ul>
-                  {plan.features.map((feature) => (
-                    <li key={feature}>
-                      <i aria-hidden="true">
-                        <InstIcon name="check" size={16} strokeWidth={2.6} />
-                      </i>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <span className="prc" style={{ fontSize: 22, marginTop: 'auto' }}>
-                  {settings.noPriceText}
-                </span>
-              </div>
-            ))}
-          </div>
+          <PlanCards noPriceText={settings.noPriceText} />
         </div>
       </InstSection>
 
@@ -152,6 +126,8 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
           </div>
           <ol
             className="steps"
+            tabIndex={0}
+            aria-label={S.takeover.heading}
             style={{
               gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
               listStyle: 'none',

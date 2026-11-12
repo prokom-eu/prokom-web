@@ -3,8 +3,22 @@
 
 server {
   listen 80;
-  server_name ${PROD_SITE_HOSTS} ${PROD_PANEL_HOST};
+  server_name ${PROD_SITE_HOSTS} ${PROD_WWW_HOSTS} ${PROD_PANEL_HOST};
   include /etc/nginx/snippets/acme.conf;
+}
+
+# `www.<domain>` → 301 to the domain without `www` (docs/dns.md: canonical address without www).
+# The names must be in the `prokom-prod` certificate too.
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name ${PROD_WWW_HOSTS};
+  ssl_certificate /etc/letsencrypt/live/prokom-prod/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-prod/privkey.pem;
+  include /etc/nginx/snippets/headers-common.conf;
+  if ($host ~* ^www\.(?<apex>.+)$) {
+    return 301 https://$apex$request_uri;
+  }
+  return 404;
 }
 
 server {

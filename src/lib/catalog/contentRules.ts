@@ -13,6 +13,18 @@ const RULES: { name: string; pattern: RegExp }[] = [
   { name: 'w cenie', pattern: /\bw cenie\b/iu },
   { name: 'raty', pattern: /(?<![\p{L}])rat(y|ach|ami|alna|alny)?(?![\p{L}])/iu },
   { name: 'leasing', pattern: /leasing/iu },
+  // K4-FINAL §1: the scope and reaction time are „ustalane” in the contract, not „zapisane”.
+  {
+    name: 'zapisujemy w umowie',
+    // The verb only („zapisujemy”, „zapisany”) — „zapisy w umowie” is a plain noun.
+    pattern: /(?<![\p{L}])zapis(?:uj|an)\p{L}*(?:\s+(?:go|je|ją))?\s+w\s+umowie/iu,
+  },
+  // K4-FINAL §1 and [SZEF]: issuing a qualified signature on the spot is not confirmed.
+  {
+    name: 'podpis na miejscu',
+    pattern:
+      /(?<![\p{L}])wyda(?:jemy|my)\s[^.]{0,60}(?:podpis|pieczęć|EuroCert)|EuroCert\s+na\s+miejscu/iu,
+  },
   ...BANNED_BRANDS.map((brand) => ({
     name: `marka ${brand}`,
     pattern: new RegExp(`(?<![\\p{L}])${brand}(?![\\p{L}])`, 'iu'),

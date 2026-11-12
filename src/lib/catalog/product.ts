@@ -2,7 +2,8 @@ import type { CatalogCategory, Industry, Partner, Product } from '@/payload-type
 
 import { publicImage, type PublicImage } from '../media/public'
 import { tenantIdOf } from '../tenant/id'
-import { brandLogo, type IndexLogo } from './catalogIndex'
+import { brandLogo } from './brandLogo'
+import type { IndexLogo } from './catalogIndex'
 import { buildConfigurator, type Configurator } from './configurator'
 import { isHexColor } from './options'
 import { displayName } from './productName'
@@ -28,6 +29,8 @@ export type ProductView = {
   name: string
   /** H1: the short name of a card with many models (K31-ZMIANY §13.5). */
   heading: string
+  /** Short name from the panel (K4 `krotka`): the `<title>` and cards, never the H1 (audit 01.11). */
+  shortName: string | null
   subtitle: string | null
   kind: Product['kind']
   benefit: string | null
@@ -154,6 +157,7 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
     slug: product.slug,
     name: product.name,
     heading: displayName(product.name, text(product.shortName)),
+    shortName: text(product.shortName),
     subtitle: text(product.subtitle),
     kind: product.kind,
     benefit: text(product.benefit),

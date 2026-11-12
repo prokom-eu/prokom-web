@@ -15,7 +15,7 @@ describe('serviceJsonLd', () => {
     const data = serviceJsonLd(base)
     expect(data['@type']).toBe('Service')
     expect(data.url).toBe('https://prokominstalacje.pl/anteny')
-    expect(data.provider).toEqual({ '@id': 'https://prokominstalacje.pl/#organization' })
+    expect(data.provider).toEqual({ '@id': 'https://prokominstalacje.pl/#oddzial-1' })
     expect(data.areaServed).toHaveLength(AREA_SERVED.length)
   })
 

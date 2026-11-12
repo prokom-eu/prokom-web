@@ -2,6 +2,7 @@ import type React from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
+import { EmText } from '@/sites/software/components/ui/EmText'
 
 type Props = {
   /** Section id (the anchor); the heading gets `<id>-h`. One FAQ section per page. */
@@ -52,7 +53,7 @@ export function FaqSection({ id, eyebrow, heading, lead, aside, items, band = fa
             id={headingId}
             className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[640px]:text-5xl min-[1081px]:text-[56px]"
           >
-            {heading}
+            <EmText text={heading} />
           </h2>
           {lead ? (
             <p className="max-w-[40ch] text-lg text-ink-2 min-[640px]:text-xl">{lead}</p>
@@ -63,9 +64,9 @@ export function FaqSection({ id, eyebrow, heading, lead, aside, items, band = fa
           {items.map((item, i) => (
             <li key={item.question}>
               <details
-                data-reveal
+                data-rise
                 open={i === 0}
-                className="group rounded-2xl bg-card shadow-[inset_0_0_0_1px_var(--border)] open:shadow-[inset_0_0_0_1.5px_var(--accent-line)]"
+                className="sw-faq-item group rounded-2xl bg-card shadow-[inset_0_0_0_1px_var(--border)] open:shadow-[inset_0_0_0_1.5px_var(--accent-line)]"
               >
                 <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-[15.5px] font-extrabold min-[641px]:min-h-[58px] min-[641px]:px-5 min-[641px]:text-base [&::-webkit-details-marker]:hidden">
                   {item.question}

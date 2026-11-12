@@ -1,5 +1,7 @@
 # prokombiznes.pl — specyfikacja strony
 
+> **D10 (06.11.2026, wdrożone w W1 08.11): WhatsApp usunięty wszędzie** — z widoku, panelu i danych. Wszystkie wzmianki o WhatsAppie niżej (kontakt, stopka, menu, kreator, formularze) są nieaktualne.
+
 - **Status:** zakres i wygląd uzgodnione przez Krystiana 17.10.2026 na podstawie wizualizacji (17 plansz). Akceptacja szefa: Asana. Punkty oznaczone **[SZEF]** wymagają potwierdzenia przed publikacją, ale **nie blokują budowy**: buduj z tekstem z wizualizacji, a pole ma być edytowalne w panelu.
 - **Wizualizacja v20 (20.10.2026):** nagłówek, górny pasek, strona główna i formularz kontaktowy według `docs/design/prokombiznes/ZMIANY-v20.md` — wniesione do §1, §3.1, §3.2, §4 i §8.4 (sesja D1). Zrzuty i plansze w repo są w wersji v20.
 - **K4 (30.10.2026, wersja finalna wizualizacji v150, ADR-017):** wszystko po K3.1 (rundy K3.2–K3.6): 33 kategorie w 5 działach, 162 nowe karty (COMEX, Optivendi, Apple, Samsung Galaxy, Brother, HP, Logitech, Fellowes, Kobra, usługi PRO-KOM…), salon 2.0 dla wszystkich marek, `/marki`, Konfigurator 3.0 (`/konfigurator`), nowa strona główna, Oferta 2.0, `/automaty-vendingowe`, `/ksef`, `/ulga-na-kase-fiskalna`, poprawki po audytach. **Źródło: `docs/design/prokombiznes/K4-FINAL.md`** (kolejność ważności, zasady, co zastąpione, dane, widoki) — przy różnicy z tą specyfikacją wygrywa K4-FINAL i ADR-017; sesje — `docs/zadania/prokombiznes.md` §7. Sekcje tej specyfikacji aktualizują sesje K4 przy swoich widokach.
@@ -16,18 +18,18 @@ Strona ma zamieniać odwiedziny w **zapytanie albo telefon**. Klient w 5 sekund 
 - **Zero cen** na całej stronie. Zamiast koszyka jest „lista zapytania” (pozycje, ilości, uwagi, jeden formularz, wycena na piśmie).
 - **Nie pokazujemy** leasingu, rat ani finansowania. Z finansowania zostają tylko **dofinansowania**.
 - **Brak Strefy Klienta** i logowania klientów na tej stronie.
-- **Dane kontaktowe** (wyłącznie z globala w panelu, nigdy na sztywno w komponentach):
-  - telefon główny 889 003 889, ten sam numer na WhatsApp;
-  - telefon stacjonarny 18 267 65 11;
-  - e-mail linii Biznes **biznes@pro-kom.eu** (pole w `SiteSettings`, v20) — na stronie głównej w karcie faktów, w karcie kontaktu przy FAQ i w formularzu; stopka bierze adres z tego samego pola (plansza pokazuje jeszcze biuro@pro-kom.eu — zmiana przez panel);
-  - adres ul. Orkana 16B, 34-700 Rabka-Zdrój.
-- **Godziny:** wizualizacja zakłada pn–pt 9:00–17:00 **[SZEF: potwierdzić; czy sobota?]**. Godziny są w globalu i z nich liczy się status „Otwarte teraz / Zamknięte · otwieramy …”.
+- **Dane kontaktowe** (decyzja Krystiana 01.11.2026 — zastępuje wszystkie starsze wzmianki niżej o biznes@pro-kom.eu, biuro@pro-kom.eu i 18 267 65 11; z panelu, nigdy na sztywno w komponentach):
+  - telefon główny 889 003 889, ten sam numer na WhatsApp (`SiteSettings.phone`, `biznes.whatsapp`);
+  - drugi telefon 883 200 151 (`SiteSettings.phone2`);
+  - e-mail linii Biznes **kontakt@prokombiznes.pl** (`SiteSettings.email`, skrzynka zgłoszeń `Tenants.notificationEmail`) — jeden adres na całej stronie;
+  - adres ul. Orkana 16B, 34-700 Rabka-Zdrój; PRO-KOM Tadeusz Wójciak, NIP 7352511447 (`CompanyData`, wspólne dla linii).
+- **Godziny:** pn–pt 9:00–17:00, sobota i niedziela zamknięte (decyzja 01.11.2026). Godziny są w globalu i z nich liczy się status „Otwarte teraz / Zamknięte · otwieramy …”.
 - Liczby i obietnice tylko prawdziwe. Każda obietnica oznaczona **[SZEF]** jest polem w panelu, nie stałą w kodzie.
 - Bez liczby godzin pracy ani stawek godzinowych.
 - **Zasady treści K3/K3.1** (źródło: `K3-KATALOG.md` §10, `K31-ZMIANY.md` §13.4, `INDEKS.md` §5):
   - poza zakazem cen: bez „0 zł”, „gratis”, „w cenie” (wyjątek: terminal 0 zł z Polskiej Bezgotówkowej — decyzja szefa 16.10, warunki sprawdzane w dniu publikacji);
   - marki zakazane w treściach publicznych: Novitus, Honeywell, Verifone, Datalogic, Barracuda, Streamsoft — test treści z listą zakazanych słów (K3a);
-  - na Biznesie **tylko adres w Rabce** (bez Zakopanego) i **jeden e-mail biznes@pro-kom.eu** na całej stronie;
+  - na Biznesie **tylko adres w Rabce** (bez Zakopanego) i **jeden e-mail kontakt@prokombiznes.pl** na całej stronie;
   - bez obietnic czasu („oddzwonimy w 60 min”) do decyzji szefa — czas reakcji tylko z umowy opieki IT;
   - Opieka IT bez pakietów na stronie; usługi ze statusem „do akceptacji szefa” (Opieka informatyczna, Bezpłatny przegląd IT, Kopie zapasowe) nieopublikowane, linki do nich ukryte;
   - pola wewnętrzne paczek (`uwagi`, `uwagi_wewnetrzne`, `do_potwierdzenia`, `sprawdzone_zgodnosci`, `ksefSprawdzic`) tylko w panelu — nigdy na stronie, w JSON-LD ani w indeksie wyszukiwarki;
@@ -800,7 +802,7 @@ Z listy etapu 2 przechodzą do K3/K3.1: pełny interaktywny plan firmy (K31d), k
   - nowe: gotowe zestawy (§6.10), strony marek i salony Lenovo/Dell (§6.11), Plan Twojej firmy 2.0 na `/plan-firmy` i na głównej — zastępuje plan z B7c i B7b z K3 (§6.12), filmy producentów (§6.13);
   - GoPOS i InsERT 2.0 (§6.5, §6.6), O firmie i Kontakt 2.0 (§6.9), wynik kreatora = gotowy zestaw (§6.8);
   - telefon jak aplikacja zamiast menu pełnoekranowego i paska Zadzwoń/WhatsApp/Zapytanie (§3.3, `MOBILE-APLIKACJA.md`);
-  - zasady treści: bez „0 zł”, „gratis”, „w cenie”, tylko Rabka, jeden e-mail biznes@, bez obietnic czasu do decyzji szefa (§1);
+  - zasady treści: bez „0 zł”, „gratis”, „w cenie”, tylko Rabka, jeden e-mail kontakt@prokombiznes.pl, bez obietnic czasu do decyzji szefa (§1);
   - plansze v20 `OFirmie`, `Kontakt`, `Gopos`, `Insert`, `Mobile`, `Mapa` oraz plan w `Main` (8 scen, `FPS`/`PINFO`) = historia; `ZMIANY-katalog-v2.md` — zastąpione (dopisek w pliku).
 
 ## 12. Poza zakresem

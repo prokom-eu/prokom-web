@@ -7,8 +7,8 @@ import { normalizeHost } from '@/lib/tenant/host'
 const NO_STORE = { 'Cache-Control': 'no-store' }
 
 /**
- * `GET /api/solutions-index` — the solutions of the Software site for its catalog, menu sheet
- * and 404 search (ADR-014 §4). Only on a domain of a Software tenant: the tenant comes from
+ * `GET /api/solutions-index` — the solutions of the Software site for its catalog and the search
+ * window (ADR-014 §4). Only on a domain of a Software tenant: the tenant comes from
  * `Host`, never from the request, so one line's data cannot be read on another line's domain.
  */
 export async function GET(request: Request) {

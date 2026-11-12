@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { biznesDescription, fitTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import {
@@ -38,10 +39,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { index, category, subcategory, view } = found
   const settings = await getSiteSettings(tenant.id)
   const brands = categoryBrands(subcategoryProducts(index, category.slug, subcategory.name), index)
-  const title = subcategoryTitle(subcategory.name, brands)
+  const title = fitTitle(subcategoryTitle(subcategory.name, brands), 'dla firm — Rabka-Zdrój')
   const count = subcategory.count
   // Own description for the own address (canonical on itself, not the category's lead).
-  const description = `${title}: ${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])} w ofercie PRO-KOM Biznes. Zapytaj o dobór i ofertę.`
+  const description = biznesDescription(
+    `${title}: ${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])} w ofercie PRO-KOM Biznes. Zapytaj o dobór i ofertę.`,
+  )
   const canonical = subcategoryHref(category.slug, subcategory.slug)
   return {
     title,
@@ -55,7 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title,
       description,
-      images: ogImages(view.image ?? settings?.seo.ogImage ?? null),
+      images: ogImages(view.image ?? settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }

@@ -21,13 +21,14 @@ export const dostep = {
   lock: {
     label: 'Interaktywny zamek z kodem i harmonogram kodów',
     tabsLabel: 'Rodzaj obiektu',
-    keysLabel: { clear: 'Wyczyść', ok: 'Zatwierdź', digit: 'Cyfra' },
+    // WCAG 2.5.3: a key's name starts with what it shows („OK”, „C”).
+    keysLabel: { clear: 'C, wyczyść', ok: 'OK, zatwierdź', digit: 'Cyfra' },
     hint: 'Wpisz kod gościa:',
     guestCode: '2468',
     expiredCode: '1357',
     empty: '— — — —',
     status: {
-      ok: 'Otwarte · witamy!',
+      ok: 'Otwarte · witamy',
       expired: 'Kod wygasł',
       bad: 'Błędny kod',
       typed: 'Naciśnij OK',
@@ -103,7 +104,7 @@ export const dostep = {
         log: [
           { when: '07:52', text: 'Jan K. · Magazyn · karta', icon: 'card' },
           { when: '07:31', text: 'Anna W. · Biuro · karta', icon: 'card' },
-          { when: 'Wt 22:14', text: 'Karta #31 · poza godzinami', icon: 'x' },
+          { when: 'Wt 22:14', text: 'Karta #31 · poza godzinami', icon: 'ban' },
         ],
       },
       wsp: {
@@ -133,7 +134,7 @@ export const dostep = {
         log: [
           { when: '18:20', text: 'Lokal 12 · brelok · Brama', icon: 'key' },
           { when: '14:03', text: 'Kurier · kod dzienny · Klatka B', icon: 'key' },
-          { when: 'Śr 09:12', text: 'Brelok #14 zablokowany', icon: 'x' },
+          { when: 'Śr 09:12', text: 'Brelok #14 zablokowany', icon: 'ban' },
         ],
       },
     } as Record<
@@ -153,15 +154,15 @@ export const dostep = {
 
   methods: {
     head: {
-      eyebrow: 'Czym się otwiera',
-      heading: 'Kod, karta, telefon. Klucz zostaje na wszelki wypadek.',
-      lead: 'Dobieramy sposób otwierania do ludzi, którzy będą wchodzić: gości, pracowników, mieszkańców, serwisu.',
+      eyebrow: 'Sposoby otwierania',
+      heading: 'Czym otworzysz drzwi i jak wejdziesz przy awarii',
+      lead: 'Sposób otwierania dobieramy do tego, kto będzie wchodził: goście, pracownicy, mieszkańcy albo serwis.',
     } satisfies SectionHead,
     items: [
       {
-        icon: 'grid',
+        icon: 'keypad',
         title: 'Kod PIN',
-        text: 'Stały dla domowników, czasowy dla gości i serwisu. Wygasa sam.',
+        text: 'Stały dla domowników albo czasowy dla gości i serwisu, który po pobycie wygasa sam.',
         tag: 'Apartamenty, pensjonaty',
       },
       {
@@ -187,9 +188,9 @@ export const dostep = {
 
   apartments: {
     head: {
-      eyebrow: 'Apartamenty i pensjonaty',
-      heading: 'Rezerwacja wpada, kod wysyła się sam.',
-      lead: 'Zamek połączony z systemem rezerwacji tworzy kod ważny tylko w czasie pobytu i wysyła go gościowi. Ty nie jedziesz o 22:00 przekazać klucza.',
+      eyebrow: 'Dla apartamentów',
+      heading: 'Zamek z kodem połączony z systemem rezerwacji',
+      lead: 'Zamek połączony z systemem rezerwacji tworzy kod ważny tylko w czasie pobytu i wysyła go gościowi. Gość wchodzi sam, nawet gdy przyjeżdża o 22:00.',
     } satisfies SectionHead,
     flow: [
       {
@@ -208,7 +209,7 @@ export const dostep = {
         text: 'Kod przychodzi mailem lub SMS-em przed przyjazdem.',
       },
       {
-        icon: 'lock',
+        icon: 'door',
         title: 'Przyjazd i wyjazd',
         text: 'Gość wchodzi sam, a po wymeldowaniu kod przestaje działać.',
       },
@@ -240,9 +241,9 @@ export const dostep = {
   },
 
   company: {
-    eyebrow: 'Firma, hala, wspólnota',
-    heading: 'Każdy wchodzi tam, gdzie powinien. I o tej porze.',
-    lead: 'Karty albo breloki dla pracowników i mieszkańców, strefy, harmonogramy i historia wejść. W systemach online zgubioną kartę blokujesz od razu, bez wymiany zamków.',
+    eyebrow: 'Firmy i wspólnoty',
+    heading: 'Karty i breloki dla firmy, hali i wspólnoty',
+    lead: 'Pracownicy i mieszkańcy wchodzą na kartę albo brelok tylko tam i wtedy, gdzie mają wstęp, np. magazynier do magazynu od 6:00. W systemach online zgubioną kartę blokujesz od razu, bez wymiany zamków.',
     list: [
       {
         title: 'Strefy',
@@ -254,27 +255,24 @@ export const dostep = {
       },
       {
         title: 'Historia wejść',
-        text: 'Kto, którędy i kiedy. Przydaje się przy incydentach i kontroli dostępu do stref.',
+        text: 'Widzisz, kto, którędy i kiedy wszedł. Przydaje się przy incydentach i kontroli dostępu do stref.',
       },
       {
         title: 'Brama i szlaban',
         text: 'Wjazd na plac i parking na pilota, kartę albo odczyt tablic.',
       },
     ],
-    register:
-      'Rejestr wejść pracowników może być uznany za „inną formę monitorowania” (art. 22³ § 4 Kp), dlatego stosujemy te same zasady informowania co przy kamerach.',
     biometrics:
-      'Odcisk palca pracownika można przetwarzać tylko z jego inicjatywy albo do dostępu do szczególnie ważnych informacji lub pomieszczeń (art. 22¹ᵃ § 3 i 22¹ᵇ Kp). Według stanowiska UODO rejestracja czasu pracy na podstawie biometrii nie jest zgodna z RODO. Dlatego w firmach proponujemy karty i breloki.',
+      'W firmach proponujemy karty i breloki. Odcisk palca zostawiamy do serwerowni, archiwum albo sejfu.',
     battery:
       'Zamki mają zasilanie bateryjne lub awaryjne i ostrzegają o słabej baterii. Przy każdych drzwiach planujemy też awaryjne otwarcie.',
   },
 
   ids: {
     head: {
-      eyebrow: 'Brelok, karta, telefon, palec',
-      heading: 'Nie każda karta jest bezpieczna.',
-      accent: 'Sprawdź, czym się różnią.',
-      lead: 'Popularny brelok 125 kHz da się skopiować w kilkanaście sekund. Wybierz identyfikator, a pokażemy, gdzie ma sens.',
+      eyebrow: 'Identyfikatory',
+      heading: 'Które karty i breloki da się skopiować',
+      lead: 'Najtańszy, popularny brelok 125 kHz da się skopiować w kilkanaście sekund. Wybierz identyfikator, a pokażemy, gdzie ma sens.',
     } satisfies SectionHead,
     tabsLabel: 'Identyfikatory',
     resistance: 'Odporność na skopiowanie',
@@ -306,7 +304,7 @@ export const dostep = {
       {
         name: 'MIFARE DESFire / Plus',
         sub: 'szyfrowanie AES',
-        icon: 'shield',
+        icon: 'card',
         level: 4,
         levelText: 'Wysoka',
         text: 'Karty z szyfrowaniem AES znacznie utrudniają klonowanie. W połączeniu z kodem PIN dają uwierzytelnianie dwuskładnikowe. Obsługuje je m.in. polski system Roger RACS 5.',
@@ -328,7 +326,7 @@ export const dostep = {
       {
         name: 'Kod PIN',
         sub: 'klawiatura przy drzwiach',
-        icon: 'grid',
+        icon: 'keypad',
         level: 3,
         levelText: 'Zależy od kodu',
         text: 'W apartamentach to podstawowa metoda: system rezerwacji generuje kod ważny tylko w czasie pobytu i wysyła go gościowi.',
@@ -342,9 +340,9 @@ export const dostep = {
         icon: 'finger',
         level: 4,
         levelText: 'Wysoka technicznie',
-        text: 'Odcisku nie da się zgubić ani pożyczyć, ale to dane szczególnej kategorii według RODO. W firmie można go stosować tylko z inicjatywy pracownika albo do dostępu do szczególnie ważnych informacji lub pomieszczeń (art. 22¹ᵃ § 3 i 22¹ᵇ Kp).',
+        text: 'Odcisku nie da się zgubić ani pożyczyć. W firmie stosujemy go do szczególnie ważnych pomieszczeń.',
         fits: 'Serwerownia, archiwum, sejf',
-        careful: 'Nie do ewidencji czasu pracy (stanowisko UODO).',
+        careful: 'Do ewidencji czasu pracy lepsze są karty i breloki.',
         hue: 'var(--inst-hue-violet)',
       },
     ],
@@ -352,10 +350,9 @@ export const dostep = {
 
   locks: {
     head: {
-      eyebrow: 'Zwora, elektrozaczep, zamek',
-      heading: 'Co się dzieje z drzwiami,',
-      accent: 'gdy zabraknie prądu?',
-      lead: 'To pierwsze pytanie przy każdych drzwiach. Na drodze ewakuacyjnej drzwi mają się otworzyć, w magazynie raczej zostać zamknięte. Przełącz zasilanie.',
+      eyebrow: 'Zamki i prąd',
+      heading: 'Jak zachowają się drzwi, gdy zabraknie prądu',
+      lead: 'Na drodze ewakuacyjnej drzwi bez prądu mają się otworzyć, w magazynie raczej zostać zamknięte. Przełącz zasilanie i zobacz, jak działa każdy zamek.',
     } satisfies SectionHead,
     power: 'Zasilanie',
     on: 'Prąd jest',
@@ -403,13 +400,13 @@ export const dostep = {
     ],
     fire: {
       title: 'Drzwi ewakuacyjne:',
-      text: 'przepisy przeciwpożarowe zabraniają zamykania ich w sposób, który uniemożliwia natychmiastowe użycie (§ 4 ust. 1 pkt 14 rozporządzenia o ochronie ppoż.). W pomieszczeniach dla ponad 300 osób przepisy techniczno-budowlane wymagają zamknięć przeciwpanicznych (norma PN-EN 1125). Rozwiązanie dla takich drzwi uzgadniamy z rzeczoznawcą ds. zabezpieczeń ppoż.',
+      text: 'przy braku prądu się otwierają. Montujemy na nich elektrozaczep rewersyjny albo przycisk awaryjny ze zwolnieniem z systemu pożarowego. Rozwiązanie uzgadniamy z rzeczoznawcą ds. zabezpieczeń ppoż.',
     },
   },
 
   failures: {
-    eyebrow: 'Gdy coś zawiedzie',
-    heading: 'Bateria, internet, prąd. Na każdy wypadek jest plan B.',
+    eyebrow: 'Awarie',
+    heading: 'Jak wejść, gdy padnie bateria, internet albo prąd',
     items: [
       {
         icon: 'battery',
@@ -417,7 +414,7 @@ export const dostep = {
         text: 'Zamki na wkładkę, np. Nuki czy Yale Linus, działają na bateriach i wcześniej ostrzegają w aplikacji (Nuki przy 20%). Gdy bateria się wyczerpie, Nuki otworzysz zwykłym kluczem.',
       },
       {
-        icon: 'cloud',
+        icon: 'off',
         title: 'Brak internetu',
         text: 'Systemy takie jak Salto KS dalej działają według reguł zapisanych w zamkach. Kody PIN działają offline.',
       },
@@ -427,14 +424,14 @@ export const dostep = {
         text: 'Kontrolery z akumulatorem rezerwowym działają dalej. Bez niego zwora puszcza, a elektrozaczep zwykły (NC) trzyma drzwi.',
       },
       {
-        icon: 'key',
+        icon: 'keypad',
         title: 'Gość bez telefonu',
         text: 'Kod na klawiaturze albo karta z recepcji. Zawsze zostawiamy drugą drogę wejścia.',
       },
     ] satisfies Feature[],
     check: {
       eyebrow: 'Wizja lokalna',
-      heading: 'Co sprawdzamy przy drzwiach, zanim podamy cenę.',
+      heading: 'Co sprawdzamy przy drzwiach, zanim podamy cenę',
       items: [
         {
           title: 'Drzwi',

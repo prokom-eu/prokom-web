@@ -29,8 +29,9 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const [settings, query] = await Promise.all([getSiteSettings(tenant.id), searchParams])
   const filtered = Boolean(query[CATEGORY_PARAM])
   const texts = tenant.line === 'software' ? SOFTWARE_NEWS_TEXTS : NEWS_TEXTS
+  const title = 'seoTitle' in texts ? texts.seoTitle : texts.title
   return {
-    title: texts.title,
+    title,
     description: texts.description,
     alternates: { canonical: NEWS_PATH },
     // A category view is the list again, filtered: not indexed, the list is its canonical.
@@ -41,9 +42,13 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       locale: 'pl_PL',
       siteName: tenant.name,
       url: NEWS_PATH,
-      title: texts.title,
+      title,
       description: texts.description,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      // Biznes opted in to the line's mark when no picture is set (audit 0611 P1-9).
+      images: ogImages(
+        settings?.seo.ogImage ?? null,
+        tenant.line === 'biznes' ? 'biznes' : undefined,
+      ),
     },
   }
 }

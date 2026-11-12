@@ -1,15 +1,17 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
 
 import type { InstMenu, MenuEntry } from '@/lib/instalacje/menu'
 import { plural } from '@/lib/plural'
 
-import { glownaSekcje, SERVICE_CARDS } from '../../dane/glownaSekcje'
+import { glownaSekcje, SERVICE_CARDS, type TrustBrand } from '../../dane/glownaSekcje'
 import type { ServiceKey } from '../../dane/types'
 import { InstIcon } from '../../InstIcon'
 import { solutionsText } from '../../powloka/offerText'
-import { InstSection } from '../InstSection'
-import { SERVICE_SCENES } from './sceny'
+import { InstSection } from '../InstSectionLazy'
+import { LazyServiceScene } from './LazyServiceScene'
+import { Count } from '../Count'
 
 const t = glownaSekcje.services
 
@@ -45,9 +47,7 @@ export function ServicesGrid({ services, offer, brands, noPriceText }: Props) {
         <div className="ushead xa-ushead">
           <div className="usht ri">
             <span className="eye">{t.eyebrow}</span>
-            <h2 className="h2">
-              {t.heading} <span className="acc">{t.accent}</span>
-            </h2>
+            <h2 className="h2">{t.heading}</h2>
             <p className="lead">{t.lead}</p>
           </div>
           <div className="xa-uside ri">
@@ -61,11 +61,15 @@ export function ServicesGrid({ services, offer, brands, noPriceText }: Props) {
                 <span>{solutionsText(offer.solutions).replace(/^\d+ /, '')}</span>
               </div>
               <div>
-                <b>{brands}</b>
+                <b>
+                  <Count text={String(brands)} />
+                </b>
                 <span>{brandsWord}</span>
               </div>
               <div>
-                <b>{t.since}</b>
+                <b>
+                  <Count text={t.since} />
+                </b>
                 <span>{t.sinceNote}</span>
               </div>
             </div>
@@ -84,11 +88,8 @@ export function ServicesGrid({ services, offer, brands, noPriceText }: Props) {
               style={{ '--h': service.color ?? undefined } as CSSProperties}
             >
               <div className="ust" aria-hidden="true" data-inst-sx="">
-                <svg
-                  viewBox="0 0 400 220"
-                  preserveAspectRatio="xMidYMid meet"
-                  dangerouslySetInnerHTML={{ __html: SERVICE_SCENES[key] }}
-                />
+                {/* Runda v6 §1.8 (LCP of `/`): the scene comes in a chunk near the screen. */}
+                <LazyServiceScene sceneKey={key} />
                 <span className="ustk">{groupLabel(key, service.group)}</span>
               </div>
               <div className="ubd">
@@ -171,14 +172,29 @@ export function TrustBand() {
           <span className="eye" style={{ color: 'var(--ink-2)' }}>
             {glownaSekcje.trust.eyebrow}
           </span>
-          <div className="brands">
-            {glownaSekcje.trust.brands.map(([name, kind], i) => (
-              <div key={name} className={`brand${i > 8 ? ' hm' : ''}`}>
-                <b>{name}</b>
-                <span>{kind}</span>
-              </div>
+          <ul className="brands" tabIndex={0} aria-label={glownaSekcje.trust.eyebrow}>
+            {glownaSekcje.trust.brands.map((brand: TrustBrand) => (
+              <li
+                key={brand.name}
+                className="brand"
+                style={
+                  brand.scale ? ({ '--brand-scale': brand.scale } as CSSProperties) : undefined
+                }
+              >
+                <Image
+                  src={`/instalacje/marki/${brand.logo}.webp`}
+                  width={brand.width}
+                  height={brand.height}
+                  alt={`Logo ${brand.name}`}
+                  // Audit 09.11: twice the tile (about 205 px on 6 / 4 / 3 columns and in the phone
+                  // row), so a sharp file is fetched even at 1× (files narrower than that come whole).
+                  sizes="(min-width: 1101px) 410px, (min-width: 761px) 440px, 410px"
+                  className="brandl"
+                />
+                <span>{brand.kind}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </section>

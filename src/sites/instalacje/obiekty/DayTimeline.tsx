@@ -19,7 +19,8 @@ const hueOf = (color: string | undefined) =>
  * Day / year of the object (`#rok`, `build_seg.py` `day`): moments on the left, the current one
  * in a card with its services and the hotspots on the cross-section. Walks every 4.6 s until the
  * first touch (paused off screen, in a hidden tab and with reduced motion). „Na przekroju” shows
- * that hotspot in the hero and scrolls back to it.
+ * that hotspot in the hero and scrolls back to it. From 1101 px the moments sit on an axis of
+ * hours whose fill slides to the current one (RUNDA-V5 §11, like the process axis §6).
  */
 export function DayTimeline({ moments, hotspotColors }: Props) {
   const ref = useRef<HTMLDivElement>(null)
@@ -42,7 +43,16 @@ export function DayTimeline({ moments, hotspotColors }: Props) {
 
   return (
     <div ref={ref} className="sgday ri">
-      <div className="sgdl">
+      <div
+        className="sgdl"
+        style={
+          {
+            '--n': moments.length,
+            '--p': moments.length > 1 ? dy / (moments.length - 1) : 1,
+          } as CSSProperties
+        }
+      >
+        <span className="sgdfill" aria-hidden="true" />
         {moments.map((m, i) => (
           <button
             key={i}

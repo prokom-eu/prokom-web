@@ -7,7 +7,7 @@ import { SERVICE_KEYS } from '@/lib/instalacje/options'
 import { siteOrigin } from '@/lib/seo/origin'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
-import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toTelHref } from '@/lib/site/link'
 import type { InstHomeBlock as InstHomeBlockData } from '@/payload-types'
 
 import { glownaSekcje } from '../../dane/glownaSekcje'
@@ -26,10 +26,8 @@ import { PlanSection } from '../../sekcje/glowna/PlanSection'
 import { type HomeService, ServicesGrid, TrustBand } from '../../sekcje/glowna/ServicesGrid'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { HeroBackdrop } from '../../widzety/glowna/HeroBackdrop'
-import { LiveObjectHero } from '../../widzety/glowna/LiveObjectHero'
-import { SectionRail } from '../../widzety/glowna/SectionRail'
-
-import '../../sekcje/glowna/glowna-sekcje.css'
+import { LiveObjectHero } from '../../widzety/glowna/LiveObjectHeroLazy'
+import { PageStyles } from '../../style/LineStyles'
 
 type Props = { block: InstHomeBlockData; tenantId: number }
 
@@ -37,6 +35,19 @@ type Props = { block: InstHomeBlockData; tenantId: number }
 export const HOME_PLAN_HREF = '/zaplanuj#obiekt=pens&uslugi=kam,wifi'
 
 const SITE_NAME = 'PRO-KOM Instalacje'
+
+/** Words with a hyphen („Wi-Fi”) never break at it in the big heading (a phone wrapped „Wi- Fi”). */
+function keepHyphens(text: string) {
+  return text.split(/(\S+-\S+)/).map((part, i) =>
+    i % 2 ? (
+      <span key={i} className="whitespace-nowrap">
+        {part}
+      </span>
+    ) : (
+      part
+    ),
+  )
+}
 
 /**
  * Home page of the Instalacje line (ADR-I002 §0, KOMPONENTY §3): the hero „Twój obiekt na
@@ -57,7 +68,6 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
   const origin = siteOrigin(host, getEnv().SITE_ENV)
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
-  const whatsapp = settings.whatsapp ? toWhatsAppHref(settings.whatsapp) : null
   const services = new Map<ServiceKey, HomeService>(
     menu.services.flatMap((column) =>
       column.items.map((item) => [item.key as ServiceKey, { ...item, group: column.label }]),
@@ -86,8 +96,8 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
 
   return (
     <>
+      <PageStyles kind="home" />
       {origin && <JsonLd data={websiteJsonLd({ origin, name: SITE_NAME })} />}
-      <SectionRail />
       <LiveObjectHero backdrop={<HeroBackdrop />}>
         <div className="hxt">
           <span className="hpill in d1">
@@ -97,12 +107,12 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
           <h1 className="disp in d2">
             <span className="hxs">{hero.kicker}</span>
             <span className="sr-only">. </span>
-            {hero.h1a} <span className="hxk">{hero.h1b}</span>
+            {keepHyphens(hero.h1a)} <span className="hxk">{keepHyphens(hero.h1b)}</span>
           </h1>
           <p className="lead in d3">{hero.lead}</p>
           <div className="hxcta in d4">
             <a href={HOME_PLAN_HREF} className="btn hbtn-p">
-              <InstIcon name="home" strokeWidth={2.2} />
+              <InstIcon name="send" strokeWidth={2.2} />
               Zaplanuj instalację
             </a>
             {phone ? (
@@ -137,7 +147,7 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
       <ArchTeaser tenantId={tenantId} />
       <RealizationsTeaser items={home.realizations} />
       <MountainsSection />
-      <ProcessSteps />
+      <ProcessSteps warrantyMonths={settings.warrantyMonths} />
       <ServiceTeaser />
       <Faq
         heading={t.heading}
@@ -147,8 +157,8 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
         aside={{
           title: t.aside.title,
           text: t.aside.text,
-          button: whatsapp ? t.aside.button : t.aside.buttonNoWhatsapp,
-          href: whatsapp ?? '/kontakt',
+          button: t.aside.button,
+          href: '/kontakt',
         }}
         phone={phone}
         fold
@@ -160,7 +170,6 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
         phone={phone}
         email={site?.email ?? null}
         salons={salons}
-        whatsapp={whatsapp}
         hours={hours}
       />
     </>

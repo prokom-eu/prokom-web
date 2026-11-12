@@ -45,6 +45,10 @@ describe('block registry', () => {
       'instContact',
       'instServiceDesk',
       'instArchitects',
+      'instOffer',
+      'instRealizations',
+      'instAbout',
+      'instGuide',
     ])
     expect([...ALLOWED_BLOCKS.instalacje].sort()).toEqual(
       [...GENERIC_BLOCK_SLUGS, ...INSTALACJE_BLOCK_SLUGS].sort(),
@@ -59,13 +63,10 @@ describe('block registry', () => {
       'swHero',
       'swHomeSection',
       'swContact',
-      'swContactPage',
       'swPricing',
       'swAuditForm',
-      'swPageHero',
-      'swSteps',
-      'swTeam',
-      'swLines',
+      'swSharedPage',
+      'swLegal',
     ])
     expect([...ALLOWED_BLOCKS.software].sort()).toEqual(
       [...GENERIC_BLOCK_SLUGS, ...SOFTWARE_BLOCK_SLUGS].sort(),

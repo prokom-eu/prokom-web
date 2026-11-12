@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { useRouter } from 'next/navigation'
 import { type FormEvent, useEffect, useId, useRef, useState } from 'react'
 
@@ -16,6 +16,7 @@ import {
 } from '@/lib/inquiry/consent'
 import { linkInText, readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
+import { requestAuditScan, scanHost } from '@/lib/software/auditScan'
 
 export type AuditFormTexts = {
   label: string | null
@@ -33,6 +34,8 @@ type Props = {
   texts: AuditFormTexts
   errors: Record<AuditField, string>
   formToken: string
+  /** The sample scan card stands next to the form: show „Skanuj podgląd →”. */
+  scan: boolean
 }
 
 const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
@@ -40,17 +43,20 @@ const FIELDS: AuditField[] = ['url', 'name', 'contact', 'consent']
 
 type ErrorKey = AuditField | 'form'
 
+/** „Skanuj podgląd →”: plays the sample card next to the form (a control, not panel content). */
+const SCAN_LABEL = 'Skanuj podgląd'
+
 const labelClass = 'text-sm font-extrabold text-ink'
 const inputClass =
   'block h-[54px] w-full rounded-[14px] border-[1.5px] border-border-input bg-surface px-4 text-base text-ink placeholder:text-ink-3 focus:border-accent-text aria-invalid:border-[3px] aria-invalid:border-ink'
 
 /**
- * The audit form of `/audyt` (spec. §6.5, §7.2; board `Audyt`): address, „Imię” and „E-mail albo
- * telefon” (both added to the board, ADR-014 rozstrz. SW0 6), consent. Labels above the fields;
- * errors under them and in a box above the button, focus on the first wrong field. Sent →
- * `/dziekujemy?nr=…`.
+ * The audit form of `/audyt` (ZMIANY-v24 §9.1, board `AU-audyt` „Szybki audyt · 0 zł”): address
+ * with „Skanuj podgląd →” (plays the sample card, sends nothing), „Imię” and „E-mail albo telefon”
+ * (ADR-014 rozstrz. SW0 6), consent. Labels above the fields; errors under them and in a box above
+ * the button, focus on the first wrong field. Sent → `/dziekujemy?nr=…`.
  */
-export function AuditForm({ texts, errors: messages, formToken }: Props) {
+export function AuditForm({ texts, errors: messages, formToken, scan }: Props) {
   const id = useId()
   const router = useRouter()
   const [values, setValues] = useState({ url: '', name: '', contact: '', consent: false })
@@ -147,10 +153,10 @@ export function AuditForm({ texts, errors: messages, formToken }: Props) {
     values.consent
 
   const input = (
-    field: 'url' | 'name' | 'contact',
+    field: 'name' | 'contact',
     label: string,
     placeholder: string | null,
-    extra: { inputMode?: 'url'; autoComplete: string; maxLength: number },
+    extra: { autoComplete: string; maxLength: number },
   ) => (
     <div className="flex flex-col gap-1.5">
       <label htmlFor={`${id}-${field}`} className={labelClass}>
@@ -175,18 +181,50 @@ export function AuditForm({ texts, errors: messages, formToken }: Props) {
     <form
       noValidate
       onSubmit={submit}
-      className="flex flex-col gap-4 rounded-[26px] bg-card p-[18px] shadow-[inset_0_0_0_1.5px_var(--accent-line),var(--shadow)] min-[641px]:p-6"
+      className="sw-glass mt-8 flex flex-col gap-4 p-[18px] min-[641px]:p-6"
     >
-      {texts.label ? (
-        <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">
-          {texts.label}
-        </p>
-      ) : null}
-      {input('url', texts.urlLabel, texts.urlPlaceholder, {
-        inputMode: 'url',
-        autoComplete: 'url',
-        maxLength: 2000,
-      })}
+      {texts.label ? <p className="sw-eyebrow">{texts.label}</p> : null}
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor={`${id}-url`} className={labelClass}>
+          {texts.urlLabel}
+        </label>
+        <div className="flex flex-col gap-2 min-[481px]:flex-row">
+          <input
+            id={`${id}-url`}
+            ref={refs.url}
+            value={values.url}
+            onChange={(event) => set('url', event.target.value)}
+            placeholder={texts.urlPlaceholder ?? undefined}
+            aria-invalid={errors.url ? true : undefined}
+            aria-describedby={describe('url')}
+            className={inputClass}
+            inputMode="url"
+            autoComplete="url"
+            maxLength={2000}
+          />
+          {scan ? (
+            <button
+              type="button"
+              data-motion="button-outline"
+              aria-describedby={`${id}-scan-note`}
+              onClick={() => {
+                track('audyt_skan')
+                requestAuditScan(scanHost(values.url))
+              }}
+              className="inline-flex min-h-[54px] shrink-0 items-center justify-center gap-2 rounded-[14px] border border-accent-line bg-accent-soft px-4 font-extrabold text-accent-text"
+            >
+              {SCAN_LABEL}
+              <Icon name="arrow" className="size-4" />
+            </button>
+          ) : null}
+        </div>
+        {errors.url && <FieldError id={`${id}-url-error`}>{errors.url}</FieldError>}
+        {scan ? (
+          <span id={`${id}-scan-note`} className="sr-only">
+            Pokazuje przykładowy wynik obok formularza. Nic nie wysyłamy.
+          </span>
+        ) : null}
+      </div>
       <div className="grid gap-4 min-[641px]:grid-cols-2 min-[641px]:gap-2.5">
         {input('name', texts.nameLabel, texts.namePlaceholder, {
           autoComplete: 'name',
@@ -250,9 +288,10 @@ export function AuditForm({ texts, errors: messages, formToken }: Props) {
         type="submit"
         // Looks inactive until ready (spec. §7.2), yet answers a click with the errors.
         aria-disabled={busy || undefined}
+        data-motion="button"
         className={cx(
-          'inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl px-6 font-display text-lg font-extrabold',
-          ready && !busy ? 'bg-button text-accent-ink shadow-raised' : 'bg-chip text-ink-2',
+          'inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full px-6 font-display text-lg font-extrabold',
+          ready && !busy ? 'bg-button text-accent-ink' : 'bg-chip text-ink-2',
         )}
       >
         {texts.submit}

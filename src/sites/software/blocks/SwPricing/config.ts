@@ -1,7 +1,10 @@
 import type { Block, Field } from 'payload'
 
 import { hrefField, linkGroup } from '../../../../blocks/fields'
-import { SOLUTION_CATEGORIES } from '../../../../lib/software/options'
+
+/** Panel hint for the H2 fields (AUDYT po SWA7 #5). */
+const EM_HINT =
+  'Część w gradiencie w **gwiazdkach**, np. „Trzy poziomy audytu — **pierwszy za darmo**”.'
 
 const text = (
   name: string,
@@ -27,10 +30,10 @@ const textarea = (name: string, label: string, maxLength: number, description?: 
 })
 
 /**
- * The price list `/cennik` of the Software line (spec. §6.4, v22; board `Cennik`, stan `89b`):
- * hero with the most chosen solution, the solutions in tabs (one „od” price, one „od” term, „W
- * cenie”), care levels with „Zapytaj o opiekę X →”, audit kinds, „Tego nie dopłacasz” and the
- * final CTA. Prices, terms and levels only from `Solutions`; the FAQ is the shared `faq` block.
+ * The price list `/cennik` of the Software line (ZMIANY-v24 §6.3): the subpage hero, every
+ * solution as a price card with the four offer groups as filters, care levels with „Zapytaj o
+ * opiekę X →” and the audit kinds. Prices, terms and levels only from `Solutions`; the FAQ is the
+ * shared `faq` block.
  */
 export const SwPricingBlock: Block = {
   slug: 'swPricing',
@@ -57,63 +60,6 @@ export const SwPricingBlock: Block = {
         ),
         linkGroup('primary', 'Przycisk główny'),
         linkGroup('secondary', 'Przycisk drugi'),
-        {
-          name: 'featured',
-          label: 'Karta w nagłówku — rozwiązanie',
-          type: 'relationship',
-          relationTo: 'solutions',
-          admin: { description: 'Cena i termin z rozwiązania. Puste = bez karty.' },
-        },
-        {
-          type: 'row',
-          fields: [text('featuredBadge', 'Karta — plakietka', 30)],
-        },
-        {
-          name: 'featuredPoints',
-          label: 'Karta — punkty',
-          type: 'array',
-          maxRows: 3,
-          fields: [text('text', 'Punkt', 60, true)],
-        },
-      ],
-    },
-    {
-      type: 'collapsible',
-      label: 'Tabela rozwiązań',
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            text('tableEyebrow', 'Nad nagłówkiem', 40),
-            text('tableTitle', 'Nagłówek (H2)', 60, true),
-          ],
-        },
-        {
-          name: 'tabs',
-          label: 'Zakładki — nazwy i noty',
-          type: 'array',
-          maxRows: SOLUTION_CATEGORIES.length,
-          admin: {
-            description:
-              'Kolejność i liczba pozycji z rozwiązań (kategoria). Bez wpisu zakładka ma nazwę kategorii i nie ma noty.',
-          },
-          fields: [
-            {
-              type: 'row',
-              fields: [
-                {
-                  name: 'category',
-                  label: 'Kategoria',
-                  type: 'select',
-                  required: true,
-                  options: SOLUTION_CATEGORIES.map(({ label, value }) => ({ label, value })),
-                },
-                text('label', 'Nazwa zakładki', 30),
-              ],
-            },
-            textarea('note', 'Nota nad tabelą', 240),
-          ],
-        },
       ],
     },
     {
@@ -124,7 +70,7 @@ export const SwPricingBlock: Block = {
           type: 'row',
           fields: [
             text('careEyebrow', 'Nad nagłówkiem', 40),
-            text('careTitle', 'Nagłówek (H2)', 80),
+            text('careTitle', 'Nagłówek (H2)', 80, false, EM_HINT),
           ],
         },
         textarea(
@@ -156,7 +102,7 @@ export const SwPricingBlock: Block = {
           type: 'row',
           fields: [
             text('auditEyebrow', 'Nad nagłówkiem', 40),
-            text('auditTitle', 'Nagłówek (H2)', 80),
+            text('auditTitle', 'Nagłówek (H2)', 80, false, EM_HINT),
           ],
         },
         textarea(
@@ -169,41 +115,6 @@ export const SwPricingBlock: Block = {
           type: 'row',
           fields: [text('auditButton', 'Przycisk', 40), hrefField('auditHref', 'Przycisk — link')],
         },
-      ],
-    },
-    {
-      type: 'collapsible',
-      label: 'Tego nie dopłacasz',
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            text('includedEyebrow', 'Nad nagłówkiem', 40),
-            text('includedTitle', 'Nagłówek (H2)', 60),
-          ],
-        },
-        {
-          name: 'includedItems',
-          label: 'Pozycje',
-          type: 'array',
-          maxRows: 8,
-          fields: [
-            {
-              type: 'row',
-              fields: [text('title', 'Pozycja', 50, true), text('text', 'Opis', 80)],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: 'collapsible',
-      label: 'Wezwanie na końcu',
-      fields: [
-        text('ctaTitle', 'Nagłówek (H2)', 60),
-        textarea('ctaText', 'Tekst', 240),
-        linkGroup('ctaPrimary', 'Przycisk główny'),
-        linkGroup('ctaSecondary', 'Przycisk drugi'),
       ],
     },
   ],

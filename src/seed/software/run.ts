@@ -5,9 +5,10 @@ import obszary from '../../../seed/prokomsoftware/obszary.json'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
 import { homeSchema } from '../../lib/software/home'
-import { navigationSchema } from '../../lib/software/navigation'
+import { isV23Navigation, navigationSchema } from '../../lib/software/navigation'
 import { softwareOfferSchema } from '../../lib/software/offer'
-import { softwareWizardSchema } from '../../lib/software/wizard'
+import { notFoundSchema, thanksSchema } from '../../lib/software/pages'
+import { softwareWizardSchema } from '../../lib/software/wizard/schema'
 import {
   areaData,
   cityData,
@@ -15,6 +16,7 @@ import {
   industriesToImport,
   missingFacts,
   softwareContactUpdate,
+  softwareFooterText,
   removedSolutions,
   softwareSettingsData,
   softwarePostData,
@@ -23,15 +25,16 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
-import { seedSoftwareAbout } from './about'
 import { seedSoftwareSeo } from './seo'
 import { seedSoftwareAudit } from './audit'
 import { seedSoftwareLegal } from './legal'
-import { seedSoftwareContact } from './contact'
 import { seedSoftwareHome } from './home'
-import { seedSoftwarePhotos } from './photos'
+import { seedSoftwareSharedPages } from './sharedPages'
 import { seedSoftwarePricing } from './pricing'
-import { HOME_SECTION_TEXTS, homeWithPriceTokens, homeWithSections } from './homeExtras'
+import { HOME_SECTION_TEXTS, homeWithSections, homeWithV24 } from './homeExtras'
+import { HOME_HERO } from './homeHero'
+import { HOME_V24 } from './homeV24'
+import { seedSharedData } from '../shared/run'
 
 const SOFTWARE_TENANT_SLUG = 'software'
 
@@ -228,20 +231,25 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   if (!siteSettings) {
     log('site-settings: skipped — no settings of the tenant yet, run `pnpm seed`.')
   } else {
-    // A navigation in a shape before v21 (SWR2) no longer passes the schema — the frame would
-    // fall back to the generic one, so locally the seed replaces it (like the wizard, SW7).
-    const navigationMissing = !navigationSchema.safeParse(siteSettings.software?.navigation).success
+    // A navigation that no longer passes the schema (before v21) or still of the v23 frame (before
+    // SWA5 — it works, but without the v24 mega menu and band): locally the seed replaces it.
+    const savedNavigation = siteSettings.software?.navigation
+    const navigationMissing =
+      !navigationSchema.safeParse(savedNavigation).success || isV23Navigation(savedNavigation)
+    const footerText = softwareFooterText(siteSettings.footer?.text)
     const facts = missingFacts(siteSettings.software?.facts, factsData())
     const contact = softwareContactUpdate(siteSettings)
     count('site-settings navigation', navigationMissing)
     count('site-settings facts', facts.length > 0 ? 'updated' : false)
     count('site-settings contact', contact ? 'updated' : false)
-    if (navigationMissing || facts.length > 0 || contact) {
+    count('site-settings footer text', footerText ? 'updated' : false)
+    if (navigationMissing || facts.length > 0 || contact || footerText) {
       await payload.update({
         collection: 'site-settings',
         id: siteSettings.id,
         data: {
           ...contact,
+          ...(footerText && { footer: { ...siteSettings.footer, text: footerText } }),
           software: {
             ...siteSettings.software,
             navigation: navigationMissing ? settings.navigation : siteSettings.software?.navigation,
@@ -283,19 +291,18 @@ export async function seedSoftware(payload: Payload): Promise<void> {
     const missing: Partial<typeof fields> = Object.fromEntries(
       Object.entries(jsonFields).filter(([key]) => {
         const value = softwareSettings[key as keyof typeof jsonFields]
-        // Rules of an older shape (SW7 sizes, SWR4a send block…) hide the wizard: replaced locally,
-        // like the window texts; staging pastes `pnpm software:wizard-json` (decyzja SWD2 nr 5).
+        // Rules of an older shape (before v3) hide the wizard: replaced locally; on staging the
+        // migration `swa3_kreator_v3` rewrites them (`pnpm software:wizard-json` for edits).
         if (key === 'wizard' && value != null) return !softwareWizardSchema.safeParse(value).success
         // Window texts in an older shape would hide the window's shared parts: replaced (SWR3).
         if (key === 'offer' && value != null) return !softwareOfferSchema.safeParse(value).success
         // A home of an older shape (generic „12 rzeczy” cards before SWR5) hides the start page
         // sections: replaced; staging pastes `pnpm software:home-json`.
         if (key === 'home' && value != null) return !homeSchema.safeParse(value).success
-        // Thanks and 404 texts of the seed before SW11b (KSeF card, „5 krótkich kroków”):
-        // replaced; texts edited in the panel stay. Staging pastes `pnpm software:pages-json`.
-        if ((key === 'thanks' || key === 'notFound') && value != null) {
-          return isPreSw11bPages(value)
-        }
+        // Thanks and 404 texts of an older shape (v23, before SWA6b) hide those pages: replaced;
+        // texts of the v24 shape edited in the panel stay. Staging pastes `pnpm software:pages-json`.
+        if (key === 'thanks' && value != null) return !thanksSchema.safeParse(value).success
+        if (key === 'notFound' && value != null) return !notFoundSchema.safeParse(value).success
         return value === null || value === undefined
       }),
     )
@@ -308,11 +315,13 @@ export async function seedSoftware(payload: Payload): Promise<void> {
       popular: stored?.popular?.length ? stored.popular : search.popular,
     }
     if (!hasSameValues(stored, searchMissing)) missing.search = searchMissing
-    // A home saved before SW5 / SW6 / SW8a lacks some section headings: only the missing ones
-    // are added. The package's rebuild price written as text becomes the price token (SW8a).
+    // A home saved before SW11b lacks the comparison heading: only missing headings are added.
     if (!missing.home) {
       const withSections = homeWithSections(softwareSettings.home, HOME_SECTION_TEXTS)
-      const home = homeWithPriceTokens(withSections ?? softwareSettings.home) ?? withSections
+      // v24 (SWA2a/2b): hero and the new sections added once to a home that lacks them.
+      const home =
+        homeWithV24(withSections ?? softwareSettings.home, { hero: HOME_HERO, ...HOME_V24 }) ??
+        withSections
       if (home) missing.home = home as typeof fields.home
     }
     const changed = Object.keys(missing).length > 0
@@ -329,27 +338,20 @@ export async function seedSoftware(payload: Payload): Promise<void> {
 
   // --- start page (SW5): after the settings, its sections read their texts ---
   await seedSoftwareHome(payload, tenant.id, count)
-  // --- /kontakt (SW11a): replaces the generic sample page of `pnpm seed` ---
-  await seedSoftwareContact(payload, tenant.id, count)
   // --- /cennik (SW11a): after the solutions, its hero card points at one ---
   await seedSoftwarePricing(payload, tenant.id, count)
   await seedSoftwareAudit(payload, tenant.id, count)
-  // --- /polityka-prywatnosci (SW11b): a draft until the owner approves it ---
+  // --- /polityka-prywatnosci (SW11b), /cookies, /dostepnosc (D2-1b): drafts until approved ---
   await seedSoftwareLegal(payload, tenant.id, count)
-  // --- /o-firmie, /jedna-firma (SW11b): after the home texts — the comparison reads them ---
-  await seedSoftwareAbout(payload, tenant.id, count)
-  // --- photos of /o-firmie, /jedna-firma, /kontakt (SWV4): only empty photo fields ---
-  await seedSoftwarePhotos(payload, tenant.id, count)
+  // --- /kontakt, /o-firmie on the shared templates, /jedna-firma → 301 (SWA5b) ---
+  await seedSoftwareSharedPages(payload, tenant.id, count)
   // --- titles and descriptions of those pages (SW12, spec. §9): only empty fields ---
   await seedSoftwareSeo(payload, tenant.id, count)
+
+  // --- shared data of the company and the line (D1, spec elementów wspólnych §4) ---
+  await seedSharedData(payload, 'software', tenant.id, count)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)
   }
-}
-
-/** Thanks or 404 texts exactly as the seed wrote them before SW11b (markers of that version). */
-export function isPreSw11bPages(value: unknown): boolean {
-  const json = JSON.stringify(value)
-  return json.includes('przygotować się do KSeF') || json.includes('5 krótkich kroków')
 }

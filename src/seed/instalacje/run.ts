@@ -3,12 +3,17 @@ import type { Payload, Where } from 'payload'
 import { SETTINGS_DEFAULTS } from '../../lib/instalacje/options'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
-import { lineSettingsUpdate, siteContactUpdate } from './contact'
+import { footerText, lineSettingsUpdate, siteContactUpdate } from './contact'
 import { FORM_PAGE_BLOCKS, needsFormBlock } from './formPages'
+import { seedInstalacjeGuide } from './guide'
+import { seedInstalacjeLegal } from './legal'
+import { seedArchNewsPhotos } from './archNewsPhotos'
 import { seedInstalacjeHome } from './home'
+import { seedRealizationPhotos } from './realizationPhotos'
 import { SERVICE_PAGE_KEYS } from './servicePages'
 import {
   archNewsToImport,
+  forwardSeoTitle,
   objectData,
   objectsToImport,
   pagesToImport,
@@ -18,6 +23,7 @@ import {
   solutionsToImport,
   type Refs,
 } from './map'
+import { seedSharedData } from '../shared/run'
 
 const INSTALACJE_TENANT_SLUG = 'instalacje'
 
@@ -36,7 +42,7 @@ type Counter = { created: number; updated: number; skipped: number }
  * - Pages: missing ones as empty drafts with title and SEO (blocks come with their sessions);
  *   an existing page is never touched — except home, which gets its `instHome` block (I5).
  * - Settings: created while missing, then they belong to the panel. The line's real phone and
- *   e-mail (`SiteSettings`), WhatsApp and the architects' contact person replace only the sample
+ *   e-mail (`SiteSettings`) and the architects' contact person replace only the sample
  *   or an empty field (`./contact`).
  */
 export async function seedInstalacje(payload: Payload): Promise<void> {
@@ -107,15 +113,20 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     ...local,
   })
   const siteUpdate = siteSettings ? siteContactUpdate(siteSettings) : null
-  if (siteSettings && siteUpdate) {
+  // L1-I: the line description of the shared footer while the panel has the sample text. The
+  // legal links are no longer written (L2-I): the shared footer takes them from `CompanyData.legal`.
+  const text = siteSettings ? footerText(siteSettings.footer?.text) : null
+  const footer = siteSettings && text ? { ...siteSettings.footer, text } : null
+  if (siteSettings && (siteUpdate || footer)) {
     await payload.update({
       collection: 'site-settings',
       id: siteSettings.id,
-      data: siteUpdate,
+      data: { ...siteUpdate, ...(footer && { footer }) },
       ...local,
     })
   }
   count('site-settings contact', siteUpdate ? 'updated' : 'skipped')
+  count('site-settings footer', footer ? 'updated' : 'skipped')
 
   // --- services and objects: ids first, then full data with the relations ---
   const services = servicesToImport()
@@ -248,6 +259,9 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     }
   }
 
+  // Round v5 (RUNDA-V5 §7.2): product photos for cards whose photo is empty.
+  await seedArchNewsPhotos(payload, tenantId, count)
+
   // --- realizations: published with the clients' consent (boss 01.11.2026) ---
   for (const data of realizationsToImport()) {
     const {
@@ -279,23 +293,60 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
         ...local,
       })
       count('realizations', 'updated')
+    } else if (existing._status === 'published' && (!existing.kind || !existing.services?.length)) {
+      // I12: the filters of /realizacje (new fields) — only while the panel left them empty.
+      await payload.update({
+        collection: 'realizations',
+        id: existing.id,
+        data: {
+          ...(!existing.kind && { kind: data.kind }),
+          ...(!existing.services?.length && { services: data.services }),
+        },
+        ...local,
+      })
+      count('realizations', 'updated')
     } else {
       count('realizations', 'skipped')
     }
   }
+  // Round v5 (RUNDA-V5 §4): photos from pro-kom.eu for realizations whose photos are empty.
+  await seedRealizationPhotos(payload, tenantId, count)
+
+  // --- guide posts (I12): `/poradnik/<slug>`, created while missing ---
+  await seedInstalacjeGuide(payload, tenantId, count)
+
+  // --- legal pages (I13): created while missing, then they belong to the panel ---
+  await seedInstalacjeLegal(payload, tenantId, count)
 
   // --- home page (I5): the `instHome` block and SEO, also over the sample page ---
   await seedInstalacjeHome(payload, tenantId, count)
 
-  // --- pages: missing ones as empty drafts with title and SEO; existing ones untouched ---
+  // --- pages: missing ones as empty drafts with title and SEO; existing ones keep theirs ---
   // `kontakt` of an older `pnpm seed` is its sample page; the form pages below replace it (I11).
+  // P3-23: an existing page whose SEO title is still a former default of the seed moves forward.
   for (const page of pagesToImport()) {
-    const { totalDocs } = await payload.count({
+    const {
+      docs: [existing],
+      totalDocs,
+    } = await payload.find({
       collection: 'pages',
       where: inTenant({ slug: { equals: page.slug } }),
+      limit: 1,
+      depth: 0,
+      draft: true,
       overrideAccess: true,
       context: SEED_CONTEXT,
     })
+    const title = existing ? forwardSeoTitle(existing.seo?.title, page.seo.title) : null
+    if (existing && title) {
+      await payload.update({
+        collection: 'pages',
+        id: existing.id,
+        data: { seo: { ...existing.seo, title } },
+        ...local,
+      })
+      count('pages seo title', 'updated')
+    }
     if (totalDocs === 0) {
       await payload.create({
         collection: 'pages',
@@ -366,6 +417,11 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     })
     count('form-pages', 'updated')
   }
+
+  // --- shared data of the company and the line (D1, spec elementów wspólnych §4) ---
+  await seedSharedData(payload, 'instalacje', tenantId, (name, result) =>
+    count(name, result === 'updated' ? 'updated' : result ? 'created' : 'skipped'),
+  )
 
   for (const [name, c] of Object.entries(counters)) {
     log(`${name}: ${c.created} created, ${c.updated} updated, ${c.skipped} unchanged.`)

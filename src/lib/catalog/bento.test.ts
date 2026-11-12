@@ -97,6 +97,34 @@ describe('bentoTiles', () => {
     expect(bentoTiles(service.slice(0, 2))).toEqual([])
     expect(bentoTiles([...specs, { label: 'Ekran', value: '' }])).toHaveLength(5)
   })
+
+  it('skips parameters the hero already shows as highlights (audit 0611 P1-13)', () => {
+    const ergo = [
+      { label: 'Waga', value: '0,6 kg' },
+      { label: 'Ekran', value: 'graficzny 192 × 64 px' },
+      { label: 'Akumulator', value: 'Li-Ion' },
+      { label: 'Złącza', value: 'USB, RJ' },
+      { label: 'Papier', value: '57 mm' },
+      { label: 'Baza towarów', value: '20 000' },
+    ]
+    const tiles = bentoTiles(ergo, ['Waży tylko 0,6 kg', 'Ekran graficzny 192 × 64 px'])
+    expect(tiles.map((tile) => tile.label)).not.toContain('Waga')
+    expect(tiles.map((tile) => tile.label)).not.toContain('Ekran')
+    expect(tiles).toHaveLength(3)
+    // A short value or a part of a word is not a repeat.
+    expect(
+      bentoTiles(
+        [
+          { label: 'Porty', value: 'USB' },
+          { label: 'Gwarancja', value: '1' },
+          { label: 'Kolor', value: 'czarny' },
+        ],
+        ['USB-C i HDMI', '1 rok', 'czarnyszary'],
+      ),
+    ).toHaveLength(3)
+    // Too few left without the highlights: the bento keeps them rather than vanish.
+    expect(bentoTiles(ergo.slice(0, 3), ['0,6 kg'])).toHaveLength(3)
+  })
 })
 
 describe('icons', () => {

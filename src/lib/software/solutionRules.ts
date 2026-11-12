@@ -1,4 +1,5 @@
 import type { Where } from 'payload'
+import { isMockupKind, isVariantOf, mockupVariants } from './mockups'
 
 /**
  * Rules of `Solutions` v22 (ADR-014 „Rozstrzygnięcia v21/v22” pkt 1–4): one „od” price, levels
@@ -49,6 +50,22 @@ export function thumbnailError(path: string | null | undefined): string | null {
   return THUMBNAIL_PATH.test(path)
     ? null
     : 'Ścieżka w postaci /software/rozwiazania/<adres>.svg (plik z repozytorium).'
+}
+
+/**
+ * The mock-up of a solution (`preview`, ZMIANY-v24 §8): a variant only with a kind, one of that
+ * kind's variants, none for `care`. Empty both = the SVG thumbnail stays.
+ */
+export function previewVariantError(
+  kind: string | null | undefined,
+  variant: string | null | undefined,
+): string | null {
+  if (!kind) return variant ? 'Najpierw wybierz rodzaj makiety.' : null
+  if (!isMockupKind(kind)) return 'Nieznany rodzaj makiety.'
+  if (isVariantOf(kind, variant)) return null
+  if (mockupVariants(kind).length === 0) return 'Makieta opieki jest bez wariantu — zostaw puste.'
+  if (!variant) return 'Wybierz wariant makiety.'
+  return `Wariant „${variant}” nie pasuje do rodzaju „${kind}”.`
 }
 
 /**

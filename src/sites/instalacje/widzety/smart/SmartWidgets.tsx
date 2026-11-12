@@ -154,7 +154,8 @@ export function SmartPlan() {
               className={r.selected ? 'shg sel' : 'shg'}
               role="button"
               tabIndex={0}
-              aria-label={r.name}
+              // WCAG 2.5.3: the name holds the visible text (room and temperature).
+              aria-label={`${r.name} ${r.temp}`}
               aria-pressed={r.selected}
               onClick={() => touch((st) => ({ ...st, sel: r.key }))}
               onKeyDown={(e) => {
@@ -163,6 +164,7 @@ export function SmartPlan() {
                 touch((st) => ({ ...st, sel: r.key }))
               }}
             >
+              <rect className="shhit" x={r.hit.x} y={r.hit.y} width={r.hit.w} height={r.hit.h} />
               <rect
                 className={r.terrace ? 'shr ext' : 'shr'}
                 x={r.x}
@@ -187,7 +189,11 @@ export function SmartPlan() {
                 className="fo fo-l"
                 aria-hidden="true"
               >
-                <div className="fot">{r.name}</div>
+                <div className="fot">
+                  {r.name}
+                  {/* A space between name and temperature: the button's visible text must read
+                      „Salon 21°” like its name (WCAG 2.5.3), not „Salon21°”. */}{' '}
+                </div>
               </foreignObject>
               <foreignObject
                 x={r.x + 12}

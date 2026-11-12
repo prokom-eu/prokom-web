@@ -67,7 +67,7 @@ export function InsertPicker({
         aria-live="polite"
         data-testid="subiekt-result"
         data-slug={rule.slug}
-        className="flex flex-col gap-4 rounded-[24px] bg-surface-dark p-6 text-white sm:p-8"
+        className="flex flex-col gap-4 rounded-[24px] bg-surface-dark p-6 text-white max-md:gap-3 max-md:p-[18px] sm:p-8"
       >
         <p className={cx(EYEBROW, 'text-accent-on-dark')}>Polecamy na start</p>
         <div className="flex items-center gap-4">
@@ -76,7 +76,9 @@ export function InsertPicker({
               <Image
                 unoptimized
                 src={program.image.url}
-                alt=""
+                alt={program.image.alt}
+                // The name is in the text next to it: the alt serves search engines only.
+                aria-hidden
                 width={program.image.width}
                 height={program.image.height}
                 className="max-h-full w-auto object-contain"
@@ -170,10 +172,11 @@ export function InsertPoints({ data }: { data: SectionData<'insert-points'> }) {
   )
   return (
     <>
-      <div className="grid gap-6 min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <div className={cx(CARD, 'p-6 text-ink')}>
-          <p className="mb-3 font-display text-lg font-extrabold">Jak to działa</p>
-          <ol className="flex flex-col gap-3">
+      {/* Phone (App-InsERT): the calculator first, then the steps; smaller type. */}
+      <div className="grid gap-6 max-md:gap-3 min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+        <div className={cx(CARD, 'p-6 text-ink max-md:order-2 max-md:p-4')}>
+          <p className="mb-3 font-display text-lg font-extrabold max-md:text-base">Jak to działa</p>
+          <ol className="flex flex-col gap-3 max-md:gap-2.5">
             {data.steps.map((step, i) => (
               <li key={step.t} className="flex gap-3">
                 <i className="flex size-8 shrink-0 items-center justify-center rounded-full bg-surface-2 font-display font-extrabold text-accent-text not-italic">
@@ -181,14 +184,16 @@ export function InsertPoints({ data }: { data: SectionData<'insert-points'> }) {
                 </i>
                 <span className="flex flex-col">
                   <b className="font-extrabold">{step.t}</b>
-                  <small className="text-[14px] leading-relaxed text-ink-2">{step.d}</small>
+                  <small className="text-[14px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
+                    {step.d}
+                  </small>
                 </span>
               </li>
             ))}
           </ol>
         </div>
-        <div className={cx(CARD, 'flex flex-col gap-3 p-6 text-ink')}>
-          <p className="font-display text-lg font-extrabold">Policz w 10 sekund</p>
+        <div className={cx(CARD, 'flex flex-col gap-3 p-6 text-ink max-md:order-1 max-md:p-4')}>
+          <p className="font-display text-lg font-extrabold max-md:text-base">Policz w 10 sekund</p>
           <div className="flex flex-wrap gap-2">
             {data.presets.map((preset) => (
               <button
@@ -244,9 +249,9 @@ export function InsertPoints({ data }: { data: SectionData<'insert-points'> }) {
               />
             </div>
           </div>
-          <p className="text-[15px] leading-relaxed text-ink-2">
+          <p className="text-[15px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
             {coverage
-              ? `${data.pool} InsPunktów z Abonamentu wystarczy przy takiej liczbie faktur na ${coverage}. Resztę dobierzemy w paczce — sprzedajemy paczki InsPunktów jako partner InsERT.`
+              ? `${data.pool} InsPunktów z Abonamentu wystarczy przy takiej liczbie faktur na ${coverage}. Resztę dobierzemy w paczce, bo sprzedajemy paczki InsPunktów jako partner InsERT.`
               : 'Podaj liczbę faktur, żeby zobaczyć wynik.'}
           </p>
           <div className="flex flex-wrap gap-3">
@@ -269,9 +274,12 @@ export function InsertPoints({ data }: { data: SectionData<'insert-points'> }) {
         </div>
       </div>
       {data.notes.length > 0 && (
-        <ul className="mt-5 grid gap-3 min-[900px]:grid-cols-3">
+        <ul className="mt-5 grid gap-3 max-md:mt-3 max-md:gap-2 min-[900px]:grid-cols-3">
           {data.notes.map((note) => (
-            <li key={note.t} className="rounded-2xl bg-surface-2 p-4 text-[15px] text-ink-2">
+            <li
+              key={note.t}
+              className="rounded-2xl bg-surface-2 p-4 text-[15px] text-ink-2 max-md:p-3 max-md:text-[13px] max-md:leading-snug"
+            >
               <b className="text-ink">{note.t}</b> {note.d}
             </li>
           ))}

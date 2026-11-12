@@ -1,25 +1,24 @@
 import { describe, expect, it } from 'vitest'
 
 import { resolveText } from '../../lib/software/facts'
-import { mergeSoftwareHome, softwareHomeInV21Order, softwareHomeLayout } from './home'
+import { mergeSoftwareHome, softwareHomeLayout } from './home'
 import { solutionsToImport } from './map'
 
 const ids = (layout: readonly { blockType: string; section?: string | null }[] | null) =>
   layout?.map((block) => (block.blockType === 'swHomeSection' ? block.section : block.blockType))
 
 describe('Software start page of the seed', () => {
-  it('puts the 13 sections in the v23 order of the package (homeOrder, spec. §4; no „Realizacje”)', () => {
+  it('puts the sections in the v24 order (ZMIANY-v24 §4)', () => {
     expect(ids(softwareHomeLayout())).toEqual([
       'swHero',
-      'areas',
-      'popular',
-      'livePreviews',
+      'promises',
+      'situations',
+      'bento',
+      'showroom',
+      'tech',
       'wizard',
+      'pricing',
       'process',
-      'howWeBuild',
-      'whyNotWordpress',
-      'technologies',
-      'guarantees',
       'faq',
       'swContact',
     ])
@@ -27,7 +26,7 @@ describe('Software start page of the seed', () => {
 
   it('takes the 6 questions of the start page FAQ from the package', () => {
     const faq = softwareHomeLayout().find((block) => block.blockType === 'faq')
-    expect(faq).toMatchObject({ heading: 'Pytania, które słyszymy najczęściej' })
+    expect(faq).toMatchObject({ eyebrow: 'Pytania', heading: 'Zanim **napiszesz**' })
     expect(faq && 'items' in faq ? faq.items : []).toHaveLength(6)
   })
 
@@ -56,16 +55,8 @@ describe('Software start page of the seed', () => {
   })
 
   it('adds a section of a later session in its place', () => {
-    const layout = softwareHomeLayout(undefined, ['areas', 'popular', 'whyNotWordpress', 'wizard'])
-    expect(ids(layout)).toEqual([
-      'swHero',
-      'areas',
-      'popular',
-      'wizard',
-      'whyNotWordpress',
-      'faq',
-      'swContact',
-    ])
+    const layout = softwareHomeLayout(undefined, ['promises', 'bento', 'wizard'])
+    expect(ids(layout)).toEqual(['swHero', 'promises', 'bento', 'wizard', 'faq', 'swContact'])
   })
 
   it('replaces the sample page (no Software block yet)', () => {
@@ -76,7 +67,7 @@ describe('Software start page of the seed', () => {
 
   it('inserts only the missing section after its predecessor, keeping panel edits', () => {
     const edited = [
-      { blockType: 'swHomeSection' as const, section: 'popular' as const },
+      { blockType: 'swHomeSection' as const, section: 'process' as const },
       { blockType: 'swHero' as const, title: 'Mój tytuł' },
       { blockType: 'faq' as const },
     ]
@@ -84,57 +75,22 @@ describe('Software start page of the seed', () => {
       edited as Parameters<typeof mergeSoftwareHome>[0],
       softwareHomeLayout(),
     )
+    // A section moved in the panel stays where it is; the missing ones come in after their
+    // predecessors.
     expect(ids(merged)).toEqual([
-      'popular',
-      'swHero',
-      'areas',
-      'livePreviews',
-      'wizard',
       'process',
-      'howWeBuild',
-      'whyNotWordpress',
-      'technologies',
-      'guarantees',
+      'swHero',
+      'promises',
+      'situations',
+      'bento',
+      'showroom',
+      'tech',
+      'wizard',
+      'pricing',
       'faq',
       'swContact',
     ])
     expect(merged?.[1]).toMatchObject({ title: 'Mój tytuł' })
-  })
-
-  it('moves a v20 page to the v21 order once, keeping blocks of its own in their place', () => {
-    const v20 = softwareHomeLayout([
-      'hero',
-      'areas',
-      'popular',
-      'livePreviews',
-      'process',
-      'wizard',
-      'whyNotWordpress',
-      'guarantees',
-      'showcase',
-      'faq',
-      'contact',
-    ])
-    const own = { blockType: 'richText' } as unknown as (typeof v20)[number]
-    const page = [...v20.slice(0, 3), own, ...v20.slice(3)]
-    const merged = mergeSoftwareHome(page, softwareHomeLayout())!
-    const result = softwareHomeInV21Order(merged, softwareHomeLayout())
-    expect(ids(result)).toEqual([
-      'swHero',
-      'areas',
-      'popular',
-      'richText',
-      'livePreviews',
-      'wizard',
-      'process',
-      'howWeBuild',
-      'whyNotWordpress',
-      'technologies',
-      'guarantees',
-      'faq',
-      'swContact',
-    ])
-    expect(softwareHomeInV21Order(result!, softwareHomeLayout())).toBeNull()
   })
 
   it('changes nothing when every block is there', () => {

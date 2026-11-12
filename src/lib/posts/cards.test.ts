@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { postListCards } from './cards'
+import { coverIsWordmark, postListCards } from './cards'
 
 const post = (slug: string, extra: Record<string, unknown> = {}) => ({
   slug,
@@ -48,6 +48,16 @@ describe('postListCards: the base card', () => {
   })
 })
 
+describe('postListCards: the address per line', () => {
+  it('puts a card of Instalacje under /poradnik, without a line under /aktualnosci', () => {
+    expect(postListCards([post('monitoring-a-rodo')], 1, 'instalacje')[0]?.href).toBe(
+      '/poradnik/monitoring-a-rodo',
+    )
+    expect(postListCards([post('ksef-2027')], 1, 'biznes')[0]?.href).toBe('/aktualnosci/ksef-2027')
+    expect(postListCards([post('ksef-2027')], 1)[0]?.href).toBe('/aktualnosci/ksef-2027')
+  })
+})
+
 describe('postListCards', () => {
   const image = (tenant: number, extra: Record<string, unknown> = {}) => ({
     alt: 'Logo KSeF',
@@ -77,5 +87,14 @@ describe('postListCards', () => {
       { cover: null, lead: null },
       { cover: null, lead: null },
     ])
+  })
+})
+
+describe('coverIsWordmark (Aktualności on the home page, audit 10.11 §9)', () => {
+  it('a wide wordmark is not a picture; a photo or a square is', () => {
+    expect(coverIsWordmark({ width: 480, height: 142 })).toBe(true)
+    expect(coverIsWordmark({ width: 1200, height: 800 })).toBe(false)
+    expect(coverIsWordmark({ width: 480, height: 480 })).toBe(false)
+    expect(coverIsWordmark({ width: 480, height: 0 })).toBe(false)
   })
 })

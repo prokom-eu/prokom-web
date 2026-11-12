@@ -12,20 +12,25 @@ describe('form pages of the seed (I11)', () => {
     expect(needsFormBlock([{ blockType: 'hero' }, { blockType: 'inquiryForm' }])).toBe(false)
   })
 
+  it('no page block asks to send photos (runda v6 §1.8, no form takes files)', () => {
+    const text = JSON.stringify(Object.values(FORM_PAGE_BLOCKS).map((block) => block()))
+    expect(text).not.toMatch(/wyślij zdję|prześlij zdję/i)
+  })
+
   it('gives each page its block with the hero h1', () => {
     expect(FORM_PAGE_BLOCKS.zaplanuj?.()).toMatchObject({ blockType: 'instPlanner' })
     const contact = FORM_PAGE_BLOCKS.kontakt?.()
     expect(contact).toMatchObject({ blockType: 'instContact', hero: { h1a: 'Kontakt:' } })
     expect(FORM_PAGE_BLOCKS.serwis?.()).toMatchObject({
       blockType: 'instServiceDesk',
-      hero: { h1a: 'Coś nie działa?', cta: { href: '#plany' } },
+      hero: { h1a: 'Serwis kamer, alarmów i sieci', cta: { href: '#plany' } },
     })
     const architects = FORM_PAGE_BLOCKS['dla-architektow']?.()
     // The 4 hero numbers of the prototype (spec §4).
     expect(architects).toMatchObject({
       blockType: 'instArchitects',
       hero: {
-        h1b: 'Zaplanujmy ją przed tynkami.',
+        h1b: 'na Podhalu',
         facts: [
           { value: 'od 2004' },
           { value: '10 instalacji' },

@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { setTheme, site } from './helpers'
+import { clickUntilVisible, hydrated, openInquiryDrawer, setTheme, site } from './helpers'
 
 // B4b: inquiry list `pk-cart` — counter, drawer, toast, shared between tabs (spec. §3.2, §8.1,
 // §9 pkt 3 and 7). Catalog from `pnpm seed`.
@@ -10,7 +10,7 @@ const ERGO = 'posnet-ergo-online'
 const TERMINAL = 'terminal-platniczy-polcard'
 
 const cartButton = (page: Page) =>
-  page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
+  page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 const drawer = (page: Page) => page.getByRole('dialog', { name: /^Twoje zapytanie \(\d+\)$/ })
 
 /** Sets the list before the page scripts run (as if added on an earlier visit). */
@@ -24,11 +24,7 @@ async function withCart(page: Page, items: { id: string; q: number }[]) {
 }
 
 async function openDrawer(page: Page) {
-  // The click works once the header is hydrated.
-  await expect(async () => {
-    await cartButton(page).click()
-    await expect(drawer(page)).toBeVisible({ timeout: 1000 })
-  }).toPass()
+  await openInquiryDrawer(page, cartButton(page), drawer(page))
 }
 
 test.describe('Biznes inquiry list', () => {
@@ -37,15 +33,22 @@ test.describe('Biznes inquiry list', () => {
   }) => {
     await page.goto(site('biznes.localhost'))
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 0 pozycji')
-    await page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }).first().click()
     const search = page.getByRole('dialog', { name: 'Szukaj w ofercie' })
+    await clickUntilVisible(
+      page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }).first(),
+      search,
+    )
+    // The overlay can show before its field listens: typed then, the phrase is lost.
+    await hydrated(search.getByRole('searchbox'))
     await search.getByRole('searchbox').fill('terminal')
-    // K4: results add through the quick preview (K33 §2.6).
-    await search.getByRole('button', { name: 'Podgląd: Terminal płatniczy PolCard' }).click()
-    const preview = page.getByRole('dialog', { name: /Terminal płatniczy PolCard/ })
-    await preview.getByRole('button', { name: '+ Do zapytania' }).click()
-    await expect(preview.getByRole('button', { name: '✓ W zapytaniu' })).toBeVisible()
-    await page.keyboard.press('Escape')
+    // Results add through the preview next to the list (plan 0611 §8.1 pkt 5): focus picks it.
+    await search
+      .getByRole('link', { name: /Terminal płatniczy PolCard/ })
+      .first()
+      .focus()
+    const preview = search.getByRole('complementary', { name: /Terminal płatniczy PolCard/ })
+    await preview.getByRole('button', { name: /^Do zapytania/ }).click()
+    await expect(preview.getByRole('button', { name: /^W zapytaniu/ })).toBeVisible()
     await page.keyboard.press('Escape')
 
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')
@@ -143,14 +146,14 @@ test.describe('Biznes inquiry list', () => {
     ).toHaveAttribute('href', '/zapytanie')
   })
 
-  test('the bottom bar opens it on a phone', async ({ page }) => {
+  // D3-B: on a phone „Zapytanie” is the raised centre of the shared bottom bar, with the count.
+  test('the bottom bar counts it and leads to the inquiry page on a phone', async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 780 })
     await withCart(page, [{ id: ERGO, q: 1 }])
     await page.goto(site('biznes.localhost'))
-    const bar = page.getByRole('navigation', { name: 'Szybki kontakt' })
-    await expect(bar.getByRole('button', { name: 'Zapytanie 1 pozycja' })).toBeVisible()
-    await bar.getByRole('button', { name: /^Zapytanie/ }).click()
-    await expect(drawer(page)).toBeVisible()
+    const tab = page.locator('[data-tab-bar] [data-tab-center]')
+    await expect(tab).toHaveAttribute('href', '/zapytanie')
+    await expect(tab).toHaveAccessibleName(/1 pozycja/)
     const width = await page.evaluate(() => document.documentElement.scrollWidth)
     expect(width).toBeLessThanOrEqual(360)
   })

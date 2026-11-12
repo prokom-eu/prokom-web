@@ -35,12 +35,14 @@ export function ProductSpecs({
           <div
             key={`${row.label}-${position}`}
             className={cx(
-              'grid grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)] gap-4 border-b border-border py-4 sm:grid-cols-[minmax(0,0.36fr)_minmax(0,1fr)]',
+              'grid grid-cols-[minmax(0,0.36fr)_minmax(0,1fr)] gap-4 border-b border-border py-4 max-md:gap-3 max-md:py-3 sm:grid-cols-[minmax(0,0.36fr)_minmax(0,1fr)]',
               !all && position >= PHONE_ROWS && 'max-md:hidden',
             )}
           >
-            <dt className="text-sm font-bold text-ink-2">{row.label}</dt>
-            <dd className="text-[0.95rem] leading-relaxed text-ink">{row.value}</dd>
+            <dt className="text-sm font-bold text-ink-2 max-md:text-[13px]">{row.label}</dt>
+            <dd className="text-[0.95rem] leading-relaxed text-ink max-md:text-[14px] max-md:leading-normal">
+              {row.value}
+            </dd>
           </div>
         ))}
       </dl>

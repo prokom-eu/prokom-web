@@ -1,3 +1,8 @@
+/*
+ * Which home page block gives which section anchor, in page order. Since D3-B the page uses the
+ * shared `SiteRail` (sections from `SiteSettings.shared.rail`); this stays as the source the shared
+ * seed is checked against (`src/seed/shared/shared.test.ts`).
+ */
 import type { RailItem } from '@/components/SectionRail'
 
 import { reviewSlots } from '../../blocks/BzReferences/reviews'
@@ -22,38 +27,22 @@ const field = (value: unknown, key: string): unknown =>
   value && typeof value === 'object' ? (value as Record<string, unknown>)[key] : undefined
 
 /**
- * Board v150 (K36 §1, `g4rail` „Na tej stronie”, 12 entries): the sections with an anchor, by
- * the block that renders them — `bzOffer` has the departments and the systems, `bzPlan` „Dla
- * kogo” and the plan, `bzReferences` the reviews. A section the block leaves out (empty data)
- * gets no entry.
+ * Plan 0611 §7.1 and the prototype's rail (`0611/prototyp-glowna.html`, `HOME_SEC`): the sections
+ * with an anchor, by the block that renders them — `bzOffer` is „Oferta” (the systems are part of
+ * it), `bzPlan` the plan with the industries (D8: no „Dla kogo” of its own), `bzReferences` the
+ * reviews (a slot, only when shown), `bzKsef` the KSeF band and `bzNewsHome` the news (B3-2). A
+ * section the block leaves out (empty data) gets no entry; the shared rail also drops anchors
+ * missing on the page (no deadline = no band, no posts = no news).
  */
 const RAIL: Record<string, Entry[]> = {
   bzHero: [{ id: 'start', label: 'Start', icon: 'rocket' }],
-  bzOffer: [
-    { id: 'oferta', label: 'Działy oferty', icon: 'store' },
-    {
-      id: 'systemy',
-      label: 'Systemy i opieka IT',
-      icon: 'server',
-      shown: (block) => filled(field(block, 'systems')),
-    },
-  ],
+  bzOffer: [{ id: 'oferta', label: 'Oferta', icon: 'store' }],
+  bzProcurement: [{ id: 'zaopatrzenie', label: 'Zaopatrzenie firm', icon: 'box' }],
   // On Biznes the shared Partners block is the brands section (`BrandsHome`).
   partners: [{ id: 'marki', label: 'Marki', icon: 'star' }],
   bzFeatured: [{ id: 'wybierane', label: 'Najczęściej wybierane', icon: 'grid' }],
-  bzPlan: [
-    {
-      id: 'dla-kogo',
-      label: 'Dla kogo',
-      icon: 'users',
-      // As `BzPlan`: the heading, and tiles or the funding bar.
-      shown: (block) =>
-        Boolean(field(field(block, 'industries'), 'heading')) &&
-        (filled(field(field(block, 'industries'), 'tiles')) ||
-          Boolean(field(field(block, 'funding'), 'heading'))),
-    },
-    { id: 'plan', label: 'Plan Twojej firmy', icon: 'map' },
-  ],
+  bzKsef: [{ id: 'ksef', label: 'KSeF', icon: 'doc' }],
+  bzPlan: [{ id: 'plan', label: 'Plan Twojej firmy', icon: 'map' }],
   bzSteps: [{ id: 'jak-pracujemy', label: 'Jak pracujemy', icon: 'compass' }],
   bzReferences: [
     {
@@ -71,7 +60,8 @@ const RAIL: Record<string, Entry[]> = {
         ).length > 0,
     },
   ],
-  bzFacts: [{ id: 'fakty', label: 'O firmie', icon: 'doc' }],
+  bzFacts: [{ id: 'fakty', label: 'O firmie', icon: 'shield' }],
+  bzNewsHome: [{ id: 'aktualnosci', label: 'Aktualności', icon: 'mega' }],
   faq: [{ id: 'faq', label: 'Pytania', icon: 'q' }],
   bzContact: [{ id: 'kontakt', label: 'Kontakt', icon: 'phone' }],
 }

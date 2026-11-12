@@ -4,7 +4,8 @@ import { plural } from '../plural'
 import { isHttpsUrl } from '../site/link'
 import { tenantIdOf } from '../tenant/id'
 import { bindShortWords } from '../typography'
-import { brandLogo, type IndexLogo, type IndexProduct } from './catalogIndex'
+import { brandLogo } from './brandLogo'
+import type { IndexLogo, IndexProduct } from './catalogIndex'
 
 /**
  * Salon 2.0 (K4-FINAL §6, board `Strona.dc.html` „SALON MARKI 2.0”): one template for every
@@ -335,12 +336,10 @@ export function buildSalonView(
     ),
     headings: {
       offer: heading(headings.offer) ?? bindShortWords(multi ? 'Oferta' : `Oferta ${brand}`),
-      facts:
-        heading(headings.facts) ??
-        bindShortWords(multi ? 'W kilku faktach' : `${brand} w kilku faktach`),
+      facts: heading(headings.facts) ?? bindShortWords(multi ? 'O markach' : `O marce ${brand}`),
       faq:
         heading(headings.faq) ??
-        bindShortWords(multi ? 'Najczęstsze pytania' : `Zanim wybierzesz ${brand}`),
+        bindShortWords(multi ? 'Najczęstsze pytania' : `Pytania o ${brand}`),
       ask:
         heading(headings.ask) ?? bindShortWords(multi ? 'Zapytaj o ofertę' : `Zapytaj o ${brand}`),
       more:

@@ -1,7 +1,6 @@
 import type { CatalogCategory } from '@/payload-types'
 
 import { publicImage, type PublicImage } from '../media/public'
-import { plural } from '../plural'
 import { isHttpsUrl, isValidNavHref } from '../site/link'
 import { normalizeText } from './normalize'
 import { tenantIdOf } from '../tenant/id'
@@ -146,40 +145,9 @@ export function categoryBrands(
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, 'pl'))
 }
 
-const STATUS_LABEL = {
-  'authorized-service': 'autoryzowany serwis',
-  'authorized-partner': 'autoryzowany partner',
-} as const
-
 /** „Kasy, Elzab i Posnet”: commas, then „i” before the last name. */
 const listNames = (names: string[]) =>
   names.length < 2 ? (names[0] ?? '') : `${names.slice(0, -1).join(', ')} i ${names.at(-1)}`
-
-/**
- * Label of the hero (board: „Kasy i sprzedaż · 7 modeli · autoryzowany serwis Posnet i Elzab”):
- * the group, the count — models when all are devices — and partner statuses confirmed in the
- * panel ([SZEF], spec. §13), most products first.
- */
-export function categoryPill(
-  group: string | null,
-  products: readonly IndexProduct[],
-  index: CatalogIndex,
-): string {
-  const count = products.length
-  const devices = products.every((product) => product.kind === 'device')
-  const parts = [
-    group,
-    `${count} ${plural(count, devices ? ['model', 'modele', 'modeli'] : ['pozycja', 'pozycje', 'pozycji'])}`,
-  ]
-  const status = new Map(index.brands.map((brand) => [brand.slug, brand.status]))
-  for (const [key, label] of Object.entries(STATUS_LABEL)) {
-    const names = categoryBrands(products, index)
-      .filter((brand) => status.get(brand.slug) === key)
-      .map((brand) => brand.name)
-    if (names.length > 0) parts.push(`${label} ${listNames(names)}`)
-  }
-  return parts.filter(Boolean).join(' · ')
-}
 
 /** The 4 picker options with counts, or `null` while fewer than 2 products have a type. */
 export function registerOptions(products: readonly IndexProduct[]): RegisterOption[] | null {
@@ -310,7 +278,17 @@ export type GuideData = {
 }
 
 /** The card the side panel shows. */
-export type CategoryGuide = { title: string; text: string; button: string; href: string }
+export type CategoryGuide = {
+  title: string
+  text: string
+  button: string
+  href: string
+  /**
+   * A real picker (the salon's „Dobierz…”, a card from the panel): shown as the side card. The
+   * default „Zapytaj o dobór” only repeats the help block under the grid (audit 0611 P1-2).
+   */
+  picker: boolean
+}
 
 /** Address of the vending page (K4j); its button needs the page published. */
 export const VENDING_PATH = '/automaty-vendingowe'
@@ -344,9 +322,10 @@ export function categoryGuide({
   if (USE_CASE_CATEGORIES.has(slug) && showroomHref) {
     return {
       title: 'Nie wiesz, który?',
-      text: 'Odpowiedz na 3 pytania w salonie marki — podpowiemy serię.',
+      text: 'Odpowiedz na 3 pytania w salonie marki, a podpowiemy serię.',
       button: slug === 'komputery' ? 'Dobierz komputer' : 'Dobierz laptop',
       href: showroomHref,
+      picker: true,
     }
   }
   // The first card that can be shown: a vending button needs the vending page.
@@ -360,19 +339,16 @@ export function categoryGuide({
       text: text(own.text) ?? '',
       button: text(own.button)!,
       href: own.action === 'vending' ? VENDING_PATH : choiceInquiryHref(name),
+      picker: true,
     }
   }
   return {
     title: 'Nie wiesz, co wybrać?',
-    text: 'Napisz, do czego potrzebujesz — dobierzemy model i przygotujemy ofertę na piśmie.',
+    text: 'Napisz, do czego potrzebujesz, a dobierzemy model i przygotujemy ofertę.',
     button: 'Zapytaj o dobór',
     href: choiceInquiryHref(name),
+    picker: false,
   }
-}
-
-/** Columns the „Nie wiesz, którą wybrać?” card takes: the rest of the last row, or a full row. */
-export function helpCardSpan(count: number, columns: number): number {
-  return columns - (count % columns)
 }
 
 /** Tiles of the main categories of the related products: each once, not this category. */
@@ -449,14 +425,14 @@ export type CategoryView = {
 export const DEFAULTS = {
   // Without „w cenie” (spec. §1, K3b′) — the name of the product page's panel (K31b).
   included: { eyebrow: 'Co robimy przy zakupie', title: 'Kupujesz u nas, dostajesz spokój.' },
-  facts: { eyebrow: 'Przepisy w pigułce', title: 'Co warto wiedzieć przed zakupem.' },
+  facts: { eyebrow: 'Przepisy w pigułce', title: 'Co warto wiedzieć przed zakupem' },
   faq: { eyebrow: 'Pytania i odpowiedzi', title: 'Zanim zdecydujesz' },
   help: {
-    title: 'Powiedz, czego potrzebujesz — dobierzemy w 5 minut rozmowy.',
+    title: 'Powiedz, czego potrzebujesz, a dobierzemy sprzęt',
     text: 'Bez przepłacania za funkcje, których nie użyjesz.',
   },
   contact: {
-    heading: 'Nie wiesz, co wybrać? Zadzwoń — dobierzemy w 5 minut rozmowy.',
+    heading: 'Nie wiesz, co wybrać? Zadzwoń, pomożemy wybrać.',
     lead: 'Powiedz, czego potrzebujesz. Przygotujemy propozycję na piśmie, bez zobowiązań.',
   },
 } as const

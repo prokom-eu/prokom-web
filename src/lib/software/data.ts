@@ -9,8 +9,6 @@ import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { isIconName } from '../catalog/options'
 import { contactFacts, factsMap, fillDeep, fillText } from './facts'
 import { homeSchema, type SoftwareHome } from './home'
-import { type HomeArea, homeAreas } from './homeAreas'
-import type { MenuArea } from './mobileNav'
 import {
   buildOfferView,
   EMPTY_OFFER,
@@ -18,6 +16,7 @@ import {
   offerSolutionOf,
   type OfferView,
   priceLine,
+  careFromLine,
   relatedCard,
   softwareOfferSchema,
 } from './offer'
@@ -28,8 +27,9 @@ import { buildIndustryPage, type IndustryDoc, type IndustryPageView } from './in
 import { buildSolutionPage, type SolutionPageDoc, type SolutionPageView } from './solutionPage'
 import { buildSolutionsIndex, DEFAULT_PRICE_DISPLAY, type SolutionsIndex } from './solutionsIndex'
 import { solutionsTag } from './tags'
-import { type PriceDisplay, priceDisplaySchema, type SoftwareWizard } from './wizard'
-import { readSoftwareWizard } from './wizardRules'
+import { type PriceDisplay, priceDisplaySchema } from './priceDisplay'
+import { readSoftwareWizard } from './wizard/read'
+import type { SoftwareWizard } from './wizard/schema'
 
 /**
  * Facts [SZEF] of one Software tenant (`SiteSettings.software.facts`) — the tenant filter is
@@ -95,30 +95,6 @@ export const getSoftwareNotFound = (tenantId: number): Promise<SoftwareNotFound 
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
-/**
- * Areas of one Software tenant for the menu sheet's tiles (name, key, icon, price) — public
- * fields only, read on the server (`SolutionAreas` is readable for the panel only). Call it only
- * for a tenant of the Software line. Deduplicated per request.
- */
-export const getMenuAreas = cache(async (tenantId: number): Promise<MenuArea[]> => {
-  const payload = await getPayload({ config })
-  const { docs } = await payload.find({
-    collection: 'solution-areas',
-    where: { tenant: { equals: tenantId } },
-    limit: 20,
-    depth: 0,
-    select: { name: true, key: true, icon: true, priceFrom: true, priceLabel: true },
-    overrideAccess: true,
-  })
-  return docs.map(({ name, key, icon, priceFrom, priceLabel }) => ({
-    name,
-    key,
-    icon: isIconName(icon) ? icon : null,
-    priceFrom: priceFrom ?? null,
-    priceLabel: priceLabel ?? null,
-  }))
-})
-
 /** Far above the 29 solutions of the package; the catalog is one page without paging. */
 const MAX_SOLUTIONS = 200
 
@@ -162,6 +138,7 @@ export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
             priceNote: true,
             priceMonthly: true,
             thumbnail: true,
+            preview: true,
             levels: true,
           },
           ...read,
@@ -200,7 +177,7 @@ export const getSoftwareWizard = (tenantId: number): Promise<SoftwareWizard | nu
   cacheQuery(
     async () => readSoftwareWizard(await getPayload({ config }), tenantId),
     // The shape of the rules is part of the key: a schema change never serves a cached old shape.
-    ['software-wizard', 'sw7', String(tenantId)],
+    ['software-wizard', 'v3', String(tenantId)],
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
@@ -233,50 +210,6 @@ export const getSoftwareHome = (tenantId: number): Promise<SoftwareHome | null> 
   )()
 
 /**
- * The areas of the start page section „Oferta” of one Software tenant, in panel order; chips link
- * only to solutions published in this tenant. Read on the server (`SolutionAreas` is readable
- * for the panel only). Deduplicated per request.
- */
-export const getHomeAreas = cache(async (tenantId: number): Promise<HomeArea[]> => {
-  const payload = await getPayload({ config })
-  const inTenant = { tenant: { equals: tenantId } }
-  const [areas, solutions] = await Promise.all([
-    payload.find({
-      collection: 'solution-areas',
-      where: inTenant,
-      limit: 20,
-      depth: 0,
-      sort: 'order',
-      select: {
-        key: true,
-        name: true,
-        icon: true,
-        short: true,
-        description: true,
-        gain: true,
-        countLabel: true,
-        priceFrom: true,
-        priceLabel: true,
-        chips: true,
-        cta: true,
-      },
-      overrideAccess: true,
-    }),
-    payload.find({
-      collection: 'solutions',
-      where: { and: [inTenant, { _status: { equals: 'published' } }] },
-      draft: false,
-      limit: MAX_SOLUTIONS,
-      depth: 0,
-      select: { slug: true },
-      overrideAccess: true,
-    }),
-  ])
-  const slugs = new Map(solutions.docs.map((doc) => [doc.id, doc.slug]))
-  return homeAreas(areas.docs, slugs)
-})
-
-/**
  * What the offer windows of one Software tenant read (SWR3): published solutions with the window
  * fields and `related` ids, the shared texts and the price templates. Cached with the index (same
  * tag, revalidated by the hooks of `Solutions` and `SoftwareSettings`).
@@ -307,6 +240,7 @@ const getOfferSource = (tenantId: number) =>
             hasLivePreview: true,
             toast: true,
             thumbnail: true,
+            preview: true,
             priceFrom: true,
             priceMonthly: true,
             leadTime: true,
@@ -337,7 +271,7 @@ const getOfferSource = (tenantId: number) =>
           ?.priceDisplay,
       }
     },
-    ['offer-source', 'v22', String(tenantId)],
+    ['offer-source', 'v24', String(tenantId)],
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
@@ -432,6 +366,10 @@ export async function getOfferViews(tenantId: number): Promise<Record<string, Of
     entries.map(({ solution }) => [solution.slug, solution.priceFrom]),
   )
   const strict = getEnv().SITE_ENV === 'production'
+  const careFrom = careFromLine(
+    entries.map(({ solution }) => solution),
+    display,
+  )
   return Object.fromEntries(
     entries.map(({ id, related, solution }) => {
       const fill: FillText = (text, term) =>
@@ -440,7 +378,10 @@ export async function getOfferViews(tenantId: number): Promise<Record<string, Of
         const card = relatedId === id ? undefined : byId.get(relatedId)
         return card ? [relatedCard(card, display)] : []
       })
-      return [solution.slug, buildOfferView(solution, { offer, display, related: cards, fill })]
+      return [
+        solution.slug,
+        buildOfferView(solution, { offer, display, related: cards, fill, careFrom }),
+      ]
     }),
   )
 }

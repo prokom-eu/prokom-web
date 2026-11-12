@@ -3,6 +3,7 @@ import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
 import type { BzLocationBlock as BzLocationBlockData } from '@/payload-types'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { AreaMap } from '../../components/AreaMap'
 
@@ -23,10 +24,8 @@ export async function BzLocationBlock({ block, tenantId }: Props) {
   const heading = block.heading || (location ? `${location.city}, ${location.street}` : null)
   const phone = settings?.phone ?? null
   const tel = phone ? toTelHref(phone) : null
-  // Company phones are shared by all lines and may repeat the main number.
-  const otherPhones = (company?.phones ?? []).filter(
-    (other) => !tel || toTelHref(other.number) !== tel,
-  )
+  // The line's second phone; `CompanyData` phones are shared by all lines.
+  const phone2 = settings?.phone2 ?? null
   const email = settings?.email ?? null
   const hours = hoursSummary(location?.hours ?? [])
   const headingId = `lokalizacja-${block.id ?? 'sekcja'}-h`
@@ -41,10 +40,7 @@ export async function BzLocationBlock({ block, tenantId }: Props) {
                 {block.eyebrow}
               </p>
             )}
-            <h2
-              id={headingId}
-              className="font-display text-[clamp(2rem,4vw,3.25rem)] leading-[1.02] font-extrabold tracking-[-0.02em] font-stretch-112%"
-            >
+            <h2 id={headingId} className={BZ_H2}>
               {heading ?? 'Gdzie nas znaleźć'}
             </h2>
             {block.lead && (
@@ -60,17 +56,16 @@ export async function BzLocationBlock({ block, tenantId }: Props) {
                   {block.phoneNote && <> · {block.phoneNote}</>}
                 </li>
               )}
-              {otherPhones.map((other) => (
-                <li key={other.number}>
+              {phone2 && (
+                <li>
                   <a
-                    href={toTelHref(other.number) ?? undefined}
+                    href={toTelHref(phone2) ?? undefined}
                     className="font-bold text-ink hover:underline"
                   >
-                    {other.number}
+                    {phone2}
                   </a>
-                  {other.label && <> · {other.label}</>}
                 </li>
-              ))}
+              )}
               {email && (
                 <li>
                   <a href={`mailto:${email}`} className="font-bold text-ink hover:underline">

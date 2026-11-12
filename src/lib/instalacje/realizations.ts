@@ -11,3 +11,37 @@ export function publishWithoutConsent(data: ConsentState, stored?: ConsentState)
   const consent = data.clientConsent ?? stored?.clientConsent
   return consent !== true
 }
+
+type Ordered = { year?: number | null; legacyId?: number | null }
+
+/**
+ * Order of the realizations: the newest year first, without a year at the end, then the package
+ * order (`legacyId`). In JS because PostgreSQL puts an empty year first in a descending sort
+ * (the Payload adapter adds no `NULLS LAST`).
+ */
+export function byNewest(a: Ordered, b: Ordered): number {
+  const ya = a.year ?? -Infinity
+  const yb = b.year ?? -Infinity
+  if (ya !== yb) return yb - ya
+  return (a.legacyId ?? Infinity) - (b.legacyId ?? Infinity)
+}
+
+/**
+ * Runda v6 D2: a realization without a photo is not shown anywhere (home, `/realizacje`, search)
+ * until it gets one — an icon in place of a photo lowers the whole section.
+ */
+export function withPhotos<T extends { photos: readonly unknown[] }>(cards: readonly T[]): T[] {
+  return cards.filter((card) => card.photos.length > 0)
+}
+
+/**
+ * The cards of the home band (runda v6 D2): the featured ones with a photo first, then other
+ * realizations with a photo, so hiding a photo-less card does not leave a hole in the row.
+ * The input is already in its order (`byNewest`); each group keeps it.
+ */
+export function homeRealizations<
+  T extends { featured?: boolean | null; photos: readonly unknown[] },
+>(cards: readonly T[], limit: number): T[] {
+  const shown = withPhotos(cards)
+  return [...shown.filter((c) => c.featured), ...shown.filter((c) => !c.featured)].slice(0, limit)
+}

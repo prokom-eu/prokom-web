@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -12,33 +12,32 @@ type Props = {
 }
 
 /**
- * Levels of care or kinds of audit as cards (board `Cennik` „Spokój co miesiąc”, `Audyt`):
- * price, description, reaction or term, what the level gives and its button. The recommended
- * one is framed with „Polecamy” and comes first on the phone (spec. §6.4).
+ * Levels of care or kinds of audit as v24 glass cards (ZMIANY-v24 §6.3, §9.1; board `AU-audyt`
+ * „Trzy poziomy audytu”): price, description, reaction or term, what the level gives and its
+ * button. The recommended one glows with „Polecamy” (closed list of glows, ADR-015 v24) and comes
+ * first on the phone.
  */
 export function LevelCards({ plans, button, note }: Props) {
   return (
-    <ul className="grid gap-3 min-[1081px]:grid-cols-3 min-[1081px]:gap-3.5">
+    <ul className="grid gap-4 min-[1081px]:grid-cols-3" data-rise-group>
       {plans.map((plan) => {
         const link = button(plan)
         return (
           <li
             key={plan.name}
             className={cx(
-              'relative flex flex-col gap-3 rounded-[26px] bg-card p-5 min-[641px]:p-6',
-              plan.recommended
-                ? 'order-first shadow-[inset_0_0_0_2px_var(--accent)] min-[1081px]:order-none'
-                : 'shadow-[inset_0_0_0_1px_var(--border)]',
+              'sw-glass relative flex flex-col gap-3 p-5 min-[641px]:p-6',
+              plan.recommended && 'sw-glass-featured order-first min-[1081px]:order-none',
             )}
           >
             {plan.recommended ? (
-              <span className="absolute -top-3 left-6 rounded-full bg-button px-3 py-1 text-xs font-extrabold text-accent-ink">
+              <span className="absolute top-5 right-5 rounded-full bg-accent px-3 py-1 text-xs font-extrabold text-accent-ink">
                 Polecamy
               </span>
             ) : null}
-            <h3 className="font-display text-xl font-extrabold">{plan.name}</h3>
+            <h3 className="pr-24 font-display text-xl font-extrabold">{plan.name}</h3>
             <p className="flex items-baseline gap-2">
-              <b className="font-display text-[34px] font-extrabold leading-none text-accent-text">
+              <b className="font-display text-[34px] font-black leading-none tracking-tight text-accent-text">
                 {plan.price}
               </b>
               {plan.period ? (
@@ -47,9 +46,9 @@ export function LevelCards({ plans, button, note }: Props) {
             </p>
             {plan.description ? <p className="text-sm text-ink-2">{plan.description}</p> : null}
             {plan.term ? (
-              <p className="flex items-center gap-2 rounded-xl bg-accent-soft px-3.5 py-2.5 text-sm font-extrabold text-accent-text">
-                <Icon name="clock" className="size-4 shrink-0" />
-                {plan.termLabel}: {plan.term}
+              <p className="rounded-[14px] border border-border px-3.5 py-2.5 text-sm">
+                <span className="sw-eyebrow block text-[10px]">{plan.termLabel}</span>
+                <span className="font-bold">{plan.term}</span>
               </p>
             ) : null}
             {plan.points.length > 0 ? (
@@ -58,7 +57,7 @@ export function LevelCards({ plans, button, note }: Props) {
                   <li key={point} className="flex items-start gap-2.5">
                     <span
                       aria-hidden="true"
-                      className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-ok/15 text-ok-text"
+                      className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-text"
                     >
                       <Icon name="check" strokeWidth={3} className="size-3" />
                     </span>
@@ -71,11 +70,12 @@ export function LevelCards({ plans, button, note }: Props) {
               <div className="mt-auto flex flex-col items-stretch gap-2 pt-2">
                 <Link
                   href={link.href}
+                  data-motion={plan.recommended ? 'button' : 'button-outline'}
                   className={cx(
-                    'inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-5 text-center font-extrabold active:scale-[0.98] motion-reduce:transition-none',
+                    'inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-center font-extrabold',
                     plan.recommended
-                      ? 'bg-button text-accent-ink shadow-raised'
-                      : 'border-[1.5px] border-border bg-card text-ink hover:border-accent-line',
+                      ? 'bg-button text-accent-ink'
+                      : 'border border-border bg-card text-ink',
                   )}
                 >
                   {link.label}

@@ -11,17 +11,20 @@ const TENANTS = [
   {
     host: 'biznes.localhost',
     name: 'PRO-KOM Biznes',
+    // The start page's SEO title from the seed (B3-3, audit 0611 P0.3a, `src/seed/biznes/home.ts`).
+    title: 'Kasy fiskalne, komputery, opieka IT — Rabka | PRO-KOM Biznes',
     // `\s`: a hard space after „i” (K4-FINAL §1); a regex sees the raw text.
     h1: /^Kasy, komputery i\sprogramy dla firm\./,
-    // No one-letter word: the H1 has hard spaces after them (K4-FINAL §1). Not „programy dla
-    // firm.”: Software's H1 v23 („Strony i programy dla firm.”) has it too.
-    markers: ['Kasy, komputery'],
+    // No one-letter word: the H1 has hard spaces after them (K4-FINAL §1). Not „Kasy, komputery”
+    // alone: the shared lines band of every footer (L1, CompanyData.lines) shows the Biznes tagline
+    // „Kasy, komputery, opieka IT” by design — the H1 goes on with „ i”.
+    markers: ['Kasy, komputery i'],
   },
   {
     host: 'instalacje.localhost',
     name: 'PRO-KOM Instalacje',
-    title: 'Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje',
-    h1: /Twój obiekt na żywo\.$/,
+    title: 'Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje',
+    h1: /Monitoring, alarmy, Wi-Fi i\ssmart home na\sPodhalu$/,
     // The line's e-mail from the panel (the seed writes the real contact over the sample one,
     // boss 01.11.2026) and a text of the home page.
     markers: ['kontakt@prokominstalacje.pl', 'Wybierz obiekt obok'],
@@ -30,13 +33,15 @@ const TENANTS = [
     host: 'software.localhost',
     name: 'PRO-KOM Software',
     // The start page's full SEO title from the seed (SW12b, `src/seed/software/seo.ts`).
-    title: 'Strony, systemy i aplikacje dla firm — Rabka-Zdrój, Podhale | PRO-KOM Software',
-    h1: 'Strony i programy dla firm. Zobaczysz, zanim zapłacisz.',
+    title: 'Strony i systemy dla firm — Rabka-Zdrój | PRO-KOM Software',
+    // Hero v24 (SWA2a): „Zrobimy Ci” + the word of the slide, which changes every 4.2 s.
+    h1: /^Zrobimy Ci /,
     // SWV2: the seed gives Software its real contact (ZMIANY-v23 §1) over the sample one.
     markers: [
       'kontakt@prokomsoftware.pl',
-      'Strony, systemy i aplikacje dla firm z Podhala',
-      'Zobaczysz, zanim zapłacisz',
+      // The line under the footer logo (SWA5a, `SiteSettings.footer.text`).
+      'Strony, systemy, aplikacje i automatyzacje dla firm',
+      'Najpierw klikasz podgląd swojego projektu',
     ],
   },
 ]
@@ -86,7 +91,10 @@ test.describe('cross-tenant paths', () => {
   test('another domain in the path does not show that tenant', async ({ page }) => {
     const response = await page.goto(site('instalacje.localhost', '/biznes.localhost'))
     expect(response?.status()).toBe(404)
-    expect(await page.content()).not.toContain('PRO-KOM Biznes')
+    // The Biznes tenant's own content and title — not its name: the shared lines band of the
+    // Instalacje footer (L1) shows the Biznes mark with its name as the image's alt by design.
+    expect(await page.content()).not.toContain('Kasy, komputery i')
+    await expect(page).not.toHaveTitle(/PRO-KOM Biznes/)
   })
 
   test('the same trick on an unknown domain → 404', async ({ page }) => {

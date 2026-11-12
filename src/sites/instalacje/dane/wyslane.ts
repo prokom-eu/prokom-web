@@ -6,12 +6,13 @@
 
 export const wyslane = {
   metaTitle: 'Zgłoszenie wysłane',
-  title: 'Dziękujemy! Zgłoszenie jest u nas.',
+  // INST-6 PR4 (runda v6 §2.2 p. 10): no exclamation mark.
+  title: 'Dziękujemy, zgłoszenie jest u nas',
   /** „…tak jak wybrałeś: telefonem.” — the way from `?kontakt=`. */
   leadVia: (via: string) =>
     `Odezwiemy się do 24 h w dni robocze, tak jak wybrałeś: ${via}. Wtedy dopytamy o szczegóły i umówimy wizję lokalną.`,
   lead: 'Odezwiemy się do 24 h w dni robocze. Wtedy dopytamy o szczegóły i umówimy wizję lokalną.',
-  via: { phone: 'telefonem', whatsapp: 'na WhatsAppie', email: 'e-mailem' },
+  via: { phone: 'telefonem', email: 'e-mailem' },
   number: 'Numer zgłoszenia:',
   files: 'Zdjęcia, rzuty albo przedmiar prześlij w odpowiedzi na naszą wiadomość.',
   after: [
@@ -22,8 +23,10 @@ export const wyslane = {
     { title: 'Wizja lokalna', text: 'Oglądamy obiekt, mierzymy, sprawdzamy kable.' },
     { title: 'Wycena na piśmie', text: 'Zwykle w wariantach do wyboru.' },
   ],
-  // TODO(krystian): add „Poczytaj poradnik” → `/poradnik` (prototype) with I12; a 404 until then.
-  links: [{ label: 'Wróć na stronę główną', href: '/' }],
+  links: [
+    { label: 'Wróć na stronę główną', href: '/' },
+    { label: 'Poczytaj poradnik', href: '/poradnik' },
+  ],
 } as const
 
 /** The inquiry number of an Instalacje form (`PKI-2026-0007`), or `null`. */

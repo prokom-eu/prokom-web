@@ -1,4 +1,3 @@
-import type { HeroObject } from './glowna'
 import type { ObjectKey, ServiceKey } from './types'
 
 /**
@@ -17,8 +16,6 @@ export type ForWhoCard = {
   /** Colour pair `oh1`–`oh5` of the prototype and the wide card. */
   hue: 1 | 2 | 3 | 4 | 5
   big?: boolean
-  /** „Pokaż na żywo”: the hero object it switches to. */
-  live?: HeroObject
 }
 
 /** Service card of `#uslugi` (`SVX`), in the order of the prototype's grid. */
@@ -38,12 +35,12 @@ export const SERVICE_CARDS: ServiceCard[] = [
   {
     key: 'kam',
     description:
-      'Kamery, które widzą w nocy i w śniegu, z nagraniami u Ciebie, nie w obcej chmurze. Projektujemy cały system, nie tylko miejsca na kamery.',
+      'Kamery, które widzą w nocy i w śniegu. Nagrania zostają na rejestratorze w Twoim budynku, a podgląd masz w telefonie.',
     parts: ['kamery', 'rejestrator NVR', 'dyski 24/7', 'switch PoE', 'UPS', 'aplikacja'],
     highlights: [
       'Cztery wersje instalacji: od domu po duży obiekt',
       'Kolor w nocy i wykrywanie ludzi oraz aut',
-      'Maski prywatności i czas nagrań ustawione pod RODO',
+      'Maski prywatności i czas nagrań dopasowane do obiektu',
     ],
     big: true,
     wide: true,
@@ -64,7 +61,7 @@ export const SERVICE_CARDS: ServiceCard[] = [
   {
     key: 'alarm',
     description:
-      'Czujki, syreny i powiadomienia na telefon. Wideodomofon przy furtce, który odbierasz z drugiego końca Polski.',
+      'Czujki, syrena i powiadomienie w telefonie, gdy coś się dzieje. Wideodomofon przy furtce odbierasz nawet z drugiego końca Polski.',
     parts: ['centrala', 'czujki', 'syrena', 'moduł GSM'],
     highlights: ['Przewodowe lub bezprzewodowe, z aplikacją', 'Wideodomofon odbierany w telefonie'],
   },
@@ -78,14 +75,14 @@ export const SERVICE_CARDS: ServiceCard[] = [
   {
     key: 'wifi',
     description:
-      'Wi-Fi bez martwych stref, osobna sieć dla gości i dla kamer. Okablowanie, szafy rack i światłowody.',
+      'Wi-Fi w każdym pokoju i osobna sieć dla gości, kamer i kasy. Kładziemy też kable i światłowody, montujemy szafy na sprzęt sieciowy.',
     parts: ['punkty Wi-Fi', 'router', 'switch', 'szafa rack'],
     highlights: ['Osobne sieci: goście, kamery, kasa', 'Pomiar zasięgu przed i po montażu'],
   },
   {
     key: 'snd',
     description:
-      'Stałe nagłośnienie APART i innych marek: muzyka w tle, komunikaty, strefy z osobną głośnością i mowa zrozumiała w ostatniej ławce.',
+      'Stałe nagłośnienie APART i innych marek: muzyka w tle i komunikaty. Mowę słychać wyraźnie także w ostatniej ławce.',
     parts: ['głośniki', 'wzmacniacz strefowy', 'mikrofony', 'panel ścienny', 'komunikaty'],
     highlights: ['Restauracje, hotele, kościoły, sale obrad', 'Każda strefa z osobną głośnością'],
     big: true,
@@ -93,7 +90,7 @@ export const SERVICE_CARDS: ServiceCard[] = [
   {
     key: 'scr',
     description:
-      'Ekrany w witrynie, menu board, recepcja i ściany wideo. Treść zmieniasz z komputera na wszystkich ekranach naraz.',
+      'Ekrany w witrynie, menu nad ladą, ekran w recepcji i ściany wideo. Treść zmieniasz z komputera na wszystkich ekranach naraz.',
     parts: [
       'ekrany profesjonalne',
       'odtwarzacz w ekranie',
@@ -102,7 +99,8 @@ export const SERVICE_CARDS: ServiceCard[] = [
       'szablony',
     ],
     highlights: [
-      'Wdrażamy to w naszym salonie w Rabce-Zdroju',
+      // Runda v6 D3: no claim about our own salon without the boss's confirmation.
+      'Cenę zmieniasz w jednym miejscu, ekrany odświeżają się same',
       'Harmonogram: rano śniadania, wieczorem kolacje',
     ],
     big: true,
@@ -111,21 +109,21 @@ export const SERVICE_CARDS: ServiceCard[] = [
   {
     key: 'tel',
     description:
-      'Dla deweloperów i wykonawców: okablowanie, światłowód do lokali, RTV/SAT i domofony. Z pomiarami.',
+      'Dla deweloperów i wykonawców: okablowanie, światłowód do lokali, telewizja i domofony. Każde gniazdo mierzymy i opisujemy przed odbiorem.',
     parts: ['okablowanie', 'światłowód', 'RTV/SAT', 'pomiary'],
     highlights: ['Od przedmiaru do odbioru z protokołami', 'Pomiar i opis każdego gniazda'],
   },
   {
     key: 'ant',
     description:
-      'Anteny satelitarne i DVB-T2, instalacje zbiorcze i telewizja w pokojach. Ustawiane miernikiem.',
+      'Anteny satelitarne i naziemne (DVB-T2), instalacje zbiorcze i telewizja w pokojach. Antenę ustawiamy miernikiem sygnału.',
     parts: ['antena', 'konwerter', 'multiswitch', 'gniazda'],
     highlights: ['Ustawiane miernikiem sygnału', 'Ta sama telewizja w każdym pokoju'],
   },
   {
     key: 'ev',
     description:
-      'Ładowarki Elzab EcoPower: CC Home do garażu, CC Wall dla firm i obiektów, CC City na parking. Moc dobrana do przyłącza.',
+      'Ładowarki Elzab EcoPower: CC Home do garażu, CC Wall dla firm i obiektów, CC City na parking. Moc dobieramy do przyłącza budynku.',
     parts: ['CC Home', 'CC Wall', 'CC City', 'RFID'],
     highlights: ['Od 3,7 do 2×22 kW, polski producent', 'Montaż i pomoc w formalnościach'],
   },
@@ -138,16 +136,14 @@ export const FOR_WHO_CARDS: ForWhoCard[] = [
     set: ['Kamery', 'Alarm', 'Smart home'],
     hue: 1,
     big: true,
-    live: 'dom',
   },
   {
     key: 'pens',
     description:
       'Monitoring bez pokoi gości, Wi-Fi w każdym pokoju, telewizja i przegląd przed sezonem.',
-    set: ['Wi-Fi gości', 'Kamery RODO', 'TV w pokojach'],
+    set: ['Wi-Fi gości', 'Kamery z maskami', 'TV w pokojach'],
     hue: 2,
     big: true,
-    live: 'pens',
   },
   {
     key: 'apt',
@@ -161,7 +157,6 @@ export const FOR_WHO_CARDS: ForWhoCard[] = [
     description: 'Karty do pokoi, sieć na setki urządzeń, nagłośnienie sal i ekrany w recepcji.',
     set: ['Karty', 'Sieć', 'Nagłośnienie'],
     hue: 4,
-    live: 'hotel',
   },
   {
     key: 'rest',
@@ -169,21 +164,18 @@ export const FOR_WHO_CARDS: ForWhoCard[] = [
       'Muzyka na sali i tarasie, mikrofony na przemówienia, menu board i kamery przy kasie.',
     set: ['Nagłośnienie', 'Menu board', 'Kamery'],
     hue: 5,
-    live: 'rest',
   },
   {
     key: 'sklep',
     description: 'Kamery sali i kas, alarm, ekran w witrynie i muzyka z komunikatami.',
     set: ['Kamery', 'Alarm', 'Witryna'],
     hue: 1,
-    live: 'sklep',
   },
   {
     key: 'firma',
     description: 'Sieć firmowa, karty dla pracowników, kamery placu i rampy, brama na karty.',
     set: ['Sieć', 'Karty', 'Kamery placu'],
     hue: 2,
-    live: 'firma',
   },
   {
     key: 'kosc',
@@ -232,34 +224,58 @@ export const PLAN_OBJECTS = [
   { key: 'sklep', label: 'Sklep', icon: 'shop', planner: 'sklep' },
   { key: 'biuro', label: 'Biuro lub firma', icon: 'office', planner: 'firma' },
   { key: 'hala', label: 'Hala lub magazyn', icon: 'factory', planner: 'firma' },
-  { key: 'gmina', label: 'Gmina, szkoła, kościół', icon: 'school', planner: 'gmina' },
-  { key: 'dew', label: 'Deweloper, wspólnota', icon: 'crane', planner: 'dew' },
+  { key: 'gmina', label: 'Gmina, szkoła, kościół', icon: 'town', planner: 'gmina' },
+  { key: 'dew', label: 'Deweloper, wspólnota', icon: 'apt', planner: 'dew' },
 ] as const
 export type PlanObject = (typeof PLAN_OBJECTS)[number]['key']
+
+/** A brand of the band „Marki, z którymi pracujemy” (round v5: logo instead of the name). */
+export type TrustBrand = {
+  name: string
+  kind: string
+  logo: string
+  width: number
+  height: number
+  scale?: number
+}
 
 export const glownaSekcje = {
   trust: {
     eyebrow: 'Marki, z którymi pracujemy',
+    /**
+     * Round v5 (RUNDA-V5 §2): logo files in `public/instalacje/marki/<logo>.webp` (2×, height
+     * 120 px or less); `scale` evens out the optical size — RCF and Samsung are massive shapes.
+     */
     brands: [
-      ['Dahua', 'kamery'],
-      ['Hikvision', 'kamery'],
-      ['BCS', 'kamery'],
-      ['Satel', 'alarmy'],
-      ['Ubiquiti', 'sieci Wi-Fi'],
-      ['Ampio', 'smart home'],
-      ['Elzab EcoPower', 'ładowarki'],
-      ['Samsung', 'ekrany'],
-      ['APART', 'nagłośnienie'],
-      ['RCF', 'nagłośnienie'],
-      ['MikroTik', 'sieci'],
-    ] as const,
+      { name: 'Dahua', kind: 'kamery', logo: 'dahua', width: 402, height: 120 },
+      {
+        name: 'Hikvision',
+        kind: 'kamery',
+        logo: 'hikvision',
+        width: 520,
+        height: 66,
+      },
+      { name: 'BCS', kind: 'kamery', logo: 'bcs', width: 370, height: 120 },
+      { name: 'Satel', kind: 'alarmy', logo: 'satel', width: 446, height: 120 },
+      { name: 'Ubiquiti', kind: 'sieci Wi-Fi', logo: 'ubiquiti', width: 364, height: 120 },
+      { name: 'Ampio', kind: 'smart home', logo: 'ampio', width: 520, height: 110 },
+      {
+        name: 'Elzab EcoPower',
+        kind: 'ładowarki',
+        logo: 'elzab-ecopower',
+        width: 342,
+        height: 120,
+      },
+      { name: 'Samsung', kind: 'ekrany', logo: 'samsung', width: 361, height: 120, scale: 0.84 },
+      { name: 'APART', kind: 'nagłośnienie', logo: 'apart', width: 457, height: 120 },
+      { name: 'RCF', kind: 'nagłośnienie', logo: 'rcf', width: 120, height: 120 },
+      { name: 'MikroTik', kind: 'sieci', logo: 'mikrotik', width: 493, height: 120 },
+    ] as const satisfies readonly TrustBrand[],
   },
   forWho: {
-    eyebrow: 'Dla kogo pracujemy',
-    heading: 'Od domu letniskowego',
-    accent: 'po halę i szkołę.',
-    lead: 'Każdy obiekt ma inne potrzeby i inne przepisy. Wybierz swój, a pokażemy przekrój budynku, typowe problemy i zestawy, od których zaczynamy.',
-    live: 'Pokaż na żywo',
+    eyebrow: 'Dla kogo',
+    heading: 'Instalacje dla domów, pensjonatów, firm i instytucji',
+    lead: 'Każdy obiekt ma inne potrzeby. Wybierz swój, a pokażemy przekrój budynku, typowe problemy i zestawy, od których zaczynamy.',
     more: 'Zobacz rozwiązania',
     showAll: 'Pokaż wszystkie 12 obiektów',
     collapse: 'Zwiń listę',
@@ -267,10 +283,9 @@ export const glownaSekcje = {
     missingLink: 'Opisz, co masz →',
   },
   services: {
-    eyebrow: 'Dziesięć obszarów, jeden wykonawca',
-    heading: 'Jedna firma',
-    accent: 'od kamery po zamek w drzwiach.',
-    lead: 'Zamiast pięciu firm, które się nie znają: jeden projekt, jedna ekipa i jeden numer do serwisu. Nie wiesz, od czego zacząć? Wybierz swój obiekt wyżej albo opisz go w kreatorze.',
+    eyebrow: 'Usługi',
+    heading: 'Co projektujemy, montujemy i serwisujemy',
+    lead: 'Wszystkie instalacje planujemy razem, więc kable idą wspólnymi trasami, a do serwisu dzwonisz pod jeden numer. Nie wiesz, od czego zacząć? Wybierz swój obiekt wyżej albo opisz go w kreatorze.',
     areas: 'obszarów',
     since: 'od 2004',
     sinceNote: 'na Podhalu',
@@ -278,7 +293,7 @@ export const glownaSekcje = {
     details: 'Szczegóły',
     all: {
       eyebrow: 'Pełna oferta',
-      title: 'Wszystkie rozwiązania w jednym miejscu.',
+      title: 'Wszystkie 76 rozwiązań na jednej stronie',
       note: 'Filtr po rodzaju obiektu i wyszukiwarka.',
       button: 'Zobacz pełną ofertę',
     },
@@ -286,80 +301,104 @@ export const glownaSekcje = {
   realizations: {
     eyebrow: 'Realizacje',
     // The prototype's heading: the featured realizations are sound and multimedia.
-    heading: 'Wybrane realizacje: nagłośnienie i multimedia.',
+    heading: 'Nasze realizacje: nagłośnienie i multimedia',
     all: 'Wszystkie realizacje →',
   },
   mountains: {
-    eyebrow: 'Robimy to w górach, nie w biurowcu',
-    heading: 'Na Podhalu instalacja ma trudniej. Projektujemy to od początku.',
-    lead: 'Mróz, śnieg na kamerach, burze, słabe łącze i domy, w których nikogo nie ma przez pół roku. Znamy to z każdego montażu.',
-    showAll: 'Pokaż wszystkie 6 wyzwań',
-    collapse: 'Zwiń',
+    eyebrow: 'Góry i zima',
+    heading: 'Instalacja gotowa na mróz, burze i słabe łącze',
+    lead: 'Na Podhalu kamery zbierają śnieg, burze psują sprzęt, a wiele domów stoi pustych pół roku. Każdą instalację planujemy pod te warunki.',
+    // Source: RMF24, 7.02.2023 (the prototype's fact list, `prototyp/firmy.html`).
+    fact: {
+      value: '−28,5°C',
+      label: 'Kotlina Orawsko-Nowotarska, 7.02.2023',
+      note: 'Tyle musi wytrzymać kamera na zewnątrz.',
+    },
     cards: [
       {
-        icon: 'snow',
+        scene: 'snow',
         title: 'Mróz i śnieg',
-        text: 'Dobieramy kamery i obudowy do górskiej zimy i montujemy je tak, żeby jak najmniej zbierały śnieg. Obraz ustawiamy pod odblask od śniegu i wieczorne światło.',
+        text: 'Kamery i obudowy na górską zimę, montaż tak, żeby nie zbierały śniegu. Obraz ustawiony pod odblask.',
       },
       {
-        icon: 'storm',
+        scene: 'storm',
         title: 'Burze i przepięcia',
-        text: 'Ochrona przepięciowa zmniejsza ryzyko uszkodzeń po burzy, a zasilacz UPS podtrzymuje kamery i alarm przy krótkich zanikach prądu.',
+        text: 'Ochrona przepięciowa i zasilacz UPS: kamery i alarm działają przy krótkich zanikach prądu.',
       },
       {
-        icon: 'off',
+        scene: 'off',
         title: 'Słabe łącze',
-        text: 'Nagrania zapisują się w obiekcie, a Ampio steruje domem lokalnie. Gdy internet zniknie, instalacja działa dalej, a podgląd z telefonu wraca razem z łączem.',
+        text: 'Nagrania zostają na rejestratorze w budynku, Ampio działa lokalnie. Bez internetu instalacja pracuje dalej.',
       },
       {
-        icon: 'home',
+        scene: 'home',
         title: 'Domy na wynajem i letnie',
-        text: 'Podgląd z daleka, nagrzanie domu przed przyjazdem, ochrona przed zamarzaniem i zalaniem. Dla domów, w których nikogo nie ma przez kilka miesięcy.',
+        text: 'Podgląd z daleka, nagrzanie domu przed przyjazdem, ochrona przed zamarzaniem i zalaniem.',
       },
       {
-        icon: 'cal',
+        scene: 'cal',
         title: 'Przegląd przed sezonem',
-        text: 'Przed zimą i przed latem: czyszczenie kamer, test dysków, akumulatorów, Wi-Fi i ładowarki. Zanim przyjadą goście, a nie po pierwszej awarii.',
+        text: 'Przed zimą i latem: czyszczenie kamer, test dysków, akumulatorów, Wi-Fi i ładowarek.',
       },
       {
-        icon: 'pin',
+        scene: 'pin',
         title: 'Salon blisko Ciebie',
-        text: 'Rabka-Zdrój, blisko obiektów na Podhalu. Dużo usterek naprawiamy zdalnie, a gdy trzeba przyjechać, nie jedziemy z Krakowa.',
+        text: 'Salon w Rabce-Zdroju. Wiele usterek naprawiamy zdalnie, a dojazd na Podhalu jest krótki.',
       },
     ],
   },
   process: {
     eyebrow: 'Jak pracujemy',
-    heading: 'Rozmowa, wizja lokalna, projekt, montaż, odbiór, serwis.',
-    lead: 'Bez niespodzianek w połowie roboty. Cena i zakres są na piśmie przed montażem, a po montażu zostajemy w serwisie.',
+    // Runda v6 §1.6: no list of steps in the heading.
+    heading: 'Jak wygląda współpraca: od telefonu do serwisu',
+    lead: 'Cenę i zakres prac dostajesz na piśmie przed montażem. Po montażu zostajemy z Tobą w serwisie.',
+    getLabel: 'Co dostajesz',
     steps: [
       {
+        icon: 'phone',
         title: 'Rozmowa',
-        text: 'Telefon albo formularz. Mówisz, co chcesz zabezpieczyć lub usprawnić, wysyłasz zdjęcia.',
+        text: 'Telefon albo formularz. Mówisz, co chcesz zabezpieczyć lub usprawnić, i umawiamy wizję lokalną.',
+        get: 'termin wizji lokalnej',
       },
       {
+        icon: 'ruler',
         title: 'Wizja lokalna',
         text: 'Przyjeżdżamy, mierzymy, sprawdzamy kable, zasięg i rozdzielnicę.',
+        get: 'pomiary i lista uwag',
       },
       {
+        icon: 'doc',
         title: 'Projekt i wycena',
         text: 'Plan rozmieszczenia urządzeń i wycena na piśmie, zwykle w wariantach do wyboru.',
+        get: 'plan urządzeń i wycena w wariantach',
       },
-      { title: 'Montaż', text: 'W ustalonym terminie, czysto, z zabezpieczeniem mebli i podłóg.' },
       {
+        icon: 'tool',
+        title: 'Montaż',
+        text: 'W ustalonym terminie, czysto, z zabezpieczeniem mebli i podłóg.',
+        get: 'montaż w terminie z wyceny',
+      },
+      {
+        icon: 'check',
         title: 'Odbiór',
         text: 'Sprawdzamy działanie razem z Tobą i pokazujemy, jak korzystać z aplikacji.',
+        get: 'pokazujemy działanie i aplikację',
       },
       {
+        icon: 'wrench',
         title: 'Serwis',
         text: 'Przegląd przed sezonem, zdalna pomoc i naprawy pod jednym numerem.',
+        // `{n}` = warranty months from `InstalacjeSettings` (spec §2: 24).
+        get: 'jeden numer, {n} mies. gwarancji na montaż',
       },
     ],
+    trust: 'Wycena na piśmie przed montażem · bez niespodzianek w połowie roboty',
+    cta: 'Zaplanuj instalację',
   },
   service: {
-    eyebrow: 'Serwis i przeglądy',
-    heading: 'Montaż to początek. Zostajemy z Tobą.',
-    lead: 'Przeglądy przed sezonem, pomoc zdalna i naprawy pod jednym numerem. Przejmujemy też instalacje po firmach, które zniknęły z rynku.',
+    eyebrow: 'Serwis',
+    heading: 'Przeglądy, pomoc zdalna i naprawy po montażu',
+    lead: 'Do serwisu dzwonisz pod jeden numer, a wiele usterek naprawiamy zdalnie. Przejmujemy też instalacje po firmach, które zniknęły z rynku.',
     primary: 'Serwis i umowy →',
     secondary: 'Przejmijcie mój serwis',
     tiles: [
@@ -367,22 +406,20 @@ export const glownaSekcje = {
       { icon: 'chat', title: 'Pomoc zdalna', text: 'Wiele usterek naprawiamy bez dojazdu.' },
       { icon: 'wrench', title: 'Naprawy i rozbudowa', text: 'Jeden numer do całej instalacji.' },
       {
-        icon: 'layers',
+        icon: 'key',
         title: 'Przejęcie serwisu',
         text: 'Instalacje po firmach, które zniknęły.',
       },
     ],
   },
   faq: {
-    eyebrow: 'Najczęstsze pytania',
-    heading: 'Zanim zadzwonisz.',
-    guide: 'Poradnik: przepisy i porady →',
+    eyebrow: 'Pytania',
+    heading: 'Najczęstsze pytania o instalacje',
+    guide: 'Poradnik: porady i odpowiedzi →',
     aside: {
       title: 'Nie ma Twojego pytania?',
-      text: 'Zadzwoń albo napisz na WhatsApp. Wyślij zdjęcie obiektu albo starej instalacji, a powiemy, od czego zacząć.',
-      button: 'Napisz na WhatsApp',
-      /** Without a WhatsApp number in the panel. */
-      buttonNoWhatsapp: 'Napisz do nas',
+      text: 'Zadzwoń albo napisz. Opisz obiekt i to, co już w nim jest, a powiemy, od czego zacząć.',
+      button: 'Napisz do nas',
     },
     items: [
       {
@@ -395,7 +432,7 @@ export const glownaSekcje = {
         // TODO(krystian): the boss's rules of the site visit and travel go first (prototype
         // `[SZEF: zasady wizji lokalnej i dojazdu]`).
         answer:
-          'Zanim przyjedziemy, możesz wysłać zdjęcia obiektu. Często już na ich podstawie powiemy, jakiego zakresu się spodziewać.',
+          'Zanim przyjedziemy, opisz obiekt przez telefon albo w formularzu. Często już wtedy powiemy, jakiego zakresu się spodziewać.',
       },
       {
         question: 'Czy kamery działają bez internetu?',
@@ -403,9 +440,9 @@ export const glownaSekcje = {
           'Tak. Kamery nagrywają na rejestrator w obiekcie. Internet jest potrzebny tylko do podglądu z telefonu i powiadomień.',
       },
       {
-        question: 'Czy monitoring w pensjonacie albo firmie jest zgodny z RODO?',
+        question: 'Jak ustawiacie kamery w pensjonacie albo firmie?',
         answer:
-          'Pomagamy od strony technicznej: ustawiamy strefy i maski prywatności, czas przechowywania nagrań i miejsca na tabliczki informacyjne. Obowiązki administratora danych, np. regulamin monitoringu, zostają po Twojej stronie. Podpowiemy, co przygotować.',
+          'Tak, żeby obejmowały tylko to, co trzeba: ustawiamy strefy i maski prywatności, czas przechowywania nagrań i miejsca na tabliczki o monitoringu. Podpowiemy też, co napisać na tabliczce.',
       },
       {
         question: 'Mam instalację od innej firmy. Przejmiecie serwis?',
@@ -432,10 +469,9 @@ export const glownaSekcje = {
     ],
   },
   plan: {
-    eyebrow: 'Zaplanuj instalację · 2 minuty',
-    heading: 'Powiedz, co planujesz.',
-    accent: 'Resztę ustalimy na miejscu.',
-    lead: 'Zaznacz, czego potrzebujesz, zostaw numer, a oddzwonimy i umówimy wizję lokalną. Bez zobowiązań, wycena na piśmie.',
+    eyebrow: 'Krótki formularz',
+    heading: 'Zaplanuj instalację — oddzwonimy w 1 dzień roboczy',
+    lead: 'Zaznacz, czego potrzebujesz, i zostaw numer. Oddzwonimy, umówimy wizję lokalną, a wycenę dostaniesz na piśmie.',
     step1: 'Co planujesz?',
     step1Note: 'możesz kilka',
     step2: 'Jaki obiekt?',
@@ -459,11 +495,11 @@ export const glownaSekcje = {
       limit: 'Wysłano już kilka zgłoszeń. Spróbuj za kilka minut albo zadzwoń.',
     },
     done: {
-      title: 'Dziękujemy! Oddzwonimy.',
+      title: 'Dziękujemy, oddzwonimy.',
       // „24 h” only as the answer to a request, on working days (spec §2).
       text: 'Odpowiemy do 24 h w dni robocze: zadzwonimy, żeby dopytać o szczegóły i umówić wizję lokalną.',
       number: 'Numer zgłoszenia',
-      more: 'Dodaj zdjęcia i szczegóły →',
+      more: 'Dodaj szczegóły w kreatorze →',
       again: 'Nowe zgłoszenie',
     },
     ticket: {
@@ -476,7 +512,7 @@ export const glownaSekcje = {
     },
     alt: {
       title: 'Chcesz opisać więcej?',
-      text: 'Pełny kreator: pytania o szczegóły i zdjęcia obiektu.',
+      text: 'Pełny kreator: kilka pytań o obiekt i instalacje.',
       link: 'Otwórz kreator →',
     },
     steps: ['Oddzwaniamy', 'Wizja lokalna', 'Wycena na piśmie'],
@@ -484,9 +520,8 @@ export const glownaSekcje = {
       phone: 'Telefon',
       /** Without opening hours in the company data. */
       hours: 'pn–pt 9:00–17:00',
-      mail: 'WhatsApp i e-mail',
-      mailOnly: 'E-mail',
-      mailNote: 'Wyślij zdjęcia obiektu',
+      mail: 'E-mail',
+      mailNote: 'Zapytania i dokumenty',
       salon: 'Salon',
       route: 'Wyznacz trasę →',
     },

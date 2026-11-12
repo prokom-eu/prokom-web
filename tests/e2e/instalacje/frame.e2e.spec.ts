@@ -16,10 +16,12 @@ test.describe('Instalacje frame', () => {
     expect(response?.status()).toBe(200)
     await expect(page.locator('html')).toHaveAttribute('data-line', 'instalacje')
     await expect(
-      page.locator('#naglowek').getByRole('link', { name: 'PRO-KOM Instalacje — strona główna' }),
+      page
+        .locator('[data-site-header]')
+        .getByRole('link', { name: 'PRO-KOM Instalacje — strona główna' }),
     ).toHaveCount(1)
-    // I3: the footer of the design shows the line's phone (the e-mail is on the contact page).
-    await expect(page.locator('#stopka a[href^="tel:"]').first()).toBeVisible()
+    // L1-I: the shared footer shows the line's phone from the panel.
+    await expect(page.locator('[data-site-footer] a[href^="tel:"]').first()).toBeVisible()
   })
 
   test('follows the system theme', async ({ page }) => {
@@ -62,13 +64,11 @@ test.describe('Instalacje frame', () => {
     })
   })
 
-  test('other lines get no manifest nor theme colour', async ({ page }) => {
-    // Biznes: Software has its own since SWR2 (MOBILE-APLIKACJA §4 pkt 8).
-    const manifest = await page.goto(site('biznes.localhost', '/manifest.webmanifest'))
+  test('an unknown domain gets no manifest', async ({ page }) => {
+    // Every seeded line has its own now (Software SWR2, Biznes M1′); a host without a tenant
+    // answers 404, never a default manifest.
+    const manifest = await page.goto(site('localhost', '/manifest.webmanifest'))
     expect(manifest?.status()).toBe(404)
-    await page.goto(site('biznes.localhost'))
-    await expect(page.locator('meta[name="theme-color"]')).toHaveCount(0)
-    await expect(page.locator('link[rel="manifest"]')).toHaveCount(0)
   })
 
   test('an inactive tenant answers 404', async ({ page, context }) => {

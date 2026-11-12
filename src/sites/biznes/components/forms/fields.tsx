@@ -35,8 +35,14 @@ function Label({ id, label, required }: Pick<Base, 'id' | 'label' | 'required'>)
   )
 }
 
-function aria(id: string, error?: string, hint?: string) {
-  const describedBy = [hint ? `${id}-hint` : '', error ? `${id}-error` : ''].filter(Boolean)
+/**
+ * `aria-invalid` and `aria-describedby` of a field: its hint, its error and any description the
+ * caller adds (e.g. the zone hint of „Miejscowość”) — joined, never one replacing another.
+ */
+function aria(id: string, error?: string, hint?: string, extra?: string) {
+  const describedBy = [hint ? `${id}-hint` : '', error ? `${id}-error` : '', extra ?? ''].filter(
+    Boolean,
+  )
   return {
     'aria-invalid': error ? true : undefined,
     'aria-describedby': describedBy.length > 0 ? describedBy.join(' ') : undefined,
@@ -64,6 +70,7 @@ export function IconField({
   error,
   icon,
   className,
+  'aria-describedby': describedBy,
   ...rest
 }: IconFieldProps) {
   return (
@@ -80,8 +87,8 @@ export function IconField({
         <input
           id={id}
           required={required}
-          {...aria(id, error, hint)}
           {...rest}
+          {...aria(id, error, hint, describedBy)}
           className={cx(CONTROL, 'h-[54px] pr-4', icon ? 'pl-11' : 'pl-4')}
         />
       </span>
@@ -132,45 +139,5 @@ export function ConsentField({ id, error, children, className }: ConsentFieldPro
       </div>
       {error && <FieldError id={`${id}-error`}>{error}</FieldError>}
     </div>
-  )
-}
-
-type ChoiceFieldProps<T extends string> = {
-  name: string
-  legend: string
-  options: readonly { value: T; label: string }[]
-  defaultValue: T
-}
-
-/**
- * One-of-several choice shown as chips (plansza Zapytanie: „Jak się skontaktować?”, „Na
- * kiedy?”): real radio buttons in a fieldset, so arrows and screen readers work as usual.
- */
-export function ChoiceField<T extends string>({
-  name,
-  legend,
-  options,
-  defaultValue,
-}: ChoiceFieldProps<T>) {
-  return (
-    <fieldset>
-      <legend className="mb-2 text-[13px] font-extrabold text-ink-2">{legend}</legend>
-      <div className="flex flex-wrap gap-2">
-        {options.map((option) => (
-          <label key={option.value} className="cursor-pointer">
-            <input
-              type="radio"
-              name={name}
-              value={option.value}
-              defaultChecked={option.value === defaultValue}
-              className="peer sr-only"
-            />
-            <span className="inline-flex min-h-11 items-center rounded-full bg-surface-2 px-4 text-[15px] font-bold text-ink-2 shadow-[inset_0_0_0_1.5px_transparent] transition-colors peer-checked:bg-card peer-checked:text-accent-text peer-checked:shadow-[inset_0_0_0_2px_var(--accent-text)] peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text hover:text-ink">
-              {option.label}
-            </span>
-          </label>
-        ))}
-      </div>
-    </fieldset>
   )
 }

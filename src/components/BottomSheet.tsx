@@ -40,7 +40,7 @@ type Props = {
    */
   desktopQuery?: string
   /** `tabIndex={-1}` heading, for contents that move focus to it (`ProjectList`). */
-  headingRef?: RefObject<HTMLHeadingElement | null>
+  headingRef?: RefObject<HTMLParagraphElement | HTMLHeadingElement | null>
   /** Replaces the heading row (title and ×), e.g. tabs; it must bring its own close button. */
   header?: ReactNode
   /** Replaces the default size and position classes of the panel (`DEFAULT_PANEL`). */
@@ -61,6 +61,11 @@ type Props = {
    * another way takes it back off.
    */
   closeOnBack?: boolean
+  /**
+   * How it opens on the lines with a motion system (Software `motion.css`): `sheet` slides up
+   * from the bottom, `dialog` grows in the middle from 641 px and slides up below.
+   */
+  motion?: 'sheet' | 'dialog'
   children: ReactNode
 }
 
@@ -85,6 +90,7 @@ export function BottomSheet({
   footer,
   dragToClose = false,
   closeOnBack = false,
+  motion = 'sheet',
   children,
 }: Props) {
   const dialog = useRef<HTMLDialogElement>(null)
@@ -170,12 +176,24 @@ export function BottomSheet({
     if (!element) return
     element.style.transition = animate ? 'transform .2s ease' : 'none'
     element.style.transform = dy > 0 ? `translateY(${dy}px)` : ''
+    // Back in place: the sheet's own CSS transitions (opening, closing) apply again.
+    if (dy <= 0) {
+      const clear = () => (element.style.transition = '')
+      if (animate) element.addEventListener('transitionend', clear, { once: true })
+      else clear()
+    }
   }
 
   const dragHandlers = dragToClose
     ? {
         onPointerDown: (event: PointerEvent<HTMLDivElement>) => {
           if (event.pointerType === 'mouse' && event.button !== 0) return
+          // A finger pulls by the handle only; elsewhere on the top it scrolls (see the handle).
+          if (
+            event.pointerType !== 'mouse' &&
+            !(event.target as Element).closest('[data-sheet-handle]')
+          )
+            return
           drag.current = { y: event.clientY, time: event.timeStamp, dy: 0, active: false }
         },
         onPointerMove: (event: PointerEvent<HTMLDivElement>) => {
@@ -205,8 +223,9 @@ export function BottomSheet({
           else moveSheet(0, true)
         },
         onPointerCancel: () => {
+          const state = drag.current
           drag.current = null
-          moveSheet(0, true)
+          if (state?.active) moveSheet(0, true)
         },
       }
     : {}
@@ -214,6 +233,7 @@ export function BottomSheet({
   return (
     <dialog
       ref={dialog}
+      data-motion={motion}
       aria-label={title}
       // Esc, `close()` from the effect or a form: keep the parent's state in step.
       onClose={() => onClose()}
@@ -253,9 +273,9 @@ export function BottomSheet({
             content scrolls; the side shadows cover the content's padding (up to 32 px). */}
         <div
           {...dragHandlers}
+          data-sheet-top={stickyHeader ? '' : undefined}
           className={
             [
-              dragToClose ? 'touch-none' : '',
               stickyHeader
                 ? 'sticky top-0 z-10 bg-surface shadow-[-32px_0_0_var(--surface),32px_0_0_var(--surface)]'
                 : '',
@@ -264,21 +284,30 @@ export function BottomSheet({
               .join(' ') || undefined
           }
         >
-          {/* `data-sheet-handle`: a line may hide it where the sheet is a modal (`panelClassName`). */}
+          {/* `data-sheet-handle`: a line may hide it where the sheet is a modal (`panelClassName`).
+              A finger pulls the sheet by this 44 × 24 px strip only (`touch-none`): the rest of
+              the top keeps the browser's scrolling and sideways panning (AUDYT-PROD-TELEFON §2
+              #9 — a touch-none header swallowed every gesture started on it). A mouse drags
+              from the whole top. The negative margin keeps the old 6 px in the layout. */}
           <span
             aria-hidden="true"
             data-sheet-handle
-            className="mx-auto block h-1.5 w-11 rounded-full bg-border"
-          />
+            className={`mx-auto -my-[9px] flex h-6 w-11 items-center ${dragToClose ? 'touch-none' : ''}`}
+          >
+            <span className="block h-1.5 w-full rounded-full bg-border" />
+          </span>
           {header ?? (
             <div className="mt-3 flex items-center justify-between gap-3">
-              <h2
+              {/* Audit 0611 P0.4: a heading only while open — the closed sheet stays in the page
+                  and must not add an H2 to its outline. Same element, only the role changes. */}
+              <p
                 ref={headingRef}
                 tabIndex={-1}
+                {...(open ? ({ role: 'heading', 'aria-level': 2 } as const) : {})}
                 className="font-display text-[28px] font-extrabold leading-tight outline-none"
               >
                 {title}
-              </h2>
+              </p>
               <button
                 type="button"
                 onClick={() => onClose()}
@@ -293,7 +322,10 @@ export function BottomSheet({
         {children}
       </div>
       {footer && (
-        <div className="sticky bottom-0 border-t border-border bg-surface px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3">
+        <div
+          data-sheet-footer
+          className="sticky bottom-0 border-t border-border bg-surface px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3"
+        >
           {footer}
         </div>
       )}

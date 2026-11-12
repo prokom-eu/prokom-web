@@ -58,7 +58,8 @@ Gdy dwie strony powstają w tym samym czasie, każda ma **własny folder** z wł
 | Folder (obok siebie w `repos\`) | Strona | `PORT` | Baza w `DATABASE_URL` |
 |---|---|---|---|
 | `prokom-web-biznes` (worktree) | prokombiznes.pl | 3000 | `prokom_web` |
-| `prokom-web` (główny) | prokomsoftware.pl | 3001 | `prokom_web_software` |
+| `prokom-web` (główny) | prokomsoftware.pl (od 06.11: sesje D2 elementów wspólnych) | 3001 | `prokom_web_software` |
+| `prokom-web-software` (worktree, od 06.11) | prokomsoftware.pl — sesje SWA (v24) | 3003 | `prokom_web_swa` |
 | `prokom-instal` (worktree) | prokominstalacje.pl | 3002 | `prokom_web_instalacje` |
 
 **Dlaczego osobna baza:** każda gałąź dodaje własne migracje. Na wspólnej bazie Payload trafiłby na migrację, której jego gałąź nie zna, albo na tabele niezgodne z kodem. Kontener PostgreSQL jest jeden (stała nazwa projektu w `docker/compose.dev.yml`), baz w nim dwie.

@@ -1,7 +1,11 @@
 'use client'
 
+import { useState, type MouseEvent } from 'react'
+
 import { cx } from '@/components/ui/cx'
 import { cartActions, useCart } from '@/lib/cart/store'
+
+import { flyToCart } from './motion/flyToCart'
 
 type Props = {
   slug: string
@@ -13,19 +17,35 @@ type Props = {
    * `primary`: the big switch of the product box, "Dodaj do zapytania" / "✓ Na liście" (§6.2);
    * `onDark`: the same on a navy panel, "Dodaj do zapytania" / "✓ W zapytaniu" (/insert picker).
    */
-  variant?: 'icon' | 'label' | 'primary' | 'onDark'
+  variant?: 'icon' | 'label' | 'primary' | 'onDark' | 'card'
   /** After the switch, e.g. to move focus when this button leaves the page. */
   onToggle?: () => void
+  /** Adding sends a dot flying to the shell's counter (`flyToCart`; home „Najczęściej wybierane”). */
+  fly?: boolean
 }
 
 const PLUS = 'M12 5v14M5 12h14'
 const CHECK = 'M5 12l5 5L20 7'
 
-function Mark({ on, size, stroke }: { on: boolean; size: number; stroke: number }) {
+/** R2: after the visitor's own click the tick draws itself (`data-check`); never on load. */
+function Mark({
+  on,
+  size,
+  stroke,
+  drawn,
+}: {
+  on: boolean
+  size: number
+  stroke: number
+  drawn: boolean
+}) {
   return (
     <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
       <path
+        key={on ? 'check' : 'plus'}
         d={on ? CHECK : PLUS}
+        pathLength={1}
+        data-check={on && drawn ? '' : undefined}
         fill="none"
         stroke="currentColor"
         strokeWidth={stroke}
@@ -37,9 +57,19 @@ function Mark({ on, size, stroke }: { on: boolean; size: number; stroke: number 
 }
 
 /** Switch of a product on the inquiry list: adds, or removes when already there. */
-export function AddToCartButton({ slug, name, className, variant = 'icon', onToggle }: Props) {
+export function AddToCartButton({
+  slug,
+  name,
+  className,
+  variant = 'icon',
+  onToggle,
+  fly = false,
+}: Props) {
   const on = useCart().some((item) => item.id === slug)
-  const toggle = () => {
+  const [clicked, setClicked] = useState(false)
+  const toggle = (event: MouseEvent<HTMLButtonElement>) => {
+    setClicked(true)
+    if (fly && !on) flyToCart(event.currentTarget)
     cartActions.toggle(slug, name)
     onToggle?.()
   }
@@ -60,7 +90,7 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
           className,
         )}
       >
-        <Mark on={on} size={18} stroke={2.6} />
+        <Mark on={on} drawn={clicked} size={18} stroke={2.6} />
         {label}
       </button>
     )
@@ -83,8 +113,32 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
           className,
         )}
       >
-        <Mark on={on} size={16} stroke={2.6} />
+        <Mark on={on} drawn={clicked} size={16} stroke={2.6} />
         {label}
+      </button>
+    )
+  }
+
+  if (variant === 'card') {
+    // Board `.addb`: in the corner of the card picture, accent until added, then green.
+    const label = on ? 'W zapytaniu' : 'Do zapytania'
+    return (
+      <button
+        type="button"
+        aria-pressed={on}
+        aria-label={`${label}: ${name}`}
+        onClick={toggle}
+        className={cx(
+          'inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[13px] px-3.5 text-sm font-extrabold whitespace-nowrap transition-colors',
+          on
+            ? 'bg-ok-text text-surface'
+            : 'bg-accent-text text-accent-ink hover:bg-ink hover:text-surface',
+          className,
+        )}
+      >
+        <Mark on={on} drawn={clicked} size={15} stroke={2.6} />
+        {/* Only the „+” on a phone: the picture is small there (`aria-label` names it). */}
+        <span className="max-sm:hidden">{label}</span>
       </button>
     )
   }
@@ -106,7 +160,7 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
           className,
         )}
       >
-        <Mark on={on} size={15} stroke={2.6} />
+        <Mark on={on} drawn={clicked} size={15} stroke={2.6} />
         {label}
       </button>
     )
@@ -124,7 +178,7 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
         className,
       )}
     >
-      <Mark on={on} size={17} stroke={2.4} />
+      <Mark on={on} drawn={clicked} size={17} stroke={2.4} />
     </button>
   )
 }

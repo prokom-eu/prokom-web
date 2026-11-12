@@ -9,19 +9,23 @@ export type AnalyticsEvents = {
   kreator_start: undefined
   /** Step the visitor reached, from 1. */
   kreator_krok: { krok: number }
-  /** Result id from `SoftwareSettings.wizard`. */
+  /** Kind id of the result (`SoftwareSettings.wizard.types[].id`). */
   kreator_wynik: { wynik: string }
   kreator_wyslij: undefined
-  /** „Potrzebujesz czegoś więcej?” — id of the ticked add-on. */
-  kreator_dodatek: { id: string }
   /** „+ Dodaj do wyceny” on a card or in the offer window. */
   projekt_dodaj: { slug: string }
   /** The „Twój projekt” list sent with the contact form; `liczba` = number of items. */
   projekt_wyslij: { liczba: number }
   audyt_wyslij: undefined
+  /** „Skanuj podgląd →” of the sample card on `/audyt` — never the typed address. */
+  audyt_skan: undefined
   kontakt_wyslij: undefined
-  /** Tab of the live previews on the start page. */
-  podglad_otworz: { podglad: string }
+  /** A tile of the hero picker clicked (ZMIANY-v24 §13); `nr` = slide from 1. */
+  hero_slajd: { nr: number }
+  /** A variant chip of the offer bento (`labelKey` of its label). */
+  oferta_wariant: { wariant: string }
+  /** An industry of the showroom opened (its key). */
+  branza_podglad: { branza: string }
   /** The phone menu sheet. */
   menu_otworz: undefined
   /** Item of the phone bottom bar (its key, e.g. `oferta`). */

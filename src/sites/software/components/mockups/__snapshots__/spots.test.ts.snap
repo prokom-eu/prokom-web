@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`points of „W cenie” on the mock-ups (OKNO-OFERTY-PREMIUM §3) > reports the coverage of all 29 offers (fewer than 2 → listed in the PR) 1`] = `
+{
+  "aplikacja-dla-ekip-w-terenie": 0,
+  "aplikacja-do-programu-ktory-masz": 0,
+  "aplikacja-do-rezerwacji-dla-gosci": 0,
+  "asystent-ai-do-zapytan": 0,
+  "audyt-strony-lub-programu": 0,
+  "crm-dla-malej-i-sredniej-firmy": 3,
+  "czas-pracy-i-rozliczenia": 3,
+  "faktury-bez-przepisywania": 0,
+  "grafik-i-rezerwacje-zajec": 3,
+  "kalendarz-sal-i-imprez": 3,
+  "landing-page": 1,
+  "magazyn-i-zamowienia": 3,
+  "opieka-nad-strona-i-systemem": 0,
+  "panel-klienta-i-portal-b2b": 3,
+  "polaczenie-programow": 0,
+  "powiadomienia-sms-i-e-mail": 0,
+  "przebudowa-starej-strony": 0,
+  "przejecie-po-innym-wykonawcy": 0,
+  "raporty-dla-szefa": 0,
+  "rozbudowana-strona-firmowa": 2,
+  "sklep-internetowy": 2,
+  "strona-dla-hotelu-lub-pensjonatu": 3,
+  "strona-dla-restauracji-lub-baru": 3,
+  "strona-firmowa-z-panelem": 2,
+  "strona-wizytowka": 3,
+  "system-serwisu-i-zgloszen": 3,
+  "system-zlecen-i-grafik-ekip": 3,
+  "wyceny-i-oferty-z-pdf": 3,
+  "z-excela-do-systemu": 3,
+}
+`;

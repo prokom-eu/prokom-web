@@ -36,7 +36,7 @@
     aspect-ratio: 16/9;
     position: relative;
     color: var(--inst-deep-ink);
-    animation: inst-scr-fadein 0.5s ease;
+    animation: inst-scr-fadein 0.5s var(--ease-out);
   }
   & .tvf.port .tvsc {
     aspect-ratio: 9/16;
@@ -292,7 +292,7 @@
     min-height: 220px;
   }
   & .synf.fl {
-    animation: inst-scr-synfl 0.9s ease;
+    animation: inst-scr-synfl 0.9s var(--ease-out);
   }
   & .synh {
     display: flex;
@@ -335,7 +335,7 @@
   }
   & .synr.hot {
     background: var(--inst-orbit-2);
-    animation: inst-scr-fadeUp 0.5s ease;
+    animation: inst-scr-fadeUp 0.5s var(--ease-out);
   }
   & .synr.promo b {
     color: var(--inst-scene-beam-ok);
@@ -630,7 +630,7 @@
     color: var(--accent-text);
     font-weight: 800;
   }
-  & .card.tlaw.scr-out {
+  & .card.scr-out {
     align-items: center;
   }
 }

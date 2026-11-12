@@ -316,7 +316,7 @@
     "cta": "Zaplanuj instalację",
     "href": "Zaplanuj.dc.html"
    },
-   "faqH": "Zanim zadzwonisz.",
+   "faqH": "Pytania o smart home Ampio",
    "relH": "Ampio łączy się z resztą instalacji.",
    "pkg": {
     "eye": "Przykładowe zestawy",
@@ -325,10 +325,10 @@
     "note": "To przykłady. Liczbę modułów, paneli i integracji ustalamy w projekcie, a cenę podajemy na piśmie."
    },
    "cena": {
-    "btn": "Wyślij projekt lub rzut",
+    "btn": "Umów konsultację projektu",
     "eye": "Wycena",
     "h": "Od czego zależy cena smart home.",
-    "p": "Najtaniej jest zaplanować automatykę razem z elektryką. Wyślij projekt domu albo rzut (albo zdjęcia, jeśli dom już stoi), a przygotujemy wstępną wycenę."
+    "p": "Najtaniej jest zaplanować automatykę razem z elektryką. Pokaż nam projekt domu na spotkaniu albo online (albo opisz dom, jeśli już stoi), a przygotujemy wstępną wycenę."
    }
   },
   "sh": {

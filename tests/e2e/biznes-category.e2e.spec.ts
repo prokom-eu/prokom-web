@@ -21,18 +21,17 @@ test.describe('Biznes category page', () => {
     const grid = page.locator('[data-category-grid]')
     await expect(grid.getByRole('article')).toHaveCount(11)
     await expect(page.getByRole('status').filter({ hasText: 'pasuje' })).toHaveText('11 kas pasuje')
-    // K4: „Nie wiesz, co wybrać?” in the side panel asks with the category's name (K36 §13).
+    // BIZ-3 B5-3a: no default „Zapytaj o dobór” card beside the grid (it repeated the help
+    // block); the register picker under the grid is the choice here.
     const panel = page.getByRole('complementary', { name: 'Filtry' })
-    await expect(panel.getByRole('link', { name: 'Zapytaj o dobór' })).toHaveAttribute(
-      'href',
-      /^\/zapytanie\?fraza=Dob%C3%B3r%3A%20Kasy%20fiskalne/,
-    )
+    await expect(panel.getByRole('link', { name: 'Zapytaj o dobór' })).toHaveCount(0)
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toHaveText(
-      /^Start\s*\/\s*Oferta\s*\/\s*Kasy fiskalne$/,
+      /^Strona główna\s*\/\s*Oferta\s*\/\s*Kasy fiskalne$/,
     )
 
     const scripts = await page.locator('script[type="application/ld+json"]').allTextContents()
-    const data = scripts.map((text) => JSON.parse(text) as JsonLd)
+    // One script may carry several objects (breadcrumbs + the product ItemList, #454).
+    const data = scripts.flatMap((text) => [JSON.parse(text) as JsonLd | JsonLd[]].flat())
     const crumbs = data.find((item) => item['@type'] === 'BreadcrumbList')
     expect(crumbs?.itemListElement).toEqual([
       expect.objectContaining({ position: 1, item: site('biznes.localhost', '/') }),
@@ -57,7 +56,8 @@ test.describe('Biznes category page', () => {
   test('the register picker and brand segments narrow the grid', async ({ page }) => {
     await page.goto(site('biznes.localhost', KASY))
     const grid = page.locator('[data-category-grid]')
-    const big = page.getByRole('button', { name: /Sklep z dużą liczbą towarów/ })
+    // Anchored: the „Typ: … ✕” chip („Usuń filtr typu: …”) names the same type.
+    const big = page.getByRole('button', { name: /^Sklep z dużą liczbą towarów/ })
     await big.click()
     await expect(big).toHaveAttribute('aria-pressed', 'true')
     await expect(grid.getByRole('article')).toHaveCount(2)
@@ -79,7 +79,7 @@ test.describe('Biznes category page', () => {
       .getByRole('button', { name: 'Do zapytania: Posnet Ergo Online' })
       .click()
     await expect(
-      page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ }),
+      page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ }),
     ).toHaveAccessibleName('Zapytanie 1 pozycja')
   })
 
@@ -132,5 +132,32 @@ test.describe('Biznes category page', () => {
         `/api/catalog-categories/${(created.json.doc as { id: number }).id}`,
       )
     }
+  })
+})
+
+// Prompt 3 E2: the category on a phone as the board App-Kategoria.
+test.describe('Biznes category on a phone', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+
+  test('chips, 10 cards and „Pokaż kolejne 10”, the closing card instead of the form', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost', '/oferta/laptopy'))
+    await expect(page.getByRole('navigation', { name: 'Kategorie działu' })).toBeVisible()
+    const grid = page.locator('[data-category-grid]')
+    // Cards only: the procurement band sits after the 6th card (plan 0611 §6.4 #2).
+    const cards = grid.locator(':scope > li:not(:has([data-supply-band]))')
+    await expect(cards).toHaveCount(10)
+    await expect(page.getByText(/^Widzisz 10 z \d+$/)).toBeVisible()
+    await page.getByRole('button', { name: /^Pokaż kolejne/ }).click()
+    await expect(cards).toHaveCount(20)
+
+    const last = page.getByRole('region', { name: 'Nie widzisz tego, czego szukasz?' })
+    await expect(last.getByRole('link', { name: 'Zapytaj o produkt' })).toHaveAttribute(
+      'href',
+      '/zapytanie',
+    )
+    await expect(page.locator('#kontakt form')).toBeHidden()
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
   })
 })

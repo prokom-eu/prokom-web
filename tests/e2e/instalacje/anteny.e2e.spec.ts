@@ -16,11 +16,14 @@ const SECTIONS = [
   'filtr-5g',
   'satelita',
   'pensjonat-tv',
-  'odbior',
   'pakiety',
   'cena',
   'faq',
+  // INST-6 PR5 (runda v6 §3.3): the guide posts of the service.
+  'z-poradnika',
   'powiazane',
+  // Runda v6 §1.3: the trust band right above the CTA band.
+  'odbior',
 ]
 
 const open = (page: Page) => page.goto(site(HOST, '/anteny'))
@@ -43,7 +46,7 @@ test.describe('Anteny page', () => {
     const response = await open(page)
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('Antena ustawiona miernikiem, nie na oko.')
+    await expect(page.locator('h1')).toContainText('Anteny satelitarne i DVB-T2 na Podhalu')
     const ids = await page
       .locator('main section[id]')
       .evaluateAll((sections) => sections.map((section) => section.id))
@@ -75,7 +78,7 @@ test.describe('Anteny page', () => {
     await open(page)
     const bands = page.locator('.cta:visible')
     await expect(bands).toHaveCount(1)
-    await expect(bands).toContainText('Obraz się rwie albo budujesz dom?')
+    await expect(bands).toContainText('Zamów montaż albo ustawienie anteny miernikiem')
   })
 
   test('the aiming simulator locks with the installer button', async ({ page }) => {
@@ -191,7 +194,9 @@ test.describe('Anteny page on a phone', () => {
         await scrollTo(y)
         await page.waitForTimeout(50)
       }
-      await expect(page.locator('html')).toHaveAttribute('data-hdr-hidden', '', { timeout: 500 })
+      await expect(page.locator('[data-site-header]')).toHaveAttribute('data-hidden', '', {
+        timeout: 500,
+      })
     }).toPass()
     await expect(async () => {
       const box = await bar.boundingBox()

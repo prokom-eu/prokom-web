@@ -29,8 +29,8 @@
  "salony": {
   "Posnet": {
    "pill": "Autoryzowany serwis Posnet · Rabka-Zdrój",
-   "h1a": "Kasy i drukarki Posnet.",
-   "h1b": "Z serwisem na miejscu.",
+   "h1a": "Kasy i drukarki Posnet",
+   "h1b": "z serwisem w Rabce",
    "lead": "Polski producent, który robi kasy od 1993 roku. Dobieramy model do Twojego punktu, fiskalizujemy, uczymy obsługi i zostajemy z Tobą na przeglądy.",
    "hero": [
     "ergo",
@@ -53,7 +53,7 @@
    ],
    "heroLab": [
     "Kasa Ergo",
-    "Pospay 2 — kasa i terminal",
+    "Pospay 2: kasa i terminal",
     "Drukarka Thermal HX"
    ],
    "fam": [
@@ -131,7 +131,7 @@
        "xl2",
        "hx"
       ],
-      "w": "Drukarka fiskalna pracuje z programem (np. PC-POS, NFHotel) — wybierasz szybkość i szerokość papieru."
+      "w": "Drukarka fiskalna pracuje z programem (np. PC-POS, NFHotel), a Ty wybierasz szybkość i szerokość papieru."
      },
      {
       "t": "W terenie, u klienta, w busie",
@@ -152,11 +152,11 @@
     },
     {
      "q": "Kasa czy drukarka fiskalna?",
-     "a": "Kasa działa samodzielnie — wystarczy w małym punkcie. Drukarka fiskalna pracuje z programem sprzedaży na komputerze lub POS, gdy masz więcej towarów, magazyn albo kilka stanowisk."
+     "a": "Kasa działa samodzielnie i wystarczy w małym punkcie. Drukarka fiskalna pracuje z programem sprzedaży na komputerze lub POS, gdy masz więcej towarów, magazyn albo kilka stanowisk."
     },
     {
      "q": "Czy mogę przyjmować płatności kartą przy kasie?",
-     "a": "Tak — kasę łączymy z terminalem płatniczym, a niektóre modele (np. Bingo) obsługują BLIK na kasie. Pospay 2 ma terminal płatniczy wbudowany."
+     "a": "Tak. Kasę łączymy z terminalem płatniczym, a niektóre modele (np. Bingo) obsługują BLIK na kasie. Pospay 2 ma terminal płatniczy wbudowany."
     },
     {
      "q": "Mam kasę Posnet kupioną gdzie indziej. Zrobicie przegląd?",
@@ -194,7 +194,7 @@
     }
    ],
    "opis": [
-    "Posnet Polska S.A. działa od 1993 roku — firma powstała, gdy weszła w życie ustawa nakładająca obowiązek stosowania kas fiskalnych. Siedziba mieści się w Warszawie, a według producenta firma ma 6 oddziałów w Polsce i sieć ok. 1500 dealerów. Posnet jest też właścicielem Lubelskich Fabryk Wag FAWAG i dystrybutorem urządzeń innych producentów.",
+    "Posnet Polska S.A. działa od 1993 roku. Firma powstała, gdy weszła w życie ustawa nakładająca obowiązek stosowania kas fiskalnych. Siedziba mieści się w Warszawie, a według producenta firma ma 6 oddziałów w Polsce i sieć ok. 1500 dealerów. Posnet jest też właścicielem Lubelskich Fabryk Wag FAWAG i dystrybutorem urządzeń innych producentów.",
     "W naszym katalogu Posnet to przede wszystkim kasy fiskalne online (Ergo, Neo, Mobile, Mobile 2, Bingo), drukarki fiskalne (Thermal HD/HX/XL2, Temo, Trio), terminale z fiskalizacją (Vero, Evo, Pospay 2 z terminalem płatniczym), szuflady, wyświetlacz POS, weryfikatory cen i klawiatura kuchenna. To sprzęt dla sklepów, gastronomii, punktów usługowych i sprzedaży mobilnej.",
     "Przy wyborze kasy lub drukarki zacznij od tego, jak sprzedajesz: kasa samodzielna wystarczy w małym punkcie, a drukarka fiskalna pracuje z programem sprzedaży na komputerze lub POS (np. PC-POS, PC-Gastronom, NFHotel — producenci tych programów wymieniają drukarki Posnet na listach zgodności). Do kasy dobierz szufladę, skaner (np. FAWAGscan) i ewentualnie wagę."
    ],
@@ -227,7 +227,7 @@
     ]
    },
    "heroCard": {
-    "t": "Kupujesz kasę Posnet — dostajesz",
+    "t": "Kupujesz kasę Posnet: dostajesz",
     "it": [
      [
       "Fiskalizację",
@@ -249,7 +249,7 @@
    },
    "plans": {
     "h": "Która kasa Posnet?",
-    "lead": "Cztery kasy, od których zwykle zaczynamy — od lekkiej kasy do punktu usług po kasę systemową do sklepu z wagą. Pełna oferta niżej.",
+    "lead": "Cztery kasy, od których zwykle zaczynamy: od lekkiej kasy do punktu usług po kasę systemową do sklepu z wagą. Pełna oferta niżej.",
     "altH": "Drukarki fiskalne do programu sprzedaży",
     "it": [
      {
@@ -439,12 +439,13 @@
      "neo",
      "hx"
     ]
-   }
+   },
+   "hFaq": "Pytania o kasy Posnet"
   },
   "Elzab": {
    "pill": "Autoryzowany serwis Elzab · Rabka-Zdrój",
-   "h1a": "Kasy, drukarki i wagi Elzab.",
-   "h1b": "Polski producent.",
+   "h1a": "Kasy, drukarki i wagi Elzab",
+   "h1b": "od polskiego producenta",
    "lead": "Elzab robi urządzenia fiskalne od 1993 roku. Pomagamy wybrać kasę, drukarkę, wagę i akcesoria, fiskalizujemy i prowadzimy serwis.",
    "hero": [
     "jota",
@@ -554,7 +555,7 @@
        "cube",
        "mera"
       ],
-      "w": "Drukarki fiskalne do programu — od małej Zety z Wi-Fi po szybką Cube z kolorowym ekranem dla klienta."
+      "w": "Drukarki fiskalne do programu, od małej Zety z Wi-Fi po szybką Cube z kolorowym ekranem dla klienta."
      },
      {
       "t": "W terenie i przy stoliku",
@@ -571,7 +572,7 @@
    "faq": [
     {
      "q": "Czy fiskalizujecie kasy Elzab?",
-     "a": "Tak. Jesteśmy autoryzowanym serwisem Elzab — fiskalizujemy, robimy przeglądy techniczne i naprawy."
+     "a": "Tak. Jesteśmy autoryzowanym serwisem Elzab: fiskalizujemy, robimy przeglądy techniczne i naprawy."
     },
     {
      "q": "Czy wagę połączę z kasą?",
@@ -579,11 +580,11 @@
     },
     {
      "q": "Kasa czy drukarka fiskalna?",
-     "a": "Kasa działa samodzielnie. Drukarka fiskalna współpracuje z programem sprzedaży na komputerze lub POS — wybierz ją, gdy masz magazyn, wiele towarów lub kilka stanowisk."
+     "a": "Kasa działa samodzielnie. Drukarka fiskalna współpracuje z programem sprzedaży na komputerze lub POS. Wybierz ją, gdy masz magazyn, wiele towarów lub kilka stanowisk."
     },
     {
      "q": "Czy Elzab ma coś do automatów i stacji paliw?",
-     "a": "Tak — drukarka DF-6 do samoobsługowych stacji paliw i automatów oraz moduł KW3 do fiskalizacji rozwiązań vendingowych."
+     "a": "Tak. Drukarka DF-6 do samoobsługowych stacji paliw i automatów oraz moduł KW3 do fiskalizacji rozwiązań vendingowych."
     }
    ],
    "marka": "Elzab",
@@ -622,9 +623,9 @@
     }
    ],
    "opis": [
-    "ELZAB wywodzi się z zakładu założonego w 1969 roku w Zabrzu. Od 1993 roku produkuje urządzenia fiskalne — terminal ELZAB Xcel 260 uzyskał pierwsze w Polsce dopuszczenie Ministerstwa Finansów dla urządzeń fiskalnych. Od 2011 roku firma należała do Grupy Comp, a w grudniu 2023 roku połączyła się z COMP SA.",
+    "ELZAB wywodzi się z zakładu założonego w 1969 roku w Zabrzu. Od 1993 roku produkuje urządzenia fiskalne, a terminal ELZAB Xcel 260 uzyskał pierwsze w Polsce dopuszczenie Ministerstwa Finansów dla urządzeń fiskalnych. Od 2011 roku firma należała do Grupy Comp, a w grudniu 2023 roku połączyła się z COMP SA.",
     "W katalogu ELZAB to kasy fiskalne online (Jota, K10, Mini, K1 Slim, Mini LT), drukarki fiskalne (Zeta, Cube, Mera, DF-6), terminale T10 i K2 Pay, wagi i wagoskaner (Neptun 2, Prima 2), szuflady, drukarki paragonowe, sprawdzarki cen, czytnik BS80, fiskalizacja automatów KW3 i aplikacja elzAPP MAG. ELZAB jest też polskim dystrybutorem marek Godex, Sunmi, Zebra i Dibal.",
-    "Przy wyborze zwróć uwagę na współpracę z programem sprzedaży i terminalem płatniczym — ELZAB publikuje listę terminali współpracujących z jego kasami. Aplikacja elzAPP MAG łączy kolektory z PC-Market i innymi programami. Producent podaje, że sprzedał ponad 1,3 mln kas i drukarek fiskalnych."
+    "Przy wyborze zwróć uwagę na współpracę z programem sprzedaży i terminalem płatniczym. ELZAB publikuje listę terminali współpracujących z jego kasami. Aplikacja elzAPP MAG łączy kolektory z PC-Market i innymi programami. Producent podaje, że sprzedał ponad 1,3 mln kas i drukarek fiskalnych."
    ],
    "n": 26,
    "serwis": {
@@ -655,7 +656,7 @@
     ]
    },
    "heroCard": {
-    "t": "Kupujesz kasę Elzab — dostajesz",
+    "t": "Kupujesz kasę Elzab: dostajesz",
     "it": [
      [
       "Fiskalizację",
@@ -677,7 +678,7 @@
    },
    "plans": {
     "h": "Która kasa Elzab?",
-    "lead": "Cztery kasy na najczęstsze sytuacje — mały sklep, sklep z wagą, sprzedaż w terenie i kasa z terminalem. Pełna oferta niżej.",
+    "lead": "Cztery kasy na najczęstsze sytuacje: mały sklep, sklep z wagą, sprzedaż w terenie i kasa z terminalem. Pełna oferta niżej.",
     "altH": "Drukarki fiskalne i waga",
     "it": [
      {
@@ -880,12 +881,13 @@
      "k10",
      "cube"
     ]
-   }
+   },
+   "hFaq": "Pytania o kasy Elzab"
   },
   "Sunmi": {
    "pill": "Sprzęt Sunmi · wdrożenia z GoPOS",
-   "h1a": "Terminale Sunmi.",
-   "h1b": "Lokal, sklep, magazyn.",
+   "h1a": "Terminale Sunmi",
+   "h1b": "do lokalu, sklepu i magazynu",
    "lead": "Stanowiska POS, terminale w dłoni, kioski, ekrany kuchenne i kolektory. Wgrywamy system sprzedaży, łączymy z drukarką fiskalną i terminalem, uczymy zespół.",
    "hero": [
     "d3",
@@ -995,7 +997,7 @@
    "serw": false,
    "extra": {
     "t": "Sunmi i GoPOS",
-    "d": "Na urządzeniach Sunmi wdrażamy GoPOS — system dla gastronomii. Stanowisko D3 PRO na ladzie, V3 MIX przy stoliku, FLEX 3 w kuchni i kiosk K2 dla gości tworzą jeden system.",
+    "d": "Na urządzeniach Sunmi wdrażamy GoPOS, system dla gastronomii. Stanowisko D3 PRO na ladzie, V3 MIX przy stoliku, FLEX 3 w kuchni i kiosk K2 dla gości tworzą jeden system.",
     "b": "Zobacz GoPOS",
     "steps": [
      [
@@ -1019,11 +1021,11 @@
    "faq": [
     {
      "q": "Na jakim systemie działa Sunmi?",
-     "a": "Na SUNMI OS opartym na Androidzie. Działają na nim aplikacje sprzedażowe na Androida — przed zakupem sprawdzamy, czy Twój program ma wersję na Sunmi."
+     "a": "Na SUNMI OS opartym na Androidzie. Działają na nim aplikacje sprzedażowe na Androida. Przed zakupem sprawdzamy, czy Twój program ma wersję na Sunmi."
     },
     {
      "q": "Czy Sunmi wystawi paragon fiskalny?",
-     "a": "Urządzenie łączymy z drukarką fiskalną (np. Posnet lub Elzab) albo wdrażamy GoPOS z wirtualną kasą fiskalną — zależnie od Twojego programu."
+     "a": "Urządzenie łączymy z drukarką fiskalną (np. Posnet lub Elzab) albo wdrażamy GoPOS z wirtualną kasą fiskalną, zależnie od Twojego programu."
     },
     {
      "q": "Kto dystrybuuje Sunmi w Polsce?",
@@ -1031,7 +1033,7 @@
     },
     {
      "q": "Czy ekran kuchenny wytrzyma kuchnię?",
-     "a": "FLEX 3 KDS jest zaprojektowany do kuchni — obsłużysz go nawet mokrymi dłońmi."
+     "a": "FLEX 3 KDS jest zaprojektowany do kuchni: obsłużysz go nawet mokrymi dłońmi."
     }
    ],
    "marka": "Sunmi",
@@ -1067,7 +1069,7 @@
    "opis": [
     "SUNMI powstało w 2013 roku z siedzibą w Szanghaju; w 2024 roku otworzyło globalną centralę w Singapurze, a w 2026 roku weszło na główny rynek giełdy w Hongkongu. Firma produkuje urządzenia z systemem SUNMI OS opartym na Androidzie i platformę do zdalnego zarządzania nimi.",
     "W katalogu Sunmi to terminale POS (D3 PRO, T2s Lite), mobilne terminale V3 i V3 MIX (także w zestawie GoPOS All in One), kolektory L2s Pro, L2Ks i L3, kiosk K2, ekran kuchenny FLEX 3 KDS, drukarka NT311 oraz skanery 2D i Blink. To sprzęt dla restauracji, kawiarni, sklepów, magazynów i punktów z samoobsługą.",
-    "Urządzenia Sunmi działają z aplikacjami na Androida — przy wyborze sprawdź, czy Twój program (np. system gastronomiczny) ma wersję na Sunmi. W Polsce część urządzeń dystrybuuje ELZAB; specyfikacje u dystrybutora i producenta mogą się różnić wersją pamięci lub szczelności, więc wariant potwierdzamy przy zamówieniu."
+    "Urządzenia Sunmi działają z aplikacjami na Androida. Przy wyborze sprawdź, czy Twój program (np. system gastronomiczny) ma wersję na Sunmi. W Polsce część urządzeń dystrybuuje ELZAB; specyfikacje u dystrybutora i producenta mogą się różnić wersją pamięci lub szczelności, więc wariant potwierdzamy przy zamówieniu."
    ],
    "n": 12,
    "heroCard": {
@@ -1093,7 +1095,7 @@
    },
    "plans": {
     "h": "Które urządzenie Sunmi?",
-    "lead": "Stanowisko na ladę, terminal do stolika, terminal w dłoni i kiosk dla gości — z tych urządzeń składamy system dla lokalu lub sklepu. Pełna oferta niżej.",
+    "lead": "Stanowisko na ladę, terminal do stolika, terminal w dłoni i kiosk dla gości: z tych urządzeń składamy system dla lokalu lub sklepu. Pełna oferta niżej.",
     "altH": "Kuchnia i magazyn",
     "it": [
      {
@@ -1262,9 +1264,9 @@
    ],
    "title": "Druk w biurze",
    "pill": "Konica Minolta i Kyocera · dobór i serwis",
-   "h1a": "Drukarki dla biura.",
-   "h1b": "Druk, kopia i skan.",
-   "lead": "Kolorowe i czarno-białe, A4 i A3 — od małego biura po urząd. Dobieramy urządzenie do liczby stron i osób, podłączamy do sieci, ustawiamy skanowanie do e-maila i folderów.",
+   "h1a": "Drukarki dla biura,",
+   "h1b": "które drukują, kopiują i skanują",
+   "lead": "Kolorowe i czarno-białe, A4 i A3, od małego biura po urząd. Dobieramy urządzenie do liczby stron i osób, podłączamy do sieci, ustawiamy skanowanie do e-maila i folderów.",
    "hero": [
     "konica-minolta-bizhub-c301i",
     "kyocera-ecosys-ma4500x-fx-ifx",
@@ -1331,7 +1333,7 @@
        "kyocera-ecosys-ma4000x-fx-wifx",
        "konica-minolta-bizhub-4221i"
       ],
-      "w": "Zwarte urządzenia A4 z dwustronnym skanowaniem — drukujesz i skanujesz także z telefonu."
+      "w": "Zwarte urządzenia A4 z dwustronnym skanowaniem: drukujesz i skanujesz także z telefonu."
      },
      {
       "t": "Biuro z kolorowymi ofertami A4",
@@ -1355,7 +1357,7 @@
        "konica-minolta-bizhub-c251i",
        "konica-minolta-bizhub-c301i"
       ],
-      "w": "Kolorowe urządzenia A3 do biura, szkoły czy urzędu — plany, plakaty, większe dokumenty."
+      "w": "Kolorowe urządzenia A3 do biura, szkoły czy urzędu: plany, plakaty, większe dokumenty."
      }
     ]
    },
@@ -1393,7 +1395,7 @@
    "faq": [
     {
      "q": "Konica Minolta czy Kyocera?",
-     "a": "Obie marki robią solidne urządzenia biurowe. Wybieramy po tym, ile stron drukujesz, czy potrzebujesz koloru i A3 oraz jakie funkcje skanowania są ważne — a nie po marce."
+     "a": "Obie marki robią solidne urządzenia biurowe. Wybieramy po tym, ile stron drukujesz, czy potrzebujesz koloru i A3 oraz jakie funkcje skanowania są ważne, a nie po marce."
     },
     {
      "q": "Czy urządzenie wyśle skan prosto na e-mail?",
@@ -1401,11 +1403,11 @@
     },
     {
      "q": "A4 czy A3?",
-     "a": "Jeśli drukujesz tylko zwykłe dokumenty — A4 wystarczy i zajmie mniej miejsca. A3 przydaje się w szkołach, urzędach, biurach projektowych i przy plakatach."
+     "a": "Jeśli drukujesz tylko zwykłe dokumenty, A4 wystarczy i zajmie mniej miejsca. A3 przydaje się w szkołach, urzędach, biurach projektowych i przy plakatach."
     },
     {
      "q": "Czy drukarka zadziała z telefonu?",
-     "a": "Tak — urządzenia obsługują druk i skan z telefonu przez Wi-Fi lub sieć firmową (zakres zależy od modelu)."
+     "a": "Tak. Urządzenia obsługują druk i skan z telefonu przez Wi-Fi lub sieć firmową (zakres zależy od modelu)."
     }
    ],
    "marka": "Druk w biurze",
@@ -1648,8 +1650,8 @@
    ],
    "title": "Sieć i Wi-Fi",
    "pill": "Ubiquiti UniFi i TP-Link Omada · projekt i montaż",
-   "h1a": "Firmowa sieć i Wi-Fi.",
-   "h1b": "Jeden panel do całości.",
+   "h1a": "Firmowa sieć i Wi-Fi",
+   "h1b": "w jednym panelu",
    "lead": "Routery z zaporą, przełączniki PoE i punkty Wi-Fi dla biura, sklepu, pensjonatu i hotelu. Dobieramy sprzęt do budynku, montujemy i ustawiamy osobną sieć dla gości.",
    "hero": [
     "udr7",
@@ -1722,7 +1724,7 @@
        "udr7",
        "ux"
       ],
-      "w": "Jedno urządzenie z internetem, Wi-Fi i zaporą — na biurko albo w szafce."
+      "w": "Jedno urządzenie z internetem, Wi-Fi i zaporą, na biurko albo do szafki."
      },
      {
       "t": "Biuro lub sklep z kilkoma pomieszczeniami",
@@ -1749,7 +1751,7 @@
        "omada-ap-sufitowe",
        "omada-kontrolery"
       ],
-      "w": "Omada: router, punkty sufitowe i kontroler — sieć gości z voucherami i zarządzanie z aplikacji."
+      "w": "Omada: router, punkty sufitowe i kontroler: sieć gości z voucherami i zarządzanie z aplikacji."
      }
     ]
    },
@@ -1791,15 +1793,15 @@
     },
     {
      "q": "Czy zrobicie osobne Wi-Fi dla gości?",
-     "a": "Tak. Goście dostają osobną sieć, odciętą od firmowych komputerów, kasy i drukarek — także ze stroną logowania lub voucherami."
+     "a": "Tak. Goście dostają osobną sieć, odciętą od firmowych komputerów, kasy i drukarek, także ze stroną logowania lub voucherami."
     },
     {
      "q": "Co to jest PoE?",
-     "a": "Zasilanie po kablu sieciowym. Przełącznik PoE zasila punkty Wi-Fi, kamery i telefony — nie potrzeba gniazdka przy każdym urządzeniu."
+     "a": "Zasilanie po kablu sieciowym. Przełącznik PoE zasila punkty Wi-Fi, kamery i telefony, więc nie potrzeba gniazdka przy każdym urządzeniu."
     },
     {
      "q": "Ile punktów Wi-Fi potrzebuję?",
-     "a": "Zależy od ścian, stropów i liczby osób. Dlatego zaczynamy od oględzin i planu zasięgu — zamiast zgadywać."
+     "a": "Zależy od ścian, stropów i liczby osób. Dlatego zaczynamy od oględzin i planu zasięgu, zamiast zgadywać."
     }
    ],
    "marka": "Sieć i Wi-Fi",
@@ -1854,7 +1856,7 @@
    },
    "plans": {
     "h": "Od czego zacząć?",
-    "lead": "Router z zaporą to serce sieci, punkty Wi-Fi dają zasięg. Tak dobieramy UniFi do wielkości lokalu — obok to samo w TP-Link Omada. Pełna oferta niżej.",
+    "lead": "Router z zaporą to serce sieci, punkty Wi-Fi dają zasięg. Tak dobieramy UniFi do wielkości lokalu. Obok to samo w TP-Link Omada. Pełna oferta niżej.",
     "altH": "TP-Link Omada",
     "it": [
      {
@@ -2024,8 +2026,8 @@
    ],
    "title": "NAS i kopie zapasowe",
    "pill": "Synology i QNAP · kopie 3-2-1",
-   "h1a": "Serwery plików NAS.",
-   "h1b": "Dane bezpieczne w firmie.",
+   "h1a": "Serwery plików NAS:",
+   "h1b": "dane bezpieczne w Twojej firmie",
    "lead": "Wspólne pliki dla zespołu, automatyczne kopie komputerów i nagrania z kamer w jednym urządzeniu. Dobieramy obudowę i dyski, ustawiamy kopie i sprawdzamy, czy da się z nich odtworzyć dane.",
    "hero": [
     "synology-diskstation-plus-2-4",
@@ -2095,7 +2097,7 @@
        "synology-diskstation-plus-2-4",
        "qnap-nas-2-4"
       ],
-      "w": "Wydajniejsze modele z szybką siecią — dla kilkunastu osób i programów pracujących na plikach."
+      "w": "Wydajniejsze modele z szybką siecią, dla kilkunastu osób i programów pracujących na plikach."
      },
      {
       "t": "Dużo danych lub nagrania z kamer",
@@ -2111,7 +2113,7 @@
        "synology-rackstation",
        "qnap-nas-rack"
       ],
-      "w": "NAS-y do szafy 19\", także z dwoma zasilaczami — obok przełącznika i UPS-a."
+      "w": "NAS-y do szafy 19\", także z dwoma zasilaczami, obok przełącznika i UPS-a."
      }
     ]
    },
@@ -2153,7 +2155,7 @@
     },
     {
      "q": "Czy NAS to już kopia zapasowa?",
-     "a": "Sam NAS to jedno miejsce. Pełna kopia według zasady 3-2-1 wymaga jeszcze kopii poza firmą — np. drugiego NAS-a albo chmury. Ustawiamy to przy wdrożeniu."
+     "a": "Sam NAS to jedno miejsce. Pełna kopia według zasady 3-2-1 wymaga jeszcze kopii poza firmą, np. drugiego NAS-a albo chmury. Ustawiamy to przy wdrożeniu."
     },
     {
      "q": "Jakie dyski włożyć?",
@@ -2226,7 +2228,7 @@
    },
    "plans": {
     "h": "Który NAS?",
-    "lead": "Cztery NAS-y na biurko, od prostych kopii po dużo danych i kamer. Wszystkie kupujesz bez dysków — dobieramy je osobno. Pełna oferta Synology i QNAP niżej.",
+    "lead": "Cztery NAS-y na biurko, od prostych kopii po dużo danych i kamer. Wszystkie kupujesz bez dysków, a dyski dobieramy osobno. Pełna oferta Synology i QNAP niżej.",
     "altH": "Do szafy rack i do wymagających zadań",
     "it": [
      {
@@ -2385,9 +2387,9 @@
    ],
    "title": "COMEX · UPS COVER",
    "pill": "Zasilacze UPS COVER · we współpracy z COMEX",
-   "h1a": "Zasilacze UPS COVER.",
-   "h1b": "Od kasy po cały budynek.",
-   "lead": "Polska firma z Gdańska, w zasilaniu awaryjnym od 1987 roku. UPS-y on-line od 1 kVA do stanowiska po systemy 500 kVA dla obiektów — dobieramy moc i czas pracy do tego, co chcesz chronić.",
+   "h1a": "Zasilacze UPS COVER",
+   "h1b": "od kasy po cały budynek",
+   "lead": "Polska firma z Gdańska, w zasilaniu awaryjnym od 1987 roku. UPS-y on-line od 1 kVA do stanowiska po systemy 500 kVA dla obiektów. Dobieramy moc i czas pracy do tego, co chcesz chronić.",
    "hero": [
     "comex-cover-flix-6k",
     "comex-cover-basic-1k",
@@ -2454,7 +2456,7 @@
       "p": [
        "comex-cover-basic-1k"
       ],
-      "w": "Mały UPS on-line z czystą sinusoidą — sprzęt nie odczuje zaniku ani wahań napięcia."
+      "w": "Mały UPS on-line z czystą sinusoidą: sprzęt nie odczuje zaniku ani wahań napięcia."
      },
      {
       "t": "Szafę z serwerem, NAS i siecią",
@@ -2471,7 +2473,7 @@
        "comex-cover-flix-6k",
        "comex-cover-ps"
       ],
-      "w": "Duża moc w szafie rack — od 6 kW po modułowe UPS-y 10–40 kW."
+      "w": "Duża moc w szafie rack, od 6 kW po modułowe UPS-y 10–40 kW."
      },
      {
       "t": "Cały budynek lub zakład",
@@ -2480,7 +2482,7 @@
        "comex-cover-frame",
        "comex-cover-hs"
       ],
-      "w": "Trójfazowe UPS-y od 15 do 500 kVA — dobieramy po audycie zasilania, razem z elektrykiem."
+      "w": "Trójfazowe UPS-y od 15 do 500 kVA dobieramy po audycie zasilania, razem z elektrykiem."
      }
     ]
    },
@@ -2530,7 +2532,7 @@
     },
     {
      "q": "Czy UPS wyłączy serwer, gdy padną baterie?",
-     "a": "Tak — z kartą sieciową SNMP i programem ClientMate serwery zamykają się automatycznie, zanim baterie się wyczerpią."
+     "a": "Tak. Z kartą sieciową SNMP i programem ClientMate serwery zamykają się automatycznie, zanim baterie się wyczerpią."
     }
    ],
    "marka": "COMEX · UPS COVER",
@@ -2569,12 +2571,12 @@
     },
     {
      "k": "Serwis",
-     "v": "serwis producenta — wspiera nasze wdrożenia",
+     "v": "serwis producenta: wspiera nasze wdrożenia",
      "src": "https://comex.com.pl/uslugi/uslugi-serwisowe/"
     }
    ],
    "opis": [
-    "COMEX S.A. z Gdańska działa od 1987 roku. Zaczynała od dystrybucji szwajcarskich systemów COVER-ENERGY, a od 2015 roku jest właścicielem marki UPS COVER — sama projektuje urządzenia i organizuje ich produkcję.",
+    "COMEX S.A. z Gdańska działa od 1987 roku. Zaczynała od dystrybucji szwajcarskich systemów COVER-ENERGY, a od 2015 roku jest właścicielem marki UPS COVER. Sama projektuje urządzenia i organizuje ich produkcję.",
     "W ofercie COVER są UPS-y on-line od 1 do 500 kVA: jednofazowe do stanowisk i szaf rack, trójfazowe do budynków i zakładów oraz systemy modułowe. Do tego przełączniki ATS, karty sieciowe SNMP i akumulatory 7STARS.",
     "COMEX ma własny serwis, magazyn części i całodobową infolinię zgłoszeń. Firma ma certyfikaty ISO 9001, ISO 14001 i AQAP 2110 (jakość dla dostaw wojskowych)."
    ],
@@ -2602,7 +2604,7 @@
    },
    "plans": {
     "h": "Który UPS?",
-    "lead": "Cztery jednofazowe UPS-y COVER — od kasy i komputera po całą szafę serwerową. Trójfazowe dla całych budynków i akcesoria niżej. *Czasy pracy według producenta.",
+    "lead": "Cztery jednofazowe UPS-y COVER, od kasy i komputera po całą szafę serwerową. Trójfazowe dla całych budynków i akcesoria niżej. *Czasy pracy według producenta.",
     "altH": "Trójfazowe i akcesoria",
     "it": [
      {
@@ -2633,7 +2635,7 @@
      },
      {
       "t": "COVER WINTER 3K",
-      "k": "Szafa — line-interactive",
+      "k": "Szafa: line-interactive",
       "f": [
        "3000 VA / 2700 W",
        "sinusoida także z baterii",
@@ -2771,8 +2773,8 @@
   "ESET": {
    "pillM": "Wdrożenie i opieka",
    "pill": "Ochrona komputerów i serwerów · wdrożenie i opieka",
-   "h1a": "ESET PROTECT dla firm.",
-   "h1b": "Ochrona z jednej konsoli.",
+   "h1a": "ESET PROTECT dla firm:",
+   "h1b": "ochrona z jednej konsoli",
    "lead": "Antywirus, zapora i ochrona przed ransomware dla komputerów, serwera i telefonów firmy. Dobieramy pakiet, instalujemy na wszystkich stanowiskach i pilnujemy konsoli.",
    "hero": [
     "eset"
@@ -2899,7 +2901,7 @@
    ],
    "plans": {
     "h": "Który pakiet ESET?",
-    "lead": "Licencję liczy się na urządzenia. Dla małej firmy wybór zwykle sprowadza się do trzech pakietów — każdy kolejny zawiera poprzedni.",
+    "lead": "Licencję liczy się na urządzenia. Dla małej firmy wybór zwykle sprowadza się do trzech pakietów. Każdy kolejny zawiera poprzedni.",
     "altH": "Poza trzema głównymi pakietami",
     "it": [
      {
@@ -2962,7 +2964,7 @@
       "t": "PROTECT Elite",
       "k": "Większa organizacja",
       "f": [
-       "XDR — wykrywanie i reakcja na zaawansowane ataki",
+       "XDR: wykrywanie i reakcja na zaawansowane ataki",
        "logowanie wieloskładnikowe (MFA)",
        "od 26 stanowisk"
       ],
@@ -3009,15 +3011,15 @@
     },
     {
      "q": "Czy ESET zadziała na Macach i telefonach?",
-     "a": "Tak — ESET PROTECT chroni Windows, macOS, Linux, serwery plików i Androida; iPhone’y i iPady w zakresie zarządzania."
+     "a": "Tak. ESET PROTECT chroni Windows, macOS, Linux, serwery plików i Androida; iPhone’y i iPady w zakresie zarządzania."
     },
     {
      "q": "Po co szyfrowanie dysków?",
-     "a": "Gdy zginie laptop z danymi klientów, zaszyfrowany dysk chroni je przed odczytaniem. To ważne przy RODO — pełne szyfrowanie ma pakiet Advanced i wyższe."
+     "a": "Gdy zginie laptop z danymi klientów, zaszyfrowany dysk chroni je przed odczytaniem. To ważne przy RODO. Pełne szyfrowanie ma pakiet Advanced i wyższe."
     },
     {
      "q": "Konsola w chmurze czy na serwerze?",
-     "a": "Do wyboru w ramach każdej licencji. Dla małej firmy zwykle wygodniejsza jest konsola w chmurze — nie wymaga własnego serwera."
+     "a": "Do wyboru w ramach każdej licencji. Dla małej firmy zwykle wygodniejsza jest konsola w chmurze, bo nie wymaga własnego serwera."
     }
    ],
    "marka": "ESET",
@@ -3052,15 +3054,15 @@
    ],
    "opis": [
     "ESET ma globalną siedzibę w Bratysławie na Słowacji; nota prawna na stronie producenta obejmuje lata od 1992. Firma tworzy oprogramowanie zabezpieczające dla domów i firm.",
-    "W katalogu ESET to pakiety ESET PROTECT dla firm — Entry, Advanced, Complete, Enterprise, Elite i Mail Plus — oraz prostszy ESET Small Business Security. Chronią komputery, serwery plików i telefony; dla biur, sklepów, gabinetów, szkół i hoteli.",
+    "W katalogu ESET to pakiety ESET PROTECT dla firm (Entry, Advanced, Complete, Enterprise, Elite i Mail Plus) oraz prostszy ESET Small Business Security. Chronią komputery, serwery plików i telefony; dla biur, sklepów, gabinetów, szkół i hoteli.",
     "Dla małej firmy wybór to zwykle Entry lub Advanced (szyfrowanie dysków, ochrona przed ransomware). W oficjalnym sklepie ESET w Polsce pakiety Entry–Complete są na 5–99 stanowisk i 1–3 lata. Ochronę komputerów warto połączyć z zaporą sieciową i kopiami zapasowymi na NAS."
    ]
   },
   "Microsoft": {
    "pillM": "Licencje i wdrożenie",
    "pill": "Microsoft 365, Office i Windows · licencje i wdrożenie",
-   "h1a": "Microsoft dla firm.",
-   "h1b": "Poczta, Office i Windows.",
+   "h1a": "Microsoft dla firm:",
+   "h1b": "poczta, Office i Windows",
    "lead": "Abonamenty Microsoft 365, Office na stałe, Windows 11 Pro i licencje serwerowe. Pomagamy wybrać plan, przenosimy pocztę i konfigurujemy konta oraz komputery.",
    "hero": [
     "microsoft-365-business",
@@ -3160,7 +3162,7 @@
       ]
      ],
      [
-      "Intune — zarządzanie urządzeniami",
+      "Intune: zarządzanie urządzeniami",
       [
        0,
        0,
@@ -3180,9 +3182,9 @@
     ]
    },
    "plans": {
-    "altH": "Licencje na stałe — bez abonamentu",
+    "altH": "Licencje na stałe: bez abonamentu",
     "h": "Abonament czy licencja na stałe?",
-    "lead": "Microsoft 365 płacisz za użytkownika co miesiąc lub co rok — z pocztą, plikami i Teams. Office 2024 kupujesz raz na jeden komputer.",
+    "lead": "Microsoft 365 płacisz za użytkownika co miesiąc lub co rok, z pocztą, plikami i Teams. Office 2024 kupujesz raz na jeden komputer.",
     "it": [
      {
       "t": "Microsoft 365 Business Basic",
@@ -3215,7 +3217,7 @@
       "k": "Centralne zarządzanie laptopami",
       "f": [
        "wszystko ze Standard",
-       "Intune — zarządzanie laptopami i telefonami",
+       "Intune: zarządzanie laptopami i telefonami",
        "Defender dla Firm i rozszerzona ochrona kont"
       ],
       "p": "microsoft-365-business",
@@ -3279,14 +3281,14 @@
       "p": [
        "microsoft-office-2024"
       ],
-      "w": "Office Home & Business 2024 — płacisz raz, działa na jednym PC lub Macu, z prawem do użytku w firmie."
+      "w": "Office Home & Business 2024: płacisz raz, działa na jednym PC lub Macu, z prawem do użytku w firmie."
      },
      {
       "t": "Systemu do nowego lub starego komputera",
       "p": [
        "microsoft-windows-11-pro"
       ],
-      "w": "Windows 11 Pro z BitLockerem i Pulpitem zdalnym; dla komputerów z Windows 10 — płatne aktualizacje ESU lub przejście na 11."
+      "w": "Windows 11 Pro z BitLockerem i Pulpitem zdalnym; dla komputerów z Windows 10: płatne aktualizacje ESU lub przejście na 11."
      },
      {
       "t": "Serwera w firmie",
@@ -3331,7 +3333,7 @@
    "faq": [
     {
      "q": "Microsoft 365 czy Office 2024?",
-     "a": "Microsoft 365 to opłata za użytkownika z pocztą, 1 TB na pliki, Teams i instalacją na 5 komputerach jednej osoby — zawsze w najnowszej wersji. Office 2024 płacisz raz za jeden komputer, bez nowych wersji i bez usług w chmurze."
+     "a": "Microsoft 365 to opłata za użytkownika z pocztą, 1 TB na pliki, Teams i instalacją na 5 komputerach jednej osoby, zawsze w najnowszej wersji. Office 2024 płacisz raz za jeden komputer, bez nowych wersji i bez usług w chmurze."
     },
     {
      "q": "Czy mogę zrezygnować z abonamentu?",
@@ -3339,7 +3341,7 @@
     },
     {
      "q": "Czy przeniesiecie pocztę z obecnego serwera?",
-     "a": "Tak — konfigurujemy domenę i skrzynki oraz przenosimy pocztę do Microsoft 365."
+     "a": "Tak. Konfigurujemy domenę i skrzynki oraz przenosimy pocztę do Microsoft 365."
     },
     {
      "q": "Co z komputerami na Windows 10?",
@@ -3380,8 +3382,8 @@
   "EuroCert": {
    "pillM": "Podpis i KSeF",
    "pill": "Podpis i pieczęć kwalifikowana · KSeF, ZUS, e-deklaracje",
-   "h1a": "Podpis i pieczęć EuroCert.",
-   "h1b": "Do KSeF i urzędów.",
+   "h1a": "Podpis i pieczęć EuroCert",
+   "h1b": "do KSeF i urzędów",
    "lead": "Kwalifikowany podpis elektroniczny ma moc podpisu odręcznego w całej UE, a pieczęć firmy uwierzytelnia spółkę w KSeF. Pomagamy wybrać formę, instalujemy oprogramowanie i ustawiamy podpis w programach.",
    "hero": [
     "euro",
@@ -3428,10 +3430,10 @@
    ],
    "plans": {
     "h": "Karta czy chmura?",
-    "lead": "Podpis jest dla osoby (właściciel, księgowa, zarząd), pieczęć — dla firmy, która nie jest osobą fizyczną.",
+    "lead": "Podpis jest dla osoby (właściciel, księgowa, zarząd), a pieczęć dla firmy, która nie jest osobą fizyczną.",
     "it": [
      {
-      "t": "Podpis — zestaw Token",
+      "t": "Podpis: zestaw Token",
       "k": "Do laptopa, w podróży",
       "f": [
        "czytnik USB jak pendrive z kartą SIM",
@@ -3444,7 +3446,7 @@
       "im": ""
      },
      {
-      "t": "Podpis — zestaw Classic",
+      "t": "Podpis: zestaw Classic",
       "k": "Do biurka",
       "f": [
        "czytnik biurkowy i karta jak płatnicza",
@@ -3518,7 +3520,7 @@
       "p": [
        "euro"
       ],
-      "w": "Kwalifikowany podpis elektroniczny — na karcie (Token, Classic) albo w chmurze ECSigner."
+      "w": "Kwalifikowany podpis elektroniczny na karcie (Token, Classic) albo w chmurze ECSigner."
      },
      {
       "t": "Spółka, fundacja, szkoła, gmina",
@@ -3533,7 +3535,7 @@
       "p": [
        "euro"
       ],
-      "w": "ECSigner z weryfikacją online — tożsamość potwierdzasz zdalnie, a podpis jest gotowy tego samego dnia."
+      "w": "ECSigner z weryfikacją online: tożsamość potwierdzasz zdalnie, a podpis jest gotowy tego samego dnia."
      }
     ]
    },
@@ -3570,7 +3572,7 @@
    "faq": [
     {
      "q": "Podpis czy pieczęć?",
-     "a": "Podpis kwalifikowany jest dla konkretnej osoby. Pieczęć dla firmy lub instytucji, która nie jest osobą fizyczną — np. spółki, fundacji, szkoły."
+     "a": "Podpis kwalifikowany jest dla konkretnej osoby. Pieczęć dla firmy lub instytucji, która nie jest osobą fizyczną, np. spółki, fundacji, szkoły."
     },
     {
      "q": "Czy podpisem zaloguję się do KSeF?",
@@ -3578,7 +3580,7 @@
     },
     {
      "q": "Jak potwierdzam tożsamość?",
-     "a": "W punkcie partnerskim (ok. 20 minut, z dowodem lub paszportem), u siebie w firmie albo — w ECSigner z weryfikacją online — zdalnie."
+     "a": "W punkcie partnerskim (ok. 20 minut, z dowodem lub paszportem), u siebie w firmie albo zdalnie, w ECSigner z weryfikacją online."
     },
     {
      "q": "Czy podpis w chmurze działa z każdym programem?",
@@ -3624,8 +3626,8 @@
   "PolCard": {
    "pillM": "Terminale płatnicze",
    "pill": "Terminale płatnicze · połączenie z kasą",
-   "h1a": "Terminale PolCard.",
-   "h1b": "Karta, telefon i BLIK.",
+   "h1a": "Terminale PolCard",
+   "h1b": "na kartę, telefon i BLIK",
    "lead": "Stacjonarne przy kasie, przenośne do stolika i SoftPOS w telefonie. Dobieramy terminal do sposobu sprzedaży i łączymy go z kasą lub drukarką fiskalną, żeby kwota przechodziła sama.",
    "hero": [
     "pol",
@@ -3662,7 +3664,7 @@
      ],
      [
       "Kwota prosto z kasy",
-      "po połączeniu z kasą — zależnie od modelu"
+      "po połączeniu z kasą: zależnie od modelu"
      ]
     ],
     "chips": [
@@ -3749,7 +3751,7 @@
       "f": [
        "płatności zbliżeniowe na telefonie",
        "PIN na ekranie telefonu",
-       "nie wystawia paragonu — potrzebna kasa"
+       "nie wystawia paragonu: potrzebna kasa"
       ],
       "p": "softpos",
       "tag": "",
@@ -3766,14 +3768,14 @@
       "p": [
        "pol"
       ],
-      "w": "Desk 3200 z PIN-padem Desk 1500 — stacjonarny, przez Ethernet, łatwo połączyć z kasą."
+      "w": "Desk 3200 z PIN-padem Desk 1500: stacjonarny, przez Ethernet, łatwo połączyć z kasą."
      },
      {
       "t": "Przy stoliku lub w salonie",
       "p": [
        "pol"
       ],
-      "w": "Move 3500 albo Axium DX 4000 — przenośne, z Wi-Fi; podchodzisz z terminalem do klienta."
+      "w": "Move 3500 albo Axium DX 4000: przenośne, z Wi-Fi; podchodzisz z terminalem do klienta."
      },
      {
       "t": "W terenie, u klienta",
@@ -3781,7 +3783,7 @@
        "pol",
        "softpos"
       ],
-      "w": "Move 2500 z modemem albo PolCard Go — terminal w telefonie, gdy transakcji jest mniej."
+      "w": "Move 2500 z modemem albo PolCard Go, czyli terminal w telefonie, gdy transakcji jest mniej."
      }
     ]
    },
@@ -3823,11 +3825,11 @@
     },
     {
      "q": "Czy terminal połączę z kasą?",
-     "a": "Tak, zależnie od modelu kasy — wtedy kwota przechodzi na terminal sama, bez przepisywania."
+     "a": "Tak, zależnie od modelu kasy. Wtedy kwota przechodzi na terminal sama, bez przepisywania."
     },
     {
      "q": "Czy PolCard Go zastąpi kasę?",
-     "a": "Nie. PolCard Go przyjmuje płatność, ale nie wystawia paragonu fiskalnego — do tego potrzebna jest kasa lub drukarka fiskalna."
+     "a": "Nie. PolCard Go przyjmuje płatność, ale nie wystawia paragonu fiskalnego. Do tego potrzebna jest kasa lub drukarka fiskalna."
     },
     {
      "q": "Czy terminal może być w programie Polska Bezgotówkowa?",
@@ -3872,7 +3874,7 @@
    "opis": [
     "PolCard to znak towarowy Fiserv Polska S.A., krajowej instytucji płatniczej z siedzibą w Warszawie. Firma podaje, że działa na polskim rynku od ponad 30 lat i wprowadziła w Polsce pierwsze terminale oraz rodzime karty płatnicze; w 2021 roku First Data Polska połączyła się z Fiserv Polska.",
     "W katalogu PolCard to terminale płatnicze (na urządzeniach Ingenico) i aplikacja PolCard Go, która zamienia telefon w terminal. Dla sklepów, gastronomii, usług, sprzedaży mobilnej i hoteli.",
-    "Terminal to usługa — obok urządzenia liczy się umowa na akceptację płatności. Przy wyborze sprawdź, czy terminal ma współpracować z kasą lub programem sprzedaży; producent PC-Gastronom wymienia PolCard wśród obsługiwanych akceptantów."
+    "Terminal to usługa: obok urządzenia liczy się umowa na akceptację płatności. Przy wyborze sprawdź, czy terminal ma współpracować z kasą lub programem sprzedaży; producent PC-Gastronom wymienia PolCard wśród obsługiwanych akceptantów."
    ]
   },
   "Samsung": {
@@ -3912,11 +3914,11 @@
      ],
      [
       "Hol, recepcja, jasne wnętrze",
-      "QHC — 700 nit"
+      "QHC: 700 nit"
      ],
      [
       "Witryna widoczna z ulicy",
-      "OMB / OMN-S — 3000–4000 nit"
+      "OMB / OMN-S: 3000–4000 nit"
      ],
      [
       "Telefony i tablety Galaxy",
@@ -3926,7 +3928,7 @@
    },
    "plans": {
     "h": "Który ekran?",
-    "lead": "Ekrany różnią się jasnością i tym, ile godzin dziennie mogą pracować. Wszystkie mają wbudowany system Tizen — treści odtwarzasz bez komputera.",
+    "lead": "Ekrany różnią się jasnością i tym, ile godzin dziennie mogą pracować. Wszystkie mają wbudowany system Tizen, więc treści odtwarzasz bez komputera.",
     "altH": "Monitor interaktywny",
     "it": [
      {
@@ -3972,7 +3974,7 @@
       "t": "Samsung OMB / OMN-S / OHDX",
       "k": "Witryna i zewnątrz",
       "f": [
-       "3000–4000 nit — czytelny w słońcu",
+       "3000–4000 nit: czytelny w słońcu",
        "IP5X do witryn, IP56 na zewnątrz",
        "praca 24/7"
       ],
@@ -4074,7 +4076,7 @@
      ]
     ],
     "t": "Ekran, który po prostu działa",
-    "d": "Mierzymy miejsce, dobieramy ekran i uchwyt, montujemy i ustawiamy wyświetlanie treści — z pendrive’a, z sieci albo z systemu do zarządzania wieloma ekranami.",
+    "d": "Mierzymy miejsce, dobieramy ekran i uchwyt, montujemy i ustawiamy wyświetlanie treści z pendrive’a, z sieci albo z systemu do zarządzania wieloma ekranami.",
     "b": "Zapytaj o ekran",
     "act": "kontakt",
     "p": [
@@ -4088,11 +4090,11 @@
     },
     {
      "q": "Czy potrzebuję komputera do wyświetlania menu?",
-     "a": "Nie. Ekrany mają system Tizen — treści odtworzysz z USB, z sieci albo z systemu MagicINFO lub Samsung VXT (licencje kupuje się osobno)."
+     "a": "Nie. Ekrany mają system Tizen. Treści odtworzysz z USB, z sieci albo z systemu MagicINFO lub Samsung VXT (licencje kupuje się osobno)."
     },
     {
      "q": "Jaki ekran do witryny sklepowej?",
-     "a": "Do witryny potrzebna jest wysoka jasność: OMB ma 3000 nit, OMN-S 4000 nit i ochronę przed pyłem IP5X. Na zewnątrz — OHDX z ochroną IP56."
+     "a": "Do witryny potrzebna jest wysoka jasność: OMB ma 3000 nit, OMN-S 4000 nit i ochronę przed pyłem IP5X. Na zewnątrz sprawdzi się OHDX z ochroną IP56."
     },
     {
      "q": "Czy ekran można zamontować pionowo?",
@@ -4100,7 +4102,7 @@
     },
     {
      "q": "Czy zarządzicie telefonami Galaxy w firmie?",
-     "a": "Tak — przez Samsung Knox. Knox Manage obsługuje w jednej konsoli także iPhone’y, Maki i komputery z Windows."
+     "a": "Tak. Przez Samsung Knox. Knox Manage obsługuje w jednej konsoli także iPhone’y, Maki i komputery z Windows."
     }
    ],
    "marka": "Samsung",
@@ -4173,8 +4175,8 @@
   "Sharp/NEC": {
    "pillM": "Projektory do sal",
    "pill": "Projektory do klas, sal i auli · dobór i montaż",
-   "h1a": "Projektory Sharp/NEC.",
-   "h1b": "Od klasy po aulę.",
+   "h1a": "Projektory Sharp/NEC",
+   "h1b": "od klasy po aulę",
    "lead": "Projektory lampowe i laserowe do sali lekcyjnej, biura i dużej sali konferencyjnej oraz modele instalacyjne z wymienną optyką do auli. Mierzymy salę, dobieramy jasność i obiektyw, montujemy.",
    "hero": [
     "sharp-nec-projektory-laser",
@@ -4350,11 +4352,11 @@
    "faq": [
     {
      "q": "Lampa czy laser?",
-     "a": "Laser świeci 20 000 h do połowy jasności i nie wymaga wymiany lampy. Lampę trzeba co jakiś czas wymieniać — jej żywotność to od 3 000 do 20 000 h, zależnie od modelu i trybu Eco."
+     "a": "Laser świeci 20 000 h do połowy jasności i nie wymaga wymiany lampy. Lampę trzeba co jakiś czas wymieniać, a jej żywotność to od 3 000 do 20 000 h, zależnie od modelu i trybu Eco."
     },
     {
      "q": "Ile lumenów potrzebuję?",
-     "a": "Do typowej klasy lub sali biurowej wystarczą modele 3700–5400 lm. Duża, jasna sala konferencyjna potrzebuje 6000–7200 lm, a aula — modeli instalacyjnych do 10 000 lm."
+     "a": "Do typowej klasy lub sali biurowej wystarczą modele 3700–5400 lm. Duża, jasna sala konferencyjna potrzebuje 6000–7200 lm, a aula modeli instalacyjnych do 10 000 lm."
     },
     {
      "q": "Jaka jest gwarancja?",
@@ -4393,15 +4395,15 @@
    "opis": [
     "Sharp NEC Display Solutions to producent projektorów i wyświetlaczy, który łączy marki Sharp i NEC; strona firmy wskazuje Japonię jako kraj siedziby. W Europie oferta prezentowana jest na sharpdisplays.eu.",
     "W katalogu Sharp/NEC to projektory do sal lekcyjnych i biur (ME403U, P554U, PE506UL, P547UL), laserowe do dużych sal i aul (P627UL, P601Q, P721Q) oraz instalacyjne z wymienną optyką (PV710UL, PV800UL, PA803U i inne). Dla szkół, hoteli z salami konferencyjnymi i firm.",
-    "Projektor laserowy nie wymaga wymiany lampy — producent daje na laser 3 lata lub 10 000 h, a na lampę 6 miesięcy lub 1000 h. Dobierz jasność do wielkości sali i oświetlenia oraz ekran projekcyjny."
+    "Projektor laserowy nie wymaga wymiany lampy. Producent daje na laser 3 lata lub 10 000 h, a na lampę 6 miesięcy lub 1000 h. Dobierz jasność do wielkości sali i oświetlenia oraz ekran projekcyjny."
    ]
   },
   "Avtek": {
    "pillM": "Monitory interaktywne",
    "pill": "Monitory interaktywne · polska marka · dobór i montaż",
-   "h1a": "Monitory interaktywne Avtek.",
-   "h1b": "Lekcja i spotkanie na dotyk.",
-   "lead": "Dotykowe ekrany 4K zamiast tablicy i projektora — do klasy, sali szkoleń i sali konferencyjnej. Dobieramy przekątną i serię, montujemy na ścianie lub statywie i pokazujemy obsługę.",
+   "h1a": "Monitory interaktywne Avtek",
+   "h1b": "na lekcje i spotkania",
+   "lead": "Dotykowe ekrany 4K zamiast tablicy i projektora, do klasy, sali szkoleń i sali konferencyjnej. Dobieramy przekątną i serię, montujemy na ścianie lub statywie i pokazujemy obsługę.",
    "hero": [
     "avtek-ts-9-mate-g",
     "avtek-akcesoria-monitory"
@@ -4645,11 +4647,11 @@
    "faq": [
     {
      "q": "Czym różnią się serie z literą G?",
-     "a": "Serie G mają Androida z certyfikatem Google EDLA — działa w nich Sklep Google Play i aplikacje Google. Seria Easy jest prostsza: bez systemu albo z Androidem 13 bez certyfikatu EDLA."
+     "a": "Serie G mają Androida z certyfikatem Google EDLA, więc działa w nich Sklep Google Play i aplikacje Google. Seria Easy jest prostsza: bez systemu albo z Androidem 13 bez certyfikatu EDLA."
     },
     {
      "q": "Czy podłączę laptopa?",
-     "a": "Tak — przez HDMI lub USB-C (zależnie od serii). Można też wsunąć do monitora komputer OPS z Windows 11 Pro."
+     "a": "Tak. Przez HDMI lub USB-C (zależnie od serii). Można też wsunąć do monitora komputer OPS z Windows 11 Pro."
     },
     {
      "q": "Monitor na ścianę czy na statyw?",
@@ -4657,7 +4659,7 @@
     },
     {
      "q": "Jaka jest gwarancja?",
-     "a": "Zależy od modelu — producent podaje np. 5 lat dla TS 8 Lite G 86 (2 lata z wymianą 1:1), 3 lata na statywy i 2 lata na kamerę CAM4K."
+     "a": "Zależy od modelu. Producent podaje np. 5 lat dla TS 8 Lite G 86 (2 lata z wymianą 1:1), 3 lata na statywy i 2 lata na kamerę CAM4K."
     }
    ],
    "marka": "Avtek",
@@ -4813,7 +4815,7 @@
     "big": true,
     "eb": "Mac",
     "h": "Komputery i monitory",
-    "lead": "Od cichego MacBooka Air do biura po Mac Studio do renderingu. Do biurka — monitory Studio Display z kamerą i jednym kablem.",
+    "lead": "Od cichego MacBooka Air do biura po Mac Studio do renderingu. Do biurka monitory Studio Display z kamerą i jednym kablem.",
     "altH": "Mocna stacja i monitory",
     "it": [
      {
@@ -4917,21 +4919,21 @@
       "p": [
        "apple-iphone-17"
       ],
-      "w": "iPhone 17 — 120 Hz, dwa eSIM (numer służbowy i prywatny), IP68. Do zespołu zwykle wystarcza 256 GB."
+      "w": "iPhone 17: 120 Hz, dwa eSIM (numer służbowy i prywatny), IP68. Do zespołu zwykle wystarcza 256 GB."
      },
      {
       "t": "Notatki, podpisy, prezentacje u klienta",
       "p": [
        "apple-ipad-air-m4"
       ],
-      "w": "iPad Air z Apple Pencil — lekki, z opcją 5G do pracy w terenie."
+      "w": "iPad Air z Apple Pencil: lekki, z opcją 5G do pracy w terenie."
      },
      {
       "t": "Laptop do biura i w podróż",
       "p": [
        "apple-macbook-air-m5"
       ],
-      "w": "MacBook Air — cichy, bez wentylatora, do 18 godzin na baterii."
+      "w": "MacBook Air: cichy, bez wentylatora, do 18 godzin na baterii."
      },
      {
       "t": "Grafika, CAD, montaż wideo",
@@ -4947,7 +4949,7 @@
        "apple-mac-mini-m6",
        "apple-studio-display"
       ],
-      "w": "Mac mini ze Studio Display — jeden kabel, kamera i głośniki w monitorze. Na recepcję także iMac."
+      "w": "Mac mini ze Studio Display: jeden kabel, kamera i głośniki w monitorze. Na recepcję także iMac."
      }
     ]
    },
@@ -4972,7 +4974,7 @@
      ]
     ],
     "t": "Wdrożenie Apple w firmie",
-    "d": "Zakładamy konto Apple Business, tworzymy konta pracowników, ustawiamy pocztę, Wi-Fi i aplikacje, a nowe urządzenia przypisujemy do firmy — wtedy po włączeniu konfigurują się same.",
+    "d": "Zakładamy konto Apple Business, tworzymy konta pracowników, ustawiamy pocztę, Wi-Fi i aplikacje, a nowe urządzenia przypisujemy do firmy. Wtedy po włączeniu konfigurują się same.",
     "b": "Zapytaj o Apple",
     "act": "kontakt",
     "p": [
@@ -4986,7 +4988,7 @@
     },
     {
      "q": "Czy możemy zarządzać iPhone’ami pracowników?",
-     "a": "Tak. Apple Business ma wbudowane zarządzanie urządzeniami — konta firmowe, instalację aplikacji i zasady bezpieczeństwa ustawiamy zdalnie."
+     "a": "Tak. Apple Business ma wbudowane zarządzanie urządzeniami: konta firmowe, instalację aplikacji i zasady bezpieczeństwa ustawiamy zdalnie."
     },
     {
      "q": "Czy urządzenia skonfigurują się same po wyjęciu z pudełka?",
@@ -4994,7 +4996,7 @@
     },
     {
      "q": "Czy Mac poradzi sobie z Microsoft 365?",
-     "a": "Tak — Word, Excel, PowerPoint, Outlook i Teams mają wersje na macOS."
+     "a": "Tak. Word, Excel, PowerPoint, Outlook i Teams mają wersje na macOS."
     }
    ],
    "logo": "(obraz z wizualizacji — w repo z mediów karty)",
@@ -5035,8 +5037,8 @@
    ],
    "pillM": "Lenovo dla firm",
    "pill": "Laptopy, komputery, monitory · konfiguracja i serwis",
-   "h1a": "Lenovo dla firm.",
-   "h1b": "Od ThinkBooka po stację roboczą.",
+   "h1a": "Lenovo dla firm",
+   "h1b": "od ThinkBooka po stację roboczą",
    "lead": "Laptopy ThinkPad i ThinkBook, komputery ThinkCentre, stacje robocze ThinkStation i monitory ThinkVision. Dobieramy, konfigurujemy i serwisujemy na miejscu.",
    "hero": [
     "lenovo-thinkpad-x1-carbon-gen14",
@@ -5061,7 +5063,7 @@
     ]
    ],
    "heroCard": {
-    "t": "Kupujesz sprzęt — dostajesz",
+    "t": "Kupujesz sprzęt: dostajesz",
     "it": [
      [
       "Gotowy do pracy",
@@ -5085,7 +5087,7 @@
     "big": true,
     "eb": "Laptopy",
     "h": "Który laptop Lenovo?",
-    "lead": "Cztery serie, od których zwykle zaczynamy — od ThinkBooka do biura po najlżejsze ThinkPady dla kadry. Pozostałe serie niżej.",
+    "lead": "Cztery serie, od których zwykle zaczynamy: od ThinkBooka do biura po najlżejsze ThinkPady dla kadry. Pozostałe serie niżej.",
     "altH": "Pozostałe serie laptopów",
     "it": [
      {
@@ -5211,7 +5213,7 @@
     "big": true,
     "eb": "Komputery i monitory",
     "h": "Komputery, stacje robocze i monitory",
-    "lead": "Małe komputery ThinkCentre do biura i sklepu, stacje robocze ThinkStation do CAD oraz monitory ThinkVision — także z jednym kablem USB-C do laptopa.",
+    "lead": "Małe komputery ThinkCentre do biura i sklepu, stacje robocze ThinkStation do CAD oraz monitory ThinkVision, także z jednym kablem USB-C do laptopa.",
     "altH": "Monitory i sale spotkań",
     "it": [
      {
@@ -5343,7 +5345,7 @@
       [
        "Małe i średnie firmy: biuro, księgowość, handlowcy w terenie.",
        "Firmy, które chcą ThinkPada do codziennej pracy biurowej.",
-       "Praca na laptopie cały dzień — w biurze i w drodze.",
+       "Praca na laptopie cały dzień, w biurze i w drodze.",
        "Szef, kadra zarządzająca, częste podróże."
       ]
      ],
@@ -5375,21 +5377,21 @@
       "p": [
        "lenovo-thinkbook-14-g8-g9"
       ],
-      "w": "ThinkBook — nowoczesna obudowa, komplet złączy, RAM do rozbudowy w wielu modelach."
+      "w": "ThinkBook: lekka aluminiowa obudowa, komplet złączy, RAM do rozbudowy w wielu modelach."
      },
      {
       "t": "Praca w terenie i w drodze",
       "p": [
        "lenovo-thinkpad-t14-gen7"
       ],
-      "w": "ThinkPad T — lekkie 13–16\", wersje Intel i AMD, opcja 4G/5G."
+      "w": "ThinkPad T: lekkie 13–16\", wersje Intel i AMD, opcja 4G/5G."
      },
      {
       "t": "Szef, kadra, podróże",
       "p": [
        "lenovo-thinkpad-x1-carbon-gen14"
       ],
-      "w": "ThinkPad X1 Carbon — najlżejsze ThinkPady, ekrany OLED, materiały premium."
+      "w": "ThinkPad X1 Carbon: najlżejsze ThinkPady, ekrany OLED, materiały premium."
      },
      {
       "t": "CAD, grafika, projekty",
@@ -5397,7 +5399,7 @@
        "lenovo-thinkpad-p16-gen3",
        "lenovo-thinkstation-p3-tiny-ultra-gen-2"
       ],
-      "w": "ThinkPad P albo ThinkStation — profesjonalne karty graficzne NVIDIA RTX."
+      "w": "ThinkPad P albo ThinkStation: profesjonalne karty graficzne NVIDIA RTX."
      },
      {
       "t": "Stanowisko przy biurku",
@@ -5405,7 +5407,7 @@
        "lenovo-thinkcentre-neo-50s-55s",
        "lenovo-thinkvision-t"
       ],
-      "w": "ThinkCentre neo z monitorem ThinkVision — do biura, recepcji i sklepu."
+      "w": "ThinkCentre neo z monitorem ThinkVision, do biura, recepcji i sklepu."
      }
     ]
    },
@@ -5440,7 +5442,7 @@
    "faq": [
     {
      "q": "ThinkPad czy ThinkBook?",
-     "a": "ThinkBook to nowoczesny laptop dla małych i średnich firm. ThinkPad ma charakterystyczną klawiaturę, wytrzymałą obudowę i łatwiejszy serwis — wybierają go firmy, które pracują na laptopie cały dzień."
+     "a": "ThinkBook to laptop dla małych i średnich firm, z lekką obudową i kompletem złączy. ThinkPad ma charakterystyczną klawiaturę, wytrzymałą obudowę i łatwiejszy serwis. Wybierają go firmy, które pracują na laptopie cały dzień."
     },
     {
      "q": "Czy laptopy są gotowe do pracy po dostawie?",
@@ -5452,7 +5454,7 @@
     },
     {
      "q": "Czy dobierzecie monitor do laptopa?",
-     "a": "Tak. Monitory ThinkVision T łączą się z laptopem jednym kablem USB-C — obraz, sieć i ładowanie."
+     "a": "Tak. Monitory ThinkVision T łączą się z laptopem jednym kablem USB-C: obraz, sieć i ładowanie."
     }
    ],
    "logo": "(obraz z wizualizacji — w repo z mediów karty)",
@@ -5646,9 +5648,9 @@
    ],
    "pillM": "Dell dla firm",
    "pill": "Laptopy, komputery, monitory, serwery · konfiguracja i serwis",
-   "h1a": "Dell dla firm.",
-   "h1b": "Od laptopa po serwer.",
-   "lead": "Dell Pro do biura, XPS dla wymagających, stacje robocze do CAD, monitory UltraSharp i serwery PowerEdge — z konfiguracją i serwisem na miejscu.",
+   "h1a": "Dell dla firm",
+   "h1b": "od laptopa po serwer",
+   "lead": "Dell Pro do biura, XPS dla wymagających, stacje robocze do CAD, monitory UltraSharp i serwery PowerEdge, z konfiguracją i serwisem na miejscu.",
    "hero": [
     "dell-xps-13-14",
     "dell-pro-aio"
@@ -5672,7 +5674,7 @@
     ]
    ],
    "heroCard": {
-    "t": "Kupujesz sprzęt — dostajesz",
+    "t": "Kupujesz sprzęt: dostajesz",
     "it": [
      [
       "Gotowy do pracy",
@@ -5696,7 +5698,7 @@
     "big": true,
     "eb": "Laptopy",
     "h": "Który laptop Dell?",
-    "lead": "Cztery serie na najczęstsze potrzeby firm — od Dell Pro do biura po XPS dla wymagających. Pozostałe serie niżej.",
+    "lead": "Cztery serie na najczęstsze potrzeby firm: od Dell Pro do biura po XPS dla wymagających. Pozostałe serie niżej.",
     "altH": "Pozostałe serie laptopów",
     "it": [
      {
@@ -5783,7 +5785,7 @@
     "big": true,
     "eb": "Komputery, monitory i serwery",
     "h": "Komputery, monitory i serwery",
-    "lead": "Komputery Dell Pro do biura i recepcji, stacje Dell Pro Max do CAD, monitory UltraSharp oraz serwery PowerEdge — do biura bez szafy albo do serwerowni.",
+    "lead": "Komputery Dell Pro do biura i recepcji, stacje Dell Pro Max do CAD, monitory UltraSharp oraz serwery PowerEdge, do biura bez szafy albo do serwerowni.",
     "altH": "Monitory, akcesoria i serwerownia",
     "it": [
      {
@@ -5960,21 +5962,21 @@
       "p": [
        "dell-pro-14-16"
       ],
-      "w": "Dell Pro — RJ-45 i Thunderbolt 4, RAM do 64 GB, 3 lata ProSupport."
+      "w": "Dell Pro: RJ-45 i Thunderbolt 4, RAM do 64 GB, 3 lata ProSupport."
      },
      {
       "t": "Prosty laptop do biura",
       "p": [
        "dell-pro-essential-14-15"
       ],
-      "w": "Dell Pro Essential — Windows 11 Pro i 3 lata ProSupport."
+      "w": "Dell Pro Essential: Windows 11 Pro i 3 lata ProSupport."
      },
      {
       "t": "Szef, twórcy, design",
       "p": [
        "dell-xps-13-14"
       ],
-      "w": "XPS — od 1 kg, Thunderbolt 4, Wi-Fi 7."
+      "w": "XPS: od 1 kg, Thunderbolt 4, Wi-Fi 7."
      },
      {
       "t": "CAD, grafika, analiza danych",
@@ -5982,14 +5984,14 @@
        "dell-pro-precision-5",
        "dell-pro-max-desktop"
       ],
-      "w": "Dell Pro Precision albo stacja Dell Pro Max — karty NVIDIA RTX PRO."
+      "w": "Dell Pro Precision albo stacja Dell Pro Max: karty NVIDIA RTX PRO."
      },
      {
       "t": "Serwer dla firmy",
       "p": [
        "dell-poweredge-t160-t360"
       ],
-      "w": "PowerEdge T — serwer w biurze, bez szafy: pamięć ECC, RAID i zdalne zarządzanie iDRAC."
+      "w": "PowerEdge T: serwer w biurze, bez szafy: pamięć ECC, RAID i zdalne zarządzanie iDRAC."
      }
     ]
    },
@@ -6024,7 +6026,7 @@
    "faq": [
     {
      "q": "Dell Pro czy XPS?",
-     "a": "Dell Pro to laptopy do pracy w firmie — z portem RJ-45 i wsparciem ProSupport. XPS to lekkie laptopy premium dla osób, które cenią design i mobilność."
+     "a": "Dell Pro to laptopy do pracy w firmie, z portem RJ-45 i wsparciem ProSupport. XPS to lekkie laptopy premium dla osób, które cenią design i mobilność."
     },
     {
      "q": "Czy laptopy są gotowe do pracy po dostawie?",
@@ -6036,7 +6038,7 @@
     },
     {
      "q": "Czy dobierzecie serwer?",
-     "a": "Tak. Do biura bez szafy polecamy PowerEdge T, do serwerowni z szafą rack — PowerEdge R. Konfigurujemy go i podłączamy do sieci."
+     "a": "Tak. Do biura bez szafy polecamy PowerEdge T, do serwerowni z szafą rack PowerEdge R. Konfigurujemy go i podłączamy do sieci."
     }
    ],
    "logo": "(obraz z wizualizacji — w repo z mediów karty)",
@@ -6199,8 +6201,8 @@
    ],
    "opis": [
     "Dell Technologies ma siedzibę w Round Rock w Teksasie (USA). Marka Dell obejmuje komputery osobiste, monitory i infrastrukturę serwerową.",
-    "W katalogu Dell to laptopy (Dell 14/16, Dell Pro, Pro Precision, XPS), komputery Dell Pro (Tower, Slim, Micro, All-in-One), monitory Dell Pro i UltraSharp — także z hubem USB-C i kamerą — oraz serwery PowerEdge w obudowie wieżowej i rack. Dla biur, firm z serwerownią, projektantów i szkół.",
-    "Przy serwerach liczy się nie tylko konfiguracja, ale i gwarancja z naprawą u klienta — wariant gwarancji Dell dobieramy przy wycenie. Do serwera dobierz UPS (np. APC Smart-UPS) i licencje Windows Server."
+    "W katalogu Dell to laptopy (Dell 14/16, Dell Pro, Pro Precision, XPS), komputery Dell Pro (Tower, Slim, Micro, All-in-One), monitory Dell Pro i UltraSharp — także z hubem USB-C i kamerą, oraz serwery PowerEdge w obudowie wieżowej i rack. Dla biur, firm z serwerownią, projektantów i szkół.",
+    "Przy serwerach liczy się nie tylko konfiguracja, ale i gwarancja z naprawą u klienta. Wariant gwarancji Dell dobieramy przy wycenie. Do serwera dobierz UPS (np. APC Smart-UPS) i licencje Windows Server."
    ],
    "n": 34
   },
@@ -6237,7 +6239,7 @@
     ]
    ],
    "heroCard": {
-    "t": "Kupujesz drukarkę — dostajesz",
+    "t": "Kupujesz drukarkę: dostajesz",
     "it": [
      [
       "Dobór",
@@ -6261,7 +6263,7 @@
     "big": true,
     "eb": "Laser",
     "h": "Drukarki i urządzenia laserowe",
-    "lead": "Cztery modele, od których zwykle zaczynamy — od małego biura po kolor w zespole. Pozostałe niżej.",
+    "lead": "Cztery modele, od których zwykle zaczynamy: od małego biura po kolor w zespole. Pozostałe niżej.",
     "altH": "Pozostałe lasery Brother",
     "it": [
      {
@@ -6477,35 +6479,35 @@
       "p": [
        "brother-mfc-l2922dw-mfc-l2862dw"
       ],
-      "w": "MFC-L2922DW — laser mono 4 w 1, skan dwustronny z podajnika, Wi-Fi i NFC."
+      "w": "MFC-L2922DW: laser mono 4 w 1, skan dwustronny z podajnika, Wi-Fi i NFC."
      },
      {
       "t": "Biuro z kilkoma osobami",
       "p": [
        "brother-mfc-l5710dw-mfc-l5710dn"
       ],
-      "w": "MFC-L5710DW — 48 str./min, szybki skan dwustronny, rozbudowa o dodatkowe kasety."
+      "w": "MFC-L5710DW: 48 str./min, szybki skan dwustronny, rozbudowa o dodatkowe kasety."
      },
      {
       "t": "Oferty i materiały w kolorze",
       "p": [
        "brother-mfc-l8390cdw-mfc-l8340cdw"
       ],
-      "w": "MFC-L8390CDW — kolor 30 str./min i szybki skan dwustronny."
+      "w": "MFC-L8390CDW: kolor 30 str./min i szybki skan dwustronny."
      },
      {
       "t": "Rysunki, plany, plakaty A3",
       "p": [
        "brother-mfc-j6975dw-mfc-j6977dw"
       ],
-      "w": "MFC-J6975DW — druk i skan A3 w jednym urządzeniu."
+      "w": "MFC-J6975DW: druk i skan A3 w jednym urządzeniu."
      },
      {
       "t": "Archiwizacja dokumentów",
       "p": [
        "brother-ads-4700w-ads-4300n"
       ],
-      "w": "ADS-4700W — 80 obrazów na minutę, skan prosto do sieci bez komputera."
+      "w": "ADS-4700W: 80 obrazów na minutę, skan prosto do sieci bez komputera."
      },
      {
       "t": "Etykiety na półki, paczki, segregatory",
@@ -6556,15 +6558,15 @@
    "faq": [
     {
      "q": "Laser czy atrament?",
-     "a": "Do biura z dokumentami zwykle laser — szybki, z tanią stroną czarno-białą. Atrament wybieramy do formatu A3 albo gdy drukujesz dużo w kolorze — wtedy model z tuszem w butelkach."
+     "a": "Do biura z dokumentami zwykle laser: szybki, z tanią stroną czarno-białą. Atrament wybieramy do formatu A3 albo gdy drukujesz dużo w kolorze. Wtedy model z tuszem w butelkach."
     },
     {
      "q": "Jak długa jest gwarancja?",
-     "a": "Standardowo 2 lata. Po rejestracji urządzenia Brother daje bezpłatnie 3 lub 5 lat — zależnie od modelu. Drukarki serii PJ, RJ i TD mają 3 lata bez rejestracji. Pomagamy w rejestracji przy uruchomieniu."
+     "a": "Standardowo 2 lata. Po rejestracji urządzenia Brother daje bezpłatnie 3 lub 5 lat, zależnie od modelu. Drukarki serii PJ, RJ i TD mają 3 lata bez rejestracji. Pomagamy w rejestracji przy uruchomieniu."
     },
     {
      "q": "Czy macie tusze i tonery?",
-     "a": "Tak — oryginały Brother i sprawdzone zamienniki. Doradzimy, kiedy opłaca się toner o większej wydajności."
+     "a": "Tak. Oryginały Brother i sprawdzone zamienniki. Doradzimy, kiedy opłaca się toner o większej wydajności."
     },
     {
      "q": "Czy ustawicie skanowanie do e-maila i folderów?",
@@ -6661,7 +6663,7 @@
     },
     {
      "k": "Druk mobilny i etykiety",
-     "v": "serie PJ, RJ, TJ i TD — 3 lata gwarancji bez rejestracji",
+     "v": "serie PJ, RJ, TJ i TD: 3 lata gwarancji bez rejestracji",
      "src": "https://www.brother.pl/support/warranty"
     },
     {
@@ -6693,8 +6695,8 @@
    ],
    "pillM": "Logitech dla firm",
    "pill": "Klawiatury, myszy, kamery, słuchawki i sale spotkań · dla firm",
-   "h1a": "Logitech dla firm.",
-   "h1b": "Biurko i sala spotkań.",
+   "h1a": "Logitech dla firm",
+   "h1b": "na biurko i do sali spotkań",
    "lead": "Klawiatury i myszy „for Business” z szyfrowanym odbiornikiem Logi Bolt, kamery i słuchawki do spotkań w Teams i Zoom oraz zestawy do małych sal spotkań. Dobieramy, konfigurujemy, a w sali montujemy i testujemy połączenie.",
    "hero": [
     "logitech-mx-keys-for-business",
@@ -6743,7 +6745,7 @@
     "big": true,
     "eb": "Biurko",
     "h": "Klawiatury, myszy, kamery i słuchawki",
-    "lead": "Wersje „for Business” łączą się przez Logi Bolt — bezpieczniej niż zwykły odbiornik i bez zakłóceń w biurze z wieloma stanowiskami.",
+    "lead": "Wersje „for Business” łączą się przez Logi Bolt: bezpieczniej niż zwykły odbiornik i bez zakłóceń w biurze z wieloma stanowiskami.",
     "altH": "Pozostałe akcesoria Logitech",
     "it": [
      {
@@ -6921,7 +6923,7 @@
       "p": [
        "logitech-mk370-combo-for-business"
       ],
-      "w": "MK370 for Business — klawiatura i mysz fabrycznie sparowane przez Logi Bolt, cicha mysz."
+      "w": "MK370 for Business: klawiatura i mysz fabrycznie sparowane przez Logi Bolt, cicha mysz."
      },
      {
       "t": "Ból nadgarstka, cały dzień przy komputerze",
@@ -6929,7 +6931,7 @@
        "logitech-wave-keys-for-business",
        "logitech-lift-for-business"
       ],
-      "w": "Wave Keys z podpórką i pionowa mysz Lift — także w wersji dla leworęcznych."
+      "w": "Wave Keys z podpórką i pionowa mysz Lift, także w wersji dla leworęcznych."
      },
      {
       "t": "Spotkania online z biurka",
@@ -6944,7 +6946,7 @@
       "p": [
        "logitech-zone-wireless-2"
       ],
-      "w": "Zone Wireless 2 — aktywne wyciszanie otoczenia i mikrofony, które odcinają hałas."
+      "w": "Zone Wireless 2: aktywne wyciszanie otoczenia i mikrofony, które odcinają hałas."
      },
      {
       "t": "Mała sala spotkań",
@@ -6999,11 +7001,11 @@
     },
     {
      "q": "Czy Logi Bolt działa ze starym odbiornikiem Unifying?",
-     "a": "Nie. Urządzeń Logi Bolt nie sparujesz ze starszymi odbiornikami i odwrotnie — przy wymianie sprzętu planujemy to razem."
+     "a": "Nie. Urządzeń Logi Bolt nie sparujesz ze starszymi odbiornikami i odwrotnie. Przy wymianie sprzętu planujemy to razem."
     },
     {
      "q": "Jaka jest gwarancja?",
-     "a": "Kamery Brio 505, C925e i MX Brio 705 for Business — 3 lata. Klawiatury, myszy, słuchawki i zestawy do sal — 2 lata."
+     "a": "Kamery Brio 505, C925e i MX Brio 705 for Business: 3 lata. Klawiatury, myszy, słuchawki i zestawy do sal: 2 lata."
     },
     {
      "q": "Czy zamontujecie zestaw w sali spotkań?",
@@ -7100,7 +7102,7 @@
     },
     {
      "k": "Certyfikaty",
-     "v": "kamery dla Teams, Zoom i Google Meet; Rally Bar Mini — Teams Rooms",
+     "v": "kamery dla Teams, Zoom i Google Meet; Rally Bar Mini: Teams Rooms",
      "src": "https://www.logitech.com/pl-pl/products/webcams/mx-brio-705-for-business.html"
     },
     {
@@ -7118,8 +7120,8 @@
   "Niszczarki": {
    "marka": "Niszczarki",
    "title": "Niszczarki",
-   "hFaq": "Zanim wybierzesz niszczarkę",
-   "hFakty": "Fellowes i Kobra w kilku faktach",
+   "hFaq": "Pytania o niszczarki",
+   "hFakty": "O markach Fellowes i Kobra",
    "hOferta": "Niszczarki w ofercie",
    "hMore": "Więcej o niszczeniu dokumentów",
    "hAsk": "Zapytaj o niszczarkę",
@@ -7129,9 +7131,9 @@
    ],
    "pillM": "Niszczarki dla firm",
    "pill": "Fellowes i Kobra · dobór poziomu bezpieczeństwa, dostawa, serwis",
-   "h1a": "Niszczarki dla firm.",
-   "h1b": "P-4 albo P-5 — dobrane do dokumentów.",
-   "lead": "Fellowes i Kobra — od niszczarki przy biurku po urządzenia do działu z pracą ciągłą i automatycznym podawaniem. Pomagamy dobrać poziom bezpieczeństwa do tego, co niszczysz: P-4 do dokumentów firmowych, P-5 do dokumentacji medycznej i kadrowej.",
+   "h1a": "Niszczarki dla firm",
+   "h1b": "z poziomem P-4 albo P-5",
+   "lead": "Fellowes i Kobra, od niszczarki przy biurku po urządzenia do działu z pracą ciągłą i automatycznym podawaniem. Pomagamy dobrać poziom bezpieczeństwa do tego, co niszczysz: P-4 do dokumentów firmowych, P-5 do dokumentacji medycznej i kadrowej.",
    "hero": [
     "fellowes-automax-200c",
     "kobra-240-1-c2-es"
@@ -7179,7 +7181,7 @@
     "big": true,
     "eb": "Do biura",
     "h": "Niszczarki do biurka, biura i działu",
-    "lead": "Cztery modele, od których zwykle zaczynamy — przy biurku i dla zespołu. Większe do działu niżej.",
+    "lead": "Cztery modele, od których zwykle zaczynamy: przy biurku i dla zespołu. Większe do działu niżej.",
     "altH": "Mała, cicha i do działu",
     "it": [
      {
@@ -7457,10 +7459,10 @@
        "fellowes-lx210",
        "kobra-1-cc4-es"
       ],
-      "w": "Fellowes LX210 albo Kobra +1 CC4 ES — ścinki P-4, kilkanaście kartek naraz."
+      "w": "Fellowes LX210 albo Kobra +1 CC4 ES: ścinki P-4, kilkanaście kartek naraz."
      },
      {
-      "t": "Biuro rachunkowe — stosy dokumentów",
+      "t": "Biuro rachunkowe: stosy dokumentów",
       "p": [
        "fellowes-automax-200c",
        "kobra-af-1-40"
@@ -7473,7 +7475,7 @@
        "fellowes-lx211",
        "kobra-2-cc2-es"
       ],
-      "w": "Poziom P-5 — mikrościnki, z których praktycznie nie da się odtworzyć dokumentu."
+      "w": "Poziom P-5: mikrościnki, z których praktycznie nie da się odtworzyć dokumentu."
      },
      {
       "t": "Cały dział, niszczenie codziennie",
@@ -7481,7 +7483,7 @@
        "fellowes-225ci",
        "kobra-300-1-c4-es"
       ],
-      "w": "Praca ciągła i duży kosz — Powershred 225Ci albo Kobra 300.1 C4 ES."
+      "w": "Praca ciągła i duży kosz: Powershred 225Ci albo Kobra 300.1 C4 ES."
      },
      {
       "t": "Także płyty CD i karty",
@@ -7532,11 +7534,11 @@
     },
     {
      "q": "Fellowes czy Kobra?",
-     "a": "Fellowes ma najszerszą gamę — od małych niszczarek z czujnikiem dłoni po automaty AutoMax. Kobra to włoskie niszczarki, w większości z pracą ciągłą 24 h, dobre tam, gdzie niszczy się dużo i często."
+     "a": "Fellowes ma najszerszą gamę, od małych niszczarek z czujnikiem dłoni po automaty AutoMax. Kobra to włoskie niszczarki, w większości z pracą ciągłą 24 h, dobre tam, gdzie niszczy się dużo i często."
     },
     {
      "q": "Czy trzeba oliwić noże?",
-     "a": "W większości modeli tak — Fellowes zaleca oliwienie przy każdym opróżnianiu kosza, co najmniej dwa razy w miesiącu. Kobra AF+1 nie wymaga oliwienia. Olej dostarczamy razem z niszczarką."
+     "a": "W większości modeli tak. Fellowes zaleca oliwienie przy każdym opróżnianiu kosza, co najmniej dwa razy w miesiącu. Kobra AF+1 nie wymaga oliwienia. Olej dostarczamy razem z niszczarką."
     },
     {
      "q": "Czy niszczarka zniszczy zszywki i karty?",
@@ -7635,7 +7637,7 @@
     }
    ],
    "opis": [
-    "Niszczarka w firmie to nie tylko wygoda — dokumenty z danymi osobowymi trzeba niszczyć tak, żeby nie dało się ich odtworzyć. Poziom zniszczenia opisuje norma DIN 66399: od P-1 (paski) do P-7 (praktycznie pył). Dla firm sensowne są P-4 i P-5.",
+    "Niszczarka w firmie to nie tylko wygoda. Dokumenty z danymi osobowymi trzeba niszczyć tak, żeby nie dało się ich odtworzyć. Poziom zniszczenia opisuje norma DIN 66399: od P-1 (paski) do P-7 (praktycznie pył). Dla firm sensowne są P-4 i P-5.",
     "W ofercie mamy dwie marki: Fellowes — od małych niszczarek przy biurku po automaty AutoMax i Powershred do działu, oraz włoską Kobrę — niszczarki w większości z pracą ciągłą 24 h, także z poziomem P-5."
    ],
    "n": 16

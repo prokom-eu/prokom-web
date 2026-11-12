@@ -78,7 +78,7 @@
    "kod": "kasy",
    "dzial": "sprz",
    "nazwa": "Kasy fiskalne",
-   "opis": "Posnet, Elzab, Fawag — kasy online do sklepu, usług i sprzedaży w terenie",
+   "opis": "Posnet, Elzab, Fawag: kasy online do sklepu, usług i sprzedaży w terenie",
    "ikona": "M3 7h18v10H3z M3 10h18 M7 14h4",
    "liczba_w_wizualizacji": 11,
    "podkategorie": [],
@@ -89,7 +89,7 @@
    "kod": "druk",
    "dzial": "sprz",
    "nazwa": "Drukarki fiskalne",
-   "opis": "Posnet, Elzab, Fawag — do programu sprzedaży i stanowisk POS",
+   "opis": "Posnet, Elzab, Fawag do programu sprzedaży i stanowisk POS",
    "ikona": "M6 9V3h12v6 M6 18H4a1 1 0 01-1-1v-6a2 2 0 012-2h14a2 2 0 012 2v6a1 1 0 01-1 1h-2 M6 14h12v7H6z",
    "liczba_w_wizualizacji": 12,
    "podkategorie": [],
@@ -100,7 +100,7 @@
    "kod": "pos",
    "dzial": "sprz",
    "nazwa": "Stanowiska POS",
-   "opis": "Sunmi, Posnet, Elzab — dotykowe stanowiska pod GoPOS i program sklepowy",
+   "opis": "Sunmi, Posnet, Elzab: dotykowe stanowiska pod GoPOS i program sklepowy",
    "ikona": "M4 5h16v11H4z M8 20h8 M12 16v4",
    "liczba_w_wizualizacji": 6,
    "podkategorie": [],
@@ -111,7 +111,7 @@
    "kod": "mob",
    "dzial": "sprz",
    "nazwa": "Kasoterminale i mobilne",
-   "opis": "Sunmi, Posnet, Elzab — kelner przy stoliku i sprzedaż w terenie",
+   "opis": "Sunmi, Posnet, Elzab: kelner przy stoliku i sprzedaż w terenie",
    "ikona": "M7 2h10v20H7z M10 18h4",
    "liczba_w_wizualizacji": 6,
    "podkategorie": [],
@@ -122,7 +122,7 @@
    "kod": "term",
    "dzial": "sprz",
    "nazwa": "Terminale płatnicze",
-   "opis": "PolCard from Fiserv — karty, BLIK, płatność telefonem",
+   "opis": "PolCard from Fiserv: karty, BLIK, płatność telefonem",
    "ikona": "M6 2h12v20H6z M9 6h6 M9 10h6 M12 17h.01",
    "liczba_w_wizualizacji": 3,
    "podkategorie": [],
@@ -133,7 +133,7 @@
    "kod": "kiosk",
    "dzial": "sprz",
    "nazwa": "Kioski i ekrany kuchenne",
-   "opis": "Sunmi — samoobsługa gości i kuchnia bez papieru",
+   "opis": "Sunmi: samoobsługa gości i kuchnia bez papieru",
    "ikona": "M7 3h10v14H7z M10 21h4 M12 17v4",
    "liczba_w_wizualizacji": 2,
    "podkategorie": [],
@@ -172,7 +172,7 @@
    "kod": "wagi",
    "dzial": "sprz",
    "nazwa": "Wagi sklepowe",
-   "opis": "Dibal, Elzab, Fawag — sklepowe, etykietujące i kontrolne",
+   "opis": "Dibal, Elzab, Fawag: sklepowe, etykietujące i kontrolne",
    "ikona": "M5 20h14 M12 4v16 M5 8h14 M7 8l-3 6h6z M17 8l-3 6h6z",
    "liczba_w_wizualizacji": 11,
    "podkategorie": [
@@ -192,7 +192,7 @@
    "kod": "kody",
    "dzial": "sprz",
    "nazwa": "Skanery, etykiety i kolektory",
-   "opis": "Zebra, Godex, Sunmi, SATO — skanery, drukarki etykiet, kolektory",
+   "opis": "Zebra, Godex, Sunmi, SATO: skanery, drukarki etykiet, kolektory",
    "ikona": "M4 5v14 M7 5v14 M10 5v14 M14 5v14 M17 5v14 M20 5v14",
    "liczba_w_wizualizacji": 24,
    "podkategorie": [
@@ -220,7 +220,7 @@
    "kod": "vend",
    "dzial": "sprz",
    "nazwa": "Automaty vendingowe",
-   "opis": "Automaty z windą, mikromarkety, chlebomat, pizzomat, boxomaty — Optivendi",
+   "opis": "Automaty z windą, mikromarkety, chlebomat, pizzomat i boxomaty Optivendi",
    "ikona": "M5 3h14v18H5z M8 7h8 M8 11h8 M14 16h2",
    "liczba_w_wizualizacji": 23,
    "podkategorie": [
@@ -246,7 +246,7 @@
    ],
    "dobor": {
     "t": "Nie wiesz, jaki automat?",
-    "d": "Zacznij od produktu — na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
+    "d": "Zacznij od produktu. Na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
     "b": "Dobierz automat",
     "a": "vending"
    }
@@ -255,7 +255,7 @@
    "kod": "laptopy",
    "dzial": "biuro",
    "nazwa": "Laptopy",
-   "opis": "Lenovo, Dell, Apple — laptopy do biura, w teren i do projektowania",
+   "opis": "Lenovo, Dell, Apple: laptopy do biura, w teren i do projektowania",
    "ikona": "M4 5h16v10H4z M2 19h20",
    "liczba_w_wizualizacji": 43,
    "podkategorie": [],
@@ -266,7 +266,7 @@
    "kod": "komputery",
    "dzial": "biuro",
    "nazwa": "Komputery i All-in-One",
-   "opis": "Komputery biurowe, mini PC, All-in-One i stacje robocze — Lenovo, Dell",
+   "opis": "Komputery biurowe, mini PC, All-in-One i stacje robocze Lenovo i Dell",
    "ikona": "M6 3h12v14H6z M9 21h6 M12 17v4",
    "liczba_w_wizualizacji": 19,
    "podkategorie": [],
@@ -299,7 +299,7 @@
    "kod": "telefony",
    "dzial": "biuro",
    "nazwa": "Telefony",
-   "opis": "iPhone i Samsung Galaxy dla firm — z konfiguracją i przeniesieniem danych",
+   "opis": "iPhone i Samsung Galaxy dla firm, z konfiguracją i przeniesieniem danych",
    "ikona": "M7 2h10v20H7z M11 18h2",
    "liczba_w_wizualizacji": 4,
    "podkategorie": [],
@@ -310,7 +310,7 @@
    "kod": "akcesoria-biuro",
    "dzial": "biuro",
    "nazwa": "Klawiatury, myszy i słuchawki",
-   "opis": "Logitech — klawiatury, myszy, kamery internetowe, słuchawki i głośniki do pracy i spotkań online",
+   "opis": "Logitech: klawiatury, myszy, kamery internetowe, słuchawki i głośniki do pracy i spotkań online",
    "ikona": "M2 7h20v10H2z M6 11h.01 M10 11h.01 M14 11h.01 M18 11h.01 M7 14h10",
    "liczba_w_wizualizacji": 18,
    "podkategorie": [
@@ -366,7 +366,7 @@
    "kod": "mfp",
    "dzial": "biuro",
    "nazwa": "Drukarki i urządzenia wielofunkcyjne",
-   "opis": "Brother, HP, Konica Minolta, Kyocera — laserowe, atramentowe, skanery dokumentów",
+   "opis": "Brother, HP, Konica Minolta, Kyocera: laserowe, atramentowe, skanery dokumentów",
    "ikona": "M6 9V3h12v6 M4 9h16v8H4z M7 14h10v7H7z",
    "liczba_w_wizualizacji": 53,
    "podkategorie": [
@@ -398,7 +398,7 @@
    "kod": "niszczarki",
    "dzial": "biuro",
    "nazwa": "Niszczarki",
-   "opis": "Fellowes i Kobra — niszczarki do biura, działu i dokumentów wrażliwych (RODO)",
+   "opis": "Fellowes i Kobra: niszczarki do biura, działu i dokumentów wrażliwych (RODO)",
    "ikona": "M5 9h14v5H5z M8 3h8v6 M7 14v7 M10 14v7 M14 14v7 M17 14v7",
    "liczba_w_wizualizacji": 16,
    "podkategorie": [
@@ -430,7 +430,7 @@
    "kod": "av",
    "dzial": "biuro",
    "nazwa": "Ekrany i projektory",
-   "opis": "Avtek, Samsung, Sharp/NEC — monitory interaktywne, ekrany informacyjne, projektory",
+   "opis": "Avtek, Samsung, Sharp/NEC: monitory interaktywne, ekrany informacyjne, projektory",
    "ikona": "M3 4h18v12H3z M8 20h8 M12 16v4",
    "liczba_w_wizualizacji": 22,
    "podkategorie": [
@@ -458,7 +458,7 @@
    "kod": "progs",
    "dzial": "prog",
    "nazwa": "Programy sprzedażowe i ERP",
-   "opis": "InsERT, Comarch, Insoft — sprzedaż, magazyn, księgowość, kadry",
+   "opis": "InsERT, Comarch, Insoft: sprzedaż, magazyn, księgowość, kadry",
    "ikona": "M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5",
    "liczba_w_wizualizacji": 13,
    "podkategorie": [],
@@ -469,7 +469,7 @@
    "kod": "progb",
    "dzial": "prog",
    "nazwa": "Programy branżowe",
-   "opis": "GoPOS, NFHotel, Insoft, Elzab — gastronomia, hotele, sklepy",
+   "opis": "GoPOS, NFHotel, Insoft, Elzab: gastronomia, hotele, sklepy",
    "ikona": "M4 4h16v16H4z M4 9h16 M9 9v11",
    "liczba_w_wizualizacji": 14,
    "podkategorie": [],
@@ -491,7 +491,7 @@
    "kod": "siec",
    "dzial": "bezp",
    "nazwa": "Sieć i Wi-Fi",
-   "opis": "Ubiquiti UniFi, TP-Link Omada — Wi-Fi, routery, przełączniki",
+   "opis": "Ubiquiti UniFi, TP-Link Omada: Wi-Fi, routery, przełączniki",
    "ikona": "M5 12.5a10 10 0 0114 0 M8.5 16a5 5 0 017 0 M12 19.5h.01 M2 9a15 15 0 0120 0",
    "liczba_w_wizualizacji": 24,
    "podkategorie": [],
@@ -513,7 +513,7 @@
    "kod": "podpis",
    "dzial": "bezp",
    "nazwa": "Podpis i pieczęć kwalifikowana",
-   "opis": "EuroCert — podpis i pieczęć do KSeF, ZUS, KRS, przetargów",
+   "opis": "EuroCert: podpis i pieczęć do KSeF, ZUS, KRS, przetargów",
    "ikona": "M3 17c3-1 4-6 6-6s1 6 4 6 4-4 6-4 M3 21h18",
    "liczba_w_wizualizacji": 2,
    "podkategorie": [],
@@ -595,37 +595,37 @@
  "dobor_podkategorie": {
   "vend/z-winda": {
    "t": "Nie wiesz, jaki automat?",
-   "d": "Zacznij od produktu — na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
+   "d": "Zacznij od produktu. Na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
    "b": "Dobierz automat",
    "a": "vending"
   },
   "vend/zywnosc": {
    "t": "Nie wiesz, jaki automat?",
-   "d": "Zacznij od produktu — na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
+   "d": "Zacznij od produktu. Na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
    "b": "Dobierz automat",
    "a": "vending"
   },
   "vend/boxomaty": {
    "t": "Nie wiesz, jaki automat?",
-   "d": "Zacznij od produktu — na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
+   "d": "Zacznij od produktu. Na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
    "b": "Dobierz automat",
    "a": "vending"
   },
   "serw/ups": {
    "t": "Nie wiesz, jaki UPS?",
-   "d": "Napisz, co chcesz podłączyć i jak długo ma działać bez prądu — dobierzemy moc, baterie i montaż.",
+   "d": "Napisz, co chcesz podłączyć i jak długo ma działać bez prądu, a dobierzemy moc, baterie i montaż.",
    "b": "Zapytaj o dobór",
    "a": "kontakt"
   },
   "serw/nas": {
    "t": "Nie wiesz, jaki NAS?",
-   "d": "Powiedz, ile osób i ile danych — dobierzemy obudowę, dyski i kopię 3-2-1.",
+   "d": "Powiedz, ile osób i ile danych, a dobierzemy obudowę, dyski i kopię 3-2-1.",
    "b": "Zapytaj o dobór",
    "a": "kontakt"
   },
   "serw/serwery": {
    "t": "Nie wiesz, jaki serwer?",
-   "d": "Napisz, jakie programy ma obsługiwać — dobierzemy model, dyski i UPS.",
+   "d": "Napisz, jakie programy ma obsługiwać, a dobierzemy model, dyski i UPS.",
    "b": "Zapytaj o dobór",
    "a": "kontakt"
   }

@@ -1,124 +1,31 @@
 import type { CatalogIndex, IndexProduct } from './catalog/catalogIndex'
 import { normalizeText } from './catalog/normalize'
-import { plural } from './plural'
 import { brandTarget } from './catalog/brand'
+import { plural } from './plural'
+import {
+  prepareItems,
+  searchItems,
+  searchText,
+  textHit,
+  tokenize,
+  type PreparedItems,
+} from './shared/search/engine'
 
 /**
- * One search engine for every line (ADR-014 rozstrz. SW0 10), on the client over the line's
- * index: Biznes products (spec. §8.2) and Software solutions. A port of `__pk17` from
- * `docs/design/prokombiznes/boards/Main.dc.html`: every token must match, a hit in the name
- * weighs 3, elsewhere 1, through a synonym 1, a typo 0.6, plus `popularity / 200`. A hit only in
- * the group name weighs 0.05 (B4c): „kasa” must not lift every scanner of „Kasy i sprzedaż” to
- * the level of a cash register.
+ * Search of the Biznes catalog (spec. §8.2) on the shared engine (`lib/shared/search/engine.ts`,
+ * moved there in D2-2 for the shared search dialog). The engine is re-exported here, so callers
+ * and tests of Biznes keep their imports.
  */
-
-const NAME_HIT = 3
-const HAY_HIT = 1
-const SYNONYM_HIT = 1
-const TYPO_HIT = 0.6
-/**
- * Below any hit in the product itself, popularity included: popularity is 0–100, so it adds
- * at most 0.5, and 0.05 + 0.5 stays under a typo (0.6).
- */
-const GROUP_HIT = 0.05
-
-/** Words shorter than this are not compared for typos (spec. §8.2: from 4 characters). */
-const TYPO_MIN_TOKEN = 4
-
-/** Normalized text with its words, compared for typos. */
-type SearchText = { text: string; words: string[] }
-
-/** What the engine needs of one searchable element (a product, a solution…). */
-export type SearchEntry<T> = {
-  item: T
-  /** Name (with the brand for a product): a hit there weighs the most. */
-  name: string
-  /** Normalized text of the element (`normalizeText`), the name included. */
-  hay: string
-  /** 0–100; adds at most 0.5, so it only orders equal hits. */
-  popularity?: number
-  /** Name of the element's group: a hit only there weighs `GROUP_HIT`. */
-  group?: string | null
-}
-
-/** Search settings of a line, as its index carries them. */
-export type SearchSettings = { synonyms: Record<string, string[]>; stopWords: string[] }
-
-type PreparedEntry<T> = {
-  item: T
-  name: string
-  own: SearchText
-  group: SearchText | null
-  popularity: number
-}
-
-type TextHit = 'exact' | 'synonym' | 'typo'
-
-export type PreparedItems<T> = {
-  entries: PreparedEntry<T>[]
-  synonyms: Map<string, string[]>
-  stopWords: Set<string>
-}
+export * from './shared/search/engine'
 
 /** The Biznes catalog prepared for search. */
 export type PreparedSearch = PreparedItems<IndexProduct>
-
-/** Optimal string alignment distance: insertions, deletions, substitutions, adjacent swaps. */
-export function damerauLevenshtein(a: string, b: string): number {
-  // Typos are allowed up to 2 edits: past that the exact count does not matter.
-  if (Math.abs(a.length - b.length) > 2) return Math.max(a.length, b.length)
-  const rows: number[][] = []
-  for (let i = 0; i <= a.length; i++) rows.push([i])
-  for (let j = 1; j <= b.length; j++) rows[0]![j] = j
-  for (let i = 1; i <= a.length; i++) {
-    const row = rows[i]!
-    const prev = rows[i - 1]!
-    for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1
-      let value = Math.min(prev[j]! + 1, row[j - 1]! + 1, prev[j - 1]! + cost)
-      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
-        value = Math.min(value, rows[i - 2]![j - 2]! + 1)
-      }
-      row[j] = value
-    }
-  }
-  return rows[a.length]![b.length]!
-}
-
-/** Tokens of a query: normalized, split on non-alphanumerics, without stop words. */
-export function tokenize(query: string, stopWords: Set<string>): string[] {
-  return normalizeText(query)
-    .split(/[^a-z0-9]+/)
-    .filter((token) => token && !stopWords.has(token))
-}
-
-/** Work done once per index: normalized names, words for typos, normalized settings. */
-export function prepareItems<T>(
-  entries: readonly SearchEntry<T>[],
-  settings: SearchSettings,
-): PreparedItems<T> {
-  return {
-    entries: entries.map((entry) => ({
-      item: entry.item,
-      name: normalizeText(entry.name),
-      own: searchText(entry.hay),
-      group: entry.group ? searchText(normalizeText(entry.group)) : null,
-      popularity: entry.popularity ?? 0,
-    })),
-    synonyms: new Map(
-      Object.entries(settings.synonyms).map(([phrase, expansions]) => [
-        normalizeText(phrase),
-        expansions.map(normalizeText).filter(Boolean),
-      ]),
-    ),
-    stopWords: new Set(settings.stopWords.map(normalizeText)),
-  }
-}
 
 /** The Biznes catalog: a product is found by its name and brand, then its group. */
 export function prepareSearch(index: CatalogIndex): PreparedSearch {
   const brandNames = new Map(index.brands.map((brand) => [brand.slug, brand.name]))
   const groupNames = new Map(index.groups.map((group) => [group.slug, group.name]))
+  const categoryNames = new Map(index.categories.map((category) => [category.slug, category.name]))
   return prepareItems(
     index.products.map((product) => ({
       item: product,
@@ -127,77 +34,10 @@ export function prepareSearch(index: CatalogIndex): PreparedSearch {
       hay: product.benefit ? `${product.hay} ${normalizeText(product.benefit)}` : product.hay,
       popularity: product.popularity,
       group: product.group ? groupNames.get(product.group) : null,
+      category: product.categories[0] ? categoryNames.get(product.categories[0]) : null,
     })),
     index.search,
   )
-}
-
-function typoLimit(token: string): number {
-  return token.length >= 7 ? 2 : 1
-}
-
-function searchText(text: string): SearchText {
-  return { text, words: text.split(/[^a-z0-9]+/).filter((word) => word.length > 2) }
-}
-
-/** How a token hits a text: as is, through a synonym, with a typo — or not at all. */
-function textHit(
-  { text, words }: SearchText,
-  token: string,
-  synonyms: Map<string, string[]>,
-): TextHit | null {
-  if (text.includes(token)) return 'exact'
-  if (synonyms.get(token)?.some((expansion) => text.includes(expansion))) return 'synonym'
-  if (token.length >= TYPO_MIN_TOKEN) {
-    const limit = typoLimit(token)
-    for (const word of words) {
-      if (
-        damerauLevenshtein(token, word.slice(0, token.length)) <= limit ||
-        damerauLevenshtein(token, word) <= limit
-      ) {
-        return 'typo'
-      }
-    }
-  }
-  return null
-}
-
-function tokenScore<T>(
-  entry: PreparedEntry<T>,
-  token: string,
-  synonyms: Map<string, string[]>,
-): number {
-  switch (textHit(entry.own, token, synonyms)) {
-    case 'exact':
-      return entry.name.includes(token) ? NAME_HIT : HAY_HIT
-    case 'synonym':
-      return SYNONYM_HIT
-    case 'typo':
-      return TYPO_HIT
-    case null:
-      return entry.group && textHit(entry.group, token, synonyms) ? GROUP_HIT : 0
-  }
-}
-
-/** Elements matching every token, best first; `null` when the query has no tokens. */
-export function searchItems<T>(prepared: PreparedItems<T>, query: string): T[] | null {
-  const tokens = tokenize(query, prepared.stopWords)
-  if (tokens.length === 0) return null
-  const scored: { item: T; score: number }[] = []
-  for (const entry of prepared.entries) {
-    let score = 0
-    for (const token of tokens) {
-      const hit = tokenScore(entry, token, prepared.synonyms)
-      if (hit === 0) {
-        score = 0
-        break
-      }
-      score += hit
-    }
-    if (score > 0) scored.push({ item: entry.item, score: score + entry.popularity / 200 })
-  }
-  // Stable sort: equal scores keep the index order.
-  return scored.sort((a, b) => b.score - a.score).map(({ item }) => item)
 }
 
 /** Products of the Biznes catalog matching every token, best first. */

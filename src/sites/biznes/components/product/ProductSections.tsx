@@ -7,8 +7,9 @@ import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { serviceTile } from '@/lib/catalog/purchase'
 import type { ProductView } from '@/lib/catalog/product'
 import type { SourceLink } from '@/lib/catalog/sourceLabels'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
-import { AddToCartButton } from '../AddToCartButton'
+import { AddToCartButton } from '../AddToCartButtonLazy'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 import { ProductAddButton } from './ProductAddButton'
 import { ProductSection } from './ProductSection'
@@ -24,11 +25,11 @@ export function ProductVersions({
   if (variants.length < 2) return null
   return (
     <ProductSection id={id} eyebrow="Wersje" heading="Czym różnią się wersje">
-      <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-3.5">
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-3.5 [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:scroll-px-4 max-md:overflow-x-auto max-md:px-4 max-md:py-2">
         {variants.map((variant) => (
           <li
             key={variant.name}
-            className="flex flex-col gap-2 rounded-[22px] bg-card p-5 shadow-[inset_0_0_0_1px_var(--border)]"
+            className="relative flex flex-col gap-2 rounded-[22px] bg-card p-5 shadow-[inset_0_0_0_1px_var(--border)] max-md:w-[78%] max-md:shrink-0 max-md:snap-start"
           >
             <h3 className="text-[1.05rem] font-extrabold text-ink">{variant.name}</h3>
             {variant.difference && (
@@ -94,7 +95,10 @@ function ProductTile({
   )
 }
 
-const GRID = 'grid grid-cols-2 gap-x-3.5 gap-y-7 lg:grid-cols-4'
+// Phone (board App-Produkt): one row to swipe.
+const GRID =
+  'grid grid-cols-2 gap-x-3.5 gap-y-7 lg:grid-cols-4 [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:scroll-px-4 max-md:overflow-x-auto max-md:px-4 max-md:py-2'
+const GRID_ITEM = 'relative max-md:w-[46%] max-md:shrink-0 max-md:snap-start'
 
 /** „Do tego zwykle dobierają” (K31-ZMIANY §4 pkt 7): cards by `dobierz`, chips without a match. */
 export function ProductSuggestions({
@@ -114,7 +118,7 @@ export function ProductSuggestions({
       {cards.length > 0 && (
         <ul className={GRID}>
           {cards.map(({ label, product }) => (
-            <li key={product.slug}>
+            <li key={product.slug} className={GRID_ITEM}>
               <ProductTile product={product} index={index} label={label} withBenefit={false} />
             </li>
           ))}
@@ -168,7 +172,7 @@ export function ProductFamily({
     >
       <ul className={GRID}>
         {products.map((product) => (
-          <li key={product.slug}>
+          <li key={product.slug} className={GRID_ITEM}>
             <ProductTile product={product} index={index} label={null} withBenefit />
           </li>
         ))}
@@ -321,10 +325,7 @@ export function ProductCtaBand({ phone }: { phone: { label: string; href: string
             <span aria-hidden="true" className="h-0.5 w-4 rounded-full bg-current" />
             Wycena na piśmie
           </p>
-          <h2
-            id="pas-cta"
-            className="font-display text-[clamp(1.7rem,3.2vw,2.6rem)] leading-[1.05] font-extrabold tracking-[-0.02em] font-stretch-110%"
-          >
+          <h2 id="pas-cta" className={BZ_H2}>
             Potrzebujesz kilku sztuk albo całego stanowiska?
           </h2>
           <p className="mt-3 text-[1.05rem] leading-relaxed text-white/80">

@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 
 import {
   EMPTY_STATE,
+  colorFromQuery,
   colorNote,
   configNote,
   versionSelection,
@@ -33,10 +34,13 @@ const NO_COLORS: string[] = []
 /** Query parameter of a version (K31-ZMIANY §13.5). */
 export const VERSION_PARAM = 'wersja'
 
+/** Query parameter of a colour (KOLO-HERO v3: the wheel links the iPhone in burgundy). */
+export const COLOR_PARAM = 'kolor'
+
 /**
  * The version chosen on the product page, shared by the configurator, „Twoja wersja” in the
- * hero and every „Dodaj do zapytania”. `?wersja=<model>` picks the model on arrival — read in
- * the browser, so the page itself stays static and cached.
+ * hero and every „Dodaj do zapytania”. `?wersja=<model>` picks the model and `?kolor=<nazwa>` the
+ * colour on arrival — read in the browser, so the page itself stays static and cached.
  */
 export function ProductConfigProvider({
   slug,
@@ -63,6 +67,15 @@ export function ProductConfigProvider({
     // eslint-disable-next-line react-hooks/set-state-in-effect -- once, from the address after hydration
     if (picked !== EMPTY_STATE) setState(picked)
   }, [config, variants])
+
+  useEffect(() => {
+    const picked = colorFromQuery(
+      colors,
+      new URLSearchParams(window.location.search).get(COLOR_PARAM),
+    )
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- once, from the address after hydration
+    if (picked !== null) setColor(picked)
+  }, [colors])
 
   const value = useMemo(
     () => ({

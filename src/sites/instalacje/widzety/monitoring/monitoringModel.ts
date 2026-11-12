@@ -241,3 +241,14 @@ export function stepElement(
   const at = Math.max(0, keys.indexOf(shownElement(version, picked)))
   return keys[(at + by + keys.length) % keys.length] ?? 'nvr'
 }
+
+/** Accessible name of a diagram element: its visible caption first (WCAG 2.5.3), then the
+ *  element's full name unless the caption already holds it. */
+export function diagramName(visible: readonly string[], name: string): string {
+  const caption = visible
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .join(' ')
+  if (!caption) return name
+  return caption.toLowerCase().includes(name.toLowerCase()) ? caption : `${caption} — ${name}`
+}

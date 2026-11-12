@@ -1,0 +1,111 @@
+import { cx } from '@/components/ui/cx'
+import { Icon } from '@/components/ui/Icon'
+import type { SharedLine } from '@/lib/shared/project'
+import { withGamingLast, type SharedLineKey } from '@/lib/shared/lines'
+import type { OpeningHours } from '@/lib/shared/openingStatus'
+import { toTelHref } from '@/lib/site/link'
+
+import { OpeningStatus } from './OpeningStatus'
+
+export type BrandBarProps = {
+  /** Published lines in panel order (`getSharedData().lines`). */
+  lines: readonly SharedLine[]
+  /** The line of this site — bold, with `aria-current`. */
+  current: SharedLineKey
+  hours: OpeningHours
+  holidays: readonly string[]
+  /** Server time (ISO) for the opening status. */
+  now: string
+  /** The line's link next to the status (`shared.brandBarSlot`: „Konfigurator”, „Zgłoś awarię”…). */
+  slot?: { label?: string | null; href?: string | null } | null
+  phone: string | null
+  /** „Biznes:” — `shared.phoneLabel`. */
+  phoneLabel?: string | null
+  className?: string
+}
+
+/**
+ * Brand bar above the header capsule (spec §5 `BrandBar`, NAGLOWEK-KAPSULA §2–3): the line switch
+ * on the left, opening status, the line's link and phone on the right. 38 px, no background — it
+ * scrolls away with the page. Hidden up to 1080 px (the phone menu sheet carries the same).
+ */
+export function BrandBar({
+  lines,
+  current,
+  hours,
+  holidays,
+  now,
+  slot,
+  phone,
+  phoneLabel,
+  className,
+}: BrandBarProps) {
+  const tel = phone ? toTelHref(phone) : null
+  return (
+    <div
+      className={cx(
+        'mx-auto hidden h-[38px] w-full max-w-[1344px] items-center justify-between gap-6 px-8 text-[12.5px] text-nav-ink-2 min-[1081px]:flex',
+        className,
+      )}
+      data-brand-bar
+    >
+      <nav aria-label="Linie PRO-KOM" className="flex items-center gap-[18px]">
+        {withGamingLast(lines).map((line) => {
+          const isCurrent = line.key === current
+          // A published line without an address (not live yet) is a label, not a dead link.
+          const Tag = line.url ? 'a' : 'span'
+          return (
+            <Tag
+              key={line.key}
+              href={line.url ?? undefined}
+              aria-current={isCurrent ? 'page' : undefined}
+              className={cx(
+                // A touch screen (a tablet held wide) gets 24 px rows; a mouse keeps the bar as is.
+                'flex items-center gap-[7px] rounded-md pointer-coarse:min-h-6 hover:text-nav-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nav-active-ink',
+                isCurrent ? 'font-extrabold text-nav-ink' : 'font-semibold',
+              )}
+            >
+              <i
+                aria-hidden="true"
+                className="block h-[3px] w-[11px] rounded-[2px]"
+                // The line's brand colour from the panel; Gaming's gold is darker on the bar (§2.4).
+                style={{
+                  background:
+                    line.key === 'gaming' ? 'var(--gaming-dash)' : (line.color ?? 'currentColor'),
+                }}
+              />
+              {line.name}
+            </Tag>
+          )
+        })}
+      </nav>
+      {/* A named region: the right half is a landmark like the line switch (audit 08.11 §2 pkt 7). */}
+      <section
+        aria-label="Godziny otwarcia i kontakt"
+        className="flex items-center gap-5 self-stretch"
+      >
+        <OpeningStatus hours={hours} holidays={holidays} now={now} />
+        {slot?.label && slot.href && (
+          <a
+            href={slot.href}
+            className="flex items-center gap-[5px] self-stretch rounded-md font-bold text-nav-active-ink hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nav-active-ink"
+          >
+            {slot.label}
+            <Icon name="arrow" strokeWidth={2.4} className="size-[15px]" />
+          </a>
+        )}
+        {phone && tel && (
+          <a
+            href={tel}
+            className="flex items-center self-stretch rounded-md hover:text-nav-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nav-active-ink"
+          >
+            <span>
+              {phoneLabel && <>{phoneLabel} </>}
+              <b className="font-extrabold text-nav-ink">{phone}</b>
+            </span>
+          </a>
+        )}
+      </section>
+    </div>
+  )
+}

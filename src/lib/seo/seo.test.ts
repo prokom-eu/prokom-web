@@ -6,10 +6,13 @@ import {
   serviceJsonLd,
   serviceListJsonLd,
   faqJsonLd,
+  openingHoursText,
   organizationJsonLd,
   productJsonLd,
   videoJsonLd,
   serializeJsonLd,
+  SOFTWARE_AREA_SERVED,
+  websiteSearchJsonLd,
 } from './jsonLd'
 import { pageRobots, robotsMeta, robotsTxt } from './robots'
 import { siteOrigin } from './origin'
@@ -121,7 +124,7 @@ describe('organizationJsonLd', () => {
       name: 'PRO-KOM Biznes',
       legalName: 'PRO-KOM',
       url: 'https://prokombiznes.pl/',
-      telephone: '+48 000 000 101',
+      telephone: '+48000000101', // E.164 (audyt 01.11 P2)
       email: 'biuro@example.test',
       taxID: '1234563218',
       logo: 'https://prokombiznes.pl/brand/prokom-biznes_poziome_kolor.svg',
@@ -154,6 +157,34 @@ describe('organizationJsonLd', () => {
   })
 })
 
+describe('openingHoursText (audit 01.11: openingHours Mo-Fr 09:00-17:00)', () => {
+  it('writes consecutive days as a range', () => {
+    expect(
+      openingHoursText({
+        days: ['mon', 'tue', 'wed', 'thu', 'fri'],
+        opens: '09:00',
+        closes: '17:00',
+      }),
+    ).toBe('Mo-Fr 09:00-17:00')
+    expect(openingHoursText({ days: ['fri', 'mon'], opens: '08:00', closes: '16:00' })).toBe(
+      'Mo,Fr 08:00-16:00',
+    )
+    expect(openingHoursText({ days: ['sat'], opens: '09:00', closes: '13:00' })).toBe(
+      'Sa 09:00-13:00',
+    )
+  })
+
+  it('is set on each branch', () => {
+    const [, branch] = organizationJsonLd({
+      company,
+      tenant: { name: 'PRO-KOM Biznes', line: 'biznes' },
+      contact: { phone: null, email: null },
+      origin: 'https://prokombiznes.pl',
+    })['@graph']
+    expect(branch).toMatchObject({ openingHours: ['Mo,Fr 08:00-16:00'] })
+  })
+})
+
 describe('organizationJsonLd on Software (SWV2: only Rabka)', () => {
   it('lists only the main office, never the other salons of the company', () => {
     const zakopane = { ...company.locations[0]!, name: 'Zakopane', city: 'Zakopane' }
@@ -166,6 +197,37 @@ describe('organizationJsonLd on Software (SWV2: only Rabka)', () => {
     const branches = data['@graph'].filter((node) => node['@type'] === 'LocalBusiness')
     expect(branches).toHaveLength(1)
     expect(JSON.stringify(data)).not.toContain('Zakopane')
+  })
+
+  it('gives the office an E.164 phone, e-mail, geo, image and the area it serves (audyt P2)', () => {
+    const data = organizationJsonLd({
+      company,
+      tenant: { name: 'PRO-KOM Software', line: 'software' },
+      contact: { phone: '883 200 151', email: 'kontakt@prokomsoftware.pl' },
+      origin: 'https://prokomsoftware.pl',
+    })
+    const branch = data['@graph'].find((node) => node['@type'] === 'LocalBusiness')
+    expect(branch).toMatchObject({
+      telephone: '+48883200151',
+      email: 'kontakt@prokomsoftware.pl',
+      geo: { '@type': 'GeoCoordinates', latitude: 49.60994, longitude: 19.95339 },
+      image: 'https://prokomsoftware.pl/brand/prokom-software_og.png',
+      areaServed: SOFTWARE_AREA_SERVED,
+    })
+  })
+})
+
+describe('serviceJsonLd area (audyt P2)', () => {
+  it('names the area served when given', () => {
+    const data = serviceJsonLd({
+      name: 'Strona wizytówka',
+      description: undefined,
+      url: 'https://prokomsoftware.pl/rozwiazania/strona-wizytowka',
+      provider: 'PRO-KOM Software',
+      priceFrom: 999,
+      areaServed: SOFTWARE_AREA_SERVED,
+    })
+    expect(data).toMatchObject({ areaServed: SOFTWARE_AREA_SERVED })
   })
 })
 
@@ -430,5 +492,27 @@ describe('serviceJsonLd (solution page, SW10)', () => {
     expect(serviceJsonLd({ ...base, description: undefined, priceFrom: null })).not.toHaveProperty(
       'description',
     )
+  })
+})
+
+describe('websiteSearchJsonLd (audit 0611 P0.3b)', () => {
+  it('points the search action at the catalog query of the domain', () => {
+    const data = websiteSearchJsonLd({
+      origin: 'https://prokombiznes.pl',
+      name: 'PRO-KOM Biznes',
+      searchPath: '/oferta',
+      queryParam: 'szukaj',
+    })
+    expect(data).toMatchObject({
+      '@type': 'WebSite',
+      '@id': 'https://prokombiznes.pl/#website',
+      url: 'https://prokombiznes.pl/',
+      publisher: { '@id': 'https://prokombiznes.pl/#organization' },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: { urlTemplate: 'https://prokombiznes.pl/oferta?szukaj={search_term_string}' },
+        'query-input': 'required name=search_term_string',
+      },
+    })
   })
 })

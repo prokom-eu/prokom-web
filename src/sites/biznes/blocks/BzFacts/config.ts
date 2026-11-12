@@ -14,11 +14,21 @@ export const BzFactsBlock: Block = {
   fields: [
     {
       name: 'heading',
-      label: 'Nagłówek (dla czytników ekranu)',
+      label: 'Nagłówek',
       type: 'text',
       required: true,
-      admin: { description: 'Sekcja ma kotwicę #fakty — ten blok wstaw na stronie tylko raz.' },
+      admin: {
+        description:
+          'Sekcja ma kotwicę #fakty — ten blok wstaw na stronie tylko raz. Bez słowa właściciela nagłówek jest widoczny, z nim — tylko dla czytników ekranu.',
+      },
     },
+    {
+      name: 'headingAccent',
+      label: 'Wyróżniona część nagłówka',
+      type: 'text',
+      admin: { description: 'Dokładnie ten fragment nagłówka dostaje kolor akcentu.' },
+    },
+    { name: 'lead', label: 'Wstęp (bez słowa właściciela)', type: 'textarea', maxLength: 300 },
     {
       name: 'owner',
       label: 'Słowo od właściciela [SZEF]',

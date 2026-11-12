@@ -4,6 +4,8 @@ import { Icon } from '@/components/ui/Icon'
 import type { ProductView } from '@/lib/catalog/product'
 import { purchaseSentence } from '@/lib/catalog/purchase'
 
+import { ExpandOnPhone } from './ExpandOnPhone'
+
 const LABEL = 'text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase'
 
 /**
@@ -32,28 +34,34 @@ export function ProductAbout({ id, product }: { id: string; product: ProductView
           Opis
         </h2>
         {product.description ? (
-          <RichText
-            data={product.description}
-            className="rich-text max-w-3xl text-ink-2 [&>p:first-child]:text-[1.2rem] [&>p:first-child]:leading-relaxed [&>p:first-child]:text-ink"
-          />
+          <ExpandOnPhone label="Czytaj cały opis">
+            <RichText
+              data={product.description}
+              className="rich-text max-w-3xl text-ink-2 max-md:text-[14.5px] [&>p:first-child]:text-[1.2rem] [&>p:first-child]:leading-relaxed [&>p:first-child]:text-ink max-md:[&>p:first-child]:text-[16px]"
+            />
+          </ExpandOnPhone>
         ) : (
           product.benefit && (
-            <p className="max-w-3xl text-[1.2rem] leading-relaxed text-ink">{product.benefit}</p>
+            <p className="max-w-3xl text-[1.2rem] leading-relaxed text-ink max-md:text-[16px]">
+              {product.benefit}
+            </p>
           )
         )}
       </div>
       <aside
         aria-label="W skrócie o produkcie"
-        className="flex flex-col divide-y divide-border self-start rounded-[26px] bg-surface-2 px-6 py-2"
+        // Phone (App-Produkt): only „Dla kogo” as small chips under the description (none →
+        // no empty landmark).
+        className={`${product.industries.length === 0 ? 'max-md:hidden ' : ''}flex flex-col divide-y divide-border self-start rounded-[26px] bg-surface-2 px-6 py-2 max-md:divide-y-0 max-md:rounded-none max-md:bg-transparent max-md:p-0`}
       >
         {product.industries.length > 0 && (
-          <div className="py-4">
+          <div className="py-4 max-md:py-0">
             <h3 className={LABEL}>Dla kogo</h3>
             <ul className="mt-3 flex flex-wrap gap-1.5">
               {product.industries.map((industry) => (
                 <li
                   key={industry.slug}
-                  className="rounded-lg bg-card px-2.5 py-1 text-sm font-bold text-ink-2 shadow-[inset_0_0_0_1px_var(--border)]"
+                  className="rounded-lg bg-card px-2.5 py-1 text-sm font-bold text-ink-2 shadow-[inset_0_0_0_1px_var(--border)] max-md:rounded-md max-md:bg-surface-2 max-md:px-2 max-md:text-xs max-md:shadow-none"
                 >
                   {industry.name}
                 </li>
@@ -62,7 +70,7 @@ export function ProductAbout({ id, product }: { id: string; product: ProductView
           </div>
         )}
         {product.features.length > 0 && (
-          <div className="py-4">
+          <div className="py-4 max-md:hidden">
             <h3 className={LABEL}>Wyróżnia się</h3>
             <ul className="mt-3 flex flex-col gap-2">
               {product.features.map((feature) => (
@@ -75,12 +83,12 @@ export function ProductAbout({ id, product }: { id: string; product: ProductView
           </div>
         )}
         {product.brand && (
-          <div className="py-4">
+          <div className="py-4 max-md:hidden">
             <h3 className={LABEL}>Producent</h3>
             <p className="mt-2 font-bold text-ink">{product.brand.name}</p>
           </div>
         )}
-        <div className="py-4">
+        <div className="py-4 max-md:hidden">
           <h3 className={LABEL}>Co robimy przy zakupie</h3>
           <p className="mt-2 text-[0.95rem] leading-relaxed font-bold text-ink-2">{purchase}</p>
         </div>

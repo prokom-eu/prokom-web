@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useSyncExternalStore } from 'react'
 
-import { isTheme, startsLight, THEME_STORAGE_KEY, type Theme } from '@/lib/brand/theme'
+import { defaultTheme, isTheme, THEME_STORAGE_KEY, type Theme } from '@/lib/brand/theme'
 
 const DARK_QUERY = '(prefers-color-scheme: dark)'
 const CHANGE_EVENT = 'pk-theme-change'
@@ -30,9 +30,9 @@ function subscribe(onChange: () => void): () => void {
     if (event.key !== THEME_STORAGE_KEY) return
     const theme = storedTheme()
     const root = document.documentElement
-    // No choice left: Biznes goes back to light (D-K4-5), the other lines to the system.
-    if (theme) root.setAttribute('data-theme', theme)
-    else if (startsLight(root.getAttribute('data-line'))) root.setAttribute('data-theme', 'light')
+    // No choice left: the line's default (Biznes light, Software dark), else the system.
+    const next = theme ?? defaultTheme(root.getAttribute('data-line'))
+    if (next) root.setAttribute('data-theme', next)
     else root.removeAttribute('data-theme')
     onChange()
   }
@@ -73,4 +73,33 @@ export function useTheme(): [Theme, (theme: Theme) => void] {
   }
 
   return [theme, setTheme]
+}
+
+export type ThemeChoice = Theme | 'auto'
+
+const choiceSnapshot = (): ThemeChoice => storedTheme() ?? 'auto'
+
+/**
+ * The visitor's choice with „Auto” (shared menu sheet, spec §5 `MenuSheet`): `auto` = nothing
+ * stored: the line's default (Biznes light, Software dark), else the system. Same key and event as
+ * `useTheme`, so every switch on the page agrees.
+ */
+export function useThemeChoice(): [ThemeChoice, (choice: ThemeChoice) => void] {
+  const choice = useSyncExternalStore(subscribe, choiceSnapshot, () => 'auto' as const)
+
+  function setChoice(next: ThemeChoice) {
+    const root = document.documentElement
+    try {
+      if (next === 'auto') localStorage.removeItem(THEME_STORAGE_KEY)
+      else localStorage.setItem(THEME_STORAGE_KEY, next)
+    } catch {
+      // Storage blocked: the choice still applies until the next page load.
+    }
+    const theme = next === 'auto' ? defaultTheme(root.getAttribute('data-line')) : next
+    if (theme) root.setAttribute('data-theme', theme)
+    else root.removeAttribute('data-theme')
+    window.dispatchEvent(new Event(CHANGE_EVENT))
+  }
+
+  return [choice, setChoice]
 }

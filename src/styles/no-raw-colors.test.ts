@@ -9,7 +9,9 @@ import { describe, expect, it } from 'vitest'
 const ROOTS = ['src/components', 'src/blocks', 'src/app/(sites)', 'src/styles', 'src/sites'].filter(
   (dir) => existsSync(dir),
 )
-const ALLOWED = new Set([path.normalize('src/styles/tokens.css')])
+const ALLOWED = new Set(
+  ['src/styles/tokens.css', 'src/styles/tokens-instalacje.css'].map((file) => path.normalize(file)),
+)
 const EXTENSIONS = new Set(['.ts', '.tsx', '.css'])
 const RAW_COLOR =
   /(?<![\w&-])#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})(?![\w-])|\b(?:rgba?|hsla?|oklch|oklab)\(/i

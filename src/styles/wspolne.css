@@ -1,0 +1,1299 @@
+/*
+ * Shared elements of the lines (spec WSPOLNE-ELEMENTY, ADR-022): rules that Tailwind classes
+ * cannot say simply — the page scrollbar and the states of the header capsule. Colours only
+ * through tokens (`tokens.css`); components live in `src/components/shared`.
+ */
+
+/*
+ * Scrollbars in the line's colours (spec §3 „Pasek przewijania”, board 07 §6): the page's own bar
+ * 14 px, bars inside the page (windows, mega menus, sheets, results, scrolling rows) the thin 8 px
+ * version. Chrome, Edge and Safari: `::-webkit-scrollbar*` — a round thumb with a border in the
+ * track colour. Firefox: the standard properties, only where `::-webkit-scrollbar` does not exist —
+ * since Chrome 121 `scrollbar-color` on an element switches its `::-webkit-scrollbar` styles off.
+ */
+html[data-line] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+html[data-line]::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+html[data-line]::-webkit-scrollbar-track,
+html[data-line] ::-webkit-scrollbar-track,
+html[data-line]::-webkit-scrollbar-corner,
+html[data-line] ::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+html[data-line] ::-webkit-scrollbar-thumb {
+  border: 2px solid var(--scrollbar-track);
+  border-radius: 999px;
+  background: var(--scrollbar-thumb);
+}
+html[data-line]::-webkit-scrollbar-thumb {
+  border: 3px solid var(--scrollbar-track);
+  border-radius: 999px;
+  background: var(--scrollbar-thumb);
+}
+html[data-line]::-webkit-scrollbar-thumb:hover,
+html[data-line] ::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Scrollers hidden with Tailwind's `[scrollbar-width:none]` stay hidden in WebKit too (MAPA-DZIS
+   §10.3): the rules above would otherwise give them a bar. */
+.\[scrollbar-width\:none\]::-webkit-scrollbar {
+  display: none;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  html[data-line] {
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+  html[data-line] :is(dialog, [data-scroll-thin]) {
+    scrollbar-width: thin;
+  }
+}
+
+/*
+ * Opening status (spec §5 `OpeningStatus`, board Moduły): a dot in the state colour and the label;
+ * the pill variant on a soft tint. On a dark band (`data-on-dark`): light dot, white text.
+ */
+.oh-status {
+  --oh-dot: var(--status-open);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  color: var(--nav-ink, var(--ink));
+  white-space: nowrap;
+}
+.oh-status[data-state='soon'] {
+  --oh-dot: var(--status-soon);
+}
+.oh-status[data-state='closed'] {
+  --oh-dot: var(--status-closed);
+}
+.oh-status__dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--oh-dot);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--oh-dot) 20%, transparent);
+}
+.oh-status--pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--oh-dot) 10%, var(--surface));
+  color: var(--ink);
+}
+.oh-status--pill[data-state='open'] {
+  background: var(--status-open-bg);
+}
+.oh-status[data-on-dark] {
+  color: var(--status-ink-on-dark);
+}
+.oh-status[data-on-dark][data-state='open'] {
+  --oh-dot: var(--status-open-on-dark);
+}
+.oh-status--pill[data-on-dark] {
+  background: var(--status-bg-on-dark);
+}
+
+/*
+ * Address map (spec §5 `AddressMap`, board Mapa): the neutral OSM palette of Software v23 for
+ * every line, light or dark by the variant (not by the page theme — the footer is always dark).
+ */
+.addr-map {
+  --am-accent: var(--accent);
+  --am-land: var(--c-software-light-map-land);
+  --am-water: var(--c-software-light-map-water);
+  --am-road: var(--c-software-light-map-road);
+  --am-road-main: var(--c-software-light-map-road-main);
+  --am-block: var(--c-software-light-map-block);
+  --am-block-line: var(--c-software-light-map-block-line);
+  --am-park: var(--c-software-light-map-park);
+  --am-wood: var(--c-software-light-map-wood);
+  --am-parking: var(--c-software-light-map-parking);
+  --am-casing: var(--c-software-light-map-casing);
+  --am-path: var(--c-software-light-map-path);
+  --am-rail: var(--c-software-light-map-rail);
+  --am-label: var(--c-software-light-map-label);
+  --am-card: var(--c-white);
+  --am-card-ink: var(--c-grafit);
+}
+.addr-map[data-variant='dark'] {
+  --am-accent: var(--on-dark);
+  --am-land: var(--c-software-night-map-land);
+  --am-water: var(--c-software-night-map-water);
+  --am-road: var(--c-software-night-map-road);
+  --am-road-main: var(--c-software-night-map-road-main);
+  --am-block: var(--c-software-night-map-block);
+  --am-block-line: var(--c-software-night-map-block-line);
+  --am-park: var(--c-software-night-map-park);
+  --am-wood: var(--c-software-night-map-wood);
+  --am-parking: var(--c-software-night-map-parking);
+  --am-casing: var(--c-software-night-map-casing);
+  --am-path: var(--c-software-night-map-path);
+  --am-rail: var(--c-software-night-map-rail);
+  --am-label: var(--c-software-night-map-label);
+  --am-card: var(--c-papier);
+}
+.addr-map__link {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.addr-map__link:focus-visible,
+.addr-map a:focus-visible {
+  outline: 2px solid var(--am-accent);
+  outline-offset: -4px;
+}
+.addr-map__ring,
+.addr-map__pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+}
+.addr-map__ring--soft {
+  width: 76px;
+  height: 76px;
+  margin: -38px 0 0 -38px;
+  border-radius: 50%;
+  background: var(--am-accent);
+  opacity: 0.16;
+}
+.addr-map__ring--line {
+  width: 140px;
+  height: 140px;
+  margin: -70px 0 0 -70px;
+  border: 1.5px solid var(--am-accent);
+  border-radius: 50%;
+  opacity: 0.28;
+}
+.addr-map__pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: -46px 0 0 -20px;
+  border-radius: 50% 50% 50% 0;
+  background: var(--am-accent);
+  box-shadow: 0 10px 20px -6px var(--map-pin-shadow);
+  transform: rotate(-45deg);
+}
+.addr-map__pin > span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--c-white);
+}
+.addr-map__card {
+  position: absolute;
+  top: calc(50% - 92px);
+  left: calc(50% + 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: calc(50% - 40px);
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--am-card);
+  color: var(--am-card-ink);
+  box-shadow: 0 16px 34px -14px var(--map-pin-shadow);
+  pointer-events: none;
+}
+.addr-map__card b {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  font-stretch: 112%;
+}
+.addr-map__card span {
+  font-size: 12.5px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+.addr-map__route {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: var(--am-card);
+  color: var(--am-card-ink);
+  font-size: 12.5px;
+  font-weight: 800;
+  box-shadow: 0 10px 20px -10px var(--map-pin-shadow);
+}
+.addr-map__credit {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--am-land) 80%, transparent);
+  color: var(--am-label);
+  font-size: 10px;
+  font-weight: 600;
+}
+/* With the route button at the bottom (footer mini map) the credit moves to the top corner. */
+.addr-map__route ~ .addr-map__credit {
+  top: 6px;
+  bottom: auto;
+}
+.addr-map__credit a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+
+/*
+ * Header capsule (NAGLOWEK-KAPSULA §3–7, board 11): `SiteHeader` + `CapsuleShell`. The wrapper is
+ * sticky 12 px from the top and keeps its height, the capsule inside gets lower when scrolled —
+ * nothing below moves. Breakpoints 1081 and 1360 px for every line.
+ */
+.cap-sentinel {
+  position: relative;
+  height: 0;
+}
+.cap-sentinel > span {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 1px;
+  height: 1px;
+}
+.cap-wrap {
+  position: sticky;
+  top: 12px;
+  z-index: 40;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1344px;
+  height: 72px;
+  margin-inline: auto;
+  padding-inline: 32px;
+  /* Room for the side rail from 1400 px (D2-2 sets the variable). */
+  padding-left: calc(32px + var(--rail-offset, 0px));
+  transition: transform var(--dur-state) var(--ease-out);
+}
+.cap-wrap[data-static] {
+  position: relative;
+  top: auto;
+}
+.cap-wrap[data-hidden] {
+  transform: translateY(calc(-100% - 16px));
+}
+.cap {
+  --cap-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  /* Own stacking context also without backdrop-filter: the spy pill (z-index -1) stays above
+     the capsule's background and under its links. */
+  isolation: isolate;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 72px;
+  padding: 0 12px 0 26px;
+  border: 1px solid var(--cap-border);
+  border-radius: 22px;
+  background: var(--cap-bg);
+  box-shadow:
+    inset 0 1px 0 var(--cap-highlight),
+    0 1px 2px var(--cap-shadow-near),
+    0 22px 44px -30px var(--cap-shadow);
+  backdrop-filter: blur(18px) saturate(1.6);
+  transition:
+    height 220ms var(--cap-ease),
+    border-radius 220ms var(--cap-ease),
+    padding 220ms var(--cap-ease),
+    box-shadow 220ms var(--cap-ease),
+    background-color 300ms var(--cap-ease),
+    border-color 300ms var(--cap-ease);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .cap {
+    background: color-mix(in srgb, var(--surface) 96%, transparent);
+  }
+}
+/* Scrolled: the glass turns nearly opaque, so text under the menu does not read through. */
+[data-scrolled] > .cap {
+  height: 60px;
+  border-radius: 18px;
+  padding-left: 20px;
+  border-bottom-color: var(--border);
+  background-color: var(--cap-bg-solid, var(--cap-bg));
+  box-shadow:
+    inset 0 1px 0 var(--cap-highlight),
+    0 1px 2px var(--cap-shadow-near),
+    0 18px 40px -24px var(--cap-shadow);
+  backdrop-filter: blur(24px) saturate(1.8);
+}
+.cap__logo {
+  --logo-h: 36px;
+  display: flex;
+  flex-shrink: 0;
+  border-radius: 10px;
+  transform-origin: left center;
+  transition: transform 220ms var(--cap-ease);
+}
+[data-scrolled] .cap__logo {
+  transform: scale(0.86);
+}
+.cap__nav ul {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* Home page scroll-spy (plan 0611 §8.1 pkt 2): one pill glides under the entry of the section
+   being read; `CapsuleSpy` sets its place and size, measured from the capsule (the mega menus
+   are placed from it too, so the menu itself gets no `position`). It glides only while shown:
+   appearing, it takes its place at once and fades in. */
+.cap-pill {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: var(--pill-w, 0);
+  height: var(--pill-h, 42px);
+  border-radius: 12px;
+  background: var(--nav-active-bg);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(var(--pill-x, 0), var(--pill-y, 0));
+  transition: opacity 200ms;
+}
+.cap-pill[data-on] {
+  opacity: 1;
+  transition:
+    transform 380ms var(--cap-ease),
+    width 380ms var(--cap-ease),
+    opacity 200ms;
+}
+.cap__nav [data-spy] .cap-link {
+  color: var(--nav-active-ink);
+}
+.cap-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--nav-ink-2);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 150ms,
+    background-color 150ms;
+}
+.cap-link:hover,
+.cap-link[aria-expanded='true'] {
+  background: var(--nav-hover);
+  color: var(--nav-ink);
+}
+.cap-link svg {
+  transition: transform 150ms;
+}
+.cap-link[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+.cap-link[aria-current='page'] {
+  background: var(--nav-active-bg);
+  color: var(--nav-active-ink);
+  font-weight: 700;
+}
+.cap :is(a, button):focus-visible {
+  outline: 2px solid var(--nav-active-ink);
+  outline-offset: 2px;
+}
+.cap__actions,
+.cap__extras {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+}
+.cap-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  height: 44px;
+  border: 1px solid var(--cap-border);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--nav-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 150ms,
+    height 220ms,
+    min-width 220ms;
+}
+.cap-btn:hover {
+  background: var(--nav-hover);
+}
+.cap-btn--search {
+  padding: 0 8px 0 14px;
+  background: var(--nav-hover);
+  color: var(--nav-ink-2);
+  font-weight: 600;
+}
+.cap-btn--search kbd {
+  padding: 3px 7px;
+  border: 1px solid var(--cap-border);
+  border-radius: 7px;
+  background: var(--cap-kbd);
+  color: var(--nav-ink-2);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+}
+.cap-btn--pill {
+  padding: 0 14px;
+}
+.cap-count {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--nav-active-bg);
+  color: var(--nav-active-ink);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+}
+.cap-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 48px;
+  padding: 0 22px;
+  border-radius: 15px;
+  background: var(--cap-cta-bg);
+  color: var(--cap-cta-ink);
+  font-size: 15px;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 1px 0 var(--cap-cta-gloss),
+    inset 0 0 0 1px var(--cap-cta-edge),
+    0 10px 26px -10px var(--cap-cta-glow),
+    0 0 34px -10px var(--cap-cta-glow);
+  transition:
+    transform 150ms,
+    height 220ms;
+}
+.cap-cta:hover {
+  transform: translateY(-1px);
+}
+.cap-cta .cap-count {
+  background: var(--cap-count-bg);
+  color: var(--cap-count-ink);
+}
+.cap-cta__short,
+.cap-menu {
+  display: none;
+}
+[data-scrolled] .cap-cta {
+  height: 44px;
+}
+[data-scrolled] .cap-btn {
+  min-width: 40px;
+  height: 40px;
+}
+/* Mega menu of a line: 10 px under the capsule, the same width and radius; an invisible bridge
+   over the gap keeps it open while the pointer crosses. */
+.cap-mega {
+  position: absolute;
+  /* Offsets count from inside the capsule's 1 px border: 10 px gap, the capsule's full width. */
+  top: calc(100% + 11px);
+  right: -1px;
+  left: -1px;
+  z-index: 1;
+  border: 1px solid var(--cap-border);
+  border-radius: 22px;
+  background: var(--card);
+  color: var(--nav-ink);
+  box-shadow: 0 30px 70px -30px var(--cap-shadow);
+}
+.cap-mega::before {
+  position: absolute;
+  top: -12px;
+  right: 0;
+  left: 0;
+  height: 12px;
+  content: '';
+}
+
+/* Cramped (1081–1359 px): tighter menu and the short action label — never a second row. */
+@media (min-width: 1081px) and (max-width: 1359px) {
+  .cap {
+    gap: 8px;
+    padding-left: 20px;
+  }
+  .cap__nav ul {
+    gap: 0;
+  }
+  .cap-link {
+    padding: 9px;
+    font-size: 14px;
+  }
+  .cap-cta {
+    padding: 0 16px;
+  }
+  .cap-cta__long {
+    display: none;
+  }
+  .cap-cta__short {
+    display: inline;
+  }
+}
+/* Up to 1080 px: mark, short action and the Menu button (the sheet of board 06). */
+@media (max-width: 1080px) {
+  .cap-wrap {
+    padding-inline: 20px;
+  }
+  /* Board 11 (phone): the right-hand buttons move to the menu sheet (search included). */
+  .cap__nav,
+  .cap__extras {
+    display: none;
+  }
+  .cap__logo {
+    --logo-h: 30px;
+  }
+  .cap-menu {
+    display: contents;
+  }
+  .cap-cta__long {
+    display: none;
+  }
+  .cap-cta__short {
+    display: inline;
+  }
+}
+/* Phone: 10 px from the edges, 58 px high, 42 px buttons. */
+@media (max-width: 767px) {
+  .cap-wrap {
+    top: 10px;
+    height: 58px;
+    padding-inline: 10px;
+  }
+  .cap,
+  [data-scrolled] > .cap {
+    height: 58px;
+    padding: 0 7px 0 16px;
+    border-radius: 18px;
+  }
+  .cap__logo {
+    --logo-h: 24px;
+  }
+  [data-scrolled] .cap__logo {
+    transform: none;
+  }
+  .cap-btn,
+  [data-scrolled] .cap-btn {
+    min-width: 42px;
+    height: 42px;
+    border-radius: 13px;
+  }
+  .cap-cta,
+  [data-scrolled] .cap-cta {
+    height: 42px;
+    padding: 0 15px;
+    border-radius: 13px;
+    font-size: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cap-wrap,
+  .cap,
+  .cap__logo,
+  .cap-link,
+  .cap-link svg,
+  .cap-pill,
+  .cap-pill[data-on],
+  .cap-btn,
+  .cap-cta {
+    transition: none;
+  }
+  .cap-cta:hover {
+    transform: none;
+  }
+}
+
+/*
+ * Side rail (spec §5.1, board 07 „Szyna”): `SiteRail`. From 1400 px, fixed on the left, centred
+ * vertically, over the free margin. Folded to 64 px by `clip-path` (no width animation); opens to
+ * 248 px on hover or keyboard focus after 120 ms and folds after 250 ms; labels slide in with a
+ * 20 ms cascade. Colours from the line tokens; motion only transform / opacity / clip-path.
+ */
+.srail-wrap {
+  position: fixed;
+  top: 50%;
+  left: 16px;
+  z-index: 30;
+  display: none;
+  filter: drop-shadow(0 14px 30px var(--cap-shadow));
+  translate: 0 -50%;
+  /* The wrapper is as wide as the open rail; only the visible rail takes the pointer, so the page
+     behind the folded part stays clickable (`clip-path` already takes the hidden part out). */
+  pointer-events: none;
+}
+.srail {
+  /* Delays of the hover bridge (as the mega menus): open after 120 ms, fold after 250 ms. */
+  --rail-open-delay: var(--dur-press);
+  --rail-close-delay: 250ms;
+  position: relative;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-sizing: border-box;
+  width: 248px;
+  max-height: calc(100dvh - 32px);
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--card);
+  font-size: 14px;
+  clip-path: inset(0 calc(100% - 64px) 0 0 round 22px);
+  transition: clip-path var(--dur-state) var(--ease-out) var(--rail-close-delay);
+}
+@media (min-width: 1400px) {
+  .srail-wrap {
+    display: block;
+  }
+  /* The capsule keeps clear of the rail (64 px + 16 px on each side of it). */
+  html:has([data-site-rail]) {
+    --rail-offset: max(0px, calc(96px - (100vw - 1344px) / 2 - 32px));
+  }
+}
+.srail:hover,
+.srail:focus-within {
+  clip-path: inset(0 0 0 0 round 22px);
+  transition-delay: var(--rail-open-delay);
+}
+.srail[data-collapsed] {
+  clip-path: inset(0 calc(100% - 64px) 0 0 round 22px);
+  transition-delay: 0ms;
+}
+.srail__search,
+.srail__item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 13px;
+  background: none;
+  color: var(--ink-2);
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--dur-hover);
+}
+.srail__item:hover {
+  color: var(--ink);
+}
+.srail__item[aria-current='location'],
+.srail__item--action,
+.srail__item--action:hover {
+  color: var(--accent-text);
+}
+.srail__item--action {
+  background: var(--accent-soft);
+}
+.srail__search {
+  height: 48px;
+  border-radius: 15px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 800;
+  transition: transform var(--dur-press);
+}
+.srail__search:active {
+  transform: scale(0.97);
+}
+/* One calm pulse of the outline on the first page of a visit (not a loop). */
+.srail__search[data-pulse]::after {
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--accent);
+  border-radius: 19px;
+  opacity: 0;
+  content: '';
+  pointer-events: none;
+  animation: srail-pulse 1.6s var(--ease-out) 0.6s 1;
+}
+@keyframes srail-pulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.94);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+.srail :is(a, button):focus-visible {
+  outline: 3px solid var(--accent-text);
+  outline-offset: -1px;
+}
+.srail__icon {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  transition: transform var(--dur-hover) var(--ease-out);
+}
+.srail__item:hover .srail__icon {
+  transform: translateX(2px) scale(1.06);
+}
+.srail__label {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity var(--dur-hover),
+    transform var(--dur-state) var(--ease-out);
+}
+.srail:is(:hover, :focus-within):not([data-collapsed]) .srail__label {
+  opacity: 1;
+  transform: none;
+}
+/* Labels open one after another, 40 ms apart (AUDYT-0811 P2 A13); counted among the entries
+   only — the marker and the progress line sit in the same list. */
+.srail__list > :nth-child(2 of .srail__item) .srail__label {
+  transition-delay: 40ms;
+}
+.srail__list > :nth-child(3 of .srail__item) .srail__label {
+  transition-delay: 80ms;
+}
+.srail__list > :nth-child(4 of .srail__item) .srail__label {
+  transition-delay: 120ms;
+}
+.srail__list > :nth-child(5 of .srail__item) .srail__label {
+  transition-delay: 160ms;
+}
+.srail__list > :nth-child(n + 6 of .srail__item) .srail__label {
+  transition-delay: 200ms;
+}
+.srail__kbd {
+  margin-left: auto;
+  padding: 3px 7px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--accent-ink) 20%, transparent);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+}
+.srail__aside {
+  margin-left: auto;
+  font-size: 12px;
+  opacity: 0.6;
+}
+.srail__sep {
+  flex: none;
+  height: 1px;
+  margin: 7px 10px;
+  background: var(--border);
+}
+.srail__caption {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  height: 22px;
+  padding: 0 13px;
+  color: var(--ink-2);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.srail__list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 0;
+}
+.srail__list[data-long] {
+  max-height: calc(10 * 46px);
+  overflow-y: auto;
+}
+.srail__marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 44px;
+  border-radius: 13px;
+  background: var(--accent-soft);
+  box-shadow: inset 3px 0 0 var(--accent-text);
+  transition: transform var(--dur-sheet) var(--ease-out);
+}
+.srail__badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border: 2px solid var(--card);
+  border-radius: 9px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 10.5px;
+  font-weight: 800;
+}
+.srail__badge[data-bump] {
+  animation: srail-bump var(--dur-state) var(--ease-spring) 1;
+}
+@keyframes srail-bump {
+  40% {
+    transform: scale(1.28);
+  }
+}
+/* „Do góry” comes in after one screen of scrolling. */
+.srail__up {
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition:
+    opacity var(--dur-hover),
+    transform var(--dur-state) var(--ease-out),
+    color var(--dur-hover);
+}
+.srail__up[data-shown] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.srail__progress {
+  /* Along the tracked list only, from the first entry's centre to the last one's (AUDYT-0811
+     #8); the filled part ends at the section being read, with a glowing dot on its end. */
+  position: absolute;
+  top: var(--rail-line-top, 22px);
+  left: 0;
+  z-index: 1;
+  width: 2px;
+  height: var(--rail-line-h, 0px);
+  border-radius: 2px;
+  background: var(--border);
+  pointer-events: none;
+}
+.srail__progress > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transform: scaleY(var(--rail-progress, 0));
+  transform-origin: top;
+  transition: transform 250ms var(--ease-out);
+}
+.srail__progress > i {
+  position: absolute;
+  top: -4px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent),
+    0 0 12px var(--accent);
+  transform: translateY(var(--rail-dot, 0px));
+  transition: transform 250ms var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .srail,
+  .srail__label,
+  .srail__icon,
+  .srail__marker,
+  .srail__up,
+  .srail__progress > * {
+    transition: none;
+  }
+  .srail__search[data-pulse]::after,
+  .srail__badge[data-bump] {
+    animation: none;
+  }
+}
+
+/*
+ * Search window of Instalacje and Software (spec §5.1 „Wyszukiwarka”, board 07): `SearchDialog`.
+ * A modal `<dialog>` 10 vh from the top (full screen on a phone), the field, groups of results
+ * with the line's accent on the focused one, the action chips. Colours from the line tokens.
+ */
+.sdlg {
+  width: min(640px, calc(100% - 32px));
+  max-width: none;
+  max-height: min(80dvh, 720px);
+  margin: 10vh auto auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--sdlg-ring);
+  border-radius: 22px;
+  background: var(--sdlg-bg);
+  color: var(--ink);
+  box-shadow:
+    inset 0 1px 0 var(--cap-highlight),
+    0 40px 120px -40px var(--sdlg-glow),
+    0 30px 70px -30px var(--cap-shadow);
+  backdrop-filter: blur(24px) saturate(1.6);
+}
+/* The page behind dims and blurs, so the window does not melt into it (AUDYT-0811 #4). */
+.sdlg::backdrop {
+  background: var(--sdlg-backdrop);
+  backdrop-filter: blur(10px);
+}
+@media (max-width: 767px) {
+  .sdlg {
+    width: 100%;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+  /* Full height for the inner column, so the results scroll inside it (D2-2b review). */
+  .sdlg > div {
+    height: 100%;
+  }
+}
+.sdlg__field {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+  padding: 0 14px 0 20px;
+  border-bottom: 1px solid var(--border);
+}
+/* The field has no outline of its own: the line under it shows where the focus is (WCAG 2.4.7). */
+.sdlg__field:focus-within {
+  box-shadow: inset 0 -2px 0 var(--accent-text);
+}
+.sdlg__field input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 17px;
+  outline: none;
+}
+/* The line's global focus ring would draw a second frame inside the field. */
+.sdlg__field input:focus-visible {
+  outline: none;
+}
+.sdlg__field input::-webkit-search-cancel-button {
+  display: none;
+}
+.sdlg__close {
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.sdlg__body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+  padding: 16px 12px 20px;
+  overflow-y: auto;
+}
+/* Entry (AUDYT-0811 #4): up 12 px from a slightly smaller size on a spring, the chips follow
+   20 ms apart; closing is quicker. Transitions on `[open]`, so the close animates too. */
+@media (prefers-reduced-motion: no-preference) {
+  .sdlg,
+  .sdlg::backdrop {
+    transition:
+      opacity 200ms var(--ease-out),
+      translate 200ms var(--ease-out),
+      scale 200ms var(--ease-out),
+      display 200ms allow-discrete,
+      overlay 200ms allow-discrete;
+  }
+  .sdlg[open] {
+    transition-duration: 350ms;
+    transition-timing-function: var(--ease-out), var(--ease-spring), var(--ease-spring);
+  }
+  .sdlg:not([open]) {
+    opacity: 0;
+    translate: 0 12px;
+  }
+  .sdlg:not([open])::backdrop {
+    opacity: 0;
+  }
+  @starting-style {
+    .sdlg[open] {
+      opacity: 0;
+      translate: 0 12px;
+    }
+    .sdlg[open]::backdrop {
+      opacity: 0;
+    }
+  }
+  /* A touch smaller at first — not on a phone, where the window fills the screen. */
+  @media (min-width: 768px) {
+    .sdlg:not([open]) {
+      scale: 0.98;
+    }
+    @starting-style {
+      .sdlg[open] {
+        scale: 0.98;
+      }
+    }
+  }
+  .sdlg[open] .sdlg__chips > * {
+    animation: sdlg-item 300ms var(--ease-out) both;
+  }
+  .sdlg[open] .sdlg__chips > *:nth-child(2) {
+    animation-delay: 20ms;
+  }
+  .sdlg[open] .sdlg__chips > *:nth-child(3) {
+    animation-delay: 40ms;
+  }
+  .sdlg[open] .sdlg__chips > *:nth-child(4) {
+    animation-delay: 60ms;
+  }
+  .sdlg[open] .sdlg__chips > *:nth-child(5) {
+    animation-delay: 80ms;
+  }
+  .sdlg[open] .sdlg__chips > *:nth-child(n + 6) {
+    animation-delay: 100ms;
+  }
+}
+@keyframes sdlg-item {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+/* Wider with a preview — not on a phone, where the window fills the screen. */
+@media (min-width: 768px) {
+  .sdlg--preview {
+    width: min(960px, calc(100% - 32px));
+  }
+}
+.sdlg__split {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.sdlg__split > .sdlg__body {
+  flex: 1;
+  min-width: 0;
+}
+/* The preview of a result (a line's `renderPreview`): next to the list from 900 px. */
+.sdlg__preview {
+  display: none;
+}
+@media (min-width: 900px) {
+  .sdlg__preview {
+    display: block;
+    flex: none;
+    width: 320px;
+    padding: 16px;
+    overflow-y: auto;
+    border-left: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+}
+.sdlg__result[data-active] {
+  background: var(--accent-soft);
+  box-shadow: inset 3px 0 0 var(--accent-text);
+}
+.sdlg__group ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sdlg__title {
+  margin: 0 0 6px;
+  padding: 0 8px;
+  color: var(--ink-2);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.sdlg__result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.sdlg__result:hover,
+.sdlg__result:focus-visible {
+  background: var(--accent-soft);
+  box-shadow: inset 3px 0 0 var(--accent-text);
+  outline: none;
+}
+.sdlg__icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--accent-text);
+}
+.sdlg__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 8px;
+}
+.sdlg__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px 0 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+/* Action chips: the icon in an accent square and a word („Zadzwoń”, „Trasa”…). */
+.sdlg__chip .sdlg__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+}
+.sdlg__chip:hover,
+.sdlg__chip:focus-visible {
+  border-color: var(--accent-text);
+  outline: none;
+}
+.sdlg__link {
+  padding: 4px 8px;
+  border: 0;
+  background: none;
+  color: var(--accent-text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.sdlg__none {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+}
+.sdlg__cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 14px;
+  background: var(--button-bg);
+  color: var(--accent-ink);
+  font-weight: 800;
+}
+.sdlg :is(a, button):focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+.sdlg__keys {
+  display: flex;
+  flex: none;
+  gap: 16px;
+  margin: 0;
+  padding: 10px 20px;
+  border-top: 1px solid var(--border);
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 700;
+}
+@media (max-width: 767px) {
+  .sdlg__keys {
+    display: none;
+  }
+}
+
+/* Shared contact form (spec §5 `ContactForm`): fields 52 px high (54 on phones), text 16 px. */
+.cform :is(input:not([type='checkbox']), textarea) {
+  min-height: 52px;
+}
+@media (max-width: 767px) {
+  .cform input:not([type='checkbox']) {
+    min-height: 54px;
+  }
+}

@@ -1,12 +1,16 @@
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 
 import { SERVICE_KEYS } from '@/lib/instalacje/options'
+import { isServiceKey } from '@/lib/instalacje/plan'
 import { tenantIdOf } from '@/lib/tenant/id'
 import type { ObjectCard, ServiceCard } from '@/lib/instalacje/data'
 
 import { hue } from '../hue'
 import { InstIcon } from '../InstIcon'
-import { InstSection } from './InstSection'
+import { InstSection } from './InstSectionLazy'
+import { SERVICE_SCENES } from './glowna/sceny'
+import { Arrow } from '../Arrow'
 
 type Props = {
   tenantId: number
@@ -40,7 +44,8 @@ function shown<T extends Entry>(list: (number | T)[] | null | undefined, tenantI
 
 /**
  * „Zwykle idzie w parze” (`zrodlo/inc/relsec.html`): related services in menu order, then the
- * objects this installation is made for. Cards scroll sideways on a phone.
+ * objects this installation is made for. Cards scroll sideways on a phone. Round v5 (RUNDA-V5
+ * §11): each service card shows the small scene of its home card instead of the icon (still).
  */
 export function Related({
   tenantId,
@@ -68,12 +73,29 @@ export function Related({
           <div className="rel">
             {cards.map((service) => (
               <Link key={service.id} href={`/${service.slug}`} className="relc ri">
-                <span className="ico s">
-                  <InstIcon name={service.icon} />
-                </span>
+                {isServiceKey(service.key) ? (
+                  <span
+                    className="relsc"
+                    aria-hidden="true"
+                    data-inst-sx=""
+                    style={{ '--h': service.color ?? undefined } as CSSProperties}
+                  >
+                    <svg
+                      viewBox="0 0 400 220"
+                      preserveAspectRatio="xMidYMid slice"
+                      dangerouslySetInnerHTML={{ __html: SERVICE_SCENES[service.key] }}
+                    />
+                  </span>
+                ) : (
+                  <span className="ico s">
+                    <InstIcon name={service.icon} />
+                  </span>
+                )}
                 <b>{service.name}</b>
                 {service.menuCaption && <span>{service.menuCaption}</span>}
-                <span className="relgo">Zobacz →</span>
+                <span className="relgo">
+                  Zobacz <Arrow />
+                </span>
               </Link>
             ))}
           </div>

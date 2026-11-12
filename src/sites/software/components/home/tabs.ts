@@ -19,3 +19,32 @@ export function tabKeyTarget(key: string, index: number, count: number): number 
       return null
   }
 }
+
+/**
+ * Do the self-switching tabs move on (audyt 01.11 P1 #19)? Only on the desktop — on a phone the
+ * visitor is reading and three sections switching at once jump under the thumb — and only until
+ * the first pick or hover (then never again); a focus inside only pauses them.
+ */
+export function autoRotates(state: {
+  count: number
+  reducedMotion: boolean
+  desktop: boolean
+  picked: boolean
+  stopped: boolean
+  paused: boolean
+  /** The section is away from the screen (SWA13 #1): nobody sees it switch. */
+  offscreen?: boolean
+  /** The browser tab is hidden. */
+  hidden?: boolean
+}): boolean {
+  return (
+    state.count > 1 &&
+    !state.reducedMotion &&
+    state.desktop &&
+    !state.picked &&
+    !state.stopped &&
+    !state.paused &&
+    !state.offscreen &&
+    !state.hidden
+  )
+}

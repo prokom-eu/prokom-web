@@ -1,13 +1,26 @@
+import type { ReactNode } from 'react'
+
+import { cx } from '@/components/ui/cx'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
-import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toTelHref } from '@/lib/site/link'
 import type { FaqBlock as FaqBlockData } from '@/payload-types'
+import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { LiveHours } from './LiveHours'
 
-type Props = { block: FaqBlockData; tenantId: number }
+type Props = {
+  block: FaqBlockData
+  tenantId: number
+  /**
+   * A card in the right column, after the questions in the page's order (Opieka IT: „Ile masz
+   * stanowisk?”, `faqSeatsPair`, Web-opieka-it); with it the contact card is left out. On a phone
+   * it comes under the questions.
+   */
+  aside?: ReactNode
+}
 
 /** The field is optional in the shared block: never an empty `h2` the section points to. */
 const DEFAULT_HEADING = 'Najczęstsze pytania'
@@ -17,43 +30,50 @@ const DEFAULT_HEADING = 'Najczęstsze pytania'
  * with a small contact card, numbered question cards on the right, the first one open.
  * `<details>` works without JavaScript; `FAQPage` JSON-LD as in the shared block.
  */
-export async function FaqBiznes({ block, tenantId }: Props) {
+export async function FaqBiznes({ block, tenantId, aside }: Props) {
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const phone = settings?.phone ?? null
   const tel = phone ? toTelHref(phone) : null
-  const whatsapp = settings?.biznes?.whatsapp ? toWhatsAppHref(settings.biznes.whatsapp) : null
   const email = settings?.email ?? null
   const hours = company?.locations[0]?.hours ?? []
 
   return (
-    <section id="faq" aria-labelledby="faq-h" className="bg-surface-2 py-16 sm:py-24">
+    <section id="faq" aria-labelledby="faq-h" className="bg-surface-2 py-16 max-md:py-7 sm:py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd(block.items)) }}
       />
       <Container
         wide
-        className="grid gap-10 min-[1080px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)]"
+        className={cx(
+          'grid gap-10 max-md:gap-4',
+          aside
+            ? 'gap-y-6 min-[1080px]:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]'
+            : 'min-[1080px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)]',
+        )}
       >
-        <div className="min-[1080px]:sticky min-[1080px]:top-28 min-[1080px]:self-start">
+        <div
+          className={cx(
+            aside
+              ? 'min-[1080px]:col-start-1'
+              : 'min-[1080px]:sticky min-[1080px]:top-28 min-[1080px]:self-start',
+          )}
+        >
           {block.eyebrow && (
-            <p className="mb-3 text-[13px] font-extrabold tracking-[0.08em] text-accent-text uppercase">
+            <p className="mb-3 text-[13px] font-extrabold tracking-[0.08em] text-accent-text uppercase max-md:hidden">
               {block.eyebrow}
             </p>
           )}
-          <h2
-            id="faq-h"
-            className="font-display text-[clamp(2rem,4vw,3.4rem)] leading-[1.02] font-extrabold tracking-[-0.02em] font-stretch-110%"
-          >
+          <h2 id="faq-h" className={cx(BZ_H2, 'max-md:text-[22px] max-md:leading-[1.1]')}>
             {block.heading || DEFAULT_HEADING}
           </h2>
           {block.lead && (
-            <p className="mt-4 max-w-[46ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-ink-2">
-              {block.lead}
-            </p>
+            <p className={`${BZ_LEAD} mt-4 max-w-[46ch] text-ink-2 max-md:hidden`}>{block.lead}</p>
           )}
-          {(phone || email || whatsapp) && (
-            <div className="mt-6 max-w-[420px] rounded-[22px] bg-card p-5 shadow-[0_24px_48px_-32px_var(--glow),inset_0_0_0_1px_var(--border)]">
+          {!aside && (phone || email) && (
+            // Phone (boards App-*): the questions only; the contact card is one tap away
+            // under „Kontakt” in the tab bar.
+            <div className="mt-6 max-w-[420px] rounded-[22px] bg-card p-5 shadow-[0_24px_48px_-32px_var(--glow),inset_0_0_0_1px_var(--border)] max-md:hidden">
               <LiveHours hours={hours} className="text-sm text-ink" />
               {phone && tel && (
                 <a
@@ -64,20 +84,8 @@ export async function FaqBiznes({ block, tenantId }: Props) {
                   {phone}
                 </a>
               )}
-              <p className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-extrabold">
-                {whatsapp && (
-                  <a
-                    href={whatsapp}
-                    rel="noopener"
-                    target="_blank"
-                    className="inline-flex items-center gap-1.5 text-ink hover:underline"
-                  >
-                    <Icon name="chat" className="size-4 text-accent-text" />
-                    WhatsApp
-                    <span className="sr-only"> (otwiera się w nowej karcie)</span>
-                  </a>
-                )}
-                {email && (
+              {email && (
+                <p className="mt-3 text-sm font-extrabold">
                   <a
                     href={`mailto:${email}`}
                     className="inline-flex items-center gap-1.5 text-ink hover:underline"
@@ -85,23 +93,28 @@ export async function FaqBiznes({ block, tenantId }: Props) {
                     <Icon name="mail" className="size-4 text-accent-text" />
                     {email}
                   </a>
-                )}
-              </p>
+                </p>
+              )}
             </div>
           )}
         </div>
-        <ol className="flex flex-col gap-2.5">
+        <ol
+          className={cx(
+            'flex flex-col gap-2.5 max-md:gap-2',
+            Boolean(aside) && 'min-[1080px]:col-start-1',
+          )}
+        >
           {block.items.map((item, i) => (
             <li key={item.id ?? i}>
               <details
                 open={i === 0}
                 className="group rounded-[18px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-shadow open:shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
               >
-                <summary className="flex min-h-[68px] cursor-pointer list-none items-center gap-4 px-5 py-4 [&::-webkit-details-marker]:hidden">
+                <summary className="flex min-h-[68px] cursor-pointer list-none items-center gap-4 px-5 py-4 max-md:min-h-14 max-md:gap-3 max-md:px-4 max-md:py-3 [&::-webkit-details-marker]:hidden">
                   <span className="font-display text-sm font-extrabold text-accent-text">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <span className="flex-1 text-[16.5px] leading-snug font-extrabold text-ink">
+                  <span className="flex-1 text-[16.5px] leading-snug font-extrabold text-ink max-md:text-[15px]">
                     {item.question}
                   </span>
                   <span
@@ -119,11 +132,18 @@ export async function FaqBiznes({ block, tenantId }: Props) {
                     </svg>
                   </span>
                 </summary>
-                <p className="px-5 pb-5 pl-[3.6rem] leading-relaxed text-ink-2">{item.answer}</p>
+                <p className="px-5 pb-5 pl-[3.6rem] leading-relaxed text-ink-2 max-md:px-4 max-md:pb-4 max-md:pl-[3.2rem] max-md:text-sm">
+                  {item.answer}
+                </p>
               </details>
             </li>
           ))}
         </ol>
+        {aside && (
+          <div className="min-[1080px]:col-start-2 min-[1080px]:row-span-2 min-[1080px]:row-start-1 min-[1080px]:sticky min-[1080px]:top-28 min-[1080px]:self-start">
+            {aside}
+          </div>
+        )}
       </Container>
     </section>
   )

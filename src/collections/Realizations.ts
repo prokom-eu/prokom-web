@@ -2,7 +2,7 @@ import { APIError } from 'payload'
 import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
-import { SERVICE_KEYS } from '../lib/instalacje/options'
+import { REALIZATION_KINDS, SERVICE_KEYS } from '../lib/instalacje/options'
 import { publishWithoutConsent } from '../lib/instalacje/realizations'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
 import { imageField } from './catalogFields'
@@ -65,7 +65,12 @@ export const Realizations: CollectionConfig = {
       label: 'Na stronie głównej',
       type: 'checkbox',
       defaultValue: false,
-      admin: { position: 'sidebar' },
+      admin: {
+        position: 'sidebar',
+        // Runda v6 D2: the home band stays full (4 cards) — featured ones go first.
+        description:
+          'Pierwszeństwo na stronie głównej. Wolne miejsca (do 4) uzupełniają inne opublikowane realizacje ze zdjęciem. Realizacja bez zdjęcia nie pokazuje się nigdzie.',
+      },
     },
     { name: 'title', label: 'Klient / tytuł', type: 'text', required: true },
     {
@@ -89,6 +94,13 @@ export const Realizations: CollectionConfig = {
       type: 'select',
       hasMany: true,
       options: [...SERVICE_KEYS],
+    },
+    {
+      name: 'kind',
+      label: 'Rodzaj obiektu (filtr)',
+      type: 'select',
+      options: [...REALIZATION_KINDS],
+      admin: { description: 'Filtr „Każdy obiekt” na /realizacje.' },
     },
     imageField('photos', 'Zdjęcia', true),
   ],

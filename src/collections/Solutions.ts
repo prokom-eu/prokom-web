@@ -1,17 +1,25 @@
 import type { CollectionBeforeChangeHook, CollectionConfig, Field } from 'payload'
 import {
   text as textValidation,
+  type SelectFieldSingleValidation,
   type TextFieldManyValidation,
   type TextFieldSingleValidation,
 } from 'payload/shared'
 
 import { adminOnly } from '../lib/auth/access'
+import {
+  isMockupKind,
+  MOCKUP_KINDS,
+  MOCKUP_VARIANTS,
+  mockupVariants,
+} from '../lib/software/mockups'
 import { INDUSTRY_GROUPS, SITUATIONS, SOLUTION_CATEGORIES } from '../lib/software/options'
 import { solutionsRevalidationHooks } from '../lib/software/revalidate'
 import {
   includedError,
   levelCellsError,
   lowestLevelPrice,
+  previewVariantError,
   relatedFilter,
   thumbnailError,
 } from '../lib/software/solutionRules'
@@ -36,6 +44,21 @@ const levelsOf = (data: unknown): unknown[] => {
 // Payload's built-in `text` check (length, rows) runs after ours. It handles `hasMany` lists at
 // runtime, but is typed for a single string only.
 const textMany = textValidation as unknown as TextFieldManyValidation
+
+const validatePreviewVariant: SelectFieldSingleValidation = (value, { siblingData }) => {
+  const kind = (siblingData as { kind?: string | null } | undefined)?.kind
+  return previewVariantError(kind, value) ?? true
+}
+
+/** Names of the mock-up kinds in the panel (ZMIANY-v24 §8). */
+const MOCKUP_KIND_LABELS: Record<(typeof MOCKUP_KINDS)[number], string> = {
+  site: 'Strona w przeglądarce',
+  phone: 'Strona na telefonie',
+  dash: 'Panel systemu',
+  flow: 'Automatyzacja',
+  care: 'Opieka',
+  before: 'Przed i po',
+}
 
 const validateThumbnail: TextFieldSingleValidation = (value, options) =>
   thumbnailError(value) ?? textValidation(value, options)
@@ -326,6 +349,46 @@ export const Solutions: CollectionConfig = {
                   'Plik z repozytorium: /software/rozwiazania/<adres>.svg (ilustracje zmienia projektant).',
               },
               validate: validateThumbnail,
+            },
+            {
+              name: 'preview',
+              label: 'Makieta',
+              type: 'group',
+              admin: {
+                description:
+                  'Makieta v24 na kartach, w oknie oferty i w hero (ZMIANY-v24 §8). Puste = zostaje miniatura SVG.',
+              },
+              fields: [
+                {
+                  name: 'kind',
+                  label: 'Rodzaj',
+                  type: 'select',
+                  options: MOCKUP_KINDS.map((kind) => ({
+                    label: MOCKUP_KIND_LABELS[kind],
+                    value: kind,
+                  })),
+                },
+                {
+                  name: 'variant',
+                  label: 'Wariant',
+                  type: 'select',
+                  options: MOCKUP_VARIANTS.map((variant) => ({ label: variant, value: variant })),
+                  validate: validatePreviewVariant,
+                  // Only the variants of the chosen kind; none for care (the field hides).
+                  filterOptions: ({ options, siblingData }) => {
+                    const kind = (siblingData as { kind?: unknown }).kind
+                    if (!isMockupKind(kind)) return options
+                    const allowed = mockupVariants(kind)
+                    return options.filter((option) =>
+                      allowed.includes(typeof option === 'string' ? option : option.value),
+                    )
+                  },
+                  admin: {
+                    description: 'Przykładowa firma na makiecie; opieka nie ma wariantu.',
+                    condition: (_, siblingData) => siblingData?.kind !== 'care',
+                  },
+                },
+              ],
             },
             {
               name: 'included',

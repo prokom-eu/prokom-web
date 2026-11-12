@@ -80,13 +80,7 @@ export default async function TenantLayout({ children, params }: Props) {
   let frame: React.ReactNode
   if (settings?.biznes) {
     frame = (
-      <BiznesFrame
-        tenant={tenant}
-        settings={settings}
-        biznes={settings.biznes}
-        company={company}
-        promo={promo}
-      >
+      <BiznesFrame tenant={tenant} settings={settings} biznes={settings.biznes} promo={promo}>
         {main}
       </BiznesFrame>
     )
@@ -99,13 +93,7 @@ export default async function TenantLayout({ children, params }: Props) {
     )
   } else if (settings && navigation) {
     frame = (
-      <SoftwareFrame
-        tenant={tenant}
-        settings={settings}
-        navigation={navigation}
-        company={company}
-        promo={promo}
-      >
+      <SoftwareFrame tenant={tenant} settings={settings} navigation={navigation} promo={promo}>
         {main}
       </SoftwareFrame>
     )
@@ -125,7 +113,9 @@ export default async function TenantLayout({ children, params }: Props) {
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
         />
       )}
+      {/* Also the target of „Do góry” in the legal bar: the top of the page on every line. */}
       <a
+        id="gora"
         href="#tresc"
         className="sr-only z-50 rounded-xl bg-accent-text px-4 py-2 font-bold text-accent-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
       >

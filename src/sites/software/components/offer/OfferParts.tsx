@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type {
+  OfferView,
   OfferCell,
   OfferLevel,
   OfferPrice,
@@ -10,16 +11,18 @@ import type {
   RelatedCard,
 } from '@/lib/software/offer'
 
+import { Mockup } from '../mockups/Mockup'
+import { PriceTween } from '../wizard/PriceTween'
 import { OfferThumb } from './OfferThumb'
 
-/** Parts of the offer window (spec. §5.1, `stany/okno-90…98`) — presentational only. */
+/** Parts of the offer window (ZMIANY-v24 §6.1, v24 glass look) — presentational only. */
 
-export const EYEBROW = 'text-xs font-extrabold uppercase tracking-[0.14em] text-ink-2'
+export const EYEBROW = 'sw-eyebrow'
 
 /** Category badge: one flat accent for every category (ADR-015 v23 pkt 3). */
 export function OfferBadge({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex min-h-7 items-center rounded-lg bg-accent px-2.5 text-xs font-extrabold uppercase tracking-[0.12em] text-accent-ink">
+    <span className="inline-flex min-h-7 items-center rounded-full bg-accent-soft px-3 text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">
       {children}
     </span>
   )
@@ -27,81 +30,280 @@ export function OfferBadge({ children }: { children: ReactNode }) {
 
 export function LiveBadge() {
   return (
-    <span className="inline-flex min-h-7 items-center gap-1.5 rounded-lg bg-surface-2 px-2.5 text-xs font-bold text-ok-text">
+    <span className="inline-flex min-h-7 items-center gap-1.5 rounded-full border border-border px-3 text-xs font-bold text-ok-text">
       <span aria-hidden="true" className="size-1.5 rounded-full bg-ok" />
       podgląd na żywo
     </span>
   )
 }
 
-export function Fact({
-  label,
-  value,
-  wide = false,
+export type HeroPrice =
+  { kind: 'amount'; before: string; amount: string; after: string } | { kind: 'text'; text: string }
+
+/**
+ * The price as the hero of the window (OKNO-OFERTY-PREMIUM §2.1 A): „od 2 490 zł” big in the
+ * display face, „netto” small, a thin accent line under it; the term and care as two rows with an
+ * icon (no tiles); „what happens next” as three short points.
+ */
+export function PriceHero({
+  price,
+  termLabel,
+  term,
+  careFrom,
+  next,
+  priceFrom = null,
 }: {
-  label: string
-  value: string
-  wide?: boolean
+  price: HeroPrice | null
+  /** The previous offer's amount: the price counts from it (§2.5). */
+  priceFrom?: string | null
+  termLabel: string
+  term: string | null
+  careFrom: string | null
+  next: readonly string[]
 }) {
   return (
-    <div className={cx('rounded-2xl border border-border bg-card px-4 py-3', wide && 'flex-1')}>
-      <dt className={EYEBROW}>{label}</dt>
-      <dd
-        className={cx(
-          'mt-1 font-bold',
-          wide ? 'text-sm text-ink' : 'font-display text-lg text-accent-text',
+    <div className="sw-offer-hero mt-6">
+      <dl className="flex flex-col gap-3">
+        {price && (
+          <div data-offer-price>
+            <dt className="sr-only">Cena</dt>
+            <dd className="sw-offer-price">
+              {price.kind === 'amount' ? (
+                <>
+                  {price.before && <span className="sw-offer-price-small">{price.before} </span>}
+                  <b className="sw-offer-price-big">
+                    <PriceTween text={price.amount} from={priceFrom} />
+                  </b>
+                  {price.after && <span className="sw-offer-price-small"> {price.after}</span>}
+                </>
+              ) : (
+                <b className="sw-offer-price-big sw-offer-price-text">{price.text}</b>
+              )}
+            </dd>
+          </div>
         )}
-      >
-        {value}
-      </dd>
+        {term && (
+          <div className="sw-offer-fact">
+            <dt className="flex items-center gap-2">
+              <Icon name="clock" className="size-[18px] text-accent-text" />
+              {termLabel}
+            </dt>
+            <dd>{term}</dd>
+          </div>
+        )}
+        {careFrom && (
+          <div className="sw-offer-fact">
+            <dt className="flex items-center gap-2">
+              <Icon name="lifebuoy" className="size-[18px] text-accent-text" />
+              Opieka
+            </dt>
+            <dd>{careFrom}</dd>
+          </div>
+        )}
+      </dl>
+      {next.length > 0 && (
+        <div className="sw-offer-next">
+          <p className="sr-only">Co dalej</p>
+          <ul className="flex flex-col gap-1.5 text-sm text-ink-2">
+            {next.map((item) => (
+              <li key={item} className="flex gap-2">
+                <CheckDot small />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }
 
-/** „W cenie” card: the one „od” price, 3–5 points and „Potrzebujesz więcej?” (v22). */
-export function IncludedCard({ price }: { price: Extract<OfferPrice, { kind: 'included' }> }) {
+/** A point of „W cenie” with its number on the mock-up (`null`: no area there, a plain point). */
+export type IncludedPoint = { text: string; number: number | null }
+
+/**
+ * „W cenie” (OKNO-OFERTY-PREMIUM §2.2): what the „od” price includes. A point with an area on
+ * the mock-up carries its number; a hover or the focus lights the area, a tap does it too and
+ * brings the mock-up into view on the phone. Then „Potrzebujesz więcej?”: chips of the extras
+ * (no prices — quoted in writing) or, without them, the sentence as before.
+ */
+export function IncludedPoints({
+  points,
+  more,
+  extras,
+  chosen,
+  onLight,
+  onShow,
+  onToggleExtra,
+}: {
+  points: readonly IncludedPoint[]
+  more: string | null
+  extras: readonly string[]
+  chosen: readonly string[]
+  onLight: (number: number | null) => void
+  onShow: (number: number) => void
+  onToggleExtra: (extra: string) => void
+}) {
+  if (points.length === 0 && !more && extras.length === 0) return null
   return (
-    <div className="rounded-[22px] border-2 border-accent-line bg-accent-soft p-5">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className={EYEBROW}>W cenie</p>
-        <p className="text-accent-text">
-          {price.head.before && (
-            <span className="font-display text-2xl font-extrabold">{price.head.before} </span>
-          )}
-          <span className="font-display text-3xl font-extrabold">{price.head.amount}</span>
-          {price.head.after && (
-            <span className="text-sm font-bold text-ink-2"> {price.head.after}</span>
-          )}
-        </p>
-      </div>
-      {price.items.length > 0 && (
-        <ul className="mt-3 space-y-2">
-          {price.items.map((item) => (
-            <li key={item} className="flex gap-2.5 font-bold">
-              <CheckBox />
-              {item}
+    <div>
+      <h3 className={EYEBROW}>W cenie</h3>
+      {points.length > 0 && (
+        <ul className="sw-offer-points mt-3">
+          {points.map((point) => (
+            <li key={point.text}>
+              {point.number ? (
+                <button
+                  type="button"
+                  data-point={point.number}
+                  onMouseEnter={() => onLight(point.number)}
+                  onMouseLeave={() => onLight(null)}
+                  onFocus={() => onLight(point.number)}
+                  onBlur={() => onLight(null)}
+                  onClick={() => point.number && onShow(point.number)}
+                  aria-describedby="oferta-punkty-opis"
+                >
+                  <span aria-hidden="true" className="sw-offer-point-number">
+                    {point.number}
+                  </span>
+                  {point.text}
+                </button>
+              ) : (
+                <span>
+                  <CheckDot />
+                  {point.text}
+                </span>
+              )}
             </li>
           ))}
         </ul>
       )}
-      {price.more && (
-        <p className="mt-4 flex gap-2.5 rounded-2xl bg-surface-2 px-4 py-3 text-sm text-ink-2">
-          <span aria-hidden="true" className="font-bold text-accent-text">
-            +
-          </span>
-          {price.more}
+      {points.some((point) => point.number) && (
+        <p id="oferta-punkty-opis" className="sr-only">
+          Pokazuje to miejsce na makiecie.
         </p>
       )}
+      {extras.length > 0 ? (
+        <div className="mt-5">
+          <p className="flex flex-wrap items-baseline gap-x-2 text-sm font-bold">
+            Potrzebujesz więcej?
+            <span className="font-normal text-ink-2">Dodaj do zapytania — wycenimy w 5–7 dni.</span>
+          </p>
+          <ul className="mt-3 flex flex-wrap gap-2" aria-label="Potrzebujesz więcej?">
+            {extras.map((extra) => {
+              const on = chosen.includes(extra)
+              return (
+                <li key={extra}>
+                  <button
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => onToggleExtra(extra)}
+                    className="sw-chip sw-offer-extra"
+                  >
+                    <span aria-hidden="true">{on ? '✓' : '+'}</span>
+                    {extra}
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      ) : (
+        more && (
+          <p className="mt-4 flex gap-2.5 text-sm text-ink-2">
+            <span aria-hidden="true" className="font-bold text-accent-text">
+              +
+            </span>
+            {more}
+          </p>
+        )
+      )}
     </div>
+  )
+}
+
+/**
+ * „Czym różni się od: …” (OKNO-OFERTY-PREMIUM §2.3 P2): the offer and its neighbour in the
+ * category side by side — price, term and „W cenie” — folded until asked; a button opens the
+ * neighbour. Data of both windows only, no new prices.
+ */
+export function OfferCompare({
+  current,
+  other,
+  onOpen,
+}: {
+  current: OfferView
+  other: OfferView
+  onOpen: () => void
+}) {
+  const column = (view: OfferView) => {
+    const price = view.price.kind === 'included' ? view.price : null
+    return (
+      <div key={view.slug} className="flex min-w-0 flex-col gap-2 [overflow-wrap:anywhere]">
+        <h4 className="font-display text-lg font-extrabold leading-snug">{view.name}</h4>
+        {price && (
+          <p className="font-bold text-accent-text">
+            {[price.head.before, price.head.amount, price.head.after].filter(Boolean).join(' ')}
+          </p>
+        )}
+        <p className="text-sm text-ink-2">
+          {view.termLabel}: {view.term}
+        </p>
+        {price && (
+          <ul aria-label={`W cenie: ${view.name}`} className="mt-1 flex flex-col gap-1.5 text-sm">
+            {price.items.map((item) => (
+              <li key={item} className="flex gap-2">
+                <CheckDot small />
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    )
+  }
+  return (
+    <details className="sw-offer-compare">
+      <summary>
+        <span>
+          Czym różni się od: <b>{other.name}</b>
+        </span>
+        <span aria-hidden="true" className="sw-offer-compare-sign">
+          +
+        </span>
+      </summary>
+      <div className="sw-offer-compare-grid">
+        {column(current)}
+        {column(other)}
+      </div>
+      <button
+        type="button"
+        onClick={onOpen}
+        className="mt-4 inline-flex min-h-11 items-center gap-2 font-bold text-accent-text"
+      >
+        Zobacz: {other.name} <span aria-hidden="true">→</span>
+      </button>
+    </details>
+  )
+}
+
+/** „Przykład z życia” — the only card left: a quote with a line on the left (§2.3 F). */
+export function ExampleQuote({ text }: { text: string }) {
+  return (
+    <figure className="sw-offer-quote">
+      <figcaption className={EYEBROW}>Przykład z życia</figcaption>
+      <blockquote className="mt-2 text-ink-2">{text}</blockquote>
+    </figure>
   )
 }
 
 /** Apps and automations: no price yet — the quote comes after a short talk. */
 export function AskCard({ price }: { price: Extract<OfferPrice, { kind: 'ask' }> }) {
+  if (!price.text && !price.note) return null
   return (
-    <div className="rounded-[22px] border-2 border-accent-line bg-accent-soft p-5">
-      <p className="font-display text-2xl font-extrabold text-accent-text">{price.title}</p>
-      {price.text && <p className="mt-2 text-sm text-ink-2">{price.text}</p>}
+    <div>
+      {/* The title („Zapytaj o wycenę”) is the window's hero price already (§2.1). */}
+      {price.text && <p className="text-sm text-ink-2">{price.text}</p>}
       {price.note && <p className="mt-2 text-xs font-bold text-ink">{price.note}</p>}
     </div>
   )
@@ -143,12 +345,12 @@ export function LevelChoice({
               // Only the phone row reorders; an inline `order` would win over the desktop grid.
               style={{ '--phone-order': phoneOrder.indexOf(i) } as CSSProperties}
               className={cx(
-                'relative flex min-h-11 w-[72%] shrink-0 snap-start flex-col rounded-2xl border-2 bg-card p-3.5 text-left max-[640px]:order-[var(--phone-order)] min-[641px]:w-auto',
-                on ? 'border-accent-text shadow-raised' : 'border-border',
+                'sw-glass relative flex min-h-11 w-[72%] shrink-0 snap-start flex-col rounded-[18px] p-3.5 text-left max-[640px]:order-[var(--phone-order)] min-[641px]:w-auto',
+                on && 'sw-glass-featured',
               )}
             >
               {level.recommended && (
-                <span className="absolute -top-3 left-3 rounded-md bg-ok-text px-2 py-0.5 text-xs font-extrabold text-surface">
+                <span className="absolute -top-3 left-3 rounded-full bg-accent px-2.5 py-0.5 text-xs font-extrabold text-accent-ink">
                   Polecamy
                 </span>
               )}
@@ -274,6 +476,10 @@ export function CompareTable({
   )
 }
 
+/**
+ * A part of the window's details: one layer, no boxed card (OKNO-OFERTY-PREMIUM §2.3 B) — an
+ * eyebrow heading and the content; parts sit apart by space and a thin line (`.sw-offer-part`).
+ */
 export function OfferSection({
   title,
   aside,
@@ -286,7 +492,7 @@ export function OfferSection({
   children: ReactNode
 }) {
   return (
-    <section className={cx('rounded-[22px] border border-border bg-card p-5', className)}>
+    <section className={cx('sw-offer-part', className)}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className={EYEBROW}>{title}</h3>
         {aside}
@@ -296,23 +502,27 @@ export function OfferSection({
   )
 }
 
-export function CheckBox() {
+/** A „✓” in a circle of the accent (§2.3 C) — a sign, not a box to tick. */
+export function CheckDot({ small = false }: { small?: boolean }) {
   return (
     <span
       aria-hidden="true"
-      className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-md bg-button text-accent-ink"
+      className={cx(
+        'inline-flex shrink-0 items-center justify-center rounded-full border border-accent-line text-accent-text',
+        small ? 'mt-0.5 size-4' : 'mt-0.5 size-5',
+      )}
     >
-      <Icon name="check" strokeWidth={3} className="size-3.5" />
+      <Icon name="check" strokeWidth={3} className={small ? 'size-2.5' : 'size-3'} />
     </span>
   )
 }
 
 export function CheckList({ items }: { items: string[] }) {
   return (
-    <ul className="space-y-2">
+    <ul className="grid gap-x-6 gap-y-1.5 min-[1200px]:grid-cols-2">
       {items.map((item) => (
-        <li key={item} className="flex gap-2.5 rounded-xl bg-surface-2 px-3.5 py-2.5 font-bold">
-          <CheckBox />
+        <li key={item} className="flex gap-2.5 py-1 font-bold">
+          <CheckDot />
           {item}
         </li>
       ))}
@@ -322,9 +532,9 @@ export function CheckList({ items }: { items: string[] }) {
 
 export function Steps({ steps }: { steps: OfferStep[] }) {
   return (
-    <ol className="grid gap-3 min-[641px]:grid-cols-2 min-[981px]:grid-cols-4">
+    <ol className="grid gap-4 min-[641px]:grid-cols-2">
       {steps.map((step, i) => (
-        <li key={step.name} className="rounded-2xl bg-surface-2 p-4">
+        <li key={step.name} className="sw-offer-step">
           <div className="flex items-center justify-between gap-2">
             <span className="inline-flex size-8 items-center justify-center rounded-full bg-button font-extrabold text-accent-ink">
               {i + 1}
@@ -350,7 +560,7 @@ export function Questions({ faq }: { faq: { q: string; a: string }[] }) {
         <details
           key={item.q}
           open={i === 0}
-          className="group rounded-2xl border border-border bg-surface-2 open:border-accent-line open:bg-card"
+          className="group rounded-[18px] border border-border open:border-accent-line"
         >
           <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 font-bold [&::-webkit-details-marker]:hidden">
             {item.q}
@@ -369,7 +579,7 @@ export function Questions({ faq }: { faq: { q: string; a: string }[] }) {
   )
 }
 
-/** „Dobrze łączy się z”: a click switches the window to that solution. */
+/** „Często łączone z”: a click switches the window to that solution. */
 export function RelatedCards({
   cards,
   onPick,
@@ -378,23 +588,34 @@ export function RelatedCards({
   onPick: (slug: string) => void
 }) {
   return (
-    <ul className="grid gap-3 min-[981px]:grid-cols-3">
+    // Cards side by side as many as fit (mock-up on top, the text under it), so long names never
+    // squeeze next to a picture (odbiór SWA7, 08.11).
+    <ul className="sw-offer-related">
       {cards.map((card) => (
         <li key={card.slug}>
           <button
             type="button"
             onClick={() => onPick(card.slug)}
-            className="grid w-full grid-cols-[112px_1fr] items-center gap-3 rounded-2xl bg-surface-2 p-2.5 text-left hover:shadow-raised"
+            data-card=""
+            className="sw-glass sw-offer-related-card"
           >
-            <OfferThumb src={card.thumbnail} />
-            <span className="min-w-0">
+            {card.preview ? (
+              <span className="sw-offer-related-pic">
+                <Mockup kind={card.preview.kind} variant={card.preview.variant} fit="contain" />
+              </span>
+            ) : (
+              <OfferThumb src={card.thumbnail} />
+            )}
+            <span className="flex min-w-0 flex-1 flex-col">
               {card.label && (
-                <span className="block text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">
+                <span className="text-[11px] font-extrabold tracking-[0.14em] text-accent-text uppercase">
                   {card.label}
                 </span>
               )}
-              <span className="mt-0.5 block font-bold leading-snug">{card.name}</span>
-              <span className="mt-1 block text-sm font-bold text-ink-2">{card.price}</span>
+              <span className="mt-1 font-display text-[17px] leading-snug font-extrabold text-balance">
+                {card.name}
+              </span>
+              <span className="mt-auto pt-3 text-sm font-bold text-ink-2">{card.price}</span>
               <span className="sr-only"> — przejdź do szczegółów</span>
             </span>
           </button>

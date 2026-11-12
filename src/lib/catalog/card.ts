@@ -23,6 +23,20 @@ function authorizedLabel(product: IndexProduct, brands: CatalogIndex['brands']):
 }
 
 /**
+ * `alt` of a product photo (audit 0611 P0.5): „Marka Model” — the brand's name before the
+ * product's name, unless the name already starts with it („Posnet Ergo”, not „Posnet Posnet
+ * Ergo”). Without a brand: the name alone.
+ */
+export function productImageAlt(brandName: string | null | undefined, name: string): string {
+  const brand = brandName?.trim()
+  const model = name.trim()
+  if (!brand) return model
+  return model.toLocaleLowerCase('pl').startsWith(brand.toLocaleLowerCase('pl'))
+    ? model
+    : `${brand} ${model}`
+}
+
+/**
  * Badges on a product card (spec. §5.3): Usługa, Nowość, the marketing badge, then the
  * authorization if there is room — at most two.
  */

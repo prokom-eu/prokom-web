@@ -10,6 +10,7 @@ import obszary from '../../../seed/prokomsoftware/obszary.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
 import wpisy from '../../../seed/prokomsoftware/wpisy.json'
 import { homeSchema } from '../../lib/software/home'
+import { previewVariantError } from '../../lib/software/solutionRules'
 import { navigationSchema } from '../../lib/software/navigation'
 import { notFoundSchema, thanksSchema } from '../../lib/software/pages'
 import { INDUSTRY_GROUPS, WIZARD_FIRMS } from '../../lib/software/options'
@@ -19,13 +20,8 @@ import {
   lowestLevelPrice,
   thumbnailError,
 } from '../../lib/software/solutionRules'
-import { softwareWizardSchema } from '../../lib/software/wizard'
-import {
-  HOME_SECTION_TEXTS,
-  REBUILD_BUTTON,
-  homeWithPriceTokens,
-  homeWithSections,
-} from './homeExtras'
+import { softwareWizardSchema } from '../../lib/software/wizard/schema'
+import { HOME_SECTION_TEXTS, homeWithSections } from './homeExtras'
 import {
   areaData,
   cityData,
@@ -34,6 +30,8 @@ import {
   industryData,
   missingFacts,
   softwareContactUpdate,
+  softwareFooterText,
+  SOFTWARE_FOOTER_TEXT,
   relatedIds,
   type SeedCity,
   softwarePostData,
@@ -41,6 +39,8 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
+import { HOME_V24 } from './homeV24'
+import { SOLUTION_PREVIEWS } from './previews'
 
 /** Fake ids: the solution's legacy id, so a test can tell which one a chip points to. */
 const legacyIdOf = new Map(rozwiazania.items.map((item) => [item.slug, item.legacyId]))
@@ -225,7 +225,9 @@ describe('areaData', () => {
     })
     const textOnly = obszary.items.flatMap((item) => item.chips).find((chip) => !chip.solution)
     if (textOnly) {
-      const area = obszary.items.find((item) => item.chips.includes(textOnly))!
+      const area = obszary.items.find((item) =>
+        item.chips.some((chip) => chip.label === textOnly.label),
+      )!
       const chip = areaData(area, solutionId).chips?.find((c) => c.label === textOnly.label)
       expect(chip).toEqual({ label: textOnly.label, solution: null })
     }
@@ -346,70 +348,37 @@ describe('Software settings of the seed', () => {
     expect(navigationSchema.safeParse(settings.navigation).error?.issues).toBeUndefined()
   })
 
-  it('store the home texts without the section order (it is the order of blocks)', () => {
+  it('store of the start page package only the process and the comparison (D6)', () => {
     expect(settings.home).not.toHaveProperty('homeOrder')
-    expect(settings.home).toHaveProperty('technologies')
-    expect(settings.home).toHaveProperty('popular.order')
+    expect(settings.home).toHaveProperty('process')
+    expect(settings.home).toHaveProperty('compare')
+    for (const key of ['technologies', 'popular', 'whyNotWordpress', 'guarantees', 'heroModules']) {
+      expect(settings.home).not.toHaveProperty(key)
+    }
+    expect(Object.keys(settings.home.sections ?? {})).toEqual(['compare'])
   })
 
-  it('add the SW5 and SW6 section headings from the board to the home texts', () => {
-    expect(settings.home.sections?.areas.title).toBe('Osiem rzeczy, które robimy dla firm.')
-    expect(settings.home.sections?.livePreviews?.eyebrow).toBe('Podglądy na żywo · zanim zapłacisz')
-    expect(settings.home.sections?.process?.stage).toBe('Etap {num} · {t}')
-    expect(settings.home.sections?.popular.after.items[0]?.text).toBe('od [OPIEKA OD] zł / mies.')
-    expect(settings.home.sections?.guarantees?.sayNo.title).toBe('Czasem powiemy: tego nie buduj.')
-  })
-
-  it('take the rebuild price of „Dlaczego nie WordPress” from Solutions, not from the text', () => {
-    const buttons = settings.home.whyNotWordpress.cta.buttons
-    expect(buttons[1]).toEqual([REBUILD_BUTTON.token, '/rozwiazania/przebudowa-starej-strony'])
-    // A home saved with the package's text: only that label is swapped.
-    const stored = structuredClone(settings.home)
-    stored.whyNotWordpress.cta.buttons[1] = [REBUILD_BUTTON.package, '/x']
-    const swapped = homeWithPriceTokens(stored)
-    expect(swapped).toMatchObject({
-      whyNotWordpress: { cta: { buttons: [buttons[0], [REBUILD_BUTTON.token, '/x']] } },
-    })
-    // Edited in the panel or already a token: left as it is.
-    stored.whyNotWordpress.cta.buttons[1] = ['Przebudowa w promocji', '/x']
-    expect(homeWithPriceTokens(stored)).toBeNull()
-    expect(homeWithPriceTokens(settings.home)).toBeNull()
-    expect(homeWithPriceTokens(null)).toBeNull()
-  })
-
-  it('add the section headings to a home saved before SW5, and only then', () => {
+  it('add the comparison heading to a home saved before SW11b, and only then', () => {
     const { sections, ...stored } = structuredClone(settings.home)
-    const added = homeWithSections(stored, HOME_SECTION_TEXTS)
-    expect(added).toEqual({ ...stored, sections })
-    // Edited in the panel and complete: kept as it is.
+    expect(homeWithSections(stored, HOME_SECTION_TEXTS)).toEqual({ ...stored, sections })
+    // Edited in the panel: kept as it is.
     const edited = {
       ...stored,
-      sections: { ...HOME_SECTION_TEXTS, areas: { ...HOME_SECTION_TEXTS.areas, title: 'Inny' } },
+      sections: { compare: { ...HOME_SECTION_TEXTS.compare!, title: 'Inny' } },
     }
     expect(homeWithSections(edited, HOME_SECTION_TEXTS)).toBeNull()
-    // Saved in SW5 (no SW6 sections): only the missing ones are added, edits stay.
-    const { livePreviews, process, guarantees, ...sw5 } = edited.sections
-    const filled = homeWithSections({ ...stored, sections: sw5 }, HOME_SECTION_TEXTS)
-    expect(filled).toEqual({ ...stored, sections: { ...sw5, livePreviews, process, guarantees } })
     // Not a home object (empty field): left to the „fill while empty” rule.
     expect(homeWithSections(null, HOME_SECTION_TEXTS)).toBeNull()
   })
 
-  it('price the 404 tiles with the cheapest solution of their category', () => {
-    const lowest = (category: string) =>
-      Math.min(
-        ...solutionsToImport()
-          .filter((item) => item.category === category)
-          .map((item) => item.priceFrom ?? Infinity),
-      )
-    const priceOf = (slug: string | undefined) =>
-      solutionsToImport().find((item) => item.slug === slug)?.priceFrom
-    const tiles = settings.notFound.places.tiles
-    // `{cena:<slug>}` — a price changed in the panel changes the tile too (decyzja 10).
-    const slugIn = (href: string) =>
-      tiles.find((tile) => tile.href === href)?.note.match(/\{cena:([a-z0-9-]+)\}/)?.[1]
-    expect(priceOf(slugIn('/rozwiazania?kategoria=strony'))).toBe(lowest('strony'))
-    expect(priceOf(slugIn('/rozwiazania?kategoria=systemy'))).toBe(lowest('systemy'))
+  it('name only existing solutions in the 404 prices (decyzja 10)', () => {
+    const slugs = new Set(solutionsToImport().map((item) => item.slug))
+    // `{cena:<slug>}` — a price changed in the panel changes the tile too.
+    for (const tile of settings.notFound.tiles) {
+      for (const [, slug] of tile.note.matchAll(/\{cena:([a-z0-9-]+)\}/g)) {
+        expect(slugs.has(slug ?? ''), slug).toBe(true)
+      }
+    }
   })
 
   it('take the search settings as they are', () => {
@@ -534,5 +503,37 @@ describe('softwareContactUpdate', () => {
         email: 'a@pro-kom.eu',
       }),
     ).toBeNull()
+  })
+})
+
+describe('mock-ups of the solutions (PRZEKAZANIE-v24 §5)', () => {
+  it('gives every imported solution a valid mock-up', () => {
+    for (const item of solutionsToImport()) {
+      const preview = solutionData(item).preview
+      expect(preview?.kind, item.slug).toBeTruthy()
+      expect(previewVariantError(preview?.kind, preview?.variant), item.slug).toBeNull()
+    }
+  })
+
+  it('has no mock-up for a solution that is not imported', () => {
+    const slugs = new Set(solutionsToImport().map((item) => item.slug))
+    for (const slug of Object.keys(SOLUTION_PREVIEWS)) expect(slugs.has(slug), slug).toBe(true)
+  })
+})
+
+describe('showroom industries of the v24 home (ZMIANY-v24 §4.2)', () => {
+  it('opens the wizard with one of its own industries', () => {
+    const firms = new Set<string>(WIZARD_FIRMS.map((firm) => firm.value))
+    for (const industry of HOME_V24.showroom.industries) {
+      expect(firms.has(industry.key), industry.key).toBe(true)
+    }
+  })
+})
+
+describe('softwareFooterText — the line under the footer logo (SWA5)', () => {
+  it('writes it over the sample or an empty text, keeps an editor’s text', () => {
+    expect(softwareFooterText('PRO-KOM Software — dane przykładowe.')).toBe(SOFTWARE_FOOTER_TEXT)
+    expect(softwareFooterText(null)).toBe(SOFTWARE_FOOTER_TEXT)
+    expect(softwareFooterText('Nasz opis.')).toBeNull()
   })
 })

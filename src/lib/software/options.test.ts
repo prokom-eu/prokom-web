@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
 import branze from '../../../seed/prokomsoftware/branze.json'
-import kreator from '../../../seed/prokomsoftware/kreator.json'
 import obszary from '../../../seed/prokomsoftware/obszary.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
+import { SOFTWARE_INDUSTRIES } from '../../seed/software/industries'
 import {
   AREA_KEYS,
   INDUSTRY_GROUPS,
@@ -34,8 +34,11 @@ describe('Software options match the seed package (v20)', () => {
     expect(values(AREA_KEYS).sort()).toEqual(obszary.items.map((area) => area.key).sort())
   })
 
-  it('has the kinds of business of the wizard, with their names', () => {
-    const firms = kreator.needs.firm.o.map((firm) => ({ label: firm.n, value: firm.id }))
+  it('has the industries of the wizard and the showroom, with their names', () => {
+    const firms = SOFTWARE_INDUSTRIES.map((industry) => ({
+      label: industry.name,
+      value: industry.key,
+    }))
     expect([...WIZARD_FIRMS]).toEqual(firms)
     expect(values(WIZARD_FIRMS)).toEqual(branze.wizardBusinessTypes.map((firm) => firm.id))
   })

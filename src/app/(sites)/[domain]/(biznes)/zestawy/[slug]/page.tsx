@@ -19,11 +19,13 @@ import { pageRobots } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
+import { biznesDescription, fitTitle, TITLE_BASE_MAX } from '@/lib/biznes/seo'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { BundleInquiry, type BundleRow } from '@/sites/biznes/components/bundle/BundleInquiry'
 import {
   BundleHero,
   BundleReasons,
+  BundleSources,
   BundleRelated,
   BundleSwaps,
 } from '@/sites/biznes/components/bundle/BundleSections'
@@ -33,9 +35,6 @@ import { ProductFaq } from '@/sites/biznes/components/product/ProductSections'
 import { requestOrigin, requireLine } from '../../../tenant'
 
 type Props = { params: Promise<{ domain: string; slug: string }> }
-
-/** Title in search results: the bundle name, cut to fit with the site name (≤ 70). */
-const TITLE_LENGTH = 52
 
 async function load(params: Props['params']) {
   const tenant = await requireLine(params, 'biznes')
@@ -48,18 +47,20 @@ async function load(params: Props['params']) {
   return { tenant, index, bundle }
 }
 
-const cut = (text: string, length: number) =>
-  text.length <= length ? text : `${text.slice(0, length - 1).trimEnd()}…`
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, bundle } = await load(params)
   if (!bundle) return {}
   const settings = await getSiteSettings(tenant.id)
-  const title = `Zestaw: ${cut(bundle.name, TITLE_LENGTH)}`
+  // 30–60 characters with the suffix (audit 0611 P1-8): „Zestaw: …” when it fits, else the
+  // name cut on a word — whole, so two Wi-Fi bundles keep different titles.
+  const named = `Zestaw: ${bundle.name}`
+  const title =
+    named.length <= TITLE_BASE_MAX ? named : fitTitle(bundle.name, undefined, { head: false })
   const canonical = bundleHref(bundle.slug)
+  const description = bundle.benefit ? biznesDescription(bundle.benefit) : undefined
   return {
     title,
-    description: bundle.benefit,
+    description,
     alternates: { canonical },
     // „Do sprawdzenia”: shown, but out of the index until Krystian checks the list (K3-KATALOG §7).
     robots: pageRobots(getEnv().SITE_ENV, bundle.indexable),
@@ -69,8 +70,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: tenant.name,
       url: canonical,
       title,
-      description: bundle.benefit,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      description,
+      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }
@@ -151,6 +152,8 @@ export default async function BundlePage({ params }: Props) {
                 }))}
               />
               <BundleReasons reasons={bundle.reasons} />
+              {/* „Do sprawdzenia”: not every pair is checked yet, so no such claim. */}
+              {bundle.indexable && <BundleSources sources={bundle.sources} />}
               <ProductFaq id="faq" faq={bundle.faq} phone={phone} />
               <BundleRelated links={related} />
             </>

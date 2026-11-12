@@ -15,6 +15,9 @@
 #   SMOKE_INSECURE=1 accept a self-signed certificate (local test of Nginx)
 #   SMOKE_CORE=1     only health, panel and the home page of each site — routes every version
 #                    has (deploy.sh checks a rolled-back older image with it)
+#   SMOKE_CONTENT=1  also the content of the Biznes pages from the seed: at least N H2 in <main>
+#                    (NAPRAWA-0911). Only the content imports turn it on (staging-content-apply.sh,
+#                    prod-content-apply.sh) — not deploy.sh, whose database may still hold old pages.
 # Exit code 1 on any failure.
 set -euo pipefail
 
@@ -41,6 +44,31 @@ curl_opts=(-s -o /dev/null -w '%{http_code}' --max-time 15)
 [ "${SMOKE_INSECURE:-}" = 1 ] && curl_opts+=(-k)
 
 failures=0
+
+# check_h2 <minimum> <host> <path>: H2 in <main> of the page (content imports only).
+check_h2() {
+  local min="$1" host="$2" path="$3" count=0 attempt opts=(-s --max-time 30)
+  [ -n "${SMOKE_AUTH:-}" ] && opts+=(-u "$SMOKE_AUTH")
+  [ "${SMOKE_INSECURE:-}" = 1 ] && opts+=(-k)
+  # Right after a content import the app may answer from its data cache (stale-while-revalidate,
+  # PAGE_CACHE_SECONDS): the first request serves the old page and refreshes it in the background.
+  # So a page below the minimum is asked again, up to 4 times, 5 s apart.
+  for attempt in 1 2 3 4; do
+    # One line, then only what is between <main …> and </main> (frame headings left out).
+    count=$(curl "${opts[@]}" --connect-to "${host}:${port}:${address}:${port}" \
+      "${scheme}://${host}:${port}${path}" | tr '\n' ' ' |
+      sed -n 's/.*<main[ >]\(.*\)<\/main>.*/\1/p' | grep -o '<h2[ >]' | wc -l || true)
+    count="${count//[[:space:]]/}"
+    [ "${count:-0}" -ge "$min" ] && break
+    [ "$attempt" -lt 4 ] && sleep 5
+  done
+  if [ "${count:-0}" -ge "$min" ]; then
+    echo "ok    h2=${count} ${host}${path} (min ${min})"
+  else
+    echo "FAIL  h2=${count:-0} ${host}${path} (expected at least ${min} — page from an older seed?)"
+    failures=$((failures + 1))
+  fi
+}
 
 # check <expected status> <host> <path>
 check() {
@@ -80,6 +108,15 @@ for host in "${hosts[@]}"; do
   # News: Biznes and Software (B11, SW11b).
   if [[ "$host" == *biznes* || "$host" == *software* ]]; then expected=200; else expected=404; fi
   check "$expected" "$host" /aktualnosci
+  # Full pages 09.11: 12 / 10 / 9 / 5 / 4 H2; the 31.10 pages: 5 / 4 / 3 / 3 / 3. /kontakt has no
+  # margin — a heading removed from the shared contact template needs this threshold lowered.
+  if [ "${SMOKE_CONTENT:-}" = 1 ] && [[ "$host" == *biznes* ]]; then
+    check_h2 8 "$host" /gopos
+    check_h2 8 "$host" /insert
+    check_h2 6 "$host" /opieka-it
+    check_h2 4 "$host" /o-firmie
+    check_h2 4 "$host" /kontakt
+  fi
 done
 
 if [ "$failures" -gt 0 ]; then

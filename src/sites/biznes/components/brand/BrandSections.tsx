@@ -4,6 +4,7 @@ import { MediaImage } from '@/components/MediaImage'
 import { Container } from '@/components/ui/Container'
 import type { BrandView } from '@/lib/catalog/brand'
 import { plural } from '@/lib/plural'
+import { BZ_H1, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { PageLink } from '../PageLink'
@@ -26,22 +27,21 @@ export function BrandHero({
   count: number
 }) {
   return (
-    <section className="relative overflow-hidden pt-6 pb-12 sm:pt-8 sm:pb-16">
+    <section className="relative overflow-hidden pt-6 pb-12 max-md:pt-4 max-md:pb-10 min-[768px]:pt-8 min-[768px]:pb-16">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(ellipse_at_90%_10%,var(--glow),transparent_60%)]"
       />
       <Container wide className="relative">
-        <Breadcrumbs items={crumbs} />
-        <div className="mt-6 grid items-center gap-8 min-[1080px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] min-[1080px]:gap-14">
+        {/* Phone: no breadcrumbs, the top bar names the brand (as the salons). */}
+        <div className="max-md:hidden">
+          <Breadcrumbs items={crumbs} />
+        </div>
+        <div className="mt-6 max-md:mt-0 grid items-center gap-8 min-[1080px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] min-[1080px]:gap-14">
           <div className="flex flex-col gap-6">
-            <h1 className="font-display text-[clamp(2.3rem,4.4vw,4rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-112%">
-              {brand.name} w PRO-KOM
-            </h1>
+            <h1 className={BZ_H1}>{brand.name} w PRO-KOM</h1>
             {brand.shortDescription && (
-              <p className="max-w-[54ch] text-[clamp(1.0625rem,1.4vw,1.25rem)] leading-relaxed text-ink-2">
-                {brand.shortDescription}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[54ch] text-ink-2`}>{brand.shortDescription}</p>
             )}
             <div className="flex flex-wrap gap-3">
               <PageLink href="#produkty" arrow>
@@ -54,7 +54,7 @@ export function BrandHero({
               )}
             </div>
           </div>
-          <div className="flex min-h-48 items-center justify-center rounded-[32px] bg-white p-10 shadow-[inset_0_0_0_1px_var(--border)] sm:min-h-64">
+          <div className="flex min-h-48 items-center justify-center rounded-[32px] bg-white p-10 shadow-[inset_0_0_0_1px_var(--border)] max-md:min-h-32 max-md:rounded-[24px] max-md:p-6 min-[768px]:min-h-64">
             {brand.logo ? (
               <MediaImage
                 image={brand.logo}
@@ -105,7 +105,7 @@ export function BrandAbout({ brand }: { brand: BrandView }) {
           )}
           {brand.productLines.length > 0 && (
             <section aria-labelledby="linie-h">
-              <h2 id="linie-h" className="font-display text-xl font-extrabold text-ink">
+              <h2 id="linie-h" className={`${BZ_H2} text-ink`}>
                 Linie produktów
               </h2>
               <ul className="mt-4 flex flex-wrap gap-2">
@@ -126,7 +126,7 @@ export function BrandAbout({ brand }: { brand: BrandView }) {
             aria-labelledby="fakty-h"
             className="self-start rounded-[26px] bg-card p-6 shadow-[inset_0_0_0_1px_var(--border)] sm:p-7"
           >
-            <h2 id="fakty-h" className="font-display text-xl font-extrabold text-ink">
+            <h2 id="fakty-h" className={`${BZ_H2} text-ink`}>
               Fakty
             </h2>
             <dl className="mt-4 divide-y divide-border">
@@ -158,5 +158,54 @@ export function BrandAbout({ brand }: { brand: BrandView }) {
         )}
       </div>
     </Container>
+  )
+}
+
+/**
+ * The one call to action at the end of a brand page without a salon (audit 0611 P1-4): instead
+ * of the steps, the form and a help card in the grid — on a phone these made the page longer
+ * than on a computer. `#kontakt` stays the anchor of the page.
+ */
+export function BrandCta({
+  brand,
+  callbackTime,
+  phone,
+}: {
+  brand: string
+  callbackTime: string | null
+  phone: { label: string; href: string } | null
+}) {
+  return (
+    <section id="kontakt" aria-labelledby="marka-cta-h" className="scroll-mt-24 pb-16 sm:pb-24">
+      <Container wide>
+        <div
+          data-surface="dark"
+          className="relative isolate flex flex-col gap-5 overflow-hidden rounded-[26px] bg-surface-dark bg-[radial-gradient(circle_at_90%_0%,var(--glow),transparent_55%)] p-7 text-white sm:rounded-[32px] sm:p-10 lg:flex-row lg:items-center lg:justify-between"
+        >
+          <div className="flex max-w-[60ch] flex-col gap-2.5">
+            <h2 id="marka-cta-h" className={`${BZ_H2} text-white`}>
+              Interesuje Cię {brand}? Dobierzemy i wycenimy.
+            </h2>
+            <p className="leading-relaxed text-white/80">
+              Dodaj produkty do zapytania albo napisz, czego szukasz. Wycena na piśmie, bez
+              zobowiązań.{callbackTime ? ` ${callbackTime} w godzinach pracy.` : ''}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <PageLink href="/kontakt#formularz" kind="light" arrow>
+              Napisz do nas
+            </PageLink>
+            {phone && (
+              <a
+                href={phone.href}
+                className="inline-flex min-h-[52px] items-center rounded-2xl px-6 font-extrabold text-white ring-[1.5px] ring-white/35 ring-inset hover:bg-white/10"
+              >
+                {phone.label}
+              </a>
+            )}
+          </div>
+        </div>
+      </Container>
+    </section>
   )
 }

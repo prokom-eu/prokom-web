@@ -1,7 +1,6 @@
 import type { Cart } from '../cart/cart'
 import { CONSENT_CLAUSE } from './consent'
-import type { ContactField } from '../software/wizard'
-import type { WizardAnswers as SoftwareAnswers } from '../software/wizardFlow'
+import type { WizardAnswers as SoftwareAnswers } from '../software/wizard/flow'
 import { BIZNES_FIELD_MESSAGES, sourceFromHref, splitEmailOrPhone } from './form'
 import { HONEYPOT_FIELD } from './honeypot'
 
@@ -70,39 +69,28 @@ export function buildWizardInquiryBody(
   }
 }
 
-/** Last step of the Software wizard (`/dobierz`, spec. §6.3): name, one contact field, consent. */
+/** Result of the Software wizard v3 (`/dobierz`): name and company, one contact field, consent. */
 export type SoftwareWizardContact = {
   name: string
-  /** „Telefon albo e-mail”. */
+  /** „E-mail albo telefon”. */
   contact: string
   consent: boolean
   website: string
 }
 
-/**
- * Errors of the board: no contact of the kind the preference asks for (`send.contact.<field>`:
- * a phone of at least 9 digits, an e-mail, or either), no consent.
- */
+/** Errors of the board: no e-mail or phone (`send.contact.error`), no consent. */
 export function checkSoftwareWizardRequired(
   values: SoftwareWizardContact,
-  field: ContactField = 'any',
 ): Partial<Record<'contact' | 'consent', true>> {
   const errors: Partial<Record<'contact' | 'consent', true>> = {}
-  const contact = splitEmailOrPhone(values.contact)
-  const fits =
-    field === 'email'
-      ? !!contact && 'email' in contact
-      : field === 'phone'
-        ? !!contact && 'phone' in contact && contact.phone.replace(/\D/g, '').length >= 9
-        : !!contact
-  if (!fits) errors.contact = true
+  if (!splitEmailOrPhone(values.contact)) errors.contact = true
   if (!values.consent) errors.consent = true
   return errors
 }
 
 /**
- * Body of `POST /api/inquiry`: the answers only — the server checks them against its rules,
- * writes the message and maps the contact preference. Without a name the office reads
+ * Body of `POST /api/inquiry`: the answers only — the server checks them against its rules and
+ * writes the message. Without a name the office reads
  * „Klient kreatora” (the board's name field is optional; the schema needs one).
  */
 export function buildSoftwareWizardBody(

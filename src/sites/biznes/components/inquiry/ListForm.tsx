@@ -17,20 +17,17 @@ import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import {
   buildListInquiryBody,
   checkListRequired,
-  LIST_DEADLINES,
   LIST_FIELD_MESSAGES,
   listInquiryType,
   type ListFieldName,
   type ListFormValues,
 } from '@/lib/inquiry/listForm'
-import {
-  PREFERRED_CONTACT_LABELS,
-  PREFERRED_CONTACTS,
-  type PreferredContact,
-} from '@/lib/inquiry/types'
+import type { PreferredContact } from '@/lib/inquiry/types'
+
 import { plural } from '@/lib/plural'
 
-import { AreaField, ChoiceField, ConsentField, IconField } from '../forms/fields'
+import { AreaField, ConsentField, IconField } from '../forms/fields'
+import { STICKY_ACTION_BUTTON, StickyAction } from '../mobile/StickyAction'
 
 type Props = {
   formToken: string
@@ -42,8 +39,8 @@ type Props = {
   /** `phoned`: a phone was given, so the answer is a call (else an e-mail). */
   onSent: (sent: { number: string | null; emailed: boolean; phoned: boolean }) => void
   /**
-   * The drawer (K4-FINAL §5): only „Imię lub firma”, phone or e-mail, message and consent;
-   * `/zapytanie` adds company, city, the preferred contact and the deadline.
+   * The drawer: a shorter message box. Both forms ask the same (K4-FINAL §5, prompt 2 W3):
+   * „Imię lub firma”, phone or e-mail, message and consent.
    */
   compact?: boolean
 }
@@ -59,11 +56,6 @@ const FIELD_ORDER: ListFieldName[] = [
 ]
 const CONTACT_HINT = 'Wystarczy telefon albo e-mail.'
 const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
-const CONTACT_OPTIONS = PREFERRED_CONTACTS.map((value) => ({
-  value,
-  label: PREFERRED_CONTACT_LABELS[value],
-}))
-const DEADLINE_OPTIONS = LIST_DEADLINES.map((value) => ({ value, label: value }))
 
 function readValues(form: HTMLFormElement): ListFormValues {
   const data = new FormData(form)
@@ -88,6 +80,11 @@ function readValues(form: HTMLFormElement): ListFormValues {
 function buttonLabel(count: number): string {
   if (count === 0) return 'Wyślij zapytanie'
   return `Wyślij zapytanie (${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])})`
+}
+
+/** The phone's sticky button (K4-FINAL §7): „Wyślij zapytanie · 2 poz.”. */
+function barLabel(count: number): string {
+  return count === 0 ? 'Wyślij zapytanie' : `Wyślij zapytanie · ${count} poz.`
 }
 
 /**
@@ -185,7 +182,7 @@ export function ListForm({
     >
       <noscript>
         <p className="font-bold text-ink">
-          Formularz wymaga włączonego JavaScriptu. Zadzwoń do nas — numer jest w nagłówku strony.
+          Formularz wymaga włączonego JavaScriptu. Zadzwoń do nas. Numer jest w nagłówku strony.
         </p>
       </noscript>
       {formError && (
@@ -230,43 +227,7 @@ export function ListForm({
           maxLength={254}
           error={errors.email}
         />
-        {!compact && (
-          <>
-            <IconField
-              id={fieldId('company')}
-              name="company"
-              label="Firma / NIP"
-              autoComplete="organization"
-              maxLength={200}
-              error={errors.company}
-            />
-            <IconField
-              id={fieldId('city')}
-              name="city"
-              label="Miejscowość"
-              autoComplete="address-level2"
-              maxLength={100}
-              error={errors.city}
-            />
-          </>
-        )}
       </div>
-      {!compact && (
-        <>
-          <ChoiceField
-            name="preferredContact"
-            legend="Jak się skontaktować?"
-            options={CONTACT_OPTIONS}
-            defaultValue="phone"
-          />
-          <ChoiceField
-            name="deadline"
-            legend="Na kiedy?"
-            options={DEADLINE_OPTIONS}
-            defaultValue="W tym miesiącu"
-          />
-        </>
-      )}
       <AreaField
         id={fieldId('message')}
         name="message"
@@ -304,7 +265,11 @@ export function ListForm({
       <button
         type="submit"
         disabled={sending}
-        className="inline-flex min-h-[58px] w-full items-center justify-center gap-2 rounded-xl bg-accent-text px-6 text-base font-bold text-accent-ink shadow-[0_18px_30px_-16px_var(--glow)] hover:bg-ink hover:text-surface disabled:opacity-70"
+        className={cx(
+          'inline-flex min-h-[58px] w-full items-center justify-center gap-2 rounded-xl bg-accent-text px-6 text-base font-bold text-accent-ink shadow-[0_18px_30px_-16px_var(--glow)] hover:bg-ink hover:text-surface disabled:opacity-70',
+          // The page form sends from the sticky bar on a phone.
+          !compact && 'max-md:hidden',
+        )}
       >
         {sending ? 'Wysyłanie…' : buttonLabel(cart.length)}
         {!sending && <Icon name="arrow" strokeWidth={2.4} className="size-[18px]" />}
@@ -319,6 +284,15 @@ export function ListForm({
             </li>
           ))}
         </ul>
+      )}
+      {/* Phone, the page form only (MOBILE-APLIKACJA §1): the send button sticks to the bottom
+          (inside the form, so it runs the same checks) and replaces the one above. */}
+      {!compact && (
+        <StickyAction>
+          <button type="submit" disabled={sending} className={STICKY_ACTION_BUTTON}>
+            {sending ? 'Wysyłanie…' : barLabel(cart.length)}
+          </button>
+        </StickyAction>
       )}
     </form>
   )

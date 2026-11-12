@@ -58,6 +58,8 @@ export function InstSection({
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
         >
+          {/* The faded edge above the button, part of it (CSS: folded only). */}
+          <span className="foldhit" aria-hidden="true" />
           <span>{open ? 'Zwiń sekcję' : 'Pokaż całą sekcję'}</span>
           <svg
             width="16"

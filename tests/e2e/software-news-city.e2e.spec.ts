@@ -14,7 +14,7 @@ test.describe('Software /aktualnosci', () => {
   test('the list in the Software look (no public post yet: the empty state)', async ({ page }) => {
     const response = await page.goto(site(HOST, '/aktualnosci'))
     expect(response?.status()).toBe(200)
-    await expect(page.locator('h1')).toHaveText('Konkretnie o stronach i systemach.')
+    await expect(page.locator('h1')).toHaveText('Aktualności bez lania wody.')
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toContainText('Aktualności')
   })
 
@@ -27,7 +27,7 @@ test.describe('Software /aktualnosci', () => {
 
   test('a category of another line is ignored', async ({ page }) => {
     await page.goto(site(HOST, '/aktualnosci?kategoria=kasy'))
-    await expect(page.locator('h1')).toHaveText('Konkretnie o stronach i systemach.')
+    await expect(page.locator('h1')).toHaveText('Aktualności bez lania wody.')
   })
 })
 
@@ -125,7 +125,7 @@ test.describe('Software /miejscowosci/[miasto]', () => {
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveText('Strony i systemy dla firm z Rabki-Zdroju.')
     await expect(
-      page.getByRole('heading', { name: 'Dla kogo pracujemy najczęściej.' }),
+      page.getByRole('heading', { name: 'Dla kogo pracujemy najczęściej' }),
     ).toBeVisible()
     await expect(page.locator('#pytania')).toContainText('Czy przyjedziecie do mnie?')
     const nearby = page.locator('section', {

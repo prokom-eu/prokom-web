@@ -2,25 +2,41 @@ import { describe, expect, it } from 'vitest'
 
 import stronaGlowna from '../../../seed/prokomsoftware/strona-glowna.json'
 import { softwareSettingsData, solutionsToImport } from '../../seed/software/map'
-import { homeSchema, homeSolutionSlugs, validateHome } from './home'
+import { HOME_HERO } from '../../seed/software/homeHero'
+import { heroV24Schema, homeSchema, homeSolutionSlugs, validateHome } from './home'
 
 /** What the seed stores (SW3): the start page texts without `homeOrder` (decision D2). */
 const seedHome = () => softwareSettingsData().home
 
 describe('Software home texts schema', () => {
-  it('accepts the seed package (v20)', () => {
+  it('accepts the seed package', () => {
     expect(homeSchema.safeParse(seedHome()).error?.issues).toBeUndefined()
   })
 
-  it('points all 12 cards to solutions of the package (v22: no generic cards)', () => {
+  it('points the v24 items to solutions of the package', () => {
     const slugs = new Set(solutionsToImport().map((item) => item.slug))
     const cards = homeSolutionSlugs(homeSchema.parse(seedHome()))
-    expect(cards).toHaveLength(12)
+    expect(cards.length).toBeGreaterThan(0)
     for (const slug of cards) expect(slugs.has(slug), slug).toBe(true)
+  })
+
+  it('refuses a v23 key left in the data (decision D6: the migration removes them)', () => {
+    expect(validateHome({ ...seedHome(), popular: { order: [], tabs: [] } })).toMatch(/popular/)
   })
 
   it('does not store the section order (it is the order of the blocks)', () => {
     expect(validateHome({ ...seedHome(), homeOrder: stronaGlowna.homeOrder })).toMatch(/homeOrder/)
+  })
+
+  it('takes a short word of a slide for the phone, never longer than the word (SWA12b #14)', () => {
+    expect(heroV24Schema.safeParse(HOME_HERO).error?.issues).toBeUndefined()
+    const ai = HOME_HERO.slides.find((slide) => slide.word === 'automatyzacje i AI.')
+    expect(ai?.wordShort).toBe('automatyzacje.')
+    const slides = HOME_HERO.slides.map((slide, i) =>
+      i === 0 ? { ...slide, wordShort: 'stronę wizytówkę i jeszcze więcej.' } : slide,
+    )
+    const issues = heroV24Schema.safeParse({ ...HOME_HERO, slides }).error?.issues ?? []
+    expect(issues.map((issue) => issue.path.join('.'))).toEqual(['slides.0.wordShort'])
   })
 
   it('needs one cell per column in the comparison tables', () => {
@@ -28,33 +44,21 @@ describe('Software home texts schema', () => {
     value.compare.rows[0] = value.compare.rows[0].slice(0, 2)
     expect(validateHome(value)).toMatch(/compare\.rows\.0/)
   })
+})
 
-  it('needs a source for every fact of „Dlaczego nie WordPress”', () => {
-    const value = seedHome()
-    const [first] = value.whyNotWordpress.facts
-    value.whyNotWordpress.facts[0] = { ...first, src: '' } as typeof first
-    expect(validateHome(value)).toMatch(/whyNotWordpress\.facts\.0\.src/)
-  })
-
-  it('keeps the phone hero card „Twoja Firma · panel” with at most 3 notifications (SWV3)', () => {
-    const value = seedHome()
-    const panel = value.sections?.heroPanel
-    expect(panel?.items.map((item) => item.title)).toEqual([
-      'Nowe zapytanie ze strony',
-      'Ekipa Marka na miejscu',
-      'Faktura wysłana sama',
-    ])
-    const withoutPanel = seedHome()
-    delete withoutPanel.sections?.heroPanel
-    expect(validateHome(withoutPanel)).toBe(true)
-    if (!panel) return
-    panel.items.push(panel.items[0])
-    expect(validateHome(value)).toMatch(/sections\.heroPanel\.items/)
-  })
-
-  it('allows at most 12 cards', () => {
-    const value = seedHome()
-    value.popular.order = [...value.popular.order, 'strona-wizytowka']
-    expect(validateHome(value)).toMatch(/popular\.order/)
+describe('home.pricing (SWA2c-2)', () => {
+  it('does not take the same solution twice', () => {
+    const home = seedHome() as Record<string, unknown> & { pricing: { groups: unknown[] } }
+    const twice = {
+      ...home,
+      pricing: {
+        ...home.pricing,
+        groups: [
+          { label: 'Strony', solutions: ['strona-wizytowka'] },
+          { label: 'Inne', solutions: ['strona-wizytowka'] },
+        ],
+      },
+    }
+    expect(validateHome(twice)).toMatch(/strona-wizytowka/)
   })
 })

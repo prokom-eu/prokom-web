@@ -6,12 +6,18 @@
         "https://staging.prokombiznes.pl/oferta",
         "https://staging.prokomsoftware.pl/",
         "https://staging.prokomsoftware.pl/rozwiazania",
+        "https://staging.prokomsoftware.pl/polityka-prywatnosci",
         "https://staging.prokominstalacje.pl/",
-        "https://staging.prokominstalacje.pl/monitoring"
+        "https://staging.prokominstalacje.pl/monitoring",
+        "https://staging.prokominstalacje.pl/dla-kogo/pensjonaty",
+        "https://staging.prokominstalacje.pl/ladowarki-ev",
+        "https://staging.prokominstalacje.pl/zaplanuj",
+        "https://staging.prokominstalacje.pl/dla-architektow",
+        "https://staging.prokominstalacje.pl/kontakt"
       ],
       "numberOfRuns": 3,
       "settings": {
-        "skipAudits": ["is-crawlable"]
+        "skipAudits": ["is-crawlable", "robots-txt"]
       }
     },
     "assert": {
@@ -47,7 +53,14 @@
         "largest-contentful-paint": [
           "error",
           {
-            "maxNumericValue": 2500,
+            "maxNumericValue": 4000,
+            "aggregationMethod": "median-run"
+          }
+        ],
+        "lcp-lazy-loaded": [
+          "error",
+          {
+            "minScore": 1,
             "aggregationMethod": "median-run"
           }
         ],

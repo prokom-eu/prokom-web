@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { HIGHLIGHTS } from '@/sites/biznes/components/product/ProductHero'
+import { fitTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { bentoTiles } from '@/lib/catalog/bento'
@@ -11,6 +13,7 @@ import { CATALOG_PATH, catalogHref, parseCatalogState, updateState } from '@/lib
 import { productTitle, uniqueVersions, variantKey, variantSlug } from '@/lib/catalog/productName'
 import { productGallery } from '@/lib/catalog/product'
 import { familyProducts, recommendedProducts, suggestedProducts } from '@/lib/catalog/related'
+import { RecordRecent } from '@/components/shared/RecordRecent'
 import { getEnv } from '@/lib/env'
 import { pickSource } from '@/lib/media/sizes'
 import { ogImages } from '@/lib/pages/metadata'
@@ -23,14 +26,20 @@ import {
   videoJsonLd,
 } from '@/lib/seo/jsonLd'
 import { pageRobots } from '@/lib/seo/robots'
+import { getSharedData } from '@/lib/shared/getSharedData'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
+import { biznesDescription } from '@/lib/biznes/seo'
+import { EMPTY_SUPPLY_LINKS, productSupplyLink } from '@/lib/biznes/procurement/links'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { BundleGrid } from '@/sites/biznes/components/bundle/BundleCard'
 import { PageLink } from '@/sites/biznes/components/PageLink'
 import { ProductAbout } from '@/sites/biznes/components/product/ProductAbout'
 import { ProductBento } from '@/sites/biznes/components/product/ProductBento'
+import { Icon } from '@/components/ui/Icon'
+import { StickyAction } from '@/sites/biznes/components/mobile/StickyAction'
+import { ProductAddButton } from '@/sites/biznes/components/product/ProductAddButton'
 import { ProductConfigProvider } from '@/sites/biznes/components/product/ProductConfig'
 import { ProductConfigurator } from '@/sites/biznes/components/product/ProductConfigurator'
 import { ProductHero } from '@/sites/biznes/components/product/ProductHero'
@@ -83,13 +92,19 @@ async function load(params: Props['params']) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, product } = await load(params)
   if (!product) return {}
-  const title =
+  // 30–60 characters with the site's suffix (audit 0611 P1-8: cards had ~69); a short model
+  // name gets its category („Sunmi L3 — Kolektory danych”, QA BIZ-3).
+  const title = fitTitle(
     product.seo.title ??
-    productTitle(
-      product.heading,
-      product.variants.map((variant) => variant.name),
-    )
-  const description = product.seo.description ?? product.benefit ?? undefined
+      productTitle(
+        product.shortName ?? product.heading,
+        product.variants.map((variant) => variant.name),
+      ),
+    product.category ? `— ${product.category.name}` : undefined,
+  )
+  // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
+  const descriptionSource = product.seo.description ?? product.benefit
+  const description = descriptionSource ? biznesDescription(descriptionSource) : undefined
   const settings = await getSiteSettings(tenant.id)
   // One canonical per card: `?wersja=` only picks the configurator (K31-ZMIANY §13.5).
   const canonical = productHref(product.slug)
@@ -106,7 +121,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title,
       description,
-      images: ogImages(product.images[0] ?? settings?.seo.ogImage ?? null),
+      images: ogImages(product.images[0] ?? settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }
@@ -119,11 +134,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params }: Props) {
   const { tenant, product } = await load(params)
   if (!product) notFound()
-  const [index, settings, origin, allBundles] = await Promise.all([
+  const [index, settings, origin, allBundles, shared] = await Promise.all([
     getCatalogIndex(tenant.id),
     getSiteSettings(tenant.id),
     requestOrigin(),
     getBundles(tenant.id),
+    getSharedData(tenant.id),
   ])
 
   // The picture without a photo is the card's (catalog index), so both agree.
@@ -145,7 +161,8 @@ export default async function ProductPage({ params }: Props) {
       ))
     : null
 
-  const tiles = bentoTiles(product.specs)
+  // Without the values the hero already shows in its 3 highlights (audit 0611 P1-13).
+  const tiles = bentoTiles(product.specs, product.features.slice(0, HIGHLIGHTS))
   const variantNames = uniqueVersions(product.variants.map((variant) => variant.name))
   // „Do tego zwykle dobierają”: `polecane` of K4, then „pasuje do”; a card without them keeps
   // the phrase matching of K31b (K36 §13 W14).
@@ -181,7 +198,7 @@ export default async function ProductPage({ params }: Props) {
   ]
 
   const crumbs: Crumb[] = [
-    { name: 'Start', href: '/' },
+    { name: 'Strona główna', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
     ...(category && categoryLink ? [{ name: category.name, href: categoryLink }] : []),
     { name: product.heading, href: productHref(product.slug) },
@@ -220,6 +237,12 @@ export default async function ProductPage({ params }: Props) {
       variants={variantNames}
       colors={product.colors.map((color) => color.name)}
     >
+      {/* „Ostatnio oglądane” of the search — only with the panel flag on (spec §5.1 dodatek 6). */}
+      <RecordRecent
+        enabled={shared?.company.recentlyViewed ?? false}
+        line="biznes"
+        item={{ title: product.heading, href: productHref(product.slug), kind: 'Produkt' }}
+      />
       {jsonLd.map((data, position) => (
         <script
           key={position}
@@ -227,9 +250,12 @@ export default async function ProductPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
         />
       ))}
-      <div className="mx-auto w-full max-w-7xl px-4 pt-5 pb-12 sm:px-6 sm:pt-8 sm:pb-16 lg:px-8">
-        <Breadcrumbs items={crumbs} />
-        <div className="mt-5 sm:mt-7">
+      <div className="mx-auto w-full max-w-7xl px-4 pt-5 pb-12 max-md:pt-0 sm:px-6 md:pt-8 sm:pb-16 lg:px-8">
+        {/* Board App-Produkt: no breadcrumbs on a phone, the top bar names the category. */}
+        <div className="max-md:hidden">
+          <Breadcrumbs items={crumbs} />
+        </div>
+        <div className="mt-5 max-md:mt-0 md:mt-7">
           <ProductHero
             product={product}
             icon={listed ? cardIcon(listed, index) : 'store'}
@@ -239,6 +265,11 @@ export default async function ProductPage({ params }: Props) {
             videoTarget={video ? ID.video : null}
             gallery={gallery.images}
             colorSlides={gallery.colorSlides}
+            supply={productSupplyLink(
+              settings?.biznes?.procurement ?? EMPTY_SUPPLY_LINKS,
+              index,
+              listed?.categories ?? (product.category ? [product.category.slug] : []),
+            )}
           />
         </div>
       </div>
@@ -247,7 +278,25 @@ export default async function ProductPage({ params }: Props) {
         name={product.heading}
         image={product.images[0] ?? null}
       />
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-4 pt-14 pb-16 sm:gap-28 sm:px-6 sm:pt-20 sm:pb-24 lg:px-8">
+      {/* Phone (MOBILE-APLIKACJA §1): „Dodaj do zapytania” sticks to the bottom of the screen. */}
+      {/* Board App-Produkt: „Zadzwoń” and „Dodaj do zapytania” in the bar (the hero's phone
+          link hides on a phone). */}
+      <StickyAction>
+        <div className="flex gap-2.5">
+          {phone && (
+            <a
+              href={phone.href}
+              className="inline-flex min-h-[52px] shrink-0 items-center justify-center gap-2 rounded-2xl bg-surface-2 px-4 font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)]"
+            >
+              <Icon name="phone" className="size-5" />
+              Zadzwoń
+              <span className="sr-only">: {phone.label}</span>
+            </a>
+          )}
+          <ProductAddButton className="min-w-0 flex-1" />
+        </div>
+      </StickyAction>
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 pt-8 pb-12 sm:px-6 md:gap-28 md:pt-20 md:pb-24 lg:px-8">
         <ProductBento id={ID.overview} heading={product.heading} tiles={tiles} />
         <ProductAbout id={ID.about} product={product} />
         {product.configurator && <ProductConfigurator config={product.configurator} />}
@@ -265,7 +314,7 @@ export default async function ProductPage({ params }: Props) {
               </PageLink>
             }
           >
-            <BundleGrid bundles={bundles} />
+            <BundleGrid bundles={bundles} phoneRow />
           </ProductSection>
         )}
         <ProductSuggestions

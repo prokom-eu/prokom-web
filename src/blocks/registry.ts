@@ -15,23 +15,29 @@ import { BzKsefBlock } from '../sites/biznes/blocks/BzKsef/config'
 import { BzOrderFlowBlock } from '../sites/biznes/blocks/BzOrderFlow/config'
 import { BzTimelineBlock } from '../sites/biznes/blocks/BzTimeline/config'
 import { BzSectionBlock } from '../sites/biznes/blocks/BzSection/config'
+import { BzAboutPageBlock } from '../sites/biznes/blocks/BzAboutPage/config'
+import { BzContactPageBlock } from '../sites/biznes/blocks/BzContactPage/config'
 import { BzLocationBlock } from '../sites/biznes/blocks/BzLocation/config'
+import { BzProcurementPageBlock } from '../sites/biznes/blocks/BzProcurementPage/config'
+import { BzProcurementBlock } from '../sites/biznes/blocks/BzProcurement/config'
+import { BzNewsHomeBlock } from '../sites/biznes/blocks/BzNewsHome/config'
 import { InstContactBlock } from '../sites/instalacje/blocks/InstContact/config'
 import { InstHomeBlock } from '../sites/instalacje/blocks/InstHome/config'
 import { InstPlannerBlock } from '../sites/instalacje/blocks/InstPlanner/config'
 import { InstServiceBlock } from '../sites/instalacje/blocks/InstService/config'
 import { InstArchitectsBlock } from '../sites/instalacje/blocks/InstArchitects/config'
 import { InstServiceDeskBlock } from '../sites/instalacje/blocks/InstServiceDesk/config'
+import { InstOfferBlock } from '../sites/instalacje/blocks/InstOffer/config'
+import { InstRealizationsBlock } from '../sites/instalacje/blocks/InstRealizations/config'
+import { InstAboutBlock } from '../sites/instalacje/blocks/InstAbout/config'
+import { InstGuideBlock } from '../sites/instalacje/blocks/InstGuide/config'
 import { SwHeroBlock } from '../sites/software/blocks/SwHero/config'
+import { SwSharedPageBlock } from '../sites/software/blocks/SwSharedPage/config'
+import { SwLegalBlock } from '../sites/software/blocks/SwLegal/config'
 import { SwHomeSectionBlock } from '../sites/software/blocks/SwHomeSection/config'
 import { SwContactBlock } from '../sites/software/blocks/SwContact/config'
-import { SwContactPageBlock } from '../sites/software/blocks/SwContactPage/config'
 import { SwPricingBlock } from '../sites/software/blocks/SwPricing/config'
 import { SwAuditFormBlock } from '../sites/software/blocks/SwAuditForm/config'
-import { SwPageHeroBlock } from '../sites/software/blocks/SwPageHero/config'
-import { SwStepsBlock } from '../sites/software/blocks/SwSteps/config'
-import { SwTeamBlock } from '../sites/software/blocks/SwTeam/config'
-import { SwLinesBlock } from '../sites/software/blocks/SwLines/config'
 import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
 import { FaqBlock } from './Faq/config'
@@ -71,12 +77,22 @@ export const BIZNES_BLOCKS: Block[] = [
   BzLocationBlock,
   // K4hij: the K4 subpages (one block, the section kind picked — decyzja Krystiana 01.11)
   BzSectionBlock,
+  // D3-B PR 2: /kontakt and /o-firmie on the shared templates (plan 0611 §8.2)
+  BzContactPageBlock,
+  BzAboutPageBlock,
+  // BIZ-2: /agd-rtv-dla-firm and /dostawy-it-dla-firm (ZAOPATRZENIE §2)
+  BzProcurementPageBlock,
+  // BIZ-2 B2-3: „Zaopatrzenie firm” on the home page (ZAOPATRZENIE §8)
+  BzProcurementBlock,
+  // BIZ-2 B3-2: „Aktualności” on the home page (plan 0611 §7.1 pkt 12)
+  BzNewsHomeBlock,
 ]
 
 /**
  * Sections of the Instalacje pages (ADR-I002 §0) — `src/sites/instalacje/blocks/`; the blocks
  * come with their sessions (I4–I12); new ones at the end (I5: `instHome`; I11: `instPlanner`,
- * `instContact`, `instServiceDesk`; I16a: `instArchitects`).
+ * `instContact`, `instServiceDesk`; I16a: `instArchitects`; I12: `instOffer`, `instRealizations`,
+ * `instAbout`, `instGuide`).
  */
 export const INSTALACJE_BLOCKS: Block[] = [
   InstServiceBlock,
@@ -85,26 +101,28 @@ export const INSTALACJE_BLOCKS: Block[] = [
   InstContactBlock,
   InstServiceDeskBlock,
   InstArchitectsBlock,
+  InstOfferBlock,
+  InstRealizationsBlock,
+  InstAboutBlock,
+  InstGuideBlock,
 ]
 
 /**
  * Sections of the Software pages (ADR-014 rozstrz. SW0 7, at most 10) — `src/sites/software/blocks/`.
  * The fixed start page sections are one block, `swHomeSection`, with the section picked; new
- * blocks go at the end (SW8b: `swContact`, SW11a: `swContactPage`, `swPricing`, `swAuditForm`;
- * SW11b: `swPageHero`, `swSteps`, `swTeam`, `swLines`).
+ * blocks go at the end (SW8b: `swContact`, SW11a: `swPricing`, `swAuditForm`; SWA5b:
+ * `swSharedPage`; SWA6a: `swLegal`).
  */
 export const SOFTWARE_BLOCKS: Block[] = [
   SwHeroBlock,
   SwHomeSectionBlock,
   SwContactBlock,
-  SwContactPageBlock,
   SwPricingBlock,
   SwAuditFormBlock,
-  // SW11b: /o-firmie, /jedna-firma — the limit of 10 is reached.
-  SwPageHeroBlock,
-  SwStepsBlock,
-  SwTeamBlock,
-  SwLinesBlock,
+  // SWA5b: /kontakt, /o-firmie on the shared templates (replaces the SW11a/SW11b page blocks).
+  SwSharedPageBlock,
+  // SWA6a: legal pages with tables in the text (ZMIANY-v24 §9.6).
+  SwLegalBlock,
 ]
 
 /**

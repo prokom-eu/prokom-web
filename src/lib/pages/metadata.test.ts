@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { pageMetadata } from './metadata'
+import { ogImages, pageMetadata } from './metadata'
 
 const page = { title: 'Kontakt', slug: 'kontakt', seo: { title: null, description: null } }
 const site = { name: 'PRO-KOM Biznes', ogImage: null }
@@ -52,5 +52,24 @@ describe('pageMetadata', () => {
       description: undefined,
       images: [{ url: '/api/media/file/og.png', width: 1200, height: 630, alt: 'Logo' }],
     })
+  })
+})
+
+describe('ogImages fallback (audit 01.11)', () => {
+  it('falls back to the line mark only for a line that passes it', () => {
+    expect(ogImages(null, 'biznes')).toEqual([
+      { url: '/brand/prokom-biznes_icon-512.png', width: 512, height: 512, alt: '' },
+    ])
+    expect(ogImages(null)).toEqual([])
+  })
+
+  it('puts the mark on a Biznes page without a site picture', () => {
+    const metadata = pageMetadata(
+      { title: 'Kontakt', slug: 'kontakt' },
+      { name: 'PRO-KOM Biznes', ogImage: null, line: 'biznes' },
+    )
+    expect(metadata.openGraph?.images).toEqual([
+      { url: '/brand/prokom-biznes_icon-512.png', width: 512, height: 512, alt: '' },
+    ])
   })
 })

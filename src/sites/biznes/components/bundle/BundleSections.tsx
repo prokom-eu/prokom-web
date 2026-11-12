@@ -4,13 +4,13 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
+import { BZ_H1, BZ_H1_COMPACT, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { PageLink } from '../PageLink'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
 
-const H2 =
-  'font-display text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.04] font-extrabold tracking-[-0.02em] text-ink font-stretch-110%'
+const H2 = `${BZ_H2} text-ink`
 
 /**
  * Dark hero of a bundle (`Web-Zestaw-1440`, `App-Zestaw-390`): „Obszar · Poziom”, the name as
@@ -49,15 +49,10 @@ export function BundleHero({
             <span className="self-start rounded-md bg-white/12 px-2.5 py-1 text-xs font-bold text-white/90">
               {label}
             </span>
-            <h1
-              id="zestaw-h1"
-              className="font-display text-[clamp(2rem,3.4vw,3.25rem)] leading-[1.04] font-extrabold tracking-[-0.025em] font-stretch-112%"
-            >
+            <h1 id="zestaw-h1" className={BZ_H1_COMPACT}>
               {name}
             </h1>
-            <p className="max-w-[56ch] text-[clamp(1rem,1.3vw,1.15rem)] leading-relaxed text-white/80">
-              {audience}
-            </p>
+            <p className={`${BZ_LEAD} max-w-[56ch] text-white/80`}>{audience}</p>
             <div className="flex flex-wrap gap-3">
               <PageLink href="#twoj-zestaw" kind="light">
                 Zapytaj o ten zestaw
@@ -83,7 +78,7 @@ export function BundleHero({
                   <ProductStage className="aspect-square rounded-xl sm:rounded-[22px]">
                     <Image
                       src={photo.url}
-                      alt=""
+                      alt={photo.alt}
                       width={photo.width}
                       height={photo.height}
                       unoptimized
@@ -163,6 +158,43 @@ export function BundleReasons({ reasons }: { reasons: string[] }) {
   )
 }
 
+/**
+ * „Sprawdzone zgodności” (BIZ-3 §9.2): each settled pair with a discreet „Źródło ↗” to the
+ * official page it was checked on; the link target is at least 24 px tall (WCAG 2.5.8).
+ */
+export function BundleSources({ sources }: { sources: { pair: string; url: string }[] }) {
+  if (sources.length === 0) return null
+  return (
+    <section aria-labelledby="zgodnosci-h" className="flex flex-col gap-4">
+      <h2 id="zgodnosci-h" className={H2}>
+        Sprawdzone zgodności
+      </h2>
+      <p className="max-w-[70ch] text-sm leading-relaxed text-ink-2">
+        Każde połączenie w tym zestawie sprawdziliśmy u producenta.
+      </p>
+      <ul className="flex flex-col divide-y divide-border rounded-[20px] bg-surface-2 px-5">
+        {sources.map((source) => (
+          <li
+            key={`${source.pair}-${source.url}`}
+            className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-3 text-sm"
+          >
+            <span className="min-w-0 [overflow-wrap:anywhere] text-ink">{source.pair}</span>
+            <a
+              href={source.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-6 shrink-0 items-center gap-1 font-bold text-accent-text hover:underline"
+            >
+              Źródło<span aria-hidden="true"> ↗</span>
+              <span className="sr-only"> (otwiera się w nowej karcie)</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
 /** „Zobacz też”: catalog categories named by the bundle. */
 export function BundleRelated({ links }: { links: { name: string; href: string }[] }) {
   if (links.length === 0) return null
@@ -215,15 +247,12 @@ export function BundlesHero({
               <span aria-hidden="true" className="h-0.5 w-4 rounded-full bg-current" />
               {eyebrow}
             </p>
-            <h1
-              id="zestawy-h1"
-              className="font-display text-[clamp(2.1rem,4vw,3.75rem)] leading-[1.02] font-extrabold tracking-[-0.025em] font-stretch-112%"
-            >
-              Gotowe zestawy — sprzęt, program i usługi, które działają razem.
+            <h1 id="zestawy-h1" className={BZ_H1}>
+              Gotowe zestawy: sprzęt, program i usługi, które działają razem
             </h1>
             <p className="max-w-[52ch] leading-relaxed text-white/80">
-              Elementy zestawu sprawdzamy pod kątem zgodności. Każdy możesz zmienić — doradzimy, co
-              i kiedy.
+              Sprawdzamy, czy elementy zestawu działają razem: złącza, sterowniki i zgodność z
+              programem. Każdy możesz zmienić, a my doradzimy, co i kiedy.
             </p>
           </div>
           {photos.length > 0 && (
@@ -237,7 +266,7 @@ export function BundlesHero({
                   >
                     <Image
                       src={photo.url}
-                      alt=""
+                      alt={photo.alt}
                       width={photo.width}
                       height={photo.height}
                       unoptimized

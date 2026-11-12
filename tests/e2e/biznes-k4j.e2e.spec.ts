@@ -7,7 +7,7 @@ import { site } from './helpers'
 // 1.01.2027, `?ksefpo=1` shows the later one) and /ulga-na-kase-fiskalna (K35 §3). Axe in `a11y`.
 
 const cartButton = (page: Page) =>
-  page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
+  page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 
 const PAGES = ['/automaty-vendingowe', '/ksef', '/ulga-na-kase-fiskalna']
 
@@ -103,7 +103,7 @@ test.describe('Biznes /automaty-vendingowe (K4j)', () => {
       .click()
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')
     const cart = await page.evaluate(() => JSON.parse(localStorage.getItem('pk-cart') ?? '[]'))
-    expect(cart[0]?.uwaga).toBe('Automat vendingowy — dobór')
+    expect(cart[0]?.uwaga).toBe('Automat vendingowy: dobór')
     await expect(page.getByRole('tab', { name: /Boxomaty i skrytki/ })).toBeVisible()
   })
 })
@@ -111,7 +111,7 @@ test.describe('Biznes /automaty-vendingowe (K4j)', () => {
 test.describe('Biznes /ulga-na-kase-fiskalna (K4j)', () => {
   test('the amount always with „rozlicza księgowa” and four cash registers', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/ulga-na-kase-fiskalna'))
-    await expect(page.locator('h1')).toContainText('Ulga na kasę fiskalną.')
+    await expect(page.locator('h1')).toContainText('Ulga na kasę fiskalną:')
     await expect(page.locator('main')).toContainText('rozlicza Twoja księgowa')
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toContainText('Kasy fiskalne')
     await expect(page.locator('main article')).toHaveCount(4)

@@ -7,7 +7,7 @@ import { site } from './helpers'
 const biznes = (path: string) => site('biznes.localhost', path)
 
 const cartButton = (page: Page) =>
-  page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
+  page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 
 /** JSON-LD blocks of the page, flattened (a block may hold a list). */
 async function jsonLdTypes(page: Page): Promise<string[]> {
@@ -29,8 +29,20 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
     await expect(
       page.getByRole('heading', { level: 2, name: /^Autoryzowany serwis/ }),
     ).toBeVisible()
+    // NAPRAWA-0911: the full salon is back (B5-3b trimming withdrawn) — the rollout is its own
+    // block, the hero card has its points with descriptions, the whole offer lists every model.
+    // The rollout panel's own H2 (`DarkPanel` names it `wdrozenie-h`).
+    await expect(page.locator('h2#wdrozenie-h')).toBeVisible()
+    const heroCard = page.locator('[data-salon-hero-card] > li')
+    expect(await heroCard.count()).toBeGreaterThanOrEqual(3)
+    await expect(heroCard.first().locator('small')).not.toBeEmpty()
+    const offer = page.locator('#oferta-cala')
+    await expect(offer).toContainText(/Pełna oferta · \d+/)
+    // The first kind („Kasy fiskalne”) lists all its registers (5 in the package), also the 3 of the
+    // plan cards above — the trimmed version left 2.
+    expect(await offer.locator('ul[data-salon-products] > li').count()).toBeGreaterThanOrEqual(4)
     await expect(
-      page.getByRole('heading', { level: 2, name: 'Zanim wybierzesz Posnet' }),
+      page.getByRole('heading', { level: 2, name: 'Pytania o kasy Posnet' }),
     ).toBeVisible()
     expect(await jsonLdTypes(page)).toEqual(
       expect.arrayContaining(['Brand', 'FAQPage', 'BreadcrumbList']),
@@ -100,5 +112,45 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
     expect(scrollWidth).toBe(innerWidth)
     const list = page.locator('#oferta ul').first()
     expect(await list.evaluate((node) => node.scrollWidth > node.clientWidth)).toBe(true)
+  })
+
+  test('phone (App-Marka): table behind „Porównaj w tabeli”, offer in four first', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(biznes('/marki/lenovo'))
+    await expect(page.getByRole('navigation', { name: 'Okruszki' })).toBeHidden()
+    await expect(page.getByRole('table')).toBeHidden()
+    // The label changes to „Zwiń tabelę” once open: find the button by either name.
+    const compare = page.getByRole('button', { name: /^(Porównaj w tabeli|Zwiń tabelę)$/ })
+    // Click only while closed: a retry after hydration must not close the table again.
+    await expect(async () => {
+      if ((await compare.getAttribute('aria-expanded')) !== 'true') await compare.click()
+      await expect(compare).toHaveAttribute('aria-expanded', 'true', { timeout: 1000 })
+    }).toPass()
+    await expect(page.getByRole('table')).toBeVisible()
+    const offer = page.locator('#oferta-cala')
+    await expect(offer.getByRole('heading', { level: 2 })).toHaveText(/^Pełna oferta · \d+$/, {
+      useInnerText: true,
+    })
+    // Only the product cards (a card has its own lists of badges).
+    const cards = offer.locator('ul[data-salon-products] > li')
+    const visible = () =>
+      cards.evaluateAll((items) => items.filter((li) => li.checkVisibility()).length)
+    expect(await visible()).toBeLessThanOrEqual(4)
+    // Lenovo has a kind with more than four models: the rest after „Pokaż wszystkie”.
+    const more = offer.getByRole('button', { name: /^Pokaż wszystkie/ })
+    for (const tab of await offer
+      .getByRole('group', { name: 'Rodzaje' })
+      .getByRole('button')
+      .all()) {
+      if (await more.isVisible()) break
+      await tab.click()
+    }
+    await expect(more).toBeVisible()
+    await more.click()
+    expect(await visible()).toBeGreaterThan(4)
+    // Focus moves to the first newly shown card, not back to the page top.
+    await expect(cards.nth(4).locator('a, button').first()).toBeFocused()
   })
 })

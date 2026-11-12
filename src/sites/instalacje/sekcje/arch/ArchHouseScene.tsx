@@ -11,6 +11,7 @@ import {
   useSyncExternalStore,
 } from 'react'
 
+import { SlidingPill } from '@/components/motion/SlidingPill'
 import type { ServiceKey } from '@/lib/instalacje/options'
 
 import { type ArchView, przekroj as T } from '../../dane/przekroj'
@@ -71,6 +72,7 @@ const hue = (color: string | null | undefined) => ({ '--hc': safeHue(color) }) a
 export function ArchHouseScene({ viewBox, html, hues, compact = false }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const art = useRef<SVGSVGElement>(null)
+  const modes = useRef<HTMLDivElement>(null)
   const artId = useId()
   const [state, setState] = useState<ArchSceneState>(INITIAL_ARCH_SCENE)
   const calm = useSyncExternalStore(subscribeMotion, reducedMotion, () => false)
@@ -140,7 +142,13 @@ export function ArchHouseScene({ viewBox, html, hues, compact = false }: Props) 
       <div className="arcore">
         <div className="arsvgw">
           <div className="arbar">
-            <div className="armodes" role="tablist" aria-label={T.viewsLabel}>
+            <div ref={modes} className="armodes" role="tablist" aria-label={T.viewsLabel}>
+              <SlidingPill
+                container={modes}
+                active={scene.view}
+                className="inst-pill"
+                radius={10}
+              />
               {T.views.map((v, i) => {
                 const on = v.key === scene.view
                 return (

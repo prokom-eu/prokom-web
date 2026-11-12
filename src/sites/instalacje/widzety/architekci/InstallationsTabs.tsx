@@ -9,6 +9,7 @@ import { architekci as A } from '../../dane/architekci'
 import { InstIcon } from '../../InstIcon'
 import { safeHue } from '../../sekcje/arch/archScene'
 import { onTabKey } from './tabs'
+import { Arrow } from '../../Arrow'
 
 export type ArchService = {
   key: ServiceKey
@@ -113,7 +114,7 @@ export function InstallationsTabs({ services }: { services: ArchService[] }) {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 'auto' }}>
           {cur.href && (
             <Link href={cur.href} className="btn btn-g btn-s">
-              {T.fullPage} {cur.name} →
+              {T.fullPage} {cur.name} <Arrow />
             </Link>
           )}
           <a href="#wyslij" className="btn btn-p btn-s">

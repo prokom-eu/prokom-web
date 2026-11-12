@@ -1,5 +1,6 @@
 import type { IconName } from '../../lib/catalog/options'
 import type { Page } from '../../payload-types'
+import { BIZNES_CONTACT } from './contact'
 
 /**
  * Start content of B7c, v150 (K4c): „Plan Twojej firmy” with „Dla kogo”, „Jak pracujemy”. Texts 1:1
@@ -12,11 +13,11 @@ type HomeBlock = NonNullable<Page['layout']>[number]
 
 /** Lead of the plan section, board v150 `#s4-plan`. */
 export const PLAN_LEAD =
-  'Wybierz rodzaj firmy i kliknij urządzenie. Obok zobaczysz film i szczegóły — a całość dodasz do zapytania jednym kliknięciem.'
+  'Wybierz rodzaj firmy i kliknij urządzenie. Obok zobaczysz film i szczegóły, a całość dodasz do zapytania jednym kliknięciem.'
 
 /** Labels of the plan (board `Web-Plan`): list note, „Gotowe zestawy”, „Dodaj cały plan…”. */
 export const PLAN_LABELS = {
-  sceneNote: 'Kliknij urządzenie — otworzy się film i szczegóły',
+  sceneNote: 'Kliknij urządzenie, a otworzy się film i szczegóły',
   moreLabel: 'Gotowe zestawy',
   inquiryLabel: 'Dodaj cały plan do zapytania',
 }
@@ -49,6 +50,18 @@ export const TILE_SCENES: Readonly<Record<string, string>> = {
   'Firma transportowa': 'biuro',
 }
 
+/**
+ * B3-1 (plan 0611 §7.1 pkt 8, D8; `0611/prototyp-glowna.html` `#plan`): one section of the plan
+ * and the industries — the industry tabs are the plan's scenes, the card „Gotowy zestaw dla tej
+ * branży” takes `moreLabel`. Hard spaces after one-letter words (K4-FINAL §1).
+ */
+export const PLAN_BIZ2 = {
+  eyebrow: 'Dla kogo pracujemy · Plan Twojej firmy',
+  heading: 'Wybierz branżę i\u00a0zobacz, co ustawimy w\u00a0Twoim lokalu.',
+  lead: 'Ponad 100 klientów firmowych z\u00a0Podhala i\u00a0Małopolski, od straganu po urząd gminy. Kliknij urządzenie na planie, a\u00a0całość dodasz do zapytania jednym kliknięciem.',
+  moreLabel: 'Gotowy zestaw dla tej branży',
+}
+
 export function planBlocks(industry: (seedSlug: string) => number | undefined): HomeBlock[] {
   const tile = (
     name: string,
@@ -70,19 +83,19 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
   return [
     {
       blockType: 'bzPlan',
-      eyebrow: 'Plan Twojej firmy',
-      heading: 'Zobacz, co ustawimy w Twoim lokalu.',
-      // K31d′: the board's lead 1:1 (the plan with the drawing is there now); scenes come from
-      // „Plany firmy” (`FloorPlans`).
-      lead: PLAN_LEAD,
+      // B3-1: the plan with the industries (scenes come from „Plany firmy”, `FloorPlans`).
+      eyebrow: PLAN_BIZ2.eyebrow,
+      heading: PLAN_BIZ2.heading,
+      lead: PLAN_BIZ2.lead,
       sceneNote: PLAN_LABELS.sceneNote,
-      moreLabel: PLAN_LABELS.moreLabel,
+      moreLabel: PLAN_BIZ2.moreLabel,
       inquiryLabel: PLAN_LABELS.inquiryLabel,
       industries: {
-        // v150 (board `#s4-real`): its own section „Dla kogo” before the plan.
+        // v150 (board `#s4-real`): its own section „Dla kogo” before the plan. Not shown since
+        // B3-1 (D8: the industries are the plan's tabs); kept as data of the block.
         eyebrow: 'Dla kogo pracujemy',
-        heading: 'Firmy każdej wielkości. Od straganu po urząd gminy.',
-        lead: 'Ponad 100 klientów firmowych — firm i instytucji z Podhala i Małopolski. Wybierz swoją branżę — pokażemy plan lokalu z urządzeniami albo dobierzemy rozwiązanie w konfiguratorze.',
+        heading: 'Firmy każdej wielkości, od straganu po urząd gminy',
+        lead: 'Ponad 100 klientów firmowych: firm i instytucji z Podhala i Małopolski. Wybierz swoją branżę, a pokażemy plan lokalu z urządzeniami albo dobierzemy rozwiązanie w konfiguratorze.',
         moreLabel: 'Pokaż wszystkie branże',
         moreNote: 'jeszcze 10 branż',
         // Board `KG5`: 11 at once, 10 after „Pokaż wszystkie”, then „Każda inna firma”.
@@ -150,7 +163,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           tile('Firma transportowa', 'laptopy, Microsoft 365, podpis', 'car', 'blue', false),
           tile('Sklep internetowy', 'Subiekt, KSeF, drukarka fiskalna', 'site', 'blue', false),
           tile('Stacja paliw, myjnia', 'terminal, sieć, UPS', 'bolt', 'red', false),
-          tile('Każda inna firma', 'opisz ją — dobierzemy rozwiązanie', 'q', 'violet', false),
+          tile('Każda inna firma', 'opisz ją, a dobierzemy rozwiązanie', 'q', 'violet', false),
         ],
       },
       funding: {
@@ -169,7 +182,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
       blockType: 'bzSteps',
       // v150 (board `#s4-jak`).
       eyebrow: 'Jak pracujemy · ludzie, nie infolinia',
-      heading: 'Od pierwszej rozmowy do serwisu — bez niespodzianek.',
+      heading: 'Od pierwszej rozmowy do serwisu',
       lead: 'Cztery kroki i ten sam zespół z Rabki-Zdroju. Na każdym etapie wiesz, kto się Tobą zajmuje i co dostajesz.',
       getsLabel: 'Dostajesz',
       steps: [
@@ -177,7 +190,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           title: 'Rozmowa',
           icon: 'phone',
           text: 'Telefon, wiadomość albo wizyta w Rabce. Pytamy, jak pracuje firma i co ma się poprawić.',
-          gets: 'listę potrzeb — także tego, czego nie musisz kupować',
+          gets: 'listę potrzeb, także tego, czego nie musisz kupować',
           role: 'Doradca PRO-KOM',
           label: 'Pierwszy kontakt',
         },
@@ -185,9 +198,9 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           title: 'Oferta',
           icon: 'doc',
           text: 'Dobieramy sprzęt i programy do skali firmy. Kilka wariantów, każdy z uzasadnieniem.',
-          gets: 'ofertę na piśmie, bez zobowiązań',
+          gets: 'kilka wariantów z uzasadnieniem',
           role: 'ten sam doradca',
-          label: 'Na piśmie',
+          label: 'Warianty',
         },
         {
           title: 'Wdrożenie',
@@ -201,21 +214,19 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           title: 'Opieka',
           icon: 'shield',
           text: 'Serwis, przeglądy kas z przypomnieniem, aktualizacje i pomoc, gdy coś przestaje działać.',
-          // TODO(krystian): numer wpisany w tekst — po zmianie telefonu linii poprawić też tutaj.
-          gets: 'jeden numer do wszystkiego: 889 003 889',
+          gets: `jeden numer do wszystkiego: ${BIZNES_CONTACT.phone}`,
           role: 'Serwisant i opiekun IT',
           label: 'Na lata',
         },
       ],
       commitmentsEyebrow: 'Nasze zobowiązania',
-      commitmentsHeading: 'Tak pracujemy — nie tylko na\u00a0stronie.',
+      commitmentsHeading: 'Tak pracujemy na co dzień',
       // „Nasze zobowiązania”: title — note (`BzSteps/commitment.ts`).
       guarantees: [
         { text: '60 minut — oddzwaniamy w godzinach pracy' },
-        { text: 'Wycena na piśmie — bez zobowiązań, pod Twoją firmę' },
+        { text: 'Wycena — pod Twoją firmę, w kilku wariantach' },
         { text: 'Kasa gotowa do pracy — fiskalizacja, programowanie, szkolenie' },
-        // TODO(krystian): numer wpisany w tekst, jak wyżej.
-        { text: 'Jeden numer — 889 003 889 — oferty i serwis' },
+        { text: `Jeden numer — ${BIZNES_CONTACT.phone}, oferty i serwis` },
       ],
     },
   ]

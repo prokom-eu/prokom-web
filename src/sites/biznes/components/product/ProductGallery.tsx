@@ -9,6 +9,7 @@ import type { IndexLogo } from '@/lib/catalog/catalogIndex'
 import type { IconName } from '@/lib/catalog/options'
 import type { PublicImage } from '@/lib/media/public'
 
+import { useSwap } from '../motion/useSwap'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 import { useProductConfig } from './ProductConfig'
 
@@ -60,6 +61,8 @@ export function ProductGallery({
   const touch = useRef<number | null>(null)
   const count = images.length
   const image = images[active]
+  // R2: after the visitor picks another picture it fades in; not on load (LCP).
+  const fade = 'data-swap' in useSwap(active)
   const go = (delta: number) => setActive((current) => (current + delta + count) % count)
 
   const showVideo = () => {
@@ -150,7 +153,7 @@ export function ProductGallery({
 
       <div className="flex min-w-0 flex-1 flex-col gap-3">
         <div
-          className="relative isolate overflow-hidden rounded-[26px] bg-card sm:rounded-[32px]"
+          className="relative isolate overflow-hidden rounded-[26px] bg-card max-md:-mx-4 max-md:rounded-none sm:max-md:-mx-6 md:rounded-[32px]"
           onTouchStart={(event) => {
             touch.current = event.touches[0]?.clientX ?? null
           }}
@@ -165,18 +168,22 @@ export function ProductGallery({
           <ProductStage className="aspect-[4/3.4] w-full px-8 pt-16 pb-12 sm:aspect-[1/0.92] lg:aspect-[1/0.95]">
             {image ? (
               <MediaImage
+                key={active}
                 image={image}
                 sizes="(min-width: 1024px) 560px, 100vw"
                 eager={active === 0}
                 className={cx(
                   'relative max-h-full w-auto max-w-[86%] object-contain',
                   STAGE_SHADOW,
+                  fade && 'motion-safe:animate-[bz-fade_var(--dur-state)_var(--ease-out)]',
                 )}
               />
             ) : (
               <StageFallback icon={icon} size="lg" name={name} service={service} />
             )}
           </ProductStage>
+          {/* The logo loads at once (audit 01.11: a lazy one left an empty white badge); on a
+              phone too, as on the board App-Produkt. */}
           {brand && (
             <span className="absolute top-4 left-4 inline-flex h-10 items-center rounded-xl bg-white px-3 shadow-[0_8px_20px_-14px_var(--shd),inset_0_0_0_1px_var(--border)] sm:top-5 sm:left-5">
               {brand.logo ? (
@@ -185,6 +192,7 @@ export function ProductGallery({
                   alt={brand.name}
                   width={brand.logo.width}
                   height={brand.logo.height}
+                  loading="eager"
                   unoptimized
                   className="h-auto max-h-[18px] w-auto max-w-[96px] object-contain"
                 />
@@ -235,7 +243,11 @@ export function ProductGallery({
           {count > 1 && (
             <span
               aria-live="polite"
-              className="absolute bottom-4 left-4 rounded-full bg-card px-2.5 py-1 text-xs font-extrabold text-ink-2 shadow-[inset_0_0_0_1px_var(--border)] sm:bottom-5 sm:left-5"
+              className={cx(
+                'absolute bottom-4 left-4 rounded-full bg-card px-2.5 py-1 text-xs font-extrabold text-ink-2 shadow-[inset_0_0_0_1px_var(--border)] sm:bottom-5 sm:left-5',
+                // With the dots under the photo (board App-Produkt) the counter is for readers.
+                count <= MAX_DOTS && 'max-md:sr-only',
+              )}
             >
               {active + 1} / {count}
             </span>

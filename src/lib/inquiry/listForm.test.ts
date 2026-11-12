@@ -6,7 +6,6 @@ import {
   buildListInquiryBody,
   checkListRequired,
   itemsSummary,
-  LIST_DEADLINES,
   LIST_FIELD_MESSAGES,
   listInquiryType,
   type ListFormValues,
@@ -19,7 +18,7 @@ const values: ListFormValues = {
   company: 'Kawiarnia pod Turbaczem',
   city: 'Nowy Targ',
   email: '',
-  preferredContact: 'whatsapp',
+  preferredContact: 'phone',
   deadline: 'Przed sezonem',
   message: '',
   consent: true,
@@ -42,16 +41,19 @@ describe('listInquiryType (plansza Zapytanie)', () => {
 
 describe('buildListInquiryBody — contact by e-mail only (K4-FINAL §5)', () => {
   it('answers by e-mail when a phone contact is chosen but only an e-mail is given', () => {
-    for (const preferredContact of ['phone', 'whatsapp'] as const) {
-      const emailOnly = { ...values, phone: ' ', email: 'anna@firma.pl', preferredContact }
-      const body = buildListInquiryBody(emailOnly, { href, formToken: 't', cart, phrase: null })
-      expect(body.preferredContact).toBe('email')
+    const emailOnly = {
+      ...values,
+      phone: ' ',
+      email: 'anna@firma.pl',
+      preferredContact: 'phone' as const,
     }
+    const body = buildListInquiryBody(emailOnly, { href, formToken: 't', cart, phrase: null })
+    expect(body.preferredContact).toBe('email')
   })
 
   it('keeps the chosen contact when the phone is there', () => {
     const body = buildListInquiryBody(values, { href, formToken: 't', cart, phrase: null })
-    expect(body.preferredContact).toBe('whatsapp')
+    expect(body.preferredContact).toBe('phone')
   })
 })
 
@@ -66,7 +68,7 @@ describe('buildListInquiryBody', () => {
       ],
       topics: ['drukarka'],
       city: 'Nowy Targ',
-      preferredContact: 'whatsapp',
+      preferredContact: 'phone',
       deadline: 'Przed sezonem',
       consent: { accepted: true, clauseVersion: CONSENT_CLAUSE.version },
       source: { url: 'https://prokombiznes.pl/zapytanie', utmSource: 'google' },
@@ -87,10 +89,6 @@ describe('buildListInquiryBody', () => {
     )
     expect(contact).toMatchObject({ type: 'contact', topics: [] })
     expect(parseInquiryInput(contact, 'biznes').success).toBe(true)
-  })
-
-  it('offers the deadlines of the board', () => {
-    expect(LIST_DEADLINES).toEqual(['Pilne', 'W tym miesiącu', 'Przed sezonem', 'Bez pośpiechu'])
   })
 })
 

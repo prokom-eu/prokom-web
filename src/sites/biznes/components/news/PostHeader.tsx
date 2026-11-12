@@ -1,5 +1,6 @@
 import { Container } from '@/components/ui/Container'
 import type { PostView } from '@/lib/posts/view'
+import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { NEWS_TEXTS } from './texts'
@@ -45,17 +46,10 @@ export function PostHeader({ post, crumbs }: Props) {
               .filter(Boolean)
               .flatMap((item, position) => (position > 0 ? [' · ', item] : [item]))}
           </p>
-          <h1
-            id="post-h"
-            className="mt-4 font-display text-[clamp(2.2rem,4.6vw,4rem)] leading-[1.02] font-extrabold tracking-[-0.025em] font-stretch-112%"
-          >
+          <h1 id="post-h" className={`${BZ_H1} mt-4`}>
             {post.title}
           </h1>
-          {post.lead && (
-            <p className="mt-6 max-w-[62ch] text-[clamp(1.0625rem,1.4vw,1.25rem)] leading-relaxed text-ink-2">
-              {post.lead}
-            </p>
-          )}
+          {post.lead && <p className={`${BZ_LEAD} mt-6 max-w-[62ch] text-ink-2`}>{post.lead}</p>}
           {(post.sources.length > 0 || post.verified) && (
             <ul className="mt-6 flex flex-wrap gap-2.5">
               {post.sources.length > 0 && (

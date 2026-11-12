@@ -5,8 +5,9 @@
  * only from tokens. The rest comes from other files of the one CSS bundle of `Pages`: hero, FAQ,
  * related cards, `.seg`, `.note` (`sekcje.css`); `.steps`, `.step` (`glowna-sekcje.css`); `.zp`,
  * `.zpq`, `.zsl`, `.fl`, `.zin`, `.odi` (`teletechnika.css`); `.zpc`, `.chip` (`sieci.css`);
- * `.zkerr` (`zaplanuj.css`); `.consent` (`kontakt.css`) — check `/serwis` when changing those.
- * The plan cards are scoped to `.plans`: the footer's „Zaplanuj” card is `.ftci.plan` too.
+ * `.zkerr` (`zaplanuj.css`); `.consent` (`sekcje.css`) — check `/serwis` when changing those.
+ * The plan cards are scoped to `.plans`, the report steps to `.trk` (`.trs` alone is the trust band of
+ * `TrustStrip`, which they used to narrow on every page linking this sheet).
  */
 [data-line='instalacje'] {
   & .plans .plan {
@@ -49,7 +50,7 @@
     gap: 4px;
     position: relative;
   }
-  & .trs {
+  & .trk .trs {
     display: flex;
     gap: 14px;
     align-items: flex-start;
@@ -57,7 +58,7 @@
     border-radius: 14px;
     color: var(--ink-2);
   }
-  & .trs em {
+  & .trk .trs em {
     width: 34px;
     height: 34px;
     border-radius: 50%;
@@ -68,27 +69,27 @@
     flex: none;
     box-shadow: inset 0 0 0 2px var(--border);
   }
-  & .trs b {
+  & .trk .trs b {
     display: block;
     font-size: 15px;
   }
-  & .trs span span {
+  & .trk .trs span span {
     display: block;
     font-size: 13.5px;
   }
-  & .trs.done {
+  & .trk .trs.done {
     color: var(--ink-soft);
   }
-  & .trs.done em {
+  & .trk .trs.done em {
     background: var(--accent-soft);
     color: var(--accent-text);
     box-shadow: none;
   }
-  & .trs.on {
+  & .trk .trs.on {
     background: var(--accent-soft);
     color: var(--ink);
   }
-  & .trs.on em {
+  & .trk .trs.on em {
     background: var(--accent);
     color: var(--accent-ink);
     box-shadow: 0 0 0 5px var(--il-arm-chip);
@@ -143,7 +144,104 @@
 
 /* Each page stops its own animations when motion is reduced (STAN, I7). */
 @media (prefers-reduced-motion: reduce) {
-  [data-line='instalacje'] .trs.on em {
+  [data-line='instalacje'] .trk .trs.on em {
     animation: none;
+  }
+}
+
+/* RUNDA-V5 §11: the level switch above the plans, the chosen card rises, its list cascades in. */
+[data-line='instalacje'] {
+  & #plany .plans {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: stretch;
+  }
+  & .planseg {
+    position: relative;
+    display: inline-flex;
+    gap: 4px;
+    padding: 5px;
+    margin-bottom: 26px;
+    border-radius: 999px;
+    background: var(--surface-3);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .planseg button {
+    min-height: 44px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-2);
+    font: 800 15px var(--font-sans);
+    cursor: pointer;
+  }
+  & .planseg button.on {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  & .planseg:has(> .inst-pill) button.on {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+  }
+  & .planseg > .inst-pill {
+    background: var(--accent);
+  }
+  /* The 2 px frame marks only the chosen plan; the most chosen one, when not picked, keeps a
+     thin frame and its tag — so the switch is visible without motion too. */
+  & .plans .plan.hot:not(.on) {
+    box-shadow:
+      inset 0 0 0 1px var(--accent-line),
+      var(--shadow);
+  }
+  & .plans .plan.on {
+    box-shadow:
+      inset 0 0 0 2px var(--accent),
+      var(--shadow);
+  }
+  @media (max-width: 760px) {
+    & .planseg {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      justify-content: stretch;
+    }
+    & .planseg button {
+      padding: 0 12px;
+      font-size: 14px;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    & .plans .plan.on {
+      translate: 0 -6px;
+    }
+    & .plans .plan.on li {
+      animation: inst-plan-in var(--dur-state) var(--ease-out) backwards;
+      animation-delay: calc(var(--k, 0) * 50ms);
+    }
+  }
+}
+
+/* The chosen card glides up; joined with the reveal's own transition (`ruch.css` `.rv .ri`, which
+   would win otherwise). No box-shadow transition: motion only through transform/opacity. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-line='instalacje'] .plans .plan,
+  html[data-line='instalacje'] .rv .plans .plan.ri {
+    transition:
+      opacity var(--dur-enter) var(--ease-out),
+      transform var(--dur-enter) var(--ease-out),
+      translate var(--dur-state) var(--ease-out);
+  }
+}
+
+@keyframes inst-plan-in {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }

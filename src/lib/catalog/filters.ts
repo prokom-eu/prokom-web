@@ -10,11 +10,16 @@ import { departmentRows, menuOrder, ROW_WIDE } from './order'
 
 export const CATALOG_PATH = '/oferta'
 
+/** Search words in the catalog address (`/oferta?szukaj=…`); also the home's `SearchAction`. */
+export const CATALOG_QUERY_PARAM = 'szukaj'
+
 /** Page of all brands (K33 §6). */
 export const BRANDS_PATH = '/marki'
 
 /** „Pokaż kolejne” adds this many (K33 §4: 24 — whole rows of 3 and of 2). */
 export const CATALOG_PAGE_SIZE = 24
+/** On a phone (board App-Kategoria): „Widzisz 10 z N” and „Pokaż kolejne 10”. */
+export const CATALOG_PAGE_SIZE_PHONE = 10
 
 /**
  * The company's own services are listed under the PRO-KOM brand: not a manufacturer, so it is
@@ -22,6 +27,10 @@ export const CATALOG_PAGE_SIZE = 24
  * TODO(krystian): a changed slug of this brand in the panel puts PRO-KOM back in the filter.
  */
 export const OWN_BRAND_SLUG = 'pro-kom'
+
+/** Number of brands on the site — one count for every place that names it (spec. §1, audit 01.11). */
+export const brandCount = (index: Pick<CatalogIndex, 'brands'>) =>
+  index.brands.filter((brand) => brand.slug !== OWN_BRAND_SLUG).length
 
 /** Longest search phrase read from the URL. */
 const MAX_QUERY = 100
@@ -40,7 +49,7 @@ export type CatalogState = {
   isNew: boolean
   sort: CatalogSort
   view: CatalogView
-  /** Pages shown so far: page N lists the first N × 12. */
+  /** Pages shown so far: page N lists the first N × the page size (24; 10 on a phone). */
   page: number
 }
 
@@ -75,7 +84,7 @@ const VIEW_LIST_PARAM = 'lista'
 const FLAG_ON = '1'
 
 const PARAM = {
-  query: 'szukaj',
+  query: CATALOG_QUERY_PARAM,
   kind: 'rodzaj',
   group: 'grupa',
   categories: 'kategoria',
@@ -282,7 +291,14 @@ export function runCatalog(
   index: OrderIndex,
   search: PreparedSearch,
   state: CatalogState,
-  { perRow = ROW_WIDE }: { perRow?: number } = {},
+  {
+    perRow = ROW_WIDE,
+    pageSize = CATALOG_PAGE_SIZE,
+  }: {
+    perRow?: number
+    /** Cards per page: 24, on a phone `CATALOG_PAGE_SIZE_PHONE`. */
+    pageSize?: number
+  } = {},
 ): CatalogResult {
   const found = state.query ? searchProducts(search, state.query) : null
   const base = found ?? index.products
@@ -292,7 +308,7 @@ export function runCatalog(
     found && state.sort === 'popular' ? matching : sortProducts(matching, state, index, perRow)
   return {
     results,
-    visible: results.slice(0, state.page * CATALOG_PAGE_SIZE),
+    visible: results.slice(0, state.page * pageSize),
     facets: {
       kinds: {
         device: 0,

@@ -1,13 +1,10 @@
 import Link from 'next/link'
 
 import { ekrany } from '../../dane/ekrany'
-import { LEGAL_NOTE } from '../../dane/prawo'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { BrightnessPicker, PixelPitch, TwoSalons } from './EkranyWidgets'
-
-import './ekrany.css'
+import { BrightnessPicker, PixelPitch, TwoSalons } from './EkranyWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 
@@ -36,7 +33,7 @@ export function EkranySections() {
             ))}
           </div>
           <div className="note ri" style={{ marginTop: 18 }}>
-            <InstIcon name="eye" size={20} />
+            <InstIcon name="tv" size={20} />
             <span>
               {where.tvBefore}
               <Link href={where.tvLink.href} className="scr-link">
@@ -69,7 +66,7 @@ export function EkranySections() {
       <InstSection id="tv-czy-ekran" fold style={SECTION}>
         <div className="wrap">
           <SectionHead {...tvOrScreen.head} />
-          <div className="tblw ri">
+          <div className="tblw ri" role="region" tabIndex={0} aria-label={tvOrScreen.head.heading}>
             <table className="tbl">
               <thead>
                 <tr>
@@ -150,9 +147,9 @@ export function EkranySections() {
 
       <InstSection id="zewnatrz" fold style={SECTION}>
         <div className="wrap">
-          <div className="card dark ri tlaw scr-out" data-surface="dark">
+          <div className="card dark card-split ri scr-out" data-surface="dark">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <span className="eye tlaweye">{outdoor.eyebrow}</span>
+              <span className="eye">{outdoor.eyebrow}</span>
               <h2 className="h2" style={{ fontSize: 'clamp(28px, 3vw, 42px)' }}>
                 {outdoor.heading}
               </h2>
@@ -164,17 +161,11 @@ export function EkranySections() {
                   <InstIcon name={e.icon} size={20} />
                   <div>
                     <b style={{ display: 'block' }}>{e.title}</b>
-                    <span className="tlawtx">{e.text}</span>
+                    <span>{e.text}</span>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
-          <div className="note w ri" style={{ marginTop: 18 }}>
-            <InstIcon name="doc" size={20} />
-            <span>
-              {outdoor.law} {LEGAL_NOTE}
-            </span>
           </div>
         </div>
       </InstSection>

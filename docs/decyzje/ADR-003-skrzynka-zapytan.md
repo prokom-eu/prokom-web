@@ -48,7 +48,7 @@ Kontrakt `POST /api/inquiry` rozszerzony o formularze prokombiznes.pl (ADR-012 �
   - `type`: `contact` (domyślny, więc formularze innych linii działają bez zmian) / `list` (lista zapytania) / `wizard` (kreator) / `search` („Zapytaj o X”);
   - Software (SW2b, 27.10.2026) dokłada: `type` `audit`, `auditUrl`, `preferredContact` `meeting` / `online`, tematy Software w `topics[]` i `items[].solution` — szczegóły i reguły per linia w ADR-014 §3.1.
   - `items[]`: `{ slug, quantity ≤ 999, note ≤ 500 }`, maks. 50 pozycji, tylko w typie `list`. Serwer dopasowuje slugi do opublikowanych produktów **tego tenanta** i zapisuje `{ product, nameSnapshot }` z bazy. Nieznane slugi pomija. Lista bez żadnej znanej pozycji jest odrzucana;
-  - `city` (Miejscowość), `preferredContact` (`phone` / `whatsapp` / `email`; dawne „Obojętnie” usunięte), `deadline`, `topics[]` (fraza „Zapytaj o X”), `wizard` (JSON odpowiedzi, ≤ 8 tys. znaków).
+  - `city` (Miejscowość), `preferredContact` (`phone` / `email`, na Software też `meeting` / `online`; dawne „Obojętnie” usunięte; `whatsapp` usunięte 08.11 — D10, migracja `usun_whatsapp` zamienia stare wiersze na `phone`, serwer odrzuca tę wartość), `deadline`, `topics[]` (fraza „Zapytaj o X”), `wizard` (JSON odpowiedzi, ≤ 8 tys. znaków).
 - **Wymagalność:**
   - zawsze `name` i zgoda;
   - `message` — tylko dla `contact`; w `list` i `search` to opcjonalne uwagi (treść niosą pozycje albo fraza, plansza Zapytanie);
@@ -69,3 +69,8 @@ Zmienia dwie reguły z uzupełnienia B8 dla typu `wizard` (spec. §6.8, decyzja 
 ## Konsekwencje
 - Styczeń 2027: `submitInquiry()` zapisuje do API PRO-KOM System; jednorazowy skrypt migruje istniejące rekordy. Formularze bez zmian.
 - Zasada „Payload tylko treści” ma świadomy, czasowy wyjątek — kolekcja `Inquiries` zostanie usunięta po migracji.
+
+## Uzupełnienie 2.11.2026 (S10d, decyzja Krystiana)
+- **Adresy stron i powiadomień:** `kontakt@prokombiznes.pl`, `kontakt@prokomsoftware.pl`, `kontakt@prokominstalacje.pl` (skrzynki w hostingu poczty Seohost, `docs/dns.md` „Poczta”) zamiast `biznes@`/`instalacje@`/`software@pro-kom.eu` — `Tenants.notificationEmail` ustawiany w panelu jak dotąd.
+- **Nadawca per strona:** powiadomienie i potwierdzenie wychodzą z `kontakt@` strony, której dotyczy zapytanie (`MAIL_SENDERS`, opcjonalny własny login SMTP `SMTP_PASS_<LINIA>`, `lib/mail`) — klient dostaje mail z domeny strony, na której wysłał formularz. Linia bez nadawcy (hub) — `MAIL_FROM_ADDRESS`.
+- **Limit:** 300 wysłanych dziennie na skrzynkę (ustawienie hostingu, ochrona reputacji przy wycieku hasła) = ok. 150 zapytań dziennie na stronę (2 maile na zapytanie); limiter formularza (§ wyżej) chroni przed nadużyciem.

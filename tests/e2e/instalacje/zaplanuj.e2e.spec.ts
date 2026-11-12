@@ -76,7 +76,8 @@ test.describe('Instalacje planner', () => {
     await next(page).click()
     await expect(card(page).getByRole('alert')).toContainText('numer telefonu')
     await card(page).getByLabel('Telefon').fill('600 100 200')
-    await card(page).getByRole('button', { name: 'WhatsApp' }).click()
+    // No WhatsApp (decision 01.11): the way to contact stays „Telefon”.
+    await expect(card(page).getByRole('button', { name: 'WhatsApp' })).toHaveCount(0)
     await next(page).click()
     await expect(card(page).getByRole('alert')).toContainText('Zaznacz zgodę')
     // The checkbox is visually hidden (the prototype's box shows it): click the box, not the
@@ -86,11 +87,11 @@ test.describe('Instalacje planner', () => {
 
     await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
     await next(page).click()
-    await expect(page).toHaveURL(/\/wyslane\?nr=PKI-\d{4}-\d{4,}&kontakt=whatsapp$/)
+    await expect(page).toHaveURL(/\/wyslane\?nr=PKI-\d{4}-\d{4,}&kontakt=phone$/)
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Dziękujemy! Zgłoszenie jest u nas.',
+      'Dziękujemy, zgłoszenie jest u nas',
     )
-    await expect(page.locator('.zkdone')).toContainText('na WhatsAppie')
+    await expect(page.locator('.zkdone')).toContainText('telefonem')
     // The address carries the number and the contact way only — never the name or the phone.
     expect(page.url()).not.toContain('600')
 
@@ -108,7 +109,7 @@ test.describe('Instalacje planner', () => {
         category: 'Instalacje — Zaplanuj',
         city: 'Zakopane',
         phone: '600 100 200',
-        preferredContact: 'whatsapp',
+        preferredContact: 'phone',
         message: 'Kamery na parking.',
         topics: ['kam', 'wifi', 'kd', 'alarm'],
       })

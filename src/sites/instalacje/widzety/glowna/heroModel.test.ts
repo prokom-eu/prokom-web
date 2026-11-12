@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { HERO_LAYERS, HERO_MODES, HERO_OBJECTS, type HeroLayer } from '../../dane/glowna'
 import {
   AUTOPLAY_START,
+  autoplayProgress,
   autoplayStep,
   heroScene,
   heroStars,
@@ -157,5 +158,23 @@ describe('plan link', () => {
       '/zaplanuj#obiekt=dom&uslugi=alarm,kam',
     )
     expect(planHref({ obj: 'hotel', layers: [] })).toBe('/zaplanuj#obiekt=hotel')
+  })
+})
+
+describe('autoplay progress (round v5)', () => {
+  it('grows step by step to 1 on the step that switches the object', () => {
+    let scene = { ...INITIAL_HERO, layers: [...INITIAL_HERO.layers] }
+    let auto = AUTOPLAY_START
+    const seen: number[] = []
+    for (let i = 0; i < 9; i++) {
+      seen.push(autoplayProgress(scene, auto))
+      ;({ state: scene, auto } = autoplayStep(scene, auto))
+    }
+    expect(seen.every((p, i) => i === 0 || p > seen[i - 1])).toBe(true)
+    expect(seen[0]).toBeCloseTo(1 / 9)
+    expect(seen[8]).toBe(1)
+    // The next object starts from the beginning.
+    expect(scene.obj).not.toBe(INITIAL_HERO.obj)
+    expect(autoplayProgress(scene, auto)).toBeCloseTo(1 / 9)
   })
 })

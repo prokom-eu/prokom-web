@@ -5,6 +5,8 @@ import {
   catalogHref,
   catalogSeo,
   DEFAULT_CATALOG_STATE,
+  OFFER_GROUPS,
+  offerGroup,
   parseCatalogState,
   runCatalog,
   type SoftwareCatalogState,
@@ -31,15 +33,25 @@ describe('parseCatalogState', () => {
   it('reads every filter', () => {
     expect(
       parseCatalogState(
-        new URLSearchParams('kategoria=strony&sytuacja=od-zera&branza=noclegi&podglad=1'),
+        new URLSearchParams('kategoria=przebudowa&sytuacja=od-zera&branza=noclegi'),
       ),
     ).toEqual({
       ...DEFAULT_CATALOG_STATE,
-      category: 'strony',
+      category: 'przebudowa',
       situation: 'Z',
       group: 'noclegi',
-      preview: true,
     })
+  })
+
+  it('reads the old category words of saved links as their v24 group (D10)', () => {
+    expect(parseCatalogState({ kategoria: 'aplikacje' }).category).toBe('systemy')
+    expect(parseCatalogState({ kategoria: 'opieka' }).category).toBe('przebudowa')
+  })
+
+  it('does not take keys of a plain object for a category (przegląd SWA4a)', () => {
+    for (const word of ['constructor', '__proto__', 'toString', 'hasOwnProperty']) {
+      expect(parseCatalogState({ kategoria: word }).category).toBeNull()
+    }
   })
 
   it('drops unknown values instead of showing an empty catalog', () => {
@@ -48,15 +60,14 @@ describe('parseCatalogState', () => {
         kategoria: 'gry',
         sytuacja: 'x',
         branza: 'kosmos',
-        podglad: 'tak',
         q: '  ',
       }),
     ).toEqual(DEFAULT_CATALOG_STATE)
   })
 
   it('takes the first of repeated parameters and cuts a long query', () => {
-    const state = parseCatalogState({ kategoria: ['opieka', 'strony'], q: 'a'.repeat(300) })
-    expect(state.category).toBe('opieka')
+    const state = parseCatalogState({ kategoria: ['systemy', 'strony'], q: 'a'.repeat(300) })
+    expect(state.category).toBe('systemy')
     expect(state.query).toHaveLength(100)
   })
 })
@@ -67,14 +78,13 @@ describe('catalogHref', () => {
     expect(
       catalogHref({
         ...DEFAULT_CATALOG_STATE,
-        preview: true,
         group: 'gastronomia',
         situation: 'P',
         category: 'systemy',
         query: 'grafik ekip',
       }),
     ).toBe(
-      '/rozwiazania?q=grafik+ekip&kategoria=systemy&sytuacja=kilka-programow&branza=gastronomia&podglad=1',
+      '/rozwiazania?q=grafik+ekip&kategoria=systemy&sytuacja=kilka-programow&branza=gastronomia',
     )
   })
 
@@ -84,11 +94,47 @@ describe('catalogHref', () => {
       category: 'strony',
       situation: 'R',
       group: 'noclegi',
-      preview: true,
       solution: 'strona-dla-hotelu-lub-pensjonatu',
     }
     const url = new URL(catalogHref(state), 'https://prokomsoftware.pl')
     expect(parseCatalogState(url.searchParams)).toEqual(state)
+  })
+})
+
+describe('offer groups (ZMIANY-v24 §6.2, D10)', () => {
+  const groupOf = (slug: string) => offerGroup(index.solutions.find((s) => s.slug === slug)!)
+
+  it('maps the five data categories to four groups without touching the enum', () => {
+    expect(OFFER_GROUPS.map(({ value }) => value)).toEqual([
+      'strony',
+      'przebudowa',
+      'systemy',
+      'automatyzacje',
+    ])
+    expect(groupOf('strona-wizytowka')).toBe('strony')
+    expect(groupOf('aplikacja-dla-ekip-w-terenie')).toBe('systemy')
+    expect(groupOf('opieka-nad-strona-i-systemem')).toBe('przebudowa')
+    expect(groupOf('asystent-ai-do-zapytan')).toBe('automatyzacje')
+  })
+
+  it('puts the rebuild (a page by data) into „Przebudowa i opieka”', () => {
+    expect(groupOf('przebudowa-starej-strony')).toBe('przebudowa')
+  })
+
+  it('without a search the cards go group by group, in the board order', () => {
+    const order = run({}).results.map((s) =>
+      OFFER_GROUPS.findIndex((g) => g.value === offerGroup(s)),
+    )
+    expect(order).toEqual([...order].sort((a, b) => a - b))
+    expect(slugs({}).indexOf('przebudowa-starej-strony')).toBe(7)
+  })
+
+  it('every solution lands in exactly one group and the counts add up', () => {
+    const { facets } = run({})
+    const sum = OFFER_GROUPS.reduce((total, { value }) => total + (facets.category[value] ?? 0), 0)
+    expect(sum).toBe(29)
+    expect(facets.category.all).toBe(29)
+    expect(facets.category.przebudowa).toBe(4)
   })
 })
 
@@ -98,13 +144,12 @@ describe('runCatalog', () => {
     expect(slugs({})[0]).toBe(index.solutions[0]!.slug)
   })
 
-  it('filters by category, situation, industry and live preview together', () => {
-    const results = run({ category: 'systemy', situation: 'P', preview: true }).results
+  it('filters by group, situation and industry together', () => {
+    const results = run({ category: 'systemy', situation: 'P' }).results
     expect(results.length).toBeGreaterThan(0)
     for (const solution of results) {
-      expect(solution.category).toBe('systemy')
+      expect(offerGroup(solution)).toBe('systemy')
       expect(solution.situations).toContain('P')
-      expect(solution.hasLivePreview).toBe(true)
     }
     for (const solution of run({ group: 'gastronomia' }).results) {
       expect(solution.industryGroups).toContain('gastronomia')
@@ -113,14 +158,15 @@ describe('runCatalog', () => {
 
   it('counts each facet with the other filters on, not itself (spec. §5)', () => {
     const { facets, results } = run({ category: 'strony', situation: 'Z' })
-    // The category counts ignore the category, keep the situation.
+    // The group counts ignore the group, keep the situation.
     const withZ = index.solutions.filter((s) => s.situations.includes('Z'))
     expect(facets.category.all).toBe(withZ.length)
-    expect(facets.category.strony).toBe(withZ.filter((s) => s.category === 'strony').length)
-    // The situation counts keep the category.
-    expect(facets.situation.all).toBe(index.solutions.filter((s) => s.category === 'strony').length)
+    expect(facets.category.strony).toBe(withZ.filter((s) => offerGroup(s) === 'strony').length)
+    // The situation counts keep the group.
+    expect(facets.situation.all).toBe(
+      index.solutions.filter((s) => offerGroup(s) === 'strony').length,
+    )
     expect(facets.situation.Z).toBe(results.length)
-    expect(facets.preview).toBe(results.filter((s) => s.hasLivePreview).length)
   })
 
   it('finds by a typo and keeps the search order („exel” → „Z Excela do systemu”, kryt. 4)', () => {
@@ -128,8 +174,8 @@ describe('runCatalog', () => {
   })
 
   it('searches within the filters and counts within the search', () => {
-    const { results, facets } = run({ query: 'rezerwacje', category: 'aplikacje' })
-    for (const solution of results) expect(solution.category).toBe('aplikacje')
+    const { results, facets } = run({ query: 'rezerwacje', category: 'systemy' })
+    for (const solution of results) expect(offerGroup(solution)).toBe('systemy')
     expect(facets.category.all).toBe(run({ query: 'rezerwacje' }).results.length)
   })
 

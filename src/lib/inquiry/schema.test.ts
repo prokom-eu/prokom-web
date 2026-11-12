@@ -108,7 +108,7 @@ describe('parseInquiryInput — types of the Biznes forms (B8)', () => {
 
   it('accepts a list with items, deadline, preferred contact and city; message optional', () => {
     const result = parseInquiryInput(
-      { ...list, deadline: 'Przed sezonem', preferredContact: 'whatsapp', city: 'Nowy Targ' },
+      { ...list, deadline: 'Przed sezonem', preferredContact: 'phone', city: 'Nowy Targ' },
       'biznes',
     )
     expect(result.success).toBe(true)
@@ -116,10 +116,16 @@ describe('parseInquiryInput — types of the Biznes forms (B8)', () => {
       type: 'list',
       items: [item],
       deadline: 'Przed sezonem',
-      preferredContact: 'whatsapp',
+      preferredContact: 'phone',
       city: 'Nowy Targ',
     })
     expect(result.data?.message).toBeUndefined()
+  })
+
+  it('rejects WhatsApp as the preferred contact (D10)', () => {
+    expect(parseInquiryInput({ ...list, preferredContact: 'whatsapp' }, 'biznes').success).toBe(
+      false,
+    )
   })
 
   it('requires at least one item on a list, and unique ones', () => {

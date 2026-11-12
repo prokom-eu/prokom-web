@@ -1,0 +1,28 @@
+# PRO-KOM Gaming production (stack `prokom-gaming-prod` from the prokom-gaming repo). Added by the
+# overlay compose.proxy.gaming-prod.yml at Gaming's production launch, when DNS points here and
+# the `prokom-gaming-prod` certificate (domain + www) exists.
+
+server {
+  listen 80;
+  server_name ${GAMING_PROD_HOST} www.${GAMING_PROD_HOST};
+  include /etc/nginx/snippets/acme.conf;
+}
+
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name www.${GAMING_PROD_HOST};
+  ssl_certificate /etc/letsencrypt/live/prokom-gaming-prod/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-gaming-prod/privkey.pem;
+  include /etc/nginx/snippets/headers-common.conf;
+  return 301 https://${GAMING_PROD_HOST}$request_uri;
+}
+
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name ${GAMING_PROD_HOST};
+  ssl_certificate /etc/letsencrypt/live/prokom-gaming-prod/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-gaming-prod/privkey.pem;
+  set $app prokom-gaming-prod-app-1:3000;
+  set $umami prokom-gaming-prod-umami-1:3000;
+  include /etc/nginx/snippets/gaming.conf;
+}

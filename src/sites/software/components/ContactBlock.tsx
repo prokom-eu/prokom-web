@@ -1,8 +1,9 @@
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import type { IconName } from '@/lib/catalog/options'
+import { EmText } from '@/sites/software/components/ui/EmText'
 
 import { WandIcon } from './FrameIcons'
 
@@ -27,7 +28,7 @@ export function ContactBlock({ eyebrow, title, lead, quoteCaption, phone }: Prop
   const cards: Card[] = [
     {
       title: 'Kreator w 60 sekund',
-      caption: '5 krótkich pytań, widełki ceny od razu',
+      caption: '4 krótkie kroki, cena „od” od razu',
       href: '/dobierz',
       icon: 'wand',
     },
@@ -49,7 +50,9 @@ export function ContactBlock({ eyebrow, title, lead, quoteCaption, phone }: Prop
               id="kontakt-tytul"
               className="mt-2 font-display text-3xl font-extrabold leading-tight sm:text-4xl"
             >
-              {title || 'Powiedz, co chcesz usprawnić. Resztę dobierzemy razem.'}
+              <EmText
+                text={title || 'Powiedz, co chcesz **usprawnić**, a resztę dobierzemy razem'}
+              />
             </h2>
             {lead && <p className="mt-3 text-lg text-ink-2">{lead}</p>}
           </div>

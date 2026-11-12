@@ -2,8 +2,8 @@ import type { Industry } from '@/payload-types'
 
 import type { IconName } from '../catalog/options'
 import { INDUSTRY_GROUPS } from './options'
-import type { IndexSolution } from './solutionsIndex'
-import { WIZARD_PATH } from './wizardFlow'
+import type { IndexPreview, IndexSolution } from './solutionsIndex'
+import { WIZARD_PATH } from './wizard/flow'
 
 /**
  * Software industry page `/dla-branz/[branza]` (spec. §6.2, board `Branza` v22). Pure: the loader
@@ -28,7 +28,13 @@ export type IndustryProblem = {
   text: string | null
   features: string[]
   /** The solution to add to „Twój projekt” — only when published in this tenant. */
-  solution: { slug: string; name: string; thumbnail: string | null } | null
+  solution: {
+    slug: string
+    name: string
+    thumbnail: string | null
+    /** Mock-up of v24; missing → the thumbnail. */
+    preview: IndexPreview | null
+  } | null
   cta: { label: string; href: string } | null
 }
 
@@ -108,7 +114,12 @@ export function buildIndustryPage({
         text: clean(problem.text),
         features: (problem.features ?? []).filter(Boolean),
         solution: solution
-          ? { slug: solution.slug, name: solution.name, thumbnail: solution.thumbnail ?? null }
+          ? {
+              slug: solution.slug,
+              name: solution.name,
+              thumbnail: solution.thumbnail ?? null,
+              preview: solution.preview ?? null,
+            }
           : null,
         cta: label && href ? { label, href } : null,
       }
@@ -146,7 +157,7 @@ export function buildIndustryPage({
         delay: module.delay ?? 0,
       })),
     problems: {
-      eyebrow: clean(page?.problemsEyebrow) ?? `Co boli w branży`,
+      eyebrow: clean(page?.problemsEyebrow) ?? 'Co zabiera czas w branży',
       lead: clean(page?.problemsLead),
       items: problems,
     },

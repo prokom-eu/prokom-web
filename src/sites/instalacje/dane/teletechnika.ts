@@ -95,8 +95,8 @@ export const teletechnika = {
   scope: {
     head: {
       eyebrow: 'Zakres prac',
-      heading: 'Wszystko, co w budynku przewodzi sygnał.',
-      lead: 'Wchodzimy na budowę w stanie surowym, prowadzimy trasy, montujemy, mierzymy i oddajemy dokumentację. Jeden podwykonawca od całej teletechniki budynku.',
+      heading: 'Jakie instalacje teletechniczne wykonujemy w budynku',
+      lead: 'Wchodzimy na budowę w stanie surowym i zostajemy aż do odbioru. Całą teletechnikę budynku, od tras po pomiary i dokumentację, masz u jednego podwykonawcy.',
     } satisfies SectionHead,
     items: [
       {
@@ -110,7 +110,7 @@ export const teletechnika = {
         text: 'Instalacja światłowodowa od punktu styku do skrzynek mieszkaniowych, gotowa dla operatorów.',
       },
       {
-        icon: 'tv',
+        icon: 'dish',
         title: 'RTV/SAT zbiorcza',
         text: 'Antena naziemna i satelitarna, multiswitche, rozprowadzenie do gniazd w lokalach.',
       },
@@ -122,7 +122,7 @@ export const teletechnika = {
       {
         icon: 'cam',
         title: 'Monitoring części wspólnych',
-        text: 'Garaż podziemny, wejścia, śmietnik, plac zabaw. Zakres dokumentacji (np. pod RODO wspólnoty) ustalamy w ofercie.',
+        text: 'Garaż podziemny, wejścia, śmietnik, plac zabaw. Zakres dokumentacji ustalamy w ofercie.',
       },
       {
         icon: 'lock',
@@ -132,16 +132,197 @@ export const teletechnika = {
     ] satisfies Feature[],
   },
 
-  forWhom: {
-    head: { eyebrow: 'Dla kogo', heading: 'Pracujemy z tymi, którzy budują.' },
+  /*
+   * RUNDA-V5 §10 — more content between the scope and the quote form. Only general, checkable facts,
+   * no new numbers without a source. Sentences that name a standard carry a TODO for the check
+   * at the editing stage.
+   */
+
+  /** „Na każdym etapie budowy” (`#etapy`): the axis of the home process (`ProcessAxis`). */
+  stages: {
+    head: {
+      eyebrow: 'Etapy budowy',
+      heading: 'Co robimy na każdym etapie budowy',
+      lead: 'Najlepiej zacząć przy projekcie albo w stanie surowym, zanim wejdą tynkarze. Przy każdym etapie mówimy, co robimy i co sprawdzamy.',
+    } satisfies SectionHead,
+    getLabel: 'Sprawdzamy',
+    steps: [
+      {
+        icon: 'doc',
+        title: 'Projekt i uzgodnienia',
+        text: 'Czytamy projekt teletechniki, trasy i miejsca na szafy.',
+        get: 'punkt styku dla operatorów i miejsce na szafy',
+      },
+      {
+        icon: 'build',
+        title: 'Stan surowy',
+        text: 'Piony, przepusty i rury z zapasem i pilotem.',
+        get: 'drożność rur, zanim wejdą tynkarze',
+      },
+      {
+        icon: 'net',
+        title: 'Przed tynkami',
+        text: 'Okablowanie lokali i skrzynki mieszkaniowe.',
+        get: 'opis każdego przewodu na obu końcach',
+      },
+      {
+        icon: 'tool',
+        title: 'Montaż osprzętu',
+        text: 'Gniazda, panele, szafy, multiswitche i domofony po wykończeniu.',
+        get: 'zgodność gniazd z rzutami',
+      },
+      {
+        icon: 'sliders',
+        title: 'Pomiary',
+        text: 'Mierzymy każdy tor, miedziany i światłowodowy.',
+        get: 'wynik każdego toru w raporcie',
+      },
+      {
+        icon: 'file',
+        title: 'Dokumentacja',
+        text: 'Dokumentacja powykonawcza zgodna z tym, co jest w ścianach.',
+        get: 'schematy pionów i opisy paneli',
+      },
+      {
+        icon: 'users',
+        title: 'Przekazanie',
+        text: 'Pokazujemy szafy, punkty styku i dokumenty wspólnocie lub zarządcy.',
+        get: 'komplet dokumentów u odbierającego',
+      },
+    ],
+  },
+
+  /** „Co dostajesz przy odbiorze” + „W jakich standardach pracujemy” (`#przy-odbiorze`). */
+  handover: {
+    head: {
+      eyebrow: 'Przy odbiorze',
+      heading: 'Jakie dokumenty dostajesz przy odbiorze',
+      lead: 'Wspólnota albo zarządca znajdzie w nich każdy przewód i każde gniazdo. Przydadzą się też za kilka lat, gdy trzeba będzie coś zmienić.',
+    } satisfies SectionHead,
+    items: [
+      'Raport z pomiarów każdego toru, miedzianego i światłowodowego',
+      'Opis gniazd i paneli zgodny z dokumentacją',
+      'Schematy pionów',
+      'Dokumentację powykonawczą w PDF i na papierze',
+      'Listę sprzętu z numerami seryjnymi tam, gdzie to ma znaczenie',
+    ],
+  },
+  // Runda v6 §1.8 (audit 08.11): „W jakich standardach pracujemy” is gone — its commitments (norm
+  // wording, the fibre type, the measurement report) were not confirmed by the boss.
+  // TODO(krystian): bring it back with the boss's confirmed wording, if he wants it.
+
+  /** „Błędy, które zatrzymują odbiór” (`#bledy`): four cards, each with how we avoid it. */
+  mistakes: {
+    head: {
+      eyebrow: 'Częste błędy',
+      heading: 'Błędy, przez które odbiór teletechniki się przesuwa',
+      lead: 'Te cztery widzimy na budowach najczęściej. Każdego da się uniknąć, jeśli pomyśli się o nim wcześniej.',
+    } satisfies SectionHead,
+    avoidLabel: 'Jak tego unikamy',
     items: [
       {
-        icon: 'crane',
+        icon: 'fiber',
+        title: 'Rury bez zapasu i pilota',
+        text: 'Przewodu nie da się przeciągnąć, a ściana jest już otynkowana.',
+        avoid: 'Rury z zapasem średnicy i pilotem, drożność sprawdzona przed tynkami.',
+      },
+      {
+        icon: 'bolt',
+        title: 'Zasilanie i teletechnika w jednej rurze',
+        text: 'Zakłócenia sygnału i problem przy odbiorze.',
+        avoid: 'Osobne trasy i rury, uzgodnione z elektrykiem na etapie projektu.',
+      },
+      {
+        icon: 'doc',
+        title: 'Brak opisów na panelach i gniazdach',
+        text: 'Nikt nie wie, który kabel idzie do którego mieszkania.',
+        avoid: 'Opis na obu końcach każdego przewodu, zgodny z dokumentacją.',
+      },
+      {
+        icon: 'grid',
+        title: 'Za mała skrzynka mieszkaniowa',
+        text: 'Router, terminal operatora i zasilacz się nie mieszczą, drzwiczki się nie zamykają.',
+        avoid: 'Skrzynka dobrana do sprzętu operatora, z zapasem na przyszłość.',
+      },
+    ],
+  },
+
+  /** „Także w częściach wspólnych” (`#czesci-wspolne`), with links to the service pages. */
+  common: {
+    head: {
+      eyebrow: 'Części wspólne',
+      heading: 'Instalacje w częściach wspólnych budynku',
+      lead: 'Robimy je w tym samym zakresie co okablowanie lokali, więc trasy i szafy planujemy raz.',
+    } satisfies SectionHead,
+    items: [
+      {
+        icon: 'phone',
+        title: 'Domofony i wideodomofony',
+        text: 'Panele przy wejściach i bramie, monitory w lokalach.',
+        href: '/alarmy#domofony',
+      },
+      {
+        icon: 'lock',
+        title: 'Dostęp do klatek i garażu',
+        text: 'Breloki, czytniki i szlaban na wjeździe.',
+        href: '/kontrola-dostepu',
+      },
+      {
+        icon: 'cam',
+        title: 'Monitoring garażu i wejść',
+        text: 'Kamery w częściach wspólnych, nagrania w budynku.',
+        href: '/monitoring',
+      },
+      {
+        icon: 'dish',
+        title: 'RTV/SAT zbiorcza',
+        text: 'Jedna antena i multiswitch zamiast anten na balkonach.',
+        href: '/anteny',
+      },
+    ],
+  },
+
+  /** „Jak liczymy ofertę” (`#jak-liczymy`): four steps; the bill of quantities by e-mail. */
+  pricing: {
+    head: {
+      eyebrow: 'Jak liczymy ofertę',
+      heading: 'Wycena pozycja po pozycji i termin wejścia ekipy',
+      lead: 'Od przedmiaru do terminu na budowie w czterech krokach.',
+    } satisfies SectionHead,
+    steps: [
+      {
+        icon: 'file',
+        title: 'Przedmiar albo projekt',
+        text: 'Przesyłasz go mailem po pierwszym kontakcie — bez wysyłania plików na stronie.',
+      },
+      {
+        icon: 'chat',
+        title: 'Pytania o budowę',
+        text: 'Pytamy o etap budowy, harmonogram i to, czego w przedmiarze brakuje.',
+      },
+      {
+        icon: 'doc',
+        title: 'Wycena pozycja po pozycji',
+        text: 'Każda pozycja przedmiaru osobno, bez jednej kwoty za całość.',
+      },
+      {
+        icon: 'cal',
+        title: 'Termin wejścia ekipy',
+        text: 'Ustalamy, kiedy wchodzimy na budowę i ile to potrwa.',
+      },
+    ],
+  },
+
+  forWhom: {
+    head: { eyebrow: 'Dla kogo', heading: 'Z kim pracujemy przy teletechnice budynków' },
+    items: [
+      {
+        icon: 'apt',
         title: 'Deweloperzy',
         text: 'Teletechnika budynków wielorodzinnych i osiedli domów, od projektu do odbioru.',
       },
       {
-        icon: 'build',
+        icon: 'crane',
         title: 'Generalni wykonawcy',
         text: 'Podwykonawstwo branży teletechnicznej zgodnie z harmonogramem budowy.',
       },
@@ -159,32 +340,12 @@ export const teletechnika = {
     note: 'Na Podhalu wciąż dużo się buduje: w 2024 roku w powiatach nowotarskim i tatrzańskim oddano łącznie ok. 1170 mieszkań, także w domach jednorodzinnych (dane GUS). Okablowanie najlepiej zaplanować, zanim wejdą tynkarze.',
   },
 
-  law: {
-    eyebrow: 'Co się zmieniło w 2026 · stan na październik 2026',
-    heading: 'Nowy budynek musi być gotowy na światłowód.',
-    lead: 'Pilnujemy, żeby to, co zaprojektowano, dało się odebrać. A gdy przepisy się zmieniają, mówimy o tym na etapie oferty, a nie na odbiorze.',
-    items: [
-      {
-        title: 'Od 12.02.2026: światłowód w nowym budynku',
-        text: 'Rozporządzenie UE 2024/1309 (Gigabit Infrastructure Act, art. 10): nowe budynki i budynki po gruntownej przebudowie, dla których wniosek o pozwolenie złożono po 12.02.2026, mają mieć wewnętrzną infrastrukturę i okablowanie światłowodowe, a budynki wielorodzinne także punkt dostępu dla operatorów. Wyjątki i szczegóły sprawdzamy w projekcie.',
-      },
-      {
-        title: 'Ustawa o wspieraniu rozwoju sieci telekomunikacyjnych',
-        text: 'Art. 30 ust. 6: budynek powinien być wyposażony, zgodnie z warunkami technicznymi, w instalację telekomunikacyjną. Przy przebudowie instalacji w budynkach wielorodzinnych, zamieszkania zbiorowego i użyteczności publicznej obowiązek dotyczy także ich (art. 30 ust. 7–9).',
-      },
-      {
-        title: 'Warunki techniczne: okres przejściowy',
-        text: 'Rozporządzenie o warunkach technicznych z 2002 r. utraciło moc 20.09.2026, a nowego do października 2026 nie ogłoszono. Do 20.03.2028 projekt można sporządzić według dotychczasowych warunków (dla teletechniki rozdział 8a), jeśli inwestor złoży oświadczenie (art. 102a–102c Prawa budowlanego). Stan prawny sprawdzamy przy każdym projekcie.',
-      },
-    ],
-  },
-
   /** Quote form (`rfq`): a contact inquiry „Teletechnika — przedmiar” (ADR-I002 §4). */
   quote: {
     head: {
       eyebrow: 'Zapytanie ofertowe',
-      heading: 'Wyślij przedmiar. Odpowiemy wyceną.',
-      lead: 'Przedmiar, projekt albo choćby rzuty z opisem. Im więcej szczegółów, tym dokładniejsza oferta.',
+      heading: 'Opisz inwestycję, a przygotujemy wycenę',
+      lead: 'Wystarczy przedmiar, projekt albo choćby rzuty z opisem. Im więcej szczegółów, tym dokładniejsza oferta.',
     } satisfies SectionHead,
     category: 'Teletechnika — przedmiar',
     typeTitle: 'Rodzaj inwestycji',

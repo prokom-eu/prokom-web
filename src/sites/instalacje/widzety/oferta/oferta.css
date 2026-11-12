@@ -1,0 +1,758 @@
+/* Ported from pk.css with narzedzia/przenies-css.mjs (I12): the full offer /uslugi (`.ofbar .ofs` scoped: the same class is the map label of O firmie). */
+[data-line='instalacje'] {
+  & .odb {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 30px;
+    padding: 34px;
+    border-radius: 28px;
+    background: var(--inst-plan-card);
+    color: var(--inst-deep-ink);
+    box-shadow: inset 0 0 0 1px var(--inst-band-line);
+  }
+  & .odb .lead {
+    color: var(--inst-deep-lead-2);
+  }
+  & .odl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  & .odi {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--inst-foot-glow);
+    box-shadow: inset 0 0 0 1px var(--inst-il-odi-sh);
+    font-size: 14.5px;
+  }
+  & .odi i {
+    color: var(--inst-plan-accent);
+    flex: none;
+  }
+  @media (max-width: 1100px) {
+    & .odb {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    & .odl {
+      grid-template-columns: 1fr;
+    }
+    & .odb {
+      padding: 22px;
+    }
+  }
+  & .odi > svg {
+    flex: none;
+  }
+  & .uschips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-width: 0;
+  }
+  & .uchip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 0;
+    cursor: pointer;
+    background: var(--surface-3);
+    color: var(--ink-soft);
+    font-weight: 800;
+    font-size: 14px;
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition:
+      background 0.25s,
+      color 0.25s,
+      box-shadow 0.25s,
+      transform 0.2s;
+  }
+  @media (hover: hover) {
+    & .uchip:hover {
+      transform: translateY(-1px);
+      box-shadow: inset 0 0 0 1.5px var(--accent-line);
+    }
+  }
+  & .uchip.on {
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 8px 22px -10px var(--glow);
+  }
+  @media (max-width: 760px) {
+    & .uschips {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      margin: 0 -16px;
+      padding: 2px 16px 6px;
+      scrollbar-width: none;
+    }
+    & .uschips::-webkit-scrollbar {
+      display: none;
+    }
+    & .uchip {
+      flex: none;
+    }
+  }
+  & .ofbar {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px;
+    border-radius: 24px;
+    background: var(--card);
+    box-shadow:
+      inset 0 0 0 1px var(--border),
+      var(--shadow);
+  }
+  & .ofbar .ofs {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    min-height: 58px;
+    border-radius: 16px;
+    background: var(--surface-3);
+    box-shadow: inset 0 0 0 1px var(--border);
+    color: var(--ink-2);
+  }
+  & .ofbar .ofs:focus-within {
+    box-shadow: inset 0 0 0 2px var(--accent);
+  }
+  & .ofbar .ofs input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font: 700 17px var(--font-sans);
+    outline: none;
+  }
+  & .ofbar .ofs input::placeholder {
+    color: var(--ink-2);
+    font-weight: 600;
+  }
+  & .ofx {
+    border: 0;
+    background: var(--border);
+    color: var(--ink);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+  }
+  & .ofcnt {
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  & .ofcnt b {
+    color: var(--ink);
+  }
+  & .ofcnt button {
+    border: 0;
+    background: none;
+    color: var(--accent-text);
+    font-weight: 800;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+  }
+  & .ofw {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+  & .ofnav {
+    position: sticky;
+    top: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  & .ofn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+  & .ofn svg {
+    color: var(--accent-text);
+    flex: none;
+  }
+  & .ofn span {
+    flex: 1;
+  }
+  & .ofn em {
+    font-style: normal;
+    font-size: 12px;
+    min-width: 24px;
+    text-align: center;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: var(--surface-3);
+    color: var(--ink-2);
+  }
+  @media (hover: hover) {
+    & .ofn:hover {
+      background: var(--surface-3);
+      color: var(--ink);
+    }
+  }
+  & .ofn.off {
+    opacity: 0.4;
+  }
+  & .ofn.extra {
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+  & .oflist {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  & .ofa {
+    padding: 26px;
+    border-radius: 28px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scroll-margin-top: 96px;
+  }
+  & .ofa.hide {
+    display: none;
+  }
+  & .ofa.extra {
+    background: linear-gradient(180deg, var(--card), var(--surface-2));
+  }
+  & .ofah {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 18px;
+    align-items: start;
+  }
+  & .ofat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  & .ofat p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15.5px;
+    max-width: 640px;
+  }
+  & .ofb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  & .ofb > span:first-child {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin-right: 4px;
+  }
+  & .ofg {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  & .ofi {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    border-radius: 18px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition:
+      box-shadow 0.2s,
+      transform 0.2s;
+  }
+  @media (hover: hover) {
+    & .ofi:hover {
+      box-shadow: inset 0 0 0 1.5px var(--accent-line);
+      transform: translateY(-2px);
+    }
+  }
+  & .ofi b {
+    font-size: 15.5px;
+    line-height: 1.3;
+  }
+  & .ofi > span {
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.45;
+  }
+  & .ofit {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: auto;
+    padding-top: 4px;
+  }
+  & .ofit em {
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+  }
+  @media (max-width: 1100px) {
+    & .ofw {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .ofnav {
+      position: static;
+      flex-direction: row;
+      overflow-x: auto;
+      gap: 6px;
+      margin: 0 -32px;
+      padding: 0 32px 6px;
+      scrollbar-width: none;
+    }
+    & .ofnav .usl,
+    & .ofnav .btn {
+      display: none;
+    }
+    & .ofn {
+      flex: none;
+      background: var(--card);
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+    & .ofg {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 760px) {
+    & .ofbar {
+      padding: 14px;
+      margin-left: -4px;
+      margin-right: -4px;
+    }
+    /* 16 px: iOS zooms into a smaller field (MOBILE-APLIKACJA §6; prototype 15 px). */
+    & .ofbar .ofs input {
+      font-size: 16px;
+    }
+    & .ofnav {
+      margin: 0 -16px;
+      padding: 0 16px 6px;
+    }
+    & .ofa {
+      padding: 18px;
+      border-radius: 22px;
+    }
+    & .ofah {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+    & .ofgo {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+    & .ofg {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .ofo {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      margin: 0 -14px;
+      padding: 2px 14px 6px;
+    }
+    & .ofo .uchip {
+      flex: none;
+    }
+  }
+  @media (max-width: 760px) {
+    & .odb {
+      padding: 22px;
+    }
+  }
+  & .xa-ofmore {
+    margin-top: 14px;
+    align-self: flex-start;
+  }
+  /* The prototype has no Tailwind reset: icons inline on the text baseline (ADR-I003 §5 p. 6). */
+  & .odi i > svg,
+  & .ofn > svg {
+    display: inline;
+    vertical-align: baseline;
+  }
+  /* Touch targets 44 px on a phone (MOBILE-APLIKACJA §10; the prototype has 40). */
+  @media (max-width: 760px), (pointer: coarse) {
+    & .ofo .uchip {
+      min-height: 44px;
+    }
+  }
+  /* Solutions past the third until „Pokaż wszystkie”: in the HTML for search engines, hidden here. */
+  & .ofi.xa-ofx {
+    display: none;
+  }
+}
+
+/*
+ * RUNDA-V5 §8 — the full offer, round v5: a 60 px search with changing examples, the filter bar
+ * stuck under the header (chips on a computer, compact search + sheet on a phone), the reading
+ * progress of the area in the navigation (scroll-driven, nothing without support), area headers
+ * with the service's colour and scene, matched words underlined, results fading in. Motion only
+ * transform / opacity, none with reduced motion; colours from tokens and the panel's `--h`.
+ */
+[data-line='instalacje'] {
+  & .ofbar .ofs:not(.ofs-c) {
+    min-height: 60px;
+    border-radius: 18px;
+  }
+  & .ofbar .ofs:not(.ofs-c) input {
+    font-size: 18px;
+  }
+  /* Our own clear button (`.ofx`) replaces the browser's. */
+  & :is(.ofbar, .ofsticky) .ofs input::-webkit-search-cancel-button {
+    appearance: none;
+  }
+  & .ofsticky {
+    position: sticky;
+    top: 92px;
+    z-index: 19;
+    margin-bottom: 18px;
+    background: var(--header-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-block: 1px solid var(--border);
+  }
+  & .ofsbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  & .ofs-desk {
+    flex: 1;
+    min-width: 0;
+  }
+  & .ofs-phone {
+    display: none;
+  }
+  & .ofsticky .uschips {
+    position: relative;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  & .ofsticky .uschips::-webkit-scrollbar {
+    display: none;
+  }
+  & .ofsticky .uchip,
+  & .ofsheet .uchip {
+    flex: none;
+  }
+  & .ofo:has(> .inst-pill) > .uchip.on {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    box-shadow: none;
+  }
+  & .ofo > .inst-pill {
+    background: var(--accent);
+    box-shadow: 0 8px 22px -10px var(--glow);
+  }
+  & .ofscnt {
+    flex: none;
+    font-size: 14px;
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+  }
+  & .ofscnt b {
+    color: var(--ink);
+  }
+  & .ofsheet {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 16px 0 8px;
+  }
+  & .ofsheet .uschips {
+    position: relative;
+    flex-wrap: wrap;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+  & .ofsheet .uchip {
+    min-height: 44px;
+  }
+  & .ofsheet-go {
+    justify-content: center;
+    min-height: 52px;
+  }
+  & .ofnav {
+    top: 168px;
+  }
+  & .ofa {
+    position: relative;
+    overflow: hidden;
+    scroll-margin-top: 170px;
+  }
+  /* The service's colour as a band on the area's top edge. */
+  & .ofa::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    background: var(--h, var(--accent));
+  }
+  & .ofsc {
+    flex: none;
+    width: 168px;
+    aspect-ratio: 400 / 220;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .ofsc svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  /* Ten small scenes side by side: they stand still here (the home cards play them). */
+  & .ofsc *,
+  & .ofsc *::before,
+  & .ofsc *::after {
+    animation: none !important;
+  }
+  & .ofat .svk {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  & .ofat .svk > svg {
+    color: var(--h, var(--accent-text));
+  }
+  & .ofn {
+    position: relative;
+  }
+  & .ofn::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 2px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--h, var(--accent));
+    transform-origin: left center;
+    opacity: 0;
+    pointer-events: none;
+  }
+  & .ofi b::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: var(--h, var(--accent));
+    vertical-align: 0.1em;
+  }
+  @media (hover: hover) {
+    & .ofi:hover {
+      box-shadow: inset 0 0 0 1.5px var(--h, var(--accent-line));
+    }
+  }
+  & .ofi mark {
+    background: none;
+    color: inherit;
+    text-decoration: underline 2px var(--h, var(--accent));
+    text-underline-offset: 3px;
+  }
+  & .ofempty {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 20px;
+    padding: 26px;
+    border-radius: 28px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .ofempty > svg {
+    color: var(--accent-text);
+    flex: none;
+  }
+  & .ofempty > div {
+    flex: 1;
+    min-width: 220px;
+  }
+  & .ofempty b {
+    font-size: 20px;
+  }
+  & .ofempty p {
+    margin: 4px 0 0;
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 1080px) {
+    & .ofsticky {
+      top: 76px;
+    }
+    /* The capsule hides while scrolling down: the bar moves up without a gap (like `.anchors`). */
+    &:has(.cap-wrap[data-hidden]) .ofsticky {
+      top: 0;
+    }
+  }
+  @media (max-width: 1100px) {
+    & .ofnav {
+      top: auto;
+    }
+  }
+  @media (max-width: 760px) {
+    & .ofs-desk,
+    & .ofscnt {
+      display: none;
+    }
+    & .ofs-phone {
+      display: flex;
+      flex: 1;
+      gap: 8px;
+      min-width: 0;
+    }
+    & .ofsticky .ofs {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 12px;
+      border-radius: 14px;
+      background: var(--surface-3);
+      box-shadow: inset 0 0 0 1px var(--border);
+      color: var(--ink-2);
+    }
+    & .ofsticky .ofs:focus-within {
+      box-shadow: inset 0 0 0 2px var(--accent);
+    }
+    & .ofsticky .ofs input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font: 700 16px var(--font-sans);
+      outline: none;
+    }
+    & .ofsticky .ofs input::placeholder {
+      color: var(--ink-2);
+      font-weight: 600;
+    }
+    & .ofs-gap {
+      flex: 1;
+    }
+    /* „Wyczyść” as a 44 px touch target (MOBILE §10). */
+    & .ofx {
+      width: 44px;
+      height: 44px;
+      margin-right: -8px;
+      flex: none;
+    }
+    & .ofsf {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 44px;
+      max-width: 46%;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 14px;
+      background: var(--surface-3);
+      box-shadow: inset 0 0 0 1px var(--border);
+      color: var(--ink);
+      font: 800 14px var(--font-sans);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+    & .ofsf.on {
+      background: var(--accent);
+      color: var(--accent-ink);
+      box-shadow: none;
+    }
+    /* Phone: the scene above the text, so long names (Alarmy i wideodomofony) keep the width. */
+    & .ofah:has(> .ofsc) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .ofsc {
+      width: 148px;
+      border-radius: 12px;
+    }
+    & .ofat h2 {
+      overflow-wrap: anywhere;
+    }
+    & .ofa {
+      scroll-margin-top: 80px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* New results (search, filter, „Pokaż wszystkie”) fade in with a short cascade. */
+    & .ofg > .ofi {
+      animation: inst-of-in 200ms var(--ease-out) backwards;
+      animation-delay: calc(min(var(--k, 0), 8) * 24ms);
+    }
+    @supports (animation-timeline: view()) {
+      /* The area being read: its navigation link shows how far you are. */
+      & .ofn::after {
+        animation: inst-of-read linear none;
+        animation-timeline: var(--tl);
+        animation-range: contain 0% contain 100%;
+      }
+    }
+  }
+}
+
+@keyframes inst-of-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes inst-of-read {
+  from {
+    opacity: 1;
+    transform: scaleX(0.04);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}

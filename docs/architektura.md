@@ -26,7 +26,7 @@ Domeny tenanta (`Tenants.domains`): jedna lista wpisów `{ host, environment: pr
 | prokominstalacje.pl | `instalacje` | październik 2026 |
 | prokomsoftware.pl | `software` | październik 2026 |
 | pro-kom.eu (nowa, hub) | `prokom` | do 20.12.2026 |
-| panel.pro-kom.eu | panel Payload | z fundamentem (rekord DNS) |
+| panel.prokombiznes.pl | panel Payload (produkcja; staging: `panel.staging.prokombiznes.pl`) | rekord DNS przed pierwszym wdrożeniem produkcji (ADR-006 „Rozstrzygnięcie 09.11”) |
 | `staging.<domena>` | jak wyżej | wersja testowa: hasło, `noindex`, osobna baza |
 | lokalnie | `biznes.localhost`, `instalacje.localhost`, `software.localhost`, `panel.localhost` | dev |
 
@@ -50,4 +50,4 @@ Formularze → `POST /api/inquiry` → `submitInquiry()` (Zod, honeypot, czas, l
 - Monitoring: Sentry (błędy), zewnętrzny monitoring dostępności; analityka Umami (bez cookies, ADR-020): skrypt i zdarzenia przez tę samą domenę (`/_s/*` → kontener w `proxy.ts`), zmienne `UMAMI_URL` i `UMAMI_WEBSITES`; kontener — S10b/S10c.
 
 ## Czego świadomie NIE robimy (na teraz)
-Sklepu B2B (faza 2), mikroserwisów, Kubernetes, płatnych CMS-ów w chmurze, osobnych repozytoriów na każdą stronę, osobnej aplikacji panelu.
+Sklepu B2B (faza 2), mikroserwisów, Kubernetes, płatnych CMS-ów w chmurze, osobnych repozytoriów na każdą stronę, osobnej aplikacji panelu. Świadomy wyjątek: PRO-KOM Gaming (`prokomgaming.pl`) ma własne repo `prokom-gaming` (sklep z cenami liczonymi z kosztów, konfiguratorem i kontami — inny cykl życia, ADR-G001 tam); dzieli z nami tylko serwer i stos `prokom-proxy` (szablony `gaming-*.conf.template`).

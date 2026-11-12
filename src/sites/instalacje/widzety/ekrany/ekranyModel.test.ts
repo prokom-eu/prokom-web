@@ -11,14 +11,14 @@ import {
   INITIAL_SCREEN,
   INITIAL_SYNC,
   ledView,
-  lowerPhone,
-  resetPrices,
+  resetOffers,
   SCREEN_KEYS,
   type ScreenState,
   screenView,
   type SyncState,
   syncLog,
   syncRows,
+  raiseCase,
   togglePromo,
 } from './ekranyModel'
 
@@ -33,6 +33,20 @@ const source = readFileSync(
   ),
   'utf8',
 )
+// Round v6 §1.1 (owner 08.11.2026): no legal content on the page, so the two prototype texts
+// that went on about local rules in Zakopane are shortened on purpose. Everything else stays 1:1.
+const V6_TEXT: readonly (readonly [prefix: string, text: string])[] = [
+  [
+    'Ekran w witrynie zmienia ofertę w ciągu dnia. Na zewnątrz i w Zakopanem',
+    'Ekran w witrynie zmienia ofertę w ciągu dnia. Na zewnątrz najpierw sprawdzamy, czy gmina pozwala na taki ekran.',
+  ],
+  [
+    'Deszcz, mróz i słońce odbite od śniegu. Tylko ekran przeznaczony na zewnątrz, a w Zakopanem',
+    'Deszcz, mróz i słońce odbite od śniegu. Tylko ekran przeznaczony na zewnątrz.',
+  ],
+]
+const v6 = (text: string) => V6_TEXT.find(([prefix]) => text.startsWith(prefix))?.[1] ?? text
+
 type Pick = { pick: () => void }
 type Ref = {
   tv: {
@@ -111,12 +125,16 @@ function expectScreen(proto: Proto, state: ScreenState) {
   }).toEqual({
     fmt: ref.fmt,
     frame: ref.frame,
-    s: ref.s,
+    // INST-6 (runda v6 §2.2): no exclamation mark on the demo slide.
+    s: {
+      ...ref.s,
+      h: ref.s.h === 'Dzień dobry! Pogoda dziś' ? 'Dzień dobry, pogoda na dziś' : ref.s.h,
+    },
     clock: ref.clock,
     dots: ref.dots,
     sched: ref.sched,
     nowSt: ref.nowSt,
-    note: ref.note,
+    note: v6(ref.note),
     tabs: ref.tabs.map((t) => t.on),
   })
 }
@@ -146,24 +164,43 @@ describe('screens in the hero', () => {
   })
 })
 
-describe('demo: two salons', () => {
-  it.each([[[]], [[0]], [[0, 0, 1]], [[1, 1, 0, 2]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]])(
-    'clicks %j as the prototype',
-    (clicks: number[]) => {
-      const proto = fresh()
-      let state: SyncState = INITIAL_SYNC
-      const actions = [lowerPhone, togglePromo, resetPrices]
-      for (const i of clicks) {
-        proto.page(P, {}).sy.btns[i]!.go()
-        state = actions[i]!(state)
-      }
-      const ref = proto.page(P, {}).sy
-      expect(syncRows(state).map((r) => ({ n: r.name, p: r.price, cls: r.cls }))).toEqual(ref.rows)
-      // The prototype stamps the click with the current time.
-      const time = /o (\d\d:\d\d:\d\d)/.exec(ref.log)?.[1] ?? ''
-      expect(syncLog(state, time)).toBe(ref.log)
-    },
-  )
+// Audit 09.11: the prototype's demo showed equipment prices; ours shows discounts of a sample
+// shop (spec §2: no equipment prices), so it is tested on its own.
+describe('demo: one change, two screens', () => {
+  it('starts with the discounts of the day and no change sent', () => {
+    expect(syncRows(INITIAL_SYNC).map((r) => [r.name, r.value, r.cls])).toEqual([
+      ['Etui do telefonu', '−20%', 'synr'],
+      ['Folie ochronne', '−10%', 'synr'],
+      ['Ładowarki i kable', '−15%', 'synr'],
+      ['Słuchawki bezprzewodowe', '−10%', 'synr'],
+    ])
+    expect(syncLog(INITIAL_SYNC, '')).toBe(ekrany.sync.log)
+  })
+
+  it('raises the case discount by 5 points up to 50%, the row lights up', () => {
+    let state: SyncState = INITIAL_SYNC
+    state = raiseCase(state)
+    expect(syncRows(state)[0]).toEqual({ name: 'Etui do telefonu', value: '−25%', cls: 'synr hot' })
+    expect(syncLog(state, '10:00:00')).toBe(
+      'Zmiana wysłana o 10:00:00 · etui do telefonu: −25% · oba ekrany zaktualizowane',
+    )
+    for (let n = 0; n < 10; n++) state = raiseCase(state)
+    expect(syncRows(state)[0]?.value).toBe('−50%')
+  })
+
+  it('toggles the headphones promotion and resets', () => {
+    let state = togglePromo(INITIAL_SYNC)
+    expect(syncRows(state)[3]).toMatchObject({ value: '−25%', cls: 'synr hot promo' })
+    state = togglePromo(state)
+    expect(syncRows(state)[3]).toMatchObject({ value: '−10%', cls: 'synr hot' })
+    state = resetOffers(raiseCase(state))
+    expect(state.discounts).toEqual(ekrany.sync.discounts)
+    expect(state.version).toBe(4)
+  })
+
+  it('shows no amount in złoty anywhere', () => {
+    expect(JSON.stringify(ekrany.sync)).not.toMatch(/zł/)
+  })
 })
 
 describe('brightness', () => {
@@ -188,7 +225,7 @@ describe('brightness', () => {
         vcls: ref.vcls,
         nits: ref.nits,
         cls: ref.cls,
-        txt: ref.txt,
+        txt: v6(ref.txt),
         bar: ref.bar,
         marks: ref.marks,
         scrSt: ref.scrSt,

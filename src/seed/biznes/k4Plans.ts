@@ -76,8 +76,27 @@ export function k4ServiceSlugs(
 }
 
 /**
+ * Package status of the card standing for a bundle item: the K4 card wins (`withK4Content`), a
+ * repo card without one keeps its K3 / K3.1 status. A split card stands for its 301 target only
+ * (as in `bundleData`): bundles name the new cards directly, so the other parts need no check.
+ */
+export function packageCardStatus(
+  repoCards: readonly { slug_seed: string; status: string }[],
+  k4Cards: readonly { slug_seed: string; status: string }[],
+  cardsFor: (slug: string) => string[],
+): (slug: string) => string | undefined {
+  const status = new Map(repoCards.map((card) => [card.slug_seed, card.status]))
+  for (const card of k4Cards) status.set(card.slug_seed, card.status)
+  return (slug) => {
+    const [card] = cardsFor(slug)
+    return card === undefined ? undefined : status.get(card)
+  }
+}
+
+/**
  * A K4 bundle on top of its K3c bundle. An open question of a K3 item (`do_potwierdzenia`)
- * stays with the same card, so a bundle does not turn „Gotowe” just because K4 dropped the note.
+ * stays with the same card, so a bundle does not turn „Gotowe” just because K4 dropped the note;
+ * a question on a card K4 no longer lists stops the import (settle it in the package first).
  */
 export function k4Bundle(
   slug: string,
@@ -91,6 +110,10 @@ export function k4Bundle(
       item.do_potwierdzenia ? [[item.slug, item.do_potwierdzenia] as const] : [],
     ),
   )
+  const listed = new Set(bundle.el.map((item) => item.s))
+  for (const card of open.keys()) {
+    if (!listed.has(card)) fail(`bundle "${slug}": open question on "${card}", which K4 dropped.`)
+  }
   return {
     ...base,
     nazwa: bundle.nazwa,

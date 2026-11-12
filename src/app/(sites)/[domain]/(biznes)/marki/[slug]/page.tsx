@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { fitTitle } from '@/lib/biznes/seo'
 import { notFound, permanentRedirect } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
@@ -10,7 +11,6 @@ import {
   brandTitle,
 } from '@/lib/catalog/brand'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
-import { DEFAULTS } from '@/lib/catalog/category'
 import { getBrandView, getCatalogIndex, getSalonDoc, getSalonSlugOfBrand } from '@/lib/catalog/data'
 import { BRANDS_PATH } from '@/lib/catalog/filters'
 import { buildSalonView, salonTitle, type SalonView } from '@/lib/catalog/salon'
@@ -22,8 +22,9 @@ import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
+import { biznesDescription } from '@/lib/biznes/seo'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
-import { BrandAbout, BrandHero } from '@/sites/biznes/components/brand/BrandSections'
+import { BrandAbout, BrandCta, BrandHero } from '@/sites/biznes/components/brand/BrandSections'
 import { SalonChooser, SalonFamily } from '@/sites/biznes/components/brand/salon/SalonClient'
 import {
   familyHeading,
@@ -35,9 +36,7 @@ import {
   SalonService,
   SectionHead,
 } from '@/sites/biznes/components/brand/salon/SalonSections'
-import { CatalogContactPanel } from '@/sites/biznes/components/catalog/CatalogContactPanel'
 import { CategoryGrid } from '@/sites/biznes/components/category/CategoryGrid'
-import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
 
 import { requestOrigin, requireLine } from '../../../tenant'
 
@@ -45,8 +44,6 @@ type Props = { params: Promise<{ domain: string; slug: string }> }
 
 /** Logo width in JSON-LD: the original file when it is no larger. */
 const JSON_LD_LOGO_WIDTH = 600
-/** Meta description limit (K33 §8). */
-const DESCRIPTION_LIMIT = 155
 
 /**
  * What `/marki/[slug]` shows: the salon 2.0 of that slug (K4f), else — for a brand inside a
@@ -67,30 +64,28 @@ async function load(params: Props['params']) {
   return { tenant, index, salon: null, brand, redirect: null }
 }
 
-/** Cut on a word to `limit` characters with „…”; without a space in reach, on the limit. */
-function cut(text: string, limit: number) {
-  if (text.length <= limit) return text
-  const space = text.lastIndexOf(' ', limit - 1)
-  return `${text.slice(0, space > 0 ? space : limit - 1)}…`
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, salon, brand } = await load(params)
   const page = salon
     ? {
-        title: salonTitle(salon.h1a, salon.h1b),
-        description: salon.lead ? cut(salon.lead, DESCRIPTION_LIMIT) : undefined,
+        title: fitTitle(salonTitle(salon.h1a, salon.h1b)),
+        description: salon.lead ? biznesDescription(salon.lead) : undefined,
         slug: salon.slug,
       }
     : brand
       ? {
-          title: brandTitle(brand.name, brand.shortDescription),
-          description: brand.shortDescription ?? undefined,
+          title: fitTitle(brandTitle(brand.name, brand.shortDescription), 'dla firm — Rabka-Zdrój'),
+          description: brand.shortDescription
+            ? biznesDescription(brand.shortDescription)
+            : undefined,
           slug: brand.slug,
         }
       : null
   if (!page) return {}
   const settings = await getSiteSettings(tenant.id)
+  // TODO(krystian): zdjęcie hero ma rozmiar karty (indeks), nie ~1200 px — podgląd w komunikatorach
+  // bywa mały; większy plik (pole salonu albo `sources` z Media) przy pracy nad salonami.
+  const salonImage = salon?.hero.find((item) => item.product.image)?.product.image
   const canonical = brandHref(page.slug)
   return {
     title: page.title,
@@ -104,8 +99,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title: page.title,
       description: page.description,
-      // `openGraph` of a page replaces the layout's whole: the site's picture, as on the others.
-      images: ogImages(settings?.seo.ogImage ?? null),
+      // `openGraph` of a page replaces the layout's whole. A salon shows its first hero photo
+      // (audit 01.11), the rest the site's picture or the line mark.
+      images: salonImage ? [{ ...salonImage }] : ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }
@@ -119,6 +115,8 @@ export default async function BrandPage({ params }: Props) {
 
   const [settings, origin] = await Promise.all([getSiteSettings(tenant.id), requestOrigin()])
   const callback = settings?.biznes?.promises.callbackTime ?? null
+  const tel = settings?.phone ? toTelHref(settings.phone) : null
+  const phone = settings?.phone && tel ? { label: settings.phone, href: tel } : null
   const products = brandProducts(index, brand.slug)
   const crumbs: Crumb[] = [
     { name: 'Strona główna', href: '/' },
@@ -146,22 +144,15 @@ export default async function BrandPage({ params }: Props) {
       <BrandHero brand={brand} crumbs={crumbs} count={products.length} />
       <BrandAbout brand={brand} />
       <Container wide className="pb-14 sm:pb-20">
+        {/* No help card in the grid: the page ends with one call to action (audit 0611 P1-4). */}
         <CategoryGrid
           index={islandIndex(index, products)}
-          help={DEFAULTS.help}
           printersHref={null}
           segments="category"
           title="W katalogu"
         />
       </Container>
-      <HowInquiryWorks callbackTime={callback} />
-      <CatalogContactPanel
-        tenantId={tenant.id}
-        id="kontakt"
-        heading={DEFAULTS.contact.heading}
-        lead={DEFAULTS.contact.lead}
-        callbackTime={callback}
-      />
+      <BrandCta brand={brand.name} callbackTime={callback} phone={phone} />
     </>
   )
 }
@@ -229,7 +220,10 @@ async function Salon({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
-      <Container wide className="flex flex-col gap-12 pt-6 pb-14 sm:gap-24 sm:pt-8 sm:pb-20">
+      <Container
+        wide
+        className="flex flex-col gap-10 pt-4 pb-10 min-[768px]:gap-24 min-[768px]:pt-8 min-[768px]:pb-20"
+      >
         <div>
           <SalonHero view={view} crumbs={crumbs} />
         </div>
@@ -255,9 +249,15 @@ async function Salon({
           <section
             id="oferta-cala"
             aria-labelledby="oferta-cala-h"
-            className="flex scroll-mt-28 flex-col gap-8"
+            className="flex scroll-mt-28 flex-col gap-8 max-md:gap-4"
           >
-            <SectionHead id="oferta-cala-h" eyebrow={family.eyebrow} title={family.title} note />
+            <SectionHead
+              id="oferta-cala-h"
+              eyebrow={family.eyebrow}
+              title={family.title}
+              phoneTitle={family.phoneTitle}
+              note
+            />
             <SalonFamily family={view.family} index={islandIndex(index, shown)} />
           </section>
         )}

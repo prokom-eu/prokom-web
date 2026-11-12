@@ -1,6 +1,7 @@
 /**
- * Towns of the line's area (SEO §1): in the structured data, never as clone pages.
- * TODO(krystian): the list moves to the panel with the LocalBusiness data in I13 (SEO §2.3).
+ * Towns of the line's area (SEO §1): in the structured data, never as clone pages. I13: the list
+ * stays in code (Zakopane is a town of the travel zone — no salon there, boss 01.11.2026); a
+ * panel field only if the boss wants to edit it.
  */
 export const AREA_SERVED = [
   'Rabka-Zdrój',
@@ -16,9 +17,9 @@ export const AREA_SERVED = [
 ] as const
 
 /**
- * `Service` of one Instalacje service page (SEO §2.3): the provider is the site's
- * Organization from the layout (`/#organization`), the offer has no price (spec §2).
- * TODO(krystian): I13 — provider → the line's LocalBusiness once it exists (SEO §2.3).
+ * `Service` of one Instalacje service page (SEO §2.3): the provider is the salon's
+ * `LocalBusiness` the layout emits from `CompanyData` (`/#oddzial-1`, the first location — the
+ * only one since 01.11.2026), the offer has no price (spec §2).
  */
 export function serviceJsonLd({
   origin,
@@ -47,7 +48,7 @@ export function serviceJsonLd({
     ...(audience?.length && {
       audience: { '@type': 'BusinessAudience', audienceType: audience.join(', ') },
     }),
-    provider: { '@id': `${origin}/#organization` },
+    provider: { '@id': `${origin}/#oddzial-1` },
     areaServed: AREA_SERVED.map((town) => ({ '@type': 'City', name: town })),
     offers: { '@type': 'Offer', url, availability: 'https://schema.org/InStock' },
   }

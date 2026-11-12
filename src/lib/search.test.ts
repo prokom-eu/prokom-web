@@ -77,10 +77,14 @@ describe('searchProducts on the seed catalog (spec. §9 pkt 2)', () => {
     expect(nameOf(top('subiekt', 1)[0]!)).toMatch(/Subiekt/)
   })
 
-  it('„kasa na baterie” finds a mobile register', () => {
+  it('„kasa na baterie” finds mobile registers', () => {
     const found = top('kasa na baterie')
-    expect(found).toContain('posnet-ergo-online')
-    for (const slug of found) expect(categoryOf(slug)).toBe('kasy-fiskalne')
+    expect(found.length).toBeGreaterThan(0)
+    // Registers only: fiscal registers and mobile register terminals (both „kasa” in the category).
+    for (const slug of found) {
+      expect(['kasy-fiskalne', 'kasoterminale-mobilne']).toContain(categoryOf(slug))
+    }
+    expect(slugs('kasa na baterie')).toContain('posnet-ergo-online')
   })
 
   it('„restauracja” finds gastronomy products through synonyms', () => {
@@ -111,6 +115,15 @@ describe('searchProducts on the seed catalog (spec. §9 pkt 2)', () => {
 
   it('a nonsense phrase finds nothing', () => {
     expect(slugs('zxqvbn')).toEqual([])
+  })
+
+  it('„kasa” puts fiscal registers first, „laptop” the laptops (audit 01.11)', () => {
+    expect(top('kasa', 3).map(categoryOf)).toEqual([
+      'kasy-fiskalne',
+      'kasy-fiskalne',
+      'kasy-fiskalne',
+    ])
+    expect(categoryOf(top('laptop', 1)[0]!)).toBe('laptopy')
   })
 
   it('a name hit outranks a description hit', () => {
@@ -192,9 +205,11 @@ describe('matchCategories and matchPages', () => {
     expect(matchCategories(index, prepared, results, 'kasa')[0]).toMatchObject({
       slug: 'kasy-fiskalne',
     })
-    expect(results.slice(0, 2).map((product) => product.name)).toEqual([
-      'Elzab kasa samoobsługowa Online',
-      'Posnet Ergo Online',
+    // The category name counts above a „kasa” in another product's name (audit 01.11).
+    expect(results.slice(0, 3).map((product) => product.categories[0])).toEqual([
+      'kasy-fiskalne',
+      'kasy-fiskalne',
+      'kasy-fiskalne',
     ])
   })
 

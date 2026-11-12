@@ -23,6 +23,10 @@
   & .shp {
     cursor: pointer;
   }
+  /* Invisible touch area of a room, out to the plan's edge at the outer wall (I14). */
+  & .shhit {
+    fill: transparent;
+  }
   & .shout {
     fill: var(--surface-3);
     stroke: var(--ink-soft);
@@ -446,14 +450,14 @@
   }
   & .rbr.e .rbx {
     background: var(--inst-mux-ok-bg);
-    color: var(--ok);
+    color: var(--ok-text);
   }
   & .rbr.e .rbv svg {
     color: var(--ok);
   }
   & .rbr.c .rbx {
     background: var(--il-warn-feed);
-    color: var(--warn);
+    color: var(--inst-warn-text);
   }
   & .rbr.c {
     box-shadow: inset 0 0 0 1.5px var(--inst-il-rbr-c-sh);
@@ -945,15 +949,10 @@
       grid-template-columns: minmax(0, 1fr);
     }
   }
+  /* Under the trust band (its own 40 px bottom padding), before the CTA band. */
   & .xc-gwn {
-    margin-top: -80px;
-    margin-bottom: 104px;
-  }
-  @media (max-width: 760px) {
-    & .xc-gwn {
-      margin-top: -64px;
-      margin-bottom: 72px;
-    }
+    margin-top: -24px;
+    margin-bottom: 40px;
   }
 
   /* The prototype has no box-sizing reset: the phone is 340 px plus its padding (ADR-I003 §5

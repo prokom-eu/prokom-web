@@ -1,5 +1,8 @@
 'use client'
 
+import { useRef } from 'react'
+
+import { SlidingPill } from '@/components/motion/SlidingPill'
 import { cx } from '@/components/ui/cx'
 import { chosenValues, versionSelection } from '@/lib/catalog/configurator'
 import { variantSlug } from '@/lib/catalog/productName'
@@ -22,13 +25,25 @@ function scrollToConfigurator() {
  */
 export function VersionChips() {
   const { config, variants, state, setState } = useProductConfig()
+  const list = useRef<HTMLDivElement>(null)
   if (variants.length < 2) return null
   const current = config ? Object.values(state.selection) : []
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <span className="mr-1 text-xs font-extrabold tracking-[0.1em] text-ink-3 uppercase">
+    // Phone (board App-Produkt): one row to swipe.
+    <div
+      ref={list}
+      data-pill-list
+      className="relative flex flex-wrap items-center gap-2 [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4 max-md:py-2"
+    >
+      <span className="mr-1 shrink-0 text-xs font-extrabold tracking-[0.1em] text-ink-3 uppercase">
         W tej karcie
       </span>
+      {/* R2: the chosen model's frame flows to the next one. */}
+      <SlidingPill
+        container={list}
+        active={current.join('|')}
+        className="bg-accent-soft shadow-[inset_0_0_0_1.5px_var(--accent-text)]"
+      />
       {variants.map((variant) => {
         const slug = variantSlug(variant)
         const model = config
@@ -50,7 +65,7 @@ export function VersionChips() {
               }
             }}
             className={cx(
-              'min-h-9 rounded-xl px-2.5 text-sm font-bold transition-shadow',
+              'min-h-10 shrink-0 rounded-xl px-2.5 text-sm font-bold whitespace-nowrap transition-shadow',
               picked
                 ? 'bg-accent-soft text-accent-text shadow-[inset_0_0_0_1.5px_var(--accent-text)]'
                 : 'bg-card text-ink shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)]',
@@ -84,7 +99,7 @@ export function YourVersion({ benefit }: { benefit: string | null }) {
         <button
           type="button"
           onClick={scrollToConfigurator}
-          className="min-h-9 text-sm font-extrabold text-accent-text hover:underline"
+          className="min-h-11 text-sm font-extrabold text-accent-text hover:underline"
         >
           Zmień wersję ↓
         </button>

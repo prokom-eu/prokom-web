@@ -230,7 +230,9 @@ export function ChargerConfigurator() {
     <div className="evcfg ri">
       <div className="evcv">
         <div className="evglow" />
-        <ChargerImage k={v.key} className={`${M[v.key].imageClass} on`} />
+        {/* Keyed by the model: a new model's photo fades in (RUNDA-V5 §11). There are no photos
+            per colour, so a colour change only updates the swatch label. */}
+        <ChargerImage key={v.key} k={v.key} className={`${M[v.key].imageClass} on`} />
         {v.colour && (
           <span className="evcol" style={{ '--sw': `var(${v.colour.token})` } as CSSProperties}>
             <i />
