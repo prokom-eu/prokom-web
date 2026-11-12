@@ -3,6 +3,7 @@ import { getSharedData } from '@/lib/shared/getSharedData'
 import type { BzContactBlock as BzContactBlockData } from '@/payload-types'
 
 import { PhoneHelpCard } from '../../components/catalog/PhoneHelpCard'
+import { CartAttachment } from '../../components/contact/CartAttachment'
 import { ContactPanel } from '../../components/forms/ContactPanel'
 
 type Props = { block: BzContactBlockData; tenantId: number }
@@ -50,6 +51,8 @@ export async function BzContactBlock({ block, tenantId }: Props) {
           topicsLabel="W czym możemy pomóc?"
           accentSecondSentence
           showLocation
+          // The list „Do zapytania” goes with the home form too (plan 0611 §8.2).
+          prefill={<CartAttachment />}
         />
       </div>
       <PhoneHelpCard

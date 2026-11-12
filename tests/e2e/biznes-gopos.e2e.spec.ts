@@ -10,11 +10,23 @@ const cartButton = (page: Page) =>
   page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 
 test.describe('Biznes /gopos (K4h)', () => {
+  test('shows the H1 text once on the page — no venue tab repeats it', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/gopos'))
+    const h1 = (await page.locator('h1').innerText()).replace(/\s+/g, ' ').trim()
+    const body = (await page.locator('body').innerText()).replace(/\s+/g, ' ')
+    expect(body.split(h1).length - 1).toBe(1)
+    await expect(page.locator('#lokal [role="tabpanel"] h3')).toHaveText(/^Restauracja:/)
+  })
+
   test('shows the hero, the venues, the package and the FAQ', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/gopos'))
 
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('GoPOS dla gastronomii')
+    await expect(page.locator('h1')).toHaveText(/Sala,\skuchnia\si\sdowozy\.\s*Jeden\ssystem\./)
+    // The phrase stays for search engines and visitors in the pill (PRODUKCJA-BIZNES-1211 §3).
+    await expect(page.locator('section[aria-labelledby="gopos-h"]')).toContainText(
+      'GoPOS dla gastronomii',
+    )
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toHaveText(
       /Strona główna\s*\/\s*Oferta\s*\/\s*GoPOS/,
     )
@@ -88,6 +100,28 @@ test.describe('Biznes /gopos (K4h)', () => {
     await expect(
       page.locator('#pakiet').getByRole('complementary', { name: 'Twój pakiet GoPOS' }),
     ).toContainText('GoHub')
+  })
+
+  test('PREMIUM-1011: ready gastronomy bundles, the GoHub queue and the film poster', async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(site('biznes.localhost', '/gopos'))
+    const bundles = page.locator('[data-bundles-section] > li')
+    // Only „Gotowe” bundles — each links to its page, each can go to the inquiry.
+    expect(await bundles.count()).toBeGreaterThan(0)
+    for (const tile of await bundles.all()) {
+      await expect(tile.locator('a[href^="/zestawy/"]').first()).toBeVisible()
+      await expect(tile.getByRole('button', { name: /Dodaj zestaw do zapytania/ })).toBeVisible()
+    }
+    // Reduced motion: the queue stands still, the newest order says „teraz”.
+    const queue = page.locator('[data-order-queue] li')
+    await expect(queue).toHaveCount(3)
+    await expect(queue.first()).toContainText('teraz')
+    // The poster frame is our catalog photo; YouTube only after the click.
+    const film = page.locator('#film-gopos')
+    await expect(film.locator('img')).toHaveCount(1)
+    await expect(film.locator('iframe')).toHaveCount(0)
   })
 
   test('no prices, leasing or instalments on the page', async ({ page }) => {

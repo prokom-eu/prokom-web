@@ -5,10 +5,12 @@ import Link from 'next/link'
 import { useEffect, useId, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
+import { Icon } from '@/components/ui/Icon'
 import {
   packageHardware,
   packageItems,
   packageModules,
+  queueAt,
   selectionForVenue,
   toggleModule,
 } from '@/lib/biznes/pages/gopos'
@@ -19,7 +21,7 @@ import { productHref } from '@/lib/catalog/card'
 
 import { useSwap } from '../../../components/motion/useSwap'
 import { BTN_OUTLINE, BTN_PRIMARY, CARD, EYEBROW, TAB_KEYS } from '../ui'
-import { Ticket, useReducedMotion } from './Stage'
+import { PauseButton, Ticket, useReducedMotion } from './Stage'
 import { goposActions, pickedOr, useGopos } from './store'
 
 /** POPRAWKI-0311 §B: the venue's ticket moves through its statuses every 1.8 s. */
@@ -148,15 +150,7 @@ export function GoposVenues({
       >
         <div key={venue.key} className="gps-swap flex flex-col gap-4 text-ink max-md:gap-3">
           <h3 className="font-display text-[clamp(1.5rem,2.5vw,2.125rem)] leading-tight font-extrabold text-balance max-md:text-[21px]">
-            {/* The first venue is the page's own (its halves are the H1 of the hero): only its
-                name here, so the H1 is not said twice (audit 0611 P1-3); the others keep theirs. */}
-            {index === 0 ? (
-              venue.tab
-            ) : (
-              <>
-                {venue.h1a} <em className="text-ok-text not-italic">{venue.h1b}</em>
-              </>
-            )}
+            {venue.h1a} <em className="text-ok-text not-italic">{venue.h1b}</em>
           </h3>
           <p className="leading-relaxed text-pretty text-ink-2 max-md:text-sm">{venue.lead}</p>
           <div>
@@ -360,38 +354,167 @@ export function GoposAreas({ data }: { data: SectionData<'gopos-areas'> }) {
 }
 
 /** GoHub: five apps into one queue, „Dodaj GoHub do pakietu”. */
-export function GoposHub({ data }: { data: SectionData<'gopos-hub'> }) {
+export function GoposHub({
+  data,
+  onDark = false,
+}: {
+  data: SectionData<'gopos-hub'>
+  /** Navy section (board Web-gopos „Dowozy · GoHub”): glass tiles, dashed links, the green hub. */
+  onDark?: boolean
+}) {
   const state = useGopos()
   const inPackage = pickedOr(state, data.initial).has(data.hubSlug)
+  const tile = onDark
+    ? 'rounded-2xl bg-white/[0.06] ring-1 ring-white/12 text-white'
+    : cx(CARD, 'text-ink')
   return (
-    <div className="grid items-center gap-5 min-[900px]:grid-cols-[1fr_auto_1fr]">
-      <ul className="flex flex-wrap gap-2 min-[900px]:flex-col">
+    <div className="grid items-center gap-5 min-[900px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] min-[900px]:gap-0">
+      <ul className="flex flex-wrap gap-2 min-[900px]:flex-col min-[900px]:gap-3">
         {data.platforms.map((platform) => (
-          <li key={platform} className={cx(CARD, 'px-4 py-3 font-extrabold text-ink')}>
-            {platform}
+          <li key={platform} className="flex items-center min-[900px]:gap-0">
+            <span
+              className={cx(
+                tile,
+                'flex items-center gap-3 px-3 py-2.5 font-extrabold',
+                onDark && 'min-[900px]:w-52',
+              )}
+            >
+              {onDark && (
+                <span
+                  aria-hidden="true"
+                  className="flex size-8 items-center justify-center rounded-lg bg-white text-surface-dark"
+                >
+                  <Icon name="bag" className="size-4" strokeWidth={2.2} />
+                </span>
+              )}
+              {platform}
+            </span>
+            {onDark && <Wire />}
           </li>
         ))}
       </ul>
-      <div className="flex flex-col items-center gap-3 rounded-[22px] bg-ok-text p-6 text-center text-surface">
-        <b className="font-display text-2xl font-extrabold">GoHub</b>
-        <small>zamówienia w jednym miejscu</small>
+      <div className="flex flex-col items-center gap-4">
+        <div
+          className={cx(
+            'flex flex-col items-center justify-center gap-1 p-6 text-center',
+            onDark
+              ? 'size-44 rounded-full bg-ok text-surface-dark shadow-[0_0_0_14px_color-mix(in_srgb,var(--ok)_14%,transparent),0_0_60px_-6px_var(--ok)]'
+              : 'rounded-[22px] bg-ok-text text-surface',
+          )}
+        >
+          <b className="font-display text-2xl font-extrabold">GoHub</b>
+          <small className="text-[13px] font-bold">zamówienia w jednym miejscu</small>
+        </div>
         <button
           type="button"
           aria-pressed={inPackage}
           onClick={() => goposActions.addModule(data.hubSlug, data.initial)}
-          className="inline-flex min-h-11 items-center rounded-xl bg-surface px-4 font-extrabold text-ink"
+          className={cx(
+            'inline-flex min-h-11 items-center rounded-xl px-4 font-extrabold',
+            onDark ? 'bg-white text-surface-dark' : 'bg-surface text-ink',
+          )}
         >
           {inPackage ? 'GoHub jest w pakiecie ✓' : 'Dodaj GoHub do pakietu'}
         </button>
+        {data.orders.length > 0 && <OrderQueue orders={data.orders} onDark={onDark} />}
       </div>
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col gap-2 min-[900px]:gap-3">
         {data.out.map((out) => (
-          <li key={out.t} className={cx(CARD, 'flex flex-col px-4 py-3 text-ink')}>
-            <b className="font-extrabold">{out.t}</b>
-            <small className="text-[14px] text-ink-2">{out.d}</small>
+          <li key={out.t} className="flex items-center">
+            {onDark && <Wire />}
+            <span className={cx(tile, 'flex grow flex-col px-4 py-3')}>
+              <b className="font-extrabold">{out.t}</b>
+              <small className={cx('text-[14px]', onDark ? 'text-white/75' : 'text-ink-2')}>
+                {out.d}
+              </small>
+            </span>
           </li>
         ))}
       </ul>
+    </div>
+  )
+}
+
+/** A dashed link between a tile and the hub (desktop only, decorative). */
+function Wire() {
+  return (
+    <span
+      aria-hidden="true"
+      className="hidden h-px w-8 shrink-0 border-t border-dashed border-accent-on-dark/60 min-[900px]:block min-[1080px]:w-12"
+    />
+  )
+}
+
+const QUEUE_MS = 2600
+
+/**
+ * The GoHub queue (PREMIUM-1011, `gopos.ord`): the orders arrive one by one — the newest on top,
+ * channel, items and time. Stops while the pointer or the focus is on it and with the page's
+ * „Wstrzymaj animację”; with reduced motion the queue just stands still.
+ */
+function OrderQueue({
+  orders,
+  onDark,
+}: {
+  orders: SectionData<'gopos-hub'>['orders']
+  onDark: boolean
+}) {
+  const { paused } = useGopos()
+  const reduce = useReducedMotion()
+  const [step, setStep] = useState(0)
+  const [hold, setHold] = useState(false)
+  const moving = !reduce && !paused && !hold && orders.length > 1
+  useEffect(() => {
+    if (!moving) return
+    const timer = window.setInterval(() => setStep((value) => value + 1), QUEUE_MS)
+    return () => window.clearInterval(timer)
+  }, [moving])
+  const queue = queueAt(orders, step)
+  // The times stay with the places: the newest order is always „teraz”.
+  const times = orders.map((order) => order.t)
+  return (
+    <div
+      className="w-full max-w-[19rem]"
+      onPointerEnter={() => setHold(true)}
+      onPointerLeave={() => setHold(false)}
+      onFocus={() => setHold(true)}
+      onBlur={() => setHold(false)}
+      data-order-queue
+    >
+      <p
+        className={cx(
+          'mb-2 text-center text-xs font-extrabold tracking-[0.08em] uppercase',
+          onDark ? 'text-white/70' : 'text-ink-2',
+        )}
+      >
+        Kolejka zamówień
+      </p>
+      {/* Not a live region: the queue is a picture of how GoHub works, not news to read out. */}
+      <ol className="flex flex-col gap-2" tabIndex={0} aria-label="Przykładowa kolejka zamówień">
+        {queue.map((order, i) => (
+          <li
+            key={`${order.c}-${step - i}`}
+            className={cx(
+              'flex items-center gap-3 rounded-xl px-3 py-2 text-left text-[13px]',
+              onDark ? 'bg-white/[0.08] ring-1 ring-white/12' : cx(CARD),
+              i === 0 && moving && 'animate-[sw-arrive_1.3s_var(--ease-out)]',
+            )}
+          >
+            <b className="font-extrabold">{order.c}</b>
+            <span className={cx('grow', onDark ? 'text-white/75' : 'text-ink-2')}>{order.d}</span>
+            <span
+              className={cx(
+                'rounded-full px-2 py-0.5 text-[12px] font-extrabold',
+                i === 0 ? 'bg-ok text-surface-dark' : onDark ? 'bg-white/10' : 'bg-surface-2',
+              )}
+            >
+              {times[i]}
+            </span>
+          </li>
+        ))}
+      </ol>
+      {/* WCAG 2.2.2: a pause within reach on touch screens too (hidden with reduced motion). */}
+      <PauseButton className="mx-auto mt-3 block" />
     </div>
   )
 }

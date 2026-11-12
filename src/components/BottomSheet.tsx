@@ -176,12 +176,24 @@ export function BottomSheet({
     if (!element) return
     element.style.transition = animate ? 'transform .2s ease' : 'none'
     element.style.transform = dy > 0 ? `translateY(${dy}px)` : ''
+    // Back in place: the sheet's own CSS transitions (opening, closing) apply again.
+    if (dy <= 0) {
+      const clear = () => (element.style.transition = '')
+      if (animate) element.addEventListener('transitionend', clear, { once: true })
+      else clear()
+    }
   }
 
   const dragHandlers = dragToClose
     ? {
         onPointerDown: (event: PointerEvent<HTMLDivElement>) => {
           if (event.pointerType === 'mouse' && event.button !== 0) return
+          // A finger pulls by the handle only; elsewhere on the top it scrolls (see the handle).
+          if (
+            event.pointerType !== 'mouse' &&
+            !(event.target as Element).closest('[data-sheet-handle]')
+          )
+            return
           drag.current = { y: event.clientY, time: event.timeStamp, dy: 0, active: false }
         },
         onPointerMove: (event: PointerEvent<HTMLDivElement>) => {
@@ -211,8 +223,9 @@ export function BottomSheet({
           else moveSheet(0, true)
         },
         onPointerCancel: () => {
+          const state = drag.current
           drag.current = null
-          moveSheet(0, true)
+          if (state?.active) moveSheet(0, true)
         },
       }
     : {}
@@ -263,7 +276,6 @@ export function BottomSheet({
           data-sheet-top={stickyHeader ? '' : undefined}
           className={
             [
-              dragToClose ? 'touch-none' : '',
               stickyHeader
                 ? 'sticky top-0 z-10 bg-surface shadow-[-32px_0_0_var(--surface),32px_0_0_var(--surface)]'
                 : '',
@@ -272,12 +284,18 @@ export function BottomSheet({
               .join(' ') || undefined
           }
         >
-          {/* `data-sheet-handle`: a line may hide it where the sheet is a modal (`panelClassName`). */}
+          {/* `data-sheet-handle`: a line may hide it where the sheet is a modal (`panelClassName`).
+              A finger pulls the sheet by this 44 × 24 px strip only (`touch-none`): the rest of
+              the top keeps the browser's scrolling and sideways panning (AUDYT-PROD-TELEFON §2
+              #9 — a touch-none header swallowed every gesture started on it). A mouse drags
+              from the whole top. The negative margin keeps the old 6 px in the layout. */}
           <span
             aria-hidden="true"
             data-sheet-handle
-            className="mx-auto block h-1.5 w-11 rounded-full bg-border"
-          />
+            className={`mx-auto -my-[9px] flex h-6 w-11 items-center ${dragToClose ? 'touch-none' : ''}`}
+          >
+            <span className="block h-1.5 w-full rounded-full bg-border" />
+          </span>
           {header ?? (
             <div className="mt-3 flex items-center justify-between gap-3">
               {/* Audit 0611 P0.4: a heading only while open — the closed sheet stays in the page

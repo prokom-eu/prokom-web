@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 

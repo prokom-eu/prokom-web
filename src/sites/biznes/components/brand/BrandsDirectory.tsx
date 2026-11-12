@@ -11,7 +11,7 @@ import { normalizeText } from '@/lib/catalog/normalize'
 import { openCartDrawer } from '@/lib/cart/store'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { plural } from '@/lib/plural'
-import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
+import { BZ_H1, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { PathIcon } from '../product/PathIcon'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
@@ -182,9 +182,7 @@ export function BrandsDirectory({
             role="status"
             className="flex flex-col items-start gap-3 rounded-3xl bg-surface-2 p-6 sm:p-8"
           >
-            <h2 className="font-display text-2xl font-extrabold text-ink">
-              Nie mamy jeszcze salonu tej marki
-            </h2>
+            <h2 className={cx(BZ_H2, 'text-ink')}>Nie mamy jeszcze salonu tej marki</h2>
             <p className="max-w-[60ch] text-ink-2">
               Dostarczamy więcej marek, niż pokazujemy. Napisz, czego szukasz, a sprawdzimy
               u&nbsp;dystrybutorów.
@@ -195,7 +193,7 @@ export function BrandsDirectory({
 
         <div className="flex flex-col gap-4 rounded-3xl bg-surface-2 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
           <div className="flex flex-col gap-1">
-            <h2 className="font-display text-xl font-extrabold text-ink">Szukasz innej marki?</h2>
+            <h2 className={cx(BZ_H2, 'text-ink')}>Szukasz innej marki?</h2>
             <p className="max-w-[70ch] text-ink-2">
               Współpracujemy z&nbsp;dystrybutorami sprzętu i&nbsp;oprogramowania w&nbsp;całej
               Polsce. Sprawdzimy dostępność i&nbsp;przygotujemy ofertę.

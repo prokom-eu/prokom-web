@@ -16,7 +16,15 @@ import { ProductStage, STAGE_SHADOW } from '../ProductStage'
  * name (the link, stretched over the tile), who it is for, up to 4 items and „Dodaj zestaw do
  * zapytania”, which puts the required items on the inquiry list with the bundle note. No prices.
  */
-export function BundleTile({ bundle }: { bundle: BundleCardData }) {
+export function BundleTile({
+  bundle,
+  headingLevel = 2,
+}: {
+  bundle: BundleCardData
+  /** `/zestawy` lists the tiles under its H1 (H2); a page section under its own H2 uses 3. */
+  headingLevel?: 2 | 3
+}) {
+  const Heading = headingLevel === 3 ? 'h3' : 'h2'
   const cart = useCart()
   const listed =
     bundle.cartItems.length > 0 &&
@@ -52,14 +60,14 @@ export function BundleTile({ bundle }: { bundle: BundleCardData }) {
         <span className="self-start rounded-md bg-surface-2 px-2 py-1 text-xs font-bold text-ink-2">
           {bundle.label}
         </span>
-        <h2 className="font-display text-lg leading-snug font-extrabold text-ink [overflow-wrap:anywhere]">
+        <Heading className="font-display text-lg leading-snug font-extrabold text-ink [overflow-wrap:anywhere]">
           <Link
             href={bundle.href}
             className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none group-has-[a:focus-visible]:underline"
           >
             {bundle.name}
           </Link>
-        </h2>
+        </Heading>
         <p className="line-clamp-3 text-sm leading-relaxed text-ink-2">{bundle.audience}</p>
         {bundle.items.length > 0 && (
           <ul className="mt-1 flex flex-col gap-1 text-sm text-ink">

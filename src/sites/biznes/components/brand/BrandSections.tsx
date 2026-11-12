@@ -105,7 +105,7 @@ export function BrandAbout({ brand }: { brand: BrandView }) {
           )}
           {brand.productLines.length > 0 && (
             <section aria-labelledby="linie-h">
-              <h2 id="linie-h" className="font-display text-xl font-extrabold text-ink">
+              <h2 id="linie-h" className={`${BZ_H2} text-ink`}>
                 Linie produktów
               </h2>
               <ul className="mt-4 flex flex-wrap gap-2">
@@ -126,7 +126,7 @@ export function BrandAbout({ brand }: { brand: BrandView }) {
             aria-labelledby="fakty-h"
             className="self-start rounded-[26px] bg-card p-6 shadow-[inset_0_0_0_1px_var(--border)] sm:p-7"
           >
-            <h2 id="fakty-h" className="font-display text-xl font-extrabold text-ink">
+            <h2 id="fakty-h" className={`${BZ_H2} text-ink`}>
               Fakty
             </h2>
             <dl className="mt-4 divide-y divide-border">

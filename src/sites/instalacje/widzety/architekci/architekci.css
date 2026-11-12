@@ -5,7 +5,7 @@
  * of `Architekci.body.html`, `inc/arscene.html`, `Main.body.html` and the classes the scripts
  * join: `m-kl|ty|in`, `off-<service>`, `L-<service>`), colours only from tokens (scene:
  * `--inst-sg-*`, prototype `--sg*`). Left out: rules of other pages caught by the prefix
- * (`.arm`, `.arc`) and `inst-fadein` (already in `obiekty.css`, the same bundle). The rest (hero,
+ * (`.arm`, `.arc`) (`inst-fadein` lives in `ruch.css`). The rest (hero,
  * `.shead`, `.card`, `.btn`, `.tag`, `.zin`, FAQ) comes from the line's shared CSS.
  */
 [data-line='instalacje'] {
@@ -2934,7 +2934,8 @@
     & .arw,
     & .arfib,
     & .arlbl i {
-      animation: none;
+      /* `!important`: `.ars.m-in .arlbl i` out-ranks `.arlbl i`. */
+      animation: none !important;
     }
   }
 

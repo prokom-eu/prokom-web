@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from './IntentLink'
 import type { ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
@@ -20,7 +20,7 @@ import { PAGE_CONTAINER as CONTAINER } from './pageContainer'
 import { RulesBento } from './RulesBento'
 import { StatsStrip } from './StatsStrip'
 import { Steps } from './Steps'
-import { VerifyCards } from './VerifyCards'
+import { shownVerify, VerifyCards } from './VerifyCards'
 
 /** The line's own sections in named places (spec §6.0). */
 export type AboutSlots = {
@@ -43,6 +43,10 @@ export type AboutPageProps = {
   slots?: AboutSlots
   /** Optional section (spec §6.0) — on by default. */
   showVerify?: boolean
+  /** Hide a „Sprawdź nas” card whose link is empty (Biznes, plan 0611 §8.2); off by default. */
+  verifyLinkedOnly?: boolean
+  /** Numbers of 10 and more count up when they come into view (`CountUp`); off by default. */
+  countStats?: boolean
   /** Logos of the line's authorisations in the company card (Biznes, plan 0611 §8.2). */
   authLogos?: readonly AuthLogo[]
   /** Top row of the company card (Software: „Wizytówka firmy” + logo, AUDYT-0811 #13). */
@@ -73,6 +77,8 @@ export function AboutPage({
   ],
   slots = {},
   showVerify = true,
+  verifyLinkedOnly = false,
+  countStats = false,
   authLogos,
   cardHeading,
   headingEmClass,
@@ -86,6 +92,7 @@ export function AboutPage({
   const lineCount = lines.filter((item) => item.kind === 'linia').length
   const gaming = lines.some((item) => item.key === 'gaming')
   const jsonLd = pageBreadcrumbsJsonLd(origin, breadcrumbs)
+  const verify = shownVerify(about.verify ?? [], verifyLinkedOnly)
 
   return (
     <div data-about-page>
@@ -166,7 +173,7 @@ export function AboutPage({
       </section>
 
       <div className={cx(CONTAINER, 'relative z-[1] -mt-9')}>
-        <StatsStrip stats={aboutStats(about.stats, lines)} siteEnv={siteEnv} />
+        <StatsStrip stats={aboutStats(about.stats, lines)} siteEnv={siteEnv} countUp={countStats} />
       </div>
 
       {slots.afterStats}
@@ -223,7 +230,7 @@ export function AboutPage({
         <FamilyStrip lines={lines} current={line} className="mt-8" />
       </section>
 
-      {showVerify && about.verify && about.verify.length > 0 && (
+      {showVerify && verify.length > 0 && (
         <section
           id="sprawdz"
           aria-labelledby="o-firmie-sprawdz"
@@ -234,7 +241,7 @@ export function AboutPage({
           <h2 id="o-firmie-sprawdz" className={H2}>
             <AccentText text="Nie musisz wierzyć **nam na słowo**" emClass={headingEmClass} />
           </h2>
-          <VerifyCards items={about.verify} className="mt-8" />
+          <VerifyCards items={verify} className="mt-8" />
         </section>
       )}
 

@@ -46,6 +46,7 @@ import { ChargerShowcase } from '../../widzety/ladowarki/LadowarkiWidgetsLazy'
 import { NaglosnienieSections } from '../../widzety/naglosnienie/NaglosnienieSections'
 import { ZoneMixer } from '../../widzety/naglosnienie/NaglosnienieWidgetsLazy'
 import { salonsNote } from '../../powloka/salons'
+import { PageStyles } from '../../style/LineStyles'
 
 type Props = { block: InstServiceBlockData; tenantId: number }
 
@@ -165,6 +166,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
       data-inst-il=""
       style={{ '--h': service.color || undefined } as CSSProperties}
     >
+      <PageStyles kind={service.key} />
       <IlDefs />
       {origin && (
         <>

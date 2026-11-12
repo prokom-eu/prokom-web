@@ -10,13 +10,24 @@ Co robić krok po kroku przy wdrożeniu, cofnięciu, odtworzeniu z kopii i awari
 | Stos stagingu | projekt `prokom-staging`: `compose.prod.yml` + `compose.staging.yml`, zmienne `.env.staging` | baza `prokom_staging` |
 | Nginx + certbot | projekt `prokom-proxy`: `docker/compose.proxy.yml` (staging) + `compose.proxy.prod.yml` (domeny produkcji, od startu produkcji), zmienne `.env.proxy` | jedyny z portami 80/443 |
 
-**Uruchamianie proxy (stan od 3.11.2026 — Gaming na produkcji, prokom-web jeszcze nie):** zawsze ze wszystkimi nakładkami, które mają certyfikat i zmienne w `.env.proxy` — pominięta nakładka wyłącza tę domenę:
+**Uruchamianie proxy (stan od 9.11.2026 — produkcja prokom-web i Gaming):** zawsze ze wszystkimi nakładkami, które mają certyfikat i zmienne w `.env.proxy` — pominięta nakładka wyłącza tę domenę:
 ```bash
 cd /srv/prokom/prokom-web
-docker compose --env-file .env.proxy -f docker/compose.proxy.yml \
+docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml \
   -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml up -d nginx
 ```
-Po starcie produkcji prokom-web dochodzi `-f docker/compose.proxy.prod.yml` (§3). Odnawianie certyfikatów: kontener `certbot` (`renew --webroot`) — także tych wystawionych `--standalone`.
+Odnawianie certyfikatów: kontener `certbot` (`renew --webroot`) — także tych wystawionych `--standalone`.
+
+**Nginx widzi stare pliki po wdrożeniu stagingu (9.11.2026):** wdrożenie podmienia katalogi `docker/nginx/` na serwerze, a działający kontener ma podpięty katalog sprzed podmiany (`/etc/nginx/snippets/` pusty). Strony działają, ale każdy `nginx -s reload` — także automatyczny co 6 h po odnowieniu certyfikatu — kończy się błędem `open() "/etc/nginx/snippets/…" failed`. Sprawdzenie: `docker exec prokom-proxy-nginx-1 nginx -t`. Naprawa: komenda wyżej z `--force-recreate` (kilka sekund przerwy). Przed każdą zmianą domen proxy zacznij od `nginx -t`.
+
+**Nowy certyfikat bez zatrzymywania Nginx** (domeny, których Nginx jeszcze nie obsługuje — domyślny blok odpowiada 444, więc `--webroot` sam nie przejdzie): tymczasowy blok tylko na porcie 80 w katalogu `sites` (tmpfs, znika przy restarcie), certyfikat, usunięcie bloku:
+```bash
+docker exec prokom-proxy-nginx-1 sh -c 'printf "server {\n  listen 80;\n  server_name <domeny>;\n  include /etc/nginx/snippets/acme.conf;\n}\n" > /etc/nginx/sites/zz-acme-tmp.conf && nginx -t && nginx -s reload'
+docker compose --env-file .env.proxy -f docker/compose.proxy.yml run --rm --entrypoint certbot certbot \
+  certonly --webroot -w /var/www/certbot --cert-name <nazwa> --non-interactive --agree-tos -d <domena> -d …
+docker exec prokom-proxy-nginx-1 sh -c 'rm -f /etc/nginx/sites/zz-acme-tmp.conf && nginx -t && nginx -s reload'
+```
+Poszerzenie istniejącego certyfikatu: to samo z `--expand` i pełną listą jego domen.
 | Kopie | `scripts/backup.sh`, `scripts/restore.sh`, zmienne `.env.backup` | lokalnie `../backups/`, poza serwerem `RCLONE_REMOTE` |
 | Sekrety | `.env.*` w repo (poza Gitem), plik hasła stagingu `../secrets/` | wartości w menedżerze haseł |
 | Klucz prywatny `age` | **tylko** menedżer haseł („prokom-web backup age”) | na serwerze jest tylko klucz publiczny |
@@ -119,7 +130,7 @@ Kroki:
 
 - **Zostaje:** konta (`Users`), zapytania, tenanty (e-mail powiadomień, domeny `staging`) — importy linii tenanty tylko czytają, kont ani zapytań nie dotykają.
 - **Nadpisuje:** to, co jest w paczkach: katalog Biznesu („pola z paczki wygrywają z edycją w panelu”), **globalne Dane firmy** (`seed:biznes` — nazwa, NIP i **salony = tylko Rabka**; salon dodany w panelu stagingu zniknie) i **ustawienia stron** (`site-settings`) wszystkich trzech linii. Przed odświeżeniem zapytaj szefa, czy czegoś nie poprawiał na stagingu.
-- **Strony sprzed obecnego seeda** (np. GoPOS, InsERT, Opieka IT, O firmie, Kontakt z importu 31.10): seed nie nadpisuje strony, w której widzi obce bloki — traktuje ją jak edytowaną w panelu (raport „strona K4 edytowana w panelu — bez zmian”). Gdy w historii wersji strony (`_pages_v`) nie ma edycji z panelu i szef niczego na niej nie poprawiał, wymień ją jednorazowo: `ZAMIEN_STRONY=gopos,insert,opieka-it,o-firmie,kontakt SSH=… bash scripts/staging-content.sh biznes` (lokalnie: `pnpm seed:biznes -- --zamien-strony=…`). Układ wskazanych stron zastępuje wersja z paczki (tytuł zostaje, opis SEO wg zwykłych reguł seeda), stary układ trafia do `tmp/strony-backup-<data>.json` w folderze, z którego uruchamiasz, a raport seeda pokazuje „strona zamieniona (przed → po)” (nieznany slug: „ZAMIEN_STRONY: nieznana strona”). Powtórka na stronie z tymi samymi blokami nic nie zmienia. **Zmienną ustawiaj tylko jako prefiks jednego wywołania, nigdy `export`** — przy zmianie bloków w kodzie albo bloku dodanym w panelu kolejny przebieg z tą samą listą zamieniłby stronę znowu.
+- **Strony sprzed obecnego seeda** (np. GoPOS, InsERT, Opieka IT, O firmie, Kontakt z importu 31.10): seed nie nadpisuje strony, w której widzi obce bloki — traktuje ją jak edytowaną w panelu (raport „strona K4 edytowana w panelu — bez zmian”). Gdy w historii wersji strony (`_pages_v`) nie ma edycji z panelu i szef niczego na niej nie poprawiał, wymień ją jednorazowo: `ZAMIEN_STRONY=gopos,insert,opieka-it,o-firmie,kontakt SSH=… bash scripts/staging-content.sh biznes` (lokalnie: `pnpm seed:biznes -- --zamien-strony=…`). Układ wskazanych stron zastępuje wersja z paczki (tytuł zostaje, opis SEO wg zwykłych reguł seeda), stary układ trafia do `tmp/strony-backup-<data>.json` w folderze, z którego uruchamiasz, a raport seeda pokazuje „strona zamieniona (przed → po)” (nieznany slug: „ZAMIEN_STRONY: nieznana strona”). Powtórka na stronie z tymi samymi blokami **i wartościami** nic nie zmienia. Od PREMIUM-1011 seed porównuje też wartości sekcji (rodzaj, tło, teksty, dane), nie tylko typy bloków: **każda poprawka treści w panelu na wskazanej stronie (nagłówek, lead, dane sekcji) zostanie nadpisana** wersją z paczki — stara jest tylko w `tmp/strony-backup-<data>.json`. Zanim podasz stronę, zapytaj szefa, czy niczego na niej nie poprawiał. **Zmienną ustawiaj tylko jako prefiks jednego wywołania, nigdy `export`** — przy zmianie sekcji w kodzie albo edycji w panelu kolejny przebieg z tą samą listą zamieniłby stronę znowu.
 - **Po każdym odświeżeniu:** `node scripts/porownaj-tresc.mjs <lokalnie po pnpm seed> https://staging.<domena>` (§2b) — zielony = treść stagingu jak z kodu.
 - **Ginie:** zapytania wysłane między zrzutem a zamianą (minuty) — są w kopii `predeploy`.
 - Nie przerywaj (Ctrl+C) w kroku 4: zatrzymana aplikacja nie wstanie sama — wtedy `docker start prokom-staging-app-1` i sprawdzenie baz (`prokom_staging`, `_new`, `_old`).
@@ -134,13 +145,18 @@ node scripts/porownaj-tresc.mjs http://biznes.localhost:3001 https://staging.pro
 - A = ten sam commit lokalnie po `pnpm seed` (`pnpm build && pnpm start` albo `pnpm dev`), B = staging. Login stagingu: `TRESC_AUTH_B=użytkownik:hasło`; bez hasła przez tunel do aplikacji: `ssh -L 3999:127.0.0.1:<APP_PORT> prokom-vps` i B = `http://127.0.0.1:3999` z `TRESC_HOST_B=staging.prokombiznes.pl`.
 - 18 stron (główna, GoPOS, InsERT, Opieka IT, O firmie, Kontakt, KSeF, Ulga, Automaty, AGD, Dostawy IT, Zestawy, 3 salony, 3 kategorie): liczba H2 i `<section>` w `<main>` i długość tekstu. Czerwony (exit 1), gdy B ma mniej niż 80% A — strona sprzed obecnego seeda albo ucięta treść.
 - Czerwony → produkcji nie wdrażamy; strony ze starym układem: §2a „Strony sprzed obecnego seeda”.
+- **Widoczność — też obowiązkowo po każdym imporcie treści** (PRODUKCJA-BIZNES-1211 P0: sekcje były w HTML, więc H2 się zgadzały, ale nie było ich widać):
+  ```bash
+  TRESC_AUTH=użytkownik:hasło node scripts/porownaj-tresc.mjs --widocznosc https://staging.prokombiznes.pl
+  ```
+  20 stron z `scripts/widocznosc.mjs` w 1440 i 390, z ruchem, przewijane jak przez użytkownika; czerwony = sekcja z opacity 0 / ukryta / poza ekranem (podaje stronę, sekcję i regułę CSS). Bez tunelu (Chromium ustawia własny nagłówek Host).
 - Import treści (`staging-content-apply.sh`, `prod-content-apply.sh`) sprawdza dodatkowo smoke z `SMOKE_CONTENT=1`: H2 w `<main>` — `/gopos` ≥ 8, `/insert` ≥ 8, `/opieka-it` ≥ 6, `/o-firmie` ≥ 4, `/kontakt` ≥ 4; czerwony = import się cofa (stara baza wraca). Zwykłe wdrożenie (`deploy.sh`) tych progów nie sprawdza. **Dopóki strony Biznesu na stagingu są stare, cofa się każdy import — także `staging-content.sh software` / `instalacje`** (smoke sprawdza host Biznesu w każdym imporcie): pierwsze odświeżenie po NAPRAWA-0911 to `ZAMIEN_STRONY=gopos,insert,opieka-it,o-firmie,kontakt bash scripts/staging-content.sh biznes [software instalacje]`.
 
 ## 3. Wdrożenie produkcji
 
 Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR-004). Warunek: przebieg „Lighthouse” po ostatnim wdrożeniu stagingu (tym obrazem) zielony (budżet, ADR-021); anulowany przebieg się nie liczy — Actions → Lighthouse → Run workflow.
 
-**Pierwsze wdrożenie produkcji (raz):** rekordy `@`, `www` i panelu produkcji wg `docs/dns.md` (PR, potem Seohost) → certyfikat `prokom-prod` (`docs/wdrozenia.md` → „Nginx i staging”, krok 3) → zmienne `PROD_*` w `.env.proxy` → Nginx z nakładką: `docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml up -d`. Od tej chwili proxy uruchamiasz zawsze z oboma plikami. Do crona dopisz linię `backup.sh prod` (§1.8).
+**Pierwsze wdrożenie produkcji (raz):** rekordy `@`, `www` i panelu produkcji wg `docs/dns.md` (PR, potem Seohost) → certyfikat `prokom-prod` (bez przestoju — §0 „Nowy certyfikat bez zatrzymywania Nginx”) → zmienne `PROD_*` w `.env.proxy` → Nginx z nakładką (komenda w §0). Do crona dopisz linię `backup.sh prod` (§1.8). **Zrobione 9.11.2026** (start samej linii Software): kolejne linie dochodzą wg §3a „Kolejna linia później” + poszerzenie certyfikatu (`--expand`) + domeny w `PROD_SITE_HOSTS` / `PROD_WWW_HOSTS`.
 1. Kopia przed wdrożeniem: `scripts/backup.sh prod predeploy` — musi się skończyć `done`.
 2. Zapisz obecny tag (punkt powrotu): `grep APP_IMAGE_TAG .env.prod`.
 3. W `.env.prod`: `APP_IMAGE_TAG=<SHA ze stagingu>`. Przy pierwszym wdrożeniu produkcji: teraz treść startowa (§3a).

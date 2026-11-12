@@ -15,6 +15,7 @@ import { zaplanuj as Z } from '../../dane/zaplanuj'
 import { InstIcon } from '../../InstIcon'
 import type { PlannerService } from '../../widzety/zaplanuj/PlannerWizard'
 import { PlannerWizard } from '../../widzety/zaplanuj/PlannerWizardLazy'
+import { PageStyles } from '../../style/LineStyles'
 
 // The mountain ridges behind the hero (`Zaplanuj.body.html`).
 const RIDGE_1 =
@@ -59,6 +60,7 @@ export async function InstPlannerBlock({ block, tenantId }: Props) {
 
   return (
     <section id="hero" className="phero zkh" style={{ paddingBottom: 96 }}>
+      <PageStyles kind="planner" />
       <div className="hgrid" />
       <div className="hglow" />
       <div className="hglow2" />

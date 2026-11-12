@@ -3,11 +3,11 @@
 import { usePathname } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
-import { SearchDialog } from '@/components/shared/SearchDialog'
 import { SiteRail, type SiteRailProps } from '@/components/shared/SiteRail'
 import { buildLineProvider } from '@/lib/shared/search/lineProvider'
 import type { PaletteAction } from '@/lib/shared/search/palette'
 import { onSearchRequest } from '@/lib/site/searchOpen'
+import { RAIL_QUERY, whileMatches } from '@/lib/shared/whileMatches'
 import { PROJECT_SEND_HREF } from '@/lib/software/project'
 import { railAway } from '@/lib/software/railAway'
 import {
@@ -17,6 +17,7 @@ import {
 } from '@/lib/software/searchEntries'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
+import { LazySearch } from './LazySearch'
 import { useProjectCount } from './ProjectCount'
 
 const INDEX_URL = '/api/solutions-index'
@@ -86,36 +87,12 @@ export function SwRail({
 
   // AUDYT po SWA7 #4: the fixed rail would lie over the band above the footer and the footer
   // itself — it steps aside (fades and slides left, `shell.css`) once either reaches it.
+  // Only while the rail is shown (from 1400 px): a phone's scroll measures nothing for it.
   useEffect(() => {
     const root = document.documentElement
     const rail = document.querySelector('[data-site-rail]')
     if (!rail) return
-    let frame = 0
-    const update = () => {
-      frame = 0
-      const targetTops = [...document.querySelectorAll('[data-footer-cta], [data-site-footer]')]
-        .map((target) => target.getBoundingClientRect())
-        .filter((box) => box.height > 0)
-        .map((box) => box.top)
-      const away = railAway({
-        railBottom: rail.getBoundingClientRect().bottom,
-        targetTops,
-        scrolled: window.scrollY > 0,
-      })
-      root.toggleAttribute('data-rail-away', away)
-    }
-    const schedule = () => {
-      if (!frame) frame = window.requestAnimationFrame(update)
-    }
-    update()
-    window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
-    return () => {
-      window.cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
-      root.removeAttribute('data-rail-away')
-    }
+    return whileMatches(window.matchMedia(RAIL_QUERY), () => stepAside(root, rail))
   }, [pathname])
 
   const provider = useMemo(
@@ -136,7 +113,7 @@ export function SwRail({
   return (
     <>
       <SiteRail sections={sections} onHome={onHome} action={railAction} />
-      <SearchDialog
+      <LazySearch
         provider={provider}
         actions={actions}
         line="software"
@@ -147,4 +124,34 @@ export function SwRail({
       />
     </>
   )
+}
+
+/** The rail steps aside near the footer (`data-rail-away`); returns the cleanup. */
+function stepAside(root: HTMLElement, rail: Element): () => void {
+  let frame = 0
+  const update = () => {
+    frame = 0
+    const targetTops = [...document.querySelectorAll('[data-footer-cta], [data-site-footer]')]
+      .map((target) => target.getBoundingClientRect())
+      .filter((box) => box.height > 0)
+      .map((box) => box.top)
+    const away = railAway({
+      railBottom: rail.getBoundingClientRect().bottom,
+      targetTops,
+      scrolled: window.scrollY > 0,
+    })
+    root.toggleAttribute('data-rail-away', away)
+  }
+  const schedule = () => {
+    if (!frame) frame = window.requestAnimationFrame(update)
+  }
+  update()
+  window.addEventListener('scroll', schedule, { passive: true })
+  window.addEventListener('resize', schedule)
+  return () => {
+    window.cancelAnimationFrame(frame)
+    window.removeEventListener('scroll', schedule)
+    window.removeEventListener('resize', schedule)
+    root.removeAttribute('data-rail-away')
+  }
 }

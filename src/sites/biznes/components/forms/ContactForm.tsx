@@ -1,6 +1,6 @@
 'use client'
 
-import { useId, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from 'react'
 
 import { Icon } from '@/components/ui/Icon'
 import { TextLink } from '@/components/ui/TextLink'
@@ -11,7 +11,6 @@ import {
 } from '@/lib/inquiry/consent'
 import {
   BIZNES_FIELD_MESSAGES,
-  buildInquiryBody,
   checkRequired,
   linkInText,
   readOutcome,
@@ -19,7 +18,10 @@ import {
   type FormValues,
 } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
+import { contactBody, prefillFromSearch } from '@/lib/biznes/contactForm'
 import { plural } from '@/lib/plural'
+import { collectAttachments } from '@/lib/shared/formAttachment'
+import { findZone, zoneLabel, type ServiceZone } from '@/lib/shared/zones'
 
 import { AreaField, ConsentField, IconField } from './fields'
 
@@ -36,6 +38,13 @@ type Props = {
   topics?: readonly string[]
   /** Label of the chips: „Czego potrzebujesz?” (/kontakt) or the home page wording. */
   topicsLabel?: string
+  /**
+   * Above the fields: a part sent with the message (Biznes — the list „Do zapytania”,
+   * `CartAttachment`, which registers itself through `registerFormAttachment`).
+   */
+  prefill?: ReactNode
+  /** Zones for the town hint (`CompanyData.serviceZones`); none — no hint. */
+  zones?: readonly ServiceZone[]
 }
 
 type Status =
@@ -87,6 +96,8 @@ export function ContactForm({
   successText,
   topics = [],
   topicsLabel = 'Czego potrzebujesz?',
+  prefill,
+  zones = [],
 }: Props) {
   const id = useId()
   const fieldId = (name: string) => `${id}-${name}`
@@ -96,6 +107,22 @@ export function ContactForm({
   // A new key gives an empty form after „Wyślij kolejne”.
   const [round, setRound] = useState(0)
   const statusRef = useRef<HTMLDivElement>(null)
+  const messageRef = useRef<HTMLTextAreaElement>(null)
+  const [city, setCity] = useState('')
+  const zone = city.trim() ? findZone(zones, city) : null
+
+  // A route of „Z czym dzwonisz?” (`?temat=`) picks its chip, „Zapytaj o …” (`?fraza=`) starts
+  // the message. Read once on mount: the topics are props of the page.
+  const topicList = useRef(topics)
+  useEffect(() => {
+    const { topic, phrase } = prefillFromSearch(window.location.search, topicList.current)
+    if (phrase && messageRef.current && !messageRef.current.value) {
+      messageRef.current.value = phrase
+    }
+    if (!topic) return
+    const timer = window.setTimeout(() => setPicked((list) => (list.length ? list : [topic])), 0)
+    return () => window.clearTimeout(timer)
+  }, [])
 
   function focusStatus() {
     // After React renders the message, move the focus there so screen readers announce it.
@@ -121,14 +148,15 @@ export function ContactForm({
 
     setErrors({})
     setStatus({ kind: 'sending' })
+    // The page's parts (the list „Do zapytania”) go under the message (plan 0611 §8.2).
+    const attached = collectAttachments()
+    const body = contactBody(values, attached.texts, { href: window.location.href, formToken })
     let outcome
     try {
       const response = await fetch('/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-          buildInquiryBody(values, { href: window.location.href, formToken, type: 'contact' }),
-        ),
+        body: JSON.stringify(body),
       })
       outcome = readOutcome(
         response.status,
@@ -140,6 +168,8 @@ export function ContactForm({
     }
 
     if (outcome.kind === 'sent') {
+      // The parts that went out whole (the list is emptied, as the drawer's form does).
+      attached.sent(body.message)
       // The success screen focuses itself when it mounts (ref below), not on a timer.
       setStatus({ kind: 'sent' })
     } else if (outcome.kind === 'invalid') {
@@ -182,6 +212,7 @@ export function ContactForm({
           onClick={() => {
             setStatus({ kind: 'idle' })
             setPicked([])
+            setCity('')
             setRound((value) => value + 1)
             // The button disappears with the success screen: keep the focus in the form.
             requestAnimationFrame(() => document.getElementById(fieldId('name'))?.focus())
@@ -213,6 +244,7 @@ export function ContactForm({
         onSubmit={onSubmit}
         aria-busy={sending}
         className="relative flex flex-col gap-[18px]"
+        data-contact-form
       >
         <noscript>
           <p className="font-bold text-ink">
@@ -227,6 +259,7 @@ export function ContactForm({
             </p>
           </div>
         )}
+        {prefill}
         {topics.length > 0 && (
           <fieldset className="flex flex-col gap-2.5">
             <legend className="mb-2 font-bold text-ink">{topicsLabel}</legend>
@@ -301,10 +334,24 @@ export function ContactForm({
             placeholder="np. Nowy Targ"
             autoComplete="address-level2"
             maxLength={100}
+            value={city}
+            onChange={(event) => setCity(event.target.value)}
+            // The zone hint is this field's only description (no hint or error of its own).
+            aria-describedby={zone ? `${fieldId('city')}-zone` : undefined}
             className="sm:col-span-2"
           />
+          {zones.length > 0 && (
+            <p
+              id={`${fieldId('city')}-zone`}
+              aria-live="polite"
+              className="-mt-2 min-h-5 text-sm font-semibold text-accent-text sm:col-span-2"
+            >
+              {zone ? zoneLabel(zone) : ''}
+            </p>
+          )}
         </div>
         <AreaField
+          ref={messageRef}
           id={fieldId('message')}
           name="message"
           label="Wiadomość (opcjonalnie)"

@@ -207,6 +207,21 @@ export function bundleCartItems(
 export const listBundles = (bundles: readonly BundleView[], listed: ReadonlySet<string>) =>
   bundles.flatMap((bundle) => listBundle(bundle, listed) ?? [])
 
+/**
+ * Bundles a page names, in its order (GoPOS „Gotowe zestawy dla gastronomii”): only listed ones
+ * (`listBundles`) that are „Gotowe” — a bundle „Do sprawdzenia” is never linked (BIZ-3 §9.2).
+ */
+export function readyBundlesInOrder(
+  slugs: readonly string[],
+  listed: readonly BundleView[],
+): BundleView[] {
+  const bySlug = new Map(listed.map((bundle) => [bundle.slug, bundle]))
+  return slugs.flatMap((slug) => {
+    const bundle = bySlug.get(slug)
+    return bundle?.indexable ? [bundle] : []
+  })
+}
+
 /** Photos of the items for tiles and the hero: required items first, each card once. */
 export function bundlePhotos(
   bundle: Pick<BundleView, 'items'>,

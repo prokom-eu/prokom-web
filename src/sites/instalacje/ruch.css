@@ -374,3 +374,29 @@ html[data-line='instalacje'] :is(input, textarea, select, .zkfl, .zktown, .hzkf,
     translate: -14px 0;
   }
 }
+
+/* Fade-in of a swapped panel: the „Dla kogo” pages (`obiekty.css`) and „Dla architektów”
+   (`architekci.css`) — here, in the frame, because those sheets are not linked together. */
+@keyframes inst-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Off screen nothing loops (report 11.11.2026, CPU at rest): `PauseOffscreen` marks sections
+   out of view and the document of a hidden tab with `data-off`; their animations stand on the
+   frame they reached and go on from it when the section comes back. */
+html[data-line='instalacje'] [data-off],
+html[data-line='instalacje'] [data-off] *,
+html[data-line='instalacje'] [data-off] *::before,
+html[data-line='instalacje'] [data-off] *::after,
+html[data-line='instalacje'][data-off] *,
+html[data-line='instalacje'][data-off] *::before,
+html[data-line='instalacje'][data-off] *::after {
+  animation-play-state: paused !important;
+}

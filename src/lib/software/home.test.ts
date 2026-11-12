@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest'
 
 import stronaGlowna from '../../../seed/prokomsoftware/strona-glowna.json'
 import { softwareSettingsData, solutionsToImport } from '../../seed/software/map'
-import { homeSchema, homeSolutionSlugs, validateHome } from './home'
+import { HOME_HERO } from '../../seed/software/homeHero'
+import { heroV24Schema, homeSchema, homeSolutionSlugs, validateHome } from './home'
 
 /** What the seed stores (SW3): the start page texts without `homeOrder` (decision D2). */
 const seedHome = () => softwareSettingsData().home
@@ -25,6 +26,17 @@ describe('Software home texts schema', () => {
 
   it('does not store the section order (it is the order of the blocks)', () => {
     expect(validateHome({ ...seedHome(), homeOrder: stronaGlowna.homeOrder })).toMatch(/homeOrder/)
+  })
+
+  it('takes a short word of a slide for the phone, never longer than the word (SWA12b #14)', () => {
+    expect(heroV24Schema.safeParse(HOME_HERO).error?.issues).toBeUndefined()
+    const ai = HOME_HERO.slides.find((slide) => slide.word === 'automatyzacje i AI.')
+    expect(ai?.wordShort).toBe('automatyzacje.')
+    const slides = HOME_HERO.slides.map((slide, i) =>
+      i === 0 ? { ...slide, wordShort: 'stronę wizytówkę i jeszcze więcej.' } : slide,
+    )
+    const issues = heroV24Schema.safeParse({ ...HOME_HERO, slides }).error?.issues ?? []
+    expect(issues.map((issue) => issue.path.join('.'))).toEqual(['slides.0.wordShort'])
   })
 
   it('needs one cell per column in the comparison tables', () => {

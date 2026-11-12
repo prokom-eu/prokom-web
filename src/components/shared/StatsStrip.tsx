@@ -1,4 +1,6 @@
+import { CountUp } from '@/components/motion/CountUp'
 import { cx } from '@/components/ui/cx'
+import { countsUp } from '@/lib/motion/countUp'
 
 export type Stat = {
   value: string
@@ -12,6 +14,9 @@ type Props = {
   stats: readonly Stat[]
   /** `SITE_ENV`: on `production` a flagged number is left out. */
   siteEnv: string
+  /** Counts of 10 and more count up once in view (`CountUp`: not on the first screen, not with
+   * reduced motion); a year or a small number stays. Off by default. */
+  countUp?: boolean
   className?: string
 }
 
@@ -24,7 +29,7 @@ export function visibleStats(stats: readonly Stat[], siteEnv: string): Stat[] {
  * Numbers under the O firmie hero (spec §6.2 pkt 2, `StatsStrip`): cards that overlap the hero by
  * 36 px. A number with a flag shows its badge on local and staging only.
  */
-export function StatsStrip({ stats, siteEnv, className }: Props) {
+export function StatsStrip({ stats, siteEnv, countUp = false, className }: Props) {
   const shown = visibleStats(stats, siteEnv)
   if (shown.length === 0) return null
   return (
@@ -41,7 +46,7 @@ export function StatsStrip({ stats, siteEnv, className }: Props) {
           className="flex flex-col gap-1 rounded-[22px] border border-border bg-card p-5 shadow-raised"
         >
           <span className="font-display text-[40px] leading-none font-extrabold text-accent-text">
-            {stat.value}
+            {countUp && countsUp(stat.value) ? <CountUp text={stat.value} /> : stat.value}
           </span>
           <span className="text-ink-2">{stat.label}</span>
           {stat.flag && (

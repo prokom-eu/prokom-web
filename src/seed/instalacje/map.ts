@@ -392,6 +392,16 @@ const isServiceKey = (key: string | undefined): key is ServiceKey =>
 const ids = (keys: string[], ref: (key: string) => number | undefined): number[] =>
   keys.map(ref).filter((id): id is number => id !== undefined)
 
+/**
+ * Hero facts of the package replaced by the line's own fact, keyed by the package value (decision
+ * of Krystian 10.11: no labour cost figure on `/dla-kogo/firmy` — „od 2004 / na Podhalu” as on
+ * the service heroes).
+ */
+export const HERO_FACT_FIXES: Readonly<Record<string, { value: string; label: string }>> = {
+  '10 736 zł': { value: 'od 2004', label: 'na Podhalu' },
+}
+const fixFact = (fact: { value: string; label: string }) => HERO_FACT_FIXES[fact.value] ?? fact
+
 function hero(seed: SeedHero): ServiceData['hero'] {
   return {
     crumb: seed.crumb,
@@ -400,9 +410,11 @@ function hero(seed: SeedHero): ServiceData['hero'] {
     h1b: seed.h1b,
     lead: seed.lead,
     facts: (seed.kv ?? []).map((fact) =>
-      Array.isArray(fact)
-        ? { value: fact[0] ?? '', label: fact[1] ?? '' }
-        : { value: fact.b, label: fact.s },
+      fixFact(
+        Array.isArray(fact)
+          ? { value: fact[0] ?? '', label: fact[1] ?? '' }
+          : { value: fact.b, label: fact.s },
+      ),
     ),
     tags: (seed.tags ?? []).map((tag) => (typeof tag === 'string' ? tag : tag.n)),
     cta: { text: seed.cta, href: optionalHref(seed.ctaHref) },

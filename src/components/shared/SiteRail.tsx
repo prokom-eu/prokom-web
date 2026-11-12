@@ -25,6 +25,7 @@ import {
   type RailSection,
 } from '@/lib/shared/rail'
 import { glideTo } from '@/lib/shared/smoothScroll'
+import { RAIL_QUERY, whileMatches } from '@/lib/shared/whileMatches'
 import { activeSection, railLineEnd, railProgress } from '@/lib/site/railActive'
 import { requestSearch } from '@/lib/site/searchOpen'
 
@@ -161,59 +162,64 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
     return () => window.clearTimeout(timer)
   }, [])
 
-  // One measurement per frame on scroll and resize: current section, progress, „Do góry”.
-  useEffect(() => {
-    const elements = trackedKey
-      ? trackedKey.split(' ').flatMap((id) => document.getElementById(id) ?? [])
-      : []
-    let frame = 0
-    // The progress line runs from the centre of the first entry to the centre of the last one and
-    // ends at the section being read (AUDYT-0811 #8): measured from the list on every frame.
-    const drawLine = (position: number) => {
-      const line = progress.current
-      const box = list.current
-      if (!line || !box) return
-      const centers = Array.from(
-        box.querySelectorAll<HTMLElement>('a.srail__item'),
-        (link) => link.offsetTop + link.offsetHeight / 2,
-      )
-      const top = centers[0] ?? 0
-      const length = (centers[centers.length - 1] ?? top) - top
-      const share = railLineEnd(position, centers)
-      line.style.setProperty('--rail-line-top', `${top}px`)
-      line.style.setProperty('--rail-line-h', `${length}px`)
-      line.style.setProperty('--rail-progress', String(share))
-      line.style.setProperty('--rail-dot', `${share * length}px`)
-    }
-    const update = () => {
-      frame = 0
-      const root = document.scrollingElement ?? document.documentElement
-      const atBottom = window.scrollY >= root.scrollHeight - window.innerHeight - 2
-      if (elements.length) {
-        const tops = elements.map((element) => element.getBoundingClientRect().top)
-        setActive(
-          activeSection(
-            elements.map((element, i) => ({ id: element.id, top: tops[i]! })),
-            window.innerHeight,
-            atBottom,
-          ),
-        )
-        drawLine(railProgress(tops, window.innerHeight, atBottom))
-      }
-      setShowUp(window.scrollY > window.innerHeight)
-    }
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update)
-    }
-    schedule()
-    window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule, { passive: true })
-    return () => {
-      if (frame) cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
-    }
-  }, [trackedKey])
+  // One measurement per frame on scroll and resize: current section, progress, „Do góry”. Only
+  // while the rail is shown (from 1400 px): a phone's scroll measures nothing for it.
+  useEffect(
+    () =>
+      whileMatches(window.matchMedia(RAIL_QUERY), () => {
+        const elements = trackedKey
+          ? trackedKey.split(' ').flatMap((id) => document.getElementById(id) ?? [])
+          : []
+        let frame = 0
+        // The progress line runs from the centre of the first entry to the centre of the last one and
+        // ends at the section being read (AUDYT-0811 #8): measured from the list on every frame.
+        const drawLine = (position: number) => {
+          const line = progress.current
+          const box = list.current
+          if (!line || !box) return
+          const centers = Array.from(
+            box.querySelectorAll<HTMLElement>('a.srail__item'),
+            (link) => link.offsetTop + link.offsetHeight / 2,
+          )
+          const top = centers[0] ?? 0
+          const length = (centers[centers.length - 1] ?? top) - top
+          const share = railLineEnd(position, centers)
+          line.style.setProperty('--rail-line-top', `${top}px`)
+          line.style.setProperty('--rail-line-h', `${length}px`)
+          line.style.setProperty('--rail-progress', String(share))
+          line.style.setProperty('--rail-dot', `${share * length}px`)
+        }
+        const update = () => {
+          frame = 0
+          const root = document.scrollingElement ?? document.documentElement
+          const atBottom = window.scrollY >= root.scrollHeight - window.innerHeight - 2
+          if (elements.length) {
+            const tops = elements.map((element) => element.getBoundingClientRect().top)
+            setActive(
+              activeSection(
+                elements.map((element, i) => ({ id: element.id, top: tops[i]! })),
+                window.innerHeight,
+                atBottom,
+              ),
+            )
+            drawLine(railProgress(tops, window.innerHeight, atBottom))
+          }
+          setShowUp(window.scrollY > window.innerHeight)
+        }
+        const schedule = () => {
+          if (!frame) frame = requestAnimationFrame(update)
+        }
+        schedule()
+        window.addEventListener('scroll', schedule, { passive: true })
+        window.addEventListener('resize', schedule, { passive: true })
+        return () => {
+          if (frame) cancelAnimationFrame(frame)
+          window.removeEventListener('scroll', schedule)
+          window.removeEventListener('resize', schedule)
+        }
+      }),
+    [trackedKey],
+  )
 
   // The marker slides to the current entry (measured from the list after each change).
   useLayoutEffect(() => {

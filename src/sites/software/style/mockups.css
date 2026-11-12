@@ -14,6 +14,10 @@
   overflow-clip-margin: 32px;
   aspect-ratio: 640 / 420;
   container-type: inline-size;
+  /* Lighthouse 10.11: a mock-up away from the screen is laid out and painted only when it comes
+     near (30 of them on the start page, 2 100 of its 3 550 elements). It already clips with the
+     32 px margin and its size comes from the parent, so nothing moves or gets cut. */
+  content-visibility: auto;
   color: var(--mk-ink);
   font-family: var(--font-sans);
   text-align: left;
@@ -955,9 +959,11 @@
   margin-top: 18px;
 }
 .mk-wire {
+  /* The dot's path: the wire minus the dot (`mk-travel` moves it by transform). */
+  --mk-wire-w: 73px;
   position: absolute;
   top: 50px;
-  width: 73px;
+  width: var(--mk-wire-w);
   height: 2px;
   background: var(--mk-violet-line);
 }
@@ -1336,6 +1342,12 @@
   .mk-art .drift {
     animation: mk-drift var(--dur-mk-drift) ease-in-out infinite alternate;
   }
+  /* AUDYT-PROD-TELEFON §1 #1: a mock-up away from the screen (`data-still`, MotionGate) and every
+     mock-up of a hidden tab stand still; they go on where they stopped. */
+  .mk[data-still] *,
+  html[data-tab-hidden] .mk * {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes mk-bar {
@@ -1343,9 +1355,11 @@
     transform: scaleY(0.05);
   }
 }
+/* `transform`, not `left` (AUDYT-PROD-TELEFON §1 #2): the dot glides on the compositor instead of
+   laying the mock-up out again on every frame. */
 @keyframes mk-travel {
   0% {
-    left: 0;
+    transform: translateX(0);
     opacity: 0;
   }
   10%,
@@ -1353,7 +1367,7 @@
     opacity: 1;
   }
   100% {
-    left: calc(100% - 10px);
+    transform: translateX(calc(var(--mk-wire-w) - 10px));
     opacity: 0;
   }
 }
