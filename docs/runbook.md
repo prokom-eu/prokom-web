@@ -145,6 +145,11 @@ node scripts/porownaj-tresc.mjs http://biznes.localhost:3001 https://staging.pro
 - A = ten sam commit lokalnie po `pnpm seed` (`pnpm build && pnpm start` albo `pnpm dev`), B = staging. Login stagingu: `TRESC_AUTH_B=użytkownik:hasło`; bez hasła przez tunel do aplikacji: `ssh -L 3999:127.0.0.1:<APP_PORT> prokom-vps` i B = `http://127.0.0.1:3999` z `TRESC_HOST_B=staging.prokombiznes.pl`.
 - 18 stron (główna, GoPOS, InsERT, Opieka IT, O firmie, Kontakt, KSeF, Ulga, Automaty, AGD, Dostawy IT, Zestawy, 3 salony, 3 kategorie): liczba H2 i `<section>` w `<main>` i długość tekstu. Czerwony (exit 1), gdy B ma mniej niż 80% A — strona sprzed obecnego seeda albo ucięta treść.
 - Czerwony → produkcji nie wdrażamy; strony ze starym układem: §2a „Strony sprzed obecnego seeda”.
+- **Widoczność — też obowiązkowo po każdym imporcie treści** (PRODUKCJA-BIZNES-1211 P0: sekcje były w HTML, więc H2 się zgadzały, ale nie było ich widać):
+  ```bash
+  TRESC_AUTH=użytkownik:hasło node scripts/porownaj-tresc.mjs --widocznosc https://staging.prokombiznes.pl
+  ```
+  20 stron z `scripts/widocznosc.mjs` w 1440 i 390, z ruchem, przewijane jak przez użytkownika; czerwony = sekcja z opacity 0 / ukryta / poza ekranem (podaje stronę, sekcję i regułę CSS). Bez tunelu (Chromium ustawia własny nagłówek Host).
 - Import treści (`staging-content-apply.sh`, `prod-content-apply.sh`) sprawdza dodatkowo smoke z `SMOKE_CONTENT=1`: H2 w `<main>` — `/gopos` ≥ 8, `/insert` ≥ 8, `/opieka-it` ≥ 6, `/o-firmie` ≥ 4, `/kontakt` ≥ 4; czerwony = import się cofa (stara baza wraca). Zwykłe wdrożenie (`deploy.sh`) tych progów nie sprawdza. **Dopóki strony Biznesu na stagingu są stare, cofa się każdy import — także `staging-content.sh software` / `instalacje`** (smoke sprawdza host Biznesu w każdym imporcie): pierwsze odświeżenie po NAPRAWA-0911 to `ZAMIEN_STRONY=gopos,insert,opieka-it,o-firmie,kontakt bash scripts/staging-content.sh biznes [software instalacje]`.
 
 ## 3. Wdrożenie produkcji

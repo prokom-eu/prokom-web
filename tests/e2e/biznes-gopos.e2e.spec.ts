@@ -10,11 +10,23 @@ const cartButton = (page: Page) =>
   page.locator('[data-site-header]').getByRole('link', { name: /^Zapytanie/ })
 
 test.describe('Biznes /gopos (K4h)', () => {
+  test('shows the H1 text once on the page — no venue tab repeats it', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/gopos'))
+    const h1 = (await page.locator('h1').innerText()).replace(/\s+/g, ' ').trim()
+    const body = (await page.locator('body').innerText()).replace(/\s+/g, ' ')
+    expect(body.split(h1).length - 1).toBe(1)
+    await expect(page.locator('#lokal [role="tabpanel"] h3')).toHaveText(/^Restauracja:/)
+  })
+
   test('shows the hero, the venues, the package and the FAQ', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/gopos'))
 
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('GoPOS dla gastronomii')
+    await expect(page.locator('h1')).toHaveText(/Sala,\skuchnia\si\sdowozy\.\s*Jeden\ssystem\./)
+    // The phrase stays for search engines and visitors in the pill (PRODUKCJA-BIZNES-1211 §3).
+    await expect(page.locator('section[aria-labelledby="gopos-h"]')).toContainText(
+      'GoPOS dla gastronomii',
+    )
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toHaveText(
       /Strona główna\s*\/\s*Oferta\s*\/\s*GoPOS/,
     )

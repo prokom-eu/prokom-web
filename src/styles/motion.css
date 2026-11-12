@@ -483,14 +483,16 @@
   transition-timing-function: var(--ease-out);
 }
 @media (prefers-reduced-motion: no-preference) {
-  [data-line='biznes'] [data-rail-label] {
+  /* Only the rail's own labels: K4 sections carry `data-rail-label` too (the rail reads it), and
+     a bare `[data-rail-label]` kept them at opacity 0 (PRODUKCJA-BIZNES-1211 P0). */
+  [data-line='biznes'] [data-rail-box] [data-rail-label] {
     opacity: 0;
     translate: -6px 0;
     transition:
       opacity var(--dur-hover) var(--ease-out),
       translate var(--dur-state) var(--ease-out);
   }
-  [data-line='biznes'] nav:is(:hover, :focus-within) [data-rail-label] {
+  [data-line='biznes'] nav:is(:hover, :focus-within) [data-rail-box] [data-rail-label] {
     opacity: 1;
     translate: none;
     transition-delay: calc(60ms + min(var(--rail-i, 0), 10) * 18ms);
