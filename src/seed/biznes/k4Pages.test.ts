@@ -21,6 +21,8 @@ import {
   upgradeCareSupplyLink,
   upgradeGoposPhotos,
   GOPOS_PHOTO_ALT,
+  goposLead,
+  goposPill,
   insertK4Layout,
   KSEF_SWITCH_DATE,
   ksefK4Layout,
@@ -31,6 +33,7 @@ import {
   type K4FirmaFile,
   type K4PagesFile,
   type K4VendingFile,
+  venueHeading,
 } from './k4Pages'
 import type { PageBlock } from './page'
 
@@ -233,8 +236,8 @@ describe('/gopos (K4h)', () => {
       expect(GOPOS_PHOTO_ALT[file], file).toBeTruthy()
       expect(existsSync(goposPhotoPath(file)), file).toBe(true)
     }
-    // 9 of the design package + 3 producer screens of PRODUKCJA-BIZNES-1211 §3.
-    expect(goposPhotoFiles(pages)).toHaveLength(12)
+    // 9 of the design package + 2 producer screens of PRODUKCJA-BIZNES-1211 §3.
+    expect(goposPhotoFiles(pages)).toHaveLength(11)
   })
 
   it('leaves the device list out when no device is known (the panel needs one)', () => {
@@ -481,5 +484,34 @@ describe('/ulga-na-kase-fiskalna (K4j)', () => {
 
   it('shows the 4 cash registers of the board', () => {
     expect(dataOf(layout, 'products')?.slugs).toEqual(['ergo', 'k10', 'minilt', 'pospay2'])
+  })
+})
+
+describe('GoPOS H1 helpers (PRODUKCJA-BIZNES-1211 §3)', () => {
+  it('puts the phrase in front of the pill once, keeps the partner status', () => {
+    expect(goposPill('Autoryzowany partner GoPOS · Podhale i Małopolska')).toBe(
+      'GoPOS dla gastronomii · Autoryzowany partner GoPOS',
+    )
+    expect(goposPill('GoPOS dla gastronomii · X')).toBe('GoPOS dla gastronomii · X')
+  })
+
+  it('names the phrase in the lead once', () => {
+    expect(goposLead('Wdrażamy GoPOS w kawiarniach.')).toBe(
+      'Wdrażamy GoPOS dla gastronomii w kawiarniach.',
+    )
+    expect(goposLead('GoPOS dla gastronomii w Rabce.')).toBe('GoPOS dla gastronomii w Rabce.')
+  })
+
+  it('gives a tab that repeats the old H1 its venue and own sentence; others stay', () => {
+    const old = { t: 'Restauracja', h1a: 'GoPOS dla gastronomii:', h1b: 'sala…' }
+    expect(
+      venueHeading({ ...old, leadM: 'Zamówienie przy stoliku, kuchnia na ekranie, X.' }),
+    ).toEqual({ h1a: 'Restauracja:', h1b: 'zamówienie przy stoliku, kuchnia na ekranie' })
+    // Without `leadM` the second line stays as it was.
+    expect(venueHeading(old)).toEqual({ h1a: 'Restauracja:', h1b: 'sala…' })
+    expect(venueHeading({ t: 'Kawiarnia', h1a: 'Lada', h1b: 'w jednym systemie' })).toEqual({
+      h1a: 'Lada',
+      h1b: 'w jednym systemie',
+    })
   })
 })

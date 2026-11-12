@@ -644,10 +644,14 @@ export function GoposPackage({ data }: { data: SectionData<'gopos-package'> }) {
         </aside>
       </div>
       {/* Plans on the page, not behind a button (PRODUKCJA-BIZNES-1211 §3 pkt 6). No prices. */}
-      <h3 className="mt-10 font-display text-[1.4rem] leading-tight font-extrabold text-ink max-md:mt-8 max-md:text-lg">
-        Basic, Pro czy Unlimited — co różni pakiety
-      </h3>
-      {data.tiers && <TierTable tiers={data.tiers} />}
+      {data.tiers && (
+        <>
+          <h3 className="mt-10 font-display text-[1.4rem] leading-tight font-extrabold text-ink max-md:mt-8 max-md:text-lg">
+            Basic, Pro czy Unlimited — co różni pakiety
+          </h3>
+          <TierTable tiers={data.tiers} />
+        </>
+      )}
       <div className="mt-5">
         <div className="grid gap-5 min-[1080px]:grid-cols-2">
           <div className={cx(CARD, 'overflow-x-auto p-2')}>

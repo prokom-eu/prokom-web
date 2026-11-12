@@ -151,6 +151,12 @@ export function CardsSection({
   images = {},
 }: Props & { shots?: SectionData<'cards'>['shots']; images?: Record<string, IndexImage> }) {
   const list = items(block)
+  // A picture that did not load (Media removed) gives the card its icon back, not an empty box.
+  const hasShot = (i: number) => {
+    const shot = shots?.[i]
+    if (!shot) return false
+    return shot.frame === 'doc' || (shot.image !== undefined && !!images[String(shot.image)])
+  }
   // Phone (boards App-*): cards with a link swipe in one row (App-Kontakt, App-OFirmie); plain
   // cards sit two by two in small tiles (App-GoPOS).
   const row = list.some((item) => item.href)
@@ -176,7 +182,7 @@ export function CardsSection({
                 : 'max-md:min-w-0 max-md:rounded-[18px] max-md:p-3.5',
             )}
           >
-            {shots?.[i] && (
+            {hasShot(i) && (
               <div className="mb-2">
                 <CardShot
                   shot={shots[i]!}
@@ -186,7 +192,7 @@ export function CardsSection({
                 />
               </div>
             )}
-            {item.icon && !shots?.[i] && (
+            {item.icon && !hasShot(i) && (
               <span
                 aria-hidden="true"
                 className="mb-1 flex size-11 items-center justify-center rounded-xl bg-surface-2 text-accent-text max-md:size-9"

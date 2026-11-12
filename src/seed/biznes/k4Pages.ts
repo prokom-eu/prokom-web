@@ -37,22 +37,19 @@ export const GOPOS_PHOTO_ALT: Record<string, string> = {
   // `seed/prokombiznes/media/gopos-ekrany` — sources in its ZRODLA.md.
   'ekran-gopos-now.webp':
     'Aplikacja GoPOS Now w telefonie: goście na sali, paragony, rachunki na żywo',
-  'ekran-gopos-kds.webp': 'Ekran kuchenny GoKDS z zamówieniami w kolumnach',
-  'ekran-gopos-emenu.webp': 'E-Menu GoPOS w telefonie i kod QR na stoliku',
+  'ekran-gopos-hub.webp':
+    'GoHub w GoPOS: zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt i Bolt Food w jednej kolejce',
 }
 
 /** Session screens (not the design package): their own folder. */
-const GOPOS_SCREEN_FILES = new Set([
-  'ekran-gopos-now.webp',
-  'ekran-gopos-kds.webp',
-  'ekran-gopos-emenu.webp',
-])
+const GOPOS_SCREEN_FILES = new Set(['ekran-gopos-now.webp', 'ekran-gopos-hub.webp'])
 
 /** A screen per area of „Cały lokal” (by the area's title in the package). */
 const GOPOS_AREA_SCREENS: Record<string, string> = {
   'Sala i sprzedaż': 'ekran-d3.webp',
-  'Kuchnia i wydawka': 'ekran-gopos-kds.webp',
-  'Online i dowozy': 'ekran-gopos-emenu.webp',
+  // Screens only — no people, no readable menu prices (zasady 01.11, K4-FINAL §1).
+  'Kuchnia i wydawka': 'kuchnia-kds.webp',
+  'Online i dowozy': 'ekran-gopos-hub.webp',
   'Zarządzanie lokalem': 'ekosystem.webp',
 }
 
