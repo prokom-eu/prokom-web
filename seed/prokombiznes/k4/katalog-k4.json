@@ -1,7 +1,7 @@
 {
  "wersja": "K4 (wizualizacja v150)",
  "sprawdzono": "2026-10-29",
- "liczba": 422,
+ "liczba": 442,
  "zmiany": {
   "zmieniona": 129,
   "drobne": 131,
@@ -7247,7 +7247,807 @@
      "v": "pasek magnetyczny, chip EMV, zbliżeniowy (NFC)"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico"
+  },
+  {
+   "slug_seed": "polcard-move-2500",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "sprz",
+   "kategoria": "term",
+   "marka": "PolCard",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Ingenico Move 2500 (PolCard)",
+   "krotka": "Ingenico Move 2500",
+   "podtytul": "Przenośny terminal płatniczy z łącznością 3G/4G i drukarką",
+   "korzysc": "Przyjmujesz płatność kartą, telefonem albo BLIK-iem tam, gdzie jest klient: przy stoliku, na targu, w dostawie.",
+   "opis": [
+    "Ingenico Move 2500 to przenośny terminal płatniczy w usłudze PolCard dla firm, które sprzedają w ruchu: małych kawiarni i restauracji, foodtrucków, sprzedaży na targach i bazarach, usług u klienta i dostaw. Łączy się przez sieć komórkową 3G/4G (opcjonalnie z dwiema kartami SIM), więc nie potrzebuje Wi-Fi w lokalu ani kabla.",
+    "Terminal czyta pasek magnetyczny, chip i karty zbliżeniowe, przyjmuje płatności telefonem i zegarkiem (Apple Pay, Google Pay) oraz BLIK. Ma kolorowy ekran 2,4\", klawiaturę numeryczną i wbudowaną drukarkę potwierdzeń. Akumulator litowo-jonowy 2900 mAh wystarcza według PolCard do 12 godzin pracy, a ładujesz go przez micro-USB z komputera, ładowarki samochodowej albo powerbanku. Terminal waży 320 g. W usłudze PolCard dostępne są m.in. cashback, napiwki, preautoryzacja, DCC, płatności MO/TO i ratalne oraz logowanie kasjerów.",
+    "Przy zakupie pomagamy wybrać model do sposobu sprzedaży, uruchamiamy terminal i pokazujemy obsługę: płatność, zwrot, zamknięcie dnia. Gdy pracujesz na kasie fiskalnej, możemy połączyć ją z terminalem, żeby kwota nie była wpisywana dwa razy. Paragon nadal wystawia kasa — terminal drukuje tylko potwierdzenie płatności."
+   ],
+   "cechy": [
+    "3G/4G, dual SIM",
+    "do 12 h na baterii",
+    "320 g"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "przenośny terminal płatniczy z drukarką"
+    },
+    {
+     "k": "Łączność",
+     "v": "3G/4G (opcja dual SIM); micro-USB host i slave"
+    },
+    {
+     "k": "Ekran",
+     "v": "kolorowy 2,4\""
+    },
+    {
+     "k": "Klawiatura",
+     "v": "numeryczna z klawiszami funkcyjnymi"
+    },
+    {
+     "k": "Czytnik kart",
+     "v": "pasek magnetyczny, chip EMV, zbliżeniowy (NFC)"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Usługi dodatkowe",
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, płatności ratalne, karty przedpłacone, doładowania telefonów"
+    },
+    {
+     "k": "Drukarka",
+     "v": "wbudowana, potwierdzenia płatności"
+    },
+    {
+     "k": "Zasilanie / akumulator",
+     "v": "Li-ion 2900 mAh, do 12 h pracy; ładowanie micro-USB (komputer, ładowarka samochodowa, powerbank)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "168 × 81 × 58 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "320 g"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "PCI PTS 5.x"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy Move 2500 działa bez Wi-Fi?",
+     "a": "Tak. Terminal łączy się przez sieć komórkową 3G/4G, opcjonalnie z dwiema kartami SIM. Wi-Fi nie jest potrzebne."
+    },
+    {
+     "q": "Na jak długo wystarcza bateria?",
+     "a": "PolCard podaje do 12 godzin pracy po pełnym naładowaniu akumulatora 2900 mAh. Naładujesz go przez micro-USB, także z ładowarki samochodowej albo powerbanku."
+    },
+    {
+     "q": "Czy przyjmę BLIK i płatność telefonem?",
+     "a": "Tak. Terminal przyjmuje BLIK, Apple Pay i Google Pay oraz karty z paskiem, chipem i zbliżeniowe."
+    },
+    {
+     "q": "Czy terminal wystawia paragon fiskalny?",
+     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "ergo",
+     "etykieta": "Kasa fiskalna"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis terminali"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Beauty"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-move-2500/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    }
+   ],
+   "wyrozniki": [
+    "3G/4G, dual SIM",
+    "do 12 h na baterii",
+    "320 g"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Łączność",
+     "v": "3G/4G (opcja dual SIM); micro-USB host i slave"
+    },
+    {
+     "k": "Ekran",
+     "v": "kolorowy 2,4\""
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Drukarka",
+     "v": "wbudowana, potwierdzenia płatności"
+    },
+    {
+     "k": "Waga",
+     "v": "320 g"
+    }
+   ],
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico",
+   "zdjecia": [
+    "media/produkty/polcard-move-2500-01.webp",
+    "media/produkty/polcard-move-2500-02.webp"
+   ]
+  },
+  {
+   "slug_seed": "polcard-move-3500",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "sprz",
+   "kategoria": "term",
+   "marka": "PolCard",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Ingenico Move 3500 (PolCard)",
+   "krotka": "Ingenico Move 3500",
+   "podtytul": "Przenośny terminal płatniczy z 3G/4G i Wi-Fi, szybką drukarką i podstawką",
+   "korzysc": "Płatność przy stoliku, na sali albo u klienta — terminal działa przez Wi-Fi lokalu albo sieć komórkową.",
+   "opis": [
+    "Ingenico Move 3500 to przenośny terminal płatniczy w usłudze PolCard dla gastronomii i sieci restauracji, hoteli i turystyki, transportu, taxi i usług u klienta. Sprawdza się przy płatności przy stoliku i na sali, w foodtrucku oraz w sezonowych punktach na plaży czy przy atrakcjach turystycznych. Łączy się przez Wi-Fi albo sieć komórkową 3G/4G (opcjonalnie dual SIM), więc może pracować w pełni bezprzewodowo.",
+    "Terminal czyta pasek, chip i karty zbliżeniowe oraz przyjmuje płatności telefonem, zegarkiem i brelokiem z NFC, a także BLIK, Apple Pay i Google Pay. Ma kolorowy ekran 3,2\", procesor Cortex A5 i drukarkę do 30 linii na sekundę. Akumulator wystarcza według PolCard do 12 godzin bez ładowania; ładujesz go w dołączonej podstawce, z powerbanku, ładowarki samochodowej albo komputera. Waży 320 g. Dostępne są m.in. napiwki, cashback, preautoryzacja, DCC, MO/TO, logowanie kasjerów i płatności ratalne, a PolCard podaje integrację z ponad 200 rozwiązaniami kasowymi.",
+    "Dobieramy terminal do lokalu, uruchamiamy go i szkolimy zespół z płatności, zwrotów i zamknięcia dnia. Gdy pracujesz na kasie albo systemie sprzedaży (np. GoPOS), łączymy go z terminalem, żeby kwota przechodziła automatycznie. Paragon fiskalny wystawia kasa — terminal drukuje potwierdzenie płatności."
+   ],
+   "cechy": [
+    "3G/4G i Wi-Fi",
+    "drukarka 30 linii/s",
+    "podstawka w zestawie"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "przenośny terminal płatniczy z drukarką"
+    },
+    {
+     "k": "Łączność",
+     "v": "3G/4G (opcja dual SIM) i Wi-Fi; micro-USB host i slave"
+    },
+    {
+     "k": "Ekran",
+     "v": "kolorowy 3,2\""
+    },
+    {
+     "k": "Procesor",
+     "v": "Cortex A5"
+    },
+    {
+     "k": "Czytnik kart",
+     "v": "pasek magnetyczny, chip EMV, zbliżeniowy (NFC)"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Usługi dodatkowe",
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, płatności ratalne, karty przedpłacone, integracja z kasą lub systemem kasowym"
+    },
+    {
+     "k": "Drukarka",
+     "v": "wbudowana, do 30 linii/s"
+    },
+    {
+     "k": "Zasilanie / akumulator",
+     "v": "akumulator do 12 h bez ładowania; ładowanie micro-USB z podstawki, powerbanku, ładowarki samochodowej lub komputera"
+    },
+    {
+     "k": "Współpraca z kasą",
+     "v": "integracja z ponad 200 rozwiązaniami kasowymi (wg PolCard)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "169 × 78 × 57 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "320 g"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "PCI PTS 5.x"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy Move 3500 nadaje się do płatności przy stoliku?",
+     "a": "Tak. To terminal przenośny z Wi-Fi i 3G/4G, z którym kelner podchodzi do gościa; PolCard poleca go właśnie do gastronomii, płatności przy stoliku i na sali."
+    },
+    {
+     "q": "Czym różni się od Move 2500?",
+     "a": "Move 3500 ma dodatkowo Wi-Fi, większy ekran (3,2\" zamiast 2,4\"), szybką drukarkę do 30 linii/s i podstawkę do ładowania. Obydwa ważą 320 g i działają do 12 godzin na baterii."
+    },
+    {
+     "q": "Czy połączycie terminal z kasą lub GoPOS?",
+     "a": "Tak. PolCard podaje integrację z ponad 200 rozwiązaniami kasowymi; łączymy terminal z kasą albo systemem sprzedaży, żeby kwota przechodziła sama."
+    },
+    {
+     "q": "Czy terminal wystawia paragon fiskalny?",
+     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "ergo",
+     "etykieta": "Kasa fiskalna"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis terminali"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Beauty"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-move-3500/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    }
+   ],
+   "wyrozniki": [
+    "3G/4G i Wi-Fi",
+    "drukarka 30 linii/s",
+    "podstawka w zestawie"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Łączność",
+     "v": "3G/4G (opcja dual SIM) i Wi-Fi; micro-USB host i slave"
+    },
+    {
+     "k": "Ekran",
+     "v": "kolorowy 3,2\""
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Drukarka",
+     "v": "wbudowana, do 30 linii/s"
+    },
+    {
+     "k": "Waga",
+     "v": "320 g"
+    }
+   ],
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico",
+   "zdjecia": [
+    "media/produkty/polcard-move-3500.webp"
+   ]
+  },
+  {
+   "slug_seed": "polcard-axium-dx-8000",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "sprz",
+   "kategoria": "term",
+   "marka": "PolCard",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Ingenico Axium DX 8000 (PolCard)",
+   "krotka": "Ingenico Axium DX 8000",
+   "podtytul": "Terminal płatniczy z Androidem, dotykowym ekranem 6\", 4G i Wi-Fi 5 GHz",
+   "korzysc": "Duży dotykowy ekran i Android: wygodna obsługa płatności, napiwków i potwierdzeń przy kliencie.",
+   "opis": [
+    "Ingenico Axium DX 8000 to przenośny terminal płatniczy z Androidem 10 w usłudze PolCard dla firm, które chcą obsługiwać płatności na dużym, dotykowym ekranie: restauracji, hoteli, punktów usługowych i sprzedaży u klienta. Łączy się przez 4G oraz Wi-Fi w pasmach 2,4 i 5 GHz, a ładuje w podstawie albo przez USB-C.",
+    "Ma kolorowy, dotykowy ekran IPS 6\" HD+ (720 × 1440 px), procesor Cortex A53, 2 GB RAM i 16 GB pamięci flash z kartą microSD do 128 GB. Czyta pasek magnetyczny, chip EMV i karty zbliżeniowe, przyjmuje BLIK, Apple Pay i Google Pay. Wbudowana drukarka drukuje do 40 linii na sekundę na rolce 40 mm × 18 m. Akumulator Li-ion ma 3350 mAh, terminal waży 450 g i pracuje w temperaturze od -10 do 50 °C. Dostępne są m.in. napiwki, cashback, preautoryzacja, DCC i MO/TO. Certyfikat bezpieczeństwa: PCI PTS 6.x.",
+    "Pomagamy zdecydować, czy potrzebujesz terminala z Androidem, czy wystarczy prostszy Move. Uruchamiamy terminal, pokazujemy obsługę i — gdy pracujesz na kasie albo systemie sprzedaży — łączymy je, żeby kwota przechodziła automatycznie. Paragon fiskalny nadal wystawia kasa lub drukarka fiskalna."
+   ],
+   "cechy": [
+    "Android 10, ekran 6\"",
+    "4G i Wi-Fi 2,4/5 GHz",
+    "drukarka 40 linii/s"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "przenośny terminal płatniczy z Androidem i drukarką"
+    },
+    {
+     "k": "System",
+     "v": "Android 10"
+    },
+    {
+     "k": "Procesor",
+     "v": "Cortex A53"
+    },
+    {
+     "k": "Pamięć",
+     "v": "2 GB RAM, 16 GB flash, microSD do 128 GB"
+    },
+    {
+     "k": "Ekran",
+     "v": "dotykowy IPS 6\" HD+, 720 × 1440 px"
+    },
+    {
+     "k": "Łączność",
+     "v": "4G, Wi-Fi 2,4 i 5 GHz, USB-C"
+    },
+    {
+     "k": "Czytnik kart",
+     "v": "pasek magnetyczny (3 ścieżki), chip EMV, zbliżeniowy (NFC)"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Usługi dodatkowe",
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwek, karty przedpłacone"
+    },
+    {
+     "k": "Drukarka",
+     "v": "do 40 linii/s, rolka 40 mm × 18 m"
+    },
+    {
+     "k": "Zasilanie / akumulator",
+     "v": "Li-ion 3350 mAh, zasilacz 7,2 V / 2 A, podstawa ładująca"
+    },
+    {
+     "k": "Warunki pracy",
+     "v": "od -10 do 50 °C, wilgotność do 90% bez kondensacji"
+    },
+    {
+     "k": "Wymiary",
+     "v": "198 × 83 × 62 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "450 g"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "PCI PTS 6.x"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Po co terminal z Androidem?",
+     "a": "Duży dotykowy ekran ułatwia obsługę płatności, napiwków i potwierdzeń przy kliencie. DX 8000 ma ekran 6\" i Androida 10."
+    },
+    {
+     "q": "Czy DX 8000 działa w Wi-Fi 5 GHz?",
+     "a": "Tak. PolCard podaje łączność 4G oraz Wi-Fi w pasmach 2,4 i 5 GHz."
+    },
+    {
+     "q": "Jak szybko drukuje potwierdzenia?",
+     "a": "Do 40 linii na sekundę, na rolce o szerokości 40 mm i długości 18 m."
+    },
+    {
+     "q": "Czy terminal wystawia paragon fiskalny?",
+     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "gopos",
+     "etykieta": "System sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis terminali"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Beauty"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-dx-8000/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    }
+   ],
+   "wyrozniki": [
+    "Android 10, ekran 6\"",
+    "4G i Wi-Fi 2,4/5 GHz",
+    "drukarka 40 linii/s"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Ekran",
+     "v": "dotykowy IPS 6\" HD+, 720 × 1440 px"
+    },
+    {
+     "k": "Łączność",
+     "v": "4G, Wi-Fi 2,4 i 5 GHz, USB-C"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Drukarka",
+     "v": "do 40 linii/s, rolka 40 mm × 18 m"
+    },
+    {
+     "k": "Waga",
+     "v": "450 g"
+    }
+   ],
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico",
+   "zdjecia": [
+    "media/produkty/polcard-axium-dx-8000.webp"
+   ]
+  },
+  {
+   "slug_seed": "polcard-axium-dx-4000-portable",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "sprz",
+   "kategoria": "term",
+   "marka": "PolCard",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Ingenico Axium DX 4000 Portable (PolCard)",
+   "krotka": "Ingenico Axium DX 4000 Portable",
+   "podtytul": "Kompaktowy terminal płatniczy z Androidem, ekranem 5\", 4G i Wi-Fi",
+   "korzysc": "Android i ekran dotykowy w mniejszej obudowie — terminal, który łatwo nosić po sali i w terenie.",
+   "opis": [
+    "Ingenico Axium DX 4000 Portable to kompaktowy terminal płatniczy z Androidem 10 w usłudze PolCard. To mniejszy brat DX 8000 dla firm, które chcą obsługi na ekranie dotykowym w poręcznej obudowie: lokali, punktów usługowych i sprzedaży u klienta. Łączy się przez 4G i Wi-Fi 2,4 GHz, ładuje w podstawie albo przez USB-C.",
+    "Ma kolorowy, dotykowy ekran 5\" (854 × 480 px), procesor Cortex A53 1,4 GHz, 1 GB RAM i 8 GB pamięci flash z kartą microSD do 128 GB. Czyta pasek magnetyczny, chip EMV i karty zbliżeniowe, przyjmuje BLIK, Apple Pay i Google Pay. Drukarka drukuje do 40 linii na sekundę na rolce 40 mm × 18 m. Akumulator Li-ion ma 2200 mAh, a terminal waży 430 g i pracuje w temperaturze od -10 do 50 °C. Dostępne są m.in. napiwki, cashback, preautoryzacja, DCC i MO/TO. Certyfikat bezpieczeństwa: PCI PTS 6.x.",
+    "Pomagamy wybrać między DX 4000 a większym DX 8000 albo prostszym Move, uruchamiamy terminal i pokazujemy obsługę. Gdy pracujesz na kasie lub systemie sprzedaży, łączymy je, żeby kwota przechodziła automatycznie; paragon wystawia kasa."
+   ],
+   "cechy": [
+    "Android 10, ekran 5\"",
+    "4G i Wi-Fi",
+    "430 g"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "przenośny terminal płatniczy z Androidem i drukarką"
+    },
+    {
+     "k": "System",
+     "v": "Android 10"
+    },
+    {
+     "k": "Procesor",
+     "v": "Cortex A53, 1,4 GHz"
+    },
+    {
+     "k": "Pamięć",
+     "v": "1 GB RAM, 8 GB flash, microSD do 128 GB"
+    },
+    {
+     "k": "Ekran",
+     "v": "dotykowy 5\", 854 × 480 px"
+    },
+    {
+     "k": "Łączność",
+     "v": "4G, Wi-Fi 2,4 GHz, USB-C"
+    },
+    {
+     "k": "Czytnik kart",
+     "v": "pasek magnetyczny (3 ścieżki), chip EMV, zbliżeniowy (NFC)"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Usługi dodatkowe",
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwek, karty przedpłacone"
+    },
+    {
+     "k": "Drukarka",
+     "v": "do 40 linii/s, rolka 40 mm × 18 m"
+    },
+    {
+     "k": "Zasilanie / akumulator",
+     "v": "Li-ion 2200 mAh, zasilacz 7,2 V, podstawa ładująca"
+    },
+    {
+     "k": "Warunki pracy",
+     "v": "od -10 do 50 °C, wilgotność do 90% bez kondensacji"
+    },
+    {
+     "k": "Wymiary",
+     "v": "177,6 × 80 × 56,5 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "430 g"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "PCI PTS 6.x"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czym różni się DX 4000 od DX 8000?",
+     "a": "DX 4000 ma mniejszy ekran (5\" zamiast 6\"), Wi-Fi tylko 2,4 GHz, 1 GB RAM zamiast 2 GB i akumulator 2200 mAh zamiast 3350 mAh. Waży 430 g, DX 8000 — 450 g."
+    },
+    {
+     "q": "Czy DX 4000 przyjmuje BLIK?",
+     "a": "Tak, a także Apple Pay, Google Pay i karty z paskiem, chipem i zbliżeniowe."
+    },
+    {
+     "q": "Jak go ładować?",
+     "a": "W podstawie ładującej albo przez USB-C z zasilacza 7,2 V."
+    },
+    {
+     "q": "Czy terminal wystawia paragon fiskalny?",
+     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "gopos",
+     "etykieta": "System sprzedaży"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis terminali"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Beauty"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-dx-4000-portable/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    }
+   ],
+   "wyrozniki": [
+    "Android 10, ekran 5\"",
+    "4G i Wi-Fi",
+    "430 g"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Ekran",
+     "v": "dotykowy 5\", 854 × 480 px"
+    },
+    {
+     "k": "Łączność",
+     "v": "4G, Wi-Fi 2,4 GHz, USB-C"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Drukarka",
+     "v": "do 40 linii/s, rolka 40 mm × 18 m"
+    },
+    {
+     "k": "Waga",
+     "v": "430 g"
+    }
+   ],
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico",
+   "zdjecia": [
+    "media/produkty/polcard-axium-dx-4000-portable.webp"
+   ]
+  },
+  {
+   "slug_seed": "polcard-desk-3200-desk-1500",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "sprz",
+   "kategoria": "term",
+   "marka": "PolCard",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Ingenico Desk 3200 + PIN-pad Desk 1500 (PolCard)",
+   "krotka": "Ingenico Desk 3200 + Desk 1500",
+   "podtytul": "Stacjonarny terminal przy kasie z PIN-padem dla klienta",
+   "korzysc": "Terminal stoi przy kasie, a klient płaci na własnym PIN-padzie — kwota przychodzi z kasy sama.",
+   "opis": [
+    "Ingenico Desk 3200 to stacjonarny terminal płatniczy w usłudze PolCard dla sprzedaży przy stanowisku kasowym: sklepów, marketów, stacji paliw, piekarni, punktów usługowych i lokali gastronomicznych. Jest stale podłączony do zasilania, więc nie wymaga ładowania baterii, a łączy się przez Ethernet albo sieć 3G (opcjonalnie dual SIM). PolCard oferuje go razem z PIN-padem Desk 1500, który stoi po stronie klienta.",
+    "Desk 3200 ma czarno-biały ekran 2,7\", klawiaturę i drukarkę potwierdzeń, multiport RS-232/USB oraz czyta pasek, chip i karty zbliżeniowe. Przyjmuje BLIK, Apple Pay i Google Pay. PIN-pad Desk 1500 ma kolorowy ekran 2,8\" i czytnik kart, nie ma drukarki i nie potrzebuje osobnego zasilacza — korzysta z terminala głównego. Desk 3200 waży 308 g (173 × 87 × 35 mm), Desk 1500 — 254 g (180 × 83 × 43 mm). Kwota z kasy fiskalnej może być przesyłana na terminal automatycznie; PolCard podaje integrację z ponad 200 rozwiązaniami kasowymi. Dostępne są m.in. cashback, preautoryzacja, DCC, MO/TO i karty flotowe.",
+    "Ustawiamy zestaw przy kasie, łączymy go z kasą lub systemem sprzedaży i uczymy zespół płatności, zwrotów i zamknięcia dnia. Paragon fiskalny wystawia kasa — terminal drukuje potwierdzenie płatności."
+   ],
+   "cechy": [
+    "Ethernet i 3G",
+    "PIN-pad dla klienta",
+    "kwota z kasy automatycznie"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "stacjonarny terminal płatniczy z PIN-padem dla klienta"
+    },
+    {
+     "k": "Łączność",
+     "v": "Desk 3200: Ethernet i 3G (opcja dual SIM), multiport RS-232 / USB; Desk 1500: przez terminal główny"
+    },
+    {
+     "k": "Ekran",
+     "v": "Desk 3200: czarno-biały 2,7\"; Desk 1500: kolorowy 2,8\""
+    },
+    {
+     "k": "Czytnik kart",
+     "v": "pasek magnetyczny, chip EMV, zbliżeniowy (NFC) — w obu urządzeniach"
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Usługi dodatkowe",
+     "v": "DCC, cashback, preautoryzacja, MO/TO, napiwki, logowanie kasjerów, płatności ratalne, karty przedpłacone i flotowe"
+    },
+    {
+     "k": "Drukarka",
+     "v": "Desk 3200: wbudowana; Desk 1500: bez drukarki"
+    },
+    {
+     "k": "Zasilanie",
+     "v": "Desk 3200: stałe zasilanie sieciowe; Desk 1500: z terminala głównego, bez zasilacza"
+    },
+    {
+     "k": "Współpraca z kasą",
+     "v": "kwota z kasy przesyłana automatycznie; integracja z ponad 200 rozwiązaniami kasowymi (wg PolCard)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "Desk 3200: 173 × 87 × 35 mm; Desk 1500: 180 × 83 × 43 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "Desk 3200: 308 g; Desk 1500: 254 g"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "Desk 3200: PCI PTS 4.x; Desk 1500: PCI PTS 5.x"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Po co PIN-pad Desk 1500?",
+     "a": "Klient płaci i wpisuje PIN na własnym urządzeniu po swojej stronie lady, a terminal Desk 3200 zostaje przy kasjerze. Desk 1500 korzysta z łączności i zasilania terminala głównego."
+    },
+    {
+     "q": "Czy terminal łączy się z kasą fiskalną?",
+     "a": "Tak. Kwota z kasy może być przesyłana na terminal automatycznie; PolCard podaje integrację z ponad 200 rozwiązaniami kasowymi."
+    },
+    {
+     "q": "Czy Desk 3200 działa bez internetu w lokalu?",
+     "a": "Może łączyć się przez Ethernet albo przez sieć 3G z kartą SIM (opcjonalnie dwie karty)."
+    },
+    {
+     "q": "Czy terminal wystawia paragon fiskalny?",
+     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "hd",
+     "etykieta": "Drukarka fiskalna"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Połączenie z kasą"
+    },
+    {
+     "slug": "srvpos",
+     "etykieta": "Serwis terminali"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Beauty"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-desk-3200/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    },
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-desk-1500/",
+     "etykieta": "Strona dystrybutora — PolCard",
+     "host": "polcard.pl"
+    }
+   ],
+   "wyrozniki": [
+    "Ethernet i 3G",
+    "PIN-pad dla klienta",
+    "kwota z kasy automatycznie"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Łączność",
+     "v": "Desk 3200: Ethernet i 3G (opcja dual SIM), multiport RS-232 / USB; Desk 1500: przez terminal główny"
+    },
+    {
+     "k": "Ekran",
+     "v": "Desk 3200: czarno-biały 2,7\"; Desk 1500: kolorowy 2,8\""
+    },
+    {
+     "k": "Płatności",
+     "v": "Visa, Mastercard, American Express, Diners Club, Discover, UnionPay, JCB; BLIK; Apple Pay, Google Pay"
+    },
+    {
+     "k": "Drukarka",
+     "v": "Desk 3200: wbudowana; Desk 1500: bez drukarki"
+    },
+    {
+     "k": "Waga",
+     "v": "Desk 3200: 308 g; Desk 1500: 254 g"
+    }
+   ],
+   "nowosc": false,
+   "seria": "PolCard — terminale Ingenico",
+   "zdjecia": [
+    "media/produkty/polcard-desk-3200-desk-1500.webp"
+   ]
   },
   {
    "slug_seed": "softpos",
@@ -76662,7 +77462,544 @@
      "v": "do 5 komputerów PC lub Mac, 5 tabletów i 5 telefonów"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "seria": "Microsoft 365 dla firm"
+  },
+  {
+   "slug_seed": "m365-apps-for-business",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "prog",
+   "kategoria": "m365",
+   "marka": "Microsoft",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "Microsoft 365 Apps for business",
+   "krotka": "Microsoft 365 Apps for business",
+   "podtytul": "Klasyczne aplikacje Office i OneDrive, bez poczty firmowej",
+   "korzysc": "Word, Excel, PowerPoint i Outlook na komputerach plus 1 TB w OneDrive — gdy poczta jest gdzie indziej.",
+   "opis": [
+    "Microsoft 365 Apps for business to plan dla firm, które potrzebują klasycznych aplikacji Office i miejsca na pliki, a pocztę mają już u innego dostawcy. Obejmuje do 300 użytkowników.",
+    "Daje klasyczne aplikacje Word, Excel, PowerPoint, Outlook i OneNote do zainstalowania na komputerach, tabletach i telefonach oraz 1 TB w OneDrive na użytkownika. Nie ma w nim skrzynki pocztowej Exchange ani czatu i rozmów w Teams — to odróżnia go od Business Standard. Outlook może obsługiwać pocztę firmową z dotychczasowego serwera.",
+    "Zakładamy dzierżawę Microsoft 365 albo przejmujemy istniejącą, podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach i szkolimy zespół. Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams. Gdy firma zechce przenieść pocztę do Microsoft, wystarczy plan Business Standard — ma skrzynkę Exchange i Teams."
+   ],
+   "cechy": [
+    "subskrypcja na użytkownika (CSP / NCE)",
+    "do 300",
+    "klasyczne Word"
+   ],
+   "parametry": [
+    {
+     "k": "Model licencji",
+     "v": "subskrypcja na użytkownika (CSP / NCE)"
+    },
+    {
+     "k": "Limit użytkowników",
+     "v": "do 300"
+    },
+    {
+     "k": "Aplikacje Office",
+     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote + wersje w przeglądarce i mobilne"
+    },
+    {
+     "k": "Poczta",
+     "v": "bez skrzynki Exchange (Outlook obsłuży dotychczasową pocztę)"
+    },
+    {
+     "k": "Pliki",
+     "v": "OneDrive 1 TB na użytkownika"
+    },
+    {
+     "k": "Teams",
+     "v": "bez czatu i rozmów"
+    },
+    {
+     "k": "Okres",
+     "v": "zobowiązanie miesięczne lub roczne (zależnie od oferty)"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy Apps for business ma pocztę?",
+     "a": "Nie, plan nie zawiera skrzynki Exchange. Outlook obsłuży pocztę z dotychczasowego serwera firmy."
+    },
+    {
+     "q": "Czy jest Teams?",
+     "a": "Plan nie ma czatu ani rozmów w Teams. Te funkcje są w planach Business Basic, Standard i Premium."
+    },
+    {
+     "q": "Ile miejsca na pliki?",
+     "a": "1 TB w OneDrive na użytkownika."
+    },
+    {
+     "q": "Czy można zrezygnować w trakcie roku?",
+     "a": "W subskrypcjach NCE anulowanie jest możliwe tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem dobieramy plan i liczbę użytkowników."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "m365-poczta",
+     "etykieta": "Wdrożenie Microsoft 365"
+    },
+    {
+     "slug": "microsoft-windows-11-pro",
+     "etykieta": "Windows 11 Pro"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Noclegi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Gastronomia",
+    "Beauty",
+    "Magazyn i produkcja"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.microsoft.com/pl-pl/microsoft-365/business/compare-all-microsoft-365-business-products",
+     "etykieta": "Strona producenta — Microsoft",
+     "host": "microsoft.com"
+    }
+   ],
+   "wyrozniki": [
+    "subskrypcja na użytkownika (CSP / NCE)",
+    "do 300",
+    "klasyczne Word"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Model licencji",
+     "v": "subskrypcja na użytkownika (CSP / NCE)"
+    },
+    {
+     "k": "Limit użytkowników",
+     "v": "do 300"
+    },
+    {
+     "k": "Aplikacje Office",
+     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote + wersje w przeglądarce i mobilne"
+    },
+    {
+     "k": "Poczta",
+     "v": "bez skrzynki Exchange (Outlook obsłuży dotychczasową pocztę)"
+    },
+    {
+     "k": "Pliki",
+     "v": "OneDrive 1 TB na użytkownika"
+    }
+   ],
+   "nowosc": false,
+   "seria": "Microsoft 365 dla firm"
+  },
+  {
+   "slug_seed": "m365-business-premium",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "prog",
+   "kategoria": "m365",
+   "marka": "Microsoft",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "Microsoft 365 Business Premium",
+   "krotka": "Microsoft 365 Business Premium",
+   "podtytul": "Business Standard plus zabezpieczenia urządzeń i tożsamości",
+   "korzysc": "Wszystko z Business Standard oraz Intune, Defender dla Firm i ochrona kont — dla firm z danymi do chronienia.",
+   "opis": [
+    "Microsoft 365 Business Premium to plan dla firm, które oprócz Office, poczty i Teams chcą zarządzać laptopami i telefonami pracowników oraz chronić konta przed przejęciem. Obejmuje do 300 użytkowników.",
+    "Ma wszystko, co Business Standard: klasyczne aplikacje Office (także Access na PC) na do 5 komputerach, 5 tabletach i 5 telefonach, skrzynkę 100 GB, 1 TB w OneDrive i Teams. Archiwum poczty ma 1,5 TB. Do tego dochodzi Intune (plan 1) do zarządzania urządzeniami, Microsoft Defender dla Firm do ochrony komputerów oraz zaawansowane zarządzanie tożsamością (Entra) — m.in. dostęp warunkowy. To dobry wybór, gdy pracownicy pracują zdalnie albo na własnym sprzęcie.",
+    "Zakładamy dzierżawę Microsoft 365 albo przejmujemy istniejącą, podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach i szkolimy zespół. Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams."
+   ],
+   "cechy": [
+    "subskrypcja na użytkownika (CSP / NCE)",
+    "do 300",
+    "klasyczne Word"
+   ],
+   "parametry": [
+    {
+     "k": "Model licencji",
+     "v": "subskrypcja na użytkownika (CSP / NCE)"
+    },
+    {
+     "k": "Limit użytkowników",
+     "v": "do 300"
+    },
+    {
+     "k": "Aplikacje Office",
+     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote, Access (PC) + wersje w przeglądarce i mobilne"
+    },
+    {
+     "k": "Instalacje na użytkownika",
+     "v": "do 5 PC lub Mac, 5 tabletów i 5 telefonów"
+    },
+    {
+     "k": "Poczta",
+     "v": "skrzynka 100 GB, archiwum 1,5 TB"
+    },
+    {
+     "k": "Pliki",
+     "v": "OneDrive 1 TB na użytkownika"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "Intune (plan 1), Microsoft Defender dla Firm, zaawansowane zarządzanie tożsamością (Entra)"
+    },
+    {
+     "k": "Okres",
+     "v": "zobowiązanie miesięczne lub roczne (zależnie od oferty)"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Co daje Intune?",
+     "a": "Zarządzanie laptopami i telefonami pracowników: zasady bezpieczeństwa, instalacja aplikacji i zdalne czyszczenie zgubionego urządzenia."
+    },
+    {
+     "q": "Czy Premium zastępuje antywirusa?",
+     "a": "Zawiera Microsoft Defender dla Firm do ochrony komputerów. Przy wdrożeniu sprawdzamy, czy wystarczy, czy zostawić dotychczasowy program."
+    },
+    {
+     "q": "Ile ma archiwum poczty?",
+     "a": "1,5 TB na użytkownika."
+    },
+    {
+     "q": "Czy można zrezygnować w trakcie roku?",
+     "a": "W subskrypcjach NCE anulowanie jest możliwe tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem dobieramy plan i liczbę użytkowników."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "m365-poczta",
+     "etykieta": "Wdrożenie Microsoft 365"
+    },
+    {
+     "slug": "microsoft-windows-11-pro",
+     "etykieta": "Windows 11 Pro"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Noclegi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Gastronomia",
+    "Beauty",
+    "Magazyn i produkcja"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.microsoft.com/pl-pl/microsoft-365/business/compare-all-microsoft-365-business-products",
+     "etykieta": "Strona producenta — Microsoft",
+     "host": "microsoft.com"
+    }
+   ],
+   "wyrozniki": [
+    "subskrypcja na użytkownika (CSP / NCE)",
+    "do 300",
+    "klasyczne Word"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Model licencji",
+     "v": "subskrypcja na użytkownika (CSP / NCE)"
+    },
+    {
+     "k": "Limit użytkowników",
+     "v": "do 300"
+    },
+    {
+     "k": "Aplikacje Office",
+     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote, Access (PC) + wersje w przeglądarce i mobilne"
+    },
+    {
+     "k": "Instalacje na użytkownika",
+     "v": "do 5 PC lub Mac, 5 tabletów i 5 telefonów"
+    },
+    {
+     "k": "Poczta",
+     "v": "skrzynka 100 GB, archiwum 1,5 TB"
+    }
+   ],
+   "nowosc": false,
+   "seria": "Microsoft 365 dla firm"
+  },
+  {
+   "slug_seed": "m365-business-standard",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "prog",
+   "kategoria": "m365",
+   "marka": "Microsoft",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "Microsoft 365 Business Standard",
+   "krotka": "Microsoft 365 Business Standard",
+   "podtytul": "Klasyczne aplikacje Office, poczta firmowa, Teams i OneDrive",
+   "korzysc": "Word, Excel, Outlook i PowerPoint na 5 komputerach na osobę, do tego poczta, Teams i 1 TB na pliki.",
+   "opis": [
+    "Microsoft 365 Business Standard to plan dla firm, które pracują w klasycznych aplikacjach Office i potrzebują firmowej poczty oraz Teams. Obejmuje do 300 użytkowników i jest najczęściej wybieranym planem w biurach.",
+    "Każdy użytkownik może zainstalować klasyczne aplikacje Word, Excel, PowerPoint, Outlook i OneNote na do 5 komputerach PC lub Mac, 5 tabletach i 5 telefonach. Ma skrzynkę 100 GB z archiwum 50 GB, 1 TB w OneDrive oraz Teams z czatem, rozmowami i spotkaniami. Poczta jest chroniona filtrem spamu i złośliwego oprogramowania. Zaawansowane zabezpieczenia urządzeń (Intune, Defender dla Firm) są w planie Business Premium.",
+    "Zakładamy dzierżawę Microsoft 365 albo przejmujemy istniejącą, podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach i szkolimy zespół. Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams."
+   ],
+   "cechy": [
+    "subskrypcja na użytkownika (CSP / NCE)",
+    "do 300",
+    "klasyczne Word"
+   ],
+   "parametry": [
+    {
+     "k": "Model licencji",
+     "v": "subskrypcja na użytkownika (CSP / NCE)"
+    },
+    {
+     "k": "Limit użytkowników",
+     "v": "do 300"
+    },
+    {
+     "k": "Aplikacje Office",
+     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote + wersje w przeglądarce i mobilne"
+    },
+    {
+     "k": "Instalacje na użytkownika",
+     "v": "do 5 PC lub Mac, 5 tabletów i 5 telefonów"
+    },
+    {
+     "k": "Poczta",
+     "v": "skrzynka 100 GB, archiwum 50 GB"
+    },
+    {
+     "k": "Pliki",
+     "v": "OneDrive 1 TB na użytkownika"
+    },
+    {
+     "k": "Teams",
+     "v": "czat, rozmowy i spotkania"
+    },
+    {
+     "k": "Okres",
+     "v": "zobowiązanie miesięczne lub roczne (zależnie od oferty)"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Na ilu komputerach zainstaluję Office?",
+     "a": "Każdy użytkownik może zainstalować aplikacje na do 5 komputerach PC lub Mac, 5 tabletach i 5 telefonach."
+    },
+    {
+     "q": "Czym Standard różni się od Premium?",
+     "a": "Premium dodaje zabezpieczenia: Intune (zarządzanie urządzeniami), Microsoft Defender dla Firm i zaawansowane zarządzanie tożsamością, a archiwum poczty ma 1,5 TB."
+    },
+    {
+     "q": "Czy jest poczta firmowa?",
+     "a": "Tak, skrzynka 100 GB na własnej domenie firmy."
+    },
+    {
+     "q": "Czy można zrezygnować w trakcie roku?",
+     "a": "W subskrypcjach NCE anulowanie jest możliwe tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem dobieramy plan i liczbę użytkowników."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "m365-poczta",
+     "etykieta": "Wdrożenie Microsoft 365"
+    },
+    {
+     "slug": "microsoft-windows-11-pro",
+     "etykieta": "Windows 11 Pro"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Noclegi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Gastronomia",
+    "Beauty",
+    "Magazyn i produkcja"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.microsoft.com/pl-pl/microsoft-365/business/compare-all-microsoft-365-business-products",
+     "etykieta": "Strona producenta — Microsoft",
+     "host": "microsoft.com"
+    }
+   ],
+   "wyrozniki": [
+    "subskrypcja na użytkownika (CSP / NCE)",
+    "do 300",
+    "klasyczne Word"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Model licencji",
+     "v": "subskrypcja na użytkownika (CSP / NCE)"
+    },
+    {
+     "k": "Limit użytkowników",
+     "v": "do 300"
+    },
+    {
+     "k": "Aplikacje Office",
+     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote + wersje w przeglądarce i mobilne"
+    },
+    {
+     "k": "Instalacje na użytkownika",
+     "v": "do 5 PC lub Mac, 5 tabletów i 5 telefonów"
+    },
+    {
+     "k": "Poczta",
+     "v": "skrzynka 100 GB, archiwum 50 GB"
+    }
+   ],
+   "nowosc": false,
+   "seria": "Microsoft 365 dla firm"
+  },
+  {
+   "slug_seed": "m365-business-basic",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "prog",
+   "kategoria": "m365",
+   "marka": "Microsoft",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "Microsoft 365 Business Basic",
+   "krotka": "Microsoft 365 Business Basic",
+   "podtytul": "Poczta firmowa, Teams i OneDrive z aplikacjami w przeglądarce",
+   "korzysc": "Firmowa poczta na własnej domenie, Teams i 1 TB na pliki — bez instalowania Office.",
+   "opis": [
+    "Microsoft 365 Business Basic to najprostszy plan dla firm, które potrzebują profesjonalnej poczty na własnej domenie, spotkań i czatu w Teams oraz miejsca na pliki, a dokumenty edytują w przeglądarce lub na telefonie. Plan obejmuje do 300 użytkowników.",
+    "Każdy użytkownik ma skrzynkę pocztową 100 GB z archiwum 50 GB, 1 TB w OneDrive i Teams z czatem, rozmowami i spotkaniami. Word, Excel, PowerPoint i Outlook są dostępne w wersji przeglądarkowej i mobilnej, bez klasycznych aplikacji na komputer. Poczta jest chroniona filtrem spamu i złośliwego oprogramowania. Jeśli zespół pracuje w klasycznych aplikacjach Office, lepszy jest plan Business Standard.",
+    "Zakładamy dzierżawę Microsoft 365 albo przejmujemy istniejącą, podpinamy domenę firmy i pocztę, przenosimy skrzynki i pliki, instalujemy aplikacje na komputerach i telefonach i szkolimy zespół. Licencja to subskrypcja na użytkownika — liczbę i okres dobieramy w ofercie. W jednej firmie można łączyć różne plany, np. Business Standard dla biura i Business Basic dla osób, które potrzebują tylko poczty i Teams."
+   ],
+   "cechy": [
+    "subskrypcja na użytkownika (CSP / NCE)",
+    "do 300",
+    "wersje w przeglądarce i mobilne (bez kla"
+   ],
+   "parametry": [
+    {
+     "k": "Model licencji",
+     "v": "subskrypcja na użytkownika (CSP / NCE)"
+    },
+    {
+     "k": "Limit użytkowników",
+     "v": "do 300"
+    },
+    {
+     "k": "Aplikacje Office",
+     "v": "wersje w przeglądarce i mobilne (bez klasycznych na komputer)"
+    },
+    {
+     "k": "Poczta",
+     "v": "skrzynka 100 GB, archiwum 50 GB"
+    },
+    {
+     "k": "Pliki",
+     "v": "OneDrive 1 TB na użytkownika"
+    },
+    {
+     "k": "Teams",
+     "v": "czat, rozmowy i spotkania"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "filtr spamu i złośliwego oprogramowania"
+    },
+    {
+     "k": "Okres",
+     "v": "zobowiązanie miesięczne lub roczne (zależnie od oferty)"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy w Basic jest Word na komputer?",
+     "a": "Nie. Basic ma aplikacje Office w przeglądarce i na telefonie; klasyczne aplikacje na komputer są w Business Standard, Premium i Apps for business."
+    },
+    {
+     "q": "Ile miejsca ma skrzynka?",
+     "a": "100 GB, plus 50 GB archiwum."
+    },
+    {
+     "q": "Czy przeniesiecie pocztę z innego serwera?",
+     "a": "Tak, przenosimy skrzynki i podpinamy domenę firmy."
+    },
+    {
+     "q": "Czy można zrezygnować w trakcie roku?",
+     "a": "W subskrypcjach NCE anulowanie jest możliwe tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem dobieramy plan i liczbę użytkowników."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "m365-poczta",
+     "etykieta": "Wdrożenie Microsoft 365"
+    },
+    {
+     "slug": "microsoft-windows-11-pro",
+     "etykieta": "Windows 11 Pro"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Noclegi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Gastronomia",
+    "Beauty",
+    "Magazyn i produkcja"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.microsoft.com/pl-pl/microsoft-365/business/compare-all-microsoft-365-business-products",
+     "etykieta": "Strona producenta — Microsoft",
+     "host": "microsoft.com"
+    }
+   ],
+   "wyrozniki": [
+    "subskrypcja na użytkownika (CSP / NCE)",
+    "do 300",
+    "wersje w przeglądarce i mobilne (bez kla"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Model licencji",
+     "v": "subskrypcja na użytkownika (CSP / NCE)"
+    },
+    {
+     "k": "Limit użytkowników",
+     "v": "do 300"
+    },
+    {
+     "k": "Aplikacje Office",
+     "v": "wersje w przeglądarce i mobilne (bez klasycznych na komputer)"
+    },
+    {
+     "k": "Poczta",
+     "v": "skrzynka 100 GB, archiwum 50 GB"
+    },
+    {
+     "k": "Pliki",
+     "v": "OneDrive 1 TB na użytkownika"
+    }
+   ],
+   "nowosc": false,
+   "seria": "Microsoft 365 dla firm"
   },
   {
    "slug_seed": "microsoft-windows-11-pro",
@@ -82343,7 +83680,629 @@
      "l": "pl",
      "d": "seria"
     }
-   ]
+   ],
+   "seria": "ESET — pakiety dla firm"
+  },
+  {
+   "slug_seed": "eset-pakiet-elite",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "bezp",
+   "kategoria": "ochr",
+   "marka": "ESET",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "ESET PROTECT Elite",
+   "krotka": "ESET PROTECT Elite",
+   "podtytul": "Pełna ochrona z XDR i uwierzytelnianiem wieloskładnikowym",
+   "korzysc": "Complete plus MFA i XDR: wykrywanie i reakcja na incydenty w całej sieci firmy.",
+   "opis": [
+    "ESET PROTECT Elite to najwyższy pakiet ESET PROTECT dla organizacji, które chcą nie tylko blokować zagrożenia, ale też widzieć i badać incydenty w całej sieci. ESET pozycjonuje go dla firm dowolnej wielkości, a moduł XDR szczególnie dla większych klientów.",
+    "Zawiera wszystko, co Complete — ochronę urządzeń, szyfrowanie dysków, sandbox w chmurze, ochronę serwerów pocztowych i aplikacji w chmurze, zarządzanie podatnościami — i dodaje uwierzytelnianie wieloskładnikowe (MFA z aplikacją mobilną) oraz XDR (Extended Detection & Response) jako część konsoli ESET PROTECT. Chroni stacje robocze, serwery i maszyny wirtualne (Windows, macOS, Linux, Exchange, AWS, Azure, GCP), telefony z iOS i Androidem oraz aplikacje w chmurze: Exchange Online, OneDrive, SharePoint Online, Teams, Gmail i Google Drive. ESET LiveAI jest płatnym dodatkiem.",
+    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach, przenosimy zasady z poprzedniego antywirusa i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie."
+   ],
+   "cechy": [
+    "pakiet ESET PROTECT — poziom Elite",
+    "Complete + uwierzytelnianie wieloskładni",
+    "Windows"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "pakiet ESET PROTECT — poziom Elite"
+    },
+    {
+     "k": "Funkcje ochrony",
+     "v": "Complete + uwierzytelnianie wieloskładnikowe (MFA), XDR (wykrywanie i reakcja); ESET LiveAI jako płatny dodatek"
+    },
+    {
+     "k": "Chronione urządzenia",
+     "v": "Windows, macOS, Linux, Exchange, maszyny w AWS, Azure i GCP, iOS, Android; aplikacje Exchange Online, OneDrive, SharePoint Online, Teams, Gmail, Google Drive"
+    },
+    {
+     "k": "Konsola",
+     "v": "ESET PROTECT w chmurze albo lokalnie, z modułem XDR"
+    },
+    {
+     "k": "Licencja",
+     "v": "na urządzenie (stanowisko)"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Co to jest XDR?",
+     "a": "Extended Detection & Response: konsola zbiera zdarzenia ze wszystkich urządzeń, pokazuje przebieg incydentu i pozwala na niego zareagować."
+    },
+    {
+     "q": "Czy Elite ma MFA?",
+     "a": "Tak, uwierzytelnianie wieloskładnikowe z aplikacją mobilną jest w pakiecie Elite."
+    },
+    {
+     "q": "Czy potrzebujemy własnego serwera?",
+     "a": "Nie. Konsola ESET PROTECT działa w chmurze; można ją też zainstalować lokalnie."
+    },
+    {
+     "q": "Czy przeniesiecie nas z innego antywirusa?",
+     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program, instalujemy ESET na komputerach i serwerach i sprawdzamy, czy każde urządzenie jest widoczne w konsoli."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "przeglad-it",
+     "etykieta": "Bezpłatny przegląd IT"
+    },
+    {
+     "slug": "kopie-zapasowe",
+     "etykieta": "Kopie zapasowe"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Zdrowie i uzdrowiska",
+    "Szkoły i instytucje",
+    "Noclegi",
+    "Gastronomia"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.eset.com/pl/business/elite-protection/",
+     "etykieta": "Strona producenta — ESET",
+     "host": "eset.com"
+    }
+   ],
+   "wyrozniki": [
+    "pakiet ESET PROTECT — poziom Elite",
+    "Complete + uwierzytelnianie wieloskładni",
+    "Windows"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Typ",
+     "v": "pakiet ESET PROTECT — poziom Elite"
+    },
+    {
+     "k": "Funkcje ochrony",
+     "v": "Complete + uwierzytelnianie wieloskładnikowe (MFA), XDR (wykrywanie i reakcja); ESET LiveAI jako płatny dodatek"
+    },
+    {
+     "k": "Chronione urządzenia",
+     "v": "Windows, macOS, Linux, Exchange, maszyny w AWS, Azure i GCP, iOS, Android; aplikacje Exchange Online, OneDrive, SharePoint Online, Teams, Gmail, Google Drive"
+    },
+    {
+     "k": "Konsola",
+     "v": "ESET PROTECT w chmurze albo lokalnie, z modułem XDR"
+    },
+    {
+     "k": "Licencja",
+     "v": "na urządzenie (stanowisko)"
+    }
+   ],
+   "nowosc": false,
+   "seria": "ESET — pakiety dla firm"
+  },
+  {
+   "slug_seed": "eset-pakiet-complete",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "bezp",
+   "kategoria": "ochr",
+   "marka": "ESET",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "ESET PROTECT Complete",
+   "krotka": "ESET PROTECT Complete",
+   "podtytul": "Ochrona urządzeń, poczty i Microsoft 365 z zarządzaniem podatnościami",
+   "korzysc": "Advanced plus ochrona poczty, Microsoft 365 i Google Workspace oraz łatanie dziur w systemach i programach.",
+   "opis": [
+    "ESET PROTECT Complete to wielowarstwowy pakiet dla firm, w których największym zagrożeniem jest poczta: fałszywe faktury, załączniki i linki. Według ESET obejmuje od 5 do nielimitowanej liczby urządzeń.",
+    "Ma wszystko, co Advanced — ochronę komputerów, serwerów i telefonów, pełne szyfrowanie dysków, sandbox w chmurze i ochronę maszyn w chmurze — a dodaje ochronę aplikacji w chmurze dla Microsoft 365 i Google Workspace, zabezpieczenie serwerów pocztowych (Exchange i IBM) oraz zarządzanie podatnościami i poprawkami na stacjach roboczych i w programach innych producentów. ESET wymienia ochronę Windows, Windows Server, Exchange Server, Linuxa, macOS, Androida, iOS oraz maszyn w AWS, Azure i Google Cloud. Zarządza się nim w konsoli ESET PROTECT.",
+    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach, przenosimy zasady z poprzedniego antywirusa i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie."
+   ],
+   "cechy": [
+    "pakiet ESET PROTECT — poziom Complete",
+    "od 5 do nielimitowanej liczby urządzeń (",
+    "Advanced + ochrona Microsoft 365 i Googl"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "pakiet ESET PROTECT — poziom Complete"
+    },
+    {
+     "k": "Dla kogo",
+     "v": "od 5 do nielimitowanej liczby urządzeń (wg ESET)"
+    },
+    {
+     "k": "Funkcje ochrony",
+     "v": "Advanced + ochrona Microsoft 365 i Google Workspace, ochrona serwerów pocztowych (Exchange, IBM), zarządzanie podatnościami i poprawkami"
+    },
+    {
+     "k": "Chronione urządzenia",
+     "v": "Windows, Windows Server, Exchange Server, Linux, macOS, Android, iOS, AWS, Azure, Google Cloud"
+    },
+    {
+     "k": "Konsola",
+     "v": "ESET PROTECT w chmurze albo lokalnie"
+    },
+    {
+     "k": "Licencja",
+     "v": "na urządzenie (stanowisko)"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy Complete chroni pocztę w Microsoft 365?",
+     "a": "Tak, obejmuje ochronę aplikacji w chmurze Microsoft 365 i Google Workspace oraz serwerów pocztowych Exchange."
+    },
+    {
+     "q": "Co daje zarządzanie podatnościami?",
+     "a": "Konsola pokazuje luki w systemach i programach innych producentów i pozwala wgrać poprawki na stacjach roboczych."
+    },
+    {
+     "q": "Czym różni się od Elite?",
+     "a": "Elite dodaje uwierzytelnianie wieloskładnikowe (MFA) i XDR — wykrywanie i reakcję na incydenty w całej sieci."
+    },
+    {
+     "q": "Czy przeniesiecie nas z innego antywirusa?",
+     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program, instalujemy ESET na komputerach i serwerach i sprawdzamy, czy każde urządzenie jest widoczne w konsoli."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "przeglad-it",
+     "etykieta": "Bezpłatny przegląd IT"
+    },
+    {
+     "slug": "kopie-zapasowe",
+     "etykieta": "Kopie zapasowe"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Zdrowie i uzdrowiska",
+    "Szkoły i instytucje",
+    "Noclegi",
+    "Gastronomia"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.eset.com/pl/business/complete-protection/",
+     "etykieta": "Strona producenta — ESET",
+     "host": "eset.com"
+    }
+   ],
+   "wyrozniki": [
+    "pakiet ESET PROTECT — poziom Complete",
+    "od 5 do nielimitowanej liczby urządzeń (",
+    "Advanced + ochrona Microsoft 365 i Googl"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Typ",
+     "v": "pakiet ESET PROTECT — poziom Complete"
+    },
+    {
+     "k": "Dla kogo",
+     "v": "od 5 do nielimitowanej liczby urządzeń (wg ESET)"
+    },
+    {
+     "k": "Funkcje ochrony",
+     "v": "Advanced + ochrona Microsoft 365 i Google Workspace, ochrona serwerów pocztowych (Exchange, IBM), zarządzanie podatnościami i poprawkami"
+    },
+    {
+     "k": "Chronione urządzenia",
+     "v": "Windows, Windows Server, Exchange Server, Linux, macOS, Android, iOS, AWS, Azure, Google Cloud"
+    },
+    {
+     "k": "Konsola",
+     "v": "ESET PROTECT w chmurze albo lokalnie"
+    }
+   ],
+   "nowosc": false,
+   "seria": "ESET — pakiety dla firm"
+  },
+  {
+   "slug_seed": "eset-pakiet-advanced",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "bezp",
+   "kategoria": "ochr",
+   "marka": "ESET",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "ESET PROTECT Advanced",
+   "krotka": "ESET PROTECT Advanced",
+   "podtytul": "Ochrona z szyfrowaniem dysków i sandboxem w chmurze",
+   "korzysc": "Entry plus szyfrowanie dysków laptopów i sprawdzanie podejrzanych plików w chmurze, zanim zaszkodzą.",
+   "opis": [
+    "ESET PROTECT Advanced to pakiet dla firm, które obok antywirusa chcą zabezpieczyć dane na laptopach i lepiej bronić się przed nowymi zagrożeniami. ESET opisuje go jako kompletną ochronę IT dla firm każdej wielkości.",
+    "Obejmuje wszystko, co Entry: ochronę stacji roboczych, serwerów i urządzeń mobilnych (Android, iOS, w tym MDM i funkcje antykradzieżowe) oraz AI Security. Dodaje pełne szyfrowanie dysków komputerów z Windows i macOS — zgubiony laptop nie ujawni danych — oraz sandbox w chmurze (LiveGuard), który analizuje podejrzane pliki, zanim trafią do użytkownika. ESET wymienia też ochronę maszyn w chmurze (Cloud Workload Protection). Zarządza się nim w konsoli ESET PROTECT w chmurze albo lokalnie.",
+    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach, przenosimy zasady z poprzedniego antywirusa i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie. Wybór pakietu zaczynamy od listy urządzeń i tego, z czego firma korzysta: poczty Microsoft 365, serwera plików, laptopów pracujących poza biurem."
+   ],
+   "cechy": [
+    "pakiet ESET PROTECT — poziom Advanced",
+    "Entry + pełne szyfrowanie dysków (Window",
+    "Windows"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "pakiet ESET PROTECT — poziom Advanced"
+    },
+    {
+     "k": "Funkcje ochrony",
+     "v": "Entry + pełne szyfrowanie dysków (Windows, macOS), sandbox w chmurze, Cloud Workload Protection"
+    },
+    {
+     "k": "Chronione urządzenia",
+     "v": "Windows, macOS, Linux, Android, iOS (MDM)"
+    },
+    {
+     "k": "Konsola",
+     "v": "ESET PROTECT w chmurze albo lokalnie"
+    },
+    {
+     "k": "Licencja",
+     "v": "na urządzenie (stanowisko)"
+    },
+    {
+     "k": "Następny poziom",
+     "v": "Complete: + ochrona Microsoft 365 / Google Workspace, serwera poczty, zarządzanie podatnościami"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Po co szyfrowanie dysków?",
+     "a": "Gdy laptop zginie albo zostanie skradziony, dane na dysku pozostają nieczytelne bez hasła. Advanced szyfruje dyski komputerów z Windows i macOS."
+    },
+    {
+     "q": "Co robi sandbox w chmurze?",
+     "a": "Uruchamia podejrzany plik w odizolowanym środowisku ESET i blokuje go, zanim trafi do użytkownika."
+    },
+    {
+     "q": "Czy Advanced chroni pocztę Microsoft 365?",
+     "a": "Nie, ochrona aplikacji w chmurze i serwera poczty jest w pakiecie Complete."
+    },
+    {
+     "q": "Czy przeniesiecie nas z innego antywirusa?",
+     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program, instalujemy ESET na komputerach i serwerach i sprawdzamy, czy każde urządzenie jest widoczne w konsoli."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "przeglad-it",
+     "etykieta": "Bezpłatny przegląd IT"
+    },
+    {
+     "slug": "kopie-zapasowe",
+     "etykieta": "Kopie zapasowe"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Zdrowie i uzdrowiska",
+    "Szkoły i instytucje",
+    "Noclegi",
+    "Gastronomia"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.eset.com/pl/business/advanced-protection/",
+     "etykieta": "Strona producenta — ESET",
+     "host": "eset.com"
+    }
+   ],
+   "wyrozniki": [
+    "pakiet ESET PROTECT — poziom Advanced",
+    "Entry + pełne szyfrowanie dysków (Window",
+    "Windows"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Typ",
+     "v": "pakiet ESET PROTECT — poziom Advanced"
+    },
+    {
+     "k": "Funkcje ochrony",
+     "v": "Entry + pełne szyfrowanie dysków (Windows, macOS), sandbox w chmurze, Cloud Workload Protection"
+    },
+    {
+     "k": "Chronione urządzenia",
+     "v": "Windows, macOS, Linux, Android, iOS (MDM)"
+    },
+    {
+     "k": "Konsola",
+     "v": "ESET PROTECT w chmurze albo lokalnie"
+    },
+    {
+     "k": "Licencja",
+     "v": "na urządzenie (stanowisko)"
+    }
+   ],
+   "nowosc": false,
+   "seria": "ESET — pakiety dla firm"
+  },
+  {
+   "slug_seed": "eset-pakiet-entry",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "bezp",
+   "kategoria": "ochr",
+   "marka": "ESET",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "ESET PROTECT Entry",
+   "krotka": "ESET PROTECT Entry",
+   "podtytul": "Podstawowa ochrona komputerów, serwerów i telefonów z konsolą ESET PROTECT",
+   "korzysc": "Ochrona stacji roboczych, serwerów i urządzeń mobilnych zarządzana z jednej konsoli — w chmurze albo lokalnie.",
+   "opis": [
+    "ESET PROTECT Entry to podstawowy pakiet z rodziny ESET PROTECT dla firm, które chcą zarządzać ochroną wszystkich urządzeń z jednego miejsca. ESET kieruje go do przedsiębiorstw niezależnie od wielkości: od kilku stanowisk w biurze po większą sieć z serwerami.",
+    "Pakiet obejmuje nowoczesną ochronę stacji roboczych (technologia ESET LiveSense), ochronę systemów serwerowych i urządzeń mobilnych oraz podstawową wersję AI Security (monitorowanie zachowań i ochronę agenta). Chroni komputery i serwery z Windows, macOS i Linuxem oraz telefony z Androidem i iOS. Całością zarządza się w konsoli ESET PROTECT dostępnej w chmurze albo instalowanej lokalnie, a licencja liczona jest na urządzenie. Szyfrowanie dysków i sandbox w chmurze są dopiero w pakiecie Advanced.",
+    "Chronione urządzenia, konsola ESET PROTECT i licencje ustawiamy przy wdrożeniu: instalujemy agenta na komputerach i serwerach, przenosimy zasady z poprzedniego antywirusa i pokazujemy, gdzie w konsoli widać zagrożenia. Okres licencji i liczbę urządzeń dobieramy w ofercie na piśmie."
+   ],
+   "cechy": [
+    "pakiet ESET PROTECT — poziom podstawowy",
+    "ochrona stacji roboczych (LiveSense)",
+    "Windows"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "pakiet ESET PROTECT — poziom podstawowy"
+    },
+    {
+     "k": "Funkcje ochrony",
+     "v": "ochrona stacji roboczych (LiveSense), ochrona serwerów, ochrona urządzeń mobilnych, AI Security w wersji podstawowej"
+    },
+    {
+     "k": "Chronione urządzenia",
+     "v": "Windows, macOS, Linux (komputery i serwery), Android, iOS"
+    },
+    {
+     "k": "Konsola",
+     "v": "ESET PROTECT w chmurze albo lokalnie"
+    },
+    {
+     "k": "Licencja",
+     "v": "na urządzenie (stanowisko)"
+    },
+    {
+     "k": "Następny poziom",
+     "v": "Advanced: + pełne szyfrowanie dysków, sandbox w chmurze"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czym Entry różni się od Advanced?",
+     "a": "Advanced dodaje pełne szyfrowanie dysków (Windows, macOS) i sandbox w chmurze, który sprawdza podejrzane pliki, zanim trafią do użytkownika."
+    },
+    {
+     "q": "Czy konsola musi być w chmurze?",
+     "a": "Nie. ESET PROTECT działa w chmurze albo jako instalacja lokalna."
+    },
+    {
+     "q": "Czy Entry chroni telefony?",
+     "a": "Tak, pakiet obejmuje ochronę urządzeń z Androidem i iOS."
+    },
+    {
+     "q": "Czy przeniesiecie nas z innego antywirusa?",
+     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program, instalujemy ESET na komputerach i serwerach i sprawdzamy, czy każde urządzenie jest widoczne w konsoli."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "przeglad-it",
+     "etykieta": "Bezpłatny przegląd IT"
+    },
+    {
+     "slug": "kopie-zapasowe",
+     "etykieta": "Kopie zapasowe"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Zdrowie i uzdrowiska",
+    "Szkoły i instytucje",
+    "Noclegi",
+    "Gastronomia"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.eset.com/pl/business/entry-protection/",
+     "etykieta": "Strona producenta — ESET",
+     "host": "eset.com"
+    }
+   ],
+   "wyrozniki": [
+    "pakiet ESET PROTECT — poziom podstawowy",
+    "ochrona stacji roboczych (LiveSense)",
+    "Windows"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Typ",
+     "v": "pakiet ESET PROTECT — poziom podstawowy"
+    },
+    {
+     "k": "Funkcje ochrony",
+     "v": "ochrona stacji roboczych (LiveSense), ochrona serwerów, ochrona urządzeń mobilnych, AI Security w wersji podstawowej"
+    },
+    {
+     "k": "Chronione urządzenia",
+     "v": "Windows, macOS, Linux (komputery i serwery), Android, iOS"
+    },
+    {
+     "k": "Konsola",
+     "v": "ESET PROTECT w chmurze albo lokalnie"
+    },
+    {
+     "k": "Licencja",
+     "v": "na urządzenie (stanowisko)"
+    }
+   ],
+   "nowosc": false,
+   "seria": "ESET — pakiety dla firm"
+  },
+  {
+   "slug_seed": "eset-small-business-security",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "bezp",
+   "kategoria": "ochr",
+   "marka": "ESET",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "ESET Small Business Security",
+   "krotka": "ESET Small Business Security",
+   "podtytul": "Ochrona małego biura: 5–25 urządzeń bez konsoli administratora",
+   "korzysc": "Antywirus, ochrona bankowości, VPN i zabezpieczenie serwera dla małej firmy, którą prowadzi ktoś bez działu IT.",
+   "opis": [
+    "ESET Small Business Security to pakiet dla małego biura, sklepu czy gabinetu, w którym komputerami zajmuje się właściciel albo pracownik, a nie informatyk. ESET kieruje go do firm z 5–25 urządzeniami i pozwala chronić zarówno sprzęt służbowy, jak i prywatny, którego używa się w pracy. Zarządza się nim w ESET HOME, bez osobnej konsoli administratora.",
+    "Pakiet chroni przed złośliwym oprogramowaniem i atakami z wykorzystaniem AI, zabezpiecza bankowość i płatności w przeglądarce, ma funkcje antykradzieżowe (Windows i Android), ochronę serwera Windows Server, ochronę poczty (antymalware dla Outlooka i antyspam) oraz ochronę danych: VPN, szyfrowanie i ochronę przed ransomware. Działa na Windows, Windows Server, macOS i Androidzie; na iOS ESET podaje na razie wybrane funkcje prywatności i VPN. Okres i liczbę urządzeń wybiera się przy zakupie i odnowieniu, jest też 30-dniowa wersja próbna.",
+    "Instalujemy program na komputerach, telefonach i serwerze, łączymy je z kontem ESET HOME i pokazujemy, gdzie sprawdzić stan ochrony. Gdy firma urośnie albo potrzebuje zarządzania podatnościami, przejście na pakiety ESET PROTECT jest kolejnym krokiem."
+   ],
+   "cechy": [
+    "pakiet ochrony dla małej firmy",
+    "5–25 urządzeń",
+    "ochrona przed złośliwym oprogramowaniem "
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "pakiet ochrony dla małej firmy, zarządzany w ESET HOME (bez konsoli ESET PROTECT)"
+    },
+    {
+     "k": "Dla kogo",
+     "v": "5–25 urządzeń, firma bez informatyka"
+    },
+    {
+     "k": "Funkcje ochrony",
+     "v": "ochrona przed złośliwym oprogramowaniem i atakami AI, bezpieczna bankowość, anti-theft (Windows, Android), ochrona Windows Server, ochrona poczty (Outlook, antyspam), VPN, szyfrowanie, ochrona przed ransomware"
+    },
+    {
+     "k": "Chronione urządzenia",
+     "v": "Windows, Windows Server, macOS, Android; iOS: wybrane funkcje prywatności i VPN"
+    },
+    {
+     "k": "Licencja",
+     "v": "na liczbę urządzeń; okres i liczbę urządzeń wybierasz przy zakupie i odnowieniu"
+    },
+    {
+     "k": "Wersja próbna",
+     "v": "30 dni"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Dla jakiej firmy jest Small Business Security?",
+     "a": "Dla małego biura z 5–25 urządzeniami, w którym ochroną zajmuje się osoba bez wiedzy informatycznej. Zarządza się nim w ESET HOME, bez konsoli administratora."
+    },
+    {
+     "q": "Czy chroni serwer?",
+     "a": "Tak, pakiet obejmuje ochronę Windows Server."
+    },
+    {
+     "q": "Czy ma zarządzanie podatnościami?",
+     "a": "Nie. ESET poleca do tego pakiet ESET PROTECT Complete."
+    },
+    {
+     "q": "Czy przeniesiecie nas z innego antywirusa?",
+     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program, instalujemy ESET na komputerach i serwerach i sprawdzamy, czy każde urządzenie jest widoczne w konsoli."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "przeglad-it",
+     "etykieta": "Bezpłatny przegląd IT"
+    },
+    {
+     "slug": "kopie-zapasowe",
+     "etykieta": "Kopie zapasowe"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Zdrowie i uzdrowiska",
+    "Szkoły i instytucje",
+    "Noclegi",
+    "Gastronomia"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.eset.com/pl/home/small-business-security/",
+     "etykieta": "Strona producenta — ESET",
+     "host": "eset.com"
+    }
+   ],
+   "wyrozniki": [
+    "pakiet ochrony dla małej firmy",
+    "5–25 urządzeń",
+    "ochrona przed złośliwym oprogramowaniem "
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Typ",
+     "v": "pakiet ochrony dla małej firmy, zarządzany w ESET HOME (bez konsoli ESET PROTECT)"
+    },
+    {
+     "k": "Dla kogo",
+     "v": "5–25 urządzeń, firma bez informatyka"
+    },
+    {
+     "k": "Funkcje ochrony",
+     "v": "ochrona przed złośliwym oprogramowaniem i atakami AI, bezpieczna bankowość, anti-theft (Windows, Android), ochrona Windows Server, ochrona poczty (Outlook, antyspam), VPN, szyfrowanie, ochrona przed ransomware"
+    },
+    {
+     "k": "Chronione urządzenia",
+     "v": "Windows, Windows Server, macOS, Android; iOS: wybrane funkcje prywatności i VPN"
+    },
+    {
+     "k": "Licencja",
+     "v": "na liczbę urządzeń; okres i liczbę urządzeń wybierasz przy zakupie i odnowieniu"
+    }
+   ],
+   "nowosc": false,
+   "seria": "ESET — pakiety dla firm"
   },
   {
    "slug_seed": "fw",
@@ -82836,7 +84795,796 @@
      "l": "pl",
      "d": "seria"
     }
-   ]
+   ],
+   "seria": "EuroCert — podpis i pieczęć"
+  },
+  {
+   "slug_seed": "eurocert-pieczec-chmura",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "bezp",
+   "kategoria": "podpis",
+   "marka": "EuroCert",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "Kwalifikowana pieczęć elektroniczna EuroCert w chmurze ECSigner",
+   "krotka": "Pieczęć EuroCert w chmurze",
+   "podtytul": "Pieczęć firmy w chmurze dla kilku osób i lokalizacji",
+   "korzysc": "Pieczęć firmy bez karty: kilku pełnomocników, pieczętowanie PDF i XML z dowolnego komputera.",
+   "opis": [
+    "Pieczęć elektroniczna w chmurze ECSigner to kwalifikowana pieczęć z danymi przedsiębiorstwa bez karty i czytnika. EuroCert poleca ją firmom z wieloma osobami i lokalizacjami, które pieczętują pojedyncze dokumenty: dokumentację firmową i pracowniczą, archiwa, świadectwa, a także uwierzytelniają się w usługach takich jak Krajowy System e-Faktur.",
+    "Pieczęć składa się na plikach PDF i XML (PAdES, XAdES) w programie SecureDoc z zestawu albo w Adobe Reader. W pakiecie jest certyfikat na 1, 2 albo 3 lata, aplikacja mobilna (Android, iOS) i na komputer (Windows, macOS), portal i wsparcie techniczne. Można dodawać i usuwać użytkowników, przy czym w danej chwili pieczętuje jedna osoba. Weryfikacja obejmuje pełnomocnika i dane organizacji: stacjonarnie w punkcie, online podpisem kwalifikowanym albo przez wideoweryfikację. Potrzebny jest dokument umocowania, np. odpis KRS lub CEIDG albo pełnomocnictwo.",
+    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS."
+   ],
+   "cechy": [
+    "pieczęć w chmurze",
+    "firmy i instytucje (sektor prywatny i pu",
+    "1"
+   ],
+   "parametry": [
+    {
+     "k": "Forma",
+     "v": "pieczęć w chmurze, bez karty i czytnika"
+    },
+    {
+     "k": "Dla kogo",
+     "v": "firmy i instytucje (sektor prywatny i publiczny)"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    },
+    {
+     "k": "Formaty",
+     "v": "PDF i XML (PAdES, XAdES); SecureDoc w zestawie lub Adobe Reader"
+    },
+    {
+     "k": "Użytkownicy",
+     "v": "wielu użytkowników, w danej chwili pieczętuje jedna osoba"
+    },
+    {
+     "k": "Weryfikacja",
+     "v": "stacjonarnie w punkcie, online podpisem kwalifikowanym lub wideoweryfikacja; wizyta VIP"
+    },
+    {
+     "k": "Wymagane dokumenty",
+     "v": "dokument umocowania pełnomocnika: odpis KRS / CEIDG, pełnomocnictwo, akt powołania"
+    },
+    {
+     "k": "Systemy",
+     "v": "Windows, macOS + aplikacja na Androida / iOS"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Ile osób może używać pieczęci?",
+     "a": "Można dodać wielu użytkowników, ale w danej chwili pieczętuje jedna osoba."
+    },
+    {
+     "q": "Jak przebiega weryfikacja?",
+     "a": "Weryfikuje się pełnomocnika i dane organizacji: w punkcie partnerskim, online podpisem kwalifikowanym albo przez wideoweryfikację."
+    },
+    {
+     "q": "W czym pieczętuję dokumenty?",
+     "a": "W programie SecureDoc z zestawu albo w Adobe Reader — pliki PDF i XML."
+    },
+    {
+     "q": "Czy zadziała w KSeF?",
+     "a": "EuroCert wymienia uwierzytelnianie w Krajowym Systemie e-Faktur wśród zastosowań pieczęci w chmurze."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "ksef",
+     "etykieta": "Wdrożenie KSeF"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska"
+   ],
+   "zrodla": [
+    {
+     "url": "https://sklep.eurocert.pl/pl/p/Kwalifikowana-pieczec-elektroniczna-w-chmurze-ECSigner/140",
+     "etykieta": "Strona producenta — EuroCert",
+     "host": "sklep.eurocert.pl"
+    }
+   ],
+   "wyrozniki": [
+    "pieczęć w chmurze",
+    "firmy i instytucje (sektor prywatny i pu",
+    "1"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Forma",
+     "v": "pieczęć w chmurze, bez karty i czytnika"
+    },
+    {
+     "k": "Dla kogo",
+     "v": "firmy i instytucje (sektor prywatny i publiczny)"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    },
+    {
+     "k": "Formaty",
+     "v": "PDF i XML (PAdES, XAdES); SecureDoc w zestawie lub Adobe Reader"
+    },
+    {
+     "k": "Użytkownicy",
+     "v": "wielu użytkowników, w danej chwili pieczętuje jedna osoba"
+    }
+   ],
+   "nowosc": false,
+   "seria": "EuroCert — podpis i pieczęć"
+  },
+  {
+   "slug_seed": "eurocert-pieczec-karta",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "bezp",
+   "kategoria": "podpis",
+   "marka": "EuroCert",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Kwalifikowana pieczęć elektroniczna EuroCert na karcie",
+   "krotka": "Pieczęć EuroCert na karcie",
+   "podtytul": "Pieczęć firmy (nazwa i NIP) na karcie kryptograficznej — m.in. do KSeF",
+   "korzysc": "Pieczęć firmy zamiast podpisu osoby: uwierzytelnienie w KSeF, zaświadczenia, faktury i pisma.",
+   "opis": [
+    "Kwalifikowana pieczęć elektroniczna to odpowiednik firmowej pieczątki w świecie cyfrowym. Wydaje się ją podmiotom z osobowością prawną — spółkom, fundacjom, instytucjom — i zawiera tylko dane podmiotu: nazwę i NIP, bez danych osoby. Potwierdza, że dokument pochodzi od firmy i nie został zmieniony.",
+    "W zestawie jest certyfikat kwalifikowany na 1, 2 albo 3 lata, karta kryptograficzna (SIM albo Standard) z czytnikiem USB-A lub USB-C albo bez czytnika, oprogramowanie do składania i weryfikacji pieczęci, weryfikacja danych podmiotu i zdalne wsparcie. EuroCert wymienia zastosowania: rejestracja i uwierzytelnianie w KSeF, zaświadczenia i pisma urzędowe, e-Kadry, faktury elektroniczne, dokumenty przetargowe i regulaminy. Pieczęć nie służy do masowego pieczętowania maszynowego (M2M). Zależnie od systemu identyfikatorem jest NIP, REGON albo KRS.",
+    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS."
+   ],
+   "cechy": [
+    "karta kryptograficzna SIM lub Standard",
+    "podmioty z osobowością prawną: firmy",
+    "1"
+   ],
+   "parametry": [
+    {
+     "k": "Forma",
+     "v": "karta kryptograficzna SIM lub Standard, z czytnikiem USB-A / USB-C albo bez"
+    },
+    {
+     "k": "Dla kogo",
+     "v": "podmioty z osobowością prawną: firmy, instytucje, podmioty publiczne"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    },
+    {
+     "k": "W zestawie",
+     "v": "certyfikat, karta (z czytnikiem lub bez), oprogramowanie do pieczętowania, weryfikacja danych, zdalne wsparcie"
+    },
+    {
+     "k": "Zastosowania",
+     "v": "KSeF, zaświadczenia i pisma, e-Kadry, faktury, przetargi, regulaminy"
+    },
+    {
+     "k": "Ograniczenia",
+     "v": "nie do masowego pieczętowania M2M"
+    },
+    {
+     "k": "Identyfikator",
+     "v": "NIP, REGON lub KRS (zależnie od systemu)"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czym pieczęć różni się od podpisu?",
+     "a": "Podpis należy do osoby, a pieczęć do firmy — zawiera tylko nazwę i NIP podmiotu."
+    },
+    {
+     "q": "Czy pieczęcią uwierzytelnię firmę w KSeF?",
+     "a": "Tak, EuroCert wymienia rejestrację i uwierzytelnianie w KSeF wśród zastosowań pieczęci."
+    },
+    {
+     "q": "Czy nadaje się do automatycznego pieczętowania faktur?",
+     "a": "Nie, ta pieczęć nie jest przeznaczona do masowego pieczętowania M2M."
+    },
+    {
+     "q": "Kto może ją kupić?",
+     "a": "Podmioty z osobowością prawną: spółki, fundacje, stowarzyszenia, instytucje i podmioty publiczne."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "ksef",
+     "etykieta": "Wdrożenie KSeF"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska"
+   ],
+   "zrodla": [
+    {
+     "url": "https://sklep.eurocert.pl/pl/p/Kwalifikowana-pieczec-elektroniczna-na-karcie/71",
+     "etykieta": "Strona producenta — EuroCert",
+     "host": "sklep.eurocert.pl"
+    },
+    {
+     "url": "https://eurocert.pl/kwalifikowana-pieczec-elektroniczna-do-ksef/",
+     "etykieta": "Strona producenta — EuroCert (KSeF)",
+     "host": "eurocert.pl"
+    }
+   ],
+   "wyrozniki": [
+    "karta kryptograficzna SIM lub Standard",
+    "podmioty z osobowością prawną: firmy",
+    "1"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Forma",
+     "v": "karta kryptograficzna SIM lub Standard, z czytnikiem USB-A / USB-C albo bez"
+    },
+    {
+     "k": "Dla kogo",
+     "v": "podmioty z osobowością prawną: firmy, instytucje, podmioty publiczne"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    },
+    {
+     "k": "W zestawie",
+     "v": "certyfikat, karta (z czytnikiem lub bez), oprogramowanie do pieczętowania, weryfikacja danych, zdalne wsparcie"
+    },
+    {
+     "k": "Zastosowania",
+     "v": "KSeF, zaświadczenia i pisma, e-Kadry, faktury, przetargi, regulaminy"
+    }
+   ],
+   "nowosc": false,
+   "seria": "EuroCert — podpis i pieczęć"
+  },
+  {
+   "slug_seed": "eurocert-ecsigner-online",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "bezp",
+   "kategoria": "podpis",
+   "marka": "EuroCert",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "EuroCert ECSigner z weryfikacją online",
+   "krotka": "ECSigner z weryfikacją online",
+   "podtytul": "Podpis kwalifikowany w chmurze z weryfikacją tożsamości przez internet",
+   "korzysc": "Podpis kwalifikowany bez wychodzenia z biura: weryfikacja online, podpis tego samego dnia.",
+   "opis": [
+    "ECSigner z weryfikacją online to ten sam kwalifikowany podpis w chmurze co ECSigner, ale tożsamość potwierdzasz w całości przez internet. Sprawdza się, gdy podpis jest potrzebny szybko, a wizyta w punkcie jest kłopotliwa.",
+    "Procedura online trwa ok. 20–30 minut, a po pozytywnej weryfikacji podpisu można użyć tego samego dnia. Potrzebny jest ważny paszport albo polski lub niemiecki dowód osobisty (inne dokumenty, np. prawo jazdy czy karta pobytu, nie są akceptowane), komputer, smartfon, internet i kod aktywacyjny z e-maila. W pakiecie jest certyfikat na 1, 2 albo 3 lata, aplikacja mobilna (Android, iOS) i na komputer (Windows, macOS), portal i wsparcie techniczne. Podpis ma moc podpisu własnoręcznego w UE (eIDAS).",
+    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS. Certyfikat jest ważny 1, 2 albo 3 lata; po tym czasie odnawia się go albo wydaje nowy, a my przypominamy o terminie, żeby podpis nie wygasł w trakcie rozliczeń."
+   ],
+   "cechy": [
+    "podpis w chmurze",
+    "online",
+    "paszport albo polski lub niemiecki dowód"
+   ],
+   "parametry": [
+    {
+     "k": "Forma",
+     "v": "podpis w chmurze, aplikacja w telefonie"
+    },
+    {
+     "k": "Weryfikacja tożsamości",
+     "v": "online, ok. 20–30 min; podpis tego samego dnia"
+    },
+    {
+     "k": "Wymagany dokument",
+     "v": "paszport albo polski lub niemiecki dowód osobisty"
+    },
+    {
+     "k": "Wymagania",
+     "v": "komputer, smartfon, dostęp do internetu, kod aktywacyjny z e-maila"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    },
+    {
+     "k": "Systemy",
+     "v": "Android, iOS (telefon); Windows, macOS (komputer)"
+    },
+    {
+     "k": "Moc prawna",
+     "v": "równoważna podpisowi własnoręcznemu w UE (eIDAS)"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Jakie dokumenty są akceptowane?",
+     "a": "Paszport oraz polski albo niemiecki dowód osobisty. Prawo jazdy, karta pobytu, paszport tymczasowy i inne dowody nie są akceptowane."
+    },
+    {
+     "q": "Kiedy mogę podpisywać?",
+     "a": "Po pozytywnej weryfikacji online — tego samego dnia."
+    },
+    {
+     "q": "Czego potrzebuję do weryfikacji?",
+     "a": "Ważnego dokumentu, komputera, smartfona, internetu i kodu aktywacyjnego z e-maila po zamówieniu."
+    },
+    {
+     "q": "Czy podpis kwalifikowany ma moc podpisu własnoręcznego?",
+     "a": "Tak. Kwalifikowany podpis elektroniczny jest równoważny podpisowi własnoręcznemu w całej Unii Europejskiej (rozporządzenie eIDAS)."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "ksef",
+     "etykieta": "Wdrożenie KSeF"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska"
+   ],
+   "zrodla": [
+    {
+     "url": "https://sklep.eurocert.pl/pl/p/Chmurowy-podpis-kwalifikowany-ECSigner-z-weryfikacja-online/125",
+     "etykieta": "Strona producenta — EuroCert",
+     "host": "sklep.eurocert.pl"
+    }
+   ],
+   "wyrozniki": [
+    "podpis w chmurze",
+    "online",
+    "paszport albo polski lub niemiecki dowód"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Forma",
+     "v": "podpis w chmurze, aplikacja w telefonie"
+    },
+    {
+     "k": "Weryfikacja tożsamości",
+     "v": "online, ok. 20–30 min; podpis tego samego dnia"
+    },
+    {
+     "k": "Wymagany dokument",
+     "v": "paszport albo polski lub niemiecki dowód osobisty"
+    },
+    {
+     "k": "Wymagania",
+     "v": "komputer, smartfon, dostęp do internetu, kod aktywacyjny z e-maila"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    }
+   ],
+   "nowosc": false,
+   "seria": "EuroCert — podpis i pieczęć"
+  },
+  {
+   "slug_seed": "eurocert-ecsigner",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "bezp",
+   "kategoria": "podpis",
+   "marka": "EuroCert",
+   "rodzaj": "Oprogramowanie",
+   "nazwa": "Podpis kwalifikowany w chmurze EuroCert ECSigner",
+   "krotka": "EuroCert ECSigner",
+   "podtytul": "Podpis kwalifikowany w telefonie, bez karty i czytnika",
+   "korzysc": "Podpisujesz dokumenty kodem z telefonu — bez karty, czytnika i instalowania sterowników.",
+   "opis": [
+    "ECSigner to kwalifikowany podpis elektroniczny EuroCert w chmurze. Zamiast karty i czytnika masz aplikację w telefonie: logujesz się hasłem i jednorazowym kodem, a dokument podpisujesz na komputerze. Wybierają go osoby, które pracują na kilku komputerach albo w terenie, także jako podpis biznesowy z danymi firmy.",
+    "W pakiecie jest certyfikat kwalifikowany na 1, 2 albo 3 lata, aplikacja mobilna (Android, iOS), aplikacja na komputer (Windows, macOS), dostęp do portalu EuroCert i wsparcie techniczne przez cały okres ważności. Podpis ma moc podpisu własnoręcznego w UE (eIDAS), a EuroCert podaje, że zakres użycia w systemach państwowych jest taki sam jak przy podpisie na karcie (z zastrzeżeniem, że nie każdy program firm trzecich go obsługuje). Tożsamość potwierdza się w punkcie sprzedaży (ok. 20 minut) albo u klienta (VIP).",
+    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS."
+   ],
+   "cechy": [
+    "podpis w chmurze",
+    "certyfikat kwalifikowany",
+    "1"
+   ],
+   "parametry": [
+    {
+     "k": "Forma",
+     "v": "podpis w chmurze, aplikacja w telefonie (bez karty i czytnika)"
+    },
+    {
+     "k": "W zestawie",
+     "v": "certyfikat kwalifikowany, aplikacja mobilna i na komputer, dostęp do portalu, wsparcie techniczne"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    },
+    {
+     "k": "Systemy",
+     "v": "Android, iOS (telefon); Windows, macOS (komputer)"
+    },
+    {
+     "k": "Logowanie",
+     "v": "hasło + jednorazowy kod OTP"
+    },
+    {
+     "k": "Weryfikacja tożsamości",
+     "v": "w punkcie sprzedaży (ok. 20 min) lub u klienta (VIP)"
+    },
+    {
+     "k": "Moc prawna",
+     "v": "równoważna podpisowi własnoręcznemu w UE (eIDAS)"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy potrzebuję czytnika?",
+     "a": "Nie. Podpis jest w chmurze, a potwierdzasz go kodem z aplikacji w telefonie."
+    },
+    {
+     "q": "Czy zadziała w każdym programie?",
+     "a": "EuroCert podaje, że w systemach państwowych zakres jest taki sam jak dla podpisu na karcie, ale nie gwarantuje obsługi przez każdy program firm trzecich. Przed zakupem sprawdzamy programy, których używasz."
+    },
+    {
+     "q": "Czy mogę zrobić weryfikację online?",
+     "a": "W tej wersji weryfikacja jest w punkcie lub u klienta. Wersja z weryfikacją online to „ECSigner z weryfikacją online”."
+    },
+    {
+     "q": "Czy podpis kwalifikowany ma moc podpisu własnoręcznego?",
+     "a": "Tak. Kwalifikowany podpis elektroniczny jest równoważny podpisowi własnoręcznemu w całej Unii Europejskiej (rozporządzenie eIDAS)."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "ksef",
+     "etykieta": "Wdrożenie KSeF"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska"
+   ],
+   "zrodla": [
+    {
+     "url": "https://sklep.eurocert.pl/pl/p/Chmurowy-podpis-kwalifikowany-ECSigner/117",
+     "etykieta": "Strona producenta — EuroCert",
+     "host": "sklep.eurocert.pl"
+    }
+   ],
+   "wyrozniki": [
+    "podpis w chmurze",
+    "certyfikat kwalifikowany",
+    "1"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Forma",
+     "v": "podpis w chmurze, aplikacja w telefonie (bez karty i czytnika)"
+    },
+    {
+     "k": "W zestawie",
+     "v": "certyfikat kwalifikowany, aplikacja mobilna i na komputer, dostęp do portalu, wsparcie techniczne"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    },
+    {
+     "k": "Systemy",
+     "v": "Android, iOS (telefon); Windows, macOS (komputer)"
+    },
+    {
+     "k": "Logowanie",
+     "v": "hasło + jednorazowy kod OTP"
+    }
+   ],
+   "nowosc": false,
+   "seria": "EuroCert — podpis i pieczęć"
+  },
+  {
+   "slug_seed": "eurocert-podpis-classic",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "bezp",
+   "kategoria": "podpis",
+   "marka": "EuroCert",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Podpis kwalifikowany EuroCert — zestaw Classic",
+   "krotka": "Podpis EuroCert — zestaw Classic",
+   "podtytul": "Kwalifikowany podpis elektroniczny na karcie z czytnikiem biurkowym",
+   "korzysc": "Podpis kwalifikowany na karcie wielkości bankomatowej z czytnikiem przy komputerze.",
+   "opis": [
+    "Zestaw Classic to kwalifikowany podpis elektroniczny EuroCert dla osoby fizycznej na karcie wielkości karty bankomatowej z czytnikiem biurkowym. EuroCert poleca go do pracy przy komputerze stacjonarnym, np. w biurze rachunkowym albo w dziale kadr.",
+    "W zestawie jest czytnik Gemalto IDBridge CT30 (USB 2.0), karta Standard, certyfikat kwalifikowany ważny 1, 2 albo 3 lata i oprogramowanie do składania podpisu (PAdES, XAdES). Moc prawna i zastosowania są takie same jak w zestawie Token: ZUS (Płatnik), JPK, e-deklaracje, ePUAP, eKRS, przetargi, umowy i e-faktury, także logowanie do KSeF. Kto ma już czytnik stykowy, może kupić samą kartę, a po zmianie nazwiska — nowy certyfikat. Tożsamość potwierdza się w punkcie partnerskim albo u klienta (usługa VIP).",
+    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS. Certyfikat jest ważny 1, 2 albo 3 lata; po tym czasie odnawia się go albo wydaje nowy, a my przypominamy o terminie, żeby podpis nie wygasł w trakcie rozliczeń."
+   ],
+   "cechy": [
+    "karta Standard z czytnikiem biurkowym",
+    "czytnik Gemalto IDBridge CT30 USB",
+    "1"
+   ],
+   "parametry": [
+    {
+     "k": "Forma",
+     "v": "karta Standard z czytnikiem biurkowym"
+    },
+    {
+     "k": "W zestawie",
+     "v": "czytnik Gemalto IDBridge CT30 USB, karta Standard, certyfikat kwalifikowany, oprogramowanie"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    },
+    {
+     "k": "Formaty podpisu",
+     "v": "PAdES-BES/T, XAdES-BES/T, SHA-256"
+    },
+    {
+     "k": "Weryfikacja tożsamości",
+     "v": "w punkcie partnerskim (ok. 20 min) lub u klienta (usługa VIP)"
+    },
+    {
+     "k": "Wymagany dokument",
+     "v": "dowód osobisty, paszport lub karta stałego pobytu"
+    },
+    {
+     "k": "Inne warianty",
+     "v": "sama karta (dla posiadaczy czytnika), nowy certyfikat na kartę EuroCert"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy mogę kupić samą kartę?",
+     "a": "Tak, jeśli masz czytnik ze stykowym interfejsem. Po zmianie nazwiska albo spóźnionym odnowieniu wystarczy nowy certyfikat na kartę EuroCert."
+    },
+    {
+     "q": "Na jak długo jest certyfikat?",
+     "a": "Na 1, 2 albo 3 lata."
+    },
+    {
+     "q": "Czy podpiszę nim deklaracje ZUS?",
+     "a": "Tak, w programie Płatnik, a także JPK, e-deklaracje i dokumenty w eKRS."
+    },
+    {
+     "q": "Czy podpis kwalifikowany ma moc podpisu własnoręcznego?",
+     "a": "Tak. Kwalifikowany podpis elektroniczny jest równoważny podpisowi własnoręcznemu w całej Unii Europejskiej (rozporządzenie eIDAS)."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "ksef",
+     "etykieta": "Wdrożenie KSeF"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska"
+   ],
+   "zrodla": [
+    {
+     "url": "https://sklep.eurocert.pl/pl/p/Kwalifikowany-Podpis-Elektroniczny/88",
+     "etykieta": "Strona producenta — EuroCert",
+     "host": "sklep.eurocert.pl"
+    }
+   ],
+   "wyrozniki": [
+    "karta Standard z czytnikiem biurkowym",
+    "czytnik Gemalto IDBridge CT30 USB",
+    "1"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Forma",
+     "v": "karta Standard z czytnikiem biurkowym"
+    },
+    {
+     "k": "W zestawie",
+     "v": "czytnik Gemalto IDBridge CT30 USB, karta Standard, certyfikat kwalifikowany, oprogramowanie"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    },
+    {
+     "k": "Formaty podpisu",
+     "v": "PAdES-BES/T, XAdES-BES/T, SHA-256"
+    },
+    {
+     "k": "Weryfikacja tożsamości",
+     "v": "w punkcie partnerskim (ok. 20 min) lub u klienta (usługa VIP)"
+    }
+   ],
+   "nowosc": false,
+   "seria": "EuroCert — podpis i pieczęć"
+  },
+  {
+   "slug_seed": "eurocert-podpis-token",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "bezp",
+   "kategoria": "podpis",
+   "marka": "EuroCert",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Podpis kwalifikowany EuroCert — zestaw Token",
+   "krotka": "Podpis EuroCert — zestaw Token",
+   "podtytul": "Kwalifikowany podpis elektroniczny na karcie SIM z czytnikiem USB",
+   "korzysc": "Podpis kwalifikowany w małym czytniku USB jak pendrive — do ZUS, JPK, KSeF i umów.",
+   "opis": [
+    "Zestaw Token to kwalifikowany podpis elektroniczny EuroCert dla osoby fizycznej, wydawany na karcie SIM w małym czytniku USB, który nosi się jak pendrive. Sprawdza się u przedsiębiorców i księgowych, którzy podpisują dokumenty na różnych komputerach.",
+    "W zestawie jest czytnik FEITIAN R301 (USB 2.0, na karty SIM), karta SIM, certyfikat kwalifikowany ważny 1, 2 albo 3 lata oraz oprogramowanie do składania podpisu w formatach PAdES i XAdES. Podpis ma moc podpisu własnoręcznego w całej UE (eIDAS) i służy m.in. do e-deklaracji, ZUS (Płatnik), JPK, ePUAP, eKRS, przetargów elektronicznych (JEDZ), umów i e-faktur. Tożsamość potwierdza się w punkcie partnerskim EuroCert (spotkanie ok. 20 minut, podpis gotowy od razu) z dowodem osobistym, paszportem albo kartą stałego pobytu.",
+    "Pomagamy wybrać formę podpisu, umawiamy weryfikację tożsamości, a po wydaniu instalujemy oprogramowanie, sprawdzamy podpisywanie dokumentów i logowanie do systemów, z których korzystasz — np. KSeF, ZUS czy e-KRS. Certyfikat jest ważny 1, 2 albo 3 lata; po tym czasie odnawia się go albo wydaje nowy, a my przypominamy o terminie, żeby podpis nie wygasł w trakcie rozliczeń."
+   ],
+   "cechy": [
+    "karta SIM w czytniku USB (token)",
+    "czytnik FEITIAN R301 USB",
+    "1"
+   ],
+   "parametry": [
+    {
+     "k": "Forma",
+     "v": "karta SIM w czytniku USB (token)"
+    },
+    {
+     "k": "W zestawie",
+     "v": "czytnik FEITIAN R301 USB, karta SIM, certyfikat kwalifikowany, oprogramowanie"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    },
+    {
+     "k": "Formaty podpisu",
+     "v": "PAdES-BES/T, XAdES-BES/T, SHA-256"
+    },
+    {
+     "k": "Weryfikacja tożsamości",
+     "v": "w punkcie partnerskim (ok. 20 min) lub u klienta (usługa VIP)"
+    },
+    {
+     "k": "Wymagany dokument",
+     "v": "dowód osobisty, paszport lub karta stałego pobytu"
+    },
+    {
+     "k": "Zastosowania",
+     "v": "e-deklaracje, ZUS Płatnik, JPK, ePUAP, eKRS, przetargi (JEDZ), umowy, e-faktury, KSeF"
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czym Token różni się od zestawu Classic?",
+     "a": "Token to karta SIM w małym czytniku USB, wygodna do noszenia. Classic to karta wielkości bankomatowej i czytnik biurkowy — wygodny przy jednym komputerze."
+    },
+    {
+     "q": "Jak długo trwa wydanie podpisu?",
+     "a": "Spotkanie w punkcie partnerskim trwa ok. 20 minut, a podpis jest gotowy zaraz po weryfikacji."
+    },
+    {
+     "q": "Czy zalogujemy się nim do KSeF?",
+     "a": "Tak, podpisem kwalifikowanym można uwierzytelnić się w KSeF."
+    },
+    {
+     "q": "Czy podpis kwalifikowany ma moc podpisu własnoręcznego?",
+     "a": "Tak. Kwalifikowany podpis elektroniczny jest równoważny podpisowi własnoręcznemu w całej Unii Europejskiej (rozporządzenie eIDAS)."
+    }
+   ],
+   "polecane": [
+    {
+     "slug": "ksef",
+     "etykieta": "Wdrożenie KSeF"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera"
+    }
+   ],
+   "branze": [
+    "Gastronomia",
+    "Handel",
+    "Noclegi",
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska"
+   ],
+   "zrodla": [
+    {
+     "url": "https://sklep.eurocert.pl/pl/p/Kwalifikowany-Podpis-Elektroniczny/88",
+     "etykieta": "Strona producenta — EuroCert",
+     "host": "sklep.eurocert.pl"
+    },
+    {
+     "url": "https://eurocert.pl/jak-zalogowac-i-uwierzytelnic-sie-w-ksef/",
+     "etykieta": "Strona producenta — EuroCert (KSeF)",
+     "host": "eurocert.pl"
+    }
+   ],
+   "wyrozniki": [
+    "karta SIM w czytniku USB (token)",
+    "czytnik FEITIAN R301 USB",
+    "1"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Forma",
+     "v": "karta SIM w czytniku USB (token)"
+    },
+    {
+     "k": "W zestawie",
+     "v": "czytnik FEITIAN R301 USB, karta SIM, certyfikat kwalifikowany, oprogramowanie"
+    },
+    {
+     "k": "Ważność certyfikatu",
+     "v": "1, 2 lub 3 lata"
+    },
+    {
+     "k": "Formaty podpisu",
+     "v": "PAdES-BES/T, XAdES-BES/T, SHA-256"
+    },
+    {
+     "k": "Weryfikacja tożsamości",
+     "v": "w punkcie partnerskim (ok. 20 min) lub u klienta (usługa VIP)"
+    }
+   ],
+   "nowosc": false,
+   "seria": "EuroCert — podpis i pieczęć"
   },
   {
    "slug_seed": "piecz",
@@ -83074,7 +85822,8 @@
      "l": "pl",
      "d": "marka"
     }
-   ]
+   ],
+   "seria": "EuroCert — podpis i pieczęć"
   },
   {
    "slug_seed": "przeglad-it",
