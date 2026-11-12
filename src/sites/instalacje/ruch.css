@@ -422,7 +422,7 @@ html[data-line='instalacje'] [data-measure] {
 }
 @media print {
   html[data-line='instalacje'] :is([data-off], #tresc > section ~ section, #top > section) {
-    content-visibility: visible;
+    content-visibility: visible !important;
   }
 }
 /* A hidden tab: everything stands (toggled rarely, so restyling the page is fine). */

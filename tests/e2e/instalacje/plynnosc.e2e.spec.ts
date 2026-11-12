@@ -94,6 +94,45 @@ test.describe('Instalacje sections skipped from the first render', () => {
   })
 })
 
+test.describe('Instalacje early skip only on a fresh visit', () => {
+  test.use({ viewport: DESKTOP })
+
+  // `data-cve` set before the sections are parsed (`EARLY_SKIP_SCRIPT`), seen by an observer
+  // installed before the page's own scripts.
+  const watchEarly = (page: Page) =>
+    page.addInitScript(() => {
+      const w = window as unknown as { __cve?: boolean }
+      w.__cve = false
+      new MutationObserver(() => {
+        if (document.documentElement.hasAttribute('data-cve')) w.__cve = true
+      }).observe(document, { subtree: true, attributes: true, attributeFilter: ['data-cve'] })
+    })
+  const sawEarly = (page: Page) =>
+    page.evaluate(() => Boolean((window as unknown as { __cve?: boolean }).__cve))
+  const hasEarly = (page: Page) =>
+    page.evaluate(() => document.documentElement.hasAttribute('data-cve'))
+
+  test('a fresh visit skips early, then every section is measured and the skip ends', async ({
+    page,
+  }) => {
+    await watchEarly(page)
+    await page.goto(site(INST_HOST))
+    expect(await sawEarly(page)).toBe(true)
+    await expect.poll(() => hasEarly(page), { timeout: 20_000 }).toBe(false)
+  })
+
+  test('not after a reload, nor when the address has an anchor', async ({ page, context }) => {
+    await watchEarly(page)
+    await page.goto(site(INST_HOST))
+    await page.reload()
+    expect(await sawEarly(page)).toBe(false)
+    const withAnchor = await context.newPage()
+    await watchEarly(withAnchor)
+    await withAnchor.goto(site(INST_HOST, '/#faq'))
+    expect(await sawEarly(withAnchor)).toBe(false)
+  })
+})
+
 const REDUCED = INST_PAGES.filter(
   (path) =>
     path === '/' ||

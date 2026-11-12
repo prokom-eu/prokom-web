@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 /** Sections whose scenes pause off screen: page content, the CTA band and the footer. */
 const WATCHED = '#tresc section, #top > section, #top > footer'
@@ -12,13 +12,13 @@ const EARLY = '#tresc > section ~ section, #top > section'
 
 /**
  * Before any paint, on a fresh visit without an anchor: sections below the hero are skipped from
- * the first render (`data-cve` on `<html>`, `ruch.css`; TBT of `/` on a phone 476 → 245 ms). Not
+ * the first render (`data-cve` on `<html>`, `ruch.css`; TBT of `/` on a phone 447 → 275 ms). Not
  * after a reload or „back” to the page: the browser puts the scroll back by pixels, and sections
  * never rendered have no height of their own yet (only the 900 px placeholder) — it would land
  * elsewhere. Inline in the frame (`Frame.tsx`), before the sections are parsed.
  */
 export const EARLY_SKIP_SCRIPT =
-  "try{var n=performance.getEntriesByType('navigation')[0];if(!location.hash&&(!n||n.type==='navigate'))document.documentElement.setAttribute('data-cve','')}catch(e){}"
+  "try{var n=performance.getEntriesByType('navigation')[0];if(n&&n.type==='navigate'&&!location.hash)document.documentElement.setAttribute('data-cve','')}catch(e){}"
 
 /**
  * Stops the work on everything the visitor cannot see (report 11.11.2026: 263 looping
@@ -70,12 +70,14 @@ export function PauseOffscreen() {
   // After an early-skipped load: each section is rendered once, one per idle moment, so it keeps
   // its real height (`contain-intrinsic-size: auto`) — a later „back” after a client navigation
   // then puts the scroll where it was. Then `data-cve` goes and off-screen sections are skipped
-  // under `data-off` only, as on any other visit.
+  // under `data-off` only, as on any other visit. Only for the first document: a client
+  // navigation ends the early skip at once (`stopEarly`), so the next page renders in full.
+  const stopEarly = useRef<() => void>(() => {})
   useEffect(() => {
     const root = document.documentElement
     if (!root.hasAttribute('data-cve')) return
     const idle: (cb: () => void) => number = window.requestIdleCallback
-      ? (cb) => window.requestIdleCallback(cb, { timeout: 2000 })
+      ? (cb) => window.requestIdleCallback(cb, { timeout: 5000 })
       : (cb) => window.setTimeout(cb, 200)
     const cancelIdle = (id: number) =>
       window.cancelIdleCallback ? window.cancelIdleCallback(id) : window.clearTimeout(id)
@@ -100,11 +102,22 @@ export function PauseOffscreen() {
       })
     }
     handle = idle(next)
-    return () => {
+    const cancel = () => {
       cancelIdle(handle)
       cancelAnimationFrame(frame)
       current?.removeAttribute('data-measure')
+      pending.length = 0
     }
+    stopEarly.current = () => {
+      cancel()
+      root.removeAttribute('data-cve')
+    }
+    return cancel
+  }, [])
+  // The path the document was loaded with; any other one is a client navigation.
+  const firstPath = useRef(pathname)
+  useEffect(() => {
+    if (pathname !== firstPath.current) stopEarly.current()
   }, [pathname])
   return null
 }
