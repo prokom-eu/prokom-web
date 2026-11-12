@@ -9,7 +9,7 @@ Pomiar na `pnpm build && pnpm start` (lokalnie, port 3001) po wszystkich PR-ach 
 | Wszystkie adresy mapy: status, tytuł 30–60, opis 100–155, 1×H1, JSON-LD, og:image, martwe linki | `node scripts/biznes-seo-audyt.mjs <origin> --links` | **553 strony, 0 uwag; 22 linki spoza mapy, 0 błędnych** |
 | 30 typów stron × 1440/390 × jasny/ciemny: przewijanie w bok, alt, 1×H1, konsola, axe (jasny 1440) | `node scripts/biznes-qa.mjs <origin>` | 120 widoków; **0 przewijania w bok, 0 błędów H1 i konsoli**; uwagi niżej |
 | 32 karty produktów (≥ 2 z każdej kategorii, lista planu) × 1440/390 | `node scripts/biznes-karty-qa.mjs <origin>` (nowy) | **64/64 bez uwag**: opis ≥ 1000, FAQ ≥ 4, „dobierają” ≥ 3, źródła z datą, przycisk zapytania, bez przewijania w bok |
-| Widoczność sekcji po przewinięciu + zrzuty pełnych stron | `node scripts/zrzuty-pelne.mjs <origin>` | w toku przy commicie — wynik w kolejnym commicie |
+| Widoczność sekcji po przewinięciu + zrzuty pełnych stron | `node scripts/zrzuty-pelne.mjs <origin>` | **80 zrzutów (20 stron × 1440/390 × jasny/ciemny), wszystkie HTTP 200, 0 niewidocznych sekcji** (`tmp/zrzuty-pelne/index.html`) |
 | Lighthouse (telefon) | CI `lighthouse.yml` na stagingu | po wdrożeniu stagingu (lokalnie bez Lighthouse, bez nowej zależności) |
 
 ## Problemy
