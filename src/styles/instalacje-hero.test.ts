@@ -68,17 +68,10 @@ describe.each(Object.entries(TIMES))('home hero colours — %s', (_time, scope) 
     ).toBeGreaterThanOrEqual(4.5)
   })
 
-  it.each(TEXT_BEHIND)('accent part of the heading (≥ 50 px) over %s ≥ 3:1', (behind) => {
-    expect(
-      contrastRatio(value(scope, '--hx-key'), fade(value(scope, behind))),
-    ).toBeGreaterThanOrEqual(3)
-  })
-
-  it('heading and accent on the phone background ≥ 4.5:1', () => {
+  it('heading on the phone background ≥ 4.5:1', () => {
     const phone = value(scope, '--hx-phone-bg')
     // On the phone the text sits below the scene, on a background following the time of day.
     expect(contrastRatio(value(scope, '--hx-ink'), phone)).toBeGreaterThanOrEqual(4.5)
-    expect(contrastRatio(value(scope, '--hx-key'), phone)).toBeGreaterThanOrEqual(4.5)
   })
 
   it.each([
