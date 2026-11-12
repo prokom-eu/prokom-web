@@ -41,8 +41,8 @@ async function shots(url) {
   const H = await page.evaluate(() => document.documentElement.scrollHeight);
   for (let y = 0; y < H; y += 700) { await page.evaluate((yy) => window.scrollTo(0, yy), y); await page.waitForTimeout(100); }
   await page.evaluate(() => window.scrollTo(0, 0));
-  // [data-off]: sekcje poza ekranem mają content-visibility: auto (ruch.css) — zrzut całej strony pokazałby je puste.
-  await page.addStyleTag({ content: '*,*:before,*:after{animation-play-state:paused!important;transition:none!important}[data-off]{content-visibility:visible!important}' });
+  // Sekcje mają content-visibility: auto (ruch.css) — zrzut całej strony pokazałby te poza ekranem puste.
+  await page.addStyleTag({ content: '*,*:before,*:after{animation-play-state:paused!important;transition:none!important}#tresc section,#top>section,#top>footer{content-visibility:visible!important}' });
   // elementy przyklejone (dolny pasek, przyciski) ukrywamy na zrzucie całej strony — sprawdzamy je osobno na zrzucie ekranu telefonu
   await page.evaluate(() => document.querySelectorAll('body *').forEach((el) => { if (getComputedStyle(el).position === 'fixed') el.style.visibility = 'hidden'; }));
   await page.waitForTimeout(300);

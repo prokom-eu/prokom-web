@@ -404,9 +404,25 @@ html[data-line='instalacje'] :is(#tresc section, #top > section, #top > footer) 
 html[data-line='instalacje'] [data-off]:is(section, footer) {
   content-visibility: auto;
 }
+/* From the first render, before any JS (TBT, report 11.11.2026 part 3): the content sections after
+   the first one and the CTA band are skipped by the browser while far from the screen — loading
+   `/` on a phone laid out the whole ~12 000 px page in long tasks (TBT 476 → 245 ms, Pixel 7
+   CPU×4). Measured on every page of the line at 1440 and 390 px: no section moves and nothing
+   that sticks out of one is visible (only clipped carousels, an off-screen honeypot field) — so
+   the containment changes nothing in view. Not the footer: its mountains (`.ftmt`) rise above it.
+   Only on a fresh visit (`data-cve`, set before the sections are parsed — `PauseOffscreen.tsx`):
+   after a reload or „back” the browser restores the scroll by pixels, and never-rendered sections
+   only have the placeholder height. After the load each section is rendered once
+   (`data-measure`), so it keeps its real height, and `data-cve` goes. */
+html[data-line='instalacje'][data-cve] :is(#tresc > section ~ section, #top > section) {
+  content-visibility: auto;
+}
+html[data-line='instalacje'] [data-measure] {
+  content-visibility: visible !important;
+}
 @media print {
-  html[data-line='instalacje'] [data-off] {
-    content-visibility: visible;
+  html[data-line='instalacje'] :is([data-off], #tresc > section ~ section, #top > section) {
+    content-visibility: visible !important;
   }
 }
 /* A hidden tab: everything stands (toggled rarely, so restyling the page is fine). */

@@ -20,7 +20,7 @@ import { InstHeader } from './powloka/InstHeader'
 import { InstRail } from './powloka/InstRail'
 import { InstSheetList } from './powloka/InstSheetList'
 import { PageTransition } from './powloka/PageTransition'
-import { PauseOffscreen } from './powloka/PauseOffscreen'
+import { EARLY_SKIP_SCRIPT, PauseOffscreen } from './powloka/PauseOffscreen'
 import { PreviewGuard } from './powloka/PreviewGuard'
 import { salonsNote } from './powloka/salons'
 import { FrameStyles } from './style/LineStyles'
@@ -66,6 +66,8 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
     <>
       <FrameStyles />
       <PauseOffscreen />
+      {/* Runs while the page is parsed, before the sections (`PauseOffscreen`). */}
+      <script dangerouslySetInnerHTML={{ __html: EARLY_SKIP_SCRIPT }} />
       <div id="top" className="inst-page min-h-dvh bg-surface text-ink">
         {promo}
         {shared && (
