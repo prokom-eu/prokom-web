@@ -2913,7 +2913,7 @@
        "instalacja na każdym urządzeniu osobno",
        "licencja 1–5 lat"
       ],
-      "p": "eset",
+      "p": "eset-small-business-security",
       "tag": "",
       "alt": true,
       "im": ""
@@ -2927,7 +2927,7 @@
        "jedna konsola w chmurze lub lokalnie",
        "5–99 stanowisk"
       ],
-      "p": "eset",
+      "p": "eset-pakiet-entry",
       "tag": "",
       "alt": false,
       "im": ""
@@ -2941,7 +2941,7 @@
        "pełne szyfrowanie dysków (RODO)",
        "odtwarzanie plików po ransomware"
       ],
-      "p": "eset",
+      "p": "eset-pakiet-advanced",
       "tag": "polecamy na start",
       "alt": false,
       "im": ""
@@ -2955,7 +2955,7 @@
        "ochrona Microsoft 365 i Google Workspace",
        "zarządzanie podatnościami i łatkami"
       ],
-      "p": "eset",
+      "p": "eset-pakiet-complete",
       "tag": "",
       "alt": false,
       "im": ""
@@ -2968,7 +2968,7 @@
        "logowanie wieloskładnikowe (MFA)",
        "od 26 stanowisk"
       ],
-      "p": "eset",
+      "p": "eset-pakiet-elite",
       "tag": "",
       "alt": true,
       "im": ""
@@ -3194,7 +3194,7 @@
        "Teams, OneDrive 1 TB",
        "Office w przeglądarce i na telefonie"
       ],
-      "p": "microsoft-365-business",
+      "p": "m365-business-basic",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3207,7 +3207,7 @@
        "Word, Excel, PowerPoint, Outlook na komputerze",
        "na 5 PC/Mac, 5 tabletach, 5 telefonach"
       ],
-      "p": "microsoft-365-business",
+      "p": "m365-business-standard",
       "tag": "polecamy na start",
       "alt": false,
       "im": ""
@@ -3220,7 +3220,7 @@
        "Intune: zarządzanie laptopami i telefonami",
        "Defender dla Firm i rozszerzona ochrona kont"
       ],
-      "p": "microsoft-365-business",
+      "p": "m365-business-premium",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3233,7 +3233,7 @@
        "bez firmowej poczty",
        "bez czatu Teams"
       ],
-      "p": "microsoft-365-business",
+      "p": "m365-apps-for-business",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3440,7 +3440,7 @@
        "ZUS, e-KRS, JPK, ePUAP, umowy",
        "logowanie do KSeF"
       ],
-      "p": "euro",
+      "p": "eurocert-podpis-token",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3453,7 +3453,7 @@
        "te same zastosowania co Token",
        "certyfikat na 1, 2 lub 3 lata"
       ],
-      "p": "euro",
+      "p": "eurocert-podpis-classic",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3466,7 +3466,7 @@
        "potwierdzenie kodem z telefonu",
        "weryfikacja w punkcie lub u klienta"
       ],
-      "p": "euro",
+      "p": "eurocert-ecsigner",
       "tag": "najwygodniejszy",
       "alt": false,
       "im": ""
@@ -3479,7 +3479,7 @@
        "tożsamość potwierdzasz zdalnie",
        "podpis gotowy tego samego dnia"
       ],
-      "p": "euro",
+      "p": "eurocert-ecsigner-online",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3492,7 +3492,7 @@
        "pieczętowanie także bez internetu",
        "uwierzytelnienie firmy w KSeF bez ZAW-FA"
       ],
-      "p": "piecz",
+      "p": "eurocert-pieczec-karta",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3505,7 +3505,7 @@
        "potwierdzenie kodem OTP",
        "jedna osoba pieczętuje naraz"
       ],
-      "p": "piecz",
+      "p": "eurocert-pieczec-chmura",
       "tag": "",
       "alt": false,
       "im": ""
@@ -3688,7 +3688,7 @@
        "akumulator do 12 h",
        "320 g"
       ],
-      "p": "pol",
+      "p": "polcard-move-2500",
       "tag": "",
       "alt": false,
       "im": "/_blob/99b033822451f55697e454080d87105b"
@@ -3701,7 +3701,7 @@
        "szybka drukarka",
        "320 g"
       ],
-      "p": "pol",
+      "p": "polcard-move-3500",
       "tag": "polecamy na start",
       "alt": false,
       "im": "/_blob/8092bd976139b00ed6a6e5152c1d65f1"
@@ -3714,7 +3714,7 @@
        "4G i Wi-Fi 2,4/5 GHz",
        "Android"
       ],
-      "p": "pol",
+      "p": "polcard-axium-dx-8000",
       "tag": "",
       "alt": false,
       "im": "/_blob/02d6b94e3ccc80041a09243856f2b0d9"
@@ -3727,7 +3727,7 @@
        "4G i Wi-Fi",
        "Android"
       ],
-      "p": "pol",
+      "p": "polcard-axium-dx-4000-portable",
       "tag": "",
       "alt": false,
       "im": "/_blob/8dc67f2be7786eaa7ca949bb5b83e850"
@@ -3740,7 +3740,7 @@
        "PIN-pad dla klienta Desk 1500",
        "połączenie z kasą"
       ],
-      "p": "pol",
+      "p": "polcard-desk-3200-desk-1500",
       "tag": "",
       "alt": false,
       "im": "/_blob/7958e4d1f8e98e9fa90e20387d5088e7"
