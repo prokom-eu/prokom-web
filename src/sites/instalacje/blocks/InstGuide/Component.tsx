@@ -185,7 +185,8 @@ export async function InstGuideBlock({ block, tenantId }: Props) {
                 data-cat={a.category}
               >
                 <span className="svk">{a.categoryLabel}</span>
-                <b className="h3">{a.title}</b>
+                {/* Right under the H1 of the list: level 2 (the look of a card title). */}
+                <h2 className="h3">{a.title}</h2>
                 <p>{a.text}</p>
                 <span className="mut" style={{ fontSize: 13, marginTop: 'auto' }}>
                   {a.meta}
