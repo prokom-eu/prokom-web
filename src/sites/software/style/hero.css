@@ -1095,6 +1095,8 @@
   width: calc(100% - 28px);
   border-radius: 3px;
   background: var(--hv);
+  /* The bar fills by `scaleX` from the left (SWA13 #2): the compositor, not a layout per frame. */
+  transform-origin: left;
 }
 
 /* --- Carousel ----------------------------------------------------------------------------- */
@@ -1856,10 +1858,10 @@
 }
 @keyframes hx-fill {
   from {
-    width: 0;
+    transform: scaleX(0);
   }
   to {
-    width: calc(100% - 28px);
+    transform: scaleX(1);
   }
 }
 @keyframes hx-word {
@@ -2060,5 +2062,26 @@
   }
   .hx-dots {
     display: none;
+  }
+}
+
+/* --- SWA13 #3 (AUDYT-WYDAJNOSC-1111): the phone and touch screens keep four endless motions of
+   the hero — the twinkle of the near stars, one ribbon, the glint of the window and the cursor.
+   The far stars, the drift, the other ribbons, the orbits, the beam, the band and the mock-ups
+   in the windows stand in their frame (the first screen is the heaviest moment of the page). A
+   computer with a fine pointer keeps it all. ----------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) and (max-width: 767px),
+  (prefers-reduced-motion: no-preference) and (pointer: coarse) {
+  .hx-cos .s1 {
+    animation: hx-twinkle var(--dur-hx-twinkle) ease-in-out infinite;
+  }
+  .hx-cos .s2,
+  .hx-cos .rb.b,
+  .hx-cos .rb.c,
+  .hx-cos .orb,
+  .hx-cos .beam,
+  .hx-mq ul,
+  .hx .mk * {
+    animation: none;
   }
 }

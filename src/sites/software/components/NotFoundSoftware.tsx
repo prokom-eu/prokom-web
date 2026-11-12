@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 import { Icon } from '@/components/ui/Icon'
 import { getSiteSettings } from '@/lib/site/data'

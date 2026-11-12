@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { useSearchParams } from 'next/navigation'
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 

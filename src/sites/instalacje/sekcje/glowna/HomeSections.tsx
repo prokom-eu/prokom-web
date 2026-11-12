@@ -45,7 +45,7 @@ export function RealizationsTeaser({ items }: { items: HomeRealization[] }) {
                 {item.category && <span className="tag rlt">{item.category}</span>}
               </div>
               <Link href="/realizacje" className="rlb">
-                <b style={{ fontSize: 17 }}>{item.title}</b>
+                <h3 className="rlh">{item.title}</h3>
                 {item.place && <span>{item.place}</span>}
                 {item.scope && <span style={{ color: 'var(--ink-soft)' }}>{item.scope}</span>}
               </Link>

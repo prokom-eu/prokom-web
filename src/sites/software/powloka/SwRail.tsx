@@ -3,7 +3,6 @@
 import { usePathname } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
-import { SearchDialog } from '@/components/shared/SearchDialog'
 import { SiteRail, type SiteRailProps } from '@/components/shared/SiteRail'
 import { buildLineProvider } from '@/lib/shared/search/lineProvider'
 import type { PaletteAction } from '@/lib/shared/search/palette'
@@ -18,6 +17,7 @@ import {
 } from '@/lib/software/searchEntries'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
+import { LazySearch } from './LazySearch'
 import { useProjectCount } from './ProjectCount'
 
 const INDEX_URL = '/api/solutions-index'
@@ -113,7 +113,7 @@ export function SwRail({
   return (
     <>
       <SiteRail sections={sections} onHome={onHome} action={railAction} />
-      <SearchDialog
+      <LazySearch
         provider={provider}
         actions={actions}
         line="software"

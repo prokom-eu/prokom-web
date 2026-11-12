@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'

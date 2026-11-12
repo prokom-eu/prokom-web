@@ -1481,11 +1481,32 @@
   & .ars .arlbl {
     font-size: 12.5px;
   }
+  /* The dot's soft ring grows and fades (transform + opacity, report 11.11.2026; before: an
+     animated box-shadow). The ring is `::before` (8 + 2 × 4 px, as the old 4 px shadow), the dot
+     is drawn again on top by `::after`. */
   & .ars.m-in .arlbl i,
   & .ars.m-ty .arlbl i {
+    position: relative;
     background: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  & .ars.m-in .arlbl i::before,
+  & .ars.m-ty .arlbl i::before,
+  & .ars.m-in .arlbl i::after,
+  & .ars.m-ty .arlbl i::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+  }
+  & .ars.m-in .arlbl i::before,
+  & .ars.m-ty .arlbl i::before {
+    inset: -4px;
+    background: var(--accent-soft);
     animation: inst-arpulse 1.6s ease-in-out infinite;
+  }
+  & .ars.m-in .arlbl i::after,
+  & .ars.m-ty .arlbl i::after {
+    inset: 0;
+    background: inherit;
   }
   & .ars .arsvg {
     margin-top: 62px;
@@ -2933,8 +2954,10 @@
   @media (prefers-reduced-motion: reduce) {
     & .arw,
     & .arfib,
-    & .arlbl i {
-      animation: none;
+    & .arlbl i,
+    & .arlbl i::before {
+      /* `!important`: `.ars.m-in .arlbl i` out-ranks `.arlbl i`. */
+      animation: none !important;
     }
   }
 
@@ -2966,7 +2989,8 @@
 
 @keyframes inst-arpulse {
   50% {
-    box-shadow: 0 0 0 8px transparent;
+    transform: scale(1.5);
+    opacity: 0;
   }
 }
 
