@@ -1411,14 +1411,12 @@
       height: 0;
       overflow: hidden;
     }
-    /* Here the building scene draws the backdrop through <use>, whose copy does not animate in
-       Chromium; the hidden original's loops only cost CPU (report 11.11.2026, part 2: ~44 → 25 %
-       on a phone with the hero in view). `none`, not paused: a browser that animates <use> copies
-       (WebKit, Gecko) shows the backdrop at rest — the reduced-motion look — instead of a frame
-       frozen at 0 % (dim stars, shifted clouds). */
-    & .hxsvg *,
-    & .hxsvg *::before,
-    & .hxsvg *::after {
+    /* Here the building scene holds the backdrop (`LiveObjectHero`); it stands at rest — the
+       reduced-motion look — as it always did on a phone: its loops in the scene would cost ~20 %
+       CPU with the hero in view (report 11.11.2026, part 2). */
+    & .hxbld #hx-bd *,
+    & .hxbld #hx-bd *::before,
+    & .hxbld #hx-bd *::after {
       animation: none !important;
     }
     & .hxin {

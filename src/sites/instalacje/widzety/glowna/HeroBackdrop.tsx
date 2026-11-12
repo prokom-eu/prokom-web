@@ -17,6 +17,6 @@ const MARKUP = groupTwinkles(HERO_BACKDROP.replace('%STARS%', STARS))
  * from the prototype, not user content.
  */
 export function HeroBackdrop() {
-  // `id`: below 1024 px the cropped building scene draws this group again through <use>.
+  // `id`: the phone rule of `glowna.css` (the backdrop inside the building scene).
   return <g id="hx-bd" dangerouslySetInnerHTML={{ __html: MARKUP }} />
 }
