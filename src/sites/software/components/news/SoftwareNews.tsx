@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 import { plural } from '@/lib/plural'
 import type { PostListItem } from '@/lib/posts/data'

@@ -1,6 +1,6 @@
 import { EmText } from '@/sites/software/components/ui/EmText'
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'

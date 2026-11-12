@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 import { brandAsset, HORIZONTAL_LOGO_SIZE as LOGO } from '@/lib/brand/lines'
 import { hasDarkTheme } from '@/lib/brand/theme'

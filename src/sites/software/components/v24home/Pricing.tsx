@@ -52,7 +52,12 @@ export function PricingSection({ pricing, cards }: Props) {
         <ul ref={grid} className="v-cards" data-rise-group>
           {shown.map((card) => (
             <li key={`${card.group}-${card.slug}`} data-flip={`${card.group}-${card.slug}`}>
-              <PriceCard card={card} details={pricing.details} href={offerHref(card.slug)} />
+              <PriceCard
+                card={card}
+                details={pricing.details}
+                href={offerHref(card.slug)}
+                lazyThumb
+              />
             </li>
           ))}
         </ul>

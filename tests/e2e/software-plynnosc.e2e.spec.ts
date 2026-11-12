@@ -92,3 +92,93 @@ test.describe('Software on a phone — motion and the offer sheet', () => {
     expect((await dialog.boundingBox())!.height).toBeCloseTo(box.height, 0)
   })
 })
+
+/** Names of animations and transitions that run on things away from the screen (±200 px). */
+const runningOffscreen = (page: Page) =>
+  page.evaluate(() => {
+    const names: string[] = []
+    for (const animation of document.getAnimations()) {
+      const effect = animation.effect as KeyframeEffect | null
+      if (!effect?.target) continue
+      // Scroll-driven entries follow the scroll by design; only the clock's ones count here.
+      if (animation.timeline && animation.timeline !== document.timeline) continue
+      // A part skipped by `content-visibility` keeps its last style: computed first.
+      void getComputedStyle(effect.target, effect.pseudoElement).animationPlayState
+      if (animation.playState !== 'running') continue
+      const box = effect.target.getBoundingClientRect()
+      if (box.bottom >= -200 && box.top <= window.innerHeight + 200) continue
+      const name =
+        (animation as CSSAnimation).animationName ??
+        `transition ${(animation as CSSTransition).transitionProperty}`
+      names.push(`${name} #${effect.target.closest('section')?.id ?? ''}`)
+    }
+    return [...new Set(names)]
+  })
+
+// SWA13 #1 (AUDYT-WYDAJNOSC-1111): on a computer the self-switching tabs (#technologia,
+// #proces) rest away from the screen — no switch, no progress bar, no transitions of the tabs.
+test.describe('Software on a computer — nothing moves away from the screen', () => {
+  test.use({ viewport: { width: 1440, height: 900 }, hasTouch: false, isMobile: false })
+
+  for (const where of ['two screens below the hero', 'the footer'] as const) {
+    test(`at ${where}, after a tab's interval`, async ({ page }) => {
+      await page.goto(site(HOST, '/'))
+      await hydrated(page.locator('.hx-tile').first())
+      await page.evaluate((footer) => {
+        const hero = document.querySelector('.hx')!.getBoundingClientRect()
+        const top = footer
+          ? document.documentElement.scrollHeight
+          : hero.bottom + window.scrollY + 2 * window.innerHeight
+        window.scrollTo({ top, behavior: 'instant' })
+      }, where === 'the footer')
+      // The tabs switch every 6 s: longer than that, nothing may have started off screen.
+      await page.waitForTimeout(6500)
+      expect(await runningOffscreen(page)).toEqual([])
+    })
+  }
+})
+
+// SWA13 #3: the hero of a phone keeps four endless motions (was 12; a computer keeps them all).
+test('the phone hero runs at most four endless animations', async ({ page }) => {
+  await page.goto(site(HOST, '/'))
+  await hydrated(page.locator('.hx-tile').first())
+  const endless = await page.evaluate(
+    () =>
+      document
+        .getAnimations()
+        .filter(
+          (animation) =>
+            animation.effect?.getTiming().iterations === Infinity &&
+            (animation.effect as KeyframeEffect).target?.closest('.hx') &&
+            animation.playState === 'running',
+        ).length,
+  )
+  expect(endless).toBeLessThanOrEqual(4)
+})
+
+// SWA13 #5: links prefetch on intent only (`IntentLink`), so a visit to the start page fetches
+// little in the background (it was 11 on a phone, 43 on a wide screen: every visible link).
+for (const [device, use] of [
+  ['phone', { viewport: PHONE, hasTouch: true, isMobile: true }],
+  ['computer', { viewport: { width: 1440, height: 900 }, hasTouch: false, isMobile: false }],
+] as const) {
+  test.describe(`Software start page on a ${device} — background requests`, () => {
+    test.use(use)
+
+    test('at most five requests in the background after the load', async ({ page }) => {
+      // Next prefetches only in production: the count means something on the CI build only.
+      test.skip(process.env.E2E_SERVER !== 'start', 'prefetch runs only on the production build')
+      const background: string[] = []
+      let loaded = false
+      page.on('load', () => (loaded = true))
+      page.on('request', (request) => {
+        if (loaded && ['fetch', 'xhr'].includes(request.resourceType())) {
+          background.push(new URL(request.url()).pathname + new URL(request.url()).search)
+        }
+      })
+      await page.goto(site(HOST, '/'), { waitUntil: 'load' })
+      await page.waitForTimeout(5000)
+      expect(background.length, background.join('\n')).toBeLessThanOrEqual(5)
+    })
+  })
+}

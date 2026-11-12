@@ -32,7 +32,11 @@ export function sectionOffset(scrollMarginTop: string): number {
 /** Glides to the element, then marks it as arrived for a moment. */
 export function glideTo(element: HTMLElement): void {
   const offset = sectionOffset(getComputedStyle(element).scrollMarginTop)
-  const top = element.getBoundingClientRect().top + window.scrollY - offset
+  // Read again on every frame: sections passed on the way may change height when they are
+  // rendered (Instalacje skips off-screen sections with `content-visibility`; a rotated phone,
+  // a late font), and the glide would end beside the section.
+  const target = () => element.getBoundingClientRect().top + window.scrollY - offset
+  const top = target()
   const from = window.scrollY
   const distance = top - from
   // `instant`: the page has `scroll-behavior: smooth`, which would smooth every frame again.
@@ -51,13 +55,13 @@ export function glideTo(element: HTMLElement): void {
   const finish = () => {
     if (done) return
     stop()
-    jump(top)
+    jump(target())
     arrive(element)
   }
   const step = (now: number) => {
     if (done) return
     const t = Math.min(1, (now - start) / duration)
-    jump(from + distance * easeInOutCubic(t))
+    jump(from + (target() - from) * easeInOutCubic(t))
     if (t < 1) requestAnimationFrame(step)
     else finish()
   }

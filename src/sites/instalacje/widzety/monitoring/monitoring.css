@@ -138,9 +138,20 @@
     position: absolute;
     top: 0;
     bottom: 0;
+    /* The whole bar slides (transform, report 11.11.2026), the 2 px line is its left edge;
+       `.tline` clips it, so at the end it is out of sight as with the old `left: 100%`. */
+    left: 0;
+    width: 100%;
+    animation: inst-mon-scan 9s linear infinite;
+  }
+  & .tline b::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
     width: 2px;
     background: var(--inst-plan-white);
-    animation: inst-mon-scan 9s linear infinite;
   }
   & .tlx {
     display: flex;
@@ -353,8 +364,15 @@
     transform-origin: 50% 100%;
     transform-box: fill-box;
   }
+  /* Deterrent light: a blue layer blinks over the red one (opacity, report 11.11.2026); steps(2)
+     shows it at 0 and 50 % — the same two colours as the old fill animation. */
+  & .strobeb {
+    fill: var(--il-false);
+  }
   & .strobe {
-    animation: inst-mon-strobe 0.7s steps(2) infinite;
+    fill: var(--il-strobe);
+    opacity: 0;
+    animation: inst-mon-flash 0.7s steps(2) infinite;
   }
   & .pmask {
     fill: var(--il-mask);
@@ -1456,10 +1474,19 @@
 
 @keyframes inst-mon-scan {
   from {
-    left: 0;
+    transform: translateX(0);
   }
   to {
-    left: 100%;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes inst-mon-flash {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

@@ -20,6 +20,7 @@ import { InstHeader } from './powloka/InstHeader'
 import { InstRail } from './powloka/InstRail'
 import { InstSheetList } from './powloka/InstSheetList'
 import { PageTransition } from './powloka/PageTransition'
+import { PauseOffscreen } from './powloka/PauseOffscreen'
 import { PreviewGuard } from './powloka/PreviewGuard'
 import { salonsNote } from './powloka/salons'
 import { FrameStyles } from './style/LineStyles'
@@ -64,6 +65,7 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
   return (
     <>
       <FrameStyles />
+      <PauseOffscreen />
       <div id="top" className="inst-page min-h-dvh bg-surface text-ink">
         {promo}
         {shared && (
