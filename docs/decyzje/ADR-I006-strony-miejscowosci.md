@@ -22,7 +22,7 @@
 Rabka-Zdrój, Nowy Targ, Zakopane, Jordanów, Mszana Dolna, Lubień, Pcim, Myślenice, Dobczyce, Kraków, Wieliczka, Skawina, Limanowa, Poronin, Bukowina Tatrzańska, Białka Tatrzańska, Szczawnica.
 - **Kraków jako jedna strona, bez dzielnic.** Strony „Kraków-Podgórze”, „Kraków-Nowa Huta” miałyby tę samą treść ze zmienioną nazwą — to dokładnie strony przejściowe. Dzielnice mogą pojawić się w treści strony Kraków, gdy będą realizacje w konkretnych miejscach.
 - Nie dodajemy wsi i dzielnic, o których nie mamy nic własnego do powiedzenia. Nowa miejscowość = nowy wpis w obu plikach z pełną własną treścią (test pilnuje).
-- Strefa dojazdu bez zmian (Kontakt, `glownaSekcje.ts`): Podhale i okolice na co dzień; dalej (Myślenice, Dobczyce, Kraków, Wieliczka, Skawina, Limanowa) dojazd ustalamy indywidualnie, zwykle przy większych inwestycjach. Strony tych miejscowości mówią to wprost — nie obiecujemy więcej niż Kontakt.
+- Strefa dojazdu bez zmian (Kontakt, `glownaSekcje.ts`): Podhale i okolice na co dzień; dalej (Lubień, Pcim, Myślenice, Dobczyce, Kraków, Wieliczka, Skawina, Limanowa — wg stref `CompanyData`, gdzie Lubnia i Pcimia nie ma, a Myślenice są w „Małopolsce”) dojazd ustalamy indywidualnie, zwykle przy większych inwestycjach. Strony tych miejscowości mówią to wprost — nie obiecujemy więcej niż Kontakt.
 
 ### 4. Zasady unikalności treści (żadnych przejściówek)
 Każda strona ma własne, pisane ręcznie: lead, opis meta, 3 cechy okolicy („czym ta okolica się różni” — Podhale: pensjonaty, mróz, halny; Kraków: mieszkania, biura, deweloperzy; Myślenice/Dobczyce: domy jednorodzinne), dobór i kolejność usług z jednym zdaniem „dlaczego tu”, opis dojazdu z salonu w Rabce-Zdroju i 3 pytania FAQ.
@@ -32,7 +32,7 @@ Każda strona ma własne, pisane ręcznie: lead, opis meta, 3 cechy okolicy („
 
 ### 5. Tytuł i H1
 - H1: „Instalacje <miasto>: monitoring, alarmy, smart home”.
-- `<title>`: ten sam wzór nie mieści się w 60 znakach z dopiskiem „ | PRO-KOM Instalacje” (21 znaków; Rabka-Zdrój dałoby 64). Tytuł bierze najdłuższy wariant, który się mieści: „Instalacje <miasto>: monitoring, alarmy” → „Instalacje <miasto>: monitoring” → „<miasto>: monitoring” (Białka i Bukowina Tatrzańska). „Smart home” zostaje w H1 i opisie.
+- `<title>`: ten sam wzór nie mieści się w 60 znakach z dopiskiem „ | PRO-KOM Instalacje” (21 znaków; Rabka-Zdrój dałoby 64). Tytuł bierze najdłuższy wariant, który się mieści: „Instalacje <miasto>: monitoring, alarmy” → „Instalacje <miasto>: monitoring” → „<miasto>: monitoring” (Białka i Bukowina Tatrzańska). „Smart home” zostaje w H1 — świadomie także tam, gdzie smart home nie jest na liście najczęstszych usług (H1 nazywa ofertę, lista — to, co w okolicy najczęstsze). Dopisek tytułu (`TITLE_SUFFIX`) zakłada szablon panelu `%s | PRO-KOM Instalacje`.
 
 ### 6. Linkowanie wewnętrzne
 - Strona miejscowości → strony usług (karty usług z panelu), `/zaplanuj`, `/kontakt`, sąsiednie miejscowości (z linkami — każda z nich ma własną stronę).
@@ -43,6 +43,7 @@ Każda strona ma własne, pisane ręcznie: lead, opis meta, 3 cechy okolicy („
 - Strona miejscowości: `Service` (dostawca `/#oddzial-1`, `areaServed` = to miasto jako `City`), `BreadcrumbList` (Strona główna → Obszar działania → miasto), `FAQPage` z pytań strony. `LocalBusiness` zostaje jeden (salon w Rabce-Zdroju, w layoucie) — nie udajemy oddziałów w innych miastach.
 
 ## Konsekwencje
+- Ryzyko: strefy dojazdu są w kodzie stron (`zone`) i osobno w `CompanyData.serviceZones` (lista z `TODO(krystian): [SZEF] potwierdzić`). Zmiana stref w panelu wymaga zmiany `zone` w `dane/miejscowosci.ts`.
 - +18 stron w indeksie; każda kolejna miejscowość to praca redakcyjna, nie kopia.
 - Treść w kodzie: zmiana tekstu = PR (jak teksty widżetów). Przeniesienie do panelu możliwe później bez zmiany komponentu.
 - Spec SEO §1 i komentarz w `seo.ts` zaktualizowane, żeby nie przeczyły temu ADR.
