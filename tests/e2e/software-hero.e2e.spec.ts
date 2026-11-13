@@ -112,9 +112,51 @@ test.describe('Software hero v24', () => {
     await page.setViewportSize({ width: 1920, height: 1080 })
     await page.goto(site(HOST))
     const box = await active(page).boundingBox()
-    await expect(hero(page).locator('.hx-win[data-rank="rx"]')).toHaveCount(4)
+    // SWA14 §1: middle, two sides, two far ones behind the edges; the rest hidden.
+    const count = await tabs(page).count()
+    await expect(hero(page).locator('.hx-win[data-rank="r2"]')).toHaveCount(1)
+    await expect(hero(page).locator('.hx-win[data-rank="rl2"]')).toHaveCount(1)
+    await expect(hero(page).locator('.hx-win[data-rank="rx"]')).toHaveCount(count - 5)
     const stage = await active(page).locator('.mk-stage').boundingBox()
     expect(Math.abs((stage?.width ?? 0) - (box?.width ?? 0))).toBeLessThan(1)
+  })
+
+  test('a step moves the drum: no window fades out in sight (SWA14 §1)', async ({ page }) => {
+    await page.goto(site(HOST))
+    await hydrated(tabs(page).first())
+    // Every 50 ms through a move: a window seen in the unmasked part of the stage (8–92 %) never
+    // drops below 0.45 — it leaves and comes in behind the edges.
+    const sample = (selector: string) =>
+      page.evaluate(async (button) => {
+        const deck = document.querySelector<HTMLElement>('#start .hx-deck')
+        if (!deck) return ['no .hx-deck']
+        const faults: string[] = []
+        const check = (time: number) => {
+          const box = deck.getBoundingClientRect()
+          const left = box.left + box.width * 0.08
+          const right = box.right - box.width * 0.08
+          for (const win of deck.querySelectorAll<HTMLElement>('.hx-win')) {
+            const style = getComputedStyle(win)
+            if (style.visibility === 'hidden') continue
+            const rect = win.getBoundingClientRect()
+            const seen = Math.min(rect.right, right) - Math.max(rect.left, left)
+            const opacity = Number(style.opacity)
+            if (seen > 1 && opacity < 0.45) {
+              faults.push(`${time} ms: ${win.dataset.rank} at ${opacity.toFixed(2)}`)
+            }
+          }
+        }
+        document.querySelector<HTMLElement>(button)?.click()
+        const start = performance.now()
+        while (performance.now() - start < 1000) {
+          check(Math.round(performance.now() - start))
+          await new Promise((resolve) => setTimeout(resolve, 50))
+        }
+        return faults
+      }, selector)
+    expect(await sample('#start .hx-arrow[data-step="next"]')).toEqual([])
+    expect(await sample('#start .hx-arrow[data-step="prev"]')).toEqual([])
+    expect(await sample('#start .hx-arrow[data-step="prev"]')).toEqual([])
   })
 
   test('no hydration errors', async ({ page }) => {
