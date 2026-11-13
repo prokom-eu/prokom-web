@@ -4,7 +4,7 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 import { realizationsToImport } from './map'
-import { formatRealizationReport, planRealizations } from './realizacje'
+import { formatRealizationReport, planRealizations, unmatchedRealizations } from './realizacje'
 import { REALIZATION_MEDIA_DIR, realizationPhotos } from './realizationPhotos'
 
 const wanted = [
@@ -35,24 +35,41 @@ describe('planRealizations (production had none, 12.11)', () => {
 
   it('never overwrites the panel: present with photos → skipped; without → only photos', () => {
     const stored = [
-      { id: 10, legacyId: 1, title: 'Zmieniony w panelu', photos: [99] },
-      { id: 11, legacyId: 2, title: 'Blachotrapez', photos: [] },
+      { id: 10, legacyId: 1, title: 'Zmieniony w panelu', photos: [99], _status: 'published' },
+      { id: 11, legacyId: 2, title: 'Blachotrapez', photos: [], _status: 'published', year: 2016 },
       // Added by hand, no legacyId: the same title counts as present.
-      { id: 12, legacyId: null, title: ' Parafia św. Teresy ', photos: null },
+      { id: 12, legacyId: null, title: ' Parafia św. Teresy ', photos: null, _status: 'published' },
     ]
     const steps = planRealizations(wanted, stored, photos)
     expect(steps.map((s) => s.kind)).toEqual(['skip', 'photos', 'create', 'photos'])
-    expect(steps[1]).toMatchObject({ id: 11, photos: photos.get(2) })
-    expect(steps[3]).toMatchObject({ id: 12 })
+    expect(steps[1]).toMatchObject({ id: 11, photos: photos.get(2), yearMissing: false })
+    expect(steps[3]).toMatchObject({ id: 12, yearMissing: true })
   })
 
   it('a present realization with no photos in the repo is left alone', () => {
     const steps = planRealizations(
       wanted,
-      [{ id: 13, legacyId: 3, title: 'Empik', photos: [] }],
+      [{ id: 13, legacyId: 3, title: 'Empik', photos: [], _status: 'published' }],
       photos,
     )
     expect(steps[2]).toMatchObject({ kind: 'skip', reason: 'jest; w repo brak zdjęć' })
+  })
+
+  it('a draft waiting in the panel is never written (it would publish or unpublish it)', () => {
+    const steps = planRealizations(
+      wanted,
+      [{ id: 14, legacyId: 2, title: 'Blachotrapez', photos: [], _status: 'draft' }],
+      photos,
+    )
+    expect(steps[1]).toMatchObject({ kind: 'skip', reason: 'szkic w panelu — sprawdź ręcznie' })
+  })
+
+  it('lists panel realizations no package one matched (a duplicate shows in the preview)', () => {
+    const stored = [
+      { id: 20, legacyId: 2, title: 'x' },
+      { id: 21, legacyId: null, title: 'Restauracja Aleksandra' },
+    ]
+    expect(unmatchedRealizations(wanted, stored).map((r) => r.id)).toEqual([21])
   })
 
   it('the report counts the work', () => {

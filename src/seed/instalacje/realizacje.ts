@@ -12,6 +12,7 @@ export type StoredRealization = {
   legacyId?: number | null
   title?: string | null
   photos?: unknown[] | null
+  year?: number | null
   _status?: string | null
 }
 
@@ -23,6 +24,8 @@ export type RealizationStep =
       title: string
       id: StoredRealization['id']
       photos: PackagePhoto[]
+      /** The year is still empty in the panel: the script fills it from the photos. */
+      yearMissing: boolean
     }
   | { kind: 'skip'; legacyId: number; title: string; reason: string }
 
@@ -39,6 +42,14 @@ export function planRealizations(
     const own = [...(photos.get(r.legacyId) ?? [])]
     const found = byLegacy.get(r.legacyId) ?? byTitle.get(r.title.trim())
     if (!found) return { kind: 'create', legacyId: r.legacyId, title: r.title, photos: own }
+    // A draft waiting in the panel: a write would publish it or take the page down — by hand.
+    if (found._status !== 'published')
+      return {
+        kind: 'skip',
+        legacyId: r.legacyId,
+        title: r.title,
+        reason: 'szkic w panelu — sprawdź ręcznie',
+      }
     if (found.photos?.length)
       return { kind: 'skip', legacyId: r.legacyId, title: r.title, reason: 'jest, ze zdjęciami' }
     if (own.length === 0)
@@ -48,7 +59,14 @@ export function planRealizations(
         title: r.title,
         reason: 'jest; w repo brak zdjęć',
       }
-    return { kind: 'photos', legacyId: r.legacyId, title: r.title, id: found.id, photos: own }
+    return {
+      kind: 'photos',
+      legacyId: r.legacyId,
+      title: r.title,
+      id: found.id,
+      photos: own,
+      yearMissing: !found.year,
+    }
   })
 }
 
@@ -74,4 +92,16 @@ export function formatRealizationReport(steps: readonly RealizationStep[]): stri
     }),
   ]
   return `${lines.join('\n')}\n`
+}
+
+/** Realizations of the panel that no package one matched (added by hand, or a changed title). */
+export function unmatchedRealizations(
+  wanted: readonly PackageRealization[],
+  stored: readonly StoredRealization[],
+): StoredRealization[] {
+  const ids = new Set(wanted.map((r) => r.legacyId))
+  const titles = new Set(wanted.map((r) => r.title.trim()))
+  return stored.filter(
+    (r) => !(r.legacyId && ids.has(r.legacyId)) && !(r.title && titles.has(r.title.trim())),
+  )
 }

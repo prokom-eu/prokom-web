@@ -6,19 +6,26 @@
  *
  *   pnpm inst:realizacje <panel URL> [--out=<file.md>]            — preview (the default)
  *   pnpm inst:realizacje <panel URL> --write [--yes] [--out=…]    — write
- *   (= pnpm payload run src/seed/instalacje/inst-realizacje.ts -- …; flags after `--`, else
- *   `payload run` drops them and the run stays a preview)
+ *   Without the alias: pnpm payload run src/seed/instalacje/inst-realizacje.ts -- <URL> …
+ *   (flags after `--`, else `payload run` drops them and the run stays a preview)
  *
  * Login: INST_TEXTS_EMAIL / INST_TEXTS_PASSWORD (an admin of that panel); locally falls back to
- * SEED_ADMIN_*. A non-local address must be https and writes only with `--write --yes`.
+ * SEED_ADMIN_*; staging behind its site password also INST_TEXTS_BASIC (`user:password`). A
+ * non-local address must be https and writes only with `--write --yes`.
  */
 import dns from 'node:dns'
 import { readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
 import { findImportedFile } from '../biznes/map'
+import { panelHeaders } from './texts'
 import { realizationsToImport } from './map'
-import { formatRealizationReport, planRealizations, type RealizationStep } from './realizacje'
+import {
+  formatRealizationReport,
+  planRealizations,
+  type RealizationStep,
+  unmatchedRealizations,
+} from './realizacje'
 import {
   REALIZATION_MEDIA_DIR,
   realizationPhotos,
@@ -59,21 +66,20 @@ async function main() {
     process.env.INST_TEXTS_PASSWORD || (local ? process.env.SEED_ADMIN_PASSWORD : undefined)
   if (!email || !password) throw new Error('Brak INST_TEXTS_EMAIL / INST_TEXTS_PASSWORD.')
 
+  const sitePassword = process.env.INST_TEXTS_BASIC || undefined
   const login = await fetch(`${base}/api/users/login`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: panelHeaders(undefined, sitePassword),
     body: JSON.stringify({ email, password }),
   })
   if (!login.ok) throw new Error(`Logowanie: ${login.status}`)
   const { token } = (await login.json()) as { token: string }
-  const auth = { Authorization: `JWT ${token}` }
 
   async function api<T>(url: string, init?: RequestInit): Promise<T> {
-    const json = typeof init?.body === 'string'
-    const res = await fetch(`${base}${url}`, {
-      ...init,
-      headers: { ...auth, ...(json ? { 'Content-Type': 'application/json' } : {}) },
-    })
+    const headers = panelHeaders(token, sitePassword)
+    // A multipart upload sets its own Content-Type (with the boundary).
+    if (typeof init?.body !== 'string') delete headers['Content-Type']
+    const res = await fetch(`${base}${url}`, { ...init, headers })
     if (!res.ok) {
       const body = (await res.text()).slice(0, 300)
       throw new Error(`${init?.method ?? 'GET'} ${url}: ${res.status} ${body}`)
@@ -93,7 +99,11 @@ async function main() {
   const photos = realizationPhotos()
   const steps = planRealizations(wanted, stored.docs, photos)
   const head = `# Realizacje Instalacji → ${base}\n\n${dryRun ? 'Podgląd, nic nie zapisano (zapis: --write).' : 'Zapis.'}\n\n`
-  const report = head + formatRealizationReport(steps)
+  const extra = unmatchedRealizations(wanted, stored.docs)
+  const tail = extra.length
+    ? `\nW panelu, bez pary w repo (sprawdź, czy to nie duplikat): ${extra.map((r) => r.title).join(', ')}\n`
+    : ''
+  const report = head + formatRealizationReport(steps) + tail
   console.log(report)
   if (out) writeFileSync(out, report)
   if (dryRun) return
@@ -138,7 +148,7 @@ async function main() {
       } else {
         await api(`/api/realizations/${step.id}?depth=0`, {
           method: 'PATCH',
-          body: JSON.stringify({ photos: ids }),
+          body: JSON.stringify({ photos: ids, ...(step.yearMissing && year && { year }) }),
         })
       }
       done += 1
@@ -150,6 +160,11 @@ async function main() {
     }
   }
   console.log(`Gotowe: ${done} realizacji.`)
+  // The token would stay valid until it expires: log out.
+  await fetch(`${base}/api/users/logout`, {
+    method: 'POST',
+    headers: panelHeaders(token, sitePassword),
+  }).catch(() => undefined)
   if (failed.length) {
     console.error(`Niezapisane:\n${failed.join('\n')}`)
     process.exitCode = 1
