@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { AREA_TOWNS } from '@/lib/instalacje/area'
 import { SERVICE_KEYS } from '@/lib/instalacje/options'
+import { AREA_SERVED } from '@/lib/instalacje/seo'
 import { TITLE_SUFFIX, townRealizations, townTitle } from '@/lib/instalacje/townPage'
 
 import { TOWNS, townPage, townText } from './miejscowosci'
@@ -79,6 +80,10 @@ describe('town pages (ADR-I006)', () => {
       expect(new Set(own).size, town.slug).toBe(own.length)
       for (const key of own) expect(keys.has(key), `${town.slug}: ${key}`).toBe(true)
     }
+  })
+
+  it('has a page for every town of `areaServed` and no page outside it', () => {
+    expect([...AREA_TOWNS.map((t) => t.name)].sort()).toEqual([...AREA_SERVED].sort())
   })
 
   it('links only to other towns with a page', () => {
