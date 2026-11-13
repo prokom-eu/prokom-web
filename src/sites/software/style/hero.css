@@ -1161,6 +1161,10 @@
     opacity var(--dur-hx-far) var(--ease-out),
     visibility var(--dur-hx-far);
 }
+/* A hidden window's mock-up stands still (its motion goes on once it comes near). */
+.hx-win[data-rank='rx'] .mk * {
+  animation-play-state: paused;
+}
 .hx-deck[data-moving] .hx-win:not([data-jump]) {
   will-change: transform;
 }
@@ -1998,6 +2002,11 @@
   }
   .hx-win:is([data-rank='rl'], [data-rank='rl2']) {
     transform: translateX(-24px);
+  }
+  /* One window on the phone: the hidden ones keep their mock-ups still (SWA13 #3: at most four
+     endless motions in the hero). */
+  .hx-win:not([data-rank='r0']) .mk * {
+    animation-play-state: paused;
   }
   /* The caption: number, name and price on the window's bottom edge, the offer as a round →
      (its text stays for screen readers; the arrow has an empty alternative). */
