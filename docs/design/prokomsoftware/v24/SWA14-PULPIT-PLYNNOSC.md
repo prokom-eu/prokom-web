@@ -134,6 +134,8 @@ Przebudowa rozwiązania 26 `raporty-dla-szefa` na pełnoprawny system z ceną:
 
 ### 4.5 Cena — propozycja do akceptacji szefa
 
+> **Decyzja Krystiana 13.11.2026: od 1 999 zł netto** (zamiast opcji B 3 490 zł). Seed i migracja danych — PR #558.
+
 **Rynek (polski, 2025–2026):**
 
 - Wdrożenie Power BI dla małej lub średniej firmy: **średnio 7 357 zł, zakres 4 500–12 000 zł** (7 ofert, czas 2 tygodnie – 2 miesiące). Do tego licencje Microsoft kupowane osobno ([cenauslug.pl, 03.06.2026](https://cenauslug.pl/firma-i-biuro/wdrozenie-systemu-analitycznego-microsoft-power-bi)).
