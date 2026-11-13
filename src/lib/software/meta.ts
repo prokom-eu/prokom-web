@@ -23,6 +23,30 @@ export function fitTitle(full: string, short: string): string {
   return full.length + TITLE_SUFFIX.length <= TITLE_MAX ? full : short
 }
 
+/** The places a local search names („strona wizytówka Rabka”, „… Podhale”), SEO etap 1. */
+const PLACE_TITLES = [' — Rabka-Zdrój i Podhale', ' — Rabka-Zdrój'] as const
+const PLACE_SENTENCE = 'Rabka-Zdrój i całe Podhale.'
+const NAMES_PLACE = /rabk|podhal/i
+
+/**
+ * A page title with its place: „Strona wizytówka — Rabka-Zdrój i Podhale”, shorter when that does
+ * not fit `TITLE_MAX` with the suffix, the name alone when nothing does.
+ */
+export function localTitle(name: string): string {
+  for (const place of PLACE_TITLES) {
+    const full = `${name}${place}`
+    if (full.length + TITLE_SUFFIX.length <= TITLE_MAX) return full
+  }
+  return name
+}
+
+/** A description that names the place: one sentence added when it has none and there is room. */
+export function withPlace(text: string): string {
+  if (NAMES_PLACE.test(text)) return text
+  const next = `${text} ${PLACE_SENTENCE}`
+  return next.length <= META_DESCRIPTION_MAX ? next : text
+}
+
 /** Below this a description wastes the snippet (audyt 01.11 P2: 120–155 characters). */
 const DESCRIPTION_MIN = 120
 /** Whole sentences that may follow a short lead — with an „od” price or without one. */
@@ -38,10 +62,10 @@ const DESCRIPTION_TAIL = {
  */
 export function richDescription(lead: string, { priced }: { priced: boolean }): string {
   const clean = lead.replace(/\s+/g, ' ').trim()
-  if (clean.length >= DESCRIPTION_MIN) return metaDescription(clean)
+  if (clean.length >= DESCRIPTION_MIN) return withPlace(metaDescription(clean))
   let text = /[.!?]$/.test(clean) ? clean : `${clean}.`
   for (const sentence of DESCRIPTION_TAIL[priced ? 'priced' : 'ask']) {
     if (text.length + 1 + sentence.length <= META_DESCRIPTION_MAX) text = `${text} ${sentence}`
   }
-  return text
+  return withPlace(text)
 }

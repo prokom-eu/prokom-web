@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { Container } from '@/components/ui/Container'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
-import { fitTitle, richDescription } from '@/lib/software/meta'
+import { fitTitle, localTitle, richDescription } from '@/lib/software/meta'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
@@ -45,10 +45,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   ])
   if (!page) return {}
   const url = `${origin}${industryPageHref(page.slug)}`
-  const title = fitTitle(
-    `${page.name}: oprogramowanie dla branży`,
-    `${page.name} — systemy i strony`,
-  )
+  // The place first (SEO etap 1); the old wording when the name is too long for it.
+  const local = localTitle(page.name)
+  const title =
+    local === page.name
+      ? fitTitle(`${page.name}: oprogramowanie dla branży`, `${page.name} — systemy i strony`)
+      : local
   const description = richDescription(page.lead ?? titleOf(page), { priced: false })
   return {
     title,

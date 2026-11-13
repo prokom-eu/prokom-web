@@ -16,7 +16,7 @@ import { toTelHref } from '@/lib/site/link'
 import { CATALOG_PATH } from '@/lib/software/catalog'
 import { getSoftwareFacts, getSolutionPage } from '@/lib/software/data'
 import { fillText } from '@/lib/software/facts'
-import { fitTitle, richDescription } from '@/lib/software/meta'
+import { localTitle, richDescription } from '@/lib/software/meta'
 import { WIZARD_PATH } from '@/lib/software/wizard/flow'
 import { ContactBlock } from '@/sites/software/components/ContactBlock'
 import { FaqSection } from '@/sites/software/components/FaqSection'
@@ -46,9 +46,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   ])
   if (!page) return {}
   const url = `${origin}${CATALOG_PATH}/${page.slug}`
-  const title = page.title.accent
-    ? fitTitle(`${page.name}. ${page.title.accent}`, page.name)
-    : page.name
+  // The place over the accent: local searches name it („strona wizytówka Rabka”, SEO etap 1).
+  const title = localTitle(page.name)
   return {
     title,
     description: description(page.lead, page.name, page.priceFrom !== null),
