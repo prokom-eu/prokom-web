@@ -1,4 +1,3 @@
-import { IntentLink as Link } from '@/components/shared/IntentLink'
 import type { MouseEvent } from 'react'
 
 import type { PricingCard } from '@/lib/software/priceCards'
@@ -6,13 +5,16 @@ import { Mockup } from '@/sites/software/components/mockups/MockupLazy'
 
 import { preloadSolutionDialog } from '../offer/SolutionDialogLazy'
 import { NearScreen } from '../ui/NearScreen'
+import { SolutionLink } from '../ui/SolutionLink'
 
 type Props = {
   card: PricingCard
   /** Hover label on the mock-up („Szczegóły →”). */
   details: string
-  /** Address of the offer window — works without JS and with Ctrl/⌘-click. */
+  /** The solution's own page (`/rozwiazania/<slug>`): indexable, opened by Ctrl/⌘-click (SEO). */
   href: string
+  /** The offer window (`?rozwiazanie=`): where a plain click goes when the window is not here. */
+  open: string
   /** Opens the window in place (catalog, price page); a plain click only. */
   onOpen?: () => void
   /** The mock-up mounts only near the screen (the start page's price list, SWA13 #7). */
@@ -28,10 +30,11 @@ const plainClick = (event: MouseEvent) =>
  * opens the offer window (`?rozwiazanie=`). The link is named by its visible text (no `aria-label`:
  * a name in another order than the text fails WCAG 2.5.3 „label in name”, axe).
  */
-export function PriceCard({ card, details, href, onOpen, lazyThumb = false }: Props) {
+export function PriceCard({ card, details, href, open, onOpen, lazyThumb = false }: Props) {
   return (
-    <Link
+    <SolutionLink
       href={href}
+      open={open}
       className="sw-glass v-card"
       data-card=""
       onPointerEnter={onOpen ? preloadSolutionDialog : undefined}
@@ -69,6 +72,6 @@ export function PriceCard({ card, details, href, onOpen, lazyThumb = false }: Pr
           )}
         </div>
       </div>
-    </Link>
+    </SolutionLink>
   )
 }

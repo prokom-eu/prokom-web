@@ -5,7 +5,7 @@ import { useRef, useState } from 'react'
 import { plural } from '@/lib/plural'
 import { OFFER_GROUPS } from '@/lib/software/catalog'
 import type { OfferView } from '@/lib/software/offer'
-import { offerHref, type PricingCard } from '@/lib/software/priceCards'
+import { offerHref, type PricingCard, solutionHref } from '@/lib/software/priceCards'
 
 import { SolutionDialog } from '../offer/SolutionDialogLazy'
 import { Chip } from '../ui/Chip'
@@ -58,7 +58,8 @@ export function PriceGrid({ cards, offers, label }: Props) {
             <PriceCard
               card={card}
               details="Szczegóły →"
-              href={offerHref(card.slug)}
+              href={solutionHref(card.slug)}
+              open={offerHref(card.slug)}
               onOpen={offers[card.slug] ? () => setOpen(card.slug) : undefined}
             />
           </li>

@@ -131,9 +131,10 @@ test.describe('Software „Oferta ▾”', () => {
     ]) {
       await expect(panel.getByRole('heading', { level: 2, name: group })).toBeVisible()
     }
-    // A solution opens its offer window in the catalog, with its „od” price from Solutions.
+    // A solution links its own page (SEO etap 1), with its „od” price from Solutions; a plain
+    // click opens its offer window in the catalog (checked at the end).
     const item = panel.getByRole('link', { name: /^Strona wizytówka/ })
-    await expect(item).toHaveAttribute('href', '/rozwiazania?rozwiazanie=strona-wizytowka')
+    await expect(item).toHaveAttribute('href', '/rozwiazania/strona-wizytowka')
     await expect(item).toContainText(/od\s.*zł/)
     await expect(panel.getByRole('link', { name: 'Zobacz pełną ofertę →' })).toHaveAttribute(
       'href',

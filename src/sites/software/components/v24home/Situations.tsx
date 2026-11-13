@@ -1,6 +1,5 @@
 'use client'
 
-import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { useId, useState } from 'react'
 
 import type { SoftwareHome } from '@/lib/software/home'
@@ -9,7 +8,8 @@ import { PriceTag } from '@/sites/software/components/ui/PriceTag'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
 import { usePausedOffscreen } from './usePausedOffscreen'
-import { offerHref, type PriceLine } from '@/lib/software/priceCards'
+import { offerHref, type PriceLine, solutionHref } from '@/lib/software/priceCards'
+import { SolutionLink } from '@/sites/software/components/ui/SolutionLink'
 
 type Props = {
   situations: NonNullable<SoftwareHome['situations']>
@@ -65,9 +65,13 @@ export function Situations({ situations, prices }: Props) {
                   <p>{item.answer}</p>
                   <div className="v-row">
                     {price && <PriceTag line={price} withTerm />}
-                    <Link className="v-link" href={offerHref(item.solution)}>
+                    <SolutionLink
+                      className="v-link"
+                      href={solutionHref(item.solution)}
+                      open={offerHref(item.solution)}
+                    >
                       {item.offer ?? situations.offer} <span aria-hidden="true">→</span>
-                    </Link>
+                    </SolutionLink>
                   </div>
                 </div>
                 <div className="v-scr v-sit-scr" aria-hidden="true">
