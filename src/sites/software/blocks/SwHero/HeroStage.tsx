@@ -13,7 +13,15 @@ import {
 } from 'react'
 
 import { track } from '@/lib/analytics/track'
-import { RESUME_MS, SLIDE_MS, rankOf, stepSlide } from '@/lib/software/heroStage'
+import {
+  RESUME_MS,
+  SLIDE_MOVE_MS,
+  SLIDE_MS,
+  farJump,
+  jumps,
+  rankOf,
+  stepSlide,
+} from '@/lib/software/heroStage'
 
 export type StageSlide = {
   word: string
@@ -75,6 +83,13 @@ export function HeroStage({
   const [drawn, setDrawn] = useState<ReadonlySet<number>>(() => near(0, count))
   const nearNow = near(current, count)
   if ([...nearNow].some((index) => !drawn.has(index))) setDrawn(new Set([...drawn, ...nearNow]))
+  // The last move (SWA14 §1): a window going from one unseen place to another jumps there.
+  const [move, setMove] = useState({ from: 0, to: 0 })
+  const [moving, setMoving] = useState(false)
+  if (move.to !== current) {
+    setMove({ from: move.to, to: current })
+    setMoving(true)
+  }
   const root = useRef<HTMLDivElement>(null)
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const resume = useRef<number | undefined>(undefined)
@@ -128,6 +143,13 @@ export function HeroStage({
   }, [current, resting, count])
 
   useEffect(() => () => window.clearTimeout(resume.current), [])
+
+  // `will-change` only for the slide's move (SWA14 §1), not for good (`--dur-hx-slide`).
+  useEffect(() => {
+    if (!moving) return
+    const timer = window.setTimeout(() => setMoving(false), SLIDE_MOVE_MS)
+    return () => window.clearTimeout(timer)
+  }, [moving, current])
 
   /** The visitor chose: show that slide and let the clock rest for 12 s. */
   const choose = useCallback(
@@ -281,18 +303,29 @@ export function HeroStage({
             swipe.current = null
           }}
         >
-          {windows.map((mockup, index) => {
-            const rank = rankOf(index, current, count)
-            return (
-              <div
-                key={`${index}-${slides[index]?.name ?? ''}`}
-                className="hx-win"
-                data-rank={rank}
-              >
-                {drawn.has(index) || rank !== 'rx' ? mockup : null}
-              </div>
-            )
-          })}
+          {/* The drum (SWA14 §1): the mask fades the stage's side edges, where the far windows
+              wait; the inner box keeps the old frame and the perspective. */}
+          <div
+            className="hx-deck"
+            data-moving={moving ? '' : undefined}
+            data-far={farJump(move.from, current, count) ? '' : undefined}
+          >
+            <div className="hx-deck-in">
+              {windows.map((mockup, index) => {
+                const rank = rankOf(index, current, count)
+                return (
+                  <div
+                    key={`${index}-${slides[index]?.name ?? ''}`}
+                    className="hx-win"
+                    data-rank={rank}
+                    data-jump={jumps(index, move.from, current, count) ? '' : undefined}
+                  >
+                    {drawn.has(index) || rank !== 'rx' ? mockup : null}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
           {count > 1 && (
             <>
               <button
@@ -367,7 +400,7 @@ function ArrowIcon({ d }: { d: string }) {
   )
 }
 
-/** The window in front and its two neighbours (ranks `r0`, `r1`, `rl`). */
+/** The window in front and its neighbours, near and far (every rank but `rx`). */
 function near(current: number, count: number): Set<number> {
   const set = new Set<number>()
   for (let index = 0; index < count; index++) {

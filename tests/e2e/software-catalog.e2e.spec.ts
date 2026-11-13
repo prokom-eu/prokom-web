@@ -186,6 +186,76 @@ test.describe('Software offer window (spec. §5.1)', () => {
     await expect(page).toHaveURL(/\?rozwiazanie=landing-page$/)
   })
 
+  test('the window comes in by CSS: 240 ms transform and opacity, no View Transitions (SWA14 §2)', async ({
+    page,
+  }, testInfo) => {
+    await page.goto(site(HOST, PATH))
+    await ready(page)
+    // A pointer over the card first, as before any click: it fetches the window's chunk.
+    await card(page, 'Landing page').hover()
+    await page.waitForLoadState('networkidle')
+    // Measured in the page from the click: the panel fully seen, and at 120 ms the backdrop
+    // dims the page and nothing of a view transition is drawn over the window.
+    const result = await page.evaluate(async () => {
+      const opener = [...document.querySelectorAll<HTMLElement>('a.v-card')].find(
+        (item) => item.querySelector('.v-card-bd > b')?.textContent === 'Landing page',
+      )
+      if (!opener) return null
+      const start = performance.now()
+      opener.click()
+      let at120: { backdrop: number; transitions: number } | null = null
+      let entry: { property: string; duration: string } | null = null
+      let full = -1
+      let shown = -1
+      while (performance.now() - start < 1500) {
+        await new Promise(requestAnimationFrame)
+        const time = performance.now() - start
+        const panel = document.querySelector<HTMLDialogElement>('dialog.sw-offer-panel[open]')
+        if (!panel) continue
+        if (shown < 0) shown = time
+        if (!entry) {
+          const open = getComputedStyle(panel)
+          entry = { property: open.transitionProperty, duration: open.transitionDuration }
+        }
+        if (!at120 && time >= 120) {
+          at120 = {
+            backdrop: Number(getComputedStyle(panel, '::backdrop').opacity),
+            transitions: document
+              .getAnimations()
+              .filter((animation) =>
+                String((animation.effect as KeyframeEffect | null)?.pseudoElement ?? '').startsWith(
+                  '::view-transition',
+                ),
+              ).length,
+          }
+        }
+        const style = getComputedStyle(panel)
+        const still = style.scale === '1' || style.scale === 'none'
+        if (full < 0 && style.opacity === '1' && still) full = time
+        if (full >= 0 && at120) break
+      }
+      return { full, shown, at120, entry }
+    })
+    await page.waitForTimeout(150)
+    await testInfo.attach('okno-120ms', {
+      body: await page.screenshot(),
+      contentType: 'image/png',
+    })
+    expect(result).not.toBeNull()
+    expect(result?.full).toBeGreaterThanOrEqual(0)
+    // The entry itself, exactly (not by the clock): transform and opacity in 240 ms.
+    expect(result?.entry?.property).toMatch(/^translate, scale, opacity/)
+    expect(result?.entry?.duration).toMatch(/^0\.24s, 0\.24s, 0\.24s/)
+    // The clock only as a guard against a slow entry (the old one: 450 ms + blur). A shared CI
+    // runner reads frames late (13.11: locally ~31 + ~285 ms, CI ~60 + ~315 ms).
+    const measured = JSON.stringify(result)
+    expect(result?.shown, measured).toBeLessThanOrEqual(150)
+    expect((result?.full ?? 0) - (result?.shown ?? 0), measured).toBeLessThanOrEqual(400)
+    expect(result?.at120?.transitions).toBe(0)
+    expect(result?.at120?.backdrop).toBeGreaterThan(0.5)
+    await expect(windowOf(page, 'Landing page')).toBeVisible()
+  })
+
   test('tiles, „W cenie”, gallery, guarantees, steps; Esc closes, focus back on the card', async ({
     page,
   }) => {

@@ -1104,9 +1104,30 @@
   position: relative;
   height: calc(var(--hx-w) * 0.6566 + 40px);
   margin-top: clamp(8px, 2vh, 24px);
-  perspective: 2200px;
   text-align: left;
   touch-action: pan-y;
+}
+/* The drum (SWA14 §1): the far windows wait behind the stage's side edges, which the mask fades
+   out — a window leaves and comes in there, never fading out in sight. The box reaches past the
+   stage up and down (`--hx-bleed`), so the mask does not cut the windows' glow and shadow. */
+.hx-deck {
+  --hx-bleed: 160px;
+  position: absolute;
+  inset: calc(var(--hx-bleed) * -1) 0;
+  container-type: inline-size;
+  pointer-events: none;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    var(--hero-black) 8%,
+    var(--hero-black) 92%,
+    transparent
+  );
+}
+.hx-deck-in {
+  position: absolute;
+  inset: var(--hx-bleed) 0;
+  perspective: 2200px;
 }
 .hx-win {
   position: absolute;
@@ -1121,11 +1142,31 @@
   box-shadow:
     0 0 0 1px var(--border),
     0 50px 120px -40px color-mix(in srgb, var(--hero-black) 60%, transparent);
+  pointer-events: auto;
+  /* Every window moves one place at once, with one time and curve (SWA14 §1): transform and
+     opacity only, no filter on a window in motion. */
   transition:
-    transform var(--dur-hx-move) var(--ease-out),
-    opacity var(--dur-hx-fade) var(--ease-out),
-    filter var(--dur-hx-fade),
-    visibility var(--dur-hx-fade);
+    transform var(--dur-hx-slide) var(--ease-hx-slide),
+    opacity var(--dur-hx-slide) var(--ease-hx-slide),
+    visibility var(--dur-hx-slide);
+}
+/* From one unseen place to another (behind the edge, hidden): at once, not across the stage. */
+.hx-win[data-jump] {
+  transition: none;
+}
+.hx-deck[data-far] .hx-win {
+  /* A tile further than one place away: the windows take their places at once and cross-fade
+     (no flight across the stage, przegląd SWA14 #4). */
+  transition:
+    opacity var(--dur-hx-far) var(--ease-out),
+    visibility var(--dur-hx-far);
+}
+/* A hidden window's mock-up stands still (its motion goes on once it comes near). */
+.hx-win[data-rank='rx'] .mk * {
+  animation-play-state: paused;
+}
+.hx-deck[data-moving] .hx-win:not([data-jump]) {
+  will-change: transform;
 }
 .hx-win::before {
   content: '';
@@ -1166,13 +1207,23 @@
   transform: translateX(calc(var(--hx-w) * var(--hx-side))) translateZ(-420px) rotateY(-28deg);
   opacity: 0.5;
   z-index: 3;
-  filter: saturate(0.7);
 }
 .hx-win[data-rank='rl'] {
   transform: translateX(calc(var(--hx-w) * var(--hx-side) * -1)) translateZ(-420px) rotateY(28deg);
   opacity: 0.5;
   z-index: 3;
-  filter: saturate(0.7);
+}
+/* Far right / far left: past the stage's edge at any width (half of the stage + half a window),
+   with the side windows' light, so a step only slides them in. */
+.hx-win[data-rank='r2'] {
+  transform: translateX(calc(50cqw + var(--hx-w) * 0.55)) translateZ(-420px) rotateY(-28deg);
+  opacity: 0.5;
+  z-index: 2;
+}
+.hx-win[data-rank='rl2'] {
+  transform: translateX(calc(-50cqw - var(--hx-w) * 0.55)) translateZ(-420px) rotateY(28deg);
+  opacity: 0.5;
+  z-index: 2;
 }
 .hx-win[data-rank='rx'] {
   transform: translateZ(-900px);
@@ -1594,6 +1645,8 @@
   .hx-flow {
     height: calc(var(--hx-w) * 0.6566 + 14px);
     margin-top: 10px;
+  }
+  .hx-deck-in {
     perspective: 1200px;
   }
   .hx-win {
@@ -1929,17 +1982,31 @@
     display: inline;
   }
   /* One window: the others wait beside it, hidden; a change fades and slides it 24 px. */
-  .hx-flow {
+  .hx-deck-in {
     perspective: none;
+  }
+  /* The phone keeps SWA12b as it was (SWA14 §1): no edge mask, its own times. */
+  .hx-deck {
+    mask-image: none;
+  }
+  .hx-win {
+    transition:
+      transform var(--dur-hx-move) var(--ease-out),
+      opacity var(--dur-hx-fade) var(--ease-out),
+      visibility var(--dur-hx-fade);
   }
   .hx-win:not([data-rank='r0']) {
     transform: translateX(24px);
     opacity: 0;
     visibility: hidden;
-    filter: none;
   }
-  .hx-win[data-rank='rl'] {
+  .hx-win:is([data-rank='rl'], [data-rank='rl2']) {
     transform: translateX(-24px);
+  }
+  /* One window on the phone: the hidden ones keep their mock-ups still (SWA13 #3: at most four
+     endless motions in the hero). */
+  .hx-win:not([data-rank='r0']) .mk * {
+    animation-play-state: paused;
   }
   /* The caption: number, name and price on the window's bottom edge, the offer as a round →
      (its text stays for screen readers; the arrow has an empty alternative). */

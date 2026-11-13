@@ -4,7 +4,7 @@ import type { MouseEvent } from 'react'
 import type { PricingCard } from '@/lib/software/priceCards'
 import { Mockup } from '@/sites/software/components/mockups/MockupLazy'
 
-import { openOfferFrom } from '../offer/offerTransition'
+import { preloadSolutionDialog } from '../offer/SolutionDialogLazy'
 import { NearScreen } from '../ui/NearScreen'
 
 type Props = {
@@ -34,11 +34,14 @@ export function PriceCard({ card, details, href, onOpen, lazyThumb = false }: Pr
       href={href}
       className="sw-glass v-card"
       data-card=""
+      onPointerEnter={onOpen ? preloadSolutionDialog : undefined}
+      onFocus={onOpen ? preloadSolutionDialog : undefined}
       onClick={(event) => {
         if (!onOpen || !plainClick(event)) return
         event.preventDefault()
-        // The card's mock-up grows into the window's (OKNO-OFERTY-PREMIUM §2.5).
-        openOfferFrom(event.currentTarget, onOpen)
+        // A plain CSS entry, no View Transitions (SWA14 §2: the page's named parts were drawn
+        // over the window while it was captured).
+        onOpen()
       }}
     >
       <div className="v-card-th" aria-hidden="true">

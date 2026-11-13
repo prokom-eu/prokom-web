@@ -424,11 +424,10 @@
   .sw-offer-shot [data-marker][data-lit] > span {
     animation: sw-offer-pulse 700ms var(--ease-out) 1;
   }
-  /* Without View Transitions the new device simply fades in (with them the frame morphs). */
-  @supports not (view-transition-name: none) {
-    .sw-offer-shot > .mk {
-      animation: sw-offer-device var(--dur-state) var(--ease-out) both;
-    }
+  /* „Komputer | Telefon” (SWA14 §2.3): the new frame scales up and fades in — transform and
+     opacity only, no View Transitions. Only after a pick, not when the window opens. */
+  .sw-offer-shot[data-switched] > .mk {
+    animation: sw-offer-device var(--dur-offer-switch) var(--ease-offer) both;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -458,7 +457,7 @@
 @keyframes sw-offer-device {
   from {
     opacity: 0;
-    scale: 0.98;
+    scale: 0.97;
   }
 }
 
@@ -828,28 +827,49 @@
       }
     }
   }
-  /* The window comes in from a blur on a spring (450 ms) and leaves quicker (200 ms). */
+  /* SWA14 §2.1: a plain entry — the panel rises 16 px from .985 and fades in (240 ms), the
+     backdrop fades in (180 ms); closing is the way back in 160 ms. Transform and opacity only:
+     no blur, no View Transitions (the page's named parts were drawn over the window). */
   @media (min-width: 768px) {
     [data-line='software'] dialog.sw-offer-panel[data-motion] {
       transition:
-        translate 450ms var(--ease-spring),
-        scale 450ms var(--ease-spring),
-        opacity 300ms var(--ease-out),
-        filter 450ms var(--ease-out),
-        display 450ms allow-discrete,
-        overlay 450ms allow-discrete;
+        translate var(--dur-offer-in) var(--ease-offer),
+        scale var(--dur-offer-in) var(--ease-offer),
+        opacity var(--dur-offer-in) var(--ease-offer),
+        display var(--dur-offer-in) allow-discrete,
+        overlay var(--dur-offer-in) allow-discrete;
     }
     [data-line='software'] dialog.sw-offer-panel[data-motion]:not([open]) {
-      filter: blur(8px);
-      transition-duration: 200ms;
-      transition-timing-function: var(--ease-out);
+      opacity: 0;
+      scale: 0.985;
+      translate: 0 16px;
+      transition-duration: var(--dur-offer-out);
     }
     @starting-style {
       [data-line='software'] dialog.sw-offer-panel[data-motion][open] {
-        filter: blur(8px);
+        opacity: 0;
+        scale: 0.985;
+        translate: 0 16px;
       }
     }
+    [data-line='software'] dialog.sw-offer-panel[data-motion]::backdrop {
+      transition:
+        opacity var(--dur-offer-backdrop) var(--ease-offer),
+        display var(--dur-offer-in) allow-discrete,
+        overlay var(--dur-offer-in) allow-discrete;
+    }
+    [data-line='software'] dialog.sw-offer-panel[data-motion]:not([open])::backdrop {
+      transition-duration: var(--dur-offer-out);
+    }
   }
+}
+/* The mock-up's own motion waits until the panel is in (SWA14 §2.2, `SolutionDialog`). */
+.sw-offer-swap[data-entering] .mk * {
+  animation-play-state: paused;
+}
+/* Until the sections come (`SolutionDialog`, light first frame: after the 240 ms entry). */
+.sw-offer-later {
+  min-height: 40svh;
 }
 @keyframes sw-offer-swap {
   from {
@@ -869,45 +889,6 @@
   }
 }
 
-/* Shared elements (§2.5, View Transitions): the card's mock-up grows into the window's, and a
-   device switch morphs the frame. Only while the flags are on (`offerTransition.ts`). */
-html[data-offer-vt],
-html[data-offer-vt] :not(.v-card-th, .sw-offer-shot, .sw-offer-shot > .mk) {
-  /* Other named parts (the header of page transitions) would be drawn over the window. */
-  view-transition-name: none !important;
-}
-html[data-offer-transition] dialog[open] .sw-offer-shot {
-  view-transition-name: sw-offer-shot;
-}
-/* While its mock-up grows from the card the window only fades in (no blur or scale): one effect,
-   and only the mock-up is captured (`data-offer-vt`), so the page is not photographed. */
-html[data-offer-transition] [data-line='software'] dialog.sw-offer-panel[data-motion] {
-  filter: none;
-  transition:
-    opacity var(--dur-state) var(--ease-out),
-    display var(--dur-state) allow-discrete,
-    overlay var(--dur-state) allow-discrete;
-}
-@starting-style {
-  html[data-offer-transition] [data-line='software'] dialog.sw-offer-panel[data-motion][open] {
-    filter: none;
-    opacity: 0;
-    scale: 1;
-  }
-}
-html[data-offer-device] .sw-offer-shot > .mk {
-  view-transition-name: sw-offer-device;
-}
-::view-transition-group(sw-offer-shot),
-::view-transition-group(sw-offer-device) {
-  animation-duration: var(--dur-sheet);
-  animation-timing-function: var(--ease-out);
-}
-::view-transition-old(sw-offer-device),
-::view-transition-new(sw-offer-device) {
-  height: 100%;
-  object-fit: contain;
-}
 .sw-offer-shot {
   height: 300px;
   border: 1px solid var(--border);
