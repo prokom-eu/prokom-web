@@ -365,6 +365,10 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
         galleryLimit,
       )
       const k4 = k4Cards.get(card.slug_seed)
+      // Producer photos chosen for production replace the whole gallery (PRODUKCJA-BIZNES-1211).
+      if (k4?.zdjecia_premium?.length) {
+        return [card.slug_seed, k4ImageKeys(k4).slice(0, galleryLimit ?? undefined)]
+      }
       const k4Keys = k4 && !keys.length ? k4ImageKeys(k4).slice(0, galleryLimit ?? undefined) : []
       return [card.slug_seed, keys.length ? keys : k4Keys]
     }),
