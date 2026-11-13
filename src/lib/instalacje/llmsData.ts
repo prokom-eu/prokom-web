@@ -1,16 +1,17 @@
 import { getPostList } from '../posts/data'
 import { getCompanyData, getSiteSettings } from '../site/data'
-import type { SiteTenant } from '../tenant/byHost'
 import { getInstalacjeObjectList, getInstalacjeOffer } from './data'
 import { llmsTxt } from './llms'
 import { objectHref } from './menu'
 
 /**
- * `llms.txt` body of the Instalacje site (SEO §2.4): services, objects and guide posts from the
- * panel. The route `[domain]/llms.txt` is shared with Biznes (two routes of one address in two
- * groups would clash); the Instalacje content stays here, in the line's own folder.
+ * `llms.txt` of the Instalacje site (SEO §2.4), built from the panel (services, objects, guide
+ * posts, contact). Called by the shared `/llms.txt` route for an Instalacje tenant.
  */
-export async function instalacjeLlmsBody(tenant: SiteTenant, origin: string): Promise<string> {
+export async function instalacjeLlmsTxt(
+  tenant: { id: number; name: string },
+  origin: string,
+): Promise<string> {
   const [offer, objects, site, company, posts] = await Promise.all([
     getInstalacjeOffer(tenant.id),
     getInstalacjeObjectList(tenant.id),
