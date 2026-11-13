@@ -50,7 +50,15 @@ type OrganizationInput = {
   /** Phone and e-mail of the line (`SiteSettings`); company ones are the fallback. */
   contact: { phone: string | null; email: string | null }
   origin: string
+  /**
+   * Towns and regions the line serves (Biznes: `SiteSettings.biznes.serviceAreas` + Podhale,
+   * Małopolska — SEO lokalne 13.11); none = no `areaServed`.
+   */
+  areaServed?: readonly string[]
 }
+
+/** Regions (not towns) of an area list: schema.org `AdministrativeArea`, the rest `Place`. */
+const REGIONS = new Set(['Podhale', 'Małopolska', 'Polska'])
 
 /** Where the Software line works (its texts: Podhale, Małopolska and remotely in Poland). */
 export const SOFTWARE_AREA_SERVED = ['Rabka-Zdrój', 'Podhale', 'Małopolska', 'Polska'] as const
@@ -58,7 +66,8 @@ export const SOFTWARE_AREA_SERVED = ['Rabka-Zdrój', 'Podhale', 'Małopolska', '
 /**
  * The Software office for search engines (audyt 01.11 P2): its place on the map — the same point
  * as the contact map (`scripts/software-osm-map.mjs`, ul. Orkana 16B) — and the line's image.
- * `CompanyData` has no coordinates; Software has one office, so they live here.
+ * `CompanyData` has no coordinates; Software has one office, so they live here. The Biznes salon
+ * is the same address (one salon, Rabka), so its `geo` is this point too (SEO lokalne 13.11).
  */
 const SOFTWARE_OFFICE = {
   geo: { '@type': 'GeoCoordinates', latitude: 49.60994, longitude: 19.95339 },
@@ -73,7 +82,13 @@ const e164 = (phone: string | undefined) => (phone ? toTelHref(phone)?.slice(4) 
  * branch with its opening hours — all from `CompanyData`, so a change in the panel updates it.
  * Software lists only the first branch.
  */
-export function organizationJsonLd({ company, tenant, contact, origin }: OrganizationInput) {
+export function organizationJsonLd({
+  company,
+  tenant,
+  contact,
+  origin,
+  areaServed,
+}: OrganizationInput) {
   const orgId = `${origin}/#organization`
   const telephone = e164(contact.phone ?? company.phones[0]?.number)
   const email = contact.email ?? company.email
@@ -90,7 +105,9 @@ export function organizationJsonLd({ company, tenant, contact, origin }: Organiz
   }
   // Software works only in Rabka (prokomsoftware ZMIANY-v23 §1): its pages name only the main
   // office (the first location), never the other salons of the company.
-  const locations = tenant.line === 'software' ? company.locations.slice(0, 1) : company.locations
+  // Biznes too: only Rabka (CLAUDE.md „prokombiznes.pl”), the salon of the map point.
+  const onlyMain = tenant.line === 'software' || tenant.line === 'biznes'
+  const locations = onlyMain ? company.locations.slice(0, 1) : company.locations
   const branches = locations.map((location, index) => ({
     '@type': 'LocalBusiness',
     // By position, not city: two branches in one city must stay two nodes.
@@ -104,6 +121,15 @@ export function organizationJsonLd({ company, tenant, contact, origin }: Organiz
       geo: SOFTWARE_OFFICE.geo,
       image: origin + SOFTWARE_OFFICE.image,
       areaServed: SOFTWARE_AREA_SERVED,
+    }),
+    ...(tenant.line === 'biznes' && {
+      geo: SOFTWARE_OFFICE.geo,
+      ...(areaServed?.length && {
+        areaServed: areaServed.map((name) => ({
+          '@type': REGIONS.has(name) ? 'AdministrativeArea' : 'Place',
+          name,
+        })),
+      }),
     }),
     address: {
       '@type': 'PostalAddress',

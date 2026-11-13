@@ -185,6 +185,45 @@ describe('openingHoursText (audit 01.11: openingHours Mo-Fr 09:00-17:00)', () =>
   })
 })
 
+describe('organizationJsonLd on Biznes (SEO lokalne 13.11: Rabka, Podhale, Małopolska)', () => {
+  const zakopane = { ...company.locations[0]!, name: 'Zakopane', city: 'Zakopane' }
+  const data = organizationJsonLd({
+    company: { ...company, locations: [...company.locations, zakopane] },
+    tenant: { name: 'PRO-KOM Biznes', line: 'biznes' },
+    contact: { phone: '889 003 889', email: null },
+    origin: 'https://prokombiznes.pl',
+    areaServed: ['Rabka-Zdrój', 'Nowy Targ', 'Podhale', 'Małopolska'],
+  })
+  const branches = data['@graph'].filter((node) => node['@type'] === 'LocalBusiness')
+
+  it('names only the salon in Rabka (Biznes: tylko Rabka)', () => {
+    expect(branches).toHaveLength(1)
+    expect(JSON.stringify(data)).not.toContain('"Zakopane"')
+  })
+
+  it('gives the salon its place on the map and the area of the panel', () => {
+    expect(branches[0]).toMatchObject({
+      geo: { '@type': 'GeoCoordinates', latitude: 49.60994, longitude: 19.95339 },
+      areaServed: [
+        { '@type': 'Place', name: 'Rabka-Zdrój' },
+        { '@type': 'Place', name: 'Nowy Targ' },
+        { '@type': 'AdministrativeArea', name: 'Podhale' },
+        { '@type': 'AdministrativeArea', name: 'Małopolska' },
+      ],
+    })
+  })
+
+  it('without an area in the panel adds no empty areaServed', () => {
+    const [, branch] = organizationJsonLd({
+      company,
+      tenant: { name: 'PRO-KOM Biznes', line: 'biznes' },
+      contact: { phone: null, email: null },
+      origin: 'https://prokombiznes.pl',
+    })['@graph']
+    expect(branch).not.toHaveProperty('areaServed')
+  })
+})
+
 describe('organizationJsonLd on Software (SWV2: only Rabka)', () => {
   it('lists only the main office, never the other salons of the company', () => {
     const zakopane = { ...company.locations[0]!, name: 'Zakopane', city: 'Zakopane' }

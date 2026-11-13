@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { fitTitle } from '@/lib/biznes/seo'
+import { localTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { MediaImage } from '@/components/MediaImage'
@@ -15,7 +15,7 @@ import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
-import { biznesDescription } from '@/lib/biznes/seo'
+import { localDescription } from '@/lib/biznes/seo'
 import { EMPTY_SUPPLY_LINKS, industrySupplyTiles } from '@/lib/biznes/procurement/links'
 import { BzOrderFlowBlock } from '@/sites/biznes/blocks/BzOrderFlow/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
@@ -52,10 +52,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, industry } = await load(params)
   if (!industry) return {}
   const settings = await getSiteSettings(tenant.id)
-  const title = fitTitle(industry.seo.title ?? industry.name, 'dla firm — Rabka-Zdrój')
+  const title = localTitle(industry.seo.title ?? industry.name)
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = industry.seo.description ?? industry.lead
-  const description = descriptionSource ? biznesDescription(descriptionSource) : undefined
+  const description = descriptionSource ? localDescription(descriptionSource) : undefined
   const canonical = industryHref(industry.slug)
   return {
     title,
