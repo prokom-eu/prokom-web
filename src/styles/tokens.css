@@ -1134,6 +1134,8 @@
   --dur-mk-toast: 6000ms;
   --dur-mk-twinkle: 3000ms;
   --dur-mk-drift: 9000ms;
+  /* The „na żywo” dot of the company dashboard (SWA14 §4.2). */
+  --dur-mk-blink: 1400ms;
   --mk-step-bar: 70ms;
   --mk-step-log: 250ms;
   /* Shared elements (spec WSPOLNE-ELEMENTY §3, NAGLOWEK-KAPSULA §4): defaults for pages

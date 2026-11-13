@@ -22,6 +22,12 @@ export const SPOT_KEYS = [
   // System panels (`MockDash`): the module menu and the user accounts.
   'modul',
   'uzytkownicy',
+  // The company dashboard (`MockDash` „pulpit”, SWA14 §4.4): KPIs, the chart, „Wymaga uwagi”,
+  // the Monday report.
+  'kpi',
+  'wykres',
+  'uwaga',
+  'raport',
 ] as const
 export type SpotKey = (typeof SPOT_KEYS)[number]
 
@@ -41,6 +47,10 @@ export const SPOT_WORDS: Record<SpotKey, readonly RegExp[]> = {
   blog: [/\bblog/, /wpis/, /poradnik/, /aktualnoś/],
   modul: [/moduł/],
   uzytkownicy: [/użytkownik/],
+  kpi: [/wskaźnik/, /kpi/],
+  wykres: [/wykres/, /dane z/, /źródł/],
+  uwaga: [/alert/, /opóźni/, /po terminie/],
+  raport: [/raport/],
 }
 
 /** Every area the text names, in `SPOT_KEYS` order; „na telefonie” never counts as the call. */

@@ -8,10 +8,16 @@ const DAYS = ['pn', 'wt', 'śr', 'cz', 'pt', 'sb', 'nd']
 /** The highlighted bar of the week: Friday. */
 const PEAK_DAY = 4
 
-/** A system panel: side menu, three KPIs, bars rising one by one, the latest rows with status. */
+/**
+ * A system panel: side menu, three KPIs (four on the company dashboard), bars rising one by one,
+ * the latest rows with status. The company dashboard (`live`) also has a „na żywo” badge and
+ * parts the points of „W cenie” light (`data-spot`: kpi, wykres, uwaga, raport — SWA14 §4.4).
+ */
 export function MockDash({ variant }: { variant: DashVariant }) {
   const dash = DASHES[variant]
   const max = Math.max(...dash.bars, 1)
+  const live = Boolean(dash.live)
+  const spot = (name: string) => (live ? name : undefined)
   return (
     <div className="mk-frame mk-dash">
       <div className="mk-side">
@@ -39,12 +45,20 @@ export function MockDash({ variant }: { variant: DashVariant }) {
             <small>{dash.crumb}</small>
             <b>{dash.title}</b>
           </div>
+          {dash.live && (
+            <i className="mk-live">
+              <b aria-hidden="true" />
+              {dash.live}
+            </i>
+          )}
           <i className="mk-device" data-spot="mobile" data-spot-at="before">
             Telefon
           </i>
-          <span>{dash.button}</span>
+          <span data-spot={spot('raport')} data-spot-at={spot('end')}>
+            {dash.button}
+          </span>
         </div>
-        <div className="mk-kpis">
+        <div className="mk-kpis" data-n={dash.kpi.length} data-spot={spot('kpi')}>
           {dash.kpi.map(([label, value, delta]) => (
             <div key={label} className="mk-card mk-kpi">
               <small>{label}</small>
@@ -56,7 +70,7 @@ export function MockDash({ variant }: { variant: DashVariant }) {
           ))}
         </div>
         <div className="mk-panels">
-          <div className="mk-card mk-chart">
+          <div className="mk-card mk-chart" data-spot={spot('wykres')}>
             <div className="mk-panel-head">
               <span>{dash.chart}</span>
               <span>ten tydzień</span>
@@ -76,7 +90,7 @@ export function MockDash({ variant }: { variant: DashVariant }) {
               })}
             </div>
           </div>
-          <div className="mk-card mk-list">
+          <div className="mk-card mk-list" data-spot={spot('uwaga')}>
             <div>{dash.list}</div>
             {dash.rows.map(([title, note, tag, tone]) => (
               <div key={title} className="mk-list-row">

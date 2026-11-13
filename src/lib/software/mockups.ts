@@ -24,7 +24,7 @@ export const SITE_VARIANTS = [
 ] as const
 export type SiteVariant = (typeof SITE_VARIANTS)[number]
 
-export const DASH_VARIANTS = ['zamowienia', 'crm', 'czas', 'excel'] as const
+export const DASH_VARIANTS = ['zamowienia', 'crm', 'czas', 'excel', 'pulpit'] as const
 export type DashVariant = (typeof DASH_VARIANTS)[number]
 
 export const FLOW_VARIANTS = ['sms', 'faktury', 'raporty', 'ai'] as const
