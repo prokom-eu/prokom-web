@@ -28,6 +28,8 @@ export const RESERVED_PAGE_SLUGS: readonly string[] = [
   'mapa-strony',
   'dla-kogo',
   'wyslane',
+  // Town pages of Instalacje (ADR-I006).
+  'obszar',
   // Brand pages of the Biznes catalog (K3b′, ADR-012 rozstrz. 14).
   'marki',
   // Ready bundles (K3c).
