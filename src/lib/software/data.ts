@@ -506,10 +506,6 @@ export const getIndustryPage = cache(
 )
 
 /**
- * Active Software industry pages of one tenant (name and address) for the site map — only those
- * with a page (`buildIndustryPage` would build one).
- */
-/**
  * When each published solution last changed, by slug — `<lastmod>` of the sitemap (SEO etap 1).
  * Separate from the index: the index goes to the browser, the dates are only for the maps.
  */
@@ -529,6 +525,10 @@ export const getSolutionDates = cache(
   },
 )
 
+/**
+ * Active Software industry pages of one tenant (name and address) for the site map — only those
+ * with a page (`buildIndustryPage` would build one).
+ */
 export const getIndustryPageList = cache(
   async (tenantId: number): Promise<{ slug: string; name: string; updatedAt: string }[]> => {
     const payload = await getPayload({ config })

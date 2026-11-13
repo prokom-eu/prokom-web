@@ -46,13 +46,35 @@ export function localTitle(name: string): string {
 }
 
 /**
+ * Whether a text names a town in any case: by the first four letters of its name („Rabki-Zdroju”
+ * and „w Nowym Targu” name Rabka-Zdrój and Nowy Targ).
+ */
+export function namesTown(text: string, town: string): boolean {
+  const stem = town.toLowerCase().split(/[\s-]/)[0]?.slice(0, 4) ?? ''
+  return stem.length > 0 && text.toLowerCase().includes(stem)
+}
+
+/**
+ * A town page's description with the town in it: „<lead>. <miasto> i okolice.” when the lead does
+ * not name it and there is room.
+ */
+export function withTown(lead: string, town: string): string {
+  if (namesTown(lead, town)) return lead
+  const base = /[.!?…]$/.test(lead) ? lead : `${lead}.`
+  const next = `${base} ${town} i okolice.`
+  return next.length <= META_DESCRIPTION_MAX ? next : lead
+}
+
+/**
  * A description that names the place: the longest sentence of `PLACE_SENTENCES` that fits, added
  * when it names none.
  */
 export function withPlace(text: string): string {
   if (NAMES_PLACE.test(text)) return text
+  // A full stop before the added sentence, unless the text already ends one (or with „…”).
+  const base = /[.!?…]$/.test(text) ? text : `${text}.`
   for (const sentence of PLACE_SENTENCES) {
-    const next = `${text} ${sentence}`
+    const next = `${base} ${sentence}`
     if (next.length <= META_DESCRIPTION_MAX) return next
   }
   return text

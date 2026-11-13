@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation'
 
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
-import { META_DESCRIPTION_MAX, metaDescription } from '@/lib/seo/description'
+import { metaDescription } from '@/lib/seo/description'
+import { withTown } from '@/lib/software/meta'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
@@ -39,9 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const settings = await getSiteSettings(tenant.id)
   const title = city.seo.title ?? `Strony i systemy dla firm ${city.name}`
   // The town's name in the snippet (SEO etap 1): the lead of Rabka spoke of „Orkana 16B” only.
-  const lead = metaDescription(city.seo.description ?? city.hero.lead)
-  const named = `${lead} ${city.name} i okolice.`
-  const description = lead.includes(city.name) || named.length > META_DESCRIPTION_MAX ? lead : named
+  const description = withTown(metaDescription(city.seo.description ?? city.hero.lead), city.name)
   return {
     // The panel title is the whole `<title>` (spec. §9: „… | PRO-KOM Software”).
     title: city.seo.title ? { absolute: title } : title,

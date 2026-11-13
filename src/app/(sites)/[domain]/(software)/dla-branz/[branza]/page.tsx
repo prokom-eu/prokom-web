@@ -45,12 +45,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   ])
   if (!page) return {}
   const url = `${origin}${industryPageHref(page.slug)}`
-  // The place first (SEO etap 1); the old wording when the name is too long for it.
-  const local = localTitle(page.name)
+  // What the page offers and where (SEO etap 1, spec. §9 „program dla <branży>”): „<branża>:
+  // oprogramowanie — Rabka-Zdrój…”, then the name with the place, then the old wording.
+  const offer = `${page.name}: oprogramowanie`
   const title =
-    local === page.name
-      ? fitTitle(`${page.name}: oprogramowanie dla branży`, `${page.name} — systemy i strony`)
-      : local
+    [localTitle(offer), localTitle(page.name)].find((t) => t !== offer && t !== page.name) ??
+    fitTitle(`${page.name}: oprogramowanie dla branży`, `${page.name} — systemy i strony`)
   const description = richDescription(page.lead ?? titleOf(page), { priced: false })
   return {
     title,

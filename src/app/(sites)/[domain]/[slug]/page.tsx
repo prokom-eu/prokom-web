@@ -6,6 +6,7 @@ import { pageCrumbs } from '@/lib/biznes/pages/crumbs'
 import { getPublishedPage } from '@/lib/pages/data'
 import { pageMetadata } from '@/lib/pages/metadata'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
+import { heroCrumb } from '@/lib/software/pageCrumbs'
 import { getSiteSettings } from '@/lib/site/data'
 import { pagePath, slugFromSegment } from '@/lib/pages/slug'
 
@@ -13,16 +14,14 @@ import { requestOrigin, requireTenant } from '../tenant'
 
 type Props = { params: Promise<{ domain: string; slug: string }> }
 
-/** Software blocks that open a page with its `PageHero` and its breadcrumbs (Strona główna › …). */
-const SOFTWARE_HERO_BLOCKS = new Set(['swPricing', 'swAuditForm', 'swLegal'])
-
 /** The visible breadcrumbs of a Software page, for `BreadcrumbList` too (SEO etap 1). */
 function softwareCrumbs(page: { slug: string; title: string; layout?: unknown }) {
   const first = Array.isArray(page.layout) ? (page.layout[0] as { blockType?: unknown }) : null
-  if (!SOFTWARE_HERO_BLOCKS.has(String(first?.blockType))) return []
+  const crumb = heroCrumb(first?.blockType)
+  if (crumb === undefined) return []
   return [
     { name: 'Strona główna', href: '/' },
-    { name: page.title, href: pagePath(page.slug) },
+    { name: crumb ?? page.title, href: pagePath(page.slug) },
   ]
 }
 

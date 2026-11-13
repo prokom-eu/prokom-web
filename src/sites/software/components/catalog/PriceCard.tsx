@@ -1,11 +1,9 @@
-import type { MouseEvent } from 'react'
-
 import type { PricingCard } from '@/lib/software/priceCards'
 import { Mockup } from '@/sites/software/components/mockups/MockupLazy'
 
 import { preloadSolutionDialog } from '../offer/SolutionDialogLazy'
 import { NearScreen } from '../ui/NearScreen'
-import { SolutionLink } from '../ui/SolutionLink'
+import { plainClick, SolutionLink } from '../ui/SolutionLink'
 
 type Props = {
   card: PricingCard
@@ -21,9 +19,6 @@ type Props = {
   lazyThumb?: boolean
 }
 
-const plainClick = (event: MouseEvent) =>
-  event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey
-
 /**
  * Price card of Software v24 (ZMIANY-v24 §4.2, §6.2): the solution's mock-up, group, name, lead,
  * „od” price and term. The same card on the start page, the catalog and the price page; a click
@@ -35,6 +30,7 @@ export function PriceCard({ card, details, href, open, onOpen, lazyThumb = false
     <SolutionLink
       href={href}
       open={open}
+      prefetchOpen={!onOpen}
       className="sw-glass v-card"
       data-card=""
       onPointerEnter={onOpen ? preloadSolutionDialog : undefined}

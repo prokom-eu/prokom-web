@@ -5,9 +5,11 @@ import { META_DESCRIPTION_MAX } from '../seo/description'
 import {
   fitTitle,
   localTitle,
+  namesTown,
   richDescription,
   SOFTWARE_ROUTE_DESCRIPTIONS,
   withPlace,
+  withTown,
 } from './meta'
 
 describe('SOFTWARE_ROUTE_DESCRIPTIONS (spec. §9)', () => {
@@ -119,5 +121,28 @@ describe('withPlace — the place in the description (SEO etap 1)', () => {
     expect(withPlace(named)).toBe(named)
     const long = 'a'.repeat(150) + '.'
     expect(withPlace(long)).toBe(long)
+  })
+})
+
+describe('the place after a lead without a full stop (przegląd SEO etap 1)', () => {
+  it('ends the lead before the added sentence', () => {
+    expect(withPlace('Strona z menu i rezerwacją stolika')).toBe(
+      'Strona z menu i rezerwacją stolika. Rabka-Zdrój, Podhale, Małopolska i zdalnie cała Polska.',
+    )
+  })
+})
+
+describe('withTown — the town page names its town', () => {
+  it('recognises the town in any case', () => {
+    expect(namesTown('Strony dla firm z Rabki-Zdroju', 'Rabka-Zdrój')).toBe(true)
+    expect(namesTown('Biuro w Nowym Targu', 'Nowy Targ')).toBe(true)
+    expect(namesTown('Salon przy ul. Orkana 16B', 'Rabka-Zdrój')).toBe(false)
+  })
+
+  it('adds „<miasto> i okolice.” with a full stop before it', () => {
+    expect(withTown('Salon mamy przy ul. Orkana 16B', 'Rabka-Zdrój')).toBe(
+      'Salon mamy przy ul. Orkana 16B. Rabka-Zdrój i okolice.',
+    )
+    expect(withTown('Strony z Rabki-Zdroju.', 'Rabka-Zdrój')).toBe('Strony z Rabki-Zdroju.')
   })
 })

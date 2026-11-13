@@ -3,6 +3,7 @@ import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { OFFER_GROUPS, offerGroup } from '@/lib/software/catalog'
 import { getOfferViews, getPricingSource, getSolutionsIndex } from '@/lib/software/data'
 import { fillText } from '@/lib/software/facts'
+import { SOFTWARE_HERO_CRUMBS } from '@/lib/software/pageCrumbs'
 import { solutionCard } from '@/lib/software/priceCards'
 import { findLevelSolution, levelAccusative, levelPlans } from '@/lib/software/pricing'
 import type { SwPricingBlock as SwPricingData } from '@/payload-types'
@@ -58,7 +59,7 @@ export async function SwPricingBlock({ block, tenantId, isFirst }: Props) {
     <>
       <PageHero
         level={isFirst ? 'h1' : 'h2'}
-        crumb="Cennik"
+        crumb={SOFTWARE_HERO_CRUMBS.swPricing}
         eyebrow={fill(block.eyebrow) ?? ''}
         title={title}
         em={block.titleAccent}
