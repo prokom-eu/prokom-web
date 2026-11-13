@@ -176,7 +176,12 @@ export function SolutionDialog({
   }
   useEffect(() => {
     if (!isOpen || entered) return
-    const timer = window.setTimeout(() => startTransition(() => setEntered(true)), ENTER_MS)
+    // Reduced motion: the panel is there at once, so are its sections (przegląd SWA14 #5).
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const timer = window.setTimeout(
+      () => startTransition(() => setEntered(true)),
+      still ? 0 : ENTER_MS,
+    )
     return () => window.clearTimeout(timer)
   }, [isOpen, entered])
   const heading = useRef<HTMLHeadingElement>(null)

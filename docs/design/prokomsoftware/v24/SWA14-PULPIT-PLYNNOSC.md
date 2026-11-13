@@ -7,6 +7,8 @@ Pomiary: `https://prokomsoftware.pl/` w Chrome na PC (karta pomiarowa ma bardzo 
 > **Uwagi z rozpoznania kodu (13.11, sesja SWA14):**
 > - Na Software karuzela to `.hx-flow` + `.hx-win[data-rank]` (klasa `.hx-deck` jest tylko w Instalacjach) — maska krawędzi idzie na `.hx-flow`.
 > - `view-transition-name` kapsuły (`sw-header`) i dolnego paska (`sw-tab-bar`) **zostają**: używają ich przejścia między stronami (`src/sites/software/PageTransition.tsx`) i przełącznik motywu. Po usunięciu View Transitions z okna oferty kapsuła nie ma już jak wisieć nad oknem (§2.4 rozstrzygnięty).
+> - Bęben (§1) dotyczy kroku o jedno miejsce: strzałki, przesunięcie palcem, zegar i kafel sąsiedniego slajdu. Kafel dalszego slajdu: okna od razu zajmują nowe miejsca i krótko się przenikają (220 ms, `data-far`) — lot o kilka miejsc przecinałby scenę (przegląd SWA14 #4).
+> - Numer slajdu Pulpitu to **07**: wynika z kolejności „po System dla firmy, przed Automatyzacje i AI” (§4.3), numery liczą się z pozycji.
 > - Slajdy hero i sytuacje głównej są w bazie (`software_settings.home`); na staging i produkcję trafiają migracją danych z warunkami (PR 3), nie ręcznie w panelu.
 
 ## 1. Hero: boczne okna znikają przy zmianie slajdu (P0)

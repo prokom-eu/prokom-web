@@ -17,6 +17,7 @@ import {
   RESUME_MS,
   SLIDE_MOVE_MS,
   SLIDE_MS,
+  farJump,
   jumps,
   rankOf,
   stepSlide,
@@ -304,7 +305,11 @@ export function HeroStage({
         >
           {/* The drum (SWA14 §1): the mask fades the stage's side edges, where the far windows
               wait; the inner box keeps the old frame and the perspective. */}
-          <div className="hx-deck" data-moving={moving ? '' : undefined}>
+          <div
+            className="hx-deck"
+            data-moving={moving ? '' : undefined}
+            data-far={farJump(move.from, current, count) ? '' : undefined}
+          >
             <div className="hx-deck-in">
               {windows.map((mockup, index) => {
                 const rank = rankOf(index, current, count)

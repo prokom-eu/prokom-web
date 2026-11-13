@@ -40,6 +40,20 @@ export function jumps(k: number, from: number, to: number, count: number): boole
   return FAR.has(rankOf(k, from, count)) && FAR.has(rankOf(k, to, count))
 }
 
+/** Shortest signed number of places from slide `from` to `to` around the drum. */
+export function stepDistance(from: number, to: number, count: number): number {
+  const r = (((to - from) % count) + count) % count
+  return r <= count / 2 ? r : r - count
+}
+
+/**
+ * A tile picked further than one place away (SWA14 §1, przegląd #4): flown, the windows would
+ * cross the stage and fade in sight — they swap places at once with a short cross-fade instead.
+ */
+export function farJump(from: number, to: number, count: number): boolean {
+  return Math.abs(stepDistance(from, to, count)) > 1
+}
+
 /** Next (`+1`) or previous (`-1`) slide, wrapping around. */
 export function stepSlide(current: number, step: 1 | -1, count: number): number {
   return (((current + step) % count) + count) % count

@@ -1154,6 +1154,13 @@
 .hx-win[data-jump] {
   transition: none;
 }
+.hx-deck[data-far] .hx-win {
+  /* A tile further than one place away: the windows take their places at once and cross-fade
+     (no flight across the stage, przegląd SWA14 #4). */
+  transition:
+    opacity var(--dur-hx-far) var(--ease-out),
+    visibility var(--dur-hx-far);
+}
 .hx-deck[data-moving] .hx-win:not([data-jump]) {
   will-change: transform;
 }

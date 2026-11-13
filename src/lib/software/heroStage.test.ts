@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { RESUME_MS, SLIDE_MS, jumps, rankOf, stepSlide } from './heroStage'
+import { RESUME_MS, SLIDE_MS, farJump, jumps, rankOf, stepDistance, stepSlide } from './heroStage'
 
 describe('rankOf — place of a window in the 3D carousel (ZMIANY-v24 §4.1a)', () => {
   it('puts the current slide in the middle, the next on the right, the previous on the left', () => {
@@ -59,6 +59,22 @@ describe('jumps — unseen to unseen without a flight across the stage', () => {
     expect(jumps(2, 0, 1, 8)).toBe(false)
     // Window 0: r0 → rl.
     expect(jumps(0, 0, 1, 8)).toBe(false)
+  })
+})
+
+describe('farJump — a tile further than one place away swaps at once (przegląd #4)', () => {
+  it('measures the shortest way around the drum', () => {
+    expect(stepDistance(0, 1, 8)).toBe(1)
+    expect(stepDistance(0, 7, 8)).toBe(-1)
+    expect(stepDistance(0, 4, 8)).toBe(4)
+    expect(stepDistance(6, 1, 8)).toBe(3)
+  })
+
+  it('flies one place, swaps further', () => {
+    expect(farJump(0, 1, 8)).toBe(false)
+    expect(farJump(0, 7, 8)).toBe(false)
+    expect(farJump(0, 2, 8)).toBe(true)
+    expect(farJump(3, 3, 8)).toBe(false)
   })
 })
 

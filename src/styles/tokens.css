@@ -1102,6 +1102,8 @@
      (= SLIDE_MOVE_MS in lib/software/heroStage.ts); the phone keeps move/fade above. */
   --dur-hx-slide: 700ms;
   --ease-hx-slide: cubic-bezier(0.22, 0.8, 0.2, 1);
+  /* A tile further than one slide away: the windows cross-fade in place. */
+  --dur-hx-far: 220ms;
   --dur-hx-fade: 800ms;
   --dur-hx-word: 600ms;
   --dur-hx-blink: 1s;
