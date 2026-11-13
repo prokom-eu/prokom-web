@@ -15229,6 +15229,10 @@
     {
      "k": "Gwarancja producenta",
      "v": "2 lata"
+    },
+    {
+     "k": "Wymiary",
+     "v": "ZD421t: 202 × 267 × 189 mm; ZD421d: 177,5 × 220,8 × 150,7 mm; ZD421c: 202 × 254 × 177 mm"
     }
    ],
    "warianty_opis": [
@@ -17501,6 +17505,10 @@
     {
      "k": "Waga",
      "v": "280 g (KENDO 26) / 300 g (JUDO 26)"
+    },
+    {
+     "k": "Typ",
+     "v": "ręczna metkownica: jednorzędowa (KENDO 26) / dwurzędowa (JUDO 26)"
     }
    ],
    "warianty_opis": [
@@ -17710,6 +17718,10 @@
     {
      "k": "Gwarancja producenta",
      "v": "2 lata"
+    },
+    {
+     "k": "Waga",
+     "v": "1,1 kg (jedna wartość w karcie Zebra)"
     }
    ],
    "warianty_opis": [
@@ -17936,6 +17948,10 @@
     {
      "k": "Wymiary / waga",
      "v": "202 × 199 × 87 mm, 1,0 kg"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "180 dpi"
     }
    ],
    "faq": [
@@ -18059,7 +18075,7 @@
     },
     {
      "k": "Maks. szerokość druku",
-     "v": "104 mm"
+     "v": "104 mm (TD-4420DN) / 108 mm (TD-4520DN)"
     },
     {
      "k": "Prędkość druku",
@@ -18067,7 +18083,7 @@
     },
     {
      "k": "Rozdzielczość",
-     "v": "203 dpi"
+     "v": "203 dpi (TD-4420DN) / 300 dpi (TD-4520DN)"
     },
     {
      "k": "Łączność",
@@ -18096,6 +18112,10 @@
     {
      "k": "Waga",
      "v": "2,08 kg"
+    },
+    {
+     "k": "Wymiary",
+     "v": "180 × 155 × 224 mm"
     }
    ],
    "warianty_opis": [
@@ -20223,6 +20243,10 @@
     {
      "k": "Montaż",
      "v": "wewnątrz budynku (zalecany); na zewnątrz tylko w pełnej obudowie"
+    },
+    {
+     "k": "Wymiary",
+     "v": "jednostka sterująca 1940 × 400 × 320 mm; szafa z boxami 1940 × 1080 × 320 mm (20 boxów: gł. 470 mm); automat z windą 1945 × 1294 × 870 mm (wys. × szer. × gł.)"
     }
    ],
    "faq": [
@@ -20376,6 +20400,10 @@
     {
      "k": "Montaż",
      "v": "wewnątrz budynku"
+    },
+    {
+     "k": "Płatności",
+     "v": "gotówka, karta, BLIK (terminal w jednostce centralnej)"
     }
    ],
    "faq": [
@@ -21561,6 +21589,10 @@
     {
      "k": "Montaż",
      "v": "wewnątrz budynku (zalecany)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "automat z windą 1945 × 1294 × 870 mm; szafka z boxami 1940 × 1080 × 320 mm (wys. × szer. × gł.)"
     }
    ],
    "faq": [
@@ -21705,6 +21737,10 @@
     {
      "k": "Montaż",
      "v": "wewnątrz budynku lub w osłoniętym miejscu — ustalamy po oględzinach"
+    },
+    {
+     "k": "Wymiary",
+     "v": "zależne od zestawu; przykładowy pawilon na 4–6 maszyn: zewn. 6000 × 3000 × 2600 mm, wewn. 5800 × 2800 × 2400 mm (dł. × szer. × wys.)"
     }
    ],
    "faq": [
@@ -21861,6 +21897,10 @@
     {
      "k": "Montaż",
      "v": "wewnątrz budynku"
+    },
+    {
+     "k": "Wymiary",
+     "v": "Obiadomat I: 1960 × 1240 × 1020 mm; Obiadomat II: 1940 × 1839 × 991 mm (wys. × szer. × gł.)"
     }
    ],
    "warianty_opis": [
@@ -22688,6 +22728,18 @@
     {
      "k": "Sterowanie",
      "v": "jednostka z ekranem dotykowym"
+    },
+    {
+     "k": "Płatności",
+     "v": "gotówka (monety, banknoty), karta, BLIK"
+    },
+    {
+     "k": "Zasilanie",
+     "v": "AC 110 V / 220–240 V, 50/60 Hz; uziemione gniazdo 230 V i stały internet (SIM, Wi-Fi lub LAN)"
+    },
+    {
+     "k": "Montaż",
+     "v": "wewnątrz budynku, na stabilnym podłożu; min. 10 cm wolnego miejsca z tyłu i po bokach, ok. 1 m z przodu; po przestawieniu 4–5 h przerwy przed włączeniem"
     }
    ],
    "faq": [
@@ -23005,6 +23057,10 @@
     {
      "k": "Montaż",
      "v": "wewnątrz budynku"
+    },
+    {
+     "k": "Wymiary",
+     "v": "jednostka sterująca 1940 × 400 × 320 mm; szafa (80 skrytek) 1940 × 1300 × 320 mm (wys. × szer. × gł.)"
     }
    ],
    "faq": [
@@ -23317,6 +23373,10 @@
     {
      "k": "Montaż",
      "v": "zewnętrzny (z dachem)"
+    },
+    {
+     "k": "Zasilanie",
+     "v": "AC 100–240 V, 50/60 Hz"
     }
    ],
    "faq": [
@@ -23629,6 +23689,10 @@
     {
      "k": "Zasilacz",
      "v": "USB-C 65 W"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub bez systemu (zależnie od konfiguracji; wszystkie wersje G8 i G9)"
     }
    ],
    "warianty_opis": [
@@ -24241,6 +24305,18 @@
     {
      "k": "Kolory",
      "v": "błękit nieba, srebrny, księżycowa poświata, północ"
+    },
+    {
+     "k": "Procesor",
+     "v": "Apple M5: 10 rdzeni CPU (4 super rdzenie, 6 energooszczędnych), GPU 8 lub 10 rdzeni (15\": 10), 16-rdzeniowy Neural Engine"
+    },
+    {
+     "k": "System",
+     "v": "macOS"
+    },
+    {
+     "k": "Wymiary",
+     "v": "13\": 1,13 × 30,41 × 21,5 cm, 1,23 kg; 15\": 1,15 × 34,04 × 23,76 cm, 1,51 kg"
     }
    ],
    "warianty_opis": [
@@ -24838,6 +24914,10 @@
     {
      "k": "Bezpieczeństwo",
      "v": "układ TPM 2.0 (FIPS 140-3), czytnik linii papilarnych w przycisku zasilania (opcja), kamera IR do Windows Hello (opcja), zasłonka kamery, gniazdo linki Kensington Nano"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home, Ubuntu Linux (wersje Intel także Fedora Linux) lub bez systemu (zależnie od konfiguracji)"
     }
    ],
    "warianty_opis": [
@@ -25467,6 +25547,10 @@
     {
      "k": "Klawiatura",
      "v": "z blokiem numerycznym, odporna na zalanie, klawisz Copilot"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub bez systemu (zależnie od konfiguracji; wszystkie wersje G8 i G9)"
     }
    ],
    "warianty_opis": [
@@ -26082,6 +26166,10 @@
     {
      "k": "Bezpieczeństwo",
      "v": "układ TPM 2.0, czytnik linii papilarnych w przycisku zasilania (opcja), czytnik kart inteligentnych (opcja), wykrywanie obecności użytkownika (opcja), zasłonka kamery, gniazdo linki Kensington Nano"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home, Ubuntu Linux i inne dystrybucje Linux (AMD także Fedora Linux) lub bez systemu (zależnie od konfiguracji)"
     }
    ],
    "warianty_opis": [
@@ -28983,6 +29071,10 @@
     {
      "k": "Zasilanie",
      "v": "przez USB-C (Power Delivery 65–100 W)"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub bez systemu (zależnie od konfiguracji; Gen 10 i Gen 11)"
     }
    ],
    "warianty_opis": [
@@ -29270,6 +29362,10 @@
     {
      "k": "Obudowa / normy",
      "v": "aluminium; test wytrzymałości MIL-STD-810H (21 testów)"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub bez systemu (zależnie od konfiguracji; Gen 10 i Gen 11)"
     }
    ],
    "warianty_opis": [
@@ -29589,6 +29685,10 @@
     {
      "k": "Rysik",
      "v": "brak obsługi rysika"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub bez systemu (zależnie od konfiguracji)"
     }
    ],
    "warianty_opis": [
@@ -29865,6 +29965,10 @@
     {
      "k": "Obudowa / normy",
      "v": "aluminium, kolor Cosmic Blue; test MIL-STD-810H (21 testów)"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Home lub Windows 11 Pro (zależnie od konfiguracji)"
     }
    ],
    "warianty_opis": [
@@ -30937,6 +31041,10 @@
     {
      "k": "Bezpieczeństwo",
      "v": "TPM 2.0 (FIPS), czytnik linii papilarnych w przycisku zasilania, ControlVault 3 Plus, opcjonalne karty inteligentne stykowe i zbliżeniowe/NFC, dyski SED, gniazdo linki zabezpieczającej"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub Ubuntu Linux 24.04 LTS (14S PW514260 także Red Hat Enterprise Linux 10.3) — zależnie od konfiguracji"
     }
    ],
    "warianty_opis": [
@@ -31121,6 +31229,11 @@
     },
     {
      "url": "https://www.dell.com/en-us/shop/p/spd/dellproprecision514spw514260",
+     "etykieta": "Strona producenta — Dell",
+     "host": "dell.com"
+    },
+    {
+     "url": "https://www.dell.com/support/manuals/pl-pl/dell-pro-precision-pw514261-laptop/dell-pro-precision-5-14-pw514261-ss/operating-system?guid=guid-732af25c-0139-4841-92cb-83a0c343605a&lang=en-us",
      "etykieta": "Strona producenta — Dell",
      "host": "dell.com"
     }
@@ -31738,6 +31851,10 @@
     {
      "k": "Zasilacz",
      "v": "USB-C 65 W (X9 14 / X9 15) lub 100 W (X9 15p)"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home, Ubuntu Linux i inne dystrybucje Linux lub bez systemu (zależnie od konfiguracji; X9 14, X9 15 i X9 15p)"
     }
    ],
    "warianty_opis": [
@@ -32041,6 +32158,10 @@
     {
      "k": "Zasilacz",
      "v": "USB-C 140 W (GaN, PD 3.1)"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home, Ubuntu Linux LTS, Fedora Linux; certyfikacja Red Hat Enterprise Linux (zależnie od konfiguracji)"
     }
    ],
    "warianty_opis": [
@@ -32334,6 +32455,10 @@
     {
      "k": "Zasilacz",
      "v": "USB-C 65 W"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home, Ubuntu Linux i inne dystrybucje Linux lub bez systemu (zależnie od konfiguracji)"
     }
    ],
    "warianty_opis": [
@@ -35220,6 +35345,14 @@
     {
      "k": "Kolory",
      "v": "gwiezdna czerń, srebrny"
+    },
+    {
+     "k": "System",
+     "v": "macOS"
+    },
+    {
+     "k": "Wymiary",
+     "v": "14\": 1,55 × 31,26 × 22,12 cm, 1,60 kg (M5 Pro) / 1,62 kg (M5 Max); 16\": 1,68 × 35,57 × 24,81 cm, 2,14 kg (M5 Pro) / 2,15 kg (M5 Max)"
     }
    ],
    "warianty_opis": [
@@ -36149,6 +36282,10 @@
     {
      "k": "Gwarancja",
      "v": "w typowych konfiguracjach: 3 lata ProSupport Next Business Day (gwarancja producenta)"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub Ubuntu Linux 24.04 LTS (zależnie od konfiguracji)"
     }
    ],
    "warianty_opis": [
@@ -36331,6 +36468,11 @@
      "url": "https://www.dell.com/en-us/shop/desktop-computers/dell-pro-tower-desktop/spd/dell-pro-qct1250-desktop/gcto_qct1250_usx",
      "etykieta": "Strona producenta — Dell",
      "host": "dell.com"
+    },
+    {
+     "url": "https://www.dell.com/support/manuals/pl-pl/dell-pro-qct1250-desktop/dell-pro-tower-qct1250-owners-manual/operating-system?guid=guid-7b81d002-0a69-4d28-9c38-bbcdf7051010&lang=en-us",
+     "etykieta": "Strona producenta — Dell",
+     "host": "dell.com"
     }
    ],
    "wyrozniki": [
@@ -36432,6 +36574,10 @@
     {
      "k": "Gwarancja",
      "v": "w typowych konfiguracjach: 3 lata ProSupport Next Business Day (gwarancja producenta)"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub Ubuntu Linux 24.04 LTS; QC24251 także Windows 11 IoT Enterprise LTSC 2024 i Dell ThinOS 10 (zależnie od konfiguracji)"
     }
    ],
    "warianty_opis": [
@@ -36587,6 +36733,11 @@
      "url": "https://www.dell.com/support/manuals/en-ie/dell-pro-qc24250-aio/dell-pro-24-aio-low65-qc24250-owners-manual/?lang=en-us",
      "etykieta": "Dokumentacja producenta — Dell",
      "host": "dell.com"
+    },
+    {
+     "url": "https://www.dell.com/support/manuals/pl-pl/dell-pro-qc24251-aio/dell-pro-24-aio-low35-qc24251-owners-manual/operating-system?guid=guid-7b81d002-0a69-4d28-9c38-bbcdf7051010&lang=en-us",
+     "etykieta": "Strona producenta — Dell",
+     "host": "dell.com"
     }
    ],
    "wyrozniki": [
@@ -36683,6 +36834,18 @@
     {
      "k": "Masa",
      "v": "0,67 kg (M6) / 0,73 kg (M5 Pro)"
+    },
+    {
+     "k": "Procesor",
+     "v": "Apple M6 (12 rdzeni CPU, 12 rdzeni GPU, podwójny 16-rdzeniowy Neural Engine) lub Apple M5 Pro (15 rdzeni CPU / 16 GPU, opcja 18 CPU / 20 GPU, 16-rdzeniowy Neural Engine)"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "zasilanie sieciowe 100–240 V AC (w zestawie przewód zasilający, bez zewnętrznego zasilacza); maks. ciągły pobór mocy 155 W"
+    },
+    {
+     "k": "System",
+     "v": "macOS"
     }
    ],
    "warianty_opis": [
@@ -37850,6 +38013,10 @@
     {
      "k": "Gwarancja",
      "v": "w typowych konfiguracjach: 3 lata ProSupport Next Business Day (gwarancja producenta)"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub Ubuntu Linux 24.04 LTS (zależnie od konfiguracji)"
     }
    ],
    "warianty_opis": [
@@ -37996,6 +38163,11 @@
      "url": "https://www.dell.com/support/manuals/en-ie/dell-pro-qvs1260-slim-desktop/dell-pro-slim-essential-qvs1260-om/?lang=en-us",
      "etykieta": "Dokumentacja producenta — Dell",
      "host": "dell.com"
+    },
+    {
+     "url": "https://www.dell.com/support/manuals/pl-pl/dell-pro-qvt1260-desktop/dell-pro-tower-essential-qvt1260-om/operating-system?guid=guid-7b81d002-0a69-4d28-9c38-bbcdf7051010&lang=en-us",
+     "etykieta": "Strona producenta — Dell",
+     "host": "dell.com"
     }
    ],
    "wyrozniki": [
@@ -38088,6 +38260,10 @@
     {
      "k": "Gwarancja",
      "v": "w typowych konfiguracjach: 3 lata ProSupport Next Business Day (gwarancja producenta)"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub Ubuntu Linux 24.04 LTS (zależnie od konfiguracji)"
     }
    ],
    "warianty_opis": [
@@ -38221,6 +38397,11 @@
     {
      "url": "https://www.dell.com/support/manuals/en-ie/dell-pro-qcm1250-micro/dell_pro_micro_qcm1250_om/?lang=en-us",
      "etykieta": "Dokumentacja producenta — Dell",
+     "host": "dell.com"
+    },
+    {
+     "url": "https://www.dell.com/support/manuals/pl-pl/dell-pro-qcm1250-micro/dell_pro_micro_qcm1250_om/operating-system?guid=guid-7b81d002-0a69-4d28-9c38-bbcdf7051010&lang=en-us",
+     "etykieta": "Strona producenta — Dell",
      "host": "dell.com"
     }
    ],
@@ -38978,6 +39159,10 @@
     {
      "k": "Bezpieczeństwo",
      "v": "osobny układ TPM 2.0, gniazdo Kensington, opcjonalny czujnik otwarcia obudowy, hasła BIOS, blokowanie pojedynczych portów USB"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub bez systemu (zależnie od konfiguracji; M70a i M90a)"
     }
    ],
    "warianty_opis": [
@@ -39264,6 +39449,10 @@
     {
      "k": "System",
      "v": "do wyboru: Windows 11 Pro, Windows 11 Pro for Workstations"
+    },
+    {
+     "k": "Łączność",
+     "v": "Gigabit Ethernet (Intel I219-LM, RJ-45, Wake-on-LAN); opcjonalnie Wi-Fi 7 (Intel BE200) + Bluetooth 5.4 lub bez Wi-Fi; dodatkowe karty sieciowe: P3 Tiny do 2× 2,5 GbE, P3 Ultra SFF do 10 GbE / 25 GbE (SFP28)"
     }
    ],
    "warianty_opis": [
@@ -40315,6 +40504,18 @@
     {
      "k": "Masa",
      "v": "2,7 kg (M5 Max) / 3,6 kg (M5 Ultra)"
+    },
+    {
+     "k": "Procesor",
+     "v": "Apple M5 Max (18 rdzeni CPU, GPU 32 lub 40 rdzeni, 16-rdzeniowy Neural Engine) lub Apple M5 Ultra (CPU 30 lub 36 rdzeni, GPU 64 lub 80 rdzeni, 32-rdzeniowy Neural Engine)"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "zasilanie sieciowe 100–240 V AC (w zestawie przewód zasilający, bez zewnętrznego zasilacza); maks. ciągły pobór mocy 480 W"
+    },
+    {
+     "k": "System",
+     "v": "macOS"
     }
    ],
    "warianty_opis": [
@@ -41399,6 +41600,10 @@
     {
      "k": "Gwarancja producenta",
      "v": "3 lata, Advanced Exchange Service"
+    },
+    {
+     "k": "Montaż VESA",
+     "v": "100 × 100 mm VESA (wszystkie modele)"
     }
    ],
    "warianty_opis": [
@@ -41958,6 +42163,10 @@
     {
      "k": "Gwarancja producenta",
      "v": "3 lata"
+    },
+    {
+     "k": "Montaż VESA",
+     "v": "100 × 100 mm (P32UD-40, P34WD-40, P40WD-40, P32p-30, P32pz-30); P49w-30: 100 × 100 mm i 200 × 100 mm"
     }
    ],
    "warianty_opis": [
@@ -42509,6 +42718,10 @@
     {
      "k": "Gwarancja producenta",
      "v": "3 lata (U2725QE, U3225QE, U3425WE — z Advanced Exchange)"
+    },
+    {
+     "k": "Montaż VESA",
+     "v": "100 × 100 mm VESA (wszystkie modele)"
     }
    ],
    "warianty_opis": [
@@ -42785,6 +42998,14 @@
     {
      "k": "Gwarancja producenta",
      "v": "3 lata, Advanced Exchange Service (seria P także Premium Panel Exchange)"
+    },
+    {
+     "k": "Odświeżanie",
+     "v": "120 Hz (P2426HEB, P2426HEV, E2426HB); 100 Hz (P2726DEB, P2726DEV, P3426WEB)"
+    },
+    {
+     "k": "Montaż VESA",
+     "v": "100 × 100 mm VESA (wszystkie modele)"
     }
    ],
    "warianty_opis": [
@@ -43471,6 +43692,22 @@
     {
      "k": "Zgodność",
      "v": "Mac z chipem Apple i macOS 26.3.1 lub nowszym, wybrane iPady"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "5120 × 2880 (5K), 218 ppi"
+    },
+    {
+     "k": "Jasność",
+     "v": "600 nitów"
+    },
+    {
+     "k": "Odświeżanie",
+     "v": "60 Hz"
+    },
+    {
+     "k": "Regulacja",
+     "v": "stopka standardowa: nachylenie od −5° do +25° (bez regulacji wysokości); opcjonalnie stopka z regulacją nachylenia i wysokości (zakres 105 mm)"
     }
    ],
    "warianty_opis": [
@@ -43706,6 +43943,22 @@
     {
      "k": "Zgodność",
      "v": "Mac z M4 i nowszym — do 120 Hz; Mac z M1–M3 — do 60 Hz; iPad Pro (M5) — do 120 Hz"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "5120 × 2880 (5K), 218 ppi"
+    },
+    {
+     "k": "Matryca",
+     "v": "Retina XDR 5K, podświetlenie mini-LED z 2304 strefami miejscowego przyciemniania"
+    },
+    {
+     "k": "Odświeżanie",
+     "v": "do 120 Hz, synchronizacja adaptacyjna"
+    },
+    {
+     "k": "Regulacja",
+     "v": "nachylenie od −5° do +25°, regulacja wysokości (zakres 105 mm); opcjonalnie uchwyt VESA"
     }
    ],
    "warianty_opis": [
@@ -47454,6 +47707,10 @@
     {
      "k": "Mysz M100 — ślad węglowy",
      "v": "1,73 kg CO2e (wg producenta), z udziałem plastiku z recyklingu"
+    },
+    {
+     "k": "Gwarancja",
+     "v": "3 lata na klawiaturę i mysz (ograniczona gwarancja na sprzęt)"
     }
    ],
    "warianty_opis": [
@@ -47623,6 +47880,14 @@
     {
      "k": "Ślad węglowy",
      "v": "7,8 kg CO2e (wg producenta)"
+    },
+    {
+     "k": "Kompatybilność",
+     "v": "Windows 10, 11 lub nowszy, ChromeOS; wymagany wolny port USB"
+    },
+    {
+     "k": "Gwarancja",
+     "v": "2 lata (ograniczona gwarancja na sprzęt)"
     }
    ],
    "faq": [
@@ -48149,6 +48414,10 @@
     {
      "k": "Gwarancja",
      "v": "3 lata (ograniczona gwarancja na sprzęt)"
+    },
+    {
+     "k": "Kompatybilność",
+     "v": "Windows 8 lub nowszy, macOS 10.7 lub nowszy, ChromeOS; port USB-A; zgodność z Microsoft DirectShow"
     }
    ],
    "faq": [
@@ -48475,6 +48744,10 @@
     {
      "k": "Gwarancja",
      "v": "2 lata (ograniczona gwarancja na sprzęt)"
+    },
+    {
+     "k": "Kompatybilność",
+     "v": "Bluetooth: Windows, macOS, ChromeOS, Android, iOS, iPadOS; odbiornik USB-C (z adapterem USB-A): Windows, macOS, ChromeOS"
     }
    ],
    "warianty_opis": [
@@ -49261,6 +49534,10 @@
     {
      "k": "Gwarancja producenta",
      "v": "3 lata, z możliwością przedłużenia do 5 lat (płatne Extended Warranty Plus)"
+    },
+    {
+     "k": "Obudowa / montaż",
+     "v": "wolnostojąca (seria DS — w kategorii Synology „Tower”), bez montażu w szafie; wys. × szer. × gł.: DS225+ 165 × 108 × 232,2 mm, 1,3 kg; DS725+ 166 × 106 × 223 mm, 1,51 kg; DS425+ 166 × 199 × 223 mm, 2,18 kg; DS925+ 166 × 199 × 223 mm, 2,26 kg"
     }
    ],
    "warianty_opis": [
@@ -50272,6 +50549,10 @@
     {
      "k": "System",
      "v": "QTS"
+    },
+    {
+     "k": "Obudowa / montaż",
+     "v": "tower (wolnostojąca)"
     }
    ],
    "warianty_opis": [
@@ -50368,6 +50649,11 @@
      "url": "https://www.qnap.com/en/product/ts-262a",
      "etykieta": "Strona producenta — QNAP",
      "host": "qnap.com/en/product/ts-262a"
+    },
+    {
+     "url": "https://www.qnap.com/en/product/ts-462a/specs/hardware",
+     "etykieta": "Strona producenta — QNAP",
+     "host": "qnap.com"
     }
    ],
    "wyrozniki": [
@@ -52851,6 +53137,10 @@
     {
      "k": "Gwarancja producenta",
      "v": "2 lata, z możliwością przedłużenia do 4 lat (płatne)"
+    },
+    {
+     "k": "Obudowa / montaż",
+     "v": "wolnostojąca (seria DS — w kategorii Synology „Tower”), bez montażu w szafie; wys. × szer. × gł.: DS124 166 × 71 × 224 mm, 0,7 kg; DS223j 165 × 100 × 225,5 mm, 0,88 kg; DS223 165 × 108 × 232,7 mm, 1,28 kg; DS423 184 × 168 × 230 mm, 2,21 kg"
     }
    ],
    "warianty_opis": [
@@ -54643,6 +54933,10 @@
     {
      "k": "System",
      "v": "QTS lub QuTS hero"
+    },
+    {
+     "k": "Obudowa / montaż",
+     "v": "tower (wolnostojąca); 225 × 292,9 × 319,8 mm (wys. × szer. × gł., bez nóżek), 10,04 kg"
     }
    ],
    "faq": [
@@ -54697,6 +54991,11 @@
      "url": "https://www.qnap.com/en/product/ts-855x",
      "etykieta": "Strona producenta — QNAP",
      "host": "qnap.com/en/product/ts-855x"
+    },
+    {
+     "url": "https://www.qnap.com/en/product/ts-855x/specs/hardware",
+     "etykieta": "Strona producenta — QNAP",
+     "host": "qnap.com"
     }
    ],
    "wyrozniki": [
@@ -57358,6 +57657,10 @@
     {
      "k": "Opcje",
      "v": "czujnik NetFeeler (temperatura, wilgotność, zalanie), modem GPRS, karta Wi-Fi"
+    },
+    {
+     "k": "Obudowa / montaż",
+     "v": "karty wewnętrzne do slotu UPS (NetAgentA DA806/DA807, NetAgent9 CY504, USHA Smart II) — zasilane z UPS, bez miejsca w szafie; adaptery zewnętrzne (BA505 przez port RS-232, WiseWay, WiseWay Mini) — osobny montaż i podłączenie"
     }
    ],
    "faq": [
@@ -57725,6 +58028,14 @@
     {
      "k": "Wymiary / waga",
      "v": "410 × 421 × 319 mm, 11,8 kg"
+    },
+    {
+     "k": "Obciążenie miesięczne",
+     "v": "maks. do 35 000 str./mies."
+    },
+    {
+     "k": "Pamięć",
+     "v": "256 MB"
     }
    ],
    "warianty_opis": [
@@ -57895,6 +58206,14 @@
     {
      "k": "Wymiary / waga",
      "v": "418 × 398 × 313 mm, 10,5 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (w standardzie)"
+    },
+    {
+     "k": "Pamięć",
+     "v": "512 MB (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -58073,6 +58392,10 @@
     {
      "k": "Wymiary / waga",
      "v": "410 × 462 × 401 mm, 21,9 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (w standardzie, oba modele)"
     }
    ],
    "warianty_opis": [
@@ -58140,6 +58463,11 @@
     {
      "url": "https://www.brother.eu/-/media/product-downloads/devices/printers/mfc/mfcl8390cdw/pl/karta-produktu-mfc-l8390cdw",
      "etykieta": "Karta katalogowa (PDF) — Brother",
+     "host": "brother.eu"
+    },
+    {
+     "url": "https://www.brother.eu/-/media/product-downloads/devices/printers/mfc/mfcl8340cdw/pl/karta-produktu-mfc-l8340cdw",
+     "etykieta": "Strona producenta — Brother",
      "host": "brother.eu"
     }
    ],
@@ -58247,6 +58575,14 @@
     {
      "k": "Wymiary / waga",
      "v": "417 x 412 x 437 mm; ok. 19 kg"
+    },
+    {
+     "k": "Obciążenie miesięczne",
+     "v": "zalecane śr. 2 000, maks. 80 000 str./mies. (wszystkie modele)"
+    },
+    {
+     "k": "Pamięć",
+     "v": "1 GB (MA4000x, MA4000fx) / 2 GB (MA4000wifx)"
     }
    ],
    "warianty_opis": [
@@ -58333,6 +58669,16 @@
      "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSMA4000X.html",
      "etykieta": "Strona producenta — Kyocera",
      "host": "kyoceradocumentsolutions.eu"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/datasheet_ecosys_ma4000x-v3.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/datasheet_ecosys_ma4000wifx-v3.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -58436,6 +58782,10 @@
     {
      "k": "Wymiary / waga",
      "v": "420 x 528 x 572 mm / ok. 38,4 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "4 096 MB RAM; dysk systemowy 16 GB"
     }
    ],
    "faq": [
@@ -58812,6 +59162,10 @@
     {
      "k": "Wymiary / waga",
      "v": "417 × 461 × 448 mm, 16,6 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (w standardzie, oba modele)"
     }
    ],
    "warianty_opis": [
@@ -58879,6 +59233,11 @@
     {
      "url": "https://www.brother.eu/-/media/Product-Downloads/Devices/Printers/MFC/MFCL5710DW/pl/Karta-produktu-MFC-L5710DW.ashx",
      "etykieta": "Karta katalogowa (PDF) — Brother",
+     "host": "brother.eu"
+    },
+    {
+     "url": "https://www.brother.eu/-/media/Product-Downloads/Devices/Printers/MFC/MFCL5710DN/pl/Karta-produktu-MFC-L5710DN.ashx",
+     "etykieta": "Strona producenta — Brother",
      "host": "brother.eu"
     }
    ],
@@ -58987,6 +59346,18 @@
     {
      "k": "Wymiary / waga",
      "v": "421 × 427 × 384 mm, ok. 20,4 kg"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "600 × 600 dpi (w czerni ulepszona do 38 400 × 600 dpi)"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (wszystkie modele)"
+    },
+    {
+     "k": "Pamięć",
+     "v": "512 MB DRAM + 512 MB NAND Flash (wszystkie modele)"
     }
    ],
    "warianty_opis": [
@@ -59169,6 +59540,14 @@
     {
      "k": "Wymiary / waga",
      "v": "576 × 510,6 × 375 mm, 23,5 kg"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "do 1200 × 4800 dpi"
+    },
+    {
+     "k": "Panel",
+     "v": "kolorowy ekran dotykowy LCD 8,8 cm (3,5\")"
     }
    ],
    "warianty_opis": [
@@ -59337,6 +59716,14 @@
     {
      "k": "Wymiary / waga",
      "v": "299,5 × 190,5 × 215,9 mm, 2,75 kg"
+    },
+    {
+     "k": "Papier",
+     "v": "40–200 g/m², grubość 0,08–0,28 mm (ADS-4700W); szer. 50,8–215,9 mm, dł. 50,8–355,6 mm, długi dokument do 5000 mm"
+    },
+    {
+     "k": "Obciążenie miesięczne",
+     "v": "maks. 120 000 ark./mies. (6 000 ark./dzień), oba modele"
     }
    ],
    "warianty_opis": [
@@ -59409,6 +59796,11 @@
     {
      "url": "https://www.brother.eu/-/media/product-downloads/devices/scanners/ads/ads4700w/pl/karta-produktu-ads-4700w_new",
      "etykieta": "Karta katalogowa (PDF) — Brother",
+     "host": "brother.eu"
+    },
+    {
+     "url": "https://www.brother.eu/-/media/product-downloads/devices/scanners/ads/ads4300n/pl/karta-produktu-ads-4300n_new",
+     "etykieta": "Strona producenta — Brother",
      "host": "brother.eu"
     }
    ],
@@ -59517,6 +59909,10 @@
     {
      "k": "Wymiary / waga",
      "v": "410 × 399 × 319 mm, 11,4 kg"
+    },
+    {
+     "k": "Panel",
+     "v": "2-wierszowy wyświetlacz LCD i przyciski (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -59585,6 +59981,11 @@
      "url": "https://www.brother.eu/-/media/product-downloads/devices/printers/dcp/dcpl2640dn/pl/karta-produktu-dcp-l2640dn.pdf?rev=d688e242a6d5428eb4f672c18b857ff4&hash=D852DBBDFC18093ECD0CB1F0AD2C2106910EE73A",
      "etykieta": "Karta katalogowa (PDF) — Brother",
      "host": "brother.eu"
+    },
+    {
+     "url": "https://www.brother.eu/-/media/product-downloads/devices/printers/dcp/dcpl2622dw/pl/karta-produktu-dcp-l2622dw.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Brother",
+     "host": "brother.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -59693,6 +60094,10 @@
     {
      "k": "Wymiary / waga",
      "v": "410 × 399 × 319 mm, 11,6 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "128 MB (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -59769,6 +60174,11 @@
      "url": "https://brothersklep.pl/p/10423/Urzadzenie-wielofunkcyjne-Brother-MFC-L2802DW",
      "etykieta": "Sklep producenta — Brother MFC-L2802DW",
      "host": "brothersklep.pl"
+    },
+    {
+     "url": "https://www.brother.eu/-/media/product-downloads/devices/printers/mfc/mfcl2802dn/pl/karta-produktu-mfc-l2802dn.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Brother",
+     "host": "brother.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -59877,6 +60287,10 @@
     {
      "k": "Wymiary / waga",
      "v": "410 × 399 × 319 mm, 12 kg"
+    },
+    {
+     "k": "Panel",
+     "v": "2-wierszowy wyświetlacz LCD i przyciski"
     }
    ],
    "faq": [
@@ -60049,6 +60463,10 @@
     {
      "k": "Wymiary / waga",
      "v": "417 × 461 × 448 mm, 16,9 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (w standardzie)"
     }
    ],
    "faq": [
@@ -60212,6 +60630,10 @@
     {
      "k": "Wymiary / waga",
      "v": "495 × 473 × 518 mm, 17,3 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (w standardzie, oba modele)"
     }
    ],
    "warianty_opis": [
@@ -60382,6 +60804,10 @@
     {
      "k": "Wymiary / waga",
      "v": "373 × 388 × 257 mm, 11,2 kg"
+    },
+    {
+     "k": "Panel",
+     "v": "1-wierszowy wyświetlacz LCD i przyciski (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -60448,6 +60874,11 @@
     {
      "url": "https://www.brother.eu/-/media/Product-Downloads/Devices/Printers/HL/HLL5210DN/pl/Karta-produktu-HL-L5210DN.ashx",
      "etykieta": "Karta katalogowa (PDF) — Brother",
+     "host": "brother.eu"
+    },
+    {
+     "url": "https://www.brother.eu/-/media/Product-Downloads/Devices/Printers/HL/HLL5210DW/pl/Karta-produktu-HL-L5210DW.ashx",
+     "etykieta": "Strona producenta — Brother",
      "host": "brother.eu"
     }
    ],
@@ -60740,6 +61171,10 @@
     {
      "k": "Wymiary / waga",
      "v": "367 × 398 × 216 mm, 7,5 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "256 MB (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -61094,6 +61529,14 @@
     {
      "k": "Wymiary / waga",
      "v": "420 × 386 × 307 mm, ok. 12,2 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (w standardzie, wszystkie modele)"
+    },
+    {
+     "k": "Pamięć",
+     "v": "512 MB (wszystkie modele)"
     }
    ],
    "warianty_opis": [
@@ -61276,6 +61719,10 @@
     {
      "k": "Wymiary / waga",
      "v": "399 × 399 × 239 mm, 14,7 kg"
+    },
+    {
+     "k": "Panel",
+     "v": "1-wierszowy wyświetlacz LCD i przyciski"
     }
    ],
    "faq": [
@@ -61327,6 +61774,11 @@
      "url": "https://store.brother.pl/devices/laser/hl/hll3220cw",
      "etykieta": "Strona producenta — Brother",
      "host": "store.brother.pl"
+    },
+    {
+     "url": "https://www.brother.eu/-/media/product-downloads/devices/printers/hl/hll3220cw/pl/karta-produktu-hl-l3220cw.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Brother",
+     "host": "brother.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -61430,6 +61882,10 @@
     {
      "k": "Wymiary / waga",
      "v": "404 × 473 × 338 mm, 21 kg"
+    },
+    {
+     "k": "Obciążenie miesięczne",
+     "v": "maks. do 60 000 str./mies. (HL-L8430CDW) / do 80 000 str./mies. (HL-L8570CDW)"
     }
    ],
    "warianty_opis": [
@@ -61497,6 +61953,11 @@
     {
      "url": "https://www.brother.eu/-/media/pdf/cee/pl/datasheets/fc/karta-produktu-hl-l8430cdw",
      "etykieta": "Karta katalogowa (PDF) — Brother",
+     "host": "brother.eu"
+    },
+    {
+     "url": "https://www.brother.eu/-/media/pdf/cee/pl/datasheets/fc/karta-produktu-hl-l8570cdw",
+     "etykieta": "Strona producenta — Brother",
      "host": "brother.eu"
     }
    ],
@@ -61601,6 +62062,10 @@
     {
      "k": "Wymiary / waga",
      "v": "442 × 541 × 403 mm, 29 kg"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "600 × 600 dpi (jakość 2400 dpi: 2400 × 600 dpi), oba modele"
     }
    ],
    "warianty_opis": [
@@ -61780,6 +62245,10 @@
     {
      "k": "Wymiary / waga",
      "v": "410 × 444 × 401 mm, 20 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "512 MB (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -61843,6 +62312,11 @@
      "url": "https://store.brother.pl/devices/laser/dcp/dcpl3560cdw",
      "etykieta": "Strona producenta — Brother",
      "host": "store.brother.pl"
+    },
+    {
+     "url": "https://www.brother.eu/-/media/product-downloads/devices/printers/dcp/dcpl3560cdw/pl/karta-produktu-dcp-l3560cdw.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Brother",
+     "host": "brother.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -61950,6 +62424,14 @@
     {
      "k": "Wymiary / waga",
      "v": "404 × 473 × 460 mm, 25,6 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (w standardzie, oba modele)"
+    },
+    {
+     "k": "Obciążenie miesięczne",
+     "v": "maks. do 60 000 str./mies. (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -62017,6 +62499,11 @@
     {
      "url": "https://www.brother.eu/-/media/pdf/cee/pl/datasheets/fc/karta-produktu-mfc-l8730cdw",
      "etykieta": "Karta katalogowa (PDF) — Brother",
+     "host": "brother.eu"
+    },
+    {
+     "url": "https://www.brother.eu/-/media/pdf/cee/pl/datasheets/fc/karta-produktu-dcp-l8630cdw",
+     "etykieta": "Strona producenta — Brother",
      "host": "brother.eu"
     }
    ],
@@ -62125,6 +62612,14 @@
     {
      "k": "Wymiary / waga",
      "v": "454 × 505 × 460 mm, 26,7 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (w standardzie)"
+    },
+    {
+     "k": "Obciążenie miesięczne",
+     "v": "maks. do 80 000 str./mies."
     }
    ],
    "faq": [
@@ -62288,6 +62783,14 @@
     {
      "k": "Wymiary / waga",
      "v": "503 × 541 × 586 mm, 36,5 kg"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "600 × 600 dpi (jakość 2400 dpi: 2400 × 600 dpi)"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (w standardzie)"
     }
    ],
    "faq": [
@@ -62447,6 +62950,10 @@
     {
      "k": "Wymiary / waga",
      "v": "390 × 419 × 254 mm, 13,8 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "256 MB (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -62624,6 +63131,10 @@
     {
      "k": "Wymiary / waga",
      "v": "418 × 419 × 341 mm, ok. 17,1 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "512 MB (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -62974,6 +63485,10 @@
     {
      "k": "Wymiary / waga",
      "v": "435 × 489,5 × 340 mm, 17,5 kg"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "do 1200 × 4800 dpi"
     }
    ],
    "warianty_opis": [
@@ -63139,7 +63654,7 @@
     },
     {
      "k": "Ekran",
-     "v": "kolorowy LCD 4,5 cm"
+     "v": "kolorowy LCD 4,5 cm (MFC-T930DW) / 1-wierszowy LCD (DCP-T730DW)"
     },
     {
      "k": "Zalecane miesięczne obciążenie",
@@ -63152,6 +63667,14 @@
     {
      "k": "Wymiary / waga",
      "v": "435 × 418 × 180 mm, 10 kg"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "do 1200 × 6000 dpi (oba modele)"
+    },
+    {
+     "k": "Pamięć",
+     "v": "128 MB (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -63217,6 +63740,11 @@
      "url": "https://www.brother.eu/-/media/product-downloads/devices/printers/mfct/mfc-t930dw_datasheet/pl/karta-produktu-mfc-t930dw-2026",
      "etykieta": "Karta katalogowa (PDF) — Brother",
      "host": "brother.eu"
+    },
+    {
+     "url": "https://support.brother.com/g/s/id/htmldoc/mfc/cv_dcpt830dw/uke/html/GUID-2A5FC4AA-2B7F-4D72-8562-24FF6A146AFD_1.html",
+     "etykieta": "Strona producenta — Brother",
+     "host": "support.brother.com"
     }
    ],
    "wyrozniki": [
@@ -63324,6 +63852,14 @@
     {
      "k": "Wymiary / waga",
      "v": "437 × 396 × 318 mm, ok. 11,8 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny"
+    },
+    {
+     "k": "Pamięć",
+     "v": "512 MB"
     }
    ],
    "faq": [
@@ -63489,6 +64025,10 @@
     {
      "k": "Wymiary / waga",
      "v": "428 × 364 × 240 mm, 7,7 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "256 MB (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -63657,6 +64197,18 @@
     {
      "k": "Wymiary / waga",
      "v": "288 × 101 × 85 mm, 1,37 kg"
+    },
+    {
+     "k": "Papier",
+     "v": "51,8–128 g/m², grubość 0,08–0,14 mm; szer. 51–215,9 mm, dł. 70–355,6 mm; długi dokument do 5000 mm"
+    },
+    {
+     "k": "Pamięć",
+     "v": "256 MB (ADS-1300) / 512 MB (ADS-1800W)"
+    },
+    {
+     "k": "Panel",
+     "v": "ADS-1300: diody LED i przyciski; ADS-1800W: kolorowy ekran dotykowy TFT 2,8\" (71,1 mm)"
     }
    ],
    "warianty_opis": [
@@ -63720,6 +64272,16 @@
      "url": "https://brothersklep.pl/p/10487/Skaner-Brother-ADS-1800W",
      "etykieta": "Sklep producenta — Brother ADS-1800W",
      "host": "brothersklep.pl"
+    },
+    {
+     "url": "https://www.brother.eu/-/media/product-downloads/devices/scanners/ads/ads1300/pl/karta-produktu-ads-1300",
+     "etykieta": "Strona producenta — Brother",
+     "host": "brother.eu"
+    },
+    {
+     "url": "https://support.brother.com/g/s/id/htmldoc/ads/cv_ads1800w/use/html/GUID-2FFC02DD-6069-4E30-A738-DD727B78A689_1.html",
+     "etykieta": "Strona producenta — Brother",
+     "host": "support.brother.com"
     }
    ],
    "wyrozniki": [
@@ -63826,6 +64388,14 @@
     {
      "k": "Wymiary / waga",
      "v": "417 x 461 x 448 mm / ok. 16,4 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (A4, 60–105 g/m²), do 20 str./min"
+    },
+    {
+     "k": "Pamięć",
+     "v": "512 MB"
     }
    ],
    "faq": [
@@ -63877,6 +64447,11 @@
      "url": "https://www.konicaminolta.pl/pl-pl/digital-workplace/printing-devices/bizhub-4221i",
      "etykieta": "Strona producenta — Konica Minolta",
      "host": "konicaminolta.pl"
+    },
+    {
+     "url": "https://www.konicaminolta.eu/eu-en/digital-workplace/printing-devices/bizhub-4221i",
+     "etykieta": "Strona producenta — Konica Minolta",
+     "host": "konicaminolta.eu"
     }
    ],
    "wyrozniki": [
@@ -63989,6 +64564,14 @@
     {
      "k": "Wymiary / waga",
      "v": "495 x 495 x 518 mm / ok. 19,6 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (A4, 60–105 g/m²), do 24 str./min"
+    },
+    {
+     "k": "Pamięć",
+     "v": "2 048 MB"
     }
    ],
    "faq": [
@@ -64151,6 +64734,10 @@
     {
      "k": "Wymiary / waga",
      "v": "420 x 528 x 572 mm / ok. 39 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "5 120 MB RAM; dysk SSD 256 GB (opcja 1 TB)"
     }
    ],
    "faq": [
@@ -64325,6 +64912,10 @@
     {
      "k": "Wymiary / waga",
      "v": "420 x 528 x 473 mm / ok. 33,2 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "3 072 MB RAM; dysk systemowy 8 GB"
     }
    ],
    "faq": [
@@ -64488,6 +65079,10 @@
     {
      "k": "Wymiary / waga",
      "v": "420 x 528 x 572 mm / ok. 39 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "5 120 MB RAM; dysk 256 GB"
     }
    ],
    "faq": [
@@ -64658,6 +65253,10 @@
     {
      "k": "Wymiary / waga",
      "v": "615 x 688 x 779 mm / ok. 84 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "8 192 MB RAM; dysk SSD 256 GB (opcja 1 TB)"
     }
    ],
    "faq": [
@@ -64833,6 +65432,10 @@
     {
      "k": "Wymiary / waga",
      "v": "615 x 688 x 779 mm / ok. 84 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "8 192 MB RAM; dysk SSD 256 GB (opcja 1 TB)"
     }
    ],
    "faq": [
@@ -65008,6 +65611,14 @@
     {
      "k": "Wymiary / waga",
      "v": "615 x 688 x 899 mm / ok. 85 kg"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (A6–SRA3, 52–256 g/m²), do 26 str./min A4"
+    },
+    {
+     "k": "Pamięć",
+     "v": "6 144 MB RAM; dysk 128 GB (opcja SSD 256 GB)"
     }
    ],
    "faq": [
@@ -65348,6 +65959,14 @@
     {
      "k": "Wymiary / waga",
      "v": "MA5500ifx: 480 x 495 x 590 mm, ok. 24,7 kg; MA6000ifx: 480 x 495 x 610 mm, ok. 25,2 kg"
+    },
+    {
+     "k": "Obciążenie miesięczne",
+     "v": "MA5500ifx: zalecane 5 000, maks. 250 000 str./mies.; MA6000ifx: zalecane 6 000, maks. 300 000 str./mies."
+    },
+    {
+     "k": "Pamięć",
+     "v": "1,5 GB (maks. 3,5 GB), opcjonalny dysk SSD (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -65423,6 +66042,16 @@
      "url": "https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSMA6000IFX.html",
      "etykieta": "Strona producenta — Kyocera",
      "host": "kyoceradocumentsolutions.pl"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/ECOSYS_MA6000ifx__pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/ECOSYS_MA5500ifx__pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -65717,6 +66346,10 @@
     {
      "k": "Wymiary / waga",
      "v": "MA3500ci: 480 x 577,5 x 571,5 mm, ok. 39 kg; MA4500ci: 480 x 576,5 x 598,5 mm, ok. 40 kg"
+    },
+    {
+     "k": "Pamięć",
+     "v": "2 GB (maks. 3 GB) + opcjonalny dysk SSD 64 / 256 / 512 GB (oba modele)"
     }
    ],
    "warianty_opis": [
@@ -65793,6 +66426,11 @@
      "url": "https://www.kyoceradocumentsolutions.pl/pl/products/mfp/TASKALFAMA4500CI.html",
      "etykieta": "Strona producenta — Kyocera",
      "host": "kyoceradocumentsolutions.pl"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/Datasheet_TASKalfa_MA4500ci_pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -65911,6 +66549,34 @@
     {
      "k": "Bezpieczeństwo",
      "v": "SSL, IPsec, SNMPv3, szyfrowany PDF, druk poufny"
+    },
+    {
+     "k": "Format",
+     "v": "A3 (do SRA3 320 × 450 mm; baner do 304,8 × 1220 mm)"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "druk 4800 (odpowiednik) × 1200 dpi; skan/kopia 600 × 600 dpi"
+    },
+    {
+     "k": "Druk dwustronny",
+     "v": "automatyczny (w standardzie), 60–256 g/m², SRA3–A6R; 5004i: 50 str./min A4, 6004i: 60 str./min A4"
+    },
+    {
+     "k": "Łączność",
+     "v": "Gigabit Ethernet, USB 3.0, 4 × USB host, NFC; opcjonalnie Wi-Fi 802.11a/b/g/n/ac"
+    },
+    {
+     "k": "Pamięć",
+     "v": "4 GB RAM + 64 GB SSD; opcjonalnie dysk 320 GB lub 1 TB"
+    },
+    {
+     "k": "Wymiary",
+     "v": "602 × 665 × 790 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "ok. 83 kg"
     }
    ],
    "warianty_opis": [
@@ -65976,6 +66642,16 @@
      "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/TASKALFA6004I.html",
      "etykieta": "Strona producenta — Kyocera",
      "host": "kyoceradocumentsolutions.eu"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/DS_TASKalfa_5004i_pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/DS_TASKalfa_6004i_pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -66091,6 +66767,26 @@
     {
      "k": "Eksploatacja",
      "v": "toner TK-4145 na 16 000 stron (pokrycie 6% A4)"
+    },
+    {
+     "k": "Łączność",
+     "v": "USB 2.0 (Hi-Speed); slot kart SD (serwisowy)"
+    },
+    {
+     "k": "Pamięć",
+     "v": "256 MB"
+    },
+    {
+     "k": "Panel",
+     "v": "2-wierszowy podświetlany wyświetlacz LCD z klawiaturą alfanumeryczną"
+    },
+    {
+     "k": "Wymiary",
+     "v": "565 × 527 × 455 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "ok. 27 kg (z tonerem)"
     }
    ],
    "warianty_opis": [
@@ -66160,6 +66856,11 @@
      "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/TASKALFA2020.html",
      "etykieta": "Strona producenta — Kyocera (TASKalfa 2020)",
      "host": "kyoceradocumentsolutions.eu"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/DS_TASKalfa_2020_2320_final_pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -66281,6 +66982,26 @@
     {
      "k": "Bezpieczeństwo",
      "v": "SSL, IPsec, SNMPv3; AirPrint"
+    },
+    {
+     "k": "Łączność",
+     "v": "Gigabit Ethernet, USB 2.0, 2 × USB host, NFC; opcjonalnie Wi-Fi 802.11b/g/n"
+    },
+    {
+     "k": "Pamięć",
+     "v": "1,5 GB (maks. 3 GB) + opcjonalny dysk SSD 128 GB (oba modele)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "590 × 590 × 753 mm (z podajnikiem dokumentów)"
+    },
+    {
+     "k": "Waga",
+     "v": "ok. 76 kg (M8124cidn) / ok. 79 kg (M8130cidn), z podajnikiem dokumentów"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "druk 1200 × 1200 dpi (M8124cidn: przy obniżonej prędkości; 600 × 600 dpi, MultiBit 9600 × 600 dpi); skan/kopia 600 × 600 dpi"
     }
    ],
    "warianty_opis": [
@@ -66347,6 +67068,16 @@
      "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSM8124CIDN.html",
      "etykieta": "Strona producenta — Kyocera",
      "host": "kyoceradocumentsolutions.eu"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/DS_ECO_M8130cidn_VIEW_pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/DS_ECO_M8124cidn_VIEW_pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -66464,6 +67195,34 @@
     {
      "k": "Bezpieczeństwo",
      "v": "szyfrowana transmisja, Active Directory, Secure Boot, RTIC; opcjonalny TPM"
+    },
+    {
+     "k": "Format",
+     "v": "A4 (papier do 216 × 356 mm)"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "druk 1200 × 1200 dpi; skan/kopia 600 × 600 dpi"
+    },
+    {
+     "k": "Obciążenie miesięczne",
+     "v": "zalecane śr. 900, maks. 65 000 str./mies."
+    },
+    {
+     "k": "Pamięć",
+     "v": "1 GB"
+    },
+    {
+     "k": "Panel",
+     "v": "kolorowy ekran dotykowy TFT 4,3\""
+    },
+    {
+     "k": "Wymiary",
+     "v": "410 × 416 × 457 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "ok. 26 kg"
     }
    ],
    "faq": [
@@ -66519,6 +67278,11 @@
      "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSMA2600CWFX.html",
      "etykieta": "Strona producenta — Kyocera",
      "host": "kyoceradocumentsolutions.eu"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/KDE_ECOSYS_MA2600cfxMA2600cwfx_pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -66631,6 +67395,30 @@
     {
      "k": "Bezpieczeństwo",
      "v": "SSL, IPsec, SNMPv3, TLS 1.3; opcjonalny TPM (PA4000x)"
+    },
+    {
+     "k": "Format",
+     "v": "A4 (papier do 216 × 356 mm / Legal)"
+    },
+    {
+     "k": "Obciążenie miesięczne",
+     "v": "PA4000x / PA4000wx: zalecane śr. 2 000, maks. 80 000 str./mies.; PA4500x: zalecane 3 000, maks. 150 000 str./mies."
+    },
+    {
+     "k": "Pamięć",
+     "v": "512 MB (PA4500x: maks. 2,5 GB opcjonalnie)"
+    },
+    {
+     "k": "Panel",
+     "v": "wyświetlacz LCD 5-wierszowy (21 znaków)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "PA4000x / PA4000wx: 375 × 393 × 272 mm; PA4500x: 380 × 410 × 285 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "ok. 14,5 kg (PA4000x / PA4000wx) / ok. 14,6 kg (PA4500x), z tonerem startowym"
     }
    ],
    "warianty_opis": [
@@ -66700,6 +67488,21 @@
      "url": "https://www.kyoceradocumentsolutions.eu/en/products/printers/ECOSYSPA4500X.html",
      "etykieta": "Strona producenta — Kyocera",
      "host": "kyoceradocumentsolutions.eu"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/Datasheet_ECOSYS_PA4500x__pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/datasheet_ecosys_pa4000x_v2.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/datasheet_ecosys_pa4000wx_v2.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -67255,6 +68058,10 @@
     {
      "k": "Gwarancja",
      "v": "2 lata na urządzenie (wg instrukcji producenta)"
+    },
+    {
+     "k": "Praca",
+     "v": "praca ciągła do 25 min, potem 25 min przerwy na chłodzenie"
     }
    ],
    "faq": [
@@ -68081,6 +68888,10 @@
     {
      "k": "Gwarancja",
      "v": "3 lata na urządzenie, dożywotnia na noże tnące (nie obejmuje naturalnego zużycia) — wg polskiego dystrybutora"
+    },
+    {
+     "k": "Głośność",
+     "v": "55 dB(A)"
     }
    ],
    "warianty_opis": [
@@ -70404,6 +71215,10 @@
     {
      "k": "Gwarancja",
      "v": "2 lata; dodatkowy rok lub 3 lata rozszerzonej gwarancji za dopłatą"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "kamera 4K; obraz na wyświetlaczu do 1080p"
     }
    ],
    "warianty_opis": [
@@ -70565,6 +71380,14 @@
     {
      "k": "Gwarancja producenta",
      "v": "projektor 3 lata; lampa 6 miesięcy lub 1 000 h; laser 3 lata lub 10 000 h (co nastąpi pierwsze)"
+    },
+    {
+     "k": "Przekątna",
+     "v": "obraz 30–300\" (76–762 cm) we wszystkich modelach"
+    },
+    {
+     "k": "Montaż",
+     "v": "opcjonalny uchwyt sufitowy PJ01UCM (P547UL także PJ02UCMPF); P547UL: Free Tilt (dowolny kąt pochylenia)"
     }
    ],
    "warianty_opis": [
@@ -71825,6 +72648,14 @@
     {
      "k": "Gwarancja producenta",
      "v": "2 lata"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "maks. 3840 × 2160 (4K)"
+    },
+    {
+     "k": "Montaż",
+     "v": "wsuwany do slotu OPS monitora Avtek (złącze 80-pin), plug and play"
     }
    ],
    "warianty_opis": [
@@ -72049,6 +72880,22 @@
     {
      "k": "Gwarancja producenta",
      "v": "statywy: 3 lata; kamera CAM4K: 2 lata"
+    },
+    {
+     "k": "Przekątna",
+     "v": "statywy do monitorów 55–92\" (Next3, Electric Stand V4), 55–98\" (Next3 XL), 55–75\" (Electric Stand Light)"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "kamera CAM4K: 4096 × 2160 (4K 30 kl./s, Full HD 60 kl./s); statywy i klucz — nie dotyczy"
+    },
+    {
+     "k": "Złącza",
+     "v": "kamera CAM4K: USB-C (kabel USB-C–USB-A 1,7 m); klucz Android: pendrive do portu USB 3.0 monitora; statywy — nie dotyczy"
+    },
+    {
+     "k": "Montaż",
+     "v": "statywy mobilne na kółkach z blokadą, VESA do 1000 × 600 mm (Next3) lub 800 × 600 mm (Electric Stand V4); kamera: obrotowy uchwyt i gwint 1/4\" — na monitor, statyw lub blat"
     }
    ],
    "warianty_opis": [
@@ -73286,6 +74133,14 @@
     {
      "k": "Gwarancja producenta",
      "v": "projektor 3 lata; laser 3 lata lub 10 000 h (co nastąpi pierwsze)"
+    },
+    {
+     "k": "Przekątna",
+     "v": "obraz 30–300\" (P627UL), 60–300\" (P601Q, P721Q)"
+    },
+    {
+     "k": "Montaż",
+     "v": "opcjonalne uchwyty sufitowe PJ01UCM, PJ02UCMPF; Free Tilt (dowolny kąt pochylenia) i ustawienie pionowe (portrait)"
     }
    ],
    "warianty_opis": [
@@ -73395,6 +74250,11 @@
     },
     {
      "url": "https://www.sharpdisplays.eu/p/datasheet/en/datasheet/t/projectors/professional-projectors/rp/p721q.xhtml",
+     "etykieta": "Strona producenta — Sharp/NEC",
+     "host": "sharpdisplays.eu"
+    },
+    {
+     "url": "https://www.sharpdisplays.eu/p/datasheet/en/datasheet/rp/p601q.xhtml",
      "etykieta": "Strona producenta — Sharp/NEC",
      "host": "sharpdisplays.eu"
     }
@@ -73513,6 +74373,14 @@
     {
      "k": "Gwarancja producenta",
      "v": "projektor 3 lata; laser 3 lata lub 10 000 h; lampa (PA803U) 6 miesięcy lub 1 000 h"
+    },
+    {
+     "k": "Przekątna",
+     "v": "obraz 40–500\" (PV710UL, PV800UL, PA804UL, PA1004UL); PA803U do 500\" (minimum zależne od obiektywu)"
+    },
+    {
+     "k": "Montaż",
+     "v": "instalacyjny, uchwyt sufitowy opcjonalnie: PJ01UCM / PJ02UCMPF (PV710UL, PV800UL), PJ02UCMPF (PA804UL, PA1004UL), Ceiling Mount Kit (PA803U); Free Tilt (dowolny kąt pochylenia) i ustawienie pionowe (portrait)"
     }
    ],
    "warianty_opis": [
@@ -74016,6 +74884,10 @@
     {
      "k": "Gwarancja producenta",
      "v": "3 lata (WB726 i SL525 z wymianą zaawansowaną)"
+    },
+    {
+     "k": "Montaż",
+     "v": "kamery: odpinany magnetyczny klips na monitor do 4,6 cm grubości; WB726 z regulacją pochylenia i obrotu oraz zgodnością ze statywem"
     }
    ],
    "warianty_opis": [
@@ -74243,6 +75115,10 @@
     {
      "k": "Gwarancja",
      "v": "2 lata; przedłużenie o 1 lub 3 lata i plan Logitech Select za dopłatą"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "kamera 4K; obraz na wyświetlaczu do 1080p"
     }
    ],
    "faq": [
@@ -74405,6 +75281,14 @@
     {
      "k": "Gwarancja",
      "v": "2 lata; dodatkowy rok lub 3 lata rozszerzonej gwarancji za dopłatą"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "kamera: 4K, 1440p, 1080p, 900p, 720p i SD przy 30 kl./s; obraz na wyświetlaczach do 1080p"
+    },
+    {
+     "k": "Montaż",
+     "v": "wbudowany statyw stołowy; opcjonalnie uchwyt ścienny lub na telewizor"
     }
    ],
    "warianty_opis": [
@@ -74581,6 +75465,14 @@
     {
      "k": "Gwarancja",
      "v": "2 lata; rok przedłużenia przez dystrybutorów"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "1280 × 800 (ekran 10,1\")"
+    },
+    {
+     "k": "Złącza",
+     "v": "Ethernet 10/100 Mb/s z zasilaniem PoE (IEEE 802.3af); bezprzewodowo Wi-Fi 802.11ac i Bluetooth 5.0"
     }
    ],
    "faq": [
@@ -76248,6 +77140,10 @@
     {
      "k": "Kopia zapasowa",
      "v": "e-Archiwizacja: szyfrowana kopia w chmurze Microsoft Azure, 10 GB (w opiece posprzedażnej / Abonamencie)"
+    },
+    {
+     "k": "Sposób pracy / wymagania",
+     "v": "Windows, baza Microsoft SQL Server 2017–2025 (wersja Express w zestawie); Biuro nexo: Windows 10 64-bit (1809+) / 11 lub Windows Server 2019–2025, min. 4 rdzenie x64 i 8 GB RAM (zalecane 6 rdzeni, 16 GB, SSD); Biuro GT: Windows 10 / 11 lub Server 2019–2025, min. 4 rdzenie i 2 GB RAM; przy wielu użytkownikach zalecany osobny serwer SQL"
     }
    ],
    "warianty_opis": [
@@ -76373,6 +77269,11 @@
      "url": "https://www.insert.com.pl/aktualnosci/programy/dodatkowe_przedzialy_liczby_podmiotow_w_nexo_pro.html",
      "etykieta": "Strona producenta — InsERT",
      "host": "insert.com.pl"
+    },
+    {
+     "url": "https://www.insert.com.pl/programy_dla_firm/ksiegowosc_i_finanse/biuro_nexo/wymagania_systemowe.html",
+     "etykieta": "Strona producenta — InsERT",
+     "host": "insert.com.pl"
     }
    ],
    "wyrozniki": [
@@ -76485,6 +77386,10 @@
     {
      "k": "Aplikacja mobilna",
      "v": "osobna aplikacja InsERT mobile (moduł Kalendarz), dokupowana"
+    },
+    {
+     "k": "Sposób pracy / wymagania",
+     "v": "Windows, baza Microsoft SQL Server 2017–2025 (wersja Express w zestawie); nexo / nexo PRO: Windows 10 64-bit (1809+) / 11 lub Windows Server 2019–2025, min. 4 rdzenie x64 i 8 GB RAM (zalecane 6 rdzeni, 16 GB, SSD); GT: Windows 10 / 11 lub Server 2019–2025, min. 4 rdzenie i 2 GB RAM; przy wielu użytkownikach zalecany osobny serwer SQL"
     }
    ],
    "warianty_opis": [
@@ -76617,6 +77522,11 @@
      "url": "https://www.insert.com.pl/programy_dla_firm/sprzedaz/gestor_gt/opis.html",
      "etykieta": "Strona producenta — InsERT",
      "host": "insert.com.pl"
+    },
+    {
+     "url": "https://www.insert.com.pl/programy_dla_firm/sprzedaz/gestor_nexo_pro/wymagania_systemowe.html",
+     "etykieta": "Strona producenta — InsERT",
+     "host": "insert.com.pl"
     }
    ],
    "wyrozniki": [
@@ -76724,6 +77634,10 @@
     {
      "k": "Kopia zapasowa",
      "v": "e-Archiwizacja: szyfrowana kopia w chmurze Microsoft Azure, 10 GB (w opiece posprzedażnej / Abonamencie)"
+    },
+    {
+     "k": "Sposób pracy / wymagania",
+     "v": "Windows, baza Microsoft SQL Server 2017–2025 (wersja Express w zestawie); nexo / nexo PRO: Windows 10 64-bit (1809+) / 11 lub Windows Server 2019–2025, min. 4 rdzenie x64 i 8 GB RAM (zalecane 6 rdzeni, 16 GB, SSD); GT: Windows 10 / 11 lub Server 2019–2025, min. 4 rdzenie i 2 GB RAM; przy wielu użytkownikach zalecany osobny serwer SQL"
     }
    ],
    "warianty_opis": [
@@ -76861,6 +77775,11 @@
     },
     {
      "url": "https://www.insert.com.pl/programy_dla_firm/kadry_i_place/gratyfikant_gt/opis.html",
+     "etykieta": "Strona producenta — InsERT",
+     "host": "insert.com.pl"
+    },
+    {
+     "url": "https://www.insert.com.pl/programy_dla_firm/kadry_i_place/gratyfikant_nexo_pro/wymagania_systemowe.html",
      "etykieta": "Strona producenta — InsERT",
      "host": "insert.com.pl"
     }
@@ -77232,6 +78151,14 @@
     {
      "k": "Branże wg producenta",
      "v": "spożywcza, piekarnicza, cukiernicza, mięsna, drogeryjna, gastronomiczna, odzieżowa, obuwnicza"
+    },
+    {
+     "k": "Licencja",
+     "v": "licencja na stanowisko kasowo-magazynowe, wersja Standard lub Pro — w sklepie z kilkoma kasami na każde stanowisko; centrala PC-Market 7 MM i moduły dodatkowe licencjonowane osobno"
+    },
+    {
+     "k": "Sposób pracy / wymagania",
+     "v": "stanowisko Mini-Market dla Windows lub Linux, z własną bazą w sklepie; centrala PC-Market 7 dla Windows z bazą SQL, praca jedno- lub wielostanowiskowa"
     }
    ],
    "faq": [
@@ -77274,6 +78201,11 @@
      "url": "https://www.insoft.com.pl/mini-market",
      "etykieta": "Strona producenta — Insoft",
      "host": "insoft.com.pl/mini-market"
+    },
+    {
+     "url": "https://www.insoft.com.pl/cennik",
+     "etykieta": "Strona producenta — Insoft",
+     "host": "insoft.com.pl"
     }
    ],
    "wyrozniki": [
@@ -77599,6 +78531,10 @@
     {
      "k": "Biura rachunkowe",
      "v": "własny Portfel biura; z niego opłacana jest obsługa KSeF w licencjach Subiekta 123, które biuro udostępnia klientom"
+    },
+    {
+     "k": "Licencja",
+     "v": "przedpłata, nie licencja: paczki InsPunktów doładowujące Portfel InsERT (każda przedłuża ważność o rok) oraz bezpłatna pula w ramach Abonamentu do Subiekta, Rachmistrza i Rewizora"
     }
    ],
    "warianty_opis": [
@@ -78160,6 +79096,10 @@
     {
      "k": "Okres testowy",
      "v": "14 dni pełnej wersji"
+    },
+    {
+     "k": "Rodzaj",
+     "v": "program hotelowy PMS w chmurze z silnikiem rezerwacji (Booking Engine) i channel managerem"
     }
    ],
    "warianty_opis": [
@@ -81898,6 +82838,10 @@
     {
      "k": "Wersja na Mac",
      "v": "Home & Business 2024 (PC lub Mac), Office LTSC Standard for Mac 2024"
+    },
+    {
+     "k": "Okres",
+     "v": "zakup jednorazowy — bez subskrypcji; uaktualnienie do kolejnej wersji wymaga nowego zakupu"
     }
    ],
    "warianty_opis": [
@@ -82134,6 +83078,10 @@
     {
      "k": "Typ licencji",
      "v": "OEM (z nośnikiem DVD) lub CSP — licencja bezterminowa"
+    },
+    {
+     "k": "Okres",
+     "v": "tradycyjna licencja na rdzenie (zakup) lub płatność za rzeczywiste użycie przez Azure Arc; wsparcie Windows Server 2025: podstawowe do listopada 2029, rozszerzone do listopada 2034"
     }
    ],
    "warianty_opis": [
@@ -82290,6 +83238,11 @@
     },
     {
      "url": "https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/rds-client-access-license",
+     "etykieta": "Strona producenta — Microsoft",
+     "host": "learn.microsoft.com"
+    },
+    {
+     "url": "https://learn.microsoft.com/en-us/lifecycle/products/windows-server-2025",
      "etykieta": "Strona producenta — Microsoft",
      "host": "learn.microsoft.com"
     }
@@ -82581,6 +83534,10 @@
     {
      "k": "Wymiary / waga",
      "v": "⌀110 × 184,1 mm, 1,1 kg, na biurko"
+    },
+    {
+     "k": "Montaż",
+     "v": "biurko (kompaktowa obudowa biurkowa)"
     }
    ],
    "faq": [
@@ -82935,6 +83892,10 @@
     {
      "k": "Zarządzanie",
      "v": "UniFi Network 9.0.108 lub nowsza"
+    },
+    {
+     "k": "Montaż",
+     "v": "biurko (kompaktowa obudowa biurkowa)"
     }
    ],
    "faq": [
@@ -83103,6 +84064,10 @@
     {
      "k": "Wymiary / waga",
      "v": "141,8 × 127,6 × 30 mm, 460 g (bez dysku)"
+    },
+    {
+     "k": "Montaż",
+     "v": "biurko (kompaktowa obudowa biurkowa)"
     }
    ],
    "faq": [
@@ -83534,7 +84499,7 @@
      "v": "wewnętrzny zasilacz 100–240 V (240 W), maks. 50 W bez PoE; wejście zasilania rezerwowego USP-RPS"
     },
     {
-     "k": "Obudowa / waga",
+     "k": "Obudowa, wymiary / waga",
      "v": "rack 1U, 442,4 × 43,7 × 285,6 mm, 5 kg"
     }
    ],
@@ -83696,7 +84661,7 @@
      "v": "Gen2"
     },
     {
-     "k": "Obudowa / waga",
+     "k": "Obudowa, wymiary / waga",
      "v": "rack 1U, 442 × 285 × 44 mm, 4,3 kg"
     }
    ],
@@ -83841,7 +84806,7 @@
      "v": "wbudowany zasilacz 550 W (100–240 V), wejście zasilania rezerwowego DC; maks. 450 W z PoE"
     },
     {
-     "k": "Obudowa / waga",
+     "k": "Obudowa, wymiary / waga",
      "v": "rack 1U, 442 × 325 × 44 mm, 5,1 kg"
     }
    ],
@@ -84029,6 +84994,10 @@
     {
      "k": "Wymiary / waga",
      "v": "⌀206 × 46 mm, 680 g"
+    },
+    {
+     "k": "Zarządzanie",
+     "v": "UniFi Network 8.2.93 lub nowsza (zarządzanie przez Ethernet)"
     }
    ],
    "faq": [
@@ -84450,6 +85419,10 @@
     {
      "k": "Zarządzanie",
      "v": "strona WWW lub kontroler Omada (sprzętowy, programowy, chmura) i aplikacja Omada; SD-WAN w trybie kontrolera"
+    },
+    {
+     "k": "Wymiary",
+     "v": "ER605: 158 × 101 × 25 mm; ER707-M2, ER7206 i ER7212PC: 226 × 131 × 35 mm; ER7406: 294 × 140 × 44 mm; ER7412-M2: 294 × 180 × 44 mm; ER8411: 440 × 220 × 44 mm"
     }
    ],
    "warianty_opis": [
@@ -84952,6 +85925,14 @@
     {
      "k": "Wymiary",
      "v": "OC200 i OC220: 100×98×25 mm; OC300: 294×180×44 mm; OC400: 440×180×44 mm (rack, zestaw montażowy w komplecie)"
+    },
+    {
+     "k": "Zarządzanie",
+     "v": "aplikacja Omada i dostęp przez chmurę Omada, zarządzanie wieloma lokalizacjami (OC200, OC220, OC300, OC400); OC400 także SNMP, SSH, automatyczna kopia zapasowa i zarządzanie wieloma najemcami"
+    },
+    {
+     "k": "Montaż",
+     "v": "OC200 i OC220: biurko lub ściana; OC300 i OC400: biurko lub szafa rack (zestaw rack w komplecie); kontroler w chmurze — nie dotyczy"
     }
    ],
    "warianty_opis": [
@@ -85091,6 +86072,11 @@
      "url": "https://www.omadanetworks.com/pl/business-networking/omada-controller-hardware/oc400/",
      "etykieta": "Strona producenta — TP-Link Omada",
      "host": "omadanetworks.com"
+    },
+    {
+     "url": "https://www.omadanetworks.com/en/business-networking/omada-controller-hardware/oc200/",
+     "etykieta": "Strona producenta — TP-Link",
+     "host": "omadanetworks.com"
     }
    ],
    "wyrozniki": [
@@ -85197,6 +86183,14 @@
     {
      "k": "Zasilanie / obudowa",
      "v": "Ultra: USB-C, maks. 6,2 W; obie kompaktowe, biurkowe"
+    },
+    {
+     "k": "Zarządzanie",
+     "v": "UniFi Network uruchomiony w bramie (Fiber także Protect, Access, Talk, Connect); konfiguracja przez Ethernet lub Bluetooth; Ultra: aplikacja UniFi iOS 10.12.0+ / Android 10.11.2+"
+    },
+    {
+     "k": "Wymiary",
+     "v": "UCG-Ultra: 141,8 × 127,6 × 30 mm; UCG-Fiber: 212,8 × 127,6 × 30 mm"
     }
    ],
    "warianty_opis": [
@@ -85409,6 +86403,18 @@
     {
      "k": "Obudowa",
      "v": "rack 1U"
+    },
+    {
+     "k": "Zasilanie",
+     "v": "UDM-Pro: wewnętrzny zasilacz 100–240 V (50 W), maks. 33 W; UDM-Pro-Max: wewnętrzny zasilacz 100–240 V (100 W), maks. 60 W; oba z wejściem zasilania rezerwowego USP-RPS"
+    },
+    {
+     "k": "Zarządzanie",
+     "v": "UniFi Network i pozostałe aplikacje UniFi uruchomione w bramie; konfiguracja przez Ethernet lub Bluetooth; ekran dotykowy 1,3\""
+    },
+    {
+     "k": "Wymiary",
+     "v": "UDM-Pro i UDM-Pro-Max: 442,4 × 43,7 × 285,6 mm (rack 1U)"
     }
    ],
    "warianty_opis": [
@@ -85590,6 +86596,10 @@
     {
      "k": "Zarządzanie",
      "v": "UniFi Network (brama UniFi lub kontroler)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "U7 Lite: ⌀171,5 × 33 mm; U7 LR: ⌀175,7 × 43 mm; U6+: ⌀160 × 33 mm"
     }
    ],
    "warianty_opis": [
@@ -85806,6 +86816,18 @@
     {
      "k": "Zarządzanie",
      "v": "UniFi Network"
+    },
+    {
+     "k": "Porty",
+     "v": "U7 Pro Wall, U7 Outdoor, U7 Pro Outdoor: 1 × RJ45 1/2,5 GbE; U7 In-Wall: 3 × RJ45 2,5 GbE (wbudowany przełącznik, 1 port z wyjściem PoE — wymaga zasilania PoE+)"
+    },
+    {
+     "k": "Montaż",
+     "v": "U7 Pro Wall i U7 In-Wall: ściana (uchwyt w zestawie); U7 Outdoor i U7 Pro Outdoor: ściana lub maszt (uchwyty w zestawie)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "U7 Pro Wall: 150 × 103 × 36 mm; U7 In-Wall: 137 × 98,7 × 30,2 mm; U7 Outdoor: 170 × 208 × 54,5 mm; U7 Pro Outdoor: 170 × 208 × 66,5 mm (z uchwytem 170 × 208 × 121,8 mm)"
     }
    ],
    "warianty_opis": [
@@ -86031,6 +87053,10 @@
     {
      "k": "Zarządzanie",
      "v": "UniFi Network"
+    },
+    {
+     "k": "Wymiary",
+     "v": "USW-Lite-16-PoE: 192 × 185 × 44 mm; USW-Lite-8-PoE: 99,6 × 163,7 × 31,7 mm; USW-Ultra: 203 × 76 × 33 mm; USW-Flex-2.5G-8-PoE: 212,9 × 99,4 × 33,5 mm"
     }
    ],
    "warianty_opis": [
@@ -86265,6 +87291,10 @@
     {
      "k": "Zarządzanie",
      "v": "UniFi Network"
+    },
+    {
+     "k": "Wymiary",
+     "v": "USW-16-PoE i USW-24-PoE: 442 × 200 × 44 mm; USW-48-PoE: 442 × 285 × 44 mm (rack 1U)"
     }
    ],
    "warianty_opis": [
@@ -86370,6 +87400,11 @@
     },
     {
      "url": "https://techspecs.ui.com/unifi/switching/usw-24-poe",
+     "etykieta": "Strona producenta — Ubiquiti",
+     "host": "techspecs.ui.com"
+    },
+    {
+     "url": "https://techspecs.ui.com/unifi/switching/usw-16-poe",
      "etykieta": "Strona producenta — Ubiquiti",
      "host": "techspecs.ui.com"
     }
@@ -86486,6 +87521,14 @@
     {
      "k": "Fusion G+",
      "v": "1 × 2,5G WAN + 4 × 1G"
+    },
+    {
+     "k": "Zarządzanie",
+     "v": "wbudowany kontroler Omada: zarządzanie lokalne, dostęp z chmury i aplikacja Omada; do 30 urządzeń Omada (zalecane); wiele lokalizacji przez Omada Cloud"
+    },
+    {
+     "k": "Wymiary",
+     "v": "Fusion 2.5G PoE: 226 × 135 × 31,5 mm; Fusion 2.5G: 160 × 130 × 31,5 mm; Fusion G+: 130 × 95 × 30 mm"
     }
    ],
    "warianty_opis": [
@@ -86688,6 +87731,14 @@
     {
      "k": "Wersje zewnętrzne",
      "v": "montaż na ścianie lub maszcie, zasilanie PoE"
+    },
+    {
+     "k": "Montaż",
+     "v": "ER706W-4G: biurko lub ściana; ER706WP-4G: biurko, ściana lub szafa rack; ER703WP-4G-Outdoor i ER603WP-4G-Outdoor: słup lub ściana (w ER603WP zestaw montażowy w komplecie); ER701-5G-Outdoor: ściana, słup lub okno"
+    },
+    {
+     "k": "Wymiary",
+     "v": "ER706W-4G i ER706WP-4G: 226 × 131 × 35 mm; ER703WP-4G-Outdoor i ER603WP-4G-Outdoor: 100,4 × 38,7 × 174,8 mm; ER701-5G-Outdoor: 183 × 110 × 36 mm (bez anten)"
     }
    ],
    "warianty_opis": [
@@ -86899,6 +87950,10 @@
     {
      "k": "Seria",
      "v": "Omada Access Pro"
+    },
+    {
+     "k": "Wymiary",
+     "v": "SG2210XMP-M2: 226 × 131 × 35 mm; SG3210X-M2: 294 × 180 × 44 mm; SG3210XHP-M2, SG3218XP-M2 i SG3428X-M2: 440 × 180 × 44 mm; SG3428XPP-M2: 440 × 330 × 44 mm"
     }
    ],
    "warianty_opis": [
@@ -87004,6 +88059,11 @@
      "url": "https://www.omadanetworks.com/pl/business-networking/omada-switch-access-pro/",
      "etykieta": "Strona producenta — TP-Link Omada",
      "host": "omadanetworks.com"
+    },
+    {
+     "url": "https://www.omadanetworks.com/pl/business-networking/omada-switch-access-pro/sg2210xmp-m2/",
+     "etykieta": "Strona producenta — TP-Link",
+     "host": "omadanetworks.com"
     }
    ],
    "wyrozniki": [
@@ -87097,6 +88157,10 @@
     {
      "k": "Montaż",
      "v": "rack 19\""
+    },
+    {
+     "k": "Wymiary",
+     "v": "SG3428X i SG5428X: 440 × 180 × 44 mm; SG3452X i SG5452X: 440 × 220 × 44 mm; SG3428XMP, SG3428XMPP, SG3452XP, SG3452XMPP, SG5428XMPP i SG5452XMPP: 440 × 330 × 44 mm; SG6428X i SG6654X: 440 × 380 × 44 mm; SG6428XHP i SG6654XHP: 440 × 420 × 44 mm"
     }
    ],
    "warianty_opis": [
@@ -87209,6 +88273,11 @@
      "url": "https://www.omadanetworks.com/pl/business-networking/omada-switch-access-plus/",
      "etykieta": "Strona producenta — TP-Link Omada",
      "host": "omadanetworks.com"
+    },
+    {
+     "url": "https://www.omadanetworks.com/pl/business-networking/omada-switch-access-plus/sg3428x/",
+     "etykieta": "Strona producenta — TP-Link",
+     "host": "omadanetworks.com"
     }
    ],
    "wyrozniki": [
@@ -87295,6 +88364,14 @@
     {
      "k": "Seria",
      "v": "Omada Agile (Easy Managed)"
+    },
+    {
+     "k": "Montaż",
+     "v": "ES205G(P), ES206GP, ES206XPP-M2, ES208G(P), ES210GMP, ES210GP, ES210X-M2, ES210XPP-M2: biurko lub ściana; ES216G, ES220GP, ES224G: biurko lub szafa rack; ES220GMP, ES228GMP, ES228GP: szafa rack"
+    },
+    {
+     "k": "Wymiary",
+     "v": "ES205G i ES205GP: 100 × 98 × 25 mm; ES206GP, ES208G i ES208GP: 158 × 101 × 25 mm; ES206XPP-M2, ES210GMP, ES210GP i ES210X-M2: 209 × 126 × 26 mm; ES210XPP-M2: 226 × 131,2 × 35 mm; ES216G i ES224G: 294 × 140 × 44 mm; ES220GP: 294 × 180 × 44 mm; ES220GMP i ES228GP: 440 × 180 × 44 mm; ES228GMP: 440 × 330 × 44 mm"
     }
    ],
    "warianty_opis": [
@@ -87393,6 +88470,11 @@
     {
      "url": "https://www.omadanetworks.com/pl/business-networking/omada-switch-agile/",
      "etykieta": "Strona producenta — TP-Link Omada",
+     "host": "omadanetworks.com"
+    },
+    {
+     "url": "https://www.omadanetworks.com/pl/business-networking/omada-switch-agile/es205g/",
+     "etykieta": "Strona producenta — TP-Link",
      "host": "omadanetworks.com"
     }
    ],
@@ -90261,6 +91343,10 @@
     {
      "k": "Licencje",
      "v": "dobór planu Microsoft 365 dla firm"
+    },
+    {
+     "k": "Dla kogo / forma",
+     "v": "firmy z pocztą na darmowych serwisach lub u dostawcy strony; wdrożenie z konfiguracją komputerów i telefonów, pomoc przy nowych pracownikach i odejściach"
     }
    ],
    "faq": [
@@ -91000,6 +92086,14 @@
     {
      "k": "Oddzwonienie",
      "v": "w ciągu 60 minut w godzinach pracy"
+    },
+    {
+     "k": "Zakres",
+     "v": "zawieszone programy, poczta, drukowanie, aktualizacje, konta nowych użytkowników"
+    },
+    {
+     "k": "Dla kogo / forma",
+     "v": "firmy; zdalnie, za Twoją zgodą — gdy zdalnie się nie da, umawiamy wizytę"
     }
    ],
    "faq": [
@@ -92262,6 +93356,14 @@
     {
      "k": "Szkolenie",
      "v": "dla kasjerów i właściciela"
+    },
+    {
+     "k": "Zakres",
+     "v": "sprawdzenie zgodności modeli, konfiguracja połączeń, test i szkolenie; także urządzenia kupione gdzie indziej"
+    },
+    {
+     "k": "Miejsce",
+     "v": "u klienta — konfiguracja i test na miejscu"
     }
    ],
    "faq": [
