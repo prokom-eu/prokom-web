@@ -6920,6 +6920,23 @@
      "l": "en",
      "d": "model"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/v3-premium-01.webp",
+     "zrodlo": "https://file.cdn.sunmi.com/newebsite/products/v3-family/lg/p4-bg.jpg",
+     "ujecie": "skos z drukarką"
+    },
+    {
+     "plik": "media/produkty/v3-premium-02.webp",
+     "zrodlo": "https://file.cdn.sunmi.com/newebsite/products/v3-family/xs/p4-bg-en.jpg",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/v3-premium-03.webp",
+     "zrodlo": "https://file.cdn.sunmi.com/newebsite/products/v3-family/xs/p6-3-en.jpg",
+     "ujecie": "drukarka i ekran"
+    }
    ]
   },
   {
@@ -40465,6 +40482,23 @@
      "slug": "kopie-zapasowe",
      "etykieta": "Kopie zapasowe z testem odtworzenia"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/apple-mac-studio-m5-premium-01.webp",
+     "zrodlo": "https://www.apple.com/v/mac-studio/specs/b/images/meta/mac-studio_specs__gj2gy6lb3rue_og.png?202609210850",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/apple-mac-studio-m5-premium-02.webp",
+     "zrodlo": "https://www.apple.com/v/mac-studio/specs/b/images/specs/size_and_weight_top__c38c13fpq4ae_large_2x.jpg",
+     "ujecie": "widok z góry"
+    },
+    {
+     "plik": "media/produkty/apple-mac-studio-m5-premium-03.webp",
+     "zrodlo": "https://www.apple.com/v/mac-studio/specs/b/images/specs/connections__ett8cnl3is8y_large_2x.jpg",
+     "ujecie": "tył, porty"
+    }
    ]
   },
   {
@@ -43589,6 +43623,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/apple-studio-display-premium-01.webp",
+     "zrodlo": "https://www.apple.com/v/studio-display/specs/b/images/meta/studio-display_specs__d7kv1hkz4ioi_og.png?202607270430",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/apple-studio-display-premium-02.webp",
+     "zrodlo": "https://www.apple.com/v/studio-display/specs/b/images/specs/size_weight_tilt_2__0jbp3jfbb7ma_large_2x.jpg",
+     "ujecie": "tył"
+    },
+    {
+     "plik": "media/produkty/apple-studio-display-premium-03.webp",
+     "zrodlo": "https://www.apple.com/v/studio-display/specs/b/images/specs/hero__b0br0lcpzbci_large_2x.jpg",
+     "ujecie": "przód i profil"
+    }
    ]
   },
   {
@@ -43801,6 +43852,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/apple-studio-display-xdr-premium-01.webp",
+     "zrodlo": "https://www.apple.com/v/studio-display-xdr/b/images/specs/hero__gjerz4ay7ya2_large_2x.jpg",
+     "ujecie": "przód i profil"
+    },
+    {
+     "plik": "media/produkty/apple-studio-display-xdr-premium-02.webp",
+     "zrodlo": "https://www.apple.com/v/studio-display-xdr/b/images/specs/size_weight_tilt_height_2__fctjnk2cuzu6_large_2x.jpg",
+     "ujecie": "tył"
+    },
+    {
+     "plik": "media/produkty/apple-studio-display-xdr-premium-03.webp",
+     "zrodlo": "https://www.apple.com/v/studio-display-xdr/b/images/specs/connections__blmr2gpe7sgi_medium_2x.jpg",
+     "ujecie": "profil z kamerą"
     }
    ]
   },
@@ -44646,6 +44714,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/samsung-galaxy-tab-s12-premium-01.webp",
+     "zrodlo": "https://img.global.news.samsung.com/pl/wp-content/uploads/2026/09/30155053/Samsung-Mobile-Galaxy-Tab-S12-Series_dl2-1.jpg",
+     "ujecie": "skos"
+    },
+    {
+     "plik": "media/produkty/samsung-galaxy-tab-s12-premium-02.webp",
+     "zrodlo": "https://img.global.news.samsung.com/pl/wp-content/uploads/2026/09/30155041/Samsung-Mobile-Galaxy-Tab-S12-Series_dl4-1.jpg",
+     "ujecie": "z klawiaturą"
+    },
+    {
+     "plik": "media/produkty/samsung-galaxy-tab-s12-premium-03.webp",
+     "zrodlo": "https://img.global.news.samsung.com/pl/wp-content/uploads/2026/09/30155042/Samsung-Mobile-Galaxy-Tab-S12-Series_dl5-2.jpg",
+     "ujecie": "z etui z klawiaturą"
     }
    ]
   },
@@ -46406,6 +46491,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/logitech-brio-505-premium-01.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/webcams/brio-505/gallery/brio-505-gallery-graphite-1.png",
+     "ujecie": "grafitowa"
+    },
+    {
+     "plik": "media/produkty/logitech-brio-505-premium-02.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/webcams/brio-505/gallery/brio-505-gallery-offwhite-1.png",
+     "ujecie": "biała"
+    },
+    {
+     "plik": "media/produkty/logitech-brio-505-premium-03.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/webcams/brio-505/gallery/brio-505-gallery-rose-1.png",
+     "ujecie": "różowa"
+    }
    ]
   },
   {
@@ -46577,6 +46679,28 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/logitech-zone-vibe-wireless-premium-01.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/headsets/zone-vibe-wireless/gallery/zone-vibe-wireless-mic-up-teams-nbt-graphite-2a.png",
+     "ujecie": "grafitowe"
+    },
+    {
+     "plik": "media/produkty/logitech-zone-vibe-wireless-premium-02.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/headsets/zone-vibe-wireless/gallery/zone-vibe-wireless-mic-down-graphite-1-new1.png",
+     "ujecie": "z odbiornikiem USB"
+    },
+    {
+     "plik": "media/produkty/logitech-zone-vibe-wireless-premium-03.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/headsets/zone-vibe-wireless/gallery/zone-vibe-wireless-mic-down-offwhite-1-new1.png",
+     "ujecie": "białe"
+    },
+    {
+     "plik": "media/produkty/logitech-zone-vibe-wireless-premium-04.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/headsets/zone-vibe-wireless/gallery/zone-vibe-wireless-mic-down-rose-update1.png",
+     "ujecie": "różowe"
     }
    ]
   },
@@ -47062,6 +47186,18 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/logitech-signature-m650-for-business-premium-01.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/mice/m650-for-business/gallery/m650-signature-for-business-gallery-medium-graphite-1.png",
+     "ujecie": "grafitowa"
+    },
+    {
+     "plik": "media/produkty/logitech-signature-m650-for-business-premium-02.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/mice/m650-for-business/gallery/m650-signature-for-business-gallery-medium-off-white-1.png",
+     "ujecie": "biała"
+    }
    ]
   },
   {
@@ -47238,6 +47374,18 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/logitech-lift-for-business-premium-01.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/mice/lift-for-business/gallery/lift-vertical-ergonomic-mouse-business-gallery-graphite-1.png",
+     "ujecie": "grafitowa"
+    },
+    {
+     "plik": "media/produkty/logitech-lift-for-business-premium-02.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/mice/lift-for-business/gallery/lift-vertical-ergonomic-mouse-business-gallery-off-white-1.png",
+     "ujecie": "biała"
     }
    ]
   },
@@ -47568,6 +47716,18 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/logitech-mk295-silent-wireless-combo-premium-01.webp",
+     "zrodlo": "https://www.logitech.com/content/dam/logitech/en/products/combos/mk295-keyboard-mouse-combo/mk295-intro-02.png",
+     "ujecie": "grafitowy zestaw"
+    },
+    {
+     "plik": "media/produkty/logitech-mk295-silent-wireless-combo-premium-02.webp",
+     "zrodlo": "https://www.logitech.com/content/dam/logitech/en/products/combos/mk295-keyboard-mouse-combo/gallery/mk295-white-gallery-01-new.png",
+     "ujecie": "biały zestaw"
+    }
    ]
   },
   {
@@ -47738,6 +47898,18 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/logitech-signature-mk650-combo-for-business.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/logitech-signature-mk650-combo-for-business-premium-01.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/combos/mk650-signature-combo-business/gallery/mk650-signature-combo-business-gallery-ita-graphite-1.png",
+     "ujecie": "grafitowy zestaw"
+    },
+    {
+     "plik": "media/produkty/logitech-signature-mk650-combo-for-business-premium-02.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/combos/mk650-signature-combo-business/gallery/mk650-signature-combo-business-gallery-fra-white-1.png",
+     "ujecie": "biały zestaw"
+    }
    ]
   },
   {
@@ -48747,6 +48919,18 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/logitech-h570e-premium-01.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/video-conferencing/h570e/gallery/h570e-uc-version-stereo-usba-left.png",
+     "ujecie": "wersja stereo"
+    },
+    {
+     "plik": "media/produkty/logitech-h570e-premium-02.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/video-conferencing/h570e/gallery/h570e-uc-version-mono-usba-left.png",
+     "ujecie": "wersja mono"
     }
    ]
   },
@@ -50216,6 +50400,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/qnap-ts-262a-ts-462a.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/qnap-ts-262a-ts-462a-premium-01.webp",
+     "zrodlo": "https://www.qnap.com/i/_attach_file/product/photo/809_1751880577_E794A2E59381E59C96_TS-462A_right.png",
+     "ujecie": "skos z przodu"
+    },
+    {
+     "plik": "media/produkty/qnap-ts-262a-ts-462a-premium-02.webp",
+     "zrodlo": "https://www.qnap.com/uploads/images/product/ts-462a/kv-bg/md.jpg?v=6b3dc0e639af852d39911a310e81800f",
+     "ujecie": "na biurku"
+    },
+    {
+     "plik": "media/produkty/qnap-ts-262a-ts-462a-premium-03.webp",
+     "zrodlo": "https://www.qnap.com/uploads/images/product/ts-462a/kv-bg/sm.jpg?v=6b3dc0e639af852d39911a310e81800f",
+     "ujecie": "przy monitorze"
+    }
    ]
   },
   {
@@ -54158,6 +54359,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/qnap-tvs-h474-h674-h874.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/qnap-tvs-h474-h674-h874-premium-01.webp",
+     "zrodlo": "https://www.qnap.com/i/_attach_file/product/photo/1000_625@2x/726_1677745146_TVS-h474_right.png?v=2",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/qnap-tvs-h474-h674-h874-premium-02.webp",
+     "zrodlo": "https://www.qnap.com/i/_attach_file/product/photo/1000_625@2x/726_1677745146_TVS-h474_left20top.png?v=2",
+     "ujecie": "skos z przodu"
+    },
+    {
+     "plik": "media/produkty/qnap-tvs-h474-h674-h874-premium-03.webp",
+     "zrodlo": "https://www.qnap.com/i/_attach_file/product/photo/1000_625@2x/726_1677745146_TVS-h474_open2.png?v=2",
+     "ujecie": "wnętrze"
+    }
    ]
   },
   {
@@ -54345,6 +54563,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/qnap-ts-h765eu-h1065eu.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/qnap-ts-h765eu-h1065eu-premium-01.webp",
+     "zrodlo": "https://www.qnap.com/i/_attach_file/product/photo/1000_625@2x/815_1773812079_TS-h1065eU_Front.png?v=1",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/qnap-ts-h765eu-h1065eu-premium-02.webp",
+     "zrodlo": "https://www.qnap.com/i/_attach_file/product/photo/1000_625@2x/815_1773812079_TS-h1065eU_Left-angle-of-elevation.png?v=1",
+     "ujecie": "przód, wersja z większą liczbą zatok"
+    },
+    {
+     "plik": "media/produkty/qnap-ts-h765eu-h1065eu-premium-03.webp",
+     "zrodlo": "https://www.qnap.com/i/_attach_file/product/photo/1000_625@2x/815_1773812079_TS-h1065eU_Back.png?v=1",
+     "ujecie": "tył"
+    }
    ]
   },
   {
@@ -54494,6 +54729,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/qnap-ts-855x.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/qnap-ts-855x-premium-01.webp",
+     "zrodlo": "https://www.qnap.com/uploads/images/product/ts-855x/feature.png?v=20f657936e366194d78d3677af18f95e",
+     "ujecie": "skos z przodu"
+    },
+    {
+     "plik": "media/produkty/qnap-ts-855x-premium-02.webp",
+     "zrodlo": "https://www.qnap.com/i/_attach_file/product/photo/1000_625/749_1684132403_TS-855X_Left20angle20of20elevation.png",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/qnap-ts-855x-premium-03.webp",
+     "zrodlo": "https://www.qnap.com/uploads/images/product/ts-855x-ssd.png?v=ce53ed1fcc049b28a5658183bfd2cfa1",
+     "ujecie": "wnętrze"
+    }
    ]
   },
   {
@@ -58281,6 +58533,23 @@
      "k": "Konica Minolta Business Solutions Europe GmbH",
      "l": "en",
      "d": "seria"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c3321i-premium-01.webp",
+     "zrodlo": "https://www.konicaminolta.pl/shop/assets/media/ebizshopbpl/content/images/bizhub-c3321i-studio-picture-front-no-marketplace.png",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c3321i-premium-02.webp",
+     "zrodlo": "https://www.konicaminolta.pl/shop/assets/media/ebizshopbpl/content/images/bizhub-c3321i-studio-picture-left-no-marketplace.png",
+     "ujecie": "skos z lewej"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c3321i-premium-03.webp",
+     "zrodlo": "https://www.konicaminolta.pl/shop/assets/media/ebizshopbpl/content/images/bizhub-c3321i-studio-picture-right-no-marketplace_1.png",
+     "ujecie": "skos z prawej"
     }
    ]
   },
@@ -65183,7 +65452,24 @@
      "v": "druk 1200 x 1200 dpi"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma5500ifx-ma6000ifx-premium-01.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--dea059ca-feff-4ba2-95c2-721c73547df9/media-image-gallery-1178x663-mfp-ma5500ifx-front-comb01-01.png?preferwebp=true&width=1180&quality=86",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma5500ifx-ma6000ifx-premium-02.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--1d645d04-91f4-4e45-8621-ba01400f760b/media-image-gallery-1178x663-mfp-ma5500ifx-front-comb03-01.png?preferwebp=true&width=1180&quality=86",
+     "ujecie": "z kasetami papieru na podstawie"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma5500ifx-ma6000ifx-premium-03.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--15c6b7bb-930a-44f0-a188-5a0036825c07/media-image-gallery-1178x663-mfp-ma5500ifx-series-card-reader-01.png?preferwebp=true&width=1180&quality=86",
+     "ujecie": "panel dotykowy"
+    }
+   ]
   },
   {
    "slug_seed": "kyocera-ecosys-ma3500cix-cifx-ma4000cix",
@@ -65536,7 +65822,34 @@
      "v": "druk 1200 x 1200 dpi (przy obniżonej prędkości)"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kyocera-taskalfa-ma3500ci-ma4500ci-premium-01.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--7fb6c783-682b-42d5-b7d2-bc036ced722d/media-image-large-1178x663-ma3500ci-1.jpg?quality=86&preferwebp=true&width=1180",
+     "ujecie": "skos z przodu"
+    },
+    {
+     "plik": "media/produkty/kyocera-taskalfa-ma3500ci-ma4500ci-premium-02.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--51d6b3a9-ada7-48f1-aaa5-2f436ef59aab/media-image-large-1178x663-ma3500ci-2.jpg?quality=86&preferwebp=true&width=1180",
+     "ujecie": "przód z kasetą"
+    },
+    {
+     "plik": "media/produkty/kyocera-taskalfa-ma3500ci-ma4500ci-premium-03.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--2f53c12f-980a-4621-8bb8-974945db710d/media-image-large-1178x663-ma3500ci-4.jpg?quality=86&preferwebp=true&width=1180",
+     "ujecie": "skos z góry"
+    },
+    {
+     "plik": "media/produkty/kyocera-taskalfa-ma3500ci-ma4500ci-premium-04.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--387ffcdf-d585-4cce-bea5-2312d97e1c02/media-image-large-1178x663-ma3500ci-5.jpg?quality=86&preferwebp=true&width=1180",
+     "ujecie": "bok"
+    },
+    {
+     "plik": "media/produkty/kyocera-taskalfa-ma3500ci-ma4500ci-premium-05.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--bbac0e98-adc2-4a34-a90e-2befe88f6513/media-image-large-1178x663-ma3500ci-6.jpg?quality=86&preferwebp=true&width=1180",
+     "ujecie": "panel dotykowy"
+    }
+   ]
   },
   {
    "slug_seed": "kyocera-taskalfa-5004i-6004i",
@@ -65879,6 +66192,28 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/kyocera-taskalfa-2320-2020.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kyocera-taskalfa-2320-2020-premium-01.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--2d88e207-0fb0-4014-b891-ebcd701b84f6/media-image-large-1178x663-gallery-taskalfa-2320-comb01-r.jpg?preferwebp=true&width=1180&quality=86",
+     "ujecie": "skos z przodu"
+    },
+    {
+     "plik": "media/produkty/kyocera-taskalfa-2320-2020-premium-02.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--a5609eaa-3303-46bb-aa18-9595b462b05b/media-image-large-1178x663-gallery-taskalfa-2320-comb03-f.jpg?preferwebp=true&width=1180&quality=86",
+     "ujecie": "przód z podajnikiem dokumentów"
+    },
+    {
+     "plik": "media/produkty/kyocera-taskalfa-2320-2020-premium-03.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--45f7cc6c-2670-4600-8a25-f8db7293b30d/media-image-large-1178x663-gallery-taskalfa-2320-comb08-f.jpg?preferwebp=true&width=1180&quality=86",
+     "ujecie": "z kasetami na podstawie"
+    },
+    {
+     "plik": "media/produkty/kyocera-taskalfa-2320-2020-premium-04.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--ad925171-e8d7-406b-a03a-6d812d7feaab/media-image-large-1178x663-gallery-panel-taskalfa-2020-2320-v2-eng.jpg?preferwebp=true&width=1180&quality=86",
+     "ujecie": "panel"
+    }
    ]
   },
   {
@@ -66044,6 +66379,28 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/kyocera-ecosys-m8124cidn-m8130cidn.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kyocera-ecosys-m8124cidn-m8130cidn-premium-01.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--8850d3df-55dc-4944-9a0b-471ab6266ba7/imagegallery-1180x663-ecosys-m8130cidn-front-2.jpg?preferwebp=true&width=1180&quality=86",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-m8124cidn-m8130cidn-premium-02.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--5ea6517c-cff4-4bb2-bfea-71f3c292fac9/imagegallery-1180x663-ecosys-m8124cidn-angle.jpg?width=1180&preferwebp=true&quality=86",
+     "ujecie": "z kasetami papieru na podstawie"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-m8124cidn-m8130cidn-premium-03.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--7fd093be-6e0c-468a-acba-fbd67f5e8f16/imagegallery-1180x663-ecosys-m8130cidn-panel.jpg?preferwebp=true&width=1180&quality=86",
+     "ujecie": "panel dotykowy"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-m8124cidn-m8130cidn-premium-04.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--7b23c867-ec20-4c0e-861a-d99fb413448d/imagegallery-1180x663-ecosys-m8130cidn-top-of-printer.jpg?preferwebp=true&width=1180&quality=86",
+     "ujecie": "podajnik dokumentów"
+    }
    ]
   },
   {
@@ -66194,6 +66551,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/kyocera-ecosys-ma2600cwfx.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma2600cwfx-premium-01.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--d01126ca-799d-4ea0-b283-8a564de55dc4/1178x663-mfp-ma2600cwfx-comb01-right-01.jpg?preferwebp=true&width=1180&quality=86",
+     "ujecie": "skos z przodu"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma2600cwfx-premium-02.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--8583a2ef-1895-4d37-a656-c07b0585dba9/1178x663-mfp-ma2600cwfx-comb02-front-01.jpg?preferwebp=true&width=1180&quality=86",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma2600cwfx-premium-03.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--a795c08c-a69b-4b90-8bd9-2eed2083225e/1178x663-mfp-ma2600cwfx-series-panel-close-up-01.jpg?preferwebp=true&width=1180&quality=86",
+     "ujecie": "panel"
+    }
    ]
   },
   {
@@ -66358,6 +66732,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/kyocera-ecosys-pa4000x-pa4500x.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kyocera-ecosys-pa4000x-pa4500x-premium-01.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--e19db093-8a10-4b12-9ef3-e034699f2cb4/media-image-gallery-1180x668-mfp-pa4500x-front-comb02-01.jpg?quality=86&preferwebp=true&width=1180",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-pa4000x-pa4500x-premium-02.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--18900b06-1544-462e-8f65-fd1bf6799847/media-image-gallery-1180x668-mfp-pa4500x-front-comb03-01.jpg?quality=86&preferwebp=true&width=1180",
+     "ujecie": "z kasetami papieru na podstawie"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-pa4000x-pa4500x-premium-03.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--8ebec39e-aa23-4df2-ae45-fd3375e21458/media-image-gallery-1180x668-mfp-pa4500x-series-panel-close-up-01.jpg?quality=86&preferwebp=true&width=1180",
+     "ujecie": "panel"
+    }
    ]
   },
   {
@@ -74111,6 +74502,18 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/logitech-rally-bar-mini.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/logitech-rally-bar-mini-premium-01.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/video-conferencing/rally-bar-mini/buy/2026/gallery/rally-bar-mini-front-angle-graphite-gallery-1.png",
+     "ujecie": "grafitowa"
+    },
+    {
+     "plik": "media/produkty/logitech-rally-bar-mini-premium-02.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/video-conferencing/rally-bar-mini/buy/2026/gallery/rally-bar-mini-front-angle-offwhite-gallery-1.png",
+     "ujecie": "biała"
+    }
    ]
   },
   {
@@ -74265,6 +74668,18 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/logitech-tap-ip.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/logitech-tap-ip-premium-01.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/video-conferencing/tap-ip/2026/gallery/tap-ip-gallery-graphite-1-new.png",
+     "ujecie": "grafitowy"
+    },
+    {
+     "plik": "media/produkty/logitech-tap-ip-premium-02.webp",
+     "zrodlo": "https://resource.logitech.com/content/dam/logitech/en/products/video-conferencing/tap-ip/2026/gallery/tap-ip-gallery-white-1.png",
+     "ujecie": "biały"
+    }
    ]
   },
   {
@@ -82599,6 +83014,23 @@
      "slug": "apc-back-ups-pro",
      "etykieta": "APC Back-UPS Pro"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/ubiquiti-unifi-express-7-premium-01.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/d3220754-f4a9-4ecc-a0bd-64e1520ef471/dafd06f7-344d-4688-8e0c-a9b691876bb0.png",
+     "ujecie": "urządzenie z ekranem"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-unifi-express-7-premium-02.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/d3220754-f4a9-4ecc-a0bd-64e1520ef471/09dd6963-da0c-4f22-ab50-d2f2506db109.png",
+     "ujecie": "dwa urządzenia"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-unifi-express-7-premium-03.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/d3220754-f4a9-4ecc-a0bd-64e1520ef471/a85a8354-a1ea-4391-b5c5-98c554be2755.png",
+     "ujecie": "kilka urządzeń w stosie"
+    }
    ]
   },
   {
@@ -84903,6 +85335,23 @@
      "slug": "apc-back-ups-pro",
      "etykieta": "APC Back-UPS Pro"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/ubiquiti-cloud-gateway-ultra-fiber-premium-01.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/8d2d9e4b-89f3-49a1-9c17-5d774c0067b4/6f114a97-b582-40fc-81ae-73b46d63efff.png",
+     "ujecie": "skos z góry"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-cloud-gateway-ultra-fiber-premium-02.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/8d2d9e4b-89f3-49a1-9c17-5d774c0067b4/7cad29af-7599-4cb0-a101-841fb8c7fdcb.png",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-cloud-gateway-ultra-fiber-premium-03.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/8d2d9e4b-89f3-49a1-9c17-5d774c0067b4/36cf23eb-61ec-47df-b059-618bae1bfb77.png",
+     "ujecie": "tył, porty"
+    }
    ]
   },
   {
@@ -85059,6 +85508,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/ubiquiti-dream-machine-pro-pro-max.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/ubiquiti-dream-machine-pro-pro-max-premium-01.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/401190d7-6a49-4c2e-bef1-7fe087d2b6b6/95713566-423f-45e1-8b40-6d760f048490.png",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-dream-machine-pro-pro-max-premium-02.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/401190d7-6a49-4c2e-bef1-7fe087d2b6b6/c9cbb66b-7e7e-4ced-a4e3-1fa93cad3660.png",
+     "ujecie": "przód, druga wersja"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-dream-machine-pro-pro-max-premium-03.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/401190d7-6a49-4c2e-bef1-7fe087d2b6b6/a65ebecc-eb24-45ee-bfa6-6be9108453d4.png",
+     "ujecie": "tył"
+    }
    ]
   },
   {
@@ -85263,6 +85729,18 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/ubiquiti-u7-lite-u7-lr-u6-plus.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/ubiquiti-u7-lite-u7-lr-u6-plus-premium-01.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/253cc208-4b09-4b2e-9d1a-7aa1e8f93507/49241c96-878f-4e40-8541-c2e89c1c5e6e.png",
+     "ujecie": "z dołu"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-u7-lite-u7-lr-u6-plus-premium-02.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/253cc208-4b09-4b2e-9d1a-7aa1e8f93507/431f1c32-3cb2-4cda-b271-89ffd27f885a.png",
+     "ujecie": "profil"
+    }
    ]
   },
   {
@@ -85470,6 +85948,23 @@
     {
      "slug": "apc-back-ups-pro",
      "etykieta": "APC Back-UPS Pro"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/ubiquiti-u7-scienne-zewnetrzne-premium-01.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/7dacb4f6-b703-4154-9264-784f2eb0dbda/f1cb65a5-c557-4e02-bcbb-090502a95b84.png",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-u7-scienne-zewnetrzne-premium-02.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/7dacb4f6-b703-4154-9264-784f2eb0dbda/d7e2c2db-eef4-4b19-a7ae-746122c010db.png",
+     "ujecie": "skos"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-u7-scienne-zewnetrzne-premium-03.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/7dacb4f6-b703-4154-9264-784f2eb0dbda/0be2527f-57a2-4d69-b419-edd9722fec9b.png",
+     "ujecie": "profil"
     }
    ]
   },
@@ -85692,6 +86187,23 @@
      "slug": "apc-back-ups-pro",
      "etykieta": "APC Back-UPS Pro"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/ubiquiti-switch-lite-ultra-flex-premium-01.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/e726eace-a772-4f12-bfad-c68baf20e51f/9ecfc657-5e31-4135-89b5-46b3537b35fc.png",
+     "ujecie": "skos, porty"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-switch-lite-ultra-flex-premium-02.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/e726eace-a772-4f12-bfad-c68baf20e51f/bddd5681-d575-4f0f-b3ee-24a8f6def5e0.png",
+     "ujecie": "skos z góry"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-switch-lite-ultra-flex-premium-03.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/e726eace-a772-4f12-bfad-c68baf20e51f/72d3b907-723f-4558-9ed8-8d61e81e68ef.png",
+     "ujecie": "pionowo"
+    }
    ]
   },
   {
@@ -85892,6 +86404,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/ubiquiti-switch-16-24-48-poe.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/ubiquiti-switch-16-24-48-poe-premium-01.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/467359c4-e5c3-487b-ae00-f6b7de29c6fc/161709e9-7a00-46b2-b32a-259f7cb231a1.png",
+     "ujecie": "skos z góry"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-switch-16-24-48-poe-premium-02.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/467359c4-e5c3-487b-ae00-f6b7de29c6fc/1fd41f67-8fd9-4689-989e-c03b43217e3a.png",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/ubiquiti-switch-16-24-48-poe-premium-03.webp",
+     "zrodlo": "https://cdn.ecomm.ui.com/products/467359c4-e5c3-487b-ae00-f6b7de29c6fc/4237188c-503a-497a-989e-f8c91c5536f2.png",
+     "ujecie": "tył"
+    }
    ]
   },
   {
@@ -86086,6 +86615,18 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/omada-fusion.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/omada-fusion-premium-01.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/Fusion_2.5G_PoE_UN_1.0_Overview_01_large_20260610025027h.jpg",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/omada-fusion-premium-02.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/Fusion_2.5G_PoE_UN_1.0_Overview_02_large_20260610025050r.jpg",
+     "ujecie": "tył, porty"
+    }
    ]
   },
   {
@@ -86283,6 +86824,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/omada-bramy-4g-5g.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/omada-bramy-4g-5g-premium-01.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/ER706W-4G_US_R_large_20231102090250j.jpg",
+     "ujecie": "przód, porty"
+    },
+    {
+     "plik": "media/produkty/omada-bramy-4g-5g-premium-02.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/ER706W-4G_US_L_large_20231102090305a.jpg",
+     "ujecie": "skos"
+    },
+    {
+     "plik": "media/produkty/omada-bramy-4g-5g-premium-03.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/ER706W-4G_US_B_large_20231102090317m.jpg",
+     "ujecie": "tył"
+    }
    ]
   },
   {
