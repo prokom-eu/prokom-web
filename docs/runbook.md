@@ -177,6 +177,18 @@ SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/prod-content.sh biznes
 - Zatrzymuje się, niczego nie zmieniając, także gdy tagi stagingu (`.env.staging` i działający kontener) i produkcji się różnią albo bez wpisania `prokom-prod`.
 - **Po skrypcie:** konta (`Users`) przeszły ze stagingu (skrypt wypisuje ich liczbę wg roli) — w panelu produkcji usuń konta testowe i zmień hasła; sprawdź e-mail powiadomień tenanta (Strony → „E-mail powiadomień”) i Dane firmy; ostrzeżenie o adresach `staging.` w treści = popraw je w panelu; jedno próbne zapytanie z formularza.
 
+### 3a.1 Biznes — ręcznie w panelu produkcji po kopii stagingu (PRODUKCJA-BIZNES-1211 §6)
+Seed na produkcji nie działa, a kopia stagingu niesie prawie wszystko. Po `prod-content.sh` zostaje lista do sprawdzenia lub wpisania:
+- **Tytuły i opisy SEO stron** z `src/seed/biznes/pageSeo.ts` (GoPOS, InsERT, Kontakt, O firmie, Opieka IT, Automaty, Ulga, Cookies, Dostępność, Polityka). Staging ma je z importu, więc przechodzą kopią. Sprawdź tylko, czy żadne pole nie jest puste (Strony → strona → SEO; licznik znaków pod polem).
+- **E-mail powiadomień tenanta Biznes:** `kontakt@prokombiznes.pl` (Strony → tenant → „E-mail powiadomień”; ADR-003).
+- **Link do wizytówki Google** (`TODO(krystian)`, karta „Opinie Google” na O firmie jest ukryta, dopóki pole jest puste): Dane firmy → link Google.
+- **„100+ klientów”:** flaga szefa. Zostaw wyłączoną, dopóki szef nie potwierdzi.
+- **Konta:** usuń konta testowe, zmień hasło admina (menedżer haseł „Panel produkcji — admin”).
+- **Strony prawne:** polityka prywatności z dostawcami (webh.pl, Seohost, Backblaze B2 EU) i deklaracja dostępności przyszły ze stagingu po imporcie z 13.11. Treść ma zaakceptować prawnik (`[prawnik]` w STAN) przed wdrożeniem; nowa wersja klauzuli zgody = `lib/inquiry/consent.ts`.
+- **Przekierowania 301 ze starej strony:** nie dotyczy. Domena kupiona 31.10.2026 (ADR-019) nie miała strony, a do startu produkcji Nginx zamyka połączenie (`docs/dns.md`).
+- **Próba:** jedno zapytanie z formularza Kontaktu (z listą „Do zapytania”) → wpis w `Inquiries` i mail na skrzynkę linii.
+- **Widoczność:** `TRESC_AUTH=… node scripts/porownaj-tresc.mjs --widocznosc https://prokombiznes.pl` (bez loginu na produkcji: zmienna pusta) i `bash scripts/smoke.sh https://prokombiznes.pl prokombiznes.pl`.
+
 ## 4. Cofnięcie wdrożenia
 
 **A. Tylko obraz** (migracje nowej wersji były zgodne wstecz — patrz 5):

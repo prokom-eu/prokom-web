@@ -14,6 +14,18 @@ const text = (children: object[]) => ({
 
 const CONTACT_EMAIL = BIZNES_CONTACT.email
 
+/** „Komu przekazujemy dane” before 13.11: no provider named — replaced in stored pages. */
+export const LEGACY_PROCESSORS =
+  'Dane przechowujemy na serwerze dostawcy usług hostingowych, wiadomości e-mail wysyłamy przez naszego dostawcę poczty, a zaszyfrowane kopie zapasowe trzymamy u dostawcy przestrzeni na kopie. Przetwarzają oni dane wyłącznie na nasze zlecenie.'
+
+/** An older seed's wording of the same paragraph (still in databases imported before B11b). */
+export const LEGACY_PROCESSORS_OLDER =
+  'Dane przechowujemy na serwerze w Polsce u dostawcy usług hostingowych, a wiadomości e-mail wysyłamy przez naszego dostawcę poczty. Obaj przetwarzają dane wyłącznie na nasze zlecenie. Nie przekazujemy danych poza Europejski Obszar Gospodarczy.'
+
+/** The processors by name (PRODUKCJA-BIZNES-1211 §6: webh.pl, not Seohost, hosts the server). */
+export const PROCESSORS =
+  'Stronę i dane z formularzy przechowujemy na serwerze VPS w webh.pl. Pocztę i domeny obsługuje Seohost — przez jego serwer wysyłamy też powiadomienia o zapytaniach. Zaszyfrowane kopie zapasowe trzymamy w Backblaze B2, w regionie Unii Europejskiej (Amsterdam). Dostawcy ci przetwarzają dane wyłącznie na nasze zlecenie.'
+
 // TODO(krystian): [SZEF/prawnik] DRAFT of the privacy policy, built only from facts in the code
 // and ADRs: administrator and address (board), form fields (`Inquiries`), the IP hash of the
 // app's spam limiter (ADR-003), the Nginx access log with full IPs rotated by size
@@ -21,9 +33,9 @@ const CONTACT_EMAIL = BIZNES_CONTACT.email
 // default 24 — open inquiries are not deleted automatically) and backups up to ~3 months
 // (ADR-003, S9b-2), no analytics. To confirm before production: legal bases; NIP (spec. §13 pkt 1)
 // and the e-mail for data matters (the line inbox since 01.11.2026, `contact.ts`);
-// the providers of hosting and mail (Seohost, ADR-002 „przyjęta wstępnie”) and of the off-site
-// backups (`docs/runbook.md`, not chosen yet), where they keep data and whether anything leaves
-// the EEA; the effective date. Approving the text means a new consent clause version as well
+// the processors named since 13.11 (PRODUKCJA-BIZNES-1211 §6): server — VPS webh.pl (ADR-019),
+// mail and domains — Seohost (ADR-002, docs/dns.md), off-site backups — Backblaze B2 EU Central
+// (ADR-019 „Rozstrzygnięcie”) — their contracts (umowy powierzenia) and the effective date. Approving the text means a new consent clause version as well
 // (`lib/inquiry/consent.ts`).
 const PRIVACY = [
   p(
@@ -67,9 +79,7 @@ const PRIVACY = [
     'Zakończone zapytania usuwamy po 24 miesiącach od ostatniej zmiany ich statusu; zapytania w toku przechowujemy do czasu ich zakończenia. Kopie zapasowe są szyfrowane i rotowane — usunięte dane znikają z nich najpóźniej po około 3 miesiącach.',
   ),
   h2('Komu przekazujemy dane'),
-  p(
-    'Dane przechowujemy na serwerze dostawcy usług hostingowych, wiadomości e-mail wysyłamy przez naszego dostawcę poczty, a zaszyfrowane kopie zapasowe trzymamy u dostawcy przestrzeni na kopie. Przetwarzają oni dane wyłącznie na nasze zlecenie.',
-  ),
+  p(PROCESSORS),
   h2('Twoje prawa'),
   p(
     'Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania i przeniesienia oraz prawo sprzeciwu. Masz też prawo wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych.',
@@ -132,6 +142,34 @@ const COOKIES = [
   ),
 ]
 
+/**
+ * How accessibility is checked and what is known not to be fully accessible (PRODUKCJA-BIZNES-1211
+ * §6, 13.11): facts of the repo — axe in CI (`tests/e2e/a11y`), Lighthouse of staging (≥ 0,94 on
+ * 12 pages, 09.11, docs/STAN.md), the visibility test (`biznes-widocznosc`). Added to a stored
+ * page that does not have it yet. TODO(krystian): [prawnik] date and form of the statement.
+ */
+export const ACCESSIBILITY_CHECKS_HEADING = 'Jak sprawdzamy dostępność'
+const ACCESSIBILITY_CHECKS = [
+  h2(ACCESSIBILITY_CHECKS_HEADING),
+  ul(
+    ['Automatyczny test axe (WCAG 2.1 AA) przy każdej zmianie kodu, na komputerze i na telefonie.'],
+    [
+      'Pomiar Lighthouse: dostępność co najmniej 94 na 100 na 12 najważniejszych stronach (pomiar wersji testowej, 9 listopada 2026).',
+    ],
+    ['Test, że każda sekcja strony jest widoczna po przewinięciu — bez ukrytych treści.'],
+  ),
+  h2('Co może być trudniejsze'),
+  ul(
+    [
+      'Filmy producentów z YouTube mają napisy i opisy przygotowane przez producentów — nie wpływamy na nie.',
+    ],
+    [
+      'Część zdjęć produktów pochodzi od producentów; opisujemy je nazwą produktu, ale nie wszystkie szczegóły zdjęcia.',
+    ],
+  ),
+  p('Ostatni przegląd dostępności: 13 listopada 2026.'),
+]
+
 // TODO(krystian): [SZEF] not in spec. §2 (the footer links it): a short statement of what the
 // site does for accessibility — every point is checked in the repo (axe in CI, docs/jakosc.md).
 const ACCESSIBILITY = [
@@ -149,6 +187,7 @@ const ACCESSIBILITY = [
     ['Animacje wyłączają się, gdy w systemie ustawisz ograniczenie ruchu.'],
     ['Każdą zmianę kodu strony sprawdzamy automatycznym testem dostępności (WCAG 2.1 AA).'],
   ),
+  ...ACCESSIBILITY_CHECKS,
   h2('Zgłoś problem'),
   p(
     'Coś nie działa albo trudno z tego skorzystać? Napisz na ',
@@ -219,6 +258,72 @@ async function upgradeCookies(
   return true
 }
 
+/** Each text node equal to `from` becomes `to` (lexical JSON); `null` when none was found. */
+export function replaceText(layout: unknown, from: string, to: string): unknown | null {
+  const plain = (value: unknown) =>
+    typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : value
+  let found = false
+  const walk = (node: unknown): unknown => {
+    if (Array.isArray(node)) return node.map(walk)
+    if (node && typeof node === 'object') {
+      const record = node as Record<string, unknown>
+      // Stored text may carry hard spaces (Polish orphans): compared as plain spaces.
+      if (record.type === 'text' && plain(record.text) === plain(from)) {
+        found = true
+        return { ...record, text: to }
+      }
+      return Object.fromEntries(Object.entries(record).map(([key, value]) => [key, walk(value)]))
+    }
+    return node
+  }
+  const next = walk(layout)
+  return found ? next : null
+}
+
+/**
+ * 13.11 (PRODUKCJA-BIZNES-1211 §6): a stored privacy page with the old unnamed processors gets
+ * the named ones; a stored accessibility page without „Jak sprawdzamy dostępność” gets that
+ * part before „Zgłoś problem” — only by text, the rest edited in the panel stays.
+ */
+async function upgradeLegal13(
+  payload: Payload,
+  tenantId: number,
+  page: (typeof LEGAL_PAGES)[number],
+): Promise<boolean> {
+  if (page.slug !== 'polityka-prywatnosci' && page.slug !== 'dostepnosc') return false
+  const { docs } = await payload.find({
+    collection: 'pages',
+    where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: page.slug } }] },
+    limit: 1,
+    depth: 0,
+    overrideAccess: true,
+    context: { seed: true },
+  })
+  const current = docs[0]
+  if (!current) return false
+  let layout: unknown = null
+  if (page.slug === 'polityka-prywatnosci') {
+    // TODO(krystian): [prawnik] the older text said „nie przekazujemy danych poza EOG” — Backblaze
+    // keeps the copies in the EU region, but is a US company: the lawyer decides the sentence.
+    layout =
+      replaceText(current.layout, LEGACY_PROCESSORS, PROCESSORS) ??
+      replaceText(current.layout, LEGACY_PROCESSORS_OLDER, PROCESSORS)
+  } else if (!JSON.stringify(current.layout ?? null).includes(ACCESSIBILITY_CHECKS_HEADING)) {
+    // The seed's own page only (its first sentence): a page written anew in the panel stays.
+    const json = JSON.stringify(current.layout ?? null)
+    if (json.includes('Chcemy, żeby ze strony wygodnie korzystał każdy')) layout = page.layout
+  }
+  if (!layout) return false
+  await payload.update({
+    collection: 'pages',
+    id: current.id,
+    data: { layout: layout as typeof current.layout, _status: 'published' },
+    overrideAccess: true,
+    context: { seed: true },
+  })
+  return true
+}
+
 /**
  * Legal pages of Biznes (B11b) from text blocks: created and published only when missing — never
  * merged, because `upsertBiznesPage` replaces a layout without Biznes blocks (a sample page),
@@ -238,7 +343,8 @@ export async function seedBiznesLegal(
     if (totalDocs > 0) {
       report(
         `pages ${page.slug}`,
-        page.slug === 'cookies' && (await upgradeCookies(payload, tenantId, page)),
+        (page.slug === 'cookies' && (await upgradeCookies(payload, tenantId, page))) ||
+          (await upgradeLegal13(payload, tenantId, page)),
       )
       continue
     }

@@ -7,6 +7,7 @@ import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { serviceTile } from '@/lib/catalog/purchase'
 import type { ProductView } from '@/lib/catalog/product'
 import type { SourceLink } from '@/lib/catalog/sourceLabels'
+import type { VersionRow } from '@/lib/catalog/versionRows'
 import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { AddToCartButton } from '../AddToCartButtonLazy'
@@ -14,18 +15,72 @@ import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 import { ProductAddButton } from './ProductAddButton'
 import { ProductSection } from './ProductSection'
 
-/** „Czym różnią się wersje” (K31-ZMIANY §4 pkt 7): cards that never stretch alone. */
+/**
+ * „Czym różnią się wersje” (PRODUKCJA-BIZNES-1211 §1): with parameters given per version
+ * (`versionRows`) a table on a computer — a row per parameter that differs, a column per
+ * version; on a phone (and without such parameters) cards with the difference and the values.
+ */
 export function ProductVersions({
   id,
   variants,
+  rows = [],
 }: {
   id: string
   variants: ProductView['variants']
+  rows?: VersionRow[]
 }) {
   if (variants.length < 2) return null
   return (
     <ProductSection id={id} eyebrow="Wersje" heading="Czym różnią się wersje">
-      <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-3.5 [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:scroll-px-4 max-md:overflow-x-auto max-md:px-4 max-md:py-2">
+      {rows.length > 0 && (
+        <div className="overflow-x-auto rounded-[22px] bg-card p-2 shadow-[inset_0_0_0_1px_var(--border)] max-md:hidden">
+          <table className="w-full text-left text-[15px] text-ink" data-version-table="">
+            <caption className="sr-only">Różnice między wersjami</caption>
+            <thead>
+              <tr>
+                <th scope="col" className="px-4 py-3 text-ink-2">
+                  Parametr
+                </th>
+                {variants.map((variant) => (
+                  <th key={variant.name} scope="col" className="px-4 py-3 font-extrabold">
+                    {variant.name}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {variants.some((variant) => variant.difference) && (
+                <tr className="border-t border-border">
+                  <th scope="row" className="px-4 py-3 font-bold text-ink-2">
+                    Co się różni
+                  </th>
+                  {variants.map((variant) => (
+                    <td key={variant.name} className="px-4 py-3 text-ink-2">
+                      {variant.difference ?? '—'}
+                    </td>
+                  ))}
+                </tr>
+              )}
+              {rows.map((row) => (
+                <tr key={row.label} className="border-t border-border">
+                  <th scope="row" className="px-4 py-3 font-bold text-ink-2">
+                    {row.label}
+                  </th>
+                  {row.values.map((value, i) => (
+                    <td key={i} className="px-4 py-3">
+                      {value ?? '—'}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {/* With the table, the cards are the phone's view only (MOBILE-APLIKACJA §4: tables as cards). */}
+      <ul
+        className={`${rows.length > 0 ? 'md:hidden ' : ''}grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-3.5 [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:scroll-px-4 max-md:overflow-x-auto max-md:px-4 max-md:py-2`}
+      >
         {variants.map((variant) => (
           <li
             key={variant.name}
@@ -34,6 +89,18 @@ export function ProductVersions({
             <h3 className="text-[1.05rem] font-extrabold text-ink">{variant.name}</h3>
             {variant.difference && (
               <p className="text-[0.95rem] leading-relaxed text-ink-2">{variant.difference}</p>
+            )}
+            {rows.length > 0 && (
+              <dl className="mt-1 grid gap-1 text-[14px] md:hidden">
+                {rows.map((row) => (
+                  <div key={row.label} className="flex justify-between gap-3">
+                    <dt className="text-ink-2">{row.label}</dt>
+                    <dd className="text-right font-bold text-ink">
+                      {row.values[variants.indexOf(variant)] ?? '—'}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             )}
           </li>
         ))}
@@ -54,6 +121,35 @@ function ProductTile({
   label: string | null
   withBenefit: boolean
 }) {
+  // A service without a photo: a light tile with its icon, name and one sentence — not the navy
+  // „Usługa PRO-KOM” stand-in (PRODUKCJA-BIZNES-1211 §1).
+  if (!product.image && serviceTile(product)) {
+    return (
+      <article className="flex h-full flex-col gap-3 rounded-[24px] bg-card p-5 shadow-[inset_0_0_0_1px_var(--border)]">
+        <span
+          aria-hidden="true"
+          className="flex size-11 items-center justify-center rounded-xl bg-surface-2 text-accent-text"
+        >
+          <Icon name={cardIcon(product, index)} className="size-5" strokeWidth={2.2} />
+        </span>
+        {label && (
+          <p className="text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase">{label}</p>
+        )}
+        <h3 className="font-extrabold text-ink">
+          <Link href={productHref(product.slug)} className="hover:text-accent-text">
+            {product.name}
+          </Link>
+        </h3>
+        {product.benefit && <p className="text-sm leading-relaxed text-ink-2">{product.benefit}</p>}
+        <AddToCartButton
+          slug={product.slug}
+          name={product.name}
+          variant="label"
+          className="mt-auto self-start"
+        />
+      </article>
+    )
+  }
   return (
     <article className="flex flex-col gap-3">
       <div className="relative">
@@ -269,12 +365,7 @@ export function ProductSources({
       }).format(new Date(checkedAt))
     : null
   return (
-    <ProductSection
-      id={id}
-      eyebrow="Źródła"
-      heading="Skąd są te informacje"
-      aside={checked ? `sprawdzono ${checked}` : undefined}
-    >
+    <ProductSection id={id} eyebrow="Źródła" heading="Skąd są te informacje">
       <ul className="max-w-4xl">
         {sources.map((source) => (
           <li key={source.url} className="border-b border-border">
@@ -297,7 +388,11 @@ export function ProductSources({
                 </svg>
               </span>
               <span className="min-w-0 flex-1 font-bold text-ink">{source.label}</span>
-              <span className="shrink-0 text-xs text-ink-2 max-sm:hidden">{source.meta}</span>
+              <span className="flex shrink-0 flex-col items-end text-xs text-ink-2">
+                <span className="max-sm:hidden">{source.meta}</span>
+                {/* The date the facts were checked, at each source (PRODUKCJA-BIZNES-1211 §1). */}
+                {checked && <span>sprawdzono {checked}</span>}
+              </span>
               <span className="sr-only"> (otwiera się w nowej karcie)</span>
             </a>
           </li>

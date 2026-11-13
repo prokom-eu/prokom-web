@@ -333,10 +333,11 @@ function PlanItem({
                 ? 'h-[168px] w-full min-[768px]:h-[210px]'
                 : compact
                   ? 'size-[76px] max-md:h-[168px] max-md:w-full'
-                  : 'h-[168px] w-full min-[768px]:h-[96px]',
+                  : // The model's photo across the plate (PRODUKCJA-BIZNES-1211 §2), not a stamp.
+                    'h-[168px] w-full min-[768px]:h-[184px]',
             )}
           >
-            <Photo product={card.product} className="max-h-[78%] max-w-[80%]" />
+            <Photo product={card.product} className="max-h-[84%] max-w-[84%]" />
           </ProductStage>
         )}
         <div className="flex flex-col gap-1">

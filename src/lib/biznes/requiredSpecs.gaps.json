@@ -1,0 +1,571 @@
+{
+  "gopos-all-in-one": [
+    "Wymiary"
+  ],
+  "posnet-bileterka-e-podroznik": [
+    "Wymiary"
+  ],
+  "posnet-werion": [
+    "Wymiary"
+  ],
+  "skaner": [
+    "Waga"
+  ],
+  "zebra-drukarka-etykiet-zd421": [
+    "Wymiary"
+  ],
+  "sato-metkownice-judo-kendo": [
+    "Typ",
+    "Rozdzielczość",
+    "Interfejsy"
+  ],
+  "zebra-drukarka-biurkowa-zd230": [
+    "Waga"
+  ],
+  "brother-pt-d610btvp": [
+    "Rozdzielczość"
+  ],
+  "brother-td-4420dn-td-4520dn": [
+    "Wymiary"
+  ],
+  "elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka": [
+    "Waga"
+  ],
+  "sunmi-blink-blink-2": [
+    "Waga"
+  ],
+  "optivendi-chlebomat": [
+    "Wymiary"
+  ],
+  "optivendi-boxomaty": [
+    "Płatności"
+  ],
+  "optivendi-winda-boxomat": [
+    "Wymiary"
+  ],
+  "optivendi-sklep-samoobslugowy": [
+    "Zasilanie",
+    "Wymiary"
+  ],
+  "optivendi-obiadomat": [
+    "Wymiary"
+  ],
+  "optivendi-boxomat-chlodzony": [
+    "Płatności",
+    "Zasilanie",
+    "Montaż"
+  ],
+  "optivendi-ksiazkomat": [
+    "Wymiary"
+  ],
+  "optivendi-kluczomat": [
+    "Płatności"
+  ],
+  "optivendi-pelletomat": [
+    "Zasilanie"
+  ],
+  "elzab-kw3": [
+    "Zasilanie",
+    "Montaż",
+    "Wymiary"
+  ],
+  "lenovo-thinkbook-14-g8-g9": [
+    "System"
+  ],
+  "apple-macbook-air-m5": [
+    "Procesor",
+    "System",
+    "Wymiary"
+  ],
+  "lenovo-thinkpad-e14-gen8-e16-gen4": [
+    "System"
+  ],
+  "lenovo-thinkbook-16-g8-g9": [
+    "System"
+  ],
+  "lenovo-thinkpad-x13-gen7": [
+    "System"
+  ],
+  "lenovo-ideapad-slim-5-16": [
+    "System"
+  ],
+  "lenovo-yoga-7-2w1": [
+    "System"
+  ],
+  "lenovo-yoga-slim-7": [
+    "System"
+  ],
+  "lenovo-yoga-9-2w1": [
+    "System"
+  ],
+  "dell-pro-precision-5": [
+    "System"
+  ],
+  "lenovo-thinkpad-x9-aura-edition": [
+    "System"
+  ],
+  "lenovo-thinkpad-p1-gen-9": [
+    "System"
+  ],
+  "lenovo-thinkpad-t14s-2-in-1-gen-2": [
+    "System"
+  ],
+  "apple-macbook-pro-m5": [
+    "Procesor",
+    "System",
+    "Wymiary"
+  ],
+  "dell-pro-tower-slim": [
+    "System"
+  ],
+  "dell-pro-aio": [
+    "System"
+  ],
+  "apple-mac-mini-m6": [
+    "Procesor",
+    "Zasilacz",
+    "System"
+  ],
+  "dell-pro-tower-slim-essential": [
+    "System"
+  ],
+  "dell-pro-micro": [
+    "System"
+  ],
+  "lenovo-thinkcentre-m70a-m90a-gen-6": [
+    "System"
+  ],
+  "lenovo-thinkstation-p3-tiny-ultra-gen-2": [
+    "Łączność"
+  ],
+  "dell-stacje-dokujace": [
+    "Procesor",
+    "Pamięć RAM",
+    "Dysk",
+    "System"
+  ],
+  "apple-imac-24-m4": [
+    "Procesor",
+    "Zasilacz",
+    "System",
+    "Obudowa i wymiary"
+  ],
+  "apple-mac-studio-m5": [
+    "Procesor",
+    "Zasilacz",
+    "System"
+  ],
+  "dell-pro-usb-c-hub": [
+    "Montaż VESA"
+  ],
+  "lenovo-thinkvision-p-32-49-ultrawide": [
+    "Montaż VESA"
+  ],
+  "dell-ultrasharp": [
+    "Montaż VESA"
+  ],
+  "dell-monitor-wideokonferencje": [
+    "Odświeżanie",
+    "Montaż VESA"
+  ],
+  "apple-studio-display": [
+    "Rozdzielczość",
+    "Matryca",
+    "Jasność",
+    "Odświeżanie",
+    "Regulacja"
+  ],
+  "apple-studio-display-xdr": [
+    "Rozdzielczość",
+    "Matryca",
+    "Odświeżanie",
+    "Regulacja"
+  ],
+  "logitech-k120-m100": [
+    "Gwarancja"
+  ],
+  "logitech-mk295-silent-wireless-combo": [
+    "Kompatybilność",
+    "Gwarancja"
+  ],
+  "logitech-c925e": [
+    "Kompatybilność"
+  ],
+  "logitech-zone-wireless-2": [
+    "Kompatybilność"
+  ],
+  "synology-diskstation-plus-2-4": [
+    "Obudowa / montaż"
+  ],
+  "qnap-ts-262a-ts-462a": [
+    "Obudowa / montaż"
+  ],
+  "synology-diskstation-value-j": [
+    "Obudowa / montaż"
+  ],
+  "qnap-ts-855x": [
+    "Obudowa / montaż"
+  ],
+  "comex-karty-snmp": [
+    "Obudowa / montaż"
+  ],
+  "brother-mfc-l2922dw-mfc-l2862dw": [
+    "Obciążenie miesięczne",
+    "Pamięć"
+  ],
+  "hp-laserjet-pro-mfp-3102fdw": [
+    "Druk dwustronny",
+    "Pamięć"
+  ],
+  "brother-mfc-l8390cdw-mfc-l8340cdw": [
+    "Druk dwustronny"
+  ],
+  "kyocera-ecosys-ma4000x-fx-wifx": [
+    "Obciążenie miesięczne",
+    "Pamięć"
+  ],
+  "konica-minolta-bizhub-c3321i": [
+    "Pamięć"
+  ],
+  "brother-mfc-l5710dw-mfc-l5710dn": [
+    "Druk dwustronny"
+  ],
+  "hp-color-laserjet-pro-mfp-4302fdw": [
+    "Rozdzielczość",
+    "Druk dwustronny",
+    "Pamięć"
+  ],
+  "brother-mfc-j6975dw-mfc-j6977dw": [
+    "Rozdzielczość",
+    "Panel"
+  ],
+  "brother-ads-4700w-ads-4300n": [
+    "Druk dwustronny",
+    "Papier",
+    "Obciążenie miesięczne",
+    "Pamięć"
+  ],
+  "brother-dcp-l2640dn-dcp-l2622dw": [
+    "Panel"
+  ],
+  "brother-mfc-l2802dw-mfc-l2802dn": [
+    "Pamięć"
+  ],
+  "brother-mfc-b7810dw": [
+    "Panel"
+  ],
+  "brother-dcp-l5510dw": [
+    "Druk dwustronny"
+  ],
+  "brother-mfc-l6710dw-mfc-l6910dn": [
+    "Druk dwustronny"
+  ],
+  "brother-hl-l5210dn-hl-l5210dw": [
+    "Panel"
+  ],
+  "hp-laserjet-pro-3002dw": [
+    "Pamięć"
+  ],
+  "hp-laserjet-pro-4113fdw": [
+    "Druk dwustronny",
+    "Pamięć"
+  ],
+  "brother-hl-l3220cw": [
+    "Panel"
+  ],
+  "brother-hl-l8430cdw-hl-l8570cdw": [
+    "Obciążenie miesięczne"
+  ],
+  "brother-hl-l9430cdn-hl-l9470cdn": [
+    "Rozdzielczość"
+  ],
+  "brother-mfc-l3740cdw-dcp-l3560cdw": [
+    "Pamięć"
+  ],
+  "brother-mfc-l8730cdw-dcp-l8630cdw": [
+    "Druk dwustronny",
+    "Obciążenie miesięczne"
+  ],
+  "brother-mfc-l8970cdw": [
+    "Druk dwustronny",
+    "Obciążenie miesięczne"
+  ],
+  "brother-mfc-l9630cdn": [
+    "Rozdzielczość",
+    "Druk dwustronny"
+  ],
+  "hp-color-laserjet-pro-3202dw": [
+    "Pamięć"
+  ],
+  "hp-color-laserjet-pro-mfp-3302sdw": [
+    "Pamięć"
+  ],
+  "brother-mfc-j5115dw-mfc-j5110dw-mfc-j5117dw": [
+    "Rozdzielczość"
+  ],
+  "brother-mfc-t930dw-dcp-t730dw": [
+    "Rozdzielczość",
+    "Pamięć"
+  ],
+  "hp-officejet-pro-9132e": [
+    "Druk dwustronny",
+    "Pamięć"
+  ],
+  "hp-smart-tank-790": [
+    "Pamięć"
+  ],
+  "brother-ads-1300-ads-1800w": [
+    "Druk dwustronny",
+    "Papier",
+    "Obciążenie miesięczne",
+    "Pamięć",
+    "Panel"
+  ],
+  "konica-minolta-bizhub-4221i": [
+    "Druk dwustronny",
+    "Pamięć"
+  ],
+  "konica-minolta-bizhub-5021i": [
+    "Druk dwustronny",
+    "Pamięć"
+  ],
+  "konica-minolta-bizhub-4051i": [
+    "Pamięć"
+  ],
+  "konica-minolta-bizhub-c3301i": [
+    "Pamięć"
+  ],
+  "konica-minolta-bizhub-c3351i": [
+    "Pamięć"
+  ],
+  "konica-minolta-bizhub-c251i": [
+    "Pamięć"
+  ],
+  "konica-minolta-bizhub-c301i": [
+    "Pamięć"
+  ],
+  "konica-minolta-bizhub-c268i": [
+    "Druk dwustronny",
+    "Pamięć"
+  ],
+  "kyocera-ecosys-ma5500ifx-ma6000ifx": [
+    "Obciążenie miesięczne",
+    "Pamięć"
+  ],
+  "kyocera-taskalfa-ma3500ci-ma4500ci": [
+    "Obciążenie miesięczne",
+    "Pamięć"
+  ],
+  "kyocera-taskalfa-5004i-6004i": [
+    "Format",
+    "Rozdzielczość",
+    "Druk dwustronny",
+    "Łączność",
+    "Obciążenie miesięczne",
+    "Pamięć",
+    "Wymiary",
+    "Waga"
+  ],
+  "kyocera-taskalfa-2320-2020": [
+    "Łączność",
+    "Obciążenie miesięczne",
+    "Pamięć",
+    "Panel",
+    "Wymiary",
+    "Waga"
+  ],
+  "kyocera-ecosys-m8124cidn-m8130cidn": [
+    "Rozdzielczość",
+    "Łączność",
+    "Obciążenie miesięczne",
+    "Pamięć",
+    "Wymiary",
+    "Waga"
+  ],
+  "kyocera-ecosys-ma2600cwfx": [
+    "Format",
+    "Rozdzielczość",
+    "Obciążenie miesięczne",
+    "Pamięć",
+    "Panel",
+    "Wymiary",
+    "Waga"
+  ],
+  "kyocera-ecosys-pa4000x-pa4500x": [
+    "Format",
+    "Obciążenie miesięczne",
+    "Pamięć",
+    "Panel",
+    "Wymiary",
+    "Waga"
+  ],
+  "tusze-tonery": [
+    "Typ",
+    "Format",
+    "Prędkość druku",
+    "Rozdzielczość",
+    "Druk dwustronny",
+    "Papier",
+    "Łączność",
+    "Obciążenie miesięczne",
+    "Pamięć",
+    "Panel",
+    "Wymiary",
+    "Waga"
+  ],
+  "fellowes-automax-200c": [
+    "Praca"
+  ],
+  "kobra-af-1-40": [
+    "Głośność"
+  ],
+  "logitech-rally-bar-huddle": [
+    "Przekątna",
+    "Rozdzielczość"
+  ],
+  "sharp-nec-projektory-sala": [
+    "Przekątna",
+    "Montaż"
+  ],
+  "avtek-ops": [
+    "Przekątna",
+    "Rozdzielczość",
+    "Montaż"
+  ],
+  "avtek-akcesoria-monitory": [
+    "Przekątna",
+    "Rozdzielczość",
+    "Złącza",
+    "Montaż"
+  ],
+  "sharp-nec-projektory-laser": [
+    "Przekątna",
+    "Montaż"
+  ],
+  "sharp-nec-instalacyjne": [
+    "Przekątna",
+    "Montaż"
+  ],
+  "dell-wideokonferencje": [
+    "Przekątna",
+    "Montaż"
+  ],
+  "logitech-meetup-2": [
+    "Przekątna",
+    "Rozdzielczość"
+  ],
+  "logitech-rally-bar-mini": [
+    "Przekątna",
+    "Rozdzielczość",
+    "Montaż"
+  ],
+  "logitech-tap-ip": [
+    "Rozdzielczość",
+    "Złącza"
+  ],
+  "biuro": [
+    "Sposób pracy / wymagania"
+  ],
+  "gestor": [
+    "Sposób pracy / wymagania"
+  ],
+  "gratyfikant": [
+    "Sposób pracy / wymagania"
+  ],
+  "minimarket": [
+    "Licencja",
+    "Sposób pracy / wymagania"
+  ],
+  "insert-inspunkty-ksef": [
+    "Licencja"
+  ],
+  "nfh": [
+    "Rodzaj"
+  ],
+  "microsoft-office-2024": [
+    "Okres"
+  ],
+  "microsoft-windows-server-cal": [
+    "Okres"
+  ],
+  "udr7": [
+    "Montaż"
+  ],
+  "ubiquiti-unifi-express-7": [
+    "Montaż"
+  ],
+  "ucgmax": [
+    "Montaż"
+  ],
+  "udmse": [
+    "Wymiary"
+  ],
+  "usw24": [
+    "Wymiary"
+  ],
+  "usw24max": [
+    "Wymiary"
+  ],
+  "u7max": [
+    "Zarządzanie"
+  ],
+  "omada-routery": [
+    "Wymiary"
+  ],
+  "omada-kontrolery": [
+    "Zarządzanie",
+    "Montaż"
+  ],
+  "ubiquiti-cloud-gateway-ultra-fiber": [
+    "Zarządzanie",
+    "Wymiary"
+  ],
+  "ubiquiti-dream-machine-pro-pro-max": [
+    "Zasilanie",
+    "Zarządzanie",
+    "Wymiary"
+  ],
+  "ubiquiti-u7-lite-u7-lr-u6-plus": [
+    "Wymiary"
+  ],
+  "ubiquiti-u7-scienne-zewnetrzne": [
+    "Porty",
+    "Montaż",
+    "Wymiary"
+  ],
+  "ubiquiti-switch-lite-ultra-flex": [
+    "Wymiary"
+  ],
+  "ubiquiti-switch-16-24-48-poe": [
+    "Wymiary"
+  ],
+  "omada-fusion": [
+    "Zarządzanie",
+    "Wymiary"
+  ],
+  "omada-bramy-4g-5g": [
+    "Montaż",
+    "Wymiary"
+  ],
+  "omada-switche-access-pro": [
+    "Wymiary"
+  ],
+  "omada-switche-access-plus": [
+    "Wymiary"
+  ],
+  "omada-switche-agile-es": [
+    "Montaż",
+    "Wymiary"
+  ],
+  "m365-poczta": [
+    "Dla kogo / forma"
+  ],
+  "pomoc-zdalna": [
+    "Zakres",
+    "Dla kogo / forma"
+  ],
+  "integracja-kasy": [
+    "Zakres",
+    "Miejsce"
+  ]
+}
