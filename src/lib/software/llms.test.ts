@@ -47,6 +47,8 @@ describe('softwareLlmsTxt (SEO etap 1)', () => {
     expect(text).toContain('Rabka-Zdrój, Podhale')
     expect(text).toContain('cała Małopolska')
     expect(text).toContain('zdalnie cała Polska')
+    // ZMIANY-v23 §1: Zakopane removed from the whole Software site.
+    expect(text).not.toContain('Zakopane')
     expect(lines).toContain('- Telefon: 883 200 151')
     expect(lines).toContain('- Biuro: ul. Orkana 16B, 34-700 Rabka-Zdrój.')
   })

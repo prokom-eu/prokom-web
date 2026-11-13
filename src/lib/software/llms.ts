@@ -63,7 +63,7 @@ export function softwareLlmsTxt(input: Input): string {
     '',
     '> Strony internetowe, sklepy, systemy dla firm, aplikacje i automatyzacje z Rabki-Zdroju (PRO-KOM Tadeusz Wójciak): projekt, wykonanie i opieka po starcie w jednym miejscu.',
     '',
-    '- Obszar: Rabka-Zdrój, Podhale (Nowy Targ, Zakopane, Mszana Dolna), cała Małopolska, a zdalnie cała Polska.',
+    '- Obszar: Rabka-Zdrój, Podhale (Nowy Targ, Mszana Dolna), cała Małopolska, a zdalnie cała Polska.',
     '- Przy każdym rozwiązaniu cena „od” i termin; stała cena za zakres, wycena na piśmie.',
     '- Kod, panel i dane należą do klienta.',
     ...(care ? [`- ${care.name}: ${sentence(priceOf(care, input.priceDisplay))}`] : []),
