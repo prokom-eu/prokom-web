@@ -88,7 +88,7 @@ export const TOWNS: readonly TownText[] = [
     slug: 'rabka-zdroj',
     locative: 'w Rabce-Zdroju',
     zone: 'podhale',
-    places: ['Rabka-Zdrój', 'Ponice'],
+    places: ['Rabka-Zdrój', 'Rabka', 'Ponice'],
     summary: 'Nasze miasto i salon — domy, pensjonaty, sanatoria i firmy od Ponic po Chabówkę.',
     description:
       'Monitoring, alarmy, Wi-Fi i smart home w Rabce-Zdroju. Salon na miejscu, wizja lokalna bez dalekiego dojazdu, serwis po montażu. Wycena na piśmie.',
@@ -201,7 +201,7 @@ export const TOWNS: readonly TownText[] = [
       },
     ],
     route:
-      'Z Rabki-Zdroju jedziemy zakopianką na południe — Nowy Targ to pierwsze duże miasto po drodze. Na wizję lokalną umawiamy się zwykle na konkretną godzinę tego samego tygodnia.',
+      'Z Rabki-Zdroju jedziemy zakopianką na południe — Nowy Targ to pierwsze duże miasto po drodze. Termin wizji lokalnej ustalamy w rozmowie.',
     faq: [
       {
         question: 'Czy kamery wytrzymają mróz w Nowym Targu?',
@@ -293,9 +293,9 @@ export const TOWNS: readonly TownText[] = [
     slug: 'jordanow',
     locative: 'w Jordanowie',
     zone: 'podhale',
-    summary: 'Sąsiednie miasteczko za Chabówką — domy, gospodarstwa i firmy przy zakopiance.',
+    summary: 'Sąsiednie miasteczko za Chabówką — domy, gospodarstwa i firmy niedaleko zakopianki.',
     description:
-      'Alarmy, monitoring, anteny i smart home w Jordanowie i okolicy. Domy, gospodarstwa i firmy przy zakopiance, sprzęt na rozległe działki. Wycena na piśmie.',
+      'Alarmy, monitoring, anteny i smart home w Jordanowie i okolicy. Domy, gospodarstwa i firmy niedaleko zakopianki, sprzęt na rozległe działki. Wycena na piśmie.',
     lead: 'Jordanów leży tuż za Chabówką, więc to dla nas bliski sąsiad. Pracujemy tu w domach jednorodzinnych, gospodarstwach na rozległych działkach i firmach, które korzystają z bliskości zakopianki.',
     traits: [
       {
@@ -333,7 +333,7 @@ export const TOWNS: readonly TownText[] = [
       },
     ],
     route:
-      'Z Rabki-Zdroju do Jordanowa jedziemy przez Chabówkę — to jedna z najbliższych miejscowości poza miastem. Wizję lokalną łatwo dopasować do Twojego dnia.',
+      'Z Rabki-Zdroju do Jordanowa jedziemy przez Chabówkę — to jedna z najbliższych miejscowości poza miastem, a termin wizji lokalnej ustalamy w rozmowie.',
     faq: [
       {
         question: 'Czy obejmiecie kamerami stodołę oddaloną od domu w Jordanowie?',
@@ -421,11 +421,11 @@ export const TOWNS: readonly TownText[] = [
   {
     slug: 'lubien',
     locative: 'w Lubniu',
-    zone: 'podhale',
-    summary: 'Wieś przy zakopiance, tuż za tunelem — domy przy trasie i nowe budowy.',
+    zone: 'dalej',
+    summary: 'Wieś przy zakopiance za tunelem pod Luboniem Małym — domy przy trasie i nowe budowy.',
     description:
       'Monitoring, alarmy, anteny i sieci w Lubniu przy zakopiance. Domy przy ruchliwej trasie, nowe budowy, zasilanie awaryjne. Wycena na piśmie po wizji.',
-    lead: 'Lubień leży przy zakopiance, tuż na północ od Rabki — jedziemy tam nową trasą przez tunel. Pracujemy w domach przy drodze i na nowych budowach na zboczach nad doliną Raby.',
+    lead: 'Lubień leży przy zakopiance na północ od Rabki — jedziemy tam nową trasą przez tunel. Pracujemy w domach przy drodze i na nowych budowach na zboczach nad doliną Raby.',
     traits: [
       {
         icon: 'car',
@@ -462,7 +462,7 @@ export const TOWNS: readonly TownText[] = [
       },
     ],
     route:
-      'Z Rabki-Zdroju jedziemy zakopianką na północ, przez tunel pod Luboniem Małym. Lubień to pierwsza miejscowość za tunelem, więc wizytę łatwo dopasować do Twojego terminu.',
+      'Z Rabki-Zdroju jedziemy zakopianką na północ, przez tunel pod Luboniem Małym. Lubień jest już poza naszą codzienną strefą, więc dojazd i termin ustalamy przy pierwszej rozmowie.',
     faq: [
       {
         question:
@@ -486,7 +486,7 @@ export const TOWNS: readonly TownText[] = [
   {
     slug: 'pcim',
     locative: 'w Pcimiu',
-    zone: 'podhale',
+    zone: 'dalej',
     summary: 'Długa wieś w dolinie Raby przy zakopiance — domy, warsztaty i firmy.',
     description:
       'Monitoring firm i domów, alarmy, sieci i ładowarki EV w Pcimiu w dolinie Raby. Obiekty przy zakopiance, łączenie kilku budynków. Wycena na piśmie.',
@@ -527,7 +527,7 @@ export const TOWNS: readonly TownText[] = [
       },
     ],
     route:
-      'Z Rabki-Zdroju jedziemy zakopianką na północ, przez Lubień. Pcim jest po drodze do Myślenic, więc wizję lokalną często łączymy z innymi wizytami w dolinie Raby.',
+      'Z Rabki-Zdroju jedziemy zakopianką na północ, przez Lubień. Pcim jest po drodze do Myślenic, poza codzienną strefą — dojazd ustalamy indywidualnie, a wizję lokalną łączymy z innymi wizytami w dolinie Raby.',
     faq: [
       {
         question: 'Mam dom i warsztat obok siebie w Pcimiu — jeden alarm czy dwa?',
@@ -675,7 +675,7 @@ export const TOWNS: readonly TownText[] = [
       {
         question: 'Czy kamery mają sens w domu pod Dobczycami bez stałego internetu?',
         answer:
-          'Tak. Nagrywają na miejscu, a do podglądu wystarcza łącze komórkowe z routerem. Dobierzemy taryfę i ustawienia tak, żeby nie zjadały pakietu danych.',
+          'Tak. Nagrywają na miejscu, a do podglądu wystarcza łącze komórkowe z routerem. Podgląd ustawimy tak, żeby nie zjadał pakietu danych.',
       },
     ],
     nearby: ['myslenice', 'wieliczka', 'krakow', 'limanowa'],
@@ -1174,7 +1174,7 @@ export const TOWNS: readonly TownText[] = [
       },
       {
         key: 'snd',
-        text: 'Nagłośnienie sal zabiegowych, stołówek i sal spotkań, z komunikatami dla gości.',
+        text: 'Nagłośnienie świetlic, stołówek i sal spotkań, z komunikatami dla gości.',
       },
       {
         key: 'kam',
