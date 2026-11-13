@@ -30,3 +30,21 @@ Bez przekierowania na Instalacje (inne linie albo hub): `/e-faktura`, `/firma`, 
   2. **po przeniesieniu pro-kom.eu do tej aplikacji (hub)**: wpisy w panelu → Przekierowania, tenant `pro-kom`, `from` = stary adres, `to` = pełny adres `https://prokominstalacje.pl/…`. Kolekcja przyjmuje cele `https://` (`src/lib/redirects/rules.ts`), a `proxy.ts` stosuje je przed routingiem.
 - Każdy wiersz = 301 (stały), bez łańcuchów (stary adres → od razu docelowy).
 - Test po wdrożeniu: `curl -sI https://pro-kom.eu/uslugi/montaz-instalacje/monitoring` → `301` i `location: https://prokominstalacje.pl/monitoring`. Lista kontrolna SEO §6.
+
+## Reguły dla obecnej pro-kom.eu (nazwa.pl, 13.11.2026)
+Obecna pro-kom.eu to Next.js + Payload na Apache z Phusion Passenger w nazwa.pl (nagłówki `Server: Apache/2`, `X-Powered-By: Next.js, Payload, Phusion Passenger`; 13.11 wszystkie stare adresy z mapy odpowiadają 200). Reguły `mod_rewrite` z `.htaccess` działają przed Passengerem, więc wystarczy dopisać je **na samej górze** pliku `.htaccess` w katalogu strony (Panel nazwa.pl → Menedżer plików albo FTP). Kopię starego pliku zachowaj obok (`.htaccess.bak`).
+
+```apache
+# 301: Instalacje -> prokominstalacje.pl (docs/tresci/prokominstalacje-301.md)
+RewriteEngine On
+RewriteRule ^uslugi/montaz-instalacje/?$ https://prokominstalacje.pl/uslugi [R=301,L]
+RewriteRule ^uslugi/montaz-instalacje/monitoring/?$ https://prokominstalacje.pl/monitoring [R=301,L]
+RewriteRule ^uslugi/montaz-instalacje/inteligentny-dom/?$ https://prokominstalacje.pl/smart-home [R=301,L]
+RewriteRule ^uslugi/montaz-instalacje/multimedialne/?$ https://prokominstalacje.pl/ekrany [R=301,L]
+RewriteRule ^uslugi/montaz-instalacje/naglosnieniowe/?$ https://prokominstalacje.pl/naglosnienie [R=301,L]
+RewriteRule ^uslugi/montaz-instalacje/sieci-strukturalnych/?$ https://prokominstalacje.pl/sieci-wifi [R=301,L]
+RewriteRule ^uslugi/montaz-instalacje/telewizyjne-i-satelitarne/?$ https://prokominstalacje.pl/anteny [R=301,L]
+RewriteRule ^realizacje/?$ https://prokominstalacje.pl/realizacje [R=301,L]
+```
+
+Sprawdzenie po wgraniu (Git Bash): `for p in uslugi/montaz-instalacje uslugi/montaz-instalacje/monitoring realizacje; do curl -sI https://pro-kom.eu/$p | grep -iE "^HTTP|^location"; done` → `301` i `location: https://prokominstalacje.pl/…`; strona główna `https://pro-kom.eu/` dalej 200.
