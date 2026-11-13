@@ -38,7 +38,7 @@ export function llmsTxt(input: Input): string {
     '',
     '- Wycena po wizji lokalnej, na piśmie; strona nie podaje cen sprzętu.',
     '- Gwarancja 24 miesiące na montaż. Na zgłoszenie odpowiadamy do 24 h w dni robocze.',
-    `- Obszar: ${AREA_SERVED.join(', ')} i okolice; dalej w Małopolsce dojazd ustalamy indywidualnie.`,
+    `- Obszar: ${AREA_SERVED.join(', ')} i okolice, aż po Kraków; dalej w Małopolsce dojazd ustalamy indywidualnie.`,
     ...(input.address ? [`- Salon: ${input.address}.`] : []),
     ...(input.phone ? [`- Telefon: ${input.phone}`] : []),
     ...(input.email ? [`- E-mail: ${input.email}`] : []),

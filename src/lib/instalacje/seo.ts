@@ -14,6 +14,14 @@ export const AREA_SERVED = [
   'Białka Tatrzańska',
   'Bukowina Tatrzańska',
   'Poronin',
+  // 13.11 (Krystian): the area reaches Kraków — Myślenice and the towns on the way.
+  'Lubień',
+  'Pcim',
+  'Myślenice',
+  'Dobczyce',
+  'Wieliczka',
+  'Skawina',
+  'Kraków',
 ] as const
 
 /**

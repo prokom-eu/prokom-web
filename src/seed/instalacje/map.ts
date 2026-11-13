@@ -333,11 +333,19 @@ const noPhotos = <T extends string | undefined>(text: T): T =>
  * characters) every title stays ≤ 60. Keyed by the package title without the site name.
  */
 export const SHORT_SEO_TITLES: Readonly<Record<string, string>> = {
-  'Alarmy i wideodomofony Rabka-Zdrój, Podhale': 'Alarmy i wideodomofony na Podhalu',
+  // 13.11 (Krystian: first place for „<usługa> Rabka”): service titles name Rabka-Zdrój.
+  'Alarmy i wideodomofony Rabka-Zdrój, Podhale': 'Alarmy i wideodomofony Rabka-Zdrój',
+  'Anteny satelitarne i DVB-T2 na Podhalu': 'Anteny satelitarne Rabka-Zdrój, Podhale',
+  'Zamki z kodem do apartamentów, Zakopane': 'Zamki z kodem Rabka-Zdrój i Zakopane',
+  'Ładowarki EV Elzab EcoPower, Podhale': 'Ładowarki EV Rabka-Zdrój i Podhale',
+  'Ekrany i menu board, Zakopane i Podhale': 'Ekrany reklamowe Rabka-Zdrój, Zakopane',
+  'Nagłośnienie lokali i kościołów, Podhale': 'Nagłośnienie lokali i kościołów, Rabka',
+  'Wi-Fi i sieci dla pensjonatów, Zakopane': 'Sieci i Wi-Fi Rabka-Zdrój, Zakopane',
+  'Smart home Ampio na Podhalu': 'Smart home Ampio Rabka-Zdrój i Podhale',
+  'Teletechnika w budownictwie, Małopolska': 'Teletechnika budynków Rabka, Małopolska',
   'Dostęp, monitoring i sieć dla firm, Podhale': 'Dostęp, monitoring i sieć dla firm',
   'Nagłośnienie i transmisja mszy dla parafii': 'Nagłośnienie kościoła i transmisja mszy',
   'Monitoring placu budowy bez prądu, Podhale': 'Monitoring placu budowy bez prądu',
-  'Nagłośnienie lokali i kościołów, Podhale': 'Nagłośnienie lokali i kościołów',
   'Alarm i kamery dla domu i domku, Podhale': 'Alarm i kamery w domu i domku, Podhale',
   'Zamki z kodem dla apartamentów na wynajem': 'Zamki z kodem dla apartamentów na doby',
   'Monitoring i alarm dla sklepów, Zakopane': 'Monitoring i alarm w sklepie, Zakopane',
@@ -351,6 +359,18 @@ const FORMER_OWN_TITLES: Readonly<Record<string, string>> = {
   'Dla architektów: smart home i teletechnika': 'Dla architektów: instalacje w projekcie',
   'Zaplanuj instalację na Podhalu w 2 minuty': 'Zaplanuj instalację w 2 minuty',
   'Serwis kamer, alarmów i sieci na Podhalu': 'Serwis kamer, alarmów i sieci, Podhale',
+  // 13.11: the titles before „Rabka-Zdrój” in every service title.
+  'Alarmy i wideodomofony na Podhalu': 'Alarmy i wideodomofony Rabka-Zdrój',
+  'Anteny satelitarne i DVB-T2 na Podhalu': 'Anteny satelitarne Rabka-Zdrój, Podhale',
+  'Zamki z kodem do apartamentów, Zakopane': 'Zamki z kodem Rabka-Zdrój i Zakopane',
+  'Ładowarki EV Elzab EcoPower, Podhale': 'Ładowarki EV Rabka-Zdrój i Podhale',
+  'Ekrany i menu board, Zakopane i Podhale': 'Ekrany reklamowe Rabka-Zdrój, Zakopane',
+  'Nagłośnienie lokali i kościołów': 'Nagłośnienie lokali i kościołów, Rabka',
+  'Wi-Fi i sieci dla pensjonatów, Zakopane': 'Sieci i Wi-Fi Rabka-Zdrój, Zakopane',
+  'Smart home Ampio na Podhalu': 'Smart home Ampio Rabka-Zdrój i Podhale',
+  'Teletechnika w budownictwie, Małopolska': 'Teletechnika budynków Rabka, Małopolska',
+  'Oferta instalacji na Podhalu': 'Oferta instalacji Rabka-Zdrój, Podhale',
+  'Serwis kamer, alarmów i sieci, Podhale': 'Serwis kamer i alarmów Rabka-Zdrój',
   // Runda v6 §1.1: no „RODO” in the guide title.
   'Poradnik: monitoring, RODO i Wi-Fi': 'Poradnik: monitoring, alarmy i Wi-Fi',
 }
@@ -762,7 +782,12 @@ const PAGE_FILES: {
   seoDescription?: string
 }[] = [
   // I12: the package's titles of the four pages + „| PRO-KOM Instalacje” have 73–76 characters.
-  { slug: 'uslugi', title: 'Pełna oferta', file: Oferta, seoTitle: 'Oferta instalacji na Podhalu' },
+  {
+    slug: 'uslugi',
+    title: 'Pełna oferta',
+    file: Oferta,
+    seoTitle: 'Oferta instalacji Rabka-Zdrój, Podhale',
+  },
   // The package's title has 57 characters + „| PRO-KOM Instalacje” (SEO §2.2: ≤ 65 in all).
   {
     slug: 'zaplanuj',
@@ -782,7 +807,7 @@ const PAGE_FILES: {
     slug: 'serwis',
     title: 'Serwis',
     file: Serwis,
-    seoTitle: 'Serwis kamer, alarmów i sieci, Podhale',
+    seoTitle: 'Serwis kamer i alarmów Rabka-Zdrój',
   },
   // The package's title (spec §3) without „| PRO-KOM” + „| PRO-KOM Instalacje” has 71 characters.
   {
