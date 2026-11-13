@@ -150,7 +150,7 @@ test.describe('Software — budgets of smoothness (SWA14 §3)', () => {
     expect(await scrollToFooter(page, DESKTOP_EXCEPTIONS)).toEqual([])
   })
 
-  test('the offer window opens without a long frame (entry guarded by the clock)', async ({
+  test('the offer window opens without a long frame (one render frame allowed)', async ({
     page,
   }) => {
     await page.setViewportSize(DESKTOP)
@@ -161,31 +161,27 @@ test.describe('Software — budgets of smoothness (SWA14 §3)', () => {
     await opener.hover()
     await page.waitForLoadState('networkidle')
     await watchFrames(page)
-    const { shown, full } = await page.evaluate(async () => {
+    const opened = await page.evaluate(async () => {
       document.querySelector<HTMLElement>('a.v-card')?.click()
       const start = performance.now()
-      let shown = -1
-      while (performance.now() - start < 1500) {
+      while (performance.now() - start < 2000) {
         await new Promise(requestAnimationFrame)
-        const panel = document.querySelector('dialog.sw-offer-panel[open]')
-        if (!panel) continue
-        if (shown < 0) shown = performance.now() - start
-        const style = getComputedStyle(panel)
-        if (style.opacity === '1' && (style.scale === 'none' || style.scale === '1')) {
-          return { shown, full: performance.now() - start }
-        }
+        if (document.querySelector('dialog.sw-offer-panel[open]')) return true
       }
-      return { shown, full: -1 }
+      return false
     })
-    // The exact entry (240 ms, transform + opacity) is checked in software-catalog; here the clock
-    // only guards against a slow one — a shared CI runner reads frames late (13.11: locally
-    // ~31 + ~285 ms, CI ~60 + ~315 ms). The budget of this test is the long frames below.
-    expect(full).toBeGreaterThan(0)
-    expect(shown).toBeLessThanOrEqual(150)
-    expect(full - shown).toBeLessThanOrEqual(400)
-    await page.waitForTimeout(300)
-    const frames = (await longFrames(page)).filter((duration) => duration > LONG_FRAME_MS)
-    expect(frames, 'long frames (ms) after the click').toEqual([])
+    expect(opened).toBe(true)
+    // Through the entry (240 ms) and the sections that come after it.
+    await page.waitForTimeout(800)
+    // §3: no frame over the budget after the click, „poza jedną klatką renderu” — on a CI runner
+    // one heavy commit (the window or its sections) may pass 100 ms (13.11: 119 ms), none 250 ms.
+    // The entry itself (240 ms, transform + opacity) and its clock are checked in software-catalog.
+    const frames = await longFrames(page)
+    const long = frames.filter((duration) => duration > LONG_FRAME_MS)
+    expect(long.length, `long frames (ms) after the click: ${long.join(', ')}`).toBeLessThanOrEqual(
+      1,
+    )
+    expect(Math.max(0, ...frames), 'the longest frame (ms)').toBeLessThanOrEqual(250)
   })
 
   test('JavaScript of the start page before any interaction stays within the budget', async ({
