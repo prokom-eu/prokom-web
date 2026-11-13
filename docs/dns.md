@@ -45,7 +45,8 @@ Strefy założone 31.10 w panelu Seohost (DNS → Strefy DNS); formularz wymaga 
 | A | @ | `<IP>` | 86400 | strona (Seohost tworzy przy zakładaniu strefy; do startu produkcji Nginx zamyka połączenie) | ustawione 31.10 |
 | A | www | `<IP>` | 86400 | `www` → 301 bez `www` (od produkcji) | ustawione 31.10 |
 | TXT | @ | `v=spf1 redirect=_spf-h99.microhost.pl` | 3600 | SPF domyślny Seohost (poczta linii idzie przez SMTP Seohost) | był w strefie, dopisany tu 13.11 |
-| TXT | @ | `google-site-verification=_qaCDRQ0J62tYjdZxPc34M3e-tEuWfTm0MGfKKUEi_E` | 3600 | weryfikacja Search Console (usługa typu Domena) — nie usuwać, Google sprawdza okresowo | do dodania 13.11 |
+| TXT | @ | `google-site-verification=_qaCDRQ0J62tYjdZxPc34M3e-tEuWfTm0MGfKKUEi_E` | 3600 | weryfikacja Search Console (usługa typu Domena) — nie usuwać, Google sprawdza okresowo | ustawione 13.11 (widoczne w 8.8.8.8 i 1.1.1.1) |
+| TXT | x._domainkey | `v=DKIM1; k=rsa; p=…` (klucz z panelu Seohost) | 3600 | DKIM poczty Seohost, selektor `x` | był w strefie, dopisany tu 13.11 |
 
 ### prokomsoftware.pl
 | Typ | Nazwa | Wartość | TTL | Po co | Stan |
