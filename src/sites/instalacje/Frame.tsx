@@ -22,6 +22,7 @@ import { InstSheetList } from './powloka/InstSheetList'
 import { PageTransition } from './powloka/PageTransition'
 import { EARLY_SKIP_SCRIPT, PauseOffscreen } from './powloka/PauseOffscreen'
 import { PreviewGuard } from './powloka/PreviewGuard'
+import { withAreaLink } from './obszar/areaFooter'
 import { salonsNote } from './powloka/salons'
 import { FrameStyles } from './style/LineStyles'
 
@@ -57,10 +58,13 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
     center?.label && center.href
       ? { label: center.label, href: center.href, icon: center.icon }
       : null
-  const columns = (line?.footerColumns ?? []).map((column) => ({
-    heading: column.heading ?? '',
-    links: (column.links ?? []).map((link) => ({ label: link.label, href: link.href })),
-  }))
+  // ADR-I006 §6: „Obszar działania” (the town pages) at the end of the panel's last column.
+  const columns = withAreaLink(
+    (line?.footerColumns ?? []).map((column) => ({
+      heading: column.heading ?? '',
+      links: (column.links ?? []).map((link) => ({ label: link.label, href: link.href })),
+    })),
+  )
 
   return (
     <>

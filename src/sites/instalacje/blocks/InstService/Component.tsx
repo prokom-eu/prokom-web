@@ -45,6 +45,7 @@ import { LadowarkiSections } from '../../widzety/ladowarki/LadowarkiSections'
 import { ChargerShowcase } from '../../widzety/ladowarki/LadowarkiWidgetsLazy'
 import { NaglosnienieSections } from '../../widzety/naglosnienie/NaglosnienieSections'
 import { ZoneMixer } from '../../widzety/naglosnienie/NaglosnienieWidgetsLazy'
+import { AreaStrip } from '../../obszar/AreaStrip'
 import { salonsNote } from '../../powloka/salons'
 import { PageStyles } from '../../style/LineStyles'
 
@@ -223,6 +224,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         objects={service.similarObjects}
         extraLink={architekci.related}
       />
+      <AreaStrip service={service.name} />
       {/* Runda v6 §1.3: the trust band right above the CTA band (Teletechnika has none). */}
       {layout?.guarantee !== false && <TrustStrip warrantyMonths={settings.warrantyMonths} />}
       {layout?.afterTrust}
