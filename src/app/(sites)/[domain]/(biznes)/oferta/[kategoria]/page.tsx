@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return {}
   const settings = await getSiteSettings(tenant.id)
   // 30–60 characters with the site's suffix (audit 0611 P1-8): „Laptopy dla firm — Rabka-Zdrój”.
-  const title = localTitle(category.seo.title ?? category.name)
+  const title = localTitle(category.seo.title?.trim() || category.name)
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = category.seo.description ?? category.lead
   const description = descriptionSource ? localDescription(descriptionSource) : undefined

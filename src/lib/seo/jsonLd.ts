@@ -52,25 +52,34 @@ type OrganizationInput = {
   contact: { phone: string | null; email: string | null }
   origin: string
   /**
-   * Towns and regions the line serves (Biznes: `SiteSettings.biznes.serviceAreas` + Podhale,
-   * Małopolska — SEO lokalne 13.11); none = no `areaServed`.
+   * Towns the line serves (Biznes: `SiteSettings.biznes.serviceAreas`; the regions are added
+   * here — SEO lokalne 13.11); none = no `areaServed`.
    */
   areaServed?: readonly string[]
 }
 
-/** Regions (not towns) of an area list: schema.org `AdministrativeArea`, the rest `Place`. */
-const REGIONS = new Set(['Podhale', 'Małopolska', 'Polska'])
+/**
+ * Regions the Biznes pages name next to the towns of the panel (SEO lokalne 13.11) and their
+ * schema.org types: Małopolska is a voivodeship (`AdministrativeArea`), Podhale a region with no
+ * administrative border (`Place`); the panel's towns are `City`.
+ */
+const BIZNES_REGIONS = { Podhale: 'Place', Małopolska: 'AdministrativeArea' } as const
+const areaNode = (name: string) => ({
+  '@type': BIZNES_REGIONS[name as keyof typeof BIZNES_REGIONS] ?? 'City',
+  name,
+})
 
 /** Where the Software line works (its texts: Podhale, Małopolska and remotely in Poland). */
 export const SOFTWARE_AREA_SERVED = ['Rabka-Zdrój', 'Podhale', 'Małopolska', 'Polska'] as const
 
 /**
- * The Software office for search engines (audyt 01.11 P2): its place on the map — the same point
- * as the contact map (`scripts/software-osm-map.mjs`, ul. Orkana 16B) — and the line's image.
- * `CompanyData` has no coordinates; Software has one office, so they live here. The Biznes salon
- * is the same address (one salon, Rabka), so its `geo` is this point too (SEO lokalne 13.11).
+ * The main office for search engines (audyt 01.11 P2) — the only salon, ul. Orkana 16B in Rabka:
+ * its place on the map (the point of the contact map, `scripts/software-osm-map.mjs`) and the
+ * Software image. Software and Biznes show only this salon, Instalacje put it on their first one
+ * (SEO lokalne 13.11). The public company data carries no coordinates, so they live here; a test
+ * keeps them equal to the company seed's first location.
  */
-const SOFTWARE_OFFICE = {
+const MAIN_OFFICE = {
   geo: { '@type': 'GeoCoordinates', latitude: 49.60994, longitude: 19.95339 },
   image: '/brand/prokom-software_og.png',
 } as const
@@ -122,21 +131,19 @@ export function organizationJsonLd({
     // service towns up to Kraków.
     ...(tenant.line === 'instalacje' &&
       index === 0 && {
-        geo: SOFTWARE_OFFICE.geo,
+        geo: MAIN_OFFICE.geo,
         areaServed: INSTALACJE_AREA_SERVED.map((name) => ({ '@type': 'City', name })),
       }),
     ...(tenant.line === 'software' && {
-      geo: SOFTWARE_OFFICE.geo,
-      image: origin + SOFTWARE_OFFICE.image,
+      geo: MAIN_OFFICE.geo,
+      image: origin + MAIN_OFFICE.image,
       areaServed: SOFTWARE_AREA_SERVED,
     }),
     ...(tenant.line === 'biznes' && {
-      geo: SOFTWARE_OFFICE.geo,
+      geo: MAIN_OFFICE.geo,
       ...(areaServed?.length && {
-        areaServed: areaServed.map((name) => ({
-          '@type': REGIONS.has(name) ? 'AdministrativeArea' : 'Place',
-          name,
-        })),
+        // One copy each: a region typed in the panel too is not listed twice.
+        areaServed: [...new Set([...areaServed, ...Object.keys(BIZNES_REGIONS)])].map(areaNode),
       }),
     }),
     address: {
