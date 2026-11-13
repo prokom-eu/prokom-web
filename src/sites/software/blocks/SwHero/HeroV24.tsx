@@ -1,4 +1,4 @@
-import { cardPrice } from '@/lib/software/cardPrice'
+import { priceLine } from '@/lib/software/priceCards'
 import type { SoftwareHeroV24 } from '@/lib/software/home'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
@@ -7,15 +7,6 @@ import type { StageSlide } from './HeroStage'
 import { HeroStage } from './HeroStageLazy'
 
 type Props = { hero: SoftwareHeroV24; index: SolutionsIndex; isFirst?: boolean }
-
-/** „od 2 490 zł” and the term of the slide's solution; a solution off the index asks for a quote. */
-function priceOf(slug: string, index: SolutionsIndex): Pick<StageSlide, 'price' | 'term'> {
-  const solution = index.solutions.find((item) => item.slug === slug)
-  if (!solution)
-    return { price: index.priceDisplay.fallback, term: index.priceDisplay.termFallback }
-  const { head, term } = cardPrice(solution, index.priceDisplay)
-  return { price: [head.before, head.amount, head.after].filter(Boolean).join(' '), term }
-}
 
 /**
  * Hero v24 of the Software start page (ZMIANY-v24 §4.1–4.1a, board `AU-pc`): the cosmic layer, the
@@ -31,7 +22,8 @@ export function HeroV24({ hero, index, isFirst = true }: Props) {
     text: slide.text,
     icon: slide.icon,
     href: `/rozwiazania?rozwiazanie=${slide.solution}`,
-    ...priceOf(slide.solution, index),
+    // „od 2 490 zł” and the term from `Solutions`; no price → a badge (SWA14 §4.1).
+    ...priceLine(slide.solution, index),
   }))
   const windows = hero.slides.map((slide) => (
     <Mockup

@@ -58,8 +58,15 @@ export function PriceCard({ card, details, href, onOpen, lazyThumb = false }: Pr
         <b>{card.name}</b>
         <span className="v-card-lead">{card.lead}</span>
         <div className="v-card-ft">
-          <b>{card.price}</b>
-          {card.term}
+          {/* No price: a small badge, not the price's type; its term would only repeat it. */}
+          {card.ask ? (
+            <span className="v-ask">{card.price}</span>
+          ) : (
+            <>
+              <b>{card.price}</b>
+              {card.term}
+            </>
+          )}
         </div>
       </div>
     </Link>

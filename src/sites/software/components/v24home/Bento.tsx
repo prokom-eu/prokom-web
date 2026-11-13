@@ -12,6 +12,7 @@ import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
 import { usePausedOffscreen } from './usePausedOffscreen'
 import { offerHref, type PriceLine } from '@/lib/software/priceCards'
+import { PriceTag } from '@/sites/software/components/ui/PriceTag'
 import { SlidingMark } from '../ui/SlidingMark'
 
 type Bento = NonNullable<SoftwareHome['bento']>
@@ -69,6 +70,7 @@ export function BentoSection({ bento, prices }: Props) {
   const systemVariant = bento.systems.variants[system] ?? bento.systems.variants[0]
   const autoVariant = bento.automations.variants[auto] ?? bento.automations.variants[0]
   if (!siteVariant || !systemVariant || !autoVariant) return null
+  const systemPrice = prices[systemVariant.solution]
   const sitePrice = prices[siteVariant.solution]
   const rebuildPrice = prices[bento.rebuild.solution]
 
@@ -106,7 +108,7 @@ export function BentoSection({ bento, prices }: Props) {
             <div className="v-tb">
               <div className="v-row">
                 <h3>{bento.sites.title}</h3>
-                <b className="v-price">{sitePrice?.price}</b>
+                {sitePrice && <PriceTag line={sitePrice} />}
               </div>
               <Variants
                 label={bento.sites.title}
@@ -158,7 +160,7 @@ export function BentoSection({ bento, prices }: Props) {
             <div className="v-tb">
               <div className="v-row">
                 <h3>{bento.rebuild.title}</h3>
-                <b className="v-price">{rebuildPrice?.price}</b>
+                {rebuildPrice && <PriceTag line={rebuildPrice} />}
               </div>
               <div className="v-row v-note">
                 <span>{bento.dragHint}</span>
@@ -178,7 +180,7 @@ export function BentoSection({ bento, prices }: Props) {
             <div className="v-tb">
               <div className="v-row">
                 <h3>{bento.systems.title}</h3>
-                <b className="v-price">{prices[systemVariant.solution]?.price}</b>
+                {systemPrice && <PriceTag line={systemPrice} />}
               </div>
               <div className="v-row">
                 <Variants

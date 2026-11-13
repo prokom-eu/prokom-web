@@ -1333,6 +1333,12 @@
   padding-left: 18px;
   border-left: 1px solid var(--border);
 }
+.hx-cap .div > b.hx-ask {
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+}
 .hx-cap a {
   display: inline-flex;
   align-items: center;

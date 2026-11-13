@@ -77,7 +77,8 @@ export function PriceHero({
                   {price.after && <span className="sw-offer-price-small"> {price.after}</span>}
                 </>
               ) : (
-                <b className="sw-offer-price-big sw-offer-price-text">{price.text}</b>
+                // No price: a badge, not the price's type (SWA14 §4.1).
+                <span className="v-ask">{price.text}</span>
               )}
             </dd>
           </div>

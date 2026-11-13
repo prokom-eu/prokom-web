@@ -318,7 +318,7 @@ test.describe('Software offer window (spec. §5.1)', () => {
     await page.goto(site(HOST, `${PATH}?rozwiazanie=aplikacja-dla-ekip-w-terenie`))
     const dialog = windowOf(page, 'Aplikacja dla ekip w terenie')
     await expect(dialog).toBeVisible()
-    await expect(dialog).toContainText('Zapytaj o wycenę')
+    await expect(dialog).toContainText('Wycena po rozmowie')
     await expect(dialog).toContainText('Cena i termin')
     await dialog.getByRole('button', { name: 'Zamknij' }).click()
     await expect(page).toHaveURL(new RegExp(`${PATH}$`))

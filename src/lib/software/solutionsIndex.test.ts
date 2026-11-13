@@ -70,7 +70,7 @@ describe('solutions index on the seed package', () => {
       template: 'od {cena} zł netto',
       short: 'od {cena} zł',
       monthTemplate: 'od {cena} zł / mies.',
-      fallback: 'Zapytaj o wycenę',
+      fallback: 'Wycena po rozmowie',
       termFallback: 'po krótkiej rozmowie',
     })
   })
@@ -80,7 +80,7 @@ describe('solutions index on the seed package', () => {
     const broken = buildSolutionsIndex({ ...source, priceDisplay: { template: 'bez tokenu' } })
     expect(broken.priceDisplay.template).toBe('od {cena} zł netto')
     expect(buildSolutionsIndex({ ...source, priceDisplay: null }).priceDisplay.fallback).toBe(
-      'Zapytaj o wycenę',
+      'Wycena po rozmowie',
     )
   })
 

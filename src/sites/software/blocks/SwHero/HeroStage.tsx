@@ -33,6 +33,8 @@ export type StageSlide = {
   /** „od 2 490 zł” — from `Solutions` (`cardPrice`). */
   price: string
   term: string
+  /** No price: the caption shows a small „Wycena po rozmowie” badge (SWA14 §4.1). */
+  ask: boolean
   href: string
 }
 
@@ -367,8 +369,8 @@ export function HeroStage({
             <span>{slide.text}</span>
           </div>
           <div className="div">
-            <b>{slide.price}</b>
-            <span>{slide.term}</span>
+            <b className={slide.ask ? 'hx-ask' : undefined}>{slide.price}</b>
+            {!slide.ask && <span>{slide.term}</span>}
           </div>
           <Link href={slide.href}>{offer}</Link>
         </div>

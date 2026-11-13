@@ -579,10 +579,6 @@
   line-height: 1;
   letter-spacing: -0.03em;
 }
-.sw-offer-price-text {
-  font-size: clamp(28px, 2.6vw, 36px);
-  color: var(--accent-text);
-}
 .sw-offer-price-small {
   font-size: 15px;
   font-weight: 700;
