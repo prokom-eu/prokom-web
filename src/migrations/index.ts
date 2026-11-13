@@ -104,6 +104,7 @@ import * as migration_20261110_213130_biznes_sekcja_zestawy from './20261110_213
 import * as migration_20261110_220524_biznes_sekcja_przeglad_it from './20261110_220524_biznes_sekcja_przeglad_it'
 import * as migration_20261113_201127_swa14_pulpit_firmy from './20261113_201127_swa14_pulpit_firmy'
 import * as migration_20261113_201305_swa14_pulpit_firmy_dane from './20261113_201305_swa14_pulpit_firmy_dane'
+import * as migration_20261113_220654_software_cena_pulpitu from './20261113_220654_software_cena_pulpitu'
 
 export const migrations = [
   {
@@ -635,5 +636,10 @@ export const migrations = [
     up: migration_20261113_201305_swa14_pulpit_firmy_dane.up,
     down: migration_20261113_201305_swa14_pulpit_firmy_dane.down,
     name: '20261113_201305_swa14_pulpit_firmy_dane',
+  },
+  {
+    up: migration_20261113_220654_software_cena_pulpitu.up,
+    down: migration_20261113_220654_software_cena_pulpitu.down,
+    name: '20261113_220654_software_cena_pulpitu',
   },
 ]
