@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { fitTitle } from '@/lib/biznes/seo'
+import { localTitle } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { categoryHref } from '@/lib/catalog/category'
@@ -9,7 +9,7 @@ import { ogImages } from '@/lib/pages/metadata'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
-import { biznesDescription } from '@/lib/biznes/seo'
+import { localDescription } from '@/lib/biznes/seo'
 import { CategoryPageView } from '@/sites/biznes/components/category/CategoryPageView'
 
 import { requestOrigin, requireLine } from '../../../tenant'
@@ -32,10 +32,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return {}
   const settings = await getSiteSettings(tenant.id)
   // 30–60 characters with the site's suffix (audit 0611 P1-8): „Laptopy dla firm — Rabka-Zdrój”.
-  const title = fitTitle(category.seo.title ?? category.name, 'dla firm — Rabka-Zdrój')
+  const title = localTitle(category.seo.title ?? category.name)
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = category.seo.description ?? category.lead
-  const description = descriptionSource ? biznesDescription(descriptionSource) : undefined
+  const description = descriptionSource ? localDescription(descriptionSource) : undefined
   const canonical = categoryHref(category.slug)
   return {
     title,

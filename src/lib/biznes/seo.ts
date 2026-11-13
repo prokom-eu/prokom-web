@@ -24,6 +24,32 @@ export function biznesDescription(text: string): string {
   )
 }
 
+/** A text that already says where we work (SEO lokalne 13.11). */
+const REGION = /rabk|podhal|małopol/i
+
+/** Where we work, closing a description that does not say it yet (within 155 characters). */
+const REGION_SENTENCE = ' Dobór i serwis w Rabce-Zdroju i na Podhalu.'
+
+/**
+ * Meta description of a category-like page that always says where we work (SEO lokalne 13.11):
+ * a text naming the region stays as `biznesDescription` makes it; another one keeps its whole
+ * sentences that fit (or its first one cut on a word) and ends with the region sentence.
+ */
+export function localDescription(text: string): string {
+  const clean = text.replace(/\s+/g, ' ').trim()
+  const described = biznesDescription(clean)
+  if (REGION.test(described)) return described
+  const room = META_DESCRIPTION_MAX - REGION_SENTENCE.length
+  let body = ''
+  for (const sentence of clean.split(/(?<=[.!?])\s+/)) {
+    const next = body ? `${body} ${sentence}` : sentence
+    if (next.length > room) break
+    body = next
+  }
+  if (!body) body = metaDescription(clean, room)
+  return `${body.replace(/[\s,;:–—-]+$/, '').replace(/([^.!?…])$/, '$1.')}${REGION_SENTENCE}`
+}
+
 /** What the site's title template adds to every subpage („%s | PRO-KOM Biznes”). */
 export const TITLE_SUFFIX = ' | PRO-KOM Biznes'
 /** A whole `<title>` of 30–60 characters (audit 0611 P1-8): the page's part within these. */
@@ -54,4 +80,32 @@ export function fitTitle(
   return (space > 0 ? cut.slice(0, space) : cut.slice(0, TITLE_BASE_MAX))
     .replace(/(?:\s+[a-ząćęłńóśźż]{1,2})+$/u, '')
     .replace(/[\s,.;:—–-]+$/u, '')
+}
+
+/**
+ * The page's part of `<title>` with the region (SEO lokalne 13.11: „Kasy fiskalne — Rabka-Zdrój i
+ * Podhale”): the longest form of the region that fits 60 characters with the site's suffix, „dla
+ * firm” only when the title does not say it; a long title gets the region on its short part
+ * (`fitTitle`); a title naming the region already stays as `fitTitle` makes it.
+ */
+export function localTitle(base: string): string {
+  const title = base.replace(/\s+/g, ' ').trim()
+  if (REGION.test(title)) return fitTitle(title)
+  const forFirms = /dla firm/i.test(title) ? [] : [' dla firm — Rabka-Zdrój i Podhale']
+  const forms = [
+    ...forFirms,
+    ' — Rabka-Zdrój i Podhale',
+    ...(forFirms.length ? [' dla firm — Rabka-Zdrój'] : []),
+    ' — Rabka-Zdrój',
+    ' — Rabka',
+  ]
+  const withRegion = (text: string) =>
+    forms.map((form) => text + form).find((t) => t.length <= TITLE_BASE_MAX)
+  // Too long for any form: its first part (before „ — ” or „: ”, e.g. „Automaty vendingowe —
+  // modele Optivendi”) with the region — the place weighs more for local search than the
+  // brands after the dash — else the title as `fitTitle` makes it.
+  const short = fitTitle(title)
+  const head = title.split(/ — |: | – /)[0]!.trim()
+  const firstPart = head.length >= TITLE_BASE_MIN ? withRegion(head) : undefined
+  return withRegion(title) ?? withRegion(short) ?? firstPart ?? short
 }

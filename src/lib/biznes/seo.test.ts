@@ -4,6 +4,8 @@ import { META_DESCRIPTION_MAX } from '../seo/description'
 import {
   biznesDescription,
   fitTitle,
+  localDescription,
+  localTitle,
   META_DESCRIPTION_MIN,
   TITLE_BASE_MAX,
   TITLE_BASE_MIN,
@@ -30,6 +32,65 @@ describe('biznesDescription (audit 0611 P1-8: 100–155 characters)', () => {
     const fitting =
       'Kasy fiskalne online z doborem, fiskalizacją i serwisem w Rabce-Zdroju — wycena na piśmie, bez zobowiązań.'
     expect(biznesDescription(fitting)).toBe(fitting)
+  })
+})
+
+describe('localTitle (SEO lokalne 13.11: the region in every category title that fits)', () => {
+  it('adds the region in the longest form that fits 60 characters with the suffix', () => {
+    expect(localTitle('Kasy fiskalne')).toBe('Kasy fiskalne — Rabka-Zdrój i Podhale')
+    expect(localTitle('Laptopy')).toBe('Laptopy dla firm — Rabka-Zdrój i Podhale')
+    expect(localTitle('Terminale płatnicze i PIN-pady')).toBe(
+      'Terminale płatnicze i PIN-pady — Rabka',
+    )
+    for (const base of ['Kasy fiskalne', 'Laptopy', 'Drukarki i urządzenia wielofunkcyjne'])
+      expect(localTitle(base).length + TITLE_SUFFIX.length, base).toBeLessThanOrEqual(60)
+  })
+
+  it('does not repeat „dla firm” or a region the title already names', () => {
+    expect(localTitle('Laptopy dla firm')).toBe('Laptopy dla firm — Rabka-Zdrój i Podhale')
+    expect(localTitle('Opieka IT na Podhalu')).toBe('Opieka IT na Podhalu')
+  })
+
+  it('keeps the first part before a dash with the region when the whole does not fit', () => {
+    expect(localTitle('Automaty vendingowe — modele Optivendi')).toBe(
+      'Automaty vendingowe — Rabka-Zdrój i Podhale',
+    )
+  })
+
+  it('puts the region on the short part of a long panel title', () => {
+    expect(localTitle('Systemy dla gastronomii: GoPOS, Sunmi, Posnet')).toBe(
+      'Systemy dla gastronomii — Rabka-Zdrój',
+    )
+  })
+
+  it('keeps a title too long for any region as fitTitle does', () => {
+    const long = 'Drukarki i urządzenia wielofunkcyjne A4 i A3'
+    expect(localTitle(long)).toBe(fitTitle(long))
+  })
+})
+
+describe('localDescription (SEO lokalne 13.11: where we work, in every description)', () => {
+  const lead =
+    'Posnet, Elzab i Fawag — od kieszonkowej kasy dla mechanika po kasę systemową do sklepu ze skanerem. Programujemy, fiskalizujemy, szkolimy i serwisujemy.'
+
+  it('ends a description without a region with where we work, within 155 characters', () => {
+    const description = localDescription(lead)
+    expect(description).toMatch(/Rabce-Zdroju/)
+    expect(description).toMatch(/^Posnet, Elzab i Fawag/)
+    expect(description.length).toBeLessThanOrEqual(META_DESCRIPTION_MAX)
+    expect(description.length).toBeGreaterThanOrEqual(META_DESCRIPTION_MIN)
+  })
+
+  it('keeps a description that already names the region as biznesDescription does', () => {
+    const local =
+      'Komputery dla firm z Podhala z wdrożeniem i serwisem. Dobór, dostawa i konfiguracja.'
+    expect(localDescription(local)).toBe(biznesDescription(local))
+  })
+
+  it('cuts a very long first sentence on a word and still adds the region', () => {
+    const description = localDescription('Słowo '.repeat(60))
+    expect(description).toMatch(/Rabce-Zdroju/)
+    expect(description.length).toBeLessThanOrEqual(META_DESCRIPTION_MAX)
   })
 })
 
