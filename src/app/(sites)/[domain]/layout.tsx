@@ -65,6 +65,10 @@ export default async function TenantLayout({ children, params }: Props) {
       tenant,
       contact: { phone: settings?.phone ?? null, email: settings?.email ?? null },
       origin,
+      // Biznes: the towns of the panel plus the regions its pages name (SEO lokalne 13.11).
+      areaServed: settings?.biznes
+        ? [...settings.biznes.serviceAreas, 'Podhale', 'Małopolska']
+        : undefined,
     })
   const promo = company?.promo && isPromoForLine(company.promo.lines, tenant.line) && (
     <PromoBar promo={company.promo} />
