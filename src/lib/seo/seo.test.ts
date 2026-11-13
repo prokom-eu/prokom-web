@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { AREA_SERVED } from '../instalacje/seo'
 
 import {
   articleJsonLd,
@@ -214,6 +215,24 @@ describe('organizationJsonLd on Software (SWV2: only Rabka)', () => {
       image: 'https://prokomsoftware.pl/brand/prokom-software_og.png',
       areaServed: SOFTWARE_AREA_SERVED,
     })
+  })
+})
+
+describe('organizationJsonLd for Instalacje (13.11)', () => {
+  it('places the salon on the map and lists the towns of the line', () => {
+    const data = organizationJsonLd({
+      company,
+      tenant: { name: 'PRO-KOM Instalacje', line: 'instalacje' },
+      contact: { phone: null, email: null },
+      origin: 'https://prokominstalacje.pl',
+    })
+    const [salon] = data['@graph'].filter((node) => node['@type'] === 'LocalBusiness')
+    expect(salon).toMatchObject({
+      geo: { '@type': 'GeoCoordinates', latitude: 49.60994, longitude: 19.95339 },
+    })
+    expect((salon as { areaServed?: { name: string }[] }).areaServed?.map((t) => t.name)).toEqual([
+      ...AREA_SERVED,
+    ])
   })
 })
 
