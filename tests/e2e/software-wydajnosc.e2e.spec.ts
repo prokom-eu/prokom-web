@@ -191,15 +191,17 @@ test.describe('Software — budgets of smoothness (SWA14 §3)', () => {
   test('JavaScript of the start page before any interaction stays within the budget', async ({
     page,
   }) => {
+    // The budget is of the production build: `next dev` ships unminified chunks.
+    test.skip(process.env.E2E_SERVER !== 'start', 'JS budget only on the production build')
     await page.setViewportSize(PHONE)
     await page.goto(site(HOST, '/'))
     await page.waitForLoadState('networkidle')
-    // Compressed bytes of the scripts loaded without a touch (docs/jakosc.md, „Budżety Software”).
+    // Compressed bytes of the scripts loaded without a touch (docs/jakosc.md, „Budżety Software”):
+    // by the file, not `initiatorType` — a `<link rel="preload">` script counts as „link”.
     const bytes = await page.evaluate(() =>
-      performance
-        .getEntriesByType('resource')
-        .filter((entry) => (entry as PerformanceResourceTiming).initiatorType === 'script')
-        .reduce((sum, entry) => sum + (entry as PerformanceResourceTiming).encodedBodySize, 0),
+      (performance.getEntriesByType('resource') as PerformanceResourceTiming[])
+        .filter((entry) => /\/_next\/static\/.+\.js(\?|$)/.test(entry.name))
+        .reduce((sum, entry) => sum + entry.encodedBodySize, 0),
     )
     test.info().annotations.push({ type: 'js-bytes', description: String(bytes) })
     expect(bytes).toBeLessThanOrEqual(JS_BUDGET_BYTES)
@@ -207,7 +209,8 @@ test.describe('Software — budgets of smoothness (SWA14 §3)', () => {
 })
 
 /**
- * 241 359 B (gzip, 18 scripts) measured 13.11.2026 on the production build after SWA13b + SWA14a,
- * plus 5 % — the same number in docs/jakosc.md („Budżety płynności Software”).
+ * 270 994 B (gzip, 29 files of `/_next/static/`, preloads included) measured 13.11.2026 on the
+ * production build after SWA13b + SWA14a, plus 5 % — the same number in docs/jakosc.md
+ * („Budżety płynności Software”).
  */
-const JS_BUDGET_BYTES = 253_500
+const JS_BUDGET_BYTES = 284_500
