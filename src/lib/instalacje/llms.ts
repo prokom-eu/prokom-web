@@ -1,3 +1,4 @@
+import { AREA_PATH, AREA_TOWNS, areaHref } from './area'
 import { AREA_SERVED } from './seo'
 
 type Input = {
@@ -52,6 +53,12 @@ export function llmsTxt(input: Input): string {
     '## Dla kogo',
     '',
     ...input.objects.map((o) => `- [${o.name}](${url(o.href)})`),
+    '',
+    // ADR-I006: the town pages, each with its own text.
+    '## Obszar działania',
+    '',
+    `- [Wszystkie miejscowości](${url(AREA_PATH)})`,
+    ...AREA_TOWNS.map((t) => `- [Instalacje ${t.name}](${url(areaHref(t.slug))})`),
     '',
     ...(input.posts?.length
       ? ['## Poradnik', '', ...input.posts.map((p) => `- [${p.title}](${url(p.href)})`), '']

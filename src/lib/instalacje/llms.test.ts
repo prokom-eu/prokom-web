@@ -45,4 +45,10 @@ describe('llmsTxt', () => {
     })
     expect(bare).not.toMatch(/Telefon|E-mail|Salon:/)
   })
+
+  it('lists every town page with an absolute link (ADR-I006)', () => {
+    expect(text).toContain('## Obszar działania')
+    expect(text).toContain('- [Instalacje Nowy Targ](https://prokominstalacje.pl/obszar/nowy-targ)')
+    expect(text).toContain('- [Wszystkie miejscowości](https://prokominstalacje.pl/obszar)')
+  })
 })
