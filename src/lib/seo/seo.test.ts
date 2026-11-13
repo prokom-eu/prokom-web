@@ -224,14 +224,19 @@ describe('organizationJsonLd on Biznes (SEO lokalne 13.11: Rabka, Podhale, Mało
     })
   })
 
-  it('without an area in the panel adds no empty areaServed', () => {
+  it('without towns in the panel still names the regions (as the service pages)', () => {
     const [, branch] = organizationJsonLd({
       company,
       tenant: { name: 'PRO-KOM Biznes', line: 'biznes' },
       contact: { phone: null, email: null },
       origin: 'https://prokombiznes.pl',
     })['@graph']
-    expect(branch).not.toHaveProperty('areaServed')
+    expect(branch).toMatchObject({
+      areaServed: [
+        { '@type': 'Place', name: 'Podhale' },
+        { '@type': 'AdministrativeArea', name: 'Małopolska' },
+      ],
+    })
   })
 })
 

@@ -11,13 +11,19 @@ const input: BiznesLlmsInput = {
   address: 'ul. Orkana 16B, 34-700 Rabka-Zdrój',
   hours: ['pn–pt 9:00–17:00'],
   areas: ['Rabka-Zdrój', 'Nowy Targ', 'Zakopane'],
+  // The panel's partners with a status — InsERT has none of its products published here.
+  statuses: [
+    { name: 'Elzab', status: 'authorized-service' },
+    { name: 'Posnet', status: 'authorized-service' },
+    { name: 'InsERT', status: 'authorized-partner' },
+    { name: 'GoPOS', status: 'authorized-partner' },
+    { name: 'Optivendi', status: 'partner' },
+    { name: 'COMEX', status: 'cooperation' },
+  ],
+  // As `brandLinks` gives them: a salon 2.0 under its brands' names, then brand pages.
   brands: [
-    { name: 'Elzab', slug: 'elzab', status: 'authorized-service', page: true },
-    { name: 'Posnet', slug: 'posnet', status: 'authorized-service', page: true },
-    { name: 'GoPOS', slug: 'gopos', status: 'authorized-partner', page: true },
-    { name: 'Optivendi', slug: 'optivendi', status: 'partner', page: false },
-    { name: 'COMEX', slug: 'comex', status: 'cooperation', page: false },
-    { name: 'Lenovo', slug: 'lenovo', status: 'none', page: true },
+    { name: 'Konica Minolta i Kyocera', slug: 'druk' },
+    { name: 'Lenovo', slug: 'lenovo' },
   ],
   groups: [
     {
@@ -59,6 +65,7 @@ describe('biznesLlmsTxt (llmstxt.org; SEO lokalne 13.11 — a summary for AI ass
   it('names partner statuses exactly as K4-FINAL §1 and none for other brands', () => {
     expect(text).toContain('Autoryzowany serwis Posnet i Elzab')
     expect(text).toContain('Autoryzowany partner GoPOS')
+    expect(text).toContain('Autoryzowany partner InsERT')
     expect(text).toContain('Partner Optivendi')
     expect(text).toContain('We współpracy z COMEX')
     expect(text).not.toMatch(/(partner|serwis|współpracy)[^\n]*Lenovo/i)
@@ -67,7 +74,8 @@ describe('biznesLlmsTxt (llmstxt.org; SEO lokalne 13.11 — a summary for AI ass
   it('links categories, brand pages, industries and pages with full addresses', () => {
     expect(text).toContain('[Kasy fiskalne](https://prokombiznes.pl/oferta/kasy-fiskalne)')
     expect(text).toContain('[Lenovo](https://prokombiznes.pl/marki/lenovo)')
-    expect(text).not.toContain('/marki/optivendi')
+    expect(text).toContain('[Konica Minolta i Kyocera](https://prokombiznes.pl/marki/druk)')
+    expect(text).not.toContain('/marki/kyocera')
     expect(text).toContain('[Gastronomia](https://prokombiznes.pl/branze/gastronomia)')
     expect(text).toContain('[Opieka IT](https://prokombiznes.pl/opieka-it)')
   })

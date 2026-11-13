@@ -145,9 +145,8 @@ export function organizationJsonLd({
     }),
     ...(tenant.line === 'biznes' && {
       geo: MAIN_OFFICE.geo,
-      ...(areaServed?.length && {
-        areaServed: biznesAreaServed(areaServed),
-      }),
+      // Always the regions, as the service pages: no towns in the panel = regions only.
+      areaServed: biznesAreaServed(areaServed ?? []),
     }),
     address: {
       '@type': 'PostalAddress',

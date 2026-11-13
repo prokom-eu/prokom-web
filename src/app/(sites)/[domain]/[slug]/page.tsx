@@ -47,7 +47,9 @@ export default async function TenantPage({ params }: Props) {
   const service =
     isService &&
     biznesServiceJsonLd({
-      name: page.title,
+      // The SEO title says the service („GoPOS dla gastronomii — wdrożenie w Rabce”), the page
+      // title only the product („GoPOS”).
+      name: page.seo?.title?.trim() || page.title,
       description: page.seo?.description ? biznesDescription(page.seo.description) : undefined,
       url: `${origin}/${page.slug}`,
       origin,
