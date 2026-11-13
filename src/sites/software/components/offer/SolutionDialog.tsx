@@ -162,29 +162,23 @@ export function SolutionDialog({
   const opening = isOpen && !wasOpen
   /**
    * A light first frame (SWA14 §2.2): the header, name, price and mock-up come at once; the
-   * sections below (scope, steps, FAQ, related) one frame later, in a transition.
+   * sections below (scope, steps, FAQ, related) and the mock-up's motion once the panel is in
+   * (240 ms) — committing them during the entry held its frames back.
    */
-  const [full, setFull] = useState(false)
-  /** The panel has come in: until then the mock-up's motion waits (no animation under the entry). */
   const [entered, setEntered] = useState(false)
   if (isOpen !== wasOpen) {
     setWasOpen(isOpen)
     if (isOpen) {
       setFirst(slug)
       setTrail({ key: '', amount: '', from: null })
-      setFull(false)
       setEntered(false)
     }
   }
   useEffect(() => {
-    if (!isOpen) return
-    const frame = full ? 0 : requestAnimationFrame(() => startTransition(() => setFull(true)))
-    const timer = entered ? 0 : window.setTimeout(() => setEntered(true), ENTER_MS)
-    return () => {
-      cancelAnimationFrame(frame)
-      window.clearTimeout(timer)
-    }
-  }, [isOpen, full, entered])
+    if (!isOpen || entered) return
+    const timer = window.setTimeout(() => startTransition(() => setEntered(true)), ENTER_MS)
+    return () => window.clearTimeout(timer)
+  }, [isOpen, entered])
   const heading = useRef<HTMLHeadingElement>(null)
   const top = useRef<HTMLDivElement>(null)
   const send = useRef<HTMLAnchorElement>(null)
@@ -554,7 +548,7 @@ export function SolutionDialog({
             </p>
           )}
 
-          {full ? (
+          {entered ? (
             <>
               {hasScope && (
                 <section id="oferta-zakres" aria-label="Zakres" className="sw-offer-block">
@@ -671,7 +665,7 @@ export function SolutionDialog({
               </section>
             </>
           ) : (
-            // Holds the place of the sections for the one frame before they come.
+            // Holds the place of the sections until the panel is in.
             <div aria-hidden="true" className="sw-offer-later" />
           )}
         </div>

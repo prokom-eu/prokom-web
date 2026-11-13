@@ -867,7 +867,7 @@
 .sw-offer-swap[data-entering] .mk * {
   animation-play-state: paused;
 }
-/* One frame before the sections come (`SolutionDialog`, light first frame). */
+/* Until the sections come (`SolutionDialog`, light first frame: after the 240 ms entry). */
 .sw-offer-later {
   min-height: 40svh;
 }
