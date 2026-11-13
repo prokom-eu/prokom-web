@@ -1,7 +1,7 @@
 /**
- * Towns of the line's area (SEO §1): in the structured data, never as clone pages. I13: the list
- * stays in code (Zakopane is a town of the travel zone — no salon there, boss 01.11.2026); a
- * panel field only if the boss wants to edit it.
+ * Towns of the line's area (SEO §1) in the structured data of every service. I13: the list stays
+ * in code (Zakopane is a town of the travel zone — no salon there, boss 01.11.2026). Town pages
+ * with their own text: `area.ts` + `dane/miejscowosci.ts` (ADR-I006), never clones.
  */
 export const AREA_SERVED = [
   'Rabka-Zdrój',
