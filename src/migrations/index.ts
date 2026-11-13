@@ -105,8 +105,7 @@ import * as migration_20261110_220524_biznes_sekcja_przeglad_it from './20261110
 import * as migration_20261113_201127_swa14_pulpit_firmy from './20261113_201127_swa14_pulpit_firmy'
 import * as migration_20261113_201305_swa14_pulpit_firmy_dane from './20261113_201305_swa14_pulpit_firmy_dane'
 import * as migration_20261113_220654_software_cena_pulpitu from './20261113_220654_software_cena_pulpitu'
-import * as migration_20261113_224528_software_seo_glowna from './20261113_224528_software_seo_glowna'
-import * as migration_20261113_225554_software_seo_stopka from './20261113_225554_software_seo_stopka'
+import * as migration_20261113_231729_software_seo_etap1 from './20261113_231729_software_seo_etap1'
 
 export const migrations = [
   {
@@ -643,13 +642,10 @@ export const migrations = [
     up: migration_20261113_220654_software_cena_pulpitu.up,
     down: migration_20261113_220654_software_cena_pulpitu.down,
     name: '20261113_220654_software_cena_pulpitu',
-    up: migration_20261113_224528_software_seo_glowna.up,
-    down: migration_20261113_224528_software_seo_glowna.down,
-    name: '20261113_224528_software_seo_glowna',
   },
   {
-    up: migration_20261113_225554_software_seo_stopka.up,
-    down: migration_20261113_225554_software_seo_stopka.down,
-    name: '20261113_225554_software_seo_stopka',
+    up: migration_20261113_231729_software_seo_etap1.up,
+    down: migration_20261113_231729_software_seo_etap1.down,
+    name: '20261113_231729_software_seo_etap1',
   },
 ]
