@@ -166,6 +166,19 @@ Istniejący `lib/software/smoothScroll` (SWV5) zostaje i dostaje: krzywą `easeI
 
 ---
 
+### 5.3 Ruch — zasady wydajności (SWA14 §3, od 13.11.2026)
+
+Pilnuje ich `tests/e2e/software-wydajnosc.e2e.spec.ts` (CI, Chromium). Budżety i liczby — `docs/jakosc.md` → „Budżety płynności Software”.
+
+- **Animujemy tylko `transform` i `opacity`** (także `translate`, `scale`, `rotate`). Wyjątki z komentarzem w teście: `sw-em` i `sw-rise-blur` tylko na komputerze (decyzja SWA12), `v-arc` (łuk wskaźnika „Technologia” rysuje się raz — `stroke-dashoffset` jednej ścieżki SVG). Bez animacji `width`, `left`, `top`, `height`, `background-position`, `filter` na telefonie.
+- **Zmiana stanu** (najechanie, aktywna pozycja, kapsuła przy przewijaniu) może płynnie zmienić kolor, cień i zaokrąglenie (≤ 300 ms), ale **nie układ** (`width`, `height`, `padding`, `margin`, `top`/`left`, `gap`, `font-size`). Znany wyjątek: kapsuła ze strefy wspólnej (`.cap`, `.cap-btn`, `.cap-cta` — wysokość, `padding`, `min-width` na komputerze); przebudowa na `transform` w osobnym PR `perf/wsp-*`.
+- **Ruch nieskończony tylko na ekranie** (`data-still`, `MotionGate`, SWA12a/13a). Każdy nowy element ruchu dostaje ten sam mechanizm.
+- **Rozmycia** (`backdrop-filter`) tylko na kapsule, dolnym pasku i tle okna oferty. Na elementach w ruchu nigdy.
+- **Okna i arkusze:** wysokości w `svh`, nie `dvh` (SWA12a).
+- **Czasy:** każde wejście/wyjście ≤ 300 ms (okno oferty: 240 / 160 ms, tło 180 ms), przewijanie i ślizg kotwic 500–700 ms z `ease-out`, przesunięcie karuzeli hero 700 ms. Jedna skala z tokenów `--dur-*` (`src/styles/tokens.css`).
+- **View Transitions** tylko przy przejściu między stronami i zmianie motywu. Nigdy przy otwieraniu okien: przechwycenie warstw rysowało nazwane elementy (kapsuła, pasek) nad oknem i dawało długie klatki (SWA14 §2).
+- **`will-change`** tylko na czas przejścia (np. karuzela hero: `data-moving`), nie na stałe.
+
 ## 6. Oferta i okno oferty
 
 ### 6.1 Okno oferty (`SolutionDialog` — wygląd v24, plansza: klik dowolnej karty oferty/cennika)
