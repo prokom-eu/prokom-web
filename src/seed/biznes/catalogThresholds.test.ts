@@ -16,6 +16,12 @@ export const MIN_FAQ = 4
 export const MIN_RECOMMENDED = 3
 /** Sentences at least this long must be unique across cards. */
 export const MIN_SHARED = 80
+const SENTENCE_END = /(?<=[.!?])\s+(?=[„"(]?[A-ZĄĆĘŁŃÓŚŹŻ0-9])/u
+const normalize = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim()
 
 type Card = {
   slug_seed: string
@@ -67,16 +73,19 @@ describe('production thresholds of the finished partitions (PRODUKCJA-BIZNES-121
 
   it('description: no long sentence shared by two cards (own text per model, 13.11)', () => {
     // A template paragraph pasted into a whole brand reads as thin content to search engines
-    // and to a buyer comparing models; short phrases (< MIN_SHARED) may repeat.
+    // and to a buyer comparing models; short phrases (< MIN_SHARED) may repeat. A sentence ends
+    // before a capital letter only, so abbreviations („np.”, „m.in.”) do not cut it; the
+    // comparison ignores case, punctuation and spacing, so a changed comma is no way around it.
     const seen = new Map<string, string>()
     const shared: string[] = []
     for (const card of doneText)
-      for (const sentence of card.opis.join(' ').split(/(?<=[.!?])\s+/)) {
+      for (const sentence of card.opis.join(' ').split(SENTENCE_END)) {
         const text = sentence.trim()
         if (text.length < MIN_SHARED) continue
-        const first = seen.get(text)
+        const key = normalize(text)
+        const first = seen.get(key)
         if (first && first !== card.slug_seed) shared.push(`${card.slug_seed} = ${first}: ${text}`)
-        else seen.set(text, card.slug_seed)
+        else seen.set(key, card.slug_seed)
       }
     expect(shared).toEqual([])
   })

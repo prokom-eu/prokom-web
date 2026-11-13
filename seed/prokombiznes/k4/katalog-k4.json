@@ -514,7 +514,7 @@
    "opis": [
     "Mini LT ONLINE to mała, prosta kasa do niewielkiego sklepu i punktu usług: warsztatu, salonu fryzjerskiego, gabinetu, małej gastronomii czy sprzedaży węgla. Jest uproszczoną wersją popularnej kasy Mini — wybierz ją, gdy nie potrzebujesz kabla sieciowego i wielu złączy.",
     "Ma pyłoszczelną klawiaturę odporną na zachlapania, z wymienną wkładką, wyświetlacz kasjera 2 × 24 znaki i wyświetlacz klienta LED. Mieści 10 000 towarów i 10 kasjerów, drukuje do 60 mm/s na rolce 40 m, z logo, kodami QR i NIP nabywcy. Obsługuje e-paragony i usługi czasowe (wypożyczalnie, parkingi, kręgielnie).",
-    "Moduł Bluetooth/Wi-Fi jest wbudowany, więc kasa łączy się z CRK bezprzewodowo. Przez USB podłączysz czytnik kodów, wagę, pendrive lub PINPad, a do gniazda RJ12 szufladę. Akumulator żelowy podtrzymuje pracę. Elzab podaje współpracę m.in. z Subiekt GT / nexo, Comarch ERP Optima, Wapro Mag i KC-Firma.",
+    "Moduł Bluetooth/Wi-Fi jest wbudowany, więc kasa łączy się z CRK bezprzewodowo. Przez USB podłączysz czytnik kodów, wagę, pendrive lub PINPad, a do gniazda RJ12 szufladę. Akumulator żelowy podtrzymuje pracę. Z programami sprzedaży Mini LT współpracuje tak samo jak Mini — według Elzab m.in. z Subiektem GT / nexo, Comarch ERP Optima, Wapro Mag i KC-Firmą.",
     "Mini LT Online przekazujemy po fiskalizacji, z gotową bazą towarów, stawkami VAT i nagłówkiem, a na jej pyłoszczelnej klawiaturze przećwiczymy z Tobą sprzedaż, zwrot i raport dobowy. Obowiązkowy przegląd techniczny Mini LT, wymagany co najmniej raz na 2 lata, wykonamy jako autoryzowany serwis Elzab — o terminie przypomnimy — a naprawy robimy w całej Małopolsce. Jeśli Mini LT zastępuje starszą kasę, zamkniemy też pracę tamtej."
    ],
    "cechy": [
@@ -7873,7 +7873,7 @@
    "korzysc": "Duży dotykowy ekran i Android: wygodna obsługa płatności, napiwków i potwierdzeń przy kliencie.",
    "opis": [
     "Ingenico Axium DX 8000 to przenośny terminal płatniczy z Androidem 10 w usłudze PolCard dla firm, które chcą obsługiwać płatności na dużym, dotykowym ekranie: restauracji, hoteli, punktów usługowych i sprzedaży u klienta. Łączy się przez 4G oraz Wi-Fi w pasmach 2,4 i 5 GHz, a ładuje w podstawie albo przez USB-C.",
-    "Duży ekran dotykowy IPS 6\" HD+ (720 × 1440 px) w DX 8000 obsługuje procesor Cortex A53 z 2 GB RAM i 16 GB pamięci flash, którą rozszerzysz kartą microSD do 128 GB. Na Axium DX 8000 klient zapłaci kartą z paskiem magnetycznym, chipem EMV albo zbliżeniowo, a także BLIK-iem, Apple Pay lub Google Pay. Potwierdzenia wychodzą z wbudowanej drukarki DX 8000 z prędkością do 40 linii na sekundę, na rolkach 40 mm × 18 m. Akumulator ma pojemność 3350 mAh, a 450-gramowy terminal działa w zakresie od -10 do 50 °C. W DX 8000 włączysz napiwki, cashback, preautoryzację, DCC i transakcje MO/TO. Terminal ma certyfikat bezpieczeństwa PCI PTS 6.x.",
+    "Duży ekran dotykowy IPS 6\" HD+ (720 × 1440 px) pracuje z procesorem Cortex A53, 2 GB RAM i 16 GB pamięci flash, którą rozszerzysz kartą microSD do 128 GB. Na Axium DX 8000 klient zapłaci kartą z paskiem magnetycznym, chipem EMV albo zbliżeniowo, a także BLIK-iem, Apple Pay lub Google Pay. Potwierdzenia wychodzą z wbudowanej drukarki z prędkością do 40 linii na sekundę, na rolkach 40 mm × 18 m. Akumulator ma pojemność 3350 mAh, a 450-gramowy terminal działa w zakresie od -10 do 50 °C. Możesz włączyć napiwki, cashback, preautoryzację, DCC i transakcje MO/TO. Terminal ma certyfikat bezpieczeństwa PCI PTS 6.x.",
     "Pomagamy zdecydować, czy potrzebujesz terminala z Androidem, czy wystarczy prostszy Move. Uruchamiamy terminal, pokazujemy obsługę i — gdy pracujesz na kasie albo systemie sprzedaży — łączymy je, żeby kwota przechodziła automatycznie. Paragon fiskalny nadal wystawia kasa lub drukarka fiskalna."
    ],
    "cechy": [
@@ -8039,7 +8039,7 @@
    "korzysc": "Android i ekran dotykowy w mniejszej obudowie — terminal, który łatwo nosić po sali i w terenie.",
    "opis": [
     "Ingenico Axium DX 4000 Portable to kompaktowy terminal płatniczy z Androidem 10 w usłudze PolCard. To mniejszy brat DX 8000 dla firm, które chcą obsługi na ekranie dotykowym w poręcznej obudowie: lokali, punktów usługowych i sprzedaży u klienta. Łączy się przez 4G i Wi-Fi 2,4 GHz, ładuje w podstawie albo przez USB-C.",
-    "DX 4000 Portable mieści w mniejszej obudowie kolorowy ekran dotykowy 5\" (854 × 480 px), procesor Cortex A53 1,4 GHz, 1 GB RAM oraz 8 GB pamięci flash z miejscem na kartę microSD do 128 GB. Kompaktowy DX 4000 przyjmie BLIK, Apple Pay i Google Pay, a karty odczyta z paska magnetycznego, chipu EMV lub zbliżeniowo. Drukarka w DX 4000 wydrukuje do 40 linii na sekundę na rolce 40 mm × 18 m. Waży 430 g, ma akumulator Li-ion 2200 mAh i pracuje od -10 do 50 °C. Z usług dodatkowych na DX 4000 Portable dostępne są m.in. napiwek, cashback, preautoryzacja, DCC i MO/TO. Certyfikat bezpieczeństwa tego terminala to PCI PTS 6.x.",
+    "DX 4000 Portable mieści w mniejszej obudowie kolorowy ekran dotykowy 5\" (854 × 480 px), procesor Cortex A53 1,4 GHz, 1 GB RAM oraz 8 GB pamięci flash z miejscem na kartę microSD do 128 GB. Kompaktowy terminal przyjmie BLIK, Apple Pay i Google Pay, a karty odczyta z paska magnetycznego, chipu EMV lub zbliżeniowo. Wbudowana drukarka wydrukuje do 40 linii na sekundę na rolce 40 mm × 18 m. Waży 430 g, ma akumulator Li-ion 2200 mAh i pracuje od -10 do 50 °C. Z usług dodatkowych dostępne są m.in. napiwek, cashback, preautoryzacja, DCC i MO/TO. Certyfikat bezpieczeństwa tego terminala to PCI PTS 6.x.",
     "Pomagamy wybrać między DX 4000 a większym DX 8000 albo prostszym Move, uruchamiamy terminal i pokazujemy obsługę. Gdy pracujesz na kasie lub systemie sprzedaży, łączymy je, żeby kwota przechodziła automatycznie; paragon wystawia kasa."
    ],
    "cechy": [
@@ -42436,7 +42436,7 @@
     "Seria E to podstawowe monitory Dell Pro do codziennej pracy: komputer na kasie, recepcja w pensjonacie, sekretariat albo stanowisko w biurze. Masz do wyboru przekątne 21,5, 23,8 i 27 cali, w rozdzielczości Full HD, a w modelu E2726DS ostrzejszej QHD (2560×1440 — więcej miejsca na tabelki i dwa okna obok siebie).",
     "Wszystkie modele bieżącej generacji mają matową matrycę IPS (dobre kolory i czytelny obraz także z boku), jasność 300 cd/m² i odświeżanie 100 lub 120 Hz. Modele bez litery S mają stałą stopę z samym pochyleniem — wystarczą na ladę. Modele HS i DS mają stopę z regulacją wysokości (130 mm), obrotem i ustawieniem w pion oraz dwa głośniki 2 W. Podświetlenie ma certyfikat TÜV Eye Comfort (3 gwiazdki).",
     "Modele Full HD mają HDMI, DisplayPort i VGA, więc podłączysz też starszy komputer. Seria E nie ma USB-C ani portów USB — do laptopa podłączanego jednym kablem wybierz Dell Pro z USB-C. Dell daje 3 lata gwarancji z usługą Advanced Exchange (wymiana monitora na sprawny).",
-    "Podpowiadamy, czy na ladę wystarczy model ze stałą stopą, czy lepszy będzie HS lub DS z regulacją, i podłączamy monitor do komputera — także starszego, przez VGA. Zgłoszenia gwarancyjne serii E prowadzimy w Dell za Ciebie."
+    "Podpowiadamy, czy na ladę wystarczy model ze stałą stopą, czy lepszy będzie HS lub DS z regulacją, i podłączamy monitor do komputera — w modelach Full HD także starszego, przez VGA. Zgłoszenia gwarancyjne serii E prowadzimy w Dell za Ciebie."
    ],
    "cechy": [
     "IPS 100–120 Hz",
@@ -46495,7 +46495,7 @@
     "MX Master 3S for Business to mysz na stanowisko, przy którym spędza się 8 godzin dziennie: księgowość, zaopatrzenie, biuro projektowe, kierownik zmiany. Wyprofilowany korpus podpiera całą dłoń, a oprócz głównego kółka z funkcją Smart-shift ma osobne kółko pod kciukiem do przewijania w poziomie — przydatne w szerokich tabelach Excela.",
     "Czujnik Darkfield pracuje w zakresie 200–8000 DPI (regulacja co 50 DPI). Mysz ma 7 przycisków, w tym przycisk gestów; w aplikacji Logi Options+ (Windows, macOS) każdemu można przypisać własną funkcję.",
     "Wersja for Business łączy się przez dołączony odbiornik Logi Bolt lub przez Bluetooth. Akumulator 500 mAh ładujesz przez USB-C, a według producenta minuta ładowania wystarcza na 3 godziny pracy.",
-    "Sprawdzamy, czy MX Master 3S pasuje do dłoni i pracy danej osoby, parujemy ją z odbiornikiem Logi Bolt i ustawiamy przyciski tak, żeby wygodnie obsługiwać Teams lub Zoom. Gdy oprócz MX Master 3S potrzebujesz kamery w sali spotkań, montujemy ją przy ekranie, prowadzimy okablowanie i robimy próbne połączenie. Wycenę MX Master 3S z dostawą i uruchomieniem na Twoich stanowiskach przygotujemy na piśmie."
+    "Sprawdzamy, czy MX Master 3S pasuje do dłoni i pracy danej osoby, parujemy ją z odbiornikiem Logi Bolt i ustawiamy przyciski tak, żeby wygodnie obsługiwać Teams lub Zoom. Przycisk gestów i pozostałe przyciski programujemy w Logi Options+ pod programy, z których ta osoba korzysta najczęściej. Wycenę MX Master 3S z dostawą i uruchomieniem na Twoich stanowiskach przygotujemy na piśmie."
    ],
    "cechy": [
     "czujnik do 8000 DPI",
@@ -46842,7 +46842,7 @@
     "Zone Vibe Wireless to słuchawki biznesowe dla osób, które dużo rozmawiają i słuchają: biuro, praca hybrydowa, obsługa klienta. Są lekkie (185 g), mają poduszki z pianki z pamięcią kształtu i głośniki 40 mm, więc nadają się też do muzyki.",
     "Dwa mikrofony z formowaniem wiązki i przetwarzaniem DSP wycinają tło, a mikrofon wyciszasz, obracając wysięgnik do góry. Bluetooth multipoint łączy je jednocześnie z dwoma urządzeniami, np. laptopem i telefonem. Wersje z odbiornikiem USB-C (z adapterem USB-A) mają zasięg do 50 m.",
     "Producent podaje do 18 godzin rozmów i do 20 godzin słuchania. Słuchawki mają certyfikaty Microsoft Teams, Zoom, Google Meet i Google Voice, a dział IT może nimi zarządzać w Logitech Sync. Nie mają aktywnej redukcji hałasu (ANC) — tę ma Zone Wireless 2.",
-    "Sprawdzamy, czy do Twojego biura wystarczą Zone Vibe Wireless z pasywnym wyciszeniem, łączymy je z laptopem i telefonem w trybie multipoint i ustawiamy jako urządzenie audio w Teams lub Zoom. W sali spotkań, z którą pracownicy w Zone Vibe łączą się zdalnie, montujemy kamerę przy ekranie, prowadzimy kable i robimy próbne połączenie. Wycenę z dostawą i uruchomieniem przygotujemy na piśmie, z liczbą słuchawek Zone Vibe dobraną do zespołu."
+    "Sprawdzamy, czy do Twojego biura wystarczą Zone Vibe Wireless z pasywnym wyciszeniem, łączymy je z laptopem i telefonem w trybie multipoint i ustawiamy jako urządzenie audio w Teams lub Zoom. Odbiornik USB podłączamy na stałe do laptopa, a telefon parujemy przez Bluetooth, żeby rozmowa przechodziła między nimi bez szukania ustawień. Wycenę z dostawą i uruchomieniem przygotujemy na piśmie, z liczbą słuchawek Zone Vibe dobraną do zespołu."
    ],
    "cechy": [
     "185 g, wokółuszne",
@@ -47355,7 +47355,7 @@
     "Signature M650 for Business to „mysz na każde biurko”: do biura, recepcji, gabinetu, zaplecza sklepu. Ma wyprofilowany kształt z gumowymi bokami i dwa rozmiary — standardowy M650 oraz większy M650 L — więc dobierzesz ją do dłoni pracownika.",
     "Kliknięcia są wyciszone — producent podaje, że są o ponad 90% cichsze niż w popularnym modelu M185. Kółko SmartWheel przewija precyzyjnie linia po linii albo bardzo szybko, gdy mocniej je zakręcisz. Czujnik pracuje w zakresie 400–4000 DPI.",
     "Mysz zasila jedna bateria AA (w zestawie), która według producenta wystarcza na 24 miesiące. Wersja for Business łączy się przez dołączony odbiornik Logi Bolt (połączenie szyfrowane, tryb FIPS) albo przez Bluetooth.",
-    "Dla każdego pracownika dobieramy rozmiar — M650 albo większy M650 L — parujemy mysz z szyfrowanym odbiornikiem Logi Bolt i sprawdzamy, jak działa w Teams lub Zoom. Jeżeli razem z myszami Signature M650 urządzasz pokój do wideorozmów, stawiamy kamerę przy ekranie, układamy przewody i dzwonimy próbnie. Wycenę z dostawą i uruchomieniem przygotujemy na piśmie, z liczbą sztuk M650 i M650 L dobraną do Twojej firmy."
+    "Dla każdego pracownika dobieramy rozmiar — M650 albo większy M650 L — parujemy mysz z szyfrowanym odbiornikiem Logi Bolt i sprawdzamy, jak działa w Teams lub Zoom. Przy zakupie dla zespołu najpierw dajemy do przymierzenia oba rozmiary, żeby nikt nie pracował myszą za małą albo za dużą. Wycenę z dostawą i uruchomieniem przygotujemy na piśmie, z liczbą sztuk w każdym rozmiarze dobraną do Twojej firmy."
    ],
    "cechy": [
     "ciche kliknięcia",
@@ -48091,7 +48091,7 @@
     "Signature MK650 Combo for Business to zestaw o klasę wyżej od podstawowych: pełnowymiarowa klawiatura K650 ma zintegrowaną, miękką podpórkę pod nadgarstki, a mysz M650 — kółko SmartWheel i wyciszone kliknięcia (producent podaje ponad 90% ciszej niż w M185).",
     "Oba urządzenia są fabrycznie sparowane z odbiornikiem Logi Bolt, który po sparowaniu pracuje w trybie zabezpieczeń 1, poziom 4 (FIPS). Można je też połączyć przez Bluetooth z tabletem czy telefonem.",
     "Zasilanie jest na zwykłych bateriach AA (w zestawie): według producenta klawiatura działa do 36 miesięcy, a mysz do 24 miesięcy. To dobry wybór na stanowiska księgowe, recepcję czy gabinet, gdzie nikt nie chce pamiętać o ładowaniu.",
-    "MK650 Combo dobieramy na stanowiska, gdzie ktoś pisze dużo i potrzebuje podpórki pod nadgarstki, łączymy zestaw z komputerem przez Logi Bolt i sprawdzamy skróty klawiatury K650 w Teams lub Zoom. W sali spotkań, którą wyposażasz razem z zestawami MK650, montujemy kamerę przy ekranie, prowadzimy okablowanie i robimy próbne połączenie. Wycenę MK650 Combo z dostawą i uruchomieniem przygotujemy na piśmie, dla Twoich stanowisk.",
+    "MK650 Combo dobieramy na stanowiska, gdzie ktoś pisze dużo i potrzebuje podpórki pod nadgarstki, łączymy zestaw z komputerem przez Logi Bolt i sprawdzamy skróty klawiatury K650 w Teams lub Zoom. Przy kilku stanowiskach od razu sprawdzamy, czy układ klawiszy i podpórka pasują każdej osobie, zanim zamówisz resztę zestawów. Wycenę MK650 Combo z dostawą i uruchomieniem przygotujemy na piśmie, dla Twoich stanowisk.",
     "Najważniejsze parametry: łączność: odbiornik USB Logi Bolt (USB-A, w zestawie) lub Bluetooth Low Energy 5.0+."
    ],
    "cechy": [
@@ -55830,7 +55830,7 @@
     "SRT to zasilacze on-line z podwójną konwersją: sprzęt cały czas pracuje z napięcia wytworzonego przez UPS, więc przy zaniku prądu nie ma przerwy przełączenia, a zakłócenia z sieci nie docierają do urządzeń. APC wskazuje je do serwerów, pamięci masowych, sieci głosowych i danych, laboratoriów medycznych i lekkiego przemysłu. To wybór tam, gdzie sieć energetyczna jest słaba albo sprzęt jest szczególnie wrażliwy.",
     "Moc w watach jest równa mocy w VA (1000 W, 1500 W), czyli więcej użytecznej mocy niż w modelach line-interactive o tych samych VA. Czas pracy wydłużysz, dokładając do 10 zewnętrznych modułów akumulatorów SRT48BP. Model RMXLI montujesz w szafie 19\" (2U, szyny w komplecie) albo stawiasz jako wieżę; XLI to wieża, którą można przerobić na rack zestawem szyn kupowanym osobno.",
     "Komunikacja przez USB i port szeregowy, alarmy dźwiękowe i wizualne, wyłącznik awaryjny EPO. Akumulator wymieniasz sam. Producent daje 3 lata gwarancji na urządzenie i 2 lata na akumulator.",
-    "Przy SRT1000XLI i SRT1500RMXLI liczymy, co ma pracować bez przerwy i jak długo, czyli czy wystarczy wewnętrzny akumulator, czy trzeba dołożyć moduły SRT48BP. Stawiamy SRT jako wieżę albo montujemy w szafie, ustawiamy zasilanie awaryjne i kopie zapasowe oraz sprawdzamy odtworzenie danych (usługi „Kopie zapasowe z testem odtworzenia” i „Bezpłatny przegląd IT”)."
+    "Przy SRT1000XLI i SRT1500RMXLI liczymy, co ma pracować bez przerwy i jak długo, czyli czy wystarczy wewnętrzny akumulator, czy trzeba dołożyć moduły SRT48BP. Stawiamy UPS jako wieżę albo montujemy w szafie, ustawiamy zasilanie awaryjne i kopie zapasowe oraz sprawdzamy odtworzenie danych (usługi „Kopie zapasowe z testem odtworzenia” i „Bezpłatny przegląd IT”)."
    ],
    "cechy": [
     "on-line, 0 ms",
@@ -58436,7 +58436,7 @@
     "MFC-L8390CDW to kolorowe urządzenie 4 w 1 dla firm, które drukują regularnie w kolorze i dużo skanują. Drukuje do 30 stron na minutę w kolorze i w czerni, a podajnik ADF na 50 kartek skanuje obie strony dokumentu naraz — do 56 obrazów na minutę w czerni.",
     "Kolorowy ekran dotykowy 8,8 cm, Gigabit LAN, dwuzakresowe Wi-Fi, USB i NFC do logowania kartą — to pełen zestaw do pracy w zespole. Wbudowany faks obsługuje m.in. dwustronne faksowanie i książkę adresową LDAP.",
     "Kaseta mieści 250 kartek, a dodatkowa szuflada podnosi pojemność do 500. Producent zaleca do 4000 stron miesięcznie. Prostszy MFC-L8340CDW ma podobne parametry druku, ale bez wbudowanego NFC.",
-    "Sprawdzamy, czy przy Twoim nakładzie kolorowych wydruków wystarczy MFC-L8340CDW, czy lepszy będzie L8390CDW, podłączamy go do sieci Gigabit LAN lub Wi-Fi, instalujemy sterowniki i ustawiamy dwustronne skanowanie do e-maila i folderów. Następnie pilnujemy zapasu tonerów do druku kolorowego i czarnego — oryginalnych albo sprawdzonych zamienników. Wycenę MFC-L8390CDW z dostawą i uruchomieniem dostaniesz na piśmie, z ustawieniami dobranymi do Twojej firmy.",
+    "Sprawdzamy, czy przy Twoim nakładzie kolorowych wydruków wystarczy MFC-L8340CDW, czy lepszy będzie L8390CDW, podłączamy go do sieci Gigabit LAN lub Wi-Fi, instalujemy sterowniki i ustawiamy dwustronne skanowanie do e-maila i folderów. Następnie pilnujemy zapasu tonerów do druku kolorowego i czarnego — oryginalnych albo sprawdzonych zamienników. Wycenę wybranego modelu z dostawą i uruchomieniem dostaniesz na piśmie, z ustawieniami dobranymi do Twojej firmy.",
     "Najważniejsze parametry: typ: kolorowe urządzenie wielofunkcyjne LED 4 w 1: druk, kopia, skan, faks."
    ],
    "cechy": [
@@ -68601,7 +68601,7 @@
     "Kobra +2 CC2 ES to kompaktowa niszczarka dla osoby lub małego zespołu, który pracuje z danymi wymagającymi wyższej ochrony — np. dokumentacją medyczną, kadrową, umowami czy danymi finansowymi. Tnie papier na bardzo drobne ścinki 1,9 × 13 mm, co odpowiada poziomowi P-5 według DIN 66399.",
     "Ma dwa osobne zestawy noży: do papieru oraz do płyt CD/DVD i kart plastikowych. Ścinki trafiają do dwóch oddzielnych pojemników, które nie wymagają worków. Ze względu na drobne cięcie przyjmuje mniej kartek naraz (7–8 przy 70 g) — to model do bieżącego niszczenia, nie do dużych archiwów.",
     "Silnik jest przystosowany do pracy ciągłej, a niszczarka cofa papier przy zacięciu i zatrzymuje noże po wyjęciu kosza. Przezroczysta pokrywa sama się domyka, a okienko pokazuje poziom zapełnienia.",
-    "Dopytujemy, jakie dokumenty i nośniki niszczysz — jeśli płyty i karty, Kobra +2 CC2 ES ma do nich osobne noże, a papier tnie na poziomie P-5. Pojemniki obejdą się bez worków, dlatego dostarczamy olej do noży, żeby nie dochodziło do zacięć. Ofertę na Kobrę +2 CC2 ES z dostawą i uruchomieniem przygotujemy na piśmie."
+    "Dopytujemy, jakie dokumenty i nośniki niszczysz — jeśli płyty i karty, Kobra +2 CC2 ES ma do nich osobne noże, a papier tnie na poziomie P-5. Worki nie są potrzebne; dostarczamy olej do noży, żeby nie dochodziło do zacięć. Ofertę na Kobrę +2 CC2 ES z dostawą i uruchomieniem przygotujemy na piśmie."
    ],
    "cechy": [
     "Mikrościnki 1,9 × 13 mm, P-5",
@@ -82260,7 +82260,7 @@
    "opis": [
     "Microsoft 365 Apps for business to plan dla firm, które potrzebują klasycznych aplikacji Office i miejsca na pliki, a pocztę mają już u innego dostawcy. Obejmuje do 300 użytkowników.",
     "Daje klasyczne aplikacje Word, Excel, PowerPoint, Outlook i OneNote do zainstalowania na komputerach, tabletach i telefonach oraz 1 TB w OneDrive na użytkownika. Nie ma w nim skrzynki pocztowej Exchange ani czatu i rozmów w Teams — to odróżnia go od Business Standard. Outlook może obsługiwać pocztę firmową z dotychczasowego serwera.",
-    "Przy Microsoft 365 Apps for business pomagamy uruchomić usługę: podpinamy domenę firmy i dotychczasową pocztę w Outlooku, przenosimy skrzynki i pliki do OneDrive, instalujemy Word, Excel i resztę aplikacji na komputerach i telefonach (usługa „Poczta firmowa i wdrożenie Microsoft 365”). Apps for business kupujesz jako subskrypcję na każdego użytkownika — ile licencji i na jaki okres, miesiąc czy rok, ustalamy w ofercie. W jednej firmie ten plan łączy się z innymi, np. Apps for business dla osób z pocztą u obecnego dostawcy, a Business Basic dla tych, którym wystarczy poczta i Teams. Jeśli zechcesz kiedyś przenieść pocztę do Microsoft, z Apps for business przejdziesz na Business Standard, który ma skrzynkę Exchange i Teams."
+    "Przy Microsoft 365 Apps for business pomagamy uruchomić usługę: podpinamy domenę firmy i dotychczasową pocztę w Outlooku, przenosimy pliki firmy do OneDrive, instalujemy Word, Excel i resztę aplikacji na komputerach i telefonach (usługa „Poczta firmowa i wdrożenie Microsoft 365”). Apps for business kupujesz jako subskrypcję na każdego użytkownika — ile licencji i na jaki okres, miesiąc czy rok, ustalamy w ofercie. W jednej firmie ten plan łączy się z innymi, np. Apps for business dla osób z pocztą u obecnego dostawcy, a Business Basic dla tych, którym wystarczy poczta i Teams. Jeśli zechcesz kiedyś przenieść pocztę do Microsoft, z Apps for business przejdziesz na Business Standard, który ma skrzynkę Exchange i Teams."
    ],
    "cechy": [
     "Office na komputery",
@@ -91815,7 +91815,7 @@
     "Krajowy System e-Faktur (KSeF) to system Ministerstwa Finansów do wystawiania i odbierania faktur. Od 1 lutego 2026 r. obowiązuje dużych przedsiębiorców, od 1 kwietnia 2026 r. pozostałe firmy, a od 1 stycznia 2027 r. także najmniejsze, czyli te, których sprzedaż udokumentowana fakturami nie przekracza 10 tys. złotych miesięcznie.",
     "Pomagamy przejść przez całość: ustawić dostęp do KSeF i nadać uprawnienia osobom w firmie oraz biuru rachunkowemu, skonfigurować program do faktur (np. InsERT Subiekt, Comarch ERP Optima) tak, żeby wysyłał i pobierał faktury z KSeF, i ustalić, jak wystawiać faktury do paragonów z kasy. Jeśli wystawiasz niewiele faktur, pokażemy bezpłatne narzędzia Ministerstwa Finansów: Aplikację Podatnika KSeF i Aplikację Mobilną KSeF.",
     "Na koniec pokazujemy pracownikom, jak wystawiać, wysyłać i odbierać faktury w nowym trybie i co zrobić, gdy KSeF jest niedostępny. Daty i zasady sprawdzamy na bieżąco w serwisie ksef.podatki.gov.pl.",
-    "Wdrożenie KSeF zgłosisz telefonicznie lub formularzem, a oddzwonimy w godzinach pracy. Zakres i termin przed datą obowiązku KSeF potwierdzamy, wycenę dajemy na piśmie."
+    "Wdrożenie KSeF zgłosisz telefonicznie lub formularzem, a oddzwonimy w godzinach pracy. Zakres i termin wdrożenia potwierdzamy przy rozmowie, a wycenę dajemy na piśmie."
    ],
    "cechy": [
     "uprawnienia",
