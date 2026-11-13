@@ -16,6 +16,8 @@ export const MIN_FAQ = 4
 export const MIN_RECOMMENDED = 3
 /** Sentences at least this long must be unique across cards. */
 export const MIN_SHARED = 80
+/** FAQ questions are short: from this length a question names the model, not a generic topic. */
+export const MIN_SHARED_QUESTION = 30
 const SENTENCE_END = /(?<=[.!?])\s+(?=[„"(]?[A-ZĄĆĘŁŃÓŚŹŻ0-9])/u
 const normalize = (text: string) =>
   text
@@ -87,6 +89,27 @@ describe('production thresholds of the finished partitions (PRODUKCJA-BIZNES-121
         if (first && first !== card.slug_seed) shared.push(`${card.slug_seed} = ${first}: ${text}`)
         else seen.set(key, card.slug_seed)
       }
+    expect(shared).toEqual([])
+  })
+
+  it('FAQ: no question or answer shared by two cards (FAQPage of each page is its own, 13.11)', () => {
+    // The FAQ goes to the page's FAQPage data: the same Q&A on many pages is duplicate content.
+    const shared: string[] = []
+    for (const [field, min] of [
+      ['q', MIN_SHARED_QUESTION],
+      ['a', MIN_SHARED],
+    ] as const) {
+      const seen = new Map<string, string>()
+      for (const card of doneText)
+        for (const item of card.faq as { q: string; a: string }[]) {
+          const key = normalize(item[field] ?? '')
+          if (key.length < min) continue
+          const first = seen.get(key)
+          if (first && first !== card.slug_seed)
+            shared.push(`${field} ${card.slug_seed} = ${first}: ${item[field]}`)
+          else seen.set(key, card.slug_seed)
+        }
+    }
     expect(shared).toEqual([])
   })
 
