@@ -63,6 +63,16 @@ describe('localTitle (SEO lokalne 13.11: the region in every category title that
     )
   })
 
+  it('joins the region with a comma when the title has a dash already (no „— X — Rabka”)', () => {
+    expect(localTitle('Wagi dla firm — Dibal')).toBe('Wagi dla firm — Dibal, Rabka-Zdrój')
+    expect(localTitle('Drukarki etykiet dla firm — Zebra')).not.toMatch(/ — .* — /)
+  })
+
+  it('counts the region only as a whole word („Grabka” is not Rabka)', () => {
+    expect(localTitle('Grabka i wspólnicy')).toMatch(/Rabka-Zdrój/)
+    expect(localTitle('Opieka IT Podhalańska')).toBe('Opieka IT Podhalańska')
+  })
+
   it('keeps a title too long for any region as fitTitle does', () => {
     const long = 'Drukarki i urządzenia wielofunkcyjne A4 i A3'
     expect(localTitle(long)).toBe(fitTitle(long))
@@ -85,6 +95,31 @@ describe('localDescription (SEO lokalne 13.11: where we work, in every descripti
     const local =
       'Komputery dla firm z Podhala z wdrożeniem i serwisem. Dobór, dostawa i konfiguracja.'
     expect(localDescription(local)).toBe(biznesDescription(local))
+  })
+
+  it('stays ≥ 100 characters when a short sentence is followed by a long one', () => {
+    const description = localDescription(
+      'Kasy dla gastronomii. ' +
+        'Od kieszonkowej kasy przy food trucku po stanowisko POS z ekranem kuchennym, drukarką bonów i terminalem płatniczym przy każdym stoliku.',
+    )
+    expect(description.length).toBeGreaterThanOrEqual(META_DESCRIPTION_MIN)
+    expect(description.length).toBeLessThanOrEqual(META_DESCRIPTION_MAX)
+    expect(description).toMatch(/Rabce-Zdroju/)
+  })
+
+  it('adds the region when the text names it only past the cut', () => {
+    const description = localDescription(
+      'GoPOS na sprzęcie Sunmi, drukarka fiskalna Posnet, terminal PolCard, ekran kuchenny i Wi-Fi dla gości. Wdrażamy je z Twoim menu, szkolimy zespół na miejscu, a serwis jest w Rabce-Zdroju.',
+    )
+    expect(description).toMatch(/Rabce-Zdroju|Rabka/)
+    expect(description.length).toBeLessThanOrEqual(META_DESCRIPTION_MAX)
+  })
+
+  it('does not repeat „dobór” the text already offers', () => {
+    const description = localDescription(
+      'Wagi dla firm — Dibal: 12 pozycji w ofercie PRO-KOM Biznes. Zapytaj o dobór i ofertę.',
+    )
+    expect(description.match(/dobór/gi)?.length ?? 0).toBeLessThanOrEqual(1)
   })
 
   it('cuts a very long first sentence on a word and still adds the region', () => {

@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, industry } = await load(params)
   if (!industry) return {}
   const settings = await getSiteSettings(tenant.id)
-  const title = localTitle(industry.seo.title ?? industry.name)
+  const title = localTitle(industry.seo.title?.trim() || industry.name)
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = industry.seo.description ?? industry.lead
   const description = descriptionSource ? localDescription(descriptionSource) : undefined
