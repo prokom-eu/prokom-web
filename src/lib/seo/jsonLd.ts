@@ -2,6 +2,7 @@ import { brandAsset } from '../brand/lines'
 import { toTelHref } from '../site/link'
 import type { PublicCompanyData } from '../site/public'
 import type { Line } from '../tenant/lines'
+import { AREA_SERVED as INSTALACJE_AREA_SERVED } from '../instalacje/seo'
 
 const DAYS: Record<string, string> = {
   mon: 'Monday',
@@ -100,6 +101,13 @@ export function organizationJsonLd({ company, tenant, contact, origin }: Organiz
     url: `${origin}/`,
     telephone,
     email,
+    // Instalacje (13.11, local SEO): the salon is the same point (ul. Orkana 16B), the area its
+    // service towns up to Kraków.
+    ...(tenant.line === 'instalacje' &&
+      index === 0 && {
+        geo: SOFTWARE_OFFICE.geo,
+        areaServed: INSTALACJE_AREA_SERVED.map((name) => ({ '@type': 'City', name })),
+      }),
     ...(tenant.line === 'software' && {
       geo: SOFTWARE_OFFICE.geo,
       image: origin + SOFTWARE_OFFICE.image,
