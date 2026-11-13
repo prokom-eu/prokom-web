@@ -14,6 +14,8 @@ const DONE = ['kasy', 'druk', 'term']
 export const MIN_DESCRIPTION = 1000
 export const MIN_FAQ = 4
 export const MIN_RECOMMENDED = 3
+/** Sentences at least this long must be unique across cards. */
+export const MIN_SHARED = 80
 
 type Card = {
   slug_seed: string
@@ -61,6 +63,22 @@ describe('production thresholds of the finished partitions (PRODUKCJA-BIZNES-121
           .length < MIN_RECOMMENDED,
     )
     expect(few.map((card) => card.slug_seed)).toEqual([])
+  })
+
+  it('description: no long sentence shared by two cards (own text per model, 13.11)', () => {
+    // A template paragraph pasted into a whole brand reads as thin content to search engines
+    // and to a buyer comparing models; short phrases (< MIN_SHARED) may repeat.
+    const seen = new Map<string, string>()
+    const shared: string[] = []
+    for (const card of doneText)
+      for (const sentence of card.opis.join(' ').split(/(?<=[.!?])\s+/)) {
+        const text = sentence.trim()
+        if (text.length < MIN_SHARED) continue
+        const first = seen.get(text)
+        if (first && first !== card.slug_seed) shared.push(`${card.slug_seed} = ${first}: ${text}`)
+        else seen.set(text, card.slug_seed)
+      }
+    expect(shared).toEqual([])
   })
 
   it('required parameters: complete, or on the list of gaps with where it was searched', () => {
