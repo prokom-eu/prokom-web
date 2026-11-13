@@ -6106,6 +6106,23 @@
      "l": "pl",
      "d": "model"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/t10-premium-01.webp",
+     "zrodlo": "https://www.elzab.com.pl/media/djcatalog2/images/item/22/s200000000.1.png",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/t10-premium-02.webp",
+     "zrodlo": "https://www.elzab.com.pl/media/djcatalog2/images/item/22/s200000000.2.png",
+     "ujecie": "dwie stacje"
+    },
+    {
+     "plik": "media/produkty/t10-premium-03.webp",
+     "zrodlo": "https://www.elzab.com.pl/media/djcatalog2/images/item/22/s200000000.1.jpg",
+     "ujecie": "złącza"
+    }
    ]
   },
   {
@@ -8671,6 +8688,28 @@
     {
      "slug": "ergo",
      "etykieta": "Kasa fiskalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/posnet-netpay-premium-01.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/512/-19-08-15-pin-pad-05-duzy.png",
+     "ujecie": "PIN-pad na uchwycie"
+    },
+    {
+     "plik": "media/produkty/posnet-netpay-premium-02.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/512/-19-08-15-pin-pad-04-duzy.png",
+     "ujecie": "PIN-pad z boku"
+    },
+    {
+     "plik": "media/produkty/posnet-netpay-premium-03.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/512/-19-08-15-pin-pad-06-duzy.png",
+     "ujecie": "PIN-pad z przodu"
+    },
+    {
+     "plik": "media/produkty/posnet-netpay-premium-04.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/512/ergo-netpay-scl-1080p-app.png",
+     "ujecie": "z kasą Posnet Ergo"
     }
    ]
   },
@@ -19833,7 +19872,29 @@
      "v": "ok. 5,1 s karta mono, 24 s karta kolor"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/zebra-zc100-zc300-premium-01.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/610/zc100-front-left-no-media-3x2-3600.jpg",
+     "ujecie": "ZC100 z lewej"
+    },
+    {
+     "plik": "media/produkty/zebra-zc100-zc300-premium-02.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/610/zc100-front-right-no-media-3x2-3600.jpg",
+     "ujecie": "ZC100 z prawej"
+    },
+    {
+     "plik": "media/produkty/zebra-zc100-zc300-premium-03.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/609/zc300-series-right-facing-3x2-3600.jpg",
+     "ujecie": "ZC300 z prawej"
+    },
+    {
+     "plik": "media/produkty/zebra-zc100-zc300-premium-04.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/609/zc300-series-display-closeup-3x2-3600.jpg",
+     "ujecie": "ZC300 — wyświetlacz"
+    }
+   ]
   },
   {
    "slug_seed": "optivendi-winda-2026",
@@ -47816,6 +47877,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/logitech-k120-m100-premium-01.webp",
+     "zrodlo": "https://resource.logitech.com/w_952,h_560,c_fill,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/ja/products/keyboards/k120/k120-feature-03.jpg",
+     "ujecie": "klawiatura K120"
+    },
+    {
+     "plik": "media/produkty/logitech-k120-m100-premium-02.webp",
+     "zrodlo": "https://resource.logitech.com/w_1440,h_660,ar_24:11,c_fill,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m100/m100-midnight-black-feature-1.jpg",
+     "ujecie": "mysz M100"
+    },
+    {
+     "plik": "media/produkty/logitech-k120-m100-premium-03.webp",
+     "zrodlo": "https://resource.logitech.com/w_952,h_560,c_fill,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m100/m100-midnight-black-feature-2.jpg",
+     "ujecie": "mysz M100 z boku"
+    }
    ]
   },
   {
@@ -54466,6 +54544,28 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/synology-ds2422-rs2825rp.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/synology-ds2422-rs2825rp-premium-01.webp",
+     "zrodlo": "https://www.synology.com/img/products/detail/DS2422plus/img_og_image.jpg",
+     "ujecie": "DS2422+"
+    },
+    {
+     "plik": "media/produkty/synology-ds2422-rs2825rp-premium-02.webp",
+     "zrodlo": "https://www.synology.com/img/products/detail/RS2825RPplus/img_og_image.jpg",
+     "ujecie": "RS2825RP+"
+    },
+    {
+     "plik": "media/produkty/synology-ds2422-rs2825rp-premium-03.webp",
+     "zrodlo": "https://www.synology.com/api/products/getPhoto?product=RS2825RP%2B&type=img&sort=1",
+     "ujecie": "RS2825RP+ z przodu"
+    },
+    {
+     "plik": "media/produkty/synology-ds2422-rs2825rp-premium-04.webp",
+     "zrodlo": "https://www.synology.com/api/products/getPhoto?product=RS2825RP%2B&type=img&sort=4",
+     "ujecie": "RS2825RP+ z tyłu"
+    }
    ]
   },
   {
@@ -64490,6 +64590,28 @@
      "l": "en",
      "d": "seria"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-4221i-premium-01.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_qme0g3kt8l4gbcvli9le700d7i/-FWEBP,Q75,-S3840",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-4221i-premium-02.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_dr7317nclt7sd1ajnmfqn6nh6c/-FWEBP,Q75,-S3840",
+     "ujecie": "z kasetą dodatkową"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-4221i-premium-03.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_3tpq573jnh1b97ht3o63gi1j00/-FWEBP,Q75,-S3840",
+     "ujecie": "z kasetami i szafką"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-4221i-premium-04.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_sl3o67jepd3v7cvtt0f3mmo600/-FWEBP,Q75,-S3840",
+     "ujecie": "otwarte kasety"
+    }
    ]
   },
   {
@@ -64659,6 +64781,28 @@
      "k": "Konica Minolta Business Solutions Europe GmbH",
      "l": "en",
      "d": "seria"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-5021i-premium-01.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_ob06h75ea13dv3t9j570nf447l/-FWEBP,Q75,-S3840",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-5021i-premium-02.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_tvnn5fanjh0br0j5rug6idij0f/-FWEBP,Q75,-S3840",
+     "ujecie": "z kasetą dodatkową"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-5021i-premium-03.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_i8do8ero2p0dh9l8u6pcet0j1r/-FWEBP,Q75,-S3840",
+     "ujecie": "otwarte kasety"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-5021i-premium-04.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_4tqo289qhl4mfdbvido67c4l7c/-FWEBP,Q75,-S3840",
+     "ujecie": "z góry — podajnik"
     }
    ]
   },
@@ -64842,6 +64986,28 @@
      "l": "en",
      "d": "seria"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-4051i-premium-01.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_3mjlmqmu154lrco97l7u48ol63/-FWEBP,Q75,-S3840",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-4051i-premium-02.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_dh081505ad5tve4dlh962d6761/-FWEBP,Q75,-S3840",
+     "ujecie": "z dodatkowymi kasetami"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-4051i-premium-03.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_eiv94nehat15t7lf720bq2vr5r/-FWEBP,Q75,-S3840",
+     "ujecie": "z boku"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-4051i-premium-04.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_ut8s6j2dol7btclkaafrh86s65/-FWEBP,Q75,-S3840",
+     "ujecie": "panel dotykowy"
+    }
    ]
   },
   {
@@ -65004,6 +65170,28 @@
      "k": "Konica Minolta Business Solutions Europe GmbH",
      "l": "en",
      "d": "seria"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c3301i-premium-01.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_2cqg5isa8p5kt5jmnrflbk3o47/-FWEBP,Q75,-S3840",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c3301i-premium-02.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_ka6740rm3l73r1ovg0vlfe0k6i/-FWEBP,Q75,-S3840",
+     "ujecie": "z kasetami"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c3301i-premium-03.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_hahuenuuet4itcpppb406ogr4e/-FWEBP,Q75,-S3840",
+     "ujecie": "z boku"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c3301i-premium-04.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_nec4gbtfn11dpcf6eqhubgah0c/-FWEBP,Q75,-S3840",
+     "ujecie": "z góry — podajnik"
     }
    ]
   },
@@ -65178,6 +65366,28 @@
      "k": "Konica Minolta Business Solutions Europe GmbH",
      "l": "en",
      "d": "seria"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c3351i-premium-01.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_qj6q7ckp4l40h2uspr62s0ro44/-FWEBP,Q75,-S3840",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c3351i-premium-02.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_9og2ik11ip70b8hldk334p8g57/-FWEBP,Q75,-S3840",
+     "ujecie": "z kasetami"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c3351i-premium-03.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_udgl61gvth4al9lievmghifq1c/-FWEBP,Q75,-S3840",
+     "ujecie": "z boku"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c3351i-premium-04.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_ut8s6j2dol7btclkaafrh86s65/-FWEBP,Q75,-S3840",
+     "ujecie": "panel dotykowy"
     }
    ]
   },
@@ -65358,6 +65568,28 @@
      "l": "en",
      "d": "seria"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c251i-premium-01.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_dar042ot512d503hv8mf55h45s/-FWEBP,Q75,-S3840",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c251i-premium-02.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_2c9k1ogntd6rb85udu58ln2n3v/-FWEBP,Q75,-S3840",
+     "ujecie": "otwarte kasety"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c251i-premium-03.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_lreeaopon13p7a7kehovllc365/-FWEBP,Q75,-S3840",
+     "ujecie": "z finiszerem"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c251i-premium-04.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_b2a2g5mp1l0mh4d8inro02ju4e/-FWEBP,Q75,-S3840",
+     "ujecie": "panel dotykowy"
+    }
    ]
   },
   {
@@ -65536,6 +65768,28 @@
      "k": "KonicaMinoltaUS",
      "l": "en",
      "d": "seria"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c301i-premium-01.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_ss8milbgk944hal4rhfj1fhf6q/-FWEBP,Q75,-S3840",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c301i-premium-02.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_5tidhmdfbt3ul6nouqq452uc3e/-FWEBP,Q75,-S3840",
+     "ujecie": "z boku"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c301i-premium-03.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_apvuclrmb92cfd365ejugr8v3s/-FWEBP,Q75,-S3840",
+     "ujecie": "z finiszerem"
+    },
+    {
+     "plik": "media/produkty/konica-minolta-bizhub-c301i-premium-04.webp",
+     "zrodlo": "https://d1nz2cwxocqem8.cloudfront.net/image/380230487157/image_b2a2g5mp1l0mh4d8inro02ju4e/-FWEBP,Q75,-S3840",
+     "ujecie": "panel dotykowy"
     }
    ]
   },
@@ -69630,6 +69884,18 @@
      "slug": "szkol",
      "etykieta": "Szkolenia zespołu"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/fellowes-automax-350c-premium-01.webp",
+     "zrodlo": "https://assets.fellowes.com/images/products/zoom/350C-front_hero_073117.png",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/fellowes-automax-350c-premium-02.webp",
+     "zrodlo": "https://assets.fellowes.com/images/products/zoom/350C-right_hero_073117.png",
+     "ujecie": "z boku"
+    }
    ]
   },
   {
@@ -69799,6 +70065,18 @@
     {
      "slug": "szkol",
      "etykieta": "Szkolenia zespołu"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/fellowes-225ci-premium-01.webp",
+     "zrodlo": "https://assets.fellowes.com/images/products/zoom/225Ci_HeroLeft.png",
+     "ujecie": "z lewej"
+    },
+    {
+     "plik": "media/produkty/fellowes-225ci-premium-02.webp",
+     "zrodlo": "https://assets.fellowes.com/images/products/zoom/225Ci_HeroRight.png",
+     "ujecie": "z prawej"
     }
    ]
   },
@@ -88096,6 +88374,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/omada-switche-access-pro.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/omada-switche-access-pro-premium-01.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/SG2210XMP-M2(UN)1.0_Omada_2.5G_Switch-01_large_20231109030148k.jpg",
+     "ujecie": "SG2210XMP-M2 z przodu"
+    },
+    {
+     "plik": "media/produkty/omada-switche-access-pro-premium-02.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/SG2210XMP-M2(UN)1.0_Omada_2.5G_Switch-02_large_20231109030354j.jpg",
+     "ujecie": "SG2210XMP-M2 pod kątem"
+    },
+    {
+     "plik": "media/produkty/omada-switche-access-pro-premium-03.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/SG2210XMP-M2(UN)1.0_Omada_2.5G_Switch-04_large_20231109030323z.jpg",
+     "ujecie": "SG2210XMP-M2 z tyłu"
+    }
    ]
   },
   {
@@ -88310,6 +88605,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/omada-switche-access-plus.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/omada-switche-access-plus-premium-01.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/SG3428X_UN_1.30_01_large_20240227084351y.jpg",
+     "ujecie": "SG3428X z przodu"
+    },
+    {
+     "plik": "media/produkty/omada-switche-access-plus-premium-02.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/SG3428X_UN_1.30_02_large_20240227084402p.jpg",
+     "ujecie": "SG3428X pod kątem"
+    },
+    {
+     "plik": "media/produkty/omada-switche-access-plus-premium-03.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/SG3428X_UN_1.30_03_large_20240227084414s.jpg",
+     "ujecie": "SG3428X z tyłu"
+    }
    ]
   },
   {
@@ -88508,6 +88820,23 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/omada-switche-agile-es.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/omada-switche-agile-es-premium-01.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/ES205G_UN_1.0_04_large_20240418171527u.jpg",
+     "ujecie": "ES205G pod kątem"
+    },
+    {
+     "plik": "media/produkty/omada-switche-agile-es-premium-02.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/ES205G_UN_1.0_01_large_20240418171448z.jpg",
+     "ujecie": "ES205G z przodu"
+    },
+    {
+     "plik": "media/produkty/omada-switche-agile-es-premium-03.webp",
+     "zrodlo": "https://static.tp-link.com/upload/image-line/ES205G_UN_1.0_03_large_20240418171517c.jpg",
+     "ujecie": "ES205G z tyłu"
+    }
    ]
   },
   {
@@ -90291,7 +90620,24 @@
    ],
    "nowosc": false,
    "seria": "EuroCert — podpis i pieczęć",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eurocert-pieczec-karta-premium-01.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/258/sklep_PIECZEC_karty.jpg",
+     "ujecie": "karty kryptograficzne"
+    },
+    {
+     "plik": "media/produkty/eurocert-pieczec-karta-premium-02.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/266/sklep_PIECZEC_zestaw-CHIP.jpg",
+     "ujecie": "karta z czytnikiem USB"
+    },
+    {
+     "plik": "media/produkty/eurocert-pieczec-karta-premium-03.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/389/sklep_PIECZEC_zestaw-SIM.jpg",
+     "ujecie": "wersja na karcie SIM w tokenie USB"
+    }
+   ]
   },
   {
    "slug_seed": "eurocert-ecsigner-online",
@@ -90681,7 +91027,24 @@
    ],
    "nowosc": false,
    "seria": "EuroCert — podpis i pieczęć",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eurocert-podpis-classic-premium-01.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/288/podpis_kwalifikowany_karta_bankomatowa_duza.jpg",
+     "ujecie": "karta kryptograficzna"
+    },
+    {
+     "plik": "media/produkty/eurocert-podpis-classic-premium-02.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/290/podpis_kwalifikowany_Gemalto_IDBridge_CT30jpg.jpg",
+     "ujecie": "karta z czytnikiem USB"
+    },
+    {
+     "plik": "media/produkty/eurocert-podpis-classic-premium-03.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/287/sklep_certyfikat.jpg",
+     "ujecie": "certyfikat kwalifikowany"
+    }
+   ]
   },
   {
    "slug_seed": "eurocert-podpis-token",
@@ -90816,7 +91179,19 @@
    ],
    "nowosc": false,
    "seria": "EuroCert — podpis i pieczęć",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eurocert-podpis-token-premium-01.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/356/sim.png",
+     "ujecie": "token USB z kartą SIM"
+    },
+    {
+     "plik": "media/produkty/eurocert-podpis-token-premium-02.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/287/sklep_certyfikat.jpg",
+     "ujecie": "certyfikat kwalifikowany"
+    }
+   ]
   },
   {
    "slug_seed": "piecz",
