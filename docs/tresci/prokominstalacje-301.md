@@ -37,14 +37,18 @@ Obecna pro-kom.eu to Next.js + Payload na Apache z Phusion Passenger w nazwa.pl 
 ```apache
 # 301: Instalacje -> prokominstalacje.pl (docs/tresci/prokominstalacje-301.md)
 RewriteEngine On
-RewriteRule ^uslugi/montaz-instalacje/?$ https://prokominstalacje.pl/uslugi [R=301,L]
-RewriteRule ^uslugi/montaz-instalacje/monitoring/?$ https://prokominstalacje.pl/monitoring [R=301,L]
-RewriteRule ^uslugi/montaz-instalacje/inteligentny-dom/?$ https://prokominstalacje.pl/smart-home [R=301,L]
-RewriteRule ^uslugi/montaz-instalacje/multimedialne/?$ https://prokominstalacje.pl/ekrany [R=301,L]
-RewriteRule ^uslugi/montaz-instalacje/naglosnieniowe/?$ https://prokominstalacje.pl/naglosnienie [R=301,L]
-RewriteRule ^uslugi/montaz-instalacje/sieci-strukturalnych/?$ https://prokominstalacje.pl/sieci-wifi [R=301,L]
-RewriteRule ^uslugi/montaz-instalacje/telewizyjne-i-satelitarne/?$ https://prokominstalacje.pl/anteny [R=301,L]
-RewriteRule ^realizacje/?$ https://prokominstalacje.pl/realizacje [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/?$ https://prokominstalacje.pl/uslugi [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/monitoring/?$ https://prokominstalacje.pl/monitoring [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/inteligentny-dom/?$ https://prokominstalacje.pl/smart-home [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/multimedialne/?$ https://prokominstalacje.pl/ekrany [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/naglosnieniowe/?$ https://prokominstalacje.pl/naglosnienie [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/sieci-strukturalnych/?$ https://prokominstalacje.pl/sieci-wifi [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/telewizyjne-i-satelitarne/?$ https://prokominstalacje.pl/anteny [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?realizacje/?$ https://prokominstalacje.pl/realizacje [R=301,L]
 ```
+
+**Wdrożone 13.11.2026** (Claude przez SSH `pro-kom@pro-kom.nazwa.pl`, klucz `id_ed25519` dodany w panelu nazwa.pl → Konto SSH): katalog strony `/prokom-nowy`, kopia `.htaccess.bak-20261113` obok. Reguły trafiły przed istniejące (www → bez www, http → https), więc stare adresy idą od razu na nowy, bez łańcucha. Prefiks `(?:prokom-nowy/)?` jest konieczny: dla hosta `pro-kom.eu` mod_rewrite widzi ścieżkę z nazwą katalogu (DOCUMENT_ROOT = główny katalog FTP), dla `www` — bez niej. Wynik: wszystkie 8 adresów `https://pro-kom.eu/…` i `https://www.pro-kom.eu/…` → 301 na właściwą stronę, strona główna i `/kontakt` dalej 200.
+
+**Znany błąd sprzed zmiany (nie z `.htaccess`):** `http://pro-kom.eu/<cokolwiek>` → 301 na `https://pro-kom.eu/prokom-nowy/<cokolwiek>` → 404 (przekierowanie robi warstwa nazwa.pl, prawdopodobnie wymuszenie HTTPS przy DOCUMENT_ROOT na katalogu głównym). Stare adresy instalacji z `http://` też tak kończą. Do decyzji Krystiana: ustawienie w panelu nazwa.pl albo zostawić do przeniesienia pro-kom.eu do huba (grudzień).
 
 Sprawdzenie po wgraniu (Git Bash): `for p in uslugi/montaz-instalacje uslugi/montaz-instalacje/monitoring realizacje; do curl -sI https://pro-kom.eu/$p | grep -iE "^HTTP|^location"; done` → `301` i `location: https://prokominstalacje.pl/…`; strona główna `https://pro-kom.eu/` dalej 200.
