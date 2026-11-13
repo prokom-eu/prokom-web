@@ -37,7 +37,7 @@ describe('Instalacje home seed', () => {
   })
 
   it('has the full home title, at most 60 characters (no template on the start page)', () => {
-    expect(HOME_SEO.title).toBe('Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje')
+    expect(HOME_SEO.title).toBe('Monitoring, alarmy i Wi-Fi Rabka-Zdrój | PRO-KOM Instalacje')
     expect(HOME_SEO.title.length).toBeLessThanOrEqual(60)
     expect(HOME_SEO.description.length).toBeGreaterThanOrEqual(140)
     expect(HOME_SEO.description.length).toBeLessThanOrEqual(155)

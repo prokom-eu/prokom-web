@@ -41,7 +41,7 @@ test.describe('Instalacje home hero', () => {
     await expect(page.locator('h1')).toHaveText(
       /^Projekt, montaż i\sserwis w\sjednej firmie\. Monitoring, alarmy, Wi-Fi i\ssmart home na\sPodhalu$/,
     )
-    await expect(page).toHaveTitle('Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje')
+    await expect(page).toHaveTitle('Monitoring, alarmy i Wi-Fi Rabka-Zdrój | PRO-KOM Instalacje')
     const description = await page.locator('meta[name="description"]').getAttribute('content')
     expect(description?.length ?? 999).toBeLessThanOrEqual(155)
   })

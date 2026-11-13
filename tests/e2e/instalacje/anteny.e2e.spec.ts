@@ -53,7 +53,7 @@ test.describe('Anteny page', () => {
     expect(ids).toEqual(SECTIONS)
 
     const title = await page.title()
-    expect(title).toBe('Anteny satelitarne i DVB-T2 na Podhalu | PRO-KOM Instalacje')
+    expect(title).toBe('Anteny satelitarne Rabka-Zdrój, Podhale | PRO-KOM Instalacje')
     expect(title.length).toBeLessThanOrEqual(65)
     const description = await page.locator('meta[name="description"]').getAttribute('content')
     expect(description?.length ?? 0).toBeGreaterThan(50)

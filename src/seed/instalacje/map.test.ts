@@ -328,9 +328,9 @@ describe('forwardSeoTitle (P3-23 on existing databases)', () => {
     expect(
       forwardSeoTitle(
         'Alarmy i wideodomofony Rabka-Zdrój, Podhale',
-        'Alarmy i wideodomofony na Podhalu',
+        'Alarmy i wideodomofony Rabka-Zdrój',
       ),
-    ).toBe('Alarmy i wideodomofony na Podhalu')
+    ).toBe('Alarmy i wideodomofony Rabka-Zdrój')
     expect(
       forwardSeoTitle(
         'Dla architektów: smart home i teletechnika',
@@ -340,10 +340,10 @@ describe('forwardSeoTitle (P3-23 on existing databases)', () => {
   })
 
   it('keeps a title edited in the panel, an empty one and the current one', () => {
-    expect(forwardSeoTitle('Nasz własny tytuł', 'Alarmy i wideodomofony na Podhalu')).toBeNull()
-    expect(forwardSeoTitle(null, 'Alarmy i wideodomofony na Podhalu')).toBeNull()
+    expect(forwardSeoTitle('Nasz własny tytuł', 'Alarmy i wideodomofony Rabka-Zdrój')).toBeNull()
+    expect(forwardSeoTitle(null, 'Alarmy i wideodomofony Rabka-Zdrój')).toBeNull()
     expect(
-      forwardSeoTitle('Alarmy i wideodomofony na Podhalu', 'Alarmy i wideodomofony na Podhalu'),
+      forwardSeoTitle('Alarmy i wideodomofony Rabka-Zdrój', 'Alarmy i wideodomofony Rabka-Zdrój'),
     ).toBeNull()
   })
 
@@ -425,5 +425,20 @@ describe('service hero facts fit their column (12.11)', () => {
       expect.objectContaining({ value: '0 zł', label: 'abonamentu za sterowanie lokalne' }),
     )
     expect(JSON.stringify(smart?.hero?.facts)).not.toContain('Bez abonamentu')
+  })
+})
+
+describe('service titles name Rabka (13.11)', () => {
+  it('every service page and the offer page say „Rabka” and stay within 60 characters', () => {
+    const all = pagesToImport()
+    const pages = [
+      ...all.slice(0, servicesToImport().length),
+      ...all.filter((p) => ['uslugi', 'serwis'].includes(p.slug)),
+    ]
+    expect(pages.length).toBeGreaterThanOrEqual(12)
+    for (const p of pages) {
+      expect(p.seo.title, p.slug).toMatch(/Rabk/)
+      expect(`${p.seo.title} | PRO-KOM Instalacje`.length, p.slug).toBeLessThanOrEqual(60)
+    }
   })
 })

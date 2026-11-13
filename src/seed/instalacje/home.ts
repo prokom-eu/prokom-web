@@ -46,7 +46,7 @@ export function instalacjeHomeBlock(): InstHome {
  * so the start page carries the line name itself.
  */
 export const HOME_SEO = {
-  title: 'Monitoring, alarmy i Wi-Fi na Podhalu | PRO-KOM Instalacje',
+  title: 'Monitoring, alarmy i Wi-Fi Rabka-Zdrój | PRO-KOM Instalacje',
   description:
     'Monitoring, alarmy, Wi-Fi i smart home Ampio dla domów, pensjonatów i firm na Podhalu. ' +
     'Projekt, montaż z 24-miesięczną gwarancją i serwis z Rabki-Zdroju.',
