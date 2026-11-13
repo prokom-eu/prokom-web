@@ -99,6 +99,7 @@ export default async function SolutionPage({ params }: Props) {
       description: page.lead ?? undefined,
       url,
       provider: tenant.name,
+      providerId: `${origin}/#organization`,
       priceFrom: page.priceFrom,
       areaServed: SOFTWARE_AREA_SERVED,
     }),

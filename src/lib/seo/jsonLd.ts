@@ -93,7 +93,8 @@ export function organizationJsonLd({ company, tenant, contact, origin }: Organiz
   // office (the first location), never the other salons of the company.
   const locations = tenant.line === 'software' ? company.locations.slice(0, 1) : company.locations
   const branches = locations.map((location, index) => ({
-    '@type': 'LocalBusiness',
+    // A software house is a `ProfessionalService` (a `LocalBusiness`, SEO etap 1).
+    '@type': tenant.line === 'software' ? 'ProfessionalService' : 'LocalBusiness',
     // By position, not city: two branches in one city must stay two nodes.
     '@id': `${origin}/#oddzial-${index + 1}`,
     name: `${company.name} — ${location.name}`,
@@ -287,11 +288,14 @@ export function serviceJsonLd({
   provider,
   priceFrom,
   areaServed,
+  providerId,
 }: {
   name: string
   description: string | undefined
   url: string
   provider: string
+  /** The page's organization (`<origin>/#organization`): one node for search engines. */
+  providerId?: string
   priceFrom: number | null
   /** Places the service is offered in (`SOFTWARE_AREA_SERVED`). */
   areaServed?: readonly string[]
@@ -302,7 +306,7 @@ export function serviceJsonLd({
     name,
     ...(description && { description }),
     url,
-    provider: { '@type': 'Organization', name: provider },
+    provider: { '@type': 'Organization', ...(providerId && { '@id': providerId }), name: provider },
     ...(areaServed && { areaServed }),
     ...(priceFrom !== null && {
       offers: {

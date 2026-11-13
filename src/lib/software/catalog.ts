@@ -1,4 +1,4 @@
-import { CATALOG_PATH } from './catalogPath'
+import { CATALOG_PATH, CATALOG_QUERY_PARAM } from './catalogPath'
 import { INDUSTRY_GROUPS, SITUATIONS, type SolutionCategory } from './options'
 import { isSlug } from './slug'
 import { searchSolutions, type PreparedSolutionSearch } from './search'
@@ -86,7 +86,7 @@ const SITUATION_PARAMS: Record<Situation, string> = {
 }
 
 const PARAM = {
-  query: 'q',
+  query: CATALOG_QUERY_PARAM,
   category: 'kategoria',
   situation: 'sytuacja',
   group: 'branza',

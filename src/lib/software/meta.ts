@@ -25,7 +25,12 @@ export function fitTitle(full: string, short: string): string {
 
 /** The places a local search names („strona wizytówka Rabka”, „… Podhale”), SEO etap 1. */
 const PLACE_TITLES = [' — Rabka-Zdrój i Podhale', ' — Rabka-Zdrój'] as const
-const PLACE_SENTENCE = 'Rabka-Zdrój i całe Podhale.'
+/** Where we work, the longest that fits: Rabka, Podhale, Małopolska and remotely all Poland. */
+const PLACE_SENTENCES = [
+  'Rabka-Zdrój, Podhale, Małopolska i zdalnie cała Polska.',
+  'Rabka-Zdrój, Podhale i cała Małopolska.',
+  'Rabka-Zdrój i całe Podhale.',
+] as const
 const NAMES_PLACE = /rabk|podhal/i
 
 /**
@@ -40,11 +45,17 @@ export function localTitle(name: string): string {
   return name
 }
 
-/** A description that names the place: one sentence added when it has none and there is room. */
+/**
+ * A description that names the place: the longest sentence of `PLACE_SENTENCES` that fits, added
+ * when it names none.
+ */
 export function withPlace(text: string): string {
   if (NAMES_PLACE.test(text)) return text
-  const next = `${text} ${PLACE_SENTENCE}`
-  return next.length <= META_DESCRIPTION_MAX ? next : text
+  for (const sentence of PLACE_SENTENCES) {
+    const next = `${text} ${sentence}`
+    if (next.length <= META_DESCRIPTION_MAX) return next
+  }
+  return text
 }
 
 /** Below this a description wastes the snippet (audyt 01.11 P2: 120–155 characters). */

@@ -104,10 +104,14 @@ describe('localTitle — the place in the title (SEO etap 1)', () => {
 })
 
 describe('withPlace — the place in the description (SEO etap 1)', () => {
-  it('adds the place when the text has none and it fits', () => {
+  it('adds the widest place that fits: Rabka, Podhale, Małopolska, all Poland', () => {
     expect(withPlace('Strona z menu i rezerwacją stolika.')).toBe(
-      'Strona z menu i rezerwacją stolika. Rabka-Zdrój i całe Podhale.',
+      'Strona z menu i rezerwacją stolika. Rabka-Zdrój, Podhale, Małopolska i zdalnie cała Polska.',
     )
+    const longer = 'b'.repeat(100) + '.'
+    expect(withPlace(longer)).toBe(`${longer} Rabka-Zdrój, Podhale i cała Małopolska.`)
+    const longest = 'c'.repeat(120) + '.'
+    expect(withPlace(longest)).toBe(`${longest} Rabka-Zdrój i całe Podhale.`)
   })
 
   it('leaves a text that already names the place or has no room', () => {
