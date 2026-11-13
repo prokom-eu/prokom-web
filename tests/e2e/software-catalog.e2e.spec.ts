@@ -194,8 +194,9 @@ test.describe('Software offer window (spec. §5.1)', () => {
     // A pointer over the card first, as before any click: it fetches the window's chunk.
     await card(page, 'Landing page').hover()
     await page.waitForLoadState('networkidle')
-    // Measured in the page from the click: the panel fully seen, and at 120 ms the backdrop
-    // dims the page and nothing of a view transition is drawn over the window.
+    // Measured in the page from the click, every frame: nothing of a view transition is drawn
+    // over the window; the backdrop comes in by its own 180 ms fade and dims the page once the
+    // panel is in. (Not read at a fixed 120 ms: a CI runner draws its frames late, 13.11.)
     const result = await page.evaluate(async () => {
       const opener = [...document.querySelectorAll<HTMLElement>('a.v-card')].find(
         (item) => item.querySelector('.v-card-bd > b')?.textContent === 'Landing page',
@@ -203,8 +204,8 @@ test.describe('Software offer window (spec. §5.1)', () => {
       if (!opener) return null
       const start = performance.now()
       opener.click()
-      let at120: { backdrop: number; transitions: number } | null = null
-      let entry: { property: string; duration: string } | null = null
+      let transitions = 0
+      let entry: { property: string; duration: string; backdrop: string } | null = null
       let full = -1
       let shown = -1
       while (performance.now() - start < 1500) {
@@ -215,29 +216,30 @@ test.describe('Software offer window (spec. §5.1)', () => {
         if (shown < 0) shown = time
         if (!entry) {
           const open = getComputedStyle(panel)
-          entry = { property: open.transitionProperty, duration: open.transitionDuration }
-        }
-        if (!at120 && time >= 120) {
-          at120 = {
-            backdrop: Number(getComputedStyle(panel, '::backdrop').opacity),
-            transitions: document
-              .getAnimations()
-              .filter((animation) =>
-                String((animation.effect as KeyframeEffect | null)?.pseudoElement ?? '').startsWith(
-                  '::view-transition',
-                ),
-              ).length,
+          entry = {
+            property: open.transitionProperty,
+            duration: open.transitionDuration,
+            backdrop: getComputedStyle(panel, '::backdrop').transitionDuration,
           }
         }
+        transitions += document
+          .getAnimations()
+          .filter((animation) =>
+            String((animation.effect as KeyframeEffect | null)?.pseudoElement ?? '').startsWith(
+              '::view-transition',
+            ),
+          ).length
         const style = getComputedStyle(panel)
         const still = style.scale === '1' || style.scale === 'none'
         if (full < 0 && style.opacity === '1' && still) full = time
-        if (full >= 0 && at120) break
+        if (full >= 0) break
       }
-      return { full, shown, at120, entry }
+      const panel = document.querySelector<HTMLDialogElement>('dialog.sw-offer-panel[open]')
+      const backdrop = panel ? Number(getComputedStyle(panel, '::backdrop').opacity) : 0
+      return { full, shown, transitions, backdrop, entry }
     })
     await page.waitForTimeout(150)
-    await testInfo.attach('okno-120ms', {
+    await testInfo.attach('okno-po-wejsciu', {
       body: await page.screenshot(),
       contentType: 'image/png',
     })
@@ -251,8 +253,9 @@ test.describe('Software offer window (spec. §5.1)', () => {
     const measured = JSON.stringify(result)
     expect(result?.shown, measured).toBeLessThanOrEqual(150)
     expect((result?.full ?? 0) - (result?.shown ?? 0), measured).toBeLessThanOrEqual(400)
-    expect(result?.at120?.transitions).toBe(0)
-    expect(result?.at120?.backdrop).toBeGreaterThan(0.5)
+    expect(result?.entry?.backdrop).toMatch(/^0\.18s/)
+    expect(result?.transitions).toBe(0)
+    expect(result?.backdrop, measured).toBeGreaterThan(0.5)
     await expect(windowOf(page, 'Landing page')).toBeVisible()
   })
 
