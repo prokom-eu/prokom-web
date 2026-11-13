@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { AREA_TOWNS } from '../instalacje/area'
 import { brandLinks, buildSiteMap, siteMapPaths } from './siteLinks'
 
 const pages = [
@@ -272,6 +273,20 @@ describe('buildSiteMap — Instalacje', () => {
   it('has no object section without published objects', () => {
     const map = buildSiteMap({ pages, catalog: null, news: null, objectPages: [] })
     expect(map.map(({ id }) => id)).not.toContain('dla-kogo')
+  })
+
+  it('lists /obszar and every town page in sitemap.xml (ADR-I006)', () => {
+    const map = buildSiteMap({ pages, catalog: null, news: null, areaPages: AREA_TOWNS })
+    const area = map.find(({ id }) => id === 'obszar')
+    expect(area?.title).toBe('Obszar działania')
+    const paths = siteMapPaths(map).map(({ path }) => path)
+    expect(paths).toContain('/obszar')
+    for (const town of AREA_TOWNS) expect(paths).toContain(`/obszar/${town.slug}`)
+  })
+
+  it('has no area section elsewhere', () => {
+    const map = buildSiteMap({ pages, catalog: null, news: null })
+    expect(map.map(({ id }) => id)).not.toContain('obszar')
   })
 })
 

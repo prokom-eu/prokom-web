@@ -7,6 +7,7 @@ import { BRANDS_PATH, CATALOG_PATH } from '../catalog/filters'
 import { PLAN_PATH } from '../catalog/floorPlan'
 import { CONFIGURATOR_PATH } from '../catalog/wizardEngine'
 import { industryHref } from '../catalog/industry'
+import { AREA_PATH, areaHref } from '../instalacje/area'
 import { objectHref } from '../instalacje/menu'
 import { HOME_SLUG, pagePath } from '../pages/slug'
 import { joinNames } from '../partners/badges'
@@ -67,6 +68,8 @@ export type SiteMapInput = {
   cities?: readonly { slug: string; name: string }[] | null
   /** Instalacje: published object pages `/dla-kogo/[obiekt]` (I10); absent elsewhere. */
   objectPages?: readonly ({ slug: string; name: string } & Dated)[] | null
+  /** Instalacje: the towns list `/obszar` and the town pages `/obszar/[miasto]` (ADR-I006). */
+  areaPages?: readonly { slug: string; name: string }[] | null
 }
 
 const byLabel = (a: SiteMapLink, b: SiteMapLink) => a.label.localeCompare(b.label, 'pl')
@@ -85,6 +88,7 @@ export function buildSiteMap({
   industryPages,
   cities,
   objectPages,
+  areaPages,
 }: SiteMapInput): SiteMapSection[] {
   const home = pages.find((page) => page.slug === HOME_SLUG)
   const sections: SiteMapSection[] = [
@@ -229,6 +233,17 @@ export function buildSiteMap({
         href: industryPageHref(industry.slug),
         label: industry.name,
       })),
+    })
+  }
+
+  if (areaPages && areaPages.length > 0) {
+    sections.push({
+      id: 'obszar',
+      title: 'Obszar działania',
+      links: [
+        { href: AREA_PATH, label: 'Wszystkie miejscowości' },
+        ...areaPages.map((town) => ({ href: areaHref(town.slug), label: town.name })),
+      ],
     })
   }
 

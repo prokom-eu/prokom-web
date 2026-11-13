@@ -7,6 +7,7 @@ import {
   getPublishedProductList,
 } from '../catalog/data'
 import { buildPlanScenes } from '../catalog/floorPlan'
+import { AREA_TOWNS } from '../instalacje/area'
 import { getInstalacjeObjectList } from '../instalacje/data'
 import { getPublishedPageList } from '../pages/data'
 import { getPostList } from '../posts/data'
@@ -81,5 +82,6 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     industryPages,
     cities,
     objectPages,
+    areaPages: instalacje ? AREA_TOWNS : null,
   })
 }
