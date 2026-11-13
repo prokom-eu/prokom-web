@@ -38,7 +38,7 @@ Cele (główna i `/rozwiazania`, telefon średniej klasy, Chrome, 4G): LCP ≤ 2
 CI (`tests/e2e/software-wydajnosc.e2e.spec.ts`, build produkcyjny, Chromium) — progi łagodniejsze, bo maszyna CI:
 - [ ] przewinięcie głównej do stopki na telefonie z CPU 4×: 0 długich klatek (LoAF) > 100 ms poza pierwszym ekranem,
 - [ ] w trakcie przewijania animacje tylko `transform`/`opacity` (wyjątki z listy w teście), przejścia stanu bez właściwości układu,
-- [ ] okno oferty: pełna widoczność ≤ 320 ms od kliknięcia (300 ms + jedna klatka odczytu) i 0 klatek > 100 ms,
+- [ ] okno oferty: render po kliknięciu ≤ 100 ms, wejście panelu ≤ 240 ms + 60 ms na klatki (pomiar 13.11: ~31 + ~285 ms, razem ~315 ms — cel 300 ms przekroczony o klatki startu i odczytu) i 0 klatek > 100 ms,
 - [ ] **JS głównej przed interakcją ≤ 253 500 B** (gzip). Pomiar 13.11.2026: **241 359 B, 18 skryptów** (770 KB po rozpakowaniu), build produkcyjny po SWA13b + SWA14a; próg = pomiar + 5%. Zmiana progu tylko z uzasadnieniem w opisie PR.
 
 Kompresja: odpowiedzi kompresuje Next (`gzip`). Brotli w Nginx tylko wtedy, gdy obraz proxy (`nginx:*-alpine`) ma moduł bez przebudowy (decyzja 11.11) — w SWA14 nie sprawdzone w obrazie (bez pobierania obrazu), zostaje gzip.
