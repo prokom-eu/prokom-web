@@ -404,3 +404,15 @@ describe('hero facts of the objects (decisions 10.11, 12.11)', () => {
     }
   })
 })
+
+describe('service hero facts fit their column (12.11)', () => {
+  it('Smart home: „0 zł / abonamentu za sterowanie lokalne” instead of „Bez abonamentu”', () => {
+    const smart = servicesToImport()
+      .map((item) => serviceData(item, refs))
+      .find((s) => s.key === 'smart')
+    expect(smart?.hero?.facts).toContainEqual(
+      expect.objectContaining({ value: '0 zł', label: 'abonamentu za sterowanie lokalne' }),
+    )
+    expect(JSON.stringify(smart?.hero?.facts)).not.toContain('Bez abonamentu')
+  })
+})

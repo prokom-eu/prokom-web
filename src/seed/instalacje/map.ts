@@ -400,6 +400,14 @@ const ids = (keys: string[], ref: (key: string) => number | undefined): number[]
  */
 export const OBJECT_FIRST_FACT = { value: 'od 2004', label: 'na Podhalu' } as const
 
+/**
+ * Service hero facts whose value was a word longer than its column (12.11: „Bez abonamentu”
+ * ran into the next fact on Smart home) — in the form Monitoring already uses („0 zł”).
+ */
+export const SERVICE_FACT_FIXES: Readonly<Record<string, { value: string; label: string }>> = {
+  'Bez abonamentu': { value: '0 zł', label: 'abonamentu za sterowanie lokalne' },
+}
+
 function hero(seed: SeedHero): ServiceData['hero'] {
   return {
     crumb: seed.crumb,
@@ -407,11 +415,12 @@ function hero(seed: SeedHero): ServiceData['hero'] {
     h1a: seed.h1a,
     h1b: seed.h1b,
     lead: seed.lead,
-    facts: (seed.kv ?? []).map((fact) =>
-      Array.isArray(fact)
+    facts: (seed.kv ?? []).map((fact) => {
+      const own = Array.isArray(fact)
         ? { value: fact[0] ?? '', label: fact[1] ?? '' }
-        : { value: fact.b, label: fact.s },
-    ),
+        : { value: fact.b, label: fact.s }
+      return SERVICE_FACT_FIXES[own.value] ?? own
+    }),
     tags: (seed.tags ?? []).map((tag) => (typeof tag === 'string' ? tag : tag.n)),
     cta: { text: seed.cta, href: optionalHref(seed.ctaHref) },
   }

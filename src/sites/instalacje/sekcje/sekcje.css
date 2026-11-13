@@ -528,8 +528,10 @@
   /* The figure fits its column: ~7.5 em is the widest word of a fact („abonamentu”, „instalacji”)
      in the display face, so one column / 7.5 never overflows; capped at the former 34 px. */
   & .pkv .kv b {
-    font-size: clamp(20px, calc((100cqi - (var(--n, 3) - 1) * 24px) / var(--n, 3) / 7.5), 34px);
+    font-size: clamp(22px, calc((100cqi - (var(--n, 3) - 1) * 24px) / var(--n, 3) / 7.5), 34px);
     text-wrap: balance;
+    /* A word from the panel longer than the column breaks inside it, never into the next fact. */
+    overflow-wrap: break-word;
   }
   & .ill {
     position: relative;
