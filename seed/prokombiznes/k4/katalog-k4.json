@@ -237,6 +237,33 @@
      "l": "pl",
      "d": "model"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/ergo-premium-01.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/356/pos-net-ergo-basic-040003-010000-bez-tla.png",
+     "ujecie": "przód, ekran operatora"
+    },
+    {
+     "plik": "media/produkty/ergo-premium-02.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/356/ergo-01.jpg",
+     "ujecie": "widok z góry, klawiatura"
+    },
+    {
+     "plik": "media/produkty/ergo-premium-03.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/356/ergo-online-wizualizacja-nadruku-wyswietlacz-klienta.jpg",
+     "ujecie": "tył, wyświetlacz klienta"
+    },
+    {
+     "plik": "media/produkty/ergo-premium-04.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/356/posnet-ergo-online-basic-open-010000-duzy.jpg",
+     "ujecie": "otwarta drukarka"
+    },
+    {
+     "plik": "media/produkty/ergo-premium-05.webp",
+     "zrodlo": "https://www.posnet.com.pl/files/products_gallery/356/ergo-02.jpg",
+     "ujecie": "profil z boku"
+    }
    ]
   },
   {
@@ -6529,6 +6556,28 @@
      "k": "SUNMI",
      "l": "en",
      "d": "seria"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/v3mix-premium-01.webp",
+     "zrodlo": "katalog v2: Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/sunmi-v3-mix-mobilny-terminal-dotykowy-101-z-wbudowana-drukarka.webp",
+     "ujecie": "przód, ekran i drukarka"
+    },
+    {
+     "plik": "media/produkty/v3mix-premium-02.webp",
+     "zrodlo": "katalog v2: Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/sumi_v3mix_cover_productstructured_4a03f972df.webp",
+     "ujecie": "na stacji, z boku"
+    },
+    {
+     "plik": "media/produkty/v3mix-premium-03.webp",
+     "zrodlo": "https://file.cdn.sunmi.com/newebsite/products/v3-mix/lg/sunmi-home-2.jpg",
+     "ujecie": "na ladzie"
+    },
+    {
+     "plik": "media/produkty/v3mix-premium-04.webp",
+     "zrodlo": "https://file.cdn.sunmi.com/newebsite/products/v3-mix/lg/sunmi-home-3.jpg",
+     "ujecie": "zbliżenie — drukarka i czytnik NFC"
     }
    ]
   },
@@ -50412,6 +50461,13 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/comex-cover-core-one.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/comex-cover-core-one-premium-01.webp",
+     "zrodlo": "https://comex.com.pl/wp-content/uploads/2026/06/COVER_CORE_ONE_3K_-_Rside-scaled.jpg",
+     "ujecie": "skos z prawej, panel przedni"
+    }
    ]
   },
   {
@@ -87102,7 +87158,29 @@
      "d": "seria"
     }
    ],
-   "seria": "ESET — pakiety dla firm"
+   "seria": "ESET — pakiety dla firm",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eset-premium-01.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Backgrounds/Bundle-pages_showcase_2023.png",
+     "ujecie": "konsola ESET PROTECT na komputerze, laptopie i telefonie"
+    },
+    {
+     "plik": "media/produkty/eset-premium-02.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Pages/Business/Bundles/Screenshots/EPC-reports.jpg",
+     "ujecie": "konsola — raporty"
+    },
+    {
+     "plik": "media/produkty/eset-premium-03.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Pages/Business/Bundles/Screenshots/EPC-Exclusions.jpg",
+     "ujecie": "konsola — wyjątki i zasady"
+    },
+    {
+     "plik": "media/produkty/eset-premium-04.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Pages/Business/Bundles/Screenshots/EPC-notofications.jpg",
+     "ujecie": "konsola — powiadomienia"
+    }
+   ]
   },
   {
    "slug_seed": "eset-pakiet-elite",
@@ -87224,7 +87302,24 @@
    ],
    "nowosc": false,
    "seria": "ESET — pakiety dla firm",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eset-pakiet-elite-premium-01.webp",
+     "zrodlo": "katalog v2: Materialy-prokombiznes/zdjecia/16-antywirus-firewall/eset/EP_ELITE.png",
+     "ujecie": "ESET PROTECT Elite"
+    },
+    {
+     "plik": "media/produkty/eset-pakiet-elite-premium-02.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Backgrounds/Bundle-pages_showcase_2023.png",
+     "ujecie": "konsola ESET PROTECT"
+    },
+    {
+     "plik": "media/produkty/eset-pakiet-elite-premium-03.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Pages/Business/Bundles/Screenshots/EPC-notofications.jpg",
+     "ujecie": "konsola — powiadomienia"
+    }
+   ]
   },
   {
    "slug_seed": "eset-pakiet-complete",
@@ -87351,7 +87446,24 @@
    ],
    "nowosc": false,
    "seria": "ESET — pakiety dla firm",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eset-pakiet-complete-premium-01.webp",
+     "zrodlo": "katalog v2: Materialy-prokombiznes/zdjecia/16-antywirus-firewall/eset/EP_COMP.png",
+     "ujecie": "ESET PROTECT Complete"
+    },
+    {
+     "plik": "media/produkty/eset-pakiet-complete-premium-02.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Backgrounds/Bundle-pages_showcase_2023.png",
+     "ujecie": "konsola ESET PROTECT"
+    },
+    {
+     "plik": "media/produkty/eset-pakiet-complete-premium-03.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Pages/Business/Bundles/Screenshots/EPC-reports.jpg",
+     "ujecie": "konsola — raporty"
+    }
+   ]
   },
   {
    "slug_seed": "eset-pakiet-advanced",
@@ -87477,7 +87589,24 @@
    ],
    "nowosc": false,
    "seria": "ESET — pakiety dla firm",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eset-pakiet-advanced-premium-01.webp",
+     "zrodlo": "katalog v2: Materialy-prokombiznes/zdjecia/16-antywirus-firewall/eset/EP_ADV.png",
+     "ujecie": "ESET PROTECT Advanced"
+    },
+    {
+     "plik": "media/produkty/eset-pakiet-advanced-premium-02.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Backgrounds/Bundle-pages_showcase_2023.png",
+     "ujecie": "konsola ESET PROTECT"
+    },
+    {
+     "plik": "media/produkty/eset-pakiet-advanced-premium-03.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Pages/Business/Bundles/Screenshots/EPC-Exclusions.jpg",
+     "ujecie": "konsola — wyjątki i zasady"
+    }
+   ]
   },
   {
    "slug_seed": "eset-pakiet-entry",
@@ -87604,7 +87733,24 @@
    ],
    "nowosc": false,
    "seria": "ESET — pakiety dla firm",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eset-pakiet-entry-premium-01.webp",
+     "zrodlo": "katalog v2: Materialy-prokombiznes/zdjecia/16-antywirus-firewall/eset/EP_ENTRY.png",
+     "ujecie": "ESET PROTECT Entry"
+    },
+    {
+     "plik": "media/produkty/eset-pakiet-entry-premium-02.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Backgrounds/Bundle-pages_showcase_2023.png",
+     "ujecie": "konsola ESET PROTECT"
+    },
+    {
+     "plik": "media/produkty/eset-pakiet-entry-premium-03.webp",
+     "zrodlo": "https://web-assets.eset.com/fileadmin/ESET/INT/Pages/Business/Bundles/Screenshots/EPC-reports.jpg",
+     "ujecie": "konsola — raporty"
+    }
+   ]
   },
   {
    "slug_seed": "eset-small-business-security",

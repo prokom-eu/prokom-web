@@ -98,3 +98,24 @@ describe('features of the new model cards (review 13.11)', () => {
     expect(bad).toEqual([])
   })
 })
+
+describe('producer photos chosen for production (`zdjecia_premium`)', () => {
+  it('each file exists, belongs to its card and has a source page and a view', async () => {
+    const { existsSync } = await import('node:fs')
+    type Photo = { plik: string; zrodlo: string; ujecie: string }
+    const bad = (
+      catalog as unknown as { produkty: (Card & { zdjecia_premium?: Photo[] })[] }
+    ).produkty.flatMap((card) =>
+      (card.zdjecia_premium ?? []).flatMap((photo) => {
+        const problems = [
+          !existsSync(`seed/prokombiznes/k4/${photo.plik}`) && 'brak pliku',
+          !photo.plik.includes(`/${card.slug_seed}-premium-`) && 'plik innej karty',
+          !photo.zrodlo.trim() && 'brak źródła',
+          !photo.ujecie.trim() && 'brak ujęcia',
+        ].filter(Boolean)
+        return problems.length ? [`${card.slug_seed} ${photo.plik}: ${problems.join(', ')}`] : []
+      }),
+    )
+    expect(bad).toEqual([])
+  })
+})

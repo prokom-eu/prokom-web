@@ -54,6 +54,12 @@ export type K4Card = {
   seria?: string | null
   /** Gallery of a new card (`media/produkty/…`); repo cards keep their K3 / K3.1 photos. */
   zdjecia?: string[] | null
+  /**
+   * Producer photos chosen for production (PRODUKCJA-BIZNES-1211 §1, zgoda szefa 12.11): when set,
+   * they replace the card's whole gallery (also K3 photos), in this order — the first is the main
+   * one. `zrodlo` = the producer page the file was taken from, `ujecie` = the view for the alt.
+   */
+  zdjecia_premium?: { plik: string; zrodlo: string; ujecie: string }[] | null
   kolory?: { nazwa: string; hex: string; plik: string }[] | null
   /** A PRO-KOM service without a photo: the product page shows a service tile (K4e). */
   zdjecia_brak?: boolean
@@ -238,7 +244,10 @@ function photoKey(file: string, card: string): string {
 
 /** Image keys of a new card's gallery, in the package order (the first is the main one). */
 export function k4ImageKeys(card: K4Card): string[] {
-  return (card.zdjecia ?? []).map((file) => photoKey(file, card.slug_seed))
+  const files = card.zdjecia_premium?.length
+    ? card.zdjecia_premium.map((photo) => photo.plik)
+    : (card.zdjecia ?? [])
+  return files.map((file) => photoKey(file, card.slug_seed))
 }
 
 /** Image keys of the color photos of a card. */
@@ -268,6 +277,17 @@ export function k4PhotoMediaData(card: K4Card, key: string) {
   const color = (card.kolory ?? []).find((item) => photoKey(item.plik, card.slug_seed) === key)
   if (!position && !color) {
     throw new Error(`Seed (K4): photo "${key}" is not on "${card.slug_seed}".`)
+  }
+  // A chosen producer photo: „Marka Model — ujęcie”, its page as the source.
+  const premium = card.zdjecia_premium?.find(
+    (photo) => photoKey(photo.plik, card.slug_seed) === key,
+  )
+  if (premium) {
+    return {
+      alt: `${card.krotka || card.nazwa} — ${premium.ujecie}`,
+      source: `${premium.zrodlo} (materiały producenta, zgoda 12.11.2026)`,
+      requiresConsent: false,
+    }
   }
   return {
     alt: color ? `${card.nazwa} — kolor ${color.nazwa}` : `${card.nazwa} — zdjęcie ${position}`,
