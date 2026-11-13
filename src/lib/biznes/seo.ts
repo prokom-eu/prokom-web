@@ -27,6 +27,18 @@ export function biznesDescription(text: string): string {
 /** A text that already says where we work, as a whole word (`Grabka` is not Rabka). */
 const REGION = /(?<!\p{L})(rabk|rabc|podhal|małopol)/iu
 
+/**
+ * Biznes pages that sell a service (SEO lokalne 13.11): they carry a `Service` with the area of
+ * the salon. The procurement pages (`dostawy-it-dla-firm`, `agd-rtv-dla-firm`) have their own;
+ * `/ksef` is a guide (its title is a question), not a service name.
+ */
+export const BIZNES_SERVICE_PAGES: ReadonlySet<string> = new Set([
+  'opieka-it',
+  'gopos',
+  'insert',
+  'automaty-vendingowe',
+])
+
 /** A title split by a dash or a colon („Wagi dla firm — Dibal”, „Systemy: GoPOS”). */
 const DASHED = / — |: | – /
 
