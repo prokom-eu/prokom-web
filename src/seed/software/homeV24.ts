@@ -67,12 +67,14 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
         mockup: { kind: 'dash', variant: 'zamowienia' },
       },
       {
-        short: 'Za dużo przepisywania',
-        question: 'Ciągle coś przepisujesz, wysyłasz i przypominasz ręcznie',
+        // SWA14 §4.2: panels and dashboards for firms (SMS and AI stay in the bento and the offer).
+        short: 'Brak liczb na bieżąco',
+        question: 'Ile zarobiliśmy w tym miesiącu? Odpowiedź zajmuje pół dnia',
         answer:
-          'SMS-y, faktury i raporty wysyłają się same. Asystent AI szykuje odpowiedzi, a Ty tylko zatwierdzasz.',
-        solution: 'powiadomienia-sms-i-e-mail',
-        mockup: { kind: 'flow', variant: 'sms' },
+          'Pulpit firmy zbiera sprzedaż, zlecenia, koszty i pracę zespołu na jednym ekranie. Liczby odświeżają się same: sprawdzasz je w telefonie w 10 sekund, a w poniedziałek o 7:00 raport przychodzi sam.',
+        solution: 'pulpit-firmy',
+        mockup: { kind: 'dash', variant: 'pulpit' },
+        offer: 'Zobacz pulpit',
       },
     ],
   },
@@ -142,7 +144,7 @@ export const HOME_V24: Required<SoftwareHomeV24> = {
       variants: [
         { label: 'SMS i e-mail', solution: 'powiadomienia-sms-i-e-mail', variant: 'sms' },
         { label: 'Faktury', solution: 'faktury-bez-przepisywania', variant: 'faktury' },
-        { label: 'Raporty', solution: 'raporty-dla-szefa', variant: 'raporty' },
+        { label: 'Raporty', solution: 'pulpit-firmy', variant: 'raporty' },
         { label: 'Asystent AI', solution: 'asystent-ai-do-zapytan', variant: 'ai' },
       ],
     },

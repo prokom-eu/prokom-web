@@ -3,13 +3,16 @@ import type { SoftwareHome } from './home'
 import type { MockupKind } from './mockups'
 import type { IndexSolution, SolutionsIndex } from './solutionsIndex'
 
-/** „od 2 490 zł” and the term of a solution (`cardPrice`); a missing one asks for a quote. */
-export type PriceLine = { price: string; term: string }
+/**
+ * „od 2 490 zł” and the term of a solution (`cardPrice`). `ask`: no price — the slot shows a small
+ * „Wycena po rozmowie” badge, not the price's type (SWA14 §4.1).
+ */
+export type PriceLine = { price: string; term: string; ask: boolean }
 
 export function priceLine(slug: string, index: SolutionsIndex): PriceLine {
   const solution = index.solutions.find((item) => item.slug === slug)
   if (!solution)
-    return { price: index.priceDisplay.fallback, term: index.priceDisplay.termFallback }
+    return { price: index.priceDisplay.fallback, term: index.priceDisplay.termFallback, ask: true }
   return solutionPriceLine(solution, index.priceDisplay)
 }
 
@@ -17,8 +20,8 @@ function solutionPriceLine(
   solution: IndexSolution,
   display: SolutionsIndex['priceDisplay'],
 ): PriceLine {
-  const { head, term } = cardPrice(solution, display)
-  return { price: [head.before, head.amount, head.after].filter(Boolean).join(' '), term }
+  const { head, term, ask } = cardPrice(solution, display)
+  return { price: [head.before, head.amount, head.after].filter(Boolean).join(' '), term, ask }
 }
 
 /** Price lines of the given solutions, for a client section (no index shipped to the browser). */
@@ -47,6 +50,8 @@ export type PricingCard = {
   group: string
   price: string
   term: string
+  /** No price: a „Wycena po rozmowie” badge instead of the amount. */
+  ask: boolean
   mockup: { kind: MockupKind; variant: string | null } | null
 }
 

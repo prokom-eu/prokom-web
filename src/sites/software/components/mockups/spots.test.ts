@@ -41,7 +41,8 @@ describe('points of „W cenie” on the mock-ups (OKNO-OFERTY-PREMIUM §3)', ()
     const systems = Object.entries(SOLUTION_PREVIEWS)
       .filter(([, preview]) => preview.kind === 'dash')
       .map(([slug]) => slug)
-    expect(systems).toHaveLength(10)
+    // SWA14: + the company dashboard („pulpit-firmy”).
+    expect(systems).toHaveLength(11)
     for (const slug of systems) expect(coverage[slug], slug).toBeGreaterThanOrEqual(2)
   })
 

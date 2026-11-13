@@ -810,8 +810,33 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
+/* Four KPIs (the company dashboard): the revenue gets the room for its amount and its delta. */
+.mk-kpis[data-n='4'] {
+  grid-template-columns: 1.7fr 1fr 1fr 1fr;
+  gap: 8px;
+}
+.mk-kpis[data-n='4'] .mk-kpi small,
+.mk-kpis[data-n='4'] .mk-kpi b {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mk-kpis[data-n='4'] .mk-kpi b {
+  font-size: 17px;
+}
+.mk-kpis[data-n='4'] .mk-kpi > div {
+  gap: 6px;
+}
 .mk-kpi {
   padding: 10px 12px;
+}
+/* „na żywo” of the company dashboard (SWA14 §4.2): the flows' „działa” badge (`.mk-live` below),
+   kept on one line in the panel's head with its button („Raport · pn 7:00”). */
+.mk-main-head .mk-live,
+.mk-report {
+  flex: none;
+  white-space: nowrap;
 }
 .mk-kpi small {
   font-size: 9.5px;
@@ -1318,6 +1343,9 @@
 /* --- Motion (ZMIANY-v24 §5, §8): bars grow, a dot runs, logs slide in, the slider sweeps, the
    sky twinkles. Off with reduced motion: the final state at once. -------------------------- */
 @media (prefers-reduced-motion: no-preference) {
+  .mk-main-head .mk-live > i {
+    animation: mk-blink var(--dur-mk-blink) steps(2, jump-none) infinite;
+  }
   .mk-bars i {
     animation: mk-bar var(--dur-mk-bar) var(--ease-out) both;
   }
@@ -1350,6 +1378,11 @@
   }
 }
 
+@keyframes mk-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
 @keyframes mk-bar {
   from {
     transform: scaleY(0.05);

@@ -447,6 +447,11 @@ export type DashData = {
   bars: [number, number, number, number, number, number, number]
   list: string
   rows: [title: string, note: string, tag: string, tone: DashTag][]
+  /**
+   * The company dashboard (SWA14 §4.2): a „na żywo” badge in the corner, and its parts can be lit
+   * by the points of „W cenie” (KPIs, chart, „Wymaga uwagi”, the Monday report).
+   */
+  live?: string
 }
 
 export const DASHES: Record<DashVariant, DashData> = {
@@ -529,6 +534,28 @@ export const DASHES: Record<DashVariant, DashData> = {
       ['Zamowienia_FINAL_v7', '677 wierszy', 'scalone', 'ok'],
       ['Kontakty_stare.xls', '312 duplikatów', 'usunięte', 'plain'],
     ],
+  },
+  // Sample data, no real firm (SWA14 §4.2).
+  pulpit: {
+    nav: ['Firma', 'Pulpit', 'Sprzedaż', 'Zlecenia', 'Zespół'],
+    crumb: 'Pulpit firmy',
+    title: 'Listopad',
+    button: 'Raport · pn 7:00',
+    kpi: [
+      ['Przychód · listopad', '184 200 zł', '↑ 12%'],
+      ['Zlecenia w toku', '37'],
+      ['Do zapłaty', '3 faktury'],
+      ['Marża', '31%'],
+    ],
+    chart: 'Sprzedaż dziennie',
+    bars: [6, 8, 7, 9, 13, 5, 2],
+    list: 'Wymaga uwagi',
+    rows: [
+      ['2 zlecenia po terminie', 'Ekipa A · od wtorku', 'pilne', 'new'],
+      ['Faktura FV/11/082', '7 dni po terminie', 'przypomnij', 'new'],
+      ['Ekipa B', '96% grafiku', 'pełna', 'plain'],
+    ],
+    live: 'na żywo',
   },
 }
 

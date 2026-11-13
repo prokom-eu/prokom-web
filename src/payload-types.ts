@@ -2009,6 +2009,7 @@ export interface Solution {
           | 'crm'
           | 'czas'
           | 'excel'
+          | 'pulpit'
           | 'sms'
           | 'faktury'
           | 'raporty'

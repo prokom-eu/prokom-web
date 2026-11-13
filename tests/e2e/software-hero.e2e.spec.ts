@@ -22,7 +22,7 @@ test.describe('Software hero v24', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto(site(HOST))
     await expect(hero(page).getByRole('heading', { level: 1 })).toContainText('Zrobimy Ci')
-    await expect(tabs(page)).toHaveCount(7)
+    await expect(tabs(page)).toHaveCount(8)
     await expect(word(page)).toHaveText('stronę wizytówkę.')
 
     await tabs(page).nth(4).click()
@@ -45,7 +45,7 @@ test.describe('Software hero v24', () => {
     await expect(async () => {
       await tabs(page).first().focus()
       await page.keyboard.press('ArrowLeft')
-      await expect(tabs(page).nth(6)).toBeFocused({ timeout: 1000 })
+      await expect(tabs(page).nth(7)).toBeFocused({ timeout: 1000 })
     }).toPass()
     // The phone's short word is in the DOM too (hidden here): the visible text counts.
     await expect(word(page)).toHaveText('automatyzacje i AI.', { useInnerText: true })

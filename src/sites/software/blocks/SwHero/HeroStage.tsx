@@ -33,6 +33,8 @@ export type StageSlide = {
   /** „od 2 490 zł” — from `Solutions` (`cardPrice`). */
   price: string
   term: string
+  /** No price: the caption shows a small „Wycena po rozmowie” badge (SWA14 §4.1). */
+  ask: boolean
   href: string
 }
 
@@ -222,7 +224,8 @@ export function HeroStage({
           </span>
         </Title>
         <p className="hx-lead">{lead}</p>
-        <div className="hx-cmd">
+        {/* Eight tiles or more (SWA14 §4.3): the wide panel grows, so the names keep their room. */}
+        <div className="hx-cmd" data-many={count >= 8 ? '' : undefined}>
           <div className="hx-q">
             <svg
               width="18"
@@ -367,8 +370,8 @@ export function HeroStage({
             <span>{slide.text}</span>
           </div>
           <div className="div">
-            <b>{slide.price}</b>
-            <span>{slide.term}</span>
+            <b className={slide.ask ? 'hx-ask' : undefined}>{slide.price}</b>
+            {!slide.ask && <span>{slide.term}</span>}
           </div>
           <Link href={slide.href}>{offer}</Link>
         </div>

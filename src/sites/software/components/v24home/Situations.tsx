@@ -5,6 +5,7 @@ import { useId, useState } from 'react'
 
 import type { SoftwareHome } from '@/lib/software/home'
 import { Mockup } from '@/sites/software/components/mockups/MockupLazy'
+import { PriceTag } from '@/sites/software/components/ui/PriceTag'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
 import { usePausedOffscreen } from './usePausedOffscreen'
@@ -63,9 +64,9 @@ export function Situations({ situations, prices }: Props) {
                 <div id={`${ids}-sit-${index}`} className="v-sit-body" hidden={!on}>
                   <p>{item.answer}</p>
                   <div className="v-row">
-                    <b className="v-price">{price?.price}</b>
+                    {price && <PriceTag line={price} withTerm />}
                     <Link className="v-link" href={offerHref(item.solution)}>
-                      {situations.offer} <span aria-hidden="true">→</span>
+                      {item.offer ?? situations.offer} <span aria-hidden="true">→</span>
                     </Link>
                   </div>
                 </div>

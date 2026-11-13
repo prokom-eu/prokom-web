@@ -64,6 +64,15 @@ export const HOME_HERO: SoftwareHeroV24 = {
       icon: 'M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z',
     },
     {
+      // SWA14 §4.3: the company dashboard, after the system and before the automations.
+      word: 'pulpit firmy.',
+      name: 'Pulpit firmy',
+      text: 'Sprzedaż, zlecenia i koszty na jednym ekranie. Na żywo.',
+      solution: 'pulpit-firmy',
+      mockup: { kind: 'dash', variant: 'pulpit' },
+      icon: 'M3 21h18M6 17v-5M11 17V7M16 17v-8M21 17V4',
+    },
+    {
       word: 'automatyzacje i AI.',
       wordShort: 'automatyzacje.',
       name: 'Automatyzacje i AI',

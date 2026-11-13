@@ -109,7 +109,7 @@ describe('full solution page (board Rozwiazanie, field crew app)', () => {
       'Działa na',
       'Opieka',
     ])
-    expect(page.tiles[0]).toMatchObject({ value: 'Zapytaj o wycenę', accent: true })
+    expect(page.tiles[0]).toMatchObject({ value: 'Wycena po rozmowie', accent: true })
     expect(page.priceFrom).toBeNull()
   })
 
@@ -132,7 +132,7 @@ describe('full solution page (board Rozwiazanie, field crew app)', () => {
       view,
       page: data.page as SolutionPageDoc,
       priceFrom: null,
-      price: 'Zapytaj o wycenę',
+      price: 'Wycena po rozmowie',
       moreExamples: [],
       isIcon: isIconName,
     })
@@ -145,7 +145,7 @@ describe('full solution page (board Rozwiazanie, field crew app)', () => {
     expect(page.deliverables.items).toHaveLength(8)
     expect(page.deliverables.items.every((item) => item.icon !== null)).toBe(true)
     expect(page.deliverables.extra).toEqual(demo.extra)
-    expect(page.deliverables.badge.value).toBe('Zapytaj o wycenę')
+    expect(page.deliverables.badge.value).toBe('Wycena po rozmowie')
   })
 
   it('has its own five questions and the browser-or-store choice', () => {

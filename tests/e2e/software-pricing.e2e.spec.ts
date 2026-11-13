@@ -3,8 +3,8 @@ import { expect, test } from '@playwright/test'
 import { hydrated, site } from './helpers'
 
 // SWA4b: `/cennik` v24 (ZMIANY-v24 §6.3). Data from `pnpm seed`: the `swPricing` block and the
-// FAQ, solutions of the package (prices, levels): strony 7, przebudowa i opieka 4, systemy 13,
-// automatyzacje 5.
+// FAQ, solutions of the package (prices, levels): strony 7, przebudowa i opieka 4, systemy 14,
+// automatyzacje 4 (SWA14: the dashboard is a system).
 const HOST = 'software.localhost'
 const NBSP = ' '
 

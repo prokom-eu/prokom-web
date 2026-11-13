@@ -16,7 +16,7 @@ export const PRICE_DISPLAY: PriceDisplay = {
   short: 'od {cena} zł',
   monthTemplate: 'od {cena} zł / mies.',
   levelMonthTemplate: '{cena} zł / mies.',
-  fallback: 'Zapytaj o wycenę',
+  fallback: 'Wycena po rozmowie',
   termFallback: 'po krótkiej rozmowie',
   priceSub: 'netto · stała cena za zakres',
   moreHint:

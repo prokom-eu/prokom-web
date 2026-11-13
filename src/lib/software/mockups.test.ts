@@ -10,7 +10,7 @@ describe('mock-up kinds and variants (ZMIANY-v24 §8)', () => {
   it('gives a site the fourteen variants of the board, the same for a phone', () => {
     expect(mockupVariants('site')).toHaveLength(14)
     expect(mockupVariants('phone')).toEqual(mockupVariants('site'))
-    expect(mockupVariants('dash')).toEqual(['zamowienia', 'crm', 'czas', 'excel'])
+    expect(mockupVariants('dash')).toEqual(['zamowienia', 'crm', 'czas', 'excel', 'pulpit'])
     expect(mockupVariants('flow')).toEqual(['sms', 'faktury', 'raporty', 'ai'])
     expect(mockupVariants('before')).toEqual(['przebudowa'])
     expect(mockupVariants('care')).toEqual([])

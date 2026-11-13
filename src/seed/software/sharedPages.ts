@@ -10,6 +10,11 @@ export const SOFTWARE_ABOUT_SLUG = 'o-firmie'
 export const SOFTWARE_ONE_FIRM_PATH = '/jedna-firma'
 export const SOFTWARE_ONE_FIRM_TARGET = '/o-firmie#linie'
 
+/** SWA14 §4.4: the reports became the company dashboard — the old page answers 301. */
+export const SOFTWARE_RENAMED_PATHS: readonly { from: string; to: string }[] = [
+  { from: '/rozwiazania/raporty-dla-szefa', to: '/rozwiazania/pulpit-firmy' },
+]
+
 const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
 
 /**
@@ -37,22 +42,27 @@ export async function seedSoftwareSharedPages(payload: Payload, tenantId: number
   }
 
   const inTenant = { tenant: { equals: tenantId } }
-  const {
-    docs: [rule],
-  } = await payload.find({
-    collection: 'redirects',
-    where: { and: [inTenant, { from: { equals: SOFTWARE_ONE_FIRM_PATH } }] },
-    limit: 1,
-    ...local,
-  })
-  if (!rule) {
-    await payload.create({
+  for (const { from, to } of [
+    { from: SOFTWARE_ONE_FIRM_PATH, to: SOFTWARE_ONE_FIRM_TARGET },
+    ...SOFTWARE_RENAMED_PATHS,
+  ]) {
+    const {
+      docs: [rule],
+    } = await payload.find({
       collection: 'redirects',
-      data: { from: SOFTWARE_ONE_FIRM_PATH, to: SOFTWARE_ONE_FIRM_TARGET, tenant: tenantId },
+      where: { and: [inTenant, { from: { equals: from } }] },
+      limit: 1,
       ...local,
     })
+    if (!rule) {
+      await payload.create({
+        collection: 'redirects',
+        data: { from, to, tenant: tenantId },
+        ...local,
+      })
+    }
+    count('redirects', !rule)
   }
-  count('redirects', !rule)
 
   const { docs: oldPages } = await payload.find({
     collection: 'pages',

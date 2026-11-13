@@ -473,7 +473,7 @@
       "related": [
         "wyceny-i-oferty-z-pdf",
         "powiadomienia-sms-i-e-mail",
-        "raporty-dla-szefa"
+        "pulpit-firmy"
       ],
       "example": "Zapytanie z formularza trafia do CRM, a system przypomina, kiedy zadzwonić z ofertą. Widzisz całą historię klienta i to, skąd przychodzą nowi.",
       "included": [
@@ -521,7 +521,7 @@
       "related": [
         "system-zlecen-i-grafik-ekip",
         "faktury-bez-przepisywania",
-        "raporty-dla-szefa"
+        "pulpit-firmy"
       ],
       "example": "Pracownik klika „start” w telefonie, gdy zaczyna pracę, i „stop”, gdy kończy. Na koniec miesiąca rozliczenie godzin jest gotowe dla księgowej.",
       "included": [
@@ -613,7 +613,7 @@
       "category": "systemy",
       "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
       "related": [
-        "raporty-dla-szefa",
+        "pulpit-firmy",
         "polaczenie-programow",
         "opieka-nad-strona-i-systemem"
       ],
@@ -970,7 +970,7 @@
       "priceNote": "Zapytaj o wycenę",
       "related": [
         "polaczenie-programow",
-        "raporty-dla-szefa",
+        "pulpit-firmy",
         "opieka-nad-strona-i-systemem"
       ],
       "example": "Program do zleceń działa tylko na komputerze. Dorabiamy aplikację, która pokazuje ekipie w terenie tylko to, czego potrzebuje, na danych z tego programu.",
@@ -1097,17 +1097,17 @@
     },
     {
       "legacyId": 26,
-      "slug": "raporty-dla-szefa",
-      "name": "Raporty dla szefa",
-      "label": "Automatyzacja",
-      "tag": "PONIEDZIAŁEK 7:00",
-      "lead": "Co tydzień: przychód, zlecenia, opóźnienia, kto ile. Na telefon, bez dzwonienia po ludziach.",
+      "slug": "pulpit-firmy",
+      "name": "Pulpit firmy i raporty",
+      "label": "System",
+      "tag": "LICZBY NA ŻYWO",
+      "lead": "Sprzedaż, zlecenia, koszty i zespół na jednym ekranie. Na komputerze i w telefonie, bez Excela i bez dzwonienia po ludziach.",
       "features": [
-        "Pulpit właściciela",
-        "Raport co poniedziałek",
-        "Alerty, gdy coś się opóźnia"
+        "Wskaźniki Twojej firmy na żywo",
+        "Raport co poniedziałek o 7:00",
+        "Alert, gdy coś się opóźnia"
       ],
-      "forWhom": "właściciele, którzy chcą wiedzieć bez pytania",
+      "forWhom": "właściciele i kierownicy, którzy chcą widzieć firmę w liczbach",
       "situations": [
         "P"
       ],
@@ -1117,19 +1117,31 @@
       ],
       "hasLivePreview": false,
       "toast": "Raport tygodnia wysłany",
-      "keywords": "raport szef wlasciciel pulpit przychod kontrola",
-      "priceFrom": null,
-      "leadTime": null,
+      "keywords": "pulpit dashboard panel zarzadczy statystyki raport szef wlasciciel kpi wskazniki",
+      "priceFrom": 3490,
+      "leadTime": "od 3 tygodni",
       "cardGradient": null,
-      "category": "automatyzacje",
-      "priceNote": "Zapytaj o wycenę",
+      "category": "systemy",
+      "priceNote": "W cenie „od”: pulpit z 6–8 wskaźnikami z jednego źródła danych, raport co tydzień, do 5 użytkowników. Kolejne źródła danych wyceniamy osobno w 5–7 dni.",
       "related": [
         "crm-dla-malej-i-sredniej-firmy",
         "czas-pracy-i-rozliczenia",
         "polaczenie-programow"
       ],
-      "example": "W poniedziałek rano na telefon przychodzi raport: przychód z tygodnia, zlecenia i to, co się opóźnia. Bez dzwonienia po kierownikach.",
-      "thumbnail": "/software/rozwiazania/raporty-dla-szefa.svg"
+      "example": "Właściciel firmy usługowej rano otwiera telefon: przychód miesiąca, 37 zleceń w toku, 2 po terminie i jedna faktura do przypomnienia. Wcześniej zbierał to z trzech arkuszy w piątek po południu.",
+      "included": [
+        "Pulpit z 6–8 wskaźnikami ustalonymi z Tobą",
+        "Dane z jednego źródła: Twój program, Excel albo nasz system",
+        "Raport e-mailem co tydzień",
+        "Do 5 użytkowników, komputer i telefon"
+      ],
+      "moreExamples": [
+        "kolejne źródła danych (sklep, księgowość, CRM)",
+        "alerty SMS",
+        "osobne widoki dla kierowników",
+        "eksport PDF dla wspólnika lub banku"
+      ],
+      "thumbnail": "/software/rozwiazania/pulpit-firmy.svg"
     },
     {
       "legacyId": 27,
@@ -1161,7 +1173,7 @@
       "related": [
         "faktury-bez-przepisywania",
         "aplikacja-do-programu-ktory-masz",
-        "raporty-dla-szefa"
+        "pulpit-firmy"
       ],
       "example": "Zamówienie ze sklepu samo trafia do CRM i do programu do faktur. Programy zostają, a dane wpisujesz tylko raz.",
       "thumbnail": "/software/rozwiazania/polaczenie-programow.svg"

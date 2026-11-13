@@ -1333,6 +1333,12 @@
   padding-left: 18px;
   border-left: 1px solid var(--border);
 }
+.hx-cap .div > b.hx-ask {
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+}
 .hx-cap a {
   display: inline-flex;
   align-items: center;
@@ -1416,6 +1422,28 @@
   /* The number would sit on the name; the order still reads from left to right. */
   .hx-tile .sn {
     display: none;
+  }
+  /* SWA14 §4.3: eight tiles get a wider panel; a tile still too narrow for its icon and its
+     longest word („Automatyzacje”) drops the icon instead of cutting the name. */
+  .hx-cmd[data-many] {
+    max-width: 1240px;
+  }
+  .hx-cmd[data-many] .hx-tile {
+    gap: 6px;
+    padding-inline: 8px;
+  }
+  .hx-cmd[data-many] .hx-tile .si {
+    width: 26px;
+    height: 26px;
+    border-radius: 9px;
+  }
+  .hx-tile {
+    container-type: inline-size;
+  }
+  @container (max-width: 118px) {
+    .hx-tile .si {
+      display: none;
+    }
   }
   .hx-tile[aria-selected='true']::after {
     bottom: 4px;

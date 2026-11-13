@@ -154,7 +154,7 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
     const view = viewOf('aplikacja-dla-ekip-w-terenie')
     expect(view.price).toEqual({
       kind: 'ask',
-      title: 'Zapytaj o wycenę',
+      title: 'Wycena po rozmowie',
       note: 'Odpowiadamy w ciągu [CZAS ODPOWIEDZI].',
       text: 'Cena zależy od ekranów i programów, które już masz. Po krótkiej rozmowie dostajesz cenę i termin.',
     })
@@ -286,7 +286,7 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
     const care = solutions.get('opieka-nad-strona-i-systemem')!
     const app = solutions.get('aplikacja-dla-ekip-w-terenie')!
     expect(relatedCard(care, display).price).toBe('od 149 zł / mies.')
-    expect(relatedCard(app, display).price).toBe('Zapytaj o wycenę')
+    expect(relatedCard(app, display).price).toBe('Wycena po rozmowie')
   })
 })
 

@@ -17,8 +17,13 @@ import { SITES } from './data'
  */
 export function mockupSpots(kind: MockupKind | null, variant: string | null): Set<SpotKey> {
   const spots = new Set<SpotKey>()
-  // A system panel (`MockDash`): the active module, the user accounts, the phone badge.
-  if (kind === 'dash') return new Set<SpotKey>(['modul', 'uzytkownicy', 'mobile'])
+  // A system panel (`MockDash`): the active module, the user accounts, the phone badge; the
+  // company dashboard also its KPIs, chart, „Wymaga uwagi” and report (SWA14 §4.4).
+  if (kind === 'dash') {
+    const panel: SpotKey[] = ['modul', 'uzytkownicy', 'mobile']
+    if (variant === 'pulpit') panel.push('kpi', 'wykres', 'uwaga', 'raport')
+    return new Set<SpotKey>(panel)
+  }
   if (kind !== 'site' && kind !== 'phone') return spots
   const name = (isVariantOf(kind, variant) ? variant : SITE_VARIANTS[0]) as SiteVariant
   const site = SITES[name]

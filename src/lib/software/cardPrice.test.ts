@@ -27,7 +27,7 @@ describe('cardPrice', () => {
 
   it('no price: ask for a quote and the term fallback', () => {
     expect(cardPrice(solution({}), DEFAULT_PRICE_DISPLAY)).toEqual({
-      head: { before: '', amount: 'Zapytaj o wycenę', after: '' },
+      head: { before: '', amount: 'Wycena po rozmowie', after: '' },
       term: 'po krótkiej rozmowie',
       ask: true,
     })

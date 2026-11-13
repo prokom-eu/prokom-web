@@ -31,7 +31,7 @@ export const SOLUTION_PREVIEWS: Record<string, Preview> = {
   'powiadomienia-sms-i-e-mail': { kind: 'flow', variant: 'sms' },
   'faktury-bez-przepisywania': { kind: 'flow', variant: 'faktury' },
   'asystent-ai-do-zapytan': { kind: 'flow', variant: 'ai' },
-  'raporty-dla-szefa': { kind: 'flow', variant: 'raporty' },
+  'pulpit-firmy': { kind: 'dash', variant: 'pulpit' },
   'polaczenie-programow': { kind: 'flow', variant: 'faktury' },
   'opieka-nad-strona-i-systemem': { kind: 'care', variant: null },
   'przejecie-po-innym-wykonawcy': { kind: 'care', variant: null },
