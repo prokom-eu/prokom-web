@@ -118,7 +118,7 @@ test.describe('Software post (published for the test, removed after)', () => {
 })
 
 test.describe('Software /miejscowosci/[miasto]', () => {
-  test('Rabka-Zdrój: hero, who we work for, FAQ, nearby chips without links, CTA', async ({
+  test('Rabka-Zdrój: hero, who we work for, FAQ, nearby chips (towns with a page link), CTA', async ({
     page,
   }) => {
     const response = await page.goto(site(HOST, '/miejscowosci/rabka-zdroj'))
@@ -131,12 +131,33 @@ test.describe('Software /miejscowosci/[miasto]', () => {
     const nearby = page.locator('section', {
       has: page.getByRole('heading', { name: 'Pracujemy też w okolicy' }),
     })
-    // v23: without Zakopane (Software works only in Rabka).
+    // v23: without Zakopane (Software works only in Rabka). SEO etap 2: the four towns with
+    // their own page link there, the villages stay plain.
     await expect(nearby.getByRole('listitem')).toHaveCount(8)
-    await expect(nearby.getByRole('link')).toHaveCount(0)
+    await expect(nearby.getByRole('link')).toHaveText([
+      'Nowy Targ',
+      'Mszana Dolna',
+      'Limanowa',
+      'Nowy Sącz',
+    ])
+    await expect(nearby.getByRole('link', { name: 'Nowy Targ' })).toHaveAttribute(
+      'href',
+      '/miejscowosci/nowy-targ',
+    )
     await expect(page.locator('[data-footer-cta]')).toBeHidden()
     const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents()
     expect(jsonLd.join('')).toContain('"areaServed"')
+  })
+
+  test('Nowy Targ has its own page: H1, local FAQ, its title (SEO etap 2)', async ({ page }) => {
+    const response = await page.goto(site(HOST, '/miejscowosci/nowy-targ'))
+    expect(response?.status()).toBe(200)
+    await expect(page.locator('h1')).toHaveText('Strony i systemy dla firm z Nowego Targu.')
+    await expect(page).toHaveTitle('Strony i systemy Nowy Targ | PRO-KOM Software')
+    await expect(page.locator('#pytania')).toContainText(
+      'Czy przyjedziecie do nas do Nowego Targu?',
+    )
+    expect(await page.locator('main').innerText()).not.toMatch(/Zakopan/)
   })
 
   test('an inactive or unknown city is 404 and not in the sitemap', async ({ page, request }) => {
