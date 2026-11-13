@@ -16,8 +16,8 @@ test.describe('/_software — v24 foundation', () => {
 
   test('every kind and variant is drawn, scaled to its box', async ({ page }) => {
     await page.goto(site(HOST, '/_software'))
-    // 14 sites + 14 phones + 4 panels + 4 flows + care + before = 38.
-    await expect(cases(page)).toHaveCount(38)
+    // 14 sites + 14 phones + 5 panels (SWA14: + pulpit) + 4 flows + care + before = 39.
+    await expect(cases(page)).toHaveCount(39)
     const scale = await cases(page)
       .first()
       .locator('.mk')

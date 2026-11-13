@@ -539,7 +539,7 @@ export const DASHES: Record<DashVariant, DashData> = {
   pulpit: {
     nav: ['Firma', 'Pulpit', 'Sprzedaż', 'Zlecenia', 'Zespół'],
     crumb: 'Pulpit firmy',
-    title: 'Listopad · na jednym ekranie',
+    title: 'Listopad',
     button: 'Raport · pn 7:00',
     kpi: [
       ['Przychód · listopad', '184 200 zł', '↑ 12%'],

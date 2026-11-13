@@ -224,7 +224,8 @@ export function HeroStage({
           </span>
         </Title>
         <p className="hx-lead">{lead}</p>
-        <div className="hx-cmd">
+        {/* Eight tiles or more (SWA14 §4.3): the wide panel grows, so the names keep their room. */}
+        <div className="hx-cmd" data-many={count >= 8 ? '' : undefined}>
           <div className="hx-q">
             <svg
               width="18"

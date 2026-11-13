@@ -56,9 +56,9 @@ test.describe('Software catalog', () => {
     await page.goto(site(HOST, `${PATH}?kategoria=systemy`))
     await expect(chip(page, /^Systemy · 14$/)).toHaveAttribute('aria-pressed', 'true')
     await expect(tile(page, 'Systemy dla firm')).toHaveAttribute('aria-pressed', 'true')
-    await expect(cards(page)).toHaveCount(13)
+    await expect(cards(page)).toHaveCount(14)
     await expect(cards(page).locator('.sw-eyebrow', { hasText: /^Systemy$/ })).toHaveCount(14)
-    await expect(count(page)).toHaveText('13 rozwiązań pasuje do filtrów')
+    await expect(count(page)).toHaveText('14 rozwiązań pasuje do filtrów')
 
     // Saved v23 links: „aplikacje” is a system now, „opieka” goes with the rebuild (D10).
     await page.goto(site(HOST, `${PATH}?kategoria=aplikacje`))
@@ -82,9 +82,9 @@ test.describe('Software catalog', () => {
     await expect(cards(page)).toHaveCount(4)
     await chip(page, /^Automatyzacje · 4$/).click()
     await expect(page).toHaveURL(/\?kategoria=automatyzacje$/)
-    await expect(cards(page)).toHaveCount(5)
+    await expect(cards(page)).toHaveCount(4)
     await page.reload()
-    await expect(cards(page)).toHaveCount(5)
+    await expect(cards(page)).toHaveCount(4)
     await page.goBack()
     await expect(page).toHaveURL(/\?kategoria=przebudowa$/)
     await expect(cards(page)).toHaveCount(4)

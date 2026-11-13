@@ -810,12 +810,23 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
+/* Four KPIs (the company dashboard): the revenue gets the room for its amount and its delta. */
 .mk-kpis[data-n='4'] {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1.7fr 1fr 1fr 1fr;
   gap: 8px;
 }
+.mk-kpis[data-n='4'] .mk-kpi small,
 .mk-kpis[data-n='4'] .mk-kpi b {
-  font-size: 16px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mk-kpis[data-n='4'] .mk-kpi b {
+  font-size: 17px;
+}
+.mk-kpis[data-n='4'] .mk-kpi > div {
+  gap: 6px;
 }
 .mk-kpi {
   padding: 10px 12px;
@@ -832,6 +843,11 @@
   font-size: 9.5px;
   font-style: normal;
   font-weight: 800;
+  white-space: nowrap;
+}
+/* The company dashboard's button („Raport · pn 7:00”) stays on one line. */
+.mk-live ~ span {
+  white-space: nowrap;
 }
 .mk-live > b {
   width: 6px;
