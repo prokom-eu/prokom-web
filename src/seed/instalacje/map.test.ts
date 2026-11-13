@@ -394,12 +394,25 @@ describe('icon review (runda v6 §1.5)', () => {
   })
 })
 
-describe('hero facts of the objects (decision 10.11)', () => {
-  it('/dla-kogo/firmy shows „od 2004 / na Podhalu”, no labour cost in zł', () => {
-    const firma = objectsToImport()
-      .map((item) => objectData(item, refs))
-      .find((o) => o.key === 'firma')
-    expect(firma?.hero?.facts?.[0]).toMatchObject({ value: 'od 2004', label: 'na Podhalu' })
-    expect(JSON.stringify(firma?.hero)).not.toMatch(/zł|koszt pracy/)
+describe('hero facts of the objects (decisions 10.11, 12.11)', () => {
+  it('every „Dla kogo” page starts with „od 2004 / na Podhalu”, no outside statistic', () => {
+    for (const o of objectsToImport().map((item) => objectData(item, refs))) {
+      const facts = o.hero?.facts ?? []
+      expect(facts[0], o.key).toMatchObject({ value: 'od 2004', label: 'na Podhalu' })
+      expect(facts.length, o.key).toBeGreaterThanOrEqual(2)
+      expect(JSON.stringify(facts), o.key).not.toMatch(/zł|GUS|USA|policji|BauWatch|Compensa|d%/)
+    }
+  })
+})
+
+describe('service hero facts fit their column (12.11)', () => {
+  it('Smart home: „0 zł / abonamentu za sterowanie lokalne” instead of „Bez abonamentu”', () => {
+    const smart = servicesToImport()
+      .map((item) => serviceData(item, refs))
+      .find((s) => s.key === 'smart')
+    expect(smart?.hero?.facts).toContainEqual(
+      expect.objectContaining({ value: '0 zł', label: 'abonamentu za sterowanie lokalne' }),
+    )
+    expect(JSON.stringify(smart?.hero?.facts)).not.toContain('Bez abonamentu')
   })
 })

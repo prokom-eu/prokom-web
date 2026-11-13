@@ -72,6 +72,12 @@ Seed działa tylko lokalnie, więc teksty linii Instalacje przechowywane w panel
 3. Zapis: `pnpm inst:texts https://<panel> --write --yes`. Poza komputerem lokalnym wymagane są `https` i `--yes`.
 4. Rekordy ze szkicem czekającym w panelu (np. ceny szefa) są pomijane i wypisane w raporcie: sprawdzić ręcznie. Strony i wpisy zachowują status publikacji, a szkic dostaje nową wersję szkicu. Na produkcji: po kopii `predeploy`.
 
+## Realizacje Instalacji w panelu
+Realizacje ze zdjęciami tworzy lokalnie tylko seed, więc na produkcji `/realizacje` i pas „Realizacje” na głównej były puste (12.11). Przenosi je `pnpm inst:realizacje` (`src/seed/instalacje/inst-realizacje.ts`, REST panelu): tworzy brakujące realizacje (opublikowane, ze zgodą klientów, decyzja szefa 01.11) i wgrywa ich zdjęcia z repo. Realizacji z panelu nie nadpisuje, zdjęcia dodaje tylko tym bez zdjęć, a szkice pomija.
+1. Kopia `predeploy` (produkcja). `INST_TEXTS_EMAIL` / `INST_TEXTS_PASSWORD` (admin panelu) tylko na czas uruchomienia, na stagingu także `INST_TEXTS_BASIC` (hasło Nginx, `użytkownik:hasło`).
+2. Podgląd: `pnpm inst:realizacje https://<panel> --out=docs/tresci/inst-realizacje-<data>.md` — tabela „utworzyć / dodać zdjęcia / bez zmian” i realizacje z panelu bez pary w repo (możliwy duplikat).
+3. Zapis: `pnpm inst:realizacje https://<panel> --write --yes`. Uruchomienie jest powtarzalne: drugi przebieg niczego nie dubluje.
+
 ## Cofnięcie wdrożenia
 Tylko obraz (migracje zgodne wstecz) albo obraz + baza z kopii `predeploy` — `docs/runbook.md` §4 i zasada migracji §5.
 
