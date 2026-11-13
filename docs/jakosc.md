@@ -32,6 +32,17 @@ Zadanie jest skończone, gdy:
 - [ ] Obrazy przez `next/image`, właściwe rozmiary, `alt`.
 - [ ] Kontrast WCAG AA, widoczny focus, formularze z etykietami i komunikatami błędów.
 
+### Budżety płynności Software (SWA14 §3)
+Cele (główna i `/rozwiazania`, telefon średniej klasy, Chrome, 4G): LCP ≤ 2,0 s, INP ≤ 100 ms (karta, okno oferty, zakładki, kreator), CLS ≤ 0,02, 0 klatek > 50 ms przy przewijaniu poza pierwszym ekranem, otwarcie okna oferty bez klatek > 50 ms (poza jedną klatką renderu ≤ 80 ms). Zasady ruchu: `docs/design/prokomsoftware/v24/ZMIANY-v24.md` §5.3.
+
+CI (`tests/e2e/software-wydajnosc.e2e.spec.ts`, build produkcyjny, Chromium) — progi łagodniejsze, bo maszyna CI:
+- [ ] przewinięcie głównej do stopki na telefonie z CPU 4×: 0 długich klatek (LoAF) > 100 ms poza pierwszym ekranem,
+- [ ] w trakcie przewijania animacje tylko `transform`/`opacity` (wyjątki z listy w teście), przejścia stanu bez właściwości układu,
+- [ ] okno oferty: pełna widoczność ≤ 320 ms od kliknięcia (300 ms + jedna klatka odczytu) i 0 klatek > 100 ms,
+- [ ] **JS głównej przed interakcją ≤ 253 500 B** (gzip). Pomiar 13.11.2026: **241 359 B, 18 skryptów** (770 KB po rozpakowaniu), build produkcyjny po SWA13b + SWA14a; próg = pomiar + 5%. Zmiana progu tylko z uzasadnieniem w opisie PR.
+
+Kompresja: odpowiedzi kompresuje Next (`gzip`). Brotli w Nginx tylko wtedy, gdy obraz proxy (`nginx:*-alpine`) ma moduł bez przebudowy (decyzja 11.11) — w SWA14 nie sprawdzone w obrazie (bez pobierania obrazu), zostaje gzip.
+
 ## Bezpieczeństwo i RODO
 - [ ] Walidacja po stronie serwera, honeypot + limit zgłoszeń.
 - [ ] Zgoda RODO przy formularzu + link do polityki prywatności.
