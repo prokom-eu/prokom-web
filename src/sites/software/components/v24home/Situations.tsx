@@ -66,7 +66,7 @@ export function Situations({ situations, prices }: Props) {
                   <div className="v-row">
                     {price && <PriceTag line={price} withTerm />}
                     <Link className="v-link" href={offerHref(item.solution)}>
-                      {situations.offer} <span aria-hidden="true">→</span>
+                      {item.offer ?? situations.offer} <span aria-hidden="true">→</span>
                     </Link>
                   </div>
                 </div>

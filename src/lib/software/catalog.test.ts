@@ -22,6 +22,11 @@ const run = (patch: Partial<SoftwareCatalogState>) =>
 const slugs = (state: Partial<SoftwareCatalogState>) => run(state).results.map((s) => s.slug)
 
 describe('parseCatalogState', () => {
+  it('opens a renamed solution from its old address (SWA14: raporty-dla-szefa → pulpit-firmy)', () => {
+    expect(parseCatalogState({ rozwiazanie: 'raporty-dla-szefa' }).solution).toBe('pulpit-firmy')
+    expect(parseCatalogState({ rozwiazanie: 'pulpit-firmy' }).solution).toBe('pulpit-firmy')
+  })
+
   it('reads the addresses of the menu, the tiles and the menu search', () => {
     expect(parseCatalogState({ kategoria: 'systemy', q: 'excel' })).toEqual({
       ...DEFAULT_CATALOG_STATE,

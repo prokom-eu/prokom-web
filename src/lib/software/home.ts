@@ -127,6 +127,8 @@ export const homeV24SectionsSchema = {
           solution: slug,
           mockup,
           phone: z.boolean().optional(),
+          /** Its own link text („Zobacz pulpit”, SWA14 §4.2); empty → the section's `offer`. */
+          offer: label.optional(),
         }),
       )
       .min(1)

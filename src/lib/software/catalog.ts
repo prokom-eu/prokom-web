@@ -93,6 +93,14 @@ const PARAM = {
   solution: 'rozwiazanie',
 } as const
 
+/**
+ * Old slugs of renamed solutions, so shared links keep opening the window (`?rozwiazanie=`); the
+ * page of the old slug has a 301 in `Redirects`. SWA14 §4.4: the dashboard replaced the reports.
+ */
+export const RENAMED_SOLUTIONS: Readonly<Record<string, string>> = {
+  'raporty-dla-szefa': 'pulpit-firmy',
+}
+
 export type ParamSource = URLSearchParams | Record<string, string | string[] | undefined>
 
 function first(params: ParamSource, name: string): string | null {
@@ -113,7 +121,7 @@ export function parseCatalogState(params: ParamSource): SoftwareCatalogState {
       (Object.entries(SITUATION_PARAMS).find(([, word]) => word === situation)?.[0] as
         Situation | undefined) ?? null,
     group: INDUSTRY_GROUPS.find(({ value }) => value === group)?.value ?? null,
-    solution: isSlug(solution) ? solution : null,
+    solution: isSlug(solution) ? (RENAMED_SOLUTIONS[solution] ?? solution) : null,
   }
 }
 

@@ -5,8 +5,8 @@ import { hydrated, setTheme, site } from './helpers'
 
 // SWA4a: „Oferta” `/rozwiazania` v24 with the offer window (ZMIANY-v24 §6.1–6.2, board
 // `AU-oferta`, kryterium 4 of spec. §5). Data from `pnpm seed` (29 solutions of
-// `rozwiazania.json`, the removed one not imported): strony 7, przebudowa i opieka 4, systemy 13
-// (with the apps), automatyzacje 5.
+// `rozwiazania.json`, the removed one not imported): strony 7, przebudowa i opieka 4, systemy 14
+// (with the apps and the dashboard, SWA14), automatyzacje 4.
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 const HOST = 'software.localhost'
 const PATH = '/rozwiazania'
@@ -54,10 +54,10 @@ test.describe('Software catalog', () => {
 
   test('the addresses of the menu tiles and the menu search open their view', async ({ page }) => {
     await page.goto(site(HOST, `${PATH}?kategoria=systemy`))
-    await expect(chip(page, /^Systemy · 13$/)).toHaveAttribute('aria-pressed', 'true')
+    await expect(chip(page, /^Systemy · 14$/)).toHaveAttribute('aria-pressed', 'true')
     await expect(tile(page, 'Systemy dla firm')).toHaveAttribute('aria-pressed', 'true')
     await expect(cards(page)).toHaveCount(13)
-    await expect(cards(page).locator('.sw-eyebrow', { hasText: /^Systemy$/ })).toHaveCount(13)
+    await expect(cards(page).locator('.sw-eyebrow', { hasText: /^Systemy$/ })).toHaveCount(14)
     await expect(count(page)).toHaveText('13 rozwiązań pasuje do filtrów')
 
     // Saved v23 links: „aplikacje” is a system now, „opieka” goes with the rebuild (D10).
@@ -80,7 +80,7 @@ test.describe('Software catalog', () => {
     await tile(page, 'Przebudowa i opieka').click()
     await expect(page).toHaveURL(/\?kategoria=przebudowa$/)
     await expect(cards(page)).toHaveCount(4)
-    await chip(page, /^Automatyzacje · 5$/).click()
+    await chip(page, /^Automatyzacje · 4$/).click()
     await expect(page).toHaveURL(/\?kategoria=automatyzacje$/)
     await expect(cards(page)).toHaveCount(5)
     await page.reload()
@@ -312,6 +312,16 @@ test.describe('Software offer window (spec. §5.1)', () => {
     await page.goBack()
     await expect(page.locator('dialog[open]')).toHaveCount(0)
     await expect(page).toHaveURL(/\?kategoria=strony$/)
+  })
+
+  test('the old address of the reports opens the dashboard (SWA14 §4.4)', async ({ page }) => {
+    await page.goto(site(HOST, `${PATH}?rozwiazanie=raporty-dla-szefa`))
+    const dialog = windowOf(page, 'Pulpit firmy i raporty')
+    await expect(dialog).toBeVisible()
+    await expect(dialog.locator('.sw-offer-shot .mk-live')).toHaveText('na żywo')
+    // The old page answers 301 to the new one (`Redirects`).
+    const response = await page.goto(site(HOST, '/rozwiazania/raporty-dla-szefa'))
+    expect(response?.url()).toMatch(/\/rozwiazania\/pulpit-firmy$/)
   })
 
   test('a shared link opens the window; an unknown slug opens nothing', async ({ page }) => {
