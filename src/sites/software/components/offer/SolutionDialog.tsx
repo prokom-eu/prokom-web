@@ -1,7 +1,7 @@
 'use client'
 
 import { IntentLink as Link } from '@/components/shared/IntentLink'
-import { type PointerEvent, useEffect, useRef, useState } from 'react'
+import { type PointerEvent, startTransition, useEffect, useRef, useState } from 'react'
 
 import { BottomSheet } from '@/components/BottomSheet'
 import { Icon } from '@/components/ui/Icon'
@@ -54,6 +54,8 @@ const SHEET = 'sw-offer-sheet max-[767px]:max-h-[92svh]'
 /** A swipe across the phone's mock-up: at least this far, and mostly sideways. */
 const SWIPE_PX = 60
 const CONTENT = 'px-4 pb-6 pt-2.5 min-[768px]:px-7 min-[768px]:pt-0'
+/** = `--dur-offer-in` (tokens.css): the mock-up's motion starts once the panel is in (SWA14 §2.2). */
+const ENTER_MS = 240
 
 type Props = {
   /** Windows of the tenant's published solutions by slug (`getOfferViews`). */
@@ -158,13 +160,31 @@ export function SolutionDialog({
   // Reset when the window opens — not when it closes, so the closing window stays as it was.
   const [wasOpen, setWasOpen] = useState(isOpen)
   const opening = isOpen && !wasOpen
+  /**
+   * A light first frame (SWA14 §2.2): the header, name, price and mock-up come at once; the
+   * sections below (scope, steps, FAQ, related) one frame later, in a transition.
+   */
+  const [full, setFull] = useState(false)
+  /** The panel has come in: until then the mock-up's motion waits (no animation under the entry). */
+  const [entered, setEntered] = useState(false)
   if (isOpen !== wasOpen) {
     setWasOpen(isOpen)
     if (isOpen) {
       setFirst(slug)
       setTrail({ key: '', amount: '', from: null })
+      setFull(false)
+      setEntered(false)
     }
   }
+  useEffect(() => {
+    if (!isOpen) return
+    const frame = full ? 0 : requestAnimationFrame(() => startTransition(() => setFull(true)))
+    const timer = entered ? 0 : window.setTimeout(() => setEntered(true), ENTER_MS)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.clearTimeout(timer)
+    }
+  }, [isOpen, full, entered])
   const heading = useRef<HTMLHeadingElement>(null)
   const top = useRef<HTMLDivElement>(null)
   const send = useRef<HTMLAnchorElement>(null)
@@ -504,6 +524,7 @@ export function SolutionDialog({
         key={view.slug}
         data-dir={direction}
         data-intro={view.slug === first ? '' : undefined}
+        data-entering={entered ? undefined : ''}
         className="sw-offer-swap sw-offer-grid mt-5"
       >
         <div className="sw-offer-main min-w-0">
@@ -533,113 +554,126 @@ export function SolutionDialog({
             </p>
           )}
 
-          {hasScope && (
-            <section id="oferta-zakres" aria-label="Zakres" className="sw-offer-block">
-              {price.kind === 'included' && (
-                <IncludedPoints
-                  points={included}
-                  more={price.more}
-                  extras={view.extras}
-                  chosen={extras}
-                  onLight={setLitPoint}
-                  onShow={showPoint}
-                  onToggleExtra={toggleExtra}
-                />
+          {full ? (
+            <>
+              {hasScope && (
+                <section id="oferta-zakres" aria-label="Zakres" className="sw-offer-block">
+                  {price.kind === 'included' && (
+                    <IncludedPoints
+                      points={included}
+                      more={price.more}
+                      extras={view.extras}
+                      chosen={extras}
+                      onLight={setLitPoint}
+                      onShow={showPoint}
+                      onToggleExtra={toggleExtra}
+                    />
+                  )}
+                  {neighbour && (
+                    <OfferCompare
+                      current={view}
+                      other={neighbour}
+                      onOpen={() => go(neighbour.slug)}
+                    />
+                  )}
+                  {price.kind === 'ask' && <AskCard price={price} />}
+                  {levels && (
+                    <LevelChoice
+                      title={levels.title}
+                      levels={levels.levels}
+                      selected={selected}
+                      onPick={choose}
+                    />
+                  )}
+                  {levels && levels.rows.length > 0 && (
+                    <CompareTable
+                      title={levels.monthly ? 'Porównanie poziomów' : 'Porównanie audytów'}
+                      first={levels.monthly ? 'Cena za miesiąc' : 'Zakres'}
+                      levels={levels.levels}
+                      rows={levels.rows}
+                      selected={selected}
+                      onPick={choose}
+                    />
+                  )}
+                  {view.benefits.items.length > 0 && (
+                    <OfferSection title={stripBold(view.benefits.title) || 'Co dostajesz'}>
+                      <CheckList items={view.benefits.items} />
+                    </OfferSection>
+                  )}
+                  {view.example && <ExampleQuote text={view.example} />}
+                </section>
               )}
-              {neighbour && (
-                <OfferCompare current={view} other={neighbour} onOpen={() => go(neighbour.slug)} />
-              )}
-              {price.kind === 'ask' && <AskCard price={price} />}
-              {levels && (
-                <LevelChoice
-                  title={levels.title}
-                  levels={levels.levels}
-                  selected={selected}
-                  onPick={choose}
-                />
-              )}
-              {levels && levels.rows.length > 0 && (
-                <CompareTable
-                  title={levels.monthly ? 'Porównanie poziomów' : 'Porównanie audytów'}
-                  first={levels.monthly ? 'Cena za miesiąc' : 'Zakres'}
-                  levels={levels.levels}
-                  rows={levels.rows}
-                  selected={selected}
-                  onPick={choose}
-                />
-              )}
-              {view.benefits.items.length > 0 && (
-                <OfferSection title={stripBold(view.benefits.title) || 'Co dostajesz'}>
-                  <CheckList items={view.benefits.items} />
-                </OfferSection>
-              )}
-              {view.example && <ExampleQuote text={view.example} />}
-            </section>
-          )}
 
-          {hasHow && (
-            <section id="oferta-jak" aria-label="Jak to wygląda" className="sw-offer-block">
-              {steps.length > 0 && (
-                <OfferSection title="Jak to wygląda">
-                  <Steps steps={steps} />
-                </OfferSection>
+              {hasHow && (
+                <section id="oferta-jak" aria-label="Jak to wygląda" className="sw-offer-block">
+                  {steps.length > 0 && (
+                    <OfferSection title="Jak to wygląda">
+                      <Steps steps={steps} />
+                    </OfferSection>
+                  )}
+                  {view.needs.length > 0 && (
+                    <OfferSection title="Co od Ciebie">
+                      <ul className="flex flex-wrap gap-2">
+                        {view.needs.map((item) => (
+                          <li key={item} className="sw-chip text-ink">
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                      {view.needsHint && (
+                        <p className="mt-3 text-sm text-ink-2">{view.needsHint}</p>
+                      )}
+                    </OfferSection>
+                  )}
+                </section>
               )}
-              {view.needs.length > 0 && (
-                <OfferSection title="Co od Ciebie">
-                  <ul className="flex flex-wrap gap-2">
-                    {view.needs.map((item) => (
-                      <li key={item} className="sw-chip text-ink">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  {view.needsHint && <p className="mt-3 text-sm text-ink-2">{view.needsHint}</p>}
-                </OfferSection>
-              )}
-            </section>
-          )}
 
-          {hasWho && (
-            <section id="oferta-dla-kogo" aria-label="Dla kogo" className="sw-offer-block">
-              <OfferSection title="Dla kogo">
-                {view.forWhom && <p className="text-ink-2">{view.forWhom}</p>}
-                {view.situations.length > 0 && (
-                  <ul className="mt-3 flex flex-col gap-1.5 text-sm">
-                    {view.situations.map((item) => (
-                      <li key={item} className="flex gap-2">
-                        <CheckDot small />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+              {hasWho && (
+                <section id="oferta-dla-kogo" aria-label="Dla kogo" className="sw-offer-block">
+                  <OfferSection title="Dla kogo">
+                    {view.forWhom && <p className="text-ink-2">{view.forWhom}</p>}
+                    {view.situations.length > 0 && (
+                      <ul className="mt-3 flex flex-col gap-1.5 text-sm">
+                        {view.situations.map((item) => (
+                          <li key={item} className="flex gap-2">
+                            <CheckDot small />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </OfferSection>
+                </section>
+              )}
+
+              <section id="oferta-pytania" aria-label="Pytania" className="sw-offer-block">
+                {view.faq.length > 0 && (
+                  <OfferSection title="Pytania, które słyszymy">
+                    {/* `key`: a new solution starts with its first answer open. */}
+                    <Questions key={view.slug} faq={view.faq} />
+                  </OfferSection>
                 )}
-              </OfferSection>
-            </section>
+                {/* §2.4: the wizard is a way out of the window — a text link here, not in the bar. */}
+                <p className="sw-offer-part text-ink-2">
+                  Nie wiesz, czy to dla Ciebie?{' '}
+                  <Link
+                    href="/dobierz"
+                    className="inline-flex min-h-11 items-center gap-1 font-bold text-accent-text underline-offset-4 hover:underline"
+                  >
+                    Kreator 60 s <span aria-hidden="true">→</span>
+                  </Link>
+                </p>
+                {view.related.length > 0 && (
+                  <OfferSection title="Często łączone z">
+                    <RelatedCards cards={view.related} onPick={go} />
+                  </OfferSection>
+                )}
+              </section>
+            </>
+          ) : (
+            // Holds the place of the sections for the one frame before they come.
+            <div aria-hidden="true" className="sw-offer-later" />
           )}
-
-          <section id="oferta-pytania" aria-label="Pytania" className="sw-offer-block">
-            {view.faq.length > 0 && (
-              <OfferSection title="Pytania, które słyszymy">
-                {/* `key`: a new solution starts with its first answer open. */}
-                <Questions key={view.slug} faq={view.faq} />
-              </OfferSection>
-            )}
-            {/* §2.4: the wizard is a way out of the window — a text link here, not in the bar. */}
-            <p className="sw-offer-part text-ink-2">
-              Nie wiesz, czy to dla Ciebie?{' '}
-              <Link
-                href="/dobierz"
-                className="inline-flex min-h-11 items-center gap-1 font-bold text-accent-text underline-offset-4 hover:underline"
-              >
-                Kreator 60 s <span aria-hidden="true">→</span>
-              </Link>
-            </p>
-            {view.related.length > 0 && (
-              <OfferSection title="Często łączone z">
-                <RelatedCards cards={view.related} onPick={go} />
-              </OfferSection>
-            )}
-          </section>
         </div>
 
         <aside onPointerDown={swipe} className="sw-offer-aside min-w-0">

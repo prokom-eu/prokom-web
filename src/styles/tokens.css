@@ -1085,11 +1085,23 @@
   --dur-sheen: 700ms;
   /* The side rail stepping aside at the footer (AUDYT po SWA7 #4). */
   --dur-rail-away: 350ms;
+  /* Offer window of Software (SWA14 §2): a plain entry — the panel and the backdrop come in,
+     closing is quicker; a device switch („Komputer | Telefon”) scales and fades the frame.
+     = ENTER_MS in sites/software/components/offer/SolutionDialog.tsx. */
+  --ease-offer: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-offer-in: 240ms;
+  --dur-offer-backdrop: 180ms;
+  --dur-offer-out: 160ms;
+  --dur-offer-switch: 180ms;
   /* Hero carousel: one slide (= SLIDE_MS in lib/software/heroStage.ts). */
   --hx-slide: 4200ms;
   /* The rest of the hero (pattern `aurora.css`): window flight and fade, the word, the cursor,
      the band, the cosmic layer — stars, aurora ribbons, orbits, beam. */
   --dur-hx-move: 1100ms;
+  /* Desktop drum (SWA14 §1): every window moves one place with this time and curve
+     (= SLIDE_MOVE_MS in lib/software/heroStage.ts); the phone keeps move/fade above. */
+  --dur-hx-slide: 700ms;
+  --ease-hx-slide: cubic-bezier(0.22, 0.8, 0.2, 1);
   --dur-hx-fade: 800ms;
   --dur-hx-word: 600ms;
   --dur-hx-blink: 1s;

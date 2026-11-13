@@ -1,14 +1,12 @@
 'use client'
 
 import { type CSSProperties, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { flushSync } from 'react-dom'
 
 import { isVariantOf, type MockupKind } from '@/lib/software/mockups'
 import type { SpotKey } from '@/lib/software/spots'
 import type { IndexPreview } from '@/lib/software/solutionsIndex'
 import { Mockup } from '@/sites/software/components/mockups/MockupLazy'
 
-import { switchDevice } from './offerTransition'
 import { OfferThumb } from './OfferThumb'
 
 type Shot = { kind: MockupKind; variant: string | null; label: string }
@@ -71,6 +69,8 @@ export function OfferGallery({
   onMarker?: (number: number) => void
 }) {
   const [active, setActive] = useState(0)
+  /** A device was picked: the new frame scales and fades in (SWA14 §2.3, no View Transitions). */
+  const [switched, setSwitched] = useState(false)
   const [markers, setMarkers] = useState<Marker[]>([])
   const shotRef = useRef<HTMLDivElement>(null)
   const glow = useRef<HTMLDivElement>(null)
@@ -220,7 +220,11 @@ export function OfferGallery({
 
   return (
     <div ref={glow} className="sw-offer-glow">
-      <div ref={shotRef} className="sw-offer-shot relative">
+      <div
+        ref={shotRef}
+        className="sw-offer-shot relative"
+        data-switched={switched ? '' : undefined}
+      >
         <Mockup key={shot.kind} kind={shot.kind} variant={shot.variant} fit="contain" />
         {markers.map((marker) => (
           <button
@@ -257,7 +261,10 @@ export function OfferGallery({
               key={item.kind}
               type="button"
               aria-pressed={i === active}
-              onClick={() => switchDevice(() => flushSync(() => setActive(i)))}
+              onClick={() => {
+                setSwitched(true)
+                setActive(i)
+              }}
               // „Wygodna na telefonie” lights the phone view (§2.2); its number stands here.
               data-spot={item.kind === 'phone' ? 'mobile' : undefined}
             >
