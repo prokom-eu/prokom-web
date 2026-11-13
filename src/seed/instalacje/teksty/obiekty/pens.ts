@@ -12,6 +12,10 @@ export const PENS: Readonly<Record<string, string>> = {
   '30.06.2026': '4 333',
   'od tego dnia czujka dymu w każdym pokoju':
     'obiekty noclegowe bez kategorii w Zakopanem (09.2026)',
+  // #gory: a statistic of the town registry → what the owner gets (13.11, Krystian: no outside figures)
+  '4 333 obiekty i 48,5 tys. miejsc': 'Przyjazdy o każdej porze',
+  'Tyle liczyła ewidencja obiektów nieskategoryzowanych w Zakopanem we wrześniu 2026, wobec 61 skategoryzowanych.':
+    'Gość wchodzi z kodem, a dzwonek wideodomofonu odbierasz w telefonie. Nie czekasz w recepcji na przyjazd o północy.',
   // hotspots without deadlines of the regulation
   'Od 30.06.2026 każdy pokój musi mieć autonomiczną czujkę dymu. Dobieramy czujki zgodne z normą, które mogą też powiadomić Cię na telefonie.':
     'Autonomiczna czujka dymu w każdym pokoju gości. Dobieramy czujki, które mogą też powiadomić Cię na telefonie.',

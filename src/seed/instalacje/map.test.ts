@@ -400,8 +400,19 @@ describe('hero facts of the objects (decisions 10.11, 12.11)', () => {
       const facts = o.hero?.facts ?? []
       expect(facts[0], o.key).toMatchObject({ value: 'od 2004', label: 'na Podhalu' })
       expect(facts.length, o.key).toBeGreaterThanOrEqual(2)
-      expect(JSON.stringify(facts), o.key).not.toMatch(/zł|GUS|USA|policji|BauWatch|Compensa|d%/)
+      expect(JSON.stringify(facts), o.key).not.toMatch(/zł|GUS|USA|policji|BauWatch|Compensa|\d%/)
     }
+  })
+})
+
+describe('„Dla kogo” cards without outside statistics (13.11)', () => {
+  it('pensjonaty: the card about the town registry is gone', () => {
+    const pens = objectsToImport()
+      .map((item) => objectData(item, refs))
+      .find((o) => o.key === 'pens')
+    const text = JSON.stringify(pens)
+    expect(text).not.toContain('4 333')
+    expect(text).toContain('Przyjazdy o każdej porze')
   })
 })
 
