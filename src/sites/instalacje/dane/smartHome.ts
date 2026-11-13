@@ -361,7 +361,7 @@ export const smartHome = {
         text: 'Nowe moduły dokładamy do tej samej magistrali, bez wymiany tego, co już działa.',
       },
       {
-        title: 'Bez abonamentu',
+        title: 'Sterowanie lokalne bez opłat',
         text: `Za sterowanie lokalne producent nie pobiera dziś opłat od właścicieli (${stanNa()}). Zastrzega, że może się to zmienić.`,
       },
     ] satisfies Titled[],
