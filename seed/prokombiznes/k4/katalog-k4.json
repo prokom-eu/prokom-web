@@ -1211,8 +1211,8 @@
      "a": "Tak, Posnet podaje płatności BLIK bezpośrednio na kasie."
     },
     {
-     "q": "Z jakim terminalem współpracuje?",
-     "a": "Posnet wymienia terminal Netpay — może on także udostępniać kasie internet do komunikacji z CRK."
+     "q": "Jaki terminal płatniczy podłączę do Bingo Max2?",
+     "a": "Posnet wskazuje terminal Netpay — przy Bingo Max2 może on też dawać kasie internet do łączności z CRK."
     },
     {
      "q": "Ile towarów zmieści?",
@@ -1428,8 +1428,8 @@
      "a": "Tak. Moduł Bluetooth/Wi-Fi to akcesorium, które montuje się w kasie w dowolnym momencie."
     },
     {
-     "q": "Czy podłączę wagę i czytnik kodów?",
-     "a": "Tak. Waga podłącza się przez USB, a czytnik kodów przez USB albo PS2 (RS232 z przejściówką A10)."
+     "q": "Czy do Mini Online podłączę wagę i skaner kodów?",
+     "a": "Tak. Wagę wpinasz w port USB-A, a czytnik kodów w USB-A albo PS2 (czytnik RS232 przez przejściówkę A10)."
     },
     {
      "q": "Czy kasa wyda e-paragon?",
@@ -2899,8 +2899,8 @@
      "a": "Tak, producent podaje tryb klienta, który pozwala zarządzać drukarką z sieci globalnej."
     },
     {
-     "q": "Z jakimi programami współpracuje?",
-     "a": "Elzab wymienia kilkadziesiąt programów, m.in. Subiekt GT / nexo, PC-Market, Comarch ERP Optima, Wapro Mag, POS Bistro, Restaumatic, Booksy."
+     "q": "Z jakimi programami sprzedaży współpracuje Cube Online?",
+     "a": "Elzab podaje kilkadziesiąt programów zgodnych z Cube Online, wśród nich Subiekt GT / nexo, PC-Market, Comarch ERP Optima, Wapro Mag, POS Bistro, Restaumatic i Booksy."
     }
    ],
    "polecane": [
@@ -3071,8 +3071,8 @@
      "a": "Nie. Zeta nie ma klawiatury sprzedażowej — paragony wystawia program sprzedaży na komputerze, tablecie albo w chmurze."
     },
     {
-     "q": "Z jakimi programami współpracuje?",
-     "a": "Elzab wymienia kilkadziesiąt programów, m.in. Subiekt GT / nexo, PC-Market, Comarch ERP Optima, Wapro Mag, Booksy, POS Bistro, Restaumatic i Dotykačka."
+     "q": "Z którymi programami połączę Zetę Online?",
+     "a": "Według Elzab z Zetą Online współpracuje kilkadziesiąt programów — np. Booksy, Dotykačka, Subiekt GT / nexo, PC-Market, Comarch ERP Optima, Wapro Mag, POS Bistro i Restaumatic."
     },
     {
      "q": "Czy podłączę szufladę?",
@@ -4062,8 +4062,8 @@
      "a": "Tak, faktury VAT z zapisem w formacie JPK."
     },
     {
-     "q": "Czy obsługuje e-paragony?",
-     "a": "Tak — po podłączeniu do systemu dystrybucji e-paragonów, gdy klient zrezygnuje z papieru."
+     "q": "Czy Thermal XL2 Online wyda e-paragon zamiast papierowego?",
+     "a": "Tak — Thermal XL2 wyśle e-paragon po podłączeniu do systemu dystrybucji, gdy klient nie chce papieru."
     }
    ],
    "konfigurator": {
@@ -5277,12 +5277,12 @@
      "a": "Posnet oferuje do Vero aplikacje iPOS, Netis mKasNet i GoPOS w abonamencie."
     },
     {
-     "q": "Czy podłączę wagę i czytnik kodów?",
-     "a": "Tak. Posnet poleca m.in. wagę Fawag WS-1 oraz czytniki kodów z listy producenta, np. FAWAGscan."
+     "q": "Czy do Posnet Vero podłączę wagę i skaner kodów?",
+     "a": "Tak. Do Vero producent poleca m.in. wagę Fawag WS-1 oraz czytniki kodów ze swojej listy, np. FAWAGscan."
     },
     {
-     "q": "Czy wyda e-paragon?",
-     "a": "Tak — po podłączeniu do systemu dystrybucji e-paragonów, gdy klient zrezygnuje z papieru."
+     "q": "Czy Posnet Vero wystawi klientowi e-paragon?",
+     "a": "Tak — Vero wyda e-paragon po podłączeniu do systemu dystrybucji e-paragonów, gdy klient nie chce wydruku."
     }
    ],
    "konfigurator": {
@@ -5987,8 +5987,8 @@
      "a": "Tak, Elzab dostarcza T10 z aplikacją elzAPP Sklep albo elzAPP POS."
     },
     {
-     "q": "Czy podłączę wagę i czytnik kodów?",
-     "a": "Tak, przez porty USB-A (jest ich 5). Elzab poleca m.in. czytnik ELZAB BS80 2D i wagę Elzab Prima 2."
+     "q": "Czy do Elzab T10 Online podłączę wagę i czytnik kodów?",
+     "a": "Tak, T10 ma pięć portów USB-A. Do kompletu Elzab poleca m.in. czytnik ELZAB BS80 2D oraz wagę Elzab Prima 2."
     },
     {
      "q": "Z jakimi programami magazynowymi współpracuje?",
@@ -6213,8 +6213,8 @@
    ],
    "faq": [
     {
-     "q": "Czy potrzebuję osobnego terminala płatniczego?",
-     "a": "Nie. Pospay2 ma terminal płatniczy w obudowie — przyjmie kartę, telefon, zegarek i BLIK."
+     "q": "Czy do Pospay 2 Online muszę dokupić terminal płatniczy?",
+     "a": "Nie. Pospay 2 to kasa i terminal Pax A50 w jednym — przyjmie kartę, telefon, zegarek oraz BLIK."
     },
     {
      "q": "Kto rozlicza płatności kartą?",
@@ -6676,8 +6676,8 @@
    ],
    "faq": [
     {
-     "q": "Czy potrzebuję osobnego terminala płatniczego?",
-     "a": "Nie. K2 Pay ma wbudowany terminal — przyjmie kartę, Google Pay i Apple Pay. Płatności obsługuje operator płatności wskazany przez Elzab — potrzebna jest osobna umowa."
+     "q": "Czy przy Elzab K2 Pay potrzebny jest jeszcze terminal płatniczy?",
+     "a": "Nie. Terminal jest wbudowany w K2 Pay — obsłuży karty, Google Pay i Apple Pay. Płatności rozlicza operator wskazany przez Elzab, z którym podpisujesz osobną umowę."
     },
     {
      "q": "Jak kasa łączy się z CRK?",
@@ -7052,8 +7052,8 @@
      "a": "Producent nie podaje modemu 4G/LTE — do pracy w terenie potrzebne jest Wi-Fi, np. hotspot z telefonu."
     },
     {
-     "q": "Czy wyda e-paragon?",
-     "a": "Tak — po podłączeniu do systemu dystrybucji e-paragonów, gdy klient zrezygnuje z papieru."
+     "q": "Czy Posnet Evo wystawi e-paragon zamiast papierowego?",
+     "a": "Tak — Evo wyda e-paragon po podłączeniu do systemu dystrybucji e-paragonów, gdy klient nie chce wydruku."
     },
     {
      "q": "Czy podłączę czytnik kodów?",
@@ -7414,8 +7414,8 @@
      "a": "Do płatności przy stoliku — przenośny Move 3500 (sieć komórkowa i Wi-Fi) albo Move 2500 (sieć komórkowa)."
     },
     {
-     "q": "Czy terminal wystawia paragon fiskalny?",
-     "a": "Nie. Terminal drukuje potwierdzenie płatności; paragon fiskalny wystawia kasa lub drukarka fiskalna."
+     "q": "Czy terminal PolCard Ingenico drukuje paragon fiskalny?",
+     "a": "Nie. Terminal PolCard drukuje tylko potwierdzenie płatności; paragon fiskalny wystawia kasa lub drukarka fiskalna."
     },
     {
      "q": "Czy terminal działa w hotelu z preautoryzacją?",
@@ -7632,8 +7632,8 @@
      "a": "Tak. Terminal przyjmuje BLIK, Apple Pay i Google Pay oraz karty z paskiem, chipem i zbliżeniowe."
     },
     {
-     "q": "Czy terminal wystawia paragon fiskalny?",
-     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+     "q": "Czy Move 2500 wydrukuje paragon fiskalny?",
+     "a": "Nie. Move 2500 drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć ten terminal z kasą, żeby kwota trafiała na niego automatycznie."
     }
    ],
    "polecane": [
@@ -7791,8 +7791,8 @@
      "a": "Tak. PolCard podaje integrację z ponad 200 rozwiązaniami kasowymi; łączymy terminal z kasą albo systemem sprzedaży, żeby kwota przechodziła sama."
     },
     {
-     "q": "Czy terminal wystawia paragon fiskalny?",
-     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+     "q": "Czy z Move 3500 dostanę paragon fiskalny?",
+     "a": "Nie. Szybka drukarka Move 3500 wydaje potwierdzenie płatności, a paragon fiskalny drukuje kasa lub drukarka fiskalna. Możemy zintegrować terminal z kasą, by kwota przechodziła na niego sama."
     }
    ],
    "polecane": [
@@ -7957,8 +7957,8 @@
      "a": "Do 40 linii na sekundę, na rolce o szerokości 40 mm i długości 18 m."
     },
     {
-     "q": "Czy terminal wystawia paragon fiskalny?",
-     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+     "q": "Czy Axium DX 8000 wystawi paragon fiskalny?",
+     "a": "Nie. DX 8000 drukuje na rolce 40 mm potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, aby kwota przechodziła na niego sama."
     }
    ],
    "polecane": [
@@ -8123,8 +8123,8 @@
      "a": "W podstawie ładującej albo przez USB-C z zasilacza 7,2 V."
     },
     {
-     "q": "Czy terminal wystawia paragon fiskalny?",
-     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+     "q": "Czy DX 4000 Portable drukuje paragony fiskalne?",
+     "a": "Nie. DX 4000 Portable wydaje tylko potwierdzenie płatności, a paragon fiskalny drukuje kasa lub drukarka fiskalna. Terminal możemy połączyć z kasą — kwota przejdzie na niego bez przepisywania."
     }
    ],
    "polecane": [
@@ -8277,8 +8277,8 @@
      "a": "Może łączyć się przez Ethernet albo przez sieć 3G z kartą SIM (opcjonalnie dwie karty)."
     },
     {
-     "q": "Czy terminal wystawia paragon fiskalny?",
-     "a": "Nie. Terminal drukuje potwierdzenie płatności, a paragon fiskalny wystawia kasa albo drukarka fiskalna. Możemy połączyć terminal z kasą, żeby kwota przechodziła na terminal sama."
+     "q": "Czy Desk 3200 z PIN-padem wystawia paragon fiskalny?",
+     "a": "Nie. Desk 3200 drukuje potwierdzenie płatności (PIN-pad Desk 1500 nie ma drukarki), a paragon fiskalny wystawia kasa albo drukarka fiskalna. Kwota z kasy może trafiać na terminal automatycznie."
     }
    ],
    "polecane": [
@@ -9749,8 +9749,8 @@
      "a": "Słupek reguluje się od 16,5 do 42,7 cm."
     },
     {
-     "q": "Czy akcesorium będzie pasować do mojej kasy?",
-     "a": "Podaj model kasy albo drukarki — sprawdzimy zgodność przed zakupem i podłączymy akcesorium przy montażu."
+     "q": "Czy wyświetlacz Elzab TFT podłączę do mojej kasy?",
+     "a": "Podaj model kasy Elzab — przed zakupem sprawdzimy złącze RS232 lub RJ-12 i podłączymy wyświetlacz przy montażu."
     }
    ],
    "polecane": [
@@ -10734,8 +10734,8 @@
      "a": "460 mm szerokości, 170 mm głębokości i 100 mm wysokości; montuje się ją w zabudowie lady."
     },
     {
-     "q": "Czy akcesorium będzie pasować do mojej kasy?",
-     "a": "Podaj model kasy albo drukarki — sprawdzimy zgodność przed zakupem i podłączymy akcesorium przy montażu."
+     "q": "Czy szuflada FT460 będzie pasować do mojej kasy?",
+     "a": "Podaj model kasy — sprawdzimy przed zakupem sterowanie 6 V przez RJ12 i podłączymy FT460 przy montażu w ladzie."
     }
    ],
    "konfigurator": {
@@ -10921,8 +10921,8 @@
      "a": "Kluczykiem albo przez otwór awaryjny w spodzie obudowy."
     },
     {
-     "q": "Czy akcesorium będzie pasować do mojej kasy?",
-     "a": "Podaj model kasy albo drukarki — sprawdzimy zgodność przed zakupem i podłączymy akcesorium przy montażu."
+     "q": "Czy MK330 albo MK350 zadziała z moją kasą lub drukarką?",
+     "a": "Podaj model kasy albo drukarki — sprawdzimy zgodność przed zakupem i podłączymy MK330 lub MK350 kablem RJ12."
     }
    ],
    "konfigurator": {
@@ -12602,8 +12602,8 @@
      "a": "Tak, wagi D-545 są dostępne z legalizacją. Seria 500 Dibal ma certyfikat badania typu WE dla wag klasy III do sprzedaży bezpośredniej."
     },
     {
-     "q": "Czy wydrukuje skład i alergeny?",
-     "a": "Tak, do każdego towaru zapiszesz tekst do 3072 znaków, a producent podaje zgodność z rozporządzeniem UE 1169/2011."
+     "q": "Czy D-545 wydrukuje na etykiecie skład i alergeny?",
+     "a": "Tak, w D-545 i S-545 do każdego towaru zapiszesz do 3072 znaków tekstu, a producent podaje zgodność z rozporządzeniem UE 1169/2011."
     },
     {
      "q": "Jakie etykiety obsługuje?",
@@ -13714,8 +13714,8 @@
    ],
    "faq": [
     {
-     "q": "Czy wydrukuje skład i alergeny?",
-     "a": "Tak, do towaru zapiszesz tekst do 3072 znaków; producent podaje zgodność z rozporządzeniem UE 1169/2011."
+     "q": "Czy Dibal W-025 drukuje skład i alergeny?",
+     "a": "Tak, w W-025 do towaru zapiszesz tekst do 3072 znaków; producent deklaruje zgodność z rozporządzeniem UE 1169/2011."
     },
     {
      "q": "Czy jest legalizowana?",
@@ -15527,8 +15527,8 @@
      "a": "Gdy potrzebujesz szerokich etykiet — do 103,6 mm, np. wysyłkowych 4-calowych. Łączność jest taka sama jak w QL-820NWBc."
     },
     {
-     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
-     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
+     "q": "Czy połączycie QL-820NWBc z moim programem sprzedaży?",
+     "a": "Tak. QL-820NWBc lub QL-1110NWBc podłączamy przez USB, LAN albo Wi-Fi do programu sprzedaży lub kasy i sprawdzamy wydruk etykiet DK na Twoich towarach."
     }
    ],
    "polecane": [
@@ -16660,8 +16660,8 @@
      "a": "GE300 jest mniejsza i lżejsza, ma przycisk kalibracji i opcję Wi-Fi/Bluetooth, ale mieści krótszą taśmę (110 m zamiast 300 m)."
     },
     {
-     "q": "Czy wydrukuje etykiety kurierskie 100 × 150 mm?",
-     "a": "Tak, szerokość druku do 108 mm (GE300) obsługuje etykiety 100 mm."
+     "q": "Czy GE300 lub GE330 wydrukuje etykietę kurierską 100 × 150 mm?",
+     "a": "Tak — druk do 108 mm (GE300) lub 105,7 mm (GE330) mieści etykiety 100 mm."
     },
     {
      "q": "Czy zadziała z komputerem Mac?",
@@ -17360,8 +17360,8 @@
      "a": "Tak, z klawiaturą USB drukuje w trybie samodzielnym."
     },
     {
-     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
-     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
+     "q": "Czy podłączycie Godex RT230 do mojego programu lub kasy?",
+     "a": "Tak. RT230 lub RT230i łączymy przez USB, RS-232 albo Ethernet z kasą, drukarką fiskalną lub programem sprzedaży i sprawdzamy etykiety 300 dpi na Twoich towarach."
     }
    ],
    "konfigurator": {
@@ -17574,8 +17574,8 @@
      "a": "Tak, w dwurzędowej JUDO 26."
     },
     {
-     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
-     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
+     "q": "Czy metkownicę JUDO 26 lub KENDO 26 łączy się z kasą?",
+     "a": "Nie. Metkownice SATO nie mają złącza — znaki ustawiasz na głowicy. Z kasą lub programem sprzedaży łączymy drukarki etykiet i czytniki, a działanie sprawdzamy na Twoich towarach."
     }
    ],
    "konfigurator": {
@@ -17775,8 +17775,8 @@
    ],
    "faq": [
     {
-     "q": "Czy wydrukuje etykiety kurierskie 100 × 150 mm?",
-     "a": "Tak, szerokość druku to 104 mm."
+     "q": "Czy Zebra ZD230 wydrukuje etykiety kurierskie 100 × 150 mm?",
+     "a": "Tak, ZD230 drukuje na 104 mm."
     },
     {
      "q": "Czy mogę później dokupić Wi-Fi?",
@@ -18007,8 +18007,8 @@
      "a": "Laminowane taśmy TZe są według producenta odporne na wodę, ścieranie, chemikalia i skrajne temperatury."
     },
     {
-     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
-     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
+     "q": "Czy połączycie PT-D610BTVP z komputerem i programem?",
+     "a": "Tak. P-touch PT-D610BTVP podłączamy przez USB lub Bluetooth do komputera z programem P-touch Editor i sprawdzamy wydruk na taśmach TZe dla Twoich towarów."
     }
    ],
    "polecane": [
@@ -18181,8 +18181,8 @@
      "a": "Nie. Seria TD-4D drukuje termicznie bezpośrednio na etykietach termicznych."
     },
     {
-     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
-     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
+     "q": "Czy podłączycie TD-4420DN do programu sprzedaży lub kasy?",
+     "a": "Tak. TD-4420DN lub TD-4520DN łączymy przez LAN, USB albo port szeregowy z kasą, drukarką fiskalną lub programem sprzedaży i sprawdzamy kody na Twoich towarach."
     }
    ],
    "polecane": [
@@ -18357,8 +18357,8 @@
      "a": "Producent udostępnia SDK dla iOS, Androida i Windows, a drukarka obsługuje emulację ZPL2 i ESC/P. Integrację sprawdzimy z Twoim dostawcą oprogramowania."
     },
     {
-     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
-     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
+     "q": "Czy połączycie drukarkę z serii PJ-800 z naszym programem?",
+     "a": "Tak. PJ-822, PJ-862 lub PJ-883 podłączamy do programu sprzedaży — kablem USB-C, przez Bluetooth albo Wi-Fi — i sprawdzamy wydruk A4 na Twoich dokumentach."
     }
    ],
    "polecane": [
@@ -18530,8 +18530,8 @@
      "a": "Producent podaje odporność na upadek z 1,8 m i klasę IP42, a z etui PA-CC-003 — upadek z 2,5 m i IP54."
     },
     {
-     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
-     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
+     "q": "Czy połączycie RJ-3055WB z programem sprzedaży w terenie?",
+     "a": "Tak. RJ-3035B łączymy z programem sprzedaży przez Bluetooth lub USB, RJ-3055WB także przez Wi-Fi, i sprawdzamy wydruk paragonów niefiskalnych i etykiet na Twoich towarach."
     }
    ],
    "polecane": [
@@ -18704,8 +18704,8 @@
      "a": "Czytnik trzeba zaprogramować (kodem konfiguracyjnym z instrukcji) — wtedy czyta kody samoczynnie na podstawce."
     },
     {
-     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
-     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
+     "q": "Czy podłączycie czytnik BS80 2D do kasy lub programu?",
+     "a": "Tak. Czytnik Elzab BS80 2D wpinamy przez USB do kasy, drukarki fiskalnej albo komputera z programem sprzedaży i sprawdzamy odczyt kodów na Twoich towarach."
     }
    ],
    "polecane": [
@@ -19023,8 +19023,8 @@
      "a": "Nie, zasilanie idzie przez kabel USB."
     },
     {
-     "q": "Czy połączycie urządzenie z moim programem lub kasą?",
-     "a": "Tak. Podłączamy czytniki, drukarki etykiet i kolektory do kasy, drukarki fiskalnej albo programu sprzedaży i sprawdzamy działanie na Twoich towarach."
+     "q": "Czy połączycie Sunmi Blink z naszą kasą lub programem?",
+     "a": "Tak. Blink lub Blink 2 podłączamy przez USB do kasy, tabletu albo komputera z programem sprzedaży i sprawdzamy, czy czyta kody QR z telefonów klientów."
     }
    ],
    "konfigurator": {
@@ -20150,20 +20150,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto dosypuje kawę i uzupełnia kubki w Kawomacie?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza Kawomat i oprogramowanie, ale nie uzupełnia ziaren, składników ani kubków. System w telefonie pokaże, czego brakuje i kiedy podjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jak klienci płacą za kawę z Kawomatu?",
+     "a": "W standardzie gotówką, kartą i BLIK-iem, a napój wybiera się na dotykowym ekranie 22\". Klient może też dostać e-paragon lub e-fakturę na e-mail."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Kto serwisuje Kawomat z młynkiem?",
+     "a": "Serwis prowadzi Optivendi: łączy się z Kawomatem zdalnie i diagnozuje usterki, robi przeglądy i naprawy, a według firmy serwisant pomaga 24/7. Szczegóły serwisu w Twojej okolicy ustalimy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie ocenić, czy Kawomat pasuje do mojego lokalu?",
+     "a": "Tak, sprawdzimy Kawomat pod kątem miejsca, wyboru napojów i płatności, a wycenę dostaniesz na piśmie."
     }
    ],
    "podobne": [
@@ -20469,20 +20469,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto uzupełnia skrytki w boxomacie z jednostką sterującą?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza jednostkę sterującą, szafy i oprogramowanie, ale nie zaopatruje skrytek. System w telefonie podpowie, czego brakuje w boxach i kiedy przyjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jak zapłacić w boxomacie ze skrytkami?",
+     "a": "Gotówką, kartą lub BLIK-iem — terminal jest w jednostce centralnej z ekranem 21,5\", która obsługuje do 3 szaf. Klient może dostać e-paragon albo e-fakturę na e-mail."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Kto serwisuje boxomat i jego jednostkę sterującą?",
+     "a": "Serwis prowadzi Optivendi: zdalne połączenie z jednostką na Androidzie i diagnostyka, przeglądy oraz naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu dla Twojej okolicy ustalimy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie dobrać liczbę szaf i skrytek w boxomacie?",
+     "a": "Tak, dobierzemy szafy (19–80 skrytek) do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
     }
    ],
    "polecane": [
@@ -20643,20 +20643,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto uzupełnia obie komory automatu podwójnego?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza automat i oprogramowanie, ale nie zaopatruje komór. Zdalny monitoring w telefonie pokazuje, czego brakuje w 120 slotach i kiedy przyjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jak płaci się w automacie z dwiema komorami?",
+     "a": "Gotówką, kartą lub BLIK-iem przy wspólnym ekranie 21,5\" — jedna płatność obsługuje obie komory. Klient może też dostać e-paragon albo e-fakturę na e-mail."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Jak wygląda serwis automatu podwójnego z windami?",
+     "a": "Zajmuje się nim Optivendi: zdalne łączenie z automatem i diagnostyka obu komór, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie ocenić, czy automat podwójny zmieści się u mnie?",
+     "a": "Tak, sprawdzimy miejsce (szerokość 2514 mm), asortyment i płatności, a wycenę przygotujemy na piśmie."
     }
    ],
    "podobne": [
@@ -20815,20 +20815,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto uzupełnia półki automatu PUSH?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza automat PUSH i oprogramowanie, ale nie zaopatruje go w napoje i przekąski. Powiadomienia w telefonie podpowiedzą, czego brakuje i kiedy przyjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jakie płatności przyjmuje automat PUSH?",
+     "a": "Gotówkę, kartę i BLIK — klient wybiera produkt na ekranie 22\". Może dostać e-paragon lub e-fakturę na e-mail, a automat PUSH da się zintegrować z e-drukarką fiskalną."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Kto naprawia automat PUSH, gdy przestanie działać?",
+     "a": "Optivendi: łączy się z automatem zdalnie, diagnozuje usterki (także na podstawie alertów), robi przeglądy i naprawy, a według firmy serwisant pomaga 24/7. Szczegóły serwisu w Twojej okolicy ustalimy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie wybrać między automatem PUSH a PULL?",
+     "a": "Tak, dobierzemy automat do miejsca (PUSH ma 87 cm głębi), asortymentu i płatności, a wycenę damy na piśmie."
     }
    ],
    "podobne": [
@@ -20987,20 +20987,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto zapełnia automat PULL towarem?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza automat PULL z oprogramowaniem, ale nie zaopatruje go w towar. Alerty w telefonie pokażą, którego produktu brakuje i kiedy warto przyjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jak klient zapłaci w automacie PULL?",
+     "a": "Gotówką, kartą albo BLIK-iem przy ekranie 22\". Po zakupie może dostać e-paragon lub e-fakturę na e-mail, a do automatu PULL da się podłączyć e-drukarkę fiskalną."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Jak wygląda serwis automatu PULL z windą?",
+     "a": "Serwis zapewnia Optivendi: zdalny dostęp do automatu PULL i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Zakres serwisu w Twojej okolicy ustalamy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy doradzicie, czy płytszy automat PULL wystarczy?",
+     "a": "Tak, dopasujemy automat do miejsca (PULL ma 79 cm głębi), towaru i płatności, a wycenę damy na piśmie."
     }
    ],
    "podobne": [
@@ -21159,20 +21159,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto uzupełnia chłodnię podwójną na 1120 produktów?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza chłodnię i oprogramowanie, ale nie zaopatruje jej wnęk. System w telefonie podpowie, czego brakuje i kiedy przyjechać z dostawą."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jak płacą klienci w chłodni podwójnej?",
+     "a": "Gotówką, kartą i BLIK-iem przy dotykowym ekranie 21,5\". Klient może odebrać e-paragon lub e-fakturę na e-mail, a do chłodni da się podpiąć e-kasę fiskalną."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Kto serwisuje dużą chłodnię z inteligentną windą?",
+     "a": "Optivendi: zdalnie łączy się z chłodnią i diagnozuje usterki, wykonuje przeglądy i naprawy, a według firmy zapewnia pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie zaplanować miejsce na chłodnię podwójną?",
+     "a": "Tak, dobierzemy ją do miejsca (ok. 3,1 m szerokości), asortymentu i płatności, a wycenę damy na piśmie."
     }
    ],
    "podobne": [
@@ -21329,20 +21329,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto uzupełnia półki mikromarketu?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza mikromarket i oprogramowanie, ale nie zaopatruje go w produkty. System w telefonie pokaże braki na półkach i podpowie, kiedy przyjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jak zapłacić w mikromarkecie z windą?",
+     "a": "Gotówką, kartą lub BLIK-iem przy ekranie 21,5\". Klient może dostać e-paragon albo e-fakturę VAT na e-mail, a mikromarket można połączyć z e-kasą fiskalną."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Jak wygląda serwis mikromarketu Optivendi?",
+     "a": "Prowadzi go Optivendi: zdalne łączenie z mikromarketem i diagnostyka, przeglądy i naprawy, w tym windy pionowo-poziomej, a według firmy — pomoc serwisanta 24/7. Szczegóły w Twojej okolicy ustalamy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie dobrać mikromarket do biura lub zakładu?",
+     "a": "Tak, dobierzemy mikromarket (500–800 produktów) do miejsca, towaru i płatności; wycenę damy na piśmie."
     }
    ],
    "podobne": [
@@ -21658,20 +21658,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto uzupełnia automat i skrytki w zestawie z boxomatem?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza zestaw i oprogramowanie, ale nie zaopatruje ani automatu z windą, ani skrytek. Panel w telefonie pokazuje zapasy i podpowiada, kiedy przyjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jak klienci płacą w zestawie automat z windą + boxomat?",
+     "a": "Gotówką, kartą lub BLIK-iem — jeden ekran 22\" i jedna płatność obsługują automat i skrytki. Klient może dostać e-paragon albo e-fakturę na e-mail."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Kto serwisuje zestaw automatu z windą i szafki z boxami?",
+     "a": "Optivendi: zdalne łączenie i diagnostyka całego zestawu, przeglądy i naprawy (także elektrozamków skrytek), a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie dobrać szafkę z boxami do automatu z windą?",
+     "a": "Tak, dopasujemy szafkę (od 19 do 80 skrytek) do miejsca, asortymentu i płatności; wycena na piśmie."
     }
    ],
    "podobne": [
@@ -21976,20 +21976,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto ładuje dania do Obiadomatu?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza Obiadomat i oprogramowanie, ale nie zaopatruje go w posiłki. System w telefonie pokaże, których dań brakuje i kiedy przyjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jak zapłacić za obiad z Obiadomatu?",
+     "a": "W Obiadomacie II gotówką, zbliżeniowo lub BLIK-iem; w Obiadomacie I zestaw płatności może się różnić. Klient może dostać e-paragon albo e-fakturę na e-mail."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Kto serwisuje Obiadomat z modułem grzewczym?",
+     "a": "Serwis prowadzi Optivendi: zdalne połączenie z Obiadomatem i diagnostyka, przeglądy i naprawy (także modułu grzewczego), a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie wybrać między Obiadomatem I a II?",
+     "a": "Tak, dobierzemy Obiadomat I lub II (do 84 obiadów) do miejsca, menu i płatności; wycena na piśmie."
     }
    ],
    "podobne": [
@@ -22485,20 +22485,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto uzupełnia mrożonki w automacie −18 °C?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza automat mroźniczy i oprogramowanie, ale nie zaopatruje go w lody czy pierogi. System w telefonie podpowie, czego brakuje i kiedy przyjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jak klienci płacą w automacie do mrożonek?",
+     "a": "Gotówką, kartą lub BLIK-iem, także za kilka produktów z koszyka na ekranie 21,5\". Klient może dostać e-paragon lub e-fakturę na e-mail; możliwa jest integracja z e-drukarką fiskalną."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Jak wygląda serwis automatu mroźniczego?",
+     "a": "Serwisem zajmuje się Optivendi: zdalne łączenie z automatem −18 °C i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie dobrać automat do mrożonek pod mój asortyment?",
+     "a": "Tak, dobierzemy go do miejsca, rodzaju mrożonek (54 sloty) i płatności, a wycenę przygotujemy na piśmie."
     }
    ],
    "podobne": [
@@ -22650,20 +22650,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto wkłada torty do boxów Tortomatu?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza Tortomat i oprogramowanie, ale nie zaopatruje boxów. Powiadomienia o uzupełnieniu w telefonie pokażą, czego brakuje i kiedy przyjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jak zapłacić za tort z Tortomatu?",
+     "a": "Gotówką, kartą lub BLIK-iem — czytnik kart jest wbudowany w dotykowy ekran 21,5\" Tortomatu. Po zakupie klient może dostać e-paragon albo e-fakturę na e-mail."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Kto serwisuje Tortomat z chłodzonymi boxami?",
+     "a": "Optivendi: zdalne łączenie z Tortomatem i diagnostyka, w tym temperatury boxów, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie dobrać moduły Tortomatu?",
+     "a": "Tak, dobierzemy liczbę modułów i boxów do miejsca, ciast i płatności, a wycenę damy na piśmie."
     }
    ],
    "podobne": [
@@ -22805,20 +22805,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto uzupełnia chłodzone skrytki boxomatu?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza boxomat z chłodzeniem i oprogramowanie, ale nie zaopatruje skrytek. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Czym zapłacę w boxomacie z chłodzeniem?",
+     "a": "Gotówką (monety i banknoty), kartą lub BLIK-iem przy jednostce z ekranem dotykowym; boxomat potrzebuje stałego internetu. Klient może dostać e-paragon albo e-fakturę na e-mail."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Jak wygląda serwis boxomatu z chłodzonymi skrytkami?",
+     "a": "Prowadzi go Optivendi: zdalne łączenie przez stały internet boxomatu i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie wybrać boxomat chłodzony na 8 czy 16 boxów?",
+     "a": "Tak, dobierzemy wersję 8 lub 16 boxów do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
     }
    ],
    "podobne": [
@@ -23442,20 +23442,20 @@
    ],
    "faq": [
     {
-     "q": "Kto uzupełnia towar?",
-     "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+     "q": "Kto dokłada worki z pelletem do Pelletomatu?",
+     "a": "Ty albo Twój dostawca — Optivendi dostarcza Pelletomat i oprogramowanie, ale nie zaopatruje go w pellet. System w telefonie pokazuje stany 25 skrytek i podpowiada, kiedy przyjechać."
     },
     {
-     "q": "Jak płacą klienci?",
-     "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+     "q": "Jakie płatności przyjmuje Pelletomat do pelletu?",
+     "a": "Kartę i BLIK — Pelletomat nie przyjmuje gotówki. Płaci się przy ekranie 22\", a klient może dostać e-paragon lub e-fakturę na e-mail."
     },
     {
-     "q": "Jak wygląda serwis?",
-     "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+     "q": "Kto serwisuje zewnętrzny Pelletomat?",
+     "a": "Serwis zapewnia Optivendi: zdalne łączenie z Pelletomatem i diagnostyka, przeglądy i naprawy (także elektrozamków), a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
     },
     {
-     "q": "Czy pomożecie dobrać automat?",
-     "a": "Tak, dobieramy automat do miejsca, asortymentu i płatności, a wycenę przygotujemy na piśmie."
+     "q": "Czy pomożecie dobrać długość Pelletomatu?",
+     "a": "Tak, dobierzemy liczbę modułów do miejsca, liczby worków i płatności, a wycenę damy na piśmie."
     }
    ],
    "podobne": [
@@ -23610,8 +23610,8 @@
      "a": "Tak, ma decyzję Prezesa Głównego Urzędu Miar nr PT 7/2022 potwierdzającą spełnienie wymagań dla kas rejestrujących."
     },
     {
-     "q": "Z jakim terminalem współpracuje?",
-     "a": "Elzab podaje integracje z systemem TRIO-IQ firmy OTI i aplikacją APDU na terminalu Newland U1000. Zgodność innego sprzętu trzeba sprawdzić indywidualnie."
+     "q": "Z jakim terminalem płatniczym współpracuje kasa wirtualna KW3?",
+     "a": "Elzab wymienia dla KW3 integracje z systemem TRIO-IQ firmy OTI oraz aplikacją APDU na terminalu Newland U1000. Zgodność innych urządzeń w myjni trzeba sprawdzić osobno."
     }
    ],
    "polecane": [
@@ -23788,12 +23788,12 @@
      "a": "Tak. Laptop ma gniazdo RJ-45 1 Gb/s, HDMI 2.1 (4K 60 Hz), dwa USB-A, dwa USB-C z ładowaniem i wyjściem obrazu oraz czytnik kart SD. Przy biurku wygodna jest stacja dokująca USB-C."
     },
     {
-     "q": "Czym różni się generacja G8 od G9?",
-     "a": "G9 ma jaśniejszy ekran (400 zamiast 300 nitów), Wi-Fi do 7, kamerę 5 Mpix, baterię 48 lub 64 Wh i osobny układ TPM. Wersje G9 IPL (Intel Core Ultra seria 3) i G9 AHP (AMD Ryzen) mają też opcję ekranu 2.8K 120 Hz."
+     "q": "Co zmieniło się w ThinkBooku 14 G9 względem G8?",
+     "a": "G9 dostał jaśniejszy ekran (400 nitów zamiast 300), Wi-Fi do 7, kamerę 5 Mpix, baterię 48 lub 64 Wh i osobny układ TPM. W G9 IPL (Intel Core Ultra seria 3) i G9 AHP (AMD Ryzen) wybierzesz też ekran 2.8K 120 Hz."
     },
     {
-     "q": "Jaką gwarancję ma ThinkBook 14?",
-     "a": "Bazowa gwarancja producenta według PSREF to 1 lub 2 lata w trybie kurier / dostarczenie do serwisu. W wybranych konfiguracjach dostępne są 3 lata z naprawą u klienta (on-site)."
+     "q": "Jaką gwarancję producenta ma ThinkBook 14 G8 i G9?",
+     "a": "Według PSREF ThinkBook 14 ma bazowo 1 lub 2 lata gwarancji producenta w trybie kurier / dostarczenie do serwisu. Wybrane konfiguracje mają 3 lata z naprawą u klienta (on-site)."
     }
    ],
    "konfigurator": {
@@ -24404,8 +24404,8 @@
      "a": "Tak, MacBook Air z M5 obsługuje do dwóch monitorów zewnętrznych przez porty Thunderbolt 4. Ze Studio Display jeden kabel daje obraz i ładowanie."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy skonfigurujecie MacBooka Air M5 dla pracownika?",
+     "a": "Tak: na MacBooku Air konfigurujemy macOS, konta i programy, a dane ze starego komputera przenosimy na nowy (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -25005,8 +25005,8 @@
      "a": "E14 ma ekran 14\", waży od 1,34 kg i ma opcję ekranu 2.8K 120 Hz, więc łatwiej go nosić. E16 ma ekran 16\" (opcja 2560×1600 120 Hz), klawiaturę numeryczną i waży od 1,65 kg, więc lepiej sprawdzi się przy biurku."
     },
     {
-     "q": "Czy pamięć RAM i dysk da się rozbudować?",
-     "a": "Zależy od platformy. Z procesorami Core Ultra i Ryzen AI masz dwa gniazda RAM (do 64 GB) i drugie wolne gniazdo M.2 na dysk. Z procesorami Core 3/5/7 jest jedno gniazdo RAM (do 32 GB) i jedno gniazdo dysku."
+     "q": "Czy w ThinkPadzie E14 Gen 8 lub E16 Gen 4 dołożę RAM i dysk?",
+     "a": "To zależy od procesora. Wersje z Core Ultra i Ryzen AI mają dwa gniazda RAM (do 64 GB) i drugie wolne gniazdo M.2 na dysk. Wersje z Core 3/5/7 mają jedno gniazdo RAM (do 32 GB) i jedno gniazdo dysku."
     },
     {
      "q": "Ile monitorów mogę podłączyć?",
@@ -25311,8 +25311,8 @@
    ],
    "faq": [
     {
-     "q": "Czy da się później dołożyć pamięć RAM?",
-     "a": "Nie. Pamięć jest wlutowana: 16, 24, 32 lub 64 GB w wersjach Intel i AMD, a w wersji Snapdragon 16 lub 32 GB. Dlatego dobierz ją od razu z zapasem na kolejne lata pracy."
+     "q": "Czy w T14s Gen 7 dołożę później pamięć RAM?",
+     "a": "Nie. W T14s Gen 7 pamięć jest wlutowana: 16, 24, 32 lub 64 GB w wersjach Intel i AMD oraz 16 lub 32 GB w wersji Snapdragon. Wybierz ją od razu z zapasem na kolejne lata pracy."
     },
     {
      "q": "Czy wersja ze Snapdragonem uruchomi wszystkie moje programy?",
@@ -25646,12 +25646,12 @@
      "a": "Tak. Pamięć DDR5 jest w dwóch gniazdach SODIMM (nie jest wlutowana) i rozbudujesz ją do 64 GB. Drugie gniazdo M.2 jest wolne na dodatkowy dysk SSD do 2 TB."
     },
     {
-     "q": "Czym różni się generacja G8 od G9?",
-     "a": "G9 ma ekran 400 nitów (wersja dotykowa 120 Hz), Wi-Fi do 7, kamerę 5 Mpix, baterię 48 lub 71 Wh i osobny układ TPM. W G9 IPL (Intel Core Ultra seria 3) i G9 AHP (AMD Ryzen) możesz wybrać ekran 2560×1600 120 Hz."
+     "q": "Co nowego ma ThinkBook 16 G9 w porównaniu z G8?",
+     "a": "G9 ma ekran 400 nitów (w wersji dotykowej 120 Hz), Wi-Fi do 7, kamerę 5 Mpix, baterię 48 lub 71 Wh i osobny układ TPM. W G9 IPL (Intel Core Ultra seria 3) i G9 AHP (AMD Ryzen) dostępny jest też ekran 2560×1600 120 Hz."
     },
     {
-     "q": "Jaką gwarancję ma ThinkBook 16?",
-     "a": "Bazowa gwarancja producenta według PSREF to 1 lub 2 lata w trybie kurier / dostarczenie do serwisu. W wybranych konfiguracjach dostępne są 3 lata z naprawą u klienta (on-site)."
+     "q": "Jaka gwarancja obejmuje ThinkBooka 16 G8 / G9?",
+     "a": "ThinkBook 16 ma według PSREF bazową gwarancję producenta 1 lub 2 lata (kurier / dostarczenie do serwisu). Część konfiguracji ma 3 lata z naprawą u klienta (on-site)."
     }
    ],
    "konfigurator": {
@@ -26249,8 +26249,8 @@
      "a": "Nie. Pamięć LPDDR5X jest wlutowana: 16 lub 32 GB, a w wersji Intel także 64 GB. Wybierz od razu tyle, ile będzie potrzebne przez cały okres używania laptopa."
     },
     {
-     "q": "Jak podłączę sieć kablową i monitor?",
-     "a": "X13 nie ma portu RJ-45, więc do sieci kablowej potrzebna jest przejściówka USB-C albo stacja dokująca. Monitor podłączysz przez HDMI 2.1 (4K 60 Hz) lub jeden z dwóch portów Thunderbolt 4. Jest też jedno USB-A."
+     "q": "Jak podłączę X13 Gen 7 do sieci kablowej i monitora?",
+     "a": "ThinkPad X13 Gen 7 nie ma gniazda RJ-45, dlatego sieć kablową podłączysz przez przejściówkę USB-C lub stację dokującą. Monitor podepniesz do HDMI 2.1 (4K 60 Hz) albo do jednego z dwóch Thunderbolt 4; jest też jedno USB-A."
     },
     {
      "q": "Na jak długo starcza bateria?",
@@ -27446,12 +27446,12 @@
    ],
    "faq": [
     {
-     "q": "Czy pamięć RAM można rozbudować?",
-     "a": "Nie. Pamięć jest wlutowana: 16, 24, 32 lub 64 GB, bez możliwości rozbudowy. Dlatego dobieramy ją od razu przy zamówieniu, z zapasem na kolejne lata. Dysk SSD M.2 2280 możesz wybrać do 2 TB."
+     "q": "Czy w X1 Carbon Gen 14 można dołożyć RAM?",
+     "a": "Nie. X1 Carbon Gen 14 ma wlutowane 16, 24, 32 lub 64 GB pamięci, bez rozbudowy, dlatego ilość dobieramy przy zamówieniu, z zapasem na lata. Dysk SSD M.2 2280 wybierzesz do 2 TB."
     },
     {
-     "q": "Jak podłączę sieć kablową i monitor?",
-     "a": "X1 Carbon nie ma portu RJ-45. Ma trzy porty Thunderbolt 4 z ładowaniem i obrazem, HDMI 2.1 i USB-A 5 Gb/s. Przy biurku warto dodać stację dokującą Thunderbolt."
+     "q": "Jak podłączyć X1 Carbon do kabla sieciowego i monitora?",
+     "a": "X1 Carbon Gen 14 nie ma gniazda RJ-45. Do dyspozycji masz trzy Thunderbolt 4 z ładowaniem i obrazem, HDMI 2.1 i USB-A 5 Gb/s. Na biurko warto dobrać stację dokującą Thunderbolt."
     },
     {
      "q": "Którą kamerę wybrać do wideokonferencji?",
@@ -27727,8 +27727,8 @@
      "a": "Ekran dotykowy obraca się o 360°, więc urządzenie działa jak laptop, tablet albo „namiot” do prezentacji. Do wyboru jest 14\" WUXGA IPS 500 nitów (także z Privacy Guard) lub OLED 2,8K 120 Hz."
     },
     {
-     "q": "Czy pamięć RAM można rozbudować?",
-     "a": "Nie. Pamięć jest wlutowana: 16, 24, 32 lub 64 GB, bez możliwości rozbudowy. Wybierz ilość od razu, z zapasem na kolejne lata. Dysk SSD M.2 2280 możesz wybrać do 2 TB."
+     "q": "Czy w X1 2-in-1 Gen 11 rozbudujesz pamięć RAM?",
+     "a": "Nie. W X1 2-in-1 Gen 11 pamięć jest wlutowana (16, 24, 32 lub 64 GB) i nie da się jej rozbudować, więc wybierz ją od razu z zapasem. Dysk SSD M.2 2280 dobierzesz do 2 TB."
     },
     {
      "q": "Jak podłączyć go przy biurku?",
@@ -28027,8 +28027,8 @@
      "a": "Gniazdo sieciowe RJ-45 1 Gb/s, HDMI 1.4b, dwa USB-A 5 Gb/s i USB-C z ładowaniem i wyjściem obrazu (10 Gb/s w G6, 5 Gb/s w G4/G5), a do tego osobne gniazdo zasilacza i gniazdo słuchawkowo-mikrofonowe."
     },
     {
-     "q": "Jaką gwarancję ma V15?",
-     "a": "Bazowa gwarancja producenta według PSREF to 1 lub 2 lata w trybie kurier / dostarczenie do serwisu. Można ją przedłużyć do 3 lat z naprawą u klienta (on-site)."
+     "q": "Jaką gwarancję ma Lenovo V15 G4, G5 lub G6?",
+     "a": "Lenovo V15 ma według PSREF bazową gwarancję producenta 1 lub 2 lata w trybie kurier / dostarczenie do serwisu. Przedłużysz ją do 3 lat z naprawą u klienta (on-site)."
     }
    ],
    "konfigurator": {
@@ -28302,16 +28302,16 @@
      "a": "G7 to nowa platforma z 2026 r.: Intel Core seria 3 z układem AI (NPU), DDR5 do 32 GB, RJ-45, dwa USB-C i Wi-Fi do 7. Starsza G4 ma DDR4 do 16 GB, czytnik kart SD i jeden USB-C, ale nie ma gniazda RJ-45."
     },
     {
-     "q": "Czy pamięć RAM i dysk da się rozbudować?",
-     "a": "W G7 pamięć DDR5 jest w gnieździe SODIMM, maks. 32 GB. W G4 część pamięci jest wlutowana i jest jedno gniazdo, maks. 16 GB. Dysk SSD M.2 ma jedno gniazdo, do 512 GB."
+     "q": "Czy w V17 dołożę pamięć RAM albo większy dysk?",
+     "a": "W V17 G7 pamięć DDR5 siedzi w jednym gnieździe SODIMM, maks. 32 GB. V17 G4 ma część pamięci wlutowaną i jedno gniazdo, łącznie do 16 GB. Dysk SSD M.2 ma jedno gniazdo, do 512 GB."
     },
     {
      "q": "Czy V17 nadaje się do noszenia?",
      "a": "Raczej nie na co dzień. Waży od 1,99 kg (G7) lub 2,02 kg (G4) i ma wymiary 399 × 274 mm, więc lepiej sprawdza się na biurku. Bateria ma 47 Wh w G7 i 45 Wh w G4."
     },
     {
-     "q": "Jaką gwarancję ma V17?",
-     "a": "Bazowa gwarancja producenta według PSREF to 1 lub 2 lata w trybie kurier / dostarczenie do serwisu. Można ją przedłużyć do 3 lat z naprawą u klienta (on-site)."
+     "q": "Jak długą gwarancję ma Lenovo V17 G4 / G7?",
+     "a": "Dla V17 PSREF podaje bazowo 1 lub 2 lata gwarancji producenta (kurier / dostarczenie do serwisu). Gwarancję można wydłużyć do 3 lat z naprawą u klienta (on-site)."
     }
    ],
    "konfigurator": {
@@ -28571,8 +28571,8 @@
      "a": "IdeaPad Slim 3 nie ma gniazda RJ-45, więc do kabla potrzebna jest przejściówka USB-C z RJ-45. Jeśli laptop ma stale pracować w firmowej sieci kablowej, zobacz serię V lub ThinkBook."
     },
     {
-     "q": "Czy pamięć RAM i dysk da się rozbudować?",
-     "a": "W 15IWC11 pamięć DDR5 jest w jednym gnieździe, do 32 GB. Pozostałe wersje Intel/AMD mają jedno gniazdo albo 8 GB wlutowane i gniazdo (16–24 GB), a Snapdragon pamięć wlutowaną. W 15IPH11 i Gen 10 jest drugie wolne gniazdo M.2 na dysk."
+     "q": "Czy w IdeaPad Slim 3 15 rozbuduję RAM i dysk?",
+     "a": "W 15IWC11 pamięć DDR5 siedzi w jednym gnieździe, do 32 GB. Inne wersje Intel/AMD mają jedno gniazdo albo 8 GB wlutowane plus gniazdo (16–24 GB), a Snapdragon pamięć wlutowaną. Drugie wolne gniazdo M.2 na dysk mają 15IPH11 i Gen 10."
     },
     {
      "q": "Czy wersja ze Snapdragonem uruchomi moje programy?",
@@ -28873,12 +28873,12 @@
      "a": "16\" ma ekran 16:10 (1920×1200, IPS do 400 nitów), waży od 1,58–1,68 kg i przeszedł test MIL-STD-810H. 17,3\" (17IWC11) ma klasyczny Full HD IPS 300 nitów, obudowę z tworzywa, Wi-Fi 6 i waży od 2,03 kg."
     },
     {
-     "q": "Czy pamięć RAM i dysk da się rozbudować?",
-     "a": "W 16IWC11 i 17IWC11 pamięć DDR5 jest w jednym gnieździe, do 32 GB. 16IPH11 i 16ARP10 mają jedno gniazdo albo 8 GB wlutowane i gniazdo (do 24 GB) oraz drugie wolne gniazdo M.2 na dysk."
+     "q": "Czy w Slim 3 16 lub 17 dołożę RAM albo drugi dysk?",
+     "a": "W 16IWC11 i 17IWC11 pamięć DDR5 jest w jednym gnieździe, maks. 32 GB. 16IPH11 i 16ARP10 mają jedno gniazdo albo 8 GB wlutowane z gniazdem (do 24 GB) i dodatkowo wolne gniazdo M.2 na drugi dysk."
     },
     {
-     "q": "Jak podłączę sieć kablową i monitor?",
-     "a": "Laptop nie ma gniazda RJ-45, więc do sieci kablowej potrzebna jest przejściówka USB-C z RJ-45. Monitor podłączysz przez HDMI 1.4 albo USB-C z wyjściem obrazu."
+     "q": "Jak podłączyć Slim 3 16 / 17 do kabla sieciowego i monitora?",
+     "a": "IdeaPad Slim 3 16 / 17 nie ma gniazda RJ-45, więc sieć kablową podłączysz przejściówką USB-C z RJ-45. Monitor podepniesz przez HDMI 1.4 albo USB-C z wyjściem obrazu."
     },
     {
      "q": "Jaką gwarancję ma ten laptop?",
@@ -29166,8 +29166,8 @@
      "a": "Gen 11 to 16AGP11 z AMD Ryzen AI 400 (Copilot+ PC) i 16IPH11 z Intel Core Ultra seria 3, obie z układem AI do 50 TOPS i ekranem 400 nitów. Gen 10 ma ekran 300 nitów, a 16IRH10 wolniejsze USB-C 5 Gb/s i HDMI 1.4b."
     },
     {
-     "q": "Jak podłączę sieć kablową i monitor?",
-     "a": "Slim 5 nie ma gniazda RJ-45. Przy biurku dobierz stację dokującą USB-C i monitor; laptop ładuje się przez USB-C (Power Delivery 65–100 W). Monitor 4K 60 Hz podłączysz też bezpośrednio przez HDMI 2.1 (w 16IRH10 HDMI 1.4b)."
+     "q": "Jak podłączyć Slim 5 16 do sieci i monitora przy biurku?",
+     "a": "Slim 5 16 nie ma gniazda RJ-45. Przy biurku przyda się stacja dokująca USB-C z monitorem, a laptop ładuje się przez USB-C (Power Delivery 65–100 W). Monitor 4K 60 Hz podepniesz też wprost do HDMI 2.1 (w 16IRH10 jest HDMI 1.4b)."
     },
     {
      "q": "Jaką gwarancję ma Slim 5?",
@@ -29772,8 +29772,8 @@
      "a": "Nie. Yoga Slim 7 to zwykły laptop: ekran nie składa się w tablet i nie obsługuje rysika. Możesz natomiast wybrać wersję z ekranem dotykowym, WUXGA lub 2.8K OLED."
     },
     {
-     "q": "Czy pamięć RAM można rozbudować?",
-     "a": "Nie. Pamięć LPDDR5X jest wlutowana, 16 lub 32 GB, dlatego jej ilość wybierasz przy zakupie. Najczęściej wybierane jest 16 GB. Dysk SSD M.2 2242 to 512 GB lub 1 TB (w 14AGP11 także 2 TB)."
+     "q": "Czy w Yoga Slim 7 14 dołożę później pamięć?",
+     "a": "Nie. LPDDR5X w Yoga Slim 7 jest wlutowana, 16 lub 32 GB, więc ilość wybierasz przy zakupie — najczęściej 16 GB. Dysk SSD M.2 2242 ma 512 GB lub 1 TB (w 14AGP11 także 2 TB)."
     },
     {
      "q": "AMD czy Intel — czym różnią się wersje?",
@@ -30293,8 +30293,8 @@
    ],
    "faq": [
     {
-     "q": "Czy mogę później dołożyć pamięć RAM?",
-     "a": "W Dell 14 tak: pamięć DDR5 siedzi w dwóch gniazdach SO-DIMM i rozbudujesz ją do 32 GB (w konfiguracji 1×16 GB jedno gniazdo zostaje wolne). W Dell 14S pamięć jest wlutowana, więc od razu wybierz 16 lub 32 GB."
+     "q": "Czy w Dell 14 lub 14S dołożę później RAM?",
+     "a": "W Dell 14 tak: DDR5 jest w dwóch gniazdach SO-DIMM, więc rozbudujesz ją do 32 GB (przy 1×16 GB jedno gniazdo pozostaje wolne). Dell 14S ma pamięć wlutowaną, dlatego od razu wybierz 16 lub 32 GB."
     },
     {
      "q": "Czym różni się Dell 14 od Dell 14S?",
@@ -30866,8 +30866,8 @@
      "a": "Pro 14 Essential ma matowy ekran 14\" 16:10, nowsze procesory Intel (PV14250) lub AMD (PV14255), kamerę Full HD i czytnik kart SD. Pro 15 Essential (PV15250) ma ekran 15,6\" Full HD i procesory Intel 13. generacji — to wybór, gdy liczy się przede wszystkim duży ekran."
     },
     {
-     "q": "Czy mogę później dołożyć pamięć RAM?",
-     "a": "W Pro 14 Essential tak: pamięć DDR5 siedzi w dwóch gniazdach SO-DIMM i rozbudujesz ją do 32 GB. Możliwości rozbudowy Pro 15 Essential sprawdzimy dla konkretnej konfiguracji."
+     "q": "Czy w Dell Pro 14 Essential rozbuduję pamięć RAM?",
+     "a": "W Pro 14 Essential tak: DDR5 siedzi w dwóch gniazdach SO-DIMM, a maksimum to 32 GB. Rozbudowę Pro 15 Essential (PV15250) sprawdzimy dla wybranej konfiguracji."
     },
     {
      "q": "Czy podłączę laptop do sieci kablem i stacji Thunderbolt?",
@@ -31419,8 +31419,8 @@
      "a": "XPS 13 waży od 1 kg, ma Intel Core 5 320, 8 lub 16 GB RAM, dotykowy ekran 13,4\" 2560×1600 i dwa porty Thunderbolt 4. XPS 14 jest mocniejszy: Intel Core Ultra X7 / X9 z grafiką Arc B390, 32 lub 64 GB RAM, trzy porty Thunderbolt 4, kamera 8 Mpix, bateria 70 Wh i opcja ekranu OLED 2,8K."
     },
     {
-     "q": "Czy da się później dołożyć pamięć RAM?",
-     "a": "Nie, w obu modelach pamięć LPDDR5X jest wlutowana. Wybierz ją od razu z zapasem: XPS 13 ma 8 lub 16 GB, a XPS 14 16 GB albo 32 / 64 GB w wersjach z Core Ultra X7/X9."
+     "q": "Czy w XPS 13 albo XPS 14 dołożę RAM po zakupie?",
+     "a": "Nie, XPS 13 i XPS 14 mają wlutowaną pamięć LPDDR5X. Dobierz ją od razu z zapasem: w XPS 13 to 8 lub 16 GB, w XPS 14 16 GB albo 32 / 64 GB w wersjach z Core Ultra X7/X9."
     },
     {
      "q": "Jak podłączę monitor i internet po kablu w biurze?",
@@ -31946,8 +31946,8 @@
      "a": "X9 15p to nowszy model z procesorami Intel Core Ultra seria 3, do 64 GB pamięci, trzema portami Thunderbolt 4, czytnikiem kart SD, kamerą 10 Mpix i większą baterią 88 Wh. Jest trochę cięższy (od 1,5 kg) i ładuje się zasilaczem 100 W."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy przygotujecie ThinkPada X9 do pracy w firmie?",
+     "a": "Tak: na ThinkPadzie X9 instalujemy i ustawiamy system, konta oraz programy, a dane przenosimy z poprzedniego komputera (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -32249,12 +32249,12 @@
      "a": "Tak, ale przez wymianę. Pamięć jest na jednym module LPCAMM2 (do 96 GB), więc zamiast dokładać kość, wymienia się moduł na większy."
     },
     {
-     "q": "Czy ma gniazdo na kabel sieciowy?",
-     "a": "Nie ma wbudowanego RJ-45. Sieć 2,5 Gb/s podłączysz przez przejściówkę USB-C–Ethernet albo stację dokującą Thunderbolt."
+     "q": "Czy P1 Gen 9 podłączę do sieci kablem bez przejściówki?",
+     "a": "Nie, P1 Gen 9 nie ma gniazda RJ-45. Kabel sieciowy 2,5 Gb/s podepniesz przez przejściówkę USB-C–Ethernet lub stację dokującą Thunderbolt."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy przygotujecie ThinkPada P1 Gen 9 do pracy?",
+     "a": "Tak: na P1 Gen 9 instalujemy Windows 11 lub Linuksa, ustawiamy konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -32542,16 +32542,16 @@
      "a": "Zależy od konfiguracji. Laptop ma schowek na pióro, a w konfiguracji wybierasz Lenovo Garaged Pen (ładowane w schowku), Lenovo Yoga Pen albo wersję bez pióra."
     },
     {
-     "q": "Czy ma gniazdo na kabel sieciowy?",
-     "a": "Nie. Kabel sieciowy podłączysz przez przejściówkę USB-C–Ethernet albo stację dokującą. W terenie możesz korzystać z opcjonalnego modemu LTE lub 5G."
+     "q": "Czy T14s 2-in-1 ma port RJ-45 na kabel sieciowy?",
+     "a": "Nie. Do sieci kablowej T14s 2-in-1 podłączysz przez przejściówkę USB-C–Ethernet lub stację dokującą, a w terenie skorzystasz z opcjonalnego modemu 4G LTE albo 5G."
     },
     {
      "q": "Czym różni się od zwykłego T14s?",
      "a": "Ekran jest dotykowy i obraca się o 360°, a w obudowie jest miejsce na pióro. Dzięki temu laptop działa też jak tablet — do podpisów, notatek i pokazywania materiałów klientowi."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy skonfigurujecie ThinkPada T14s 2-in-1 dla pracownika?",
+     "a": "Tak: w T14s 2-in-1 instalujemy system, zakładamy konta, ustawiamy programy i kopiujemy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -32848,8 +32848,8 @@
      "a": "W trybie tabletu zrobisz nią zdjęcie dokumentu, tabliczki znamionowej czy usterki i od razu dołączysz je do protokołu. Kamera 5 Mpix z autofocusem jest opcją konfiguracji."
     },
     {
-     "q": "Czy da się później rozbudować pamięć i dysk?",
-     "a": "Pamięci nie — LPDDR5X jest wlutowana, więc 16 albo 32 GB wybierasz przy zakupie. Dysk siedzi w gnieździe M.2 2242 PCIe 4.0, a w konfiguracji masz do wyboru 256 GB, 512 GB lub 1 TB."
+     "q": "Czy w L13 2-in-1 Gen 6 dołożę pamięć lub większy dysk?",
+     "a": "Pamięci nie — LPDDR5X w L13 2-in-1 jest wlutowana, więc 16 lub 32 GB wybierasz przy zakupie. Dysk jest w gnieździe M.2 2242 PCIe 4.0, a w konfiguracji wybierzesz 256 GB, 512 GB lub 1 TB."
     },
     {
      "q": "Wersja Intel czy AMD — czym się różnią?",
@@ -33144,8 +33144,8 @@
      "a": "Tablet ma tylko dwa porty Thunderbolt 4. Monitor, sieć kablową i urządzenia USB-A podłączysz przez stację dokującą lub przejściówkę USB-C."
     },
     {
-     "q": "Czy pamięć da się rozbudować po zakupie?",
-     "a": "Nie. Pamięć LPDDR5X jest wlutowana, więc 16, 32 lub 64 GB wybierasz w konfiguracji — najlepiej z zapasem. Dysk SSD (256 GB, 512 GB lub 1 TB) siedzi w gnieździe M.2 2242 PCIe 4.0."
+     "q": "Czy w tablecie X13 Detachable rozbuduję pamięć?",
+     "a": "Nie. X13 Detachable ma wlutowaną pamięć LPDDR5X, dlatego 16, 32 lub 64 GB wybierasz w konfiguracji, najlepiej z zapasem. SSD 256 GB, 512 GB lub 1 TB jest w gnieździe M.2 2242 PCIe 4.0."
     },
     {
      "q": "Czy połączę się z internetem w terenie bez Wi-Fi?",
@@ -33956,8 +33956,8 @@
      "a": "Pro 14 Premium ma obudowę z magnezu, cztery głośniki, kamerę 8 Mpix w standardzie i touchpad z przyciskami do wideorozmów. Pro 7 ma obudowę z aluminium, wersje 13\" i 2 w 1 oraz wariant z procesorem AMD."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy przygotujecie Dell Pro 14 Premium do pracy?",
+     "a": "Tak: w Dell Pro 14 Premium konfigurujemy system, konta i programy, a dane ze starego komputera przenosimy na nowy laptop (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -34868,8 +34868,8 @@
      "a": "Wersja 14\" waży od 1,59 kg, ma grafikę do RTX PRO 2000 (8 GB), dysk do 4 TB i cztery porty Thunderbolt. Wersja 16\" (od 2,17 kg) ma ekran do 120 Hz (także OLED 4K), grafikę do RTX PRO 3000 (12 GB), dysk do 8 TB, HDMI, czytnik SD i baterię 96 Wh."
     },
     {
-     "q": "Czy pamięć da się rozbudować po zakupie?",
-     "a": "Nie. Pamięć LPDDR5x jest wlutowana, więc 16, 32 lub 64 GB warto wybrać z zapasem już przy zakupie. Dyski SSD są dostępne do 4 TB w wersji 14\" i do 8 TB w wersji 16\"."
+     "q": "Czy w Dell Pro Precision 7 dołożę pamięć po zakupie?",
+     "a": "Nie. Pamięć LPDDR5x w Precision 7 jest wlutowana, dlatego 16, 32 lub 64 GB dobierz z zapasem już przy zakupie. SSD wybierzesz do 4 TB w wersji 14\" i do 8 TB w wersji 16\"."
     }
    ],
    "konfigurator": {
@@ -35444,8 +35444,8 @@
      "a": "Przez Apple Business — bezpłatną usługę Apple dla firm, dostępną także w Polsce. Od 14 kwietnia 2026 r. zastąpiła ona Apple Business Manager, Business Essentials i Business Connect. Ma wbudowane zarządzanie urządzeniami (MDM): zdalnie zainstalujesz aplikacje, ustawisz Wi-Fi i VPN, a pracownicy logują się Zarządzanymi kontami Apple (Managed Apple Accounts), które można połączyć z kontami Microsoft Entra ID lub Google Workspace. Urządzenia, które przy zakupie zostaną przypisane do konta Apple Business firmy, konfigurują się same przy pierwszym włączeniu — bez ręcznego przygotowywania każdego egzemplarza. Stacje robocze projektantów możesz objąć tymi samymi zasadami bezpieczeństwa co resztę firmowych Maców. Pomożemy założyć konto i przygotować ustawienia dla zespołu."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy przygotujecie MacBooka Pro 14\" lub 16\" do pracy?",
+     "a": "Tak: na MacBooku Pro ustawiamy macOS, konta i programy, a pliki ze starego komputera przenosimy na nowy (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -36381,8 +36381,8 @@
      "a": "Dwa — z tyłu są HDMI 2.1 i DisplayPort 1.4a. Opcjonalnie można dodać moduł z dodatkowym wyjściem wideo, a w wersji Tower zamontować kartę graficzną do kilku monitorów."
     },
     {
-     "q": "Czy da się później rozbudować pamięć i dysk?",
-     "a": "Pamięć DDR5 jest w dwóch gniazdach, maksymalnie 64 GB (2× 32 GB). Oprócz dysku SSD M.2 jest zatoka 3,5\" SATA na dodatkowy dysk HDD do 4 TB, np. na archiwum."
+     "q": "Czy w Dell Pro Tower lub Slim dołożę RAM i drugi dysk?",
+     "a": "Tak. Dell Pro ma dwa gniazda UDIMM na pamięć DDR5 — do 64 GB (2× 32 GB). Obok dysku SSD M.2 NVMe jest zatoka 3,5\" SATA, w której zmieścisz dodatkowy HDD do 4 TB, np. na archiwum."
     }
    ],
    "konfigurator": {
@@ -36933,8 +36933,8 @@
      "a": "M6 to wybór do biura, księgowości i obsługi klienta. M5 Pro ma więcej rdzeni, do 64 GB RAM, dysk do 8 TB i Thunderbolt 5 — wybierz go do grafiki, CAD i montażu wideo."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy skonfigurujecie Maca mini na stanowisko pracownika?",
+     "a": "Tak: na Macu mini ustawiamy macOS, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -38609,8 +38609,8 @@
      "a": "SFF (8,2 l) zajmuje mniej miejsca i wystarczy do pracy biurowej. Tower (13,6 l) wybierz, gdy potrzebujesz pełnowymiarowej karty graficznej, mocniejszego zasilacza albo więcej miejsca na rozbudowę."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy przygotujecie ThinkCentre M70t, M70s lub M75s do pracy?",
+     "a": "Tak: na ThinkCentre instalujemy i ustawiamy Windows 11, konta i programy, a potem przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -40315,8 +40315,8 @@
    ],
    "faq": [
     {
-     "q": "Jak wdrożyć iMaki w firmie?",
-     "a": "Przez Apple Business — bezpłatną usługę Apple dla firm, dostępną także w Polsce. Od 14 kwietnia 2026 r. zastąpiła ona Apple Business Manager, Business Essentials i Business Connect. Ma wbudowane zarządzanie urządzeniami (MDM): zdalnie zainstalujesz aplikacje, ustawisz Wi-Fi i VPN, a pracownicy logują się Zarządzanymi kontami Apple (Managed Apple Accounts), które można połączyć z kontami Microsoft Entra ID lub Google Workspace. Urządzenia, które przy zakupie zostaną przypisane do konta Apple Business firmy, konfigurują się same przy pierwszym włączeniu — bez ręcznego przygotowywania każdego egzemplarza. Pomożemy założyć konto i przygotować ustawienia dla zespołu."
+     "q": "Jak zarządzać iMacami w firmie przez Apple Business?",
+     "a": "Przez Apple Business — darmową usługę Apple dla firm, działającą także w Polsce. 14 kwietnia 2026 r. zastąpiła Apple Business Manager, Business Essentials i Business Connect. Zarządzanie urządzeniami (MDM) jest w niej wbudowane: na każdym iMacu zdalnie zainstalujesz aplikacje oraz ustawisz Wi-Fi i VPN, a pracownicy logują się Zarządzanymi kontami Apple (Managed Apple Accounts), które połączysz z kontami Microsoft Entra ID lub Google Workspace. iMac przypisany przy zakupie do konta Apple Business firmy sam pobierze ustawienia przy pierwszym włączeniu, więc nie konfigurujesz każdego egzemplarza ręcznie. Pomożemy założyć konto i przygotować ustawienia dla zespołu."
     },
     {
      "q": "Czy iMac podłączę do sieci kablem?",
@@ -40327,8 +40327,8 @@
      "a": "iMac to gotowe stanowisko w jednym urządzeniu — mniej kabli, kamera i głośniki w zestawie. Mac mini z osobnym monitorem daje nowszy chip (M6 lub M5 Pro) i swobodę wyboru ekranu."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy skonfigurujecie iMaca 24\" przed pierwszym użyciem?",
+     "a": "Tak: na iMacu ustawiamy macOS, zakładamy konta, instalujemy programy i przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -40603,8 +40603,8 @@
      "a": "Przez Apple Business — bezpłatną usługę Apple dla firm, dostępną także w Polsce. Od 14 kwietnia 2026 r. zastąpiła ona Apple Business Manager, Business Essentials i Business Connect. Ma wbudowane zarządzanie urządzeniami (MDM): zdalnie zainstalujesz aplikacje, ustawisz Wi-Fi i VPN, a pracownicy logują się Zarządzanymi kontami Apple (Managed Apple Accounts), które można połączyć z kontami Microsoft Entra ID lub Google Workspace. Urządzenia, które przy zakupie zostaną przypisane do konta Apple Business firmy, konfigurują się same przy pierwszym włączeniu — bez ręcznego przygotowywania każdego egzemplarza. Stacje robocze obejmiesz tymi samymi zasadami co laptopy i komputery biurowe — jedno miejsce do zarządzania całą flotą Apple. Pomożemy założyć konto i przygotować ustawienia dla zespołu."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy przygotujecie Maca Studio do pracy na stanowisku?",
+     "a": "Tak: Maca Studio uruchamiamy z ustawionym macOS, kontami i programami oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -40862,16 +40862,16 @@
    ],
    "faq": [
     {
-     "q": "Czy podłączę go do starszego komputera?",
-     "a": "Modele Full HD (E22-40, E24-40, E27-40) mają HDMI 1.4, DisplayPort 1.2 i VGA, więc podłączysz też starszy komputer. Modele QHD (E24q-30, E27Q-40) mają HDMI 2.1 i DisplayPort, ale nie mają VGA."
+     "q": "Czy ThinkVision E podłączę do komputera ze złączem VGA?",
+     "a": "Tak, ale tylko modele Full HD: E22-40, E24-40 i E27-40 mają VGA, HDMI 1.4 i DisplayPort 1.2. Wersje QHD (E24q-30, E27Q-40) mają HDMI 2.1 i DisplayPort, bez VGA."
     },
     {
      "q": "Wybrać Full HD czy QHD?",
      "a": "QHD 2560×1440 w modelach E24q-30 i E27Q-40 daje więcej miejsca na tabelki i okna obok siebie. Do kasy czy recepcji zwykle wystarczy Full HD 1920×1080, dostępne w przekątnych 21,5\", 23,8\" i 27\"."
     },
     {
-     "q": "Czy podłączę laptop jednym kablem USB-C?",
-     "a": "Nie — żaden model serii E nie ma USB-C ani portów USB. Jeśli chcesz podłączać i ładować laptop jednym kablem, wybierz monitory serii T w wersjach „D”."
+     "q": "Czy ThinkVision E naładuje laptop przez USB-C?",
+     "a": "Nie — monitory ThinkVision od E22-40 do E27Q-40 nie mają USB-C ani żadnych portów USB. Do podłączenia i ładowania laptopa jednym kablem wybierz serię T w wersjach „D”."
     },
     {
      "q": "Czy mogę ustawić ekran pionowo i wyregulować jego wysokość?",
@@ -41131,8 +41131,8 @@
    ],
    "faq": [
     {
-     "q": "Czy podłączę laptop jednym kablem USB-C?",
-     "a": "Nie — porty USB-C w tych modelach służą tylko do danych i ładowania akcesoriów (15 W), nie przesyłają obrazu. Obraz idzie przez HDMI albo DisplayPort 1.4. Do laptopa na jeden kabel wybierz Dell Pro z hubem USB-C."
+     "q": "Czy port USB-C w Dell P2425D lub P2726H przesyła obraz z laptopa?",
+     "a": "Nie — USB-C w serii Pro P służy tylko do danych i ładowania akcesoriów do 15 W, bez obrazu. Obraz podłączasz przez HDMI lub DisplayPort 1.4. Na jeden kabel do laptopa wybierz Dell Pro z hubem USB-C."
     },
     {
      "q": "Do czego służy wbudowany hub USB?",
@@ -42533,12 +42533,12 @@
      "a": "Modele H (E2226H, E2426H, E2726H) mają stałą stopę tylko z pochyleniem i nie mają głośników — wystarczą na ladę. Modele HS i DS mają regulację wysokości do 130 mm, obrót, ustawienie w pion oraz dwa głośniki 2 W."
     },
     {
-     "q": "Czy podłączę go do starszego komputera?",
-     "a": "Tak, modele Full HD mają HDMI 1.4, DisplayPort 1.4 i VGA. Wyjątkiem jest E2726DS (QHD), który ma HDMI 2.1 i DisplayPort 1.4, ale bez VGA."
+     "q": "Czy Dell E2426H podłączę do starego komputera przez VGA?",
+     "a": "Tak, modele Full HD serii E (np. E2226H, E2426HS) mają VGA, HDMI 1.4 i DisplayPort 1.4. Wyjątek to QHD E2726DS — tylko HDMI 2.1 i DisplayPort 1.4, bez VGA."
     },
     {
-     "q": "Czy podłączę laptop jednym kablem USB-C?",
-     "a": "Nie, żaden model serii E nie ma USB-C ani portów USB. Jeśli chcesz podłączać laptop jednym kablem, wybierz monitor Dell Pro z hubem USB-C."
+     "q": "Czy monitor Dell serii E obsłuży laptop przez USB-C?",
+     "a": "Nie, modele od E2226H po E2726DS nie mają USB-C ani portów USB. Do laptopa podłączanego jednym kablem wybierz Dell Pro z hubem USB-C."
     },
     {
      "q": "Jak wygląda gwarancja na te monitory?",
@@ -43795,8 +43795,8 @@
      "a": "Sam monitor nie wymaga konfiguracji — podłączasz go do Maca. Komputerami zarządzasz przez Apple Business, bezpłatną usługę Apple dla firm (od 14 kwietnia 2026 r. zastąpiła Apple Business Manager i Business Essentials). Ma wbudowane zarządzanie urządzeniami (MDM), Zarządzane konta Apple dla pracowników i automatyczną konfigurację Maców przypisanych do konta firmy przy zakupie. Pomożemy przygotować całe stanowisko."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy przygotujecie Maca do pracy ze Studio Display?",
+     "a": "Tak: konfigurujemy Maca do Studio Display — system, konta, programy — i przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -44046,8 +44046,8 @@
      "a": "Monitor podłączasz do Maca, a komputerami zarządzasz przez Apple Business — bezpłatną usługę Apple dla firm, która od 14 kwietnia 2026 r. zastąpiła Apple Business Manager i Business Essentials. Wbudowane zarządzanie urządzeniami (MDM) pozwala zdalnie instalować aplikacje i ustawienia, a pracownicy logują się Zarządzanymi kontami Apple. Maki przypisane przy zakupie do konta firmy konfigurują się same przy pierwszym włączeniu. Pomożemy przygotować całe stanowisko."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy przygotujecie komputer do pracy ze Studio Display XDR?",
+     "a": "Tak: na komputerze do monitora XDR ustawiamy system, konta i programy, a dane przenosimy ze starego sprzętu (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -44289,8 +44289,8 @@
      "a": "Tak, w wersji Wi-Fi + Cellular. Ma modem 5G, który korzysta wyłącznie z eSIM — numer z pakietem danych aktywujesz bez fizycznej karty SIM."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy przygotujecie iPada Air M4 do pracy w firmie?",
+     "a": "Tak: na iPadzie Air M4 instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -44574,8 +44574,8 @@
    ],
    "faq": [
     {
-     "q": "Jak wdrożyć iPady Pro w firmie?",
-     "a": "Przez Apple Business — bezpłatną usługę Apple dla firm, dostępną także w Polsce. Od 14 kwietnia 2026 r. zastąpiła ona Apple Business Manager, Business Essentials i Business Connect. Ma wbudowane zarządzanie urządzeniami (MDM): zdalnie zainstalujesz aplikacje, ustawisz Wi-Fi i VPN, a pracownicy logują się Zarządzanymi kontami Apple (Managed Apple Accounts), które można połączyć z kontami Microsoft Entra ID lub Google Workspace. Urządzenia, które przy zakupie zostaną przypisane do konta Apple Business firmy, konfigurują się same przy pierwszym włączeniu — bez ręcznego przygotowywania każdego egzemplarza. Pomożemy założyć konto i przygotować ustawienia dla zespołu."
+     "q": "Jak skonfigurować kilka iPadów Pro M5 dla zespołu bez ręcznej pracy?",
+     "a": "Najprościej przez Apple Business — bezpłatną usługę Apple dla firm, dostępną w Polsce, która od 14 kwietnia 2026 r. zastąpiła Apple Business Manager, Business Essentials i Business Connect. Zawiera zarządzanie urządzeniami (MDM), więc na iPadach Pro M5 zdalnie zainstalujesz aplikacje oraz ustawisz Wi-Fi i VPN. Pracownicy logują się Zarządzanymi kontami Apple (Managed Apple Accounts), które połączysz z kontami Microsoft Entra ID lub Google Workspace. iPad Pro przypisany przy zakupie do konta Apple Business firmy konfiguruje się sam przy pierwszym włączeniu, bez przygotowywania każdego egzemplarza osobno. Pomożemy założyć konto i ustawić wszystko dla zespołu."
     },
     {
      "q": "Którą pojemność wybrać?",
@@ -44586,8 +44586,8 @@
      "a": "Tak. Port Thunderbolt obsługuje monitor do 6K przy 60 Hz lub 5K przy 120 Hz. Ze Studio Display XDR iPad Pro pracuje z odświeżaniem 120 Hz."
     },
     {
-     "q": "Czy przygotujecie sprzęt do pracy?",
-     "a": "Tak: instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy przygotujecie iPada Pro M5 do pracy?",
+     "a": "Tak: na iPadzie Pro M5 instalujemy i ustawiamy system, konta i programy, a dane przenosimy ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -45150,8 +45150,8 @@
      "a": "Tak. iPhone 17 obsługuje kartę nano-SIM i eSIM, a także dwa eSIM jednocześnie. Pracownik ma dwa numery na jednym urządzeniu i sam wybiera, z którego dzwoni."
     },
     {
-     "q": "Czy iPhone może przyjmować płatności kartą?",
-     "a": "Apple podaje, że funkcja Tap to Pay on iPhone jest dostępna w Polsce — telefon przyjmuje wtedy płatności zbliżeniowe bez osobnego urządzenia. Potrzebna jest aplikacja operatora płatności, który ją obsługuje. Sprawdzimy, czy Twój operator to umożliwia, czy wygodniejszy będzie klasyczny terminal płatniczy."
+     "q": "Czy iPhone 17 przyjmie płatność kartą bez terminala?",
+     "a": "Według Apple funkcja Tap to Pay on iPhone jest dostępna w Polsce, więc iPhone 17 może przyjmować płatności zbliżeniowe bez dodatkowego czytnika. Wymaga to aplikacji operatora płatności, który tę funkcję obsługuje. Sprawdzimy, czy Twój operator ją ma, czy lepiej sprawdzi się klasyczny terminal płatniczy."
     },
     {
      "q": "iPhone 17 czy iPhone 18 Pro?",
@@ -45421,12 +45421,12 @@
      "a": "Procesor, pamięć RAM, aparaty i łączność są takie same. S26 jest mniejszy i lżejszy (167 g). S26+ ma większy ekran QHD+, większą baterię (4900 mAh) i szybsze ładowanie (45 W) — lepszy dla osób, które cały dzień pracują na telefonie."
     },
     {
-     "q": "Jak zarządzać firmowymi telefonami Samsung?",
-     "a": "Przez Samsung Knox. Plan bazowy Knox Suite jest bezpłatny przy zakupie telefonu Galaxy i obejmuje Knox Mobile Enrollment — nowe telefony same zapisują się do firmowego systemu zarządzania. Rozszerzone plany (Essentials dla małych i średnich firm, Enterprise) dodają Knox Manage: gotowe polityki bezpieczeństwa, tryb kiosku, zdalne wsparcie i reguły zależne od lokalizacji czy zmiany karty SIM. Pomożemy dobrać plan i wdrożyć go w firmie."
+     "q": "Jak zarządzać firmowymi Galaxy S26 i S26+?",
+     "a": "Przez Samsung Knox. Przy zakupie Galaxy S26 lub S26+ plan bazowy Knox Suite jest bezpłatny i zawiera Knox Mobile Enrollment, dzięki któremu nowe telefony same dołączają do firmowego systemu zarządzania. Plany rozszerzone (Essentials dla małych i średnich firm oraz Enterprise) dokładają Knox Manage: gotowe polityki bezpieczeństwa, tryb kiosku, zdalne wsparcie i reguły zależne od lokalizacji albo zmiany karty SIM. Pomożemy wybrać plan i wdrożyć go w firmie."
     },
     {
-     "q": "Jak długo telefon będzie dostawał aktualizacje?",
-     "a": "Samsung obiecuje dla serii Galaxy S26 do 7 generacji aktualizacji Androida oraz poprawek bezpieczeństwa."
+     "q": "Ile lat aktualizacji dostanie Galaxy S26?",
+     "a": "Samsung zapowiada dla Galaxy S26 i S26+ do 7 generacji aktualizacji Androida i poprawek bezpieczeństwa (do 28.02.2033)."
     },
     {
      "q": "Czy w jednej konsoli zarządzę też iPhone'ami i komputerami?",
@@ -45696,8 +45696,8 @@
      "a": "Przez Apple Business — bezpłatną usługę Apple dla firm, dostępną także w Polsce. Od 14 kwietnia 2026 r. zastąpiła ona Apple Business Manager, Business Essentials i Business Connect. Ma wbudowane zarządzanie urządzeniami (MDM): zdalnie zainstalujesz aplikacje, ustawisz Wi-Fi i VPN, a pracownicy logują się Zarządzanymi kontami Apple (Managed Apple Accounts), które można połączyć z kontami Microsoft Entra ID lub Google Workspace. Urządzenia, które przy zakupie zostaną przypisane do konta Apple Business firmy, konfigurują się same przy pierwszym włączeniu — bez ręcznego przygotowywania każdego egzemplarza. Oba modele obsługują dwa eSIM, więc numer służbowy można dodać zdalnie, bez wymiany karty. Pomożemy założyć konto i przygotować ustawienia dla zespołu."
     },
     {
-     "q": "Czy iPhone może przyjmować płatności kartą?",
-     "a": "Apple podaje, że funkcja Tap to Pay on iPhone jest dostępna w Polsce — telefon przyjmuje wtedy płatności zbliżeniowe bez osobnego urządzenia. Potrzebna jest aplikacja operatora płatności, który ją obsługuje. Sprawdzimy, czy Twój operator to umożliwia, czy wygodniejszy będzie klasyczny terminal płatniczy."
+     "q": "Czy przyjmę płatność zbliżeniową na iPhonie 18 Pro?",
+     "a": "Apple informuje, że Tap to Pay on iPhone działa w Polsce — iPhone 18 Pro lub 18 Pro Max przyjmie wtedy płatność zbliżeniową bez osobnego terminala. Potrzebujesz do tego aplikacji operatora płatności, który obsługuje tę funkcję. Sprawdzimy, czy Twój operator to oferuje, czy wygodniej będzie z klasycznym terminalem płatniczym."
     },
     {
      "q": "Czym 18 Pro różni się od iPhone'a 17?",
@@ -45970,12 +45970,12 @@
      "a": "To sprzętowe zawężenie kąta widzenia ekranu: patrząc na wprost widzisz wszystko, osoba z boku — ciemną powierzchnię. Funkcję można włączać ręcznie albo ustawić, by uruchamiała się sama, np. przy wpisywaniu PIN-u lub w wybranych aplikacjach, takich jak bankowość czy poczta."
     },
     {
-     "q": "Jak zarządzać firmowymi telefonami Samsung?",
-     "a": "Przez Samsung Knox. Plan bazowy Knox Suite jest bezpłatny przy zakupie telefonu Galaxy i obejmuje Knox Mobile Enrollment — nowe telefony same zapisują się do firmowego systemu zarządzania. Rozszerzone plany (Essentials, Enterprise) dodają Knox Manage z gotowymi politykami bezpieczeństwa, trybem kiosku i zdalnym wsparciem; konsola obsługuje też iPhone'y oraz komputery z Windows i macOS. Pomożemy dobrać plan i wdrożyć go w firmie."
+     "q": "Jak wdrożyć Galaxy S26 Ultra we flocie firmowych telefonów?",
+     "a": "Przez Samsung Knox. Kupując Galaxy S26 Ultra, dostajesz bezpłatny plan bazowy Knox Suite z Knox Mobile Enrollment — telefon sam zapisuje się do firmowego systemu zarządzania. Rozszerzone plany (Essentials, Enterprise) dodają Knox Manage z gotowymi politykami bezpieczeństwa, trybem kiosku i zdalnym wsparciem, a jedna konsola obsłuży też iPhone'y oraz komputery z Windows i macOS. Pomożemy dobrać plan i go wdrożyć."
     },
     {
-     "q": "Jak długo telefon będzie dostawał aktualizacje?",
-     "a": "Samsung obiecuje dla Galaxy S26 Ultra 7 dużych aktualizacji systemu i 7 lat poprawek bezpieczeństwa."
+     "q": "Do kiedy Galaxy S26 Ultra będzie dostawał aktualizacje?",
+     "a": "Samsung zapowiada dla S26 Ultra 7 dużych aktualizacji systemu i 7 lat poprawek bezpieczeństwa (do 28.02.2033)."
     },
     {
      "q": "S26 Ultra czy S26+?",
@@ -46221,12 +46221,12 @@
      "a": "Nie. Zestaw działa od razu po podłączeniu odbiornika. Opcjonalna aplikacja Logi Options+ (Windows, macOS) pozwala przypisać funkcje klawiszom F."
     },
     {
-     "q": "Na jak długo starczają baterie?",
-     "a": "Producent nie podaje czasu pracy na stronie MK370 for Business. Baterie (2× AAA w klawiaturze, 1× AA w myszy) są w zestawie."
+     "q": "Na ile wystarczą baterie AAA i AA w zestawie MK370?",
+     "a": "Logitech nie podaje czasu pracy na stronie MK370 Combo for Business. W pudełku są baterie: 2× AAA do klawiatury i 1× AA do myszy."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy podłączycie zestaw MK370 do naszych komputerów?",
+     "a": "Tak, przy przygotowaniu komputera wpinamy odbiornik Logi Bolt i ustawiamy klawiaturę oraz mysz MK370."
     }
    ],
    "polecane": [
@@ -46400,8 +46400,8 @@
      "a": "Według producenta pełne naładowanie wystarcza na około 10 dni z włączonym podświetleniem albo na około 5 miesięcy bez podświetlenia. Ładujesz ją zwykłym kablem USB-C, który jest w zestawie."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy skonfigurujecie MX Keys for Business na komputerze?",
+     "a": "Tak, przy przygotowaniu komputera podłączamy MX Keys przez Logi Bolt lub Bluetooth i ustawiamy ją razem z myszą."
     }
    ],
    "podobne": [
@@ -46562,8 +46562,8 @@
      "a": "Pozwala przypisać przyciskom i gestom własne funkcje, np. kopiuj–wklej czy przełączanie okien. Działa w systemach Windows i macOS; bez niej mysz działa normalnie z podstawowymi funkcjami."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy podłączycie mysz MX Master 3S do komputerów w firmie?",
+     "a": "Tak, przy przygotowaniu komputera parujemy MX Master 3S z odbiornikiem Logi Bolt i ustawiamy ją z klawiaturą."
     }
    ],
    "podobne": [
@@ -46734,8 +46734,8 @@
      "a": "Brio 505 jest kamerą osobistą, z mikrofonami o zasięgu ok. 1,2 m. Do sali konferencyjnej polecamy MeetUp 2 lub Rally Bar Huddle."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy podłączycie kamerę Brio 505 do komputera?",
+     "a": "Tak, przy przygotowaniu komputera wpinamy Brio 505 do portu USB-C i ustawiamy kamerę razem ze słuchawkami i myszą."
     }
    ],
    "podobne": [
@@ -46927,8 +46927,8 @@
      "a": "Tak, Bluetooth multipoint obsługuje dwa aktywne urządzenia jednocześnie."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy skonfigurujecie słuchawki Zone Vibe Wireless z komputerem?",
+     "a": "Tak, przy przygotowaniu komputera parujemy Zone Vibe przez Bluetooth lub odbiornik USB i ustawiamy słuchawki."
     }
    ],
    "podobne": [
@@ -47107,8 +47107,8 @@
      "a": "Naturalną parą jest pionowa mysz Lift for Business. Obie łączą się przez Logi Bolt, a jeden odbiornik Logi Bolt obsłuży do 6 urządzeń."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy podłączycie Wave Keys for Business przy stanowisku?",
+     "a": "Tak. Przygotowując komputer, łączymy Wave Keys z odbiornikiem Logi Bolt i ustawiamy klawiaturę z myszą."
     }
    ],
    "podobne": [
@@ -47263,8 +47263,8 @@
      "a": "Jest mniejsza i lżejsza (99 g zamiast 141 g), stworzona do noszenia z laptopem. MX Master 3S ma dodatkowe kółko pod kciukiem i lepiej podpiera całą dłoń przy pracy przy biurku."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy przygotujecie MX Anywhere 3S razem z laptopem?",
+     "a": "Tak, przy przygotowaniu laptopa parujemy MX Anywhere 3S przez Bluetooth lub Logi Bolt i ustawiamy mysz."
     }
    ],
    "podobne": [
@@ -47432,8 +47432,8 @@
      "a": "Strona producenta nie wymienia leworęcznej wersji M650 for Business. Dla osoby leworęcznej proponujemy pionową mysz Lift for Business w wersji dla lewej ręki."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy podłączycie mysz Signature M650 do komputerów?",
+     "a": "Tak, przy przygotowaniu komputera łączymy M650 lub M650 L z odbiornikiem Logi Bolt i ustawiamy mysz."
     }
    ],
    "podobne": [
@@ -47618,8 +47618,8 @@
      "a": "Według producenta jedna bateria AA wystarcza na około 24 miesiące. Czas zależy od intensywności używania."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy ustawicie pionową mysz Lift for Business przy komputerze?",
+     "a": "Tak, przy przygotowaniu komputera wpinamy sparowany odbiornik Logi Bolt myszy Lift i ustawiamy ją."
     }
    ],
    "podobne": [
@@ -47786,8 +47786,8 @@
    ],
    "faq": [
     {
-     "q": "Czy trzeba instalować sterowniki?",
-     "a": "Nie. Oba urządzenia są typu plug and play — po podłączeniu do portu USB działają od razu."
+     "q": "Czy K120 i M100 wymagają instalowania sterowników?",
+     "a": "Nie. Klawiatura K120 i mysz M100 są plug and play — po wpięciu przewodów do portów USB działają od razu."
     },
     {
      "q": "Czy mysz nada się dla osoby leworęcznej?",
@@ -47798,8 +47798,8 @@
      "a": "Na wspólnych stanowiskach (kasa, pracownia, recepcja) przewód oznacza brak baterii do pilnowania i zgubionych odbiorników. Jeśli kabel przeszkadza, polecamy MK295 Silent albo MK370 Combo for Business."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy podłączycie K120 i M100 do komputera na stanowisku?",
+     "a": "Tak, przy przygotowaniu komputera wpinamy K120 i M100 do portów USB i sprawdzamy, czy działają."
     }
    ],
    "podobne": [
@@ -47978,8 +47978,8 @@
      "a": "Producent podaje, że technologia SilentTouch eliminuje ponad 90% hałasu zarówno klawiatury, jak i myszy. To główny powód, dla którego wybiera się ten zestaw do gabinetów i recepcji."
     },
     {
-     "q": "Na jak długo starczają baterie?",
-     "a": "Strona sklepu Logitech PL nie podaje czasu pracy na bateriach dla MK295. Potwierdzimy go przy zamówieniu."
+     "q": "Jak długo MK295 Silent działa na jednym komplecie baterii?",
+     "a": "Strona Logitech PL nie podaje czasu pracy na bateriach dla zestawu MK295 Silent. Potwierdzimy go przy zamówieniu."
     },
     {
      "q": "Czy klawiatura przetrwa rozlaną kawę?",
@@ -48173,8 +48173,8 @@
      "a": "MK650 ma klawiaturę z wbudowaną podpórką i więcej klawiszy skrótów, a mysz 5 przycisków i kółko SmartWheel (MK370: 2 przyciski). To zestaw wygodniejszy przy wielogodzinnej pracy."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy podłączycie zestaw Signature MK650 do komputera?",
+     "a": "Tak, przy przygotowaniu komputera wpinamy odbiornik Logi Bolt i ustawiamy klawiaturę K650 oraz mysz M650."
     }
    ],
    "polecane": [
@@ -48344,8 +48344,8 @@
      "a": "Według producenta do 3 lat w klawiaturze i do 2 lat w myszy. Czas zależy od intensywności używania."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy przygotujecie zestaw MK950 na stanowisku pracy?",
+     "a": "Tak, przy przygotowaniu komputera łączymy smukły zestaw MK950 przez Logi Bolt lub Bluetooth i go ustawiamy."
     }
    ],
    "polecane": [
@@ -48677,8 +48677,8 @@
      "a": "RightSight wymaga aplikacji Logi Tune (Windows, macOS) i według producenta nie działa na komputerach z procesorami ARM."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy podłączycie kamerę MX Brio 705 do komputera?",
+     "a": "Tak. Przygotowując komputer, podłączamy kamerę 4K MX Brio 705 przez USB-C i ustawiamy ją z akcesoriami."
     }
    ],
    "podobne": [
@@ -48856,8 +48856,8 @@
      "a": "Według producenta do 15 h rozmów i do 22 h słuchania. Bez ANC odpowiednio do 18 h i do 40 h."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy podłączycie Zone Wireless 2 do służbowego laptopa?",
+     "a": "Tak, przy przygotowaniu komputera łączymy Zone Wireless 2 przez odbiornik USB-C lub Bluetooth i ustawiamy ANC."
     }
    ],
    "podobne": [
@@ -49027,8 +49027,8 @@
      "a": "Zone 305 projektowano do wdrożeń masowych: dział IT może aktualizować i monitorować słuchawki w Logitech Sync, a ustawienia każdy pracownik zmienia w Logi Tune."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy ustawicie zestaw Zone 305 na komputerach zespołu?",
+     "a": "Tak, przy przygotowaniu komputera parujemy Zone 305 przez Bluetooth 5.3 lub odbiornik i ustawiamy zestaw."
     }
    ],
    "podobne": [
@@ -49196,16 +49196,16 @@
      "a": "Mono zostawia jedno ucho wolne, więc pracownik słyszy klienta przy ladzie czy w poczekalni. Stereo lepiej odcina od otoczenia i jest wygodniejsze przy wielu godzinach rozmów w biurze."
     },
     {
-     "q": "Czy trzeba instalować sterowniki?",
-     "a": "Nie. Producent podaje, że H570e działa w Windows, macOS i ChromeOS bez sterowników. Opcjonalna aplikacja Logi Tune (wersja Teams) daje m.in. ochronę przed nagłymi głośnymi dźwiękami."
+     "q": "Czy do H570e trzeba instalować sterowniki?",
+     "a": "Nie. Według producenta H570e działa w Windows, macOS i ChromeOS bez sterowników — wystarczy port USB. Opcjonalna aplikacja Logi Tune (wersja Teams) chroni m.in. przed nagłymi głośnymi dźwiękami."
     },
     {
      "q": "Wersja Teams czy UC?",
      "a": "Teams — jeśli firma używa Microsoft Teams (certyfikat i przycisk Teams). UC — dla pozostałych platform; ta wersja ma tylko złącze USB-A."
     },
     {
-     "q": "Czy podłączycie akcesoria do komputerów?",
-     "a": "Tak, przy przygotowaniu komputera podłączamy i ustawiamy klawiatury, myszy, kamery i słuchawki."
+     "q": "Czy podłączycie H570e do komputerów na stanowiskach?",
+     "a": "Tak, przy przygotowaniu komputera wpinamy H570e do USB i ustawiamy zestaw jako urządzenie audio."
     }
    ],
    "podobne": [
@@ -50373,8 +50373,8 @@
      "a": "Kontroler RAID PERC zapisuje dane na dwóch lub więcej dyskach naraz, więc awaria jednego dysku nie zatrzymuje pracy. Dla danych firmy zalecamy co najmniej 2 dyski w RAID 1 (lustro); w T160 kontroler RAID jest opcjonalny. Kopię warto trzymać też na drugim nośniku poza serwerem."
     },
     {
-     "q": "Jaki system operacyjny można zainstalować?",
-     "a": "Typowe konfiguracje są bez systemu, a licencja Microsoft Windows Server jest opcją. Dell potwierdza zgodność z Windows Server z Hyper-V, Ubuntu Server, RHEL, SLES i VMware ESXi."
+     "q": "Jaki system postawię na Dell PowerEdge T160 lub T360?",
+     "a": "Typowe konfiguracje T160 i T360 przychodzą bez systemu, a licencja Windows Server jest opcją. Dell potwierdza zgodność obu wież z Windows Server z Hyper-V, Ubuntu Server, RHEL, SLES i VMware ESXi."
     },
     {
      "q": "Czy serwis może sprawdzić serwer zdalnie?",
@@ -51362,8 +51362,8 @@
      "a": "Typowo do wyboru jest 1× 700 W albo 2× 700 W redundantne hot-swap. Przy dwóch zasilaczach awaria jednego nie wyłącza serwera, a uszkodzony wymienisz bez wyłączania."
     },
     {
-     "q": "Jaki system operacyjny można zainstalować?",
-     "a": "Typowe konfiguracje są bez systemu, a licencja Microsoft Windows Server jest opcją. Dell potwierdza zgodność z Windows Server z Hyper-V, Ubuntu Server, RHEL, SLES i VMware ESXi."
+     "q": "Czy na Dell PowerEdge R360 zainstaluję Windows Server albo Linuksa?",
+     "a": "Typowy R360 przychodzi bez systemu, a Windows Server dokupisz jako opcję. Dell potwierdza dla tego serwera rack 1U zgodność z Windows Server z Hyper-V, Ubuntu Server, RHEL, SLES i VMware ESXi."
     }
    ],
    "konfigurator": {
@@ -53527,8 +53527,8 @@
      "a": "Tak, w modelach TS-264, TS-364, TS-464 i TS-473A są dwa gniazda M.2 2280 na dyski SSD NVMe. Modele z procesorem ARM (TS-233, TS-216G, TS-433) nie mają gniazd M.2."
     },
     {
-     "q": "Czy podłączę NAS do sieci 10 GbE?",
-     "a": "Tak, w TS-264, TS-464 i TS-473A — przez kartę 10 GbE w gnieździe PCIe. Pozostałe modele mają porty 1 GbE lub 2,5 GbE, a TS-264, TS-464 i TS-473A po dwa porty 2,5 GbE w standardzie."
+     "q": "Czy biurowy QNAP na 2–4 dyski podłączę do sieci 10 GbE?",
+     "a": "Tak, ale tylko TS-264, TS-464 i TS-473A — po włożeniu karty 10 GbE w gniazdo PCIe. Te trzy mają też w standardzie dwa porty 2,5 GbE, a TS-233, TS-216G, TS-433 i TS-364 zostają przy 1 GbE lub 2,5 GbE."
     },
     {
      "q": "Jak NAS robi kopie komputerów i nagrywa kamery?",
@@ -54148,8 +54148,8 @@
      "a": "Modele 1U mieszczą 4 dyski, modele 2U — 8 dysków, a TS-1273AU-RP — 12 dysków 3,5\"/2,5\" SATA. Urządzenia są sprzedawane bez dysków, więc pojemność dobierasz osobno."
     },
     {
-     "q": "Czy podłączę NAS do sieci 10 GbE?",
-     "a": "Wszystkie modele mają dwa porty 2,5 GbE. TS-432XeU ma dodatkowo port 10 GbE SFP+, a w modelach z gniazdem PCIe 10 GbE dodasz kartą. Producent daje 3 lata gwarancji na wszystkie modele z tej karty."
+     "q": "Które QNAP-y do szafy rack obsłużą 10 GbE?",
+     "a": "Każdy model rack ma dwa porty 2,5 GbE. TS-432XeU dokłada port 10 GbE SFP+, a w TS-464U, TS-864eU, TS-873AeU i TS-1273AU-RP 10 GbE dodasz kartą PCIe. Na wszystkie modele z tej karty producent daje 3 lata gwarancji."
     }
    ],
    "konfigurator": {
@@ -54436,8 +54436,8 @@
      "a": "Nie. RAID chroni przed awarią dysku; ważne dane trzymaj też w drugiej kopii poza serwerem."
     },
     {
-     "q": "Czy ustawicie kopie zapasowe?",
-     "a": "Tak, według zasady 3-2-1: trzy kopie, na dwóch nośnikach, jedna poza firmą — i robimy próbne odtworzenie plików."
+     "q": "Czy ustawicie kopie zapasowe danych z DS2422+ lub RS2825RP+?",
+     "a": "Tak, wg zasady 3-2-1: dane z Synology w trzech kopiach, na dwóch nośnikach, jedna poza firmą — plus próbne odtworzenie plików."
     }
    ],
    "konfigurator": {
@@ -56121,20 +56121,20 @@
    ],
    "faq": [
     {
-     "q": "Jak długo UPS podtrzyma sprzęt?",
-     "a": "To zależy od tego, ile sprzętu podłączysz. Czas podtrzymania liczymy dla Twoich urządzeń z danych producenta, a gdy potrzeba dłużej — dobieramy większy model albo dodatkowe baterie, jeśli dany UPS je obsługuje."
+     "q": "Jak długo COVER FLIX 6K podtrzyma moje urządzenia?",
+     "a": "To zależy od obciążenia: producent podaje dla baterii 9 Ah 6 min przy pełnej mocy i 42 min przy 25%. Czas liczymy dla Twojego sprzętu z tych danych, a gdy trzeba dłużej — dobieramy większy model albo baterie zewnętrzne."
     },
     {
-     "q": "Czy UPS sam wyłączy serwer przed końcem baterii?",
-     "a": "Tak, jeśli jest połączony z serwerem lub NAS-em — przez kartę sieciową SNMP albo kabel z oprogramowaniem. Wtedy serwer i NAS zamykają się bezpiecznie, zanim bateria się wyczerpie. Ustawiamy to przy wdrożeniu."
+     "q": "Czy FLIX 6K zamknie serwer, zanim padną baterie?",
+     "a": "Tak, jeśli połączysz go z serwerem lub NAS-em — kartą SNMP w slocie albo kablem USB lub RS232 z oprogramowaniem. Serwer i NAS wyłączą się wtedy bezpiecznie przed rozładowaniem akumulatorów. Konfigurujemy to przy wdrożeniu."
     },
     {
-     "q": "Kiedy wymienić baterie?",
-     "a": "Baterie zużywają się z czasem, szybciej w ciepłym pomieszczeniu. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
+     "q": "Kiedy wymienić akumulatory w COVER FLIX 6K?",
+     "a": "16 akumulatorów w FLIX 6K zużywa się z czasem, szybciej w cieple. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
     },
     {
-     "q": "Czy ustawicie kopie zapasowe?",
-     "a": "Tak, według zasady 3-2-1: trzy kopie, na dwóch nośnikach, jedna poza firmą — i robimy próbne odtworzenie plików."
+     "q": "Czy przy FLIX 6K zadbacie też o kopie zapasowe?",
+     "a": "Tak. UPS chroni przed zanikiem prądu, a kopie ustawiamy wg 3-2-1: trzy kopie, dwa nośniki, jedna poza firmą, z próbnym odtworzeniem."
     }
    ],
    "polecane": [
@@ -56299,20 +56299,20 @@
    ],
    "faq": [
     {
-     "q": "Jak długo UPS podtrzyma sprzęt?",
-     "a": "To zależy od tego, ile sprzętu podłączysz. Czas podtrzymania liczymy dla Twoich urządzeń z danych producenta, a gdy potrzeba dłużej — dobieramy większy model albo dodatkowe baterie, jeśli dany UPS je obsługuje."
+     "q": "Ile wytrzyma COVER CORE 6K lub 10K na bateriach?",
+     "a": "To zależy od podłączonego sprzętu. Z jednym modułem bateryjnym producent podaje przy połowie obciążenia 21 min dla 6K i 11 min dla 10K. Liczymy czas dla Twoich urządzeń, a dłuższy uzyskasz z kolejnymi modułami 3U lub większym modelem."
     },
     {
-     "q": "Czy UPS sam wyłączy serwer przed końcem baterii?",
-     "a": "Tak, jeśli jest połączony z serwerem lub NAS-em — przez kartę sieciową SNMP albo kabel z oprogramowaniem. Wtedy serwer i NAS zamykają się bezpiecznie, zanim bateria się wyczerpie. Ustawiamy to przy wdrożeniu."
+     "q": "Czy COVER CORE wyłączy serwer w szafie przed rozładowaniem?",
+     "a": "Tak, gdy połączysz go z serwerem lub NAS-em — kartą SNMP albo kablem z programem ViewPower. Urządzenia zamkną się wtedy bezpiecznie, zanim moduł bateryjny się wyczerpie. Ustawiamy to przy wdrożeniu w szafie rack."
     },
     {
-     "q": "Kiedy wymienić baterie?",
-     "a": "Baterie zużywają się z czasem, szybciej w ciepłym pomieszczeniu. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
+     "q": "Kiedy wymienić akumulatory w modułach COVER CORE?",
+     "a": "Akumulatory w modułach 3U starzeją się z czasem, szybciej w ciepłej serwerowni. Sprawdzamy je przy przeglądzie i wymieniamy przed awarią."
     },
     {
-     "q": "Czy ustawicie kopie zapasowe?",
-     "a": "Tak, według zasady 3-2-1: trzy kopie, na dwóch nośnikach, jedna poza firmą — i robimy próbne odtworzenie plików."
+     "q": "Czy obok COVER CORE ustawicie kopie zapasowe serwera?",
+     "a": "Tak. CORE podtrzyma zasilanie szafy, a dane chronimy wg 3-2-1: trzy kopie, dwa nośniki, jedna poza firmą, z próbnym odtworzeniem."
     }
    ],
    "konfigurator": {
@@ -56507,20 +56507,20 @@
    ],
    "faq": [
     {
-     "q": "Jak długo UPS podtrzyma sprzęt?",
-     "a": "To zależy od tego, ile sprzętu podłączysz. Czas podtrzymania liczymy dla Twoich urządzeń z danych producenta, a gdy potrzeba dłużej — dobieramy większy model albo dodatkowe baterie, jeśli dany UPS je obsługuje."
+     "q": "Jak długo COVER JR 10K podtrzyma zasilanie?",
+     "a": "To zależy od mocy podłączonych urządzeń i liczby akumulatorów — JR 10K mieści do 40 baterii 9 Ah w obudowie. Czas liczymy dla Twojego sprzętu z danych producenta, a gdy trzeba dłużej, dobieramy większy model lub baterie na stelażu."
     },
     {
-     "q": "Czy UPS sam wyłączy serwer przed końcem baterii?",
-     "a": "Tak, jeśli jest połączony z serwerem lub NAS-em — przez kartę sieciową SNMP albo kabel z oprogramowaniem. Wtedy serwer i NAS zamykają się bezpiecznie, zanim bateria się wyczerpie. Ustawiamy to przy wdrożeniu."
+     "q": "Czy JR 10K sam zamknie serwer przed końcem baterii?",
+     "a": "Tak, gdy jest połączony z serwerem lub NAS-em — przez opcjonalną kartę SNMP albo kabel z oprogramowaniem ViewPower. Serwer i NAS wyłączą się wtedy bezpiecznie przed rozładowaniem baterii. Ustawiamy to przy wdrożeniu."
     },
     {
-     "q": "Kiedy wymienić baterie?",
-     "a": "Baterie zużywają się z czasem, szybciej w ciepłym pomieszczeniu. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
+     "q": "Kiedy wymienić baterie w COVER JR 10K?",
+     "a": "Baterie VRLA, AGM lub żelowe w JR 10K zużywają się z czasem, szybciej w cieple. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
     },
     {
-     "q": "Czy ustawicie kopie zapasowe?",
-     "a": "Tak, według zasady 3-2-1: trzy kopie, na dwóch nośnikach, jedna poza firmą — i robimy próbne odtworzenie plików."
+     "q": "Czy razem z JR 10K ustawicie kopie zapasowe?",
+     "a": "Tak. JR 10K chroni przed zanikiem prądu, a kopie robimy wg 3-2-1: trzy kopie, dwa nośniki, jedna poza firmą, z próbą odtworzenia."
     }
    ],
    "polecane": [
@@ -56690,20 +56690,20 @@
    ],
    "faq": [
     {
-     "q": "Jak długo UPS podtrzyma sprzęt?",
-     "a": "To zależy od tego, ile sprzętu podłączysz. Czas podtrzymania liczymy dla Twoich urządzeń z danych producenta, a gdy potrzeba dłużej — dobieramy większy model albo dodatkowe baterie, jeśli dany UPS je obsługuje."
+     "q": "Ile czasu da COVER INSERT 15K–40K na bateriach?",
+     "a": "To zależy od obciążenia i liczby łańcuchów baterii — w szafie INSERT mieszczą się 2, 3 lub 4 łańcuchy po 40 szt., zależnie od mocy. Czas liczymy dla Twoich urządzeń z danych producenta, a dłuższy dają baterie na stelażu lub większy model."
     },
     {
-     "q": "Czy UPS sam wyłączy serwer przed końcem baterii?",
-     "a": "Tak, jeśli jest połączony z serwerem lub NAS-em — przez kartę sieciową SNMP albo kabel z oprogramowaniem. Wtedy serwer i NAS zamykają się bezpiecznie, zanim bateria się wyczerpie. Ustawiamy to przy wdrożeniu."
+     "q": "Czy COVER INSERT bezpiecznie wyłączy serwery przy długiej awarii?",
+     "a": "Tak, jeśli połączysz go z serwerami lub NAS-em — opcjonalną kartą SNMP albo kablem z oprogramowaniem. Urządzenia zamkną się wtedy poprawnie, zanim baterie w szafie się wyczerpią. Konfigurujemy to przy wdrożeniu."
     },
     {
-     "q": "Kiedy wymienić baterie?",
-     "a": "Baterie zużywają się z czasem, szybciej w ciepłym pomieszczeniu. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
+     "q": "Kiedy wymienić baterie w szafie COVER INSERT?",
+     "a": "Łańcuchy baterii w szafie INSERT zużywają się z czasem, szybciej w cieple. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
     },
     {
-     "q": "Czy ustawicie kopie zapasowe?",
-     "a": "Tak, według zasady 3-2-1: trzy kopie, na dwóch nośnikach, jedna poza firmą — i robimy próbne odtworzenie plików."
+     "q": "Czy przy wdrożeniu COVER INSERT zajmiecie się kopiami danych?",
+     "a": "Tak. INSERT zabezpiecza zasilanie, a kopie ustawiamy wg 3-2-1: trzy kopie, dwa nośniki, jedna poza firmą, z próbnym odtworzeniem."
     }
    ],
    "konfigurator": {
@@ -56904,16 +56904,16 @@
    ],
    "faq": [
     {
-     "q": "Jak długo UPS podtrzyma sprzęt?",
-     "a": "To zależy od tego, ile sprzętu podłączysz. Czas podtrzymania liczymy dla Twoich urządzeń z danych producenta, a gdy potrzeba dłużej, dobieramy większy model albo dodatkowe moduły bateryjne."
+     "q": "Jak długo COVER PS podtrzyma sprzęt w szafie?",
+     "a": "To zależy od obciążenia. Minimum to dwa moduły bateryjne 3U po 20 akumulatorów; czas liczymy dla Twoich urządzeń z danych producenta, a gdy potrzeba dłużej, dokładamy moduły bateryjne albo dobieramy większą moc."
     },
     {
-     "q": "Czy UPS sam wyłączy serwer przed końcem baterii?",
-     "a": "Tak, jeśli jest połączony z serwerem lub NAS-em przez kartę sieciową SNMP albo kabel z oprogramowaniem. Wtedy serwer i NAS zamykają się bezpiecznie, zanim bateria się wyczerpie. Ustawiamy to przy wdrożeniu."
+     "q": "Czy modułowy COVER PS zamknie serwer przed wyczerpaniem baterii?",
+     "a": "Tak, jeśli łączy go z serwerem lub NAS-em karta SNMP albo kabel USB lub RS232 z oprogramowaniem. Wtedy urządzenia wyłączają się bezpiecznie, zanim moduły bateryjne się rozładują. Ustawiamy to przy wdrożeniu."
     },
     {
-     "q": "Kiedy wymienić baterie?",
-     "a": "Baterie zużywają się z czasem, szybciej w ciepłym pomieszczeniu. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
+     "q": "Jak często wymienia się baterie w COVER PS?",
+     "a": "Akumulatory w modułach rack 3U zużywają się z czasem, szybciej w ciepłej szafie. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
     },
     {
      "q": "Ile miejsca w szafie zajmie cały zestaw?",
@@ -57077,20 +57077,20 @@
    ],
    "faq": [
     {
-     "q": "Jak długo UPS podtrzyma sprzęt?",
-     "a": "To zależy od tego, ile sprzętu podłączysz. Czas podtrzymania liczymy dla Twoich urządzeń z danych producenta, a gdy potrzeba dłużej — dobieramy większy model albo dodatkowe baterie, jeśli dany UPS je obsługuje."
+     "q": "Jak długo COVER MY 30K utrzyma zasilanie?",
+     "a": "To zależy od obciążenia i liczby akumulatorów — w wąskiej obudowie MY 30K mieści się od 48 do 80 baterii 7 lub 9 Ah. Czas liczymy dla Twojego sprzętu z danych producenta, a dłuższy dają baterie na stelażu albo większy model."
     },
     {
-     "q": "Czy UPS sam wyłączy serwer przed końcem baterii?",
-     "a": "Tak, jeśli jest połączony z serwerem lub NAS-em — przez kartę sieciową SNMP albo kabel z oprogramowaniem. Wtedy serwer i NAS zamykają się bezpiecznie, zanim bateria się wyczerpie. Ustawiamy to przy wdrożeniu."
+     "q": "Czy COVER MY 30K wyłączy serwery przed końcem baterii?",
+     "a": "Tak, jeśli jest połączony z serwerem lub NAS-em — opcjonalną kartą SNMP albo kablem z oprogramowaniem. Serwer i NAS zamkną się wtedy bezpiecznie przed rozładowaniem baterii w obudowie. Ustawiamy to przy wdrożeniu."
     },
     {
-     "q": "Kiedy wymienić baterie?",
-     "a": "Baterie zużywają się z czasem, szybciej w ciepłym pomieszczeniu. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
+     "q": "Kiedy wymienić baterie w COVER MY 30K?",
+     "a": "Baterie VRLA w obudowie MY 30K zużywają się z czasem, szybciej w ciepłym pomieszczeniu. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
     },
     {
-     "q": "Czy ustawicie kopie zapasowe?",
-     "a": "Tak, według zasady 3-2-1: trzy kopie, na dwóch nośnikach, jedna poza firmą — i robimy próbne odtworzenie plików."
+     "q": "Czy przy COVER MY 30K ustawicie też kopie zapasowe?",
+     "a": "Tak. MY 30K chroni przed zanikiem prądu, a dane chronimy wg 3-2-1: trzy kopie, dwa nośniki, jedna poza firmą, z próbnym odtworzeniem."
     }
    ],
    "polecane": [
@@ -57259,20 +57259,20 @@
    ],
    "faq": [
     {
-     "q": "Jak długo UPS podtrzyma sprzęt?",
-     "a": "To zależy od tego, ile sprzętu podłączysz. Czas podtrzymania liczymy dla Twoich urządzeń z danych producenta, a gdy potrzeba dłużej — dobieramy większy model albo dodatkowe baterie, jeśli dany UPS je obsługuje."
+     "q": "Jak długo COVER FRAME 60K–200K podtrzyma obiekt?",
+     "a": "To zależy od obciążenia i baterii — FRAME pracuje z łańcuchem 32–44 akumulatorów VRLA, AGM, żelowych lub Li-Ion. Czas liczymy dla Twoich urządzeń z danych producenta, a gdy trzeba dłużej, dobieramy większy model lub baterie na stelażu."
     },
     {
-     "q": "Czy UPS sam wyłączy serwer przed końcem baterii?",
-     "a": "Tak, jeśli jest połączony z serwerem lub NAS-em — przez kartę sieciową SNMP albo kabel z oprogramowaniem. Wtedy serwer i NAS zamykają się bezpiecznie, zanim bateria się wyczerpie. Ustawiamy to przy wdrożeniu."
+     "q": "Czy COVER FRAME zamknie serwery, zanim baterie się wyczerpią?",
+     "a": "Tak, gdy jest połączony z serwerami lub NAS-em — opcjonalną kartą SNMP albo kablem z oprogramowaniem. Urządzenia wyłączą się bezpiecznie, zanim zabraknie energii w bateriach. Ustawiamy to przy wdrożeniu."
     },
     {
-     "q": "Kiedy wymienić baterie?",
-     "a": "Baterie zużywają się z czasem, szybciej w ciepłym pomieszczeniu. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
+     "q": "Kiedy wymienić baterie w COVER FRAME?",
+     "a": "Baterie FRAME, także Li-Ion, zużywają się z czasem, szybciej w cieple. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
     },
     {
-     "q": "Czy ustawicie kopie zapasowe?",
-     "a": "Tak, według zasady 3-2-1: trzy kopie, na dwóch nośnikach, jedna poza firmą — i robimy próbne odtworzenie plików."
+     "q": "Czy przy COVER FRAME pomożecie też z kopiami zapasowymi?",
+     "a": "Tak. FRAME utrzyma zasilanie, a kopie danych ustawiamy wg 3-2-1: trzy kopie, dwa nośniki, jedna poza firmą, z próbnym odtworzeniem."
     }
    ],
    "polecane": [
@@ -57441,20 +57441,20 @@
    ],
    "faq": [
     {
-     "q": "Jak długo UPS podtrzyma sprzęt?",
-     "a": "To zależy od tego, ile sprzętu podłączysz. Czas podtrzymania liczymy dla Twoich urządzeń z danych producenta, a gdy potrzeba dłużej — dobieramy większy model albo dodatkowe baterie, jeśli dany UPS je obsługuje."
+     "q": "Jak długo COVER HS305 / HS505 podtrzyma zasilanie?",
+     "a": "To zależy od obciążenia i liczby łańcuchów po 40 akumulatorów 12 V. Czas liczymy dla Twoich urządzeń z danych producenta, a gdy trzeba dłużej, dobieramy większą konfigurację albo dodatkowe baterie na stelażu lub w modułach."
     },
     {
-     "q": "Czy UPS sam wyłączy serwer przed końcem baterii?",
-     "a": "Tak, jeśli jest połączony z serwerem lub NAS-em — przez kartę sieciową SNMP albo kabel z oprogramowaniem. Wtedy serwer i NAS zamykają się bezpiecznie, zanim bateria się wyczerpie. Ustawiamy to przy wdrożeniu."
+     "q": "Czy COVER HS zamknie serwery przed rozładowaniem baterii?",
+     "a": "Tak, jeśli łączy go z serwerami lub NAS-em karta SNMP albo kabel z oprogramowaniem ClientMate. Wtedy urządzenia zamykają się bezpiecznie, zanim baterie się wyczerpią. Ustawiamy to przy wdrożeniu."
     },
     {
-     "q": "Kiedy wymienić baterie?",
-     "a": "Baterie zużywają się z czasem, szybciej w ciepłym pomieszczeniu. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
+     "q": "Kiedy wymienić baterie w COVER HS?",
+     "a": "Łańcuchy baterii przy HS305 / HS505 zużywają się z czasem, szybciej w cieple. Sprawdzamy je przy przeglądzie i wymieniamy, zanim zawiodą."
     },
     {
-     "q": "Czy ustawicie kopie zapasowe?",
-     "a": "Tak, według zasady 3-2-1: trzy kopie, na dwóch nośnikach, jedna poza firmą — i robimy próbne odtworzenie plików."
+     "q": "Czy przy COVER HS ustawicie też kopie danych?",
+     "a": "Tak. HS305 / HS505 chroni zasilanie, a kopie robimy wg 3-2-1: trzy kopie, dwa nośniki, jedna poza firmą, z próbnym odtworzeniem."
     }
    ],
    "polecane": [
@@ -58146,8 +58146,8 @@
    ],
    "faq": [
     {
-     "q": "Czy skanuje obie strony kartki naraz?",
-     "a": "MFC-L2922DW skanuje dwustronnie automatycznie z podajnika ADF — nie trzeba odwracać kartek. Dla MFC-L2862DW producent nie podaje tej funkcji w karcie produktu."
+     "q": "Czy MFC-L2922DW zeskanuje kartkę z obu stron bez odwracania?",
+     "a": "MFC-L2922DW skanuje dwustronnie automatycznie z podajnika ADF na 50 arkuszy, bez ręcznego odwracania kartek. Dla MFC-L2862DW producent nie podaje tej funkcji w karcie produktu."
     },
     {
      "q": "Do ilu osób wystarczy?",
@@ -58158,8 +58158,8 @@
      "a": "Toner na ok. 1200 stron. Wydajny toner TN2590XL starcza na ok. 3000 stron, bęben DR2590 na ok. 15 000 stron."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie MFC-L2922DW do sieci w biurze?",
+     "a": "Tak: MFC-L2922DW wpinamy do sieci kablem lub przez Wi-Fi, instalujemy sterowniki i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -58336,12 +58336,12 @@
      "a": "Wbudowany faks wymaga analogowej linii telefonicznej (modem 33,6 kb/s). Jeśli w firmie nie ma takiej linii, faks po prostu zostaje nieużywany — reszta funkcji działa normalnie."
     },
     {
-     "q": "Czy do drukarek HP dostanę tylko oryginalne tonery?",
-     "a": "Tak. Do drukarek HP oferujemy wyłącznie oryginalne wkłady HP. Ta drukarka ma dynamiczne zabezpieczenia producenta, które mogą zablokować wkład innej firmy — także po aktualizacji oprogramowania."
+     "q": "Czy do LaserJet Pro 3102 kupię tylko oryginalny toner HP?",
+     "a": "Tak. Do drukarek HP oferujemy wyłącznie oryginalne wkłady HP. LaserJet Pro 3102fdn i 3102fdw mają dynamiczne zabezpieczenia producenta, które mogą zablokować wkład innej firmy, również po aktualizacji oprogramowania."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie LaserJet Pro 3102 do sieci firmowej?",
+     "a": "Tak: 3102fdn łączymy kablem, a 3102fdw także przez Wi-Fi; instalujemy sterowniki i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -58518,8 +58518,8 @@
      "a": "Tak, opcjonalna szuflada LT-310CL zwiększa pojemność kasety do 500 kartek."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie MFC-L8390CDW do sieci firmowej?",
+     "a": "Tak: MFC-L8390CDW podłączamy kablem lub przez Wi-Fi, instalujemy sterowniki i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -58709,8 +58709,8 @@
      "a": "Nie. Drukuje czarno-biało, do 40 stron A4 na minutę, w rozdzielczości 1200 x 1200 dpi. W kolorze skanuje i kopiuje, w rozdzielczości 600 x 600 dpi, więc zeskanujesz np. kolorowe pieczątki i podpisy."
     },
     {
-     "q": "Jak szybko skanuje dokumenty dwustronne?",
-     "a": "Podajnik DualScan na 50 arkuszy skanuje obie strony kartki za jednym przejściem: do 40 obrazów na minutę jednostronnie i do 80 dwustronnie (mono, 300 dpi)."
+     "q": "Jak szybko MA4000 skanuje kartki zadrukowane z obu stron?",
+     "a": "DualScan na 50 arkuszy w ECOSYS MA4000 czyta obie strony kartki w jednym przebiegu: do 40 obrazów na minutę jednostronnie i do 80 dwustronnie (mono, 300 dpi)."
     },
     {
      "q": "Ile papieru mieści i czy da się to rozbudować?",
@@ -58894,16 +58894,16 @@
      "a": "Nie w standardzie — faks Super G3 można dołożyć jako opcjonalny moduł. Urządzenie drukuje, kopiuje i skanuje, a moduł faksu dobierzesz, jeśli wciąż wysyłasz dokumenty tą drogą."
     },
     {
-     "q": "Ile papieru mieści i czy można to zwiększyć?",
-     "a": "W standardzie mieści 600 arkuszy. Z dodatkową kasetą pojemność rośnie do 1600 arkuszy, więc rzadziej dokładasz papier przy większych wydrukach. Obsługuje formaty od A6 do A4 i niestandardowe."
+     "q": "Ile papieru zmieści bizhub C3321i i czy da się to zwiększyć?",
+     "a": "bizhub C3321i mieści w standardzie 600 arkuszy, a z dodatkową kasetą do 1600, więc przy większych nakładach rzadziej dokładasz papier. Przyjmuje formaty od A6 do A4 oraz niestandardowe."
     },
     {
      "q": "Czy połączę urządzenie przez Wi-Fi?",
      "a": "Wi-Fi 802.11 b/g/n/ac i Wi-Fi Direct są opcjonalne. W standardzie ma gigabitowy LAN i USB 2.0, a z telefonu drukujesz przez AirPrint, Mopria i Konica Minolta Mobile Print."
     },
     {
-     "q": "Ile stron miesięcznie może drukować?",
-     "a": "Producent zaleca do 6 500 stron miesięcznie, przy maksymalnym obciążeniu 96 000 stron. Drukuje do 33 stron A4 na minutę w kolorze i w czerni, automatycznie dwustronnie."
+     "q": "Ile stron miesięcznie wydrukuje bizhub C3321i?",
+     "a": "Producent zaleca dla C3321i do 6 500 stron miesięcznie, przy maksymalnym obciążeniu 96 000 stron. Urządzenie drukuje do 33 stron A4 na minutę w kolorze i w czerni, automatycznie dwustronnie."
     }
    ],
    "polecane": [
@@ -59288,8 +59288,8 @@
      "a": "Tak. Urządzenie ma m.in. blokadę funkcji (Secure Function Lock 3.0) i druk poufny z kodem PIN (Secure Print)."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie MFC-L5710DW lub DN do sieci?",
+     "a": "Tak: MFC-L5710DW/DN wpinamy do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -59484,12 +59484,12 @@
      "a": "Tak. Opcjonalny podajnik na 550 arkuszy podnosi pojemność do 850 kartek, co w praktyce oznacza rzadsze dokładanie papieru i możliwość trzymania w drukarce dwóch rodzajów papieru."
     },
     {
-     "q": "Czy do drukarek HP dostanę tylko oryginalne tonery?",
-     "a": "Tak. Do drukarek HP oferujemy wyłącznie oryginalne wkłady HP. Ta drukarka ma dynamiczne zabezpieczenia producenta, które mogą zablokować wkład innej firmy — także po aktualizacji oprogramowania."
+     "q": "Czy do Color LaserJet Pro 4302 dostanę tylko oryginalne tonery HP?",
+     "a": "Tak. Do drukarek HP oferujemy wyłącznie oryginalne wkłady HP. Seria Color LaserJet Pro 4302 ma dynamiczne zabezpieczenia producenta, które mogą zablokować wkład innej firmy — także po aktualizacji oprogramowania."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie HP 4302 do sieci w biurze?",
+     "a": "Tak: HP 4302 wpinamy do sieci kablem lub przez Wi-Fi (dw/fdw), instalujemy sterowniki i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -59670,8 +59670,8 @@
      "a": "Ma dodatkową kasetę papieru (łącznie 850 kartek wejściowych), przez co jest wyższe (445 mm) i cięższe (27,6 kg). Pozostałe funkcje są takie same."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie MFC-J6975DW do sieci firmowej?",
+     "a": "Tak: MFC-J6975DW/J6977DW podłączamy do sieci, instalujemy sterowniki i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -59850,8 +59850,8 @@
      "a": "ADS-4300N — gdy wystarczy skanowanie przyciskiem do komputera i sieci przewodowej. ADS-4700W — gdy skaner ma obsługiwać kilka osób z ekranu i przez Wi-Fi. ADS-4900W — przy bardzo dużych ilościach dokumentów."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie skaner ADS-4700W do sieci?",
+     "a": "Tak: skaner ADS podłączamy do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -60035,8 +60035,8 @@
      "a": "Tak. Urządzenie obsługuje aplikację Brother Mobile Connect, AirPrint (iPhone, iPad, Mac) i Mopria (Android), gdy telefon jest w tej samej sieci co drukarka."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie DCP-L2640DN lub DCP-L2622DW do sieci w biurze?",
+     "a": "Tak: wpinamy urządzenie do sieci przez port LAN, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -60220,8 +60220,8 @@
      "a": "Startowy toner na ok. 700 stron. Wydajny toner TN2590XL starcza na ok. 3000 stron, a bęben na ok. 15 000 stron."
     },
     {
-     "q": "Czy skanuje obie strony kartki naraz?",
-     "a": "Nie, skaner pracuje jednostronnie. Dokument dwustronny trzeba zeskanować w dwóch przebiegach."
+     "q": "Czy ADF w MFC-L2802DW skanuje dwustronnie za jednym razem?",
+     "a": "Nie, ADF na 50 kartek skanuje jednostronnie. Kartki zadrukowane z obu stron przepuszczasz przez niego dwa razy."
     },
     {
      "q": "Jaka jest gwarancja?",
@@ -60571,8 +60571,8 @@
    ],
    "faq": [
     {
-     "q": "Jakie tonery pasują i na ile wystarczają?",
-     "a": "W zestawie jest TN-3600 na ok. 3000 stron. Dostępne są też TN-3600XL (ok. 6000 stron) i TN-3600XXL (ok. 11 000 stron)."
+     "q": "Jakie tonery pasują do DCP-L5510DW i na ile stron?",
+     "a": "Z DCP-L5510DW dostajesz TN-3600 na ok. 3000 stron. Później pasują TN-3600XL (ok. 6000 stron) i TN-3600XXL (ok. 11 000 stron)."
     },
     {
      "q": "Czy można dołożyć papieru?",
@@ -60583,8 +60583,8 @@
      "a": "Nie. To model 3 w 1. Wersja z faksem i dwustronnym skanowaniem to MFC-L5710DW."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie DCP-L5510DW przez Gigabit LAN albo Wi-Fi?",
+     "a": "Tak: łączymy go z siecią kablem lub przez Wi-Fi, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -60756,8 +60756,8 @@
      "a": "Tak, producent oferuje ten model w ramach usług zarządzania drukiem (MPS). Szczegóły i warunki ustalimy indywidualnie."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy skonfigurujecie MFC-L6710DW lub MFC-L6910DN w sieci firmy?",
+     "a": "Tak: wpinamy urządzenie do Gigabit LAN, instalujemy sterowniki na komputerach i ustawiamy dwustronne skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -60930,8 +60930,8 @@
      "a": "W pudełku jest TN-3600 na ok. 3000 stron."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie HL-L5210DN lub HL-L5210DW do sieci w biurze?",
+     "a": "Tak: wpinamy drukarkę do sieci Gigabit LAN i instalujemy sterowniki na komputerach. Model nie ma skanera, więc tego nie ustawiamy."
     }
    ],
    "polecane": [
@@ -61297,12 +61297,12 @@
      "a": "Nie, to drukarka tylko do druku. Jeśli potrzebujesz też skanera, kopiarki lub faksu, wybierz urządzenie wielofunkcyjne LaserJet Pro MFP 3102fdn / 3102fdw z tej samej serii."
     },
     {
-     "q": "Czy do drukarek HP dostanę tylko oryginalne tonery?",
-     "a": "Tak. Do drukarek HP oferujemy wyłącznie oryginalne wkłady HP. Ta drukarka ma dynamiczne zabezpieczenia producenta, które mogą zablokować wkład innej firmy — także po aktualizacji oprogramowania."
+     "q": "Czy do LaserJet Pro 3002 kupię u Was tylko oryginalne tonery?",
+     "a": "Tak. Do LaserJet Pro 3002dn i 3002dw oferujemy wyłącznie oryginalne wkłady HP. Model ma dynamiczne zabezpieczenia producenta, które mogą odrzucić toner innej firmy, również po aktualizacji oprogramowania drukarki."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie LaserJet Pro 3002 do sieci kablem lub przez Wi-Fi?",
+     "a": "Tak: 3002dn łączymy kablem Ethernet, 3002dw także przez Wi-Fi, i instalujemy sterowniki na komputerach. Model nie ma skanera."
     }
    ],
    "polecane": [
@@ -61474,12 +61474,12 @@
      "a": "Tak. HP przewiduje opcjonalny podajnik na 550 arkuszy — razem z podajnikami standardowymi daje to trzy źródła papieru, np. osobno papier firmowy i zwykły."
     },
     {
-     "q": "Czy do drukarek HP dostanę tylko oryginalne tonery?",
-     "a": "Tak. Do drukarek HP oferujemy wyłącznie oryginalne wkłady HP. Ta drukarka ma dynamiczne zabezpieczenia producenta, które mogą zablokować wkład innej firmy — także po aktualizacji oprogramowania."
+     "q": "Czy do LaserJet Pro 4007dn/dw dostanę tylko tonery HP?",
+     "a": "Tak. Do serii 4007 oferujemy wyłącznie oryginalne wkłady HP. Drukarka ma dynamiczne zabezpieczenia producenta i wkład innej firmy może zostać zablokowany — także po aktualizacji jej oprogramowania."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy skonfigurujecie LaserJet Pro 4007 w sieci biura?",
+     "a": "Tak: wpinamy 4007 do sieci Gigabit (4007dw także przez Wi-Fi) i instalujemy sterowniki na komputerach. To drukarka bez skanera."
     }
    ],
    "polecane": [
@@ -61663,12 +61663,12 @@
      "a": "Tak. Podajnik na 50 arkuszy skanuje dokumenty dwustronnie, więc plik umów zadrukowanych z obu stron wkładasz raz i dostajesz komplet stron w jednym pliku."
     },
     {
-     "q": "Czy do drukarek HP dostanę tylko oryginalne tonery?",
-     "a": "Tak. Do drukarek HP oferujemy wyłącznie oryginalne wkłady HP. Ta drukarka ma dynamiczne zabezpieczenia producenta, które mogą zablokować wkład innej firmy — także po aktualizacji oprogramowania."
+     "q": "Czy do MFP 4113 oferujecie tylko oryginalne tonery HP?",
+     "a": "Tak. Do urządzeń 4113dw, 4113fdn i 4113fdw oferujemy wyłącznie oryginalne wkłady HP. Działają w nich dynamiczne zabezpieczenia producenta, które potrafią zablokować wkład innej firmy, nawet po aktualizacji oprogramowania."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie HP 4113 do sieci i ustawicie skanowanie?",
+     "a": "Tak: wpinamy 4113 do sieci, instalujemy sterowniki na komputerach i ustawiamy dwustronne skanowanie z ADF do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -61831,16 +61831,16 @@
      "a": "Efekt jest ten sam — wydruk tonerem, odporny i ostry. W technologii LED światło daje listwa diod zamiast lasera z lusterkiem, co upraszcza budowę drukarki."
     },
     {
-     "q": "Ile wydrukuję na tonerach z zestawu?",
-     "a": "Tonery startowe (czarny i trzy kolorowe) wystarczają na ok. 1000 stron każdy."
+     "q": "Na ile stron starczą tonery dołączone do HL-L3220CW?",
+     "a": "Startowy czarny i trzy kolorowe tonery HL-L3220CW starczają na ok. 1000 stron każdy."
     },
     {
      "q": "Czy podłączę ją kablem do sieci?",
      "a": "Nie — producent podaje tylko Wi-Fi i USB. Do sieci przewodowej polecamy modele z serii HL-L8430CDW."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy skonfigurujecie HL-L3220CW w biurowej sieci Wi-Fi?",
+     "a": "Tak: łączymy HL-L3220CW z firmowym Wi-Fi i instalujemy sterowniki na komputerach. Skanera nie ma, więc skanowania nie ustawiamy."
     }
    ],
    "polecane": [
@@ -61996,8 +61996,8 @@
    ],
    "faq": [
     {
-     "q": "Jakie tonery pasują i na ile wystarczają?",
-     "a": "Seria TN625: standardowe (czarny ok. 3000, kolor ok. 1800 str.), XL (kolor ok. 4500 str.) i XXL (czarny ok. 7500, kolor ok. 6500 str.)."
+     "q": "Jakie tonery TN625 pasują do HL-L8430CDW i HL-L8570CDW?",
+     "a": "Do obu modeli pasuje seria TN625: standard (czarny ok. 3000, kolor ok. 1800 str.), XL (kolor ok. 4500 str.) lub XXL (czarny ok. 7500, kolor ok. 6500 str.)."
     },
     {
      "q": "Czym różnią się HL-L8430CDW i HL-L8570CDW?",
@@ -62008,8 +62008,8 @@
      "a": "Do uwierzytelniania kartą zbliżeniową — np. pracownik odbiera wydruk dopiero po przyłożeniu karty, więc poufne dokumenty nie leżą na tacy."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie HL-L8430CDW lub HL-L8570CDW do sieci w biurze?",
+     "a": "Tak: wpinamy drukarkę do Gigabit LAN lub Wi-Fi i instalujemy sterowniki na komputerach. Skanowania nie ustawiamy, bo model go nie ma."
     }
    ],
    "polecane": [
@@ -62188,8 +62188,8 @@
      "a": "W standardzie łączy się kablem LAN i USB. Wi-Fi wymaga dokupienia modułu."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie HL-L9430CDN lub HL-L9470CDN do firmowej sieci?",
+     "a": "Tak: łączymy drukarkę kablem z Gigabit LAN i instalujemy sterowniki na komputerach. Model nie skanuje, więc tego nie konfigurujemy."
     }
    ],
    "polecane": [
@@ -62363,16 +62363,16 @@
      "a": "MFC-L3740CDW, jeśli potrzebujesz faksu. DCP-L3560CDW, jeśli faks jest zbędny, a liczy się szybszy druk (26 zamiast 18 str./min)."
     },
     {
-     "q": "Ile wydrukuję na tonerach z zestawu?",
-     "a": "W MFC-L3740CDW tonery startowe (czarny i kolorowe) wystarczają na ok. 1000 stron każdy. Dostępne są też tonery o większej wydajności."
+     "q": "Na ile stron starczą tonery startowe w MFC-L3740CDW?",
+     "a": "Każdy toner startowy w MFC-L3740CDW — czarny i trzy kolorowe — drukuje ok. 1000 stron. Na później są też wersje o większej wydajności."
     },
     {
      "q": "Czy można skanować do e-maila?",
      "a": "Tak, urządzenie skanuje m.in. do pliku, e-maila i aplikacji; skróty ustawisz na ekranie dotykowym."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie MFC-L3740CDW lub DCP-L3560CDW do sieci?",
+     "a": "Tak: łączymy urządzenie z Gigabit LAN lub Wi-Fi, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -62554,8 +62554,8 @@
      "a": "Tak. Można włączyć logowanie kartą NFC i druk poufny — dokument wychodzi dopiero po uwierzytelnieniu przy urządzeniu."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie MFC-L8730CDW lub DCP-L8630CDW do sieci firmy?",
+     "a": "Tak: wpinamy urządzenie do Gigabit LAN lub Wi-Fi, instalujemy sterowniki i ustawiamy skanowanie z ADF 80 ark. do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -62736,8 +62736,8 @@
      "a": "Urządzenie skanuje do folderów sieciowych, e-maila i chmury oraz współpracuje z rozwiązaniami do obiegu dokumentów. Integrację z konkretnym programem dobierzemy po rozmowie."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy skonfigurujecie MFC-L8970CDW w sieci i do skanowania?",
+     "a": "Tak: podłączamy MFC-L8970CDW do sieci, instalujemy sterowniki i ustawiamy szybkie skanowanie dwustronne do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -62907,8 +62907,8 @@
      "a": "Tak, producent wymienia zgodność z rozwiązaniami firm trzecich, m.in. Kofax i YSoft, oraz Cloud Secure Print."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie MFC-L9630CDN do sieci kablem LAN?",
+     "a": "Tak: wpinamy MFC-L9630CDN do Gigabit LAN, instalujemy sterowniki i ustawiamy skanowanie z ADF 100 ark. do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -63076,12 +63076,12 @@
      "a": "Drukarka ma oprócz głównego podajnika szczelinę priorytetową na pojedynczy arkusz, przez którą wygodnie podać kopertę czy kartkę innego rodzaju. Dobór konkretnego papieru warto sprawdzić z nami przed zakupem większej partii."
     },
     {
-     "q": "Czy do drukarek HP dostanę tylko oryginalne tonery?",
-     "a": "Tak. Do drukarek HP oferujemy wyłącznie oryginalne wkłady HP. Ta drukarka ma dynamiczne zabezpieczenia producenta, które mogą zablokować wkład innej firmy — także po aktualizacji oprogramowania."
+     "q": "Czy do Color LaserJet Pro 3202 dostanę tylko oryginalne tonery?",
+     "a": "Tak. Do kolorowych 3202dn i 3202dw oferujemy wyłącznie oryginalne wkłady HP, czarne i kolorowe. Dynamiczne zabezpieczenia producenta mogą zablokować toner innej firmy, także po aktualizacji oprogramowania."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie Color LaserJet Pro 3202 do sieci w firmie?",
+     "a": "Tak: 3202dn podłączamy kablem Ethernet, 3202dw także przez Wi-Fi, i instalujemy sterowniki na komputerach. To drukarka bez skanera."
     }
    ],
    "polecane": [
@@ -63257,12 +63257,12 @@
      "a": "Tak. Z szyby skanujesz do 1200 dpi, więc dowody, zaświadczenia czy zdjęcia wychodzą wyraźnie. Podajnik ADF (300 dpi) służy do szybkiego skanowania plików dokumentów."
     },
     {
-     "q": "Czy do drukarek HP dostanę tylko oryginalne tonery?",
-     "a": "Tak. Do drukarek HP oferujemy wyłącznie oryginalne wkłady HP. Ta drukarka ma dynamiczne zabezpieczenia producenta, które mogą zablokować wkład innej firmy — także po aktualizacji oprogramowania."
+     "q": "Czy do MFP 3302sdw lub 3302fdn kupię tylko tonery HP?",
+     "a": "Tak. Do kolorowych MFP 3302sdw i 3302fdn oferujemy wyłącznie oryginalne wkłady HP. Urządzenie ma dynamiczne zabezpieczenia producenta, przez które wkład innej firmy może zostać zablokowany, także po aktualizacji oprogramowania."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie MFP 3302 do sieci i skonfigurujecie skaner?",
+     "a": "Tak: łączymy 3302 z siecią (sdw także przez Wi-Fi), instalujemy sterowniki na komputerach i ustawiamy skan do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -63434,12 +63434,12 @@
      "a": "4202 jest szybsza (33 zamiast 25 str./min), ma wyższe zalecane obciążenie (do 4000 stron miesięcznie), dwa podajniki w standardzie i możliwość rozbudowy do 850 kartek. To wybór dla zespołu do 10 osób."
     },
     {
-     "q": "Czy do drukarek HP dostanę tylko oryginalne tonery?",
-     "a": "Tak. Do drukarek HP oferujemy wyłącznie oryginalne wkłady HP. Ta drukarka ma dynamiczne zabezpieczenia producenta, które mogą zablokować wkład innej firmy — także po aktualizacji oprogramowania."
+     "q": "Czy do Color LaserJet Pro 4202 oferujecie tylko oryginalne tonery?",
+     "a": "Tak. Do 4202dn i 4202dw oferujemy wyłącznie oryginalne wkłady HP. Ta kolorowa drukarka ma dynamiczne zabezpieczenia producenta — wkład innej firmy może zostać przez nią zablokowany, także po aktualizacji oprogramowania."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy wepniecie Color LaserJet Pro 4202 do sieci w biurze?",
+     "a": "Tak: podłączamy 4202 przez Gigabit Ethernet (4202dw także Wi-Fi) i instalujemy sterowniki na komputerach. To sama drukarka."
     }
    ],
    "polecane": [
@@ -63615,8 +63615,8 @@
      "a": "Seria LC528 — m.in. LC528XL na ok. 12 000 stron (czarny) i 10 000 stron (kolor)."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie atramentowe MFC-J5115DW do sieci w biurze?",
+     "a": "Tak: łączymy model J5110DW, J5115DW lub J5117DW z siecią, instalujemy sterowniki i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -63797,8 +63797,8 @@
      "a": "Do małego biura lub punktu, gdzie drukuje się do ok. 1000 stron miesięcznie, także w kolorze. Przy większych nakładach polecamy biznesowe modele MFC-J5115DW lub laserowe."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie MFC-T930DW lub DCP-T730DW do sieci?",
+     "a": "Tak: MFC-T930DW łączymy kablem lub Wi-Fi, DCP-T730DW przez Wi-Fi; instalujemy sterowniki i ustawiamy skan do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -63972,12 +63972,12 @@
      "a": "OfficeJet Pro dobrze sprawdza się przy kolorowych wydrukach i umiarkowanej liczbie stron (HP zaleca do 2000 miesięcznie dla zespołu do 5 osób). Przy dużej liczbie czarno-białych dokumentów lepszy będzie laser z serii LaserJet Pro."
     },
     {
-     "q": "Czy do drukarek HP dostanę tylko oryginalne tusze?",
-     "a": "Tak. Do drukarek HP oferujemy wyłącznie oryginalne wkłady HP. Ta drukarka ma dynamiczne zabezpieczenia producenta, które mogą zablokować wkład innej firmy — także po aktualizacji oprogramowania."
+     "q": "Czy do OfficeJet Pro 9132e dostanę tylko oryginalne tusze HP?",
+     "a": "Tak. Do OfficeJet Pro 9132e oferujemy wyłącznie oryginalne wkłady HP. Urządzenie ma dynamiczne zabezpieczenia producenta, które mogą zablokować tusz innej firmy — również po aktualizacji oprogramowania."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie OfficeJet Pro 9132e do sieci biurowej?",
+     "a": "Tak: łączymy 9132e z siecią kablem lub przez Wi-Fi, instalujemy sterowniki i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -64155,8 +64155,8 @@
      "a": "Tak. Oba modele mają port Ethernet oraz dwuzakresowe Wi-Fi i Wi-Fi Direct, więc drukujesz z komputerów w sieci i z telefonów (AirPrint, Mopria, aplikacja HP)."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy zainstalujecie Smart Tank 750/790 na komputerach w firmie?",
+     "a": "Tak: wpinamy Smart Tank do sieci, instalujemy sterowniki na wszystkich komputerach i ustawiamy skanowanie do e-maila i folderów."
     }
    ],
    "polecane": [
@@ -64500,16 +64500,16 @@
    ],
    "faq": [
     {
-     "q": "Ile stron miesięcznie może drukować?",
-     "a": "Producent zaleca do 5 000 stron miesięcznie, przy maksymalnym obciążeniu 100 000 stron. To urządzenie dla biura, gabinetu czy recepcji, w których drukuje kilka osób."
+     "q": "Ile stron miesięcznie wydrukuje bizhub 4221i?",
+     "a": "Konica Minolta zaleca dla bizhub 4221i do 5 000 stron miesięcznie, a maksymalnie 100 000 stron. Przy 42 str./min to sprzęt do biura, gabinetu lub recepcji, gdzie drukuje kilka osób."
     },
     {
      "q": "Czy zeskanuje dwustronną umowę za jednym razem?",
      "a": "Tak. Podajnik Dualscan na 50 oryginałów skanuje obie strony kartki w jednym przebiegu: do 56 obrazów/min w czerni i 40 w kolorze. Jednostronnie to 28/20 obrazów/min."
     },
     {
-     "q": "Jak podłączę urządzenie do sieci i telefonów?",
-     "a": "Ma LAN 10/100, USB 2.0 oraz Wi-Fi 802.11 a/b/g/n i Wi-Fi Direct w standardzie. Z telefonu drukujesz przez AirPrint, Mopria i Konica Minolta Mobile Print."
+     "q": "Czy bizhub 4221i połączy się z siecią i telefonem bez dodatkowych modułów?",
+     "a": "Tak, w standardzie ma LAN 10/100, USB 2.0, Wi-Fi 802.11 a/b/g/n i Wi-Fi Direct. Z telefonu wydrukujesz przez AirPrint, Mopria lub Konica Minolta Mobile Print."
     },
     {
      "q": "Czy da się ograniczyć, kto odbiera wydruki?",
@@ -64698,20 +64698,20 @@
    ],
    "faq": [
     {
-     "q": "Ile stron miesięcznie może drukować?",
-     "a": "Producent zaleca do 10 000 stron miesięcznie, przy maksymalnym obciążeniu 150 000 stron. Przy prędkości do 50 stron A4 na minutę sprawdzi się w biurze, w którym drukuje kilka osób."
+     "q": "Jakie miesięczne obciążenie wytrzyma bizhub 5021i?",
+     "a": "Konica Minolta zaleca dla 5021i do 10 000 stron miesięcznie, maksymalnie 150 000 stron. Drukując do 50 stron A4 na minutę, obsłuży biuro, w którym z urządzenia korzysta kilka osób."
     },
     {
      "q": "Jak szybko skanuje dokumenty?",
      "a": "Podajnik Dualscan mieści 80 oryginałów i skanuje obie strony w jednym przebiegu: do 100 obrazów/min w czerni i 60 w kolorze. Jednostronnie to 50/30 obrazów/min."
     },
     {
-     "q": "Ile papieru mieści i czy można to zwiększyć?",
-     "a": "W standardzie mieści 620 arkuszy. Dodatkowymi kasetami rozbudujesz pojemność do 1660 arkuszy, żeby rzadziej dokładać papier przy dużych wydrukach. Obsługuje formaty od A6 do A4 i niestandardowe."
+     "q": "Ile papieru mieści bizhub 5021i i czy da się to rozbudować?",
+     "a": "Standardowo 5021i mieści 620 arkuszy, a z dodatkowymi kasetami do 1660, więc przy dużych wydrukach rzadziej uzupełniasz papier. Przyjmuje formaty od A6 do A4 oraz niestandardowe."
     },
     {
-     "q": "Jak podłączę urządzenie do sieci i telefonów?",
-     "a": "Ma gigabitowy LAN 10/100/1000, USB 2.0 oraz Wi-Fi 802.11 a/b/g/n i Wi-Fi Direct w standardzie. Z telefonu drukujesz przez AirPrint, Mopria i Konica Minolta Mobile Print."
+     "q": "Jak bizhub 5021i łączy się z siecią i smartfonami?",
+     "a": "W standardzie ma gigabitowy LAN 10/100/1000, USB 2.0, Wi-Fi 802.11 a/b/g/n i Wi-Fi Direct. Ze smartfona drukujesz przez AirPrint, Mopria albo Konica Minolta Mobile Print."
     }
    ],
    "polecane": [
@@ -64890,12 +64890,12 @@
      "a": "Nie, Wi-Fi 802.11 b/g/n/ac i Wi-Fi Direct są opcjonalne. W standardzie ma gigabitowy LAN i USB 2.0, a z telefonu wydrukujesz przez AirPrint, Mopria i Konica Minolta Mobile Print."
     },
     {
-     "q": "Ile stron miesięcznie może drukować?",
-     "a": "Producent zaleca do 6 500 stron miesięcznie, przy maksymalnym obciążeniu 120 000 stron. Drukuje do 40 stron A4 na minutę, automatycznie dwustronnie, więc nadaje się dla biura, w którym drukuje kilka osób."
+     "q": "Jakie obciążenie miesięczne zaleca producent dla bizhub 4051i?",
+     "a": "Do 6 500 stron miesięcznie, maksymalnie 120 000 stron. Model 4051i drukuje do 40 stron A4 na minutę, automatycznie z obu stron, więc pasuje do biura, w którym drukuje kilka osób."
     },
     {
-     "q": "Ile papieru mieści i czy można to zwiększyć?",
-     "a": "W standardzie mieści 600 arkuszy, a po rozbudowie do 2100 arkuszy, więc przy większych wydrukach rzadziej dokładasz papier. Jako opcję można też dobrać zszywacz offline."
+     "q": "Ile arkuszy mieści bizhub 4051i po rozbudowie?",
+     "a": "Standardowo 600 arkuszy, a po rozbudowie do 2100, więc przy większych nakładach rzadziej uzupełniasz papier. Do 4051i można też dobrać jako opcję zszywacz offline."
     },
     {
      "q": "Jak szybko skanuje dwustronne dokumenty?",
@@ -65094,8 +65094,8 @@
      "a": "Tak. Drukarka obsługuje druk plików PDF i Office bez sterownika, a z telefonu drukujesz przez AirPrint (iOS), Mopria (Android) i Konica Minolta Mobile Print."
     },
     {
-     "q": "Ile stron miesięcznie może drukować?",
-     "a": "Producent zaleca do 6 500 stron miesięcznie, przy maksymalnym obciążeniu 96 000 stron. Drukuje do 33 stron A4 na minutę, tak samo w kolorze i w czerni."
+     "q": "Ile stron w miesiącu wydrukuje bizhub C3301i?",
+     "a": "Konica Minolta zaleca do 6 500 stron miesięcznie, przy maksimum 96 000 stron. C3301i drukuje 33 strony A4 na minutę — tyle samo w kolorze, co w czerni."
     },
     {
      "q": "Czy drukarka ma Wi-Fi?",
@@ -65279,8 +65279,8 @@
      "a": "Do biura, w którym dużo się skanuje i drukuje w kolorze na formacie A4. Zalecane obciążenie to 6 500 stron miesięcznie, a maksymalne 96 000 stron, więc urządzenie spokojnie obsłuży codzienną pracę zespołu."
     },
     {
-     "q": "Jak szybko skanuje dokumenty dwustronne?",
-     "a": "Podajnik Dualscan na 80 oryginałów skanuje obie strony kartki w jednym przebiegu: do 45 obrazów na minutę jednostronnie i do 90 dwustronnie. Nie trzeba ręcznie odwracać kartek."
+     "q": "Jak szybko bizhub C3351i skanuje dwustronne dokumenty?",
+     "a": "Dualscan ADF w C3351i mieści 80 oryginałów i skanuje obie strony w jednym przebiegu — do 45 obrazów/min jednostronnie i 90 dwustronnie. Kartek nie odwracasz ręcznie."
     },
     {
      "q": "Czy drukuje w formacie A3?",
@@ -65483,8 +65483,8 @@
      "a": "Obsługuje formaty od A6 do SRA3, formaty niestandardowe i banery do 1200 x 297 mm. W standardzie mieści 1150 arkuszy papieru, a z opcjami do 6650 arkuszy."
     },
     {
-     "q": "Ile stron miesięcznie może drukować?",
-     "a": "Zalecane obciążenie to 16 000 stron miesięcznie, a maksymalne 130 000 stron. Drukuje do 25 stron A4 na minutę w kolorze i w czerni oraz 15 stron A3, więc sprawdzi się tam, gdzie z jednego urządzenia korzysta cały zespół."
+     "q": "Ile stron miesięcznie obsłuży bizhub C251i?",
+     "a": "Zalecane obciążenie C251i to 16 000 stron miesięcznie, a maksymalne 130 000. Drukuje 25 stron A4 i 15 stron A3 na minutę, w kolorze i w czerni, więc może z niego korzystać cały zespół."
     }
    ],
    "polecane": [
@@ -66857,8 +66857,8 @@
      "a": "Poprawiają jakość logo i zdjęć na wydruku oraz pozwalają usunąć lub wyróżnić odręczne notatki."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy podłączycie TASKalfa 5004i lub 6004i do sieci firmy?",
+     "a": "Tak: wpinamy TASKalfa do Gigabit Ethernet, instalujemy sterowniki na komputerach i ustawiamy skan do e-maila i folderów sieciowych."
     }
    ],
    "polecane": [
@@ -67282,8 +67282,8 @@
      "a": "Faks to opcja — moduł Fax System 13."
     },
     {
-     "q": "Czy podłączycie urządzenie do sieci?",
-     "a": "Tak: podłączamy je do sieci, instalujemy sterowniki na komputerach i ustawiamy skanowanie do e-maila i folderów."
+     "q": "Czy wdrożycie ECOSYS M8124cidn lub M8130cidn w sieci biura?",
+     "a": "Tak: podłączamy ECOSYS do Gigabit Ethernet, instalujemy sterowniki i ustawiamy skanowanie do e-maila oraz folderów SMB."
     }
    ],
    "polecane": [
@@ -68177,8 +68177,8 @@
      "a": "Nie. Kosz wyjmuje się i opróżnia bez worków. Warto natomiast regularnie oliwić noże olejem do niszczarek."
     },
     {
-     "q": "Jak dobrać poziom bezpieczeństwa?",
-     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 albo P-5) oraz wielkość niszczarki."
+     "q": "Jak sprawdzić, czy Kobra +1 CC4 ES to właściwy wybór?",
+     "a": "Pytamy, co i ile niszczysz, i oceniamy, czy wystarczy P-4 tej Kobry, czy lepszy będzie P-5 i inna wielkość niszczarki."
     }
    ],
    "branze": [
@@ -68332,8 +68332,8 @@
      "a": "Tak, małe pliki zszyte lub spięte zwykłym spinaczem. Grube pliki trzeba rozdzielić, a klipsów biurowych (binder) i przemysłowych zszywek nie wolno wkładać."
     },
     {
-     "q": "Jak dobrać poziom bezpieczeństwa?",
-     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 albo P-5) oraz wielkość niszczarki."
+     "q": "Czy pomożecie ocenić, czy AutoMax 200C pasuje do moich dokumentów?",
+     "a": "Tak. Pytamy, co i ile niszczysz, i dobieramy poziom (zwykle P-4 jak w AutoMax 200C albo P-5) oraz wielkość niszczarki."
     }
    ],
    "podobne": [
@@ -68674,8 +68674,8 @@
      "a": "Tak, przez osobne wejście z własnym zestawem noży. Ścinki płyt i kart trafiają do osobnego pojemnika."
     },
     {
-     "q": "Jak dobrać poziom bezpieczeństwa?",
-     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 albo P-5) oraz wielkość niszczarki."
+     "q": "Jak dopasować niszczarkę, zanim zdecyduję się na Kobrę +2 CC2 ES?",
+     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 lub P-5, jak w tym modelu) oraz rozmiar niszczarki."
     }
    ],
    "podobne": [
@@ -69005,8 +69005,8 @@
      "a": "Tak, przyjmuje płyty CD/DVD i karty plastikowe. Ścinki plastiku są oddzielane od papieru."
     },
     {
-     "q": "Jak dobrać poziom bezpieczeństwa?",
-     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 albo P-5) oraz wielkość niszczarki."
+     "q": "Jak dobrać poziom cięcia, jeśli rozważam Kobrę 240 C4 Turbo?",
+     "a": "Pytamy, co i ile niszczysz, a potem dobieramy poziom cięcia (zwykle P-4, jak tu, albo P-5) i wielkość niszczarki."
     }
    ],
    "podobne": [
@@ -69168,8 +69168,8 @@
      "a": "Nie. Ten model ma noże w systemie bez oliwienia, więc odpada regularne smarowanie."
     },
     {
-     "q": "Jak dobrać poziom bezpieczeństwa?",
-     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 albo P-5) oraz wielkość niszczarki."
+     "q": "Czy P-4 w Kobra AF+1 40 wystarczy do moich dokumentów?",
+     "a": "Pytamy, co i ile niszczysz. AF+1 40 tnie na P-4 (3,5 × 40 mm); gdy potrzebny jest P-5, dobierzemy inny model."
     }
    ],
    "branze": [
@@ -69321,8 +69321,8 @@
      "a": "Fellowes zaleca oliwienie noży przy każdym opróżnianiu kosza (minimum dwa razy w miesiącu) olejem do niszczarek — nigdy olejem w aerozolu."
     },
     {
-     "q": "Jak dobrać poziom bezpieczeństwa?",
-     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 albo P-5) oraz wielkość niszczarki."
+     "q": "Czy miniścinki P-4 z LX200 wystarczą w moim biurze?",
+     "a": "Pytamy, co i ile niszczysz. LX200 tnie na P-4 (4 × 12 mm); gdy trzeba P-5 albo więcej kartek, dobierzemy inny model."
     }
    ],
    "podobne": [
@@ -69490,8 +69490,8 @@
      "a": "Tak, producent zaleca regularne oliwienie noży olejem do niszczarek — zwiększa to wydajność i wydłuża żywotność noży."
     },
     {
-     "q": "Jak dobrać poziom bezpieczeństwa?",
-     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 albo P-5) oraz wielkość niszczarki."
+     "q": "Jaki poziom bezpieczeństwa daje Kobra +3 CC4 ES?",
+     "a": "Papier tnie na P-4, a płyty i karty w osobnym module. Pytamy, co i ile niszczysz, i mówimy, czy ten poziom wystarczy."
     }
    ],
    "podobne": [
@@ -69990,8 +69990,8 @@
      "a": "225Ci tnie na poziomie P-4. Jeśli chcesz wyższego poziomu (P-5) przy podobnej wydajności, wybierz Fellowes 225Mi."
     },
     {
-     "q": "Jak dobrać poziom bezpieczeństwa?",
-     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 albo P-5) oraz wielkość niszczarki."
+     "q": "Komu wystarczy poziom P-4 z Fellowes 225Ci?",
+     "a": "Pytamy, co i ile niszczysz. 225Ci tnie na P-4 (4 × 38 mm) w pracy ciągłej; jeśli potrzebny P-5, dobierzemy inny model."
     }
    ],
    "podobne": [
@@ -70172,8 +70172,8 @@
      "a": "Nie, to urządzenie wolnostojące o wysokości ok. 92 cm. Najlepiej ustawić je w wspólnym miejscu, np. przy drukarce sieciowej."
     },
     {
-     "q": "Jak dobrać poziom bezpieczeństwa?",
-     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 albo P-5) oraz wielkość niszczarki."
+     "q": "Czy Kobra 300.1 C4 ES ma odpowiedni poziom dla mojej firmy?",
+     "a": "Pytamy, co i ile niszczycie. Ten model tnie na P-4 (3,9 × 40 mm) i ma kosz 110 l; gdy potrzeba P-5, dobierzemy inny."
     }
    ],
    "branze": [
@@ -70327,8 +70327,8 @@
      "a": "Waży ok. 38 kg i ma ok. 79 cm wysokości, ale stoi na kółkach. Przy dostawie możemy ją wnieść i uruchomić na miejscu."
     },
     {
-     "q": "Jak dobrać poziom bezpieczeństwa?",
-     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 albo P-5) oraz wielkość niszczarki."
+     "q": "Czy mikrościnki P-5 z 225Mi to nie za dużo dla mnie?",
+     "a": "Pytamy, co i ile niszczysz. 225Mi tnie na P-5 (2 × 12 mm); gdy wystarczy P-4, dobierzemy inny model."
     }
    ],
    "podobne": [
@@ -70498,8 +70498,8 @@
      "a": "Tak, kosz w szafce używa worków na ścinki. Noże warto regularnie oliwić olejem do niszczarek."
     },
     {
-     "q": "Jak dobrać poziom bezpieczeństwa?",
-     "a": "Pytamy, co i ile niszczysz, i dobieramy poziom (najczęściej P-4 albo P-5) oraz wielkość niszczarki."
+     "q": "Kiedy wybrać mikrościnki P-5 jak w Kobra 240.1 C2 ES?",
+     "a": "Pytamy, co i ile niszczysz. 240.1 C2 ES tnie na P-5 (1,9 × 15 mm); gdy wystarczy P-4, dobierzemy inny model."
     }
    ],
    "podobne": [
@@ -71523,8 +71523,8 @@
      "a": "Obecnie producent podaje obsługę jednego ekranu do 1080p; obsługa drugiego jest zapowiedziana jako „wkrótce”."
     },
     {
-     "q": "Czy zamontujecie ekran w sali?",
-     "a": "Tak: dobieramy przekątną, montujemy na uchwycie lub statywie, podłączamy do sieci i pokazujemy obsługę."
+     "q": "Czy zamontujecie Rally Bar Huddle z ekranem w sali?",
+     "a": "Tak: dobieramy przekątną ekranu, montujemy Rally Bar Huddle na uchwycie, podłączamy do sieci i pokazujemy obsługę."
     }
    ],
    "polecane": [
@@ -73216,8 +73216,8 @@
      "a": "Aktywuje Android 13 w monitorach TS 8.1 Easy kupionych bez systemu."
     },
     {
-     "q": "Czy zamontujecie ekran w sali?",
-     "a": "Tak: dobieramy przekątną, montujemy na uchwycie lub statywie, podłączamy do sieci i pokazujemy obsługę."
+     "q": "Czy zamontujecie monitor interaktywny na statywie Avtek?",
+     "a": "Tak: dobieramy przekątną 55–98\", stawiamy monitor na statywie Avtek, podłączamy go do sieci i pokazujemy obsługę."
     }
    ],
    "polecane": [
@@ -75413,8 +75413,8 @@
      "a": "Tak, producent podaje współpracę z Microsoft Teams, Zoom i Google Meet. Aktualny status certyfikacji Logitech publikuje na osobnej stronie — sprawdzimy go dla Twojej platformy."
     },
     {
-     "q": "Czy zamontujecie ekran w sali?",
-     "a": "Tak: dobieramy przekątną, montujemy na uchwycie lub statywie, podłączamy do sieci i pokazujemy obsługę."
+     "q": "Czy zamontujecie MeetUp 2 i ekran w małej sali?",
+     "a": "Tak: dobieramy wielkość ekranu do sali, mocujemy MeetUp 2 na uchwycie lub statywie, łączymy z siecią i uczymy obsługi."
     }
    ],
    "polecane": [
@@ -75593,8 +75593,8 @@
      "a": "W zestawie jest pilot Bluetooth. Wygodniej jest z dotykowym kontrolerem Logitech Tap lub Tap IP na stole."
     },
     {
-     "q": "Czy zamontujecie ekran w sali?",
-     "a": "Tak: dobieramy przekątną, montujemy na uchwycie lub statywie, podłączamy do sieci i pokazujemy obsługę."
+     "q": "Czy zamontujecie Rally Bar Mini razem z ekranami w sali?",
+     "a": "Tak: dobieramy przekątną ekranów, mocujemy Rally Bar Mini na uchwycie, podłączamy do sieci i pokazujemy obsługę."
     }
    ],
    "polecane": [
@@ -75767,8 +75767,8 @@
      "a": "Strona Tap IP nie wymienia MeetUp 2 wśród zgodnych urządzeń. MeetUp 2 pracuje z laptopem lub komputerem w sali, więc spotkanie uruchamia się z komputera."
     },
     {
-     "q": "Czy zamontujecie ekran w sali?",
-     "a": "Tak: dobieramy przekątną, montujemy na uchwycie lub statywie, podłączamy do sieci i pokazujemy obsługę."
+     "q": "Czy zamontujecie kontroler Tap IP w sali konferencyjnej?",
+     "a": "Tak: dobieramy miejsce na stole lub ścianie, montujemy Tap IP na uchwycie, podłączamy do sieci PoE i pokazujemy obsługę."
     }
    ],
    "polecane": [
@@ -76964,8 +76964,8 @@
      "a": "Nie ma wersji na macOS; producent wskazuje aplikację Comarch Betterfly albo dostęp przez przeglądarkę w chmurze."
     },
     {
-     "q": "Czy mogę zacząć od samych faktur?",
-     "a": "Tak, moduł Faktury można kupić samodzielnie i później dołożyć kolejne moduły."
+     "q": "Czy w Comarch ERP Optima kupię najpierw tylko moduł Faktury?",
+     "a": "Tak, w Optimie moduł Faktury kupisz osobno, a handel, magazyn czy księgę dołożysz później."
     }
    ],
    "konfigurator": {
@@ -77220,8 +77220,8 @@
      "a": "Windows 10 lub 11 w wersji 64-bit, procesor 2 GHz i 8 GB RAM (16 GB, gdy na tym samym komputerze działa PC-POS lub serwer kasowy) oraz serwer bazy MS SQL lub MariaDB."
     },
     {
-     "q": "Czy mogę zacząć od samych faktur?",
-     "a": "Tak, od Faktury Lite — później przejdziesz na pełny PC-Market z zachowaniem danych (za dopłatą różnicy)."
+     "q": "Czy zacznę od Faktury Lite, zanim kupię PC-Market 7?",
+     "a": "Tak. Faktury Lite obsłuży faktury i JPK, a potem przejdziesz na pełny PC-Market 7 z zachowaniem danych (za dopłatą różnicy)."
     },
     {
      "q": "Czy działa w chmurze?",
@@ -77694,8 +77694,8 @@
      "a": "Tak, w wersjach nexo i nexo PRO jest moduł zleceń serwisowych. Zlecenia mają powiadomienia e-mail i SMS, a program pokazuje potrzebne części i opłacalność każdego zlecenia."
     },
     {
-     "q": "Czym różnią się wersje nexo, nexo PRO i GT?",
-     "a": "Nexo ma oferty, zlecenia serwisowe, SMS-y i rezerwację zasobów, np. aut. Nexo PRO dokłada moduł umów, oferty wielowariantowe, oddziały i role użytkowników. Gestor GT jest dla użytkowników Subiekta GT: lejek sprzedaży, prognozy i skuteczność handlowców."
+     "q": "Którą wersję Gestora wybrać: nexo, nexo PRO czy GT?",
+     "a": "Gestor nexo ma oferty, zlecenia serwisowe, SMS-y i rezerwację zasobów, np. aut. W nexo PRO dochodzą umowy, oferty wielowariantowe, oddziały i role użytkowników. Gestor GT to wersja dla firm z Subiektem GT: lejek sprzedaży, prognozy i skuteczność handlowców."
     },
     {
      "q": "Czy handlowiec sprawdzi swoje zadania w telefonie?",
@@ -78184,8 +78184,8 @@
    ],
    "faq": [
     {
-     "q": "Czym różnią się wersje nexo, nexo PRO i GT?",
-     "a": "Nexo ma deklaracje CIT i ZUS oraz kontrolę statusu kontrahentów. Nexo PRO dokłada m.in. wielopoziomowe konta kartotekowe, magazyn walut i warunkowe schematy dekretacji, także w wersji dla biur. GT współpracuje z Subiektem GT i ma licencję wielostanowiskową."
+     "q": "Rewizor nexo, nexo PRO czy GT — która księgowość dla mnie?",
+     "a": "Rewizor nexo ma deklaracje CIT i ZUS oraz sprawdzanie statusu kontrahentów. Nexo PRO dodaje m.in. wielopoziomowe konta kartotekowe, magazyn walut i warunkowe schematy dekretacji, także w wersji dla biur. Rewizor GT działa z Subiektem GT i ma licencję wielostanowiskową."
     },
     {
      "q": "Czy Rewizor sam pobierze faktury zakupowe z KSeF?",
@@ -82311,8 +82311,8 @@
      "a": "1 TB w OneDrive na użytkownika."
     },
     {
-     "q": "Czy można zrezygnować w trakcie roku?",
-     "a": "W subskrypcjach NCE anulowanie jest możliwe tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem dobieramy plan i liczbę użytkowników."
+     "q": "Czy z Apps for business zrezygnuję przed końcem roku?",
+     "a": "Apps for business w modelu NCE możesz anulować tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem razem dobieramy plan i liczbę licencji dla zespołu."
     }
    ],
    "polecane": [
@@ -82452,8 +82452,8 @@
      "a": "1,5 TB na użytkownika."
     },
     {
-     "q": "Czy można zrezygnować w trakcie roku?",
-     "a": "W subskrypcjach NCE anulowanie jest możliwe tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem dobieramy plan i liczbę użytkowników."
+     "q": "Czy Business Premium da się anulować w trakcie roku?",
+     "a": "Business Premium w NCE anulujesz tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem dobieramy plan (z Intune i Defenderem) i liczbę użytkowników."
     }
    ],
    "polecane": [
@@ -82594,8 +82594,8 @@
      "a": "Tak, skrzynka 100 GB na własnej domenie firmy."
     },
     {
-     "q": "Czy można zrezygnować w trakcie roku?",
-     "a": "W subskrypcjach NCE anulowanie jest możliwe tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem dobieramy plan i liczbę użytkowników."
+     "q": "Czy mogę wypowiedzieć Business Standard przed końcem roku?",
+     "a": "W NCE Business Standard anulujesz tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem dobieramy plan i liczbę osób, którym potrzebny jest Office i poczta."
     }
    ],
    "polecane": [
@@ -82735,8 +82735,8 @@
      "a": "Tak, przenosimy skrzynki i podpinamy domenę firmy."
     },
     {
-     "q": "Czy można zrezygnować w trakcie roku?",
-     "a": "W subskrypcjach NCE anulowanie jest możliwe tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem dobieramy plan i liczbę użytkowników."
+     "q": "Czy z Business Basic zrezygnuję w trakcie okresu rocznego?",
+     "a": "Business Basic w modelu NCE można anulować tylko w pierwszych 7 dniach okresu. Dlatego przed zakupem dobieramy plan i liczbę skrzynek, żeby licencji nie było za dużo."
     }
    ],
    "polecane": [
@@ -83832,8 +83832,8 @@
      "a": "Jeden port ma PoE 15,4 W."
     },
     {
-     "q": "Czym różni się od UniFi Express?",
-     "a": "UDR7 ma Wi-Fi 7, więcej portów 2,5 Gb/s, port 10G, PoE i zarządza ponad 30 urządzeniami (Express — do 4)."
+     "q": "UDR7 czy UniFi Express — czym się różnią?",
+     "a": "UDR7 ma Wi-Fi 7, cztery porty 2,5 Gb/s, port 10G SFP+, port PoE i obsłuży ponad 30 urządzeń UniFi (Express — do 4)."
     }
    ],
    "zestawy": [
@@ -83996,8 +83996,8 @@
      "a": "Tak, z izolacją gości i opcjonalnym portalem logowania z voucherami."
     },
     {
-     "q": "Czy potrzebuję osobnego kontrolera?",
-     "a": "Nie, jeśli w sieci jest konsola UniFi (np. Cloud Gateway, Dream Machine, Dream Router lub UniFi Express) — to ona zarządza urządzeniami w aplikacji UniFi Network."
+     "q": "Czy U7 Pro wymaga osobnego kontrolera?",
+     "a": "Nie, jeśli masz w sieci konsolę UniFi, np. Cloud Gateway, Dream Machine, Dream Router lub UniFi Express — w aplikacji UniFi Network (8.0.28 lub nowszej) zarządza ona punktem U7 Pro."
     },
     {
      "q": "Czy mój telefon skorzysta z 6 GHz?",
@@ -84178,16 +84178,16 @@
    ],
    "faq": [
     {
-     "q": "Czym różni się od UniFi Express?",
-     "a": "Ma Wi-Fi 7 w trzech pasmach (zamiast Wi-Fi 6), port WAN 10 GbE, IDS/IPS do 2,3 Gb/s i obsłuży ponad 30 urządzeń UniFi (UniFi Express — do 4)."
+     "q": "Czym UniFi Express 7 przewyższa zwykły UniFi Express?",
+     "a": "Express 7 ma Wi-Fi 7 w trzech pasmach zamiast Wi-Fi 6, WAN 10 GbE, IDS/IPS do 2,3 Gb/s i zarządza ponad 30 urządzeniami UniFi, a zwykły Express — najwyżej 4."
     },
     {
      "q": "Dla jak dużego lokalu wystarczy?",
      "a": "Producent podaje zasięg ok. 160 m² i ponad 300 jednoczesnych użytkowników."
     },
     {
-     "q": "Czy podłączę zapasowy internet?",
-     "a": "Tak, przez UniFi LTE Backup. Ma jeden port WAN, więc dwóch łączy stacjonarnych nie podłączysz."
+     "q": "Czy Express 7 obsłuży zapasowe łącze internetowe?",
+     "a": "Tak, przez UniFi LTE Backup. Express 7 ma jeden port WAN 10 GbE, więc drugiego łącza kablowego nie wepniesz."
     },
     {
      "q": "Czy mogę go dołożyć do istniejącej sieci UniFi?",
@@ -84358,8 +84358,8 @@
      "a": "Tak, po włożeniu dysku NVMe do 2 TB — do 15 kamer HD lub 5 kamer 4K UniFi Protect."
     },
     {
-     "q": "Czy podłączę zapasowy internet?",
-     "a": "Tak, obsługuje do 4 łączy WAN i zapasowe LTE."
+     "q": "Czy do UCG-Max podepnę drugie łącze lub LTE?",
+     "a": "Tak, UCG-Max obsłuży do 4 łączy WAN i zapas LTE."
     },
     {
      "q": "Dla ilu osób wystarczy?",
@@ -84957,8 +84957,8 @@
      "a": "Tak, przez sieci VLAN; przełącznik ma też routing między VLAN (L3)."
     },
     {
-     "q": "Czy potrzebuję osobnego kontrolera?",
-     "a": "Nie, jeśli w sieci jest konsola UniFi (np. Cloud Gateway, Dream Machine, Dream Router lub UniFi Express) — to ona zarządza urządzeniami w aplikacji UniFi Network."
+     "q": "Czy do Switch Pro 24 PoE trzeba dokupić kontroler?",
+     "a": "Nie, jeśli w sieci działa konsola UniFi, np. Cloud Gateway, Dream Machine, Dream Router lub UniFi Express — ona zarządza tym 24-portowym przełącznikiem w aplikacji UniFi Network."
     }
    ],
    "polecane": [
@@ -85116,8 +85116,8 @@
      "a": "Kolorowe podświetlenie portów pokazujące prędkość i sieć VLAN; najlepiej widoczne z kablami UniFi Etherlighting."
     },
     {
-     "q": "Czy potrzebuję osobnego kontrolera?",
-     "a": "Nie, jeśli w sieci jest konsola UniFi (np. Cloud Gateway, Dream Machine, Dream Router lub UniFi Express) — to ona zarządza urządzeniami w aplikacji UniFi Network."
+     "q": "Czy Pro Max 24 PoE potrzebuje osobnego kontrolera?",
+     "a": "Nie, jeśli w sieci jest konsola UniFi (np. Cloud Gateway, Dream Machine, Dream Router lub UniFi Express). Przełącznikiem i Etherlightingiem zarządzasz w UniFi Network 8.0.24 lub nowszej."
     }
    ],
    "zestawy": [
@@ -85292,8 +85292,8 @@
      "a": "Producent podaje ok. 160 m² na jeden punkt."
     },
     {
-     "q": "Czy potrzebuję osobnego kontrolera?",
-     "a": "Nie, jeśli w sieci jest konsola UniFi (np. Cloud Gateway, Dream Machine, Dream Router lub UniFi Express) — to ona zarządza urządzeniami w aplikacji UniFi Network."
+     "q": "Czy do U7 Pro Max potrzebny jest kontroler?",
+     "a": "Nie, jeśli masz konsolę UniFi, np. Cloud Gateway, Dream Machine, Dream Router lub UniFi Express. Ona zarządza punktem przez Ethernet w UniFi Network 8.2.93 lub nowszej."
     }
    ],
    "branze": [
@@ -85743,8 +85743,8 @@
      "a": "Tak, przez VPN. ER605 i ER7212PC obsługują 20 tuneli IPsec, a ER707-M2 i ER7206 po 100. Dostępne są też OpenVPN, WireGuard i L2TP dla pracy zdalnej."
     },
     {
-     "q": "Czy potrzebuję osobnego kontrolera?",
-     "a": "Do pełnego zarządzania siecią Omada (wspólny panel, portal gości, aplikacja) — tak, przy ER605, ER707-M2 i ER7206. ER7212PC ma kontroler wbudowany, obsługujący do 24 urządzeń."
+     "q": "Czy do routera Omada ER605 lub ER7206 potrzebny jest osobny kontroler?",
+     "a": "Do pełnego zarządzania siecią Omada (wspólny panel, portal gości, aplikacja) — tak, przy ER605, ER7206 i innych modelach bez kontrolera. Wyjątkiem jest ER7212PC z wbudowanym kontrolerem na 24 urządzenia."
     },
     {
      "q": "Czy router obsłuży Wi-Fi dla gości z voucherami?",
@@ -86495,8 +86495,8 @@
      "a": "Wersja Fiber — tak, po włożeniu dysku NVMe do 2 TB (UniFi Protect). Ultra nie nagrywa kamer."
     },
     {
-     "q": "Czy zamontujecie i skonfigurujecie sieć?",
-     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy sprzęt i ustawiamy sieć firmową oraz osobną dla gości."
+     "q": "Czy zamontujecie sieć z bramą UniFi Cloud Gateway Ultra lub Fiber?",
+     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy UCG-Ultra lub UCG-Fiber i ustawiamy sieć firmową oraz osobną sieć dla gości."
     }
    ],
    "konfigurator": {
@@ -86719,8 +86719,8 @@
      "a": "Nie — punkty Wi-Fi i kamery zasila się osobnym przełącznikiem PoE."
     },
     {
-     "q": "Czy zamontujecie i skonfigurujecie sieć?",
-     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy sprzęt i ustawiamy sieć firmową oraz osobną dla gości."
+     "q": "Czy zamontujecie UDM-Pro w szafie i skonfigurujecie sieć?",
+     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy UDM-Pro w szafie rack 1U i ustawiamy sieć firmową oraz osobną dla gości."
     }
    ],
    "polecane": [
@@ -86908,8 +86908,8 @@
      "a": "Przez PoE — z przełącznika PoE lub zasilacza PoE."
     },
     {
-     "q": "Czy zamontujecie i skonfigurujecie sieć?",
-     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy sprzęt i ustawiamy sieć firmową oraz osobną dla gości."
+     "q": "Czy zamontujecie punkty U7 Lite lub U7 LR na suficie?",
+     "a": "Tak: sprawdzamy zasięg, planujemy rozmieszczenie U7 Lite, U7 LR lub U6+, montujemy je i ustawiamy sieć firmową oraz osobną dla gości."
     }
    ],
    "konfigurator": {
@@ -87140,8 +87140,8 @@
      "a": "Producent podaje ponad 300 klientów i zasięg ok. 140 m²."
     },
     {
-     "q": "Czy zamontujecie i skonfigurujecie sieć?",
-     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy sprzęt i ustawiamy sieć firmową oraz osobną dla gości."
+     "q": "Czy zamontujecie U7 Pro Wall albo punkt zewnętrzny U7 Outdoor?",
+     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy U7 na ścianie lub maszcie i ustawiamy sieć firmową oraz dla gości."
     }
    ],
    "konfigurator": {
@@ -87373,8 +87373,8 @@
      "a": "Nie, te przełączniki stawia się na biurku lub wiesza na ścianie."
     },
     {
-     "q": "Czy zamontujecie i skonfigurujecie sieć?",
-     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy sprzęt i ustawiamy sieć firmową oraz osobną dla gości."
+     "q": "Czy zamontujecie przełącznik UniFi Lite lub Flex i ustawicie sieć?",
+     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi na PoE, montujemy przełącznik na ścianie i ustawiamy sieć firmową oraz dla gości."
     }
    ],
    "konfigurator": {
@@ -87607,8 +87607,8 @@
      "a": "Zależy od poboru kamer i budżetu PoE: 42, 95 lub 195 W. Dobierzemy model po zsumowaniu urządzeń."
     },
     {
-     "q": "Czy zamontujecie i skonfigurujecie sieć?",
-     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy sprzęt i ustawiamy sieć firmową oraz osobną dla gości."
+     "q": "Czy zamontujecie USW-24-POE w szafie i skonfigurujecie sieć?",
+     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy USW w szafie rack 1U i ustawiamy sieć firmową oraz osobną dla gości."
     }
    ],
    "konfigurator": {
@@ -87825,8 +87825,8 @@
    ],
    "faq": [
     {
-     "q": "Czy potrzebuję osobnego kontrolera?",
-     "a": "Nie, kontroler jest wbudowany i obsłuży do 30 urządzeń Omada."
+     "q": "Czy przy bramie Omada Fusion kupuję osobny kontroler?",
+     "a": "Nie, Fusion ma wbudowany kontroler Omada na maks. 30 urządzeń."
     },
     {
      "q": "Czy płaci się licencję za zarządzanie?",
@@ -87837,8 +87837,8 @@
      "a": "Fusion 2.5G PoE ma 8 portów PoE+ z budżetem 110 W — dobieramy liczbę punktów i kamer do ich poboru."
     },
     {
-     "q": "Czy zamontujecie i skonfigurujecie sieć?",
-     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy sprzęt i ustawiamy sieć firmową oraz osobną dla gości."
+     "q": "Czy zamontujecie Omada Fusion 2.5G PoE i skonfigurujecie sieć?",
+     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi na portach PoE+ bramy Fusion, montujemy sprzęt i ustawiamy sieć firmową oraz dla gości."
     }
    ],
    "konfigurator": {
@@ -88051,8 +88051,8 @@
      "a": "Dwie karty Nano SIM ma ER701-5G-Outdoor; ER706W-4G ma jedno gniazdo Nano SIM."
     },
     {
-     "q": "Czy zamontujecie i skonfigurujecie sieć?",
-     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy sprzęt i ustawiamy sieć firmową oraz osobną dla gości."
+     "q": "Czy zamontujecie bramę ER706W-4G lub wersję Outdoor na maszcie?",
+     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy bramę (Outdoor na maszcie) i ustawiamy sieć firmową oraz dla gości."
     }
    ],
    "konfigurator": {
@@ -88270,8 +88270,8 @@
      "a": "Zależy od budżetu PoE: 160, 240 lub 500 W. Sumujemy pobór punktów i kamer z zapasem."
     },
     {
-     "q": "Czy zamontujecie i skonfigurujecie sieć?",
-     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy sprzęt i ustawiamy sieć firmową oraz osobną dla gości."
+     "q": "Czy zamontujecie przełącznik Omada SG3428XPP-M2 i ustawicie sieć?",
+     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi na portach 2,5G PoE, montujemy przełącznik i ustawiamy sieć firmową oraz dla gości."
     }
    ],
    "konfigurator": {
@@ -88494,8 +88494,8 @@
      "a": "Zależy od budżetu PoE (384–1440 W) i poboru kamer — dobierzemy model po zsumowaniu urządzeń."
     },
     {
-     "q": "Czy zamontujecie i skonfigurujecie sieć?",
-     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy sprzęt i ustawiamy sieć firmową oraz osobną dla gości."
+     "q": "Czy zamontujecie w szafie przełącznik Omada SG3452XP lub SG5428XMPP?",
+     "a": "Tak: sprawdzamy zasięg, planujemy punkty Wi-Fi, montujemy przełącznik w szafie 19\" i ustawiamy sieć firmową oraz osobną dla gości."
     }
    ],
    "konfigurator": {
@@ -89209,8 +89209,8 @@
      "a": "Nie. Konsola ESET PROTECT działa w chmurze; można ją też zainstalować lokalnie."
     },
     {
-     "q": "Czy przeniesiecie nas z innego antywirusa?",
-     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program i instalujemy ESET na komputerach i serwerach."
+     "q": "Czy przejdziemy na ESET PROTECT Elite z obecnego antywirusa?",
+     "a": "Tak. Przy wdrożeniu Elite usuwamy dotychczasowy program i instalujemy ESET z modułem XDR na komputerach i serwerach."
     }
    ],
    "polecane": [
@@ -89353,8 +89353,8 @@
      "a": "Elite dodaje uwierzytelnianie wieloskładnikowe (MFA) i XDR — wykrywanie i reakcję na incydenty w całej sieci."
     },
     {
-     "q": "Czy przeniesiecie nas z innego antywirusa?",
-     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program i instalujemy ESET na komputerach i serwerach."
+     "q": "Czy wdrożycie ESET PROTECT Complete w miejsce innego antywirusa?",
+     "a": "Tak. Odinstalowujemy poprzedni program, a pakiet Complete instalujemy na komputerach, serwerach i Exchange."
     }
    ],
    "polecane": [
@@ -89496,8 +89496,8 @@
      "a": "Nie, ochrona aplikacji w chmurze i serwera poczty jest w pakiecie Complete."
     },
     {
-     "q": "Czy przeniesiecie nas z innego antywirusa?",
-     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program i instalujemy ESET na komputerach i serwerach."
+     "q": "Czy zmienicie nasz antywirus na ESET PROTECT Advanced?",
+     "a": "Tak. Przy wdrożeniu Advanced usuwamy stary program i instalujemy ESET na komputerach z Windows, macOS i Linuksem."
     }
    ],
    "polecane": [
@@ -89640,8 +89640,8 @@
      "a": "Tak, pakiet obejmuje ochronę urządzeń z Androidem i iOS."
     },
     {
-     "q": "Czy przeniesiecie nas z innego antywirusa?",
-     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program i instalujemy ESET na komputerach i serwerach."
+     "q": "Czy przy przejściu na ESET PROTECT Entry usuniecie stary antywirus?",
+     "a": "Tak. Przy wdrożeniu Entry odinstalowujemy dotychczasowy program i instalujemy ESET na komputerach oraz serwerach."
     }
    ],
    "polecane": [
@@ -89783,8 +89783,8 @@
      "a": "Nie. ESET poleca do tego pakiet ESET PROTECT Complete."
     },
     {
-     "q": "Czy przeniesiecie nas z innego antywirusa?",
-     "a": "Tak. Przy wdrożeniu odinstalowujemy poprzedni program i instalujemy ESET na komputerach i serwerach."
+     "q": "Czy zastąpicie nasz antywirus pakietem Small Business Security?",
+     "a": "Tak. Odinstalowujemy poprzedni program i instalujemy Small Business Security na komputerach oraz na Windows Server."
     }
    ],
    "polecane": [
@@ -90705,8 +90705,8 @@
      "a": "Ważnego dokumentu, komputera, smartfona, internetu i kodu aktywacyjnego z e-maila po zamówieniu."
     },
     {
-     "q": "Czy podpis kwalifikowany ma moc podpisu własnoręcznego?",
-     "a": "Tak. Kwalifikowany podpis elektroniczny jest równoważny podpisowi własnoręcznemu w całej Unii Europejskiej (rozporządzenie eIDAS)."
+     "q": "Czy podpis z ECSigner po weryfikacji online jest ważny jak odręczny?",
+     "a": "Tak. Podpis kwalifikowany wydany po weryfikacji online w ECSigner ma w całej Unii Europejskiej moc podpisu własnoręcznego (eIDAS)."
     }
    ],
    "polecane": [
@@ -90835,8 +90835,8 @@
      "a": "W tej wersji weryfikacja jest w punkcie lub u klienta. Wersja z weryfikacją online to „ECSigner z weryfikacją online”."
     },
     {
-     "q": "Czy podpis kwalifikowany ma moc podpisu własnoręcznego?",
-     "a": "Tak. Kwalifikowany podpis elektroniczny jest równoważny podpisowi własnoręcznemu w całej Unii Europejskiej (rozporządzenie eIDAS)."
+     "q": "Czy podpis w chmurze ECSigner ma moc podpisu własnoręcznego?",
+     "a": "Tak. Choć nie ma karty ani czytnika, kwalifikowany podpis ECSigner jest w całej UE równoważny odręcznemu (rozporządzenie eIDAS)."
     }
    ],
    "polecane": [
@@ -90965,8 +90965,8 @@
      "a": "Tak, w programie Płatnik, a także JPK, e-deklaracje i dokumenty w eKRS."
     },
     {
-     "q": "Czy podpis kwalifikowany ma moc podpisu własnoręcznego?",
-     "a": "Tak. Kwalifikowany podpis elektroniczny jest równoważny podpisowi własnoręcznemu w całej Unii Europejskiej (rozporządzenie eIDAS)."
+     "q": "Czy podpis z zestawu Classic zastąpi podpis odręczny?",
+     "a": "Tak. Kwalifikowany certyfikat na karcie Standard z zestawu Classic daje podpis równoważny własnoręcznemu w całej UE (eIDAS)."
     }
    ],
    "polecane": [
@@ -91112,8 +91112,8 @@
      "a": "Tak, podpisem kwalifikowanym można uwierzytelnić się w KSeF."
     },
     {
-     "q": "Czy podpis kwalifikowany ma moc podpisu własnoręcznego?",
-     "a": "Tak. Kwalifikowany podpis elektroniczny jest równoważny podpisowi własnoręcznemu w całej Unii Europejskiej (rozporządzenie eIDAS)."
+     "q": "Czy podpis na tokenie EuroCert ma moc podpisu odręcznego?",
+     "a": "Tak. Kwalifikowany podpis na karcie SIM w tokenie USB jest w całej Unii Europejskiej równoważny własnoręcznemu (rozporządzenie eIDAS)."
     }
    ],
    "polecane": [
