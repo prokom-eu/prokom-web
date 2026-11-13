@@ -196,6 +196,10 @@ test.describe('Software — budgets of smoothness (SWA14 §3)', () => {
     await page.setViewportSize(PHONE)
     await page.goto(site(HOST, '/'))
     await page.waitForLoadState('networkidle')
+    // Chunks fetched when the browser is idle come later: a pause, then quiet again (else 22 or
+    // 29 files from run to run).
+    await page.waitForTimeout(2000)
+    await page.waitForLoadState('networkidle')
     // Compressed bytes of the scripts loaded without a touch (docs/jakosc.md, „Budżety Software”):
     // by the file, not `initiatorType` — a `<link rel="preload">` script counts as „link”.
     const bytes = await page.evaluate(() =>
@@ -209,8 +213,8 @@ test.describe('Software — budgets of smoothness (SWA14 §3)', () => {
 })
 
 /**
- * 270 994 B (gzip, 29 files of `/_next/static/`, preloads included) measured 13.11.2026 on the
- * production build after SWA13b + SWA14a, plus 5 % — the same number in docs/jakosc.md
+ * 271 631 B (gzip, 29 files of `/_next/static/`, preloads included) measured 13.11.2026 on the
+ * production build of SWA14 (a, b, c), plus 5 % — the same number in docs/jakosc.md
  * („Budżety płynności Software”).
  */
-const JS_BUDGET_BYTES = 284_500
+const JS_BUDGET_BYTES = 285_200
