@@ -24,30 +24,40 @@ export function biznesDescription(text: string): string {
   )
 }
 
-/** A text that already says where we work (SEO lokalne 13.11). */
-const REGION = /rabk|podhal|małopol/i
+/** A text that already says where we work, as a whole word (`Grabka` is not Rabka). */
+const REGION = /(?<!\p{L})(rabk|rabc|podhal|małopol)/iu
+
+/** A title split by a dash or a colon („Wagi dla firm — Dibal”, „Systemy: GoPOS”). */
+const DASHED = / — |: | – /
 
 /** Where we work, closing a description that does not say it yet (within 155 characters). */
 const REGION_SENTENCE = ' Dobór i serwis w Rabce-Zdroju i na Podhalu.'
+/** The same for a text that already offers the choice („Zapytaj o dobór”). */
+const REGION_SENTENCE_NO_CHOICE = ' Wdrożenie i serwis w Rabce-Zdroju i na Podhalu.'
 
 /**
  * Meta description of a category-like page that always says where we work (SEO lokalne 13.11):
  * a text naming the region stays as `biznesDescription` makes it; another one keeps its whole
- * sentences that fit (or its first one cut on a word) and ends with the region sentence.
+ * sentences that fit — or, when they make it too short, the text cut on a word — and ends with
+ * the region sentence. Still under 100 characters: `biznesDescription` (it adds who and where).
  */
 export function localDescription(text: string): string {
   const clean = text.replace(/\s+/g, ' ').trim()
+  // The text names the region and it survives the cut to 155 characters (not only the context
+  // `biznesDescription` adds to a short text — that one would repeat „dobór”).
   const described = biznesDescription(clean)
-  if (REGION.test(described)) return described
-  const room = META_DESCRIPTION_MAX - REGION_SENTENCE.length
+  if (REGION.test(clean) && REGION.test(described)) return described
+  const region = /dob[óo]r|dobier/i.test(clean) ? REGION_SENTENCE_NO_CHOICE : REGION_SENTENCE
+  const room = META_DESCRIPTION_MAX - region.length
   let body = ''
   for (const sentence of clean.split(/(?<=[.!?])\s+/)) {
     const next = body ? `${body} ${sentence}` : sentence
     if (next.length > room) break
     body = next
   }
-  if (!body) body = metaDescription(clean, room)
-  return `${body.replace(/[\s,;:–—-]+$/, '').replace(/([^.!?…])$/, '$1.')}${REGION_SENTENCE}`
+  if (body.length < META_DESCRIPTION_MIN - region.length) body = metaDescription(clean, room)
+  const description = `${body.replace(/[\s,;:–—-]+$/, '').replace(/([^.!?…])$/, '$1.')}${region}`
+  return description.length >= META_DESCRIPTION_MIN ? description : described
 }
 
 /** What the site's title template adds to every subpage („%s | PRO-KOM Biznes”). */
@@ -99,8 +109,11 @@ export function localTitle(base: string): string {
     ' — Rabka-Zdrój',
     ' — Rabka',
   ]
+  // A text with a dash already („Wagi dla firm — Dibal”) takes the region after a comma.
   const withRegion = (text: string) =>
-    forms.map((form) => text + form).find((t) => t.length <= TITLE_BASE_MAX)
+    forms
+      .map((form) => text + (DASHED.test(text) ? form.replace(/^ (dla firm )?— /, ', ') : form))
+      .find((t) => t.length <= TITLE_BASE_MAX)
   // Too long for any form: its first part (before „ — ” or „: ”, e.g. „Automaty vendingowe —
   // modele Optivendi”) with the region — the place weighs more for local search than the
   // brands after the dash — else the title as `fitTitle` makes it.

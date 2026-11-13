@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { AREA_SERVED } from '../instalacje/seo'
+import { COMPANY_LOCATIONS } from '../../seed/shared/company'
 
 import {
   articleJsonLd,
@@ -193,7 +194,8 @@ describe('organizationJsonLd on Biznes (SEO lokalne 13.11: Rabka, Podhale, Mało
     tenant: { name: 'PRO-KOM Biznes', line: 'biznes' },
     contact: { phone: '889 003 889', email: null },
     origin: 'https://prokombiznes.pl',
-    areaServed: ['Rabka-Zdrój', 'Nowy Targ', 'Podhale', 'Małopolska'],
+    // The panel's towns; the regions are added by the function (one copy each).
+    areaServed: ['Rabka-Zdrój', 'Nowy Targ', 'Podhale'],
   })
   const branches = data['@graph'].filter((node) => node['@type'] === 'LocalBusiness')
 
@@ -206,11 +208,18 @@ describe('organizationJsonLd on Biznes (SEO lokalne 13.11: Rabka, Podhale, Mało
     expect(branches[0]).toMatchObject({
       geo: { '@type': 'GeoCoordinates', latitude: 49.60994, longitude: 19.95339 },
       areaServed: [
-        { '@type': 'Place', name: 'Rabka-Zdrój' },
-        { '@type': 'Place', name: 'Nowy Targ' },
-        { '@type': 'AdministrativeArea', name: 'Podhale' },
+        { '@type': 'City', name: 'Rabka-Zdrój' },
+        { '@type': 'City', name: 'Nowy Targ' },
+        { '@type': 'Place', name: 'Podhale' },
         { '@type': 'AdministrativeArea', name: 'Małopolska' },
       ],
+    })
+  })
+
+  it('places the salon at the point of the company data (map point = address)', () => {
+    const [main] = COMPANY_LOCATIONS!
+    expect(branches[0]).toMatchObject({
+      geo: { latitude: main!.geo!.lat, longitude: main!.geo!.lng },
     })
   })
 
