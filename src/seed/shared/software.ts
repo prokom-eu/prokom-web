@@ -60,6 +60,8 @@ export const SOFTWARE_SHARED: SharedGroup = {
         { label: 'Aktualności', href: '/aktualnosci' },
         { label: 'Darmowy audyt', href: '/audyt' },
         { label: 'Kreator 60 s', href: '/dobierz' },
+        // SEO etap 1: the town page linked from every page (it was reachable from the map only).
+        { label: 'Strony internetowe Rabka-Zdrój', href: '/miejscowosci/rabka-zdroj' },
       ],
     },
   ],

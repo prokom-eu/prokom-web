@@ -106,6 +106,7 @@ import * as migration_20261113_201127_swa14_pulpit_firmy from './20261113_201127
 import * as migration_20261113_201305_swa14_pulpit_firmy_dane from './20261113_201305_swa14_pulpit_firmy_dane'
 import * as migration_20261113_220654_software_cena_pulpitu from './20261113_220654_software_cena_pulpitu'
 import * as migration_20261113_224528_software_seo_glowna from './20261113_224528_software_seo_glowna'
+import * as migration_20261113_225554_software_seo_stopka from './20261113_225554_software_seo_stopka'
 
 export const migrations = [
   {
@@ -645,5 +646,10 @@ export const migrations = [
     up: migration_20261113_224528_software_seo_glowna.up,
     down: migration_20261113_224528_software_seo_glowna.down,
     name: '20261113_224528_software_seo_glowna',
+  },
+  {
+    up: migration_20261113_225554_software_seo_stopka.up,
+    down: migration_20261113_225554_software_seo_stopka.down,
+    name: '20261113_225554_software_seo_stopka',
   },
 ]
