@@ -46,15 +46,20 @@ export function MockDash({ variant }: { variant: DashVariant }) {
             <b>{dash.title}</b>
           </div>
           {dash.live && (
-            <i className="mk-live">
-              <b aria-hidden="true" />
+            // The flow mock-ups' „działa” badge; here its dot blinks (SWA14 §4.2).
+            <span className="mk-live">
+              <i />
               {dash.live}
-            </i>
+            </span>
           )}
           <i className="mk-device" data-spot="mobile" data-spot-at="before">
             Telefon
           </i>
-          <span data-spot={spot('raport')} data-spot-at={spot('end')}>
+          <span
+            className={live ? 'mk-report' : undefined}
+            data-spot={spot('raport')}
+            data-spot-at={spot('end')}
+          >
             {dash.button}
           </span>
         </div>

@@ -12,8 +12,12 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
  *   „pulpit firmy.” after „System dla firmy” (only if missing), the old slug in the bento → new;
  * - the price slot without a price reads „Wycena po rozmowie” (only while it is the old text);
  * - the chip of the area „Automatyzacje i AI” gets the new name.
- * Copied here on purpose: a migration must not change when the seed does. Each change only while
- * the data is still as the seed left it — an edit made in the panel stays. `down` goes back.
+ * Copied here on purpose: a migration must not change when the seed does. Solution 26 is rewritten
+ * as a whole (it becomes another product; a tenant that already has a `pulpit-firmy` keeps it and
+ * its old solution — no slug clash). The start page, the price word and the chip change only while
+ * they are still as the seed left them — an edit made in the panel stays. `down` goes back; after
+ * edits in the panel the older versions may still hold `pulpit` (`_solutions_v`, not `latest`): set
+ * them to `raporty` before rolling back the enum migration.
  */
 
 const OLD_SLUG = 'raporty-dla-szefa'
@@ -167,7 +171,11 @@ async function writeTexts(
 /** Solution 26 from `from` to `to`: the published row and its latest version. */
 async function moveSolution(db: Db, from: Solution, to: Solution) {
   const { rows } = await db.execute(
-    sql`SELECT "id" FROM "solutions" WHERE "slug" = ${from.slug} AND "tenant_id" IN (${SOFTWARE_TENANTS})`,
+    sql`SELECT s."id" FROM "solutions" s
+         WHERE s."slug" = ${from.slug} AND s."tenant_id" IN (${SOFTWARE_TENANTS})
+           AND NOT EXISTS (
+             SELECT 1 FROM "solutions" t WHERE t."slug" = ${to.slug} AND t."tenant_id" = s."tenant_id"
+           )`,
   )
   for (const { id } of rows as { id: number }[]) {
     await db.execute(sql`
@@ -214,6 +222,8 @@ async function updateSettings(db: Db, back: boolean) {
     sql`SELECT "id", "home", "wizard" FROM "software_settings" WHERE "tenant_id" IN (${SOFTWARE_TENANTS})`,
   )
   for (const row of rows as { id: number; home: unknown; wizard: unknown }[]) {
+    // Nothing saved yet: stays empty (no JSON `null` written over SQL `NULL`).
+    if (row.home == null && row.wizard == null) continue
     // Up: the old slug (the bento chip) first, then the new parts; down: the other way round,
     // so the new parts are still found by their slug before it goes back.
     const swapSlug = (value: unknown) =>

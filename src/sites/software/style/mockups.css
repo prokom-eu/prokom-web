@@ -831,29 +831,12 @@
 .mk-kpi {
   padding: 10px 12px;
 }
-/* „na żywo” of the company dashboard (SWA14 §4.2): a dot that blinks while on the screen. */
-.mk-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: var(--mk-ok-bg);
-  color: var(--mk-ok);
-  font-size: 9.5px;
-  font-style: normal;
-  font-weight: 800;
+/* „na żywo” of the company dashboard (SWA14 §4.2): the flows' „działa” badge (`.mk-live` below),
+   kept on one line in the panel's head with its button („Raport · pn 7:00”). */
+.mk-main-head .mk-live,
+.mk-report {
+  flex: none;
   white-space: nowrap;
-}
-/* The company dashboard's button („Raport · pn 7:00”) stays on one line. */
-.mk-live ~ span {
-  white-space: nowrap;
-}
-.mk-live > b {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
 }
 .mk-kpi small {
   font-size: 9.5px;
@@ -1360,7 +1343,7 @@
 /* --- Motion (ZMIANY-v24 §5, §8): bars grow, a dot runs, logs slide in, the slider sweeps, the
    sky twinkles. Off with reduced motion: the final state at once. -------------------------- */
 @media (prefers-reduced-motion: no-preference) {
-  .mk-live > b {
+  .mk-main-head .mk-live > i {
     animation: mk-blink var(--dur-mk-blink) steps(2, jump-none) infinite;
   }
   .mk-bars i {
