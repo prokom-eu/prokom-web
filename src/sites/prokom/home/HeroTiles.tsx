@@ -9,6 +9,9 @@ import { lineStyle } from '../lineColors'
 import { stepIndex } from './autoplay'
 import { Mark } from './Mark'
 import type { HomeLine } from './model'
+
+/** What a hero tile needs — the scene texts and contacts stay on the server. */
+export type HeroLine = Pick<HomeLine, 'key' | 'name' | 'label' | 'domain' | 'url' | 'hero'>
 import { useAutoplay } from './useAutoplay'
 
 /** Slides change every 4.2 s (spec §6.1 pkt 1). */
@@ -19,7 +22,7 @@ const BIG_TILES = 3
 type Props = {
   /** The PRO-KOM tile (server-rendered), first in the grid. */
   children: ReactNode
-  lines: HomeLine[]
+  lines: HeroLine[]
   /** Labels of the Tech repair stages for its small strip. */
   techStages: string[]
 }
@@ -60,7 +63,11 @@ export function HeroTiles({ children, lines, techStages }: Props) {
                 <a
                   href={line.url}
                   className="pk-ht__go"
-                  aria-label={line.domain ? `Przejdź na ${line.domain}` : `Przejdź: ${line.name}`}
+                  aria-label={
+                    big
+                      ? `Przejdź na ${line.domain ?? line.name}`
+                      : `Wejdź na ${line.domain ?? line.name}`
+                  }
                 >
                   <span className="pk-ht__go-text">{big ? line.domain : 'Wejdź'}</span>
                   <span aria-hidden="true"> ↗</span>
@@ -107,9 +114,9 @@ export function HeroTiles({ children, lines, techStages }: Props) {
               {slides.map((slide, i) => {
                 const on = i === current
                 return (
-                  <a
+                  <SlideLink
                     key={slide.title}
-                    href={line.url ?? '#linie'}
+                    href={line.url}
                     className="pk-hsl"
                     data-on={on ? '' : undefined}
                     data-after={i === stepIndex(current, slides.length) ? '' : undefined}
@@ -118,7 +125,7 @@ export function HeroTiles({ children, lines, techStages }: Props) {
                   >
                     <span className="pk-hsl__title">{slide.title}</span>
                     {big && slide.text && <span className="pk-hsl__text">{slide.text}</span>}
-                  </a>
+                  </SlideLink>
                 )
               })}
             </div>
@@ -131,12 +138,14 @@ export function HeroTiles({ children, lines, techStages }: Props) {
                     type="button"
                     className="pk-ht__seg"
                     aria-label={`Slajd ${i + 1}: ${slide.title}`}
-                    aria-current={i === current ? 'true' : undefined}
+                    aria-pressed={i === current}
                     onClick={() => move(i - current)}
                   >
                     <span>
                       <i
-                        data-fill={i <= current ? (i === current ? 'now' : 'done') : undefined}
+                        data-fill={
+                          i < current ? 'done' : i === current && running ? 'now' : undefined
+                        }
                         key={`${tick}-${i}`}
                       />
                     </span>
@@ -149,6 +158,31 @@ export function HeroTiles({ children, lines, techStages }: Props) {
       })}
     </div>
   )
+}
+
+/** A slide links to the line's site; without an address it is plain text, never a dead link. */
+function SlideLink({
+  href,
+  children,
+  ...rest
+}: {
+  href: string | null
+  children: ReactNode
+  className: string
+  'data-on'?: string
+  'data-after'?: string
+  'aria-hidden'?: true
+  tabIndex?: number
+}) {
+  if (href) {
+    return (
+      <a href={href} {...rest}>
+        {children}
+      </a>
+    )
+  }
+  const { tabIndex: _tabIndex, ...plain } = rest
+  return <span {...plain}>{children}</span>
 }
 
 function Bars({ count, className }: { count: number; className?: string }) {

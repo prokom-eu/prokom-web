@@ -181,7 +181,6 @@
   border-radius: 36px;
   padding: clamp(28px, 3vw, 48px);
   background: var(--k-card);
-  animation: pk-hin 0.9s var(--ease) both;
 }
 .pk-hstr {
   position: absolute;
@@ -271,27 +270,7 @@
   line-height: 0.84;
 }
 .pk-wm {
-  background: linear-gradient(
-    100deg,
-    var(--k-ink) 0%,
-    var(--k-ink) 38%,
-    var(--k-ink3) 50%,
-    var(--k-ink) 62%,
-    var(--k-ink) 100%
-  );
-  background-size: 260% 100%;
-  background-clip: text;
-  color: transparent;
-  animation: pk-sheen 7s ease-in-out infinite;
-}
-@keyframes pk-sheen {
-  0%,
-  100% {
-    background-position: 100% 0;
-  }
-  50% {
-    background-position: 0 0;
-  }
+  color: var(--k-ink);
 }
 .pk-hy {
   display: block;
@@ -346,9 +325,9 @@
   margin-top: 6px;
   animation-delay: 0.55s;
 }
+/* Transform only: text with opacity 0 would not count for LCP until it shows (spec §9). */
 @keyframes pk-wmin {
   from {
-    opacity: 0;
     transform: translateY(0.35em);
   }
 }
@@ -404,6 +383,20 @@
   font-size: 13px;
   font-weight: 700;
   transition: transform 0.3s var(--ease);
+}
+.pk-hch,
+.pk-ht__go {
+  position: relative;
+}
+/* 44 px touch targets (spec §5.4) without changing the drawn size. */
+.pk-hch::after,
+.pk-ht__go::after {
+  position: absolute;
+  inset: -5px 0;
+  content: '';
+}
+.pk-ht__go::after {
+  inset: -5px;
 }
 .pk-hch:hover {
   color: var(--k-ink);
@@ -993,9 +986,10 @@
   gap: 5px;
 }
 .pk-ht__seg {
-  min-height: 24px;
+  min-height: 44px;
   flex: 1;
-  padding: 10px 0;
+  margin: -10px 0;
+  padding: 20px 0;
 }
 .pk-ht__seg > span {
   display: block;
@@ -1070,6 +1064,21 @@
 .pk-mqw:hover .pk-mq,
 .pk-mqw:focus-within .pk-mq {
   animation-play-state: paused;
+}
+/* A touch screen cannot pause on hover: the row stands still and scrolls by hand (WCAG 2.2.2). */
+@media (hover: none) {
+  .pk-mqw {
+    overflow-x: auto;
+    scrollbar-width: none;
+    mask-image: none;
+  }
+  .pk-mq {
+    animation: none;
+    padding: 0 clamp(20px, 3vw, 48px);
+  }
+  .pk-mq__list[aria-hidden] {
+    display: none;
+  }
 }
 @keyframes pk-mq {
   to {

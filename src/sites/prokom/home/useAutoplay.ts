@@ -15,7 +15,8 @@ type Options = {
 /**
  * Calls `onStep` every `interval` while the element of `ref` runs (`autoplay.ts`). Hover and focus
  * come from the handlers it returns; tab visibility, view and reduced motion it watches itself.
- * Each pause restarts the full interval, so a slide never jumps right after the mouse leaves.
+ * Each pause restarts the full interval, so a slide never jumps right after the mouse leaves. On a
+ * touch screen (no hover to pause) it does not run at all (WCAG 2.2.2).
  */
 export function useAutoplay<T extends HTMLElement>(
   ref: RefObject<T | null>,
@@ -34,11 +35,14 @@ export function useAutoplay<T extends HTMLElement>(
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const onMotion = () => patch({ reducedMotion: media.matches })
+    // A touch screen cannot pause on hover — no autoplay there (WCAG 2.2.2, decision 14.11).
+    const touch = window.matchMedia('(hover: none)')
+    const onMotion = () => patch({ reducedMotion: media.matches || touch.matches })
     const onVisibility = () => patch({ pageHidden: document.hidden })
     onMotion()
     onVisibility()
     media.addEventListener('change', onMotion)
+    touch.addEventListener('change', onMotion)
     document.addEventListener('visibilitychange', onVisibility)
     const element = ref.current
     const observer =
@@ -48,6 +52,7 @@ export function useAutoplay<T extends HTMLElement>(
     if (element) observer?.observe(element)
     return () => {
       media.removeEventListener('change', onMotion)
+      touch.removeEventListener('change', onMotion)
       document.removeEventListener('visibilitychange', onVisibility)
       observer?.disconnect()
     }

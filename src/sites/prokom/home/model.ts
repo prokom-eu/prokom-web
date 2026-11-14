@@ -30,7 +30,8 @@ export type HomeLine = {
 
 /**
  * Lines of the home page in the order of the panel (`CompanyData.lines` via `HubLineContact`); a
- * line without texts or switched off in `CompanyData` is left out — never a placeholder.
+ * line switched off in `CompanyData` is left out — never a placeholder (the schema of `home`
+ * requires the texts of every line).
  */
 export function homeLines(
   contacts: readonly HubLineContact[],

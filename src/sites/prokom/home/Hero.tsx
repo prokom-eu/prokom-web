@@ -8,7 +8,7 @@ import { toTelHref } from '@/lib/site/link'
 
 import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
-import { HeroTiles } from './HeroTiles'
+import { HeroTiles } from './HomeIslands'
 import type { HomeLine } from './model'
 
 type Props = {
@@ -42,7 +42,17 @@ export function Hero({ home, lines, facts, company, phone, now }: Props) {
       <section id="start" data-rail-section aria-labelledby="start-h" className="pk-hero">
         <div aria-hidden="true" className="pk-hero__dots" />
         <div className={`pk-hero__inner ${HUB_CONTAINER}`}>
-          <HeroTiles lines={lines} techStages={home.lines.techStages.map((stage) => stage.title)}>
+          <HeroTiles
+            lines={lines.map(({ key, name, label, domain, url, hero: tile }) => ({
+              key,
+              name,
+              label,
+              domain,
+              url,
+              hero: tile,
+            }))}
+            techStages={home.lines.techStages.map((stage) => stage.title)}
+          >
             <div className="pk-hb-main">
               <span aria-hidden="true" className="pk-hstr">
                 {LINE_STRIPES.map((line) => (
