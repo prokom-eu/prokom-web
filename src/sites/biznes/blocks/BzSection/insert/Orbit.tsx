@@ -176,7 +176,7 @@ export function InsertOrbit({
                 {box.name}
               </span>
               {box.line && (
-                <span className="text-center text-[11px] leading-tight whitespace-nowrap text-white/70">
+                <span className="text-center text-[12px] leading-tight whitespace-nowrap text-white/70">
                   {box.line}
                 </span>
               )}

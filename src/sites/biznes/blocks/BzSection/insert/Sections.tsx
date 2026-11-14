@@ -96,7 +96,7 @@ export function InsertHero({
               <span
                 className={cx(
                   EYEBROW,
-                  'inline-flex rounded-full bg-white/10 px-3.5 py-2 text-white ring-1 ring-white/20 ring-inset max-md:px-3 max-md:py-1.5 max-md:text-[11px] max-md:tracking-normal max-md:normal-case',
+                  'inline-flex rounded-full bg-white/10 px-3.5 py-2 text-white ring-1 ring-white/20 ring-inset max-md:px-3 max-md:py-1.5 max-md:text-[12px] max-md:tracking-normal max-md:normal-case',
                 )}
               >
                 {data.pill}

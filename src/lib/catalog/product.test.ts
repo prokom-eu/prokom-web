@@ -302,4 +302,38 @@ describe('productGallery (K32 §9)', () => {
     expect(images.map((item) => item.alt)).toEqual(['Obraz a.webp', 'Obraz own.webp'])
     expect(colorSlides).toEqual([0, 0, null])
   })
+
+  // Audit 14.11 pkt 4: a very long or tall photo (a switch from the front, a soundbar, a laptop's
+  // edge) is a thin strip in the square frame — it goes after the photos that fill the frame.
+  const shot = (name: string, width: number, height: number) => ({
+    alt: name,
+    width,
+    height,
+    sources: [{ url: `/m/${name}.webp`, width }],
+  })
+
+  it('puts very long or tall photos after the others, keeping the order inside each part', () => {
+    const { images } = productGallery(
+      [],
+      [
+        shot('front', 1600, 302),
+        shot('angle', 1600, 840),
+        shot('top', 300, 900),
+        shot('side', 900, 700),
+      ],
+    )
+    expect(images.map((item) => item.alt)).toEqual(['angle', 'side', 'front', 'top'])
+  })
+
+  it('leaves a gallery of only long photos as it is, and colour pictures first', () => {
+    const only = [shot('a', 1600, 300), shot('b', 1600, 250)]
+    expect(productGallery([], only).images.map((item) => item.alt)).toEqual(['a', 'b'])
+    const colors = [{ name: 'Czarny', hex: '#000000', image: shot('wide-colour', 1600, 300) }]
+    const { images, colorSlides } = productGallery(colors, [
+      shot('wide', 1600, 300),
+      shot('ok', 800, 800),
+    ])
+    expect(images.map((item) => item.alt)).toEqual(['wide-colour', 'ok', 'wide'])
+    expect(colorSlides).toEqual([0])
+  })
 })

@@ -7,6 +7,7 @@ import type { IndexLogo } from './catalogIndex'
 import { buildConfigurator, type Configurator } from './configurator'
 import { isHexColor } from './options'
 import { displayName } from './productName'
+import { isStripPhoto } from './stripPhoto'
 import { labeledSourceLinks, sourceLinks, type SourceLink } from './sourceLabels'
 
 type LabelValue = { label: string; value: string }
@@ -213,7 +214,9 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
 
 /**
  * Photos of the gallery (K32 §9): the colours' pictures first, then the card's own photos —
- * each picture once — and the slide of each colour (`null`: a colour without a picture).
+ * each picture once — and the slide of each colour (`null`: a colour without a picture). Among
+ * the own photos the strips (`isStripPhoto`) go last, so a frame-filling one comes first; the
+ * order inside each part stays the panel's.
  */
 export function productGallery(
   colors: readonly ProductColor[],
@@ -230,6 +233,7 @@ export function productGallery(
     return gallery.length - 1
   }
   const colorSlides = colors.map((color) => (color.image ? add(color.image) : null))
-  for (const image of images) add(image)
+  for (const image of images) if (!isStripPhoto(image)) add(image)
+  for (const image of images) if (isStripPhoto(image)) add(image)
   return { images: gallery, colorSlides }
 }

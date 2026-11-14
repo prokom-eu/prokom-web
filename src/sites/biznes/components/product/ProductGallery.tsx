@@ -8,6 +8,7 @@ import { cx } from '@/components/ui/cx'
 import type { IndexLogo } from '@/lib/catalog/catalogIndex'
 import type { IconName } from '@/lib/catalog/options'
 import type { FallbackTile } from '@/lib/catalog/purchase'
+import { isStripPhoto } from '@/lib/catalog/stripPhoto'
 import type { PublicImage } from '@/lib/media/public'
 
 import { useSwap } from '../motion/useSwap'
@@ -64,6 +65,7 @@ export function ProductGallery({
   const [zoom, setZoom] = useState(false)
   const count = images.length
   const image = images[active]
+  const wide = image ? isStripPhoto(image) && image.width > image.height : false
   // R2: after the visitor picks another picture it fades in; not on load (LCP).
   const fade = 'data-swap' in useSwap(active)
   const go = (delta: number) => setActive((current) => (current + delta + count) % count)
@@ -168,7 +170,13 @@ export function ProductGallery({
             if (Math.abs(end - start) > SWIPE) go(end < start ? 1 : -1)
           }}
         >
-          <ProductStage className="aspect-[4/3.4] w-full px-8 pt-16 pb-12 sm:aspect-[1/0.92] lg:aspect-[1/0.95]">
+          <ProductStage
+            className={cx(
+              'aspect-[4/3.4] w-full pt-16 pb-12 sm:aspect-[1/0.92] lg:aspect-[1/0.95]',
+              // A long photo (switch, soundbar) takes the frame's whole width (audit 14.11 pkt 4).
+              wide ? 'px-4' : 'px-8',
+            )}
+          >
             {image ? (
               <MediaImage
                 key={active}
@@ -176,7 +184,8 @@ export function ProductGallery({
                 sizes="(min-width: 1024px) 560px, 100vw"
                 eager={active === 0}
                 className={cx(
-                  'relative max-h-full w-auto max-w-[86%] object-contain',
+                  'relative max-h-full w-auto object-contain',
+                  wide ? 'max-w-full' : 'max-w-[86%]',
                   STAGE_SHADOW,
                   fade && 'motion-safe:animate-[bz-fade_var(--dur-state)_var(--ease-out)]',
                 )}
