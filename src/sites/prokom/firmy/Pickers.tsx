@@ -11,6 +11,7 @@ import { lineStyle } from '../lineColors'
 import { Mark } from '../home/Mark'
 import { linesCount, plural } from '../home/model'
 import type { Area, BusinessLineInfo, Industry } from './model'
+import { OptionalLink } from './OptionalLink'
 
 /**
  * „Wybierz branżę. Pokażemy plan.” (spec §6.3, board 03 `#branze`): the industries of `HubPlans`
@@ -184,11 +185,17 @@ export function AreaTabs({
     if (first >= 0 && items[first]?.line !== area.line) setIndex(first)
   }
   const onKey = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const step = { ArrowRight: 1, ArrowLeft: -1 }[event.key]
-    if (step === undefined) return
-    event.preventDefault()
     const at = tabs.findIndex((line) => line.key === area.line)
-    const next = tabs[(at + step + tabs.length) % tabs.length]
+    const moves: Record<string, number> = {
+      ArrowRight: at + 1,
+      ArrowLeft: at - 1,
+      Home: 0,
+      End: tabs.length - 1,
+    }
+    const to = moves[event.key]
+    if (to === undefined) return
+    event.preventDefault()
+    const next = tabs[(to + tabs.length) % tabs.length]
     if (!next) return
     pickLine(next.key)
     document.getElementById(`${baseId}-${next.key}`)?.focus()
@@ -334,10 +341,12 @@ export function SituationPicker({
   texts,
   items,
   phone,
+  tel,
 }: {
   texts: Omit<HubForBusiness['situations'], 'items'>
   items: Situation[]
   phone: string | null
+  tel: string | null
 }) {
   const panelId = useId()
   const [index, setIndex] = useState(0)
@@ -379,7 +388,7 @@ export function SituationPicker({
           <ol className="pk-situation__order">
             {current.steps.map((step, at) => (
               <li key={`${at}-${step.what}`} style={lineStyle(step.key)}>
-                <a href={step.url ?? undefined} className="pk-lcard pk-situation__card">
+                <OptionalLink href={step.url} className="pk-lcard pk-situation__card">
                   <span className="pk-situation__when">
                     <b aria-hidden="true">{String(at + 1).padStart(2, '0')}</b>
                     {texts.when[at]}
@@ -387,7 +396,7 @@ export function SituationPicker({
                   <Mark label={step.label} />
                   <span className="pk-situation__what">{step.what}</span>
                   {step.phone && <span className="pk-lcard__phone">{step.phone}</span>}
-                </a>
+                </OptionalLink>
               </li>
             ))}
           </ol>
@@ -398,10 +407,10 @@ export function SituationPicker({
                 {pillar}
               </li>
             ))}
-            {phone && (
+            {phone && tel && (
               <li>
                 <i aria-hidden="true" />
-                {texts.start} {phone}
+                {texts.start} <a href={tel}>{phone}</a>
               </li>
             )}
           </ul>
