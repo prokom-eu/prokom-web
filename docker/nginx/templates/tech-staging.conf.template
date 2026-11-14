@@ -16,4 +16,13 @@ server {
   set $app prokom-tech-staging-gateway-1:80;
   include /etc/nginx/snippets/staging.conf;
   include /etc/nginx/snippets/tech.conf;
+
+  # Django REST API without the staging password: the frontend sends `Authorization: Token …`,
+  # and a browser has only one Authorization header, so basic auth would answer 401 to every
+  # call after login. The API itself requires a token (DRF IsAuthenticated by default);
+  # X-Robots-Tag noindex from staging.conf still applies here.
+  location /api/ {
+    auth_basic off;
+    include /etc/nginx/snippets/proxy.conf;
+  }
 }
