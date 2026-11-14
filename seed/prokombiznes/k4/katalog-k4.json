@@ -9359,7 +9359,7 @@
   {
    "slug_seed": "druks",
    "zmiana_k4": "drobne",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "sprz",
    "kategoria": "akc",
    "podkategoria": "Drukarki bonowe",
@@ -9367,42 +9367,55 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Sunmi NT311 (80 mm Kitchen Cloud Printer)",
    "krotka": "Sunmi NT311",
-   "podtytul": "Drukarka kuchenna 80 mm z drukiem z chmury",
+   "podtytul": "Drukarka kuchenna 80 mm z drukiem z chmury, IP52, 250 mm/s",
    "korzysc": "Zamówienia z kasy i z internetu drukują się w kuchni, a drukarka głosem i światłem zgłasza nowy bon.",
    "opis": [
-    "To drukarka bonów do kuchni, baru i punktu wydawania zamówień. Drukuje zamówienia przyjęte na kasie w lokalu, a także te, które przychodzą z chmury, np. z zamówień online, bez komputera po drodze. Pasuje do pizzerii, baru z dowozem, kawiarni czy food trucka.",
-    "Drukuje na papierze 80 mm (z przekładką także 58 mm) z prędkością do 250 mm/s. Ma stopień ochrony IP52, uszczelki i bardzo małe otwory w obudowie, więc lepiej znosi pył i zachlapania. O nowym zamówieniu informuje dźwiękiem lub komunikatem głosowym i światłem, o zacięciu papieru głosem i czerwoną lampką. Po powrocie internetu pobiera zaległe zamówienia z ostatnich 24 godzin, a po wymianie papieru sama dodrukowuje przerwany bon.",
-    "Łączy się przez Wi-Fi, kabel sieciowy (LAN), Bluetooth, USB i 4G. Postawisz ją na blacie albo przykręcisz do ściany. Do druku z chmury potrzebny jest program sprzedaży lub platforma zamówień, która obsługuje drukarki chmurowe Sunmi — sprawdź to przed zakupem."
+    "Sunmi NT311, w materiałach producenta opisywana jako 80mm Kitchen Cloud Printer, to drukarka bonów stawiana tam, gdzie powstają dania: w kuchni pizzerii, przy barze, w punkcie wydawania zamówień czy w food trucku. Drukuje zarówno bony wysłane z kasy w lokalu, jak i zamówienia online, które przychodzą z chmury bez pośrednictwa komputera.",
+    "Drukuje termicznie na rolce 80 mm o średnicy do 80 mm, z prędkością do 250 mm/s, i sama obcina bon; po założeniu uchwytu przyjmie też rolkę 58 mm. Obudowa ma stopień ochrony IP52, gumowe uszczelki i otwory mniejsze niż 0,8 mm, a tworzywo ABS z powłoką odpychającą tłuszcz łatwo się czyści. Nowe zamówienie drukarka zgłasza światłem oraz brzęczykiem przy druku z sieci lokalnej albo komunikatem głosowym przy druku z chmury, a zacięcie papieru głosem i czerwoną lampką.",
+    "Gdy zniknie internet, po powrocie połączenia sama pobiera zamówienia z chmury czekające nie dłużej niż 24 godziny, a po wymianie rolki dodrukowuje całe przerwane zamówienie. Łączy się przez Wi-Fi 2,4 GHz, Ethernet, Bluetooth i USB-C; strona producenta wymienia także 4G, którego nie ma w karcie katalogowej, więc dostępność tej wersji potwierdzamy przy zamówieniu. Ma gniazdo szuflady RJ12, obsługuje polecenia ESC/POS i można ją przykręcić do ściany czterema śrubami od spodu.",
+    "Druk z chmury działa tylko z programem sprzedaży albo platformą zamówień, która obsługuje drukarki chmurowe Sunmi, dlatego w salonie PRO-KOM w Rabce-Zdroju najpierw sprawdzamy Twój system. Potem ustawiamy NT311 w sieci kuchni, drukujemy raport testu sieci z siłą sygnału Wi-Fi, łączymy drukarkę z kasą lub terminalem i pokazujemy obsłudze, jak reagować na komunikaty głosowe."
    ],
    "cechy": [
     "80 mm, 250 mm/s",
-    "Wi-Fi, LAN, BT, 4G",
+    "druk z chmury",
     "IP52"
    ],
    "parametry": [
     {
      "k": "Typ",
-     "v": "drukarka bonów kuchennych z drukiem z chmury"
+     "v": "termiczna drukarka bonów kuchennych z drukiem z chmury (niefiskalna)"
     },
     {
      "k": "Szerokość papieru",
-     "v": "80 mm; z przekładką 58 mm"
+     "v": "80 mm (zadruk 72 mm, 576 punktów); z uchwytem 58 mm"
     },
     {
      "k": "Maks. rolka",
-     "v": "80 mm × Ø 80 mm"
+     "v": "średnica 80 mm; papier termiczny 0,06–0,08 mm"
     },
     {
      "k": "Prędkość druku",
      "v": "do 250 mm/s (tryb standardowy; tryb dokładny może być wolniejszy)"
     },
     {
+     "k": "Obcinacz",
+     "v": "automatyczny, żywotność ponad 1,5 mln cięć; żywotność głowicy 150 km"
+    },
+    {
      "k": "Łączność",
-     "v": "Wi-Fi, LAN, Bluetooth, USB, 4G"
+     "v": "Wi-Fi 802.11 b/g/n (2,4 GHz), Ethernet RJ45 10/100, Bluetooth (BLE, SPP), USB-C 2.0; 4G — wg strony producenta, brak w karcie katalogowej"
+    },
+    {
+     "k": "Złącze szuflady",
+     "v": "RJ12, 24 V / 1 A"
     },
     {
      "k": "Druk z chmury",
-     "v": "tak; po zaniku sieci pobiera zamówienia oczekujące do 24 h"
+     "v": "tak (MQTT + HTTPS); po zaniku sieci pobiera zamówienia oczekujące do 24 h"
+    },
+    {
+     "k": "Polecenia i pamięć",
+     "v": "ESC/POS; 64 MB RAM, 256 MB flash"
     },
     {
      "k": "Po braku papieru / zacięciu",
@@ -9410,11 +9423,11 @@
     },
     {
      "k": "Sygnalizacja",
-     "v": "nowe zamówienie: dźwięk (LAN) lub głos (chmura) + światło; zacięcie: głos + czerwona lampka; koniec rolki"
+     "v": "nowe zamówienie: brzęczyk (LAN) lub głos (chmura) + światło; zacięcie: głos + czerwona lampka; czujnik końca rolki; głośnik 3 W"
     },
     {
      "k": "Odporność (IP)",
-     "v": "IP52, uszczelki, otwory < 0,8 mm, obudowa ABS odporna na tłuszcz"
+     "v": "IP52, uszczelki, otwory < 0,8 mm, obudowa ABS z powłoką odporną na tłuszcz"
     },
     {
      "k": "Montaż",
@@ -9422,11 +9435,19 @@
     },
     {
      "k": "Funkcje druku",
-     "v": "druk z czarnym znacznikiem (np. bilety), tryb oszczędzania papieru, czcionki wektorowe, wiele języków"
+     "v": "druk z czarnym znacznikiem (np. bilety), tryb oszczędzania papieru, tryb dokładny, wektorowe czcionki wielojęzyczne"
     },
     {
      "k": "Diagnostyka sieci",
      "v": "wbudowany test drukujący raport (siła sygnału, konflikty kanałów)"
+    },
+    {
+     "k": "Zasilanie",
+     "v": "DC 24 V / 2,5 A, złącze DIN 4-pin"
+    },
+    {
+     "k": "Wymiary / waga",
+     "v": "130 × 130 × 130 mm; 855 g (bez papieru)"
     },
     {
      "k": "Kolory",
@@ -9445,63 +9466,90 @@
    ],
    "faq": [
     {
-     "q": "Czy drukarka potrzebuje komputera w kuchni?",
-     "a": "Nie. Zamówienia z chmury drukuje bezpośrednio, a z kasy w lokalu przyjmuje je przez LAN, Wi-Fi, Bluetooth lub USB."
+     "q": "Czy Sunmi NT311 potrzebuje komputera w kuchni?",
+     "a": "Nie. Zamówienia z chmury drukuje bezpośrednio przez internet (MQTT i HTTPS), a bony z kasy w lokalu przyjmuje przez sieć LAN, Wi-Fi, Bluetooth lub kabel USB-C. Potrzebny jest tylko program, który wysyła do niej wydruki."
     },
     {
-     "q": "Co się stanie, gdy na chwilę zniknie internet?",
-     "a": "Po odzyskaniu połączenia drukarka pobiera i drukuje zamówienia z chmury, które czekały do 24 godzin."
+     "q": "Co robi Sunmi NT311, gdy w lokalu zniknie internet?",
+     "a": "Po odzyskaniu połączenia drukarka sama pobiera i drukuje zamówienia z chmury, które czekały nie dłużej niż 24 godziny. Wbudowany test sieci drukuje raport z siłą sygnału i konfliktami kanałów, co pomaga znaleźć przyczynę przerw."
     },
     {
-     "q": "Czy mogę używać węższego papieru 58 mm?",
-     "a": "Tak, producent przewiduje przekładkę do rolek 58 mm. Standardowo drukarka pracuje na papierze 80 mm."
+     "q": "Czy w Sunmi NT311 można używać papieru 58 mm?",
+     "a": "Tak, po założeniu uchwytu na rolkę 58 mm przewidzianego przez producenta. Standardowo drukarka pracuje na papierze termicznym 80 mm o grubości 0,06–0,08 mm, z rolką o średnicy do 80 mm i szerokością zadruku 72 mm."
     },
     {
-     "q": "Czy nadaje się do pracy przy kuchni?",
-     "a": "Ma stopień ochrony IP52, uszczelki i obudowę odporną na tłuszcz, więc jest przygotowana na pył i zachlapania. Nie jest to urządzenie wodoodporne."
+     "q": "Czy Sunmi NT311 wytrzyma codzienną pracę przy kuchni?",
+     "a": "Ma stopień ochrony IP52, uszczelki, otwory poniżej 0,8 mm i obudowę ABS odporną na tłuszcz, więc dobrze znosi kapiącą wodę, kurz i owady. IP52 nie oznacza wodoodporności — drukarki nie stawia się przy zlewie ani nie myje pod bieżącą wodą."
+    },
+    {
+     "q": "Czy Sunmi NT311 otworzy szufladę kasową przy barze?",
+     "a": "Ma gniazdo szuflady RJ12 (24 V, 1 A), więc może otwierać szufladę po wydruku, jeśli program sprzedaży wysyła takie polecenie. W kuchni zwykle nie jest to potrzebne, ale przydaje się, gdy drukarka stoi przy barze lub w punkcie wydawania."
     }
    ],
    "polecane": [
     {
-     "slug": "gt",
-     "etykieta": "Program sprzedaży"
+     "slug": "gopos",
+     "etykieta": "System sprzedaży dla gastronomii"
+    },
+    {
+     "slug": "gopos-all-in-one",
+     "etykieta": "Terminal POS na urządzeniu Sunmi"
+    },
+    {
+     "slug": "integracja-kasy",
+     "etykieta": "Podłączenie drukarki do kasy"
+    },
+    {
+     "slug": "elzab-drukarka-paragonowa-elz-rp332a",
+     "etykieta": "Drukarka bonów z RS232, USB i LAN"
     }
    ],
+   "podobne": [
+    "elzab-drukarka-paragonowa-elz-rp332a",
+    "elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wif",
+    "elzab-drukarka-paragonowa-elz-rpp02b"
+   ],
    "branze": [
-    "Gastronomia"
+    "Gastronomia",
+    "Noclegi"
    ],
    "zrodla": [
     {
-     "url": "https://www.sunmi.com/en/80-kitchen-cloud-printer",
+     "url": "https://www.sunmi.com/en/80-kitchen-cloud-printer/",
      "etykieta": "Strona producenta — Sunmi",
-     "host": "sunmi.com/en/80-kitchen-cloud-printer"
+     "host": "sunmi.com"
+    },
+    {
+     "url": "https://file.cdn.sunmi.com/newebsite/products/80-kitchen-printer/appendix/product-datasheet-en-n.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Sunmi",
+     "host": "file.cdn.sunmi.com · PDF"
     }
    ],
    "wyrozniki": [
     "80 mm, 250 mm/s",
-    "Wi-Fi, LAN, BT, 4G",
+    "druk z chmury",
     "IP52"
    ],
    "w_skrocie_wzorzec": [
     {
      "k": "Łączność",
-     "v": "Wi-Fi, LAN, Bluetooth, USB, 4G"
+     "v": "Wi-Fi, Ethernet, Bluetooth, USB-C"
     },
     {
      "k": "Typ",
-     "v": "drukarka bonów kuchennych z drukiem z chmury"
+     "v": "termiczna drukarka bonów kuchennych z drukiem z chmury"
     },
     {
      "k": "Szerokość papieru",
-     "v": "80 mm"
-    },
-    {
-     "k": "Maks. rolka",
-     "v": "80 mm × Ø 80 mm"
+     "v": "80 mm; z uchwytem 58 mm"
     },
     {
      "k": "Prędkość druku",
-     "v": "do 250 mm/s (tryb standardowy"
+     "v": "do 250 mm/s"
+    },
+    {
+     "k": "Wymiary / waga",
+     "v": "130 × 130 × 130 mm; 855 g"
     }
    ],
    "nowosc": false,
@@ -9512,6 +9560,28 @@
      "k": "SUNMI",
      "l": "en",
      "d": "model"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/druks-premium-01.webp",
+     "zrodlo": "https://file.cdn.sunmi.com/newebsite/products/80-kitchen-printer/lg/p11-1-black.jpg",
+     "ujecie": "wersja czarna, ujęcie z góry na panel przycisków"
+    },
+    {
+     "plik": "media/produkty/druks-premium-02.webp",
+     "zrodlo": "https://file.cdn.sunmi.com/newebsite/products/80-kitchen-printer/lg/p11-1-silvery.jpg",
+     "ujecie": "wersja srebrna, ujęcie z góry"
+    },
+    {
+     "plik": "media/produkty/druks-premium-03.webp",
+     "zrodlo": "https://file.cdn.sunmi.com/newebsite/products/80-kitchen-printer/lg/p8-4.jpg",
+     "ujecie": "wersja czarna i srebrna obok siebie"
+    },
+    {
+     "plik": "media/produkty/druks-premium-04.webp",
+     "zrodlo": "https://file.cdn.sunmi.com/newebsite/products/80-kitchen-printer/lg/p8-1.jpg",
+     "ujecie": "otwarta komora z rolką papieru"
     }
    ]
   },
@@ -66490,7 +66560,7 @@
   {
    "slug_seed": "kyocera-ecosys-ma4500x-fx-ifx",
    "zmiana_k4": "zmieniona",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "biuro",
    "kategoria": "mfp",
    "podkategoria": "mfp-biuro",
@@ -66498,12 +66568,13 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Kyocera ECOSYS MA4500x / MA4500fx / MA4500ifx",
    "krotka": "Kyocera ECOSYS MA4500x / MA4500fx / MA4500ifx",
-   "podtytul": "Monochromatyczne urządzenia wielofunkcyjne A4, 45 str./min",
+   "podtytul": "Monochromatyczne urządzenia wielofunkcyjne A4, 45 str./min, do 2600 kartek",
    "korzysc": "Obsłużysz codzienne drukowanie, kopie i skany całego biura, z papierem rozbudowywanym do 2600 kartek.",
    "opis": [
-    "Czarno-białe urządzenie wielofunkcyjne A4 dla biura lub działu, który drukuje dużo i codziennie: kancelarii, księgowości, przychodni, sekretariatu szkoły. Drukuje do 45 stron na minutę, kopiuje i skanuje w kolorze.",
-    "W standardzie ma kasetę na 500 kartek i tacę boczną na 100, a z opcjami mieści do 2600 kartek. Wersja x to druk, kopia i skan. Wersja fx dokłada faks. Wersja ifx ma faks, kolorowy ekran dotykowy 7 cali i platformę aplikacji HyPAS, na której można uruchomić dodatkowe programy, np. do skanowania do konkretnych folderów.",
-    "Urządzenie ma rozbudowane zabezpieczenia danych (szyfrowanie, nadpisywanie danych, moduł TPM). Opcjonalnie dobierzesz dysk SSD, Wi-Fi i czytnik kart do logowania pracowników."
+    "Kyocera ECOSYS MA4500x, MA4500fx i MA4500ifx to czarno-białe urządzenia wielofunkcyjne A4 dla zespołu, który codziennie drukuje setki stron: kancelarii, biura rachunkowego, rejestracji przychodni albo sekretariatu szkoły. Drukują do 45 stron A4 na minutę, a pierwsza strona wychodzi po około 5 sekundach. Producent zaleca średnio 3 000 stron miesięcznie, przy maksymalnym obciążeniu 150 000 stron.",
+    "W standardzie mieszczą 600 kartek: kasetę na 500 i tacę uniwersalną na 100, a z czterema podajnikami PF-3110 do 2 600 kartek. Rewersyjny podajnik na 75 arkuszy sam odwraca kartkę przy skanie dwustronnym, skanuje w kolorze i zeskanuje nawet długi baner do 915 mm. MA4500x drukuje, kopiuje i skanuje, MA4500fx dokłada faks Super G3, a MA4500ifx ma faks, kolorowy ekran dotykowy 7 cali, więcej pamięci (1,5 GB) i platformę aplikacji HyPAS.",
+    "Seria ma Secure Boot, kontrolę integralności oprogramowania w trakcie pracy, szyfrowanie TLS 1.3 i nadpisywanie danych. Moduł TPM (UG-50), dysk SSD do 512 GB, kartę Wi-Fi z Wi-Fi Direct oraz czytnik kart do logowania pracowników dokupuje się jako opcje. Toner TK-3400 do MA4500x i MA4500fx wystarcza na 12 500 stron, a TK-3300 do MA4500ifx na 14 500 stron.",
+    "W salonie PRO-KOM w Rabce-Zdroju pomożemy wybrać między MA4500x, MA4500fx a MA4500ifx, zależnie od tego, czy do firmy wciąż przychodzą faksy i czy chcecie skanować z ekranu prosto do folderów. Po dostawie podłączamy urządzenie do sieci, instalujemy sterowniki, ustawiamy skanowanie do e-maila i katalogów sieciowych, a później prowadzimy serwis i dostarczamy tonery."
    ],
    "cechy": [
     "45 str./min",
@@ -66513,11 +66584,11 @@
    "parametry": [
     {
      "k": "Typ",
-     "v": "Monochromatyczne laserowe urządzenie wielofunkcyjne"
+     "v": "Monochromatyczne laserowe urządzenie wielofunkcyjne, biurkowe"
     },
     {
      "k": "Format",
-     "v": "A4 (oryginał do Legal)"
+     "v": "A4 (oryginał do Legal; skan banerów do 915 mm)"
     },
     {
      "k": "Prędkość druku",
@@ -66529,7 +66600,7 @@
     },
     {
      "k": "Funkcje",
-     "v": "MA4500x: druk, kopia, skan (kolor); MA4500fx i MA4500ifx: druk, kopia, skan, faks"
+     "v": "MA4500x: druk, kopia, skan (kolor); MA4500fx i MA4500ifx: dodatkowo faks Super G3 (33,6 kb/s)"
     },
     {
      "k": "Druk dwustronny",
@@ -66541,65 +66612,97 @@
     },
     {
      "k": "Prędkość skanowania",
-     "v": "do 60 obr./min jednostronnie, 26 obr./min dwustronnie (mono, 300 dpi)"
+     "v": "jednostronnie do 60 obr./min mono i 40 kolor; dwustronnie do 26 mono i 17 kolor (A4, 300 dpi)"
     },
     {
      "k": "Pojemność papieru",
-     "v": "standard 600 ark. (kaseta 500 + taca boczna 100); maks. 2600 ark. z opcjami"
+     "v": "standard 600 ark. (kaseta 500 + taca uniwersalna 100); maks. 2600 ark. z 4 podajnikami PF-3110; odbiór 250 ark."
+    },
+    {
+     "k": "Obciążenie miesięczne",
+     "v": "zalecane 3 000, maks. 150 000 str./mies. (wszystkie modele)"
+    },
+    {
+     "k": "Pamięć",
+     "v": "MA4500x i MA4500fx: 1 GB (maks. 3 GB); MA4500ifx: 1,5 GB (maks. 3,5 GB); opcjonalny dysk SSD 64/256/512 GB"
     },
     {
      "k": "Panel",
-     "v": "MA4500ifx: kolorowy ekran dotykowy 7\""
+     "v": "MA4500x i MA4500fx: podświetlany wyświetlacz 5 linii × 21 znaków; MA4500ifx: kolorowy ekran dotykowy 7\" (pochylany)"
     },
     {
      "k": "Łączność",
-     "v": "USB 2.0, Gigabit Ethernet, USB host; Wi-Fi opcjonalnie"
+     "v": "USB 2.0, Gigabit Ethernet, USB host; Wi-Fi z Wi-Fi Direct opcjonalnie (np. IB-37)"
+    },
+    {
+     "k": "Druk mobilny",
+     "v": "AirPrint, Mopria, KYOCERA Mobile Print, Microsoft Universal Print"
+    },
+    {
+     "k": "Toner",
+     "v": "MA4500x i MA4500fx: TK-3400 (12 500 str.); MA4500ifx: TK-3300 (14 500 str.); startowy 6 000 str. (ISO/IEC 19752)"
     },
     {
      "k": "Wymiary / waga",
-     "v": "475 x 476 x 575 mm; ok. 22,8 kg (MA4500ifx ok. 23 kg)"
+     "v": "475 x 476 x 575 mm; ok. 22,8 kg (MA4500x, MA4500fx), ok. 23 kg (MA4500ifx)"
+    },
+    {
+     "k": "Gwarancja",
+     "v": "2 lata w standardzie (kyoceradocumentsolutions.pl); bęben i wywoływacz 3 lata lub 300 000 str."
     }
    ],
    "warianty_opis": [
     {
      "model": "MA4500x",
-     "roznica": "Druk, kopia i skan, bez faksu."
+     "roznica": "Druk, kopia i skan, bez faksu; podświetlany wyświetlacz tekstowy, 1 GB pamięci, toner TK-3400."
     },
     {
      "model": "MA4500fx",
-     "roznica": "Jak MA4500x plus faks."
+     "roznica": "Jak MA4500x plus faks Super G3 (33,6 kb/s, książka 200 adresów)."
     },
     {
      "model": "MA4500ifx",
-     "roznica": "Faks, kolorowy ekran dotykowy 7\" i platforma aplikacji HyPAS."
+     "roznica": "Faks, kolorowy ekran dotykowy 7\", platforma HyPAS, 1,5 GB pamięci (maks. 3,5 GB), toner TK-3300."
     }
    ],
    "faq": [
     {
-     "q": "Czym różnią się wersje MA4500x, MA4500fx i MA4500ifx?",
-     "a": "MA4500x drukuje, kopiuje i skanuje, bez faksu. MA4500fx dokłada faks. MA4500ifx ma faks, kolorowy ekran dotykowy 7\" i platformę aplikacji HyPAS. Wszystkie drukują do 45 stron na minutę i mają druk dwustronny."
+     "q": "Czym różnią się Kyocera MA4500x, MA4500fx i MA4500ifx?",
+     "a": "MA4500x drukuje, kopiuje i skanuje, bez faksu, i ma podświetlany wyświetlacz tekstowy. MA4500fx dodaje faks Super G3. MA4500ifx ma faks, kolorowy ekran dotykowy 7 cali, 1,5 GB pamięci i platformę aplikacji HyPAS. Prędkość druku 45 str./min jest wspólna dla całej trójki."
     },
     {
-     "q": "Do czego przyda się platforma HyPAS?",
-     "a": "HyPAS, dostępna w wersji MA4500ifx, pozwala uruchomić na urządzeniu dodatkowe programy, np. do skanowania dokumentów od razu do konkretnych folderów. Obsługujesz je z kolorowego ekranu dotykowego 7\"."
+     "q": "Ile stron miesięcznie może drukować Kyocera ECOSYS MA4500?",
+     "a": "Producent podaje zalecane obciążenie 3 000 stron miesięcznie i maksymalne 150 000 stron. Urządzenie nie jest projektowane do ciągłej pracy na granicy maksimum, więc przy doborze opieramy się na wartości zalecanej i realnym zużyciu papieru w firmie."
     },
     {
-     "q": "Jak urządzenie chroni dane firmy?",
-     "a": "Ma rozbudowane zabezpieczenia danych: szyfrowanie, nadpisywanie danych i moduł TPM. Opcjonalnie dobierzesz czytnik kart, dzięki któremu pracownicy logują się do urządzenia kartą, a także dysk SSD i Wi-Fi."
+     "q": "Ile papieru zmieści Kyocera MA4500 i jak to rozbudować?",
+     "a": "W standardzie 600 arkuszy: kaseta na 500 i taca uniwersalna na 100. Można dołożyć do czterech podajników PF-3110 po 500 arkuszy, co daje 2 600 arkuszy; przy czterech podajnikach producent wymaga podstawy na kółkach CA-3100 dla stabilności."
     },
     {
-     "q": "Jak szybko skanuje i ile mieści papieru?",
-     "a": "Podajnik rewersyjny na 75 arkuszy skanuje do 60 obrazów na minutę jednostronnie i 26 dwustronnie (mono, 300 dpi). W standardzie mieści 600 arkuszy (kaseta 500 i taca boczna 100), a z opcjami do 2600."
+     "q": "Czy Kyocera ECOSYS MA4500x ma Wi-Fi i druk z telefonu?",
+     "a": "W standardzie ma Gigabit Ethernet, USB 2.0 i port USB host na pendrive. Wi-Fi z Wi-Fi Direct to opcjonalna karta, np. IB-37. Z telefonu drukujesz przez AirPrint, Mopria lub aplikację KYOCERA Mobile Print, a z chmury przez Microsoft Universal Print."
+    },
+    {
+     "q": "Jakie tonery pasują do Kyocera MA4500x, MA4500fx i MA4500ifx?",
+     "a": "MA4500x i MA4500fx używają tonera TK-3400 na 12 500 stron A4, a MA4500ifx tonera TK-3300 na 14 500 stron. Toner startowy dołączony do urządzenia wystarcza na około 6 000 stron. Wydajności producent podaje według normy ISO/IEC 19752."
     }
    ],
    "polecane": [
     {
      "slug": "tusze-tonery",
-     "etykieta": "Tusze i tonery na zapas"
+     "etykieta": "Tonery TK-3400 i TK-3300 na zapas"
     },
     {
      "slug": "serwis-drukarek",
      "etykieta": "Konfiguracja i serwis drukarki"
+    },
+    {
+     "slug": "siec-wifi-montaz",
+     "etykieta": "Sieć w biurze pod drukarkę i skaner"
+    },
+    {
+     "slug": "synology-diskstation-plus-2-4",
+     "etykieta": "NAS na skany i wspólne pliki"
     }
    ],
    "podobne": [
@@ -66616,24 +66719,34 @@
    ],
    "zrodla": [
     {
+     "url": "https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSMA4500X.html",
+     "etykieta": "Strona producenta — Kyocera",
+     "host": "kyoceradocumentsolutions.pl"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSMA4500FX.html",
+     "etykieta": "Strona producenta — Kyocera",
+     "host": "kyoceradocumentsolutions.pl"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSMA4500IFX.html",
+     "etykieta": "Strona producenta — Kyocera",
+     "host": "kyoceradocumentsolutions.pl"
+    },
+    {
      "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSMA4500X.html",
      "etykieta": "Strona producenta — Kyocera",
      "host": "kyoceradocumentsolutions.eu"
     },
     {
-     "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSMA4500FX.html",
-     "etykieta": "Strona producenta — Kyocera",
-     "host": "kyoceradocumentsolutions.eu"
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/ECOSYS_MA4500x_MA4500fx__pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
     },
     {
-     "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSMA4500IFX.html",
-     "etykieta": "Strona producenta — Kyocera",
-     "host": "kyoceradocumentsolutions.eu"
-    },
-    {
-     "url": "https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSMA4500X.html",
-     "etykieta": "Strona producenta — Kyocera",
-     "host": "kyoceradocumentsolutions.pl"
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/ECOSYS_MA4500ix_MA4500ifx__pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
     }
    ],
    "wyrozniki": [
@@ -66659,11 +66772,33 @@
      "v": "do 45 str./min A4"
     },
     {
-     "k": "Rozdzielczość",
-     "v": "druk 1200 x 1200 dpi"
+     "k": "Obciążenie miesięczne",
+     "v": "zalecane 3 000, maks. 150 000 str./mies."
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma4500x-fx-ifx-premium-01.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--92a06942-8cfd-439a-92bb-c2b1810bd330/media-image-gallery-1178x663-mfp-ma4500x-front-comb01-01.png",
+     "ujecie": "MA4500x z przodu, z kasetą standardową"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma4500x-fx-ifx-premium-02.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--7390bd13-c867-4669-af2d-e48d98b52e82/media-image-gallery-1178x663-mfp-mfp-ma4500x-front-comb03-01.png",
+     "ujecie": "MA4500x z przodu z dodatkowymi podajnikami papieru"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma4500x-fx-ifx-premium-03.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--c6c87875-7bc1-40fe-b6e2-0a0c78d1be7b/media-image-gallery-1178x663-mfp-ma4500x-panel-retouch-materials-01.png",
+     "ujecie": "panel sterowania MA4500x / MA4500fx (zbliżenie)"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma4500x-fx-ifx-premium-04.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--e6676579-1306-4784-9507-d37b72599608/square-540x540-ecosys-ma4500ifx.png",
+     "ujecie": "MA4500ifx z ekranem dotykowym 7\", ujęcie z boku"
+    }
+   ]
   },
   {
    "slug_seed": "kyocera-ecosys-ma5500ifx-ma6000ifx",
@@ -66881,7 +67016,7 @@
   {
    "slug_seed": "kyocera-ecosys-ma3500cix-cifx-ma4000cix",
    "zmiana_k4": "zmieniona",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "biuro",
    "kategoria": "mfp",
    "podkategoria": "mfp-biuro",
@@ -66889,22 +67024,23 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Kyocera ECOSYS MA3500cix / MA3500cifx / MA4000cix",
    "krotka": "Kyocera ECOSYS MA3500cix / MA3500cifx / MA4000cix",
-   "podtytul": "Kolorowe urządzenia wielofunkcyjne A4, 35–40 str./min",
-   "korzysc": "Drukujesz kolorowe oferty, cenniki i ulotki w biurze, a skaner szybko czyta obie strony kartki.",
+   "podtytul": "Kolorowe urządzenia wielofunkcyjne A4, 35–40 str./min, skan dwustronny DualScan",
+   "korzysc": "Drukujesz kolorowe oferty, cenniki i ulotki w biurze, a skaner czyta obie strony kartki w jednym przebiegu.",
    "opis": [
-    "Kyocera ECOSYS MA3500cix, MA3500cifx i MA4000cix to kolorowe urządzenia laserowe A4 dla biura, które drukuje oferty, cenniki, ulotki i dokumenty z logo, a do tego kopiuje i skanuje. Drukują w kolorze i w czerni z tą samą prędkością: 35 lub 40 stron na minutę.",
-    "Wszystkie mają druk dwustronny, podajnik DualScan na 100 kartek, który skanuje obie strony za jednym przejściem, oraz platformę aplikacji HyPAS. MA3500cix to druk, kopia i skan, MA3500cifx dokłada faks, a MA4000cix jest szybszy (40 stron na minutę i skan do 120 obrazów na minutę), ale bez faksu.",
-    "W standardzie kaseta na 250 kartek i taca boczna na 100, z opcjami do 2210 kartek. Wi-Fi jest opcją. Urządzenie jest duże (ok. 39 kg), dlatego najlepiej postawić je na szafce lub podstawie. Przy wyborze zdecyduj, czy potrzebujesz faksu, czy szybszego druku i skanu. PRO-KOM dobierze wersję, zainstaluje ją i przeszkoli zespół."
+    "Kyocera ECOSYS MA3500cix, MA3500cifx i MA4000cix to kolorowe laserowe urządzenia wielofunkcyjne A4 dla biura, które samo drukuje oferty, cenniki, menu czy dokumenty z logo, zamiast zamawiać je w drukarni. Kolor i czerń wychodzą z tą samą prędkością: 35 stron na minutę w modelach MA3500 i 40 stron w MA4000cix. Wszystkie trzy mają kolorowy ekran dotykowy 7 cali i platformę aplikacji HyPAS.",
+    "Podajnik DualScan na 100 kartek czyta obie strony arkusza w jednym przebiegu. MA3500cix i MA3500cifx skanują dwustronnie do 100 obrazów na minutę w czerni, a MA4000cix do 120, więc ta wersja lepiej sprawdzi się przy archiwizacji grubych segregatorów. Faks Super G3 ma tylko MA3500cifx; MA4000cix ma za to 2 GB pamięci i wydajniejsze tonery: czarny TK-5380K na 13 000 stron i kolorowe na 10 000.",
+    "Kaseta mieści 250 kartek, taca uniwersalna 100, a trzy podajniki PF-5150 podnoszą pojemność do 2 050 kartek papieru 75 g/m². Producent zaleca średnio 1 200 stron miesięcznie dla MA3500 i 1 900 dla MA4000cix. Urządzenie waży około 39 kg i ma 480 × 577,5 × 571,5 mm, dlatego warto postawić je na niskiej szafce zamiast na biurku. Wi-Fi z Wi-Fi Direct to opcjonalna karta.",
+    "Doradcy PRO-KOM w Rabce-Zdroju pomogą zdecydować, czy wystarczy MA3500cix, czy potrzebujesz faksu w MA3500cifx albo szybszego skanu MA4000cix. Instalujemy urządzenie w sieci, ustawiamy profile druku kolorowego i czarno-białego, skanowanie do folderów i poczty, a potem zajmujemy się przeglądami i dostawą tonerów TK-5370 lub TK-5380."
    ],
    "cechy": [
     "kolor 35–40 str./min",
     "skan dwustronny DualScan",
-    "HyPAS"
+    "ekran 7\" i HyPAS"
    ],
    "parametry": [
     {
      "k": "Typ",
-     "v": "Kolorowe laserowe urządzenie wielofunkcyjne"
+     "v": "Kolorowe laserowe urządzenie wielofunkcyjne, biurkowe"
     },
     {
      "k": "Format",
@@ -66912,15 +67048,15 @@
     },
     {
      "k": "Prędkość druku",
-     "v": "MA3500cix i MA3500cifx: do 35 str./min; MA4000cix: do 40 str./min (kolor i mono)"
+     "v": "MA3500cix i MA3500cifx: do 35 str./min (dwustronnie 17,5); MA4000cix: do 40 str./min (dwustronnie 20); kolor i mono"
     },
     {
      "k": "Rozdzielczość",
-     "v": "druk 1200 x 1200 dpi (przy obniżonej prędkości); skan/kopia 600 x 600 dpi"
+     "v": "druk 1200 x 1200 dpi; skan/kopia 600 x 600 dpi"
     },
     {
      "k": "Funkcje",
-     "v": "MA3500cix i MA4000cix: druk, kopia, skan; MA3500cifx: druk, kopia, skan, faks"
+     "v": "MA3500cix i MA4000cix: druk, kopia, skan; MA3500cifx: dodatkowo faks Super G3"
     },
     {
      "k": "Druk dwustronny",
@@ -66932,61 +67068,93 @@
     },
     {
      "k": "Prędkość skanowania",
-     "v": "MA3500: do 100 obr./min dwustronnie (mono); MA4000cix: do 120 obr./min dwustronnie (mono)"
+     "v": "MA3500cix i MA3500cifx: dwustronnie do 100 obr./min mono i 80 kolor; MA4000cix: do 120 mono i 100 kolor (A4, 300 dpi)"
     },
     {
      "k": "Pojemność papieru",
-     "v": "standard 350 ark. (kaseta 250 + taca boczna 100); maks. 2210 ark. z opcjami; odbiór 250 ark."
+     "v": "standard 350 ark. (kaseta 250 + taca uniwersalna 100); maks. 2050 ark. (75 g/m²) z 3 podajnikami PF-5150; odbiór 250 ark."
+    },
+    {
+     "k": "Obciążenie miesięczne",
+     "v": "zalecane 1 200 (MA3500cix, MA3500cifx) / 1 900 (MA4000cix), maks. 100 000 str./mies."
+    },
+    {
+     "k": "Pamięć",
+     "v": "MA3500cix i MA3500cifx: 1,5 GB (maks. 3 GB); MA4000cix: 2 GB (maks. 3 GB); opcjonalny dysk SSD 64/256/512 GB"
+    },
+    {
+     "k": "Panel",
+     "v": "kolorowy ekran dotykowy 7\" z głośnikiem powiadomień, platforma HyPAS (wszystkie modele)"
     },
     {
      "k": "Łączność",
-     "v": "USB 2.0, 2 x USB host, Gigabit Ethernet; Wi-Fi opcjonalnie"
+     "v": "USB 2.0, 2 x USB host, Gigabit Ethernet; Wi-Fi z Wi-Fi Direct opcjonalnie (np. IB-37)"
+    },
+    {
+     "k": "Tonery",
+     "v": "MA3500cix i MA3500cifx: TK-5370K 7 000 str., kolory 5 000 str.; MA4000cix: TK-5380K 13 000 str., kolory 10 000 str. (ISO 19798)"
     },
     {
      "k": "Wymiary / waga",
-     "v": "480 x 577,5 x 571,5 mm; ok. 39 kg"
+     "v": "480 x 577,5 x 571,5 mm; ok. 39 kg (wszystkie modele)"
+    },
+    {
+     "k": "Gwarancja części",
+     "v": "bęben i wywoływacz: 3 lata lub 200 000 str."
     }
    ],
    "warianty_opis": [
     {
      "model": "MA3500cix",
-     "roznica": "35 str./min, druk, kopia i skan, bez faksu."
+     "roznica": "35 str./min, druk, kopia i skan (dwustronnie do 100 obr./min), 1,5 GB pamięci, bez faksu."
     },
     {
      "model": "MA3500cifx",
-     "roznica": "Jak MA3500cix plus faks."
+     "roznica": "Jak MA3500cix plus faks Super G3."
     },
     {
      "model": "MA4000cix",
-     "roznica": "40 str./min i szybszy skan (do 120 obr./min), bez faksu."
+     "roznica": "40 str./min, skan dwustronny do 120 obr./min, 2 GB pamięci, tonery TK-5380 o większej wydajności, bez faksu."
     }
    ],
    "faq": [
     {
-     "q": "Czym różnią się MA3500cix, MA3500cifx i MA4000cix?",
-     "a": "MA3500cix drukuje 35 stron na minutę, kopiuje i skanuje, bez faksu. MA3500cifx ma to samo plus faks. MA4000cix jest szybszy: 40 stron na minutę i skan do 120 obrazów na minutę, ale bez faksu."
+     "q": "Czym różnią się Kyocera MA3500cix, MA3500cifx i MA4000cix?",
+     "a": "MA3500cix drukuje 35 str./min w kolorze i czerni, kopiuje i skanuje. MA3500cifx ma to samo i faks Super G3. MA4000cix drukuje 40 str./min, skanuje dwustronnie do 120 obrazów na minutę, ma 2 GB pamięci i wydajniejsze tonery, ale bez faksu."
     },
     {
-     "q": "Ile papieru mieści?",
-     "a": "W standardzie 350 arkuszy: kaseta na 250 i taca boczna na 100. Z opcjonalnymi podajnikami pojemność rośnie do 2210 arkuszy, a odbiór wydruków mieści 250 arkuszy."
+     "q": "Jak szybko Kyocera MA4000cix skanuje dokumenty dwustronne?",
+     "a": "Podajnik DualScan na 100 arkuszy skanuje obie strony w jednym przebiegu: MA4000cix do 120 obrazów na minutę w czerni i 100 w kolorze, a modele MA3500 do 100 w czerni i 80 w kolorze (A4, 300 dpi)."
     },
     {
-     "q": "Jak podłączyć urządzenie do sieci?",
-     "a": "W standardzie ma Gigabit Ethernet, USB 2.0 i dwa porty USB host, więc podłączysz je kablem do sieci i całe biuro drukuje z jednego urządzenia. Wi-Fi jest dostępne jako opcja."
+     "q": "Ile stron wydrukuje toner do Kyocera MA3500cix i MA4000cix?",
+     "a": "W MA3500cix i MA3500cifx toner czarny TK-5370K wystarcza na 7 000 stron, a kolorowe TK-5370 na 5 000. W MA4000cix czarny TK-5380K daje 13 000 stron, a każdy kolorowy TK-5380 po 10 000 stron (według ISO 19798)."
     },
     {
-     "q": "Ile miejsca potrzeba na to urządzenie?",
-     "a": "Wymiary to 480 x 577,5 x 571,5 mm, a waga ok. 39 kg. Najlepiej postawić je na szafce lub podstawie, a nie na zwykłym biurku. Wymiary i waga są takie same we wszystkich trzech wersjach."
+     "q": "Ile miejsca zajmuje kolorowa Kyocera ECOSYS MA3500cix?",
+     "a": "Wszystkie trzy wersje mają 480 × 577,5 × 571,5 mm i ważą około 39 kg z tonerami startowymi. Z dodatkowymi podajnikami urządzenie robi się wyższe, dlatego warto zaplanować dla niego stałe miejsce na szafce lub podłodze."
+    },
+    {
+     "q": "Ile papieru mieści Kyocera MA3500cifx po rozbudowie?",
+     "a": "W standardzie 350 arkuszy: kaseta na 250 i taca uniwersalna na 100. Z trzema podajnikami PF-5150 po 550 arkuszy pojemność rośnie do 2 050 arkuszy papieru 75 g/m² (2 210 przy papierze 64 g/m²). Odbiór wydruków mieści 250 arkuszy."
     }
    ],
    "polecane": [
     {
      "slug": "tusze-tonery",
-     "etykieta": "Tusze i tonery na zapas"
+     "etykieta": "Tonery TK-5370 i TK-5380 na zapas"
     },
     {
      "slug": "serwis-drukarek",
      "etykieta": "Konfiguracja i serwis drukarki"
+    },
+    {
+     "slug": "siec-wifi-montaz",
+     "etykieta": "Sieć w biurze pod drukarkę i skaner"
+    },
+    {
+     "slug": "synology-diskstation-plus-2-4",
+     "etykieta": "NAS na archiwum skanów"
     }
    ],
    "podobne": [
@@ -67003,30 +67171,40 @@
    ],
    "zrodla": [
     {
-     "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSMA3500CIX.html",
-     "etykieta": "Strona producenta — Kyocera",
-     "host": "kyoceradocumentsolutions.eu"
-    },
-    {
-     "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSMA3500CIFX.html",
-     "etykieta": "Strona producenta — Kyocera",
-     "host": "kyoceradocumentsolutions.eu"
-    },
-    {
-     "url": "https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSMA4000CIX.html",
-     "etykieta": "Strona producenta — Kyocera",
-     "host": "kyoceradocumentsolutions.eu"
-    },
-    {
      "url": "https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSMA3500CIX.html",
      "etykieta": "Strona producenta — Kyocera",
      "host": "kyoceradocumentsolutions.pl"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSMA3500CIFX.html",
+     "etykieta": "Strona producenta — Kyocera",
+     "host": "kyoceradocumentsolutions.pl"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSMA4000CIX.html",
+     "etykieta": "Strona producenta — Kyocera",
+     "host": "kyoceradocumentsolutions.pl"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/KDE_ECOSYS_MA3500cix_pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/KDE_ECOSYS_MA3500cifx_pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.eu/content/dam/download-center-cf/eu/documents/datasheet/KDE_ECOSYS_MA4000cix_0811_pdf.download.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Kyocera",
+     "host": "kyoceradocumentsolutions.eu · PDF"
     }
    ],
    "wyrozniki": [
     "kolor 35–40 str./min",
     "skan dwustronny DualScan",
-    "HyPAS"
+    "ekran 7\" i HyPAS"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -67047,10 +67225,32 @@
     },
     {
      "k": "Rozdzielczość",
-     "v": "druk 1200 x 1200 dpi (przy obniżonej prędkości)"
+     "v": "druk 1200 x 1200 dpi"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma3500cix-cifx-ma4000cix-premium-01.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--fd8d6cb6-905a-44c1-a56e-f9e969762336/media-image-large-1178x663-ma3500cix-2.jpg",
+     "ujecie": "MA3500cix z przodu, sama jednostka"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma3500cix-cifx-ma4000cix-premium-02.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--367484d2-eb82-4a3e-b232-70452224d92f/media-image-large-1178x663-ma3500cix-1.jpg",
+     "ujecie": "MA3500cix z dodatkowymi podajnikami, ujęcie z boku"
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma3500cix-cifx-ma4000cix-premium-03.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--9988a987-a0ce-466b-8bf5-f48039a6642f/media-image-large-1178x663-ma4000cix-1.jpg",
+     "ujecie": "MA4000cix z góry, widoczny podajnik DualScan i ekran 7\""
+    },
+    {
+     "plik": "media/produkty/kyocera-ecosys-ma3500cix-cifx-ma4000cix-premium-04.webp",
+     "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--3877b496-a22d-46b9-baeb-67b8ce21d12f/media-image-large-1178x663-ma3500cix-4.jpg",
+     "ujecie": "MA3500cix z jednym podajnikiem dodatkowym, z przodu"
+    }
+   ]
   },
   {
    "slug_seed": "kyocera-taskalfa-ma3500ci-ma4500ci",
@@ -72762,7 +72962,7 @@
   {
    "slug_seed": "avtek-ts-8-1-easy",
    "zmiana_k4": "zmieniona",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "biuro",
    "kategoria": "av",
    "podkategoria": "monitory-interaktywne",
@@ -72770,12 +72970,13 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Avtek TouchScreen 8.1 Easy (65\", 75\", 86\")",
    "krotka": "Avtek TouchScreen 8.1 Easy",
-   "podtytul": "Monitory interaktywne 4K 65–86\", 20 punktów dotyku, głośniki 2× 10 W, Android 13 opcjonalnie, slot OPS",
+   "podtytul": "Monitory interaktywne 4K 65–86\", 400 cd/m², głośniki 2× 10 W, Android 13 opcjonalnie, slot OPS",
    "korzysc": "Prosty dotykowy ekran 4K do lekcji i prezentacji z laptopa, z opcją Androida lub komputera OPS.",
    "opis": [
-    "TS 8.1 Easy to podstawowa seria monitorów interaktywnych Avtek. Pasuje tam, gdzie ekran służy głównie do pokazywania obrazu z laptopa i pisania po nim: w klasie, świetlicy, sali szkoleniowej pensjonatu czy pokoju spotkań w biurze.",
-    "Ekran ma rozdzielczość 4K, jasność 400 cd/m² i dotyk na podczerwień (obsługa palcem lub dowolnym przedmiotem). Laptop podłączasz przez HDMI lub VGA, a dotyk przez USB — ekran działa wtedy jak duży tablet dla Windows, macOS, Linuxa czy Chrome OS. Wbudowane głośniki 2× 10 W wystarczą do filmów w sali. Monitor jest przystosowany do pracy 24/7.",
-    "Seria występuje w dwóch wersjach: bez systemu albo z aktywowanym Androidem 13 (4 GB RAM / 32 GB, bez certyfikatu Google). Androida można też aktywować później osobnym kluczem Avtek. Zamiast Androida możesz wsunąć komputer OPS z Windows. W zestawie są dwa pisaki, pilot, uchwyt ścienny i anteny Wi-Fi. Gwarancja producenta wynosi 3 lata."
+    "Avtek TS 8.1 Easy to najprostsza seria monitorów interaktywnych Avtek, w rozmiarach 65, 75 i 86 cali. Sprawdza się tam, gdzie prowadzący przychodzi z własnym laptopem i chce pisać po wyświetlanym obrazie: w klasie, świetlicy, sali szkoleń pensjonatu albo w pokoju spotkań. Wersja bez systemu nie przechowuje żadnych danych, co producent podkreśla jako zaletę w szkołach.",
+    "Matryca 4K z podświetleniem Direct LED ma jasność 400 cd/m², a szyba jest hartowana do twardości 7 w skali Mohsa. Dotyk na podczerwień reaguje na palec, palec w rękawiczce lub dowolny przedmiot, a po podłączeniu kablem USB Touch ekran steruje komputerem z Windows, macOS, Linuxem albo Chrome OS. Laptop podłączasz przez jedno z dwóch wejść HDMI 2.0 lub przez VGA, a dwa głośniki 10 W nagłośnią mniejszą salę.",
+    "Każdy rozmiar występuje bez systemu albo z aktywnym Androidem 13 (4 GB RAM, 32 GB), który pozwala korzystać z tablicy i aplikacji bez komputera; w wersji bez systemu Androida aktywuje się później kluczem 1TV333. Producent nie podaje dla tej serii certyfikatu Google EDLA, więc nie zakładaj dostępu do Sklepu Play. Do slotu OPS wsuniesz komputer Avtek z Windows 11 Pro. W zestawie są dwa pisaki, pilot, uchwyt ścienny i cztery anteny Wi-Fi, a gwarancja producenta wynosi 3 lata.",
+    "Przed zakupem PRO-KOM pomaga ocenić, czy do sali wystarczy 65 cali, czy lepszy będzie ekran 75 lub 86 cali, i czy ściana uniesie od 36 do 65 kg. Montujemy uchwyt VESA, prowadzimy kable HDMI i USB do stanowiska prowadzącego, w razie potrzeby instalujemy komputer OPS z Windows, a nauczycieli lub pracowników uczymy pisania po obrazie z laptopa. Zgłoszenia serwisowe obsługujemy z salonu w Rabce-Zdroju."
    ],
    "cechy": [
     "4K, 400 cd/m²",
@@ -72793,19 +72994,19 @@
     },
     {
      "k": "Matryca",
-     "v": "TFT-LCD, 400 cd/m², kontrast 4000:1 (65\") / 5000:1 (75\", 86\"), kąt widzenia 178°"
+     "v": "TFT-LCD, podświetlenie Direct LED, 400 cd/m², kontrast 4000:1 (65\") / 5000:1 (75\", 86\"), 8 ms, kąt widzenia 178°; szyba hartowana 7 w skali Mohsa"
     },
     {
      "k": "Dotyk",
-     "v": "podczerwień; karta PDF: 20 punktów; strona 75\": 10 (Android) / 20 (Windows); palcem lub dowolnym przedmiotem"
+     "v": "podczerwień; palcem, w rękawiczce lub dowolnym przedmiotem; karta PDF: 20 punktów; strony modeli: 10 (Android) / 20 (Windows)"
     },
     {
      "k": "System",
-     "v": "bez systemu lub Android 13 (wersja „z Androidem” albo aktywacja kluczem 1TV333); bez certyfikatu Google EDLA"
+     "v": "bez systemu lub Android 13 (wersja „z Androidem” albo klucz aktywacyjny 1TV333); producent nie podaje certyfikatu Google EDLA"
     },
     {
      "k": "Moduł Android",
-     "v": "4× A55, 4 GB RAM / 32 GB"
+     "v": "4× Cortex-A55, GPU Mali-G52 MP2, 4 GB RAM / 32 GB"
     },
     {
      "k": "Wejścia obrazu",
@@ -72813,31 +73014,39 @@
     },
     {
      "k": "Porty",
-     "v": "RS-232, RJ-45, USB Touch, 3× USB 2.0, USB 3.0 (zakres portów w 65\" wg strony może się różnić)"
+     "v": "RS-232, RJ-45, USB Touch, 3× USB 2.0, USB 3.0, audio wejście/wyjście mini jack 3,5 mm, wyjście optyczne"
     },
     {
      "k": "Łączność bezprzewodowa",
-     "v": "Wi-Fi i Bluetooth (złącza antenowe, 4 anteny Wi-Fi w zestawie)"
+     "v": "Wi-Fi i Bluetooth (2,4 / 5 GHz), złącza antenowe, 4 anteny Wi-Fi w zestawie"
     },
     {
      "k": "Głośniki",
      "v": "2× 10 W"
     },
     {
-     "k": "Wyjścia audio",
-     "v": "mini jack 3,5 mm, optyczne"
-    },
-    {
      "k": "Slot OPS",
-     "v": "tak (komputer OPS z Windows — opcja; złącze 80-pin)"
+     "v": "tak (złącze 80-pin; komputer Avtek OPS z Windows 11 Pro — opcja)"
     },
     {
      "k": "Montaż VESA",
-     "v": "65\": 500 × 400; 75\": 600 × 400; 86\": 800 × 400 mm (wg karty PDF)"
+     "v": "65\": 500 × 400; 75\": 600 × 400; 86\": 800 × 400 mm; uchwyt ścienny w zestawie; nie do pracy w poziomie"
+    },
+    {
+     "k": "Wymiary",
+     "v": "1485 × 888 × 88 mm (65\"), 1707 × 1013 × 88 mm (75\"), 1953 × 1152 × 88 mm (86\")"
     },
     {
      "k": "Waga",
-     "v": "36,3 kg (65\"), 43,5 kg (75\", strona; karta PDF: 50,6 kg), 65,1 kg (86\")"
+     "v": "36,3 kg (65\"), 75\": 43,5 kg wg strony / 50,6 kg wg karty PDF, 65,1 kg (86\")"
+    },
+    {
+     "k": "Pobór mocy",
+     "v": "nominalnie 144 W (65\"), 247 W (75\"), 353 W (86\"); czuwanie 0,5 W"
+    },
+    {
+     "k": "Czas pracy",
+     "v": "24/7, żywotność matrycy 50 000 godzin"
     },
     {
      "k": "Gwarancja producenta",
@@ -72846,34 +73055,38 @@
    ],
    "warianty_opis": [
     {
-     "model": "TS 8.1 Easy 65 / 75 / 86",
+     "model": "TS 8.1 Easy 65 / 75 / 86 (1TV376 / 1TV378 / 1TV380)",
      "roznica": "wersja bez systemu — obraz z laptopa lub komputera OPS; Androida można aktywować później kluczem 1TV333"
     },
     {
-     "model": "TS 8.1 Easy 65 / 75 / 86 z Androidem",
-     "roznica": "ten sam monitor z aktywnym Androidem 13 (aplikacje i tablica bez komputera)"
+     "model": "TS 8.1 Easy 65 / 75 / 86 z Androidem (1TV388 / 1TV389 / 1TV390)",
+     "roznica": "ten sam monitor z kluczem aktywacyjnym w zestawie i Androidem 13 (tablica i aplikacje bez komputera)"
     },
     {
      "model": "Różnice rozmiarów",
-     "roznica": "65\": kontrast 4000:1, 1485 × 888 × 88 mm, 36,3 kg; 75\": 1707 × 1013 × 88 mm; 86\": 1953 × 1152 × 88 mm, 65,1 kg"
+     "roznica": "65\": kontrast 4000:1, VESA 500 × 400, 36,3 kg; 75\": VESA 600 × 400, 43,5–50,6 kg; 86\": VESA 800 × 400, 65,1 kg"
     }
    ],
    "faq": [
     {
-     "q": "Czy Easy działa bez komputera?",
-     "a": "Tylko w wersji z Androidem 13 albo po aktywacji Androida kluczem Avtek (1TV333). Wersja bez systemu wyświetla obraz z laptopa lub komputera OPS."
+     "q": "Czy Avtek TS 8.1 Easy działa bez podłączonego komputera?",
+     "a": "Tylko z Androidem 13: w wersji „z Androidem” jest on aktywny od razu, a w wersji bez systemu włączysz go kluczem Avtek 1TV333. Bez Androida i bez komputera OPS monitor wyświetla jedynie obraz z podłączonego laptopa lub komputera."
     },
     {
-     "q": "Czy mam Sklep Play?",
-     "a": "Producent nie podaje certyfikatu Google EDLA dla serii Easy. Jeśli potrzebujesz Sklepu Play, wybierz serię z oznaczeniem G (np. TS 8 Lite G, TS 9 Mate G)."
+     "q": "Czy na Avtek TS 8.1 Easy jest dostępny Sklep Play?",
+     "a": "Producent nie podaje dla serii Easy certyfikatu Google EDLA, więc nie zakładaj dostępu do Sklepu Play. Jeśli potrzebujesz aplikacji Google na samym monitorze, wybierz model z oznaczeniem G, np. TS 9 Mate G lub TS 9 Lite G z certyfikatem EDLA."
     },
     {
-     "q": "Czy dotyk zadziała z moim laptopem?",
-     "a": "Tak, po podłączeniu kablem USB Touch. Producent podaje obsługę Windows 7–11, Linuxa, macOS, Androida i Chrome."
+     "q": "Ile punktów dotyku obsługuje Avtek TS 8.1 Easy?",
+     "a": "Karta katalogowa serii podaje 20 punktów. Strony poszczególnych modeli mówią o 10 punktach w Androidzie i 20 w Windows, więc przy pracy kilku osób naraz najlepiej korzystać z laptopa z Windows albo z komputera OPS."
     },
     {
-     "q": "Jaka jest gwarancja?",
-     "a": "Na serię TS 8.1 Easy producent podaje 3 lata."
+     "q": "Czy Avtek TS 8.1 Easy można położyć poziomo jak stół?",
+     "a": "Nie. Producent wyraźnie zaznacza, że monitory TS 8.1 Easy nie są przeznaczone do pracy w poziomie jako stół interaktywny. Montuje się je pionowo na ścianie, na uchwycie z zestawu, albo na mobilnym stojaku dokupowanym osobno."
+    },
+    {
+     "q": "Jaki komputer OPS pasuje do Avtek TS 8.1 Easy?",
+     "a": "Na stronie komputera Avtek OPS i5-13505H (8 GB, 256 GB, Windows 11 Pro) seria TS 8.1 Easy jest na liście zgodności, a producent podaje, że złącze 80-pin pasuje do monitorów od serii TS 6 wzwyż. Wersje z i7-13650HX dobieramy do cięższych programów."
     }
    ],
    "konfigurator": {
@@ -72895,26 +73108,26 @@
        "bez systemu",
        "Android 13 (wersja „z Androidem” lub klucz 1TV333)"
       ],
-      "uwaga": "Android w serii Easy nie ma certyfikatu Google EDLA.",
+      "uwaga": "Producent nie podaje dla serii Easy certyfikatu Google EDLA.",
       "dl": true,
-      "pom": "Windows 11 Pro ma funkcje dla firm, np. szyfrowanie dysku BitLocker i dołączanie do domeny."
+      "pom": ""
      },
      {
       "nazwa": "Moduł OPS",
       "wartosci": [
        "bez OPS",
-       "OPS i5-13505H / 8 GB / 256 GB / Windows 11 Pro",
-       "OPS i7-13650HX / 16 GB / 256 GB / Windows 11 Pro",
-       "OPS i7-13650HX / 16 GB / 512 GB / Windows 11 Pro"
+       "OPS i5-13505H / 8 GB / 256 GB / Windows 11 Pro (1TV469)",
+       "OPS i7-13650HX / 16 GB / 256 GB / Windows 11 Pro (1TV427)",
+       "OPS i7-13650HX / 16 GB / 512 GB / Windows 11 Pro (1TV428)"
       ],
       "dl": true,
-      "pom": ""
+      "pom": "Windows 11 Pro ma funkcje dla firm, np. szyfrowanie dysku BitLocker i dołączanie do domeny."
      },
      {
       "nazwa": "Kamera/mikrofon",
       "wartosci": [
        "brak w monitorze",
-       "+ kamera USB Avtek CAM4K z 2 mikrofonami (opcja)"
+       "+ kamera USB Avtek CAM4K z 2 mikrofonami (1TV383, opcja)"
       ],
       "dl": true,
       "pom": ""
@@ -72943,8 +73156,20 @@
    },
    "polecane": [
     {
+     "slug": "avtek-ops",
+     "etykieta": "Komputer OPS z Windows do monitora"
+    },
+    {
      "slug": "microsoft-windows-11-pro",
      "etykieta": "System"
+    },
+    {
+     "slug": "avtek-akcesoria-monitory",
+     "etykieta": "Stojak i akcesoria do monitora"
+    },
+    {
+     "slug": "logitech-c925e",
+     "etykieta": "Kamera do wideorozmów"
     }
    ],
    "podobne": [
@@ -72975,19 +73200,19 @@
      "host": "avtek.pl"
     },
     {
-     "url": "https://avtek.pl/produkty/monitory-interaktywne/monitor-interaktywny-avtek-ts-81-easy-65-z-androidem,1tv388",
-     "etykieta": "Strona producenta — Avtek",
-     "host": "avtek.pl"
-    },
-    {
      "url": "https://avtek.pl/produkty/monitory-interaktywne/monitor-interaktywny-avtek-ts-81-easy-75-z-androidem,1tv389",
      "etykieta": "Strona producenta — Avtek",
      "host": "avtek.pl"
     },
     {
-     "url": "https://avtek.pl/produkty/monitory-interaktywne/monitor-interaktywny-avtek-ts-81-easy-86-z-androidem,1tv390",
+     "url": "https://avtek.eu/products/interactive-displays/avtek-ops-i5-13505h-8gb-256gbwin-11-pro,1tv469",
      "etykieta": "Strona producenta — Avtek",
-     "host": "avtek.pl"
+     "host": "avtek.eu"
+    },
+    {
+     "url": "https://backend.vidis.pl/api/media/c/public/fp/product_files/1TV376/avtek-ts-81-easy-karta-pl.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Vidis",
+     "host": "backend.vidis.pl · PDF"
     }
    ],
    "wyrozniki": [
@@ -72997,24 +73222,24 @@
    ],
    "w_skrocie_wzorzec": [
     {
-     "k": "Porty",
-     "v": "RS-232, RJ-45, USB Touch, 3× USB 2.0, USB 3.0"
-    },
-    {
-     "k": "Łączność bezprzewodowa",
-     "v": "Wi-Fi i Bluetooth"
-    },
-    {
-     "k": "Waga",
-     "v": "36,3 kg (65\"), 43,5 kg (75\", strona"
-    },
-    {
      "k": "Przekątne",
      "v": "65\", 75\", 86\""
     },
     {
      "k": "Rozdzielczość",
      "v": "3840 × 2160 (4K), 60 Hz"
+    },
+    {
+     "k": "Wejścia obrazu",
+     "v": "2× HDMI 2.0, VGA"
+    },
+    {
+     "k": "Głośniki",
+     "v": "2× 10 W"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "3 lata"
     }
    ],
    "nowosc": false,
@@ -73025,6 +73250,13 @@
      "k": "VIDIS SA",
      "l": "pl",
      "d": "seria"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/avtek-ts-8-1-easy-premium-01.webp",
+     "zrodlo": "https://api.avtek.eu/api/media/public-files/download/fp/product_photos/1TV376/ts81easy.jpg",
+     "ujecie": "front monitora TS 8.1 Easy z logo na ekranie"
     }
    ]
   },
@@ -96122,6 +96354,547 @@
      "plik": "media/produkty/lenovo-thinkstation-p4-premium-04.webp",
      "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkStation/ThinkStation_P4/ThinkStation_P4_CT2_04.png",
      "ujecie": "bok z perforacją"
+    }
+   ]
+  },
+  {
+   "slug_seed": "synology-obudowy-rozszerzajace",
+   "zmiana_k4": "zmieniona",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "serw",
+   "podkategoria": "nas",
+   "marka": "Synology",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Synology obudowy rozszerzające DX525 / RX426 / RX418 / DX517",
+   "krotka": "Synology obudowy rozszerzające",
+   "podtytul": "Obudowy na 4 lub 5 dodatkowych dysków do NAS Synology DiskStation i RackStation",
+   "korzysc": "Dokładasz dyski do działającego NAS-a Synology bez jego wymiany i bez przenoszenia danych.",
+   "opis": [
+    "Gdy w serwerze NAS Synology kończą się wolne zatoki, nie trzeba kupować nowego urządzenia ani przenosić danych. Obudowa rozszerzająca podłączona jednym kablem dodaje cztery albo pięć zatok, którymi zarządza system DSM na serwerze głównym, a wolumen można powiększyć bez przerywania pracy. To rozwiązanie dla biura, hotelu czy szkoły, w których przybywa kopii zapasowych, nagrań z kamer i archiwum dokumentów.",
+    "Obudowę dobiera się do konkretnego modelu NAS. DX525 to wersja biurkowa na pięć dysków, z kablem USB-C, dla DS725+, DS925+, DS1525+ i DS1825+ (także odmian neo). RX426 to rack 1U na cztery dyski, również z kablem USB-C, do RS826+, RS1226+ i ich wersji RP. Starsze serwery łączą się przez eSATA: RX418 obsługuje m.in. RS822+, RS1221+ i RS820+, a DX517 m.in. DS923+, DS723+, DS1522+, DS1821+ i DS920+.",
+    "Na stronie statusu produktów Synology wszystkie cztery obudowy mają w listopadzie 2026 status „Generally Available”. Do DX525 i RX426 producent wymaga dysków z listy zgodności, np. HAT3300 lub HAT5300, a przy RX418 i DX517 gwarantuje pełne działanie tylko z dyskami z tej listy. Obudowy rack montuje się w szafie 4-słupkowej na szynach RKM114 lub RKS-02 kupowanych osobno albo bezpośrednio w szafie 2-słupkowej. Każda ma 3 lata gwarancji, w wybranych regionach z możliwością przedłużenia do 5 lat.",
+    "Zanim zamówisz obudowę, PRO-KOM sprawdza model i wersję DSM Twojego NAS-a oraz to, ile miejsca zostało w szafie lub na półce. Dobieramy dyski z listy zgodności, montujemy obudowę, podłączamy ją do zasilania awaryjnego razem z serwerem i rozbudowujemy wolumen, a na koniec sprawdzamy, czy kopie zapasowe nadal wykonują się poprawnie. Wsparcie zapewniamy z salonu w Rabce-Zdroju."
+   ],
+   "cechy": [
+    "+4 lub +5 dysków",
+    "DiskStation i RackStation",
+    "3 lata gwarancji"
+   ],
+   "parametry": [
+    {
+     "k": "Obudowa",
+     "v": "DX525 i DX517: biurkowa (wieża) na 5 dysków; RX426 i RX418: rack 19\" 1U na 4 dyski"
+    },
+    {
+     "k": "Połączenie z NAS",
+     "v": "DX525 i RX426: port rozszerzeń, kabel USB Type-C w zestawie; RX418 i DX517: eSATA, kabel w zestawie"
+    },
+    {
+     "k": "Zgodne serwery",
+     "v": "DX525: DS725+, DS925+, DS1525+, DS1825+ (i wersje neo); RX426: RS826+/RS826RP+, RS1226+/RS1226RP+; RX418: m.in. RS822(RP)+, RS1221(RP)+, RS820(RP)+, RS1219+, RS819; DX517: m.in. DS923+, DS723+, DS1522+, DS1821+, DS1621+, DS920+, DS720+"
+    },
+    {
+     "k": "Dyski",
+     "v": "DX525 i RX426: 3,5\" SATA HDD, 2,5\" SATA SSD, dyski z listy zgodności wymagane; RX418 i DX517: także 2,5\" HDD, pełne działanie gwarantowane z dyskami z listy; wymiana na gorąco"
+    },
+    {
+     "k": "Montaż w szafie",
+     "v": "RX426 i RX418: szafa 4-słupkowa na szynach RKM114 lub RKS-02 (osobno) albo 2-słupkowa bez szyn"
+    },
+    {
+     "k": "Wymiary / waga",
+     "v": "DX525: 166 × 230 × 223 mm, 2,46 kg; RX426: 44 × 430,5 × 290 mm, 4,18 kg; RX418: 44 × 430,5 × 290 mm, 4,28 kg; DX517: 157 × 248 × 233 mm, 3,91 kg"
+    },
+    {
+     "k": "Zasilanie",
+     "v": "DX525: zasilacz zewnętrzny 90 W; RX426 i RX418: 100 W; DX517: 200 W; włączanie zsynchronizowane z NAS"
+    },
+    {
+     "k": "Pobór mocy (praca)",
+     "v": "DX525 35,4 W; RX426 30,0 W; RX418 23,3 W; DX517 29,9 W"
+    },
+    {
+     "k": "Głośność",
+     "v": "DX525 20,4 dB(A); RX426 32,8 dB(A); RX418 25,1 dB(A); DX517 21,5 dB(A)"
+    },
+    {
+     "k": "Status u producenta",
+     "v": "wszystkie cztery: „Generally Available” (strona statusu Synology, 11.2026)"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "3 lata, przedłużenie do 5 lat (EW201 lub Extended Warranty Plus, zależnie od regionu)"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "DX525",
+     "roznica": "+5 dysków, biurkowa, kabel USB-C — do DS725+, DS925+, DS1525+, DS1825+ (seria 25)."
+    },
+    {
+     "model": "RX426",
+     "roznica": "+4 dyski, rack 1U, kabel USB-C — do RS826(RP)+ i RS1226(RP)+ (seria 26)."
+    },
+    {
+     "model": "RX418",
+     "roznica": "+4 dyski, rack 1U, eSATA — do starszych RackStation, m.in. RS822+, RS1221+, RS820+."
+    },
+    {
+     "model": "DX517",
+     "roznica": "+5 dysków, biurkowa, eSATA — do starszych DiskStation, m.in. DS923+, DS723+, DS1522+, DS1821+."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Która obudowa rozszerzająca Synology pasuje do mojego NAS-a?",
+     "a": "DX525 pasuje do DS725+, DS925+, DS1525+ i DS1825+ (oraz wersji neo), a RX426 do RS826+, RS1226+ i ich wersji RP. RX418 obsługuje m.in. RS1221+, RS822+ i RS820+, a DX517 m.in. DS923+, DS723+, DS1522+, DS1821+ i DS920+."
+    },
+    {
+     "q": "Czy obudowy Synology DX517 i RX418 są jeszcze w sprzedaży?",
+     "a": "Tak. Na stronie statusu produktów Synology DX517 i RX418, tak samo jak DX525 i RX426, mają status „Generally Available”, z obsługą techniczną i 3-letnią gwarancją. Pasują jednak tylko do starszych serwerów ze złączem eSATA."
+    },
+    {
+     "q": "Ile dysków dołożę obudową Synology DX525 lub RX426?",
+     "a": "DX525 i DX517 dodają po 5 zatok, a RX426 i RX418 po 4. Przykładowo 4-dyskowy DS925+ z obudową DX525 ma razem 9 zatok, a 8-dyskowy RS1226RP+ z RX426 albo RS1221+ z RX418 — po 12 zatok."
+    },
+    {
+     "q": "Czy wolumen na NAS Synology może obejmować dyski w obudowie rozszerzającej?",
+     "a": "Tak, wszystkie cztery obudowy pozwalają tworzyć wolumeny obejmujące serwer i obudowę. Synology zaleca jednak, żeby dla lepszej wydajności wolumen leżał w całości w jednym urządzeniu: osobno na serwerze i osobno w obudowie."
+    },
+    {
+     "q": "Co jest w zestawie z obudową Synology RX426?",
+     "a": "W pudełku jest obudowa, kabel rozszerzający USB Type-C, zestaw akcesoriów i przewód zasilający. Dysków ani szyn do szafy rack nie ma — szyny RKM114 lub RKS-02 i dyski z listy zgodności Synology zamawia się osobno."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz obudowę pasującą do Twojego NAS-a, dyski i sposób montażu w szafie.",
+    "opcje": [
+     {
+      "nazwa": "Obudowa",
+      "wartosci": [
+       "DX525 (+5, DiskStation seria 25)",
+       "RX426 (+4, RackStation seria 26)",
+       "RX418 (+4, starsze RackStation, eSATA)",
+       "DX517 (+5, starsze DiskStation, eSATA)"
+      ],
+      "dl": true,
+      "pom": ""
+     },
+     {
+      "nazwa": "Dyski w zestawie",
+      "wartosci": [
+       "bez dysków",
+       "z dyskami z listy zgodności Synology (dobór w wycenie)"
+      ],
+      "dl": false,
+      "pom": "Miejsce na system, programy i pliki. SSD to szybki dysk bez ruchomych części."
+     },
+     {
+      "nazwa": "Montaż rack (RX426, RX418)",
+      "wartosci": [
+       "szafa 2-słupkowa, bez szyn",
+       "szyny przesuwne RKS-02",
+       "szyny stałe RKM114"
+      ],
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Gwarancja producenta",
+      "wartosci": [
+       "3 lata",
+       "5 lat (EW201 lub Extended Warranty Plus, zależnie od regionu)"
+      ],
+      "dl": false,
+      "pom": "„Na miejscu” (on-site) — serwisant naprawia u Ciebie; „kurier” — sprzęt jedzie do serwisu i wraca."
+     }
+    ],
+    "std": [],
+    "popularne": [
+     {
+      "nazwa": "Rozbudowa DS925+",
+      "konfiguracja": "DS925+ + DX525 (razem 9 zatok)"
+     },
+     {
+      "nazwa": "RackStation z serii 26",
+      "konfiguracja": "RS1226RP+ + RX426 (razem 12 zatok)"
+     },
+     {
+      "nazwa": "Starszy RS1221+",
+      "konfiguracja": "RS1221+ + RX418 (razem 12 zatok)"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "synology-diskstation-plus-5-8",
+     "etykieta": "NAS Synology DiskStation"
+    },
+    {
+     "slug": "synology-rackstation",
+     "etykieta": "NAS Synology RackStation"
+    },
+    {
+     "slug": "apc-back-ups-pro",
+     "etykieta": "Zasilanie awaryjne"
+    },
+    {
+     "slug": "kopie-zapasowe",
+     "etykieta": "Kopie zapasowe 3-2-1"
+    }
+   ],
+   "podobne": [
+    "synology-diskstation-plus-2-4",
+    "synology-diskstation-plus-5-8",
+    "synology-rackstation",
+    "synology-ds2422-rs2825rp"
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Noclegi",
+    "Szkoły i instytucje",
+    "Zdrowie i uzdrowiska",
+    "Handel"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.synology.com/en-global/products/DX525#specs",
+     "etykieta": "Strona producenta — Synology",
+     "host": "synology.com/en-global/products/DX525"
+    },
+    {
+     "url": "https://www.synology.com/en-global/products/RX426#specs",
+     "etykieta": "Strona producenta — Synology",
+     "host": "synology.com/en-global/products/RX426"
+    },
+    {
+     "url": "https://www.synology.com/en-global/products/RX418#specs",
+     "etykieta": "Strona producenta — Synology",
+     "host": "synology.com/en-global/products/RX418"
+    },
+    {
+     "url": "https://www.synology.com/en-global/products/DX517#specs",
+     "etykieta": "Strona producenta — Synology",
+     "host": "synology.com/en-global/products/DX517"
+    },
+    {
+     "url": "https://www.synology.com/en-global/products/status",
+     "etykieta": "Strona producenta — Synology",
+     "host": "synology.com/en-global/products/status"
+    }
+   ],
+   "wyrozniki": [
+    "+4 lub +5 dysków",
+    "DiskStation i RackStation",
+    "3 lata gwarancji"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Obudowa",
+     "v": "biurkowa (DX525, DX517) lub rack 1U (RX426, RX418)"
+    },
+    {
+     "k": "Połączenie z NAS",
+     "v": "USB Type-C (DX525, RX426) / eSATA (RX418, DX517)"
+    },
+    {
+     "k": "Dyski",
+     "v": "z listy zgodności Synology"
+    },
+    {
+     "k": "Status u producenta",
+     "v": "Generally Available"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "3 lata"
+    }
+   ],
+   "nowosc": false,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/synology-obudowy-rozszerzajace-premium-01.webp",
+     "zrodlo": "https://www.synology.com/img/products/detail/DX525/heading.png",
+     "ujecie": "DX525 z przodu pod kątem"
+    },
+    {
+     "plik": "media/produkty/synology-obudowy-rozszerzajace-premium-02.webp",
+     "zrodlo": "https://www.synology.com/img/products/detail/RX426/heading.png",
+     "ujecie": "RX426, front obudowy 1U"
+    },
+    {
+     "plik": "media/produkty/synology-obudowy-rozszerzajace-premium-03.webp",
+     "zrodlo": "https://www.synology.com/img/products/detail/RX418/heading.png",
+     "ujecie": "RX418, front obudowy 1U"
+    },
+    {
+     "plik": "media/produkty/synology-obudowy-rozszerzajace-premium-04.webp",
+     "zrodlo": "https://www.synology.com/img/products/detail/DX517/heading.png",
+     "ujecie": "DX517 z przodu pod kątem"
+    }
+   ]
+  },
+  {
+   "slug_seed": "avtek-ts-8-1-mate-g-65",
+   "zmiana_k4": "zmieniona",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "av",
+   "podkategoria": "monitory-interaktywne",
+   "marka": "Avtek",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Avtek TouchScreen 8.1 Mate G 65",
+   "krotka": "Avtek TS 8.1 Mate G 65",
+   "podtytul": "Monitor interaktywny 4K 65\", Android 14 z Google EDLA, wejścia HDMI, DisplayPort i VGA, porty USB-C",
+   "korzysc": "Dotykowy ekran 4K 65\" z Androidem i Sklepem Play, do którego podłączysz laptopa przez HDMI, DisplayPort albo VGA.",
+   "opis": [
+    "Avtek TS 8.1 Mate G 65 to 65-calowy monitor interaktywny z Androidem 14 i certyfikatem Google EDLA, więc aplikacje instaluje się ze Sklepu Play bez dodatkowego komputera. Pasuje do mniejszej klasy, gabinetu dyrektora, sali zarządu czy pokoju szkoleń, w których na ekranie pokazuje się prezentacje, wykresy i notatki z zajęć.",
+    "Najmocniejszą stroną tego modelu są złącza: trzy wejścia HDMI 2.0, DisplayPort i VGA, do tego dwa porty USB-C oznaczone przez producenta jako wejściowe. Dwa porty USB z przodu są wspólne dla Androida i komputera OPS, więc pendrive nie trzeba przekładać. Matryca VA 4K ma 350 cd/m² i kontrast 5000:1, a technologia Zero Bonding ogranicza odstęp między końcówką pisaka a pojawiającą się linią.",
+    "Dotyk na podczerwień rozpoznaje 20 punktów w Androidzie i 40 w Windows, a dwustronnymi pisakami z zestawu można pisać dwoma kolorami jednocześnie. Moduł Androida ma cztery rdzenie A73, 8 GB RAM i 64 GB pamięci, głośniki mają 2 × 16 W, a łączność bezprzewodową zapewnia dołączany moduł Wi-Fi i Bluetooth. W ofercie Avtek jest nowsza seria TS 9 Mate G z Androidem 16, a TS 8.1 Mate G 65 wybiera się głównie ze względu na DisplayPort i VGA. Gwarancja producenta to 5 lat, w tym 2 lata wymiany 1:1.",
+    "PRO-KOM dobiera do TS 8.1 Mate G 65 uchwyt ścienny z zestawu albo mobilny stojak, a gdy potrzebny jest Windows — komputer Avtek OPS. Ekran waży około 36 kg, więc przed montażem sprawdzamy ścianę, potem podłączamy go do sieci, logujemy konto Google szkoły lub firmy, instalujemy potrzebne aplikacje i pokazujemy, jak prowadzić zajęcia z głosowaniem i notatkami. Zgłoszenia serwisowe przyjmujemy w Rabce-Zdroju."
+   ],
+   "cechy": [
+    "Android 14 EDLA",
+    "DisplayPort i VGA",
+    "gwarancja 5 lat"
+   ],
+   "parametry": [
+    {
+     "k": "Przekątna",
+     "v": "65\""
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "3840 × 2160 (4K), 60 Hz"
+    },
+    {
+     "k": "Matryca",
+     "v": "VA, 350 cd/m², kontrast 5000:1, 6,5 ms, kąt widzenia 178°, 1,07 mld kolorów; szyba hartowana 3,2 mm (7 w skali Mohsa), Zero Bonding"
+    },
+    {
+     "k": "Dotyk",
+     "v": "podczerwień, 20 (Android) / 40 (Windows) punktów, czas reakcji < 10 ms, pisanie dwoma kolorami jednocześnie"
+    },
+    {
+     "k": "System",
+     "v": "Android 14 z certyfikatem Google EDLA (Sklep Play), aktualizacje przez internet"
+    },
+    {
+     "k": "Procesor i pamięć",
+     "v": "4× A73, GPU Mali-G52 MC1, 8 GB RAM / 64 GB, gniazdo karty TF"
+    },
+    {
+     "k": "Łączność",
+     "v": "moduł Wi-Fi/Bluetooth w zestawie, RJ-45, RS-232"
+    },
+    {
+     "k": "Wejścia obrazu",
+     "v": "3× HDMI 2.0 (4K 60 Hz), DisplayPort, VGA"
+    },
+    {
+     "k": "Porty USB",
+     "v": "2× USB-A 2.0, 3× USB-A 3.0, 2× USB-C (IN), 3× USB-B (dotyk); 2 porty z przodu wspólne dla Androida i OPS"
+    },
+    {
+     "k": "Wyjścia",
+     "v": "HDMI (4K 60 Hz), audio mini jack 3,5 mm, S/PDIF"
+    },
+    {
+     "k": "Głośniki",
+     "v": "2× 16 W"
+    },
+    {
+     "k": "Slot OPS",
+     "v": "tak (komputer Avtek OPS z Windows 11 Pro — opcja)"
+    },
+    {
+     "k": "Montaż VESA",
+     "v": "600 × 400 mm; uchwyt ścienny w zestawie; nie do pracy w poziomie"
+    },
+    {
+     "k": "Wymiary / waga",
+     "v": "1488 × 897 × 87 mm; 36,15 kg"
+    },
+    {
+     "k": "Pobór mocy",
+     "v": "nominalnie 180 W, maks. 335 W, czuwanie 0,5 W"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "5 lat (w tym 2 lata wymiany 1:1)"
+    }
+   ],
+   "warianty_opis": [],
+   "faq": [
+    {
+     "q": "Czym Avtek TS 8.1 Mate G 65 różni się od TS 9 Mate G?",
+     "a": "TS 8.1 Mate G 65 ma Androida 14, matrycę 350 cd/m², 20/40 punktów dotyku i głośniki 2 × 16 W, ale za to DisplayPort, VGA i dwa porty USB-C. TS 9 Mate G ma Androida 16, 500 cd/m², 50 punktów dotyku i Wi-Fi 6, bez DisplayPort i VGA."
+    },
+    {
+     "q": "Czy Avtek TS 8.1 Mate G 65 ma dostęp do Sklepu Play?",
+     "a": "Tak. Android 14 w tym monitorze ma certyfikat Google EDLA, czyli pełny dostęp do usług Google i Sklepu Play. Konto Google szkoły lub firmy logujemy przy uruchomieniu, a aktualizacje oprogramowania monitor pobiera przez internet."
+    },
+    {
+     "q": "Czy laptop podłączę do Avtek TS 8.1 Mate G 65 przez USB-C?",
+     "a": "Karta producenta wymienia dwa porty USB-C oznaczone jako wejściowe, obok trzech HDMI 2.0, DisplayPort i VGA. Przesyłanie obrazu przez USB-C z konkretnego laptopa sprawdzamy przed wdrożeniem, a pewnym wyborem zawsze pozostaje HDMI."
+    },
+    {
+     "q": "Ile waży Avtek TS 8.1 Mate G 65 i jak go zamontować?",
+     "a": "Monitor ma 1488 × 897 × 87 mm i waży 36,15 kg. Rozstaw otworów VESA to 600 × 400 mm, a uchwyt ścienny jest w zestawie. Producent zaznacza, że TS 8.1 Mate G nie jest przeznaczony do pracy w poziomie jako stół interaktywny."
+    },
+    {
+     "q": "Jaką gwarancję ma Avtek TS 8.1 Mate G 65?",
+     "a": "Producent daje 5 lat gwarancji, z czego przez pierwsze 2 lata obowiązuje wymiana urządzenia 1:1. Monitor jest przystosowany do pracy 24/7, a żywotność matrycy producent szacuje na co najmniej 50 000 godzin."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Monitor ma jeden rozmiar; wybierasz, czy wystarczy wbudowany Android, czy dokładasz komputer OPS z Windows i kamerę.",
+    "opcje": [
+     {
+      "nazwa": "Moduł OPS",
+      "wartosci": [
+       "bez OPS",
+       "OPS i5-13505H / 8 GB / 256 GB / Windows 11 Pro (1TV469)",
+       "OPS i7-13650HX / 16 GB / 256 GB / Windows 11 Pro (1TV427)",
+       "OPS i7-13650HX / 16 GB / 512 GB / Windows 11 Pro (1TV428)"
+      ],
+      "uwaga": "TS 8.1 Mate G jest na liście zgodności komputerów Avtek OPS.",
+      "dl": true,
+      "pom": "Windows 11 Pro ma funkcje dla firm, np. szyfrowanie dysku BitLocker i dołączanie do domeny."
+     },
+     {
+      "nazwa": "Kamera/mikrofon",
+      "wartosci": [
+       "bez kamery i bez mikrofonu w danych producenta",
+       "+ kamera USB Avtek CAM4K z 2 mikrofonami (1TV383, opcja)"
+      ],
+      "dl": true,
+      "pom": ""
+     },
+     {
+      "nazwa": "Montaż",
+      "wartosci": [
+       "uchwyt ścienny (w zestawie)",
+       "mobilny stojak (opcja)"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "System",
+      "v": "Android 14 z Google EDLA"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "Sala z Androidem",
+      "konfiguracja": "Avtek TS 8.1 Mate G 65 (1TV347)"
+     },
+     {
+      "nazwa": "Sala z Windows",
+      "konfiguracja": "Avtek TS 8.1 Mate G 65 (1TV347) + OPS i5-13505H (1TV469)"
+     },
+     {
+      "nazwa": "Wideorozmowy",
+      "konfiguracja": "Avtek TS 8.1 Mate G 65 (1TV347) + kamera Avtek CAM4K (1TV383)"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "avtek-ops",
+     "etykieta": "Komputer OPS z Windows do monitora"
+    },
+    {
+     "slug": "avtek-akcesoria-monitory",
+     "etykieta": "Stojak i akcesoria do monitora"
+    },
+    {
+     "slug": "microsoft-windows-11-pro",
+     "etykieta": "System"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    }
+   ],
+   "podobne": [
+    "avtek-ts-9-mate-g",
+    "avtek-ts-9-lite-g",
+    "avtek-ts-8-1-easy",
+    "avtek-ts-8-connect"
+   ],
+   "branze": [
+    "Szkoły i instytucje",
+    "Biura i usługi"
+   ],
+   "zrodla": [
+    {
+     "url": "https://avtek.pl/produkty/monitory-interaktywne/monitor-interaktywny-avtek-ts-81-mate-g-65,1tv347",
+     "etykieta": "Strona producenta — Avtek",
+     "host": "avtek.pl"
+    },
+    {
+     "url": "https://avtek.eu/products/interactive-displays/interactive-flat-panel-avtek-ts-81-mate-g-65,1tv347",
+     "etykieta": "Strona producenta — Avtek",
+     "host": "avtek.eu"
+    },
+    {
+     "url": "https://avtek.eu/offer/interactive-monitors",
+     "etykieta": "Strona producenta — Avtek",
+     "host": "avtek.eu"
+    },
+    {
+     "url": "https://backend.vidis.pl/api/media/c/public/fp/product_files/1TV347/avtek-ts-81-mate-g-karta-pl.pdf",
+     "etykieta": "Karta katalogowa (PDF) — Vidis",
+     "host": "backend.vidis.pl · PDF"
+    }
+   ],
+   "wyrozniki": [
+    "Android 14 EDLA",
+    "DisplayPort i VGA",
+    "gwarancja 5 lat"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Przekątna",
+     "v": "65\""
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "3840 × 2160 (4K), 60 Hz"
+    },
+    {
+     "k": "System",
+     "v": "Android 14 z certyfikatem Google EDLA"
+    },
+    {
+     "k": "Wejścia obrazu",
+     "v": "3× HDMI 2.0, DisplayPort, VGA"
+    },
+    {
+     "k": "Głośniki",
+     "v": "2× 16 W"
+    }
+   ],
+   "nowosc": false,
+   "wideo": [
+    {
+     "id": "ESjX8iLTvNY",
+     "t": "Przedstawiamy Avtek TS 8 Mate!",
+     "k": "VIDIS SA",
+     "l": "pl",
+     "d": "seria"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/avtek-ts-8-1-mate-g-65-premium-01.webp",
+     "zrodlo": "https://api.avtek.eu/api/media/public-files/download/fp/product_photos/1TV347/ts-81-mate-g-65.jpg",
+     "ujecie": "front monitora z logo TS 8.1 Mate G i znakiem EDLA"
     }
    ]
   }

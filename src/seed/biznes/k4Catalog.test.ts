@@ -235,10 +235,10 @@ describe('K4 package (katalog-k4.json)', () => {
   // + 5 PolCard terminals, 5 ESET packages, 4 Microsoft 365 plans and 6 EuroCert products of
   // PRODUKCJA-BIZNES-1211 (sesja 2: a card per model, not one card for a salon). + K3.1 split
   // cards checked against producer sources on 14.11 (K4 content wins over the split content).
-  it('has 446 cards: 182 new, 133 changed, 131 typography', () => {
+  it('has 448 cards: 182 new, 135 changed, 131 typography', () => {
     const count = (kind: string) => cards.filter((card) => card.zmiana_k4 === kind).length
-    expect(cards).toHaveLength(446)
-    expect([count('nowa'), count('zmieniona'), count('drobne')]).toEqual([182, 133, 131])
+    expect(cards).toHaveLength(448)
+    expect([count('nowa'), count('zmieniona'), count('drobne')]).toEqual([182, 135, 131])
   })
 
   it('points polecane and podobne only at cards of the package or of the K3.1 split', () => {
