@@ -5,7 +5,13 @@ import { RenderBlocks } from '@/components/RenderBlocks'
 import { pageCrumbs } from '@/lib/biznes/pages/crumbs'
 import { getPublishedPage } from '@/lib/pages/data'
 import { pageMetadata } from '@/lib/pages/metadata'
-import { BIZNES_SERVICE_PAGES, biznesDescription } from '@/lib/biznes/seo'
+import {
+  BIZNES_LOCAL_PAGES,
+  BIZNES_SERVICE_PAGES,
+  biznesDescription,
+  localDescription,
+  localTitle,
+} from '@/lib/biznes/seo'
 import { biznesServiceJsonLd, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { getSiteSettings } from '@/lib/site/data'
 import { slugFromSegment } from '@/lib/pages/slug'
@@ -25,11 +31,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, page } = await load(params)
   if (!page) return {}
   const settings = await getSiteSettings(tenant.id)
-  return pageMetadata(page, {
+  const metadata = pageMetadata(page, {
     name: tenant.name,
     ogImage: settings?.seo.ogImage ?? null,
     ...(tenant.line === 'biznes' && { line: tenant.line }),
   })
+  if (tenant.line !== 'biznes' || !BIZNES_LOCAL_PAGES.has(page.slug)) return metadata
+  // A Biznes page that sells (services, procurement) names the region (SEO lokalne 13.11).
+  const title = localTitle(page.seo?.title?.trim() || page.title)
+  const description = page.seo?.description ? localDescription(page.seo.description) : undefined
+  return {
+    ...metadata,
+    title,
+    ...(description && { description }),
+    openGraph: { ...metadata.openGraph, title, ...(description && { description }) },
+  }
 }
 
 /**

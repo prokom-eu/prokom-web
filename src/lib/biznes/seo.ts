@@ -39,6 +39,16 @@ export const BIZNES_SERVICE_PAGES: ReadonlySet<string> = new Set([
   'automaty-vendingowe',
 ])
 
+/**
+ * Pages whose title and description name the region (SEO lokalne 13.11): the service pages and
+ * the procurement ones. Legal pages, guides and the contact page stay as the panel writes them.
+ */
+export const BIZNES_LOCAL_PAGES: ReadonlySet<string> = new Set([
+  ...BIZNES_SERVICE_PAGES,
+  'dostawy-it-dla-firm',
+  'agd-rtv-dla-firm',
+])
+
 /** A title split by a dash or a colon („Wagi dla firm — Dibal”, „Systemy: GoPOS”). */
 const DASHED = / — |: | – /
 
