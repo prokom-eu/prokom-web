@@ -7,11 +7,10 @@ import { MediaImage } from '@/components/MediaImage'
 import { cx } from '@/components/ui/cx'
 import type { IndexLogo } from '@/lib/catalog/catalogIndex'
 import type { IconName } from '@/lib/catalog/options'
+import type { FallbackTile } from '@/lib/catalog/purchase'
 import type { PublicImage } from '@/lib/media/public'
 
 import { useSwap } from '../motion/useSwap'
-import type { FallbackTile } from '@/lib/catalog/purchase'
-
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 import { GalleryZoom } from './GalleryZoom'
 import { useProductConfig } from './ProductConfig'
