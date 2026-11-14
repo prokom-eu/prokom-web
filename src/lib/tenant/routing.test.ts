@@ -401,3 +401,28 @@ describe('decideRoute — analytics proxy (ADR-020)', () => {
     expect(routeWith('panel.localhost', '/_s/script.js', 'GET')).toEqual({ type: 'notFound' })
   })
 })
+
+// Audit 14.11 (P2): robots, link previews and old browsers ask for `/favicon.ico` directly.
+describe('decideRoute — /favicon.ico of a site', () => {
+  it("a site domain gets its line's icon (the proxy resolves the tenant)", () => {
+    expect(route('biznes.localhost', '/favicon.ico')).toEqual({ type: 'favicon' })
+    expect(route('software.localhost', '/favicon.ico')).toEqual({ type: 'favicon' })
+  })
+
+  it('only that exact path, only for reading; not on the panel or without a host', () => {
+    expect(route('biznes.localhost', '/favicon.ico/x')).toEqual({
+      type: 'rewrite',
+      pathname: '/biznes.localhost/favicon.ico/x',
+    })
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/favicon.ico',
+        method: 'POST',
+        panelHost,
+      }),
+    ).not.toEqual({ type: 'favicon' })
+    expect(route(panelHost, '/favicon.ico')).toEqual({ type: 'notFound' })
+    expect(route(null, '/favicon.ico')).toEqual({ type: 'notFound' })
+  })
+})

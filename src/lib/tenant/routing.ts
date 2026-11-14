@@ -9,6 +9,8 @@ export type RouteDecision =
   | { type: 'rewrite'; pathname: string }
   /** Forward to the Umami container (ADR-020); `pathname` is the path there. */
   | { type: 'analytics'; pathname: string }
+  /** `/favicon.ico` of a site: the proxy serves its line's icon (`/brand/<line>_favicon.ico`). */
+  | { type: 'favicon' }
 
 type RouteInput = {
   host: string | null
@@ -59,6 +61,9 @@ const HEALTH_PATH = '/api/health'
 // Umami API and panel stay off the sites).
 const ANALYTICS_PREFIX = '/_s'
 const ANALYTICS_PATHS: Record<string, string> = { '/script.js': 'GET', '/api/send': 'POST' }
+// Asked for directly by robots, link previews and old browsers (audit 14.11); the pages declare
+// `/brand/…` icons, but the line is known only from the tenant, so the proxy picks the file.
+const FAVICON_PATH = '/favicon.ico'
 // Not a valid page slug, so `[domain]/[slug]` answers with the site's 404 page.
 export const NOT_FOUND_SEGMENT = '_404'
 
@@ -103,6 +108,7 @@ export function decideRoute({
     const allowed = Object.hasOwn(ANALYTICS_PATHS, target) && ANALYTICS_PATHS[target] === method
     return allowed ? { type: 'analytics', pathname: target } : { type: 'notFound' }
   }
+  if (pathname === FAVICON_PATH && READ_METHODS.includes(method)) return { type: 'favicon' }
   if (UPLOAD_FILE.test(pathname) && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === INQUIRY_PATH && method === 'POST') return { type: 'next' }
   if (pathname === INQUIRY_TOKEN_PATH && READ_METHODS.includes(method)) return { type: 'next' }
