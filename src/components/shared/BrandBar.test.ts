@@ -18,6 +18,10 @@ const line = (key: SharedLine['key'], name: string, order: number): SharedLine =
   colorOnDark: null,
   description: null,
   descriptionLong: null,
+  phone: null,
+  email: null,
+  hours: null,
+  promise: null,
 })
 
 const props: BrandBarProps = {

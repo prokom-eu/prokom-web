@@ -107,6 +107,7 @@ import * as migration_20261113_201305_swa14_pulpit_firmy_dane from './20261113_2
 import * as migration_20261113_220654_software_cena_pulpitu from './20261113_220654_software_cena_pulpitu'
 import * as migration_20261113_231729_software_seo_etap1 from './20261113_231729_software_seo_etap1'
 import * as migration_20261114_100545_software_tresc_seo_2 from './20261114_100545_software_tresc_seo_2'
+import * as migration_20261114_154422_wsp_linie_kontakt from './20261114_154422_wsp_linie_kontakt'
 
 export const migrations = [
   {
@@ -653,5 +654,10 @@ export const migrations = [
     up: migration_20261114_100545_software_tresc_seo_2.up,
     down: migration_20261114_100545_software_tresc_seo_2.down,
     name: '20261114_100545_software_tresc_seo_2',
+  },
+  {
+    up: migration_20261114_154422_wsp_linie_kontakt.up,
+    down: migration_20261114_154422_wsp_linie_kontakt.down,
+    name: '20261114_154422_wsp_linie_kontakt',
   },
 ]

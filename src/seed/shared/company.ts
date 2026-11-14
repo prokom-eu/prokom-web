@@ -102,6 +102,11 @@ export const COMPANY_LINES: NonNullable<CompanyDatum['lines']> = [
     colorOnDark: '#E2483A',
     description: 'Naprawy telefonów i komputerów',
     descriptionLong: 'Naprawy telefonów, laptopów i komputerów.',
+    // Tech has no site in this app — its contact lives here (ADR-H002 §1).
+    phone: '883 200 151',
+    email: 'sklep@pro-kom.eu',
+    hours: 'pn–pt 9:00–17:00, sob. 9:00–14:00',
+    promise: 'Bezpłatna diagnoza i wycena',
     published: true,
   },
   {
@@ -125,6 +130,9 @@ export const COMPANY_LINES: NonNullable<CompanyDatum['lines']> = [
     colorOnDark: '#F2C230',
     description: 'Komputery gamingowe · marka PRO-KOM',
     descriptionLong: 'Komputery gamingowe składane i testowane w Rabce.',
+    phone: '883 200 151',
+    email: 'kontakt@prokomgaming.pl',
+    // TODO(krystian): godziny Gaming — [SZEF] „codziennie 8–22”? (prokomeu-pytania.md pkt 4)
     published: false,
   },
 ]

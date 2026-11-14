@@ -209,6 +209,31 @@ const linesField: Field = {
     },
     { name: 'description', label: 'Opis krótki', type: 'text' },
     { name: 'descriptionLong', label: 'Opis (O firmie)', type: 'textarea' },
+    {
+      type: 'collapsible',
+      label: 'Kontakt linii bez strony w tym panelu',
+      admin: {
+        initCollapsed: true,
+        description:
+          'Tylko Tech i Gaming (ich strony są poza tym panelem). Biznes, Instalacje i Software biorą kontakt z Ustawień strony swojej linii — tu zostaw puste.',
+      },
+      fields: [
+        { name: 'phone', label: 'Telefon', type: 'text' },
+        { name: 'email', label: 'E-mail', type: 'email' },
+        {
+          name: 'hours',
+          label: 'Godziny (tekst)',
+          type: 'text',
+          admin: { description: 'Np. „pn–pt 9:00–17:00, sob. 9:00–14:00”.' },
+        },
+        {
+          name: 'promise',
+          label: 'Obietnica',
+          type: 'text',
+          admin: { description: 'Krótkie zdanie z ustaleń, np. „Bezpłatna diagnoza i wycena”.' },
+        },
+      ],
+    },
   ],
 }
 

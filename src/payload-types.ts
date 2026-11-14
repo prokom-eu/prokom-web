@@ -9315,6 +9315,16 @@ export interface CompanyDatum {
         published?: boolean | null;
         description?: string | null;
         descriptionLong?: string | null;
+        phone?: string | null;
+        email?: string | null;
+        /**
+         * Np. „pn–pt 9:00–17:00, sob. 9:00–14:00”.
+         */
+        hours?: string | null;
+        /**
+         * Krótkie zdanie z ustaleń, np. „Bezpłatna diagnoza i wycena”.
+         */
+        promise?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -9445,6 +9455,10 @@ export interface CompanyDataSelect<T extends boolean = true> {
         published?: T;
         description?: T;
         descriptionLong?: T;
+        phone?: T;
+        email?: T;
+        hours?: T;
+        promise?: T;
         id?: T;
       };
   serviceZones?:
