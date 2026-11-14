@@ -36,6 +36,11 @@ export type AnalyticsEvents = {
   oferta_okno: { slug: string }
   /** „+ Dodaj do wyceny” inside the offer window. */
   oferta_dodaj: { slug: string }
+  /**
+   * A search without results (pro-kom.eu, spec §1 „wyszukiwania bez wyniku < 10%”): where it
+   * happened — the window or `/szukaj` — never the phrase.
+   */
+  szukaj_brak_wyniku: { miejsce: 'okno' | 'strona' }
 }
 
 export type AnalyticsForm = 'kontakt' | 'audyt' | 'kreator'

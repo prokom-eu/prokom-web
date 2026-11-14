@@ -248,6 +248,31 @@ describe('decideRoute — site domains', () => {
     }
   })
 
+  it('lets the hub search index through on site domains, read only (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'prokom.localhost',
+          pathname: '/api/hub-search-index',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'prokom.localhost',
+        pathname: '/api/hub-search-index',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual({ type: 'notFoundPage', pathname: '/prokom.localhost/_404' })
+    expect(route('prokom.localhost', '/api/hub-search-index/x')).toEqual({
+      type: 'notFoundPage',
+      pathname: '/prokom.localhost/_404',
+    })
+  })
+
   it('lets the Instalacje search index through on site domains, read only (its handler checks the line)', () => {
     for (const method of ['GET', 'HEAD']) {
       expect(

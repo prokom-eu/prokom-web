@@ -47,7 +47,8 @@ export const PROKOM_SHARED: SharedGroup = {
       { label: 'Kontakt', href: '/kontakt' },
     ],
     synonyms: [
-      'kamera, kamery, monitoring, CCTV, nagrywanie',
+      // Not „monitoring”: it is also IT care (Biznes „Opieka IT” — monitoring sprzętu).
+      'kamera, kamery, CCTV, nagrywanie',
       'kasa, kasy, kasa fiskalna, drukarka fiskalna, paragon',
       'wifi, wi-fi, internet, sieć, router',
       'strona, strona internetowa, www, witryna',
