@@ -1,9 +1,9 @@
 {
  "wersja": "K4 (wizualizacja v150)",
  "sprawdzono": "2026-10-29",
- "liczba": 442,
+ "liczba": 452,
  "zmiany": {
-  "zmieniona": 129,
+  "zmieniona": 139,
   "drobne": 131,
   "nowa": 162
  },
@@ -9365,15 +9365,15 @@
    "podkategoria": "Drukarki bonowe",
    "marka": "Sunmi",
    "rodzaj": "Urządzenia",
-   "nazwa": "Sunmi NT311 (80 mm Kitchen Cloud Printer)",
-   "krotka": "Sunmi NT311",
+   "nazwa": "Sunmi 80 mm Kitchen Cloud Printer",
+   "krotka": "Sunmi Kitchen Cloud Printer 80 mm",
    "podtytul": "Drukarka kuchenna 80 mm z drukiem z chmury, IP52, 250 mm/s",
    "korzysc": "Zamówienia z kasy i z internetu drukują się w kuchni, a drukarka głosem i światłem zgłasza nowy bon.",
    "opis": [
-    "Sunmi NT311, w materiałach producenta opisywana jako 80mm Kitchen Cloud Printer, to drukarka bonów stawiana tam, gdzie powstają dania: w kuchni pizzerii, przy barze, w punkcie wydawania zamówień czy w food trucku. Drukuje zarówno bony wysłane z kasy w lokalu, jak i zamówienia online, które przychodzą z chmury bez pośrednictwa komputera.",
+    "Sunmi Kitchen Cloud Printer, w materiałach producenta opisywana jako 80mm Kitchen Cloud Printer, to drukarka bonów stawiana tam, gdzie powstają dania: w kuchni pizzerii, przy barze, w punkcie wydawania zamówień czy w food trucku. Drukuje zarówno bony wysłane z kasy w lokalu, jak i zamówienia online, które przychodzą z chmury bez pośrednictwa komputera.",
     "Drukuje termicznie na rolce 80 mm o średnicy do 80 mm, z prędkością do 250 mm/s, i sama obcina bon; po założeniu uchwytu przyjmie też rolkę 58 mm. Obudowa ma stopień ochrony IP52, gumowe uszczelki i otwory mniejsze niż 0,8 mm, a tworzywo ABS z powłoką odpychającą tłuszcz łatwo się czyści. Nowe zamówienie drukarka zgłasza światłem oraz brzęczykiem przy druku z sieci lokalnej albo komunikatem głosowym przy druku z chmury, a zacięcie papieru głosem i czerwoną lampką.",
     "Gdy zniknie internet, po powrocie połączenia sama pobiera zamówienia z chmury czekające nie dłużej niż 24 godziny, a po wymianie rolki dodrukowuje całe przerwane zamówienie. Łączy się przez Wi-Fi 2,4 GHz, Ethernet, Bluetooth i USB-C; strona producenta wymienia także 4G, którego nie ma w karcie katalogowej, więc dostępność tej wersji potwierdzamy przy zamówieniu. Ma gniazdo szuflady RJ12, obsługuje polecenia ESC/POS i można ją przykręcić do ściany czterema śrubami od spodu.",
-    "Druk z chmury działa tylko z programem sprzedaży albo platformą zamówień, która obsługuje drukarki chmurowe Sunmi, dlatego w salonie PRO-KOM w Rabce-Zdroju najpierw sprawdzamy Twój system. Potem ustawiamy NT311 w sieci kuchni, drukujemy raport testu sieci z siłą sygnału Wi-Fi, łączymy drukarkę z kasą lub terminalem i pokazujemy obsłudze, jak reagować na komunikaty głosowe."
+    "Druk z chmury działa tylko z programem sprzedaży albo platformą zamówień, która obsługuje drukarki chmurowe Sunmi, dlatego w salonie PRO-KOM w Rabce-Zdroju najpierw sprawdzamy Twój system. Potem ustawiamy Kitchen Cloud Printer w sieci kuchni, drukujemy raport testu sieci z siłą sygnału Wi-Fi, łączymy drukarkę z kasą lub terminalem i pokazujemy obsłudze, jak reagować na komunikaty głosowe."
    ],
    "cechy": [
     "80 mm, 250 mm/s",
@@ -9466,23 +9466,23 @@
    ],
    "faq": [
     {
-     "q": "Czy Sunmi NT311 potrzebuje komputera w kuchni?",
+     "q": "Czy Sunmi Kitchen Cloud Printer potrzebuje komputera w kuchni?",
      "a": "Nie. Zamówienia z chmury drukuje bezpośrednio przez internet (MQTT i HTTPS), a bony z kasy w lokalu przyjmuje przez sieć LAN, Wi-Fi, Bluetooth lub kabel USB-C. Potrzebny jest tylko program, który wysyła do niej wydruki."
     },
     {
-     "q": "Co robi Sunmi NT311, gdy w lokalu zniknie internet?",
+     "q": "Co robi Sunmi Kitchen Cloud Printer, gdy w lokalu zniknie internet?",
      "a": "Po odzyskaniu połączenia drukarka sama pobiera i drukuje zamówienia z chmury, które czekały nie dłużej niż 24 godziny. Wbudowany test sieci drukuje raport z siłą sygnału i konfliktami kanałów, co pomaga znaleźć przyczynę przerw."
     },
     {
-     "q": "Czy w Sunmi NT311 można używać papieru 58 mm?",
+     "q": "Czy w Sunmi Kitchen Cloud Printer można używać papieru 58 mm?",
      "a": "Tak, po założeniu uchwytu na rolkę 58 mm przewidzianego przez producenta. Standardowo drukarka pracuje na papierze termicznym 80 mm o grubości 0,06–0,08 mm, z rolką o średnicy do 80 mm i szerokością zadruku 72 mm."
     },
     {
-     "q": "Czy Sunmi NT311 wytrzyma codzienną pracę przy kuchni?",
+     "q": "Czy Sunmi Kitchen Cloud Printer wytrzyma codzienną pracę przy kuchni?",
      "a": "Ma stopień ochrony IP52, uszczelki, otwory poniżej 0,8 mm i obudowę ABS odporną na tłuszcz, więc dobrze znosi kapiącą wodę, kurz i owady. IP52 nie oznacza wodoodporności — drukarki nie stawia się przy zlewie ani nie myje pod bieżącą wodą."
     },
     {
-     "q": "Czy Sunmi NT311 otworzy szufladę kasową przy barze?",
+     "q": "Czy Sunmi Kitchen Cloud Printer otworzy szufladę kasową przy barze?",
      "a": "Ma gniazdo szuflady RJ12 (24 V, 1 A), więc może otwierać szufladę po wydruku, jeśli program sprzedaży wysyła takie polecenie. W kuchni zwykle nie jest to potrzebne, ale przydaje się, gdy drukarka stoi przy barze lub w punkcie wydawania."
     }
    ],
@@ -9583,7 +9583,8 @@
      "zrodlo": "https://file.cdn.sunmi.com/newebsite/products/80-kitchen-printer/lg/p8-1.jpg",
      "ujecie": "otwarta komora z rolką papieru"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "posnet-veri-basic",
@@ -34085,7 +34086,8 @@
      "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkBook/ThinkBook_14_2_in_1_G6_IPL/ThinkBook_14_2_in_1_G6_IPL_CT2_04.png",
      "ujecie": "bok z portami"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "lenovo-thinkbook-16p-g6",
@@ -35282,12 +35284,12 @@
     {
      "plik": "media/produkty/dell-pro-rugged-premium-01.webp",
      "zrodlo": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/rugged/7340/media-gallery/laptop-dell-ra13250-rugged-pro-bk-gallery-1.psd?fmt=png-alpha&pscan=auto&scl=1&hei=1200&qlt=100,0&resMode=sharp2",
-     "ujecie": "Dell Pro Rugged 13 (RA13250) — przód"
+     "ujecie": "RA13250 — przód"
     },
     {
      "plik": "media/produkty/dell-pro-rugged-premium-02.webp",
      "zrodlo": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/rugged/5440/media-gallery/laptop-dell-rb14250-rugged-pro-bk-gallery-1.psd?fmt=png-alpha&pscan=auto&scl=1&hei=1200&qlt=100,0&resMode=sharp2",
-     "ujecie": "Dell Pro Rugged 14 (RB14250) — przód"
+     "ujecie": "RB14250 — przód"
     }
    ]
   },
@@ -40562,7 +40564,8 @@
      "zrodlo": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/desktops/dell-pro-max/fcst2250/media-gallery/desktop-dell-pro-max-fct2250-tower-bk-lockable-hdd-slim-odd-gallery-4.psd?fmt=png-alpha&pscan=auto&scl=1&hei=1200&qlt=100,0&resMode=sharp2",
      "ujecie": "Pro Max Tower T2 — przód"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "dell-stacje-dokujace",
@@ -44108,7 +44111,8 @@
      "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkVision/ThinkVision_M16_Monitor/ThinkVision_M16_Monitor_CT2_05.png",
      "ujecie": "M16 — tył z podstawką"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "dell-plus-monitory",
@@ -44351,24 +44355,25 @@
     {
      "plik": "media/produkty/dell-plus-monitory-premium-01.webp",
      "zrodlo": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/s-series/s2725qs/media-gallery/monitor-s2725qs-gray-gallery-1.psd?fmt=png-alpha&pscan=auto&scl=1&wid=1400&qlt=100,0&resMode=sharp2",
-     "ujecie": "Dell 27 Plus 4K (S2725QS) — przód pod kątem"
+     "ujecie": "S2725QS — przód pod kątem"
     },
     {
      "plik": "media/produkty/dell-plus-monitory-premium-02.webp",
      "zrodlo": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/s-series/s2425hsm/media-gallery/monitor-dell-plus-s2425hsm-gy-gallery-2.psd?fmt=png-alpha&pscan=auto&scl=1&wid=1400&qlt=100,0&resMode=sharp2",
-     "ujecie": "Dell 24 Plus (S2425HSM) — przód"
+     "ujecie": "S2425HSM — przód"
     },
     {
      "plik": "media/produkty/dell-plus-monitory-premium-03.webp",
      "zrodlo": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/s-series/s3225qc/media-gallery/monitor-s3225qc-c-gray-gallery-2.psd?fmt=png-alpha&pscan=auto&scl=1&wid=1400&qlt=100,0&resMode=sharp2",
-     "ujecie": "Dell 32 Plus 4K QD-OLED (S3225QC) — przód"
+     "ujecie": "S3225QC — przód"
     },
     {
      "plik": "media/produkty/dell-plus-monitory-premium-04.webp",
      "zrodlo": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/s-series/s2725dsm/media-gallery/monitor-dell-plus-s2725dsm-gy-gallery-4.psd?fmt=png-alpha&pscan=auto&scl=1&wid=1400&qlt=100,0&resMode=sharp2",
-     "ujecie": "Dell 27 Plus QHD (S2725DSM) — złącza od spodu"
+     "ujecie": "S2725DSM — złącza od spodu"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "apple-studio-display",
@@ -66874,7 +66879,8 @@
      "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--e6676579-1306-4784-9507-d37b72599608/square-540x540-ecosys-ma4500ifx.png",
      "ujecie": "MA4500ifx z ekranem dotykowym 7\", ujęcie z boku"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "kyocera-ecosys-ma5500ifx-ma6000ifx",
@@ -67326,7 +67332,8 @@
      "zrodlo": "https://www.kyoceradocumentsolutions.eu/adobe/dynamicmedia/deliver/dm-aid--3877b496-a22d-46b9-baeb-67b8ce21d12f/media-image-large-1178x663-ma3500cix-4.jpg",
      "ujecie": "MA3500cix z jednym podajnikiem dodatkowym, z przodu"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "kyocera-taskalfa-ma3500ci-ma4500ci",
@@ -72758,15 +72765,15 @@
    "podkategoria": "monitory-interaktywne",
    "marka": "Avtek",
    "rodzaj": "Urządzenia",
-   "nazwa": "Avtek TouchScreen 9 Mate G (65\", 75\", 86\") i TS 8.1 Mate G 65",
-   "krotka": "Avtek TouchScreen 9 Mate G i TS 8.1 Mate G 65",
+   "nazwa": "Avtek TouchScreen 9 Mate G (65\", 75\", 86\")",
+   "krotka": "Avtek TouchScreen 9 Mate G",
    "podtytul": "Monitory interaktywne 4K 65–86\", Android 16 EDLA, 50 punktów dotyku, Wi-Fi 6, start w 35 s",
    "korzysc": "Dotykowy ekran 4K z Androidem 16, Google Play i Wi-Fi 6, do sali lekcyjnej i sali spotkań.",
    "opis": [
     "Seria Mate to monitory interaktywne Avtek do klas i sal spotkań, gdzie ekran ma działać od razu po włączeniu. Prowadzisz na nim lekcję lub prezentację, piszesz notatki na dowolnym obrazie, uruchamiasz aplikacje ze Sklepu Play i przeprowadzasz szybkie głosowanie wśród uczestników.",
     "TS 9 Mate G ma matrycę VA 4K o jasności 500 cd/m², Android 16 z certyfikatem Google EDLA i procesor Rockchip 3576 z układem AI (NPU 6 TOPS). Producent podaje start monitora w 35 sekund i dwukrotnie większą wydajność niż w poprzedniej generacji. Dotyk rozpoznaje 50 punktów, łączność to Wi-Fi 6 i Bluetooth 5.4, głośniki mają 2× 25 W. Aplikacja do udostępniania łączy do 254 urządzeń i pokazuje obraz z 9 naraz.",
-    "Laptopa podłączysz przez HDMI (jedno wejście jest z przodu); port USB-C służy tylko do danych, a DisplayPort i VGA są tylko w TS 8.1 Mate G. Jest slot OPS na komputer z Windows. W zestawie są dwa pisaki, pilot i uchwyt ścienny. Wciąż dostępny jest też starszy TS 8.1 Mate G w rozmiarze 65\".",
-    "Doradzamy, czy wybrać TS 9 Mate G, czy 65-calowy TS 8.1 Mate G, i jaki statyw do niego pasuje, potem montujemy ekran, łączymy go z siecią przez Wi-Fi 6 lub kabel, instalujemy aplikacje i uczymy prowadzenia lekcji lub spotkania."
+    "Laptopa podłączysz przez HDMI (jedno wejście jest z przodu); port USB-C służy tylko do danych. Jest slot OPS na komputer z Windows. W zestawie są dwa pisaki, pilot i uchwyt ścienny. Kto potrzebuje DisplayPort, VGA albo wejść USB-C, znajdzie je w starszym TS 8.1 Mate G 65, który ma u nas osobną kartę.",
+    "Doradzamy, który rozmiar TS 9 Mate G pasuje do sali i jaki statyw do niego dobrać, potem montujemy ekran, łączymy go z siecią przez Wi-Fi 6 lub kabel, instalujemy aplikacje i uczymy prowadzenia lekcji lub spotkania."
    ],
    "cechy": [
     "Android 16 EDLA",
@@ -72776,7 +72783,7 @@
    "parametry": [
     {
      "k": "Przekątne",
-     "v": "TS 9 Mate G: 65\", 75\", 86\"; TS 8.1 Mate G: 65\""
+     "v": "65\", 75\", 86\""
     },
     {
      "k": "Rozdzielczość",
@@ -72784,27 +72791,27 @@
     },
     {
      "k": "Matryca",
-     "v": "VA; TS 9 Mate G: 500 cd/m², kontrast 5000:1; TS 8.1 Mate G: 350 cd/m², 5000:1; kąt widzenia 178°"
+     "v": "VA; 500 cd/m², kontrast 5000:1; kąt widzenia 178°"
     },
     {
      "k": "Dotyk",
-     "v": "podczerwień; TS 9 Mate G: 50 punktów, reakcja < 10 ms; TS 8.1 Mate G: 20 (Android) / 40 (Windows) punktów"
+     "v": "podczerwień; 50 punktów, reakcja < 10 ms"
     },
     {
      "k": "System",
-     "v": "TS 9 Mate G: Android 16; TS 8.1 Mate G: Android 14; oba z certyfikatem Google EDLA (Sklep Play)"
+     "v": "Android 16 z certyfikatem Google EDLA (Sklep Play)"
     },
     {
      "k": "Procesor i pamięć",
-     "v": "TS 9 Mate G: Rockchip 3576 z NPU 6 TOPS, 8 GB RAM / 64 GB; TS 8.1 Mate G: 4× A73, 8 GB / 64 GB"
+     "v": "Rockchip 3576 z NPU 6 TOPS, 8 GB RAM / 64 GB"
     },
     {
      "k": "Łączność",
-     "v": "TS 9 Mate G: Wi-Fi 6 (2,4/5 GHz), Bluetooth 5.4, RJ-45, RS-232; TS 8.1 Mate G: moduł Wi-Fi/Bluetooth w zestawie"
+     "v": "Wi-Fi 6 (2,4/5 GHz), Bluetooth 5.4, RJ-45, RS-232"
     },
     {
      "k": "Wejścia obrazu",
-     "v": "TS 9 Mate G: 3× HDMI (1 z przodu); TS 8.1 Mate G: 3× HDMI, DisplayPort, VGA, 2× USB-C"
+     "v": "3× HDMI (1 z przodu)"
     },
     {
      "k": "Wyjścia",
@@ -72812,11 +72819,11 @@
     },
     {
      "k": "Porty USB",
-     "v": "TS 9 Mate G: 4× USB-A (3× 3.0, 1× 2.0), USB-C 3.1 (tylko dane), 2× USB-B Touch"
+     "v": "4× USB-A (3× 3.0, 1× 2.0), USB-C 3.1 (tylko dane), 2× USB-B Touch"
     },
     {
      "k": "Głośniki",
-     "v": "TS 9 Mate G: 2× 25 W; TS 8.1 Mate G: 2× 16 W"
+     "v": "2× 25 W"
     },
     {
      "k": "Slot OPS",
@@ -72847,10 +72854,6 @@
     {
      "model": "TS 9 Mate G 86",
      "roznica": "86\", VESA 800 × 400, 1957 × 1160 × 98,6 mm, 51 kg, pobór typowy 167 W"
-    },
-    {
-     "model": "TS 8.1 Mate G 65",
-     "roznica": "Android 14 EDLA, 350 cd/m², 20/40 punktów dotyku, głośniki 2× 16 W, dodatkowo DisplayPort, VGA i 2× USB-C, 36,15 kg."
     }
    ],
    "faq": [
@@ -72860,7 +72863,7 @@
     },
     {
      "q": "Czy podłączę laptopa przez USB-C?",
-     "a": "W TS 9 Mate G port USB-C przesyła tylko dane, obraz podłączysz przez HDMI (jedno wejście jest z przodu). TS 8.1 Mate G ma wejścia USB-C."
+     "a": "W TS 9 Mate G port USB-C przesyła tylko dane, obraz podłączysz przez HDMI (jedno wejście jest z przodu). Wejścia USB-C ma starszy TS 8.1 Mate G 65 — osobna karta."
     },
     {
      "q": "Czy ma mikrofon do wideokonferencji?",
@@ -72876,26 +72879,17 @@
     }
    ],
    "konfigurator": {
-    "opis": "Wybierasz generację i przekątną; opcjonalnie komputer OPS i statyw mobilny.",
+    "opis": "Wybierasz przekątną; opcjonalnie komputer OPS i statyw mobilny.",
     "opcje": [
      {
       "nazwa": "Przekątna",
       "wartosci": [
        "65\"",
-       "75\" (tylko TS 9 Mate G)",
-       "86\" (tylko TS 9 Mate G)"
+       "75\"",
+       "86\""
       ],
       "dl": false,
       "pom": "Większy ekran jest wygodniejszy, mniejszy — lżejszy i zajmuje mniej miejsca."
-     },
-     {
-      "nazwa": "System",
-      "wartosci": [
-       "Android 16 EDLA (TS 9 Mate G)",
-       "Android 14 EDLA (TS 8.1 Mate G 65)"
-      ],
-      "dl": false,
-      "pom": "Windows 11 Pro ma funkcje dla firm, np. szyfrowanie dysku BitLocker i dołączanie do domeny."
      },
      {
       "nazwa": "Moduł OPS",
@@ -72905,7 +72899,6 @@
        "OPS i7-13650HX / 16 GB / 256 GB / Windows 11 Pro",
        "OPS i7-13650HX / 16 GB / 512 GB / Windows 11 Pro"
       ],
-      "uwaga": "TS 9 Mate G wymienia karta PDF modułów OPS i strona OPS i7 512 GB; TS 8.1 Mate G jest na liście zgodności wszystkich modułów.",
       "dl": true,
       "pom": ""
      },
@@ -72955,6 +72948,7 @@
     }
    ],
    "podobne": [
+    "avtek-ts-8-1-mate-g-65",
     "avtek",
     "avtek-ts-9-lite-g",
     "avtek-ts-8-1-easy",
@@ -73004,16 +72998,8 @@
    ],
    "w_skrocie_wzorzec": [
     {
-     "k": "Procesor i pamięć",
-     "v": "zależnie od modelu (2 wersje)"
-    },
-    {
      "k": "Porty USB",
-     "v": "TS 9 Mate G"
-    },
-    {
-     "k": "Łączność",
-     "v": "zależnie od modelu (2 wersje)"
+     "v": "USB-C tylko do danych"
     },
     {
      "k": "Waga (TS 9 Mate G)",
@@ -73021,7 +73007,7 @@
     },
     {
      "k": "Przekątne",
-     "v": "65\", 75\", 86\" / 65\""
+     "v": "65\", 75\", 86\""
     }
    ],
    "nowosc": false,
@@ -73334,7 +73320,8 @@
      "zrodlo": "https://api.avtek.eu/api/media/public-files/download/fp/product_photos/1TV376/ts81easy.jpg",
      "ujecie": "front monitora TS 8.1 Easy z logo na ekranie"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "avtek-ts-8-connect",
@@ -76092,7 +76079,8 @@
      "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkSmart/ThinkSmart_Core_Gen_2_for_Zoom/ThinkSmart_Core_Gen_2_for_Zoom_CT1_03.png",
      "ujecie": "zestaw w wersji Zoom Rooms z Bar 180"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "dell-wideokonferencje",
@@ -77173,7 +77161,8 @@
      "zrodlo": "https://www.insert.com.pl/.grafika/ekrany/duze/subiekt_nexo_pro/20_definiowanie_raportu_wlasnego_sql.png",
      "ujecie": "ekran — raport własny SQL"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "s123",
@@ -95310,7 +95299,7 @@
        "15,3\" 2.5K OLED 165 Hz dotykowy"
       ],
       "dl": false,
-      "pom": "Matowy nie odbija światła, dotykowy pozwala pracować palcem lub rysikiem, wyższa rozdzielczość daje ostrzejszy obraz."
+      "pom": "Oba ekrany to błyszczący OLED o tej samej rozdzielczości; wersja dotykowa pozwala pracować palcem lub rysikiem."
      },
      {
       "nazwa": "Rysik",
@@ -95351,7 +95340,7 @@
       ],
       "uwaga": "Warianty gwarancji bazowej producenta wg PSREF.",
       "dl": true,
-      "pom": "„Na miejscu” (on-site) — serwisant naprawia u Ciebie; „kurier” — sprzęt jedzie do serwisu i wraca."
+      "pom": "W tej linii serwis działa w trybie kurierskim: sprzęt jedzie do serwisu Lenovo i wraca; dłuższa gwarancja nie wydłuża gwarancji na baterię."
      }
     ],
     "std": [],
@@ -95451,7 +95440,8 @@
      "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/Yoga/Yoga_Pro_7_15IPH11/Yoga_Pro_7_15IPH11_CT2_06.png",
      "ujecie": "pokrywa z logo"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "lenovo-yoga-pro-9-16",
@@ -95639,7 +95629,7 @@
        "16\" 3.2K tandem OLED dotykowy 120 Hz"
       ],
       "dl": false,
-      "pom": "Matowy nie odbija światła, dotykowy pozwala pracować palcem lub rysikiem, wyższa rozdzielczość daje ostrzejszy obraz."
+      "pom": "Oba ekrany są dotykowe i błyszczące; tandem OLED 3.2K daje ostrzejszy i jaśniejszy obraz w HDR."
      },
      {
       "nazwa": "Rysik w zestawie",
@@ -95678,7 +95668,7 @@
       ],
       "uwaga": "Warianty gwarancji bazowej producenta wg PSREF.",
       "dl": true,
-      "pom": "„Na miejscu” (on-site) — serwisant naprawia u Ciebie; „kurier” — sprzęt jedzie do serwisu i wraca."
+      "pom": "W tej linii serwis działa w trybie kurierskim: sprzęt jedzie do serwisu Lenovo i wraca; dłuższa gwarancja nie wydłuża gwarancji na baterię."
      }
     ],
     "std": [],
@@ -95787,7 +95777,8 @@
      "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/Yoga/Yoga_Pro_9_16IPH11/Yoga_Pro_9_16IPH11_CT2_06.png",
      "ujecie": "pokrywa z logo"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "lenovo-thinkstation-p3-tower-gen-2",
@@ -96093,7 +96084,8 @@
      "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkStation/ThinkStation_P3_Tower_Gen_2/ThinkStation_P3_Tower_Gen_2_CT2_04.png",
      "ujecie": "bok"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "lenovo-thinkstation-p4",
@@ -96449,7 +96441,7 @@
    "opis": [
     "Gdy w serwerze NAS Synology kończą się wolne zatoki, nie trzeba kupować nowego urządzenia ani przenosić danych. Obudowa rozszerzająca podłączona jednym kablem dodaje cztery albo pięć zatok, którymi zarządza system DSM na serwerze głównym, a wolumen można powiększyć bez przerywania pracy. To rozwiązanie dla biura, hotelu czy szkoły, w których przybywa kopii zapasowych, nagrań z kamer i archiwum dokumentów.",
     "Obudowę dobiera się do konkretnego modelu NAS. DX525 to wersja biurkowa na pięć dysków, z kablem USB-C, dla DS725+, DS925+, DS1525+ i DS1825+ (także odmian neo). RX426 to rack 1U na cztery dyski, również z kablem USB-C, do RS826+, RS1226+ i ich wersji RP. Starsze serwery łączą się przez eSATA: RX418 obsługuje m.in. RS822+, RS1221+ i RS820+, a DX517 m.in. DS923+, DS723+, DS1522+, DS1821+ i DS920+.",
-    "Na stronie statusu produktów Synology wszystkie cztery obudowy mają w listopadzie 2026 status „Generally Available”. Do DX525 i RX426 producent wymaga dysków z listy zgodności, np. HAT3300 lub HAT5300, a przy RX418 i DX517 gwarantuje pełne działanie tylko z dyskami z tej listy. Obudowy rack montuje się w szafie 4-słupkowej na szynach RKM114 lub RKS-02 kupowanych osobno albo bezpośrednio w szafie 2-słupkowej. Każda ma 3 lata gwarancji, w wybranych regionach z możliwością przedłużenia do 5 lat.",
+    "Na stronie statusu produktów Synology wszystkie cztery obudowy mają status „Generally Available” (sprawdzone 14.11.2026). Do DX525 i RX426 producent wymaga dysków z listy zgodności, np. HAT3300 lub HAT5300, a przy RX418 i DX517 gwarantuje pełne działanie tylko z dyskami z tej listy. Obudowy rack montuje się w szafie 4-słupkowej na szynach RKM114 lub RKS-02 kupowanych osobno albo bezpośrednio w szafie 2-słupkowej. Każda ma 3 lata gwarancji, w wybranych regionach z możliwością przedłużenia do 5 lat.",
     "Zanim zamówisz obudowę, PRO-KOM sprawdza model i wersję DSM Twojego NAS-a oraz to, ile miejsca zostało w szafie lub na półce. Dobieramy dyski z listy zgodności, montujemy obudowę, podłączamy ją do zasilania awaryjnego razem z serwerem i rozbudowujemy wolumen, a na koniec sprawdzamy, czy kopie zapasowe nadal wykonują się poprawnie. Wsparcie zapewniamy z salonu w Rabce-Zdroju."
    ],
    "cechy": [
@@ -96709,7 +96701,8 @@
      "zrodlo": "https://www.synology.com/img/products/detail/DX517/heading.png",
      "ujecie": "DX517 z przodu pod kątem"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "avtek-ts-8-1-mate-g-65",
@@ -96972,7 +96965,8 @@
      "zrodlo": "https://api.avtek.eu/api/media/public-files/download/fp/product_photos/1TV347/ts-81-mate-g-65.jpg",
      "ujecie": "front monitora z logo TS 8.1 Mate G i znakiem EDLA"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "dell-pro-7-13-14",
@@ -97298,14 +97292,15 @@
     {
      "plik": "media/produkty/dell-pro-7-13-14-premium-01.webp",
      "zrodlo": "https://i.dell.com/assetlink/img/global/dell-pro-p714260-laptop-c-15000ff100-gy-wwan-fhd-ir-camera-dl1zya3-large.png",
-     "ujecie": "Dell Pro 7 14 (P714260) — przód, otwarty"
+     "ujecie": "P714260 — przód, otwarty"
     },
     {
      "plik": "media/produkty/dell-pro-7-13-14-premium-02.webp",
      "zrodlo": "https://i.dell.com/assetlink/img/global/notebook-13-p713260-fpr-wlan-fhd-ir-camera-gray-gallery-1-dl1107ig-large.png",
-     "ujecie": "Dell Pro 7 13 (P713260) — przód, otwarty"
+     "ujecie": "P713260 — przód, otwarty"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "dell-pro-7-2w1",
@@ -97636,24 +97631,25 @@
     {
      "plik": "media/produkty/dell-pro-7-2w1-premium-01.webp",
      "zrodlo": "https://i.dell.com/assetlink/img/global/dell-pro-p703260-laptop-c-15000ff100-gy-fpr-wwan-fhd-ir-camera-dl1zy82-large.png",
-     "ujecie": "Dell Pro 7 13 2 w 1 (P703260) — przód, tryb laptopa"
+     "ujecie": "P703260 — przód, tryb laptopa"
     },
     {
      "plik": "media/produkty/dell-pro-7-2w1-premium-02.webp",
      "zrodlo": "https://i.dell.com/assetlink/img/global/dell-pro-p704260-laptop-c-15000ff100-gy-wwan-dl1zy3z-large.png",
-     "ujecie": "Dell Pro 7 14 2 w 1 (P704260) — przód, tryb laptopa"
+     "ujecie": "P704260 — przód, tryb laptopa"
     },
     {
      "plik": "media/produkty/dell-pro-7-2w1-premium-03.webp",
      "zrodlo": "https://i.dell.com/assetlink/img/en/dell-pro-7-13-2-in-1-laptop-intel-enhanced-pdp-video-mobile-frame-1-dl11320a-png.png",
-     "ujecie": "Dell Pro 7 13 2 w 1 — profil zamkniętego laptopa, szare tło"
+     "ujecie": "13\" — profil zamkniętego laptopa"
     },
     {
      "plik": "media/produkty/dell-pro-7-2w1-premium-04.webp",
      "zrodlo": "https://i.dell.com/assetlink/img/global/dell-pro-7-14-2-in-1-laptop-intel-enhanced-pdp-video-mobile-frame-1-dl1130ec-png.png",
-     "ujecie": "Dell Pro 7 14 2 w 1 — profil zamkniętego laptopa, szare tło"
+     "ujecie": "14\" — profil zamkniętego laptopa"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "dell-ultrasharp-32-qd-oled-u3226q",
@@ -97905,7 +97901,8 @@
      "zrodlo": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/u-series/u3226q/mg/monitor-ultrasharp-u3226q-black-gallery-5.psd?fmt=png-alpha&pscan=auto&scl=1&wid=1600&qlt=100,0&resMode=sharp2",
      "ujecie": "profil z lewej"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "dell-ultrasharp-52-6k-u5226kw",
@@ -98150,7 +98147,8 @@
      "zrodlo": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/u-series/u5226kw/mg/monitor-ultrasharp-u5226kw-gallery-5.psd?fmt=png-alpha&pscan=auto&scl=1&wid=1600&qlt=100,0&resMode=sharp2",
      "ujecie": "profil"
     }
-   ]
+   ],
+   "sprawdzono": "2026-11-14"
   }
  ]
 }

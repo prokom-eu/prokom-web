@@ -453,7 +453,7 @@ const ALT_BY_FILE: Record<string, string> = {
   'p-lenovo-laptop.webp': 'Lenovo ThinkBook 14 Gen 6',
   'p-gopos-zestaw.webp': 'Zestaw GoPOS',
   'p-fawag-box.webp': 'Fawag Box Online',
-  'p-sunmi-drukarka-bonow.webp': 'Drukarka bonów Sunmi NT311',
+  'p-sunmi-drukarka-bonow.webp': 'Drukarka bonów Sunmi 80 mm Kitchen Cloud Printer',
 }
 
 /**
