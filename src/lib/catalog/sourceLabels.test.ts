@@ -116,6 +116,28 @@ describe('labeledSourceLinks: what is under each link (audit 14.11 P1-3)', () =>
     ])
   })
 
+  it('a word of the card’s name keeps its case (przegląd 14.11: „nexo pro” → „nexo PRO”)', () => {
+    expect(
+      labeledSourceLinks(
+        [insert('subiekt_nexo/opis.html'), insert('subiekt_nexo_pro/opis.html')],
+        ['InsERT Subiekt nexo / nexo PRO', 'Subiekt nexo PRO'],
+      ).map(({ label }) => label),
+    ).toEqual(['InsERT — Subiekt nexo', 'InsERT — Subiekt nexo PRO'])
+    expect(
+      labeledSourceLinks(
+        [
+          { label: 'Strona producenta — GoPOS', url: 'https://gopos.pl/sunmi-d3-mini' },
+          {
+            label: 'Strona producenta — GoPOS',
+            url: 'https://help.gopos.pl/pl/articles/1-kasa-wirtualna',
+          },
+        ],
+        // „kasą” of the name is another form: no Polish letters taken, the address stays.
+        ['GoPOS All in One', 'Sunmi D3 MINI', 'Płać kasą wirtualną'],
+      ).map(({ label }) => label),
+    ).toEqual(['GoPOS — Sunmi D3 MINI', 'GoPOS — 1 kasa wirtualna, pomoc'])
+  })
+
   it('help articles, PDFs and newsroom pages say what they are', () => {
     expect(
       labeledSourceLinks([

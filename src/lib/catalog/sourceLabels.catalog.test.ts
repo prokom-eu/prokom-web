@@ -8,6 +8,8 @@ import { labeledSourceLinks, sameAddress } from './sourceLabels'
 type Card = {
   slug_seed: string
   status: string
+  nazwa: string
+  krotka?: string | null
   zrodla?: { url: string; etykieta: string }[] | null
 }
 
@@ -15,7 +17,10 @@ const ready = (k4Catalog as unknown as { produkty: Card[] }).produkty.filter(
   (card) => card.status === 'gotowe',
 )
 const sourcesOf = (card: Card) =>
-  labeledSourceLinks((card.zrodla ?? []).map(({ url, etykieta }) => ({ url, label: etykieta })))
+  labeledSourceLinks(
+    (card.zrodla ?? []).map(({ url, etykieta }) => ({ url, label: etykieta })),
+    [card.nazwa, card.krotka ?? ''],
+  )
 
 describe('sources of a ready card (audit 14.11 P1-3)', () => {
   it('no two sources with one label', () => {

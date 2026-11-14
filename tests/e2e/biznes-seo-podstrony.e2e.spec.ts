@@ -68,7 +68,7 @@ test.describe('Biznes SEO of subpages (B5-2)', () => {
 // Audit 14.11 P1-5: /marki/niszczarki had the title of /oferta/niszczarki. The sitemap lists only
 // indexed pages, so every one of them needs its own title. Fetched in the page (the browser
 // resolves `*.localhost`), a few at once.
-test('every page of sitemap.xml has its own title', async ({ page }) => {
+test('every page of sitemap.xml has its own title of at most 65 characters', async ({ page }) => {
   test.setTimeout(240_000)
   const response = await page.goto(biznes('/sitemap.xml'))
   const xml = (await response?.text()) ?? ''
@@ -95,6 +95,11 @@ test('every page of sitemap.xml has its own title', async ({ page }) => {
     .filter(([, list]) => list.length > 1)
     .map(([title, list]) => `${title}: ${list.sort().join(', ')}`)
   expect(shared).toEqual([])
+  // Audit 14.11 P1-5: ≤ 65 characters as results show them (the parser decodes `&quot;`).
+  const long = titles
+    .filter(([, title]) => title.length > 65)
+    .map(([path, title]) => `${path}: ${title}`)
+  expect(long).toEqual([])
 })
 
 // SEO lokalne 13.11: where we work in the titles, a Service on service pages, llms.txt for AI.
