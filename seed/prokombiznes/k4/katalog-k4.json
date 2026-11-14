@@ -32776,6 +32776,28 @@
      "l": "en",
      "d": "seria"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-thinkpad-p1-gen-9-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_P1_Gen_9/Compressedimage/ThinkPad_P1_Gen_9_CT1_01.png",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-p1-gen-9-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_P1_Gen_9/Compressedimage/ThinkPad_P1_Gen_9_CT2_01.png",
+     "ujecie": "z góry — klawiatura"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-p1-gen-9-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_P1_Gen_9/Compressedimage/ThinkPad_P1_Gen_9_CT2_03.png",
+     "ujecie": "z boku"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-p1-gen-9-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_P1_Gen_9/ThinkPad_P1_Gen_9_OverViewPic.jpg",
+     "ujecie": "porty po obu stronach"
+    }
    ]
   },
   {
@@ -33081,6 +33103,28 @@
      "k": "Lenovo",
      "l": "en",
      "d": "seria"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-thinkpad-t14s-2-in-1-gen-2-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_T14s_2_in_1_Gen_2/Compressedimage/ThinkPad_T14s_2_in_1_Gen_2_CT1_05.png",
+     "ujecie": "jako laptop"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-t14s-2-in-1-gen-2-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_T14s_2_in_1_Gen_2/Compressedimage/ThinkPad_T14s_2_in_1_Gen_2_CT1_01.png",
+     "ujecie": "tryb namiotu"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-t14s-2-in-1-gen-2-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_T14s_2_in_1_Gen_2/Compressedimage/ThinkPad_T14s_2_in_1_Gen_2_CT1_03.png",
+     "ujecie": "tryb prezentacji"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-t14s-2-in-1-gen-2-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_T14s_2_in_1_Gen_2/Compressedimage/ThinkPad_T14s_2_in_1_Gen_2_CT1_02.png",
+     "ujecie": "tryb tabletu"
     }
    ]
   },
@@ -39775,7 +39819,29 @@
      "v": "z tyłu"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-thinkcentre-m70a-m90a-gen-6-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkCentre/ThinkCentre_M70a_Gen_6/Compressedimage/ThinkCentre_M70a_Gen_6_CT2_02.png",
+     "ujecie": "M70a z przodu"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkcentre-m70a-m90a-gen-6-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkCentre/ThinkCentre_M70a_Gen_6/Compressedimage/ThinkCentre_M70a_Gen_6_CT1_01.png",
+     "ujecie": "M70a pod kątem"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkcentre-m70a-m90a-gen-6-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkCentre/ThinkCentre_M70a_Gen_6/Compressedimage/ThinkCentre_M70a_Gen_6_CT2_04.png",
+     "ujecie": "M70a z tyłu — porty"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkcentre-m70a-m90a-gen-6-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkCentre/ThinkCentre_M70a_Gen_6/Compressedimage/ThinkCentre_M70a_Gen_6_CT2_07.png",
+     "ujecie": "M70a z boku — regulowana podstawa"
+    }
+   ]
   },
   {
    "slug_seed": "lenovo-thinkstation-p3-tiny-ultra-gen-2",
