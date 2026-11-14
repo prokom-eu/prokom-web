@@ -33,6 +33,15 @@ const href = (query: string, filter: HubSearchFilter) => {
   return `${PATH}?${params}`
 }
 
+/** „Przejdź na prokominstalacje.pl ↗”; an address that does not parse never breaks the page. */
+function goLabel(href: string): string {
+  try {
+    return `Przejdź na ${new URL(href).hostname} ↗`
+  } catch {
+    return 'Przejdź ↗'
+  }
+}
+
 /** An external link (a line's site) opens as such; a hub path stays in the app. */
 function ResultLink({
   entry,
@@ -66,7 +75,8 @@ function ResultIcon({ entry }: { entry: HubSearchEntry }) {
 /**
  * Results page of pro-kom.eu (spec §5.6, board 12 Szukaj): the form, frequent phrases, filters by
  * line with counts, the best hit, groups (services, tools, help, pages, lines), the empty state
- * with the company phone, and the side panel. Rendered on the server — it works without JS.
+ * with the company phone, and the side panel. Rendered on the server — it works without JS. A new
+ * phrase from the form searches all lines (the filter is a link per phrase).
  */
 export function SearchPage({
   result,
@@ -113,7 +123,6 @@ export function SearchPage({
           className="pk-search__input"
           autoComplete="off"
         />
-        {filter !== 'wszystko' && <input type="hidden" name="linia" value={filter} />}
         <button type="submit" className="pk-search__submit">
           Szukaj
         </button>
@@ -169,9 +178,7 @@ export function SearchPage({
                   <b className="font-display text-2xl">{result.best.title}</b>
                   {result.best.hint && <span className="pk-hit__hint">{result.best.hint}</span>}
                   <span className="pk-best__go">
-                    {result.best.href.startsWith('/')
-                      ? 'Przejdź →'
-                      : `Przejdź na ${new URL(result.best.href).hostname} ↗`}
+                    {result.best.href.startsWith('/') ? 'Przejdź →' : goLabel(result.best.href)}
                   </span>
                 </span>
               </ResultLink>

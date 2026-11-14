@@ -13,6 +13,7 @@ import {
 } from '@/lib/shared/search/lineProvider'
 import type { PaletteAction } from '@/lib/shared/search/palette'
 import { onSearchRequest } from '@/lib/site/searchOpen'
+import { isSearchShortcut } from '@/lib/site/searchShortcut'
 
 const INDEX_URL = '/api/hub-search-index'
 
@@ -25,18 +26,20 @@ type Props = {
   phone: string | null
 }
 
+type Index = { entries: LineSearchEntry[]; ok: boolean }
+
 /** One fetch per page load, shared by every caller (the rail stays mounted across pages). */
-let indexRequest: Promise<LineSearchEntry[]> | null = null
-function loadIndex(): Promise<LineSearchEntry[]> {
+let indexRequest: Promise<Index> | null = null
+function loadIndex(): Promise<Index> {
   indexRequest ??= fetch(INDEX_URL)
-    .then((response) => {
+    .then(async (response) => {
       // A passing error (503) is not kept: the next request to search tries again.
       if (!response.ok) throw new Error(`index ${response.status}`)
-      return response.json() as Promise<LineSearchEntry[]>
+      return { entries: (await response.json()) as LineSearchEntry[], ok: true }
     })
     .catch(() => {
       indexRequest = null
-      return []
+      return { entries: [], ok: false }
     })
   return indexRequest
 }
@@ -46,25 +49,40 @@ const reportNoResults = () => track('szukaj_brak_wyniku', { miejsce: 'okno' })
 /**
  * Side rail of pro-kom.eu (spec §5.3: home page only) and the search window (spec §5.6): the
  * window searches the hub's index (`/api/hub-search-index` — lines, services, tools, help, pages),
- * fetched when the browser is idle or at the first request to search, so it never weighs on the
- * page. Opened by the rail's „Szukaj”, the capsule's loupe, Ctrl/⌘K and „/”. A search that finds
+ * fetched once per full page load when the browser is idle, or at once on the first request to
+ * search (button or shortcut) — after the page itself, never in its way. Opened by the rail's „Szukaj”, the capsule's loupe, Ctrl/⌘K and „/”. A search that finds
  * nothing is counted in Umami without the phrase (`szukaj_brak_wyniku`, ADR-020).
  */
 export function ProkomRail({ sections, action, settings, actions, recentlyViewed, phone }: Props) {
   const onHome = usePathname() === '/'
   const [entries, setEntries] = useState<LineSearchEntry[]>([])
+  // „No results” counts only against a loaded index — not while it loads or after a failed fetch,
+  // when every phrase finds nothing (the spec §1 measure would lie).
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     let alive = true
-    const load = () => void loadIndex().then((index) => alive && setEntries(index))
+    const load = () =>
+      void loadIndex().then((index) => {
+        if (!alive) return
+        setEntries(index.entries)
+        setLoaded(index.ok)
+      })
     const idle = window.requestIdleCallback?.(load, { timeout: 4000 })
     const timer = idle === undefined ? window.setTimeout(load, 1500) : undefined
     const off = onSearchRequest(load)
+    // Ctrl/⌘K and „/” open the window without `requestSearch()`: they start the fetch too.
+    const onKey = (event: KeyboardEvent) => {
+      const { key, ctrlKey, metaKey, altKey } = event
+      if (isSearchShortcut({ key, ctrlKey, metaKey, altKey, typing: false })) load()
+    }
+    document.addEventListener('keydown', onKey)
     return () => {
       alive = false
       if (idle !== undefined) window.cancelIdleCallback(idle)
       window.clearTimeout(timer)
       off()
+      document.removeEventListener('keydown', onKey)
     }
   }, [])
 
@@ -80,7 +98,7 @@ export function ProkomRail({ sections, action, settings, actions, recentlyViewed
         phone={phone}
         label="Szukaj w PRO-KOM"
         placeholder="Szukaj: kasa fiskalna, kamery, pęknięty ekran…"
-        onNoResults={reportNoResults}
+        onNoResults={loaded ? reportNoResults : undefined}
       />
     </>
   )

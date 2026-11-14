@@ -8,7 +8,8 @@ const NO_STORE = { 'Cache-Control': 'no-store' }
 
 /**
  * `GET /api/hub-search-index` — the index of the search window of pro-kom.eu (spec §5.6), fetched
- * when the window is first needed instead of riding along with every page. Only on a domain of the
+ * apart from the page (when the browser is idle or at the first search), so the HTML of every
+ * page stays without it; under 50 KB gzip, cached for a minute. Only on a domain of the
  * hub's tenant: the tenant comes from `Host`, never from the request, so the hub's data cannot be
  * read on a line's domain (as `/api/inst-search-index`).
  */
