@@ -18,7 +18,7 @@ Już jest: `CompanyData.lines[]` (`key` z `SHARED_LINE_KEYS`: prokom, biznes, in
 | Biznes | prokombiznes.pl | 889 003 889 | kontakt@prokombiznes.pl | pn–pt 9–17 | w godzinach pracy oddzwonimy w 60 minut |
 | Instalacje | prokominstalacje.pl | 889 003 889 | kontakt@prokominstalacje.pl | pn–pt 9–17 | odpowiedź w 24 h w dni robocze (nie przyjazd technika) |
 | Software | prokomsoftware.pl | 883 200 151 | kontakt@prokomsoftware.pl | pn–pt 9–17 | odpowiedź w 1 dzień roboczy |
-| Tech | prokomserwis.pl | 883 200 151 | sklep@pro-kom.eu | pn–pt 9–17, sob 9–14 | bezpłatna diagnoza i wycena; naprawy też kurierem |
+| Tech | prokomserwis.pl | 883 200 151 | kontakt@prokomserwis.pl | pn–pt 9–17, sob 9–14 | bezpłatna diagnoza i wycena; naprawy też kurierem |
 | Gaming | prokomgaming.pl | 883 200 151 | kontakt@prokomgaming.pl | [SZEF: „codziennie 8–22”?] | — |
 | Firma (hub) | pro-kom.eu | 883 200 151 | biuro@pro-kom.eu | pn–pt 9–17 | — |
 
