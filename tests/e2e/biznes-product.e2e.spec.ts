@@ -380,8 +380,8 @@ test.describe('Biznes product page 2.0', () => {
   test('a card „Do sprawdzenia” has a page, but noindex, no FAQPage and no place in the site maps', async ({
     page,
   }) => {
-    // Yoga Pro 7 15 is „do-sprawdzenia” (Samsung OM „gotowe” since B4-1), Posnet Ergo „gotowe”.
-    const review = '/produkt/lenovo-yoga-pro-7-15'
+    // ThinkStation P4 is „do-sprawdzenia” (Yoga Pro 7 15 „gotowe” since 14.11), Posnet Ergo „gotowe”.
+    const review = '/produkt/lenovo-thinkstation-p4'
     const response = await page.goto(site('biznes.localhost', review))
     expect(response?.status()).toBe(200)
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
