@@ -353,8 +353,10 @@
   z-index: 3;
   display: grid;
   place-items: center;
-  width: calc(164 * var(--u));
-  height: calc(164 * var(--u));
+  /* 170 (was 164): the smallest two-column wheel (1080 px, ~510 px wide) keeps the text and
+     „Zobacz dział” inside the core with room to spare (audit 14.11, e2e). */
+  width: calc(170 * var(--u));
+  height: calc(170 * var(--u));
   border-radius: 50%;
   translate: calc(-50% + var(--px, 0) * -2 * var(--u)) calc(-50% + var(--py, 0) * -2 * var(--u));
   text-align: center;
@@ -402,7 +404,7 @@
   width: calc(128 * var(--u));
 }
 [data-line='biznes'] .bzw-k {
-  margin-bottom: calc(5 * var(--u));
+  margin-bottom: calc(3 * var(--u));
   font-family: var(--font-display);
   font-size: calc(9.5 * var(--u));
   font-weight: 800;
@@ -420,7 +422,7 @@
   font-size: calc(var(--fs, 16) * var(--u));
   font-weight: 800;
   font-stretch: 112%;
-  line-height: 1.08;
+  line-height: 1.04;
   letter-spacing: -0.015em;
   text-wrap: balance;
 }
@@ -428,7 +430,7 @@
   display: inline-flex;
   align-items: center;
   gap: calc(7 * var(--u));
-  margin-top: calc(10 * var(--u));
+  margin-top: calc(6 * var(--u));
   padding: calc(3 * var(--u)) calc(3 * var(--u)) calc(3 * var(--u)) calc(11 * var(--u));
   border-radius: 999px;
   font-size: calc(11.5 * var(--u));
