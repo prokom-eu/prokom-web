@@ -11,6 +11,7 @@ import { CONTACT_SLUG } from './biznes/contact'
 import { seedBiznesCatalog } from './biznes/run'
 import { seedInstalacje } from './instalacje/run'
 import { seedSoftware } from './software/run'
+import { seedProkom } from './prokom/run'
 import { sampleImage } from './media'
 import {
   SAMPLE_COMPANY,
@@ -134,7 +135,8 @@ try {
       payload.logger.info(`Seed: sample image of "${tenant.slug}" created.`)
     }
 
-    for (const page of samplePages(tenant, imageDoc.id)) {
+    // The hub has no `Pages` of its own: its routes are in code, its content in `hub-*` (ADR-H001).
+    for (const page of tenant.line === 'prokom' ? [] : samplePages(tenant, imageDoc.id)) {
       // The Biznes home and contact pages have their own sections (B7, B8c): seeded with the
       // Biznes catalog below. The Software and Instalacje homes too (SW5 `seedSoftware`,
       // I5 `seedInstalacje`).
@@ -230,6 +232,8 @@ try {
   await seedSoftware(payload)
   // Content of the Instalacje site (I2); also `pnpm seed:instalacje`.
   await seedInstalacje(payload)
+  // Content of the pro-kom.eu hub (H1); also `pnpm seed:prokom`.
+  await seedProkom(payload)
 } finally {
   await payload.destroy()
 }

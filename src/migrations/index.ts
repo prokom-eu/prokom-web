@@ -109,6 +109,7 @@ import * as migration_20261113_231729_software_seo_etap1 from './20261113_231729
 import * as migration_20261114_100545_software_tresc_seo_2 from './20261114_100545_software_tresc_seo_2'
 import * as migration_20261114_154422_wsp_linie_kontakt from './20261114_154422_wsp_linie_kontakt'
 import * as migration_20261114_155008_wsp_hub_sloty from './20261114_155008_wsp_hub_sloty'
+import * as migration_20261114_155653_hub_model from './20261114_155653_hub_model'
 
 export const migrations = [
   {
@@ -665,5 +666,10 @@ export const migrations = [
     up: migration_20261114_155008_wsp_hub_sloty.up,
     down: migration_20261114_155008_wsp_hub_sloty.down,
     name: '20261114_155008_wsp_hub_sloty',
+  },
+  {
+    up: migration_20261114_155653_hub_model.up,
+    down: migration_20261114_155653_hub_model.down,
+    name: '20261114_155653_hub_model',
   },
 ]
