@@ -139,7 +139,7 @@ test.describe('Biznes /kontakt (shared template, §8.2)', () => {
     const listCard = page.locator('[data-inquiry-list-card]')
     await expect(listCard.getByRole('link')).toHaveText('Twoje zapytanie (1)')
     await expect(listCard.getByRole('link')).toHaveAttribute('href', '/zapytanie')
-    // „Inna sprawa?”: four tiles in one row at 1440 px, no orphan.
+    // „Inna sprawa?”: all tiles in one row at 1440 px (4, or 5 with Gaming), no orphan.
     const tops = await page
       .locator('[data-other-lines] > li')
       .evaluateAll((items) => items.map((item) => Math.round(item.getBoundingClientRect().top)))
