@@ -20,4 +20,7 @@ export const SEED_TENANTS: readonly SeedTenant[] = [
     localHost: 'instalacje.localhost',
   },
   { name: 'PRO-KOM Software', slug: 'software', line: 'software', localHost: 'software.localhost' },
+  // pro-kom.eu (ADR-H001). Like Instalacje before its start: no production domain until the boss
+  // approves — it is added in the panel at the switch-over (H7-2), `active` stays the kill switch.
+  { name: 'PRO-KOM', slug: 'prokom', line: 'prokom', localHost: 'prokom.localhost' },
 ]
