@@ -155,7 +155,7 @@
 
 /* Product bubbles: a cut-out photo on a porcelain disc tinted by the department. */
 [data-line='biznes'] .bzw-bub {
-  --s: 72;
+  --s: 64;
   position: relative;
   z-index: 2;
   display: grid;
@@ -404,10 +404,10 @@
 [data-line='biznes'] .bzw-k {
   margin-bottom: calc(5 * var(--u));
   font-family: var(--font-display);
-  font-size: calc(12 * var(--u));
+  font-size: calc(9.5 * var(--u));
   font-weight: 800;
   line-height: normal;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
   /* White, not the accent (audit 14.11 pkt 2): the core's top is tinted by the department, and
