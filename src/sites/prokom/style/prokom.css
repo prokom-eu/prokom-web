@@ -7,6 +7,8 @@
 @import 'tailwindcss' source(none);
 @import '../../../styles/site.css';
 @import '../../../styles/tokens-prokom.css';
+@import './home.css';
+@import './home-scene.css';
 @source '..';
 
 /* --- Capsule: 1081–1340 px hides „Pomoc” and „O firmie” (spec §5.2; footer and sheet have them). */

@@ -24,3 +24,24 @@ describe.each([
     }
   })
 })
+
+// H2-1: buttons in a line's colour with small bold text (domain pills, CTA, tool chips) — the
+// ink of the line on its solid fill (`--ln-fill`: the base colour, Gaming `--k-yfill`).
+const FILLS = [
+  ['--k-bi', '--k-b'],
+  ['--k-ii', '--k-i'],
+  ['--k-si', '--k-s'],
+  ['--k-ti', '--k-t'],
+  ['--k-yi', '--k-yfill'],
+  ['--k-gi', '--k-g'],
+] as const
+
+describe.each([
+  ['light', light],
+  ['dark', dark],
+] as const)('hub line buttons, %s theme', (_mode, scope) => {
+  it.each(FILLS)('%s on %s reaches 4.5:1', (ink, fill) => {
+    const ratio = contrastRatio(resolve(`var(${ink})`, scope), resolve(`var(${fill})`, scope))
+    expect(ratio).toBeGreaterThanOrEqual(4.5)
+  })
+})

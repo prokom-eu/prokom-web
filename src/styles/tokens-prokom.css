@@ -90,6 +90,8 @@
   --k-yt: #8a6400;
   --k-yd: #fbf2d2;
   --k-yi: #ffffff;
+  /* Solid gold under small white text: `--k-y` gives 4.48:1, the text gold 5.4:1 (AA). */
+  --k-yfill: #8a6400;
   --k-white: #121613;
   --r-w: 18, 22, 19;
   --r-gl: 255, 255, 255;
@@ -187,6 +189,7 @@
   --k-yt: #f2c230;
   --k-yd: #080c0b;
   --k-yi: #1a1400;
+  --k-yfill: #f2c230;
   --k-white: #ffffff;
   --r-w: 255, 255, 255;
   --r-gl: 22, 28, 24;
