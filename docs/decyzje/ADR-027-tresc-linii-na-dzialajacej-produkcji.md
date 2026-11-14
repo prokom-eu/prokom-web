@@ -16,17 +16,19 @@ Import paczki jednej linii (`pnpm seed:biznes`) **zapisuje prosto do bazy produk
 - **Zakres zapisu:** wszystko, co seed linii zapisuje w tenancie Biznes (karty, strony, media, przekierowania, ustawienia strony). Konta, tenanty i zapytania są nietknięte, tak jak na stagingu.
 - **Dane firmy (global `company-data`):** wspólne dla wszystkich linii i edytowane w panelu produkcji, więc import ich nie zmienia (`SEED_KEEP_COMPANY_DATA=1`). Raport seeda mówi, czy paczka się od nich różni (`company-data … (kept, differs)`), a ewentualną poprawkę wpisuje się ręcznie w panelu.
 - **Marki (`partners`):** status K4, opis i logo marek pokazywanych na Biznesie zmieniają się jak na stagingu, także gdy marka jest wspólna z inną linią (statusy według K4-FINAL §1 są wspólnymi faktami firmy).
-- **Zdjęcia:** najpierw pobierane są wszystkie pliki produkcji (ok. 100 MB), żeby Payload wybierał unikalne nazwy względem nich. Na serwer wracają tylko pliki dodane lub zastąpione przez import. Nic nie jest usuwane.
+- **Zdjęcia:** najpierw pobierane są wszystkie pliki produkcji (ok. 100 MB), żeby Payload wybierał unikalne nazwy względem nich. Na serwer wracają tylko pliki dodane przez import (`chown` tylko na nich). Nic nie jest usuwane. **Od chwili startu seeda pliki wracają zawsze, także po błędzie**, bo baza już na nie wskazuje. Na koniec skrypt porównuje nazwy plików z bazy (media Biznesu i logo wszystkich marek) z wolumenem i kończy się błędem, gdy czegoś brakuje.
 - **Bezpieczniki:**
+  - blokada wdrożeń (`../.deploy.lock`) przez cały import: żaden `deploy.sh` nie zrestartuje bazy ani nie zmieni schematu pod seedem. Po stronie serwera blokadę trzyma proces, który kończy się kilka sekund po zerwaniu połączenia SSH, więc przerwany import jej nie zostawia;
   - kopia `predeploy` produkcji przed importem;
   - kod lokalny = commit produkcji i wszystkie migracje tego kodu już zastosowane;
+  - odmowa, gdy linia ma już domenę produkcji (edycje z panelu żywej linii zostałyby nadpisane); świadomie tylko z `PO_STARCIE=1`;
   - potwierdzenie `prokom-prod`;
-  - zdjęcia nie wejdą, jeśli w trakcie importu zmienił się obraz produkcji;
-  - na koniec czyszczenie `fetch-cache` aplikacji, bez restartu.
+  - adres bazy wzięty z `DATABASE_URL` produkcji (zakodowany), z tunelem zamiast usługi `postgres`; nigdy nie jest wypisywany; zmienne Payload z powłoki (`PAYLOAD_DROP_DATABASE` i podobne) są zerowane;
+  - na koniec czyszczenie `fetch-cache` aplikacji, bez restartu. Część pamięciowa pamięci podręcznej zostaje do wygaśnięcia, co dla linii bez domeny nie ma znaczenia; wspólne dane marek odświeżą się na żywych liniach same.
 
 ## Konsekwencje
 - **Bez przestoju i bez utraty zapytań** innych linii: aplikacja produkcji działa przez cały import.
-- **Błąd w połowie** zostawia linię częściowo zaktualizowaną. Linia nie ma jeszcze domeny produkcji, więc nikt tego nie widzi, a import jest idempotentny: wystarczy uruchomić ponownie albo odtworzyć kopię `predeploy` (runbook §4 B).
+- **Błąd w połowie** zostawia linię częściowo zaktualizowaną. Linia nie ma jeszcze domeny produkcji, więc nikt tego nie widzi, a import jest idempotentny: wystarczy uruchomić ponownie (zdjęcia z przerwanego przebiegu są już na serwerze). Odtworzenie kopii `predeploy` (runbook §4 B) to ostateczność: kasuje też zapytania i edycje żywych linii od chwili kopii.
 - **Kolejność dla Biznesu:** wdrożenie obrazu ze stagingu na produkcję (`deploy.sh prod`, runbook §3) → `prod-line-content.sh biznes` (pierwszy raz z `ZAMIEN_STRONY=gopos,insert,opieka-it,automaty-vendingowe`) → domena `prokombiznes.pl` w tenancie (panel produkcji) → certyfikat `--expand` i `PROD_SITE_HOSTS` / `PROD_WWW_HOSTS` → smoke, `porownaj-tresc --po-imporcie`, §3a.1.
 - **Po starcie linii** treść edytuje się w panelu produkcji. Ponowny import nadpisze pola z paczki (karty: „pola z paczki wygrywają z edycją w panelu”), więc po starcie Biznesu ten skrypt nie jest zwykłym narzędziem: każde użycie wymaga decyzji Krystiana, jak na stagingu.
 - Seed na produkcji dalej jest zablokowany (`NODE_ENV=production`). Skrypt uruchamia go na komputerze z `NODE_ENV=development`, tak jak `staging-content.sh`.

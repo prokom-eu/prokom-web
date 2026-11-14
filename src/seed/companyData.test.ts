@@ -20,6 +20,7 @@ describe('company data in a line import (ADR-027: production keeps its own)', ()
   })
 
   it('writes a different value, skips the same one', async () => {
+    vi.stubEnv('SEED_KEEP_COMPANY_DATA', '')
     const count = vi.fn()
     const changed = stub({ name: 'Stara nazwa' })
     await writeCompanyData(changed.payload, { name: 'PRO-KOM' }, 'company-data shared', count)
