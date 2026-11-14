@@ -422,6 +422,8 @@ function home() {
       lead: 'Dwanaście najczęstszych sytuacji i kafel dla całej reszty — bo obsługujemy każdą firmę i każdy dom. Jedno kliknięcie i widzisz, które linie PRO-KOM się Tobą zajmą i od czego zwykle zaczynamy.',
       other: { title: 'Inna branża? Też.', text: 'Obsługujemy każdą firmę, instytucję i dom.' },
       personas: O.map((persona) => ({ persona, sub: SUB[persona] ?? null })),
+      planFor: 'Plan dla:',
+      call: 'Zadzwoń raz:',
       write: 'Napisz, o co chodzi',
       note: 'Połączymy Cię z właściwymi zespołami.',
     },
@@ -441,6 +443,7 @@ function home() {
       eyebrow: 'Pomoc',
       title: 'Co zrobić, gdy…',
       allLink: 'Wszystkie sytuacje w Pomocy',
+      lineLabel: 'To sprawa dla linii',
       slugs: [
         'kasa-fiskalna-nie-drukuje',
         'padlo-wi-fi-w-pensjonacie',
@@ -455,21 +458,41 @@ function home() {
       eyebrow: 'Inwestycje i współpraca',
       title: 'Projektujesz, budujesz albo zamawiasz więcej?',
       lead: 'Wchodzimy w projekt wcześnie, bierzemy cały zakres instalacji i dostarczamy sprzęt w większych ilościach — dla pracowni, inwestycji i instytucji.',
+      links: [
+        { label: 'Inwestycje i dostawy', href: '/inwestycje-i-dostawy' },
+        { label: 'Współpraca z pracownią', href: '/wspolpraca' },
+      ],
       cards: [
         {
           title: 'Architekci i projektanci',
           text: 'Instalacje naniesione na rzuty, zanim wejdą tynki.',
+          line: 'instalacje',
+          href: '/wspolpraca',
         },
         {
           title: 'Deweloperzy i inwestorzy',
           text: 'Lokale, części wspólne i garaż u jednego wykonawcy.',
+          line: 'instalacje',
+          href: '/inwestycje-i-dostawy',
         },
-        { title: 'Wykonawcy', text: 'Instalacje niskoprądowe jako podwykonawca.' },
+        {
+          title: 'Wykonawcy',
+          text: 'Instalacje niskoprądowe jako podwykonawca.',
+          line: 'instalacje',
+          href: '/wspolpraca',
+        },
         {
           title: 'Firmy i instytucje',
           text: 'Większe dostawy IT oraz RTV i AGD — z listą zapytania.',
+          line: 'biznes',
+          href: '/inwestycje-i-dostawy',
         },
-        { title: 'Dostawcy', text: 'Masz produkt, który pasuje do naszej oferty?' },
+        {
+          title: 'Dostawcy',
+          text: 'Masz produkt, który pasuje do naszej oferty?',
+          line: 'prokom',
+          href: '/wspolpraca#dostawcy',
+        },
       ],
     },
     coverage: {

@@ -4,6 +4,7 @@ import {
   factKeys,
   faqItem,
   firstIssue,
+  hubHref,
   key,
   lineKey,
   noContactData,
@@ -114,6 +115,8 @@ export const homeSchema = z
       ...head,
       other: titled,
       personas: z.array(z.object({ persona: key, sub: optionalText(60) })).min(1),
+      planFor: text(30),
+      call: text(30),
       write: text(40),
       note: text(120),
     }),
@@ -126,9 +129,20 @@ export const homeSchema = z
       eyebrow: text(40),
       title: text(60),
       allLink: text(60),
+      lineLabel: text(40),
       slugs: z.array(key).min(1).max(8),
     }),
-    cooperation: z.object({ ...head, cards: z.array(titled).min(1).max(6) }),
+    cooperation: z.object({
+      ...head,
+      links: z
+        .array(z.object({ label: text(40), href: hubHref }))
+        .min(1)
+        .max(2),
+      cards: z
+        .array(titled.extend({ line: lineKey, href: hubHref }))
+        .min(1)
+        .max(6),
+    }),
     coverage: z.object({
       ...head,
       towns: z.array(text(40)).min(1).max(12),
