@@ -38,14 +38,16 @@ export function SolutionHero({ page }: Page) {
           {page.tiles.map((tile, i) => (
             <div key={i} className={cx(cardClass, 'flex flex-col rounded-[18px] p-4')}>
               <dt className="sw-eyebrow text-[11px]">{tile.label}</dt>
-              <dd
-                className={cx(
-                  'mt-1.5 font-display text-xl font-extrabold leading-tight',
-                  tile.accent && 'text-accent-text',
-                )}
-              >
-                {tile.value}
-              </dd>
+              {/* The price tile without a price: a small badge, not a heading (SWA14 §4.1). */}
+              {tile.accent ? (
+                <dd className="mt-1.5">
+                  <span className="v-ask">{tile.value}</span>
+                </dd>
+              ) : (
+                <dd className="mt-1.5 font-display text-xl font-extrabold leading-tight">
+                  {tile.value}
+                </dd>
+              )}
               {tile.caption && <dd className="mt-1 text-sm text-ink-2">{tile.caption}</dd>}
             </div>
           ))}
@@ -140,12 +142,21 @@ export function SolutionOffer({ page }: Page) {
                 <EmText text={deliverables.title} />
               </h2>
             </div>
-            <p className="rounded-2xl border border-accent-line bg-accent-soft px-4 py-2.5 text-right">
-              <b className="block font-display text-xl font-extrabold text-accent-text">
-                {deliverables.badge.value}
-              </b>
-              <span className="text-xs font-bold text-ink-2">{deliverables.badge.caption}</span>
-            </p>
+            {deliverables.badge.ask ? (
+              <p className="text-right">
+                <span className="v-ask">{deliverables.badge.value}</span>
+                <span className="mt-1 block text-xs font-bold text-ink-2">
+                  {deliverables.badge.caption}
+                </span>
+              </p>
+            ) : (
+              <p className="rounded-2xl border border-accent-line bg-accent-soft px-4 py-2.5 text-right">
+                <b className="block font-display text-xl font-extrabold text-accent-text">
+                  {deliverables.badge.value}
+                </b>
+                <span className="text-xs font-bold text-ink-2">{deliverables.badge.caption}</span>
+              </p>
+            )}
           </div>
           {deliverables.items.length > 0 && (
             <ul
