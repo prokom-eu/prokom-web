@@ -25,7 +25,7 @@ export type TabBarProps = {
 }
 
 const ITEM =
-  'flex min-h-11 flex-col items-center justify-end gap-1 pb-0.5 text-[11px] font-extrabold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text'
+  'flex min-h-11 flex-col items-center justify-end gap-1 pb-0.5 text-[12px] font-extrabold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text'
 const ICON = 'flex size-[30px] items-center justify-center'
 
 const isCurrent = (pathname: string, href: string) =>

@@ -140,3 +140,24 @@ test('the rail is hidden below 1400 px', async ({ page }) => {
   await page.goto(site('software.localhost', '/_wspolne'))
   await expect(rail(page)).toBeHidden()
 })
+
+test('on a wide monitor the rail stays next to the capsule, not at the window edge', async ({
+  page,
+}) => {
+  for (const [width, gap] of [
+    [1440, null],
+    [1920, 16],
+  ] as const) {
+    await page.setViewportSize({ width, height: 1000 })
+    await page.goto(site('software.localhost', '/_wspolne'))
+    await expect(rail(page)).toBeVisible()
+    const box = await page.evaluate(() => {
+      const wrap = document.querySelector('.srail-wrap')!.getBoundingClientRect()
+      const cap = document.querySelector('.cap-wrap')!.getBoundingClientRect()
+      return { left: wrap.left, capLeft: cap.left }
+    })
+    // Up to ~1520 px the window's 16 px; wider, 16 px off the capsule (64 px rail).
+    if (gap === null) expect(box.left).toBe(16)
+    else expect(Math.round(box.capLeft - (box.left + 64))).toBe(gap)
+  }
+})
