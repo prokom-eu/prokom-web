@@ -159,6 +159,45 @@ test.describe('Software hero v24', () => {
     expect(await sample('#start .hx-arrow[data-step="prev"]')).toEqual([])
   })
 
+  test('the windows in sight draw their mock-ups through two changes (AUDYT-1411-HERO-BOKI)', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST))
+    await hydrated(tabs(page).first())
+    // Every 100 ms through two steps: the content of `.mk` in rl, r0 and r1 is not skipped. Chrome
+    // headless draws it even with `content-visibility: auto`, a desktop Chrome did not (3D windows
+    // count as off screen) — so the computed value is checked too.
+    const faults = await page.evaluate(async () => {
+      const found: string[] = []
+      const check = (time: number) => {
+        for (const win of document.querySelectorAll<HTMLElement>(
+          '#start .hx-win:is([data-rank="rl"], [data-rank="r0"], [data-rank="r1"])',
+        )) {
+          const mk = win.querySelector<HTMLElement>('.mk')
+          const content = mk?.firstElementChild
+          if (!mk || !content) {
+            found.push(`${time} ms: ${win.dataset.rank} without a mock-up`)
+            continue
+          }
+          const value = getComputedStyle(mk).contentVisibility
+          if (value !== 'visible' || !content.checkVisibility({ contentVisibilityAuto: true })) {
+            found.push(`${time} ms: ${win.dataset.rank} skipped (${value})`)
+          }
+        }
+      }
+      for (let step = 0; step < 2; step++) {
+        document.querySelector<HTMLElement>('#start .hx-arrow[data-step="next"]')?.click()
+        const start = performance.now()
+        while (performance.now() - start < 1000) {
+          check(step * 1000 + Math.round(performance.now() - start))
+          await new Promise((resolve) => setTimeout(resolve, 100))
+        }
+      }
+      return found
+    })
+    expect(faults).toEqual([])
+  })
+
   test('no hydration errors', async ({ page }) => {
     const errors: string[] = []
     page.on('console', (message) => {
