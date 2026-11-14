@@ -1144,11 +1144,15 @@
     0 50px 120px -40px color-mix(in srgb, var(--hero-black) 60%, transparent);
   pointer-events: auto;
   /* Every window moves one place at once, with one time and curve (SWA14 §1): transform and
-     opacity only, no filter on a window in motion. */
+     opacity only, no filter on a window in motion. The layer swaps where the incoming and the
+     outgoing window cross (half of the way) — swapped at once, the incoming side window at 0.5
+     covered the middle one. `--ease-hx-slide` is fast at first: half of the way at 14 % of the
+     time (~100 ms of 700), not at half of the time. */
   transition:
     transform var(--dur-hx-slide) var(--ease-hx-slide),
     opacity var(--dur-hx-slide) var(--ease-hx-slide),
-    visibility var(--dur-hx-slide);
+    visibility var(--dur-hx-slide),
+    z-index 0s linear calc(var(--dur-hx-slide) * 0.14);
 }
 /* From one unseen place to another (behind the edge, hidden): at once, not across the stage. */
 .hx-win[data-jump] {

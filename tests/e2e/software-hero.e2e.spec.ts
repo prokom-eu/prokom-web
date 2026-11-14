@@ -198,6 +198,91 @@ test.describe('Software hero v24', () => {
     expect(faults).toEqual([])
   })
 
+  test('during a change the window nearer the middle is on top (← →, a far tile)', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST))
+    await hydrated(tabs(page).first())
+    // Times count from the change of `data-rank`. The window nearest the middle of the stage and
+    // each visible window overlapping it: in their common part the nearer one is painted on top.
+    // Not around ~100 ms, where the two cross (half of the way at 14 % of the 700 ms move).
+    const layerFaults = (selector: string, times: number[], index = 0) =>
+      page.evaluate(
+        async ({ selector, times, index }) => {
+          const deck = document.querySelector<HTMLElement>('#start .hx-deck')
+          if (!deck) return ['no .hx-deck']
+          const found: string[] = []
+          const middle = () => {
+            const box = deck.getBoundingClientRect()
+            return box.left + box.width / 2
+          }
+          const shown = () =>
+            [...deck.querySelectorAll<HTMLElement>('.hx-win')].filter((win) => {
+              // A window on its way out (`rx`) fades away under the others.
+              if (win.dataset.rank === 'rx') return false
+              const style = getComputedStyle(win)
+              return style.visibility !== 'hidden' && Number(style.opacity) > 0.05
+            })
+          const off = (win: HTMLElement) => {
+            const rect = win.getBoundingClientRect()
+            return Math.abs(rect.left + rect.width / 2 - middle())
+          }
+          const check = (time: number) => {
+            const [near, ...rest] = shown().sort((a, b) => off(a) - off(b))
+            if (!near) return
+            const a = near.getBoundingClientRect()
+            for (const other of rest) {
+              const b = other.getBoundingClientRect()
+              const left = Math.max(a.left, b.left)
+              const right = Math.min(a.right, b.right)
+              const top = Math.max(a.top, b.top)
+              const bottom = Math.min(a.bottom, b.bottom)
+              if (right - left < 4 || bottom - top < 4) continue
+              const painted = document
+                .elementsFromPoint((left + right) / 2, (top + bottom) / 2)
+                .map((element) => element.closest<HTMLElement>('.hx-win'))
+                .find((win) => win === near || win === other)
+              if (painted !== near) {
+                found.push(`${time} ms: ${other.dataset.rank} over ${near.dataset.rank}`)
+              }
+            }
+          }
+          const changed = new Promise<number>((resolve) => {
+            const observer = new MutationObserver(() => {
+              observer.disconnect()
+              resolve(performance.now())
+            })
+            observer.observe(deck, {
+              attributes: true,
+              attributeFilter: ['data-rank'],
+              subtree: true,
+            })
+          })
+          document.querySelectorAll<HTMLElement>(selector)[index]?.click()
+          const start = await changed
+          for (const time of times) {
+            while (performance.now() - start < time) {
+              await new Promise((resolve) => requestAnimationFrame(resolve))
+            }
+            check(time)
+          }
+          return found
+        },
+        { selector, times, index },
+      )
+    const steps = [30, 250, 350, 500, 800]
+    expect(await layerFaults('#start .hx-arrow[data-step="next"]', steps)).toEqual([])
+    expect(await layerFaults('#start .hx-arrow[data-step="prev"]', steps)).toEqual([])
+    // Three tiles on (`data-far`): the windows take their places at once and cross-fade.
+    const current = await tabs(page).evaluateAll((all) =>
+      all.findIndex((tab) => tab.getAttribute('aria-selected') === 'true'),
+    )
+    const count = await tabs(page).count()
+    expect(await layerFaults('#start [role="tab"]', [30, 350, 800], (current + 3) % count)).toEqual(
+      [],
+    )
+  })
+
   test('no hydration errors', async ({ page }) => {
     const errors: string[] = []
     page.on('console', (message) => {
