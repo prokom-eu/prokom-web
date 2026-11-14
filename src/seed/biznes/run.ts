@@ -54,6 +54,7 @@ import {
   k4PhotoMediaData,
   k4ProductFields,
   k4Relations,
+  k4RenameRedirects,
   k4SlugRedirects,
   withK4Content,
   type K4Card,
@@ -852,6 +853,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     await ensureRedirect(item.from, item.to)
   }
   for (const rule of k4Redirects) await ensureRedirect(rule.from, rule.to)
+  // A renamed model (iMac M4 → M6): the old address leads to the card's new one.
+  for (const rule of k4RenameRedirects(k4Catalog.produkty)) await ensureRedirect(rule.from, rule.to)
 
   // Brands PRO-KOM no longer sells (Honeywell, StorageCraft): off the Biznes line, record kept.
   // After hiding their products: a product saves only with a brand shown on its line.

@@ -24894,9 +24894,9 @@
     ]
    },
    "podobne": [
-    "apple-macbook-pro-m5",
+    "apple-macbook-pro-m6",
     "apple-mac-mini-m6",
-    "apple-imac-24-m4",
+    "apple-imac-24-m6",
     "apple-mac-studio-m5"
    ],
    "branze": [
@@ -35905,7 +35905,10 @@
    ]
   },
   {
-   "slug_seed": "apple-macbook-pro-m5",
+   "slug_seed": "apple-macbook-pro-m6",
+   "poprzednie_slugi": [
+    "apple-macbook-pro-m5"
+   ],
    "zmiana_k4": "nowa",
    "status": "gotowe",
    "dzial": "biuro",
@@ -36114,7 +36117,7 @@
    "podobne": [
     "apple-macbook-air-m5",
     "apple-mac-mini-m6",
-    "apple-imac-24-m4",
+    "apple-imac-24-m6",
     "apple-mac-studio-m5"
    ],
    "branze": [
@@ -36220,17 +36223,17 @@
    "sprawdzono": "2026-11-14",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/apple-macbook-pro-m5-premium-01.webp",
+     "plik": "media/produkty/apple-macbook-pro-m6-premium-01.webp",
      "zrodlo": "https://www.apple.com/v/macbook-pro/liquid-retina-xdr-display/ay/images/overview/contrast/product-tile_macbook_pro__em0mfn48fr0i_large_2x.png",
      "ujecie": "MacBook Pro 14\" i 16\" z ekranem Liquid Retina XDR, widok z przodu"
     },
     {
-     "plik": "media/produkty/apple-macbook-pro-m5-premium-02.webp",
+     "plik": "media/produkty/apple-macbook-pro-m6-premium-02.webp",
      "zrodlo": "https://www.apple.com/pl/macbook-pro/liquid-retina-xdr-display/tiles/images/sizes_large_2x.png",
      "ujecie": "Dwa rozmiary obok siebie, w kolorach gwiezdna czerń i srebrny"
     },
     {
-     "plik": "media/produkty/apple-macbook-pro-m5-premium-03.webp",
+     "plik": "media/produkty/apple-macbook-pro-m6-premium-03.webp",
      "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-introduces-the-new-14-inch-macbook-pro-with-m6/article/Apple-MacBook-Pro-14-in-with-M6-connectivity-261027_big.jpg.large.jpg",
      "ujecie": "Złącza po obu stronach: MagSafe 3, Thunderbolt, SDXC i HDMI"
     }
@@ -37618,8 +37621,8 @@
    },
    "podobne": [
     "apple-macbook-air-m5",
-    "apple-macbook-pro-m5",
-    "apple-imac-24-m4",
+    "apple-macbook-pro-m6",
+    "apple-imac-24-m6",
     "apple-mac-studio-m5"
    ],
    "branze": [
@@ -40902,7 +40905,10 @@
    ]
   },
   {
-   "slug_seed": "apple-imac-24-m4",
+   "slug_seed": "apple-imac-24-m6",
+   "poprzednie_slugi": [
+    "apple-imac-24-m4"
+   ],
    "zmiana_k4": "nowa",
    "status": "gotowe",
    "dzial": "biuro",
@@ -41103,7 +41109,7 @@
    },
    "podobne": [
     "apple-macbook-air-m5",
-    "apple-macbook-pro-m5",
+    "apple-macbook-pro-m6",
     "apple-mac-mini-m6",
     "apple-mac-studio-m5"
    ],
@@ -41195,22 +41201,22 @@
    "sprawdzono": "2026-11-14",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/apple-imac-24-m4-premium-01.webp",
+     "plik": "media/produkty/apple-imac-24-m6-premium-01.webp",
      "zrodlo": "https://www.apple.com/v/imac/x/images/overview/contrast/product_tile_imac__dw7fbk25xcia_large_2x.png",
      "ujecie": "iMac z M6 w kolorze niebieskim, widok z przodu"
     },
     {
-     "plik": "media/produkty/apple-imac-24-m4-premium-02.webp",
+     "plik": "media/produkty/apple-imac-24-m6-premium-02.webp",
      "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-unveils-new-imac-with-m6/article/Apple-iMac-with-M6-color-lineup-261027_big.jpg.large.jpg",
      "ujecie": "Siedem kolorów obudowy iMaca z M6"
     },
     {
-     "plik": "media/produkty/apple-imac-24-m4-premium-03.webp",
+     "plik": "media/produkty/apple-imac-24-m6-premium-03.webp",
      "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-unveils-new-imac-with-m6/article/Apple-iMac-with-M6-ports-261027_inline.jpg.large.jpg",
      "ujecie": "Tył iMaca z czterema portami Thunderbolt 4"
     },
     {
-     "plik": "media/produkty/apple-imac-24-m4-premium-04.webp",
+     "plik": "media/produkty/apple-imac-24-m6-premium-04.webp",
      "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-unveils-new-imac-with-m6/article/Apple-iMac-with-M6-color-matched-accessories-261027_big.jpg.large.jpg",
      "ujecie": "Klawiatura z Touch ID i mysz w kolorze obudowy"
     }
@@ -41375,9 +41381,9 @@
    },
    "podobne": [
     "apple-macbook-air-m5",
-    "apple-macbook-pro-m5",
+    "apple-macbook-pro-m6",
     "apple-mac-mini-m6",
-    "apple-imac-24-m4"
+    "apple-imac-24-m6"
    ],
    "branze": [
     "Biura i usługi",
