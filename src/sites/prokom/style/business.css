@@ -612,7 +612,7 @@
 .pk-final__numbers {
   width: 100%;
 }
-.pk-link {
+.pk-final__link {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
@@ -656,6 +656,9 @@
   .pk-ltab__short,
   .pk-ltab__top .pk-mark {
     display: none;
+  }
+  .pk-ltabs--topics .pk-ltab {
+    min-height: 44px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

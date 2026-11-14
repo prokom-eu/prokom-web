@@ -3,7 +3,7 @@
   "hero": {
     "eyebrow": "Dla domu · dla rodziny · dla gracza",
     "title": "Wszystko dla domu w jednej firmie.",
-    "lead": "Dom, który sam pilnuje i sam się steruje. Telefon i laptop naprawione na miejscu. Komputer do gier złożony w Rabce-Zdroju. Trzy linie PRO-KOM, jedna firma i jeden salon.",
+    "lead": "Dom, który sam pilnuje i sam się steruje. Telefon i laptop naprawione w salonie w Rabce-Zdroju. Komputer do gier złożony w Rabce-Zdroju. Trzy linie PRO-KOM, jedna firma i jeden salon.",
     "choose": "Wybierz swoją sytuację",
     "facts": [
       {
@@ -40,13 +40,13 @@
         "line": "tech",
         "title": "Sprzęt, który znowu działa.",
         "text": "Naprawy telefonów, laptopów, konsol i drukarek. Bezpłatna diagnoza i wycena.",
-        "anchor": "#linie-dom"
+        "anchor": null
       },
       {
         "line": "gaming",
         "title": "Komputer do gier z Rabki-Zdroju.",
         "text": "16 zestawów, dobór pod grę, konfigurator. Gwarancja 2 lata, wysyłka w całej Polsce.",
-        "anchor": "#linie-dom"
+        "anchor": null
       }
     ]
   },
@@ -58,7 +58,7 @@
     "start": "Od czego zacząć",
     "call": "Zadzwoń:",
     "describe": "Opisz, czego potrzebujesz",
-    "note": "Dzwonisz raz — łączymy Cię z właściwym zespołem."
+    "note": "To numer zespołu, który zajmuje się tą sprawą."
   },
   "scene": {
     "eyebrow": "Trzy linie dla domu",
@@ -138,7 +138,7 @@
           },
           {
             "title": "Hammer Glass",
-            "text": "Folia cięta ploterem pod Twój model, zakładana od ręki."
+            "text": "Folia cięta ploterem pod Twój model, zakładana w salonie."
           }
         ]
       },
@@ -597,8 +597,8 @@
     "remote": "Nie jesteś z okolicy?",
     "remoteNote": "Zgłoś online, wyślij kurierem",
     "extras": [
-      "Naprawy na miejscu",
-      "Folia Hammer Glass od ręki",
+      "Naprawy w salonie",
+      "Folia Hammer Glass w salonie",
       "Akcesoria GSM",
       "Odbiór komputera do gier"
     ],

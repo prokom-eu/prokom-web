@@ -11,7 +11,9 @@ type Props = { params: Promise<{ domain: string }> }
 
 /** Spec §4: title of `/dla-domu`; the full SEO comes in H6-2. */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  await requireLine(params, 'prokom')
+  const tenant = await requireLine(params, 'prokom')
+  // Off: the 404 must not carry the page's title.
+  if (!isHubLinkLive('/dla-domu', (await getHubSettings(tenant.id)).pages)) notFound()
   return { title: { absolute: 'Dla domu: smart home, alarm, serwis, gaming | PRO-KOM' } }
 }
 

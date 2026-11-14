@@ -10,6 +10,7 @@ import {
   noContactData,
   text,
   titled,
+  uniqueBy,
 } from './schema'
 
 /*
@@ -34,10 +35,12 @@ export const forHomeSchema = z
             line: homeLine,
             title: text(60),
             text: text(200),
-            anchor: z.enum(['#przekroj', '#linie-dom']),
+            /** A section of this page; `null` = the line's own site. */
+            anchor: z.literal('#przekroj').nullable(),
           }),
         )
-        .max(3),
+        .max(3)
+        .superRefine(uniqueBy((card) => card.line, 'Linia')),
     }),
     situations: z.object({
       ...head,
@@ -65,7 +68,8 @@ export const forHomeSchema = z
           }),
         )
         .min(1)
-        .max(3),
+        .max(3)
+        .superRefine(uniqueBy((item) => item.line, 'Linia')),
     }),
     section: z.object({
       ...head,
@@ -155,7 +159,8 @@ export const forHomeSchema = z
       lines: z
         .array(z.object({ line: homeLine, what: text(80) }))
         .min(1)
-        .max(4),
+        .max(4)
+        .superRefine(uniqueBy((entry) => entry.line, 'Linia')),
       directions: text(40),
     }),
   })
