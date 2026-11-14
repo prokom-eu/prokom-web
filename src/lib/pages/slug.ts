@@ -34,6 +34,8 @@ export const RESERVED_PAGE_SLUGS: readonly string[] = [
   'marki',
   // Ready bundles (K3c).
   'zestawy',
+  // Search results of pro-kom.eu (H1-3, spec §5.6).
+  'szukaj',
 ]
 
 export function isValidPageSlug(slug: string): boolean {
