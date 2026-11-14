@@ -88,14 +88,14 @@ export function KsefTimeline({
               )}
             />
             <span className="flex min-w-0 flex-1 flex-col">
-              <em className="text-[13px] font-extrabold text-white not-italic max-md:text-[11px] max-md:text-white/75">
+              <em className="text-[13px] font-extrabold text-white not-italic max-md:text-[12px] max-md:text-white/75">
                 {point.d}
               </em>
               <b className="font-extrabold max-md:text-sm max-md:leading-snug">{point.t}</b>
               {/* Phone (App-KSeF): date, name and status only. */}
               <small className="text-[13.5px] text-white/75 max-md:hidden">{point.s}</small>
             </span>
-            <strong className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[12px] font-extrabold max-md:px-2 max-md:text-[11px]">
+            <strong className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[12px] font-extrabold max-md:px-2">
               {status}
             </strong>
           </li>

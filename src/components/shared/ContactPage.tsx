@@ -134,10 +134,12 @@ export function ContactPage({
         <div
           className={cx(
             CONTAINER,
-            'grid items-start gap-10 min-[1000px]:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]',
+            // `grid-cols-1` = minmax(0, 1fr): below 1000 px the column must not grow to its widest
+            // child (the status pill) — the section's `overflow-hidden` would clip it (audit 14.11).
+            'grid grid-cols-1 items-start gap-10 min-[1000px]:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]',
           )}
         >
-          <div className="flex flex-col gap-5">
+          <div className="flex min-w-0 flex-col gap-5">
             <PageCrumbs items={breadcrumbs} onDark />
             <div className="self-start">
               <OpeningStatus

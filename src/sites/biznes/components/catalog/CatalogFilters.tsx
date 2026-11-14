@@ -214,7 +214,7 @@ export function CatalogFilters({
               aria-label={`${kind.label} (${count})`}
               onClick={() => onChange({ kind: kind.value })}
               className={cx(
-                'min-h-9 min-w-0 flex-auto rounded-[9px] px-1 text-[0.72rem] font-extrabold',
+                'min-h-9 min-w-0 flex-auto rounded-[9px] px-1 text-[12px] font-extrabold',
                 on ? 'bg-card text-ink shadow-sm' : 'text-ink-2 hover:text-ink',
               )}
             >
@@ -310,13 +310,13 @@ export function CatalogFilters({
                       />
                     ) : (
                       // Fixed dark text: the tile is white in both themes, like the logos.
-                      <span className="text-center text-[0.72rem] font-black uppercase leading-tight text-surface-dark">
+                      <span className="text-center text-[12px] font-black uppercase leading-tight text-surface-dark">
                         {brand.name}
                       </span>
                     )}
                   </span>
                   {/* Fixed dark ink: white tile in both themes. */}
-                  <small className="text-[0.68rem] font-extrabold text-surface-dark">
+                  <small className="text-[12px] font-extrabold text-surface-dark">
                     {facets.brands[brand.slug] ?? 0}
                   </small>
                   <span

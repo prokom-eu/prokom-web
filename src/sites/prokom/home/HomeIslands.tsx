@@ -7,3 +7,5 @@ import dynamic from 'next/dynamic'
 // with it next/dynamic adds a Suspense boundary and the sections stream in hidden.
 export const HeroTiles = dynamic(() => import('./HeroTiles').then((m) => m.HeroTiles))
 export const LineScene = dynamic(() => import('./LineScene').then((m) => m.LineScene))
+export const Choose = dynamic(() => import('./Choose').then((m) => m.Choose))
+export const HelpPicker = dynamic(() => import('./HelpPicker').then((m) => m.HelpPicker))

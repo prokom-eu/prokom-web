@@ -51,7 +51,7 @@ export function ProductBento({
             <span className="flex size-10 items-center justify-center rounded-xl bg-card text-accent-text shadow-[inset_0_0_0_1px_var(--border)] max-md:size-8">
               <PathIcon d={productIconPath(tile.icon)} className="size-5" />
             </span>
-            <span className="mt-1.5 text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase max-md:mt-0.5 max-md:text-[10.5px]">
+            <span className="mt-1.5 text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase max-md:mt-0.5">
               {tile.label}
             </span>
             <span

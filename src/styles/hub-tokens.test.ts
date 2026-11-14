@@ -45,3 +45,24 @@ describe.each([
     expect(ratio).toBeGreaterThanOrEqual(4.5)
   })
 })
+
+// H2-2/H2-3: cards in a line's own dark colour (`--ln-dark`: plans, help, brands, news) carry the
+// line's text colour (labels, numbers) and the page ink (`--k-white`, dark in the light theme).
+const LINE_CARDS = [
+  ['--k-bt', '--k-bd'],
+  ['--k-it', '--k-id'],
+  ['--k-st', '--k-sd'],
+  ['--k-tt', '--k-td'],
+  ['--k-yt', '--k-yd'],
+] as const
+
+describe.each([
+  ['light', light],
+  ['dark', dark],
+] as const)('hub line cards, %s theme', (_mode, scope) => {
+  it.each(LINE_CARDS)('%s and the page ink reach 4.5:1 on %s', (text, card) => {
+    const surface = resolve(`var(${card})`, scope)
+    expect(contrastRatio(resolve(`var(${text})`, scope), surface)).toBeGreaterThanOrEqual(4.5)
+    expect(contrastRatio(resolve('var(--k-white)', scope), surface)).toBeGreaterThanOrEqual(4.5)
+  })
+})

@@ -6,7 +6,7 @@ const page = (layout: unknown[]) => ({ slug: 'ksef', title: 'KSeF', layout })
 
 describe('pageCrumbs (BIZ-3 §10.2: BreadcrumbList like the visible crumbs)', () => {
   it('is Strona główna / page without a trail', () => {
-    expect(pageCrumbs(page([{ blockType: 'bzContactPage' }]))).toEqual([
+    expect(pageCrumbs(page([{ blockType: 'faq' }]))).toEqual([
       { name: 'Strona główna', href: '/' },
       { name: 'KSeF', href: '/ksef' },
     ])
@@ -31,5 +31,10 @@ describe('pageCrumbs (BIZ-3 §10.2: BreadcrumbList like the visible crumbs)', ()
     expect(pageCrumbs(page(layout))).toHaveLength(2)
     expect(pageCrumbs({ ...page([]), slug: 'home' })).toEqual([])
     expect(pageCrumbs(page([{ blockType: 'bzProcurementPage' }]))).toEqual([])
+  })
+
+  it('none for the shared Kontakt and O firmie templates: they emit their own (audit 14.11)', () => {
+    expect(pageCrumbs(page([{ blockType: 'bzContactPage' }]))).toEqual([])
+    expect(pageCrumbs(page([{ blockType: 'bzAboutPage' }]))).toEqual([])
   })
 })

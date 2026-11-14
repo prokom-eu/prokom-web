@@ -8,8 +8,11 @@ const isCrumb = (value: unknown): value is Crumb =>
   typeof (value as Crumb).name === 'string' &&
   typeof (value as Crumb).href === 'string'
 
-/** Blocks that emit their own `BreadcrumbList` (the procurement template): no second one. */
-const OWN_CRUMBS = new Set(['bzProcurementPage'])
+/**
+ * Blocks that emit their own `BreadcrumbList` (the procurement template; the shared Kontakt and
+ * O firmie templates — audit 14.11: `/kontakt` had two): no second one.
+ */
+const OWN_CRUMBS = new Set(['bzProcurementPage', 'bzContactPage', 'bzAboutPage'])
 
 const blockType = (block: unknown) =>
   typeof block === 'object' && block !== null

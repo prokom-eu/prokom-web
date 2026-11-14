@@ -257,7 +257,7 @@ export function TabsPicker({
                   )}
                   <div className="flex min-w-0 flex-col gap-1">
                     {item.l && (
-                      <span className="text-[13px] font-extrabold text-ink-2 max-md:text-[11px]">
+                      <span className="text-[13px] font-extrabold text-ink-2 max-md:text-[12px]">
                         {item.l}
                       </span>
                     )}

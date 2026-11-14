@@ -1,7 +1,15 @@
-import type { HubPlanView, HubToolView } from '@/lib/prokom/data'
-import { fillPromise, type HubHome, withVisibleFacts } from '@/lib/prokom/home'
+import type { HubHelpView, HubPlanView, HubToolView } from '@/lib/prokom/data'
+import {
+  type FaqTokens,
+  fillPromise,
+  fillTokens,
+  type HubHome,
+  withVisibleFacts,
+} from '@/lib/prokom/home'
 import type { HubLineContact } from '@/lib/prokom/lineContacts'
 import type { HubLine } from '@/lib/prokom/lines'
+import type { SharedCompany } from '@/lib/shared/project'
+import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
 
 type SceneTexts = HubHome['lines']['scene'][HubLine]
@@ -22,6 +30,8 @@ export type HomeLine = {
   url: string | null
   phone: string | null
   tel: string | null
+  /** The line's hours as written in its panel (Tech is also open on Saturdays). */
+  hours: string | null
   promise: string | null
   hero: HubHome['hero']['lines'][HubLine]
   scene: HomeScene
@@ -47,6 +57,7 @@ export function homeLines(
     url: contact.url,
     phone: contact.phone,
     tel: contact.phone ? toTelHref(contact.phone) : null,
+    hours: contact.hours,
     promise: contact.promise,
     hero: home.hero.lines[contact.key],
     scene: sceneOf(home.lines.scene[contact.key], contact.promise, visibleFacts),
@@ -100,4 +111,112 @@ function sceneOf(
       return title ? [{ title, text: step.text }] : []
     }),
   }
+}
+
+/** Polish plural: `plural(3, ['marka', 'marki', 'marek'])` → „3 marki”. */
+export function plural(count: number, [one, few, many]: readonly [string, string, string]): string {
+  const tens = count % 100
+  const ones = count % 10
+  if (count === 1) return `1 ${one}`
+  if (ones >= 2 && ones <= 4 && (tens < 12 || tens > 14)) return `${count} ${few}`
+  return `${count} ${many}`
+}
+
+/** „1 linia”, „3 linie”, „5 linii” — the plan's line count. */
+export const linesCount = (count: number) => plural(count, ['linia', 'linie', 'linii'])
+
+/** What a card of a plan links to: the line's own site (from its panel). */
+type LineLink = Pick<HomeLine, 'key' | 'label' | 'domain' | 'url'>
+
+export type ChoosePlan = {
+  persona: string
+  name: string
+  sub: string | null
+  title: string
+  groups: (LineLink & { points: string[] })[]
+}
+
+/**
+ * Personas of „Dobierz” (spec §6.1 pkt 3) in the order of `home.choose`, each with its plan from
+ * `HubPlans` limited to the lines on the page. A persona without a plan, or without any line on
+ * the page, is left out.
+ */
+export function choosePlans(
+  personas: HubHome['choose']['personas'],
+  plans: readonly HubPlanView[],
+  lines: readonly LineLink[],
+): ChoosePlan[] {
+  return personas.flatMap(({ persona, sub }) => {
+    const plan = plans.find((entry) => entry.type === 'persona' && entry.key === persona)
+    if (!plan) return []
+    const groups = plan.groups.flatMap((group) => {
+      const line = lines.find((entry) => entry.key === group.line)
+      return line && group.points.length ? [{ ...line, points: group.points }] : []
+    })
+    if (!groups.length) return []
+    return [{ persona, name: plan.name, sub: sub ?? null, title: plan.title ?? plan.name, groups }]
+  })
+}
+
+export type HelpCase = {
+  slug: string
+  title: string
+  steps: string[]
+  line: Pick<HomeLine, 'key' | 'name' | 'domain' | 'url' | 'phone' | 'tel'>
+}
+
+/** Situations of „Co zrobić, gdy…” in the order of `home.help.slugs`, only of lines on the page. */
+export function helpCases(
+  slugs: readonly string[],
+  help: readonly HubHelpView[],
+  lines: readonly HomeLine[],
+): HelpCase[] {
+  return slugs.flatMap((slug) => {
+    const entry = help.find((item) => item.slug === slug)
+    const line = entry && lines.find((item) => item.key === entry.line)
+    if (!entry || !line || !entry.steps.length) return []
+    const { key, name, domain, url, phone, tel } = line
+    return [
+      {
+        slug,
+        title: entry.title,
+        steps: entry.steps.slice(0, 3),
+        line: { key, name, domain, url, phone, tel },
+      },
+    ]
+  })
+}
+
+/** „ul. Orkana 16B, 34-700 Rabka-Zdrój” from the company's first location; `null` without one. */
+export function addressLine(company: Pick<SharedCompany, 'address'>): string | null {
+  const address = company.address
+  return address ? `${address.street}, ${address.postalCode} ${address.city}` : null
+}
+
+/** Contact data the FAQ tokens stand for — always from the panel (spec §3). */
+export function faqTokens(
+  company: Pick<SharedCompany, 'address' | 'hours'>,
+  phone: string | null,
+): FaqTokens {
+  return {
+    telefon: phone ?? '',
+    adres: addressLine(company) ?? '',
+    godziny: hoursSummary(company.hours),
+  }
+}
+
+/**
+ * FAQ items with the tokens filled from the panel; an answer whose token has no value (fresh
+ * panel) is left out rather than shown half-empty (spec §3).
+ */
+export function faqItems(
+  items: HubHome['faq']['items'],
+  tokens: FaqTokens,
+): { question: string; answer: string }[] {
+  return items.flatMap((item) => {
+    const missing = Object.entries(tokens).some(
+      ([name, value]) => !value && item.answer.includes(`{${name}}`),
+    )
+    return missing ? [] : [{ question: item.question, answer: fillTokens(item.answer, tokens) }]
+  })
 }

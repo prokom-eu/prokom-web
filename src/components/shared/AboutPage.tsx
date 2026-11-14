@@ -126,7 +126,7 @@ export function AboutPage({
             <PageCrumbs items={breadcrumbs} onDark />
             <p className="self-start rounded-full border border-line-dark-rule bg-line-dark-card px-4 py-1.5 text-sm font-bold text-line-dark-ink">
               {company.name}
-              {address && ` · ${address.city}`}, od {FOUNDED.year}
+              {address && ` · ${address.city}`}, od&nbsp;{FOUNDED.year}
             </p>
             <h1
               id="o-firmie-h1"

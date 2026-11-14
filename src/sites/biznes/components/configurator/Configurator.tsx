@@ -1101,7 +1101,7 @@ function NeedCard({
                     </ProductStage>
                     <span className="min-w-0 flex-1">
                       {product.brand && (
-                        <span className="block text-[11px] font-extrabold tracking-[0.08em] text-ink-3 uppercase">
+                        <span className="block text-[12px] font-extrabold tracking-[0.08em] text-ink-3 uppercase">
                           {product.brand}
                         </span>
                       )}
