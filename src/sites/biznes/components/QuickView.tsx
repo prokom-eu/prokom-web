@@ -9,6 +9,7 @@ import { cx } from '@/components/ui/cx'
 import { cardIcon, productHref } from '@/lib/catalog/card'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { cartActions, openCartDrawer, useCart } from '@/lib/cart/store'
+import { fallbackTile } from '@/lib/catalog/purchase'
 
 import { ProductStage, StageFallback } from './ProductStage'
 
@@ -82,7 +83,11 @@ export function QuickView({ products, current, index, onMove }: Props) {
                 className="max-h-72 w-auto max-w-[80%] object-contain"
               />
             ) : (
-              <StageFallback icon={cardIcon(product, index)} name={product.name} />
+              <StageFallback
+                icon={cardIcon(product, index)}
+                name={product.name}
+                tile={fallbackTile(product)}
+              />
             )}
           </ProductStage>
 

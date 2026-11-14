@@ -3,7 +3,7 @@ import Link from 'next/link'
 import type { IconName } from '@/lib/catalog/options'
 import type { ProductView } from '@/lib/catalog/product'
 import { featureIcon } from '@/lib/catalog/productIcons'
-import { serviceStrip, serviceTile } from '@/lib/catalog/purchase'
+import { fallbackTile, serviceStrip } from '@/lib/catalog/purchase'
 import type { PublicImage } from '@/lib/media/public'
 import { BZ_H1_COMPACT } from '@/sites/biznes/typography'
 
@@ -68,7 +68,7 @@ export function ProductHero({
         icon={icon}
         videoTarget={videoTarget}
         colorSlides={colorSlides}
-        service={serviceTile({ kind: product.kind, brand: brand?.slug ?? null })}
+        tile={fallbackTile({ kind: product.kind, brand: brand?.slug ?? null })}
       />
 
       <div className="flex min-w-0 flex-col gap-5 max-md:gap-4">

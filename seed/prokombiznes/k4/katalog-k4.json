@@ -83428,7 +83428,8 @@
     }
    ],
    "nowosc": false,
-   "seria": "Microsoft 365 dla firm"
+   "seria": "Microsoft 365 dla firm",
+   "zdjecia_brak": true
   },
   {
    "slug_seed": "m365-apps-for-business",
@@ -83565,7 +83566,8 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null
+   "sprawdzono": null,
+   "zdjecia_brak": true
   },
   {
    "slug_seed": "m365-business-premium",
@@ -83706,7 +83708,8 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null
+   "sprawdzono": null,
+   "zdjecia_brak": true
   },
   {
    "slug_seed": "m365-business-standard",
@@ -83848,7 +83851,8 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null
+   "sprawdzono": null,
+   "zdjecia_brak": true
   },
   {
    "slug_seed": "m365-business-basic",
@@ -83989,7 +83993,8 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null
+   "sprawdzono": null,
+   "zdjecia_brak": true
   },
   {
    "slug_seed": "microsoft-windows-11-pro",
@@ -84925,7 +84930,8 @@
      "v": "porównanie dwóch wersji PDF"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "zdjecia_brak": true
   },
   {
    "slug_seed": "udr7",
@@ -91030,7 +91036,8 @@
    ],
    "nowosc": false,
    "seria": "ESET — pakiety dla firm",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_brak": true
   },
   {
    "slug_seed": "fw",

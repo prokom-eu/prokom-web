@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
 import dictionaries from '../../../seed/prokombiznes/k4/slowniki-k4.json'
-import { purchaseSentence, serviceStrip, serviceTile, type PurchaseInput } from './purchase'
+import {
+  fallbackTile,
+  purchaseSentence,
+  serviceStrip,
+  serviceTile,
+  type PurchaseInput,
+} from './purchase'
 
 const card = (category: string | null, fields: Partial<PurchaseInput> = {}): PurchaseInput => ({
   category,
@@ -65,6 +71,15 @@ describe('serviceTile', () => {
     expect(serviceTile({ kind: 'service', brand: null })).toBe(true)
     expect(serviceTile({ kind: 'device', brand: 'pro-kom' })).toBe(true)
     expect(serviceTile({ kind: 'device', brand: 'posnet' })).toBe(false)
+  })
+})
+
+describe('fallbackTile (audit 14.11 P1-1: no „Bez zdjęcia” on a licence)', () => {
+  it('a service or own-brand card → service tile, software → licence tile, a device → none', () => {
+    expect(fallbackTile({ kind: 'service', brand: null })).toBe('service')
+    expect(fallbackTile({ kind: 'device', brand: 'pro-kom' })).toBe('service')
+    expect(fallbackTile({ kind: 'software', brand: 'microsoft' })).toBe('licence')
+    expect(fallbackTile({ kind: 'device', brand: 'posnet' })).toBeNull()
   })
 })
 

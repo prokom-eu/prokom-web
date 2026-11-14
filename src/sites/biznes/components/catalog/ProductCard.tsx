@@ -10,7 +10,7 @@ import {
   type BadgeTone,
 } from '@/lib/catalog/card'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
-import { serviceTile } from '@/lib/catalog/purchase'
+import { fallbackTile } from '@/lib/catalog/purchase'
 
 import { AddToCartButton } from '../AddToCartButtonLazy'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
@@ -116,7 +116,7 @@ export function ProductCard({
               )}
             />
           ) : (
-            <StageFallback icon={cardIcon(product, index)} service={serviceTile(product)} />
+            <StageFallback icon={cardIcon(product, index)} tile={fallbackTile(product)} />
           )}
         </Link>
         {brand?.logo && (

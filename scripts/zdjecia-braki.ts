@@ -13,6 +13,7 @@ import path from 'node:path'
 import { getPayload } from 'payload'
 import sharp from 'sharp'
 
+import k3Media from '../seed/prokombiznes/k3/media-k3.json'
 import config from '../src/payload.config'
 import { getEnv } from '../src/lib/env'
 import { classify } from './zdjecia-tlo.mjs'
@@ -32,6 +33,23 @@ type Row = {
 }
 
 const ORDER = { główna: 0, salon: 1, zestaw: 2, reszta: 3 } as const
+
+/** Shops, not producers: galleries from them are to be replaced with producer files (14.11). */
+const SHOP_HOSTS = ['delkom.pl', 'vidis.pl', 'sharp24.pl']
+
+/**
+ * Cards that show the licence tile until a producer graphic comes (audit 14.11 P1-1) and the
+ * brands whose photos need a person (blocked pages, carousels, banners — STAN 13.11).
+ */
+const BY_HAND = `## Ręcznie (audyt 14.11)
+
+**Kafel licencji zamiast zdjęcia** — grafika planu z materiałów producenta (≥ 1200 px, bez samego logo), potem \`zdjecia_premium\` w \`seed/prokombiznes/k4/katalog-k4.json\` i usunięcie \`zdjecia_brak\`:
+- Microsoft 365: \`microsoft-365-business\`, \`m365-business-basic\`, \`m365-business-standard\`, \`m365-business-premium\`, \`m365-apps-for-business\` — microsoft.com/pl-pl (dawne pliki były z delkom.pl, a „Microsoft 365 Basic” to plan domowy);
+- ESET: \`eset-small-business-security\` — eset.com/pl (pudełko lub grafika pakietu);
+- Adobe: \`adobe-acrobat-pro-teams\` — adobe.com (dawne pliki 173 i 389 px z delkom.pl).
+
+**Pobranie wymaga człowieka** (press kit / konto partnera): Brother (403), Dell (blokada botów), HP (karuzela innych modeli), COMEX (jedno ujęcie), PolCard (banery z ceną), Logitech, Fellowes. Karty z głównej, salonów i zestawów — min. 2 ujęcia.
+`
 
 const payload = await getPayload({ config })
 try {
@@ -147,6 +165,9 @@ Wygenerowane przez \`pnpm payload run scripts/zdjecia-braki.ts\` z lokalnej bazy
 Kolejność: karty z głównej → salonów marek → zestawów → reszta; w grupie najpierw te z najmniejszą liczbą zdjęć. Kolumna „materiały producenta” to pierwsze źródło karty — tam szukamy sekcji media / press kit. Usługi (karty bez zdjęcia — kafel usługi) są na liście, ale nie potrzebują zdjęć producenta.
 
 ${table}
+
+${BY_HAND}
+${shopGalleries()}
 `
     writeFileSync(path.join('docs', 'zadania', 'zdjecia-do-pozyskania.md'), doc)
     payload.logger.info(
@@ -155,4 +176,15 @@ ${table}
   }
 } finally {
   await payload.destroy()
+}
+
+/** K3 galleries whose files come from a shop, not the producer (`media-k3.json`). */
+function shopGalleries(): string {
+  const rows = Object.entries(k3Media.zdjecia as Record<string, { zrodlo_domeny?: string[] }>)
+    .filter(([, entry]) =>
+      (entry.zrodlo_domeny ?? []).some((url) => SHOP_HOSTS.some((host) => url.includes(host))),
+    )
+    .map(([slug, entry]) => `- \`${slug}\` — ${(entry.zrodlo_domeny ?? []).join(', ')}`)
+  const title = `**Zdjęcia ze sklepów, nie od producenta** — do wymiany na pliki producenta (${rows.length} galerii K3):`
+  return [title, ...rows, ''].join('\n')
 }
