@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import type { HubPlanView, HubToolView } from '@/lib/prokom/data'
+import type { HubHelpView, HubPlanView, HubToolView } from '@/lib/prokom/data'
 import type { HubLineContact } from '@/lib/prokom/lineContacts'
 
 import { hubHome } from '../../../seed/prokom/map'
-import { homeLines, teamExamples } from './model'
+import { choosePlans, helpCases, homeLines, linesCount, teamExamples } from './model'
 
 const contact = (key: HubLineContact['key'], promise: string | null): HubLineContact => ({
   key,
@@ -101,5 +101,81 @@ describe('teamExamples', () => {
     expect(examples).toHaveLength(1)
     expect(examples[0]?.cards.map((card) => card.line)).toEqual(['instalacje'])
     expect(examples[0]?.title).toBe('Goście mają Wi-Fi')
+  })
+})
+
+describe('linesCount', () => {
+  it('uses the Polish plural', () => {
+    expect([1, 2, 4, 5, 12, 22].map(linesCount)).toEqual([
+      '1 linia',
+      '2 linie',
+      '4 linie',
+      '5 linii',
+      '12 linii',
+      '22 linie',
+    ])
+  })
+})
+
+const persona = (key: string, groups: HubPlanView['groups']): HubPlanView => ({
+  key,
+  type: 'persona',
+  name: key,
+  title: `Plan ${key}`,
+  lead: null,
+  groups,
+  start: [],
+  questions: [],
+  steps: [],
+  call: null,
+})
+
+describe('choosePlans', () => {
+  const lines = homeLines([contact('biznes', null), contact('tech', null)], hubHome(), [], [])
+
+  it('keeps the order of the texts and only the lines on the page', () => {
+    const plans = [
+      persona('dom', [{ line: 'gaming', points: ['x'] }]),
+      persona('biuro', [
+        { line: 'gaming', points: ['x'] },
+        { line: 'tech', points: ['Naprawy'] },
+        { line: 'biznes', points: ['Kasa'] },
+      ]),
+    ]
+    const result = choosePlans(
+      [
+        { persona: 'biuro', sub: 'biuro' },
+        { persona: 'dom', sub: null },
+        { persona: 'brak', sub: null },
+      ],
+      plans,
+      lines,
+    )
+    expect(result.map((row) => row.persona)).toEqual(['biuro'])
+    expect(result[0]?.groups.map((group) => group.key)).toEqual(['tech', 'biznes'])
+    expect(result[0]?.groups[0]?.url).toBe('https://tech.test')
+  })
+})
+
+describe('helpCases', () => {
+  const lines = homeLines([contact('tech', null)], hubHome(), [], [])
+  const help = (slug: string, line: HubHelpView['line']): HubHelpView => ({
+    slug,
+    group: 'g',
+    line,
+    title: slug,
+    steps: ['1', '2', '3', '4'],
+    prep: [],
+    ctaLabel: null,
+    relatedTool: null,
+    seoTitle: null,
+    seoDescription: null,
+  })
+
+  it('follows the slugs, drops other lines and keeps three steps', () => {
+    const result = helpCases(['b', 'a', 'x'], [help('a', 'tech'), help('b', 'biznes')], lines)
+    expect(result.map((row) => row.slug)).toEqual(['a'])
+    expect(result[0]?.steps).toHaveLength(3)
+    expect(result[0]?.line.phone).toBe('111 222 333')
   })
 })
