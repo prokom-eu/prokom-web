@@ -52,3 +52,29 @@ export function firstIssue(schema: z.ZodType, value: unknown, name: string): tru
   const [issue] = result.error.issues
   return `${name}: ${issue?.path.join('.') || '(całość)'} — ${issue?.message ?? 'błąd'}`
 }
+
+/** Phones, e-mails and street addresses — only from `CompanyData` / `SiteSettings` (spec §3). */
+const CONTACT_DATA = /\d{3}[ -]?\d{3}[ -]?\d{3}|\d{2}[ -]\d{3}[ -]\d{2}[ -]\d{2}|@|\bul\.\s/
+
+/** A page's JSON must not carry contact data; the FAQ of the home page uses tokens instead. */
+export const noContactData = (value: unknown, ctx: z.RefinementCtx) => {
+  const found = JSON.stringify(value).match(CONTACT_DATA)
+  if (found) {
+    ctx.addIssue({
+      code: 'custom',
+      message: `dane kontaktowe („${found[0]}”) tylko z danych firmy — użyj {telefon}, {adres}, {godziny}`,
+    })
+  }
+}
+
+/** Company facts (`HubSettings.trust` values) a text repeats; all must be visible to show it. */
+export const factKeys = z.array(z.string().trim().min(1).max(40)).max(4)
+
+/** Items whose facts are not all visible (on production: approved) are left out (spec §3). */
+export function withVisibleFacts<T extends { facts: readonly string[] }>(
+  items: readonly T[],
+  visibleFacts: readonly { value: string }[],
+): T[] {
+  const visible = new Set(visibleFacts.map((row) => row.value))
+  return items.filter((item) => item.facts.every((fact) => visible.has(fact)))
+}

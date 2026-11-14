@@ -1,0 +1,77 @@
+{
+  "_zrodlo": "docs/design/prokomeu/plansze/Main.dc.html (HTML :804–823) — scripts/prokomeu-model.mjs",
+  "eyebrow": "Marki i autoryzacje",
+  "title": "Pracujemy na sprzęcie, za który możemy ręczyć.",
+  "lead": "Cztery autoryzacje nadane przez producentów. Do tego marki, które dobieramy, montujemy i serwisujemy na co dzień.",
+  "authorizations": [
+    {
+      "name": "Posnet",
+      "status": "Autoryzowany serwis",
+      "line": "biznes",
+      "text": "Kasy i drukarki fiskalne: sprzedaż, fiskalizacja, przeglądy i naprawy."
+    },
+    {
+      "name": "Elzab",
+      "status": "Autoryzowany serwis",
+      "line": "biznes",
+      "text": "Kasy i drukarki fiskalne: sprzedaż, fiskalizacja, przeglądy i naprawy."
+    },
+    {
+      "name": "GoPOS",
+      "status": "Autoryzowany partner",
+      "line": "biznes",
+      "text": "System sprzedaży dla gastronomii: wdrożenie na sali i w kuchni, szkolenie."
+    },
+    {
+      "name": "InsERT",
+      "status": "Autoryzowany partner",
+      "line": "biznes",
+      "text": "Subiekt i e-faktury KSeF: wdrożenie, konfiguracja i szkolenie zespołu."
+    }
+  ],
+  "groups": [
+    {
+      "line": "biznes",
+      "title": "Sprzęt i programy dla firm",
+      "brands": [
+        "Lenovo",
+        "Dell",
+        "Microsoft",
+        "ESET",
+        "Synology",
+        "QNAP",
+        "Fellowes",
+        "Kobra"
+      ],
+      "text": "Komputery, serwery, licencje, ochrona i urządzenia biurowe — dostawa, konfiguracja na życzenie."
+    },
+    {
+      "line": "instalacje",
+      "title": "Bezpieczeństwo, sieci, dźwięk i obraz",
+      "brands": [
+        "Dahua",
+        "Hikvision",
+        "BCS",
+        "Satel",
+        "Ubiquiti",
+        "MikroTik",
+        "Ampio",
+        "Elzab EcoPower",
+        "Samsung",
+        "APART",
+        "RCF"
+      ],
+      "text": "Projekt, montaż i serwis. Gwarancja na montaż 24 miesiące."
+    },
+    {
+      "line": "tech",
+      "title": "Serwis i ochrona ekranów",
+      "brands": [
+        "Hammer Glass"
+      ],
+      "text": "Folia cięta ploterem pod Twój model i zakładana od ręki w salonie w Rabce-Zdroju."
+    }
+  ],
+  "note": "Status autoryzowanego serwisu lub partnera dotyczy tylko czterech marek u góry.",
+  "allLink": "Wszystkie marki i autoryzacje"
+}

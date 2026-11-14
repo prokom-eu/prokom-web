@@ -2,8 +2,10 @@ import type { CollectionConfig } from 'payload'
 import { json, type JSONFieldValidation } from 'payload/shared'
 
 import { adminOnly } from '../../lib/auth/access'
+import { validateBrands } from '../../lib/prokom/brands'
 import { validateCooperation } from '../../lib/prokom/cooperation'
 import { validateDeliveries } from '../../lib/prokom/deliveries'
+import { validateHome } from '../../lib/prokom/home'
 import { HUB_OPTIONAL_PAGES } from '../../lib/prokom/pages'
 import { onlyLineTenant } from '../../lib/tenant/onlyLine'
 import { revalidateHub, revalidateHubAfterDelete } from './common'
@@ -18,9 +20,9 @@ const withSchema =
 
 /**
  * Settings of pro-kom.eu (ADR-H002 §2), one document per tenant — like `BiznesSettings`: page
- * switches of v1.1, the company facts, and the texts of „Inwestycje i dostawy” and „Współpraca”
- * as JSON checked by a schema (the pattern of `SoftwareSettings.home`, ADR-H002 „Rozstrzygnięcia
- * H1” pkt 8). Other page groups (`home`, `about`, …) come with their pages (H2–H5). No drafts
+ * switches of v1.1, the company facts, and the texts of the home page, the brands, „Inwestycje i
+ * dostawy” and „Współpraca” as JSON checked by a schema (the pattern of `SoftwareSettings.home`,
+ * ADR-H002 „Rozstrzygnięcia H1” pkt 8). Other page groups (`about`, …) come with their pages (H3–H5). No drafts
  * (like `SiteSettings`): a fact without „Zatwierdzone” stays off the production site.
  */
 export const HubSettings: CollectionConfig = {
@@ -55,6 +57,26 @@ export const HubSettings: CollectionConfig = {
         type: 'checkbox' as const,
         defaultValue: false,
       })),
+    },
+    {
+      name: 'home',
+      label: 'Strona główna (JSON)',
+      type: 'json',
+      validate: withSchema(validateHome),
+      admin: {
+        description:
+          'Teksty sekcji strony głównej. Bez telefonów, e-maili i adresu — w FAQ wpisz {telefon}, {adres}, {godziny}. Usługi, narzędzia, persony i sytuacje edytujesz w ich kolekcjach.',
+      },
+    },
+    {
+      name: 'brands',
+      label: 'Marki i autoryzacje (JSON)',
+      type: 'json',
+      validate: withSchema(validateBrands),
+      admin: {
+        description:
+          'Cztery autoryzacje (Posnet, Elzab — serwis; GoPOS, InsERT — partner) i grupy marek bez statusu.',
+      },
     },
     {
       name: 'deliveries',

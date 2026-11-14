@@ -6,8 +6,10 @@ import { SEED_CONTEXT } from '../config'
 import { PROKOM_SITE } from '../shared/prokom'
 import { seedSharedData } from '../shared/run'
 import {
+  hubBrands,
   hubCooperation,
   hubDeliveries,
+  hubHome,
   hubHelp,
   hubPlans,
   hubServices,
@@ -94,9 +96,11 @@ export async function seedProkom(payload: Payload): Promise<void> {
     limit: 1,
     ...local,
   })
-  // Texts of the two pages: the package wins (local only), like every field of the seed.
+  // Page texts: the package wins (local only), like every field of the seed.
   const settingsData = {
     trust: mergeTrust(hubSettings?.trust, hubTrust()),
+    home: hubHome(),
+    brands: hubBrands(),
     deliveries: hubDeliveries(),
     cooperation: hubCooperation(),
   }

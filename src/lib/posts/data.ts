@@ -154,7 +154,7 @@ export const getKsefPanel = (tenantId: number): Promise<KsefPanel | null> =>
   )()
 
 /** Newest public posts of one sister tenant as bare rows: slug, title, date, lead — no body or cover. */
-const getTenantPostRows = (tenantId: number, limit: number): Promise<SisterPostRow[]> =>
+export const getTenantPostRows = (tenantId: number, limit: number): Promise<SisterPostRow[]> =>
   cacheQuery(
     async () => {
       const payload = await getPayload({ config })
@@ -176,14 +176,17 @@ const getTenantPostRows = (tenantId: number, limit: number): Promise<SisterPostR
   )()
 
 /** Active Instalacje and Software tenants (they change with a new site only). */
-const getSisterTenantRows = (): Promise<SisterTenant[]> =>
+const getSisterTenantRows = (): Promise<SisterTenant[]> => getLineTenantRows(SISTER_LINES)
+
+/** Active tenants of the given lines: id, line and domains only. */
+export const getLineTenantRows = (lines: readonly Line[]): Promise<SisterTenant[]> =>
   cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({
         collection: 'tenants',
         where: {
-          and: [{ line: { in: [...SISTER_LINES] } }, { active: { equals: true } }],
+          and: [{ line: { in: [...lines] } }, { active: { equals: true } }],
         },
         limit: 10,
         depth: 0,
@@ -192,7 +195,7 @@ const getSisterTenantRows = (): Promise<SisterTenant[]> =>
       })
       return docs.map(({ id, line, domains }) => ({ id, line, domains }))
     },
-    ['sister-tenants'],
+    ['line-tenants', ...lines],
     { revalidate: PAGE_CACHE_SECONDS },
   )()
 

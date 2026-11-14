@@ -13,14 +13,14 @@ export const SISTER_LEAD_MAX = 140
  * that line's own site — never its body or cover (the text stays on its domain: a teaser of
  * ≤ 140 characters with a link to the source, not a copy; NAPRAWA-0911 §4).
  */
-export type SisterPostLink = {
+export type SisterPostLink<L extends Line = SisterLine> = {
   title: string
   /** The lead cut to `SISTER_LEAD_MAX` at a word, with „…”; `null` when the post has none. */
   lead: string | null
   /** Absolute, on the line's site in this environment, e.g. `https://prokominstalacje.pl/poradnik/…`. */
   href: string
   publishedAt: string
-  line: SisterLine
+  line: L
 }
 
 export type SisterDomain = { host?: string | null; environment?: string | null }
@@ -87,10 +87,26 @@ export function sisterPostLinks(
   limit: number,
   place: SitePlace,
 ): SisterPostLink[] {
+  return linePostLinks(groups, SISTER_LINES, limit, place, excludeTenantId)
+}
+
+/**
+ * The same for any set of lines (the hub reads Biznes, Instalacje and Software — ADR-H001 pkt 7);
+ * `excludeTenantId` = the reading tenant, whose own posts never come back.
+ */
+export function linePostLinks<L extends Line>(
+  groups: readonly { tenant: SisterTenant; posts: readonly SisterPostRow[] }[],
+  lines: readonly L[],
+  limit: number,
+  place: SitePlace,
+  excludeTenantId: number | null = null,
+): SisterPostLink<L>[] {
   if (limit <= 0) return []
-  const links: SisterPostLink[] = []
+  const isLine = (line: unknown): line is L => lines.includes(line as L)
+  const links: SisterPostLink<L>[] = []
   for (const { tenant, posts } of groups) {
-    if (tenant.id === excludeTenantId || !isSisterLine(tenant.line)) continue
+    const line = tenant.line
+    if (tenant.id === excludeTenantId || !isLine(line)) continue
     const origin = tenantOrigin(tenant.domains, place)
     if (!origin) continue
     for (const post of posts) {
@@ -99,9 +115,9 @@ export function sisterPostLinks(
       links.push({
         title,
         lead: teaser(post.lead),
-        href: `${origin}${postHref(post.slug, tenant.line)}`,
+        href: `${origin}${postHref(post.slug, line)}`,
         publishedAt: post.publishedAt,
-        line: tenant.line,
+        line,
       })
     }
   }

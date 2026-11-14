@@ -112,6 +112,7 @@ import * as migration_20261114_155008_wsp_hub_sloty from './20261114_155008_wsp_
 import * as migration_20261114_155653_hub_model from './20261114_155653_hub_model'
 import * as migration_20261114_160506_hub_ustawienia from './20261114_160506_hub_ustawienia'
 import * as migration_20261114_180746_hub_dostawy from './20261114_180746_hub_dostawy'
+import * as migration_20261114_200944_hub_glowna from './20261114_200944_hub_glowna'
 
 export const migrations = [
   {
@@ -683,5 +684,10 @@ export const migrations = [
     up: migration_20261114_180746_hub_dostawy.up,
     down: migration_20261114_180746_hub_dostawy.down,
     name: '20261114_180746_hub_dostawy',
+  },
+  {
+    up: migration_20261114_200944_hub_glowna.up,
+    down: migration_20261114_200944_hub_glowna.down,
+    name: '20261114_200944_hub_glowna',
   },
 ]
