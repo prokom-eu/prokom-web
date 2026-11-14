@@ -91013,7 +91013,24 @@
    ],
    "nowosc": false,
    "seria": "EuroCert — podpis i pieczęć",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eurocert-pieczec-chmura-premium-01.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/469/pieczecelektroniczna-w-chmurze-ECSginer---EuroCert---1.jpg",
+     "ujecie": "na komputerze i telefonie"
+    },
+    {
+     "plik": "media/produkty/eurocert-pieczec-chmura-premium-02.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/466/pieczecelektroniczna-w-chmurze-ECSginer---EuroCert---2.jpg",
+     "ujecie": "aplikacja ECSigner"
+    },
+    {
+     "plik": "media/produkty/eurocert-pieczec-chmura-premium-03.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/464/pieczecelektroniczna-w-chmurze-ECSginer---EuroCert---11.jpg",
+     "ujecie": "podpisywanie dokumentu"
+    }
+   ]
   },
   {
    "slug_seed": "eurocert-pieczec-karta",
@@ -91295,7 +91312,19 @@
    ],
    "nowosc": false,
    "seria": "EuroCert — podpis i pieczęć",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eurocert-ecsigner-online-premium-01.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/401/eo_ecsigner_telefon.png",
+     "ujecie": "aplikacja ECSigner na telefonie"
+    },
+    {
+     "plik": "media/produkty/eurocert-ecsigner-online-premium-02.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/403/ECSigner_podpis-kwaligfikowany_smartfon-i-komputer.png",
+     "ujecie": "na komputerze i telefonie"
+    }
+   ]
   },
   {
    "slug_seed": "eurocert-ecsigner",
@@ -91425,7 +91454,19 @@
    ],
    "nowosc": false,
    "seria": "EuroCert — podpis i pieczęć",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eurocert-ecsigner-premium-01.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/386/eo_ecsigner_telefon.png",
+     "ujecie": "aplikacja ECSigner na telefonie"
+    },
+    {
+     "plik": "media/produkty/eurocert-ecsigner-premium-02.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/362/ECSigner_podpis-kwaligfikowany_smartfon-i-komputer.png",
+     "ujecie": "na komputerze i telefonie"
+    }
+   ]
   },
   {
    "slug_seed": "eurocert-podpis-classic",
