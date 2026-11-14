@@ -2,6 +2,7 @@ import type { Payload } from 'payload'
 
 import type { Line } from '../../lib/tenant/lines'
 import { hasSameValues } from '../compare'
+import { writeCompanyData } from '../companyData'
 import { SEED_CONTEXT } from '../config'
 import { BIZNES_SHARED } from './biznes'
 import { SHARED_COMPANY } from './company'
@@ -34,12 +35,7 @@ export async function seedSharedData(
   tenantId: number,
   count: Count,
 ): Promise<void> {
-  const company = await payload.findGlobal({ slug: 'company-data', ...local })
-  const companySame = hasSameValues(company, SHARED_COMPANY)
-  count('company-data shared', companySame ? false : 'updated')
-  if (!companySame) {
-    await payload.updateGlobal({ slug: 'company-data', data: SHARED_COMPANY, ...local })
-  }
+  await writeCompanyData(payload, SHARED_COMPANY, 'company-data shared', count)
 
   const shared = LINE_SHARED[line]
   if (!shared) return

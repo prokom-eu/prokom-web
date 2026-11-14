@@ -2,6 +2,7 @@ import type { Payload } from 'payload'
 
 import type { CompanyDatum } from '../../payload-types'
 import { hasSameValues } from '../compare'
+import { writeCompanyData } from '../companyData'
 import { SEED_CONTEXT } from '../config'
 import { SHARED_COMPANY } from '../shared/company'
 
@@ -105,10 +106,5 @@ export async function upsertBiznesContact(
     }
   }
 
-  const company = await payload.findGlobal({ slug: 'company-data', ...local })
-  const companySame = hasSameValues(company, BIZNES_COMPANY)
-  count('company-data office', companySame ? false : 'updated')
-  if (!companySame) {
-    await payload.updateGlobal({ slug: 'company-data', data: BIZNES_COMPANY, ...local })
-  }
+  await writeCompanyData(payload, BIZNES_COMPANY, 'company-data office', count)
 }
