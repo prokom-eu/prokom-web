@@ -83229,7 +83229,7 @@
     },
     {
      "k": "Aplikacje Office",
-     "v": "Basic: tylko wersje w przeglądarce i mobilne; Standard, Premium, Apps for business: klasyczne Word, Excel, PowerPoint, Outlook, OneNote (Premium także Access na PC)"
+     "v": "Basic: tylko wersje w przeglądarce i mobilne; Standard, Premium, Apps for business: klasyczne Word, Excel, PowerPoint, Outlook, OneNote i Access (tylko PC)"
     },
     {
      "k": "Instalacje na użytkownika",
@@ -83245,7 +83245,7 @@
     },
     {
      "k": "Teams",
-     "v": "czat, rozmowy i spotkania w Basic, Standard, Premium; Apps for business bez czatu i rozmów"
+     "v": "czat, rozmowy i spotkania w Basic, Standard, Premium (w wersji planu z Teams — w UE są też wersje bez Teams); Apps for business bez czatu i rozmów"
     },
     {
      "k": "Bezpieczeństwo",
@@ -83429,7 +83429,8 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "zdjecia_brak": true
+   "zdjecia_brak": true,
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "m365-apps-for-business",
@@ -83464,7 +83465,7 @@
     },
     {
      "k": "Aplikacje Office",
-     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote + wersje w przeglądarce i mobilne"
+     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote, Access (PC) + wersje w przeglądarce i mobilne"
     },
     {
      "k": "Poczta",
@@ -83566,7 +83567,7 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null,
+   "sprawdzono": "2026-11-14",
    "zdjecia_brak": true
   },
   {
@@ -83708,7 +83709,7 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null,
+   "sprawdzono": "2026-11-14",
    "zdjecia_brak": true
   },
   {
@@ -83745,7 +83746,7 @@
     },
     {
      "k": "Aplikacje Office",
-     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote + wersje w przeglądarce i mobilne"
+     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote, Access (PC) + wersje w przeglądarce i mobilne"
     },
     {
      "k": "Instalacje na użytkownika",
@@ -83761,7 +83762,7 @@
     },
     {
      "k": "Teams",
-     "v": "czat, rozmowy i spotkania"
+     "v": "czat, rozmowy i spotkania (w wersji planu z Teams)"
     },
     {
      "k": "Okres",
@@ -83851,7 +83852,7 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null,
+   "sprawdzono": "2026-11-14",
    "zdjecia_brak": true
   },
   {
@@ -83899,7 +83900,7 @@
     },
     {
      "k": "Teams",
-     "v": "czat, rozmowy i spotkania"
+     "v": "czat, rozmowy i spotkania (w wersji planu z Teams)"
     },
     {
      "k": "Bezpieczeństwo",
@@ -83993,7 +83994,7 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null,
+   "sprawdzono": "2026-11-14",
    "zdjecia_brak": true
   },
   {
