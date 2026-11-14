@@ -206,6 +206,10 @@
   padding-inline: clamp(20px, 3vw, 48px);
 }
 @media (min-width: 1400px) {
+  /* The shared rail measures its place from this box, not the capsule's 1344 px (wspolne.css). */
+  html:has([data-site-rail]) {
+    --rail-content: 1560px;
+  }
   html:has([data-site-rail]) .pk-wrap {
     padding-left: max(clamp(20px, 3vw, 48px), calc(96px - max(0px, (100vw - 1560px) / 2)));
   }

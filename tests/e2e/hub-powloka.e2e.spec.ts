@@ -103,3 +103,21 @@ test.describe('pro-kom.eu — theme (ADR-H001 pkt 4)', () => {
     })
   }
 })
+
+test('the side rail never covers the 1560 px content box, also on wide monitors', async ({
+  page,
+}) => {
+  for (const width of [1440, 1600, 1920]) {
+    await page.setViewportSize({ width, height: 1000 })
+    await page.goto(site(HUB))
+    await expect(page.locator('[data-site-rail]')).toBeVisible()
+    const gap = await page.evaluate(() => {
+      const rail = document.querySelector('.srail-wrap')!.getBoundingClientRect()
+      const wrap = document.querySelector<HTMLElement>('.pk-wrap')!
+      const left =
+        wrap.getBoundingClientRect().left + parseFloat(getComputedStyle(wrap).paddingLeft)
+      return left - (rail.left + 64)
+    })
+    expect(gap, `${width} px`).toBeGreaterThanOrEqual(16)
+  }
+})
