@@ -162,11 +162,11 @@ describe('client count of 14.11.2026 in stored pages', () => {
     expect(fixed.note).toBe('UDM-Pro: 100+ urządzeń UniFi')
   })
 
-  it('fixes the lead of „Plan Twojej firmy”', () => {
+  it('fixes the lead of „Plan Twojej firmy” with a hard space in „10 000”', () => {
     expect(
       fixTexts({
-        lead: 'Ponad 100 klientów firmowych z Podhala i Małopolski, od straganu po urząd gminy.',
+        lead: 'Ponad 100 klientów firmowych z Podhala i Małopolski, od straganu po urząd gminy. Kliknij urządzenie na planie, a całość dodasz do zapytania jednym kliknięciem.',
       }).lead,
-    ).toMatch(/^Ponad 10[\s ]000 klientów z[\s ]Podhala i[\s ]Małopolski, od straganu/)
+    ).toMatch(/^Ponad 10 000[  ]klientów z Podhala i Małopolski, od straganu/)
   })
 })

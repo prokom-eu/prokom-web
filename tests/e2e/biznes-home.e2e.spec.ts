@@ -483,6 +483,7 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await expect(facts.locator('dd')).toHaveText(['2004', '10\u00a0000+'])
     // Client count of 14.11.2026.
     await expect(facts).toContainText('klientów')
+    await expect(facts).not.toContainText('firmowych')
     await expect(facts).not.toContainText('pod stałą opieką')
     const authorizations = facts.getByRole('list', { name: 'Autoryzacje i partnerstwa' })
     for (const [name, status] of [

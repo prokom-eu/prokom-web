@@ -16,7 +16,7 @@ export const OLD_HERO = {
   cta: { label: 'Dobierz zestaw w 60 sekund', href: '/kreator' },
   trustItems: [
     { icon: 'cal', text: 'Na Podhalu od 2004' },
-    { icon: 'users', text: '10\u00a0000+ klientów' },
+    { icon: 'users', text: '100+ firm pod stałą opieką' },
   ] as Trust[],
 }
 
