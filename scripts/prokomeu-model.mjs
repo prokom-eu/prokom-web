@@ -711,6 +711,326 @@ function offer() {
   }
 }
 
+/**
+ * Spec §3 fixes of a board's texts: configuration, fitting and training only as an option, the
+ * line's promise from its panel (`{obietnica}`), no contact data. Each fix must still match the
+ * board — a changed board fails here instead of slipping an unchecked text through.
+ */
+function fixTexts(value, fixes) {
+  const used = new Set()
+  const walk = (node) => {
+    if (typeof node === 'string') {
+      if (!(node in fixes)) return node
+      used.add(node)
+      return fixes[node]
+    }
+    if (Array.isArray(node)) return node.map(walk)
+    if (node && typeof node === 'object') {
+      return Object.fromEntries(Object.entries(node).map(([k, v]) => [k, walk(v)]))
+    }
+    return node
+  }
+  const result = walk(value)
+  const unused = Object.keys(fixes).filter((text) => !used.has(text))
+  if (unused.length) throw new Error(`Fix without a match on the board: ${unused.join(' | ')}`)
+  return result
+}
+
+const SHORT_LINE = { b: 'biznes', i: 'instalacje', s: 'software', t: 'tech' }
+
+/** Texts of `/dla-firm` (spec §6.3, board 03 `DlaFirm.dc.html`); industry plans live in `HubPlans`. */
+function forBusiness() {
+  const snapshot = JSON.parse(readFileSync('seed/prokomeu/strony/DlaFirm.json', 'utf8'))
+  const raw = runBoard('DlaFirm.dc.html', ['AR', 'SC', 'WS', 'FAQ', 'BSUB', 'WHEN'], {
+    lines: () => snapshot.lines,
+    branches: () => snapshot.branches,
+  })
+  const { AR, SC, WS, FAQ, BSUB, WHEN } = fixTexts(raw, {
+    'Fiskalizacja i szkolenie': 'Fiskalizacja u Ciebie',
+    'Zgłoszenie, programowanie i szkolenie robimy u Ciebie.':
+      'Zgłoszenie, fiskalizacja i programowanie, a szkolenie obsługi na życzenie.',
+    'Ze zgłoszeniem, fiskalizacją, programowaniem i szkoleniem.':
+      'Ze zgłoszeniem, fiskalizacją i programowaniem; szkolenie na życzenie.',
+    'Lenovo i Dell — dostawa, konfiguracja, przeniesienie danych.':
+      'Lenovo i Dell — dostawa, a na życzenie konfiguracja i przeniesienie danych.',
+    'Serwery Dell, NAS Synology i QNAP, wdrożenie i szkolenie.':
+      'Serwery Dell, NAS Synology i QNAP — dostawa, a wdrożenie i szkolenie na życzenie.',
+    'Licencje z instalacją i konfiguracją.': 'Licencje, a na życzenie instalacja i konfiguracja.',
+    'Wdrożenie programu i e-faktur, szkolenie zespołu.':
+      'Wdrożenie programu i e-faktur, szkolenie zespołu na życzenie.',
+    'Dostawa, montaż, serwis': 'Dostawa i serwis',
+    'Uruchamiamy na miejscu.': 'Montaż i uruchomienie — jeśli tak ustalimy.',
+    'Rabka-Zdrój, ul. Orkana 16B.': 'W salonie w Rabce-Zdroju.',
+    'Szkolenie zespołu': 'Szkolenie zespołu na życzenie',
+    'Potrzebujesz programu, który wystawia i odbiera e-faktury w KSeF, i kogoś, kto go ustawi i przeszkoli zespół.':
+      'Potrzebujesz programu, który wystawia i odbiera e-faktury w KSeF, i kogoś, kto go ustawi, a na życzenie przeszkoli zespół.',
+    'Monitoring i nagłośnienie z montażem': 'Monitoring i nagłośnienie',
+    'Robi to PRO-KOM Instalacje.': 'Montaż przez PRO-KOM Instalacje — jeśli tak ustalimy.',
+    // „Bezpłatny” is not among the agreed promises of Biznes (spec §3).
+    'Bezpłatny przegląd IT': 'Przegląd IT na start',
+    'Oddzwaniamy w 60 minut': '{obietnica}',
+    'Odpowiedź w 24 godziny': '{obietnica}',
+    'Odpowiedź w 1 dzień roboczy': '{obietnica}',
+    'Uruchomienie i szkolenie': 'Uruchomienie',
+    'Sprawdzamy, czy wszystko działa razem, i pokazujemy zespołowi, jak z tego korzystać.':
+      'Sprawdzamy, czy wszystko działa razem, a jeśli tak ustalimy — pokazujemy zespołowi, jak z tego korzystać.',
+    'Konfigurujemy, testujemy i szkolimy.':
+      'Testujemy całość; konfigurujemy i szkolimy w ustalonym zakresie.',
+    'Zgłaszamy kasę, fiskalizujemy ją, programujemy i szkolimy obsługę. Wniosek o ulgę na kasę składa Twoja księgowa.':
+      'Zgłaszamy kasę, fiskalizujemy ją i programujemy, a na życzenie szkolimy obsługę. Wniosek o ulgę na kasę składa Twoja księgowa.',
+    'Linia Biznes oddzwania w 60 minut w godzinach pracy. Instalacje odpowiadają w 24 godziny w dni robocze, Software w 1 dzień roboczy.':
+      'Każda linia ma swój czas odpowiedzi — podajemy go przy jej numerze w sekcji „Po wdrożeniu” i na stronie linii.',
+    'Rabka-Zdrój, ul. Orkana 16B. Od poniedziałku do piątku 9:00–17:00.': '{adres}. {godziny}.',
+  })
+  return {
+    _zrodlo: `${BOARDS}/DlaFirm.dc.html (HTML :208–620, renderVals) — scripts/prokomeu-model.mjs`,
+    hero: {
+      // :212–238; H1 from spec §4, „opiekun” left out until the boss decides (spec §6.6)
+      eyebrow: 'Dla firm · gastronomii · hoteli · handlu · biur · instytucji',
+      title: 'Wszystko dla Twojej firmy w jednej firmie.',
+      lead: 'Kasa i sprzedaż, komputery i opieka IT, kamery i sieć, strona i system pod Twój proces. Zamiast czterech wykonawców rozmawiasz z jedną firmą z Rabki-Zdroju — a każdą częścią zajmuje się zespół, który robi to na co dzień.',
+      choose: 'Dobierz dla swojej branży',
+      callNote: 'Dzwonisz raz — łączymy Cię z właściwymi zespołami.',
+      stateLabel: 'Twoja firma',
+      stateTag: 'Stan',
+      stateNote: 'Trzy linie, jedna firma, jeden numer.',
+      rows: [
+        ['biznes', 'Kasa fiskalna', 'zafiskalizowana'],
+        ['biznes', 'E-faktury KSeF', 'skonfigurowane'],
+        ['biznes', 'Komputery i kopie', 'pod opieką'],
+        ['instalacje', 'Monitoring', 'nagrywa'],
+        ['instalacje', 'Wi-Fi gości', 'działa'],
+        ['instalacje', 'Alarm', 'uzbrojony'],
+        ['software', 'Strona firmowa', 'online'],
+      ].map(([key, label, state]) => ({ line: key, label, state })),
+      facts: [
+        { value: 'Od 2004 roku', label: 'pracujemy dla firm', facts: ['Od 2004'] },
+        { value: '100+', label: 'klientów firmowych', facts: ['100+'] },
+        {
+          value: '4 autoryzacje',
+          label: 'Posnet, Elzab, GoPOS, InsERT',
+          facts: ['Posnet', 'Elzab', 'GoPOS', 'InsERT'],
+        },
+        {
+          value: 'Podhale · Małopolska',
+          label: 'dojazd na miejsce, a zdalnie cała Polska',
+          facts: [],
+        },
+      ],
+    },
+    industries: {
+      // :241–298
+      eyebrow: 'Dobierz · 10 sekund',
+      title: 'Wybierz branżę. Pokażemy plan.',
+      lead: 'Co zwykle robimy w takiej firmie, od czego zaczynamy i o co zapytamy w pierwszej rozmowie.',
+      planFor: 'Plan dla:',
+      start: 'Od czego zaczynamy',
+      ask: 'O co zapytamy w pierwszej rozmowie',
+      call: 'Zadzwoń:',
+      describe: 'Opisz firmę',
+      note: 'Jeden telefon — łączymy Cię z właściwymi zespołami.',
+      subs: Object.entries(BSUB).map(([plan, sub]) => ({ plan, sub })),
+    },
+    areas: {
+      // :301–404
+      eyebrow: 'Co robimy dla firm',
+      title: 'Cztery linie pracują dla Twojej firmy.',
+      inLine: 'W tej linii',
+      inArea: 'w tym obszarze',
+      steps: 'Jak zaczynamy',
+      lines: [
+        ['biznes', 'Kasy, komputery, programy i dostawy'],
+        ['instalacje', 'Monitoring, sieci, obiekt'],
+        ['software', 'Strony, systemy, aplikacje'],
+        ['tech', 'Serwis sprzętu firmowego'],
+      ].map(([key, short]) => ({ line: key, short })),
+      items: AR.map((area) => ({
+        line: SHORT_LINE[area.k],
+        title: area.title,
+        lead: area.lead,
+        cta: area.n === '05' ? 'Inwestycje i dostawy' : area.cta,
+        // „Dostawy i instytucje” leads to the hub's B2B page (spec §6.3).
+        href: area.n === '05' ? '/inwestycje-i-dostawy' : null,
+        steps: area.steps.map(([title, text]) => ({ title, text })),
+        services: area.items.map(({ t, d }) => ({ title: t, text: d })),
+      })),
+    },
+    situations: {
+      // :407–444
+      eyebrow: 'Tak pracują razem',
+      title: 'Jedna sytuacja. Kilka linii. Ustalona kolejność.',
+      lead: 'Wybierz sytuację najbliższą Twojej. Zobaczysz, które zespoły wchodzą i w jakiej kolejności — ustalają to między sobą, nie przez Ciebie.',
+      label: 'Sytuacja',
+      when: WHEN,
+      pillars: ['Jeden plan na piśmie', 'Jeden kontakt do całości'],
+      start: 'Start:',
+      items: SC.map(([title, text, order]) => ({
+        title,
+        text,
+        order: order.map(([k, what]) => ({ line: SHORT_LINE[k], what })),
+      })),
+    },
+    rollout: {
+      // :447–468
+      eyebrow: 'Wdrożenie krok po kroku',
+      title: 'Od pierwszej rozmowy do opieki po uruchomieniu.',
+      step: 'Krok',
+      we: 'Co robimy my',
+      you: 'Co robisz Ty',
+      steps: WS.map(([title, text, we, you]) => ({ title, text, we, you })),
+    },
+    care: {
+      // :471–488 (renderVals `care`); the promise of each line from its panel
+      eyebrow: 'Po wdrożeniu',
+      title: 'Serwis i opieka zostają w tej samej firmie.',
+      lead: 'Kasy, komputery, instalacje i strona mają swój zespół i swój czas reakcji. Dzwonisz pod znany numer.',
+      items: [
+        [
+          'biznes',
+          'Serwis kas fiskalnych',
+          [
+            'Autoryzowany serwis Posnet i Elzab',
+            'Przeglądy i naprawy',
+            'Przejęcie serwisu po innej firmie',
+          ],
+        ],
+        [
+          'biznes',
+          'Opieka IT',
+          ['Pomoc zdalna i na miejscu', 'Monitoring i kopie zapasowe', 'Przegląd IT na start'],
+        ],
+        [
+          'instalacje',
+          'Serwis instalacji',
+          [
+            'Gwarancja na montaż 24 miesiące',
+            'Przeglądy i pomoc zdalna',
+            'Przejęcie cudzej instalacji',
+          ],
+        ],
+        [
+          'software',
+          'Opieka nad stroną i systemem',
+          [
+            'Serwer w Polsce, kopia co noc',
+            'Aktualizacje i drobne zmiany',
+            'Rozwój systemu razem z firmą',
+          ],
+        ],
+      ].map(([key, title, points]) => ({ line: key, title, points })),
+    },
+    compare: {
+      // :491–503
+      eyebrow: 'Dlaczego jedna firma',
+      title: 'Kilku wykonawców czy jeden? Różnica w sześciu punktach.',
+      topic: 'Temat',
+      many: 'Kilku wykonawców',
+      one: 'PRO-KOM',
+      rows: [
+        [
+          'Kontakt',
+          'Osobny numer i osobne ustalenia z każdym wykonawcą.',
+          'Jeden kontakt do całości, a w tle właściwe zespoły.',
+        ],
+        [
+          'Gdy coś nie działa razem',
+          'Każdy wykonawca odpowiada za swoją część i trzeba ustalić, czyja to sprawa.',
+          'Sieć, kasę i komputer zna jedna firma — sprawdzamy całość.',
+        ],
+        [
+          'Kolejność prac',
+          'Terminy wykonawców koordynujesz sam.',
+          'Kolejność między liniami układamy po naszej stronie.',
+        ],
+        [
+          'Wiedza o Twojej firmie',
+          'Każdemu wykonawcy tłumaczysz wszystko od początku.',
+          'Opowiadasz raz — zespoły pracują pod jednym dachem.',
+        ],
+        [
+          'Serwis po wdrożeniu',
+          'Kilka umów i kilka miejsc do zgłaszania usterek.',
+          'Serwis kas, IT, instalacji i strony w jednej firmie.',
+        ],
+        [
+          'Na miejscu',
+          'Zależy od wykonawcy — część działa tylko zdalnie.',
+          'Salon i serwis w Rabce-Zdroju, dojazd na Podhalu i w Małopolsce.',
+        ],
+      ].map(([topic, many, one]) => ({ topic, many, one })),
+    },
+    grants: {
+      // :506–525; no financing — documents only (spec §6.3)
+      eyebrow: 'Dofinansowania · szkoły, gminy, instytucje, firmy',
+      title: 'Kupujesz sprzęt w projekcie z dofinansowaniem? Przygotujemy papiery.',
+      lead: 'Do zamówień realizowanych z dofinansowaniem przygotowujemy kosztorys i dokumenty potrzebne do rozliczenia. Powiedz, w jakim projekcie bierzesz udział — dopasujemy zestawienie do jego wymagań.',
+      cta: 'Opisz projekt',
+      points: [
+        { icon: 'doc', text: 'Kosztorys pod wymagania projektu' },
+        { icon: 'receipt', text: 'Dokumenty do rozliczenia' },
+        { icon: 'laptop', text: 'Dostawa, a konfiguracja i szkolenie na życzenie' },
+      ],
+    },
+    faq: {
+      // :549–566
+      eyebrow: 'Pytania firm',
+      title: 'Zanim zadzwonisz',
+      missing: 'Nie ma tu Twojego pytania? Zadzwoń:',
+      helpLink: 'Centrum pomocy',
+      items: FAQ.map(([question, answer]) => ({ question, answer })),
+    },
+    form: {
+      // :569–599; the form itself joins in H6-1 (one flow with the contact page, ADR-003)
+      eyebrow: 'Opisz firmę',
+      title: 'Dwa zdania wystarczą. Resztę ustalimy w rozmowie.',
+      afterLabel: 'Co dalej po wysłaniu',
+      after: [
+        'Wiadomość trafia do linii, której dotyczy Twoja sprawa.',
+        'Oddzwaniamy albo odpisujemy i dopytujemy o szczegóły.',
+        'Dostajesz plan i wycenę na piśmie, zanim cokolwiek zaczniemy.',
+      ],
+      cta: 'Opisz swoją firmę',
+    },
+    next: {
+      // :602–611
+      eyebrow: 'Co dalej?',
+      title: 'Cztery miejsca, do których warto zajrzeć.',
+      items: [
+        [
+          'Inwestycje i dostawy',
+          'Większe zamówienie albo cały obiekt',
+          'Sprzęt IT, RTV i AGD dla firm i instytucji — złóż listę zapytania, wczytaj przykład obiektu, wyślij SWZ.',
+          '/inwestycje-i-dostawy',
+        ],
+        [
+          'Załatw online',
+          'Załatw to bez dzwonienia',
+          'Zgłoszenie naprawy, wycena strony, plan instalacji — wszystko, co da się zrobić przez internet.',
+          '/zalatw-online',
+        ],
+        [
+          'Pomoc',
+          'Co zrobić, gdy…',
+          'Kasa nie drukuje, padło Wi-Fi, pękł ekran. Krótkie instrukcje i właściwy numer.',
+          '/pomoc',
+        ],
+        [
+          'Linie PRO-KOM',
+          'Co gdzie załatwisz',
+          'Lista spraw z przypisaną linią, numerem i stroną z pełną ofertą.',
+          '/linie',
+        ],
+      ].map(([eyebrow, title, text, href]) => ({ eyebrow, title, text, href })),
+    },
+    final: {
+      // :614–620
+      title: 'Jeden telefon. Cała technika w firmie załatwiona.',
+      contact: 'Kontakt i dojazd',
+      lines: 'Co gdzie załatwisz',
+    },
+  }
+}
+
 mkdirSync(OUT, { recursive: true })
 for (const [name, data] of [
   ['Dostawy', deliveries()],
@@ -718,6 +1038,7 @@ for (const [name, data] of [
   ['Main', home()],
   ['Marki', brands()],
   ['Linie', offer()],
+  ['DlaFirm', forBusiness()],
 ]) {
   writeFileSync(join(OUT, `${name}.json`), `${JSON.stringify(data, null, 2)}\n`)
   console.log(`${OUT}/${name}.json`)
