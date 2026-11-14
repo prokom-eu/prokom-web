@@ -665,7 +665,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     if ((card.marka === 'Lenovo' || card.marka === 'Dell') && !fields.series) {
       note('Lenovo/Dell bez serii', card.slug_seed)
     }
-    if (card.zrodlo_podzialu) note('karty z podziału (do sprawdzenia)', card.slug_seed)
+    if (card.zrodlo_podzialu && card.status !== 'gotowe') {
+      note('karty z podziału (do sprawdzenia)', card.slug_seed)
+    }
     let id: number
     if (!existing) {
       const created = await payload.create({
