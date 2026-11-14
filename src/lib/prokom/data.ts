@@ -2,11 +2,13 @@ import config from '@payload-config'
 import { getPayload, type Where } from 'payload'
 import { cache } from 'react'
 
-import type { HubHelp, HubPlan, HubService, HubTool } from '@/payload-types'
+import type { HubHelp, HubPlan, HubService, HubSetting, HubTool } from '@/payload-types'
 
 import { cacheQuery } from '../cache'
+import { getEnv } from '../env'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import type { HubLine } from './lines'
+import { NO_OPTIONAL_PAGES, type HubPageFlags } from './pages'
 import { hubTag } from './tags'
 
 /** Far above the package (49 services, 33 plans); every list is one page without paging. */
@@ -179,6 +181,48 @@ export const getHubData = cache((tenantId: number): Promise<HubData> =>
       })
     },
     ['hub-data', String(tenantId)],
+    { tags: [hubTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )(),
+)
+
+export type HubSettingsView = {
+  pages: HubPageFlags
+  /** Company facts; on production only the approved ones (spec §3). */
+  trust: { value: string; label: string }[]
+}
+
+type SiteEnv = 'production' | 'staging' | 'local'
+
+/** Projection of `HubSettings`: missing document or field = v1.1 pages off, no facts. */
+export function toHubSettings(
+  doc: Pick<HubSetting, 'pages' | 'trust'> | null | undefined,
+  siteEnv: SiteEnv,
+): HubSettingsView {
+  const pages = { ...NO_OPTIONAL_PAGES }
+  for (const key of Object.keys(pages) as (keyof HubPageFlags)[]) {
+    pages[key] = doc?.pages?.[key] === true
+  }
+  const trust = (doc?.trust ?? [])
+    .filter((row) => siteEnv !== 'production' || row.approved === true)
+    .map((row) => ({ value: row.value, label: row.label }))
+  return { pages, trust }
+}
+
+/** `HubSettings` of one tenant, cached with the hub content (`hubTag`). */
+export const getHubSettings = cache((tenantId: number): Promise<HubSettingsView> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'hub-settings',
+        where: { tenant: { equals: tenantId } },
+        limit: 1,
+        depth: 0,
+        overrideAccess: true,
+      })
+      return toHubSettings(docs[0], getEnv().SITE_ENV)
+    },
+    ['hub-settings', String(tenantId)],
     { tags: [hubTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )(),
 )

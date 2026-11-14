@@ -18,6 +18,7 @@ import { InstArchNews } from './collections/InstArchNews'
 import { HubHelp } from './collections/hub/HubHelp'
 import { HubPlans } from './collections/hub/HubPlans'
 import { HubServices } from './collections/hub/HubServices'
+import { HubSettings } from './collections/hub/HubSettings'
 import { HubTools } from './collections/hub/HubTools'
 import { InstObjects } from './collections/InstObjects'
 import { InstServices } from './collections/InstServices'
@@ -101,6 +102,7 @@ export default buildConfig({
     HubTools,
     HubHelp,
     HubPlans,
+    HubSettings,
   ],
   globals: [CompanyData],
   editor: lexicalEditor(),
@@ -200,6 +202,8 @@ export default buildConfig({
         'hub-tools': {},
         'hub-help': {},
         'hub-plans': {},
+        // One document per tenant, pro-kom.eu only (`HubSettings` hook).
+        'hub-settings': { isGlobal: true },
       },
       // Deleting a tenant must never silently delete its content.
       cleanupAfterTenantDelete: false,

@@ -61,3 +61,12 @@ Tenant `prokom` dostaje własne wpisy (rzadko). Agregacja zajawek z innych tenan
 
 ## 4. Indeks wyszukiwania
 Silnik z D2-2. Źródła dla huba: `HubServices` (z `keywords`), `HubTools`, `HubHelp`, strony huba (lista z `MapaStrony.json`), linie (`Naglowek.json` → `index`, 27 pozycji). Normalizacja polskich znaków (`ł`→`l`, NFD), synonimy z `keywords`. Wynik bez trafienia → „Zadzwoń — pokierujemy” z numerem firmy + zapis zdarzenia w Umami (bez treści zapytania w logach serwera dłużej niż potrzeba).
+
+## Rozstrzygnięcia H1 (14.11.2026, decyzje Krystiana przy planie H1)
+1. **Persony i branże osobno.** `Main.json` → `personas` i `DlaFirm.json` → `branches` to różne zbiory (8 wspólnych kluczy; tylko persony: restauracja, pensjonat, dom, ekipy, gracz; tylko branże: gastro, hotel, budowa, teren, gmina) z innymi punktami i kluczami linii. `HubPlans` ma 13 wpisów `persona` i 13 `branza` (+ 7 `sytuacja-dom`), teksty 1:1 z paczki — zamiast „jedna branża = jeden wpis” z §3.
+2. **Bez pola publikacji na `Tenants`.** Hub jest niewidoczny na produkcji tak jak Instalacje przed startem: seed daje tylko `prokom.localhost`, domena `pro-kom.eu` (+ Nginx, `PROD_SITE_HOSTS`) dochodzi w H7-2 po akceptacji szefa, `active` zostaje wyłącznikiem.
+3. **`HubSettings` rośnie ze stronami.** W H1-1b: `pages` (przełączniki 8 stron v1.1, domyślnie wyłączone; `isHubLinkLive` filtruje linki) i `trust` (`approved`, na produkcji tylko zatwierdzone). `deliveries` i `cooperation` — osobny PR H1-1c; `home`, `brands`, `about`, `partners`, `coverage`, `contact`, `forHome`, `forBusiness`, `legal` — w sesjach stron H2–H5 (migracje tylko dodające).
+4. **Kategorie zapytań** `hub-*` jako stała `HUB_INQUIRY_CATEGORIES` (`src/lib/prokom/inquiry.ts`): `Inquiries.category` to wolny tekst, bez migracji.
+5. **Blokada `[SZEF`/`[CENA`** we wszystkich kolekcjach `hub-*` przez wspólny `blockedByMarker` (`src/lib/shared/publishMarker.ts`, wzór `InstArchNews`).
+6. **Dolny pasek i ikony (PR `feat/wsp-hub-sloty`):** wspólny `TabBar` ma opcjonalny 4. slot (`shared.tabBar.fourth`, hub: „Załatw”), etykieta pierwszej pozycji zostaje „Główna” (SEO 08.11); 22 ikony plansz huba dochodzą do wspólnego zestawu (`seed/prokomeu/ikony.json`).
+7. **Liczba klientów na hubie:** zostaje „100+ klientów firmowych” (spec §3) — decyzja Krystiana 14.11 po decyzji Biznesu „10 000+ klientów” (#602).

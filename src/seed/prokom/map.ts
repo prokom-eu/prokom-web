@@ -3,7 +3,7 @@
  * `hub-services`, `hub-tools`, `hub-help` and `hub-plans` (ADR-H002 §3). Pure functions, so the
  * counts and the exceptions are tested without a database; `run.ts` writes the result.
  */
-import type { HubHelp, HubPlan, HubService, HubTool } from '../../payload-types'
+import type { HubHelp, HubPlan, HubService, HubSetting, HubTool } from '../../payload-types'
 import { isHubLine, type HubLine } from '../../lib/prokom/lines'
 import { normalizeText } from '../../lib/shared/search/normalize'
 import dlaDomu from '../../../seed/prokomeu/strony/DlaDomu.json'
@@ -179,4 +179,41 @@ export function hubPlans(): PlanSeed[] {
     _status: 'published',
   }))
   return [...personas, ...industries, ...home]
+}
+
+type TrustRow = NonNullable<HubSetting['trust']>[number]
+
+/**
+ * Company facts allowed by spec §3 (since 2004, 100+ business clients, authorizations and statuses
+ * as in K4-FINAL §1) — approved, because the spec lists them.
+ */
+export function hubTrust(): TrustRow[] {
+  const spec = 'spec prokomeu §3'
+  const k4 = 'K4-FINAL §1'
+  return [
+    { value: 'Od 2004', label: 'firma z Rabki-Zdroju', source: spec, approved: true },
+    { value: '100+', label: 'klientów firmowych', source: spec, approved: true },
+    { value: 'Posnet', label: 'Autoryzowany serwis', source: k4, approved: true },
+    { value: 'Elzab', label: 'Autoryzowany serwis', source: k4, approved: true },
+    { value: 'GoPOS', label: 'Autoryzowany partner', source: k4, approved: true },
+    { value: 'InsERT', label: 'Autoryzowany partner', source: k4, approved: true },
+    { value: 'Optivendi', label: 'Partner', source: k4, approved: true },
+    { value: 'COMEX', label: 'We współpracy', source: k4, approved: true },
+  ]
+}
+
+/**
+ * Facts after a seed run: a fact of the package replaces the stored one with the same value (its
+ * row id kept), facts added in the panel stay after them — the boss's additions never disappear.
+ */
+export function mergeTrust(
+  stored: readonly TrustRow[] | null | undefined,
+  pkg: TrustRow[],
+): TrustRow[] {
+  const own = new Map((stored ?? []).map((row) => [row.value, row]))
+  const values = new Set(pkg.map((row) => row.value))
+  return [
+    ...pkg.map((row) => ({ ...row, id: own.get(row.value)?.id })),
+    ...(stored ?? []).filter((row) => !values.has(row.value)),
+  ]
 }

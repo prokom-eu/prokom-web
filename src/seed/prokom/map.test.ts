@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { hubHelp, hubPlans, hubServices, hubTools, slugOf } from './map'
+import { hubHelp, hubPlans, hubServices, hubTools, hubTrust, mergeTrust, slugOf } from './map'
 
 const services = hubServices()
 const tools = hubTools()
@@ -85,5 +85,36 @@ describe('slugOf', () => {
   it('gives an address part without Polish letters', () => {
     expect(slugOf('Pęknięty ekran telefonu')).toBe('pekniety-ekran-telefonu')
     expect(slugOf('Zgłoś awarię — instalacji!')).toBe('zglos-awarie-instalacji')
+  })
+})
+
+describe('hub seed — company facts (spec §3)', () => {
+  it('has the facts and statuses of the spec, all approved', () => {
+    expect(hubTrust().map((row) => `${row.value}: ${row.label}`)).toEqual([
+      'Od 2004: firma z Rabki-Zdroju',
+      '100+: klientów firmowych',
+      'Posnet: Autoryzowany serwis',
+      'Elzab: Autoryzowany serwis',
+      'GoPOS: Autoryzowany partner',
+      'InsERT: Autoryzowany partner',
+      'Optivendi: Partner',
+      'COMEX: We współpracy',
+    ])
+    expect(hubTrust().every((row) => row.approved)).toBe(true)
+  })
+
+  it('keeps facts added in the panel and the row ids of the package facts', () => {
+    const stored = [
+      { id: 'a', value: 'Posnet', label: 'stary opis', approved: false },
+      { id: 'b', value: '30 lat', label: 'na rynku', approved: false },
+    ]
+    const merged = mergeTrust(stored, hubTrust())
+    expect(merged.find((row) => row.value === 'Posnet')).toMatchObject({
+      id: 'a',
+      label: 'Autoryzowany serwis',
+      approved: true,
+    })
+    expect(merged.at(-1)).toEqual(stored[1])
+    expect(merged).toHaveLength(hubTrust().length + 1)
   })
 })
