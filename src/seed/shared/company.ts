@@ -106,7 +106,7 @@ export const COMPANY_LINES: NonNullable<CompanyDatum['lines']> = [
     phone: '883 200 151',
     email: 'sklep@pro-kom.eu',
     hours: 'pn–pt 9:00–17:00, sob. 9:00–14:00',
-    promise: 'Bezpłatna diagnoza i wycena',
+    promise: 'Bezpłatna diagnoza i wycena, naprawy też kurierem',
     published: true,
   },
   {

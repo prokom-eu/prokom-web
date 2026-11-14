@@ -230,7 +230,10 @@ const linesField: Field = {
           name: 'promise',
           label: 'Obietnica',
           type: 'text',
-          admin: { description: 'Krótkie zdanie z ustaleń, np. „Bezpłatna diagnoza i wycena”.' },
+          admin: {
+            description:
+              'Tylko obietnica z ustaleń (spec huba §3): czas odpowiedzi albo warunek obsługi, np. „Bezpłatna diagnoza i wycena, naprawy też kurierem”.',
+          },
         },
       ],
     },
