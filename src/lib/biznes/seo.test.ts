@@ -181,6 +181,21 @@ describe('salonMetaTitle / brandMetaTitle (SEO lokalne 14.11: brand and salon pa
     )
   })
 
+  it('a salon of several brands its heading does not name: the brands, when the region fits', () => {
+    // Audit 14.11 P1-5: „Niszczarki dla firm” was the title of /oferta/niszczarki too.
+    expect(salonMetaTitle('Niszczarki dla firm', ['Fellowes', 'Kobra'])).toBe(
+      'Niszczarki Fellowes i Kobra — Rabka-Zdrój',
+    )
+    // Too long with the brands and the region: the heading as before.
+    expect(salonMetaTitle('Drukarki dla biura,', ['Konica Minolta', 'Kyocera'])).toBe(
+      'Drukarki dla biura — Rabka-Zdrój i Podhale',
+    )
+    // A heading naming its brand stays.
+    expect(salonMetaTitle('Kasy, drukarki i wagi Elzab', ['Elzab'])).toBe(
+      'Kasy, drukarki i wagi Elzab — Rabka-Zdrój',
+    )
+  })
+
   it('a brand: its title with the full region, else „<marka> dla firm” with the region', () => {
     expect(brandMetaTitle('APC', 'APC — Zasilacze UPS')).toBe(
       'APC — Zasilacze UPS, Rabka-Zdrój i Podhale',

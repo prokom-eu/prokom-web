@@ -137,7 +137,11 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
       : []
   })
   // K4 `zrodla` (labelled, `sources.links`) replace the K3 lists when set — never mixed.
-  const labeled = labeledSourceLinks(product.sources?.links ?? [])
+  const labeled = labeledSourceLinks(product.sources?.links ?? [], [
+    product.name,
+    text(product.shortName) ?? '',
+    ...(product.variants ?? []).map((variant) => variant.name),
+  ])
   const specs = (product.specs ?? [])
     .map(({ label, value }) => ({ label: label.trim(), value: value.trim() }))
     .filter((row) => row.label && row.value)

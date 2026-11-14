@@ -86,7 +86,17 @@ export function productTitle(
 ): string {
   if (variants.length < 2) return heading
   const models = variants.slice(0, 3).map(variantKey)
-  const fresh = models.filter((model) => !heading.includes(model))
+  // A model whose every word the name says already („iPad Air 13"” under „iPad Air 11" / 13"”)
+  // adds nothing (audit 14.11 P1-5).
+  const words = new Set(heading.toLowerCase().split(/\s+/))
+  const fresh = models.filter(
+    (model) =>
+      !heading.includes(model) &&
+      model
+        .toLowerCase()
+        .split(/\s+/)
+        .some((word) => !words.has(word)),
+  )
   for (let count = fresh.length; count > 0; count--) {
     const title = `${heading} — ${fresh.slice(0, count).join(', ')}`
     if (title.length <= max) return title

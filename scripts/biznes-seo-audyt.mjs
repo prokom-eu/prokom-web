@@ -3,9 +3,10 @@
 // `sitemap.xml` of a running site. Usage:
 //   node scripts/biznes-seo-audyt.mjs [origin] [--all] [--json]
 // origin defaults to http://biznes.localhost:$PORT (PORT from the environment, else 3001).
-// Prints only pages outside the limits (title 30–60, description 100–155, no BreadcrumbList on a
-// page with crumbs, no og:image); `--all` prints every page. `--links` also checks every internal
-// link found on the pages that is not in the sitemap (status other than 200 / redirect).
+// Prints only pages outside the limits (title 30–60 and unique, description 100–155, no
+// BreadcrumbList on a page with crumbs, no og:image); `--all` prints every page. `--links` also
+// checks every internal link found on the pages that is not in the sitemap (status other than 200
+// / redirect).
 // `--json` prints `{ rows, links }`.
 import { request } from 'node:http'
 
@@ -102,6 +103,12 @@ async function measure(path) {
 }
 await Promise.all(Array.from({ length: 4 }, worker))
 rows.sort((a, b) => a.path.localeCompare(b.path))
+// Audit 14.11 P1-5: every page of the sitemap (indexed only) has its own title.
+const byTitle = Map.groupBy(rows, (row) => row.title)
+for (const row of rows) {
+  const twins = (byTitle.get(row.title) ?? []).filter((other) => other !== row)
+  if (twins.length) row.problems.push(`tytuł jak ${twins.map((other) => other.path).join(', ')}`)
+}
 process.stderr.write('\n')
 
 const linkRows = []

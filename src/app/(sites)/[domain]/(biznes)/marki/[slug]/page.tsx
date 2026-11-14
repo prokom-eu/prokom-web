@@ -69,7 +69,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // `brandMetaTitle`) — the whole two-line salon heading was cut mid-sentence in results.
   const page = salon
     ? {
-        title: salonMetaTitle(salon.h1a),
+        title: salonMetaTitle(
+          salon.h1a,
+          salon.brands.map((item) => item.name),
+        ),
         description: salon.lead ? localDescription(salon.lead) : undefined,
         slug: salon.slug,
       }

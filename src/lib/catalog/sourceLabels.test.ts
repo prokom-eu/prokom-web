@@ -91,3 +91,97 @@ describe('labeledSourceLinks (K4 `zrodla`)', () => {
     ).toEqual(['Cennik'])
   })
 })
+
+describe('labeledSourceLinks: what is under each link (audit 14.11 P1-3)', () => {
+  const insert = (path: string) => ({
+    label: 'Strona producenta — InsERT',
+    url: `https://www.insert.com.pl/programy_dla_firm/sprzedaz/${path}`,
+  })
+
+  it('a label repeated on a card names the page from its address', () => {
+    expect(
+      labeledSourceLinks([
+        insert('subiekt_nexo/opis.html'),
+        insert('subiekt_nexo_pro/opis.html'),
+        insert('subiekt_nexo/wymagania_systemowe.html'),
+        insert('subiekt_nexo_pro/ekrany.html'),
+        insert('subiekt_nexo/porownanie.html'),
+      ]).map(({ label }) => label),
+    ).toEqual([
+      'InsERT — Subiekt nexo',
+      'InsERT — Subiekt nexo pro',
+      'InsERT — Subiekt nexo, wymagania systemowe',
+      'InsERT — Subiekt nexo pro, ekrany programu',
+      'InsERT — Subiekt nexo, porównanie wersji',
+    ])
+  })
+
+  it('a word of the card’s name keeps its case (przegląd 14.11: „nexo pro” → „nexo PRO”)', () => {
+    expect(
+      labeledSourceLinks(
+        [insert('subiekt_nexo/opis.html'), insert('subiekt_nexo_pro/opis.html')],
+        ['InsERT Subiekt nexo / nexo PRO', 'Subiekt nexo PRO'],
+      ).map(({ label }) => label),
+    ).toEqual(['InsERT — Subiekt nexo', 'InsERT — Subiekt nexo PRO'])
+    expect(
+      labeledSourceLinks(
+        [
+          { label: 'Strona producenta — GoPOS', url: 'https://gopos.pl/sunmi-d3-mini' },
+          {
+            label: 'Strona producenta — GoPOS',
+            url: 'https://help.gopos.pl/pl/articles/1-kasa-wirtualna',
+          },
+        ],
+        // „kasą” of the name is another form: no Polish letters taken, the address stays.
+        ['GoPOS All in One', 'Sunmi D3 MINI', 'Płać kasą wirtualną'],
+      ).map(({ label }) => label),
+    ).toEqual(['GoPOS — Sunmi D3 MINI', 'GoPOS — 1 kasa wirtualna, pomoc'])
+  })
+
+  it('help articles, PDFs and newsroom pages say what they are', () => {
+    expect(
+      labeledSourceLinks([
+        {
+          label: 'Strona producenta — GoPOS',
+          url: 'https://help.gopos.pl/pl/articles/11508519-kasa-wirtualna-jak-zaczac',
+        },
+        { label: 'Strona producenta — GoPOS', url: 'https://gopos.pl/files/karta-sunmi-v3.pdf' },
+        {
+          label: 'Strona producenta — GoPOS',
+          url: 'https://gopos.pl/newsroom/2026/03/nowy-gopos',
+        },
+      ]).map(({ label }) => label),
+    ).toEqual([
+      'GoPOS — Kasa wirtualna jak zaczac, pomoc',
+      'GoPOS — Karta sunmi v3, karta katalogowa (PDF)',
+      'GoPOS — Nowy gopos, komunikat prasowy',
+    ])
+  })
+
+  it('keeps a label that is unique on the card', () => {
+    expect(
+      labeledSourceLinks([
+        { label: 'Karta katalogowa — Posnet Ergo', url: 'https://www.posnet.com.pl/ergo.pdf' },
+        { label: 'Strona producenta — Posnet', url: 'https://www.posnet.com.pl/ergo' },
+      ]).map(({ label }) => label),
+    ).toEqual(['Karta katalogowa — Posnet Ergo', 'Strona producenta — Posnet'])
+  })
+
+  it('merges the same address written differently (www, trailing slash, #part)', () => {
+    expect(
+      labeledSourceLinks([
+        { label: 'Apple', url: 'https://www.apple.com/pl/macbook-air/' },
+        { label: 'Apple 2', url: 'https://apple.com/pl/macbook-air#specs' },
+        { label: 'Apple 3', url: 'http://www.apple.com/pl/macbook-air' },
+      ]).map(({ url }) => url),
+    ).toEqual(['https://www.apple.com/pl/macbook-air/'])
+  })
+
+  it('never leaves two links with one label', () => {
+    const labels = labeledSourceLinks([
+      { label: 'Strona producenta — Dell', url: 'https://www.dell.com/pl-pl/shop/p/a' },
+      { label: 'Strona producenta — Dell', url: 'https://www.dell.com/en-us/shop/p/a' },
+    ]).map(({ label }) => label)
+    expect(new Set(labels).size).toBe(labels.length)
+  })
+})

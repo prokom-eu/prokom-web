@@ -145,9 +145,22 @@ export function localTitle(base: string): string {
   return withRegion(title) ?? withRegion(short) ?? firstPart ?? short
 }
 
-/** `<title>` of a brand salon: the first line of its heading, without trailing punctuation. */
-export function salonMetaTitle(h1a: string): string {
-  return localTitle(h1a.replace(/[\s,:;.—–-]+$/u, ''))
+/**
+ * `<title>` of a brand salon: the first line of its heading, without trailing punctuation;
+ * a salon of several brands its heading does not name takes their names.
+ */
+export function salonMetaTitle(h1a: string, brands: readonly string[] = []): string {
+  const heading = h1a.replace(/[\s,:;.—–-]+$/u, '')
+  const plain = localTitle(heading)
+  // A salon of several brands the heading does not name („Niszczarki dla firm”) shares its
+  // title with the category: the brands instead of „dla firm”, while „Rabka-Zdrój” still fits
+  // (audit 14.11 P1-5).
+  const named = brands.some((brand) => heading.toLowerCase().includes(brand.toLowerCase()))
+  if (brands.length < 2 || named) return plain
+  const withBrands = localTitle(
+    `${heading.replace(/\s+dla firm$/i, '')} ${brands.slice(0, -1).join(', ')} i ${brands.at(-1)}`,
+  )
+  return withBrands.includes('Rabka-Zdrój') ? withBrands : plain
 }
 
 /**

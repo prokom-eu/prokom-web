@@ -75,3 +75,15 @@ describe('variants', () => {
     expect(productTitle('Model A i B', ['A', 'B'])).toBe('Model A i B')
   })
 })
+
+describe('productTitle: no model the name already says (audit 14.11 P1-5)', () => {
+  it('skips a model whose every word is in the name', () => {
+    expect(productTitle('Apple iPad Air 11" / 13"', ['iPad Air 11"', 'iPad Air 13"'])).toBe(
+      'Apple iPad Air 11" / 13"',
+    )
+    // A model with a new word (the screen size) still names it.
+    expect(productTitle('Dibal D-955', ['DIBAL D-955', 'DIBAL D-955 12,1"'])).toBe(
+      'Dibal D-955 — DIBAL D-955 12,1"',
+    )
+  })
+})
