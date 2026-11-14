@@ -86,6 +86,8 @@
   --k-td: #fbe8e5;
   --k-ti: #ffffff;
   --k-y: #9a7000;
+  /* Gaming as text: the board's gold #9A7000 has 4.48:1 on white — a shade darker for AA. */
+  --k-yt: #8a6400;
   --k-yd: #fbf2d2;
   --k-yi: #ffffff;
   --k-white: #121613;
@@ -117,6 +119,9 @@
   --border: #232a25;
   --border-input: #6b726b;
   --ok-text: #8fe07a;
+  /* Status dots on dark surfaces (the light #2E7A1E / #B45309 stay below 3:1 here). */
+  --ok: #7bd36a;
+  --warn: #f2a541;
   --header-bg: rgba(10, 13, 11, 0.86);
   --line-dark: #060807;
   /* Header capsule (NAGLOWEK-KAPSULA §4), green of the hub. */
@@ -179,6 +184,7 @@
   --k-td: #1a1312;
   --k-ti: #1a0806;
   --k-y: #f2c230;
+  --k-yt: #f2c230;
   --k-yd: #080c0b;
   --k-yi: #1a1400;
   --k-white: #ffffff;

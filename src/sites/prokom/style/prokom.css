@@ -23,13 +23,6 @@
   }
 }
 
-.pk-menu__chev {
-  transition: transform var(--dur-hover) var(--ease-out);
-}
-.pk-menu [aria-expanded='true'] .pk-menu__chev {
-  transform: rotate(180deg);
-}
-
 /* --- „Oferta” mega menu (board Naglowek): lines · chosen line · „Zacznij od siebie”. */
 .pk-mega:not([hidden]) {
   display: grid;
@@ -74,15 +67,6 @@
   color: var(--ink);
   box-shadow: inset 3px 0 0 var(--ln);
 }
-.pk-mega__tab:focus-visible,
-.pk-mega__service:focus-visible,
-.pk-mega__startlink:focus-visible,
-.pk-mega__pick:focus-visible,
-.pk-mega__all:focus-visible,
-.pk-mega__more:focus-visible {
-  outline: 2px solid var(--accent-text);
-  outline-offset: 2px;
-}
 .pk-mega__dot {
   width: 10px;
   height: 10px;
@@ -112,6 +96,7 @@
 /* `.pk-mega` in front: the shared `.cap__nav ul { display: flex }` reaches lists in the panel. */
 .pk-mega .pk-mega__services {
   display: grid;
+  align-items: start;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px 16px;
   margin-top: 16px;

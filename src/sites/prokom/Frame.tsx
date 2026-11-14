@@ -43,11 +43,12 @@ export async function ProkomFrame({ tenant, promo, children }: Props) {
   const now = new Date().toISOString()
   const line = shared?.line
   const lines = shared ? megaLines(shared.lines, hub.services) : []
-  const headerCta = liveLink(line?.headerCta, flags)
-  const cta = headerCta?.label
-    ? { label: headerCta.label, shortLabel: 'Dobierz', href: headerCta.href }
-    : null
   const center = liveLink(line?.tabBar?.center, flags)
+  const headerCta = liveLink(line?.headerCta, flags)
+  // Short label of the capsule (1081–1359 px) = the tab bar's centre of the panel („Dobierz”).
+  const cta = headerCta?.label
+    ? { label: headerCta.label, shortLabel: center?.label ?? headerCta.label, href: headerCta.href }
+    : null
   const action = center?.label
     ? { label: center.label, href: center.href, icon: center.icon }
     : null

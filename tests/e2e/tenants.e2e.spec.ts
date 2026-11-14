@@ -15,10 +15,10 @@ const TENANTS = [
     title: 'Kasy fiskalne, komputery, opieka IT — Rabka | PRO-KOM Biznes',
     // `\s`: a hard space after „i” (K4-FINAL §1); a regex sees the raw text.
     h1: /^Kasy, komputery i\sprogramy dla firm\./,
-    // No one-letter word: the H1 has hard spaces after them (K4-FINAL §1). Not „Kasy, komputery”
-    // alone: the shared lines band of every footer (L1, CompanyData.lines) shows the Biznes tagline
-    // „Kasy, komputery, opieka IT” by design — the H1 goes on with „ i”.
-    markers: ['Kasy, komputery i'],
+    // The H1 as the HTML has it: a hard space after „i” (K4-FINAL §1) is `&nbsp;`. Not „Kasy,
+    // komputery” alone: the shared lines band shows „Kasy, komputery, opieka IT” by design, and the
+    // hub's data has „Kasy, komputery i opieka IT” (pro-kom.eu cards of the lines, H2).
+    markers: ['Kasy, komputery i&nbsp;programy'],
   },
   {
     host: 'instalacje.localhost',

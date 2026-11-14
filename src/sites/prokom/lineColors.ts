@@ -11,8 +11,8 @@ const COLOUR: Record<Line, { base: string; text: string }> = {
   instalacje: { base: 'var(--k-i)', text: 'var(--k-it)' },
   software: { base: 'var(--k-s)', text: 'var(--k-st)' },
   tech: { base: 'var(--k-t)', text: 'var(--k-tt)' },
-  // The board uses the gold itself as text (no `--k-yt`).
-  gaming: { base: 'var(--k-y)', text: 'var(--k-y)' },
+  // `--k-yt`: the board's gold darkened for AA in the light theme (4.48:1 → 5.38:1 on white).
+  gaming: { base: 'var(--k-y)', text: 'var(--k-yt)' },
 }
 
 /** `--ln` / `--ln-text` for a line's element; CSS of the hub reads only these two. */

@@ -96,7 +96,7 @@ describe('„Oferta” mega menu', () => {
     expect(mega[1]?.services[0]?.icon).toBe('mobile')
   })
 
-  it('leaves out an unpublished line (Gaming before its start) — it is not in the shared lines', () => {
+  it('adds no line beyond the shared lines (an unpublished Gaming never reaches them)', () => {
     expect(megaLines(LINES, [service('g1', 'gaming', 'Gotowe zestawy')])).toHaveLength(2)
   })
 })

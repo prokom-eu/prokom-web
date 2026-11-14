@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { type KeyboardEvent, useEffect, useId, useRef, useState } from 'react'
+import { type KeyboardEvent, type ReactNode, useEffect, useId, useRef, useState } from 'react'
 
 import { CAPSULE } from '@/components/shared/capsule'
 import { MenuButton } from '@/components/shared/MenuButton'
@@ -28,6 +28,17 @@ type Props = {
   cta: { label: string; shortLabel: string; href: string } | null
   /** „Cała oferta” (`/linie`, H3-1) — `null` until the page exists. */
   offerHref: string | null
+}
+
+/** A service links to its line's site; without an address it is plain text, never a dead link. */
+function ServiceItem({ href, children }: { href: string | null; children: ReactNode }) {
+  return href ? (
+    <a href={href} className="pk-mega__service">
+      {children}
+    </a>
+  ) : (
+    <div className="pk-mega__service">{children}</div>
+  )
 }
 
 const isCurrent = (pathname: string, href: string) =>
@@ -203,7 +214,7 @@ export function ProkomHeader({ homeLabel, nav, lines, start, cta, offerHref }: P
             <ul className="pk-mega__services">
               {line.services.map((service) => (
                 <li key={service.key}>
-                  <a href={line.url ?? undefined} className="pk-mega__service">
+                  <ServiceItem href={line.url}>
                     <span className="pk-mega__icon">
                       <Icon name={service.icon} className="size-[18px]" />
                     </span>
@@ -211,7 +222,7 @@ export function ProkomHeader({ homeLabel, nav, lines, start, cta, offerHref }: P
                       <b>{service.title}</b>
                       <span>{service.short}</span>
                     </span>
-                  </a>
+                  </ServiceItem>
                 </li>
               ))}
             </ul>
@@ -263,7 +274,7 @@ export function ProkomHeader({ homeLabel, nav, lines, start, cta, offerHref }: P
         <>
           <button
             type="button"
-            className={`${CAPSULE.iconButton} pk-search`}
+            className={CAPSULE.iconButton}
             aria-label="Szukaj w PRO-KOM"
             aria-keyshortcuts="Control+K Meta+K"
             onClick={() => requestSearch()}
