@@ -595,3 +595,23 @@ describe('buildCatalogIndex salon chooser (K4f) and films (K31c)', () => {
     expect(index.products.map((product) => product.video ?? false)).toEqual([true, false, false])
   })
 })
+
+describe('buildCatalogIndex: only ready cards in the lists (ADR-026, wariant B)', () => {
+  const source = sourceFromSeed()
+  const [first, second] = source.products
+  const index = buildCatalogIndex({
+    ...source,
+    products: source.products.map((product) =>
+      product.id === first!.id ? { ...product, contentStatus: 'needs-review' as const } : product,
+    ),
+  })
+
+  it('leaves a card „Do sprawdzenia” out of the index (lists, search, menu, counts)', () => {
+    expect(index.products.some((product) => product.slug === first!.slug)).toBe(false)
+    expect(index.products.some((product) => product.slug === second!.slug)).toBe(true)
+  })
+
+  it('keeps a card without a status (older data) or „Gotowe”', () => {
+    expect(index.products).toHaveLength(source.products.length - 1)
+  })
+})
