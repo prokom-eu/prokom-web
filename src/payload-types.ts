@@ -5984,6 +5984,30 @@ export interface HubSetting {
     sitemap?: boolean | null;
   };
   /**
+   * Teksty sekcji strony głównej. Bez telefonów, e-maili i adresu — w FAQ wpisz {telefon}, {adres}, {godziny}. Usługi, narzędzia, persony i sytuacje edytujesz w ich kolekcjach.
+   */
+  home?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Cztery autoryzacje (Posnet, Elzab — serwis; GoPOS, InsERT — partner) i grupy marek bez statusu.
+   */
+  brands?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
    * Segmenty z formularzem, lista zapytania (klucze pozycji!), usługi, terminy, obiekty z przykładowymi ilościami, zakres, FAQ. Bez cen; konfiguracja, montaż i szkolenie tylko jako opcja.
    */
   deliveries?:
@@ -9810,6 +9834,8 @@ export interface HubSettingsSelect<T extends boolean = true> {
         news?: T;
         sitemap?: T;
       };
+  home?: T;
+  brands?: T;
   deliveries?: T;
   cooperation?: T;
   trust?:

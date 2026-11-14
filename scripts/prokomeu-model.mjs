@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Data of the boards Dostawy and Wspolpraca → `seed/prokomeu/model/*.json` (H1-1c, ADR-H002 §2).
+ * Data of the boards Dostawy, Wspolpraca and Main → `seed/prokomeu/model/*.json` (H1-1c, H2, ADR-H002 §2).
  * The seed snapshots (`seed/prokomeu/strony/*.json`) keep only the default state of a board and
  * lose the keys of the request list (`pc`, `tv`…), which „Wczytaj przykład do listy” needs. The
  * board itself defines its data in `renderVals()` — this script runs it and writes the content in
@@ -19,8 +19,11 @@ import { runInNewContext } from 'node:vm'
 const BOARDS = 'docs/design/prokomeu/plansze'
 const OUT = 'seed/prokomeu/model'
 
-/** The constants and the returned object of a board's `renderVals()`. */
-function runBoard(file, constants) {
+/**
+ * The constants and the returned object of a board's `renderVals()`. `self` = the board's own
+ * methods that `renderVals()` calls (`this.data()`…), taken from its seed snapshot.
+ */
+function runBoard(file, constants, self = {}) {
   const html = readFileSync(join(BOARDS, file), 'utf8')
   const start = html.indexOf('renderVals() {')
   const end = html.indexOf('\n  }\n}', start)
@@ -31,7 +34,7 @@ function runBoard(file, constants) {
   // The board's own code, with its constants returned next to its result.
   const code = `${body.slice(0, at)}const __result = ${body.slice(at + 'return '.length)}
     return { __result, ${constants.join(', ')} }`
-  const board = { state: {}, props: {}, setState() {} }
+  const board = { state: {}, props: {}, setState() {}, ...self }
   // JSON round trip: plain objects of this realm (the vm context has its own `Object`).
   const result = runInNewContext(
     `(function () {${code}
@@ -217,10 +220,348 @@ function cooperation() {
   }
 }
 
+const LINE_KEYS = ['biznes', 'instalacje', 'software', 'tech', 'gaming']
+const perLine = (pick) => Object.fromEntries(LINE_KEYS.map((key) => [key, pick(key)]))
+
+/**
+ * Contact data never goes into the JSON (spec §3: phones, e-mails, hours, addresses only from
+ * `CompanyData`): the FAQ keeps `{telefon}`, `{adres}`, `{godziny}`, filled in on render.
+ */
+function withTokens(answer) {
+  const out = answer
+    .replace('883 200 151', '{telefon}')
+    .replace('Rabka-Zdrój, ul. Orkana 16B.', '{adres}.')
+    .replace('Od poniedziałku do piątku 9:00–17:00.', '{godziny}.')
+  if (/\d{3} \d{3} \d{3}|@|Orkana|9:00/.test(out)) throw new Error(`Contact data left in: ${out}`)
+  return out
+}
+
+/**
+ * Home page (board 01, `Main.dc.html`) → `HubSettings.home`. Data of `renderVals()` plus the
+ * static texts of the board's HTML (lines given next to each block). Not here: phones, promises,
+ * domains (from `CompanyData` / `SiteSettings` of the lines), service and tool records (`HubTools`),
+ * personas (`HubPlans`), situations (`HubHelp`, picked by slug — decision 14.11).
+ */
+function home() {
+  const snapshot = JSON.parse(readFileSync('seed/prokomeu/strony/Main.json', 'utf8'))
+  const self = {
+    data: () => snapshot.data,
+    personas: () => snapshot.personas,
+    heroSlides: () => snapshot.heroSlides,
+    heroVigs: () => snapshot.heroVigs,
+    norm: (s) => s,
+  }
+  const {
+    __result: r,
+    PH,
+    SUB,
+    O,
+    mq,
+    X,
+    GX,
+    ST,
+    TS,
+    CM,
+    FX,
+    TMN,
+  } = runBoard(
+    'Main.dc.html',
+    ['PH', 'SUB', 'O', 'mq', 'X', 'GX', 'ST', 'TS', 'CM', 'FX', 'TMN'],
+    self,
+  )
+  // „Także” lives inline in `L.more` of renderVals; only the default line comes out of it.
+  const MORE = {
+    biznes: [
+      'Comarch ERP',
+      'Bezpieczeństwo sieci',
+      'Większe dostawy IT',
+      'RTV i AGD dla firm',
+      'Niszczarki',
+      'Podpis kwalifikowany',
+    ],
+    instalacje: [
+      'Kontrola dostępu',
+      'Ekrany informacyjne',
+      'Anteny i TV hotelowa',
+      'Światłowód w budynku',
+      'Dla architektów',
+    ],
+    software: ['Strony dla noclegów', 'Przebudowa strony', 'Opieka nad stroną', 'Panele dla ekip'],
+    tech: [
+      'Tablety i smartwatche',
+      'Komputery stacjonarne',
+      'Wysyłka kurierem',
+      'Naprawy dla firm',
+    ],
+    gaming: ['Porównywarka zestawów', 'Dla rodziców', 'Testy przed wysyłką', 'Metryka komputera'],
+  }
+  if (JSON.stringify(r.L.more.map((m) => m.t)) !== JSON.stringify(MORE.biznes)) {
+    throw new Error('Main.dc.html: „Także” changed — update MORE')
+  }
+  const vignette = (v) => {
+    if (v.isRows)
+      return { kind: 'rows', rows: v.rows.map((row) => ({ label: row.a, state: row.b })) }
+    if (v.isTiles) {
+      return {
+        kind: 'tiles',
+        tiles: v.tiles.map((t) => ({
+          label: t.label,
+          icon: t.cam ? 'cam' : t.bars ? 'bars' : 'ring',
+        })),
+      }
+    }
+    if (v.isSw) return { kind: 'switch' }
+    if (v.isWeb) return { kind: 'web' }
+    if (v.isKan) return { kind: 'kanban' }
+    if (v.isFlow) return { kind: 'flow' }
+    throw new Error(`Unknown vignette ${JSON.stringify(v)}`)
+  }
+  const lineData = Object.fromEntries(snapshot.data.map((l) => [l.key, l]))
+  const sceneOf = (key) => (key === 'gaming' ? GX : X[key])
+  return {
+    _zrodlo: `${BOARDS}/Main.dc.html (renderVals + HTML) — scripts/prokomeu-model.mjs`,
+    hero: {
+      // :343–350, :367, :375
+      eyebrow: 'Rabka-Zdrój · od 2004',
+      title: 'Sprzęt, instalacje, oprogramowanie i serwis. W jednej firmie.',
+      lead: 'Pięć linii, każda ze swoim zespołem. Wybierz linię obok albo napisz, czego potrzebujesz.',
+      unsure: 'Nie mamy pewności, która linia. Zadzwoń — pokierujemy.',
+      cta: 'Dobierz w 10 sekund',
+      hints: PH.map(([hint, key]) => ({ text: hint.replace('np. ', ''), line: key })),
+      chips: r.chips.map((c) => ({ label: c.label, line: line(c.c) })),
+      // :481–484 — a counter tied to a fact shows only while the fact is visible (approved).
+      counters: [
+        { value: '2004', label: 'rok założenia firmy', fact: 'Od 2004' },
+        { value: '5', label: 'linii pod jednym szyldem', fact: null },
+        { value: '100+', label: 'klientów firmowych', fact: '100+' },
+        { value: '4', label: 'autoryzacje: Posnet, Elzab, GoPOS, InsERT', fact: 'Posnet' },
+      ],
+      trustBar: mq.map(([colour, title, _icon, note]) => ({
+        line: line(colour),
+        title,
+        note,
+        // The Posnet…InsERT and „Od 2004” items repeat an approved fact; the others are offers.
+        fact:
+          {
+            'W Rabce-Zdroju': 'Od 2004',
+            Posnet: 'Posnet',
+            Elzab: 'Elzab',
+            GoPOS: 'GoPOS',
+            InsERT: 'InsERT',
+          }[title] ?? null,
+      })),
+      lines: perLine((key) => ({
+        short: lineData[key].short,
+        slides: snapshot.heroSlides[key].map(([title, text]) => ({ title, text: text || null })),
+        vignettes: (snapshot.heroVigs[key] ?? []).map(vignette),
+      })),
+    },
+    lines: {
+      // :501–505
+      eyebrow: 'Linie PRO-KOM',
+      title: 'Wszystkie linie **PRO-KOM**',
+      lead: 'Pięć linii, każda ze swoim zespołem, numerem i stroną. Kliknij linię albo poczekaj — przewiną się same.',
+      allLink: 'Co gdzie załatwisz',
+      scene: perLine((key) => ({
+        lead: lineData[key].lead,
+        heading: sceneOf(key).h2,
+        who: sceneOf(key).who,
+        cta: sceneOf(key).cta,
+        services: sceneOf(key).det.map(([title, text]) => ({ title, text })),
+        facts: [...FX[key]],
+        more: [...MORE[key]],
+        steps: ST[key].map(([title, text]) => ({ title, text })),
+        status: X[key].rows.map(([label, state]) => ({ label, state })),
+      })),
+      techStages: TS.map(([title, text]) => ({ title, text })),
+      cameras: CM.map(([label, kind]) => ({ label, kind })),
+    },
+    team: {
+      // :616–645 — the „Razem” tab
+      eyebrow: 'Tak pracują razem',
+      title: 'Jeden klient. Kilka linii. Jeden telefon.',
+      lead: 'Większość klientów potrzebuje więcej niż jednej rzeczy. Zobacz na przykładzie, jak linie PRO-KOM składają się na jedną obsługę — zespoły ustalają szczegóły między sobą, nie przez Ciebie.',
+      cta: 'Dobierz dla swojej branży',
+      note: 'Dzwonisz raz — łączymy Cię z właściwymi zespołami.',
+      examples: Object.entries(TMN).map(([persona, [tab, node]]) => ({ persona, tab, node })),
+      pillars: ['Jedna firma', 'Jeden adres w Rabce-Zdroju', 'Jeden numer na start'],
+    },
+    choose: {
+      // :656–697
+      eyebrow: 'Dobierz · 10 sekund',
+      title: 'Wybierz, co jest najbliżej Ciebie.',
+      lead: 'Dwanaście najczęstszych sytuacji i kafel dla całej reszty — bo obsługujemy każdą firmę i każdy dom. Jedno kliknięcie i widzisz, które linie PRO-KOM się Tobą zajmą i od czego zwykle zaczynamy.',
+      other: { title: 'Inna branża? Też.', text: 'Obsługujemy każdą firmę, instytucję i dom.' },
+      personas: O.map((persona) => ({ persona, sub: SUB[persona] ?? null })),
+      write: 'Napisz, o co chodzi',
+      note: 'Połączymy Cię z właściwymi zespołami.',
+    },
+    tools: {
+      // :707–743
+      title: 'Załatw to od razu. Bez dzwonienia.',
+      lead: 'Każda linia ma swoje narzędzia online. Dwa najczęściej używane z każdej — obok siebie.',
+      all: {
+        eyebrow: 'Załatw online · pięć linii',
+        title: 'spraw załatwisz bez dzwonienia.',
+        text: 'Zgłoszenia, statusy, wyceny, plany i konfiguratory ze wszystkich linii w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.',
+        cta: 'Zobacz wszystkie narzędzia',
+      },
+    },
+    help: {
+      // :752–755; the 6 situations of the board, as records of „Pomoc”
+      eyebrow: 'Pomoc',
+      title: 'Co zrobić, gdy…',
+      allLink: 'Wszystkie sytuacje w Pomocy',
+      slugs: [
+        'kasa-fiskalna-nie-drukuje',
+        'padlo-wi-fi-w-pensjonacie',
+        'strona-firmy-nie-dziala-albo-jest-stara',
+        'pekniety-ekran-telefonu',
+        'buduje-dom-i-planuje-instalacje',
+        'jaki-komputer-do-gry-w-ktora-gram',
+      ],
+    },
+    cooperation: {
+      // :784–794
+      eyebrow: 'Inwestycje i współpraca',
+      title: 'Projektujesz, budujesz albo zamawiasz więcej?',
+      lead: 'Wchodzimy w projekt wcześnie, bierzemy cały zakres instalacji i dostarczamy sprzęt w większych ilościach — dla pracowni, inwestycji i instytucji.',
+      cards: [
+        {
+          title: 'Architekci i projektanci',
+          text: 'Instalacje naniesione na rzuty, zanim wejdą tynki.',
+        },
+        {
+          title: 'Deweloperzy i inwestorzy',
+          text: 'Lokale, części wspólne i garaż u jednego wykonawcy.',
+        },
+        { title: 'Wykonawcy', text: 'Instalacje niskoprądowe jako podwykonawca.' },
+        {
+          title: 'Firmy i instytucje',
+          text: 'Większe dostawy IT oraz RTV i AGD — z listą zapytania.',
+        },
+        { title: 'Dostawcy', text: 'Masz produkt, który pasuje do naszej oferty?' },
+      ],
+    },
+    coverage: {
+      // :830–854
+      eyebrow: 'Gdzie działamy',
+      title: 'Na miejscu na Podhalu. Zdalnie w całej Polsce.',
+      lead: 'Do firm i na montaże dojeżdżamy na Podhalu i w całej Małopolsce. Strony, systemy i komputery do gier robimy dla klientów z całego kraju.',
+      towns: [
+        'Rabka-Zdrój',
+        'Mszana Dolna',
+        'Nowy Targ',
+        'Zakopane',
+        'Limanowa',
+        'Nowy Sącz',
+        'Myślenice',
+        'Kraków',
+      ],
+      mapNote: 'Schemat kierunków, nie mapa w skali',
+      region: 'Podhale · Małopolska',
+    },
+    news: { eyebrow: 'Aktualności', title: 'Co nowego w liniach' },
+    faq: {
+      // :880–888
+      eyebrow: 'Pytania',
+      title: 'Zanim zadzwonisz',
+      items: r.faq.map((f) => ({ question: f.q, answer: withTokens(f.a) })),
+    },
+    contact: {
+      // :900–926
+      eyebrow: 'Kontakt',
+      title: 'Najszybciej — zadzwoń do właściwej linii.',
+      write: 'Albo napisz. Wiadomość trafi prosto do zespołu.',
+      topicsLabel: 'Czego dotyczy sprawa?',
+      general: 'Nie wiem / ogólne',
+      directions: 'Kontakt i dojazd',
+    },
+    final: {
+      // :941–946
+      title: 'Powiedz, czego potrzebujesz. Resztą zajmie się właściwy zespół.',
+      write: 'Napisz do nas',
+      choose: 'Dobierz w 10 sekund',
+    },
+  }
+}
+
+/** Brands of the home page (board 01 :804–823) → `HubSettings.brands`; reused by `/partnerzy`. */
+function brands() {
+  return {
+    _zrodlo: `${BOARDS}/Main.dc.html (HTML :804–823) — scripts/prokomeu-model.mjs`,
+    eyebrow: 'Marki i autoryzacje',
+    title: 'Pracujemy na sprzęcie, za który możemy ręczyć.',
+    lead: 'Cztery autoryzacje nadane przez producentów. Do tego marki, które dobieramy, montujemy i serwisujemy na co dzień.',
+    authorizations: [
+      {
+        name: 'Posnet',
+        status: 'Autoryzowany serwis',
+        line: 'biznes',
+        text: 'Kasy i drukarki fiskalne: sprzedaż, fiskalizacja, przeglądy i naprawy.',
+      },
+      {
+        name: 'Elzab',
+        status: 'Autoryzowany serwis',
+        line: 'biznes',
+        text: 'Kasy i drukarki fiskalne: sprzedaż, fiskalizacja, przeglądy i naprawy.',
+      },
+      {
+        name: 'GoPOS',
+        status: 'Autoryzowany partner',
+        line: 'biznes',
+        text: 'System sprzedaży dla gastronomii: wdrożenie na sali i w kuchni, szkolenie.',
+      },
+      {
+        name: 'InsERT',
+        status: 'Autoryzowany partner',
+        line: 'biznes',
+        text: 'Subiekt i e-faktury KSeF: wdrożenie, konfiguracja i szkolenie zespołu.',
+      },
+    ],
+    groups: [
+      {
+        line: 'biznes',
+        title: 'Sprzęt i programy dla firm',
+        brands: ['Lenovo', 'Dell', 'Microsoft', 'ESET', 'Synology', 'QNAP', 'Fellowes', 'Kobra'],
+        text: 'Komputery, serwery, licencje, ochrona i urządzenia biurowe — dostawa i konfiguracja.',
+      },
+      {
+        line: 'instalacje',
+        title: 'Bezpieczeństwo, sieci, dźwięk i obraz',
+        brands: [
+          'Dahua',
+          'Hikvision',
+          'BCS',
+          'Satel',
+          'Ubiquiti',
+          'MikroTik',
+          'Ampio',
+          'Elzab EcoPower',
+          'Samsung',
+          'APART',
+          'RCF',
+        ],
+        text: 'Projekt, montaż i serwis. Gwarancja na montaż 24 miesiące.',
+      },
+      {
+        line: 'tech',
+        title: 'Serwis i ochrona ekranów',
+        brands: ['Hammer Glass'],
+        text: 'Folia cięta ploterem pod Twój model i zakładana od ręki w salonie w Rabce-Zdroju.',
+      },
+    ],
+    note: 'Status autoryzowanego serwisu lub partnera dotyczy tylko czterech marek u góry.',
+    allLink: 'Wszystkie marki i autoryzacje',
+  }
+}
+
 mkdirSync(OUT, { recursive: true })
 for (const [name, data] of [
   ['Dostawy', deliveries()],
   ['Wspolpraca', cooperation()],
+  ['Main', home()],
+  ['Marki', brands()],
 ]) {
   writeFileSync(join(OUT, `${name}.json`), `${JSON.stringify(data, null, 2)}\n`)
   console.log(`${OUT}/${name}.json`)

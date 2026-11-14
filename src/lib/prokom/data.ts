@@ -10,8 +10,10 @@ import { getEnv } from '../env'
 import { log } from '../log'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import type { HubLine } from './lines'
+import { brandsSchema, type HubBrands } from './brands'
 import { cooperationSchema, type HubCooperation } from './cooperation'
 import { deliveriesSchema, type HubDeliveries } from './deliveries'
+import { homeSchema, type HubHome } from './home'
 import { NO_OPTIONAL_PAGES, type HubPageFlags } from './pages'
 import { hubTag } from './tags'
 
@@ -194,6 +196,8 @@ export type HubSettingsView = {
   /** Company facts; on production only the approved ones (spec §3). */
   trust: { value: string; label: string }[]
   /** `null` until filled in the panel (or when the stored value no longer fits the schema). */
+  home: HubHome | null
+  brands: HubBrands | null
   deliveries: HubDeliveries | null
   cooperation: HubCooperation | null
 }
@@ -202,7 +206,10 @@ type SiteEnv = 'production' | 'staging' | 'local'
 
 /** Projection of `HubSettings`: missing document or field = v1.1 pages off, no facts. */
 export function toHubSettings(
-  doc: Pick<HubSetting, 'pages' | 'trust' | 'deliveries' | 'cooperation'> | null | undefined,
+  doc:
+    | Pick<HubSetting, 'pages' | 'trust' | 'home' | 'brands' | 'deliveries' | 'cooperation'>
+    | null
+    | undefined,
   siteEnv: SiteEnv,
   tenantId: number | null = null,
 ): HubSettingsView {
@@ -216,6 +223,8 @@ export function toHubSettings(
   return {
     pages,
     trust,
+    home: pageTexts(homeSchema, doc?.home, 'home', tenantId),
+    brands: pageTexts(brandsSchema, doc?.brands, 'brands', tenantId),
     deliveries: pageTexts(deliveriesSchema, doc?.deliveries, 'deliveries', tenantId),
     cooperation: pageTexts(cooperationSchema, doc?.cooperation, 'cooperation', tenantId),
   }
@@ -229,7 +238,7 @@ export function toHubSettings(
 function pageTexts<T>(
   schema: z.ZodType<T>,
   value: unknown,
-  field: 'deliveries' | 'cooperation',
+  field: 'home' | 'brands' | 'deliveries' | 'cooperation',
   tenantId: number | null,
 ): T | null {
   if (value === null || value === undefined) return null

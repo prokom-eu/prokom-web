@@ -1,0 +1,959 @@
+{
+  "_zrodlo": "docs/design/prokomeu/plansze/Main.dc.html (renderVals + HTML) — scripts/prokomeu-model.mjs",
+  "hero": {
+    "eyebrow": "Rabka-Zdrój · od 2004",
+    "title": "Sprzęt, instalacje, oprogramowanie i serwis. W jednej firmie.",
+    "lead": "Pięć linii, każda ze swoim zespołem. Wybierz linię obok albo napisz, czego potrzebujesz.",
+    "unsure": "Nie mamy pewności, która linia. Zadzwoń — pokierujemy.",
+    "cta": "Dobierz w 10 sekund",
+    "hints": [
+      {
+        "text": "kasa fiskalna do restauracji",
+        "line": "biznes"
+      },
+      {
+        "text": "kamery w pensjonacie",
+        "line": "instalacje"
+      },
+      {
+        "text": "strona dla firmy",
+        "line": "software"
+      },
+      {
+        "text": "pęknięty ekran w telefonie",
+        "line": "tech"
+      },
+      {
+        "text": "komputer do gier",
+        "line": "gaming"
+      }
+    ],
+    "chips": [
+      {
+        "label": "kasa fiskalna",
+        "line": "biznes"
+      },
+      {
+        "label": "kamery",
+        "line": "instalacje"
+      },
+      {
+        "label": "strona dla firmy",
+        "line": "software"
+      },
+      {
+        "label": "pęknięty ekran",
+        "line": "tech"
+      },
+      {
+        "label": "komputer do gier",
+        "line": "gaming"
+      }
+    ],
+    "counters": [
+      {
+        "value": "2004",
+        "label": "rok założenia firmy",
+        "fact": "Od 2004"
+      },
+      {
+        "value": "5",
+        "label": "linii pod jednym szyldem",
+        "fact": null
+      },
+      {
+        "value": "100+",
+        "label": "klientów firmowych",
+        "fact": "100+"
+      },
+      {
+        "value": "4",
+        "label": "autoryzacje: Posnet, Elzab, GoPOS, InsERT",
+        "fact": "Posnet"
+      }
+    ],
+    "trustBar": [
+      {
+        "line": "prokom",
+        "title": "W Rabce-Zdroju",
+        "note": "Od 2004 roku",
+        "fact": "Od 2004"
+      },
+      {
+        "line": "biznes",
+        "title": "Posnet",
+        "note": "Autoryzowany serwis",
+        "fact": "Posnet"
+      },
+      {
+        "line": "biznes",
+        "title": "Elzab",
+        "note": "Autoryzowany serwis",
+        "fact": "Elzab"
+      },
+      {
+        "line": "biznes",
+        "title": "GoPOS",
+        "note": "Autoryzowany partner",
+        "fact": "GoPOS"
+      },
+      {
+        "line": "biznes",
+        "title": "InsERT",
+        "note": "Autoryzowany partner",
+        "fact": "InsERT"
+      },
+      {
+        "line": "instalacje",
+        "title": "Ampio",
+        "note": "Smart home",
+        "fact": null
+      },
+      {
+        "line": "software",
+        "title": "Strony i systemy",
+        "note": "Na zamówienie",
+        "fact": null
+      },
+      {
+        "line": "tech",
+        "title": "Serwis na miejscu",
+        "note": "Salon w Rabce",
+        "fact": null
+      },
+      {
+        "line": "gaming",
+        "title": "Komputery do gier",
+        "note": "Składane ręcznie",
+        "fact": null
+      }
+    ],
+    "lines": {
+      "biznes": {
+        "short": "Kasy, komputery, opieka IT",
+        "slides": [
+          {
+            "title": "Kasy fiskalne i GoPOS",
+            "text": "Autoryzowany serwis Posnet i Elzab, fiskalizacja i szkolenie."
+          },
+          {
+            "title": "Komputery i sprzęt dla firm",
+            "text": "Laptopy, serwery i drukarki — dobrane, wdrożone, pod opieką."
+          },
+          {
+            "title": "Opieka IT i programy InsERT",
+            "text": "Subiekt, e-faktury KSeF i kopie zapasowe bez nerwów."
+          }
+        ],
+        "vignettes": [
+          {
+            "kind": "rows",
+            "rows": [
+              {
+                "label": "Kasa fiskalna",
+                "state": "działa"
+              },
+              {
+                "label": "GoPOS na sali",
+                "state": "wdrożony"
+              },
+              {
+                "label": "Terminal płatniczy",
+                "state": "podłączony"
+              }
+            ]
+          },
+          {
+            "kind": "rows",
+            "rows": [
+              {
+                "label": "Laptopy",
+                "state": "dobrane"
+              },
+              {
+                "label": "Serwer",
+                "state": "wdrożony"
+              },
+              {
+                "label": "Drukarki",
+                "state": "pod opieką"
+              }
+            ]
+          },
+          {
+            "kind": "rows",
+            "rows": [
+              {
+                "label": "Subiekt",
+                "state": "wdrożony"
+              },
+              {
+                "label": "E-faktury KSeF",
+                "state": "skonfigurowane"
+              },
+              {
+                "label": "Kopie zapasowe",
+                "state": "pod opieką"
+              }
+            ]
+          }
+        ]
+      },
+      "instalacje": {
+        "short": "Monitoring, sieci, smart home",
+        "slides": [
+          {
+            "title": "Monitoring i alarmy",
+            "text": "Kamery, wideodomofony i kontrola dostępu — z podglądem w telefonie."
+          },
+          {
+            "title": "Sieci i Wi-Fi",
+            "text": "Zasięg w każdym pokoju: dom, pensjonat, biuro."
+          },
+          {
+            "title": "Smart home i nagłośnienie",
+            "text": "Ampio, nagłośnienie sal i obiektów. Projekt, montaż, serwis."
+          }
+        ],
+        "vignettes": [
+          {
+            "kind": "tiles",
+            "tiles": [
+              {
+                "label": "Wejście",
+                "icon": "cam"
+              },
+              {
+                "label": "Parking",
+                "icon": "cam"
+              },
+              {
+                "label": "Alarm",
+                "icon": "ring"
+              }
+            ]
+          },
+          {
+            "kind": "tiles",
+            "tiles": [
+              {
+                "label": "Pokoje",
+                "icon": "bars"
+              },
+              {
+                "label": "Recepcja",
+                "icon": "bars"
+              },
+              {
+                "label": "Taras",
+                "icon": "bars"
+              }
+            ]
+          },
+          {
+            "kind": "switch"
+          }
+        ]
+      },
+      "software": {
+        "short": "Strony, systemy, aplikacje",
+        "slides": [
+          {
+            "title": "Strony internetowe",
+            "text": "Pisane pod Twoją firmę, nie z szablonu. Szybkie i widoczne w Google."
+          },
+          {
+            "title": "Systemy i panele",
+            "text": "Pod Twój proces — zamiast Excela i zeszytu."
+          },
+          {
+            "title": "Aplikacje i automatyzacje",
+            "text": "Od pomysłu po wdrożenie i opiekę."
+          }
+        ],
+        "vignettes": [
+          {
+            "kind": "web"
+          },
+          {
+            "kind": "kanban"
+          },
+          {
+            "kind": "flow"
+          }
+        ]
+      },
+      "tech": {
+        "short": "Naprawy telefonów i komputerów",
+        "slides": [
+          {
+            "title": "Naprawy telefonów",
+            "text": null
+          },
+          {
+            "title": "Laptopy i konsole",
+            "text": null
+          },
+          {
+            "title": "Status naprawy online",
+            "text": null
+          }
+        ],
+        "vignettes": []
+      },
+      "gaming": {
+        "short": "Komputery do gier",
+        "slides": [
+          {
+            "title": "Komputery do gier",
+            "text": null
+          },
+          {
+            "title": "Konfigurator zestawu",
+            "text": null
+          },
+          {
+            "title": "Dobór pod Twoją grę",
+            "text": null
+          }
+        ],
+        "vignettes": []
+      }
+    }
+  },
+  "lines": {
+    "eyebrow": "Linie PRO-KOM",
+    "title": "Wszystkie linie **PRO-KOM**",
+    "lead": "Pięć linii, każda ze swoim zespołem, numerem i stroną. Kliknij linię albo poczekaj — przewiną się same.",
+    "allLink": "Co gdzie załatwisz",
+    "scene": {
+      "biznes": {
+        "lead": "Kasy fiskalne, GoPOS, programy InsERT, komputery i opieka IT dla firm, gastronomii, sklepów i instytucji.",
+        "heading": "Kasy, komputery i opieka IT dla firm.",
+        "who": "gastronomia, sklepy, biura, hotele i pensjonaty, szkoły, gminy",
+        "cta": "Zobacz ofertę dla firm",
+        "services": [
+          {
+            "title": "Kasy fiskalne",
+            "text": "Posnet i Elzab — z fiskalizacją, programowaniem i szkoleniem."
+          },
+          {
+            "title": "GoPOS",
+            "text": "Sprzedaż w gastronomii: sala i kuchnia w jednym systemie."
+          },
+          {
+            "title": "Programy InsERT",
+            "text": "Subiekt i e-faktury KSeF, wdrożenie i szkolenie."
+          },
+          {
+            "title": "Komputery i serwery",
+            "text": "Lenovo i Dell, dostawa i konfiguracja w firmie."
+          },
+          {
+            "title": "Opieka IT",
+            "text": "Pomoc zdalna, kopie zapasowe, monitoring."
+          },
+          {
+            "title": "Terminale płatnicze",
+            "text": "PolCard — dobór i uruchomienie."
+          }
+        ],
+        "facts": [
+          "Autoryzowany serwis Posnet i Elzab",
+          "Autoryzowany partner GoPOS i InsERT",
+          "Ponad 100 klientów firmowych z Podhala i Małopolski"
+        ],
+        "more": [
+          "Comarch ERP",
+          "Bezpieczeństwo sieci",
+          "Większe dostawy IT",
+          "RTV i AGD dla firm",
+          "Niszczarki",
+          "Podpis kwalifikowany"
+        ],
+        "steps": [
+          {
+            "title": "Dzwonisz albo piszesz",
+            "text": "Mówisz, czego potrzebuje Twoja firma."
+          },
+          {
+            "title": "Oddzwaniamy w 60 minut",
+            "text": "W godzinach pracy, z konkretną propozycją."
+          },
+          {
+            "title": "Wdrożenie u Ciebie",
+            "text": "Instalacja, konfiguracja i szkolenie na miejscu."
+          }
+        ],
+        "status": [
+          {
+            "label": "Kasa fiskalna",
+            "state": "zafiskalizowana"
+          },
+          {
+            "label": "GoPOS na sali i w kuchni",
+            "state": "wdrożony"
+          },
+          {
+            "label": "E-faktury KSeF",
+            "state": "skonfigurowane"
+          },
+          {
+            "label": "Komputery i kopie",
+            "state": "pod opieką"
+          }
+        ]
+      },
+      "instalacje": {
+        "lead": "Monitoring, alarmy, sieci i Wi-Fi, smart home i nagłośnienie — projekt, montaż i serwis w jednej firmie.",
+        "heading": "Monitoring, sieci i smart home. Projekt, montaż, serwis.",
+        "who": "domy, pensjonaty i hotele, restauracje, firmy, szkoły, gminy, deweloperzy i architekci",
+        "cta": "Zaplanuj instalację",
+        "services": [
+          {
+            "title": "Monitoring i kamery",
+            "text": "Z nagrywaniem i podglądem w telefonie."
+          },
+          {
+            "title": "Alarmy i wideodomofony",
+            "text": "Z powiadomieniem w telefonie."
+          },
+          {
+            "title": "Sieci i Wi-Fi",
+            "text": "Okablowanie, światłowód, Wi-Fi dla gości."
+          },
+          {
+            "title": "Smart home",
+            "text": "Sterowanie domem w systemie Ampio."
+          },
+          {
+            "title": "Nagłośnienie i ekrany",
+            "text": "Sale, lokale i obiekty."
+          },
+          {
+            "title": "Ładowarki EV",
+            "text": "Elzab EcoPower do domu, firmy i obiektu."
+          }
+        ],
+        "facts": [
+          "24 miesiące gwarancji na montaż",
+          "Projekt, montaż i serwis — jedna ekipa",
+          "Odpowiedź w 24 godziny w dni robocze"
+        ],
+        "more": [
+          "Kontrola dostępu",
+          "Ekrany informacyjne",
+          "Anteny i TV hotelowa",
+          "Światłowód w budynku",
+          "Dla architektów"
+        ],
+        "steps": [
+          {
+            "title": "Opisujesz obiekt",
+            "text": "Dom, pensjonat, lokal albo firma — online lub przez telefon."
+          },
+          {
+            "title": "Odpowiedź w 24 godziny",
+            "text": "W dni robocze — oddzwonimy albo odpiszemy."
+          },
+          {
+            "title": "Projekt, montaż, serwis",
+            "text": "Jedna ekipa od początku do końca."
+          }
+        ],
+        "status": [
+          {
+            "label": "Kamera · wejście",
+            "state": "nagrywa"
+          },
+          {
+            "label": "Wi-Fi gości",
+            "state": "działa"
+          },
+          {
+            "label": "Alarm",
+            "state": "uzbrojony"
+          },
+          {
+            "label": "Smart home",
+            "state": "połączony"
+          }
+        ]
+      },
+      "software": {
+        "lead": "Strony internetowe, systemy i panele, aplikacje i automatyzacje pisane pod Twoją firmę, nie z szablonu.",
+        "heading": "Strony, systemy i aplikacje pisane pod Twoją firmę.",
+        "who": "firmy usługowe i budowlane, gastronomia, turystyka — z Podhala i z całej Polski",
+        "cta": "Policz swój projekt",
+        "services": [
+          {
+            "title": "Strony internetowe",
+            "text": "Firmowe, wizytówki i landing page."
+          },
+          {
+            "title": "Systemy i panele",
+            "text": "CRM, zlecenia, czas pracy i rozliczenia."
+          },
+          {
+            "title": "Aplikacje mobilne",
+            "text": "Dla pracowników i dla klientów."
+          },
+          {
+            "title": "Automatyzacje i AI",
+            "text": "Raporty i dokumenty bez przepisywania."
+          },
+          {
+            "title": "Opieka",
+            "text": "Serwer w Polsce, kopia co noc."
+          },
+          {
+            "title": "Darmowy audyt strony",
+            "text": "Sprawdzimy Twoją obecną stronę."
+          }
+        ],
+        "facts": [
+          "Pisane pod Twoją firmę, nie z szablonu",
+          "Serwer w Polsce, kopia zapasowa co noc",
+          "Odpowiedź w 1 dzień roboczy"
+        ],
+        "more": [
+          "Strony dla noclegów",
+          "Przebudowa strony",
+          "Opieka nad stroną",
+          "Panele dla ekip"
+        ],
+        "steps": [
+          {
+            "title": "Opisujesz projekt",
+            "text": "Stronę, system albo pomysł na aplikację."
+          },
+          {
+            "title": "Odpowiedź w 1 dzień roboczy",
+            "text": "Z pytaniami i pierwszą propozycją."
+          },
+          {
+            "title": "Wdrożenie i opieka",
+            "text": "Uruchamiamy i zostajemy po starcie."
+          }
+        ],
+        "status": [
+          {
+            "label": "Strona firmowa",
+            "state": "online"
+          },
+          {
+            "label": "Panel zleceń",
+            "state": "działa"
+          },
+          {
+            "label": "Kopia zapasowa",
+            "state": "co noc"
+          },
+          {
+            "label": "Opieka",
+            "state": "aktywna"
+          }
+        ]
+      },
+      "tech": {
+        "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+        "heading": "Naprawy telefonów, laptopów i konsol.",
+        "who": "klienci indywidualni i firmy — w salonie w Rabce-Zdroju albo kurierem z całej Polski",
+        "cta": "Zgłoś naprawę",
+        "services": [
+          {
+            "title": "Telefony i tablety",
+            "text": "Wyświetlacze, baterie, gniazda ładowania."
+          },
+          {
+            "title": "Laptopy i komputery",
+            "text": "Diagnoza i naprawa."
+          },
+          {
+            "title": "Konsole i drukarki",
+            "text": "Naprawa w serwisie."
+          },
+          {
+            "title": "Odzyskiwanie danych",
+            "text": "Z telefonów i dysków."
+          },
+          {
+            "title": "Hammer Glass",
+            "text": "Folia cięta na wymiar na miejscu."
+          },
+          {
+            "title": "Akcesoria GSM",
+            "text": "Ładowarki, etui i szkła w salonie."
+          }
+        ],
+        "facts": [
+          "Bezpłatna diagnoza i wycena",
+          "Status naprawy online, bez dzwonienia",
+          "Salon w Rabce-Zdroju, także w soboty"
+        ],
+        "more": [
+          "Tablety i smartwatche",
+          "Komputery stacjonarne",
+          "Wysyłka kurierem",
+          "Naprawy dla firm"
+        ],
+        "steps": [
+          {
+            "title": "Zgłaszasz naprawę",
+            "text": "Online albo w salonie w Rabce-Zdroju."
+          },
+          {
+            "title": "Bezpłatna diagnoza i wycena",
+            "text": "Decydujesz, czy naprawiamy."
+          },
+          {
+            "title": "Naprawa i status online",
+            "text": "Sprawdzasz etap bez dzwonienia."
+          }
+        ],
+        "status": [
+          {
+            "label": "Zgłoszenie",
+            "state": "przyjęte"
+          },
+          {
+            "label": "Diagnoza",
+            "state": "bezpłatna"
+          },
+          {
+            "label": "Naprawa",
+            "state": "w toku"
+          },
+          {
+            "label": "Odbiór",
+            "state": "damy znać"
+          }
+        ]
+      },
+      "gaming": {
+        "lead": "Komputery do gier składane ręcznie w Rabce-Zdroju. Klatki mierzone w grach, wysyłka do całej Polski.",
+        "heading": "Komputery do gier. Sprawdzone w grach.",
+        "who": "gracze i rodzice z całej Polski",
+        "cta": "Dobierz komputer",
+        "services": [
+          {
+            "title": "16 zestawów",
+            "text": "W dziewięciu poziomach mocy."
+          },
+          {
+            "title": "Dobór pod grę",
+            "text": "33 gry w doborze „W co grasz?”."
+          },
+          {
+            "title": "Konfigurator",
+            "text": "Złóż własny zestaw krok po kroku."
+          },
+          {
+            "title": "2 lata gwarancji",
+            "text": "Na cały komputer."
+          },
+          {
+            "title": "Składane ręcznie",
+            "text": "W Rabce-Zdroju, wysyłka do całej Polski."
+          },
+          {
+            "title": "Imiona z podań",
+            "text": "Od Skrzata po Peruna."
+          }
+        ],
+        "facts": [
+          "Składane ręcznie w Rabce-Zdroju",
+          "Klatki mierzone w prawdziwych grach",
+          "Gwarancja 2 lata na cały komputer"
+        ],
+        "more": [
+          "Porównywarka zestawów",
+          "Dla rodziców",
+          "Testy przed wysyłką",
+          "Metryka komputera"
+        ],
+        "steps": [
+          {
+            "title": "Wybierasz grę albo zestaw",
+            "text": "W doborze „W co grasz?” lub w konfiguratorze."
+          },
+          {
+            "title": "Składamy i mierzymy",
+            "text": "Ręcznie w Rabce-Zdroju, klatki mierzone w grach."
+          },
+          {
+            "title": "Wysyłka do całej Polski",
+            "text": "Z gwarancją 2 lata na cały komputer."
+          }
+        ],
+        "status": [
+          {
+            "label": "Zestaw",
+            "state": "złożony ręcznie"
+          },
+          {
+            "label": "Test obciążeniowy",
+            "state": "zaliczony"
+          },
+          {
+            "label": "Pomiar klatek",
+            "state": "zmierzony"
+          },
+          {
+            "label": "Metryka",
+            "state": "w pudełku"
+          }
+        ]
+      }
+    },
+    "techStages": [
+      {
+        "title": "Przyjęte",
+        "text": "Sprzęt jest u nas i ma numer zgłoszenia. Od tej chwili widzisz jego status online."
+      },
+      {
+        "title": "Diagnoza",
+        "text": "Sprawdzamy, co się zepsuło. Diagnoza i wycena są bezpłatne — decydujesz, czy naprawiamy."
+      },
+      {
+        "title": "Naprawa",
+        "text": "Po Twojej zgodzie naprawiamy. Etap zmienia się na stronie, nie musisz dzwonić."
+      },
+      {
+        "title": "Do odbioru",
+        "text": "Gotowe. Odbierasz w salonie w Rabce-Zdroju albo odsyłamy kurierem."
+      }
+    ],
+    "cameras": [
+      {
+        "label": "Wejście",
+        "kind": "cam"
+      },
+      {
+        "label": "Parking",
+        "kind": "cam"
+      },
+      {
+        "label": "Recepcja",
+        "kind": "cam"
+      },
+      {
+        "label": "Wi-Fi gości",
+        "kind": "wifi"
+      }
+    ]
+  },
+  "team": {
+    "eyebrow": "Tak pracują razem",
+    "title": "Jeden klient. Kilka linii. Jeden telefon.",
+    "lead": "Większość klientów potrzebuje więcej niż jednej rzeczy. Zobacz na przykładzie, jak linie PRO-KOM składają się na jedną obsługę — zespoły ustalają szczegóły między sobą, nie przez Ciebie.",
+    "cta": "Dobierz dla swojej branży",
+    "note": "Dzwonisz raz — łączymy Cię z właściwymi zespołami.",
+    "examples": [
+      {
+        "persona": "pensjonat",
+        "tab": "Pensjonat",
+        "node": "Twój pensjonat"
+      },
+      {
+        "persona": "restauracja",
+        "tab": "Restauracja",
+        "node": "Twoja restauracja"
+      },
+      {
+        "persona": "biuro",
+        "tab": "Biuro",
+        "node": "Twoje biuro"
+      },
+      {
+        "persona": "dom",
+        "tab": "Dom",
+        "node": "Twój dom"
+      }
+    ],
+    "pillars": [
+      "Jedna firma",
+      "Jeden adres w Rabce-Zdroju",
+      "Jeden numer na start"
+    ]
+  },
+  "choose": {
+    "eyebrow": "Dobierz · 10 sekund",
+    "title": "Wybierz, co jest najbliżej Ciebie.",
+    "lead": "Dwanaście najczęstszych sytuacji i kafel dla całej reszty — bo obsługujemy każdą firmę i każdy dom. Jedno kliknięcie i widzisz, które linie PRO-KOM się Tobą zajmą i od czego zwykle zaczynamy.",
+    "other": {
+      "title": "Inna branża? Też.",
+      "text": "Obsługujemy każdą firmę, instytucję i dom."
+    },
+    "personas": [
+      {
+        "persona": "biuro",
+        "sub": "biuro, kancelaria, księgowość"
+      },
+      {
+        "persona": "restauracja",
+        "sub": "restauracja, bar, kawiarnia"
+      },
+      {
+        "persona": "sklep",
+        "sub": "sklep, punkt usługowy"
+      },
+      {
+        "persona": "pensjonat",
+        "sub": "pensjonat, hotel, apartamenty"
+      },
+      {
+        "persona": "gabinet",
+        "sub": "gabinet, fryzjer, kosmetyka"
+      },
+      {
+        "persona": "produkcja",
+        "sub": "zakład, hurtownia, stolarnia"
+      },
+      {
+        "persona": "ekipy",
+        "sub": "budowlanka, instalatorzy, transport"
+      },
+      {
+        "persona": "wspolnota",
+        "sub": "bloki, osiedla, obiekty"
+      },
+      {
+        "persona": "deweloper",
+        "sub": "inwestor, deweloper, architekt"
+      },
+      {
+        "persona": "szkola",
+        "sub": "szkoła, gmina, instytucja"
+      },
+      {
+        "persona": "dom",
+        "sub": "dom, mieszkanie"
+      },
+      {
+        "persona": "gracz",
+        "sub": "gracze i rodzice"
+      },
+      {
+        "persona": "inne",
+        "sub": null
+      }
+    ],
+    "write": "Napisz, o co chodzi",
+    "note": "Połączymy Cię z właściwymi zespołami."
+  },
+  "tools": {
+    "title": "Załatw to od razu. Bez dzwonienia.",
+    "lead": "Każda linia ma swoje narzędzia online. Dwa najczęściej używane z każdej — obok siebie.",
+    "all": {
+      "eyebrow": "Załatw online · pięć linii",
+      "title": "spraw załatwisz bez dzwonienia.",
+      "text": "Zgłoszenia, statusy, wyceny, plany i konfiguratory ze wszystkich linii w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.",
+      "cta": "Zobacz wszystkie narzędzia"
+    }
+  },
+  "help": {
+    "eyebrow": "Pomoc",
+    "title": "Co zrobić, gdy…",
+    "allLink": "Wszystkie sytuacje w Pomocy",
+    "slugs": [
+      "kasa-fiskalna-nie-drukuje",
+      "padlo-wi-fi-w-pensjonacie",
+      "strona-firmy-nie-dziala-albo-jest-stara",
+      "pekniety-ekran-telefonu",
+      "buduje-dom-i-planuje-instalacje",
+      "jaki-komputer-do-gry-w-ktora-gram"
+    ]
+  },
+  "cooperation": {
+    "eyebrow": "Inwestycje i współpraca",
+    "title": "Projektujesz, budujesz albo zamawiasz więcej?",
+    "lead": "Wchodzimy w projekt wcześnie, bierzemy cały zakres instalacji i dostarczamy sprzęt w większych ilościach — dla pracowni, inwestycji i instytucji.",
+    "cards": [
+      {
+        "title": "Architekci i projektanci",
+        "text": "Instalacje naniesione na rzuty, zanim wejdą tynki."
+      },
+      {
+        "title": "Deweloperzy i inwestorzy",
+        "text": "Lokale, części wspólne i garaż u jednego wykonawcy."
+      },
+      {
+        "title": "Wykonawcy",
+        "text": "Instalacje niskoprądowe jako podwykonawca."
+      },
+      {
+        "title": "Firmy i instytucje",
+        "text": "Większe dostawy IT oraz RTV i AGD — z listą zapytania."
+      },
+      {
+        "title": "Dostawcy",
+        "text": "Masz produkt, który pasuje do naszej oferty?"
+      }
+    ]
+  },
+  "coverage": {
+    "eyebrow": "Gdzie działamy",
+    "title": "Na miejscu na Podhalu. Zdalnie w całej Polsce.",
+    "lead": "Do firm i na montaże dojeżdżamy na Podhalu i w całej Małopolsce. Strony, systemy i komputery do gier robimy dla klientów z całego kraju.",
+    "towns": [
+      "Rabka-Zdrój",
+      "Mszana Dolna",
+      "Nowy Targ",
+      "Zakopane",
+      "Limanowa",
+      "Nowy Sącz",
+      "Myślenice",
+      "Kraków"
+    ],
+    "mapNote": "Schemat kierunków, nie mapa w skali",
+    "region": "Podhale · Małopolska"
+  },
+  "news": {
+    "eyebrow": "Aktualności",
+    "title": "Co nowego w liniach"
+  },
+  "faq": {
+    "eyebrow": "Pytania",
+    "title": "Zanim zadzwonisz",
+    "items": [
+      {
+        "question": "Do której linii mam zadzwonić?",
+        "answer": "Wpisz na górze strony, czego potrzebujesz — pokażemy linię i numer. Jeśli nie masz pewności, zadzwoń pod {telefon}, pokierujemy."
+      },
+      {
+        "question": "Czy linie to osobne firmy?",
+        "answer": "Nie. To jedna firma, PRO-KOM Tadeusz Wójciak z Rabki-Zdroju, z jednym NIP-em. Linie mają osobne strony i zespoły, żeby każdy klient od razu trafiał do właściwych ludzi."
+      },
+      {
+        "question": "Potrzebuję kilku rzeczy naraz. Muszę dzwonić w kilka miejsc?",
+        "answer": "Nie. Wystarczy jeden telefon albo jedna wiadomość — połączymy zespoły po naszej stronie i dostaniesz jeden plan."
+      },
+      {
+        "question": "Gdzie jest salon i kiedy jest otwarty?",
+        "answer": "{adres}. {godziny}."
+      },
+      {
+        "question": "Czy działacie poza Podhalem?",
+        "answer": "Tak. Do firm i na montaże dojeżdżamy w całej Małopolsce. Strony i systemy robimy zdalnie, a komputery do gier wysyłamy do całej Polski."
+      },
+      {
+        "question": "Gdzie sprawdzę status naprawy?",
+        "answer": "Na stronie linii Tech, prokomserwis.pl — po numerze zlecenia albo po zalogowaniu na konto klienta."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Kontakt",
+    "title": "Najszybciej — zadzwoń do właściwej linii.",
+    "write": "Albo napisz. Wiadomość trafi prosto do zespołu.",
+    "topicsLabel": "Czego dotyczy sprawa?",
+    "general": "Nie wiem / ogólne",
+    "directions": "Kontakt i dojazd"
+  },
+  "final": {
+    "title": "Powiedz, czego potrzebujesz. Resztą zajmie się właściwy zespół.",
+    "write": "Napisz do nas",
+    "choose": "Dobierz w 10 sekund"
+  }
+}
