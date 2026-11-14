@@ -118,6 +118,32 @@ test.describe('/_wspolne — phone', () => {
     })
   }
 
+  // Hub H1-2 (14.11): a long closed status pushed „Zadzwoń” past the right edge of the phone.
+  test('„Zadzwoń” stays on screen at 375 px with the longest status (Instalacje)', async ({
+    page,
+  }) => {
+    // Saturday evening: „Zamknięte · otwieramy w poniedziałek o 9:00” (the status reads the
+    // browser clock right after hydration).
+    await page.clock.setFixedTime(new Date('2026-11-14T20:00:00+01:00'))
+    await page.setViewportSize({ width: 375, height: 812 })
+    await page.goto(site('instalacje.localhost', '/_wspolne'))
+    await preview(page).locator('.cap').getByRole('button', { name: 'Menu' }).click()
+    const sheet = page.getByRole('dialog', { name: 'Menu' })
+    const card = sheet.locator('[data-menu-call-card]')
+    await expect(card.locator('[data-opening-status]')).toContainText('otwieramy w poniedziałek')
+    const call = await card.getByRole('link', { name: 'Zadzwoń' }).boundingBox()
+    const box = await card.boundingBox()
+    expect(call && box).toBeTruthy()
+    // Inside the card, not just the screen: a small overflow hides under the sheet's padding.
+    expect(call!.x + call!.width).toBeLessThanOrEqual(box!.x + box!.width)
+    expect(box!.x + box!.width).toBeLessThanOrEqual(375)
+    expect(call!.height).toBeGreaterThanOrEqual(43.5)
+    const sideways = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    )
+    expect(sideways).toBe(false)
+  })
+
   // AUDYT-0911 wieczór #5 (MOBILE-APLIKACJA §5): on the phone every footer link is a 44 px row.
   test('every footer link is a 44 px row on the phone', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 })
