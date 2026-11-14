@@ -231,7 +231,7 @@
         "href": null,
         "steps": [
           {
-            "title": "Bezpłatny przegląd IT",
+            "title": "Przegląd IT na start",
             "text": "Co jest, co działa, co grozi awarią."
           },
           {
@@ -250,7 +250,7 @@
           },
           {
             "title": "Serwery i dyski sieciowe",
-            "text": "Serwery Dell, NAS Synology i QNAP — wdrożenie, szkolenie na życzenie."
+            "text": "Serwery Dell, NAS Synology i QNAP — dostawa, a wdrożenie i szkolenie na życzenie."
           },
           {
             "title": "Microsoft Office i ESET",
@@ -400,7 +400,7 @@
         "line": "biznes",
         "title": "Dostawy i instytucje",
         "lead": "Większe zamówienia sprzętu dla szkół, urzędów, hoteli i firm — konfiguracja i montaż na życzenie.",
-        "cta": "Oferta dla firm",
+        "cta": "Inwestycje i dostawy",
         "href": "/inwestycje-i-dostawy",
         "steps": [
           {
@@ -434,8 +434,8 @@
             "text": "Przygotowujemy oferty w postępowaniach."
           },
           {
-            "title": "Monitoring i nagłośnienie z montażem",
-            "text": "Robi to PRO-KOM Instalacje."
+            "title": "Monitoring i nagłośnienie",
+            "text": "Montaż przez PRO-KOM Instalacje — jeśli tak ustalimy."
           },
           {
             "title": "Współpraca przy inwestycjach",
@@ -564,7 +564,7 @@
       },
       {
         "title": "Muszę wejść w e-faktury",
-        "text": "Potrzebujesz programu, który wystawia i odbiera e-faktury w KSeF, i kogoś, kto go ustawi i przeszkoli zespół.",
+        "text": "Potrzebujesz programu, który wystawia i odbiera e-faktury w KSeF, i kogoś, kto go ustawi, a na życzenie przeszkoli zespół.",
         "order": [
           {
             "line": "biznes",
@@ -572,7 +572,7 @@
           },
           {
             "line": "biznes",
-            "what": "Szkolenie zespołu"
+            "what": "Szkolenie zespołu na życzenie"
           },
           {
             "line": "software",
@@ -652,7 +652,7 @@
       {
         "title": "Uruchomienie",
         "text": "Sprawdzamy, czy wszystko działa razem, a jeśli tak ustalimy — pokazujemy zespołowi, jak z tego korzystać.",
-        "we": "Konfigurujemy i testujemy; szkolimy, gdy tak ustalimy.",
+        "we": "Testujemy całość; konfigurujemy i szkolimy w ustalonym zakresie.",
         "you": "Odbierasz działającą całość."
       },
       {
@@ -683,7 +683,7 @@
         "points": [
           "Pomoc zdalna i na miejscu",
           "Monitoring i kopie zapasowe",
-          "Bezpłatny przegląd IT na start"
+          "Przegląd IT na start"
         ]
       },
       {
@@ -721,7 +721,7 @@
       {
         "topic": "Gdy coś nie działa razem",
         "many": "Każdy wykonawca odpowiada za swoją część i trzeba ustalić, czyja to sprawa.",
-        "one": "Sieć, kasę i komputer ustawia ta sama firma — sprawdzamy całość."
+        "one": "Sieć, kasę i komputer zna jedna firma — sprawdzamy całość."
       },
       {
         "topic": "Kolejność prac",

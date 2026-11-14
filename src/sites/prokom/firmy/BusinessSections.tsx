@@ -9,6 +9,7 @@ import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
 import { Mark } from '../home/Mark'
 import type { BusinessLineInfo } from './model'
+import { OptionalLink } from './OptionalLink'
 
 /** Hero of `/dla-firm` (board 03): H1 of spec §4, the company phone, the „state” card and the facts. */
 export function BusinessHero({
@@ -148,7 +149,7 @@ export function Care({
       <ul className="pk-o5" role="list">
         {items.map(({ info, title, points }) => (
           <li key={title} style={lineStyle(info.key)}>
-            <a href={info.url ?? undefined} className="pk-lcard pk-care">
+            <OptionalLink href={info.url} className="pk-lcard pk-care">
               <span className="pk-care__top">
                 <Mark label={info.label} />
                 {info.phone && <span className="pk-lcard__phone">{info.phone}</span>}
@@ -167,7 +168,7 @@ export function Care({
                   {info.promise}
                 </span>
               )}
-            </a>
+            </OptionalLink>
           </li>
         ))}
       </ul>

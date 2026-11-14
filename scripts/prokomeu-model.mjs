@@ -754,13 +754,20 @@ function forBusiness() {
     'Lenovo i Dell — dostawa, konfiguracja, przeniesienie danych.':
       'Lenovo i Dell — dostawa, a na życzenie konfiguracja i przeniesienie danych.',
     'Serwery Dell, NAS Synology i QNAP, wdrożenie i szkolenie.':
-      'Serwery Dell, NAS Synology i QNAP — wdrożenie, szkolenie na życzenie.',
+      'Serwery Dell, NAS Synology i QNAP — dostawa, a wdrożenie i szkolenie na życzenie.',
     'Licencje z instalacją i konfiguracją.': 'Licencje, a na życzenie instalacja i konfiguracja.',
     'Wdrożenie programu i e-faktur, szkolenie zespołu.':
       'Wdrożenie programu i e-faktur, szkolenie zespołu na życzenie.',
     'Dostawa, montaż, serwis': 'Dostawa i serwis',
     'Uruchamiamy na miejscu.': 'Montaż i uruchomienie — jeśli tak ustalimy.',
     'Rabka-Zdrój, ul. Orkana 16B.': 'W salonie w Rabce-Zdroju.',
+    'Szkolenie zespołu': 'Szkolenie zespołu na życzenie',
+    'Potrzebujesz programu, który wystawia i odbiera e-faktury w KSeF, i kogoś, kto go ustawi i przeszkoli zespół.':
+      'Potrzebujesz programu, który wystawia i odbiera e-faktury w KSeF, i kogoś, kto go ustawi, a na życzenie przeszkoli zespół.',
+    'Monitoring i nagłośnienie z montażem': 'Monitoring i nagłośnienie',
+    'Robi to PRO-KOM Instalacje.': 'Montaż przez PRO-KOM Instalacje — jeśli tak ustalimy.',
+    // „Bezpłatny” is not among the agreed promises of Biznes (spec §3).
+    'Bezpłatny przegląd IT': 'Przegląd IT na start',
     'Oddzwaniamy w 60 minut': '{obietnica}',
     'Odpowiedź w 24 godziny': '{obietnica}',
     'Odpowiedź w 1 dzień roboczy': '{obietnica}',
@@ -768,7 +775,7 @@ function forBusiness() {
     'Sprawdzamy, czy wszystko działa razem, i pokazujemy zespołowi, jak z tego korzystać.':
       'Sprawdzamy, czy wszystko działa razem, a jeśli tak ustalimy — pokazujemy zespołowi, jak z tego korzystać.',
     'Konfigurujemy, testujemy i szkolimy.':
-      'Konfigurujemy i testujemy; szkolimy, gdy tak ustalimy.',
+      'Testujemy całość; konfigurujemy i szkolimy w ustalonym zakresie.',
     'Zgłaszamy kasę, fiskalizujemy ją, programujemy i szkolimy obsługę. Wniosek o ulgę na kasę składa Twoja księgowa.':
       'Zgłaszamy kasę, fiskalizujemy ją i programujemy, a na życzenie szkolimy obsługę. Wniosek o ulgę na kasę składa Twoja księgowa.',
     'Linia Biznes oddzwania w 60 minut w godzinach pracy. Instalacje odpowiadają w 24 godziny w dni robocze, Software w 1 dzień roboczy.':
@@ -841,7 +848,7 @@ function forBusiness() {
         line: SHORT_LINE[area.k],
         title: area.title,
         lead: area.lead,
-        cta: area.cta,
+        cta: area.n === '05' ? 'Inwestycje i dostawy' : area.cta,
         // „Dostawy i instytucje” leads to the hub's B2B page (spec §6.3).
         href: area.n === '05' ? '/inwestycje-i-dostawy' : null,
         steps: area.steps.map(([title, text]) => ({ title, text })),
@@ -890,11 +897,7 @@ function forBusiness() {
         [
           'biznes',
           'Opieka IT',
-          [
-            'Pomoc zdalna i na miejscu',
-            'Monitoring i kopie zapasowe',
-            'Bezpłatny przegląd IT na start',
-          ],
+          ['Pomoc zdalna i na miejscu', 'Monitoring i kopie zapasowe', 'Przegląd IT na start'],
         ],
         [
           'instalacje',
@@ -932,7 +935,7 @@ function forBusiness() {
         [
           'Gdy coś nie działa razem',
           'Każdy wykonawca odpowiada za swoją część i trzeba ustalić, czyja to sprawa.',
-          'Sieć, kasę i komputer ustawia ta sama firma — sprawdzamy całość.',
+          'Sieć, kasę i komputer zna jedna firma — sprawdzamy całość.',
         ],
         [
           'Kolejność prac',

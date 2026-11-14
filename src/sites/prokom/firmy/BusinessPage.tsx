@@ -44,18 +44,17 @@ export async function BusinessPage({ tenant }: { tenant: SiteTenant }) {
       <h1 className={`py-10 font-display text-5xl font-extrabold ${HUB_CONTAINER}`}>PRO-KOM</h1>
     )
   }
-  const lines = homeLines(contacts, home, hub.tools, settings.trust).map(
-    ({ key, name, label, domain, url, phone, tel, promise }) => ({
-      key,
-      name,
-      label,
-      domain,
-      url,
-      phone,
-      tel,
-      promise,
-    }),
-  )
+  const homeLineList = homeLines(contacts, home, hub.tools, settings.trust)
+  const lines = homeLineList.map(({ key, name, label, domain, url, phone, tel, promise }) => ({
+    key,
+    name,
+    label,
+    domain,
+    url,
+    phone,
+    tel,
+    promise,
+  }))
   const phone = shared.line.phone
   const tel = phone ? toTelHref(phone) : null
   const biznes = lines.find((line) => line.key === 'biznes') ?? null
@@ -84,6 +83,7 @@ export async function BusinessPage({ tenant }: { tenant: SiteTenant }) {
         texts={texts.situations}
         items={situations(texts.situations.items, lines)}
         phone={phone}
+        tel={tel}
       />
       <Rollout texts={texts.rollout} />
       <Care texts={texts.care} lines={lines} />
@@ -93,7 +93,7 @@ export async function BusinessPage({ tenant }: { tenant: SiteTenant }) {
         <Brands
           brands={settings.brands}
           facts={settings.trust}
-          lines={homeLines(contacts, home, hub.tools, settings.trust)}
+          lines={homeLineList}
           allHref={isHubLinkLive('/partnerzy', pages) ? '/partnerzy' : null}
         />
       )}

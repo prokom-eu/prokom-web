@@ -54,6 +54,19 @@ test.describe('pro-kom.eu — /dla-firm (spec §6.3)', () => {
     await expect(tabs.nth(2)).toBeFocused()
   })
 
+  test('a situation shows its order of lines', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site(HUB, '/dla-firm#sytuacje'))
+    const items = page.locator('#sytuacje .pk-help__list button')
+    await hydrated(items.nth(2))
+    await items.nth(2).click()
+    await expect(items.nth(2)).toHaveAttribute('aria-pressed', 'true')
+    await expect(page.locator('#sytuacje .pk-situation h3')).toHaveText(
+      (await items.nth(2).textContent()) ?? '',
+    )
+    await expect(page.locator('#sytuacje .pk-situation__order li')).toHaveCount(3)
+  })
+
   test('the form section leads to the contact page with the topic', async ({ page }) => {
     await page.goto(site(HUB, '/dla-firm#formularz'))
     await expect(page.locator('#formularz a[href="/kontakt?temat=dla-firm"]')).toBeVisible()
@@ -66,6 +79,15 @@ test.describe('pro-kom.eu — /dla-firm (spec §6.3)', () => {
       await page.goto(site(HUB, '/dla-firm'))
       const results = await new AxeBuilder({ page }).analyze()
       expect(results.violations).toEqual([])
+      // The other lines' colours in the area panel (Instalacje, Software, Tech).
+      for (const at of [1, 2, 3]) {
+        const tab = page.locator('#zakres [role="tab"]').nth(at)
+        await hydrated(tab)
+        await tab.click()
+        await expect(tab).toHaveAttribute('aria-selected', 'true')
+        const area = await new AxeBuilder({ page }).include('#zakres').analyze()
+        expect(area.violations).toEqual([])
+      }
     })
   }
 

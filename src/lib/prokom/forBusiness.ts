@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { PROMISE } from './home'
+import { fillPromise } from './home'
 import {
   factKeys,
   faqItem,
@@ -161,7 +161,7 @@ export function stepsWithPromise(
   promise: string | null,
 ): { title: string; text: string }[] {
   return steps.flatMap((item) => {
-    if (!item.title.includes(PROMISE)) return [item]
-    return promise ? [{ title: item.title.replace(PROMISE, promise), text: item.text }] : []
+    const title = fillPromise(item.title, promise)
+    return title ? [{ ...item, title }] : []
   })
 }
