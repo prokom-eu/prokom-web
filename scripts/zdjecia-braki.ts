@@ -7,13 +7,12 @@
  * Needs the local database after `pnpm seed` and the media folder (`MEDIA_DIR`). `sharp` is a
  * dependency of Payload already; the background test is `classify` of `zdjecia-tlo.mjs`.
  */
-import { existsSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
 import { getPayload } from 'payload'
 import sharp from 'sharp'
 
-import k3Media from '../seed/prokombiznes/k3/media-k3.json'
 import config from '../src/payload.config'
 import { getEnv } from '../src/lib/env'
 import { classify } from './zdjecia-tlo.mjs'
@@ -180,7 +179,11 @@ ${shopGalleries()}
 
 /** K3 galleries whose files come from a shop, not the producer (`media-k3.json`). */
 function shopGalleries(): string {
-  const rows = Object.entries(k3Media.zdjecia as Record<string, { zrodlo_domeny?: string[] }>)
+  // Read at run time, not imported: the image is type-checked without `seed/` (CI, tsconfig.build).
+  const k3Media = JSON.parse(
+    readFileSync(path.join('seed', 'prokombiznes', 'k3', 'media-k3.json'), 'utf8'),
+  ) as { zdjecia: Record<string, { zrodlo_domeny?: string[] }> }
+  const rows = Object.entries(k3Media.zdjecia)
     .filter(([, entry]) =>
       (entry.zrodlo_domeny ?? []).some((url) => SHOP_HOSTS.some((host) => url.includes(host))),
     )
