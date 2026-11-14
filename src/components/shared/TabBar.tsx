@@ -24,8 +24,10 @@ export type TabBarProps = {
   fourth?: (TabLink & { icon?: string | null }) | null
 }
 
+// 12 px labels (audit 14.11) on the 11 px line height: the bar keeps its height, so the room
+// kept under the page for it (footer, Software end of page) stays exact.
 const ITEM =
-  'flex min-h-11 flex-col items-center justify-end gap-1 pb-0.5 text-[12px] font-extrabold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text'
+  'flex min-h-11 flex-col items-center justify-end gap-1 pb-0.5 text-[12px] leading-[16.5px] font-extrabold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text'
 const ICON = 'flex size-[30px] items-center justify-center'
 
 const isCurrent = (pathname: string, href: string) =>
