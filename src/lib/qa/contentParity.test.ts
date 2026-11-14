@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   afterImportProblems,
+  closedToCrawlers,
   mapPaths,
   measure,
   PAGES,
@@ -90,5 +91,28 @@ describe('porownaj-tresc --po-imporcie (audit 14.11 P2-8: a stale cache after th
         pages: new Map(),
       }),
     ).toEqual(['kart w sitemap 1, na mapie strony 2'])
+  })
+
+  it('recognises staging by its robots.txt (closed to every crawler)', () => {
+    expect(closedToCrawlers('User-agent: *\nDisallow: /\n')).toBe(true)
+    expect(closedToCrawlers('User-agent: *\nAllow: /\n\nSitemap: https://x.pl/sitemap.xml\n')).toBe(
+      false,
+    )
+  })
+
+  it('staging: empty sitemap and noindex on every page are by design — only redirects and errors count', () => {
+    const pages = new Map([
+      ['/produkt/a', { status: 200, noindex: true }],
+      ['/produkt/stary', { status: 301, noindex: true }],
+      ['/produkt/zly', { status: 500, noindex: false }],
+    ])
+    expect(
+      afterImportProblems({
+        sitemap: [],
+        map: ['/produkt/a', '/produkt/stary', '/produkt/zly'],
+        pages,
+        staging: true,
+      }),
+    ).toEqual(['na mapie adres z przekierowaniem 301: /produkt/stary', 'HTTP 500: /produkt/zly'])
   })
 })
