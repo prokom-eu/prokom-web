@@ -15,11 +15,13 @@ import pomoc from '../../../seed/prokomeu/strony/Pomoc.json'
 import cooperationModel from '../../../seed/prokomeu/model/Wspolpraca.json'
 import deliveriesModel from '../../../seed/prokomeu/model/Dostawy.json'
 import homeModel from '../../../seed/prokomeu/model/Main.json'
+import offerModel from '../../../seed/prokomeu/model/Linie.json'
 import brandsModel from '../../../seed/prokomeu/model/Marki.json'
 import { brandsSchema, type HubBrands } from '../../lib/prokom/brands'
 import { cooperationSchema, type HubCooperation } from '../../lib/prokom/cooperation'
 import { deliveriesSchema, type HubDeliveries } from '../../lib/prokom/deliveries'
 import { homeSchema, type HubHome } from '../../lib/prokom/home'
+import { offerSchema, type HubOffer } from '../../lib/prokom/offer'
 
 type Seeded<T> = Omit<T, 'id' | 'tenant' | 'updatedAt' | 'createdAt' | 'related' | 'relatedTool'>
 export type ServiceSeed = Seeded<HubService> & { relatedKeys: string[] }
@@ -244,6 +246,12 @@ export function hubCooperation(): HubCooperation {
 export function hubHome(): HubHome {
   const { _zrodlo: _source, ...data } = homeModel
   return homeSchema.parse(data)
+}
+
+/** Texts of `/linie` (board 02, `scripts/prokomeu-model.mjs`). */
+export function hubOffer(): HubOffer {
+  const { _zrodlo: _source, ...data } = offerModel
+  return offerSchema.parse(data)
 }
 
 export function hubBrands(): HubBrands {

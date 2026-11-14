@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Data of the boards Dostawy, Wspolpraca and Main → `seed/prokomeu/model/*.json` (H1-1c, H2, ADR-H002 §2).
+ * Data of the boards Dostawy, Wspolpraca, Main and Linie → `seed/prokomeu/model/*.json` (H1-1c, H2, ADR-H002 §2).
  * The seed snapshots (`seed/prokomeu/strony/*.json`) keep only the default state of a board and
  * lose the keys of the request list (`pc`, `tv`…), which „Wczytaj przykład do listy” needs. The
  * board itself defines its data in `renderVals()` — this script runs it and writes the content in
@@ -620,12 +620,104 @@ function brands() {
   }
 }
 
+/** Texts of `/linie` (spec §6.2, board 02 `Linie.dc.html`); services, lines and plans come from data. */
+function offer() {
+  return {
+    _zrodlo: `${BOARDS}/Linie.dc.html (HTML :173–375) — scripts/prokomeu-model.mjs`,
+    hero: {
+      // :179–187; H1 from spec §4 („Co gdzie załatwisz.”), the board's „Cała oferta PRO-KOM” as eyebrow
+      eyebrow: 'Cała oferta · pięć linii, jedna firma',
+      title: 'Co gdzie załatwisz.',
+      lead: 'Napisz, czego potrzebujesz. Pokażemy usługę, linię, która się nią zajmuje, i jak zacząć.',
+      ask: 'Wolisz zapytać?',
+      askNote: 'pokierujemy do właściwej linii',
+      searchLabel: 'Szukaj w ofercie',
+      examplesLabel: 'Na przykład:',
+      examples: [
+        { label: 'kasa fiskalna', line: 'biznes' },
+        { label: 'kamery', line: 'instalacje' },
+        { label: 'Wi-Fi dla gości', line: 'instalacje' },
+        { label: 'strona dla firmy', line: 'software' },
+        { label: 'pęknięty ekran', line: 'tech' },
+        { label: 'komputer do gier', line: 'gaming' },
+      ],
+    },
+    filters: {
+      audience: 'Dla kogo',
+      line: 'Linia',
+      allAudiences: 'Wszyscy',
+      allLines: 'Wszystkie',
+      clear: 'Wyczyść',
+      audiences: { firma: 'Firma', dom: 'Dom' },
+    },
+    empty: {
+      // :226–238
+      eyebrow: 'Nie ma na liście?',
+      title: 'Zadzwoń — pokierujemy.',
+      lead: 'Nie każdą sprawę da się nazwać jednym słowem. Powiedz, co się dzieje, a wskażemy właściwą linię.',
+      help: 'Co zrobić, gdy…',
+      reset: 'Pokaż całą ofertę',
+    },
+    detail: {
+      // :262–298
+      label: 'Wybrana usługa',
+      audiences: { firma: 'Dla firm', dom: 'Dla domu', oba: 'Dla firm i domu' },
+      who: 'Dla kogo:',
+      includes: 'Co obejmuje',
+      steps: 'Jak zaczynamy',
+      online: 'Online:',
+      related: 'Często razem z…',
+      close: 'Zamknij',
+    },
+    lines: {
+      // :303–322
+      eyebrow: 'Pięć linii w skrócie',
+      title: 'Kto czym się zajmuje',
+      lead: 'Każda linia ma swój zespół, numer i stronę. Kliknij kartę, żeby zobaczyć w katalogu tylko jej usługi.',
+      who: 'Dla kogo:',
+      inCatalog: 'w katalogu',
+    },
+    next: {
+      // :359–367
+      eyebrow: 'Co dalej',
+      title: 'Nie wiesz, od czego zacząć?',
+      items: [
+        {
+          eyebrow: 'Dobierz',
+          title: 'Dobierz w 10 sekund',
+          text: 'Wybierz branżę albo sytuację i zobacz, które linie się Tobą zajmą.',
+          href: '/#dobierz',
+        },
+        {
+          eyebrow: 'Pomoc',
+          title: 'Co zrobić, gdy…',
+          text: 'Coś nie działa? Pierwsze kroki, zanim zadzwonisz.',
+          href: '/pomoc',
+        },
+        {
+          eyebrow: 'Załatw online',
+          title: 'Załatw online',
+          text: 'Zgłoszenia, plan instalacji, kreator projektu i status naprawy — bez dzwonienia.',
+          href: '/zalatw-online',
+        },
+        {
+          eyebrow: 'Kontakt',
+          title: 'Kontakt',
+          text: 'Numery linii, adres salonu w Rabce-Zdroju i formularz.',
+          href: '/kontakt',
+        },
+      ],
+    },
+  }
+}
+
 mkdirSync(OUT, { recursive: true })
 for (const [name, data] of [
   ['Dostawy', deliveries()],
   ['Wspolpraca', cooperation()],
   ['Main', home()],
   ['Marki', brands()],
+  ['Linie', offer()],
 ]) {
   writeFileSync(join(OUT, `${name}.json`), `${JSON.stringify(data, null, 2)}\n`)
   console.log(`${OUT}/${name}.json`)
