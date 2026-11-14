@@ -278,7 +278,7 @@ function BrandCard({ tile }: { tile: BrandTile }) {
       {tile.salon && (
         <span
           aria-hidden="true"
-          className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[12px] font-black tracking-[0.06em] text-surface uppercase max-md:-top-2 max-md:right-3 max-md:px-2 max-md:py-0.5 max-md:text-[9px]"
+          className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[12px] font-black tracking-[0.06em] text-surface uppercase max-md:-top-2 max-md:right-3 max-md:px-2 max-md:py-0.5"
         >
           Salon
         </span>

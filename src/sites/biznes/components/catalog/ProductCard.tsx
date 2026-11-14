@@ -146,7 +146,7 @@ export function ProductCard({
                   // One badge on a phone, as in `KatalogM`: two would cover the picture.
                   i > 0 && 'max-sm:hidden',
                   // At most 48% of the picture, wrapping: the brand logo keeps the left corner.
-                  'rounded-lg px-2 py-1 text-[0.68rem] leading-[1.15] font-extrabold tracking-[0.04em] uppercase sm:text-[0.72rem]',
+                  'rounded-lg px-2 py-1 text-[12px] leading-[1.15] font-extrabold tracking-[0.04em] uppercase',
                   BADGE[badge.tone],
                 )}
               >
@@ -157,7 +157,7 @@ export function ProductCard({
               <li
                 className={cx(
                   CHIP,
-                  'inline-flex items-center gap-1 px-2 py-1 text-[0.68rem] leading-none font-extrabold text-ink-2',
+                  'inline-flex items-center gap-1 px-2 py-1 text-[12px] leading-none font-extrabold text-ink-2',
                 )}
               >
                 <svg viewBox="0 0 24 24" width="10" height="10" aria-hidden="true">
