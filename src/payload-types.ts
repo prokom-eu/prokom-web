@@ -6032,6 +6032,18 @@ export interface HubSetting {
     | boolean
     | null;
   /**
+   * Teksty strony /linie. Usługi z kolekcji „Usługi huba”, kroki i odbiorcy linii z tekstów strony głównej — tu tylko nagłówki, filtry i podpisy.
+   */
+  offer?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
    * Na produkcji widać tylko zatwierdzone fakty (spec §3). Źródło jest wewnętrzne — nie pokazujemy go.
    */
   trust?:
@@ -9838,6 +9850,7 @@ export interface HubSettingsSelect<T extends boolean = true> {
   brands?: T;
   deliveries?: T;
   cooperation?: T;
+  offer?: T;
   trust?:
     | T
     | {

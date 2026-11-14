@@ -14,6 +14,7 @@ import { brandsSchema, type HubBrands } from './brands'
 import { cooperationSchema, type HubCooperation } from './cooperation'
 import { deliveriesSchema, type HubDeliveries } from './deliveries'
 import { homeSchema, type HubHome } from './home'
+import { offerSchema, type HubOffer } from './offer'
 import { NO_OPTIONAL_PAGES, type HubPageFlags } from './pages'
 import { hubTag } from './tags'
 
@@ -200,6 +201,7 @@ export type HubSettingsView = {
   brands: HubBrands | null
   deliveries: HubDeliveries | null
   cooperation: HubCooperation | null
+  offer: HubOffer | null
 }
 
 type SiteEnv = 'production' | 'staging' | 'local'
@@ -207,7 +209,10 @@ type SiteEnv = 'production' | 'staging' | 'local'
 /** Projection of `HubSettings`: missing document or field = v1.1 pages off, no facts. */
 export function toHubSettings(
   doc:
-    | Pick<HubSetting, 'pages' | 'trust' | 'home' | 'brands' | 'deliveries' | 'cooperation'>
+    | Pick<
+        HubSetting,
+        'pages' | 'trust' | 'home' | 'brands' | 'deliveries' | 'cooperation' | 'offer'
+      >
     | null
     | undefined,
   siteEnv: SiteEnv,
@@ -227,6 +232,7 @@ export function toHubSettings(
     brands: pageTexts(brandsSchema, doc?.brands, 'brands', tenantId),
     deliveries: pageTexts(deliveriesSchema, doc?.deliveries, 'deliveries', tenantId),
     cooperation: pageTexts(cooperationSchema, doc?.cooperation, 'cooperation', tenantId),
+    offer: pageTexts(offerSchema, doc?.offer, 'offer', tenantId),
   }
 }
 
@@ -238,7 +244,7 @@ export function toHubSettings(
 function pageTexts<T>(
   schema: z.ZodType<T>,
   value: unknown,
-  field: 'home' | 'brands' | 'deliveries' | 'cooperation',
+  field: 'home' | 'brands' | 'deliveries' | 'cooperation' | 'offer',
   tenantId: number | null,
 ): T | null {
   if (value === null || value === undefined) return null
