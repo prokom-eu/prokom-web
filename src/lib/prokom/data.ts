@@ -8,6 +8,8 @@ import { cacheQuery } from '../cache'
 import { getEnv } from '../env'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import type { HubLine } from './lines'
+import { cooperationSchema, type HubCooperation } from './cooperation'
+import { deliveriesSchema, type HubDeliveries } from './deliveries'
 import { NO_OPTIONAL_PAGES, type HubPageFlags } from './pages'
 import { hubTag } from './tags'
 
@@ -189,13 +191,16 @@ export type HubSettingsView = {
   pages: HubPageFlags
   /** Company facts; on production only the approved ones (spec §3). */
   trust: { value: string; label: string }[]
+  /** `null` until filled in the panel (or when the stored value no longer fits the schema). */
+  deliveries: HubDeliveries | null
+  cooperation: HubCooperation | null
 }
 
 type SiteEnv = 'production' | 'staging' | 'local'
 
 /** Projection of `HubSettings`: missing document or field = v1.1 pages off, no facts. */
 export function toHubSettings(
-  doc: Pick<HubSetting, 'pages' | 'trust'> | null | undefined,
+  doc: Pick<HubSetting, 'pages' | 'trust' | 'deliveries' | 'cooperation'> | null | undefined,
   siteEnv: SiteEnv,
 ): HubSettingsView {
   const pages = { ...NO_OPTIONAL_PAGES }
@@ -205,7 +210,14 @@ export function toHubSettings(
   const trust = (doc?.trust ?? [])
     .filter((row) => siteEnv !== 'production' || row.approved === true)
     .map((row) => ({ value: row.value, label: row.label }))
-  return { pages, trust }
+  const deliveries = deliveriesSchema.safeParse(doc?.deliveries)
+  const cooperation = cooperationSchema.safeParse(doc?.cooperation)
+  return {
+    pages,
+    trust,
+    deliveries: deliveries.success ? deliveries.data : null,
+    cooperation: cooperation.success ? cooperation.data : null,
+  }
 }
 
 /** `HubSettings` of one tenant, cached with the hub content (`hubTag`). */

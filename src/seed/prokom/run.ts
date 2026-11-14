@@ -5,7 +5,16 @@ import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
 import { PROKOM_SITE } from '../shared/prokom'
 import { seedSharedData } from '../shared/run'
-import { hubHelp, hubPlans, hubServices, hubTools, hubTrust, mergeTrust } from './map'
+import {
+  hubCooperation,
+  hubDeliveries,
+  hubHelp,
+  hubPlans,
+  hubServices,
+  hubTools,
+  hubTrust,
+  mergeTrust,
+} from './map'
 
 export const PROKOM_TENANT_SLUG = 'prokom'
 
@@ -85,21 +94,26 @@ export async function seedProkom(payload: Payload): Promise<void> {
     limit: 1,
     ...local,
   })
-  const trust = mergeTrust(hubSettings?.trust, hubTrust())
+  // Texts of the two pages: the package wins (local only), like every field of the seed.
+  const settingsData = {
+    trust: mergeTrust(hubSettings?.trust, hubTrust()),
+    deliveries: hubDeliveries(),
+    cooperation: hubCooperation(),
+  }
   if (!hubSettings) {
     await payload.create({
       collection: 'hub-settings',
-      data: { tenant: tenantId, trust },
+      data: { tenant: tenantId, ...settingsData },
       ...local,
     })
     count('hub-settings', 'created')
-  } else if (hasSameValues(hubSettings.trust, trust)) {
+  } else if (hasSameValues(hubSettings, settingsData)) {
     count('hub-settings', 'skipped')
   } else {
     await payload.update({
       collection: 'hub-settings',
       id: hubSettings.id,
-      data: { trust },
+      data: settingsData,
       ...local,
     })
     count('hub-settings', 'updated')

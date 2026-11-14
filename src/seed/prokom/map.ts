@@ -12,6 +12,10 @@ import linie from '../../../seed/prokomeu/strony/Linie.json'
 import main from '../../../seed/prokomeu/strony/Main.json'
 import narzedzia from '../../../seed/prokomeu/strony/Narzedzia.json'
 import pomoc from '../../../seed/prokomeu/strony/Pomoc.json'
+import cooperationModel from '../../../seed/prokomeu/model/Wspolpraca.json'
+import deliveriesModel from '../../../seed/prokomeu/model/Dostawy.json'
+import { cooperationSchema, type HubCooperation } from '../../lib/prokom/cooperation'
+import { deliveriesSchema, type HubDeliveries } from '../../lib/prokom/deliveries'
 
 type Seeded<T> = Omit<T, 'id' | 'tenant' | 'updatedAt' | 'createdAt' | 'related' | 'relatedTool'>
 export type ServiceSeed = Seeded<HubService> & { relatedKeys: string[] }
@@ -216,4 +220,18 @@ export function mergeTrust(
     ...pkg.map((row) => ({ ...row, id: own.get(row.value)?.id })),
     ...(stored ?? []).filter((row) => !values.has(row.value)),
   ]
+}
+
+/**
+ * Texts of „Inwestycje i dostawy” and „Współpraca” from the boards' own data
+ * (`seed/prokomeu/model/*.json`, `scripts/prokomeu-model.mjs`); the schema throws on a bad package.
+ */
+export function hubDeliveries(): HubDeliveries {
+  const { _zrodlo: _source, ...data } = deliveriesModel
+  return deliveriesSchema.parse(data)
+}
+
+export function hubCooperation(): HubCooperation {
+  const { _zrodlo: _source, ...data } = cooperationModel
+  return cooperationSchema.parse(data)
 }
