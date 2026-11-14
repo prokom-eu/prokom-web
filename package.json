@@ -26,6 +26,7 @@
     "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/index.ts",
     "mail:samples": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/mail-samples.ts",
     "seed:biznes": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/biznes/index.ts --",
+    "seed:prokom": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/prokom/index.ts --",
     "seed:instalacje": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/instalacje/index.ts",
     "inst:texts": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/instalacje/inst-texts.ts --",
     "inst:realizacje": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/instalacje/inst-realizacje.ts --",

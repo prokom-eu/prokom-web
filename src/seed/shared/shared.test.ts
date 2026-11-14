@@ -121,6 +121,6 @@ describe('shared seed — content rules (spec §2, §10 pkt 2)', () => {
   })
 
   it('has a shared group for every line with a site', () => {
-    expect(Object.keys(LINE_SHARED).sort()).toEqual(['biznes', 'instalacje', 'software'])
+    expect(Object.keys(LINE_SHARED).sort()).toEqual(['biznes', 'instalacje', 'prokom', 'software'])
   })
 })
