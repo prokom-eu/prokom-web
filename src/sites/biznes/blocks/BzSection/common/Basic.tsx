@@ -8,6 +8,7 @@ import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 
+import { balancedGrid } from './grid'
 import { PhaseText } from '../k4j/ClientLazy'
 import {
   CARD,
@@ -160,15 +161,17 @@ export function CardsSection({
   // Phone (boards App-*): cards with a link swipe in one row (App-Kontakt, App-OFirmie); plain
   // cards sit two by two in small tiles (App-GoPOS).
   const row = list.some((item) => item.href)
+  // Columns from the number of cards, the last row centred (audit 14.11 P1-4: 5 cards were 3 + 2).
+  const grid = balancedGrid(list.length, { phone: 2 })
   return (
     <SectionShell block={block}>
       <ul
         className={cx(
-          'grid gap-4 min-[640px]:grid-cols-2',
-          list.length % 4 === 0 ? 'min-[1080px]:grid-cols-4' : 'min-[1080px]:grid-cols-3',
+          grid.list,
+          'gap-4',
           row
             ? 'max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-3 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none]'
-            : 'max-md:grid-cols-2 max-md:gap-2.5',
+            : 'max-md:gap-2.5',
         )}
       >
         {list.map((item, i) => (
@@ -176,6 +179,7 @@ export function CardsSection({
             key={item.id ?? i}
             className={cx(
               CARD,
+              grid.item(i),
               'flex flex-col gap-2.5 p-6 text-ink sm:p-7 max-md:gap-1.5',
               row
                 ? 'max-md:relative max-md:w-[66%] max-md:shrink-0 max-md:snap-start max-md:p-4'
