@@ -235,7 +235,7 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       title: 'Pokaż nam **swoje menu**, a zrobimy stronę, którą łatwo zmieniać',
       lead: 'Pokażemy podgląd strony z Twoim menu i podamy cenę. Bez zobowiązań.',
       quoteCaption:
-        'Napisz, jaki masz lokal i jak dziś zbierasz rezerwacje, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
+        'Napisz, jaki masz lokal i jak zbierasz rezerwacje, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
     },
   },
   'sklep-internetowy': {
@@ -450,7 +450,7 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       title: 'Opisz, **jak dziś prowadzicie klientów**, a zaproponujemy prosty CRM',
       lead: 'Rozmowa o Waszej sprzedaży, podgląd CRM i cena w 5–7 dni. Bez zobowiązań.',
       quoteCaption:
-        'Napisz, skąd przychodzą klienci i jak wysyłacie oferty, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
+        'Napisz, skąd macie klientów i jak wysyłacie oferty, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
     },
   },
 }

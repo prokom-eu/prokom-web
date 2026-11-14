@@ -77,6 +77,28 @@ describe('seed of the solution pages', () => {
     )
   })
 
+  it('fits the limits of the panel fields (`collections/solutionPage.ts`)', () => {
+    const over: string[] = []
+    const check = (slug: string, field: string, text: string, max: number) => {
+      if (text.length > max) over.push(`${slug} ${field}: ${text.length} > ${max}`)
+    }
+    for (const [slug, text] of Object.entries(SOLUTION_PAGE_TEXTS)) {
+      check(slug, 'eyebrow', text.eyebrow, 90)
+      check(slug, 'title', text.title, 90)
+      check(slug, 'titleAccent', text.titleAccent, 60)
+      check(slug, 'lead', text.lead, 400)
+      for (const item of text.compare) {
+        check(slug, 'compare.label', item.label, 40)
+        check(slug, 'compare.title', item.title, 120)
+      }
+      check(slug, 'contact.eyebrow', text.contact.eyebrow, 60)
+      check(slug, 'contact.title', text.contact.title, 120)
+      check(slug, 'contact.lead', text.contact.lead, 300)
+      check(slug, 'contact.quoteCaption', text.contact.quoteCaption, 90)
+    }
+    expect(over).toEqual([])
+  })
+
   it('gives every page its own words: no sentence of 6+ words on two pages', () => {
     const owner = new Map<string, string>()
     for (const [slug, text] of Object.entries(SOLUTION_PAGE_TEXTS)) {
