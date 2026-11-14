@@ -182,5 +182,23 @@ describe('wheelGroups (KOLO-HERO v3)', () => {
     ])
     // The department's count stays the catalog's, not the ring's.
     expect(wheel[0]!.count).toBe(4)
+
+    // A page bubble picked in the panel is never the one cut; it stays last in its run.
+    const withLink = groups.map((group, i) =>
+      i === 4
+        ? { ...group, wheelLink: { label: 'Opieka IT', href: '/opieka-it', icon: 'lifebuoy' } }
+        : group,
+    )
+    const linked = wheelGroups({ ...wheelIndex, groups: withLink, products } as unknown as Pick<
+      CatalogIndex,
+      'groups' | 'categories' | 'products'
+    >)
+    expect(linked.map((group) => group.items.map((item) => item.key))).toEqual([
+      ['a0', 'a1'],
+      ['b0', 'b1'],
+      ['c0', 'c1'],
+      ['d0'],
+      ['link:/opieka-it'],
+    ])
   })
 })

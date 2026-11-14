@@ -113,7 +113,7 @@ function capInTurns<T>(lists: readonly T[][], max: number): T[][] {
 /**
  * The departments of the hero wheel (KOLO-HERO v3): each with its wheel cards in the panel's
  * order and the extra page bubble last, at most `WHEEL_MAX` bubbles on the whole ring (taken in
- * turns). Only what the client island draws — no index entries.
+ * turns, the page bubble first). Only what the client island draws — no index entries.
  */
 export function wheelGroups(
   index: Pick<CatalogIndex, 'groups' | 'categories' | 'products'>,
@@ -152,9 +152,18 @@ export function wheelGroups(
         : cards,
     }
   })
-  const items = capInTurns(
-    groups.map((group) => group.items),
+  // The page bubble is the department's own pick in the panel: it goes into the cut first and
+  // still stands last in its run.
+  const isLink = (item: WheelItem) => item.key.startsWith('link:')
+  const kept = capInTurns(
+    groups.map((group) => [
+      ...group.items.filter(isLink),
+      ...group.items.filter((i) => !isLink(i)),
+    ]),
     WHEEL_MAX,
   )
-  return groups.map((group, i) => ({ ...group, items: items[i]! }))
+  return groups.map((group, i) => {
+    const items = kept[i]!
+    return { ...group, items: [...items.filter((item) => !isLink(item)), ...items.filter(isLink)] }
+  })
 }

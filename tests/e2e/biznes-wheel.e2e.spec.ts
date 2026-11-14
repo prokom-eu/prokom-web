@@ -115,6 +115,8 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
       }),
     )
     expect(links.filter((link) => !link.own).map((link) => link.href)).toEqual([])
+    // The page bubble picked in the panel survives the cut to 8.
+    expect(links.map((link) => link.href)).toContain('/opieka-it')
     expect(links.map((link) => link.href)).toContain('/produkt/apple-iphone-18-pro?kolor=burgund')
 
     const statuses = await page.evaluate(
