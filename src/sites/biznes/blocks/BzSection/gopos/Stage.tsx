@@ -206,7 +206,7 @@ export function GoposFlow({ flow }: { flow: Flow }) {
               {i + 1}
             </span>
             <span className="flex min-w-0 flex-col gap-0.5">
-              <em className="text-[12px] font-extrabold tracking-[0.06em] text-ok uppercase not-italic max-md:text-[10px]">
+              <em className="text-[12px] font-extrabold tracking-[0.06em] text-ok uppercase not-italic">
                 {item.k}
               </em>
               <b className="leading-snug max-md:text-[13px]">{item.t}</b>
