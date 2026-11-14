@@ -32,6 +32,22 @@ describe('ProductStage: the photo stands on a white plate (NAPRAWA-0911 §3)', (
     expect(html).toContain('[&amp;:has([data-stage-fallback])&gt;[data-stage-plate]]:hidden')
   })
 
+  it('a licence without a photo says what it is — never „Bez zdjęcia” (audit 14.11 P1-1)', () => {
+    for (const size of ['md', 'lg'] as const) {
+      const html = renderToStaticMarkup(
+        createElement(StageFallback, {
+          icon: 'shield',
+          size,
+          name: 'Microsoft 365 Business Basic',
+          tile: 'licence',
+        }),
+      )
+      expect(html).toContain('data-stage-fallback')
+      expect(html).toContain('Licencja elektroniczna')
+      expect(html).not.toMatch(/Bez zdjęcia|Zdjęcia producenta/)
+    }
+  })
+
   it('the plate class uses only tokens (no raw colours)', () => {
     expect(STAGE_PLATE).toMatch(/bg-plate/)
     expect(STAGE_PLATE).not.toMatch(/#[0-9a-f]{3,6}|rgb/i)

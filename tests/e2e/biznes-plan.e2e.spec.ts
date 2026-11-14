@@ -17,14 +17,15 @@ test.describe('Biznes plan of the company (K31d′)', () => {
     await expect(page.locator('main dl').first()).toContainText('186')
     const scenes = page.getByRole('group', { name: 'Rodzaj firmy' }).getByRole('button')
     await expect(scenes).toHaveCount(12)
-    await expect(page.locator('.fp-stage svg')).toHaveCount(1)
+    // The scene's drawing only: a point without a photo has its icon (an <svg>) on the stage too.
+    await expect(page.locator('.fp-stage > div > svg')).toHaveCount(1)
 
     const svg = page.waitForResponse((r) => r.url().includes('/api/plan-svg/biuro'))
     await scenes.filter({ hasText: 'Biuro' }).click()
     expect((await svg).status()).toBe(200)
     await expect(page.getByRole('heading', { level: 2, name: /^Biuro/ })).toBeVisible()
     await expect(page).toHaveURL(/\?scena=biuro$/)
-    await expect(page.locator('.fp-stage svg')).toHaveCount(1)
+    await expect(page.locator('.fp-stage > div > svg')).toHaveCount(1)
   })
 
   test('?scena= picks the scene on load', async ({ page }) => {

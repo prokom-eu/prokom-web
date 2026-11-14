@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Icon } from '@/components/ui/Icon'
 import { cardIcon, productHref } from '@/lib/catalog/card'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
-import { serviceTile } from '@/lib/catalog/purchase'
+import { fallbackTile, serviceTile } from '@/lib/catalog/purchase'
 import type { ProductView } from '@/lib/catalog/product'
 import type { SourceLink } from '@/lib/catalog/sourceLabels'
 import type { VersionRow } from '@/lib/catalog/versionRows'
@@ -164,7 +164,7 @@ function ProductTile({
               className={`relative max-h-[72%] w-auto max-w-[78%] object-contain ${STAGE_SHADOW}`}
             />
           ) : (
-            <StageFallback icon={cardIcon(product, index)} service={serviceTile(product)} />
+            <StageFallback icon={cardIcon(product, index)} tile={fallbackTile(product)} />
           )}
         </ProductStage>
         <AddToCartButton

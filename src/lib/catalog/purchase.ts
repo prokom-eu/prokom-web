@@ -96,3 +96,13 @@ export function purchaseSentence(input: PurchaseInput): string {
  */
 export const serviceTile = (card: { kind: string; brand: string | null }) =>
   card.kind === 'service' || card.brand === OWN_BRAND_SLUG
+
+/** What stands in for a missing photo: the service tile, the licence tile or the category icon. */
+export type FallbackTile = 'service' | 'licence' | null
+
+/**
+ * Tile of a card without a photo (audit 14.11 P1-1): a service → „Usługa PRO-KOM”, software (a
+ * licence or subscription has no box worth a photo) → „Licencja elektroniczna”, else none.
+ */
+export const fallbackTile = (card: { kind: string; brand: string | null }): FallbackTile =>
+  serviceTile(card) ? 'service' : card.kind === 'software' ? 'licence' : null

@@ -30,7 +30,6 @@ import {
   k3CreateFields,
   k3GalleryFile,
   k3GalleryMediaData,
-  k3ImageKeys,
   k3PartnerData,
   k3BrandNeedsRecord,
   k3ProductData,
@@ -48,7 +47,6 @@ import {
   k4BrandRecord,
   k4ColorKeys,
   k4Colors,
-  k4ImageKeys,
   k4NewCards,
   k4PhotoFile,
   k4PhotoMediaData,
@@ -138,11 +136,9 @@ import { seedBiznesHome } from './home'
 import { navigationData, upgradedColumnLimit, upgradedHighlights, upgradedMenu } from './navigation'
 import { seedSharedData } from '../shared/run'
 import { MENU_IMAGES, MENU_MEDIA_DIR, menuImageUpdate, menuUploadName } from './menuImages'
+// Files of the design package and katalog v2 (galleries, logos of new brands), from the repo root.
+import { cardImageKeys, MEDIA_DIR, SEED_MEDIA_DIR } from './cardGallery'
 
-/** Files of the design package, relative to the repo root (where `pnpm seed` runs). */
-const MEDIA_DIR = path.join('docs', 'design', 'prokombiznes', 'boards', 'media')
-/** Katalog v2 files: product galleries (`produkty/<slug>/`) and the logos of new brands. */
-const SEED_MEDIA_DIR = path.join('seed', 'prokombiznes', 'media')
 const BIZNES_TENANT_SLUG = 'biznes'
 /** Gallery photos uploaded at once: resizing (sharp) is the slow part and uses several cores. */
 const GALLERY_UPLOADS_AT_ONCE = 4
@@ -355,24 +351,19 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   }
 
   // --- galleries: K3 photos (uploaded as `k3-<file>`), else katalog v2 or design files; a new
-  // K4 card has its K4 photos (`k4-<file>`) ---
+  // K4 card has its K4 photos (`k4-<file>`); `zdjecia_brak` = none (`cardImageKeys`) ---
   const imageKeys = new Map(
-    cards.map((card) => {
-      const keys = k3ImageKeys(
+    cards.map((card) => [
+      card.slug_seed,
+      cardImageKeys(
         card,
+        k4Cards.get(card.slug_seed),
         k3Gallery,
         matches.get(card.slug_seed),
         media.pliki,
         galleryLimit,
-      )
-      const k4 = k4Cards.get(card.slug_seed)
-      // Producer photos chosen for production replace the whole gallery (PRODUKCJA-BIZNES-1211).
-      if (k4?.zdjecia_premium?.length) {
-        return [card.slug_seed, k4ImageKeys(k4).slice(0, galleryLimit ?? undefined)]
-      }
-      const k4Keys = k4 && !keys.length ? k4ImageKeys(k4).slice(0, galleryLimit ?? undefined) : []
-      return [card.slug_seed, keys.length ? keys : k4Keys]
-    }),
+      ),
+    ]),
   )
   if (galleryLimit !== null) log(`gallery limited to ${galleryLimit} photos per product`)
   const { docs: storedMedia } = await payload.find({
@@ -639,7 +630,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
           }
         : {}
     if (k4) k4Changes[k4.zmiana_k4] = (k4Changes[k4.zmiana_k4] ?? 0) + 1
-    if (k4?.zdjecia_brak) note('K4: karta bez zdjęcia (kafel usługi — K4e)', card.slug_seed)
+    if (k4?.zdjecia_brak) note('K4: karta bez zdjęcia (kafel usługi albo licencji)', card.slug_seed)
     // A card of the K4 slug map stays a draft here, so a re-run does not publish it again.
     const status = k4Hidden.has(card.slug_seed) ? 'draft' : k3PublishStatus(card)
     if (card.branze.some((slug) => SKIPPED_INDUSTRIES.has(slug))) {

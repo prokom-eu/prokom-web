@@ -7,6 +7,7 @@ import { MediaImage } from '@/components/MediaImage'
 import { cx } from '@/components/ui/cx'
 import type { IndexLogo } from '@/lib/catalog/catalogIndex'
 import type { IconName } from '@/lib/catalog/options'
+import type { FallbackTile } from '@/lib/catalog/purchase'
 import type { PublicImage } from '@/lib/media/public'
 
 import { useSwap } from '../motion/useSwap'
@@ -24,8 +25,8 @@ type Props = {
   videoTarget: string | null
   /** Slide of each colour (K32 §9): a picked colour shows its picture. */
   colorSlides?: (number | null)[]
-  /** No photo: the navy „Usługa PRO-KOM” tile instead of the stand-in (K36 §5). */
-  service?: boolean
+  /** Tile in place of a missing photo (`fallbackTile`). */
+  tile?: FallbackTile
 }
 
 const SWIPE = 40
@@ -48,7 +49,7 @@ export function ProductGallery({
   icon,
   videoTarget,
   colorSlides = [],
-  service = false,
+  tile = null,
 }: Props) {
   const [active, setActive] = useState(0)
   // A colour picked in the hero turns the gallery to its picture (adjusted while rendering).
@@ -181,7 +182,7 @@ export function ProductGallery({
                 )}
               />
             ) : (
-              <StageFallback icon={icon} size="lg" name={name} service={service} />
+              <StageFallback icon={icon} size="lg" name={name} tile={tile} />
             )}
           </ProductStage>
           {image && (

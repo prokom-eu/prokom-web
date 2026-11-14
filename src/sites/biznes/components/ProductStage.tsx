@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { IconName } from '@/lib/catalog/options'
+import type { FallbackTile } from '@/lib/catalog/purchase'
 
 /** Studio gradient (K31-ZMIANY §3) — also for a stage that is not a single photo. */
 export const STAGE_BG =
@@ -79,26 +80,42 @@ const ICON: Record<FallbackSize, string> = {
   lg: 'size-10 sm:size-12',
 }
 
+/** Notes under the tile of a product without a photo: cards (`md`) and the gallery (`lg`). */
+const FALLBACK_NOTE = {
+  product: {
+    md: 'Bez zdjęcia producenta',
+    lg: 'Zdjęcia producenta jeszcze nie ma. Pełna specyfikacja jest poniżej.',
+  },
+  licence: {
+    md: 'Licencja elektroniczna',
+    lg: 'Licencja elektroniczna — bez pudełka i płyty. Zakres jest w specyfikacji poniżej.',
+  },
+} as const
+
 /**
  * A product without a photo (K31-ZMIANY §4.10): the category icon in a tile on the studio —
- * never an empty `<img>`. `sm` (thumbnails) is the icon only, `md` (cards) adds „Zdjęcie
- * producenta wkrótce”, `lg` (gallery) adds the name and that the specification follows.
+ * never an empty `<img>`. `sm` (thumbnails) is the icon only, `md` (cards) adds a short note,
+ * `lg` (gallery) adds the name and that the specification follows. Software says it is an
+ * electronic licence instead of „no photo” (audit 14.11 P1-1).
  */
 export function StageFallback({
   icon,
   size = 'md',
   name,
-  service = false,
+  tile = null,
 }: {
   icon: IconName
   size?: FallbackSize
   /** Gallery only: the product name above the note. */
   name?: string
-  /** A PRO-KOM service: the navy tile „Usługa PRO-KOM” over the whole stage (K36 §5, §10). */
-  service?: boolean
+  /**
+   * `service`: the navy tile „Usługa PRO-KOM” over the whole stage (K36 §5, §10); `licence`: the
+   * light tile with „Licencja elektroniczna” (`fallbackTile`).
+   */
+  tile?: FallbackTile
 }) {
-  if (service) return <ServiceTile icon={icon} size={size} name={name} />
-  const tile = (
+  if (tile === 'service') return <ServiceTile icon={icon} size={size} name={name} />
+  const badge = (
     <span
       aria-hidden="true"
       data-stage-fallback={size === 'sm' ? '' : undefined}
@@ -110,7 +127,7 @@ export function StageFallback({
       <Icon name={icon} className={ICON[size]} strokeWidth={2} />
     </span>
   )
-  if (size === 'sm') return tile
+  if (size === 'sm') return badge
   return (
     // `lg` sits above the desk line (70% of the height), as on the board.
     <span
@@ -120,7 +137,7 @@ export function StageFallback({
         size === 'lg' && 'mb-20 sm:mb-24',
       )}
     >
-      {tile}
+      {badge}
       {size === 'lg' && name && (
         <span className="max-w-[420px] font-display text-xl font-extrabold leading-tight text-ink sm:text-2xl">
           {name}
@@ -133,9 +150,7 @@ export function StageFallback({
           size === 'lg' ? 'max-w-[340px] text-sm leading-normal' : 'text-xs max-sm:sr-only',
         )}
       >
-        {size === 'lg'
-          ? 'Zdjęcia producenta jeszcze nie ma. Pełna specyfikacja jest poniżej.'
-          : 'Bez zdjęcia producenta'}
+        {FALLBACK_NOTE[tile === 'licence' ? 'licence' : 'product'][size]}
       </span>
     </span>
   )
