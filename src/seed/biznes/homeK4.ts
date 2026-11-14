@@ -16,7 +16,7 @@ export const OLD_HERO = {
   cta: { label: 'Dobierz zestaw w 60 sekund', href: '/kreator' },
   trustItems: [
     { icon: 'cal', text: 'Na Podhalu od 2004' },
-    { icon: 'users', text: '100+ firm pod stałą opieką' },
+    { icon: 'users', text: '10\u00a0000+ klientów' },
   ] as Trust[],
 }
 
@@ -27,10 +27,10 @@ export const K4_HERO = {
   headingAccent: 'Wszystko z jednego miejsca w Rabce.',
   lead: 'Dobieramy, wdrażamy i serwisujemy wszystko, na czym pracuje firma: od kasy fiskalnej i terminala, przez komputery i programy, po sieć i serwer. Jeden partner z Rabki zamiast kilku firm i infolinii.',
   cta: { label: 'Dobierz rozwiązanie dla firmy', href: '/konfigurator' },
-  // K4-FINAL §1: one wording of the client count.
+  // One wording of the client count (decision of 14.11.2026: 10 000+ klientów).
   trustItems: [
     { icon: 'cal', text: 'Na Podhalu od 2004' },
-    { icon: 'users', text: '100+ klientów firmowych' },
+    { icon: 'users', text: '10\u00a0000+ klientów' },
   ] as Trust[],
 }
 

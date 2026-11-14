@@ -58,7 +58,7 @@ export const TILE_SCENES: Readonly<Record<string, string>> = {
 export const PLAN_BIZ2 = {
   eyebrow: 'Dla kogo pracujemy · Plan Twojej firmy',
   heading: 'Wybierz branżę i\u00a0zobacz, co ustawimy w\u00a0Twoim lokalu.',
-  lead: 'Ponad 100 klientów firmowych z\u00a0Podhala i\u00a0Małopolski, od straganu po urząd gminy. Kliknij urządzenie na planie, a\u00a0całość dodasz do zapytania jednym kliknięciem.',
+  lead: 'Ponad 10\u00a0000 klientów z\u00a0Podhala i\u00a0Małopolski, od straganu po urząd gminy. Kliknij urządzenie na planie, a\u00a0całość dodasz do zapytania jednym kliknięciem.',
   moreLabel: 'Gotowy zestaw dla tej branży',
 }
 
@@ -95,7 +95,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
         // B3-1 (D8: the industries are the plan's tabs); kept as data of the block.
         eyebrow: 'Dla kogo pracujemy',
         heading: 'Firmy każdej wielkości, od straganu po urząd gminy',
-        lead: 'Ponad 100 klientów firmowych: firm i instytucji z Podhala i Małopolski. Wybierz swoją branżę, a pokażemy plan lokalu z urządzeniami albo dobierzemy rozwiązanie w konfiguratorze.',
+        lead: 'Ponad 10\u00a0000 klientów z Podhala i Małopolski. Wybierz swoją branżę, a pokażemy plan lokalu z urządzeniami albo dobierzemy rozwiązanie w konfiguratorze.',
         moreLabel: 'Pokaż wszystkie branże',
         moreNote: 'jeszcze 10 branż',
         // Board `KG5`: 11 at once, 10 after „Pokaż wszystkie”, then „Każda inna firma”.

@@ -12,6 +12,15 @@ import { KSEF_POS_PARAGRAPH, KSEF_RELIEF_PARAGRAPH } from './posts'
  * Only these exact phrases change; everything else edited in the panel stays as it is.
  */
 export const TEXT_FIXES: readonly (readonly [from: string, to: string])[] = [
+  // Client count (14.11.2026) in the leads of „Plan Twojej firmy”.
+  [
+    'Ponad 100 klientów firmowych z Podhala i Małopolski',
+    'Ponad 10 000 klientów z Podhala i Małopolski',
+  ],
+  [
+    'Ponad 100 klientów firmowych: firm i instytucji z Podhala i Małopolski.',
+    'Ponad 10 000 klientów z Podhala i Małopolski.',
+  ],
   // Contact data of the line — decision of 01.11.2026 (`contact.ts`).
   ['biznes@pro-kom.eu', BIZNES_CONTACT.email],
   ['biuro@pro-kom.eu', BIZNES_CONTACT.email],
@@ -66,6 +75,18 @@ type Fix = readonly [from: string, to: string]
  * same phrase written inside another text in the panel stays.
  */
 export const WHOLE_TEXT_FIXES: readonly Fix[] = [
+  // Client count — Krystian's decision of 14.11.2026: „10 000+ klientów” (was „100+ klientów
+  // firmowych” / „firm pod stałą opieką”). Whole fields only: „100+” inside a sentence stays.
+  ['100+', '10\u00a0000+'],
+  ['klientów firmowych', 'klientów'],
+  [
+    'klientów firmowych: sklepy, biura, gastronomia, noclegi',
+    'klientów: sklepy, biura, gastronomia, noclegi',
+  ],
+  ['klientów firmowych na Podhalu i w Małopolsce', 'klientów na Podhalu i w Małopolsce'],
+  ['firm i instytucji pod opieką', 'klientów'],
+  ['100+ firm pod stałą opieką', '10\u00a0000+ klientów'],
+  ['100+ klientów firmowych', '10\u00a0000+ klientów'],
   // KSeF post and the cash register FAQ (D17 and the relief note, 06.11.2026).
   [
     'Kasa dalej drukuje paragony. Ale od 1.01.2027 faktura do paragonu dla firmy idzie wyłącznie przez KSeF: z programu lub aplikacji, nie z kasy. Paragon z NIP do 450 zł przestaje być fakturą uproszczoną w B2B. W gastronomii i hotelu konfigurujemy to w GoPOS i NFHotel.',

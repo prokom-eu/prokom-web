@@ -157,7 +157,8 @@ describe('upgradeHomeV150 — „O firmie” without the quote (POPRAWKI-0311 §
     })
     expect((facts.stats as { label: string }[]).map((stat) => stat.label)).toEqual([
       'rok założenia firmy',
-      'klientów firmowych',
+      // Client count of 14.11.2026: „10 000+ klientów”.
+      'klientów',
     ])
   })
 
