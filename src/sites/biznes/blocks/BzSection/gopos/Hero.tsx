@@ -80,7 +80,7 @@ export function GoposHero({ block, data, index, images, crumbs }: Props) {
               <span
                 className={cx(
                   EYEBROW,
-                  'inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-2 text-footer-ok ring-1 ring-ok/40 ring-inset max-md:px-3 max-md:py-1.5 max-md:text-[11px] max-md:tracking-normal max-md:normal-case',
+                  'inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-2 text-footer-ok ring-1 ring-ok/40 ring-inset max-md:px-3 max-md:py-1.5 max-md:text-[12px] max-md:tracking-normal max-md:normal-case',
                 )}
               >
                 <span aria-hidden="true" className="size-2 rounded-full bg-ok" />

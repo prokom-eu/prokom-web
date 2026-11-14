@@ -157,7 +157,8 @@
   border-radius: 999px;
   padding: 4px 10px;
   background: color-mix(in srgb, var(--ln) 18%, transparent);
-  color: var(--ln-text);
+  /* Page ink, not the line's text colour: that one misses AA on its own tint (light theme). */
+  color: var(--k-white);
   font-size: 12px;
   font-weight: 800;
 }

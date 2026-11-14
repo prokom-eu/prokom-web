@@ -372,7 +372,8 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
                   >
                     Często dobierane razem
                   </h3>
-                  <ul className="grid gap-2.5 sm:grid-cols-3">
+                  {/* A list, not three narrow cards (audit 14.11 pkt 5): a name in one line. */}
+                  <ul className="grid gap-2.5">
                     {suggestions.map((product) => (
                       <li
                         key={product.slug}
@@ -384,10 +385,13 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
                         >
                           <ProductThumb product={product} index={index} />
                           <span className="min-w-0">
-                            <b className="block text-sm leading-tight font-extrabold text-ink">
+                            <b
+                              title={product.name}
+                              className="block truncate text-sm leading-tight font-extrabold text-ink"
+                            >
                               {product.name}
                             </b>
-                            <small className="text-xs text-ink-2">
+                            <small className="block truncate text-xs text-ink-2">
                               {productSubtitle(product, index)}
                             </small>
                           </span>

@@ -254,7 +254,7 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
             {view.heroCard && (
               <div className="rounded-3xl bg-white/6 p-5 ring-1 ring-white/15 ring-inset backdrop-blur-md min-[1080px]:max-w-[300px]">
                 {view.heroCard.title && (
-                  <p className="pb-3 text-[11px] font-black tracking-[0.1em] text-accent-on-dark uppercase">
+                  <p className="pb-3 text-[12px] font-black tracking-[0.1em] text-accent-on-dark uppercase">
                     {view.heroCard.title}
                   </p>
                 )}
@@ -342,7 +342,7 @@ function PlanItem({
         )}
         <div className="flex flex-col gap-1">
           {card.audience && (
-            <p className="text-[11px] font-black tracking-[0.08em] text-accent-text uppercase">
+            <p className="text-[12px] font-black tracking-[0.08em] text-accent-text uppercase">
               {card.audience}
             </p>
           )}
@@ -647,7 +647,7 @@ export function SalonAbout({
                 key={fact.label}
                 className="flex min-w-0 flex-col gap-1 rounded-2xl bg-surface-2 p-4 max-md:p-3"
               >
-                <dt className="text-xs font-black tracking-[0.08em] break-words text-ink-2 uppercase max-md:text-[11px]">
+                <dt className="text-xs font-black tracking-[0.08em] break-words text-ink-2 uppercase">
                   {fact.label}
                 </dt>
                 <dd className="font-extrabold break-words text-ink max-md:text-sm">{fact.value}</dd>

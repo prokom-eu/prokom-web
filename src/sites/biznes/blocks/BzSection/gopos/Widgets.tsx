@@ -763,7 +763,7 @@ function TierTable({ tiers }: { tiers: NonNullable<SectionData<'gopos-package'>[
             <dl className="mt-2 grid grid-cols-3 gap-2">
               {row.v.map((value, i) => (
                 <div key={i} className="rounded-xl bg-surface-2 p-2">
-                  <dt className="text-[11px] font-extrabold tracking-[0.06em] text-ink-2 uppercase">
+                  <dt className="text-[12px] font-extrabold tracking-[0.06em] text-ink-2 uppercase">
                     {tiers.head[i]}
                   </dt>
                   <dd className="text-[13px] leading-snug">{value}</dd>

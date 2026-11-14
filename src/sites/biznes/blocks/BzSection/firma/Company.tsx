@@ -89,7 +89,7 @@ export async function AboutHero({
             <p
               className={cx(
                 EYEBROW,
-                'inline-flex items-center gap-2 self-start rounded-full bg-card px-3.5 py-2 text-accent-text shadow-[inset_0_0_0_1px_var(--border)] max-md:px-3 max-md:py-1.5 max-md:text-[11px] max-md:tracking-normal max-md:normal-case',
+                'inline-flex items-center gap-2 self-start rounded-full bg-card px-3.5 py-2 text-accent-text shadow-[inset_0_0_0_1px_var(--border)] max-md:px-3 max-md:py-1.5 max-md:text-[12px] max-md:tracking-normal max-md:normal-case',
               )}
             >
               <span aria-hidden="true" className="size-2 rounded-full bg-ok" />
@@ -141,7 +141,7 @@ export async function AboutHero({
               'flex flex-col gap-5 p-6 text-ink max-md:gap-3.5 max-md:p-4 sm:p-7',
             )}
           >
-            <p className={cx(EYEBROW, 'text-ink-2 max-md:text-[11px]')}>Dane firmy</p>
+            <p className={cx(EYEBROW, 'text-ink-2 max-md:text-[12px]')}>Dane firmy</p>
             {/* Phone (App-OFirmie): label and value side by side in small type. */}
             <dl className="grid gap-x-5 gap-y-2.5 text-[15px] max-md:grid-cols-[72px_minmax(0,1fr)] max-md:gap-x-3 max-md:gap-y-1.5 max-md:text-[13.5px] min-[480px]:grid-cols-[110px_1fr]">
               {c.company?.name && (

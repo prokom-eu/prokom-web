@@ -100,7 +100,7 @@ export function BrandsDirectory({
                   >
                     <Logo tile={tile} eager className="h-14 w-[86px] shrink-0 px-2" />
                     <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                      <span className="text-[11px] leading-tight font-black tracking-[0.08em] text-accent-on-dark uppercase">
+                      <span className="text-[12px] leading-tight font-black tracking-[0.08em] text-accent-on-dark uppercase">
                         {partnerStatusLabel(tile.status)}
                       </span>
                       <b className="font-extrabold">{tile.name}</b>
@@ -278,7 +278,7 @@ function BrandCard({ tile }: { tile: BrandTile }) {
       {tile.salon && (
         <span
           aria-hidden="true"
-          className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[11px] font-black tracking-[0.06em] text-surface uppercase max-md:-top-2 max-md:right-3 max-md:px-2 max-md:py-0.5 max-md:text-[9px]"
+          className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[12px] font-black tracking-[0.06em] text-surface uppercase max-md:-top-2 max-md:right-3 max-md:px-2 max-md:py-0.5"
         >
           Salon
         </span>
