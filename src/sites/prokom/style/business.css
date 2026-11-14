@@ -511,7 +511,8 @@
   color: var(--k-ink);
 }
 .pk-cmp thead .pk-cmp__one {
-  color: var(--k-gt);
+  /* Page ink: the green text misses AA on the green-tinted column in the light theme (4.4:1). */
+  color: var(--k-ink);
 }
 .pk-grants {
   display: flex;
