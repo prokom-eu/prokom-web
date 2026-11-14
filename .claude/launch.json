@@ -37,6 +37,13 @@
       "url": "http://biznes.localhost:3001"
     },
     {
+      "name": "biznes-start-3001",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["exec", "cross-env", "NODE_OPTIONS=--no-deprecation", "next", "start", "-p", "3001"],
+      "port": 3001,
+      "url": "http://biznes.localhost:3001"
+    },
+    {
       "name": "plansze-biznes",
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8765", "--directory", "docs/design/prokombiznes/k4/boards"],
