@@ -76383,19 +76383,20 @@
   {
    "slug_seed": "nexo",
    "zmiana_k4": "drobne",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "prog",
    "kategoria": "progs",
    "marka": "InsERT",
    "rodzaj": "Oprogramowanie",
    "nazwa": "InsERT Subiekt nexo / nexo PRO",
    "krotka": "InsERT Subiekt nexo / nexo PRO",
-   "podtytul": "System sprzedaży i magazynu, licencja na 1 lub 3 stanowiska, pełna obsługa KSeF, interfejs dotykowy POS",
+   "podtytul": "System sprzedaży i magazynu z pełną obsługą KSeF, sprzedażą z wielu magazynów i dokupowanym interfejsem dotykowym POS",
    "korzysc": "Sprzedaż, faktury, KSeF i kilka magazynów w programie dla sklepu, hurtowni i warsztatu.",
    "opis": [
-    "Subiekt nexo to najnowsza linia programu do sprzedaży i magazynu InsERT, dla małych i średnich firm: sklepów, hurtowni, warsztatów i firm usługowych. Wersja nexo PRO dokłada funkcje dla firm z kilkoma oddziałami, magazynami i pracownikami o różnych uprawnieniach. Program instalujesz na komputerach w firmie, licencję kupujesz na 1 albo 3 stanowiska.",
-    "Obsługuje wszystkie dokumenty handlowe i magazynowe, faktury z kilku magazynów, zamówienia z terminem dostawy dla każdej pozycji, cenniki i rabaty dla klientów oraz rozrachunki z przypomnieniami o płatnościach. KSeF jest wbudowany: e-fakturę wysyłasz ręcznie albo automatycznie po zapisaniu, przed wysyłką widzisz jej podgląd, a numer KSeF pojawia się przy dokumencie. Faktury od dostawców program pobiera sam, cyklicznie. Paragony nie trafiają do KSeF — obsługuje je drukarka fiskalna.",
-    "Zmiany w towarach i cenach program przekazuje do kas, drukarek fiskalnych i wag. Do sklepu dokupisz interfejs dotykowy POS, a do księgowości — Rachmistrza lub Rewizora z tej samej linii. Od 1 kwietnia 2026 obsługa KSeF wymaga aktywnego Abonamentu i InsPunktów; licencja obejmuje 3 miesiące Abonamentu InsERT."
+    "Subiekt nexo to najnowsza linia programu do sprzedaży i magazynu InsERT, dla małych i średnich firm: sklepów, hurtowni, warsztatów i firm usługowych. Wersja nexo PRO dokłada funkcje dla firm z oddziałami, partiami towaru i pracownikami o różnych uprawnieniach. Program instalujesz na komputerach w firmie, a licencję kupujesz na liczbę stanowisk, na których pracujecie jednocześnie.",
+    "Obsługuje dokumenty handlowe i magazynowe, faktury z kilku magazynów na jednym dokumencie, zamówienia z terminem dostawy dla każdej pozycji, cenniki i rabaty dla klientów oraz rozrachunki z przypomnieniami o płatnościach. KSeF jest wbudowany: e-fakturę wysyłasz na żądanie, na przykład na koniec dnia, albo automatycznie zaraz po zapisaniu, a numer KSeF pojawia się w kolumnie przy dokumencie. Faktury zakupu program pobiera ręcznie albo cyklicznie. Paragony, faktury RR i noty korygujące nie trafiają do KSeF — paragon obsługuje drukarka fiskalna.",
+    "Zmiany w towarach i cenach Subiekt przekazuje do kas, drukarek fiskalnych, wag etykietujących i terminali płatniczych z listy sterowników InsERT. Do sklepu dokupisz interfejs dotykowy POS (licencja roczna na stanowiska, miesiąc próbny), a do księgowości — Rachmistrza lub Rewizora z tej samej linii. Od 1 kwietnia 2026 każda wysyłka i każde pobranie e-faktury kosztuje 1 InsPunkt; nowo zarejestrowany program dostaje 3 miesiące Abonamentu i 25 InsPunktów na start.",
+    "W salonie w Rabce-Zdroju instalujemy program, przenosimy kartoteki z poprzedniego systemu (także z Subiekta GT), podłączamy kasę lub drukarkę fiskalną i uruchamiamy KSeF z certyfikatem firmy. Najpierw możesz sprawdzić program przez 45 dni w pełnej wersji testowej, a my pomożemy zdecydować, czy wystarczy nexo, czy potrzebna jest wersja PRO."
    ],
    "cechy": [
     "KSeF",
@@ -76409,11 +76410,11 @@
     },
     {
      "k": "KSeF",
-     "v": "wysyłka ręczna lub automatyczna po zapisie: faktury sprzedaży (także do paragonu), zaliczkowe, uproszczone, marża i korekty; podgląd przed wysyłką, numer KSeF przy dokumencie, blokada edycji po przyjęciu; odbiór ręczny lub cykliczny; wirtualna bramka do testów; wydruki do trybu offline i awarii"
+     "v": "wysyłka na żądanie lub automatycznie po zapisie: faktury sprzedaży (także do paragonu), zaliczkowe (z rozliczeniem), uproszczone i marża wraz z korektami; podgląd przed wysyłką, numer KSeF w kolumnie dokumentu, blokada danych po przyjęciu; odbiór ręczny lub cykliczny; wirtualna bramka do ćwiczeń; podpisywanie wydruków na tryb offline i awarie. Nie trafiają: paragony, faktury RR, noty korygujące"
     },
     {
      "k": "Opłaty za KSeF",
-     "v": "od 1.04.2026 każda wysyłka i każde pobranie e-faktury = 1 InsPunkt; potrzebny aktywny Abonament i InsPunkty w Portfelu InsERT"
+     "v": "od 1.04.2026 każda wysyłka i każde pobranie e-faktury = 1 InsPunkt; potrzebny aktywny Abonament i InsPunkty w Portfelu InsERT (100 InsPunktów z każdym zakupem Abonamentu, 25 przy rejestracji nowego programu)"
     },
     {
      "k": "JPK",
@@ -76421,35 +76422,35 @@
     },
     {
      "k": "Licencja",
-     "v": "na 1 lub 3 stanowiska; Abonament roczny do 3 stanowisk + każde kolejne stanowisko"
+     "v": "na liczbę stanowisk pracujących jednocześnie; po zakupie 3 miesiące Abonamentu InsERT, potem Abonament roczny"
     },
     {
      "k": "Urządzenia",
-     "v": "kasy i drukarki fiskalne, wagi etykietujące, czytniki kodów kreskowych"
+     "v": "kasy i drukarki fiskalne (m.in. Posnet i Elzab), wagi etykietujące, sprawdzarki cen, kolektory danych, terminale płatnicze; czytniki kodów USB (klawiaturowe) — w Subiekcie nexo bez czytników RS"
     },
     {
      "k": "Integracje",
-     "v": "Rachmistrz, Rewizor, Gratyfikant, Gestor nexo; nexo PRO także zarezerwuj.pl, pakiet e-commerce (w Abonamencie)"
+     "v": "Rachmistrz nexo i Rewizor nexo (w PRO — wersje PRO); część pakietu InsERT nexo razem z Gratyfikantem i Gestorem; nexo PRO także Sfera i pakiet e-Commerce z procedurą VAT OSS (w Abonamencie)"
     },
     {
      "k": "Sposób pracy",
-     "v": "lokalnie: Windows 10 (64-bit, 1809+) / 11 lub Windows Server 2019/2022/2025, Microsoft SQL Server (wersja Express 2025 w zestawie)"
+     "v": "lokalnie: Windows 11 (InsERT zaleca), Windows 10 64-bit 1809+ bez gwarancji po końcu wsparcia, Windows Server 2019/2022/2025; Microsoft SQL Server 2017–2025 (wersja Express 2025 w zestawie)"
     },
     {
      "k": "Wymagania",
-     "v": "procesor x64 min. 4 rdzenie, RAM min. 8 GB, zalecany dysk SSD"
+     "v": "minimum: procesor x64 4 rdzenie, 8 GB RAM; zalecane: 6 rdzeni, 16 GB RAM, dysk SSD"
     },
     {
      "k": "Aplikacja mobilna",
-     "v": "osobna aplikacja InsERT mobile (moduł Kalendarz), dokupowana"
+     "v": "InsERT mobile (Android): moduł Klienci bezpłatny w Abonamencie, moduł Kalendarz płatny, dla użytkowników Gestora nexo"
     },
     {
      "k": "Po zakupie",
-     "v": "licencja obejmuje 3 miesiące Abonamentu InsERT: aktualizacje, teleKonsultant pn–pt 8–20, e-Archiwizacja 10 GB"
+     "v": "3 miesiące Abonamentu InsERT: aktualizacje, teleKonsultant pn–pt 8–20, e-Archiwizacja 10 GB w chmurze"
     },
     {
      "k": "Wersja próbna",
-     "v": "45 dni, bez ograniczeń"
+     "v": "45 dni pełnej funkcjonalności, po rejestracji"
     }
    ],
    "warianty_opis": [
@@ -76459,11 +76460,11 @@
     },
     {
      "model": "InsERT Subiekt nexo PRO",
-     "roznica": "dla większych firm i oddziałów: oddziały z własnymi cennikami, role i uprawnienia do magazynów i oddziałów, pełna historia zmian, partie towaru, cenniki czasowe, zamienniki, kosztorysowanie usług, płatności ratalne, pola i raporty własne (także SQL), INTRASTAT, VAT OSS, Sfera"
+     "roznica": "dla większych firm i oddziałów: oddziały z własnymi cennikami, role i uprawnienia do magazynów i oddziałów, pełny ślad rewizyjny, partie towaru, cenniki czasowe dla wybranych klientów, zamienniki, kosztorysowanie usług, płatności ratalne, raporty własne (także SQL), INTRASTAT, VAT OSS, Sfera, ceny do 6 miejsc po przecinku"
     },
     {
      "model": "Subiekt GT (dla porównania)",
-     "roznica": "starsza linia, licencja od razu na 3 stanowiska, 10 poziomów cen; InsERT zachęca do przejścia na nexo PRO"
+     "roznica": "starsza linia: bez sprzedaży z kilku magazynów na jednym dokumencie i bez pobierania paragonów z kasy; InsERT zachęca do przejścia na nexo"
     },
     {
      "model": "Subiekt 123 (dla porównania)",
@@ -76477,15 +76478,19 @@
     },
     {
      "q": "Jaki komputer jest potrzebny do Subiekta nexo?",
-     "a": "Program działa lokalnie na Windows 10 (64-bit, 1809+) lub 11 albo na Windows Server 2019/2022/2025. Potrzebny jest procesor x64 z min. 4 rdzeniami, min. 8 GB RAM i najlepiej dysk SSD; Microsoft SQL Server Express 2025 jest w zestawie."
+     "a": "Program działa lokalnie na Windows 11 (InsERT go zaleca), na Windows 10 64-bit 1809+ bez gwarancji po końcu wsparcia Microsoftu albo na Windows Server 2019/2022/2025. Minimum to procesor x64 z 4 rdzeniami i 8 GB RAM, zalecane 6 rdzeni, 16 GB RAM i dysk SSD; SQL Server Express 2025 jest w zestawie."
     },
     {
      "q": "Czy paragony też trafiają do KSeF?",
-     "a": "Nie. Do KSeF trafiają faktury, a paragony obsługuje drukarka fiskalna. Subiekt nexo przekazuje zmiany w kartotece towarów do kas, drukarek fiskalnych i wag, więc sprzedaż na kasie i w programie jest spójna."
+     "a": "Nie. Do KSeF trafiają faktury sprzedaży, zaliczkowe, uproszczone i marża z korektami, a paragony, faktury RR i noty korygujące — nie. Paragon obsługuje drukarka fiskalna, a Subiekt nexo przekazuje do niej i do kas zmiany w kartotece towarów."
     },
     {
      "q": "Czy sprzedawca może obsługiwać sprzedaż na ekranie dotykowym?",
-     "a": "Tak. Do sklepu dokupisz interfejs dotykowy POS — licencja jest na stanowisko i na rok. Pomożemy dobrać liczbę stanowisk i skonfigurować je razem z drukarką fiskalną."
+     "a": "Tak. Interfejs dotykowy POS działa w Subiekcie nexo i nexo PRO; licencję kupuje się na rok na określoną liczbę stanowisk, a przez pierwszy miesiąc można go wypróbować. Pomożemy dobrać liczbę stanowisk i skonfigurować je razem z drukarką fiskalną."
+    },
+    {
+     "q": "Czy Subiekt nexo przeniesie dane z Subiekta GT?",
+     "a": "Tak, przy przejściu z Subiekta GT przenosimy kartoteki towarów i kontrahentów do nowej bazy nexo. Najpierw robimy kopię i próbne przeniesienie, żeby sprawdzić ceny, stany i rozrachunki, a dopiero potem przełączamy sprzedaż."
     }
    ],
    "konfigurator": {
@@ -76505,8 +76510,8 @@
       "nazwa": "Liczba stanowisk",
       "wartosci": [
        "1 stanowisko",
-       "3 stanowiska",
-       "kolejne stanowiska (Abonament)"
+       "2–3 stanowiska",
+       "więcej stanowisk"
       ],
       "dl": false,
       "pom": "Ile osób lub komputerów będzie pracować jednocześnie."
@@ -76525,8 +76530,7 @@
       "wartosci": [
        "POS — interfejs dotykowy (na stanowisko, rok)",
        "paczka InsPunktów (KSeF)",
-       "InsERT mobile — Kalendarz",
-       "Rachmistrz / Rewizor nexo PRO"
+       "Rachmistrz / Rewizor nexo"
       ],
       "dl": true,
       "pom": ""
@@ -76540,7 +76544,7 @@
      },
      {
       "nazwa": "Hurtownia / warsztat, 3 osoby",
-      "konfiguracja": "Subiekt nexo PRO 3 stanowiska + Abonament 12 mies. + paczka InsPunktów"
+      "konfiguracja": "Subiekt nexo PRO na 3 stanowiska + Abonament 12 mies. + paczka InsPunktów"
      },
      {
       "nazwa": "Firma, która sama księguje",
@@ -76601,6 +76605,26 @@
      "url": "https://www.insert.com.pl/dla_uzytkownikow/portfel_insert/inspunkty_a_ksef.html",
      "etykieta": "Strona producenta — InsERT",
      "host": "insert.com.pl"
+    },
+    {
+     "url": "https://www.insert.com.pl/programy_dla_firm/sprzedaz/subiekt_nexo/porownanie.html",
+     "etykieta": "Strona producenta — InsERT",
+     "host": "insert.com.pl"
+    },
+    {
+     "url": "https://www.insert.com.pl/programy_dla_firm/sprzedaz/subiekt_nexo/urzadzenia_zewnetrzne.html",
+     "etykieta": "Strona producenta — InsERT",
+     "host": "insert.com.pl"
+    },
+    {
+     "url": "https://www.insert.com.pl/programy_dla_firm/moduly_dodatkowe/pos_interfejs_dotykowy.html",
+     "etykieta": "Strona producenta — InsERT",
+     "host": "insert.com.pl"
+    },
+    {
+     "url": "https://www.insert.com.pl/programy_dla_firm/aplikacje_mobilne/insert_mobile/opis.html",
+     "etykieta": "Strona producenta — InsERT",
+     "host": "insert.com.pl"
     }
    ],
    "wyrozniki": [
@@ -76615,19 +76639,19 @@
     },
     {
      "k": "KSeF",
-     "v": "wysyłka ręczna lub automatyczna po zapisie"
+     "v": "wysyłka na żądanie lub automatycznie po zapisie"
     },
     {
      "k": "Opłaty za KSeF",
-     "v": "od 1.04.2026 każda wysyłka i każde pobranie e-faktury = 1…"
-    },
-    {
-     "k": "JPK",
-     "v": "nexo PRO: własne wyrażenia przy tworzeniu JPK_V7 dla biura rachunkowego"
+     "v": "od 1.04.2026: 1 InsPunkt za wysyłkę lub pobranie"
     },
     {
      "k": "Licencja",
-     "v": "na 1 lub 3 stanowiska"
+     "v": "na liczbę stanowisk, 3 miesiące Abonamentu"
+    },
+    {
+     "k": "Wersja próbna",
+     "v": "45 dni pełnej funkcjonalności"
     }
    ],
    "nowosc": false,
@@ -76645,6 +76669,28 @@
      "k": "InsERT nexo",
      "l": "pl",
      "d": "model"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/nexo-premium-01.webp",
+     "zrodlo": "https://www.insert.com.pl/.grafika/ekrany/duze/subiekt_nexo_pro/05_cennik_dodatkowy_czasowy.png",
+     "ujecie": "ekran — cennik dodatkowy czasowy"
+    },
+    {
+     "plik": "media/produkty/nexo-premium-02.webp",
+     "zrodlo": "https://www.insert.com.pl/.grafika/ekrany/duze/subiekt_nexo_pro/16_kompletowanie_asortymentu_do_realizacji_zamowien_od_klientow.png",
+     "ujecie": "ekran — kompletowanie zamówień od klientów"
+    },
+    {
+     "plik": "media/produkty/nexo-premium-03.webp",
+     "zrodlo": "https://www.insert.com.pl/.grafika/ekrany/duze/subiekt_nexo_pro/01_ustawianie_widocznosci_pol_dokumentu.png",
+     "ujecie": "ekran — widoczność pól dokumentu"
+    },
+    {
+     "plik": "media/produkty/nexo-premium-04.webp",
+     "zrodlo": "https://www.insert.com.pl/.grafika/ekrany/duze/subiekt_nexo_pro/20_definiowanie_raportu_wlasnego_sql.png",
+     "ujecie": "ekran — raport własny SQL"
     }
    ]
   },
