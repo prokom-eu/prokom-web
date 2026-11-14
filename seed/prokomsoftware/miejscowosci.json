@@ -137,7 +137,7 @@
         "eyebrow": "Nowy Targ · systemy, strony, sklepy",
         "title": "Strony i systemy dla firm",
         "titleAccent": "z Nowego Targu.",
-        "lead": "Z Rabki do Nowego Targu jedziemy niecałe pół godziny. Spotykamy się u Ciebie w firmie albo w naszym salonie w Rabce, jak Ci wygodniej.",
+        "lead": "Nowy Targ mamy po drodze z Rabki, zakopianką. Spotykamy się u Ciebie w firmie albo w naszym salonie w Rabce, jak Ci wygodniej.",
         "ctas": [
           [
             "Dobierz rozwiązanie · 60 s",
@@ -186,7 +186,7 @@
         ],
         [
           "Najpierw jeden moduł",
-          "Zaczynamy od tego, co najbardziej boli, na przykład zamówień. Reszta dochodzi etapami."
+          "Zaczynamy od tego, co zabiera najwięcej czasu, na przykład od zamówień. Reszta dochodzi etapami."
         ],
         [
           "Dane z Excela przenosimy",
@@ -204,14 +204,15 @@
         },
         {
           "q": "Czy system połączy się z programem do faktur?",
-          "a": "Najczęściej tak. Sprawdzamy, jaki program masz, i wyceniamy połączenie osobno, na piśmie."
+          "a": "Najczęściej tak. Sprawdzamy, jaki program masz, i wyceniamy połączenie osobno."
         },
         {
           "q": "Ile kosztuje system dla firmy w Nowym Targu?",
-          "a": "Ceny „od” są przy każdym systemie w cenniku. Dokładną wycenę dostajesz po rozmowie."
+          "a": "System zleceń zaczyna się od {cena:system-zlecen-i-grafik-ekip} netto za pierwszy moduł. Ceny innych systemów stoją w cenniku, a dokładną wycenę dostajesz po rozmowie."
         }
       ],
       "nearby": [
+        "Rabka-Zdrój",
         "Nowy Targ",
         "Szaflary",
         "Ludźmierz",
@@ -247,7 +248,7 @@
         "eyebrow": "Mszana Dolna · strony, systemy, opieka",
         "title": "Strony i systemy dla firm",
         "titleAccent": "z Mszany Dolnej.",
-        "lead": "Z Mszany do Rabki jest niedaleko. Wpadniesz do naszego salonu przy Orkana 16B albo przyjedziemy do Ciebie, kiedy pokazanie czegoś na miejscu będzie prostsze.",
+        "lead": "Mszana i Rabka to sąsiedzi przez Gorce. Wpadniesz do naszego salonu przy Orkana 16B albo przyjedziemy do Ciebie, kiedy pokazanie czegoś na miejscu będzie prostsze.",
         "ctas": [
           [
             "Dobierz rozwiązanie · 60 s",
@@ -271,7 +272,7 @@
         },
         {
           "name": "Firmy remontowe i budowlane",
-          "text": "Zlecenia, zdjęcia z budowy i podpis klienta w telefonie ekipy, bez zasięgu też.",
+          "text": "Zlecenia, zdjęcia z budowy i podpis klienta w telefonie ekipy, także bez zasięgu.",
           "cta": "Aplikacja dla ekip →",
           "solution": "aplikacja-dla-ekip-w-terenie"
         },
@@ -292,7 +293,7 @@
       "local": [
         [
           "Rabka pod ręką",
-          "Do Rabki jest niedaleko. Przyjedź z laptopem, a my pokażemy, jak to będzie wyglądać."
+          "Do salonu w Rabce masz krótką drogę. Przyjedź z laptopem, a my pokażemy, jak to będzie wyglądać."
         ],
         [
           "Na start bez przepłacania",
@@ -306,11 +307,11 @@
       "faq": [
         {
           "q": "Mam jednoosobową firmę. Czy to dla mnie?",
-          "a": "Tak. Strona wizytówka jest właśnie dla małych firm: telefon, oferta i mapa, gotowa w tydzień albo dwa."
+          "a": "Tak. Strona wizytówka jest właśnie dla małych firm: telefon, oferta i mapa, gotowa {termin:strona-wizytowka}."
         },
         {
           "q": "Czy przyjedziecie do Mszany?",
-          "a": "Tak, to niedaleko. Częściej jednak klienci z Mszany wpadają do salonu w Rabce."
+          "a": "Tak, do Mszany przyjeżdżamy na spotkanie. Możesz też wpaść do salonu w Rabce."
         },
         {
           "q": "Czy strona będzie widoczna w Google w okolicy?",
@@ -318,10 +319,11 @@
         },
         {
           "q": "Ile kosztuje wizytówka?",
-          "a": "Cena „od” jest w cenniku przy stronie wizytówce, a dokładną dostajesz po krótkiej rozmowie."
+          "a": "Wizytówka zaczyna się od {cena:strona-wizytowka} netto. Dokładną cenę dostajesz po krótkiej rozmowie."
         }
       ],
       "nearby": [
+        "Rabka-Zdrój",
         "Mszana Dolna",
         "Mszana Górna",
         "Niedźwiedź",
@@ -331,7 +333,7 @@
       ],
       "cta": {
         "title": "Wpadnij do **salonu w Rabce**",
-        "text": "Niedaleka droga i wychodzisz z pomysłem, ceną i terminem. Bez zobowiązań.",
+        "text": "Krótka droga przez Gorce i wychodzisz z pomysłem, ceną i terminem. Bez zobowiązań.",
         "buttons": [
           [
             "Umów spotkanie",
@@ -345,7 +347,7 @@
       },
       "seo": {
         "title": "Strony internetowe Mszana Dolna | PRO-KOM Software",
-        "description": "Strony wizytówki, przebudowa starych stron i aplikacje dla ekip z Mszany Dolnej i okolic Gorców. Salon w Rabce niedaleko, cena „od” od razu."
+        "description": "Strony wizytówki, przebudowa starych stron i aplikacje dla ekip z Mszany Dolnej i okolic Gorców. Salon w Rabce, ceny „od” w cenniku."
       }
     },
     {
@@ -357,7 +359,7 @@
         "eyebrow": "Limanowa · systemy, czas pracy, strony",
         "title": "Strony i systemy dla firm",
         "titleAccent": "z Limanowej.",
-        "lead": "Do Limanowej mamy z Rabki około trzech kwadransów. Pierwszą rozmowę robimy przez telefon albo wideo, a wdrożenie systemu u Ciebie na miejscu.",
+        "lead": "Do Limanowej dojeżdżamy z Rabki przez Mszanę Dolną. Pierwszą rozmowę robimy przez telefon albo wideo, a wdrożenie systemu u Ciebie na miejscu.",
         "ctas": [
           [
             "Dobierz rozwiązanie · 60 s",
@@ -410,7 +412,7 @@
         ],
         [
           "Twoje dane u Ciebie",
-          "Kod, panel i dane należą do firmy. Serwer w Polsce, kopia co noc."
+          "Kod, panel i dane należą do firmy. Serwer w Polsce, a kopie robimy w ramach opieki."
         ]
       ],
       "faq": [
@@ -428,10 +430,11 @@
         },
         {
           "q": "Ile kosztuje system czasu pracy?",
-          "a": "Cena „od” stoi w cenniku. Dokładną dostajesz na piśmie po rozmowie, zależnie od liczby osób i modułów."
+          "a": "Czas pracy i rozliczenia zaczyna się od {cena:czas-pracy-i-rozliczenia} netto. Dokładną cenę dostajesz po rozmowie, zależnie od liczby osób i modułów."
         }
       ],
       "nearby": [
+        "Rabka-Zdrój",
         "Limanowa",
         "Mordarka",
         "Męcina",
@@ -454,7 +457,7 @@
         ]
       },
       "seo": {
-        "title": "Systemy i strony dla firm Limanowa | PRO-KOM Software",
+        "title": "Limanowa — systemy i strony dla firm | PRO-KOM Software",
         "description": "Czas pracy i rozliczenia, systemy zamiast Excela i strony dla firm z Limanowej. Wdrożenie i szkolenie na miejscu, cena „od” przy każdym rozwiązaniu."
       }
     },
@@ -530,7 +533,7 @@
         },
         {
           "q": "Mamy już program do magazynu i księgowości. Czy coś połączycie?",
-          "a": "Sprawdzamy, co te programy udostępniają, i proponujemy połączenie. Wycena jest osobna i na piśmie."
+          "a": "Sprawdzamy, co te programy udostępniają, i proponujemy połączenie. Wycenę połączenia dostajesz osobno."
         },
         {
           "q": "Czy portal B2B zadziała z naszymi cenami dla klientów?",
@@ -542,6 +545,7 @@
         }
       ],
       "nearby": [
+        "Rabka-Zdrój",
         "Nowy Sącz",
         "Stary Sącz",
         "Chełmiec",
@@ -565,7 +569,7 @@
       },
       "seo": {
         "title": "Systemy dla firm i CRM Nowy Sącz | PRO-KOM Software",
-        "description": "CRM, portale B2B, połączenia programów i pulpity dla firm z Nowego Sącza. Praca zdalna z podglądem do klikania, start na miejscu, cena „od” od razu."
+        "description": "CRM, portale B2B, połączenia programów i pulpity dla firm z Nowego Sącza. Praca zdalna z podglądem do klikania i startem na miejscu."
       }
     }
   ]

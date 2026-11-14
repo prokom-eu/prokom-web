@@ -235,8 +235,8 @@ H1 „Strona, program, sprzęt i serwis. W jednej firmie.” → „Każda robi 
 - Trasa wspólna z Biznesem (B11a, ADR-012 rozstrz. 5) — SW11b dokłada tylko wygląd Software.
 
 ### 6.9 Miejscowości `/miejscowosci/[miasto]` (plansza `Miasto`, wzór: Rabka-Zdrój)
-H1 „Strony i systemy dla firm z Rabki-Zdroju.” → „Dla kogo pracujemy najczęściej.” (branże lokalne, ceny na kartach z `Solutions`) → „Blisko, czyli prościej.” → „Najczęściej pytacie o to” (FAQ lokalne `Cities.faq`, ceny przez `{cena:<slug>}`) → „Pracujemy też w okolicy” (okoliczne miejscowości jako chipy, **bez linków** do nieaktywnych stron) → „Wpadnij do salonu przy Orkana 16B.” (zdjęcie salonu).
-- Na start: **Rabka-Zdrój**. Potem: Zakopane, Nowy Targ, Mszana Dolna, Limanowa, Nowy Sącz.
+H1 „Strony i systemy dla firm z Rabki-Zdroju.” → „Dla kogo pracujemy najczęściej.” (branże lokalne, ceny na kartach z `Solutions`) → „Blisko, czyli prościej.” → „Najczęściej pytacie o to” (FAQ lokalne `Cities.faq`, ceny przez `{cena:<slug>}`) → „Pracujemy też w okolicy” (okoliczne miejscowości jako chipy; miasto z własną, aktywną stroną to chip-link ze strzałką, pozostałe **bez linków**; od SEO etapu 2 każda strona miasta ma też chip-link do Rabki) → „Wpadnij do salonu przy Orkana 16B.” (zdjęcie salonu).
+- Na start: **Rabka-Zdrój**. Od SEO etapu 2 (14.11): Nowy Targ, Mszana Dolna, Limanowa, Nowy Sącz (szkice Claude do akceptacji). **Zakopane — bez strony** (ZMIANY-v23 §1: Zakopane usunięte z całej strony Software). Treść na staging i produkcję przez `scripts/staging-content.sh software` / `scripts/prod-content.sh software` (seed z paczki).
 - **Zasada przeciw „doorway pages”** (wytyczne Google o spamie): każda strona ma unikalną treść (lokalne branże, dojazd/spotkanie, lokalne pytania, realne powiązanie z firmą). Strona bez unikalnej treści nie jest publikowana. Raba Wyżna, Chabówka, Skomielna Biała itp. tylko na liście „w okolicy”, bez własnych stron.
 - JSON-LD `Service` z `areaServed` (miasto). Bez fałszywych adresów: `LocalBusiness` tylko z prawdziwymi oddziałami.
 

@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /**
  * `/miejscowosci/[miasto]` (spec. §6.9, board `Miasto`): hero, „Dla kogo pracujemy
  * najczęściej” with prices from the solutions, „Blisko, czyli prościej”, FAQ with
- * `{cena:<slug>}`, nearby places as plain chips (no links) and the salon CTA. JSON-LD `Service`
+ * `{cena:<slug>}`, nearby places as chips — a town with its own page is a link chip — and the salon CTA. JSON-LD `Service`
  * with `areaServed`; no `LocalBusiness` for a city without a branch.
  */
 export default async function CityPage({ params }: Props) {
@@ -203,20 +203,22 @@ export default async function CityPage({ params }: Props) {
             <ul className="mt-3 flex flex-wrap gap-2">
               {city.nearby.map((name) => {
                 const href = name === city.name ? undefined : townPage.get(name)
-                return (
+                // A link chip: the whole chip is the target (44 px, `a.sw-chip`) and the arrow
+                // tells it is a link without a pointer over it (WCAG 1.4.1).
+                return href ? (
+                  <li key={name}>
+                    <Link href={href} className="sw-chip text-ink">
+                      {name} <span aria-hidden="true">→</span>
+                    </Link>
+                  </li>
+                ) : (
                   <li
                     key={name}
                     className={
                       name === city.name ? 'sw-chip border-accent-line text-accent-text' : 'sw-chip'
                     }
                   >
-                    {href ? (
-                      <Link href={href} className="underline-offset-4 hover:underline">
-                        {name}
-                      </Link>
-                    ) : (
-                      name
-                    )}
+                    {name}
                   </li>
                 )
               })}

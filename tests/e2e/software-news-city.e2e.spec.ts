@@ -134,12 +134,10 @@ test.describe('Software /miejscowosci/[miasto]', () => {
     // v23: without Zakopane (Software works only in Rabka). SEO etap 2: the four towns with
     // their own page link there, the villages stay plain.
     await expect(nearby.getByRole('listitem')).toHaveCount(8)
-    await expect(nearby.getByRole('link')).toHaveText([
-      'Nowy Targ',
-      'Mszana Dolna',
-      'Limanowa',
-      'Nowy Sącz',
-    ])
+    for (const town of ['Nowy Targ', 'Mszana Dolna', 'Limanowa', 'Nowy Sącz']) {
+      await expect(nearby.getByRole('link', { name: town, exact: true })).toHaveCount(1)
+    }
+    await expect(nearby.getByRole('link')).toHaveCount(4)
     await expect(nearby.getByRole('link', { name: 'Nowy Targ' })).toHaveAttribute(
       'href',
       '/miejscowosci/nowy-targ',
@@ -158,6 +156,11 @@ test.describe('Software /miejscowosci/[miasto]', () => {
       'Czy przyjedziecie do nas do Nowego Targu?',
     )
     expect(await page.locator('main').innerText()).not.toMatch(/Zakopan/)
+    // Back to Rabka, where the salon is: the towns link each other.
+    await expect(page.getByRole('link', { name: 'Rabka-Zdrój', exact: true })).toHaveAttribute(
+      'href',
+      '/miejscowosci/rabka-zdroj',
+    )
   })
 
   test('an inactive or unknown city is 404 and not in the sitemap', async ({ page, request }) => {
