@@ -133,7 +133,8 @@ export const COMPANY_LINES: NonNullable<CompanyDatum['lines']> = [
     phone: '883 200 151',
     email: 'kontakt@prokomgaming.pl',
     // TODO(krystian): godziny Gaming — [SZEF] „codziennie 8–22”? (prokomeu-pytania.md pkt 4)
-    published: false,
+    // Started (decision of Krystian 14.11) — visible on every line.
+    published: true,
   },
 ]
 
