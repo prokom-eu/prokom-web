@@ -10,4 +10,6 @@ export function afterImportProblems(input: {
   sitemap: string[]
   map: string[]
   pages: Map<string, { status: number; noindex: boolean }>
+  staging?: boolean
 }): string[]
+export function closedToCrawlers(robots: string): boolean

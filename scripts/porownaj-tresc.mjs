@@ -20,6 +20,8 @@
 // every address of sitemap.xml is on /mapa-strony, no address there redirects (301), no product
 // card there has `noindex`, and both list the same number of cards (since ADR-026 B the site map
 // lists only „Gotowe” cards; the products API needs a panel login). Login: TRESC_AUTH.
+// Staging (robots.txt closed to every crawler) has an empty sitemap and `noindex, nofollow` on
+// every page by design: there only redirects and errors of the site map's addresses count.
 import { request as httpRequest } from 'node:http'
 import { request as httpsRequest } from 'node:https'
 import { isIP } from 'node:net'
@@ -78,14 +80,21 @@ export function sitemapPaths(xml) {
   return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname)
 }
 
+/** `robots.txt` closed to every crawler — staging (`lib/seo/robots.ts`). */
+export function closedToCrawlers(robots) {
+  return /^Disallow:\s*\/\s*$/m.test(robots) && !/^Allow:/m.test(robots)
+}
+
 /**
  * Problems of a site right after a content import: an address of the sitemap missing from the
  * site map, an address of the site map that redirects, a card with `noindex`, different numbers
- * of cards. `pages`: status and `noindex` of each address of the site map.
+ * of cards. `pages`: status and `noindex` of each address of the site map. `staging`: the sitemap
+ * is empty and every page has `noindex` there by design, so only redirects and errors count.
  */
-export function afterImportProblems({ sitemap, map, pages }) {
+export function afterImportProblems({ sitemap, map, pages, staging = false }) {
   const listed = new Set(map)
   const cards = (paths) => paths.filter((path) => path.startsWith('/produkt/')).length
+  if (staging) sitemap = map
   return [
     ...sitemap.filter((path) => !listed.has(path)).map((path) => `brak na mapie strony: ${path}`),
     ...map.flatMap((path) => {
@@ -94,6 +103,7 @@ export function afterImportProblems({ sitemap, map, pages }) {
       if (page.status >= 300 && page.status < 400)
         return [`na mapie adres z przekierowaniem ${page.status}: ${path}`]
       if (page.status !== 200) return [`HTTP ${page.status}: ${path}`]
+      if (staging) return []
       return page.noindex && path.startsWith('/produkt/') ? [`karta z noindex: ${path}`] : []
     }),
     ...(cards(sitemap) === cards(map)
@@ -108,6 +118,7 @@ async function afterImport(origin) {
   const host = process.env.TRESC_HOST
   const xml = await get(origin, '/sitemap.xml', auth, host)
   const html = await get(origin, '/mapa-strony', auth, host)
+  const staging = closedToCrawlers((await get(origin, '/robots.txt', auth, host)).html)
   if (xml.status !== 200 || html.status !== 200) {
     console.error(`sitemap.xml HTTP ${xml.status}, /mapa-strony HTTP ${html.status}`)
     process.exit(1)
@@ -126,10 +137,12 @@ async function afterImport(origin) {
   }
   await Promise.all(Array.from({ length: 6 }, worker))
   process.stderr.write('\n')
-  const problems = afterImportProblems({ sitemap, map, pages })
+  const problems = afterImportProblems({ sitemap, map, pages, staging })
   for (const problem of problems) console.log(problem)
+  const cards = map.filter((path) => path.startsWith('/produkt/')).length
+  if (staging) console.log('\nStaging (robots.txt zamknięty): sitemap i noindex pominięte.')
   console.log(
-    `\nSitemap ${sitemap.length} · mapa strony ${map.length} · uwagi: ${problems.length || 'brak'}`,
+    `${staging ? '' : `\nSitemap ${sitemap.length} · `}mapa strony ${map.length} (kart ${cards}) · uwagi: ${problems.length || 'brak'}`,
   )
   process.exit(problems.length ? 1 : 0)
 }
