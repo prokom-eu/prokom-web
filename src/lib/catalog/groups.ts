@@ -84,14 +84,42 @@ export type WheelGroup = {
 }
 
 /**
+ * Bubbles on the ring at most (audit 14.11 pkt 2): with every department's cards the ring had
+ * a dozen and more small icons; eight still show each department and stay readable.
+ */
+export const WHEEL_MAX = 8
+
+/**
+ * Cuts the departments' bubbles to `max`, taking them in turns — the first of each department,
+ * then the second, … — so every department keeps its run and the panel's order inside it.
+ */
+function capInTurns<T>(lists: readonly T[][], max: number): T[][] {
+  const kept: T[][] = lists.map(() => [])
+  let left = max
+  for (let round = 0; left > 0; round++) {
+    let took = false
+    lists.forEach((list, i) => {
+      const item = list[round]
+      if (item === undefined || left === 0) return
+      kept[i]!.push(item)
+      left--
+      took = true
+    })
+    if (!took) break
+  }
+  return kept
+}
+
+/**
  * The departments of the hero wheel (KOLO-HERO v3): each with its wheel cards in the panel's
- * order and the extra page bubble last. Only what the client island draws — no index entries.
+ * order and the extra page bubble last, at most `WHEEL_MAX` bubbles on the whole ring (taken in
+ * turns). Only what the client island draws — no index entries.
  */
 export function wheelGroups(
   index: Pick<CatalogIndex, 'groups' | 'categories' | 'products'>,
 ): WheelGroup[] {
   const bySlug = new Map(index.products.map((product) => [product.slug, product]))
-  return index.groups.map((group) => {
+  const groups = index.groups.map((group) => {
     const cards: WheelItem[] = (group.wheelCards ?? []).flatMap((card) => {
       // Each bubble stands in its own department (KOLO-HERO §Pozycje): a card of another one
       // picked in the panel would sit under the wrong department, or twice on the ring.
@@ -124,4 +152,9 @@ export function wheelGroups(
         : cards,
     }
   })
+  const items = capInTurns(
+    groups.map((group) => group.items),
+    WHEEL_MAX,
+  )
+  return groups.map((group, i) => ({ ...group, items: items[i]! }))
 }

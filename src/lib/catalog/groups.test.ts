@@ -157,4 +157,30 @@ describe('wheelGroups (KOLO-HERO v3)', () => {
       { key: 'link:/opieka-it', name: 'Opieka IT dla firm', href: '/opieka-it', icon: 'lifebuoy' },
     ])
   })
+
+  it('keeps at most 8 bubbles on the ring, taking them in turns from each department', () => {
+    const many = (prefix: string, n: number) =>
+      Array.from({ length: n }, (_, i) => ({ slug: `${prefix}${i}`, name: `${prefix} ${i}` }))
+    const groups = ['a', 'b', 'c', 'd', 'e'].map((slug) => ({
+      ...index.groups[0]!,
+      slug,
+      wheelCards: many(slug, 4),
+    }))
+    const products = groups.flatMap((group) =>
+      group.wheelCards.map((card) => product(card.slug, group.slug, { categories: [] })),
+    )
+    const wheel = wheelGroups({ ...wheelIndex, groups, products } as unknown as Pick<
+      CatalogIndex,
+      'groups' | 'categories' | 'products'
+    >)
+    expect(wheel.map((group) => group.items.map((item) => item.key))).toEqual([
+      ['a0', 'a1'],
+      ['b0', 'b1'],
+      ['c0', 'c1'],
+      ['d0'],
+      ['e0'],
+    ])
+    // The department's count stays the catalog's, not the ring's.
+    expect(wheel[0]!.count).toBe(4)
+  })
 })
