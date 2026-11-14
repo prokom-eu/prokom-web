@@ -2,6 +2,7 @@
 
 - Status: **odłożona** (14.11.2026, decyzja Krystiana: wariant B cofnięty, zostaje ADR-012 rozstrzygnięcie 15)
 - Dlaczego odłożona: na świeżej bazie (CI, produkcja) status bierze się z paczki, więc filtr B ukrywał wszystkie 21 kart „Do sprawdzenia” (11 z K4 i 10 z K3), w tym **InsERT Subiekt nexo** z `/insert`, polecanych na głównej i koła w hero. Lokalnie tego nie było widać, bo status w seedzie idzie tylko „w przód”. Wrócimy do B, gdy karty zostaną sprawdzone i przestawione na „Gotowe”.
+- 14.11: 19 z 21 kart sprawdzonych i „Gotowe” (`feat/biznes-karty-sprawdzone`); zostają ThinkStation P4 i Dell Pro Rugged 13/14. Wariant B wraca, gdy te dwie karty zostaną rozstrzygnięte.
 - Data: 14.11.2026
 - Decyduje: Krystian
 - Powiązane: ADR-012 rozstrzygnięcie 15 (status treści, K3a 26.10: karta „Do sprawdzenia” widoczna, `noindex, follow`, poza mapami), `docs/design/prokombiznes/0611/QA-PRODUKCJA.md` pkt 5, `docs/zadania/zdjecia-do-pozyskania.md`.

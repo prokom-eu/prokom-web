@@ -42,8 +42,8 @@ test.describe('Biznes catalog after the K3 import', () => {
   })
 
   test('keeps a card „Do sprawdzenia” visible but out of the index', async ({ page }) => {
-    // Samsung OM is „gotowe” since B4-1; Yoga Pro 7 15 stays „do-sprawdzenia”.
-    const response = await page.goto(site('biznes.localhost', '/produkt/lenovo-yoga-pro-7-15'))
+    // ThinkStation P4 stays „do-sprawdzenia” (14.11: Lenovo does not confirm it for Poland).
+    const response = await page.goto(site('biznes.localhost', '/produkt/lenovo-thinkstation-p4'))
     expect(response?.status()).toBe(200)
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
   })
@@ -54,7 +54,7 @@ test.describe('Biznes catalog after the K3 import', () => {
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Dell Pro 14 Premium')
   })
 
-  test('sends a split multi-model card to its first new card, „Do sprawdzenia” (301)', async ({
+  test('sends a split multi-model card to its first new card, „Gotowe” since 14.11 (301)', async ({
     page,
   }) => {
     const { first, final } = await firstHop(page, '/produkt/lenovo-yoga-pro')
@@ -63,7 +63,7 @@ test.describe('Biznes catalog after the K3 import', () => {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
       'Lenovo Yoga Pro 7 15 (Gen 11)',
     )
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
   })
 
   test('links only producers among the sources, never a shop (K31-ZMIANY §4.9)', async ({
