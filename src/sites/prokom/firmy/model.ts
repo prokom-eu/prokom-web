@@ -1,5 +1,6 @@
 import type { HubPlanView } from '@/lib/prokom/data'
-import { type BusinessLine, type HubForBusiness, stepsWithPromise } from '@/lib/prokom/forBusiness'
+import { type HubForBusiness, stepsWithPromise } from '@/lib/prokom/forBusiness'
+import type { HubLine } from '@/lib/prokom/lines'
 import type { IconName } from '@/lib/shared/icons'
 
 import type { HomeLine } from '../home/model'
@@ -35,6 +36,9 @@ export type Industry = {
   groups: (BusinessLineInfo & { points: string[] })[]
   start: string[]
   questions: string[]
+  /** A line under the plan — `/dla-domu` situations: the line to call. */
+  lead?: string | null
+  call?: BusinessLineInfo | null
 }
 
 /** Industries of „Wybierz branżę” — `HubPlans` of type `branza`, only lines on the page. */
@@ -66,8 +70,14 @@ export function industries(
     })
 }
 
-export type Area = Omit<HubForBusiness['areas']['items'][number], 'href'> & {
-  line: BusinessLine
+/** One tab of the area tabs: `/dla-firm` areas, `/dla-domu` lines (steps may have no text). */
+export type Area = {
+  line: HubLine
+  title: string
+  lead: string
+  cta: string
+  steps: { title: string; text: string }[]
+  services: { title: string; text: string }[]
   /** The area's own hub page, else the line's site. */
   href: string | null
   info: BusinessLineInfo

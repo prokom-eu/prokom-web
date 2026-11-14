@@ -1,0 +1,707 @@
+{
+  "_zrodlo": "docs/design/prokomeu/plansze/DlaDomu.dc.html (HTML :179–575, renderVals) — scripts/prokomeu-model.mjs",
+  "hero": {
+    "eyebrow": "Dla domu · dla rodziny · dla gracza",
+    "title": "Wszystko dla domu w jednej firmie.",
+    "lead": "Dom, który sam pilnuje i sam się steruje. Telefon i laptop naprawione na miejscu. Komputer do gier złożony w Rabce-Zdroju. Trzy linie PRO-KOM, jedna firma i jeden salon.",
+    "choose": "Wybierz swoją sytuację",
+    "facts": [
+      {
+        "value": "2004",
+        "label": "od tego roku działamy w Rabce-Zdroju",
+        "facts": [
+          "Od 2004"
+        ]
+      },
+      {
+        "value": "1 salon",
+        "label": "w Rabce-Zdroju — przyjdź, zapytaj, zostaw sprzęt",
+        "facts": []
+      },
+      {
+        "value": "Bezpłatnie",
+        "label": "diagnoza i wycena naprawy",
+        "facts": []
+      },
+      {
+        "value": "24 mies.",
+        "label": "gwarancji PRO-KOM na montaż instalacji",
+        "facts": []
+      }
+    ],
+    "trio": [
+      {
+        "line": "instalacje",
+        "title": "Dom, który pilnuje i steruje się sam.",
+        "text": "Monitoring, alarm, wideodomofon, sieć i Wi-Fi, smart home Ampio, ładowarka do auta.",
+        "anchor": "#przekroj"
+      },
+      {
+        "line": "tech",
+        "title": "Sprzęt, który znowu działa.",
+        "text": "Naprawy telefonów, laptopów, konsol i drukarek. Bezpłatna diagnoza i wycena.",
+        "anchor": "#linie-dom"
+      },
+      {
+        "line": "gaming",
+        "title": "Komputer do gier z Rabki-Zdroju.",
+        "text": "16 zestawów, dobór pod grę, konfigurator. Gwarancja 2 lata, wysyłka w całej Polsce.",
+        "anchor": "#linie-dom"
+      }
+    ]
+  },
+  "situations": {
+    "eyebrow": "Twoja sytuacja",
+    "title": "Powiedz, co się u Ciebie dzieje.",
+    "lead": "Siedem najczęstszych sytuacji. Kliknij swoją — zobaczysz, co robimy, w jakiej kolejności i do kogo zadzwonić.",
+    "planFor": "Sytuacja:",
+    "start": "Od czego zacząć",
+    "call": "Zadzwoń:",
+    "describe": "Opisz, czego potrzebujesz",
+    "note": "Dzwonisz raz — łączymy Cię z właściwym zespołem."
+  },
+  "scene": {
+    "eyebrow": "Trzy linie dla domu",
+    "title": "Kto się czym zajmuje.",
+    "inArea": "w tej linii",
+    "steps": "Jak zaczynamy",
+    "items": [
+      {
+        "line": "instalacje",
+        "short": "Dom, który pilnuje i steruje się sam",
+        "title": "Dom, który pilnuje i steruje się sam.",
+        "lead": "Monitoring, alarm, wideodomofon, sieć i Wi-Fi, smart home Ampio i ładowarka do auta. Projekt, montaż i serwis w jednej firmie.",
+        "cta": "Zaplanuj instalację",
+        "steps": [
+          "Przysyłasz rzuty albo opisujesz dom",
+          "Ustalamy punkty i trasy kabli",
+          "Dostajesz plan i wycenę przed pracami"
+        ],
+        "services": [
+          {
+            "title": "Monitoring",
+            "text": "Kamery z nagrywaniem i podglądem w telefonie."
+          },
+          {
+            "title": "Alarm",
+            "text": "Czujki i centrala z powiadomieniem w telefonie."
+          },
+          {
+            "title": "Wideodomofon",
+            "text": "Widzisz, kto dzwoni, i otwierasz z aplikacji."
+          },
+          {
+            "title": "Sieć i Wi-Fi",
+            "text": "Punkty dostępowe na kablu, zasięg w całym domu."
+          },
+          {
+            "title": "Smart home Ampio",
+            "text": "Światło, rolety i ogrzewanie w jednej aplikacji."
+          },
+          {
+            "title": "Ładowarka do auta",
+            "text": "Elzab EcoPower na ścianie garażu."
+          }
+        ]
+      },
+      {
+        "line": "tech",
+        "short": "Sprzęt, który znowu działa",
+        "title": "Coś się zepsuło? Naprawimy.",
+        "lead": "Diagnoza i wycena są bezpłatne — płacisz tylko za naprawę, na którą się zgodzisz. Sprzęt przynosisz do salonu w Rabce-Zdroju albo wysyłasz kurierem z dowolnego miejsca w Polsce.",
+        "cta": "Zgłoś naprawę",
+        "steps": [
+          "Zgłaszasz online albo w salonie",
+          "Bezpłatna diagnoza i wycena",
+          "Zgadzasz się — naprawiamy, status online"
+        ],
+        "services": [
+          {
+            "title": "Telefony",
+            "text": "Wyświetlacze, baterie, gniazda ładowania, głośniki i mikrofony, naprawy po zalaniu."
+          },
+          {
+            "title": "Tablety i laptopy",
+            "text": "Diagnoza i naprawa."
+          },
+          {
+            "title": "Komputery",
+            "text": "Stacjonarne — diagnoza i naprawa."
+          },
+          {
+            "title": "Konsole i drukarki",
+            "text": "Naprawa w serwisie."
+          },
+          {
+            "title": "Odzyskiwanie danych",
+            "text": "Z telefonów i dysków."
+          },
+          {
+            "title": "Hammer Glass",
+            "text": "Folia cięta ploterem pod Twój model, zakładana od ręki."
+          }
+        ]
+      },
+      {
+        "line": "gaming",
+        "short": "Komputer do gier z Rabki-Zdroju",
+        "title": "Komputery do gier. Sprawdzone w grach.",
+        "lead": "Składane ręcznie w Rabce-Zdroju. Każdy zestaw nosi imię istoty ze słowiańskich podań, a liczbę klatek pokazujemy ze źródłem. Wysyłamy do całej Polski.",
+        "cta": "Dobierz komputer",
+        "steps": [
+          "Wybierasz grę i monitor w „W co grasz?”",
+          "Wysyłasz zapytanie i dostajesz ofertę",
+          "Składamy, testujemy i wysyłamy"
+        ],
+        "services": [
+          {
+            "title": "Dobór pod grę",
+            "text": "33 tytuły. Wybierasz grę i monitor, przy każdej liczbie klatek jest źródło wyniku."
+          },
+          {
+            "title": "16 gotowych zestawów",
+            "text": "Od FullHD po 4K, w dziewięciu poziomach mocy."
+          },
+          {
+            "title": "Zmiany w zestawie",
+            "text": "Możesz zmienić obudowę, chłodzenie, pamięć i dysk."
+          },
+          {
+            "title": "Konfigurator",
+            "text": "Składasz komputer po swojemu, krok po kroku."
+          },
+          {
+            "title": "Dla rodziców",
+            "text": "Wybór krok po kroku, bez żargonu."
+          },
+          {
+            "title": "Odbiór albo wysyłka",
+            "text": "W salonie w Rabce-Zdroju albo kurierem."
+          }
+        ]
+      }
+    ]
+  },
+  "section": {
+    "eyebrow": "PRO-KOM Instalacje · dom w przekroju",
+    "title": "Jedenaście miejsc, w których dom robi coś za Ciebie.",
+    "lead": "Co to jest, po co i kiedy to zaplanować — punkt po punkcie.",
+    "why": "Po co",
+    "when": "Kiedy zaplanować",
+    "note": "Każdy dom planujemy osobno.",
+    "cta": "Zaplanuj instalację",
+    "points": [
+      {
+        "name": "Kamera",
+        "where": "Na zewnątrz",
+        "what": "Kamera z nagrywaniem i podglądem w telefonie.",
+        "why": "Widzisz wejście i podjazd z dowolnego miejsca.",
+        "when": "Kabel do kamery najlepiej położyć przed tynkami i ociepleniem."
+      },
+      {
+        "name": "Wideodomofon",
+        "where": "Przy furtce",
+        "what": "Panel przy furtce i ekran w domu albo aplikacja w telefonie.",
+        "why": "Widzisz, kto dzwoni, i otwierasz bez wychodzenia.",
+        "when": "Przewód do furtki — razem z przyłączami, przed ułożeniem kostki."
+      },
+      {
+        "name": "Brama",
+        "where": "Wjazd",
+        "what": "Brama wjazdowa podłączona do systemu domu.",
+        "why": "Otwierasz ją z telefonu albo razem ze sceną „wracam do domu”.",
+        "when": "Zasilanie i sterowanie bramy — przed ułożeniem podjazdu."
+      },
+      {
+        "name": "Alarm",
+        "where": "Parter",
+        "what": "Czujki, centrala i powiadomienie w telefonie.",
+        "why": "Dom daje znać, gdy dzieje się coś niepokojącego.",
+        "when": "Okablowanie czujek — przed tynkami."
+      },
+      {
+        "name": "Smart home Ampio",
+        "where": "Cały dom",
+        "what": "System, który łączy światło, rolety, ogrzewanie i resztę instalacji.",
+        "why": "Jedna aplikacja i sceny zamiast kilku pilotów.",
+        "when": "Na etapie projektu — smart home zmienia sposób prowadzenia kabli."
+      },
+      {
+        "name": "Rolety i światło",
+        "where": "Okna i sufity",
+        "what": "Rolety i oświetlenie sterowane z systemu.",
+        "why": "Dom sam zasłania okna wieczorem i gasi światło, gdy wychodzisz.",
+        "when": "Razem ze smart home, przed tynkami."
+      },
+      {
+        "name": "Wi-Fi",
+        "where": "Sufit",
+        "what": "Punkty dostępowe rozmieszczone po domu.",
+        "why": "Zasięg w każdym pokoju, a nie tylko przy routerze.",
+        "when": "Kabel do każdego punktu — przed tynkami."
+      },
+      {
+        "name": "Szafka sieciowa",
+        "where": "Pomieszczenie gospodarcze",
+        "what": "Miejsce, w którym schodzą się wszystkie kable domu.",
+        "why": "Porządek i łatwy serwis przez lata.",
+        "when": "Miejsce na szafkę ustalamy na etapie projektu."
+      },
+      {
+        "name": "Nagłośnienie",
+        "where": "Salon",
+        "what": "Głośniki w suficie albo ścianie; muzyka w wielu pokojach przez Sonos, HEOS albo MusicCast.",
+        "why": "Muzyka bez kabli na wierzchu.",
+        "when": "Przewody głośnikowe — przed tynkami."
+      },
+      {
+        "name": "Antena RTV/SAT",
+        "where": "Dach",
+        "what": "Antena naziemna albo satelitarna z okablowaniem do pokoi.",
+        "why": "Telewizja w każdym pokoju, w którym jej chcesz.",
+        "when": "Przewody antenowe — przed tynkami; antena po pokryciu dachu."
+      },
+      {
+        "name": "Ładowarka do auta",
+        "where": "Garaż",
+        "what": "Ładowarka Elzab EcoPower na ścianie garażu.",
+        "why": "Auto ładuje się w nocy, pod domem.",
+        "when": "Przewód zasilający do garażu — przed tynkami, nawet jeśli auto kupisz później."
+      }
+    ]
+  },
+  "topics": {
+    "eyebrow": "PRO-KOM Instalacje · temat po temacie",
+    "title": "Konkretnie: co robimy w domu.",
+    "items": [
+      {
+        "name": "Etapy budowy",
+        "short": "Kiedy co zaplanować",
+        "eyebrow": "Budujesz albo remontujesz",
+        "title": "Kiedy co zaplanować. Najważniejsze: zanim wejdą tynki.",
+        "lead": "Kabel położony przed tynkami kosztuje chwilę pracy. Ten sam kabel po wykończeniu oznacza kucie ścian. Dlatego warto odezwać się wcześnie.",
+        "note": "Najlepiej zgłosić się na etapie projektu, najpóźniej przed tynkami.",
+        "cta": "Zaplanuj instalację",
+        "tiles": [
+          {
+            "label": "Etap 1",
+            "title": "Projekt",
+            "text": "Przysyłasz rzuty. Zaznaczamy kamery, alarm, sieć, smart home i ładowarkę."
+          },
+          {
+            "label": "Etap 2",
+            "title": "Stan surowy",
+            "text": "Ustalamy trasy kabli i miejsce na szafkę sieciową."
+          },
+          {
+            "label": "Etap 3 · nie przegap",
+            "title": "Przed tynkami",
+            "text": "Kładziemy okablowanie. To ostatni moment, żeby zrobić to bez kucia ścian."
+          },
+          {
+            "label": "Etap 4",
+            "title": "Wykończenie",
+            "text": "Montujemy urządzenia: kamery, czujki, panele, punkty Wi-Fi."
+          },
+          {
+            "label": "Etap 5",
+            "title": "Zamieszkanie",
+            "text": "Uruchamiamy system i pokazujemy obsługę w telefonie. Potem serwis i przeglądy."
+          }
+        ]
+      },
+      {
+        "name": "Smart home",
+        "short": "System Ampio",
+        "eyebrow": "Smart home · system Ampio",
+        "title": "Dwanaście rzeczy, którymi sterujesz z jednego miejsca.",
+        "lead": "Inteligentny dom robimy na systemie Ampio. Jedna aplikacja zamiast kilku pilotów i paneli. Zakres dobieramy do domu — nie musisz brać wszystkiego naraz.",
+        "note": "Muzyka w wielu pokojach działa przez Sonos, HEOS albo MusicCast połączone z systemem. Sterowanie głosem — przez Matter.",
+        "cta": "Smart home na prokominstalacje.pl",
+        "tiles": [
+          {
+            "label": "01",
+            "title": "Światło",
+            "text": "Włączanie, ściemnianie i grupy świateł."
+          },
+          {
+            "label": "02",
+            "title": "Rolety",
+            "text": "Pojedynczo, piętrami albo cały dom naraz."
+          },
+          {
+            "label": "03",
+            "title": "Ogrzewanie",
+            "text": "Temperatura w pomieszczeniach, także na odległość."
+          },
+          {
+            "label": "04",
+            "title": "Bramy",
+            "text": "Wjazdowa i garażowa z telefonu."
+          },
+          {
+            "label": "05",
+            "title": "Alarm",
+            "text": "Uzbrajanie i powiadomienia. Gdy ubezpieczyciel wymaga klasy — Satel z integracją."
+          },
+          {
+            "label": "06",
+            "title": "Kamery",
+            "text": "Podgląd w tej samej aplikacji."
+          },
+          {
+            "label": "07",
+            "title": "Wideodomofon",
+            "text": "Widzisz, kto dzwoni, i otwierasz."
+          },
+          {
+            "label": "08",
+            "title": "Audio",
+            "text": "Muzyka przez Sonos, HEOS albo MusicCast."
+          },
+          {
+            "label": "09",
+            "title": "Gniazda",
+            "text": "Wyłączasz wybrane obwody jednym ruchem."
+          },
+          {
+            "label": "10",
+            "title": "Sceny",
+            "text": "„Wychodzę”, „Wieczór”, „Urlop” — jedno dotknięcie."
+          },
+          {
+            "label": "11",
+            "title": "Harmonogramy",
+            "text": "Dom robi swoje o ustalonych porach."
+          },
+          {
+            "label": "12",
+            "title": "Aplikacja",
+            "text": "Wszystko w telefonie, w domu i poza nim."
+          }
+        ]
+      },
+      {
+        "name": "Bezpieczeństwo",
+        "short": "Kamery, alarm, wideodomofon",
+        "eyebrow": "Bezpieczeństwo domu",
+        "title": "Widzisz dom, nawet gdy Cię w nim nie ma.",
+        "lead": "Kamery, alarm i wideodomofon z podglądem i powiadomieniami w telefonie. Po montażu zostajemy: przeglądy, pomoc zdalna i naprawy.",
+        "note": "Montaż ma 24 miesiące gwarancji PRO-KOM. Sprzęt — według gwarancji producenta.",
+        "cta": "Zaplanuj instalację",
+        "tiles": [
+          {
+            "label": "01",
+            "title": "Monitoring",
+            "text": "Kamery z nagrywaniem i podglądem w telefonie. Najczęściej montujemy Hikvision, Dahua i BCS — dobieramy pod dom, nie pod markę."
+          },
+          {
+            "label": "02",
+            "title": "Alarm",
+            "text": "Czujki i centrala z powiadomieniem w telefonie."
+          },
+          {
+            "label": "03",
+            "title": "Wideodomofon",
+            "text": "Widzisz, kto stoi przy furtce, i otwierasz z domu albo z aplikacji."
+          },
+          {
+            "label": "04",
+            "title": "Serwis po montażu",
+            "text": "Przeglądy, pomoc zdalna i naprawy. Przejmujemy też instalacje po innym wykonawcy."
+          }
+        ]
+      },
+      {
+        "name": "Internet",
+        "short": "Wi-Fi i okablowanie",
+        "eyebrow": "Internet w domu",
+        "title": "Wi-Fi, które sięga tam, gdzie siedzisz.",
+        "lead": "Punkty dostępowe na kablu zamiast wzmacniaczy w gniazdkach, gniazda sieciowe tam, gdzie stoi sprzęt, i jedna szafka, w której wszystko się schodzi.",
+        "note": "Kabel do każdego punktu Wi-Fi najlepiej położyć przed tynkami.",
+        "cta": "Zaplanuj instalację",
+        "tiles": [
+          {
+            "label": "01",
+            "title": "Wi-Fi w całym domu",
+            "text": "Punkty dostępowe na kablu zamiast wzmacniaczy w gniazdkach. Zasięg na piętrze i w piwnicy."
+          },
+          {
+            "label": "02",
+            "title": "Okablowanie",
+            "text": "Gniazdo sieciowe tam, gdzie stoi telewizor, komputer i konsola. Szafka, w której wszystko się schodzi."
+          },
+          {
+            "label": "03",
+            "title": "Ogród i garaż",
+            "text": "Zasięg na tarasie, przy bramie i w garażu — także dla kamer i ładowarki."
+          },
+          {
+            "label": "04",
+            "title": "Światłowód w domu",
+            "text": "Doprowadzenie i rozprowadzenie łącza po domu, żeby prędkość z umowy docierała do pokoi."
+          }
+        ]
+      },
+      {
+        "name": "Ładowarka",
+        "short": "Elzab EcoPower",
+        "eyebrow": "Ładowarka do auta · Elzab EcoPower",
+        "title": "Auto ładuje się w garażu, gdy śpisz.",
+        "lead": "Montujemy ładowarki Elzab EcoPower: dobieramy model, sprawdzamy zasilanie i uruchamiamy.",
+        "note": "Jeśli budujesz dom, zaplanuj przewód do garażu już teraz — nawet jeśli auto kupisz później.",
+        "cta": "Ładowarki na prokominstalacje.pl",
+        "tiles": [
+          {
+            "label": "Model",
+            "title": "CC Home",
+            "text": "Do domu i garażu"
+          },
+          {
+            "label": "Model",
+            "title": "CC Wall",
+            "text": "Na ścianę, w kilku kolorach"
+          },
+          {
+            "label": "Model",
+            "title": "CC City",
+            "text": "Na parking i przed obiekt"
+          }
+        ]
+      }
+    ]
+  },
+  "together": {
+    "eyebrow": "Jak to wygląda u Ciebie",
+    "title": "Jeden dom. Kilka linii. Jeden telefon.",
+    "lead": "Wybierz przykład i zobacz, która linia PRO-KOM co u Ciebie robi. Dzwonisz raz — łączymy Cię z właściwym zespołem.",
+    "cta": "Opisz swój dom",
+    "pillars": [
+      "Jedna firma",
+      "Jeden salon w Rabce-Zdroju",
+      "Jeden numer na start"
+    ],
+    "examples": [
+      {
+        "key": "nowy-dom",
+        "tab": "Nowy dom",
+        "node": "Twój nowy dom",
+        "title": "Zaplanuj instalacje, zanim wejdą tynki.",
+        "groups": [
+          {
+            "line": "instalacje",
+            "points": [
+              "Plan instalacji na rzutach domu",
+              "Okablowanie sieci i szafka",
+              "Alarm i wideodomofon",
+              "Smart home Ampio",
+              "Przewód pod ładowarkę do auta"
+            ]
+          },
+          {
+            "line": "tech",
+            "points": [
+              "Naprawa telefonu, laptopa, konsoli"
+            ]
+          },
+          {
+            "line": "gaming",
+            "points": [
+              "Komputer do gier złożony w Rabce-Zdroju"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "mieszkanie-i-rodzina",
+        "tab": "Mieszkanie i rodzina",
+        "node": "Twoje mieszkanie",
+        "title": "Dom gotowy, a mimo to da się go ulepszyć.",
+        "groups": [
+          {
+            "line": "instalacje",
+            "points": [
+              "Wi-Fi tam, gdzie dziś nie sięga",
+              "Wideodomofon z powiadomieniem w telefonie",
+              "Monitoring z podglądem w telefonie"
+            ]
+          },
+          {
+            "line": "tech",
+            "points": [
+              "Bezpłatna diagnoza i wycena",
+              "Folia Hammer Glass",
+              "Akcesoria GSM"
+            ]
+          },
+          {
+            "line": "gaming",
+            "points": [
+              "Dobór pod grę dziecka",
+              "Gwarancja 2 lata"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "apartament-na-wynajem",
+        "tab": "Apartament na wynajem",
+        "node": "Twój apartament",
+        "title": "Goście wchodzą na kod, a Ty nie jeździsz z kluczami.",
+        "groups": [
+          {
+            "line": "instalacje",
+            "points": [
+              "Zamki na kod i kontrola dostępu",
+              "Wi-Fi dla gości",
+              "Monitoring wejścia",
+              "Ogrzewanie i światło na odległość"
+            ]
+          },
+          {
+            "line": "software",
+            "points": [
+              "Strona apartamentu widoczna w Google"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "care": {
+    "eyebrow": "Gwarancje i opieka",
+    "title": "Po montażu i po naprawie zostajemy.",
+    "items": [
+      {
+        "line": "instalacje",
+        "value": "24 miesiące",
+        "text": "Gwarancji PRO-KOM na montaż instalacji. Sprzęt — według gwarancji producenta."
+      },
+      {
+        "line": "instalacje",
+        "value": "Serwis po montażu",
+        "text": "Przeglądy, pomoc zdalna i naprawy. Przejmujemy też instalacje po innym wykonawcy."
+      },
+      {
+        "line": "tech",
+        "value": "Bezpłatnie",
+        "text": "Diagnoza i wycena naprawy. Płacisz tylko za naprawę, na którą się zgodzisz."
+      },
+      {
+        "line": "gaming",
+        "value": "2 lata",
+        "text": "Gwarancji na cały komputer do gier. Serwis na miejscu w Rabce-Zdroju."
+      }
+    ],
+    "salon": "Salon",
+    "remote": "Nie jesteś z okolicy?",
+    "remoteNote": "Zgłoś online, wyślij kurierem",
+    "extras": [
+      "Naprawy na miejscu",
+      "Folia Hammer Glass od ręki",
+      "Akcesoria GSM",
+      "Odbiór komputera do gier"
+    ],
+    "directions": "Kontakt i dojazd"
+  },
+  "faq": {
+    "eyebrow": "Pytania",
+    "title": "Dziesięć pytań, które słyszymy najczęściej",
+    "helpLink": "Co zrobić, gdy…",
+    "items": [
+      {
+        "question": "Buduję dom. Kiedy się do Was zgłosić?",
+        "answer": "Najlepiej na etapie projektu, najpóźniej przed tynkami. Wtedy kable da się położyć bez kucia ścian."
+      },
+      {
+        "question": "Mam gotowy dom. Da się coś dołożyć?",
+        "answer": "Część rzeczy tak — na przykład kamery, wideodomofon czy lepsze Wi-Fi. Zakres zależy od domu, dlatego najpierw rozmawiamy."
+      },
+      {
+        "question": "Na jakim systemie robicie smart home?",
+        "answer": "Na systemie Ampio. Muzykę w wielu pokojach łączymy przez Sonos, HEOS albo MusicCast."
+      },
+      {
+        "question": "Jakie kamery montujecie?",
+        "answer": "Najczęściej Hikvision, Dahua i BCS. Dobieramy sprzęt pod dom, nie pod markę."
+      },
+      {
+        "question": "Jaka jest gwarancja na instalację?",
+        "answer": "24 miesiące gwarancji PRO-KOM na montaż. Sprzęt ma gwarancję producenta."
+      },
+      {
+        "question": "Ile kosztuje diagnoza naprawy?",
+        "answer": "Nic. Diagnoza i wycena są bezpłatne — płacisz tylko za naprawę, na którą się zgodzisz."
+      },
+      {
+        "question": "Nie mieszkam w okolicy Rabki. Naprawicie mój telefon?",
+        "answer": "Tak. Zgłaszasz naprawę online i wysyłasz sprzęt kurierem — przyjmujemy z całej Polski."
+      },
+      {
+        "question": "Jak kupić komputer do gier?",
+        "answer": "Wysyłasz zapytanie, dostajesz ofertę z ceną, płacisz po akceptacji, a my składamy, testujemy i wysyłamy komputer."
+      },
+      {
+        "question": "Kupuję komputer dla dziecka i się nie znam. Pomożecie?",
+        "answer": "Tak. Na prokomgaming.pl jest strona „Dla rodziców”, możesz też zadzwonić. Wystarczy wiedzieć, w co dziecko gra."
+      },
+      {
+        "question": "Gdzie jest salon i kiedy jest otwarty?",
+        "answer": "{adres}. {godziny}."
+      }
+    ]
+  },
+  "form": {
+    "eyebrow": "Napisz",
+    "title": "Opisz, czego potrzebujesz.",
+    "afterLabel": "Wybierz temat, a wiadomość trafi prosto do zespołu, który się tym zajmuje.",
+    "after": [
+      "Wysyłasz wiadomość z tematem",
+      "Odzywa się właściwy zespół",
+      "Dostajesz plan albo wycenę"
+    ],
+    "cta": "Napisz wiadomość"
+  },
+  "next": {
+    "eyebrow": "Co dalej",
+    "title": "Co dalej?",
+    "items": [
+      {
+        "eyebrow": "Załatw online",
+        "title": "Załatw to bez dzwonienia",
+        "text": "Zgłoszenie naprawy, wycena strony, plan instalacji — wszystko, co da się zrobić przez internet.",
+        "href": "/zalatw-online"
+      },
+      {
+        "eyebrow": "Pomoc",
+        "title": "Co zrobić, gdy…",
+        "text": "Kasa nie drukuje, padło Wi-Fi, pękł ekran. Krótkie instrukcje i właściwy numer.",
+        "href": "/pomoc"
+      },
+      {
+        "eyebrow": "Dla firm",
+        "title": "Masz też firmę?",
+        "text": "Kasa, komputery, kamery i strona — jeden plan dla Twojej branży.",
+        "href": "/dla-firm"
+      }
+    ]
+  },
+  "final": {
+    "title": "Wolisz zadzwonić? Każda linia ma swój numer.",
+    "lines": [
+      {
+        "line": "instalacje",
+        "what": "Monitoring, alarm, sieć, smart home, ładowarka"
+      },
+      {
+        "line": "tech",
+        "what": "Naprawy telefonów, laptopów, konsol"
+      },
+      {
+        "line": "gaming",
+        "what": "Komputery do gier"
+      }
+    ],
+    "directions": "Kontakt i dojazd"
+  }
+}
