@@ -84,7 +84,15 @@ test.describe('Software seed', () => {
     const cities = await api(page, 'GET', `/api/cities?${inTenant}&where[slug][in]=${packageSlugs}`)
     const cityDocs = cities.json.docs as { slug: string; active?: boolean }[]
     expect(cityDocs).toHaveLength(6)
-    expect(cityDocs.filter((city) => city.active).map((city) => city.slug)).toEqual(['rabka-zdroj'])
+    // Active: the package's own list (SEO etap 2a), Zakopane without a page (ZMIANY-v23 §1).
+    const active = miejscowosci.items.filter((city) => city.active).map((city) => city.slug)
+    expect(active).not.toContain('zakopane')
+    expect(
+      cityDocs
+        .filter((city) => city.active)
+        .map((city) => city.slug)
+        .sort(),
+    ).toEqual([...active].sort())
 
     const siteSettings = await api(page, 'GET', `/api/site-settings?${inTenant}`)
     const [settings] = siteSettings.json.docs as {

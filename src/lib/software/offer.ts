@@ -219,7 +219,8 @@ export type OfferView = {
   faq: { q: string; a: string }[]
   related: RelatedCard[]
   /** Sticky bar of a solution without levels. */
-  bar: { label: string; price: string }
+  /** `ask`: no price — the bar shows a small „Wycena po rozmowie” badge, not the price type. */
+  bar: { label: string; price: string; ask: boolean }
   /** „Opieka od” tile (ZMIANY-v24 §6.1): the lowest care level; none on care and audit. */
   careFrom: string | null
   /**
@@ -442,7 +443,8 @@ export function buildOfferView(solution: OfferSolution, options: BuildOptions): 
     related: options.related,
     bar: {
       label: solution.priceFrom === null ? 'Cena i termin' : `Termin ${term}`,
-      price: solution.priceFrom === null ? 'po rozmowie' : priceLine(solution, display),
+      price: solution.priceFrom === null ? display.fallback : priceLine(solution, display),
+      ask: solution.priceFrom === null,
     },
     careFrom: hasLevels ? null : (options.careFrom ?? null),
     extras: hasPrice ? solution.moreExamples : [],

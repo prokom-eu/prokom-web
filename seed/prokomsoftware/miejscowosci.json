@@ -1,5 +1,5 @@
 {
-  "_info": "Strony /miejscowosci/<slug> (kolekcja Cities, ADR-014). Na start aktywna tylko Rabka-Zdrój (treść z boards/Miasto.dc.html). Pozostałe: active=false, treść do napisania w czacie — każda unikalna (spec. §6.9).",
+  "_info": "Strony /miejscowosci/<slug> (kolekcja Cities, ADR-014). Rabka-Zdrój (treść z boards/Miasto.dc.html) i od SEO etapu 2 (14.11) cztery kolejne miejscowości (Nowy Targ, Mszana Dolna, Limanowa, Nowy Sącz) z własną treścią, każda unikalna (spec. §6.9), salon tylko w Rabce; Zakopane nieaktywne — ZMIANY-v23 §1: Zakopane usunięte z całej strony Software; szkice Claude do akceptacji Krystiana.",
   "items": [
     {
       "slug": "rabka-zdroj",
@@ -132,25 +132,445 @@
       "slug": "nowy-targ",
       "name": "Nowy Targ",
       "locative": "z Nowego Targu",
-      "active": false
+      "active": true,
+      "hero": {
+        "eyebrow": "Nowy Targ · systemy, strony, sklepy",
+        "title": "Strony i systemy dla firm",
+        "titleAccent": "z Nowego Targu.",
+        "lead": "Nowy Targ mamy po drodze z Rabki, zakopianką. Spotykamy się u Ciebie w firmie albo w naszym salonie w Rabce, jak Ci wygodniej.",
+        "ctas": [
+          [
+            "Dobierz rozwiązanie · 60 s",
+            "/dobierz"
+          ],
+          [
+            "Napisz albo zadzwoń",
+            "/kontakt"
+          ]
+        ],
+        "badges": []
+      },
+      "whoTitle": "Stolica Podhala, **czyli handel i usługi**",
+      "whoLead": "W Nowym Targu działają hurtownie, sklepy, firmy budowlane i transportowe. Zamówień i zleceń jest dużo, a często wszystko siedzi w Excelu i w mailach.",
+      "who": [
+        {
+          "name": "Hurtownie i handel",
+          "text": "Stany, zamówienia od stałych klientów i dostawy w jednym panelu zamiast kilku arkuszy.",
+          "cta": "Magazyn i zamówienia →",
+          "solution": "magazyn-i-zamowienia"
+        },
+        {
+          "name": "Budowlanka i wykończenia",
+          "text": "Zlecenia, ekipy i terminy na jednym grafiku. Szef widzi, kto gdzie jest, bez dzwonienia.",
+          "cta": "System zleceń i grafik →",
+          "solution": "system-zlecen-i-grafik-ekip"
+        },
+        {
+          "name": "Firmy obsługujące klientów B2B",
+          "text": "Klienci, oferty i przypomnienia, do kogo zadzwonić. Żadne zapytanie nie ginie w skrzynce.",
+          "cta": "CRM dla firmy →",
+          "solution": "crm-dla-malej-i-sredniej-firmy"
+        },
+        {
+          "name": "Sklepy z towarem z Podhala",
+          "text": "Sklep internetowy z odbiorem na miejscu i dostawą. Zamówienia widzisz od razu w panelu.",
+          "cta": "Sklep internetowy →",
+          "solution": "sklep-internetowy"
+        }
+      ],
+      "localTitle": "Blisko, **więc bez wideokonferencji**",
+      "local": [
+        [
+          "Spotkanie u Ciebie",
+          "Przyjeżdżamy do firmy, oglądamy, jak dziś pracujecie, i dopiero wtedy proponujemy rozwiązanie."
+        ],
+        [
+          "Najpierw jeden moduł",
+          "Zaczynamy od tego, co zabiera najwięcej czasu, na przykład od zamówień. Reszta dochodzi etapami."
+        ],
+        [
+          "Dane z Excela przenosimy",
+          "Arkusze, które dziś macie, zamieniamy w bazę. Nikt nie przepisuje ich ręcznie."
+        ]
+      ],
+      "faq": [
+        {
+          "q": "Czy przyjedziecie do nas do Nowego Targu?",
+          "a": "Tak. To blisko, więc pierwsze spotkanie i wdrożenie robimy u Ciebie w firmie."
+        },
+        {
+          "q": "Mamy wszystko w Excelu. Od czego zacząć?",
+          "a": "Od jednego procesu, który zabiera najwięcej czasu. Przenosimy jego dane do systemu, a kolejne moduły dokładamy później."
+        },
+        {
+          "q": "Czy system połączy się z programem do faktur?",
+          "a": "Najczęściej tak. Sprawdzamy, jaki program masz, i wyceniamy połączenie osobno."
+        },
+        {
+          "q": "Ile kosztuje system dla firmy w Nowym Targu?",
+          "a": "System zleceń zaczyna się od {cena:system-zlecen-i-grafik-ekip} netto za pierwszy moduł. Ceny innych systemów stoją w cenniku, a dokładną wycenę dostajesz po rozmowie."
+        }
+      ],
+      "nearby": [
+        "Rabka-Zdrój",
+        "Nowy Targ",
+        "Szaflary",
+        "Ludźmierz",
+        "Waksmund",
+        "Krauszów",
+        "Czarny Dunajec"
+      ],
+      "cta": {
+        "title": "Pokaż, **jak dziś pracujecie**",
+        "text": "Przyjedziemy albo wpadnij do salonu w Rabce. Wyjdziesz z pomysłem, ceną i terminem.",
+        "buttons": [
+          [
+            "Umów spotkanie",
+            "/kontakt"
+          ],
+          [
+            "Dobierz rozwiązanie",
+            "/dobierz"
+          ]
+        ]
+      },
+      "seo": {
+        "title": "Strony i systemy Nowy Targ | PRO-KOM Software",
+        "description": "Systemy zamówień, CRM, sklepy i strony dla firm z Nowego Targu. Spotkanie w Twojej firmie, wdrożenie etapami, cena „od” przy każdym rozwiązaniu."
+      }
     },
     {
       "slug": "mszana-dolna",
       "name": "Mszana Dolna",
       "locative": "z Mszany Dolnej",
-      "active": false
+      "active": true,
+      "hero": {
+        "eyebrow": "Mszana Dolna · strony, systemy, opieka",
+        "title": "Strony i systemy dla firm",
+        "titleAccent": "z Mszany Dolnej.",
+        "lead": "Mszana i Rabka to sąsiedzi przez Gorce. Wpadniesz do naszego salonu przy Orkana 16B albo przyjedziemy do Ciebie, kiedy pokazanie czegoś na miejscu będzie prostsze.",
+        "ctas": [
+          [
+            "Dobierz rozwiązanie · 60 s",
+            "/dobierz"
+          ],
+          [
+            "Napisz albo zadzwoń",
+            "/kontakt"
+          ]
+        ],
+        "badges": []
+      },
+      "whoTitle": "Małe firmy, **duże potrzeby**",
+      "whoLead": "Między Gorcami a Beskidem Wyspowym działa wiele jedno- i kilkuosobowych firm: usługi, budowlanka, agroturystyka. Potrzebują prostych narzędzi, które same działają.",
+      "who": [
+        {
+          "name": "Usługi i rzemiosło",
+          "text": "Jedna strona z telefonem, cennikiem i mapą. Klient z Google od razu dzwoni albo pisze.",
+          "cta": "Strona wizytówka →",
+          "solution": "strona-wizytowka"
+        },
+        {
+          "name": "Firmy remontowe i budowlane",
+          "text": "Zlecenia, zdjęcia z budowy i podpis klienta w telefonie ekipy, także bez zasięgu.",
+          "cta": "Aplikacja dla ekip →",
+          "solution": "aplikacja-dla-ekip-w-terenie"
+        },
+        {
+          "name": "Agroturystyka w Gorcach",
+          "text": "Pokoje, okolica i zapytanie o termin. Gość pisze do Ciebie, a nie przez portal.",
+          "cta": "Strona dla pensjonatu →",
+          "solution": "strona-dla-hotelu-lub-pensjonatu"
+        },
+        {
+          "name": "Firmy, które mają już starą stronę",
+          "text": "Nowa, szybka strona na telefon, a stare adresy zostają, więc pozycja w Google nie znika.",
+          "cta": "Przebudowa strony →",
+          "solution": "przebudowa-starej-strony"
+        }
+      ],
+      "localTitle": "Po sąsiedzku, **więc szybko**",
+      "local": [
+        [
+          "Rabka pod ręką",
+          "Do salonu w Rabce masz krótką drogę. Przyjedź z laptopem, a my pokażemy, jak to będzie wyglądać."
+        ],
+        [
+          "Na start bez przepłacania",
+          "Dla małej firmy często wystarcza wizytówka. Rozbudowujemy, gdy jest po co."
+        ],
+        [
+          "Opieka po starcie",
+          "Kopie, aktualizacje i poprawki robimy my, a Ty prowadzisz firmę."
+        ]
+      ],
+      "faq": [
+        {
+          "q": "Mam jednoosobową firmę. Czy to dla mnie?",
+          "a": "Tak. Strona wizytówka jest właśnie dla małych firm: telefon, oferta i mapa, gotowa {termin:strona-wizytowka}."
+        },
+        {
+          "q": "Czy przyjedziecie do Mszany?",
+          "a": "Tak, do Mszany przyjeżdżamy na spotkanie. Możesz też wpaść do salonu w Rabce."
+        },
+        {
+          "q": "Czy strona będzie widoczna w Google w okolicy?",
+          "a": "Ustawiamy wszystko, co od nas zależy: dane firmy, opisy, adresy i wizytówkę Google spójne ze stroną. Pozycji nie obiecuje nikt uczciwy."
+        },
+        {
+          "q": "Ile kosztuje wizytówka?",
+          "a": "Wizytówka zaczyna się od {cena:strona-wizytowka} netto. Dokładną cenę dostajesz po krótkiej rozmowie."
+        }
+      ],
+      "nearby": [
+        "Rabka-Zdrój",
+        "Mszana Dolna",
+        "Mszana Górna",
+        "Niedźwiedź",
+        "Kasinka Mała",
+        "Lubomierz",
+        "Olszówka"
+      ],
+      "cta": {
+        "title": "Wpadnij do **salonu w Rabce**",
+        "text": "Krótka droga przez Gorce i wychodzisz z pomysłem, ceną i terminem. Bez zobowiązań.",
+        "buttons": [
+          [
+            "Umów spotkanie",
+            "/kontakt"
+          ],
+          [
+            "Dobierz rozwiązanie",
+            "/dobierz"
+          ]
+        ]
+      },
+      "seo": {
+        "title": "Strony internetowe Mszana Dolna | PRO-KOM Software",
+        "description": "Strony wizytówki, przebudowa starych stron i aplikacje dla ekip z Mszany Dolnej i okolic Gorców. Salon w Rabce, ceny „od” w cenniku."
+      }
     },
     {
       "slug": "limanowa",
       "name": "Limanowa",
       "locative": "z Limanowej",
-      "active": false
+      "active": true,
+      "hero": {
+        "eyebrow": "Limanowa · systemy, czas pracy, strony",
+        "title": "Strony i systemy dla firm",
+        "titleAccent": "z Limanowej.",
+        "lead": "Do Limanowej dojeżdżamy z Rabki przez Mszanę Dolną. Pierwszą rozmowę robimy przez telefon albo wideo, a wdrożenie systemu u Ciebie na miejscu.",
+        "ctas": [
+          [
+            "Dobierz rozwiązanie · 60 s",
+            "/dobierz"
+          ],
+          [
+            "Napisz albo zadzwoń",
+            "/kontakt"
+          ]
+        ],
+        "badges": []
+      },
+      "whoTitle": "Firmy, które **zatrudniają ludzi**",
+      "whoLead": "Produkcja, transport i usługi w Limanowej to często kilkanaście albo kilkadziesiąt osób. Godziny, urlopy i rozliczenia zjadają biuru całe dnie.",
+      "who": [
+        {
+          "name": "Zakłady i warsztaty",
+          "text": "Pracownicy odbijają godziny w telefonie, urlopy są w kalendarzu, a lista do wypłaty jest gotowa sama.",
+          "cta": "Czas pracy i rozliczenia →",
+          "solution": "czas-pracy-i-rozliczenia"
+        },
+        {
+          "name": "Biura, które żyją w Excelu",
+          "text": "Siedem arkuszy zamieniamy w jedną bazę z uprawnieniami. Koniec z wersją „FINAL_v7”.",
+          "cta": "Z Excela do systemu →",
+          "solution": "z-excela-do-systemu"
+        },
+        {
+          "name": "Serwis i obsługa zgłoszeń",
+          "text": "Zgłoszenia od klientów, przydział technika i historia napraw w jednym miejscu.",
+          "cta": "System serwisu →",
+          "solution": "system-serwisu-i-zgloszen"
+        },
+        {
+          "name": "Firmy bez dobrej strony",
+          "text": "Oferta, realizacje i formularz, który trafia prosto do Ciebie. Treści zmieniasz sam.",
+          "cta": "Strona firmowa →",
+          "solution": "strona-firmowa-z-panelem"
+        }
+      ],
+      "localTitle": "Systemy dla firm, **wdrażane na miejscu**",
+      "local": [
+        [
+          "Wdrożenie u Ciebie",
+          "Przyjeżdżamy na start systemu i uczymy zespół, a potem odpowiadamy na pytania zdalnie."
+        ],
+        [
+          "Uprawnienia dla każdego",
+          "Pracownik widzi swoje godziny, kierownik swój dział, a szef całość."
+        ],
+        [
+          "Twoje dane u Ciebie",
+          "Kod, panel i dane należą do firmy. Serwer w Polsce, a kopie robimy w ramach opieki."
+        ]
+      ],
+      "faq": [
+        {
+          "q": "Czy przyjedziecie do Limanowej?",
+          "a": "Tak, na wdrożenie i szkolenie przyjeżdżamy. Wcześniejsze rozmowy i późniejsze poprawki robimy przez telefon i zdalnie."
+        },
+        {
+          "q": "Czy pracownicy poradzą sobie z systemem?",
+          "a": "System projektujemy pod Wasz sposób pracy, a nie odwrotnie. Na start robimy krótkie szkolenie na miejscu."
+        },
+        {
+          "q": "Czy czas pracy połączy się z programem kadrowym?",
+          "a": "Najczęściej tak, przez eksport albo połączenie. Sprawdzamy Twój program i wyceniamy to osobno."
+        },
+        {
+          "q": "Ile kosztuje system czasu pracy?",
+          "a": "Czas pracy i rozliczenia zaczyna się od {cena:czas-pracy-i-rozliczenia} netto. Dokładną cenę dostajesz po rozmowie, zależnie od liczby osób i modułów."
+        }
+      ],
+      "nearby": [
+        "Rabka-Zdrój",
+        "Limanowa",
+        "Mordarka",
+        "Męcina",
+        "Tymbark",
+        "Słopnice",
+        "Dobra"
+      ],
+      "cta": {
+        "title": "Policz, **ile czasu oddasz biuru**",
+        "text": "Opisz, jak dziś liczycie godziny i urlopy. Odpowiemy z pomysłem, ceną i terminem.",
+        "buttons": [
+          [
+            "Napisz do nas",
+            "/kontakt"
+          ],
+          [
+            "Dobierz rozwiązanie",
+            "/dobierz"
+          ]
+        ]
+      },
+      "seo": {
+        "title": "Limanowa — systemy i strony dla firm | PRO-KOM Software",
+        "description": "Czas pracy i rozliczenia, systemy zamiast Excela i strony dla firm z Limanowej. Wdrożenie i szkolenie na miejscu, cena „od” przy każdym rozwiązaniu."
+      }
     },
     {
       "slug": "nowy-sacz",
       "name": "Nowy Sącz",
       "locative": "z Nowego Sącza",
-      "active": false
+      "active": true,
+      "hero": {
+        "eyebrow": "Nowy Sącz · CRM, portale B2B, sklepy",
+        "title": "Strony i systemy dla firm",
+        "titleAccent": "z Nowego Sącza.",
+        "lead": "Nowy Sącz to dla nas ponad godzina drogi, więc większość pracy idzie zdalnie: rozmowy wideo, podgląd projektu do klikania i odbiór na miejscu.",
+        "ctas": [
+          [
+            "Dobierz rozwiązanie · 60 s",
+            "/dobierz"
+          ],
+          [
+            "Napisz albo zadzwoń",
+            "/kontakt"
+          ]
+        ],
+        "badges": []
+      },
+      "whoTitle": "Większe miasto, **większe systemy**",
+      "whoLead": "W Nowym Sączu firmy częściej mają kilka programów naraz, stałych klientów biznesowych i sklepy w sieci. Problemem jest to, że te programy się nie dogadują.",
+      "who": [
+        {
+          "name": "Hurt i producenci z klientami B2B",
+          "text": "Klient loguje się, widzi swoje ceny, składa zamówienia i pobiera faktury, bez dzwonienia do biura.",
+          "cta": "Panel klienta i portal B2B →",
+          "solution": "panel-klienta-i-portal-b2b"
+        },
+        {
+          "name": "Firmy z kilkoma programami",
+          "text": "Sklep, księgowość i magazyn wymieniają dane same. Nikt nie przepisuje zamówień ręcznie.",
+          "cta": "Połączenie programów →",
+          "solution": "polaczenie-programow"
+        },
+        {
+          "name": "Sprzedaż i obsługa klientów",
+          "text": "Klienci, oferty i przypomnienia w jednym miejscu. Widać, skąd przychodzą nowi.",
+          "cta": "CRM dla firmy →",
+          "solution": "crm-dla-malej-i-sredniej-firmy"
+        },
+        {
+          "name": "Właściciele, którzy chcą liczb",
+          "text": "Sprzedaż, zlecenia i koszty na jednym ekranie, a w poniedziałek raport przychodzi sam.",
+          "cta": "Pulpit firmy →",
+          "solution": "pulpit-firmy"
+        }
+      ],
+      "localTitle": "Zdalnie, **ale nie na odległość**",
+      "local": [
+        [
+          "Podgląd do klikania",
+          "W trakcie pracy dostajesz działający podgląd i klikasz go, zanim odbierzesz całość."
+        ],
+        [
+          "Jedna osoba od projektu",
+          "Rozmawiasz z tym, kto pisze Twój system. Bez pośredników i bez infolinii."
+        ],
+        [
+          "Odbiór i start na miejscu",
+          "Na uruchomienie większego systemu przyjeżdżamy do Nowego Sącza."
+        ]
+      ],
+      "faq": [
+        {
+          "q": "Czy współpraca zdalna działa przy dużym systemie?",
+          "a": "Tak. Spotykamy się na wideo, a postęp widzisz w podglądzie. Na start i odbiór przyjeżdżamy."
+        },
+        {
+          "q": "Mamy już program do magazynu i księgowości. Czy coś połączycie?",
+          "a": "Sprawdzamy, co te programy udostępniają, i proponujemy połączenie. Wycenę połączenia dostajesz osobno."
+        },
+        {
+          "q": "Czy portal B2B zadziała z naszymi cenami dla klientów?",
+          "a": "Tak, każdy klient widzi swoje ceny i warunki. Dane bierzemy z Waszego programu albo z panelu."
+        },
+        {
+          "q": "Dlaczego firma z Rabki, a nie z Sącza?",
+          "a": "Bo dostajesz stałą cenę za zakres, kod i dane na własność i jedną osobę od początku do końca. Przy systemie robionym zdalnie odległość nie ma znaczenia."
+        }
+      ],
+      "nearby": [
+        "Rabka-Zdrój",
+        "Nowy Sącz",
+        "Stary Sącz",
+        "Chełmiec",
+        "Grybów",
+        "Kamionka Wielka",
+        "Łącko"
+      ],
+      "cta": {
+        "title": "Opisz, **które programy się nie dogadują**",
+        "text": "Odpowiemy z pomysłem na połączenie, ceną i terminem. Pierwsza rozmowa przez wideo, bez zobowiązań.",
+        "buttons": [
+          [
+            "Napisz do nas",
+            "/kontakt"
+          ],
+          [
+            "Dobierz rozwiązanie",
+            "/dobierz"
+          ]
+        ]
+      },
+      "seo": {
+        "title": "Systemy dla firm i CRM Nowy Sącz | PRO-KOM Software",
+        "description": "CRM, portale B2B, połączenia programów i pulpity dla firm z Nowego Sącza. Praca zdalna z podglądem do klikania i startem na miejscu."
+      }
     }
   ]
 }

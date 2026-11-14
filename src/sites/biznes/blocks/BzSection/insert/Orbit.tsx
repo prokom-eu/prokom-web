@@ -100,7 +100,8 @@ export function InsertOrbit({
               <Image
                 unoptimized
                 src={box.image.url}
-                alt=""
+                // The box is the program's picture: named for search, as in „Wszystkie programy” (QA 13.11).
+                alt={`Pudełko programu ${box.name}`}
                 width={box.image.width}
                 height={box.image.height}
                 className="h-24 w-auto object-contain"
@@ -165,7 +166,8 @@ export function InsertOrbit({
               <Image
                 unoptimized
                 src={box.image.url}
-                alt=""
+                // The box is the program's picture: named for search, as in „Wszystkie programy” (QA 13.11).
+                alt={`Pudełko programu ${box.name}`}
                 width={box.image.width}
                 height={box.image.height}
                 className="w-full object-contain transition-transform group-hover:-translate-y-1"

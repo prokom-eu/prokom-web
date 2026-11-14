@@ -11,7 +11,12 @@ import { AREA_TOWNS } from '../instalacje/area'
 import { getInstalacjeObjectList } from '../instalacje/data'
 import { getPublishedPageList } from '../pages/data'
 import { getPostList } from '../posts/data'
-import { getCityList, getIndustryPageList, getSolutionsIndex } from '../software/data'
+import {
+  getCityList,
+  getIndustryPageList,
+  getSolutionDates,
+  getSolutionsIndex,
+} from '../software/data'
 import { hasGuide, hasNews } from '../posts/list'
 import type { Line } from '../tenant/lines'
 import { brandLinks, buildSiteMap, type SiteMapSection } from './siteLinks'
@@ -37,6 +42,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     cities,
     plans,
     rules,
+    solutionDates,
   ] = await Promise.all([
     getPublishedPageList(tenant.id),
     catalog ? getCatalogIndex(tenant.id) : null,
@@ -49,6 +55,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     software ? getCityList(tenant.id) : null,
     catalog ? getFloorPlans(tenant.id) : null,
     catalog ? getWizardRules(tenant.id) : null,
+    software ? getSolutionDates(tenant.id) : null,
   ])
   // Every published product is listed (as `sitemap.xml` always did); the index adds the
   // categories, the product list the dates for `<lastmod>`.
@@ -77,7 +84,11 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     news: hasNews(tenant.line) && posts ? { posts } : null,
     guide: hasGuide(tenant.line) && posts ? { posts } : null,
     solutions: solutions && {
-      items: solutions.solutions.map(({ slug, name }) => ({ slug, name })),
+      items: solutions.solutions.map(({ slug, name }) => ({
+        slug,
+        name,
+        updatedAt: solutionDates?.get(slug) ?? null,
+      })),
     },
     industryPages,
     cities,

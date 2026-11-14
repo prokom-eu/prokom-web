@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { Container } from '@/components/ui/Container'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
-import { fitTitle, richDescription } from '@/lib/software/meta'
+import { fitTitle, localTitle, richDescription } from '@/lib/software/meta'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
@@ -45,10 +45,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   ])
   if (!page) return {}
   const url = `${origin}${industryPageHref(page.slug)}`
-  const title = fitTitle(
-    `${page.name}: oprogramowanie dla branży`,
-    `${page.name} — systemy i strony`,
-  )
+  // What the page offers and where (SEO etap 1, spec. §9 „program dla <branży>”): „<branża>:
+  // oprogramowanie — Rabka-Zdrój…”, then the name with the place, then the old wording.
+  const offer = `${page.name}: oprogramowanie`
+  const title =
+    [localTitle(offer), localTitle(page.name)].find((t) => t !== offer && t !== page.name) ??
+    fitTitle(`${page.name}: oprogramowanie dla branży`, `${page.name} — systemy i strony`)
   const description = richDescription(page.lead ?? titleOf(page), { priced: false })
   return {
     title,

@@ -9,7 +9,9 @@ import { site } from './helpers'
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 const HOST = 'software.localhost'
 const FULL = '/rozwiazania/aplikacja-dla-ekip-w-terenie'
-const TEMPLATE = '/rozwiazania/strona-firmowa-z-panelem'
+const TEMPLATE = '/rozwiazania/rozbudowana-strona-firmowa'
+/** A page with its own texts (SEO etap 2b, `solutionPageTexts.ts`). */
+const WRITTEN = '/rozwiazania/strona-wizytowka'
 
 /** JSON-LD objects of the page. */
 async function jsonLd(page: import('@playwright/test').Page): Promise<Record<string, unknown>[]> {
@@ -71,10 +73,19 @@ test.describe('Software solution page', () => {
 
   test('template page: name as H1, price offer in JSON-LD, the window steps', async ({ page }) => {
     expect((await page.goto(site(HOST, TEMPLATE)))?.status()).toBe(200)
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Strona firmowa z panelem')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Rozbudowana strona firmowa')
     await expect(page.getByRole('heading', { name: 'Jak to wygląda' })).toBeVisible()
     const service = (await jsonLd(page)).find((data) => data['@type'] === 'Service')
     expect(service).toHaveProperty('offers.priceSpecification.minPrice')
+  })
+
+  test('page with its own texts: H1 with the accent, the payment FAQ filled', async ({ page }) => {
+    expect((await page.goto(site(HOST, WRITTEN)))?.status()).toBe(200)
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Strona wizytówka.')
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Klient dzwoni od razu.')
+    const main = await page.locator('main').innerText()
+    expect(main).toContain('Kiedy płacę?')
+    expect(main).not.toMatch(/\[[A-ZĄĆĘŁŃÓŚŹŻ ]+\]|\{termin/)
   })
 
   test('404 for an unknown solution and on the other lines', async ({ page }) => {
@@ -86,7 +97,7 @@ test.describe('Software solution page', () => {
 
   test('no horizontal scroll at 360 px and no axe violations', async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 800 })
-    for (const path of [FULL, TEMPLATE]) {
+    for (const path of [FULL, TEMPLATE, WRITTEN]) {
       await page.goto(site(HOST, path))
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,

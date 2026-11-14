@@ -1,6 +1,5 @@
 'use client'
 
-import { IntentLink as Link } from '@/components/shared/IntentLink'
 import { useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
 
 import { labelKey } from '@/lib/analytics/events'
@@ -11,7 +10,8 @@ import { Chip } from '@/sites/software/components/ui/Chip'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
 import { usePausedOffscreen } from './usePausedOffscreen'
-import { offerHref, type PriceLine } from '@/lib/software/priceCards'
+import { offerHref, type PriceLine, solutionHref } from '@/lib/software/priceCards'
+import { SolutionLink } from '@/sites/software/components/ui/SolutionLink'
 import { PriceTag } from '@/sites/software/components/ui/PriceTag'
 import { SlidingMark } from '../ui/SlidingMark'
 
@@ -121,9 +121,13 @@ export function BentoSection({ bento, prices }: Props) {
                 <span>
                   {siteVariant.text} {sitePrice?.term}.
                 </span>
-                <Link className="v-link" href={offerHref(siteVariant.solution)}>
+                <SolutionLink
+                  className="v-link"
+                  href={solutionHref(siteVariant.solution)}
+                  open={offerHref(siteVariant.solution)}
+                >
                   {bento.details} <span aria-hidden="true">→</span>
-                </Link>
+                </SolutionLink>
               </div>
             </div>
           </article>
@@ -164,9 +168,13 @@ export function BentoSection({ bento, prices }: Props) {
               </div>
               <div className="v-row v-note">
                 <span>{bento.dragHint}</span>
-                <Link className="v-link" href={offerHref(bento.rebuild.solution)}>
+                <SolutionLink
+                  className="v-link"
+                  href={solutionHref(bento.rebuild.solution)}
+                  open={offerHref(bento.rebuild.solution)}
+                >
                   {bento.details} <span aria-hidden="true">→</span>
-                </Link>
+                </SolutionLink>
               </div>
             </div>
           </article>
@@ -189,9 +197,13 @@ export function BentoSection({ bento, prices }: Props) {
                   value={system}
                   onChange={setSystem}
                 />
-                <Link className="v-link" href={offerHref(systemVariant.solution)}>
+                <SolutionLink
+                  className="v-link"
+                  href={solutionHref(systemVariant.solution)}
+                  open={offerHref(systemVariant.solution)}
+                >
                   {bento.details} <span aria-hidden="true">→</span>
-                </Link>
+                </SolutionLink>
               </div>
             </div>
           </article>
@@ -212,10 +224,14 @@ export function BentoSection({ bento, prices }: Props) {
                 value={auto}
                 onChange={setAuto}
               />
-              <Link className="v-link" href={offerHref(autoVariant.solution)}>
+              <SolutionLink
+                className="v-link"
+                href={solutionHref(autoVariant.solution)}
+                open={offerHref(autoVariant.solution)}
+              >
                 {prices[autoVariant.solution]?.price} · {bento.automations.link}{' '}
                 <span aria-hidden="true">→</span>
-              </Link>
+              </SolutionLink>
             </div>
           </article>
         </div>

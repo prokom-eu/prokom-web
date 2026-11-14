@@ -1,4 +1,4 @@
-import { priceLine } from '@/lib/software/priceCards'
+import { offerHref, priceLine, solutionHref } from '@/lib/software/priceCards'
 import type { SoftwareHeroV24 } from '@/lib/software/home'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 import { Mockup } from '@/sites/software/components/mockups/Mockup'
@@ -21,7 +21,9 @@ export function HeroV24({ hero, index, isFirst = true }: Props) {
     name: slide.name,
     text: slide.text,
     icon: slide.icon,
-    href: `/rozwiazania?rozwiazanie=${slide.solution}`,
+    // Its page for search engines, its offer window on a click (SEO etap 1).
+    href: solutionHref(slide.solution),
+    open: offerHref(slide.solution),
     // „od 2 490 zł” and the term from `Solutions`; no price → a badge (SWA14 §4.1).
     ...priceLine(slide.solution, index),
   }))

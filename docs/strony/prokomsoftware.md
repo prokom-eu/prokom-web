@@ -235,8 +235,8 @@ H1 „Strona, program, sprzęt i serwis. W jednej firmie.” → „Każda robi 
 - Trasa wspólna z Biznesem (B11a, ADR-012 rozstrz. 5) — SW11b dokłada tylko wygląd Software.
 
 ### 6.9 Miejscowości `/miejscowosci/[miasto]` (plansza `Miasto`, wzór: Rabka-Zdrój)
-H1 „Strony i systemy dla firm z Rabki-Zdroju.” → „Dla kogo pracujemy najczęściej.” (branże lokalne, ceny na kartach z `Solutions`) → „Blisko, czyli prościej.” → „Najczęściej pytacie o to” (FAQ lokalne `Cities.faq`, ceny przez `{cena:<slug>}`) → „Pracujemy też w okolicy” (okoliczne miejscowości jako chipy, **bez linków** do nieaktywnych stron) → „Wpadnij do salonu przy Orkana 16B.” (zdjęcie salonu).
-- Na start: **Rabka-Zdrój**. Potem: Zakopane, Nowy Targ, Mszana Dolna, Limanowa, Nowy Sącz.
+H1 „Strony i systemy dla firm z Rabki-Zdroju.” → „Dla kogo pracujemy najczęściej.” (branże lokalne, ceny na kartach z `Solutions`) → „Blisko, czyli prościej.” → „Najczęściej pytacie o to” (FAQ lokalne `Cities.faq`, ceny przez `{cena:<slug>}`) → „Pracujemy też w okolicy” (okoliczne miejscowości jako chipy; miasto z własną, aktywną stroną to chip-link ze strzałką, pozostałe **bez linków**; od SEO etapu 2 każda strona miasta ma też chip-link do Rabki) → „Wpadnij do salonu przy Orkana 16B.” (zdjęcie salonu).
+- Na start: **Rabka-Zdrój**. Od SEO etapu 2 (14.11): Nowy Targ, Mszana Dolna, Limanowa, Nowy Sącz (szkice Claude do akceptacji). **Zakopane — bez strony** (ZMIANY-v23 §1: Zakopane usunięte z całej strony Software). Treść na staging i produkcję przez `scripts/staging-content.sh software` / `scripts/prod-content.sh software` (seed z paczki).
 - **Zasada przeciw „doorway pages”** (wytyczne Google o spamie): każda strona ma unikalną treść (lokalne branże, dojazd/spotkanie, lokalne pytania, realne powiązanie z firmą). Strona bez unikalnej treści nie jest publikowana. Raba Wyżna, Chabówka, Skomielna Biała itp. tylko na liście „w okolicy”, bez własnych stron.
 - JSON-LD `Service` z `areaServed` (miasto). Bez fałszywych adresów: `LocalBusiness` tylko z prawdziwymi oddziałami.
 
@@ -319,11 +319,11 @@ Plansze mają warstwę mobilną jako jedną sekcję CSS na końcu (`v20 · warst
 
 | Podstrona | title | description (do 155 znaków) | frazy główne |
 |---|---|---|---|
-| `/` | Strony, systemy i aplikacje dla firm — Rabka-Zdrój, Podhale \| PRO-KOM Software | `TODO(krystian)` w SW12 | strony internetowe Podhale, systemy dla firm, aplikacje dla firm |
-| `/rozwiazania` | Pełna oferta: strony, systemy i aplikacje dla firm \| PRO-KOM Software (bez liczby — v20) | `TODO` | oprogramowanie dla firm, CRM dla małej firmy |
-| `/rozwiazania/[slug]` | `<nazwa> \| PRO-KOM Software` | z leadu | nazwa rozwiązania + branża |
-| `/dla-branz/[branza]` | jak `Branza` | `TODO` | program dla <branży> |
-| `/miejscowosci/rabka-zdroj` | Strony internetowe Rabka-Zdrój \| PRO-KOM Software | `TODO` | strony internetowe Rabka, programista Rabka-Zdrój |
+| `/` | Strony internetowe i systemy — Rabka, Podhale \| PRO-KOM Software (SEO etap 1, ≤ 65 znaków) | Strony internetowe, sklepy i systemy dla firm z Rabki-Zdroju i Podhala… | strony internetowe Podhale, systemy dla firm, aplikacje dla firm |
+| `/rozwiazania` | Strony, systemy, aplikacje — Rabka-Zdrój \| PRO-KOM Software (SEO etap 1) | `TODO` | oprogramowanie dla firm, CRM dla małej firmy |
+| `/rozwiazania/[slug]` | `<nazwa> — Rabka-Zdrój i Podhale \| PRO-KOM Software`, krócej „— Rabka-Zdrój” albo sama nazwa, gdy się nie mieści (65 znaków; `localTitle`) | z leadu + miejsce (Rabka-Zdrój, Podhale, Małopolska, zdalnie cała Polska — najdłuższe, które się mieści; `withPlace`) | nazwa rozwiązania + branża |
+| `/dla-branz/[branza]` | `<branża>: oprogramowanie — Rabka-Zdrój…`, potem `<branża> — Rabka-Zdrój`, potem `<branża>: oprogramowanie dla branży` | z leadu + miejsce | program dla <branży> |
+| `/miejscowosci/rabka-zdroj` | Strony internetowe Rabka-Zdrój \| PRO-KOM Software | z panelu albo lead + „<miasto> i okolice.” (`withTown`) | strony internetowe Rabka, programista Rabka-Zdrój |
 | `/dobierz` | Dobierz rozwiązanie w 60 sekund \| PRO-KOM Software | `TODO` | — |
 | `/cennik` | Cennik stron, systemów i opieki \| PRO-KOM Software | `TODO` | ile kosztuje strona internetowa |
 | `/audyt` | Darmowy audyt strony \| PRO-KOM Software | `TODO` | audyt strony internetowej |
@@ -332,9 +332,11 @@ Plansze mają warstwę mobilną jako jedną sekcję CSS na końcu (`v20 · warst
 | `/dziekujemy` | Dziękujemy \| PRO-KOM Software (`noindex`, poza sitemap) | — | — |
 
 - Tytuły z plansz (`<title>`) są punktem wyjścia; opisy pisze Krystian w czacie przed SW12.
-- JSON-LD: `Organization` + `LocalBusiness` (są z S7b), `Service` (rozwiązania, miejscowości), `FAQPage` (FAQ), `Article` (wpisy), `BreadcrumbList`, `ItemList` (katalog).
+- JSON-LD: `Organization` + `ProfessionalService` (biuro w Rabce, od SEO etap 1; wcześniej `LocalBusiness`), `WebSite` z `SearchAction` (`/rozwiazania?q=`), `Service` (rozwiązania z `provider` → `#organization`, miejscowości), `FAQPage` (FAQ), `Article` (wpisy), `BreadcrumbList` (także cennik, audyt, strony prawne), `ItemList` (katalog).
 - **Widoczność w AI:** te same fakty w HTML (nie tylko w JS): kim jesteśmy, gdzie, co robimy, dla kogo, jak się skontaktować. Strony renderowane po stronie serwera. `robots.txt` nie blokuje botów wyszukiwarek AI, chyba że szef zdecyduje inaczej (§13).
-- Sitemap z kolekcji (rozwiązania, branże aktywne, miejscowości aktywne, wpisy).
+- Sitemap z kolekcji (rozwiązania, branże aktywne, miejscowości aktywne, wpisy), z `<lastmod>` (SEO etap 1).
+- Linki do rozwiązań (menu, hero, karty, bento, sytuacje) mają `href` na stronę `/rozwiazania/<slug>`; zwykłe kliknięcie otwiera okno oferty (`SolutionLink`, SEO etap 1).
+- `llms.txt` (SEO etap 1): kim jesteśmy, obszar (Rabka-Zdrój, Podhale, Małopolska, zdalnie cała Polska), oferta z cenami i terminami jak na kartach, branże, miejscowości, kontakt — z panelu.
 - Przekierowania 301: obecna prokomsoftware.pl — `TODO(krystian)`: lista starych adresów przed SW12 (sprawdzić, co jest dziś pod domeną).
 
 ## 10. Kryteria akceptacji

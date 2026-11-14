@@ -33,7 +33,7 @@ const TENANTS = [
     host: 'software.localhost',
     name: 'PRO-KOM Software',
     // The start page's full SEO title from the seed (SW12b, `src/seed/software/seo.ts`).
-    title: 'Strony i systemy dla firm — Rabka-Zdrój | PRO-KOM Software',
+    title: 'Strony internetowe i systemy — Rabka, Podhale | PRO-KOM Software',
     // Hero v24 (SWA2a): „Zrobimy Ci” + the word of the slide, which changes every 4.2 s.
     h1: /^Zrobimy Ci /,
     // SWV2: the seed gives Software its real contact (ZMIANY-v23 §1) over the sample one.
