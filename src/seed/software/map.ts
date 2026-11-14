@@ -243,7 +243,7 @@ export function cityData(item: SeedCity, ref: SolutionRef): CityData {
       titleAccent: hero.titleAccent,
       lead: hero.lead,
       ctas: hero.ctas.map(link),
-      badges,
+      badges: badges ?? [],
     },
     who: {
       title: item.whoTitle,
