@@ -32,9 +32,10 @@ function Emphasis({ text }: { text: string }) {
 /**
  * Hero of the Biznes home page (spec. §4 pkt 1, ZMIANY-v20 §2.1): H1 with a plain accent part
  * (no gradient, no glows — ADR-013), the wizard CTA, the line's phone, the callback promise and
- * the trust points; on the right the department wheel from the catalog. Below 768 px (board
- * App-Start): the text in a dark card with the search field; buttons, phone, trust points and
- * the wheel go — the quick start right under it takes their place.
+ * the trust points; on the right the department wheel from the catalog — from 1080 px only (a
+ * tablet got a wheel over the whole screen, audit 14.11). Below 768 px (board App-Start): the
+ * text in a dark card with the search field; buttons, phone and trust points go — the quick
+ * start right under it takes their place.
  */
 export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
   const [index, settings] = await Promise.all([
@@ -60,7 +61,10 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
   const Title = isFirst ? 'h1' : 'h2'
 
   return (
-    <section id="start" className="relative overflow-hidden pt-4 pb-3 md:pt-10 md:pb-24">
+    <section
+      id="start"
+      className="relative overflow-hidden pt-4 pb-3 md:pt-10 md:pb-12 min-[1080px]:pb-24"
+    >
       <Container
         wide
         className="relative grid items-center gap-7 min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)]"
@@ -146,7 +150,7 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
         </div>
 
         {groups.length > 0 && (
-          <div className="flex justify-center max-md:hidden">
+          <div className="flex justify-center max-[1079px]:hidden">
             <DepartmentWheel
               groups={groups}
               hint={block.wheelHint}

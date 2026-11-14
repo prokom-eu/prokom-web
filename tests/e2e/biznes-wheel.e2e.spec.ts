@@ -3,8 +3,8 @@ import { expect, test, type Page } from '@playwright/test'
 
 import { setTheme, site } from './helpers'
 
-// KOLO-HERO v3 (03.11): the department wheel of the Biznes hero — 19 bubbles on one ring that
-// does not turn, the departments in the middle of their runs, one tooltip above everything,
+// KOLO-HERO v3 (03.11): the department wheel of the Biznes hero — at most 8 bubbles (audit
+// 14.11) on one ring that does not turn, shown from 1080 px, the departments in the middle of their runs, one tooltip above everything,
 // switching every 6.5 s also under the pointer; only the pause button and keyboard focus stop
 // it. Data from `pnpm seed` (`kolo_hero`).
 
@@ -98,11 +98,11 @@ function measure(page: Page) {
 }
 
 test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
-  test('19 bubbles, each clickable at its centre and leading to a live page', async ({ page }) => {
+  test('8 bubbles, each clickable at its centre and leading to a live page', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await ready(page)
     await pauseButton(page).click()
-    await expect(bubbles(page)).toHaveCount(19)
+    await expect(bubbles(page)).toHaveCount(8)
     await expect(tabs(page)).toHaveCount(5)
 
     // Each bubble in the middle of the window first: not under the sticky header, not below it.
@@ -115,6 +115,7 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
       }),
     )
     expect(links.filter((link) => !link.own).map((link) => link.href)).toEqual([])
+    // The page bubble picked in the panel survives the cut to 8.
     expect(links.map((link) => link.href)).toContain('/opieka-it')
     expect(links.map((link) => link.href)).toContain('/produkt/apple-iphone-18-pro?kolor=burgund')
 
@@ -136,7 +137,7 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     )
   })
 
-  for (const width of [1024, 1280, 1440]) {
+  for (const width of [1080, 1280, 1440]) {
     for (const theme of ['light', 'dark'] as const) {
       test(`no overlaps at ${width} px, ${theme}, every department`, async ({ page }) => {
         await page.setViewportSize({ width, height: 1000 })
@@ -157,6 +158,13 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
       })
     }
   }
+
+  test('a tablet (834 px) gets no wheel: the quick start follows the hero', async ({ page }) => {
+    await page.setViewportSize({ width: 834, height: 1112 })
+    await page.goto(site('biznes.localhost'))
+    await expect(page.locator('#start h1')).toBeVisible()
+    await expect(wheel(page)).toBeHidden()
+  })
 
   test('the tooltip of every bubble is on top of everything and inside the window', async ({
     page,
