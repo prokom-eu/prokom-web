@@ -170,11 +170,8 @@ export const BIZNES_SHARED: SharedGroup = {
       'Autoryzowany partner InsERT',
     ],
     stats: [
-      {
-        value: '100+',
-        label: 'klientów firmowych pod stałą opieką',
-        flag: 'do potwierdzenia przez szefa',
-      },
+      // Confirmed by Krystian on 14.11.2026.
+      { value: '10\u00a0000+', label: 'klientów' },
       { value: '2', label: 'autoryzowane serwisy kas: Posnet i Elzab' },
     ],
     rules: [

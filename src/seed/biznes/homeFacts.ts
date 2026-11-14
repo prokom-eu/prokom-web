@@ -55,11 +55,12 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
         yearText: 'od tego roku PRO-KOM działa w Rabce-Zdroju',
         photoPlaceholder: false,
       },
-      // K4-FINAL §1: „100+ klientów firmowych”. POPRAWKI-0311 §C: two numbers — the
+      // Client count — Krystian's decision of 14.11.2026: „10 000+ klientów” (was „100+ klientów
+      // firmowych”, K4-FINAL §1). POPRAWKI-0311 §C: two numbers — the
       // authorizations say the rest with their status (Posnet, Elzab, InsERT, GoPOS).
       stats: [
         { value: '2004', label: 'rok założenia firmy' },
-        { value: '100+', label: 'klientów firmowych' },
+        { value: '10\u00a0000+', label: 'klientów' },
       ],
       authorizations: ['Posnet', 'Elzab', 'InsERT', 'GoPOS'].flatMap((name) => brand(name) ?? []),
       contactLink: { label: 'Poznaj PRO-KOM i pozostałe linie firmy', href: '/o-firmie' },

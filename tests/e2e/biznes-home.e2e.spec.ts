@@ -43,7 +43,7 @@ test.describe('Biznes home page', () => {
     // comes from the panel only (plan 0611 §7.1 pkt 9) — the seed leaves it empty.
     await expect(hero).toContainText('Autoryzowany serwis Posnet i Elzab')
     await expect(hero).toContainText('Autoryzowany partner GoPOS i InsERT')
-    await expect(hero).toContainText('100+ klientów firmowych')
+    await expect(hero).toContainText('10\u00a0000+ klientów')
     await expect(hero.getByRole('link', { name: 'Zobacz plan Twojej firmy ↓' })).toHaveAttribute(
       'href',
       '#plan',
@@ -480,8 +480,10 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await expect(facts.getByRole('heading', { level: 2 })).toHaveText(
       'Od 2004 roku przy kasach i komputerach firm z Podhala',
     )
-    await expect(facts.locator('dd')).toHaveText(['2004', '100+'])
-    await expect(facts).toContainText('klientów firmowych')
+    await expect(facts.locator('dd')).toHaveText(['2004', '10\u00a0000+'])
+    // Client count of 14.11.2026.
+    await expect(facts).toContainText('klientów')
+    await expect(facts).not.toContainText('firmowych')
     await expect(facts).not.toContainText('pod stałą opieką')
     const authorizations = facts.getByRole('list', { name: 'Autoryzacje i partnerstwa' })
     for (const [name, status] of [

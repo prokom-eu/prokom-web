@@ -130,7 +130,7 @@ import { seedBiznesCategoryContent } from './category'
 import { seedBiznesIndustries } from './industries'
 import { seedBiznesNews } from './posts'
 import { seedBiznesLegal } from './legal'
-import { SERVICE_AREAS, upsertBiznesContact } from './contact'
+import { serviceAreasUpdate, upsertBiznesContact } from './contact'
 import { procurementLinksUpdate } from './procurementLinks'
 import { seedBiznesHome } from './home'
 import { navigationData, upgradedColumnLimit, upgradedHighlights, upgradedMenu } from './navigation'
@@ -1218,13 +1218,14 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       id: siteSettings.id,
       ...local,
     })
-    const areasMissing = !current.biznes?.serviceAreas?.length
-    count('site-settings service areas', areasMissing)
-    if (areasMissing) {
+    // Empty or the earlier default list → the list confirmed on 14.11; a panel edit stays.
+    const serviceAreas = serviceAreasUpdate(current.biznes?.serviceAreas)
+    count('site-settings service areas', serviceAreas !== null)
+    if (serviceAreas) {
       await payload.update({
         collection: 'site-settings',
         id: siteSettings.id,
-        data: { biznes: { ...current.biznes, serviceAreas: SERVICE_AREAS } },
+        data: { biznes: { ...current.biznes, serviceAreas } },
         ...local,
       })
     }
