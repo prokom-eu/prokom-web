@@ -8,7 +8,7 @@ import { PriceCard } from '@/sites/software/components/catalog/PriceCard'
 import { Chip } from '@/sites/software/components/ui/Chip'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
-import { offerHref, type PricingCard } from '@/lib/software/priceCards'
+import { offerHref, type PricingCard, solutionHref } from '@/lib/software/priceCards'
 import { SlidingMark } from '../ui/SlidingMark'
 import { useFlip } from '../ui/useFlip'
 
@@ -55,7 +55,8 @@ export function PricingSection({ pricing, cards }: Props) {
               <PriceCard
                 card={card}
                 details={pricing.details}
-                href={offerHref(card.slug)}
+                href={solutionHref(card.slug)}
+                open={offerHref(card.slug)}
                 lazyThumb
               />
             </li>

@@ -15,7 +15,7 @@ import {
   type ParamSource,
 } from '@/lib/software/catalog'
 import { getOfferViews, getSolutionsIndex } from '@/lib/software/data'
-import { SOFTWARE_ROUTE_DESCRIPTIONS } from '@/lib/software/meta'
+import { localTitle, SOFTWARE_ROUTE_DESCRIPTIONS } from '@/lib/software/meta'
 import { plural } from '@/lib/plural'
 import { Catalog } from '@/sites/software/components/catalog/Catalog'
 import { Glass } from '@/sites/software/components/ui/Glass'
@@ -30,7 +30,8 @@ type Props = {
 }
 
 // ≤ 65 characters with „ | PRO-KOM Software” (audyt 01.11 P2).
-const TITLE = 'Pełna oferta: strony, systemy, aplikacje'
+// The place in the title (SEO etap 1): „Strony, systemy, aplikacje — Rabka-Zdrój”.
+const TITLE = localTitle('Strony, systemy, aplikacje')
 // Texts of the board (TRESCI-v24 `p_oferta`).
 const LEAD =
   'Strony, przebudowy, systemy i automatyzacje dla każdej firmy. Kliknij kategorię albo kartę: zobaczysz, co dostajesz, jak to przebiega i kiedy płacisz.'

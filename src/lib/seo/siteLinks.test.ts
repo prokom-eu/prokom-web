@@ -188,6 +188,23 @@ describe('buildSiteMap — Software', () => {
     )
   })
 
+  it('dates the solution, industry and city pages for <lastmod> (SEO etap 1)', () => {
+    const map = buildSiteMap({
+      pages,
+      catalog: null,
+      news: null,
+      solutions: {
+        items: [{ slug: 'strona-wizytowka', name: 'Strona wizytówka', updatedAt: '2026-11-13' }],
+      },
+      industryPages: [{ slug: 'budownictwo', name: 'Budownictwo', updatedAt: '2026-11-12' }],
+      cities: [{ slug: 'rabka-zdroj', name: 'Rabka-Zdrój', updatedAt: '2026-11-11' }],
+    })
+    const paths = siteMapPaths(map)
+    expect(paths).toContainEqual({ path: '/rozwiazania/strona-wizytowka', updatedAt: '2026-11-13' })
+    expect(paths).toContainEqual({ path: '/dla-branz/budownictwo', updatedAt: '2026-11-12' })
+    expect(paths).toContainEqual({ path: '/miejscowosci/rabka-zdroj', updatedAt: '2026-11-11' })
+  })
+
   it('lists the active industry pages of Software (SW10b)', () => {
     const map = buildSiteMap({
       pages,

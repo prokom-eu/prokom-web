@@ -16,9 +16,10 @@ type Seo = { title?: string | null; description?: string | null }
 export const SOFTWARE_PAGE_SEO: Readonly<Record<string, Seo>> = {
   [HOME_SLUG]: {
     // ≤ 60 characters: longer titles are cut in results (audyt 01.11 P2).
-    title: 'Strony i systemy dla firm — Rabka-Zdrój | PRO-KOM Software',
+    // SEO etap 1: „strony internetowe” (the phrase people type) and the region, ≤ 65 characters.
+    title: 'Strony internetowe i systemy — Rabka, Podhale | PRO-KOM Software',
     description:
-      'Strony internetowe, systemy dla firm i aplikacje z Rabki-Zdroju. Cena „od” i termin od razu, stała wycena, opieka po starcie.',
+      'Strony internetowe, sklepy i systemy dla firm z Rabki-Zdroju i Podhala. Cena „od” i termin od razu, stała wycena, opieka po starcie.',
   },
   [SOFTWARE_PRICING_SLUG]: {
     title: 'Cennik stron, systemów i opieki',

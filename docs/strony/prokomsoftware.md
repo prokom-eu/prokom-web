@@ -319,11 +319,11 @@ Plansze mają warstwę mobilną jako jedną sekcję CSS na końcu (`v20 · warst
 
 | Podstrona | title | description (do 155 znaków) | frazy główne |
 |---|---|---|---|
-| `/` | Strony, systemy i aplikacje dla firm — Rabka-Zdrój, Podhale \| PRO-KOM Software | `TODO(krystian)` w SW12 | strony internetowe Podhale, systemy dla firm, aplikacje dla firm |
-| `/rozwiazania` | Pełna oferta: strony, systemy i aplikacje dla firm \| PRO-KOM Software (bez liczby — v20) | `TODO` | oprogramowanie dla firm, CRM dla małej firmy |
-| `/rozwiazania/[slug]` | `<nazwa> \| PRO-KOM Software` | z leadu | nazwa rozwiązania + branża |
-| `/dla-branz/[branza]` | jak `Branza` | `TODO` | program dla <branży> |
-| `/miejscowosci/rabka-zdroj` | Strony internetowe Rabka-Zdrój \| PRO-KOM Software | `TODO` | strony internetowe Rabka, programista Rabka-Zdrój |
+| `/` | Strony internetowe i systemy — Rabka, Podhale \| PRO-KOM Software (SEO etap 1, ≤ 65 znaków) | Strony internetowe, sklepy i systemy dla firm z Rabki-Zdroju i Podhala… | strony internetowe Podhale, systemy dla firm, aplikacje dla firm |
+| `/rozwiazania` | Strony, systemy, aplikacje — Rabka-Zdrój \| PRO-KOM Software (SEO etap 1) | `TODO` | oprogramowanie dla firm, CRM dla małej firmy |
+| `/rozwiazania/[slug]` | `<nazwa> — Rabka-Zdrój i Podhale \| PRO-KOM Software`, krócej „— Rabka-Zdrój” albo sama nazwa, gdy się nie mieści (65 znaków; `localTitle`) | z leadu + miejsce (Rabka-Zdrój, Podhale, Małopolska, zdalnie cała Polska — najdłuższe, które się mieści; `withPlace`) | nazwa rozwiązania + branża |
+| `/dla-branz/[branza]` | `<branża>: oprogramowanie — Rabka-Zdrój…`, potem `<branża> — Rabka-Zdrój`, potem `<branża>: oprogramowanie dla branży` | z leadu + miejsce | program dla <branży> |
+| `/miejscowosci/rabka-zdroj` | Strony internetowe Rabka-Zdrój \| PRO-KOM Software | z panelu albo lead + „<miasto> i okolice.” (`withTown`) | strony internetowe Rabka, programista Rabka-Zdrój |
 | `/dobierz` | Dobierz rozwiązanie w 60 sekund \| PRO-KOM Software | `TODO` | — |
 | `/cennik` | Cennik stron, systemów i opieki \| PRO-KOM Software | `TODO` | ile kosztuje strona internetowa |
 | `/audyt` | Darmowy audyt strony \| PRO-KOM Software | `TODO` | audyt strony internetowej |
@@ -332,9 +332,11 @@ Plansze mają warstwę mobilną jako jedną sekcję CSS na końcu (`v20 · warst
 | `/dziekujemy` | Dziękujemy \| PRO-KOM Software (`noindex`, poza sitemap) | — | — |
 
 - Tytuły z plansz (`<title>`) są punktem wyjścia; opisy pisze Krystian w czacie przed SW12.
-- JSON-LD: `Organization` + `LocalBusiness` (są z S7b), `Service` (rozwiązania, miejscowości), `FAQPage` (FAQ), `Article` (wpisy), `BreadcrumbList`, `ItemList` (katalog).
+- JSON-LD: `Organization` + `ProfessionalService` (biuro w Rabce, od SEO etap 1; wcześniej `LocalBusiness`), `WebSite` z `SearchAction` (`/rozwiazania?q=`), `Service` (rozwiązania z `provider` → `#organization`, miejscowości), `FAQPage` (FAQ), `Article` (wpisy), `BreadcrumbList` (także cennik, audyt, strony prawne), `ItemList` (katalog).
 - **Widoczność w AI:** te same fakty w HTML (nie tylko w JS): kim jesteśmy, gdzie, co robimy, dla kogo, jak się skontaktować. Strony renderowane po stronie serwera. `robots.txt` nie blokuje botów wyszukiwarek AI, chyba że szef zdecyduje inaczej (§13).
-- Sitemap z kolekcji (rozwiązania, branże aktywne, miejscowości aktywne, wpisy).
+- Sitemap z kolekcji (rozwiązania, branże aktywne, miejscowości aktywne, wpisy), z `<lastmod>` (SEO etap 1).
+- Linki do rozwiązań (menu, hero, karty, bento, sytuacje) mają `href` na stronę `/rozwiazania/<slug>`; zwykłe kliknięcie otwiera okno oferty (`SolutionLink`, SEO etap 1).
+- `llms.txt` (SEO etap 1): kim jesteśmy, obszar (Rabka-Zdrój, Podhale, Małopolska, zdalnie cała Polska), oferta z cenami i terminami jak na kartach, branże, miejscowości, kontakt — z panelu.
 - Przekierowania 301: obecna prokomsoftware.pl — `TODO(krystian)`: lista starych adresów przed SW12 (sprawdzić, co jest dziś pod domeną).
 
 ## 10. Kryteria akceptacji

@@ -243,7 +243,8 @@ describe('organizationJsonLd on Software (SWV2: only Rabka)', () => {
       contact: { phone: '883 200 151', email: null },
       origin: 'https://prokomsoftware.pl',
     })
-    const branches = data['@graph'].filter((node) => node['@type'] === 'LocalBusiness')
+    // SEO etap 1: a software house is a `ProfessionalService` (a kind of `LocalBusiness`).
+    const branches = data['@graph'].filter((node) => node['@type'] === 'ProfessionalService')
     expect(branches).toHaveLength(1)
     expect(JSON.stringify(data)).not.toContain('Zakopane')
   })
@@ -255,7 +256,7 @@ describe('organizationJsonLd on Software (SWV2: only Rabka)', () => {
       contact: { phone: '883 200 151', email: 'kontakt@prokomsoftware.pl' },
       origin: 'https://prokomsoftware.pl',
     })
-    const branch = data['@graph'].find((node) => node['@type'] === 'LocalBusiness')
+    const branch = data['@graph'].find((node) => node['@type'] === 'ProfessionalService')
     expect(branch).toMatchObject({
       telephone: '+48883200151',
       email: 'kontakt@prokomsoftware.pl',
@@ -295,6 +296,22 @@ describe('serviceJsonLd area (audyt P2)', () => {
       areaServed: SOFTWARE_AREA_SERVED,
     })
     expect(data).toMatchObject({ areaServed: SOFTWARE_AREA_SERVED })
+  })
+
+  it('points to the organization of the page by its @id (SEO etap 1)', () => {
+    const data = serviceJsonLd({
+      name: 'Strona wizytówka',
+      description: undefined,
+      url: 'https://prokomsoftware.pl/rozwiazania/strona-wizytowka',
+      provider: 'PRO-KOM Software',
+      providerId: 'https://prokomsoftware.pl/#organization',
+      priceFrom: 999,
+    })
+    expect(data.provider).toEqual({
+      '@type': 'Organization',
+      '@id': 'https://prokomsoftware.pl/#organization',
+      name: 'PRO-KOM Software',
+    })
   })
 })
 

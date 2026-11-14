@@ -14,6 +14,7 @@ import type { SoftwareNavigation } from '@/lib/software/navigation'
 import { requestSearch } from '@/lib/site/searchOpen'
 
 import { ProjectMenu } from '../components/ProjectMenu'
+import { SolutionLink } from '../components/ui/SolutionLink'
 import { ProjectCount } from './ProjectCount'
 
 /** Closing delay after the pointer leaves the mega menu (as Biznes and Instalacje: 280 ms). */
@@ -172,10 +173,17 @@ export function SwHeader({ homeLabel, navigation, mega, cta }: Props) {
               <ul>
                 {column.items.map((item) => (
                   <li key={item.href}>
-                    <Link href={item.href} className="sw-mega__item">
-                      <b>{item.label}</b>
-                      {item.note && <small>{item.note}</small>}
-                    </Link>
+                    {item.open ? (
+                      <SolutionLink href={item.href} open={item.open} className="sw-mega__item">
+                        <b>{item.label}</b>
+                        {item.note && <small>{item.note}</small>}
+                      </SolutionLink>
+                    ) : (
+                      <Link href={item.href} className="sw-mega__item">
+                        <b>{item.label}</b>
+                        {item.note && <small>{item.note}</small>}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

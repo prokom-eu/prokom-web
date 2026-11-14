@@ -27,7 +27,8 @@ test.describe('/_wspolne/kontakt and /_wspolne/o-firmie — page templates', () 
         .locator('script[type="application/ld+json"]')
         .evaluateAll((nodes) => nodes.map((node) => node.textContent ?? ''))
       expect(types.some((text) => text.includes('"BreadcrumbList"'))).toBe(true)
-      expect(types.some((text) => text.includes('"LocalBusiness"'))).toBe(true)
+      // The office: a `LocalBusiness`, on Software its kind `ProfessionalService` (SEO etap 1).
+      expect(types.some((text) => /"(LocalBusiness|ProfessionalService)"/.test(text))).toBe(true)
       await expect(root.locator('[data-contact-form]')).toBeVisible()
     })
 

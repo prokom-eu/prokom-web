@@ -6,7 +6,10 @@ export type MegaItem = {
   label: string
   /** „od 999 zł” for a solution; `null` for a plain link. */
   note: string | null
+  /** The page (a solution: its own page `/rozwiazania/<slug>`, indexable). */
   href: string
+  /** A solution: a plain click opens its offer window instead (`?rozwiazanie=`). */
+  open?: string
 }
 
 export type MegaColumn = { title: string; items: MegaItem[] }
@@ -48,7 +51,8 @@ export function megaColumns(
           {
             label: solution.name,
             note: shortPrice(solution, display),
-            href: `/rozwiazania?rozwiazanie=${slug}`,
+            href: `/rozwiazania/${slug}`,
+            open: `/rozwiazania?rozwiazanie=${slug}`,
           },
         ]
       }),

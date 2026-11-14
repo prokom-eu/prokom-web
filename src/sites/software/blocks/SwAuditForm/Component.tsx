@@ -17,6 +17,8 @@ import { Glass } from '@/sites/software/components/ui/Glass'
 import { PageHero } from '@/sites/software/components/ui/PageHero'
 import { SectionHead } from '@/sites/software/components/ui/SectionHead'
 
+import { SOFTWARE_HERO_CRUMBS } from '@/lib/software/pageCrumbs'
+
 import { AuditForm } from './AuditFormLazy'
 import { AuditScanCard } from './AuditScanCardLazy'
 
@@ -56,7 +58,7 @@ export async function SwAuditFormBlock({ block, tenantId, isFirst }: Props) {
         level={isFirst ? 'h1' : 'h2'}
         id="formularz"
         className="scroll-mt-24"
-        crumb="Darmowy audyt"
+        crumb={SOFTWARE_HERO_CRUMBS.swAuditForm}
         eyebrow={fill(block.eyebrow) ?? ''}
         title={title}
         em={block.titleAccent}

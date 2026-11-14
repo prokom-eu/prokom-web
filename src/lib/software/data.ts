@@ -506,11 +506,31 @@ export const getIndustryPage = cache(
 )
 
 /**
+ * When each published solution last changed, by slug — `<lastmod>` of the sitemap (SEO etap 1).
+ * Separate from the index: the index goes to the browser, the dates are only for the maps.
+ */
+export const getSolutionDates = cache(
+  async (tenantId: number): Promise<ReadonlyMap<string, string>> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'solutions',
+      where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
+      draft: false,
+      limit: MAX_SOLUTIONS,
+      depth: 0,
+      select: { slug: true, updatedAt: true },
+      overrideAccess: true,
+    })
+    return new Map(docs.map((doc) => [doc.slug, doc.updatedAt]))
+  },
+)
+
+/**
  * Active Software industry pages of one tenant (name and address) for the site map — only those
  * with a page (`buildIndustryPage` would build one).
  */
 export const getIndustryPageList = cache(
-  async (tenantId: number): Promise<{ slug: string; name: string }[]> => {
+  async (tenantId: number): Promise<{ slug: string; name: string; updatedAt: string }[]> => {
     const payload = await getPayload({ config })
     const { docs } = await payload.find({
       collection: 'industries',
@@ -518,12 +538,12 @@ export const getIndustryPageList = cache(
       limit: 50,
       depth: 0,
       sort: 'order',
-      select: { name: true, slug: true, software: { problems: true } },
+      select: { name: true, slug: true, updatedAt: true, software: { problems: true } },
       overrideAccess: true,
     })
     return docs
       .filter((doc) => (doc.software?.problems?.length ?? 0) > 0)
-      .map(({ slug, name }) => ({ slug, name }))
+      .map(({ slug, name, updatedAt }) => ({ slug, name, updatedAt }))
   },
 )
 
@@ -555,7 +575,7 @@ export const getCityView = cache(
 
 /** Active city pages of a Software tenant for the sitemaps (only those `getCityView` shows). */
 export const getCityList = cache(
-  async (tenantId: number): Promise<{ slug: string; name: string }[]> => {
+  async (tenantId: number): Promise<{ slug: string; name: string; updatedAt: string }[]> => {
     const payload = await getPayload({ config })
     const { docs } = await payload.find({
       collection: 'cities',
@@ -566,7 +586,9 @@ export const getCityList = cache(
       overrideAccess: true,
     })
     return docs.flatMap((doc) =>
-      buildCityView(doc, tenantId) ? [{ slug: doc.slug, name: doc.name }] : [],
+      buildCityView(doc, tenantId)
+        ? [{ slug: doc.slug, name: doc.name, updatedAt: doc.updatedAt }]
+        : [],
     )
   },
 )

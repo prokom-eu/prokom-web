@@ -96,7 +96,11 @@ test.describe('Software start page', () => {
       await expect(cards).toHaveCount(4, { timeout: 1000 })
     }).toPass()
     await expect(cards.first()).toContainText(/od [\d\s]+zł/)
-    await expect(cards.first()).toHaveAttribute('href', /\/rozwiazania\?rozwiazanie=/)
+    // Its own page for search engines (SEO etap 1); a plain click opens the offer window.
+    await expect(cards.first()).toHaveAttribute('href', /^\/rozwiazania\/[a-z0-9-]+$/)
+    await cards.first().click()
+    await expect(page).toHaveURL(/\/rozwiazania\?rozwiazanie=/)
+    await expect(page.locator('dialog.sw-offer-panel[open]')).toBeVisible()
   })
 
   test('the process does not switch itself with reduced motion', async ({ page }) => {
