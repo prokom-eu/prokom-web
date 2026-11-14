@@ -2,7 +2,7 @@
 
 Wygenerowane przez `pnpm payload run scripts/zdjecia-braki.ts` z lokalnej bazy po `pnpm seed` (2026-11-14). Nie edytuj ręcznie — uruchom skrypt ponownie. Cel karty gotowej do produkcji: **≥ 3 ujęcia** (przód, bok/porty, detal lub w użyciu bez ludzi), **≥ 1200 px** szerokości, wycięte albo czyste białe tło, źródło każdego pliku w `seed/prokombiznes/media-produkty-v2.json` (zgoda szefa na materiały producentów: 12.11.2026).
 
-**Stan:** gotowych kart 445 · bez zdjęcia 30 · 1 zdjęcie 112 · 2 zdjęcia 38 · ≥ 3 zdjęcia 265 · z plikiem < 1200 px 315 · z białym tłem lub otoczką 47.
+**Stan:** gotowych kart 445 · bez zdjęcia 30 · 1 zdjęcie 105 · 2 zdjęcia 39 · ≥ 3 zdjęcia 271 · z plikiem < 1200 px 315 · z białym tłem lub otoczką 49.
 
 Kolejność: karty z głównej → salonów marek → zestawów → reszta; w grupie najpierw te z najmniejszą liczbą zdjęć. Kolumna „materiały producenta” to pierwsze źródło karty — tam szukamy sekcji media / press kit. Usługi (karty bez zdjęcia — kafel usługi) są na liście, ale nie potrzebują zdjęć producenta.
 
@@ -92,106 +92,106 @@ Kolejność: karty z głównej → salonów marek → zestawów → reszta; w gr
 | 82 | `fellowes-lx210` | salon | 1 | 2 | 1 | ok | — | |
 | 83 | `fellowes-lx211` | salon | 1 | 2 | 1 | ok | — | |
 | 84 | `fellowes-lx220` | salon | 1 | 2 | 1 | ok | — | |
-| 85 | `kobra-1-cc4-es` | salon | 1 | 2 | 1 | ok | — | |
-| 86 | `kobra-2-cc2-es` | salon | 1 | 2 | 1 | ok | — | |
-| 87 | `kobra-240-1-c2-es` | salon | 1 | 2 | 1 | ok | — | |
-| 88 | `kobra-240-c4-turbo-es` | salon | 1 | 2 | 1 | ok | — | |
-| 89 | `kobra-3-cc4-es` | salon | 1 | 2 | 1 | ok | — | |
-| 90 | `kobra-300-1-c4-es` | salon | 1 | 2 | 1 | ok | — | |
-| 91 | `kobra-af-1-40` | salon | 1 | 2 | 1 | ok | — | |
-| 92 | `konica-minolta-bizhub-c268i` | salon | 1 | 2 | 1 | ok | [strona](https://www.konicaminolta.eu/eu-en/digital-workplace/printing-devices/bizhub-c268i) | |
-| 93 | `kyocera-taskalfa-5004i-6004i` | salon | 1 | 2 | 1 | ok | — | |
-| 94 | `logitech-c925e` | salon | 1 | 2 | 1 | ok | — | |
-| 95 | `logitech-meetup-2` | salon | 1 | 2 | 1 | ok | — | |
-| 96 | `logitech-mk370-combo-for-business` | salon | 1 | 2 | 1 | ok | — | |
-| 97 | `logitech-mx-anywhere-3s-for-business` | salon | 1 | 2 | 1 | ok | — | |
-| 98 | `logitech-mx-brio-705-for-business` | salon | 1 | 2 | 1 | ok | — | |
-| 99 | `logitech-mx-keys-for-business` | salon | 1 | 2 | 1 | ok | — | |
-| 100 | `logitech-mx-master-3s-for-business` | salon | 1 | 2 | 1 | ok | — | |
-| 101 | `logitech-rally-bar-huddle` | salon | 1 | 2 | 1 | ok | — | |
-| 102 | `logitech-signature-slim-combo-mk950-for-business` | salon | 1 | 2 | 1 | ok | — | |
-| 103 | `logitech-wave-keys-for-business` | salon | 1 | 2 | 1 | ok | — | |
-| 104 | `logitech-zone-305` | salon | 1 | 2 | 1 | ok | — | |
-| 105 | `logitech-zone-wireless-2` | salon | 1 | 2 | 1 | ok | — | |
-| 106 | `polcard-axium-dx-4000-portable` | salon | 1 | 2 | 0 | białe tło | — | |
-| 107 | `polcard-axium-dx-8000` | salon | 1 | 2 | 0 | białe tło | — | |
-| 108 | `polcard-desk-3200-desk-1500` | salon | 1 | 2 | 1 | białe tło | — | |
-| 109 | `polcard-go-terminal-w-telefonie` | salon | 1 | 2 | 1 | ok | — | |
-| 110 | `polcard-move-3500` | salon | 1 | 2 | 0 | ok | — | |
-| 111 | `posnet-bileterka-e-podroznik` | salon | 1 | 2 | 1 | białe tło | [strona](https://www.posnet.com.pl/produkty/product/597/bileterka-e-podroznik) | |
-| 112 | `posnet-veri-basic` | salon | 1 | 2 | 1 | ok | [strona](https://www.posnet.com.pl/produkty/product/202/weryfikator-cen-veri-basic) | |
-| 113 | `posnet-werion` | salon | 1 | 2 | 1 | białe tło | [strona](https://www.posnet.com.pl/produkty/product/201/weryfikator-cen-werion) | |
-| 114 | `posnet-wyswietlacz-pos` | salon | 1 | 2 | 1 | ok | [strona](https://www.posnet.com.pl/produkty/product/274/wyswietlacz-pos) | |
-| 115 | `sunmi-flex-3-kds` | salon | 1 | 2 | 1 | ok | [strona](https://www.sunmi.com/en/flex-3-kds/) | |
-| 116 | `sunmi-k2-kiosk-samoobslugowy` | salon | 1 | 2 | 0 | ok | [strona](https://www.sunmi.com/en/k2/) | |
-| 117 | `wdrozenie-ksef-w-firmie` | salon | 1 | 2 | 1 | ok | [strona](https://ksef.podatki.gov.pl/etapy-wdrozenia-ksef) | |
-| 118 | `adobe-acrobat-pro-teams` | salon | 2 | 1 | 2 | ok | [strona](https://www.adobe.com/pl/acrobat/business/pricing-plans) | |
-| 119 | `apple-ipad-pro-m5` | salon | 2 | 1 | 2 | ok | — | |
-| 120 | `apple-macbook-pro-m5` | salon | 2 | 1 | 2 | ok | — | |
-| 121 | `dell-stacje-dokujace` | salon | 2 | 1 | 0 | ok | [strona](https://www.dell.com/en-us/shop/docking-stations/ar/8407) | |
-| 122 | `elzab-drukarka-paragonowa-elz-rpp02b` | salon | 2 | 1 | 2 | ok | [strona](https://www.elzab.com.pl/pl/drukarki-paragonowe/elz-rpp02b) | |
-| 123 | `elzab-elzapp-mag-program-dla-sklepu-i-magazynu` | salon | 2 | 1 | 1 | ok | [strona](https://www.elzab.com.pl/pl/kody-kreskowe/kolektory-danych/oprogramowanie/elzapp-mag) | |
-| 124 | `elzab-k2-pay-online` | salon | 2 | 1 | 2 | ok | [strona](https://www.elzab.com.pl/pl/fiskalne-posy-i-kasoterminale/k2-pay-online) | |
-| 125 | `elzab-waga-prima-2` | salon | 2 | 1 | 2 | ok | [strona](https://www.elzab.com.pl/pl/wagi/niekalkulacyjne/prima2) | |
-| 126 | `elzab-zewnetrzny-wyswietlacz-klienta` | salon | 2 | 1 | 2 | ok | [strona](https://www.elzab.com.pl/pl/akcesoria-i-dodatki/wyposazenie-dodatkowe/wyswietlacze/zewnetrzny-wyswietlacz-klienta) | |
-| 127 | `eurocert-podpis-token` | salon | 2 | 1 | 0 | ok | — | |
-| 128 | `fellowes-225ci` | salon | 2 | 1 | 2 | ok | — | |
-| 129 | `fellowes-automax-350c` | salon | 2 | 1 | 2 | ok | — | |
-| 130 | `lenovo-thinkcentre-m70a-m90a-gen-6` | salon | 2 | 1 | 0 | ok | [strona](https://psref.lenovo.com/syspool/Sys/PDF/ThinkCentre/ThinkCentre_M70a_Gen_6/ThinkCentre_M70a_Gen_6_Spec.pdf) | |
-| 131 | `logitech-h570e` | salon | 2 | 1 | 2 | ok | — | |
-| 132 | `logitech-lift-for-business` | salon | 2 | 1 | 2 | ok | — | |
-| 133 | `logitech-mk295-silent-wireless-combo` | salon | 2 | 1 | 0 | ok | — | |
-| 134 | `logitech-rally-bar-mini` | salon | 2 | 1 | 0 | ok | — | |
-| 135 | `logitech-signature-m650-for-business` | salon | 2 | 1 | 2 | ok | — | |
-| 136 | `logitech-signature-mk650-combo-for-business` | salon | 2 | 1 | 0 | ok | — | |
-| 137 | `logitech-tap-ip` | salon | 2 | 1 | 0 | ok | — | |
-| 138 | `microsoft-office-2024` | salon | 2 | 1 | 2 | ok | [strona](https://www.microsoft.com/en-us/microsoft-365/blog/2024/09/30/office-2024-for-consumers-available-october-1/) | |
-| 139 | `microsoft-windows-11-pro` | salon | 2 | 1 | 2 | ok | [strona](https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/) | |
-| 140 | `microsoft-windows-server-cal` | salon | 2 | 1 | 2 | ok | [strona](https://www.microsoft.com/licensing/guidance/Windows-Server-2025) | |
-| 141 | `omada-fusion` | salon | 2 | 1 | 2 | ok | — | |
-| 142 | `polcard-move-2500` | salon | 2 | 1 | 0 | białe tło | — | |
-| 143 | `synology-dyski-hat` | salon | 2 | 1 | 2 | ok | [strona](https://www.synology.com/en-global/products/HAT3310-12T#specs) | |
-| 144 | `ubiquiti-u7-lite-u7-lr-u6-plus` | salon | 2 | 1 | 2 | otoczka | — | |
-| 145 | `apple-mac-studio-m5` | salon | 3 | 0 | 2 | ok | — | |
-| 146 | `apple-studio-display` | salon | 3 | 0 | 2 | ok | — | |
-| 147 | `apple-studio-display-xdr` | salon | 3 | 0 | 1 | ok | — | |
-| 148 | `dell-pro-micro` | salon | 3 | 0 | 3 | ok | [strona](https://www.dell.com/support/manuals/en-ie/dell-pro-qcm1250-micro/dell_pro_micro_qcm1250_om/?lang=en-us) | |
-| 149 | `elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wifi` | salon | 3 | 0 | 2 | ok | [strona](https://www.elzab.com.pl/pl/drukarki-paragonowe/elz-max) | |
-| 150 | `elzab-jota-online` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/kasy-srednie-online/elzab-jota-online) | |
-| 151 | `elzab-k1-slim-online` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/kasy-mobilne-online/elzab-k1-slim-online-bt-gprs) | |
-| 152 | `elzab-sprawdzarki-cen-llt-lwt-lft-2d` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/kody-kreskowe/sprawdzarki/sprawdzarki-cen/llt) | |
-| 153 | `elzab-szuflada-flip-top-elz-ft460` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/szuflady/szuflady-flip-top/szuflada-flip-top-elz-ft460) | |
-| 154 | `elzab-t10-online` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/fiskalne-posy-i-kasoterminale/elzab-t10-online-elzapp-sklep) | |
-| 155 | `elzab-zeta-online` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/drukarki-sklepowe-online/elzab-zeta-online) | |
-| 156 | `eset-pakiet-advanced` | salon | 3 | 0 | 2 | ok | — | |
-| 157 | `eset-pakiet-complete` | salon | 3 | 0 | 2 | ok | — | |
-| 158 | `eset-pakiet-elite` | salon | 3 | 0 | 2 | ok | — | |
-| 159 | `eset-pakiet-entry` | salon | 3 | 0 | 2 | ok | — | |
-| 160 | `konica-minolta-bizhub-c3321i` | salon | 3 | 0 | 1 | ok | [strona](https://www.konicaminolta.pl/pl-pl/digital-workplace/printing-devices/bizhub-c3321i) | |
-| 161 | `kyocera-ecosys-ma2600cwfx` | salon | 3 | 0 | 3 | ok | — | |
-| 162 | `kyocera-ecosys-ma4000x-fx-wifx` | salon | 3 | 0 | 1 | ok | [strona](https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSMA4000X.html) | |
-| 163 | `kyocera-ecosys-ma5500ifx-ma6000ifx` | salon | 3 | 0 | 3 | ok | [strona](https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSMA5500IFX.html) | |
-| 164 | `kyocera-ecosys-pa4000x-pa4500x` | salon | 3 | 0 | 3 | ok | — | |
-| 165 | `logitech-k120-m100` | salon | 3 | 0 | 3 | białe tło | — | |
-| 166 | `omada-bramy-4g-5g` | salon | 3 | 0 | 3 | ok | — | |
-| 167 | `omada-switche-access-plus` | salon | 3 | 0 | 3 | białe tło | — | |
-| 168 | `omada-switche-access-pro` | salon | 3 | 0 | 3 | ok | — | |
-| 169 | `omada-switche-agile-es` | salon | 3 | 0 | 3 | białe tło | — | |
-| 170 | `qnap-ts-262a-ts-462a` | salon | 3 | 0 | 1 | ok | — | |
-| 171 | `qnap-ts-855x` | salon | 3 | 0 | 2 | ok | — | |
-| 172 | `sunmi-v3` | salon | 3 | 0 | 2 | ok | [strona](https://www.sunmi.com/en/v3-family/) | |
-| 173 | `ubiquiti-dream-router-7` | salon | 3 | 0 | 0 | otoczka | [strona](https://techspecs.ui.com/unifi/cloud-gateways/udr7) | |
-| 174 | `ubiquiti-switch-lite-ultra-flex` | salon | 3 | 0 | 1 | ok | — | |
-| 175 | `ubiquiti-u7-scienne-zewnetrzne` | salon | 3 | 0 | 3 | ok | — | |
-| 176 | `ubiquiti-unifi-express-7` | salon | 3 | 0 | 1 | otoczka | — | |
-| 177 | `apple-ipad-air-m4` | salon | 4 | 0 | 4 | ok | — | |
-| 178 | `apple-iphone-18-pro` | salon | 4 | 0 | 4 | ok | — | |
-| 179 | `dell-poweredge-t560` | salon | 4 | 0 | 4 | ok | [strona](https://www.delltechnologies.com/asset/en-us/products/servers/technical-support/poweredge-t560-spec-sheet.pdf) | |
-| 180 | `dell-ultrasharp` | salon | 4 | 0 | 2 | ok | [strona](https://www.dell.com/en-ie/shop/monitors/apd/dell-ultrasharp-24-monitor-u2424h/u2424h_monitor/-) | |
-| 181 | `elzab-cube-online` | salon | 4 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/drukarki-sklepowe-online/elzab-cube-online-r) | |
-| 182 | `elzab-drukarka-paragonowa-elz-rp332a` | salon | 4 | 0 | 4 | ok | [strona](https://www.elzab.com.pl/pl/drukarki-paragonowe/elz-rp332a) | |
-| 183 | `elzab-mera-online` | salon | 4 | 0 | 4 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/drukarki-sklepowe-online/mera-online) | |
-| 184 | `elzab-mini-online` | salon | 4 | 0 | 4 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/kasy-male-online/elzab-mini-online) | |
+| 85 | `konica-minolta-bizhub-c268i` | salon | 1 | 2 | 1 | ok | [strona](https://www.konicaminolta.eu/eu-en/digital-workplace/printing-devices/bizhub-c268i) | |
+| 86 | `kyocera-taskalfa-5004i-6004i` | salon | 1 | 2 | 1 | ok | — | |
+| 87 | `logitech-c925e` | salon | 1 | 2 | 1 | ok | — | |
+| 88 | `logitech-meetup-2` | salon | 1 | 2 | 1 | ok | — | |
+| 89 | `logitech-mk370-combo-for-business` | salon | 1 | 2 | 1 | ok | — | |
+| 90 | `logitech-mx-anywhere-3s-for-business` | salon | 1 | 2 | 1 | ok | — | |
+| 91 | `logitech-mx-brio-705-for-business` | salon | 1 | 2 | 1 | ok | — | |
+| 92 | `logitech-mx-keys-for-business` | salon | 1 | 2 | 1 | ok | — | |
+| 93 | `logitech-mx-master-3s-for-business` | salon | 1 | 2 | 1 | ok | — | |
+| 94 | `logitech-rally-bar-huddle` | salon | 1 | 2 | 1 | ok | — | |
+| 95 | `logitech-signature-slim-combo-mk950-for-business` | salon | 1 | 2 | 1 | ok | — | |
+| 96 | `logitech-wave-keys-for-business` | salon | 1 | 2 | 1 | ok | — | |
+| 97 | `logitech-zone-305` | salon | 1 | 2 | 1 | ok | — | |
+| 98 | `logitech-zone-wireless-2` | salon | 1 | 2 | 1 | ok | — | |
+| 99 | `polcard-axium-dx-4000-portable` | salon | 1 | 2 | 0 | białe tło | — | |
+| 100 | `polcard-axium-dx-8000` | salon | 1 | 2 | 0 | białe tło | — | |
+| 101 | `polcard-desk-3200-desk-1500` | salon | 1 | 2 | 1 | białe tło | — | |
+| 102 | `polcard-go-terminal-w-telefonie` | salon | 1 | 2 | 1 | ok | — | |
+| 103 | `polcard-move-3500` | salon | 1 | 2 | 0 | ok | — | |
+| 104 | `posnet-bileterka-e-podroznik` | salon | 1 | 2 | 1 | białe tło | [strona](https://www.posnet.com.pl/produkty/product/597/bileterka-e-podroznik) | |
+| 105 | `posnet-veri-basic` | salon | 1 | 2 | 1 | ok | [strona](https://www.posnet.com.pl/produkty/product/202/weryfikator-cen-veri-basic) | |
+| 106 | `posnet-werion` | salon | 1 | 2 | 1 | białe tło | [strona](https://www.posnet.com.pl/produkty/product/201/weryfikator-cen-werion) | |
+| 107 | `posnet-wyswietlacz-pos` | salon | 1 | 2 | 1 | ok | [strona](https://www.posnet.com.pl/produkty/product/274/wyswietlacz-pos) | |
+| 108 | `sunmi-flex-3-kds` | salon | 1 | 2 | 1 | ok | [strona](https://www.sunmi.com/en/flex-3-kds/) | |
+| 109 | `sunmi-k2-kiosk-samoobslugowy` | salon | 1 | 2 | 0 | ok | [strona](https://www.sunmi.com/en/k2/) | |
+| 110 | `wdrozenie-ksef-w-firmie` | salon | 1 | 2 | 1 | ok | [strona](https://ksef.podatki.gov.pl/etapy-wdrozenia-ksef) | |
+| 111 | `adobe-acrobat-pro-teams` | salon | 2 | 1 | 2 | ok | [strona](https://www.adobe.com/pl/acrobat/business/pricing-plans) | |
+| 112 | `apple-ipad-pro-m5` | salon | 2 | 1 | 2 | ok | — | |
+| 113 | `apple-macbook-pro-m5` | salon | 2 | 1 | 2 | ok | — | |
+| 114 | `dell-stacje-dokujace` | salon | 2 | 1 | 0 | ok | [strona](https://www.dell.com/en-us/shop/docking-stations/ar/8407) | |
+| 115 | `elzab-drukarka-paragonowa-elz-rpp02b` | salon | 2 | 1 | 2 | ok | [strona](https://www.elzab.com.pl/pl/drukarki-paragonowe/elz-rpp02b) | |
+| 116 | `elzab-elzapp-mag-program-dla-sklepu-i-magazynu` | salon | 2 | 1 | 1 | ok | [strona](https://www.elzab.com.pl/pl/kody-kreskowe/kolektory-danych/oprogramowanie/elzapp-mag) | |
+| 117 | `elzab-k2-pay-online` | salon | 2 | 1 | 2 | ok | [strona](https://www.elzab.com.pl/pl/fiskalne-posy-i-kasoterminale/k2-pay-online) | |
+| 118 | `elzab-waga-prima-2` | salon | 2 | 1 | 2 | ok | [strona](https://www.elzab.com.pl/pl/wagi/niekalkulacyjne/prima2) | |
+| 119 | `elzab-zewnetrzny-wyswietlacz-klienta` | salon | 2 | 1 | 2 | ok | [strona](https://www.elzab.com.pl/pl/akcesoria-i-dodatki/wyposazenie-dodatkowe/wyswietlacze/zewnetrzny-wyswietlacz-klienta) | |
+| 120 | `eurocert-podpis-token` | salon | 2 | 1 | 0 | ok | — | |
+| 121 | `fellowes-225ci` | salon | 2 | 1 | 2 | ok | — | |
+| 122 | `fellowes-automax-350c` | salon | 2 | 1 | 2 | ok | — | |
+| 123 | `kobra-2-cc2-es` | salon | 2 | 1 | 2 | białe tło | — | |
+| 124 | `lenovo-thinkcentre-m70a-m90a-gen-6` | salon | 2 | 1 | 0 | ok | [strona](https://psref.lenovo.com/syspool/Sys/PDF/ThinkCentre/ThinkCentre_M70a_Gen_6/ThinkCentre_M70a_Gen_6_Spec.pdf) | |
+| 125 | `logitech-h570e` | salon | 2 | 1 | 2 | ok | — | |
+| 126 | `logitech-lift-for-business` | salon | 2 | 1 | 2 | ok | — | |
+| 127 | `logitech-mk295-silent-wireless-combo` | salon | 2 | 1 | 0 | ok | — | |
+| 128 | `logitech-rally-bar-mini` | salon | 2 | 1 | 0 | ok | — | |
+| 129 | `logitech-signature-m650-for-business` | salon | 2 | 1 | 2 | ok | — | |
+| 130 | `logitech-signature-mk650-combo-for-business` | salon | 2 | 1 | 0 | ok | — | |
+| 131 | `logitech-tap-ip` | salon | 2 | 1 | 0 | ok | — | |
+| 132 | `microsoft-office-2024` | salon | 2 | 1 | 2 | ok | [strona](https://www.microsoft.com/en-us/microsoft-365/blog/2024/09/30/office-2024-for-consumers-available-october-1/) | |
+| 133 | `microsoft-windows-11-pro` | salon | 2 | 1 | 2 | ok | [strona](https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/) | |
+| 134 | `microsoft-windows-server-cal` | salon | 2 | 1 | 2 | ok | [strona](https://www.microsoft.com/licensing/guidance/Windows-Server-2025) | |
+| 135 | `omada-fusion` | salon | 2 | 1 | 2 | ok | — | |
+| 136 | `polcard-move-2500` | salon | 2 | 1 | 0 | białe tło | — | |
+| 137 | `synology-dyski-hat` | salon | 2 | 1 | 2 | ok | [strona](https://www.synology.com/en-global/products/HAT3310-12T#specs) | |
+| 138 | `ubiquiti-u7-lite-u7-lr-u6-plus` | salon | 2 | 1 | 2 | otoczka | — | |
+| 139 | `apple-mac-studio-m5` | salon | 3 | 0 | 2 | ok | — | |
+| 140 | `apple-studio-display` | salon | 3 | 0 | 2 | ok | — | |
+| 141 | `apple-studio-display-xdr` | salon | 3 | 0 | 1 | ok | — | |
+| 142 | `dell-pro-micro` | salon | 3 | 0 | 3 | ok | [strona](https://www.dell.com/support/manuals/en-ie/dell-pro-qcm1250-micro/dell_pro_micro_qcm1250_om/?lang=en-us) | |
+| 143 | `elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wifi` | salon | 3 | 0 | 2 | ok | [strona](https://www.elzab.com.pl/pl/drukarki-paragonowe/elz-max) | |
+| 144 | `elzab-jota-online` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/kasy-srednie-online/elzab-jota-online) | |
+| 145 | `elzab-k1-slim-online` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/kasy-mobilne-online/elzab-k1-slim-online-bt-gprs) | |
+| 146 | `elzab-sprawdzarki-cen-llt-lwt-lft-2d` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/kody-kreskowe/sprawdzarki/sprawdzarki-cen/llt) | |
+| 147 | `elzab-szuflada-flip-top-elz-ft460` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/szuflady/szuflady-flip-top/szuflada-flip-top-elz-ft460) | |
+| 148 | `elzab-t10-online` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/fiskalne-posy-i-kasoterminale/elzab-t10-online-elzapp-sklep) | |
+| 149 | `elzab-zeta-online` | salon | 3 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/drukarki-sklepowe-online/elzab-zeta-online) | |
+| 150 | `eset-pakiet-advanced` | salon | 3 | 0 | 2 | ok | — | |
+| 151 | `eset-pakiet-complete` | salon | 3 | 0 | 2 | ok | — | |
+| 152 | `eset-pakiet-elite` | salon | 3 | 0 | 2 | ok | — | |
+| 153 | `eset-pakiet-entry` | salon | 3 | 0 | 2 | ok | — | |
+| 154 | `kobra-1-cc4-es` | salon | 3 | 0 | 2 | ok | — | |
+| 155 | `kobra-240-1-c2-es` | salon | 3 | 0 | 1 | ok | — | |
+| 156 | `kobra-3-cc4-es` | salon | 3 | 0 | 3 | białe tło | — | |
+| 157 | `kobra-300-1-c4-es` | salon | 3 | 0 | 1 | ok | — | |
+| 158 | `kobra-af-1-40` | salon | 3 | 0 | 3 | ok | — | |
+| 159 | `konica-minolta-bizhub-c3321i` | salon | 3 | 0 | 1 | ok | [strona](https://www.konicaminolta.pl/pl-pl/digital-workplace/printing-devices/bizhub-c3321i) | |
+| 160 | `kyocera-ecosys-ma2600cwfx` | salon | 3 | 0 | 3 | ok | — | |
+| 161 | `kyocera-ecosys-ma4000x-fx-wifx` | salon | 3 | 0 | 1 | ok | [strona](https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSMA4000X.html) | |
+| 162 | `kyocera-ecosys-ma5500ifx-ma6000ifx` | salon | 3 | 0 | 3 | ok | [strona](https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSMA5500IFX.html) | |
+| 163 | `kyocera-ecosys-pa4000x-pa4500x` | salon | 3 | 0 | 3 | ok | — | |
+| 164 | `logitech-k120-m100` | salon | 3 | 0 | 3 | białe tło | — | |
+| 165 | `omada-bramy-4g-5g` | salon | 3 | 0 | 3 | ok | — | |
+| 166 | `omada-switche-access-plus` | salon | 3 | 0 | 3 | białe tło | — | |
+| 167 | `omada-switche-access-pro` | salon | 3 | 0 | 3 | ok | — | |
+| 168 | `omada-switche-agile-es` | salon | 3 | 0 | 3 | białe tło | — | |
+| 169 | `qnap-ts-262a-ts-462a` | salon | 3 | 0 | 1 | ok | — | |
+| 170 | `qnap-ts-855x` | salon | 3 | 0 | 2 | ok | — | |
+| 171 | `sunmi-v3` | salon | 3 | 0 | 2 | ok | [strona](https://www.sunmi.com/en/v3-family/) | |
+| 172 | `ubiquiti-dream-router-7` | salon | 3 | 0 | 0 | otoczka | [strona](https://techspecs.ui.com/unifi/cloud-gateways/udr7) | |
+| 173 | `ubiquiti-switch-lite-ultra-flex` | salon | 3 | 0 | 1 | ok | — | |
+| 174 | `ubiquiti-u7-scienne-zewnetrzne` | salon | 3 | 0 | 3 | ok | — | |
+| 175 | `ubiquiti-unifi-express-7` | salon | 3 | 0 | 1 | otoczka | — | |
+| 176 | `apple-ipad-air-m4` | salon | 4 | 0 | 4 | ok | — | |
+| 177 | `apple-iphone-18-pro` | salon | 4 | 0 | 4 | ok | — | |
+| 178 | `dell-poweredge-t560` | salon | 4 | 0 | 4 | ok | [strona](https://www.delltechnologies.com/asset/en-us/products/servers/technical-support/poweredge-t560-spec-sheet.pdf) | |
+| 179 | `dell-ultrasharp` | salon | 4 | 0 | 2 | ok | [strona](https://www.dell.com/en-ie/shop/monitors/apd/dell-ultrasharp-24-monitor-u2424h/u2424h_monitor/-) | |
+| 180 | `elzab-cube-online` | salon | 4 | 0 | 3 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/drukarki-sklepowe-online/elzab-cube-online-r) | |
+| 181 | `elzab-drukarka-paragonowa-elz-rp332a` | salon | 4 | 0 | 4 | ok | [strona](https://www.elzab.com.pl/pl/drukarki-paragonowe/elz-rp332a) | |
+| 182 | `elzab-mera-online` | salon | 4 | 0 | 4 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/drukarki-sklepowe-online/mera-online) | |
+| 183 | `elzab-mini-online` | salon | 4 | 0 | 4 | ok | [strona](https://www.elzab.com.pl/pl/kasy-i-drukarki-online/kasy-male-online/elzab-mini-online) | |
+| 184 | `kobra-240-c4-turbo-es` | salon | 4 | 0 | 2 | ok | — | |
 | 185 | `konica-minolta-bizhub-4051i` | salon | 4 | 0 | 1 | ok | [strona](https://www.konicaminolta.pl/pl-pl/digital-workplace/printing-devices/bizhub-4051i) | |
 | 186 | `konica-minolta-bizhub-4221i` | salon | 4 | 0 | 2 | białe tło | [strona](https://www.konicaminolta.pl/pl-pl/digital-workplace/printing-devices/bizhub-4221i) | |
 | 187 | `konica-minolta-bizhub-5021i` | salon | 4 | 0 | 2 | ok | [strona](https://www.konicaminolta.pl/pl-pl/digital-workplace/printing-devices/bizhub-5021i) | |
