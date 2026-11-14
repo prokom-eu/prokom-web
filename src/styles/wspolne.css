@@ -83,10 +83,39 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--oh-dot) 20%, transparent);
 }
 .oh-status--pill {
+  /* May wrap on a narrow screen (audit 14.11); the dot stays on the first line. */
+  position: relative;
+  align-items: flex-start;
+  max-width: 100%;
   padding: 6px 12px;
   border-radius: 999px;
   background: color-mix(in srgb, var(--oh-dot) 10%, var(--surface));
   color: var(--ink);
+  white-space: normal;
+}
+.oh-status--pill .oh-status__dot {
+  margin-top: calc((1lh - 7px) / 2);
+}
+.oh-status__short {
+  display: none;
+}
+/*
+ * Narrow screen: „Zamknięte · pn 9:00” instead of the full sentence (audit 14.11). The full one
+ * stays for screen readers and is shown in the Menu sheet and the footer (inline variant).
+ * Every pill: the Kontakt hero of the lines and the pro-kom.eu hero.
+ */
+@media (max-width: 479.98px) {
+  .oh-status--pill[data-has-short] .oh-status__short {
+    display: inline;
+  }
+  .oh-status--pill[data-has-short] .oh-status__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 .oh-status--pill[data-state='open'] {
   background: var(--status-open-bg);

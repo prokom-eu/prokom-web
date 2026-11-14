@@ -46,6 +46,13 @@ test.describe('Biznes SEO of subpages (B5-2)', () => {
       ).join('\n')
       expect(jsonLd, path).toContain('"@type":"BreadcrumbList"')
     }
+    // Audit 14.11 (P2): the shared Kontakt and O firmie templates emit their own — only one.
+    for (const path of ['/kontakt', '/o-firmie']) {
+      await page.goto(biznes(path))
+      const blocks = await page.locator('script[type="application/ld+json"]').allTextContents()
+      const crumbs = blocks.filter((text) => text.includes('"@type":"BreadcrumbList"'))
+      expect(crumbs, path).toHaveLength(1)
+    }
     await page.goto(biznes('/oferta/laptopy'))
     const category = (
       await page.locator('script[type="application/ld+json"]').allTextContents()
@@ -68,7 +75,9 @@ test.describe('Biznes SEO of subpages (B5-2)', () => {
 // Audit 14.11 P1-5: /marki/niszczarki had the title of /oferta/niszczarki. The sitemap lists only
 // indexed pages, so every one of them needs its own title. Fetched in the page (the browser
 // resolves `*.localhost`), a few at once.
-test('every page of sitemap.xml has its own title of at most 65 characters', async ({ page }) => {
+test('every page of sitemap.xml has a description and its own title of at most 65 characters', async ({
+  page,
+}) => {
   test.setTimeout(240_000)
   const response = await page.goto(biznes('/sitemap.xml'))
   const xml = (await response?.text()) ?? ''
@@ -76,19 +85,23 @@ test('every page of sitemap.xml has its own title of at most 65 characters', asy
     (match) => new URL(match[1]!).pathname,
   )
   expect(paths.length).toBeGreaterThan(100)
-  const titles = await page.evaluate(async (list) => {
+  const pages = await page.evaluate(async (list) => {
     const queue = [...list]
-    const found: [string, string][] = []
+    const found: [string, string, string][] = []
     const worker = async () => {
       for (let path = queue.shift(); path; path = queue.shift()) {
         const html = await (await fetch(path)).text()
-        const title = new DOMParser().parseFromString(html, 'text/html').title
-        found.push([path, title])
+        const doc = new DOMParser().parseFromString(html, 'text/html')
+        const description = doc.querySelector('meta[name="description"]')?.getAttribute('content')
+        found.push([path, doc.title, description?.trim() ?? ''])
       }
     }
     await Promise.all(Array.from({ length: 6 }, worker))
     return found
   }, paths)
+  const titles = pages.map(([path, title]): [string, string] => [path, title])
+  // Audit 14.11 (P2): /kontakt was the only page without a description.
+  expect(pages.filter(([, , description]) => !description).map(([path]) => path)).toEqual([])
   const byTitle = new Map<string, string[]>()
   for (const [path, title] of titles) byTitle.set(title, [...(byTitle.get(title) ?? []), path])
   const shared = [...byTitle.entries()]
@@ -144,4 +157,14 @@ test.describe('Biznes local SEO', () => {
     expect(text).toMatch(/Rabk/)
     expect(text).not.toMatch(/\d+\s?zł/)
   })
+})
+
+// Audit 14.11 (P2): robots and link previews ask for /favicon.ico — each line gets its own icon.
+test('/favicon.ico answers with the icon of the line', async ({ request }) => {
+  const [own, file] = await Promise.all([
+    request.get(biznes('/favicon.ico')),
+    request.get(biznes('/brand/prokom-biznes_favicon.ico')),
+  ])
+  expect(own.status()).toBe(200)
+  expect(Buffer.compare(await own.body(), await file.body())).toBe(0)
 })

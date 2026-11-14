@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
 import { analyticsRequestHeaders, umamiWebsiteId } from './lib/analytics/config'
+import { brandAsset } from './lib/brand/lines'
 import { getEnv } from './lib/env'
 import { getRedirectsByHost } from './lib/redirects/byHost'
 import { matchRedirect } from './lib/redirects/rules'
@@ -61,6 +62,15 @@ async function route(request: NextRequest, upstream: { request: { headers: Heade
         request: { headers: analyticsRequestHeaders(request.headers) },
       })
     }
+    case 'favicon': {
+      // The line's own icon from `public/brand/` (the same file the pages declare); unknown → 404.
+      const host = normalizeHost(request.headers.get('host'))
+      const tenant = host ? await getTenantByHost(host) : null
+      if (!tenant) return new NextResponse('Not Found', { status: 404 })
+      const url = request.nextUrl.clone()
+      url.pathname = brandAsset(tenant.line, 'favicon.ico')
+      return NextResponse.rewrite(url, upstream)
+    }
     case 'rewrite': {
       // A site path: the tenant's redirect rules come first (ADR-006, S7b), then its pages.
       // `Location` must be absolute here; the origin comes from `Host` like canonical addresses,
@@ -89,5 +99,6 @@ async function route(request: NextRequest, upstream: { request: { headers: Heade
 
 export const config = {
   // Everything except Next.js build assets; public files are let through by `decideRoute`.
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  // `/favicon.ico` goes through too: each site gets its line's icon (`favicon` decision).
+  matcher: ['/((?!_next/static|_next/image).*)'],
 }
