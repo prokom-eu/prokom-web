@@ -16,6 +16,7 @@ import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
 import { HOME_SECTION_TEXTS } from './homeExtras'
 import { withoutIndustryLinks } from '../../lib/software/industryLinks'
 import { INDUSTRY_PAGE_TEXTS } from './industryPages'
+import { SOLUTION_PAGE_TEXTS } from './solutionPageTexts'
 import {
   FIELD_CREW_DELIVERABLES,
   FIELD_CREW_EXTRA,
@@ -133,8 +134,10 @@ export function solutionData(item: SeedSolution): SolutionData {
     benefits: item.benefits ?? [],
     needs: item.needs ?? [],
     faq: item.faq ?? [],
-    // Only a full page is written: the tab of the others belongs to the panel.
+    // Only a full page is written: the tab of the others belongs to the panel. The field crew
+    // app has its demo; the pages most searched with a place have their texts (SEO etap 2b).
     ...(item.slug === FIELD_CREW_SLUG && { page: fieldCrewPage() }),
+    ...(SOLUTION_PAGE_TEXTS[item.slug] && { page: { ...SOLUTION_PAGE_TEXTS[item.slug] } }),
   }
 }
 

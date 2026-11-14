@@ -5,6 +5,7 @@ import demo from '../../../seed/prokomsoftware/demo-aplikacja-ekip.json'
 import okno from '../../../seed/prokomsoftware/okno-oferty.json'
 import { solutionData, solutionsToImport } from '../../seed/software/map'
 import { FIELD_CREW_PAGE, FIELD_CREW_SLUG } from '../../seed/software/solutionPages'
+import { SOLUTION_PAGE_TEXTS } from '../../seed/software/solutionPageTexts'
 import { isIconName } from '../catalog/options'
 import {
   buildOfferView,
@@ -69,9 +70,31 @@ describe('Solutions.page.demo schema', () => {
 })
 
 describe('seed of the solution pages', () => {
-  it('writes the page tab only for the field crew app', () => {
+  it('writes the page tab for the field crew app and the pages with their texts (SEO etap 2b)', () => {
     const withPage = [...seeded].filter(([, data]) => data.page).map(([slug]) => slug)
-    expect(withPage).toEqual([FIELD_CREW_SLUG])
+    expect(new Set(withPage)).toEqual(
+      new Set([FIELD_CREW_SLUG, ...Object.keys(SOLUTION_PAGE_TEXTS)]),
+    )
+  })
+
+  it('gives every page its own words: no sentence of 6+ words on two pages', () => {
+    const owner = new Map<string, string>()
+    for (const [slug, text] of Object.entries(SOLUTION_PAGE_TEXTS)) {
+      const parts = [
+        text.lead,
+        ...text.compare.map((item) => `${item.title}. ${item.text}`),
+        ...text.faq.map((item) => item.a),
+      ]
+      for (const part of parts) {
+        for (const sentence of part.split(/(?<=[.!?])\s+/)) {
+          const clean = sentence.trim().toLowerCase()
+          if (clean.split(/\s+/).length < 6) continue
+          const first = owner.get(clean)
+          expect(first === undefined || first === slug, `${slug}: „${sentence}”`).toBe(true)
+          owner.set(clean, slug)
+        }
+      }
+    }
   })
 
   it('keeps the drawings of the package where ikony.json has them', () => {
@@ -159,10 +182,10 @@ describe('full solution page (board Rozwiazanie, field crew app)', () => {
 })
 
 describe('template page (solution without its own texts)', () => {
-  const page = pageOf('strona-firmowa-z-panelem')
+  const page = pageOf('rozbudowana-strona-firmowa')
 
   it('uses the name as H1 and label · for whom as the eyebrow', () => {
-    expect(page.title).toEqual({ plain: 'Strona firmowa z panelem', accent: null })
+    expect(page.title).toEqual({ plain: 'Rozbudowana strona firmowa', accent: null })
     expect(page.eyebrow).toMatch(/^Strona · /)
   })
 
@@ -188,7 +211,7 @@ describe('template page (solution without its own texts)', () => {
   })
 
   it('drops items whose text went empty (a missing fact on production)', () => {
-    const page = pageOf('strona-firmowa-z-panelem', {
+    const page = pageOf('rozbudowana-strona-firmowa', {
       tiles: [
         { label: 'Pierwszy etap', value: '' },
         { label: 'Działa na', value: 'iOS' },
@@ -210,6 +233,6 @@ describe('template page (solution without its own texts)', () => {
   })
 
   it('ignores a broken demo instead of failing the page', () => {
-    expect(pageOf('strona-firmowa-z-panelem', { demo: { kind: 'x' } }).demo).toBeNull()
+    expect(pageOf('rozbudowana-strona-firmowa', { demo: { kind: 'x' } }).demo).toBeNull()
   })
 })
