@@ -6,6 +6,7 @@ import { SEED_CONTEXT } from '../config'
 import { BIZNES_SHARED } from './biznes'
 import { SHARED_COMPANY } from './company'
 import { INSTALACJE_SHARED } from './instalacje'
+import { PROKOM_SHARED } from './prokom'
 import { SOFTWARE_SHARED } from './software'
 import type { SharedGroup } from './types'
 
@@ -16,6 +17,7 @@ export const LINE_SHARED: Partial<Record<Line, SharedGroup>> = {
   biznes: BIZNES_SHARED,
   instalacje: INSTALACJE_SHARED,
   software: SOFTWARE_SHARED,
+  prokom: PROKOM_SHARED,
 }
 
 const local = { overrideAccess: true, context: SEED_CONTEXT, depth: 0 } as const

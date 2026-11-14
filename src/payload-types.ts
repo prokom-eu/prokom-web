@@ -95,6 +95,10 @@ export interface Config {
     bundles: Bundle;
     showrooms: Showroom;
     'inst-arch-news': InstArchNew;
+    'hub-services': HubService;
+    'hub-tools': HubTool;
+    'hub-help': HubHelp;
+    'hub-plans': HubPlan;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -131,6 +135,10 @@ export interface Config {
     bundles: BundlesSelect<false> | BundlesSelect<true>;
     showrooms: ShowroomsSelect<false> | ShowroomsSelect<true>;
     'inst-arch-news': InstArchNewsSelect<false> | InstArchNewsSelect<true>;
+    'hub-services': HubServicesSelect<false> | HubServicesSelect<true>;
+    'hub-tools': HubToolsSelect<false> | HubToolsSelect<true>;
+    'hub-help': HubHelpSelect<false> | HubHelpSelect<true>;
+    'hub-plans': HubPlansSelect<false> | HubPlansSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -5816,6 +5824,141 @@ export interface InstArchNew {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Krótkie wpisy usług linii na pro-kom.eu — pełna treść zostaje na stronie linii.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hub-services".
+ */
+export interface HubService {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Stały identyfikator — nie zmieniaj.
+   */
+  key: string;
+  order: number;
+  visible?: boolean | null;
+  line: 'biznes' | 'instalacje' | 'software' | 'tech' | 'gaming';
+  audience: 'firma' | 'dom' | 'oba';
+  title: string;
+  short: string;
+  long?: string | null;
+  includes?: string[] | null;
+  related?: (number | HubService)[] | null;
+  /**
+   * Synonimy i odmiany po spacji (bez polskich znaków też działa).
+   */
+  keywords?: string | null;
+  /**
+   * Strona usługi u linii albo ścieżka huba; puste = strona linii.
+   */
+  url?: string | null;
+  ctaLabel?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hub-tools".
+ */
+export interface HubTool {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Stały identyfikator — nie zmieniaj.
+   */
+  key: string;
+  order: number;
+  featuredOnHome?: boolean | null;
+  line: 'biznes' | 'instalacje' | 'software' | 'tech' | 'gaming';
+  action: 'zglos' | 'sprawdz' | 'policz' | 'zaplanuj' | 'zapytaj';
+  title: string;
+  desc: string;
+  inputs?: string[] | null;
+  result?: string | null;
+  ctaLabel?: string | null;
+  /**
+   * Głęboki link na stronie linii; puste = formularz kontaktu.
+   */
+  url?: string | null;
+  /**
+   * „Wkrótce” = bez linku do strony linii.
+   */
+  badge?: string | null;
+  /**
+   * Rodzaj podglądu (form, steps, rows, grid, win) i jego dane.
+   */
+  preview?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hub-help".
+ */
+export interface HubHelp {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  slug: string;
+  order: number;
+  line: 'biznes' | 'instalacje' | 'software' | 'tech' | 'gaming';
+  group: string;
+  title: string;
+  steps?: string[] | null;
+  prep?: string[] | null;
+  ctaLabel?: string | null;
+  relatedTool?: (number | null) | HubTool;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hub-plans".
+ */
+export interface HubPlan {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Stały identyfikator — nie zmieniaj.
+   */
+  key: string;
+  order: number;
+  type: 'persona' | 'branza' | 'sytuacja-firma' | 'sytuacja-dom';
+  name: string;
+  title?: string | null;
+  lead?: string | null;
+  groups?:
+    | {
+        line: 'biznes' | 'instalacje' | 'software' | 'tech' | 'gaming';
+        points?: string[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  start?: string[] | null;
+  questions?: string[] | null;
+  steps?: string[] | null;
+  /**
+   * Której linii numer pokazać przy planie (Dla domu).
+   */
+  call?: ('biznes' | 'instalacje' | 'software' | 'tech' | 'gaming') | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -6051,6 +6194,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'inst-arch-news';
         value: number | InstArchNew;
+      } | null)
+    | ({
+        relationTo: 'hub-services';
+        value: number | HubService;
+      } | null)
+    | ({
+        relationTo: 'hub-tools';
+        value: number | HubTool;
+      } | null)
+    | ({
+        relationTo: 'hub-help';
+        value: number | HubHelp;
+      } | null)
+    | ({
+        relationTo: 'hub-plans';
+        value: number | HubPlan;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -9467,6 +9626,100 @@ export interface InstArchNewsSelect<T extends boolean = true> {
   featured?: T;
   internalNote?: T;
   publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hub-services_select".
+ */
+export interface HubServicesSelect<T extends boolean = true> {
+  tenant?: T;
+  key?: T;
+  order?: T;
+  visible?: T;
+  line?: T;
+  audience?: T;
+  title?: T;
+  short?: T;
+  long?: T;
+  includes?: T;
+  related?: T;
+  keywords?: T;
+  url?: T;
+  ctaLabel?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hub-tools_select".
+ */
+export interface HubToolsSelect<T extends boolean = true> {
+  tenant?: T;
+  key?: T;
+  order?: T;
+  featuredOnHome?: T;
+  line?: T;
+  action?: T;
+  title?: T;
+  desc?: T;
+  inputs?: T;
+  result?: T;
+  ctaLabel?: T;
+  url?: T;
+  badge?: T;
+  preview?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hub-help_select".
+ */
+export interface HubHelpSelect<T extends boolean = true> {
+  tenant?: T;
+  slug?: T;
+  order?: T;
+  line?: T;
+  group?: T;
+  title?: T;
+  steps?: T;
+  prep?: T;
+  ctaLabel?: T;
+  relatedTool?: T;
+  seoTitle?: T;
+  seoDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hub-plans_select".
+ */
+export interface HubPlansSelect<T extends boolean = true> {
+  tenant?: T;
+  key?: T;
+  order?: T;
+  type?: T;
+  name?: T;
+  title?: T;
+  lead?: T;
+  groups?:
+    | T
+    | {
+        line?: T;
+        points?: T;
+        id?: T;
+      };
+  start?: T;
+  questions?: T;
+  steps?: T;
+  call?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

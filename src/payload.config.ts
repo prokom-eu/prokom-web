@@ -15,6 +15,10 @@ import { Bundles } from './collections/Bundles'
 import { FloorPlans } from './collections/FloorPlans'
 import { Industries } from './collections/Industries'
 import { InstArchNews } from './collections/InstArchNews'
+import { HubHelp } from './collections/hub/HubHelp'
+import { HubPlans } from './collections/hub/HubPlans'
+import { HubServices } from './collections/hub/HubServices'
+import { HubTools } from './collections/hub/HubTools'
 import { InstObjects } from './collections/InstObjects'
 import { InstServices } from './collections/InstServices'
 import { InstSolutions } from './collections/InstSolutions'
@@ -92,6 +96,11 @@ export default buildConfig({
     Showrooms,
     // Instalacje I16b (architects' „Nowe rozwiązania”, ADR-I005 §2). Last, for the same reason.
     InstArchNews,
+    // pro-kom.eu hub H1 (ADR-H002 §3). Last, for the same reason.
+    HubServices,
+    HubTools,
+    HubHelp,
+    HubPlans,
   ],
   globals: [CompanyData],
   editor: lexicalEditor(),
@@ -186,6 +195,11 @@ export default buildConfig({
         'inst-solutions': {},
         realizations: {},
         'inst-arch-news': {},
+        // pro-kom.eu only (`hubCollection` hook).
+        'hub-services': {},
+        'hub-tools': {},
+        'hub-help': {},
+        'hub-plans': {},
       },
       // Deleting a tenant must never silently delete its content.
       cleanupAfterTenantDelete: false,
