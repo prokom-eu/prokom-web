@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>PRO-KOM — strona główna firmy</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/*PKTHEME*/:root{--k-bg:#0A0D0B;--k-bg2:#0E1210;--k-card:#131815;--k-card2:#111613;--k-foot:#060807;--k-bgp:#0C0F0D;--k-cardp:#171C18;--k-dim:#050706;--k-ink:#F4F5F1;--k-ink1:#DDE1DB;--k-ink2:#C9CEC8;--k-ink3:#A9AFA9;--k-ink4:#B9BDB6;--k-ink5:#7E857E;--k-gt:#8FE07A;--k-gd:#7BD36A;--k-g:#4FB034;--k-g1:#5BC23E;--k-g2:#43A02B;--k-g3:#2E7A1E;--k-gi:#07140A;--k-b:#4A7BE0;--k-bt:#8DADF0;--k-bd:#0A1430;--k-bi:#06102A;--k-i:#12B6D8;--k-it:#4CCBE6;--k-id:#071214;--k-ii:#06181C;--k-s:#9670EE;--k-st:#B49BF5;--k-sd:#15131F;--k-si:#120A26;--k-t:#E2483A;--k-tt:#F29185;--k-td:#1A1312;--k-ti:#1A0806;--k-y:#F2C230;--k-yd:#080C0B;--k-yi:#1A1400;--r-w:255,255,255;--r-gl:22,28,24;--r-gl2:19,24,21;--r-gl3:20,25,21;--r-gl4:10,13,11;--r-gl5:17,22,19;--k-white:#FFFFFF}
+html[data-theme="light"]{--k-bg:#F4F5F1;--k-bg2:#ECEEE8;--k-card:#FFFFFF;--k-card2:#FFFFFF;--k-foot:#E4E7E0;--k-bgp:#F4F5F1;--k-cardp:#FFFFFF;--k-dim:#D9DCD5;--k-ink:#121613;--k-ink1:#2A302B;--k-ink2:#3A413B;--k-ink3:#4F5650;--k-ink4:#4F5650;--k-ink5:#8A918A;--k-gt:#2E7A1E;--k-gd:#2E7A1E;--k-g:#2E7A1E;--k-g1:#358F27;--k-g2:#286F18;--k-g3:#1F5A12;--k-gi:#FFFFFF;--k-b:#244FB0;--k-bt:#244FB0;--k-bd:#E6ECFB;--k-bi:#FFFFFF;--k-i:#007A96;--k-it:#006A82;--k-id:#DDF1F5;--k-ii:#FFFFFF;--k-s:#6E45D4;--k-st:#5B33C4;--k-sd:#ECE7FB;--k-si:#FFFFFF;--k-t:#C4362B;--k-tt:#B3301F;--k-td:#FBE8E5;--k-ti:#FFFFFF;--k-y:#9A7000;--k-yd:#FBF2D2;--k-yi:#FFFFFF;--r-w:18,22,19;--r-gl:255,255,255;--r-gl2:255,255,255;--r-gl3:255,255,255;--r-gl4:255,255,255;--r-gl5:255,255,255;--k-white:#121613}
+@keyframes pkrise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+section{animation:pkrise linear both;animation-timeline:view();animation-range:entry 0% cover 14%}
+section a[class~="lift"],section details,section figure{animation:pkpop linear both;animation-timeline:view();animation-range:entry 0% cover 18%}
+}
+a,button,details,summary{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s,color .3s}
+button:hover{transform:translateY(-2px)}
+a[style*="border-radius: 16px"]:hover,a[style*="border-radius: 18px"]:hover,a[style*="border-radius: 15px"]:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;transition:background-color .4s}
+body,body *{transition-property:background-color,border-color,color,transform,box-shadow,opacity,flex;transition-duration:.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+/*END*/
+body{margin:0}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+.pk{font-family:Manrope,system-ui,sans-serif;background:var(--k-bg);color:var(--k-ink)}
+.pk .d{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-.03em;margin:0;line-height:.96}
+.pk .eb{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.pk p{margin:0}
+.pk button{font-family:inherit;cursor:pointer}
+.pk .lift{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .lift:hover{transform:translateY(-6px)}
+.pk .tile{transition:flex .55s cubic-bezier(.2,.8,.2,1)}
+.pk .acc-t{transition:background .45s,color .45s,border-color .45s}
+.pk :focus-visible{outline:2px solid var(--k-gt);outline-offset:2px}
+.pk .mq{display:flex;gap:14px;animation:mq 55s linear infinite;width:max-content}
+.pk .mqi{display:flex;gap:12px;align-items:center;white-space:nowrap;padding:10px 20px 10px 10px;border-radius:18px;border:1px solid rgba(var(--r-w),.09);background:rgba(var(--r-w),.03);transition:border-color .4s,background-color .4s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.pk .mqi:hover{border-color:color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 9%,transparent);transform:translateY(-2px)}
+.pk .mqa{font:800 14px Manrope,sans-serif;color:var(--c);opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .4s cubic-bezier(.2,.8,.2,1);margin-left:2px}.pk .mqi:hover .mqa{opacity:1;transform:none}
+.pk .mqc{width:40px;height:40px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c)}
+@keyframes mq{to{transform:translateX(-50%)}}
+@keyframes pulse{50%{opacity:.35}}
+.pk .wm{background:linear-gradient(100deg,var(--k-ink) 0%,var(--k-ink) 38%,var(--k-ink3) 50%,var(--k-ink) 62%,var(--k-ink) 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
+@keyframes sheen{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+@keyframes hy{50%{transform:scaleX(1.08)}}
+.pk .hy{animation:hy 3.2s ease-in-out infinite}
+@keyframes drift{50%{transform:translate(60px,40px) scale(1.12)}}
+.pk .orb{animation:drift 16s ease-in-out infinite}
+.pk .orb2{animation:drift 22s ease-in-out infinite reverse}
+.pk .rec{animation:pulse 1.6s infinite}
+.pk .hb{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(4,150px);gap:14px}
+.pk .hb-main{grid-column:1/7;grid-row:1/5}
+.pk .hb-biznes{grid-column:7/10;grid-row:1/3}
+.pk .hb-instalacje{grid-column:10/13;grid-row:1/3}
+.pk .hb-software{grid-column:7/10;grid-row:3/5}
+.pk .hb-tech{grid-column:10/13;grid-row:3/4}
+.pk .hb-gaming{grid-column:10/13;grid-row:4/5}
+.pk .ht{transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .3s}
+.pk .ht:hover{transform:translateY(-4px);z-index:2}
+.pk .ht .go{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .ht:hover .go{transform:translateX(3px)}
+@keyframes hin{from{opacity:0;transform:translateY(34px) scale(.97)}to{opacity:1;transform:none}}
+.pk .pt{cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s}
+.pk .pt:hover{transform:translateY(-3px)}
+.pk .lg{transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}.pk .lg:hover{transform:translateY(-4px);box-shadow:0 18px 40px -20px rgba(0,0,0,.5)}
+.pk .wmk{transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .4s}.pk .ht:hover .wmk{transform:translate(-14px,-6px) scale(1.06);opacity:.3 !important}
+@media (min-width:981px){.pk .hb{grid-template-rows:repeat(4,clamp(146px,calc((100svh - 222px) / 4),214px)) !important}}
+.pk .ht i{display:block;font-style:normal}
+.pk .ht:hover{border-color:var(--c) !important}
+.pk .vg{flex:1 1 96px;min-height:88px;max-height:150px;border-radius:16px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pk .ht:hover .vg{transform:translateY(-3px) scale(1.015);border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.pk .vr{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(var(--r-w),.09);font-size:12.5px;font-weight:700}
+.pk .vp{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--c) 22%,transparent)}
+.pk .vp i{width:6px;height:6px;border-radius:50%;background:var(--c)}
+.pk .cam{position:relative;border-radius:10px;background:linear-gradient(160deg,rgba(var(--r-w),.14),rgba(var(--r-w),.03));display:flex;flex-direction:column;overflow:hidden}
+.pk .cam b{position:absolute;left:7px;top:6px;display:flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;letter-spacing:.06em}
+.pk .cam b i{width:6px;height:6px;border-radius:50%;background:var(--k-t)}
+.pk .cam em{position:absolute;left:7px;bottom:6px;font-style:normal;font-size:10.5px;font-weight:700}
+.pk .wf{width:6px;border-radius:2px;background:var(--c);animation:pulse 1.8s infinite}
+.pk .sk{border-radius:4px;background:rgba(var(--r-w),.2)}
+@keyframes eq{50%{transform:scaleY(.5)}}
+.pk .eq{flex:1;max-width:9px;border-radius:2px;background:var(--c);transform-origin:50% 100%;animation:eq 1.9s ease-in-out infinite}
+.pk .stp{flex:1;height:5px;border-radius:3px;background:rgba(var(--r-w),.16)}
+.pk .stp.on{background:var(--c)}
+.pk .stp.now{background:var(--c);animation:pulse 1.4s infinite}
+.pk .ht::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:38%;background:linear-gradient(100deg,transparent,rgba(var(--r-w),.13),transparent);transform:skewX(-18deg);pointer-events:none;opacity:0}
+
+@keyframes sweep{0%{left:-60%;opacity:1}100%{left:130%;opacity:1}}
+@keyframes wmin{from{opacity:0;transform:translateY(.35em);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.pk .hb-main h1>span,.pk .hb-main>p,.pk .hb-main>div{animation:wmin .9s cubic-bezier(.2,.8,.2,1) both}
+.pk .hb-main h1>span:nth-child(1){animation-delay:.15s}.pk .hb-main h1>span:nth-child(2){animation-delay:.3s}.pk .hb-main>p{animation-delay:.42s}.pk .hb-main>div:last-child{animation-delay:.55s}
+.pk .cam::before{content:"";position:absolute;left:0;right:0;height:38%;top:-40%;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--c) 28%,transparent),transparent);animation:scan 3.4s linear infinite}
+@keyframes scan{to{top:110%}}
+.pk .vr{animation:wmin .7s cubic-bezier(.2,.8,.2,1) both}.pk .vr:nth-child(1){animation-delay:.5s}.pk .vr:nth-child(2){animation-delay:.65s}.pk .vr:nth-child(3){animation-delay:.8s}
+.pk .sk{animation:skw 2.6s ease-in-out infinite}
+@keyframes skw{50%{opacity:.55}}
+.pk .go{position:relative;overflow:hidden}
+.pk .ls{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;position:relative;animation:wmin .9s cubic-bezier(.2,.8,.2,1) .5s both}
+.pk .ls a{display:flex;flex-direction:column;gap:6px;padding:12px 12px 11px;border-radius:16px;border:1px solid;background:rgba(var(--r-w),.035);transition:transform .35s cubic-bezier(.2,.8,.2,1),background-color .3s,border-color .3s,box-shadow .3s}
+.pk .ls a:hover,.pk .ls a:focus-visible{transform:translateY(-4px);background:color-mix(in srgb,var(--c) 16%,transparent);box-shadow:0 18px 36px -22px var(--c)}
+@media (max-width:1180px){.pk .ls a span:last-child{display:none}}
+@media (max-width:560px){.pk .ls{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@keyframes beam{0%{transform:translateX(-30vw) skewX(-24deg)}100%{transform:translateX(130vw) skewX(-24deg)}}
+.pk .beam{position:absolute;top:-10%;bottom:-10%;left:0;width:14vw;background:linear-gradient(90deg,transparent,rgba(var(--r-w),.045),transparent);animation:beam 11s linear infinite}
+@keyframes cue{50%{transform:translateY(5px)}}
+.pk .cue{animation:cue 1.8s ease-in-out infinite}
+.pk .vl{position:absolute;inset:0;transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
+.pk .hsl{transition:opacity .18s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+.pk .hsl[aria-hidden="false"]{transition:opacity .45s cubic-bezier(.2,.8,.2,1) .18s,transform .6s cubic-bezier(.2,.8,.2,1) .18s}
+.pk .vl .vr:last-child{border-bottom:none}
+.pk .vl .vr{animation:none}
+.pk .tl2{position:relative;border-radius:10px;background:linear-gradient(160deg,rgba(var(--r-w),.14),rgba(var(--r-w),.03));display:flex;flex-direction:column;overflow:hidden;padding-bottom:22px}
+.pk .tl2.acc{background:color-mix(in srgb,var(--c) 16%,transparent)}
+.pk .tl2 b{position:absolute;left:7px;top:6px;display:flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;letter-spacing:.06em}
+.pk .tl2 b i{width:6px;height:6px;border-radius:50%;background:var(--k-t)}
+.pk .tl2 em{position:absolute;left:7px;right:7px;bottom:6px;font-style:normal;font-size:10.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pk .tl2.cam::before{content:"";position:absolute;left:0;right:0;height:38%;top:-40%;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--c) 28%,transparent),transparent);animation:scan 3.4s linear infinite}
+.pk .rg{margin:auto;width:30px;height:30px;border-radius:50%;border:2px solid var(--c);display:flex;align-items:center;justify-content:center;animation:rgp 1.8s ease-out infinite}
+.pk .rg i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+@keyframes rgp{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c) 60%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
+.pk .sw{width:30px;height:17px;border-radius:999px;background:var(--c);position:relative;animation:swb 4s ease-in-out infinite}
+.pk .sw::after{content:"";position:absolute;top:2px;left:15px;width:13px;height:13px;border-radius:50%;background:var(--k-white);animation:swk 4s ease-in-out infinite;animation-delay:inherit}
+@keyframes swk{0%,40%,100%{left:15px}50%,90%{left:2px}}
+@keyframes swb{0%,40%,100%{opacity:1}50%,90%{opacity:.35}}
+.pk .dt{width:7px;height:7px;border-radius:50%;background:rgba(var(--r-w),.25)}
+.pk .kc{border-radius:10px;background:rgba(var(--r-w),.05);padding:7px;display:flex;flex-direction:column;gap:5px;overflow:hidden}
+.pk .kc em{font-style:normal;font-size:10px;font-weight:800;letter-spacing:.06em;opacity:.7}
+.pk .kd{height:14px;border-radius:5px;background:rgba(var(--r-w),.16)}
+.pk .kd.on{background:var(--c);animation:pulse 1.8s infinite}
+.pk .fn{flex:none;font-size:11px;font-weight:800;padding:7px 9px;border-radius:999px;border:1px solid rgba(var(--r-w),.2);white-space:nowrap}
+.pk .fl{flex:1;min-width:10px;height:2px;background:rgba(var(--r-w),.18);position:relative;overflow:hidden}
+.pk .fl::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:40%;background:var(--c);animation:flw 1.8s linear infinite;animation-delay:var(--d,0s)}
+@keyframes flw{to{left:100%}}
+.pk .tyi{display:inline-block;overflow:hidden;white-space:nowrap;max-width:0;animation:tyw 4.2s steps(30,end) infinite}
+@keyframes tyw{0%{max-width:0}32%{max-width:32ch}92%{max-width:32ch}100%{max-width:0}}
+.pk .tyc{display:block;width:2px;height:20px;margin-left:2px;background:var(--k-g);animation:pulse 1s steps(1) infinite}
+.pk .rc{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,background-color .5s,border-color .5s}.pk .rc:hover{transform:translateY(-3px);box-shadow:0 24px 50px -30px var(--c)}
+.pk .dm{animation:dmf 4.2s ease infinite}
+@keyframes dmf{0%,26%{opacity:.0;transform:translateY(6px)}36%,92%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-4px)}}
+.pk .hb-main:focus-within .ty{display:none !important}
+.pk .lr{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.pk .lr .lt{display:flex;flex-direction:column;gap:6px;padding:13px 16px 12px;border-radius:18px;border:1px solid;cursor:pointer;font-family:inherit;transition:transform .5s cubic-bezier(.2,.8,.2,1),background-color .5s,border-color .5s,box-shadow .5s}
+.pk .lr .lt:hover{transform:translateY(-4px);box-shadow:0 24px 50px -32px var(--c)}
+@media (max-width:1000px){.pk .lr{grid-template-columns:repeat(5,minmax(200px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.pk .lr .lt{scroll-snap-align:start}}
+@keyframes stga{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes stgb{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.pk .stg.sa{animation:stga .7s cubic-bezier(.2,.8,.2,1) both}
+.pk .stg.sb{animation:stgb .7s cubic-bezier(.2,.8,.2,1) both}
+.pk .stg.sa>div>*{animation:stga .7s cubic-bezier(.2,.8,.2,1) both}
+.pk .stg.sb>div>*{animation:stgb .7s cubic-bezier(.2,.8,.2,1) both}
+.pk .stg>div>*:nth-child(2){animation-delay:.06s}.pk .stg>div>*:nth-child(3){animation-delay:.12s}.pk .stg>div>*:nth-child(4){animation-delay:.18s}.pk .stg>div>*:nth-child(5){animation-delay:.24s}.pk .stg>div>*:nth-child(6){animation-delay:.3s}
+.pk .stg:hover .pn{border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.pk .cb{position:relative;border-radius:12px;background:linear-gradient(160deg,rgba(var(--r-w),.14),rgba(var(--r-w),.03));display:flex;flex-direction:column;overflow:hidden;transition:border-color .4s}
+.pk .cb.wifi{background:color-mix(in srgb,var(--c) 16%,transparent)}
+.pk .cb b{position:absolute;left:9px;top:8px;display:flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;letter-spacing:.06em}
+.pk .cb b i{display:block;width:7px;height:7px;border-radius:50%;background:var(--k-t)}
+.pk .cb em{position:absolute;left:9px;bottom:8px;font-style:normal;font-size:12px;font-weight:700}
+.pk .cb.cam::before{content:"";position:absolute;left:0;right:0;height:38%;top:-40%;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--c) 28%,transparent),transparent);animation:scan 3.4s linear infinite}
+.pk .cb i{display:block}
+.pk .lr{grid-template-columns:repeat(6,minmax(0,1fr)) !important}
+@media (max-width:1000px){.pk .lr{grid-template-columns:repeat(6,minmax(200px,1fr)) !important}}
+.pk .tw{display:flex;flex-direction:column;gap:12px;position:relative;padding-left:30px}
+.pk .tw::before{content:"";position:absolute;left:9px;top:14px;bottom:14px;width:2px;background:linear-gradient(180deg,var(--k-g),rgba(var(--r-w),.14));transform-origin:50% 0;animation:twl 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes twl{from{transform:scaleY(0)}to{transform:none}}
+.pk .tn{position:relative;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--k-gt)}
+.pk .tn i{position:absolute;left:-27px;top:1px;width:14px;height:14px;border-radius:50%;background:var(--k-g);box-shadow:0 0 0 5px color-mix(in srgb,var(--k-g) 22%,transparent)}
+.pk .tn.end{color:rgba(var(--r-w),.72);margin-top:4px}
+.pk .tn.end i{background:var(--k-card);border:2px solid var(--k-g);box-shadow:none;box-sizing:border-box}
+.pk .tc{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding:18px 20px;border-radius:22px}
+.pk .tc::before{content:"";position:absolute;left:-25px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:var(--c)}
+.pk .tc::after{content:"";position:absolute;left:-15px;top:50%;width:15px;height:2px;background:color-mix(in srgb,var(--c) 60%,transparent)}
+.pk .ig{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.pk .svc{display:flex;gap:12px;align-items:flex-start;border-radius:16px;background:rgba(var(--r-w),.04);border:1px solid rgba(var(--r-w),.1);padding:13px 14px;text-decoration:none}
+.pk .svi{width:38px;height:38px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);transition:transform .45s cubic-bezier(.2,.8,.2,1),background-color .3s,color .3s}
+.pk .svc:hover .svi{transform:scale(1.08) rotate(-4deg);background:var(--c);color:var(--k-bg)}
+.pk .lfx{display:flex;gap:10px;align-items:center;font-size:15px;font-weight:700;line-height:1.35}
+.pk .lfi{width:24px;height:24px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--c)}
+.pk .lpt{display:block;height:3px;border-radius:3px;background:rgba(var(--r-w),.1);overflow:hidden;margin-top:4px}
+.pk .lpt i{display:block;height:100%;border-radius:3px;width:0}
+.pk .lpt i.on{width:100%}
+@keyframes lpfa{from{width:0}to{width:100%}}@keyframes lpfb{from{width:0}to{width:100%}}
+.pk .lpt i.pa{animation:lpfa 9s linear forwards}.pk .lpt i.pb{animation:lpfb 9s linear forwards}
+@media (max-width:1100px){.pk .lr .lsh{display:none}}
+@media (max-width:760px){.pk .ig{grid-template-columns:1fr}}
+@media (max-width:760px){.pk .ig{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pk .pn.sm .vr.big{padding:8px 0;font-size:14px}
+.pk .ss li:last-child .sar{display:none}
+.pk .tw{gap:8px !important}
+.pk .tc{padding:12px 16px !important;border-radius:18px !important}
+@media (min-width:1001px) and (max-height:800px){.pk .idd{display:none}.pk #linie{padding-top:40px !important}}
+.pk .tw{gap:10px !important;padding-left:34px !important}
+.pk .tw::before{left:11px !important;top:26px !important;bottom:22px !important;background:linear-gradient(180deg,var(--k-g),color-mix(in srgb,var(--k-g) 30%,transparent)) !important}
+.pk .tw::after{content:"";position:absolute;left:8px;top:26px;width:8px;height:8px;border-radius:50%;background:var(--k-gt);box-shadow:0 0 14px 3px color-mix(in srgb,var(--k-g) 70%,transparent);animation:twd 3.6s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes twd{0%{top:26px;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:calc(100% - 30px);opacity:0}}
+.pk .th{position:relative;display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:20px;background:color-mix(in srgb,var(--k-g) 10%,transparent);border:1px solid color-mix(in srgb,var(--k-g) 30%,transparent)}
+.pk .th::before{content:"";position:absolute;left:-30px;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;background:var(--k-g);box-shadow:0 0 0 5px color-mix(in srgb,var(--k-g) 22%,transparent)}
+.pk .thi{width:44px;height:44px;flex:none;border-radius:14px;background:var(--k-g);color:var(--k-gi);display:flex;align-items:center;justify-content:center}
+.pk .tc{min-height:72px;box-sizing:border-box;padding:14px 16px 14px 18px !important;border-radius:20px !important;animation:stga .7s cubic-bezier(.2,.8,.2,1) both;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s}
+.pk .tc:hover{transform:translateX(6px);border-color:var(--c) !important;box-shadow:0 22px 50px -32px var(--c)}
+.pk .tc::before{left:-28px !important;width:12px !important;height:12px !important;margin-top:-6px !important;box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 22%,transparent)}
+.pk .tc::after{left:-16px !important;width:16px !important}
+.pk .tch{font-size:13.5px;font-weight:700;line-height:1.25;padding:7px 11px;border-radius:999px;background:color-mix(in srgb,var(--c) 12%,transparent);border:1px solid color-mix(in srgb,var(--c) 26%,transparent)}
+.pk .tph{flex:none;display:flex;align-items:center;gap:8px;height:38px;padding:0 6px 0 14px;border-radius:999px;border:1px solid color-mix(in srgb,var(--c) 40%,transparent);font-size:14px;letter-spacing:0;white-space:nowrap;transition:background-color .4s,color .4s}
+.pk .tph i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--c);color:var(--k-bg);display:flex;align-items:center;justify-content:center;font:800 12px Manrope,sans-serif}
+.pk .te{position:relative;display:flex;flex-wrap:wrap;gap:8px 18px;padding:12px 4px 0;font-size:13.5px;font-weight:700;color:rgba(var(--r-w),.8)}
+.pk .te::before{content:"";position:absolute;left:-29px;top:14px;width:14px;height:14px;border-radius:50%;border:2px solid var(--k-g);background:var(--k-card);box-sizing:border-box}
+.pk .te span{display:flex;align-items:center;gap:8px}
+.pk .te i{display:block;width:14px;height:3px}
+.pk .hin{animation:hin .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pk .spin{animation:spin 40s linear infinite}
+@property --ra{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes ra{to{--ra:360deg}}
+.pk .ring{border:1.5px solid transparent;background:linear-gradient(var(--k-card),var(--k-card)) padding-box,conic-gradient(from var(--ra),var(--k-g),var(--k-b),var(--k-i),var(--k-s),var(--k-t),var(--k-y),var(--k-g)) border-box;animation:hin .9s cubic-bezier(.2,.8,.2,1) both,ra 9s linear infinite}
+@media (max-width:980px){.pk .hb{grid-template-rows:none;grid-auto-rows:auto}.pk .hb-main{grid-column:1/-1;grid-row:auto;padding:26px 22px 22px !important;border-radius:28px !important}.pk .hb-biznes,.pk .hb-instalacje{grid-column:span 6;grid-row:auto;min-height:330px}.pk .hb-software{grid-column:1/-1;grid-row:auto;min-height:330px}.pk .hb-tech,.pk .hb-gaming{grid-column:span 6;grid-row:auto;min-height:150px}}
+@media (max-width:640px){.pk .hb-biznes,.pk .hb-instalacje{grid-column:1/-1}}
+@media (max-width:560px){.pk .hb-tech,.pk .hb-gaming{grid-column:1/-1}}
+@media (max-width:640px){
+.pk .hb{gap:10px !important}
+.pk .hb-biznes,.pk .hb-instalacje,.pk .hb-software,.pk .hb-tech{grid-column:span 6 !important;min-height:176px !important;padding:16px !important;border-radius:24px !important}
+.pk .hb-gaming{grid-column:1/-1 !important;min-height:150px !important;padding:16px !important;border-radius:24px !important}
+.pk .hb .vg{display:none !important}
+.pk .hb .go{font-size:0 !important;width:34px;padding:0 !important;justify-content:center}
+.pk .hb .go::after{content:"↗";font-size:14px;font-weight:800}
+.pk .hb .hsd{display:none !important}
+.pk .hb-tech div[aria-hidden="true"]>span:last-child{display:none !important}
+.pk .hcn{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.pk .hcn .d{font-size:36px !important}
+.pk .lr{scrollbar-width:none}.pk .lr::-webkit-scrollbar{display:none}
+.pk .lr{grid-template-columns:repeat(6,minmax(150px,1fr)) !important}
+.pk .hb-main{padding:22px 18px 18px !important}
+.pk .hb-main .rc{display:none !important}
+}
+.pk .mqw{mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.pk .mqw:hover .mq{animation-play-state:paused}
+.pk .tl{transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .3s}
+.pk .tl i{display:block;font-style:normal}
+.pk .tl:hover{transform:translateY(-6px);border-color:var(--c) !important;box-shadow:0 0 0 1px var(--c),0 36px 80px -38px var(--c)}
+.pk .tl::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:38%;background:linear-gradient(100deg,transparent,rgba(var(--r-w),.13),transparent);transform:skewX(-18deg);pointer-events:none;opacity:0}
+.pk .tl:hover::after{animation:sweep 1.1s cubic-bezier(.2,.8,.2,1)}
+.pk .tl .go{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .tl:hover .go{transform:translateX(3px)}
+.pk .tl:hover .vg{transform:translateY(-3px) scale(1.015);border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.pk .tv{flex:none !important;height:92px;min-height:0 !important}
+.pk .hstr{position:absolute;left:clamp(28px,3vw,48px);right:clamp(28px,3vw,48px);top:0;height:3px;display:flex;gap:4px;pointer-events:none}
+.pk .hstr i{flex:1;display:block;border-radius:0 0 3px 3px;opacity:.85;transform-origin:50% 0;animation:hsin .9s cubic-bezier(.2,.8,.2,1) both}
+.pk .hstr i:nth-child(2){animation-delay:.08s}.pk .hstr i:nth-child(3){animation-delay:.16s}.pk .hstr i:nth-child(4){animation-delay:.24s}.pk .hstr i:nth-child(5){animation-delay:.32s}
+@keyframes hsin{from{transform:scaleY(0);opacity:0}to{transform:none;opacity:.85}}
+.pk .hdots{position:absolute;right:-40px;top:-40px;width:360px;height:360px;pointer-events:none;background-image:radial-gradient(rgba(var(--r-w),.12) 1px,transparent 1.4px);background-size:18px 18px;mask-image:radial-gradient(circle at 70% 30%,#000,transparent 68%);-webkit-mask-image:radial-gradient(circle at 70% 30%,#000,transparent 68%)}
+.pk .hcta{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}.pk .hcta:hover{transform:translateY(-2px);box-shadow:0 18px 40px -20px var(--k-g)}.pk .hcta:hover .tga{transform:translateX(4px)}
+.pk .hch{transition:border-color .3s,background-color .3s,color .3s,transform .3s}.pk .hch:hover{border-color:rgba(var(--r-w),.34) !important;color:var(--k-ink) !important;transform:translateY(-2px)}
+.pk .mag{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:1100px){.pk .mag{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pk .mau{position:relative;overflow:hidden;border-radius:24px;background:var(--k-bd);border:1px solid color-mix(in srgb,var(--k-b) 34%,transparent);padding:20px 20px 16px;display:flex;flex-direction:column;gap:10px;min-height:210px;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .3s}
+.pk .mau:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--k-b) 65%,transparent);box-shadow:0 30px 60px -40px var(--k-b)}
+.pk .mai{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--k-b) 22%,transparent);color:var(--k-bt)}
+.pk .mgg{display:grid;grid-template-columns:1.15fr 1.45fr .8fr;gap:12px}
+@media (max-width:1100px){.pk .mgg{grid-template-columns:1fr}}
+.pk .mgr{border-radius:24px;border:1px solid color-mix(in srgb,var(--c) 30%,transparent);padding:20px;display:flex;flex-direction:column;gap:12px}
+.pk .bch{font-size:13.5px;font-weight:800;padding:7px 12px;border-radius:10px;background:rgba(var(--r-w),.06);border:1px solid rgba(var(--r-w),.1);color:var(--k-white);transition:border-color .3s,background-color .3s,transform .3s}
+.pk .bch:hover{border-color:color-mix(in srgb,var(--c) 60%,transparent);background:color-mix(in srgb,var(--c) 14%,transparent);transform:translateY(-2px)}
+.pk .clr{display:flex;align-items:center;gap:14px;padding:10px 10px 10px 10px;border-radius:18px;border:1px solid rgba(var(--r-w),.1);background:rgba(var(--r-w),.025);color:var(--k-ink);text-decoration:none;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,background-color .3s}
+.pk .clr:hover{transform:translateX(4px);border-color:color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 9%,transparent)}
+.pk .clb{width:78px;height:46px;flex:none;border-radius:12px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 10px;gap:3px;border:1px solid color-mix(in srgb,var(--c) 30%,transparent)}
+.pk .clp{display:flex;align-items:center;gap:8px;height:42px;padding:0 14px;border-radius:12px;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--k-ink);transition:background-color .3s,color .3s}
+.pk .clr:hover .clp{background:var(--c);color:var(--k-bg)}
+.pk .csl{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px 16px;padding:16px;border-radius:20px;background:color-mix(in srgb,var(--k-g) 8%,transparent);border:1px solid color-mix(in srgb,var(--k-g) 26%,transparent)}
+.pk .csi{width:44px;height:44px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--k-g);color:var(--k-gi)}
+@media (max-width:560px){.pk .clb{display:none}}
+.pk .tgg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:1060px){.pk .tgg{grid-template-columns:1fr}}
+.pk .tgr{position:relative;overflow:hidden;border-radius:30px;padding:16px;display:flex;flex-direction:column;gap:14px;border:1px solid color-mix(in srgb,var(--c) 32%,transparent);color:var(--k-white);text-decoration:none}
+.pk .tgx{padding:28px;gap:16px;border-color:rgba(var(--r-w),.12);transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .45s}
+.pk .tgx:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--k-g) 60%,transparent);box-shadow:0 30px 70px -40px var(--k-g)}
+.pk .tgi{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;flex:1}
+@media (max-width:560px){.pk .tgi{grid-template-columns:1fr}}
+.pk .tlc{display:flex;flex-direction:column;gap:10px;padding:12px 12px 14px;border-radius:22px;background:rgba(var(--r-w),.045);border:1px solid rgba(var(--r-w),.1);color:var(--k-white);text-decoration:none;min-height:262px;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s,background-color .3s,box-shadow .45s}
+.pk .tlc:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 60%,transparent);background:color-mix(in srgb,var(--c) 9%,transparent);box-shadow:0 26px 60px -40px var(--c)}
+.pk .tlc:hover .vg{border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.pk .tga{display:inline-block;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.pk .tlc:hover .tga,.pk .tgx:hover .tga{transform:translate(3px,-1px)}
+.pk .tg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:1180px){.pk .tg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.pk .tg{grid-template-columns:1fr}}
+@keyframes ckp{0%,100%{border-color:rgba(var(--r-w),.1)}50%{border-color:var(--c)}}
+.pk .ck{animation:ckp 3.6s ease-in-out infinite}.pk .ck:nth-child(2){animation-delay:1.2s}.pk .ck:nth-child(3){animation-delay:2.4s}
+.pk .mch{font-size:12.5px;font-weight:700;padding:6px 11px;border-radius:999px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.12);white-space:nowrap;transition:border-color .3s,background-color .3s}
+.pk .mch:hover{border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent)}
+.pk .sc i{display:block;font-style:normal}
+.pk .pn{border-radius:22px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:border-color .3s,transform .45s cubic-bezier(.2,.8,.2,1)}
+.pk .sc:hover .pn{border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.pk .pn .vp i,.pk .pn .cam b i{display:block}
+.pk .vr.big{padding:13px 0;font-size:15px}
+.pk .vr.big .vp{font-size:12.5px;padding:5px 10px}
+.pk .it{transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,background-color .3s}
+.pk .it:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 60%,transparent) !important;background:color-mix(in srgb,var(--c) 10%,transparent) !important}
+.pk .bx{transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s;cursor:pointer}
+.pk .bx:hover{transform:translateY(-3px);box-shadow:0 18px 36px -20px rgba(0,0,0,.55)}
+.pk .rw{transition:background-color .3s,transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .rw:hover{background:color-mix(in srgb,var(--c) 14%,transparent);transform:translateX(4px)}
+.pk .fq{transition:border-color .3s,transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .fq:hover{border-color:color-mix(in srgb,var(--k-g) 50%,transparent) !important;transform:translateX(4px)}
+.pk .fq[open]{border-color:color-mix(in srgb,var(--k-g) 38%,transparent) !important}
+@keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(3.4);opacity:0}}
+.pk .ping{animation:ping 2.2s cubic-bezier(.2,.8,.2,1) infinite}
+.pk input:focus,.pk textarea:focus{outline:none;border-color:var(--k-g) !important;box-shadow:0 0 0 4px color-mix(in srgb,var(--k-g) 22%,transparent)}
+@media (prefers-reduced-motion:reduce){.pk *{transition:none !important;animation:none !important}}
+/*PKCALM*/
+@keyframes pkrise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pk .tl:hover::after,.pk .lift:hover::after,.pk .nx:hover::after,.pk .cd2:hover::after,.pk .lt:hover::after,.pkx .lift:hover::after,.pkx .nx:hover::after{animation:none !important;opacity:0 !important}
+.pk .tl:hover,.pk .lift:hover,.pk .nx:hover,.pk .cd2:hover,.pk .lt:hover,.pkx .lift:hover,.pkx .nx:hover{transform:translateY(-4px) !important}
+.pk .tl,.pk .lift,.pk .nx,.pk .cd2,.pk .lt,.pk .ht{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .4s !important}
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk p{text-wrap:pretty}
+/*CALMEND*/
+@media (max-width:640px){.pk .ig{grid-template-columns:1fr !important}}
+.pk .hcn{grid-template-columns:repeat(4,minmax(0,1fr)) !important}
+@media (max-width:640px){.pk .hcn{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
+</style>
+</helmet>
+<div class="pk" style="position: relative; overflow-x: clip">
+<dc-import name="Naglowek" active="start" hint-size="100%,130px"></dc-import>
+
+<!-- HERO -->
+<section id="start" style="position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none; background: var(--k-bg)">
+<div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(var(--r-w),.11) 1px, transparent 1.4px); background-size: 26px 26px; mask-image: radial-gradient(ellipse 75% 85% at 50% 38%, #000 0%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 75% 85% at 50% 38%, #000 0%, transparent 78%)"></div>
+</div>
+
+<div style="position: relative; max-width: 1560px; margin: 0 auto; padding: 16px clamp(20px, 3vw, 48px) 56px; display: flex; flex-direction: column; gap: 22px">
+<div class="hb">
+
+<!-- PRO-KOM — kafel główny -->
+<div class="hb-main hin" style="border-radius: 36px; padding: clamp(28px, 3vw, 48px); display: flex; flex-direction: column; gap: 20px; position: relative; overflow: hidden; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); animation-delay: 0s">
+<span aria-hidden="true" class="hstr"><i style="background: var(--k-b)"></i><i style="background: var(--k-i)"></i><i style="background: var(--k-s)"></i><i style="background: var(--k-t)"></i><i style="background: var(--k-y)"></i></span>
+<span aria-hidden="true" class="hdots"></span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; position: relative">
+<span style="font-size: 12.5px; font-weight: 800; padding: 7px 13px; border-radius: 999px; background: rgba(79,176,52,.16); color: var(--k-gt)">Rabka-Zdrój · od 2004</span>
+<span style="font-size: 12.5px; font-weight: 700; padding: 7px 13px; border-radius: 999px; border: 1px solid rgba(var(--r-w),.14); color: var(--k-ink2); display: flex; gap: 7px; align-items: center"><span class="rec" style="width: 8px; height: 8px; border-radius: 50%; background: {{open.dot}}"></span>{{open.text}}</span>
+</div>
+<h1 style="margin: 6px 0 0; display: flex; flex-direction: column; gap: 14px; position: relative">
+<span class="d" style="font-size: clamp(44px, 5.7vw, 104px); line-height: .84; display: flex; align-items: center; gap: .09em; letter-spacing: -.035em"><span class="wm">PRO</span><span aria-hidden="true" class="acc-t hy" style="flex: none; display: block; width: .42em; height: .125em; background: {{acc}}; box-shadow: 0 0 50px {{acc}}"></span><span class="wm">KOM</span></span>
+<span class="d" style="font-size: clamp(21px, 2.2vw, 36px); line-height: 1.08; letter-spacing: -.02em; max-width: 620px">Sprzęt, instalacje, oprogramowanie i serwis. W&nbsp;jednej firmie.</span>
+</h1>
+<p style="font-size: 16.5px; line-height: 1.55; color: var(--k-ink2); max-width: 480px; position: relative">Pięć linii, każda ze swoim zespołem. Wybierz linię obok albo napisz, czego potrzebujesz.</p>
+
+<div style="flex: 1; margin-top: 6px; display: flex; flex-direction: column; gap: 12px; position: relative">
+<div class="acc-t" style="display: flex; gap: 10px; align-items: center; height: 62px; padding: 0 8px 0 20px; border-radius: 20px; background: var(--k-bg); border: 1.5px solid {{qBorder}}; position: relative">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" style="flex: none"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.5-4.5"></path></svg>
+<sc-if value="{{demo}}" hint-placeholder-val="{{false}}"><span aria-hidden="true" class="ty" style="position: absolute; left: 52px; top: 0; bottom: 0; display: flex; align-items: center; pointer-events: none; font: 600 16.5px Manrope, sans-serif; color: var(--k-ink3)"><span class="tyi">{{demo.text}}</span><i class="tyc"></i></span></sc-if>
+<input id="q" value="{{q}}" onChange="{{onQ}}" placeholder="{{ph}}" aria-label="Czego potrzebujesz?" autocomplete="off" style="flex: 1; min-width: 0; height: 100%; border: none; outline: none; background: transparent; color: var(--k-ink); font: 600 16.5px Manrope, sans-serif">
+</div>
+<sc-if value="{{res}}" hint-placeholder-val="{{true}}">
+<a href="{{res.url}}" class="{{res.cls}}" style="--c: {{res.cd}}; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; padding: 18px 20px; border-radius: 20px; background: {{res.dark}}; border: 1px solid color-mix(in srgb, {{res.cd}} 32%, transparent); color: var(--k-white)">
+<span style="display: flex; flex-direction: column; gap: 3px; flex: none"><span class="d" style="font-size: 17px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em">PRO<span style="width: 8px; height: 3px; display: block; background: {{res.cd}}"></span>KOM</span><span class="d" style="font-size: 10px; letter-spacing: .18em; color: {{res.ct}}">{{res.label}}</span></span>
+<span style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: {{res.ct}}">Tym zajmie się</span><span style="font-size: 14.5px; font-weight: 600; line-height: 1.4; color: rgba(var(--r-w),.8)">{{res.short}}</span></span>
+<span class="d" style="font-size: 18px; letter-spacing: 0; white-space: nowrap">{{res.phone}}</span>
+<span style="height: 38px; padding: 0 14px; border-radius: 999px; background: {{res.cd}}; color: {{res.ink}}; display: flex; align-items: center; font-weight: 800; font-size: 13px; white-space: nowrap">{{res.domain}} ↗</span>
+</a>
+</sc-if>
+<sc-if value="{{miss}}" hint-placeholder-val="{{false}}">
+<p style="font-size: 14.5px; color: var(--k-ink2)">Nie mamy pewności, która linia. Zadzwoń: <a href="tel:+48883200151" style="font-weight: 800; color: var(--k-ink)">883 200 151</a> — pokierujemy.</p>
+</sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 7px">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="6">
+<button type="button" onClick="{{c.pick}}" class="hch" style="font: 700 13px Manrope, sans-serif; padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(var(--r-w),.14); background: rgba(var(--r-w),.04); color: var(--k-ink2); cursor: pointer; display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 12px; height: 3px; background: {{c.c}}"></span>{{c.label}}</button>
+</sc-for>
+</div>
+<div style="margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding-top: 18px; border-top: 1px solid rgba(var(--r-w),.1)">
+<a href="#dobierz" class="hcta" style="height: 52px; padding: 0 22px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 15.5px; display: flex; align-items: center; gap: 8px">Dobierz w 10 sekund <span aria-hidden="true" class="tga">→</span></a>
+<a href="{{open.href}}" class="d" style="height: 52px; padding: 0 20px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.22); font-size: {{open.fs}}; letter-spacing: 0; display: flex; align-items: center">{{open.cta}}</a>
+<span style="font-size: 13.5px; color: var(--k-ink3)">{{open.note}}</span>
+</div>
+</div>
+</div>
+
+<!-- LINIE — kafle ze slajdami -->
+<sc-for list="{{hero}}" as="t" hint-placeholder-count="5">
+<div class="{{t.cls}}" onMouseEnter="{{t.pick}}" onMouseLeave="{{clearLine}}" style="--c: {{t.cd}}; border-radius: 30px; background: {{t.dark}}; border: 1px solid color-mix(in srgb, {{t.cd}} {{t.bm}}, transparent); padding: {{t.pad}}; display: flex; flex-direction: column; gap: {{t.gap}}; position: relative; overflow: hidden; color: var(--k-white); box-shadow: {{t.glow}}; animation-delay: {{t.delay}}">
+<span style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
+<span style="display: flex; flex-direction: column; gap: 3px"><span class="d" style="font-size: 17px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em">PRO<span style="width: 8px; height: 3px; display: block; background: {{t.cd}}"></span>KOM</span><span class="d" style="font-size: 10px; letter-spacing: .18em; color: {{t.ct}}">{{t.label}}</span></span>
+<a href="{{t.url}}" aria-label="{{t.go}}" class="go" style="height: 34px; padding: 0 13px; flex: none; border-radius: 999px; background: {{t.cd}}; color: {{t.ink}}; display: flex; align-items: center; gap: 6px; font-weight: 800; font-size: 12.5px; white-space: nowrap">{{t.cta}} ↗</a>
+</span>
+
+<!-- winiety -->
+<sc-if value="{{t.big}}" hint-placeholder-val="{{true}}">
+<div aria-hidden="true" class="vg" style="position: relative">
+<sc-for list="{{t.vigs}}" as="v" hint-placeholder-count="3">
+<div class="vl" style="opacity: {{v.o}}; transform: {{v.tf}}">
+<sc-if value="{{v.isRows}}" hint-placeholder-val="{{false}}">
+<div style="height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 4px 14px">
+<sc-for list="{{v.rows}}" as="r" hint-placeholder-count="3"><span class="vr"><span>{{r.a}}</span><span class="vp"><i class="rec"></i>{{r.b}}</span></span></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{v.isTiles}}" hint-placeholder-val="{{false}}">
+<div style="height: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; padding: 8px; box-sizing: border-box">
+<sc-for list="{{v.tiles}}" as="c" hint-placeholder-count="3">
+<span class="{{c.cls}}">
+<sc-if value="{{c.cam}}" hint-placeholder-val="{{false}}"><b><i class="rec"></i>REC</b></sc-if>
+<sc-if value="{{c.bars}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: flex-end; gap: 4px; height: 30px; margin: auto"><i class="wf" style="height: 30%"></i><i class="wf" style="height: 55%; animation-delay: .2s"></i><i class="wf" style="height: 78%; animation-delay: .4s"></i><i class="wf" style="height: 100%; animation-delay: .6s"></i></span></sc-if>
+<sc-if value="{{c.ring}}" hint-placeholder-val="{{false}}"><span class="rg"><i></i></span></sc-if>
+<em>{{c.label}}</em>
+</span>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{v.isSw}}" hint-placeholder-val="{{false}}">
+<div style="height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 4px 14px">
+<span class="vr"><span>Światło w salonie</span><i class="sw"></i></span>
+<span class="vr"><span>Rolety</span><i class="sw" style="animation-delay: 1.2s"></i></span>
+<span class="vr" style="border: none"><span>Nagłośnienie sali</span><span style="display: flex; align-items: flex-end; gap: 3px; height: 16px; width: 54px"><i class="eq" style="height: 50%"></i><i class="eq" style="height: 90%; animation-delay: .2s"></i><i class="eq" style="height: 65%; animation-delay: .4s"></i><i class="eq" style="height: 100%; animation-delay: .6s"></i><i class="eq" style="height: 55%; animation-delay: .8s"></i><i class="eq" style="height: 80%; animation-delay: 1s"></i></span></span>
+</div>
+</sc-if>
+<sc-if value="{{v.isWeb}}" hint-placeholder-val="{{false}}">
+<div style="height: 100%; display: flex; flex-direction: column">
+<span style="display: flex; gap: 5px; align-items: center; padding: 8px 12px; border-bottom: 1px solid rgba(var(--r-w),.1)"><i class="dt"></i><i class="dt"></i><i class="dt"></i><span style="flex: 1; height: 12px; margin-left: 8px; border-radius: 6px; background: rgba(var(--r-w),.1)"></span></span>
+<span style="flex: 1; display: flex; gap: 12px; padding: 10px 12px; align-items: center; min-height: 0">
+<span style="flex: 1.4; display: flex; flex-direction: column; gap: 7px"><i class="sk" style="height: 12px; width: 88%; background: var(--k-white); opacity: .9"></i><i class="sk" style="height: 6px; width: 100%"></i><i class="sk" style="height: 6px; width: 70%"></i><i style="height: 18px; width: 64px; border-radius: 6px; background: var(--c); margin-top: 3px"></i></span>
+<span style="flex: 1; align-self: stretch; border-radius: 10px; background: color-mix(in srgb, var(--c) 22%, transparent); display: flex; align-items: flex-end; gap: 4px; padding: 8px"><i class="eq" style="height: 40%"></i><i class="eq" style="height: 62%; animation-delay: .3s"></i><i class="eq" style="height: 50%; animation-delay: .6s"></i><i class="eq" style="height: 90%; animation-delay: .9s"></i></span>
+</span>
+</div>
+</sc-if>
+<sc-if value="{{v.isKan}}" hint-placeholder-val="{{false}}">
+<div style="height: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 10px; box-sizing: border-box">
+<span class="kc"><em>Nowe</em><i class="kd"></i><i class="kd" style="width: 70%"></i></span>
+<span class="kc"><em>W toku</em><i class="kd on"></i><i class="kd"></i></span>
+<span class="kc"><em>Gotowe</em><i class="kd" style="width: 80%"></i></span>
+</div>
+</sc-if>
+<sc-if value="{{v.isFlow}}" hint-placeholder-val="{{false}}">
+<div style="height: 100%; display: flex; align-items: center; gap: 0; padding: 0 12px">
+<span class="fn">Formularz</span><i class="fl"></i><span class="fn" style="background: var(--c); color: {{t.ink}}; border-color: transparent">Twój system</span><i class="fl" style="--d: .9s"></i><span class="fn">SMS i e-mail</span>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{t.isT}}" hint-placeholder-val="{{false}}">
+<div aria-hidden="true" style="display: flex; flex-direction: column; gap: 5px">
+<span style="display: flex; gap: 4px"><i class="stp on"></i><i class="stp on"></i><i class="stp now"></i><i class="stp"></i></span>
+<span style="display: flex; justify-content: space-between; font-size: 10.5px; font-weight: 700; color: rgba(var(--r-w),.6)"><span>Przyjęte</span><span>Diagnoza</span><span style="color: {{t.ct}}">Naprawa</span><span>Odbiór</span></span>
+</div>
+</sc-if>
+<sc-if value="{{t.isG}}" hint-placeholder-val="{{false}}">
+<div aria-hidden="true" style="display: flex; align-items: flex-end; gap: 3px; height: 30px">
+<i class="eq" style="height: 45%; animation-delay: 0s"></i><i class="eq" style="height: 70%; animation-delay: .15s"></i><i class="eq" style="height: 55%; animation-delay: .3s"></i><i class="eq" style="height: 90%; animation-delay: .45s"></i><i class="eq" style="height: 65%; animation-delay: .6s"></i><i class="eq" style="height: 100%; animation-delay: .75s"></i><i class="eq" style="height: 60%; animation-delay: .9s"></i><i class="eq" style="height: 82%; animation-delay: 1.05s"></i><i class="eq" style="height: 50%; animation-delay: 1.2s"></i><i class="eq" style="height: 74%; animation-delay: 1.35s"></i><i class="eq" style="height: 95%; animation-delay: 1.5s"></i><i class="eq" style="height: 58%; animation-delay: 1.65s"></i>
+<span class="d" style="margin-left: auto; font-size: 11px; letter-spacing: .14em; color: {{t.ct}}">KLATKI W GRACH</span>
+</div>
+</sc-if>
+
+<div style="position: relative; flex: none; height: {{t.sh}}; margin-top: {{t.smt}}">
+<sc-for list="{{t.slides}}" as="s" hint-placeholder-count="3">
+<a href="{{t.url}}" class="hsl" aria-hidden="{{s.hidden}}" tabindex="{{s.tab}}" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; color: var(--k-white); opacity: {{s.o}}; transform: {{s.tf}}; pointer-events: {{s.pe}}">
+<span class="d" style="font-size: {{t.fs}}; line-height: 1.02; letter-spacing: -.025em">{{s.t}}</span>
+<sc-if value="{{t.big}}" hint-placeholder-val="{{true}}"><span class="hsd" style="font-size: 13.5px; line-height: 1.4; font-weight: 600; color: rgba(var(--r-w),.72)">{{s.d}}</span></sc-if>
+</a>
+</sc-for>
+</div>
+
+<sc-if value="{{t.big}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="flex: 1; display: flex; gap: 5px">
+<sc-for list="{{t.segs}}" as="g" hint-placeholder-count="3">
+<button type="button" aria-label="{{g.label}}" onClick="{{g.go}}" style="flex: 1; height: 16px; padding: 6px 0; border: none; background: transparent; cursor: pointer; transform: none"><span style="display: block; height: 4px; border-radius: 4px; background: rgba(var(--r-w),.16); overflow: hidden"><span style="display: block; height: 100%; width: {{g.w}}; background: {{t.cd}}; transition: width {{g.dur}} linear"></span></span></button>
+</sc-for>
+</span>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+
+<!-- liczby -->
+<div class="hcn" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 0; border-top: 1px solid rgba(var(--r-w),.12); margin-top: 6px">
+<div style="padding: 20px 20px 0 0; display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 48px; font-variant-numeric: tabular-nums">{{cnt.a}}</span><span style="font-size: 14.5px; color: var(--k-ink3)">rok założenia firmy</span></div>
+<div style="padding: 20px 20px 0 0; display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 48px; font-variant-numeric: tabular-nums">{{cnt.b}}</span><span style="font-size: 14.5px; color: var(--k-ink3)">linii pod jednym szyldem</span></div>
+<div style="padding: 20px 20px 0 0; display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 48px; font-variant-numeric: tabular-nums">{{cnt.c}}</span><span style="font-size: 14.5px; color: var(--k-ink3)">klientów firmowych</span></div>
+<div style="padding: 20px 0 0 0; display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 48px; font-variant-numeric: tabular-nums">{{cnt.d}}</span><span style="font-size: 14.5px; color: var(--k-ink3)">autoryzacje: Posnet, Elzab, GoPOS, InsERT</span></div>
+</div>
+</div>
+</section>
+
+<!-- PASEK ZAUFANIA -->
+<div aria-label="Autoryzacje i fakty" class="mqw" style="border-top: 1px solid rgba(var(--r-w),.1); border-bottom: 1px solid rgba(var(--r-w),.1); overflow: hidden; padding: 20px 0">
+<div class="mq" style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 16px; letter-spacing: -.01em; color: var(--k-ink)">
+<sc-for list="{{marquee}}" as="m" hint-placeholder-count="12">
+<a class="mqi" href="{{m.url}}" style="--c: {{m.c}}; color: inherit"><span class="mqc" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{m.d}}"></path></svg></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font: 700 11px Manrope, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: {{m.c}}">{{m.k}}</span><span>{{m.t}}</span></span><span aria-hidden="true" class="mqa">↗</span></a>
+</sc-for>
+</div>
+</div>
+
+<!-- LINIE: SCENY -->
+<div id="linie" style="max-width: 1560px; margin: 0 auto; padding: 64px clamp(20px, 3vw, 48px) 18px; display: flex; flex-wrap: wrap; gap: 14px 24px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span class="eb" style="color: var(--k-gt)">Linie PRO-KOM</span>
+<h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Wszystkie linie <span style="white-space: nowrap">PRO-KOM</span></h2>
+<p style="font-size: 16px; line-height: 1.55; color: var(--k-ink2); max-width: 640px">Pięć linii, każda ze swoim zespołem, numerem i stroną. Kliknij linię albo poczekaj — przewiną się same.</p>
+</div>
+<span style="display: flex; gap: 8px; align-items: center"><a class="bx" href="Linie.dc.html" style="height: 46px; padding: 0 18px; border-radius: 999px; border: 1.5px solid rgba(var(--r-w),.22); font-weight: 800; font-size: 14px; display: flex; align-items: center">Co gdzie załatwisz →</a><button type="button" aria-label="Poprzednia linia" onClick="{{lprev}}" class="bx" style="width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(var(--r-w),.22); background: transparent; color: var(--k-ink); font-size: 16px; cursor: pointer">←</button><button type="button" aria-label="Następna linia" onClick="{{lnext}}" class="bx" style="width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(var(--r-w),.22); background: transparent; color: var(--k-ink); font-size: 16px; cursor: pointer">→</button></span>
+</div>
+
+<section id="linie-scena" onMouseEnter="{{lOn}}" onMouseLeave="{{lOff}}" style="max-width: 1560px; margin: 0 auto; padding: 0 clamp(20px, 3vw, 48px); display: flex; flex-direction: column; gap: 14px">
+<span id="gaming" aria-hidden="true"></span>
+<div role="tablist" aria-label="Linie PRO-KOM" class="lr">
+<sc-for list="{{ltabs}}" as="t" hint-placeholder-count="5">
+<button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" class="lt" style="--c: {{t.cd}}; background: {{t.bg}}; border-color: {{t.bd}}; color: var(--k-white)">
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span class="d" style="font-size: 11px; display: flex; align-items: center; gap: 2px; letter-spacing: 0; opacity: .7">PRO<span style="width: 5px; height: 2px; display: block; background: {{t.cd}}"></span>KOM</span><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: {{t.cd}}; opacity: {{t.dot}}; transition: opacity .4s"></span></span>
+<span class="d" style="font-size: clamp(15px, 1.3vw, 19px); letter-spacing: -.02em; text-align: left">{{t.name}}</span>
+<span class="lsh" style="font-size: 12.5px; line-height: 1.3; color: rgba(var(--r-w),.62); text-align: left; font-weight: 600">{{t.short}}</span>
+<span aria-hidden="true" class="lpt"><i class="{{t.pcls}}" style="background: {{t.cd}}; animation-play-state: {{t.play}}"></i></span>
+</button>
+</sc-for>
+</div>
+<div class="{{L.cls}}" role="tabpanel" style="--c: {{L.cd}}; background: {{L.dark}}; border: 1px solid color-mix(in srgb, {{L.cd}} 30%, transparent); border-radius: 32px; padding: clamp(22px, 2.4vw, 36px); display: flex; flex-wrap: wrap; gap: 18px clamp(28px, 3.4vw, 56px); align-items: center; color: var(--k-white); position: relative; overflow: hidden">
+<sc-if value="{{L.isLine}}" hint-placeholder-val="{{true}}">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<span style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
+<span style="display: flex; flex-direction: column; gap: 6px">
+<span class="d" style="font-size: 26px; display: flex; align-items: center; gap: 4px; letter-spacing: -.02em; white-space: nowrap">PRO<span style="width: 12px; height: 4px; display: block; background: {{L.cd}}"></span>KOM</span>
+<span class="d" style="font-size: 13px; letter-spacing: .2em; color: {{L.ct}}">{{L.label}}</span>
+</span>
+<a class="bx" href="{{L.url}}" style="height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, {{L.cd}} 60%, transparent); background: color-mix(in srgb, {{L.cd}} 14%, transparent); color: var(--k-white); font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 8px"><i class="rec" style="display: block; width: 7px; height: 7px; border-radius: 50%; background: {{L.cd}}"></i>{{L.domain}} ↗</a>
+</span>
+<h2 class="d" style="font-size: clamp(28px, 3vw, 46px); line-height: 1; text-wrap: balance">{{L.h2}}</h2>
+<p style="font-size: 16px; line-height: 1.55; color: rgba(var(--r-w),.82); max-width: 560px">{{L.lead}}</p>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{L.facts}}" as="fx" hint-placeholder-count="3">
+<li class="lfx" style="--c: {{L.cd}}"><span class="lfi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></span>{{fx.t}}</li>
+</sc-for>
+</ul>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 4px">
+<a class="bx" href="{{L.url}}" style="height: 52px; padding: 0 24px; border-radius: 16px; background: {{L.cd}}; color: {{L.ink}}; font-weight: 800; font-size: 16px; display: flex; align-items: center">{{L.cta}} ↗</a>
+<a href="{{L.telHref}}" class="bx d" style="height: 52px; padding: 0 20px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-size: 18px; letter-spacing: 0; display: flex; align-items: center">{{L.phone}}</a>
+</div>
+<p style="font-size: 13.5px; line-height: 1.45; color: rgba(var(--r-w),.7)"><strong style="color: {{L.ct}}">Dla kogo:</strong> {{L.who}}</p>
+</div>
+
+<div style="flex: 1.3 1 540px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<sc-if value="{{L.isBiznes}}" hint-placeholder-val="{{false}}">
+<div aria-hidden="true" class="pn sm" style="padding: 4px 20px">
+<span style="display: flex; justify-content: space-between; font-size: 12px; color: var(--k-bt); font-weight: 800; letter-spacing: .12em; padding: 12px 0">TWOJA FIRMA<span>STAN</span></span>
+<span class="vr big"><span>Kasa fiskalna</span><span class="vp"><i class="rec"></i>zafiskalizowana</span></span>
+<span class="vr big"><span>GoPOS na sali i w kuchni</span><span class="vp"><i class="rec" style="animation-delay: .4s"></i>wdrożony</span></span>
+<span class="vr big"><span>Subiekt i e-faktury KSeF</span><span class="vp"><i class="rec" style="animation-delay: .8s"></i>skonfigurowany</span></span>
+<span class="vr big" style="border: none"><span>Komputery i kopie zapasowe</span><span class="vp"><i class="rec" style="animation-delay: 1.2s"></i>pod opieką</span></span>
+</div>
+</sc-if>
+<sc-if value="{{L.isInst}}" hint-placeholder-val="{{false}}">
+<div class="pn" style="display: grid; grid-template-columns: {{camCols}}; gap: 8px; padding: 8px; height: 148px; transition: grid-template-columns .6s cubic-bezier(.2,.8,.2,1)">
+<sc-for list="{{cams}}" as="x" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{x.on}}" aria-label="{{x.aria}}" onClick="{{x.pick}}" class="{{x.cls}}" style="border: 1px solid {{x.bd}}; color: inherit; cursor: pointer; padding: 0; font: inherit; transform: none; min-width: 0">
+<sc-if value="{{x.cam}}" hint-placeholder-val="{{true}}"><b><i class="rec"></i>REC</b></sc-if>
+<sc-if value="{{x.wifi}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: flex-end; gap: 5px; height: 46px; margin: auto"><i class="wf" style="width: 8px; height: 30%"></i><i class="wf" style="width: 8px; height: 55%; animation-delay: .2s"></i><i class="wf" style="width: 8px; height: 78%; animation-delay: .4s"></i><i class="wf" style="width: 8px; height: 100%; animation-delay: .6s"></i></span></sc-if>
+<em>{{x.label}}</em>
+</button>
+</sc-for>
+</div>
+<span style="font-size: 14px; color: rgba(var(--r-w),.72); margin-top: -4px">{{camNote}}</span>
+</sc-if>
+<sc-if value="{{L.isSoft}}" hint-placeholder-val="{{false}}">
+<div aria-hidden="true" style="display: flex; gap: 12px; align-items: flex-end">
+<span class="pn" style="flex: 1; display: flex; flex-direction: column">
+<span style="height: 30px; display: flex; gap: 6px; align-items: center; padding: 0 12px; border-bottom: 1px solid rgba(var(--r-w),.1)"><span style="width: 8px; height: 8px; border-radius: 50%; background: rgba(var(--r-w),.25)"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: rgba(var(--r-w),.25)"></span><span style="flex: 1; height: 10px; border-radius: 5px; background: rgba(var(--r-w),.1); margin-left: 8px"></span></span>
+<span style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px"><span style="width: 70%; height: 18px; border-radius: 4px; background: var(--k-white)"></span><span class="sk" style="width: 90%; height: 8px"></span><span class="sk" style="width: 60%; height: 8px"></span><span style="display: flex; gap: 8px; margin-top: 8px"><span style="width: 96px; height: 28px; border-radius: 8px; background: var(--k-s)"></span><span style="width: 70px; height: 28px; border-radius: 8px; border: 1px solid rgba(var(--r-w),.3)"></span></span></span>
+</span>
+<span class="pn" style="width: 80px; height: 148px; border-radius: 20px; padding: 12px 10px; display: flex; flex-direction: column; gap: 8px"><span style="height: 12px; width: 60%; border-radius: 4px; background: var(--k-white)"></span><span style="height: 36px; border-radius: 8px; background: color-mix(in srgb, var(--k-s) 40%, transparent)"></span><span style="height: 36px; border-radius: 8px; background: rgba(var(--r-w),.1)"></span><span style="height: 24px; border-radius: 8px; background: var(--k-s); margin-top: auto"></span></span>
+</div>
+</sc-if>
+<sc-if value="{{L.isTech}}" hint-placeholder-val="{{false}}">
+<div class="pn" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+<span style="display: flex; justify-content: space-between; font-size: 12px; color: var(--k-tt); font-weight: 800; letter-spacing: .12em">STATUS NAPRAWY · KLIKNIJ ETAP<span style="display: flex; gap: 6px; align-items: center"><i class="rec" style="display: block; width: 7px; height: 7px; border-radius: 50%; background: var(--c)"></i>ONLINE</span></span>
+<span role="group" aria-label="Etapy naprawy" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{tsteps}}" as="x" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{x.on}}" onClick="{{x.pick}}" style="display: flex; flex-direction: column; gap: 9px; padding: 0 0 4px; border: none; background: transparent; color: {{x.ink}}; cursor: pointer; text-align: left; font: 700 14px Manrope, sans-serif; transform: none"><span style="display: block; height: 8px; border-radius: 4px; background: {{x.bar}}; transition: background-color .5s"></span>{{x.name}}</button>
+</sc-for>
+</span>
+<span style="font-size: 14.5px; line-height: 1.5; color: rgba(var(--r-w),.82); min-height: 44px">{{tstep.text}}</span>
+</div>
+</sc-if>
+<sc-if value="{{L.isGame}}" hint-placeholder-val="{{false}}">
+<div aria-hidden="true" class="pn" style="height: 148px; display: flex; flex-direction: column; justify-content: space-between; padding: 14px 18px">
+<span style="display: flex; justify-content: space-between; font-size: 12px; color: var(--k-y); font-weight: 800; letter-spacing: .12em">KLATKI MIERZONE W GRACH<span style="display: flex; gap: 6px; align-items: center"><i class="rec" style="display: block; width: 7px; height: 7px; border-radius: 50%; background: var(--c)"></i>TEST</span></span>
+<span style="display: flex; align-items: flex-end; gap: 5px; height: 84px"><i class="eq" style="display: block; max-width: 16px; height: 45%; animation-delay: 0.00s"></i><i class="eq" style="display: block; max-width: 16px; height: 70%; animation-delay: 0.12s"></i><i class="eq" style="display: block; max-width: 16px; height: 55%; animation-delay: 0.24s"></i><i class="eq" style="display: block; max-width: 16px; height: 90%; animation-delay: 0.36s"></i><i class="eq" style="display: block; max-width: 16px; height: 65%; animation-delay: 0.48s"></i><i class="eq" style="display: block; max-width: 16px; height: 100%; animation-delay: 0.60s"></i><i class="eq" style="display: block; max-width: 16px; height: 60%; animation-delay: 0.72s"></i><i class="eq" style="display: block; max-width: 16px; height: 82%; animation-delay: 0.84s"></i><i class="eq" style="display: block; max-width: 16px; height: 50%; animation-delay: 0.96s"></i><i class="eq" style="display: block; max-width: 16px; height: 74%; animation-delay: 1.08s"></i><i class="eq" style="display: block; max-width: 16px; height: 95%; animation-delay: 1.20s"></i><i class="eq" style="display: block; max-width: 16px; height: 58%; animation-delay: 1.32s"></i><i class="eq" style="display: block; max-width: 16px; height: 80%; animation-delay: 1.44s"></i><i class="eq" style="display: block; max-width: 16px; height: 66%; animation-delay: 1.56s"></i><i class="eq" style="display: block; max-width: 16px; height: 88%; animation-delay: 1.68s"></i><i class="eq" style="display: block; max-width: 16px; height: 52%; animation-delay: 1.80s"></i><i class="eq" style="display: block; max-width: 16px; height: 76%; animation-delay: 1.92s"></i><i class="eq" style="display: block; max-width: 16px; height: 98%; animation-delay: 2.04s"></i><i class="eq" style="display: block; max-width: 16px; height: 62%; animation-delay: 2.16s"></i><i class="eq" style="display: block; max-width: 16px; height: 84%; animation-delay: 2.28s"></i></span>
+</div>
+</sc-if>
+<div class="ig">
+<sc-for list="{{L.items}}" as="it" hint-placeholder-count="6">
+<a href="{{L.url}}" class="it svc" style="--c: {{L.cd}}; color: var(--k-white)">
+<span class="svi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{it.ic}}"/></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px; min-width: 0"><span class="d" style="font-size: 15px; letter-spacing: -.01em; line-height: 1.1">{{it.t}}</span><span class="idd" style="font-size: 12.5px; line-height: 1.35; color: rgba(var(--r-w),.7)">{{it.d}}</span></span>
+</a>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
+<span style="font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: {{L.ct}}; padding-right: 4px">Także</span>
+<sc-for list="{{L.more}}" as="m" hint-placeholder-count="5"><a href="{{L.url}}" class="mch" style="--c: {{L.cd}}; color: var(--k-white)">{{m.t}}</a></sc-for>
+</div>
+</div>
+<div style="flex: 1 1 100%; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid rgba(var(--r-w),.1)">
+<ol class="ss" aria-label="Jak zaczynamy" style="flex: 2 1 560px; margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center">
+<sc-for list="{{L.steps}}" as="x" hint-placeholder-count="3">
+<li style="display: flex; align-items: center; gap: 10px; flex: 1 1 200px; min-width: 0"><span class="d" style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: color-mix(in srgb, {{L.cd}} 18%, transparent); color: {{L.ct}}; display: flex; align-items: center; justify-content: center; font-size: 11.5px; letter-spacing: 0">{{x.n}}</span><span style="font-size: 14px; font-weight: 700; line-height: 1.3">{{x.t}}</span><span aria-hidden="true" class="sar" style="margin-left: auto; color: {{L.ct}}; font-weight: 800">→</span></li>
+</sc-for>
+</ol>
+<span style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center"><span style="font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: rgba(var(--r-w),.6)">Online</span><sc-for list="{{L.tools}}" as="m" hint-placeholder-count="2"><a href="{{L.url}}" class="mch" style="--c: {{L.cd}}; color: {{L.ink}}; background: {{L.cd}}; border-color: {{L.cd}}">{{m.title}} ↗</a></sc-for></span>
+</div>
+</sc-if>
+<sc-if value="{{L.isTeam}}" hint-placeholder-val="{{false}}">
+<div style="flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; flex-direction: column; gap: 6px; align-self: flex-start"><span class="d" style="font-size: 24px; display: flex; align-items: center; gap: 4px; letter-spacing: -.02em; white-space: nowrap">PRO<span style="width: 11px; height: 4px; display: block; background: var(--k-g)"></span>KOM</span><span class="d" style="font-size: 13px; letter-spacing: .18em; color: var(--k-gt)">TAK PRACUJĄ RAZEM</span></span>
+<h2 class="d" style="font-size: clamp(24px, 2.5vw, 38px); text-wrap: balance">Jeden klient. Kilka linii. Jeden telefon.</h2>
+<p style="font-size: 15.5px; line-height: 1.5; color: rgba(var(--r-w),.82); max-width: 540px">Większość klientów potrzebuje więcej niż jednej rzeczy. Zobacz na przykładzie, jak linie PRO-KOM składają się na jedną obsługę — zespoły ustalają szczegóły między sobą, nie przez Ciebie.</p>
+<div role="group" aria-label="Wybierz przykład" style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{team.tabs}}" as="x" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{x.on}}" onClick="{{x.pick}}" class="bx" style="height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid {{x.bd}}; background: {{x.bg}}; color: {{x.ink}}; font: 800 15px Manrope, sans-serif; cursor: pointer">{{x.name}}</button>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 6px">
+<a class="bx d" href="tel:+48883200151" style="height: 50px; padding: 0 22px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-size: 17px; letter-spacing: 0; display: flex; align-items: center">883 200 151</a>
+<a class="bx" href="#dobierz" style="height: 50px; padding: 0 18px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 15px; display: flex; align-items: center">Dobierz dla swojej branży</a>
+</div>
+<span style="font-size: 14px; color: rgba(var(--r-w),.72); display: flex; gap: 10px; align-items: center"><span style="width: 18px; height: 4px; background: var(--k-g)"></span>Dzwonisz raz — łączymy Cię z właściwymi zespołami.</span>
+</div>
+<div class="tw" style="flex: 1.3 1 520px; min-width: 0">
+<div class="th">
+<span aria-hidden="true" class="thi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4zM10 20v-6h4v6"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px; min-width: 0"><span style="font-size: 11.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--k-gt)">{{team.node}}</span><span class="d" style="font-size: clamp(18px, 1.6vw, 24px); letter-spacing: -.02em; text-wrap: balance">{{team.title}}</span></span>
+</div>
+<sc-for list="{{team.cards}}" as="c" hint-placeholder-count="3">
+<a href="{{c.url}}" class="tc" style="--c: {{c.cd}}; background: {{c.dark}}; border: 1px solid color-mix(in srgb, {{c.cd}} 26%, transparent); color: var(--k-white); animation-delay: {{c.delay}}">
+<span style="display: flex; flex-direction: column; gap: 3px; flex: none; width: 112px"><span class="d" style="font-size: 16px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em">PRO<span style="width: 7px; height: 3px; display: block; background: {{c.cd}}"></span>KOM</span><span class="d" style="font-size: 10px; letter-spacing: .18em; color: {{c.ct}}">{{c.label}}</span></span>
+<span style="flex: 1 1 220px; min-width: 0; display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{c.items}}" as="it" hint-placeholder-count="3"><span class="tch">{{it}}</span></sc-for>
+</span>
+<span class="tph d">{{c.phone}}<i aria-hidden="true">↗</i></span>
+</a>
+</sc-for>
+<div class="te">
+<span><i style="background: var(--k-g)"></i>Jedna firma</span><span><i style="background: var(--k-g)"></i>Jeden adres w Rabce-Zdroju</span><span><i style="background: var(--k-g)"></i>Jeden numer na start: 883 200 151</span>
+</div>
+</div>
+</sc-if>
+</div>
+</section>
+
+<!-- DOBIERZ -->
+<section id="dobierz" style="max-width: 1560px; margin: 0 auto; padding: 96px clamp(20px, 3vw, 48px) 88px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<span class="eb" style="color: var(--k-gt)">Dobierz · 10 sekund</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Wybierz, co jest najbliżej Ciebie.</h2>
+</div>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); max-width: 380px">Dwanaście najczęstszych sytuacji i kafel dla całej reszty — bo obsługujemy każdą firmę i każdy dom. Jedno kliknięcie i widzisz, które linie PRO-KOM się Tobą zajmą i od czego zwykle zaczynamy.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch">
+<div role="group" aria-label="Kim jesteś" style="flex: 1 1 340px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; align-content: start">
+<sc-for list="{{personas}}" as="p" hint-placeholder-count="12">
+<button onClick="{{p.pick}}" aria-pressed="{{p.on}}" class="pt" style="min-height: 92px; border-radius: 20px; border: 1.5px solid {{p.bd}}; background: {{p.bg}}; color: {{p.ink}}; padding: 14px 16px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; gap: 6px"><span style="font-size: 12px; font-weight: 800; letter-spacing: .1em; opacity: .7">{{p.n}}</span><span style="display: flex; flex-direction: column; gap: 3px"><span class="d" style="font-size: 18px; letter-spacing: -.01em">{{p.name}}</span><span style="font-size: 12.5px; font-weight: 600; opacity: .72">{{p.sub}}</span></span></button>
+</sc-for>
+<button onClick="{{inne.pick}}" aria-pressed="{{inne.on}}" class="pt ring" style="grid-column: 1 / -1; min-height: 124px; border-radius: 24px; color: var(--k-ink); padding: 18px 20px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; position: relative; overflow: hidden; box-shadow: 0 0 0 2px {{inne.bd}}">
+<span style="display: flex; justify-content: space-between; align-items: center; position: relative"><span style="display: flex; gap: 5px"><span style="width: 18px; height: 5px; background: var(--k-b)"></span><span style="width: 18px; height: 5px; background: var(--k-i)"></span><span style="width: 18px; height: 5px; background: var(--k-s)"></span><span style="width: 18px; height: 5px; background: var(--k-t)"></span><span style="width: 18px; height: 5px; background: var(--k-y)"></span></span><span style="font-size: 12px; font-weight: 800; letter-spacing: .1em; opacity: .7">WSZYSTKIE LINIE</span></span>
+<span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; position: relative"><span style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 23px; letter-spacing: -.02em">Inna branża? Też.</span><span style="font-size: 13.5px; font-weight: 600; color: var(--k-ink2)">Obsługujemy każdą firmę, instytucję i dom.</span></span><span aria-hidden="true" style="width: 40px; height: 40px; flex: none; border-radius: 50%; background: var(--k-g); color: var(--k-gi); display: flex; align-items: center; justify-content: center; font-weight: 800">→</span></span>
+</button>
+</div>
+<div style="flex: 2.2 1 620px; min-width: 0; border-radius: 30px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.12); padding: 36px; display: flex; flex-direction: column; gap: 26px; position: relative; overflow: hidden">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--k-g)"></span>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: flex-start">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="eb" style="color: var(--k-ink3)">Plan dla: {{plan.name}}</span>
+<h3 class="d" style="font-size: 34px; max-width: 560px">{{plan.title}}</h3>
+</div>
+<span class="d" style="font-size: 15px; letter-spacing: .04em; padding: 10px 16px; border-radius: 999px; background: var(--k-g); color: var(--k-gi); white-space: nowrap">{{plan.count}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr)); gap: 14px">
+<sc-for list="{{plan.groups}}" as="g" hint-placeholder-count="3">
+<a href="{{g.url}}" class="tl lift" style="--c: {{g.cd}}; border-radius: 24px; background: {{g.dark}}; border: 1px solid color-mix(in srgb, {{g.cd}} 38%, transparent); padding: 22px 20px 18px; display: flex; flex-direction: column; gap: 14px; min-height: 250px; position: relative; overflow: hidden; color: var(--k-white)">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 4px; background: {{g.cd}}"></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span class="d" style="font-size: 17px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em; white-space: nowrap">PRO<span style="width: 8px; height: 3px; display: block; background: {{g.cd}}"></span>KOM</span><span class="d" style="font-size: 10px; letter-spacing: .18em; color: {{g.ct}}">{{g.label}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 10px; font-size: 15px; font-weight: 600; line-height: 1.35">
+<sc-for list="{{g.items}}" as="it" hint-placeholder-count="3">
+<span style="display: flex; gap: 10px"><span style="width: 6px; height: 6px; border-radius: 50%; flex: none; margin-top: 7px; background: {{g.cd}}"></span>{{it}}</span>
+</sc-for>
+</span>
+<span style="margin-top: auto; align-self: flex-start; height: 34px; padding: 0 13px; border-radius: 999px; background: {{g.cd}}; color: {{g.ink}}; display: flex; align-items: center; font-weight: 800; font-size: 12.5px">{{g.domain}} ↗</span>
+</a>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; border-top: 1px solid rgba(var(--r-w),.1); padding-top: 22px">
+<a class="bx" href="tel:+48883200151" style="height: 56px; padding: 0 24px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 16px; display: flex; align-items: center">Zadzwoń raz: 883 200 151</a>
+<a class="bx" href="Kontakt.dc.html" style="height: 56px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 16px; display: flex; align-items: center">Napisz, o co chodzi</a>
+<span style="font-size: 14px; color: var(--k-ink3)">Połączymy Cię z właściwymi zespołami.</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- NARZĘDZIA -->
+<section id="narzedzia" style="max-width: 1560px; margin: 0 auto; padding: 96px clamp(20px, 3vw, 48px) 0; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 780px">
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Załatw to od razu. Bez&nbsp;dzwonienia.</h2>
+</div>
+<p style="font-size: 16px; line-height: 1.55; color: var(--k-ink2); max-width: 460px">Każda linia ma swoje narzędzia online. Dwa najczęściej używane z każdej — obok siebie.</p>
+</div>
+<div class="tgg">
+<sc-for list="{{tgroups}}" as="g" hint-placeholder-count="5">
+<div class="tgr" style="--c: {{g.cd}}; background: {{g.dark}}">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 3px; background: {{g.cd}}"></span>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px 16px; flex-wrap: wrap; padding: 4px 4px 0">
+<span style="display: flex; align-items: center; gap: 14px"><span style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 20px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em; white-space: nowrap; color: var(--k-white)">PRO<span style="width: 9px; height: 3px; display: block; background: {{g.cd}}"></span>KOM</span><span class="d" style="font-size: 11px; letter-spacing: .2em; color: {{g.ct}}">{{g.label}}</span></span><span style="width: 1px; height: 30px; background: rgba(var(--r-w),.14)"></span><span style="font-size: 13.5px; font-weight: 700; color: rgba(var(--r-w),.78)">{{g.promise}}</span></span>
+<a href="{{g.url}}" class="bx" style="height: 34px; padding: 0 13px; border-radius: 999px; border: 1px solid color-mix(in srgb, {{g.cd}} 55%, transparent); color: var(--k-white); font-weight: 800; font-size: 12.5px; display: flex; align-items: center; gap: 7px"><i class="rec" style="display: block; width: 6px; height: 6px; border-radius: 50%; background: {{g.cd}}"></i>{{g.domain}} ↗</a>
+</div>
+<div class="tgi">
+<sc-for list="{{g.tools}}" as="t" hint-placeholder-count="2">
+<a href="{{t.url}}" class="tlc" style="--c: {{t.cd}}">
+<sc-if value="{{t.isB}}" hint-placeholder-val="{{false}}"><span class="vg tv" style="display: flex; flex-direction: column; justify-content: center; padding: 2px 14px"><span class="vr"><span>Kasa fiskalna</span><span class="vp"><i class="rec"></i>działa</span></span><span class="vr" style="border: none"><span>Komputery i kopie</span><span class="vp"><i class="rec" style="animation-delay: .5s"></i>pod opieką</span></span></span></sc-if>
+<sc-if value="{{t.isI}}" hint-placeholder-val="{{false}}"><span class="vg tv" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; padding: 8px"><span class="cam"><b><i class="rec"></i>REC</b><em>Wejście</em></span><span class="cam"><b><i class="rec" style="animation-delay: .6s"></i>REC</b><em>Parking</em></span><span class="cam" style="align-items: center; justify-content: center; background: color-mix(in srgb, var(--c) 16%, transparent)"><span style="display: flex; align-items: flex-end; gap: 4px; height: 30px"><i class="wf" style="height: 30%"></i><i class="wf" style="height: 55%; animation-delay: .2s"></i><i class="wf" style="height: 78%; animation-delay: .4s"></i><i class="wf" style="height: 100%; animation-delay: .6s"></i></span></span></span></sc-if>
+<sc-if value="{{t.isS}}" hint-placeholder-val="{{false}}"><span class="vg tv" style="display: flex; flex-direction: column; padding: 0"><span style="display: flex; gap: 5px; align-items: center; padding: 7px 12px; border-bottom: 1px solid rgba(var(--r-w),.1)"><i style="width: 7px; height: 7px; border-radius: 50%; background: rgba(var(--r-w),.25)"></i><i style="width: 7px; height: 7px; border-radius: 50%; background: rgba(var(--r-w),.25)"></i><span style="flex: 1; height: 10px; margin-left: 8px; border-radius: 6px; background: rgba(var(--r-w),.1)"></span></span><span style="flex: 1; display: flex; gap: 12px; padding: 10px 12px; align-items: center"><span style="flex: 1.4; display: flex; flex-direction: column; gap: 6px"><i class="sk" style="height: 10px; width: 86%; background: var(--k-white); opacity: .9"></i><i class="sk" style="height: 5px; width: 100%"></i><i style="height: 14px; width: 54px; border-radius: 5px; background: var(--c); margin-top: 2px"></i></span><span style="flex: 1; align-self: stretch; border-radius: 8px; background: color-mix(in srgb, var(--c) 22%, transparent); display: flex; align-items: flex-end; gap: 4px; padding: 6px"><i class="eq" style="height: 40%"></i><i class="eq" style="height: 62%; animation-delay: .3s"></i><i class="eq" style="height: 50%; animation-delay: .6s"></i><i class="eq" style="height: 90%; animation-delay: .9s"></i></span></span></span></sc-if>
+<sc-if value="{{t.isT}}" hint-placeholder-val="{{false}}"><span class="vg tv" style="display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 0 14px"><span style="display: flex; gap: 4px"><i class="stp on"></i><i class="stp on"></i><i class="stp now"></i><i class="stp"></i></span><span style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: rgba(var(--r-w),.6)"><span>Przyjęte</span><span>Diagnoza</span><span style="color: var(--c)">Naprawa</span><span>Odbiór</span></span></span></sc-if>
+<sc-if value="{{t.isG}}" hint-placeholder-val="{{false}}"><span class="vg tv" style="display: flex; align-items: flex-end; gap: 4px; padding: 12px 14px"><i class="eq" style="height: 45%"></i><i class="eq" style="height: 70%; animation-delay: .15s"></i><i class="eq" style="height: 55%; animation-delay: .3s"></i><i class="eq" style="height: 90%; animation-delay: .45s"></i><i class="eq" style="height: 65%; animation-delay: .6s"></i><i class="eq" style="height: 100%; animation-delay: .75s"></i><i class="eq" style="height: 60%; animation-delay: .9s"></i><i class="eq" style="height: 82%; animation-delay: 1.05s"></i><i class="eq" style="height: 50%; animation-delay: 1.2s"></i><i class="eq" style="height: 74%; animation-delay: 1.35s"></i><span class="d" style="margin-left: auto; align-self: center; font-size: 10.5px; letter-spacing: .14em; color: var(--c)">KLATKI W GRACH</span></span></sc-if>
+<sc-if value="{{t.alt}}" hint-placeholder-val="{{false}}"><span class="vg tv" style="display: grid; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 6px"><sc-for list="{{t.chk}}" as="c" hint-placeholder-count="3"><span class="ck" style="border-radius: 8px; background: rgba(var(--r-w),.06); border: 1px solid rgba(var(--r-w),.1); padding: 0 10px; display: flex; align-items: center; gap: 9px; min-width: 0"><b style="font: 800 11px Archivo, sans-serif; letter-spacing: .08em; color: {{t.ct}}">{{c.n}}</b><span style="font-size: 12.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{c.a}}</span><i style="margin-left: auto; width: 14px; height: 3px; border-radius: 2px; background: {{t.cd}}; display: block; flex: none"></i></span></sc-for></span></sc-if>
+<span style="display: flex; align-items: center; gap: 8px; margin-top: 2px"><span class="d" style="font-size: 20px; line-height: 1.05; letter-spacing: -.02em">{{t.title}}</span><span style="font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 999px; background: color-mix(in srgb, {{t.cd}} 22%, transparent); opacity: {{t.soonOp}}; white-space: nowrap">wkrótce</span></span>
+<span style="font-size: 13.5px; line-height: 1.45; color: rgba(var(--r-w),.72)">{{t.desc}}</span>
+<span class="tgo" style="margin-top: auto; align-self: flex-start; height: 34px; padding: 0 14px; border-radius: 999px; background: {{t.cd}}; color: {{t.ink}}; display: flex; align-items: center; gap: 6px; font-weight: 800; font-size: 12.5px">Otwórz <span class="tga">↗</span></span>
+</a>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<a href="Narzedzia.dc.html" class="tgr tgx" style="--c: var(--k-g); background: var(--k-card)">
+<span class="eb" style="color: var(--k-gt)">Załatw online · pięć linii</span>
+<span class="d" style="font-size: clamp(26px, 2.4vw, 36px); line-height: 1.02; color: var(--k-ink)">20 spraw załatwisz bez dzwonienia.</span>
+<span style="font-size: 15px; line-height: 1.55; color: var(--k-ink2); max-width: 440px">Zgłoszenia, statusy, wyceny, plany i konfiguratory ze wszystkich linii w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.</span>
+<span style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{tcount}}" as="c" hint-placeholder-count="5"><span style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid rgba(var(--r-w),.14); font-size: 13px; font-weight: 700; color: var(--k-ink)"><i style="width: 12px; height: 3px; border-radius: 2px; background: {{c.cd}}; display: block"></i>{{c.name}} <b style="color: var(--k-ink3)">{{c.n}}</b></span></sc-for>
+</span>
+<span class="tgo" style="margin-top: auto; align-self: flex-start; height: 48px; padding: 0 20px; border-radius: 14px; background: var(--k-g); color: var(--k-gi); display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 15px">Zobacz wszystkie narzędzia <span class="tga">→</span></span>
+</a>
+</div>
+</section>
+
+<!-- CO ZROBIĆ, GDY -->
+<section id="pomoc" style="max-width: 1560px; margin: 0 auto; padding: 96px clamp(20px, 3vw, 48px) 0; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 780px">
+<span class="eb" style="color: var(--k-gt)">Pomoc</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Co zrobić, gdy…</h2>
+</div>
+<a class="bx" href="Pomoc.dc.html" style="height: 52px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 15px; display: flex; align-items: center">Wszystkie sytuacje w Pomocy →</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch">
+<div role="group" aria-label="Sytuacje" style="flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{sits}}" as="x" hint-placeholder-count="6">
+<button onClick="{{x.pick}}" aria-pressed="{{x.on}}" class="pt" style="min-height: 64px; border-radius: 18px; border: 1.5px solid {{x.bd}}; background: {{x.bg}}; color: var(--k-ink); padding: 0 20px; text-align: left; display: flex; align-items: center; gap: 14px; font-size: 17px; font-weight: 700"><span style="width: 18px; height: 5px; flex: none; background: {{x.cd}}"></span>{{x.q}}</button>
+</sc-for>
+</div>
+<div class="acc-t" style="flex: 1.3 1 520px; min-width: 0; border-radius: 30px; background: {{sit.dark}}; border: 1px solid color-mix(in srgb, {{sit.cd}} 38%, transparent); padding: 36px; display: flex; flex-direction: column; gap: 22px; position: relative; overflow: hidden; color: var(--k-white)">
+<span aria-hidden="true" class="acc-t" style="position: absolute; left: 0; right: 0; top: 0; height: 4px; background: {{sit.cd}}"></span>
+<span class="eb" style="color: {{sit.ct}}; display: flex; gap: 10px; align-items: center"><span style="width: 18px; height: 5px; background: {{sit.cd}}"></span>To sprawa dla linii {{sit.line}}</span>
+<h3 class="d" style="font-size: 36px; max-width: 560px">{{sit.q}}</h3>
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{sit.steps}}" as="st" hint-placeholder-count="3">
+<span style="display: flex; gap: 18px; align-items: baseline; padding: 16px 0; border-top: 1px solid rgba(var(--r-w),.12)"><span class="d" style="font-size: 22px; color: {{sit.cd}}; letter-spacing: 0">{{st.n}}</span><span style="font-size: 17px; line-height: 1.5; font-weight: 600">{{st.t}}</span></span>
+</sc-for>
+</div>
+<div style="margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px; position: relative">
+<a href="{{sit.telHref}}" class="bx d" style="height: 56px; padding: 0 24px; border-radius: 16px; background: {{sit.cd}}; color: {{sit.ink}}; font-size: 19px; letter-spacing: 0; display: flex; align-items: center">{{sit.phone}}</a>
+<a class="bx" href="{{sit.url}}" style="height: 56px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 15px; display: flex; align-items: center">{{sit.domain}} ↗</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- WSPÓŁPRACA -->
+<section id="wspolpraca" style="max-width: 1560px; margin: 0 auto; padding: 96px clamp(20px, 3vw, 48px) 0">
+<div style="border-radius: 32px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: clamp(24px, 3vw, 48px); display: flex; flex-wrap: wrap; gap: 28px clamp(32px, 4vw, 72px); align-items: center">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<span class="eb" style="color: var(--k-gt)">Inwestycje i współpraca</span>
+<h2 class="d" style="font-size: clamp(32px, 3.8vw, 54px)">Projektujesz, budujesz albo zamawiasz więcej?</h2>
+<p style="font-size: 17px; line-height: 1.6; color: var(--k-ink2); max-width: 520px">Wchodzimy w projekt wcześnie, bierzemy cały zakres instalacji i dostarczamy sprzęt w większych ilościach — dla pracowni, inwestycji i instytucji.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><a class="bx" href="Dostawy.dc.html" style="height: 54px; padding: 0 24px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 16px; display: flex; align-items: center">Inwestycje i dostawy →</a><a class="bx" href="Wspolpraca.dc.html" style="height: 54px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 15px; display: flex; align-items: center">Współpraca z pracownią →</a></div>
+</div>
+<div style="flex: 1.3 1 480px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 10px">
+<a href="Wspolpraca.dc.html" class="lift" style="--c: var(--k-i); border-radius: 20px; background: var(--k-id); border: 1px solid color-mix(in srgb, var(--k-i) 34%, transparent); padding: 18px; display: flex; flex-direction: column; gap: 6px; color: var(--k-white)"><span class="d" style="font-size: 19px; letter-spacing: -.02em; color: var(--k-white)">Architekci i projektanci</span><span style="font-size: 13.5px; line-height: 1.45; color: rgba(var(--r-w),.72)">Instalacje naniesione na rzuty, zanim wejdą tynki.</span></a>
+<a href="Dostawy.dc.html" class="lift" style="--c: var(--k-i); border-radius: 20px; background: var(--k-id); border: 1px solid color-mix(in srgb, var(--k-i) 34%, transparent); padding: 18px; display: flex; flex-direction: column; gap: 6px; color: var(--k-white)"><span class="d" style="font-size: 19px; letter-spacing: -.02em; color: var(--k-white)">Deweloperzy i inwestorzy</span><span style="font-size: 13.5px; line-height: 1.45; color: rgba(var(--r-w),.72)">Lokale, części wspólne i garaż u jednego wykonawcy.</span></a>
+<a href="Wspolpraca.dc.html" class="lift" style="--c: var(--k-i); border-radius: 20px; background: var(--k-id); border: 1px solid color-mix(in srgb, var(--k-i) 34%, transparent); padding: 18px; display: flex; flex-direction: column; gap: 6px; color: var(--k-white)"><span class="d" style="font-size: 19px; letter-spacing: -.02em; color: var(--k-white)">Wykonawcy</span><span style="font-size: 13.5px; line-height: 1.45; color: rgba(var(--r-w),.72)">Instalacje niskoprądowe jako podwykonawca.</span></a>
+<a href="Dostawy.dc.html" class="lift" style="--c: var(--k-b); border-radius: 20px; background: var(--k-bd); border: 1px solid color-mix(in srgb, var(--k-b) 34%, transparent); padding: 18px; display: flex; flex-direction: column; gap: 6px; color: var(--k-white)"><span class="d" style="font-size: 19px; letter-spacing: -.02em; color: var(--k-white)">Firmy i instytucje</span><span style="font-size: 13.5px; line-height: 1.45; color: rgba(var(--r-w),.72)">Większe dostawy IT oraz RTV i AGD — z listą zapytania.</span></a>
+<a href="Wspolpraca.dc.html#dostawcy" class="lift" style="--c: var(--k-g); border-radius: 20px; background: var(--k-card2); border: 1px solid rgba(var(--r-w),.14); padding: 18px; display: flex; flex-direction: column; gap: 6px; color: var(--k-ink)"><span class="d" style="font-size: 19px; letter-spacing: -.02em">Dostawcy</span><span style="font-size: 13.5px; line-height: 1.45; color: var(--k-ink3)">Masz produkt, który pasuje do naszej oferty?</span></a>
+</div>
+</div>
+</section>
+
+<!-- MARKI -->
+<section id="marki" style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08); border-bottom: 1px solid rgba(var(--r-w),.08)">
+<div style="max-width: 1560px; margin: 0 auto; padding: 96px clamp(20px, 3vw, 48px); display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; gap: 20px 40px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<span class="eb" style="color: var(--k-gt)">Marki i autoryzacje</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Pracujemy na sprzęcie, za który możemy ręczyć.</h2>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 420px; align-items: flex-start">
+<p style="font-size: 16px; line-height: 1.55; color: var(--k-ink2)">Cztery autoryzacje nadane przez producentów. Do tego marki, które dobieramy, montujemy i serwisujemy na co dzień.</p>
+<a class="bx" href="Partnerzy.dc.html" style="height: 46px; padding: 0 18px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.22); font-weight: 800; font-size: 14.5px; display: flex; align-items: center">Wszystkie marki i autoryzacje →</a>
+</div>
+</div>
+<div class="mag">
+<div class="mau" style="--c: var(--k-b)"><span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--k-b)"></span><span style="display: flex; align-items: center; justify-content: space-between; gap: 10px"><span style="display: flex; align-items: center; gap: 10px"><span class="mai"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"/></svg></span><span class="d" style="font-size: 11px; letter-spacing: .16em; color: var(--k-bt)">AUTORYZOWANY SERWIS</span></span></span><span class="d" style="font-size: clamp(30px, 2.8vw, 42px); letter-spacing: -.03em; line-height: 1; color: var(--k-white)">Posnet</span><span style="font-size: 14px; line-height: 1.5; color: rgba(var(--r-w),.76)">Kasy i drukarki fiskalne: sprzedaż, fiskalizacja, przeglądy i naprawy.</span><span style="margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(var(--r-w),.1); font-size: 12.5px; font-weight: 700; color: var(--k-bt); display: flex; align-items: center; gap: 8px"><i style="width: 12px; height: 3px; border-radius: 2px; background: var(--k-b); display: block"></i>Linia Biznes · prokombiznes.pl</span></div>
+<div class="mau" style="--c: var(--k-b)"><span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--k-b)"></span><span style="display: flex; align-items: center; justify-content: space-between; gap: 10px"><span style="display: flex; align-items: center; gap: 10px"><span class="mai"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"/></svg></span><span class="d" style="font-size: 11px; letter-spacing: .16em; color: var(--k-bt)">AUTORYZOWANY SERWIS</span></span></span><span class="d" style="font-size: clamp(30px, 2.8vw, 42px); letter-spacing: -.03em; line-height: 1; color: var(--k-white)">Elzab</span><span style="font-size: 14px; line-height: 1.5; color: rgba(var(--r-w),.76)">Kasy i drukarki fiskalne: sprzedaż, fiskalizacja, przeglądy i naprawy.</span><span style="margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(var(--r-w),.1); font-size: 12.5px; font-weight: 700; color: var(--k-bt); display: flex; align-items: center; gap: 8px"><i style="width: 12px; height: 3px; border-radius: 2px; background: var(--k-b); display: block"></i>Linia Biznes · prokombiznes.pl</span></div>
+<div class="mau" style="--c: var(--k-b)"><span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--k-b)"></span><span style="display: flex; align-items: center; justify-content: space-between; gap: 10px"><span style="display: flex; align-items: center; gap: 10px"><span class="mai"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"/></svg></span><span class="d" style="font-size: 11px; letter-spacing: .16em; color: var(--k-bt)">AUTORYZOWANY PARTNER</span></span></span><span class="d" style="font-size: clamp(30px, 2.8vw, 42px); letter-spacing: -.03em; line-height: 1; color: var(--k-white)">GoPOS</span><span style="font-size: 14px; line-height: 1.5; color: rgba(var(--r-w),.76)">System sprzedaży dla gastronomii: wdrożenie na sali i w kuchni, szkolenie.</span><span style="margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(var(--r-w),.1); font-size: 12.5px; font-weight: 700; color: var(--k-bt); display: flex; align-items: center; gap: 8px"><i style="width: 12px; height: 3px; border-radius: 2px; background: var(--k-b); display: block"></i>Linia Biznes · prokombiznes.pl</span></div>
+<div class="mau" style="--c: var(--k-b)"><span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--k-b)"></span><span style="display: flex; align-items: center; justify-content: space-between; gap: 10px"><span style="display: flex; align-items: center; gap: 10px"><span class="mai"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"/></svg></span><span class="d" style="font-size: 11px; letter-spacing: .16em; color: var(--k-bt)">AUTORYZOWANY PARTNER</span></span></span><span class="d" style="font-size: clamp(30px, 2.8vw, 42px); letter-spacing: -.03em; line-height: 1; color: var(--k-white)">InsERT</span><span style="font-size: 14px; line-height: 1.5; color: rgba(var(--r-w),.76)">Subiekt i e-faktury KSeF: wdrożenie, konfiguracja i szkolenie zespołu.</span><span style="margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(var(--r-w),.1); font-size: 12.5px; font-weight: 700; color: var(--k-bt); display: flex; align-items: center; gap: 8px"><i style="width: 12px; height: 3px; border-radius: 2px; background: var(--k-b); display: block"></i>Linia Biznes · prokombiznes.pl</span></div>
+</div>
+<div class="mgg">
+<div class="mgr" style="--c: var(--k-b); background: var(--k-bd)"><span style="display: flex; justify-content: space-between; align-items: center; gap: 10px"><span style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 17px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em; color: var(--k-white)">PRO<span style="width: 8px; height: 3px; display: block; background: var(--k-b)"></span>KOM</span><span class="d" style="font-size: 10.5px; letter-spacing: .2em; color: var(--k-bt)">BIZNES</span></span><span style="font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--k-b) 18%, transparent); color: var(--k-bt)">8 marek</span></span><span class="d" style="font-size: 21px; line-height: 1.1; letter-spacing: -.02em; color: var(--k-white)">Sprzęt i programy dla firm</span><span style="display: flex; flex-wrap: wrap; gap: 6px"><span class="bch" style="--c: var(--k-b)">Lenovo</span><span class="bch" style="--c: var(--k-b)">Dell</span><span class="bch" style="--c: var(--k-b)">Microsoft</span><span class="bch" style="--c: var(--k-b)">ESET</span><span class="bch" style="--c: var(--k-b)">Synology</span><span class="bch" style="--c: var(--k-b)">QNAP</span><span class="bch" style="--c: var(--k-b)">Fellowes</span><span class="bch" style="--c: var(--k-b)">Kobra</span></span><span style="margin-top: auto; font-size: 13px; line-height: 1.45; color: rgba(var(--r-w),.66)">Komputery, serwery, licencje, ochrona i urządzenia biurowe — dostawa i konfiguracja.</span></div>
+<div class="mgr" style="--c: var(--k-i); background: var(--k-id)"><span style="display: flex; justify-content: space-between; align-items: center; gap: 10px"><span style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 17px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em; color: var(--k-white)">PRO<span style="width: 8px; height: 3px; display: block; background: var(--k-i)"></span>KOM</span><span class="d" style="font-size: 10.5px; letter-spacing: .2em; color: var(--k-it)">INSTALACJE</span></span><span style="font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--k-i) 18%, transparent); color: var(--k-it)">11 marek</span></span><span class="d" style="font-size: 21px; line-height: 1.1; letter-spacing: -.02em; color: var(--k-white)">Bezpieczeństwo, sieci, dźwięk i obraz</span><span style="display: flex; flex-wrap: wrap; gap: 6px"><span class="bch" style="--c: var(--k-i)">Dahua</span><span class="bch" style="--c: var(--k-i)">Hikvision</span><span class="bch" style="--c: var(--k-i)">BCS</span><span class="bch" style="--c: var(--k-i)">Satel</span><span class="bch" style="--c: var(--k-i)">Ubiquiti</span><span class="bch" style="--c: var(--k-i)">MikroTik</span><span class="bch" style="--c: var(--k-i)">Ampio</span><span class="bch" style="--c: var(--k-i)">Elzab EcoPower</span><span class="bch" style="--c: var(--k-i)">Samsung</span><span class="bch" style="--c: var(--k-i)">APART</span><span class="bch" style="--c: var(--k-i)">RCF</span></span><span style="margin-top: auto; font-size: 13px; line-height: 1.45; color: rgba(var(--r-w),.66)">Projekt, montaż i serwis. Gwarancja na montaż 24 miesiące.</span></div>
+<div class="mgr" style="--c: var(--k-t); background: var(--k-td)"><span style="display: flex; justify-content: space-between; align-items: center; gap: 10px"><span style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 17px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em; color: var(--k-white)">PRO<span style="width: 8px; height: 3px; display: block; background: var(--k-t)"></span>KOM</span><span class="d" style="font-size: 10.5px; letter-spacing: .2em; color: var(--k-tt)">TECH</span></span><span style="font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--k-t) 18%, transparent); color: var(--k-tt)">1 marka</span></span><span class="d" style="font-size: 21px; line-height: 1.1; letter-spacing: -.02em; color: var(--k-white)">Serwis i ochrona ekranów</span><span style="display: flex; flex-wrap: wrap; gap: 6px"><span class="bch" style="--c: var(--k-t)">Hammer Glass</span></span><span style="margin-top: auto; font-size: 13px; line-height: 1.45; color: rgba(var(--r-w),.66)">Folia cięta ploterem pod Twój model i zakładana od ręki w salonie w Rabce-Zdroju.</span></div>
+</div>
+<p style="font-size: 13px; color: var(--k-ink3)">Status autoryzowanego serwisu lub partnera dotyczy tylko czterech marek u góry.</p>
+</div>
+</section>
+
+<!-- ZASIĘG -->
+<section id="zasieg" style="max-width: 1560px; margin: 0 auto; padding: 96px clamp(20px, 3vw, 48px); display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<span class="eb" style="color: var(--k-gt)">Gdzie działamy</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Na miejscu na Podhalu. Zdalnie w&nbsp;całej Polsce.</h2>
+<p style="font-size: 18px; line-height: 1.6; color: var(--k-ink3)">Do firm i na montaże dojeżdżamy na Podhalu i w całej Małopolsce. Strony, systemy i komputery do gier robimy dla klientów z całego kraju.</p>
+<div style="border-radius: 28px; background: var(--k-card); border: 1px solid color-mix(in srgb, var(--k-g) 38%, transparent); padding: 28px 26px 26px; display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--k-g)"></span>
+<div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center"><span class="d" style="font-size: 24px">Salon · Rabka-Zdrój</span><span style="display: flex; gap: 7px; align-items: center; font-size: 13.5px; font-weight: 700"><span class="rec" style="width: 8px; height: 8px; border-radius: 50%; background: {{open.dot}}"></span>{{open.text}}</span></div>
+<span style="font-size: 16px; color: var(--k-ink3)">ul. Orkana 16B, 34-700 Rabka-Zdrój · pn–pt 9:00–17:00</span>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px"><a class="bx" href="Kontakt.dc.html" style="height: 52px; padding: 0 22px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 15px; display: flex; align-items: center">Wyznacz trasę ↗</a><a class="bx" href="Zasieg.dc.html" style="height: 52px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 15px; display: flex; align-items: center">Sprawdź swoją miejscowość</a></div>
+</div>
+</div>
+<div role="img" aria-label="Schemat zasięgu: Rabka-Zdrój w środku, wokół Podhale i Małopolska" style="flex: 1 1 460px; min-width: 0; aspect-ratio: 1 / 1; max-width: 600px; position: relative; border-radius: 30px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.12); overflow: hidden">
+<span style="position: absolute; left: 50%; top: 50%; width: 130%; height: 130%; transform: translate(-50%, -50%); border-radius: 50%; border: 1px dashed rgba(var(--r-w),.1)"></span>
+<span style="position: absolute; left: 50%; top: 50%; width: 92%; height: 92%; transform: translate(-50%, -50%); border-radius: 50%; border: 1px dashed rgba(var(--r-w),.16)"></span>
+<span style="position: absolute; left: 50%; top: 50%; width: 62%; height: 62%; transform: translate(-50%, -50%); border-radius: 50%; border: 1px solid rgba(var(--r-w),.16); background: color-mix(in srgb, var(--k-g) 4%, transparent)"></span>
+<span style="position: absolute; left: 50%; top: 50%; width: 30%; height: 30%; transform: translate(-50%, -50%); border-radius: 50%; border: 1.5px solid var(--k-g); background: color-mix(in srgb, var(--k-g) 10%, transparent)"></span>
+<span style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="position: relative; width: 18px; height: 18px; display: block"><span class="ping" style="position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--k-g)"></span><span style="position: absolute; inset: 0; border-radius: 50%; background: var(--k-g)"></span></span><span class="d" style="font-size: 18px">Rabka-Zdrój</span></span>
+<span style="position: absolute; left: 60%; top: 40%; font-size: 14px; font-weight: 700; color: var(--k-ink2)">Mszana Dolna</span>
+<span style="position: absolute; left: 54%; top: 64%; font-size: 14px; font-weight: 700; color: var(--k-ink2)">Nowy Targ</span>
+<span style="position: absolute; left: 40%; top: 79%; font-size: 14px; font-weight: 700; color: var(--k-ink2)">Zakopane</span>
+<span style="position: absolute; left: 72%; top: 47%; font-size: 14px; font-weight: 700; color: var(--k-ink2)">Limanowa</span>
+<span style="position: absolute; left: 79%; top: 57%; font-size: 14px; font-weight: 700; color: var(--k-ink2)">Nowy Sącz</span>
+<span style="position: absolute; left: 46%; top: 26%; font-size: 14px; font-weight: 700; color: var(--k-ink2)">Myślenice</span>
+<span style="position: absolute; left: 44%; top: 8%; font-size: 14px; font-weight: 700; color: var(--k-ink2)">Kraków</span>
+<span style="position: absolute; left: 18px; bottom: 16px; font-size: 12.5px; color: var(--k-ink3)">Schemat kierunków, nie mapa w skali</span>
+<span class="eb" style="position: absolute; right: 18px; top: 16px; color: var(--k-gt)">Podhale · Małopolska</span>
+</div>
+</section>
+
+<!-- AKTUALNOŚCI -->
+<section id="aktualnosci" style="max-width: 1560px; margin: 0 auto; padding: 96px clamp(20px, 3vw, 48px); display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px"><span class="eb" style="color: var(--k-gt)">Aktualności</span><h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Co nowego w liniach</h2></div>
+<a class="bx" href="Aktualnosci.dc.html" style="height: 52px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 15px; display: flex; align-items: center">Wszystkie wpisy →</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px">
+<sc-for list="{{news}}" as="n" hint-placeholder-count="3">
+<a href="{{n.url}}" class="tl lift" style="--c: {{n.cd}}; border-radius: 28px; background: {{n.dark}}; border: 1px solid color-mix(in srgb, {{n.cd}} 38%, transparent); padding: 26px 24px 22px; display: flex; flex-direction: column; gap: 16px; min-height: 260px; position: relative; overflow: hidden; color: var(--k-white)">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 4px; background: {{n.cd}}"></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span class="d" style="font-size: 17px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em; white-space: nowrap">PRO<span style="width: 8px; height: 3px; display: block; background: {{n.cd}}"></span>KOM</span><span class="d" style="font-size: 10px; letter-spacing: .18em; color: {{n.ct}}">{{n.label}}</span></span>
+<h3 class="d" style="font-size: 24px; line-height: 1.1">{{n.title}}</h3>
+<span style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-top: 14px; border-top: 1px solid rgba(var(--r-w),.1)"><span style="font-size: 13px; font-weight: 700; color: {{n.ct}}">{{n.meta}}</span><span class="go" style="height: 34px; padding: 0 13px; border-radius: 999px; background: {{n.cd}}; color: {{n.ink}}; display: flex; align-items: center; font-weight: 800; font-size: 12.5px; white-space: nowrap">Czytaj ↗</span></span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="pytania" style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08)">
+<div style="max-width: 1560px; margin: 0 auto; padding: 96px clamp(20px, 3vw, 48px); display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<span class="eb" style="color: var(--k-gt)">Pytania</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Zanim zadzwonisz</h2>
+<a href="Pomoc.dc.html" style="align-self: flex-start; margin-top: 8px; height: 52px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 15px; display: flex; align-items: center">Centrum pomocy →</a>
+</div>
+<div style="flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{faq}}" as="f" hint-placeholder-count="6">
+<details open="{{f.open}}" class="fq" style="border-radius: 22px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.12); padding: 24px 26px">
+<summary style="cursor: pointer; font-family: Archivo, sans-serif; font-weight: 800; font-size: 20px; display: flex; gap: 16px; align-items: baseline; list-style: none"><span style="font-size: 13px; color: var(--k-gt)">{{f.n}}</span>{{f.q}}</summary>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); padding: 12px 0 0 36px">{{f.a}}</p>
+</details>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt" style="max-width: 1560px; margin: 0 auto; padding: 96px clamp(20px, 3vw, 48px)">
+<div style="border-radius: 30px; overflow: hidden; display: flex; flex-wrap: wrap; border: 1px solid color-mix(in srgb, var(--k-g) 38%, transparent); position: relative">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--k-g); z-index: 1"></span>
+<div style="flex: 1 1 440px; min-width: 0; background: var(--k-card); padding: clamp(28px, 3vw, 48px); display: flex; flex-direction: column; gap: 20px; position: relative; overflow: hidden">
+<span class="eb" style="color: var(--k-gt)">Kontakt</span>
+<h2 class="d" style="font-size: clamp(32px, 3.4vw, 48px)">Najszybciej — zadzwoń do&nbsp;właściwej linii.</h2>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{cl}}" as="l" hint-placeholder-count="5">
+<a href="{{l.telHref}}" class="clr" style="--c: {{l.cd}}">
+<span class="clb" style="background: {{l.dark}}"><span class="d" style="font-size: 13px; display: flex; align-items: center; gap: 2px; letter-spacing: -.01em; color: var(--k-white)">PRO<span style="width: 6px; height: 2px; display: block; background: {{l.cd}}"></span>KOM</span><span class="d" style="font-size: 9px; letter-spacing: .16em; color: {{l.ct}}">{{l.label}}</span></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800; line-height: 1.2">{{l.short}}</span><span style="font-size: 12.5px; color: var(--k-ink3); line-height: 1.3">{{l.promise}}</span></span>
+<span class="clp"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="d" style="font-size: 17px; letter-spacing: 0; white-space: nowrap">{{l.phone}}</span></span>
+</a>
+</sc-for>
+</div>
+<div class="csl">
+<span class="csi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg></span>
+<span style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--k-gt)">Salon i biuro</span><span style="font-size: 16px; font-weight: 800">ul. Orkana 16B, 34-700 Rabka-Zdrój</span><span style="font-size: 13.5px; color: var(--k-ink3); display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><i class="rec" style="width: 7px; height: 7px; border-radius: 50%; background: {{open.dot}}; display: block"></i>{{open.text}} · biuro@pro-kom.eu</span></span>
+<a href="Kontakt.dc.html" class="bx" style="height: 42px; padding: 0 16px; border-radius: 12px; border: 1.5px solid rgba(var(--r-w),.22); font-weight: 800; font-size: 14px; display: flex; align-items: center; white-space: nowrap">Kontakt i dojazd →</a>
+</div>
+</div>
+<form style="flex: 1.3 1 480px; min-width: 0; background: var(--k-bg2); padding: 48px; display: flex; flex-direction: column; gap: 18px">
+<h3 class="d" style="font-size: 28px">Albo napisz. Wiadomość trafi prosto do&nbsp;zespołu.</h3>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 700">Czego dotyczy sprawa?</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px" role="group" aria-label="Czego dotyczy sprawa">
+<sc-for list="{{topics}}" as="t" hint-placeholder-count="6">
+<button type="button" onClick="{{t.pick}}" aria-pressed="{{t.on}}" class="pt" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid {{t.bd}}; background: {{t.bg}}; color: var(--k-ink); font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px"><i style="width: 12px; height: 3px; border-radius: 2px; background: {{t.cd}}; display: block"></i>{{t.name}}</button>
+</sc-for>
+</div>
+<span style="font-size: 13.5px; color: var(--k-ink3)">Trafi do: <strong style="color: var(--k-ink)">{{topicMail}}</strong></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="f1" style="font-size: 14px; font-weight: 700">Imię i firma</label><input id="f1" autocomplete="name" style="height: 54px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="f2" style="font-size: 14px; font-weight: 700">Telefon lub e-mail</label><input id="f2" style="height: 54px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="f3" style="font-size: 14px; font-weight: 700">Wiadomość</label><textarea id="f3" rows="4" placeholder="Napisz w dwóch zdaniach, czego potrzebujesz" style="border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 14px 16px; font: 500 16px Manrope, sans-serif; resize: vertical"></textarea></div>
+<p style="font-size: 13px; line-height: 1.5; color: var(--k-ink3)">Zgadzam się na przetwarzanie danych przez PRO-KOM Tadeusz Wójciak w celu odpowiedzi na zapytanie. Szczegóły w <a href="Prawne.dc.html" style="text-decoration: underline">polityce prywatności</a>.</p>
+<button class="bx" type="button" style="height: 58px; border-radius: 16px; border: none; background: var(--k-g); color: var(--k-gi); font-size: 17px; font-weight: 800">Wyślij wiadomość</button>
+</form>
+</div>
+</section>
+
+<!-- FINAŁ -->
+<section style="position: relative; overflow: hidden; border-top: 1px solid rgba(var(--r-w),.08)">
+<div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(var(--r-w),.11) 1px, transparent 1.4px); background-size: 26px 26px; mask-image: radial-gradient(ellipse 75% 85% at 50% 50%, #000 0%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 75% 85% at 50% 50%, #000 0%, transparent 78%)"></div>
+<div style="position: relative; max-width: 1560px; margin: 0 auto; padding: 110px clamp(20px, 3vw, 48px); display: flex; flex-direction: column; gap: 30px; align-items: flex-start">
+<span aria-hidden="true" class="d" style="font-size: clamp(64px, 11vw, 190px); line-height: .84; letter-spacing: -.035em; display: flex; align-items: center; gap: .09em"><span class="wm">PRO</span><span class="hy" style="flex: none; display: block; width: .42em; height: .125em; background: var(--k-g)"></span><span class="wm">KOM</span></span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px); max-width: 900px">Powiedz, czego potrzebujesz. Resztą zajmie się właściwy&nbsp;zespół.</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="tel:+48883200151" class="bx d" style="height: 64px; padding: 0 30px; border-radius: 18px; background: var(--k-g); color: var(--k-gi); font-size: 22px; letter-spacing: 0; display: flex; align-items: center">883 200 151</a>
+<a class="bx" href="Kontakt.dc.html" style="height: 64px; padding: 0 28px; border-radius: 18px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 17px; display: flex; align-items: center">Napisz do nas</a>
+<a class="bx" href="#dobierz" style="height: 64px; padding: 0 28px; border-radius: 18px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 17px; display: flex; align-items: center">Dobierz w 10 sekund</a>
+</div>
+</div>
+</section>
+
+<dc-import name="Stopka" hint-size="100%,700px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":8000}}'>
+class Component extends DCLogic {
+  data() {
+    return [
+      { key: 'biznes', n: '01', name: 'Biznes', label: 'BIZNES', domain: 'prokombiznes.pl', url: 'https://prokombiznes.pl', cd: 'var(--k-b)', ct: 'var(--k-bt)', dark: 'var(--k-bd)', ink: 'var(--k-bi)', short: 'Kasy, komputery, opieka IT', lead: 'Kasy fiskalne, GoPOS, programy InsERT, komputery i opieka IT dla firm, gastronomii, sklepów i instytucji.', items: ['Kasy Posnet i Elzab', 'GoPOS', 'InsERT i KSeF', 'Opieka IT'], promise: 'Oddzwonimy w 60 minut w godzinach pracy', phone: '889 003 889', tel: '+48889003889', mail: 'kontakt@prokombiznes.pl', kw: ['kasa', 'kasy', 'fiskal', 'gopos', 'insert', 'subiekt', 'ksef', 'serwer', 'opieka', 'informatyk', 'terminal', 'faktur', 'niszczark'] },
+      { key: 'instalacje', n: '02', name: 'Instalacje', label: 'INSTALACJE', domain: 'prokominstalacje.pl', url: 'https://prokominstalacje.pl', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', ink: 'var(--k-ii)', short: 'Monitoring, sieci, smart home', lead: 'Monitoring, alarmy, sieci i Wi-Fi, smart home i nagłośnienie — projekt, montaż i serwis w jednej firmie.', items: ['Monitoring i alarmy', 'Sieci i Wi-Fi', 'Smart home Ampio', 'Ładowarki EV'], promise: 'Odpowiemy w 24 godziny w dni robocze', phone: '889 003 889', tel: '+48889003889', mail: 'kontakt@prokominstalacje.pl', kw: ['kamer', 'monitoring', 'alarm', 'wi-fi', 'wifi', 'siec', 'smart', 'domofon', 'naglosn', 'anten', 'ladowark', 'swiatlowod', 'kontrola dost'] },
+      { key: 'software', n: '03', name: 'Software', label: 'SOFTWARE', domain: 'prokomsoftware.pl', url: 'https://prokomsoftware.pl', cd: 'var(--k-s)', ct: 'var(--k-st)', dark: 'var(--k-sd)', ink: 'var(--k-si)', short: 'Strony, systemy, aplikacje', lead: 'Strony internetowe, systemy i panele, aplikacje i automatyzacje pisane pod Twoją firmę, nie z szablonu.', items: ['Strony', 'Systemy i panele', 'Aplikacje', 'Automatyzacje'], promise: 'Odpowiedź w 1 dzień roboczy', phone: '883 200 151', tel: '+48883200151', mail: 'kontakt@prokomsoftware.pl', kw: ['stron', 'www', 'aplikac', 'system', 'panel', 'crm', 'automatyz', 'seo'] },
+      { key: 'tech', n: '04', name: 'Tech', label: 'TECH', domain: 'prokomserwis.pl', url: 'https://prokomserwis.pl', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', ink: 'var(--k-ti)', short: 'Naprawy telefonów i komputerów', lead: 'Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.', items: ['Telefony', 'Laptopy', 'Konsole', 'Hammer Glass'], promise: 'Bezpłatna diagnoza i wycena', phone: '883 200 151', tel: '+48883200151', mail: 'sklep@pro-kom.eu', kw: ['napraw', 'ekran', 'szybk', 'bateri', 'telefon', 'zalan', 'konsol', 'foli', 'szkl', 'serwis', 'pekni'] },
+      { key: 'gaming', n: '05', name: 'Gaming', label: 'GAMING', domain: 'prokomgaming.pl', url: 'https://prokomgaming.pl', cd: 'var(--k-y)', ct: 'var(--k-y)', dark: 'var(--k-yd)', ink: 'var(--k-yi)', short: 'Komputery do gier', lead: 'Komputery do gier składane ręcznie w Rabce-Zdroju. Klatki mierzone w grach, wysyłka do całej Polski.', items: ['16 zestawów', 'Konfigurator', 'Dobór pod grę', 'Gwarancja 2 lata'], promise: 'Wysyłka w całej Polsce', phone: '883 200 151', tel: '+48883200151', mail: 'kontakt@prokomgaming.pl', kw: ['gier', 'gamin', 'gry', 'fps', 'rtx', 'do gran'] }
+    ];
+  }
+  personas() {
+    return [
+      { key: 'restauracja', name: 'Gastronomia', title: 'Lokal gotowy na gości — od kasy po stronę z menu.', g: { biznes: ['GoPOS na sali i w kuchni', 'Kasa fiskalna z fiskalizacją i szkoleniem', 'Terminal płatniczy'], instalacje: ['Kamery na sali i zapleczu', 'Wi-Fi dla gości oddzielone od kasy', 'Nagłośnienie sali'], software: ['Strona z menu edytowanym z telefonu'] } },
+      { key: 'pensjonat', name: 'Noclegi i turystyka', title: 'Goście mają Wi-Fi, Ty masz spokój.', g: { instalacje: ['Wi-Fi w każdym pokoju', 'Monitoring i wideodomofon', 'Zamki na kod i kontrola dostępu', 'Telewizja hotelowa'], biznes: ['Kasa fiskalna i terminal', 'Komputer recepcji pod opieką'], software: ['Strona pensjonatu widoczna w Google'] } },
+      { key: 'sklep', name: 'Handel i usługi', title: 'Sprzedaż, towar i bezpieczeństwo w jednym planie.', g: { biznes: ['Kasa fiskalna, waga i skaner', 'Subiekt do sprzedaży i magazynu', 'Terminal płatniczy'], instalacje: ['Monitoring sali sprzedaży', 'Alarm'], software: ['Strona firmowa'] } },
+      { key: 'biuro', name: 'Firma i biuro', title: 'Komputery działają, dane są bezpieczne, papier znika.', g: { biznes: ['Komputery, laptopy i serwer', 'Opieka IT i kopie zapasowe', 'Programy InsERT i e-faktury KSeF'], instalacje: ['Sieć i Wi-Fi w biurze', 'Kontrola dostępu'], software: ['System albo panel pod Twój proces', 'Automatyzacje zamiast Excela'] } },
+      { key: 'dom', name: 'Dom i rodzina', title: 'Dom, który sam pilnuje i sam się steruje.', g: { instalacje: ['Smart home Ampio', 'Alarm i wideodomofon', 'Monitoring posesji', 'Ładowarka do auta elektrycznego'], tech: ['Naprawa telefonu, laptopa, konsoli'], gaming: ['Komputer do gier dla Ciebie albo dziecka'] } },
+      { key: 'deweloper', name: 'Budowa i inwestycja', title: 'Instalacje zaplanowane, zanim wejdą tynki.', g: { instalacje: ['Teletechnika w budownictwie', 'Projekt instalacji niskoprądowych', 'Współpraca z pracowniami — strona „Dla architektów”'], software: ['Strona inwestycji'] } },
+      { key: 'szkola', name: 'Szkoła, urząd, instytucja', title: 'Sprzęt i instalacje dla instytucji, także z dofinansowaniem.', g: { biznes: ['Komputery i monitory interaktywne', 'Zamówienia w projektach z dofinansowaniem'], instalacje: ['Nagłośnienie', 'Sieć i monitoring'], software: ['Strona instytucji'] } },
+      { key: 'gabinet', name: 'Gabinet i salon', title: 'Klient obsłużony sprawnie, dane bezpieczne.', g: { biznes: ['Kasa fiskalna i terminal płatniczy', 'Komputery w recepcji i gabinecie', 'Opieka IT i kopie zapasowe'], instalacje: ['Monitoring i alarm', 'Wi-Fi dla klientów oddzielone od firmowego'], software: ['Strona gabinetu widoczna w Google'] } },
+      { key: 'produkcja', name: 'Produkcja i magazyn', title: 'Hala pod kontrolą, dane w jednym systemie.', g: { instalacje: ['Monitoring hali i placu', 'Sieć i Wi-Fi na hali', 'Kontrola dostępu'], biznes: ['Komputery, serwer i kopie zapasowe', 'Subiekt do sprzedaży i magazynu'], software: ['Panel zleceń i rejestr czasu pracy', 'Automatyzacje zamiast Excela'] } },
+      { key: 'ekipy', name: 'Usługi w terenie', title: 'Ekipy w terenie, a Ty wiesz, co jest zrobione.', g: { software: ['Rejestr pracy ekip w telefonie', 'Zlecenia, rozliczenia i tablica zadań', 'Strona firmowa'], biznes: ['Laptopy i sprzęt dla firmy', 'Programy InsERT i e-faktury KSeF'], instalacje: ['Monitoring bazy i placu'] } },
+      { key: 'wspolnota', name: 'Wspólnota i zarządca', title: 'Budynek bezpieczny i podłączony.', g: { instalacje: ['Monitoring części wspólnych', 'Wideodomofony i kontrola dostępu', 'Sieć i światłowód w budynku', 'Ładowarki do aut elektrycznych'], software: ['Strona wspólnoty albo obiektu'] } },
+      { key: 'inne', name: 'Inna branża', title: 'Każda firma i każdy dom. Powiedz, czego potrzebujesz.', g: { biznes: ['Kasy, komputery i programy', 'Opieka IT'], instalacje: ['Monitoring, alarmy i sieci', 'Smart home i nagłośnienie'], software: ['Strony, systemy i aplikacje'], tech: ['Naprawy telefonów i komputerów'], gaming: ['Komputery do gier'] } },
+      { key: 'gracz', name: 'Gracz', title: 'Komputer pod grę, w którą grasz.', g: { gaming: ['16 gotowych zestawów', 'Konfigurator', 'Dobór pod grę — 33 tytuły', 'Gwarancja 2 lata'], tech: ['Serwis i rozbudowa na miejscu'] } }
+    ];
+  }
+  componentDidMount() {
+    let f = 0; this._c = setInterval(() => { f += 1; this.setState({ cf: Math.min(1, f / 28) }); if (f >= 28) clearInterval(this._c); }, 50);
+    this._t = setInterval(() => { const st = this.state || {}; if (!st.paused) this.setState({ tick: (st.tick || 0) + 1 }); }, 4200);
+    try { this._rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { this._rm = false; }
+    this._lel = 0;
+    this._l = setInterval(() => { const st = this.state || {}; const cur = st.ln || 'biznes'; if (this._rm || st.lauto === false || st.lhover || cur === 'razem') return; this._lel += 250; if (this._lel >= 9000) { this._lel = 0; const O = ['biznes', 'instalacje', 'software', 'tech', 'gaming']; this.setState({ ln: O[(O.indexOf(cur) + 1) % O.length], lnN: (st.lnN || 0) + 1 }); } }, 250);
+  }
+  componentWillUnmount() { clearInterval(this._t); clearInterval(this._c); clearInterval(this._l); }
+  heroVigs() {
+    const R = (rows) => ({ isRows: true, rows: rows.map((r) => ({ a: r[0], b: r[1] })) });
+    const T = (tiles) => ({ isTiles: true, tiles: tiles.map((c) => ({ label: c[0], cam: c[1] === 'cam', bars: c[1] === 'bars', ring: c[1] === 'ring', cls: 'tl2' + (c[1] === 'cam' ? ' cam' : ' acc') })) });
+    return {
+      biznes: [R([['Kasa fiskalna', 'działa'], ['GoPOS na sali', 'wdrożony'], ['Terminal płatniczy', 'podłączony']]), R([['Laptopy', 'dobrane'], ['Serwer', 'wdrożony'], ['Drukarki', 'pod opieką']]), R([['Subiekt', 'wdrożony'], ['E-faktury KSeF', 'skonfigurowane'], ['Kopie zapasowe', 'pod opieką']])],
+      instalacje: [T([['Wejście', 'cam'], ['Parking', 'cam'], ['Alarm', 'ring']]), T([['Pokoje', 'bars'], ['Recepcja', 'bars'], ['Taras', 'bars']]), { isSw: true }],
+      software: [{ isWeb: true }, { isKan: true }, { isFlow: true }]
+    };
+  }
+  heroSlides() {
+    return {
+      biznes: [['Kasy fiskalne i GoPOS', 'Autoryzowany serwis Posnet i Elzab, fiskalizacja i szkolenie.'], ['Komputery i sprzęt dla firm', 'Laptopy, serwery i drukarki — dobrane, wdrożone, pod opieką.'], ['Opieka IT i programy InsERT', 'Subiekt, e-faktury KSeF i kopie zapasowe bez nerwów.']],
+      instalacje: [['Monitoring i alarmy', 'Kamery, wideodomofony i kontrola dostępu — z podglądem w telefonie.'], ['Sieci i Wi-Fi', 'Zasięg w każdym pokoju: dom, pensjonat, biuro.'], ['Smart home i nagłośnienie', 'Ampio, nagłośnienie sal i obiektów. Projekt, montaż, serwis.']],
+      software: [['Strony internetowe', 'Pisane pod Twoją firmę, nie z szablonu. Szybkie i widoczne w Google.'], ['Systemy i panele', 'Pod Twój proces — zamiast Excela i zeszytu.'], ['Aplikacje i automatyzacje', 'Od pomysłu po wdrożenie i opiekę.']],
+      tech: [['Naprawy telefonów', ''], ['Laptopy i konsole', ''], ['Status naprawy online', '']],
+      gaming: [['Komputery do gier', ''], ['Konfigurator zestawu', ''], ['Dobór pod Twoją grę', '']]
+    };
+  }
+  norm(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'); }
+  renderVals() {
+    const st = this.state || {};
+    const all = this.data().map((l) => ({ ...l, telHref: 'tel:' + l.tel }));
+    const q = st.q || '';
+    const nq = this.norm(q);
+    let hit = null;
+    if (nq.length >= 3) {
+      for (const k of ['gaming', 'tech', 'instalacje', 'software', 'biznes']) { const l = all.find((x) => x.key === k); if (l.kw.some((w) => nq.includes(w))) { hit = l; break; } }
+    }
+    const selKey = hit ? hit.key : (st.line || null);
+    const sel0 = all.find((l) => l.key === selKey);
+    const sel = sel0 || { key: 'biznes', cd: 'var(--k-g)', ink: 'var(--k-gi)', ct: 'var(--k-gt)', dark: 'var(--k-card)', label: 'RABKA-ZDRÓJ · OD 2004' };
+    const tiles = all.map((l) => { const on = l.key === selKey; return { ...l, on: on, off: !on, edge: on ? l.cd : 'rgba(var(--r-w),.12)', glow: on ? '0 40px 90px -40px ' + l.cd : '0 30px 60px -40px #000', pick: () => this.setState({ line: l.key }) }; });
+    const tick = st.tick || 0, offs = st.offs || {}, HS = this.heroSlides();
+    const hero = all.map((l, li) => {
+      const sl = HS[l.key], n = sl.length, big = li < 3;
+      const cur = (((tick + (offs[l.key] || 0) + li) % n) + n) % n;
+      const dk = ['biznes', 'instalacje', 'software', 'tech', 'gaming'][tick % 5];
+      const on = l.key === selKey || (!q && !st.line && l.key === dk);
+      const move = (d) => () => this.setState({ offs: { ...offs, [l.key]: (offs[l.key] || 0) + d } });
+      return { ...l, big: big, cls: 'ht hin hb-' + l.key, pad: big ? '24px 24px 20px' : '20px 24px 18px', fs: big ? 'clamp(19px, 1.7vw, 24px)' : 'clamp(15px, 1.35vw, 19px)', mt: big ? '14px' : '4px', delay: (0.12 + li * 0.09) + 's',
+        edge: on ? l.cd : 'rgba(var(--r-w),.12)', glow: on ? '0 0 0 1px ' + l.cd + ', 0 40px 90px -34px ' + l.cd : '0 24px 50px -40px rgba(0,0,0,.6)', bm: on ? '100%' : '24%', gap: big ? '16px' : '10px', sh: big ? '94px' : '24px', smt: big ? '0' : 'auto', isB: l.key === 'biznes', isI: l.key === 'instalacje', isS: l.key === 'software', isT: l.key === 'tech', isG: l.key === 'gaming',
+        cta: big ? l.domain : 'Wejdź', sla: ({ biznes: 'Oddzwaniamy w 60 minut', instalacje: 'Odpowiedź w 24 godziny', software: 'Odpowiedź w 1 dzień roboczy' })[l.key] || '', go: 'Przejdź na ' + l.domain,
+        pick: () => this.setState({ line: l.key, paused: true }), prev: move(-1), next: move(1),
+        vigs: (this.heroVigs()[l.key] || []).map((v, i) => ({ ...v, o: i === cur ? 1 : 0, tf: i === cur ? 'none' : (i === (cur + 1) % n ? 'translateY(14px) scale(.98)' : 'translateY(-14px) scale(.98)') })),
+        slides: sl.map((x, i) => ({ t: x[0], d: x[1], o: i === cur ? 1 : 0, tf: i === cur ? 'none' : (i === (cur + 1) % n ? 'translateX(36px)' : 'translateX(-36px)'), pe: i === cur ? 'auto' : 'none', hidden: i === cur ? 'false' : 'true', tab: i === cur ? '0' : '-1' })),
+        segs: sl.map((x, i) => ({ label: 'Slajd ' + (i + 1) + ': ' + x[0], w: i <= cur ? '100%' : '0%', dur: i === cur ? '4.2s' : '0s', go: move(i - cur) })) };
+    });
+    const PH = [['np. kasa fiskalna do restauracji', 'biznes'], ['np. kamery w pensjonacie', 'instalacje'], ['np. strona dla firmy', 'software'], ['np. pęknięty ekran w telefonie', 'tech'], ['np. komputer do gier', 'gaming']];
+    const phx = PH[tick % PH.length], ph = q ? 'Napisz, czego potrzebujesz' : '';
+    const dl = all.find((l) => l.key === phx[1]);
+    const demo = q ? false : { name: dl.name, phone: dl.phone, cd: dl.cd, text: phx[0].replace('np. ', '') };
+    const chips = [['kasa fiskalna', 'var(--k-b)'], ['kamery', 'var(--k-i)'], ['strona dla firmy', 'var(--k-s)'], ['pęknięty ekran', 'var(--k-t)'], ['komputer do gier', 'var(--k-y)']].map((c) => ({ label: c[0], c: c[1], pick: () => this.setState({ q: c[0] }) }));
+    const pKey = st.persona || 'biuro';
+    const O = ['biuro', 'restauracja', 'sklep', 'pensjonat', 'gabinet', 'produkcja', 'ekipy', 'wspolnota', 'deweloper', 'szkola', 'dom', 'gracz', 'inne'];
+    const SUB = { biuro: 'biuro, kancelaria, księgowość', restauracja: 'restauracja, bar, kawiarnia', sklep: 'sklep, punkt usługowy', pensjonat: 'pensjonat, hotel, apartamenty', gabinet: 'gabinet, fryzjer, kosmetyka', produkcja: 'zakład, hurtownia, stolarnia', ekipy: 'budowlanka, instalatorzy, transport', wspolnota: 'bloki, osiedla, obiekty', deweloper: 'inwestor, deweloper, architekt', szkola: 'szkoła, gmina, instytucja', dom: 'dom, mieszkanie', gracz: 'gracze i rodzice' };
+    const P = this.personas().sort((x, y) => O.indexOf(x.key) - O.indexOf(y.key));
+    const pp = P.find((p) => p.key === pKey);
+    const groups = Object.keys(pp.g).map((k) => { const l = all.find((x) => x.key === k); return { line: l.name, label: l.label, cd: l.cd, ct: l.ct, ink: l.ink, dark: l.dark, domain: l.domain, url: l.url, items: pp.g[k] }; });
+    const topicKey = st.topic || 'ogolne';
+    const topicsSrc = [{ key: 'ogolne', name: 'Nie wiem / ogólne', cd: 'var(--k-g)', mail: 'biuro@pro-kom.eu' }].concat(all);
+    const IC = { cal: 'M4 7h16v13H4zM4 11h16M8 4v4M16 4v4', shield: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4', rec: 'M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6', doc: 'M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5', home: 'M4 11l8-7 8 7v9H4zM10 20v-6h4v6', code: 'M8 8l-4 4 4 4M16 8l4 4-4 4M13 6l-2 12', pin: 'M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z', pc: 'M3 5h18v11H3zM9 20h6M12 16v4' };
+    const mq = [['var(--k-g)', 'W Rabce-Zdroju', 'cal', 'Od 2004 roku'], ['var(--k-b)', 'Posnet', 'shield', 'Autoryzowany serwis'], ['var(--k-b)', 'Elzab', 'shield', 'Autoryzowany serwis'], ['var(--k-b)', 'GoPOS', 'rec', 'Autoryzowany partner'], ['var(--k-b)', 'InsERT', 'doc', 'Autoryzowany partner'], ['var(--k-i)', 'Ampio', 'home', 'Smart home'], ['var(--k-s)', 'Strony i systemy', 'code', 'Na zamówienie'], ['var(--k-t)', 'Serwis na miejscu', 'pin', 'Salon w Rabce'], ['var(--k-y)', 'Komputery do gier', 'pc', 'Składane ręcznie']];
+
+    const X = {
+      biznes: { rows: [['Kasa fiskalna', 'zafiskalizowana'], ['GoPOS na sali i w kuchni', 'wdrożony'], ['E-faktury KSeF', 'skonfigurowane'], ['Komputery i kopie', 'pod opieką']], h2: 'Kasy, komputery i opieka IT dla firm.', who: 'gastronomia, sklepy, biura, hotele i pensjonaty, szkoły, gminy', cta: 'Zobacz ofertę dla firm', det: [['Kasy fiskalne', 'Posnet i Elzab — z fiskalizacją, programowaniem i szkoleniem.'], ['GoPOS', 'Sprzedaż w gastronomii: sala i kuchnia w jednym systemie.'], ['Programy InsERT', 'Subiekt i e-faktury KSeF, wdrożenie i szkolenie.'], ['Komputery i serwery', 'Lenovo i Dell, dostawa i konfiguracja w firmie.'], ['Opieka IT', 'Pomoc zdalna, kopie zapasowe, monitoring.'], ['Terminale płatnicze', 'PolCard — dobór i uruchomienie.']] },
+      instalacje: { rows: [['Kamera · wejście', 'nagrywa'], ['Wi-Fi gości', 'działa'], ['Alarm', 'uzbrojony'], ['Smart home', 'połączony']], h2: 'Monitoring, sieci i smart home. Projekt, montaż, serwis.', who: 'domy, pensjonaty i hotele, restauracje, firmy, szkoły, gminy, deweloperzy i architekci', cta: 'Zaplanuj instalację', det: [['Monitoring i kamery', 'Z nagrywaniem i podglądem w telefonie.'], ['Alarmy i wideodomofony', 'Z powiadomieniem w telefonie.'], ['Sieci i Wi-Fi', 'Okablowanie, światłowód, Wi-Fi dla gości.'], ['Smart home', 'Sterowanie domem w systemie Ampio.'], ['Nagłośnienie i ekrany', 'Sale, lokale i obiekty.'], ['Ładowarki EV', 'Elzab EcoPower do domu, firmy i obiektu.']] },
+      software: { rows: [['Strona firmowa', 'online'], ['Panel zleceń', 'działa'], ['Kopia zapasowa', 'co noc'], ['Opieka', 'aktywna']], h2: 'Strony, systemy i aplikacje pisane pod Twoją firmę.', who: 'firmy usługowe i budowlane, gastronomia, turystyka — z Podhala i z całej Polski', cta: 'Policz swój projekt', det: [['Strony internetowe', 'Firmowe, wizytówki i landing page.'], ['Systemy i panele', 'CRM, zlecenia, czas pracy i rozliczenia.'], ['Aplikacje mobilne', 'Dla pracowników i dla klientów.'], ['Automatyzacje i AI', 'Raporty i dokumenty bez przepisywania.'], ['Opieka', 'Serwer w Polsce, kopia co noc.'], ['Darmowy audyt strony', 'Sprawdzimy Twoją obecną stronę.']] },
+      tech: { rows: [['Zgłoszenie', 'przyjęte'], ['Diagnoza', 'bezpłatna'], ['Naprawa', 'w toku'], ['Odbiór', 'damy znać']], h2: 'Naprawy telefonów, laptopów i konsol.', who: 'klienci indywidualni i firmy — w salonie w Rabce-Zdroju albo kurierem z całej Polski', cta: 'Zgłoś naprawę', det: [['Telefony i tablety', 'Wyświetlacze, baterie, gniazda ładowania.'], ['Laptopy i komputery', 'Diagnoza i naprawa.'], ['Konsole i drukarki', 'Naprawa w serwisie.'], ['Odzyskiwanie danych', 'Z telefonów i dysków.'], ['Hammer Glass', 'Folia cięta na wymiar na miejscu.'], ['Akcesoria GSM', 'Ładowarki, etui i szkła w salonie.']] },
+      gaming: { rows: [['Zestaw', 'złożony ręcznie'], ['Test obciążeniowy', 'zaliczony'], ['Pomiar klatek', 'zmierzony'], ['Metryka', 'w pudełku']] }
+    };
+    const cur = { ...sel, rows: X[sel.key].rows.map((r) => ({ a: r[0], b: r[1] })) };
+    const segs = all.map((l) => { const on = l.key === selKey; return { n: l.n, name: l.name, short: l.short, cd: l.cd, on: on, flex: on ? '2.4 1 0' : '1 1 0', h: on ? '10px' : '6px', op: on ? '1' : '.55', ink: on ? '#FFFFFF' : 'var(--k-ink2)', glow: on ? '0 0 34px ' + l.cd : 'none', edge: on ? l.cd : 'rgba(var(--r-w),.12)', bg: on ? l.dark : 'rgba(var(--r-gl2),.66)', cardGlow: on ? '0 30px 70px -40px ' + l.cd : 'none', pick: () => this.setState({ line: l.key, q: '' }) }; });
+    const T = [['biznes', 'Plan Twojej firmy', 'Zobacz na planie lokalu, czego potrzebuje Twoja firma.', true, null], ['instalacje', 'Zaplanuj instalację', 'Opisz obiekt — odpowiemy w 24 godziny w dni robocze.', false, null], ['software', 'Policz swój projekt', 'Kreator strony albo systemu: zakres i termin krok po kroku.', false, null], ['tech', 'Zgłoś naprawę', 'Opisz usterkę online, zanim przyniesiesz sprzęt.', false, null], ['gaming', 'Konfigurator PC', 'Złóż komputer do gier po swojemu, krok po kroku.', false, null],
+      ['biznes', 'Konfigurator', 'Odpowiedz na kilka pytań — dobierzemy sprzęt i programy.', true, ['Branża', 'Stanowiska', 'Zestaw']], ['instalacje', 'Zgłoś awarię', 'Kamery, alarm albo sieć przestały działać? Zgłoś online.', false, ['Co nie działa', 'Adres obiektu', 'Oddzwonimy']], ['software', 'Darmowy audyt strony', 'Sprawdzimy Twoją obecną stronę i powiemy, co poprawić.', false, ['Adres strony', 'Sprawdzamy', 'Raport']], ['tech', 'Status naprawy', 'Wpisz numer zlecenia i zobacz, na jakim etapie jest naprawa.', false, ['Numer zlecenia', 'Etap naprawy', 'Odbiór']], ['gaming', 'Dobór pod grę', 'Powiedz, w co grasz — pokażemy pasujące zestawy.', false, ['W co grasz', 'Rozdzielczość', 'Zestaw']]];
+    const PRT = { biznes: 'Oddzwaniamy w 60 minut', instalacje: 'Odpowiedź w 24 godziny', software: 'Odpowiedź w 1 dzień roboczy', tech: 'Bezpłatna diagnoza i wycena', gaming: 'Wysyłka do całej Polski' };
+    const tools = T.map((t) => { const l = all.find((x) => x.key === t[0]); return { key: l.key, line: l.name, label: l.label, cd: l.cd, ct: l.ct, dark: l.dark, ink: l.ink, domain: l.domain, url: l.url, title: t[1], desc: t[2], soonOp: t[3] ? '1' : '0', alt: !!t[4], chk: (t[4] || []).map((a, i) => ({ n: '0' + (i + 1), a })), isB: !t[4] && l.key === 'biznes', isI: !t[4] && l.key === 'instalacje', isS: !t[4] && l.key === 'software', isT: !t[4] && l.key === 'tech', isG: !t[4] && l.key === 'gaming' }; });
+    const tgroups = ['biznes', 'instalacje', 'software', 'tech', 'gaming'].map((key) => { const l = all.find((x) => x.key === key); return { label: l.label, cd: l.cd, ct: l.ct, dark: l.dark, url: l.url, domain: l.domain, promise: PRT[key], tools: tools.filter((t) => t.key === key) }; });
+    const tcount = [['biznes', 5], ['instalacje', 4], ['software', 4], ['tech', 3], ['gaming', 4]].map((x) => { const l = all.find((y) => y.key === x[0]); return { name: l.name, cd: l.cd, n: x[1] }; });
+    const ST = { biznes: [['Dzwonisz albo piszesz', 'Mówisz, czego potrzebuje Twoja firma.'], ['Oddzwaniamy w 60 minut', 'W godzinach pracy, z konkretną propozycją.'], ['Wdrożenie u Ciebie', 'Instalacja, konfiguracja i szkolenie na miejscu.']], instalacje: [['Opisujesz obiekt', 'Dom, pensjonat, lokal albo firma — online lub przez telefon.'], ['Odpowiedź w 24 godziny', 'W dni robocze — oddzwonimy albo odpiszemy.'], ['Projekt, montaż, serwis', 'Jedna ekipa od początku do końca.']], software: [['Opisujesz projekt', 'Stronę, system albo pomysł na aplikację.'], ['Odpowiedź w 1 dzień roboczy', 'Z pytaniami i pierwszą propozycją.'], ['Wdrożenie i opieka', 'Uruchamiamy i zostajemy po starcie.']], tech: [['Zgłaszasz naprawę', 'Online albo w salonie w Rabce-Zdroju.'], ['Bezpłatna diagnoza i wycena', 'Decydujesz, czy naprawiamy.'], ['Naprawa i status online', 'Sprawdzasz etap bez dzwonienia.']], gaming: [['Wybierasz grę albo zestaw', 'W doborze „W co grasz?” lub w konfiguratorze.'], ['Składamy i mierzymy', 'Ręcznie w Rabce-Zdroju, klatki mierzone w grach.'], ['Wysyłka do całej Polski', 'Z gwarancją 2 lata na cały komputer.']] };
+    const TS = [['Przyjęte', 'Sprzęt jest u nas i ma numer zgłoszenia. Od tej chwili widzisz jego status online.'], ['Diagnoza', 'Sprawdzamy, co się zepsuło. Diagnoza i wycena są bezpłatne — decydujesz, czy naprawiamy.'], ['Naprawa', 'Po Twojej zgodzie naprawiamy. Etap zmienia się na stronie, nie musisz dzwonić.'], ['Do odbioru', 'Gotowe. Odbierasz w salonie w Rabce-Zdroju albo odsyłamy kurierem.']];
+    const tsi = st.ts === undefined ? 2 : st.ts;
+    const tsteps = TS.map((x, i) => ({ name: x[0], on: i === tsi ? 'true' : 'false', ink: i === tsi ? 'var(--k-tt)' : (i < tsi ? 'var(--k-white)' : 'rgba(var(--r-w),.5)'), bar: i <= tsi ? 'var(--k-t)' : 'rgba(var(--r-w),.16)', pick: () => this.setState({ ts: i }) }));
+    const tstep = { text: TS[tsi][1] };
+    const CM = [['Wejście', 'cam'], ['Parking', 'cam'], ['Recepcja', 'cam'], ['Wi-Fi gości', 'wifi']];
+    const cmi = st.cm === undefined ? 0 : st.cm;
+    const cams = CM.map((x, i) => ({ label: x[0], cam: x[1] === 'cam', wifi: x[1] === 'wifi', cls: 'cb ' + x[1], on: i === cmi ? 'true' : 'false', aria: 'Pokaż: ' + x[0], bd: i === cmi ? 'var(--k-i)' : 'transparent', pick: () => this.setState({ cm: i }) }));
+    const camCols = CM.map((x, i) => (i === cmi ? '2.6fr' : '1fr')).join(' ');
+    const camNote = cmi === 3 ? 'Wi-Fi dla gości jest oddzielone od sieci firmowej.' : 'Kliknij podgląd, żeby go powiększyć — tak samo zobaczysz kamery w telefonie.';
+    const GX = { h2: 'Komputery do gier. Sprawdzone w grach.', who: 'gracze i rodzice z całej Polski', cta: 'Dobierz komputer', det: [['16 zestawów', 'W dziewięciu poziomach mocy.'], ['Dobór pod grę', '33 gry w doborze „W co grasz?”.'], ['Konfigurator', 'Złóż własny zestaw krok po kroku.'], ['2 lata gwarancji', 'Na cały komputer.'], ['Składane ręcznie', 'W Rabce-Zdroju, wysyłka do całej Polski.'], ['Imiona z podań', 'Od Skrzata po Peruna.']] };
+    const ICO = { 'Kasy fiskalne': 'M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3', 'GoPOS': 'M4 5h16v11H4zM8 20h8M12 16v4M8 9h3M8 12h6', 'Programy InsERT': 'M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5', 'Komputery i serwery': 'M4 4h16v6H4zM4 14h16v6H4zM8 7h.01M8 17h.01', 'Opieka IT': 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4', 'Terminale płatnicze': 'M3 6h18v12H3zM3 10h18M7 15h4', 'Monitoring i kamery': 'M3 7h12v10H3zM15 10l6-3v10l-6-3', 'Alarmy i wideodomofony': 'M6 16v-5a6 6 0 1112 0v5l2 2H4zM10 21h4', 'Sieci i Wi-Fi': 'M2 9a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0M12 19.5h.01', 'Smart home': 'M4 11l8-7 8 7v9H4zM10 20v-5h4v5', 'Nagłośnienie i ekrany': 'M4 9h4l5-4v14l-5-4H4zM16 9a4 4 0 010 6M19 6a8 8 0 010 12', 'Ładowarki EV': 'M13 2L5 14h6l-1 8 8-12h-6z', 'Strony internetowe': 'M3 5h18v14H3zM3 9h18M6 7h.01M9 7h.01', 'Systemy i panele': 'M4 4h5v16H4zM10 4h5v10h-5zM16 4h4v6h-4z', 'Aplikacje mobilne': 'M8 2h8v20H8zM11 18h2', 'Automatyzacje i AI': 'M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6', 'Opieka': 'M7 18a5 5 0 01-.5-10A6 6 0 0118 9a4.5 4.5 0 01-1 9z', 'Darmowy audyt strony': 'M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4-4', 'Telefony i tablety': 'M8 2h8v20H8zM11 18h2', 'Laptopy i komputery': 'M4 5h16v10H4zM2 19h20', 'Konsole i drukarki': 'M6 9h12a4 4 0 014 4v1a3 3 0 01-5.3 1.9L15 14H9l-1.7 1.9A3 3 0 012 14v-1a4 4 0 014-4zM8 11v4M6 13h4', 'Odzyskiwanie danych': 'M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3', 'Hammer Glass': 'M8 2h8v20H8zM10 7l4 4', 'Akcesoria GSM': 'M9 2v6M15 2v6M6 8h12v3a6 6 0 01-12 0zM12 17v5', '16 zestawów': 'M7 2h10v20H7zM10 6h4M12 17h.01', 'Dobór pod grę': 'M6 9h12a4 4 0 014 4v1a3 3 0 01-5.3 1.9L15 14H9l-1.7 1.9A3 3 0 012 14v-1a4 4 0 014-4zM8 11v4M6 13h4', 'Konfigurator': 'M4 6h16M4 12h16M4 18h16M15 4v4M8 10v4M17 16v4', '2 lata gwarancji': 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4', 'Składane ręcznie': 'M14.5 6.5a4 4 0 00-5 5L3 18l3 3 6.5-6.5a4 4 0 005-5L15 12l-3-3z', 'Imiona z podań': 'M12 3l2.7 5.5 6 .9-4.4 4.2 1 6L12 16.8l-5.3 2.8 1-6L3.3 9.4l6-.9z' };
+    const FX = { biznes: ['Autoryzowany serwis Posnet i Elzab', 'Autoryzowany partner GoPOS i InsERT', 'Ponad 100 klientów firmowych z Podhala i Małopolski'], instalacje: ['24 miesiące gwarancji na montaż', 'Projekt, montaż i serwis — jedna ekipa', 'Odpowiedź w 24 godziny w dni robocze'], software: ['Pisane pod Twoją firmę, nie z szablonu', 'Serwer w Polsce, kopia zapasowa co noc', 'Odpowiedź w 1 dzień roboczy'], tech: ['Bezpłatna diagnoza i wycena', 'Status naprawy online, bez dzwonienia', 'Salon w Rabce-Zdroju, także w soboty'], gaming: ['Składane ręcznie w Rabce-Zdroju', 'Klatki mierzone w prawdziwych grach', 'Gwarancja 2 lata na cały komputer'] };
+    const lnKey = st.ln || 'biznes', lnN = st.lnN || 0, isTeam = lnKey === 'razem';
+    const KEYS = all.map((l) => l.key).concat(['razem']);
+    const li = KEYS.indexOf(lnKey), l0 = isTeam ? { key: 'razem', name: 'Razem', short: 'Tak linie pracują razem', cd: 'var(--k-g)', ct: 'var(--k-gt)', dark: 'var(--k-card)', ink: 'var(--k-gi)', domain: '', url: '#dobierz', phone: '883 200 151', telHref: 'tel:+48883200151', label: 'RAZEM' } : all[li], lx = isTeam ? { h2: '', who: '', cta: '', det: [] } : (lnKey === 'gaming' ? GX : X[lnKey]);
+    const tmKey = st.tm || 'pensjonat', TMN = { pensjonat: ['Pensjonat', 'Twój pensjonat'], restauracja: ['Restauracja', 'Twoja restauracja'], biuro: ['Biuro', 'Twoje biuro'], dom: ['Dom', 'Twój dom'] };
+    const tmP = this.personas().find((x) => x.key === tmKey);
+    const team = { node: TMN[tmKey][1], title: tmP.title, tabs: Object.keys(TMN).map((k) => { const on = k === tmKey; return { name: TMN[k][0], on: on ? 'true' : 'false', bd: on ? 'var(--k-g)' : 'rgba(var(--r-w),.22)', bg: on ? 'var(--k-g)' : 'transparent', ink: on ? 'var(--k-gi)' : 'var(--k-white)', pick: () => this.setState({ tm: k }) }; }), cards: Object.keys(tmP.g).map((k) => { const l = all.find((x) => x.key === k); return { label: l.label, cd: l.cd, ct: l.ct, dark: l.dark, url: l.url, phone: l.phone, items: tmP.g[k] }; }).map((c, i) => ({ ...c, delay: (0.12 + i * 0.1) + 's' })) };
+    const goLn = (k) => () => { this._lel = 0; this.setState({ ln: k, lnN: lnN + 1, lauto: false }); };
+    const lAuto = st.lauto !== false && lnKey !== 'razem' && !this._rm;
+    const L = { ...l0, h2: lx.h2, who: lx.who, cta: lx.cta, promise: l0.promise || 'Wysyłka do całej Polski', items: lx.det.map((d) => ({ t: d[0], d: d[1], ic: ICO[d[0]] || 'M12 8a4 4 0 100 8 4 4 0 000-8z' })), facts: (FX[lnKey] || []).map((t) => ({ t })), more: (({ biznes: ['Comarch ERP', 'Bezpieczeństwo sieci', 'Większe dostawy IT', 'RTV i AGD dla firm', 'Niszczarki', 'Podpis kwalifikowany'], instalacje: ['Kontrola dostępu', 'Ekrany informacyjne', 'Anteny i TV hotelowa', 'Światłowód w budynku', 'Dla architektów'], software: ['Strony dla noclegów', 'Przebudowa strony', 'Opieka nad stroną', 'Panele dla ekip'], tech: ['Tablety i smartwatche', 'Komputery stacjonarne', 'Wysyłka kurierem', 'Naprawy dla firm'], gaming: ['Porównywarka zestawów', 'Dla rodziców', 'Testy przed wysyłką', 'Metryka komputera'] })[lnKey] || []).map((t) => ({ t })), isTeam: isTeam, isLine: !isTeam, cls: 'stg ' + (lnN % 2 ? 'sa' : 'sb'), steps: (ST[lnKey] || []).map((x, i) => ({ n: '0' + (i + 1), t: x[0], d: x[1] })), tools: tools.filter((t) => t.domain === l0.domain).map((t) => ({ title: t.title, desc: t.desc })), isBiznes: lnKey === 'biznes', isInst: lnKey === 'instalacje', isSoft: lnKey === 'software', isTech: lnKey === 'tech', isGame: lnKey === 'gaming' };
+    const ltabs = all.concat([{ key: 'razem', name: 'Razem', short: 'Tak linie pracują razem', cd: 'var(--k-g)', dark: 'var(--k-card)' }]).map((l) => { const on = l.key === lnKey; return { name: l.name, short: l.short, cd: l.cd, on: on ? 'true' : 'false', bg: on ? l.dark : 'var(--k-card)', bd: on ? l.cd : 'rgba(var(--r-w),.1)', bar: on ? '100%' : '18px', dot: on ? '1' : '0', pcls: on ? (lAuto ? (lnN % 2 ? 'pa' : 'pb') : 'on') : '', play: st.lhover ? 'paused' : 'running', pick: goLn(l.key) }; });
+    const sections = all.filter((l) => l.key !== 'gaming').map((l, i) => ({ ...l, h2: X[l.key].h2, who: X[l.key].who, cta: X[l.key].cta, items: X[l.key].det.map((d) => ({ t: d[0], d: d[1] })), dir: i % 2 ? 'row-reverse' : 'row', numSide: i % 2 ? 'left' : 'right', isBiznes: l.key === 'biznes', isInst: l.key === 'instalacje', isSoft: l.key === 'software', isTech: l.key === 'tech' }));
+
+    const S = [['biznes', 'Kasa fiskalna nie drukuje', ['Zapisz komunikat z wyświetlacza kasy.', 'Nie rozkręcaj kasy i nie zrywaj plomby.', 'Zadzwoń — umówimy serwis.']], ['instalacje', 'Padło Wi-Fi w pensjonacie', ['Sprawdź, czy działa internet od dostawcy.', 'Zapisz, gdzie i od kiedy nie działa.', 'Zadzwoń — sprawdzimy zdalnie albo przyjedziemy.']], ['software', 'Strona firmy jest stara albo nie działa', ['Zamów darmowy audyt strony.', 'Dostaniesz listę rzeczy do poprawy.', 'Wycenę dostaniesz na piśmie, zanim cokolwiek zaczniemy.']], ['tech', 'Pęknięty ekran telefonu', ['Zgłoś naprawę online albo przyjdź do salonu.', 'Diagnoza i wycena są bezpłatne.', 'Status naprawy sprawdzisz online.']], ['instalacje', 'Buduję dom i planuję instalacje', ['Przyślij rzuty, zanim wejdą tynki.', 'Zaplanujemy kable, kamery, alarm i sieć.', 'Dostaniesz plan i wycenę.']], ['gaming', 'Jaki komputer do mojej gry?', ['Wybierz grę i monitor w „W co grasz?”.', 'Zobacz zestawy z wynikiem klatek.', 'Wyślij zapytanie — dostaniesz ofertę z ceną.']]];
+    const sIdx = st.sit || 0;
+    const sits = S.map((x, i) => { const l = all.find((y) => y.key === x[0]); const on = i === sIdx; return { q: x[1], cd: l.cd, on: on, bd: on ? l.cd : 'rgba(var(--r-w),.12)', bg: on ? l.dark : 'var(--k-card)', pick: () => this.setState({ sit: i }) }; });
+    const sl = all.find((y) => y.key === S[sIdx][0]);
+    const sit = { q: S[sIdx][1], line: sl.name, cd: sl.cd, ct: sl.ct, dark: sl.dark, ink: sl.ink, phone: sl.phone, telHref: sl.telHref, url: sl.url, domain: sl.domain, steps: S[sIdx][2].map((t, i) => ({ n: '0' + (i + 1), t: t })) };
+    return {
+      lOn: () => this.setState({ lhover: true }), lOff: () => this.setState({ lhover: false }),
+      tools, tgroups, tcount, cl: all.map((l) => ({ ...l, promise: PRT[l.key] })), sits, sit,
+      cur, segs, sections, L, ltabs, tsteps, tstep, cams, camCols, camNote, lprev: goLn(KEYS[(li + 5) % 6]), lnext: goLn(KEYS[(li + 1) % 6]), team,
+      all, tiles, chips, q, hit,
+      acc: sel.cd, accInk: sel.ink, qBorder: hit ? sel.cd : 'rgba(var(--r-w),.16)',
+      miss: nq.length >= 3 && !hit,
+      onQ: (e) => this.setState({ q: e.target.value }),
+      clearLine: () => this.setState({ line: null, paused: false }),
+      hero: hero, ph: ph, demo: demo, res: hit ? { ...hit, cls: 'rc' } : (q ? false : { ...dl, cls: 'rc dm' }), pause: () => this.setState({ paused: true }), resume: () => this.setState({ paused: false }),
+      marquee: mq.concat(mq).map((m) => ({ c: m[0], t: m[1], d: IC[m[2]], k: m[3], url: ({ 'var(--k-g)': 'OFirmie.dc.html', 'var(--k-b)': 'https://prokombiznes.pl', 'var(--k-i)': 'https://prokominstalacje.pl', 'var(--k-s)': 'https://prokomsoftware.pl', 'var(--k-t)': 'https://prokomserwis.pl', 'var(--k-y)': 'https://prokomgaming.pl' })[m[0]] })),
+      open: (() => {
+        let d; try { d = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' })); } catch (e) { d = new Date(); }
+        const wd = d.getDay(), h = d.getHours() + d.getMinutes() / 60, work = wd >= 1 && wd <= 5;
+        if (work && h >= 9 && h < 17) return { text: 'Otwarte · do 17:00', dot: 'var(--k-gd)', cta: '883 200 151', href: 'tel:+48883200151', fs: '18px', note: 'pn–pt 9–17' };
+        const when = work && h < 9 ? 'dziś o 9:00' : (wd >= 1 && wd <= 4 ? 'jutro o 9:00' : 'w poniedziałek o 9:00');
+        return { text: 'Zamknięte · otwieramy ' + when, dot: 'var(--k-y)', cta: 'Zostaw wiadomość', href: 'Kontakt.dc.html', fs: '15.5px', note: '883 200 151 · pn–pt 9–17' };
+      })(),
+      cnt: (() => { const e = 1 - Math.pow(1 - (this._c ? (st.cf || 0) : 1), 3); return { a: String(Math.round(1990 + 14 * e)), b: String(Math.round(5 * e)), c: Math.round(100 * e) + '+', d: String(Math.round(4 * e)) }; })(),
+      inne: { on: pKey === 'inne', bd: pKey === 'inne' ? 'var(--k-g)' : 'transparent', pick: () => this.setState({ persona: 'inne' }) },
+      personas: P.filter((p) => p.key !== 'inne').map((p, i) => { const on = p.key === pKey; return { n: ('0' + (i + 1)).slice(-2), sub: SUB[p.key], name: p.name, on: on, bd: on ? 'var(--k-g)' : 'rgba(var(--r-w),.12)', bg: on ? 'var(--k-g)' : 'var(--k-card)', ink: on ? 'var(--k-gi)' : 'var(--k-ink)', pick: () => this.setState({ persona: p.key }) }; }),
+      plan: { name: pp.name, title: pp.title, groups: groups, count: groups.length + (groups.length === 1 ? ' linia' : ' linie') },
+      topics: topicsSrc.map((t) => { const on = t.key === topicKey; return { name: t.name, cd: t.cd, on: on, bd: on ? t.cd : 'rgba(var(--r-w),.14)', bg: on ? 'color-mix(in srgb, ' + t.cd + ' 14%, transparent)' : 'transparent', pick: () => this.setState({ topic: t.key }) }; }),
+      topicMail: topicsSrc.find((t) => t.key === topicKey).mail,
+      news: [
+        { line: 'Biznes', label: 'BIZNES', ink: 'var(--k-bi)', cd: 'var(--k-b)', ct: 'var(--k-bt)', dark: 'var(--k-bd)', title: 'E-faktury KSeF: co musi zrobić mała firma', meta: 'Przykładowy wpis · prokombiznes.pl', url: 'https://prokombiznes.pl' },
+        { line: 'Instalacje', label: 'INSTALACJE', ink: 'var(--k-ii)', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', title: 'Kamery w pensjonacie: od czego zacząć', meta: 'Przykładowy wpis · prokominstalacje.pl', url: 'https://prokominstalacje.pl' },
+        { line: 'Software', label: 'SOFTWARE', ink: 'var(--k-si)', cd: 'var(--k-s)', ct: 'var(--k-st)', dark: 'var(--k-sd)', title: 'Ile trwa zrobienie strony firmowej', meta: 'Przykładowy wpis · prokomsoftware.pl', url: 'https://prokomsoftware.pl' }
+      ],
+      faq: [
+        { n: '01', open: true, q: 'Do której linii mam zadzwonić?', a: 'Wpisz na górze strony, czego potrzebujesz — pokażemy linię i numer. Jeśli nie masz pewności, zadzwoń pod 883 200 151, pokierujemy.' },
+        { n: '02', open: false, q: 'Czy linie to osobne firmy?', a: 'Nie. To jedna firma, PRO-KOM Tadeusz Wójciak z Rabki-Zdroju, z jednym NIP-em. Linie mają osobne strony i zespoły, żeby każdy klient od razu trafiał do właściwych ludzi.' },
+        { n: '03', open: false, q: 'Potrzebuję kilku rzeczy naraz. Muszę dzwonić w kilka miejsc?', a: 'Nie. Wystarczy jeden telefon albo jedna wiadomość — połączymy zespoły po naszej stronie i dostaniesz jeden plan.' },
+        { n: '04', open: false, q: 'Gdzie jest salon i kiedy jest otwarty?', a: 'Rabka-Zdrój, ul. Orkana 16B. Od poniedziałku do piątku 9:00–17:00.' },
+        { n: '05', open: false, q: 'Czy działacie poza Podhalem?', a: 'Tak. Do firm i na montaże dojeżdżamy w całej Małopolsce. Strony i systemy robimy zdalnie, a komputery do gier wysyłamy do całej Polski.' },
+        { n: '06', open: false, q: 'Gdzie sprawdzę status naprawy?', a: 'Na stronie linii Tech, prokomserwis.pl — po numerze zlecenia albo po zalogowaniu na konto klienta.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

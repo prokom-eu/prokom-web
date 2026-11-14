@@ -1,0 +1,1477 @@
+{
+ "_zrodlo": "Szukaj.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "q": "kamery",
+  "hasQ": true,
+  "total": 70,
+  "h1a": "Szukasz: ",
+  "h1b": "„kamery”",
+  "pop": [
+   {
+    "t": "kasa fiskalna",
+    "cd": "var(--k-b)"
+   },
+   {
+    "t": "kamery",
+    "cd": "var(--k-i)"
+   },
+   {
+    "t": "wi-fi",
+    "cd": "var(--k-i)"
+   },
+   {
+    "t": "strona internetowa",
+    "cd": "var(--k-s)"
+   },
+   {
+    "t": "pęknięty ekran",
+    "cd": "var(--k-t)"
+   },
+   {
+    "t": "komputer do gier",
+    "cd": "var(--k-y)"
+   },
+   {
+    "t": "e-faktury",
+    "cd": "var(--k-b)"
+   }
+  ],
+  "tabs": [
+   {
+    "name": "Wszystko",
+    "cd": "var(--k-g)",
+    "n": 2,
+    "on": "true",
+    "bd": "var(--k-g)",
+    "bg": "color-mix(in srgb, var(--k-g) 16%, transparent)"
+   },
+   {
+    "name": "Biznes",
+    "cd": "var(--k-b)",
+    "n": 0,
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Instalacje",
+    "cd": "var(--k-i)",
+    "n": 2,
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Software",
+    "cd": "var(--k-s)",
+    "n": 0,
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Tech",
+    "cd": "var(--k-t)",
+    "n": 0,
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Gaming",
+    "cd": "var(--k-y)",
+    "n": 0,
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Strony",
+    "cd": "var(--k-ink3)",
+    "n": 0,
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   }
+  ],
+  "best": {
+   "key": "instalacje",
+   "name": "Instalacje",
+   "label": "INSTALACJE",
+   "domain": "prokominstalacje.pl",
+   "cd": "var(--k-i)",
+   "ct": "var(--k-it)",
+   "dark": "var(--k-id)",
+   "ink": "var(--k-ii)",
+   "phone": "889 003 889",
+   "short": "Monitoring, sieci i smart home",
+   "who": "domy i apartamenty, pensjonaty i hotele, restauracje, firmy, szkoły, gminy, deweloperzy i architekci",
+   "promise": "Odpowiedź w 24 godziny w dni robocze",
+   "tool": "Zaplanuj instalację",
+   "steps": [
+    [
+     "Opisujesz obiekt",
+     "Dom, pensjonat, lokal albo firma — online lub przez telefon."
+    ],
+    [
+     "Odpowiedź w 24 godziny",
+     "W dni robocze — oddzwonimy albo odpiszemy."
+    ],
+    [
+     "Projekt, montaż, serwis",
+     "Jedna ekipa od początku do końca."
+    ]
+   ],
+   "url": "https://prokominstalacje.pl",
+   "t": "Monitoring i kamery",
+   "long": "Monitoring z nagrywaniem i podglądem w telefonie — dla domu, pensjonatu, lokalu i firmy.",
+   "incl": [
+    "Kamery",
+    "Nagrywanie",
+    "Podgląd w telefonie"
+   ],
+   "ic": "M3 7h12v10H3zM15 10l6-3v10l-6-3"
+  },
+  "groups": [
+   {
+    "name": "Usługi",
+    "note": "1 · kliknięcie prowadzi na stronę linii",
+    "items": [
+     {
+      "t": "Monitoring i kamery",
+      "d": "Kamery z nagrywaniem i podglądem w telefonie.",
+      "href": "https://prokominstalacje.pl",
+      "cd": "var(--k-i)",
+      "ct": "var(--k-it)",
+      "ic": "M3 7h12v10H3zM15 10l6-3v10l-6-3",
+      "tag": "Instalacje",
+      "where": "prokominstalacje.pl"
+     }
+    ]
+   },
+   {
+    "name": "Załatw online",
+    "note": "1 · narzędzia na stronach linii",
+    "items": [
+     {
+      "t": "Zgłoś awarię",
+      "d": "Kamery, alarm albo sieć przestały działać? Zgłoś online.",
+      "href": "https://prokominstalacje.pl",
+      "cd": "var(--k-i)",
+      "ct": "var(--k-it)",
+      "ic": "M12 8a4 4 0 100 8 4 4 0 000-8z",
+      "tag": "Instalacje",
+      "where": "prokominstalacje.pl"
+     }
+    ]
+   }
+  ],
+  "empty": false,
+  "rcls": "ra",
+  "lines": [
+   {
+    "key": "biznes",
+    "name": "Biznes",
+    "label": "BIZNES",
+    "domain": "prokombiznes.pl",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "phone": "889 003 889",
+    "short": "Kasy, komputery i opieka IT",
+    "who": "gastronomia, sklepy, biura, hotele i pensjonaty, szkoły, gminy i instytucje",
+    "promise": "Oddzwaniamy w 60 minut w godzinach pracy",
+    "tool": "Plan Twojej firmy (wkrótce)",
+    "steps": [
+     [
+      "Dzwonisz albo piszesz",
+      "Mówisz, czego potrzebuje Twoja firma."
+     ],
+     [
+      "Oddzwaniamy w 60 minut",
+      "W godzinach pracy, z konkretną propozycją."
+     ],
+     [
+      "Wdrożenie u Ciebie",
+      "Instalacja, konfiguracja i szkolenie na miejscu."
+     ]
+    ],
+    "url": "https://prokombiznes.pl"
+   },
+   {
+    "key": "instalacje",
+    "name": "Instalacje",
+    "label": "INSTALACJE",
+    "domain": "prokominstalacje.pl",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)",
+    "phone": "889 003 889",
+    "short": "Monitoring, sieci i smart home",
+    "who": "domy i apartamenty, pensjonaty i hotele, restauracje, firmy, szkoły, gminy, deweloperzy i architekci",
+    "promise": "Odpowiedź w 24 godziny w dni robocze",
+    "tool": "Zaplanuj instalację",
+    "steps": [
+     [
+      "Opisujesz obiekt",
+      "Dom, pensjonat, lokal albo firma — online lub przez telefon."
+     ],
+     [
+      "Odpowiedź w 24 godziny",
+      "W dni robocze — oddzwonimy albo odpiszemy."
+     ],
+     [
+      "Projekt, montaż, serwis",
+      "Jedna ekipa od początku do końca."
+     ]
+    ],
+    "url": "https://prokominstalacje.pl"
+   },
+   {
+    "key": "software",
+    "name": "Software",
+    "label": "SOFTWARE",
+    "domain": "prokomsoftware.pl",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)",
+    "phone": "883 200 151",
+    "short": "Strony, systemy i aplikacje",
+    "who": "firmy usługowe i budowlane, gastronomia, turystyka — z Podhala i z całej Polski",
+    "promise": "Odpowiedź w 1 dzień roboczy",
+    "tool": "Policz swój projekt",
+    "steps": [
+     [
+      "Opisujesz projekt",
+      "Stronę, system albo pomysł na aplikację."
+     ],
+     [
+      "Odpowiedź w 1 dzień roboczy",
+      "Z pytaniami i pierwszą propozycją."
+     ],
+     [
+      "Wdrożenie i opieka",
+      "Uruchamiamy i zostajemy po starcie."
+     ]
+    ],
+    "url": "https://prokomsoftware.pl"
+   },
+   {
+    "key": "tech",
+    "name": "Tech",
+    "label": "TECH",
+    "domain": "prokomserwis.pl",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "ink": "var(--k-ti)",
+    "phone": "883 200 151",
+    "short": "Naprawy telefonów i komputerów",
+    "who": "klienci indywidualni i firmy — w salonie w Rabce-Zdroju albo kurierem z całej Polski",
+    "promise": "Bezpłatna diagnoza i wycena",
+    "tool": "Zgłoś naprawę",
+    "steps": [
+     [
+      "Zgłaszasz naprawę",
+      "Online albo w salonie w Rabce-Zdroju."
+     ],
+     [
+      "Bezpłatna diagnoza i wycena",
+      "Decydujesz, czy naprawiamy."
+     ],
+     [
+      "Naprawa i status online",
+      "Sprawdzasz etap bez dzwonienia."
+     ]
+    ],
+    "url": "https://prokomserwis.pl"
+   },
+   {
+    "key": "gaming",
+    "name": "Gaming",
+    "label": "GAMING",
+    "domain": "prokomgaming.pl",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "ink": "var(--k-yi)",
+    "phone": "883 200 151",
+    "short": "Komputery do gier",
+    "who": "gracze i rodzice kupujący komputer dla dziecka — z całej Polski",
+    "promise": "Wysyłka do całej Polski",
+    "tool": "Konfigurator PC",
+    "steps": [
+     [
+      "Wybierasz grę albo zestaw",
+      "W doborze „W co grasz?” lub w konfiguratorze."
+     ],
+     [
+      "Składamy i mierzymy",
+      "Ręcznie w Rabce-Zdroju, klatki mierzone w grach."
+     ],
+     [
+      "Wysyłka do całej Polski",
+      "Z gwarancją 2 lata na cały komputer."
+     ]
+    ],
+    "url": "https://prokomgaming.pl"
+   }
+  ]
+ },
+ "lines": [
+  {
+   "key": "biznes",
+   "name": "Biznes",
+   "label": "BIZNES",
+   "domain": "prokombiznes.pl",
+   "cd": "var(--k-b)",
+   "ct": "var(--k-bt)",
+   "dark": "var(--k-bd)",
+   "ink": "var(--k-bi)",
+   "phone": "889 003 889",
+   "short": "Kasy, komputery i opieka IT",
+   "who": "gastronomia, sklepy, biura, hotele i pensjonaty, szkoły, gminy i instytucje",
+   "promise": "Oddzwaniamy w 60 minut w godzinach pracy",
+   "tool": "Plan Twojej firmy (wkrótce)",
+   "steps": [
+    [
+     "Dzwonisz albo piszesz",
+     "Mówisz, czego potrzebuje Twoja firma."
+    ],
+    [
+     "Oddzwaniamy w 60 minut",
+     "W godzinach pracy, z konkretną propozycją."
+    ],
+    [
+     "Wdrożenie u Ciebie",
+     "Instalacja, konfiguracja i szkolenie na miejscu."
+    ]
+   ]
+  },
+  {
+   "key": "instalacje",
+   "name": "Instalacje",
+   "label": "INSTALACJE",
+   "domain": "prokominstalacje.pl",
+   "cd": "var(--k-i)",
+   "ct": "var(--k-it)",
+   "dark": "var(--k-id)",
+   "ink": "var(--k-ii)",
+   "phone": "889 003 889",
+   "short": "Monitoring, sieci i smart home",
+   "who": "domy i apartamenty, pensjonaty i hotele, restauracje, firmy, szkoły, gminy, deweloperzy i architekci",
+   "promise": "Odpowiedź w 24 godziny w dni robocze",
+   "tool": "Zaplanuj instalację",
+   "steps": [
+    [
+     "Opisujesz obiekt",
+     "Dom, pensjonat, lokal albo firma — online lub przez telefon."
+    ],
+    [
+     "Odpowiedź w 24 godziny",
+     "W dni robocze — oddzwonimy albo odpiszemy."
+    ],
+    [
+     "Projekt, montaż, serwis",
+     "Jedna ekipa od początku do końca."
+    ]
+   ]
+  },
+  {
+   "key": "software",
+   "name": "Software",
+   "label": "SOFTWARE",
+   "domain": "prokomsoftware.pl",
+   "cd": "var(--k-s)",
+   "ct": "var(--k-st)",
+   "dark": "var(--k-sd)",
+   "ink": "var(--k-si)",
+   "phone": "883 200 151",
+   "short": "Strony, systemy i aplikacje",
+   "who": "firmy usługowe i budowlane, gastronomia, turystyka — z Podhala i z całej Polski",
+   "promise": "Odpowiedź w 1 dzień roboczy",
+   "tool": "Policz swój projekt",
+   "steps": [
+    [
+     "Opisujesz projekt",
+     "Stronę, system albo pomysł na aplikację."
+    ],
+    [
+     "Odpowiedź w 1 dzień roboczy",
+     "Z pytaniami i pierwszą propozycją."
+    ],
+    [
+     "Wdrożenie i opieka",
+     "Uruchamiamy i zostajemy po starcie."
+    ]
+   ]
+  },
+  {
+   "key": "tech",
+   "name": "Tech",
+   "label": "TECH",
+   "domain": "prokomserwis.pl",
+   "cd": "var(--k-t)",
+   "ct": "var(--k-tt)",
+   "dark": "var(--k-td)",
+   "ink": "var(--k-ti)",
+   "phone": "883 200 151",
+   "short": "Naprawy telefonów i komputerów",
+   "who": "klienci indywidualni i firmy — w salonie w Rabce-Zdroju albo kurierem z całej Polski",
+   "promise": "Bezpłatna diagnoza i wycena",
+   "tool": "Zgłoś naprawę",
+   "steps": [
+    [
+     "Zgłaszasz naprawę",
+     "Online albo w salonie w Rabce-Zdroju."
+    ],
+    [
+     "Bezpłatna diagnoza i wycena",
+     "Decydujesz, czy naprawiamy."
+    ],
+    [
+     "Naprawa i status online",
+     "Sprawdzasz etap bez dzwonienia."
+    ]
+   ]
+  },
+  {
+   "key": "gaming",
+   "name": "Gaming",
+   "label": "GAMING",
+   "domain": "prokomgaming.pl",
+   "cd": "var(--k-y)",
+   "ct": "var(--k-y)",
+   "dark": "var(--k-yd)",
+   "ink": "var(--k-yi)",
+   "phone": "883 200 151",
+   "short": "Komputery do gier",
+   "who": "gracze i rodzice kupujący komputer dla dziecka — z całej Polski",
+   "promise": "Wysyłka do całej Polski",
+   "tool": "Konfigurator PC",
+   "steps": [
+    [
+     "Wybierasz grę albo zestaw",
+     "W doborze „W co grasz?” lub w konfiguratorze."
+    ],
+    [
+     "Składamy i mierzymy",
+     "Ręcznie w Rabce-Zdroju, klatki mierzone w grach."
+    ],
+    [
+     "Wysyłka do całej Polski",
+     "Z gwarancją 2 lata na cały komputer."
+    ]
+   ]
+  }
+ ],
+ "services": [
+  [
+   "b1",
+   "biznes",
+   "Kasy fiskalne",
+   "Posnet i Elzab — z fiskalizacją i szkoleniem.",
+   "Kasy fiskalne Posnet i Elzab. Dobieramy urządzenie do branży, fiskalizujemy, programujemy i szkolimy obsługę.",
+   "f",
+   [
+    "Posnet i Elzab",
+    "Fiskalizacja",
+    "Programowanie",
+    "Szkolenie"
+   ],
+   [
+    "i4",
+    "s2"
+   ],
+   "kasa kasy fiskalna fiskalne drukarka fiskalna paragon posnet elzab fiskalizacja sprzedaz"
+  ],
+  [
+   "b2",
+   "biznes",
+   "Serwis i przeglądy kas",
+   "Autoryzowany serwis Posnet i Elzab.",
+   "Autoryzowany serwis kas Posnet i Elzab. Robimy przeglądy i przejmujemy serwis kasy po innej firmie.",
+   "f",
+   [
+    "Autoryzowany serwis",
+    "Przeglądy",
+    "Przejęcie serwisu po innej firmie"
+   ],
+   [
+    "i1",
+    "s1"
+   ],
+   "serwis kasy przeglad kasy naprawa kasy kasa nie drukuje posnet elzab plomba"
+  ],
+  [
+   "b3",
+   "biznes",
+   "GoPOS",
+   "System sprzedaży dla gastronomii: sala i kuchnia.",
+   "GoPOS to system sprzedaży dla gastronomii — sala i kuchnia pracują w jednym systemie. Jesteśmy autoryzowanym partnerem.",
+   "f",
+   [
+    "Sala i kuchnia",
+    "Gastronomia",
+    "Autoryzowany partner"
+   ],
+   [
+    "i4",
+    "i6",
+    "s2"
+   ],
+   "gopos pos restauracja bar kawiarnia gastronomia kuchnia sala kelner bon"
+  ],
+  [
+   "b4",
+   "biznes",
+   "Programy InsERT",
+   "Subiekt i e-faktury KSeF, wdrożenie i szkolenie.",
+   "Programy InsERT: Subiekt do sprzedaży i magazynu oraz e-faktury KSeF. Wdrażamy i szkolimy. Jesteśmy autoryzowanym partnerem.",
+   "f",
+   [
+    "Subiekt",
+    "E-faktury KSeF",
+    "Wdrożenie",
+    "Szkolenie"
+   ],
+   [
+    "s3",
+    "s5"
+   ],
+   "insert subiekt ksef faktura faktury e-faktury magazyn sprzedaz program ksiegowosc"
+  ],
+  [
+   "b5",
+   "biznes",
+   "Komputery i laptopy",
+   "Lenovo i Dell, dostawa i konfiguracja w firmie.",
+   "Komputery i laptopy Lenovo i Dell dla firm. Dostarczamy je, a na życzenie konfigurujemy na miejscu.",
+   "f",
+   [
+    "Lenovo i Dell",
+    "Dostawa",
+    "Konfiguracja w firmie"
+   ],
+   [
+    "i4",
+    "t3",
+    "s3"
+   ],
+   "komputer komputery laptop laptopy lenovo dell stanowisko biuro sprzet dla firm monitor"
+  ],
+  [
+   "b6",
+   "biznes",
+   "Serwery i kopie",
+   "Serwery Dell, dyski sieciowe Synology i QNAP.",
+   "Serwery Dell i dyski sieciowe Synology oraz QNAP — miejsce na dane firmy i kopie zapasowe.",
+   "f",
+   [
+    "Serwery Dell",
+    "Synology i QNAP",
+    "Kopie zapasowe"
+   ],
+   [
+    "i4",
+    "s7"
+   ],
+   "serwer serwery nas synology qnap kopia kopie zapasowe backup dane dysk sieciowy"
+  ],
+  [
+   "b7",
+   "biznes",
+   "Opieka IT",
+   "Pomoc zdalna, monitoring, kopie zapasowe.",
+   "Stała opieka informatyczna nad firmą: pomoc zdalna, monitoring i kopie zapasowe.",
+   "f",
+   [
+    "Pomoc zdalna",
+    "Monitoring",
+    "Kopie zapasowe"
+   ],
+   [
+    "i1",
+    "s7"
+   ],
+   "opieka it informatyk obsluga informatyczna pomoc zdalna administrator awaria komputera w firmie"
+  ],
+  [
+   "b8",
+   "biznes",
+   "Terminale płatnicze",
+   "PolCard — dobór i uruchomienie.",
+   "Terminale płatnicze PolCard. Dobieramy model i uruchamiamy go u Ciebie.",
+   "f",
+   [
+    "PolCard",
+    "Dobór",
+    "Uruchomienie"
+   ],
+   [
+    "i4",
+    "s2"
+   ],
+   "terminal terminale platniczy platnosci karta karty polcard blik"
+  ],
+  [
+   "b9",
+   "biznes",
+   "Comarch ERP",
+   "Program do sprzedaży i magazynu dla większych firm.",
+   "Wdrożenie i obsługa Comarch ERP — gdy firma wyrasta z prostego programu do faktur.",
+   "f",
+   [
+    "Wdrożenie",
+    "Szkolenie",
+    "Opieka"
+   ],
+   [
+    "b4",
+    "b7"
+   ],
+   "comarch erp optima program magazyn sprzedaz ksiegowosc wdrozenie"
+  ],
+  [
+   "b10",
+   "biznes",
+   "Bezpieczeństwo sieci",
+   "Zapora sieciowa i ochrona danych firmy.",
+   "Zabezpieczenie sieci firmowej: zapory Stormshield i Barracuda oraz kopie zapasowe, które da się odtworzyć.",
+   "f",
+   [
+    "Stormshield",
+    "Barracuda",
+    "Kopie zapasowe"
+   ],
+   [
+    "b6",
+    "b7",
+    "i4"
+   ],
+   "bezpieczenstwo sieci firewall zapora stormshield barracuda utm antywirus kopia backup storagecraft ransomware"
+  ],
+  [
+   "b11",
+   "biznes",
+   "Większe dostawy IT",
+   "Sprzęt dla instytucji i firm, w większych ilościach.",
+   "Dostawy komputerów, serwerów, drukarek i sieci dla szkół, urzędów, hoteli i firm — konfiguracja i montaż na życzenie. Odpowiadamy na zapytania ofertowe.",
+   "f",
+   [
+    "Zapytania ofertowe",
+    "Konfiguracja na życzenie",
+    "Serwis po dostawie"
+   ],
+   [
+    "b5",
+    "b6",
+    "b12"
+   ],
+   "dostawa dostawy przetarg zapytanie ofertowe zamowienie publiczne szkola urzad gmina hurt wieksza ilosc pracownia"
+  ],
+  [
+   "b12",
+   "biznes",
+   "RTV i AGD dla firm",
+   "Wyposażenie pokoi, biur i obiektów.",
+   "Telewizory oraz sprzęt RTV i AGD dla obiektów noclegowych, biur i instytucji — w większych ilościach, z dostawą.",
+   "f",
+   [
+    "Telewizory",
+    "Sprzęt do pokoi",
+    "Dostawa"
+   ],
+   [
+    "b11",
+    "i7"
+   ],
+   "rtv agd telewizor telewizory lodowka pralka wyposazenie pokoi hotel pensjonat apartament biuro"
+  ],
+  [
+   "b13",
+   "biznes",
+   "Niszczarki i urządzenia biurowe",
+   "Fellowes, Kobra, drukarki i skanery.",
+   "Niszczarki Fellowes i Kobra oraz urządzenia biurowe dobrane do liczby osób i ilości dokumentów.",
+   "f",
+   [
+    "Niszczarki",
+    "Drukarki",
+    "Skanery"
+   ],
+   [
+    "b5",
+    "t6"
+   ],
+   "niszczarka niszczarki fellowes kobra biuro drukarka skaner urzadzenie wielofunkcyjne"
+  ],
+  [
+   "b14",
+   "biznes",
+   "Podpis kwalifikowany",
+   "Podpis elektroniczny dla firmy.",
+   "Pomagamy uzyskać i zainstalować podpis kwalifikowany — do e-faktur, umów i urzędów.",
+   "f",
+   [
+    "Wydanie",
+    "Instalacja",
+    "Odnowienie"
+   ],
+   [
+    "b4",
+    "b7"
+   ],
+   "podpis kwalifikowany elektroniczny certyfikat e-podpis ksef urzad umowa"
+  ],
+  [
+   "b15",
+   "biznes",
+   "Automaty sprzedające",
+   "Automaty vendingowe z partnerem Optivendi.",
+   "Automaty sprzedające dla firm, obiektów i instytucji — we współpracy z partnerem Optivendi.",
+   "f",
+   [
+    "Dobór",
+    "Uruchomienie",
+    "Płatności bezgotówkowe"
+   ],
+   [
+    "b8",
+    "i6"
+   ],
+   "automat automaty vending vendingowy sprzedajacy optivendi przekaski napoje"
+  ],
+  [
+   "i1",
+   "instalacje",
+   "Monitoring i kamery",
+   "Kamery z nagrywaniem i podglądem w telefonie.",
+   "Monitoring z nagrywaniem i podglądem w telefonie — dla domu, pensjonatu, lokalu i firmy.",
+   "fd",
+   [
+    "Kamery",
+    "Nagrywanie",
+    "Podgląd w telefonie"
+   ],
+   [
+    "b7",
+    "s2"
+   ],
+   "kamera kamery monitoring cctv rejestrator nagrywanie podglad hikvision dahua bcs"
+  ],
+  [
+   "i2",
+   "instalacje",
+   "Alarmy i wideodomofony",
+   "Z powiadomieniem w telefonie.",
+   "Systemy alarmowe i wideodomofony z powiadomieniem w telefonie.",
+   "fd",
+   [
+    "Alarm",
+    "Wideodomofon",
+    "Powiadomienia w telefonie"
+   ],
+   [
+    "b7",
+    "s1"
+   ],
+   "alarm alarmy wideodomofon domofon czujka satel wlamanie bezpieczenstwo"
+  ],
+  [
+   "i3",
+   "instalacje",
+   "Kontrola dostępu i zamki",
+   "Karty, kody, apartamenty.",
+   "Kontrola dostępu i zamki na karty albo kody — także do apartamentów i pokoi.",
+   "fd",
+   [
+    "Karty",
+    "Kody",
+    "Apartamenty"
+   ],
+   [
+    "s2",
+    "b1"
+   ],
+   "kontrola dostepu zamek zamki kod karta apartament pokoj drzwi"
+  ],
+  [
+   "i4",
+   "instalacje",
+   "Sieci i Wi-Fi",
+   "Okablowanie, światłowód, Wi-Fi dla gości.",
+   "Sieć komputerowa i Wi-Fi: okablowanie, światłowód i osobna sieć Wi-Fi dla gości.",
+   "fd",
+   [
+    "Okablowanie",
+    "Światłowód",
+    "Wi-Fi dla gości"
+   ],
+   [
+    "b5",
+    "b1",
+    "s2"
+   ],
+   "wifi wi-fi siec sieci internet zasieg router okablowanie swiatlowod ubiquiti mikrotik lan"
+  ],
+  [
+   "i5",
+   "instalacje",
+   "Smart home",
+   "Sterowanie domem w systemie Ampio.",
+   "Inteligentny dom w systemie Ampio — sterowanie domem z jednego miejsca.",
+   "d",
+   [
+    "System Ampio",
+    "Sterowanie domem"
+   ],
+   [
+    "t1",
+    "g1"
+   ],
+   "smart home inteligentny dom ampio automatyka swiatlo rolety ogrzewanie sterowanie"
+  ],
+  [
+   "i6",
+   "instalacje",
+   "Nagłośnienie i ekrany",
+   "Sale, lokale i obiekty.",
+   "Nagłośnienie i ekrany do sal, lokali i obiektów.",
+   "f",
+   [
+    "Sale",
+    "Lokale",
+    "Obiekty"
+   ],
+   [
+    "b3",
+    "s2"
+   ],
+   "naglosnienie glosniki ekran ekrany sala konferencyjna muzyka w lokalu apart rcf kosciol"
+  ],
+  [
+   "i7",
+   "instalacje",
+   "Anteny RTV/SAT",
+   "Satelitarne, DVB-T2, zbiorcze, TV hotelowa.",
+   "Instalacje antenowe: satelitarne, DVB-T2, zbiorcze i telewizja hotelowa.",
+   "fd",
+   [
+    "Satelitarne",
+    "DVB-T2",
+    "Zbiorcze",
+    "TV hotelowa"
+   ],
+   [
+    "s2",
+    "b1"
+   ],
+   "antena anteny telewizja tv sat satelita dvb-t2 hotelowa zbiorcza"
+  ],
+  [
+   "i8",
+   "instalacje",
+   "Ładowarki EV",
+   "Elzab EcoPower do domu, firmy i obiektu.",
+   "Ładowarki do aut elektrycznych Elzab EcoPower — do domu, firmy i obiektu.",
+   "fd",
+   [
+    "Elzab EcoPower",
+    "Dom",
+    "Firma i obiekt"
+   ],
+   [
+    "b7",
+    "s1"
+   ],
+   "ladowarka ladowarki ev auto elektryczne samochod elektryczny wallbox ecopower"
+  ],
+  [
+   "i9",
+   "instalacje",
+   "Ekrany informacyjne",
+   "Ekrany z ofertą i informacją, sterowane zdalnie.",
+   "Ekrany informacyjne i reklamowe w lokalu, obiekcie albo witrynie — treść zmieniasz zdalnie.",
+   "f",
+   [
+    "Ekrany",
+    "Treść zdalnie",
+    "Montaż"
+   ],
+   [
+    "i6",
+    "s2"
+   ],
+   "ekran ekrany digital signage reklama menu board telewizor witryna informacja"
+  ],
+  [
+   "i10",
+   "instalacje",
+   "Dla architektów i deweloperów",
+   "Instalacje zaplanowane już w projekcie.",
+   "Współpraca z architektami, projektantami wnętrz, deweloperami i wykonawcami: instalacje naniesione na rzuty, zanim wejdą tynki.",
+   "f",
+   [
+    "Konsultacja projektu",
+    "Punkty na rzutach",
+    "Jedna ekipa"
+   ],
+   [
+    "i4",
+    "i5",
+    "i1"
+   ],
+   "architekt architekci projektant wnetrz deweloper wykonawca podwykonawca inwestycja budowa rzuty projekt wspolpraca"
+  ],
+  [
+   "s1",
+   "software",
+   "Strony internetowe",
+   "Firmowe, wizytówki i landing page.",
+   "Strony firmowe, wizytówki i landing page pisane pod konkretną firmę, nie z szablonu.",
+   "f",
+   [
+    "Strony firmowe",
+    "Wizytówki",
+    "Landing page"
+   ],
+   [
+    "b4",
+    "i4"
+   ],
+   "strona strony www internetowa wizytowka landing page firmowa google seo"
+  ],
+  [
+   "s2",
+   "software",
+   "Strony dla lokali i noclegów",
+   "Restauracje, bary, hotele i pensjonaty.",
+   "Strony dla restauracji, barów, hoteli i pensjonatów.",
+   "f",
+   [
+    "Restauracje i bary",
+    "Hotele i pensjonaty"
+   ],
+   [
+    "b3",
+    "i4",
+    "b1"
+   ],
+   "strona restauracji menu strona pensjonatu hotel noclegi bar rezerwacja turystyka"
+  ],
+  [
+   "s3",
+   "software",
+   "Systemy i panele",
+   "CRM, zlecenia, czas pracy i rozliczenia.",
+   "Systemy i panele pod proces Twojej firmy: CRM, zlecenia, czas pracy i rozliczenia.",
+   "f",
+   [
+    "CRM",
+    "Zlecenia",
+    "Czas pracy",
+    "Rozliczenia"
+   ],
+   [
+    "b4",
+    "b7"
+   ],
+   "system systemy panel crm zlecenia czas pracy rozliczenia rejestr ekipa kanban aplikacja webowa"
+  ],
+  [
+   "s4",
+   "software",
+   "Aplikacje mobilne",
+   "Dla pracowników i dla klientów.",
+   "Aplikacje mobilne dla pracowników i dla klientów.",
+   "f",
+   [
+    "Dla pracowników",
+    "Dla klientów"
+   ],
+   [
+    "b5",
+    "b4"
+   ],
+   "aplikacja aplikacje mobilna telefon android ios app"
+  ],
+  [
+   "s5",
+   "software",
+   "Automatyzacje i AI",
+   "Raporty i dokumenty bez przepisywania.",
+   "Automatyzacje i AI: raporty i dokumenty powstają bez ręcznego przepisywania.",
+   "f",
+   [
+    "Raporty",
+    "Dokumenty",
+    "Bez przepisywania"
+   ],
+   [
+    "b4",
+    "b7"
+   ],
+   "automatyzacja automatyzacje ai sztuczna inteligencja raport raporty excel dokumenty integracja"
+  ],
+  [
+   "s6",
+   "software",
+   "Przebudowa strony",
+   "Odświeżenie albo przejęcie obecnej strony.",
+   "Odświeżamy albo przejmujemy Twoją obecną stronę.",
+   "f",
+   [
+    "Odświeżenie",
+    "Przejęcie strony"
+   ],
+   [
+    "b7",
+    "i4"
+   ],
+   "przebudowa strony stara strona odswiezenie nowa wersja strona nie dziala migracja"
+  ],
+  [
+   "s7",
+   "software",
+   "Opieka nad stroną",
+   "Serwer w Polsce, kopia co noc.",
+   "Opieka nad stroną i systemem: serwer w Polsce i kopia zapasowa co noc.",
+   "f",
+   [
+    "Serwer w Polsce",
+    "Kopia co noc"
+   ],
+   [
+    "b7",
+    "b6"
+   ],
+   "opieka hosting serwer utrzymanie strony kopia aktualizacje domena"
+  ],
+  [
+   "s8",
+   "software",
+   "Darmowy audyt strony",
+   "Sprawdzimy Twoją obecną stronę.",
+   "Bezpłatnie sprawdzimy Twoją obecną stronę i powiemy, co poprawić.",
+   "f",
+   [
+    "Bezpłatnie",
+    "Lista poprawek"
+   ],
+   [
+    "b7",
+    "i4"
+   ],
+   "audyt strony darmowy bezplatny sprawdzenie strony seo szybkosc"
+  ],
+  [
+   "t1",
+   "tech",
+   "Telefony",
+   "Wyświetlacze, baterie, gniazda ładowania.",
+   "Naprawa telefonów: wyświetlacze, baterie i gniazda ładowania. Diagnoza i wycena są bezpłatne.",
+   "fd",
+   [
+    "Wyświetlacze",
+    "Baterie",
+    "Gniazda ładowania"
+   ],
+   [
+    "g1",
+    "b7"
+   ],
+   "telefon telefony smartfon iphone samsung ekran pekniety wyswietlacz szybka bateria ladowanie naprawa"
+  ],
+  [
+   "t2",
+   "tech",
+   "Tablety i smartwatche",
+   "Diagnoza i naprawa.",
+   "Diagnoza i naprawa tabletów oraz smartwatchy.",
+   "fd",
+   [
+    "Tablety",
+    "Smartwatche",
+    "Bezpłatna diagnoza"
+   ],
+   [
+    "b7",
+    "g1"
+   ],
+   "tablet tablety ipad smartwatch zegarek naprawa"
+  ],
+  [
+   "t3",
+   "tech",
+   "Laptopy",
+   "Diagnoza i naprawa.",
+   "Diagnoza i naprawa laptopów. Status naprawy sprawdzasz online.",
+   "fd",
+   [
+    "Diagnoza",
+    "Naprawa",
+    "Status online"
+   ],
+   [
+    "b5",
+    "g1"
+   ],
+   "laptop laptopy notebook naprawa nie wlacza sie matryca klawiatura zawias"
+  ],
+  [
+   "t4",
+   "tech",
+   "Komputery stacjonarne",
+   "Diagnoza i naprawa.",
+   "Diagnoza i naprawa komputerów stacjonarnych.",
+   "fd",
+   [
+    "Diagnoza",
+    "Naprawa"
+   ],
+   [
+    "g1",
+    "b5"
+   ],
+   "komputer stacjonarny pc naprawa nie dziala wolno czyszczenie"
+  ],
+  [
+   "t5",
+   "tech",
+   "Konsole",
+   "Naprawa w serwisie.",
+   "Naprawa konsol w serwisie w Rabce-Zdroju.",
+   "d",
+   [
+    "Naprawa w serwisie"
+   ],
+   [
+    "g1",
+    "i4"
+   ],
+   "konsola konsole playstation ps4 ps5 xbox nintendo pad przegrzewanie"
+  ],
+  [
+   "t6",
+   "tech",
+   "Drukarki",
+   "Naprawa w serwisie.",
+   "Naprawa drukarek w serwisie w Rabce-Zdroju.",
+   "fd",
+   [
+    "Naprawa w serwisie"
+   ],
+   [
+    "b5",
+    "b7"
+   ],
+   "drukarka drukarki naprawa nie drukuje tusz toner"
+  ],
+  [
+   "t7",
+   "tech",
+   "Odzyskiwanie danych",
+   "Z telefonów i dysków.",
+   "Odzyskiwanie danych z telefonów i dysków.",
+   "fd",
+   [
+    "Telefony",
+    "Dyski"
+   ],
+   [
+    "b6",
+    "b7"
+   ],
+   "odzyskiwanie danych dane dysk zdjecia utracone skasowane pendrive"
+  ],
+  [
+   "t8",
+   "tech",
+   "Hammer Glass i akcesoria",
+   "Folia cięta na wymiar na miejscu.",
+   "Folia Hammer Glass cięta na wymiar na miejscu oraz akcesoria GSM w salonie.",
+   "d",
+   [
+    "Hammer Glass",
+    "Cięcie na wymiar",
+    "Akcesoria GSM"
+   ],
+   [
+    "g1",
+    "b5"
+   ],
+   "folia szklo hammer glass ochrona ekranu etui ladowarka akcesoria gsm kabel"
+  ],
+  [
+   "g1",
+   "gaming",
+   "Gotowe zestawy",
+   "16 komputerów w dziewięciu poziomach mocy.",
+   "16 gotowych komputerów do gier w dziewięciu poziomach mocy, składanych ręcznie w Rabce-Zdroju.",
+   "d",
+   [
+    "16 zestawów",
+    "Dziewięć poziomów mocy",
+    "Składane ręcznie"
+   ],
+   [
+    "t4",
+    "i4"
+   ],
+   "komputer do gier gamingowy pc zestaw zestawy gaming gracz gotowy"
+  ],
+  [
+   "g2",
+   "gaming",
+   "Konfigurator",
+   "Składasz własny komputer krok po kroku.",
+   "Konfigurator, w którym składasz własny komputer krok po kroku.",
+   "d",
+   [
+    "Własna konfiguracja",
+    "Krok po kroku"
+   ],
+   [
+    "t4",
+    "i4"
+   ],
+   "konfigurator konfiguracja zloz komputer czesci karta graficzna procesor"
+  ],
+  [
+   "g3",
+   "gaming",
+   "Dobór pod grę",
+   "33 gry, zestawy z wynikiem klatek.",
+   "Dobór „W co grasz?”: wybierasz jedną z 33 gier i widzisz zestawy z wynikiem klatek.",
+   "d",
+   [
+    "33 gry",
+    "Wynik klatek"
+   ],
+   [
+    "t4",
+    "i4"
+   ],
+   "dobor pod gre w co grasz fps klatki gra gry fortnite cs2 minecraft"
+  ],
+  [
+   "g4",
+   "gaming",
+   "Porównywarka",
+   "Do trzech zestawów obok siebie.",
+   "Porównujesz do trzech zestawów obok siebie.",
+   "d",
+   [
+    "Do trzech zestawów"
+   ],
+   [
+    "t4"
+   ],
+   "porownaj porownywarka zestawy roznice"
+  ],
+  [
+   "g5",
+   "gaming",
+   "Dla rodziców",
+   "Pomoc w wyborze komputera dla dziecka.",
+   "Pomagamy rodzicom wybrać komputer dla dziecka.",
+   "d",
+   [
+    "Pomoc w wyborze",
+    "Komputer dla dziecka"
+   ],
+   [
+    "t3",
+    "i4"
+   ],
+   "rodzic rodzice dziecko komputer dla dziecka prezent syn corka"
+  ],
+  [
+   "g6",
+   "gaming",
+   "Testy przed wysyłką",
+   "Test obciążeniowy i pomiar klatek.",
+   "Każdy komputer przechodzi test obciążeniowy i pomiar klatek przed wysyłką.",
+   "d",
+   [
+    "Test obciążeniowy",
+    "Pomiar klatek"
+   ],
+   [
+    "t4"
+   ],
+   "test testy obciazeniowy pomiar klatek sprawdzony"
+  ],
+  [
+   "g7",
+   "gaming",
+   "Metryka komputera",
+   "Dokument z wynikami dołączony do zestawu.",
+   "Do zestawu dołączamy metrykę — dokument z wynikami testów.",
+   "d",
+   [
+    "Wyniki testów",
+    "W pudełku"
+   ],
+   [
+    "t4"
+   ],
+   "metryka dokument wyniki certyfikat"
+  ],
+  [
+   "g8",
+   "gaming",
+   "W zestawie",
+   "Windows 11, montaż, Wi-Fi i Bluetooth, wysyłka.",
+   "W zestawie: Windows 11, montaż, Wi-Fi i Bluetooth oraz wysyłka. Gwarancja 2 lata na cały komputer.",
+   "d",
+   [
+    "Windows 11",
+    "Montaż",
+    "Wi-Fi i Bluetooth",
+    "Wysyłka",
+    "Gwarancja 2 lata"
+   ],
+   [
+    "t4",
+    "i4"
+   ],
+   "windows 11 gwarancja wysylka w zestawie bluetooth wifi"
+  ]
+ ],
+ "pages": [
+  [
+   "Dla firm",
+   "Plan dla Twojej branży: kasa, IT, obiekt, strona.",
+   "DlaFirm.dc.html",
+   "firma firmy biznes branza plan restauracja hotel sklep biuro"
+  ],
+  [
+   "Dla domu",
+   "Instalacje, naprawy i komputer do gier dla domu.",
+   "DlaDomu.dc.html",
+   "dom domu mieszkanie rodzina smart home"
+  ],
+  [
+   "Inwestycje i większe dostawy",
+   "Sprzęt IT, RTV i AGD dla firm, instytucji, hoteli, inwestorów i deweloperów.",
+   "Dostawy.dc.html",
+   "dostawy dostawa hurt hurtowo wieksze zamowienie inwestor inwestycja deweloper hotel pensjonat apartamenty szkola urzad przetarg rtv agd telewizory lodowki komputery laptopy"
+  ],
+  [
+   "Współpraca",
+   "Architekci, deweloperzy, wykonawcy, instytucje i dostawcy.",
+   "Wspolpraca.dc.html",
+   "architekt deweloper wykonawca instytucja szkola urzad przetarg dostawca dostawy wspolpraca"
+  ],
+  [
+   "Załatw online",
+   "20 narzędzi: zgłoszenia, statusy, wyceny, konfiguratory.",
+   "Narzedzia.dc.html",
+   "online narzedzia zgloszenie status wycena konfigurator formularz"
+  ],
+  [
+   "Co zrobić, gdy…",
+   "Pierwsze kroki, zanim zadzwonisz.",
+   "Pomoc.dc.html",
+   "pomoc awaria nie dziala problem zepsulo"
+  ],
+  [
+   "O firmie",
+   "Kim jesteśmy, od kiedy i jak pracujemy.",
+   "OFirmie.dc.html",
+   "o firmie historia od 2004 dane nip regon kim jestesmy"
+  ],
+  [
+   "Kontakt",
+   "Numery linii, adres salonu i formularz.",
+   "Kontakt.dc.html",
+   "kontakt telefon adres mail email godziny dojazd salon"
+  ],
+  [
+   "Gdzie działamy",
+   "Dojazd na Podhalu i w Małopolsce, zdalnie w całej Polsce.",
+   "Zasieg.dc.html",
+   "zasieg dojazd zakopane nowy targ limanowa podhale malopolska"
+  ],
+  [
+   "Marki i autoryzacje",
+   "Posnet, Elzab, GoPOS, InsERT i marki, z którymi pracujemy.",
+   "Partnerzy.dc.html",
+   "marki autoryzacje partner posnet elzab gopos insert"
+  ],
+  [
+   "Aktualności",
+   "Wpisy ze wszystkich linii.",
+   "Aktualnosci.dc.html",
+   "aktualnosci nowosci blog wpisy"
+  ]
+ ],
+ "tools": [
+  [
+   "biznes",
+   "Plan Twojej firmy",
+   "Zobacz na planie lokalu, czego potrzebuje Twoja firma.",
+   "plan lokal firma"
+  ],
+  [
+   "biznes",
+   "Konfigurator",
+   "Odpowiedz na kilka pytań — dobierzemy sprzęt i programy.",
+   "konfigurator dobor sprzet"
+  ],
+  [
+   "instalacje",
+   "Zaplanuj instalację",
+   "Opisz obiekt — odpowiemy w 24 godziny w dni robocze.",
+   "zaplanuj instalacja wycena obiekt"
+  ],
+  [
+   "instalacje",
+   "Zgłoś awarię",
+   "Kamery, alarm albo sieć przestały działać? Zgłoś online.",
+   "awaria zgloszenie kamera alarm nie dziala"
+  ],
+  [
+   "software",
+   "Policz swój projekt",
+   "Kreator strony albo systemu: zakres i termin krok po kroku.",
+   "wycena strona projekt kreator ile kosztuje"
+  ],
+  [
+   "software",
+   "Darmowy audyt strony",
+   "Sprawdzimy Twoją obecną stronę i powiemy, co poprawić.",
+   "audyt strona seo sprawdz"
+  ],
+  [
+   "tech",
+   "Zgłoś naprawę",
+   "Opisz usterkę online, zanim przyniesiesz sprzęt.",
+   "naprawa zgloszenie serwis telefon laptop"
+  ],
+  [
+   "tech",
+   "Status naprawy",
+   "Wpisz numer zlecenia i zobacz etap naprawy.",
+   "status naprawy zlecenie numer"
+  ],
+  [
+   "gaming",
+   "Konfigurator PC",
+   "Złóż komputer do gier po swojemu, krok po kroku.",
+   "konfigurator pc komputer gry"
+  ],
+  [
+   "gaming",
+   "Dobór pod grę",
+   "Powiedz, w co grasz — pokażemy pasujące zestawy.",
+   "dobor gra fps zestaw"
+  ]
+ ]
+}

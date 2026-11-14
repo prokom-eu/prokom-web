@@ -1,0 +1,360 @@
+{
+ "_zrodlo": "MapaStrony.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "groups": [
+   {
+    "n": "01",
+    "name": "Wejście",
+    "note": "1 strona",
+    "pages": [
+     {
+      "name": "Strona główna",
+      "url": "/",
+      "href": "Main.dc.html",
+      "why": "Wejście do całej firmy: mówi, kim jest PRO-KOM, i kieruje do właściwej linii.",
+      "title": "PRO-KOM Rabka-Zdrój — IT dla firm, instalacje, serwis",
+      "h1": "PRO-KOM",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     }
+    ]
+   },
+   {
+    "n": "02",
+    "name": "Znajdź swoją sprawę",
+    "note": "6 stron",
+    "pages": [
+     {
+      "name": "Linie",
+      "url": "/linie",
+      "href": "Linie.dc.html",
+      "why": "Lista spraw z odpowiedzią, która linia się nimi zajmuje i pod jakim numerem.",
+      "title": "Linie PRO-KOM — co gdzie załatwisz",
+      "h1": "Co gdzie załatwisz.",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     },
+     {
+      "name": "Dla firm",
+      "url": "/dla-firm",
+      "href": "DlaFirm.dc.html",
+      "why": "Plan dla branży złożony z kilku linii naraz: kasa, sieć, kamery, strona.",
+      "title": "Dla firm: kasy, IT, sieć, kamery, strona | PRO-KOM",
+      "h1": "Wszystko dla Twojej firmy w jednej firmie",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     },
+     {
+      "name": "Dla domu",
+      "url": "/dla-domu",
+      "href": "DlaDomu.dc.html",
+      "why": "To samo dla domu: smart home, alarm, naprawy sprzętu i komputer do gier.",
+      "title": "Dla domu: smart home, alarm, serwis, gaming | PRO-KOM",
+      "h1": "Wszystko dla domu w jednej firmie",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     },
+     {
+      "name": "Inwestycje i dostawy",
+      "url": "/inwestycje-i-dostawy",
+      "href": "Dostawy.dc.html",
+      "why": "Większe zamówienia sprzętu IT, RTV i AGD dla firm, instytucji, hoteli, inwestorów i deweloperów: lista zapytania, wyposażenie obiektu, przetargi.",
+      "title": "Większe dostawy IT, RTV i AGD dla firm i instytucji | PRO-KOM",
+      "h1": "Większe zamówienie albo cały obiekt? Jedna firma od listy do serwisu.",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     },
+     {
+      "name": "Współpraca",
+      "url": "/wspolpraca",
+      "href": "Wspolpraca.dc.html",
+      "why": "Dla architektów, deweloperów, wykonawców, instytucji i dostawców: etapy współpracy, zakres, większe dostawy.",
+      "title": "Współpraca: architekci, deweloperzy, instytucje | PRO-KOM",
+      "h1": "Projektujesz, budujesz albo zamawiasz? Zróbmy to razem.",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     },
+     {
+      "name": "Załatw online",
+      "url": "/zalatw-online",
+      "href": "Narzedzia.dc.html",
+      "why": "Wszystko, co da się załatwić online w liniach: zgłoszenia, status naprawy, wyceny, konfiguratory.",
+      "title": "Załatw online — zgłoszenia, wyceny, status | PRO-KOM",
+      "h1": "Załatw to od razu. Bez dzwonienia.",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     },
+     {
+      "name": "Pomoc",
+      "url": "/pomoc",
+      "href": "Pomoc.dc.html",
+      "why": "Krótkie odpowiedzi „co zrobić, gdy…” z numerem do właściwej linii.",
+      "title": "Pomoc — co zrobić, gdy coś nie działa | PRO-KOM",
+      "h1": "Co zrobić, gdy…",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     },
+     {
+      "name": "Pomoc · jedna sytuacja",
+      "url": "/pomoc/[sytuacja]",
+      "href": "Pomoc.dc.html",
+      "why": "Osobna strona dla jednej sytuacji — odpowiada na konkretne pytanie wpisywane w Google.",
+      "title": "Kamera nie nagrywa — co zrobić | Pomoc PRO-KOM",
+      "h1": "Kamera nie nagrywa — co zrobić",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     }
+    ]
+   },
+   {
+    "n": "03",
+    "name": "O firmie",
+    "note": "5 stron",
+    "pages": [
+     {
+      "name": "O firmie",
+      "url": "/o-firmie",
+      "href": "OFirmie.dc.html",
+      "why": "Kim jesteśmy, od kiedy działamy i gdzie można nas sprawdzić.",
+      "title": "O firmie PRO-KOM — Rabka-Zdrój, od 2004 roku",
+      "h1": "Firma z Rabki, która robi technikę od początku do końca.",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     },
+     {
+      "name": "Partnerzy",
+      "url": "/partnerzy",
+      "href": "Partnerzy.dc.html",
+      "why": "Autoryzacje i marki, z którymi pracujemy — z linkami do weryfikacji.",
+      "title": "Partnerzy i autoryzacje PRO-KOM — Posnet, Elzab, InsERT",
+      "h1": "Partnerzy i autoryzacje",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     },
+     {
+      "name": "Gdzie działamy",
+      "url": "/gdzie-dzialamy",
+      "href": "Zasieg.dc.html",
+      "why": "Zasięg dojazdów i lista miejscowości — strona pod wyszukiwanie lokalne.",
+      "title": "Gdzie działamy — Podhale, Małopolska, cała Polska",
+      "h1": "Gdzie działamy",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     },
+     {
+      "name": "Kontakt",
+      "url": "/kontakt",
+      "href": "Kontakt.dc.html",
+      "why": "Numer każdej linii, salon, godziny, dojazd i formularz, który trafia do właściwej skrzynki.",
+      "title": "Kontakt PRO-KOM — Rabka-Zdrój, ul. Orkana 16B",
+      "h1": "Jeden numer. Pokierujemy, gdzie trzeba.",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     },
+     {
+      "name": "Aktualności",
+      "url": "/aktualnosci",
+      "href": "Aktualnosci.dc.html",
+      "why": "Zajawki wpisów ze wszystkich linii; całość czyta się u źródła.",
+      "title": "Aktualności PRO-KOM — nowości ze wszystkich linii",
+      "h1": "Co nowego w liniach",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     }
+    ]
+   },
+   {
+    "n": "04",
+    "name": "Techniczne i prawne",
+    "note": "5 stron",
+    "pages": [
+     {
+      "name": "Szukaj",
+      "url": "/szukaj",
+      "href": "Szukaj.dc.html",
+      "why": "Wyniki wyszukiwania po wszystkich liniach, z akcjami: zadzwoń, napisz, wyznacz trasę.",
+      "title": "Szukaj w PRO-KOM",
+      "h1": "Szukasz: „…”",
+      "tag": "poza indeksem",
+      "tagBg": "rgba(var(--r-w),.08)",
+      "tagInk": "var(--k-ink2)"
+     },
+     {
+      "name": "Polityka prywatności",
+      "url": "/polityka-prywatnosci",
+      "href": "Prawne.dc.html",
+      "why": "Kto przetwarza dane, po co i jak długo.",
+      "title": "Polityka prywatności | PRO-KOM",
+      "h1": "Polityka prywatności",
+      "tag": "poza indeksem",
+      "tagBg": "rgba(var(--r-w),.08)",
+      "tagInk": "var(--k-ink2)"
+     },
+     {
+      "name": "Cookies",
+      "url": "/cookies",
+      "href": "Prawne.dc.html",
+      "why": "Jakie pliki zapisuje strona i jak liczymy statystyki.",
+      "title": "Cookies | PRO-KOM",
+      "h1": "Cookies",
+      "tag": "poza indeksem",
+      "tagBg": "rgba(var(--r-w),.08)",
+      "tagInk": "var(--k-ink2)"
+     },
+     {
+      "name": "Dostępność",
+      "url": "/dostepnosc",
+      "href": "Prawne.dc.html",
+      "why": "Deklaracja dostępności strony.",
+      "title": "Dostępność | PRO-KOM",
+      "h1": "Dostępność",
+      "tag": "poza indeksem",
+      "tagBg": "rgba(var(--r-w),.08)",
+      "tagInk": "var(--k-ink2)"
+     },
+     {
+      "name": "Mapa strony",
+      "url": "/mapa-strony",
+      "href": "MapaStrony.dc.html",
+      "why": "Ta strona — spis wszystkich adresów dla ludzi; dla Google osobny plik sitemap.xml.",
+      "title": "Mapa strony | PRO-KOM",
+      "h1": "Wszystko, co jest na pro-kom.eu.",
+      "tag": "w indeksie",
+      "tagBg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+      "tagInk": "var(--k-gt)"
+     }
+    ]
+   }
+  ],
+  "lines": [
+   {
+    "name": "Biznes",
+    "short": "Kasy, komputery, opieka IT",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "edge": "rgba(var(--r-w),.1)",
+    "ink": "var(--k-white)"
+   },
+   {
+    "name": "Instalacje",
+    "short": "Monitoring, sieci, smart home",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "edge": "rgba(var(--r-w),.1)",
+    "ink": "var(--k-white)"
+   },
+   {
+    "name": "Software",
+    "short": "Strony, systemy, aplikacje",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "edge": "rgba(var(--r-w),.1)",
+    "ink": "var(--k-white)"
+   },
+   {
+    "name": "Tech",
+    "short": "Naprawy telefonów i komputerów",
+    "domain": "prokomserwis.pl",
+    "url": "https://prokomserwis.pl",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "edge": "rgba(var(--r-w),.1)",
+    "ink": "var(--k-white)"
+   },
+   {
+    "name": "Gaming",
+    "short": "Komputery gamingowe · marka PRO-KOM",
+    "domain": "prokomgaming.pl",
+    "url": "https://prokomgaming.pl",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "edge": "color-mix(in srgb, var(--k-y) 45%, transparent)",
+    "ink": "var(--k-y)"
+   }
+  ],
+  "redirects": [
+   {
+    "from": "/uslugi/montaz-instalacje/monitoring",
+    "to": "prokominstalacje.pl — strona usługi",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)"
+   },
+   {
+    "from": "/produkt/reseller/kasy-fiskalne",
+    "to": "prokombiznes.pl — strona kategorii",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)"
+   },
+   {
+    "from": "/uslugi/serwis",
+    "to": "prokomserwis.pl",
+    "line": "Tech",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)"
+   },
+   {
+    "from": "/tworzenie-stron-internetowych",
+    "to": "prokomsoftware.pl",
+    "line": "Software",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)"
+   },
+   {
+    "from": "/firma",
+    "to": "/o-firmie",
+    "line": "pro-kom.eu",
+    "cd": "var(--k-g)",
+    "ct": "var(--k-gt)"
+   },
+   {
+    "from": "/kontakt",
+    "to": "/kontakt",
+    "line": "pro-kom.eu (bez zmiany)",
+    "cd": "var(--k-g)",
+    "ct": "var(--k-gt)"
+   },
+   {
+    "from": "/realizacje",
+    "to": "pro-kom.eu — strona główna",
+    "line": "Hub",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)"
+   },
+   {
+    "from": "/kariera",
+    "to": "pro-kom.eu/o-firmie",
+    "line": "Hub",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)"
+   }
+  ]
+ }
+}

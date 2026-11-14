@@ -1,0 +1,4660 @@
+{
+ "_zrodlo": "DlaDomu.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "facts": [
+   {
+    "v": "2004",
+    "l": "od tego roku działamy w Rabce-Zdroju",
+    "c": "var(--k-ink)"
+   },
+   {
+    "v": "1 salon",
+    "l": "ul. Orkana 16B — przyjdź, zapytaj, zostaw sprzęt",
+    "c": "var(--k-ink)"
+   },
+   {
+    "v": "Bezpłatnie",
+    "l": "diagnoza i wycena naprawy",
+    "c": "var(--k-tt)"
+   },
+   {
+    "v": "24 mies.",
+    "l": "gwarancji PRO-KOM na montaż instalacji",
+    "c": "var(--k-it)"
+   },
+   {
+    "v": "2 lata",
+    "l": "gwarancji na cały komputer do gier",
+    "c": "var(--k-y)"
+   }
+  ],
+  "trio": [
+   {
+    "label": "INSTALACJE",
+    "isI": true,
+    "ink": "var(--k-ii)",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "edge": "rgba(var(--r-w),.1)",
+    "anchor": "#przekroj",
+    "title": "Dom, który pilnuje i steruje się sam.",
+    "text": "Monitoring, alarm, wideodomofon, sieć i Wi-Fi, smart home Ampio, ładowarka do auta."
+   },
+   {
+    "label": "TECH",
+    "isT": true,
+    "ink": "var(--k-ti)",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "edge": "rgba(var(--r-w),.1)",
+    "anchor": "#naprawy",
+    "title": "Sprzęt, który znowu działa.",
+    "text": "Naprawy telefonów, laptopów, konsol i drukarek. Bezpłatna diagnoza i wycena."
+   },
+   {
+    "label": "GAMING",
+    "isG": true,
+    "ink": "var(--k-yi)",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "edge": "color-mix(in srgb, var(--k-y) 45%, transparent)",
+    "anchor": "#gaming",
+    "title": "Komputer do gier z Rabki-Zdroju.",
+    "text": "16 zestawów, dobór pod grę, konfigurator. Gwarancja 2 lata, wysyłka w całej Polsce."
+   }
+  ],
+  "sits": [
+   {
+    "n": "01",
+    "name": "Buduję dom",
+    "on": true,
+    "bd": "var(--k-g)",
+    "bg": "var(--k-g)",
+    "ink": "var(--k-gi)"
+   },
+   {
+    "n": "02",
+    "name": "Remontuję",
+    "on": false,
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "n": "03",
+    "name": "Mieszkam i chcę unowocześnić",
+    "on": false,
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "n": "04",
+    "name": "Coś się zepsuło",
+    "on": false,
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "n": "05",
+    "name": "Szukam komputera do gier",
+    "on": false,
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "n": "06",
+    "name": "Kupuję dla dziecka",
+    "on": false,
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "n": "07",
+    "name": "Mam apartament na wynajem",
+    "on": false,
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   }
+  ],
+  "plan": {
+   "name": "Buduję dom",
+   "title": "Zaplanuj instalacje, zanim wejdą tynki.",
+   "lead": "To najlepszy moment. Kable kładzie się raz — potem zostaje już tylko kucie ścian.",
+   "groups": [
+    {
+     "line": "Instalacje",
+     "cd": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "domain": "prokominstalacje.pl",
+     "url": "https://prokominstalacje.pl",
+     "phone": "889 003 889",
+     "tel": "+48889003889",
+     "mail": "kontakt@prokominstalacje.pl",
+     "items": [
+      "Plan instalacji na rzutach domu",
+      "Okablowanie sieci i miejsce na szafkę",
+      "Alarm i wideodomofon",
+      "Monitoring posesji",
+      "Smart home Ampio",
+      "Przewód pod ładowarkę do auta"
+     ]
+    }
+   ],
+   "steps": [
+    {
+     "n": "01",
+     "t": "Przyślij rzuty domu — nawet wstępne."
+    },
+    {
+     "n": "02",
+     "t": "Ustalimy punkty i trasy kabli razem z Tobą albo z architektem."
+    },
+    {
+     "n": "03",
+     "t": "Dostaniesz plan i wycenę przed rozpoczęciem prac."
+    }
+   ],
+   "phone": "889 003 889",
+   "telHref": "tel:+48889003889"
+  },
+  "pts": [
+   {
+    "n": "1",
+    "name": "Kamera",
+    "x": "23%",
+    "y": "37%",
+    "on": true,
+    "bd": "var(--k-white)",
+    "bg": "var(--k-i)",
+    "ink": "var(--k-ii)",
+    "glow": "0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)",
+    "chipBd": "var(--k-i)"
+   },
+   {
+    "n": "2",
+    "name": "Wideodomofon",
+    "x": "11%",
+    "y": "70%",
+    "on": false,
+    "bd": "var(--k-i)",
+    "bg": "var(--k-id)",
+    "ink": "var(--k-it)",
+    "glow": "none",
+    "chipBd": "rgba(var(--r-w),.16)"
+   },
+   {
+    "n": "3",
+    "name": "Brama",
+    "x": "6%",
+    "y": "82%",
+    "on": false,
+    "bd": "var(--k-i)",
+    "bg": "var(--k-id)",
+    "ink": "var(--k-it)",
+    "glow": "none",
+    "chipBd": "rgba(var(--r-w),.16)"
+   },
+   {
+    "n": "4",
+    "name": "Alarm",
+    "x": "32%",
+    "y": "72%",
+    "on": false,
+    "bd": "var(--k-i)",
+    "bg": "var(--k-id)",
+    "ink": "var(--k-it)",
+    "glow": "none",
+    "chipBd": "rgba(var(--r-w),.16)"
+   },
+   {
+    "n": "5",
+    "name": "Smart home Ampio",
+    "x": "40%",
+    "y": "47%",
+    "on": false,
+    "bd": "var(--k-i)",
+    "bg": "var(--k-id)",
+    "ink": "var(--k-it)",
+    "glow": "none",
+    "chipBd": "rgba(var(--r-w),.16)"
+   },
+   {
+    "n": "6",
+    "name": "Rolety i światło",
+    "x": "30%",
+    "y": "44%",
+    "on": false,
+    "bd": "var(--k-i)",
+    "bg": "var(--k-id)",
+    "ink": "var(--k-it)",
+    "glow": "none",
+    "chipBd": "rgba(var(--r-w),.16)"
+   },
+   {
+    "n": "7",
+    "name": "Wi-Fi",
+    "x": "55%",
+    "y": "38%",
+    "on": false,
+    "bd": "var(--k-i)",
+    "bg": "var(--k-id)",
+    "ink": "var(--k-it)",
+    "glow": "none",
+    "chipBd": "rgba(var(--r-w),.16)"
+   },
+   {
+    "n": "8",
+    "name": "Szafka sieciowa",
+    "x": "61%",
+    "y": "79%",
+    "on": false,
+    "bd": "var(--k-i)",
+    "bg": "var(--k-id)",
+    "ink": "var(--k-it)",
+    "glow": "none",
+    "chipBd": "rgba(var(--r-w),.16)"
+   },
+   {
+    "n": "9",
+    "name": "Nagłośnienie",
+    "x": "52%",
+    "y": "70%",
+    "on": false,
+    "bd": "var(--k-i)",
+    "bg": "var(--k-id)",
+    "ink": "var(--k-it)",
+    "glow": "none",
+    "chipBd": "rgba(var(--r-w),.16)"
+   },
+   {
+    "n": "10",
+    "name": "Antena RTV/SAT",
+    "x": "58.6%",
+    "y": "9%",
+    "on": false,
+    "bd": "var(--k-i)",
+    "bg": "var(--k-id)",
+    "ink": "var(--k-it)",
+    "glow": "none",
+    "chipBd": "rgba(var(--r-w),.16)"
+   },
+   {
+    "n": "11",
+    "name": "Ładowarka do auta",
+    "x": "76%",
+    "y": "72%",
+    "on": false,
+    "bd": "var(--k-i)",
+    "bg": "var(--k-id)",
+    "ink": "var(--k-it)",
+    "glow": "none",
+    "chipBd": "rgba(var(--r-w),.16)"
+   }
+  ],
+  "pt": {
+   "n": "1",
+   "name": "Kamera",
+   "where": "Na zewnątrz",
+   "what": "Kamera z nagrywaniem i podglądem w telefonie.",
+   "why": "Widzisz wejście i podjazd z dowolnego miejsca.",
+   "when": "Kabel do kamery najlepiej położyć przed tynkami i ociepleniem."
+  },
+  "stages": [
+   {
+    "n": "1",
+    "t": "Projekt",
+    "d": "Przysyłasz rzuty. Zaznaczamy kamery, alarm, sieć, smart home i ładowarkę.",
+    "tag": "Najlepszy moment na start",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "var(--k-i)"
+   },
+   {
+    "n": "2",
+    "t": "Stan surowy",
+    "d": "Ustalamy trasy kabli i miejsce na szafkę sieciową.",
+    "tag": "Ustalenia na budowie",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "var(--k-i)"
+   },
+   {
+    "n": "3",
+    "t": "Przed tynkami",
+    "d": "Kładziemy okablowanie. To ostatni moment, żeby zrobić to bez kucia ścian.",
+    "tag": "NIE PRZEGAP TEGO ETAPU",
+    "bg": "var(--k-i)",
+    "ink": "var(--k-ii)",
+    "bd": "var(--k-i)",
+    "bar": "var(--k-ii)"
+   },
+   {
+    "n": "4",
+    "t": "Wykończenie",
+    "d": "Montujemy urządzenia: kamery, czujki, panele, punkty Wi-Fi.",
+    "tag": "Montaż urządzeń",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "var(--k-i)"
+   },
+   {
+    "n": "5",
+    "t": "Zamieszkanie",
+    "d": "Uruchamiamy system i pokazujemy obsługę w telefonie. Potem serwis i przeglądy.",
+    "tag": "Opieka po montażu",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "var(--k-g)"
+   }
+  ],
+  "ampio": [
+   {
+    "n": "01",
+    "t": "Światło",
+    "d": "Włączanie, ściemnianie i grupy świateł."
+   },
+   {
+    "n": "02",
+    "t": "Rolety",
+    "d": "Pojedynczo, piętrami albo cały dom naraz."
+   },
+   {
+    "n": "03",
+    "t": "Ogrzewanie",
+    "d": "Temperatura w pomieszczeniach, także na odległość."
+   },
+   {
+    "n": "04",
+    "t": "Bramy",
+    "d": "Wjazdowa i garażowa z telefonu."
+   },
+   {
+    "n": "05",
+    "t": "Alarm",
+    "d": "Uzbrajanie i powiadomienia. Gdy ubezpieczyciel wymaga klasy — Satel z integracją."
+   },
+   {
+    "n": "06",
+    "t": "Kamery",
+    "d": "Podgląd w tej samej aplikacji."
+   },
+   {
+    "n": "07",
+    "t": "Wideodomofon",
+    "d": "Widzisz, kto dzwoni, i otwierasz."
+   },
+   {
+    "n": "08",
+    "t": "Audio",
+    "d": "Muzyka przez Sonos, HEOS albo MusicCast."
+   },
+   {
+    "n": "09",
+    "t": "Gniazda",
+    "d": "Wyłączasz wybrane obwody jednym ruchem."
+   },
+   {
+    "n": "10",
+    "t": "Sceny",
+    "d": "„Wychodzę”, „Wieczór”, „Urlop” — jedno dotknięcie."
+   },
+   {
+    "n": "11",
+    "t": "Harmonogramy",
+    "d": "Dom robi swoje o ustalonych porach."
+   },
+   {
+    "n": "12",
+    "t": "Aplikacja",
+    "d": "Wszystko w telefonie, w domu i poza nim."
+   }
+  ],
+  "safe": [
+   {
+    "t": "Monitoring",
+    "d": "Kamery z nagrywaniem i podglądem w telefonie. Najczęściej montujemy Hikvision, Dahua i BCS — dobieramy pod dom, nie pod markę."
+   },
+   {
+    "t": "Alarm",
+    "d": "Czujki i centrala z powiadomieniem w telefonie."
+   },
+   {
+    "t": "Wideodomofon",
+    "d": "Widzisz, kto stoi przy furtce, i otwierasz z domu albo z aplikacji."
+   },
+   {
+    "t": "Serwis po montażu",
+    "d": "Przeglądy, pomoc zdalna i naprawy. Przejmujemy też instalacje po innym wykonawcy."
+   }
+  ],
+  "net": [
+   {
+    "t": "Wi-Fi w całym domu",
+    "d": "Punkty dostępowe na kablu zamiast wzmacniaczy w gniazdkach. Zasięg na piętrze i w piwnicy.",
+    "b1": "30%",
+    "b2": "55%",
+    "b3": "80%",
+    "b4": "100%"
+   },
+   {
+    "t": "Okablowanie",
+    "d": "Gniazdo sieciowe tam, gdzie stoi telewizor, komputer i konsola. Szafka, w której wszystko się schodzi.",
+    "b1": "100%",
+    "b2": "100%",
+    "b3": "100%",
+    "b4": "100%"
+   },
+   {
+    "t": "Ogród i garaż",
+    "d": "Zasięg na tarasie, przy bramie i w garażu — także dla kamer i ładowarki.",
+    "b1": "30%",
+    "b2": "55%",
+    "b3": "80%",
+    "b4": "80%"
+   },
+   {
+    "t": "Światłowód w domu",
+    "d": "Doprowadzenie i rozprowadzenie łącza po domu, żeby prędkość z umowy docierała do pokoi.",
+    "b1": "55%",
+    "b2": "80%",
+    "b3": "100%",
+    "b4": "100%"
+   }
+  ],
+  "fix": [
+   {
+    "t": "Telefony",
+    "d": "Wyświetlacze, baterie, gniazda ładowania, głośniki i mikrofony, naprawy po zalaniu."
+   },
+   {
+    "t": "Tablety",
+    "d": "Diagnoza i naprawa."
+   },
+   {
+    "t": "Laptopy",
+    "d": "Diagnoza i naprawa."
+   },
+   {
+    "t": "Komputery",
+    "d": "Stacjonarne — diagnoza i naprawa."
+   },
+   {
+    "t": "Konsole",
+    "d": "Naprawa w serwisie."
+   },
+   {
+    "t": "Drukarki",
+    "d": "Naprawa w serwisie."
+   },
+   {
+    "t": "Odzyskiwanie danych",
+    "d": "Z telefonów i dysków."
+   }
+  ],
+  "proc": [
+   {
+    "n": "01",
+    "t": "Zgłoszenie",
+    "d": "Online albo w salonie."
+   },
+   {
+    "n": "02",
+    "t": "Diagnostyka",
+    "d": "Sprawdzamy, co się stało."
+   },
+   {
+    "n": "03",
+    "t": "Wycena",
+    "d": "Bezpłatna, zanim cokolwiek zrobimy."
+   },
+   {
+    "n": "04",
+    "t": "Twoja decyzja",
+    "d": "Zgadzasz się albo odbierasz sprzęt."
+   },
+   {
+    "n": "05",
+    "t": "Naprawa",
+    "d": "Status widzisz online."
+   },
+   {
+    "n": "06",
+    "t": "Odbiór",
+    "d": "W salonie albo kurierem."
+   }
+  ],
+  "beasts": [
+   {
+    "n": "01",
+    "name": "Skrzat",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "02",
+    "name": "Licho",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "03",
+    "name": "Bies",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "04",
+    "name": "Wodnik",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "05",
+    "name": "Strzyga",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "06",
+    "name": "Kikimora",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "07",
+    "name": "Zmora",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "08",
+    "name": "Rusałka",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "09",
+    "name": "Baba Jaga",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "10",
+    "name": "Bazyliszek",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "11",
+    "name": "Pani Zimy",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "12",
+    "name": "Wilkołak",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "13",
+    "name": "Wampir",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "14",
+    "name": "Weles",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "15",
+    "name": "Żmij",
+    "bg": "color-mix(in srgb, var(--k-y) 5%, transparent)",
+    "ink": "var(--k-y)"
+   },
+   {
+    "n": "16",
+    "name": "Perun",
+    "bg": "var(--k-y)",
+    "ink": "var(--k-yi)"
+   }
+  ],
+  "gways": [
+   {
+    "big": "33",
+    "t": "Dobór pod grę",
+    "d": "Wybierasz grę i monitor. Przy każdej liczbie klatek jest źródło wyniku."
+   },
+   {
+    "big": "16",
+    "t": "Gotowe zestawy",
+    "d": "Od FullHD po 4K. Możesz zmienić obudowę, chłodzenie, pamięć i dysk."
+   },
+   {
+    "big": "1:1",
+    "t": "Konfigurator",
+    "d": "Składasz komputer po swojemu i od razu widzisz cenę."
+   },
+   {
+    "big": "A–Z",
+    "t": "Dla rodziców",
+    "d": "Wybór krok po kroku, bez żargonu. Odbiór w salonie albo wysyłka."
+   }
+  ],
+  "inbox": [
+   "Windows 11",
+   "Montaż",
+   "Test obciążeniowy",
+   "Pomiar klatek i metryka",
+   "Wi-Fi i Bluetooth",
+   "Wysyłka",
+   "Gwarancja 2 lata"
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Buduję dom. Kiedy się do Was zgłosić?",
+    "a": "Najlepiej na etapie projektu, najpóźniej przed tynkami. Wtedy kable da się położyć bez kucia ścian.",
+    "c": "var(--k-it)",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Mam gotowy dom. Da się coś dołożyć?",
+    "a": "Część rzeczy tak — na przykład kamery, wideodomofon czy lepsze Wi-Fi. Zakres zależy od domu, dlatego najpierw rozmawiamy.",
+    "c": "var(--k-it)",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Na jakim systemie robicie smart home?",
+    "a": "Na systemie Ampio. Muzykę w wielu pokojach łączymy przez Sonos, HEOS albo MusicCast.",
+    "c": "var(--k-it)",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Jakie kamery montujecie?",
+    "a": "Najczęściej Hikvision, Dahua i BCS. Dobieramy sprzęt pod dom, nie pod markę.",
+    "c": "var(--k-it)",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Jaka jest gwarancja na instalację?",
+    "a": "24 miesiące gwarancji PRO-KOM na montaż. Sprzęt ma gwarancję producenta.",
+    "c": "var(--k-it)",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Ile kosztuje diagnoza naprawy?",
+    "a": "Nic. Diagnoza i wycena są bezpłatne — płacisz tylko za naprawę, na którą się zgodzisz.",
+    "c": "var(--k-tt)",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Nie mieszkam w okolicy Rabki. Naprawicie mój telefon?",
+    "a": "Tak. Zgłaszasz naprawę online i wysyłasz sprzęt kurierem — przyjmujemy z całej Polski.",
+    "c": "var(--k-tt)",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Jak kupić komputer do gier?",
+    "a": "Wysyłasz zapytanie, dostajesz ofertę z ceną, płacisz po akceptacji, a my składamy, testujemy i wysyłamy komputer.",
+    "c": "var(--k-y)",
+    "open": false
+   },
+   {
+    "n": "09",
+    "q": "Kupuję komputer dla dziecka i się nie znam. Pomożecie?",
+    "a": "Tak. Na prokomgaming.pl jest strona „Dla rodziców”, możesz też zadzwonić. Wystarczy wiedzieć, w co dziecko gra.",
+    "c": "var(--k-y)",
+    "open": false
+   },
+   {
+    "n": "10",
+    "q": "Gdzie jest salon i kiedy jest otwarty?",
+    "a": "Rabka-Zdrój, ul. Orkana 16B, od poniedziałku do piątku 9:00–17:00. Serwis także w sobotę 9:00–14:00.",
+    "c": "var(--k-gt)",
+    "open": false
+   }
+  ],
+  "topics": [
+   {
+    "name": "Nie wiem / ogólne",
+    "cd": "var(--k-g)",
+    "on": true,
+    "bd": "var(--k-g)",
+    "bg": "rgba(var(--r-w),.06)"
+   },
+   {
+    "name": "Instalacje w domu",
+    "cd": "var(--k-i)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Naprawa sprzętu",
+    "cd": "var(--k-t)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Komputer do gier",
+    "cd": "var(--k-y)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Strona apartamentu",
+    "cd": "var(--k-s)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   }
+  ],
+  "topicMail": "biuro@pro-kom.eu",
+  "nums": [
+   {
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "edge": "rgba(var(--r-w),.1)",
+    "what": "Monitoring, alarm, sieć, smart home, ładowarka",
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "note": "Odpowiemy w 24 godziny w dni robocze"
+   },
+   {
+    "line": "Tech",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "edge": "rgba(var(--r-w),.1)",
+    "what": "Naprawy telefonów, laptopów, konsol",
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "note": "Bezpłatna diagnoza i wycena"
+   },
+   {
+    "line": "Gaming",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "edge": "color-mix(in srgb, var(--k-y) 45%, transparent)",
+    "what": "Komputery do gier",
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "note": "Wysyłka w całej Polsce"
+   }
+  ],
+  "L": {
+   "line": "Instalacje",
+   "cd": "var(--k-i)",
+   "ct": "var(--k-it)",
+   "dark": "var(--k-id)",
+   "domain": "prokominstalacje.pl",
+   "url": "https://prokominstalacje.pl",
+   "phone": "889 003 889",
+   "tel": "+48889003889",
+   "mail": "kontakt@prokominstalacje.pl",
+   "label": "INSTALACJE",
+   "ink": "var(--k-ii)",
+   "h2": "Dom, który pilnuje i steruje się sam.",
+   "lead": "Monitoring, alarm, wideodomofon, sieć i Wi-Fi, smart home Ampio i ładowarka do auta. Projekt, montaż i serwis w jednej firmie.",
+   "promise": "Odpowiemy w 24 godziny w dni robocze",
+   "cta": "Zaplanuj instalację",
+   "chips": [
+    "24 miesiące gwarancji na montaż",
+    "Serwis i przeglądy po montażu",
+    "Przejmujemy instalacje po innym wykonawcy"
+   ],
+   "telHref": "tel:+48889003889",
+   "items": [
+    {
+     "t": "Monitoring",
+     "d": "Kamery z nagrywaniem i podglądem w telefonie.",
+     "ic": "M3 7h12v10H3zM15 10l6-3v10l-6-3"
+    },
+    {
+     "t": "Alarm",
+     "d": "Czujki i centrala z powiadomieniem w telefonie.",
+     "ic": "M6 16v-5a6 6 0 1112 0v5l2 2H4zM10 21h4"
+    },
+    {
+     "t": "Wideodomofon",
+     "d": "Widzisz, kto dzwoni, i otwierasz z aplikacji.",
+     "ic": "M6 3h12v18H6zM9 7h6v5H9zM12 16h.01"
+    },
+    {
+     "t": "Sieć i Wi-Fi",
+     "d": "Punkty dostępowe na kablu, zasięg w całym domu.",
+     "ic": "M2 9a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0M12 19.5h.01"
+    },
+    {
+     "t": "Smart home Ampio",
+     "d": "Światło, rolety i ogrzewanie w jednej aplikacji.",
+     "ic": "M4 11l8-7 8 7v9H4zM10 20v-5h4v5"
+    },
+    {
+     "t": "Ładowarka do auta",
+     "d": "Elzab EcoPower na ścianie garażu.",
+     "ic": "M13 2L5 14h6l-1 8 8-12h-6z"
+    }
+   ],
+   "facts": [
+    {
+     "t": "24 miesiące gwarancji na montaż"
+    },
+    {
+     "t": "Projekt, montaż i serwis — jedna ekipa"
+    },
+    {
+     "t": "Przejmujemy też instalacje po innym wykonawcy"
+    }
+   ],
+   "steps": [
+    {
+     "n": "01",
+     "t": "Przysyłasz rzuty albo opisujesz dom"
+    },
+    {
+     "n": "02",
+     "t": "Ustalamy punkty i trasy kabli"
+    },
+    {
+     "n": "03",
+     "t": "Dostajesz plan i wycenę przed pracami"
+    }
+   ],
+   "cls": "dsg sb",
+   "isI": true,
+   "isT": false,
+   "isG": false
+  },
+  "ltabs": [
+   {
+    "name": "Instalacje",
+    "short": "Dom, który pilnuje i steruje się sam",
+    "cd": "var(--k-i)",
+    "on": "true",
+    "bg": "var(--k-id)",
+    "bd": "var(--k-i)",
+    "bar": "100%",
+    "dot": "1"
+   },
+   {
+    "name": "Tech",
+    "short": "Sprzęt, który znowu działa",
+    "cd": "var(--k-t)",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   },
+   {
+    "name": "Gaming",
+    "short": "Komputer do gier z Rabki-Zdroju",
+    "cd": "var(--k-y)",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   }
+  ],
+  "cams": [
+   {
+    "label": "Wejście",
+    "cam": true,
+    "wifi": false,
+    "cls": "cb cam",
+    "on": "true",
+    "aria": "Pokaż: Wejście",
+    "bd": "var(--k-i)"
+   },
+   {
+    "label": "Podjazd i brama",
+    "cam": true,
+    "wifi": false,
+    "cls": "cb cam",
+    "on": "false",
+    "aria": "Pokaż: Podjazd i brama",
+    "bd": "transparent"
+   },
+   {
+    "label": "Ogród",
+    "cam": true,
+    "wifi": false,
+    "cls": "cb cam",
+    "on": "false",
+    "aria": "Pokaż: Ogród",
+    "bd": "transparent"
+   },
+   {
+    "label": "Wi-Fi",
+    "cam": false,
+    "wifi": true,
+    "cls": "cb wifi",
+    "on": "false",
+    "aria": "Pokaż: Wi-Fi",
+    "bd": "transparent"
+   }
+  ],
+  "camCols": "2.6fr 1fr 1fr 1fr",
+  "camNote": "Kliknij podgląd, żeby go powiększyć — tak samo zobaczysz kamery w telefonie.",
+  "tsteps": [
+   {
+    "name": "Zgłoszenie",
+    "on": "false",
+    "ink": "var(--k-white)",
+    "bar": "var(--k-t)"
+   },
+   {
+    "name": "Diagnostyka",
+    "on": "false",
+    "ink": "var(--k-white)",
+    "bar": "var(--k-t)"
+   },
+   {
+    "name": "Wycena",
+    "on": "false",
+    "ink": "var(--k-white)",
+    "bar": "var(--k-t)"
+   },
+   {
+    "name": "Twoja decyzja",
+    "on": "false",
+    "ink": "var(--k-white)",
+    "bar": "var(--k-t)"
+   },
+   {
+    "name": "Naprawa",
+    "on": "true",
+    "ink": "var(--k-tt)",
+    "bar": "var(--k-t)"
+   },
+   {
+    "name": "Odbiór",
+    "on": "false",
+    "ink": "rgba(var(--r-w),.5)",
+    "bar": "rgba(var(--r-w),.16)"
+   }
+  ],
+  "tstep": {
+   "text": "Naprawiamy. Status widzisz online, bez dzwonienia."
+  },
+  "topic": {
+   "name": "Etapy budowy",
+   "short": "Kiedy co zaplanować",
+   "eb": "Budujesz albo remontujesz",
+   "h": "Kiedy co zaplanować. Najważniejsze: zanim wejdą tynki.",
+   "lead": "Kabel położony przed tynkami kosztuje chwilę pracy. Ten sam kabel po wykończeniu oznacza kucie ścian. Dlatego warto odezwać się wcześnie.",
+   "note": "Najlepiej zgłosić się na etapie projektu, najpóźniej przed tynkami.",
+   "cta": "Zaplanuj instalację",
+   "cols": "repeat(5, minmax(0, 1fr))",
+   "items": [
+    {
+     "k": "Etap 1",
+     "t": "Projekt",
+     "d": "Przysyłasz rzuty. Zaznaczamy kamery, alarm, sieć, smart home i ładowarkę.",
+     "bg": "rgba(var(--r-w),.04)",
+     "ink": "var(--k-white)",
+     "bd": "rgba(var(--r-w),.1)",
+     "kc": "var(--k-it)"
+    },
+    {
+     "k": "Etap 2",
+     "t": "Stan surowy",
+     "d": "Ustalamy trasy kabli i miejsce na szafkę sieciową.",
+     "bg": "rgba(var(--r-w),.04)",
+     "ink": "var(--k-white)",
+     "bd": "rgba(var(--r-w),.1)",
+     "kc": "var(--k-it)"
+    },
+    {
+     "k": "Etap 3 · nie przegap",
+     "t": "Przed tynkami",
+     "d": "Kładziemy okablowanie. To ostatni moment, żeby zrobić to bez kucia ścian.",
+     "bg": "var(--k-i)",
+     "ink": "var(--k-ii)",
+     "bd": "var(--k-i)",
+     "kc": "var(--k-ii)"
+    },
+    {
+     "k": "Etap 4",
+     "t": "Wykończenie",
+     "d": "Montujemy urządzenia: kamery, czujki, panele, punkty Wi-Fi.",
+     "bg": "rgba(var(--r-w),.04)",
+     "ink": "var(--k-white)",
+     "bd": "rgba(var(--r-w),.1)",
+     "kc": "var(--k-it)"
+    },
+    {
+     "k": "Etap 5",
+     "t": "Zamieszkanie",
+     "d": "Uruchamiamy system i pokazujemy obsługę w telefonie. Potem serwis i przeglądy.",
+     "bg": "rgba(var(--r-w),.04)",
+     "ink": "var(--k-white)",
+     "bd": "rgba(var(--r-w),.1)",
+     "kc": "var(--k-it)"
+    }
+   ],
+   "cls": "dsg sb"
+  },
+  "ttabs": [
+   {
+    "name": "Etapy budowy",
+    "short": "Kiedy co zaplanować",
+    "on": "true",
+    "bg": "var(--k-id)",
+    "bd": "var(--k-i)",
+    "bar": "100%"
+   },
+   {
+    "name": "Smart home",
+    "short": "System Ampio",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px"
+   },
+   {
+    "name": "Bezpieczeństwo",
+    "short": "Kamery, alarm, wideodomofon",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px"
+   },
+   {
+    "name": "Internet",
+    "short": "Wi-Fi i okablowanie",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px"
+   },
+   {
+    "name": "Ładowarka",
+    "short": "Elzab EcoPower",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px"
+   }
+  ],
+  "ex": {
+   "node": "Twój nowy dom",
+   "title": "Zaplanuj instalacje, zanim wejdą tynki.",
+   "tabs": [
+    {
+     "name": "Nowy dom",
+     "on": "true",
+     "bd": "var(--k-g)",
+     "bg": "var(--k-g)",
+     "ink": "var(--k-gi)"
+    },
+    {
+     "name": "Mieszkanie i rodzina",
+     "on": "false",
+     "bd": "rgba(var(--r-w),.22)",
+     "bg": "transparent",
+     "ink": "var(--k-ink)"
+    },
+    {
+     "name": "Apartament na wynajem",
+     "on": "false",
+     "bd": "rgba(var(--r-w),.22)",
+     "bg": "transparent",
+     "ink": "var(--k-ink)"
+    }
+   ],
+   "cards": [
+    {
+     "line": "Instalacje",
+     "cd": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "url": "https://prokominstalacje.pl",
+     "phone": "889 003 889",
+     "items": [
+      "Plan instalacji na rzutach domu",
+      "Okablowanie sieci i szafka",
+      "Alarm i wideodomofon",
+      "Smart home Ampio",
+      "Przewód pod ładowarkę do auta"
+     ],
+     "cls": "tc sb",
+     "delay": "0.08s"
+    },
+    {
+     "line": "Tech",
+     "cd": "var(--k-t)",
+     "ct": "var(--k-tt)",
+     "dark": "var(--k-td)",
+     "url": "https://prokomserwis.pl",
+     "phone": "883 200 151",
+     "items": [
+      "Naprawa telefonu, laptopa, konsoli"
+     ],
+     "cls": "tc sb",
+     "delay": "0.18s"
+    },
+    {
+     "line": "Gaming",
+     "cd": "var(--k-y)",
+     "ct": "var(--k-y)",
+     "dark": "var(--k-yd)",
+     "url": "https://prokomgaming.pl",
+     "phone": "883 200 151",
+     "items": [
+      "Komputer do gier złożony w Rabce-Zdroju"
+     ],
+     "cls": "tc sb",
+     "delay": "0.28s"
+    }
+   ]
+  },
+  "care": [
+   {
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "v": "24 miesiące",
+    "d": "Gwarancji PRO-KOM na montaż instalacji. Sprzęt — według gwarancji producenta."
+   },
+   {
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "v": "Serwis po montażu",
+    "d": "Przeglądy, pomoc zdalna i naprawy. Przejmujemy też instalacje po innym wykonawcy."
+   },
+   {
+    "line": "Tech",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "v": "Bezpłatnie",
+    "d": "Diagnoza i wycena naprawy. Płacisz tylko za naprawę, na którą się zgodzisz."
+   },
+   {
+    "line": "Gaming",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "v": "2 lata",
+    "d": "Gwarancji na cały komputer do gier. Serwis na miejscu w Rabce-Zdroju."
+   }
+  ]
+ },
+ "lines": {
+  "instalacje": {
+   "line": "Instalacje",
+   "cd": "var(--k-i)",
+   "ct": "var(--k-it)",
+   "dark": "var(--k-id)",
+   "domain": "prokominstalacje.pl",
+   "url": "https://prokominstalacje.pl",
+   "phone": "889 003 889",
+   "tel": "+48889003889",
+   "mail": "kontakt@prokominstalacje.pl"
+  },
+  "tech": {
+   "line": "Tech",
+   "cd": "var(--k-t)",
+   "ct": "var(--k-tt)",
+   "dark": "var(--k-td)",
+   "domain": "prokomserwis.pl",
+   "url": "https://prokomserwis.pl",
+   "phone": "883 200 151",
+   "tel": "+48883200151",
+   "mail": "sklep@pro-kom.eu"
+  },
+  "gaming": {
+   "line": "Gaming",
+   "cd": "var(--k-y)",
+   "ct": "var(--k-y)",
+   "dark": "var(--k-yd)",
+   "domain": "prokomgaming.pl",
+   "url": "https://prokomgaming.pl",
+   "phone": "883 200 151",
+   "tel": "+48883200151",
+   "mail": "kontakt@prokomgaming.pl"
+  },
+  "software": {
+   "line": "Software",
+   "cd": "var(--k-s)",
+   "ct": "var(--k-st)",
+   "dark": "var(--k-sd)",
+   "domain": "prokomsoftware.pl",
+   "url": "https://prokomsoftware.pl",
+   "phone": "883 200 151",
+   "tel": "+48883200151",
+   "mail": "kontakt@prokomsoftware.pl"
+  }
+ },
+ "sits": [
+  {
+   "name": "Buduję dom",
+   "title": "Zaplanuj instalacje, zanim wejdą tynki.",
+   "lead": "To najlepszy moment. Kable kładzie się raz — potem zostaje już tylko kucie ścian.",
+   "call": "instalacje",
+   "g": {
+    "instalacje": [
+     "Plan instalacji na rzutach domu",
+     "Okablowanie sieci i miejsce na szafkę",
+     "Alarm i wideodomofon",
+     "Monitoring posesji",
+     "Smart home Ampio",
+     "Przewód pod ładowarkę do auta"
+    ]
+   },
+   "steps": [
+    "Przyślij rzuty domu — nawet wstępne.",
+    "Ustalimy punkty i trasy kabli razem z Tobą albo z architektem.",
+    "Dostaniesz plan i wycenę przed rozpoczęciem prac."
+   ]
+  },
+  {
+   "name": "Remontuję",
+   "title": "Remont to druga szansa na porządne kable.",
+   "lead": "Skoro i tak zdejmujesz tynki albo podłogi, dołóż to, czego dziś brakuje.",
+   "call": "instalacje",
+   "g": {
+    "instalacje": [
+     "Okablowanie sieci w remontowanych pomieszczeniach",
+     "Wi-Fi w całym domu",
+     "Alarm i wideodomofon",
+     "Smart home Ampio"
+    ],
+    "tech": [
+     "Naprawa i odświeżenie sprzętu, który już masz"
+    ]
+   },
+   "steps": [
+    "Powiedz, które pomieszczenia remontujesz.",
+    "Sprawdzimy, co da się dołożyć przy okazji prac.",
+    "Dostaniesz plan i wycenę."
+   ]
+  },
+  {
+   "name": "Mieszkam i chcę unowocześnić",
+   "title": "Dom gotowy, a mimo to da się go ulepszyć.",
+   "lead": "Kamery, wideodomofon, lepsze Wi-Fi czy ładowarka do auta — zaczynamy od tego, co najbardziej doskwiera.",
+   "call": "instalacje",
+   "g": {
+    "instalacje": [
+     "Monitoring z podglądem w telefonie",
+     "Wideodomofon z powiadomieniem w telefonie",
+     "Wi-Fi tam, gdzie dziś nie sięga",
+     "Ładowarka do auta Elzab EcoPower"
+    ],
+    "tech": [
+     "Folia Hammer Glass na telefon",
+     "Akcesoria GSM w salonie"
+    ],
+    "gaming": [
+     "Komputer do gier złożony w Rabce-Zdroju"
+    ]
+   },
+   "steps": [
+    "Zadzwoń i powiedz, co chcesz poprawić.",
+    "Obejrzymy dom albo ustalimy szczegóły przez telefon.",
+    "Dostaniesz propozycję i wycenę."
+   ]
+  },
+  {
+   "name": "Coś się zepsuło",
+   "title": "Przynieś, wyślij albo zgłoś online.",
+   "lead": "Diagnoza i wycena są bezpłatne. Decyzję o naprawie podejmujesz, gdy znasz koszt.",
+   "call": "tech",
+   "g": {
+    "tech": [
+     "Telefon albo tablet",
+     "Laptop albo komputer",
+     "Konsola",
+     "Drukarka",
+     "Odzyskiwanie danych"
+    ],
+    "instalacje": [
+     "Kamery, alarm albo sieć przestały działać — zgłoś awarię"
+    ]
+   },
+   "steps": [
+    "Zgłoś naprawę online albo przyjdź do salonu.",
+    "Zdiagnozujemy sprzęt i podamy wycenę — bezpłatnie.",
+    "Zgadzasz się, naprawiamy. Status sprawdzasz online."
+   ]
+  },
+  {
+   "name": "Szukam komputera do gier",
+   "title": "Komputer pod grę, w którą grasz.",
+   "lead": "Wybierasz grę i monitor, a my pokazujemy zestawy z liczbą klatek i źródłem wyniku.",
+   "call": "gaming",
+   "g": {
+    "gaming": [
+     "16 gotowych zestawów",
+     "Dobór pod grę — 33 tytuły",
+     "Konfigurator — składasz zestaw po swojemu",
+     "Porównanie zestawów",
+     "Gwarancja 2 lata na cały komputer"
+    ],
+    "tech": [
+     "Serwis na miejscu w Rabce-Zdroju"
+    ]
+   },
+   "steps": [
+    "Wybierz grę i monitor w „W co grasz?”.",
+    "Zobacz zestawy z wynikiem klatek.",
+    "Wyślij zapytanie — dostaniesz ofertę z ceną."
+   ]
+  },
+  {
+   "name": "Kupuję dla dziecka",
+   "title": "Nie musisz się znać. Od tego jesteśmy.",
+   "lead": "Powiedz, w co gra i jaki ma monitor. Resztę dobierzemy i wytłumaczymy bez żargonu.",
+   "call": "gaming",
+   "g": {
+    "gaming": [
+     "Strona „Dla rodziców” — wybór krok po kroku",
+     "Dobór pod grę dziecka",
+     "Odbiór w salonie w Rabce-Zdroju albo wysyłka",
+     "Gwarancja 2 lata"
+    ],
+    "tech": [
+     "Folia Hammer Glass na telefon dziecka",
+     "Naprawa telefonu, laptopa, konsoli"
+    ]
+   },
+   "steps": [
+    "Zapytaj dziecko, w co gra najczęściej.",
+    "Wejdź na „Dla rodziców” albo zadzwoń.",
+    "Dostaniesz ofertę z ceną i wyjaśnieniem, co kupujesz."
+   ]
+  },
+  {
+   "name": "Mam apartament na wynajem",
+   "title": "Goście wchodzą na kod, a Ty nie jeździsz z kluczami.",
+   "lead": "Apartament, który obsługuje się na odległość — i stronę, przez którą goście go znajdą.",
+   "call": "instalacje",
+   "g": {
+    "instalacje": [
+     "Zamki na kod i kontrola dostępu",
+     "Wi-Fi dla gości",
+     "Monitoring wejścia",
+     "Smart home: ogrzewanie i światło na odległość"
+    ],
+    "software": [
+     "Strona apartamentu widoczna w Google"
+    ]
+   },
+   "steps": [
+    "Opisz apartament: ile pokoi, jak dziś wydajesz klucze.",
+    "Dobierzemy zamki, Wi-Fi i monitoring.",
+    "Osobno wycenimy stronę obiektu."
+   ]
+  }
+ ],
+ "stany": {
+  "sit": {
+   "1": {
+    "sits": [
+     {
+      "n": "01",
+      "name": "Buduję dom",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "02",
+      "name": "Remontuję",
+      "on": true,
+      "bd": "var(--k-g)",
+      "bg": "var(--k-g)",
+      "ink": "var(--k-gi)"
+     },
+     {
+      "n": "03",
+      "name": "Mieszkam i chcę unowocześnić",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "04",
+      "name": "Coś się zepsuło",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "05",
+      "name": "Szukam komputera do gier",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "06",
+      "name": "Kupuję dla dziecka",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "07",
+      "name": "Mam apartament na wynajem",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     }
+    ],
+    "plan": {
+     "name": "Remontuję",
+     "title": "Remont to druga szansa na porządne kable.",
+     "lead": "Skoro i tak zdejmujesz tynki albo podłogi, dołóż to, czego dziś brakuje.",
+     "groups": [
+      {
+       "line": "Instalacje",
+       "cd": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "dark": "var(--k-id)",
+       "domain": "prokominstalacje.pl",
+       "url": "https://prokominstalacje.pl",
+       "phone": "889 003 889",
+       "tel": "+48889003889",
+       "mail": "kontakt@prokominstalacje.pl",
+       "items": [
+        "Okablowanie sieci w remontowanych pomieszczeniach",
+        "Wi-Fi w całym domu",
+        "Alarm i wideodomofon",
+        "Smart home Ampio"
+       ]
+      },
+      {
+       "line": "Tech",
+       "cd": "var(--k-t)",
+       "ct": "var(--k-tt)",
+       "dark": "var(--k-td)",
+       "domain": "prokomserwis.pl",
+       "url": "https://prokomserwis.pl",
+       "phone": "883 200 151",
+       "tel": "+48883200151",
+       "mail": "sklep@pro-kom.eu",
+       "items": [
+        "Naprawa i odświeżenie sprzętu, który już masz"
+       ]
+      }
+     ],
+     "steps": [
+      {
+       "n": "01",
+       "t": "Powiedz, które pomieszczenia remontujesz."
+      },
+      {
+       "n": "02",
+       "t": "Sprawdzimy, co da się dołożyć przy okazji prac."
+      },
+      {
+       "n": "03",
+       "t": "Dostaniesz plan i wycenę."
+      }
+     ],
+     "phone": "889 003 889",
+     "telHref": "tel:+48889003889"
+    }
+   },
+   "2": {
+    "sits": [
+     {
+      "n": "01",
+      "name": "Buduję dom",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "02",
+      "name": "Remontuję",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "03",
+      "name": "Mieszkam i chcę unowocześnić",
+      "on": true,
+      "bd": "var(--k-g)",
+      "bg": "var(--k-g)",
+      "ink": "var(--k-gi)"
+     },
+     {
+      "n": "04",
+      "name": "Coś się zepsuło",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "05",
+      "name": "Szukam komputera do gier",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "06",
+      "name": "Kupuję dla dziecka",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "07",
+      "name": "Mam apartament na wynajem",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     }
+    ],
+    "plan": {
+     "name": "Mieszkam i chcę unowocześnić",
+     "title": "Dom gotowy, a mimo to da się go ulepszyć.",
+     "lead": "Kamery, wideodomofon, lepsze Wi-Fi czy ładowarka do auta — zaczynamy od tego, co najbardziej doskwiera.",
+     "groups": [
+      {
+       "line": "Instalacje",
+       "cd": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "dark": "var(--k-id)",
+       "domain": "prokominstalacje.pl",
+       "url": "https://prokominstalacje.pl",
+       "phone": "889 003 889",
+       "tel": "+48889003889",
+       "mail": "kontakt@prokominstalacje.pl",
+       "items": [
+        "Monitoring z podglądem w telefonie",
+        "Wideodomofon z powiadomieniem w telefonie",
+        "Wi-Fi tam, gdzie dziś nie sięga",
+        "Ładowarka do auta Elzab EcoPower"
+       ]
+      },
+      {
+       "line": "Tech",
+       "cd": "var(--k-t)",
+       "ct": "var(--k-tt)",
+       "dark": "var(--k-td)",
+       "domain": "prokomserwis.pl",
+       "url": "https://prokomserwis.pl",
+       "phone": "883 200 151",
+       "tel": "+48883200151",
+       "mail": "sklep@pro-kom.eu",
+       "items": [
+        "Folia Hammer Glass na telefon",
+        "Akcesoria GSM w salonie"
+       ]
+      },
+      {
+       "line": "Gaming",
+       "cd": "var(--k-y)",
+       "ct": "var(--k-y)",
+       "dark": "var(--k-yd)",
+       "domain": "prokomgaming.pl",
+       "url": "https://prokomgaming.pl",
+       "phone": "883 200 151",
+       "tel": "+48883200151",
+       "mail": "kontakt@prokomgaming.pl",
+       "items": [
+        "Komputer do gier złożony w Rabce-Zdroju"
+       ]
+      }
+     ],
+     "steps": [
+      {
+       "n": "01",
+       "t": "Zadzwoń i powiedz, co chcesz poprawić."
+      },
+      {
+       "n": "02",
+       "t": "Obejrzymy dom albo ustalimy szczegóły przez telefon."
+      },
+      {
+       "n": "03",
+       "t": "Dostaniesz propozycję i wycenę."
+      }
+     ],
+     "phone": "889 003 889",
+     "telHref": "tel:+48889003889"
+    }
+   },
+   "3": {
+    "sits": [
+     {
+      "n": "01",
+      "name": "Buduję dom",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "02",
+      "name": "Remontuję",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "03",
+      "name": "Mieszkam i chcę unowocześnić",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "04",
+      "name": "Coś się zepsuło",
+      "on": true,
+      "bd": "var(--k-g)",
+      "bg": "var(--k-g)",
+      "ink": "var(--k-gi)"
+     },
+     {
+      "n": "05",
+      "name": "Szukam komputera do gier",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "06",
+      "name": "Kupuję dla dziecka",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "07",
+      "name": "Mam apartament na wynajem",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     }
+    ],
+    "plan": {
+     "name": "Coś się zepsuło",
+     "title": "Przynieś, wyślij albo zgłoś online.",
+     "lead": "Diagnoza i wycena są bezpłatne. Decyzję o naprawie podejmujesz, gdy znasz koszt.",
+     "groups": [
+      {
+       "line": "Tech",
+       "cd": "var(--k-t)",
+       "ct": "var(--k-tt)",
+       "dark": "var(--k-td)",
+       "domain": "prokomserwis.pl",
+       "url": "https://prokomserwis.pl",
+       "phone": "883 200 151",
+       "tel": "+48883200151",
+       "mail": "sklep@pro-kom.eu",
+       "items": [
+        "Telefon albo tablet",
+        "Laptop albo komputer",
+        "Konsola",
+        "Drukarka",
+        "Odzyskiwanie danych"
+       ]
+      },
+      {
+       "line": "Instalacje",
+       "cd": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "dark": "var(--k-id)",
+       "domain": "prokominstalacje.pl",
+       "url": "https://prokominstalacje.pl",
+       "phone": "889 003 889",
+       "tel": "+48889003889",
+       "mail": "kontakt@prokominstalacje.pl",
+       "items": [
+        "Kamery, alarm albo sieć przestały działać — zgłoś awarię"
+       ]
+      }
+     ],
+     "steps": [
+      {
+       "n": "01",
+       "t": "Zgłoś naprawę online albo przyjdź do salonu."
+      },
+      {
+       "n": "02",
+       "t": "Zdiagnozujemy sprzęt i podamy wycenę — bezpłatnie."
+      },
+      {
+       "n": "03",
+       "t": "Zgadzasz się, naprawiamy. Status sprawdzasz online."
+      }
+     ],
+     "phone": "883 200 151",
+     "telHref": "tel:+48883200151"
+    }
+   },
+   "4": {
+    "sits": [
+     {
+      "n": "01",
+      "name": "Buduję dom",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "02",
+      "name": "Remontuję",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "03",
+      "name": "Mieszkam i chcę unowocześnić",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "04",
+      "name": "Coś się zepsuło",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "05",
+      "name": "Szukam komputera do gier",
+      "on": true,
+      "bd": "var(--k-g)",
+      "bg": "var(--k-g)",
+      "ink": "var(--k-gi)"
+     },
+     {
+      "n": "06",
+      "name": "Kupuję dla dziecka",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "07",
+      "name": "Mam apartament na wynajem",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     }
+    ],
+    "plan": {
+     "name": "Szukam komputera do gier",
+     "title": "Komputer pod grę, w którą grasz.",
+     "lead": "Wybierasz grę i monitor, a my pokazujemy zestawy z liczbą klatek i źródłem wyniku.",
+     "groups": [
+      {
+       "line": "Gaming",
+       "cd": "var(--k-y)",
+       "ct": "var(--k-y)",
+       "dark": "var(--k-yd)",
+       "domain": "prokomgaming.pl",
+       "url": "https://prokomgaming.pl",
+       "phone": "883 200 151",
+       "tel": "+48883200151",
+       "mail": "kontakt@prokomgaming.pl",
+       "items": [
+        "16 gotowych zestawów",
+        "Dobór pod grę — 33 tytuły",
+        "Konfigurator — składasz zestaw po swojemu",
+        "Porównanie zestawów",
+        "Gwarancja 2 lata na cały komputer"
+       ]
+      },
+      {
+       "line": "Tech",
+       "cd": "var(--k-t)",
+       "ct": "var(--k-tt)",
+       "dark": "var(--k-td)",
+       "domain": "prokomserwis.pl",
+       "url": "https://prokomserwis.pl",
+       "phone": "883 200 151",
+       "tel": "+48883200151",
+       "mail": "sklep@pro-kom.eu",
+       "items": [
+        "Serwis na miejscu w Rabce-Zdroju"
+       ]
+      }
+     ],
+     "steps": [
+      {
+       "n": "01",
+       "t": "Wybierz grę i monitor w „W co grasz?”."
+      },
+      {
+       "n": "02",
+       "t": "Zobacz zestawy z wynikiem klatek."
+      },
+      {
+       "n": "03",
+       "t": "Wyślij zapytanie — dostaniesz ofertę z ceną."
+      }
+     ],
+     "phone": "883 200 151",
+     "telHref": "tel:+48883200151"
+    }
+   },
+   "5": {
+    "sits": [
+     {
+      "n": "01",
+      "name": "Buduję dom",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "02",
+      "name": "Remontuję",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "03",
+      "name": "Mieszkam i chcę unowocześnić",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "04",
+      "name": "Coś się zepsuło",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "05",
+      "name": "Szukam komputera do gier",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "06",
+      "name": "Kupuję dla dziecka",
+      "on": true,
+      "bd": "var(--k-g)",
+      "bg": "var(--k-g)",
+      "ink": "var(--k-gi)"
+     },
+     {
+      "n": "07",
+      "name": "Mam apartament na wynajem",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     }
+    ],
+    "plan": {
+     "name": "Kupuję dla dziecka",
+     "title": "Nie musisz się znać. Od tego jesteśmy.",
+     "lead": "Powiedz, w co gra i jaki ma monitor. Resztę dobierzemy i wytłumaczymy bez żargonu.",
+     "groups": [
+      {
+       "line": "Gaming",
+       "cd": "var(--k-y)",
+       "ct": "var(--k-y)",
+       "dark": "var(--k-yd)",
+       "domain": "prokomgaming.pl",
+       "url": "https://prokomgaming.pl",
+       "phone": "883 200 151",
+       "tel": "+48883200151",
+       "mail": "kontakt@prokomgaming.pl",
+       "items": [
+        "Strona „Dla rodziców” — wybór krok po kroku",
+        "Dobór pod grę dziecka",
+        "Odbiór w salonie w Rabce-Zdroju albo wysyłka",
+        "Gwarancja 2 lata"
+       ]
+      },
+      {
+       "line": "Tech",
+       "cd": "var(--k-t)",
+       "ct": "var(--k-tt)",
+       "dark": "var(--k-td)",
+       "domain": "prokomserwis.pl",
+       "url": "https://prokomserwis.pl",
+       "phone": "883 200 151",
+       "tel": "+48883200151",
+       "mail": "sklep@pro-kom.eu",
+       "items": [
+        "Folia Hammer Glass na telefon dziecka",
+        "Naprawa telefonu, laptopa, konsoli"
+       ]
+      }
+     ],
+     "steps": [
+      {
+       "n": "01",
+       "t": "Zapytaj dziecko, w co gra najczęściej."
+      },
+      {
+       "n": "02",
+       "t": "Wejdź na „Dla rodziców” albo zadzwoń."
+      },
+      {
+       "n": "03",
+       "t": "Dostaniesz ofertę z ceną i wyjaśnieniem, co kupujesz."
+      }
+     ],
+     "phone": "883 200 151",
+     "telHref": "tel:+48883200151"
+    }
+   },
+   "6": {
+    "sits": [
+     {
+      "n": "01",
+      "name": "Buduję dom",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "02",
+      "name": "Remontuję",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "03",
+      "name": "Mieszkam i chcę unowocześnić",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "04",
+      "name": "Coś się zepsuło",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "05",
+      "name": "Szukam komputera do gier",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "06",
+      "name": "Kupuję dla dziecka",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "n": "07",
+      "name": "Mam apartament na wynajem",
+      "on": true,
+      "bd": "var(--k-g)",
+      "bg": "var(--k-g)",
+      "ink": "var(--k-gi)"
+     }
+    ],
+    "plan": {
+     "name": "Mam apartament na wynajem",
+     "title": "Goście wchodzą na kod, a Ty nie jeździsz z kluczami.",
+     "lead": "Apartament, który obsługuje się na odległość — i stronę, przez którą goście go znajdą.",
+     "groups": [
+      {
+       "line": "Instalacje",
+       "cd": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "dark": "var(--k-id)",
+       "domain": "prokominstalacje.pl",
+       "url": "https://prokominstalacje.pl",
+       "phone": "889 003 889",
+       "tel": "+48889003889",
+       "mail": "kontakt@prokominstalacje.pl",
+       "items": [
+        "Zamki na kod i kontrola dostępu",
+        "Wi-Fi dla gości",
+        "Monitoring wejścia",
+        "Smart home: ogrzewanie i światło na odległość"
+       ]
+      },
+      {
+       "line": "Software",
+       "cd": "var(--k-s)",
+       "ct": "var(--k-st)",
+       "dark": "var(--k-sd)",
+       "domain": "prokomsoftware.pl",
+       "url": "https://prokomsoftware.pl",
+       "phone": "883 200 151",
+       "tel": "+48883200151",
+       "mail": "kontakt@prokomsoftware.pl",
+       "items": [
+        "Strona apartamentu widoczna w Google"
+       ]
+      }
+     ],
+     "steps": [
+      {
+       "n": "01",
+       "t": "Opisz apartament: ile pokoi, jak dziś wydajesz klucze."
+      },
+      {
+       "n": "02",
+       "t": "Dobierzemy zamki, Wi-Fi i monitoring."
+      },
+      {
+       "n": "03",
+       "t": "Osobno wycenimy stronę obiektu."
+      }
+     ],
+     "phone": "889 003 889",
+     "telHref": "tel:+48889003889"
+    }
+   }
+  },
+  "pt": {
+   "1": {
+    "pts": [
+     {
+      "n": "1",
+      "name": "Kamera",
+      "x": "23%",
+      "y": "37%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "2",
+      "name": "Wideodomofon",
+      "x": "11%",
+      "y": "70%",
+      "on": true,
+      "bd": "var(--k-white)",
+      "bg": "var(--k-i)",
+      "ink": "var(--k-ii)",
+      "glow": "0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)",
+      "chipBd": "var(--k-i)"
+     },
+     {
+      "n": "3",
+      "name": "Brama",
+      "x": "6%",
+      "y": "82%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "4",
+      "name": "Alarm",
+      "x": "32%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "5",
+      "name": "Smart home Ampio",
+      "x": "40%",
+      "y": "47%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "6",
+      "name": "Rolety i światło",
+      "x": "30%",
+      "y": "44%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "7",
+      "name": "Wi-Fi",
+      "x": "55%",
+      "y": "38%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "8",
+      "name": "Szafka sieciowa",
+      "x": "61%",
+      "y": "79%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "9",
+      "name": "Nagłośnienie",
+      "x": "52%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "10",
+      "name": "Antena RTV/SAT",
+      "x": "58.6%",
+      "y": "9%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "11",
+      "name": "Ładowarka do auta",
+      "x": "76%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     }
+    ],
+    "pt": {
+     "n": "2",
+     "name": "Wideodomofon",
+     "where": "Przy furtce",
+     "what": "Panel przy furtce i ekran w domu albo aplikacja w telefonie.",
+     "why": "Widzisz, kto dzwoni, i otwierasz bez wychodzenia.",
+     "when": "Przewód do furtki — razem z przyłączami, przed ułożeniem kostki."
+    }
+   },
+   "2": {
+    "pts": [
+     {
+      "n": "1",
+      "name": "Kamera",
+      "x": "23%",
+      "y": "37%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "2",
+      "name": "Wideodomofon",
+      "x": "11%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "3",
+      "name": "Brama",
+      "x": "6%",
+      "y": "82%",
+      "on": true,
+      "bd": "var(--k-white)",
+      "bg": "var(--k-i)",
+      "ink": "var(--k-ii)",
+      "glow": "0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)",
+      "chipBd": "var(--k-i)"
+     },
+     {
+      "n": "4",
+      "name": "Alarm",
+      "x": "32%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "5",
+      "name": "Smart home Ampio",
+      "x": "40%",
+      "y": "47%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "6",
+      "name": "Rolety i światło",
+      "x": "30%",
+      "y": "44%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "7",
+      "name": "Wi-Fi",
+      "x": "55%",
+      "y": "38%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "8",
+      "name": "Szafka sieciowa",
+      "x": "61%",
+      "y": "79%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "9",
+      "name": "Nagłośnienie",
+      "x": "52%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "10",
+      "name": "Antena RTV/SAT",
+      "x": "58.6%",
+      "y": "9%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "11",
+      "name": "Ładowarka do auta",
+      "x": "76%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     }
+    ],
+    "pt": {
+     "n": "3",
+     "name": "Brama",
+     "where": "Wjazd",
+     "what": "Brama wjazdowa podłączona do systemu domu.",
+     "why": "Otwierasz ją z telefonu albo razem ze sceną „wracam do domu”.",
+     "when": "Zasilanie i sterowanie bramy — przed ułożeniem podjazdu."
+    }
+   },
+   "3": {
+    "pts": [
+     {
+      "n": "1",
+      "name": "Kamera",
+      "x": "23%",
+      "y": "37%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "2",
+      "name": "Wideodomofon",
+      "x": "11%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "3",
+      "name": "Brama",
+      "x": "6%",
+      "y": "82%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "4",
+      "name": "Alarm",
+      "x": "32%",
+      "y": "72%",
+      "on": true,
+      "bd": "var(--k-white)",
+      "bg": "var(--k-i)",
+      "ink": "var(--k-ii)",
+      "glow": "0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)",
+      "chipBd": "var(--k-i)"
+     },
+     {
+      "n": "5",
+      "name": "Smart home Ampio",
+      "x": "40%",
+      "y": "47%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "6",
+      "name": "Rolety i światło",
+      "x": "30%",
+      "y": "44%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "7",
+      "name": "Wi-Fi",
+      "x": "55%",
+      "y": "38%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "8",
+      "name": "Szafka sieciowa",
+      "x": "61%",
+      "y": "79%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "9",
+      "name": "Nagłośnienie",
+      "x": "52%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "10",
+      "name": "Antena RTV/SAT",
+      "x": "58.6%",
+      "y": "9%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "11",
+      "name": "Ładowarka do auta",
+      "x": "76%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     }
+    ],
+    "pt": {
+     "n": "4",
+     "name": "Alarm",
+     "where": "Parter",
+     "what": "Czujki, centrala i powiadomienie w telefonie.",
+     "why": "Dom daje znać, gdy dzieje się coś niepokojącego.",
+     "when": "Okablowanie czujek — przed tynkami."
+    }
+   },
+   "4": {
+    "pts": [
+     {
+      "n": "1",
+      "name": "Kamera",
+      "x": "23%",
+      "y": "37%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "2",
+      "name": "Wideodomofon",
+      "x": "11%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "3",
+      "name": "Brama",
+      "x": "6%",
+      "y": "82%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "4",
+      "name": "Alarm",
+      "x": "32%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "5",
+      "name": "Smart home Ampio",
+      "x": "40%",
+      "y": "47%",
+      "on": true,
+      "bd": "var(--k-white)",
+      "bg": "var(--k-i)",
+      "ink": "var(--k-ii)",
+      "glow": "0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)",
+      "chipBd": "var(--k-i)"
+     },
+     {
+      "n": "6",
+      "name": "Rolety i światło",
+      "x": "30%",
+      "y": "44%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "7",
+      "name": "Wi-Fi",
+      "x": "55%",
+      "y": "38%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "8",
+      "name": "Szafka sieciowa",
+      "x": "61%",
+      "y": "79%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "9",
+      "name": "Nagłośnienie",
+      "x": "52%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "10",
+      "name": "Antena RTV/SAT",
+      "x": "58.6%",
+      "y": "9%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "11",
+      "name": "Ładowarka do auta",
+      "x": "76%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     }
+    ],
+    "pt": {
+     "n": "5",
+     "name": "Smart home Ampio",
+     "where": "Cały dom",
+     "what": "System, który łączy światło, rolety, ogrzewanie i resztę instalacji.",
+     "why": "Jedna aplikacja i sceny zamiast kilku pilotów.",
+     "when": "Na etapie projektu — smart home zmienia sposób prowadzenia kabli."
+    }
+   },
+   "5": {
+    "pts": [
+     {
+      "n": "1",
+      "name": "Kamera",
+      "x": "23%",
+      "y": "37%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "2",
+      "name": "Wideodomofon",
+      "x": "11%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "3",
+      "name": "Brama",
+      "x": "6%",
+      "y": "82%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "4",
+      "name": "Alarm",
+      "x": "32%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "5",
+      "name": "Smart home Ampio",
+      "x": "40%",
+      "y": "47%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "6",
+      "name": "Rolety i światło",
+      "x": "30%",
+      "y": "44%",
+      "on": true,
+      "bd": "var(--k-white)",
+      "bg": "var(--k-i)",
+      "ink": "var(--k-ii)",
+      "glow": "0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)",
+      "chipBd": "var(--k-i)"
+     },
+     {
+      "n": "7",
+      "name": "Wi-Fi",
+      "x": "55%",
+      "y": "38%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "8",
+      "name": "Szafka sieciowa",
+      "x": "61%",
+      "y": "79%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "9",
+      "name": "Nagłośnienie",
+      "x": "52%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "10",
+      "name": "Antena RTV/SAT",
+      "x": "58.6%",
+      "y": "9%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "11",
+      "name": "Ładowarka do auta",
+      "x": "76%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     }
+    ],
+    "pt": {
+     "n": "6",
+     "name": "Rolety i światło",
+     "where": "Okna i sufity",
+     "what": "Rolety i oświetlenie sterowane z systemu.",
+     "why": "Dom sam zasłania okna wieczorem i gasi światło, gdy wychodzisz.",
+     "when": "Razem ze smart home, przed tynkami."
+    }
+   },
+   "6": {
+    "pts": [
+     {
+      "n": "1",
+      "name": "Kamera",
+      "x": "23%",
+      "y": "37%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "2",
+      "name": "Wideodomofon",
+      "x": "11%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "3",
+      "name": "Brama",
+      "x": "6%",
+      "y": "82%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "4",
+      "name": "Alarm",
+      "x": "32%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "5",
+      "name": "Smart home Ampio",
+      "x": "40%",
+      "y": "47%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "6",
+      "name": "Rolety i światło",
+      "x": "30%",
+      "y": "44%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "7",
+      "name": "Wi-Fi",
+      "x": "55%",
+      "y": "38%",
+      "on": true,
+      "bd": "var(--k-white)",
+      "bg": "var(--k-i)",
+      "ink": "var(--k-ii)",
+      "glow": "0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)",
+      "chipBd": "var(--k-i)"
+     },
+     {
+      "n": "8",
+      "name": "Szafka sieciowa",
+      "x": "61%",
+      "y": "79%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "9",
+      "name": "Nagłośnienie",
+      "x": "52%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "10",
+      "name": "Antena RTV/SAT",
+      "x": "58.6%",
+      "y": "9%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "11",
+      "name": "Ładowarka do auta",
+      "x": "76%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     }
+    ],
+    "pt": {
+     "n": "7",
+     "name": "Wi-Fi",
+     "where": "Sufit",
+     "what": "Punkty dostępowe rozmieszczone po domu.",
+     "why": "Zasięg w każdym pokoju, a nie tylko przy routerze.",
+     "when": "Kabel do każdego punktu — przed tynkami."
+    }
+   },
+   "7": {
+    "pts": [
+     {
+      "n": "1",
+      "name": "Kamera",
+      "x": "23%",
+      "y": "37%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "2",
+      "name": "Wideodomofon",
+      "x": "11%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "3",
+      "name": "Brama",
+      "x": "6%",
+      "y": "82%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "4",
+      "name": "Alarm",
+      "x": "32%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "5",
+      "name": "Smart home Ampio",
+      "x": "40%",
+      "y": "47%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "6",
+      "name": "Rolety i światło",
+      "x": "30%",
+      "y": "44%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "7",
+      "name": "Wi-Fi",
+      "x": "55%",
+      "y": "38%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "8",
+      "name": "Szafka sieciowa",
+      "x": "61%",
+      "y": "79%",
+      "on": true,
+      "bd": "var(--k-white)",
+      "bg": "var(--k-i)",
+      "ink": "var(--k-ii)",
+      "glow": "0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)",
+      "chipBd": "var(--k-i)"
+     },
+     {
+      "n": "9",
+      "name": "Nagłośnienie",
+      "x": "52%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "10",
+      "name": "Antena RTV/SAT",
+      "x": "58.6%",
+      "y": "9%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "11",
+      "name": "Ładowarka do auta",
+      "x": "76%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     }
+    ],
+    "pt": {
+     "n": "8",
+     "name": "Szafka sieciowa",
+     "where": "Pomieszczenie gospodarcze",
+     "what": "Miejsce, w którym schodzą się wszystkie kable domu.",
+     "why": "Porządek i łatwy serwis przez lata.",
+     "when": "Miejsce na szafkę ustalamy na etapie projektu."
+    }
+   },
+   "8": {
+    "pts": [
+     {
+      "n": "1",
+      "name": "Kamera",
+      "x": "23%",
+      "y": "37%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "2",
+      "name": "Wideodomofon",
+      "x": "11%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "3",
+      "name": "Brama",
+      "x": "6%",
+      "y": "82%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "4",
+      "name": "Alarm",
+      "x": "32%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "5",
+      "name": "Smart home Ampio",
+      "x": "40%",
+      "y": "47%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "6",
+      "name": "Rolety i światło",
+      "x": "30%",
+      "y": "44%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "7",
+      "name": "Wi-Fi",
+      "x": "55%",
+      "y": "38%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "8",
+      "name": "Szafka sieciowa",
+      "x": "61%",
+      "y": "79%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "9",
+      "name": "Nagłośnienie",
+      "x": "52%",
+      "y": "70%",
+      "on": true,
+      "bd": "var(--k-white)",
+      "bg": "var(--k-i)",
+      "ink": "var(--k-ii)",
+      "glow": "0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)",
+      "chipBd": "var(--k-i)"
+     },
+     {
+      "n": "10",
+      "name": "Antena RTV/SAT",
+      "x": "58.6%",
+      "y": "9%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "11",
+      "name": "Ładowarka do auta",
+      "x": "76%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     }
+    ],
+    "pt": {
+     "n": "9",
+     "name": "Nagłośnienie",
+     "where": "Salon",
+     "what": "Głośniki w suficie albo ścianie; muzyka w wielu pokojach przez Sonos, HEOS albo MusicCast.",
+     "why": "Muzyka bez kabli na wierzchu.",
+     "when": "Przewody głośnikowe — przed tynkami."
+    }
+   },
+   "9": {
+    "pts": [
+     {
+      "n": "1",
+      "name": "Kamera",
+      "x": "23%",
+      "y": "37%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "2",
+      "name": "Wideodomofon",
+      "x": "11%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "3",
+      "name": "Brama",
+      "x": "6%",
+      "y": "82%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "4",
+      "name": "Alarm",
+      "x": "32%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "5",
+      "name": "Smart home Ampio",
+      "x": "40%",
+      "y": "47%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "6",
+      "name": "Rolety i światło",
+      "x": "30%",
+      "y": "44%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "7",
+      "name": "Wi-Fi",
+      "x": "55%",
+      "y": "38%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "8",
+      "name": "Szafka sieciowa",
+      "x": "61%",
+      "y": "79%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "9",
+      "name": "Nagłośnienie",
+      "x": "52%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "10",
+      "name": "Antena RTV/SAT",
+      "x": "58.6%",
+      "y": "9%",
+      "on": true,
+      "bd": "var(--k-white)",
+      "bg": "var(--k-i)",
+      "ink": "var(--k-ii)",
+      "glow": "0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)",
+      "chipBd": "var(--k-i)"
+     },
+     {
+      "n": "11",
+      "name": "Ładowarka do auta",
+      "x": "76%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     }
+    ],
+    "pt": {
+     "n": "10",
+     "name": "Antena RTV/SAT",
+     "where": "Dach",
+     "what": "Antena naziemna albo satelitarna z okablowaniem do pokoi.",
+     "why": "Telewizja w każdym pokoju, w którym jej chcesz.",
+     "when": "Przewody antenowe — przed tynkami; antena po pokryciu dachu."
+    }
+   },
+   "10": {
+    "pts": [
+     {
+      "n": "1",
+      "name": "Kamera",
+      "x": "23%",
+      "y": "37%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "2",
+      "name": "Wideodomofon",
+      "x": "11%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "3",
+      "name": "Brama",
+      "x": "6%",
+      "y": "82%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "4",
+      "name": "Alarm",
+      "x": "32%",
+      "y": "72%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "5",
+      "name": "Smart home Ampio",
+      "x": "40%",
+      "y": "47%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "6",
+      "name": "Rolety i światło",
+      "x": "30%",
+      "y": "44%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "7",
+      "name": "Wi-Fi",
+      "x": "55%",
+      "y": "38%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "8",
+      "name": "Szafka sieciowa",
+      "x": "61%",
+      "y": "79%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "9",
+      "name": "Nagłośnienie",
+      "x": "52%",
+      "y": "70%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "10",
+      "name": "Antena RTV/SAT",
+      "x": "58.6%",
+      "y": "9%",
+      "on": false,
+      "bd": "var(--k-i)",
+      "bg": "var(--k-id)",
+      "ink": "var(--k-it)",
+      "glow": "none",
+      "chipBd": "rgba(var(--r-w),.16)"
+     },
+     {
+      "n": "11",
+      "name": "Ładowarka do auta",
+      "x": "76%",
+      "y": "72%",
+      "on": true,
+      "bd": "var(--k-white)",
+      "bg": "var(--k-i)",
+      "ink": "var(--k-ii)",
+      "glow": "0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)",
+      "chipBd": "var(--k-i)"
+     }
+    ],
+    "pt": {
+     "n": "11",
+     "name": "Ładowarka do auta",
+     "where": "Garaż",
+     "what": "Ładowarka Elzab EcoPower na ścianie garażu.",
+     "why": "Auto ładuje się w nocy, pod domem.",
+     "when": "Przewód zasilający do garażu — przed tynkami, nawet jeśli auto kupisz później."
+    }
+   }
+  },
+  "ln": {
+   "1": {
+    "L": {
+     "line": "Tech",
+     "cd": "var(--k-t)",
+     "ct": "var(--k-tt)",
+     "dark": "var(--k-td)",
+     "domain": "prokomserwis.pl",
+     "url": "https://prokomserwis.pl",
+     "phone": "883 200 151",
+     "tel": "+48883200151",
+     "mail": "sklep@pro-kom.eu",
+     "label": "TECH",
+     "ink": "var(--k-ti)",
+     "h2": "Coś się zepsuło? Naprawimy.",
+     "lead": "Diagnoza i wycena są bezpłatne — płacisz tylko za naprawę, na którą się zgodzisz. Sprzęt przynosisz do salonu w Rabce-Zdroju albo wysyłasz kurierem z dowolnego miejsca w Polsce.",
+     "promise": "Bezpłatna diagnoza i wycena",
+     "cta": "Zgłoś naprawę",
+     "chips": [
+      "Akcesoria GSM: ładowarki, kable, etui, powerbanki, słuchawki",
+      "Pon–pt 9:00–17:00, sobota 9:00–14:00",
+      "Wysyłka kurierem z całej Polski"
+     ],
+     "telHref": "tel:+48883200151",
+     "items": [
+      {
+       "t": "Telefony",
+       "d": "Wyświetlacze, baterie, gniazda ładowania, głośniki i mikrofony, naprawy po zalaniu.",
+       "ic": "M8 2h8v20H8zM11 18h2"
+      },
+      {
+       "t": "Tablety i laptopy",
+       "d": "Diagnoza i naprawa.",
+       "ic": "M4 5h16v10H4zM2 19h20"
+      },
+      {
+       "t": "Komputery",
+       "d": "Stacjonarne — diagnoza i naprawa.",
+       "ic": "M3 5h18v11H3zM9 20h6M12 16v4"
+      },
+      {
+       "t": "Konsole i drukarki",
+       "d": "Naprawa w serwisie.",
+       "ic": "M6 9h12a4 4 0 014 4v1a3 3 0 01-5.3 1.9L15 14H9l-1.7 1.9A3 3 0 012 14v-1a4 4 0 014-4zM8 11v4M6 13h4"
+      },
+      {
+       "t": "Odzyskiwanie danych",
+       "d": "Z telefonów i dysków.",
+       "ic": "M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"
+      },
+      {
+       "t": "Hammer Glass",
+       "d": "Folia cięta ploterem pod Twój model, zakładana od ręki.",
+       "ic": "M8 2h8v20H8zM10 7l4 4"
+      }
+     ],
+     "facts": [
+      {
+       "t": "Bezpłatna diagnoza i wycena"
+      },
+      {
+       "t": "Status naprawy online, bez dzwonienia"
+      },
+      {
+       "t": "Salon w Rabce-Zdroju, także w soboty"
+      }
+     ],
+     "steps": [
+      {
+       "n": "01",
+       "t": "Zgłaszasz online albo w salonie"
+      },
+      {
+       "n": "02",
+       "t": "Bezpłatna diagnoza i wycena"
+      },
+      {
+       "n": "03",
+       "t": "Zgadzasz się — naprawiamy, status online"
+      }
+     ],
+     "cls": "dsg sb",
+     "isI": false,
+     "isT": true,
+     "isG": false
+    },
+    "ltabs": [
+     {
+      "name": "Instalacje",
+      "short": "Dom, który pilnuje i steruje się sam",
+      "cd": "var(--k-i)",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px",
+      "dot": "0"
+     },
+     {
+      "name": "Tech",
+      "short": "Sprzęt, który znowu działa",
+      "cd": "var(--k-t)",
+      "on": "true",
+      "bg": "var(--k-td)",
+      "bd": "var(--k-t)",
+      "bar": "100%",
+      "dot": "1"
+     },
+     {
+      "name": "Gaming",
+      "short": "Komputer do gier z Rabki-Zdroju",
+      "cd": "var(--k-y)",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px",
+      "dot": "0"
+     }
+    ]
+   },
+   "2": {
+    "L": {
+     "line": "Gaming",
+     "cd": "var(--k-y)",
+     "ct": "var(--k-y)",
+     "dark": "var(--k-yd)",
+     "domain": "prokomgaming.pl",
+     "url": "https://prokomgaming.pl",
+     "phone": "883 200 151",
+     "tel": "+48883200151",
+     "mail": "kontakt@prokomgaming.pl",
+     "label": "GAMING",
+     "ink": "var(--k-yi)",
+     "h2": "Komputery do gier. Sprawdzone w grach.",
+     "lead": "Składane ręcznie w Rabce-Zdroju. Każdy zestaw nosi imię istoty ze słowiańskich podań, a liczbę klatek pokazujemy ze źródłem. Wysyłamy do całej Polski.",
+     "promise": "Wysyłka w całej Polsce",
+     "cta": "Dobierz komputer",
+     "chips": [
+      "Windows 11",
+      "Montaż",
+      "Test obciążeniowy",
+      "Pomiar klatek i metryka",
+      "Wi-Fi i Bluetooth",
+      "Wysyłka",
+      "Gwarancja 2 lata"
+     ],
+     "telHref": "tel:+48883200151",
+     "items": [
+      {
+       "t": "Dobór pod grę",
+       "d": "33 tytuły. Wybierasz grę i monitor, przy każdej liczbie klatek jest źródło wyniku.",
+       "ic": "M6 9h12a4 4 0 014 4v1a3 3 0 01-5.3 1.9L15 14H9l-1.7 1.9A3 3 0 012 14v-1a4 4 0 014-4zM8 11v4M6 13h4"
+      },
+      {
+       "t": "16 gotowych zestawów",
+       "d": "Od FullHD po 4K, w dziewięciu poziomach mocy.",
+       "ic": "M7 2h10v20H7zM10 6h4M12 17h.01"
+      },
+      {
+       "t": "Zmiany w zestawie",
+       "d": "Możesz zmienić obudowę, chłodzenie, pamięć i dysk.",
+       "ic": "M14.5 6.5a4 4 0 00-5 5L3 18l3 3 6.5-6.5a4 4 0 005-5L15 12l-3-3z"
+      },
+      {
+       "t": "Konfigurator",
+       "d": "Składasz komputer po swojemu, krok po kroku.",
+       "ic": "M4 6h16M4 12h16M4 18h16M15 4v4M8 10v4M17 16v4"
+      },
+      {
+       "t": "Dla rodziców",
+       "d": "Wybór krok po kroku, bez żargonu.",
+       "ic": "M8 8a3 3 0 100-6 3 3 0 000 6zM16 10a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM2 21v-2a5 5 0 0110 0v2M13 21v-1.5a3.5 3.5 0 017 0V21"
+      },
+      {
+       "t": "Odbiór albo wysyłka",
+       "d": "W salonie w Rabce-Zdroju albo kurierem.",
+       "ic": "M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10"
+      }
+     ],
+     "facts": [
+      {
+       "t": "Składane ręcznie w Rabce-Zdroju"
+      },
+      {
+       "t": "Klatki mierzone w prawdziwych grach"
+      },
+      {
+       "t": "Gwarancja 2 lata na cały komputer"
+      }
+     ],
+     "steps": [
+      {
+       "n": "01",
+       "t": "Wybierasz grę i monitor w „W co grasz?”"
+      },
+      {
+       "n": "02",
+       "t": "Wysyłasz zapytanie i dostajesz ofertę"
+      },
+      {
+       "n": "03",
+       "t": "Składamy, testujemy i wysyłamy"
+      }
+     ],
+     "cls": "dsg sb",
+     "isI": false,
+     "isT": false,
+     "isG": true
+    },
+    "ltabs": [
+     {
+      "name": "Instalacje",
+      "short": "Dom, który pilnuje i steruje się sam",
+      "cd": "var(--k-i)",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px",
+      "dot": "0"
+     },
+     {
+      "name": "Tech",
+      "short": "Sprzęt, który znowu działa",
+      "cd": "var(--k-t)",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px",
+      "dot": "0"
+     },
+     {
+      "name": "Gaming",
+      "short": "Komputer do gier z Rabki-Zdroju",
+      "cd": "var(--k-y)",
+      "on": "true",
+      "bg": "var(--k-yd)",
+      "bd": "var(--k-y)",
+      "bar": "100%",
+      "dot": "1"
+     }
+    ]
+   }
+  },
+  "lnN": {
+   "1": {
+    "L": {
+     "line": "Instalacje",
+     "cd": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "domain": "prokominstalacje.pl",
+     "url": "https://prokominstalacje.pl",
+     "phone": "889 003 889",
+     "tel": "+48889003889",
+     "mail": "kontakt@prokominstalacje.pl",
+     "label": "INSTALACJE",
+     "ink": "var(--k-ii)",
+     "h2": "Dom, który pilnuje i steruje się sam.",
+     "lead": "Monitoring, alarm, wideodomofon, sieć i Wi-Fi, smart home Ampio i ładowarka do auta. Projekt, montaż i serwis w jednej firmie.",
+     "promise": "Odpowiemy w 24 godziny w dni robocze",
+     "cta": "Zaplanuj instalację",
+     "chips": [
+      "24 miesiące gwarancji na montaż",
+      "Serwis i przeglądy po montażu",
+      "Przejmujemy instalacje po innym wykonawcy"
+     ],
+     "telHref": "tel:+48889003889",
+     "items": [
+      {
+       "t": "Monitoring",
+       "d": "Kamery z nagrywaniem i podglądem w telefonie.",
+       "ic": "M3 7h12v10H3zM15 10l6-3v10l-6-3"
+      },
+      {
+       "t": "Alarm",
+       "d": "Czujki i centrala z powiadomieniem w telefonie.",
+       "ic": "M6 16v-5a6 6 0 1112 0v5l2 2H4zM10 21h4"
+      },
+      {
+       "t": "Wideodomofon",
+       "d": "Widzisz, kto dzwoni, i otwierasz z aplikacji.",
+       "ic": "M6 3h12v18H6zM9 7h6v5H9zM12 16h.01"
+      },
+      {
+       "t": "Sieć i Wi-Fi",
+       "d": "Punkty dostępowe na kablu, zasięg w całym domu.",
+       "ic": "M2 9a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0M12 19.5h.01"
+      },
+      {
+       "t": "Smart home Ampio",
+       "d": "Światło, rolety i ogrzewanie w jednej aplikacji.",
+       "ic": "M4 11l8-7 8 7v9H4zM10 20v-5h4v5"
+      },
+      {
+       "t": "Ładowarka do auta",
+       "d": "Elzab EcoPower na ścianie garażu.",
+       "ic": "M13 2L5 14h6l-1 8 8-12h-6z"
+      }
+     ],
+     "facts": [
+      {
+       "t": "24 miesiące gwarancji na montaż"
+      },
+      {
+       "t": "Projekt, montaż i serwis — jedna ekipa"
+      },
+      {
+       "t": "Przejmujemy też instalacje po innym wykonawcy"
+      }
+     ],
+     "steps": [
+      {
+       "n": "01",
+       "t": "Przysyłasz rzuty albo opisujesz dom"
+      },
+      {
+       "n": "02",
+       "t": "Ustalamy punkty i trasy kabli"
+      },
+      {
+       "n": "03",
+       "t": "Dostajesz plan i wycenę przed pracami"
+      }
+     ],
+     "cls": "dsg sa",
+     "isI": true,
+     "isT": false,
+     "isG": false
+    }
+   }
+  },
+  "tp": {
+   "1": {
+    "topic": {
+     "name": "Smart home",
+     "short": "System Ampio",
+     "eb": "Smart home · system Ampio",
+     "h": "Dwanaście rzeczy, którymi sterujesz z jednego miejsca.",
+     "lead": "Inteligentny dom robimy na systemie Ampio. Jedna aplikacja zamiast kilku pilotów i paneli. Zakres dobieramy do domu — nie musisz brać wszystkiego naraz.",
+     "note": "Muzyka w wielu pokojach działa przez Sonos, HEOS albo MusicCast połączone z systemem. Sterowanie głosem — przez Matter.",
+     "cta": "Smart home na prokominstalacje.pl",
+     "cols": "repeat(4, minmax(0, 1fr))",
+     "items": [
+      {
+       "k": "01",
+       "t": "Światło",
+       "d": "Włączanie, ściemnianie i grupy świateł.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "02",
+       "t": "Rolety",
+       "d": "Pojedynczo, piętrami albo cały dom naraz.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "03",
+       "t": "Ogrzewanie",
+       "d": "Temperatura w pomieszczeniach, także na odległość.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "04",
+       "t": "Bramy",
+       "d": "Wjazdowa i garażowa z telefonu.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "05",
+       "t": "Alarm",
+       "d": "Uzbrajanie i powiadomienia. Gdy ubezpieczyciel wymaga klasy — Satel z integracją.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "06",
+       "t": "Kamery",
+       "d": "Podgląd w tej samej aplikacji.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "07",
+       "t": "Wideodomofon",
+       "d": "Widzisz, kto dzwoni, i otwierasz.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "08",
+       "t": "Audio",
+       "d": "Muzyka przez Sonos, HEOS albo MusicCast.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "09",
+       "t": "Gniazda",
+       "d": "Wyłączasz wybrane obwody jednym ruchem.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "10",
+       "t": "Sceny",
+       "d": "„Wychodzę”, „Wieczór”, „Urlop” — jedno dotknięcie.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "11",
+       "t": "Harmonogramy",
+       "d": "Dom robi swoje o ustalonych porach.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "12",
+       "t": "Aplikacja",
+       "d": "Wszystko w telefonie, w domu i poza nim.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      }
+     ],
+     "cls": "dsg sb"
+    },
+    "ttabs": [
+     {
+      "name": "Etapy budowy",
+      "short": "Kiedy co zaplanować",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Smart home",
+      "short": "System Ampio",
+      "on": "true",
+      "bg": "var(--k-id)",
+      "bd": "var(--k-i)",
+      "bar": "100%"
+     },
+     {
+      "name": "Bezpieczeństwo",
+      "short": "Kamery, alarm, wideodomofon",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Internet",
+      "short": "Wi-Fi i okablowanie",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Ładowarka",
+      "short": "Elzab EcoPower",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     }
+    ]
+   },
+   "2": {
+    "topic": {
+     "name": "Bezpieczeństwo",
+     "short": "Kamery, alarm, wideodomofon",
+     "eb": "Bezpieczeństwo domu",
+     "h": "Widzisz dom, nawet gdy Cię w nim nie ma.",
+     "lead": "Kamery, alarm i wideodomofon z podglądem i powiadomieniami w telefonie. Po montażu zostajemy: przeglądy, pomoc zdalna i naprawy.",
+     "note": "Montaż ma 24 miesiące gwarancji PRO-KOM. Sprzęt — według gwarancji producenta.",
+     "cta": "Zaplanuj instalację",
+     "cols": "repeat(2, minmax(0, 1fr))",
+     "items": [
+      {
+       "k": "01",
+       "t": "Monitoring",
+       "d": "Kamery z nagrywaniem i podglądem w telefonie. Najczęściej montujemy Hikvision, Dahua i BCS — dobieramy pod dom, nie pod markę.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "02",
+       "t": "Alarm",
+       "d": "Czujki i centrala z powiadomieniem w telefonie.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "03",
+       "t": "Wideodomofon",
+       "d": "Widzisz, kto stoi przy furtce, i otwierasz z domu albo z aplikacji.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "04",
+       "t": "Serwis po montażu",
+       "d": "Przeglądy, pomoc zdalna i naprawy. Przejmujemy też instalacje po innym wykonawcy.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      }
+     ],
+     "cls": "dsg sb"
+    },
+    "ttabs": [
+     {
+      "name": "Etapy budowy",
+      "short": "Kiedy co zaplanować",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Smart home",
+      "short": "System Ampio",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Bezpieczeństwo",
+      "short": "Kamery, alarm, wideodomofon",
+      "on": "true",
+      "bg": "var(--k-id)",
+      "bd": "var(--k-i)",
+      "bar": "100%"
+     },
+     {
+      "name": "Internet",
+      "short": "Wi-Fi i okablowanie",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Ładowarka",
+      "short": "Elzab EcoPower",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     }
+    ]
+   },
+   "3": {
+    "topic": {
+     "name": "Internet",
+     "short": "Wi-Fi i okablowanie",
+     "eb": "Internet w domu",
+     "h": "Wi-Fi, które sięga tam, gdzie siedzisz.",
+     "lead": "Punkty dostępowe na kablu zamiast wzmacniaczy w gniazdkach, gniazda sieciowe tam, gdzie stoi sprzęt, i jedna szafka, w której wszystko się schodzi.",
+     "note": "Kabel do każdego punktu Wi-Fi najlepiej położyć przed tynkami.",
+     "cta": "Zaplanuj instalację",
+     "cols": "repeat(2, minmax(0, 1fr))",
+     "items": [
+      {
+       "k": "01",
+       "t": "Wi-Fi w całym domu",
+       "d": "Punkty dostępowe na kablu zamiast wzmacniaczy w gniazdkach. Zasięg na piętrze i w piwnicy.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "02",
+       "t": "Okablowanie",
+       "d": "Gniazdo sieciowe tam, gdzie stoi telewizor, komputer i konsola. Szafka, w której wszystko się schodzi.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "03",
+       "t": "Ogród i garaż",
+       "d": "Zasięg na tarasie, przy bramie i w garażu — także dla kamer i ładowarki.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "04",
+       "t": "Światłowód w domu",
+       "d": "Doprowadzenie i rozprowadzenie łącza po domu, żeby prędkość z umowy docierała do pokoi.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      }
+     ],
+     "cls": "dsg sb"
+    },
+    "ttabs": [
+     {
+      "name": "Etapy budowy",
+      "short": "Kiedy co zaplanować",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Smart home",
+      "short": "System Ampio",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Bezpieczeństwo",
+      "short": "Kamery, alarm, wideodomofon",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Internet",
+      "short": "Wi-Fi i okablowanie",
+      "on": "true",
+      "bg": "var(--k-id)",
+      "bd": "var(--k-i)",
+      "bar": "100%"
+     },
+     {
+      "name": "Ładowarka",
+      "short": "Elzab EcoPower",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     }
+    ]
+   },
+   "4": {
+    "topic": {
+     "name": "Ładowarka",
+     "short": "Elzab EcoPower",
+     "eb": "Ładowarka do auta · Elzab EcoPower",
+     "h": "Auto ładuje się w garażu, gdy śpisz.",
+     "lead": "Montujemy ładowarki Elzab EcoPower: dobieramy model, sprawdzamy zasilanie i uruchamiamy.",
+     "note": "Jeśli budujesz dom, zaplanuj przewód do garażu już teraz — nawet jeśli auto kupisz później.",
+     "cta": "Ładowarki na prokominstalacje.pl",
+     "cols": "repeat(3, minmax(0, 1fr))",
+     "items": [
+      {
+       "k": "Model",
+       "t": "CC Home",
+       "d": "Do domu i garażu",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "Model",
+       "t": "CC Wall",
+       "d": "Na ścianę, w kilku kolorach",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "Model",
+       "t": "CC City",
+       "d": "Na parking i przed obiekt",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      }
+     ],
+     "cls": "dsg sb"
+    },
+    "ttabs": [
+     {
+      "name": "Etapy budowy",
+      "short": "Kiedy co zaplanować",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Smart home",
+      "short": "System Ampio",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Bezpieczeństwo",
+      "short": "Kamery, alarm, wideodomofon",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Internet",
+      "short": "Wi-Fi i okablowanie",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Ładowarka",
+      "short": "Elzab EcoPower",
+      "on": "true",
+      "bg": "var(--k-id)",
+      "bd": "var(--k-i)",
+      "bar": "100%"
+     }
+    ]
+   },
+   "5": {
+    "topic": {
+     "cls": "dsg sb"
+    },
+    "ttabs": [
+     {
+      "name": "Etapy budowy",
+      "short": "Kiedy co zaplanować",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Smart home",
+      "short": "System Ampio",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Bezpieczeństwo",
+      "short": "Kamery, alarm, wideodomofon",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Internet",
+      "short": "Wi-Fi i okablowanie",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     },
+     {
+      "name": "Ładowarka",
+      "short": "Elzab EcoPower",
+      "on": "false",
+      "bg": "var(--k-card)",
+      "bd": "rgba(var(--r-w),.1)",
+      "bar": "18px"
+     }
+    ]
+   }
+  },
+  "tpN": {
+   "1": {
+    "topic": {
+     "name": "Etapy budowy",
+     "short": "Kiedy co zaplanować",
+     "eb": "Budujesz albo remontujesz",
+     "h": "Kiedy co zaplanować. Najważniejsze: zanim wejdą tynki.",
+     "lead": "Kabel położony przed tynkami kosztuje chwilę pracy. Ten sam kabel po wykończeniu oznacza kucie ścian. Dlatego warto odezwać się wcześnie.",
+     "note": "Najlepiej zgłosić się na etapie projektu, najpóźniej przed tynkami.",
+     "cta": "Zaplanuj instalację",
+     "cols": "repeat(5, minmax(0, 1fr))",
+     "items": [
+      {
+       "k": "Etap 1",
+       "t": "Projekt",
+       "d": "Przysyłasz rzuty. Zaznaczamy kamery, alarm, sieć, smart home i ładowarkę.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "Etap 2",
+       "t": "Stan surowy",
+       "d": "Ustalamy trasy kabli i miejsce na szafkę sieciową.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "Etap 3 · nie przegap",
+       "t": "Przed tynkami",
+       "d": "Kładziemy okablowanie. To ostatni moment, żeby zrobić to bez kucia ścian.",
+       "bg": "var(--k-i)",
+       "ink": "var(--k-ii)",
+       "bd": "var(--k-i)",
+       "kc": "var(--k-ii)"
+      },
+      {
+       "k": "Etap 4",
+       "t": "Wykończenie",
+       "d": "Montujemy urządzenia: kamery, czujki, panele, punkty Wi-Fi.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      },
+      {
+       "k": "Etap 5",
+       "t": "Zamieszkanie",
+       "d": "Uruchamiamy system i pokazujemy obsługę w telefonie. Potem serwis i przeglądy.",
+       "bg": "rgba(var(--r-w),.04)",
+       "ink": "var(--k-white)",
+       "bd": "rgba(var(--r-w),.1)",
+       "kc": "var(--k-it)"
+      }
+     ],
+     "cls": "dsg sa"
+    }
+   }
+  },
+  "ex": {
+   "1": {
+    "ex": {
+     "node": "Twoje mieszkanie",
+     "title": "Dom gotowy, a mimo to da się go ulepszyć.",
+     "tabs": [
+      {
+       "name": "Nowy dom",
+       "on": "false",
+       "bd": "rgba(var(--r-w),.22)",
+       "bg": "transparent",
+       "ink": "var(--k-ink)"
+      },
+      {
+       "name": "Mieszkanie i rodzina",
+       "on": "true",
+       "bd": "var(--k-g)",
+       "bg": "var(--k-g)",
+       "ink": "var(--k-gi)"
+      },
+      {
+       "name": "Apartament na wynajem",
+       "on": "false",
+       "bd": "rgba(var(--r-w),.22)",
+       "bg": "transparent",
+       "ink": "var(--k-ink)"
+      }
+     ],
+     "cards": [
+      {
+       "line": "Instalacje",
+       "cd": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "dark": "var(--k-id)",
+       "url": "https://prokominstalacje.pl",
+       "phone": "889 003 889",
+       "items": [
+        "Wi-Fi tam, gdzie dziś nie sięga",
+        "Wideodomofon z powiadomieniem w telefonie",
+        "Monitoring z podglądem w telefonie"
+       ],
+       "cls": "tc sb",
+       "delay": "0.08s"
+      },
+      {
+       "line": "Tech",
+       "cd": "var(--k-t)",
+       "ct": "var(--k-tt)",
+       "dark": "var(--k-td)",
+       "url": "https://prokomserwis.pl",
+       "phone": "883 200 151",
+       "items": [
+        "Bezpłatna diagnoza i wycena",
+        "Folia Hammer Glass",
+        "Akcesoria GSM"
+       ],
+       "cls": "tc sb",
+       "delay": "0.18s"
+      },
+      {
+       "line": "Gaming",
+       "cd": "var(--k-y)",
+       "ct": "var(--k-y)",
+       "dark": "var(--k-yd)",
+       "url": "https://prokomgaming.pl",
+       "phone": "883 200 151",
+       "items": [
+        "Dobór pod grę dziecka",
+        "Gwarancja 2 lata"
+       ],
+       "cls": "tc sb",
+       "delay": "0.28s"
+      }
+     ]
+    }
+   },
+   "2": {
+    "ex": {
+     "node": "Twój apartament",
+     "title": "Goście wchodzą na kod, a Ty nie jeździsz z kluczami.",
+     "tabs": [
+      {
+       "name": "Nowy dom",
+       "on": "false",
+       "bd": "rgba(var(--r-w),.22)",
+       "bg": "transparent",
+       "ink": "var(--k-ink)"
+      },
+      {
+       "name": "Mieszkanie i rodzina",
+       "on": "false",
+       "bd": "rgba(var(--r-w),.22)",
+       "bg": "transparent",
+       "ink": "var(--k-ink)"
+      },
+      {
+       "name": "Apartament na wynajem",
+       "on": "true",
+       "bd": "var(--k-g)",
+       "bg": "var(--k-g)",
+       "ink": "var(--k-gi)"
+      }
+     ],
+     "cards": [
+      {
+       "line": "Instalacje",
+       "cd": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "dark": "var(--k-id)",
+       "url": "https://prokominstalacje.pl",
+       "phone": "889 003 889",
+       "items": [
+        "Zamki na kod i kontrola dostępu",
+        "Wi-Fi dla gości",
+        "Monitoring wejścia",
+        "Ogrzewanie i światło na odległość"
+       ],
+       "cls": "tc sb",
+       "delay": "0.08s"
+      },
+      {
+       "line": "Software",
+       "cd": "var(--k-s)",
+       "ct": "var(--k-st)",
+       "dark": "var(--k-sd)",
+       "url": "https://prokomsoftware.pl",
+       "phone": "883 200 151",
+       "items": [
+        "Strona apartamentu widoczna w Google"
+       ],
+       "cls": "tc sb",
+       "delay": "0.18s"
+      }
+     ]
+    }
+   }
+  },
+  "exN": {
+   "1": {
+    "ex": {
+     "node": "Twój nowy dom",
+     "title": "Zaplanuj instalacje, zanim wejdą tynki.",
+     "tabs": [
+      {
+       "name": "Nowy dom",
+       "on": "true",
+       "bd": "var(--k-g)",
+       "bg": "var(--k-g)",
+       "ink": "var(--k-gi)"
+      },
+      {
+       "name": "Mieszkanie i rodzina",
+       "on": "false",
+       "bd": "rgba(var(--r-w),.22)",
+       "bg": "transparent",
+       "ink": "var(--k-ink)"
+      },
+      {
+       "name": "Apartament na wynajem",
+       "on": "false",
+       "bd": "rgba(var(--r-w),.22)",
+       "bg": "transparent",
+       "ink": "var(--k-ink)"
+      }
+     ],
+     "cards": [
+      {
+       "line": "Instalacje",
+       "cd": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "dark": "var(--k-id)",
+       "url": "https://prokominstalacje.pl",
+       "phone": "889 003 889",
+       "items": [
+        "Plan instalacji na rzutach domu",
+        "Okablowanie sieci i szafka",
+        "Alarm i wideodomofon",
+        "Smart home Ampio",
+        "Przewód pod ładowarkę do auta"
+       ],
+       "cls": "tc sa",
+       "delay": "0.08s"
+      },
+      {
+       "line": "Tech",
+       "cd": "var(--k-t)",
+       "ct": "var(--k-tt)",
+       "dark": "var(--k-td)",
+       "url": "https://prokomserwis.pl",
+       "phone": "883 200 151",
+       "items": [
+        "Naprawa telefonu, laptopa, konsoli"
+       ],
+       "cls": "tc sa",
+       "delay": "0.18s"
+      },
+      {
+       "line": "Gaming",
+       "cd": "var(--k-y)",
+       "ct": "var(--k-y)",
+       "dark": "var(--k-yd)",
+       "url": "https://prokomgaming.pl",
+       "phone": "883 200 151",
+       "items": [
+        "Komputer do gier złożony w Rabce-Zdroju"
+       ],
+       "cls": "tc sa",
+       "delay": "0.28s"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "_stany_uwaga": "Treść pozostałych zakładek/wyborów: stany[klucz][indeks] = pola, które różnią się od stanu domyślnego."
+}

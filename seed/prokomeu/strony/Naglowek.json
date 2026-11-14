@@ -1,0 +1,873 @@
+{
+ "_zrodlo": "Naglowek.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "openTxt": "Zamknięte · pn–pt 9:00–17:00",
+  "openDot": "var(--k-y)",
+  "mobLinks": [
+   {
+    "label": "Dla firm",
+    "sub": "Plan dla Twojej branży",
+    "href": "DlaFirm.dc.html",
+    "ic": "M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6",
+    "bg": "transparent"
+   },
+   {
+    "label": "Dla domu",
+    "sub": "Instalacje, naprawy, gaming",
+    "href": "DlaDomu.dc.html",
+    "ic": "M4 11l8-7 8 7v9H4z",
+    "bg": "transparent"
+   },
+   {
+    "label": "Załatw online",
+    "sub": "20 spraw bez dzwonienia",
+    "href": "Narzedzia.dc.html",
+    "ic": "M13 2L5 14h6l-1 8 8-12h-6z",
+    "bg": "transparent"
+   },
+   {
+    "label": "Inwestycje i dostawy",
+    "sub": "Większe zamówienia IT, RTV i AGD",
+    "href": "Dostawy.dc.html",
+    "ic": "M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10",
+    "bg": "transparent"
+   },
+   {
+    "label": "Współpraca",
+    "sub": "Architekci i wykonawcy",
+    "href": "Wspolpraca.dc.html",
+    "ic": "M8 12l3 3 5-6M3 12a9 9 0 1018 0 9 9 0 00-18 0",
+    "bg": "transparent"
+   },
+   {
+    "label": "Co zrobić, gdy…",
+    "sub": "Pierwsze kroki przy awarii",
+    "href": "Pomoc.dc.html",
+    "ic": "M9.1 9a3 3 0 015.8 1c0 2-3 2.5-3 4.5M12 18h.01M3 12a9 9 0 1018 0 9 9 0 00-18 0",
+    "bg": "transparent"
+   },
+   {
+    "label": "O firmie",
+    "sub": "Od 2004 roku w Rabce-Zdroju",
+    "href": "OFirmie.dc.html",
+    "ic": "M12 8h.01M11 12h1v5h1M3 12a9 9 0 1018 0 9 9 0 00-18 0",
+    "bg": "transparent"
+   },
+   {
+    "label": "Kontakt",
+    "sub": "Numery, salon, formularz",
+    "href": "Kontakt.dc.html",
+    "ic": "M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z",
+    "bg": "transparent"
+   },
+   {
+    "label": "Aktualności",
+    "sub": "Wpisy ze wszystkich linii",
+    "href": "Aktualnosci.dc.html",
+    "ic": "M4 5h13v14H6a2 2 0 01-2-2zM17 9h3v8a2 2 0 01-2 2M8 9h5M8 13h5",
+    "bg": "transparent"
+   }
+  ],
+  "bar": [
+   {
+    "label": "Start",
+    "href": "Main.dc.html",
+    "ic": "M4 11l8-7 8 7v9H4zM10 20v-5h4v5",
+    "cls": "",
+    "cur": "page"
+   },
+   {
+    "label": "Oferta",
+    "href": "Linie.dc.html",
+    "ic": "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
+    "cls": "",
+    "cur": "false"
+   },
+   {
+    "label": "Dobierz",
+    "href": "Main.dc.html#dobierz",
+    "ic": "M12 3l2.4 5.6L20 11l-5.6 2.4L12 19l-2.4-5.6L4 11l5.6-2.4z",
+    "cls": "pkbc",
+    "cur": "false"
+   },
+   {
+    "label": "Załatw",
+    "href": "Narzedzia.dc.html",
+    "ic": "M13 2L5 14h6l-1 8 8-12h-6z",
+    "cls": "",
+    "cur": "false"
+   },
+   {
+    "label": "Menu",
+    "href": "#menu",
+    "ic": "M4 7h16M4 12h16M4 17h10",
+    "cls": "",
+    "cur": "false"
+   }
+  ],
+  "mob": false,
+  "menu": [
+   {
+    "label": "Dla firm",
+    "href": "DlaFirm.dc.html",
+    "cls": "pknx",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "label": "Dla domu",
+    "href": "DlaDomu.dc.html",
+    "cls": "pknx",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "label": "Inwestycje i dostawy",
+    "href": "Dostawy.dc.html",
+    "cls": "pknx",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "label": "Załatw online",
+    "href": "Narzedzia.dc.html",
+    "cls": "pknx",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "label": "Pomoc",
+    "href": "Pomoc.dc.html",
+    "cls": "pknx pknh",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "label": "O firmie",
+    "href": "OFirmie.dc.html",
+    "cls": "pknx pknh",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "label": "Kontakt",
+    "href": "Kontakt.dc.html",
+    "cls": "pknx",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   }
+  ],
+  "yes": true,
+  "rail": [
+   {
+    "n": "01",
+    "label": "Start",
+    "href": "#start"
+   },
+   {
+    "n": "02",
+    "label": "Linie",
+    "href": "#linie"
+   },
+   {
+    "n": "03",
+    "label": "Dobierz",
+    "href": "#dobierz"
+   },
+   {
+    "n": "04",
+    "label": "Załatw online",
+    "href": "#narzedzia"
+   },
+   {
+    "n": "05",
+    "label": "Co zrobić, gdy…",
+    "href": "#pomoc"
+   },
+   {
+    "n": "06",
+    "label": "Współpraca",
+    "href": "#wspolpraca"
+   },
+   {
+    "n": "07",
+    "label": "Marki",
+    "href": "#marki"
+   },
+   {
+    "n": "08",
+    "label": "Zasięg",
+    "href": "#zasieg"
+   },
+   {
+    "n": "09",
+    "label": "Aktualności",
+    "href": "#aktualnosci"
+   },
+   {
+    "n": "10",
+    "label": "Pytania",
+    "href": "#pytania"
+   },
+   {
+    "n": "11",
+    "label": "Kontakt",
+    "href": "#kontakt"
+   }
+  ],
+  "q": "",
+  "groups": [
+   {
+    "name": "Linie PRO-KOM",
+    "items": [
+     {
+      "g": "Linie",
+      "t": "PRO-KOM Biznes",
+      "d": "Kasy fiskalne, GoPOS, InsERT, komputery, opieka IT · 889 003 889",
+      "href": "https://prokombiznes.pl",
+      "c": "var(--k-b)",
+      "tag": "prokombiznes.pl ↗",
+      "k": "pro-kom biznes kasy fiskalne, gopos, insert, komputery, opieka it · 889 003 889 kasa kasy fiskalna gopos insert subiekt ksef faktury serwer opieka it informatyk terminal komputery laptopy firma biuro restauracja sklep"
+     },
+     {
+      "g": "Linie",
+      "t": "PRO-KOM Instalacje",
+      "d": "Monitoring, alarmy, sieci i Wi-Fi, smart home · 889 003 889",
+      "href": "https://prokominstalacje.pl",
+      "c": "var(--k-i)",
+      "tag": "prokominstalacje.pl ↗",
+      "k": "pro-kom instalacje monitoring, alarmy, sieci i wi-fi, smart home · 889 003 889 kamery kamera monitoring alarm wifi wi-fi siec sieci smart home domofon wideodomofon naglosnienie anteny ladowarka swiatlowod pensjonat hotel dom"
+     },
+     {
+      "g": "Linie",
+      "t": "PRO-KOM Software",
+      "d": "Strony, systemy, aplikacje, automatyzacje · 883 200 151",
+      "href": "https://prokomsoftware.pl",
+      "c": "var(--k-s)",
+      "tag": "prokomsoftware.pl ↗",
+      "k": "pro-kom software strony, systemy, aplikacje, automatyzacje · 883 200 151 strona strony www internetowa aplikacja system panel crm automatyzacja seo sklep landing wizytowka"
+     },
+     {
+      "g": "Linie",
+      "t": "PRO-KOM Tech",
+      "d": "Naprawy telefonów, laptopów i konsol · 883 200 151",
+      "href": "https://prokomserwis.pl",
+      "c": "var(--k-t)",
+      "tag": "prokomserwis.pl ↗",
+      "k": "pro-kom tech naprawy telefonow, laptopow i konsol · 883 200 151 naprawa serwis ekran szybka bateria telefon smartfon laptop konsola zalany folia szklo hammer pekniety"
+     },
+     {
+      "g": "Linie",
+      "t": "PRO-KOM Gaming",
+      "d": "Komputery do gier składane w Rabce-Zdroju · 883 200 151",
+      "href": "https://prokomgaming.pl",
+      "c": "var(--k-y)",
+      "tag": "prokomgaming.pl ↗",
+      "k": "pro-kom gaming komputery do gier skladane w rabce-zdroju · 883 200 151 komputer do gier gaming gry fps rtx zestaw konfigurator pc gracz"
+     }
+    ]
+   }
+  ],
+  "mlines": [
+   {
+    "n": "01",
+    "name": "Biznes",
+    "nameU": "BIZNES",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "ink": "var(--k-bi)",
+    "tint": "rgba(74,123,224,.09)",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "short": "Kasy, komputery, opieka IT dla firm",
+    "cnt": "6 obszarów",
+    "items": [
+     {
+      "t": "Kasy fiskalne",
+      "d": "Posnet i Elzab",
+      "ic": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"
+     },
+     {
+      "t": "GoPOS",
+      "d": "Sprzedaż w gastronomii",
+      "ic": "M4 5h16v11H4zM8 20h8M12 16v4M8 9h3M8 12h6"
+     },
+     {
+      "t": "Programy InsERT",
+      "d": "Subiekt i e-faktury KSeF",
+      "ic": "M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5"
+     },
+     {
+      "t": "Komputery i serwery",
+      "d": "Lenovo, Dell",
+      "ic": "M4 4h16v6H4zM4 14h16v6H4zM8 7h.01M8 17h.01"
+     },
+     {
+      "t": "Opieka IT",
+      "d": "Pomoc zdalna, kopie zapasowe",
+      "ic": "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"
+     },
+     {
+      "t": "Terminale płatnicze",
+      "d": "PolCard",
+      "ic": "M3 6h18v12H3zM3 10h18M7 15h4"
+     }
+    ],
+    "on": true,
+    "bd": "var(--k-b)",
+    "bg": "var(--k-bd)",
+    "bar": "26px",
+    "dark": "var(--k-bd)",
+    "promise": "Oddzwaniamy w 60 minut",
+    "tools": [
+     "Plan Twojej firmy",
+     "Konfigurator"
+    ],
+    "cls": "mgp2"
+   },
+   {
+    "n": "02",
+    "name": "Instalacje",
+    "nameU": "INSTALACJE",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "ink": "var(--k-ii)",
+    "tint": "rgba(18,182,216,.08)",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "short": "Projekt, montaż i serwis",
+    "cnt": "6 obszarów",
+    "items": [
+     {
+      "t": "Monitoring i kamery",
+      "d": "Podgląd w telefonie",
+      "ic": "M3 7h12v10H3zM15 10l6-3v10l-6-3"
+     },
+     {
+      "t": "Alarmy i wideodomofony",
+      "d": "Powiadomienia w telefonie",
+      "ic": "M6 16v-5a6 6 0 1112 0v5l2 2H4zM10 21h4"
+     },
+     {
+      "t": "Sieci i Wi-Fi",
+      "d": "Okablowanie, Wi-Fi gości",
+      "ic": "M2 9a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0M12 19.5h.01"
+     },
+     {
+      "t": "Smart home",
+      "d": "System Ampio",
+      "ic": "M4 11l8-7 8 7v9H4zM10 20v-5h4v5"
+     },
+     {
+      "t": "Nagłośnienie i ekrany",
+      "d": "Sale, lokale, obiekty",
+      "ic": "M4 9h4l5-4v14l-5-4H4zM16 9a4 4 0 010 6M19 6a8 8 0 010 12"
+     },
+     {
+      "t": "Ładowarki EV",
+      "d": "Elzab EcoPower",
+      "ic": "M13 2L5 14h6l-1 8 8-12h-6z"
+     }
+    ],
+    "on": false,
+    "bd": "transparent",
+    "bg": "transparent",
+    "bar": "0px",
+    "dark": "var(--k-id)",
+    "promise": "Odpowiedź w 24 godziny",
+    "tools": [
+     "Zaplanuj instalację",
+     "Zgłoś awarię"
+    ],
+    "cls": "mgp2"
+   },
+   {
+    "n": "03",
+    "name": "Software",
+    "nameU": "SOFTWARE",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "ink": "var(--k-si)",
+    "tint": "rgba(150,112,238,.09)",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "short": "Pisane pod Twoją firmę",
+    "cnt": "6 obszarów",
+    "items": [
+     {
+      "t": "Strony internetowe",
+      "d": "Firmowe, wizytówki, landing page",
+      "ic": "M3 5h18v14H3zM3 9h18M6 7h.01M9 7h.01"
+     },
+     {
+      "t": "Systemy i panele",
+      "d": "CRM, zlecenia, czas pracy",
+      "ic": "M4 4h5v16H4zM10 4h5v10h-5zM16 4h4v6h-4z"
+     },
+     {
+      "t": "Aplikacje mobilne",
+      "d": "Dla pracowników i klientów",
+      "ic": "M8 2h8v20H8zM11 18h2"
+     },
+     {
+      "t": "Automatyzacje i AI",
+      "d": "Bez przepisywania",
+      "ic": "M6 2h12v20H6zM9 6h6v6H9zM9 16h2"
+     },
+     {
+      "t": "Opieka",
+      "d": "Serwer w Polsce, kopia co noc",
+      "ic": "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"
+     },
+     {
+      "t": "Darmowy audyt strony",
+      "d": "Sprawdzimy Twoją stronę",
+      "ic": "M3 5h18v14H3zM3 9h18M6 7h.01M9 7h.01"
+     }
+    ],
+    "on": false,
+    "bd": "transparent",
+    "bg": "transparent",
+    "bar": "0px",
+    "dark": "var(--k-sd)",
+    "promise": "Odpowiedź w 1 dzień roboczy",
+    "tools": [
+     "Policz swój projekt",
+     "Darmowy audyt strony"
+    ],
+    "cls": "mgp2"
+   },
+   {
+    "n": "04",
+    "name": "Tech",
+    "nameU": "TECH",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "ink": "var(--k-ti)",
+    "tint": "rgba(226,72,58,.08)",
+    "domain": "prokomserwis.pl",
+    "url": "https://prokomserwis.pl",
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "short": "Bezpłatna diagnoza i wycena",
+    "cnt": "6 obszarów",
+    "items": [
+     {
+      "t": "Telefony i tablety",
+      "d": "Wyświetlacze, baterie, gniazda",
+      "ic": "M8 2h8v20H8zM11 18h2"
+     },
+     {
+      "t": "Laptopy i komputery",
+      "d": "Diagnoza i naprawa",
+      "ic": "M4 5h16v10H4zM2 19h20"
+     },
+     {
+      "t": "Konsole i drukarki",
+      "d": "Naprawa w serwisie",
+      "ic": "M7 8V4h10v4M5 8h14v8H5zM8 14h8v6H8z"
+     },
+     {
+      "t": "Odzyskiwanie danych",
+      "d": "Z telefonów i dysków",
+      "ic": "M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"
+     },
+     {
+      "t": "Hammer Glass",
+      "d": "Folia cięta na wymiar",
+      "ic": "M8 2h8v20H8zM11 18h2"
+     },
+     {
+      "t": "Akcesoria GSM",
+      "d": "W salonie w Rabce-Zdroju",
+      "ic": "M9 2v6M15 2v6M6 8h12v3a6 6 0 01-12 0zM12 17v5"
+     }
+    ],
+    "on": false,
+    "bd": "transparent",
+    "bg": "transparent",
+    "bar": "0px",
+    "dark": "var(--k-td)",
+    "promise": "Bezpłatna diagnoza i wycena",
+    "tools": [
+     "Zgłoś naprawę",
+     "Status naprawy"
+    ],
+    "cls": "mgp2"
+   },
+   {
+    "n": "05",
+    "name": "Gaming",
+    "nameU": "GAMING",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "ink": "var(--k-yi)",
+    "tint": "rgba(242,194,48,.07)",
+    "domain": "prokomgaming.pl",
+    "url": "https://prokomgaming.pl",
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "short": "Komputery do gier · marka PRO-KOM",
+    "cnt": "6 obszarów",
+    "items": [
+     {
+      "t": "Gotowe zestawy",
+      "d": "16 komputerów",
+      "ic": "M7 2h10v20H7zM10 6h4M12 17h.01"
+     },
+     {
+      "t": "Konfigurator",
+      "d": "Złóż własny zestaw",
+      "ic": "M4 6h16M4 12h16M4 18h16M15 4v4M8 10v4M17 16v4"
+     },
+     {
+      "t": "Dobór pod grę",
+      "d": "33 gry",
+      "ic": "M6 9h12a4 4 0 014 4v1a3 3 0 01-5.3 1.9L15 14H9l-1.7 1.9A3 3 0 012 14v-1a4 4 0 014-4zM8 11v4M6 13h4"
+     },
+     {
+      "t": "Porównaj zestawy",
+      "d": "Do trzech naraz",
+      "ic": "M7 2h10v20H7zM10 6h4M12 17h.01"
+     },
+     {
+      "t": "Dla rodziców",
+      "d": "Pomoc w wyborze",
+      "ic": "M8 8a3 3 0 100-6 3 3 0 000 6zM16 10a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM2 21v-2a5 5 0 0110 0v2M13 21v-1.5a3.5 3.5 0 017 0V21"
+     },
+     {
+      "t": "Gwarancja 2 lata",
+      "d": "Na cały komputer",
+      "ic": "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"
+     }
+    ],
+    "on": false,
+    "bd": "transparent",
+    "bg": "transparent",
+    "bar": "0px",
+    "dark": "var(--k-yd)",
+    "promise": "Wysyłka do całej Polski",
+    "tools": [
+     "Konfigurator PC",
+     "Dobór pod grę"
+    ],
+    "cls": "mgp2"
+   }
+  ],
+  "ml": {
+   "n": "01",
+   "name": "Biznes",
+   "nameU": "BIZNES",
+   "cd": "var(--k-b)",
+   "ct": "var(--k-bt)",
+   "ink": "var(--k-bi)",
+   "tint": "rgba(74,123,224,.09)",
+   "domain": "prokombiznes.pl",
+   "url": "https://prokombiznes.pl",
+   "phone": "889 003 889",
+   "telHref": "tel:+48889003889",
+   "short": "Kasy, komputery, opieka IT dla firm",
+   "cnt": "6 obszarów",
+   "items": [
+    {
+     "t": "Kasy fiskalne",
+     "d": "Posnet i Elzab",
+     "ic": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"
+    },
+    {
+     "t": "GoPOS",
+     "d": "Sprzedaż w gastronomii",
+     "ic": "M4 5h16v11H4zM8 20h8M12 16v4M8 9h3M8 12h6"
+    },
+    {
+     "t": "Programy InsERT",
+     "d": "Subiekt i e-faktury KSeF",
+     "ic": "M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5"
+    },
+    {
+     "t": "Komputery i serwery",
+     "d": "Lenovo, Dell",
+     "ic": "M4 4h16v6H4zM4 14h16v6H4zM8 7h.01M8 17h.01"
+    },
+    {
+     "t": "Opieka IT",
+     "d": "Pomoc zdalna, kopie zapasowe",
+     "ic": "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"
+    },
+    {
+     "t": "Terminale płatnicze",
+     "d": "PolCard",
+     "ic": "M3 6h18v12H3zM3 10h18M7 15h4"
+    }
+   ],
+   "on": true,
+   "bd": "var(--k-b)",
+   "bg": "var(--k-bd)",
+   "bar": "26px",
+   "dark": "var(--k-bd)",
+   "promise": "Oddzwaniamy w 60 minut",
+   "tools": [
+    "Plan Twojej firmy",
+    "Konfigurator"
+   ],
+   "cls": "mgp2"
+  },
+  "mega": false,
+  "megaBg": "transparent",
+  "megaRot": "none",
+  "none": false,
+  "open": false
+ },
+ "index": [
+  {
+   "g": "Linie",
+   "t": "PRO-KOM Biznes",
+   "d": "Kasy fiskalne, GoPOS, InsERT, komputery, opieka IT · 889 003 889",
+   "href": "https://prokombiznes.pl",
+   "c": "var(--k-b)",
+   "tag": "prokombiznes.pl ↗",
+   "k": "pro-kom biznes kasy fiskalne, gopos, insert, komputery, opieka it · 889 003 889 kasa kasy fiskalna gopos insert subiekt ksef faktury serwer opieka it informatyk terminal komputery laptopy firma biuro restauracja sklep"
+  },
+  {
+   "g": "Linie",
+   "t": "PRO-KOM Instalacje",
+   "d": "Monitoring, alarmy, sieci i Wi-Fi, smart home · 889 003 889",
+   "href": "https://prokominstalacje.pl",
+   "c": "var(--k-i)",
+   "tag": "prokominstalacje.pl ↗",
+   "k": "pro-kom instalacje monitoring, alarmy, sieci i wi-fi, smart home · 889 003 889 kamery kamera monitoring alarm wifi wi-fi siec sieci smart home domofon wideodomofon naglosnienie anteny ladowarka swiatlowod pensjonat hotel dom"
+  },
+  {
+   "g": "Linie",
+   "t": "PRO-KOM Software",
+   "d": "Strony, systemy, aplikacje, automatyzacje · 883 200 151",
+   "href": "https://prokomsoftware.pl",
+   "c": "var(--k-s)",
+   "tag": "prokomsoftware.pl ↗",
+   "k": "pro-kom software strony, systemy, aplikacje, automatyzacje · 883 200 151 strona strony www internetowa aplikacja system panel crm automatyzacja seo sklep landing wizytowka"
+  },
+  {
+   "g": "Linie",
+   "t": "PRO-KOM Tech",
+   "d": "Naprawy telefonów, laptopów i konsol · 883 200 151",
+   "href": "https://prokomserwis.pl",
+   "c": "var(--k-t)",
+   "tag": "prokomserwis.pl ↗",
+   "k": "pro-kom tech naprawy telefonow, laptopow i konsol · 883 200 151 naprawa serwis ekran szybka bateria telefon smartfon laptop konsola zalany folia szklo hammer pekniety"
+  },
+  {
+   "g": "Linie",
+   "t": "PRO-KOM Gaming",
+   "d": "Komputery do gier składane w Rabce-Zdroju · 883 200 151",
+   "href": "https://prokomgaming.pl",
+   "c": "var(--k-y)",
+   "tag": "prokomgaming.pl ↗",
+   "k": "pro-kom gaming komputery do gier skladane w rabce-zdroju · 883 200 151 komputer do gier gaming gry fps rtx zestaw konfigurator pc gracz"
+  },
+  {
+   "g": "Załatw online",
+   "t": "Zgłoś naprawę",
+   "d": "Opisz usterkę online",
+   "href": "https://prokomserwis.pl",
+   "c": "var(--k-t)",
+   "tag": "Tech ↗",
+   "k": "zglos naprawe opisz usterke online naprawa zgloszenie serwis telefon laptop"
+  },
+  {
+   "g": "Załatw online",
+   "t": "Status naprawy",
+   "d": "Sprawdź etap naprawy",
+   "href": "https://prokomserwis.pl",
+   "c": "var(--k-t)",
+   "tag": "Tech ↗",
+   "k": "status naprawy sprawdz etap naprawy status naprawa sledzenie"
+  },
+  {
+   "g": "Załatw online",
+   "t": "Konfigurator PC",
+   "d": "Złóż komputer i zobacz cenę",
+   "href": "https://prokomgaming.pl",
+   "c": "var(--k-y)",
+   "tag": "Gaming ↗",
+   "k": "konfigurator pc zloz komputer i zobacz cene konfigurator komputer pc gaming"
+  },
+  {
+   "g": "Załatw online",
+   "t": "Dobór pod grę",
+   "d": "33 gry, zestawy z wynikiem klatek",
+   "href": "https://prokomgaming.pl",
+   "c": "var(--k-y)",
+   "tag": "Gaming ↗",
+   "k": "dobor pod gre 33 gry, zestawy z wynikiem klatek gra gry fps dobor"
+  },
+  {
+   "g": "Załatw online",
+   "t": "Policz swój projekt",
+   "d": "Kreator strony albo systemu",
+   "href": "https://prokomsoftware.pl",
+   "c": "var(--k-s)",
+   "tag": "Software ↗",
+   "k": "policz swoj projekt kreator strony albo systemu kreator wycena strona cena projekt"
+  },
+  {
+   "g": "Załatw online",
+   "t": "Darmowy audyt strony",
+   "d": "Sprawdzimy Twoją stronę",
+   "href": "https://prokomsoftware.pl",
+   "c": "var(--k-s)",
+   "tag": "Software ↗",
+   "k": "darmowy audyt strony sprawdzimy twoja strone audyt strona seo"
+  },
+  {
+   "g": "Załatw online",
+   "t": "Zaplanuj instalację",
+   "d": "Plan i wycena dla obiektu",
+   "href": "https://prokominstalacje.pl",
+   "c": "var(--k-i)",
+   "tag": "Instalacje ↗",
+   "k": "zaplanuj instalacje plan i wycena dla obiektu zaplanuj instalacja kamery alarm wycena"
+  },
+  {
+   "g": "Pomoc",
+   "t": "Kasa fiskalna nie drukuje",
+   "d": "Co zrobić od razu",
+   "href": "Pomoc.dc.html",
+   "c": "var(--k-b)",
+   "tag": "Pomoc",
+   "k": "kasa fiskalna nie drukuje co zrobic od razu kasa fiskalna nie drukuje awaria"
+  },
+  {
+   "g": "Pomoc",
+   "t": "Padło Wi-Fi w pensjonacie",
+   "d": "Co sprawdzić, do kogo dzwonić",
+   "href": "Pomoc.dc.html",
+   "c": "var(--k-i)",
+   "tag": "Pomoc",
+   "k": "padlo wi-fi w pensjonacie co sprawdzic, do kogo dzwonic wifi wi-fi internet nie dziala pensjonat"
+  },
+  {
+   "g": "Pomoc",
+   "t": "Kamera nie nagrywa",
+   "d": "Co sprawdzić",
+   "href": "Pomoc.dc.html",
+   "c": "var(--k-i)",
+   "tag": "Pomoc",
+   "k": "kamera nie nagrywa co sprawdzic kamera kamery nie nagrywa monitoring"
+  },
+  {
+   "g": "Pomoc",
+   "t": "Pęknięty ekran telefonu",
+   "d": "Naprawa i wycena",
+   "href": "Pomoc.dc.html",
+   "c": "var(--k-t)",
+   "tag": "Pomoc",
+   "k": "pekniety ekran telefonu naprawa i wycena pekniety ekran szybka telefon"
+  },
+  {
+   "g": "Pomoc",
+   "t": "Strona firmy jest stara albo nie działa",
+   "d": "Audyt i wycena",
+   "href": "Pomoc.dc.html",
+   "c": "var(--k-s)",
+   "tag": "Pomoc",
+   "k": "strona firmy jest stara albo nie dziala audyt i wycena strona nie dziala stara"
+  },
+  {
+   "g": "Strony",
+   "t": "Linie — co gdzie załatwisz",
+   "d": "Matryca potrzeb i numerów",
+   "href": "Linie.dc.html",
+   "c": "var(--k-g)",
+   "tag": "pro-kom.eu",
+   "k": "linie — co gdzie zalatwisz matryca potrzeb i numerow linie co gdzie numer telefon"
+  },
+  {
+   "g": "Strony",
+   "t": "Dla firm",
+   "d": "Plan dla Twojej branży",
+   "href": "DlaFirm.dc.html",
+   "c": "var(--k-g)",
+   "tag": "pro-kom.eu",
+   "k": "dla firm plan dla twojej branzy firma firm branza restauracja sklep biuro hotel szkola gmina"
+  },
+  {
+   "g": "Strony",
+   "t": "Dla domu",
+   "d": "Dom, naprawy, komputer do gier",
+   "href": "DlaDomu.dc.html",
+   "c": "var(--k-g)",
+   "tag": "pro-kom.eu",
+   "k": "dla domu dom, naprawy, komputer do gier dom domu prywatnie rodzina dziecko"
+  },
+  {
+   "g": "Strony",
+   "t": "Załatw online",
+   "d": "Wszystkie narzędzia linii",
+   "href": "Narzedzia.dc.html",
+   "c": "var(--k-g)",
+   "tag": "pro-kom.eu",
+   "k": "zalatw online wszystkie narzedzia linii narzedzia konfigurator kreator status"
+  },
+  {
+   "g": "Strony",
+   "t": "Pomoc",
+   "d": "Co zrobić, gdy…",
+   "href": "Pomoc.dc.html",
+   "c": "var(--k-g)",
+   "tag": "pro-kom.eu",
+   "k": "pomoc co zrobic, gdy… pomoc problem awaria nie dziala"
+  },
+  {
+   "g": "Strony",
+   "t": "O firmie",
+   "d": "PRO-KOM od 2004 roku",
+   "href": "OFirmie.dc.html",
+   "c": "var(--k-g)",
+   "tag": "pro-kom.eu",
+   "k": "o firmie pro-kom od 2004 roku o firmie nip historia 2004 wojciak"
+  },
+  {
+   "g": "Strony",
+   "t": "Marki i autoryzacje",
+   "d": "Posnet, Elzab, GoPOS, InsERT i inne",
+   "href": "Partnerzy.dc.html",
+   "c": "var(--k-g)",
+   "tag": "pro-kom.eu",
+   "k": "marki i autoryzacje posnet, elzab, gopos, insert i inne marki autoryzacje partnerzy posnet elzab gopos insert lenovo dell ampio"
+  },
+  {
+   "g": "Strony",
+   "t": "Gdzie działamy",
+   "d": "Podhale, Małopolska, cała Polska",
+   "href": "Zasieg.dc.html",
+   "c": "var(--k-g)",
+   "tag": "pro-kom.eu",
+   "k": "gdzie dzialamy podhale, malopolska, cala polska gdzie dojazd zasieg rabka zakopane nowy targ podhale malopolska miejscowosc"
+  },
+  {
+   "g": "Strony",
+   "t": "Kontakt",
+   "d": "Numery, adres, formularz",
+   "href": "Kontakt.dc.html",
+   "c": "var(--k-g)",
+   "tag": "pro-kom.eu",
+   "k": "kontakt numery, adres, formularz kontakt telefon adres godziny mapa dojazd email"
+  },
+  {
+   "g": "Strony",
+   "t": "Aktualności",
+   "d": "Wpisy ze wszystkich linii",
+   "href": "Aktualnosci.dc.html",
+   "c": "var(--k-g)",
+   "tag": "pro-kom.eu",
+   "k": "aktualnosci wpisy ze wszystkich linii aktualnosci nowosci blog wpisy"
+  }
+ ]
+}

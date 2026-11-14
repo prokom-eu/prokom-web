@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>PRO-KOM — mapa strony</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/*PKTHEME*/:root{--k-bg:#0A0D0B;--k-bg2:#0E1210;--k-card:#131815;--k-card2:#111613;--k-foot:#060807;--k-bgp:#0C0F0D;--k-cardp:#171C18;--k-dim:#050706;--k-ink:#F4F5F1;--k-ink1:#DDE1DB;--k-ink2:#C9CEC8;--k-ink3:#A9AFA9;--k-ink4:#B9BDB6;--k-ink5:#7E857E;--k-gt:#8FE07A;--k-gd:#7BD36A;--k-g:#4FB034;--k-g1:#5BC23E;--k-g2:#43A02B;--k-g3:#2E7A1E;--k-gi:#07140A;--k-b:#4A7BE0;--k-bt:#8DADF0;--k-bd:#0A1430;--k-bi:#06102A;--k-i:#12B6D8;--k-it:#4CCBE6;--k-id:#071214;--k-ii:#06181C;--k-s:#9670EE;--k-st:#B49BF5;--k-sd:#15131F;--k-si:#120A26;--k-t:#E2483A;--k-tt:#F29185;--k-td:#1A1312;--k-ti:#1A0806;--k-y:#F2C230;--k-yd:#080C0B;--k-yi:#1A1400;--r-w:255,255,255;--r-gl:22,28,24;--r-gl2:19,24,21;--r-gl3:20,25,21;--r-gl4:10,13,11;--r-gl5:17,22,19;--k-white:#FFFFFF}
+html[data-theme="light"]{--k-bg:#F4F5F1;--k-bg2:#ECEEE8;--k-card:#FFFFFF;--k-card2:#FFFFFF;--k-foot:#E4E7E0;--k-bgp:#F4F5F1;--k-cardp:#FFFFFF;--k-dim:#D9DCD5;--k-ink:#121613;--k-ink1:#2A302B;--k-ink2:#3A413B;--k-ink3:#4F5650;--k-ink4:#4F5650;--k-ink5:#8A918A;--k-gt:#2E7A1E;--k-gd:#2E7A1E;--k-g:#2E7A1E;--k-g1:#358F27;--k-g2:#286F18;--k-g3:#1F5A12;--k-gi:#FFFFFF;--k-b:#244FB0;--k-bt:#244FB0;--k-bd:#E6ECFB;--k-bi:#FFFFFF;--k-i:#007A96;--k-it:#006A82;--k-id:#DDF1F5;--k-ii:#FFFFFF;--k-s:#6E45D4;--k-st:#5B33C4;--k-sd:#ECE7FB;--k-si:#FFFFFF;--k-t:#C4362B;--k-tt:#B3301F;--k-td:#FBE8E5;--k-ti:#FFFFFF;--k-y:#9A7000;--k-yd:#FBF2D2;--k-yi:#FFFFFF;--r-w:18,22,19;--r-gl:255,255,255;--r-gl2:255,255,255;--r-gl3:255,255,255;--r-gl4:255,255,255;--r-gl5:255,255,255;--k-white:#121613}
+@keyframes pkrise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+section{animation:pkrise linear both;animation-timeline:view();animation-range:entry 0% cover 14%}
+section a[class~="lift"],section details,section figure{animation:pkpop linear both;animation-timeline:view();animation-range:entry 0% cover 18%}
+}
+a,button,details,summary{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s,color .3s}
+button:hover{transform:translateY(-2px)}
+a[style*="border-radius: 16px"]:hover,a[style*="border-radius: 18px"]:hover,a[style*="border-radius: 15px"]:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;transition:background-color .4s}
+body,body *{transition-property:background-color,border-color,color,transform,box-shadow,opacity,flex;transition-duration:.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+/*END*/
+/*PKX*/
+.pk .lift,.pk .nx{position:relative;overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .3s}
+.pk .lift:hover,.pk .nx:hover{transform:translateY(-6px);box-shadow:0 0 0 1px var(--c,var(--k-g)),0 36px 80px -38px var(--c,var(--k-g))}
+.pk .lift[style*="--c:"]:hover{box-shadow:inset 0 4px 0 var(--c),0 0 0 1px var(--c),0 36px 80px -38px var(--c) !important}
+.pk .lift::after,.pk .nx::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:38%;background:linear-gradient(100deg,transparent,rgba(var(--r-w),.12),transparent);transform:skewX(-18deg);pointer-events:none;opacity:0}
+.pk .lift:hover::after,.pk .nx:hover::after{animation:pkxsweep 1.1s cubic-bezier(.2,.8,.2,1)}
+@keyframes pkxsweep{0%{left:-60%;opacity:1}100%{left:130%;opacity:1}}
+@keyframes pkxin{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes pkxrise{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+.pk h1{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .1s both;text-wrap:balance;overflow-wrap:normal;word-break:normal;hyphens:none}
+.pk h1+p{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .25s both}
+@supports (animation-timeline: view()){
+.pk .stg>*{animation:pkxin linear both;animation-timeline:view();animation-range:entry 0% cover 16%}
+.pk .stg>*:nth-child(2){animation-range:entry 4% cover 19%}.pk .stg>*:nth-child(3){animation-range:entry 8% cover 22%}.pk .stg>*:nth-child(4){animation-range:entry 12% cover 25%}.pk .stg>*:nth-child(n+5){animation-range:entry 14% cover 27%}
+}
+@keyframes pkxpulse{50%{opacity:.35}}
+.pk .vg{border-radius:16px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pk .lift:hover .vg{transform:scale(1.015);border-color:color-mix(in srgb,var(--c,var(--k-g)) 55%,transparent)}
+.pk .vg i{display:block;font-style:normal}
+.pk .sk{border-radius:4px;background:rgba(var(--r-w),.2);animation:pkxpulse 2.6s ease-in-out infinite}
+@keyframes pkxeq{50%{transform:scaleY(.5)}}
+.pk .eq{flex:1;max-width:9px;border-radius:2px;background:var(--c,var(--k-g));transform-origin:50% 100%;animation:pkxeq 1.9s ease-in-out infinite}
+.pk .stp{flex:1;height:5px;border-radius:3px;background:rgba(var(--r-w),.16)}
+.pk .stp.on{background:var(--c,var(--k-g))}
+.pk .stp.now{background:var(--c,var(--k-g));animation:pkxpulse 1.4s infinite}
+.pk a[href^="tel:"]{white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.pk *,.pk *::after{animation:none !important;transition:none !important}}
+/*XEND*/
+body{margin:0}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+.pk{font-family:Manrope,system-ui,sans-serif;background:var(--k-bg);color:var(--k-ink)}
+.pk .d{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-.03em;margin:0;line-height:.96}
+.pk .eb{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.pk p{margin:0}
+.pk .lift{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .lift:hover{transform:translateY(-4px)}
+.pk :focus-visible{outline:2px solid var(--k-gt);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.pk *{transition:none !important}}
+/*PKCALM*/
+@keyframes pkrise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pk .tl:hover::after,.pk .lift:hover::after,.pk .nx:hover::after,.pk .cd2:hover::after,.pk .lt:hover::after,.pkx .lift:hover::after,.pkx .nx:hover::after{animation:none !important;opacity:0 !important}
+.pk .tl:hover,.pk .lift:hover,.pk .nx:hover,.pk .cd2:hover,.pk .lt:hover,.pkx .lift:hover,.pkx .nx:hover{transform:translateY(-4px) !important}
+.pk .tl,.pk .lift,.pk .nx,.pk .cd2,.pk .lt,.pk .ht{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .4s !important}
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk p{text-wrap:pretty}
+/*CALMEND*/
+</style>
+</helmet>
+<div class="pk" style="position: relative; overflow-x: clip">
+<dc-import name="Naglowek" active="start" hint-size="100%,130px"></dc-import>
+
+<!-- HERO -->
+<section style="position: relative; overflow: hidden; border-bottom: 1px solid rgba(var(--r-w),.08)">
+<div aria-hidden="true" style="position: absolute; right: -200px; top: -220px; width: 680px; height: 680px; border-radius: 50%; border: 1px solid rgba(var(--r-w),.07)"></div>
+<div aria-hidden="true" style="position: absolute; right: -70px; top: -90px; width: 420px; height: 420px; border-radius: 50%; border: 1px solid rgba(var(--r-w),.07)"></div>
+<div style="position: relative; max-width: 1560px; margin: 0 auto; padding: 44px 32px 56px; display: flex; flex-direction: column; gap: 22px">
+<nav aria-label="Okruszki" style="display: flex; gap: 10px; font-size: 13.5px; color: var(--k-ink3)"><a href="Main.dc.html">PRO-KOM</a><span>/</span><span style="color: var(--k-ink); font-weight: 700">Mapa strony</span></nav>
+<span class="eb" style="color: var(--k-gt)">Mapa strony</span>
+<h1 class="d" style="font-size: clamp(40px, 5vw, 72px); line-height: .96">Wszystko, co jest na pro-kom.eu.</h1>
+<p style="font-size: 18px; line-height: 1.6; color: var(--k-ink2); max-width: 760px">Każda strona ma jedno zadanie. Przy każdej widzisz, po co jest, jaki ma tytuł w Google i jaki nagłówek. Pełna oferta jest na stronach linii — tu tylko kierujemy.</p>
+<div aria-hidden="true" style="height: 10px; max-width: 520px; margin-top: 6px; background: var(--k-g)"></div>
+</div>
+</section>
+
+<!-- DRZEWO + LINIE -->
+<section style="max-width: 1560px; margin: 0 auto; padding: 64px 32px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+
+<div style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 36px">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; gap: 14px; align-items: baseline; border-bottom: 1px solid rgba(var(--r-w),.12); padding-bottom: 12px"><span style="font-size: 13px; font-weight: 800; color: var(--k-gt)">{{g.n}}</span><h2 class="d" style="font-size: 28px; letter-spacing: -.01em">{{g.name}}</h2><span style="font-size: 13.5px; color: var(--k-ink3); margin-left: auto">{{g.note}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px; border-left: 2px solid color-mix(in srgb, var(--k-g) 50%, transparent); padding-left: 20px">
+<sc-for list="{{g.pages}}" as="p" hint-placeholder-count="4">
+<a href="{{p.href}}" class="lift" style="border-radius: 20px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; position: relative">
+<span aria-hidden="true" style="position: absolute; left: -22px; top: 34px; width: 20px; height: 2px; background: color-mix(in srgb, var(--k-g) 50%, transparent)"></span>
+<span style="display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between">
+<span style="display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline"><span class="d" style="font-size: 21px; letter-spacing: 0">{{p.name}}</span><span style="font: 700 14px ui-monospace, Menlo, Consolas, monospace; color: var(--k-gt)">{{p.url}}</span></span>
+<span style="font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; background: {{p.tagBg}}; color: {{p.tagInk}}">{{p.tag}}</span>
+</span>
+<span style="font-size: 15.5px; line-height: 1.5; color: var(--k-ink2)">{{p.why}}</span>
+<span style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 8px">
+<span style="border-radius: 12px; background: var(--k-bg); border: 1px solid rgba(var(--r-w),.08); padding: 10px 14px; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--k-ink3)">Tytuł w Google</span><span style="font-size: 14.5px; font-weight: 700">{{p.title}}</span></span>
+<span style="border-radius: 12px; background: var(--k-bg); border: 1px solid rgba(var(--r-w),.08); padding: 10px 14px; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--k-ink3)">Nagłówek H1</span><span style="font-size: 14.5px; font-weight: 700">{{p.h1}}</span></span>
+</span>
+</a>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+
+<aside style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div style="border-radius: 28px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 26px; display: flex; flex-direction: column; gap: 14px">
+<span class="eb" style="color: var(--k-gt)">Strony linii</span>
+<p style="font-size: 14.5px; line-height: 1.5; color: var(--k-ink3)">Pełna oferta, konfiguratory i formularze są tutaj. Każda linia ma własną mapę strony.</p>
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="5">
+<a href="{{l.url}}" class="lift" style="border-radius: 18px; background: {{l.dark}}; border: 1px solid color-mix(in srgb, {{l.cd}} 38%, transparent); padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; box-shadow: inset 0 4px 0 {{l.cd}}; --c: {{l.cd}}">
+<span style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline"><span class="d" style="font-size: 19px; letter-spacing: 0; color: {{l.ink}}">{{l.name}}</span><span style="font-size: 16px; font-weight: 800; color: {{l.ct}}">↗</span></span>
+<span style="font-size: 13.5px; color: rgba(var(--r-w),.75)">{{l.short}}</span>
+<span style="font: 700 13.5px ui-monospace, Menlo, Consolas, monospace; color: {{l.ct}}">{{l.domain}}</span>
+</a>
+</sc-for>
+</div>
+<div style="border-radius: 28px; border: 1px solid rgba(var(--r-w),.1); padding: 26px; display: flex; flex-direction: column; gap: 12px">
+<span class="eb" style="color: var(--k-gt)">Zasady struktury</span>
+<span style="display: flex; gap: 10px; font-size: 14.5px; line-height: 1.5; color: var(--k-ink2)"><span style="width: 14px; height: 3px; background: var(--k-g); flex: none; margin-top: 10px"></span>Jedna strona = jedno zadanie i jeden nagłówek H1.</span>
+<span style="display: flex; gap: 10px; font-size: 14.5px; line-height: 1.5; color: var(--k-ink2)"><span style="width: 14px; height: 3px; background: var(--k-g); flex: none; margin-top: 10px"></span>Na pro-kom.eu krótka zajawka, pełny opis na stronie linii — bez kopiowania tekstów.</span>
+<span style="display: flex; gap: 10px; font-size: 14.5px; line-height: 1.5; color: var(--k-ink2)"><span style="width: 14px; height: 3px; background: var(--k-g); flex: none; margin-top: 10px"></span>Te same dane firmy na każdej domenie: nazwa, adres, NIP, telefon.</span>
+<span style="display: flex; gap: 10px; font-size: 14.5px; line-height: 1.5; color: var(--k-ink2)"><span style="width: 14px; height: 3px; background: var(--k-g); flex: none; margin-top: 10px"></span>Wyniki wyszukiwania i strony prawne nie trafiają do indeksu Google.</span>
+</div>
+</aside>
+</section>
+
+<!-- PRZEKIEROWANIA -->
+<section style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08)">
+<div style="max-width: 1560px; margin: 0 auto; padding: 80px 32px 96px; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
+<span class="eb" style="color: var(--k-gt)">Stare adresy → nowe</span>
+<h2 class="d" style="font-size: clamp(34px, 4.2vw, 58px)">Żaden adres, który zna Google, nie zniknie.</h2>
+<p style="font-size: 16.5px; line-height: 1.6; color: var(--k-ink3)">Każdy adres obecnej pro-kom.eu dostaje stałe przekierowanie (301) na nowy odpowiednik — na pro-kom.eu albo na stronę linii.</p>
+</div>
+<span style="font-size: 13.5px; font-weight: 800; padding: 9px 14px; border-radius: 12px; background: color-mix(in srgb, var(--k-y) 16%, transparent); color: var(--k-y); border: 1px solid color-mix(in srgb, var(--k-y) 45%, transparent)">Przykład — pełna mapa w specyfikacji</span>
+</div>
+<div style="border-radius: 28px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); overflow-x: auto">
+<div style="min-width: 760px; display: flex; flex-direction: column">
+<div style="display: grid; grid-template-columns: 1.3fr 60px 1.2fr .9fr; gap: 16px; padding: 16px 24px; font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--k-ink3); border-bottom: 1px solid rgba(var(--r-w),.12)"><span>Stary adres (pro-kom.eu)</span><span></span><span>Nowy adres</span><span>Gdzie trafia</span></div>
+<sc-for list="{{redirects}}" as="r" hint-placeholder-count="8">
+<div style="display: grid; grid-template-columns: 1.3fr 60px 1.2fr .9fr; gap: 16px; padding: 16px 24px; align-items: center; border-bottom: 1px solid rgba(var(--r-w),.07)">
+<span style="font: 600 14px ui-monospace, Menlo, Consolas, monospace; color: var(--k-ink2); overflow-wrap: anywhere">{{r.from}}</span>
+<span style="font-size: 12px; font-weight: 800; padding: 4px 8px; border-radius: 7px; background: rgba(var(--r-w),.08); justify-self: start">301</span>
+<span style="font: 700 14px ui-monospace, Menlo, Consolas, monospace; color: {{r.ct}}; overflow-wrap: anywhere">{{r.to}}</span>
+<span style="display: flex; gap: 10px; align-items: center; font-size: 14px; font-weight: 700"><span style="width: 16px; height: 5px; background: {{r.cd}}; flex: none"></span>{{r.line}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<dc-import name="Stopka" hint-size="100%,700px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const idx = { bg: 'color-mix(in srgb, var(--k-g) 16%, transparent)', ink: 'var(--k-gt)', t: 'w indeksie' };
+    const no = { bg: 'rgba(var(--r-w),.08)', ink: 'var(--k-ink2)', t: 'poza indeksem' };
+    const P = (name, url, href, why, title, h1, k) => ({ name, url, href, why, title, h1, tag: (k || idx).t, tagBg: (k || idx).bg, tagInk: (k || idx).ink });
+    const groups = [
+      { n: '01', name: 'Wejście', note: '1 strona', pages: [
+        P('Strona główna', '/', 'Main.dc.html', 'Wejście do całej firmy: mówi, kim jest PRO-KOM, i kieruje do właściwej linii.', 'PRO-KOM Rabka-Zdrój — IT dla firm, instalacje, serwis', 'PRO-KOM')
+      ] },
+      { n: '02', name: 'Znajdź swoją sprawę', note: '6 stron', pages: [
+        P('Linie', '/linie', 'Linie.dc.html', 'Lista spraw z odpowiedzią, która linia się nimi zajmuje i pod jakim numerem.', 'Linie PRO-KOM — co gdzie załatwisz', 'Co gdzie załatwisz.'),
+        P('Dla firm', '/dla-firm', 'DlaFirm.dc.html', 'Plan dla branży złożony z kilku linii naraz: kasa, sieć, kamery, strona.', 'Dla firm: kasy, IT, sieć, kamery, strona | PRO-KOM', 'Wszystko dla Twojej firmy w jednej firmie'),
+        P('Dla domu', '/dla-domu', 'DlaDomu.dc.html', 'To samo dla domu: smart home, alarm, naprawy sprzętu i komputer do gier.', 'Dla domu: smart home, alarm, serwis, gaming | PRO-KOM', 'Wszystko dla domu w jednej firmie'),
+        P('Inwestycje i dostawy', '/inwestycje-i-dostawy', 'Dostawy.dc.html', 'Większe zamówienia sprzętu IT, RTV i AGD dla firm, instytucji, hoteli, inwestorów i deweloperów: lista zapytania, wyposażenie obiektu, przetargi.', 'Większe dostawy IT, RTV i AGD dla firm i instytucji | PRO-KOM', 'Większe zamówienie albo cały obiekt? Jedna firma od listy do serwisu.'),
+        P('Współpraca', '/wspolpraca', 'Wspolpraca.dc.html', 'Dla architektów, deweloperów, wykonawców, instytucji i dostawców: etapy współpracy, zakres, większe dostawy.', 'Współpraca: architekci, deweloperzy, instytucje | PRO-KOM', 'Projektujesz, budujesz albo zamawiasz? Zróbmy to razem.'),
+        P('Załatw online', '/zalatw-online', 'Narzedzia.dc.html', 'Wszystko, co da się załatwić online w liniach: zgłoszenia, status naprawy, wyceny, konfiguratory.', 'Załatw online — zgłoszenia, wyceny, status | PRO-KOM', 'Załatw to od razu. Bez dzwonienia.'),
+        P('Pomoc', '/pomoc', 'Pomoc.dc.html', 'Krótkie odpowiedzi „co zrobić, gdy…” z numerem do właściwej linii.', 'Pomoc — co zrobić, gdy coś nie działa | PRO-KOM', 'Co zrobić, gdy…'),
+        P('Pomoc · jedna sytuacja', '/pomoc/[sytuacja]', 'Pomoc.dc.html', 'Osobna strona dla jednej sytuacji — odpowiada na konkretne pytanie wpisywane w Google.', 'Kamera nie nagrywa — co zrobić | Pomoc PRO-KOM', 'Kamera nie nagrywa — co zrobić')
+      ] },
+      { n: '03', name: 'O firmie', note: '5 stron', pages: [
+        P('O firmie', '/o-firmie', 'OFirmie.dc.html', 'Kim jesteśmy, od kiedy działamy i gdzie można nas sprawdzić.', 'O firmie PRO-KOM — Rabka-Zdrój, od 2004 roku', 'Firma z Rabki, która robi technikę od początku do końca.'),
+        P('Partnerzy', '/partnerzy', 'Partnerzy.dc.html', 'Autoryzacje i marki, z którymi pracujemy — z linkami do weryfikacji.', 'Partnerzy i autoryzacje PRO-KOM — Posnet, Elzab, InsERT', 'Partnerzy i autoryzacje'),
+        P('Gdzie działamy', '/gdzie-dzialamy', 'Zasieg.dc.html', 'Zasięg dojazdów i lista miejscowości — strona pod wyszukiwanie lokalne.', 'Gdzie działamy — Podhale, Małopolska, cała Polska', 'Gdzie działamy'),
+        P('Kontakt', '/kontakt', 'Kontakt.dc.html', 'Numer każdej linii, salon, godziny, dojazd i formularz, który trafia do właściwej skrzynki.', 'Kontakt PRO-KOM — Rabka-Zdrój, ul. Orkana 16B', 'Jeden numer. Pokierujemy, gdzie trzeba.'),
+        P('Aktualności', '/aktualnosci', 'Aktualnosci.dc.html', 'Zajawki wpisów ze wszystkich linii; całość czyta się u źródła.', 'Aktualności PRO-KOM — nowości ze wszystkich linii', 'Co nowego w liniach')
+      ] },
+      { n: '04', name: 'Techniczne i prawne', note: '5 stron', pages: [
+        P('Szukaj', '/szukaj', 'Szukaj.dc.html', 'Wyniki wyszukiwania po wszystkich liniach, z akcjami: zadzwoń, napisz, wyznacz trasę.', 'Szukaj w PRO-KOM', 'Szukasz: „…”', no),
+        P('Polityka prywatności', '/polityka-prywatnosci', 'Prawne.dc.html', 'Kto przetwarza dane, po co i jak długo.', 'Polityka prywatności | PRO-KOM', 'Polityka prywatności', no),
+        P('Cookies', '/cookies', 'Prawne.dc.html', 'Jakie pliki zapisuje strona i jak liczymy statystyki.', 'Cookies | PRO-KOM', 'Cookies', no),
+        P('Dostępność', '/dostepnosc', 'Prawne.dc.html', 'Deklaracja dostępności strony.', 'Dostępność | PRO-KOM', 'Dostępność', no),
+        P('Mapa strony', '/mapa-strony', 'MapaStrony.dc.html', 'Ta strona — spis wszystkich adresów dla ludzi; dla Google osobny plik sitemap.xml.', 'Mapa strony | PRO-KOM', 'Wszystko, co jest na pro-kom.eu.')
+      ] }
+    ];
+    const e = 'rgba(var(--r-w),.1)';
+    const lines = [
+      { name: 'Biznes', short: 'Kasy, komputery, opieka IT', domain: 'prokombiznes.pl', url: 'https://prokombiznes.pl', cd: 'var(--k-b)', ct: 'var(--k-bt)', dark: 'var(--k-bd)', edge: e, ink: 'var(--k-white)' },
+      { name: 'Instalacje', short: 'Monitoring, sieci, smart home', domain: 'prokominstalacje.pl', url: 'https://prokominstalacje.pl', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', edge: e, ink: 'var(--k-white)' },
+      { name: 'Software', short: 'Strony, systemy, aplikacje', domain: 'prokomsoftware.pl', url: 'https://prokomsoftware.pl', cd: 'var(--k-s)', ct: 'var(--k-st)', dark: 'var(--k-sd)', edge: e, ink: 'var(--k-white)' },
+      { name: 'Tech', short: 'Naprawy telefonów i komputerów', domain: 'prokomserwis.pl', url: 'https://prokomserwis.pl', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', edge: e, ink: 'var(--k-white)' },
+      { name: 'Gaming', short: 'Komputery gamingowe · marka PRO-KOM', domain: 'prokomgaming.pl', url: 'https://prokomgaming.pl', cd: 'var(--k-y)', ct: 'var(--k-y)', dark: 'var(--k-yd)', edge: 'color-mix(in srgb, var(--k-y) 45%, transparent)', ink: 'var(--k-y)' }
+    ];
+    const R = (from, to, line, cd, ct) => ({ from, to, line, cd, ct });
+    const redirects = [
+      R('/uslugi/montaz-instalacje/monitoring', 'prokominstalacje.pl — strona usługi', 'Instalacje', 'var(--k-i)', 'var(--k-it)'),
+      R('/produkt/reseller/kasy-fiskalne', 'prokombiznes.pl — strona kategorii', 'Biznes', 'var(--k-b)', 'var(--k-bt)'),
+      R('/uslugi/serwis', 'prokomserwis.pl', 'Tech', 'var(--k-t)', 'var(--k-tt)'),
+      R('/tworzenie-stron-internetowych', 'prokomsoftware.pl', 'Software', 'var(--k-s)', 'var(--k-st)'),
+      R('/firma', '/o-firmie', 'pro-kom.eu', 'var(--k-g)', 'var(--k-gt)'),
+      R('/kontakt', '/kontakt', 'pro-kom.eu (bez zmiany)', 'var(--k-g)', 'var(--k-gt)'),
+      R('/realizacje', 'pro-kom.eu — strona główna', 'Hub', 'var(--k-y)', 'var(--k-y)'),
+      R('/kariera', 'pro-kom.eu/o-firmie', 'Hub', 'var(--k-y)', 'var(--k-y)')
+    ];
+    return { groups, lines, redirects };
+  }
+}
+</script>
+</body>
+</html>

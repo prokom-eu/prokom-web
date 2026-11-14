@@ -14,6 +14,7 @@
 | `strony/<domena>-design.md` | brief wizualny strony: odczucie, zamknięty motyw, zakazy | przy pracy nad wyglądem danej strony |
 | `design/wspolne/` | elementy wspólne linii: spec `WSPOLNE-ELEMENTY.md`, plansze, `MAPA-DZIS.md` (stan przed zmianami) | przy pasku marki, nagłówku, stopce, formularzach, Kontakcie i O firmie dowolnej linii |
 | `zadania/wspolne-elementy.md` | plan elementów wspólnych: fundament F0–F4 i sesje linii L1–L2 (ADR-022) | przed sesją F lub L |
+| `zadania/prokomeu.md` | plan budowy nowej pro-kom.eu (hub): sesje H0–H7 z promptami, kolejność cięcia; spec `strony/prokomeu.md`, wzorzec `design/prokomeu/`, ADR-H001/H002 | przed sesją H |
 | `decyzje/ADR-*.md` | decyzje architektoniczne z uzasadnieniem | gdy decyzja dotyczy zadania |
 | `runbook.md` | co robić, gdy coś nie działa (powstaje w S9–S10) | przy awarii |
 

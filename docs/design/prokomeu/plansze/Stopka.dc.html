@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>PRO-KOM — stopka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/*PKTHEME*/:root{--k-bg:#0A0D0B;--k-bg2:#0E1210;--k-card:#131815;--k-card2:#111613;--k-foot:#060807;--k-bgp:#0C0F0D;--k-cardp:#171C18;--k-dim:#050706;--k-ink:#F4F5F1;--k-ink1:#DDE1DB;--k-ink2:#C9CEC8;--k-ink3:#A9AFA9;--k-ink4:#B9BDB6;--k-ink5:#7E857E;--k-gt:#8FE07A;--k-gd:#7BD36A;--k-g:#4FB034;--k-g1:#5BC23E;--k-g2:#43A02B;--k-g3:#2E7A1E;--k-gi:#07140A;--k-b:#4A7BE0;--k-bt:#8DADF0;--k-bd:#0A1430;--k-bi:#06102A;--k-i:#12B6D8;--k-it:#4CCBE6;--k-id:#071214;--k-ii:#06181C;--k-s:#9670EE;--k-st:#B49BF5;--k-sd:#15131F;--k-si:#120A26;--k-t:#E2483A;--k-tt:#F29185;--k-td:#1A1312;--k-ti:#1A0806;--k-y:#F2C230;--k-yd:#080C0B;--k-yi:#1A1400;--r-w:255,255,255;--r-gl:22,28,24;--r-gl2:19,24,21;--r-gl3:20,25,21;--r-gl4:10,13,11;--r-gl5:17,22,19;--k-white:#FFFFFF}
+html[data-theme="light"]{--k-bg:#F4F5F1;--k-bg2:#ECEEE8;--k-card:#FFFFFF;--k-card2:#FFFFFF;--k-foot:#E4E7E0;--k-bgp:#F4F5F1;--k-cardp:#FFFFFF;--k-dim:#D9DCD5;--k-ink:#121613;--k-ink1:#2A302B;--k-ink2:#3A413B;--k-ink3:#4F5650;--k-ink4:#4F5650;--k-ink5:#8A918A;--k-gt:#2E7A1E;--k-gd:#2E7A1E;--k-g:#2E7A1E;--k-g1:#358F27;--k-g2:#286F18;--k-g3:#1F5A12;--k-gi:#FFFFFF;--k-b:#244FB0;--k-bt:#244FB0;--k-bd:#E6ECFB;--k-bi:#FFFFFF;--k-i:#007A96;--k-it:#006A82;--k-id:#DDF1F5;--k-ii:#FFFFFF;--k-s:#6E45D4;--k-st:#5B33C4;--k-sd:#ECE7FB;--k-si:#FFFFFF;--k-t:#C4362B;--k-tt:#B3301F;--k-td:#FBE8E5;--k-ti:#FFFFFF;--k-y:#9A7000;--k-yd:#FBF2D2;--k-yi:#FFFFFF;--r-w:18,22,19;--r-gl:255,255,255;--r-gl2:255,255,255;--r-gl3:255,255,255;--r-gl4:255,255,255;--r-gl5:255,255,255;--k-white:#121613}
+@keyframes pkrise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+section{animation:pkrise linear both;animation-timeline:view();animation-range:entry 0% cover 14%}
+section a[class~="lift"],section details,section figure{animation:pkpop linear both;animation-timeline:view();animation-range:entry 0% cover 18%}
+}
+a,button,details,summary{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s,color .3s}
+button:hover{transform:translateY(-2px)}
+a[style*="border-radius: 16px"]:hover,a[style*="border-radius: 18px"]:hover,a[style*="border-radius: 15px"]:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;transition:background-color .4s}
+body,body *{transition-property:background-color,border-color,color,transform,box-shadow,opacity,flex;transition-duration:.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+/*END*/
+/*PKX*/
+.pkx .lift,.pkx .nx{position:relative;overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .3s}
+.pkx .lift:hover,.pkx .nx:hover{transform:translateY(-6px);box-shadow:0 0 0 1px var(--c,var(--k-g)),0 36px 80px -38px var(--c,var(--k-g))}
+.pkx .lift[style*="--c:"]:hover{box-shadow:inset 0 4px 0 var(--c),0 0 0 1px var(--c),0 36px 80px -38px var(--c) !important}
+.pkx .lift::after,.pkx .nx::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:38%;background:linear-gradient(100deg,transparent,rgba(var(--r-w),.12),transparent);transform:skewX(-18deg);pointer-events:none;opacity:0}
+.pkx .lift:hover::after,.pkx .nx:hover::after{animation:pkxsweep 1.1s cubic-bezier(.2,.8,.2,1)}
+@keyframes pkxsweep{0%{left:-60%;opacity:1}100%{left:130%;opacity:1}}
+@keyframes pkxin{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes pkxrise{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+.pkx h1{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .1s both;text-wrap:balance;overflow-wrap:normal;word-break:normal;hyphens:none}
+.pkx h1+p{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .25s both}
+@supports (animation-timeline: view()){
+.pkx .stg>*{animation:pkxin linear both;animation-timeline:view();animation-range:entry 0% cover 16%}
+.pkx .stg>*:nth-child(2){animation-range:entry 4% cover 19%}.pkx .stg>*:nth-child(3){animation-range:entry 8% cover 22%}.pkx .stg>*:nth-child(4){animation-range:entry 12% cover 25%}.pkx .stg>*:nth-child(n+5){animation-range:entry 14% cover 27%}
+}
+@keyframes pkxpulse{50%{opacity:.35}}
+.pkx .vg{border-radius:16px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pkx .lift:hover .vg{transform:scale(1.015);border-color:color-mix(in srgb,var(--c,var(--k-g)) 55%,transparent)}
+.pkx .vg i{display:block;font-style:normal}
+.pkx .sk{border-radius:4px;background:rgba(var(--r-w),.2);animation:pkxpulse 2.6s ease-in-out infinite}
+@keyframes pkxeq{50%{transform:scaleY(.5)}}
+.pkx .eq{flex:1;max-width:9px;border-radius:2px;background:var(--c,var(--k-g));transform-origin:50% 100%;animation:pkxeq 1.9s ease-in-out infinite}
+.pkx .stp{flex:1;height:5px;border-radius:3px;background:rgba(var(--r-w),.16)}
+.pkx .stp.on{background:var(--c,var(--k-g))}
+.pkx .stp.now{background:var(--c,var(--k-g));animation:pkxpulse 1.4s infinite}
+.pkx a[href^="tel:"]{white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.pkx *,.pkx *::after{animation:none !important;transition:none !important}}
+.pkx a{transition:color .25s,transform .25s cubic-bezier(.2,.8,.2,1)}.pkx a:hover{transform:translateX(3px)}
+/*XEND*/
+body{margin:0}
+/*PKCALM*/
+@keyframes pkrise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pk .tl:hover::after,.pk .lift:hover::after,.pk .nx:hover::after,.pk .cd2:hover::after,.pk .lt:hover::after,.pkx .lift:hover::after,.pkx .nx:hover::after{animation:none !important;opacity:0 !important}
+.pk .tl:hover,.pk .lift:hover,.pk .nx:hover,.pk .cd2:hover,.pk .lt:hover,.pkx .lift:hover,.pkx .nx:hover{transform:translateY(-4px) !important}
+.pk .tl,.pk .lift,.pk .nx,.pk .cd2,.pk .lt,.pk .ht{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .4s !important}
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk p{text-wrap:pretty}
+/*CALMEND*/
+.pkbsp{height:0}
+@media (max-width:760px){.pkbsp{height:92px}}
+</style>
+</helmet>
+<footer class="pkx" style="width: 100%; box-sizing: border-box; background: var(--k-foot); color: var(--k-ink); font-family: Manrope, system-ui, sans-serif; border-top: 1px solid rgba(var(--r-w),.1)">
+<div aria-hidden="true" style="height: 6px; background: var(--k-g)"></div>
+<div style="max-width: 1560px; margin: 0 auto; padding: 64px 32px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 44px">
+<div style="display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 2 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<span style="display: flex; flex-direction: column; gap: 4px; align-self: flex-start"><span style="font: 800 34px Archivo, sans-serif; font-stretch: 118%; display: flex; align-items: center; gap: 4px; line-height: 1">PRO<span style="width: 15px; height: 5px; background: var(--k-g); display: block"></span>KOM</span><span style="height: 4px; background: var(--k-g); display: block"></span></span>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--k-ink3); max-width: 360px">Strona główna firmy PRO-KOM z Rabki-Zdroju. Jedna firma, pięć linii — każda z własnym zespołem i numerem.</p>
+<span style="display: flex; flex-direction: column; gap: 8px; font-size: 14.5px; font-weight: 600">
+<span style="display: flex; gap: 10px; align-items: center"><span style="width: 14px; height: 3px; background: var(--k-g)"></span>Działamy od 2004 roku</span>
+<span style="display: flex; gap: 10px; align-items: center"><span style="width: 14px; height: 3px; background: var(--k-g)"></span>Salon i serwis na miejscu w Rabce-Zdroju</span>
+<span style="display: flex; gap: 10px; align-items: center"><span style="width: 14px; height: 3px; background: var(--k-g)"></span>Dane firmy do sprawdzenia w CEIDG</span>
+</span>
+</div>
+<div style="flex: 1 1 150px; display: flex; flex-direction: column; gap: 12px; font-size: 15px">
+<span style="font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--k-gt)">Firma</span>
+<a href="Linie.dc.html" style="color: var(--k-ink); text-decoration: none">Cała oferta</a>
+<a href="DlaFirm.dc.html" style="color: var(--k-ink); text-decoration: none">Dla firm</a>
+<a href="DlaDomu.dc.html" style="color: var(--k-ink); text-decoration: none">Dla domu</a>
+<a href="Narzedzia.dc.html" style="color: var(--k-ink); text-decoration: none">Załatw online</a>
+<a href="Dostawy.dc.html" style="color: var(--k-ink); text-decoration: none">Inwestycje i dostawy</a>
+<a href="Wspolpraca.dc.html" style="color: var(--k-ink); text-decoration: none">Współpraca</a>
+<a href="Pomoc.dc.html" style="color: var(--k-ink); text-decoration: none">Pomoc</a>
+<a href="OFirmie.dc.html" style="color: var(--k-ink); text-decoration: none">O firmie</a>
+<a href="Partnerzy.dc.html" style="color: var(--k-ink); text-decoration: none">Marki i autoryzacje</a>
+<a href="Zasieg.dc.html" style="color: var(--k-ink); text-decoration: none">Gdzie działamy</a>
+<a href="Aktualnosci.dc.html" style="color: var(--k-ink); text-decoration: none">Aktualności</a>
+<a href="Kontakt.dc.html" style="color: var(--k-ink); text-decoration: none">Kontakt</a>
+</div>
+<div style="flex: 1 1 170px; display: flex; flex-direction: column; gap: 12px; font-size: 15px">
+<span style="font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--k-gt)">Na skróty</span>
+<a href="https://prokomserwis.pl" style="color: var(--k-ink); text-decoration: none">Status naprawy ↗</a>
+<a href="https://prokomserwis.pl" style="color: var(--k-ink); text-decoration: none">Zgłoś naprawę ↗</a>
+<a href="https://prokominstalacje.pl" style="color: var(--k-ink); text-decoration: none">Zaplanuj instalację ↗</a>
+<a href="https://prokomsoftware.pl" style="color: var(--k-ink); text-decoration: none">Bezpłatna wycena strony ↗</a>
+<a href="https://prokomgaming.pl" style="color: var(--k-ink); text-decoration: none">Dobierz komputer do gier ↗</a>
+</div>
+<div style="flex: 1.4 1 240px; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+<span style="font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--k-gt)">Kontakt</span>
+<a href="tel:+48883200151" style="font: 800 26px Archivo, sans-serif; color: var(--k-ink); text-decoration: none">883 200 151</a>
+<a href="mailto:biuro@pro-kom.eu" style="color: var(--k-ink); text-decoration: none">biuro@pro-kom.eu</a>
+<span style="color: var(--k-ink3)">ul. Orkana 16B, 34-700 Rabka-Zdrój</span>
+<span style="display: flex; gap: 7px; align-items: center; font-size: 13.5px"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--k-g)"></span>pn–pt 9:00–17:00</span>
+<a href="Kontakt.dc.html" style="align-self: flex-start; margin-top: 4px; height: 44px; padding: 0 16px; border-radius: 13px; border: 1.5px solid rgba(var(--r-w),.26); color: var(--k-ink); font-weight: 800; font-size: 14px; display: flex; align-items: center; text-decoration: none">Wyznacz trasę ↗</a>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline"><span style="font: 800 22px Archivo, sans-serif; font-stretch: 112%">Jedna firma — linie PRO-KOM</span><span style="font-size: 14px; color: var(--k-ink3)">Każda linia ma swój zespół i swój numer.</span></div>
+<div class="stg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 10px">
+<a href="https://prokombiznes.pl" style="border-radius: 16px; border: 1px solid rgba(var(--r-w),.12); border-top: 4px solid var(--k-b); padding: 16px; display: flex; flex-direction: column; gap: 6px; color: var(--k-ink); text-decoration: none"><span style="font: 800 17px Archivo, sans-serif">Biznes</span><span style="font-size: 13px; color: var(--k-ink3)">Kasy, komputery, opieka IT</span><span style="font-size: 13px; font-weight: 700">prokombiznes.pl ↗</span></a>
+<a href="https://prokominstalacje.pl" style="border-radius: 16px; border: 1px solid rgba(var(--r-w),.12); border-top: 4px solid var(--k-i); padding: 16px; display: flex; flex-direction: column; gap: 6px; color: var(--k-ink); text-decoration: none"><span style="font: 800 17px Archivo, sans-serif">Instalacje</span><span style="font-size: 13px; color: var(--k-ink3)">Monitoring, sieci, smart home</span><span style="font-size: 13px; font-weight: 700">prokominstalacje.pl ↗</span></a>
+<a href="https://prokomsoftware.pl" style="border-radius: 16px; border: 1px solid rgba(var(--r-w),.12); border-top: 4px solid var(--k-s); padding: 16px; display: flex; flex-direction: column; gap: 6px; color: var(--k-ink); text-decoration: none"><span style="font: 800 17px Archivo, sans-serif">Software</span><span style="font-size: 13px; color: var(--k-ink3)">Strony, systemy, aplikacje</span><span style="font-size: 13px; font-weight: 700">prokomsoftware.pl ↗</span></a>
+<a href="https://prokomserwis.pl" style="border-radius: 16px; border: 1px solid rgba(var(--r-w),.12); border-top: 4px solid var(--k-t); padding: 16px; display: flex; flex-direction: column; gap: 6px; color: var(--k-ink); text-decoration: none"><span style="font: 800 17px Archivo, sans-serif">Tech</span><span style="font-size: 13px; color: var(--k-ink3)">Naprawy telefonów i komputerów</span><span style="font-size: 13px; font-weight: 700">prokomserwis.pl ↗</span></a>
+<a href="https://prokomgaming.pl" style="border-radius: 16px; border: 1px solid color-mix(in srgb, var(--k-y) 45%, transparent); border-top: 4px solid var(--k-y); background: var(--k-yd); padding: 16px; display: flex; flex-direction: column; gap: 6px; color: var(--k-y); text-decoration: none"><span style="font: 800 17px Archivo, sans-serif">Gaming</span><span style="font-size: 13px; color: var(--k-ink4)">Komputery gamingowe · marka PRO-KOM</span><span style="font-size: 13px; font-weight: 700">prokomgaming.pl ↗</span></a>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; border-top: 1px solid rgba(var(--r-w),.12); padding-top: 22px; font-size: 13.5px; color: var(--k-ink3)">
+<span>© 2026 PRO-KOM Tadeusz Wójciak · ul. Orkana 16B, 34-700 Rabka-Zdrój · NIP 7352511447</span>
+<span style="display: flex; flex-wrap: wrap; gap: 18px"><a href="Prawne.dc.html" style="color: var(--k-ink3); text-decoration: none">Polityka prywatności</a><a href="Prawne.dc.html" style="color: var(--k-ink3); text-decoration: none">Cookies</a><a href="Prawne.dc.html" style="color: var(--k-ink3); text-decoration: none">Dostępność</a><a href="MapaStrony.dc.html" style="color: var(--k-ink3); text-decoration: none">Mapa strony</a><a href="#" style="color: var(--k-ink3); text-decoration: none">Do góry ↑</a></span>
+</div>
+</div>
+</footer>
+<div class="pkbsp" aria-hidden="true"></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":720}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,399 @@
+{
+ "_zrodlo": "Kontakt.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "book": [
+   {
+    "key": "biznes",
+    "name": "Biznes",
+    "what": "Kasy fiskalne, GoPOS, programy InsERT i KSeF, komputery, serwery, opieka IT.",
+    "promise": "W godzinach pracy oddzwonimy w 60 minut",
+    "phone": "889 003 889",
+    "tel": "+48889003889",
+    "mail": "kontakt@prokombiznes.pl",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "edge": "rgba(var(--r-w),.1)",
+    "telHref": "tel:+48889003889"
+   },
+   {
+    "key": "instalacje",
+    "name": "Instalacje",
+    "what": "Monitoring, alarmy, sieci i Wi-Fi, smart home, nagłośnienie, ładowarki. Także zgłoszenie awarii.",
+    "promise": "Odpowiemy w 24 godziny w dni robocze",
+    "phone": "889 003 889",
+    "tel": "+48889003889",
+    "mail": "kontakt@prokominstalacje.pl",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)",
+    "edge": "rgba(var(--r-w),.1)",
+    "telHref": "tel:+48889003889"
+   },
+   {
+    "key": "software",
+    "name": "Software",
+    "what": "Strony internetowe, systemy i panele, aplikacje, automatyzacje, opieka nad stroną.",
+    "promise": "Odpowiedź w 1 dzień roboczy",
+    "phone": "883 200 151",
+    "tel": "+48883200151",
+    "mail": "kontakt@prokomsoftware.pl",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)",
+    "edge": "rgba(var(--r-w),.1)",
+    "telHref": "tel:+48883200151"
+   },
+   {
+    "key": "tech",
+    "name": "Tech",
+    "what": "Naprawa telefonu, laptopa, komputera, konsoli. Folie Hammer Glass i akcesoria GSM.",
+    "promise": "Bezpłatna diagnoza i wycena",
+    "phone": "883 200 151",
+    "tel": "+48883200151",
+    "mail": "sklep@pro-kom.eu",
+    "domain": "prokomserwis.pl",
+    "url": "https://prokomserwis.pl",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "ink": "var(--k-ti)",
+    "edge": "rgba(var(--r-w),.1)",
+    "telHref": "tel:+48883200151"
+   },
+   {
+    "key": "gaming",
+    "name": "Gaming",
+    "what": "Komputery do gier: gotowe zestawy, konfigurator, dobór pod grę.",
+    "promise": "Wysyłka w całej Polsce",
+    "phone": "883 200 151",
+    "tel": "+48883200151",
+    "mail": "kontakt@prokomgaming.pl",
+    "domain": "prokomgaming.pl",
+    "url": "https://prokomgaming.pl",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "ink": "var(--k-yi)",
+    "edge": "color-mix(in srgb, var(--k-y) 45%, transparent)",
+    "telHref": "tel:+48883200151"
+   }
+  ],
+  "prep": [
+   {
+    "name": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "items": [
+     "NIP i branża",
+     "Liczba stanowisk albo kas",
+     "Jakiego programu używasz dziś",
+     "Na kiedy potrzebujesz"
+    ],
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "items": [
+     "Rodzaj obiektu: dom, pensjonat, firma",
+     "Miejscowość",
+     "Rzuty albo zdjęcia",
+     "Co ma być zrobione i na jakim etapie jest budowa"
+    ],
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Software",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "items": [
+     "Adres obecnej strony, jeśli jest",
+     "Co strona albo program ma robić",
+     "Przykłady, które Ci się podobają",
+     "Na kiedy"
+    ],
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Tech",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "items": [
+     "Marka i model urządzenia",
+     "Objaw: co nie działa i od kiedy",
+     "Czy sprzęt był zalany albo upadł",
+     "Czy masz kopię danych"
+    ],
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Gaming",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "items": [
+     "Gry, w które grasz",
+     "Monitor i rozdzielczość",
+     "Budżet",
+     "Czy to komputer dla dziecka"
+    ],
+    "edge": "color-mix(in srgb, var(--k-y) 45%, transparent)"
+   }
+  ],
+  "hours": [
+   {
+    "name": "Biznes",
+    "cd": "var(--k-b)",
+    "wk": "9:00–17:00",
+    "sat": "zamknięte",
+    "sun": "zamknięte",
+    "satInk": "var(--k-ink5)",
+    "sunInk": "var(--k-ink5)",
+    "note": "Oddzwonimy w 60 minut w godzinach pracy."
+   },
+   {
+    "name": "Instalacje",
+    "cd": "var(--k-i)",
+    "wk": "9:00–17:00",
+    "sat": "zamknięte",
+    "sun": "zamknięte",
+    "satInk": "var(--k-ink5)",
+    "sunInk": "var(--k-ink5)",
+    "note": "Odpowiedź na zgłoszenie w 24 godziny w dni robocze."
+   },
+   {
+    "name": "Software",
+    "cd": "var(--k-s)",
+    "wk": "9:00–17:00",
+    "sat": "zamknięte",
+    "sun": "zamknięte",
+    "satInk": "var(--k-ink5)",
+    "sunInk": "var(--k-ink5)",
+    "note": "Odpowiedź w 1 dzień roboczy."
+   },
+   {
+    "name": "Tech",
+    "cd": "var(--k-t)",
+    "wk": "9:00–17:00",
+    "sat": "9:00–14:00",
+    "sun": "zamknięte",
+    "satInk": "var(--k-ink)",
+    "sunInk": "var(--k-ink5)",
+    "note": "Godziny serwisu według prokomserwis.pl."
+   },
+   {
+    "name": "Gaming",
+    "cd": "var(--k-y)",
+    "wk": "8:00–22:00",
+    "sat": "8:00–22:00",
+    "sun": "8:00–22:00",
+    "satInk": "var(--k-ink)",
+    "sunInk": "var(--k-ink)",
+    "note": "Odpowiedzi na zapytania, według prokomgaming.pl. Odbiór osobisty w godzinach salonu."
+   }
+  ],
+  "ways": [
+   {
+    "line": "Tech",
+    "title": "Status naprawy",
+    "text": "Sprawdź etap naprawy po numerze zlecenia albo na koncie klienta.",
+    "url": "https://prokomserwis.pl",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "ink": "var(--k-ti)"
+   },
+   {
+    "line": "Instalacje",
+    "title": "Zgłoś awarię",
+    "text": "Kamery, alarm albo sieć przestały działać? Zgłoś to online.",
+    "url": "https://prokominstalacje.pl",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)"
+   },
+   {
+    "line": "Software",
+    "title": "Darmowy audyt strony",
+    "text": "Podaj adres strony — sprawdzimy ją i powiemy, co poprawić.",
+    "url": "https://prokomsoftware.pl",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)"
+   }
+  ],
+  "statusDot": "var(--k-y)",
+  "statusText": "Zamknięte · pn–pt 9:00–17:00",
+  "topics": [
+   {
+    "name": "Nie wiem / ogólne",
+    "cd": "var(--k-g)",
+    "on": true,
+    "bd": "var(--k-g)",
+    "bg": "rgba(var(--r-w),.06)"
+   },
+   {
+    "name": "Biznes",
+    "cd": "var(--k-b)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Instalacje",
+    "cd": "var(--k-i)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Software",
+    "cd": "var(--k-s)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Tech",
+    "cd": "var(--k-t)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Gaming",
+    "cd": "var(--k-y)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   }
+  ],
+  "topicMail": "biuro@pro-kom.eu",
+  "topicPromise": "Przekażemy do właściwej linii",
+  "topicCd": "var(--k-g)",
+  "town": "",
+  "zone": null,
+  "next": [
+   {
+    "n": "01",
+    "bg": "var(--k-g)",
+    "ink": "var(--k-gi)",
+    "t": "Dostajesz potwierdzenie",
+    "x": "Z numerem zgłoszenia, na podany adres e-mail."
+   },
+   {
+    "n": "02",
+    "bg": "rgba(var(--r-w),.08)",
+    "ink": "var(--k-ink)",
+    "t": "Wiadomość trafia do linii",
+    "x": "Do zespołu, który zajmuje się taką sprawą na co dzień."
+   },
+   {
+    "n": "03",
+    "bg": "rgba(var(--r-w),.08)",
+    "ink": "var(--k-ink)",
+    "t": "Odzywamy się",
+    "x": "Telefonicznie albo mailowo, w czasie właściwym dla linii."
+   },
+   {
+    "n": "04",
+    "bg": "rgba(var(--r-w),.08)",
+    "ink": "var(--k-ink)",
+    "t": "Ustalamy zakres i termin",
+    "x": "Wycena i termin na piśmie, zanim cokolwiek zaczniemy."
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "open": true,
+    "q": "Do której linii mam zadzwonić?",
+    "a": "Jeśli wiesz, czego potrzebujesz — prosto do linii z listy wyżej. Jeśli nie masz pewności, zadzwoń pod 883 200 151, pokierujemy."
+   },
+   {
+    "n": "02",
+    "open": false,
+    "q": "Potrzebuję kilku rzeczy naraz. Muszę dzwonić w kilka miejsc?",
+    "a": "Nie. Wystarczy jeden telefon albo jedna wiadomość — połączymy zespoły po naszej stronie i dostaniesz jeden plan."
+   },
+   {
+    "n": "03",
+    "open": false,
+    "q": "Czy mogę przyjść bez umawiania?",
+    "a": "Tak, salon w Rabce-Zdroju jest otwarty od poniedziałku do piątku 9:00–17:00. Przy większych tematach (instalacje, systemy) warto wcześniej zadzwonić, żeby na miejscu był właściwy zespół."
+   },
+   {
+    "n": "04",
+    "open": false,
+    "q": "Jak do Was trafić?",
+    "a": "Salon i biuro są przy ul. Orkana 16B w Rabce-Zdroju. Trasę pokaże mapa na tej stronie."
+   },
+   {
+    "n": "05",
+    "open": false,
+    "q": "Czy działacie poza Podhalem?",
+    "a": "Tak. Do firm i na montaże dojeżdżamy w całej Małopolsce. Strony i systemy robimy zdalnie, a komputery do gier wysyłamy do całej Polski."
+   },
+   {
+    "n": "06",
+    "open": false,
+    "q": "Gdzie sprawdzę status naprawy?",
+    "a": "Na stronie linii Tech, prokomserwis.pl — po numerze zlecenia albo po zalogowaniu na konto klienta."
+   },
+   {
+    "n": "07",
+    "open": false,
+    "q": "Czy serwis działa w sobotę?",
+    "a": "Linia Tech podaje na prokomserwis.pl godziny sobotnie 9:00–14:00. Pozostałe linie pracują od poniedziałku do piątku 9:00–17:00."
+   },
+   {
+    "n": "08",
+    "open": false,
+    "q": "Czy mogę wysłać sprzęt do naprawy kurierem?",
+    "a": "Tak. Linia Tech przyjmuje sprzęt wysłany kurierem z całej Polski. Zacznij od zgłoszenia naprawy na prokomserwis.pl."
+   },
+   {
+    "n": "09",
+    "open": false,
+    "q": "Co przygotować przed pierwszą rozmową?",
+    "a": "Lista dla każdej linii jest wyżej, w sekcji „Co przygotować”. Jeśli czegoś nie masz, i tak zadzwoń — dopytamy."
+   },
+   {
+    "n": "10",
+    "open": false,
+    "q": "Kiedy dostanę odpowiedź na wiadomość?",
+    "a": "Biznes oddzwania w 60 minut w godzinach pracy, Instalacje odpowiadają w 24 godziny w dni robocze, Software w 1 dzień roboczy. Gaming odpowiada na zapytania codziennie w godzinach 8–22."
+   }
+  ]
+ },
+ "stany": {},
+ "_stany_uwaga": "Treść pozostałych zakładek/wyborów: stany[klucz][indeks] = pola, które różnią się od stanu domyślnego."
+}

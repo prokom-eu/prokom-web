@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Pomoc PRO-KOM — co zrobić, gdy…</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/*PKTHEME*/:root{--k-bg:#0A0D0B;--k-bg2:#0E1210;--k-card:#131815;--k-card2:#111613;--k-foot:#060807;--k-bgp:#0C0F0D;--k-cardp:#171C18;--k-dim:#050706;--k-ink:#F4F5F1;--k-ink1:#DDE1DB;--k-ink2:#C9CEC8;--k-ink3:#A9AFA9;--k-ink4:#B9BDB6;--k-ink5:#7E857E;--k-gt:#8FE07A;--k-gd:#7BD36A;--k-g:#4FB034;--k-g1:#5BC23E;--k-g2:#43A02B;--k-g3:#2E7A1E;--k-gi:#07140A;--k-b:#4A7BE0;--k-bt:#8DADF0;--k-bd:#0A1430;--k-bi:#06102A;--k-i:#12B6D8;--k-it:#4CCBE6;--k-id:#071214;--k-ii:#06181C;--k-s:#9670EE;--k-st:#B49BF5;--k-sd:#15131F;--k-si:#120A26;--k-t:#E2483A;--k-tt:#F29185;--k-td:#1A1312;--k-ti:#1A0806;--k-y:#F2C230;--k-yd:#080C0B;--k-yi:#1A1400;--r-w:255,255,255;--r-gl:22,28,24;--r-gl2:19,24,21;--r-gl3:20,25,21;--r-gl4:10,13,11;--r-gl5:17,22,19;--k-white:#FFFFFF}
+html[data-theme="light"]{--k-bg:#F4F5F1;--k-bg2:#ECEEE8;--k-card:#FFFFFF;--k-card2:#FFFFFF;--k-foot:#E4E7E0;--k-bgp:#F4F5F1;--k-cardp:#FFFFFF;--k-dim:#D9DCD5;--k-ink:#121613;--k-ink1:#2A302B;--k-ink2:#3A413B;--k-ink3:#4F5650;--k-ink4:#4F5650;--k-ink5:#8A918A;--k-gt:#2E7A1E;--k-gd:#2E7A1E;--k-g:#2E7A1E;--k-g1:#358F27;--k-g2:#286F18;--k-g3:#1F5A12;--k-gi:#FFFFFF;--k-b:#244FB0;--k-bt:#244FB0;--k-bd:#E6ECFB;--k-bi:#FFFFFF;--k-i:#007A96;--k-it:#006A82;--k-id:#DDF1F5;--k-ii:#FFFFFF;--k-s:#6E45D4;--k-st:#5B33C4;--k-sd:#ECE7FB;--k-si:#FFFFFF;--k-t:#C4362B;--k-tt:#B3301F;--k-td:#FBE8E5;--k-ti:#FFFFFF;--k-y:#9A7000;--k-yd:#FBF2D2;--k-yi:#FFFFFF;--r-w:18,22,19;--r-gl:255,255,255;--r-gl2:255,255,255;--r-gl3:255,255,255;--r-gl4:255,255,255;--r-gl5:255,255,255;--k-white:#121613}
+@keyframes pkrise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+section{animation:pkrise linear both;animation-timeline:view();animation-range:entry 0% cover 14%}
+section a[class~="lift"],section details,section figure{animation:pkpop linear both;animation-timeline:view();animation-range:entry 0% cover 18%}
+}
+a,button,details,summary{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s,color .3s}
+button:hover{transform:translateY(-2px)}
+a[style*="border-radius: 16px"]:hover,a[style*="border-radius: 18px"]:hover,a[style*="border-radius: 15px"]:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;transition:background-color .4s}
+body,body *{transition-property:background-color,border-color,color,transform,box-shadow,opacity,flex;transition-duration:.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+/*END*/
+/*PKX*/
+.pk .lift,.pk .nx{position:relative;overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .3s}
+.pk .lift:hover,.pk .nx:hover{transform:translateY(-6px);box-shadow:0 0 0 1px var(--c,var(--k-g)),0 36px 80px -38px var(--c,var(--k-g))}
+.pk .lift[style*="--c:"]:hover{box-shadow:inset 0 4px 0 var(--c),0 0 0 1px var(--c),0 36px 80px -38px var(--c) !important}
+.pk .lift::after,.pk .nx::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:38%;background:linear-gradient(100deg,transparent,rgba(var(--r-w),.12),transparent);transform:skewX(-18deg);pointer-events:none;opacity:0}
+.pk .lift:hover::after,.pk .nx:hover::after{animation:pkxsweep 1.1s cubic-bezier(.2,.8,.2,1)}
+@keyframes pkxsweep{0%{left:-60%;opacity:1}100%{left:130%;opacity:1}}
+@keyframes pkxin{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes pkxrise{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+.pk h1{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .1s both;text-wrap:balance;overflow-wrap:normal;word-break:normal;hyphens:none}
+.pk h1+p{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .25s both}
+@supports (animation-timeline: view()){
+.pk .stg>*{animation:pkxin linear both;animation-timeline:view();animation-range:entry 0% cover 16%}
+.pk .stg>*:nth-child(2){animation-range:entry 4% cover 19%}.pk .stg>*:nth-child(3){animation-range:entry 8% cover 22%}.pk .stg>*:nth-child(4){animation-range:entry 12% cover 25%}.pk .stg>*:nth-child(n+5){animation-range:entry 14% cover 27%}
+}
+@keyframes pkxpulse{50%{opacity:.35}}
+.pk .vg{border-radius:16px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pk .lift:hover .vg{transform:scale(1.015);border-color:color-mix(in srgb,var(--c,var(--k-g)) 55%,transparent)}
+.pk .vg i{display:block;font-style:normal}
+.pk .sk{border-radius:4px;background:rgba(var(--r-w),.2);animation:pkxpulse 2.6s ease-in-out infinite}
+@keyframes pkxeq{50%{transform:scaleY(.5)}}
+.pk .eq{flex:1;max-width:9px;border-radius:2px;background:var(--c,var(--k-g));transform-origin:50% 100%;animation:pkxeq 1.9s ease-in-out infinite}
+.pk .stp{flex:1;height:5px;border-radius:3px;background:rgba(var(--r-w),.16)}
+.pk .stp.on{background:var(--c,var(--k-g))}
+.pk .stp.now{background:var(--c,var(--k-g));animation:pkxpulse 1.4s infinite}
+.pk a[href^="tel:"]{white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.pk *,.pk *::after{animation:none !important;transition:none !important}}
+/*XEND*/
+body{margin:0}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+.pk{font-family:Manrope,system-ui,sans-serif;background:var(--k-bg);color:var(--k-ink)}
+.pk .d{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-.03em;margin:0;line-height:.96}
+.pk .eb{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.pk p{margin:0}
+.pk button{font-family:inherit;cursor:pointer}
+.pk .lift{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .lift:hover{transform:translateY(-6px)}
+.pk .acc-t{transition:background .45s,color .45s,border-color .45s,box-shadow .45s}
+.pk :focus-visible{outline:2px solid var(--k-gt);outline-offset:2px}
+@keyframes pulse{50%{opacity:.35}}
+.pk .rec{animation:pulse 1.6s infinite}
+@keyframes drift{50%{transform:translate(60px,40px) scale(1.12)}}
+.pk .orb{animation:drift 16s ease-in-out infinite}
+.pk .orb2{animation:drift 22s ease-in-out infinite reverse}
+.pk .nx{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .3s}
+.pk .nx:hover{transform:translateY(-6px);box-shadow:0 30px 60px -36px rgba(0,0,0,.55)}
+.pk .nx .ar{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .nx:hover .ar{transform:translateX(5px)}
+.pk .bt{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.pk .bt:hover{transform:translateY(-2px)}
+.pk h1,.pk h2,.pk h3{text-wrap:balance;overflow-wrap:break-word}
+.pk .nw{white-space:nowrap}
+@keyframes hin{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.pk .hin{animation:hin .8s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-reduced-motion:reduce){.pk *{transition:none !important;animation:none !important}}
+/*PKCALM*/
+@keyframes pkrise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pk .tl:hover::after,.pk .lift:hover::after,.pk .nx:hover::after,.pk .cd2:hover::after,.pk .lt:hover::after,.pkx .lift:hover::after,.pkx .nx:hover::after{animation:none !important;opacity:0 !important}
+.pk .tl:hover,.pk .lift:hover,.pk .nx:hover,.pk .cd2:hover,.pk .lt:hover,.pkx .lift:hover,.pkx .nx:hover{transform:translateY(-4px) !important}
+.pk .tl,.pk .lift,.pk .nx,.pk .cd2,.pk .lt,.pk .ht{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .4s !important}
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk p{text-wrap:pretty}
+/*CALMEND*/
+</style>
+</helmet>
+<div class="pk" style="position: relative; overflow-x: clip">
+<dc-import name="Naglowek" active="pomoc" hint-size="100%,130px"></dc-import>
+
+<section style="position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none; background: var(--k-bg)">
+<div class="acc-t" style="position: absolute; left: 50%; top: -420px; width: 1700px; height: 900px; margin-left: -850px; background: radial-gradient(closest-side, color-mix(in srgb, {{cur.cd}} 15%, transparent), transparent)"></div>
+<div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(var(--r-w),.11) 1px, transparent 1.4px); background-size: 26px 26px; mask-image: radial-gradient(ellipse 75% 85% at 50% 38%, #000 0%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 75% 85% at 50% 38%, #000 0%, transparent 78%)"></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 200px; background: linear-gradient(180deg, transparent, var(--k-bg))"></div>
+</div>
+<div aria-hidden="true" style="position: absolute; right: -200px; top: -140px; width: 720px; height: 720px; border-radius: 50%; border: 1px solid rgba(var(--r-w),.07)"></div>
+<div aria-hidden="true" style="position: absolute; right: -70px; top: -10px; width: 460px; height: 460px; border-radius: 50%; border: 1px solid rgba(var(--r-w),.07)"></div>
+<div class="hin" style="position: relative; max-width: 1560px; margin: 0 auto; padding: 44px 32px 64px; display: flex; flex-direction: column; gap: 26px">
+<nav aria-label="Okruszki" style="display: flex; gap: 8px; font-size: 13.5px; color: var(--k-ink3)"><a href="Main.dc.html">PRO-KOM</a><span>/</span><span style="color: var(--k-ink); font-weight: 700">Pomoc</span></nav>
+<span class="eb" style="color: var(--k-gt)">Pomoc · pierwsze kroki</span>
+<h1 class="d" style="font-size: clamp(44px, 6vw, 88px); line-height: .92">Co zrobić, gdy…</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-end">
+<p style="flex: 1 1 380px; font-size: 20px; line-height: 1.55; color: var(--k-ink2); max-width: 540px">Coś nie działa albo nie wiesz, od czego zacząć? Wybierz sytuację. Powiemy, co zrobić od razu, co przygotować i do kogo zadzwonić.</p>
+<div style="flex: 1.2 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<label for="hq" class="eb" style="color: var(--k-gt)">Szukaj sytuacji</label>
+<div style="display: flex; gap: 10px; align-items: center; height: 72px; padding: 0 22px; border-radius: 22px; background: var(--k-card); border: 1.5px solid rgba(var(--r-w),.16)">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.5-4.5"></path></svg>
+<input id="hq" value="{{q}}" onChange="{{onQ}}" placeholder="np. kasa, Wi-Fi, ekran, strona, gra" autocomplete="off" style="flex: 1; min-width: 0; height: 100%; border: none; outline: none; background: transparent; color: var(--k-ink); font: 600 18px Manrope, sans-serif">
+<span style="font-size: 13.5px; color: var(--k-ink3); white-space: nowrap">{{countText}}</span>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center"><a href="#napisz" class="bt" style="height: 58px; padding: 0 26px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 8px">Opisz, co się dzieje <span aria-hidden="true">→</span></a><a href="tel:+48883200151" class="d bt" style="height: 58px; padding: 0 24px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-size: 20px; letter-spacing: 0; display: flex; align-items: center">883 200 151</a><span style="font-size: 14px; color: var(--k-ink3)">pn–pt 9–17</span></div>
+</div>
+</section>
+
+<section style="max-width: 1560px; margin: 0 auto; padding: 24px 32px 96px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="eb" style="color: var(--k-ink3); padding-left: 4px">{{g.name}}</span>
+<sc-for list="{{g.items}}" as="s" hint-placeholder-count="3">
+<button onClick="{{s.pick}}" aria-pressed="{{s.on}}" class="acc-t" style="min-height: 60px; border-radius: 18px; border: 1.5px solid {{s.bd}}; background: {{s.bg}}; color: var(--k-ink); padding: 12px 16px; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 16px; font-weight: 700">
+<span style="display: flex; gap: 12px; align-items: center"><span style="width: 16px; height: 4px; flex: none; background: {{s.cd}}"></span>{{s.title}}</span>
+<span style="color: {{s.ct}}; font-size: 16px">→</span>
+</button>
+</sc-for>
+</div>
+</sc-for>
+<sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+<div style="border-radius: 20px; border: 1px dashed rgba(var(--r-w),.2); padding: 22px; display: flex; flex-direction: column; gap: 8px">
+<span class="d" style="font-size: 20px; letter-spacing: 0">Nie mamy tego na liście.</span>
+<span style="font-size: 15px; line-height: 1.5; color: var(--k-ink3)">Zadzwoń pod <a href="tel:+48883200151" style="font-weight: 800; color: var(--k-ink)">883 200 151</a> — pokierujemy do właściwego zespołu.</span>
+</div>
+</sc-if>
+</div>
+
+<div class="acc-t" style="flex: 1.7 1 560px; min-width: 0; position: sticky; top: 24px; border-radius: 30px; background: {{cur.dark}}; border: 1.5px solid {{cur.cd}}; padding: 40px; display: flex; flex-direction: column; gap: 26px; overflow: hidden; box-shadow: inset 0 4px 0 {{cur.cd}}, 0 40px 90px -50px {{cur.cd}}; --c: {{cur.cd}}">
+<span aria-hidden="true" style="position: absolute; right: -130px; top: -130px; width: 380px; height: 380px; border-radius: 50%; border: 1px solid {{cur.cd}}; opacity: .4"></span>
+<span aria-hidden="true" style="position: absolute; right: -220px; top: -220px; width: 560px; height: 560px; border-radius: 50%; border: 1px solid {{cur.cd}}; opacity: .2"></span>
+<div style="position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: flex-start">
+<span style="display: flex; flex-direction: column; gap: 5px">
+<span class="d" style="font-size: 30px; display: flex; align-items: center; gap: 4px; letter-spacing: -.02em">PRO<span class="acc-t" style="width: 14px; height: 5px; display: block; background: {{cur.cd}}"></span>KOM</span>
+<span class="acc-t" style="height: 4px; display: block; background: {{cur.cd}}"></span>
+<span class="d" style="font-size: 12px; letter-spacing: .16em; align-self: flex-end">{{cur.label}}</span>
+</span>
+<span style="font-size: 13.5px; font-weight: 700; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(var(--r-w),.2); color: {{cur.ct}}">Tym zajmuje się linia {{cur.line}}</span>
+</div>
+<h2 class="d" style="font-size: clamp(32px, 3.8vw, 52px); position: relative">{{cur.title}}</h2>
+
+<div aria-hidden="true" style="position: relative; display: flex; flex-direction: column; gap: 6px"><span style="display: flex; gap: 5px"><i class="stp now"></i><i class="stp"></i><i class="stp"></i></span><span style="display: grid; grid-template-columns: repeat(3, 1fr); font-size: 12px; font-weight: 700; color: rgba(var(--r-w),.6)"><span style="color: {{cur.ct}}">1 · Zrób od razu</span><span>2 · Przygotuj</span><span>3 · Zadzwoń</span></span></div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 12px">
+<span class="eb" style="color: {{cur.ct}}">Zrób to od razu</span>
+<sc-for list="{{cur.steps}}" as="st" hint-placeholder-count="3">
+<div style="display: flex; gap: 16px; align-items: flex-start; border-radius: 18px; background: rgba(var(--r-w),.05); border: 1px solid rgba(var(--r-w),.1); padding: 16px 18px">
+<span class="d" style="font-size: 22px; letter-spacing: 0; color: {{cur.cd}}; min-width: 34px">{{st.n}}</span>
+<span style="font-size: 16.5px; line-height: 1.5; font-weight: 600">{{st.t}}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="position: relative; display: flex; flex-direction: column; gap: 12px">
+<span class="eb" style="color: {{cur.ct}}">Przygotuj do rozmowy</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{cur.prep}}" as="p" hint-placeholder-count="3">
+<span style="font-size: 14.5px; font-weight: 700; padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(var(--r-w),.2); display: flex; gap: 8px; align-items: center"><span style="width: 10px; height: 3px; background: {{cur.cd}}"></span>{{p}}</span>
+</sc-for>
+</div>
+</div>
+
+<div style="position: relative; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; border-top: 1px solid rgba(var(--r-w),.14); padding-top: 24px">
+<a href="{{cur.telHref}}" class="d acc-t" style="height: 60px; padding: 0 26px; border-radius: 17px; background: {{cur.cd}}; color: {{cur.ink}}; font-size: 21px; letter-spacing: 0; display: flex; align-items: center">{{cur.phone}}</a>
+<a href="{{cur.url}}" style="height: 60px; padding: 0 22px; border-radius: 17px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 16px; display: flex; align-items: center">{{cur.cta}} ↗</a>
+<span style="font-size: 14px; color: {{cur.ct}}">{{cur.promise}}</span>
+</div>
+<p style="position: relative; font-size: 13px; line-height: 1.5; color: rgba(var(--r-w),.62)">To ogólne pierwsze kroki, nie instrukcja naprawy. Jeśli nie masz pewności — nie rozkręcaj sprzętu, zadzwoń.</p>
+</div>
+</section>
+
+<!-- NAJCZĘSTSZE W TYM TYGODNIU -->
+<section style="max-width: 1560px; margin: 0 auto; padding: 0 32px 96px; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px"><span class="eb" style="color: var(--k-gt)">Na czasie</span><h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Najczęstsze w tym tygodniu</h2></div>
+
+</div>
+<div class="stg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 14px">
+<sc-for list="{{top}}" as="t" hint-placeholder-count="4">
+<button onClick="{{t.pick}}" class="lift" style="border-radius: 28px; background: {{t.dark}}; border: 1px solid color-mix(in srgb, {{t.cd}} 38%, transparent); padding: 24px; text-align: left; color: var(--k-ink); display: flex; flex-direction: column; gap: 14px; min-height: 200px; position: relative; overflow: hidden; box-shadow: inset 0 4px 0 {{t.cd}}; --c: {{t.cd}}">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 4px; background: {{t.cd}}"></span>
+<span style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px"><span class="eb" style="color: {{t.ct}}">{{t.line}}</span><span class="d" style="font-size: 26px; color: {{t.cd}}">{{t.n}}</span></span>
+<span class="d" style="font-size: 24px; line-height: 1.1">{{t.title}}</span>
+<span style="margin-top: auto; font-size: 14px; font-weight: 800; color: {{t.ct}}">Pokaż, co zrobić ↑</span>
+</button>
+</sc-for>
+</div>
+</section>
+
+<!-- SŁOWNIK -->
+<section style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08)">
+<div style="max-width: 1560px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 780px"><span class="eb" style="color: var(--k-gt)">Słownik</span><h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Słownik w 30 sekund.</h2></div>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); max-width: 380px">Dwanaście słów, które padają w rozmowach z nami. Każde w jednym zdaniu, bez żargonu.</p>
+</div>
+<dl style="margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr)); gap: 12px">
+<sc-for list="{{dict}}" as="w" hint-placeholder-count="12">
+<div style="border-radius: 28px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<dt style="display: flex; gap: 12px; align-items: center"><span style="width: 18px; height: 5px; flex: none; background: {{w.cd}}"></span><span class="d" style="font-size: 24px; letter-spacing: 0">{{w.t}}</span></dt>
+<dd style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--k-ink2)">{{w.d}}</dd>
+</div>
+</sc-for>
+</dl>
+</div>
+</section>
+
+<section style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08)">
+<div style="max-width: 1560px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<span class="eb" style="color: var(--k-gt)">Pytania</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Najczęściej pytacie o to.</h2>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); max-width: 360px">Nie ma tu Twojego pytania? Napisz przez formularz — wiadomość trafi do właściwego zespołu.</p>
+<a href="Kontakt.dc.html" style="align-self: flex-start; height: 52px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 15px; display: flex; align-items: center">Napisz do nas →</a>
+</div>
+<div style="flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{faq}}" as="f" hint-placeholder-count="8">
+<details open="{{f.open}}" style="border-radius: 28px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 24px 26px">
+<summary style="cursor: pointer; font-family: Archivo, sans-serif; font-weight: 800; font-size: 20px; display: flex; gap: 16px; align-items: baseline; list-style: none"><span style="font-size: 13px; color: var(--k-gt)">{{f.n}}</span>{{f.q}}</summary>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); padding: 12px 0 0 36px">{{f.a}}</p>
+</details>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="max-width: 1560px; margin: 0 auto; padding: 96px 32px">
+<div style="border-radius: 30px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 48px; display: flex; flex-direction: column; gap: 30px; position: relative; overflow: hidden">
+<div aria-hidden="true" style="height: 6px; position: absolute; left: 0; right: 0; top: 0; background: var(--k-g)"></div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 640px">
+<span style="display: flex; gap: 7px; align-items: center; font-size: 13.5px; font-weight: 700"><span class="rec" style="width: 8px; height: 8px; border-radius: 50%; background: var(--k-gd)"></span>{{statusText}}</span>
+<h2 class="d" style="font-size: clamp(32px, 4vw, 54px)">Najszybciej pomoże telefon do właściwej linii.</h2>
+</div>
+<a href="tel:+48883200151" style="height: 58px; padding: 0 26px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 17px; display: flex; align-items: center; box-shadow: inset 0 1px 0 rgba(var(--r-w),.3), 0 14px 34px -12px color-mix(in srgb, var(--k-g) 70%, transparent)">Nie wiem, która linia: 883 200 151</a>
+</div>
+<div class="stg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 12px">
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="5">
+<a href="{{l.telHref}}" class="lift" style="border-radius: 20px; background: {{l.dark}}; border: 1px solid color-mix(in srgb, {{l.cd}} 38%, transparent); padding: 20px; display: flex; flex-direction: column; gap: 8px; min-height: 150px; box-shadow: inset 0 4px 0 {{l.cd}}; --c: {{l.cd}}">
+<span class="d" style="font-size: 19px; letter-spacing: 0">{{l.line}}</span>
+<span style="font-size: 13.5px; line-height: 1.4; color: rgba(var(--r-w),.72)">{{l.short}}</span>
+<span class="d" style="font-size: 21px; letter-spacing: 0; margin-top: auto">{{l.phone}}</span>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- NIE ZNALAZŁEŚ? -->
+<section id="napisz" style="max-width: 1560px; margin: 0 auto; padding: 0 32px 96px">
+<div style="border-radius: 36px; overflow: hidden; display: flex; flex-wrap: wrap; border: 1px solid rgba(var(--r-w),.1)">
+<div style="flex: 1 1 400px; min-width: 0; background: var(--k-card); padding: 48px; display: flex; flex-direction: column; gap: 20px; position: relative; overflow: hidden">
+<span aria-hidden="true" style="position: absolute; left: -120px; bottom: -120px; width: 380px; height: 380px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--k-g) 30%, transparent)"></span>
+<span class="eb" style="color: var(--k-gt)">Nie znalazłeś?</span>
+<h2 class="d" style="font-size: clamp(34px, 4vw, 54px)">Napisz, co się dzieje. Odpowie właściwy zespół.</h2>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); position: relative">Opisz sytuację swoimi słowami. Nie musisz wiedzieć, która to linia — przekażemy wiadomość tam, gdzie trzeba.</p>
+<span style="margin-top: auto; font-size: 14px; color: var(--k-ink3); position: relative">Pilne? Zadzwoń: <a href="tel:+48883200151" style="font-weight: 800; color: var(--k-ink)">883 200 151</a></span>
+</div>
+<form style="flex: 1.3 1 480px; min-width: 0; background: var(--k-bg2); padding: 48px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="p1" style="font-size: 14px; font-weight: 700">Imię i firma</label><input id="p1" autocomplete="name" style="height: 54px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="p2" style="font-size: 14px; font-weight: 700">Telefon lub e-mail</label><input id="p2" style="height: 54px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="p3" style="font-size: 14px; font-weight: 700">Co się dzieje?</label><textarea id="p3" rows="5" placeholder="Np. kamera przy wejściu od wczoraj nie pokazuje obrazu" style="border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 14px 16px; font: 500 16px Manrope, sans-serif; resize: vertical"></textarea></div>
+<p style="font-size: 13px; line-height: 1.5; color: var(--k-ink3)">Zgadzam się na przetwarzanie danych przez PRO-KOM Tadeusz Wójciak w celu odpowiedzi na zapytanie. Szczegóły w polityce prywatności.</p>
+<button type="button" style="height: 58px; border-radius: 16px; border: none; background: var(--k-g); color: var(--k-gi); font-size: 17px; font-weight: 800">Wyślij wiadomość</button>
+</form>
+</div>
+</section>
+
+<!-- CO DALEJ -->
+<section aria-label="Co dalej" style="max-width: 1560px; margin: 0 auto; padding: 0 32px 104px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 14px"><span class="eb" style="color: var(--k-gt)">Co dalej</span><h2 class="d" style="font-size: clamp(32px, 3.8vw, 52px)">Sprawa jasna? Załatw ją od razu.</h2></div>
+<div class="stg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 14px">
+<a href="Narzedzia.dc.html" class="nx" style="border-radius: 28px; background: var(--k-g); color: var(--k-gi); padding: 28px; display: flex; flex-direction: column; gap: 12px; min-height: 220px; position: relative; overflow: hidden"><span style="display: flex; align-items: center; gap: 9px"><span style="width: 26px; height: 6px; background: currentColor"></span><span class="d" style="font-size: 12.5px; letter-spacing: .15em">Załatw online</span></span><span class="d" style="font-size: clamp(24px, 2.3vw, 32px); line-height: 1.02; margin-top: auto">Zgłoś, policz, zaplanuj</span><span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 14px"><span style="font-size: 15px; line-height: 1.45; font-weight: 600; opacity: .85; max-width: 300px">Formularze i konfiguratory wszystkich linii w jednym miejscu.</span><span class="ar" aria-hidden="true" style="width: 42px; height: 42px; flex: none; border-radius: 50%; background: var(--k-gi); color: var(--k-g); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px">→</span></span></a>
+<a href="Linie.dc.html" class="nx" style="border-radius: 28px; background: var(--k-card); color: var(--k-ink); padding: 28px; display: flex; flex-direction: column; gap: 12px; min-height: 220px; position: relative; overflow: hidden"><span style="display: flex; align-items: center; gap: 9px"><span style="width: 26px; height: 6px; background: currentColor"></span><span class="d" style="font-size: 12.5px; letter-spacing: .15em">Linie</span></span><span class="d" style="font-size: clamp(24px, 2.3vw, 32px); line-height: 1.02; margin-top: auto">Co gdzie załatwisz</span><span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 14px"><span style="font-size: 15px; line-height: 1.45; font-weight: 600; opacity: .85; max-width: 300px">Pięć linii i to, czym każda się zajmuje.</span><span class="ar" aria-hidden="true" style="width: 42px; height: 42px; flex: none; border-radius: 50%; background: var(--k-ink); color: var(--k-card); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px">→</span></span></a>
+<a href="Zasieg.dc.html" class="nx" style="border-radius: 28px; background: var(--k-card); color: var(--k-ink); padding: 28px; display: flex; flex-direction: column; gap: 12px; min-height: 220px; position: relative; overflow: hidden"><span style="display: flex; align-items: center; gap: 9px"><span style="width: 26px; height: 6px; background: currentColor"></span><span class="d" style="font-size: 12.5px; letter-spacing: .15em">Zasięg</span></span><span class="d" style="font-size: clamp(24px, 2.3vw, 32px); line-height: 1.02; margin-top: auto">Czy do Ciebie dojedziemy</span><span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 14px"><span style="font-size: 15px; line-height: 1.45; font-weight: 600; opacity: .85; max-width: 300px">Sprawdź swoją miejscowość.</span><span class="ar" aria-hidden="true" style="width: 42px; height: 42px; flex: none; border-radius: 50%; background: var(--k-ink); color: var(--k-card); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px">→</span></span></a>
+</div>
+</section>
+
+<dc-import name="Stopka" hint-size="100%,720px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":7200}}'>
+class Component extends DCLogic {
+  lines() {
+    return {
+      biznes: { line: 'Biznes', label: 'BIZNES', short: 'Kasy, komputery, opieka IT', url: 'https://prokombiznes.pl', phone: '889 003 889', tel: '+48889003889', cd: 'var(--k-b)', ct: 'var(--k-bt)', dark: 'var(--k-bd)', ink: 'var(--k-bi)', promise: 'W godzinach pracy oddzwonimy w 60 minut' },
+      instalacje: { line: 'Instalacje', label: 'INSTALACJE', short: 'Monitoring, sieci, smart home', url: 'https://prokominstalacje.pl', phone: '889 003 889', tel: '+48889003889', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', ink: 'var(--k-ii)', promise: 'Odpowiemy w 24 godziny w dni robocze' },
+      software: { line: 'Software', label: 'SOFTWARE', short: 'Strony, systemy, aplikacje', url: 'https://prokomsoftware.pl', phone: '883 200 151', tel: '+48883200151', cd: 'var(--k-s)', ct: 'var(--k-st)', dark: 'var(--k-sd)', ink: 'var(--k-si)', promise: 'Odpowiedź w 1 dzień roboczy' },
+      tech: { line: 'Tech', label: 'TECH', short: 'Naprawy telefonów i komputerów', url: 'https://prokomserwis.pl', phone: '883 200 151', tel: '+48883200151', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', ink: 'var(--k-ti)', promise: 'Bezpłatna diagnoza i wycena' },
+      gaming: { line: 'Gaming', label: 'GAMING', short: 'Komputery do gier', url: 'https://prokomgaming.pl', phone: '883 200 151', tel: '+48883200151', cd: 'var(--k-y)', ct: 'var(--k-y)', dark: 'var(--k-yd)', ink: 'var(--k-yi)', promise: 'Wysyłka w całej Polsce' }
+    };
+  }
+  cases() {
+    return [
+      { k: 'kasa', g: 'Kasa i formalności', l: 'biznes', title: 'Kasa fiskalna nie drukuje', cta: 'Serwis kas', steps: ['Sprawdź, czy w kasie jest papier i czy pokrywa jest domknięta.', 'Wyłącz kasę i włącz ją ponownie.', 'Dalej nie drukuje? Zadzwoń. Nie rozkręcaj kasy sam — plomby zdejmuje tylko serwisant.'], prep: ['Model kasy', 'Komunikat na wyświetlaczu', 'Od kiedy nie działa'] },
+      { k: 'przeglad', g: 'Kasa i formalności', l: 'biznes', title: 'Zbliża się przegląd kasy', cta: 'Umów przegląd', steps: ['Sprawdź w książce kasy datę ostatniego przeglądu.', 'Zadzwoń z wyprzedzeniem i umów termin.', 'Na wizytę przygotuj kasę i książkę serwisową.'], prep: ['Model i numer kasy', 'Data ostatniego przeglądu', 'Adres, pod którym stoi kasa'] },
+      { k: 'ksef', g: 'Kasa i formalności', l: 'biznes', title: 'Muszę wystawiać e-faktury w KSeF', cta: 'Programy i KSeF', steps: ['Sprawdź, w jakim programie wystawiasz dziś faktury.', 'Zadzwoń — powiemy, czy Twój program obsłuży KSeF i co trzeba ustawić.', 'Wdrożymy program i przeszkolimy osoby, które wystawiają faktury.'], prep: ['Nazwa i wersja programu', 'Liczba stanowisk', 'Kto wystawia faktury'] },
+      { k: 'komputer', g: 'Firma', l: 'biznes', title: 'Komputer w firmie nie startuje', cta: 'Opieka IT', steps: ['Sprawdź zasilanie, listwę i kable.', 'Nie włączaj go w kółko, jeśli słychać nietypowe dźwięki z dysku.', 'Zadzwoń — ustalimy, czy pomożemy zdalnie, na miejscu, czy sprzęt ma trafić do warsztatu.'], prep: ['Co się działo przed awarią', 'Komunikat na ekranie', 'Czy są kopie zapasowe'] },
+      { k: 'wifi', g: 'Obiekt i dom', l: 'instalacje', title: 'Padło Wi-Fi w pensjonacie', cta: 'Zgłoś awarię', steps: ['Sprawdź, czy internet działa po kablu przy routerze. Jeśli nie — zadzwoń najpierw do dostawcy internetu.', 'Zrestartuj router i odczekaj kilka minut.', 'Sieć dalej nie działa? Zgłoś awarię.'], prep: ['Cały obiekt czy część', 'Od kiedy nie działa', 'Kto montował sieć'] },
+      { k: 'kamera', g: 'Obiekt i dom', l: 'instalacje', title: 'Kamera nie nagrywa', cta: 'Zgłoś awarię', steps: ['Sprawdź, czy rejestrator jest włączony i czy widać obraz na żywo.', 'Zapisz, której kamery dotyczy problem i od kiedy.', 'Zgłoś awarię — zajmujemy się też instalacjami montowanymi przez inne firmy.'], prep: ['Marka rejestratora', 'Liczba kamer', 'Kto montował instalację'] },
+      { k: 'budowa', g: 'Obiekt i dom', l: 'instalacje', title: 'Buduję dom i planuję instalacje', cta: 'Zaplanuj instalację', steps: ['Zgłoś się przed tynkami — wtedy kable da się poprowadzić bez kucia.', 'Przygotuj rzuty domu.', 'Zaplanuj alarm, kamery, sieć i smart home w jednym projekcie.'], prep: ['Rzuty domu', 'Etap budowy', 'Lista tego, co chcesz mieć'] },
+      { k: 'strona', g: 'Internet', l: 'software', title: 'Strona firmy nie działa albo jest stara', cta: 'Darmowy audyt strony', steps: ['Strona w ogóle się nie otwiera? Sprawdź, czy domena i hosting są opłacone.', 'Zamów darmowy audyt strony.', 'Dostaniesz propozycję: naprawa, przejęcie opieki albo nowa strona.'], prep: ['Adres strony', 'Dostęp do domeny i hostingu', 'Kto robił stronę'] },
+      { k: 'excel', g: 'Internet', l: 'software', title: 'Potrzebuję programu zamiast Excela', cta: 'Policz swój projekt', steps: ['Spisz, co dziś robisz w Excelu i kto z tego korzysta.', 'Policz projekt w kreatorze — zobaczysz cenę „od” i termin.', 'Na rozmowie ustalimy zakres, a wycenę dostaniesz na piśmie.'], prep: ['Przykładowy plik', 'Liczba użytkowników', 'Co ma się liczyć samo'] },
+      { k: 'ekran', g: 'Sprzęt', l: 'tech', title: 'Pęknięty ekran telefonu', cta: 'Zgłoś naprawę', steps: ['Jeśli telefon jeszcze działa, zrób kopię danych.', 'Zgłoś naprawę online albo przynieś telefon do salonu.', 'Diagnoza i wycena są bezpłatne — płacisz dopiero za naprawę.'], prep: ['Model telefonu', 'Czy dotyk działa', 'Czy masz kopię danych'] },
+      { k: 'zalany', g: 'Sprzęt', l: 'tech', title: 'Telefon zalany', cta: 'Zgłoś naprawę', steps: ['Wyłącz telefon i nie podłączaj go do ładowarki.', 'Nie susz go suszarką ani na kaloryferze.', 'Przynieś go do serwisu jak najszybciej.'], prep: ['Czym został zalany', 'Kiedy to się stało', 'Czy był potem włączany'] },
+      { k: 'laptop', g: 'Sprzęt', l: 'tech', title: 'Laptop się przegrzewa', cta: 'Zgłoś naprawę', steps: ['Nie używaj laptopa na kołdrze ani kanapie — zasłaniają wloty powietrza.', 'Jeśli wyłącza się sam, nie obciążaj go grami i ciężkimi programami.', 'Zgłoś go do serwisu na diagnozę.'], prep: ['Model laptopa', 'Kiedy się grzeje', 'Od kiedy trwa problem'] },
+      { k: 'gra', g: 'Gry', l: 'gaming', title: 'Jaki komputer do gry, w którą gram', cta: 'Dobór pod grę', steps: ['Wejdź w „Dobór pod grę” i wybierz tytuł oraz monitor.', 'Zobacz zestawy z wynikiem klatek i źródłem pomiaru.', 'Wyślij zapytanie — dostaniesz listę części do akceptacji.'], prep: ['Gry, w które grasz', 'Rozdzielczość monitora', 'Budżet'] },
+      { k: 'rozbudowa', g: 'Gry', l: 'tech', title: 'Chcę rozbudować komputer', cta: 'Zapytaj w serwisie', steps: ['Sprawdź model płyty głównej i zasilacza albo po prostu przynieś komputer.', 'Napisz, co chcesz poprawić: gry, szybkość, miejsce na dysku.', 'Zapytaj w serwisie, co da się wymienić w Twoim zestawie.'], prep: ['Obecne części', 'Co ma działać lepiej', 'Budżet'] },
+      { k: 'przejecie', g: 'Kasa i formalności', l: 'biznes', title: 'Przejmuję lokal z kasą po poprzedniku', cta: 'Serwis kas', steps: ['Nie sprzedawaj na kasie zarejestrowanej na poprzedniego właściciela.', 'Zadzwoń — powiemy, co da się zrobić z tym urządzeniem.', 'Formalności związane z przejęciem serwisu kasy bierzemy na siebie.'], prep: ['Model kasy', 'NIP Twojej firmy', 'Od kiedy chcesz sprzedawać'] },
+      { k: 'adres', g: 'Kasa i formalności', l: 'biznes', title: 'Zmieniam adres firmy, a mam kasę fiskalną', cta: 'Serwis kas', steps: ['Zadzwoń przed przeprowadzką — zmiana miejsca używania kasy wymaga formalności.', 'Nie przenoś kasy na własną rękę, zanim tego nie ustalimy.', 'Powiemy, co trzeba zrobić i w jakiej kolejności.'], prep: ['Model kasy', 'Stary i nowy adres', 'Data przeprowadzki'] },
+      { k: 'podpis', g: 'Kasa i formalności', l: 'biznes', title: 'Potrzebuję podpisu kwalifikowanego', cta: 'Zapytaj o podpis', steps: ['Zadzwoń i powiedz, do czego potrzebujesz podpisu.', 'Podpowiemy, jaki zestaw wybrać i co przygotować.'], prep: ['Na kogo ma być podpis', 'Do czego będzie używany', 'Na jak długo'] },
+      { k: 'haslo', g: 'Firma', l: 'biznes', title: 'Zapomniane hasło albo zaszyfrowany komputer', cta: 'Opieka IT', steps: ['Nie próbuj wielu haseł po kolei — konto może się zablokować.', 'Jeśli na ekranie jest żądanie zapłaty, odłącz komputer od sieci i niczego nie płać.', 'Zadzwoń — ustalimy, co da się odzyskać.'], prep: ['Czego dotyczy hasło', 'Co widać na ekranie', 'Czy są kopie zapasowe'] },
+      { k: 'kopie', g: 'Firma', l: 'biznes', title: 'Nie mam kopii zapasowych danych firmy', cta: 'Opieka IT', steps: ['Spisz, gdzie leżą ważne dane: komputery, serwer, programy.', 'Zadzwoń — zaproponujemy sposób robienia kopii.', 'Ustalimy, kto i jak sprawdza, czy kopia naprawdę działa.'], prep: ['Jakich programów używasz', 'Ile jest komputerów', 'Gdzie dziś trzymasz dane'] },
+      { k: 'domofon', g: 'Obiekt i dom', l: 'instalacje', title: 'Wideodomofon nie dzwoni na telefon', cta: 'Zgłoś awarię', steps: ['Sprawdź, czy telefon ma internet i czy aplikacja ma włączone powiadomienia.', 'Sprawdź, czy panel przy wejściu działa na miejscu.', 'Dalej nie dzwoni? Zgłoś awarię.'], prep: ['Marka wideodomofonu', 'Od kiedy nie działa', 'Android czy iPhone'] },
+      { k: 'dolozyc', g: 'Obiekt i dom', l: 'instalacje', title: 'Chcę dołożyć kamerę', cta: 'Zaplanuj instalację', steps: ['Sprawdź, ile masz kamer i jaki rejestrator.', 'Zrób zdjęcie miejsca, w którym ma wisieć nowa kamera.', 'Wyślij zapytanie — sprawdzimy, czy rejestrator przyjmie kolejną.'], prep: ['Marka rejestratora', 'Liczba kamer', 'Zdjęcie miejsca'] },
+      { k: 'goscie', g: 'Obiekt i dom', l: 'instalacje', title: 'Goście skarżą się na Wi-Fi', cta: 'Zaplanuj instalację', steps: ['Zapisz, w których pokojach i o jakiej porze jest problem.', 'Sprawdź, jaką prędkość masz w umowie z dostawcą internetu.', 'Zgłoś się — sprawdzimy zasięg w obiekcie i zaproponujemy poprawki.'], prep: ['Liczba pokoi i pięter', 'Dostawca internetu', 'Kto montował sieć'] },
+      { k: 'sprzedaz', g: 'Internet', l: 'software', title: 'Chcę sprzedawać przez internet', cta: 'Policz swój projekt', steps: ['Spisz, co i komu chcesz sprzedawać.', 'Policz projekt w kreatorze.', 'Po rozmowie dostaniesz wycenę na piśmie.'], prep: ['Co sprzedajesz', 'Ile produktów', 'Jak chcesz przyjmować płatności'] },
+      { k: 'zalanylaptop', g: 'Sprzęt', l: 'tech', title: 'Laptop zalany', cta: 'Zgłoś naprawę', steps: ['Wyłącz laptop i odłącz zasilacz.', 'Nie włączaj go „na próbę” i nie susz suszarką.', 'Przynieś go do serwisu jak najszybciej.'], prep: ['Model laptopa', 'Czym został zalany', 'Czy był potem włączany'] },
+      { k: 'konsola', g: 'Sprzęt', l: 'tech', title: 'Konsola się przegrzewa', cta: 'Zgłoś naprawę', steps: ['Ustaw konsolę tak, żeby wloty powietrza były odsłonięte.', 'Jeśli wyłącza się sama, nie graj dalej.', 'Zgłoś ją do serwisu na diagnozę.'], prep: ['Model konsoli', 'Kiedy się wyłącza', 'Od kiedy trwa problem'] },
+      { k: 'uciagnie', g: 'Gry', l: 'gaming', title: 'Nie wiem, czy mój komputer uciągnie grę', cta: 'Dobór pod grę', steps: ['Sprawdź, jaką masz kartę graficzną i procesor.', 'Zobacz w „Dobór pod grę”, jakie zestawy radzą sobie z tym tytułem.', 'Napisz, co masz — podpowiemy, czy lepiej rozbudować, czy wymienić.'], prep: ['Karta graficzna i procesor', 'Gra', 'Monitor'] }
+    ];
+  }
+  norm(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'); }
+  renderVals() {
+    const st = this.state || {};
+    const L = this.lines();
+    const C = this.cases();
+    const q = st.q || '';
+    const nq = this.norm(q);
+    const shown = nq.length >= 2 ? C.filter((c) => this.norm(c.title + ' ' + c.g + ' ' + L[c.l].line + ' ' + c.prep.join(' ')).includes(nq)) : C;
+    let key = st.k || 'kasa';
+    if (shown.length && !shown.some((c) => c.k === key)) key = shown[0].k;
+    const c = C.find((x) => x.k === key);
+    const l = L[c.l];
+    const names = ['Kasa i formalności', 'Firma', 'Obiekt i dom', 'Internet', 'Sprzęt', 'Gry'];
+    const groups = names.map((n) => ({ name: n, items: shown.filter((x) => x.g === n).map((x) => { const on = x.k === key; const xl = L[x.l]; return { title: x.title, cd: xl.cd, ct: xl.ct, on: on, bd: on ? xl.cd : 'rgba(var(--r-w),.12)', bg: on ? xl.dark : 'var(--k-card)', pick: () => this.setState({ k: x.k }) }; }) })).filter((g) => g.items.length);
+    const d = new Date(); const day = d.getDay(); const h = d.getHours() + d.getMinutes() / 60;
+    const open = day >= 1 && day <= 5 && h >= 9 && h < 17;
+    const n = shown.length;
+    return {
+      q, groups, empty: n === 0,
+      top: ['wifi', 'ekran', 'kasa', 'strona'].map((k, i) => { const x = C.find((y) => y.k === k); const xl = L[x.l]; return { n: '0' + (i + 1), title: x.title, line: xl.line, cd: xl.cd, ct: xl.ct, dark: xl.dark, pick: () => this.setState({ k: k, q: '' }) }; }),
+      dict: [
+        ['var(--k-b)', 'KSeF', 'Krajowy System e-Faktur: państwowy system, przez który firmy wystawiają i odbierają faktury.'],
+        ['var(--k-b)', 'Fiskalizacja', 'Jednorazowe uruchomienie pamięci kasy fiskalnej, po którym kasa zaczyna rejestrować sprzedaż.'],
+        ['var(--k-i)', 'NVR', 'Rejestrator, który zapisuje obraz z kamer sieciowych.'],
+        ['var(--k-i)', 'PoE', 'Zasilanie urządzenia, na przykład kamery, tym samym kablem, którym idzie sieć.'],
+        ['var(--k-i)', 'VLAN gości', 'Oddzielna sieć dla gości, z której nie widać urządzeń firmy.'],
+        ['var(--k-i)', 'Smart home', 'Instalacja, która pozwala sterować domem — światłem, roletami, ogrzewaniem — z jednego miejsca.'],
+        ['var(--k-s)', 'CMS', 'Panel, w którym sam zmieniasz treści na swojej stronie.'],
+        ['var(--k-s)', 'CRM', 'Program do prowadzenia klientów: kontakty, oferty i historia rozmów.'],
+        ['var(--k-s)', 'Landing page', 'Jedna strona nastawiona na jeden cel, na przykład zebranie zapytań.'],
+        ['var(--k-y)', 'FPS', 'Liczba klatek na sekundę w grze: im więcej, tym płynniejszy obraz.'],
+        ['var(--k-t)', 'SSD / NVMe', 'Szybkie dyski bez części ruchomych; NVMe to najszybszy z popularnych rodzajów.'],
+        ['var(--k-g)', 'Kopia zapasowa', 'Druga kopia danych w innym miejscu, z której da się je odtworzyć po awarii.']
+      ].map((w) => ({ cd: w[0], t: w[1], d: w[2] })),
+      countText: n === 1 ? '1 sytuacja' : (n >= 2 && n <= 4 ? n + ' sytuacje' : n + ' sytuacji'),
+      onQ: (e) => this.setState({ q: e.target.value }),
+      cur: { ...l, telHref: 'tel:' + l.tel, title: c.title, cta: c.cta, prep: c.prep, steps: c.steps.map((t, i) => ({ n: '0' + (i + 1), t: t })) },
+      statusText: open ? 'Otwarte · do 17:00' : 'Zamknięte · pn–pt 9:00–17:00',
+      lines: Object.keys(L).map((k) => ({ ...L[k], telHref: 'tel:' + L[k].tel, edge: k === 'gaming' ? 'color-mix(in srgb, var(--k-y) 45%, transparent)' : 'rgba(var(--r-w),.1)' })),
+      faq: [
+        { n: '01', open: true, q: 'Do której linii mam zadzwonić?', a: 'Wybierz sytuację z listy wyżej — pokażemy linię i numer. Jeśli nie masz pewności, zadzwoń pod 883 200 151, pokierujemy.' },
+        { n: '02', open: false, q: 'Czy diagnoza naprawy jest płatna?', a: 'Nie. W linii Tech diagnoza i wycena są bezpłatne — płacisz dopiero za naprawę, na którą się zgodzisz.' },
+        { n: '03', open: false, q: 'Gdzie sprawdzę status naprawy?', a: 'Na stronie linii Tech, prokomserwis.pl — po numerze zlecenia albo po zalogowaniu na konto klienta.' },
+        { n: '04', open: false, q: 'Czy przejmujecie kasy i instalacje po innych firmach?', a: 'Tak. Przejmujemy serwis kas fiskalnych z formalnościami po naszej stronie, a w linii Instalacje zajmujemy się też instalacjami montowanymi przez kogoś innego.' },
+        { n: '05', open: false, q: 'Potrzebuję kilku rzeczy naraz. Muszę dzwonić w kilka miejsc?', a: 'Nie. Wystarczy jeden telefon albo jedna wiadomość — połączymy zespoły po naszej stronie.' },
+        { n: '06', open: false, q: 'Czy pomagacie zdalnie?', a: 'Tak, w ramach opieki IT linii Biznes. O tym, czy problem da się rozwiązać zdalnie, zdecydujemy w rozmowie.' },
+        { n: '07', open: false, q: 'Czy działacie poza Podhalem?', a: 'Tak. Do firm i na montaże dojeżdżamy w całej Małopolsce. Strony i systemy robimy zdalnie, a komputery do gier wysyłamy do całej Polski.' },
+        { n: '08', open: false, q: 'Gdzie jest salon i kiedy jest otwarty?', a: 'Rabka-Zdrój, ul. Orkana 16B. Od poniedziałku do piątku 9:00–17:00.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

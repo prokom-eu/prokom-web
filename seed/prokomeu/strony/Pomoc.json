@@ -1,0 +1,1020 @@
+{
+ "_zrodlo": "Pomoc.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "q": "",
+  "groups": [
+   {
+    "name": "Kasa i formalności",
+    "items": [
+     {
+      "title": "Kasa fiskalna nie drukuje",
+      "cd": "var(--k-b)",
+      "ct": "var(--k-bt)",
+      "on": true,
+      "bd": "var(--k-b)",
+      "bg": "var(--k-bd)"
+     },
+     {
+      "title": "Zbliża się przegląd kasy",
+      "cd": "var(--k-b)",
+      "ct": "var(--k-bt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Muszę wystawiać e-faktury w KSeF",
+      "cd": "var(--k-b)",
+      "ct": "var(--k-bt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Przejmuję lokal z kasą po poprzedniku",
+      "cd": "var(--k-b)",
+      "ct": "var(--k-bt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Zmieniam adres firmy, a mam kasę fiskalną",
+      "cd": "var(--k-b)",
+      "ct": "var(--k-bt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Potrzebuję podpisu kwalifikowanego",
+      "cd": "var(--k-b)",
+      "ct": "var(--k-bt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     }
+    ]
+   },
+   {
+    "name": "Firma",
+    "items": [
+     {
+      "title": "Komputer w firmie nie startuje",
+      "cd": "var(--k-b)",
+      "ct": "var(--k-bt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Zapomniane hasło albo zaszyfrowany komputer",
+      "cd": "var(--k-b)",
+      "ct": "var(--k-bt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Nie mam kopii zapasowych danych firmy",
+      "cd": "var(--k-b)",
+      "ct": "var(--k-bt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     }
+    ]
+   },
+   {
+    "name": "Obiekt i dom",
+    "items": [
+     {
+      "title": "Padło Wi-Fi w pensjonacie",
+      "cd": "var(--k-i)",
+      "ct": "var(--k-it)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Kamera nie nagrywa",
+      "cd": "var(--k-i)",
+      "ct": "var(--k-it)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Buduję dom i planuję instalacje",
+      "cd": "var(--k-i)",
+      "ct": "var(--k-it)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Wideodomofon nie dzwoni na telefon",
+      "cd": "var(--k-i)",
+      "ct": "var(--k-it)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Chcę dołożyć kamerę",
+      "cd": "var(--k-i)",
+      "ct": "var(--k-it)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Goście skarżą się na Wi-Fi",
+      "cd": "var(--k-i)",
+      "ct": "var(--k-it)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     }
+    ]
+   },
+   {
+    "name": "Internet",
+    "items": [
+     {
+      "title": "Strona firmy nie działa albo jest stara",
+      "cd": "var(--k-s)",
+      "ct": "var(--k-st)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Potrzebuję programu zamiast Excela",
+      "cd": "var(--k-s)",
+      "ct": "var(--k-st)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Chcę sprzedawać przez internet",
+      "cd": "var(--k-s)",
+      "ct": "var(--k-st)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     }
+    ]
+   },
+   {
+    "name": "Sprzęt",
+    "items": [
+     {
+      "title": "Pęknięty ekran telefonu",
+      "cd": "var(--k-t)",
+      "ct": "var(--k-tt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Telefon zalany",
+      "cd": "var(--k-t)",
+      "ct": "var(--k-tt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Laptop się przegrzewa",
+      "cd": "var(--k-t)",
+      "ct": "var(--k-tt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Laptop zalany",
+      "cd": "var(--k-t)",
+      "ct": "var(--k-tt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Konsola się przegrzewa",
+      "cd": "var(--k-t)",
+      "ct": "var(--k-tt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     }
+    ]
+   },
+   {
+    "name": "Gry",
+    "items": [
+     {
+      "title": "Jaki komputer do gry, w którą gram",
+      "cd": "var(--k-y)",
+      "ct": "var(--k-y)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Chcę rozbudować komputer",
+      "cd": "var(--k-t)",
+      "ct": "var(--k-tt)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "title": "Nie wiem, czy mój komputer uciągnie grę",
+      "cd": "var(--k-y)",
+      "ct": "var(--k-y)",
+      "on": false,
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "var(--k-card)"
+     }
+    ]
+   }
+  ],
+  "empty": false,
+  "top": [
+   {
+    "n": "01",
+    "title": "Padło Wi-Fi w pensjonacie",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)"
+   },
+   {
+    "n": "02",
+    "title": "Pęknięty ekran telefonu",
+    "line": "Tech",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)"
+   },
+   {
+    "n": "03",
+    "title": "Kasa fiskalna nie drukuje",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)"
+   },
+   {
+    "n": "04",
+    "title": "Strona firmy nie działa albo jest stara",
+    "line": "Software",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)"
+   }
+  ],
+  "dict": [
+   {
+    "cd": "var(--k-b)",
+    "t": "KSeF",
+    "d": "Krajowy System e-Faktur: państwowy system, przez który firmy wystawiają i odbierają faktury."
+   },
+   {
+    "cd": "var(--k-b)",
+    "t": "Fiskalizacja",
+    "d": "Jednorazowe uruchomienie pamięci kasy fiskalnej, po którym kasa zaczyna rejestrować sprzedaż."
+   },
+   {
+    "cd": "var(--k-i)",
+    "t": "NVR",
+    "d": "Rejestrator, który zapisuje obraz z kamer sieciowych."
+   },
+   {
+    "cd": "var(--k-i)",
+    "t": "PoE",
+    "d": "Zasilanie urządzenia, na przykład kamery, tym samym kablem, którym idzie sieć."
+   },
+   {
+    "cd": "var(--k-i)",
+    "t": "VLAN gości",
+    "d": "Oddzielna sieć dla gości, z której nie widać urządzeń firmy."
+   },
+   {
+    "cd": "var(--k-i)",
+    "t": "Smart home",
+    "d": "Instalacja, która pozwala sterować domem — światłem, roletami, ogrzewaniem — z jednego miejsca."
+   },
+   {
+    "cd": "var(--k-s)",
+    "t": "CMS",
+    "d": "Panel, w którym sam zmieniasz treści na swojej stronie."
+   },
+   {
+    "cd": "var(--k-s)",
+    "t": "CRM",
+    "d": "Program do prowadzenia klientów: kontakty, oferty i historia rozmów."
+   },
+   {
+    "cd": "var(--k-s)",
+    "t": "Landing page",
+    "d": "Jedna strona nastawiona na jeden cel, na przykład zebranie zapytań."
+   },
+   {
+    "cd": "var(--k-y)",
+    "t": "FPS",
+    "d": "Liczba klatek na sekundę w grze: im więcej, tym płynniejszy obraz."
+   },
+   {
+    "cd": "var(--k-t)",
+    "t": "SSD / NVMe",
+    "d": "Szybkie dyski bez części ruchomych; NVMe to najszybszy z popularnych rodzajów."
+   },
+   {
+    "cd": "var(--k-g)",
+    "t": "Kopia zapasowa",
+    "d": "Druga kopia danych w innym miejscu, z której da się je odtworzyć po awarii."
+   }
+  ],
+  "countText": "26 sytuacji",
+  "cur": {
+   "line": "Biznes",
+   "label": "BIZNES",
+   "short": "Kasy, komputery, opieka IT",
+   "url": "https://prokombiznes.pl",
+   "phone": "889 003 889",
+   "tel": "+48889003889",
+   "cd": "var(--k-b)",
+   "ct": "var(--k-bt)",
+   "dark": "var(--k-bd)",
+   "ink": "var(--k-bi)",
+   "promise": "W godzinach pracy oddzwonimy w 60 minut",
+   "telHref": "tel:+48889003889",
+   "title": "Kasa fiskalna nie drukuje",
+   "cta": "Serwis kas",
+   "prep": [
+    "Model kasy",
+    "Komunikat na wyświetlaczu",
+    "Od kiedy nie działa"
+   ],
+   "steps": [
+    {
+     "n": "01",
+     "t": "Sprawdź, czy w kasie jest papier i czy pokrywa jest domknięta."
+    },
+    {
+     "n": "02",
+     "t": "Wyłącz kasę i włącz ją ponownie."
+    },
+    {
+     "n": "03",
+     "t": "Dalej nie drukuje? Zadzwoń. Nie rozkręcaj kasy sam — plomby zdejmuje tylko serwisant."
+    }
+   ]
+  },
+  "statusText": "Zamknięte · pn–pt 9:00–17:00",
+  "lines": [
+   {
+    "line": "Biznes",
+    "label": "BIZNES",
+    "short": "Kasy, komputery, opieka IT",
+    "url": "https://prokombiznes.pl",
+    "phone": "889 003 889",
+    "tel": "+48889003889",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "promise": "W godzinach pracy oddzwonimy w 60 minut",
+    "telHref": "tel:+48889003889",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "line": "Instalacje",
+    "label": "INSTALACJE",
+    "short": "Monitoring, sieci, smart home",
+    "url": "https://prokominstalacje.pl",
+    "phone": "889 003 889",
+    "tel": "+48889003889",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)",
+    "promise": "Odpowiemy w 24 godziny w dni robocze",
+    "telHref": "tel:+48889003889",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "line": "Software",
+    "label": "SOFTWARE",
+    "short": "Strony, systemy, aplikacje",
+    "url": "https://prokomsoftware.pl",
+    "phone": "883 200 151",
+    "tel": "+48883200151",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)",
+    "promise": "Odpowiedź w 1 dzień roboczy",
+    "telHref": "tel:+48883200151",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "line": "Tech",
+    "label": "TECH",
+    "short": "Naprawy telefonów i komputerów",
+    "url": "https://prokomserwis.pl",
+    "phone": "883 200 151",
+    "tel": "+48883200151",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "ink": "var(--k-ti)",
+    "promise": "Bezpłatna diagnoza i wycena",
+    "telHref": "tel:+48883200151",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "line": "Gaming",
+    "label": "GAMING",
+    "short": "Komputery do gier",
+    "url": "https://prokomgaming.pl",
+    "phone": "883 200 151",
+    "tel": "+48883200151",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "ink": "var(--k-yi)",
+    "promise": "Wysyłka w całej Polsce",
+    "telHref": "tel:+48883200151",
+    "edge": "color-mix(in srgb, var(--k-y) 45%, transparent)"
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "open": true,
+    "q": "Do której linii mam zadzwonić?",
+    "a": "Wybierz sytuację z listy wyżej — pokażemy linię i numer. Jeśli nie masz pewności, zadzwoń pod 883 200 151, pokierujemy."
+   },
+   {
+    "n": "02",
+    "open": false,
+    "q": "Czy diagnoza naprawy jest płatna?",
+    "a": "Nie. W linii Tech diagnoza i wycena są bezpłatne — płacisz dopiero za naprawę, na którą się zgodzisz."
+   },
+   {
+    "n": "03",
+    "open": false,
+    "q": "Gdzie sprawdzę status naprawy?",
+    "a": "Na stronie linii Tech, prokomserwis.pl — po numerze zlecenia albo po zalogowaniu na konto klienta."
+   },
+   {
+    "n": "04",
+    "open": false,
+    "q": "Czy przejmujecie kasy i instalacje po innych firmach?",
+    "a": "Tak. Przejmujemy serwis kas fiskalnych z formalnościami po naszej stronie, a w linii Instalacje zajmujemy się też instalacjami montowanymi przez kogoś innego."
+   },
+   {
+    "n": "05",
+    "open": false,
+    "q": "Potrzebuję kilku rzeczy naraz. Muszę dzwonić w kilka miejsc?",
+    "a": "Nie. Wystarczy jeden telefon albo jedna wiadomość — połączymy zespoły po naszej stronie."
+   },
+   {
+    "n": "06",
+    "open": false,
+    "q": "Czy pomagacie zdalnie?",
+    "a": "Tak, w ramach opieki IT linii Biznes. O tym, czy problem da się rozwiązać zdalnie, zdecydujemy w rozmowie."
+   },
+   {
+    "n": "07",
+    "open": false,
+    "q": "Czy działacie poza Podhalem?",
+    "a": "Tak. Do firm i na montaże dojeżdżamy w całej Małopolsce. Strony i systemy robimy zdalnie, a komputery do gier wysyłamy do całej Polski."
+   },
+   {
+    "n": "08",
+    "open": false,
+    "q": "Gdzie jest salon i kiedy jest otwarty?",
+    "a": "Rabka-Zdrój, ul. Orkana 16B. Od poniedziałku do piątku 9:00–17:00."
+   }
+  ]
+ },
+ "lines": {
+  "biznes": {
+   "line": "Biznes",
+   "label": "BIZNES",
+   "short": "Kasy, komputery, opieka IT",
+   "url": "https://prokombiznes.pl",
+   "phone": "889 003 889",
+   "tel": "+48889003889",
+   "cd": "var(--k-b)",
+   "ct": "var(--k-bt)",
+   "dark": "var(--k-bd)",
+   "ink": "var(--k-bi)",
+   "promise": "W godzinach pracy oddzwonimy w 60 minut"
+  },
+  "instalacje": {
+   "line": "Instalacje",
+   "label": "INSTALACJE",
+   "short": "Monitoring, sieci, smart home",
+   "url": "https://prokominstalacje.pl",
+   "phone": "889 003 889",
+   "tel": "+48889003889",
+   "cd": "var(--k-i)",
+   "ct": "var(--k-it)",
+   "dark": "var(--k-id)",
+   "ink": "var(--k-ii)",
+   "promise": "Odpowiemy w 24 godziny w dni robocze"
+  },
+  "software": {
+   "line": "Software",
+   "label": "SOFTWARE",
+   "short": "Strony, systemy, aplikacje",
+   "url": "https://prokomsoftware.pl",
+   "phone": "883 200 151",
+   "tel": "+48883200151",
+   "cd": "var(--k-s)",
+   "ct": "var(--k-st)",
+   "dark": "var(--k-sd)",
+   "ink": "var(--k-si)",
+   "promise": "Odpowiedź w 1 dzień roboczy"
+  },
+  "tech": {
+   "line": "Tech",
+   "label": "TECH",
+   "short": "Naprawy telefonów i komputerów",
+   "url": "https://prokomserwis.pl",
+   "phone": "883 200 151",
+   "tel": "+48883200151",
+   "cd": "var(--k-t)",
+   "ct": "var(--k-tt)",
+   "dark": "var(--k-td)",
+   "ink": "var(--k-ti)",
+   "promise": "Bezpłatna diagnoza i wycena"
+  },
+  "gaming": {
+   "line": "Gaming",
+   "label": "GAMING",
+   "short": "Komputery do gier",
+   "url": "https://prokomgaming.pl",
+   "phone": "883 200 151",
+   "tel": "+48883200151",
+   "cd": "var(--k-y)",
+   "ct": "var(--k-y)",
+   "dark": "var(--k-yd)",
+   "ink": "var(--k-yi)",
+   "promise": "Wysyłka w całej Polsce"
+  }
+ },
+ "cases": [
+  {
+   "k": "kasa",
+   "g": "Kasa i formalności",
+   "l": "biznes",
+   "title": "Kasa fiskalna nie drukuje",
+   "cta": "Serwis kas",
+   "steps": [
+    "Sprawdź, czy w kasie jest papier i czy pokrywa jest domknięta.",
+    "Wyłącz kasę i włącz ją ponownie.",
+    "Dalej nie drukuje? Zadzwoń. Nie rozkręcaj kasy sam — plomby zdejmuje tylko serwisant."
+   ],
+   "prep": [
+    "Model kasy",
+    "Komunikat na wyświetlaczu",
+    "Od kiedy nie działa"
+   ]
+  },
+  {
+   "k": "przeglad",
+   "g": "Kasa i formalności",
+   "l": "biznes",
+   "title": "Zbliża się przegląd kasy",
+   "cta": "Umów przegląd",
+   "steps": [
+    "Sprawdź w książce kasy datę ostatniego przeglądu.",
+    "Zadzwoń z wyprzedzeniem i umów termin.",
+    "Na wizytę przygotuj kasę i książkę serwisową."
+   ],
+   "prep": [
+    "Model i numer kasy",
+    "Data ostatniego przeglądu",
+    "Adres, pod którym stoi kasa"
+   ]
+  },
+  {
+   "k": "ksef",
+   "g": "Kasa i formalności",
+   "l": "biznes",
+   "title": "Muszę wystawiać e-faktury w KSeF",
+   "cta": "Programy i KSeF",
+   "steps": [
+    "Sprawdź, w jakim programie wystawiasz dziś faktury.",
+    "Zadzwoń — powiemy, czy Twój program obsłuży KSeF i co trzeba ustawić.",
+    "Wdrożymy program i przeszkolimy osoby, które wystawiają faktury."
+   ],
+   "prep": [
+    "Nazwa i wersja programu",
+    "Liczba stanowisk",
+    "Kto wystawia faktury"
+   ]
+  },
+  {
+   "k": "komputer",
+   "g": "Firma",
+   "l": "biznes",
+   "title": "Komputer w firmie nie startuje",
+   "cta": "Opieka IT",
+   "steps": [
+    "Sprawdź zasilanie, listwę i kable.",
+    "Nie włączaj go w kółko, jeśli słychać nietypowe dźwięki z dysku.",
+    "Zadzwoń — ustalimy, czy pomożemy zdalnie, na miejscu, czy sprzęt ma trafić do warsztatu."
+   ],
+   "prep": [
+    "Co się działo przed awarią",
+    "Komunikat na ekranie",
+    "Czy są kopie zapasowe"
+   ]
+  },
+  {
+   "k": "wifi",
+   "g": "Obiekt i dom",
+   "l": "instalacje",
+   "title": "Padło Wi-Fi w pensjonacie",
+   "cta": "Zgłoś awarię",
+   "steps": [
+    "Sprawdź, czy internet działa po kablu przy routerze. Jeśli nie — zadzwoń najpierw do dostawcy internetu.",
+    "Zrestartuj router i odczekaj kilka minut.",
+    "Sieć dalej nie działa? Zgłoś awarię."
+   ],
+   "prep": [
+    "Cały obiekt czy część",
+    "Od kiedy nie działa",
+    "Kto montował sieć"
+   ]
+  },
+  {
+   "k": "kamera",
+   "g": "Obiekt i dom",
+   "l": "instalacje",
+   "title": "Kamera nie nagrywa",
+   "cta": "Zgłoś awarię",
+   "steps": [
+    "Sprawdź, czy rejestrator jest włączony i czy widać obraz na żywo.",
+    "Zapisz, której kamery dotyczy problem i od kiedy.",
+    "Zgłoś awarię — zajmujemy się też instalacjami montowanymi przez inne firmy."
+   ],
+   "prep": [
+    "Marka rejestratora",
+    "Liczba kamer",
+    "Kto montował instalację"
+   ]
+  },
+  {
+   "k": "budowa",
+   "g": "Obiekt i dom",
+   "l": "instalacje",
+   "title": "Buduję dom i planuję instalacje",
+   "cta": "Zaplanuj instalację",
+   "steps": [
+    "Zgłoś się przed tynkami — wtedy kable da się poprowadzić bez kucia.",
+    "Przygotuj rzuty domu.",
+    "Zaplanuj alarm, kamery, sieć i smart home w jednym projekcie."
+   ],
+   "prep": [
+    "Rzuty domu",
+    "Etap budowy",
+    "Lista tego, co chcesz mieć"
+   ]
+  },
+  {
+   "k": "strona",
+   "g": "Internet",
+   "l": "software",
+   "title": "Strona firmy nie działa albo jest stara",
+   "cta": "Darmowy audyt strony",
+   "steps": [
+    "Strona w ogóle się nie otwiera? Sprawdź, czy domena i hosting są opłacone.",
+    "Zamów darmowy audyt strony.",
+    "Dostaniesz propozycję: naprawa, przejęcie opieki albo nowa strona."
+   ],
+   "prep": [
+    "Adres strony",
+    "Dostęp do domeny i hostingu",
+    "Kto robił stronę"
+   ]
+  },
+  {
+   "k": "excel",
+   "g": "Internet",
+   "l": "software",
+   "title": "Potrzebuję programu zamiast Excela",
+   "cta": "Policz swój projekt",
+   "steps": [
+    "Spisz, co dziś robisz w Excelu i kto z tego korzysta.",
+    "Policz projekt w kreatorze — zobaczysz cenę „od” i termin.",
+    "Na rozmowie ustalimy zakres, a wycenę dostaniesz na piśmie."
+   ],
+   "prep": [
+    "Przykładowy plik",
+    "Liczba użytkowników",
+    "Co ma się liczyć samo"
+   ]
+  },
+  {
+   "k": "ekran",
+   "g": "Sprzęt",
+   "l": "tech",
+   "title": "Pęknięty ekran telefonu",
+   "cta": "Zgłoś naprawę",
+   "steps": [
+    "Jeśli telefon jeszcze działa, zrób kopię danych.",
+    "Zgłoś naprawę online albo przynieś telefon do salonu.",
+    "Diagnoza i wycena są bezpłatne — płacisz dopiero za naprawę."
+   ],
+   "prep": [
+    "Model telefonu",
+    "Czy dotyk działa",
+    "Czy masz kopię danych"
+   ]
+  },
+  {
+   "k": "zalany",
+   "g": "Sprzęt",
+   "l": "tech",
+   "title": "Telefon zalany",
+   "cta": "Zgłoś naprawę",
+   "steps": [
+    "Wyłącz telefon i nie podłączaj go do ładowarki.",
+    "Nie susz go suszarką ani na kaloryferze.",
+    "Przynieś go do serwisu jak najszybciej."
+   ],
+   "prep": [
+    "Czym został zalany",
+    "Kiedy to się stało",
+    "Czy był potem włączany"
+   ]
+  },
+  {
+   "k": "laptop",
+   "g": "Sprzęt",
+   "l": "tech",
+   "title": "Laptop się przegrzewa",
+   "cta": "Zgłoś naprawę",
+   "steps": [
+    "Nie używaj laptopa na kołdrze ani kanapie — zasłaniają wloty powietrza.",
+    "Jeśli wyłącza się sam, nie obciążaj go grami i ciężkimi programami.",
+    "Zgłoś go do serwisu na diagnozę."
+   ],
+   "prep": [
+    "Model laptopa",
+    "Kiedy się grzeje",
+    "Od kiedy trwa problem"
+   ]
+  },
+  {
+   "k": "gra",
+   "g": "Gry",
+   "l": "gaming",
+   "title": "Jaki komputer do gry, w którą gram",
+   "cta": "Dobór pod grę",
+   "steps": [
+    "Wejdź w „Dobór pod grę” i wybierz tytuł oraz monitor.",
+    "Zobacz zestawy z wynikiem klatek i źródłem pomiaru.",
+    "Wyślij zapytanie — dostaniesz listę części do akceptacji."
+   ],
+   "prep": [
+    "Gry, w które grasz",
+    "Rozdzielczość monitora",
+    "Budżet"
+   ]
+  },
+  {
+   "k": "rozbudowa",
+   "g": "Gry",
+   "l": "tech",
+   "title": "Chcę rozbudować komputer",
+   "cta": "Zapytaj w serwisie",
+   "steps": [
+    "Sprawdź model płyty głównej i zasilacza albo po prostu przynieś komputer.",
+    "Napisz, co chcesz poprawić: gry, szybkość, miejsce na dysku.",
+    "Zapytaj w serwisie, co da się wymienić w Twoim zestawie."
+   ],
+   "prep": [
+    "Obecne części",
+    "Co ma działać lepiej",
+    "Budżet"
+   ]
+  },
+  {
+   "k": "przejecie",
+   "g": "Kasa i formalności",
+   "l": "biznes",
+   "title": "Przejmuję lokal z kasą po poprzedniku",
+   "cta": "Serwis kas",
+   "steps": [
+    "Nie sprzedawaj na kasie zarejestrowanej na poprzedniego właściciela.",
+    "Zadzwoń — powiemy, co da się zrobić z tym urządzeniem.",
+    "Formalności związane z przejęciem serwisu kasy bierzemy na siebie."
+   ],
+   "prep": [
+    "Model kasy",
+    "NIP Twojej firmy",
+    "Od kiedy chcesz sprzedawać"
+   ]
+  },
+  {
+   "k": "adres",
+   "g": "Kasa i formalności",
+   "l": "biznes",
+   "title": "Zmieniam adres firmy, a mam kasę fiskalną",
+   "cta": "Serwis kas",
+   "steps": [
+    "Zadzwoń przed przeprowadzką — zmiana miejsca używania kasy wymaga formalności.",
+    "Nie przenoś kasy na własną rękę, zanim tego nie ustalimy.",
+    "Powiemy, co trzeba zrobić i w jakiej kolejności."
+   ],
+   "prep": [
+    "Model kasy",
+    "Stary i nowy adres",
+    "Data przeprowadzki"
+   ]
+  },
+  {
+   "k": "podpis",
+   "g": "Kasa i formalności",
+   "l": "biznes",
+   "title": "Potrzebuję podpisu kwalifikowanego",
+   "cta": "Zapytaj o podpis",
+   "steps": [
+    "Zadzwoń i powiedz, do czego potrzebujesz podpisu.",
+    "Podpowiemy, jaki zestaw wybrać i co przygotować."
+   ],
+   "prep": [
+    "Na kogo ma być podpis",
+    "Do czego będzie używany",
+    "Na jak długo"
+   ]
+  },
+  {
+   "k": "haslo",
+   "g": "Firma",
+   "l": "biznes",
+   "title": "Zapomniane hasło albo zaszyfrowany komputer",
+   "cta": "Opieka IT",
+   "steps": [
+    "Nie próbuj wielu haseł po kolei — konto może się zablokować.",
+    "Jeśli na ekranie jest żądanie zapłaty, odłącz komputer od sieci i niczego nie płać.",
+    "Zadzwoń — ustalimy, co da się odzyskać."
+   ],
+   "prep": [
+    "Czego dotyczy hasło",
+    "Co widać na ekranie",
+    "Czy są kopie zapasowe"
+   ]
+  },
+  {
+   "k": "kopie",
+   "g": "Firma",
+   "l": "biznes",
+   "title": "Nie mam kopii zapasowych danych firmy",
+   "cta": "Opieka IT",
+   "steps": [
+    "Spisz, gdzie leżą ważne dane: komputery, serwer, programy.",
+    "Zadzwoń — zaproponujemy sposób robienia kopii.",
+    "Ustalimy, kto i jak sprawdza, czy kopia naprawdę działa."
+   ],
+   "prep": [
+    "Jakich programów używasz",
+    "Ile jest komputerów",
+    "Gdzie dziś trzymasz dane"
+   ]
+  },
+  {
+   "k": "domofon",
+   "g": "Obiekt i dom",
+   "l": "instalacje",
+   "title": "Wideodomofon nie dzwoni na telefon",
+   "cta": "Zgłoś awarię",
+   "steps": [
+    "Sprawdź, czy telefon ma internet i czy aplikacja ma włączone powiadomienia.",
+    "Sprawdź, czy panel przy wejściu działa na miejscu.",
+    "Dalej nie dzwoni? Zgłoś awarię."
+   ],
+   "prep": [
+    "Marka wideodomofonu",
+    "Od kiedy nie działa",
+    "Android czy iPhone"
+   ]
+  },
+  {
+   "k": "dolozyc",
+   "g": "Obiekt i dom",
+   "l": "instalacje",
+   "title": "Chcę dołożyć kamerę",
+   "cta": "Zaplanuj instalację",
+   "steps": [
+    "Sprawdź, ile masz kamer i jaki rejestrator.",
+    "Zrób zdjęcie miejsca, w którym ma wisieć nowa kamera.",
+    "Wyślij zapytanie — sprawdzimy, czy rejestrator przyjmie kolejną."
+   ],
+   "prep": [
+    "Marka rejestratora",
+    "Liczba kamer",
+    "Zdjęcie miejsca"
+   ]
+  },
+  {
+   "k": "goscie",
+   "g": "Obiekt i dom",
+   "l": "instalacje",
+   "title": "Goście skarżą się na Wi-Fi",
+   "cta": "Zaplanuj instalację",
+   "steps": [
+    "Zapisz, w których pokojach i o jakiej porze jest problem.",
+    "Sprawdź, jaką prędkość masz w umowie z dostawcą internetu.",
+    "Zgłoś się — sprawdzimy zasięg w obiekcie i zaproponujemy poprawki."
+   ],
+   "prep": [
+    "Liczba pokoi i pięter",
+    "Dostawca internetu",
+    "Kto montował sieć"
+   ]
+  },
+  {
+   "k": "sprzedaz",
+   "g": "Internet",
+   "l": "software",
+   "title": "Chcę sprzedawać przez internet",
+   "cta": "Policz swój projekt",
+   "steps": [
+    "Spisz, co i komu chcesz sprzedawać.",
+    "Policz projekt w kreatorze.",
+    "Po rozmowie dostaniesz wycenę na piśmie."
+   ],
+   "prep": [
+    "Co sprzedajesz",
+    "Ile produktów",
+    "Jak chcesz przyjmować płatności"
+   ]
+  },
+  {
+   "k": "zalanylaptop",
+   "g": "Sprzęt",
+   "l": "tech",
+   "title": "Laptop zalany",
+   "cta": "Zgłoś naprawę",
+   "steps": [
+    "Wyłącz laptop i odłącz zasilacz.",
+    "Nie włączaj go „na próbę” i nie susz suszarką.",
+    "Przynieś go do serwisu jak najszybciej."
+   ],
+   "prep": [
+    "Model laptopa",
+    "Czym został zalany",
+    "Czy był potem włączany"
+   ]
+  },
+  {
+   "k": "konsola",
+   "g": "Sprzęt",
+   "l": "tech",
+   "title": "Konsola się przegrzewa",
+   "cta": "Zgłoś naprawę",
+   "steps": [
+    "Ustaw konsolę tak, żeby wloty powietrza były odsłonięte.",
+    "Jeśli wyłącza się sama, nie graj dalej.",
+    "Zgłoś ją do serwisu na diagnozę."
+   ],
+   "prep": [
+    "Model konsoli",
+    "Kiedy się wyłącza",
+    "Od kiedy trwa problem"
+   ]
+  },
+  {
+   "k": "uciagnie",
+   "g": "Gry",
+   "l": "gaming",
+   "title": "Nie wiem, czy mój komputer uciągnie grę",
+   "cta": "Dobór pod grę",
+   "steps": [
+    "Sprawdź, jaką masz kartę graficzną i procesor.",
+    "Zobacz w „Dobór pod grę”, jakie zestawy radzą sobie z tym tytułem.",
+    "Napisz, co masz — podpowiemy, czy lepiej rozbudować, czy wymienić."
+   ],
+   "prep": [
+    "Karta graficzna i procesor",
+    "Gra",
+    "Monitor"
+   ]
+  }
+ ],
+ "stany": {},
+ "_stany_uwaga": "Treść pozostałych zakładek/wyborów: stany[klucz][indeks] = pola, które różnią się od stanu domyślnego."
+}

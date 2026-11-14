@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>PRO-KOM — dla domu i dla Ciebie</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/*PKTHEME*/:root{--k-bg:#0A0D0B;--k-bg2:#0E1210;--k-card:#131815;--k-card2:#111613;--k-foot:#060807;--k-bgp:#0C0F0D;--k-cardp:#171C18;--k-dim:#050706;--k-ink:#F4F5F1;--k-ink1:#DDE1DB;--k-ink2:#C9CEC8;--k-ink3:#A9AFA9;--k-ink4:#B9BDB6;--k-ink5:#7E857E;--k-gt:#8FE07A;--k-gd:#7BD36A;--k-g:#4FB034;--k-g1:#5BC23E;--k-g2:#43A02B;--k-g3:#2E7A1E;--k-gi:#07140A;--k-b:#4A7BE0;--k-bt:#8DADF0;--k-bd:#0A1430;--k-bi:#06102A;--k-i:#12B6D8;--k-it:#4CCBE6;--k-id:#071214;--k-ii:#06181C;--k-s:#9670EE;--k-st:#B49BF5;--k-sd:#15131F;--k-si:#120A26;--k-t:#E2483A;--k-tt:#F29185;--k-td:#1A1312;--k-ti:#1A0806;--k-y:#F2C230;--k-yd:#080C0B;--k-yi:#1A1400;--r-w:255,255,255;--r-gl:22,28,24;--r-gl2:19,24,21;--r-gl3:20,25,21;--r-gl4:10,13,11;--r-gl5:17,22,19;--k-white:#FFFFFF}
+html[data-theme="light"]{--k-bg:#F4F5F1;--k-bg2:#ECEEE8;--k-card:#FFFFFF;--k-card2:#FFFFFF;--k-foot:#E4E7E0;--k-bgp:#F4F5F1;--k-cardp:#FFFFFF;--k-dim:#D9DCD5;--k-ink:#121613;--k-ink1:#2A302B;--k-ink2:#3A413B;--k-ink3:#4F5650;--k-ink4:#4F5650;--k-ink5:#8A918A;--k-gt:#2E7A1E;--k-gd:#2E7A1E;--k-g:#2E7A1E;--k-g1:#358F27;--k-g2:#286F18;--k-g3:#1F5A12;--k-gi:#FFFFFF;--k-b:#244FB0;--k-bt:#244FB0;--k-bd:#E6ECFB;--k-bi:#FFFFFF;--k-i:#007A96;--k-it:#006A82;--k-id:#DDF1F5;--k-ii:#FFFFFF;--k-s:#6E45D4;--k-st:#5B33C4;--k-sd:#ECE7FB;--k-si:#FFFFFF;--k-t:#C4362B;--k-tt:#B3301F;--k-td:#FBE8E5;--k-ti:#FFFFFF;--k-y:#9A7000;--k-yd:#FBF2D2;--k-yi:#FFFFFF;--r-w:18,22,19;--r-gl:255,255,255;--r-gl2:255,255,255;--r-gl3:255,255,255;--r-gl4:255,255,255;--r-gl5:255,255,255;--k-white:#121613}
+@keyframes pkrise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+section{animation:pkrise linear both;animation-timeline:view();animation-range:entry 0% cover 14%}
+section a[class~="lift"],section details,section figure{animation:pkpop linear both;animation-timeline:view();animation-range:entry 0% cover 18%}
+}
+a,button,details,summary{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s,color .3s}
+button:hover{transform:translateY(-2px)}
+a[style*="border-radius: 16px"]:hover,a[style*="border-radius: 18px"]:hover,a[style*="border-radius: 15px"]:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;transition:background-color .4s}
+body,body *{transition-property:background-color,border-color,color,transform,box-shadow,opacity,flex;transition-duration:.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+/*END*/
+body{margin:0}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+.pk{font-family:Manrope,system-ui,sans-serif;background:var(--k-bg);color:var(--k-ink)}
+.pk .d{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-.03em;margin:0;line-height:.96}
+.pk .eb{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.pk p{margin:0}
+.pk button{font-family:inherit;cursor:pointer}
+.pk .lift{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .lift:hover{transform:translateY(-6px)}
+.pk .acc-t{transition:background .4s,border-color .4s,color .4s}
+.pk :focus-visible{outline:2px solid var(--k-gt);outline-offset:2px}
+@keyframes pulse{50%{opacity:.35}}
+.pk .rec{animation:pulse 1.6s infinite}
+@keyframes drift{50%{transform:translate(50px,30px) scale(1.1)}}
+.pk .orb{animation:drift 18s ease-in-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.1);opacity:0}}
+.pk .ping{animation:ping 2.2s ease-out infinite}
+@media (prefers-reduced-motion:reduce){.pk *{transition:none !important;animation:none !important}}
+/*PKX*/
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk .lt{--c:var(--k-g);position:relative;overflow:hidden;color:var(--k-white);border:1px solid color-mix(in srgb,var(--c) 38%,transparent);transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .3s}
+.pk .lt::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--c);z-index:1}
+.pk .lt::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:38%;background:linear-gradient(100deg,transparent,rgba(var(--r-w),.13),transparent);transform:skewX(-18deg);pointer-events:none;opacity:0}
+.pk a.lt:hover,.pk .lt.hv:hover{transform:translateY(-6px);border-color:var(--c);box-shadow:0 0 0 1px var(--c),0 36px 80px -36px var(--c)}
+.pk .lt:hover::after{animation:xsweep 1.1s cubic-bezier(.2,.8,.2,1)}
+@keyframes xsweep{0%{left:-60%;opacity:1}100%{left:130%;opacity:1}}
+.pk .lt i{display:block;font-style:normal}
+.pk .sgn{display:flex;flex-direction:column;gap:3px;white-space:nowrap}
+.pk .sgn b{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;font-size:17px;letter-spacing:-.02em;display:flex;align-items:center;gap:3px;line-height:1}
+.pk .sgn b i{width:8px;height:3px;background:var(--c)}
+.pk .sgn em{text-transform:uppercase;font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;font-style:normal;font-size:10px;letter-spacing:.18em;color:color-mix(in srgb,var(--c) 70%,var(--k-white))}
+.pk .pil{height:34px;padding:0 13px;flex:none;border-radius:999px;background:var(--c);display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:12.5px;white-space:nowrap;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .lt:hover .pil{transform:translateX(3px)}
+.pk .vg{height:104px;flex:none;border-radius:16px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pk .lt:hover .vg{transform:translateY(-3px) scale(1.015);border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.pk .vr{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(var(--r-w),.09);font-size:12.5px;font-weight:700}
+.pk .vp{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--c) 22%,transparent)}
+.pk .vp i{width:6px;height:6px;border-radius:50%;background:var(--c)}
+.pk .cam{position:relative;border-radius:10px;background:rgba(var(--r-w),.09);display:flex;flex-direction:column;overflow:hidden}
+.pk .cam::before{content:"";position:absolute;left:0;right:0;height:38%;top:-40%;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--c) 28%,transparent),transparent);animation:xscan 3.4s linear infinite}
+@keyframes xscan{to{top:110%}}
+.pk .cam b{position:absolute;left:7px;top:6px;display:flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;letter-spacing:.06em}
+.pk .cam b i{width:6px;height:6px;border-radius:50%;background:var(--k-t)}
+.pk .cam em{position:absolute;left:7px;bottom:6px;font-style:normal;font-size:10.5px;font-weight:700}
+.pk .wf{width:6px;border-radius:2px;background:var(--c);animation:pulse 1.8s infinite}
+.pk .sk{border-radius:4px;background:rgba(var(--r-w),.2);animation:xskw 2.6s ease-in-out infinite}
+@keyframes xskw{50%{opacity:.55}}
+@keyframes xeq{50%{transform:scaleY(.5)}}
+.pk .eq{flex:1;max-width:9px;border-radius:2px;background:var(--c);transform-origin:50% 100%;animation:xeq 1.9s ease-in-out infinite}
+.pk .stp{flex:1;height:5px;border-radius:3px;background:rgba(var(--r-w),.16)}
+.pk .stp.on{background:var(--c)}
+.pk .stp.now{background:var(--c);animation:pulse 1.4s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.pk .rec{animation:pulse 1.6s infinite}
+@keyframes xin{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+.pk .hin{animation:xin .9s cubic-bezier(.2,.8,.2,1) both}
+.pk .hin:nth-child(2){animation-delay:.08s}.pk .hin:nth-child(3){animation-delay:.16s}.pk .hin:nth-child(4){animation-delay:.24s}.pk .hin:nth-child(5){animation-delay:.32s}.pk .hin:nth-child(6){animation-delay:.4s}.pk .hin:nth-child(7){animation-delay:.48s}.pk .hin:nth-child(8){animation-delay:.56s}.pk .hin:nth-child(9){animation-delay:.64s}
+.pk .cd2{transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .4s}
+.pk .cd2:hover{transform:translateY(-4px);border-color:rgba(var(--r-w),.26) !important;box-shadow:0 26px 60px -40px rgba(0,0,0,.7)}
+@media (prefers-reduced-motion:reduce){.pk *,.pk *::before,.pk *::after{transition:none !important;animation:none !important}}
+/*PKXEND*/
+/*DD*/
+.pk .wrap{max-width:1560px;margin:0 auto;padding-left:clamp(20px,3vw,48px);padding-right:clamp(20px,3vw,48px)}
+.pk .nb{white-space:nowrap}
+@keyframes dda{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes ddb{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.pk .rise{animation:dda .8s cubic-bezier(.2,.8,.2,1) both}
+.pk .rise:nth-child(2){animation-delay:.08s}.pk .rise:nth-child(3){animation-delay:.16s}.pk .rise:nth-child(4){animation-delay:.24s}.pk .rise:nth-child(5){animation-delay:.32s}
+.pk .btn{transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s,border-color .3s,background-color .3s}
+.pk .btn:hover{transform:translateY(-2px)}
+.pk .hf{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid rgba(var(--r-w),.12)}
+.pk .hf>div{padding:20px 18px 0 0;display:flex;flex-direction:column;gap:5px}
+@media (max-width:900px){.pk .hf{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pk .dr{display:grid;gap:10px}
+.pk .dr .dt{--c:var(--k-g);display:flex;flex-direction:column;gap:6px;padding:13px 16px 12px;border-radius:18px;border:1px solid;cursor:pointer;font-family:inherit;text-align:left;color:var(--k-white);transition:transform .5s cubic-bezier(.2,.8,.2,1),background-color .5s,border-color .5s,box-shadow .5s}
+.pk .dr .dt:hover{transform:translateY(-3px);box-shadow:0 22px 46px -32px var(--c)}
+@media (max-width:900px){.pk .dr{grid-auto-flow:column;grid-auto-columns:minmax(190px,1fr);grid-template-columns:none !important;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.pk .dr .dt{scroll-snap-align:start}}
+.pk .dsg{--c:var(--k-g);border-radius:32px;padding:clamp(22px,2.4vw,36px);display:flex;flex-wrap:wrap;gap:18px clamp(28px,3.4vw,56px);align-items:center;color:var(--k-white);position:relative;overflow:hidden;border:1px solid color-mix(in srgb,var(--c) 30%,transparent);transition:background-color .5s,border-color .5s}
+.pk .dsg.sa>*{animation:dda .7s cubic-bezier(.2,.8,.2,1) both}
+.pk .dsg.sb>*{animation:ddb .7s cubic-bezier(.2,.8,.2,1) both}
+.pk .dsg>*:nth-child(2){animation-delay:.08s}.pk .dsg>*:nth-child(3){animation-delay:.16s}
+.pk .dsg i{display:block;font-style:normal}
+.pk .pn{border-radius:22px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:border-color .4s}
+.pk .dsg:hover .pn{border-color:color-mix(in srgb,var(--c) 50%,transparent)}
+.pk .ig{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.pk .svc{display:flex;gap:12px;align-items:flex-start;border-radius:16px;background:rgba(var(--r-w),.04);border:1px solid rgba(var(--r-w),.1);padding:13px 14px;text-decoration:none;transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s,background-color .3s}
+.pk .svc:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 9%,transparent)}
+.pk .svi{width:38px;height:38px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);transition:transform .45s cubic-bezier(.2,.8,.2,1),background-color .3s,color .3s}
+.pk .svc:hover .svi{transform:scale(1.08) rotate(-4deg);background:var(--c);color:var(--k-bg)}
+.pk .lfx{display:flex;gap:10px;align-items:center;font-size:15px;font-weight:700;line-height:1.35}
+.pk .lfi{width:24px;height:24px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--c)}
+@media (max-width:760px){.pk .ig{grid-template-columns:1fr}}
+@media (max-width:760px){.pk .ig{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pk .it{border-radius:14px;background:rgba(var(--r-w),.04);border:1px solid rgba(var(--r-w),.1);padding:11px 13px;display:flex;flex-direction:column;gap:3px;transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s,background-color .3s}
+.pk .it:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 9%,transparent)}
+.pk .ss{flex:1 1 100%;margin:0;padding:14px 0 0;list-style:none;border-top:1px solid rgba(var(--r-w),.1);display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
+.pk .ss li{display:flex;align-items:center;gap:10px;flex:1 1 220px;min-width:0}
+.pk .ss li:last-child .sar{display:none}
+.pk .chp{font-size:12.5px;font-weight:700;line-height:1.25;padding:6px 11px;border-radius:999px;background:color-mix(in srgb,var(--c) 11%,transparent);border:1px solid color-mix(in srgb,var(--c) 24%,transparent)}
+.pk .cb{position:relative;border-radius:12px;background:rgba(var(--r-w),.09);display:flex;flex-direction:column;overflow:hidden;transition:border-color .4s;min-width:0;color:inherit;cursor:pointer;padding:0;font:inherit}
+.pk .cb.wifi{background:color-mix(in srgb,var(--c) 16%,transparent)}
+.pk .cb b{position:absolute;left:9px;top:8px;display:flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;letter-spacing:.06em}
+.pk .cb b i{width:7px;height:7px;border-radius:50%;background:var(--k-t)}
+.pk .cb em{position:absolute;left:9px;bottom:8px;font-style:normal;font-size:12px;font-weight:700}
+.pk .cb.cam::before{content:"";position:absolute;left:0;right:0;height:38%;top:-40%;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--c) 26%,transparent),transparent);animation:xscan 3.4s linear infinite}
+.pk .tg{display:grid;gap:8px}
+.pk .tg .tt{border-radius:16px;padding:14px 15px;display:flex;flex-direction:column;gap:5px;border:1px solid;transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pk .tg .tt:hover{transform:translateY(-3px);border-color:var(--c) !important}
+@media (max-width:900px){.pk .tg{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
+.pk .tw{display:flex;flex-direction:column;gap:10px;position:relative;padding-left:34px}
+.pk .tw::before{content:"";position:absolute;left:11px;top:26px;bottom:22px;width:2px;background:linear-gradient(180deg,var(--k-g),color-mix(in srgb,var(--k-g) 30%,transparent));transform-origin:50% 0;animation:twl 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes twl{from{transform:scaleY(0)}to{transform:none}}
+.pk .tw::after{content:"";position:absolute;left:8px;top:26px;width:8px;height:8px;border-radius:50%;background:var(--k-gt);animation:twd 3.6s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes twd{0%{top:26px;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:calc(100% - 30px);opacity:0}}
+.pk .th{position:relative;display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:20px;background:color-mix(in srgb,var(--k-g) 10%,transparent);border:1px solid color-mix(in srgb,var(--k-g) 30%,transparent)}
+.pk .th::before{content:"";position:absolute;left:-30px;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;background:var(--k-g);box-shadow:0 0 0 5px color-mix(in srgb,var(--k-g) 22%,transparent)}
+.pk .thi{width:44px;height:44px;flex:none;border-radius:14px;background:var(--k-g);color:var(--k-gi);display:flex;align-items:center;justify-content:center}
+.pk .tc{--c:var(--k-g);position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;min-height:72px;box-sizing:border-box;padding:14px 16px 14px 18px;border-radius:20px;color:var(--k-white);border:1px solid color-mix(in srgb,var(--c) 26%,transparent);transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s}
+.pk .tc.sa{animation:dda .7s cubic-bezier(.2,.8,.2,1) both}
+.pk .tc.sb{animation:ddb .7s cubic-bezier(.2,.8,.2,1) both}
+.pk .tc:hover{transform:translateX(6px);border-color:var(--c);box-shadow:0 22px 50px -32px var(--c)}
+.pk .tc::before{content:"";position:absolute;left:-28px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 22%,transparent)}
+.pk .tc::after{content:"";position:absolute;left:-16px;top:50%;width:16px;height:2px;background:color-mix(in srgb,var(--c) 60%,transparent)}
+.pk .tch{font-size:13.5px;font-weight:700;line-height:1.25;padding:7px 11px;border-radius:999px;background:color-mix(in srgb,var(--c) 12%,transparent);border:1px solid color-mix(in srgb,var(--c) 26%,transparent)}
+.pk .tph{flex:none;display:flex;align-items:center;gap:8px;height:38px;padding:0 6px 0 14px;border-radius:999px;border:1px solid color-mix(in srgb,var(--c) 40%,transparent);font-size:14px;letter-spacing:0;white-space:nowrap}
+.pk .tph i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--c);color:var(--k-bg);display:flex;align-items:center;justify-content:center;font:800 12px Manrope,sans-serif}
+.pk .te{position:relative;display:flex;flex-wrap:wrap;gap:8px 18px;padding:12px 4px 0;font-size:13.5px;font-weight:700;color:rgba(var(--r-w),.8)}
+.pk .te::before{content:"";position:absolute;left:-29px;top:14px;width:14px;height:14px;border-radius:50%;border:2px solid var(--k-g);background:var(--k-card);box-sizing:border-box}
+.pk .te span{display:flex;align-items:center;gap:8px}
+.pk .te i{display:block;width:14px;height:3px;background:var(--k-g)}
+.pk .gc{border-radius:24px;background:var(--k-card);border:1px solid rgba(var(--r-w),.1);padding:22px;display:flex;flex-direction:column;gap:8px;transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pk .gc:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.pk .hr{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(var(--r-w),.09);font-size:15px}
+@media (prefers-reduced-motion:reduce){.pk *,.pk *::before,.pk *::after{transition:none !important;animation:none !important}}
+/*DDEND*/
+/*PKCALM*/
+@keyframes pkrise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pk .tl:hover::after,.pk .lift:hover::after,.pk .nx:hover::after,.pk .cd2:hover::after,.pk .lt:hover::after,.pkx .lift:hover::after,.pkx .nx:hover::after{animation:none !important;opacity:0 !important}
+.pk .tl:hover,.pk .lift:hover,.pk .nx:hover,.pk .cd2:hover,.pk .lt:hover,.pkx .lift:hover,.pkx .nx:hover{transform:translateY(-4px) !important}
+.pk .tl,.pk .lift,.pk .nx,.pk .cd2,.pk .lt,.pk .ht{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .4s !important}
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk p{text-wrap:pretty}
+/*CALMEND*/
+@media (max-width:640px){.pk .ig{grid-template-columns:1fr !important}}
+</style>
+</helmet>
+<div class="pk" style="position: relative; overflow-x: clip">
+<dc-import name="Naglowek" active="dom" hint-size="100%,130px"></dc-import>
+
+<!-- HERO -->
+<section style="position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none; background: var(--k-bg)">
+<div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(var(--r-w),.1) 1px, transparent 1.4px); background-size: 26px 26px; mask-image: radial-gradient(ellipse 75% 85% at 50% 30%, #000 0%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 75% 85% at 50% 30%, #000 0%, transparent 78%)"></div>
+</div>
+<div class="wrap" style="position: relative; padding-top: 40px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 26px">
+<nav aria-label="Okruszki" style="display: flex; gap: 10px; font-size: 13.5px; color: var(--k-ink3)"><a href="Main.dc.html" class="nb">PRO-KOM</a><span>/</span><span style="color: var(--k-ink); font-weight: 700">Dla domu</span></nav>
+<span class="eb rise" style="color: var(--k-gt)">Dla domu · dla rodziny · dla gracza</span>
+<h1 class="d rise" style="font-size: clamp(40px, 5.6vw, 84px); line-height: .94; max-width: 1100px">Wszystko dla domu i&nbsp;dla&nbsp;Ciebie.</h1>
+<div class="rise" style="display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: flex-end; justify-content: space-between">
+<p style="flex: 1 1 440px; font-size: 19px; line-height: 1.55; color: var(--k-ink1); max-width: 640px">Dom, który sam pilnuje i sam się steruje. Telefon i laptop naprawione na miejscu. Komputer do gier złożony w Rabce-Zdroju. Trzy linie <span class="nb">PRO-KOM</span>, jedna firma i jeden salon.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+<a href="#sytuacja" class="btn" style="height: 58px; padding: 0 26px; border-radius: 18px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 16.5px; display: flex; align-items: center; gap: 8px">Wybierz swoją sytuację <span aria-hidden="true">↓</span></a>
+<a href="tel:+48883200151" class="d btn nb" style="height: 58px; padding: 0 22px; border-radius: 18px; border: 1.5px solid rgba(var(--r-w),.24); font-size: 19px; letter-spacing: 0; display: flex; align-items: center">883 200 151</a>
+<span style="font-size: 13.5px; color: var(--k-ink3)">pn–pt 9–17</span>
+</div>
+</div>
+<div class="hf rise">
+<sc-for list="{{facts}}" as="f" hint-placeholder-count="5">
+<div><span class="d" style="font-size: clamp(22px, 2.2vw, 32px); color: {{f.c}}">{{f.v}}</span><span style="font-size: 13.5px; line-height: 1.4; color: var(--k-ink3)">{{f.l}}</span></div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- SYTUACJA -->
+<section id="sytuacja" style="max-width: 1560px; margin: 0 auto; padding: 88px clamp(20px, 3vw, 48px) 0; display: flex; flex-direction: column; gap: 40px; scroll-margin-top: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 780px">
+<span class="eb" style="color: var(--k-gt)">Twoja sytuacja</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Powiedz, co się u Ciebie dzieje.</h2>
+</div>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); max-width: 380px">Siedem najczęstszych sytuacji. Kliknij swoją — zobaczysz, co robimy, w jakiej kolejności i do kogo zadzwonić.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch">
+<div role="group" aria-label="Twoja sytuacja" style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{sits}}" as="x" hint-placeholder-count="7">
+<button onClick="{{x.pick}}" aria-pressed="{{x.on}}" style="min-height: 68px; border-radius: 20px; border: 1.5px solid {{x.bd}}; background: {{x.bg}}; color: {{x.ink}}; padding: 0 20px; text-align: left; display: flex; align-items: center; gap: 16px"><span class="d" style="font-size: 14px; letter-spacing: .08em; opacity: .7; flex: none">{{x.n}}</span><span class="d" style="font-size: 19px; letter-spacing: -.01em">{{x.name}}</span></button>
+</sc-for>
+</div>
+<div style="flex: 2.2 1 640px; min-width: 0; border-radius: 32px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 36px; display: flex; flex-direction: column; gap: 26px; position: relative; overflow: hidden">
+<div aria-hidden="true" style="display: flex; height: 6px; position: absolute; left: 0; right: 0; top: 0"><sc-for list="{{plan.groups}}" as="g" hint-placeholder-count="2"><span style="flex: 1; background: {{g.cd}}"></span></sc-for></div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span class="eb" style="color: var(--k-ink3)">Plan dla sytuacji: {{plan.name}}</span>
+<h3 class="d" style="font-size: 36px; max-width: 640px">{{plan.title}}</h3>
+<p style="font-size: 16.5px; line-height: 1.55; color: var(--k-ink2); max-width: 640px">{{plan.lead}}</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 14px">
+<sc-for list="{{plan.groups}}" as="g" hint-placeholder-count="2">
+<a href="{{g.url}}" class="lt" style="--c: {{g.cd}}; border-radius: 26px; background: {{g.dark}}; padding: 26px 22px 22px; display: flex; flex-direction: column; gap: 14px; min-height: 270px">
+<span class="sgn"><b>PRO<i></i>KOM</b><em>{{g.line}}</em></span>
+<span style="display: flex; flex-direction: column; gap: 10px; font-size: 15px; font-weight: 600; line-height: 1.35">
+<sc-for list="{{g.items}}" as="it" hint-placeholder-count="4"><span style="display: flex; gap: 10px"><span style="width: 6px; height: 6px; border-radius: 50%; flex: none; margin-top: 7px; background: {{g.cd}}"></span>{{it}}</span></sc-for>
+</span>
+<span style="margin-top: auto; display: flex; justify-content: space-between; gap: 8px; align-items: center"><span style="font-size: 13.5px; font-weight: 800; color: {{g.ct}}">{{g.domain}} ↗</span><span class="d" style="font-size: 16px; letter-spacing: 0">{{g.phone}}</span></span>
+</a>
+</sc-for>
+</div>
+<div style="border-radius: 22px; background: var(--k-bg); border: 1px solid rgba(var(--r-w),.1); padding: 8px 22px">
+<span class="eb" style="display: block; color: var(--k-gt); padding: 14px 0 6px">Od czego zacząć</span>
+<sc-for list="{{plan.steps}}" as="st" hint-placeholder-count="3">
+<span style="display: flex; gap: 18px; align-items: baseline; padding: 13px 0; border-top: 1px solid rgba(var(--r-w),.1)"><span class="d" style="font-size: 20px; color: var(--k-g); letter-spacing: 0">{{st.n}}</span><span style="font-size: 16px; line-height: 1.5; font-weight: 600">{{st.t}}</span></span>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+<a href="{{plan.telHref}}" class="d" style="height: 58px; padding: 0 26px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-size: 19px; letter-spacing: 0; display: flex; align-items: center">Zadzwoń: {{plan.phone}}</a>
+<a href="#napisz" style="height: 58px; padding: 0 24px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 16px; display: flex; align-items: center">Opisz, czego potrzebujesz</a>
+</div>
+</div>
+</div>
+</section>
+
+
+<!-- TRZY LINIE — SCENA -->
+<section id="linie-dom" class="wrap" style="padding-top: 72px; display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 20px">
+<span id="naprawy" aria-hidden="true"></span><span id="gaming" aria-hidden="true"></span>
+<div style="display: flex; flex-wrap: wrap; gap: 14px 24px; justify-content: space-between; align-items: flex-end; padding-bottom: 6px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span class="eb" style="color: var(--k-gt)">Trzy linie dla domu</span>
+<h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Kto się czym zajmuje.</h2>
+</div>
+<span style="display: flex; gap: 8px; align-items: center"><button type="button" aria-label="Poprzednia linia" onClick="{{lprev}}" class="btn" style="width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(var(--r-w),.22); background: transparent; color: var(--k-ink); font-size: 16px">←</button><button type="button" aria-label="Następna linia" onClick="{{lnext}}" class="btn" style="width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(var(--r-w),.22); background: transparent; color: var(--k-ink); font-size: 16px">→</button></span>
+</div>
+<div role="tablist" aria-label="Linie dla domu" class="dr" style="grid-template-columns: repeat(3, minmax(0, 1fr))">
+<sc-for list="{{ltabs}}" as="t" hint-placeholder-count="3">
+<button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" class="dt" style="--c: {{t.cd}}; background: {{t.bg}}; border-color: {{t.bd}}">
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span class="d nb" style="font-size: 11px; display: flex; align-items: center; gap: 2px; letter-spacing: 0; opacity: .7">PRO<span style="width: 5px; height: 2px; display: block; background: {{t.cd}}"></span>KOM</span><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: {{t.cd}}; opacity: {{t.dot}}; transition: opacity .4s"></span></span>
+<span class="d" style="font-size: clamp(16px, 1.4vw, 20px); letter-spacing: -.02em">{{t.name}}</span>
+<span style="font-size: 13px; font-weight: 600; line-height: 1.35; color: rgba(var(--r-w),.7)">{{t.short}}</span>
+<span aria-hidden="true" style="display: block; height: 3px; border-radius: 3px; background: {{t.cd}}; width: {{t.bar}}; transition: width .6s cubic-bezier(.2,.8,.2,1); margin-top: 2px"></span>
+</button>
+</sc-for>
+</div>
+<div class="{{L.cls}}" role="tabpanel" style="--c: {{L.cd}}; background: {{L.dark}}">
+<div style="flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; flex-direction: column; gap: 5px; align-self: flex-start"><span class="d nb" style="font-size: 24px; display: flex; align-items: center; gap: 4px; letter-spacing: -.02em">PRO<span style="width: 11px; height: 4px; display: block; background: {{L.cd}}"></span>KOM</span><span class="d" style="font-size: 12px; letter-spacing: .18em; color: {{L.ct}}">{{L.label}}</span></span>
+<h3 class="d" style="font-size: clamp(28px, 3vw, 46px); line-height: 1">{{L.h2}}</h3>
+<p style="font-size: 15.5px; line-height: 1.5; color: rgba(var(--r-w),.82); max-width: 540px">{{L.lead}}</p>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{L.facts}}" as="fx" hint-placeholder-count="3">
+<li class="lfx" style="--c: {{L.cd}}"><span class="lfi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></span>{{fx.t}}</li>
+</sc-for>
+</ul>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 2px">
+<a class="btn" href="{{L.url}}" style="height: 50px; padding: 0 22px; border-radius: 16px; background: {{L.cd}}; color: {{L.ink}}; font-weight: 800; font-size: 15.5px; display: flex; align-items: center">{{L.cta}} ↗</a>
+<a href="{{L.telHref}}" class="btn d nb" style="height: 50px; padding: 0 18px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-size: 17px; letter-spacing: 0; display: flex; align-items: center">{{L.phone}}</a>
+</div>
+<span style="font-size: 13px; color: rgba(var(--r-w),.72); display: flex; gap: 10px; align-items: center"><span style="width: 18px; height: 4px; background: {{L.cd}}"></span>{{L.promise}} · {{L.domain}}</span>
+</div>
+
+<div style="flex: 1.25 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<sc-if value="{{L.isI}}" hint-placeholder-val="{{true}}">
+<div class="pn" style="display: grid; grid-template-columns: {{camCols}}; gap: 8px; padding: 8px; height: 150px; transition: grid-template-columns .6s cubic-bezier(.2,.8,.2,1)">
+<sc-for list="{{cams}}" as="x" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{x.on}}" aria-label="{{x.aria}}" onClick="{{x.pick}}" class="{{x.cls}}" style="border: 1px solid {{x.bd}}">
+<sc-if value="{{x.cam}}" hint-placeholder-val="{{true}}"><b><i class="rec"></i>REC</b></sc-if>
+<sc-if value="{{x.wifi}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: flex-end; gap: 5px; height: 44px; margin: auto"><i class="wf" style="width: 8px; height: 30%"></i><i class="wf" style="width: 8px; height: 55%; animation-delay: .2s"></i><i class="wf" style="width: 8px; height: 78%; animation-delay: .4s"></i><i class="wf" style="width: 8px; height: 100%; animation-delay: .6s"></i></span></sc-if>
+<em>{{x.label}}</em>
+</button>
+</sc-for>
+</div>
+<span style="font-size: 13.5px; color: rgba(var(--r-w),.72)">{{camNote}}</span>
+</sc-if>
+<sc-if value="{{L.isT}}" hint-placeholder-val="{{false}}">
+<div class="pn" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+<span style="display: flex; justify-content: space-between; font-size: 12px; color: var(--k-tt); font-weight: 800; letter-spacing: .12em">NAPRAWA KROK PO KROKU · KLIKNIJ ETAP<span style="display: flex; gap: 6px; align-items: center"><i class="rec" style="width: 7px; height: 7px; border-radius: 50%; background: var(--c)"></i>STATUS ONLINE</span></span>
+<span role="group" aria-label="Etapy naprawy" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{tsteps}}" as="x" hint-placeholder-count="6">
+<button type="button" aria-pressed="{{x.on}}" onClick="{{x.pick}}" style="display: flex; flex-direction: column; gap: 8px; padding: 0 0 4px; border: none; background: transparent; color: {{x.ink}}; text-align: left; font: 700 12.5px Manrope, sans-serif; min-width: 0"><span style="display: block; height: 8px; border-radius: 4px; background: {{x.bar}}; transition: background-color .5s"></span>{{x.name}}</button>
+</sc-for>
+</span>
+<span style="font-size: 14.5px; line-height: 1.5; color: rgba(var(--r-w),.82); min-height: 22px">{{tstep.text}}</span>
+</div>
+</sc-if>
+<sc-if value="{{L.isG}}" hint-placeholder-val="{{false}}">
+<div class="pn" aria-hidden="true" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 12px">
+<span style="display: flex; justify-content: space-between; font-size: 12px; color: var(--k-y); font-weight: 800; letter-spacing: .12em">KLATKI MIERZONE W GRACH<span style="display: flex; gap: 6px; align-items: center"><i class="rec" style="width: 7px; height: 7px; border-radius: 50%; background: var(--c)"></i>TEST</span></span>
+<span style="display: flex; align-items: flex-end; gap: 5px; height: 64px"><i class="eq" style="max-width: 16px; height: 45%; animation-delay: 0s"></i><i class="eq" style="max-width: 16px; height: 70%; animation-delay: .12s"></i><i class="eq" style="max-width: 16px; height: 55%; animation-delay: .24s"></i><i class="eq" style="max-width: 16px; height: 90%; animation-delay: .36s"></i><i class="eq" style="max-width: 16px; height: 65%; animation-delay: .48s"></i><i class="eq" style="max-width: 16px; height: 100%; animation-delay: .6s"></i><i class="eq" style="max-width: 16px; height: 60%; animation-delay: .72s"></i><i class="eq" style="max-width: 16px; height: 82%; animation-delay: .84s"></i><i class="eq" style="max-width: 16px; height: 50%; animation-delay: .96s"></i><i class="eq" style="max-width: 16px; height: 74%; animation-delay: 1.08s"></i><i class="eq" style="max-width: 16px; height: 95%; animation-delay: 1.2s"></i><i class="eq" style="max-width: 16px; height: 58%; animation-delay: 1.32s"></i><i class="eq" style="max-width: 16px; height: 80%; animation-delay: 1.44s"></i><i class="eq" style="max-width: 16px; height: 66%; animation-delay: 1.56s"></i><i class="eq" style="max-width: 16px; height: 88%; animation-delay: 1.68s"></i><i class="eq" style="max-width: 16px; height: 52%; animation-delay: 1.8s"></i></span>
+</div>
+<span style="display: flex; flex-wrap: wrap; gap: 5px; font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 12px">
+<sc-for list="{{beasts}}" as="b" hint-placeholder-count="16"><span style="padding: 5px 9px; border-radius: 8px; background: {{b.bg}}; color: {{b.ink}}">{{b.name}}</span></sc-for>
+</span>
+</sc-if>
+<div class="ig">
+<sc-for list="{{L.items}}" as="it" hint-placeholder-count="6">
+<a href="{{L.url}}" class="svc" style="--c: {{L.cd}}; color: var(--k-white)">
+<span class="svi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{it.ic}}"/></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px; min-width: 0"><span class="d" style="font-size: 15px; letter-spacing: -.01em; line-height: 1.1">{{it.t}}</span><span style="font-size: 12.5px; line-height: 1.35; color: rgba(var(--r-w),.7)">{{it.d}}</span></span>
+</a>
+</sc-for>
+</div>
+</div>
+<ol class="ss" aria-label="Jak zaczynamy">
+<sc-for list="{{L.steps}}" as="x" hint-placeholder-count="3">
+<li><span class="d" style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: color-mix(in srgb, {{L.cd}} 18%, transparent); color: {{L.ct}}; display: flex; align-items: center; justify-content: center; font-size: 11.5px; letter-spacing: 0">{{x.n}}</span><span style="font-size: 14px; font-weight: 700; line-height: 1.3">{{x.t}}</span><span aria-hidden="true" class="sar" style="margin-left: auto; color: {{L.ct}}; font-weight: 800">→</span></li>
+</sc-for>
+</ol>
+</div>
+</section>
+
+<!-- PRZEKRÓJ -->
+<section id="przekroj" style="background: var(--k-id); border-top: 1px solid rgba(var(--r-w),.08); border-bottom: 1px solid rgba(var(--r-w),.08); margin-top: 88px; position: relative; overflow: hidden; scroll-margin-top: 20px">
+<div style="position: relative; max-width: 1560px; margin: 0 auto; padding: 72px clamp(20px, 3vw, 48px); display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 800px">
+<span class="eb" style="color: var(--k-it)">PRO-KOM Instalacje · dom w przekroju</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Jedenaście miejsc, w których dom robi coś za Ciebie.</h2>
+</div>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); max-width: 360px">Kliknij punkt na rysunku albo na liście. Zobaczysz, co to jest, po co i kiedy to zaplanować.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch">
+<div style="flex: 1.5 1 620px; min-width: 0; position: relative; aspect-ratio: 16 / 11; border-radius: 28px; background: linear-gradient(180deg, var(--k-card), var(--k-id)); border: 1px solid color-mix(in srgb, var(--k-i) 30%, transparent); overflow: hidden">
+<div aria-hidden="true" style="position: absolute; inset: 0; background-image: radial-gradient(rgba(var(--r-w),.08) 1px, transparent 1px); background-size: 26px 26px"></div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 86%; bottom: 0; background: color-mix(in srgb, var(--k-i) 8%, transparent); border-top: 2px solid color-mix(in srgb, var(--k-i) 50%, transparent)"></div>
+<div aria-hidden="true" style="position: absolute; left: 18%; width: 52%; top: 11%; height: 24%; background: color-mix(in srgb, var(--k-i) 16%, transparent); clip-path: polygon(50% 0, 100% 100%, 0 100%)"></div>
+<div aria-hidden="true" style="position: absolute; left: 20.5%; width: 47%; top: 14.5%; height: 20.5%; background: var(--k-card); clip-path: polygon(50% 0, 100% 100%, 0 100%)"></div>
+<div aria-hidden="true" style="position: absolute; left: 22%; width: 44%; top: 34%; height: 52%; border: 2px solid color-mix(in srgb, var(--k-i) 60%, transparent); box-sizing: border-box; background: rgba(var(--r-gl4),.7)"></div>
+<div aria-hidden="true" style="position: absolute; left: 22%; width: 44%; top: 60%; height: 2px; background: color-mix(in srgb, var(--k-i) 60%, transparent)"></div>
+<div aria-hidden="true" style="position: absolute; left: 44%; width: 2px; top: 34%; height: 52%; background: color-mix(in srgb, var(--k-i) 35%, transparent)"></div>
+<div aria-hidden="true" style="position: absolute; left: 26%; width: 9%; top: 40%; height: 12%; border: 1.5px solid color-mix(in srgb, var(--k-it) 60%, transparent); background: color-mix(in srgb, var(--k-i) 12%, transparent)"></div>
+<div aria-hidden="true" style="position: absolute; left: 50%; width: 11%; top: 40%; height: 12%; border: 1.5px solid color-mix(in srgb, var(--k-it) 60%, transparent); background: color-mix(in srgb, var(--k-i) 12%, transparent)"></div>
+<div aria-hidden="true" style="position: absolute; left: 49%; width: 12%; top: 66%; height: 12%; border: 1.5px solid color-mix(in srgb, var(--k-it) 60%, transparent); background: color-mix(in srgb, var(--k-i) 12%, transparent)"></div>
+<div aria-hidden="true" style="position: absolute; left: 27%; width: 7%; top: 67%; height: 19%; border: 1.5px solid color-mix(in srgb, var(--k-it) 60%, transparent); border-bottom: none; box-sizing: border-box"></div>
+<div aria-hidden="true" style="position: absolute; left: 66%; width: 21%; top: 58%; height: 28%; border: 2px solid color-mix(in srgb, var(--k-i) 60%, transparent); border-left: none; box-sizing: border-box; background: rgba(var(--r-gl4),.7)"></div>
+<div aria-hidden="true" style="position: absolute; left: 69%; width: 15%; top: 66%; height: 20%; border: 1.5px solid color-mix(in srgb, var(--k-it) 45%, transparent); border-bottom: none; box-sizing: border-box; background: repeating-linear-gradient(180deg, transparent 0 9px, color-mix(in srgb, var(--k-it) 25%, transparent) 9px 10px)"></div>
+<div aria-hidden="true" style="position: absolute; left: 58.6%; width: 2px; top: 5%; height: 22%; background: color-mix(in srgb, var(--k-it) 80%, transparent)"></div>
+<div aria-hidden="true" style="position: absolute; left: 56%; width: 5.4%; top: 7%; height: 2px; background: color-mix(in srgb, var(--k-it) 80%, transparent)"></div>
+<div aria-hidden="true" style="position: absolute; left: 3%; width: 14%; top: 74%; height: 12%; background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--k-it) 55%, transparent) 0 2px, transparent 2px 12px); border-top: 2px solid color-mix(in srgb, var(--k-it) 55%, transparent)"></div>
+<span aria-hidden="true" style="position: absolute; left: 24%; top: 36%; font-size: 11px; font-weight: 800; letter-spacing: .1em; color: var(--k-ink5)">PIĘTRO</span>
+<span aria-hidden="true" style="position: absolute; left: 24%; top: 62%; font-size: 11px; font-weight: 800; letter-spacing: .1em; color: var(--k-ink5)">PARTER</span>
+<span aria-hidden="true" style="position: absolute; left: 68%; top: 60%; font-size: 11px; font-weight: 800; letter-spacing: .1em; color: var(--k-ink5)">GARAŻ</span>
+<sc-for list="{{pts}}" as="p" hint-placeholder-count="11">
+<button onClick="{{p.pick}}" aria-pressed="{{p.on}}" aria-label="{{p.name}}" style="position: absolute; left: {{p.x}}; top: {{p.y}}; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; border: 2px solid {{p.bd}}; background: {{p.bg}}; color: {{p.ink}}; font: 800 14px Archivo, sans-serif; display: flex; align-items: center; justify-content: center; box-shadow: {{p.glow}}">{{p.n}}</button>
+</sc-for>
+<span style="position: absolute; left: 18px; bottom: 14px; font-size: 12.5px; color: var(--k-ink3)">Rysunek poglądowy — każdy dom planujemy osobno</span>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<div class="acc-t" style="border-radius: 28px; background: var(--k-card); border: 1.5px solid var(--k-i); padding: 30px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 40px 90px -50px var(--k-i)">
+<div style="display: flex; justify-content: space-between; align-items: center"><span class="eb" style="color: var(--k-it)">Punkt {{pt.n}} / 11</span><span style="font-size: 12.5px; font-weight: 800; padding: 6px 10px; border-radius: 8px; background: color-mix(in srgb, var(--k-i) 20%, transparent)">{{pt.where}}</span></div>
+<h3 class="d" style="font-size: 34px">{{pt.name}}</h3>
+<div style="display: flex; flex-direction: column">
+<span style="display: flex; flex-direction: column; gap: 4px; padding: 14px 0; border-top: 1px solid rgba(var(--r-w),.12)"><span class="eb" style="color: var(--k-ink3)">Co to jest</span><span style="font-size: 16px; line-height: 1.5; font-weight: 600">{{pt.what}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 4px; padding: 14px 0; border-top: 1px solid rgba(var(--r-w),.12)"><span class="eb" style="color: var(--k-ink3)">Po co</span><span style="font-size: 16px; line-height: 1.5; font-weight: 600">{{pt.why}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 4px; padding: 14px 0; border-top: 1px solid rgba(var(--r-w),.12)"><span class="eb" style="color: var(--k-it)">Kiedy zaplanować</span><span style="font-size: 16px; line-height: 1.5; font-weight: 600">{{pt.when}}</span></span>
+</div>
+<a href="https://prokominstalacje.pl" style="height: 54px; border-radius: 16px; background: var(--k-i); color: var(--k-ii); font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">Zaplanuj instalację ↗</a>
+</div>
+<div role="group" aria-label="Lista punktów" style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{pts}}" as="p" hint-placeholder-count="11">
+<button onClick="{{p.pick}}" aria-pressed="{{p.on}}" style="height: 40px; padding: 0 12px; border-radius: 11px; border: 1px solid {{p.chipBd}}; background: transparent; color: var(--k-ink); font-size: 13.5px; font-weight: 700">{{p.name}}</button>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+<!-- INSTALACJE — TEMAT PO TEMACIE -->
+<section id="tematy" class="wrap" style="padding-top: 88px; display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 20px">
+<span id="kiedy" aria-hidden="true"></span><span id="smart" aria-hidden="true"></span><span id="bezpieczenstwo" aria-hidden="true"></span><span id="internet" aria-hidden="true"></span><span id="ladowarka" aria-hidden="true"></span>
+<div style="display: flex; flex-direction: column; gap: 10px; padding-bottom: 6px">
+<span class="eb" style="color: var(--k-it)"><span class="nb">PRO-KOM</span> Instalacje · temat po temacie</span>
+<h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Konkretnie: co robimy w domu.</h2>
+</div>
+<div role="tablist" aria-label="Tematy instalacji" class="dr" style="grid-template-columns: repeat(5, minmax(0, 1fr))">
+<sc-for list="{{ttabs}}" as="t" hint-placeholder-count="5">
+<button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" class="dt" style="--c: var(--k-i); background: {{t.bg}}; border-color: {{t.bd}}">
+<span class="d" style="font-size: clamp(15px, 1.3vw, 19px); letter-spacing: -.02em">{{t.name}}</span>
+<span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: rgba(var(--r-w),.7)">{{t.short}}</span>
+<span aria-hidden="true" style="display: block; height: 3px; border-radius: 3px; background: var(--k-i); width: {{t.bar}}; transition: width .6s cubic-bezier(.2,.8,.2,1); margin-top: 2px"></span>
+</button>
+</sc-for>
+</div>
+<div class="{{topic.cls}}" role="tabpanel" style="--c: var(--k-i); background: var(--k-id); align-items: flex-start">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span class="eb" style="color: var(--k-it)">{{topic.eb}}</span>
+<h3 class="d" style="font-size: clamp(24px, 2.5vw, 38px)">{{topic.h}}</h3>
+<p style="font-size: 15.5px; line-height: 1.55; color: rgba(var(--r-w),.82); max-width: 520px">{{topic.lead}}</p>
+<p style="font-size: 13.5px; line-height: 1.5; color: var(--k-it); max-width: 520px">{{topic.note}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 2px">
+<a class="btn" href="https://prokominstalacje.pl" style="height: 50px; padding: 0 22px; border-radius: 16px; background: var(--k-i); color: var(--k-ii); font-weight: 800; font-size: 15.5px; display: flex; align-items: center">{{topic.cta}} ↗</a>
+<a href="tel:+48889003889" class="btn d nb" style="height: 50px; padding: 0 18px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-size: 17px; letter-spacing: 0; display: flex; align-items: center">889 003 889</a>
+</div>
+</div>
+<div class="tg" style="flex: 1.5 1 520px; min-width: 0; grid-template-columns: {{topic.cols}}">
+<sc-for list="{{topic.items}}" as="x" hint-placeholder-count="6">
+<div class="tt" style="background: {{x.bg}}; color: {{x.ink}}; border-color: {{x.bd}}">
+<span style="font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: {{x.kc}}">{{x.k}}</span>
+<span class="d" style="font-size: 16px; letter-spacing: -.01em">{{x.t}}</span>
+<span style="font-size: 13px; line-height: 1.4; opacity: .82">{{x.d}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- JAK TO WYGLĄDA U CIEBIE -->
+<section id="u-ciebie" class="wrap" style="padding-top: 88px; scroll-margin-top: 20px">
+<div style="border-radius: 32px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: clamp(22px, 2.4vw, 36px); display: flex; flex-wrap: wrap; gap: 24px clamp(28px, 3.4vw, 56px); align-items: center">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span class="eb" style="color: var(--k-gt)">Jak to wygląda u Ciebie</span>
+<h2 class="d" style="font-size: clamp(26px, 2.8vw, 42px)">Jeden dom. Kilka linii. Jeden telefon.</h2>
+<p style="font-size: 15.5px; line-height: 1.55; color: var(--k-ink2); max-width: 520px">Wybierz przykład i zobacz, która linia <span class="nb">PRO-KOM</span> co u Ciebie robi. Dzwonisz raz — łączymy Cię z właściwym zespołem.</p>
+<div role="group" aria-label="Wybierz przykład" style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ex.tabs}}" as="x" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{x.on}}" onClick="{{x.pick}}" class="btn" style="height: 42px; padding: 0 16px; border-radius: 999px; border: 1.5px solid {{x.bd}}; background: {{x.bg}}; color: {{x.ink}}; font: 800 14.5px Manrope, sans-serif">{{x.name}}</button>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 2px">
+<a class="btn d nb" href="tel:+48883200151" style="height: 50px; padding: 0 22px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-size: 17px; letter-spacing: 0; display: flex; align-items: center">883 200 151</a>
+<a class="btn" href="#napisz" style="height: 50px; padding: 0 18px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.24); font-weight: 800; font-size: 15px; display: flex; align-items: center">Opisz swój dom</a>
+</div>
+</div>
+<div class="tw" style="flex: 1.3 1 520px; min-width: 0">
+<div class="th">
+<span aria-hidden="true" class="thi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4zM10 20v-6h4v6"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px; min-width: 0"><span style="font-size: 11.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--k-gt)">{{ex.node}}</span><span class="d" style="font-size: clamp(18px, 1.6vw, 24px); letter-spacing: -.02em">{{ex.title}}</span></span>
+</div>
+<sc-for list="{{ex.cards}}" as="c" hint-placeholder-count="3">
+<a href="{{c.url}}" class="{{c.cls}}" style="--c: {{c.cd}}; background: {{c.dark}}; animation-delay: {{c.delay}}">
+<span style="display: flex; flex-direction: column; gap: 3px; flex: none; width: 112px"><span class="d nb" style="font-size: 16px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em">PRO<span style="width: 7px; height: 3px; display: block; background: {{c.cd}}"></span>KOM</span><span class="d" style="font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: {{c.ct}}">{{c.line}}</span></span>
+<span style="flex: 1 1 220px; min-width: 0; display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{c.items}}" as="it" hint-placeholder-count="3"><span class="tch">{{it}}</span></sc-for>
+</span>
+<span class="tph d">{{c.phone}}<i aria-hidden="true">↗</i></span>
+</a>
+</sc-for>
+<div class="te"><span><i></i>Jedna firma</span><span><i></i>Jeden salon w Rabce-Zdroju</span><span><i></i>Jeden numer na start: 883 200 151</span></div>
+</div>
+</div>
+</section>
+
+<!-- GWARANCJE I SALON -->
+<section id="opieka" class="wrap" style="padding-top: 88px; display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch; scroll-margin-top: 20px">
+<div style="flex: 1.4 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span class="eb" style="color: var(--k-gt)">Gwarancje i opieka</span>
+<h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Po montażu i po naprawie zostajemy.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{care}}" as="g" hint-placeholder-count="4">
+<div class="gc" style="--c: {{g.cd}}"><span class="eb" style="color: {{g.ct}}">{{g.line}}</span><span class="d" style="font-size: clamp(22px, 2vw, 28px)">{{g.v}}</span><span style="font-size: 14px; line-height: 1.45; color: var(--k-ink2)">{{g.d}}</span></div>
+</sc-for>
+</div>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; border-radius: 28px; background: var(--k-card); border: 1px solid color-mix(in srgb, var(--k-g) 28%, transparent); padding: clamp(22px, 2.4vw, 32px); display: flex; flex-direction: column; gap: 14px">
+<span class="eb" style="color: var(--k-gt)">Salon · Rabka-Zdrój</span>
+<span class="d" style="font-size: clamp(24px, 2.4vw, 34px)">ul. Orkana 16B</span>
+<span style="font-size: 14.5px; color: var(--k-ink3); margin-top: -8px">34-700 Rabka-Zdrój · działamy od 2004 roku</span>
+<div style="display: flex; flex-direction: column">
+<span class="hr"><span style="color: var(--k-ink2)">Poniedziałek – piątek</span><span class="d nb" style="font-size: 16px; letter-spacing: 0">9:00–17:00</span></span>
+<span class="hr" style="border: none"><span style="color: var(--k-ink2)">Nie jesteś z okolicy?</span><span style="font-size: 14px; font-weight: 700">Zgłoś online, wyślij kurierem</span></span>
+</div>
+<span style="display: flex; flex-wrap: wrap; gap: 6px">
+<span class="chp" style="--c: var(--k-t)">Naprawy na miejscu</span><span class="chp" style="--c: var(--k-t)">Folia Hammer Glass od ręki</span><span class="chp" style="--c: var(--k-t)">Akcesoria GSM</span><span class="chp" style="--c: var(--k-y)">Odbiór komputera do gier</span>
+</span>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto">
+<a class="btn" href="Kontakt.dc.html" style="height: 48px; padding: 0 20px; border-radius: 14px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 15px; display: flex; align-items: center">Kontakt i dojazd →</a>
+<a class="btn d nb" href="tel:+48883200151" style="height: 48px; padding: 0 18px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.24); font-size: 16px; letter-spacing: 0; display: flex; align-items: center">883 200 151</a>
+</div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="pytania" style="max-width: 1560px; margin: 0 auto; padding: 88px clamp(20px, 3vw, 48px) 0; display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<span class="eb" style="color: var(--k-gt)">Pytania</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Dziesięć pytań, które słyszymy najczęściej</h2>
+<a href="Pomoc.dc.html" style="align-self: flex-start; margin-top: 8px; height: 52px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 15px; display: flex; align-items: center">Co zrobić, gdy… →</a>
+</div>
+<div style="flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{faq}}" as="f" hint-placeholder-count="10">
+<details open="{{f.open}}" style="border-radius: 22px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 22px 26px">
+<summary style="cursor: pointer; font-family: Archivo, sans-serif; font-weight: 800; font-size: 19px; display: flex; gap: 16px; align-items: baseline; list-style: none"><span style="font-size: 13px; color: {{f.c}}">{{f.n}}</span>{{f.q}}</summary>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); padding: 12px 0 0 38px">{{f.a}}</p>
+</details>
+</sc-for>
+</div>
+</section>
+
+<!-- FORMULARZ -->
+<section id="napisz" style="max-width: 1560px; margin: 0 auto; padding: 88px clamp(20px, 3vw, 48px) 0; scroll-margin-top: 20px">
+<div style="border-radius: 36px; overflow: hidden; display: flex; flex-wrap: wrap; border: 1px solid rgba(var(--r-w),.1)">
+<div style="flex: 1 1 400px; min-width: 0; background: var(--k-card); padding: 48px; display: flex; flex-direction: column; gap: 22px; position: relative; overflow: hidden">
+<span aria-hidden="true" style="position: absolute; left: -120px; bottom: -120px; width: 380px; height: 380px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--k-g) 30%, transparent)"></span>
+<span class="eb" style="color: var(--k-gt)">Napisz</span>
+<h2 class="d" style="font-size: clamp(34px, 4vw, 54px)">Opisz, czego potrzebujesz.</h2>
+<p style="font-size: 16.5px; line-height: 1.6; color: var(--k-ink3)">Wybierz temat, a wiadomość trafi prosto do zespołu, który się tym zajmuje. Nie wiesz, który to temat? Też dobrze — pokierujemy.</p>
+<div style="display: flex; flex-direction: column; position: relative">
+<span style="display: flex; gap: 16px; align-items: baseline; padding: 14px 0; border-top: 1px solid rgba(var(--r-w),.12)"><span class="d" style="font-size: 18px; color: var(--k-g); letter-spacing: 0">01</span><span style="font-size: 15.5px; font-weight: 600">Wysyłasz wiadomość z tematem</span></span>
+<span style="display: flex; gap: 16px; align-items: baseline; padding: 14px 0; border-top: 1px solid rgba(var(--r-w),.12)"><span class="d" style="font-size: 18px; color: var(--k-g); letter-spacing: 0">02</span><span style="font-size: 15.5px; font-weight: 600">Odzywa się właściwy zespół</span></span>
+<span style="display: flex; gap: 16px; align-items: baseline; padding: 14px 0; border-top: 1px solid rgba(var(--r-w),.12)"><span class="d" style="font-size: 18px; color: var(--k-g); letter-spacing: 0">03</span><span style="font-size: 15.5px; font-weight: 600">Dostajesz plan albo wycenę</span></span>
+</div>
+</div>
+<form style="flex: 1.3 1 480px; min-width: 0; background: var(--k-bg2); padding: 48px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 700">Czego dotyczy sprawa?</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px" role="group" aria-label="Czego dotyczy sprawa">
+<sc-for list="{{topics}}" as="t" hint-placeholder-count="5">
+<button type="button" onClick="{{t.pick}}" aria-pressed="{{t.on}}" style="min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid {{t.bd}}; background: {{t.bg}}; color: var(--k-ink); font-size: 14px; font-weight: 700; display: flex; gap: 8px; align-items: center"><span style="width: 12px; height: 4px; background: {{t.cd}}"></span>{{t.name}}</button>
+</sc-for>
+</div>
+<span style="font-size: 13.5px; color: var(--k-ink3)">Trafi do: <strong style="color: var(--k-ink)">{{topicMail}}</strong></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="d1" style="font-size: 14px; font-weight: 700">Imię</label><input id="d1" autocomplete="name" style="height: 54px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="d2" style="font-size: 14px; font-weight: 700">Telefon lub e-mail</label><input id="d2" style="height: 54px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="d3" style="font-size: 14px; font-weight: 700">Miejscowość</label><input id="d3" style="height: 54px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="d4" style="font-size: 14px; font-weight: 700">Wiadomość</label><textarea id="d4" rows="4" placeholder="Np. buduję dom, chcę zaplanować kamery, alarm i sieć" style="border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 14px 16px; font: 500 16px Manrope, sans-serif; resize: vertical"></textarea></div>
+<p style="font-size: 13px; line-height: 1.5; color: var(--k-ink3)">Zgadzam się na przetwarzanie danych przez PRO-KOM Tadeusz Wójciak w celu odpowiedzi na zapytanie. Szczegóły w polityce prywatności.</p>
+<button type="button" style="height: 58px; border-radius: 16px; border: none; background: var(--k-g); color: var(--k-gi); font-size: 17px; font-weight: 800">Wyślij wiadomość</button>
+</form>
+</div>
+</section>
+
+<!-- CO DALEJ -->
+<section style="max-width: 1560px; margin: 0 auto; padding: 88px clamp(20px, 3vw, 48px) 0; display: flex; flex-direction: column; gap: 28px">
+<h2 class="d" style="font-size: clamp(30px, 3.6vw, 48px)">Co dalej?</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 14px">
+<a href="Narzedzia.dc.html" class="lift" style="border-radius: 24px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 26px; display: flex; flex-direction: column; gap: 10px; min-height: 190px"><span class="eb" style="color: var(--k-gt)">Załatw online</span><span class="d" style="font-size: 26px">Załatw to bez dzwonienia</span><span style="font-size: 15px; line-height: 1.5; color: var(--k-ink3)">Zgłoszenie naprawy, wycena strony, plan instalacji — wszystko, co da się zrobić przez internet.</span><span aria-hidden="true" style="margin-top: auto; font-weight: 800; color: var(--k-gt)">Przejdź →</span></a>
+<a href="Pomoc.dc.html" class="lift" style="border-radius: 24px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 26px; display: flex; flex-direction: column; gap: 10px; min-height: 190px"><span class="eb" style="color: var(--k-gt)">Pomoc</span><span class="d" style="font-size: 26px">Co zrobić, gdy…</span><span style="font-size: 15px; line-height: 1.5; color: var(--k-ink3)">Kasa nie drukuje, padło Wi-Fi, pękł ekran. Krótkie instrukcje i właściwy numer.</span><span aria-hidden="true" style="margin-top: auto; font-weight: 800; color: var(--k-gt)">Przejdź →</span></a>
+<a href="DlaFirm.dc.html" class="lift" style="border-radius: 24px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 26px; display: flex; flex-direction: column; gap: 10px; min-height: 190px"><span class="eb" style="color: var(--k-gt)">Dla firm</span><span class="d" style="font-size: 26px">Masz też firmę?</span><span style="font-size: 15px; line-height: 1.5; color: var(--k-ink3)">Kasa, komputery, kamery i strona — jeden plan dla Twojej branży.</span><span aria-hidden="true" style="margin-top: auto; font-weight: 800; color: var(--k-gt)">Przejdź →</span></a>
+</div>
+</section>
+
+<!-- FINAŁ -->
+<section style="max-width: 1560px; margin: 0 auto; padding: 88px clamp(20px, 3vw, 48px) 110px; display: flex; flex-direction: column; gap: 36px">
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px); max-width: 900px">Wolisz zadzwonić? Każda linia ma swój numer.</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 14px">
+<sc-for list="{{nums}}" as="n" hint-placeholder-count="3">
+<a href="{{n.telHref}}" class="lt" style="--c: {{n.cd}}; border-radius: 28px; background: {{n.dark}}; padding: 28px; display: flex; flex-direction: column; gap: 12px; min-height: 200px">
+<span class="sgn"><b>PRO<i></i>KOM</b><em>{{n.line}}</em></span>
+<span style="font-size: 15.5px; color: rgba(var(--r-w),.78)">{{n.what}}</span>
+<span class="d" style="font-size: 40px; margin-top: auto; letter-spacing: -.01em">{{n.phone}}</span>
+<span style="font-size: 13.5px; color: {{n.ct}}">{{n.note}}</span>
+</a>
+</sc-for>
+</div>
+<p style="font-size: 15px; color: var(--k-ink3)">Salon PRO-KOM: ul. Orkana 16B, 34-700 Rabka-Zdrój · <a href="Kontakt.dc.html" style="color: var(--k-gt); font-weight: 800">Kontakt i dojazd →</a></p>
+</section>
+
+<dc-import name="Stopka" hint-size="100%,720px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":8000}}'>
+class Component extends DCLogic {
+  lines() {
+    return {
+      instalacje: { line: 'Instalacje', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', domain: 'prokominstalacje.pl', url: 'https://prokominstalacje.pl', phone: '889 003 889', tel: '+48889003889', mail: 'kontakt@prokominstalacje.pl' },
+      tech: { line: 'Tech', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', domain: 'prokomserwis.pl', url: 'https://prokomserwis.pl', phone: '883 200 151', tel: '+48883200151', mail: 'sklep@pro-kom.eu' },
+      gaming: { line: 'Gaming', cd: 'var(--k-y)', ct: 'var(--k-y)', dark: 'var(--k-yd)', domain: 'prokomgaming.pl', url: 'https://prokomgaming.pl', phone: '883 200 151', tel: '+48883200151', mail: 'kontakt@prokomgaming.pl' },
+      software: { line: 'Software', cd: 'var(--k-s)', ct: 'var(--k-st)', dark: 'var(--k-sd)', domain: 'prokomsoftware.pl', url: 'https://prokomsoftware.pl', phone: '883 200 151', tel: '+48883200151', mail: 'kontakt@prokomsoftware.pl' }
+    };
+  }
+  sits() {
+    return [
+      { name: 'Buduję dom', title: 'Zaplanuj instalacje, zanim wejdą tynki.', lead: 'To najlepszy moment. Kable kładzie się raz — potem zostaje już tylko kucie ścian.', call: 'instalacje', g: { instalacje: ['Plan instalacji na rzutach domu', 'Okablowanie sieci i miejsce na szafkę', 'Alarm i wideodomofon', 'Monitoring posesji', 'Smart home Ampio', 'Przewód pod ładowarkę do auta'] }, steps: ['Przyślij rzuty domu — nawet wstępne.', 'Ustalimy punkty i trasy kabli razem z Tobą albo z architektem.', 'Dostaniesz plan i wycenę przed rozpoczęciem prac.'] },
+      { name: 'Remontuję', title: 'Remont to druga szansa na porządne kable.', lead: 'Skoro i tak zdejmujesz tynki albo podłogi, dołóż to, czego dziś brakuje.', call: 'instalacje', g: { instalacje: ['Okablowanie sieci w remontowanych pomieszczeniach', 'Wi-Fi w całym domu', 'Alarm i wideodomofon', 'Smart home Ampio'], tech: ['Naprawa i odświeżenie sprzętu, który już masz'] }, steps: ['Powiedz, które pomieszczenia remontujesz.', 'Sprawdzimy, co da się dołożyć przy okazji prac.', 'Dostaniesz plan i wycenę.'] },
+      { name: 'Mieszkam i chcę unowocześnić', title: 'Dom gotowy, a mimo to da się go ulepszyć.', lead: 'Kamery, wideodomofon, lepsze Wi-Fi czy ładowarka do auta — zaczynamy od tego, co najbardziej doskwiera.', call: 'instalacje', g: { instalacje: ['Monitoring z podglądem w telefonie', 'Wideodomofon z powiadomieniem w telefonie', 'Wi-Fi tam, gdzie dziś nie sięga', 'Ładowarka do auta Elzab EcoPower'], tech: ['Folia Hammer Glass na telefon', 'Akcesoria GSM w salonie'], gaming: ['Komputer do gier złożony w Rabce-Zdroju'] }, steps: ['Zadzwoń i powiedz, co chcesz poprawić.', 'Obejrzymy dom albo ustalimy szczegóły przez telefon.', 'Dostaniesz propozycję i wycenę.'] },
+      { name: 'Coś się zepsuło', title: 'Przynieś, wyślij albo zgłoś online.', lead: 'Diagnoza i wycena są bezpłatne. Decyzję o naprawie podejmujesz, gdy znasz koszt.', call: 'tech', g: { tech: ['Telefon albo tablet', 'Laptop albo komputer', 'Konsola', 'Drukarka', 'Odzyskiwanie danych'], instalacje: ['Kamery, alarm albo sieć przestały działać — zgłoś awarię'] }, steps: ['Zgłoś naprawę online albo przyjdź do salonu.', 'Zdiagnozujemy sprzęt i podamy wycenę — bezpłatnie.', 'Zgadzasz się, naprawiamy. Status sprawdzasz online.'] },
+      { name: 'Szukam komputera do gier', title: 'Komputer pod grę, w którą grasz.', lead: 'Wybierasz grę i monitor, a my pokazujemy zestawy z liczbą klatek i źródłem wyniku.', call: 'gaming', g: { gaming: ['16 gotowych zestawów', 'Dobór pod grę — 33 tytuły', 'Konfigurator — składasz zestaw po swojemu', 'Porównanie zestawów', 'Gwarancja 2 lata na cały komputer'], tech: ['Serwis na miejscu w Rabce-Zdroju'] }, steps: ['Wybierz grę i monitor w „W co grasz?”.', 'Zobacz zestawy z wynikiem klatek.', 'Wyślij zapytanie — dostaniesz ofertę z ceną.'] },
+      { name: 'Kupuję dla dziecka', title: 'Nie musisz się znać. Od tego jesteśmy.', lead: 'Powiedz, w co gra i jaki ma monitor. Resztę dobierzemy i wytłumaczymy bez żargonu.', call: 'gaming', g: { gaming: ['Strona „Dla rodziców” — wybór krok po kroku', 'Dobór pod grę dziecka', 'Odbiór w salonie w Rabce-Zdroju albo wysyłka', 'Gwarancja 2 lata'], tech: ['Folia Hammer Glass na telefon dziecka', 'Naprawa telefonu, laptopa, konsoli'] }, steps: ['Zapytaj dziecko, w co gra najczęściej.', 'Wejdź na „Dla rodziców” albo zadzwoń.', 'Dostaniesz ofertę z ceną i wyjaśnieniem, co kupujesz.'] },
+      { name: 'Mam apartament na wynajem', title: 'Goście wchodzą na kod, a Ty nie jeździsz z kluczami.', lead: 'Apartament, który obsługuje się na odległość — i stronę, przez którą goście go znajdą.', call: 'instalacje', g: { instalacje: ['Zamki na kod i kontrola dostępu', 'Wi-Fi dla gości', 'Monitoring wejścia', 'Smart home: ogrzewanie i światło na odległość'], software: ['Strona apartamentu widoczna w Google'] }, steps: ['Opisz apartament: ile pokoi, jak dziś wydajesz klucze.', 'Dobierzemy zamki, Wi-Fi i monitoring.', 'Osobno wycenimy stronę obiektu.'] }
+    ];
+  }
+  renderVals() {
+    const st = this.state || {};
+    const L = this.lines();
+    const S = this.sits();
+    const si = st.sit || 0;
+    const cur = S[si];
+    const groups = Object.keys(cur.g).map((k) => ({ ...L[k], items: cur.g[k] }));
+    const P = [
+      ['1', 'Kamera', '23%', '37%', 'Na zewnątrz', 'Kamera z nagrywaniem i podglądem w telefonie.', 'Widzisz wejście i podjazd z dowolnego miejsca.', 'Kabel do kamery najlepiej położyć przed tynkami i ociepleniem.'],
+      ['2', 'Wideodomofon', '11%', '70%', 'Przy furtce', 'Panel przy furtce i ekran w domu albo aplikacja w telefonie.', 'Widzisz, kto dzwoni, i otwierasz bez wychodzenia.', 'Przewód do furtki — razem z przyłączami, przed ułożeniem kostki.'],
+      ['3', 'Brama', '6%', '82%', 'Wjazd', 'Brama wjazdowa podłączona do systemu domu.', 'Otwierasz ją z telefonu albo razem ze sceną „wracam do domu”.', 'Zasilanie i sterowanie bramy — przed ułożeniem podjazdu.'],
+      ['4', 'Alarm', '32%', '72%', 'Parter', 'Czujki, centrala i powiadomienie w telefonie.', 'Dom daje znać, gdy dzieje się coś niepokojącego.', 'Okablowanie czujek — przed tynkami.'],
+      ['5', 'Smart home Ampio', '40%', '47%', 'Cały dom', 'System, który łączy światło, rolety, ogrzewanie i resztę instalacji.', 'Jedna aplikacja i sceny zamiast kilku pilotów.', 'Na etapie projektu — smart home zmienia sposób prowadzenia kabli.'],
+      ['6', 'Rolety i światło', '30%', '44%', 'Okna i sufity', 'Rolety i oświetlenie sterowane z systemu.', 'Dom sam zasłania okna wieczorem i gasi światło, gdy wychodzisz.', 'Razem ze smart home, przed tynkami.'],
+      ['7', 'Wi-Fi', '55%', '38%', 'Sufit', 'Punkty dostępowe rozmieszczone po domu.', 'Zasięg w każdym pokoju, a nie tylko przy routerze.', 'Kabel do każdego punktu — przed tynkami.'],
+      ['8', 'Szafka sieciowa', '61%', '79%', 'Pomieszczenie gospodarcze', 'Miejsce, w którym schodzą się wszystkie kable domu.', 'Porządek i łatwy serwis przez lata.', 'Miejsce na szafkę ustalamy na etapie projektu.'],
+      ['9', 'Nagłośnienie', '52%', '70%', 'Salon', 'Głośniki w suficie albo ścianie; muzyka w wielu pokojach przez Sonos, HEOS albo MusicCast.', 'Muzyka bez kabli na wierzchu.', 'Przewody głośnikowe — przed tynkami.'],
+      ['10', 'Antena RTV/SAT', '58.6%', '9%', 'Dach', 'Antena naziemna albo satelitarna z okablowaniem do pokoi.', 'Telewizja w każdym pokoju, w którym jej chcesz.', 'Przewody antenowe — przed tynkami; antena po pokryciu dachu.'],
+      ['11', 'Ładowarka do auta', '76%', '72%', 'Garaż', 'Ładowarka Elzab EcoPower na ścianie garażu.', 'Auto ładuje się w nocy, pod domem.', 'Przewód zasilający do garażu — przed tynkami, nawet jeśli auto kupisz później.']
+    ];
+    const pi = st.pt || 0;
+    const pts = P.map((p, i) => { const on = i === pi; return { n: p[0], name: p[1], x: p[2], y: p[3], on: on, bd: on ? 'var(--k-white)' : 'var(--k-i)', bg: on ? 'var(--k-i)' : 'var(--k-id)', ink: on ? 'var(--k-ii)' : 'var(--k-it)', glow: on ? '0 0 0 8px color-mix(in srgb, var(--k-i) 25%, transparent), 0 0 40px var(--k-i)' : 'none', chipBd: on ? 'var(--k-i)' : 'rgba(var(--r-w),.16)', pick: () => this.setState({ pt: i }) }; });
+    const pt = { n: P[pi][0], name: P[pi][1], where: P[pi][4], what: P[pi][5], why: P[pi][6], when: P[pi][7] };
+    const tk = st.topic || 'ogolne';
+    const T = [{ key: 'ogolne', name: 'Nie wiem / ogólne', cd: 'var(--k-g)', mail: 'biuro@pro-kom.eu' }, { key: 'i', name: 'Instalacje w domu', cd: 'var(--k-i)', mail: L.instalacje.mail }, { key: 't', name: 'Naprawa sprzętu', cd: 'var(--k-t)', mail: L.tech.mail }, { key: 'g', name: 'Komputer do gier', cd: 'var(--k-y)', mail: L.gaming.mail }, { key: 's', name: 'Strona apartamentu', cd: 'var(--k-s)', mail: L.software.mail }];
+    const names = ['Skrzat', 'Licho', 'Bies', 'Wodnik', 'Strzyga', 'Kikimora', 'Zmora', 'Rusałka', 'Baba Jaga', 'Bazyliszek', 'Pani Zimy', 'Wilkołak', 'Wampir', 'Weles', 'Żmij', 'Perun'];
+    const R = {
+      facts: [{ v: '2004', l: 'od tego roku działamy w Rabce-Zdroju', c: 'var(--k-ink)' }, { v: '1 salon', l: 'ul. Orkana 16B — przyjdź, zapytaj, zostaw sprzęt', c: 'var(--k-ink)' }, { v: 'Bezpłatnie', l: 'diagnoza i wycena naprawy', c: 'var(--k-tt)' }, { v: '24 mies.', l: 'gwarancji PRO-KOM na montaż instalacji', c: 'var(--k-it)' }, { v: '2 lata', l: 'gwarancji na cały komputer do gier', c: 'var(--k-y)' }],
+      trio: [
+        { label: 'INSTALACJE', isI: true, ink: 'var(--k-ii)', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', edge: 'rgba(var(--r-w),.1)', anchor: '#przekroj', title: 'Dom, który pilnuje i steruje się sam.', text: 'Monitoring, alarm, wideodomofon, sieć i Wi-Fi, smart home Ampio, ładowarka do auta.' },
+        { label: 'TECH', isT: true, ink: 'var(--k-ti)', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', edge: 'rgba(var(--r-w),.1)', anchor: '#naprawy', title: 'Sprzęt, który znowu działa.', text: 'Naprawy telefonów, laptopów, konsol i drukarek. Bezpłatna diagnoza i wycena.' },
+        { label: 'GAMING', isG: true, ink: 'var(--k-yi)', cd: 'var(--k-y)', ct: 'var(--k-y)', dark: 'var(--k-yd)', edge: 'color-mix(in srgb, var(--k-y) 45%, transparent)', anchor: '#gaming', title: 'Komputer do gier z Rabki-Zdroju.', text: '16 zestawów, dobór pod grę, konfigurator. Gwarancja 2 lata, wysyłka w całej Polsce.' }
+      ],
+      sits: S.map((s, i) => { const on = i === si; return { n: '0' + (i + 1), name: s.name, on: on, bd: on ? 'var(--k-g)' : 'rgba(var(--r-w),.12)', bg: on ? 'var(--k-g)' : 'var(--k-card)', ink: on ? 'var(--k-gi)' : 'var(--k-ink)', pick: () => this.setState({ sit: i }) }; }),
+      plan: { name: cur.name, title: cur.title, lead: cur.lead, groups: groups, steps: cur.steps.map((t, i) => ({ n: '0' + (i + 1), t: t })), phone: L[cur.call].phone, telHref: 'tel:' + L[cur.call].tel },
+      pts, pt,
+      stages: [
+        { n: '1', t: 'Projekt', d: 'Przysyłasz rzuty. Zaznaczamy kamery, alarm, sieć, smart home i ładowarkę.', tag: 'Najlepszy moment na start', bg: 'var(--k-card)', ink: 'var(--k-ink)', bd: 'rgba(var(--r-w),.1)', bar: 'var(--k-i)' },
+        { n: '2', t: 'Stan surowy', d: 'Ustalamy trasy kabli i miejsce na szafkę sieciową.', tag: 'Ustalenia na budowie', bg: 'var(--k-card)', ink: 'var(--k-ink)', bd: 'rgba(var(--r-w),.1)', bar: 'var(--k-i)' },
+        { n: '3', t: 'Przed tynkami', d: 'Kładziemy okablowanie. To ostatni moment, żeby zrobić to bez kucia ścian.', tag: 'NIE PRZEGAP TEGO ETAPU', bg: 'var(--k-i)', ink: 'var(--k-ii)', bd: 'var(--k-i)', bar: 'var(--k-ii)' },
+        { n: '4', t: 'Wykończenie', d: 'Montujemy urządzenia: kamery, czujki, panele, punkty Wi-Fi.', tag: 'Montaż urządzeń', bg: 'var(--k-card)', ink: 'var(--k-ink)', bd: 'rgba(var(--r-w),.1)', bar: 'var(--k-i)' },
+        { n: '5', t: 'Zamieszkanie', d: 'Uruchamiamy system i pokazujemy obsługę w telefonie. Potem serwis i przeglądy.', tag: 'Opieka po montażu', bg: 'var(--k-card)', ink: 'var(--k-ink)', bd: 'rgba(var(--r-w),.1)', bar: 'var(--k-g)' }
+      ],
+      ampio: [['Światło', 'Włączanie, ściemnianie i grupy świateł.'], ['Rolety', 'Pojedynczo, piętrami albo cały dom naraz.'], ['Ogrzewanie', 'Temperatura w pomieszczeniach, także na odległość.'], ['Bramy', 'Wjazdowa i garażowa z telefonu.'], ['Alarm', 'Uzbrajanie i powiadomienia. Gdy ubezpieczyciel wymaga klasy — Satel z integracją.'], ['Kamery', 'Podgląd w tej samej aplikacji.'], ['Wideodomofon', 'Widzisz, kto dzwoni, i otwierasz.'], ['Audio', 'Muzyka przez Sonos, HEOS albo MusicCast.'], ['Gniazda', 'Wyłączasz wybrane obwody jednym ruchem.'], ['Sceny', '„Wychodzę”, „Wieczór”, „Urlop” — jedno dotknięcie.'], ['Harmonogramy', 'Dom robi swoje o ustalonych porach.'], ['Aplikacja', 'Wszystko w telefonie, w domu i poza nim.']].map((a, i) => ({ n: (i < 9 ? '0' : '') + (i + 1), t: a[0], d: a[1] })),
+      safe: [{ t: 'Monitoring', d: 'Kamery z nagrywaniem i podglądem w telefonie. Najczęściej montujemy Hikvision, Dahua i BCS — dobieramy pod dom, nie pod markę.' }, { t: 'Alarm', d: 'Czujki i centrala z powiadomieniem w telefonie.' }, { t: 'Wideodomofon', d: 'Widzisz, kto stoi przy furtce, i otwierasz z domu albo z aplikacji.' }, { t: 'Serwis po montażu', d: 'Przeglądy, pomoc zdalna i naprawy. Przejmujemy też instalacje po innym wykonawcy.' }],
+      net: [{ t: 'Wi-Fi w całym domu', d: 'Punkty dostępowe na kablu zamiast wzmacniaczy w gniazdkach. Zasięg na piętrze i w piwnicy.', b1: '30%', b2: '55%', b3: '80%', b4: '100%' }, { t: 'Okablowanie', d: 'Gniazdo sieciowe tam, gdzie stoi telewizor, komputer i konsola. Szafka, w której wszystko się schodzi.', b1: '100%', b2: '100%', b3: '100%', b4: '100%' }, { t: 'Ogród i garaż', d: 'Zasięg na tarasie, przy bramie i w garażu — także dla kamer i ładowarki.', b1: '30%', b2: '55%', b3: '80%', b4: '80%' }, { t: 'Światłowód w domu', d: 'Doprowadzenie i rozprowadzenie łącza po domu, żeby prędkość z umowy docierała do pokoi.', b1: '55%', b2: '80%', b3: '100%', b4: '100%' }],
+      fix: [{ t: 'Telefony', d: 'Wyświetlacze, baterie, gniazda ładowania, głośniki i mikrofony, naprawy po zalaniu.' }, { t: 'Tablety', d: 'Diagnoza i naprawa.' }, { t: 'Laptopy', d: 'Diagnoza i naprawa.' }, { t: 'Komputery', d: 'Stacjonarne — diagnoza i naprawa.' }, { t: 'Konsole', d: 'Naprawa w serwisie.' }, { t: 'Drukarki', d: 'Naprawa w serwisie.' }, { t: 'Odzyskiwanie danych', d: 'Z telefonów i dysków.' }],
+      proc: [['Zgłoszenie', 'Online albo w salonie.'], ['Diagnostyka', 'Sprawdzamy, co się stało.'], ['Wycena', 'Bezpłatna, zanim cokolwiek zrobimy.'], ['Twoja decyzja', 'Zgadzasz się albo odbierasz sprzęt.'], ['Naprawa', 'Status widzisz online.'], ['Odbiór', 'W salonie albo kurierem.']].map((p, i) => ({ n: '0' + (i + 1), t: p[0], d: p[1] })),
+      beasts: names.map((n, i) => ({ n: (i < 9 ? '0' : '') + (i + 1), name: n, bg: i === 15 ? 'var(--k-y)' : 'color-mix(in srgb, var(--k-y) 5%, transparent)', ink: i === 15 ? 'var(--k-yi)' : 'var(--k-y)' })),
+      gways: [{ big: '33', t: 'Dobór pod grę', d: 'Wybierasz grę i monitor. Przy każdej liczbie klatek jest źródło wyniku.' }, { big: '16', t: 'Gotowe zestawy', d: 'Od FullHD po 4K. Możesz zmienić obudowę, chłodzenie, pamięć i dysk.' }, { big: '1:1', t: 'Konfigurator', d: 'Składasz komputer po swojemu i od razu widzisz cenę.' }, { big: 'A–Z', t: 'Dla rodziców', d: 'Wybór krok po kroku, bez żargonu. Odbiór w salonie albo wysyłka.' }],
+      inbox: ['Windows 11', 'Montaż', 'Test obciążeniowy', 'Pomiar klatek i metryka', 'Wi-Fi i Bluetooth', 'Wysyłka', 'Gwarancja 2 lata'],
+      faq: [
+        ['Buduję dom. Kiedy się do Was zgłosić?', 'Najlepiej na etapie projektu, najpóźniej przed tynkami. Wtedy kable da się położyć bez kucia ścian.', 'var(--k-it)'],
+        ['Mam gotowy dom. Da się coś dołożyć?', 'Część rzeczy tak — na przykład kamery, wideodomofon czy lepsze Wi-Fi. Zakres zależy od domu, dlatego najpierw rozmawiamy.', 'var(--k-it)'],
+        ['Na jakim systemie robicie smart home?', 'Na systemie Ampio. Muzykę w wielu pokojach łączymy przez Sonos, HEOS albo MusicCast.', 'var(--k-it)'],
+        ['Jakie kamery montujecie?', 'Najczęściej Hikvision, Dahua i BCS. Dobieramy sprzęt pod dom, nie pod markę.', 'var(--k-it)'],
+        ['Jaka jest gwarancja na instalację?', '24 miesiące gwarancji PRO-KOM na montaż. Sprzęt ma gwarancję producenta.', 'var(--k-it)'],
+        ['Ile kosztuje diagnoza naprawy?', 'Nic. Diagnoza i wycena są bezpłatne — płacisz tylko za naprawę, na którą się zgodzisz.', 'var(--k-tt)'],
+        ['Nie mieszkam w okolicy Rabki. Naprawicie mój telefon?', 'Tak. Zgłaszasz naprawę online i wysyłasz sprzęt kurierem — przyjmujemy z całej Polski.', 'var(--k-tt)'],
+        ['Jak kupić komputer do gier?', 'Wysyłasz zapytanie, dostajesz ofertę z ceną, płacisz po akceptacji, a my składamy, testujemy i wysyłamy komputer.', 'var(--k-y)'],
+        ['Kupuję komputer dla dziecka i się nie znam. Pomożecie?', 'Tak. Na prokomgaming.pl jest strona „Dla rodziców”, możesz też zadzwonić. Wystarczy wiedzieć, w co dziecko gra.', 'var(--k-y)'],
+        ['Gdzie jest salon i kiedy jest otwarty?', 'Rabka-Zdrój, ul. Orkana 16B, od poniedziałku do piątku 9:00–17:00. Serwis także w sobotę 9:00–14:00.', 'var(--k-gt)']
+      ].map((f, i) => ({ n: (i < 9 ? '0' : '') + (i + 1), q: f[0], a: f[1], c: f[2], open: i === 0 })),
+      topics: T.map((t) => { const on = t.key === tk; return { name: t.name, cd: t.cd, on: on, bd: on ? t.cd : 'rgba(var(--r-w),.14)', bg: on ? 'rgba(var(--r-w),.06)' : 'transparent', pick: () => this.setState({ topic: t.key }) }; }),
+      topicMail: T.find((t) => t.key === tk).mail,
+      nums: [
+        { line: 'Instalacje', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', edge: 'rgba(var(--r-w),.1)', what: 'Monitoring, alarm, sieć, smart home, ładowarka', phone: '889 003 889', telHref: 'tel:+48889003889', note: 'Odpowiemy w 24 godziny w dni robocze' },
+        { line: 'Tech', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', edge: 'rgba(var(--r-w),.1)', what: 'Naprawy telefonów, laptopów, konsol', phone: '883 200 151', telHref: 'tel:+48883200151', note: 'Bezpłatna diagnoza i wycena' },
+        { line: 'Gaming', cd: 'var(--k-y)', ct: 'var(--k-y)', dark: 'var(--k-yd)', edge: 'color-mix(in srgb, var(--k-y) 45%, transparent)', what: 'Komputery do gier', phone: '883 200 151', telHref: 'tel:+48883200151', note: 'Wysyłka w całej Polsce' }
+      ]
+    };
+    const lnI = st.ln || 0, lnN = st.lnN || 0;
+    const LD = [
+      { key: 'instalacje', label: 'INSTALACJE', short: 'Dom, który pilnuje i steruje się sam', ink: 'var(--k-ii)', h2: 'Dom, który pilnuje i steruje się sam.', lead: 'Monitoring, alarm, wideodomofon, sieć i Wi-Fi, smart home Ampio i ładowarka do auta. Projekt, montaż i serwis w jednej firmie.', promise: 'Odpowiemy w 24 godziny w dni robocze', cta: 'Zaplanuj instalację', chips: ['24 miesiące gwarancji na montaż', 'Serwis i przeglądy po montażu', 'Przejmujemy instalacje po innym wykonawcy'], items: [['Monitoring', 'Kamery z nagrywaniem i podglądem w telefonie.'], ['Alarm', 'Czujki i centrala z powiadomieniem w telefonie.'], ['Wideodomofon', 'Widzisz, kto dzwoni, i otwierasz z aplikacji.'], ['Sieć i Wi-Fi', 'Punkty dostępowe na kablu, zasięg w całym domu.'], ['Smart home Ampio', 'Światło, rolety i ogrzewanie w jednej aplikacji.'], ['Ładowarka do auta', 'Elzab EcoPower na ścianie garażu.']], steps: ['Przysyłasz rzuty albo opisujesz dom', 'Ustalamy punkty i trasy kabli', 'Dostajesz plan i wycenę przed pracami'] },
+      { key: 'tech', label: 'TECH', short: 'Sprzęt, który znowu działa', ink: 'var(--k-ti)', h2: 'Coś się zepsuło? Naprawimy.', lead: 'Diagnoza i wycena są bezpłatne — płacisz tylko za naprawę, na którą się zgodzisz. Sprzęt przynosisz do salonu w Rabce-Zdroju albo wysyłasz kurierem z dowolnego miejsca w Polsce.', promise: 'Bezpłatna diagnoza i wycena', cta: 'Zgłoś naprawę', chips: ['Akcesoria GSM: ładowarki, kable, etui, powerbanki, słuchawki', 'Pon–pt 9:00–17:00, sobota 9:00–14:00', 'Wysyłka kurierem z całej Polski'], items: [['Telefony', 'Wyświetlacze, baterie, gniazda ładowania, głośniki i mikrofony, naprawy po zalaniu.'], ['Tablety i laptopy', 'Diagnoza i naprawa.'], ['Komputery', 'Stacjonarne — diagnoza i naprawa.'], ['Konsole i drukarki', 'Naprawa w serwisie.'], ['Odzyskiwanie danych', 'Z telefonów i dysków.'], ['Hammer Glass', 'Folia cięta ploterem pod Twój model, zakładana od ręki.']], steps: ['Zgłaszasz online albo w salonie', 'Bezpłatna diagnoza i wycena', 'Zgadzasz się — naprawiamy, status online'] },
+      { key: 'gaming', label: 'GAMING', short: 'Komputer do gier z Rabki-Zdroju', ink: 'var(--k-yi)', h2: 'Komputery do gier. Sprawdzone w grach.', lead: 'Składane ręcznie w Rabce-Zdroju. Każdy zestaw nosi imię istoty ze słowiańskich podań, a liczbę klatek pokazujemy ze źródłem. Wysyłamy do całej Polski.', promise: 'Wysyłka w całej Polsce', cta: 'Dobierz komputer', chips: R.inbox, items: [['Dobór pod grę', '33 tytuły. Wybierasz grę i monitor, przy każdej liczbie klatek jest źródło wyniku.'], ['16 gotowych zestawów', 'Od FullHD po 4K, w dziewięciu poziomach mocy.'], ['Zmiany w zestawie', 'Możesz zmienić obudowę, chłodzenie, pamięć i dysk.'], ['Konfigurator', 'Składasz komputer po swojemu, krok po kroku.'], ['Dla rodziców', 'Wybór krok po kroku, bez żargonu.'], ['Odbiór albo wysyłka', 'W salonie w Rabce-Zdroju albo kurierem.']], steps: ['Wybierasz grę i monitor w „W co grasz?”', 'Wysyłasz zapytanie i dostajesz ofertę', 'Składamy, testujemy i wysyłamy'] }
+    ];
+    const goLn = (i) => () => this.setState({ ln: i, lnN: lnN + 1 });
+    const ld = LD[lnI], ll = L[ld.key];
+    const ICD = { 'Monitoring': 'M3 7h12v10H3zM15 10l6-3v10l-6-3', 'Alarm': 'M6 16v-5a6 6 0 1112 0v5l2 2H4zM10 21h4', 'Wideodomofon': 'M6 3h12v18H6zM9 7h6v5H9zM12 16h.01', 'Sieć i Wi-Fi': 'M2 9a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0M12 19.5h.01', 'Smart home Ampio': 'M4 11l8-7 8 7v9H4zM10 20v-5h4v5', 'Ładowarka do auta': 'M13 2L5 14h6l-1 8 8-12h-6z', 'Telefony': 'M8 2h8v20H8zM11 18h2', 'Tablety i laptopy': 'M4 5h16v10H4zM2 19h20', 'Komputery': 'M3 5h18v11H3zM9 20h6M12 16v4', 'Konsole i drukarki': 'M6 9h12a4 4 0 014 4v1a3 3 0 01-5.3 1.9L15 14H9l-1.7 1.9A3 3 0 012 14v-1a4 4 0 014-4zM8 11v4M6 13h4', 'Odzyskiwanie danych': 'M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3', 'Hammer Glass': 'M8 2h8v20H8zM10 7l4 4', 'Dobór pod grę': 'M6 9h12a4 4 0 014 4v1a3 3 0 01-5.3 1.9L15 14H9l-1.7 1.9A3 3 0 012 14v-1a4 4 0 014-4zM8 11v4M6 13h4', '16 gotowych zestawów': 'M7 2h10v20H7zM10 6h4M12 17h.01', 'Zmiany w zestawie': 'M14.5 6.5a4 4 0 00-5 5L3 18l3 3 6.5-6.5a4 4 0 005-5L15 12l-3-3z', 'Konfigurator': 'M4 6h16M4 12h16M4 18h16M15 4v4M8 10v4M17 16v4', 'Dla rodziców': 'M8 8a3 3 0 100-6 3 3 0 000 6zM16 10a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM2 21v-2a5 5 0 0110 0v2M13 21v-1.5a3.5 3.5 0 017 0V21', 'Odbiór albo wysyłka': 'M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10' };
+    const FXD = { instalacje: ['24 miesiące gwarancji na montaż', 'Projekt, montaż i serwis — jedna ekipa', 'Przejmujemy też instalacje po innym wykonawcy'], tech: ['Bezpłatna diagnoza i wycena', 'Status naprawy online, bez dzwonienia', 'Salon w Rabce-Zdroju, także w soboty'], gaming: ['Składane ręcznie w Rabce-Zdroju', 'Klatki mierzone w prawdziwych grach', 'Gwarancja 2 lata na cały komputer'] };
+    const Lx = { ...ll, label: ld.label, ink: ld.ink, h2: ld.h2, lead: ld.lead, promise: ld.promise, cta: ld.cta, chips: ld.chips, telHref: 'tel:' + ll.tel, items: ld.items.map((x) => ({ t: x[0], d: x[1], ic: ICD[x[0]] || 'M12 8a4 4 0 100 8 4 4 0 000-8z' })), facts: (FXD[ld.key] || []).map((t) => ({ t })), steps: ld.steps.map((t, i) => ({ n: '0' + (i + 1), t: t })), cls: 'dsg ' + (lnN % 2 ? 'sa' : 'sb'), isI: lnI === 0, isT: lnI === 1, isG: lnI === 2 };
+    const ltabs = LD.map((x, i) => { const on = i === lnI, l = L[x.key]; return { name: l.line, short: x.short, cd: l.cd, on: on ? 'true' : 'false', bg: on ? l.dark : 'var(--k-card)', bd: on ? l.cd : 'rgba(var(--r-w),.1)', bar: on ? '100%' : '18px', dot: on ? '1' : '0', pick: goLn(i) }; });
+    const CM = [['Wejście', 'cam'], ['Podjazd i brama', 'cam'], ['Ogród', 'cam'], ['Wi-Fi', 'wifi']];
+    const cmi = st.cm === undefined ? 0 : st.cm;
+    const cams = CM.map((x, i) => ({ label: x[0], cam: x[1] === 'cam', wifi: x[1] === 'wifi', cls: 'cb ' + x[1], on: i === cmi ? 'true' : 'false', aria: 'Pokaż: ' + x[0], bd: i === cmi ? 'var(--k-i)' : 'transparent', pick: () => this.setState({ cm: i }) }));
+    const camCols = CM.map((x, i) => (i === cmi ? '2.6fr' : '1fr')).join(' ');
+    const camNote = cmi === 3 ? 'Punkty dostępowe na kablu — zasięg w każdym pokoju, a nie tylko przy routerze.' : 'Kliknij podgląd, żeby go powiększyć — tak samo zobaczysz kamery w telefonie.';
+    const TS = [['Zgłoszenie', 'Zgłaszasz naprawę online albo w salonie w Rabce-Zdroju.'], ['Diagnostyka', 'Sprawdzamy, co się stało.'], ['Wycena', 'Bezpłatna — dostajesz ją, zanim cokolwiek zrobimy.'], ['Twoja decyzja', 'Zgadzasz się na naprawę albo odbierasz sprzęt.'], ['Naprawa', 'Naprawiamy. Status widzisz online, bez dzwonienia.'], ['Odbiór', 'W salonie albo kurierem.']];
+    const tsi = st.ts === undefined ? 4 : st.ts;
+    const tsteps = TS.map((x, i) => ({ name: x[0], on: i === tsi ? 'true' : 'false', ink: i === tsi ? 'var(--k-tt)' : (i < tsi ? 'var(--k-white)' : 'rgba(var(--r-w),.5)'), bar: i <= tsi ? 'var(--k-t)' : 'rgba(var(--r-w),.16)', pick: () => this.setState({ ts: i }) }));
+    const tpI = st.tp || 0, tpN = st.tpN || 0;
+    const tile = (k, t, d, hl) => ({ k: k, t: t, d: d, bg: hl ? 'var(--k-i)' : 'rgba(var(--r-w),.04)', ink: hl ? 'var(--k-ii)' : 'var(--k-white)', bd: hl ? 'var(--k-i)' : 'rgba(var(--r-w),.1)', kc: hl ? 'var(--k-ii)' : 'var(--k-it)' });
+    const TP = [
+      { name: 'Etapy budowy', short: 'Kiedy co zaplanować', eb: 'Budujesz albo remontujesz', h: 'Kiedy co zaplanować. Najważniejsze: zanim wejdą tynki.', lead: 'Kabel położony przed tynkami kosztuje chwilę pracy. Ten sam kabel po wykończeniu oznacza kucie ścian. Dlatego warto odezwać się wcześnie.', note: 'Najlepiej zgłosić się na etapie projektu, najpóźniej przed tynkami.', cta: 'Zaplanuj instalację', cols: 'repeat(5, minmax(0, 1fr))', items: R.stages.map((s) => tile(s.n === '3' ? 'Etap 3 · nie przegap' : 'Etap ' + s.n, s.t, s.d, s.n === '3')) },
+      { name: 'Smart home', short: 'System Ampio', eb: 'Smart home · system Ampio', h: 'Dwanaście rzeczy, którymi sterujesz z jednego miejsca.', lead: 'Inteligentny dom robimy na systemie Ampio. Jedna aplikacja zamiast kilku pilotów i paneli. Zakres dobieramy do domu — nie musisz brać wszystkiego naraz.', note: 'Muzyka w wielu pokojach działa przez Sonos, HEOS albo MusicCast połączone z systemem. Sterowanie głosem — przez Matter.', cta: 'Smart home na prokominstalacje.pl', cols: 'repeat(4, minmax(0, 1fr))', items: R.ampio.map((a) => tile(a.n, a.t, a.d, false)) },
+      { name: 'Bezpieczeństwo', short: 'Kamery, alarm, wideodomofon', eb: 'Bezpieczeństwo domu', h: 'Widzisz dom, nawet gdy Cię w nim nie ma.', lead: 'Kamery, alarm i wideodomofon z podglądem i powiadomieniami w telefonie. Po montażu zostajemy: przeglądy, pomoc zdalna i naprawy.', note: 'Montaż ma 24 miesiące gwarancji PRO-KOM. Sprzęt — według gwarancji producenta.', cta: 'Zaplanuj instalację', cols: 'repeat(2, minmax(0, 1fr))', items: R.safe.map((s, i) => tile('0' + (i + 1), s.t, s.d, false)) },
+      { name: 'Internet', short: 'Wi-Fi i okablowanie', eb: 'Internet w domu', h: 'Wi-Fi, które sięga tam, gdzie siedzisz.', lead: 'Punkty dostępowe na kablu zamiast wzmacniaczy w gniazdkach, gniazda sieciowe tam, gdzie stoi sprzęt, i jedna szafka, w której wszystko się schodzi.', note: 'Kabel do każdego punktu Wi-Fi najlepiej położyć przed tynkami.', cta: 'Zaplanuj instalację', cols: 'repeat(2, minmax(0, 1fr))', items: R.net.map((s, i) => tile('0' + (i + 1), s.t, s.d, false)) },
+      { name: 'Ładowarka', short: 'Elzab EcoPower', eb: 'Ładowarka do auta · Elzab EcoPower', h: 'Auto ładuje się w garażu, gdy śpisz.', lead: 'Montujemy ładowarki Elzab EcoPower: dobieramy model, sprawdzamy zasilanie i uruchamiamy.', note: 'Jeśli budujesz dom, zaplanuj przewód do garażu już teraz — nawet jeśli auto kupisz później.', cta: 'Ładowarki na prokominstalacje.pl', cols: 'repeat(3, minmax(0, 1fr))', items: [tile('Model', 'CC Home', 'Do domu i garażu', false), tile('Model', 'CC Wall', 'Na ścianę, w kilku kolorach', false), tile('Model', 'CC City', 'Na parking i przed obiekt', false)] }
+    ];
+    const tp = TP[tpI];
+    const ttabs = TP.map((x, i) => { const on = i === tpI; return { name: x.name, short: x.short, on: on ? 'true' : 'false', bg: on ? 'var(--k-id)' : 'var(--k-card)', bd: on ? 'var(--k-i)' : 'rgba(var(--r-w),.1)', bar: on ? '100%' : '18px', pick: () => this.setState({ tp: i, tpN: tpN + 1 }) }; });
+    const exI = st.ex || 0, exN = st.exN || 0;
+    const EX = [
+      { name: 'Nowy dom', node: 'Twój nowy dom', title: 'Zaplanuj instalacje, zanim wejdą tynki.', g: { instalacje: ['Plan instalacji na rzutach domu', 'Okablowanie sieci i szafka', 'Alarm i wideodomofon', 'Smart home Ampio', 'Przewód pod ładowarkę do auta'], tech: ['Naprawa telefonu, laptopa, konsoli'], gaming: ['Komputer do gier złożony w Rabce-Zdroju'] } },
+      { name: 'Mieszkanie i rodzina', node: 'Twoje mieszkanie', title: 'Dom gotowy, a mimo to da się go ulepszyć.', g: { instalacje: ['Wi-Fi tam, gdzie dziś nie sięga', 'Wideodomofon z powiadomieniem w telefonie', 'Monitoring z podglądem w telefonie'], tech: ['Bezpłatna diagnoza i wycena', 'Folia Hammer Glass', 'Akcesoria GSM'], gaming: ['Dobór pod grę dziecka', 'Gwarancja 2 lata'] } },
+      { name: 'Apartament na wynajem', node: 'Twój apartament', title: 'Goście wchodzą na kod, a Ty nie jeździsz z kluczami.', g: { instalacje: ['Zamki na kod i kontrola dostępu', 'Wi-Fi dla gości', 'Monitoring wejścia', 'Ogrzewanie i światło na odległość'], software: ['Strona apartamentu widoczna w Google'] } }
+    ];
+    const exc = EX[exI];
+    const ex = { node: exc.node, title: exc.title, tabs: EX.map((x, i) => { const on = i === exI; return { name: x.name, on: on ? 'true' : 'false', bd: on ? 'var(--k-g)' : 'rgba(var(--r-w),.22)', bg: on ? 'var(--k-g)' : 'transparent', ink: on ? 'var(--k-gi)' : 'var(--k-ink)', pick: () => this.setState({ ex: i, exN: exN + 1 }) }; }), cards: Object.keys(exc.g).map((k, i) => ({ line: L[k].line, cd: L[k].cd, ct: L[k].ct, dark: L[k].dark, url: L[k].url, phone: L[k].phone, items: exc.g[k], cls: 'tc ' + (exN % 2 ? 'sa' : 'sb'), delay: (0.08 + i * 0.1) + 's' })) };
+    const care = [
+      { line: 'Instalacje', cd: 'var(--k-i)', ct: 'var(--k-it)', v: '24 miesiące', d: 'Gwarancji PRO-KOM na montaż instalacji. Sprzęt — według gwarancji producenta.' },
+      { line: 'Instalacje', cd: 'var(--k-i)', ct: 'var(--k-it)', v: 'Serwis po montażu', d: 'Przeglądy, pomoc zdalna i naprawy. Przejmujemy też instalacje po innym wykonawcy.' },
+      { line: 'Tech', cd: 'var(--k-t)', ct: 'var(--k-tt)', v: 'Bezpłatnie', d: 'Diagnoza i wycena naprawy. Płacisz tylko za naprawę, na którą się zgodzisz.' },
+      { line: 'Gaming', cd: 'var(--k-y)', ct: 'var(--k-y)', v: '2 lata', d: 'Gwarancji na cały komputer do gier. Serwis na miejscu w Rabce-Zdroju.' }
+    ];
+    return { ...R, L: Lx, ltabs, lprev: goLn((lnI + 2) % 3), lnext: goLn((lnI + 1) % 3), cams, camCols, camNote, tsteps, tstep: { text: TS[tsi][1] }, topic: { ...tp, cls: 'dsg ' + (tpN % 2 ? 'sa' : 'sb') }, ttabs, ex, care };
+  }
+}
+</script>
+</body>
+</html>

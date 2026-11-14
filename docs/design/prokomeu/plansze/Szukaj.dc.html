@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>PRO-KOM — wyniki wyszukiwania</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/*PKTHEME*/:root{--k-bg:#0A0D0B;--k-bg2:#0E1210;--k-card:#131815;--k-card2:#111613;--k-foot:#060807;--k-bgp:#0C0F0D;--k-cardp:#171C18;--k-dim:#050706;--k-ink:#F4F5F1;--k-ink1:#DDE1DB;--k-ink2:#C9CEC8;--k-ink3:#A9AFA9;--k-ink4:#B9BDB6;--k-ink5:#7E857E;--k-gt:#8FE07A;--k-gd:#7BD36A;--k-g:#4FB034;--k-g1:#5BC23E;--k-g2:#43A02B;--k-g3:#2E7A1E;--k-gi:#07140A;--k-b:#4A7BE0;--k-bt:#8DADF0;--k-bd:#0A1430;--k-bi:#06102A;--k-i:#12B6D8;--k-it:#4CCBE6;--k-id:#071214;--k-ii:#06181C;--k-s:#9670EE;--k-st:#B49BF5;--k-sd:#15131F;--k-si:#120A26;--k-t:#E2483A;--k-tt:#F29185;--k-td:#1A1312;--k-ti:#1A0806;--k-y:#F2C230;--k-yd:#080C0B;--k-yi:#1A1400;--r-w:255,255,255;--r-gl:22,28,24;--r-gl2:19,24,21;--r-gl3:20,25,21;--r-gl4:10,13,11;--r-gl5:17,22,19;--k-white:#FFFFFF}
+html[data-theme="light"]{--k-bg:#F4F5F1;--k-bg2:#ECEEE8;--k-card:#FFFFFF;--k-card2:#FFFFFF;--k-foot:#E4E7E0;--k-bgp:#F4F5F1;--k-cardp:#FFFFFF;--k-dim:#D9DCD5;--k-ink:#121613;--k-ink1:#2A302B;--k-ink2:#3A413B;--k-ink3:#4F5650;--k-ink4:#4F5650;--k-ink5:#8A918A;--k-gt:#2E7A1E;--k-gd:#2E7A1E;--k-g:#2E7A1E;--k-g1:#358F27;--k-g2:#286F18;--k-g3:#1F5A12;--k-gi:#FFFFFF;--k-b:#244FB0;--k-bt:#244FB0;--k-bd:#E6ECFB;--k-bi:#FFFFFF;--k-i:#007A96;--k-it:#006A82;--k-id:#DDF1F5;--k-ii:#FFFFFF;--k-s:#6E45D4;--k-st:#5B33C4;--k-sd:#ECE7FB;--k-si:#FFFFFF;--k-t:#C4362B;--k-tt:#B3301F;--k-td:#FBE8E5;--k-ti:#FFFFFF;--k-y:#9A7000;--k-yd:#FBF2D2;--k-yi:#FFFFFF;--r-w:18,22,19;--r-gl:255,255,255;--r-gl2:255,255,255;--r-gl3:255,255,255;--r-gl4:255,255,255;--r-gl5:255,255,255;--k-white:#121613}
+@keyframes pkrise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+section{animation:pkrise linear both;animation-timeline:view();animation-range:entry 0% cover 14%}
+section a[class~="lift"],section details,section figure{animation:pkpop linear both;animation-timeline:view();animation-range:entry 0% cover 18%}
+}
+a,button,details,summary{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s,color .3s}
+button:hover{transform:translateY(-2px)}
+a[style*="border-radius: 16px"]:hover,a[style*="border-radius: 18px"]:hover,a[style*="border-radius: 15px"]:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;transition:background-color .4s}
+body,body *{transition-property:background-color,border-color,color,transform,box-shadow,opacity,flex;transition-duration:.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+/*END*/
+/*PKX*/
+.pk .lift,.pk .nx{position:relative;overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .3s}
+.pk .lift:hover,.pk .nx:hover{transform:translateY(-6px);box-shadow:0 0 0 1px var(--c,var(--k-g)),0 36px 80px -38px var(--c,var(--k-g))}
+.pk .lift[style*="--c:"]:hover{box-shadow:inset 0 4px 0 var(--c),0 0 0 1px var(--c),0 36px 80px -38px var(--c) !important}
+.pk .lift::after,.pk .nx::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:38%;background:linear-gradient(100deg,transparent,rgba(var(--r-w),.12),transparent);transform:skewX(-18deg);pointer-events:none;opacity:0}
+.pk .lift:hover::after,.pk .nx:hover::after{animation:pkxsweep 1.1s cubic-bezier(.2,.8,.2,1)}
+@keyframes pkxsweep{0%{left:-60%;opacity:1}100%{left:130%;opacity:1}}
+@keyframes pkxin{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes pkxrise{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+.pk h1{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .1s both;text-wrap:balance;overflow-wrap:normal;word-break:normal;hyphens:none}
+.pk h1+p{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .25s both}
+@supports (animation-timeline: view()){
+.pk .stg>*{animation:pkxin linear both;animation-timeline:view();animation-range:entry 0% cover 16%}
+.pk .stg>*:nth-child(2){animation-range:entry 4% cover 19%}.pk .stg>*:nth-child(3){animation-range:entry 8% cover 22%}.pk .stg>*:nth-child(4){animation-range:entry 12% cover 25%}.pk .stg>*:nth-child(n+5){animation-range:entry 14% cover 27%}
+}
+@keyframes pkxpulse{50%{opacity:.35}}
+.pk .vg{border-radius:16px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pk .lift:hover .vg{transform:scale(1.015);border-color:color-mix(in srgb,var(--c,var(--k-g)) 55%,transparent)}
+.pk .vg i{display:block;font-style:normal}
+.pk .sk{border-radius:4px;background:rgba(var(--r-w),.2);animation:pkxpulse 2.6s ease-in-out infinite}
+@keyframes pkxeq{50%{transform:scaleY(.5)}}
+.pk .eq{flex:1;max-width:9px;border-radius:2px;background:var(--c,var(--k-g));transform-origin:50% 100%;animation:pkxeq 1.9s ease-in-out infinite}
+.pk .stp{flex:1;height:5px;border-radius:3px;background:rgba(var(--r-w),.16)}
+.pk .stp.on{background:var(--c,var(--k-g))}
+.pk .stp.now{background:var(--c,var(--k-g));animation:pkxpulse 1.4s infinite}
+.pk a[href^="tel:"]{white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.pk *,.pk *::after{animation:none !important;transition:none !important}}
+/*XEND*/
+body{margin:0}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+.pk{font-family:Manrope,system-ui,sans-serif;background:var(--k-bg);color:var(--k-ink)}
+.pk .d{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-.03em;margin:0;line-height:.96}
+.pk .eb{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.pk p{margin:0}
+.pk button{font-family:inherit;cursor:pointer}
+.pk .lift{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .lift:hover{transform:translateY(-4px)}
+.pk :focus-visible{outline:2px solid var(--k-gt);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.pk *{transition:none !important}}
+/*PKCALM*/
+@keyframes pkrise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pk .tl:hover::after,.pk .lift:hover::after,.pk .nx:hover::after,.pk .cd2:hover::after,.pk .lt:hover::after,.pkx .lift:hover::after,.pkx .nx:hover::after{animation:none !important;opacity:0 !important}
+.pk .tl:hover,.pk .lift:hover,.pk .nx:hover,.pk .cd2:hover,.pk .lt:hover,.pkx .lift:hover,.pkx .nx:hover{transform:translateY(-4px) !important}
+.pk .tl,.pk .lift,.pk .nx,.pk .cd2,.pk .lt,.pk .ht{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .4s !important}
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk p{text-wrap:pretty}
+/*CALMEND*/
+.pk .sx{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:28px;align-items:start}
+@media (max-width:1100px){.pk .sx{grid-template-columns:1fr}}
+.pk .sqb{display:flex;gap:10px;align-items:center;height:72px;padding:0 10px 0 22px;border-radius:24px;background:var(--k-card);border:1.5px solid var(--k-g);max-width:880px;box-shadow:0 30px 60px -44px var(--k-g)}
+.pk .sqb input{flex:1;min-width:0;height:100%;border:none;outline:none;background:transparent;color:var(--k-ink);font:600 19px Manrope,sans-serif}
+.pk .chq{font:700 13.5px Manrope,sans-serif;padding:8px 13px;border-radius:999px;border:1px solid rgba(var(--r-w),.14);background:rgba(var(--r-w),.04);color:var(--k-ink2);cursor:pointer;display:flex;align-items:center;gap:8px;transition:border-color .3s,color .3s,transform .3s}
+.pk .chq:hover{border-color:rgba(var(--r-w),.34);color:var(--k-ink);transform:translateY(-2px)}
+.pk .ftb{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.pk .ftb::-webkit-scrollbar{display:none}
+.pk .ftb button{flex:none;height:42px;padding:0 15px;border-radius:13px;border:1.5px solid;font:700 14px Manrope,sans-serif;display:flex;gap:9px;align-items:center;cursor:pointer;transition:background-color .3s,border-color .3s}
+.pk .bst{position:relative;overflow:hidden;border-radius:30px;padding:clamp(22px,2.6vw,34px);display:flex;flex-wrap:wrap;gap:22px 32px;align-items:center;border:1px solid color-mix(in srgb,var(--c) 40%,transparent);color:var(--k-white);text-decoration:none;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s}
+.pk .bst:hover{transform:translateY(-4px);box-shadow:0 34px 70px -44px var(--c)}
+.pk .rgd{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:700px){.pk .rgd{grid-template-columns:1fr}}
+.pk .rsc{display:flex;gap:13px;align-items:flex-start;border-radius:20px;background:var(--k-card);border:1px solid rgba(var(--r-w),.1);padding:15px 16px;color:var(--k-ink);text-decoration:none;transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s,background-color .3s}
+.pk .rsc:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 8%,var(--k-card))}
+.pk .svi{width:40px;height:40px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);transition:background-color .3s,color .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+.pk .rsc:hover .svi{background:var(--c);color:var(--k-bg);transform:rotate(-4deg) scale(1.06)}
+.pk .tag{font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.pk .asd{border-radius:26px;background:var(--k-card);border:1px solid rgba(var(--r-w),.1);padding:22px;display:flex;flex-direction:column;gap:12px}
+.pk .alr{display:flex;align-items:center;gap:12px;padding:10px;border-radius:16px;border:1px solid rgba(var(--r-w),.1);color:var(--k-ink);text-decoration:none;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pk .alr:hover{transform:translateX(4px);border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.pk .rgh{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding-bottom:10px;border-bottom:1px solid rgba(var(--r-w),.1)}
+@keyframes rsin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.pk .ra>*{animation:rsin .5s cubic-bezier(.2,.8,.2,1) both}.pk .ra>*:nth-child(2){animation-delay:.04s}.pk .ra>*:nth-child(3){animation-delay:.08s}.pk .ra>*:nth-child(4){animation-delay:.12s}.pk .ra>*:nth-child(n+5){animation-delay:.16s}
+@media (max-width:760px){.pk .sqb{height:60px;border-radius:20px;padding:0 8px 0 16px}.pk .sqb input{font-size:16px}.pk .sqk{display:none}}
+@media (prefers-reduced-motion:reduce){.pk .ra>*{animation:none !important}}
+</style>
+</helmet>
+<div class="pk" style="position: relative; overflow-x: clip">
+<dc-import name="Naglowek" active="start" hint-size="100%,130px"></dc-import>
+
+<!-- GÓRA: ZAPYTANIE -->
+<section style="position: relative; overflow: hidden; border-bottom: 1px solid rgba(var(--r-w),.08)">
+<div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(var(--r-w),.11) 1px, transparent 1.4px); background-size: 26px 26px; mask-image: radial-gradient(ellipse 70% 90% at 40% 20%, #000, transparent 75%); -webkit-mask-image: radial-gradient(ellipse 70% 90% at 40% 20%, #000, transparent 75%)"></div>
+<div style="position: relative; max-width: 1560px; margin: 0 auto; padding: 28px clamp(16px, 3vw, 48px) 32px; display: flex; flex-direction: column; gap: 18px">
+<nav aria-label="Okruszki" style="display: flex; gap: 8px; font-size: 13px; color: var(--k-ink3)"><a href="Main.dc.html">PRO-KOM</a><span aria-hidden="true">/</span><span style="color: var(--k-ink); font-weight: 700">Szukaj</span></nav>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span class="eb" style="color: var(--k-gt)">Szukaj we wszystkich liniach · {{total}} usług, narzędzi i stron</span>
+<h1 class="d" style="font-size: clamp(36px, 5vw, 72px); line-height: .98">{{h1a}}<span style="color: var(--k-gt)">{{h1b}}</span></h1>
+</div>
+<form role="search" class="sqb" onSubmit="{{noop}}">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" style="flex: none"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.5-4.5"></path></svg>
+<label for="sq" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%)">Szukaj we wszystkich liniach PRO-KOM</label>
+<input id="sq" value="{{q}}" onChange="{{onQ}}" placeholder="Np. kasa fiskalna, kamery, strona, pęknięty ekran" autocomplete="off">
+<sc-if value="{{hasQ}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{clear}}" aria-label="Wyczyść" style="width: 40px; height: 40px; border-radius: 12px; border: none; background: rgba(var(--r-w),.08); color: var(--k-ink); font-size: 18px; cursor: pointer">×</button></sc-if>
+<span class="sqk" style="font-size: 12px; font-weight: 700; border: 1px solid rgba(var(--r-w),.2); border-radius: 7px; padding: 4px 8px; color: var(--k-ink3)">Ctrl K</span>
+</form>
+<div style="display: flex; flex-wrap: wrap; gap: 7px; align-items: center">
+<span style="font-size: 13px; color: var(--k-ink3); padding-right: 4px">Często szukane:</span>
+<sc-for list="{{pop}}" as="p" hint-placeholder-count="7"><button type="button" class="chq" onClick="{{p.pick}}"><i style="width: 12px; height: 3px; border-radius: 2px; background: {{p.cd}}; display: block"></i>{{p.t}}</button></sc-for>
+</div>
+<div class="ftb" role="tablist" aria-label="Filtruj według linii">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="7"><button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="border-color: {{t.bd}}; background: {{t.bg}}; color: var(--k-ink)"><i style="width: 12px; height: 3px; border-radius: 2px; background: {{t.cd}}; display: block"></i>{{t.name}}<b style="font-size: 12px; color: var(--k-ink3)">{{t.n}}</b></button></sc-for>
+</div>
+</div>
+</section>
+
+<!-- WYNIKI -->
+<section style="max-width: 1560px; margin: 0 auto; padding: 32px clamp(16px, 3vw, 48px) 88px">
+<div class="sx">
+<div class="{{rcls}}" style="min-width: 0; display: flex; flex-direction: column; gap: 32px">
+
+<sc-if value="{{best}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<span class="eb" style="color: var(--k-ink3)">Najlepsze dopasowanie</span>
+<a href="{{best.url}}" class="bst" style="--c: {{best.cd}}; background: {{best.dark}}">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 4px; background: {{best.cd}}"></span>
+<span style="flex: 1.4 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; align-items: center; gap: 14px"><span class="svi" style="--c: {{best.cd}}; width: 52px; height: 52px; border-radius: 16px; background: {{best.cd}}; color: {{best.ink}}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{best.ic}}"/></svg></span><span style="display: flex; flex-direction: column; gap: 4px"><span class="d" style="font-size: 20px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em">PRO<span style="width: 9px; height: 3px; display: block; background: {{best.cd}}"></span>KOM</span><span class="d" style="font-size: 11px; letter-spacing: .2em; color: {{best.ct}}">{{best.label}}</span></span></span>
+<span class="d" style="font-size: clamp(24px, 2.4vw, 34px); line-height: 1.04">{{best.t}}</span>
+<span style="font-size: 15.5px; line-height: 1.55; color: rgba(var(--r-w),.82); max-width: 560px">{{best.long}}</span>
+<span style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{best.incl}}" as="x" hint-placeholder-count="3"><span style="font-size: 12.5px; font-weight: 700; padding: 6px 11px; border-radius: 999px; background: color-mix(in srgb, {{best.cd}} 16%, transparent); border: 1px solid color-mix(in srgb, {{best.cd}} 30%, transparent)">{{x}}</span></sc-for></span>
+</span>
+<span style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: {{best.ct}}">Tym zajmie się linia {{best.name}}</span>
+<span class="d" style="font-size: 32px; letter-spacing: 0">{{best.phone}}</span>
+<span style="font-size: 13.5px; color: rgba(var(--r-w),.72)">{{best.promise}}</span>
+<span style="height: 52px; padding: 0 20px; border-radius: 16px; background: {{best.cd}}; color: {{best.ink}}; font-weight: 800; font-size: 15.5px; display: flex; align-items: center; justify-content: center; gap: 8px">Przejdź na {{best.domain}} ↗</span>
+</span>
+</a>
+</div>
+</sc-if>
+
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div class="rgh"><h2 class="d" style="font-size: 24px; letter-spacing: -.01em">{{g.name}}</h2><span style="font-size: 13.5px; color: var(--k-ink3)">{{g.note}}</span></div>
+<div class="rgd ra">
+<sc-for list="{{g.items}}" as="r" hint-placeholder-count="4">
+<a href="{{r.href}}" class="rsc" style="--c: {{r.cd}}">
+<span class="svi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.ic}}"/></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px"><span style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span class="d" style="font-size: 16.5px; letter-spacing: -.01em; line-height: 1.15">{{r.t}}</span><span class="tag" style="background: color-mix(in srgb, {{r.cd}} 16%, transparent); color: {{r.ct}}">{{r.tag}}</span></span><span style="font-size: 13.5px; line-height: 1.45; color: var(--k-ink3)">{{r.d}}</span><span style="font-size: 12.5px; font-weight: 700; color: {{r.ct}}">{{r.where}} ↗</span></span>
+</a>
+</sc-for>
+</div>
+</div>
+</sc-for>
+
+<sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+<div style="border-radius: 28px; border: 1.5px dashed rgba(var(--r-w),.22); padding: clamp(22px, 2.6vw, 34px); display: flex; flex-direction: column; gap: 16px">
+<span class="d" style="font-size: clamp(24px, 2.4vw, 32px)">Nie mamy „{{q}}” na liście.</span>
+<span style="font-size: 15.5px; line-height: 1.55; color: var(--k-ink2); max-width: 620px">To nie znaczy, że tego nie robimy. Zadzwoń albo napisz — pokierujemy do właściwej linii. Możesz też spróbować innego słowa.</span>
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><a href="tel:+48883200151" class="d" style="height: 52px; padding: 0 22px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-size: 18px; letter-spacing: 0; display: flex; align-items: center">883 200 151</a><a href="Kontakt.dc.html" style="height: 52px; padding: 0 20px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.24); font-weight: 800; font-size: 15px; display: flex; align-items: center">Napisz, o co chodzi →</a></div>
+</div>
+</sc-if>
+</div>
+
+<!-- PANEL BOCZNY -->
+<aside style="min-width: 0; display: flex; flex-direction: column; gap: 14px; position: sticky; top: 18px">
+<div class="asd">
+<span class="eb" style="color: var(--k-gt)">Nie wiesz, która linia?</span>
+<span class="d" style="font-size: 22px; line-height: 1.1">Zadzwoń raz — pokierujemy.</span>
+<a href="tel:+48883200151" class="d" style="height: 54px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-size: 20px; letter-spacing: 0; display: flex; align-items: center; justify-content: center">883 200 151</a>
+<span style="font-size: 13px; color: var(--k-ink3); text-align: center">pn–pt 9:00–17:00 · biuro@pro-kom.eu</span>
+</div>
+<div class="asd">
+<span class="eb" style="color: var(--k-ink3)">Linie PRO-KOM</span>
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="5">
+<a href="{{l.url}}" class="alr" style="--c: {{l.cd}}"><span style="width: 76px; height: 42px; flex: none; border-radius: 11px; background: {{l.dark}}; border: 1px solid color-mix(in srgb, {{l.cd}} 30%, transparent); display: flex; flex-direction: column; justify-content: center; padding: 0 9px; gap: 2px"><span class="d" style="font-size: 12px; display: flex; align-items: center; gap: 2px; color: var(--k-white)">PRO<span style="width: 5px; height: 2px; display: block; background: {{l.cd}}"></span>KOM</span><span class="d" style="font-size: 8.5px; letter-spacing: .16em; color: {{l.ct}}">{{l.label}}</span></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 800">{{l.short}}</span><span style="font-size: 12.5px; color: var(--k-ink3)">{{l.phone}} · {{l.domain}}</span></span></a>
+</sc-for>
+</div>
+<div class="asd">
+<span class="eb" style="color: var(--k-ink3)">Na skróty</span>
+<span style="display: flex; flex-wrap: wrap; gap: 8px">
+<a href="Narzedzia.dc.html" class="chq">Załatw online</a><a href="Pomoc.dc.html" class="chq">Co zrobić, gdy…</a><a href="Linie.dc.html" class="chq">Cała oferta</a><a href="https://prokomserwis.pl" class="chq">Status naprawy ↗</a><a href="Kontakt.dc.html" class="chq">Kontakt</a>
+</span>
+</div>
+</aside>
+</div>
+</section>
+
+<dc-import name="Stopka" hint-size="100%,700px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3400}}'>
+class Component extends DCLogic {
+  norm(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ł/g, 'l'); }
+  lines() {
+    return [
+      { key: 'biznes', name: 'Biznes', label: 'BIZNES', domain: 'prokombiznes.pl', cd: 'var(--k-b)', ct: 'var(--k-bt)', dark: 'var(--k-bd)', ink: 'var(--k-bi)', phone: '889 003 889', short: 'Kasy, komputery i opieka IT', who: 'gastronomia, sklepy, biura, hotele i pensjonaty, szkoły, gminy i instytucje', promise: 'Oddzwaniamy w 60 minut w godzinach pracy', tool: 'Plan Twojej firmy (wkrótce)',
+        steps: [['Dzwonisz albo piszesz', 'Mówisz, czego potrzebuje Twoja firma.'], ['Oddzwaniamy w 60 minut', 'W godzinach pracy, z konkretną propozycją.'], ['Wdrożenie u Ciebie', 'Instalacja, konfiguracja i szkolenie na miejscu.']] },
+      { key: 'instalacje', name: 'Instalacje', label: 'INSTALACJE', domain: 'prokominstalacje.pl', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', ink: 'var(--k-ii)', phone: '889 003 889', short: 'Monitoring, sieci i smart home', who: 'domy i apartamenty, pensjonaty i hotele, restauracje, firmy, szkoły, gminy, deweloperzy i architekci', promise: 'Odpowiedź w 24 godziny w dni robocze', tool: 'Zaplanuj instalację',
+        steps: [['Opisujesz obiekt', 'Dom, pensjonat, lokal albo firma — online lub przez telefon.'], ['Odpowiedź w 24 godziny', 'W dni robocze — oddzwonimy albo odpiszemy.'], ['Projekt, montaż, serwis', 'Jedna ekipa od początku do końca.']] },
+      { key: 'software', name: 'Software', label: 'SOFTWARE', domain: 'prokomsoftware.pl', cd: 'var(--k-s)', ct: 'var(--k-st)', dark: 'var(--k-sd)', ink: 'var(--k-si)', phone: '883 200 151', short: 'Strony, systemy i aplikacje', who: 'firmy usługowe i budowlane, gastronomia, turystyka — z Podhala i z całej Polski', promise: 'Odpowiedź w 1 dzień roboczy', tool: 'Policz swój projekt',
+        steps: [['Opisujesz projekt', 'Stronę, system albo pomysł na aplikację.'], ['Odpowiedź w 1 dzień roboczy', 'Z pytaniami i pierwszą propozycją.'], ['Wdrożenie i opieka', 'Uruchamiamy i zostajemy po starcie.']] },
+      { key: 'tech', name: 'Tech', label: 'TECH', domain: 'prokomserwis.pl', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', ink: 'var(--k-ti)', phone: '883 200 151', short: 'Naprawy telefonów i komputerów', who: 'klienci indywidualni i firmy — w salonie w Rabce-Zdroju albo kurierem z całej Polski', promise: 'Bezpłatna diagnoza i wycena', tool: 'Zgłoś naprawę',
+        steps: [['Zgłaszasz naprawę', 'Online albo w salonie w Rabce-Zdroju.'], ['Bezpłatna diagnoza i wycena', 'Decydujesz, czy naprawiamy.'], ['Naprawa i status online', 'Sprawdzasz etap bez dzwonienia.']] },
+      { key: 'gaming', name: 'Gaming', label: 'GAMING', domain: 'prokomgaming.pl', cd: 'var(--k-y)', ct: 'var(--k-y)', dark: 'var(--k-yd)', ink: 'var(--k-yi)', phone: '883 200 151', short: 'Komputery do gier', who: 'gracze i rodzice kupujący komputer dla dziecka — z całej Polski', promise: 'Wysyłka do całej Polski', tool: 'Konfigurator PC',
+        steps: [['Wybierasz grę albo zestaw', 'W doborze „W co grasz?” lub w konfiguratorze.'], ['Składamy i mierzymy', 'Ręcznie w Rabce-Zdroju, klatki mierzone w grach.'], ['Wysyłka do całej Polski', 'Z gwarancją 2 lata na cały komputer.']] }
+    ];
+  }
+  services() {
+    // [id, linia, tytuł, zdanie na liście, opis w podglądzie, dla kogo (f/d/fd), kapsuły, powiązane, słowa kluczowe]
+    return [
+      ['b1', 'biznes', 'Kasy fiskalne', 'Posnet i Elzab — z fiskalizacją i szkoleniem.', 'Kasy fiskalne Posnet i Elzab. Dobieramy urządzenie do branży, fiskalizujemy, programujemy i szkolimy obsługę.', 'f', ['Posnet i Elzab', 'Fiskalizacja', 'Programowanie', 'Szkolenie'], ['i4', 's2'], 'kasa kasy fiskalna fiskalne drukarka fiskalna paragon posnet elzab fiskalizacja sprzedaz'],
+      ['b2', 'biznes', 'Serwis i przeglądy kas', 'Autoryzowany serwis Posnet i Elzab.', 'Autoryzowany serwis kas Posnet i Elzab. Robimy przeglądy i przejmujemy serwis kasy po innej firmie.', 'f', ['Autoryzowany serwis', 'Przeglądy', 'Przejęcie serwisu po innej firmie'], ['i1', 's1'], 'serwis kasy przeglad kasy naprawa kasy kasa nie drukuje posnet elzab plomba'],
+      ['b3', 'biznes', 'GoPOS', 'System sprzedaży dla gastronomii: sala i kuchnia.', 'GoPOS to system sprzedaży dla gastronomii — sala i kuchnia pracują w jednym systemie. Jesteśmy autoryzowanym partnerem.', 'f', ['Sala i kuchnia', 'Gastronomia', 'Autoryzowany partner'], ['i4', 'i6', 's2'], 'gopos pos restauracja bar kawiarnia gastronomia kuchnia sala kelner bon'],
+      ['b4', 'biznes', 'Programy InsERT', 'Subiekt i e-faktury KSeF, wdrożenie i szkolenie.', 'Programy InsERT: Subiekt do sprzedaży i magazynu oraz e-faktury KSeF. Wdrażamy i szkolimy. Jesteśmy autoryzowanym partnerem.', 'f', ['Subiekt', 'E-faktury KSeF', 'Wdrożenie', 'Szkolenie'], ['s3', 's5'], 'insert subiekt ksef faktura faktury e-faktury magazyn sprzedaz program ksiegowosc'],
+      ['b5', 'biznes', 'Komputery i laptopy', 'Lenovo i Dell, dostawa i konfiguracja w firmie.', 'Komputery i laptopy Lenovo i Dell dla firm. Dostarczamy je, a na życzenie konfigurujemy na miejscu.', 'f', ['Lenovo i Dell', 'Dostawa', 'Konfiguracja w firmie'], ['i4', 't3', 's3'], 'komputer komputery laptop laptopy lenovo dell stanowisko biuro sprzet dla firm monitor'],
+      ['b6', 'biznes', 'Serwery i kopie', 'Serwery Dell, dyski sieciowe Synology i QNAP.', 'Serwery Dell i dyski sieciowe Synology oraz QNAP — miejsce na dane firmy i kopie zapasowe.', 'f', ['Serwery Dell', 'Synology i QNAP', 'Kopie zapasowe'], ['i4', 's7'], 'serwer serwery nas synology qnap kopia kopie zapasowe backup dane dysk sieciowy'],
+      ['b7', 'biznes', 'Opieka IT', 'Pomoc zdalna, monitoring, kopie zapasowe.', 'Stała opieka informatyczna nad firmą: pomoc zdalna, monitoring i kopie zapasowe.', 'f', ['Pomoc zdalna', 'Monitoring', 'Kopie zapasowe'], ['i1', 's7'], 'opieka it informatyk obsluga informatyczna pomoc zdalna administrator awaria komputera w firmie'],
+      ['b8', 'biznes', 'Terminale płatnicze', 'PolCard — dobór i uruchomienie.', 'Terminale płatnicze PolCard. Dobieramy model i uruchamiamy go u Ciebie.', 'f', ['PolCard', 'Dobór', 'Uruchomienie'], ['i4', 's2'], 'terminal terminale platniczy platnosci karta karty polcard blik'],
+      ['b9', 'biznes', 'Comarch ERP', 'Program do sprzedaży i magazynu dla większych firm.', 'Wdrożenie i obsługa Comarch ERP — gdy firma wyrasta z prostego programu do faktur.', 'f', ['Wdrożenie', 'Szkolenie', 'Opieka'], ['b4', 'b7'], 'comarch erp optima program magazyn sprzedaz ksiegowosc wdrozenie'],
+      ['b10', 'biznes', 'Bezpieczeństwo sieci', 'Zapora sieciowa i ochrona danych firmy.', 'Zabezpieczenie sieci firmowej: zapory Stormshield i Barracuda oraz kopie zapasowe, które da się odtworzyć.', 'f', ['Stormshield', 'Barracuda', 'Kopie zapasowe'], ['b6', 'b7', 'i4'], 'bezpieczenstwo sieci firewall zapora stormshield barracuda utm antywirus kopia backup storagecraft ransomware'],
+      ['b11', 'biznes', 'Większe dostawy IT', 'Sprzęt dla instytucji i firm, w większych ilościach.', 'Dostawy komputerów, serwerów, drukarek i sieci dla szkół, urzędów, hoteli i firm — konfiguracja i montaż na życzenie. Odpowiadamy na zapytania ofertowe.', 'f', ['Zapytania ofertowe', 'Konfiguracja na życzenie', 'Serwis po dostawie'], ['b5', 'b6', 'b12'], 'dostawa dostawy przetarg zapytanie ofertowe zamowienie publiczne szkola urzad gmina hurt wieksza ilosc pracownia'],
+      ['b12', 'biznes', 'RTV i AGD dla firm', 'Wyposażenie pokoi, biur i obiektów.', 'Telewizory oraz sprzęt RTV i AGD dla obiektów noclegowych, biur i instytucji — w większych ilościach, z dostawą.', 'f', ['Telewizory', 'Sprzęt do pokoi', 'Dostawa'], ['b11', 'i7'], 'rtv agd telewizor telewizory lodowka pralka wyposazenie pokoi hotel pensjonat apartament biuro'],
+      ['b13', 'biznes', 'Niszczarki i urządzenia biurowe', 'Fellowes, Kobra, drukarki i skanery.', 'Niszczarki Fellowes i Kobra oraz urządzenia biurowe dobrane do liczby osób i ilości dokumentów.', 'f', ['Niszczarki', 'Drukarki', 'Skanery'], ['b5', 't6'], 'niszczarka niszczarki fellowes kobra biuro drukarka skaner urzadzenie wielofunkcyjne'],
+      ['b14', 'biznes', 'Podpis kwalifikowany', 'Podpis elektroniczny dla firmy.', 'Pomagamy uzyskać i zainstalować podpis kwalifikowany — do e-faktur, umów i urzędów.', 'f', ['Wydanie', 'Instalacja', 'Odnowienie'], ['b4', 'b7'], 'podpis kwalifikowany elektroniczny certyfikat e-podpis ksef urzad umowa'],
+      ['b15', 'biznes', 'Automaty sprzedające', 'Automaty vendingowe z partnerem Optivendi.', 'Automaty sprzedające dla firm, obiektów i instytucji — we współpracy z partnerem Optivendi.', 'f', ['Dobór', 'Uruchomienie', 'Płatności bezgotówkowe'], ['b8', 'i6'], 'automat automaty vending vendingowy sprzedajacy optivendi przekaski napoje'],
+      ['i1', 'instalacje', 'Monitoring i kamery', 'Kamery z nagrywaniem i podglądem w telefonie.', 'Monitoring z nagrywaniem i podglądem w telefonie — dla domu, pensjonatu, lokalu i firmy.', 'fd', ['Kamery', 'Nagrywanie', 'Podgląd w telefonie'], ['b7', 's2'], 'kamera kamery monitoring cctv rejestrator nagrywanie podglad hikvision dahua bcs'],
+      ['i2', 'instalacje', 'Alarmy i wideodomofony', 'Z powiadomieniem w telefonie.', 'Systemy alarmowe i wideodomofony z powiadomieniem w telefonie.', 'fd', ['Alarm', 'Wideodomofon', 'Powiadomienia w telefonie'], ['b7', 's1'], 'alarm alarmy wideodomofon domofon czujka satel wlamanie bezpieczenstwo'],
+      ['i3', 'instalacje', 'Kontrola dostępu i zamki', 'Karty, kody, apartamenty.', 'Kontrola dostępu i zamki na karty albo kody — także do apartamentów i pokoi.', 'fd', ['Karty', 'Kody', 'Apartamenty'], ['s2', 'b1'], 'kontrola dostepu zamek zamki kod karta apartament pokoj drzwi'],
+      ['i4', 'instalacje', 'Sieci i Wi-Fi', 'Okablowanie, światłowód, Wi-Fi dla gości.', 'Sieć komputerowa i Wi-Fi: okablowanie, światłowód i osobna sieć Wi-Fi dla gości.', 'fd', ['Okablowanie', 'Światłowód', 'Wi-Fi dla gości'], ['b5', 'b1', 's2'], 'wifi wi-fi siec sieci internet zasieg router okablowanie swiatlowod ubiquiti mikrotik lan'],
+      ['i5', 'instalacje', 'Smart home', 'Sterowanie domem w systemie Ampio.', 'Inteligentny dom w systemie Ampio — sterowanie domem z jednego miejsca.', 'd', ['System Ampio', 'Sterowanie domem'], ['t1', 'g1'], 'smart home inteligentny dom ampio automatyka swiatlo rolety ogrzewanie sterowanie'],
+      ['i6', 'instalacje', 'Nagłośnienie i ekrany', 'Sale, lokale i obiekty.', 'Nagłośnienie i ekrany do sal, lokali i obiektów.', 'f', ['Sale', 'Lokale', 'Obiekty'], ['b3', 's2'], 'naglosnienie glosniki ekran ekrany sala konferencyjna muzyka w lokalu apart rcf kosciol'],
+      ['i7', 'instalacje', 'Anteny RTV/SAT', 'Satelitarne, DVB-T2, zbiorcze, TV hotelowa.', 'Instalacje antenowe: satelitarne, DVB-T2, zbiorcze i telewizja hotelowa.', 'fd', ['Satelitarne', 'DVB-T2', 'Zbiorcze', 'TV hotelowa'], ['s2', 'b1'], 'antena anteny telewizja tv sat satelita dvb-t2 hotelowa zbiorcza'],
+      ['i8', 'instalacje', 'Ładowarki EV', 'Elzab EcoPower do domu, firmy i obiektu.', 'Ładowarki do aut elektrycznych Elzab EcoPower — do domu, firmy i obiektu.', 'fd', ['Elzab EcoPower', 'Dom', 'Firma i obiekt'], ['b7', 's1'], 'ladowarka ladowarki ev auto elektryczne samochod elektryczny wallbox ecopower'],
+      ['i9', 'instalacje', 'Ekrany informacyjne', 'Ekrany z ofertą i informacją, sterowane zdalnie.', 'Ekrany informacyjne i reklamowe w lokalu, obiekcie albo witrynie — treść zmieniasz zdalnie.', 'f', ['Ekrany', 'Treść zdalnie', 'Montaż'], ['i6', 's2'], 'ekran ekrany digital signage reklama menu board telewizor witryna informacja'],
+      ['i10', 'instalacje', 'Dla architektów i deweloperów', 'Instalacje zaplanowane już w projekcie.', 'Współpraca z architektami, projektantami wnętrz, deweloperami i wykonawcami: instalacje naniesione na rzuty, zanim wejdą tynki.', 'f', ['Konsultacja projektu', 'Punkty na rzutach', 'Jedna ekipa'], ['i4', 'i5', 'i1'], 'architekt architekci projektant wnetrz deweloper wykonawca podwykonawca inwestycja budowa rzuty projekt wspolpraca'],
+      ['s1', 'software', 'Strony internetowe', 'Firmowe, wizytówki i landing page.', 'Strony firmowe, wizytówki i landing page pisane pod konkretną firmę, nie z szablonu.', 'f', ['Strony firmowe', 'Wizytówki', 'Landing page'], ['b4', 'i4'], 'strona strony www internetowa wizytowka landing page firmowa google seo'],
+      ['s2', 'software', 'Strony dla lokali i noclegów', 'Restauracje, bary, hotele i pensjonaty.', 'Strony dla restauracji, barów, hoteli i pensjonatów.', 'f', ['Restauracje i bary', 'Hotele i pensjonaty'], ['b3', 'i4', 'b1'], 'strona restauracji menu strona pensjonatu hotel noclegi bar rezerwacja turystyka'],
+      ['s3', 'software', 'Systemy i panele', 'CRM, zlecenia, czas pracy i rozliczenia.', 'Systemy i panele pod proces Twojej firmy: CRM, zlecenia, czas pracy i rozliczenia.', 'f', ['CRM', 'Zlecenia', 'Czas pracy', 'Rozliczenia'], ['b4', 'b7'], 'system systemy panel crm zlecenia czas pracy rozliczenia rejestr ekipa kanban aplikacja webowa'],
+      ['s4', 'software', 'Aplikacje mobilne', 'Dla pracowników i dla klientów.', 'Aplikacje mobilne dla pracowników i dla klientów.', 'f', ['Dla pracowników', 'Dla klientów'], ['b5', 'b4'], 'aplikacja aplikacje mobilna telefon android ios app'],
+      ['s5', 'software', 'Automatyzacje i AI', 'Raporty i dokumenty bez przepisywania.', 'Automatyzacje i AI: raporty i dokumenty powstają bez ręcznego przepisywania.', 'f', ['Raporty', 'Dokumenty', 'Bez przepisywania'], ['b4', 'b7'], 'automatyzacja automatyzacje ai sztuczna inteligencja raport raporty excel dokumenty integracja'],
+      ['s6', 'software', 'Przebudowa strony', 'Odświeżenie albo przejęcie obecnej strony.', 'Odświeżamy albo przejmujemy Twoją obecną stronę.', 'f', ['Odświeżenie', 'Przejęcie strony'], ['b7', 'i4'], 'przebudowa strony stara strona odswiezenie nowa wersja strona nie dziala migracja'],
+      ['s7', 'software', 'Opieka nad stroną', 'Serwer w Polsce, kopia co noc.', 'Opieka nad stroną i systemem: serwer w Polsce i kopia zapasowa co noc.', 'f', ['Serwer w Polsce', 'Kopia co noc'], ['b7', 'b6'], 'opieka hosting serwer utrzymanie strony kopia aktualizacje domena'],
+      ['s8', 'software', 'Darmowy audyt strony', 'Sprawdzimy Twoją obecną stronę.', 'Bezpłatnie sprawdzimy Twoją obecną stronę i powiemy, co poprawić.', 'f', ['Bezpłatnie', 'Lista poprawek'], ['b7', 'i4'], 'audyt strony darmowy bezplatny sprawdzenie strony seo szybkosc'],
+      ['t1', 'tech', 'Telefony', 'Wyświetlacze, baterie, gniazda ładowania.', 'Naprawa telefonów: wyświetlacze, baterie i gniazda ładowania. Diagnoza i wycena są bezpłatne.', 'fd', ['Wyświetlacze', 'Baterie', 'Gniazda ładowania'], ['g1', 'b7'], 'telefon telefony smartfon iphone samsung ekran pekniety wyswietlacz szybka bateria ladowanie naprawa'],
+      ['t2', 'tech', 'Tablety i smartwatche', 'Diagnoza i naprawa.', 'Diagnoza i naprawa tabletów oraz smartwatchy.', 'fd', ['Tablety', 'Smartwatche', 'Bezpłatna diagnoza'], ['b7', 'g1'], 'tablet tablety ipad smartwatch zegarek naprawa'],
+      ['t3', 'tech', 'Laptopy', 'Diagnoza i naprawa.', 'Diagnoza i naprawa laptopów. Status naprawy sprawdzasz online.', 'fd', ['Diagnoza', 'Naprawa', 'Status online'], ['b5', 'g1'], 'laptop laptopy notebook naprawa nie wlacza sie matryca klawiatura zawias'],
+      ['t4', 'tech', 'Komputery stacjonarne', 'Diagnoza i naprawa.', 'Diagnoza i naprawa komputerów stacjonarnych.', 'fd', ['Diagnoza', 'Naprawa'], ['g1', 'b5'], 'komputer stacjonarny pc naprawa nie dziala wolno czyszczenie'],
+      ['t5', 'tech', 'Konsole', 'Naprawa w serwisie.', 'Naprawa konsol w serwisie w Rabce-Zdroju.', 'd', ['Naprawa w serwisie'], ['g1', 'i4'], 'konsola konsole playstation ps4 ps5 xbox nintendo pad przegrzewanie'],
+      ['t6', 'tech', 'Drukarki', 'Naprawa w serwisie.', 'Naprawa drukarek w serwisie w Rabce-Zdroju.', 'fd', ['Naprawa w serwisie'], ['b5', 'b7'], 'drukarka drukarki naprawa nie drukuje tusz toner'],
+      ['t7', 'tech', 'Odzyskiwanie danych', 'Z telefonów i dysków.', 'Odzyskiwanie danych z telefonów i dysków.', 'fd', ['Telefony', 'Dyski'], ['b6', 'b7'], 'odzyskiwanie danych dane dysk zdjecia utracone skasowane pendrive'],
+      ['t8', 'tech', 'Hammer Glass i akcesoria', 'Folia cięta na wymiar na miejscu.', 'Folia Hammer Glass cięta na wymiar na miejscu oraz akcesoria GSM w salonie.', 'd', ['Hammer Glass', 'Cięcie na wymiar', 'Akcesoria GSM'], ['g1', 'b5'], 'folia szklo hammer glass ochrona ekranu etui ladowarka akcesoria gsm kabel'],
+      ['g1', 'gaming', 'Gotowe zestawy', '16 komputerów w dziewięciu poziomach mocy.', '16 gotowych komputerów do gier w dziewięciu poziomach mocy, składanych ręcznie w Rabce-Zdroju.', 'd', ['16 zestawów', 'Dziewięć poziomów mocy', 'Składane ręcznie'], ['t4', 'i4'], 'komputer do gier gamingowy pc zestaw zestawy gaming gracz gotowy'],
+      ['g2', 'gaming', 'Konfigurator', 'Składasz własny komputer krok po kroku.', 'Konfigurator, w którym składasz własny komputer krok po kroku.', 'd', ['Własna konfiguracja', 'Krok po kroku'], ['t4', 'i4'], 'konfigurator konfiguracja zloz komputer czesci karta graficzna procesor'],
+      ['g3', 'gaming', 'Dobór pod grę', '33 gry, zestawy z wynikiem klatek.', 'Dobór „W co grasz?”: wybierasz jedną z 33 gier i widzisz zestawy z wynikiem klatek.', 'd', ['33 gry', 'Wynik klatek'], ['t4', 'i4'], 'dobor pod gre w co grasz fps klatki gra gry fortnite cs2 minecraft'],
+      ['g4', 'gaming', 'Porównywarka', 'Do trzech zestawów obok siebie.', 'Porównujesz do trzech zestawów obok siebie.', 'd', ['Do trzech zestawów'], ['t4'], 'porownaj porownywarka zestawy roznice'],
+      ['g5', 'gaming', 'Dla rodziców', 'Pomoc w wyborze komputera dla dziecka.', 'Pomagamy rodzicom wybrać komputer dla dziecka.', 'd', ['Pomoc w wyborze', 'Komputer dla dziecka'], ['t3', 'i4'], 'rodzic rodzice dziecko komputer dla dziecka prezent syn corka'],
+      ['g6', 'gaming', 'Testy przed wysyłką', 'Test obciążeniowy i pomiar klatek.', 'Każdy komputer przechodzi test obciążeniowy i pomiar klatek przed wysyłką.', 'd', ['Test obciążeniowy', 'Pomiar klatek'], ['t4'], 'test testy obciazeniowy pomiar klatek sprawdzony'],
+      ['g7', 'gaming', 'Metryka komputera', 'Dokument z wynikami dołączony do zestawu.', 'Do zestawu dołączamy metrykę — dokument z wynikami testów.', 'd', ['Wyniki testów', 'W pudełku'], ['t4'], 'metryka dokument wyniki certyfikat'],
+      ['g8', 'gaming', 'W zestawie', 'Windows 11, montaż, Wi-Fi i Bluetooth, wysyłka.', 'W zestawie: Windows 11, montaż, Wi-Fi i Bluetooth oraz wysyłka. Gwarancja 2 lata na cały komputer.', 'd', ['Windows 11', 'Montaż', 'Wi-Fi i Bluetooth', 'Wysyłka', 'Gwarancja 2 lata'], ['t4', 'i4'], 'windows 11 gwarancja wysylka w zestawie bluetooth wifi']
+    ];
+  }
+  pages() {
+    return [
+      ['Dla firm', 'Plan dla Twojej branży: kasa, IT, obiekt, strona.', 'DlaFirm.dc.html', 'firma firmy biznes branza plan restauracja hotel sklep biuro'],
+      ['Dla domu', 'Instalacje, naprawy i komputer do gier dla domu.', 'DlaDomu.dc.html', 'dom domu mieszkanie rodzina smart home'],
+      ['Inwestycje i większe dostawy', 'Sprzęt IT, RTV i AGD dla firm, instytucji, hoteli, inwestorów i deweloperów.', 'Dostawy.dc.html', 'dostawy dostawa hurt hurtowo wieksze zamowienie inwestor inwestycja deweloper hotel pensjonat apartamenty szkola urzad przetarg rtv agd telewizory lodowki komputery laptopy'],
+      ['Współpraca', 'Architekci, deweloperzy, wykonawcy, instytucje i dostawcy.', 'Wspolpraca.dc.html', 'architekt deweloper wykonawca instytucja szkola urzad przetarg dostawca dostawy wspolpraca'],
+      ['Załatw online', '20 narzędzi: zgłoszenia, statusy, wyceny, konfiguratory.', 'Narzedzia.dc.html', 'online narzedzia zgloszenie status wycena konfigurator formularz'],
+      ['Co zrobić, gdy…', 'Pierwsze kroki, zanim zadzwonisz.', 'Pomoc.dc.html', 'pomoc awaria nie dziala problem zepsulo'],
+      ['O firmie', 'Kim jesteśmy, od kiedy i jak pracujemy.', 'OFirmie.dc.html', 'o firmie historia od 2004 dane nip regon kim jestesmy'],
+      ['Kontakt', 'Numery linii, adres salonu i formularz.', 'Kontakt.dc.html', 'kontakt telefon adres mail email godziny dojazd salon'],
+      ['Gdzie działamy', 'Dojazd na Podhalu i w Małopolsce, zdalnie w całej Polsce.', 'Zasieg.dc.html', 'zasieg dojazd zakopane nowy targ limanowa podhale malopolska'],
+      ['Marki i autoryzacje', 'Posnet, Elzab, GoPOS, InsERT i marki, z którymi pracujemy.', 'Partnerzy.dc.html', 'marki autoryzacje partner posnet elzab gopos insert'],
+      ['Aktualności', 'Wpisy ze wszystkich linii.', 'Aktualnosci.dc.html', 'aktualnosci nowosci blog wpisy']
+    ];
+  }
+  tools() {
+    return [
+      ['biznes', 'Plan Twojej firmy', 'Zobacz na planie lokalu, czego potrzebuje Twoja firma.', 'plan lokal firma'],
+      ['biznes', 'Konfigurator', 'Odpowiedz na kilka pytań — dobierzemy sprzęt i programy.', 'konfigurator dobor sprzet'],
+      ['instalacje', 'Zaplanuj instalację', 'Opisz obiekt — odpowiemy w 24 godziny w dni robocze.', 'zaplanuj instalacja wycena obiekt'],
+      ['instalacje', 'Zgłoś awarię', 'Kamery, alarm albo sieć przestały działać? Zgłoś online.', 'awaria zgloszenie kamera alarm nie dziala'],
+      ['software', 'Policz swój projekt', 'Kreator strony albo systemu: zakres i termin krok po kroku.', 'wycena strona projekt kreator ile kosztuje'],
+      ['software', 'Darmowy audyt strony', 'Sprawdzimy Twoją obecną stronę i powiemy, co poprawić.', 'audyt strona seo sprawdz'],
+      ['tech', 'Zgłoś naprawę', 'Opisz usterkę online, zanim przyniesiesz sprzęt.', 'naprawa zgloszenie serwis telefon laptop'],
+      ['tech', 'Status naprawy', 'Wpisz numer zlecenia i zobacz etap naprawy.', 'status naprawy zlecenie numer'],
+      ['gaming', 'Konfigurator PC', 'Złóż komputer do gier po swojemu, krok po kroku.', 'konfigurator pc komputer gry'],
+      ['gaming', 'Dobór pod grę', 'Powiedz, w co grasz — pokażemy pasujące zestawy.', 'dobor gra fps zestaw']
+    ];
+  }
+  renderVals() {
+    const st = this.state || {};
+    const ICK = [[/kas|fiskal|przegląd/, 'M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3'], [/gopos|gastro/, 'M4 5h16v11H4zM8 20h8M12 16v4M8 9h3M8 12h6'], [/terminal|płatn/, 'M3 6h18v12H3zM3 10h18M7 15h4'], [/wag|skaner|etykiet|sprawdzark/, 'M4 6v12M8 6v12M11 6v12M15 6v12M18 6v12M21 6v12'], [/automat/, 'M6 2h12v20H6zM9 6h6v6H9zM9 16h2'], [/serwer|dysk|nas/, 'M4 4h16v6H4zM4 14h16v6H4zM8 7h.01M8 17h.01'], [/komputer|laptop|pracowni/, 'M4 5h16v10H4zM2 19h20'], [/office|eset|licencj/, 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z'], [/opiek|bezpiecze|zapor|gwarancj|serwis i przegl/, 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4'], [/kopi|odzysk|danych/, 'M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3'], [/insert|subiekt|ksef|comarch|erp|podpis/, 'M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5'], [/niszcz|drukark/, 'M7 8V4h10v4M5 8h14v8H5zM8 14h8v6H8z'], [/monitoring|kamer/, 'M3 7h12v10H3zM15 10l6-3v10l-6-3'], [/alarm/, 'M6 16v-5a6 6 0 1112 0v5l2 2H4zM10 21h4'], [/dostęp|zamk/, 'M6 10h12v11H6zM8 10V7a4 4 0 018 0v3M12 14v3'], [/sie|wi-fi|światłow|teletech/, 'M2 9a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0M12 19.5h.01'], [/nagłośn/, 'M4 9h4l5-4v14l-5-4H4zM16 9a4 4 0 010 6M19 6a8 8 0 010 12'], [/ekran|telewiz|anten|rtv|agd/, 'M3 5h18v12H3zM8 21h8M12 17v4'], [/ładowar/, 'M13 2L5 14h6l-1 8 8-12h-6z'], [/stron|audyt/, 'M3 5h18v14H3zM3 9h18M6 7h.01M9 7h.01'], [/system|panel/, 'M4 4h5v16H4zM10 4h5v10h-5zM16 4h4v6h-4z'], [/aplikac/, 'M8 2h8v20H8zM11 18h2'], [/automatyzac/, 'M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6'], [/telefon|tablet|hammer/, 'M8 2h8v20H8zM11 18h2'], [/status/, 'M12 7v5l3 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z'], [/dostaw|zapytan|przetarg|zamówie/, 'M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10'], [/inwestyc|współprac/, 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6'], [/smart/, 'M4 11l8-7 8 7v9H4zM10 20v-5h4v5'], [/architekt/, 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6'], [/konsol|gr[ęy]\b|pod grę/, 'M6 9h12a4 4 0 014 4v1a3 3 0 01-5.3 1.9L15 14H9l-1.7 1.9A3 3 0 012 14v-1a4 4 0 014-4zM8 11v4M6 13h4'], [/zestaw|gotowe/, 'M7 2h10v20H7zM10 6h4M12 17h.01'], [/konfigurator/, 'M4 6h16M4 12h16M4 18h16M15 4v4M8 10v4M17 16v4'], [/rodzic/, 'M8 8a3 3 0 100-6 3 3 0 000 6zM16 10a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM2 21v-2a5 5 0 0110 0v2M13 21v-1.5a3.5 3.5 0 017 0V21'], [/porówn/, 'M4 20V10M10 20V4M16 20v-8M22 20H2'], [/test/, 'M12 14l4-4M4 18a9 9 0 1116 0'], [/metryk/, 'M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5'], [/akcesori/, 'M9 2v6M15 2v6M6 8h12v3a6 6 0 01-12 0zM12 17v5'], [/napraw|serwis/, 'M14.5 6.5a4 4 0 00-5 5L3 18l3 3 6.5-6.5a4 4 0 005-5L15 12l-3-3z']];
+    const icOf = (t) => { const n = String(t).toLowerCase(); for (const x of ICK) { if (x[0].test(n)) return x[1]; } return 'M12 8a4 4 0 100 8 4 4 0 000-8z'; };
+    const q = st.q === undefined ? 'kamery' : st.q, f = st.f || 'all', n = st.n || 0;
+    const LN = this.lines(), byKey = {}; LN.forEach((l) => { byKey[l.key] = { ...l, url: 'https://' + l.domain }; });
+    const PG = { key: 'strony', name: 'pro-kom.eu', label: 'PRO-KOM', cd: 'var(--k-g)', ct: 'var(--k-gt)', dark: 'var(--k-card)', ink: 'var(--k-gi)', domain: 'pro-kom.eu' };
+    const all = [];
+    this.services().forEach((x) => { const l = byKey[x[1]]; all.push({ kind: 'u', line: x[1], t: x[2], d: x[3], long: x[4], incl: x[6] || [], href: l.url, k: this.norm(x[2] + ' ' + x[3] + ' ' + (x[8] || '') + ' ' + l.name), tn: this.norm(x[2]) }); });
+    this.tools().forEach((x) => { const l = byKey[x[0]]; all.push({ kind: 'n', line: x[0], t: x[1], d: x[2], href: l.url, k: this.norm(x[1] + ' ' + x[2] + ' ' + x[3] + ' ' + l.name), tn: this.norm(x[1]) }); });
+    this.pages().forEach((x) => { all.push({ kind: 'p', line: 'strony', t: x[0], d: x[1], href: x[2], k: this.norm(x[0] + ' ' + x[1] + ' ' + x[3]), tn: this.norm(x[0]) }); });
+    const words = this.norm(q).split(/[^a-z0-9]+/).filter((w) => w.length > 1);
+    const score = (e) => { if (!words.length) return 1; let sc = 0; for (const w of words) { const stem = w.length > 4 ? w.slice(0, w.length - 1) : w; if (e.tn.includes(stem)) sc += 3; else if (e.k.includes(stem)) sc += 1; else return 0; } return sc + (e.kind === 'u' ? .5 : 0); };
+    const hits = all.map((e) => ({ ...e, s: score(e) })).filter((e) => e.s > 0).sort((a, b) => b.s - a.s);
+    const lineOf = (e) => (e.line === 'strony' ? PG : byKey[e.line]);
+    const shown = hits.filter((e) => f === 'all' || e.line === f);
+    const item = (e) => { const l = lineOf(e); return { t: e.t, d: e.d, href: e.href, cd: l.cd, ct: l.ct, ic: icOf(e.t), tag: e.kind === 'p' ? 'Strona' : l.name, where: e.kind === 'p' ? 'pro-kom.eu' : l.domain }; };
+    const G = [['u', 'Usługi', 'kliknięcie prowadzi na stronę linii'], ['n', 'Załatw online', 'narzędzia na stronach linii'], ['p', 'Strony pro-kom.eu', 'informacje o firmie']];
+    const groups = G.map((g) => { const it = shown.filter((e) => e.kind === g[0]); return { name: g[1], note: it.length + ' · ' + g[2], items: it.slice(0, g[0] === 'u' ? 12 : 6).map(item) }; }).filter((g) => g.items.length);
+    const top = shown.find((e) => e.kind === 'u') || shown.find((e) => e.kind === 'n');
+    const best = (words.length && top) ? (() => { const l = byKey[top.line]; return { ...l, t: top.t, long: top.long || top.d, incl: (top.incl || []).slice(0, 4), ic: icOf(top.t) }; })() : false;
+    const cnt = (k) => hits.filter((e) => k === 'all' || e.line === k).length;
+    const TB = [['all', 'Wszystko', 'var(--k-g)']].concat(LN.map((l) => [l.key, l.name, l.cd])).concat([['strony', 'Strony', 'var(--k-ink3)']]);
+    const POP = [['kasa fiskalna', 'var(--k-b)'], ['kamery', 'var(--k-i)'], ['wi-fi', 'var(--k-i)'], ['strona internetowa', 'var(--k-s)'], ['pęknięty ekran', 'var(--k-t)'], ['komputer do gier', 'var(--k-y)'], ['e-faktury', 'var(--k-b)']];
+    return {
+      q, hasQ: q.length > 0, total: all.length,
+      h1a: words.length ? 'Szukasz: ' : 'Czego ', h1b: words.length ? '„' + q + '”' : 'szukasz?',
+      onQ: (e) => this.setState({ q: e.target.value, n: n + 1 }), clear: () => this.setState({ q: '', f: 'all', n: n + 1 }), noop: (e) => { if (e && e.preventDefault) e.preventDefault(); },
+      pop: POP.map((p) => ({ t: p[0], cd: p[1], pick: () => this.setState({ q: p[0], f: 'all', n: n + 1 }) })),
+      tabs: TB.map((t) => { const on = t[0] === f; return { name: t[1], cd: t[2], n: cnt(t[0]), on: on ? 'true' : 'false', bd: on ? t[2] : 'rgba(var(--r-w),.14)', bg: on ? 'color-mix(in srgb, ' + t[2] + ' 16%, transparent)' : 'transparent', pick: () => this.setState({ f: t[0], n: n + 1 }) }; }),
+      best, groups, empty: words.length > 0 && shown.length === 0, rcls: 'ra',
+      lines: LN.map((l) => ({ ...l, url: 'https://' + l.domain }))
+    };
+  }
+}
+</script>
+</body>
+</html>
