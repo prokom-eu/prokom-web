@@ -17,7 +17,7 @@ import { VersionChips, YourVersion } from './ProductVersionPicker'
 export const HIGHLIGHTS = 3
 
 const CHIP =
-  'inline-flex min-h-8 items-center rounded-xl px-2.5 text-[0.82rem] font-extrabold transition-colors'
+  'inline-flex min-h-8 items-center rounded-xl px-2.5 max-md:min-h-11 text-[0.82rem] font-extrabold transition-colors'
 
 type Props = {
   product: ProductView

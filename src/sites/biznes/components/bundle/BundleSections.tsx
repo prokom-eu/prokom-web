@@ -116,12 +116,18 @@ export function BundleSwaps({
         {swaps.map((swap) => (
           <li key={`${swap.from.href}-${swap.to.href}`} className="rounded-[20px] bg-surface-2 p-5">
             <p className="flex flex-wrap items-center gap-2 text-sm font-extrabold text-ink">
-              <Link href={swap.from.href} className="hover:underline">
+              <Link
+                href={swap.from.href}
+                className="hover:underline max-md:inline-flex max-md:min-h-11 max-md:items-center"
+              >
                 {swap.from.name}
               </Link>
               <Icon name="arrow" strokeWidth={2.4} className="size-4 text-accent-text" />
               <span className="sr-only">można zamienić na</span>
-              <Link href={swap.to.href} className="hover:underline">
+              <Link
+                href={swap.to.href}
+                className="hover:underline max-md:inline-flex max-md:min-h-11 max-md:items-center"
+              >
                 {swap.to.name}
               </Link>
             </p>
@@ -183,7 +189,7 @@ export function BundleSources({ sources }: { sources: { pair: string; url: strin
               href={source.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-6 shrink-0 items-center gap-1 font-bold text-accent-text hover:underline"
+              className="inline-flex min-h-6 shrink-0 items-center gap-1 font-bold text-accent-text hover:underline max-md:min-h-11"
             >
               Źródło<span aria-hidden="true"> ↗</span>
               <span className="sr-only"> (otwiera się w nowej karcie)</span>

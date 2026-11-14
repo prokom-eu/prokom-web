@@ -4,3 +4,10 @@ export const PAGES: string[]
 export const THRESHOLD: number
 export function measure(html: string): Measure
 export function shortfalls(a: Measure, b: Measure, threshold?: number): (keyof Measure)[]
+export function mapPaths(html: string): string[]
+export function sitemapPaths(xml: string): string[]
+export function afterImportProblems(input: {
+  sitemap: string[]
+  map: string[]
+  pages: Map<string, { status: number; noindex: boolean }>
+}): string[]

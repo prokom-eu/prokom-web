@@ -749,7 +749,9 @@
 }
 
 [data-line='biznes'] .gps-pause {
-  padding: 4px 2px;
+  /* A touch target of 44 px (MOBILE-APLIKACJA, audit 14.11 P2-6). */
+  min-height: 44px;
+  padding: 4px 8px;
   border: 0;
   border-radius: 4px;
   font-size: 13px;

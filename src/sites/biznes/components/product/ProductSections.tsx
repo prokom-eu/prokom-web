@@ -136,7 +136,10 @@ function ProductTile({
           <p className="text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase">{label}</p>
         )}
         <h3 className="font-extrabold text-ink">
-          <Link href={productHref(product.slug)} className="hover:text-accent-text">
+          <Link
+            href={productHref(product.slug)}
+            className="hover:text-accent-text max-md:inline-flex max-md:min-h-11 max-md:items-center"
+          >
             {product.name}
           </Link>
         </h3>
@@ -179,7 +182,10 @@ function ProductTile({
           <p className="text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase">{label}</p>
         )}
         <h3 className="font-extrabold text-ink">
-          <Link href={productHref(product.slug)} className="hover:text-accent-text">
+          <Link
+            href={productHref(product.slug)}
+            className="hover:text-accent-text max-md:inline-flex max-md:min-h-11 max-md:items-center"
+          >
             {product.name}
           </Link>
         </h3>

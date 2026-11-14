@@ -13,6 +13,7 @@ import { VideoFacade } from '../../../components/VideoFacade'
 import { useSwap } from '../../../components/motion/useSwap'
 import { AddActionButton } from '../AddActionButton'
 import { BTN_PRIMARY, CARD, TAB_KEYS } from '../ui'
+import { balancedGrid } from './grid'
 
 /**
  * `videos`: the picked film behind the facade (ADR-016) and the list of films next to it. The
@@ -171,6 +172,7 @@ export function TabsPicker({
   // left out: no raw slug as a heading, no „Dodaj” of a missing product.
   const tabs = data.tabs.filter((item) => !item.shot || programs[item.shot.slug])
   const tab = tabs[current] ?? tabs[0]
+  const grid = balancedGrid(tab?.items.length ?? 0, { phone: 1 })
   if (!tab) return null
   const move = (delta: number) => {
     const next = (current + delta + tabs.length) % tabs.length
@@ -225,12 +227,18 @@ export function TabsPicker({
         )}
         {/* Phone (App-InsERT „Cała oferta”): the entries as rows of one list. */}
         {tab.items.length > 0 && (
-          <ul className="mt-5 grid gap-4 max-md:mt-3 max-md:gap-0 max-md:divide-y max-md:divide-border max-md:rounded-[20px] max-md:px-4 max-md:shadow-[inset_0_0_0_1px_var(--border)] min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
-            {tab.items.map((item) => (
+          <ul
+            className={cx(
+              grid.list,
+              'mt-5 gap-4 max-md:mt-3 max-md:gap-0 max-md:divide-y max-md:divide-border max-md:rounded-[20px] max-md:px-4 max-md:shadow-[inset_0_0_0_1px_var(--border)]',
+            )}
+          >
+            {tab.items.map((item, index) => (
               <li
                 key={item.t}
                 className={cx(
                   CARD,
+                  grid.item(index),
                   'flex flex-col gap-1.5 p-5 text-ink max-md:gap-0.5 max-md:rounded-none max-md:bg-transparent max-md:px-0 max-md:py-3 max-md:shadow-none',
                 )}
               >
@@ -281,7 +289,7 @@ export function TabsPicker({
                 {item.slug && (
                   <Link
                     href={productHref(item.slug)}
-                    className="mt-auto pt-2 font-extrabold text-accent-text hover:underline max-md:pt-1 max-md:text-[13px]"
+                    className="mt-auto pt-2 font-extrabold text-accent-text hover:underline max-md:inline-flex max-md:min-h-11 max-md:items-center max-md:pt-0 max-md:text-[13px]"
                   >
                     Zobacz kartę →
                   </Link>
