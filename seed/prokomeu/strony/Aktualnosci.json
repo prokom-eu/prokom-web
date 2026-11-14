@@ -1,0 +1,301 @@
+{
+ "_zrodlo": "Aktualnosci.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "posts": [
+   {
+    "n": "01",
+    "line": "Biznes",
+    "topic": "KSeF",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "edge": "rgba(var(--r-w),.1)",
+    "title": "E-faktury KSeF: co musi zrobić mała firma"
+   },
+   {
+    "n": "02",
+    "line": "Instalacje",
+    "topic": "Monitoring",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "edge": "rgba(var(--r-w),.1)",
+    "title": "Kamery w pensjonacie: od czego zacząć"
+   },
+   {
+    "n": "03",
+    "line": "Software",
+    "topic": "Strony",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "edge": "rgba(var(--r-w),.1)",
+    "title": "Ile trwa zrobienie strony firmowej"
+   },
+   {
+    "n": "04",
+    "line": "Tech",
+    "topic": "Naprawy",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "ink": "var(--k-ti)",
+    "domain": "prokomserwis.pl",
+    "url": "https://prokomserwis.pl",
+    "edge": "rgba(var(--r-w),.1)",
+    "title": "Pęknięty ekran: naprawa czy nowy telefon"
+   },
+   {
+    "n": "05",
+    "line": "Gaming",
+    "topic": "Gaming",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "ink": "var(--k-yi)",
+    "domain": "prokomgaming.pl",
+    "url": "https://prokomgaming.pl",
+    "edge": "color-mix(in srgb, var(--k-y) 45%, transparent)",
+    "title": "Jak dobrać komputer do swojej gry"
+   },
+   {
+    "n": "06",
+    "line": "Biznes",
+    "topic": "Kasy fiskalne",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "edge": "rgba(var(--r-w),.1)",
+    "title": "Przegląd kasy fiskalnej: jak pilnować terminu"
+   },
+   {
+    "n": "07",
+    "line": "Instalacje",
+    "topic": "Wi-Fi",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "edge": "rgba(var(--r-w),.1)",
+    "title": "Wi-Fi dla gości oddzielone od sieci firmy"
+   },
+   {
+    "n": "08",
+    "line": "Software",
+    "topic": "Systemy",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "edge": "rgba(var(--r-w),.1)",
+    "title": "Kiedy arkusz przestaje wystarczać firmie"
+   },
+   {
+    "n": "09",
+    "line": "Tech",
+    "topic": "Hammer Glass",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "ink": "var(--k-ti)",
+    "domain": "prokomserwis.pl",
+    "url": "https://prokomserwis.pl",
+    "edge": "rgba(var(--r-w),.1)",
+    "title": "Folia cięta na wymiar: jak to działa"
+   }
+  ],
+  "filters": [
+   {
+    "name": "Wszystkie",
+    "cd": "var(--k-g)",
+    "on": true,
+    "bd": "var(--k-g)",
+    "bg": "rgba(var(--r-w),.08)"
+   },
+   {
+    "name": "Biznes",
+    "cd": "var(--k-b)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Instalacje",
+    "cd": "var(--k-i)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Software",
+    "cd": "var(--k-s)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Tech",
+    "cd": "var(--k-t)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Gaming",
+    "cd": "var(--k-y)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   }
+  ],
+  "empty": false,
+  "countText": "9 z 9",
+  "feat": {
+   "name": "Biznes",
+   "label": "BIZNES",
+   "domain": "prokombiznes.pl",
+   "cd": "var(--k-b)",
+   "ct": "var(--k-bt)",
+   "dark": "var(--k-bd)",
+   "ink": "var(--k-bi)",
+   "line": "Biznes",
+   "url": "https://prokombiznes.pl",
+   "title": "E-faktury KSeF: co musi zrobić mała firma",
+   "lead": "Krótka zajawka najnowszego wpisu, pobrana ze strony linii. Całość czytelnik otwiera u źródła."
+  },
+  "topics": [
+   {
+    "name": "KSeF i e-faktury",
+    "cd": "var(--k-b)"
+   },
+   {
+    "name": "Kasy fiskalne",
+    "cd": "var(--k-b)"
+   },
+   {
+    "name": "GoPOS",
+    "cd": "var(--k-b)"
+   },
+   {
+    "name": "Opieka IT",
+    "cd": "var(--k-b)"
+   },
+   {
+    "name": "Monitoring",
+    "cd": "var(--k-i)"
+   },
+   {
+    "name": "Wi-Fi dla gości",
+    "cd": "var(--k-i)"
+   },
+   {
+    "name": "Smart home",
+    "cd": "var(--k-i)"
+   },
+   {
+    "name": "Ładowarki EV",
+    "cd": "var(--k-i)"
+   },
+   {
+    "name": "Strony internetowe",
+    "cd": "var(--k-s)"
+   },
+   {
+    "name": "Systemy i automatyzacje",
+    "cd": "var(--k-s)"
+   },
+   {
+    "name": "Naprawy telefonów",
+    "cd": "var(--k-t)"
+   },
+   {
+    "name": "Hammer Glass",
+    "cd": "var(--k-t)"
+   },
+   {
+    "name": "Komputery do gier",
+    "cd": "var(--k-y)"
+   },
+   {
+    "name": "Klatki w grach",
+    "cd": "var(--k-y)"
+   }
+  ],
+  "sources": [
+   {
+    "name": "Biznes",
+    "kind": "Aktualności · wkrótce",
+    "about": "Zmiany w przepisach, kasy, programy i sprzęt dla firm.",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Instalacje",
+    "kind": "Poradnik",
+    "about": "Jak zaplanować kamery, sieć i smart home w obiekcie.",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Software",
+    "kind": "Aktualności",
+    "about": "Strony, systemy i widoczność firmy w internecie.",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Tech",
+    "kind": "Blog",
+    "about": "Naprawy, ochrona ekranów i dbanie o sprzęt.",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "domain": "prokomserwis.pl",
+    "url": "https://prokomserwis.pl",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Gaming",
+    "kind": "Poradniki",
+    "about": "Jak wybrać komputer do gier i co oznaczają klatki.",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "domain": "prokomgaming.pl",
+    "url": "https://prokomgaming.pl",
+    "edge": "color-mix(in srgb, var(--k-y) 45%, transparent)"
+   }
+  ]
+ },
+ "stany": {},
+ "_stany_uwaga": "Treść pozostałych zakładek/wyborów: stany[klucz][indeks] = pola, które różnią się od stanu domyślnego."
+}

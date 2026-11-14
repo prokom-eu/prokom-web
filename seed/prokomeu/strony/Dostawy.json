@@ -1,0 +1,3859 @@
+{
+ "_zrodlo": "Dostawy.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "preps": [
+   {
+    "t": "Komputery i laptopy",
+    "c": "var(--k-b)",
+    "sel": "true",
+    "bd": "var(--k-b)",
+    "bg": "color-mix(in srgb, var(--k-b) 14%, transparent)"
+   },
+   {
+    "t": "Serwery i sieć",
+    "c": "var(--k-b)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "t": "Kasy i programy",
+    "c": "var(--k-b)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "t": "Instalacje",
+    "c": "var(--k-i)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "t": "RTV i AGD",
+    "c": "var(--k-g)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   }
+  ],
+  "prep": {
+   "h": "Sam sprzęt albo sprzęt gotowy do pracy.",
+   "lead": "Możemy dostarczyć same komputery i laptopy. Jeśli chcesz, przygotujemy je przed dostawą, podłączymy na miejscu i przeszkolimy pracowników.",
+   "line": "PRO-KOM Biznes",
+   "c": "var(--k-b)",
+   "cls": "sw sb",
+   "items": [
+    {
+     "t": "System i aktualizacje",
+     "d": "Zainstalowane przed dostawą."
+    },
+    {
+     "t": "Programy według listy",
+     "d": "Biuro, poczta i programy, których używacie."
+    },
+    {
+     "t": "Konta użytkowników",
+     "d": "Dla każdej osoby albo stanowiska."
+    },
+    {
+     "t": "Drukarki i sieć",
+     "d": "Podłączone na miejscu, w Waszej sieci."
+    },
+    {
+     "t": "Opis stanowisk",
+     "d": "Wiadomo, który sprzęt trafia na które biurko."
+    },
+    {
+     "t": "Lista sprzętu",
+     "d": "Do ewidencji i zgłoszeń gwarancyjnych."
+    }
+   ]
+  },
+  "levels": [
+   {
+    "n": "01",
+    "t": "Sama dostawa",
+    "d": "Sprzęt według listy albo specyfikacji, dostarczony pod wskazany adres."
+   },
+   {
+    "n": "02",
+    "t": "Dostawa z przygotowaniem",
+    "d": "Wybrane usługi: konfiguracja, podłączenie albo montaż — tylko to, czego potrzebujesz."
+   },
+   {
+    "n": "03",
+    "t": "Pełne wdrożenie",
+    "d": "Konfiguracja, montaż, uruchomienie i szkolenie — gdy tak ustalimy w ofercie."
+   }
+  ],
+  "brands": [
+   {
+    "t": "Komputery i serwery",
+    "line": "Biznes",
+    "c": "var(--k-b)",
+    "items": [
+     {
+      "n": "Dell",
+      "s": "serwery"
+     },
+     {
+      "n": "HP",
+      "s": "drukarki, oryginalne materiały"
+     },
+     {
+      "n": "QNAP",
+      "s": "dyski sieciowe NAS"
+     },
+     {
+      "n": "StorageCraft",
+      "s": "kopie zapasowe"
+     }
+    ]
+   },
+   {
+    "t": "Kasy i programy",
+    "line": "Biznes",
+    "c": "var(--k-b)",
+    "items": [
+     {
+      "n": "Posnet",
+      "s": "autoryzowany serwis"
+     },
+     {
+      "n": "Elzab",
+      "s": "autoryzowany serwis"
+     },
+     {
+      "n": "InsERT",
+      "s": "autoryzowany partner"
+     },
+     {
+      "n": "GoPOS",
+      "s": "autoryzowany partner"
+     }
+    ]
+   },
+   {
+    "t": "Instalacje",
+    "line": "Instalacje",
+    "c": "var(--k-i)",
+    "items": [
+     {
+      "n": "Dahua",
+      "s": "monitoring"
+     },
+     {
+      "n": "Hikvision",
+      "s": "monitoring"
+     },
+     {
+      "n": "Ubiquiti",
+      "s": "sieć i Wi-Fi"
+     },
+     {
+      "n": "Ampio",
+      "s": "smart home"
+     }
+    ]
+   },
+   {
+    "t": "Biuro i bezpieczeństwo",
+    "line": "Biznes",
+    "c": "var(--k-b)",
+    "items": [
+     {
+      "n": "Fellowes",
+      "s": "niszczarki"
+     },
+     {
+      "n": "Kobra",
+      "s": "niszczarki"
+     },
+     {
+      "n": "Stormshield",
+      "s": "firewall"
+     },
+     {
+      "n": "Barracuda",
+      "s": "firewall"
+     }
+    ]
+   }
+  ],
+  "after": [
+   {
+    "t": "Serwis w Rabce-Zdroju",
+    "d": "Bezpłatna diagnoza i wycena naprawy. Naprawy także kurierem.",
+    "line": "PRO-KOM Tech",
+    "c": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "ic": "M14 6l4 4-9 9H5v-4zM13 7l4 4"
+   },
+   {
+    "t": "Opieka IT",
+    "d": "Monitoring sprzętu, pomoc zdalna i bezpłatny przegląd IT na start.",
+    "line": "PRO-KOM Biznes",
+    "c": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "ic": "M4 5h16v11H4zM2 20h20M9 10l2 2 4-4"
+   },
+   {
+    "t": "Serwis kas",
+    "d": "Autoryzowany serwis Posnet i Elzab. Oddzwaniamy w 60 minut w godzinach pracy.",
+    "line": "PRO-KOM Biznes",
+    "c": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "ic": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"
+   },
+   {
+    "t": "Serwis instalacji",
+    "d": "Na wykonany przez nas montaż 24 miesiące gwarancji. Serwis u tej samej ekipy.",
+    "line": "PRO-KOM Instalacje",
+    "c": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "ic": "M9 12l2 2 4-4M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"
+   }
+  ],
+  "towns": [
+   {
+    "t": "Rabka-Zdrój · salon",
+    "cls": "twn hq"
+   },
+   {
+    "t": "Zakopane · salon",
+    "cls": "twn hq"
+   },
+   {
+    "t": "Nowy Targ",
+    "cls": "twn"
+   },
+   {
+    "t": "Limanowa",
+    "cls": "twn"
+   },
+   {
+    "t": "Myślenice",
+    "cls": "twn"
+   },
+   {
+    "t": "Nowy Sącz",
+    "cls": "twn"
+   },
+   {
+    "t": "Kraków",
+    "cls": "twn"
+   }
+  ],
+  "segs": [
+   {
+    "name": "Firma",
+    "sub": "biuro, oddział, sieć sklepów",
+    "c": "var(--k-b)",
+    "sel": "true",
+    "bd": "var(--k-b)",
+    "bg": "color-mix(in srgb, var(--k-b) 14%, transparent)"
+   },
+   {
+    "name": "Instytucja",
+    "sub": "szkoła, urząd, gmina",
+    "c": "var(--k-b)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Hotel i pensjonat",
+    "sub": "obiekt noclegowy",
+    "c": "var(--k-i)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Inwestor",
+    "sub": "apartamenty, lokale na wynajem",
+    "c": "var(--k-i)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Deweloper",
+    "sub": "budynki i osiedla",
+    "c": "var(--k-i)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Architekt",
+    "sub": "projekt i specyfikacja",
+    "c": "var(--k-i)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "transparent"
+   }
+  ],
+  "seg": {
+   "name": "Firma",
+   "sub": "biuro, oddział, sieć sklepów",
+   "L": [
+    "var(--k-b)",
+    "var(--k-bt)",
+    "var(--k-bd)"
+   ],
+   "eb": "Dla firm",
+   "h": "Wymiana sprzętu, nowy oddział albo wyposażenie biura — w jednym zamówieniu.",
+   "start": "lista stanowisk i termin",
+   "lines": "PRO-KOM Biznes · Instalacje",
+   "items": [
+    {
+     "t": "Zestawy komputerowe",
+     "d": "Komputery, laptopy i monitory — na życzenie z konfiguracją."
+    },
+    {
+     "t": "Serwery i kopie zapasowe",
+     "d": "Serwery (głównie Dell), na życzenie z wdrożeniem."
+    },
+    {
+     "t": "Kasy i programy",
+     "d": "Kasy fiskalne, InsERT, Comarch ERP i GoPOS."
+    },
+    {
+     "t": "RTV i AGD dla firmy",
+     "d": "Telewizory i AGD do biura, sali i zaplecza socjalnego."
+    }
+   ],
+   "cta": "Plan dla Twojej branży →",
+   "url": "DlaFirm.dc.html",
+   "formH": "Zapytanie dla firmy",
+   "orgL": "Nazwa firmy",
+   "linkL": "Link do listy lub specyfikacji",
+   "linkP": "np. link do arkusza ze sprzętem",
+   "descP": "Np. 12 stanowisk w nowym biurze: laptopy, monitory, drukarka, sieć Wi-Fi, start za miesiąc",
+   "c": "var(--k-b)",
+   "ct": "var(--k-bt)",
+   "dark": "var(--k-bd)",
+   "cls": "sw sb"
+  },
+  "groups": [
+   {
+    "t": "Sprzęt IT",
+    "line": "PRO-KOM Biznes",
+    "c": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "ic": "M4 5h16v11H4zM2 20h20",
+    "note": "Konfigurację, montaż i uruchomienie dodasz obok w „Co jeszcze”.",
+    "cnt": "",
+    "items": [
+     {
+      "t": "Komputery stacjonarne",
+      "s": "biuro, pracownia, recepcja",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Komputery stacjonarne",
+      "lp": "Więcej: Komputery stacjonarne",
+      "lp10": "Dodaj 10: Komputery stacjonarne"
+     },
+     {
+      "t": "Laptopy",
+      "s": "dla pracowników i nauczycieli",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Laptopy",
+      "lp": "Więcej: Laptopy",
+      "lp10": "Dodaj 10: Laptopy"
+     },
+     {
+      "t": "Monitory",
+      "s": "do stanowisk i sal",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Monitory",
+      "lp": "Więcej: Monitory",
+      "lp10": "Dodaj 10: Monitory"
+     },
+     {
+      "t": "Drukarki i urządzenia wielofunkcyjne",
+      "s": "tylko oryginalne materiały HP",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Drukarki i urządzenia wielofunkcyjne",
+      "lp": "Więcej: Drukarki i urządzenia wielofunkcyjne",
+      "lp10": "Dodaj 10: Drukarki i urządzenia wielofunkcyjne"
+     },
+     {
+      "t": "Serwery i NAS",
+      "s": "głównie Dell i QNAP, z wdrożeniem",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Serwery i NAS",
+      "lp": "Więcej: Serwery i NAS",
+      "lp10": "Dodaj 10: Serwery i NAS"
+     },
+     {
+      "t": "Kasy fiskalne i terminale",
+      "s": "autoryzowany serwis Posnet i Elzab",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Kasy fiskalne i terminale",
+      "lp": "Więcej: Kasy fiskalne i terminale",
+      "lp10": "Dodaj 10: Kasy fiskalne i terminale"
+     },
+     {
+      "t": "Licencje programów",
+      "s": "InsERT, Comarch ERP, GoPOS",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Licencje programów",
+      "lp": "Więcej: Licencje programów",
+      "lp10": "Dodaj 10: Licencje programów"
+     }
+    ]
+   },
+   {
+    "t": "RTV i AGD dla firm",
+    "line": "PRO-KOM Biznes",
+    "c": "var(--k-g)",
+    "ct": "var(--k-gt)",
+    "ic": "M3 5h18v12H3zM8 21h8M12 17v4",
+    "note": "Dostawa pod wskazany adres, bez montażu. Tylko dla firm i instytucji.",
+    "cnt": "",
+    "items": [
+     {
+      "t": "Telewizory",
+      "s": "pokoje, sale, poczekalnie",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Telewizory",
+      "lp": "Więcej: Telewizory",
+      "lp10": "Dodaj 10: Telewizory"
+     },
+     {
+      "t": "Lodówki i chłodziarki",
+      "s": "pokoje, kuchnie, zaplecze",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Lodówki i chłodziarki",
+      "lp": "Więcej: Lodówki i chłodziarki",
+      "lp10": "Dodaj 10: Lodówki i chłodziarki"
+     },
+     {
+      "t": "AGD do zabudowy",
+      "s": "płyty, piekarniki, zmywarki",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: AGD do zabudowy",
+      "lp": "Więcej: AGD do zabudowy",
+      "lp10": "Dodaj 10: AGD do zabudowy"
+     },
+     {
+      "t": "Pralki i suszarki",
+      "s": "pralnie, apartamenty",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Pralki i suszarki",
+      "lp": "Więcej: Pralki i suszarki",
+      "lp10": "Dodaj 10: Pralki i suszarki"
+     },
+     {
+      "t": "Drobne AGD i ekspresy",
+      "s": "czajniki, mikrofalówki, ekspresy",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Drobne AGD i ekspresy",
+      "lp": "Więcej: Drobne AGD i ekspresy",
+      "lp10": "Dodaj 10: Drobne AGD i ekspresy"
+     },
+     {
+      "t": "Odkurzacze",
+      "s": "obsługa obiektu",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Odkurzacze",
+      "lp": "Więcej: Odkurzacze",
+      "lp10": "Dodaj 10: Odkurzacze"
+     }
+    ]
+   },
+   {
+    "t": "Instalacje",
+    "line": "PRO-KOM Instalacje",
+    "c": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "ic": "M3 8l12-3v10L3 12zM15 9l6-2v10l-6-2",
+    "note": "Montaż według ustaleń; na wykonany montaż 24 miesiące gwarancji.",
+    "cnt": "",
+    "items": [
+     {
+      "t": "Kamery monitoringu",
+      "s": "z nagrywaniem i podglądem",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Kamery monitoringu",
+      "lp": "Więcej: Kamery monitoringu",
+      "lp10": "Dodaj 10: Kamery monitoringu"
+     },
+     {
+      "t": "Punkty Wi-Fi i sieć",
+      "s": "okablowanie i przełączniki",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Punkty Wi-Fi i sieć",
+      "lp": "Więcej: Punkty Wi-Fi i sieć",
+      "lp10": "Dodaj 10: Punkty Wi-Fi i sieć"
+     },
+     {
+      "t": "Wideodomofony i kontrola dostępu",
+      "s": "liczba wejść",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Wideodomofony i kontrola dostępu",
+      "lp": "Więcej: Wideodomofony i kontrola dostępu",
+      "lp10": "Dodaj 10: Wideodomofony i kontrola dostępu"
+     },
+     {
+      "t": "Nagłośnienie",
+      "s": "liczba stref",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Nagłośnienie",
+      "lp": "Więcej: Nagłośnienie",
+      "lp10": "Dodaj 10: Nagłośnienie"
+     },
+     {
+      "t": "Ekrany informacyjne",
+      "s": "recepcja, hol, sala",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Ekrany informacyjne",
+      "lp": "Więcej: Ekrany informacyjne",
+      "lp10": "Dodaj 10: Ekrany informacyjne"
+     },
+     {
+      "t": "Alarm",
+      "s": "liczba stref lub budynków",
+      "q": "0",
+      "cls": "bit",
+      "lm": "Mniej: Alarm",
+      "lp": "Więcej: Alarm",
+      "lp10": "Dodaj 10: Alarm"
+     }
+    ]
+   }
+  ],
+  "picked": [],
+  "tot": {
+   "pcs": "0",
+   "pos": "0",
+   "empty": true,
+   "agd": false,
+   "lines": [],
+   "cta": "Przejdź do zapytania ↓",
+   "formT": "Lista zapytania jest pusta",
+   "formD": "Możesz wysłać sam opis albo link do specyfikacji.",
+   "formA": "Złóż listę ↑",
+   "has": false,
+   "bar": "Lista: 0 szt.",
+   "barD": "0 pozycji",
+   "copyL": "Kopiuj listę do schowka"
+  },
+  "servs": [
+   {
+    "t": "Konfiguracja sprzętu",
+    "d": "system, programy, konta — sprzęt IT",
+    "sel": "false",
+    "mk": "",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "transparent",
+    "bxc": "rgba(var(--r-w),.3)",
+    "bxb": "transparent"
+   },
+   {
+    "t": "Montaż i uruchomienie",
+    "d": "sprzęt IT i instalacje",
+    "sel": "false",
+    "mk": "",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "transparent",
+    "bxc": "rgba(var(--r-w),.3)",
+    "bxb": "transparent"
+   },
+   {
+    "t": "Szkolenie użytkowników",
+    "d": "na miejscu",
+    "sel": "false",
+    "mk": "",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "transparent",
+    "bxc": "rgba(var(--r-w),.3)",
+    "bxb": "transparent"
+   },
+   {
+    "t": "Opieka IT po wdrożeniu",
+    "d": "serwis i pomoc dla pracowników",
+    "sel": "false",
+    "mk": "",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "transparent",
+    "bxc": "rgba(var(--r-w),.3)",
+    "bxb": "transparent"
+   },
+   {
+    "t": "Oferta do przetargu",
+    "d": "według SWZ lub zapytania ofertowego",
+    "sel": "false",
+    "mk": "",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "transparent",
+    "bxc": "rgba(var(--r-w),.3)",
+    "bxb": "transparent"
+   },
+   {
+    "t": "Strona lub panel",
+    "d": "PRO-KOM Software",
+    "sel": "false",
+    "mk": "",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "transparent",
+    "bxc": "rgba(var(--r-w),.3)",
+    "bxb": "transparent"
+   }
+  ],
+  "terms": [
+   {
+    "t": "Pilne — do 2 tygodni",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent"
+   },
+   {
+    "t": "Do miesiąca",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent"
+   },
+   {
+    "t": "W tym kwartale",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent"
+   },
+   {
+    "t": "Planujemy na później",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent"
+   }
+  ],
+  "objs": [
+   {
+    "t": "Hotel i pensjonat",
+    "ex": "Przykład: pensjonat, 20 pokoi",
+    "ic": "M3 21V8l9-5 9 5v13M9 21v-6h6v6",
+    "sel": "true",
+    "bd": "var(--k-i)",
+    "bg": "color-mix(in srgb, var(--k-i) 10%, var(--k-card))",
+    "ib": "var(--k-i)",
+    "ic2": "var(--k-white)"
+   },
+   {
+    "t": "Szkoła i pracownia",
+    "ex": "Przykład: pracownia, 25 stanowisk",
+    "ic": "M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ib": "rgba(var(--r-w),.07)",
+    "ic2": "var(--k-ink3)"
+   },
+   {
+    "t": "Biuro firmy",
+    "ex": "Przykład: biuro, 15 osób",
+    "ic": "M4 21V5h10v16M14 9h6v12M8 9h2M8 13h2M8 17h2",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ib": "rgba(var(--r-w),.07)",
+    "ic2": "var(--k-ink3)"
+   },
+   {
+    "t": "Budynek z lokalami",
+    "ex": "Przykład: budynek, 24 lokale",
+    "ic": "M5 21V3h14v18M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ib": "rgba(var(--r-w),.07)",
+    "ic2": "var(--k-ink3)"
+   },
+   {
+    "t": "Urząd i instytucja",
+    "ex": "Przykład: urząd, 20 stanowisk",
+    "ic": "M3 21h18M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M12 3l9 5H3z",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ib": "rgba(var(--r-w),.07)",
+    "ic2": "var(--k-ink3)"
+   },
+   {
+    "t": "Apartamenty na wynajem",
+    "ex": "Przykład: 8 apartamentów",
+    "ic": "M3 21V9l9-6 9 6v12M9 21v-5h6v5M8 11h2M14 11h2",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ib": "rgba(var(--r-w),.07)",
+    "ic2": "var(--k-ink3)"
+   },
+   {
+    "t": "Restauracja i kawiarnia",
+    "ex": "Przykład: restauracja, 60 miejsc",
+    "ic": "M7 3v8M5 3v4a2 2 0 004 0V3M7 11v10M17 3c-2 2-2 6 0 8v10",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ib": "rgba(var(--r-w),.07)",
+    "ic2": "var(--k-ink3)"
+   },
+   {
+    "t": "Sklep i sieć sklepów",
+    "ex": "Przykład: sklep, 3 stanowiska",
+    "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ib": "rgba(var(--r-w),.07)",
+    "ic2": "var(--k-ink3)"
+   },
+   {
+    "t": "Gabinety i przychodnia",
+    "ex": "Przykład: 10 stanowisk",
+    "ic": "M12 6v12M6 12h12M4 4h16v16H4z",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ib": "rgba(var(--r-w),.07)",
+    "ic2": "var(--k-ink3)"
+   }
+  ],
+  "obj": {
+   "ex": "Przykład: pensjonat, 20 pokoi",
+   "h": "Wyposażenie pokoi, recepcja i Wi-Fi w całym obiekcie — w jednym zamówieniu.",
+   "cls": "sw sb",
+   "cols": [
+    {
+     "t": "Pokoje",
+     "line": "RTV i AGD",
+     "c": "var(--k-g)",
+     "ct": "var(--k-gt)",
+     "items": [
+      {
+       "t": "Telewizory",
+       "q": "20 szt."
+      },
+      {
+       "t": "Lodówki",
+       "q": "20 szt."
+      },
+      {
+       "t": "Czajniki i drobne AGD",
+       "q": "20 szt."
+      }
+     ]
+    },
+    {
+     "t": "Recepcja",
+     "line": "Biznes",
+     "c": "var(--k-b)",
+     "ct": "var(--k-bt)",
+     "items": [
+      {
+       "t": "Komputer",
+       "q": "2 szt."
+      },
+      {
+       "t": "Drukarka",
+       "q": "1 szt."
+      },
+      {
+       "t": "Kasa fiskalna",
+       "q": "1 szt."
+      },
+      {
+       "t": "Program",
+       "q": "1 szt."
+      }
+     ]
+    },
+    {
+     "t": "Obiekt",
+     "line": "Instalacje",
+     "c": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "items": [
+      {
+       "t": "Punkty Wi-Fi",
+       "q": "10 szt."
+      },
+      {
+       "t": "Kamery",
+       "q": "8 szt."
+      },
+      {
+       "t": "Strefy nagłośnienia",
+       "q": "2 szt."
+      }
+     ]
+    },
+    {
+     "t": "Po otwarciu",
+     "line": "Software · Tech",
+     "c": "var(--k-s)",
+     "ct": "var(--k-st)",
+     "items": [
+      {
+       "t": "Strona obiektu z formularzem",
+       "q": "✓"
+      },
+      {
+       "t": "Serwis sprzętu w Rabce-Zdroju",
+       "q": "✓"
+      }
+     ]
+    }
+   ]
+  },
+  "facts": [
+   {
+    "v": "Od 2004",
+    "l": "firma z Rabki-Zdroju",
+    "d": "M12 8v4l3 2M3 12a9 9 0 1018 0 9 9 0 00-18 0",
+    "c": "var(--k-g)"
+   },
+   {
+    "v": "100+",
+    "l": "klientów firmowych",
+    "d": "M16 11a4 4 0 10-8 0M4 21a8 8 0 0116 0",
+    "c": "var(--k-b)"
+   },
+   {
+    "v": "Posnet · Elzab",
+    "l": "autoryzowany serwis kas",
+    "d": "M9 12l2 2 4-4M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z",
+    "c": "var(--k-b)"
+   },
+   {
+    "v": "24 mies.",
+    "l": "gwarancji na montaż instalacji",
+    "d": "M4 12l5 5L20 6",
+    "c": "var(--k-i)"
+   },
+   {
+    "v": "Małopolska",
+    "l": "dostawy i serwis na miejscu",
+    "d": "M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12zM12 11a2 2 0 100-4 2 2 0 000 4z",
+    "c": "var(--k-g)"
+   }
+  ],
+  "areas": [
+   {
+    "t": "Sprzęt IT",
+    "line": "PRO-KOM Biznes",
+    "c": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "ic": "M4 5h16v11H4zM2 20h20",
+    "d": "Komputery, laptopy, monitory, drukarki i serwery w ilościach dla biura, pracowni albo urzędu.",
+    "tags": [
+     {
+      "t": "Komputery"
+     },
+     {
+      "t": "Laptopy"
+     },
+     {
+      "t": "Serwery Dell"
+     },
+     {
+      "t": "Drukarki HP"
+     },
+     {
+      "t": "NAS QNAP"
+     }
+    ],
+    "how": "sama dostawa albo z konfiguracją, montażem i szkoleniem — według ustaleń."
+   },
+   {
+    "t": "RTV i AGD dla firm",
+    "line": "PRO-KOM Biznes",
+    "c": "var(--k-g)",
+    "ct": "var(--k-gt)",
+    "ic": "M3 5h18v12H3zM8 21h8M12 17v4",
+    "d": "Telewizory, lodówki, AGD do zabudowy i drobne AGD do pokoi, lokali, biur i zaplecza.",
+    "tags": [
+     {
+      "t": "Telewizory"
+     },
+     {
+      "t": "Lodówki"
+     },
+     {
+      "t": "Do zabudowy"
+     },
+     {
+      "t": "Pralki"
+     },
+     {
+      "t": "Drobne AGD"
+     }
+    ],
+    "how": "dostawa pod wskazany adres, bez montażu. Tylko dla firm i instytucji."
+   },
+   {
+    "t": "Instalacje w obiekcie",
+    "line": "PRO-KOM Instalacje",
+    "c": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "ic": "M3 8l12-3v10L3 12zM15 9l6-2v10l-6-2",
+    "d": "Monitoring, sieć i Wi-Fi, wideodomofony, nagłośnienie i ekrany — w nowym albo działającym obiekcie.",
+    "tags": [
+     {
+      "t": "Monitoring"
+     },
+     {
+      "t": "Wi-Fi"
+     },
+     {
+      "t": "Domofony"
+     },
+     {
+      "t": "Nagłośnienie"
+     },
+     {
+      "t": "Ekrany"
+     }
+    ],
+    "how": "sam sprzęt albo z projektem i montażem; na wykonany montaż 24 miesiące gwarancji."
+   },
+   {
+    "t": "Programy i strona",
+    "line": "PRO-KOM Biznes · Software",
+    "c": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "ic": "M8 9l-3 3 3 3M16 9l3 3-3 3M13 6l-2 12",
+    "d": "Programy do sprzedaży i magazynu, kasy oraz strona albo panel dla obiektu czy inwestycji.",
+    "tags": [
+     {
+      "t": "InsERT"
+     },
+     {
+      "t": "Comarch ERP"
+     },
+     {
+      "t": "GoPOS"
+     },
+     {
+      "t": "Strona"
+     },
+     {
+      "t": "Panel"
+     }
+    ],
+    "how": "wdrożenie, szkolenie i opieka — według potrzeb."
+   }
+  ],
+  "steps": [
+   {
+    "n": "01",
+    "t": "Zapytanie",
+    "d": "Lista z tej strony, specyfikacja, SWZ albo zwykły opis."
+   },
+   {
+    "n": "02",
+    "t": "Doprecyzowanie",
+    "d": "Ustalamy parametry, ilości, termin i miejsce dostawy."
+   },
+   {
+    "n": "03",
+    "t": "Oferta na piśmie",
+    "d": "Zakres, termin realizacji i warunki — w jednym dokumencie."
+   },
+   {
+    "n": "04",
+    "t": "Przygotowanie",
+    "d": "Zamawiamy sprzęt. Jeśli tak ustalimy — konfigurujemy go przed dostawą."
+   },
+   {
+    "n": "05",
+    "t": "Dostawa i wdrożenie",
+    "d": "Dostawa pod adres. Montaż i uruchomienie — jeśli są w ofercie."
+   },
+   {
+    "n": "06",
+    "t": "Odbiór i serwis",
+    "d": "Protokół odbioru, a potem serwis u tej samej firmy."
+   }
+  ],
+  "cmp": [
+   {
+    "t": "Sprzęt IT",
+    "a": "sklep lub hurtownia",
+    "b": "Biznes — konfiguracja opcjonalnie",
+    "c": "var(--k-b)"
+   },
+   {
+    "t": "RTV i AGD",
+    "a": "osobny sprzedawca",
+    "b": "w tej samej ofercie",
+    "c": "var(--k-g)"
+   },
+   {
+    "t": "Monitoring i sieć",
+    "a": "osobny instalator",
+    "b": "Instalacje — montaż opcjonalnie",
+    "c": "var(--k-i)"
+   },
+   {
+    "t": "Kasy i programy",
+    "a": "osobny serwis",
+    "b": "Biznes — autoryzacje",
+    "c": "var(--k-b)"
+   },
+   {
+    "t": "Strona i panel",
+    "a": "agencja",
+    "b": "Software — u nas",
+    "c": "var(--k-s)"
+   },
+   {
+    "t": "Serwis po wdrożeniu",
+    "a": "kilka numerów",
+    "b": "jeden kontakt",
+    "c": "var(--k-g)"
+   }
+  ],
+  "formal": [
+   {
+    "t": "Oferty w postępowaniach",
+    "d": "Zapytania ofertowe i przetargi — według SWZ.",
+    "ic": "M9 12h6M9 16h6M7 3h7l5 5v13H7zM14 3v5h5"
+   },
+   {
+    "t": "Faktura VAT i protokół",
+    "d": "Dokumenty do odbioru i rozliczenia zamówienia.",
+    "ic": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"
+   },
+   {
+    "t": "Karty katalogowe",
+    "d": "Parametry sprzętu potwierdzone przez producenta.",
+    "ic": "M4 4h16v16H4zM8 8h8M8 12h8M8 16h5"
+   },
+   {
+    "t": "Gwarancja producenta",
+    "d": "Nowy sprzęt, a serwis w Rabce-Zdroju.",
+    "ic": "M9 12l2 2 4-4M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"
+   },
+   {
+    "t": "Warunki na piśmie",
+    "d": "Termin realizacji i płatności ustalamy w ofercie.",
+    "ic": "M4 20h4L18 10l-4-4L4 16zM13 7l4 4"
+   },
+   {
+    "t": "Spotkanie przed ofertą",
+    "d": "W salonie w Rabce-Zdroju albo w Twoim obiekcie.",
+    "ic": "M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Czy jest minimalna wielkość zamówienia?",
+    "a": "Nie podajemy progu na stronie. Napisz, czego potrzebujesz — odpowiemy, jak możemy to zrealizować.",
+    "sel": "true",
+    "rows": "1fr",
+    "rot": "rotate(180deg)"
+   },
+   {
+    "n": "02",
+    "q": "Czy montujecie RTV i AGD?",
+    "a": "Nie. RTV i AGD dostarczamy pod wskazany adres. Konfigurację i montaż ustalamy tylko dla sprzętu IT i instalacji — jeśli ich potrzebujesz.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "03",
+    "q": "Czy RTV i AGD sprzedajecie osobom prywatnym?",
+    "a": "Ta oferta jest dla firm, instytucji, inwestorów i deweloperów. Klientów prywatnych zapraszamy do salonu i serwisu.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "04",
+    "q": "Czy odpowiadacie na przetargi i zapytania ofertowe?",
+    "a": "Tak. Wyślij link do ogłoszenia albo SWZ — przygotujemy ofertę według wymagań zamawiającego.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "05",
+    "q": "Ile trwa przygotowanie oferty?",
+    "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "06",
+    "q": "Gdzie dostarczacie?",
+    "a": "Działamy głównie na Podhalu i w całej Małopolsce. Dostawę w inne miejsce ustalamy przy zapytaniu.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "07",
+    "q": "Dlaczego nie ma cen na stronie?",
+    "a": "Ceny zależą od ilości, parametrów i terminu. Każde zapytanie wyceniamy na piśmie.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   }
+  ],
+  "next": [
+   {
+    "eb": "Architekci i wykonawcy",
+    "t": "Współpraca przy projekcie",
+    "d": "Etapy inwestycji, zasady i dostawcy.",
+    "url": "Wspolpraca.dc.html",
+    "c": "var(--k-i)"
+   },
+   {
+    "eb": "Dla firm",
+    "t": "Plan dla Twojej branży",
+    "d": "Kasa, IT, obiekt i strona w jednym planie.",
+    "url": "DlaFirm.dc.html",
+    "c": "var(--k-b)"
+   },
+   {
+    "eb": "Oferta",
+    "t": "Cała oferta PRO-KOM",
+    "d": "Wszystkie usługi pięciu linii w jednym miejscu.",
+    "url": "Linie.dc.html",
+    "c": "var(--k-g)"
+   },
+   {
+    "eb": "Kontakt",
+    "t": "Spotkajmy się w salonie",
+    "d": "Ul. Orkana 16B, Rabka-Zdrój. Przyjdź z listą albo rzutami.",
+    "url": "Kontakt.dc.html",
+    "c": "var(--k-g)"
+   }
+  ]
+ },
+ "stany": {
+  "sg": {
+   "1": {
+    "segs": [
+     {
+      "name": "Firma",
+      "sub": "biuro, oddział, sieć sklepów",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, gmina",
+      "c": "var(--k-b)",
+      "sel": "true",
+      "bd": "var(--k-b)",
+      "bg": "color-mix(in srgb, var(--k-b) 14%, transparent)"
+     },
+     {
+      "name": "Hotel i pensjonat",
+      "sub": "obiekt noclegowy",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Inwestor",
+      "sub": "apartamenty, lokale na wynajem",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Architekt",
+      "sub": "projekt i specyfikacja",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     }
+    ],
+    "seg": {
+     "name": "Instytucja",
+     "sub": "szkoła, urząd, gmina",
+     "L": [
+      "var(--k-b)",
+      "var(--k-bt)",
+      "var(--k-bd)"
+     ],
+     "eb": "Dla instytucji",
+     "h": "Pracownie, urzędy i świetlice — dostawa według specyfikacji, z dokumentami do odbioru.",
+     "start": "opis przedmiotu zamówienia albo SWZ",
+     "lines": "PRO-KOM Biznes · Instalacje",
+     "items": [
+      {
+       "t": "Pracownie i stanowiska",
+       "d": "Komputery i monitory według specyfikacji zamawiającego."
+      },
+      {
+       "t": "Zapytania ofertowe i przetargi",
+       "d": "Przygotowujemy ofertę według Twojej specyfikacji."
+      },
+      {
+       "t": "Dokumenty do odbioru",
+       "d": "Faktura VAT, protokół odbioru, karty katalogowe."
+      },
+      {
+       "t": "Serwis po wdrożeniu",
+       "d": "Gwarancja producenta i serwis w Rabce-Zdroju."
+      }
+     ],
+     "cta": "Formalności i przetargi ↓",
+     "url": "#formularz",
+     "formH": "Zapytanie od instytucji",
+     "orgL": "Nazwa instytucji",
+     "linkL": "Link do ogłoszenia lub SWZ",
+     "linkP": "np. link do zapytania ofertowego",
+     "descP": "Np. pracownia komputerowa na 25 stanowisk z monitorami i drukarką, termin do końca sierpnia",
+     "c": "var(--k-b)",
+     "ct": "var(--k-bt)",
+     "dark": "var(--k-bd)",
+     "cls": "sw sb"
+    }
+   },
+   "2": {
+    "segs": [
+     {
+      "name": "Firma",
+      "sub": "biuro, oddział, sieć sklepów",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, gmina",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Hotel i pensjonat",
+      "sub": "obiekt noclegowy",
+      "c": "var(--k-i)",
+      "sel": "true",
+      "bd": "var(--k-i)",
+      "bg": "color-mix(in srgb, var(--k-i) 14%, transparent)"
+     },
+     {
+      "name": "Inwestor",
+      "sub": "apartamenty, lokale na wynajem",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Architekt",
+      "sub": "projekt i specyfikacja",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     }
+    ],
+    "seg": {
+     "name": "Hotel i pensjonat",
+     "sub": "obiekt noclegowy",
+     "L": [
+      "var(--k-i)",
+      "var(--k-it)",
+      "var(--k-id)"
+     ],
+     "eb": "Dla obiektów noclegowych",
+     "h": "Pokoje, recepcja i części wspólne — technika i wyposażenie od jednej firmy.",
+     "start": "liczba pokoi i plan obiektu",
+     "lines": "PRO-KOM Instalacje · Biznes · Software",
+     "items": [
+      {
+       "t": "RTV i AGD do pokoi",
+       "d": "Telewizory, lodówki i drobne AGD w jednej dostawie."
+      },
+      {
+       "t": "Wi-Fi w całym obiekcie",
+       "d": "Punkty dostępowe na kablu, w pokojach i na korytarzach."
+      },
+      {
+       "t": "Monitoring i nagłośnienie",
+       "d": "Kamery wokół obiektu, muzyka w restauracji i na sali."
+      },
+      {
+       "t": "Recepcja",
+       "d": "Komputer, drukarka, kasa fiskalna i program."
+      }
+     ],
+     "cta": "Zobacz przykład pensjonatu ↓",
+     "url": "#obiekty",
+     "formH": "Zapytanie dla obiektu",
+     "orgL": "Nazwa obiektu",
+     "linkL": "Link do planu obiektu",
+     "linkP": "np. link do rzutów w PDF",
+     "descP": "Np. pensjonat 20 pokoi: telewizory, lodówki, Wi-Fi i monitoring, otwarcie w czerwcu",
+     "c": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "cls": "sw sb"
+    }
+   },
+   "3": {
+    "segs": [
+     {
+      "name": "Firma",
+      "sub": "biuro, oddział, sieć sklepów",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, gmina",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Hotel i pensjonat",
+      "sub": "obiekt noclegowy",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Inwestor",
+      "sub": "apartamenty, lokale na wynajem",
+      "c": "var(--k-i)",
+      "sel": "true",
+      "bd": "var(--k-i)",
+      "bg": "color-mix(in srgb, var(--k-i) 14%, transparent)"
+     },
+     {
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Architekt",
+      "sub": "projekt i specyfikacja",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     }
+    ],
+    "seg": {
+     "name": "Inwestor",
+     "sub": "apartamenty, lokale na wynajem",
+     "L": [
+      "var(--k-i)",
+      "var(--k-it)",
+      "var(--k-id)"
+     ],
+     "eb": "Dla inwestorów",
+     "h": "Wiele lokali naraz — to samo wyposażenie, jedna dostawa, jeden serwis.",
+     "start": "liczba lokali i standard wyposażenia",
+     "lines": "PRO-KOM Instalacje · Biznes · Software",
+     "items": [
+      {
+       "t": "RTV i AGD w wielu lokalach",
+       "d": "Ten sam zestaw do każdego apartamentu."
+      },
+      {
+       "t": "Wi-Fi i wideodomofon",
+       "d": "Internet w lokalach i wejście dla gości."
+      },
+      {
+       "t": "Monitoring części wspólnych",
+       "d": "Wejścia, parking i klatki z podglądem w telefonie."
+      },
+      {
+       "t": "Strona obiektu",
+       "d": "Strona z lokalami i formularzem — PRO-KOM Software."
+      }
+     ],
+     "cta": "Zobacz przykład budynku ↓",
+     "url": "#obiekty",
+     "formH": "Zapytanie inwestora",
+     "orgL": "Firma lub inwestycja",
+     "linkL": "Link do opisu inwestycji",
+     "linkP": "np. link do rzutów lub listy lokali",
+     "descP": "Np. 8 apartamentów na wynajem: telewizor, lodówka i AGD do zabudowy w każdym, Wi-Fi",
+     "c": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "cls": "sw sb"
+    }
+   },
+   "4": {
+    "segs": [
+     {
+      "name": "Firma",
+      "sub": "biuro, oddział, sieć sklepów",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, gmina",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Hotel i pensjonat",
+      "sub": "obiekt noclegowy",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Inwestor",
+      "sub": "apartamenty, lokale na wynajem",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "c": "var(--k-i)",
+      "sel": "true",
+      "bd": "var(--k-i)",
+      "bg": "color-mix(in srgb, var(--k-i) 14%, transparent)"
+     },
+     {
+      "name": "Architekt",
+      "sub": "projekt i specyfikacja",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     }
+    ],
+    "seg": {
+     "name": "Deweloper",
+     "sub": "budynki i osiedla",
+     "L": [
+      "var(--k-i)",
+      "var(--k-it)",
+      "var(--k-id)"
+     ],
+     "eb": "Dla deweloperów",
+     "h": "Instalacje niskoprądowe i standard wyposażenia lokali u jednego wykonawcy.",
+     "start": "projekt i harmonogram inwestycji",
+     "lines": "PRO-KOM Instalacje · Biznes",
+     "items": [
+      {
+       "t": "Instalacje w budynku",
+       "d": "Sieć, wideodomofony, kontrola dostępu i monitoring."
+      },
+      {
+       "t": "AGD w standardzie lokali",
+       "d": "Sprzęt do zabudowy dostarczony na wskazany termin."
+      },
+      {
+       "t": "Garaż",
+       "d": "Ładowarki Elzab EcoPower i przygotowanie miejsc."
+      },
+      {
+       "t": "Odbiór i serwis",
+       "d": "24 miesiące gwarancji na montaż instalacji."
+      }
+     ],
+     "cta": "Etapy współpracy przy budowie →",
+     "url": "Wspolpraca.dc.html#etapy",
+     "formH": "Zapytanie dewelopera",
+     "orgL": "Firma i nazwa inwestycji",
+     "linkL": "Link do dokumentacji",
+     "linkP": "np. link do projektu albo przedmiaru",
+     "descP": "Np. budynek 24 lokale: wideodomofony, monitoring, sieć i AGD do zabudowy w standardzie",
+     "c": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "cls": "sw sb"
+    }
+   },
+   "5": {
+    "segs": [
+     {
+      "name": "Firma",
+      "sub": "biuro, oddział, sieć sklepów",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, gmina",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Hotel i pensjonat",
+      "sub": "obiekt noclegowy",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Inwestor",
+      "sub": "apartamenty, lokale na wynajem",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Architekt",
+      "sub": "projekt i specyfikacja",
+      "c": "var(--k-i)",
+      "sel": "true",
+      "bd": "var(--k-i)",
+      "bg": "color-mix(in srgb, var(--k-i) 14%, transparent)"
+     }
+    ],
+    "seg": {
+     "name": "Architekt",
+     "sub": "projekt i specyfikacja",
+     "L": [
+      "var(--k-i)",
+      "var(--k-it)",
+      "var(--k-id)"
+     ],
+     "eb": "Dla architektów i wykonawców",
+     "h": "Technika zaplanowana w projekcie, a sprzęt dobrany do specyfikacji.",
+     "start": "rzuty — nawet wstępne",
+     "lines": "PRO-KOM Instalacje",
+     "items": [
+      {
+       "t": "Instalacje w projekcie",
+       "d": "Punkty i trasy naniesione na rzuty, zanim powstaną tynki."
+      },
+      {
+       "t": "Zestawienie sprzętu",
+       "d": "Pomagamy dobrać sprzęt do specyfikacji obiektu."
+      },
+      {
+       "t": "Wycena z przedmiaru",
+       "d": "Na piśmie, z zakresem i terminem."
+      },
+      {
+       "t": "Jeden kontakt",
+       "d": "Ten sam kontakt od projektu do serwisu."
+      }
+     ],
+     "cta": "Pełna współpraca z pracownią →",
+     "url": "Wspolpraca.dc.html",
+     "formH": "Wyślij rzuty albo specyfikację",
+     "orgL": "Pracownia lub firma",
+     "linkL": "Link do rzutów",
+     "linkP": "np. link do pliku PDF albo DWG",
+     "descP": "Np. pensjonat 30 pokoi, etap projektu: monitoring, Wi-Fi i wyposażenie pokoi",
+     "c": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "cls": "sw sb"
+    }
+   }
+  },
+  "sgn": {
+   "1": {
+    "seg": {
+     "name": "Firma",
+     "sub": "biuro, oddział, sieć sklepów",
+     "L": [
+      "var(--k-b)",
+      "var(--k-bt)",
+      "var(--k-bd)"
+     ],
+     "eb": "Dla firm",
+     "h": "Wymiana sprzętu, nowy oddział albo wyposażenie biura — w jednym zamówieniu.",
+     "start": "lista stanowisk i termin",
+     "lines": "PRO-KOM Biznes · Instalacje",
+     "items": [
+      {
+       "t": "Zestawy komputerowe",
+       "d": "Komputery, laptopy i monitory — na życzenie z konfiguracją."
+      },
+      {
+       "t": "Serwery i kopie zapasowe",
+       "d": "Serwery (głównie Dell), na życzenie z wdrożeniem."
+      },
+      {
+       "t": "Kasy i programy",
+       "d": "Kasy fiskalne, InsERT, Comarch ERP i GoPOS."
+      },
+      {
+       "t": "RTV i AGD dla firmy",
+       "d": "Telewizory i AGD do biura, sali i zaplecza socjalnego."
+      }
+     ],
+     "cta": "Plan dla Twojej branży →",
+     "url": "DlaFirm.dc.html",
+     "formH": "Zapytanie dla firmy",
+     "orgL": "Nazwa firmy",
+     "linkL": "Link do listy lub specyfikacji",
+     "linkP": "np. link do arkusza ze sprzętem",
+     "descP": "Np. 12 stanowisk w nowym biurze: laptopy, monitory, drukarka, sieć Wi-Fi, start za miesiąc",
+     "c": "var(--k-b)",
+     "ct": "var(--k-bt)",
+     "dark": "var(--k-bd)",
+     "cls": "sw sa"
+    }
+   }
+  },
+  "ob": {
+   "1": {
+    "objs": [
+     {
+      "t": "Hotel i pensjonat",
+      "ex": "Przykład: pensjonat, 20 pokoi",
+      "ic": "M3 21V8l9-5 9 5v13M9 21v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Szkoła i pracownia",
+      "ex": "Przykład: pracownia, 25 stanowisk",
+      "ic": "M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5",
+      "sel": "true",
+      "bd": "var(--k-b)",
+      "bg": "color-mix(in srgb, var(--k-b) 10%, var(--k-card))",
+      "ib": "var(--k-b)",
+      "ic2": "var(--k-white)"
+     },
+     {
+      "t": "Biuro firmy",
+      "ex": "Przykład: biuro, 15 osób",
+      "ic": "M4 21V5h10v16M14 9h6v12M8 9h2M8 13h2M8 17h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Budynek z lokalami",
+      "ex": "Przykład: budynek, 24 lokale",
+      "ic": "M5 21V3h14v18M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Urząd i instytucja",
+      "ex": "Przykład: urząd, 20 stanowisk",
+      "ic": "M3 21h18M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M12 3l9 5H3z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Apartamenty na wynajem",
+      "ex": "Przykład: 8 apartamentów",
+      "ic": "M3 21V9l9-6 9 6v12M9 21v-5h6v5M8 11h2M14 11h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Restauracja i kawiarnia",
+      "ex": "Przykład: restauracja, 60 miejsc",
+      "ic": "M7 3v8M5 3v4a2 2 0 004 0V3M7 11v10M17 3c-2 2-2 6 0 8v10",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Sklep i sieć sklepów",
+      "ex": "Przykład: sklep, 3 stanowiska",
+      "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Gabinety i przychodnia",
+      "ex": "Przykład: 10 stanowisk",
+      "ic": "M12 6v12M6 12h12M4 4h16v16H4z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     }
+    ],
+    "obj": {
+     "ex": "Przykład: pracownia, 25 stanowisk",
+     "h": "Stanowiska, sieć i ekran w holu — dostawa według specyfikacji szkoły.",
+     "cls": "sw sb",
+     "cols": [
+      {
+       "t": "Stanowiska",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Komputery",
+         "q": "25 szt."
+        },
+        {
+         "t": "Monitory",
+         "q": "25 szt."
+        },
+        {
+         "t": "Drukarki",
+         "q": "2 szt."
+        }
+       ]
+      },
+      {
+       "t": "Zaplecze",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Serwer lub NAS",
+         "q": "1 szt."
+        },
+        {
+         "t": "Konfiguracja — na życzenie",
+         "q": "✓"
+        }
+       ]
+      },
+      {
+       "t": "Budynek",
+       "line": "Instalacje",
+       "c": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "items": [
+        {
+         "t": "Punkty Wi-Fi",
+         "q": "4 szt."
+        },
+        {
+         "t": "Ekran w holu",
+         "q": "1 szt."
+        },
+        {
+         "t": "Kamery",
+         "q": "6 szt."
+        }
+       ]
+      },
+      {
+       "t": "Formalności",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Oferta według SWZ",
+         "q": "✓"
+        },
+        {
+         "t": "Protokół odbioru",
+         "q": "✓"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "2": {
+    "objs": [
+     {
+      "t": "Hotel i pensjonat",
+      "ex": "Przykład: pensjonat, 20 pokoi",
+      "ic": "M3 21V8l9-5 9 5v13M9 21v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Szkoła i pracownia",
+      "ex": "Przykład: pracownia, 25 stanowisk",
+      "ic": "M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Biuro firmy",
+      "ex": "Przykład: biuro, 15 osób",
+      "ic": "M4 21V5h10v16M14 9h6v12M8 9h2M8 13h2M8 17h2",
+      "sel": "true",
+      "bd": "var(--k-b)",
+      "bg": "color-mix(in srgb, var(--k-b) 10%, var(--k-card))",
+      "ib": "var(--k-b)",
+      "ic2": "var(--k-white)"
+     },
+     {
+      "t": "Budynek z lokalami",
+      "ex": "Przykład: budynek, 24 lokale",
+      "ic": "M5 21V3h14v18M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Urząd i instytucja",
+      "ex": "Przykład: urząd, 20 stanowisk",
+      "ic": "M3 21h18M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M12 3l9 5H3z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Apartamenty na wynajem",
+      "ex": "Przykład: 8 apartamentów",
+      "ic": "M3 21V9l9-6 9 6v12M9 21v-5h6v5M8 11h2M14 11h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Restauracja i kawiarnia",
+      "ex": "Przykład: restauracja, 60 miejsc",
+      "ic": "M7 3v8M5 3v4a2 2 0 004 0V3M7 11v10M17 3c-2 2-2 6 0 8v10",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Sklep i sieć sklepów",
+      "ex": "Przykład: sklep, 3 stanowiska",
+      "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Gabinety i przychodnia",
+      "ex": "Przykład: 10 stanowisk",
+      "ic": "M12 6v12M6 12h12M4 4h16v16H4z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     }
+    ],
+    "obj": {
+     "ex": "Przykład: biuro, 15 osób",
+     "h": "Nowe biuro albo wymiana sprzętu — stanowiska, systemy i sala w jednym zamówieniu.",
+     "cls": "sw sb",
+     "cols": [
+      {
+       "t": "Stanowiska",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Laptopy",
+         "q": "15 szt."
+        },
+        {
+         "t": "Monitory",
+         "q": "15 szt."
+        },
+        {
+         "t": "Drukarki",
+         "q": "2 szt."
+        }
+       ]
+      },
+      {
+       "t": "Systemy",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Serwer",
+         "q": "1 szt."
+        },
+        {
+         "t": "Licencje programów",
+         "q": "15 szt."
+        }
+       ]
+      },
+      {
+       "t": "Biuro",
+       "line": "Instalacje",
+       "c": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "items": [
+        {
+         "t": "Punkty Wi-Fi",
+         "q": "4 szt."
+        },
+        {
+         "t": "Kamery",
+         "q": "4 szt."
+        }
+       ]
+      },
+      {
+       "t": "Sala i socjalny",
+       "line": "RTV i AGD",
+       "c": "var(--k-g)",
+       "ct": "var(--k-gt)",
+       "items": [
+        {
+         "t": "Telewizor do sali",
+         "q": "1 szt."
+        },
+        {
+         "t": "Ekspres i drobne AGD",
+         "q": "2 szt."
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "3": {
+    "objs": [
+     {
+      "t": "Hotel i pensjonat",
+      "ex": "Przykład: pensjonat, 20 pokoi",
+      "ic": "M3 21V8l9-5 9 5v13M9 21v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Szkoła i pracownia",
+      "ex": "Przykład: pracownia, 25 stanowisk",
+      "ic": "M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Biuro firmy",
+      "ex": "Przykład: biuro, 15 osób",
+      "ic": "M4 21V5h10v16M14 9h6v12M8 9h2M8 13h2M8 17h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Budynek z lokalami",
+      "ex": "Przykład: budynek, 24 lokale",
+      "ic": "M5 21V3h14v18M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2",
+      "sel": "true",
+      "bd": "var(--k-i)",
+      "bg": "color-mix(in srgb, var(--k-i) 10%, var(--k-card))",
+      "ib": "var(--k-i)",
+      "ic2": "var(--k-white)"
+     },
+     {
+      "t": "Urząd i instytucja",
+      "ex": "Przykład: urząd, 20 stanowisk",
+      "ic": "M3 21h18M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M12 3l9 5H3z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Apartamenty na wynajem",
+      "ex": "Przykład: 8 apartamentów",
+      "ic": "M3 21V9l9-6 9 6v12M9 21v-5h6v5M8 11h2M14 11h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Restauracja i kawiarnia",
+      "ex": "Przykład: restauracja, 60 miejsc",
+      "ic": "M7 3v8M5 3v4a2 2 0 004 0V3M7 11v10M17 3c-2 2-2 6 0 8v10",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Sklep i sieć sklepów",
+      "ex": "Przykład: sklep, 3 stanowiska",
+      "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Gabinety i przychodnia",
+      "ex": "Przykład: 10 stanowisk",
+      "ic": "M12 6v12M6 12h12M4 4h16v16H4z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     }
+    ],
+    "obj": {
+     "ex": "Przykład: budynek, 24 lokale",
+     "h": "Instalacje w budynku i ten sam standard wyposażenia w każdym lokalu.",
+     "cls": "sw sb",
+     "cols": [
+      {
+       "t": "Lokale",
+       "line": "Instalacje",
+       "c": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "items": [
+        {
+         "t": "Wideodomofony",
+         "q": "24 szt."
+        }
+       ]
+      },
+      {
+       "t": "Części wspólne",
+       "line": "Instalacje",
+       "c": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "items": [
+        {
+         "t": "Kamery",
+         "q": "12 szt."
+        },
+        {
+         "t": "Sieć i Wi-Fi",
+         "q": "4 szt."
+        }
+       ]
+      },
+      {
+       "t": "Standard lokali",
+       "line": "RTV i AGD",
+       "c": "var(--k-g)",
+       "ct": "var(--k-gt)",
+       "items": [
+        {
+         "t": "AGD do zabudowy",
+         "q": "24 szt."
+        },
+        {
+         "t": "Lodówki",
+         "q": "24 szt."
+        },
+        {
+         "t": "Pralki",
+         "q": "24 szt."
+        }
+       ]
+      },
+      {
+       "t": "Sprzedaż",
+       "line": "Software",
+       "c": "var(--k-s)",
+       "ct": "var(--k-st)",
+       "items": [
+        {
+         "t": "Strona inwestycji z lokalami",
+         "q": "✓"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "4": {
+    "objs": [
+     {
+      "t": "Hotel i pensjonat",
+      "ex": "Przykład: pensjonat, 20 pokoi",
+      "ic": "M3 21V8l9-5 9 5v13M9 21v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Szkoła i pracownia",
+      "ex": "Przykład: pracownia, 25 stanowisk",
+      "ic": "M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Biuro firmy",
+      "ex": "Przykład: biuro, 15 osób",
+      "ic": "M4 21V5h10v16M14 9h6v12M8 9h2M8 13h2M8 17h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Budynek z lokalami",
+      "ex": "Przykład: budynek, 24 lokale",
+      "ic": "M5 21V3h14v18M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Urząd i instytucja",
+      "ex": "Przykład: urząd, 20 stanowisk",
+      "ic": "M3 21h18M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M12 3l9 5H3z",
+      "sel": "true",
+      "bd": "var(--k-b)",
+      "bg": "color-mix(in srgb, var(--k-b) 10%, var(--k-card))",
+      "ib": "var(--k-b)",
+      "ic2": "var(--k-white)"
+     },
+     {
+      "t": "Apartamenty na wynajem",
+      "ex": "Przykład: 8 apartamentów",
+      "ic": "M3 21V9l9-6 9 6v12M9 21v-5h6v5M8 11h2M14 11h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Restauracja i kawiarnia",
+      "ex": "Przykład: restauracja, 60 miejsc",
+      "ic": "M7 3v8M5 3v4a2 2 0 004 0V3M7 11v10M17 3c-2 2-2 6 0 8v10",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Sklep i sieć sklepów",
+      "ex": "Przykład: sklep, 3 stanowiska",
+      "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Gabinety i przychodnia",
+      "ex": "Przykład: 10 stanowisk",
+      "ic": "M12 6v12M6 12h12M4 4h16v16H4z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     }
+    ],
+    "obj": {
+     "ex": "Przykład: urząd, 20 stanowisk",
+     "h": "Stanowiska, serwer i obsługa interesantów — z dokumentami do odbioru.",
+     "cls": "sw sb",
+     "cols": [
+      {
+       "t": "Stanowiska",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Komputery",
+         "q": "20 szt."
+        },
+        {
+         "t": "Monitory",
+         "q": "20 szt."
+        },
+        {
+         "t": "Drukarki",
+         "q": "4 szt."
+        }
+       ]
+      },
+      {
+       "t": "Serwerownia",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Serwer",
+         "q": "1 szt."
+        },
+        {
+         "t": "Kopie zapasowe",
+         "q": "✓"
+        }
+       ]
+      },
+      {
+       "t": "Budynek",
+       "line": "Instalacje",
+       "c": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "items": [
+        {
+         "t": "Punkty Wi-Fi",
+         "q": "6 szt."
+        },
+        {
+         "t": "Ekrany informacyjne",
+         "q": "2 szt."
+        },
+        {
+         "t": "Kamery",
+         "q": "8 szt."
+        }
+       ]
+      },
+      {
+       "t": "Formalności",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Oferta według SWZ",
+         "q": "✓"
+        },
+        {
+         "t": "Faktura i protokół",
+         "q": "✓"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "5": {
+    "objs": [
+     {
+      "t": "Hotel i pensjonat",
+      "ex": "Przykład: pensjonat, 20 pokoi",
+      "ic": "M3 21V8l9-5 9 5v13M9 21v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Szkoła i pracownia",
+      "ex": "Przykład: pracownia, 25 stanowisk",
+      "ic": "M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Biuro firmy",
+      "ex": "Przykład: biuro, 15 osób",
+      "ic": "M4 21V5h10v16M14 9h6v12M8 9h2M8 13h2M8 17h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Budynek z lokalami",
+      "ex": "Przykład: budynek, 24 lokale",
+      "ic": "M5 21V3h14v18M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Urząd i instytucja",
+      "ex": "Przykład: urząd, 20 stanowisk",
+      "ic": "M3 21h18M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M12 3l9 5H3z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Apartamenty na wynajem",
+      "ex": "Przykład: 8 apartamentów",
+      "ic": "M3 21V9l9-6 9 6v12M9 21v-5h6v5M8 11h2M14 11h2",
+      "sel": "true",
+      "bd": "var(--k-g)",
+      "bg": "color-mix(in srgb, var(--k-g) 10%, var(--k-card))",
+      "ib": "var(--k-g)",
+      "ic2": "var(--k-white)"
+     },
+     {
+      "t": "Restauracja i kawiarnia",
+      "ex": "Przykład: restauracja, 60 miejsc",
+      "ic": "M7 3v8M5 3v4a2 2 0 004 0V3M7 11v10M17 3c-2 2-2 6 0 8v10",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Sklep i sieć sklepów",
+      "ex": "Przykład: sklep, 3 stanowiska",
+      "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Gabinety i przychodnia",
+      "ex": "Przykład: 10 stanowisk",
+      "ic": "M12 6v12M6 12h12M4 4h16v16H4z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     }
+    ],
+    "obj": {
+     "ex": "Przykład: 8 apartamentów",
+     "h": "Ten sam standard wyposażenia w każdym lokalu.",
+     "cls": "sw sb",
+     "cols": [
+      {
+       "t": "Każdy lokal",
+       "line": "RTV i AGD",
+       "c": "var(--k-g)",
+       "ct": "var(--k-gt)",
+       "items": [
+        {
+         "t": "Telewizory",
+         "q": "8 szt."
+        },
+        {
+         "t": "AGD do zabudowy",
+         "q": "8 szt."
+        },
+        {
+         "t": "Lodówki",
+         "q": "8 szt."
+        },
+        {
+         "t": "Pralki",
+         "q": "8 szt."
+        }
+       ]
+      },
+      {
+       "t": "Wyposażenie",
+       "line": "RTV i AGD",
+       "c": "var(--k-g)",
+       "ct": "var(--k-gt)",
+       "items": [
+        {
+         "t": "Drobne AGD",
+         "q": "8 szt."
+        }
+       ]
+      },
+      {
+       "t": "Budynek",
+       "line": "Instalacje",
+       "c": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "items": [
+        {
+         "t": "Punkty Wi-Fi",
+         "q": "8 szt."
+        },
+        {
+         "t": "Wideodomofon",
+         "q": "1 szt."
+        }
+       ]
+      },
+      {
+       "t": "Wynajem",
+       "line": "Software",
+       "c": "var(--k-s)",
+       "ct": "var(--k-st)",
+       "items": [
+        {
+         "t": "Strona obiektu z formularzem",
+         "q": "✓"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "6": {
+    "objs": [
+     {
+      "t": "Hotel i pensjonat",
+      "ex": "Przykład: pensjonat, 20 pokoi",
+      "ic": "M3 21V8l9-5 9 5v13M9 21v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Szkoła i pracownia",
+      "ex": "Przykład: pracownia, 25 stanowisk",
+      "ic": "M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Biuro firmy",
+      "ex": "Przykład: biuro, 15 osób",
+      "ic": "M4 21V5h10v16M14 9h6v12M8 9h2M8 13h2M8 17h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Budynek z lokalami",
+      "ex": "Przykład: budynek, 24 lokale",
+      "ic": "M5 21V3h14v18M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Urząd i instytucja",
+      "ex": "Przykład: urząd, 20 stanowisk",
+      "ic": "M3 21h18M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M12 3l9 5H3z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Apartamenty na wynajem",
+      "ex": "Przykład: 8 apartamentów",
+      "ic": "M3 21V9l9-6 9 6v12M9 21v-5h6v5M8 11h2M14 11h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Restauracja i kawiarnia",
+      "ex": "Przykład: restauracja, 60 miejsc",
+      "ic": "M7 3v8M5 3v4a2 2 0 004 0V3M7 11v10M17 3c-2 2-2 6 0 8v10",
+      "sel": "true",
+      "bd": "var(--k-b)",
+      "bg": "color-mix(in srgb, var(--k-b) 10%, var(--k-card))",
+      "ib": "var(--k-b)",
+      "ic2": "var(--k-white)"
+     },
+     {
+      "t": "Sklep i sieć sklepów",
+      "ex": "Przykład: sklep, 3 stanowiska",
+      "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Gabinety i przychodnia",
+      "ex": "Przykład: 10 stanowisk",
+      "ic": "M12 6v12M6 12h12M4 4h16v16H4z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     }
+    ],
+    "obj": {
+     "ex": "Przykład: restauracja, 60 miejsc",
+     "h": "Sprzedaż, płatności i sala — kasy, nagłośnienie i wyposażenie.",
+     "cls": "sw sb",
+     "cols": [
+      {
+       "t": "Sprzedaż",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Kasy fiskalne",
+         "q": "2 szt."
+        },
+        {
+         "t": "Program GoPOS",
+         "q": "1 szt."
+        }
+       ]
+      },
+      {
+       "t": "Sala",
+       "line": "Instalacje",
+       "c": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "items": [
+        {
+         "t": "Strefy nagłośnienia",
+         "q": "2 szt."
+        },
+        {
+         "t": "Punkty Wi-Fi",
+         "q": "2 szt."
+        },
+        {
+         "t": "Kamery",
+         "q": "6 szt."
+        }
+       ]
+      },
+      {
+       "t": "Wyposażenie",
+       "line": "RTV i AGD",
+       "c": "var(--k-g)",
+       "ct": "var(--k-gt)",
+       "items": [
+        {
+         "t": "Telewizory",
+         "q": "2 szt."
+        },
+        {
+         "t": "Drobne AGD",
+         "q": "3 szt."
+        }
+       ]
+      },
+      {
+       "t": "Po otwarciu",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Serwis kas — autoryzacja",
+         "q": "✓"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "7": {
+    "objs": [
+     {
+      "t": "Hotel i pensjonat",
+      "ex": "Przykład: pensjonat, 20 pokoi",
+      "ic": "M3 21V8l9-5 9 5v13M9 21v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Szkoła i pracownia",
+      "ex": "Przykład: pracownia, 25 stanowisk",
+      "ic": "M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Biuro firmy",
+      "ex": "Przykład: biuro, 15 osób",
+      "ic": "M4 21V5h10v16M14 9h6v12M8 9h2M8 13h2M8 17h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Budynek z lokalami",
+      "ex": "Przykład: budynek, 24 lokale",
+      "ic": "M5 21V3h14v18M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Urząd i instytucja",
+      "ex": "Przykład: urząd, 20 stanowisk",
+      "ic": "M3 21h18M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M12 3l9 5H3z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Apartamenty na wynajem",
+      "ex": "Przykład: 8 apartamentów",
+      "ic": "M3 21V9l9-6 9 6v12M9 21v-5h6v5M8 11h2M14 11h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Restauracja i kawiarnia",
+      "ex": "Przykład: restauracja, 60 miejsc",
+      "ic": "M7 3v8M5 3v4a2 2 0 004 0V3M7 11v10M17 3c-2 2-2 6 0 8v10",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Sklep i sieć sklepów",
+      "ex": "Przykład: sklep, 3 stanowiska",
+      "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+      "sel": "true",
+      "bd": "var(--k-b)",
+      "bg": "color-mix(in srgb, var(--k-b) 10%, var(--k-card))",
+      "ib": "var(--k-b)",
+      "ic2": "var(--k-white)"
+     },
+     {
+      "t": "Gabinety i przychodnia",
+      "ex": "Przykład: 10 stanowisk",
+      "ic": "M12 6v12M6 12h12M4 4h16v16H4z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     }
+    ],
+    "obj": {
+     "ex": "Przykład: sklep, 3 stanowiska",
+     "h": "Kasy, program i monitoring — ten sam zestaw w każdym sklepie sieci.",
+     "cls": "sw sb",
+     "cols": [
+      {
+       "t": "Stanowiska",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Kasy fiskalne",
+         "q": "3 szt."
+        },
+        {
+         "t": "Program",
+         "q": "1 szt."
+        }
+       ]
+      },
+      {
+       "t": "Zaplecze",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Komputer",
+         "q": "1 szt."
+        },
+        {
+         "t": "Drukarka",
+         "q": "1 szt."
+        }
+       ]
+      },
+      {
+       "t": "Sklep",
+       "line": "Instalacje",
+       "c": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "items": [
+        {
+         "t": "Kamery",
+         "q": "8 szt."
+        },
+        {
+         "t": "Ekran informacyjny",
+         "q": "1 szt."
+        }
+       ]
+      },
+      {
+       "t": "Po otwarciu",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Oddzwaniamy w 60 minut",
+         "q": "✓"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "8": {
+    "objs": [
+     {
+      "t": "Hotel i pensjonat",
+      "ex": "Przykład: pensjonat, 20 pokoi",
+      "ic": "M3 21V8l9-5 9 5v13M9 21v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Szkoła i pracownia",
+      "ex": "Przykład: pracownia, 25 stanowisk",
+      "ic": "M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Biuro firmy",
+      "ex": "Przykład: biuro, 15 osób",
+      "ic": "M4 21V5h10v16M14 9h6v12M8 9h2M8 13h2M8 17h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Budynek z lokalami",
+      "ex": "Przykład: budynek, 24 lokale",
+      "ic": "M5 21V3h14v18M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Urząd i instytucja",
+      "ex": "Przykład: urząd, 20 stanowisk",
+      "ic": "M3 21h18M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M12 3l9 5H3z",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Apartamenty na wynajem",
+      "ex": "Przykład: 8 apartamentów",
+      "ic": "M3 21V9l9-6 9 6v12M9 21v-5h6v5M8 11h2M14 11h2",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Restauracja i kawiarnia",
+      "ex": "Przykład: restauracja, 60 miejsc",
+      "ic": "M7 3v8M5 3v4a2 2 0 004 0V3M7 11v10M17 3c-2 2-2 6 0 8v10",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Sklep i sieć sklepów",
+      "ex": "Przykład: sklep, 3 stanowiska",
+      "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)",
+      "ib": "rgba(var(--r-w),.07)",
+      "ic2": "var(--k-ink3)"
+     },
+     {
+      "t": "Gabinety i przychodnia",
+      "ex": "Przykład: 10 stanowisk",
+      "ic": "M12 6v12M6 12h12M4 4h16v16H4z",
+      "sel": "true",
+      "bd": "var(--k-b)",
+      "bg": "color-mix(in srgb, var(--k-b) 10%, var(--k-card))",
+      "ib": "var(--k-b)",
+      "ic2": "var(--k-white)"
+     }
+    ],
+    "obj": {
+     "ex": "Przykład: 10 stanowisk",
+     "h": "Stanowiska, rejestracja i serwer — z kopiami zapasowymi od pierwszego dnia.",
+     "cls": "sw sb",
+     "cols": [
+      {
+       "t": "Stanowiska",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Komputery",
+         "q": "10 szt."
+        },
+        {
+         "t": "Monitory",
+         "q": "10 szt."
+        },
+        {
+         "t": "Drukarki",
+         "q": "4 szt."
+        }
+       ]
+      },
+      {
+       "t": "Dane",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Serwer lub NAS",
+         "q": "1 szt."
+        },
+        {
+         "t": "Kopie zapasowe",
+         "q": "✓"
+        }
+       ]
+      },
+      {
+       "t": "Budynek",
+       "line": "Instalacje",
+       "c": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "items": [
+        {
+         "t": "Punkty Wi-Fi",
+         "q": "3 szt."
+        },
+        {
+         "t": "Kamery",
+         "q": "4 szt."
+        },
+        {
+         "t": "Ekran w poczekalni",
+         "q": "1 szt."
+        }
+       ]
+      },
+      {
+       "t": "Po wdrożeniu",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Opieka IT",
+         "q": "✓"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "obn": {
+   "1": {
+    "obj": {
+     "ex": "Przykład: pensjonat, 20 pokoi",
+     "h": "Wyposażenie pokoi, recepcja i Wi-Fi w całym obiekcie — w jednym zamówieniu.",
+     "cls": "sw sa",
+     "cols": [
+      {
+       "t": "Pokoje",
+       "line": "RTV i AGD",
+       "c": "var(--k-g)",
+       "ct": "var(--k-gt)",
+       "items": [
+        {
+         "t": "Telewizory",
+         "q": "20 szt."
+        },
+        {
+         "t": "Lodówki",
+         "q": "20 szt."
+        },
+        {
+         "t": "Czajniki i drobne AGD",
+         "q": "20 szt."
+        }
+       ]
+      },
+      {
+       "t": "Recepcja",
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "items": [
+        {
+         "t": "Komputer",
+         "q": "2 szt."
+        },
+        {
+         "t": "Drukarka",
+         "q": "1 szt."
+        },
+        {
+         "t": "Kasa fiskalna",
+         "q": "1 szt."
+        },
+        {
+         "t": "Program",
+         "q": "1 szt."
+        }
+       ]
+      },
+      {
+       "t": "Obiekt",
+       "line": "Instalacje",
+       "c": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "items": [
+        {
+         "t": "Punkty Wi-Fi",
+         "q": "10 szt."
+        },
+        {
+         "t": "Kamery",
+         "q": "8 szt."
+        },
+        {
+         "t": "Strefy nagłośnienia",
+         "q": "2 szt."
+        }
+       ]
+      },
+      {
+       "t": "Po otwarciu",
+       "line": "Software · Tech",
+       "c": "var(--k-s)",
+       "ct": "var(--k-st)",
+       "items": [
+        {
+         "t": "Strona obiektu z formularzem",
+         "q": "✓"
+        },
+        {
+         "t": "Serwis sprzętu w Rabce-Zdroju",
+         "q": "✓"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "pr": {
+   "1": {
+    "preps": [
+     {
+      "t": "Komputery i laptopy",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "Serwery i sieć",
+      "c": "var(--k-b)",
+      "sel": "true",
+      "bd": "var(--k-b)",
+      "bg": "color-mix(in srgb, var(--k-b) 14%, transparent)"
+     },
+     {
+      "t": "Kasy i programy",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "Instalacje",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "RTV i AGD",
+      "c": "var(--k-g)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     }
+    ],
+    "prep": {
+     "h": "Dostawa albo dostawa z wdrożeniem.",
+     "lead": "Serwery (głównie Dell), dyski sieciowe QNAP i sprzęt sieciowy Ubiquiti. Wdrożenie, kopie zapasowe i opiekę dodajesz według potrzeb.",
+     "line": "PRO-KOM Biznes · Instalacje",
+     "c": "var(--k-b)",
+     "cls": "sw sb",
+     "items": [
+      {
+       "t": "Konfiguracja serwera lub NAS",
+       "d": "Udziały, uprawnienia i dostęp dla pracowników."
+      },
+      {
+       "t": "Kopie zapasowe",
+       "d": "Ustawione i sprawdzone przed odbiorem."
+      },
+      {
+       "t": "Sieć i Wi-Fi",
+       "d": "Przełączniki i punkty dostępowe w całym obiekcie."
+      },
+      {
+       "t": "Zabezpieczenia",
+       "d": "Na życzenie firewall Stormshield lub Barracuda."
+      },
+      {
+       "t": "Szkolenie",
+       "d": "Dla osoby, która opiekuje się sprzętem u Was."
+      },
+      {
+       "t": "Opieka IT",
+       "d": "Monitoring i pomoc po wdrożeniu."
+      }
+     ]
+    }
+   },
+   "2": {
+    "preps": [
+     {
+      "t": "Komputery i laptopy",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "Serwery i sieć",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "Kasy i programy",
+      "c": "var(--k-b)",
+      "sel": "true",
+      "bd": "var(--k-b)",
+      "bg": "color-mix(in srgb, var(--k-b) 14%, transparent)"
+     },
+     {
+      "t": "Instalacje",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "RTV i AGD",
+      "c": "var(--k-g)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     }
+    ],
+    "prep": {
+     "h": "Kasy i programy z autoryzacją.",
+     "lead": "Jesteśmy autoryzowanym serwisem Posnet i Elzab oraz autoryzowanym partnerem InsERT i GoPOS. Zakres wdrożenia ustalamy przy ofercie.",
+     "line": "PRO-KOM Biznes",
+     "c": "var(--k-b)",
+     "cls": "sw sb",
+     "items": [
+      {
+       "t": "Zgłoszenie i fiskalizacja",
+       "d": "Kasa zgłoszona i gotowa do pracy."
+      },
+      {
+       "t": "Programowanie kasy",
+       "d": "Towary, stawki i ustawienia sprzedaży."
+      },
+      {
+       "t": "Szkolenie z kasy",
+       "d": "Dla osób, które będą sprzedawać."
+      },
+      {
+       "t": "Program sprzedaży",
+       "d": "InsERT, Comarch ERP albo GoPOS — skonfigurowany."
+      },
+      {
+       "t": "Terminale płatnicze",
+       "d": "Podłączone do kasy i sprawdzone."
+      },
+      {
+       "t": "Serwis",
+       "d": "Oddzwaniamy w 60 minut w godzinach pracy."
+      }
+     ]
+    }
+   },
+   "3": {
+    "preps": [
+     {
+      "t": "Komputery i laptopy",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "Serwery i sieć",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "Kasy i programy",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "Instalacje",
+      "c": "var(--k-i)",
+      "sel": "true",
+      "bd": "var(--k-i)",
+      "bg": "color-mix(in srgb, var(--k-i) 14%, transparent)"
+     },
+     {
+      "t": "RTV i AGD",
+      "c": "var(--k-g)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     }
+    ],
+    "prep": {
+     "h": "Sam sprzęt albo instalacja pod klucz.",
+     "lead": "Monitoring, sieć, domofony i nagłośnienie — z montażem albo bez. Zakres prac ustalamy przed realizacją.",
+     "line": "PRO-KOM Instalacje",
+     "c": "var(--k-i)",
+     "cls": "sw sb",
+     "items": [
+      {
+       "t": "Plan rozmieszczenia",
+       "d": "Kamery, punkty i urządzenia ustalone przed montażem."
+      },
+      {
+       "t": "Montaż i okablowanie",
+       "d": "Jedna ekipa na cały zakres."
+      },
+      {
+       "t": "Uruchomienie",
+       "d": "Podgląd i sterowanie w telefonie."
+      },
+      {
+       "t": "Test każdego punktu",
+       "d": "Przed odbiorem, razem z Tobą."
+      },
+      {
+       "t": "Szkolenie",
+       "d": "Jak korzystać z systemu na co dzień."
+      },
+      {
+       "t": "24 miesiące gwarancji",
+       "d": "Na wykonany przez nas montaż."
+      }
+     ]
+    }
+   },
+   "4": {
+    "preps": [
+     {
+      "t": "Komputery i laptopy",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "Serwery i sieć",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "Kasy i programy",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "Instalacje",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.14)",
+      "bg": "transparent"
+     },
+     {
+      "t": "RTV i AGD",
+      "c": "var(--k-g)",
+      "sel": "true",
+      "bd": "var(--k-g)",
+      "bg": "color-mix(in srgb, var(--k-g) 14%, transparent)"
+     }
+    ],
+    "prep": {
+     "h": "Jedna dostawa zamiast wielu zamówień.",
+     "lead": "RTV i AGD dla firm i instytucji dobieramy do obiektu i dostarczamy pod wskazany adres. Bez montażu.",
+     "line": "PRO-KOM Biznes",
+     "c": "var(--k-g)",
+     "cls": "sw sb",
+     "items": [
+      {
+       "t": "Dobór modeli",
+       "d": "Pod pokoje, lokale, biuro albo zaplecze."
+      },
+      {
+       "t": "Te same modele",
+       "d": "W każdym lokalu ten sam sprzęt."
+      },
+      {
+       "t": "Dostawa pod adres",
+       "d": "Na wskazany termin i miejsce."
+      },
+      {
+       "t": "Faktura VAT",
+       "d": "Jedna faktura na całe zamówienie."
+      },
+      {
+       "t": "Gwarancja producenta",
+       "d": "Na cały dostarczony sprzęt."
+      },
+      {
+       "t": "Kolejna partia",
+       "d": "Wystarczy lista z poprzedniego zamówienia."
+      }
+     ]
+    }
+   }
+  },
+  "prn": {
+   "1": {
+    "prep": {
+     "h": "Sam sprzęt albo sprzęt gotowy do pracy.",
+     "lead": "Możemy dostarczyć same komputery i laptopy. Jeśli chcesz, przygotujemy je przed dostawą, podłączymy na miejscu i przeszkolimy pracowników.",
+     "line": "PRO-KOM Biznes",
+     "c": "var(--k-b)",
+     "cls": "sw sa",
+     "items": [
+      {
+       "t": "System i aktualizacje",
+       "d": "Zainstalowane przed dostawą."
+      },
+      {
+       "t": "Programy według listy",
+       "d": "Biuro, poczta i programy, których używacie."
+      },
+      {
+       "t": "Konta użytkowników",
+       "d": "Dla każdej osoby albo stanowiska."
+      },
+      {
+       "t": "Drukarki i sieć",
+       "d": "Podłączone na miejscu, w Waszej sieci."
+      },
+      {
+       "t": "Opis stanowisk",
+       "d": "Wiadomo, który sprzęt trafia na które biurko."
+      },
+      {
+       "t": "Lista sprzętu",
+       "d": "Do ewidencji i zgłoszeń gwarancyjnych."
+      }
+     ]
+    }
+   }
+  },
+  "fq": {
+   "1": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Czy jest minimalna wielkość zamówienia?",
+      "a": "Nie podajemy progu na stronie. Napisz, czego potrzebujesz — odpowiemy, jak możemy to zrealizować.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy montujecie RTV i AGD?",
+      "a": "Nie. RTV i AGD dostarczamy pod wskazany adres. Konfigurację i montaż ustalamy tylko dla sprzętu IT i instalacji — jeśli ich potrzebujesz.",
+      "sel": "true",
+      "rows": "1fr",
+      "rot": "rotate(180deg)"
+     },
+     {
+      "n": "03",
+      "q": "Czy RTV i AGD sprzedajecie osobom prywatnym?",
+      "a": "Ta oferta jest dla firm, instytucji, inwestorów i deweloperów. Klientów prywatnych zapraszamy do salonu i serwisu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "04",
+      "q": "Czy odpowiadacie na przetargi i zapytania ofertowe?",
+      "a": "Tak. Wyślij link do ogłoszenia albo SWZ — przygotujemy ofertę według wymagań zamawiającego.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "05",
+      "q": "Ile trwa przygotowanie oferty?",
+      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "06",
+      "q": "Gdzie dostarczacie?",
+      "a": "Działamy głównie na Podhalu i w całej Małopolsce. Dostawę w inne miejsce ustalamy przy zapytaniu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "07",
+      "q": "Dlaczego nie ma cen na stronie?",
+      "a": "Ceny zależą od ilości, parametrów i terminu. Każde zapytanie wyceniamy na piśmie.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     }
+    ]
+   },
+   "2": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Czy jest minimalna wielkość zamówienia?",
+      "a": "Nie podajemy progu na stronie. Napisz, czego potrzebujesz — odpowiemy, jak możemy to zrealizować.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy montujecie RTV i AGD?",
+      "a": "Nie. RTV i AGD dostarczamy pod wskazany adres. Konfigurację i montaż ustalamy tylko dla sprzętu IT i instalacji — jeśli ich potrzebujesz.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "03",
+      "q": "Czy RTV i AGD sprzedajecie osobom prywatnym?",
+      "a": "Ta oferta jest dla firm, instytucji, inwestorów i deweloperów. Klientów prywatnych zapraszamy do salonu i serwisu.",
+      "sel": "true",
+      "rows": "1fr",
+      "rot": "rotate(180deg)"
+     },
+     {
+      "n": "04",
+      "q": "Czy odpowiadacie na przetargi i zapytania ofertowe?",
+      "a": "Tak. Wyślij link do ogłoszenia albo SWZ — przygotujemy ofertę według wymagań zamawiającego.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "05",
+      "q": "Ile trwa przygotowanie oferty?",
+      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "06",
+      "q": "Gdzie dostarczacie?",
+      "a": "Działamy głównie na Podhalu i w całej Małopolsce. Dostawę w inne miejsce ustalamy przy zapytaniu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "07",
+      "q": "Dlaczego nie ma cen na stronie?",
+      "a": "Ceny zależą od ilości, parametrów i terminu. Każde zapytanie wyceniamy na piśmie.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     }
+    ]
+   },
+   "3": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Czy jest minimalna wielkość zamówienia?",
+      "a": "Nie podajemy progu na stronie. Napisz, czego potrzebujesz — odpowiemy, jak możemy to zrealizować.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy montujecie RTV i AGD?",
+      "a": "Nie. RTV i AGD dostarczamy pod wskazany adres. Konfigurację i montaż ustalamy tylko dla sprzętu IT i instalacji — jeśli ich potrzebujesz.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "03",
+      "q": "Czy RTV i AGD sprzedajecie osobom prywatnym?",
+      "a": "Ta oferta jest dla firm, instytucji, inwestorów i deweloperów. Klientów prywatnych zapraszamy do salonu i serwisu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "04",
+      "q": "Czy odpowiadacie na przetargi i zapytania ofertowe?",
+      "a": "Tak. Wyślij link do ogłoszenia albo SWZ — przygotujemy ofertę według wymagań zamawiającego.",
+      "sel": "true",
+      "rows": "1fr",
+      "rot": "rotate(180deg)"
+     },
+     {
+      "n": "05",
+      "q": "Ile trwa przygotowanie oferty?",
+      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "06",
+      "q": "Gdzie dostarczacie?",
+      "a": "Działamy głównie na Podhalu i w całej Małopolsce. Dostawę w inne miejsce ustalamy przy zapytaniu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "07",
+      "q": "Dlaczego nie ma cen na stronie?",
+      "a": "Ceny zależą od ilości, parametrów i terminu. Każde zapytanie wyceniamy na piśmie.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     }
+    ]
+   },
+   "4": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Czy jest minimalna wielkość zamówienia?",
+      "a": "Nie podajemy progu na stronie. Napisz, czego potrzebujesz — odpowiemy, jak możemy to zrealizować.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy montujecie RTV i AGD?",
+      "a": "Nie. RTV i AGD dostarczamy pod wskazany adres. Konfigurację i montaż ustalamy tylko dla sprzętu IT i instalacji — jeśli ich potrzebujesz.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "03",
+      "q": "Czy RTV i AGD sprzedajecie osobom prywatnym?",
+      "a": "Ta oferta jest dla firm, instytucji, inwestorów i deweloperów. Klientów prywatnych zapraszamy do salonu i serwisu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "04",
+      "q": "Czy odpowiadacie na przetargi i zapytania ofertowe?",
+      "a": "Tak. Wyślij link do ogłoszenia albo SWZ — przygotujemy ofertę według wymagań zamawiającego.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "05",
+      "q": "Ile trwa przygotowanie oferty?",
+      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "sel": "true",
+      "rows": "1fr",
+      "rot": "rotate(180deg)"
+     },
+     {
+      "n": "06",
+      "q": "Gdzie dostarczacie?",
+      "a": "Działamy głównie na Podhalu i w całej Małopolsce. Dostawę w inne miejsce ustalamy przy zapytaniu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "07",
+      "q": "Dlaczego nie ma cen na stronie?",
+      "a": "Ceny zależą od ilości, parametrów i terminu. Każde zapytanie wyceniamy na piśmie.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     }
+    ]
+   },
+   "5": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Czy jest minimalna wielkość zamówienia?",
+      "a": "Nie podajemy progu na stronie. Napisz, czego potrzebujesz — odpowiemy, jak możemy to zrealizować.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy montujecie RTV i AGD?",
+      "a": "Nie. RTV i AGD dostarczamy pod wskazany adres. Konfigurację i montaż ustalamy tylko dla sprzętu IT i instalacji — jeśli ich potrzebujesz.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "03",
+      "q": "Czy RTV i AGD sprzedajecie osobom prywatnym?",
+      "a": "Ta oferta jest dla firm, instytucji, inwestorów i deweloperów. Klientów prywatnych zapraszamy do salonu i serwisu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "04",
+      "q": "Czy odpowiadacie na przetargi i zapytania ofertowe?",
+      "a": "Tak. Wyślij link do ogłoszenia albo SWZ — przygotujemy ofertę według wymagań zamawiającego.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "05",
+      "q": "Ile trwa przygotowanie oferty?",
+      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "06",
+      "q": "Gdzie dostarczacie?",
+      "a": "Działamy głównie na Podhalu i w całej Małopolsce. Dostawę w inne miejsce ustalamy przy zapytaniu.",
+      "sel": "true",
+      "rows": "1fr",
+      "rot": "rotate(180deg)"
+     },
+     {
+      "n": "07",
+      "q": "Dlaczego nie ma cen na stronie?",
+      "a": "Ceny zależą od ilości, parametrów i terminu. Każde zapytanie wyceniamy na piśmie.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     }
+    ]
+   },
+   "6": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Czy jest minimalna wielkość zamówienia?",
+      "a": "Nie podajemy progu na stronie. Napisz, czego potrzebujesz — odpowiemy, jak możemy to zrealizować.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy montujecie RTV i AGD?",
+      "a": "Nie. RTV i AGD dostarczamy pod wskazany adres. Konfigurację i montaż ustalamy tylko dla sprzętu IT i instalacji — jeśli ich potrzebujesz.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "03",
+      "q": "Czy RTV i AGD sprzedajecie osobom prywatnym?",
+      "a": "Ta oferta jest dla firm, instytucji, inwestorów i deweloperów. Klientów prywatnych zapraszamy do salonu i serwisu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "04",
+      "q": "Czy odpowiadacie na przetargi i zapytania ofertowe?",
+      "a": "Tak. Wyślij link do ogłoszenia albo SWZ — przygotujemy ofertę według wymagań zamawiającego.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "05",
+      "q": "Ile trwa przygotowanie oferty?",
+      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "06",
+      "q": "Gdzie dostarczacie?",
+      "a": "Działamy głównie na Podhalu i w całej Małopolsce. Dostawę w inne miejsce ustalamy przy zapytaniu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "07",
+      "q": "Dlaczego nie ma cen na stronie?",
+      "a": "Ceny zależą od ilości, parametrów i terminu. Każde zapytanie wyceniamy na piśmie.",
+      "sel": "true",
+      "rows": "1fr",
+      "rot": "rotate(180deg)"
+     }
+    ]
+   },
+   "7": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Czy jest minimalna wielkość zamówienia?",
+      "a": "Nie podajemy progu na stronie. Napisz, czego potrzebujesz — odpowiemy, jak możemy to zrealizować.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy montujecie RTV i AGD?",
+      "a": "Nie. RTV i AGD dostarczamy pod wskazany adres. Konfigurację i montaż ustalamy tylko dla sprzętu IT i instalacji — jeśli ich potrzebujesz.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "03",
+      "q": "Czy RTV i AGD sprzedajecie osobom prywatnym?",
+      "a": "Ta oferta jest dla firm, instytucji, inwestorów i deweloperów. Klientów prywatnych zapraszamy do salonu i serwisu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "04",
+      "q": "Czy odpowiadacie na przetargi i zapytania ofertowe?",
+      "a": "Tak. Wyślij link do ogłoszenia albo SWZ — przygotujemy ofertę według wymagań zamawiającego.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "05",
+      "q": "Ile trwa przygotowanie oferty?",
+      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "06",
+      "q": "Gdzie dostarczacie?",
+      "a": "Działamy głównie na Podhalu i w całej Małopolsce. Dostawę w inne miejsce ustalamy przy zapytaniu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "07",
+      "q": "Dlaczego nie ma cen na stronie?",
+      "a": "Ceny zależą od ilości, parametrów i terminu. Każde zapytanie wyceniamy na piśmie.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     }
+    ]
+   }
+  }
+ },
+ "_stany_uwaga": "Treść pozostałych zakładek/wyborów: stany[klucz][indeks] = pola, które różnią się od stanu domyślnego."
+}

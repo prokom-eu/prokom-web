@@ -1,0 +1,128 @@
+{
+ "_zrodlo": "Prawne.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "sections": [
+   {
+    "id": "cele",
+    "n": "02",
+    "name": "Po co przetwarzamy dane",
+    "intro": "Dane podajesz nam sam — w formularzu kontaktowym, w e-mailu albo przez telefon. Używamy ich, żeby odpowiedzieć na Twoje zapytanie.",
+    "todo": "[TREŚĆ OD PRAWNIKA — cele przetwarzania: odpowiedź na zapytanie z formularza i e-maila, przekazanie sprawy do właściwej linii PRO-KOM, przygotowanie oferty, obrona przed roszczeniami]"
+   },
+   {
+    "id": "podstawy",
+    "n": "03",
+    "name": "Podstawy prawne",
+    "intro": "Każdy cel ma swoją podstawę w RODO. Opisujemy je osobno, żeby było jasne, na co się zgadzasz, a co wynika z przepisów.",
+    "todo": "[TREŚĆ OD PRAWNIKA — podstawa prawna dla każdego celu (art. 6 ust. 1 RODO); decyzja, czy przy formularzu jest zgoda (checkbox), czy klauzula informacyjna]"
+   },
+   {
+    "id": "okres",
+    "n": "04",
+    "name": "Jak długo przechowujemy dane",
+    "intro": "Przechowujemy dane tylko tak długo, jak są potrzebne do celu, w którym je podałeś.",
+    "todo": "[TREŚĆ OD PRAWNIKA — okres przechowywania zapytań z formularzy i korespondencji e-mail; kiedy i jak dane są usuwane]"
+   },
+   {
+    "id": "odbiorcy",
+    "n": "05",
+    "name": "Komu przekazujemy dane",
+    "intro": "Danych nie sprzedajemy. Dostęp mają tylko podmioty, które pomagają nam prowadzić stronę i pocztę.",
+    "todo": "[TREŚĆ OD PRAWNIKA — odbiorcy danych: dostawca serwera, dostawca poczty i domen, ewentualni podwykonawcy; umowy powierzenia; lokalizacja danych]"
+   },
+   {
+    "id": "prawa",
+    "n": "06",
+    "name": "Twoje prawa",
+    "intro": "Możesz w każdej chwili zapytać, jakie dane o Tobie mamy, poprawić je albo poprosić o ich usunięcie.",
+    "todo": "[TREŚĆ OD PRAWNIKA — prawa osoby: dostęp, sprostowanie, usunięcie, ograniczenie, sprzeciw, przenoszenie, wycofanie zgody, skarga do Prezesa UODO; jak złożyć wniosek i w jakim terminie odpowiadamy]"
+   },
+   {
+    "id": "cookies",
+    "n": "07",
+    "name": "Cookies i statystyki",
+    "intro": "Statystyki odwiedzin liczymy na własnym serwerze, narzędziem, które nie używa ciasteczek śledzących.",
+    "todo": "[TREŚĆ OD PRAWNIKA — cookies: jakie pliki zapisuje strona (niezbędne, np. wybór motywu); statystyki bez ciasteczek na własnym serwerze; czy funkcja „Ostatnio oglądane” (zapis w przeglądarce) wymaga zgody]"
+   },
+   {
+    "id": "bezpieczenstwo",
+    "n": "08",
+    "name": "Bezpieczeństwo",
+    "intro": "Strona działa po szyfrowanym połączeniu, a dane z formularzy trafiają na serwer w Polsce.",
+    "todo": "[TREŚĆ OD PRAWNIKA — środki bezpieczeństwa opisane ogólnie: szyfrowanie połączenia, kopie zapasowe, dostęp tylko dla upoważnionych osób]"
+   },
+   {
+    "id": "zmiany",
+    "n": "09",
+    "name": "Zmiany polityki",
+    "intro": "Gdy zmienimy politykę, podamy tu nową datę i krótko opiszemy, co się zmieniło."
+   }
+  ],
+  "toc": [
+   {
+    "n": "01",
+    "name": "Administrator danych",
+    "href": "#administrator",
+    "bg": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "n": "02",
+    "name": "Po co przetwarzamy dane",
+    "href": "#cele",
+    "bg": "transparent",
+    "ink": "var(--k-ink2)"
+   },
+   {
+    "n": "03",
+    "name": "Podstawy prawne",
+    "href": "#podstawy",
+    "bg": "transparent",
+    "ink": "var(--k-ink2)"
+   },
+   {
+    "n": "04",
+    "name": "Jak długo przechowujemy dane",
+    "href": "#okres",
+    "bg": "transparent",
+    "ink": "var(--k-ink2)"
+   },
+   {
+    "n": "05",
+    "name": "Komu przekazujemy dane",
+    "href": "#odbiorcy",
+    "bg": "transparent",
+    "ink": "var(--k-ink2)"
+   },
+   {
+    "n": "06",
+    "name": "Twoje prawa",
+    "href": "#prawa",
+    "bg": "transparent",
+    "ink": "var(--k-ink2)"
+   },
+   {
+    "n": "07",
+    "name": "Cookies i statystyki",
+    "href": "#cookies",
+    "bg": "transparent",
+    "ink": "var(--k-ink2)"
+   },
+   {
+    "n": "08",
+    "name": "Bezpieczeństwo",
+    "href": "#bezpieczenstwo",
+    "bg": "transparent",
+    "ink": "var(--k-ink2)"
+   },
+   {
+    "n": "09",
+    "name": "Zmiany polityki",
+    "href": "#zmiany",
+    "bg": "transparent",
+    "ink": "var(--k-ink2)"
+   }
+  ]
+ }
+}

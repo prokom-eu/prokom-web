@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Aktualności PRO-KOM — wpisy ze wszystkich linii</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/*PKTHEME*/:root{--k-bg:#0A0D0B;--k-bg2:#0E1210;--k-card:#131815;--k-card2:#111613;--k-foot:#060807;--k-bgp:#0C0F0D;--k-cardp:#171C18;--k-dim:#050706;--k-ink:#F4F5F1;--k-ink1:#DDE1DB;--k-ink2:#C9CEC8;--k-ink3:#A9AFA9;--k-ink4:#B9BDB6;--k-ink5:#7E857E;--k-gt:#8FE07A;--k-gd:#7BD36A;--k-g:#4FB034;--k-g1:#5BC23E;--k-g2:#43A02B;--k-g3:#2E7A1E;--k-gi:#07140A;--k-b:#4A7BE0;--k-bt:#8DADF0;--k-bd:#0A1430;--k-bi:#06102A;--k-i:#12B6D8;--k-it:#4CCBE6;--k-id:#071214;--k-ii:#06181C;--k-s:#9670EE;--k-st:#B49BF5;--k-sd:#15131F;--k-si:#120A26;--k-t:#E2483A;--k-tt:#F29185;--k-td:#1A1312;--k-ti:#1A0806;--k-y:#F2C230;--k-yd:#080C0B;--k-yi:#1A1400;--r-w:255,255,255;--r-gl:22,28,24;--r-gl2:19,24,21;--r-gl3:20,25,21;--r-gl4:10,13,11;--r-gl5:17,22,19;--k-white:#FFFFFF}
+html[data-theme="light"]{--k-bg:#F4F5F1;--k-bg2:#ECEEE8;--k-card:#FFFFFF;--k-card2:#FFFFFF;--k-foot:#E4E7E0;--k-bgp:#F4F5F1;--k-cardp:#FFFFFF;--k-dim:#D9DCD5;--k-ink:#121613;--k-ink1:#2A302B;--k-ink2:#3A413B;--k-ink3:#4F5650;--k-ink4:#4F5650;--k-ink5:#8A918A;--k-gt:#2E7A1E;--k-gd:#2E7A1E;--k-g:#2E7A1E;--k-g1:#358F27;--k-g2:#286F18;--k-g3:#1F5A12;--k-gi:#FFFFFF;--k-b:#244FB0;--k-bt:#244FB0;--k-bd:#E6ECFB;--k-bi:#FFFFFF;--k-i:#007A96;--k-it:#006A82;--k-id:#DDF1F5;--k-ii:#FFFFFF;--k-s:#6E45D4;--k-st:#5B33C4;--k-sd:#ECE7FB;--k-si:#FFFFFF;--k-t:#C4362B;--k-tt:#B3301F;--k-td:#FBE8E5;--k-ti:#FFFFFF;--k-y:#9A7000;--k-yd:#FBF2D2;--k-yi:#FFFFFF;--r-w:18,22,19;--r-gl:255,255,255;--r-gl2:255,255,255;--r-gl3:255,255,255;--r-gl4:255,255,255;--r-gl5:255,255,255;--k-white:#121613}
+@keyframes pkrise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+section{animation:pkrise linear both;animation-timeline:view();animation-range:entry 0% cover 14%}
+section a[class~="lift"],section details,section figure{animation:pkpop linear both;animation-timeline:view();animation-range:entry 0% cover 18%}
+}
+a,button,details,summary{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s,color .3s}
+button:hover{transform:translateY(-2px)}
+a[style*="border-radius: 16px"]:hover,a[style*="border-radius: 18px"]:hover,a[style*="border-radius: 15px"]:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;transition:background-color .4s}
+body,body *{transition-property:background-color,border-color,color,transform,box-shadow,opacity,flex;transition-duration:.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+/*END*/
+/*PKX*/
+.pk .lift,.pk .nx{position:relative;overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .3s}
+.pk .lift:hover,.pk .nx:hover{transform:translateY(-6px);box-shadow:0 0 0 1px var(--c,var(--k-g)),0 36px 80px -38px var(--c,var(--k-g))}
+.pk .lift[style*="--c:"]:hover{box-shadow:inset 0 4px 0 var(--c),0 0 0 1px var(--c),0 36px 80px -38px var(--c) !important}
+.pk .lift::after,.pk .nx::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:38%;background:linear-gradient(100deg,transparent,rgba(var(--r-w),.12),transparent);transform:skewX(-18deg);pointer-events:none;opacity:0}
+.pk .lift:hover::after,.pk .nx:hover::after{animation:pkxsweep 1.1s cubic-bezier(.2,.8,.2,1)}
+@keyframes pkxsweep{0%{left:-60%;opacity:1}100%{left:130%;opacity:1}}
+@keyframes pkxin{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes pkxrise{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+.pk h1{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .1s both;text-wrap:balance;overflow-wrap:normal;word-break:normal;hyphens:none}
+.pk h1+p{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .25s both}
+@supports (animation-timeline: view()){
+.pk .stg>*{animation:pkxin linear both;animation-timeline:view();animation-range:entry 0% cover 16%}
+.pk .stg>*:nth-child(2){animation-range:entry 4% cover 19%}.pk .stg>*:nth-child(3){animation-range:entry 8% cover 22%}.pk .stg>*:nth-child(4){animation-range:entry 12% cover 25%}.pk .stg>*:nth-child(n+5){animation-range:entry 14% cover 27%}
+}
+@keyframes pkxpulse{50%{opacity:.35}}
+.pk .vg{border-radius:16px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pk .lift:hover .vg{transform:scale(1.015);border-color:color-mix(in srgb,var(--c,var(--k-g)) 55%,transparent)}
+.pk .vg i{display:block;font-style:normal}
+.pk .sk{border-radius:4px;background:rgba(var(--r-w),.2);animation:pkxpulse 2.6s ease-in-out infinite}
+@keyframes pkxeq{50%{transform:scaleY(.5)}}
+.pk .eq{flex:1;max-width:9px;border-radius:2px;background:var(--c,var(--k-g));transform-origin:50% 100%;animation:pkxeq 1.9s ease-in-out infinite}
+.pk .stp{flex:1;height:5px;border-radius:3px;background:rgba(var(--r-w),.16)}
+.pk .stp.on{background:var(--c,var(--k-g))}
+.pk .stp.now{background:var(--c,var(--k-g));animation:pkxpulse 1.4s infinite}
+.pk a[href^="tel:"]{white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.pk *,.pk *::after{animation:none !important;transition:none !important}}
+/*XEND*/
+body{margin:0}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+.pk{font-family:Manrope,system-ui,sans-serif;background:var(--k-bg);color:var(--k-ink)}
+.pk .d{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-.03em;margin:0;line-height:.96}
+.pk .eb{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.pk p{margin:0}
+.pk button{font-family:inherit;cursor:pointer}
+.pk .lift{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .lift:hover{transform:translateY(-6px)}
+.pk :focus-visible{outline:2px solid var(--k-gt);outline-offset:2px}
+@keyframes pulse{50%{opacity:.35}}
+.pk .rec{animation:pulse 1.6s infinite}
+@keyframes drift{50%{transform:translate(60px,40px) scale(1.12)}}
+.pk .orb{animation:drift 16s ease-in-out infinite}
+.pk .orb2{animation:drift 22s ease-in-out infinite reverse}
+@media (prefers-reduced-motion:reduce){.pk *{transition:none !important;animation:none !important}}
+/*PKCALM*/
+@keyframes pkrise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pk .tl:hover::after,.pk .lift:hover::after,.pk .nx:hover::after,.pk .cd2:hover::after,.pk .lt:hover::after,.pkx .lift:hover::after,.pkx .nx:hover::after{animation:none !important;opacity:0 !important}
+.pk .tl:hover,.pk .lift:hover,.pk .nx:hover,.pk .cd2:hover,.pk .lt:hover,.pkx .lift:hover,.pkx .nx:hover{transform:translateY(-4px) !important}
+.pk .tl,.pk .lift,.pk .nx,.pk .cd2,.pk .lt,.pk .ht{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .4s !important}
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk p{text-wrap:pretty}
+/*CALMEND*/
+</style>
+</helmet>
+<div class="pk" style="position: relative; overflow-x: clip">
+<dc-import name="Naglowek" active="aktualnosci" hint-size="100%,130px"></dc-import>
+
+<!-- HERO -->
+<section style="position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
+<div style="position: absolute; left: -20%; right: -20%; top: 200px; height: 700px; background-image: linear-gradient(rgba(var(--r-w),.09) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--r-w),.09) 1px, transparent 1px); background-size: 72px 72px; transform: perspective(900px) rotateX(64deg); transform-origin: 50% 0; mask-image: linear-gradient(180deg, transparent, #000 25%, transparent 85%); -webkit-mask-image: linear-gradient(180deg, transparent, #000 25%, transparent 85%)"></div>
+<div style="position: absolute; right: -200px; top: -180px; width: 700px; height: 700px; border-radius: 50%; border: 1px solid rgba(var(--r-w),.08)"></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 160px; background: linear-gradient(180deg, transparent, var(--k-bg))"></div>
+</div>
+<div style="position: relative; max-width: 1560px; margin: 0 auto; padding: 36px 32px 56px; display: flex; flex-direction: column; gap: 24px">
+<div style="font-size: 13.5px; color: var(--k-ink3); display: flex; gap: 10px"><a href="Main.dc.html">PRO-KOM</a><span aria-hidden="true">/</span><span style="color: var(--k-ink); font-weight: 700">Aktualności</span></div>
+<span class="eb" style="color: var(--k-gt)">Aktualności</span>
+<h1 class="d" style="font-size: clamp(44px, 6vw, 92px); line-height: .92">Co nowego<br>w <span style="white-space: nowrap">PRO-KOM</span></h1>
+<div style="display: flex; flex-wrap: wrap; gap: 20px 48px; align-items: flex-end; justify-content: space-between">
+<p style="font-size: 20px; line-height: 1.55; color: var(--k-ink1); max-width: 640px">Wpisy ze wszystkich linii w jednym miejscu. Tu czytasz zajawkę — cały tekst otwiera się na stronie linii, która go napisała.</p>
+<span style="font-size: 14px; color: var(--k-ink3); display: flex; gap: 8px; align-items: center"><span class="rec" style="width: 8px; height: 8px; border-radius: 50%; background: var(--k-gd)"></span>Pobierane automatycznie ze stron linii</span>
+</div>
+</div>
+</section>
+
+<!-- FILTRY + WYRÓŻNIONY -->
+<section style="max-width: 1560px; margin: 0 auto; padding: 16px 32px 0; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center">
+<div role="group" aria-label="Filtr linii" style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="6">
+<button onClick="{{f.pick}}" aria-pressed="{{f.on}}" style="height: 48px; padding: 0 16px; border-radius: 14px; border: 1.5px solid {{f.bd}}; background: {{f.bg}}; color: var(--k-ink); font-size: 14.5px; font-weight: 800; display: flex; gap: 10px; align-items: center"><span style="width: 16px; height: 4px; background: {{f.cd}}"></span>{{f.name}}</button>
+</sc-for>
+</div>
+<span class="d" style="font-size: 26px; color: rgba(var(--r-w),.34)">{{countText}}</span>
+</div>
+
+<a href="{{feat.url}}" class="lift" style="border-radius: 36px; overflow: hidden; border: 1px solid color-mix(in srgb, {{feat.cd}} 38%, transparent); display: flex; flex-wrap: wrap; background: {{feat.dark}}; box-shadow: inset 0 4px 0 {{feat.cd}}; --c: {{feat.cd}}">
+<div aria-hidden="true" style="flex: 1.2 1 480px; min-width: 0; min-height: 420px; position: relative; overflow: hidden; background: {{feat.dark}}">
+<span style="position: absolute; left: 40px; right: 40px; top: 50%; transform: translateY(-50%); border-radius: 24px; background: rgba(var(--r-w),.06); border: 1px solid rgba(var(--r-w),.14); padding: 8px 22px 16px; display: flex; flex-direction: column">
+<span style="display: flex; justify-content: space-between; font-size: 12.5px; color: {{feat.ct}}; font-weight: 800; letter-spacing: .12em; padding: 14px 0 10px">WPIS WYRÓŻNIONY<span>{{feat.label}}</span></span>
+<span style="height: 20px; width: 78%; border-radius: 5px; background: var(--k-ink); margin: 10px 0 12px"></span>
+<span style="height: 9px; width: 96%; border-radius: 5px; background: rgba(var(--r-w),.26); margin-bottom: 8px"></span>
+<span style="height: 9px; width: 88%; border-radius: 5px; background: rgba(var(--r-w),.26); margin-bottom: 8px"></span>
+<span style="height: 9px; width: 62%; border-radius: 5px; background: rgba(var(--r-w),.26); margin-bottom: 16px"></span>
+<span style="display: flex; gap: 6px"><span style="flex: 1; height: 6px; background: {{feat.cd}}"></span><span style="flex: 1; height: 6px; background: {{feat.cd}}"></span><span style="flex: 1; height: 6px; background: rgba(var(--r-w),.16)"></span></span>
+</span>
+<span style="position: absolute; left: 40px; bottom: 28px; font-size: 13px; color: rgba(var(--r-w),.7)">Okładka wpisu</span>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; padding: 44px; display: flex; flex-direction: column; gap: 18px; background: rgba(var(--r-w),.04); border-left: 1px solid rgba(var(--r-w),.1)">
+<span class="eb" style="display: flex; gap: 10px; align-items: center; color: {{feat.ct}}"><span style="width: 18px; height: 5px; background: {{feat.cd}}"></span>{{feat.line}} · wyróżniony</span>
+<h2 class="d" style="font-size: clamp(30px, 3.4vw, 46px); line-height: 1.02">{{feat.title}}</h2>
+<p style="font-size: 17px; line-height: 1.6; color: rgba(var(--r-w),.8)">{{feat.lead}}</p>
+<span style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid rgba(var(--r-w),.14)"><span style="font-size: 14px; color: rgba(var(--r-w),.75)">Przykładowy wpis · {{feat.domain}}</span><span style="height: 52px; padding: 0 22px; border-radius: 16px; background: {{feat.cd}}; color: {{feat.ink}}; font-weight: 800; font-size: 15px; display: flex; align-items: center">Czytaj na stronie linii ↗</span></span>
+</div>
+</a>
+</section>
+
+<!-- SIATKA -->
+<section style="max-width: 1560px; margin: 0 auto; padding: 28px 32px 96px; display: flex; flex-direction: column; gap: 20px">
+<div class="stg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 16px">
+<sc-for list="{{posts}}" as="p" hint-placeholder-count="9">
+<a href="{{p.url}}" class="lift" style="border-radius: 28px; background: {{p.dark}}; border: 1px solid color-mix(in srgb, {{p.cd}} 38%, transparent); display: flex; flex-direction: column; overflow: hidden; min-height: 380px; box-shadow: inset 0 4px 0 {{p.cd}}; --c: {{p.cd}}">
+<span aria-hidden="true" style="height: 150px; position: relative; overflow: hidden; display: block; border-bottom: 1px solid rgba(var(--r-w),.1); padding: 20px 20px 16px; box-sizing: border-box">
+<span class="vg" style="height: 100%; display: flex; gap: 12px; padding: 12px; box-sizing: border-box; align-items: center">
+<span style="flex: 1.5; display: flex; flex-direction: column; gap: 7px"><i class="sk" style="height: 12px; width: 86%; background: var(--k-white); opacity: .9; animation: none"></i><i class="sk" style="height: 6px; width: 100%"></i><i class="sk" style="height: 6px; width: 72%"></i><i style="height: 16px; width: 58px; border-radius: 6px; background: {{p.cd}}; margin-top: 3px"></i></span>
+<span style="flex: 1; align-self: stretch; border-radius: 10px; background: color-mix(in srgb, {{p.cd}} 20%, transparent); display: flex; align-items: flex-end; gap: 4px; padding: 8px"><i class="eq" style="height: 40%"></i><i class="eq" style="height: 64%; animation-delay: .3s"></i><i class="eq" style="height: 50%; animation-delay: .6s"></i><i class="eq" style="height: 88%; animation-delay: .9s"></i></span>
+</span>
+</span>
+<span style="padding: 24px; display: flex; flex-direction: column; gap: 12px; flex: 1">
+<span class="eb" style="display: flex; gap: 10px; align-items: center; color: {{p.ct}}"><span style="width: 16px; height: 4px; background: {{p.cd}}"></span>{{p.line}} · {{p.topic}}</span>
+<span class="d" style="font-size: 23px; line-height: 1.12">{{p.title}}</span>
+<span style="font-size: 14.5px; line-height: 1.5; color: rgba(var(--r-w),.74)">Krótka zajawka wpisu ze strony linii. Całość otwierasz u źródła.</span>
+<span style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; color: rgba(var(--r-w),.72)"><span>Przykładowy wpis · {{p.domain}}</span><span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: {{p.cd}}; color: {{p.ink}}; display: flex; align-items: center; justify-content: center; font-weight: 800">↗</span></span>
+</span>
+</a>
+</sc-for>
+</div>
+<sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+<div style="border-radius: 28px; border: 1px dashed rgba(var(--r-w),.2); padding: 32px; font-size: 17px; color: var(--k-ink3)">Ta linia nie ma jeszcze wpisów. Zobacz wszystkie albo wybierz inną.</div>
+</sc-if>
+<div style="display: flex; justify-content: center; padding-top: 12px"><span style="height: 56px; padding: 0 28px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 16px; display: flex; align-items: center">Pokaż starsze wpisy</span></div>
+</section>
+
+<!-- TEMATY -->
+<section style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08); border-bottom: 1px solid rgba(var(--r-w),.08)">
+<div style="max-width: 1560px; margin: 0 auto; padding: 88px 32px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<span class="eb" style="color: var(--k-gt)">Tematy</span>
+<h2 class="d" style="font-size: clamp(34px, 4.2vw, 58px)">Szukasz czegoś konkretnego?</h2>
+<p style="font-size: 17px; line-height: 1.6; color: var(--k-ink3)">Tematy zbierają wpisy z różnych linii. Kreska pokazuje, kto o tym pisze.</p>
+</div>
+<div style="flex: 2 1 560px; min-width: 0; display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{topics}}" as="t" hint-placeholder-count="14">
+<a href="Szukaj.dc.html" style="height: 52px; padding: 0 18px; border-radius: 16px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.12); display: flex; gap: 12px; align-items: center; font-size: 16px; font-weight: 700"><span style="width: 16px; height: 4px; background: {{t.cd}}"></span>{{t.name}}</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- PORADNIKI LINII -->
+<section style="max-width: 1560px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<span class="eb" style="color: var(--k-gt)">U źródła</span>
+<h2 class="d" style="font-size: clamp(34px, 4.2vw, 58px)">Poradniki i aktualności linii</h2>
+<p style="font-size: 17px; line-height: 1.6; color: var(--k-ink3)">Każda linia prowadzi własne wpisy na swojej stronie. Tam znajdziesz komplet.</p>
+</div>
+<div class="stg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 14px">
+<sc-for list="{{sources}}" as="s" hint-placeholder-count="5">
+<a href="{{s.url}}" class="lift" style="border-radius: 28px; background: {{s.dark}}; border: 1px solid color-mix(in srgb, {{s.cd}} 38%, transparent); padding: 24px; display: flex; flex-direction: column; gap: 12px; min-height: 250px; position: relative; overflow: hidden; box-shadow: inset 0 4px 0 {{s.cd}}; --c: {{s.cd}}">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 4px; background: {{s.cd}}"></span>
+<span aria-hidden="true" style="position: absolute; right: -70px; bottom: -70px; width: 190px; height: 190px; border-radius: 50%; border: 1px solid {{s.cd}}; opacity: .4"></span>
+<span class="d" style="font-size: 24px; letter-spacing: .01em; margin-top: 6px">{{s.name}}</span>
+<span class="eb" style="color: {{s.ct}}">{{s.kind}}</span>
+<span style="font-size: 14.5px; line-height: 1.5; color: rgba(var(--r-w),.78)">{{s.about}}</span>
+<span style="margin-top: auto; font-size: 13.5px; font-weight: 800; color: {{s.ct}}; position: relative">{{s.domain}} ↗</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<!-- POWIADOMIENIA -->
+<section style="max-width: 1560px; margin: 0 auto; padding: 0 32px 104px">
+<div style="border-radius: 30px; border: 1px solid rgba(var(--r-w),.12); background: var(--k-card); padding: 48px; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; position: relative; overflow: hidden">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 14px; position: relative">
+<h2 class="d" style="font-size: clamp(30px, 3.6vw, 48px)">Nowe wpisy na e-mail</h2>
+<p style="font-size: 17px; line-height: 1.6; color: var(--k-ink3)">Wybierasz linie, które Cię interesują. Piszemy tylko wtedy, gdy jest coś nowego.</p>
+</div>
+<form style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 14px; position: relative">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="nl" style="font-size: 14px; font-weight: 700">Adres e-mail</label>
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><input id="nl" type="email" autocomplete="email" style="flex: 1 1 240px; min-width: 0; height: 56px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.16); background: var(--k-bg); color: var(--k-ink); padding: 0 18px; font: 500 16px Manrope, sans-serif"><button type="button" style="height: 56px; padding: 0 24px; border-radius: 16px; border: none; background: linear-gradient(180deg, var(--k-g1), var(--k-g2)); color: var(--k-gi); font-size: 16px; font-weight: 800">Zapisz mnie</button></div></div>
+<p style="font-size: 13px; line-height: 1.5; color: var(--k-ink3)">Zgadzam się na wiadomości o nowych wpisach PRO-KOM. Zgoda jest dobrowolna i można ją wycofać w każdej chwili.</p>
+</form>
+</div>
+</section>
+
+<dc-import name="Stopka" hint-size="100%,720px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4700}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = this.state || {};
+    const L = {
+      biznes: { name: 'Biznes', label: 'BIZNES', domain: 'prokombiznes.pl', cd: 'var(--k-b)', ct: 'var(--k-bt)', dark: 'var(--k-bd)', ink: 'var(--k-bi)' },
+      instalacje: { name: 'Instalacje', label: 'INSTALACJE', domain: 'prokominstalacje.pl', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', ink: 'var(--k-ii)' },
+      software: { name: 'Software', label: 'SOFTWARE', domain: 'prokomsoftware.pl', cd: 'var(--k-s)', ct: 'var(--k-st)', dark: 'var(--k-sd)', ink: 'var(--k-si)' },
+      tech: { name: 'Tech', label: 'TECH', domain: 'prokomserwis.pl', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', ink: 'var(--k-ti)' },
+      gaming: { name: 'Gaming', label: 'GAMING', domain: 'prokomgaming.pl', cd: 'var(--k-y)', ct: 'var(--k-y)', dark: 'var(--k-yd)', ink: 'var(--k-yi)' }
+    };
+    const f = st.f || 'all';
+    const src = [['biznes', 'KSeF'], ['instalacje', 'Monitoring'], ['software', 'Strony'], ['tech', 'Naprawy'], ['gaming', 'Gaming'], ['biznes', 'Kasy fiskalne'], ['instalacje', 'Wi-Fi'], ['software', 'Systemy'], ['tech', 'Hammer Glass']];
+    const posts = src.filter((p) => f === 'all' || p[0] === f).map((p, i) => { const l = L[p[0]]; return { n: (i < 9 ? '0' : '') + (i + 1), line: l.name, topic: p[1], cd: l.cd, ct: l.ct, dark: l.dark, ink: l.ink, domain: l.domain, url: 'https://' + l.domain, edge: p[0] === 'gaming' ? 'color-mix(in srgb, var(--k-y) 45%, transparent)' : 'rgba(var(--r-w),.1)', title: ({'KSeF': 'E-faktury KSeF: co musi zrobić mała firma', 'Monitoring': 'Kamery w pensjonacie: od czego zacząć', 'Strony': 'Ile trwa zrobienie strony firmowej', 'Naprawy': 'Pęknięty ekran: naprawa czy nowy telefon', 'Gaming': 'Jak dobrać komputer do swojej gry', 'Kasy fiskalne': 'Przegląd kasy fiskalnej: jak pilnować terminu', 'Wi-Fi': 'Wi-Fi dla gości oddzielone od sieci firmy', 'Systemy': 'Kiedy arkusz przestaje wystarczać firmie', 'Hammer Glass': 'Folia cięta na wymiar: jak to działa'})[p[1]] || p[1] }; });
+    const fl = L[f === 'all' ? 'biznes' : f];
+    const filters = [{ key: 'all', name: 'Wszystkie', cd: 'var(--k-g)' }].concat(Object.keys(L).map((k) => ({ key: k, name: L[k].name, cd: L[k].cd }))).map((x) => { const on = x.key === f; return { name: x.name, cd: x.cd, on: on, bd: on ? x.cd : 'rgba(var(--r-w),.14)', bg: on ? 'rgba(var(--r-w),.08)' : 'transparent', pick: () => this.setState({ f: x.key }) }; });
+    const T = [['KSeF i e-faktury', 'biznes'], ['Kasy fiskalne', 'biznes'], ['GoPOS', 'biznes'], ['Opieka IT', 'biznes'], ['Monitoring', 'instalacje'], ['Wi-Fi dla gości', 'instalacje'], ['Smart home', 'instalacje'], ['Ładowarki EV', 'instalacje'], ['Strony internetowe', 'software'], ['Systemy i automatyzacje', 'software'], ['Naprawy telefonów', 'tech'], ['Hammer Glass', 'tech'], ['Komputery do gier', 'gaming'], ['Klatki w grach', 'gaming']];
+    const S = [['biznes', 'Aktualności · wkrótce', 'Zmiany w przepisach, kasy, programy i sprzęt dla firm.'], ['instalacje', 'Poradnik', 'Jak zaplanować kamery, sieć i smart home w obiekcie.'], ['software', 'Aktualności', 'Strony, systemy i widoczność firmy w internecie.'], ['tech', 'Blog', 'Naprawy, ochrona ekranów i dbanie o sprzęt.'], ['gaming', 'Poradniki', 'Jak wybrać komputer do gier i co oznaczają klatki.']];
+    return {
+      posts, filters, empty: posts.length === 0, countText: posts.length + ' z ' + src.length,
+      feat: { ...fl, line: fl.name, url: 'https://' + fl.domain, title: 'E-faktury KSeF: co musi zrobić mała firma', lead: 'Krótka zajawka najnowszego wpisu, pobrana ze strony linii. Całość czytelnik otwiera u źródła.' },
+      topics: T.map((t) => ({ name: t[0], cd: L[t[1]].cd })),
+      sources: S.map((s) => { const l = L[s[0]]; return { name: l.name, kind: s[1], about: s[2], cd: l.cd, ct: l.ct, dark: l.dark, domain: l.domain, url: 'https://' + l.domain, edge: s[0] === 'gaming' ? 'color-mix(in srgb, var(--k-y) 45%, transparent)' : 'rgba(var(--r-w),.1)' }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

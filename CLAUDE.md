@@ -140,6 +140,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+## pro-kom.eu (hub) — worktree `prokom-web-hub`
+- Spec `docs/strony/prokomeu.md` (+ `prokomeu-pytania.md`), plan sesji H0–H7 z promptami `docs/zadania/prokomeu.md`, decyzje ADR-H001 (tenant `prokom`, wspólne komponenty ADR-022, zapytania, 301) i ADR-H002 (model: `HubSettings`, `HubServices`, `HubTools`, `HubHelp`, `HubPlans`). Wzorzec `docs/design/prokomeu/` (plansze `.dc.html` = cel wyglądu i teksty, `tokens.css`), dane `seed/prokomeu/strony/*.json`. Kolejność ważności: `docs/STAN.md` → spec → plansze → seed.
+- Folder: worktree `prokom-web-hub`, `PORT=3004`, baza `prokom_web_hub`, `prokom.localhost:3004`; gałęzie `hub/*`; stan w `docs/STAN.md` → „pro-kom.eu (hub)”. Kod huba w `src/sites/prokom/` i `src/lib/prokom/`.
+- Hub nie kopiuje treści linii — krótkie wpisy + link do strony linii (zaopatrzenie firm: link do `/agd-rtv-dla-firm` i `/dostawy-it-dla-firm` Biznesu). Zero cen i finansowania, bez WhatsAppa i zdjęć ludzi, obietnice tylko z ustaleń (spec §3); konfiguracja, montaż i szkolenie przy dostawach zawsze jako opcja; RTV i AGD tylko dla firm, bez montażu.
+
 ## prokomsoftware.pl
 - Plan sesji: `docs/zadania/prokomsoftware.md`. **Od 06.11.2026 wersja finalna v24 „Aurora”:** `docs/design/prokomsoftware/v24/ZMIANY-v24.md` (spec.) + `PRZEKAZANIE-v24.md` (duże sesje SWA1–SWA6, prompty), plansze `v24/boards`, decyzje — ADR-015 i ADR-014 „Rozstrzygnięcia v24” (ciemny motyw domyślnie, fioletowe światło, hero przed Lighthouse). Historia: v23 (`ZMIANY-v23.md`, `PRZEKAZANIE-v23.md`).
 - **Folder sesji SWA (od 06.11):** worktree `prokom-web-software` — `PORT=3003`, baza `prokom_web_swa` (w `prokom-web` pracują sesje D2).

@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Kontakt — PRO-KOM Rabka-Zdrój</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/*PKTHEME*/:root{--k-bg:#0A0D0B;--k-bg2:#0E1210;--k-card:#131815;--k-card2:#111613;--k-foot:#060807;--k-bgp:#0C0F0D;--k-cardp:#171C18;--k-dim:#050706;--k-ink:#F4F5F1;--k-ink1:#DDE1DB;--k-ink2:#C9CEC8;--k-ink3:#A9AFA9;--k-ink4:#B9BDB6;--k-ink5:#7E857E;--k-gt:#8FE07A;--k-gd:#7BD36A;--k-g:#4FB034;--k-g1:#5BC23E;--k-g2:#43A02B;--k-g3:#2E7A1E;--k-gi:#07140A;--k-b:#4A7BE0;--k-bt:#8DADF0;--k-bd:#0A1430;--k-bi:#06102A;--k-i:#12B6D8;--k-it:#4CCBE6;--k-id:#071214;--k-ii:#06181C;--k-s:#9670EE;--k-st:#B49BF5;--k-sd:#15131F;--k-si:#120A26;--k-t:#E2483A;--k-tt:#F29185;--k-td:#1A1312;--k-ti:#1A0806;--k-y:#F2C230;--k-yd:#080C0B;--k-yi:#1A1400;--r-w:255,255,255;--r-gl:22,28,24;--r-gl2:19,24,21;--r-gl3:20,25,21;--r-gl4:10,13,11;--r-gl5:17,22,19;--k-white:#FFFFFF}
+html[data-theme="light"]{--k-bg:#F4F5F1;--k-bg2:#ECEEE8;--k-card:#FFFFFF;--k-card2:#FFFFFF;--k-foot:#E4E7E0;--k-bgp:#F4F5F1;--k-cardp:#FFFFFF;--k-dim:#D9DCD5;--k-ink:#121613;--k-ink1:#2A302B;--k-ink2:#3A413B;--k-ink3:#4F5650;--k-ink4:#4F5650;--k-ink5:#8A918A;--k-gt:#2E7A1E;--k-gd:#2E7A1E;--k-g:#2E7A1E;--k-g1:#358F27;--k-g2:#286F18;--k-g3:#1F5A12;--k-gi:#FFFFFF;--k-b:#244FB0;--k-bt:#244FB0;--k-bd:#E6ECFB;--k-bi:#FFFFFF;--k-i:#007A96;--k-it:#006A82;--k-id:#DDF1F5;--k-ii:#FFFFFF;--k-s:#6E45D4;--k-st:#5B33C4;--k-sd:#ECE7FB;--k-si:#FFFFFF;--k-t:#C4362B;--k-tt:#B3301F;--k-td:#FBE8E5;--k-ti:#FFFFFF;--k-y:#9A7000;--k-yd:#FBF2D2;--k-yi:#FFFFFF;--r-w:18,22,19;--r-gl:255,255,255;--r-gl2:255,255,255;--r-gl3:255,255,255;--r-gl4:255,255,255;--r-gl5:255,255,255;--k-white:#121613}
+@keyframes pkrise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+section{animation:pkrise linear both;animation-timeline:view();animation-range:entry 0% cover 14%}
+section a[class~="lift"],section details,section figure{animation:pkpop linear both;animation-timeline:view();animation-range:entry 0% cover 18%}
+}
+a,button,details,summary{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s,color .3s}
+button:hover{transform:translateY(-2px)}
+a[style*="border-radius: 16px"]:hover,a[style*="border-radius: 18px"]:hover,a[style*="border-radius: 15px"]:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;transition:background-color .4s}
+body,body *{transition-property:background-color,border-color,color,transform,box-shadow,opacity,flex;transition-duration:.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+/*END*/
+/*PKX*/
+.pk .lift,.pk .nx{position:relative;overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .3s}
+.pk .lift:hover,.pk .nx:hover{transform:translateY(-6px);box-shadow:0 0 0 1px var(--c,var(--k-g)),0 36px 80px -38px var(--c,var(--k-g))}
+.pk .lift[style*="--c:"]:hover{box-shadow:inset 0 4px 0 var(--c),0 0 0 1px var(--c),0 36px 80px -38px var(--c) !important}
+.pk .lift::after,.pk .nx::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:38%;background:linear-gradient(100deg,transparent,rgba(var(--r-w),.12),transparent);transform:skewX(-18deg);pointer-events:none;opacity:0}
+.pk .lift:hover::after,.pk .nx:hover::after{animation:pkxsweep 1.1s cubic-bezier(.2,.8,.2,1)}
+@keyframes pkxsweep{0%{left:-60%;opacity:1}100%{left:130%;opacity:1}}
+@keyframes pkxin{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes pkxrise{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+.pk h1{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .1s both;text-wrap:balance;overflow-wrap:normal;word-break:normal;hyphens:none}
+.pk h1+p{animation:pkxrise .9s cubic-bezier(.2,.8,.2,1) .25s both}
+@supports (animation-timeline: view()){
+.pk .stg>*{animation:pkxin linear both;animation-timeline:view();animation-range:entry 0% cover 16%}
+.pk .stg>*:nth-child(2){animation-range:entry 4% cover 19%}.pk .stg>*:nth-child(3){animation-range:entry 8% cover 22%}.pk .stg>*:nth-child(4){animation-range:entry 12% cover 25%}.pk .stg>*:nth-child(n+5){animation-range:entry 14% cover 27%}
+}
+@keyframes pkxpulse{50%{opacity:.35}}
+.pk .vg{border-radius:16px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pk .lift:hover .vg{transform:scale(1.015);border-color:color-mix(in srgb,var(--c,var(--k-g)) 55%,transparent)}
+.pk .vg i{display:block;font-style:normal}
+.pk .sk{border-radius:4px;background:rgba(var(--r-w),.2);animation:pkxpulse 2.6s ease-in-out infinite}
+@keyframes pkxeq{50%{transform:scaleY(.5)}}
+.pk .eq{flex:1;max-width:9px;border-radius:2px;background:var(--c,var(--k-g));transform-origin:50% 100%;animation:pkxeq 1.9s ease-in-out infinite}
+.pk .stp{flex:1;height:5px;border-radius:3px;background:rgba(var(--r-w),.16)}
+.pk .stp.on{background:var(--c,var(--k-g))}
+.pk .stp.now{background:var(--c,var(--k-g));animation:pkxpulse 1.4s infinite}
+.pk a[href^="tel:"]{white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.pk *,.pk *::after{animation:none !important;transition:none !important}}
+/*XEND*/
+body{margin:0}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+.pk{font-family:Manrope,system-ui,sans-serif;background:var(--k-bg);color:var(--k-ink)}
+.pk .d{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-.03em;margin:0;line-height:.96}
+.pk .eb{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.pk p{margin:0}
+.pk button{font-family:inherit;cursor:pointer}
+.pk .lift{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .lift:hover{transform:translateY(-6px)}
+.pk :focus-visible{outline:2px solid var(--k-gt);outline-offset:2px}
+@keyframes drift{50%{transform:translate(60px,40px) scale(1.12)}}
+.pk .orb{animation:drift 16s ease-in-out infinite}
+.pk .orb2{animation:drift 22s ease-in-out infinite reverse}
+.pk .nx{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .3s}
+.pk .nx:hover{transform:translateY(-6px);box-shadow:0 30px 60px -36px rgba(0,0,0,.55)}
+.pk .nx .ar{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .nx:hover .ar{transform:translateX(5px)}
+.pk .bt{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.pk .bt:hover{transform:translateY(-2px)}
+.pk h1,.pk h2,.pk h3{text-wrap:balance;overflow-wrap:break-word}
+.pk .nw{white-space:nowrap}
+@keyframes hin{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.pk .hin{animation:hin .8s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-reduced-motion:reduce){.pk *{transition:none !important;animation:none !important}}
+/*PKCALM*/
+@keyframes pkrise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pk .tl:hover::after,.pk .lift:hover::after,.pk .nx:hover::after,.pk .cd2:hover::after,.pk .lt:hover::after,.pkx .lift:hover::after,.pkx .nx:hover::after{animation:none !important;opacity:0 !important}
+.pk .tl:hover,.pk .lift:hover,.pk .nx:hover,.pk .cd2:hover,.pk .lt:hover,.pkx .lift:hover,.pkx .nx:hover{transform:translateY(-4px) !important}
+.pk .tl,.pk .lift,.pk .nx,.pk .cd2,.pk .lt,.pk .ht{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .4s !important}
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk p{text-wrap:pretty}
+/*CALMEND*/
+</style>
+</helmet>
+<div class="pk" style="position: relative; overflow-x: clip">
+<dc-import name="Naglowek" active="kontakt" hint-size="100%,130px"></dc-import>
+
+<!-- HERO -->
+<section style="position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none; background: var(--k-bg)">
+<div class="acc-t" style="position: absolute; left: 50%; top: -420px; width: 1700px; height: 900px; margin-left: -850px; background: radial-gradient(closest-side, color-mix(in srgb, var(--k-g) 15%, transparent), transparent)"></div>
+<div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(var(--r-w),.11) 1px, transparent 1.4px); background-size: 26px 26px; mask-image: radial-gradient(ellipse 75% 85% at 50% 38%, #000 0%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 75% 85% at 50% 38%, #000 0%, transparent 78%)"></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 200px; background: linear-gradient(180deg, transparent, var(--k-bg))"></div>
+</div>
+<div aria-hidden="true" style="position: absolute; right: -220px; top: -180px; width: 700px; height: 700px; border-radius: 50%; border: 1px solid rgba(var(--r-w),.07)"></div>
+<div aria-hidden="true" style="position: absolute; right: -90px; top: -50px; width: 440px; height: 440px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--k-g) 18%, transparent)"></div>
+<div class="hin" style="position: relative; max-width: 1560px; margin: 0 auto; padding: 56px 32px 88px; display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start">
+<div style="flex: 1.3 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<nav aria-label="Okruszki" style="font-size: 13.5px; color: var(--k-ink3); display: flex; gap: 8px"><a href="Main.dc.html">PRO-KOM</a><span>/</span><span style="color: var(--k-ink)">Kontakt</span></nav>
+<span style="align-self: flex-start; display: flex; gap: 8px; align-items: center; font-size: 13.5px; font-weight: 700; padding: 8px 14px; border-radius: 999px; background: rgba(var(--r-w),.07)"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{statusDot}}"></span>{{statusText}}</span>
+<h1 class="d" style="font-size: clamp(36px, 4.6vw, 68px); line-height: .94; text-wrap: balance">Jeden numer. Pokierujemy, <span style="color: var(--k-g)">gdzie trzeba.</span></h1>
+<p style="font-size: 19px; line-height: 1.6; color: var(--k-ink2); max-width: 580px">Nie musisz wiedzieć, która linia zajmuje się Twoją sprawą. Zadzwoń albo napisz — połączymy Cię z właściwym zespołem.</p>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span class="eb" style="color: var(--k-gt)">Najszybciej — zadzwoń</span>
+<a href="tel:+48883200151" class="d" style="font-size: clamp(44px, 5.6vw, 84px); letter-spacing: -.04em; white-space: nowrap">883 200 151</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="tel:+48883200151" class="bt" style="height: 58px; padding: 0 26px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 16px; display: flex; align-items: center">Zadzwoń teraz</a>
+<a href="#formularz" style="height: 58px; padding: 0 24px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 16px; display: flex; align-items: center">Napisz wiadomość</a>
+</div>
+<div class="stg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 10px; margin-top: 6px">
+<div style="border-radius: 18px; background: rgba(var(--r-w),.05); border: 1px solid rgba(var(--r-w),.1); padding: 16px 18px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; color: var(--k-ink3)">E-mail</span><a href="mailto:biuro@pro-kom.eu" style="font-size: 16px; font-weight: 800">biuro@pro-kom.eu</a></div>
+<div style="border-radius: 18px; background: rgba(var(--r-w),.05); border: 1px solid rgba(var(--r-w),.1); padding: 16px 18px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; color: var(--k-ink3)">Godziny</span><span style="font-size: 16px; font-weight: 800">pn–pt 9:00–17:00</span></div>
+<div style="border-radius: 18px; background: rgba(var(--r-w),.05); border: 1px solid rgba(var(--r-w),.1); padding: 16px 18px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; color: var(--k-ink3)">Status naprawy</span><a href="https://prokomserwis.pl" style="font-size: 16px; font-weight: 800">prokomserwis.pl ↗</a></div>
+</div>
+</div>
+
+<div style="flex: 1 1 420px; min-width: 0; border-radius: 32px; background: var(--k-card); color: var(--k-ink); border: 1px solid rgba(var(--r-w),.12); padding: 14px; display: flex; flex-direction: column; gap: 0; box-shadow: 0 40px 80px -50px rgba(0,0,0,.5)">
+<div role="img" aria-label="Mapa: PRO-KOM, ul. Orkana 16B, Rabka-Zdrój" style="height: 290px; border-radius: 22px; background: var(--k-bg2); position: relative; overflow: hidden">
+<span style="position: absolute; left: -10%; top: 60%; width: 120%; height: 14px; background: rgba(var(--r-w),.14); transform: rotate(-8deg)"></span>
+<span style="position: absolute; left: 28%; top: -10%; width: 10px; height: 120%; background: rgba(var(--r-w),.14); transform: rotate(14deg)"></span>
+<span style="position: absolute; left: 66%; top: -10%; width: 8px; height: 120%; background: rgba(var(--r-w),.14); transform: rotate(-22deg)"></span>
+<span style="position: absolute; left: -10%; top: 24%; width: 120%; height: 8px; background: rgba(var(--r-w),.14); transform: rotate(5deg)"></span>
+<span style="position: absolute; left: 50%; top: 52%; width: 130px; height: 130px; transform: translate(-50%, -50%); border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--k-g3) 40%, transparent)"></span>
+<span style="position: absolute; left: 50%; top: 52%; width: 66px; height: 66px; transform: translate(-50%, -50%); border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--k-g3) 70%, transparent)"></span>
+<span style="position: absolute; left: 50%; top: 52%; width: 20px; height: 20px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--k-g3); border: 4px solid var(--k-card)"></span>
+<span style="position: absolute; left: 14px; top: 14px; border-radius: 14px; background: var(--k-ink); color: var(--k-bg); padding: 10px 14px; font-size: 13.5px; font-weight: 700">PRO-KOM · ul. Orkana 16B</span>
+<span style="position: absolute; right: 10px; bottom: 8px; font-size: 11.5px; color: var(--k-ink3)">© OpenStreetMap — w kodzie wspólny komponent mapy</span>
+</div>
+<div style="padding: 22px 16px 14px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="eb" style="color: var(--k-gt)">Salon · Rabka-Zdrój</span><span class="d" style="font-size: 30px">ul. Orkana 16B</span><span style="font-size: 15px; color: var(--k-ink3)">34-700 Rabka-Zdrój</span></div>
+<a href="https://www.google.com/maps/dir/?api=1&amp;destination=ul.+Orkana+16B,+34-700+Rabka-Zdr%C3%B3j" style="height: 50px; padding: 0 20px; border-radius: 14px; background: var(--k-ink); color: var(--k-bg); font-weight: 800; font-size: 15px; display: flex; align-items: center">Wyznacz trasę ↗</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<div style="border-radius: 16px; background: color-mix(in srgb, var(--k-g) 14%, transparent); border: 1.5px solid var(--k-g); padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12.5px; font-weight: 800; color: var(--k-gt)">Pon–Pt</span><span class="d" style="font-size: 19px; letter-spacing: 0">9:00–17:00</span></div>
+<div style="border-radius: 16px; background: rgba(var(--r-w),.06); padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12.5px; font-weight: 800; color: var(--k-ink3)">Sobota</span><span class="d" style="font-size: 19px; letter-spacing: 0">serwis 9–14</span></div>
+<div style="border-radius: 16px; background: rgba(var(--r-w),.06); padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12.5px; font-weight: 800; color: var(--k-ink3)">Niedziela</span><span class="d" style="font-size: 19px; letter-spacing: 0">zamknięte</span></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; border-top: 1px solid rgba(var(--r-w),.12); padding-top: 14px; font-size: 14px; color: var(--k-ink3)"><span>PRO-KOM Tadeusz Wójciak · NIP 7352511447</span><a href="https://aplikacja.ceidg.gov.pl/ceidg/ceidg.public.ui/search.aspx" style="font-weight: 800; color: var(--k-gt)">Sprawdź w CEIDG →</a></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- KSIĄŻKA LINII -->
+<section style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08)">
+<div style="max-width: 1560px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<span class="eb" style="color: var(--k-gt)">Z czym dzwonisz?</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Wiesz, czego potrzebujesz? Dzwoń prosto do zespołu.</h2>
+</div>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); max-width: 360px">Każda linia ma swój numer, swoją skrzynkę i swój czas odpowiedzi.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{book}}" as="l" hint-placeholder-count="5">
+<div class="lift" style="border-radius: 28px; background: {{l.dark}}; border: 1px solid color-mix(in srgb, {{l.cd}} 38%, transparent); padding: 26px 28px 22px; display: flex; flex-wrap: wrap; gap: 20px 32px; align-items: center; position: relative; overflow: hidden; box-shadow: inset 0 4px 0 {{l.cd}}; --c: {{l.cd}}">
+<div style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 5px; align-items: flex-start"><span class="d" style="font-size: 22px; display: flex; align-items: center; gap: 3px; letter-spacing: -.02em; white-space: nowrap">PRO<span style="width: 10px; height: 4px; display: block; background: {{l.cd}}"></span>KOM</span><span class="d" style="font-size: 11.5px; letter-spacing: .18em; text-transform: uppercase; color: {{l.ct}}">{{l.name}}</span><span style="font-size: 13.5px; color: {{l.ct}}">{{l.promise}}</span></div>
+<p style="flex: 2 1 320px; font-size: 15.5px; line-height: 1.5; color: rgba(var(--r-w),.82)">{{l.what}}</p>
+<div style="flex: 1 1 210px; display: flex; flex-direction: column; gap: 2px"><a href="{{l.telHref}}" class="d" style="font-size: 26px; letter-spacing: 0; white-space: nowrap">{{l.phone}}</a><span style="font-size: 14px; color: rgba(var(--r-w),.75)">{{l.mail}}</span></div>
+<a href="{{l.url}}" style="height: 46px; padding: 0 20px; border-radius: 999px; background: {{l.cd}}; color: {{l.ink}}; font-weight: 800; font-size: 15px; display: flex; align-items: center; white-space: nowrap">{{l.domain}} ↗</a>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- FORMULARZ -->
+<section id="formularz" style="max-width: 1560px; margin: 0 auto; padding: 96px 32px; scroll-margin-top: 40px">
+<div style="border-radius: 36px; overflow: hidden; display: flex; flex-wrap: wrap; border: 1px solid rgba(var(--r-w),.1)">
+<div style="flex: 1 1 400px; min-width: 0; background: var(--k-card); padding: 48px; display: flex; flex-direction: column; gap: 26px; position: relative; overflow: hidden">
+<span aria-hidden="true" style="position: absolute; left: -130px; bottom: -130px; width: 400px; height: 400px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--k-g) 30%, transparent)"></span>
+<span class="eb" style="color: var(--k-gt)">Formularz</span>
+<h2 class="d" style="font-size: clamp(32px, 3.8vw, 50px)">Napisz, o co chodzi. Resztą zajmiemy się my.</h2>
+<div style="display: flex; flex-direction: column; gap: 0; position: relative">
+<span class="eb" style="color: var(--k-ink3); margin-bottom: 8px">Co dalej po wysłaniu</span>
+<sc-for list="{{next}}" as="s" hint-placeholder-count="4">
+<div style="display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid rgba(var(--r-w),.1)">
+<span class="d" style="width: 40px; height: 40px; flex: none; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 16px; letter-spacing: 0; background: {{s.bg}}; color: {{s.ink}}">{{s.n}}</span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">{{s.t}}</span><span style="font-size: 14.5px; line-height: 1.5; color: var(--k-ink3)">{{s.x}}</span></span>
+</div>
+</sc-for>
+</div>
+</div>
+<form style="flex: 1.3 1 480px; min-width: 0; background: var(--k-bg2); padding: 48px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 700">Czego dotyczy sprawa?</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px" role="group" aria-label="Czego dotyczy sprawa">
+<sc-for list="{{topics}}" as="t" hint-placeholder-count="6">
+<button type="button" onClick="{{t.pick}}" aria-pressed="{{t.on}}" style="height: 46px; padding: 0 14px; border-radius: 13px; border: 1.5px solid {{t.bd}}; background: {{t.bg}}; color: var(--k-ink); font-size: 14px; font-weight: 700; display: flex; gap: 8px; align-items: center"><span style="width: 12px; height: 4px; background: {{t.cd}}"></span>{{t.name}}</button>
+</sc-for>
+</div>
+<div style="border-radius: 14px; border: 1px solid {{topicCd}}; padding: 12px 14px; display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; font-size: 14px"><span style="color: var(--k-ink3)">Trafi do: <strong style="color: var(--k-ink)">{{topicMail}}</strong></span><span style="color: var(--k-ink2)">{{topicPromise}}</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="k1" style="font-size: 14px; font-weight: 700">Imię i firma</label><input id="k1" autocomplete="name" style="height: 54px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="k2" style="font-size: 14px; font-weight: 700">Telefon lub e-mail</label><input id="k2" style="height: 54px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="k3" style="font-size: 14px; font-weight: 700">Miejscowość <span style="font-weight: 500; color: var(--k-ink3)">(opcjonalnie)</span></label><input id="k3" autocomplete="address-level2" style="height: 54px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="k4" style="font-size: 14px; font-weight: 700">Wiadomość</label><textarea id="k4" rows="4" placeholder="Napisz w dwóch zdaniach, czego potrzebujesz" style="border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-bg); color: var(--k-ink); padding: 14px 16px; font: 500 16px Manrope, sans-serif; resize: vertical"></textarea></div>
+<p style="font-size: 13px; line-height: 1.5; color: var(--k-ink3)">Zgadzam się na przetwarzanie danych przez PRO-KOM Tadeusz Wójciak w celu odpowiedzi na zapytanie. Szczegóły w polityce prywatności.</p>
+<button type="button" style="height: 58px; border-radius: 16px; border: none; background: var(--k-g); color: var(--k-gi); font-size: 17px; font-weight: 800">Wyślij wiadomość</button>
+</form>
+</div>
+</section>
+
+<!-- DOJAZD I ZASIĘG -->
+<section style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08)">
+<div style="max-width: 1560px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<span class="eb" style="color: var(--k-gt)">Dojazd i zasięg</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Na miejscu na Podhalu. Zdalnie w całej Polsce.</h2>
+<p style="font-size: 17px; line-height: 1.6; color: var(--k-ink2)">Do firm i na montaże dojeżdżamy na Podhalu i w całej Małopolsce. Strony i systemy robimy zdalnie, a komputery do gier wysyłamy do całej Polski.</p>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="town" style="font-size: 14px; font-weight: 700">Sprawdź swoją miejscowość</label>
+<input id="town" value="{{town}}" onChange="{{onTown}}" placeholder="np. Nowy Targ" autocomplete="off" style="height: 58px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.16); background: var(--k-card); color: var(--k-ink); padding: 0 18px; font: 600 17px Manrope, sans-serif">
+<sc-if value="{{zone}}" hint-placeholder-val="{{false}}">
+<div style="border-radius: 16px; border: 1.5px solid var(--k-g); padding: 14px 18px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 800">{{zone.title}}</span><span style="font-size: 14.5px; color: var(--k-ink3)">{{zone.text}}</span></div>
+</sc-if>
+</div>
+</div>
+<div role="img" aria-label="Schemat zasięgu: Rabka-Zdrój w środku, wokół Podhale i Małopolska" style="flex: 1 1 440px; min-width: 0; aspect-ratio: 1 / 1; max-width: 580px; position: relative; border-radius: 32px; background: var(--k-bg); border: 1px solid rgba(var(--r-w),.1); overflow: hidden">
+<span style="position: absolute; left: 50%; top: 50%; width: 94%; height: 94%; transform: translate(-50%, -50%); border-radius: 50%; border: 1px dashed rgba(var(--r-w),.14)"></span>
+<span style="position: absolute; left: 50%; top: 50%; width: 64%; height: 64%; transform: translate(-50%, -50%); border-radius: 50%; border: 1px solid rgba(var(--r-w),.14)"></span>
+<span style="position: absolute; left: 50%; top: 50%; width: 32%; height: 32%; transform: translate(-50%, -50%); border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--k-g) 60%, transparent); background: color-mix(in srgb, var(--k-g) 6%, transparent)"></span>
+<span style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 18px; height: 18px; border-radius: 50%; background: var(--k-g)"></span><span class="d" style="font-size: 17px; letter-spacing: 0">Rabka-Zdrój</span></span>
+<span style="position: absolute; left: 61%; top: 40%; font-size: 13.5px; font-weight: 700; color: var(--k-ink2)">Mszana Dolna</span>
+<span style="position: absolute; left: 54%; top: 64%; font-size: 13.5px; font-weight: 700; color: var(--k-ink2)">Nowy Targ</span>
+<span style="position: absolute; left: 40%; top: 79%; font-size: 13.5px; font-weight: 700; color: var(--k-ink2)">Zakopane</span>
+<span style="position: absolute; left: 72%; top: 47%; font-size: 13.5px; font-weight: 700; color: var(--k-ink2)">Limanowa</span>
+<span style="position: absolute; left: 79%; top: 57%; font-size: 13.5px; font-weight: 700; color: var(--k-ink2)">Nowy Sącz</span>
+<span style="position: absolute; left: 46%; top: 26%; font-size: 13.5px; font-weight: 700; color: var(--k-ink2)">Myślenice</span>
+<span style="position: absolute; left: 45%; top: 8%; font-size: 13.5px; font-weight: 700; color: var(--k-ink2)">Kraków</span>
+<span style="position: absolute; left: 18px; bottom: 14px; font-size: 12px; color: var(--k-ink3)">schemat, nie mapa w skali</span>
+<span class="eb" style="position: absolute; right: 18px; top: 16px; color: var(--k-gt)">Podhale · Małopolska</span>
+</div>
+</div>
+</section>
+
+<!-- CO PRZYGOTOWAĆ -->
+<section id="przygotuj" style="max-width: 1560px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 780px"><span class="eb" style="color: var(--k-gt)">Zanim napiszesz</span><h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Co przygotować, żeby poszło szybciej.</h2></div>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); max-width: 380px">Nie musisz mieć wszystkiego. Im więcej z tej listy podasz od razu, tym mniej pytań zadamy w pierwszej rozmowie.</p>
+</div>
+<div class="stg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr)); gap: 14px">
+<sc-for list="{{prep}}" as="p" hint-placeholder-count="5">
+<div class="lift" style="border-radius: 28px; background: {{p.dark}}; border: 1px solid color-mix(in srgb, {{p.cd}} 38%, transparent); padding: 24px; display: flex; flex-direction: column; gap: 14px; min-height: 290px; position: relative; overflow: hidden; box-shadow: inset 0 4px 0 {{p.cd}}; --c: {{p.cd}}">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 4px; background: {{p.cd}}"></span>
+<span aria-hidden="true" style="position: absolute; right: -80px; bottom: -80px; width: 210px; height: 210px; border-radius: 50%; border: 1px solid {{p.cd}}; opacity: .35"></span>
+<span style="display: flex; gap: 10px; align-items: center; margin-top: 6px"><span style="width: 18px; height: 5px; background: {{p.cd}}"></span><span class="d" style="font-size: 22px; letter-spacing: 0">{{p.name}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 10px; font-size: 15px; font-weight: 600; line-height: 1.4; position: relative">
+<sc-for list="{{p.items}}" as="it" hint-placeholder-count="4"><span style="display: flex; gap: 10px"><span style="width: 6px; height: 6px; border-radius: 50%; flex: none; margin-top: 7px; background: {{p.cd}}"></span>{{it}}</span></sc-for>
+</span>
+<a href="{{p.telHref}}" class="d" style="margin-top: auto; font-size: 19px; letter-spacing: 0; color: {{p.ct}}; position: relative">{{p.phone}}</a>
+</div>
+</sc-for>
+</div>
+</section>
+
+<!-- GODZINY LINII -->
+<section id="godziny" style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08)">
+<div style="max-width: 1560px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 780px"><span class="eb" style="color: var(--k-gt)">Godziny</span><h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Kiedy kogo złapiesz.</h2></div>
+<div style="overflow-x: auto; border-radius: 26px; border: 1px solid rgba(var(--r-w),.1); background: var(--k-card)">
+<table style="width: 100%; min-width: 820px; border-collapse: collapse; font-size: 15.5px">
+<thead><tr style="text-align: left; color: var(--k-ink3); font-size: 12px; letter-spacing: .14em; text-transform: uppercase"><th scope="col" style="padding: 18px 24px">Linia</th><th scope="col" style="padding: 18px 16px">Pon–Pt</th><th scope="col" style="padding: 18px 16px">Sobota</th><th scope="col" style="padding: 18px 16px">Niedziela</th><th scope="col" style="padding: 18px 24px">Uwagi</th></tr></thead>
+<tbody>
+<sc-for list="{{hours}}" as="h" hint-placeholder-count="5">
+<tr style="border-top: 1px solid rgba(var(--r-w),.1)"><th scope="row" style="padding: 20px 24px; text-align: left"><span style="display: flex; gap: 12px; align-items: center"><span style="width: 18px; height: 5px; background: {{h.cd}}"></span><span class="d" style="font-size: 19px; letter-spacing: 0">{{h.name}}</span></span></th><td style="padding: 20px 16px; font-weight: 700">{{h.wk}}</td><td style="padding: 20px 16px; font-weight: 700; color: {{h.satInk}}">{{h.sat}}</td><td style="padding: 20px 16px; color: {{h.sunInk}}; font-weight: 700">{{h.sun}}</td><td style="padding: 20px 24px; color: var(--k-ink3); font-size: 14px">{{h.note}}</td></tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+<p style="font-size: 13.5px; color: var(--k-ink3)">Godziny z panelu firmy. Święta i dni wolne ustawiane w panelu — wtedy status „Otwarte / Zamknięte” na górze strony zmienia się sam.</p>
+</div>
+</section>
+
+<!-- DANE FIRMY + INNE SPOSOBY -->
+<section id="dane" style="max-width: 1560px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch">
+<div style="flex: 1 1 420px; min-width: 0; border-radius: 30px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 36px; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden">
+<span aria-hidden="true" style="position: absolute; right: -110px; top: -110px; width: 320px; height: 320px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--k-g) 30%, transparent)"></span>
+<span class="eb" style="color: var(--k-gt)">Dane do faktur i przelewów</span>
+<h2 class="d" style="font-size: 34px; margin: 8px 0 14px">PRO-KOM Tadeusz Wójciak</h2>
+<span style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid rgba(var(--r-w),.1); font-size: 15.5px"><span style="color: var(--k-ink3)">Adres</span><span style="font-weight: 700; text-align: right">ul. Orkana 16B, 34-700 Rabka-Zdrój</span></span>
+<span style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid rgba(var(--r-w),.1); font-size: 15.5px"><span style="color: var(--k-ink3)">NIP</span><span style="font-weight: 700">7352511447</span></span>
+<span style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid rgba(var(--r-w),.1); font-size: 15.5px"><span style="color: var(--k-ink3)">E-mail biura</span><a href="mailto:biuro@pro-kom.eu" style="font-weight: 700">biuro@pro-kom.eu</a></span>
+<a href="https://aplikacja.ceidg.gov.pl/ceidg/ceidg.public.ui/search.aspx" style="margin-top: 14px; font-size: 14.5px; font-weight: 800; color: var(--k-gt)">Sprawdź firmę w CEIDG po numerze NIP →</a>
+</div>
+<div style="flex: 1.4 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 6px 4px 10px"><span class="eb" style="color: var(--k-gt)">Inne sposoby</span><h2 class="d" style="font-size: 34px">Część spraw załatwisz bez rozmowy.</h2></div>
+<sc-for list="{{ways}}" as="w" hint-placeholder-count="3">
+<a href="{{w.url}}" class="lift" style="border-radius: 28px; background: {{w.dark}}; border: 1px solid color-mix(in srgb, {{w.cd}} 38%, transparent); padding: 24px 26px; display: flex; gap: 20px; align-items: center; justify-content: space-between; box-shadow: inset 0 4px 0 {{w.cd}}; --c: {{w.cd}}">
+<span style="display: flex; flex-direction: column; gap: 6px; min-width: 0"><span class="eb" style="color: {{w.ct}}">{{w.line}}</span><span class="d" style="font-size: 26px">{{w.title}}</span><span style="font-size: 15px; line-height: 1.5; color: rgba(var(--r-w),.76)">{{w.text}}</span></span>
+<span style="flex: none; width: 52px; height: 52px; border-radius: 50%; background: {{w.cd}}; color: {{w.ink}}; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px">↗</span>
+</a>
+</sc-for>
+<a href="Narzedzia.dc.html" style="align-self: flex-start; height: 52px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 15px; display: flex; align-items: center">Wszystko, co załatwisz online →</a>
+</div>
+</section>
+
+<!-- FAQ -->
+<section style="max-width: 1560px; margin: 0 auto; padding: 96px 32px 104px; display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<span class="eb" style="color: var(--k-gt)">Pytania</span>
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 64px)">Zanim zadzwonisz</h2>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); max-width: 340px">Nie ma tu Twojego pytania? Zadzwoń: <a href="tel:+48883200151" style="font-weight: 800; color: var(--k-ink)">883 200 151</a>.</p>
+</div>
+<div style="flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{faq}}" as="f" hint-placeholder-count="10">
+<details open="{{f.open}}" style="border-radius: 28px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 24px 26px">
+<summary style="cursor: pointer; font-family: Archivo, sans-serif; font-weight: 800; font-size: 20px; display: flex; gap: 16px; align-items: baseline; list-style: none"><span style="font-size: 13px; color: var(--k-gt)">{{f.n}}</span>{{f.q}}</summary>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); padding: 12px 0 0 36px">{{f.a}}</p>
+</details>
+</sc-for>
+</div>
+</section>
+
+<!-- CO DALEJ -->
+<section aria-label="Co dalej" style="max-width: 1560px; margin: 0 auto; padding: 0 32px 104px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 14px"><span class="eb" style="color: var(--k-gt)">Co dalej</span><h2 class="d" style="font-size: clamp(32px, 3.8vw, 52px)">Możesz też załatwić to bez rozmowy.</h2></div>
+<div class="stg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 14px">
+<a href="Narzedzia.dc.html" class="nx" style="border-radius: 28px; background: var(--k-g); color: var(--k-gi); padding: 28px; display: flex; flex-direction: column; gap: 12px; min-height: 220px; position: relative; overflow: hidden"><span style="display: flex; align-items: center; gap: 9px"><span style="width: 26px; height: 6px; background: currentColor"></span><span class="d" style="font-size: 12.5px; letter-spacing: .15em">Załatw online</span></span><span class="d" style="font-size: clamp(24px, 2.3vw, 32px); line-height: 1.02; margin-top: auto">Zgłoś, policz, zaplanuj</span><span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 14px"><span style="font-size: 15px; line-height: 1.45; font-weight: 600; opacity: .85; max-width: 300px">Formularze i konfiguratory wszystkich linii.</span><span class="ar" aria-hidden="true" style="width: 42px; height: 42px; flex: none; border-radius: 50%; background: var(--k-gi); color: var(--k-g); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px">→</span></span></a>
+<a href="Pomoc.dc.html" class="nx" style="border-radius: 28px; background: var(--k-card); color: var(--k-ink); padding: 28px; display: flex; flex-direction: column; gap: 12px; min-height: 220px; position: relative; overflow: hidden"><span style="display: flex; align-items: center; gap: 9px"><span style="width: 26px; height: 6px; background: currentColor"></span><span class="d" style="font-size: 12.5px; letter-spacing: .15em">Pomoc</span></span><span class="d" style="font-size: clamp(24px, 2.3vw, 32px); line-height: 1.02; margin-top: auto">Co zrobić, gdy…</span><span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 14px"><span style="font-size: 15px; line-height: 1.45; font-weight: 600; opacity: .85; max-width: 300px">Pierwsze kroki, zanim zadzwonisz.</span><span class="ar" aria-hidden="true" style="width: 42px; height: 42px; flex: none; border-radius: 50%; background: var(--k-ink); color: var(--k-card); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px">→</span></span></a>
+<a href="https://prokomserwis.pl" class="nx" style="border-radius: 28px; background: var(--k-t); color: var(--k-ti); padding: 28px; display: flex; flex-direction: column; gap: 12px; min-height: 220px; position: relative; overflow: hidden"><span style="display: flex; align-items: center; gap: 9px"><span style="width: 26px; height: 6px; background: currentColor"></span><span class="d" style="font-size: 12.5px; letter-spacing: .15em">Tech</span></span><span class="d" style="font-size: clamp(24px, 2.3vw, 32px); line-height: 1.02; margin-top: auto">Status naprawy</span><span style="display: flex; justify-content: space-between; align-items: flex-end; gap: 14px"><span style="font-size: 15px; line-height: 1.45; font-weight: 600; opacity: .85; max-width: 300px">Sprawdź, na jakim etapie jest Twoje urządzenie.</span><span class="ar" aria-hidden="true" style="width: 42px; height: 42px; flex: none; border-radius: 50%; background: var(--k-ti); color: var(--k-t); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px">↗</span></span></a>
+</div>
+</section>
+
+<dc-import name="Stopka" hint-size="100%,720px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":7400}}'>
+class Component extends DCLogic {
+  norm(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l').trim(); }
+  renderVals() {
+    const st = this.state || {};
+    const e = 'rgba(var(--r-w),.1)';
+    const book = [
+      { key: 'biznes', name: 'Biznes', what: 'Kasy fiskalne, GoPOS, programy InsERT i KSeF, komputery, serwery, opieka IT.', promise: 'W godzinach pracy oddzwonimy w 60 minut', phone: '889 003 889', tel: '+48889003889', mail: 'kontakt@prokombiznes.pl', domain: 'prokombiznes.pl', url: 'https://prokombiznes.pl', cd: 'var(--k-b)', ct: 'var(--k-bt)', dark: 'var(--k-bd)', ink: 'var(--k-bi)', edge: e },
+      { key: 'instalacje', name: 'Instalacje', what: 'Monitoring, alarmy, sieci i Wi-Fi, smart home, nagłośnienie, ładowarki. Także zgłoszenie awarii.', promise: 'Odpowiemy w 24 godziny w dni robocze', phone: '889 003 889', tel: '+48889003889', mail: 'kontakt@prokominstalacje.pl', domain: 'prokominstalacje.pl', url: 'https://prokominstalacje.pl', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', ink: 'var(--k-ii)', edge: e },
+      { key: 'software', name: 'Software', what: 'Strony internetowe, systemy i panele, aplikacje, automatyzacje, opieka nad stroną.', promise: 'Odpowiedź w 1 dzień roboczy', phone: '883 200 151', tel: '+48883200151', mail: 'kontakt@prokomsoftware.pl', domain: 'prokomsoftware.pl', url: 'https://prokomsoftware.pl', cd: 'var(--k-s)', ct: 'var(--k-st)', dark: 'var(--k-sd)', ink: 'var(--k-si)', edge: e },
+      { key: 'tech', name: 'Tech', what: 'Naprawa telefonu, laptopa, komputera, konsoli. Folie Hammer Glass i akcesoria GSM.', promise: 'Bezpłatna diagnoza i wycena', phone: '883 200 151', tel: '+48883200151', mail: 'sklep@pro-kom.eu', domain: 'prokomserwis.pl', url: 'https://prokomserwis.pl', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', ink: 'var(--k-ti)', edge: e },
+      { key: 'gaming', name: 'Gaming', what: 'Komputery do gier: gotowe zestawy, konfigurator, dobór pod grę.', promise: 'Wysyłka w całej Polsce', phone: '883 200 151', tel: '+48883200151', mail: 'kontakt@prokomgaming.pl', domain: 'prokomgaming.pl', url: 'https://prokomgaming.pl', cd: 'var(--k-y)', ct: 'var(--k-y)', dark: 'var(--k-yd)', ink: 'var(--k-yi)', edge: 'color-mix(in srgb, var(--k-y) 45%, transparent)' }
+    ].map((l) => ({ ...l, telHref: 'tel:' + l.tel }));
+    const topicKey = st.topic || 'ogolne';
+    const src = [{ key: 'ogolne', name: 'Nie wiem / ogólne', cd: 'var(--k-g)', mail: 'biuro@pro-kom.eu', promise: 'Przekażemy do właściwej linii' }].concat(book);
+    const cur = src.find((t) => t.key === topicKey);
+    const d = new Date(); const day = d.getDay(); const h = d.getHours() + d.getMinutes() / 60;
+    const open = day >= 1 && day <= 5 && h >= 9 && h < 17;
+    const town = st.town || '';
+    const nt = this.norm(town);
+    const podhale = ['rabka', 'nowy targ', 'zakopane', 'mszana', 'jordanow', 'szaflary', 'bialka', 'bukowina', 'koscielisko', 'poronin', 'czarny dunajec', 'raba wyzna', 'niedzwiedz', 'chabowka', 'skomielna'];
+    const malopolska = ['krakow', 'myslenice', 'limanowa', 'nowy sacz', 'sucha', 'wadowice', 'tarnow', 'bochnia', 'wieliczka', 'dobczyce', 'krynica', 'gorlice', 'olkusz', 'chrzanow', 'oswiecim', 'skawina'];
+    let zone = null;
+    if (nt.length >= 3) {
+      if (podhale.some((t) => nt.includes(t) || t.startsWith(nt))) zone = { title: town + ' · strefa Podhale', text: 'Dojeżdżamy: instalacje, serwis u klienta, wdrożenia dla firm.' };
+      else if (malopolska.some((t) => nt.includes(t) || t.startsWith(nt))) zone = { title: town + ' · strefa Małopolska', text: 'Dojeżdżamy do firm i na montaże. Termin ustalamy w rozmowie.' };
+      else zone = { title: town + ' · poza strefą dojazdu', text: 'Strony, systemy i komputery do gier — zdalnie i wysyłkowo. W innych sprawach zadzwoń.' };
+    }
+    return {
+      book,
+      prep: [
+        ['biznes', ['NIP i branża', 'Liczba stanowisk albo kas', 'Jakiego programu używasz dziś', 'Na kiedy potrzebujesz']],
+        ['instalacje', ['Rodzaj obiektu: dom, pensjonat, firma', 'Miejscowość', 'Rzuty albo zdjęcia', 'Co ma być zrobione i na jakim etapie jest budowa']],
+        ['software', ['Adres obecnej strony, jeśli jest', 'Co strona albo program ma robić', 'Przykłady, które Ci się podobają', 'Na kiedy']],
+        ['tech', ['Marka i model urządzenia', 'Objaw: co nie działa i od kiedy', 'Czy sprzęt był zalany albo upadł', 'Czy masz kopię danych']],
+        ['gaming', ['Gry, w które grasz', 'Monitor i rozdzielczość', 'Budżet', 'Czy to komputer dla dziecka']]
+      ].map((x) => { const l = book.find((b) => b.key === x[0]); return { name: l.name, cd: l.cd, ct: l.ct, dark: l.dark, phone: l.phone, telHref: l.telHref, items: x[1], edge: l.key === 'gaming' ? 'color-mix(in srgb, var(--k-y) 45%, transparent)' : 'rgba(var(--r-w),.1)' }; }),
+      hours: [
+        { name: 'Biznes', cd: 'var(--k-b)', wk: '9:00–17:00', sat: 'zamknięte', sun: 'zamknięte', satInk: 'var(--k-ink5)', sunInk: 'var(--k-ink5)', note: 'Oddzwonimy w 60 minut w godzinach pracy.' },
+        { name: 'Instalacje', cd: 'var(--k-i)', wk: '9:00–17:00', sat: 'zamknięte', sun: 'zamknięte', satInk: 'var(--k-ink5)', sunInk: 'var(--k-ink5)', note: 'Odpowiedź na zgłoszenie w 24 godziny w dni robocze.' },
+        { name: 'Software', cd: 'var(--k-s)', wk: '9:00–17:00', sat: 'zamknięte', sun: 'zamknięte', satInk: 'var(--k-ink5)', sunInk: 'var(--k-ink5)', note: 'Odpowiedź w 1 dzień roboczy.' },
+        { name: 'Tech', cd: 'var(--k-t)', wk: '9:00–17:00', sat: '9:00–14:00', sun: 'zamknięte', satInk: 'var(--k-ink)', sunInk: 'var(--k-ink5)', note: 'Godziny serwisu według prokomserwis.pl.' },
+        { name: 'Gaming', cd: 'var(--k-y)', wk: '8:00–22:00', sat: '8:00–22:00', sun: '8:00–22:00', satInk: 'var(--k-ink)', sunInk: 'var(--k-ink)', note: 'Odpowiedzi na zapytania, według prokomgaming.pl. Odbiór osobisty w godzinach salonu.' }
+      ],
+      ways: [
+        { line: 'Tech', title: 'Status naprawy', text: 'Sprawdź etap naprawy po numerze zlecenia albo na koncie klienta.', url: 'https://prokomserwis.pl', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', ink: 'var(--k-ti)' },
+        { line: 'Instalacje', title: 'Zgłoś awarię', text: 'Kamery, alarm albo sieć przestały działać? Zgłoś to online.', url: 'https://prokominstalacje.pl', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', ink: 'var(--k-ii)' },
+        { line: 'Software', title: 'Darmowy audyt strony', text: 'Podaj adres strony — sprawdzimy ją i powiemy, co poprawić.', url: 'https://prokomsoftware.pl', cd: 'var(--k-s)', ct: 'var(--k-st)', dark: 'var(--k-sd)', ink: 'var(--k-si)' }
+      ],
+      statusDot: open ? 'var(--k-gd)' : 'var(--k-y)',
+      statusText: open ? 'Otwarte · do 17:00' : 'Zamknięte · pn–pt 9:00–17:00',
+      topics: src.map((t) => { const on = t.key === topicKey; return { name: t.name, cd: t.cd, on: on, bd: on ? t.cd : 'rgba(var(--r-w),.14)', bg: on ? 'rgba(var(--r-w),.06)' : 'transparent', pick: () => this.setState({ topic: t.key }) }; }),
+      topicMail: cur.mail, topicPromise: cur.promise, topicCd: cur.cd,
+      town, zone,
+      onTown: (ev) => this.setState({ town: ev.target.value }),
+      next: [
+        { n: '01', bg: 'var(--k-g)', ink: 'var(--k-gi)', t: 'Dostajesz potwierdzenie', x: 'Z numerem zgłoszenia, na podany adres e-mail.' },
+        { n: '02', bg: 'rgba(var(--r-w),.08)', ink: 'var(--k-ink)', t: 'Wiadomość trafia do linii', x: 'Do zespołu, który zajmuje się taką sprawą na co dzień.' },
+        { n: '03', bg: 'rgba(var(--r-w),.08)', ink: 'var(--k-ink)', t: 'Odzywamy się', x: 'Telefonicznie albo mailowo, w czasie właściwym dla linii.' },
+        { n: '04', bg: 'rgba(var(--r-w),.08)', ink: 'var(--k-ink)', t: 'Ustalamy zakres i termin', x: 'Wycena i termin na piśmie, zanim cokolwiek zaczniemy.' }
+      ],
+      faq: [
+        { n: '01', open: true, q: 'Do której linii mam zadzwonić?', a: 'Jeśli wiesz, czego potrzebujesz — prosto do linii z listy wyżej. Jeśli nie masz pewności, zadzwoń pod 883 200 151, pokierujemy.' },
+        { n: '02', open: false, q: 'Potrzebuję kilku rzeczy naraz. Muszę dzwonić w kilka miejsc?', a: 'Nie. Wystarczy jeden telefon albo jedna wiadomość — połączymy zespoły po naszej stronie i dostaniesz jeden plan.' },
+        { n: '03', open: false, q: 'Czy mogę przyjść bez umawiania?', a: 'Tak, salon w Rabce-Zdroju jest otwarty od poniedziałku do piątku 9:00–17:00. Przy większych tematach (instalacje, systemy) warto wcześniej zadzwonić, żeby na miejscu był właściwy zespół.' },
+        { n: '04', open: false, q: 'Jak do Was trafić?', a: 'Salon i biuro są przy ul. Orkana 16B w Rabce-Zdroju. Trasę pokaże mapa na tej stronie.' },
+        { n: '05', open: false, q: 'Czy działacie poza Podhalem?', a: 'Tak. Do firm i na montaże dojeżdżamy w całej Małopolsce. Strony i systemy robimy zdalnie, a komputery do gier wysyłamy do całej Polski.' },
+        { n: '06', open: false, q: 'Gdzie sprawdzę status naprawy?', a: 'Na stronie linii Tech, prokomserwis.pl — po numerze zlecenia albo po zalogowaniu na konto klienta.' },
+        { n: '07', open: false, q: 'Czy serwis działa w sobotę?', a: 'Linia Tech podaje na prokomserwis.pl godziny sobotnie 9:00–14:00. Pozostałe linie pracują od poniedziałku do piątku 9:00–17:00.' },
+        { n: '08', open: false, q: 'Czy mogę wysłać sprzęt do naprawy kurierem?', a: 'Tak. Linia Tech przyjmuje sprzęt wysłany kurierem z całej Polski. Zacznij od zgłoszenia naprawy na prokomserwis.pl.' },
+        { n: '09', open: false, q: 'Co przygotować przed pierwszą rozmową?', a: 'Lista dla każdej linii jest wyżej, w sekcji „Co przygotować”. Jeśli czegoś nie masz, i tak zadzwoń — dopytamy.' },
+        { n: '10', open: false, q: 'Kiedy dostanę odpowiedź na wiadomość?', a: 'Biznes oddzwania w 60 minut w godzinach pracy, Instalacje odpowiadają w 24 godziny w dni robocze, Software w 1 dzień roboczy. Gaming odpowiada na zapytania codziennie w godzinach 8–22.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

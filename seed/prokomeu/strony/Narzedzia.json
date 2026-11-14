@@ -1,0 +1,2487 @@
+{
+ "_zrodlo": "Narzedzia.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "q": "",
+  "hasQ": false,
+  "ph": "",
+  "demo": {
+   "text": "status naprawy"
+  },
+  "examples": [
+   {
+    "label": "status naprawy",
+    "c": "var(--k-t)"
+   },
+   {
+    "label": "zgłoś naprawę telefonu",
+    "c": "var(--k-t)"
+   },
+   {
+    "label": "kamery w pensjonacie",
+    "c": "var(--k-i)"
+   },
+   {
+    "label": "wycena strony",
+    "c": "var(--k-s)"
+   },
+   {
+    "label": "komputer do gier",
+    "c": "var(--k-y)"
+   }
+  ],
+  "cards": [
+   {
+    "id": 0,
+    "key": "biznes",
+    "act": "policz",
+    "line": "Biznes",
+    "actName": "policz i dobierz",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "title": "Konfigurator",
+    "what": "Odpowiadasz na kilka pytań o firmie i dostajesz dobrany zestaw sprzętu i programów.",
+    "prep": [
+     "Rodzaj działalności",
+     "Liczba stanowisk"
+    ],
+    "get": "Gotowy zestaw, o który możesz od razu zapytać.",
+    "cta": "Otwórz konfigurator",
+    "badge": "Wkrótce",
+    "hasBadge": true,
+    "soon": true,
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "time": "pn–pt 9:00–17:00 · w godzinach pracy oddzwonimy w 60 minut",
+    "openLabel": "Wkrótce na prokombiznes.pl",
+    "alt": "Strona prokombiznes.pl jest w budowie. Do jej startu załatwisz to telefonicznie.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokombiznes.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Odpowiadasz na kilka pytań o firmie"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Gotowy zestaw, o który możesz od razu zapytać."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "konfigurator odpowiadasz na kilka pytan o firmie i dostajesz dobrany zestaw sprzetu i programow. rodzaj dzialalnosci liczba stanowisk gotowy zestaw, o ktory mozesz od razu zapytac. biznes policz i dobierz kasa fiskalna gopos subiekt insert ksef komputery laptopy firma biuro terminal",
+    "isRows": false,
+    "rows": [],
+    "isSteps": false,
+    "steps": [],
+    "isForm": true,
+    "fields": [
+     "Branża",
+     "Liczba stanowisk",
+     "Co już masz"
+    ],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 1,
+    "key": "biznes",
+    "act": "policz",
+    "line": "Biznes",
+    "actName": "policz i dobierz",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "title": "Plan Twojej firmy",
+    "what": "Klikasz w plan lokalu i widzisz, jaki sprzęt gdzie pracuje.",
+    "prep": [
+     "Typ lokalu: sklep, restauracja, biuro"
+    ],
+    "get": "Listę urządzeń z planu w jednym zapytaniu.",
+    "cta": "Zobacz plan",
+    "badge": "Wkrótce",
+    "hasBadge": true,
+    "soon": true,
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "time": "pn–pt 9:00–17:00 · w godzinach pracy oddzwonimy w 60 minut",
+    "openLabel": "Wkrótce na prokombiznes.pl",
+    "alt": "Strona prokombiznes.pl jest w budowie. Do jej startu załatwisz to telefonicznie.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokombiznes.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Klikasz w plan lokalu"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Listę urządzeń z planu w jednym zapytaniu."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "plan twojej firmy klikasz w plan lokalu i widzisz, jaki sprzet gdzie pracuje. typ lokalu: sklep, restauracja, biuro liste urzadzen z planu w jednym zapytaniu. biznes policz i dobierz kasa fiskalna gopos subiekt insert ksef komputery laptopy firma biuro terminal",
+    "isRows": false,
+    "rows": [],
+    "isSteps": false,
+    "steps": [],
+    "isForm": false,
+    "fields": [],
+    "isGrid": true,
+    "tiles": [
+     "Kasa",
+     "Sala",
+     "Zaplecze",
+     "Biuro"
+    ],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 2,
+    "key": "biznes",
+    "act": "zapytaj",
+    "line": "Biznes",
+    "actName": "zapytaj",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "title": "Lista zapytania",
+    "what": "Zbierasz produkty jak do koszyka, bez cen, i wysyłasz jedno zapytanie o wycenę.",
+    "prep": [
+     "Ilości",
+     "Uwagi do pozycji"
+    ],
+    "get": "W godzinach pracy oddzwonimy w 60 minut.",
+    "cta": "Zacznij listę",
+    "badge": "Wkrótce",
+    "hasBadge": true,
+    "soon": true,
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "time": "pn–pt 9:00–17:00 · w godzinach pracy oddzwonimy w 60 minut",
+    "openLabel": "Wkrótce na prokombiznes.pl",
+    "alt": "Strona prokombiznes.pl jest w budowie. Do jej startu załatwisz to telefonicznie.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokombiznes.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Zbierasz produkty na listę"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "W godzinach pracy oddzwonimy w 60 minut."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "lista zapytania zbierasz produkty jak do koszyka, bez cen, i wysylasz jedno zapytanie o wycene. ilosci uwagi do pozycji w godzinach pracy oddzwonimy w 60 minut. biznes zapytaj kasa fiskalna gopos subiekt insert ksef komputery laptopy firma biuro terminal",
+    "isRows": true,
+    "rows": [
+     {
+      "a": "Kasa fiskalna",
+      "b": "1 szt."
+     },
+     {
+      "a": "Terminal płatniczy",
+      "b": "1 szt."
+     },
+     {
+      "a": "Laptop",
+      "b": "3 szt."
+     }
+    ],
+    "isSteps": false,
+    "steps": [],
+    "isForm": false,
+    "fields": [],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 3,
+    "key": "biznes",
+    "act": "sprawdz",
+    "line": "Biznes",
+    "actName": "sprawdź",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "title": "Katalog z wyszukiwarką",
+    "what": "Szukasz sprzętu i programów po nazwie, marce albo potocznym określeniu.",
+    "prep": [
+     "Nazwa albo model, jeśli znasz"
+    ],
+    "get": "Kartę produktu z parametrami i wersjami.",
+    "cta": "Przeglądaj katalog",
+    "badge": "Wkrótce",
+    "hasBadge": true,
+    "soon": true,
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "time": "pn–pt 9:00–17:00 · w godzinach pracy oddzwonimy w 60 minut",
+    "openLabel": "Wkrótce na prokombiznes.pl",
+    "alt": "Strona prokombiznes.pl jest w budowie. Do jej startu załatwisz to telefonicznie.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokombiznes.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Wpisujesz, czego szukasz"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Kartę produktu z parametrami i wersjami."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "katalog z wyszukiwarka szukasz sprzetu i programow po nazwie, marce albo potocznym okresleniu. nazwa albo model, jesli znasz karte produktu z parametrami i wersjami. biznes sprawdz kasa fiskalna gopos subiekt insert ksef komputery laptopy firma biuro terminal",
+    "isRows": false,
+    "rows": [],
+    "isSteps": false,
+    "steps": [],
+    "isForm": false,
+    "fields": [],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": true,
+    "winText": "kasa fiskalna online",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 4,
+    "key": "biznes",
+    "act": "zglos",
+    "line": "Biznes",
+    "actName": "zgłoś",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "title": "Zgłoś awarię i pomoc zdalna",
+    "what": "Zgłaszasz problem z kasą, komputerem albo siecią w firmie. W opiece IT pomagamy też zdalnie.",
+    "prep": [
+     "Co nie działa i od kiedy",
+     "Komunikat z ekranu"
+    ],
+    "get": "Kontakt od serwisu.",
+    "cta": "Zgłoś awarię",
+    "badge": "Wkrótce",
+    "hasBadge": true,
+    "soon": true,
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "time": "pn–pt 9:00–17:00 · w godzinach pracy oddzwonimy w 60 minut",
+    "openLabel": "Wkrótce na prokombiznes.pl",
+    "alt": "Strona prokombiznes.pl jest w budowie. Do jej startu załatwisz to telefonicznie.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokombiznes.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Opisujesz, co nie działa"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Kontakt od serwisu."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "zglos awarie i pomoc zdalna zglaszasz problem z kasa, komputerem albo siecia w firmie. w opiece it pomagamy tez zdalnie. co nie dziala i od kiedy komunikat z ekranu kontakt od serwisu. biznes zglos kasa fiskalna gopos subiekt insert ksef komputery laptopy firma biuro terminal",
+    "isRows": false,
+    "rows": [],
+    "isSteps": true,
+    "steps": [
+     {
+      "t": "Zgłoszenie",
+      "bg": "var(--k-b)",
+      "ink": "var(--k-white)"
+     },
+     {
+      "t": "Kontakt",
+      "bg": "rgba(var(--r-w),.16)",
+      "ink": "rgba(var(--r-w),.55)"
+     },
+     {
+      "t": "Pomoc zdalna",
+      "bg": "rgba(var(--r-w),.16)",
+      "ink": "rgba(var(--r-w),.55)"
+     },
+     {
+      "t": "Wizyta",
+      "bg": "rgba(var(--r-w),.16)",
+      "ink": "rgba(var(--r-w),.55)"
+     }
+    ],
+    "isForm": false,
+    "fields": [],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 5,
+    "key": "instalacje",
+    "act": "zaplanuj",
+    "line": "Instalacje",
+    "actName": "zaplanuj",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "title": "Zaplanuj instalację",
+    "what": "Opisujesz obiekt i potrzeby: kamery, alarm, sieć, smart home, nagłośnienie.",
+    "prep": [
+     "Rodzaj obiektu",
+     "Miejscowość"
+    ],
+    "get": "Odpowiedź w 24 godziny w dni robocze, potem plan i wycenę.",
+    "cta": "Zaplanuj",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "time": "pn–pt 9:00–17:00 · odpowiedź w 24 godziny w dni robocze",
+    "openLabel": "Zaplanuj na prokominstalacje.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Instalacje.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokominstalacje.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Opisujesz obiekt i potrzeby"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Odpowiedź w 24 godziny w dni robocze, potem plan i wycenę."
+     }
+    ],
+    "hasPath": true,
+    "pathTitle": "instalacja w domu albo obiekcie",
+    "path": [
+     {
+      "n": "01",
+      "t": "Formularz",
+      "d": "Opisujesz obiekt i potrzeby."
+     },
+     {
+      "n": "02",
+      "t": "Rozmowa",
+      "d": "Odpowiadamy w 24 godziny w dni robocze."
+     },
+     {
+      "n": "03",
+      "t": "Wizja lokalna",
+      "d": "Termin ustalamy w rozmowie."
+     },
+     {
+      "n": "04",
+      "t": "Plan i wycena",
+      "d": "Dobieramy rozwiązanie pod obiekt, nie pod markę."
+     },
+     {
+      "n": "05",
+      "t": "Montaż",
+      "d": "24 miesiące gwarancji na montaż."
+     }
+    ],
+    "hay": "zaplanuj instalacje opisujesz obiekt i potrzeby: kamery, alarm, siec, smart home, naglosnienie. rodzaj obiektu miejscowosc odpowiedz w 24 godziny w dni robocze, potem plan i wycene. instalacje zaplanuj kamery kamera monitoring alarm wifi wi-fi siec smart home domofon naglosnienie ladowarka",
+    "isRows": false,
+    "rows": [],
+    "isSteps": false,
+    "steps": [],
+    "isForm": true,
+    "fields": [
+     "Rodzaj obiektu",
+     "Co instalujemy",
+     "Miejscowość"
+    ],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 6,
+    "key": "instalacje",
+    "act": "zglos",
+    "line": "Instalacje",
+    "actName": "zgłoś",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "title": "Zgłoś awarię instalacji",
+    "what": "Kamery, alarm albo sieć przestały działać? Zgłaszasz online.",
+    "prep": [
+     "Co nie działa",
+     "Adres obiektu"
+    ],
+    "get": "Odpowiedź w 24 godziny w dni robocze; termin wizyty ustalamy w rozmowie.",
+    "cta": "Zgłoś awarię",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "time": "pn–pt 9:00–17:00 · odpowiedź w 24 godziny w dni robocze",
+    "openLabel": "Zgłoś awarię na prokominstalacje.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Instalacje.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokominstalacje.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Opisujesz, co nie działa"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Odpowiedź w 24 godziny w dni robocze; termin wizyty ustalamy w rozmowie."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "zglos awarie instalacji kamery, alarm albo siec przestaly dzialac? zglaszasz online. co nie dziala adres obiektu odpowiedz w 24 godziny w dni robocze; termin wizyty ustalamy w rozmowie. instalacje zglos kamery kamera monitoring alarm wifi wi-fi siec smart home domofon naglosnienie ladowarka",
+    "isRows": false,
+    "rows": [],
+    "isSteps": true,
+    "steps": [
+     {
+      "t": "Zgłoszenie",
+      "bg": "var(--k-i)",
+      "ink": "var(--k-white)"
+     },
+     {
+      "t": "Odpowiedź",
+      "bg": "rgba(var(--r-w),.16)",
+      "ink": "rgba(var(--r-w),.55)"
+     },
+     {
+      "t": "Pomoc zdalna",
+      "bg": "rgba(var(--r-w),.16)",
+      "ink": "rgba(var(--r-w),.55)"
+     },
+     {
+      "t": "Wizyta",
+      "bg": "rgba(var(--r-w),.16)",
+      "ink": "rgba(var(--r-w),.55)"
+     }
+    ],
+    "isForm": false,
+    "fields": [],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 7,
+    "key": "instalacje",
+    "act": "zapytaj",
+    "line": "Instalacje",
+    "actName": "zapytaj",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "title": "Dla architektów",
+    "what": "Przesyłasz rzuty i dostajesz uwagi do instalacji, zanim wejdą tynki.",
+    "prep": [
+     "Link do rzutów",
+     "Etap projektu"
+    ],
+    "get": "Kontakt od opiekuna architektów.",
+    "cta": "Wyślij rzuty",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "time": "pn–pt 9:00–17:00 · odpowiedź w 24 godziny w dni robocze",
+    "openLabel": "Wyślij rzuty na prokominstalacje.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Instalacje.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokominstalacje.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Przesyłasz rzuty"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Kontakt od opiekuna architektów."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "dla architektow przesylasz rzuty i dostajesz uwagi do instalacji, zanim wejda tynki. link do rzutow etap projektu kontakt od opiekuna architektow. instalacje zapytaj kamery kamera monitoring alarm wifi wi-fi siec smart home domofon naglosnienie ladowarka",
+    "isRows": false,
+    "rows": [],
+    "isSteps": false,
+    "steps": [],
+    "isForm": true,
+    "fields": [
+     "Link do rzutów",
+     "Etap projektu",
+     "Pracownia"
+    ],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 8,
+    "key": "instalacje",
+    "act": "policz",
+    "line": "Instalacje",
+    "actName": "policz i dobierz",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "title": "Ładowarki Elzab EcoPower",
+    "what": "Porównujesz modele ładowarek i dobierasz wersję do domu, firmy albo obiektu.",
+    "prep": [
+     "Gdzie ma stanąć ładowarka"
+    ],
+    "get": "Dobrany model.",
+    "cta": "Porównaj modele",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "time": "pn–pt 9:00–17:00 · odpowiedź w 24 godziny w dni robocze",
+    "openLabel": "Porównaj modele na prokominstalacje.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Instalacje.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokominstalacje.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Porównujesz modele"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Dobrany model."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "ladowarki elzab ecopower porownujesz modele ladowarek i dobierasz wersje do domu, firmy albo obiektu. gdzie ma stanac ladowarka dobrany model. instalacje policz i dobierz kamery kamera monitoring alarm wifi wi-fi siec smart home domofon naglosnienie ladowarka",
+    "isRows": true,
+    "rows": [
+     {
+      "a": "CC Home",
+      "b": "porównaj"
+     },
+     {
+      "a": "CC Wall",
+      "b": "porównaj"
+     },
+     {
+      "a": "CC City",
+      "b": "porównaj"
+     }
+    ],
+    "isSteps": false,
+    "steps": [],
+    "isForm": false,
+    "fields": [],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 9,
+    "key": "software",
+    "act": "policz",
+    "line": "Software",
+    "actName": "policz i dobierz",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "title": "Policz swój projekt",
+    "what": "Kreator w kilku krokach: wybierasz, czego potrzebujesz, i widzisz cenę oraz termin.",
+    "prep": [
+     "Rodzaj strony albo systemu",
+     "Adres obecnej strony, jeśli jest"
+    ],
+    "get": "Cenę i termin od razu; wycenę na piśmie w 5–7 dni.",
+    "cta": "Otwórz kreator",
+    "badge": "Ok. 60 sekund",
+    "hasBadge": true,
+    "soon": false,
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "time": "pn–pt 9:00–17:00 · odpowiedź w 1 dzień roboczy",
+    "openLabel": "Otwórz kreator na prokomsoftware.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Software.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokomsoftware.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Wybierasz, czego potrzebujesz"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Cenę i termin od razu; wycenę na piśmie w 5–7 dni."
+     }
+    ],
+    "hasPath": true,
+    "pathTitle": "wycena strony albo systemu",
+    "path": [
+     {
+      "n": "01",
+      "t": "Kreator",
+      "d": "Cena i termin od razu, w ok. 60 sekund."
+     },
+     {
+      "n": "02",
+      "t": "Podgląd i wycena",
+      "d": "Na piśmie, w 5–7 dni."
+     },
+     {
+      "n": "03",
+      "t": "Akceptacja",
+      "d": "Zatwierdzasz zakres, zanim zaczniemy."
+     },
+     {
+      "n": "04",
+      "t": "Budowa",
+      "d": "Na wersji testowej, do Twojej akceptacji."
+     }
+    ],
+    "hay": "policz swoj projekt kreator w kilku krokach: wybierasz, czego potrzebujesz, i widzisz cene oraz termin. rodzaj strony albo systemu adres obecnej strony, jesli jest cene i termin od razu; wycene na pismie w 5–7 dni. software policz i dobierz strona www internetowa system panel aplikacja wycena audyt",
+    "isRows": false,
+    "rows": [],
+    "isSteps": true,
+    "steps": [
+     {
+      "t": "Co budujemy",
+      "bg": "var(--k-s)",
+      "ink": "var(--k-white)"
+     },
+     {
+      "t": "Szczegóły",
+      "bg": "var(--k-s)",
+      "ink": "var(--k-white)"
+     },
+     {
+      "t": "Zakres",
+      "bg": "rgba(var(--r-w),.16)",
+      "ink": "rgba(var(--r-w),.55)"
+     },
+     {
+      "t": "Wynik",
+      "bg": "rgba(var(--r-w),.16)",
+      "ink": "rgba(var(--r-w),.55)"
+     }
+    ],
+    "isForm": false,
+    "fields": [],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 10,
+    "key": "software",
+    "act": "sprawdz",
+    "line": "Software",
+    "actName": "sprawdź",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "title": "Darmowy audyt strony",
+    "what": "Podajesz adres swojej strony, a my sprawdzamy, co poprawić.",
+    "prep": [
+     "Adres strony"
+    ],
+    "get": "Raport z audytu w 2 dni robocze.",
+    "cta": "Zamów audyt",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "time": "pn–pt 9:00–17:00 · odpowiedź w 1 dzień roboczy",
+    "openLabel": "Zamów audyt na prokomsoftware.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Software.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokomsoftware.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Podajesz adres strony"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Raport z audytu w 2 dni robocze."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "darmowy audyt strony podajesz adres swojej strony, a my sprawdzamy, co poprawic. adres strony raport z audytu w 2 dni robocze. software sprawdz strona www internetowa system panel aplikacja wycena audyt",
+    "isRows": false,
+    "rows": [],
+    "isSteps": false,
+    "steps": [],
+    "isForm": true,
+    "fields": [
+     "Adres strony",
+     "E-mail"
+    ],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 11,
+    "key": "software",
+    "act": "zapytaj",
+    "line": "Software",
+    "actName": "zapytaj",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "title": "Twój projekt",
+    "what": "Dodajesz rozwiązania do listy i wysyłasz całość do wyceny.",
+    "prep": [
+     "Wybrane pozycje",
+     "Na kiedy potrzebujesz"
+    ],
+    "get": "Odpowiedź w 1 dzień roboczy.",
+    "cta": "Zbuduj listę",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "time": "pn–pt 9:00–17:00 · odpowiedź w 1 dzień roboczy",
+    "openLabel": "Zbuduj listę na prokomsoftware.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Software.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokomsoftware.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Dodajesz rozwiązania do listy"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Odpowiedź w 1 dzień roboczy."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "twoj projekt dodajesz rozwiazania do listy i wysylasz calosc do wyceny. wybrane pozycje na kiedy potrzebujesz odpowiedz w 1 dzien roboczy. software zapytaj strona www internetowa system panel aplikacja wycena audyt",
+    "isRows": true,
+    "rows": [
+     {
+      "a": "Strona firmowa",
+      "b": "dodano"
+     },
+     {
+      "a": "Panel zleceń",
+      "b": "dodano"
+     },
+     {
+      "a": "Opieka",
+      "b": "dodano"
+     }
+    ],
+    "isSteps": false,
+    "steps": [],
+    "isForm": false,
+    "fields": [],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 12,
+    "key": "software",
+    "act": "sprawdz",
+    "line": "Software",
+    "actName": "sprawdź",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "title": "Podglądy na żywo",
+    "what": "Oglądasz, jak może wyglądać Twoja strona albo system, zanim cokolwiek zamówisz.",
+    "prep": [
+     "Nic — wystarczy wejść"
+    ],
+    "get": "Podgląd na komputerze i na telefonie.",
+    "cta": "Zobacz podglądy",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "time": "pn–pt 9:00–17:00 · odpowiedź w 1 dzień roboczy",
+    "openLabel": "Zobacz podglądy na prokomsoftware.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Software.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokomsoftware.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Oglądasz podglądy"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Podgląd na komputerze i na telefonie."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "podglady na zywo ogladasz, jak moze wygladac twoja strona albo system, zanim cokolwiek zamowisz. nic — wystarczy wejsc podglad na komputerze i na telefonie. software sprawdz strona www internetowa system panel aplikacja wycena audyt",
+    "isRows": false,
+    "rows": [],
+    "isSteps": false,
+    "steps": [],
+    "isForm": false,
+    "fields": [],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": true,
+    "winText": "twojafirma.pl",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 13,
+    "key": "tech",
+    "act": "zglos",
+    "line": "Tech",
+    "actName": "zgłoś",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "ink": "var(--k-ti)",
+    "domain": "prokomserwis.pl",
+    "url": "https://prokomserwis.pl",
+    "title": "Zgłoś naprawę",
+    "what": "Wybierasz urządzenie, opisujesz usterkę, przynosisz sprzęt albo wysyłasz kurierem.",
+    "prep": [
+     "Model urządzenia",
+     "Opis usterki"
+    ],
+    "get": "Bezpłatną diagnozę i wycenę.",
+    "cta": "Zgłoś naprawę",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "time": "pn–pt 9:00–17:00, sobota 9:00–14:00 · bezpłatna diagnoza i wycena",
+    "openLabel": "Zgłoś naprawę na prokomserwis.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Tech.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokomserwis.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Wybierasz urządzenie i opisujesz usterkę"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Bezpłatną diagnozę i wycenę."
+     }
+    ],
+    "hasPath": true,
+    "pathTitle": "naprawa telefonu",
+    "path": [
+     {
+      "n": "01",
+      "t": "Zgłoszenie",
+      "d": "Online albo w salonie w Rabce-Zdroju."
+     },
+     {
+      "n": "02",
+      "t": "Diagnostyka",
+      "d": "Sprawdzamy urządzenie i szukamy przyczyny."
+     },
+     {
+      "n": "03",
+      "t": "Wycena",
+      "d": "Diagnoza i wycena są bezpłatne."
+     },
+     {
+      "n": "04",
+      "t": "Decyzja",
+      "d": "Ty decydujesz, czy naprawiamy."
+     },
+     {
+      "n": "05",
+      "t": "Naprawa",
+      "d": "Etap widzisz w statusie online."
+     },
+     {
+      "n": "06",
+      "t": "Odbiór",
+      "d": "W salonie albo kurierem."
+     }
+    ],
+    "hay": "zglos naprawe wybierasz urzadzenie, opisujesz usterke, przynosisz sprzet albo wysylasz kurierem. model urzadzenia opis usterki bezplatna diagnoze i wycene. tech zglos telefon laptop komputer konsola naprawa ekran bateria status zlecenie",
+    "isRows": false,
+    "rows": [],
+    "isSteps": false,
+    "steps": [],
+    "isForm": true,
+    "fields": [
+     "Urządzenie",
+     "Model",
+     "Opis usterki"
+    ],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 14,
+    "key": "tech",
+    "act": "sprawdz",
+    "line": "Tech",
+    "actName": "sprawdź",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "ink": "var(--k-ti)",
+    "domain": "prokomserwis.pl",
+    "url": "https://prokomserwis.pl",
+    "title": "Status naprawy",
+    "what": "Sprawdzasz, na jakim etapie jest Twoja naprawa.",
+    "prep": [
+     "Numer zlecenia albo konto klienta"
+    ],
+    "get": "Aktualny etap: przyjęte, diagnoza, naprawa, do odbioru.",
+    "cta": "Sprawdź status",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "time": "pn–pt 9:00–17:00, sobota 9:00–14:00 · bezpłatna diagnoza i wycena",
+    "openLabel": "Sprawdź status na prokomserwis.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Tech.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokomserwis.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Podajesz numer zlecenia"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Aktualny etap: przyjęte, diagnoza, naprawa, do odbioru."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "status naprawy sprawdzasz, na jakim etapie jest twoja naprawa. numer zlecenia albo konto klienta aktualny etap: przyjete, diagnoza, naprawa, do odbioru. tech sprawdz telefon laptop komputer konsola naprawa ekran bateria status zlecenie",
+    "isRows": false,
+    "rows": [],
+    "isSteps": true,
+    "steps": [
+     {
+      "t": "Przyjęte",
+      "bg": "var(--k-t)",
+      "ink": "var(--k-white)"
+     },
+     {
+      "t": "Diagnoza",
+      "bg": "var(--k-t)",
+      "ink": "var(--k-white)"
+     },
+     {
+      "t": "Naprawa",
+      "bg": "var(--k-t)",
+      "ink": "var(--k-white)"
+     },
+     {
+      "t": "Do odbioru",
+      "bg": "rgba(var(--r-w),.16)",
+      "ink": "rgba(var(--r-w),.55)"
+     }
+    ],
+    "isForm": false,
+    "fields": [],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "true",
+    "bg": "var(--k-td)",
+    "bd": "var(--k-t)"
+   },
+   {
+    "id": 15,
+    "key": "tech",
+    "act": "sprawdz",
+    "line": "Tech",
+    "actName": "sprawdź",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "ink": "var(--k-ti)",
+    "domain": "prokomserwis.pl",
+    "url": "https://prokomserwis.pl",
+    "title": "Konto klienta",
+    "what": "Wszystkie Twoje naprawy w jednym miejscu.",
+    "prep": [
+     "E-mail i hasło"
+    ],
+    "get": "Historię napraw i ich statusy.",
+    "cta": "Zaloguj się",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "time": "pn–pt 9:00–17:00, sobota 9:00–14:00 · bezpłatna diagnoza i wycena",
+    "openLabel": "Zaloguj się na prokomserwis.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Tech.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokomserwis.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Logujesz się"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Historię napraw i ich statusy."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "konto klienta wszystkie twoje naprawy w jednym miejscu. e-mail i haslo historie napraw i ich statusy. tech sprawdz telefon laptop komputer konsola naprawa ekran bateria status zlecenie",
+    "isRows": true,
+    "rows": [
+     {
+      "a": "Telefon",
+      "b": "wydany"
+     },
+     {
+      "a": "Laptop",
+      "b": "w naprawie"
+     },
+     {
+      "a": "Konsola",
+      "b": "do odbioru"
+     }
+    ],
+    "isSteps": false,
+    "steps": [],
+    "isForm": false,
+    "fields": [],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 16,
+    "key": "gaming",
+    "act": "policz",
+    "line": "Gaming",
+    "actName": "policz i dobierz",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "ink": "var(--k-yi)",
+    "domain": "prokomgaming.pl",
+    "url": "https://prokomgaming.pl",
+    "title": "Konfigurator",
+    "what": "Składasz komputer krok po kroku: obudowa, moc, pamięć, dysk.",
+    "prep": [
+     "Budżet albo gra, w którą grasz"
+    ],
+    "get": "Cenę od razu, potem ofertę z listą części.",
+    "cta": "Otwórz konfigurator",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "time": "odpowiedzi codziennie 8–22",
+    "openLabel": "Otwórz konfigurator na prokomgaming.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Gaming.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokomgaming.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Składasz komputer krok po kroku"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Cenę od razu, potem ofertę z listą części."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "konfigurator skladasz komputer krok po kroku: obudowa, moc, pamiec, dysk. budzet albo gra, w ktora grasz cene od razu, potem oferte z lista czesci. gaming policz i dobierz gry gier gra gracz komputer pc zestaw klatki fps",
+    "isRows": false,
+    "rows": [],
+    "isSteps": false,
+    "steps": [],
+    "isForm": false,
+    "fields": [],
+    "isGrid": true,
+    "tiles": [
+     "Obudowa",
+     "Moc",
+     "Pamięć",
+     "Dysk"
+    ],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 17,
+    "key": "gaming",
+    "act": "policz",
+    "line": "Gaming",
+    "actName": "policz i dobierz",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "ink": "var(--k-yi)",
+    "domain": "prokomgaming.pl",
+    "url": "https://prokomgaming.pl",
+    "title": "Dobór pod grę",
+    "what": "Wybierasz grę z 33 tytułów i monitor, widzisz pasujące zestawy.",
+    "prep": [
+     "Gra",
+     "Rozdzielczość monitora"
+    ],
+    "get": "Zestawy z wynikiem klatek i źródłem pomiaru.",
+    "cta": "W co grasz?",
+    "badge": "33 gry",
+    "hasBadge": true,
+    "soon": false,
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "time": "odpowiedzi codziennie 8–22",
+    "openLabel": "W co grasz? na prokomgaming.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Gaming.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokomgaming.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Wybierasz grę i monitor"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Zestawy z wynikiem klatek i źródłem pomiaru."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "dobor pod gre wybierasz gre z 33 tytulow i monitor, widzisz pasujace zestawy. gra rozdzielczosc monitora zestawy z wynikiem klatek i zrodlem pomiaru. gaming policz i dobierz gry gier gra gracz komputer pc zestaw klatki fps",
+    "isRows": true,
+    "rows": [
+     {
+      "a": "FullHD",
+      "b": "zestawy"
+     },
+     {
+      "a": "2K",
+      "b": "zestawy"
+     },
+     {
+      "a": "4K",
+      "b": "zestawy"
+     }
+    ],
+    "isSteps": false,
+    "steps": [],
+    "isForm": false,
+    "fields": [],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 18,
+    "key": "gaming",
+    "act": "sprawdz",
+    "line": "Gaming",
+    "actName": "sprawdź",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "ink": "var(--k-yi)",
+    "domain": "prokomgaming.pl",
+    "url": "https://prokomgaming.pl",
+    "title": "Porównaj zestawy",
+    "what": "Zestawiasz do trzech komputerów obok siebie.",
+    "prep": [
+     "2–3 zestawy do porównania"
+    ],
+    "get": "Różnice w częściach, cenie i klatkach.",
+    "cta": "Porównaj",
+    "badge": "Do 3 naraz",
+    "hasBadge": true,
+    "soon": false,
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "time": "odpowiedzi codziennie 8–22",
+    "openLabel": "Porównaj na prokomgaming.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Gaming.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokomgaming.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Wybierasz 2–3 zestawy"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Różnice w częściach, cenie i klatkach."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "porownaj zestawy zestawiasz do trzech komputerow obok siebie. 2–3 zestawy do porownania roznice w czesciach, cenie i klatkach. gaming sprawdz gry gier gra gracz komputer pc zestaw klatki fps",
+    "isRows": false,
+    "rows": [],
+    "isSteps": false,
+    "steps": [],
+    "isForm": false,
+    "fields": [],
+    "isGrid": true,
+    "tiles": [
+     "Zestaw 1",
+     "Zestaw 2",
+     "Zestaw 3",
+     "+ dodaj"
+    ],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "id": 19,
+    "key": "gaming",
+    "act": "zapytaj",
+    "line": "Gaming",
+    "actName": "zapytaj",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "ink": "var(--k-yi)",
+    "domain": "prokomgaming.pl",
+    "url": "https://prokomgaming.pl",
+    "title": "Zapytanie o zestaw",
+    "what": "Wysyłasz zapytanie o gotowy zestaw albo własną konfigurację.",
+    "prep": [
+     "Wybrany zestaw",
+     "E-mail"
+    ],
+    "get": "Ofertę z ceną; płacisz dopiero po akceptacji.",
+    "cta": "Zapytaj o zestaw",
+    "badge": "",
+    "hasBadge": false,
+    "soon": false,
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "time": "odpowiedzi codziennie 8–22",
+    "openLabel": "Zapytaj o zestaw na prokomgaming.pl",
+    "alt": "Wolisz rozmowę? Zadzwoń do linii Gaming.",
+    "how": [
+     {
+      "n": "01",
+      "k": "Otwierasz",
+      "t": "Narzędzie na prokomgaming.pl"
+     },
+     {
+      "n": "02",
+      "k": "Robisz",
+      "t": "Wysyłasz zapytanie"
+     },
+     {
+      "n": "03",
+      "k": "Dostajesz",
+      "t": "Ofertę z ceną; płacisz dopiero po akceptacji."
+     }
+    ],
+    "hasPath": false,
+    "pathTitle": "",
+    "path": [],
+    "hay": "zapytanie o zestaw wysylasz zapytanie o gotowy zestaw albo wlasna konfiguracje. wybrany zestaw e-mail oferte z cena; placisz dopiero po akceptacji. gaming zapytaj gry gier gra gracz komputer pc zestaw klatki fps",
+    "isRows": false,
+    "rows": [],
+    "isSteps": false,
+    "steps": [],
+    "isForm": true,
+    "fields": [
+     "Zestaw albo konfiguracja",
+     "E-mail"
+    ],
+    "isGrid": false,
+    "tiles": [],
+    "isWin": false,
+    "winText": "",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)"
+   }
+  ],
+  "P": {
+   "id": 14,
+   "key": "tech",
+   "act": "sprawdz",
+   "line": "Tech",
+   "actName": "sprawdź",
+   "cd": "var(--k-t)",
+   "ct": "var(--k-tt)",
+   "dark": "var(--k-td)",
+   "ink": "var(--k-ti)",
+   "domain": "prokomserwis.pl",
+   "url": "https://prokomserwis.pl",
+   "title": "Status naprawy",
+   "what": "Sprawdzasz, na jakim etapie jest Twoja naprawa.",
+   "prep": [
+    "Numer zlecenia albo konto klienta"
+   ],
+   "get": "Aktualny etap: przyjęte, diagnoza, naprawa, do odbioru.",
+   "cta": "Sprawdź status",
+   "badge": "",
+   "hasBadge": false,
+   "soon": false,
+   "phone": "883 200 151",
+   "telHref": "tel:+48883200151",
+   "time": "pn–pt 9:00–17:00, sobota 9:00–14:00 · bezpłatna diagnoza i wycena",
+   "openLabel": "Sprawdź status na prokomserwis.pl",
+   "alt": "Wolisz rozmowę? Zadzwoń do linii Tech.",
+   "how": [
+    {
+     "n": "01",
+     "k": "Otwierasz",
+     "t": "Narzędzie na prokomserwis.pl"
+    },
+    {
+     "n": "02",
+     "k": "Robisz",
+     "t": "Podajesz numer zlecenia"
+    },
+    {
+     "n": "03",
+     "k": "Dostajesz",
+     "t": "Aktualny etap: przyjęte, diagnoza, naprawa, do odbioru."
+    }
+   ],
+   "hasPath": false,
+   "pathTitle": "",
+   "path": [],
+   "hay": "status naprawy sprawdzasz, na jakim etapie jest twoja naprawa. numer zlecenia albo konto klienta aktualny etap: przyjete, diagnoza, naprawa, do odbioru. tech sprawdz telefon laptop komputer konsola naprawa ekran bateria status zlecenie",
+   "isRows": false,
+   "rows": [],
+   "isSteps": true,
+   "steps": [
+    {
+     "t": "Przyjęte",
+     "bg": "var(--k-t)",
+     "ink": "var(--k-white)"
+    },
+    {
+     "t": "Diagnoza",
+     "bg": "var(--k-t)",
+     "ink": "var(--k-white)"
+    },
+    {
+     "t": "Naprawa",
+     "bg": "var(--k-t)",
+     "ink": "var(--k-white)"
+    },
+    {
+     "t": "Do odbioru",
+     "bg": "rgba(var(--r-w),.16)",
+     "ink": "rgba(var(--r-w),.55)"
+    }
+   ],
+   "isForm": false,
+   "fields": [],
+   "isGrid": false,
+   "tiles": [],
+   "isWin": false,
+   "winText": "",
+   "cls": "pv sb"
+  },
+  "count": 20,
+  "total": 20,
+  "empty": false,
+  "some": true,
+  "filtered": false,
+  "listTitle": "Wszystkie narzędzia",
+  "acts": [
+   {
+    "name": "Wszystko",
+    "n": "20",
+    "on": "true",
+    "bd": "var(--k-g)",
+    "bg": "var(--k-g)",
+    "ink": "var(--k-gi)"
+   },
+   {
+    "name": "Zgłosić",
+    "n": "3",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Sprawdzić",
+    "n": "6",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Policzyć i dobrać",
+    "n": "6",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Zaplanować",
+    "n": "1",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Zapytać",
+    "n": "4",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   }
+  ],
+  "lineFilters": [
+   {
+    "name": "Wszystkie linie",
+    "cd": "var(--k-g)",
+    "n": "20",
+    "on": "true",
+    "bd": "var(--k-g)",
+    "bg": "color-mix(in srgb, var(--k-g) 14%, transparent)"
+   },
+   {
+    "name": "Biznes",
+    "cd": "var(--k-b)",
+    "n": "5",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Instalacje",
+    "cd": "var(--k-i)",
+    "n": "4",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Software",
+    "cd": "var(--k-s)",
+    "n": "4",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Tech",
+    "cd": "var(--k-t)",
+    "n": "3",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Gaming",
+    "cd": "var(--k-y)",
+    "n": "4",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent"
+   }
+  ],
+  "shorts": [
+   {
+    "title": "Status naprawy",
+    "line": "Tech",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "ink": "var(--k-ti)",
+    "url": "https://prokomserwis.pl",
+    "d": "M12 7v5l3 2M12 21a9 9 0 100-18 9 9 0 000 18z",
+    "note": "Po numerze zlecenia, bez dzwonienia."
+   },
+   {
+    "title": "Zgłoś naprawę",
+    "line": "Tech",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "ink": "var(--k-ti)",
+    "url": "https://prokomserwis.pl",
+    "d": "M8 3h8v18H8zM11 18h2",
+    "note": "Bezpłatna diagnoza i wycena."
+   },
+   {
+    "title": "Zaplanuj instalację",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)",
+    "url": "https://prokominstalacje.pl",
+    "d": "M4 11l8-7 8 7v9H4zM10 20v-6h4v6",
+    "note": "Odpowiedź w 24 godziny w dni robocze."
+   },
+   {
+    "title": "Policz swój projekt",
+    "line": "Software",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)",
+    "url": "https://prokomsoftware.pl",
+    "d": "M8 8l-4 4 4 4M16 8l4 4-4 4M13 6l-2 12",
+    "note": "Kreator, ok. 60 sekund."
+   }
+  ],
+  "book": [
+   {
+    "name": "Biznes",
+    "cd": "var(--k-b)",
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "note": "pn–pt 9:00–17:00 · w godzinach pracy oddzwonimy w 60 minut"
+   },
+   {
+    "name": "Instalacje",
+    "cd": "var(--k-i)",
+    "phone": "889 003 889",
+    "telHref": "tel:+48889003889",
+    "note": "pn–pt 9:00–17:00 · odpowiedź w 24 godziny w dni robocze"
+   },
+   {
+    "name": "Software",
+    "cd": "var(--k-s)",
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "note": "pn–pt 9:00–17:00 · odpowiedź w 1 dzień roboczy"
+   },
+   {
+    "name": "Tech",
+    "cd": "var(--k-t)",
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "note": "pn–pt 9:00–17:00, sobota 9:00–14:00 · bezpłatna diagnoza i wycena"
+   },
+   {
+    "name": "Gaming",
+    "cd": "var(--k-y)",
+    "phone": "883 200 151",
+    "telHref": "tel:+48883200151",
+    "note": "odpowiedzi codziennie 8–22"
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Czy za coś tutaj płacę?",
+    "a": "Nie. Zgłoszenia, wyceny, kreatory i audyt są bezpłatne. Płacisz dopiero za zamówioną usługę albo naprawę, po akceptacji wyceny.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Dlaczego przyciski prowadzą na inne strony?",
+    "a": "Każda linia PRO-KOM ma własną stronę z pełną ofertą i własnymi formularzami. Tu zbieramy je w jednym miejscu, żebyś nie musiał szukać.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Co znaczy „Wkrótce” przy linii Biznes?",
+    "a": "Strona prokombiznes.pl jest w budowie. Do jej startu sprawy firmowe załatwisz telefonicznie pod numerem 889 003 889.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Jak szybko dostanę odpowiedź?",
+    "a": "Zależy od linii: Biznes oddzwania w 60 minut w godzinach pracy, Instalacje odpowiadają w 24 godziny w dni robocze, Software w 1 dzień roboczy.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy muszę zakładać konto?",
+    "a": "Nie. Konto klienta jest tylko w linii Tech i jest dobrowolne — status naprawy sprawdzisz też po numerze zlecenia.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Nie wiem, która linia zajmuje się moją sprawą.",
+    "a": "Użyj wyszukiwarki albo „Dobierz w 10 sekund” na stronie głównej. Możesz też zadzwonić pod 883 200 151.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Czy mogę wysłać sprzęt do naprawy kurierem?",
+    "a": "Tak, linia Tech przyjmuje sprzęt kurierem z całej Polski. Zacznij od zgłoszenia naprawy online.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Wolę przyjść osobiście. Gdzie?",
+    "a": "Rabka-Zdrój, ul. Orkana 16B, od poniedziałku do piątku 9:00–17:00.",
+    "open": false
+   }
+  ]
+ },
+ "lines": {
+  "biznes": {
+   "name": "Biznes",
+   "cd": "var(--k-b)",
+   "ct": "var(--k-bt)",
+   "dark": "var(--k-bd)",
+   "ink": "var(--k-bi)",
+   "domain": "prokombiznes.pl"
+  },
+  "instalacje": {
+   "name": "Instalacje",
+   "cd": "var(--k-i)",
+   "ct": "var(--k-it)",
+   "dark": "var(--k-id)",
+   "ink": "var(--k-ii)",
+   "domain": "prokominstalacje.pl"
+  },
+  "software": {
+   "name": "Software",
+   "cd": "var(--k-s)",
+   "ct": "var(--k-st)",
+   "dark": "var(--k-sd)",
+   "ink": "var(--k-si)",
+   "domain": "prokomsoftware.pl"
+  },
+  "tech": {
+   "name": "Tech",
+   "cd": "var(--k-t)",
+   "ct": "var(--k-tt)",
+   "dark": "var(--k-td)",
+   "ink": "var(--k-ti)",
+   "domain": "prokomserwis.pl"
+  },
+  "gaming": {
+   "name": "Gaming",
+   "cd": "var(--k-y)",
+   "ct": "var(--k-y)",
+   "dark": "var(--k-yd)",
+   "ink": "var(--k-yi)",
+   "domain": "prokomgaming.pl"
+  }
+ },
+ "data": [
+  [
+   "biznes",
+   "policz",
+   "Konfigurator",
+   "Odpowiadasz na kilka pytań o firmie i dostajesz dobrany zestaw sprzętu i programów.",
+   [
+    "Rodzaj działalności",
+    "Liczba stanowisk"
+   ],
+   "Gotowy zestaw, o który możesz od razu zapytać.",
+   "Otwórz konfigurator",
+   {
+    "kind": "form",
+    "fields": [
+     "Branża",
+     "Liczba stanowisk",
+     "Co już masz"
+    ]
+   },
+   "Wkrótce"
+  ],
+  [
+   "biznes",
+   "policz",
+   "Plan Twojej firmy",
+   "Klikasz w plan lokalu i widzisz, jaki sprzęt gdzie pracuje.",
+   [
+    "Typ lokalu: sklep, restauracja, biuro"
+   ],
+   "Listę urządzeń z planu w jednym zapytaniu.",
+   "Zobacz plan",
+   {
+    "kind": "grid",
+    "tiles": [
+     "Kasa",
+     "Sala",
+     "Zaplecze",
+     "Biuro"
+    ]
+   },
+   "Wkrótce"
+  ],
+  [
+   "biznes",
+   "zapytaj",
+   "Lista zapytania",
+   "Zbierasz produkty jak do koszyka, bez cen, i wysyłasz jedno zapytanie o wycenę.",
+   [
+    "Ilości",
+    "Uwagi do pozycji"
+   ],
+   "W godzinach pracy oddzwonimy w 60 minut.",
+   "Zacznij listę",
+   {
+    "kind": "rows",
+    "rows": [
+     {
+      "a": "Kasa fiskalna",
+      "b": "1 szt."
+     },
+     {
+      "a": "Terminal płatniczy",
+      "b": "1 szt."
+     },
+     {
+      "a": "Laptop",
+      "b": "3 szt."
+     }
+    ]
+   },
+   "Wkrótce"
+  ],
+  [
+   "biznes",
+   "sprawdz",
+   "Katalog z wyszukiwarką",
+   "Szukasz sprzętu i programów po nazwie, marce albo potocznym określeniu.",
+   [
+    "Nazwa albo model, jeśli znasz"
+   ],
+   "Kartę produktu z parametrami i wersjami.",
+   "Przeglądaj katalog",
+   {
+    "kind": "win",
+    "winText": "kasa fiskalna online"
+   },
+   "Wkrótce"
+  ],
+  [
+   "biznes",
+   "zglos",
+   "Zgłoś awarię i pomoc zdalna",
+   "Zgłaszasz problem z kasą, komputerem albo siecią w firmie. W opiece IT pomagamy też zdalnie.",
+   [
+    "Co nie działa i od kiedy",
+    "Komunikat z ekranu"
+   ],
+   "Kontakt od serwisu.",
+   "Zgłoś awarię",
+   {
+    "kind": "steps",
+    "steps": [
+     "Zgłoszenie",
+     "Kontakt",
+     "Pomoc zdalna",
+     "Wizyta"
+    ],
+    "done": 1
+   },
+   "Wkrótce"
+  ],
+  [
+   "instalacje",
+   "zaplanuj",
+   "Zaplanuj instalację",
+   "Opisujesz obiekt i potrzeby: kamery, alarm, sieć, smart home, nagłośnienie.",
+   [
+    "Rodzaj obiektu",
+    "Miejscowość"
+   ],
+   "Odpowiedź w 24 godziny w dni robocze, potem plan i wycenę.",
+   "Zaplanuj",
+   {
+    "kind": "form",
+    "fields": [
+     "Rodzaj obiektu",
+     "Co instalujemy",
+     "Miejscowość"
+    ]
+   },
+   ""
+  ],
+  [
+   "instalacje",
+   "zglos",
+   "Zgłoś awarię instalacji",
+   "Kamery, alarm albo sieć przestały działać? Zgłaszasz online.",
+   [
+    "Co nie działa",
+    "Adres obiektu"
+   ],
+   "Odpowiedź w 24 godziny w dni robocze; termin wizyty ustalamy w rozmowie.",
+   "Zgłoś awarię",
+   {
+    "kind": "steps",
+    "steps": [
+     "Zgłoszenie",
+     "Odpowiedź",
+     "Pomoc zdalna",
+     "Wizyta"
+    ],
+    "done": 1
+   },
+   ""
+  ],
+  [
+   "instalacje",
+   "zapytaj",
+   "Dla architektów",
+   "Przesyłasz rzuty i dostajesz uwagi do instalacji, zanim wejdą tynki.",
+   [
+    "Link do rzutów",
+    "Etap projektu"
+   ],
+   "Kontakt od opiekuna architektów.",
+   "Wyślij rzuty",
+   {
+    "kind": "form",
+    "fields": [
+     "Link do rzutów",
+     "Etap projektu",
+     "Pracownia"
+    ]
+   },
+   ""
+  ],
+  [
+   "instalacje",
+   "policz",
+   "Ładowarki Elzab EcoPower",
+   "Porównujesz modele ładowarek i dobierasz wersję do domu, firmy albo obiektu.",
+   [
+    "Gdzie ma stanąć ładowarka"
+   ],
+   "Dobrany model.",
+   "Porównaj modele",
+   {
+    "kind": "rows",
+    "rows": [
+     {
+      "a": "CC Home",
+      "b": "porównaj"
+     },
+     {
+      "a": "CC Wall",
+      "b": "porównaj"
+     },
+     {
+      "a": "CC City",
+      "b": "porównaj"
+     }
+    ]
+   },
+   ""
+  ],
+  [
+   "software",
+   "policz",
+   "Policz swój projekt",
+   "Kreator w kilku krokach: wybierasz, czego potrzebujesz, i widzisz cenę oraz termin.",
+   [
+    "Rodzaj strony albo systemu",
+    "Adres obecnej strony, jeśli jest"
+   ],
+   "Cenę i termin od razu; wycenę na piśmie w 5–7 dni.",
+   "Otwórz kreator",
+   {
+    "kind": "steps",
+    "steps": [
+     "Co budujemy",
+     "Szczegóły",
+     "Zakres",
+     "Wynik"
+    ],
+    "done": 2
+   },
+   "Ok. 60 sekund"
+  ],
+  [
+   "software",
+   "sprawdz",
+   "Darmowy audyt strony",
+   "Podajesz adres swojej strony, a my sprawdzamy, co poprawić.",
+   [
+    "Adres strony"
+   ],
+   "Raport z audytu w 2 dni robocze.",
+   "Zamów audyt",
+   {
+    "kind": "form",
+    "fields": [
+     "Adres strony",
+     "E-mail"
+    ]
+   },
+   ""
+  ],
+  [
+   "software",
+   "zapytaj",
+   "Twój projekt",
+   "Dodajesz rozwiązania do listy i wysyłasz całość do wyceny.",
+   [
+    "Wybrane pozycje",
+    "Na kiedy potrzebujesz"
+   ],
+   "Odpowiedź w 1 dzień roboczy.",
+   "Zbuduj listę",
+   {
+    "kind": "rows",
+    "rows": [
+     {
+      "a": "Strona firmowa",
+      "b": "dodano"
+     },
+     {
+      "a": "Panel zleceń",
+      "b": "dodano"
+     },
+     {
+      "a": "Opieka",
+      "b": "dodano"
+     }
+    ]
+   },
+   ""
+  ],
+  [
+   "software",
+   "sprawdz",
+   "Podglądy na żywo",
+   "Oglądasz, jak może wyglądać Twoja strona albo system, zanim cokolwiek zamówisz.",
+   [
+    "Nic — wystarczy wejść"
+   ],
+   "Podgląd na komputerze i na telefonie.",
+   "Zobacz podglądy",
+   {
+    "kind": "win",
+    "winText": "twojafirma.pl"
+   },
+   ""
+  ],
+  [
+   "tech",
+   "zglos",
+   "Zgłoś naprawę",
+   "Wybierasz urządzenie, opisujesz usterkę, przynosisz sprzęt albo wysyłasz kurierem.",
+   [
+    "Model urządzenia",
+    "Opis usterki"
+   ],
+   "Bezpłatną diagnozę i wycenę.",
+   "Zgłoś naprawę",
+   {
+    "kind": "form",
+    "fields": [
+     "Urządzenie",
+     "Model",
+     "Opis usterki"
+    ]
+   },
+   ""
+  ],
+  [
+   "tech",
+   "sprawdz",
+   "Status naprawy",
+   "Sprawdzasz, na jakim etapie jest Twoja naprawa.",
+   [
+    "Numer zlecenia albo konto klienta"
+   ],
+   "Aktualny etap: przyjęte, diagnoza, naprawa, do odbioru.",
+   "Sprawdź status",
+   {
+    "kind": "steps",
+    "steps": [
+     "Przyjęte",
+     "Diagnoza",
+     "Naprawa",
+     "Do odbioru"
+    ],
+    "done": 3
+   },
+   ""
+  ],
+  [
+   "tech",
+   "sprawdz",
+   "Konto klienta",
+   "Wszystkie Twoje naprawy w jednym miejscu.",
+   [
+    "E-mail i hasło"
+   ],
+   "Historię napraw i ich statusy.",
+   "Zaloguj się",
+   {
+    "kind": "rows",
+    "rows": [
+     {
+      "a": "Telefon",
+      "b": "wydany"
+     },
+     {
+      "a": "Laptop",
+      "b": "w naprawie"
+     },
+     {
+      "a": "Konsola",
+      "b": "do odbioru"
+     }
+    ]
+   },
+   ""
+  ],
+  [
+   "gaming",
+   "policz",
+   "Konfigurator",
+   "Składasz komputer krok po kroku: obudowa, moc, pamięć, dysk.",
+   [
+    "Budżet albo gra, w którą grasz"
+   ],
+   "Cenę od razu, potem ofertę z listą części.",
+   "Otwórz konfigurator",
+   {
+    "kind": "grid",
+    "tiles": [
+     "Obudowa",
+     "Moc",
+     "Pamięć",
+     "Dysk"
+    ]
+   },
+   ""
+  ],
+  [
+   "gaming",
+   "policz",
+   "Dobór pod grę",
+   "Wybierasz grę z 33 tytułów i monitor, widzisz pasujące zestawy.",
+   [
+    "Gra",
+    "Rozdzielczość monitora"
+   ],
+   "Zestawy z wynikiem klatek i źródłem pomiaru.",
+   "W co grasz?",
+   {
+    "kind": "rows",
+    "rows": [
+     {
+      "a": "FullHD",
+      "b": "zestawy"
+     },
+     {
+      "a": "2K",
+      "b": "zestawy"
+     },
+     {
+      "a": "4K",
+      "b": "zestawy"
+     }
+    ]
+   },
+   "33 gry"
+  ],
+  [
+   "gaming",
+   "sprawdz",
+   "Porównaj zestawy",
+   "Zestawiasz do trzech komputerów obok siebie.",
+   [
+    "2–3 zestawy do porównania"
+   ],
+   "Różnice w częściach, cenie i klatkach.",
+   "Porównaj",
+   {
+    "kind": "grid",
+    "tiles": [
+     "Zestaw 1",
+     "Zestaw 2",
+     "Zestaw 3",
+     "+ dodaj"
+    ]
+   },
+   "Do 3 naraz"
+  ],
+  [
+   "gaming",
+   "zapytaj",
+   "Zapytanie o zestaw",
+   "Wysyłasz zapytanie o gotowy zestaw albo własną konfigurację.",
+   [
+    "Wybrany zestaw",
+    "E-mail"
+   ],
+   "Ofertę z ceną; płacisz dopiero po akceptacji.",
+   "Zapytaj o zestaw",
+   {
+    "kind": "form",
+    "fields": [
+     "Zestaw albo konfiguracja",
+     "E-mail"
+    ]
+   },
+   ""
+  ]
+ ],
+ "stany": {
+  "tick": {
+   "1": {
+    "demo": {
+     "text": "zgłoś naprawę telefonu"
+    }
+   },
+   "2": {
+    "demo": {
+     "text": "kamery w pensjonacie"
+    }
+   },
+   "3": {
+    "demo": {
+     "text": "wycena strony"
+    }
+   },
+   "4": {
+    "demo": {
+     "text": "komputer do gier"
+    }
+   },
+   "5": {
+    "demo": {
+     "text": "kasa fiskalna"
+    }
+   }
+  },
+  "n": {
+   "1": {
+    "P": {
+     "id": 14,
+     "key": "tech",
+     "act": "sprawdz",
+     "line": "Tech",
+     "actName": "sprawdź",
+     "cd": "var(--k-t)",
+     "ct": "var(--k-tt)",
+     "dark": "var(--k-td)",
+     "ink": "var(--k-ti)",
+     "domain": "prokomserwis.pl",
+     "url": "https://prokomserwis.pl",
+     "title": "Status naprawy",
+     "what": "Sprawdzasz, na jakim etapie jest Twoja naprawa.",
+     "prep": [
+      "Numer zlecenia albo konto klienta"
+     ],
+     "get": "Aktualny etap: przyjęte, diagnoza, naprawa, do odbioru.",
+     "cta": "Sprawdź status",
+     "badge": "",
+     "hasBadge": false,
+     "soon": false,
+     "phone": "883 200 151",
+     "telHref": "tel:+48883200151",
+     "time": "pn–pt 9:00–17:00, sobota 9:00–14:00 · bezpłatna diagnoza i wycena",
+     "openLabel": "Sprawdź status na prokomserwis.pl",
+     "alt": "Wolisz rozmowę? Zadzwoń do linii Tech.",
+     "how": [
+      {
+       "n": "01",
+       "k": "Otwierasz",
+       "t": "Narzędzie na prokomserwis.pl"
+      },
+      {
+       "n": "02",
+       "k": "Robisz",
+       "t": "Podajesz numer zlecenia"
+      },
+      {
+       "n": "03",
+       "k": "Dostajesz",
+       "t": "Aktualny etap: przyjęte, diagnoza, naprawa, do odbioru."
+      }
+     ],
+     "hasPath": false,
+     "pathTitle": "",
+     "path": [],
+     "hay": "status naprawy sprawdzasz, na jakim etapie jest twoja naprawa. numer zlecenia albo konto klienta aktualny etap: przyjete, diagnoza, naprawa, do odbioru. tech sprawdz telefon laptop komputer konsola naprawa ekran bateria status zlecenie",
+     "isRows": false,
+     "rows": [],
+     "isSteps": true,
+     "steps": [
+      {
+       "t": "Przyjęte",
+       "bg": "var(--k-t)",
+       "ink": "var(--k-white)"
+      },
+      {
+       "t": "Diagnoza",
+       "bg": "var(--k-t)",
+       "ink": "var(--k-white)"
+      },
+      {
+       "t": "Naprawa",
+       "bg": "var(--k-t)",
+       "ink": "var(--k-white)"
+      },
+      {
+       "t": "Do odbioru",
+       "bg": "rgba(var(--r-w),.16)",
+       "ink": "rgba(var(--r-w),.55)"
+      }
+     ],
+     "isForm": false,
+     "fields": [],
+     "isGrid": false,
+     "tiles": [],
+     "isWin": false,
+     "winText": "",
+     "cls": "pv sa"
+    }
+   }
+  }
+ },
+ "_stany_uwaga": "Treść pozostałych zakładek/wyborów: stany[klucz][indeks] = pola, które różnią się od stanu domyślnego."
+}

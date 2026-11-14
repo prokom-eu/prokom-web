@@ -1,0 +1,448 @@
+{
+ "_zrodlo": "Partnerzy.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "total": 26,
+  "shown": 26,
+  "empty": false,
+  "fl": [
+   {
+    "name": "Wszystkie",
+    "cd": "var(--k-g)",
+    "on": true,
+    "bd": "var(--k-g)",
+    "bg": "rgba(var(--r-w),.08)"
+   },
+   {
+    "name": "Biznes",
+    "cd": "var(--k-b)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Instalacje",
+    "cd": "var(--k-i)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Tech",
+    "cd": "var(--k-t)",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   }
+  ],
+  "fc": [
+   {
+    "name": "Wszystkie",
+    "on": true,
+    "bd": "var(--k-g)",
+    "bg": "var(--k-g)",
+    "ink": "var(--k-gi)"
+   },
+   {
+    "name": "Sprzedaż i kasa",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Komputery i biuro",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Programy i bezpieczeństwo",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Sieć i obiekt",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Akcesoria",
+    "on": false,
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   }
+  ],
+  "brands": [
+   {
+    "name": "Posnet",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Sprzedaż i kasa",
+    "use": "Kasy i drukarki fiskalne — sprzedaż, fiskalizacja, serwis.",
+    "authOp": "1",
+    "edge": "color-mix(in srgb, var(--k-b) 55%, transparent)"
+   },
+   {
+    "name": "Elzab",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Sprzedaż i kasa",
+    "use": "Kasy fiskalne i wagi — sprzedaż, fiskalizacja, serwis.",
+    "authOp": "1",
+    "edge": "color-mix(in srgb, var(--k-b) 55%, transparent)"
+   },
+   {
+    "name": "GoPOS",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Sprzedaż i kasa",
+    "use": "System sprzedaży dla gastronomii: sala i kuchnia.",
+    "authOp": "1",
+    "edge": "color-mix(in srgb, var(--k-b) 55%, transparent)"
+   },
+   {
+    "name": "PolCard",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Sprzedaż i kasa",
+    "use": "Terminale płatnicze — dobór i uruchomienie.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "InsERT",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Programy i bezpieczeństwo",
+    "use": "Subiekt i e-faktury KSeF — wdrożenie i szkolenie.",
+    "authOp": "1",
+    "edge": "color-mix(in srgb, var(--k-b) 55%, transparent)"
+   },
+   {
+    "name": "Microsoft",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Programy i bezpieczeństwo",
+    "use": "Pakiet Office z konfiguracją na komputerach firmy.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "ESET",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Programy i bezpieczeństwo",
+    "use": "Ochrona komputerów w firmie.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Lenovo",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Komputery i biuro",
+    "use": "Laptopy i komputery biznesowe.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Dell",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Komputery i biuro",
+    "use": "Laptopy, komputery i serwery.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Synology",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Komputery i biuro",
+    "use": "Serwery plików i kopie zapasowe.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "QNAP",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Komputery i biuro",
+    "use": "Serwery plików i kopie zapasowe.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Brother",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Komputery i biuro",
+    "use": "Drukarki i urządzenia wielofunkcyjne.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "HP",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Komputery i biuro",
+    "use": "Drukarki — wyłącznie z oryginalnymi materiałami.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Logitech",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Komputery i biuro",
+    "use": "Akcesoria i sprzęt do wideokonferencji.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Avtek",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Komputery i biuro",
+    "use": "Monitory interaktywne do sal i szkół.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Fellowes",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Komputery i biuro",
+    "use": "Niszczarki do biura.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Kobra",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "cat": "Komputery i biuro",
+    "use": "Niszczarki do biura.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Ampio",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "cat": "Sieć i obiekt",
+    "use": "Smart home — sterowanie domem i obiektem.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Hikvision",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "cat": "Sieć i obiekt",
+    "use": "Kamery i rejestratory monitoringu.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Dahua",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "cat": "Sieć i obiekt",
+    "use": "Kamery i rejestratory monitoringu.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "BCS",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "cat": "Sieć i obiekt",
+    "use": "Kamery i rejestratory monitoringu.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Ubiquiti",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "cat": "Sieć i obiekt",
+    "use": "Sieci i Wi-Fi w firmach i obiektach.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "TP-Link Omada",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "cat": "Sieć i obiekt",
+    "use": "Sieci i Wi-Fi, także dla gości.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "APART",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "cat": "Sieć i obiekt",
+    "use": "Nagłośnienie sal, lokali i obiektów.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Elzab EcoPower",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "cat": "Sieć i obiekt",
+    "use": "Ładowarki do aut elektrycznych.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "name": "Hammer Glass",
+    "line": "Tech",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "cat": "Akcesoria",
+    "use": "Folie ochronne cięte na wymiar w salonie.",
+    "authOp": "0",
+    "edge": "rgba(var(--r-w),.1)"
+   }
+  ],
+  "auth": [
+   {
+    "n": "01",
+    "k": "Autoryzowany serwis",
+    "v": "Posnet",
+    "lead": "Kasy i drukarki fiskalne Posnet sprzedajemy, uruchamiamy i serwisujemy jako serwis autoryzowany przez producenta.",
+    "pts": [
+     "Fiskalizacja, programowanie i szkolenie w jednym miejscu.",
+     "Przeglądy i naprawy kasy robi serwis z uprawnieniami producenta.",
+     "Przejmujemy serwis kasy od innej firmy — formalności są po naszej stronie."
+    ]
+   },
+   {
+    "n": "02",
+    "k": "Autoryzowany serwis",
+    "v": "Elzab",
+    "lead": "Kasy fiskalne Elzab — od zakupu i fiskalizacji po przeglądy — obsługujemy jako autoryzowany serwis.",
+    "pts": [
+     "Kasa gotowa do pracy: zgłoszona, zafiskalizowana, zaprogramowana.",
+     "Szkolenie z obsługi kasy dla Ciebie i pracowników.",
+     "Serwis na miejscu, w Rabce-Zdroju i z dojazdem do firmy."
+    ]
+   },
+   {
+    "n": "03",
+    "k": "Autoryzowany partner",
+    "v": "GoPOS",
+    "lead": "System sprzedaży dla gastronomii wdrażamy jako autoryzowany partner GoPOS.",
+    "pts": [
+     "Wdrożenie na sali i w kuchni, ze sprzętem dobranym do systemu.",
+     "Kasa fiskalna i terminal uruchomione razem z systemem.",
+     "Sieć w lokalu ustawia ta sama firma, więc wszystko ze sobą działa."
+    ]
+   },
+   {
+    "n": "04",
+    "k": "Autoryzowany partner",
+    "v": "InsERT",
+    "lead": "Programy InsERT dobieramy i wdrażamy jako autoryzowany partner producenta.",
+    "pts": [
+     "Pomagamy wybrać program do sprzedaży i magazynu.",
+     "Wdrożenie i szkolenie w Twojej firmie.",
+     "Konfiguracja e-faktur KSeF w programie."
+    ]
+   }
+  ],
+  "verify": [
+   {
+    "n": "01",
+    "t": "Lista serwisów Posnet",
+    "x": "PRO-KOM na liście autoryzowanych serwisów producenta.",
+    "cta": "Zobacz listę",
+    "href": "https://www.posnet.com.pl"
+   },
+   {
+    "n": "02",
+    "t": "Partnerzy InsERT",
+    "x": "PRO-KOM w wyszukiwarce autoryzowanych partnerów InsERT.",
+    "cta": "Zobacz partnerów",
+    "href": "https://www.insert.com.pl"
+   },
+   {
+    "n": "03",
+    "t": "CEIDG",
+    "x": "Wpis firmy PRO-KOM Tadeusz Wójciak po numerze NIP 7352511447.",
+    "cta": "Sprawdź w CEIDG",
+    "href": "https://aplikacja.ceidg.gov.pl/ceidg/ceidg.public.ui/search.aspx"
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "open": true,
+    "q": "Czy pracujecie tylko na tych markach?",
+    "a": "Nie. To marki, po które sięgamy najczęściej. Sprzęt dobieramy do tego, co ma działać w Twojej firmie albo domu — jeśli lepiej sprawdzi się coś innego, powiemy to wprost."
+   },
+   {
+    "n": "02",
+    "open": false,
+    "q": "Co oznacza „autoryzowany serwis” kas fiskalnych?",
+    "a": "Że producent kasy potwierdził nasze uprawnienia do jej serwisowania. Dotyczy to kas Posnet i Elzab."
+   },
+   {
+    "n": "03",
+    "open": false,
+    "q": "Mam kasę kupioną gdzie indziej. Przejmiecie jej serwis?",
+    "a": "Tak. Przejmujemy serwis kasy od innej firmy i zajmujemy się formalnościami."
+   },
+   {
+    "n": "04",
+    "open": false,
+    "q": "Jaką gwarancję dostaję?",
+    "a": "Na montaż instalacji — 24 miesiące gwarancji PRO-KOM. Na komputery PRO-KOM Gaming — 2 lata na cały komputer. Pozostały sprzęt ma gwarancję swojego producenta."
+   },
+   {
+    "n": "05",
+    "open": false,
+    "q": "Gdzie sprawdzę wasze autoryzacje?",
+    "a": "Na stronach producentów — linki są w sekcji „Sprawdź nas” wyżej."
+   }
+  ]
+ },
+ "stany": {},
+ "_stany_uwaga": "Treść pozostałych zakładek/wyborów: stany[klucz][indeks] = pola, które różnią się od stanu domyślnego."
+}

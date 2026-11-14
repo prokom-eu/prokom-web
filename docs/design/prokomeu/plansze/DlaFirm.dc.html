@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>PRO-KOM dla firm — wszystko dla Twojej firmy w jednej firmie</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/*PKTHEME*/:root{--k-bg:#0A0D0B;--k-bg2:#0E1210;--k-card:#131815;--k-card2:#111613;--k-foot:#060807;--k-bgp:#0C0F0D;--k-cardp:#171C18;--k-dim:#050706;--k-ink:#F4F5F1;--k-ink1:#DDE1DB;--k-ink2:#C9CEC8;--k-ink3:#A9AFA9;--k-ink4:#B9BDB6;--k-ink5:#7E857E;--k-gt:#8FE07A;--k-gd:#7BD36A;--k-g:#4FB034;--k-g1:#5BC23E;--k-g2:#43A02B;--k-g3:#2E7A1E;--k-gi:#07140A;--k-b:#4A7BE0;--k-bt:#8DADF0;--k-bd:#0A1430;--k-bi:#06102A;--k-i:#12B6D8;--k-it:#4CCBE6;--k-id:#071214;--k-ii:#06181C;--k-s:#9670EE;--k-st:#B49BF5;--k-sd:#15131F;--k-si:#120A26;--k-t:#E2483A;--k-tt:#F29185;--k-td:#1A1312;--k-ti:#1A0806;--k-y:#F2C230;--k-yd:#080C0B;--k-yi:#1A1400;--r-w:255,255,255;--r-gl:22,28,24;--r-gl2:19,24,21;--r-gl3:20,25,21;--r-gl4:10,13,11;--r-gl5:17,22,19;--k-white:#FFFFFF}
+html[data-theme="light"]{--k-bg:#F4F5F1;--k-bg2:#ECEEE8;--k-card:#FFFFFF;--k-card2:#FFFFFF;--k-foot:#E4E7E0;--k-bgp:#F4F5F1;--k-cardp:#FFFFFF;--k-dim:#D9DCD5;--k-ink:#121613;--k-ink1:#2A302B;--k-ink2:#3A413B;--k-ink3:#4F5650;--k-ink4:#4F5650;--k-ink5:#8A918A;--k-gt:#2E7A1E;--k-gd:#2E7A1E;--k-g:#2E7A1E;--k-g1:#358F27;--k-g2:#286F18;--k-g3:#1F5A12;--k-gi:#FFFFFF;--k-b:#244FB0;--k-bt:#244FB0;--k-bd:#E6ECFB;--k-bi:#FFFFFF;--k-i:#007A96;--k-it:#006A82;--k-id:#DDF1F5;--k-ii:#FFFFFF;--k-s:#6E45D4;--k-st:#5B33C4;--k-sd:#ECE7FB;--k-si:#FFFFFF;--k-t:#C4362B;--k-tt:#B3301F;--k-td:#FBE8E5;--k-ti:#FFFFFF;--k-y:#9A7000;--k-yd:#FBF2D2;--k-yi:#FFFFFF;--r-w:18,22,19;--r-gl:255,255,255;--r-gl2:255,255,255;--r-gl3:255,255,255;--r-gl4:255,255,255;--r-gl5:255,255,255;--k-white:#121613}
+@keyframes pkrise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+section{animation:pkrise linear both;animation-timeline:view();animation-range:entry 0% cover 14%}
+section a[class~="lift"],section details,section figure{animation:pkpop linear both;animation-timeline:view();animation-range:entry 0% cover 18%}
+}
+a,button,details,summary{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s,color .3s}
+button:hover{transform:translateY(-2px)}
+a[style*="border-radius: 16px"]:hover,a[style*="border-radius: 18px"]:hover,a[style*="border-radius: 15px"]:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;transition:background-color .4s}
+body,body *{transition-property:background-color,border-color,color,transform,box-shadow,opacity,flex;transition-duration:.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+/*END*/
+body{margin:0}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+.pk{font-family:Manrope,system-ui,sans-serif;background:var(--k-bg);color:var(--k-ink)}
+.pk .d{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-.03em;margin:0;line-height:.96}
+.pk .eb{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.pk p{margin:0}
+.pk button{font-family:inherit;cursor:pointer}
+.pk .lift{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .lift:hover{transform:translateY(-6px)}
+.pk .acc-t{transition:background .45s,color .45s,border-color .45s}
+.pk :focus-visible{outline:2px solid var(--k-gt);outline-offset:2px}
+@keyframes pulse{50%{opacity:.35}}
+@keyframes drift{50%{transform:translate(60px,40px) scale(1.12)}}
+.pk .rec{animation:pulse 1.6s infinite}
+.pk .orb{animation:drift 16s ease-in-out infinite}
+.pk .orb2{animation:drift 22s ease-in-out infinite reverse}
+@media (prefers-reduced-motion:reduce){.pk *{transition:none !important;animation:none !important}}
+/*PKF*/
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk i{font-style:normal}
+.pk .wrap{max-width:1560px;margin:0 auto;padding-left:clamp(20px,3vw,48px);padding-right:clamp(20px,3vw,48px);box-sizing:border-box}
+.pk .sgn{display:flex;flex-direction:column;gap:3px;white-space:nowrap;flex:none}
+.pk .sgn b{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;font-size:16px;letter-spacing:-.02em;display:flex;align-items:center;gap:3px;line-height:1}
+.pk .sgn b i{display:block;width:7px;height:3px;background:var(--c)}
+.pk .sgn em{text-transform:uppercase;font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;font-style:normal;font-size:10px;letter-spacing:.18em;color:var(--ct,var(--c))}
+.pk .sgn.lg b{font-size:24px;gap:4px}.pk .sgn.lg b i{width:11px;height:4px}.pk .sgn.lg em{font-size:12.5px}
+.pk .bx{transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .4s,background-color .4s}
+.pk .bx:hover{transform:translateY(-3px)}
+.pk .cdx{transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s,background-color .4s}
+.pk .cdx:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c,var(--k-g)) 55%,transparent) !important;box-shadow:0 26px 56px -36px var(--c,var(--k-g))}
+@keyframes xin{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.pk .hin{animation:xin .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes stga{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes stgb{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.pk .stg.sa{animation:stga .65s cubic-bezier(.2,.8,.2,1) both}
+.pk .stg.sb{animation:stgb .65s cubic-bezier(.2,.8,.2,1) both}
+.pk .stg.sa .sgi{animation:stga .65s cubic-bezier(.2,.8,.2,1) both}
+.pk .stg.sb .sgi{animation:stgb .65s cubic-bezier(.2,.8,.2,1) both}
+.pk .sgi:nth-child(2){animation-delay:.05s}.pk .sgi:nth-child(3){animation-delay:.1s}.pk .sgi:nth-child(4){animation-delay:.15s}.pk .sgi:nth-child(5){animation-delay:.2s}.pk .sgi:nth-child(6){animation-delay:.25s}.pk .sgi:nth-child(7){animation-delay:.3s}.pk .sgi:nth-child(8){animation-delay:.35s}
+@keyframes pulse{50%{opacity:.35}}
+.pk .rec{animation:pulse 1.6s infinite}
+/* hero */
+.pk .hr{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid rgba(var(--r-w),.08);font-size:15px;font-weight:700}
+.pk .hr:last-child{border-bottom:none}
+.pk .vp{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;background:color-mix(in srgb,var(--c) 16%,transparent);white-space:nowrap}
+.pk .vp i{display:block;width:6px;height:6px;border-radius:50%;background:var(--c)}
+.pk .fx{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:10px}
+.pk .fxi{display:flex;gap:12px;align-items:center;padding:12px 18px 12px 12px;border-radius:18px;border:1px solid rgba(var(--r-w),.09);background:rgba(var(--r-w),.03)}
+.pk .fxc{width:42px;height:42px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--k-g) 16%,transparent);color:var(--k-gt)}
+/* chips & tabs */
+.pk .bc{height:42px;padding:0 15px;border-radius:999px;border:1.5px solid;font:800 14px Manrope,sans-serif;cursor:pointer;white-space:nowrap;transition:transform .4s cubic-bezier(.2,.8,.2,1),background-color .4s,border-color .4s,color .4s}
+.pk .bc:hover{transform:translateY(-2px)}
+.pk .lr{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.pk .lr.lr4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1180px){.pk .lr.lr4{grid-template-columns:repeat(4,minmax(210px,1fr))}}
+.pk .lr .lt{display:flex;flex-direction:column;gap:6px;padding:14px 16px 12px;border-radius:18px;border:1px solid;cursor:pointer;font-family:inherit;text-align:left;color:var(--k-white);transition:transform .5s cubic-bezier(.2,.8,.2,1),background-color .5s,border-color .5s,box-shadow .5s}
+.pk .lr .lt:hover{transform:translateY(-3px);box-shadow:0 22px 46px -32px var(--c)}
+@media (max-width:1180px){.pk .lr{grid-template-columns:repeat(6,minmax(210px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.pk .lr .lt{scroll-snap-align:start}}
+/* stage */
+.pk .stage{border-radius:32px;padding:clamp(22px,2.4vw,36px);display:flex;flex-wrap:wrap;gap:18px clamp(28px,3.4vw,56px);align-items:center;color:var(--k-white);position:relative;overflow:hidden}
+.pk .pn{border-radius:20px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:border-color .4s}
+.pk .stage:hover .pn{border-color:color-mix(in srgb,var(--c) 45%,transparent)}
+.pk .ig{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (max-width:640px){.pk .ig{grid-template-columns:1fr}}
+.pk .it{border-radius:14px;background:rgba(var(--r-w),.04);border:1px solid rgba(var(--r-w),.1);padding:11px 14px;display:flex;flex-direction:column;gap:3px;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .4s,background-color .4s}
+.pk .it:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 9%,transparent)}
+.pk .it.svc{flex-direction:row;gap:12px;align-items:flex-start;padding:12px 14px}
+.pk .svi{width:38px;height:38px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);transition:transform .45s cubic-bezier(.2,.8,.2,1),background-color .3s,color .3s}
+.pk .svc:hover .svi{transform:scale(1.08) rotate(-4deg);background:var(--c);color:var(--k-bg)}
+.pk .ss{flex:1 1 100%;margin:0;padding:14px 0 0;list-style:none;border-top:1px solid rgba(var(--r-w),.1);display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
+.pk .ss li{display:flex;align-items:center;gap:10px;flex:1 1 220px;min-width:0}
+.pk .ss li:last-child .sar{display:none}
+.pk .tg{height:38px;padding:0 13px;border-radius:999px;border:1px solid;font:800 13px Manrope,sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;color:inherit;transition:background-color .4s,border-color .4s,transform .4s cubic-bezier(.2,.8,.2,1)}
+.pk .tg:hover{transform:translateY(-2px)}
+.pk .tg i{display:block;width:8px;height:8px;border-radius:50%}
+.pk .rowb{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;padding:9px 0;border:none;border-bottom:1px solid rgba(var(--r-w),.09);background:transparent;color:inherit;font:700 14px Manrope,sans-serif;cursor:pointer;text-align:left;transform:none !important}
+.pk .rowb:last-of-type{border-bottom:none}
+.pk .cb{position:relative;border-radius:12px;background:rgba(var(--r-w),.09);display:flex;flex-direction:column;overflow:hidden;cursor:pointer;padding:0;font:inherit;color:inherit;min-width:0;transform:none !important;transition:border-color .4s}
+.pk .cb.wifi{background:color-mix(in srgb,var(--c) 16%,transparent)}
+.pk .cb b{position:absolute;left:9px;top:8px;display:flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;letter-spacing:.06em}
+.pk .cb b i{display:block;width:7px;height:7px;border-radius:50%;background:var(--k-t)}
+.pk .cb em{position:absolute;left:9px;bottom:8px;font-style:normal;font-size:12px;font-weight:700}
+.pk .cb.cam::before{content:"";position:absolute;left:0;right:0;height:38%;top:-40%;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--c) 26%,transparent),transparent);animation:xscan 3.4s linear infinite}
+@keyframes xscan{to{top:110%}}
+.pk .wf{display:block;width:8px;border-radius:2px;background:var(--c);animation:pulse 1.8s infinite}
+.pk .sk{display:block;border-radius:4px;background:rgba(var(--r-w),.2)}
+@keyframes xeq{50%{transform:scaleY(.5)}}
+.pk .eq{display:block;flex:1;max-width:10px;border-radius:2px;background:var(--c);transform-origin:50% 100%;animation:xeq 1.9s ease-in-out infinite}
+.pk .dt{display:block;width:7px;height:7px;border-radius:50%;background:rgba(var(--r-w),.25)}
+.pk .kc{border-radius:10px;background:rgba(var(--r-w),.05);padding:8px;display:flex;flex-direction:column;gap:5px;overflow:hidden}
+.pk .kc em{font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.06em;opacity:.7}
+.pk .kd{display:block;height:15px;border-radius:5px;background:rgba(var(--r-w),.16)}
+.pk .kd.on{background:var(--c);animation:pulse 1.8s infinite}
+.pk .fn{flex:none;font-size:12px;font-weight:800;padding:8px 11px;border-radius:999px;border:1px solid rgba(var(--r-w),.2);white-space:nowrap}
+.pk .fl{display:block;flex:1;min-width:10px;height:2px;background:rgba(var(--r-w),.18);position:relative;overflow:hidden}
+.pk .fl::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:40%;background:var(--c);animation:flw 1.8s linear infinite;animation-delay:var(--d,0s)}
+@keyframes flw{to{left:100%}}
+/* line cards */
+.pk .tc{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;min-height:70px;box-sizing:border-box;padding:14px 16px 14px 18px;border-radius:20px;color:var(--k-white);transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s}
+.pk .tc:hover{transform:translateX(5px);border-color:var(--c) !important;box-shadow:0 22px 50px -32px var(--c)}
+.pk .tch{font-size:13.5px;font-weight:700;line-height:1.25;padding:7px 11px;border-radius:999px;background:color-mix(in srgb,var(--c) 12%,transparent);border:1px solid color-mix(in srgb,var(--c) 26%,transparent)}
+.pk .tph{flex:none;display:flex;align-items:center;gap:8px;height:38px;padding:0 6px 0 14px;border-radius:999px;border:1px solid color-mix(in srgb,var(--c) 40%,transparent);font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;font-size:14px;white-space:nowrap}
+.pk .tph i{display:flex;width:26px;height:26px;border-radius:50%;background:var(--c);color:var(--k-bg);align-items:center;justify-content:center;font:800 12px Manrope,sans-serif}
+/* axis */
+.pk .tw{display:flex;flex-direction:column;gap:10px;position:relative;padding-left:34px}
+.pk .tw::before{content:"";position:absolute;left:11px;top:26px;bottom:22px;width:2px;background:linear-gradient(180deg,var(--k-g),color-mix(in srgb,var(--k-g) 30%,transparent));transform-origin:50% 0;animation:twl 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes twl{from{transform:scaleY(0)}to{transform:none}}
+.pk .tw::after{content:"";position:absolute;left:8px;top:26px;width:8px;height:8px;border-radius:50%;background:var(--k-gt);box-shadow:0 0 14px 3px color-mix(in srgb,var(--k-g) 70%,transparent);animation:twd 3.6s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes twd{0%{top:26px;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:calc(100% - 30px);opacity:0}}
+.pk .th{position:relative;display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:20px;background:color-mix(in srgb,var(--k-g) 10%,transparent);border:1px solid color-mix(in srgb,var(--k-g) 30%,transparent)}
+.pk .th::before{content:"";position:absolute;left:-30px;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;background:var(--k-g);box-shadow:0 0 0 5px color-mix(in srgb,var(--k-g) 22%,transparent)}
+.pk .thi{width:44px;height:44px;flex:none;border-radius:14px;background:var(--k-g);color:var(--k-gi);display:flex;align-items:center;justify-content:center}
+.pk .tw .tc::before{content:"";position:absolute;left:-28px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 22%,transparent)}
+.pk .tw .tc::after{content:"";position:absolute;left:-16px;top:50%;width:16px;height:2px;background:color-mix(in srgb,var(--c) 60%,transparent)}
+.pk .te{position:relative;display:flex;flex-wrap:wrap;gap:8px 18px;padding:12px 4px 0;font-size:13.5px;font-weight:700;color:var(--k-ink2)}
+.pk .te::before{content:"";position:absolute;left:-29px;top:14px;width:14px;height:14px;border-radius:50%;border:2px solid var(--k-g);background:var(--k-bg);box-sizing:border-box}
+.pk .te span{display:flex;align-items:center;gap:8px}
+.pk .te i{display:block;width:14px;height:3px;background:var(--k-g)}
+.pk .sit{display:flex;align-items:center;gap:12px;width:100%;padding:13px 16px;border-radius:16px;border:1px solid;background:transparent;color:var(--k-ink);font:800 15px Manrope,sans-serif;text-align:left;cursor:pointer;transition:transform .45s cubic-bezier(.2,.8,.2,1),background-color .4s,border-color .4s}
+.pk .sit:hover{transform:translateX(4px)}
+.pk .sit i{display:block;width:16px;height:4px;flex:none;transition:background-color .4s}
+/* stepper */
+.pk .wz{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.pk .wz button{display:flex;flex-direction:column;gap:9px;padding:0 0 4px;border:none;background:transparent;cursor:pointer;text-align:left;font:800 14px Manrope,sans-serif;transform:none !important}
+.pk .wz button span{display:block;height:6px;border-radius:3px;transition:background-color .5s}
+@media (max-width:820px){.pk .wz{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* compare */
+.pk .cmp{display:grid;grid-template-columns:minmax(150px,.7fr) 1fr 1fr;gap:0}
+.pk .cmp>*{padding:14px 18px;border-bottom:1px solid rgba(var(--r-w),.08);font-size:14.5px;line-height:1.45}
+.pk .cmp .cg{background:color-mix(in srgb,var(--k-g) 9%,transparent);border-left:1px solid color-mix(in srgb,var(--k-g) 30%,transparent);border-right:1px solid color-mix(in srgb,var(--k-g) 30%,transparent);font-weight:700}
+@media (max-width:760px){.pk .cmp{grid-template-columns:1fr}.pk .cmp .cg{border-left:none;border-right:none}}
+.pk .fq{border-radius:18px;border:1px solid rgba(var(--r-w),.1);background:var(--k-card);overflow:hidden;transition:border-color .4s}
+.pk .fq button{display:flex;gap:14px;align-items:center;width:100%;padding:17px 20px;border:none;background:transparent;color:var(--k-ink);font:800 16px Manrope,sans-serif;text-align:left;cursor:pointer;transform:none !important}
+.pk .fq p{padding:0 20px 18px 20px;font-size:15px;line-height:1.6;color:var(--k-ink2);animation:stga .5s cubic-bezier(.2,.8,.2,1) both}
+.pk input:focus,.pk textarea:focus{outline:none;border-color:var(--k-g) !important}
+@media (prefers-reduced-motion:reduce){.pk *,.pk *::before,.pk *::after{transition:none !important;animation:none !important}}
+/*PKFEND*/
+/*PKCALM*/
+@keyframes pkrise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pk .tl:hover::after,.pk .lift:hover::after,.pk .nx:hover::after,.pk .cd2:hover::after,.pk .lt:hover::after,.pkx .lift:hover::after,.pkx .nx:hover::after{animation:none !important;opacity:0 !important}
+.pk .tl:hover,.pk .lift:hover,.pk .nx:hover,.pk .cd2:hover,.pk .lt:hover,.pkx .lift:hover,.pkx .nx:hover{transform:translateY(-4px) !important}
+.pk .tl,.pk .lift,.pk .nx,.pk .cd2,.pk .lt,.pk .ht{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .4s !important}
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk p{text-wrap:pretty}
+/*CALMEND*/
+.pk .brl{display:grid;grid-template-columns:minmax(260px,320px) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:980px){.pk .brl{grid-template-columns:1fr}.pk .bls{display:flex !important;overflow-x:auto;flex-direction:row !important;padding-bottom:6px}.pk .blb{flex:none;width:230px}}
+.pk .bls{display:flex;flex-direction:column;gap:6px}
+.pk .blb{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:16px;border:1px solid;cursor:pointer;font-family:inherit;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,background-color .3s}
+.pk .blb:hover{transform:translateX(4px);border-color:rgba(var(--r-w),.28) !important}
+.pk .bli{width:36px;height:36px;flex:none;border-radius:11px;display:flex;align-items:center;justify-content:center;transition:background-color .3s,color .3s}
+.pk .bpi{width:56px;height:56px;flex:none;border-radius:18px;display:flex;align-items:center;justify-content:center;background:var(--k-g);color:var(--k-gi)}
+.pk .bpg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:10px}
+.pk .bpc{position:relative;overflow:hidden;border-radius:22px;border:1px solid color-mix(in srgb,var(--c) 30%,transparent);padding:18px;display:flex;flex-direction:column;gap:14px;min-height:230px;color:var(--k-white);text-decoration:none;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .45s}
+.pk .bpc:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 60%,transparent);box-shadow:0 28px 60px -40px var(--c)}
+.pk .bpk{width:18px;height:18px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 26%,transparent);color:var(--ct,var(--c));margin-top:1px}
+.pk .bpf{display:grid;grid-template-columns:1.2fr 1fr;gap:20px}
+@media (max-width:900px){.pk .bpf{grid-template-columns:1fr}}
+.pk .bpq{width:20px;height:20px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--k-g) 18%,transparent);color:var(--k-gt);font-weight:800;font-size:12px}
+.pk .sit{display:flex !important;align-items:center;gap:12px}
+.pk .sfl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:22px;position:relative}
+.pk .sfc{position:relative;border-radius:22px;border:1px solid color-mix(in srgb,var(--c) 30%,transparent);padding:16px;display:flex;flex-direction:column;gap:12px;color:var(--k-white);text-decoration:none;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .45s}
+.pk .sfc:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 60%,transparent);box-shadow:0 28px 60px -40px var(--c)}
+.pk .sfc:not(:last-child)::after{content:"→";position:absolute;right:-18px;top:50%;margin-top:-10px;width:14px;text-align:center;font-weight:800;color:var(--k-ink3)}
+.pk .sfn{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--c);color:var(--k-bg);font-size:12px;letter-spacing:0}
+.pk .sfp{margin-top:auto;align-self:flex-start;display:flex;align-items:center;gap:8px;height:38px;padding:0 13px;border-radius:12px;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--k-white);transition:background-color .3s,color .3s}
+.pk .sfc:hover .sfp{background:var(--c);color:var(--k-bg)}
+.pk .sgt{display:flex;align-items:center;gap:8px;height:34px;padding:0 12px;border-radius:999px;background:color-mix(in srgb,var(--k-g) 10%,transparent);border:1px solid color-mix(in srgb,var(--k-g) 26%,transparent);font-size:13px;font-weight:700;color:var(--k-gt)}
+@media (max-width:700px){.pk .sfc::after{display:none}}
+@media (max-width:640px){.pk .ig{grid-template-columns:1fr !important}}
+.pk .bls,.pk .lr{scrollbar-width:none}.pk .bls::-webkit-scrollbar,.pk .lr::-webkit-scrollbar{display:none}
+.pk .bpc .d{white-space:nowrap}
+@media (max-width:640px){.pk .bpf ol{grid-template-columns:1fr !important}.pk .bpi{width:44px !important;height:44px !important;border-radius:14px !important}.pk .sfl{gap:10px !important}}
+</style>
+</helmet>
+<div class="pk" style="position: relative; overflow-x: clip">
+<dc-import name="Naglowek" active="firm" hint-size="100%,130px"></dc-import>
+
+<!-- HERO -->
+<section style="position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 70% at 50% 0%, color-mix(in srgb, var(--k-g) 10%, transparent), transparent 70%)"></div>
+<div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(var(--r-w),.11) 1px, transparent 1.4px); background-size: 26px 26px; mask-image: radial-gradient(ellipse 75% 85% at 50% 38%, #000 0%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 75% 85% at 50% 38%, #000 0%, transparent 78%)"></div>
+<div class="wrap" style="position: relative; padding-top: 22px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 30px">
+<nav aria-label="Ścieżka" style="font-size: 13px; color: var(--k-ink3); display: flex; gap: 8px"><a href="Main.dc.html">PRO-KOM</a><span aria-hidden="true">/</span><span style="color: var(--k-ink); font-weight: 700">Dla firm</span></nav>
+<div style="display: flex; flex-wrap: wrap; gap: 32px clamp(32px, 4vw, 72px); align-items: center">
+<div class="hin" style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<span class="eb" style="color: var(--k-gt)">Dla firm · gastronomii · hoteli · handlu · biur · instytucji</span>
+<h1 class="d" style="font-size: clamp(36px, 4.6vw, 68px); line-height: .96">Wszystko dla Twojej firmy. <span style="color: var(--k-gt); white-space: nowrap">W&nbsp;jednej firmie.</span></h1>
+<p style="font-size: 18px; line-height: 1.6; color: var(--k-ink2); max-width: 600px">Kasa i sprzedaż, komputery i opieka IT, kamery i sieć, strona i system pod Twój proces. Zamiast czterech wykonawców rozmawiasz z jedną firmą z Rabki-Zdroju — a każdą częścią zajmuje się zespół, który robi to na co dzień.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+<a class="bx" href="#branze" style="height: 58px; padding: 0 26px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 8px">Dobierz dla swojej branży <span aria-hidden="true">↓</span></a>
+<a class="bx d" href="tel:+48883200151" style="height: 58px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.24); font-size: 20px; letter-spacing: 0; display: flex; align-items: center; white-space: nowrap">883 200 151</a>
+</div>
+<span style="font-size: 14px; color: var(--k-ink3); display: flex; gap: 10px; align-items: center"><span style="width: 18px; height: 4px; background: var(--k-g)"></span>Dzwonisz raz — łączymy Cię z właściwymi zespołami. pn–pt 9:00–17:00</span>
+</div>
+<div class="hin" aria-hidden="true" style="flex: 1 1 420px; min-width: 0; max-width: 620px; border-radius: 28px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 22px 26px 18px; animation-delay: .12s">
+<span style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; letter-spacing: .12em; color: var(--k-ink3); padding-bottom: 8px">TWOJA FIRMA<span>STAN</span></span>
+<sc-for list="{{heroRows}}" as="r" hint-placeholder-count="7">
+<span class="hr" style="--c: {{r.c}}"><span style="display: flex; align-items: center; gap: 12px"><span style="width: 16px; height: 4px; background: {{r.c}}"></span>{{r.a}}</span><span class="vp"><i class="rec" style="animation-delay: {{r.dl}}"></i>{{r.b}}</span></span>
+</sc-for>
+<span style="display: block; padding-top: 14px; margin-top: 6px; border-top: 2px solid var(--k-g); font-size: 13.5px; color: var(--k-ink3)">Trzy linie, jeden opiekun, jeden numer.</span>
+</div>
+</div>
+<div class="fx">
+<sc-for list="{{facts}}" as="f" hint-placeholder-count="4">
+<span class="fxi"><span class="fxc" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{f.d}}"></path></svg></span><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span class="d" style="font-size: 19px; letter-spacing: -.01em">{{f.v}}</span><span style="font-size: 13px; color: var(--k-ink3)">{{f.l}}</span></span></span>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- BRANŻE -->
+<section id="branze" style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08); scroll-margin-top: 12px">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 10px"><span class="eb" style="color: var(--k-gt)">Dobierz · 10 sekund</span><h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Wybierz branżę. Pokażemy plan.</h2></div>
+<p style="font-size: 15px; line-height: 1.55; color: var(--k-ink3); max-width: 420px">Co zwykle robimy w takiej firmie, od czego zaczynamy i o co zapytamy w pierwszej rozmowie.</p>
+</div>
+<div class="brl">
+<div role="group" aria-label="Branża" class="bls">
+<sc-for list="{{branches}}" as="b" hint-placeholder-count="13">
+<button type="button" class="blb" onClick="{{b.pick}}" aria-pressed="{{b.on}}" style="border-color: {{b.bd}}; background: {{b.bg}}">
+<span class="bli" style="background: {{b.ib}}; color: {{b.ic2}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{b.ic}}"/></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px; min-width: 0; text-align: left"><span style="font-size: 14.5px; font-weight: 800; line-height: 1.2; color: var(--k-ink)">{{b.name}}</span><span style="font-size: 12px; color: var(--k-ink3); line-height: 1.25">{{b.sub}}</span></span>
+</button>
+</sc-for>
+</div>
+<div class="{{plan.cls}}" style="border-radius: 32px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: clamp(22px, 2.4vw, 34px); display: flex; flex-direction: column; gap: 20px; min-width: 0">
+<div class="sgi" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px">
+<div style="display: flex; align-items: center; gap: 16px; min-width: 0">
+<span class="bpi"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{plan.ic}}"/></svg></span>
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0"><span class="eb" style="color: var(--k-gt)">Plan dla: {{plan.name}}</span><h3 class="d" style="font-size: clamp(22px, 2.2vw, 32px); max-width: 640px">{{plan.title}}</h3></div>
+</div>
+<span style="height: 34px; padding: 0 14px; border-radius: 999px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 13px; display: flex; align-items: center; white-space: nowrap">{{plan.count}}</span>
+</div>
+<div class="bpg">
+<sc-for list="{{plan.groups}}" as="g" hint-placeholder-count="3">
+<a href="{{g.url}}" class="bpc sgi" style="--c: {{g.cd}}; --ct: {{g.ct}}; background: {{g.dark}}">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 3px; background: {{g.cd}}"></span>
+<span class="sgn"><b>PRO<i></i>KOM</b><em>{{g.line}}</em></span>
+<span style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{g.items}}" as="x" hint-placeholder-count="4"><span style="display: flex; gap: 9px; align-items: flex-start; font-size: 14px; font-weight: 700; line-height: 1.35; color: var(--k-white)"><span class="bpk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></span>{{x}}</span></sc-for>
+</span>
+<span style="margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(var(--r-w),.1); display: flex; justify-content: space-between; align-items: center; gap: 8px"><span class="d" style="font-size: 16px; letter-spacing: 0; color: var(--k-white)">{{g.phone}}</span><span style="font-size: 12.5px; font-weight: 800; color: {{g.ct}}">{{g.domain}} ↗</span></span>
+</a>
+</sc-for>
+</div>
+<div class="sgi bpf">
+<div style="display: flex; flex-direction: column; gap: 10px; min-width: 0">
+<span class="eb" style="color: var(--k-gt)">Od czego zaczynamy</span>
+<ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{plan.start}}" as="x" hint-placeholder-count="3"><li style="border-radius: 16px; background: rgba(var(--r-w),.04); border: 1px solid rgba(var(--r-w),.09); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px"><span class="d" style="width: 26px; height: 26px; border-radius: 50%; background: var(--k-g); color: var(--k-gi); display: flex; align-items: center; justify-content: center; font-size: 11px; letter-spacing: 0">{{x.n}}</span><span style="font-size: 13.5px; font-weight: 700; line-height: 1.4">{{x.t}}</span></li></sc-for>
+</ol>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; min-width: 0">
+<span class="eb" style="color: var(--k-gt)">O co zapytamy w pierwszej rozmowie</span>
+<span style="display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{plan.ask}}" as="x" hint-placeholder-count="4"><span style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.4; color: var(--k-ink2)"><span aria-hidden="true" class="bpq">?</span>{{x}}</span></sc-for>
+</span>
+</div>
+</div>
+<div class="sgi" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding-top: 16px; border-top: 1px solid rgba(var(--r-w),.08)">
+<a class="bx d" href="tel:+48883200151" style="height: 50px; padding: 0 20px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-size: 17px; letter-spacing: 0; display: flex; align-items: center; white-space: nowrap">Zadzwoń: 883 200 151</a>
+<a class="bx" href="#formularz" style="height: 50px; padding: 0 18px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.24); font-weight: 800; font-size: 15px; display: flex; align-items: center">Opisz firmę</a>
+<span style="font-size: 13.5px; color: var(--k-ink3)">Jeden telefon — łączymy Cię z właściwymi zespołami.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- OBSZARY -->
+<section id="zakres" style="scroll-margin-top: 12px">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 10px"><span class="eb" style="color: var(--k-gt)">Co robimy dla firm · {{total}} usług</span><h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Cztery linie pracują dla Twojej firmy.</h2></div>
+<span style="display: flex; gap: 8px"><button type="button" aria-label="Poprzedni obszar" onClick="{{aprev}}" class="bx" style="width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(var(--r-w),.22); background: transparent; color: var(--k-ink); font-size: 16px">←</button><button type="button" aria-label="Następny obszar" onClick="{{anext}}" class="bx" style="width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(var(--r-w),.22); background: transparent; color: var(--k-ink); font-size: 16px">→</button></span>
+</div>
+<div role="tablist" aria-label="Linie pracujące dla firm" class="lr lr4">
+<sc-for list="{{ltabsF}}" as="t" hint-placeholder-count="4">
+<button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" class="lt" style="--c: {{t.cd}}; background: {{t.bg}}; border-color: {{t.bd}}">
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span class="d" style="font-size: 11px; display: flex; align-items: center; gap: 2px; letter-spacing: 0; opacity: .75">PRO<span style="width: 5px; height: 2px; display: block; background: {{t.cd}}"></span>KOM</span><span style="font-size: 11.5px; font-weight: 800; padding: 3px 8px; border-radius: 999px; background: color-mix(in srgb, {{t.cd}} 16%, transparent); color: {{t.ct}}">{{t.count}}</span></span>
+<span class="d" style="font-size: clamp(17px, 1.5vw, 22px); letter-spacing: -.02em; text-align: left">{{t.name}}</span>
+<span style="font-size: 13px; line-height: 1.3; color: var(--k-ink3); text-align: left; font-weight: 600">{{t.short}}</span>
+<span aria-hidden="true" style="display: block; height: 3px; border-radius: 3px; background: {{t.cd}}; width: {{t.bar}}; transition: width .6s cubic-bezier(.2,.8,.2,1); margin-top: 2px"></span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{hasSubs}}" hint-placeholder-val="{{true}}">
+<div role="group" aria-label="Obszary w tej linii" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+<span style="font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--k-ink3); padding-right: 4px">W tej linii</span>
+<sc-for list="{{subs}}" as="x" hint-placeholder-count="3"><button type="button" aria-pressed="{{x.on}}" onClick="{{x.pick}}" class="bx" style="height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid {{x.bd}}; background: {{x.bg}}; color: var(--k-ink); font: 800 14px Manrope, sans-serif; display: flex; align-items: center; gap: 8px"><i style="width: 10px; height: 3px; border-radius: 2px; background: {{x.cd}}; display: block"></i>{{x.name}}</button></sc-for>
+</div>
+</sc-if>
+<div class="{{A.cls}}" role="tabpanel" style="--c: {{A.cd}}; --ct: {{A.ct}}; background: {{A.dark}}; border: 1px solid color-mix(in srgb, {{A.cd}} 30%, transparent)">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span class="sgn lg sgi"><b>PRO<i></i>KOM</b><em>{{A.line}}</em></span>
+<h3 class="d sgi" style="font-size: clamp(24px, 2.5vw, 38px)">{{A.title}}</h3>
+<p class="sgi" style="font-size: 16px; line-height: 1.55; color: rgba(var(--r-w),.82); max-width: 520px">{{A.lead}}</p>
+<div class="sgi" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+<a class="bx" href="{{A.url}}" style="height: 50px; padding: 0 22px; border-radius: 16px; background: {{A.cd}}; color: {{A.ink}}; font-weight: 800; font-size: 15.5px; display: flex; align-items: center">{{A.cta}} ↗</a>
+<a class="bx d" href="{{A.tel}}" style="height: 50px; padding: 0 18px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.26); font-size: 17px; letter-spacing: 0; display: flex; align-items: center; white-space: nowrap">{{A.phone}}</a>
+</div>
+<span class="sgi" style="font-size: 13px; color: rgba(var(--r-w),.72); display: flex; gap: 10px; align-items: center"><span style="width: 18px; height: 4px; background: {{A.cd}}"></span>{{A.promise}} · {{A.domain}}</span>
+
+<sc-if value="{{A.is1}}" hint-placeholder-val="{{true}}">
+<div class="pn sgi" style="padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 11.5px; font-weight: 800; letter-spacing: .12em; color: {{A.ct}}">STANOWISKO KASOWE · KLIKNIJ, CO MA BYĆ W ZESTAWIE</span>
+<span role="group" aria-label="Zestaw stanowiska" style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{kit}}" as="x" hint-placeholder-count="6"><button type="button" class="tg" aria-pressed="{{x.on}}" onClick="{{x.pick}}" style="border-color: {{x.bd}}; background: {{x.bg}}"><i style="background: {{x.dot}}"></i>{{x.name}}</button></sc-for>
+</span>
+<span style="font-size: 13.5px; line-height: 1.45; color: rgba(var(--r-w),.8)">{{kitNote}}</span>
+</div>
+</sc-if>
+<sc-if value="{{A.isX}}" hint-placeholder-val="{{false}}">
+<div class="pn sgi" style="padding: 12px 16px 10px; display: flex; flex-direction: column">
+<span style="font-size: 11.5px; font-weight: 800; letter-spacing: .12em; color: {{A.ct}}; padding-bottom: 6px">{{A.vh}}</span>
+<sc-for list="{{A.vr}}" as="x" hint-placeholder-count="4"><span style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 9px 0; border-top: 1px solid rgba(var(--r-w),.09); font-size: 14px; font-weight: 700"><span>{{x.a}}</span><span style="font-size: 12.5px; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, {{A.cd}} 18%, transparent); border: 1px solid color-mix(in srgb, {{A.cd}} 34%, transparent); display: flex; gap: 6px; align-items: center"><i class="rec" style="display: block; width: 6px; height: 6px; border-radius: 50%; background: {{A.cd}}"></i>{{x.b}}</span></span></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{A.is2}}" hint-placeholder-val="{{false}}">
+<div class="pn sgi" style="padding: 12px 16px 10px; display: flex; flex-direction: column">
+<span style="display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 800; letter-spacing: .12em; color: {{A.ct}}; padding-bottom: 4px">PRZEGLĄD IT · KLIKNIJ POZYCJĘ<span>{{itNote}}</span></span>
+<sc-for list="{{itRows}}" as="x" hint-placeholder-count="4"><button type="button" class="rowb" aria-pressed="{{x.on}}" onClick="{{x.pick}}"><span>{{x.name}}</span><span class="vp" style="--c: {{x.c}}"><i></i>{{x.status}}</span></button></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{A.is3}}" hint-placeholder-val="{{false}}">
+<div class="sgi" style="display: flex; flex-direction: column; gap: 8px">
+<div class="pn" style="display: grid; grid-template-columns: {{camCols}}; gap: 8px; padding: 8px; height: 132px; transition: grid-template-columns .6s cubic-bezier(.2,.8,.2,1)">
+<sc-for list="{{cams}}" as="x" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{x.on}}" aria-label="{{x.aria}}" onClick="{{x.pick}}" class="{{x.cls}}" style="border: 1px solid {{x.bd}}">
+<sc-if value="{{x.cam}}" hint-placeholder-val="{{true}}"><b><i class="rec"></i>REC</b></sc-if>
+<sc-if value="{{x.wifi}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: flex-end; gap: 5px; height: 40px; margin: auto"><i class="wf" style="height: 30%"></i><i class="wf" style="height: 55%; animation-delay: .2s"></i><i class="wf" style="height: 78%; animation-delay: .4s"></i><i class="wf" style="height: 100%; animation-delay: .6s"></i></span></sc-if>
+<em>{{x.label}}</em>
+</button>
+</sc-for>
+</div>
+<span style="font-size: 13.5px; color: rgba(var(--r-w),.72)">{{camNote}}</span>
+</div>
+</sc-if>
+<sc-if value="{{A.is4}}" hint-placeholder-val="{{false}}">
+<div class="pn sgi" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 10px">
+<span role="group" aria-label="Co budujemy" style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{swTabs}}" as="x" hint-placeholder-count="3"><button type="button" class="tg" aria-pressed="{{x.on}}" onClick="{{x.pick}}" style="border-color: {{x.bd}}; background: {{x.bg}}"><i style="background: {{x.dot}}"></i>{{x.name}}</button></sc-for>
+</span>
+<div aria-hidden="true" style="height: 92px; border-radius: 12px; background: rgba(var(--r-w),.04); overflow: hidden">
+<sc-if value="{{sw.web}}" hint-placeholder-val="{{true}}">
+<span style="display: flex; flex-direction: column; height: 100%"><span style="display: flex; gap: 5px; align-items: center; padding: 7px 10px; border-bottom: 1px solid rgba(var(--r-w),.1)"><i class="dt"></i><i class="dt"></i><i class="dt"></i><span style="flex: 1; height: 10px; margin-left: 8px; border-radius: 5px; background: rgba(var(--r-w),.1)"></span></span><span style="flex: 1; display: flex; gap: 12px; padding: 8px 12px; align-items: center"><span style="flex: 1.4; display: flex; flex-direction: column; gap: 6px"><i class="sk" style="height: 11px; width: 80%; background: var(--k-white); opacity: .9"></i><i class="sk" style="height: 6px; width: 100%"></i><i style="display: block; height: 16px; width: 60px; border-radius: 6px; background: var(--c)"></i></span><span style="flex: 1; align-self: stretch; border-radius: 8px; background: color-mix(in srgb, var(--c) 22%, transparent); display: flex; align-items: flex-end; gap: 4px; padding: 6px"><i class="eq" style="height: 40%"></i><i class="eq" style="height: 62%; animation-delay: .3s"></i><i class="eq" style="height: 50%; animation-delay: .6s"></i><i class="eq" style="height: 90%; animation-delay: .9s"></i></span></span></span>
+</sc-if>
+<sc-if value="{{sw.kan}}" hint-placeholder-val="{{false}}">
+<span style="height: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 8px; box-sizing: border-box"><span class="kc"><em>Nowe</em><i class="kd"></i><i class="kd" style="width: 70%"></i></span><span class="kc"><em>W toku</em><i class="kd on"></i><i class="kd"></i></span><span class="kc"><em>Gotowe</em><i class="kd" style="width: 80%"></i></span></span>
+</sc-if>
+<sc-if value="{{sw.flow}}" hint-placeholder-val="{{false}}">
+<span style="height: 100%; display: flex; align-items: center; padding: 0 12px"><span class="fn">Zlecenie</span><i class="fl"></i><span class="fn" style="background: var(--c); color: {{A.ink}}; border-color: transparent">Twój system</span><i class="fl" style="--d: .9s"></i><span class="fn">Raport i faktura</span></span>
+</sc-if>
+</div>
+<span style="font-size: 13.5px; line-height: 1.45; color: rgba(var(--r-w),.8)">{{sw.note}}</span>
+</div>
+</sc-if>
+</div>
+<div style="flex: 1.35 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<span class="eb sgi" style="color: {{A.ct}}">{{A.count}}</span>
+<div class="ig">
+<sc-for list="{{A.items}}" as="x" hint-placeholder-count="8">
+<div class="it svc sgi" style="--c: {{A.cd}}"><span class="svi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{x.ic}}"/></svg></span><span style="display: flex; flex-direction: column; gap: 3px; min-width: 0"><span class="d" style="font-size: 15px; letter-spacing: -.01em; line-height: 1.1">{{x.t}}</span><span style="font-size: 13px; line-height: 1.4; color: rgba(var(--r-w),.72)">{{x.d}}</span></span></div>
+</sc-for>
+</div>
+</div>
+<ol class="ss" aria-label="Jak zaczynamy">
+<sc-for list="{{A.steps}}" as="x" hint-placeholder-count="3">
+<li><span class="d" style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: color-mix(in srgb, {{A.cd}} 18%, transparent); color: {{A.ct}}; display: flex; align-items: center; justify-content: center; font-size: 11.5px; letter-spacing: 0">{{x.n}}</span><span style="display: flex; flex-direction: column; gap: 1px; min-width: 0"><span style="font-size: 14px; font-weight: 800; line-height: 1.3">{{x.t}}</span><span style="font-size: 12.5px; color: rgba(var(--r-w),.68); line-height: 1.35">{{x.d}}</span></span><span aria-hidden="true" class="sar" style="margin-left: auto; color: {{A.ct}}; font-weight: 800">→</span></li>
+</sc-for>
+</ol>
+</div>
+</div>
+</section>
+
+<!-- RAZEM: TYPOWE SYTUACJE -->
+<section id="sytuacje" style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08); scroll-margin-top: 12px">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 72px; display: flex; flex-wrap: wrap; gap: 28px clamp(32px, 4vw, 64px); align-items: flex-start">
+<div style="flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span class="eb" style="color: var(--k-gt)">Tak pracują razem</span>
+<h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Jedna sytuacja. Kilka linii. Ustalona kolejność.</h2>
+<p style="font-size: 15.5px; line-height: 1.55; color: var(--k-ink2); max-width: 520px">Wybierz sytuację najbliższą Twojej. Zobaczysz, które zespoły wchodzą i w jakiej kolejności — ustalają to między sobą, nie przez Ciebie.</p>
+<div role="group" aria-label="Typowe sytuacje" style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px">
+<sc-for list="{{sits}}" as="x" hint-placeholder-count="6">
+<button type="button" class="sit" aria-pressed="{{x.on}}" onClick="{{x.pick}}" style="border-color: {{x.bd}}; background: {{x.bg}}"><span class="bli" style="background: {{x.ib}}; color: {{x.ic2}}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{x.ic}}"/></svg></span>{{x.title}}</button>
+</sc-for>
+</div>
+</div>
+<div class="{{sit.cls}}" style="flex: 1.45 1 600px; min-width: 0">
+<div style="border-radius: 30px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: clamp(20px, 2.4vw, 32px); display: flex; flex-direction: column; gap: 18px">
+<div class="sgi" style="display: flex; align-items: center; gap: 14px">
+<span aria-hidden="true" class="thi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{sit.ic}}"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 11.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--k-gt)">Sytuacja</span><span class="d" style="font-size: clamp(22px, 2vw, 30px); letter-spacing: -.02em">{{sit.title}}</span></span>
+</div>
+<p class="sgi" style="font-size: 15.5px; line-height: 1.55; color: var(--k-ink2); max-width: 720px">{{sit.text}}</p>
+<div class="sfl">
+<sc-for list="{{sit.order}}" as="o" hint-placeholder-count="3">
+<a href="{{o.url}}" class="sfc sgi" style="--c: {{o.c}}; --ct: {{o.ct}}; background: {{o.dark}}">
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span class="d sfn">{{o.n}}</span><span style="font-size: 11.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: {{o.ct}}">{{o.when}}</span></span>
+<span class="sgn"><b>PRO<i></i>KOM</b><em>{{o.line}}</em></span>
+<span style="font-size: 16px; font-weight: 800; line-height: 1.3; color: var(--k-white)">{{o.what}}</span>
+<span class="sfp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span class="d" style="font-size: 15px; letter-spacing: 0">{{o.phone}}</span></span>
+</a>
+</sc-for>
+</div>
+<div class="sgi" style="display: flex; flex-wrap: wrap; gap: 8px">
+<span class="sgt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Jeden plan na piśmie</span>
+<span class="sgt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Jeden kontakt do całości</span>
+<span class="sgt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Start: 883 200 151</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- WDROŻENIE -->
+<section id="wdrozenie" style="scroll-margin-top: 12px">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 10px"><span class="eb" style="color: var(--k-gt)">Wdrożenie krok po kroku</span><h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Od pierwszej rozmowy do opieki po uruchomieniu.</h2></div>
+<span style="display: flex; gap: 8px"><button type="button" aria-label="Poprzedni krok" onClick="{{wprev}}" class="bx" style="width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(var(--r-w),.22); background: transparent; color: var(--k-ink); font-size: 16px">←</button><button type="button" aria-label="Następny krok" onClick="{{wnext}}" class="bx" style="width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(var(--r-w),.22); background: transparent; color: var(--k-ink); font-size: 16px">→</button></span>
+</div>
+<div role="group" aria-label="Kroki wdrożenia" class="wz">
+<sc-for list="{{wsteps}}" as="x" hint-placeholder-count="6">
+<button type="button" aria-pressed="{{x.on}}" onClick="{{x.pick}}" style="color: {{x.ink}}"><span style="background: {{x.bar}}"></span>{{x.n}} · {{x.title}}</button>
+</sc-for>
+</div>
+<div class="{{wstep.cls}}" style="border-radius: 28px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: clamp(22px, 2.4vw, 36px); display: flex; flex-wrap: wrap; gap: 20px clamp(28px, 3vw, 48px); align-items: stretch">
+<div class="sgi" style="flex: 1.2 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 12px; justify-content: center">
+<span class="eb" style="color: var(--k-gt)">Krok {{wstep.n}} z 06</span>
+<h3 class="d" style="font-size: clamp(24px, 2.5vw, 38px)">{{wstep.title}}</h3>
+<p style="font-size: 16.5px; line-height: 1.6; color: var(--k-ink2); max-width: 560px">{{wstep.text}}</p>
+</div>
+<div class="sgi" style="flex: 1 1 260px; min-width: 0; border-radius: 20px; background: color-mix(in srgb, var(--k-g) 9%, transparent); border: 1px solid color-mix(in srgb, var(--k-g) 28%, transparent); padding: 20px; display: flex; flex-direction: column; gap: 8px"><span class="eb" style="color: var(--k-gt)">Co robimy my</span><span style="font-size: 15.5px; line-height: 1.5; font-weight: 600">{{wstep.we}}</span></div>
+<div class="sgi" style="flex: 1 1 260px; min-width: 0; border-radius: 20px; background: rgba(var(--r-w),.04); border: 1px solid rgba(var(--r-w),.1); padding: 20px; display: flex; flex-direction: column; gap: 8px"><span class="eb" style="color: var(--k-ink3)">Co robisz Ty</span><span style="font-size: 15.5px; line-height: 1.5; font-weight: 600">{{wstep.you}}</span></div>
+</div>
+</div>
+</section>
+
+<!-- OPIEKA -->
+<section id="opieka" style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08); scroll-margin-top: 12px">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 10px"><span class="eb" style="color: var(--k-gt)">Po wdrożeniu</span><h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Serwis i opieka zostają w tej samej firmie.</h2></div>
+<p style="font-size: 15px; line-height: 1.55; color: var(--k-ink3); max-width: 420px">Kasy, komputery, instalacje i strona mają swój zespół i swój czas reakcji. Dzwonisz pod znany numer.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 12px">
+<sc-for list="{{care}}" as="c" hint-placeholder-count="4">
+<a href="{{c.url}}" class="cdx" style="--c: {{c.cd}}; --ct: {{c.ct}}; border-radius: 24px; background: {{c.dark}}; border: 1px solid color-mix(in srgb, {{c.cd}} 26%, transparent); color: var(--k-white); padding: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; justify-content: space-between; align-items: center; gap: 10px"><span class="sgn"><b>PRO<i></i>KOM</b><em>{{c.line}}</em></span><span class="tph">{{c.phone}}<i aria-hidden="true">↗</i></span></span>
+<span class="d" style="font-size: 22px; letter-spacing: -.02em">{{c.title}}</span>
+<span style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{c.items}}" as="x" hint-placeholder-count="3"><span class="tch">{{x}}</span></sc-for></span>
+<span style="margin-top: auto; font-size: 13.5px; color: rgba(var(--r-w),.76); display: flex; gap: 10px; align-items: center; padding-top: 12px; border-top: 1px solid rgba(var(--r-w),.1)"><i class="rec" style="display: block; width: 7px; height: 7px; border-radius: 50%; background: {{c.cd}}"></i>{{c.promise}}</span>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- PORÓWNANIE -->
+<section id="porownanie" style="scroll-margin-top: 12px">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 10px"><span class="eb" style="color: var(--k-gt)">Dlaczego jedna firma</span><h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Kilku wykonawców czy jeden? Różnica w sześciu punktach.</h2></div>
+<div style="border-radius: 28px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); overflow: hidden">
+<div class="cmp" role="table" aria-label="Porównanie">
+<span class="eb" style="color: var(--k-ink3)">Temat</span><span class="eb" style="color: var(--k-ink3)">Kilku wykonawców</span><span class="eb cg" style="color: var(--k-gt)"><span style="white-space: nowrap">PRO-KOM</span></span>
+<sc-for list="{{compare}}" as="c" hint-placeholder-count="6">
+<span class="d" style="font-size: 16px; letter-spacing: -.01em">{{c.t}}</span><span style="color: var(--k-ink3)">{{c.a}}</span><span class="cg">{{c.b}}</span>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<!-- DOFINANSOWANIA -->
+<section id="dofinansowania" style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08); scroll-margin-top: 12px">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 72px">
+<div style="border-radius: 32px; background: var(--k-card); border: 1px solid color-mix(in srgb, var(--k-g) 30%, transparent); padding: clamp(24px, 3vw, 48px); display: flex; flex-wrap: wrap; gap: 24px clamp(28px, 4vw, 64px); align-items: center">
+<div style="flex: 1.3 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span class="eb" style="color: var(--k-gt)">Dofinansowania · szkoły, gminy, instytucje, firmy</span>
+<h2 class="d" style="font-size: clamp(26px, 2.8vw, 42px)">Kupujesz sprzęt w projekcie z dofinansowaniem? Przygotujemy papiery.</h2>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink2); max-width: 640px">Do zamówień realizowanych z dofinansowaniem przygotowujemy kosztorys i dokumenty potrzebne do rozliczenia. Powiedz, w jakim projekcie bierzesz udział — dopasujemy zestawienie do jego wymagań.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<a class="bx" href="#formularz" style="height: 50px; padding: 0 22px; border-radius: 16px; background: var(--k-g); color: var(--k-gi); font-weight: 800; font-size: 15.5px; display: flex; align-items: center">Opisz projekt</a>
+<a class="bx d" href="tel:+48889003889" style="height: 50px; padding: 0 18px; border-radius: 16px; border: 1.5px solid rgba(var(--r-w),.24); font-size: 17px; letter-spacing: 0; display: flex; align-items: center; white-space: nowrap">889 003 889</a>
+</div>
+</div>
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{grants}}" as="g" hint-placeholder-count="3">
+<span class="fxi"><span class="fxc" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{g.d}}"></path></svg></span><span style="font-size: 15.5px; font-weight: 700">{{g.t}}</span></span>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<!-- AUTORYZACJE I MARKI -->
+<section id="marki" style="scroll-margin-top: 12px">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 10px"><span class="eb" style="color: var(--k-gt)">Autoryzacje i marki</span><h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Pracujemy na sprzęcie, za który możemy ręczyć.</h2></div>
+<a class="bx" href="Partnerzy.dc.html" style="height: 46px; padding: 0 18px; border-radius: 999px; border: 1.5px solid rgba(var(--r-w),.22); font-weight: 800; font-size: 14px; display: flex; align-items: center">Marki i autoryzacje →</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 12px">
+<sc-for list="{{auths}}" as="a" hint-placeholder-count="4">
+<div class="cdx" style="--c: var(--k-b); border-radius: 24px; background: var(--k-bd); border: 1px solid color-mix(in srgb, var(--k-b) 26%, transparent); color: var(--k-white); padding: 22px; display: flex; flex-direction: column; gap: 8px"><span class="eb" style="color: var(--k-bt)">{{a.k}}</span><span class="d" style="font-size: 34px">{{a.n}}</span><span style="font-size: 14px; line-height: 1.45; color: rgba(var(--r-w),.76)">{{a.d}}</span></div>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{brands}}" as="b" hint-placeholder-count="16">
+<span style="--c: {{b.c}}; height: 44px; padding: 0 16px; border-radius: 14px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); display: flex; align-items: center; gap: 10px; font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 15px"><span style="width: 12px; height: 3px; background: {{b.c}}"></span>{{b.n}}</span>
+</sc-for>
+</div>
+<p style="font-size: 13px; color: var(--k-ink3)">Nazwy marek należą do ich właścicieli. Autoryzacja tylko tam, gdzie to zaznaczono.</p>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="pytania" style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08); scroll-margin-top: 12px">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 72px; display: flex; flex-wrap: wrap; gap: 28px clamp(32px, 4vw, 64px); align-items: flex-start">
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span class="eb" style="color: var(--k-gt)">Pytania firm</span>
+<h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Zanim zadzwonisz</h2>
+<p style="font-size: 15.5px; line-height: 1.55; color: var(--k-ink2); max-width: 400px">Nie ma tu Twojego pytania? Zadzwoń: <a href="tel:+48883200151" style="font-weight: 800; color: var(--k-ink); white-space: nowrap">883 200 151</a>.</p>
+<a class="bx" href="Pomoc.dc.html" style="height: 46px; padding: 0 18px; border-radius: 999px; border: 1.5px solid rgba(var(--r-w),.22); font-weight: 800; font-size: 14px; display: flex; align-items: center; align-self: flex-start">Centrum pomocy →</a>
+</div>
+<div style="flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{faq}}" as="f" hint-placeholder-count="10">
+<div class="fq" style="border-color: {{f.bd}}">
+<button type="button" aria-expanded="{{f.open}}" onClick="{{f.pick}}"><span class="d" style="font-size: 12px; letter-spacing: 0; color: var(--k-gt)">{{f.n}}</span><span style="flex: 1">{{f.q}}</span><span aria-hidden="true" style="font-size: 20px; font-weight: 500; color: var(--k-gt); transition: transform .4s; transform: {{f.rot}}">+</span></button>
+<sc-if value="{{f.isOpen}}" hint-placeholder-val="{{false}}"><p>{{f.a}}</p></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- FORMULARZ -->
+<section id="formularz" style="scroll-margin-top: 12px">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 72px">
+<div style="border-radius: 32px; overflow: hidden; display: flex; flex-wrap: wrap; border: 1px solid rgba(var(--r-w),.1)">
+<div style="flex: 1 1 400px; min-width: 0; background: var(--k-card); padding: clamp(24px, 3vw, 48px); display: flex; flex-direction: column; gap: 20px; border-top: 4px solid var(--k-g)">
+<span class="eb" style="color: var(--k-gt)">Opisz firmę</span>
+<h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Dwa zdania wystarczą. Resztę ustalimy w rozmowie.</h2>
+<div style="display: flex; flex-direction: column">
+<span class="eb" style="color: var(--k-ink3); padding-bottom: 10px">Co dalej po wysłaniu</span>
+<sc-for list="{{after}}" as="x" hint-placeholder-count="3">
+<span style="display: flex; gap: 14px; align-items: center; padding: 13px 0; border-top: 1px solid rgba(var(--r-w),.1)"><span class="d" style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: color-mix(in srgb, var(--k-g) 18%, transparent); color: var(--k-gt); display: flex; align-items: center; justify-content: center; font-size: 11.5px; letter-spacing: 0">{{x.n}}</span><span style="font-size: 15.5px; line-height: 1.45">{{x.t}}</span></span>
+</sc-for>
+</div>
+</div>
+<form style="flex: 1.3 1 480px; min-width: 0; background: var(--k-bg2); padding: clamp(24px, 3vw, 48px); display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 700">Branża</span>
+<div style="display: flex; flex-wrap: wrap; gap: 6px" role="group" aria-label="Branża">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="13">
+<button type="button" class="bc" onClick="{{c.pick}}" aria-pressed="{{c.on}}" style="height: 38px; font-size: 13px; padding: 0 13px; border-color: {{c.bd}}; background: {{c.bg}}; color: var(--k-ink)">{{c.name}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="df1" style="font-size: 14px; font-weight: 700">Imię i firma</label><input id="df1" autocomplete="name" style="height: 52px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-card); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="df2" style="font-size: 14px; font-weight: 700">Telefon lub e-mail</label><input id="df2" style="height: 52px; border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-card); color: var(--k-ink); padding: 0 16px; font: 500 16px Manrope, sans-serif"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="df3" style="font-size: 14px; font-weight: 700">Czego potrzebuje Twoja firma?</label><textarea id="df3" rows="4" placeholder="Np. otwieramy restaurację na 40 miejsc, potrzebujemy kasy, kamer i strony" style="border-radius: 14px; border: 1.5px solid rgba(var(--r-w),.14); background: var(--k-card); color: var(--k-ink); padding: 14px 16px; font: 500 16px Manrope, sans-serif; resize: vertical"></textarea></div>
+<p style="font-size: 13px; line-height: 1.5; color: var(--k-ink3)">Zgadzam się na przetwarzanie danych przez <span style="white-space: nowrap">PRO-KOM</span> Tadeusz Wójciak w celu odpowiedzi na zapytanie. Szczegóły w <a href="Prawne.dc.html" style="text-decoration: underline">polityce prywatności</a>.</p>
+<button type="button" class="bx" style="height: 56px; border-radius: 16px; border: none; background: var(--k-g); color: var(--k-gi); font-size: 17px; font-weight: 800">Wyślij opis firmy</button>
+</form>
+</div>
+</div>
+</section>
+
+<!-- CO DALEJ -->
+<section style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08)">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 10px"><span class="eb" style="color: var(--k-gt)">Co dalej?</span><h2 class="d" style="font-size: clamp(28px, 3vw, 44px)">Cztery miejsca, do których warto zajrzeć.</h2></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 12px">
+<sc-for list="{{next}}" as="n" hint-placeholder-count="3">
+<a href="{{n.href}}" class="cdx" style="border-radius: 24px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: 24px; display: flex; flex-direction: column; gap: 10px; min-height: 180px"><span class="eb" style="color: var(--k-gt)">{{n.k}}</span><span class="d" style="font-size: 24px; letter-spacing: -.02em">{{n.t}}</span><span style="font-size: 14.5px; line-height: 1.5; color: var(--k-ink2)">{{n.d}}</span><span style="margin-top: auto; font-size: 14px; font-weight: 800; color: var(--k-gt)">Przejdź →</span></a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- FINAŁ -->
+<section style="position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(var(--r-w),.11) 1px, transparent 1.4px); background-size: 26px 26px; mask-image: radial-gradient(ellipse 70% 90% at 30% 50%, #000 0%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse 70% 90% at 30% 50%, #000 0%, transparent 75%)"></div>
+<div class="wrap" style="position: relative; padding-top: 96px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 26px; align-items: flex-start">
+<h2 class="d" style="font-size: clamp(36px, 4.6vw, 68px); max-width: 1000px">Jeden telefon. Cała technika w firmie załatwiona.</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="tel:+48883200151" class="bx d" style="height: 62px; padding: 0 28px; border-radius: 18px; background: var(--k-g); color: var(--k-gi); font-size: 22px; letter-spacing: 0; display: flex; align-items: center; white-space: nowrap">883 200 151</a>
+<a href="Kontakt.dc.html" class="bx" style="height: 62px; padding: 0 26px; border-radius: 18px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 16.5px; display: flex; align-items: center">Kontakt i dojazd</a>
+<a href="Linie.dc.html" class="bx" style="height: 62px; padding: 0 26px; border-radius: 18px; border: 1.5px solid rgba(var(--r-w),.26); font-weight: 800; font-size: 16.5px; display: flex; align-items: center">Co gdzie załatwisz</a>
+</div>
+</div>
+</section>
+
+<dc-import name="Stopka" hint-size="100%,720px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":8000}}'>
+class Component extends DCLogic {
+  lines() {
+    return {
+      b: { line: 'Biznes', cd: 'var(--k-b)', ct: 'var(--k-bt)', dark: 'var(--k-bd)', ink: 'var(--k-bi)', domain: 'prokombiznes.pl', url: 'https://prokombiznes.pl', phone: '889 003 889', tel: 'tel:+48889003889' },
+      i: { line: 'Instalacje', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', ink: 'var(--k-ii)', domain: 'prokominstalacje.pl', url: 'https://prokominstalacje.pl', phone: '889 003 889', tel: 'tel:+48889003889' },
+      s: { line: 'Software', cd: 'var(--k-s)', ct: 'var(--k-st)', dark: 'var(--k-sd)', ink: 'var(--k-si)', domain: 'prokomsoftware.pl', url: 'https://prokomsoftware.pl', phone: '883 200 151', tel: 'tel:+48883200151' },
+      t: { line: 'Tech', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', ink: 'var(--k-ti)', domain: 'prokomserwis.pl', url: 'https://prokomserwis.pl', phone: '883 200 151', tel: 'tel:+48883200151' }
+    };
+  }
+  branches() {
+    return [
+      { key: 'gastro', name: 'Gastronomia', title: 'Lokal gotowy na gości — od kasy po stronę z menu.', g: { b: ['GoPOS na sali i w kuchni', 'Sprzęt do GoPOS', 'Kasa fiskalna z fiskalizacją i szkoleniem', 'Terminal płatniczy PolCard'], i: ['Kamery na sali i zapleczu', 'Wi-Fi dla gości oddzielone od sieci kasy', 'Nagłośnienie sali', 'Ekrany z ofertą'], s: ['Strona z menu edytowanym z telefonu', 'Widoczność w Google i w Mapach'] }, start: ['Rozmowa o lokalu: liczba miejsc, kuchnia, sposób sprzedaży.', 'Kasa i system sprzedaży, żeby lokal mógł wystartować.', 'Sieć, kamery i nagłośnienie, a na końcu strona.'], ask: ['Kiedy planujesz otwarcie?', 'Ile jest stanowisk sprzedaży i czy kuchnia ma dostawać zamówienia na ekran?', 'Czy lokal ma już internet i okablowanie?', 'Czy masz stronę albo profil w Google?'] },
+      { key: 'hotel', name: 'Hotel i pensjonat', title: 'Goście mają Wi-Fi, Ty masz spokój.', g: { i: ['Wi-Fi w każdym pokoju', 'Monitoring i wideodomofon', 'Zamki na kod i kontrola dostępu', 'Telewizja hotelowa i anteny', 'Ładowarka dla gości — Elzab EcoPower'], b: ['Kasa fiskalna i terminal', 'Komputer recepcji pod opieką', 'Kopie zapasowe danych'], s: ['Strona obiektu widoczna w Google', 'Zmiany na stronie z telefonu'] }, start: ['Wizja lokalna i pomiar zasięgu Wi-Fi w obiekcie.', 'Sieć i Wi-Fi gości — od tego zależy reszta.', 'Monitoring, dostęp i telewizja, potem recepcja i strona.'], ask: ['Ile jest pokoi i budynków?', 'Gdzie dziś goście skarżą się na zasięg?', 'Czy obiekt działa cały rok, czy sezonowo?', 'Czy masz już kamery albo alarm po innym wykonawcy?'] },
+      { key: 'sklep', name: 'Handel', title: 'Sprzedaż, towar i bezpieczeństwo w jednym planie.', g: { b: ['Kasa fiskalna, waga i skaner', 'Sprawdzarka cen i drukarka etykiet', 'Subiekt do sprzedaży i magazynu', 'Terminal płatniczy PolCard'], i: ['Monitoring sali sprzedaży', 'Alarm', 'Sieć dla kas i zaplecza'], s: ['Strona firmowa', 'Widoczność w Google'] }, start: ['Rozmowa o asortymencie i liczbie stanowisk.', 'Kasa z wagą i skanerem oraz program sprzedaży.', 'Monitoring i alarm, a potem strona.'], ask: ['Ile jest stanowisk kasowych?', 'Czy sprzedajesz towar na wagę?', 'Czy prowadzisz magazyn w programie, czy w zeszycie?', 'Czy przejmujesz kasę po poprzednim właścicielu?'] },
+      { key: 'biuro', name: 'Biuro i usługi', title: 'Komputery działają, dane są bezpieczne, papier znika.', g: { b: ['Komputery, laptopy i serwer', 'Microsoft Office i ochrona ESET', 'Opieka IT z pomocą zdalną', 'Kopie zapasowe', 'Programy InsERT i e-faktury KSeF'], i: ['Sieć i Wi-Fi w biurze', 'Kontrola dostępu', 'Monitoring'], s: ['System albo panel pod Twój proces', 'Automatyzacje zamiast Excela', 'Strona firmowa'] }, start: ['Bezpłatny przegląd IT: co jest, co działa, co grozi awarią.', 'Kopie zapasowe i porządek w komputerach.', 'Programy, sieć, a potem system pod proces firmy.'], ask: ['Ile osób pracuje przy komputerach?', 'Kto dziś pomaga, gdy coś nie działa?', 'Czy robicie kopie zapasowe i czy ktoś je kiedyś odtwarzał?', 'Co dziś zajmuje najwięcej ręcznej pracy?'] },
+      { key: 'budowa', name: 'Firma budowlana i instalacyjna', title: 'Zlecenia, ekipy i rozliczenia w jednym miejscu.', g: { s: ['Panel zleceń dla ekip', 'Czas pracy i rozliczenia', 'Aplikacja dla ekipy: zdjęcia i protokół', 'Strona firmowa z realizacjami'], b: ['Laptopy i komputery do biura', 'Subiekt i e-faktury KSeF', 'Opieka IT'], i: ['Sieć w biurze i na bazie', 'Monitoring bazy i magazynu'] }, start: ['Rozmowa o tym, jak dziś wygląda zlecenie od telefonu do faktury.', 'Panel zleceń i czas pracy — jeden moduł na start.', 'Sprzęt i program do faktur, potem strona.'], ask: ['Ile ekip pracuje w terenie?', 'Gdzie dziś zapisujecie zlecenia i godziny?', 'Czy ekipy mają telefony służbowe?', 'Jakiego programu do faktur używacie?'] },
+      { key: 'teren', name: 'Usługi w terenie', title: 'Ekipy w terenie, a Ty wiesz, co jest zrobione.', g: { s: ['Rejestr pracy ekip w telefonie', 'Zlecenia, rozliczenia i tablica zadań', 'Strona firmowa'], b: ['Laptopy i sprzęt dla firmy', 'Programy InsERT i e-faktury KSeF'], i: ['Monitoring bazy i placu'] }, start: ['Rozmowa o tym, jak dziś zapisujecie zlecenia i godziny.', 'Jeden moduł na start: rejestr pracy albo zlecenia.', 'Program do faktur i sprzęt, potem strona.'], ask: ['Ile osób pracuje poza biurem?', 'Na czym dziś zapisujecie pracę — kartka, Excel, komunikator?', 'Co ma widzieć klient, a co tylko Ty?'] },
+      { key: 'gabinet', name: 'Gabinet i salon', title: 'Recepcja, płatności i strona, która przyprowadza klientów.', g: { b: ['Kasa fiskalna i terminal', 'Komputer recepcji i drukarka', 'Kopie zapasowe danych', 'Opieka IT'], i: ['Sieć i Wi-Fi w gabinecie', 'Wideodomofon i kontrola dostępu', 'Monitoring poczekalni'], s: ['Strona gabinetu', 'Widoczność w Google'] }, start: ['Rozmowa o gabinecie i liczbie stanowisk.', 'Kasa, komputer i kopie danych.', 'Sieć i strona.'], ask: ['Ile jest stanowisk i gabinetów?', 'Czy dane klientów są dziś gdzieś kopiowane?', 'Czy masz stronę i wizytówkę w Google?'] },
+      { key: 'produkcja', name: 'Produkcja i magazyn', title: 'Towar policzony, hala w zasięgu, proces w systemie.', g: { b: ['Drukarki etykiet i skanery', 'Komputery i serwer', 'Subiekt do magazynu i sprzedaży', 'Kopie zapasowe'], i: ['Sieć i Wi-Fi w hali', 'Monitoring hali i placu', 'Kontrola dostępu'], s: ['Panel pod proces: zlecenia, magazyn, czas pracy', 'Automatyczne raporty'] }, start: ['Rozmowa i obejście hali.', 'Sieć i sprzęt do znakowania towaru.', 'Program magazynowy albo panel pod proces.'], ask: ['Jak dziś liczycie stany magazynowe?', 'Czy w hali jest zasięg sieci?', 'Co chcielibyście widzieć w raporcie na koniec dnia?'] },
+      { key: 'deweloper', name: 'Deweloper i architekt', title: 'Instalacje zaplanowane, zanim wejdą tynki.', g: { i: ['Teletechnika w budownictwie', 'Projekt instalacji niskoprądowych', 'Smart home Ampio w lokalach', 'Ładowarki w garażu — Elzab EcoPower', 'Współpraca z pracowniami — strona „Dla architektów”'], s: ['Strona inwestycji'], b: ['Sprzęt do biura sprzedaży'] }, start: ['Przesyłasz rzuty — najlepiej przed tynkami.', 'Planujemy trasy kabli i punkty instalacji.', 'Wycena, montaż etapami, pomiary i odbiór.'], ask: ['Na jakim etapie jest inwestycja?', 'Ile jest lokali i części wspólnych?', 'Jakie instalacje mają być w standardzie, a jakie w opcji?', 'Kto koordynuje branże na budowie?'] },
+      { key: 'wspolnota', name: 'Wspólnota i zarządca', title: 'Budynek bezpieczny i podłączony.', g: { i: ['Monitoring części wspólnych', 'Wideodomofony i kontrola dostępu', 'Sieć i światłowód w budynku', 'Ładowarki w garażu — Elzab EcoPower'], s: ['Strona wspólnoty albo obiektu'] }, start: ['Rozmowa o budynku i przegląd tego, co już jest.', 'Wejścia i części wspólne: wideodomofony, dostęp, kamery.', 'Sieć w budynku, a potem strona.'], ask: ['Ile jest klatek, wejść i garaży?', 'Czy są już kamery albo domofony po innym wykonawcy?', 'Kto podejmuje decyzję — zarząd czy zarządca?'] },
+      { key: 'szkola', name: 'Szkoła', title: 'Sprzęt do sal i instalacje w budynku, także z dofinansowaniem.', g: { b: ['Komputery i laptopy do pracowni', 'Monitory interaktywne i projektory', 'Kosztorys i dokumenty do dofinansowania', 'Konfiguracja i szkolenie'], i: ['Nagłośnienie', 'Sieć i Wi-Fi w budynku', 'Monitoring'], s: ['Strona szkoły'] }, start: ['Rozmowa o projekcie i jego wymaganiach.', 'Kosztorys i zestawienie sprzętu.', 'Dostawa, montaż, konfiguracja i szkolenie.'], ask: ['Czy zakup jest w ramach projektu z dofinansowaniem?', 'Ile sal i stanowisk ma objąć dostawa?', 'Czy budynek ma okablowanie sieciowe?'] },
+      { key: 'gmina', name: 'Gmina i instytucja', title: 'Dostawy, sieć i bezpieczeństwo dla urzędu i jednostek.', g: { b: ['Komputery, serwery i kopie zapasowe', 'Programy i ochrona ESET', 'Opieka IT', 'Dokumenty do dofinansowań'], i: ['Monitoring obiektów', 'Sieć i Wi-Fi', 'Nagłośnienie sal', 'Kontrola dostępu'], s: ['Strona instytucji', 'Panel albo system pod procedurę'] }, start: ['Rozmowa o potrzebie i trybie zamówienia.', 'Zestawienie i kosztorys.', 'Dostawa i montaż, potem opieka.'], ask: ['Czy zamówienie idzie w trybie zapytania, czy przetargu?', 'Ile lokalizacji obejmuje?', 'Jakie są wymagania co do gwarancji i dokumentacji?'] },
+      { key: 'inne', name: 'Inna branża', title: 'Każda firma. Powiedz, czego potrzebujesz.', g: { b: ['Kasy, komputery i programy', 'Opieka IT i kopie zapasowe'], i: ['Monitoring, alarmy i sieci', 'Nagłośnienie i ekrany'], s: ['Strony, systemy i aplikacje'], t: ['Naprawy telefonów i komputerów'] }, start: ['Jedna rozmowa — opowiadasz o firmie raz.', 'Przegląd tego, co już masz.', 'Plan z podziałem na etapy i wycena na piśmie.'], ask: ['Czym zajmuje się firma i ile osób w niej pracuje?', 'Co dziś najbardziej przeszkadza w pracy?', 'Na kiedy to ma działać?'] }
+    ];
+  }
+  renderVals() {
+    const st = this.state || {};
+    const L = this.lines();
+    const alt = (n) => (n % 2 ? 'sa' : 'sb');
+    const it = (t, d) => ({ t: t, d: d });
+    const IC = { cal: 'M4 7h16v13H4zM4 11h16M8 4v4M16 4v4', shield: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4', doc: 'M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5', pin: 'M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z', pc: 'M3 5h18v11H3zM9 20h6M12 16v4', bld: 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01', calc: 'M6 3h12v18H6zM9 7h6M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01' };
+
+    // obszary
+    const AR = [
+      { n: '01', k: 'b', title: 'Sprzedaż i kasa', lead: 'Wszystko, czego potrzeba, żeby legalnie i wygodnie sprzedawać.', cta: 'Oferta dla firm', promise: 'Oddzwonimy w 60 minut w godzinach pracy', steps: [['Dzwonisz albo piszesz', 'Mówisz, co i gdzie sprzedajesz.'], ['Oddzwaniamy w 60 minut', 'W godzinach pracy.'], ['Fiskalizacja i szkolenie', 'Zgłoszenie, programowanie i szkolenie robimy u Ciebie.']], items: [it('Kasy fiskalne Posnet i Elzab', 'Ze zgłoszeniem, fiskalizacją, programowaniem i szkoleniem.'), it('Przejęcie serwisu kasy', 'Przejmujemy serwis kasy po innej firmie i załatwiamy formalności.'), it('Przeglądy kas', 'Pilnujemy terminu obowiązkowego przeglądu.'), it('GoPOS dla gastronomii', 'System sprzedaży na salę i kuchnię, ze sprzętem.'), it('Terminale płatnicze PolCard', 'Dobór i uruchomienie terminala.'), it('Wagi, skanery, drukarki etykiet', 'Osprzęt stanowiska kasowego dobrany do kasy i programu.'), it('Sprawdzarki cen', 'Dla punktów sprzedaży z większym asortymentem.'), it('Automaty sprzedające', 'Z partnerem Optivendi — dla firm, obiektów i instytucji.')] },
+      { n: '02', k: 'b', title: 'Biuro i IT', lead: 'Sprzęt, programy i ktoś, kto odbiera telefon, gdy coś nie działa.', cta: 'Oferta dla firm', promise: 'Oddzwonimy w 60 minut w godzinach pracy', steps: [['Bezpłatny przegląd IT', 'Co jest, co działa, co grozi awarią.'], ['Kopie zapasowe i porządek', 'Najpierw to, co chroni dane.'], ['Stała opieka', 'Pomoc zdalna i na miejscu.']], items: [it('Komputery i laptopy', 'Lenovo i Dell — dostawa, konfiguracja, przeniesienie danych.'), it('Serwery i dyski sieciowe', 'Serwery Dell, NAS Synology i QNAP, wdrożenie i szkolenie.'), it('Microsoft Office i ESET', 'Licencje z instalacją i konfiguracją.'), it('Opieka IT', 'Pomoc zdalna, monitoring i stały kontakt z informatykiem.'), it('Kopie zapasowe', 'Kopia, którą da się odtworzyć — także poza firmą.'), it('InsERT, Subiekt i KSeF', 'Wdrożenie programu i e-faktur, szkolenie zespołu.'), it('Podpis kwalifikowany', 'Pomagamy uzyskać i zainstalować podpis elektroniczny.'), it('Niszczarki i monitory interaktywne', 'Fellowes i Kobra, monitory do sal i biur.'), it('Comarch ERP', 'Dla firm, które wyrosły z prostego programu do faktur.'), it('Bezpieczeństwo sieci', 'Zapory Stormshield i Barracuda, ochrona danych firmy.')] },
+      { n: '03', k: 'i', title: 'Obiekt i bezpieczeństwo', lead: 'Projekt, montaż i serwis instalacji w lokalu, biurze i obiekcie.', cta: 'Zaplanuj instalację', promise: 'Odpowiemy w 24 godziny w dni robocze', steps: [['Opisujesz obiekt', 'Albo przesyłasz rzuty.'], ['Odpowiedź w 24 godziny', 'W dni robocze, potem wizja lokalna.'], ['Projekt, montaż, serwis', 'Gwarancja na montaż 24 miesiące.']], items: [it('Monitoring', 'Kamery z nagrywaniem i podglądem w telefonie.'), it('Alarmy', 'Z powiadomieniem w telefonie.'), it('Kontrola dostępu', 'Karty, kody i zamki — dla biur i obiektów noclegowych.'), it('Sieci i Wi-Fi', 'Okablowanie, światłowód i Wi-Fi, także osobne dla gości.'), it('Teletechnika', 'Instalacje niskoprądowe dla deweloperów i wykonawców.'), it('Nagłośnienie', 'Sale, lokale i obiekty.'), it('Ekrany informacyjne', 'Ekrany z ofertą i informacją, treść zmieniasz zdalnie.'), it('Telewizja hotelowa i anteny', 'Telewizja w pokojach i instalacje zbiorcze.'), it('Ładowarki Elzab EcoPower', 'Do firmy, obiektu i na parking.'), it('Serwis i przeglądy po montażu', 'Gwarancja na montaż 24 miesiące, przejmujemy też cudze instalacje.')] },
+      { n: '04', k: 's', title: 'Strona i systemy', lead: 'Strona, która przyprowadza klientów, i system, który porządkuje pracę.', cta: 'Policz swój projekt', promise: 'Odpowiedź w 1 dzień roboczy', steps: [['Opisujesz projekt', 'Stronę, system albo proces.'], ['Odpowiedź w 1 dzień roboczy', 'Z pytaniami i propozycją.'], ['Wdrożenie i opieka', 'Serwer w Polsce, kopia co noc.']], items: [it('Strony internetowe', 'Firmowe, wizytówki i landing page, z panelem do zmian.'), it('Systemy i panele', 'CRM, zlecenia, czas pracy i rozliczenia pod Twój proces.'), it('Aplikacje', 'Dla pracowników i dla klientów.'), it('Automatyzacje', 'Raporty i dokumenty bez przepisywania.'), it('Opieka nad stroną', 'Serwer w Polsce, kopia co noc.'), it('Darmowy audyt strony', 'Sprawdzimy obecną stronę i powiemy, co poprawić.')] },
+      { n: '05', k: 'b', title: 'Dostawy i instytucje', lead: 'Większe zamówienia sprzętu dla szkół, urzędów, hoteli i firm — konfiguracja i montaż na życzenie.', cta: 'Oferta dla firm', promise: 'Oddzwonimy w 60 minut w godzinach pracy', vh: 'ZAMÓWIENIE · OD ZAPYTANIA DO SERWISU', vr: [['Zapytanie ofertowe', 'przyjęte'], ['Oferta na piśmie', 'wysłana'], ['Dostawa i montaż', 'w terminie'], ['Serwis po dostawie', 'na miejscu']], steps: [['Wysyłasz specyfikację', 'Albo listę potrzeb.'], ['Oferta na piśmie', 'Z zakresem i terminem.'], ['Dostawa, montaż, serwis', 'Uruchamiamy na miejscu.']], items: [it('Większe dostawy IT', 'Komputery, serwery, drukarki i sieć — według listy albo specyfikacji.'), it('RTV i AGD dla firm', 'Telewizory i sprzęt do pokoi, biur, kuchni i świetlic.'), it('Pracownie i sale', 'Komputery, monitory interaktywne i sieć dla szkół.'), it('Zapytania ofertowe i przetargi', 'Przygotowujemy oferty w postępowaniach.'), it('Monitoring i nagłośnienie z montażem', 'Robi to PRO-KOM Instalacje.'), it('Współpraca przy inwestycjach', 'Dla deweloperów i wykonawców — strona Współpraca.')] },
+      { n: '06', k: 't', title: 'Serwis sprzętu', lead: 'Zepsuty laptop, telefon służbowy albo drukarka nie zatrzymują pracy na długo.', cta: 'Zgłoś naprawę', promise: 'Bezpłatna diagnoza i wycena', vh: 'NAPRAWA · STATUS ONLINE', vr: [['Zgłoszenie', 'przyjęte'], ['Diagnoza i wycena', 'gotowa'], ['Naprawa', 'w toku'], ['Odbiór', 'damy znać']], steps: [['Zgłaszasz online albo w salonie', 'Rabka-Zdrój, ul. Orkana 16B.'], ['Diagnoza i wycena', 'Decydujesz, czy naprawiamy.'], ['Naprawa i odbiór', 'Status sprawdzasz online.']], items: [it('Laptopy i komputery', 'Diagnoza i naprawa sprzętu firmowego.'), it('Telefony i tablety służbowe', 'Wyświetlacze, baterie, gniazda ładowania.'), it('Drukarki', 'Naprawa w serwisie.'), it('Odzyskiwanie danych', 'Z dysków i telefonów.'), it('Folie Hammer Glass', 'Ochrona ekranów telefonów i tabletów, cięta na wymiar.'), it('Status naprawy online', 'Bez dzwonienia — po numerze zlecenia.')] }
+    ];
+    const ai = st.ar === undefined ? 0 : st.ar, arN = st.arN || 0, a0 = AR[ai];
+    const goA = (i) => () => this.setState({ ar: i, arN: arN + 1 });
+    const plU = (n) => n + (n === 1 ? ' usługa' : ([2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? ' usługi' : ' usług'));
+    const ICK = [[/kas|fiskal|przegląd/, 'M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3'], [/gopos|gastro/, 'M4 5h16v11H4zM8 20h8M12 16v4M8 9h3M8 12h6'], [/terminal|płatn/, 'M3 6h18v12H3zM3 10h18M7 15h4'], [/wag|skaner|etykiet|sprawdzark/, 'M4 6v12M8 6v12M11 6v12M15 6v12M18 6v12M21 6v12'], [/automat/, 'M6 2h12v20H6zM9 6h6v6H9zM9 16h2'], [/serwer|dysk|nas/, 'M4 4h16v6H4zM4 14h16v6H4zM8 7h.01M8 17h.01'], [/komputer|laptop|pracowni/, 'M4 5h16v10H4zM2 19h20'], [/office|eset|licencj/, 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z'], [/opiek|bezpiecze|zapor|gwarancj|serwis i przegl/, 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4'], [/kopi|odzysk|danych/, 'M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3'], [/insert|subiekt|ksef|comarch|erp|podpis/, 'M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5'], [/niszcz|drukark/, 'M7 8V4h10v4M5 8h14v8H5zM8 14h8v6H8z'], [/monitoring|kamer/, 'M3 7h12v10H3zM15 10l6-3v10l-6-3'], [/alarm/, 'M6 16v-5a6 6 0 1112 0v5l2 2H4zM10 21h4'], [/dostęp|zamk/, 'M6 10h12v11H6zM8 10V7a4 4 0 018 0v3M12 14v3'], [/sie|wi-fi|światłow|teletech/, 'M2 9a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0M12 19.5h.01'], [/nagłośn/, 'M4 9h4l5-4v14l-5-4H4zM16 9a4 4 0 010 6M19 6a8 8 0 010 12'], [/ekran|telewiz|anten|rtv|agd/, 'M3 5h18v12H3zM8 21h8M12 17v4'], [/ładowar/, 'M13 2L5 14h6l-1 8 8-12h-6z'], [/stron|audyt/, 'M3 5h18v14H3zM3 9h18M6 7h.01M9 7h.01'], [/system|panel/, 'M4 4h5v16H4zM10 4h5v10h-5zM16 4h4v6h-4z'], [/aplikac/, 'M8 2h8v20H8zM11 18h2'], [/automatyzac/, 'M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6'], [/telefon|tablet|hammer/, 'M8 2h8v20H8zM11 18h2'], [/status/, 'M12 7v5l3 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z'], [/dostaw|zapytan|przetarg|zamówie/, 'M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10'], [/inwestyc|współprac/, 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6'], [/smart/, 'M4 11l8-7 8 7v9H4zM10 20v-5h4v5'], [/architekt/, 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6'], [/konsol|gr[ęy]\b|pod grę/, 'M6 9h12a4 4 0 014 4v1a3 3 0 01-5.3 1.9L15 14H9l-1.7 1.9A3 3 0 012 14v-1a4 4 0 014-4zM8 11v4M6 13h4'], [/zestaw|gotowe/, 'M7 2h10v20H7zM10 6h4M12 17h.01'], [/konfigurator/, 'M4 6h16M4 12h16M4 18h16M15 4v4M8 10v4M17 16v4'], [/rodzic/, 'M8 8a3 3 0 100-6 3 3 0 000 6zM16 10a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM2 21v-2a5 5 0 0110 0v2M13 21v-1.5a3.5 3.5 0 017 0V21'], [/porówn/, 'M4 20V10M10 20V4M16 20v-8M22 20H2'], [/test/, 'M12 14l4-4M4 18a9 9 0 1116 0'], [/metryk/, 'M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5'], [/akcesori/, 'M9 2v6M15 2v6M6 8h12v3a6 6 0 01-12 0zM12 17v5'], [/napraw|serwis/, 'M14.5 6.5a4 4 0 00-5 5L3 18l3 3 6.5-6.5a4 4 0 005-5L15 12l-3-3z']];
+    const icOf = (t) => { const n = String(t).toLowerCase(); for (const x of ICK) { if (x[0].test(n)) return x[1]; } return 'M12 8a4 4 0 100 8 4 4 0 000-8z'; };
+    const A = { ...L[a0.k], title: a0.title, lead: a0.lead, cta: a0.cta, items: a0.items.map((x) => ({ ...x, ic: icOf(x.t) })), promise: a0.promise, count: plU(a0.items.length) + ' w tym obszarze', steps: a0.steps.map((x, i) => ({ n: '0' + (i + 1), t: x[0], d: x[1] })), cls: 'stage stg ' + alt(arN), is1: ai === 0, is2: ai === 1, is3: ai === 2, is4: ai === 3, isX: ai > 3, vh: a0.vh || '', vr: (a0.vr || []).map((x) => ({ a: x[0], b: x[1] })) };
+    const LK = ['b', 'i', 's', 't'], LN = { b: ['Biznes', 'Kasy, komputery, programy i dostawy'], i: ['Instalacje', 'Monitoring, sieci, obiekt'], s: ['Software', 'Strony, systemy, aplikacje'], t: ['Tech', 'Serwis sprzętu firmowego'] };
+    const curK = a0.k;
+    const ltabsF = LK.map((k) => { const on = k === curK, ln = L[k], first = AR.findIndex((a) => a.k === k), n = AR.filter((a) => a.k === k).reduce((m, a) => m + a.items.length, 0); return { name: LN[k][0], short: LN[k][1], count: plU(n), cd: ln.cd, ct: ln.ct, on: on ? 'true' : 'false', bg: on ? ln.dark : 'var(--k-card)', bd: on ? ln.cd : 'rgba(var(--r-w),.1)', bar: on ? '100%' : '18px', pick: () => { if (!on) this.setState({ ar: first, arN: arN + 1 }); } }; });
+    const subs = AR.map((a, i) => ({ a, i })).filter((x) => x.a.k === curK).map((x) => { const on = x.i === ai, c = L[curK].cd; return { name: x.a.title, cd: c, on: on ? 'true' : 'false', bd: on ? c : 'rgba(var(--r-w),.18)', bg: on ? 'color-mix(in srgb, ' + c + ' 16%, transparent)' : 'transparent', pick: goA(x.i) }; });
+    const hasSubs = subs.length > 1;
+    const atabs = AR.map((a, i) => { const on = i === ai, l = L[a.k]; return { title: a.title, line: l.line, cd: l.cd, ct: l.ct, on: on ? 'true' : 'false', bg: on ? l.dark : 'var(--k-card)', bd: on ? l.cd : 'rgba(var(--r-w),.1)', bar: on ? '100%' : '18px', dot: on ? '1' : '0', pick: goA(i) }; });
+
+    // winiety
+    const KIT = [['Kasa fiskalna', true], ['Terminal PolCard', true], ['Waga', false], ['Skaner', false], ['Drukarka etykiet', false], ['GoPOS', false]];
+    const kitS = st.kit || {};
+    const kitOn = KIT.map((k, i) => (i === 0 ? true : (kitS[i] === undefined ? k[1] : kitS[i])));
+    const kit = KIT.map((k, i) => ({ name: k[0], on: kitOn[i] ? 'true' : 'false', bd: kitOn[i] ? 'var(--k-b)' : 'rgba(var(--r-w),.18)', bg: kitOn[i] ? 'color-mix(in srgb, var(--k-b) 22%, transparent)' : 'transparent', dot: kitOn[i] ? 'var(--k-b)' : 'rgba(var(--r-w),.25)', pick: () => { if (i === 0) return; this.setState({ kit: { ...kitS, [i]: !kitOn[i] } }); } }));
+    const kitNote = 'W zestawie: ' + KIT.filter((k, i) => kitOn[i]).map((k) => k[0]).join(', ') + '. Osprzęt dobieramy do kasy i programu, a uruchomienie i szkolenie robimy u Ciebie.';
+    const ITR = ['Komputery i laptopy', 'Kopie zapasowe', 'Ochrona ESET', 'E-faktury KSeF'];
+    const itS = st.itr || { 0: true };
+    const itRows = ITR.map((n, i) => { const on = !!itS[i]; return { name: n, on: on ? 'true' : 'false', status: on ? 'pod opieką' : 'do przeglądu', c: on ? 'var(--k-b)' : 'var(--k-y)', pick: () => this.setState({ itr: { ...itS, [i]: !on } }) }; });
+    const itNote = ITR.filter((n, i) => itS[i]).length + ' Z 4 POD OPIEKĄ';
+    const CM = [['Wejście', 'cam'], ['Sala', 'cam'], ['Zaplecze', 'cam'], ['Wi-Fi gości', 'wifi']];
+    const cmi = st.cm === undefined ? 0 : st.cm;
+    const cams = CM.map((x, i) => ({ label: x[0], cam: x[1] === 'cam', wifi: x[1] === 'wifi', cls: 'cb ' + x[1], on: i === cmi ? 'true' : 'false', aria: 'Pokaż: ' + x[0], bd: i === cmi ? 'var(--k-i)' : 'transparent', pick: () => this.setState({ cm: i }) }));
+    const camCols = CM.map((x, i) => (i === cmi ? '2.6fr' : '1fr')).join(' ');
+    const camNote = cmi === 3 ? 'Wi-Fi dla gości jest oddzielone od sieci kasy i biura.' : 'Kliknij podgląd, żeby go powiększyć — tak samo zobaczysz kamery w telefonie.';
+    const SW = [['Strona', 'web', 'Strona firmowa, wizytówka albo landing page — z panelem do zmian.'], ['Panel zleceń', 'kan', 'CRM, zlecenia, czas pracy i rozliczenia ułożone pod Twój proces.'], ['Automatyzacja', 'flow', 'Raporty i dokumenty powstają same, bez przepisywania.']];
+    const swi = st.sw === undefined ? 0 : st.sw;
+    const swTabs = SW.map((x, i) => { const on = i === swi; return { name: x[0], on: on ? 'true' : 'false', bd: on ? 'var(--k-s)' : 'rgba(var(--r-w),.18)', bg: on ? 'color-mix(in srgb, var(--k-s) 22%, transparent)' : 'transparent', dot: on ? 'var(--k-s)' : 'rgba(var(--r-w),.25)', pick: () => this.setState({ sw: i }) }; });
+    const sw = { web: SW[swi][1] === 'web', kan: SW[swi][1] === 'kan', flow: SW[swi][1] === 'flow', note: SW[swi][2] };
+
+    // branże
+    const B = this.branches();
+    const bKey = st.branch || 'gastro', brN = st.brN || 0;
+    const bb = B.find((x) => x.key === bKey);
+    const BIC = { gastro: 'M7 3v8a2 2 0 002 2v8M11 3v8a2 2 0 01-2 2M17 3c-2 2-2 6 0 8v10', hotel: 'M3 20V8M3 14h18v6M21 14v-3a3 3 0 00-3-3h-7v6M7 11.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', sklep: 'M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6', biuro: 'M4 7h16v13H4zM9 7V4h6v3M4 12h16', budowa: 'M3 20h18M6 20V9l6-5 6 5v11M10 20v-5h4v5', teren: 'M3 7h11v9H3zM14 10h4l3 3v3h-7M7 19a2 2 0 100-4 2 2 0 000 4zM17 19a2 2 0 100-4 2 2 0 000 4z', gabinet: 'M12 3a4 4 0 014 4c0 3-4 5-4 5s-4-2-4-5a4 4 0 014-4zM5 21a7 7 0 0114 0', produkcja: 'M3 21V10l6 4V10l6 4V6l6 4v11z', deweloper: 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01', wspolnota: 'M3 21h18M4 21V9h6v12M14 21V4h6v17M7 12h.01M7 16h.01M17 8h.01M17 12h.01M17 16h.01', szkola: 'M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5', gmina: 'M3 21h18M4 10h16M12 3l9 7H3zM6 10v11M10 10v11M14 10v11M18 10v11', inne: 'M12 5v14M5 12h14' }, BSUB = { gastro: 'restauracja, bar, kawiarnia', hotel: 'pensjonat, apartamenty', sklep: 'sklep, punkt usługowy', biuro: 'kancelaria, księgowość', budowa: 'baza, magazyn, ekipy', teren: 'ekipy, serwis, transport', gabinet: 'gabinet, fryzjer, kosmetyka', produkcja: 'zakład, hurtownia', deweloper: 'inwestycje i projekty', wspolnota: 'bloki, osiedla', szkola: 'pracownie i sale', gmina: 'urząd, instytucja', inne: 'każda firma i instytucja' };
+    const groups = Object.keys(bb.g).map((k) => ({ ...L[k], items: bb.g[k] }));
+    const gl = groups.length;
+    const fKey = st.fb || bKey;
+
+    // sytuacje
+    const WHEN = ['Najpierw', 'Potem', 'Na końcu'];
+    const SC = [
+      ['Otwieram lokal', 'Termin otwarcia goni, a potrzebna jest kasa, sieć, kamery i strona. Układamy kolejność tak, żeby lokal mógł sprzedawać od pierwszego dnia.', [['b', 'Kasa i system sprzedaży'], ['i', 'Sieć, kamery, nagłośnienie'], ['s', 'Strona i Google']]],
+      ['Przejmuję lokal po kimś', 'Kasa po poprzednim właścicielu, kamery bez haseł, sieć nie wiadomo jak zrobiona. Sprawdzamy, co da się przejąć, a co trzeba wymienić.', [['b', 'Przejęcie serwisu kasy'], ['i', 'Przejęcie instalacji'], ['s', 'Przejęcie albo nowa strona']]],
+      ['Rośnie zespół i brakuje porządku w IT', 'Każdy komputer inny, hasła na kartkach, kopii nikt nie sprawdzał. Zaczynamy od przeglądu i kopii zapasowych.', [['b', 'Przegląd IT i kopie zapasowe'], ['b', 'Opieka IT'], ['i', 'Sieć i dostęp']]],
+      ['Muszę wejść w e-faktury', 'Potrzebujesz programu, który wystawia i odbiera e-faktury w KSeF, i kogoś, kto go ustawi i przeszkoli zespół.', [['b', 'Program InsERT i KSeF'], ['b', 'Szkolenie zespołu'], ['s', 'Automatyczne raporty']]],
+      ['Remontuję obiekt', 'Najtaniej zaplanować kable przed tynkami. Wchodzimy na etapie projektu i prowadzimy instalacje do odbioru.', [['i', 'Projekt i okablowanie'], ['i', 'Montaż i uruchomienie'], ['b', 'Kasa, komputery, terminal']]],
+      ['Firma pracuje na Excelu i kartkach', 'Zlecenia w zeszycie, godziny w Excelu, faktury w trzecim miejscu. Zaczynamy od jednego modułu, który boli najbardziej.', [['s', 'Panel pod proces'], ['b', 'Program do faktur'], ['s', 'Automatyzacje']]]
+    ];
+    const si = st.si === undefined ? 0 : st.si, siN = st.siN || 0;
+    const SIC = ['M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6', 'M15 7a4 4 0 11-3.9 5H8v3H5v-3H3v-3h8.1A4 4 0 0115 7z', 'M8 8a3 3 0 100-6 3 3 0 000 6zM16 10a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM2 21v-2a5 5 0 0110 0v2M13 21v-1.5a3.5 3.5 0 017 0V21', 'M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5', 'M14.5 6.5a4 4 0 00-5 5L3 18l3 3 6.5-6.5a4 4 0 005-5L15 12l-3-3z', 'M4 4h16v16H4zM4 10h16M10 4v16'];
+    const sits = SC.map((x, i) => { const on = i === si; return { ic: SIC[i] || SIC[0], ib: on ? 'var(--k-g)' : 'rgba(var(--r-w),.06)', ic2: on ? 'var(--k-gi)' : 'var(--k-ink2)', title: x[0], on: on ? 'true' : 'false', bd: on ? 'var(--k-g)' : 'rgba(var(--r-w),.1)', bg: on ? 'color-mix(in srgb, var(--k-g) 12%, transparent)' : 'var(--k-card)', dash: on ? 'var(--k-g)' : 'rgba(var(--r-w),.25)', pick: () => this.setState({ si: i, siN: siN + 1 }) }; });
+    const sit = { ic: SIC[si] || SIC[0], title: SC[si][0], text: SC[si][1], cls: 'stg ' + alt(siN), order: SC[si][2].map((o, i) => ({ line: L[o[0]].line, c: L[o[0]].cd, ct: L[o[0]].ct, dark: L[o[0]].dark, url: L[o[0]].url, phone: L[o[0]].phone, what: o[1], when: WHEN[i], n: '0' + (i + 1) })) };
+
+    // wdrożenie
+    const WS = [
+      ['Jedna rozmowa', 'Opowiadasz o firmie raz. Nie musisz wiedzieć, która linia czym się zajmuje.', 'Zadajemy pytania i notujemy potrzeby dla wszystkich linii.', 'Mówisz, co boli i na kiedy to ma działać.'],
+      ['Wizja lokalna albo przegląd', 'Przy instalacjach przyjeżdżamy na miejsce, przy IT robimy przegląd, przy stronie — audyt.', 'Sprawdzamy stan zastany i mierzymy to, co trzeba zmierzyć.', 'Udostępniasz obiekt, rzuty albo dostępy.'],
+      ['Jeden plan i wycena', 'Dostajesz plan z podziałem na etapy i wycenę na piśmie, zanim cokolwiek zaczniemy.', 'Układamy kolejność prac między liniami.', 'Akceptujesz zakres albo go zmieniasz.'],
+      ['Realizacja etapami', 'Linie wchodzą w ustalonej kolejności: najpierw to, od czego zależy reszta — zwykle sieć i kasa.', 'Zespoły ustalają szczegóły między sobą, nie przez Ciebie.', 'Masz jeden kontakt do całości.'],
+      ['Uruchomienie i szkolenie', 'Sprawdzamy, czy wszystko działa razem, i pokazujemy zespołowi, jak z tego korzystać.', 'Konfigurujemy, testujemy i szkolimy.', 'Odbierasz działającą całość.'],
+      ['Opieka', 'Po wdrożeniu nie znikamy: serwis kas, opieka IT, serwis instalacji i opieka nad stroną są w tej samej firmie.', 'Pilnujemy przeglądów i odpowiadamy na zgłoszenia.', 'Dzwonisz pod znany numer.']
+    ];
+    const wi = st.wi === undefined ? 0 : st.wi, wiN = st.wiN || 0;
+    const goW = (i) => () => this.setState({ wi: i, wiN: wiN + 1 });
+    const wsteps = WS.map((x, i) => ({ n: '0' + (i + 1), title: x[0], on: i === wi ? 'true' : 'false', ink: i === wi ? 'var(--k-ink)' : (i < wi ? 'var(--k-ink2)' : 'var(--k-ink3)'), bar: i <= wi ? 'var(--k-g)' : 'rgba(var(--r-w),.14)', pick: goW(i) }));
+    const wstep = { n: '0' + (wi + 1), title: WS[wi][0], text: WS[wi][1], we: WS[wi][2], you: WS[wi][3], cls: 'stg ' + alt(wiN) };
+
+    const fo = st.fo === undefined ? 0 : st.fo;
+    const FAQ = [
+      ['Potrzebuję kilku rzeczy naraz. Muszę dzwonić w kilka miejsc?', 'Nie. Wystarczy jeden telefon albo jedna wiadomość — połączymy zespoły po naszej stronie i dostaniesz jeden plan.'],
+      ['Czy linie to osobne firmy?', 'Nie. To jedna firma, PRO-KOM Tadeusz Wójciak z Rabki-Zdroju, z jednym NIP-em. Linie mają osobne strony i zespoły, żeby sprawa od razu trafiała do właściwych ludzi.'],
+      ['Mam już kasę albo kamery od innej firmy. Co wtedy?', 'Przejmujemy serwis kas po innych firmach i załatwiamy formalności. Przejmujemy też gotowe instalacje — najpierw sprawdzamy, co da się zostawić.'],
+      ['Co robicie przy uruchomieniu kasy fiskalnej?', 'Zgłaszamy kasę, fiskalizujemy ją, programujemy i szkolimy obsługę. Wniosek o ulgę na kasę składa Twoja księgowa.'],
+      ['Czy podajecie ceny na stronie?', 'Nie. Wycenę dostajesz na piśmie po krótkiej rozmowie, bo zależy od lokalu, liczby stanowisk i zakresu.'],
+      ['Jak szybko odpowiadacie?', 'Linia Biznes oddzwania w 60 minut w godzinach pracy. Instalacje odpowiadają w 24 godziny w dni robocze, Software w 1 dzień roboczy.'],
+      ['Czy dojeżdżacie do klienta?', 'Tak. Do firm i na montaże dojeżdżamy na Podhalu i w całej Małopolsce. Strony i systemy robimy zdalnie dla firm z całej Polski.'],
+      ['Czy pomagacie przy zakupach z dofinansowaniem?', 'Tak. Przygotowujemy kosztorys i dokumenty potrzebne do rozliczenia zamówienia.'],
+      ['Czy muszę brać wszystko naraz?', 'Nie. Możesz zacząć od jednej rzeczy, na przykład kasy albo kamer. Plan pokazuje tylko, co warto mieć na uwadze na przyszłość.'],
+      ['Gdzie jest Wasz salon?', 'Rabka-Zdrój, ul. Orkana 16B. Od poniedziałku do piątku 9:00–17:00.']
+    ];
+    return {
+      heroRows: [['b', 'Kasa fiskalna', 'zafiskalizowana'], ['b', 'E-faktury KSeF', 'skonfigurowane'], ['b', 'Komputery i kopie', 'pod opieką'], ['i', 'Monitoring', 'nagrywa'], ['i', 'Wi-Fi gości', 'działa'], ['i', 'Alarm', 'uzbrojony'], ['s', 'Strona firmowa', 'online']].map((r, i) => ({ c: L[r[0]].cd, a: r[1], b: r[2], dl: (i * 0.22).toFixed(2) + 's' })),
+      facts: [['cal', 'Od 2004 roku', 'pracujemy dla firm'], ['bld', '100+', 'klientów firmowych'], ['shield', '4 autoryzacje', 'Posnet, Elzab, GoPOS, InsERT'], ['pin', 'Podhale · Małopolska', 'dojazd na miejsce, a zdalnie cała Polska']].map((f) => ({ d: IC[f[0]], v: f[1], l: f[2] })),
+      branches: B.map((x) => { const on = x.key === bKey; return { name: x.name, sub: BSUB[x.key] || '', ic: BIC[x.key] || BIC.inne, ib: on ? 'var(--k-g)' : 'rgba(var(--r-w),.06)', ic2: on ? 'var(--k-gi)' : 'var(--k-ink2)', on: on ? 'true' : 'false', bd: on ? 'var(--k-g)' : 'rgba(var(--r-w),.1)', bg: on ? 'color-mix(in srgb, var(--k-g) 12%, var(--k-card))' : 'var(--k-card)', ink: 'var(--k-ink)', pick: () => this.setState({ branch: x.key, brN: brN + 1 }) }; }),
+      plan: { name: bb.name, ic: BIC[bKey] || BIC.inne, title: bb.title, groups: groups, count: gl + (gl === 1 ? ' linia' : (gl < 5 ? ' linie' : ' linii')), start: bb.start.map((t, i) => ({ n: '0' + (i + 1), t: t })), ask: bb.ask, cls: 'stg ' + alt(brN) },
+      chips: B.map((x) => { const on = x.key === fKey; return { name: x.name, on: on ? 'true' : 'false', bd: on ? 'var(--k-g)' : 'rgba(var(--r-w),.14)', bg: on ? 'color-mix(in srgb, var(--k-g) 16%, transparent)' : 'transparent', pick: () => this.setState({ fb: x.key }) }; }),
+      total: AR.reduce((n, a) => n + a.items.length, 0),
+      A, atabs, ltabsF, subs, hasSubs, aprev: goA((ai + AR.length - 1) % AR.length), anext: goA((ai + 1) % AR.length),
+      kit, kitNote, itRows, itNote, cams, camCols, camNote, swTabs, sw,
+      sits, sit,
+      wsteps, wstep, wprev: goW((wi + 5) % 6), wnext: goW((wi + 1) % 6),
+      care: [
+        { ...L.b, title: 'Serwis kas fiskalnych', items: ['Autoryzowany serwis Posnet i Elzab', 'Przeglądy i naprawy', 'Przejęcie serwisu po innej firmie'], promise: 'Oddzwonimy w 60 minut w godzinach pracy' },
+        { ...L.b, title: 'Opieka IT', items: ['Pomoc zdalna i na miejscu', 'Monitoring i kopie zapasowe', 'Bezpłatny przegląd IT na start'], promise: 'Oddzwonimy w 60 minut w godzinach pracy' },
+        { ...L.i, title: 'Serwis instalacji', items: ['Gwarancja na montaż 24 miesiące', 'Przeglądy i pomoc zdalna', 'Przejęcie cudzej instalacji'], promise: 'Odpowiemy w 24 godziny w dni robocze' },
+        { ...L.s, title: 'Opieka nad stroną i systemem', items: ['Serwer w Polsce, kopia co noc', 'Aktualizacje i drobne zmiany', 'Rozwój systemu razem z firmą'], promise: 'Odpowiedź w 1 dzień roboczy' }
+      ],
+      compare: [
+        { t: 'Kontakt', a: 'Osobny numer i osobne ustalenia z każdym wykonawcą.', b: 'Jeden kontakt do całości, a w tle właściwe zespoły.' },
+        { t: 'Gdy coś nie działa razem', a: 'Każdy wykonawca odpowiada za swoją część i trzeba ustalić, czyja to sprawa.', b: 'Sieć, kasę i komputer ustawia ta sama firma — sprawdzamy całość.' },
+        { t: 'Kolejność prac', a: 'Terminy wykonawców koordynujesz sam.', b: 'Kolejność między liniami układamy po naszej stronie.' },
+        { t: 'Wiedza o Twojej firmie', a: 'Każdemu wykonawcy tłumaczysz wszystko od początku.', b: 'Opowiadasz raz — zespoły pracują pod jednym dachem.' },
+        { t: 'Serwis po wdrożeniu', a: 'Kilka umów i kilka miejsc do zgłaszania usterek.', b: 'Serwis kas, IT, instalacji i strony w jednej firmie.' },
+        { t: 'Na miejscu', a: 'Zależy od wykonawcy — część działa tylko zdalnie.', b: 'Salon i serwis w Rabce-Zdroju, dojazd na Podhalu i w Małopolsce.' }
+      ],
+      grants: [['calc', 'Kosztorys pod wymagania projektu'], ['doc', 'Dokumenty do rozliczenia'], ['pc', 'Dostawa, konfiguracja, szkolenie']].map((g) => ({ d: IC[g[0]], t: g[1] })),
+      auths: [['Autoryzowany serwis', 'Posnet', 'Fiskalizacja, przeglądy i naprawy kas.'], ['Autoryzowany serwis', 'Elzab', 'Fiskalizacja, przeglądy i naprawy kas.'], ['Autoryzowany partner', 'GoPOS', 'Wdrożenie systemu sprzedaży w gastronomii.'], ['Autoryzowany partner', 'InsERT', 'Subiekt, wdrożenie i szkolenie.']].map((a) => ({ k: a[0], n: a[1], d: a[2] })),
+      brands: [['b', 'Lenovo'], ['b', 'Dell'], ['b', 'Microsoft'], ['b', 'ESET'], ['b', 'Synology'], ['b', 'QNAP'], ['b', 'PolCard'], ['b', 'Fellowes'], ['b', 'Kobra'], ['i', 'Ampio'], ['i', 'Hikvision'], ['i', 'Dahua'], ['i', 'BCS'], ['i', 'Ubiquiti'], ['i', 'APART'], ['i', 'Elzab EcoPower']].map((b) => ({ c: L[b[0]].cd, n: b[1] })),
+      faq: FAQ.map((f, i) => { const open = i === fo; return { n: (i < 9 ? '0' : '') + (i + 1), q: f[0], a: f[1], isOpen: open, open: open ? 'true' : 'false', rot: open ? 'rotate(45deg)' : 'none', bd: open ? 'color-mix(in srgb, var(--k-g) 40%, transparent)' : 'rgba(var(--r-w),.1)', pick: () => this.setState({ fo: open ? -1 : i }) }; }),
+      after: ['Wiadomość trafia do linii, której dotyczy Twoja sprawa.', 'Oddzwaniamy albo odpisujemy i dopytujemy o szczegóły.', 'Dostajesz plan i wycenę na piśmie, zanim cokolwiek zaczniemy.'].map((t, i) => ({ n: '0' + (i + 1), t: t })),
+      next: [['Inwestycje i dostawy', 'Większe zamówienie albo cały obiekt', 'Sprzęt IT, RTV i AGD dla firm i instytucji — złóż listę zapytania, wczytaj przykład obiektu, wyślij SWZ.', 'Dostawy.dc.html'], ['Załatw online', 'Załatw to bez dzwonienia', 'Zgłoszenie naprawy, wycena strony, plan instalacji — wszystko, co da się zrobić przez internet.', 'Narzedzia.dc.html'], ['Pomoc', 'Co zrobić, gdy…', 'Kasa nie drukuje, padło Wi-Fi, pękł ekran. Krótkie instrukcje i właściwy numer.', 'Pomoc.dc.html'], ['Linie PRO-KOM', 'Co gdzie załatwisz', 'Lista spraw z przypisaną linią, numerem i stroną z pełną ofertą.', 'Linie.dc.html']].map((n) => ({ k: n[0], t: n[1], d: n[2], href: n[3] }))
+    };
+  }
+}
+</script>
+</body>
+</html>

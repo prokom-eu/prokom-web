@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Załatw online — PRO-KOM</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/*PKTHEME*/:root{--k-bg:#0A0D0B;--k-bg2:#0E1210;--k-card:#131815;--k-card2:#111613;--k-foot:#060807;--k-bgp:#0C0F0D;--k-cardp:#171C18;--k-dim:#050706;--k-ink:#F4F5F1;--k-ink1:#DDE1DB;--k-ink2:#C9CEC8;--k-ink3:#A9AFA9;--k-ink4:#B9BDB6;--k-ink5:#7E857E;--k-gt:#8FE07A;--k-gd:#7BD36A;--k-g:#4FB034;--k-g1:#5BC23E;--k-g2:#43A02B;--k-g3:#2E7A1E;--k-gi:#07140A;--k-b:#4A7BE0;--k-bt:#8DADF0;--k-bd:#0A1430;--k-bi:#06102A;--k-i:#12B6D8;--k-it:#4CCBE6;--k-id:#071214;--k-ii:#06181C;--k-s:#9670EE;--k-st:#B49BF5;--k-sd:#15131F;--k-si:#120A26;--k-t:#E2483A;--k-tt:#F29185;--k-td:#1A1312;--k-ti:#1A0806;--k-y:#F2C230;--k-yd:#080C0B;--k-yi:#1A1400;--r-w:255,255,255;--r-gl:22,28,24;--r-gl2:19,24,21;--r-gl3:20,25,21;--r-gl4:10,13,11;--r-gl5:17,22,19;--k-white:#FFFFFF}
+html[data-theme="light"]{--k-bg:#F4F5F1;--k-bg2:#ECEEE8;--k-card:#FFFFFF;--k-card2:#FFFFFF;--k-foot:#E4E7E0;--k-bgp:#F4F5F1;--k-cardp:#FFFFFF;--k-dim:#D9DCD5;--k-ink:#121613;--k-ink1:#2A302B;--k-ink2:#3A413B;--k-ink3:#4F5650;--k-ink4:#4F5650;--k-ink5:#8A918A;--k-gt:#2E7A1E;--k-gd:#2E7A1E;--k-g:#2E7A1E;--k-g1:#358F27;--k-g2:#286F18;--k-g3:#1F5A12;--k-gi:#FFFFFF;--k-b:#244FB0;--k-bt:#244FB0;--k-bd:#E6ECFB;--k-bi:#FFFFFF;--k-i:#007A96;--k-it:#006A82;--k-id:#DDF1F5;--k-ii:#FFFFFF;--k-s:#6E45D4;--k-st:#5B33C4;--k-sd:#ECE7FB;--k-si:#FFFFFF;--k-t:#C4362B;--k-tt:#B3301F;--k-td:#FBE8E5;--k-ti:#FFFFFF;--k-y:#9A7000;--k-yd:#FBF2D2;--k-yi:#FFFFFF;--r-w:18,22,19;--r-gl:255,255,255;--r-gl2:255,255,255;--r-gl3:255,255,255;--r-gl4:255,255,255;--r-gl5:255,255,255;--k-white:#121613}
+@keyframes pkrise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+section{animation:pkrise linear both;animation-timeline:view();animation-range:entry 0% cover 14%}
+section a[class~="lift"],section details,section figure{animation:pkpop linear both;animation-timeline:view();animation-range:entry 0% cover 18%}
+}
+a,button,details,summary{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s,color .3s}
+button:hover{transform:translateY(-2px)}
+a[style*="border-radius: 16px"]:hover,a[style*="border-radius: 18px"]:hover,a[style*="border-radius: 15px"]:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;transition:background-color .4s}
+body,body *{transition-property:background-color,border-color,color,transform,box-shadow,opacity,flex;transition-duration:.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+/*END*/
+body{margin:0}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+.pk{font-family:Manrope,system-ui,sans-serif;background:var(--k-bg);color:var(--k-ink)}
+.pk .d{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-.03em;margin:0;line-height:.96}
+.pk .eb{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.pk p{margin:0}
+.pk button{font-family:inherit;cursor:pointer}
+.pk .lift{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .lift:hover{transform:translateY(-6px)}
+.pk :focus-visible{outline:2px solid var(--k-gt);outline-offset:2px}
+@keyframes pulse{50%{opacity:.35}}
+.pk .rec{animation:pulse 1.6s infinite}
+@media (prefers-reduced-motion:reduce){.pk *{transition:none !important;animation:none !important}}
+/*PKX*/
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk .lt{--c:var(--k-g);position:relative;overflow:hidden;color:var(--k-white);border:1px solid color-mix(in srgb,var(--c) 38%,transparent);transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .3s}
+.pk .lt::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--c);z-index:1}
+.pk .lt::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:38%;background:linear-gradient(100deg,transparent,rgba(var(--r-w),.13),transparent);transform:skewX(-18deg);pointer-events:none;opacity:0}
+.pk a.lt:hover,.pk .lt.hv:hover{transform:translateY(-6px);border-color:var(--c);box-shadow:0 0 0 1px var(--c),0 36px 80px -36px var(--c)}
+.pk .lt:hover::after{animation:xsweep 1.1s cubic-bezier(.2,.8,.2,1)}
+@keyframes xsweep{0%{left:-60%;opacity:1}100%{left:130%;opacity:1}}
+.pk .lt i{display:block;font-style:normal}
+.pk .sgn{display:flex;flex-direction:column;gap:3px;white-space:nowrap}
+.pk .sgn b{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;font-size:17px;letter-spacing:-.02em;display:flex;align-items:center;gap:3px;line-height:1}
+.pk .sgn b i{width:8px;height:3px;background:var(--c)}
+.pk .sgn em{text-transform:uppercase;font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;font-style:normal;font-size:10px;letter-spacing:.18em;color:color-mix(in srgb,var(--c) 70%,var(--k-white))}
+.pk .pil{height:34px;padding:0 13px;flex:none;border-radius:999px;background:var(--c);display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:12.5px;white-space:nowrap;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.pk .lt:hover .pil{transform:translateX(3px)}
+.pk .vg{height:104px;flex:none;border-radius:16px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pk .lt:hover .vg{transform:translateY(-3px) scale(1.015);border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.pk .vr{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(var(--r-w),.09);font-size:12.5px;font-weight:700}
+.pk .vp{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--c) 22%,transparent)}
+.pk .vp i{width:6px;height:6px;border-radius:50%;background:var(--c)}
+.pk .cam{position:relative;border-radius:10px;background:rgba(var(--r-w),.09);display:flex;flex-direction:column;overflow:hidden}
+.pk .cam::before{content:"";position:absolute;left:0;right:0;height:38%;top:-40%;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--c) 28%,transparent),transparent);animation:xscan 3.4s linear infinite}
+@keyframes xscan{to{top:110%}}
+.pk .cam b{position:absolute;left:7px;top:6px;display:flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;letter-spacing:.06em}
+.pk .cam b i{width:6px;height:6px;border-radius:50%;background:var(--k-t)}
+.pk .cam em{position:absolute;left:7px;bottom:6px;font-style:normal;font-size:10.5px;font-weight:700}
+.pk .wf{width:6px;border-radius:2px;background:var(--c);animation:pulse 1.8s infinite}
+.pk .sk{border-radius:4px;background:rgba(var(--r-w),.2);animation:xskw 2.6s ease-in-out infinite}
+@keyframes xskw{50%{opacity:.55}}
+@keyframes xeq{50%{transform:scaleY(.5)}}
+.pk .eq{flex:1;max-width:9px;border-radius:2px;background:var(--c);transform-origin:50% 100%;animation:xeq 1.9s ease-in-out infinite}
+.pk .stp{flex:1;height:5px;border-radius:3px;background:rgba(var(--r-w),.16)}
+.pk .stp.on{background:var(--c)}
+.pk .stp.now{background:var(--c);animation:pulse 1.4s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.pk .rec{animation:pulse 1.6s infinite}
+@keyframes xin{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+.pk .hin{animation:xin .9s cubic-bezier(.2,.8,.2,1) both}
+.pk .hin:nth-child(2){animation-delay:.08s}.pk .hin:nth-child(3){animation-delay:.16s}.pk .hin:nth-child(4){animation-delay:.24s}.pk .hin:nth-child(5){animation-delay:.32s}.pk .hin:nth-child(6){animation-delay:.4s}.pk .hin:nth-child(7){animation-delay:.48s}.pk .hin:nth-child(8){animation-delay:.56s}.pk .hin:nth-child(9){animation-delay:.64s}
+.pk .cd2{transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .4s}
+.pk .cd2:hover{transform:translateY(-4px);border-color:rgba(var(--r-w),.26) !important;box-shadow:0 26px 60px -40px rgba(0,0,0,.7)}
+@media (prefers-reduced-motion:reduce){.pk *,.pk *::before,.pk *::after{transition:none !important;animation:none !important}}
+/*PKXEND*/
+/*PKZ*/
+.pk .wrapz{max-width:1560px;margin:0 auto;padding-left:clamp(20px,3vw,48px);padding-right:clamp(20px,3vw,48px)}
+.pk .nb{white-space:nowrap}
+@keyframes zin{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.pk .zi{animation:zin .8s cubic-bezier(.2,.8,.2,1) both}
+.pk .zi:nth-child(2){animation-delay:.07s}.pk .zi:nth-child(3){animation-delay:.14s}.pk .zi:nth-child(4){animation-delay:.21s}.pk .zi:nth-child(5){animation-delay:.28s}.pk .zi:nth-child(6){animation-delay:.35s}
+.pk .sgz{display:flex;flex-direction:column;gap:3px;white-space:nowrap}
+.pk .sgz b{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;font-size:15px;letter-spacing:-.02em;display:flex;align-items:center;gap:3px;line-height:1}
+.pk .sgz b i{display:block;width:7px;height:3px;background:var(--c)}
+.pk .sgz em{font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;font-style:normal;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ct,var(--c))}
+.pk .qf{position:relative;display:flex;gap:10px;align-items:center;height:64px;padding:0 12px 0 20px;border-radius:20px;background:var(--k-card);border:1.5px solid rgba(var(--r-w),.16);transition:border-color .4s,box-shadow .4s}
+.pk .qf:focus-within{border-color:var(--k-g);box-shadow:0 0 0 4px color-mix(in srgb,var(--k-g) 18%,transparent)}
+.pk .qf input{flex:1;min-width:0;height:100%;border:none;outline:none;background:transparent;color:var(--k-ink);font:600 17px Manrope,sans-serif}
+.pk .ty{position:absolute;left:52px;top:0;bottom:0;display:flex;align-items:center;pointer-events:none;font:600 17px Manrope,sans-serif;color:var(--k-ink3)}
+.pk .tyi{display:inline-block;overflow:hidden;white-space:nowrap;max-width:0;animation:tyw 4.2s steps(30,end) infinite}
+@keyframes tyw{0%{max-width:0}32%{max-width:32ch}92%{max-width:32ch}100%{max-width:0}}
+.pk .tyc{display:block;width:2px;height:20px;margin-left:2px;background:var(--k-g);animation:pulse 1s steps(1) infinite}
+.pk .qf:focus-within .ty{display:none}
+.pk .fc{height:40px;padding:0 14px;border-radius:999px;border:1px solid;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:800;white-space:nowrap;transition:background-color .4s,border-color .4s,color .4s,transform .4s cubic-bezier(.2,.8,.2,1)}
+.pk .fc:hover{transform:translateY(-2px)}
+.pk .fc i{display:block;width:12px;height:3px;font-style:normal}
+.pk .fc small{font-size:12px;font-weight:700;opacity:.65}
+.pk .sh{--c:var(--k-g);position:relative;display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:24px;border:1px solid color-mix(in srgb,var(--c) 26%,transparent);color:var(--k-white);min-height:150px;box-sizing:border-box;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s}
+.pk .sh:hover{transform:translateY(-4px);border-color:var(--c);box-shadow:0 26px 54px -34px var(--c)}
+.pk .shi{width:42px;height:42px;flex:none;border-radius:13px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c)}
+.pk .sha{margin-left:auto;width:34px;height:34px;flex:none;border-radius:50%;background:var(--c);display:flex;align-items:center;justify-content:center;font:800 14px Manrope,sans-serif;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.pk .sh:hover .sha{transform:translate(2px,-2px)}
+.pk .lp{display:flex;gap:18px;align-items:flex-start}
+.pk .lp .lst{flex:1.25 1 520px;min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-content:start}
+.pk .lp .pvw{flex:1 1 480px;min-width:0;position:sticky;top:18px}
+.pk .tk{--c:var(--k-g);position:relative;display:flex;flex-direction:column;gap:7px;width:100%;box-sizing:border-box;padding:14px 16px;border-radius:20px;border:1px solid;text-align:left;color:var(--k-ink);transition:transform .45s cubic-bezier(.2,.8,.2,1),background-color .4s,border-color .4s,box-shadow .45s}
+.pk .tk:hover{transform:translateX(4px);border-color:color-mix(in srgb,var(--c) 60%,transparent) !important}
+.pk .tk[aria-pressed="true"]{box-shadow:0 22px 46px -34px var(--c)}
+.pk .tk .tkb{font-size:11.5px;font-weight:800;padding:4px 9px;border-radius:999px;white-space:nowrap}
+.pk .pv{--c:var(--k-g);position:relative;overflow:hidden;border-radius:32px;border:1px solid color-mix(in srgb,var(--c) 30%,transparent);padding:clamp(22px,2.6vw,40px);display:flex;flex-direction:column;gap:20px;color:var(--k-white);transition:background-color .5s,border-color .5s}
+@keyframes pva{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pvb{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.pk .pv.sa>*{animation:pva .6s cubic-bezier(.2,.8,.2,1) both}
+.pk .pv.sb>*{animation:pvb .6s cubic-bezier(.2,.8,.2,1) both}
+.pk .pv>*:nth-child(2){animation-delay:.05s}.pk .pv>*:nth-child(3){animation-delay:.1s}.pk .pv>*:nth-child(4){animation-delay:.15s}.pk .pv>*:nth-child(5){animation-delay:.2s}.pk .pv>*:nth-child(6){animation-delay:.25s}.pk .pv>*:nth-child(7){animation-delay:.3s}
+.pk .pch{font-size:13.5px;font-weight:700;line-height:1.25;padding:7px 11px;border-radius:999px;background:color-mix(in srgb,var(--c) 12%,transparent);border:1px solid color-mix(in srgb,var(--c) 26%,transparent)}
+.pk .vz{border-radius:20px;background:rgba(var(--r-w),.05);border:1px solid rgba(var(--r-w),.1);padding:16px;display:flex;flex-direction:column;justify-content:center;gap:10px;min-height:168px;box-sizing:border-box;transition:border-color .4s}
+.pk .pv:hover .vz{border-color:color-mix(in srgb,var(--c) 50%,transparent)}
+.pk .vz i{display:block;font-style:normal}
+.pk .ss{margin:0;padding:16px 0 0;list-style:none;border-top:1px solid rgba(var(--r-w),.1);display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-start}
+.pk .ss li{display:flex;align-items:flex-start;gap:10px;flex:1 1 200px;min-width:0}
+.pk .ss li:last-child{flex:1.6 1 260px}
+.pk .ss .sn{width:28px;height:28px;flex:none;border-radius:50%;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--ct,var(--c));display:flex;align-items:center;justify-content:center;font:800 11.5px Archivo,Arial,sans-serif}
+.pk .pth{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:8px}
+.pk .pth li{border-radius:14px;background:rgba(var(--r-w),.04);border:1px solid rgba(var(--r-w),.1);padding:11px 12px;display:flex;flex-direction:column;gap:3px}
+.pk .cta{height:54px;padding:0 24px;border-radius:16px;background:var(--c);display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:16px;white-space:nowrap;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
+.pk .cta:hover{transform:translateY(-2px);box-shadow:0 18px 40px -22px var(--c)}
+.pk .gh{height:54px;padding:0 20px;border-radius:16px;border:1.5px solid rgba(var(--r-w),.24);display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:16px;white-space:nowrap;transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .4s,background-color .4s}
+.pk .gh:hover{transform:translateY(-2px);border-color:rgba(var(--r-w),.5);background:rgba(var(--r-w),.04)}
+.pk .oc{position:relative;display:flex;flex-direction:column;gap:14px;padding:24px;border-radius:26px;background:var(--k-card);border:1px solid rgba(var(--r-w),.1);min-height:230px;box-sizing:border-box;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s,box-shadow .5s}
+.pk .oc:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--k-g) 55%,transparent);box-shadow:0 26px 54px -38px var(--k-g)}
+.pk .bk{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 20px;padding:16px 18px;border-radius:18px;border:1px solid rgba(var(--r-w),.09);background:rgba(var(--r-w),.03);transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .4s,background-color .4s}
+.pk .bk:hover{transform:translateX(4px);border-color:color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 8%,transparent)}
+.pk .fq{border-radius:20px;background:var(--k-card);border:1px solid rgba(var(--r-w),.1);padding:20px 22px;transition:border-color .4s}
+.pk .fq:hover,.pk .fq[open]{border-color:color-mix(in srgb,var(--k-g) 45%,transparent)}
+.pk .fq summary{cursor:pointer;font-family:Archivo,Arial,sans-serif;font-stretch:118%;font-weight:800;font-size:18px;letter-spacing:-.01em;display:flex;gap:14px;align-items:baseline;list-style:none}
+.pk .fq summary::-webkit-details-marker{display:none}
+@media (max-width:1000px){
+.pk .lp{flex-direction:column}
+.pk .lp .lst{display:flex;max-width:none;width:100%;flex:none;flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
+.pk .lp .lst .tk{flex:none;width:270px;scroll-snap-align:start}
+.pk .lp .lst .tk:hover{transform:none}
+.pk .lp .pvw{position:static;width:100%;flex:none}
+}
+@media (prefers-reduced-motion:reduce){.pk *,.pk *::before,.pk *::after{transition:none !important;animation:none !important}.pk .tyi{max-width:32ch}}
+/*PKZEND*/
+/*PKCALM*/
+@keyframes pkrise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pk .tl:hover::after,.pk .lift:hover::after,.pk .nx:hover::after,.pk .cd2:hover::after,.pk .lt:hover::after,.pkx .lift:hover::after,.pkx .nx:hover::after{animation:none !important;opacity:0 !important}
+.pk .tl:hover,.pk .lift:hover,.pk .nx:hover,.pk .cd2:hover,.pk .lt:hover,.pkx .lift:hover,.pkx .nx:hover{transform:translateY(-4px) !important}
+.pk .tl,.pk .lift,.pk .nx,.pk .cd2,.pk .lt,.pk .ht{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .4s !important}
+.pk h1,.pk h2,.pk h3{text-wrap:balance}
+.pk p{text-wrap:pretty}
+/*CALMEND*/
+</style>
+</helmet>
+<div class="pk" style="position: relative; overflow-x: clip">
+<dc-import name="Naglowek" active="narzedzia" hint-size="100%,130px"></dc-import>
+
+<!-- HERO -->
+<section style="position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none; background: var(--k-bg)">
+<div style="position: absolute; left: 50%; top: -340px; width: 1500px; height: 760px; margin-left: -750px; border-radius: 50%; background: radial-gradient(closest-side, var(--k-g), transparent); opacity: .09"></div>
+<div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(var(--r-w),.11) 1px, transparent 1.4px); background-size: 26px 26px; mask-image: radial-gradient(ellipse 75% 85% at 50% 38%, #000 0%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 75% 85% at 50% 38%, #000 0%, transparent 78%)"></div>
+</div>
+<div class="wrapz" style="position: relative; padding-top: 28px; padding-bottom: 44px; display: flex; flex-wrap: wrap; gap: 28px clamp(28px, 4vw, 64px); align-items: stretch">
+
+<div style="flex: 1.25 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<nav aria-label="Okruszki" style="display: flex; gap: 8px; font-size: 13.5px; color: var(--k-ink3)"><a href="Main.dc.html"><span class="nb">PRO-KOM</span></a><span>/</span><span style="color: var(--k-ink); font-weight: 700">Załatw online</span></nav>
+<span class="eb" style="color: var(--k-gt)">Załatw online · {{total}} narzędzi na pięciu stronach</span>
+<h1 class="d" style="font-size: clamp(36px, 4.4vw, 68px); line-height: .96">Załatw to od razu.<br>Bez dzwonienia.</h1>
+<p style="font-size: 18px; line-height: 1.55; color: var(--k-ink2); max-width: 620px">Zgłoszenia, statusy, wyceny, plany i konfiguratory ze wszystkich linii <span class="nb">PRO-KOM</span> w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.</p>
+
+<div style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px">
+<label for="nq" class="d" style="font-size: 22px; letter-spacing: -.02em">Co chcesz zrobić?</label>
+<span aria-live="polite" style="font-size: 14.5px; color: var(--k-ink3)">Pokazujemy <strong style="color: var(--k-ink)">{{count}}</strong> z {{total}}</span>
+</div>
+<div class="qf">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" style="flex: none"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.5-4.5"></path></svg>
+<sc-if value="{{demo}}" hint-placeholder-val="{{false}}"><span aria-hidden="true" class="ty"><span class="tyi">{{demo.text}}</span><i class="tyc"></i></span></sc-if>
+<input id="nq" value="{{q}}" onChange="{{onQ}}" placeholder="{{ph}}" autocomplete="off">
+<sc-if value="{{hasQ}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{clearQ}}" aria-label="Wyczyść wyszukiwanie" style="width: 40px; height: 40px; flex: none; border-radius: 50%; border: 1px solid rgba(var(--r-w),.18); background: transparent; color: var(--k-ink); font-size: 15px">✕</button></sc-if>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 7px; align-items: center">
+<span style="font-size: 13px; color: var(--k-ink3); margin-right: 2px">Na przykład:</span>
+<sc-for list="{{examples}}" as="e" hint-placeholder-count="5">
+<button type="button" onClick="{{e.pick}}" style="font: 700 13px Manrope, sans-serif; padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(var(--r-w),.14); background: rgba(var(--r-w),.04); color: var(--k-ink2); display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 12px; height: 3px; background: {{e.c}}"></span>{{e.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid rgba(var(--r-w),.1)">
+<div role="group" aria-label="Co chcesz zrobić" style="display: flex; flex-wrap: wrap; gap: 7px">
+<sc-for list="{{acts}}" as="a" hint-placeholder-count="6">
+<button type="button" onClick="{{a.pick}}" aria-pressed="{{a.on}}" class="fc" style="border-color: {{a.bd}}; background: {{a.bg}}; color: {{a.ink}}">{{a.name}}<small>{{a.n}}</small></button>
+</sc-for>
+</div>
+<div role="group" aria-label="Linia" style="display: flex; flex-wrap: wrap; gap: 7px">
+<sc-for list="{{lineFilters}}" as="l" hint-placeholder-count="6">
+<button type="button" onClick="{{l.pick}}" aria-pressed="{{l.on}}" class="fc" style="border-color: {{l.bd}}; background: {{l.bg}}; color: var(--k-ink)"><i style="background: {{l.cd}}"></i>{{l.name}}<small>{{l.n}}</small></button>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<span class="eb" style="color: var(--k-ink3)">Najczęściej używane</span>
+<div style="flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{shorts}}" as="s" hint-placeholder-count="4">
+<a href="{{s.url}}" class="sh zi" style="--c: {{s.cd}}; --ct: {{s.ct}}; background: {{s.dark}}">
+<span style="display: flex; align-items: center; gap: 12px"><span class="shi" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{s.d}}"></path></svg></span><span class="sgz"><b>PRO<i></i>KOM</b><em>{{s.line}}</em></span></span>
+<span class="d" style="font-size: clamp(19px, 1.6vw, 24px); letter-spacing: -.02em; margin-top: auto">{{s.title}}</span>
+<span style="display: flex; align-items: center; gap: 10px"><span style="font-size: 13.5px; line-height: 1.4; font-weight: 600; color: rgba(var(--r-w),.74)">{{s.note}}</span><span class="sha" aria-hidden="true" style="color: {{s.ink}}">↗</span></span>
+</a>
+</sc-for>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- LISTA + PODGLĄD -->
+<section id="narzedzia" class="wrapz" style="padding-top: 28px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 10px 24px">
+<h2 class="d" style="font-size: clamp(26px, 2.8vw, 40px)">{{listTitle}}</h2>
+<sc-if value="{{filtered}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{reset}}" class="fc" style="border-color: rgba(var(--r-w),.2); background: transparent; color: var(--k-ink)">Pokaż wszystkie {{total}} ✕</button></sc-if>
+</div>
+
+<sc-if value="{{some}}" hint-placeholder-val="{{true}}">
+<div class="lp">
+<div class="lst" role="group" aria-label="Narzędzia">
+<sc-for list="{{cards}}" as="c" hint-placeholder-count="8">
+<button type="button" onClick="{{c.pick}}" aria-pressed="{{c.on}}" class="tk" style="--c: {{c.cd}}; --ct: {{c.ct}}; background: {{c.bg}}; border-color: {{c.bd}}">
+<span style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><span class="sgz"><b>PRO<i></i>KOM</b><em>{{c.line}}</em></span><span style="display: flex; gap: 5px; align-items: center"><span class="tkb" style="background: color-mix(in srgb, {{c.cd}} 18%, transparent)">{{c.actName}}</span><sc-if value="{{c.soon}}" hint-placeholder-val="{{false}}"><span class="tkb" style="background: rgba(var(--r-w),.1)">wkrótce</span></sc-if></span></span>
+<span class="d" style="font-size: 18px; letter-spacing: -.01em">{{c.title}}</span>
+<span style="font-size: 13.5px; line-height: 1.4; color: var(--k-ink3)">{{c.what}}</span>
+</button>
+</sc-for>
+</div>
+
+<div class="pvw">
+<div class="{{P.cls}}" style="--c: {{P.cd}}; --ct: {{P.ct}}; background: {{P.dark}}">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px">
+<span class="sgz"><b style="font-size: 22px">PRO<i style="width: 10px; height: 4px"></i>KOM</b><em style="font-size: 11.5px">{{P.line}}</em></span>
+<span style="display: flex; flex-wrap: wrap; gap: 6px"><span class="pch">{{P.actName}}</span><sc-if value="{{P.hasBadge}}" hint-placeholder-val="{{false}}"><span class="pch" style="background: rgba(var(--r-w),.1); border-color: rgba(var(--r-w),.16)">{{P.badge}}</span></sc-if></span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h3 class="d" style="font-size: clamp(28px, 3vw, 46px)">{{P.title}}</h3>
+<p style="font-size: 17px; line-height: 1.55; color: rgba(var(--r-w),.84); max-width: 640px">{{P.what}}</p>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+<div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="eb" style="color: {{P.ct}}">Co przygotować</span><span style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{P.prep}}" as="p" hint-placeholder-count="2"><span class="pch">{{p}}</span></sc-for></span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span class="eb" style="color: {{P.ct}}">Co dostaniesz</span><span style="font-size: 16px; line-height: 1.5; font-weight: 700">{{P.get}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span class="eb" style="color: {{P.ct}}">Linia {{P.line}} · kontakt</span><span style="font-size: 14.5px; line-height: 1.5; color: rgba(var(--r-w),.78)">{{P.time}}</span></div>
+</div>
+
+<div aria-hidden="true" class="vz" style="flex: 1 1 260px; min-width: 0">
+<sc-if value="{{P.isRows}}" hint-placeholder-val="{{false}}">
+<sc-for list="{{P.rows}}" as="r" hint-placeholder-count="3">
+<span style="display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; padding: 9px 0; border-bottom: 1px solid rgba(var(--r-w),.08)"><span style="display: flex; gap: 9px; align-items: center"><i class="rec" style="width: 7px; height: 7px; border-radius: 50%; background: {{P.cd}}"></i>{{r.a}}</span><span style="font-size: 12.5px; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, {{P.cd}} 20%, transparent)">{{r.b}}</span></span>
+</sc-for>
+</sc-if>
+<sc-if value="{{P.isSteps}}" hint-placeholder-val="{{false}}">
+<span style="font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: {{P.ct}}">Etapy</span>
+<span style="display: flex; gap: 5px">
+<sc-for list="{{P.steps}}" as="s" hint-placeholder-count="4"><i style="flex: 1; height: 8px; border-radius: 4px; background: {{s.bg}}"></i></sc-for>
+</span>
+<span style="display: flex; gap: 5px; font-size: 12.5px; font-weight: 700">
+<sc-for list="{{P.steps}}" as="s" hint-placeholder-count="4"><span style="flex: 1; color: {{s.ink}}">{{s.t}}</span></sc-for>
+</span>
+</sc-if>
+<sc-if value="{{P.isForm}}" hint-placeholder-val="{{false}}">
+<sc-for list="{{P.fields}}" as="f" hint-placeholder-count="3">
+<span style="height: 36px; border-radius: 11px; border: 1px solid rgba(var(--r-w),.16); display: flex; align-items: center; padding: 0 12px; font-size: 13px; color: rgba(var(--r-w),.7)">{{f}}</span>
+</sc-for>
+<span style="height: 36px; border-radius: 11px; background: {{P.cd}}; color: {{P.ink}}; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800">Wyślij</span>
+</sc-if>
+<sc-if value="{{P.isGrid}}" hint-placeholder-val="{{false}}">
+<span style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{P.tiles}}" as="t" hint-placeholder-count="4">
+<span style="height: 56px; border-radius: 13px; border: 1px solid color-mix(in srgb, {{P.cd}} 45%, transparent); background: rgba(var(--r-w),.04); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800">{{t}}</span>
+</sc-for>
+</span>
+</sc-if>
+<sc-if value="{{P.isWin}}" hint-placeholder-val="{{false}}">
+<span style="display: flex; gap: 6px; align-items: center"><i style="width: 8px; height: 8px; border-radius: 50%; background: rgba(var(--r-w),.25)"></i><i style="width: 8px; height: 8px; border-radius: 50%; background: rgba(var(--r-w),.25)"></i><span style="flex: 1; height: 24px; border-radius: 8px; border: 1px solid rgba(var(--r-w),.18); margin-left: 6px; display: flex; align-items: center; padding: 0 10px; font-size: 12px; color: rgba(var(--r-w),.7)">{{P.winText}}</span></span>
+<i style="width: 68%; height: 14px; border-radius: 4px; background: var(--k-white)"></i>
+<i class="sk" style="width: 90%; height: 7px"></i>
+<i class="sk" style="width: 56%; height: 7px; animation-delay: .4s"></i>
+<i style="width: 92px; height: 24px; border-radius: 8px; background: {{P.cd}}"></i>
+</sc-if>
+</div>
+</div>
+
+<ol class="ss" aria-label="Jak to działa">
+<sc-for list="{{P.how}}" as="h" hint-placeholder-count="3">
+<li><span class="sn">{{h.n}}</span><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: {{P.ct}}">{{h.k}}</span><span style="font-size: 14.5px; font-weight: 700; line-height: 1.35">{{h.t}}</span></span></li>
+</sc-for>
+</ol>
+
+<sc-if value="{{P.hasPath}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span class="eb" style="color: {{P.ct}}">Cała ścieżka: {{P.pathTitle}}</span>
+<ol class="pth">
+<sc-for list="{{P.path}}" as="s" hint-placeholder-count="5">
+<li><span style="font: 800 11.5px Archivo, Arial, sans-serif; color: {{P.ct}}">{{s.n}}</span><span class="d" style="font-size: 15px; letter-spacing: 0">{{s.t}}</span><span style="font-size: 12.5px; line-height: 1.4; color: rgba(var(--r-w),.72)">{{s.d}}</span></li>
+</sc-for>
+</ol>
+</div>
+</sc-if>
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; border-top: 1px solid rgba(var(--r-w),.1); padding-top: 18px">
+<a href="{{P.url}}" class="cta" style="color: {{P.ink}}">{{P.openLabel}} ↗</a>
+<a href="{{P.telHref}}" class="gh d" style="font-size: 17px; letter-spacing: 0">{{P.phone}}</a>
+<span style="font-size: 13.5px; line-height: 1.45; color: rgba(var(--r-w),.72); flex: 1 1 200px">{{P.alt}}</span>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+<div style="border-radius: 28px; border: 1px dashed rgba(var(--r-w),.22); padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; gap: 12px; align-items: flex-start">
+<span class="d" style="font-size: 28px">Tego jeszcze nie da się załatwić online.</span>
+<span style="font-size: 16px; color: var(--k-ink3)">Zmień filtr albo zadzwoń: <a href="tel:+48883200151" class="nb" style="color: var(--k-ink); font-weight: 800">883 200 151</a>.</span>
+<button type="button" onClick="{{reset}}" style="height: 48px; padding: 0 20px; border-radius: 14px; border: none; background: var(--k-g); color: var(--k-gi); font-size: 15px; font-weight: 800">Pokaż wszystko</button>
+</div>
+</sc-if>
+</section>
+
+<!-- NA TEJ STRONIE -->
+<section id="tutaj" style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08)">
+<div class="wrapz" style="padding-top: 88px; padding-bottom: 88px; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 820px">
+<span class="eb" style="color: var(--k-gt)">pro-kom.eu</span>
+<h2 class="d" style="font-size: clamp(32px, 3.8vw, 56px)">Na tej stronie też coś załatwisz.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 14px">
+
+<a href="Szukaj.dc.html" class="oc">
+<span class="eb" style="color: var(--k-gt)">Szukaj · Ctrl K</span>
+<span class="d" style="font-size: 23px">Wyszukiwarka wszystkich linii</span>
+<span style="font-size: 14.5px; line-height: 1.5; color: var(--k-ink3)">Wpisujesz „kamery” albo „kasa” i od razu widzisz właściwą linię, numer i stronę.</span>
+<span aria-hidden="true" style="margin-top: auto; border-radius: 16px; background: var(--k-bg); border: 1px solid rgba(var(--r-w),.1); padding: 12px; display: flex; flex-direction: column; gap: 8px"><span style="height: 34px; border-radius: 10px; border: 1.5px solid var(--k-g); display: flex; align-items: center; padding: 0 12px; font-size: 13.5px; font-weight: 700">kamery</span><span style="display: flex; gap: 9px; align-items: center; font-size: 13.5px; font-weight: 700"><span style="width: 14px; height: 4px; background: var(--k-i)"></span><span class="nb">PRO-KOM</span> Instalacje</span></span>
+</a>
+
+<a href="Main.dc.html#dobierz" class="oc">
+<span class="eb" style="color: var(--k-gt)">Dobierz · 10 sekund</span>
+<span class="d" style="font-size: 23px">Dobierz, co dla Ciebie robimy</span>
+<span style="font-size: 14.5px; line-height: 1.5; color: var(--k-ink3)">Wybierasz swoją branżę albo sytuację i dostajesz plan z kilku linii naraz.</span>
+<span aria-hidden="true" style="margin-top: auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; font-size: 12.5px; font-weight: 800"><span style="height: 38px; border-radius: 10px; background: var(--k-g); color: var(--k-gi); display: flex; align-items: center; justify-content: center">Firma i biuro</span><span style="height: 38px; border-radius: 10px; border: 1px solid rgba(var(--r-w),.16); display: flex; align-items: center; justify-content: center">Gastronomia</span><span style="height: 38px; border-radius: 10px; border: 1px solid rgba(var(--r-w),.16); display: flex; align-items: center; justify-content: center">Dom i rodzina</span><span style="height: 38px; border-radius: 10px; border: 1px solid rgba(var(--r-w),.16); display: flex; align-items: center; justify-content: center">Gracz</span></span>
+</a>
+
+<a href="Zasieg.dc.html" class="oc">
+<span class="eb" style="color: var(--k-gt)">Gdzie działamy</span>
+<span class="d" style="font-size: 23px">Sprawdź swoją miejscowość</span>
+<span style="font-size: 14.5px; line-height: 1.5; color: var(--k-ink3)">Wpisujesz nazwę i widzisz, czy dojeżdżamy na miejsce, czy pracujemy zdalnie i wysyłkowo.</span>
+<span aria-hidden="true" style="margin-top: auto; border-radius: 16px; background: var(--k-bg); border: 1px solid rgba(var(--r-w),.1); padding: 12px; display: flex; flex-direction: column; gap: 8px"><span style="height: 34px; border-radius: 10px; border: 1px solid rgba(var(--r-w),.2); display: flex; align-items: center; padding: 0 12px; font-size: 13.5px; font-weight: 700">Nowy Targ</span><span style="display: flex; gap: 8px; align-items: center; font-size: 13.5px; font-weight: 800; color: var(--k-gt)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--k-g)"></span>Nowy Targ · strefa Podhale</span></span>
+</a>
+
+<a href="Kontakt.dc.html" class="oc">
+<span class="eb" style="color: var(--k-gt)">Kontakt</span>
+<span class="d" style="font-size: 23px">Formularz, który sam trafia, gdzie trzeba</span>
+<span style="font-size: 14.5px; line-height: 1.5; color: var(--k-ink3)">Zaznaczasz, czego dotyczy sprawa, a wiadomość idzie prosto do skrzynki właściwej linii.</span>
+<span aria-hidden="true" style="margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px; font-size: 12.5px; font-weight: 800"><span style="padding: 7px 11px; border-radius: 999px; border: 1.5px solid var(--k-s)">Software</span><span style="padding: 7px 11px; border-radius: 999px; border: 1px solid rgba(var(--r-w),.2)">Biznes</span><span style="padding: 7px 11px; border-radius: 999px; border: 1px solid rgba(var(--r-w),.2)">Instalacje</span><span style="padding: 7px 11px; border-radius: 999px; border: 1px solid rgba(var(--r-w),.2)">Tech</span><span style="padding: 7px 11px; border-radius: 999px; border: 1px solid rgba(var(--r-w),.2)">Gaming</span><span style="flex: 1 1 100%; font-size: 12.5px; font-weight: 600; color: var(--k-ink3); padding-top: 2px">Trafi do: <strong style="color: var(--k-ink)">kontakt@prokomsoftware.pl</strong></span></span>
+</a>
+</div>
+</div>
+</section>
+
+<!-- NIE MA TU TWOJEJ SPRAWY -->
+<section id="telefon" class="wrapz" style="padding-top: 88px; padding-bottom: 88px">
+<div style="border-radius: 36px; background: var(--k-card); border: 1px solid rgba(var(--r-w),.1); padding: clamp(24px, 3.4vw, 56px); display: flex; flex-wrap: wrap; gap: 32px clamp(32px, 4vw, 64px); align-items: center">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<span class="eb" style="color: var(--k-gt)">Telefon i wiadomość</span>
+<h2 class="d" style="font-size: clamp(32px, 3.8vw, 56px)">Nie ma tu Twojej sprawy?</h2>
+<p style="font-size: 17px; line-height: 1.6; color: var(--k-ink3); max-width: 520px">Zadzwoń pod numer firmy albo napisz jedno zdanie — pokierujemy do właściwej linii. Każda linia ma też swój numer.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px">
+<a href="tel:+48883200151" class="cta d" style="--c: var(--k-g); color: var(--k-gi); height: 60px; font-size: 22px; letter-spacing: 0">883 200 151</a>
+<a href="Kontakt.dc.html" class="gh" style="height: 60px">Napisz do nas</a>
+<a href="Pomoc.dc.html" class="gh" style="height: 60px">Co zrobić, gdy… →</a>
+</div>
+<span style="font-size: 14px; color: var(--k-ink3)">Salon: Rabka-Zdrój, ul. Orkana 16B · pn–pt 9:00–17:00</span>
+</div>
+<div style="flex: 1.3 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{book}}" as="b" hint-placeholder-count="5">
+<a href="{{b.telHref}}" class="bk" style="--c: {{b.cd}}">
+<span style="display: flex; flex-direction: column; gap: 3px; min-width: 0"><span style="display: flex; gap: 10px; align-items: center"><span style="width: 18px; height: 4px; background: {{b.cd}}"></span><span class="d" style="font-size: 19px; letter-spacing: 0">{{b.name}}</span></span><span style="font-size: 13.5px; line-height: 1.4; color: var(--k-ink3)">{{b.note}}</span></span>
+<span class="d nb" style="font-size: 21px; letter-spacing: 0">{{b.phone}}</span>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="pytania" style="background: var(--k-bg2); border-top: 1px solid rgba(var(--r-w),.08)">
+<div class="wrapz" style="padding-top: 88px; padding-bottom: 88px; display: flex; flex-wrap: wrap; gap: 32px 48px">
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span class="eb" style="color: var(--k-gt)">Pytania</span>
+<h2 class="d" style="font-size: clamp(32px, 3.8vw, 56px)">Zanim klikniesz</h2>
+<p style="font-size: 16px; line-height: 1.6; color: var(--k-ink3); max-width: 380px">Najczęstsze pytania o załatwianie spraw online we wszystkich liniach.</p>
+</div>
+<div style="flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{faq}}" as="f" hint-placeholder-count="8">
+<details open="{{f.open}}" class="fq">
+<summary><span style="font-size: 12.5px; color: var(--k-gt)">{{f.n}}</span>{{f.q}}</summary>
+<p style="font-size: 15.5px; line-height: 1.6; color: var(--k-ink3); padding: 10px 0 0 34px">{{f.a}}</p>
+</details>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- CO DALEJ -->
+<section id="dalej" class="wrapz" style="padding-top: 88px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span class="eb" style="color: var(--k-gt)">Co dalej</span>
+<h2 class="d" style="font-size: clamp(32px, 3.8vw, 56px)">Jeszcze nie wiesz, od czego zacząć?</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 14px">
+<a href="Main.dc.html#dobierz" class="oc" style="min-height: 170px"><span class="eb" style="color: var(--k-gt)">10 sekund</span><span class="d" style="font-size: 26px">Dobierz dla swojej branży</span><span style="font-size: 14.5px; line-height: 1.5; color: var(--k-ink3)">Wybierasz, kim jesteś, i widzisz, które linie się Tobą zajmą.</span><span aria-hidden="true" style="margin-top: auto; font-weight: 800; color: var(--k-gt)">Dobierz →</span></a>
+<a href="Pomoc.dc.html" class="oc" style="min-height: 170px"><span class="eb" style="color: var(--k-gt)">Pomoc</span><span class="d" style="font-size: 26px">Co zrobić, gdy…</span><span style="font-size: 14.5px; line-height: 1.5; color: var(--k-ink3)">Coś nie działa? Pierwsze kroki dla najczęstszych sytuacji.</span><span aria-hidden="true" style="margin-top: auto; font-weight: 800; color: var(--k-gt)">Zobacz sytuacje →</span></a>
+<a href="Linie.dc.html" class="oc" style="min-height: 170px"><span class="eb" style="color: var(--k-gt)">Oferta</span><span class="d" style="font-size: 26px">Wszystkie linie <span class="nb">PRO-KOM</span></span><span style="font-size: 14.5px; line-height: 1.5; color: var(--k-ink3)">Biznes, Instalacje, Software, Tech i Gaming — co gdzie załatwisz.</span><span aria-hidden="true" style="margin-top: auto; font-weight: 800; color: var(--k-gt)">Zobacz linie →</span></a>
+</div>
+</section>
+
+<dc-import name="Stopka" hint-size="100%,720px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":8000}}'>
+class Component extends DCLogic {
+  lines() {
+    return {
+      biznes: { name: 'Biznes', cd: 'var(--k-b)', ct: 'var(--k-bt)', dark: 'var(--k-bd)', ink: 'var(--k-bi)', domain: 'prokombiznes.pl' },
+      instalacje: { name: 'Instalacje', cd: 'var(--k-i)', ct: 'var(--k-it)', dark: 'var(--k-id)', ink: 'var(--k-ii)', domain: 'prokominstalacje.pl' },
+      software: { name: 'Software', cd: 'var(--k-s)', ct: 'var(--k-st)', dark: 'var(--k-sd)', ink: 'var(--k-si)', domain: 'prokomsoftware.pl' },
+      tech: { name: 'Tech', cd: 'var(--k-t)', ct: 'var(--k-tt)', dark: 'var(--k-td)', ink: 'var(--k-ti)', domain: 'prokomserwis.pl' },
+      gaming: { name: 'Gaming', cd: 'var(--k-y)', ct: 'var(--k-y)', dark: 'var(--k-yd)', ink: 'var(--k-yi)', domain: 'prokomgaming.pl' }
+    };
+  }
+  data() {
+    const rows = (a) => ({ kind: 'rows', rows: a.map((r) => ({ a: r[0], b: r[1] })) });
+    const steps = (a, done) => ({ kind: 'steps', steps: a, done: done });
+    const form = (a) => ({ kind: 'form', fields: a });
+    const grid = (a) => ({ kind: 'grid', tiles: a });
+    const win = (t) => ({ kind: 'win', winText: t });
+    return [
+      ['biznes', 'policz', 'Konfigurator', 'Odpowiadasz na kilka pytań o firmie i dostajesz dobrany zestaw sprzętu i programów.', ['Rodzaj działalności', 'Liczba stanowisk'], 'Gotowy zestaw, o który możesz od razu zapytać.', 'Otwórz konfigurator', form(['Branża', 'Liczba stanowisk', 'Co już masz']), 'Wkrótce'],
+      ['biznes', 'policz', 'Plan Twojej firmy', 'Klikasz w plan lokalu i widzisz, jaki sprzęt gdzie pracuje.', ['Typ lokalu: sklep, restauracja, biuro'], 'Listę urządzeń z planu w jednym zapytaniu.', 'Zobacz plan', grid(['Kasa', 'Sala', 'Zaplecze', 'Biuro']), 'Wkrótce'],
+      ['biznes', 'zapytaj', 'Lista zapytania', 'Zbierasz produkty jak do koszyka, bez cen, i wysyłasz jedno zapytanie o wycenę.', ['Ilości', 'Uwagi do pozycji'], 'W godzinach pracy oddzwonimy w 60 minut.', 'Zacznij listę', rows([['Kasa fiskalna', '1 szt.'], ['Terminal płatniczy', '1 szt.'], ['Laptop', '3 szt.']]), 'Wkrótce'],
+      ['biznes', 'sprawdz', 'Katalog z wyszukiwarką', 'Szukasz sprzętu i programów po nazwie, marce albo potocznym określeniu.', ['Nazwa albo model, jeśli znasz'], 'Kartę produktu z parametrami i wersjami.', 'Przeglądaj katalog', win('kasa fiskalna online'), 'Wkrótce'],
+      ['biznes', 'zglos', 'Zgłoś awarię i pomoc zdalna', 'Zgłaszasz problem z kasą, komputerem albo siecią w firmie. W opiece IT pomagamy też zdalnie.', ['Co nie działa i od kiedy', 'Komunikat z ekranu'], 'Kontakt od serwisu.', 'Zgłoś awarię', steps(['Zgłoszenie', 'Kontakt', 'Pomoc zdalna', 'Wizyta'], 1), 'Wkrótce'],
+      ['instalacje', 'zaplanuj', 'Zaplanuj instalację', 'Opisujesz obiekt i potrzeby: kamery, alarm, sieć, smart home, nagłośnienie.', ['Rodzaj obiektu', 'Miejscowość'], 'Odpowiedź w 24 godziny w dni robocze, potem plan i wycenę.', 'Zaplanuj', form(['Rodzaj obiektu', 'Co instalujemy', 'Miejscowość']), ''],
+      ['instalacje', 'zglos', 'Zgłoś awarię instalacji', 'Kamery, alarm albo sieć przestały działać? Zgłaszasz online.', ['Co nie działa', 'Adres obiektu'], 'Odpowiedź w 24 godziny w dni robocze; termin wizyty ustalamy w rozmowie.', 'Zgłoś awarię', steps(['Zgłoszenie', 'Odpowiedź', 'Pomoc zdalna', 'Wizyta'], 1), ''],
+      ['instalacje', 'zapytaj', 'Dla architektów', 'Przesyłasz rzuty i dostajesz uwagi do instalacji, zanim wejdą tynki.', ['Link do rzutów', 'Etap projektu'], 'Kontakt od opiekuna architektów.', 'Wyślij rzuty', form(['Link do rzutów', 'Etap projektu', 'Pracownia']), ''],
+      ['instalacje', 'policz', 'Ładowarki Elzab EcoPower', 'Porównujesz modele ładowarek i dobierasz wersję do domu, firmy albo obiektu.', ['Gdzie ma stanąć ładowarka'], 'Dobrany model.', 'Porównaj modele', rows([['CC Home', 'porównaj'], ['CC Wall', 'porównaj'], ['CC City', 'porównaj']]), ''],
+      ['software', 'policz', 'Policz swój projekt', 'Kreator w kilku krokach: wybierasz, czego potrzebujesz, i widzisz cenę oraz termin.', ['Rodzaj strony albo systemu', 'Adres obecnej strony, jeśli jest'], 'Cenę i termin od razu; wycenę na piśmie w 5–7 dni.', 'Otwórz kreator', steps(['Co budujemy', 'Szczegóły', 'Zakres', 'Wynik'], 2), 'Ok. 60 sekund'],
+      ['software', 'sprawdz', 'Darmowy audyt strony', 'Podajesz adres swojej strony, a my sprawdzamy, co poprawić.', ['Adres strony'], 'Raport z audytu w 2 dni robocze.', 'Zamów audyt', form(['Adres strony', 'E-mail']), ''],
+      ['software', 'zapytaj', 'Twój projekt', 'Dodajesz rozwiązania do listy i wysyłasz całość do wyceny.', ['Wybrane pozycje', 'Na kiedy potrzebujesz'], 'Odpowiedź w 1 dzień roboczy.', 'Zbuduj listę', rows([['Strona firmowa', 'dodano'], ['Panel zleceń', 'dodano'], ['Opieka', 'dodano']]), ''],
+      ['software', 'sprawdz', 'Podglądy na żywo', 'Oglądasz, jak może wyglądać Twoja strona albo system, zanim cokolwiek zamówisz.', ['Nic — wystarczy wejść'], 'Podgląd na komputerze i na telefonie.', 'Zobacz podglądy', win('twojafirma.pl'), ''],
+      ['tech', 'zglos', 'Zgłoś naprawę', 'Wybierasz urządzenie, opisujesz usterkę, przynosisz sprzęt albo wysyłasz kurierem.', ['Model urządzenia', 'Opis usterki'], 'Bezpłatną diagnozę i wycenę.', 'Zgłoś naprawę', form(['Urządzenie', 'Model', 'Opis usterki']), ''],
+      ['tech', 'sprawdz', 'Status naprawy', 'Sprawdzasz, na jakim etapie jest Twoja naprawa.', ['Numer zlecenia albo konto klienta'], 'Aktualny etap: przyjęte, diagnoza, naprawa, do odbioru.', 'Sprawdź status', steps(['Przyjęte', 'Diagnoza', 'Naprawa', 'Do odbioru'], 3), ''],
+      ['tech', 'sprawdz', 'Konto klienta', 'Wszystkie Twoje naprawy w jednym miejscu.', ['E-mail i hasło'], 'Historię napraw i ich statusy.', 'Zaloguj się', rows([['Telefon', 'wydany'], ['Laptop', 'w naprawie'], ['Konsola', 'do odbioru']]), ''],
+      ['gaming', 'policz', 'Konfigurator', 'Składasz komputer krok po kroku: obudowa, moc, pamięć, dysk.', ['Budżet albo gra, w którą grasz'], 'Cenę od razu, potem ofertę z listą części.', 'Otwórz konfigurator', grid(['Obudowa', 'Moc', 'Pamięć', 'Dysk']), ''],
+      ['gaming', 'policz', 'Dobór pod grę', 'Wybierasz grę z 33 tytułów i monitor, widzisz pasujące zestawy.', ['Gra', 'Rozdzielczość monitora'], 'Zestawy z wynikiem klatek i źródłem pomiaru.', 'W co grasz?', rows([['FullHD', 'zestawy'], ['2K', 'zestawy'], ['4K', 'zestawy']]), '33 gry'],
+      ['gaming', 'sprawdz', 'Porównaj zestawy', 'Zestawiasz do trzech komputerów obok siebie.', ['2–3 zestawy do porównania'], 'Różnice w częściach, cenie i klatkach.', 'Porównaj', grid(['Zestaw 1', 'Zestaw 2', 'Zestaw 3', '+ dodaj']), 'Do 3 naraz'],
+      ['gaming', 'zapytaj', 'Zapytanie o zestaw', 'Wysyłasz zapytanie o gotowy zestaw albo własną konfigurację.', ['Wybrany zestaw', 'E-mail'], 'Ofertę z ceną; płacisz dopiero po akceptacji.', 'Zapytaj o zestaw', form(['Zestaw albo konfiguracja', 'E-mail']), '']
+    ];
+  }
+  componentDidMount() {
+    this._t = setInterval(() => { const st = this.state || {}; this.setState({ tick: (st.tick || 0) + 1 }); }, 4200);
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+  norm(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'); }
+  renderVals() {
+    const st = this.state || {};
+    const L = this.lines();
+    const act = st.act || 'all';
+    const line = st.line || 'all';
+    const q = st.q || '';
+    const tick = st.tick || 0;
+    const A = [['all', 'Wszystko'], ['zglos', 'Zgłosić'], ['sprawdz', 'Sprawdzić'], ['policz', 'Policzyć i dobrać'], ['zaplanuj', 'Zaplanować'], ['zapytaj', 'Zapytać']];
+    const actName = { zglos: 'zgłoś', sprawdz: 'sprawdź', policz: 'policz i dobierz', zaplanuj: 'zaplanuj', zapytaj: 'zapytaj' };
+    const KW = { biznes: 'kasa fiskalna gopos subiekt insert ksef komputery laptopy firma biuro terminal', instalacje: 'kamery kamera monitoring alarm wifi wi-fi siec smart home domofon naglosnienie ladowarka', software: 'strona www internetowa system panel aplikacja wycena audyt', tech: 'telefon laptop komputer konsola naprawa ekran bateria status zlecenie', gaming: 'gry gier gra gracz komputer pc zestaw klatki fps' };
+    const PHONE = { biznes: '889 003 889', instalacje: '889 003 889', software: '883 200 151', tech: '883 200 151', gaming: '883 200 151' };
+    const TIME = {
+      biznes: 'pn–pt 9:00–17:00 · w godzinach pracy oddzwonimy w 60 minut',
+      instalacje: 'pn–pt 9:00–17:00 · odpowiedź w 24 godziny w dni robocze',
+      software: 'pn–pt 9:00–17:00 · odpowiedź w 1 dzień roboczy',
+      tech: 'pn–pt 9:00–17:00, sobota 9:00–14:00 · bezpłatna diagnoza i wycena',
+      gaming: 'odpowiedzi codziennie 8–22'
+    };
+    const S2 = ['Odpowiadasz na kilka pytań o firmie', 'Klikasz w plan lokalu', 'Zbierasz produkty na listę', 'Wpisujesz, czego szukasz', 'Opisujesz, co nie działa', 'Opisujesz obiekt i potrzeby', 'Opisujesz, co nie działa', 'Przesyłasz rzuty', 'Porównujesz modele', 'Wybierasz, czego potrzebujesz', 'Podajesz adres strony', 'Dodajesz rozwiązania do listy', 'Oglądasz podglądy', 'Wybierasz urządzenie i opisujesz usterkę', 'Podajesz numer zlecenia', 'Logujesz się', 'Składasz komputer krok po kroku', 'Wybierasz grę i monitor', 'Wybierasz 2–3 zestawy', 'Wysyłasz zapytanie'];
+    const PT = (title, s) => ({ title: title, steps: s.map((x, i) => ({ n: '0' + (i + 1), t: x[0], d: x[1] })) });
+    const PATHS = {
+      'tech|Zgłoś naprawę': PT('naprawa telefonu', [['Zgłoszenie', 'Online albo w salonie w Rabce-Zdroju.'], ['Diagnostyka', 'Sprawdzamy urządzenie i szukamy przyczyny.'], ['Wycena', 'Diagnoza i wycena są bezpłatne.'], ['Decyzja', 'Ty decydujesz, czy naprawiamy.'], ['Naprawa', 'Etap widzisz w statusie online.'], ['Odbiór', 'W salonie albo kurierem.']]),
+      'software|Policz swój projekt': PT('wycena strony albo systemu', [['Kreator', 'Cena i termin od razu, w ok. 60 sekund.'], ['Podgląd i wycena', 'Na piśmie, w 5–7 dni.'], ['Akceptacja', 'Zatwierdzasz zakres, zanim zaczniemy.'], ['Budowa', 'Na wersji testowej, do Twojej akceptacji.']]),
+      'instalacje|Zaplanuj instalację': PT('instalacja w domu albo obiekcie', [['Formularz', 'Opisujesz obiekt i potrzeby.'], ['Rozmowa', 'Odpowiadamy w 24 godziny w dni robocze.'], ['Wizja lokalna', 'Termin ustalamy w rozmowie.'], ['Plan i wycena', 'Dobieramy rozwiązanie pod obiekt, nie pod markę.'], ['Montaż', '24 miesiące gwarancji na montaż.']])
+    };
+    const all = this.data().map((c, idx) => {
+      const l = L[c[0]]; const pv = c[7]; const soon = c[8] === 'Wkrótce';
+      const path = PATHS[c[0] + '|' + c[2]];
+      return {
+        id: idx, key: c[0], act: c[1], line: l.name, actName: actName[c[1]], cd: l.cd, ct: l.ct, dark: l.dark, ink: l.ink, domain: l.domain, url: 'https://' + l.domain,
+        title: c[2], what: c[3], prep: c[4], get: c[5], cta: c[6], badge: c[8] || '', hasBadge: !!c[8], soon: soon,
+        phone: PHONE[c[0]], telHref: 'tel:+48' + PHONE[c[0]].replace(/ /g, ''), time: TIME[c[0]],
+        openLabel: soon ? 'Wkrótce na ' + l.domain : c[6] + ' na ' + l.domain,
+        alt: soon ? 'Strona ' + l.domain + ' jest w budowie. Do jej startu załatwisz to telefonicznie.' : 'Wolisz rozmowę? Zadzwoń do linii ' + l.name + '.',
+        how: [{ n: '01', k: 'Otwierasz', t: 'Narzędzie na ' + l.domain }, { n: '02', k: 'Robisz', t: S2[idx] }, { n: '03', k: 'Dostajesz', t: c[5] }],
+        hasPath: !!path, pathTitle: path ? path.title : '', path: path ? path.steps : [],
+        hay: this.norm([c[2], c[3], c[4].join(' '), c[5], l.name, actName[c[1]], KW[c[0]]].join(' ')),
+        isRows: pv.kind === 'rows', rows: pv.rows || [],
+        isSteps: pv.kind === 'steps', steps: (pv.steps || []).map((t, i) => ({ t: t, bg: i < pv.done ? l.cd : 'rgba(var(--r-w),.16)', ink: i < pv.done ? 'var(--k-white)' : 'rgba(var(--r-w),.55)' })),
+        isForm: pv.kind === 'form', fields: pv.fields || [],
+        isGrid: pv.kind === 'grid', tiles: pv.tiles || [],
+        isWin: pv.kind === 'win', winText: pv.winText || ''
+      };
+    });
+    const toks = this.norm(q).split(/\s+/).filter((t) => t.length >= 3).map((t) => t.slice(0, 5));
+    const fullQ = all.filter((c) => toks.every((t) => c.hay.includes(t)));
+    const baseQ = toks.length === 0 ? all : (fullQ.length ? fullQ : all.filter((c) => toks.some((t) => c.hay.includes(t))));
+    const inQ = {}; baseQ.forEach((c) => { inQ[c.id] = true; });
+    const mq = (c) => inQ[c.id] === true;
+    const tScore = (c) => { const t = this.norm(c.title); return toks.filter((k) => t.includes(k)).length; };
+    const ma = (c, a) => a === 'all' || c.act === a;
+    const ml = (c, k) => k === 'all' || c.key === k;
+    const list = all.filter((c) => ma(c, act) && ml(c, line) && mq(c)).map((c, i) => ({ c: c, i: i, s: tScore(c) })).sort((x, y) => (y.s - x.s) || (x.i - y.i)).map((x) => x.c);
+    const selId = st.sel === undefined ? 14 : st.sel;
+    const n = st.n || 0;
+    const cur = list.find((c) => c.id === selId) || list[0] || all[14];
+    const cards = list.map((c) => { const on = c.id === cur.id; return { ...c, on: on ? 'true' : 'false', bg: on ? c.dark : 'var(--k-card)', bd: on ? c.cd : 'rgba(var(--r-w),.1)', pick: () => this.setState({ sel: c.id, n: n + 1 }) }; });
+    const LF = [['all', 'Wszystkie linie', 'var(--k-g)']].concat(Object.keys(L).map((k) => [k, L[k].name, L[k].cd]));
+    const EX = [['status naprawy', 'tech'], ['zgłoś naprawę telefonu', 'tech'], ['kamery w pensjonacie', 'instalacje'], ['wycena strony', 'software'], ['komputer do gier', 'gaming'], ['kasa fiskalna', 'biznes']];
+    const SH = [[14, 'M12 7v5l3 2M12 21a9 9 0 100-18 9 9 0 000 18z', 'Po numerze zlecenia, bez dzwonienia.'], [13, 'M8 3h8v18H8zM11 18h2', 'Bezpłatna diagnoza i wycena.'], [5, 'M4 11l8-7 8 7v9H4zM10 20v-6h4v6', 'Odpowiedź w 24 godziny w dni robocze.'], [9, 'M8 8l-4 4 4 4M16 8l4 4-4 4M13 6l-2 12', 'Kreator, ok. 60 sekund.']];
+    const filtered = act !== 'all' || line !== 'all' || toks.length > 0;
+    return {
+      q: q, hasQ: q.length > 0, ph: q ? 'Napisz, co chcesz załatwić' : '',
+      demo: q ? false : { text: EX[tick % EX.length][0] },
+      onQ: (e) => this.setState({ q: e.target.value, n: n + 1 }),
+      clearQ: () => this.setState({ q: '', n: n + 1 }),
+      examples: EX.slice(0, 5).map((e) => ({ label: e[0], c: L[e[1]].cd, pick: () => this.setState({ q: e[0], act: 'all', line: 'all', n: n + 1 }) })),
+      cards, P: { ...cur, cls: 'pv ' + (n % 2 ? 'sa' : 'sb') },
+      count: list.length, total: all.length, empty: list.length === 0, some: list.length > 0, filtered: filtered,
+      listTitle: filtered ? 'Pasujące narzędzia' : 'Wszystkie narzędzia',
+      reset: () => this.setState({ act: 'all', line: 'all', q: '', n: n + 1 }),
+      acts: A.map((a) => { const on = a[0] === act; return { name: a[1], n: String(all.filter((c) => ma(c, a[0]) && ml(c, line) && mq(c)).length), on: on ? 'true' : 'false', bd: on ? 'var(--k-g)' : 'rgba(var(--r-w),.16)', bg: on ? 'var(--k-g)' : 'transparent', ink: on ? 'var(--k-gi)' : 'var(--k-ink)', pick: () => this.setState({ act: a[0], n: n + 1 }) }; }),
+      lineFilters: LF.map((l) => { const on = l[0] === line; return { name: l[1], cd: l[2], n: String(all.filter((c) => ma(c, act) && ml(c, l[0]) && mq(c)).length), on: on ? 'true' : 'false', bd: on ? l[2] : 'rgba(var(--r-w),.16)', bg: on ? 'color-mix(in srgb, ' + l[2] + ' 14%, transparent)' : 'transparent', pick: () => this.setState({ line: l[0], n: n + 1 }) }; }),
+      shorts: SH.map((s) => { const c = all[s[0]]; return { title: c.title, line: c.line, cd: c.cd, ct: c.ct, dark: c.dark, ink: c.ink, url: c.url, d: s[1], note: s[2] }; }),
+      book: Object.keys(L).map((k) => ({ name: L[k].name, cd: L[k].cd, phone: PHONE[k], telHref: 'tel:+48' + PHONE[k].replace(/ /g, ''), note: TIME[k] })),
+      faq: [
+        ['Czy za coś tutaj płacę?', 'Nie. Zgłoszenia, wyceny, kreatory i audyt są bezpłatne. Płacisz dopiero za zamówioną usługę albo naprawę, po akceptacji wyceny.'],
+        ['Dlaczego przyciski prowadzą na inne strony?', 'Każda linia PRO-KOM ma własną stronę z pełną ofertą i własnymi formularzami. Tu zbieramy je w jednym miejscu, żebyś nie musiał szukać.'],
+        ['Co znaczy „Wkrótce” przy linii Biznes?', 'Strona prokombiznes.pl jest w budowie. Do jej startu sprawy firmowe załatwisz telefonicznie pod numerem 889 003 889.'],
+        ['Jak szybko dostanę odpowiedź?', 'Zależy od linii: Biznes oddzwania w 60 minut w godzinach pracy, Instalacje odpowiadają w 24 godziny w dni robocze, Software w 1 dzień roboczy.'],
+        ['Czy muszę zakładać konto?', 'Nie. Konto klienta jest tylko w linii Tech i jest dobrowolne — status naprawy sprawdzisz też po numerze zlecenia.'],
+        ['Nie wiem, która linia zajmuje się moją sprawą.', 'Użyj wyszukiwarki albo „Dobierz w 10 sekund” na stronie głównej. Możesz też zadzwonić pod 883 200 151.'],
+        ['Czy mogę wysłać sprzęt do naprawy kurierem?', 'Tak, linia Tech przyjmuje sprzęt kurierem z całej Polski. Zacznij od zgłoszenia naprawy online.'],
+        ['Wolę przyjść osobiście. Gdzie?', 'Rabka-Zdrój, ul. Orkana 16B, od poniedziałku do piątku 9:00–17:00.']
+      ].map((f, i) => ({ n: '0' + (i + 1), q: f[0], a: f[1], open: i === 0 }))
+    };
+  }
+}
+</script>
+</body>
+</html>
