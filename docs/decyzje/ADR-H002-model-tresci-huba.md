@@ -69,4 +69,4 @@ Silnik z D2-2. Źródła dla huba: `HubServices` (z `keywords`), `HubTools`, `Hu
 4. **Kategorie zapytań** `hub-*` jako stała `HUB_INQUIRY_CATEGORIES` (`src/lib/prokom/inquiry.ts`): `Inquiries.category` to wolny tekst, bez migracji.
 5. **Blokada `[SZEF`/`[CENA`** we wszystkich kolekcjach `hub-*` przez wspólny `blockedByMarker` (`src/lib/shared/publishMarker.ts`, wzór `InstArchNews`).
 6. **Dolny pasek i ikony (PR `feat/wsp-hub-sloty`):** wspólny `TabBar` ma opcjonalny 4. slot (`shared.tabBar.fourth`, hub: „Załatw”), etykieta pierwszej pozycji zostaje „Główna” (SEO 08.11); 22 ikony plansz huba dochodzą do wspólnego zestawu (`seed/prokomeu/ikony.json`).
-7. **Liczba klientów na hubie:** zostaje „100+ klientów firmowych” (spec §3) — decyzja Krystiana 14.11 po decyzji Biznesu „10 000+ klientów” (#602); hub mówi o klientach firmowych całej PRO-KOM, Biznes o swoich.
+7. **Liczba klientów na hubie:** zostaje „100+ klientów firmowych” (spec §3) — decyzja Krystiana 14.11 po decyzji Biznesu „10 000+ klientów” (#602).
