@@ -5,7 +5,7 @@ import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
 import { PROKOM_SITE } from '../shared/prokom'
 import { seedSharedData } from '../shared/run'
-import { hubHelp, hubPlans, hubServices, hubTools, hubTrust } from './map'
+import { hubHelp, hubPlans, hubServices, hubTools, hubTrust, mergeTrust } from './map'
 
 export const PROKOM_TENANT_SLUG = 'prokom'
 
@@ -76,7 +76,7 @@ export async function seedProkom(payload: Payload): Promise<void> {
   }
   count('site-settings contact', siteUpdate ? 'updated' : 'skipped')
 
-  // --- HubSettings: created with the v1.1 pages off; then the facts of the package win ---
+  // --- HubSettings: created with the v1.1 pages off; facts merged by value (panel ones stay) ---
   const {
     docs: [hubSettings],
   } = await payload.find({
@@ -85,7 +85,7 @@ export async function seedProkom(payload: Payload): Promise<void> {
     limit: 1,
     ...local,
   })
-  const trust = hubTrust()
+  const trust = mergeTrust(hubSettings?.trust, hubTrust())
   if (!hubSettings) {
     await payload.create({
       collection: 'hub-settings',

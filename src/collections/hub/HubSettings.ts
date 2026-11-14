@@ -1,17 +1,9 @@
-import type { CollectionAfterChangeHook, CollectionConfig } from 'payload'
+import type { CollectionConfig } from 'payload'
 
 import { adminOnly } from '../../lib/auth/access'
-import { revalidatePageTags } from '../../lib/pages/revalidate'
 import { HUB_OPTIONAL_PAGES } from '../../lib/prokom/pages'
-import { hubTag } from '../../lib/prokom/tags'
-import { tenantIdOf } from '../../lib/tenant/id'
 import { onlyLineTenant } from '../../lib/tenant/onlyLine'
-
-const revalidateHub: CollectionAfterChangeHook = ({ doc, req }) => {
-  const tenantId = tenantIdOf(doc?.tenant)
-  if (!req.context.seed && tenantId !== null) revalidatePageTags([hubTag(tenantId)], req.payload)
-  return doc
-}
+import { revalidateHub, revalidateHubAfterDelete } from './common'
 
 /**
  * Settings of pro-kom.eu (ADR-H002 §2), one document per tenant — like `BiznesSettings`. H1 brings
@@ -35,6 +27,7 @@ export const HubSettings: CollectionConfig = {
       onlyLineTenant('prokom', 'Ustawienia pro-kom.eu są tylko na stronie pro-kom.eu.'),
     ],
     afterChange: [revalidateHub],
+    afterDelete: [revalidateHubAfterDelete],
   },
   fields: [
     {

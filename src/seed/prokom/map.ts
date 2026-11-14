@@ -181,19 +181,39 @@ export function hubPlans(): PlanSeed[] {
   return [...personas, ...industries, ...home]
 }
 
+type TrustRow = NonNullable<HubSetting['trust']>[number]
+
 /**
- * Company facts allowed by spec §3 (since 2004, 100+ business clients, authorizations as in
- * K4-FINAL §1) — approved, because the spec lists them. Anything else the boss adds in the panel
- * starts unapproved.
+ * Company facts allowed by spec §3 (since 2004, 100+ business clients, authorizations and statuses
+ * as in K4-FINAL §1) — approved, because the spec lists them.
  */
-export function hubTrust(): NonNullable<HubSetting['trust']> {
+export function hubTrust(): TrustRow[] {
   const spec = 'spec prokomeu §3'
+  const k4 = 'K4-FINAL §1'
   return [
     { value: 'Od 2004', label: 'firma z Rabki-Zdroju', source: spec, approved: true },
     { value: '100+', label: 'klientów firmowych', source: spec, approved: true },
-    { value: 'Posnet', label: 'Autoryzowany serwis', source: 'K4-FINAL §1', approved: true },
-    { value: 'Elzab', label: 'Autoryzowany serwis', source: 'K4-FINAL §1', approved: true },
-    { value: 'GoPOS', label: 'Autoryzowany partner', source: 'K4-FINAL §1', approved: true },
-    { value: 'InsERT', label: 'Autoryzowany partner', source: 'K4-FINAL §1', approved: true },
+    { value: 'Posnet', label: 'Autoryzowany serwis', source: k4, approved: true },
+    { value: 'Elzab', label: 'Autoryzowany serwis', source: k4, approved: true },
+    { value: 'GoPOS', label: 'Autoryzowany partner', source: k4, approved: true },
+    { value: 'InsERT', label: 'Autoryzowany partner', source: k4, approved: true },
+    { value: 'Optivendi', label: 'Partner', source: k4, approved: true },
+    { value: 'COMEX', label: 'We współpracy', source: k4, approved: true },
+  ]
+}
+
+/**
+ * Facts after a seed run: a fact of the package replaces the stored one with the same value (its
+ * row id kept), facts added in the panel stay after them — the boss's additions never disappear.
+ */
+export function mergeTrust(
+  stored: readonly TrustRow[] | null | undefined,
+  pkg: TrustRow[],
+): TrustRow[] {
+  const own = new Map((stored ?? []).map((row) => [row.value, row]))
+  const values = new Set(pkg.map((row) => row.value))
+  return [
+    ...pkg.map((row) => ({ ...row, id: own.get(row.value)?.id })),
+    ...(stored ?? []).filter((row) => !values.has(row.value)),
   ]
 }
