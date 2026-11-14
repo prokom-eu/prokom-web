@@ -74,7 +74,7 @@ export function Tools({ texts, groups, counts, total, allHref }: Props) {
                 </span>
               ))}
             </span>
-            <span className="pk-btn pk-btn--accent pk-tgr__go">
+            <span className="pk-hbtn pk-hbtn--accent pk-tgr__go">
               {texts.all.cta} <span aria-hidden="true">→</span>
             </span>
           </a>

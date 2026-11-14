@@ -53,7 +53,7 @@ export function Choose({ texts, plans, phone, tel, writeHref }: Props) {
         <p className="pk-lead pk-sect__aside">{texts.lead}</p>
       </div>
       <div className="pk-choose">
-        <div role="group" aria-label="Kim jesteś" className="pk-choose__list">
+        <div role="group" aria-labelledby="dobierz-h" className="pk-choose__list">
           {personas.map((entry, index) => (
             <button
               key={entry.persona}
@@ -99,9 +99,9 @@ export function Choose({ texts, plans, phone, tel, writeHref }: Props) {
             </button>
           )}
         </div>
-        <div id={panelId} className="pk-plan" aria-live="polite">
+        <div id={panelId} className="pk-plan">
           <div className="pk-plan__head">
-            <div className="pk-plan__title">
+            <div className="pk-plan__title" aria-live="polite">
               <span className="pk-eb pk-eb--muted">
                 {texts.planFor} {plan.name}
               </span>
@@ -118,12 +118,12 @@ export function Choose({ texts, plans, phone, tel, writeHref }: Props) {
           </ul>
           <div className="pk-plan__foot">
             {phone && tel && (
-              <a href={tel} className="pk-btn pk-btn--accent">
+              <a href={tel} className="pk-hbtn pk-hbtn--accent">
                 {texts.call} {phone}
               </a>
             )}
             {writeHref && (
-              <a href={writeHref} className="pk-btn">
+              <a href={writeHref} className="pk-hbtn">
                 {texts.write}
               </a>
             )}

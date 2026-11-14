@@ -42,13 +42,13 @@ export function HelpPicker({ texts, cases, allHref }: Props) {
           </h2>
         </div>
         {allHref && (
-          <a href={allHref} className="pk-btn">
+          <a href={allHref} className="pk-hbtn">
             {texts.allLink} <span aria-hidden="true">→</span>
           </a>
         )}
       </div>
       <div className="pk-help">
-        <div role="group" aria-label={texts.title} className="pk-help__list">
+        <div role="group" aria-labelledby="pomoc-h" className="pk-help__list">
           {cases.map((entry) => (
             <button
               key={entry.slug}
@@ -64,12 +64,14 @@ export function HelpPicker({ texts, cases, allHref }: Props) {
             </button>
           ))}
         </div>
-        <div id={panelId} className="pk-help__panel" style={lineStyle(line.key)} aria-live="polite">
+        <div id={panelId} className="pk-help__panel" style={lineStyle(line.key)}>
           <span className="pk-eb pk-eb--line">
             <i aria-hidden="true" className="pk-sit__bar" />
             {texts.lineLabel} {line.name}
           </span>
-          <h3 className="pk-h3 pk-h3--big">{current.title}</h3>
+          <h3 className="pk-h3 pk-h3--big" aria-live="polite">
+            {current.title}
+          </h3>
           <ol className="pk-help__steps">
             {current.steps.map((step, index) => (
               <li key={step}>
@@ -82,12 +84,12 @@ export function HelpPicker({ texts, cases, allHref }: Props) {
           </ol>
           <div className="pk-help__cta">
             {line.phone && line.tel && (
-              <a href={line.tel} className="pk-btn pk-btn--line pk-btn--phone">
+              <a href={line.tel} className="pk-hbtn pk-hbtn--line pk-hbtn--phone">
                 {line.phone}
               </a>
             )}
             {line.url && line.domain && (
-              <a href={line.url} className="pk-btn pk-btn--on-dark">
+              <a href={line.url} className="pk-hbtn pk-hbtn--on-dark">
                 {line.domain} <span aria-hidden="true">↗</span>
               </a>
             )}

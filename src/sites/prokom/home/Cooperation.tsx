@@ -11,12 +11,11 @@ type Props = {
 
 /**
  * „Projektujesz, budujesz albo zamawiasz więcej?” (spec §6.1 pkt 6, board 01 `#wspolpraca`): the
- * way to the B2B pages. A card or button to a page that is still off (v1.1 `/wspolpraca`) is left
- * out — never a dead link (spec §2.2).
+ * way to the B2B pages. A button to a page that is still off (v1.1 `/wspolpraca`) is left out and
+ * such a card stays as plain text — never a dead link (spec §2.2).
  */
 export function Cooperation({ texts, pages }: Props) {
   const links = texts.links.filter((link) => isHubLinkLive(link.href, pages))
-  const cards = texts.cards.filter((card) => isHubLinkLive(card.href, pages))
   return (
     <section
       id="wspolpraca"
@@ -35,9 +34,9 @@ export function Cooperation({ texts, pages }: Props) {
             <div className="pk-coop__links">
               {links.map((link, index) => (
                 <a
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
-                  className={index === 0 ? 'pk-btn pk-btn--accent' : 'pk-btn'}
+                  className={index === 0 ? 'pk-hbtn pk-hbtn--accent' : 'pk-hbtn'}
                 >
                   {link.label} <span aria-hidden="true">→</span>
                 </a>
@@ -45,22 +44,31 @@ export function Cooperation({ texts, pages }: Props) {
             </div>
           )}
         </div>
-        {cards.length > 0 && (
-          <ul className="pk-coop__cards" role="list">
-            {cards.map((card) => (
+        <ul className="pk-coop__cards" role="list">
+          {texts.cards.map((card) => {
+            const props = {
+              className: 'pk-ccard',
+              'data-neutral': card.line === 'prokom' ? '' : undefined,
+            }
+            const body = (
+              <>
+                <span className="pk-ccard__title">{card.title}</span>
+                <span className="pk-ccard__text">{card.text}</span>
+              </>
+            )
+            return (
               <li key={card.title} style={lineStyle(card.line)}>
-                <a
-                  href={card.href}
-                  className="pk-ccard"
-                  data-neutral={card.line === 'prokom' ? '' : undefined}
-                >
-                  <span className="pk-ccard__title">{card.title}</span>
-                  <span className="pk-ccard__text">{card.text}</span>
-                </a>
+                {isHubLinkLive(card.href, pages) ? (
+                  <a href={card.href} {...props}>
+                    {body}
+                  </a>
+                ) : (
+                  <div {...props}>{body}</div>
+                )}
               </li>
-            ))}
-          </ul>
-        )}
+            )
+          })}
+        </ul>
       </div>
     </section>
   )

@@ -52,7 +52,7 @@
 }
 
 /* Buttons: 52–56 px high (touch ≥ 44 px), outline by default. */
-.pk-btn {
+.pk-hbtn {
   display: inline-flex;
   min-height: 52px;
   align-items: center;
@@ -64,25 +64,25 @@
   font-weight: 800;
   transition: transform 0.3s var(--ease);
 }
-.pk-btn:hover {
+.pk-hbtn:hover {
   transform: translateY(-3px);
 }
-.pk-btn--accent {
+.pk-hbtn--accent {
   border-color: var(--k-g);
   background: var(--k-g);
   color: var(--k-gi);
 }
-.pk-btn--line {
+.pk-hbtn--line {
   border-color: var(--ln-fill, var(--ln));
   background: var(--ln-fill, var(--ln));
   color: var(--ln-ink);
 }
-.pk-btn--phone {
+.pk-hbtn--phone {
   font-family: var(--font-display);
   font-size: 19px;
   font-stretch: 118%;
 }
-.pk-btn--on-dark {
+.pk-hbtn--on-dark {
   border-color: var(--w22);
   color: var(--k-white);
 }
@@ -781,7 +781,7 @@ a.pk-tlc:hover {
   color: var(--k-white);
   transition: transform 0.3s var(--ease);
 }
-.pk-ccard:hover {
+a.pk-ccard:hover {
   transform: translateY(-3px);
 }
 .pk-ccard[data-neutral] {
@@ -864,7 +864,7 @@ a.pk-tlc:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pk-btn,
+  .pk-hbtn,
   .pk-pt,
   .pk-lcard,
   .pk-tlc,
@@ -873,13 +873,13 @@ a.pk-tlc:hover {
   .pk-ccard {
     transition: none;
   }
-  .pk-btn:hover,
+  .pk-hbtn:hover,
   .pk-pt:hover,
   a.pk-lcard:hover,
   a.pk-tlc:hover,
   .pk-tgr--all:hover,
   .pk-sit:hover,
-  .pk-ccard:hover {
+  a.pk-ccard:hover {
     transform: none;
   }
 }
