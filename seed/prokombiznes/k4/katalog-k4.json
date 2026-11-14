@@ -20074,6 +20074,28 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/optivendi-winda-2026.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-winda-2026-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/automat-z-winda-model-2026",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-2026-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/02/27/winda-11g-2-warstwy.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-2026-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/02/27/winda-budowa.jpg",
+     "ujecie": "budowa automatu"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-2026-premium-04.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/03/16/wymiary-001.jpg",
+     "ujecie": "wymiary — front"
+    }
    ]
   },
   {
@@ -20240,6 +20262,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-kawomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/kawomat-automat-do-wydawania-goracych-napojow",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-kawomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/02/09/1kawomat-str2.jpg",
+     "ujecie": "wnętrze automatu"
+    },
+    {
+     "plik": "media/produkty/optivendi-kawomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/03/30/kawomat-wymiary1.jpg",
+     "ujecie": "wymiary"
+    }
    ]
   },
   {
@@ -20405,6 +20444,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-chlebomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/chlebomat1",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-chlebomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/02/28/chlebomat-2.jpg",
+     "ujecie": "z boku, z wymiarem szerokości"
+    },
+    {
+     "plik": "media/produkty/optivendi-chlebomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/02/28/1chlebomat2.jpg",
+     "ujecie": "przed piekarnią"
+    }
    ]
   },
   {
@@ -20563,6 +20619,28 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/optivendi-boxomaty.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-boxomaty-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/automaty-wydajace-narzedzia",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-boxomaty-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2023/02/17/1boxomat.jpg",
+     "ujecie": "szafki z podświetleniem"
+    },
+    {
+     "plik": "media/produkty/optivendi-boxomaty-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/3boxomat-sterujaca.jpg",
+     "ujecie": "wymiary jednostki sterującej"
+    },
+    {
+     "plik": "media/produkty/optivendi-boxomaty-premium-04.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/3boxomat-szafka.jpg",
+     "ujecie": "wymiary szafki z boxami"
+    }
    ]
   },
   {
@@ -20734,6 +20812,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-winda-podwojna-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/automat-podwojny-z-winda",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-podwojna-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/02/27/2winda-winda.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-podwojna-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/02/27/maszyna-podwojna2.png",
+     "ujecie": "z boku"
     }
    ]
   },
@@ -20907,6 +21002,28 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-push-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/automat-vendingowy-z-winda-push",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-push-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2025/07/15/maszyna-push2.jpg",
+     "ujecie": "z boku"
+    },
+    {
+     "plik": "media/produkty/optivendi-push-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2025/07/15/winda-push-wymiary1.jpg",
+     "ujecie": "wymiary"
+    },
+    {
+     "plik": "media/produkty/optivendi-push-premium-04.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2025/07/15/maszyna-push4.jpg",
+     "ujecie": "wnętrze — półki"
+    }
    ]
   },
   {
@@ -21079,6 +21196,28 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-pull-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/automat-vendingowy-z-winda-pull1",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-pull-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2025/07/15/1maszyna2.jpg",
+     "ujecie": "z boku"
+    },
+    {
+     "plik": "media/produkty/optivendi-pull-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2025/07/15/1winda-pull-wymiary1.jpg",
+     "ujecie": "wymiary"
+    },
+    {
+     "plik": "media/produkty/optivendi-pull-premium-04.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2025/07/15/1maszyna4.jpg",
+     "ujecie": "wnętrze — półki"
+    }
    ]
   },
   {
@@ -21248,6 +21387,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-chlodnia-podwojna-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/maszyna-chlodnia-podwojna",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-chlodnia-podwojna-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/04/17/1maszyna-podwojna-wym11.jpg",
+     "ujecie": "wymiary — front"
+    },
+    {
+     "plik": "media/produkty/optivendi-chlodnia-podwojna-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/04/17/1maszyna-podwojna-wym22.jpg",
+     "ujecie": "wymiary — boki"
     }
    ]
   },
@@ -21421,6 +21577,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-micromarket-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/mikromarket-z-winda-pionowa-i-pozioma",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-micromarket-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/06/11/micromarket-fot1.jpg",
+     "ujecie": "wymiary — front"
+    },
+    {
+     "plik": "media/produkty/optivendi-micromarket-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/06/11/2micromarket-fot3.jpg",
+     "ujecie": "budowa szafy"
+    }
    ]
   },
   {
@@ -21590,6 +21763,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-smartvend-49-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/smartvend-49",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-smartvend-49-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/08/20/smartvent2.jpg",
+     "ujecie": "budowa automatu"
+    },
+    {
+     "plik": "media/produkty/optivendi-smartvend-49-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/08/20/smartvent-wymiary.jpg",
+     "ujecie": "wymiary"
+    }
    ]
   },
   {
@@ -21749,6 +21939,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-winda-boxomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/maszyna-z-winda-boxomat",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-boxomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/03/01/winda-box1.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-boxomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/03/01/z2.jpg",
+     "ujecie": "we wnętrzu budynku"
     }
    ]
   },
@@ -22071,6 +22278,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-obiadomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/obiadomat-i-robot-do-wydawania-fast-food",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-obiadomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/15/kanapkomat-front.jpg",
+     "ujecie": "wymiary — front"
+    },
+    {
+     "plik": "media/produkty/optivendi-obiadomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/15/kanapkomat-boki.jpg",
+     "ujecie": "wymiary — boki"
+    }
    ]
   },
   {
@@ -22235,6 +22459,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-pizzomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/pizzomat",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-pizzomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/02/27/pizzomat1.jpg",
+     "ujecie": "pod innym kątem"
+    },
+    {
+     "plik": "media/produkty/optivendi-pizzomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/02/27/pizzomat-003.jpg",
+     "ujecie": "opis elementów"
     }
    ]
   },
@@ -22404,6 +22645,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-lodomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/lodomat-robot-do-wydawania-deserow-mrozonych",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-lodomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/lodomat-front.jpg",
+     "ujecie": "wymiary — front"
+    },
+    {
+     "plik": "media/produkty/optivendi-lodomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/lodomat-boki.jpg",
+     "ujecie": "wymiary — boki"
     }
    ]
   },
@@ -22737,6 +22995,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-tortomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/tortomat",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-tortomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/05/14/tortomat-str1.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-tortomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/05/14/torty006.jpg",
+     "ujecie": "w galerii handlowej"
+    }
    ]
   },
   {
@@ -23054,6 +23329,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-kwiatomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/kwiatomat",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-kwiatomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/05/14/kwiatomat-str001.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-kwiatomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/05/14/kwiaty004.jpg",
+     "ujecie": "we wnętrzu"
+    }
    ]
   },
   {
@@ -23217,6 +23509,18 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-ksiazkomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/ksiazkomat-z-jednostka-centralna-sterujaca",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-ksiazkomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2025/07/15/ksiazkomat-wymiary1.jpg",
+     "ujecie": "wymiary"
+    }
    ]
   },
   {
@@ -23370,6 +23674,28 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/optivendi-kluczomat.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-kluczomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/depozytor-na-klucze",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-kluczomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2023/02/28/depozytor-na-klucze.jpg",
+     "ujecie": "w holu, z boku"
+    },
+    {
+     "plik": "media/produkty/optivendi-kluczomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/4boxomat-sterujaca.jpg",
+     "ujecie": "wymiary jednostki sterującej"
+    },
+    {
+     "plik": "media/produkty/optivendi-kluczomat-premium-04.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/4boxomat-szafka.jpg",
+     "ujecie": "wymiary szafki z boxami"
+    }
    ]
   },
   {
@@ -23528,6 +23854,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-pelletomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/pelletomat",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-pelletomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/03/01/pelletomat1.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-pelletomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/03/01/pelletomat2.jpg",
+     "ujecie": "z boku, oklejenie"
     }
    ]
   },

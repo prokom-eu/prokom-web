@@ -1,8 +1,8 @@
 # Zdjęcia do pozyskania — karty Biznesu (PRODUKCJA-BIZNES-1211 §1)
 
-Wygenerowane przez `pnpm payload run scripts/zdjecia-braki.ts` z lokalnej bazy po `pnpm seed` (2026-11-13). Nie edytuj ręcznie — uruchom skrypt ponownie. Cel karty gotowej do produkcji: **≥ 3 ujęcia** (przód, bok/porty, detal lub w użyciu bez ludzi), **≥ 1200 px** szerokości, wycięte albo czyste białe tło, źródło każdego pliku w `seed/prokombiznes/media-produkty-v2.json` (zgoda szefa na materiały producentów: 12.11.2026).
+Wygenerowane przez `pnpm payload run scripts/zdjecia-braki.ts` z lokalnej bazy po `pnpm seed` (2026-11-14). Nie edytuj ręcznie — uruchom skrypt ponownie. Cel karty gotowej do produkcji: **≥ 3 ujęcia** (przód, bok/porty, detal lub w użyciu bez ludzi), **≥ 1200 px** szerokości, wycięte albo czyste białe tło, źródło każdego pliku w `seed/prokombiznes/media-produkty-v2.json` (zgoda szefa na materiały producentów: 12.11.2026).
 
-**Stan:** gotowych kart 445 · bez zdjęcia 30 · 1 zdjęcie 131 · 2 zdjęcia 37 · ≥ 3 zdjęcia 247 · z plikiem < 1200 px 315 · z białym tłem lub otoczką 41.
+**Stan:** gotowych kart 445 · bez zdjęcia 30 · 1 zdjęcie 112 · 2 zdjęcia 38 · ≥ 3 zdjęcia 265 · z plikiem < 1200 px 315 · z białym tłem lub otoczką 47.
 
 Kolejność: karty z głównej → salonów marek → zestawów → reszta; w grupie najpierw te z najmniejszą liczbą zdjęć. Kolumna „materiały producenta” to pierwsze źródło karty — tam szukamy sekcji media / press kit. Usługi (karty bez zdjęcia — kafel usługi) są na liście, ale nie potrzebują zdjęć producenta.
 
@@ -332,40 +332,40 @@ Kolejność: karty z głównej → salonów marek → zestawów → reszta; w gr
 | 322 | `laptopy-dell-dla-firm` | reszta | 1 | 2 | 1 | ok | — | |
 | 323 | `licencje-microsoft` | reszta | 1 | 2 | 1 | białe tło | — | |
 | 324 | `optivendi-boxomat-chlodzony` | reszta | 1 | 2 | 1 | ok | — | |
-| 325 | `optivendi-boxomaty` | reszta | 1 | 2 | 1 | ok | — | |
-| 326 | `optivendi-chlebomat` | reszta | 1 | 2 | 1 | ok | — | |
-| 327 | `optivendi-chlodnia-podwojna` | reszta | 1 | 2 | 1 | ok | — | |
-| 328 | `optivendi-kawomat` | reszta | 1 | 2 | 1 | ok | — | |
-| 329 | `optivendi-kluczomat` | reszta | 1 | 2 | 1 | ok | — | |
-| 330 | `optivendi-ksiazkomat` | reszta | 1 | 2 | 1 | ok | — | |
-| 331 | `optivendi-kwiatomat` | reszta | 1 | 2 | 1 | ok | — | |
-| 332 | `optivendi-lodomat` | reszta | 1 | 2 | 1 | ok | — | |
-| 333 | `optivendi-micromarket` | reszta | 1 | 2 | 1 | ok | — | |
-| 334 | `optivendi-mrozonki` | reszta | 1 | 2 | 1 | ok | — | |
-| 335 | `optivendi-obiadomat` | reszta | 1 | 2 | 1 | ok | — | |
-| 336 | `optivendi-pelletomat` | reszta | 1 | 2 | 1 | ok | — | |
-| 337 | `optivendi-pizzomat` | reszta | 1 | 2 | 1 | ok | — | |
-| 338 | `optivendi-pull` | reszta | 1 | 2 | 1 | ok | — | |
-| 339 | `optivendi-push` | reszta | 1 | 2 | 1 | ok | — | |
-| 340 | `optivendi-sklep-samoobslugowy` | reszta | 1 | 2 | 1 | ok | — | |
-| 341 | `optivendi-smartvend-49` | reszta | 1 | 2 | 1 | ok | — | |
-| 342 | `optivendi-tortomat` | reszta | 1 | 2 | 1 | ok | — | |
-| 343 | `optivendi-winda-2026` | reszta | 1 | 2 | 1 | ok | — | |
-| 344 | `optivendi-winda-boxomat` | reszta | 1 | 2 | 1 | ok | — | |
-| 345 | `optivendi-winda-podwojna` | reszta | 1 | 2 | 1 | ok | — | |
-| 346 | `posnet-pos-up` | reszta | 1 | 2 | 1 | ok | — | |
-| 347 | `zakupy-z-dofinansowania` | reszta | 1 | 2 | 1 | ok | — | |
-| 348 | `zasilanie-awaryjne-apc` | reszta | 1 | 2 | 0 | ok | [strona](https://www.se.com/pl/pl/product/BX950MI/zasilacz-apc-backups-950va-520w-wolnostoj%C4%85cy-230v-z-6-gniazdami-wyj%C5%9Bciowymi-typu-iec-c13/) | |
-| 349 | `apc-smart-ups-online` | reszta | 2 | 1 | 2 | ok | [strona](https://www.se.com/pl/pl/product/SRT1000XLI/) | |
-| 350 | `serwer-dell-poweredge-wieza` | reszta | 2 | 1 | 2 | białe tło | [strona](https://www.dell.com/pl-pl/shop/ipovw/poweredge-t360) | |
-| 351 | `zebra-drukarka-biurkowa-zd230` | reszta | 2 | 1 | 2 | białe tło | [strona](https://www.zebra.com/us/en/products/printers/desktop/zd200-series.html) | |
-| 352 | `dibal-spc` | reszta | 3 | 0 | 3 | ok | [strona](https://www.dibal.com/en/price-computing-scales-spc) | |
-| 353 | `fawag-lite-online` | reszta | 3 | 0 | 3 | ok | [strona](https://www.posnet.com.pl/files/products_download/365/instrukcja-obslugi-fawag-lite-online-wersja-1.3.pdf) | |
-| 354 | `godex-ez2250i-ez2350i` | reszta | 3 | 0 | 3 | ok | [strona](https://www.godexintl.com/product/EZ2250i_EZ2350i) | |
-| 355 | `insert-gestor-nexo-gt` | reszta | 3 | 0 | 1 | otoczka | [strona](https://www.insert.com.pl/programy_dla_firm/sprzedaz/gestor_nexo/opis.html) | |
-| 356 | `sato-metkownice-judo-kendo` | reszta | 3 | 0 | 3 | białe tło | [strona](https://www.satoeurope.com/ru/pdf/products/hand-labelling-devices/sato-kendo-brochure.pdf) | |
-| 357 | `ubiquiti-unifi-express` | reszta | 3 | 0 | 3 | ok | [strona](https://techspecs.ui.com/unifi/cloud-gateways/ux) | |
-| 358 | `urzadzenia-wielofunkcyjne-kyocera` | reszta | 3 | 0 | 3 | białe tło | [strona](https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSM6230CIDN.html) | |
+| 325 | `optivendi-mrozonki` | reszta | 1 | 2 | 1 | ok | — | |
+| 326 | `optivendi-sklep-samoobslugowy` | reszta | 1 | 2 | 1 | ok | — | |
+| 327 | `posnet-pos-up` | reszta | 1 | 2 | 1 | ok | — | |
+| 328 | `zakupy-z-dofinansowania` | reszta | 1 | 2 | 1 | ok | — | |
+| 329 | `zasilanie-awaryjne-apc` | reszta | 1 | 2 | 0 | ok | [strona](https://www.se.com/pl/pl/product/BX950MI/zasilacz-apc-backups-950va-520w-wolnostoj%C4%85cy-230v-z-6-gniazdami-wyj%C5%9Bciowymi-typu-iec-c13/) | |
+| 330 | `apc-smart-ups-online` | reszta | 2 | 1 | 2 | ok | [strona](https://www.se.com/pl/pl/product/SRT1000XLI/) | |
+| 331 | `optivendi-ksiazkomat` | reszta | 2 | 1 | 1 | ok | — | |
+| 332 | `serwer-dell-poweredge-wieza` | reszta | 2 | 1 | 2 | białe tło | [strona](https://www.dell.com/pl-pl/shop/ipovw/poweredge-t360) | |
+| 333 | `zebra-drukarka-biurkowa-zd230` | reszta | 2 | 1 | 2 | białe tło | [strona](https://www.zebra.com/us/en/products/printers/desktop/zd200-series.html) | |
+| 334 | `dibal-spc` | reszta | 3 | 0 | 3 | ok | [strona](https://www.dibal.com/en/price-computing-scales-spc) | |
+| 335 | `fawag-lite-online` | reszta | 3 | 0 | 3 | ok | [strona](https://www.posnet.com.pl/files/products_download/365/instrukcja-obslugi-fawag-lite-online-wersja-1.3.pdf) | |
+| 336 | `godex-ez2250i-ez2350i` | reszta | 3 | 0 | 3 | ok | [strona](https://www.godexintl.com/product/EZ2250i_EZ2350i) | |
+| 337 | `insert-gestor-nexo-gt` | reszta | 3 | 0 | 1 | otoczka | [strona](https://www.insert.com.pl/programy_dla_firm/sprzedaz/gestor_nexo/opis.html) | |
+| 338 | `optivendi-chlebomat` | reszta | 3 | 0 | 3 | białe tło | — | |
+| 339 | `optivendi-chlodnia-podwojna` | reszta | 3 | 0 | 3 | ok | — | |
+| 340 | `optivendi-kawomat` | reszta | 3 | 0 | 2 | ok | — | |
+| 341 | `optivendi-kwiatomat` | reszta | 3 | 0 | 3 | ok | — | |
+| 342 | `optivendi-lodomat` | reszta | 3 | 0 | 3 | białe tło | — | |
+| 343 | `optivendi-micromarket` | reszta | 3 | 0 | 2 | białe tło | — | |
+| 344 | `optivendi-obiadomat` | reszta | 3 | 0 | 3 | ok | — | |
+| 345 | `optivendi-pelletomat` | reszta | 3 | 0 | 3 | białe tło | — | |
+| 346 | `optivendi-pizzomat` | reszta | 3 | 0 | 3 | ok | — | |
+| 347 | `optivendi-smartvend-49` | reszta | 3 | 0 | 3 | białe tło | — | |
+| 348 | `optivendi-tortomat` | reszta | 3 | 0 | 3 | ok | — | |
+| 349 | `optivendi-winda-boxomat` | reszta | 3 | 0 | 3 | ok | — | |
+| 350 | `optivendi-winda-podwojna` | reszta | 3 | 0 | 3 | ok | — | |
+| 351 | `sato-metkownice-judo-kendo` | reszta | 3 | 0 | 3 | białe tło | [strona](https://www.satoeurope.com/ru/pdf/products/hand-labelling-devices/sato-kendo-brochure.pdf) | |
+| 352 | `ubiquiti-unifi-express` | reszta | 3 | 0 | 3 | ok | [strona](https://techspecs.ui.com/unifi/cloud-gateways/ux) | |
+| 353 | `urzadzenia-wielofunkcyjne-kyocera` | reszta | 3 | 0 | 3 | białe tło | [strona](https://www.kyoceradocumentsolutions.pl/pl/products/mfp/ECOSYSM6230CIDN.html) | |
+| 354 | `optivendi-boxomaty` | reszta | 4 | 0 | 4 | ok | — | |
+| 355 | `optivendi-kluczomat` | reszta | 4 | 0 | 4 | ok | — | |
+| 356 | `optivendi-pull` | reszta | 4 | 0 | 4 | ok | — | |
+| 357 | `optivendi-push` | reszta | 4 | 0 | 4 | ok | — | |
+| 358 | `optivendi-winda-2026` | reszta | 4 | 0 | 4 | białe tło | — | |
 | 359 | `posnet-netpay` | reszta | 4 | 0 | 3 | białe tło | — | |
 | 360 | `qnap-nas` | reszta | 4 | 0 | 4 | białe tło | [strona](https://www.qnap.com/en-us/product/ts-464) | |
 | 361 | `zebra-zc100-zc300` | reszta | 4 | 0 | 0 | białe tło | [strona](https://www.posnet.com.pl/files/products_download/609/zc300-spec-sheet-pl-pl.pdf) | |
