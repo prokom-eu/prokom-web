@@ -25,9 +25,11 @@ type Props = {
 }
 
 const TITLE = 'Cała oferta dla firm'
+/** `<title>` with the region (SEO lokalne 13.11); the H1 stays `TITLE`. */
+const META_TITLE = 'Oferta dla firm — Rabka-Zdrój i Podhale'
 /** Meta description (≤ 155 characters, audit 01.11); the lead below is longer. */
 const DESCRIPTION =
-  'Sprzęt, programy i usługi dla firm z doborem, wdrożeniem i serwisem. Dodaj pozycje do zapytania, a wycenę dostaniesz na piśmie.'
+  'Sprzęt, programy i usługi dla firm z Rabki-Zdroju, Podhala i Małopolski: dobór, wdrożenie i serwis. Dodaj je do zapytania — wycena na piśmie.'
 /** Lead of the K4 board `Web-Oferta`. */
 const LEAD =
   'Sprzęt, programy i usługi dla firm i instytucji, z doborem, wdrożeniem i serwisem. Cen nie podajemy na stronie: dodaj pozycje do zapytania, a przygotujemy wycenę.'
@@ -43,7 +45,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     index.products.length,
   )
   return {
-    title: TITLE,
+    title: META_TITLE,
     description: DESCRIPTION,
     alternates: { canonical: seo.canonical },
     // Staging stays closed whatever the view; elsewhere a filtered view is not indexed.
@@ -54,7 +56,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       locale: 'pl_PL',
       siteName: tenant.name,
       url: seo.canonical,
-      title: TITLE,
+      title: META_TITLE,
       description: DESCRIPTION,
       images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
