@@ -97,7 +97,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             plans={choosePlans(home.choose.personas, hub.plans, lines)}
             phone={phone}
             tel={tel}
-            writeHref={live('/kontakt')}
+            writeHref={CONTACT}
           />
           <Tools
             texts={home.tools}

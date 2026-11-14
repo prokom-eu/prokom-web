@@ -230,6 +230,11 @@
   font-size: 13.5px;
   font-weight: 700;
 }
+.pk-salon .oh-status,
+.pk-csl .oh-status {
+  /* The longest status („Zamknięte · otwieramy w poniedziałek o 9:00”) wraps on a phone. */
+  white-space: normal;
+}
 .pk-salon__name {
   font-family: var(--font-display);
   font-size: 24px;
@@ -328,6 +333,8 @@
   position: absolute;
   top: var(--y);
   left: var(--x);
+  /* The label is centred on its point, so the towns near the edge stay inside the frame. */
+  transform: translate(-50%, -50%);
   color: var(--k-ink2);
   font-size: 14px;
   font-weight: 700;
@@ -415,6 +422,9 @@
   border-radius: 22px;
   padding: 24px 26px;
   background: var(--k-card);
+}
+.pk-fq[open] {
+  border-color: color-mix(in srgb, var(--k-g) 38%, transparent);
 }
 .pk-fq summary {
   display: flex;
@@ -721,6 +731,10 @@
   }
   .pk-reach__town {
     font-size: 12px;
+  }
+  /* No room beside „Kraków” on a phone; the image's description still names the region. */
+  .pk-reach__region {
+    display: none;
   }
   .pk-fq {
     padding: 18px 18px;

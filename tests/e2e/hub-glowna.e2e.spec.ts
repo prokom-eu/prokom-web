@@ -85,7 +85,10 @@ test.describe('pro-kom.eu — home page sections (spec §6.1)', () => {
     await expect(questions.first()).toHaveAttribute('open', '')
     await expect(questions.nth(1)).not.toHaveAttribute('open', '')
     // The tokens of the answers are filled from the panel.
-    await expect(page.locator('#pytania')).not.toContainText('{')
+    await expect(page.locator('#pytania .pk-faq__list')).not.toContainText('{')
+    const jsonLd = await page.locator('#pytania script[type="application/ld+json"]').textContent()
+    expect(jsonLd).toContain('FAQPage')
+    expect(jsonLd).not.toMatch(/\{(telefon|adres|godziny)\}/)
     const topics = page.locator('#kontakt .pk-topic')
     expect(await topics.count()).toBeGreaterThanOrEqual(4)
     await expect(topics.first()).toHaveAttribute('href', '/kontakt?temat=ogolne')

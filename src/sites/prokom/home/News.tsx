@@ -54,7 +54,7 @@ export function News({ texts, news, lines, allHref }: Props) {
           return (
             <li key={post.href} style={lineStyle(post.line)}>
               <a href={post.href} className="pk-lcard pk-ncard">
-                <Mark label={line?.label ?? null} />
+                <Mark label={line?.label ?? null} decorative />
                 <h3 className="pk-ncard__title">{post.title}</h3>
                 {post.lead && <p className="pk-ncard__lead">{post.lead}</p>}
                 <span className="pk-ncard__foot">

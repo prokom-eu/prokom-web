@@ -76,8 +76,12 @@ export function Brands({ brands, facts, lines, allHref }: Props) {
         )}
         {groups.length > 0 && (
           <ul className="pk-bgroups" role="list">
-            {groups.map((group) => (
-              <li key={group.title} className="pk-bgroup" style={lineStyle(group.line)}>
+            {groups.map((group, index) => (
+              <li
+                key={`${index}-${group.title}`}
+                className="pk-bgroup"
+                style={lineStyle(group.line)}
+              >
                 <span className="pk-bgroup__top">
                   <Mark label={group.label} />
                   <span className="pk-bgroup__count">
