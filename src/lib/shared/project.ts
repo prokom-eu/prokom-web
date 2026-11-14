@@ -37,6 +37,11 @@ export type SharedLine = {
   colorOnDark: string | null
   description: string | null
   descriptionLong: string | null
+  /** Contact of a line without a site in this app (Tech, Gaming); `null` for lines with a tenant. */
+  phone: string | null
+  email: string | null
+  hours: string | null
+  promise: string | null
 }
 
 export type SharedSalon = {
@@ -153,6 +158,10 @@ function toLines(lines: CompanyDatum['lines']): SharedLine[] {
       colorOnDark: line.colorOnDark ?? null,
       description: line.description ?? null,
       descriptionLong: line.descriptionLong ?? null,
+      phone: line.phone || null,
+      email: line.email || null,
+      hours: line.hours || null,
+      promise: line.promise || null,
     }))
 }
 

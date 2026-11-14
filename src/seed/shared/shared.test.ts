@@ -96,6 +96,15 @@ describe('shared seed — content rules (spec §2, §10 pkt 2)', () => {
     expect(unpublished).toEqual(['zakopane', 'gaming'])
   })
 
+  it('gives a contact only to the lines without a site in this app (ADR-H002 §1)', () => {
+    const withContact = COMPANY_LINES.filter((line) => line.phone || line.email).map((l) => l.key)
+    expect(withContact).toEqual(['tech', 'gaming'])
+    for (const line of COMPANY_LINES.filter((l) => withContact.includes(l.key))) {
+      expect(line.phone).toMatch(/^\d{3} \d{3} \d{3}$/)
+      expect(line.email).toMatch(/@/)
+    }
+  })
+
   it('points the Biznes contact facts to the line fields and keeps the K4-FINAL statuses', () => {
     // E-mail and the second number come from the line fields (`BIZNES_CONTACT`), not copied here.
     expect(BIZNES_SHARED.contact?.facts?.map((fact) => fact.kind)).toEqual([

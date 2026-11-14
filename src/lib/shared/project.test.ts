@@ -98,6 +98,32 @@ describe('toSharedData', () => {
     expect(data?.salons.map((salon) => salon.key)).toEqual(['glowny'])
   })
 
+  it('passes the contact of a line without a tenant, hiding marked texts', () => {
+    const lines = [
+      {
+        id: '4',
+        key: 'tech' as const,
+        name: 'Tech',
+        kind: 'linia' as const,
+        order: 4,
+        published: true,
+        phone: '883 200 151',
+        email: 'serwis@firma.test',
+        hours: '[SZEF: godziny?]',
+        promise: 'Bezpłatna diagnoza',
+      },
+    ]
+    const data = toSharedData({ ...company, lines }, settings({}))
+    expect(data?.lines[0]).toMatchObject({
+      phone: '883 200 151',
+      email: 'serwis@firma.test',
+      hours: null,
+      promise: 'Bezpłatna diagnoza',
+    })
+    const biznes = toSharedData(company, settings({}))?.lines[0]
+    expect(biznes).toMatchObject({ phone: null, email: null, hours: null, promise: null })
+  })
+
   it('joins the line contact fields with its shared group', () => {
     const data = toSharedData(
       company,

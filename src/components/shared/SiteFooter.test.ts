@@ -21,6 +21,10 @@ const line = (key: SharedLine['key'], name: string, url: string | null = `https:
     colorOnDark: null,
     description: `Opis ${name}`,
     descriptionLong: null,
+    phone: null,
+    email: null,
+    hours: null,
+    promise: null,
   }) satisfies SharedLine
 
 const FIVE = [
