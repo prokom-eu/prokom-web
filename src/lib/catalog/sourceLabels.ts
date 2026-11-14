@@ -166,9 +166,28 @@ function producerOf(label: string, url: URL): string {
  * A label that says what is under the link: „InsERT — Subiekt nexo, wymagania systemowe”, from
  * the producer of the panel label and the page's path (audit 14.11 P1-3).
  */
-function describedLabel(label: string, link: string): string {
+/**
+ * Words of an address written as the card writes them (przegląd 14.11): „Subiekt nexo pro” →
+ * „Subiekt nexo PRO”. Only the case and only words with a capital in the name — Polish letters
+ * are not restored (an inflected „kasą” of the name is not the „kasa” of the address).
+ */
+function spelled(subject: string, names: readonly string[]): string {
+  const known = new Map(
+    names
+      .flatMap((name) => name.split(/[\s/,()]+/))
+      .filter((word) => /\p{Lu}/u.test(word))
+      .map((word) => [word.toLowerCase(), word]),
+  )
+  return subject
+    .split(' ')
+    .map((word) => known.get(word.toLowerCase()) ?? word)
+    .join(' ')
+}
+
+function describedLabel(label: string, link: string, names: readonly string[]): string {
   const url = new URL(link)
-  const subject = pageSubject(url)
+  const raw = pageSubject(url)
+  const subject = raw && spelled(raw, names)
   const kind = pageKind(url)
   const what = [subject, kind].filter(Boolean).join(', ') || sourceMeta(link)
   return `${producerOf(label, url)} — ${what}`
@@ -181,7 +200,11 @@ function describedLabel(label: string, link: string): string {
  * (10 × „Strona producenta — InsERT”) names the page from its address instead (audit 14.11
  * P1-3); a label still repeated gets its number, so no two links read the same.
  */
-export function labeledSourceLinks(links: readonly { label: string; url: string }[]): SourceLink[] {
+export function labeledSourceLinks(
+  links: readonly { label: string; url: string }[],
+  /** Name, short name and versions of the card: the spelling of words taken from an address. */
+  names: readonly string[] = [],
+): SourceLink[] {
   const { urls } = publicSources({ urls: links.map((link) => link.url.trim()) })
   const allowed = new Set(urls)
   const seen = new Set<string>()
@@ -197,7 +220,7 @@ export function labeledSourceLinks(links: readonly { label: string; url: string 
   const count = (labels: string[], label: string) => labels.filter((item) => item === label).length
   const panel = kept.map((link) => link.label)
   const described = kept.map((link) =>
-    count(panel, link.label) > 1 ? describedLabel(link.label, link.url) : link.label,
+    count(panel, link.label) > 1 ? describedLabel(link.label, link.url, names) : link.label,
   )
   // Still the same: one page in two languages gets the language, else its number on the card.
   return kept.map((link, index) => {
