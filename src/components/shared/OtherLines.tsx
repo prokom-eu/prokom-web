@@ -21,8 +21,13 @@ export function OtherLines({ lines, current, className }: Props) {
     <ul
       className={cx(
         'grid gap-3 min-[640px]:grid-cols-2',
-        // Four tiles in one row, never three and an orphan (audit 10.11 §5); otherwise three.
-        others.length === 4 ? 'min-[1000px]:grid-cols-4' : 'min-[1000px]:grid-cols-3',
+        // Four tiles in one row, never three and an orphan (audit 10.11 §5); five (with Gaming)
+        // in one row from 1200 px, below that 3 + 2; otherwise three.
+        others.length === 4
+          ? 'min-[1000px]:grid-cols-4'
+          : others.length === 5
+            ? 'min-[1000px]:grid-cols-3 min-[1200px]:grid-cols-5'
+            : 'min-[1000px]:grid-cols-3',
         className,
       )}
       data-other-lines

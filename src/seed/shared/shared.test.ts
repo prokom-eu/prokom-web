@@ -91,9 +91,9 @@ describe('shared seed — content rules (spec §2, §10 pkt 2)', () => {
     expect(names.some((name) => /serwis/i.test(name))).toBe(false)
   })
 
-  it('keeps Gaming and Zakopane unpublished until their start', () => {
+  it('keeps Zakopane unpublished until its start; Gaming is live (14.11)', () => {
     const unpublished = COMPANY_LINES.filter((line) => !line.published).map((line) => line.key)
-    expect(unpublished).toEqual(['zakopane', 'gaming'])
+    expect(unpublished).toEqual(['zakopane'])
   })
 
   it('gives a contact only to the lines without a site in this app (ADR-H002 §1)', () => {

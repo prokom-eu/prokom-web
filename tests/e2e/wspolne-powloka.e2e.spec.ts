@@ -28,8 +28,8 @@ for (const { host, name } of LINES) {
       await page.goto(site(host, '/_wspolne'))
       const bar = preview(page).getByRole('navigation', { name: 'Linie PRO-KOM' })
       await expect(bar).toBeVisible()
-      // Seed: Gaming and Zakopane are not published yet (spec §2.4, §4.1).
-      await expect(bar.getByRole('link', { name: 'Gaming' })).toHaveCount(0)
+      // Seed: Zakopane is not published yet (spec §2.4, §4.1); Gaming is live since 14.11.
+      await expect(bar.getByRole('link', { name: 'Gaming' })).toHaveAttribute('href', /^https:\/\//)
       await expect(bar.getByRole('link', { name: 'Zakopane' })).toHaveCount(0)
       await expect(bar.getByRole('link', { name: 'Tech' })).toHaveAttribute('href', /^https:\/\//)
       await expect(bar.locator('[aria-current="page"]')).toHaveText(name)

@@ -40,10 +40,10 @@ test.describe('/_wspolne — footer (1440 px)', () => {
   for (const host of HOSTS) {
     test(`${host}: lines band, contact from the data, route = mapsUrl`, async ({ page }) => {
       await page.goto(site(host, '/_wspolne'))
-      // Seed: Gaming and Zakopane unpublished — 5 tiles (spec §10 pkt 3).
+      // Seed: Zakopane unpublished, Gaming live (14.11) — 6 tiles (spec §10 pkt 3).
       const tiles = footer(page).locator('[data-line-tile]')
-      await expect(tiles).toHaveCount(5)
-      await expect(footer(page).locator('[data-line-tile="gaming"]')).toHaveCount(0)
+      await expect(tiles).toHaveCount(6)
+      await expect(footer(page).locator('[data-line-tile="gaming"]')).toHaveCount(1)
       await expect(footer(page).locator('[data-lines-band] [aria-current="page"]')).toHaveCount(1)
       await expect(footer(page).getByText('Jesteś tutaj')).toHaveCount(1)
 
