@@ -512,12 +512,22 @@ function home() {
       ],
       mapNote: 'Schemat kierunków, nie mapa w skali',
       region: 'Podhale · Małopolska',
+      mapLabel: 'Schemat zasięgu: Rabka-Zdrój w środku, wokół Podhale i Małopolska',
+      salon: 'Salon',
+      route: 'Wyznacz trasę',
+      check: 'Sprawdź swoją miejscowość',
     },
-    news: { eyebrow: 'Aktualności', title: 'Co nowego w liniach' },
+    news: {
+      eyebrow: 'Aktualności',
+      title: 'Co nowego w liniach',
+      allLink: 'Wszystkie wpisy',
+      read: 'Czytaj',
+    },
     faq: {
       // :880–888
       eyebrow: 'Pytania',
       title: 'Zanim zadzwonisz',
+      helpLink: 'Centrum pomocy',
       items: r.faq.map((f) => ({ question: f.q, answer: withTokens(f.a) })),
     },
     contact: {
@@ -528,6 +538,8 @@ function home() {
       topicsLabel: 'Czego dotyczy sprawa?',
       general: 'Nie wiem / ogólne',
       directions: 'Kontakt i dojazd',
+      salon: 'Salon i biuro',
+      cta: 'Napisz wiadomość',
     },
     final: {
       // :941–946
