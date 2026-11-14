@@ -45,6 +45,9 @@ RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/naglosnieniowe/?$ https:/
 RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/sieci-strukturalnych/?$ https://prokominstalacje.pl/sieci-wifi [R=301,L]
 RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/telewizyjne-i-satelitarne/?$ https://prokominstalacje.pl/anteny [R=301,L]
 RewriteRule ^(?:prokom-nowy/)?realizacje/?$ https://prokominstalacje.pl/realizacje [R=301,L]
+
+# 301: Software -> prokomsoftware.pl (14.11.2026)
+RewriteRule ^(?:prokom-nowy/)?tworzenie-stron-internetowych/?$ https://prokomsoftware.pl/ [R=301,L]
 ```
 
 **Wdrożone 13.11.2026** (Claude przez SSH `pro-kom@pro-kom.nazwa.pl`, klucz `id_ed25519` dodany w panelu nazwa.pl → Konto SSH): katalog strony `/prokom-nowy`, kopia `.htaccess.bak-20261113` obok. Reguły trafiły przed istniejące (www → bez www, http → https), więc stare adresy idą od razu na nowy, bez łańcucha. Prefiks `(?:prokom-nowy/)?` jest konieczny: dla hosta `pro-kom.eu` mod_rewrite widzi ścieżkę z nazwą katalogu (DOCUMENT_ROOT = główny katalog FTP), dla `www` — bez niej. Wynik: wszystkie 8 adresów `https://pro-kom.eu/…` i `https://www.pro-kom.eu/…` → 301 na właściwą stronę, strona główna i `/kontakt` dalej 200.
@@ -52,3 +55,5 @@ RewriteRule ^(?:prokom-nowy/)?realizacje/?$ https://prokominstalacje.pl/realizac
 **Znany błąd sprzed zmiany (nie z `.htaccess`):** `http://pro-kom.eu/<cokolwiek>` → 301 na `https://pro-kom.eu/prokom-nowy/<cokolwiek>` → 404 (przekierowanie robi warstwa nazwa.pl, prawdopodobnie wymuszenie HTTPS przy DOCUMENT_ROOT na katalogu głównym). Stare adresy instalacji z `http://` też tak kończą. Do decyzji Krystiana: ustawienie w panelu nazwa.pl albo zostawić do przeniesienia pro-kom.eu do huba (grudzień).
 
 Sprawdzenie po wgraniu (Git Bash): `for p in uslugi/montaz-instalacje uslugi/montaz-instalacje/monitoring realizacje; do curl -sI https://pro-kom.eu/$p | grep -iE "^HTTP|^location"; done` → `301` i `location: https://prokominstalacje.pl/…`; strona główna `https://pro-kom.eu/` dalej 200.
+
+**Software, 14.11.2026** (decyzja Krystiana 14.11): jedyna podstrona oprogramowania starej pro-kom.eu, `/tworzenie-stron-internetowych` („Tworzenie stron internetowych Next.js”), → 301 na `https://prokomsoftware.pl/` (strona główna — stara strona była ogólna, nie o jednym rozwiązaniu). Reguła tuż za regułami Instalacji, kopia `.htaccess.bak-20261114`. Sprawdzone curlem: `https://pro-kom.eu/tworzenie-stron-internetowych` (także z `/`) → 301 `https://prokomsoftware.pl/`; z `www` — najpierw 301 na `https://pro-kom.eu/…`, potem na Software (dwa skoki); `/`, `/kontakt`, `/firma` dalej 200. Pozycja menu „Strony internetowe” starej strony prowadzi teraz na prokomsoftware.pl.
