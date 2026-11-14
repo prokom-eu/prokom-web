@@ -144,7 +144,7 @@ export function BrandAbout({ brand }: { brand: BrandView }) {
                         <a
                           href={fact.sourceUrl}
                           rel="noopener"
-                          className="inline-flex min-h-6 items-center text-sm font-bold text-accent-text underline-offset-2 hover:underline"
+                          className="inline-flex min-h-6 items-center text-sm font-bold text-accent-text underline-offset-2 hover:underline max-md:min-h-11"
                         >
                           źródło<span className="sr-only">: {fact.label}</span>
                         </a>

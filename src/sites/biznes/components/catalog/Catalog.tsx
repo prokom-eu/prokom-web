@@ -185,7 +185,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
                   setDraft(phrase)
                   change({ query: phrase })
                 }}
-                className="min-h-9 shrink-0 whitespace-nowrap rounded-full bg-surface-2 px-3.5 text-[0.85rem] font-bold text-ink hover:bg-surface-3"
+                className="min-h-9 shrink-0 whitespace-nowrap rounded-full max-md:min-h-11 bg-surface-2 px-3.5 text-[0.85rem] font-bold text-ink hover:bg-surface-3"
               >
                 {phrase}
               </button>

@@ -217,7 +217,7 @@ export function ProductCard({
         <h3 className="text-[15px] leading-[1.25] font-extrabold sm:text-[17px]">
           <Link
             href={href}
-            className="inline-flex min-h-6 items-center text-ink hover:text-accent-text"
+            className="inline-flex min-h-6 items-center text-ink hover:text-accent-text max-md:-my-2.5 max-md:min-h-11"
           >
             {product.name}
           </Link>

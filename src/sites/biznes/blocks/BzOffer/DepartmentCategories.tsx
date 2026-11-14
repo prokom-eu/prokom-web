@@ -38,7 +38,7 @@ export function DepartmentCategories({ groupName, categories, visible, allHref, 
             <li key={category.slug} className="flex">
               <Link
                 href={categoryHref(category.slug)}
-                className="flex w-full items-center justify-between gap-2 rounded-[10px] bg-surface-2 px-2.5 py-2 text-[13px] leading-snug font-bold text-ink transition-colors hover:bg-accent-soft hover:text-accent-text"
+                className="flex w-full items-center justify-between gap-2 rounded-[10px] bg-surface-2 px-2.5 py-2 max-md:min-h-11 text-[13px] leading-snug font-bold text-ink transition-colors hover:bg-accent-soft hover:text-accent-text"
               >
                 {category.name}
                 <span className="shrink-0 text-xs font-bold text-ink-2">{category.count}</span>
@@ -70,7 +70,7 @@ export function DepartmentCategories({ groupName, categories, visible, allHref, 
           <Link
             href={allHref}
             style={style}
-            className="inline-flex min-h-10 items-center gap-1.5 rounded-xl bg-[color-mix(in_srgb,var(--dept)_14%,var(--card))] px-3.5 text-[13.5px] font-extrabold text-ink transition-colors hover:bg-[color-mix(in_srgb,var(--dept)_24%,var(--card))]"
+            className="inline-flex min-h-10 items-center gap-1.5 rounded-xl max-md:min-h-11 bg-[color-mix(in_srgb,var(--dept)_14%,var(--card))] px-3.5 text-[13.5px] font-extrabold text-ink transition-colors hover:bg-[color-mix(in_srgb,var(--dept)_24%,var(--card))]"
           >
             <span className="sr-only">{groupName}: </span>
             Cały dział

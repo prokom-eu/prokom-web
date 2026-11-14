@@ -693,7 +693,7 @@ export function SalonAbout({
                     href={source.url}
                     rel="noopener"
                     target="_blank"
-                    className="inline-flex min-h-6 items-center underline"
+                    className="inline-flex min-h-6 items-center underline max-md:min-h-11"
                   >
                     {source.host}
                   </a>

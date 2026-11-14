@@ -33,7 +33,7 @@ export function Breadcrumbs({
                     href={item.href}
                     // At least 24 px tall: a target of its own (WCAG 2.5.8, audit 0611 P3).
                     className={cx(
-                      'inline-flex min-h-6 items-center',
+                      'inline-flex min-h-6 items-center max-md:min-h-11',
                       onDark
                         ? 'hover:text-white hover:underline'
                         : 'hover:text-ink hover:underline',

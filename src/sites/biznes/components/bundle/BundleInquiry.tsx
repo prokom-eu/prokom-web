@@ -218,7 +218,7 @@ function BundleItemRow({
         </div>
         <Link
           href={row.href}
-          className="font-extrabold [overflow-wrap:anywhere] text-ink hover:underline"
+          className="font-extrabold [overflow-wrap:anywhere] text-ink hover:underline max-md:inline-flex max-md:min-h-11 max-md:items-center"
         >
           {row.name}
         </Link>

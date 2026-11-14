@@ -78,7 +78,7 @@ export async function BzNewsHomeBlock({
           {block.allLabel && own.length > 0 && (
             <Link
               href={NEWS_PATH}
-              className="inline-flex items-center gap-2 font-extrabold text-accent-text hover:underline"
+              className="inline-flex items-center gap-2 font-extrabold text-accent-text hover:underline max-md:min-h-11"
             >
               {block.allLabel}
               <Icon name="arrow" className="size-4" />

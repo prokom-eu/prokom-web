@@ -289,7 +289,7 @@ export function TabsPicker({
                 {item.slug && (
                   <Link
                     href={productHref(item.slug)}
-                    className="mt-auto pt-2 font-extrabold text-accent-text hover:underline max-md:pt-1 max-md:text-[13px]"
+                    className="mt-auto pt-2 font-extrabold text-accent-text hover:underline max-md:inline-flex max-md:min-h-11 max-md:items-center max-md:pt-0 max-md:text-[13px]"
                   >
                     Zobacz kartę →
                   </Link>
