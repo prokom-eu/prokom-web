@@ -1,9 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
-import cooperationModel from '../../../seed/prokomeu/model/Wspolpraca.json'
-import deliveriesModel from '../../../seed/prokomeu/model/Dostawy.json'
+import cooperationFile from '../../../seed/prokomeu/model/Wspolpraca.json'
+import deliveriesFile from '../../../seed/prokomeu/model/Dostawy.json'
 import { cooperationSchema, validateCooperation } from './cooperation'
 import { deliveriesSchema, MAX_QTY, validateDeliveries } from './deliveries'
+
+// `_zrodlo` documents the file; the panel value has no such key (the schemas are strict).
+const { _zrodlo: _d, ...deliveriesModel } = deliveriesFile
+const { _zrodlo: _c, ...cooperationModel } = cooperationFile
 
 const deliveries = deliveriesSchema.parse(deliveriesModel)
 const cooperation = cooperationSchema.parse(cooperationModel)
@@ -37,7 +41,7 @@ describe('deliveries model of board 17 (spec §6.5)', () => {
     expect(agd?.note).toMatch(/firm i instytucji/)
   })
 
-  it('every preset quantity fits the list (1–999) and points at a list item', () => {
+  it('every preset quantity fits the list (1–999)', () => {
     for (const object of deliveries.objects) {
       for (const row of object.preset) expect(row.qty).toBeLessThanOrEqual(MAX_QTY)
     }
@@ -62,6 +66,13 @@ describe('deliveries model of board 17 (spec §6.5)', () => {
     const qty = structuredClone(deliveriesModel)
     qty.objects[0]!.preset[0]!.qty = 1000
     expect(validateDeliveries(qty)).not.toBe(true)
+  })
+
+  it('refuses a protocol-relative link and an unknown top-level key', () => {
+    const link = structuredClone(deliveriesModel)
+    link.segments[0]!.cta.href = '//example.com'
+    expect(validateDeliveries(link)).toMatch(/segments\.0\.cta\.href/)
+    expect(validateDeliveries({ ...deliveriesModel, notes: 'literówka' })).not.toBe(true)
   })
 
   it('an empty value is fine until the page is filled', () => {

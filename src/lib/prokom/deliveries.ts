@@ -86,7 +86,8 @@ export const deliveriesSchema = z
           items: z.array(listItem).min(1),
         }),
       )
-      .min(1),
+      .min(1)
+      .superRefine(uniqueBy((g) => g.key, 'Grupa listy')),
     services: z.array(listItem).superRefine(uniqueBy((s) => s.key, 'Usługa')),
     terms: z.array(text(60)).min(1),
     objects: z
@@ -133,6 +134,7 @@ export const deliveriesSchema = z
     next: z.array(nextItem),
     note: optionalText(300),
   })
+  .strict()
   .superRefine((value, ctx) => {
     // Every key of a preset or object column must be an item of the request list.
     const items = value.listGroups.flatMap((group) => group.items.map((item) => item.key))

@@ -7,10 +7,14 @@
  * the shape of `HubSettings.deliveries` / `.cooperation`: line keys instead of colours, hub paths
  * instead of board files, no SVG paths (icons live in code).
  *
+ * The board's code runs in an empty `vm` context (no `process`, no modules, 2 s limit) — not a
+ * sandbox, enough for code of this repo. Run it only on boards whose diff you have read.
+ *
  * Usage: node scripts/prokomeu-model.mjs  (re-run after a board changes; review the diff).
  */
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { runInNewContext } from 'node:vm'
 
 const BOARDS = 'docs/design/prokomeu/plansze'
 const OUT = 'seed/prokomeu/model'
@@ -28,7 +32,14 @@ function runBoard(file, constants) {
   const code = `${body.slice(0, at)}const __result = ${body.slice(at + 'return '.length)}
     return { __result, ${constants.join(', ')} }`
   const board = { state: {}, props: {}, setState() {} }
-  return new Function(code).call(board)
+  // JSON round trip: plain objects of this realm (the vm context has its own `Object`).
+  const result = runInNewContext(
+    `(function () {${code}
+}).call(board)`,
+    { board },
+    { timeout: 2000 },
+  )
+  return JSON.parse(JSON.stringify(result))
 }
 
 const LINE_OF_COLOUR = {

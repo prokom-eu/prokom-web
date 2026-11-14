@@ -4,7 +4,7 @@ import { HUB_LINES } from './lines'
 
 /*
  * Building blocks of the hub's page texts kept as JSON in `HubSettings` (ADR-H002 „Rozstrzygnięcia
- * H1c”, the pattern of `SoftwareSettings.home`): the panel stores one value, this schema checks it
+ * H1” pkt 8, the pattern of `SoftwareSettings.home`): the panel stores one value, this schema checks it
  * on save and the loader reads it through the same schema.
  */
 
@@ -18,7 +18,7 @@ export const lineKey = z.enum([...HUB_LINES, 'prokom'])
 /** A path of the hub (`/dla-firm`, `/wspolpraca#etapy`) or an anchor on the page (`#lista`). */
 export const hubHref = z
   .string()
-  .regex(/^(\/[a-z0-9/#-]*|#[a-z0-9-]+)$/, 'ścieżka /… albo kotwica #…')
+  .regex(/^(\/(?!\/)[a-z0-9/#-]*|#[a-z0-9-]+)$/, 'ścieżka /… albo kotwica #…')
 
 export const titled = z.object({ title: text(90), text: text(300) })
 export const faqItem = z.object({ question: text(160), answer: text(600) })

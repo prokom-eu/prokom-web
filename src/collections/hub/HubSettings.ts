@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { json, type JSONFieldValidation } from 'payload/shared'
 
 import { adminOnly } from '../../lib/auth/access'
 import { validateCooperation } from '../../lib/prokom/cooperation'
@@ -6,6 +7,14 @@ import { validateDeliveries } from '../../lib/prokom/deliveries'
 import { HUB_OPTIONAL_PAGES } from '../../lib/prokom/pages'
 import { onlyLineTenant } from '../../lib/tenant/onlyLine'
 import { revalidateHub, revalidateHubAfterDelete } from './common'
+
+/** Payload's own JSON check first (text in the editor that does not parse), then the schema. */
+const withSchema =
+  (check: (value: unknown) => true | string): JSONFieldValidation =>
+  async (value, options) => {
+    const parsed = await json(value, options)
+    return parsed === true ? check(value) : parsed
+  }
 
 /**
  * Settings of pro-kom.eu (ADR-H002 §2), one document per tenant — like `BiznesSettings`: page
@@ -51,7 +60,7 @@ export const HubSettings: CollectionConfig = {
       name: 'deliveries',
       label: 'Inwestycje i dostawy (JSON)',
       type: 'json',
-      validate: validateDeliveries,
+      validate: withSchema(validateDeliveries),
       admin: {
         description:
           'Segmenty z formularzem, lista zapytania (klucze pozycji!), usługi, terminy, obiekty z przykładowymi ilościami, zakres, FAQ. Bez cen; konfiguracja, montaż i szkolenie tylko jako opcja.',
@@ -61,7 +70,7 @@ export const HubSettings: CollectionConfig = {
       name: 'cooperation',
       label: 'Współpraca (JSON)',
       type: 'json',
-      validate: validateCooperation,
+      validate: withSchema(validateCooperation),
       admin: {
         description:
           'Role z formularzem, etapy, zakres, dostawcy, zasady, FAQ. Telefon roli bierze się z jej linii — nie wpisuj numerów.',
