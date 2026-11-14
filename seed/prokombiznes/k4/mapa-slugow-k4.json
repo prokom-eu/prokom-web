@@ -45,6 +45,8 @@
   "kopie": "kopie-zapasowe",
   "opieka": "/opieka-it",
   "przeglad": "przeglad-it",
-  "ux": "ubiquiti-unifi-express-7"
+  "ux": "ubiquiti-unifi-express-7",
+  "lenovo-thinkstation-p4": "lenovo-thinkstation-p3-tower-gen-2",
+  "dell-ultrasharp-52-6k-u5226kw": "dell-ultrasharp-32-qd-oled-u3226q"
  }
 }

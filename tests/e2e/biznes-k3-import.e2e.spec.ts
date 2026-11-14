@@ -41,11 +41,13 @@ test.describe('Biznes catalog after the K3 import', () => {
     expect(final?.url()).toBe(site('biznes.localhost', '/oferta/skanery-kolektory-etykiety'))
   })
 
-  test('keeps a card „Do sprawdzenia” visible but out of the index', async ({ page }) => {
-    // ThinkStation P4 stays „do-sprawdzenia” (14.11: Lenovo does not confirm it for Poland).
-    const response = await page.goto(site('biznes.localhost', '/produkt/lenovo-thinkstation-p4'))
-    expect(response?.status()).toBe(200)
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
+  test('sends a card removed on 14.11 to its nearest model (301)', async ({ page }) => {
+    // Krystian's decision of 14.11.2026: ThinkStation P4 leaves the catalog (`ukryj`).
+    const { first, final } = await firstHop(page, '/produkt/lenovo-thinkstation-p4')
+    expect(first?.status()).toBe(301)
+    expect(final?.url()).toBe(
+      site('biznes.localhost', '/produkt/lenovo-thinkstation-p3-tower-gen-2'),
+    )
   })
 
   test('shows a new K3.1 card (K31a)', async ({ page }) => {

@@ -83229,7 +83229,7 @@
     },
     {
      "k": "Aplikacje Office",
-     "v": "Basic: tylko wersje w przeglądarce i mobilne; Standard, Premium, Apps for business: klasyczne Word, Excel, PowerPoint, Outlook, OneNote (Premium także Access na PC)"
+     "v": "Basic: tylko wersje w przeglądarce i mobilne; Standard, Premium, Apps for business: klasyczne Word, Excel, PowerPoint, Outlook, OneNote i Access (tylko PC)"
     },
     {
      "k": "Instalacje na użytkownika",
@@ -83245,7 +83245,7 @@
     },
     {
      "k": "Teams",
-     "v": "czat, rozmowy i spotkania w Basic, Standard, Premium; Apps for business bez czatu i rozmów"
+     "v": "czat, rozmowy i spotkania w Basic, Standard, Premium (w wersji planu z Teams — w UE są też wersje bez Teams); Apps for business bez czatu i rozmów"
     },
     {
      "k": "Bezpieczeństwo",
@@ -83429,7 +83429,8 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "zdjecia_brak": true
+   "zdjecia_brak": true,
+   "sprawdzono": "2026-11-14"
   },
   {
    "slug_seed": "m365-apps-for-business",
@@ -83464,7 +83465,7 @@
     },
     {
      "k": "Aplikacje Office",
-     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote + wersje w przeglądarce i mobilne"
+     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote, Access (PC) + wersje w przeglądarce i mobilne"
     },
     {
      "k": "Poczta",
@@ -83566,7 +83567,7 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null,
+   "sprawdzono": "2026-11-14",
    "zdjecia_brak": true
   },
   {
@@ -83708,7 +83709,7 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null,
+   "sprawdzono": "2026-11-14",
    "zdjecia_brak": true
   },
   {
@@ -83745,7 +83746,7 @@
     },
     {
      "k": "Aplikacje Office",
-     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote + wersje w przeglądarce i mobilne"
+     "v": "klasyczne Word, Excel, PowerPoint, Outlook, OneNote, Access (PC) + wersje w przeglądarce i mobilne"
     },
     {
      "k": "Instalacje na użytkownika",
@@ -83761,7 +83762,7 @@
     },
     {
      "k": "Teams",
-     "v": "czat, rozmowy i spotkania"
+     "v": "czat, rozmowy i spotkania (w wersji planu z Teams)"
     },
     {
      "k": "Okres",
@@ -83851,7 +83852,7 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null,
+   "sprawdzono": "2026-11-14",
    "zdjecia_brak": true
   },
   {
@@ -83899,7 +83900,7 @@
     },
     {
      "k": "Teams",
-     "v": "czat, rozmowy i spotkania"
+     "v": "czat, rozmowy i spotkania (w wersji planu z Teams)"
     },
     {
      "k": "Bezpieczeństwo",
@@ -83993,7 +83994,7 @@
    ],
    "nowosc": false,
    "seria": "Microsoft 365 dla firm",
-   "sprawdzono": null,
+   "sprawdzono": "2026-11-14",
    "zdjecia_brak": true
   },
   {
@@ -96031,10 +96032,6 @@
    ],
    "faq": [
     {
-     "q": "ThinkStation P3 Tower Gen 2 czy ThinkStation P4 — czym się różnią?",
-     "a": "P3 Tower Gen 2 to platforma Intel Core Ultra (seria 2) z chipsetem W880, Ethernetem 1 Gb/s i miejscem nawet na siedem nośników. P4 ma procesory AMD Ryzen PRO 9000, Ethernet 2,5 Gb/s i do sześciu nośników. Obie przyjmą RTX PRO 6000 Blackwell i 256 GB RAM — wybór zależy zwykle od zaleceń programu."
-    },
-    {
      "q": "Jaką kartę graficzną wybrać do ThinkStation P3 Tower Gen 2?",
      "a": "Do rysunków 2D i średnich modeli 3D zwykle wystarczy RTX A1000 lub RTX PRO 2000 Blackwell. Duże modele BIM, rendering i AI korzystają z RTX PRO 4000–6000 Blackwell z 24–96 GB pamięci. Kartę dobieramy do programu i wielkości projektów, a zasilacz do karty."
     },
@@ -96167,7 +96164,6 @@
     }
    ],
    "podobne": [
-    "lenovo-thinkstation-p4",
     "lenovo-thinkstation-p3-tiny-ultra-gen-2",
     "lenovo-thinkpad-p16-gen3"
    ],
@@ -97917,8 +97913,8 @@
      "a": "Tak, przez Thunderbolt 4: jeden kabel przenosi obraz 4K 120 Hz, porty USB, sieć z gniazda 2,5 Gb/s w monitorze i ładuje laptop mocą do 140 W. Kabel Thunderbolt 4 jest w zestawie; pełne możliwości wymagają laptopa z Thunderbolt lub USB-C z DisplayPort i ładowaniem."
     },
     {
-     "q": "Dell U3226Q czy UltraSharp 52 U5226KW — który monitor wybrać?",
-     "a": "U3226Q (31,5\", 4K QD-OLED) wybierz do pracy z kolorem: grafika, zdjęcia, druk, wideo — ma wbudowany kalibrator, ale nie ma głośników. U5226KW (51,5\", 6144×2560, zakrzywiony IPS Black) zastępuje dwa monitory przy arkuszach i wielu oknach, ma głośniki 2× 9 W."
+     "q": "Czy do Dell U3226Q podłączę drugi monitor albo drugi komputer?",
+     "a": "Tak. Drugi port Thunderbolt 4 w monitorze to wyjście do podłączenia kolejnego monitora, a wbudowany przełącznik KVM pozwala obsługiwać dwa komputery jedną klawiaturą i myszą podpiętymi do monitora. Do tego są 2× HDMI 2.1 (4K 120 Hz) i DisplayPort 1.4, więc drugi komputer podłączysz także bez Thunderbolta."
     }
    ],
    "konfigurator": {
@@ -97975,7 +97971,6 @@
    ],
    "podobne": [
     "dell-ultrasharp",
-    "dell-ultrasharp-52-6k-u5226kw",
     "dell-plus-monitory",
     "dell-pro-usb-c-hub"
    ],

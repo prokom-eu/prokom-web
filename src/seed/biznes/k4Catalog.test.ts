@@ -389,6 +389,11 @@ describe('mapa-slugow-k4.json', () => {
     ['opieka', 'opieka-it-stara'],
     ['ux', 'ubiquiti-unifi-express'],
     ['ubiquiti-unifi-express-7', 'ubiquiti-unifi-express-7'],
+    // Krystian's decision of 14.11.2026: ThinkStation P4 and Dell U5226KW leave the catalog.
+    ['lenovo-thinkstation-p4', 'lenovo-thinkstation-p4'],
+    ['lenovo-thinkstation-p3-tower-gen-2', 'lenovo-thinkstation-p3-tower-gen-2'],
+    ['dell-ultrasharp-52-6k-u5226kw', 'dell-ultrasharp-52-6k-u5226kw'],
+    ['dell-ultrasharp-32-qd-oled-u3226q', 'dell-ultrasharp-32-qd-oled-u3226q'],
   ])
 
   it('sends a hidden card to its new card or page (301)', () => {
@@ -397,6 +402,14 @@ describe('mapa-slugow-k4.json', () => {
       { from: '/produkt/opieka-it-stara', to: '/opieka-it' },
       { from: '/produkt/przeglad-it-stary', to: '/produkt/przeglad-it' },
       { from: '/produkt/ubiquiti-unifi-express', to: '/produkt/ubiquiti-unifi-express-7' },
+      {
+        from: '/produkt/lenovo-thinkstation-p4',
+        to: '/produkt/lenovo-thinkstation-p3-tower-gen-2',
+      },
+      {
+        from: '/produkt/dell-ultrasharp-52-6k-u5226kw',
+        to: '/produkt/dell-ultrasharp-32-qd-oled-u3226q',
+      },
     ])
     expect(() => k4SlugRedirects(k4SlugMap, () => undefined)).toThrow(/kopie/)
   })
@@ -406,6 +419,8 @@ describe('mapa-slugow-k4.json', () => {
       kopie: 'kopie-zapasowe',
       przeglad: 'przeglad-it',
       ux: 'ubiquiti-unifi-express-7',
+      'lenovo-thinkstation-p4': 'lenovo-thinkstation-p3-tower-gen-2',
+      'dell-ultrasharp-52-6k-u5226kw': 'dell-ultrasharp-32-qd-oled-u3226q',
     })
   })
 
