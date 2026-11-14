@@ -1,6 +1,8 @@
 'use client'
 
-import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useEffect, useId, useMemo, useState } from 'react'
+
+import { BottomSheet } from '@/components/BottomSheet'
 
 import { Icon } from '@/components/ui/Icon'
 import { iconForService } from '@/lib/prokom/icons'
@@ -33,13 +35,16 @@ type Props = {
 }
 
 const servicesCount = (count: number) => plural(count, ['usługa', 'usługi', 'usług'])
-const linesIn = (count: number) => (count === 1 ? '1 linii' : `${count} liniach`)
+const linesIn = (count: number) => (count === 1 ? 'w 1 linii' : `w ${count} liniach`)
+/** Where the detail is a sheet (below the two-column catalog of `offer.css`). */
+const SHEET_QUERY = '(max-width: 1023px)'
 
 /**
  * Hero search and catalog of `/linie` (spec §6.2, board 02): the services of `HubServices` grouped
  * by line, filtered by text, audience and line with counts from the data, and the detail of the
  * chosen service. The state lives in the address (`?q=&dla=&linia=&u=`), so a link to one service
- * can be sent. On a phone the detail opens as a sheet over the list.
+ * can be sent. On a phone and tablet the detail opens in the shared `BottomSheet` (a modal
+ * `<dialog>`: focus kept inside, Esc, focus back to the service button).
  */
 export function OfferCatalog({
   texts,
@@ -57,36 +62,31 @@ export function OfferCatalog({
     line: initial.line,
   })
   const [selected, setSelected] = useState<string | null>(initial.selected)
-  const [sheet, setSheet] = useState(initial.selected !== null)
-  const sheetRef = useRef<HTMLElement>(null)
+  const [sheet, setSheet] = useState(false)
   const searchId = useId()
   const matching = useMemo(() => filterServices(services, filter), [services, filter])
   const current =
     services.find((service) => service.key === selected) ?? matching[0] ?? services[0] ?? null
 
-  // The address follows the state (replace — the back button leaves the page, not each filter).
+  // The address follows the state (replace — the back button leaves the page, not each filter);
+  // other parameters and the anchor stay.
   useEffect(() => {
-    const query = offerQuery(filter, selected)
-    window.history.replaceState(window.history.state, '', `${window.location.pathname}${query}`)
+    const { pathname, search, hash } = window.location
+    const query = offerQuery(filter, selected, search)
+    window.history.replaceState(window.history.state, '', `${pathname}${query}${hash}`)
   }, [filter, selected])
 
-  // The sheet (phone) takes the focus and closes on Escape.
+  // A link to one service (`?u=`) opens its sheet on a phone right after hydration.
   useEffect(() => {
-    if (!sheet) return
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setSheet(false)
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [sheet])
+    if (!initial.selected || !window.matchMedia(SHEET_QUERY).matches) return
+    const timer = window.setTimeout(() => setSheet(true), 0)
+    return () => window.clearTimeout(timer)
+  }, [initial.selected])
 
   const pick = (key: string) => {
     setSelected(key)
-    setSheet(true)
     // Only where the detail is a sheet: on wide screens it stays beside the list.
-    if (window.matchMedia('(max-width: 1023px)').matches) {
-      window.setTimeout(() => sheetRef.current?.focus(), 0)
-    }
+    if (window.matchMedia(SHEET_QUERY).matches) setSheet(true)
   }
   const update = (next: Partial<OfferFilter>) => setFilter((value) => ({ ...value, ...next }))
   const reset = () => setFilter({ q: '', audience: null, line: null })
@@ -95,6 +95,14 @@ export function OfferCatalog({
     .map((line) => ({ line, items: matching.filter((service) => service.line === line.key) }))
     .filter((group) => group.items.length > 0)
   const shownLines = new Set(matching.map((service) => service.line)).size
+  const detailProps = (service: OfferService) => ({
+    texts: texts.detail,
+    service,
+    line: lineOf(service.line),
+    related: service.related.flatMap((key) => services.find((item) => item.key === key) ?? []),
+    lineOf,
+    onPick: pick,
+  })
 
   return (
     <>
@@ -143,8 +151,8 @@ export function OfferCatalog({
                 {texts.filters.clear}
               </button>
             )}
-            <span className="pk-osearch__count" aria-live="polite">
-              {servicesCount(matching.length)} w {linesIn(shownLines)}
+            <span id={`${searchId}-count`} className="pk-osearch__count" aria-live="polite">
+              {servicesCount(matching.length)} {linesIn(shownLines)}
             </span>
           </div>
           <div className="pk-ochips">
@@ -211,7 +219,7 @@ export function OfferCatalog({
 
       <section
         id="katalog"
-        aria-label={texts.hero.searchLabel}
+        aria-labelledby={`${searchId}-count`}
         className={`pk-ocat ${HUB_CONTAINER}`}
       >
         {groups.length === 0 ? (
@@ -262,7 +270,7 @@ export function OfferCatalog({
                         <button
                           type="button"
                           className="pk-osv"
-                          aria-pressed={current?.key === service.key}
+                          aria-pressed={selected === service.key}
                           aria-controls="usluga"
                           onClick={() => pick(service.key)}
                         >
@@ -284,70 +292,55 @@ export function OfferCatalog({
               ))}
             </div>
             {current && (
-              <Detail
-                ref={sheetRef}
-                texts={texts.detail}
-                service={current}
-                line={lineOf(current.line)}
-                related={current.related.flatMap(
-                  (key) => services.find((service) => service.key === key) ?? [],
-                )}
-                lineOf={lineOf}
-                open={sheet}
-                onClose={() => setSheet(false)}
-                onPick={pick}
-              />
+              <aside
+                id="usluga"
+                aria-label={texts.detail.label}
+                className="pk-od"
+                style={lineStyle(current.line)}
+              >
+                <Detail {...detailProps(current)} />
+              </aside>
             )}
           </div>
         )}
       </section>
+      {current && (
+        <BottomSheet
+          open={sheet}
+          onClose={() => setSheet(false)}
+          title={current.title}
+          desktopQuery="(min-width: 1024px)"
+          closeOnBack
+          dragToClose
+        >
+          <div className="pk-od pk-od--sheet" style={lineStyle(current.line)}>
+            <Detail {...detailProps(current)} inSheet />
+          </div>
+        </BottomSheet>
+      )}
     </>
   )
 }
 
 type DetailProps = {
-  ref: React.Ref<HTMLElement>
   texts: HubOffer['detail']
   service: OfferService
   line: OfferLine | undefined
   related: OfferService[]
   lineOf: (key: HubLine) => OfferLine | undefined
-  open: boolean
-  onClose: () => void
   onPick: (key: string) => void
+  /** In the sheet its own heading names the service; here only the line and audience. */
+  inSheet?: boolean
 }
 
-function Detail({
-  ref,
-  texts,
-  service,
-  line,
-  related,
-  lineOf,
-  open,
-  onClose,
-  onPick,
-}: DetailProps) {
+function Detail({ texts, service, line, related, lineOf, onPick, inSheet = false }: DetailProps) {
   return (
-    <aside
-      ref={ref}
-      id="usluga"
-      tabIndex={-1}
-      aria-label={texts.label}
-      className="pk-od"
-      data-open={open ? '' : undefined}
-      style={lineStyle(service.line)}
-    >
+    <>
       <div className="pk-od__top">
         <Mark label={line?.label ?? null} />
         <span className="pk-od__aud">{texts.audiences[service.audience]}</span>
-        <button type="button" className="pk-od__close" onClick={onClose}>
-          {texts.close}
-        </button>
       </div>
-      <h2 className="pk-h3 pk-od__title" aria-live="polite">
-        {service.title}
-      </h2>
+      {!inSheet && <h2 className="pk-h3 pk-od__title">{service.title}</h2>}
       {service.long && <p className="pk-od__long">{service.long}</p>}
       {line && (
         <p className="pk-od__who">
@@ -438,6 +431,6 @@ function Detail({
           </ul>
         </div>
       )}
-    </aside>
+    </>
   )
 }

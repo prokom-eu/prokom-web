@@ -140,9 +140,13 @@ export function parseOfferParams(
   }
 }
 
-/** The query string of a catalog state, for the address bar (`?u=b11` can be sent to someone). */
-export function offerQuery(filter: OfferFilter, selected: string | null): string {
-  const params = new URLSearchParams()
+/**
+ * The query string of a catalog state, for the address bar (`?u=b11` can be sent to someone).
+ * Other parameters of the address (`utm_*`) stay as they were.
+ */
+export function offerQuery(filter: OfferFilter, selected: string | null, current = ''): string {
+  const params = new URLSearchParams(current)
+  for (const name of ['q', 'dla', 'linia', 'u']) params.delete(name)
   if (filter.q) params.set('q', filter.q)
   if (filter.audience) params.set('dla', filter.audience)
   if (filter.line) params.set('linia', filter.line)

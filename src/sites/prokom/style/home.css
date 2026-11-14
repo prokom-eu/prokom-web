@@ -42,6 +42,14 @@
   letter-spacing: -0.03em;
   line-height: 0.96;
 }
+.pk-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.4vw, 84px);
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
 .pk-nowrap {
   font-style: normal;
   white-space: nowrap;
