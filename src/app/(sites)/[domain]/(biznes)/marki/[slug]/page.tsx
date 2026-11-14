@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { localDescription, localTitle } from '@/lib/biznes/seo'
+import { brandMetaTitle, localDescription, salonMetaTitle } from '@/lib/biznes/seo'
 import { notFound, permanentRedirect } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
@@ -65,18 +65,17 @@ async function load(params: Props['params']) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, salon, brand } = await load(params)
-  // SEO lokalne 13.11: the region in the title and the description. A salon's title is the first
-  // line of its heading („Kasy, drukarki i wagi Elzab”) — the whole two-line heading was cut
-  // mid-sentence in results — plus the region.
+  // SEO lokalne 14.11: the region in the title and the description (`salonMetaTitle`,
+  // `brandMetaTitle`) — the whole two-line salon heading was cut mid-sentence in results.
   const page = salon
     ? {
-        title: localTitle(salon.h1a.replace(/[\s,:;.—–-]+$/u, '')),
+        title: salonMetaTitle(salon.h1a),
         description: salon.lead ? localDescription(salon.lead) : undefined,
         slug: salon.slug,
       }
     : brand
       ? {
-          title: localTitle(brandTitle(brand.name, brand.shortDescription)),
+          title: brandMetaTitle(brand.name, brandTitle(brand.name, brand.shortDescription)),
           description: brand.shortDescription
             ? localDescription(brand.shortDescription)
             : undefined,

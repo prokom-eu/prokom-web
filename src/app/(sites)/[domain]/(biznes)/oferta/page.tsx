@@ -29,7 +29,7 @@ const TITLE = 'Cała oferta dla firm'
 const META_TITLE = 'Oferta dla firm — Rabka-Zdrój i Podhale'
 /** Meta description (≤ 155 characters, audit 01.11); the lead below is longer. */
 const DESCRIPTION =
-  'Sprzęt, programy i usługi dla firm z Rabki-Zdroju, Podhala i Małopolski: dobór, wdrożenie i serwis. Dodaj je do zapytania — wycena na piśmie.'
+  'Sprzęt, programy i usługi dla firm z Rabki-Zdroju, Podhala i Małopolski: dobór, wdrożenie i serwis. Dodaj pozycje do zapytania — wycena na piśmie.'
 /** Lead of the K4 board `Web-Oferta`. */
 const LEAD =
   'Sprzęt, programy i usługi dla firm i instytucji, z doborem, wdrożeniem i serwisem. Cen nie podajemy na stronie: dodaj pozycje do zapytania, a przygotujemy wycenę.'

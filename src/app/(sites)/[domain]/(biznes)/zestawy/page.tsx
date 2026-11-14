@@ -29,7 +29,7 @@ type Props = { params: Promise<{ domain: string }> }
 
 const TITLE = 'Gotowe zestawy dla firm — Rabka-Zdrój'
 const DESCRIPTION =
-  'Zestawy dla sklepu, gastronomii, noclegów, biura, gabinetu i szkoły: sprzęt, program i wdrożenie na Podhalu, które działają razem. Wycena na piśmie.'
+  'Zestawy dla sklepu, gastronomii, noclegów, biura, gabinetu i szkoły: sprzęt, program i wdrożenie, które działają razem. Na Podhalu, wycena na piśmie.'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'biznes')
