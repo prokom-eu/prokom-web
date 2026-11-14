@@ -3,11 +3,12 @@ import { describe, expect, it, vi } from 'vitest'
 // Only the pure projections are tested; the loaders need a database.
 vi.mock('@payload-config', () => ({ default: {} }))
 vi.mock('../shared/getSharedData', () => ({ getSharedData: vi.fn() }))
-vi.mock('../posts/data', () => ({ getTenantPostRows: vi.fn() }))
+vi.mock('../posts/data', () => ({ getTenantPostRows: vi.fn(), getLineTenantRows: vi.fn() }))
 
 import type { SharedLine } from '../shared/project'
 import { toHubLineContacts } from './lineContacts'
-import { hubNewsLinks } from './news'
+import { linePostLinks } from '../posts/sister'
+import { TENANT_LINES } from './lineContacts'
 
 const line = (key: SharedLine['key'], extra: Partial<SharedLine> = {}): SharedLine => ({
   key,
@@ -66,7 +67,12 @@ describe('toHubLineContacts', () => {
   })
 })
 
-describe('hubNewsLinks', () => {
+describe('hub news (linePostLinks of the three line sites)', () => {
+  const news = (
+    groups: Parameters<typeof linePostLinks>[0],
+    limit: number,
+    place: { siteEnv: 'production' },
+  ) => linePostLinks(groups, TENANT_LINES, limit, place)
   const place = { siteEnv: 'production' as const }
   const tenant = (id: number, l: 'biznes' | 'instalacje' | 'software', host: string | null) => ({
     id,
@@ -81,7 +87,7 @@ describe('hubNewsLinks', () => {
   })
 
   it('links the newest posts of the three lines at their source, newest first', () => {
-    const links = hubNewsLinks(
+    const links = news(
       [
         { tenant: tenant(1, 'biznes', 'prokombiznes.pl'), posts: [post('a', '2026-11-01')] },
         {
@@ -99,12 +105,8 @@ describe('hubNewsLinks', () => {
 
   it('gives no card for a line without a domain here, and nothing for no posts', () => {
     expect(
-      hubNewsLinks(
-        [{ tenant: tenant(1, 'biznes', null), posts: [post('a', '2026-11-01')] }],
-        3,
-        place,
-      ),
+      news([{ tenant: tenant(1, 'biznes', null), posts: [post('a', '2026-11-01')] }], 3, place),
     ).toEqual([])
-    expect(hubNewsLinks([{ tenant: tenant(1, 'biznes', 'x.pl'), posts: [] }], 3, place)).toEqual([])
+    expect(news([{ tenant: tenant(1, 'biznes', 'x.pl'), posts: [] }], 3, place)).toEqual([])
   })
 })

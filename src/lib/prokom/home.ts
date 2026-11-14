@@ -1,6 +1,22 @@
 import { z } from 'zod'
 
-import { faqItem, firstIssue, key, lineKey, optionalText, text, titled } from './schema'
+import {
+  factKeys,
+  faqItem,
+  firstIssue,
+  key,
+  lineKey,
+  noContactData,
+  optionalText,
+  text,
+  titled,
+} from './schema'
+
+export { withVisibleFacts } from './schema'
+
+/** Stands for the line's promise (spec §3) — kept in its panel, never in these texts. */
+export const PROMISE = '{obietnica}'
+
 import { HUB_LINES, type HubLine } from './lines'
 
 /*
@@ -8,7 +24,8 @@ import { HUB_LINES, type HubLine } from './lines'
  * (decision 14.11, ADR-H002 „Rozstrzygnięcia H1” pkt 8). Data read from elsewhere is not here:
  * phones, promises, hours and domains (`CompanyData` / `SiteSettings` of the lines), services,
  * tools, personas and situations (collections `hub-*`). The FAQ may use `{telefon}`, `{adres}` and
- * `{godziny}` — filled in from `CompanyData` on render (spec §3).
+ * `{godziny}`, the facts and steps of a line `{obietnica}` — filled in on render (spec §3). A text
+ * that repeats a company fact names it in `facts` and shows only while the fact is visible.
  */
 
 const head = { eyebrow: text(60), title: text(120), lead: text(320) }
@@ -16,9 +33,6 @@ const head = { eyebrow: text(60), title: text(120), lead: text(320) }
 /** One entry per line of the hub, nothing more (the scene and the hero show all five). */
 const byLine = <T extends z.ZodType>(value: T) =>
   z.object(Object.fromEntries(HUB_LINES.map((line) => [line, value])) as Record<HubLine, T>)
-
-/** A counter or trust-bar item tied to a company fact shows only while the fact is visible. */
-const fact = z.string().trim().min(1).max(40).nullable()
 
 const vignette = z.discriminatedUnion('kind', [
   z.object({
@@ -38,9 +52,6 @@ const vignette = z.discriminatedUnion('kind', [
   z.object({ kind: z.enum(['switch', 'web', 'kanban', 'flow']) }),
 ])
 
-/** No contact data in the texts — the literal test of spec §3 for the panel's JSON. */
-const CONTACT_DATA = /\d{3}[ -]?\d{3}[ -]?\d{3}|@|\bul\.\s/
-
 export const homeSchema = z
   .object({
     hero: z.object({
@@ -49,13 +60,18 @@ export const homeSchema = z
       lead: text(240),
       unsure: text(120),
       cta: text(40),
-      hints: z.array(z.object({ text: text(60), line: lineKey })).min(1),
+      hints: z
+        .array(z.object({ text: text(60), line: lineKey }))
+        .min(1)
+        .max(8),
       chips: z
         .array(z.object({ label: text(30), line: lineKey }))
         .min(1)
         .max(6),
-      counters: z.array(z.object({ value: text(8), label: text(60), fact })).max(4),
-      trustBar: z.array(z.object({ line: lineKey, title: text(40), note: text(40), fact })),
+      counters: z.array(z.object({ value: text(8), label: text(60), facts: factKeys })).max(4),
+      trustBar: z
+        .array(z.object({ line: lineKey, title: text(40), note: text(40), facts: factKeys }))
+        .max(12),
       lines: byLine(
         z.object({
           short: text(60),
@@ -74,14 +90,15 @@ export const homeSchema = z
           who: text(160),
           cta: text(40),
           services: z.array(titled).min(1).max(6),
-          facts: z.array(text(90)).max(3),
+          facts: z.array(z.object({ text: text(90), facts: factKeys })).max(3),
           more: z.array(text(40)).max(6),
-          steps: z.array(titled).length(3),
+          steps: z.array(z.object({ title: text(90), text: text(300) })).length(3),
           status: z.array(z.object({ label: text(40), state: text(30) })).max(4),
         }),
       ),
       techStages: z.array(titled).length(4),
       cameras: z.array(z.object({ label: text(30), kind: z.enum(['cam', 'wifi']) })).max(4),
+      cameraNotes: z.object({ camera: text(120), wifi: text(120) }),
     }),
     team: z.object({
       ...head,
@@ -119,7 +136,7 @@ export const homeSchema = z
       region: text(40),
     }),
     news: z.object({ eyebrow: text(40), title: text(60) }),
-    faq: z.object({ eyebrow: text(40), title: text(60), items: z.array(faqItem).min(1) }),
+    faq: z.object({ eyebrow: text(40), title: text(60), items: z.array(faqItem).min(1).max(12) }),
     contact: z.object({
       eyebrow: text(40),
       title: text(90),
@@ -131,15 +148,7 @@ export const homeSchema = z
     final: z.object({ title: text(120), write: text(40), choose: text(40) }),
   })
   .strict()
-  .superRefine((home, ctx) => {
-    const found = JSON.stringify(home).match(CONTACT_DATA)
-    if (found) {
-      ctx.addIssue({
-        code: 'custom',
-        message: `dane kontaktowe („${found[0]}”) tylko z danych firmy — użyj {telefon}, {adres}, {godziny}`,
-      })
-    }
-  })
+  .superRefine(noContactData)
 
 export type HubHome = z.infer<typeof homeSchema>
 
@@ -155,14 +164,8 @@ export function fillTokens(answer: string, tokens: FaqTokens): string {
   return answer.replace(/\{(telefon|adres|godziny)\}/g, (_, name: keyof FaqTokens) => tokens[name])
 }
 
-/**
- * Counters and trust-bar items whose fact is not visible (on production: not approved) are left
- * out — spec §3 „nic ponad to bez zatwierdzenia”.
- */
-export function withVisibleFacts<T extends { fact: string | null }>(
-  items: readonly T[],
-  visibleFacts: readonly { value: string }[],
-): T[] {
-  const visible = new Set(visibleFacts.map((row) => row.value))
-  return items.filter((item) => item.fact === null || visible.has(item.fact))
+/** `{obietnica}` → the line's promise from its panel; no promise = the item is left out. */
+export function fillPromise(text: string, promise: string | null): string | null {
+  if (!text.includes(PROMISE)) return text
+  return promise ? text.replace(PROMISE, promise) : null
 }

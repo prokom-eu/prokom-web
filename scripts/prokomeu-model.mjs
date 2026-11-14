@@ -221,6 +221,33 @@ function cooperation() {
 }
 
 const LINE_KEYS = ['biznes', 'instalacje', 'software', 'tech', 'gaming']
+
+/**
+ * Company facts a text repeats (values of `HubSettings.trust`): it shows only while all of them
+ * are visible — on production, approved (spec §3).
+ */
+const factsOf = (text) =>
+  [
+    [/Posnet/, 'Posnet'],
+    [/Elzab(?! EcoPower)/, 'Elzab'],
+    [/GoPOS/, 'GoPOS'],
+    [/InsERT/, 'InsERT'],
+    [/100/, '100+'],
+    [/2004/, 'Od 2004'],
+  ].flatMap(([pattern, fact]) => (pattern.test(text) ? [fact] : []))
+
+/**
+ * A line's promise (spec §3) lives in its panel (`SiteSettings.shared.responsePromise`,
+ * `CompanyData.lines`) — the texts keep `{obietnica}` so the two never drift apart.
+ */
+const PROMISES = {
+  biznes: ['Oddzwaniamy w 60 minut'],
+  instalacje: ['Odpowiedź w 24 godziny w dni robocze', 'Odpowiedź w 24 godziny'],
+  software: ['Odpowiedź w 1 dzień roboczy'],
+  tech: ['Bezpłatna diagnoza i wycena'],
+  gaming: [],
+}
+const promised = (key, text) => (PROMISES[key].includes(text) ? '{obietnica}' : text)
 const perLine = (pick) => Object.fromEntries(LINE_KEYS.map((key) => [key, pick(key)]))
 
 /**
@@ -331,24 +358,21 @@ function home() {
       chips: r.chips.map((c) => ({ label: c.label, line: line(c.c) })),
       // :481–484 — a counter tied to a fact shows only while the fact is visible (approved).
       counters: [
-        { value: '2004', label: 'rok założenia firmy', fact: 'Od 2004' },
-        { value: '5', label: 'linii pod jednym szyldem', fact: null },
-        { value: '100+', label: 'klientów firmowych', fact: '100+' },
-        { value: '4', label: 'autoryzacje: Posnet, Elzab, GoPOS, InsERT', fact: 'Posnet' },
+        { value: '2004', label: 'rok założenia firmy', facts: ['Od 2004'] },
+        { value: '5', label: 'linii pod jednym szyldem', facts: [] },
+        { value: '100+', label: 'klientów firmowych', facts: ['100+'] },
+        {
+          value: '4',
+          label: 'autoryzacje: Posnet, Elzab, GoPOS, InsERT',
+          facts: ['Posnet', 'Elzab', 'GoPOS', 'InsERT'],
+        },
       ],
       trustBar: mq.map(([colour, title, _icon, note]) => ({
         line: line(colour),
         title,
         note,
         // The Posnet…InsERT and „Od 2004” items repeat an approved fact; the others are offers.
-        fact:
-          {
-            'W Rabce-Zdroju': 'Od 2004',
-            Posnet: 'Posnet',
-            Elzab: 'Elzab',
-            GoPOS: 'GoPOS',
-            InsERT: 'InsERT',
-          }[title] ?? null,
+        facts: factsOf(`${title} ${note}`),
       })),
       lines: perLine((key) => ({
         short: lineData[key].short,
@@ -368,13 +392,18 @@ function home() {
         who: sceneOf(key).who,
         cta: sceneOf(key).cta,
         services: sceneOf(key).det.map(([title, text]) => ({ title, text })),
-        facts: [...FX[key]],
+        facts: FX[key].map((text) => ({ text: promised(key, text), facts: factsOf(text) })),
         more: [...MORE[key]],
-        steps: ST[key].map(([title, text]) => ({ title, text })),
+        steps: ST[key].map(([title, text]) => ({ title: promised(key, title), text })),
         status: X[key].rows.map(([label, state]) => ({ label, state })),
       })),
       techStages: TS.map(([title, text]) => ({ title, text })),
       cameras: CM.map(([label, kind]) => ({ label, kind })),
+      // The two captions of the camera preview (inline in renderVals, `camNote`).
+      cameraNotes: {
+        camera: r.camNote,
+        wifi: 'Wi-Fi dla gości jest oddzielone od sieci firmowej.',
+      },
     },
     team: {
       // :616–645 — the „Razem” tab
@@ -524,7 +553,7 @@ function brands() {
         line: 'biznes',
         title: 'Sprzęt i programy dla firm',
         brands: ['Lenovo', 'Dell', 'Microsoft', 'ESET', 'Synology', 'QNAP', 'Fellowes', 'Kobra'],
-        text: 'Komputery, serwery, licencje, ochrona i urządzenia biurowe — dostawa i konfiguracja.',
+        text: 'Komputery, serwery, licencje, ochrona i urządzenia biurowe — dostawa, konfiguracja na życzenie.',
       },
       {
         line: 'instalacje',

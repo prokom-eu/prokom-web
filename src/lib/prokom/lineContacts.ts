@@ -1,10 +1,6 @@
-import config from '@payload-config'
-import { getPayload } from 'payload'
 import { cache } from 'react'
 
-import { cacheQuery } from '../cache'
-import { PAGE_CACHE_SECONDS } from '../pages/data'
-import type { SisterDomain } from '../posts/sister'
+import { getLineTenantRows } from '../posts/data'
 import { getSharedData } from '../shared/getSharedData'
 import type { SharedLine, SharedLineData } from '../shared/project'
 import { HUB_LINES, type HubLine } from './lines'
@@ -29,12 +25,16 @@ export type HubLineContact = {
   promise: string | null
 }
 
+const isTenantLine = (value: unknown): value is TenantLine =>
+  (TENANT_LINES as readonly unknown[]).includes(value)
+
 type LineFields = Pick<SharedLineData, 'phone' | 'email' | 'hours' | 'responsePromise'>
 
 /**
  * Contact of the five hub lines (spec §6.1 pkt 11, ADR-H001): for Biznes, Instalacje and Software
  * the line's own `SiteSettings` wins (that is what its site shows), `CompanyData.lines` fills the
- * gaps and is the only source for Tech and Gaming. Order of the hub, unpublished lines left out.
+ * gaps and is the only source for Tech and Gaming. (The e-mail of a line site never comes from
+ * `CompanyData.lines`: `getSharedData` already falls back to the company e-mail.) Order of the hub, unpublished lines left out.
  */
 export function toHubLineContacts(
   lines: readonly SharedLine[],
@@ -59,41 +59,24 @@ export function toHubLineContacts(
   })
 }
 
-export type LineTenantRow = { id: number; line: TenantLine; domains: SisterDomain[] }
-
-/** Active tenants of Biznes, Instalacje and Software (they change with a new site only). */
-export const getLineTenantRows = (): Promise<LineTenantRow[]> =>
-  cacheQuery(
-    async () => {
-      const payload = await getPayload({ config })
-      const { docs } = await payload.find({
-        collection: 'tenants',
-        where: { and: [{ line: { in: [...TENANT_LINES] } }, { active: { equals: true } }] },
-        limit: 10,
-        depth: 0,
-        select: { line: true, domains: true },
-        overrideAccess: true,
-      })
-      return docs.flatMap(({ id, line, domains }) =>
-        (TENANT_LINES as readonly string[]).includes(line ?? '')
-          ? [{ id, line: line as TenantLine, domains: domains ?? [] }]
-          : [],
-      )
-    },
-    ['hub-line-tenants'],
-    { revalidate: PAGE_CACHE_SECONDS },
-  )()
-
 /**
  * Line contacts for the hub of `hubTenantId`. Reads only public contact fields of the other
  * tenants (through the cached `getSharedData`), never their content.
  */
 export const getHubLineContacts = cache(async (hubTenantId: number): Promise<HubLineContact[]> => {
-  const [hub, tenants] = await Promise.all([getSharedData(hubTenantId), getLineTenantRows()])
+  const [hub, tenants] = await Promise.all([
+    getSharedData(hubTenantId),
+    getLineTenantRows(TENANT_LINES),
+  ])
   if (!hub) return []
   const own: Partial<Record<TenantLine, LineFields | null>> = {}
+  // Two active tenants of one line (a mistake in the panel): the older one (lower id) wins.
+  const first = [...tenants]
+    .sort((a, b) => a.id - b.id)
+    .filter((tenant, index, all) => all.findIndex((t) => t.line === tenant.line) === index)
   await Promise.all(
-    tenants.map(async (tenant) => {
+    first.map(async (tenant) => {
+      if (!isTenantLine(tenant.line)) return
       const line = (await getSharedData(tenant.id))?.line
       own[tenant.line] = line
         ? {

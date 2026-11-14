@@ -54,22 +54,31 @@
       {
         "value": "2004",
         "label": "rok założenia firmy",
-        "fact": "Od 2004"
+        "facts": [
+          "Od 2004"
+        ]
       },
       {
         "value": "5",
         "label": "linii pod jednym szyldem",
-        "fact": null
+        "facts": []
       },
       {
         "value": "100+",
         "label": "klientów firmowych",
-        "fact": "100+"
+        "facts": [
+          "100+"
+        ]
       },
       {
         "value": "4",
         "label": "autoryzacje: Posnet, Elzab, GoPOS, InsERT",
-        "fact": "Posnet"
+        "facts": [
+          "Posnet",
+          "Elzab",
+          "GoPOS",
+          "InsERT"
+        ]
       }
     ],
     "trustBar": [
@@ -77,55 +86,65 @@
         "line": "prokom",
         "title": "W Rabce-Zdroju",
         "note": "Od 2004 roku",
-        "fact": "Od 2004"
+        "facts": [
+          "Od 2004"
+        ]
       },
       {
         "line": "biznes",
         "title": "Posnet",
         "note": "Autoryzowany serwis",
-        "fact": "Posnet"
+        "facts": [
+          "Posnet"
+        ]
       },
       {
         "line": "biznes",
         "title": "Elzab",
         "note": "Autoryzowany serwis",
-        "fact": "Elzab"
+        "facts": [
+          "Elzab"
+        ]
       },
       {
         "line": "biznes",
         "title": "GoPOS",
         "note": "Autoryzowany partner",
-        "fact": "GoPOS"
+        "facts": [
+          "GoPOS"
+        ]
       },
       {
         "line": "biznes",
         "title": "InsERT",
         "note": "Autoryzowany partner",
-        "fact": "InsERT"
+        "facts": [
+          "InsERT"
+        ]
       },
       {
         "line": "instalacje",
         "title": "Ampio",
         "note": "Smart home",
-        "fact": null
+        "facts": []
       },
       {
         "line": "software",
         "title": "Strony i systemy",
         "note": "Na zamówienie",
-        "fact": null
+        "facts": []
       },
       {
         "line": "tech",
         "title": "Serwis na miejscu",
         "note": "Salon w Rabce",
-        "fact": null
+        "facts": []
       },
       {
         "line": "gaming",
         "title": "Komputery do gier",
         "note": "Składane ręcznie",
-        "fact": null
+        "facts": []
       }
     ],
     "lines": {
@@ -347,7 +366,7 @@
           },
           {
             "title": "Komputery i serwery",
-            "text": "Lenovo i Dell, dostawa i konfiguracja w firmie."
+            "text": "Lenovo i Dell, dostawa, a na życzenie konfiguracja w firmie."
           },
           {
             "title": "Opieka IT",
@@ -359,9 +378,26 @@
           }
         ],
         "facts": [
-          "Autoryzowany serwis Posnet i Elzab",
-          "Autoryzowany partner GoPOS i InsERT",
-          "Ponad 100 klientów firmowych z Podhala i Małopolski"
+          {
+            "text": "Autoryzowany serwis Posnet i Elzab",
+            "facts": [
+              "Posnet",
+              "Elzab"
+            ]
+          },
+          {
+            "text": "Autoryzowany partner GoPOS i InsERT",
+            "facts": [
+              "GoPOS",
+              "InsERT"
+            ]
+          },
+          {
+            "text": "Ponad 100 klientów firmowych z Podhala i Małopolski",
+            "facts": [
+              "100+"
+            ]
+          }
         ],
         "more": [
           "Comarch ERP",
@@ -377,12 +413,12 @@
             "text": "Mówisz, czego potrzebuje Twoja firma."
           },
           {
-            "title": "Oddzwaniamy w 60 minut",
+            "title": "{obietnica}",
             "text": "W godzinach pracy, z konkretną propozycją."
           },
           {
             "title": "Wdrożenie u Ciebie",
-            "text": "Instalacja, konfiguracja i szkolenie na miejscu."
+            "text": "Instalacja, konfiguracja i szkolenie — jeśli tak ustalimy."
           }
         ],
         "status": [
@@ -436,9 +472,18 @@
           }
         ],
         "facts": [
-          "24 miesiące gwarancji na montaż",
-          "Projekt, montaż i serwis — jedna ekipa",
-          "Odpowiedź w 24 godziny w dni robocze"
+          {
+            "text": "24 miesiące gwarancji na montaż",
+            "facts": []
+          },
+          {
+            "text": "Projekt, montaż i serwis — jedna ekipa",
+            "facts": []
+          },
+          {
+            "text": "{obietnica}",
+            "facts": []
+          }
         ],
         "more": [
           "Kontrola dostępu",
@@ -453,7 +498,7 @@
             "text": "Dom, pensjonat, lokal albo firma — online lub przez telefon."
           },
           {
-            "title": "Odpowiedź w 24 godziny",
+            "title": "{obietnica}",
             "text": "W dni robocze — oddzwonimy albo odpiszemy."
           },
           {
@@ -512,9 +557,18 @@
           }
         ],
         "facts": [
-          "Pisane pod Twoją firmę, nie z szablonu",
-          "Serwer w Polsce, kopia zapasowa co noc",
-          "Odpowiedź w 1 dzień roboczy"
+          {
+            "text": "Pisane pod Twoją firmę, nie z szablonu",
+            "facts": []
+          },
+          {
+            "text": "Serwer w Polsce, kopia zapasowa co noc",
+            "facts": []
+          },
+          {
+            "text": "{obietnica}",
+            "facts": []
+          }
         ],
         "more": [
           "Strony dla noclegów",
@@ -528,7 +582,7 @@
             "text": "Stronę, system albo pomysł na aplikację."
           },
           {
-            "title": "Odpowiedź w 1 dzień roboczy",
+            "title": "{obietnica}",
             "text": "Z pytaniami i pierwszą propozycją."
           },
           {
@@ -587,9 +641,18 @@
           }
         ],
         "facts": [
-          "Bezpłatna diagnoza i wycena",
-          "Status naprawy online, bez dzwonienia",
-          "Salon w Rabce-Zdroju, także w soboty"
+          {
+            "text": "{obietnica}",
+            "facts": []
+          },
+          {
+            "text": "Status naprawy online, bez dzwonienia",
+            "facts": []
+          },
+          {
+            "text": "Salon w Rabce-Zdroju, także w soboty",
+            "facts": []
+          }
         ],
         "more": [
           "Tablety i smartwatche",
@@ -603,7 +666,7 @@
             "text": "Online albo w salonie w Rabce-Zdroju."
           },
           {
-            "title": "Bezpłatna diagnoza i wycena",
+            "title": "{obietnica}",
             "text": "Decydujesz, czy naprawiamy."
           },
           {
@@ -662,9 +725,18 @@
           }
         ],
         "facts": [
-          "Składane ręcznie w Rabce-Zdroju",
-          "Klatki mierzone w prawdziwych grach",
-          "Gwarancja 2 lata na cały komputer"
+          {
+            "text": "Składane ręcznie w Rabce-Zdroju",
+            "facts": []
+          },
+          {
+            "text": "Klatki mierzone w prawdziwych grach",
+            "facts": []
+          },
+          {
+            "text": "Gwarancja 2 lata na cały komputer",
+            "facts": []
+          }
         ],
         "more": [
           "Porównywarka zestawów",
@@ -741,7 +813,11 @@
         "label": "Wi-Fi gości",
         "kind": "wifi"
       }
-    ]
+    ],
+    "cameraNotes": {
+      "camera": "Kliknij podgląd, żeby go powiększyć — tak samo zobaczysz kamery w telefonie.",
+      "wifi": "Wi-Fi dla gości jest oddzielone od sieci firmowej."
+    }
   },
   "team": {
     "eyebrow": "Tak pracują razem",

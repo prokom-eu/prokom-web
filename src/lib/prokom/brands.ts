@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { firstIssue, lineKey, text, uniqueBy } from './schema'
+import { firstIssue, lineKey, noContactData, text, uniqueBy } from './schema'
 
 /**
  * Brands and authorizations (board 01 „Marki”, later `/partnerzy`) as JSON in `HubSettings.brands`
@@ -54,9 +54,22 @@ export const brandsSchema = z
     allLink: text(60),
   })
   .strict()
+  .superRefine(noContactData)
 
 export type HubBrands = z.infer<typeof brandsSchema>
 
 export function validateBrands(value: unknown): true | string {
   return firstIssue(brandsSchema, value, 'Marki')
+}
+
+/**
+ * Authorizations shown here: only those whose company fact (`HubSettings.trust`, value = brand
+ * name) is visible — on production, approved (spec §3).
+ */
+export function visibleAuthorizations(
+  brands: HubBrands,
+  visibleFacts: readonly { value: string }[],
+): HubBrands['authorizations'] {
+  const visible = new Set(visibleFacts.map((row) => row.value))
+  return brands.authorizations.filter((row) => visible.has(row.name))
 }
