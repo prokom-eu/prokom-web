@@ -9,30 +9,43 @@ import { CITIES_SEO_2, SOLUTION_PAGES_SEO_2 } from './data/software_tresc_seo_2'
  * - the town pages of Nowy Targ, Mszana Dolna, Limanowa and Nowy Sącz (PR #573) — only while the
  *   town is inactive and has no page (a page written in the panel stays); the solutions of the
  *   cards are found by slug in the tenant, a town with a missing one is left out (logged);
- * - the page texts of 8 solutions (PR #576) — only while the page lead is empty (the template).
- * Databases with the seed already applied (local, staging) change nothing. `down` keeps the texts:
- * it only hides the four towns again (their pages 404 as before), the solution texts stay.
+ * - the page texts of 8 solutions (PR #576) — only on a published solution whose latest version
+ *   (a draft in the panel included) still has an empty page lead (the template); a solution kept
+ *   as a draft stays unpublished.
+ * Databases with the seed already applied (local, staging) change nothing. A skipped town is only
+ * logged — after the production deploy check `/miejscowosci/<town>` or the app log.
+ * `down` keeps the texts and hides the four towns of the Software tenants again (their pages 404
+ * as before). On a database written by the seed it hides them too: run `pnpm seed:software` then.
  */
 
 const TOWNS = Object.keys(CITIES_SEO_2) as (keyof typeof CITIES_SEO_2)[]
 
-export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
-  // `seed`: no revalidation outside a Next.js request (lib/software/revalidate.ts).
-  const local = { req, overrideAccess: true, depth: 0, context: { seed: true } } as const
-  const { docs: tenants } = await payload.find({
+type Args = Pick<MigrateUpArgs, 'payload' | 'req'>
+
+async function softwareTenants({ payload, req }: Args) {
+  const { docs } = await payload.find({
     collection: 'tenants',
     where: { line: { equals: 'software' } },
     limit: 10,
-    ...local,
+    req,
+    overrideAccess: true,
+    depth: 0,
   })
+  return docs
+}
 
-  for (const tenant of tenants) {
+export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
+  // `seed`: no revalidation outside a Next.js request (lib/software/revalidate.ts).
+  const local = { req, overrideAccess: true, depth: 0, context: { seed: true } } as const
+  for (const tenant of await softwareTenants({ payload, req })) {
     const inTenant = { tenant: { equals: tenant.id } }
 
+    // The latest version of each solution: a draft written in the panel counts.
     const { docs: solutions } = await payload.find({
       collection: 'solutions',
       where: inTenant,
       limit: 500,
+      draft: true,
       ...local,
     })
     const solutionId = new Map(solutions.map((doc) => [doc.slug, doc.id]))
@@ -83,7 +96,7 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
 
     for (const [slug, texts] of Object.entries(SOLUTION_PAGES_SEO_2)) {
       const solution = solutions.find((doc) => doc.slug === slug)
-      if (!solution || solution.page?.lead) continue
+      if (!solution || solution._status !== 'published' || solution.page?.lead) continue
       await payload.update({
         collection: 'solutions',
         id: solution.id,
@@ -104,10 +117,12 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
 
 export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
   const local = { req, overrideAccess: true, depth: 0, context: { seed: true } } as const
-  await payload.update({
-    collection: 'cities',
-    where: { slug: { in: TOWNS } },
-    data: { active: false },
-    ...local,
-  })
+  for (const tenant of await softwareTenants({ payload, req })) {
+    await payload.update({
+      collection: 'cities',
+      where: { and: [{ tenant: { equals: tenant.id } }, { slug: { in: TOWNS } }] },
+      data: { active: false },
+      ...local,
+    })
+  }
 }
