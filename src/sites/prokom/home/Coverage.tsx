@@ -14,7 +14,7 @@ import { addressLine } from './model'
  * not a map to scale. Towns past these places stay in the image's description only.
  */
 const PLACES: readonly [number, number][] = [
-  [60, 40],
+  [64, 37],
   [54, 64],
   [40, 79],
   [72, 47],
@@ -104,7 +104,7 @@ export function Coverage({ texts, company, now, checkHref }: Props) {
             const [left, top] = PLACES[index] ?? [50, 50]
             return (
               <span
-                key={town}
+                key={`${index}-${town}`}
                 className="pk-reach__town"
                 style={{ '--x': `${left}%`, '--y': `${top}%` } as CSSProperties}
               >

@@ -21,12 +21,13 @@ type Props = {
 }
 
 /**
- * „Kontakt” (spec §6.1 pkt 11, board 01 `#kontakt`): one row per line with its phone and promise
- * (from the line panels), the salon strip, and the topics as links to `/kontakt?temat=…` — the
+ * „Kontakt” (spec §6.1 pkt 11, board 01 `#kontakt`): one row per line with its phone, hours and
+ * promise (from the line panels), the salon strip, and the topics as links to `/kontakt?temat=…` — the
  * message form itself is on the contact page (one form, one place for the anti-spam of ADR-003).
  */
 export function Contact({ texts, lines, company, now, contactHref }: Props) {
   const address = addressLine(company)
+  const callable = lines.filter((line) => line.phone && line.tel)
   const topics = [
     { key: GENERAL_TOPIC, name: texts.general, line: 'prokom' as const },
     ...lines.map((line) => ({ key: line.key, name: line.name, line: line.key })),
@@ -45,10 +46,9 @@ export function Contact({ texts, lines, company, now, contactHref }: Props) {
           <h2 id="kontakt-h" className="pk-h2">
             {texts.title}
           </h2>
-          <ul className="pk-clines" role="list">
-            {lines
-              .filter((line) => line.phone && line.tel)
-              .map((line) => (
+          {callable.length > 0 && (
+            <ul className="pk-clines" role="list">
+              {callable.map((line) => (
                 <li key={line.key} style={lineStyle(line.key)}>
                   <a href={line.tel ?? undefined} className="pk-clr">
                     <span className="pk-clr__badge" aria-hidden="true">
@@ -59,7 +59,11 @@ export function Contact({ texts, lines, company, now, contactHref }: Props) {
                         <span className="sr-only">{line.name}: </span>
                         {line.hero.short}
                       </span>
-                      {line.promise && <span className="pk-clr__promise">{line.promise}</span>}
+                      {(line.promise || line.hours) && (
+                        <span className="pk-clr__promise">
+                          {[line.hours, line.promise].filter(Boolean).join(' · ')}
+                        </span>
+                      )}
                     </span>
                     <span className="pk-clr__phone">
                       <Icon name="phone" />
@@ -68,7 +72,8 @@ export function Contact({ texts, lines, company, now, contactHref }: Props) {
                   </a>
                 </li>
               ))}
-          </ul>
+            </ul>
+          )}
           {address && (
             <div className="pk-csl">
               <span className="pk-csl__icon" aria-hidden="true">

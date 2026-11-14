@@ -1,5 +1,11 @@
 import type { HubHelpView, HubPlanView, HubToolView } from '@/lib/prokom/data'
-import { type FaqTokens, fillPromise, type HubHome, withVisibleFacts } from '@/lib/prokom/home'
+import {
+  type FaqTokens,
+  fillPromise,
+  fillTokens,
+  type HubHome,
+  withVisibleFacts,
+} from '@/lib/prokom/home'
 import type { HubLineContact } from '@/lib/prokom/lineContacts'
 import type { HubLine } from '@/lib/prokom/lines'
 import type { SharedCompany } from '@/lib/shared/project'
@@ -24,6 +30,8 @@ export type HomeLine = {
   url: string | null
   phone: string | null
   tel: string | null
+  /** The line's hours as written in its panel (Tech is also open on Saturdays). */
+  hours: string | null
   promise: string | null
   hero: HubHome['hero']['lines'][HubLine]
   scene: HomeScene
@@ -49,6 +57,7 @@ export function homeLines(
     url: contact.url,
     phone: contact.phone,
     tel: contact.phone ? toTelHref(contact.phone) : null,
+    hours: contact.hours,
     promise: contact.promise,
     hero: home.hero.lines[contact.key],
     scene: sceneOf(home.lines.scene[contact.key], contact.promise, visibleFacts),
@@ -194,4 +203,20 @@ export function faqTokens(
     adres: addressLine(company) ?? '',
     godziny: hoursSummary(company.hours),
   }
+}
+
+/**
+ * FAQ items with the tokens filled from the panel; an answer whose token has no value (fresh
+ * panel) is left out rather than shown half-empty (spec §3).
+ */
+export function faqItems(
+  items: HubHome['faq']['items'],
+  tokens: FaqTokens,
+): { question: string; answer: string }[] {
+  return items.flatMap((item) => {
+    const missing = Object.entries(tokens).some(
+      ([name, value]) => !value && item.answer.includes(`{${name}}`),
+    )
+    return missing ? [] : [{ question: item.question, answer: fillTokens(item.answer, tokens) }]
+  })
 }
