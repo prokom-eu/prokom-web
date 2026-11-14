@@ -12,6 +12,7 @@
 @import './home-paths.css';
 @import './home-end.css';
 @import './offer.css';
+@import './business.css';
 @source '..';
 
 /* --- Capsule: 1081–1340 px hides „Pomoc” and „O firmie” (spec §5.2; footer and sheet have them). */

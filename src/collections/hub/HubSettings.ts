@@ -6,6 +6,7 @@ import { validateBrands } from '../../lib/prokom/brands'
 import { validateCooperation } from '../../lib/prokom/cooperation'
 import { validateDeliveries } from '../../lib/prokom/deliveries'
 import { validateHome } from '../../lib/prokom/home'
+import { validateForBusiness } from '../../lib/prokom/forBusiness'
 import { validateOffer } from '../../lib/prokom/offer'
 import { HUB_OPTIONAL_PAGES } from '../../lib/prokom/pages'
 import { onlyLineTenant } from '../../lib/tenant/onlyLine'
@@ -107,6 +108,16 @@ export const HubSettings: CollectionConfig = {
       admin: {
         description:
           'Teksty strony /linie. Usługi z kolekcji „Usługi huba”, kroki i odbiorcy linii z tekstów strony głównej — tu tylko nagłówki, filtry i podpisy.',
+      },
+    },
+    {
+      name: 'forBusiness',
+      label: 'Dla firm /dla-firm (JSON)',
+      type: 'json',
+      validate: withSchema(validateForBusiness),
+      admin: {
+        description:
+          'Teksty strony /dla-firm. Plany branż w kolekcji Plany huba (typ branża), marki z pola Marki, telefony i obietnice z paneli linii. Konfiguracja, montaż i szkolenie tylko jako opcja.',
       },
     },
     {

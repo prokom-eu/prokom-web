@@ -6044,6 +6044,18 @@ export interface HubSetting {
     | boolean
     | null;
   /**
+   * Teksty strony /dla-firm. Plany branż w kolekcji Plany huba (typ branża), marki z pola Marki, telefony i obietnice z paneli linii. Konfiguracja, montaż i szkolenie tylko jako opcja.
+   */
+  forBusiness?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
    * Na produkcji widać tylko zatwierdzone fakty (spec §3). Źródło jest wewnętrzne — nie pokazujemy go.
    */
   trust?:
@@ -9851,6 +9863,7 @@ export interface HubSettingsSelect<T extends boolean = true> {
   deliveries?: T;
   cooperation?: T;
   offer?: T;
+  forBusiness?: T;
   trust?:
     | T
     | {
