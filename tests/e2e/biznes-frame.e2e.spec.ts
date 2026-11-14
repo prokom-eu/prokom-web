@@ -84,9 +84,11 @@ test.describe('product pictures', () => {
     })
   }
 
-  test('a product without a photo shows the stand-in, not an image', async ({ page }) => {
+  test('a licence without a photo shows the licence tile, not an image', async ({ page }) => {
+    // Audit 14.11 P1-1: software says what it is („Licencja elektroniczna”), never „no photo”.
     await page.goto(site('biznes.localhost', '/produkt/eset-small-business-security'))
-    const note = page.getByText('Zdjęcia producenta jeszcze nie ma.')
+    await expect(page.getByText('Zdjęcia producenta jeszcze nie ma.')).toHaveCount(0)
+    const note = page.getByText('Licencja elektroniczna — bez pudełka i płyty.')
     await expect(note).toBeVisible()
     // The gallery stage holds the stand-in only: no <img> next to the note.
     const stage = note.locator('xpath=ancestor::div[contains(@class,"isolate")][1]')
