@@ -69,19 +69,15 @@ export function Hero({ home, lines, facts, company, phone, now }: Props) {
                   variant="pill"
                 />
               </div>
-              <h1 id="start-h" className="pk-hb-main__h1">
-                <span className="pk-hb-main__word">
-                  <span className="sr-only">PRO-KOM</span>
-                  <span aria-hidden="true" className="pk-wm">
-                    PRO
-                  </span>
-                  <span aria-hidden="true" className="pk-hy" />
-                  <span aria-hidden="true" className="pk-wm">
-                    KOM
-                  </span>
-                </span>
-                <span className="pk-hb-main__title">{hero.title}</span>
-              </h1>
+              {/* H1 = „PRO-KOM” (spec §4): the hyphen is real text, drawn as the green bar. */}
+              <div className="pk-hb-main__h1">
+                <h1 id="start-h" className="pk-hb-main__word">
+                  <span className="pk-wm">PRO</span>
+                  <span className="pk-hy">-</span>
+                  <span className="pk-wm">KOM</span>
+                </h1>
+                <p className="pk-hb-main__title">{hero.title}</p>
+              </div>
               <p className="pk-hb-main__lead">{hero.lead}</p>
 
               <div className="pk-hb-main__body">

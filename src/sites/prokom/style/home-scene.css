@@ -239,7 +239,7 @@
   gap: 6px;
   border-radius: 16px;
   padding: 0 24px;
-  background: var(--ln);
+  background: var(--ln-fill, var(--ln));
   color: var(--ln-ink);
   font-size: 16px;
   font-weight: 800;
@@ -575,8 +575,8 @@
   border-color: var(--ln);
 }
 .pk-mch--solid {
-  border-color: var(--ln);
-  background: var(--ln);
+  border-color: var(--ln-fill, var(--ln));
+  background: var(--ln-fill, var(--ln));
   color: var(--ln-ink);
 }
 .pk-pn__foot {
@@ -612,7 +612,7 @@
   justify-content: center;
   border-radius: 50%;
   background: color-mix(in srgb, var(--ln) 18%, transparent);
-  color: var(--ln-text);
+  color: var(--k-white);
   font-family: var(--font-display);
   font-size: 11.5px;
   font-weight: 800;

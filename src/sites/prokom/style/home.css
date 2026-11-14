@@ -248,7 +248,7 @@
   font-weight: 800;
 }
 .pk-pill--accent {
-  background: color-mix(in srgb, var(--k-g) 16%, transparent);
+  background: color-mix(in srgb, var(--k-g) 10%, transparent);
   color: var(--k-gt);
 }
 .pk-hb-main__h1 {
@@ -257,6 +257,9 @@
   flex-direction: column;
   gap: 14px;
   margin: 6px 0 0;
+}
+.pk-hb-main__word {
+  margin: 0;
 }
 .pk-hb-main__word {
   display: flex;
@@ -273,6 +276,10 @@
   color: var(--k-ink);
 }
 .pk-hy {
+  /* The hyphen stays in the text (accessible name „PRO-KOM”), the bar is drawn instead. */
+  overflow: hidden;
+  color: transparent;
+  line-height: 0;
   display: block;
   width: 0.42em;
   height: 0.125em;
@@ -500,9 +507,9 @@
 .pk-ht--tech:last-child {
   grid-row: 3 / 5;
 }
+/* Transform only: no half-transparent colours while the tiles come in (LCP, contrast checks). */
 @keyframes pk-hin {
   from {
-    opacity: 0;
     transform: translateY(34px) scale(0.97);
   }
 }
@@ -519,7 +526,7 @@
   align-items: center;
   border-radius: 999px;
   padding: 0 13px;
-  background: var(--ln);
+  background: var(--ln-fill, var(--ln));
   color: var(--ln-ink);
   font-size: 12.5px;
   font-weight: 800;
@@ -866,7 +873,7 @@
 }
 .pk-fn[data-on] {
   border-color: transparent;
-  background: var(--ln);
+  background: var(--ln-fill, var(--ln));
   color: var(--ln-ink);
 }
 .pk-fl {

@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
-import { site } from './helpers'
+import { pressUntilVisible, site } from './helpers'
 
 // pro-kom.eu search (H1-3, spec §5.6): the window with the hub's index and `/szukaj`.
 // Needs `pnpm seed` (tenant `prokom` with `pnpm seed:prokom` content).
@@ -11,9 +11,9 @@ test.describe('pro-kom.eu — search window', () => {
   test('Ctrl K finds a service of a line in the hub index', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site(HUB))
-    await page.keyboard.press('Control+k')
     const dialog = page.locator('[data-search-dialog]')
-    await expect(dialog).toBeVisible()
+    // Retried until the page is hydrated (before that nothing listens to the keys).
+    await pressUntilVisible(page, 'Control+k', dialog)
     await dialog.getByRole('searchbox').fill('kamery')
     await expect(dialog.getByRole('link', { name: /Monitoring i kamery/ })).toBeVisible()
   })
