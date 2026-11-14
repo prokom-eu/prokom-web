@@ -1,7 +1,7 @@
 {
  "wersja": "K4 (wizualizacja v150)",
  "sprawdzono": "2026-10-29",
- "liczba": 452,
+ "liczba": 456,
  "zmiany": {
   "zmieniona": 139,
   "drobne": 131,
@@ -36115,6 +36115,7 @@
     ]
    },
    "podobne": [
+    "apple-macbook-pro-proled",
     "apple-macbook-air-m5",
     "apple-mac-mini-m6",
     "apple-imac-24-m6",
@@ -98289,6 +98290,1131 @@
     }
    ],
    "sprawdzono": "2026-11-14"
+  },
+  {
+   "slug_seed": "apple-macbook-pro-proled",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "laptopy",
+   "podkategoria": "laptopy",
+   "marka": "Apple",
+   "seria": "Mac",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Apple MacBook Pro 14\" / 16\" z ekranem PROLED XDR (M5 Pro, M5 Max)",
+   "krotka": "Apple MacBook Pro PROLED XDR 14\" / 16\"",
+   "podtytul": "Pierwszy Mac z ekranem dotykowym: tandemowy OLED 120 Hz, chip M5 Pro lub M5 Max, do 128 GB RAM i 16 TB SSD",
+   "korzysc": "Laptop dla projektanta, montażysty i programisty, który chce sterować programem palcem na ekranie i potrzebuje obrazu wiernego jak na monitorze referencyjnym.",
+   "opis": [
+    "MacBooka Pro z wyświetlaczem PROLED XDR Apple pokazało 28 października 2026 r., a do sklepów trafił 6 listopada. To pierwszy Mac z ekranem dotykowym: czujnik jest wbudowany bezpośrednio w panel, więc przewijanie, powiększanie szczypnięciem czy obracanie obiektów 3D działa bez wyczuwalnego opóźnienia, a klawiatura i gładzik zostają na swoim miejscu. Model występuje w rozmiarach 14,2\" i 16,3\" i wyłącznie z chipami M5 Pro albo M5 Max.",
+    "Ekran to tandemowy OLED o kontraście 10 000 000:1, z jasnością 1000 nitów na całej powierzchni i do 2000 nitów szczytowo, odświeżaniem ProMotion 10–120 Hz oraz gamą barw P3 i Adobe RGB. Czternaście trybów referencyjnych — m.in. do projektowania i druku (Adobe RGB D50), wideo HDR i internetu (sRGB) — przyda się studiu graficznemu, drukarni czy agencji, która oddaje pliki do produkcji. U góry ekranu jest Dynamic Island, a do jasnych biur można zamówić szkło nanostrukturalne.",
+    "Od MacBooka Pro z ekranem Liquid Retina XDR (osobna karta) ten model różni się dotykiem i ekranem OLED, ale też mniejszą masą: wersja 14\" waży od 1,38 kg, a 16\" od 1,82 kg. Brakuje tu natomiast podstawowego chipu M6, więc tańszą drogą do MacBooka Pro pozostaje tamta linia. Złącza są komplet: trzy Thunderbolt 5 (do 120 Gb/s), HDMI, czytnik SDXC, MagSafe 3 i gniazdo słuchawkowe; z M5 Pro podłączysz trzy monitory zewnętrzne, z M5 Max — cztery.",
+    "Zasilacza nie ma w pudełku, a do szybkiego ładowania potrzebny jest model co najmniej 96 W przy wersji 14\" i 140 W przy 16\". W salonie PRO-KOM w Rabce-Zdroju pomożemy wybrać między M5 Pro a M5 Max pod programy, w których pracujesz, dobierzemy zasilacz i monitory, przeniesiemy dane ze starego komputera i przygotujemy laptop do pracy. Kilka takich stanowisk w firmie obejmiemy zarządzaniem w Apple Business."
+   ],
+   "cechy": [
+    "ekran dotykowy OLED",
+    "M5 Pro lub M5 Max",
+    "od 1,38 kg"
+   ],
+   "parametry": [
+    {
+     "k": "Procesor (chip)",
+     "v": "M5 Pro: CPU 15 lub 18 rdzeni, GPU 16 lub 20 rdzeni; M5 Max: CPU 18 rdzeni, GPU 32 lub 40 rdzeni; 16-rdzeniowy Neural Engine (16\" z M5 Pro: tylko CPU 18 / GPU 20)"
+    },
+    {
+     "k": "Ekran 14\"",
+     "v": "14,2\" PROLED XDR (tandemowy OLED), 3024 × 1986, 254 ppi, ProMotion 10–120 Hz, dotyk Multi-Touch, Dynamic Island"
+    },
+    {
+     "k": "Ekran 16\"",
+     "v": "16,3\" PROLED XDR (tandemowy OLED), 3472 × 2266, 254 ppi, ProMotion 10–120 Hz, dotyk Multi-Touch, Dynamic Island"
+    },
+    {
+     "k": "Jasność i kolory",
+     "v": "1000 nitów na całym ekranie, 2000 nitów szczytowo (HDR i w plenerze); kontrast 10 000 000:1; P3 i Adobe RGB; 14 trybów referencyjnych"
+    },
+    {
+     "k": "Szkło nanostrukturalne",
+     "v": "opcja"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "M5 Pro: 24 lub 48 GB (GPU 16 rdzeni), 24, 48 lub 64 GB (GPU 20 rdzeni); M5 Max: 36 GB (GPU 32 rdzenie), 48, 64 lub 128 GB (GPU 40 rdzeni)"
+    },
+    {
+     "k": "Dysk SSD",
+     "v": "M5 Pro: 1, 2 lub 4 TB; M5 Max: 2, 4, 8 lub 16 TB"
+    },
+    {
+     "k": "Bateria",
+     "v": "14\": 72,6 Wh, do 22 h wideo (M5 Pro) / 20 h (M5 Max); 16\": 100 Wh, do 24 h wideo (M5 Pro) / 22 h (M5 Max)"
+    },
+    {
+     "k": "Porty",
+     "v": "3 × Thunderbolt 5 (USB-C, do 120 Gb/s), HDMI, czytnik SDXC, MagSafe 3, gniazdo słuchawkowe 3,5 mm"
+    },
+    {
+     "k": "Monitory zewnętrzne",
+     "v": "M5 Pro: do 3; M5 Max: do 4"
+    },
+    {
+     "k": "Łączność",
+     "v": "Apple N1: Wi-Fi 7, Bluetooth 6, Thread"
+    },
+    {
+     "k": "Kamera",
+     "v": "12 MP Center Stage z funkcją Widok blatu"
+    },
+    {
+     "k": "Zabezpieczenia",
+     "v": "Touch ID"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "sprzedawany oddzielnie; szybkie ładowanie zasilaczem USB-C PD od 96 W (14\") lub od 140 W (16\")"
+    },
+    {
+     "k": "Masa",
+     "v": "14\": 1,38 kg (M5 Pro), 1,40 kg (M5 Max); 16\": 1,82 kg (M5 Pro), 1,84 kg (M5 Max)"
+    },
+    {
+     "k": "Kolory",
+     "v": "gwiezdna czerń, srebrny"
+    },
+    {
+     "k": "System",
+     "v": "macOS 27"
+    },
+    {
+     "k": "Wymiary",
+     "v": "14\": 1,50 × 31,08 × 21,63 cm; 16\": 1,60 × 35,55 × 24,42 cm"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "MacBook Pro 14\" PROLED XDR (M5 Pro)",
+     "roznica": "14,2\", 1,38 kg; CPU 15 lub 18 rdzeni, do 64 GB RAM, do 22 h wideo, do 3 monitorów."
+    },
+    {
+     "model": "MacBook Pro 14\" PROLED XDR (M5 Max)",
+     "roznica": "GPU 32 lub 40 rdzeni, do 128 GB RAM i 16 TB SSD, do 4 monitorów; 1,40 kg."
+    },
+    {
+     "model": "MacBook Pro 16\" PROLED XDR (M5 Pro / M5 Max)",
+     "roznica": "16,3\" 3472 × 2266, bateria 100 Wh (do 24 h wideo z M5 Pro), 1,82–1,84 kg; M5 Pro tylko w wersji CPU 18 / GPU 20."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Do czego w firmie przyda się dotykowy ekran MacBooka Pro PROLED XDR?",
+     "a": "Najwięcej zyskają osoby, które pracują na obiektach i osiach czasu: projektant obraca model 3D palcem, montażysta przesuwa klipy, a programista sprawdza gesty w aplikacji na iOS bez sięgania po telefon. Do pisania i arkuszy nadal służą klawiatura i gładzik — dotyk je uzupełnia, a nie zastępuje."
+    },
+    {
+     "q": "MacBook Pro PROLED XDR czy MacBook Pro z ekranem Liquid Retina XDR?",
+     "a": "PROLED XDR ma dotykowy ekran OLED o kontraście 10 000 000:1, gamę Adobe RGB i jest lżejszy (14\" od 1,38 kg zamiast od 1,55 kg). Liquid Retina XDR to ekran mini-LED bez dotyku, ale tylko w tamtej linii jest wariant z chipem M6. Jeśli dotyk i wierność barw nie są potrzebne, wystarczy tamten model."
+    },
+    {
+     "q": "Ile monitorów podłączę do MacBooka Pro PROLED XDR z M5 Pro albo M5 Max?",
+     "a": "Z M5 Pro — do trzech monitorów zewnętrznych, z M5 Max — do czterech, w dowolnym połączeniu portów Thunderbolt 5 i HDMI. Wbudowany ekran pracuje przy tym dalej w pełnej rozdzielczości, a wszystkie monitory można podpiąć nawet przez jeden port Thunderbolt."
+    },
+    {
+     "q": "Czy MacBook Pro PROLED XDR ma zasilacz w zestawie?",
+     "a": "Nie. W pudełku jest laptop, przewód USB-C–MagSafe 3 o długości 2 m i — przy szkle nanostrukturalnym — ściereczka. Apple zaleca zasilacz co najmniej 70 W do wersji 14\" i 94 W do 16\", a do szybkiego ładowania 96 W lub 140 W. Dobierzemy go razem z zamówieniem."
+    },
+    {
+     "q": "Czy przeniesiecie dane ze starego komputera na MacBooka Pro PROLED XDR?",
+     "a": "Tak. Przenosimy pliki, pocztę i ustawienia ze starego Maca albo komputera z Windows, instalujemy programy, z których korzystasz, i konfigurujemy konta (usługa „Przygotowanie komputera do pracy”). Laptop z dotykowym ekranem odbierasz w Rabce-Zdroju gotowy do pracy."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz rozmiar, chip, pamięć RAM, dysk, rodzaj szkła, kolor i zasilacz. Od chipu zależą dostępne pojemności i liczba monitorów.",
+    "opcje": [
+     {
+      "nazwa": "Rozmiar",
+      "wartosci": [
+       "14,2\"",
+       "16,3\""
+      ],
+      "dl": false,
+      "pom": "Większy ekran jest wygodniejszy, mniejszy — lżejszy i zajmuje mniej miejsca."
+     },
+     {
+      "nazwa": "Chip",
+      "wartosci": [
+       "M5 Pro — CPU 15 / GPU 16 (tylko 14\")",
+       "M5 Pro — CPU 18 / GPU 20",
+       "M5 Max — CPU 18 / GPU 32",
+       "M5 Max — CPU 18 / GPU 40"
+      ],
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Szkło",
+      "wartosci": [
+       "standardowe",
+       "nanostrukturalne (matowe)"
+      ],
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Kolor",
+      "wartosci": [
+       "gwiezdna czerń",
+       "srebrny"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "Pamięć RAM",
+      "v": "od 24 GB (M5 Pro) do 128 GB (M5 Max)"
+     },
+     {
+      "k": "Dysk SSD",
+      "v": "od 1 TB do 16 TB (powyżej 4 TB tylko M5 Max)"
+     },
+     {
+      "k": "Zasilacz",
+      "v": "dobierany osobno"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "Grafika, DTP, zdjęcia",
+      "konfiguracja": "MacBook Pro 14\" PROLED XDR M5 Pro CPU 15 / GPU 16 / 24 GB / 1 TB"
+     },
+     {
+      "nazwa": "Projektowanie 3D, programowanie",
+      "konfiguracja": "MacBook Pro 16\" PROLED XDR M5 Pro CPU 18 / GPU 20 / 48 GB / 2 TB"
+     },
+     {
+      "nazwa": "Montaż wideo, lokalne AI",
+      "konfiguracja": "MacBook Pro 16\" PROLED XDR M5 Max GPU 40 / 128 GB / 4 TB"
+     }
+    ]
+   },
+   "podobne": [
+    "apple-macbook-pro-m6",
+    "apple-macbook-air-m5",
+    "apple-mac-studio-m5",
+    "apple-studio-display-xdr"
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Magazyn i produkcja"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.apple.com/pl/macbook-pro/proled-xdr-display/specs/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/macbook-pro/proled-xdr-display/specs"
+    },
+    {
+     "url": "https://www.apple.com/pl/macbook-pro/proled-xdr-display/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/macbook-pro/proled-xdr-display"
+    },
+    {
+     "url": "https://www.apple.com/newsroom/2026/10/apple-unveils-groundbreaking-macbook-pro-with-proled-xdr-display/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/newsroom/2026/10/apple-unveils-groundbreaking-macbook-pro-with-proled-xdr-display"
+    },
+    {
+     "url": "https://www.apple.com/pl/mac/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/mac"
+    },
+    {
+     "url": "https://www.apple.com/pl/business/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/business"
+    }
+   ],
+   "wyrozniki": [
+    "ekran dotykowy OLED",
+    "M5 Pro lub M5 Max",
+    "od 1,38 kg"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Ekran 14\"",
+     "v": "14,2\" PROLED XDR (tandemowy OLED), dotykowy, ProMotion 10–120 Hz"
+    },
+    {
+     "k": "Procesor (chip)",
+     "v": "M5 Pro lub M5 Max"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "od 24 GB do 128 GB (zależnie od chipu)"
+    },
+    {
+     "k": "Dysk SSD",
+     "v": "od 1 TB do 16 TB"
+    },
+    {
+     "k": "Porty",
+     "v": "3 × Thunderbolt 5, HDMI, SDXC, MagSafe 3"
+    }
+   ],
+   "nowosc": true,
+   "polecane": [
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    },
+    {
+     "slug": "kopie-zapasowe",
+     "etykieta": "Kopie zapasowe z testem odtworzenia"
+    },
+    {
+     "slug": "m365-poczta",
+     "etykieta": "Poczta firmowa i wdrożenie Microsoft 365"
+    }
+   ],
+   "sprawdzono": "2026-11-14",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/apple-macbook-pro-proled-premium-01.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-unveils-groundbreaking-macbook-pro-with-proled-xdr-display/article/Apple-MacBook-Pro-with-PROLED-XDR-Display-QuickTime-261028_big.jpg.large.jpg",
+     "ujecie": "Otwarty MacBook Pro z ekranem PROLED XDR, widok z przodu, kolorowa grafika na ekranie"
+    },
+    {
+     "plik": "media/produkty/apple-macbook-pro-proled-premium-02.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-unveils-groundbreaking-macbook-pro-with-proled-xdr-display/article/Apple-MacBook-Pro-with-PROLED-XDR-Display-connectivity-261028_big.jpg.large.jpg",
+     "ujecie": "Widok z góry na klawiaturę i złącza: MagSafe 3, Thunderbolt 5, HDMI i czytnik SDXC"
+    }
+   ]
+  },
+  {
+   "slug_seed": "apple-macbook-neo",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "laptopy",
+   "podkategoria": "laptopy",
+   "marka": "Apple",
+   "seria": "Mac",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Apple MacBook Neo 13\"",
+   "krotka": "Apple MacBook Neo 13\"",
+   "podtytul": "Podstawowy MacBook z chipem A18 Pro: ekran 13\", 8 GB RAM, dysk 256 lub 512 GB, do 16 h na baterii, bez wentylatora",
+   "korzysc": "Prosty, cichy laptop dla pracownika, który pracuje w przeglądarce, poczcie i dokumentach — bez zapasu mocy, którego i tak by nie wykorzystał.",
+   "opis": [
+    "MacBook Neo to najprostszy laptop w rodzinie Mac, zaprezentowany przez Apple 4 marca 2026 r. Zamiast chipu z serii M ma układ A18 Pro z 6-rdzeniowym procesorem i 5-rdzeniową grafiką. Nie ma wentylatora, więc pracuje bezgłośnie, a aluminiowa obudowa waży 1,23 kg. W firmie sprawdzi się na recepcji, w biurze obsługi klienta, w sekretariacie szkoły, u stażysty albo jako drugi komputer do pracy z domu.",
+    "Każdy egzemplarz ma 8 GB pamięci RAM, a dysk wybiera się spośród dwóch wersji: 256 GB albo 512 GB. Tylko wersja 512 GB ma czytnik Touch ID w klawiaturze, wygodny przy logowaniu i zatwierdzaniu haseł. Ekran Liquid Retina 13\" ma rozdzielczość 2408 × 1506 i jasność 500 nitów, a bateria wystarcza na do 16 h oglądania wideo albo do 11 h przeglądania internetu. Ilość pamięci RAM jest w całej linii taka sama, więc przy pracy na dużych plikach lepiej od razu spojrzeć w stronę mocniejszego Maca.",
+    "Od MacBooka Air z M5 (osobna karta) Neo różni się wyraźnie. Air ma na start 16 GB RAM i 512 GB, dwa porty Thunderbolt 4, MagSafe, Wi-Fi 7, kamerę 12 MP Center Stage i obsługuje dwa monitory. Neo ma dwa porty USB-C — jeden USB 3 do 10 Gb/s z wyjściem obrazu, drugi USB 2 — oraz Wi-Fi 6E, Bluetooth 6, kamerę FaceTime HD 1080p i podłączy jeden monitor do 4K przy 60 Hz. Neo to komputer do prostych zadań biurowych, a Air — do pracy z większym zapasem na kilka lat.",
+    "Zasilacz kupuje się osobno; w pudełku jest tylko przewód USB-C o długości 1,5 m. W salonie PRO-KOM w Rabce-Zdroju sprawdzimy, czy Neo poradzi sobie z programami używanymi w Twojej firmie, dobierzemy zasilacz i ewentualny monitor, założymy konta, przeniesiemy pliki ze starego komputera i przygotujemy laptop do pracy. Kilka sztuk dla zespołu przypiszemy do Apple Business, żeby ustawienia i aplikacje instalowały się same po pierwszym włączeniu."
+   ],
+   "cechy": [
+    "bez wentylatora",
+    "do 16 h na baterii",
+    "1,23 kg"
+   ],
+   "parametry": [
+    {
+     "k": "Procesor",
+     "v": "Apple A18 Pro: CPU 6 rdzeni (2 wydajnościowe, 4 energooszczędne), GPU 5 rdzeni, 16-rdzeniowy Neural Engine"
+    },
+    {
+     "k": "Ekran",
+     "v": "13\" Liquid Retina (IPS), 2408 × 1506, 219 ppi, 500 nitów, sRGB"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "8 GB (każda wersja)"
+    },
+    {
+     "k": "Dysk SSD",
+     "v": "256 GB lub 512 GB"
+    },
+    {
+     "k": "Bateria",
+     "v": "36,5 Wh; do 16 h strumieniowania wideo, do 11 h przeglądania internetu"
+    },
+    {
+     "k": "Porty",
+     "v": "1 × USB 3 (USB-C, do 10 Gb/s, DisplayPort), 1 × USB 2 (USB-C), gniazdo słuchawkowe 3,5 mm; ładowanie przez oba porty USB-C"
+    },
+    {
+     "k": "Monitory zewnętrzne",
+     "v": "1, do 4K przy 60 Hz"
+    },
+    {
+     "k": "Łączność",
+     "v": "Wi-Fi 6E, Bluetooth 6"
+    },
+    {
+     "k": "Kamera",
+     "v": "FaceTime HD 1080p"
+    },
+    {
+     "k": "Zabezpieczenia",
+     "v": "Touch ID tylko w wersji 512 GB"
+    },
+    {
+     "k": "Chłodzenie",
+     "v": "pasywne (bez wentylatora)"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "sprzedawany oddzielnie; w zestawie przewód USB-C 1,5 m"
+    },
+    {
+     "k": "Masa",
+     "v": "1,23 kg"
+    },
+    {
+     "k": "Kolory",
+     "v": "srebrny, subtelny róż, cytrusowożółty, indygo"
+    },
+    {
+     "k": "System",
+     "v": "macOS"
+    },
+    {
+     "k": "Wymiary",
+     "v": "1,27 × 29,75 × 20,64 cm"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "MacBook Neo 256 GB",
+     "roznica": "Dysk 256 GB, klawiatura Magic Keyboard bez Touch ID."
+    },
+    {
+     "model": "MacBook Neo 512 GB",
+     "roznica": "Dwa razy większy dysk i czytnik Touch ID w klawiaturze."
+    }
+   ],
+   "faq": [
+    {
+     "q": "MacBook Neo czy MacBook Air z M5 — który wybrać dla pracownika?",
+     "a": "Neo wystarczy do poczty, przeglądarki, dokumentów i wideorozmów. MacBook Air ma na start dwa razy więcej pamięci RAM (16 GB), szybsze porty Thunderbolt, MagSafe, obsługę dwóch monitorów i lepszą kamerę — wybierz go, gdy laptop ma służyć kilka lat przy cięższych programach."
+    },
+    {
+     "q": "Czy do MacBooka Neo podłączę monitor zewnętrzny?",
+     "a": "Tak, jeden monitor o rozdzielczości do 4K przy 60 Hz, przez port USB-C w standardzie USB 3 (z DisplayPort). Drugi port pracuje jako USB 2 i służy do ładowania albo akcesoriów, np. myszy czy pendrive’a."
+    },
+    {
+     "q": "Która wersja MacBooka Neo ma czytnik Touch ID?",
+     "a": "Tylko wersja z dyskiem 512 GB. Model 256 GB ma klawiaturę Magic Keyboard bez czytnika, więc komputer odblokowuje się hasłem. Przy laptopach dla zespołu, gdzie pracownicy często blokują i odblokowują ekran, warto wybrać wariant z Touch ID."
+    },
+    {
+     "q": "Czy MacBook Neo poradzi sobie z programem księgowym lub sprzedażowym?",
+     "a": "To zależy od programu: systemy działające w przeglądarce pracują na Neo bez problemu, ale część polskich programów księgowych i sprzedażowych jest dostępna tylko na Windows. Przed zakupem sprawdzimy, z czego korzystasz, i podpowiemy, czy wystarczy Neo, czy lepszy będzie inny komputer."
+    },
+    {
+     "q": "Czy przygotujecie MacBooka Neo do pracy w firmie?",
+     "a": "Tak: zakładamy konto, konfigurujemy macOS, pocztę i programy, a pliki ze starego komputera przenosimy na nowy (usługa „Przygotowanie komputera do pracy”). Większą liczbę laptopów przypiszemy do Apple Business, by po włączeniu konfigurowały się same."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz dysk (od niego zależy Touch ID) i kolor. Chip, 8 GB RAM, ekran i porty są w każdej wersji takie same.",
+    "opcje": [
+     {
+      "nazwa": "Dysk SSD",
+      "wartosci": [
+       "256 GB (bez Touch ID)",
+       "512 GB (z Touch ID)"
+      ],
+      "dl": false,
+      "pom": "Miejsce na system, programy i pliki. SSD to szybki dysk bez ruchomych części."
+     },
+     {
+      "nazwa": "Kolor",
+      "wartosci": [
+       "srebrny",
+       "subtelny róż",
+       "cytrusowożółty",
+       "indygo"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "Pamięć RAM",
+      "v": "8 GB"
+     },
+     {
+      "k": "Ekran",
+      "v": "13\" Liquid Retina"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "Recepcja i sekretariat",
+      "konfiguracja": "MacBook Neo 256 GB"
+     },
+     {
+      "nazwa": "Praca zdalna, logowanie odciskiem palca",
+      "konfiguracja": "MacBook Neo 512 GB z Touch ID"
+     },
+     {
+      "nazwa": "Pracownia szkolna",
+      "konfiguracja": "MacBook Neo 256 GB, kilka sztuk w Apple Business"
+     }
+    ]
+   },
+   "podobne": [
+    "apple-macbook-air-m5",
+    "apple-macbook-pro-m6",
+    "apple-mac-mini-m6",
+    "apple-imac-24-m6"
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Noclegi",
+    "Zdrowie i uzdrowiska",
+    "Szkoły i instytucje",
+    "Beauty"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.apple.com/pl/macbook-neo/specs/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/macbook-neo/specs"
+    },
+    {
+     "url": "https://www.apple.com/pl/macbook-neo/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/macbook-neo"
+    },
+    {
+     "url": "https://www.apple.com/newsroom/2026/03/say-hello-to-macbook-neo/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/newsroom/2026/03/say-hello-to-macbook-neo"
+    },
+    {
+     "url": "https://www.apple.com/pl/mac/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/mac"
+    },
+    {
+     "url": "https://www.apple.com/pl/business/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/business"
+    }
+   ],
+   "wyrozniki": [
+    "bez wentylatora",
+    "do 16 h na baterii",
+    "1,23 kg"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Ekran",
+     "v": "13\" Liquid Retina, 2408 × 1506, 500 nitów"
+    },
+    {
+     "k": "Procesor",
+     "v": "Apple A18 Pro"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "8 GB"
+    },
+    {
+     "k": "Dysk SSD",
+     "v": "256 GB lub 512 GB"
+    },
+    {
+     "k": "Bateria",
+     "v": "do 16 h wideo, do 11 h internetu"
+    }
+   ],
+   "nowosc": true,
+   "polecane": [
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    },
+    {
+     "slug": "kopie-zapasowe",
+     "etykieta": "Kopie zapasowe z testem odtworzenia"
+    },
+    {
+     "slug": "m365-poczta",
+     "etykieta": "Poczta firmowa i wdrożenie Microsoft 365"
+    }
+   ],
+   "sprawdzono": "2026-11-14",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/apple-macbook-neo-premium-01.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/03/say-hello-to-macbook-neo/article/Apple-MacBook-Neo-color-lineup-260304_big.jpg.large.jpg",
+     "ujecie": "Cztery kolory w wachlarzu: srebrny, subtelny róż, cytrusowożółty i indygo"
+    },
+    {
+     "plik": "media/produkty/apple-macbook-neo-premium-02.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/03/say-hello-to-macbook-neo/article/Apple-MacBook-Neo-silver-260304_big.jpg.large.jpg",
+     "ujecie": "Zamknięty MacBook Neo w kolorze srebrnym, widok z góry i z boku"
+    },
+    {
+     "plik": "media/produkty/apple-macbook-neo-premium-03.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/03/say-hello-to-macbook-neo/article/Apple-MacBook-Neo-keyboard-and-trackpad-260304_big.jpg.large.jpg",
+     "ujecie": "Klawiatura Magic Keyboard i gładzik, widok z góry"
+    },
+    {
+     "plik": "media/produkty/apple-macbook-neo-premium-04.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/03/say-hello-to-macbook-neo/article/Apple-MacBook-Neo-ports-260304_big.jpg.large.jpg",
+     "ujecie": "Złącza po bokach: dwa porty USB-C i gniazdo słuchawkowe"
+    }
+   ]
+  },
+  {
+   "slug_seed": "apple-iphone-duo",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "telefony",
+   "podkategoria": "smartfony",
+   "marka": "Apple",
+   "seria": "iPhone",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Apple iPhone Duo",
+   "krotka": "Apple iPhone Duo",
+   "podtytul": "Pierwszy składany iPhone: ekran wewnętrzny 7,6\" i zewnętrzny 5,4\", chip A20 Pro, tytanowa rama, pamięć do 2 TB",
+   "korzysc": "Telefon i mały tablet w jednym — do dokumentów, arkuszy i dwóch aplikacji obok siebie, gdy laptopa nie ma pod ręką.",
+   "opis": [
+    "iPhone Duo to pierwszy składany iPhone — Apple zaprezentowało go 9 września 2026 r., a do sprzedaży trafił w październiku. Złożony działa jak zwykły telefon z ekranem 5,4\", a po rozłożeniu odsłania wewnętrzny wyświetlacz 7,6\", na którym w widoku Split View obok siebie mieszczą się dwie aplikacje. Dla kierownika budowy, handlowca czy właściciela, który dużo jeździ, to sposób na przejrzenie umowy, poprawienie oferty albo wideorozmowę bez wyciągania laptopa.",
+    "Rama i osłona zawiasu są z tytanu Grade 5, przód chroni Ceramic Shield 2, a całość ma klasę IP68 (do 6 m przez 30 min). W środku pracuje chip A20 Pro chłodzony komorą parową, a dwie baterie dają do 24 h typowego użytkowania; na samym ekranie zewnętrznym wideo odtworzysz nawet przez 44 h. Do odblokowania służy czytnik Touch ID w przycisku bocznym, który działa zarówno po złożeniu, jak i po rozłożeniu telefonu.",
+    "Ważna różnica wobec iPhone’a 18 Pro (osobna karta): Duo działa wyłącznie na eSIM i nie ma gniazda na fizyczną kartę. Obsługuje dwie aktywne karty eSIM naraz i ponad osiem zapisanych, więc numer służbowy i prywatny zmieszczą się na jednym telefonie, ale operator firmy musi obsługiwać eSIM. Z tyłu są dwa aparaty 48 MP — główny i ultraszerokokątny — z 2× zoomem jakości optycznej, podczas gdy 18 Pro ma osobny teleobiektyw 4×. Port USB-C pracuje w standardzie USB 3 (do 10 Gb/s) i wyprowadza obraz do 4K HDR.",
+    "Przy zamówieniu wybierasz pojemność — 256 GB, 512 GB, 1 TB lub 2 TB — i kolor: nocne niebo albo gwiezdną biel. W salonie PRO-KOM w Rabce-Zdroju przeniesiemy kontakty, zdjęcia i aplikacje ze starego telefonu, pomożemy przenieść numer na eSIM u Twojego operatora i skonfigurujemy pocztę firmową. Gdy telefonów dla zespołu jest więcej, przypiszemy je do Apple Business, żeby firmowe ustawienia trafiały na nie zdalnie."
+   ],
+   "cechy": [
+    "składany, 7,6\" + 5,4\"",
+    "chip A20 Pro",
+    "IP68, tylko eSIM"
+   ],
+   "parametry": [
+    {
+     "k": "Konstrukcja",
+     "v": "składana; rama i osłona zawiasu z tytanu Grade 5; Ceramic Shield 2 z przodu, Ceramic Shield z tyłu"
+    },
+    {
+     "k": "Ekran wewnętrzny",
+     "v": "7,6\" składany Super Retina XDR OLED, 1878 × 2670, 430 ppi, wykończenie nanostrukturalne"
+    },
+    {
+     "k": "Ekran zewnętrzny",
+     "v": "5,4\" Super Retina XDR OLED, 1398 × 2034, 460 ppi"
+    },
+    {
+     "k": "Oba ekrany",
+     "v": "ProMotion do 120 Hz, Niegasnący wyświetlacz, Dynamic Island, do 3000 nitów w plenerze; obsługa Apple Pencil (USB-C)"
+    },
+    {
+     "k": "Chip",
+     "v": "Apple A20 Pro (CPU 6 rdzeni, GPU 7 rdzeni, podwójny 16-rdzeniowy Neural Engine), chłodzenie komorą parową"
+    },
+    {
+     "k": "Pamięć",
+     "v": "256 GB, 512 GB, 1 TB lub 2 TB"
+    },
+    {
+     "k": "Bateria",
+     "v": "dwie baterie; do 24 h typowego użytkowania; wideo do 44 h (ekran zewnętrzny) / do 31 h (wewnętrzny)"
+    },
+    {
+     "k": "Ładowanie",
+     "v": "50% w ok. 20 min (zasilacz od 60 W, przewód USB-C); MagSafe i Qi2 do 25 W"
+    },
+    {
+     "k": "Łączność",
+     "v": "modem Apple C2 (5G, Gigabit LTE); Apple N1 (Wi-Fi 7, Bluetooth 6, Thread); UWB 2. gen.; NFC z trybem czytnika"
+    },
+    {
+     "k": "Karty SIM",
+     "v": "wyłącznie eSIM: dwie aktywne, ponad 8 zapisanych; brak gniazda na fizyczną kartę"
+    },
+    {
+     "k": "Złącze",
+     "v": "USB-C (USB 3, do 10 Gb/s), wyjście DisplayPort do 4K HDR"
+    },
+    {
+     "k": "Aparaty",
+     "v": "z tyłu 2 × 48 MP: główny (f/1,6, OIS) i ultraszerokokątny (120°), 2× zoom jakości optycznej; z przodu 12 MP Center Stage"
+    },
+    {
+     "k": "Odporność",
+     "v": "IP68 (do 6 m przez 30 min)"
+    },
+    {
+     "k": "Wymiary i masa",
+     "v": "otwarty: 164,6 × 117,8 × 5,2 mm; zamknięty: 84,1 × 117,8 × 11,3 mm; 254 g"
+    },
+    {
+     "k": "Zabezpieczenia",
+     "v": "Touch ID w przycisku bocznym"
+    },
+    {
+     "k": "Kolory",
+     "v": "nocne niebo, gwiezdna biel"
+    },
+    {
+     "k": "System",
+     "v": "iOS 27"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "iPhone Duo 256 GB / 512 GB",
+     "roznica": "Wystarczy na pocztę, dokumenty i zdjęcia z pracy."
+    },
+    {
+     "model": "iPhone Duo 1 TB / 2 TB",
+     "roznica": "Duży zapas na wideo, dokumentację zdjęciową i pliki offline."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy do iPhone’a Duo włożę fizyczną kartę SIM?",
+     "a": "Nie. iPhone Duo działa wyłącznie na eSIM — obsługuje dwie aktywne karty naraz i ponad osiem zapisanych profili. Przed zakupem sprawdzimy, czy operator Twojej firmy oferuje eSIM, i pomożemy przenieść na nią numer."
+    },
+    {
+     "q": "iPhone Duo czy iPhone 18 Pro Max — co lepsze do pracy z dokumentami?",
+     "a": "Po rozłożeniu iPhone Duo ma ekran 7,6\" — według Apple o 50% większy niż w iPhonie 18 Pro Max — i pozwala trzymać dwie aplikacje obok siebie. 18 Pro Max ma za to teleobiektyw 4×, gniazdo nano-SIM obok eSIM i dłużej pracuje na baterii (do 29 h wobec 24 h typowego użytkowania)."
+    },
+    {
+     "q": "Jak długo iPhone Duo pracuje na baterii w ciągu dnia?",
+     "a": "Apple podaje do 24 h typowego użytkowania. Na ekranie zewnętrznym odtworzysz wideo do 44 h, na wewnętrznym do 31 h. Z zasilaczem 60 W lub mocniejszym telefon naładujesz do połowy w około 20 minut, a bezprzewodowo — ładowarką MagSafe lub Qi2 do 25 W."
+    },
+    {
+     "q": "Czy iPhone Duo jest odporny na wodę i kurz mimo zawiasu?",
+     "a": "Tak, ma klasę IP68 według normy IEC 60529 — w testach Apple wytrzymał zanurzenie do 6 m przez 30 minut. Odporność może jednak z czasem słabnąć, a gwarancja nie obejmuje zalania, dlatego do pracy w terenie warto dobrać etui, np. iPhone Duo Folio z podstawką."
+    },
+    {
+     "q": "Czy przeniesiecie dane ze starego telefonu na iPhone’a Duo?",
+     "a": "Tak. Przenosimy kontakty, zdjęcia, wiadomości i aplikacje — także z Androida — oraz konfigurujemy pocztę firmową i konta. Składany telefon odbierasz w salonie w Rabce-Zdroju gotowy do pracy."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz pojemność pamięci i kolor. Ekrany, chip, aparaty i łączność są w każdej wersji takie same.",
+    "opcje": [
+     {
+      "nazwa": "Pamięć",
+      "wartosci": [
+       "256 GB",
+       "512 GB",
+       "1 TB",
+       "2 TB"
+      ],
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Kolor",
+      "wartosci": [
+       "nocne niebo",
+       "gwiezdna biel"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [],
+    "popularne": [
+     {
+      "nazwa": "Kadra w ciągłym ruchu",
+      "konfiguracja": "iPhone Duo 256 GB"
+     },
+     {
+      "nazwa": "Dokumenty i zdjęcia z budowy",
+      "konfiguracja": "iPhone Duo 512 GB"
+     },
+     {
+      "nazwa": "Duże archiwum wideo",
+      "konfiguracja": "iPhone Duo 1 TB"
+     }
+    ]
+   },
+   "podobne": [
+    "apple-iphone-18-pro",
+    "apple-iphone-17",
+    "apple-ipad-mini-a20-pro"
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Noclegi",
+    "Zdrowie i uzdrowiska",
+    "Magazyn i produkcja"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.apple.com/pl/iphone-duo/specs/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/iphone-duo/specs"
+    },
+    {
+     "url": "https://www.apple.com/pl/iphone-duo/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/iphone-duo"
+    },
+    {
+     "url": "https://www.apple.com/pl/iphone/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/iphone"
+    },
+    {
+     "url": "https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/newsroom/2026/09/apple-unveils-iphone-duo"
+    },
+    {
+     "url": "https://www.apple.com/pl/business/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/business"
+    }
+   ],
+   "wyrozniki": [
+    "składany, 7,6\" + 5,4\"",
+    "chip A20 Pro",
+    "IP68, tylko eSIM"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Ekran wewnętrzny",
+     "v": "7,6\" składany Super Retina XDR OLED, 120 Hz"
+    },
+    {
+     "k": "Ekran zewnętrzny",
+     "v": "5,4\" Super Retina XDR OLED, 120 Hz"
+    },
+    {
+     "k": "Chip",
+     "v": "Apple A20 Pro"
+    },
+    {
+     "k": "Karty SIM",
+     "v": "wyłącznie eSIM (dwie aktywne)"
+    },
+    {
+     "k": "Pamięć",
+     "v": "256 GB do 2 TB"
+    }
+   ],
+   "nowosc": true,
+   "polecane": [
+    {
+     "slug": "m365-poczta",
+     "etykieta": "Poczta firmowa i wdrożenie Microsoft 365"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "sprawdzono": "2026-11-14",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/apple-iphone-duo-premium-01.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/09/apple-unveils-iphone-duo/article/Apple-iPhone-Duo-colors-260909_big.jpg.large.jpg",
+     "ujecie": "Dwa kolory, gwiezdna biel i nocne niebo, widok z tyłu i od strony ekranu zewnętrznego"
+    },
+    {
+     "plik": "media/produkty/apple-iphone-duo-premium-02.webp",
+     "zrodlo": "https://www.apple.com/v/iphone-duo/a/images/overview/product-viewer/laptop__c7kl6vmsqd6q_large_2x.jpg",
+     "ujecie": "Telefon rozłożony pod kątem jak mały laptop, z filmem na górnej połowie ekranu"
+    }
+   ]
+  },
+  {
+   "slug_seed": "apple-ipad-mini-a20-pro",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "tablety",
+   "podkategoria": "tablety",
+   "marka": "Apple",
+   "seria": "iPad",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Apple iPad mini 8,5\" (A20 Pro)",
+   "krotka": "Apple iPad mini 8,5\"",
+   "podtytul": "Najmniejszy iPad: ekran OLED 8,5\", chip A20 Pro, odporność IP67 i opcja 5G na eSIM",
+   "korzysc": "Tablet, który mieści się w kieszeni kurtki lub fartucha: do zamówień, list kontrolnych, notatek rysikiem i podglądu dokumentów w ruchu.",
+   "opis": [
+    "iPada mini z chipem A20 Pro Apple zaprezentowało 26 października 2026 r., a w sklepach jest od 6 listopada. To najmniejszy iPad w ofercie: ma ekran 8,5\", grubość 5,4 mm i masę 255 g (263 g z modemem), więc wygodnie trzyma się go w jednej ręce. W firmie sprawdzi się przy przyjmowaniu zamówień na sali, w magazynie przy liście kompletacji, u serwisanta w terenie, w recepcji hotelu albo w gabinecie przy wypełnianiu karty klienta.",
+    "Nowością jest ekran OLED z jasnością 600 nitów na całej powierzchni, do 1200 nitów szczytowo w HDR i kontrastem 2 000 000:1; do wersji 256 GB i 512 GB można zamówić szkło nanostrukturalne, które ogranicza odblaski. Obudowa ma klasę IP67 (do 1 m przez 30 min), więc tablet lepiej znosi pracę na zewnątrz i zachlapania, choć gwarancja nie obejmuje uszkodzeń przez ciecze. Działa z Apple Pencil Pro i Apple Pencil (USB-C), a Touch ID w górnym przycisku odblokowuje go i zatwierdza płatności Apple Pay.",
+    "Wersje 128 GB i 256 GB mają 5-rdzeniowy procesor, a 512 GB — 6-rdzeniowy i podwójny Neural Engine; grafika ma zawsze 7 rdzeni. Każdy model ma Wi-Fi 7 i Bluetooth 6, a Wi-Fi + Cellular dodaje modem Apple C2 z 5G na eSIM (tylko transmisja danych) i GPS. Od iPada Air z M4 (osobna karta) mini różni się przede wszystkim rozmiarem: Air ma ekrany 11\" i 13\" oraz chip M4 do pracy w wielu oknach, a mini — ekran OLED, IP67 i masę o ponad 200 g mniejszą od Aira 11\". Bateria wystarcza na do 10 h w sieci Wi-Fi i do 9 h w sieci komórkowej.",
+    "W salonie PRO-KOM w Rabce-Zdroju dobierzemy pojemność, wersję z modemem, rysik i etui, a zanim tablety trafią do pracowników, przypiszemy je do konta Apple Business firmy. Pocztę, Wi-Fi i aplikacje ustawimy z góry, dzięki czemu iPad mini po pierwszym włączeniu sam pobierze firmową konfigurację. Pomożemy też przenieść dane ze starszego tabletu."
+   ],
+   "cechy": [
+    "ekran OLED 8,5\"",
+    "IP67, 255 g",
+    "opcja 5G na eSIM"
+   ],
+   "parametry": [
+    {
+     "k": "Chip",
+     "v": "Apple A20 Pro; 128 / 256 GB: CPU 5 rdzeni (2 super, 3 energooszczędne), 16-rdzeniowy Neural Engine; 512 GB: CPU 6 rdzeni (2 super, 4 energooszczędne), podwójny 16-rdzeniowy Neural Engine; GPU zawsze 7 rdzeni"
+    },
+    {
+     "k": "Ekran",
+     "v": "8,5\" Liquid Retina OLED, 2316 × 1512, 326 ppi, P3, True Tone, powłoka antyodblaskowa"
+    },
+    {
+     "k": "Jasność",
+     "v": "600 nitów na całym ekranie (SDR i XDR), 1200 nitów szczytowo w HDR; kontrast 2 000 000:1"
+    },
+    {
+     "k": "Szkło nanostrukturalne",
+     "v": "opcja w wersjach 256 GB i 512 GB"
+    },
+    {
+     "k": "Pamięć",
+     "v": "128 GB, 256 GB lub 512 GB"
+    },
+    {
+     "k": "Łączność",
+     "v": "Apple N1: Wi-Fi 7, Bluetooth 6, Thread (wszystkie modele)"
+    },
+    {
+     "k": "Wersja Cellular",
+     "v": "modem Apple C2, 5G sub-6 GHz, Gigabit LTE, wyłącznie eSIM, tylko transmisja danych, GPS/GNSS"
+    },
+    {
+     "k": "Bateria",
+     "v": "18,9 Wh; do 10 h w sieci Wi-Fi, do 9 h w sieci komórkowej; 50% w ok. 30 min z zasilaczem od 35 W"
+    },
+    {
+     "k": "Złącze",
+     "v": "USB-C (USB 3, do 10 Gb/s, DisplayPort), monitor zewnętrzny do 4K 60 Hz; złącze magnetyczne"
+    },
+    {
+     "k": "Rysik",
+     "v": "Apple Pencil Pro, Apple Pencil (USB-C)"
+    },
+    {
+     "k": "Aparaty",
+     "v": "z tyłu 12 MP f/1,8, wideo 4K do 60 kl./s; z przodu 12 MP Center Stage na dłuższym boku"
+    },
+    {
+     "k": "Odporność",
+     "v": "IP67 (do 1 m przez 30 min)"
+    },
+    {
+     "k": "Zabezpieczenia",
+     "v": "Touch ID w górnym przycisku"
+    },
+    {
+     "k": "Wymiary i masa",
+     "v": "195,3 × 132,6 × 5,4 mm; 255 g (Wi-Fi) / 263 g (Wi-Fi + Cellular)"
+    },
+    {
+     "k": "Kolory",
+     "v": "północ, księżycowa poświata"
+    },
+    {
+     "k": "System",
+     "v": "iPadOS 27"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "iPad mini 128 GB / 256 GB",
+     "roznica": "CPU 5 rdzeni, pojedynczy Neural Engine; szkło nanostrukturalne tylko w 256 GB."
+    },
+    {
+     "model": "iPad mini 512 GB",
+     "roznica": "CPU 6 rdzeni i podwójny 16-rdzeniowy Neural Engine; opcja szkła nanostrukturalnego."
+    },
+    {
+     "model": "Wi-Fi + Cellular",
+     "roznica": "Dodaje modem C2 z 5G (tylko eSIM, tylko dane) i GPS; 263 g."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy iPad mini z A20 Pro wytrzyma pracę w deszczu?",
+     "a": "Ma klasę IP67 — w testach Apple wytrzymał zanurzenie do 1 m przez 30 minut, więc deszcz czy zachlapanie przy pracy na zewnątrz nie powinny mu zaszkodzić. Odporność słabnie jednak z czasem, a gwarancja nie obejmuje zalania, dlatego do terenu warto dobrać etui."
+    },
+    {
+     "q": "Która wersja iPada mini z A20 Pro ma mocniejszy procesor?",
+     "a": "Wersja 512 GB: ma 6-rdzeniowy CPU i podwójny 16-rdzeniowy Neural Engine. Modele 128 GB i 256 GB mają 5-rdzeniowy CPU i pojedynczy Neural Engine. Grafika (7 rdzeni) jest wszędzie taka sama — do formularzy, zamówień i poczty w zupełności wystarczy wersja podstawowa."
+    },
+    {
+     "q": "iPad mini czy iPad Air z M4 — który tablet wybrać dla pracownika?",
+     "a": "iPad mini (8,5\", 255 g, IP67) jest do pracy w ruchu i jedną ręką: zamówienia, listy kontrolne, szybkie notatki. iPad Air (11\" lub 13\", chip M4, 12 GB RAM) lepiej sprawdzi się przy prezentacjach, rysunkach technicznych i pracy w kilku oknach jednocześnie."
+    },
+    {
+     "q": "Czy iPad mini z modemem 5G pozwala dzwonić przez sieć komórkową?",
+     "a": "Nie — wersja Wi-Fi + Cellular przesyła tylko dane i działa na eSIM. Rozmawiać można przez FaceTime i komunikatory albo odbierając połączenia przekazywane z iPhone’a, który jest w pobliżu."
+    },
+    {
+     "q": "Czy przygotujecie iPady mini dla całego zespołu?",
+     "a": "Tak. Zakładamy konto Apple Business, przypisujemy tablety do firmy i przygotowujemy ustawienia poczty, Wi-Fi i aplikacji, dzięki czemu iPad mini po pierwszym włączeniu konfiguruje się sam. Tablety wydajemy w salonie w Rabce-Zdroju, a później pomagamy zdalnie."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz łączność (Wi-Fi lub Wi-Fi + 5G), pojemność pamięci, rodzaj szkła i kolor. Ekran OLED, IP67 i Touch ID są w każdej wersji.",
+    "opcje": [
+     {
+      "nazwa": "Łączność",
+      "wartosci": [
+       "Wi-Fi",
+       "Wi-Fi + Cellular (5G, eSIM)"
+      ],
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Pamięć",
+      "wartosci": [
+       "128 GB",
+       "256 GB",
+       "512 GB"
+      ],
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Szkło",
+      "wartosci": [
+       "standardowe",
+       "nanostrukturalne (tylko 256 GB i 512 GB)"
+      ],
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Kolor",
+      "wartosci": [
+       "północ",
+       "księżycowa poświata"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [],
+    "popularne": [
+     {
+      "nazwa": "Sala, zamówienia, recepcja",
+      "konfiguracja": "iPad mini Wi-Fi 128 GB"
+     },
+     {
+      "nazwa": "Serwis i praca w terenie",
+      "konfiguracja": "iPad mini Wi-Fi + Cellular 256 GB"
+     },
+     {
+      "nazwa": "Notatki i szkice",
+      "konfiguracja": "iPad mini Wi-Fi 256 GB + Apple Pencil Pro"
+     }
+    ]
+   },
+   "podobne": [
+    "apple-ipad-air-m4",
+    "apple-ipad-pro-m5"
+   ],
+   "branze": [
+    "Handel",
+    "Noclegi",
+    "Zdrowie i uzdrowiska",
+    "Gastronomia",
+    "Magazyn i produkcja",
+    "Biura i usługi"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.apple.com/pl/ipad-mini/specs/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/ipad-mini/specs"
+    },
+    {
+     "url": "https://www.apple.com/pl/ipad-mini/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/ipad-mini"
+    },
+    {
+     "url": "https://www.apple.com/pl/ipad/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/ipad"
+    },
+    {
+     "url": "https://www.apple.com/newsroom/2026/10/apple-gives-ipad-mini-its-biggest-update-ever/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/newsroom/2026/10/apple-gives-ipad-mini-its-biggest-update-ever"
+    },
+    {
+     "url": "https://www.apple.com/pl/business/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/business"
+    }
+   ],
+   "wyrozniki": [
+    "ekran OLED 8,5\"",
+    "IP67, 255 g",
+    "opcja 5G na eSIM"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Ekran",
+     "v": "8,5\" Liquid Retina OLED, 2316 × 1512, do 1200 nitów"
+    },
+    {
+     "k": "Chip",
+     "v": "Apple A20 Pro"
+    },
+    {
+     "k": "Łączność",
+     "v": "Wi-Fi 7, Bluetooth 6; opcja 5G na eSIM"
+    },
+    {
+     "k": "Odporność",
+     "v": "IP67"
+    },
+    {
+     "k": "Wymiary i masa",
+     "v": "5,4 mm; 255 g"
+    }
+   ],
+   "nowosc": true,
+   "polecane": [
+    {
+     "slug": "m365-poczta",
+     "etykieta": "Poczta firmowa i wdrożenie Microsoft 365"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    },
+    {
+     "slug": "pomoc-zdalna",
+     "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "sprawdzono": "2026-11-14",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/apple-ipad-mini-a20-pro-premium-01.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-gives-ipad-mini-its-biggest-update-ever/article/Apple-iPad-mini-midnight-261026_big.jpg.large.jpg",
+     "ujecie": "iPad mini w kolorze północ, widok z tyłu i od strony ekranu"
+    },
+    {
+     "plik": "media/produkty/apple-ipad-mini-a20-pro-premium-02.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-gives-ipad-mini-its-biggest-update-ever/article/Apple-iPad-mini-starlight-261026_big.jpg.large.jpg",
+     "ujecie": "iPad mini w kolorze księżycowa poświata, widok z tyłu i od strony ekranu"
+    },
+    {
+     "plik": "media/produkty/apple-ipad-mini-a20-pro-premium-03.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-gives-ipad-mini-its-biggest-update-ever/article/Apple-iPad-mini-OLED-display-261026_inline.jpg.large.jpg",
+     "ujecie": "Zbliżenie na ekran OLED z kolorowym zdjęciem gekona"
+    }
+   ]
   }
  ]
 }
