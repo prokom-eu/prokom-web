@@ -1,5 +1,6 @@
 import type { Payload } from 'payload'
 
+import { nextDescription } from './description'
 import type { PageBlock } from './page'
 import { upsertBiznesPage } from './page'
 import { backupLayout, describeLayout, pagesToReplace } from './replacePages'
@@ -15,6 +16,8 @@ export const TEMPLATE_PAGES: {
   slug: string
   title: string
   description: string
+  /** Earlier seed wordings, replaced when nobody edited them in the panel. */
+  replaces?: string[]
   block: TemplateBlock
 }[] = [
   {
@@ -27,8 +30,13 @@ export const TEMPLATE_PAGES: {
   {
     slug: 'kontakt',
     title: 'Kontakt',
+    // Audit 14.11 (P2): production had none (the page existed before the template) and the
+    // earlier wording promised 60 minutes — only confirmed contact data (decision 01.11).
     description:
+      'Kontakt z PRO-KOM Biznes w Rabce-Zdroju: tel. 889 003 889, kontakt@prokombiznes.pl, ul. Orkana 16B. Pn–pt 9–17, formularz i dojazd.',
+    replaces: [
       'Kontakt z PRO-KOM w Rabce-Zdroju: telefon, e-mail i formularz. Oddzwaniamy w ciągu 60 minut w godzinach pracy. Dojazd na całe Podhale.',
+    ],
     block: 'bzContactPage',
   },
 ]
@@ -54,7 +62,10 @@ export function templateLayout(
   return stored.every((item) => K4_BLOCKS.has(item.blockType)) ? fresh : null
 }
 
-/** Creates or moves `/o-firmie` and `/kontakt` to the shared templates (reports `pages <slug>`). */
+/**
+ * Creates or moves `/o-firmie` and `/kontakt` to the shared templates (reports `pages <slug>`);
+ * an existing page gets the SEO description while it has none or an earlier seed wording.
+ */
 export async function seedBiznesTemplatePages(
   payload: Payload,
   tenantId: number,
@@ -62,7 +73,7 @@ export async function seedBiznesTemplatePages(
   note?: Note,
 ): Promise<void> {
   const replace = pagesToReplace()
-  for (const { slug, title, description, block } of TEMPLATE_PAGES) {
+  for (const { slug, title, description, replaces, block } of TEMPLATE_PAGES) {
     const {
       docs: [page],
     } = await payload.find({
@@ -81,6 +92,16 @@ export async function seedBiznesTemplatePages(
       )
       continue
     }
+    const seo = nextDescription(page.seo?.description, description, replaces)
+    if (seo) {
+      await payload.update({
+        collection: 'pages',
+        id: page.id,
+        data: { seo: { ...page.seo, description: seo } },
+        ...local,
+      })
+    }
+    report(`pages ${slug} description`, Boolean(seo))
     report(`pages ${slug} template`, Boolean(layout))
     if (!layout) continue
     if (replace.has(slug)) {
