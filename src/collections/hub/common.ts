@@ -1,6 +1,7 @@
 import { APIError } from 'payload'
 import type {
   CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
   CollectionBeforeChangeHook,
   CollectionConfig,
   Field,
@@ -35,9 +36,22 @@ function noMarkers(visible: VisibleFields): CollectionBeforeChangeHook {
 }
 
 /** Fresh hub pages after a change in the panel; the seed writes outside a request (TTL applies). */
-const revalidateHub: CollectionAfterChangeHook = ({ doc, req }) => {
+function refresh(
+  doc: { tenant?: unknown } | undefined,
+  req: Parameters<CollectionAfterChangeHook>[0]['req'],
+) {
   const tenantId = tenantIdOf(doc?.tenant)
   if (!req.context.seed && tenantId !== null) revalidatePageTags([hubTag(tenantId)], req.payload)
+}
+
+export const revalidateHub: CollectionAfterChangeHook = ({ doc, req }) => {
+  refresh(doc, req)
+  return doc
+}
+
+/** A deleted record leaves the hub pages at once, not after `PAGE_CACHE_SECONDS`. */
+export const revalidateHubAfterDelete: CollectionAfterDeleteHook = ({ doc, req }) => {
+  refresh(doc, req)
   return doc
 }
 
@@ -60,6 +74,7 @@ export function hubCollection(
       beforeValidate: [onlyLineTenant('prokom', 'Te treści są tylko na stronie pro-kom.eu.')],
       beforeChange: [noMarkers(visible)],
       afterChange: [revalidateHub],
+      afterDelete: [revalidateHubAfterDelete],
     },
   }
 }

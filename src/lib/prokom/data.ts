@@ -94,7 +94,10 @@ export function toHubData(docs: {
   help: HubHelp[]
   plans: HubPlan[]
 }): HubData {
-  const serviceKeys = new Map(docs.services.map((doc) => [doc.id, doc.key]))
+  // Only visible services: a hidden one must not show up among the related ones of another.
+  const serviceKeys = new Map(
+    docs.services.filter((doc) => doc.visible !== false).map((doc) => [doc.id, doc.key]),
+  )
   const toolKeys = new Map(docs.tools.map((doc) => [doc.id, doc.key]))
   return {
     services: docs.services

@@ -81,6 +81,16 @@ describe('toHubData', () => {
 
   const data = toHubData({ services, tools, help, plans })
 
+  it('never relates to a hidden service', () => {
+    const hiddenRelated = toHubData({
+      services: [{ ...services[0], related: [3] } as HubService, services[2] as HubService],
+      tools: [],
+      help: [],
+      plans: [],
+    })
+    expect(hiddenRelated.services[0]?.related).toEqual([])
+  })
+
   it('drops hidden services and turns relations into keys', () => {
     expect(data.services.map((s) => s.key)).toEqual(['b1', 'i4'])
     expect(data.services[0]?.related).toEqual(['i4'])

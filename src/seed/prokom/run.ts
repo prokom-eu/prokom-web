@@ -31,7 +31,8 @@ export function siteContactUpdate(
  * like `seed:biznes`). Idempotent: a record is found by its key in the tenant (`key` of a service,
  * tool or plan + its type, `slug` of a help situation) and written only when the package differs,
  * so a re-run makes no new versions. Fields of the package win over an edit in the panel; fields it
- * does not set (addresses of the lines' subpages, deep links of tools) stay as edited.
+ * does not set (addresses of the lines' subpages, deep links of tools) stay as edited. Local only:
+ * a record that differs is written as published, so a draft left in the panel gets published too.
  */
 export async function seedProkom(payload: Payload): Promise<void> {
   const log = (message: string) => payload.logger.info(`Seed (pro-kom.eu): ${message}`)
