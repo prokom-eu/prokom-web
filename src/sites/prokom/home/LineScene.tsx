@@ -1,9 +1,16 @@
 'use client'
 
-import { useCallback, useRef, useState, type KeyboardEvent } from 'react'
+import {
+  type CSSProperties,
+  type KeyboardEvent,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 
 import { HeadingText } from '@/components/shared/HeadingText'
-import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { HubHome } from '@/lib/prokom/home'
 import { iconForService } from '@/lib/prokom/icons'
@@ -52,6 +59,7 @@ export function LineScene({
 }: Props) {
   const keys = [...lines.map((line) => line.key), TEAM] as const
   const section = useRef<HTMLElement>(null)
+  const tablist = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)
   const [round, setRound] = useState(0)
   const current = keys[index] ?? TEAM
@@ -86,6 +94,19 @@ export function LineScene({
     event.currentTarget.querySelectorAll<HTMLElement>('[role="tab"]')[to]?.focus()
   }
   const line = lines.find((entry) => entry.key === current)
+
+  // On a phone the tabs scroll sideways: keep the chosen one in view (not `scrollIntoView`, which
+  // would also scroll the page).
+  useEffect(() => {
+    const row = tablist.current
+    const tab = row?.querySelectorAll<HTMLElement>('[role="tab"]')[index]
+    if (!row || !tab || row.scrollWidth <= row.clientWidth) return
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    row.scrollTo({
+      left: tab.offsetLeft - row.offsetLeft - 8,
+      behavior: reduce ? 'auto' : 'smooth',
+    })
+  }, [index])
 
   return (
     <section
@@ -130,7 +151,13 @@ export function LineScene({
         </span>
       </div>
 
-      <div role="tablist" aria-label="Linie PRO-KOM" className="pk-lr" onKeyDown={onKey}>
+      <div
+        ref={tablist}
+        role="tablist"
+        aria-label="Linie PRO-KOM"
+        className="pk-lr"
+        onKeyDown={onKey}
+      >
         {keys.map((key, i) => {
           const entry = lines.find((l) => l.key === key)
           const on = i === index
@@ -148,7 +175,7 @@ export function LineScene({
               onClick={() => pick(i)}
             >
               <span className="pk-lt__top">
-                <Mark size="xs" />
+                <Mark size="xs" decorative />
                 <span aria-hidden="true" className="pk-lt__dot" />
               </span>
               <span className="pk-lt__name">{entry ? entry.name : 'Razem'}</span>
@@ -196,7 +223,7 @@ function LinePanel({
   cameraNotes: Props['cameraNotes']
 }) {
   const { scene } = line
-  const href = line.url ?? '#linie'
+  const href = line.url
   return (
     <>
       <div className="pk-pn__main">
@@ -250,7 +277,7 @@ function LinePanel({
         <ul className="pk-ig">
           {scene.services.map((service) => (
             <li key={service.title}>
-              <a href={href} className="pk-svc">
+              <MaybeLink href={href} className="pk-svc">
                 <span className="pk-svi" aria-hidden="true">
                   <Icon name={iconForService(service.title)} />
                 </span>
@@ -258,7 +285,7 @@ function LinePanel({
                   <span className="pk-svc__title">{service.title}</span>
                   <span className="pk-svc__desc">{service.text}</span>
                 </span>
-              </a>
+              </MaybeLink>
             </li>
           ))}
         </ul>
@@ -268,9 +295,9 @@ function LinePanel({
             <ul>
               {scene.more.map((item) => (
                 <li key={item}>
-                  <a href={href} className="pk-mch">
+                  <MaybeLink href={href} className="pk-mch">
                     {item}
-                  </a>
+                  </MaybeLink>
                 </li>
               ))}
             </ul>
@@ -328,7 +355,7 @@ function LineVisual({
   cameraNotes: Props['cameraNotes']
 }) {
   const [camera, setCamera] = useState(0)
-  const [stage, setStage] = useState(2)
+  const [stage, setStage] = useState(Math.max(0, Math.min(2, techStages.length - 1)))
   switch (line.key) {
     case 'biznes':
       return (
@@ -542,9 +569,9 @@ function TeamPanel({
             const line = lines.find((entry) => entry.key === card.line)
             if (!line) return null
             return (
-              <a
+              <MaybeLink
                 key={card.line}
-                href={line.url ?? '#linie'}
+                href={line.url}
                 className="pk-tc"
                 style={{ ...lineStyle(card.line), animationDelay: `${0.12 + i * 0.1}s` }}
               >
@@ -562,10 +589,10 @@ function TeamPanel({
                     <i aria-hidden="true">↗</i>
                   </span>
                 )}
-              </a>
+              </MaybeLink>
             )
           })}
-          <div className={cx('pk-te')}>
+          <div className="pk-te">
             {team.pillars.map((pillar) => (
               <span key={pillar}>
                 <i aria-hidden="true" />
@@ -576,5 +603,28 @@ function TeamPanel({
         </div>
       )}
     </>
+  )
+}
+
+/** A link to the line's site; without an address plain text, never a dead link to this page. */
+function MaybeLink({
+  href,
+  className,
+  style,
+  children,
+}: {
+  href: string | null
+  className: string
+  style?: CSSProperties
+  children: ReactNode
+}) {
+  return href ? (
+    <a href={href} className={className} style={style}>
+      {children}
+    </a>
+  ) : (
+    <span className={className} style={style}>
+      {children}
+    </span>
   )
 }

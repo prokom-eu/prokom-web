@@ -4,6 +4,8 @@ type Props = {
   /** „BIZNES”, „TAK PRACUJĄ RAZEM”… — under the mark, in the line's text colour. */
   label?: string | null
   size?: 'xs' | 'sm' | 'md' | 'lg'
+  /** Next to a visible name that already says it (the scene tabs): hidden from readers. */
+  decorative?: boolean
   className?: string
 }
 
@@ -11,10 +13,13 @@ type Props = {
  * The PRO–KOM word mark with the dash in the colour of the surrounding line (`--ln`), as on the
  * board's line cards. Readers get „PRO-KOM” once, without the drawn dash.
  */
-export function Mark({ label, size = 'sm', className }: Props) {
+export function Mark({ label, size = 'sm', decorative = false, className }: Props) {
   return (
-    <span className={cx('pk-mark', `pk-mark--${size}`, className)}>
-      <span className="sr-only">PRO-KOM</span>
+    <span
+      className={cx('pk-mark', `pk-mark--${size}`, className)}
+      aria-hidden={decorative || undefined}
+    >
+      {!decorative && <span className="sr-only">PRO-KOM</span>}
       <span aria-hidden="true" className="pk-mark__word">
         PRO
         <span className="pk-mark__dash" />

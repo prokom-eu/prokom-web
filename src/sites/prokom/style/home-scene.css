@@ -167,7 +167,7 @@
 }
 .pk-pn__domain {
   display: flex;
-  min-height: 40px;
+  min-height: 44px;
   align-items: center;
   gap: 8px;
   border: 1.5px solid color-mix(in srgb, var(--ln) 60%, transparent);
@@ -284,6 +284,11 @@
 .pk-pn--rows {
   padding: 4px 20px;
 }
+/* Board `.pn.sm`: the compact rows of the Biznes picture. */
+.pk-pn--rows .pk-vr--big {
+  padding: 8px 0;
+  font-size: 14px;
+}
 .pk-pn__caption {
   display: flex;
   justify-content: space-between;
@@ -310,7 +315,6 @@
   height: 148px;
   gap: 8px;
   padding: 8px;
-  transition: grid-template-columns 0.6s var(--ease);
 }
 .pk-cb {
   position: relative;
@@ -557,6 +561,15 @@
   font-weight: 700;
   white-space: nowrap;
   transition: border-color 0.3s;
+}
+/* 44 px touch target (spec §5.4) without changing the drawn chip. */
+.pk-mch {
+  position: relative;
+}
+.pk-mch::after {
+  position: absolute;
+  inset: -6px 0;
+  content: '';
 }
 .pk-mch:hover {
   border-color: var(--ln);
@@ -907,5 +920,12 @@
 @media (prefers-reduced-motion: reduce) {
   .pk-lpt i[data-state] {
     transform: none;
+  }
+}
+
+/* The panel keeps one height while the tabs move by themselves — nothing below jumps (CLS). */
+@media (min-width: 1001px) {
+  .pk-pn-wrap {
+    min-height: 712px;
   }
 }

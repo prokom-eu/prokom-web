@@ -9,7 +9,7 @@ import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { HUB_CONTAINER } from '../container'
 import { Hero } from './Hero'
-import { LineScene } from './LineScene'
+import { LineScene } from './HomeIslands'
 import { homeLines, teamExamples } from './model'
 
 /** Title of the start page (spec §4); SEO of every page is finished in H6-2. */
