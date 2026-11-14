@@ -18,6 +18,7 @@ Sprawdzenie rekordu z PowerShell: `Resolve-DnsName prokombiznes.pl -Type A` (typ
 | prokominstalacje.pl | Seohost; DNS `dns1/dns2.microhost.pl` | PRO-KOM | TODO | 31.10.2027 | strona Instalacje (tenant `instalacje`) |
 | prokomsoftware.pl | Seohost; DNS `dns1/dns2.microhost.pl` | PRO-KOM | TODO | 31.10.2027 | strona Software (tenant `software`) |
 | prokomgaming.pl | Seohost; DNS `dns1/dns2.microhost.pl` (od 2.11) | PRO-KOM | TODO | 31.10.2027 | Gaming (osobne repo); tu tylko DNS i poczta |
+| prokomserwis.pl | cyber_Folks → transfer do Seohost (w toku); DNS `dns1/dns2.microhost.pl` (od 14.11) | **prywatny (Krystian)** → zmiana na firmę zaraz po transferze | TODO | 28.04.2027 | PRO-KOM Tech — serwis (repo `prokom-system`); tu DNS i Nginx |
 | pro-kom.eu | `TODO(krystian)`: nazwa.pl czy już Seohost? (migracja — ADR-002) | PRO-KOM | TODO | TODO | obecna strona + **poczta firmy**; panel produkcji przeniesiony na `panel.prokombiznes.pl` (09.11) |
 
 Serwer: **VPS webh.pl** (ADR-019, `vm280605`, Łódź), IPv4 **`194.28.50.70`**, IPv6 — brak (nie dodajemy rekordów AAAA; gdyby VPS dostał IPv6, dopisujemy AAAA obok każdego A). Kolumny TODO w tabeli wyżej — z panelu Seohost.
@@ -63,6 +64,19 @@ Produkcja: **`panel.prokombiznes.pl`** (`PANEL_HOST`, decyzja Krystiana 09.11, A
 ### pro-kom.eu
 Strefa: `TODO(krystian)` — nazwa.pl albo Seohost (tabela „Domeny”). **Nie zmieniamy MX/SPF/DKIM/DMARC bez osobnego planu migracji poczty (ADR-002).** Przed pierwszą zmianą: przepisać tutaj aktualny stan strefy 1:1 (to jest nasz punkt powrotu).
 
+### prokomserwis.pl (PRO-KOM Tech, repo `prokom-system`)
+Strefa w Seohost od 14.11 (przeniesiona 1:1 z cyber_Folks; szczegóły, stan „przed/po” i TXT: `prokom-system/docs/tech/DNS-PROKOMSERWIS.md`). Do przełączenia (niedziela **29.11.2026**) `@` i `www` wskazują **stary serwer Hetzner `62.238.0.240`** — nie `<IP>`.
+
+| Typ | Nazwa | Wartość | TTL | Po co | Stan |
+|---|---|---|---|---|---|
+| NS | @ | `dns1.microhost.pl`, `dns2.microhost.pl` | — | strefa w Seohost | ustawione 14.11 |
+| A | @ | `62.238.0.240` (Hetzner) → `<IP>` przy przełączeniu | 3600 (T−48 h: 300) | strona i panel serwisu | dziś Hetzner; zmiana 29.11 (`docs/runbook.md` §9) |
+| A | www | `62.238.0.240` (Hetzner) → `<IP>` przy przełączeniu | 3600 (T−48 h: 300) | to samo co `@`, **bez 301** (1:1 z Hetznerem) | dziś Hetzner; zmiana 29.11 |
+| A | staging | `<IP>` | 3600 | staging Tech za hasłem (certyfikat `prokom-tech-staging`) | ustawione 14.11 |
+| TXT | @ | `google-site-verification=…` + 63-znakowy ciąg hex (pełne wartości w `DNS-PROKOMSERWIS.md`) | 3600 | Search Console i rekord do ustalenia — **nie usuwać** | przeniesione 14.11 |
+
+Bez MX (poczty `@prokomserwis.pl` nie ma) i bez AAAA.
+
 ## Poczta (S10d) — hosting poczty w Seohost
 Skrzynki stron i wysyłka z formularzy: **hosting poczty Seohost** (DirectAdmin `srv128408.seohost.com.pl`, serwer `91.236.131.99`, kupiony 2.11.2026, 10 GB). Domeny dodane w hostingu (bez SSL i PHP — strony są na VPS): prokombiznes.pl, prokomsoftware.pl, prokominstalacje.pl, prokomgaming.pl. Skrzynki: **`kontakt@<domena>`** (adres na stronie — decyzja Krystiana 1.11; 2000 MB, limit 300 wysłanych dziennie), hasła w menedżerze haseł („Poczta kontakt@<domena>”). Aplikacja wysyła z `kontakt@` strony (`MAIL_SENDERS`, `.env.example`).
 
@@ -95,6 +109,7 @@ Klucze DKIM (`x._domainkey`, wartość 1:1 z panelu hostingu):
 ## Historia zmian DNS
 | Data | Domena | Zmiana | Kto | PR |
 |---|---|---|---|---|
+| 14.11.2026 | prokomserwis.pl | strefa w Seohost 1:1 z cyber_Folks (A `@`/`www` → 62.238.0.240 Hetzner, 2× TXT), delegacja `dns1–3.tld.pl` → `dns1/dns2.microhost.pl`; A `staging` → 194.28.50.70 | Krystian | prokom-system (`DNS-PROKOMSERWIS.md`); Nginx: `chore/proxy-tech` |
 | 9.11.2026 | prokombiznes.pl | A `panel` → 194.28.50.70 — panel produkcji | Krystian | `docs/panel-produkcji-prokombiznes` |
 | 2.11.2026 | prokombiznes.pl, prokomsoftware.pl, prokominstalacje.pl | rekordy poczty: A `mail`, MX, SPF, DKIM `x._domainkey`, DMARC `p=none` (hosting poczty Seohost) | Krystian | S10d |
 | 2.11.2026 | prokomgaming.pl | delegacja `ns1/ns2.seohost.pl` → `dns1/dns2.microhost.pl`; nowa strefa: A `@`/`www` → 194.28.50.70, rekordy poczty jak wyżej | Krystian | S10d |

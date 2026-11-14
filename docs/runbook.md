@@ -16,6 +16,14 @@ cd /srv/prokom/prokom-web
 docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml \
   -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml up -d nginx
 ```
+Od certyfikatu stagingu Tech (§9.1) — z nakładką Tech staging:
+```bash
+docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml \
+  -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml \
+  -f docker/compose.proxy.tech-staging.yml up -d nginx
+```
+Od przełączenia produkcji Tech (§9.2, 29.11) dochodzi `-f docker/compose.proxy.tech-prod.yml` — **nie wcześniej**: bez certyfikatu `prokom-tech-prod` Nginx nie wstanie i zdejmie wszystkie domeny.
+
 Odnawianie certyfikatów: kontener `certbot` (`renew --webroot`) — także tych wystawionych `--standalone`.
 
 **Nginx widzi stare pliki po wdrożeniu stagingu (9.11.2026):** wdrożenie podmienia katalogi `docker/nginx/` na serwerze, a działający kontener ma podpięty katalog sprzed podmiany (`/etc/nginx/snippets/` pusty). Strony działają, ale każdy `nginx -s reload` — także automatyczny co 6 h po odnowieniu certyfikatu — kończy się błędem `open() "/etc/nginx/snippets/…" failed`. Sprawdzenie: `docker exec prokom-proxy-nginx-1 nginx -t`. Naprawa: komenda wyżej z `--force-recreate` (kilka sekund przerwy). Przed każdą zmianą domen proxy zacznij od `nginx -t`.
@@ -262,3 +270,27 @@ Po kolei, od zewnątrz do środka:
 7. **Zasoby:** `df -h` (pełny dysk = logi, kopie w `../backups`, obrazy: `docker image prune`), `free -m`, `docker stats --no-stream`.
 8. **Ostatnie zmiany:** co i kiedy wdrożono — jeśli awaria zaczęła się po wdrożeniu, najpierw **4A**, diagnoza potem.
 9. Jedna domena pokazuje 404 na `/`: brak opublikowanej strony `home` tego tenanta albo domena nie jest wpisana w `Tenants` (panel).
+
+## 9. PRO-KOM Tech (prokomserwis.pl) — Nginx i certyfikaty
+Stos Tech (repo `prokom-system`, `docs/tech/WDROZENIE.md` i `MIGRACJA-VPS.md` tam) ma własny router `gateway` w sieci `prokom-proxy`; tu jest tylko jego vhost (`docs/wdrozenia.md` → „Nginx i staging”). Certyfikaty Tech wystawiamy procedurą z §0 „Nowy certyfikat bez zatrzymywania Nginx” (tymczasowy blok na porcie 80 + `--webroot`) — pozostałe domeny działają bez przerwy. Odnawia potem kontener `certbot`.
+
+Przed każdym krokiem: `docker exec prokom-proxy-nginx-1 nginx -t` (§0 — po wdrożeniu stagingu działający kontener może mieć stare pliki; wtedy najpierw `--force-recreate`).
+
+### 9.1 Staging (raz; rekord A `staging` jest od 14.11)
+1. Na serwerze pliki prokom-web z szablonami Tech (najbliższe wdrożenie stagingu prokom-web) i w `.env.proxy`: `TECH_STAGING_HOST=staging.prokomserwis.pl`.
+2. Certyfikat — procedura z §0 z `<domeny>` = `staging.prokomserwis.pl`, `--cert-name prokom-tech-staging -d staging.prokomserwis.pl`.
+3. Start z nakładką (drugie polecenie startu z §0) — kilka sekund przerwy przy odtworzeniu kontenera; potem `nginx -t`.
+4. Sprawdzenie: `curl -sI https://staging.prokomserwis.pl/` → 401 i `X-Robots-Tag: noindex, nofollow`; z hasłem (`curl -sI -u <użytkownik> …`) — odpowiedź z `gateway` (stos `prokom-tech-staging` musi działać; bez niego 502) i **dokładnie jeden** `Strict-Transport-Security` (od Django, nie od proxy).
+
+### 9.2 Produkcja — przełączenie w niedzielę 29.11 (`MIGRACJA-VPS.md` §8 pkt 7–8)
+Wybrany wariant: **nowy certyfikat zaraz po zmianie DNS** (procedura z §0), bez kopiowania certyfikatu z Hetznera. Dlaczego: kopia certyfikatu Let's Encrypt z innego serwera nie odnowi się tutaj (jej `renewal/*.conf` wskazuje konto ACME i katalogi Hetznera), a zajęłaby nazwę `prokom-tech-prod` w `live/` — i tak trzeba by ją potem wymieniać, czyli dwie ręczne operacje na magazynie certyfikatów zamiast jednej, znanej z runbooka. Koszt: kilka minut między zmianą DNS a certyfikatem, w których HTTPS na VPS odrzuca połączenia do `prokomserwis.pl` (a HTTP odpowiada 301 na HTTPS) — w oknie przerwy technicznej bez znaczenia. TTL `@`/`www` = 300 s od T−48 h, więc propagacja trwa minuty.
+
+1. Przed T−0: w `.env.proxy` `TECH_PROD_HOST=prokomserwis.pl` (sama zmienna bez nakładki niczego nie zmienia). Test przed DNS (MIGRACJA §8 pkt 5) idzie bezpośrednio na `gateway` (`127.0.0.1:3300`, tunel SSH) — przez Nginx nie, bo bloku produkcji Tech jeszcze nie ma.
+2. DNS w Seohost: A `@` i `www` → `194.28.50.70` (najpierw wpis w `docs/dns.md`, potem panel). Czekaj, aż obie nazwy wskazują VPS na serwerze autorytatywnym i publicznych resolverach:
+   ```bash
+   for s in dns1.microhost.pl 1.1.1.1 8.8.8.8; do dig +short @$s prokomserwis.pl A; dig +short @$s www.prokomserwis.pl A; done
+   ```
+3. Certyfikat — procedura z §0 z `<domeny>` = `prokomserwis.pl www.prokomserwis.pl`, `--cert-name prokom-tech-prod -d prokomserwis.pl -d www.prokomserwis.pl`. Błąd walidacji (DNS jeszcze nie dotarł do Let's Encrypt) → usuń tymczasowy blok (ostatnie polecenie procedury), odczekaj kilka minut, powtórz. Limit Let's Encrypt: 5 nieudanych walidacji na nazwę na godzinę — nie powtarzaj w pętli.
+4. Start z nakładką produkcji Tech (drugie polecenie startu z §0 + `-f docker/compose.proxy.tech-prod.yml`), potem `nginx -t`. **Od teraz proxy zawsze z tą nakładką** — dopisz ją do polecenia w §0 (mały PR).
+5. Sprawdzenie: `curl -sI https://prokomserwis.pl/` i `curl -sI https://www.prokomserwis.pl/` → odpowiedź z `gateway`, obie **bez 301**; certyfikat: `echo | openssl s_client -connect prokomserwis.pl:443 -servername www.prokomserwis.pl 2>/dev/null | openssl x509 -noout -ext subjectAltName -enddate`; dalej kontrola z MIGRACJA §8 pkt 9.
+6. Powrót (MIGRACJA §9): DNS z powrotem na `62.238.0.240`. Nginx może zostać z nakładką (certyfikat jest ważny, ruch i tak wraca na Hetznera).

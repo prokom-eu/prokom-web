@@ -1,0 +1,11 @@
+# PRO-KOM Tech production (prokomserwis.pl, repo prokom-system) for the proxy (overlay on
+# compose.proxy.yml). NOT in the proxy start command until the switch from Hetzner: add it only
+# when the domain and www point to the server and the `prokom-tech-prod` certificate exists
+# (docs/runbook.md → "PRO-KOM Tech: przełączenie produkcji").
+
+services:
+  nginx:
+    environment:
+      TECH_PROD_HOST: ${TECH_PROD_HOST:?set TECH_PROD_HOST}
+    volumes:
+      - ./nginx/templates/tech-prod.conf.template:/etc/nginx/templates/tech-prod.conf.template:ro
