@@ -47,15 +47,24 @@ export function OpeningStatus({
 
   const status = openingStatus(hours, holidays, moment)
   if (!status) return null
+  // Pill on a narrow screen: the short form is shown, the full label stays for screen readers
+  // (wspolne.css `.oh-status__short`). The brand bar keeps the full label.
+  const short = variant === 'pill' && status.short !== status.label ? status.short : null
   return (
     <span
       className={cx('oh-status', variant === 'pill' && 'oh-status--pill', className)}
       data-state={status.state}
       data-on-dark={onDark ? '' : undefined}
+      data-has-short={short ? '' : undefined}
       data-opening-status
     >
       <span className="oh-status__dot" aria-hidden="true" />
-      {status.label}
+      <span className="oh-status__label">{status.label}</span>
+      {short && (
+        <span className="oh-status__short" aria-hidden="true">
+          {short}
+        </span>
+      )}
     </span>
   )
 }

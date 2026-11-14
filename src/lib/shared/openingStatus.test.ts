@@ -12,6 +12,7 @@ describe('openingStatus', () => {
     expect(openingStatus(HOURS, [], at('2026-11-09T09:00:00Z'))).toEqual({
       state: 'open',
       label: 'Otwarte · do 17:00',
+      short: 'Otwarte · do 17:00',
     })
   })
 
@@ -19,6 +20,7 @@ describe('openingStatus', () => {
     expect(openingStatus(HOURS, [], at('2026-11-09T15:40:00Z'))).toEqual({
       state: 'soon',
       label: 'Zamykamy za 20 min · do 17:00',
+      short: 'Zamykamy za 20 min',
     })
   })
 
@@ -31,6 +33,7 @@ describe('openingStatus', () => {
     expect(openingStatus(HOURS, [], at('2026-11-14T09:00:00Z'))).toEqual({
       state: 'closed',
       label: 'Zamknięte · otwieramy w poniedziałek o 9:00',
+      short: 'Zamknięte · pn 9:00',
     })
   })
 
@@ -49,9 +52,19 @@ describe('openingStatus', () => {
     expect(openingStatus(HOURS, holidays, at('2026-11-11T09:00:00Z'))).toEqual({
       state: 'closed',
       label: 'Zamknięte · otwieramy jutro o 9:00',
+      short: 'Zamknięte · jutro 9:00',
     })
     expect(openingStatus(HOURS, holidays, at('2026-11-10T18:00:00Z'))?.label).toBe(
       'Zamknięte · otwieramy w czwartek o 9:00',
+    )
+  })
+
+  it('short form for narrow screens (audit 14.11): day abbreviation, „dziś”/„jutro” kept', () => {
+    expect(openingStatus(HOURS, [], at('2026-11-09T07:00:00Z'))?.short).toBe(
+      'Zamknięte · dziś 9:00',
+    )
+    expect(openingStatus(HOURS, ['2026-11-11'], at('2026-11-10T18:00:00Z'))?.short).toBe(
+      'Zamknięte · czw 9:00',
     )
   })
 
