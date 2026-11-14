@@ -65,6 +65,38 @@ test.describe('Biznes SEO of subpages (B5-2)', () => {
   })
 })
 
+// Audit 14.11 P1-5: /marki/niszczarki had the title of /oferta/niszczarki. The sitemap lists only
+// indexed pages, so every one of them needs its own title. Fetched in the page (the browser
+// resolves `*.localhost`), a few at once.
+test('every page of sitemap.xml has its own title', async ({ page }) => {
+  test.setTimeout(240_000)
+  const response = await page.goto(biznes('/sitemap.xml'))
+  const xml = (await response?.text()) ?? ''
+  const paths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+    (match) => new URL(match[1]!).pathname,
+  )
+  expect(paths.length).toBeGreaterThan(100)
+  const titles = await page.evaluate(async (list) => {
+    const queue = [...list]
+    const found: [string, string][] = []
+    const worker = async () => {
+      for (let path = queue.shift(); path; path = queue.shift()) {
+        const html = await (await fetch(path)).text()
+        const title = new DOMParser().parseFromString(html, 'text/html').title
+        found.push([path, title])
+      }
+    }
+    await Promise.all(Array.from({ length: 6 }, worker))
+    return found
+  }, paths)
+  const byTitle = new Map<string, string[]>()
+  for (const [path, title] of titles) byTitle.set(title, [...(byTitle.get(title) ?? []), path])
+  const shared = [...byTitle.entries()]
+    .filter(([, list]) => list.length > 1)
+    .map(([title, list]) => `${title}: ${list.sort().join(', ')}`)
+  expect(shared).toEqual([])
+})
+
 // SEO lokalne 13.11: where we work in the titles, a Service on service pages, llms.txt for AI.
 test.describe('Biznes local SEO', () => {
   for (const path of ['/oferta', '/marki', '/zestawy', '/marki/elzab', '/marki/godex']) {
