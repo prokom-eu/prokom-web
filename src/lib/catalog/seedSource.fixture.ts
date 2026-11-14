@@ -120,9 +120,6 @@ export function sourceFromSeed(): CatalogSource {
     })
     return {
       ...data,
-      // The listed catalog: the old package marks most cards „Do sprawdzenia”, which the index
-      // leaves out since ADR-026 — these tests are about the index itself, not the status.
-      contentStatus: 'ready' as const,
       id: nextId++,
       brand: brands.get(product.marka),
       categories: [categoryBySeed.get(product.kategoria)],
