@@ -1,0 +1,107 @@
+{
+  "_zrodlo": "docs/design/prokomeu/plansze/Linie.dc.html (HTML :173–375) — scripts/prokomeu-model.mjs",
+  "hero": {
+    "eyebrow": "Cała oferta · pięć linii, jedna firma",
+    "title": "Co gdzie załatwisz.",
+    "lead": "Napisz, czego potrzebujesz. Pokażemy usługę, linię, która się nią zajmuje, i jak zacząć.",
+    "ask": "Wolisz zapytać?",
+    "askNote": "pokierujemy do właściwej linii",
+    "searchLabel": "Szukaj w ofercie",
+    "examplesLabel": "Na przykład:",
+    "examples": [
+      {
+        "label": "kasa fiskalna",
+        "line": "biznes"
+      },
+      {
+        "label": "kamery",
+        "line": "instalacje"
+      },
+      {
+        "label": "Wi-Fi dla gości",
+        "line": "instalacje"
+      },
+      {
+        "label": "strona dla firmy",
+        "line": "software"
+      },
+      {
+        "label": "pęknięty ekran",
+        "line": "tech"
+      },
+      {
+        "label": "komputer do gier",
+        "line": "gaming"
+      }
+    ]
+  },
+  "filters": {
+    "audience": "Dla kogo",
+    "line": "Linia",
+    "allAudiences": "Wszyscy",
+    "allLines": "Wszystkie",
+    "clear": "Wyczyść",
+    "audiences": {
+      "firma": "Firma",
+      "dom": "Dom"
+    }
+  },
+  "empty": {
+    "eyebrow": "Nie ma na liście?",
+    "title": "Zadzwoń — pokierujemy.",
+    "lead": "Nie każdą sprawę da się nazwać jednym słowem. Powiedz, co się dzieje, a wskażemy właściwą linię.",
+    "help": "Co zrobić, gdy…",
+    "reset": "Pokaż całą ofertę"
+  },
+  "detail": {
+    "label": "Wybrana usługa",
+    "audiences": {
+      "firma": "Dla firm",
+      "dom": "Dla domu",
+      "oba": "Dla firm i domu"
+    },
+    "who": "Dla kogo:",
+    "includes": "Co obejmuje",
+    "steps": "Jak zaczynamy",
+    "online": "Online:",
+    "related": "Często razem z…",
+    "close": "Zamknij"
+  },
+  "lines": {
+    "eyebrow": "Pięć linii w skrócie",
+    "title": "Kto czym się zajmuje",
+    "lead": "Każda linia ma swój zespół, numer i stronę. Kliknij kartę, żeby zobaczyć w katalogu tylko jej usługi.",
+    "who": "Dla kogo:",
+    "inCatalog": "w katalogu"
+  },
+  "next": {
+    "eyebrow": "Co dalej",
+    "title": "Nie wiesz, od czego zacząć?",
+    "items": [
+      {
+        "eyebrow": "Dobierz",
+        "title": "Dobierz w 10 sekund",
+        "text": "Wybierz branżę albo sytuację i zobacz, które linie się Tobą zajmą.",
+        "href": "/#dobierz"
+      },
+      {
+        "eyebrow": "Pomoc",
+        "title": "Co zrobić, gdy…",
+        "text": "Coś nie działa? Pierwsze kroki, zanim zadzwonisz.",
+        "href": "/pomoc"
+      },
+      {
+        "eyebrow": "Załatw online",
+        "title": "Załatw online",
+        "text": "Zgłoszenia, plan instalacji, kreator projektu i status naprawy — bez dzwonienia.",
+        "href": "/zalatw-online"
+      },
+      {
+        "eyebrow": "Kontakt",
+        "title": "Kontakt",
+        "text": "Numery linii, adres salonu w Rabce-Zdroju i formularz.",
+        "href": "/kontakt"
+      }
+    ]
+  }
+}

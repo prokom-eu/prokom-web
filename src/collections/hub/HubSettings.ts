@@ -6,6 +6,7 @@ import { validateBrands } from '../../lib/prokom/brands'
 import { validateCooperation } from '../../lib/prokom/cooperation'
 import { validateDeliveries } from '../../lib/prokom/deliveries'
 import { validateHome } from '../../lib/prokom/home'
+import { validateOffer } from '../../lib/prokom/offer'
 import { HUB_OPTIONAL_PAGES } from '../../lib/prokom/pages'
 import { onlyLineTenant } from '../../lib/tenant/onlyLine'
 import { revalidateHub, revalidateHubAfterDelete } from './common'
@@ -96,6 +97,16 @@ export const HubSettings: CollectionConfig = {
       admin: {
         description:
           'Role z formularzem, etapy, zakres, dostawcy, zasady, FAQ. Telefon roli bierze się z jej linii — nie wpisuj numerów.',
+      },
+    },
+    {
+      name: 'offer',
+      label: 'Cała oferta /linie (JSON)',
+      type: 'json',
+      validate: withSchema(validateOffer),
+      admin: {
+        description:
+          'Teksty strony /linie. Usługi z kolekcji „Usługi huba”, kroki i odbiorcy linii z tekstów strony głównej — tu tylko nagłówki, filtry i podpisy.',
       },
     },
     {
