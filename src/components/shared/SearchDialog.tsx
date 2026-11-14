@@ -18,6 +18,7 @@ import { Icon } from '@/components/ui/Icon'
 import { useTheme } from '@/components/useTheme'
 import { clearRecent, readRecent, type RecentItem } from '@/lib/shared/recent'
 import { railIcon } from '@/lib/shared/rail'
+import { createNoResultsReporter, type NoResultsReporter } from '@/lib/shared/search/noResults'
 import { matchActions, type PaletteAction } from '@/lib/shared/search/palette'
 import {
   contactWithPhrase,
@@ -50,6 +51,11 @@ export type SearchDialogProps = {
    * first one by default — next to the list.
    */
   renderPreview?: (result: SearchResult) => ReactNode
+  /**
+   * A phrase without results stayed on screen (once per opening, never with the phrase) — the line
+   * sends its analytics event (hub: Umami `szukaj_brak_wyniku`, ADR-020).
+   */
+  onNoResults?: () => void
 }
 
 /** The focus is in a field: „/” is typed there, not a shortcut. */
@@ -98,6 +104,7 @@ export function SearchDialog({
   label = 'Szukaj na stronie',
   placeholder = 'Czego szukasz?',
   renderPreview,
+  onNoResults,
 }: SearchDialogProps) {
   const dialog = useRef<HTMLDialogElement>(null)
   const input = useRef<HTMLInputElement>(null)
@@ -115,11 +122,18 @@ export function SearchDialog({
   const headingRole = (level: 2 | 3) =>
     open ? ({ role: 'heading', 'aria-level': level } as const) : {}
   const hoverTimer = useRef<number | undefined>(undefined)
+  const noResults = useRef<NoResultsReporter | null>(null)
+  useEffect(() => {
+    const reporter = createNoResultsReporter(() => onNoResults?.())
+    noResults.current = reporter
+    return () => reporter.dispose()
+  }, [onNoResults])
 
   const show = useCallback(() => {
     // Another modal (menu sheet, preview) owns the screen.
     if (!dialog.current || document.querySelector('dialog[open]')) return
     setRecent(recentlyViewed ? readRecent(line) : [])
+    noResults.current?.reset()
     setStatus('')
     setActiveId(null)
     dialog.current.showModal()
@@ -163,6 +177,8 @@ export function SearchDialog({
   const count = groups.reduce((sum, group) => sum + group.results.length, 0)
   const results = useMemo(() => groups.flatMap((group) => group.results), [groups])
   const active = results.find((result) => result.id === activeId) ?? results[0] ?? null
+  const nothing = Boolean(trimmed) && count === 0 && matched.length === 0
+  useEffect(() => noResults.current?.update(open && nothing), [open, nothing])
 
   /**
    * Enter in the field: the first item of the list as shown — an action (`tel`, `trasa`…), a
@@ -428,7 +444,7 @@ export function SearchDialog({
               </section>
             )}
             {trimmed && groups.map(groupBlock)}
-            {trimmed && count === 0 && matched.length === 0 && (
+            {nothing && (
               <div className="sdlg__none">
                 <p className="font-display text-lg font-extrabold">Nie znaleźliśmy „{trimmed}”</p>
                 <p className="text-ink-2">Napisz, czego szukasz — odpowiemy, czy to zrobimy.</p>

@@ -20,6 +20,8 @@ export type TabBarProps = {
   centerBadge?: ReactNode
   /** Path of the contact page (`/kontakt`). */
   contactHref?: string
+  /** `shared.tabBar.fourth`: replaces Kontakt (hub: Załatw online). Empty = Kontakt. */
+  fourth?: (TabLink & { icon?: string | null }) | null
 }
 
 const ITEM =
@@ -32,17 +34,27 @@ const isCurrent = (pathname: string, href: string) =>
 /**
  * Phone tab bar of every line (spec §5 `TabBar`, board Telefon): Główna (not „Start”: Lighthouse
  * `link-text` counts it as a non-descriptive link) · {second} · {centre —
- * raised, 52 px, in the accent} · Kontakt · Menu. Only the second and centre come from the panel;
+ * raised, 52 px, in the accent} · Kontakt (or {fourth}) · Menu. Only the second, centre and fourth
+ * come from the panel;
  * Menu opens the shared sheet (`requestMenu`). Up to 767 px, above the safe area; a spacer of the
  * bar's height keeps the end of the page clear of it.
  */
-export function TabBar({ second, center, centerBadge, contactHref = '/kontakt' }: TabBarProps) {
+export function TabBar({
+  second,
+  center,
+  centerBadge,
+  contactHref = '/kontakt',
+  fourth,
+}: TabBarProps) {
   const pathname = usePathname() ?? '/'
   // One text colour per item: the current page and the raised centre in ink, the rest muted.
   const item = (strong: boolean) => cx(ITEM, strong ? 'text-ink' : 'text-ink-2')
   const icon = (current: boolean) => cx(ICON, current && 'text-accent-text')
   const at = (href: string) => isCurrent(pathname, href)
   const centerIcon = center?.icon && isIconName(center.icon) ? center.icon : 'grid'
+  const own = fourth?.label && fourth.href ? fourth : null
+  const fourthHref = own?.href ?? contactHref
+  const fourthIcon = own?.icon && isIconName(own.icon) ? own.icon : 'phone'
 
   return (
     <>
@@ -88,14 +100,14 @@ export function TabBar({ second, center, centerBadge, contactHref = '/kontakt' }
           <span />
         )}
         <Link
-          href={contactHref}
-          className={item(at(contactHref))}
-          aria-current={at(contactHref) ? 'page' : undefined}
+          href={fourthHref}
+          className={item(at(fourthHref))}
+          aria-current={at(fourthHref) ? 'page' : undefined}
         >
-          <span className={icon(at(contactHref))}>
-            <Icon name="phone" />
+          <span className={icon(at(fourthHref))}>
+            <Icon name={fourthIcon} />
           </span>
-          Kontakt
+          {own?.label ?? 'Kontakt'}
         </Link>
         <button type="button" onClick={requestMenu} className={item(false)} aria-haspopup="dialog">
           <span className={ICON}>

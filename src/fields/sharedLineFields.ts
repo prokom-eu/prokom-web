@@ -272,12 +272,23 @@ export const sharedLineFields: Field = {
       name: 'tabBar',
       label: 'Dolny pasek na telefonie',
       type: 'group',
-      admin: { description: 'Start, Kontakt i Menu są stałe.' },
+      admin: { description: 'Główna i Menu są stałe; czwarta pozycja pusta = Kontakt.' },
       fields: [
         link('second', 'Druga pozycja'),
         {
           name: 'center',
           label: 'Środek (wyróżniony)',
+          type: 'group',
+          fields: [
+            {
+              type: 'row',
+              fields: [text('label', 'Etykieta'), href('href', false), text('icon', 'Ikona')],
+            },
+          ],
+        },
+        {
+          name: 'fourth',
+          label: 'Czwarta pozycja (zamiast Kontakt)',
           type: 'group',
           fields: [
             {

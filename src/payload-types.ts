@@ -316,7 +316,7 @@ export interface SiteSetting {
       counter?: ('none' | 'inquiry' | 'project') | null;
     };
     /**
-     * Start, Kontakt i Menu są stałe.
+     * Główna i Menu są stałe; czwarta pozycja pusta = Kontakt.
      */
     tabBar?: {
       second?: {
@@ -324,6 +324,11 @@ export interface SiteSetting {
         href?: string | null;
       };
       center?: {
+        label?: string | null;
+        href?: string | null;
+        icon?: string | null;
+      };
+      fourth?: {
         label?: string | null;
         href?: string | null;
         icon?: string | null;
@@ -791,7 +796,29 @@ export interface CatalogGroup {
     | 'key'
     | 'mega'
     | 'mount'
-    | 'brief';
+    | 'brief'
+    | 'receipt'
+    | 'barcode'
+    | 'vending'
+    | 'laptop'
+    | 'database'
+    | 'printer'
+    | 'camera'
+    | 'lock'
+    | 'wifi'
+    | 'speaker'
+    | 'tv'
+    | 'mobile'
+    | 'gear'
+    | 'building'
+    | 'gamepad'
+    | 'pc'
+    | 'sliders'
+    | 'gauge'
+    | 'spark'
+    | 'help'
+    | 'info'
+    | 'news';
   /**
    * Krótka lista tego, co jest w dziale, np. „kasy, drukarki fiskalne, POS, terminale”. Strona główna: koło działów i karty Oferty.
    */
@@ -883,6 +910,28 @@ export interface CatalogGroup {
           | 'mega'
           | 'mount'
           | 'brief'
+          | 'receipt'
+          | 'barcode'
+          | 'vending'
+          | 'laptop'
+          | 'database'
+          | 'printer'
+          | 'camera'
+          | 'lock'
+          | 'wifi'
+          | 'speaker'
+          | 'tv'
+          | 'mobile'
+          | 'gear'
+          | 'building'
+          | 'gamepad'
+          | 'pc'
+          | 'sliders'
+          | 'gauge'
+          | 'spark'
+          | 'help'
+          | 'info'
+          | 'news'
         )
       | null;
   };
@@ -1331,6 +1380,28 @@ export interface CatalogCategory {
         | 'mega'
         | 'mount'
         | 'brief'
+        | 'receipt'
+        | 'barcode'
+        | 'vending'
+        | 'laptop'
+        | 'database'
+        | 'printer'
+        | 'camera'
+        | 'lock'
+        | 'wifi'
+        | 'speaker'
+        | 'tv'
+        | 'mobile'
+        | 'gear'
+        | 'building'
+        | 'gamepad'
+        | 'pc'
+        | 'sliders'
+        | 'gauge'
+        | 'spark'
+        | 'help'
+        | 'info'
+        | 'news'
       )
     | null;
   /**
@@ -1459,6 +1530,28 @@ export interface CatalogCategory {
                 | 'mega'
                 | 'mount'
                 | 'brief'
+                | 'receipt'
+                | 'barcode'
+                | 'vending'
+                | 'laptop'
+                | 'database'
+                | 'printer'
+                | 'camera'
+                | 'lock'
+                | 'wifi'
+                | 'speaker'
+                | 'tv'
+                | 'mobile'
+                | 'gear'
+                | 'building'
+                | 'gamepad'
+                | 'pc'
+                | 'sliders'
+                | 'gauge'
+                | 'spark'
+                | 'help'
+                | 'info'
+                | 'news'
               )
             | null;
           title: string;
@@ -1658,6 +1751,28 @@ export interface Industry {
                 | 'mega'
                 | 'mount'
                 | 'brief'
+                | 'receipt'
+                | 'barcode'
+                | 'vending'
+                | 'laptop'
+                | 'database'
+                | 'printer'
+                | 'camera'
+                | 'lock'
+                | 'wifi'
+                | 'speaker'
+                | 'tv'
+                | 'mobile'
+                | 'gear'
+                | 'building'
+                | 'gamepad'
+                | 'pc'
+                | 'sliders'
+                | 'gauge'
+                | 'spark'
+                | 'help'
+                | 'info'
+                | 'news'
               )
             | null;
           title?: string | null;
@@ -1733,6 +1848,28 @@ export interface Industry {
                 | 'mega'
                 | 'mount'
                 | 'brief'
+                | 'receipt'
+                | 'barcode'
+                | 'vending'
+                | 'laptop'
+                | 'database'
+                | 'printer'
+                | 'camera'
+                | 'lock'
+                | 'wifi'
+                | 'speaker'
+                | 'tv'
+                | 'mobile'
+                | 'gear'
+                | 'building'
+                | 'gamepad'
+                | 'pc'
+                | 'sliders'
+                | 'gauge'
+                | 'spark'
+                | 'help'
+                | 'info'
+                | 'news'
               )
             | null;
           x: number;
@@ -2155,6 +2292,28 @@ export interface Solution {
                 | 'mega'
                 | 'mount'
                 | 'brief'
+                | 'receipt'
+                | 'barcode'
+                | 'vending'
+                | 'laptop'
+                | 'database'
+                | 'printer'
+                | 'camera'
+                | 'lock'
+                | 'wifi'
+                | 'speaker'
+                | 'tv'
+                | 'mobile'
+                | 'gear'
+                | 'building'
+                | 'gamepad'
+                | 'pc'
+                | 'sliders'
+                | 'gauge'
+                | 'spark'
+                | 'help'
+                | 'info'
+                | 'news'
               )
             | null;
           id?: string | null;
@@ -2493,7 +2652,29 @@ export interface BzHeroBlock {
           | 'key'
           | 'mega'
           | 'mount'
-          | 'brief';
+          | 'brief'
+          | 'receipt'
+          | 'barcode'
+          | 'vending'
+          | 'laptop'
+          | 'database'
+          | 'printer'
+          | 'camera'
+          | 'lock'
+          | 'wifi'
+          | 'speaker'
+          | 'tv'
+          | 'mobile'
+          | 'gear'
+          | 'building'
+          | 'gamepad'
+          | 'pc'
+          | 'sliders'
+          | 'gauge'
+          | 'spark'
+          | 'help'
+          | 'info'
+          | 'news';
         text: string;
         id?: string | null;
       }[]
@@ -2695,7 +2876,29 @@ export interface BzPlanBlock {
             | 'key'
             | 'mega'
             | 'mount'
-            | 'brief';
+            | 'brief'
+            | 'receipt'
+            | 'barcode'
+            | 'vending'
+            | 'laptop'
+            | 'database'
+            | 'printer'
+            | 'camera'
+            | 'lock'
+            | 'wifi'
+            | 'speaker'
+            | 'tv'
+            | 'mobile'
+            | 'gear'
+            | 'building'
+            | 'gamepad'
+            | 'pc'
+            | 'sliders'
+            | 'gauge'
+            | 'spark'
+            | 'help'
+            | 'info'
+            | 'news';
           tone: 'green' | 'red' | 'blue' | 'violet';
           /**
            * Na komputerze 11 widocznych, na telefonie pierwsze 5.
@@ -2800,7 +3003,29 @@ export interface BzStepsBlock {
       | 'key'
       | 'mega'
       | 'mount'
-      | 'brief';
+      | 'brief'
+      | 'receipt'
+      | 'barcode'
+      | 'vending'
+      | 'laptop'
+      | 'database'
+      | 'printer'
+      | 'camera'
+      | 'lock'
+      | 'wifi'
+      | 'speaker'
+      | 'tv'
+      | 'mobile'
+      | 'gear'
+      | 'building'
+      | 'gamepad'
+      | 'pc'
+      | 'sliders'
+      | 'gauge'
+      | 'spark'
+      | 'help'
+      | 'info'
+      | 'news';
     text: string;
     gets?: string | null;
     role?: string | null;
@@ -3169,6 +3394,28 @@ export interface BzSectionBlock {
               | 'mega'
               | 'mount'
               | 'brief'
+              | 'receipt'
+              | 'barcode'
+              | 'vending'
+              | 'laptop'
+              | 'database'
+              | 'printer'
+              | 'camera'
+              | 'lock'
+              | 'wifi'
+              | 'speaker'
+              | 'tv'
+              | 'mobile'
+              | 'gear'
+              | 'building'
+              | 'gamepad'
+              | 'pc'
+              | 'sliders'
+              | 'gauge'
+              | 'spark'
+              | 'help'
+              | 'info'
+              | 'news'
             )
           | null;
         text?: string | null;
@@ -4035,7 +4282,29 @@ export interface SwHeroBlock {
           | 'key'
           | 'mega'
           | 'mount'
-          | 'brief';
+          | 'brief'
+          | 'receipt'
+          | 'barcode'
+          | 'vending'
+          | 'laptop'
+          | 'database'
+          | 'printer'
+          | 'camera'
+          | 'lock'
+          | 'wifi'
+          | 'speaker'
+          | 'tv'
+          | 'mobile'
+          | 'gear'
+          | 'building'
+          | 'gamepad'
+          | 'pc'
+          | 'sliders'
+          | 'gauge'
+          | 'spark'
+          | 'help'
+          | 'info'
+          | 'news';
         id?: string | null;
       }[]
     | null;
@@ -4099,7 +4368,29 @@ export interface SwHeroBlock {
           | 'key'
           | 'mega'
           | 'mount'
-          | 'brief';
+          | 'brief'
+          | 'receipt'
+          | 'barcode'
+          | 'vending'
+          | 'laptop'
+          | 'database'
+          | 'printer'
+          | 'camera'
+          | 'lock'
+          | 'wifi'
+          | 'speaker'
+          | 'tv'
+          | 'mobile'
+          | 'gear'
+          | 'building'
+          | 'gamepad'
+          | 'pc'
+          | 'sliders'
+          | 'gauge'
+          | 'spark'
+          | 'help'
+          | 'info'
+          | 'news';
         text: string;
         href: string;
         id?: string | null;
@@ -4876,6 +5167,28 @@ export interface SolutionArea {
         | 'mega'
         | 'mount'
         | 'brief'
+        | 'receipt'
+        | 'barcode'
+        | 'vending'
+        | 'laptop'
+        | 'database'
+        | 'printer'
+        | 'camera'
+        | 'lock'
+        | 'wifi'
+        | 'speaker'
+        | 'tv'
+        | 'mobile'
+        | 'gear'
+        | 'building'
+        | 'gamepad'
+        | 'pc'
+        | 'sliders'
+        | 'gauge'
+        | 'spark'
+        | 'help'
+        | 'info'
+        | 'news'
       )
     | null;
   short?: string | null;
@@ -5896,6 +6209,13 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                     href?: T;
                   };
               center?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    icon?: T;
+                  };
+              fourth?:
                 | T
                 | {
                     label?: T;
