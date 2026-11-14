@@ -60,6 +60,8 @@ export type K4Card = {
    * one. `zrodlo` = the producer page the file was taken from, `ujecie` = the view for the alt.
    */
   zdjecia_premium?: { plik: string; zrodlo: string; ujecie: string }[] | null
+  /** Earlier addresses of a new K4 card (a renamed model): the record keeps them as keys, 301. */
+  poprzednie_slugi?: string[] | null
   kolory?: { nazwa: string; hex: string; plik: string }[] | null
   /** A PRO-KOM service without a photo: the product page shows a service tile (K4e). */
   zdjecia_brak?: boolean
@@ -210,6 +212,8 @@ export function k4NewCards(cards: K4Card[], repo: Pick<K31Card, 'slug_seed'>[]):
       withK4Content(
         {
           slug_seed: card.slug_seed,
+          // The record of a renamed card is found by its earlier address (and moves to the new one).
+          legacyIds: card.poprzednie_slugi ?? null,
           kategoria: card.kategoria,
           podkategoria: card.podkategoria ?? null,
           nazwa: '',
@@ -339,6 +343,16 @@ export function k4SlugRedirects(
     from: address(old),
     to: target.startsWith('/') ? target : address(target),
   }))
+}
+
+/** 301 from the earlier addresses of renamed K4 cards (`poprzednie_slugi`) to the current one. */
+export function k4RenameRedirects(cards: K4Card[]): { from: string; to: string }[] {
+  return cards.flatMap((card) =>
+    (card.poprzednie_slugi ?? []).map((old) => ({
+      from: `/produkt/${old}`,
+      to: `/produkt/${card.slug_seed}`,
+    })),
+  )
 }
 
 /**

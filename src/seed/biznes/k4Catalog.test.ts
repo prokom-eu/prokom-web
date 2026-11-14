@@ -14,6 +14,7 @@ import {
   k4Colors,
   k4ImageKeys,
   k4NewCards,
+  k4RenameRedirects,
   k4PhotoFile,
   k4PhotoMediaData,
   k4ProductFields,
@@ -304,6 +305,22 @@ describe('k4NewCards (K4-FINAL §4.3, 162 new cards)', () => {
       seria: expect.any(String),
     })
     expect(macbook?.branze.every((slug) => /^[a-z-]+$/.test(slug))).toBe(true)
+  })
+
+  it('keeps the earlier address of a renamed model as a key, with a 301 to the new one', () => {
+    const fresh = k4NewCards(cards, repo)
+    expect(fresh.find((card) => card.slug_seed === 'apple-imac-24-m6')?.legacyIds).toEqual([
+      'apple-imac-24-m4',
+    ])
+    expect(k4RenameRedirects(cards)).toEqual(
+      expect.arrayContaining([
+        { from: '/produkt/apple-imac-24-m4', to: '/produkt/apple-imac-24-m6' },
+        { from: '/produkt/apple-macbook-pro-m5', to: '/produkt/apple-macbook-pro-m6' },
+      ]),
+    )
+    // An earlier address is never a current card (the 301 would shadow it).
+    const current = new Set(cards.map((card) => card.slug_seed))
+    expect(k4RenameRedirects(cards).filter(({ from }) => current.has(from.slice(9)))).toEqual([])
   })
 
   it('takes only the cards marked new', () => {

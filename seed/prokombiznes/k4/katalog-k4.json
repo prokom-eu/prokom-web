@@ -24894,9 +24894,9 @@
     ]
    },
    "podobne": [
-    "apple-macbook-pro-m5",
+    "apple-macbook-pro-m6",
     "apple-mac-mini-m6",
-    "apple-imac-24-m4",
+    "apple-imac-24-m6",
     "apple-mac-studio-m5"
    ],
    "branze": [
@@ -35905,7 +35905,10 @@
    ]
   },
   {
-   "slug_seed": "apple-macbook-pro-m5",
+   "slug_seed": "apple-macbook-pro-m6",
+   "poprzednie_slugi": [
+    "apple-macbook-pro-m5"
+   ],
    "zmiana_k4": "nowa",
    "status": "gotowe",
    "dzial": "biuro",
@@ -35914,52 +35917,53 @@
    "marka": "Apple",
    "seria": "Mac",
    "rodzaj": "Urządzenia",
-   "nazwa": "Apple MacBook Pro 14\" / 16\" (M5, M5 Pro, M5 Max)",
+   "nazwa": "Apple MacBook Pro 14\" / 16\" (M6, M5 Pro, M5 Max)",
    "krotka": "Apple MacBook Pro 14\" / 16\"",
-   "podtytul": "Mobilna stacja robocza: ekran Liquid Retina XDR 120 Hz, do 128 GB RAM i 8 TB SSD, HDMI i czytnik SD",
-   "korzysc": "Laptop dla tych, którym zwykły komputer nie wystarcza (CAD, montaż wideo, duże zdjęcia czy lokalne modele AI), bez przywiązania do biurka.",
+   "podtytul": "Mobilna stacja robocza z ekranem Liquid Retina XDR 120 Hz: 14\" z nowym M6 albo 14\" i 16\" z M5 Pro lub M5 Max",
+   "korzysc": "Laptop dla tych, którym zwykły komputer nie wystarcza — od wymagającego biura na M6 po CAD, montaż wideo i lokalne AI na M5 Max — bez przywiązania do biurka.",
    "opis": [
-    "MacBook Pro występuje w dwóch rozmiarach i z trzema chipami. Model 14\" z podstawowym M5 pochodzi z października 2025 r., a wersje z M5 Pro i M5 Max (14\" i 16\") weszły w marcu 2026 r. Wszystkie mają ekran Liquid Retina XDR z odświeżaniem do 120 Hz, jasnością 1000 nitów (1600 nitów w HDR) i opcją matowego szkła nano-texture, które przydaje się przy oknie lub mocnym oświetleniu biura.",
-    "Wybór chipu zależy od pracy: M5 wystarczy do wymagających zadań biurowych i obróbki zdjęć, M5 Pro do CAD, programowania i montażu wideo, a M5 Max do renderingu, wideo w wysokiej rozdzielczości i lokalnych modeli AI. Pamięć RAM sięga od 16 GB do 128 GB, a dysk od 1 TB do 8 TB (8 TB tylko z M5 Max). Na baterii laptop wytrzymuje do 24 h odtwarzania wideo.",
-    "W odróżnieniu od MacBooka Air ma HDMI, czytnik kart SDXC, MagSafe 3 i trzy porty Thunderbolt — w wersjach M5 Pro i M5 Max to Thunderbolt 5 (120 Gb/s) oraz Wi-Fi 7 i Bluetooth 6. Obsłuży do 2 monitorów (M5), 3 (M5 Pro) lub 4 (M5 Max), więc łatwo zbudujesz z niego stanowisko projektowe z kilkoma ekranami."
+    "MacBook Pro z ekranem Liquid Retina XDR występuje w rozmiarach 14\" i 16\" oraz z trzema chipami. Najtańszy wariant, 14\" z M6, Apple pokazało 27 października 2026 r. i zastąpił on dotychczasowy model z M5; wersje z M5 Pro i M5 Max (14\" i 16\") są w sprzedaży od marca 2026 r. Każda ma ekran mini-LED z ProMotion do 120 Hz, 1000 nitów w SDR i do 1600 nitów w HDR oraz opcję szkła nanostrukturalnego do jasnych pomieszczeń.",
+    "Model z M6 ma 12 rdzeni CPU i 12 rdzeni GPU, do 32 GB pamięci i dysk od 1 TB do 4 TB. Apple podaje do 30% szybszą grafikę niż w M5 i do 24 godzin oglądania wideo na baterii, najdłużej spośród wszystkich Maców. Względem poprzednika doszły Wi-Fi 7 i Bluetooth 6 (chip Apple N1), a złącza zostały te same: trzy Thunderbolt 4, HDMI, czytnik SDXC, MagSafe 3 i gniazdo słuchawkowe. Przy biurku podłączysz do niego dwa monitory zewnętrzne.",
+    "M5 Pro (15 lub 18 rdzeni CPU) i M5 Max (18 rdzeni CPU, 32 lub 40 rdzeni GPU) mają Thunderbolt 5 o przepustowości 120 Gb/s, do 64 GB albo 128 GB pamięci i obsługę trzech lub czterech monitorów — to wybór do CAD, montażu wideo, renderingu i lokalnych modeli AI. Na tle MacBooka Air każdy MacBook Pro ma jaśniejszy ekran 120 Hz, HDMI i czytnik kart, a Mac Studio daje więcej mocy, ale tylko na biurku. Obok tej linii Apple sprzedaje MacBooka Pro z dotykowym ekranem PROLED XDR; tego modelu ta karta nie opisuje.",
+    "Przy zamówieniu pamiętaj, że w pudełku jest tylko przewód USB-C–MagSafe 3, a zasilacz kupuje się osobno (do szybkiego ładowania co najmniej 96 W w wersji 14\" i 140 W w wersji 16\"). W salonie PRO-KOM w Rabce-Zdroju dobierzemy chip, pamięć i zasilacz do programów, w których pracujesz, przygotujemy laptop do pracy i przeniesiemy dane, a przy kilku komputerach pomożemy objąć je zarządzaniem w Apple Business."
    ],
    "cechy": [
+    "chip M6 lub M5 Max",
     "ekran XDR 120 Hz",
-    "do 128 GB RAM",
     "HDMI, SD, Thunderbolt"
    ],
    "parametry": [
     {
-     "k": "Chip",
-     "v": "M5 (tylko 14\"): CPU 10 / GPU 10 rdzeni; M5 Pro: CPU 15 lub 18, GPU 16 lub 20 rdzeni; M5 Max: CPU 18, GPU 32 lub 40 rdzeni"
+     "k": "Procesor (chip)",
+     "v": "M6 (tylko 14\"): CPU 12 / GPU 12 rdzeni; M5 Pro: CPU 15 lub 18, GPU 16 lub 20 rdzeni; M5 Max: CPU 18, GPU 32 lub 40 rdzeni"
     },
     {
      "k": "Ekran 14\"",
-     "v": "14,2\" Liquid Retina XDR, 3024 × 1964, ProMotion do 120 Hz, 1000 nitów SDR / 1600 nitów HDR"
+     "v": "14,2\" Liquid Retina XDR (mini-LED), 3024 × 1964, ProMotion do 120 Hz, 1000 nitów SDR / 1600 nitów HDR"
     },
     {
      "k": "Ekran 16\"",
-     "v": "16,2\" Liquid Retina XDR, 3456 × 2234, ProMotion do 120 Hz, 1000 nitów SDR / 1600 nitów HDR"
+     "v": "16,2\" Liquid Retina XDR (mini-LED), 3456 × 2234, ProMotion do 120 Hz, 1000 nitów SDR / 1600 nitów HDR"
     },
     {
-     "k": "Szkło nano-texture",
+     "k": "Szkło nanostrukturalne",
      "v": "opcja"
     },
     {
      "k": "Pamięć RAM",
-     "v": "od 16 GB do 128 GB (zależnie od chipu)"
+     "v": "M6: 16, 24 lub 32 GB; M5 Pro: 24, 48 lub 64 GB; M5 Max: 36, 48, 64 lub 128 GB"
     },
     {
      "k": "Dysk SSD",
-     "v": "od 1 TB do 8 TB (8 TB tylko z M5 Max)"
+     "v": "M6 i M5 Pro: 1, 2 lub 4 TB; M5 Max: 2, 4 lub 8 TB"
     },
     {
      "k": "Bateria",
-     "v": "do 24 h odtwarzania wideo (14\" z M5, 16\" z M5 Pro)"
+     "v": "72,4 Wh (14\") / 100 Wh (16\"); do 24 h odtwarzania wideo (14\" z M6, 16\" z M5 Pro)"
     },
     {
      "k": "Porty Thunderbolt",
-     "v": "14\" z M5: 3 × Thunderbolt 4; M5 Pro / M5 Max: 3 × Thunderbolt 5 (120 Gb/s)"
+     "v": "M6: 3 × Thunderbolt 4 (40 Gb/s); M5 Pro / M5 Max: 3 × Thunderbolt 5 (120 Gb/s)"
     },
     {
      "k": "Pozostałe złącza",
@@ -35967,23 +35971,27 @@
     },
     {
      "k": "Monitory zewnętrzne",
-     "v": "M5: do 2; M5 Pro: do 3; M5 Max: do 4"
+     "v": "M6: do 2; M5 Pro: do 3; M5 Max: do 4"
     },
     {
      "k": "Łączność",
-     "v": "14\" z M5: Wi-Fi 6E, Bluetooth 5.3; M5 Pro / M5 Max: Apple N1, Wi-Fi 7, Bluetooth 6"
+     "v": "Apple N1: Wi-Fi 7, Bluetooth 6, Thread (wszystkie wersje)"
     },
     {
      "k": "Kamera",
-     "v": "12 MP Center Stage"
+     "v": "12 MP Center Stage z funkcją Widok blatu"
     },
     {
      "k": "Zabezpieczenia",
      "v": "Touch ID"
     },
     {
+     "k": "Zasilacz",
+     "v": "sprzedawany oddzielnie; szybkie ładowanie z zasilaczem USB-C PD od 96 W (14\") lub od 140 W (16\")"
+    },
+    {
      "k": "Masa",
-     "v": "14\": 1,55–1,62 kg; 16\": 2,14–2,15 kg"
+     "v": "14\": 1,55 kg (M6), 1,60 kg (M5 Pro), 1,62 kg (M5 Max); 16\": 2,14 kg (M5 Pro), 2,15 kg (M5 Max)"
     },
     {
      "k": "Kolory",
@@ -35991,53 +35999,57 @@
     },
     {
      "k": "System",
-     "v": "macOS"
+     "v": "macOS 27"
     },
     {
      "k": "Wymiary",
-     "v": "14\": 1,55 × 31,26 × 22,12 cm, 1,60 kg (M5 Pro) / 1,62 kg (M5 Max); 16\": 1,68 × 35,57 × 24,81 cm, 2,14 kg (M5 Pro) / 2,15 kg (M5 Max)"
+     "v": "14\": 1,55 × 31,26 × 22,12 cm; 16\": 1,68 × 35,57 × 24,81 cm"
     }
    ],
    "warianty_opis": [
     {
-     "model": "MacBook Pro 14\" (M5)",
-     "roznica": "Model z października 2025: CPU 10 / GPU 10, 3 × Thunderbolt 4, Wi-Fi 6E i Bluetooth 5.3, do 2 monitorów."
+     "model": "MacBook Pro 14\" (M6)",
+     "roznica": "Październik 2026: CPU 12 / GPU 12, do 32 GB RAM, 3 × Thunderbolt 4, do 2 monitorów, do 24 h wideo, 1,55 kg."
     },
     {
      "model": "MacBook Pro 14\" (M5 Pro / M5 Max)",
-     "roznica": "Marzec 2026: 3 × Thunderbolt 5, Wi-Fi 7, Bluetooth 6, do 3 (Pro) lub 4 (Max) monitorów."
+     "roznica": "Marzec 2026: 3 × Thunderbolt 5, do 64 GB (Pro) lub 128 GB (Max) RAM, do 3 (Pro) lub 4 (Max) monitorów."
     },
     {
      "model": "MacBook Pro 16\" (M5 Pro / M5 Max)",
-     "roznica": "Największy ekran 16,2\" 3456 × 2234, do 24 h wideo (M5 Pro), 2,14–2,15 kg."
+     "roznica": "Największy ekran 16,2\" 3456 × 2234, bateria 100 Wh, do 24 h wideo (M5 Pro), 2,14–2,15 kg."
     }
    ],
    "faq": [
     {
-     "q": "Który chip wybrać?",
-     "a": "M5 wystarczy do wymagającej pracy biurowej i zdjęć. M5 Pro to rozsądny wybór do CAD, programowania i montażu wideo, a także do pracy z trzema monitorami. M5 Max wybierz do renderingu, ciężkiego wideo i lokalnych modeli AI — ma najmocniejszą grafikę, do 128 GB RAM i obsługę czterech monitorów."
+     "q": "Czym MacBook Pro 14\" z M6 różni się od wcześniejszej wersji z M5?",
+     "a": "Ma 12-rdzeniowy procesor i 12-rdzeniową grafikę zamiast 10 + 10, według Apple do 30% szybszą grafikę i do 25% szybsze zadania AI, a do tego Wi-Fi 7 i Bluetooth 6 zamiast Wi-Fi 6E i Bluetooth 5.3. Bateria wytrzymuje do 24 h wideo. Ekran, porty i obudowa pozostały takie same."
     },
     {
-     "q": "Czym różni się 14\" z M5 od wersji z M5 Pro?",
-     "a": "14\" z M5 to model z października 2025 r. z Thunderbolt 4, Wi-Fi 6E i Bluetooth 5.3. Wersje z M5 Pro i M5 Max mają Thunderbolt 5, Wi-Fi 7 i Bluetooth 6 oraz obsługują więcej monitorów."
+     "q": "MacBook Pro z M6 czy z M5 Pro — który wybrać do pracy w firmie?",
+     "a": "M6 wystarczy do wymagającej pracy biurowej, zdjęć, programowania i lżejszego montażu, a jest najlżejszy (1,55 kg). M5 Pro wybierz, gdy potrzebujesz więcej niż 32 GB pamięci, trzech monitorów, szybszych portów Thunderbolt 5 albo większego ekranu 16\"."
     },
     {
-     "q": "Jak wdrożyć MacBooki Pro w firmie?",
-     "a": "Przez Apple Business — bezpłatną usługę Apple dla firm, dostępną także w Polsce. Od 14 kwietnia 2026 r. zastąpiła ona Apple Business Manager, Business Essentials i Business Connect. Ma wbudowane zarządzanie urządzeniami (MDM): zdalnie zainstalujesz aplikacje, ustawisz Wi-Fi i VPN, a pracownicy logują się Zarządzanymi kontami Apple (Managed Apple Accounts), które można połączyć z kontami Microsoft Entra ID lub Google Workspace. Urządzenia, które przy zakupie zostaną przypisane do konta Apple Business firmy, konfigurują się same przy pierwszym włączeniu — bez ręcznego przygotowywania każdego egzemplarza. Stacje robocze projektantów możesz objąć tymi samymi zasadami bezpieczeństwa co resztę firmowych Maców. Pomożemy założyć konto i przygotować ustawienia dla zespołu."
+     "q": "Czy MacBook Pro 14\" z M6 ma zasilacz w zestawie?",
+     "a": "Nie. W pudełku jest MacBook Pro i przewód USB-C–MagSafe 3 o długości 2 m, a zasilacz kupuje się osobno. Apple zaleca co najmniej 60 W, a do szybkiego ładowania — zasilacz USB-C PD od 96 W. Dobierzemy go razem z laptopem."
     },
     {
-     "q": "Czy przygotujecie MacBooka Pro 14\" lub 16\" do pracy?",
-     "a": "Tak: na MacBooku Pro ustawiamy macOS, konta i programy, a pliki ze starego komputera przenosimy na nowy (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Czy MacBook Pro z chipem M6 jest dostępny także w rozmiarze 16 cali?",
+     "a": "Nie. Chip M6 jest tylko w modelu 14\". MacBook Pro 16\" ma do wyboru M5 Pro albo M5 Max — więcej rdzeni, Thunderbolt 5 i baterię 100 Wh, ale też większą masę (od 2,14 kg)."
+    },
+    {
+     "q": "Czy przygotujecie MacBooka Pro z M6 do pracy razem z danymi ze starego laptopa?",
+     "a": "Tak. Konfigurujemy macOS i konta, instalujemy programy, z których korzystasz, i przenosimy pliki ze starego komputera (usługa „Przygotowanie komputera do pracy”). Laptop odbierasz w salonie w Rabce-Zdroju gotowy do pracy."
     }
    ],
    "konfigurator": {
-    "opis": "Wybierasz rozmiar, chip, pamięć RAM, dysk, rodzaj szkła i kolor. Od chipu zależą porty Thunderbolt, łączność i liczba monitorów.",
+    "opis": "Wybierasz rozmiar, chip, pamięć RAM, dysk, rodzaj szkła, kolor i zasilacz. Od chipu zależą porty Thunderbolt i liczba monitorów.",
     "opcje": [
      {
       "nazwa": "Rozmiar",
       "wartosci": [
        "14,2\"",
-       "16,2\""
+       "16,2\" (tylko M5 Pro / M5 Max)"
       ],
       "dl": false,
       "pom": "Większy ekran jest wygodniejszy, mniejszy — lżejszy i zajmuje mniej miejsca."
@@ -36045,7 +36057,7 @@
      {
       "nazwa": "Chip",
       "wartosci": [
-       "M5 — CPU 10 / GPU 10 (tylko 14\")",
+       "M6 — CPU 12 / GPU 12 (tylko 14\")",
        "M5 Pro — CPU 15 / GPU 16",
        "M5 Pro — CPU 18 / GPU 20",
        "M5 Max — CPU 18 / GPU 32",
@@ -36058,7 +36070,7 @@
       "nazwa": "Szkło",
       "wartosci": [
        "standardowe",
-       "nano-texture (matowe)"
+       "nanostrukturalne (matowe)"
       ],
       "dl": false,
       "pom": ""
@@ -36076,17 +36088,21 @@
     "std": [
      {
       "k": "Pamięć RAM",
-      "v": "od 16 GB (M5) do 128 GB (M5 Max)"
+      "v": "od 16 GB (M6) do 128 GB (M5 Max)"
      },
      {
       "k": "Dysk SSD",
       "v": "od 1 TB do 8 TB"
+     },
+     {
+      "k": "Zasilacz",
+      "v": "dobierany osobno"
      }
     ],
     "popularne": [
      {
       "nazwa": "Wymagające biuro, zdjęcia",
-      "konfiguracja": "MacBook Pro 14\" M5 / 1 TB"
+      "konfiguracja": "MacBook Pro 14\" M6 / 16 GB / 1 TB"
      },
      {
       "nazwa": "CAD, programowanie, wideo",
@@ -36101,7 +36117,7 @@
    "podobne": [
     "apple-macbook-air-m5",
     "apple-mac-mini-m6",
-    "apple-imac-24-m4",
+    "apple-imac-24-m6",
     "apple-mac-studio-m5"
    ],
    "branze": [
@@ -36116,14 +36132,19 @@
      "host": "apple.com/pl/macbook-pro/specs"
     },
     {
-     "url": "https://www.apple.com/pl/macbook-pro/",
+     "url": "https://www.apple.com/pl/macbook-pro/liquid-retina-xdr-display/",
      "etykieta": "Strona producenta — Apple",
-     "host": "apple.com/pl/macbook-pro"
+     "host": "apple.com/pl/macbook-pro/liquid-retina-xdr-display"
+    },
+    {
+     "url": "https://www.apple.com/pl/newsroom/2026/10/apple-introduces-the-new-14-inch-macbook-pro-with-m6/",
+     "etykieta": "Strona producenta — Apple",
+     "host": "apple.com/pl/newsroom/2026/10/apple-introduces-the-new-14-inch-macbook-pro-with-m6"
     },
     {
      "url": "https://www.apple.com/newsroom/2026/03/apple-introduces-macbook-pro-with-all-new-m5-pro-and-m5-max/",
      "etykieta": "Strona producenta — Apple",
-     "host": "apple.com"
+     "host": "apple.com/newsroom/2026/03/apple-introduces-macbook-pro-with-all-new-m5-pro-and-m5-max"
     },
     {
      "url": "https://www.apple.com/pl/business/",
@@ -36142,11 +36163,15 @@
     }
    ],
    "wyrozniki": [
+    "chip M6 lub M5 Max",
     "ekran XDR 120 Hz",
-    "do 128 GB RAM",
     "HDMI, SD, Thunderbolt"
    ],
    "w_skrocie_wzorzec": [
+    {
+     "k": "Procesor (chip)",
+     "v": "M6, M5 Pro lub M5 Max"
+    },
     {
      "k": "Ekran 14\"",
      "v": "14,2\" Liquid Retina XDR, 3024 × 1964, ProMotion do 120 Hz"
@@ -36160,12 +36185,8 @@
      "v": "od 1 TB do 8 TB (8 TB tylko z M5 Max)"
     },
     {
-     "k": "Porty Thunderbolt",
-     "v": "3 × Thunderbolt 4 / 3 × Thunderbolt 5 (120 Gb/s)"
-    },
-    {
      "k": "Łączność",
-     "v": "Wi-Fi 6E, Bluetooth 5.3 / Apple N1, Wi-Fi 7, Bluetooth 6"
+     "v": "Apple N1, Wi-Fi 7, Bluetooth 6"
     }
    ],
    "nowosc": true,
@@ -36197,6 +36218,24 @@
     {
      "slug": "m365-poczta",
      "etykieta": "Poczta firmowa i wdrożenie Microsoft 365"
+    }
+   ],
+   "sprawdzono": "2026-11-14",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/apple-macbook-pro-m6-premium-01.webp",
+     "zrodlo": "https://www.apple.com/v/macbook-pro/liquid-retina-xdr-display/ay/images/overview/contrast/product-tile_macbook_pro__em0mfn48fr0i_large_2x.png",
+     "ujecie": "MacBook Pro 14\" i 16\" z ekranem Liquid Retina XDR, widok z przodu"
+    },
+    {
+     "plik": "media/produkty/apple-macbook-pro-m6-premium-02.webp",
+     "zrodlo": "https://www.apple.com/pl/macbook-pro/liquid-retina-xdr-display/tiles/images/sizes_large_2x.png",
+     "ujecie": "Dwa rozmiary obok siebie, w kolorach gwiezdna czerń i srebrny"
+    },
+    {
+     "plik": "media/produkty/apple-macbook-pro-m6-premium-03.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-introduces-the-new-14-inch-macbook-pro-with-m6/article/Apple-MacBook-Pro-14-in-with-M6-connectivity-261027_big.jpg.large.jpg",
+     "ujecie": "Złącza po obu stronach: MagSafe 3, Thunderbolt, SDXC i HDMI"
     }
    ]
   },
@@ -37582,8 +37621,8 @@
    },
    "podobne": [
     "apple-macbook-air-m5",
-    "apple-macbook-pro-m5",
-    "apple-imac-24-m4",
+    "apple-macbook-pro-m6",
+    "apple-imac-24-m6",
     "apple-mac-studio-m5"
    ],
    "branze": [
@@ -40866,7 +40905,10 @@
    ]
   },
   {
-   "slug_seed": "apple-imac-24-m4",
+   "slug_seed": "apple-imac-24-m6",
+   "poprzednie_slugi": [
+    "apple-imac-24-m4"
+   ],
    "zmiana_k4": "nowa",
    "status": "gotowe",
    "dzial": "biuro",
@@ -40875,60 +40917,81 @@
    "marka": "Apple",
    "seria": "Mac",
    "rodzaj": "Urządzenia",
-   "nazwa": "Apple iMac 24\" (M4)",
+   "nazwa": "Apple iMac 24\" (M6)",
    "krotka": "Apple iMac 24\"",
-   "podtytul": "Komputer All-in-One z ekranem Retina 4,5K, chipem M4 i kamerą 12 MP, w siedmiu kolorach",
-   "korzysc": "Komputer i monitor w jednym, bez plątaniny kabli: eleganckie stanowisko na recepcję, do biura obsługi klienta czy gabinetu.",
+   "podtytul": "Komputer All-in-One z chipem M6, ekranem Retina 4,5K, Wi-Fi 7 i kamerą 12 MP, w siedmiu kolorach",
+   "korzysc": "Jedno urządzenie zamiast komputera, monitora i kamery — zadbane stanowisko na recepcję, do gabinetu czy biura obsługi klienta, teraz z chipem M6.",
    "opis": [
-    "iMac 24\" to komputer zabudowany w monitorze — na biurku stoi jedno urządzenie, a do gniazdka idzie jeden przewód zasilający. Ekran Retina 4,5K (23,5\", 4480 × 2520, 500 nitów) jest ostry i jasny, a w opcji można zamówić szkło nanostrukturalne ograniczające odblaski. Siedem kolorów obudowy pozwala dopasować stanowisko do wnętrza recepcji, salonu czy gabinetu.",
-    "Chip M4 występuje w dwóch wersjach: z 8-rdzeniowym procesorem i dwoma portami Thunderbolt / USB 4 albo z 10-rdzeniowym procesorem i czterema portami Thunderbolt 4. Pamięć RAM to 16, 24 lub 32 GB, a dysk od 256 GB do 2 TB. Gniazdo Ethernet (1 Gb) znajduje się w zasilaczu — w wersji podstawowej jest opcją, więc przy stanowisku na kablu trzeba je zamówić.",
-    "Kamera 12 MP Center Stage z Widokiem blatu i wbudowane głośniki wystarczą do wideorozmów bez dodatkowego sprzętu. W modelach z 10-rdzeniowym procesorem klawiatura Magic Keyboard ma Touch ID w standardzie. iMac z M4 jest na rynku od października 2024 r. i na dziś pozostaje aktualną generacją."
+    "iMac 24\" z chipem M6 zastąpił model z M4: Apple przedstawiło go 27 października 2026 r., a do sprzedaży trafił 6 listopada. Z zewnątrz zmieniło się niewiele — to nadal płaski komputer zabudowany w ekranie Retina 4,5K (23,5\" widoczne, 4480 × 2520, 500 nitów), w siedmiu kolorach obudowy. Różnice są w środku: szybszy chip, nowsza łączność bezprzewodowa i szybsza sieć przewodowa.",
+    "Chip M6 występuje w dwóch wersjach. Tańsza ma 10-rdzeniowy procesor i 10-rdzeniową grafikę, dwa porty Thunderbolt / USB 4 i obsługuje jeden monitor zewnętrzny, a gniazdo Ethernet 2,5 Gb trzeba w niej zamówić jako opcję. Mocniejsza ma po 12 rdzeni CPU i GPU, cztery porty Thunderbolt 4, Ethernet 2,5 Gb i klawiaturę z Touch ID w standardzie oraz obsługuje dwa dodatkowe ekrany. Według Apple M6 liczy arkusze w Excelu do 1,5 raza szybciej niż M4. Pamięć RAM to 16, 24 lub 32 GB (32 GB tylko w wersji 12-rdzeniowej), a dysk od 256 GB do 2 TB.",
+    "W firmie iMac najlepiej sprawdza się tam, gdzie stanowisko widzi klient: na recepcji pensjonatu, w gabinecie albo w biurze sprzedaży. Kamera 12 MP Center Stage z Widokiem blatu, trzy mikrofony i sześć głośników wystarczą do wideorozmów bez dokupowania akcesoriów, a Wi-Fi 7 i Bluetooth 6 (chip Apple N1) pozwalają postawić komputer z dala od gniazda sieciowego. Kto potrzebuje komputera w podróży, lepiej wybierze MacBooka Air lub MacBooka Pro, a kto chce dobrać własny monitor — Maca mini.",
+    "W salonie PRO-KOM w Rabce-Zdroju pomożemy wybrać wersję chipu, pamięć i kolor, a przed odbiorem przygotujemy iMaca do pracy: założymy konta, zainstalujemy programy i przeniesiemy dane ze starego komputera. Gdy w firmie stanie kilka takich stanowisk, warto od początku dodać je do Apple Business — bezpłatnej usługi Apple z wbudowanym zarządzaniem urządzeniami — żeby aplikacje i ustawienia trafiały na nie zdalnie."
    ],
    "cechy": [
+    "chip M6",
     "ekran 4,5K",
-    "kamera 12 MP",
-    "7 kolorów"
+    "Wi-Fi 7"
    ],
    "parametry": [
     {
-     "k": "Chip",
-     "v": "Apple M4: CPU 8 rdzeni / GPU 8 rdzeni (model z 2 portami) lub CPU 10 rdzeni / GPU 10 rdzeni"
+     "k": "Procesor (chip)",
+     "v": "Apple M6: CPU 10 rdzeni / GPU 10 rdzeni lub CPU 12 rdzeni / GPU 12 rdzeni; podwójny 16-rdzeniowy Neural Engine, do 170 GB/s przepustowości pamięci"
     },
     {
      "k": "Ekran",
-     "v": "24\" Retina 4,5K (23,5\" widoczne), 4480 × 2520, 500 nitów, P3; opcja szkła nanostrukturalnego"
+     "v": "24\" Retina 4,5K (23,5\" widoczne), 4480 × 2520, 218 ppi, 500 nitów, P3, True Tone; szkło nanostrukturalne w opcji (wersja 12-rdzeniowa)"
     },
     {
      "k": "Pamięć RAM",
-     "v": "16 GB, 24 GB lub 32 GB"
+     "v": "16 GB; w opcji 24 GB (CPU 10 rdzeni) lub 24 / 32 GB (CPU 12 rdzeni)"
     },
     {
      "k": "Dysk SSD",
-     "v": "256 GB — 2 TB"
+     "v": "256 GB; w opcji do 1 TB (CPU 10 rdzeni) lub do 2 TB (CPU 12 rdzeni)"
     },
     {
      "k": "Porty",
-     "v": "2 × Thunderbolt / USB 4 (model podstawowy) lub 4 × Thunderbolt 4"
+     "v": "2 × Thunderbolt / USB 4 (CPU 10 rdzeni) lub 4 × Thunderbolt 4 (CPU 12 rdzeni); gniazdo słuchawkowe 3,5 mm"
     },
     {
      "k": "Ethernet",
-     "v": "1 Gb w zasilaczu (w modelu podstawowym opcja)"
+     "v": "2,5 Gb — w standardzie w wersji 12-rdzeniowej, w opcji w wersji 10-rdzeniowej"
+    },
+    {
+     "k": "Monitory zewnętrzne",
+     "v": "1 (do 6K 60 Hz) w wersji 10-rdzeniowej; 2 (do 6K 60 Hz) lub 1 (do 8K 60 Hz) w wersji 12-rdzeniowej"
     },
     {
      "k": "Łączność",
-     "v": "Wi-Fi 6E, Bluetooth 5.3"
+     "v": "Apple N1: Wi-Fi 7, Bluetooth 6, Thread"
     },
     {
      "k": "Kamera",
-     "v": "12 MP Center Stage z funkcją Widok blatu"
+     "v": "12 MP Center Stage z funkcją Widok blatu, wideo 1080p"
     },
     {
-     "k": "Klawiatura",
-     "v": "Magic Keyboard; z Touch ID w standardzie w modelach z 10-rdzeniowym CPU"
+     "k": "Dźwięk",
+     "v": "sześć głośników z obsługą Dolby Atmos, trzy mikrofony"
+    },
+    {
+     "k": "Klawiatura i mysz",
+     "v": "Magic Keyboard (z Touch ID w standardzie w wersji 12-rdzeniowej) i Magic Mouse w zestawie; Magic Trackpad w opcji"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "zewnętrzny 143 W w zestawie"
+    },
+    {
+     "k": "System",
+     "v": "macOS 27"
+    },
+    {
+     "k": "Obudowa i wymiary",
+     "v": "wysokość 46,1 cm, szerokość 54,7 cm; w opcji wersja z uchwytem VESA zamiast podstawki"
     },
     {
      "k": "Masa",
-     "v": "ok. 4,4 kg"
+     "v": "4,42 kg (CPU 10 rdzeni) / 4,44 kg (CPU 12 rdzeni)"
     },
     {
      "k": "Kolory",
@@ -40937,40 +41000,44 @@
    ],
    "warianty_opis": [
     {
-     "model": "iMac M4 — CPU 8 rdzeni",
-     "roznica": "2 porty Thunderbolt / USB 4, Ethernet w opcji — do recepcji i prostych stanowisk."
+     "model": "iMac M6 — CPU 10 / GPU 10",
+     "roznica": "2 porty Thunderbolt / USB 4, 1 monitor zewnętrzny, Ethernet 2,5 Gb i Touch ID w opcji — na recepcję i proste stanowiska."
     },
     {
-     "model": "iMac M4 — CPU 10 rdzeni",
-     "roznica": "4 porty Thunderbolt 4, Ethernet w zasilaczu, klawiatura z Touch ID w standardzie."
+     "model": "iMac M6 — CPU 12 / GPU 12",
+     "roznica": "4 porty Thunderbolt 4, 2 monitory zewnętrzne, Ethernet 2,5 Gb i Touch ID w standardzie, do 32 GB RAM i 2 TB, opcja szkła nanostrukturalnego."
     }
    ],
    "faq": [
     {
-     "q": "Jak zarządzać iMacami w firmie przez Apple Business?",
-     "a": "Przez Apple Business — darmową usługę Apple dla firm, działającą także w Polsce. 14 kwietnia 2026 r. zastąpiła Apple Business Manager, Business Essentials i Business Connect. Zarządzanie urządzeniami (MDM) jest w niej wbudowane: na każdym iMacu zdalnie zainstalujesz aplikacje oraz ustawisz Wi-Fi i VPN, a pracownicy logują się Zarządzanymi kontami Apple (Managed Apple Accounts), które połączysz z kontami Microsoft Entra ID lub Google Workspace. iMac przypisany przy zakupie do konta Apple Business firmy sam pobierze ustawienia przy pierwszym włączeniu, więc nie konfigurujesz każdego egzemplarza ręcznie. Pomożemy założyć konto i przygotować ustawienia dla zespołu."
+     "q": "Czym iMac 24\" z M6 różni się od poprzedniego iMaca z M4?",
+     "a": "Ma szybszy chip (według Apple do 1,5 raza w Excelu i do 2 razy w grafice względem M4), Wi-Fi 7 i Bluetooth 6 zamiast Wi-Fi 6E i Bluetooth 5.3 oraz Ethernet 2,5 Gb zamiast 1 Gb. Ekran 4,5K, siedem kolorów i kształt obudowy pozostały bez zmian."
     },
     {
-     "q": "Czy iMac podłączę do sieci kablem?",
-     "a": "Tak — gniazdo Gigabit Ethernet jest w zasilaczu. W modelu podstawowym (CPU 8 rdzeni) jest opcją, więc przy stanowisku na kablu zaznacz to przy zamówieniu."
+     "q": "Którą wersję iMaca z M6 wybrać na recepcję, a którą do biura?",
+     "a": "Na recepcję z jednym ekranem zwykle wystarcza wersja z 10-rdzeniowym CPU — pamiętaj tylko o dodaniu Ethernetu 2,5 Gb, jeśli komputer ma pracować na kablu. Wersję 12-rdzeniową wybierz, gdy potrzebujesz dwóch dodatkowych monitorów, czterech portów Thunderbolt, Touch ID w klawiaturze albo 32 GB pamięci."
     },
     {
-     "q": "iMac czy Mac mini z monitorem?",
-     "a": "iMac to gotowe stanowisko w jednym urządzeniu — mniej kabli, kamera i głośniki w zestawie. Mac mini z osobnym monitorem daje nowszy chip (M6 lub M5 Pro) i swobodę wyboru ekranu."
+     "q": "Czy do iMaca z chipem M6 podłączę dodatkowy monitor na arkusze i dokumenty?",
+     "a": "Tak. Wersja 10-rdzeniowa obsługuje jeden monitor zewnętrzny do 6K przy 60 Hz, a 12-rdzeniowa — dwa takie ekrany albo jeden do 8K. Wbudowany ekran 4,5K działa przy tym dalej w pełnej rozdzielczości, więc łatwo zbudujesz stanowisko z dwoma lub trzema ekranami."
     },
     {
-     "q": "Czy skonfigurujecie iMaca 24\" przed pierwszym użyciem?",
-     "a": "Tak: na iMacu ustawiamy macOS, zakładamy konta, instalujemy programy i przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "q": "Jak wdrożyć kilka iMaców M6 w firmie bez ręcznej konfiguracji każdego?",
+     "a": "Najprościej przez Apple Business, bezpłatną usługę Apple dla firm z wbudowanym zarządzaniem urządzeniami. iMac dodany do konta firmy po pierwszym włączeniu sam pobiera ustawienia sieci, aplikacje i zasady bezpieczeństwa. Przy pierwszym wdrożeniu pomożemy założyć konto i przygotować ustawienia dla zespołu."
+    },
+    {
+     "q": "Czy przygotujecie iMaca z M6 do pracy przed odbiorem w Rabce-Zdroju?",
+     "a": "Tak. Ustawiamy macOS, zakładamy konta użytkowników, instalujemy potrzebne programy i przenosimy dane ze starego komputera. Gotowego iMaca odbierasz w salonie PRO-KOM, a w razie pytań po wdrożeniu wracasz do nas, nie na infolinię."
     }
    ],
    "konfigurator": {
-    "opis": "Wybierasz wersję chipu (od niej zależy liczba portów), pamięć RAM, dysk, Ethernet, rodzaj szkła i kolor.",
+    "opis": "Wybierasz wersję chipu M6 (od niej zależą porty, liczba monitorów i Touch ID), pamięć RAM, dysk, Ethernet, rodzaj szkła i kolor.",
     "opcje": [
      {
       "nazwa": "Wersja",
       "wartosci": [
-       "M4 CPU 8 / GPU 8, 2 porty",
-       "M4 CPU 10 / GPU 10, 4 porty"
+       "M6 CPU 10 / GPU 10, 2 porty",
+       "M6 CPU 12 / GPU 12, 4 porty"
       ],
       "dl": false,
       "pom": "Różnice między wersjami opisujemy niżej, w sekcji „Czym różnią się wersje”."
@@ -40980,17 +41047,17 @@
       "wartosci": [
        "16 GB",
        "24 GB",
-       "32 GB"
+       "32 GB (tylko CPU 12 rdzeni)"
       ],
       "uwaga": "Wybierana przy zamówieniu — bez możliwości późniejszej rozbudowy.",
       "dl": false,
-      "pom": "Więcej pamięci RAM = więcej programów i kart przeglądarki naraz bez spowolnień."
+      "pom": "Więcej pamięci = więcej otwartych programów i kart przeglądarki bez spowolnień."
      },
      {
       "nazwa": "Ethernet",
       "wartosci": [
-       "bez Ethernetu (tylko model podstawowy)",
-       "Gigabit Ethernet w zasilaczu"
+       "bez Ethernetu (tylko CPU 10 rdzeni)",
+       "Ethernet 2,5 Gb"
       ],
       "dl": false,
       "pom": ""
@@ -40999,7 +41066,7 @@
       "nazwa": "Szkło",
       "wartosci": [
        "standardowe",
-       "nanostrukturalne"
+       "nanostrukturalne (tylko CPU 12 rdzeni)"
       ],
       "dl": false,
       "pom": ""
@@ -41022,27 +41089,27 @@
     "std": [
      {
       "k": "Dysk SSD",
-      "v": "256 GB — 2 TB"
+      "v": "256 GB — 1 TB (CPU 10 rdzeni) / 256 GB — 2 TB (CPU 12 rdzeni)"
      }
     ],
     "popularne": [
      {
       "nazwa": "Recepcja",
-      "konfiguracja": "iMac M4 CPU 8 / 16 GB + Gigabit Ethernet"
+      "konfiguracja": "iMac M6 CPU 10 / 16 GB / 256 GB + Ethernet 2,5 Gb"
      },
      {
       "nazwa": "Biuro obsługi klienta",
-      "konfiguracja": "iMac M4 CPU 10 / 16 GB"
+      "konfiguracja": "iMac M6 CPU 12 / 16 GB / 512 GB"
      },
      {
       "nazwa": "Gabinet, grafika",
-      "konfiguracja": "iMac M4 CPU 10 / 24 GB, szkło nanostrukturalne"
+      "konfiguracja": "iMac M6 CPU 12 / 24 GB / 1 TB, szkło nanostrukturalne"
      }
     ]
    },
    "podobne": [
     "apple-macbook-air-m5",
-    "apple-macbook-pro-m5",
+    "apple-macbook-pro-m6",
     "apple-mac-mini-m6",
     "apple-mac-studio-m5"
    ],
@@ -41066,9 +41133,9 @@
      "host": "apple.com/pl/imac"
     },
     {
-     "url": "https://www.apple.com/pl/mac/",
+     "url": "https://www.apple.com/pl/newsroom/2026/10/apple-unveils-new-imac-with-m6/",
      "etykieta": "Strona producenta — Apple",
-     "host": "apple.com/pl/mac"
+     "host": "apple.com/pl/newsroom/2026/10/apple-unveils-new-imac-with-m6"
     },
     {
      "url": "https://www.apple.com/pl/business/",
@@ -41087,14 +41154,18 @@
     }
    ],
    "wyrozniki": [
+    "chip M6",
     "ekran 4,5K",
-    "kamera 12 MP",
-    "7 kolorów"
+    "Wi-Fi 7"
    ],
    "w_skrocie_wzorzec": [
     {
+     "k": "Procesor (chip)",
+     "v": "Apple M6, CPU 10 lub 12 rdzeni"
+    },
+    {
      "k": "Ekran",
-     "v": "24\" Retina 4,5K (23,5\" widoczne), 4480 × 2520, 500 nitów, P3"
+     "v": "24\" Retina 4,5K (23,5\" widoczne), 4480 × 2520, 500 nitów"
     },
     {
      "k": "Pamięć RAM",
@@ -41105,15 +41176,11 @@
      "v": "256 GB — 2 TB"
     },
     {
-     "k": "Porty",
-     "v": "2 × Thunderbolt / USB 4"
-    },
-    {
      "k": "Łączność",
-     "v": "Wi-Fi 6E, Bluetooth 5.3"
+     "v": "Wi-Fi 7, Bluetooth 6, Ethernet 2,5 Gb"
     }
    ],
-   "nowosc": false,
+   "nowosc": true,
    "zdjecia": [
     "media/produkty/apple-imac-24-m4.webp"
    ],
@@ -41129,6 +41196,29 @@
     {
      "slug": "kopie-zapasowe",
      "etykieta": "Kopie zapasowe z testem odtworzenia"
+    }
+   ],
+   "sprawdzono": "2026-11-14",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/apple-imac-24-m6-premium-01.webp",
+     "zrodlo": "https://www.apple.com/v/imac/x/images/overview/contrast/product_tile_imac__dw7fbk25xcia_large_2x.png",
+     "ujecie": "iMac z M6 w kolorze niebieskim, widok z przodu"
+    },
+    {
+     "plik": "media/produkty/apple-imac-24-m6-premium-02.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-unveils-new-imac-with-m6/article/Apple-iMac-with-M6-color-lineup-261027_big.jpg.large.jpg",
+     "ujecie": "Siedem kolorów obudowy iMaca z M6"
+    },
+    {
+     "plik": "media/produkty/apple-imac-24-m6-premium-03.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-unveils-new-imac-with-m6/article/Apple-iMac-with-M6-ports-261027_inline.jpg.large.jpg",
+     "ujecie": "Tył iMaca z czterema portami Thunderbolt 4"
+    },
+    {
+     "plik": "media/produkty/apple-imac-24-m6-premium-04.webp",
+     "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-unveils-new-imac-with-m6/article/Apple-iMac-with-M6-color-matched-accessories-261027_big.jpg.large.jpg",
+     "ujecie": "Klawiatura z Touch ID i mysz w kolorze obudowy"
     }
    ]
   },
@@ -41291,9 +41381,9 @@
    },
    "podobne": [
     "apple-macbook-air-m5",
-    "apple-macbook-pro-m5",
+    "apple-macbook-pro-m6",
     "apple-mac-mini-m6",
-    "apple-imac-24-m4"
+    "apple-imac-24-m6"
    ],
    "branze": [
     "Biura i usługi",

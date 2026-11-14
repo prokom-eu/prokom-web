@@ -5087,7 +5087,7 @@
        "M5, M5 Pro lub M5 Max",
        "HDMI, SD, Thunderbolt"
       ],
-      "p": "apple-macbook-pro-m5",
+      "p": "apple-macbook-pro-m6",
       "tag": "",
       "alt": false,
       "im": ""
@@ -5113,7 +5113,7 @@
        "komputer w monitorze",
        "jeden przewód zasilania"
       ],
-      "p": "apple-imac-24-m4",
+      "p": "apple-imac-24-m6",
       "tag": "",
       "alt": false,
       "im": ""
@@ -5186,7 +5186,7 @@
      {
       "t": "Grafika, CAD, montaż wideo",
       "p": [
-       "apple-macbook-pro-m5",
+       "apple-macbook-pro-m6",
        "apple-mac-studio-m5"
       ],
       "w": "MacBook Pro z M5 Pro / M5 Max albo Mac Studio do najcięższej pracy na biurku."
@@ -5274,7 +5274,7 @@
    ],
    "opis": [
     "Apple Business to bezpłatna platforma Apple dla firm, która łączy konta pracowników, zarządzanie urządzeniami i wdrożenie nowych iPhone’ów, iPadów i Maców w jednym miejscu.",
-    "W naszej ofercie są aktualne modele: iPhone 17 i 18 Pro, iPad Air (M4) i iPad Pro (M5), MacBook Air (M5) i MacBook Pro (M5), Mac mini, iMac, Mac Studio oraz monitory Studio Display."
+    "W naszej ofercie są aktualne modele: iPhone 17 i 18 Pro, iPad Air (M4) i iPad Pro (M5), MacBook Air (M5) i MacBook Pro (M6, M5 Pro, M5 Max), Mac mini, iMac, Mac Studio oraz monitory Studio Display."
    ],
    "n": 11
   },
