@@ -12,7 +12,7 @@ import { pageMetadata } from '@/lib/pages/metadata'
 import { getSiteSettings } from '@/lib/site/data'
 import { HOME_SLUG } from '@/lib/pages/slug'
 import { serializeJsonLd, websiteSearchJsonLd } from '@/lib/seo/jsonLd'
-import { HOME_METADATA, HomeSkeleton } from '@/sites/prokom/home/HomeSkeleton'
+import { HOME_METADATA, HomePage } from '@/sites/prokom/home/HomePage'
 
 import { requestOrigin, requireTenant } from './tenant'
 
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /** Start page of a tenant: its published page with the `home` slug. */
 export default async function TenantHomePage({ params }: Props) {
   const tenant = await requireTenant(params)
-  if (tenant.line === 'prokom') return <HomeSkeleton tenant={tenant} />
+  if (tenant.line === 'prokom') return <HomePage tenant={tenant} />
   const page = await getPublishedPage(tenant.id, HOME_SLUG)
   if (!page) notFound()
   if (tenant.line !== 'biznes' && tenant.line !== 'software') {
