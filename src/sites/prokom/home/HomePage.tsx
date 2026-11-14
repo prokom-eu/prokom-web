@@ -8,9 +8,12 @@ import { toTelHref } from '@/lib/site/link'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { HUB_CONTAINER } from '../container'
+import { Cooperation } from './Cooperation'
 import { Hero } from './Hero'
-import { LineScene } from './HomeIslands'
-import { homeLines, teamExamples } from './model'
+import { Choose, HelpPicker, LineScene } from './HomeIslands'
+import { choosePlans, helpCases, homeLines, teamExamples } from './model'
+import { Tools } from './Tools'
+import { toolGroups } from './toolGroups'
 
 /** Title of the start page (spec §4); SEO of every page is finished in H6-2. */
 export const HOME_METADATA: Metadata = {
@@ -18,7 +21,7 @@ export const HOME_METADATA: Metadata = {
 }
 
 /** Sections of the rail already built on this page; the others keep a placeholder until H2-2/3. */
-const BUILT = new Set(['start', 'linie'])
+const BUILT = new Set(['start', 'linie', 'dobierz', 'narzedzia', 'pomoc', 'wspolpraca'])
 
 /**
  * The hub's start page (spec §6.1, board 01 `Main.dc.html`): texts from `HubSettings.home`, line
@@ -39,6 +42,8 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
   const lines = home ? homeLines(contacts, home, hub.tools, settings.trust) : []
   const phone = shared?.line.phone ?? null
   const tel = phone ? toTelHref(phone) : null
+  const pages = settings.pages
+  const live = (href: string) => (isHubLinkLive(href, pages) ? href : null)
 
   return (
     <div className="pk-home">
@@ -54,7 +59,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
           />
           <LineScene
             head={home.lines}
-            allHref={isHubLinkLive('/linie', settings.pages) ? '/linie' : null}
+            allHref={live('/linie')}
             lines={lines}
             team={{
               ...home.team,
@@ -70,6 +75,24 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             phone={phone}
             tel={tel}
           />
+          <Choose
+            texts={home.choose}
+            plans={choosePlans(home.choose.personas, hub.plans, lines)}
+            phone={phone}
+            tel={tel}
+            writeHref={live('/kontakt')}
+          />
+          <Tools
+            texts={home.tools}
+            {...toolGroups(lines, hub.tools)}
+            allHref={live('/zalatw-online')}
+          />
+          <HelpPicker
+            texts={home.help}
+            cases={helpCases(home.help.slugs, hub.help, lines)}
+            allHref={live('/pomoc')}
+          />
+          <Cooperation texts={home.cooperation} pages={pages} />
         </>
       ) : (
         <h1 className={`py-10 font-display text-5xl font-extrabold ${HUB_CONTAINER}`}>PRO-KOM</h1>
