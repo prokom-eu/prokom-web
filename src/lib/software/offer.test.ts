@@ -86,7 +86,11 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
       'Kod, domena i dane są Twoje',
     ])
     expect(view.forWhomShort).toBe('każda firma usługowa, handlowa')
-    expect(view.bar).toEqual({ label: 'Termin od 2 tygodni', price: `od ${zl('2 490')} zł netto` })
+    expect(view.bar).toEqual({
+      label: 'Termin od 2 tygodni',
+      price: `od ${zl('2 490')} zł netto`,
+      ask: false,
+    })
   })
 
   it('strona firmowa: „W cenie każdego projektu” without repeating the price card', () => {
@@ -161,7 +165,7 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
     expect(view.term).toBe('po krótkiej rozmowie')
     expect(view.steps[1]?.name).toBe('Wycena na piśmie')
     expect(view.steps[2]?.time).toBe('po wycenie')
-    expect(view.bar).toEqual({ label: 'Cena i termin', price: 'po rozmowie' })
+    expect(view.bar).toEqual({ label: 'Cena i termin', price: 'Wycena po rozmowie', ask: true })
     expect(view.faq[0]?.q).toBe('Dlaczego nie ma ceny?')
   })
 
