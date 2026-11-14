@@ -25,6 +25,12 @@ describe('TabBar — fourth slot', () => {
     expect(html({ fourth: { label: '', href: null, icon: null } })).toContain('href="/kontakt"')
   })
 
+  it('a label without an address keeps Kontakt', () => {
+    expect(html({ fourth: { label: 'Załatw', href: null, icon: 'bolt' } })).toContain(
+      'href="/kontakt"',
+    )
+  })
+
   it('a filled `fourth` replaces Kontakt', () => {
     const markup = html({ fourth: { label: 'Załatw', href: '/zalatw-online', icon: 'bolt' } })
     expect(markup).toContain('href="/zalatw-online"')

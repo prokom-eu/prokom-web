@@ -290,6 +290,10 @@ export const sharedLineFields: Field = {
           name: 'fourth',
           label: 'Czwarta pozycja (zamiast Kontakt)',
           type: 'group',
+          admin: {
+            description:
+              'Dziś używa jej tylko pro-kom.eu (Załatw online); w innych liniach zostaw puste. Etykieta i adres razem, ikona np. „bolt”.',
+          },
           fields: [
             {
               type: 'row',

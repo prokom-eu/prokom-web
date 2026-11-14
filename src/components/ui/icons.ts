@@ -2,9 +2,9 @@ import type { IconName } from '../../lib/catalog/options'
 
 /**
  * Paths of the line icons from the design (`seed/prokombiznes/ikony.json`, then the names only in
- * `seed/prokomsoftware/ikony.json`, then the hub's `seed/prokomeu/ikony.json`): viewBox 24, no fill, round caps. A missing icon is drawn in
- * the same style (or taken from Lucide) and added here and to `ICON_NAMES` — the test keeps both
- * in sync with the seed packages.
+ * `seed/prokomsoftware/ikony.json`, then the hub's `seed/prokomeu/ikony.json`): viewBox 24, no
+ * fill, round caps. A missing icon is drawn in the same style (or taken from Lucide) and added
+ * here and to `ICON_NAMES` — the test keeps both in sync with the seed packages.
  */
 export const ICON_PATHS: Record<IconName, string> = {
   shield: 'M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z M9 12l2 2 4-4',

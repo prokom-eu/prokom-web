@@ -122,12 +122,18 @@ export function SearchDialog({
   const headingRole = (level: 2 | 3) =>
     open ? ({ role: 'heading', 'aria-level': level } as const) : {}
   const hoverTimer = useRef<number | undefined>(undefined)
+  // The line's callback may be a new function on every render: the reporter is created once
+  // and reads the latest callback, so a pending report and „once per opening” survive re-renders.
+  const reportNoResults = useRef(onNoResults)
+  useEffect(() => {
+    reportNoResults.current = onNoResults
+  }, [onNoResults])
   const noResults = useRef<NoResultsReporter | null>(null)
   useEffect(() => {
-    const reporter = createNoResultsReporter(() => onNoResults?.())
+    const reporter = createNoResultsReporter(() => reportNoResults.current?.())
     noResults.current = reporter
     return () => reporter.dispose()
-  }, [onNoResults])
+  }, [])
 
   const show = useCallback(() => {
     // Another modal (menu sheet, preview) owns the screen.
@@ -178,7 +184,9 @@ export function SearchDialog({
   const results = useMemo(() => groups.flatMap((group) => group.results), [groups])
   const active = results.find((result) => result.id === activeId) ?? results[0] ?? null
   const nothing = Boolean(trimmed) && count === 0 && matched.length === 0
-  useEffect(() => noResults.current?.update(open && nothing), [open, nothing])
+  // `trimmed` restarts the delay on every change of an empty phrase („kamx” → „kamxy”): the event
+  // goes once the person stops typing, not 1.2 s after the first miss.
+  useEffect(() => noResults.current?.update(open && nothing), [open, nothing, trimmed])
 
   /**
    * Enter in the field: the first item of the list as shown — an action (`tel`, `trasa`…), a
