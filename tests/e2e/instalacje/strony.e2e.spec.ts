@@ -200,7 +200,8 @@ test.describe('Instalacje legal links and llms.txt', () => {
     expect(text.startsWith('# PRO-KOM Instalacje')).toBe(true)
     expect(text).toContain('/monitoring')
     expect(text).not.toMatch(/\[SZEF|\d+\s?zł/)
-    expect((await request.get(site('biznes.localhost', '/llms.txt'))).status()).toBe(404)
+    // Biznes has its own since SEO lokalne 13.11 (one shared route); Software has none.
+    expect((await request.get(site('software.localhost', '/llms.txt'))).status()).toBe(404)
   })
 })
 

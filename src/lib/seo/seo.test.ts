@@ -4,6 +4,7 @@ import { COMPANY_LOCATIONS } from '../../seed/shared/company'
 
 import {
   articleJsonLd,
+  biznesServiceJsonLd,
   breadcrumbJsonLd,
   serviceJsonLd,
   serviceListJsonLd,
@@ -223,14 +224,19 @@ describe('organizationJsonLd on Biznes (SEO lokalne 13.11: Rabka, Podhale, Mało
     })
   })
 
-  it('without an area in the panel adds no empty areaServed', () => {
+  it('without towns in the panel still names the regions (as the service pages)', () => {
     const [, branch] = organizationJsonLd({
       company,
       tenant: { name: 'PRO-KOM Biznes', line: 'biznes' },
       contact: { phone: null, email: null },
       origin: 'https://prokombiznes.pl',
     })['@graph']
-    expect(branch).not.toHaveProperty('areaServed')
+    expect(branch).toMatchObject({
+      areaServed: [
+        { '@type': 'Place', name: 'Podhale' },
+        { '@type': 'AdministrativeArea', name: 'Małopolska' },
+      ],
+    })
   })
 })
 
@@ -581,5 +587,34 @@ describe('websiteSearchJsonLd (audit 0611 P0.3b)', () => {
         'query-input': 'required name=search_term_string',
       },
     })
+  })
+})
+
+describe('biznesServiceJsonLd (SEO lokalne 13.11: a service page says where it is offered)', () => {
+  const data = biznesServiceJsonLd({
+    name: 'Opieka IT dla firm',
+    description: 'Komputery, sieć i kasy pod jedną opieką.',
+    url: 'https://prokombiznes.pl/opieka-it',
+    origin: 'https://prokombiznes.pl',
+    areaServed: ['Rabka-Zdrój', 'Podhale'],
+  })
+
+  it('is a Service of the site organization with the area of the salon', () => {
+    expect(data).toMatchObject({
+      '@type': 'Service',
+      name: 'Opieka IT dla firm',
+      description: 'Komputery, sieć i kasy pod jedną opieką.',
+      url: 'https://prokombiznes.pl/opieka-it',
+      provider: { '@id': 'https://prokombiznes.pl/#organization' },
+      areaServed: [
+        { '@type': 'City', name: 'Rabka-Zdrój' },
+        { '@type': 'Place', name: 'Podhale' },
+        { '@type': 'AdministrativeArea', name: 'Małopolska' },
+      ],
+    })
+  })
+
+  it('has no offer or price (K4-FINAL §1: zero prices)', () => {
+    expect(JSON.stringify(data)).not.toMatch(/offers|price/i)
   })
 })
