@@ -1,13 +1,17 @@
 import config from '@payload-config'
 import { getPayload, type Where } from 'payload'
+import type { z } from 'zod'
 import { cache } from 'react'
 
 import type { HubHelp, HubPlan, HubService, HubSetting, HubTool } from '@/payload-types'
 
 import { cacheQuery } from '../cache'
 import { getEnv } from '../env'
+import { log } from '../log'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import type { HubLine } from './lines'
+import { cooperationSchema, type HubCooperation } from './cooperation'
+import { deliveriesSchema, type HubDeliveries } from './deliveries'
 import { NO_OPTIONAL_PAGES, type HubPageFlags } from './pages'
 import { hubTag } from './tags'
 
@@ -189,14 +193,18 @@ export type HubSettingsView = {
   pages: HubPageFlags
   /** Company facts; on production only the approved ones (spec §3). */
   trust: { value: string; label: string }[]
+  /** `null` until filled in the panel (or when the stored value no longer fits the schema). */
+  deliveries: HubDeliveries | null
+  cooperation: HubCooperation | null
 }
 
 type SiteEnv = 'production' | 'staging' | 'local'
 
 /** Projection of `HubSettings`: missing document or field = v1.1 pages off, no facts. */
 export function toHubSettings(
-  doc: Pick<HubSetting, 'pages' | 'trust'> | null | undefined,
+  doc: Pick<HubSetting, 'pages' | 'trust' | 'deliveries' | 'cooperation'> | null | undefined,
   siteEnv: SiteEnv,
+  tenantId: number | null = null,
 ): HubSettingsView {
   const pages = { ...NO_OPTIONAL_PAGES }
   for (const key of Object.keys(pages) as (keyof HubPageFlags)[]) {
@@ -205,7 +213,33 @@ export function toHubSettings(
   const trust = (doc?.trust ?? [])
     .filter((row) => siteEnv !== 'production' || row.approved === true)
     .map((row) => ({ value: row.value, label: row.label }))
-  return { pages, trust }
+  return {
+    pages,
+    trust,
+    deliveries: pageTexts(deliveriesSchema, doc?.deliveries, 'deliveries', tenantId),
+    cooperation: pageTexts(cooperationSchema, doc?.cooperation, 'cooperation', tenantId),
+  }
+}
+
+/**
+ * A page's JSON read through its schema. The panel checks it on save, but a later schema change
+ * can leave stored texts behind — then the page shows its empty state and the log says why (no
+ * personal data here: marketing texts only). A schema change must move the data in the same PR.
+ */
+function pageTexts<T>(
+  schema: z.ZodType<T>,
+  value: unknown,
+  field: 'deliveries' | 'cooperation',
+  tenantId: number | null,
+): T | null {
+  if (value === null || value === undefined) return null
+  const result = schema.safeParse(value)
+  if (result.success) return result.data
+  log.warn(
+    { tenant: tenantId, field, path: result.error.issues[0]?.path.join('.') ?? '' },
+    'HubSettings page texts do not match the schema',
+  )
+  return null
 }
 
 /** `HubSettings` of one tenant, cached with the hub content (`hubTag`). */
@@ -220,7 +254,7 @@ export const getHubSettings = cache((tenantId: number): Promise<HubSettingsView>
         depth: 0,
         overrideAccess: true,
       })
-      return toHubSettings(docs[0], getEnv().SITE_ENV)
+      return toHubSettings(docs[0], getEnv().SITE_ENV, tenantId)
     },
     ['hub-settings', String(tenantId)],
     { tags: [hubTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },

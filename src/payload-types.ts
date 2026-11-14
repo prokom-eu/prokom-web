@@ -338,6 +338,9 @@ export interface SiteSetting {
         href?: string | null;
         icon?: string | null;
       };
+      /**
+       * Dziś używa jej tylko pro-kom.eu (Załatw online); w innych liniach zostaw puste. Etykieta i adres razem, ikona np. „bolt”.
+       */
       fourth?: {
         label?: string | null;
         href?: string | null;
@@ -5981,6 +5984,30 @@ export interface HubSetting {
     sitemap?: boolean | null;
   };
   /**
+   * Segmenty z formularzem, lista zapytania (klucze pozycji!), usługi, terminy, obiekty z przykładowymi ilościami, zakres, FAQ. Bez cen; konfiguracja, montaż i szkolenie tylko jako opcja.
+   */
+  deliveries?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Role z formularzem, etapy, zakres, dostawcy, zasady, FAQ. Telefon roli bierze się z jej linii — nie wpisuj numerów.
+   */
+  cooperation?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
    * Na produkcji widać tylko zatwierdzone fakty (spec §3). Źródło jest wewnętrzne — nie pokazujemy go.
    */
   trust?:
@@ -9783,6 +9810,8 @@ export interface HubSettingsSelect<T extends boolean = true> {
         news?: T;
         sitemap?: T;
       };
+  deliveries?: T;
+  cooperation?: T;
   trust?:
     | T
     | {
@@ -9966,7 +9995,7 @@ export interface CompanyDatum {
          */
         hours?: string | null;
         /**
-         * Krótkie zdanie z ustaleń, np. „Bezpłatna diagnoza i wycena”.
+         * Tylko obietnica z ustaleń (spec huba §3): czas odpowiedzi albo warunek obsługi, np. „Bezpłatna diagnoza i wycena, naprawy też kurierem”.
          */
         promise?: string | null;
         id?: string | null;

@@ -1,0 +1,1887 @@
+{
+  "_zrodlo": "docs/design/prokomeu/plansze/Dostawy.dc.html (renderVals) — scripts/prokomeu-model.mjs",
+  "segments": [
+    {
+      "key": "firma",
+      "name": "Firma",
+      "sub": "biuro, oddział, sieć sklepów",
+      "line": "biznes",
+      "eyebrow": "Dla firm",
+      "heading": "Wymiana sprzętu, nowy oddział albo wyposażenie biura — w jednym zamówieniu.",
+      "start": "lista stanowisk i termin",
+      "lines": "PRO-KOM Biznes · Instalacje",
+      "points": [
+        {
+          "title": "Zestawy komputerowe",
+          "text": "Komputery, laptopy i monitory — na życzenie z konfiguracją."
+        },
+        {
+          "title": "Serwery i kopie zapasowe",
+          "text": "Serwery (głównie Dell), na życzenie z wdrożeniem."
+        },
+        {
+          "title": "Kasy i programy",
+          "text": "Kasy fiskalne, InsERT, Comarch ERP i GoPOS."
+        },
+        {
+          "title": "RTV i AGD dla firmy",
+          "text": "Telewizory i AGD do biura, sali i zaplecza socjalnego."
+        }
+      ],
+      "cta": {
+        "label": "Plan dla Twojej branży →",
+        "href": "/dla-firm"
+      },
+      "form": {
+        "heading": "Zapytanie dla firmy",
+        "orgLabel": "Nazwa firmy",
+        "linkLabel": "Link do listy lub specyfikacji",
+        "linkPlaceholder": "np. link do arkusza ze sprzętem",
+        "descPlaceholder": "Np. 12 stanowisk w nowym biurze: laptopy, monitory, drukarka, sieć Wi-Fi, start za miesiąc"
+      }
+    },
+    {
+      "key": "instytucja",
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, gmina",
+      "line": "biznes",
+      "eyebrow": "Dla instytucji",
+      "heading": "Pracownie, urzędy i świetlice — dostawa według specyfikacji, z dokumentami do odbioru.",
+      "start": "opis przedmiotu zamówienia albo SWZ",
+      "lines": "PRO-KOM Biznes · Instalacje",
+      "points": [
+        {
+          "title": "Pracownie i stanowiska",
+          "text": "Komputery i monitory według specyfikacji zamawiającego."
+        },
+        {
+          "title": "Zapytania ofertowe i przetargi",
+          "text": "Przygotowujemy ofertę według Twojej specyfikacji."
+        },
+        {
+          "title": "Dokumenty do odbioru",
+          "text": "Faktura VAT, protokół odbioru, karty katalogowe."
+        },
+        {
+          "title": "Serwis po wdrożeniu",
+          "text": "Gwarancja producenta i serwis w Rabce-Zdroju."
+        }
+      ],
+      "cta": {
+        "label": "Formalności i przetargi ↓",
+        "href": "#formularz"
+      },
+      "form": {
+        "heading": "Zapytanie od instytucji",
+        "orgLabel": "Nazwa instytucji",
+        "linkLabel": "Link do ogłoszenia lub SWZ",
+        "linkPlaceholder": "np. link do zapytania ofertowego",
+        "descPlaceholder": "Np. pracownia komputerowa na 25 stanowisk z monitorami i drukarką, termin do końca sierpnia"
+      }
+    },
+    {
+      "key": "hotel-i-pensjonat",
+      "name": "Hotel i pensjonat",
+      "sub": "obiekt noclegowy",
+      "line": "instalacje",
+      "eyebrow": "Dla obiektów noclegowych",
+      "heading": "Pokoje, recepcja i części wspólne — technika i wyposażenie od jednej firmy.",
+      "start": "liczba pokoi i plan obiektu",
+      "lines": "PRO-KOM Instalacje · Biznes · Software",
+      "points": [
+        {
+          "title": "RTV i AGD do pokoi",
+          "text": "Telewizory, lodówki i drobne AGD w jednej dostawie."
+        },
+        {
+          "title": "Wi-Fi w całym obiekcie",
+          "text": "Punkty dostępowe na kablu, w pokojach i na korytarzach."
+        },
+        {
+          "title": "Monitoring i nagłośnienie",
+          "text": "Kamery wokół obiektu, muzyka w restauracji i na sali."
+        },
+        {
+          "title": "Recepcja",
+          "text": "Komputer, drukarka, kasa fiskalna i program."
+        }
+      ],
+      "cta": {
+        "label": "Zobacz przykład pensjonatu ↓",
+        "href": "#obiekty"
+      },
+      "form": {
+        "heading": "Zapytanie dla obiektu",
+        "orgLabel": "Nazwa obiektu",
+        "linkLabel": "Link do planu obiektu",
+        "linkPlaceholder": "np. link do rzutów w PDF",
+        "descPlaceholder": "Np. pensjonat 20 pokoi: telewizory, lodówki, Wi-Fi i monitoring, otwarcie w czerwcu"
+      }
+    },
+    {
+      "key": "inwestor",
+      "name": "Inwestor",
+      "sub": "apartamenty, lokale na wynajem",
+      "line": "instalacje",
+      "eyebrow": "Dla inwestorów",
+      "heading": "Wiele lokali naraz — to samo wyposażenie, jedna dostawa, jeden serwis.",
+      "start": "liczba lokali i standard wyposażenia",
+      "lines": "PRO-KOM Instalacje · Biznes · Software",
+      "points": [
+        {
+          "title": "RTV i AGD w wielu lokalach",
+          "text": "Ten sam zestaw do każdego apartamentu."
+        },
+        {
+          "title": "Wi-Fi i wideodomofon",
+          "text": "Internet w lokalach i wejście dla gości."
+        },
+        {
+          "title": "Monitoring części wspólnych",
+          "text": "Wejścia, parking i klatki z podglądem w telefonie."
+        },
+        {
+          "title": "Strona obiektu",
+          "text": "Strona z lokalami i formularzem — PRO-KOM Software."
+        }
+      ],
+      "cta": {
+        "label": "Zobacz przykład budynku ↓",
+        "href": "#obiekty"
+      },
+      "form": {
+        "heading": "Zapytanie inwestora",
+        "orgLabel": "Firma lub inwestycja",
+        "linkLabel": "Link do opisu inwestycji",
+        "linkPlaceholder": "np. link do rzutów lub listy lokali",
+        "descPlaceholder": "Np. 8 apartamentów na wynajem: telewizor, lodówka i AGD do zabudowy w każdym, Wi-Fi"
+      }
+    },
+    {
+      "key": "deweloper",
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "line": "instalacje",
+      "eyebrow": "Dla deweloperów",
+      "heading": "Instalacje niskoprądowe i standard wyposażenia lokali u jednego wykonawcy.",
+      "start": "projekt i harmonogram inwestycji",
+      "lines": "PRO-KOM Instalacje · Biznes",
+      "points": [
+        {
+          "title": "Instalacje w budynku",
+          "text": "Sieć, wideodomofony, kontrola dostępu i monitoring."
+        },
+        {
+          "title": "AGD w standardzie lokali",
+          "text": "Sprzęt do zabudowy dostarczony na wskazany termin."
+        },
+        {
+          "title": "Garaż",
+          "text": "Ładowarki Elzab EcoPower i przygotowanie miejsc."
+        },
+        {
+          "title": "Odbiór i serwis",
+          "text": "24 miesiące gwarancji na montaż instalacji."
+        }
+      ],
+      "cta": {
+        "label": "Etapy współpracy przy budowie →",
+        "href": "/wspolpraca#etapy"
+      },
+      "form": {
+        "heading": "Zapytanie dewelopera",
+        "orgLabel": "Firma i nazwa inwestycji",
+        "linkLabel": "Link do dokumentacji",
+        "linkPlaceholder": "np. link do projektu albo przedmiaru",
+        "descPlaceholder": "Np. budynek 24 lokale: wideodomofony, monitoring, sieć i AGD do zabudowy w standardzie"
+      }
+    },
+    {
+      "key": "architekt",
+      "name": "Architekt",
+      "sub": "projekt i specyfikacja",
+      "line": "instalacje",
+      "eyebrow": "Dla architektów i wykonawców",
+      "heading": "Technika zaplanowana w projekcie, a sprzęt dobrany do specyfikacji.",
+      "start": "rzuty — nawet wstępne",
+      "lines": "PRO-KOM Instalacje",
+      "points": [
+        {
+          "title": "Instalacje w projekcie",
+          "text": "Punkty i trasy naniesione na rzuty, zanim powstaną tynki."
+        },
+        {
+          "title": "Zestawienie sprzętu",
+          "text": "Pomagamy dobrać sprzęt do specyfikacji obiektu."
+        },
+        {
+          "title": "Wycena z przedmiaru",
+          "text": "Na piśmie, z zakresem i terminem."
+        },
+        {
+          "title": "Jeden kontakt",
+          "text": "Ten sam kontakt od projektu do serwisu."
+        }
+      ],
+      "cta": {
+        "label": "Pełna współpraca z pracownią →",
+        "href": "/wspolpraca"
+      },
+      "form": {
+        "heading": "Wyślij rzuty albo specyfikację",
+        "orgLabel": "Pracownia lub firma",
+        "linkLabel": "Link do rzutów",
+        "linkPlaceholder": "np. link do pliku PDF albo DWG",
+        "descPlaceholder": "Np. pensjonat 30 pokoi, etap projektu: monitoring, Wi-Fi i wyposażenie pokoi"
+      }
+    }
+  ],
+  "listGroups": [
+    {
+      "key": "it",
+      "title": "Sprzęt IT",
+      "lines": "PRO-KOM Biznes",
+      "line": "biznes",
+      "note": "Konfigurację, montaż i uruchomienie dodasz obok w „Co jeszcze”.",
+      "items": [
+        {
+          "key": "pc",
+          "title": "Komputery stacjonarne",
+          "hint": "biuro, pracownia, recepcja"
+        },
+        {
+          "key": "lap",
+          "title": "Laptopy",
+          "hint": "dla pracowników i nauczycieli"
+        },
+        {
+          "key": "mon",
+          "title": "Monitory",
+          "hint": "do stanowisk i sal"
+        },
+        {
+          "key": "drk",
+          "title": "Drukarki i urządzenia wielofunkcyjne",
+          "hint": "tylko oryginalne materiały HP"
+        },
+        {
+          "key": "srv",
+          "title": "Serwery i NAS",
+          "hint": "głównie Dell i QNAP, wdrożenie na życzenie"
+        },
+        {
+          "key": "kas",
+          "title": "Kasy fiskalne i terminale",
+          "hint": "autoryzowany serwis Posnet i Elzab"
+        },
+        {
+          "key": "opr",
+          "title": "Licencje programów",
+          "hint": "InsERT, Comarch ERP, GoPOS"
+        }
+      ]
+    },
+    {
+      "key": "agd",
+      "title": "RTV i AGD dla firm",
+      "lines": "PRO-KOM Biznes",
+      "line": "prokom",
+      "note": "Dostawa pod wskazany adres, bez montażu. Tylko dla firm i instytucji.",
+      "items": [
+        {
+          "key": "tv",
+          "title": "Telewizory",
+          "hint": "pokoje, sale, poczekalnie"
+        },
+        {
+          "key": "lod",
+          "title": "Lodówki i chłodziarki",
+          "hint": "pokoje, kuchnie, zaplecze"
+        },
+        {
+          "key": "kuch",
+          "title": "AGD do zabudowy",
+          "hint": "płyty, piekarniki, zmywarki"
+        },
+        {
+          "key": "pra",
+          "title": "Pralki i suszarki",
+          "hint": "pralnie, apartamenty"
+        },
+        {
+          "key": "drob",
+          "title": "Drobne AGD i ekspresy",
+          "hint": "czajniki, mikrofalówki, ekspresy"
+        },
+        {
+          "key": "odk",
+          "title": "Odkurzacze",
+          "hint": "obsługa obiektu"
+        }
+      ]
+    },
+    {
+      "key": "ins",
+      "title": "Instalacje",
+      "lines": "PRO-KOM Instalacje",
+      "line": "instalacje",
+      "note": "Montaż według ustaleń; na wykonany montaż 24 miesiące gwarancji.",
+      "items": [
+        {
+          "key": "cam",
+          "title": "Kamery monitoringu",
+          "hint": "z nagrywaniem i podglądem"
+        },
+        {
+          "key": "wifi",
+          "title": "Punkty Wi-Fi i sieć",
+          "hint": "okablowanie i przełączniki"
+        },
+        {
+          "key": "dom",
+          "title": "Wideodomofony i kontrola dostępu",
+          "hint": "liczba wejść"
+        },
+        {
+          "key": "nag",
+          "title": "Nagłośnienie",
+          "hint": "liczba stref"
+        },
+        {
+          "key": "ekr",
+          "title": "Ekrany informacyjne",
+          "hint": "recepcja, hol, sala"
+        },
+        {
+          "key": "alr",
+          "title": "Alarm",
+          "hint": "liczba stref lub budynków"
+        }
+      ]
+    }
+  ],
+  "services": [
+    {
+      "key": "cfg",
+      "title": "Konfiguracja sprzętu",
+      "hint": "system, programy, konta — sprzęt IT"
+    },
+    {
+      "key": "mnt",
+      "title": "Montaż i uruchomienie",
+      "hint": "sprzęt IT i instalacje"
+    },
+    {
+      "key": "szk",
+      "title": "Szkolenie użytkowników",
+      "hint": "na miejscu"
+    },
+    {
+      "key": "opk",
+      "title": "Opieka IT po wdrożeniu",
+      "hint": "serwis i pomoc dla pracowników"
+    },
+    {
+      "key": "prz",
+      "title": "Oferta do przetargu",
+      "hint": "według SWZ lub zapytania ofertowego"
+    },
+    {
+      "key": "www",
+      "title": "Strona lub panel",
+      "hint": "PRO-KOM Software"
+    }
+  ],
+  "terms": [
+    "Pilne — do 2 tygodni",
+    "Do miesiąca",
+    "W tym kwartale",
+    "Planujemy na później"
+  ],
+  "objects": [
+    {
+      "key": "hotel-i-pensjonat",
+      "title": "Hotel i pensjonat",
+      "example": "Przykład: pensjonat, 20 pokoi",
+      "heading": "Wyposażenie pokoi, recepcja i Wi-Fi w całym obiekcie — w jednym zamówieniu.",
+      "line": "instalacje",
+      "preset": [
+        {
+          "item": "tv",
+          "qty": 20
+        },
+        {
+          "item": "lod",
+          "qty": 20
+        },
+        {
+          "item": "drob",
+          "qty": 20
+        },
+        {
+          "item": "pc",
+          "qty": 2
+        },
+        {
+          "item": "drk",
+          "qty": 1
+        },
+        {
+          "item": "kas",
+          "qty": 1
+        },
+        {
+          "item": "opr",
+          "qty": 1
+        },
+        {
+          "item": "wifi",
+          "qty": 10
+        },
+        {
+          "item": "cam",
+          "qty": 8
+        },
+        {
+          "item": "nag",
+          "qty": 2
+        }
+      ],
+      "columns": [
+        {
+          "title": "Pokoje",
+          "lines": "RTV i AGD",
+          "line": "prokom",
+          "items": [
+            {
+              "title": "Telewizory",
+              "item": "tv"
+            },
+            {
+              "title": "Lodówki",
+              "item": "lod"
+            },
+            {
+              "title": "Czajniki i drobne AGD",
+              "item": "drob"
+            }
+          ]
+        },
+        {
+          "title": "Recepcja",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Komputer",
+              "item": "pc"
+            },
+            {
+              "title": "Drukarka",
+              "item": "drk"
+            },
+            {
+              "title": "Kasa fiskalna",
+              "item": "kas"
+            },
+            {
+              "title": "Program",
+              "item": "opr"
+            }
+          ]
+        },
+        {
+          "title": "Obiekt",
+          "lines": "Instalacje",
+          "line": "instalacje",
+          "items": [
+            {
+              "title": "Punkty Wi-Fi",
+              "item": "wifi"
+            },
+            {
+              "title": "Kamery",
+              "item": "cam"
+            },
+            {
+              "title": "Strefy nagłośnienia",
+              "item": "nag"
+            }
+          ]
+        },
+        {
+          "title": "Po otwarciu",
+          "lines": "Software · Tech",
+          "line": "software",
+          "items": [
+            {
+              "title": "Strona obiektu z formularzem",
+              "item": null
+            },
+            {
+              "title": "Serwis sprzętu w Rabce-Zdroju",
+              "item": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "szkola-i-pracownia",
+      "title": "Szkoła i pracownia",
+      "example": "Przykład: pracownia, 25 stanowisk",
+      "heading": "Stanowiska, sieć i ekran w holu — dostawa według specyfikacji szkoły.",
+      "line": "biznes",
+      "preset": [
+        {
+          "item": "pc",
+          "qty": 25
+        },
+        {
+          "item": "mon",
+          "qty": 25
+        },
+        {
+          "item": "drk",
+          "qty": 2
+        },
+        {
+          "item": "srv",
+          "qty": 1
+        },
+        {
+          "item": "wifi",
+          "qty": 4
+        },
+        {
+          "item": "ekr",
+          "qty": 1
+        },
+        {
+          "item": "cam",
+          "qty": 6
+        }
+      ],
+      "columns": [
+        {
+          "title": "Stanowiska",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Komputery",
+              "item": "pc"
+            },
+            {
+              "title": "Monitory",
+              "item": "mon"
+            },
+            {
+              "title": "Drukarki",
+              "item": "drk"
+            }
+          ]
+        },
+        {
+          "title": "Zaplecze",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Serwer lub NAS",
+              "item": "srv"
+            },
+            {
+              "title": "Konfiguracja — na życzenie",
+              "item": null
+            }
+          ]
+        },
+        {
+          "title": "Budynek",
+          "lines": "Instalacje",
+          "line": "instalacje",
+          "items": [
+            {
+              "title": "Punkty Wi-Fi",
+              "item": "wifi"
+            },
+            {
+              "title": "Ekran w holu",
+              "item": "ekr"
+            },
+            {
+              "title": "Kamery",
+              "item": "cam"
+            }
+          ]
+        },
+        {
+          "title": "Formalności",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Oferta według SWZ",
+              "item": null
+            },
+            {
+              "title": "Protokół odbioru",
+              "item": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "biuro-firmy",
+      "title": "Biuro firmy",
+      "example": "Przykład: biuro, 15 osób",
+      "heading": "Nowe biuro albo wymiana sprzętu — stanowiska, systemy i sala w jednym zamówieniu.",
+      "line": "biznes",
+      "preset": [
+        {
+          "item": "lap",
+          "qty": 15
+        },
+        {
+          "item": "mon",
+          "qty": 15
+        },
+        {
+          "item": "drk",
+          "qty": 2
+        },
+        {
+          "item": "srv",
+          "qty": 1
+        },
+        {
+          "item": "opr",
+          "qty": 15
+        },
+        {
+          "item": "wifi",
+          "qty": 4
+        },
+        {
+          "item": "cam",
+          "qty": 4
+        },
+        {
+          "item": "tv",
+          "qty": 1
+        },
+        {
+          "item": "drob",
+          "qty": 2
+        }
+      ],
+      "columns": [
+        {
+          "title": "Stanowiska",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Laptopy",
+              "item": "lap"
+            },
+            {
+              "title": "Monitory",
+              "item": "mon"
+            },
+            {
+              "title": "Drukarki",
+              "item": "drk"
+            }
+          ]
+        },
+        {
+          "title": "Systemy",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Serwer",
+              "item": "srv"
+            },
+            {
+              "title": "Licencje programów",
+              "item": "opr"
+            }
+          ]
+        },
+        {
+          "title": "Biuro",
+          "lines": "Instalacje",
+          "line": "instalacje",
+          "items": [
+            {
+              "title": "Punkty Wi-Fi",
+              "item": "wifi"
+            },
+            {
+              "title": "Kamery",
+              "item": "cam"
+            }
+          ]
+        },
+        {
+          "title": "Sala i socjalny",
+          "lines": "RTV i AGD",
+          "line": "prokom",
+          "items": [
+            {
+              "title": "Telewizor do sali",
+              "item": "tv"
+            },
+            {
+              "title": "Ekspres i drobne AGD",
+              "item": "drob"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "budynek-z-lokalami",
+      "title": "Budynek z lokalami",
+      "example": "Przykład: budynek, 24 lokale",
+      "heading": "Instalacje w budynku i ten sam standard wyposażenia w każdym lokalu.",
+      "line": "instalacje",
+      "preset": [
+        {
+          "item": "dom",
+          "qty": 24
+        },
+        {
+          "item": "cam",
+          "qty": 12
+        },
+        {
+          "item": "wifi",
+          "qty": 4
+        },
+        {
+          "item": "kuch",
+          "qty": 24
+        },
+        {
+          "item": "lod",
+          "qty": 24
+        },
+        {
+          "item": "pra",
+          "qty": 24
+        }
+      ],
+      "columns": [
+        {
+          "title": "Lokale",
+          "lines": "Instalacje",
+          "line": "instalacje",
+          "items": [
+            {
+              "title": "Wideodomofony",
+              "item": "dom"
+            }
+          ]
+        },
+        {
+          "title": "Części wspólne",
+          "lines": "Instalacje",
+          "line": "instalacje",
+          "items": [
+            {
+              "title": "Kamery",
+              "item": "cam"
+            },
+            {
+              "title": "Sieć i Wi-Fi",
+              "item": "wifi"
+            }
+          ]
+        },
+        {
+          "title": "Standard lokali",
+          "lines": "RTV i AGD",
+          "line": "prokom",
+          "items": [
+            {
+              "title": "AGD do zabudowy",
+              "item": "kuch"
+            },
+            {
+              "title": "Lodówki",
+              "item": "lod"
+            },
+            {
+              "title": "Pralki",
+              "item": "pra"
+            }
+          ]
+        },
+        {
+          "title": "Sprzedaż",
+          "lines": "Software",
+          "line": "software",
+          "items": [
+            {
+              "title": "Strona inwestycji z lokalami",
+              "item": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "urzad-i-instytucja",
+      "title": "Urząd i instytucja",
+      "example": "Przykład: urząd, 20 stanowisk",
+      "heading": "Stanowiska, serwer i obsługa interesantów — z dokumentami do odbioru.",
+      "line": "biznes",
+      "preset": [
+        {
+          "item": "pc",
+          "qty": 20
+        },
+        {
+          "item": "mon",
+          "qty": 20
+        },
+        {
+          "item": "drk",
+          "qty": 4
+        },
+        {
+          "item": "srv",
+          "qty": 1
+        },
+        {
+          "item": "wifi",
+          "qty": 6
+        },
+        {
+          "item": "ekr",
+          "qty": 2
+        },
+        {
+          "item": "cam",
+          "qty": 8
+        }
+      ],
+      "columns": [
+        {
+          "title": "Stanowiska",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Komputery",
+              "item": "pc"
+            },
+            {
+              "title": "Monitory",
+              "item": "mon"
+            },
+            {
+              "title": "Drukarki",
+              "item": "drk"
+            }
+          ]
+        },
+        {
+          "title": "Serwerownia",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Serwer",
+              "item": "srv"
+            },
+            {
+              "title": "Kopie zapasowe",
+              "item": null
+            }
+          ]
+        },
+        {
+          "title": "Budynek",
+          "lines": "Instalacje",
+          "line": "instalacje",
+          "items": [
+            {
+              "title": "Punkty Wi-Fi",
+              "item": "wifi"
+            },
+            {
+              "title": "Ekrany informacyjne",
+              "item": "ekr"
+            },
+            {
+              "title": "Kamery",
+              "item": "cam"
+            }
+          ]
+        },
+        {
+          "title": "Formalności",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Oferta według SWZ",
+              "item": null
+            },
+            {
+              "title": "Faktura i protokół",
+              "item": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "apartamenty-na-wynajem",
+      "title": "Apartamenty na wynajem",
+      "example": "Przykład: 8 apartamentów",
+      "heading": "Ten sam standard wyposażenia w każdym lokalu.",
+      "line": "prokom",
+      "preset": [
+        {
+          "item": "tv",
+          "qty": 8
+        },
+        {
+          "item": "kuch",
+          "qty": 8
+        },
+        {
+          "item": "lod",
+          "qty": 8
+        },
+        {
+          "item": "pra",
+          "qty": 8
+        },
+        {
+          "item": "drob",
+          "qty": 8
+        },
+        {
+          "item": "wifi",
+          "qty": 8
+        },
+        {
+          "item": "dom",
+          "qty": 1
+        }
+      ],
+      "columns": [
+        {
+          "title": "Każdy lokal",
+          "lines": "RTV i AGD",
+          "line": "prokom",
+          "items": [
+            {
+              "title": "Telewizory",
+              "item": "tv"
+            },
+            {
+              "title": "AGD do zabudowy",
+              "item": "kuch"
+            },
+            {
+              "title": "Lodówki",
+              "item": "lod"
+            },
+            {
+              "title": "Pralki",
+              "item": "pra"
+            }
+          ]
+        },
+        {
+          "title": "Wyposażenie",
+          "lines": "RTV i AGD",
+          "line": "prokom",
+          "items": [
+            {
+              "title": "Drobne AGD",
+              "item": "drob"
+            }
+          ]
+        },
+        {
+          "title": "Budynek",
+          "lines": "Instalacje",
+          "line": "instalacje",
+          "items": [
+            {
+              "title": "Punkty Wi-Fi",
+              "item": "wifi"
+            },
+            {
+              "title": "Wideodomofon",
+              "item": "dom"
+            }
+          ]
+        },
+        {
+          "title": "Wynajem",
+          "lines": "Software",
+          "line": "software",
+          "items": [
+            {
+              "title": "Strona obiektu z formularzem",
+              "item": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "restauracja-i-kawiarnia",
+      "title": "Restauracja i kawiarnia",
+      "example": "Przykład: restauracja, 60 miejsc",
+      "heading": "Sprzedaż, płatności i sala — kasy, nagłośnienie i wyposażenie.",
+      "line": "biznes",
+      "preset": [
+        {
+          "item": "kas",
+          "qty": 2
+        },
+        {
+          "item": "opr",
+          "qty": 1
+        },
+        {
+          "item": "tv",
+          "qty": 2
+        },
+        {
+          "item": "nag",
+          "qty": 2
+        },
+        {
+          "item": "cam",
+          "qty": 6
+        },
+        {
+          "item": "wifi",
+          "qty": 2
+        },
+        {
+          "item": "drob",
+          "qty": 3
+        }
+      ],
+      "columns": [
+        {
+          "title": "Sprzedaż",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Kasy fiskalne",
+              "item": "kas"
+            },
+            {
+              "title": "Program GoPOS",
+              "item": "opr"
+            }
+          ]
+        },
+        {
+          "title": "Sala",
+          "lines": "Instalacje",
+          "line": "instalacje",
+          "items": [
+            {
+              "title": "Strefy nagłośnienia",
+              "item": "nag"
+            },
+            {
+              "title": "Punkty Wi-Fi",
+              "item": "wifi"
+            },
+            {
+              "title": "Kamery",
+              "item": "cam"
+            }
+          ]
+        },
+        {
+          "title": "Wyposażenie",
+          "lines": "RTV i AGD",
+          "line": "prokom",
+          "items": [
+            {
+              "title": "Telewizory",
+              "item": "tv"
+            },
+            {
+              "title": "Drobne AGD",
+              "item": "drob"
+            }
+          ]
+        },
+        {
+          "title": "Po otwarciu",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Serwis kas — autoryzacja",
+              "item": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "sklep-i-siec-sklepow",
+      "title": "Sklep i sieć sklepów",
+      "example": "Przykład: sklep, 3 stanowiska",
+      "heading": "Kasy, program i monitoring — ten sam zestaw w każdym sklepie sieci.",
+      "line": "biznes",
+      "preset": [
+        {
+          "item": "kas",
+          "qty": 3
+        },
+        {
+          "item": "opr",
+          "qty": 1
+        },
+        {
+          "item": "pc",
+          "qty": 1
+        },
+        {
+          "item": "drk",
+          "qty": 1
+        },
+        {
+          "item": "cam",
+          "qty": 8
+        },
+        {
+          "item": "ekr",
+          "qty": 1
+        }
+      ],
+      "columns": [
+        {
+          "title": "Stanowiska",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Kasy fiskalne",
+              "item": "kas"
+            },
+            {
+              "title": "Program",
+              "item": "opr"
+            }
+          ]
+        },
+        {
+          "title": "Zaplecze",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Komputer",
+              "item": "pc"
+            },
+            {
+              "title": "Drukarka",
+              "item": "drk"
+            }
+          ]
+        },
+        {
+          "title": "Sklep",
+          "lines": "Instalacje",
+          "line": "instalacje",
+          "items": [
+            {
+              "title": "Kamery",
+              "item": "cam"
+            },
+            {
+              "title": "Ekran informacyjny",
+              "item": "ekr"
+            }
+          ]
+        },
+        {
+          "title": "Po otwarciu",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Oddzwaniamy w 60 minut",
+              "item": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "gabinety-i-przychodnia",
+      "title": "Gabinety i przychodnia",
+      "example": "Przykład: 10 stanowisk",
+      "heading": "Stanowiska, rejestracja i serwer — z kopiami zapasowymi od pierwszego dnia.",
+      "line": "biznes",
+      "preset": [
+        {
+          "item": "pc",
+          "qty": 10
+        },
+        {
+          "item": "mon",
+          "qty": 10
+        },
+        {
+          "item": "drk",
+          "qty": 4
+        },
+        {
+          "item": "srv",
+          "qty": 1
+        },
+        {
+          "item": "wifi",
+          "qty": 3
+        },
+        {
+          "item": "cam",
+          "qty": 4
+        },
+        {
+          "item": "ekr",
+          "qty": 1
+        }
+      ],
+      "columns": [
+        {
+          "title": "Stanowiska",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Komputery",
+              "item": "pc"
+            },
+            {
+              "title": "Monitory",
+              "item": "mon"
+            },
+            {
+              "title": "Drukarki",
+              "item": "drk"
+            }
+          ]
+        },
+        {
+          "title": "Dane",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Serwer lub NAS",
+              "item": "srv"
+            },
+            {
+              "title": "Kopie zapasowe",
+              "item": null
+            }
+          ]
+        },
+        {
+          "title": "Budynek",
+          "lines": "Instalacje",
+          "line": "instalacje",
+          "items": [
+            {
+              "title": "Punkty Wi-Fi",
+              "item": "wifi"
+            },
+            {
+              "title": "Kamery",
+              "item": "cam"
+            },
+            {
+              "title": "Ekran w poczekalni",
+              "item": "ekr"
+            }
+          ]
+        },
+        {
+          "title": "Po wdrożeniu",
+          "lines": "Biznes",
+          "line": "biznes",
+          "items": [
+            {
+              "title": "Opieka IT",
+              "item": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "levels": [
+    {
+      "title": "Sama dostawa",
+      "text": "Sprzęt według listy albo specyfikacji, dostarczony pod wskazany adres."
+    },
+    {
+      "title": "Dostawa z przygotowaniem",
+      "text": "Wybrane usługi: konfiguracja, podłączenie albo montaż — tylko to, czego potrzebujesz."
+    },
+    {
+      "title": "Pełne wdrożenie",
+      "text": "Konfiguracja, montaż, uruchomienie i szkolenie — gdy tak ustalimy w ofercie."
+    }
+  ],
+  "prepTabs": [
+    {
+      "title": "Komputery i laptopy",
+      "lines": "PRO-KOM Biznes",
+      "line": "biznes",
+      "heading": "Sam sprzęt albo sprzęt gotowy do pracy.",
+      "lead": "Możemy dostarczyć same komputery i laptopy. Jeśli chcesz, przygotujemy je przed dostawą, podłączymy na miejscu i przeszkolimy pracowników.",
+      "items": [
+        {
+          "title": "System i aktualizacje",
+          "text": "Zainstalowane przed dostawą."
+        },
+        {
+          "title": "Programy według listy",
+          "text": "Biuro, poczta i programy, których używacie."
+        },
+        {
+          "title": "Konta użytkowników",
+          "text": "Dla każdej osoby albo stanowiska."
+        },
+        {
+          "title": "Drukarki i sieć",
+          "text": "Podłączone na miejscu, w Waszej sieci."
+        },
+        {
+          "title": "Opis stanowisk",
+          "text": "Wiadomo, który sprzęt trafia na które biurko."
+        },
+        {
+          "title": "Lista sprzętu",
+          "text": "Do ewidencji i zgłoszeń gwarancyjnych."
+        }
+      ]
+    },
+    {
+      "title": "Serwery i sieć",
+      "lines": "PRO-KOM Biznes · Instalacje",
+      "line": "biznes",
+      "heading": "Dostawa albo dostawa z wdrożeniem.",
+      "lead": "Serwery (głównie Dell), dyski sieciowe QNAP i sprzęt sieciowy Ubiquiti. Wdrożenie, kopie zapasowe i opiekę dodajesz według potrzeb.",
+      "items": [
+        {
+          "title": "Konfiguracja serwera lub NAS",
+          "text": "Udziały, uprawnienia i dostęp dla pracowników."
+        },
+        {
+          "title": "Kopie zapasowe",
+          "text": "Ustawione i sprawdzone przed odbiorem."
+        },
+        {
+          "title": "Sieć i Wi-Fi",
+          "text": "Przełączniki i punkty dostępowe w całym obiekcie."
+        },
+        {
+          "title": "Zabezpieczenia",
+          "text": "Na życzenie firewall Stormshield lub Barracuda."
+        },
+        {
+          "title": "Szkolenie",
+          "text": "Dla osoby, która opiekuje się sprzętem u Was."
+        },
+        {
+          "title": "Opieka IT",
+          "text": "Monitoring i pomoc po wdrożeniu."
+        }
+      ]
+    },
+    {
+      "title": "Kasy i programy",
+      "lines": "PRO-KOM Biznes",
+      "line": "biznes",
+      "heading": "Kasy i programy z autoryzacją.",
+      "lead": "Jesteśmy autoryzowanym serwisem Posnet i Elzab oraz autoryzowanym partnerem InsERT i GoPOS. Zakres wdrożenia ustalamy przy ofercie.",
+      "items": [
+        {
+          "title": "Zgłoszenie i fiskalizacja",
+          "text": "Kasa zgłoszona i gotowa do pracy."
+        },
+        {
+          "title": "Programowanie kasy",
+          "text": "Towary, stawki i ustawienia sprzedaży."
+        },
+        {
+          "title": "Szkolenie z kasy",
+          "text": "Dla osób, które będą sprzedawać."
+        },
+        {
+          "title": "Program sprzedaży",
+          "text": "InsERT, Comarch ERP albo GoPOS — skonfigurowany."
+        },
+        {
+          "title": "Terminale płatnicze",
+          "text": "Podłączone do kasy i sprawdzone."
+        },
+        {
+          "title": "Serwis",
+          "text": "Oddzwaniamy w 60 minut w godzinach pracy."
+        }
+      ]
+    },
+    {
+      "title": "Instalacje",
+      "lines": "PRO-KOM Instalacje",
+      "line": "instalacje",
+      "heading": "Sam sprzęt albo instalacja pod klucz.",
+      "lead": "Monitoring, sieć, domofony i nagłośnienie — z montażem albo bez. Zakres prac ustalamy przed realizacją.",
+      "items": [
+        {
+          "title": "Plan rozmieszczenia",
+          "text": "Kamery, punkty i urządzenia ustalone przed montażem."
+        },
+        {
+          "title": "Montaż i okablowanie",
+          "text": "Jedna ekipa na cały zakres."
+        },
+        {
+          "title": "Uruchomienie",
+          "text": "Podgląd i sterowanie w telefonie."
+        },
+        {
+          "title": "Test każdego punktu",
+          "text": "Przed odbiorem, razem z Tobą."
+        },
+        {
+          "title": "Szkolenie",
+          "text": "Jak korzystać z systemu na co dzień."
+        },
+        {
+          "title": "24 miesiące gwarancji",
+          "text": "Na wykonany przez nas montaż."
+        }
+      ]
+    },
+    {
+      "title": "RTV i AGD",
+      "lines": "PRO-KOM Biznes",
+      "line": "prokom",
+      "heading": "Jedna dostawa zamiast wielu zamówień.",
+      "lead": "RTV i AGD dla firm i instytucji dobieramy do obiektu i dostarczamy pod wskazany adres. Bez montażu.",
+      "items": [
+        {
+          "title": "Dobór modeli",
+          "text": "Pod pokoje, lokale, biuro albo zaplecze."
+        },
+        {
+          "title": "Te same modele",
+          "text": "W każdym lokalu ten sam sprzęt."
+        },
+        {
+          "title": "Dostawa pod adres",
+          "text": "Na wskazany termin i miejsce."
+        },
+        {
+          "title": "Faktura VAT",
+          "text": "Jedna faktura na całe zamówienie."
+        },
+        {
+          "title": "Gwarancja producenta",
+          "text": "Na cały dostarczony sprzęt."
+        },
+        {
+          "title": "Kolejna partia",
+          "text": "Wystarczy lista z poprzedniego zamówienia."
+        }
+      ]
+    }
+  ],
+  "brands": [
+    {
+      "title": "Komputery i serwery",
+      "line": "biznes",
+      "items": [
+        {
+          "name": "Dell",
+          "note": "serwery"
+        },
+        {
+          "name": "HP",
+          "note": "drukarki, oryginalne materiały"
+        },
+        {
+          "name": "QNAP",
+          "note": "dyski sieciowe NAS"
+        },
+        {
+          "name": "StorageCraft",
+          "note": "kopie zapasowe"
+        }
+      ]
+    },
+    {
+      "title": "Kasy i programy",
+      "line": "biznes",
+      "items": [
+        {
+          "name": "Posnet",
+          "note": "autoryzowany serwis"
+        },
+        {
+          "name": "Elzab",
+          "note": "autoryzowany serwis"
+        },
+        {
+          "name": "InsERT",
+          "note": "autoryzowany partner"
+        },
+        {
+          "name": "GoPOS",
+          "note": "autoryzowany partner"
+        }
+      ]
+    },
+    {
+      "title": "Instalacje",
+      "line": "instalacje",
+      "items": [
+        {
+          "name": "Dahua",
+          "note": "monitoring"
+        },
+        {
+          "name": "Hikvision",
+          "note": "monitoring"
+        },
+        {
+          "name": "Ubiquiti",
+          "note": "sieć i Wi-Fi"
+        },
+        {
+          "name": "Ampio",
+          "note": "smart home"
+        }
+      ]
+    },
+    {
+      "title": "Biuro i bezpieczeństwo",
+      "line": "biznes",
+      "items": [
+        {
+          "name": "Fellowes",
+          "note": "niszczarki"
+        },
+        {
+          "name": "Kobra",
+          "note": "niszczarki"
+        },
+        {
+          "name": "Stormshield",
+          "note": "firewall"
+        },
+        {
+          "name": "Barracuda",
+          "note": "firewall"
+        }
+      ]
+    }
+  ],
+  "after": [
+    {
+      "title": "Serwis w Rabce-Zdroju",
+      "text": "Bezpłatna diagnoza i wycena naprawy. Naprawy także kurierem.",
+      "line": "tech"
+    },
+    {
+      "title": "Opieka IT",
+      "text": "Monitoring sprzętu, pomoc zdalna i bezpłatny przegląd IT na start.",
+      "line": "biznes"
+    },
+    {
+      "title": "Serwis kas",
+      "text": "Autoryzowany serwis Posnet i Elzab. Oddzwaniamy w 60 minut w godzinach pracy.",
+      "line": "biznes"
+    },
+    {
+      "title": "Serwis instalacji",
+      "text": "Na wykonany przez nas montaż 24 miesiące gwarancji. Serwis u tej samej ekipy.",
+      "line": "instalacje"
+    }
+  ],
+  "towns": [
+    {
+      "name": "Rabka-Zdrój",
+      "salon": true
+    },
+    {
+      "name": "Zakopane",
+      "salon": true
+    },
+    {
+      "name": "Nowy Targ",
+      "salon": false
+    },
+    {
+      "name": "Limanowa",
+      "salon": false
+    },
+    {
+      "name": "Myślenice",
+      "salon": false
+    },
+    {
+      "name": "Nowy Sącz",
+      "salon": false
+    },
+    {
+      "name": "Kraków",
+      "salon": false
+    }
+  ],
+  "facts": [
+    {
+      "value": "Od 2004",
+      "label": "firma z Rabki-Zdroju"
+    },
+    {
+      "value": "100+",
+      "label": "klientów firmowych"
+    },
+    {
+      "value": "Posnet · Elzab",
+      "label": "autoryzowany serwis kas"
+    },
+    {
+      "value": "24 mies.",
+      "label": "gwarancji na montaż instalacji"
+    },
+    {
+      "value": "Małopolska",
+      "label": "dostawy i serwis na miejscu"
+    }
+  ],
+  "areas": [
+    {
+      "title": "Sprzęt IT",
+      "lines": "PRO-KOM Biznes",
+      "line": "biznes",
+      "text": "Komputery, laptopy, monitory, drukarki i serwery w ilościach dla biura, pracowni albo urzędu.",
+      "tags": [
+        "Komputery",
+        "Laptopy",
+        "Serwery Dell",
+        "Drukarki HP",
+        "NAS QNAP"
+      ],
+      "how": "sama dostawa albo z konfiguracją, montażem i szkoleniem — według ustaleń."
+    },
+    {
+      "title": "RTV i AGD dla firm",
+      "lines": "PRO-KOM Biznes",
+      "line": "prokom",
+      "text": "Telewizory, lodówki, AGD do zabudowy i drobne AGD do pokoi, lokali, biur i zaplecza.",
+      "tags": [
+        "Telewizory",
+        "Lodówki",
+        "Do zabudowy",
+        "Pralki",
+        "Drobne AGD"
+      ],
+      "how": "dostawa pod wskazany adres, bez montażu. Tylko dla firm i instytucji."
+    },
+    {
+      "title": "Instalacje w obiekcie",
+      "lines": "PRO-KOM Instalacje",
+      "line": "instalacje",
+      "text": "Monitoring, sieć i Wi-Fi, wideodomofony, nagłośnienie i ekrany — w nowym albo działającym obiekcie.",
+      "tags": [
+        "Monitoring",
+        "Wi-Fi",
+        "Domofony",
+        "Nagłośnienie",
+        "Ekrany"
+      ],
+      "how": "sam sprzęt albo z projektem i montażem; na wykonany montaż 24 miesiące gwarancji."
+    },
+    {
+      "title": "Programy i strona",
+      "lines": "PRO-KOM Biznes · Software",
+      "line": "software",
+      "text": "Programy do sprzedaży i magazynu, kasy oraz strona albo panel dla obiektu czy inwestycji.",
+      "tags": [
+        "InsERT",
+        "Comarch ERP",
+        "GoPOS",
+        "Strona",
+        "Panel"
+      ],
+      "how": "wdrożenie, szkolenie i opieka — według potrzeb."
+    }
+  ],
+  "steps": [
+    {
+      "title": "Zapytanie",
+      "text": "Lista z tej strony, specyfikacja, SWZ albo zwykły opis."
+    },
+    {
+      "title": "Doprecyzowanie",
+      "text": "Ustalamy parametry, ilości, termin i miejsce dostawy."
+    },
+    {
+      "title": "Oferta na piśmie",
+      "text": "Zakres, termin realizacji i warunki — w jednym dokumencie."
+    },
+    {
+      "title": "Przygotowanie",
+      "text": "Zamawiamy sprzęt. Jeśli tak ustalimy — konfigurujemy go przed dostawą."
+    },
+    {
+      "title": "Dostawa i wdrożenie",
+      "text": "Dostawa pod adres. Montaż i uruchomienie — jeśli są w ofercie."
+    },
+    {
+      "title": "Odbiór i serwis",
+      "text": "Protokół odbioru, a potem serwis u tej samej firmy."
+    }
+  ],
+  "comparison": [
+    {
+      "title": "Sprzęt IT",
+      "other": "sklep lub hurtownia",
+      "ours": "Biznes — konfiguracja opcjonalnie",
+      "line": "biznes"
+    },
+    {
+      "title": "RTV i AGD",
+      "other": "osobny sprzedawca",
+      "ours": "w tej samej ofercie",
+      "line": "prokom"
+    },
+    {
+      "title": "Monitoring i sieć",
+      "other": "osobny instalator",
+      "ours": "Instalacje — montaż opcjonalnie",
+      "line": "instalacje"
+    },
+    {
+      "title": "Kasy i programy",
+      "other": "osobny serwis",
+      "ours": "Biznes — autoryzacje",
+      "line": "biznes"
+    },
+    {
+      "title": "Strona i panel",
+      "other": "agencja",
+      "ours": "Software — u nas",
+      "line": "software"
+    },
+    {
+      "title": "Serwis po wdrożeniu",
+      "other": "kilka numerów",
+      "ours": "jeden kontakt",
+      "line": "prokom"
+    }
+  ],
+  "formalities": [
+    {
+      "title": "Oferty w postępowaniach",
+      "text": "Zapytania ofertowe i przetargi — według SWZ."
+    },
+    {
+      "title": "Faktura VAT i protokół",
+      "text": "Dokumenty do odbioru i rozliczenia zamówienia."
+    },
+    {
+      "title": "Karty katalogowe",
+      "text": "Parametry sprzętu potwierdzone przez producenta."
+    },
+    {
+      "title": "Gwarancja producenta",
+      "text": "Nowy sprzęt, a serwis w Rabce-Zdroju."
+    },
+    {
+      "title": "Warunki na piśmie",
+      "text": "Termin realizacji i płatności ustalamy w ofercie."
+    },
+    {
+      "title": "Spotkanie przed ofertą",
+      "text": "W salonie w Rabce-Zdroju albo w Twoim obiekcie."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Czy jest minimalna wielkość zamówienia?",
+      "answer": "Nie podajemy progu na stronie. Napisz, czego potrzebujesz — odpowiemy, jak możemy to zrealizować."
+    },
+    {
+      "question": "Czy montujecie RTV i AGD?",
+      "answer": "Nie. RTV i AGD dostarczamy pod wskazany adres. Konfigurację i montaż ustalamy tylko dla sprzętu IT i instalacji — jeśli ich potrzebujesz."
+    },
+    {
+      "question": "Czy RTV i AGD sprzedajecie osobom prywatnym?",
+      "answer": "Ta oferta jest dla firm, instytucji, inwestorów i deweloperów. Klientów prywatnych zapraszamy do salonu i serwisu."
+    },
+    {
+      "question": "Czy odpowiadacie na przetargi i zapytania ofertowe?",
+      "answer": "Tak. Wyślij link do ogłoszenia albo SWZ — przygotujemy ofertę według wymagań zamawiającego."
+    },
+    {
+      "question": "Ile trwa przygotowanie oferty?",
+      "answer": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi."
+    },
+    {
+      "question": "Gdzie dostarczacie?",
+      "answer": "Działamy głównie na Podhalu i w całej Małopolsce. Dostawę w inne miejsce ustalamy przy zapytaniu."
+    },
+    {
+      "question": "Dlaczego nie ma cen na stronie?",
+      "answer": "Ceny zależą od ilości, parametrów i terminu. Każde zapytanie wyceniamy na piśmie."
+    }
+  ],
+  "next": [
+    {
+      "eyebrow": "Architekci i wykonawcy",
+      "title": "Współpraca przy projekcie",
+      "text": "Etapy inwestycji, zasady i dostawcy.",
+      "href": "/wspolpraca"
+    },
+    {
+      "eyebrow": "Dla firm",
+      "title": "Plan dla Twojej branży",
+      "text": "Kasa, IT, obiekt i strona w jednym planie.",
+      "href": "/dla-firm"
+    },
+    {
+      "eyebrow": "Oferta",
+      "title": "Cała oferta PRO-KOM",
+      "text": "Wszystkie usługi pięciu linii w jednym miejscu.",
+      "href": "/linie"
+    },
+    {
+      "eyebrow": "Kontakt",
+      "title": "Spotkajmy się w salonie",
+      "text": "Ul. Orkana 16B, Rabka-Zdrój. Przyjdź z listą albo rzutami.",
+      "href": "/kontakt"
+    }
+  ]
+}

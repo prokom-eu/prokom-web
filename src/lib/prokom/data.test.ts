@@ -127,6 +127,12 @@ describe('toHubSettings', () => {
     expect(pages.forHome).toBe(false)
   })
 
+  it('reads the page texts through their schema; a value that no longer fits gives null', () => {
+    const view = toHubSettings({ ...doc, deliveries: { segments: [] }, cooperation: null }, 'local')
+    expect(view.deliveries).toBeNull()
+    expect(view.cooperation).toBeNull()
+  })
+
   it('shows unapproved facts outside production only (spec §3)', () => {
     expect(toHubSettings(doc, 'staging').trust).toHaveLength(2)
     expect(toHubSettings(doc, 'production').trust).toEqual([

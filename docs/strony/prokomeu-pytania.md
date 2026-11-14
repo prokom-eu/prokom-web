@@ -9,7 +9,8 @@ Kod powstaje niezależnie od tych odpowiedzi. Do czasu decyzji: treść oznaczon
    - lista kategorii RTV i AGD dla firm (telewizory, lodówki, AGD do zabudowy, pralki i suszarki, drobne AGD, odkurzacze) — czy wszystko dostarczamy przez dystrybutorów;
    - dostawy poza Małopolskę — „ustalamy przy zapytaniu” zostaje?
    - punkty zakresu opcjonalnego: lista sprzętu z numerami seryjnymi, kopie zapasowe sprawdzone przed odbiorem, „kolejna partia — wystarczy lista z poprzedniego zamówienia” — robimy czy usuwamy?
-3. **Współpraca:** opiekun dla architektów (kto, telefon, e-mail) i warunki dla pracowni; pokaz w salonie — co i kto prowadzi. Do decyzji na stronie: „Jeden kontakt” zamiast „opiekuna”.
+   - „Opieka IT: monitoring sprzętu, pomoc zdalna i **bezpłatny przegląd IT na start**” (sekcja „Po dostawie”, z planszy) — obietnicy nie ma w spec §3; zostaje? (dodane 14.11, H1-1c)
+3. **Współpraca:** opiekun dla architektów (kto, telefon, e-mail) i warunki dla pracowni; pokaz w salonie — co i kto prowadzi. Do decyzji na stronie: „Jeden kontakt” zamiast „opiekuna”. **Obietnica „24 godziny na odpowiedź w dni robocze”** (fakty i zasada nr 3 na stronie Współpracy, z planszy) — spec §3 daje 24 h tylko Instalacjom (Biznes 60 min, Software 1 dzień roboczy); zostaje dla całej Współpracy? (dodane 14.11, H1-1c)
 4. **Gaming:** godziny odpowiedzi „codziennie 8–22” — potwierdzić albo zmienić.
 5. **Zakopane:** adres i godziny salonu — czy pokazujemy na hubie (Biznes i Software pokazują tylko Rabkę).
 6. **Liczby i autoryzacje:** „100+ klientów firmowych” (potwierdzone wcześniej — przypomnieć przy akceptacji), kamienie milowe historii z datami (salon w Zakopanem, autoryzacja kas).
