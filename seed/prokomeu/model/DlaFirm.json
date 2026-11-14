@@ -1,0 +1,862 @@
+{
+  "_zrodlo": "docs/design/prokomeu/plansze/DlaFirm.dc.html (HTML :208–620, renderVals) — scripts/prokomeu-model.mjs",
+  "hero": {
+    "eyebrow": "Dla firm · gastronomii · hoteli · handlu · biur · instytucji",
+    "title": "Wszystko dla Twojej firmy w jednej firmie.",
+    "lead": "Kasa i sprzedaż, komputery i opieka IT, kamery i sieć, strona i system pod Twój proces. Zamiast czterech wykonawców rozmawiasz z jedną firmą z Rabki-Zdroju — a każdą częścią zajmuje się zespół, który robi to na co dzień.",
+    "choose": "Dobierz dla swojej branży",
+    "callNote": "Dzwonisz raz — łączymy Cię z właściwymi zespołami.",
+    "stateLabel": "Twoja firma",
+    "stateTag": "Stan",
+    "stateNote": "Trzy linie, jedna firma, jeden numer.",
+    "rows": [
+      {
+        "line": "biznes",
+        "label": "Kasa fiskalna",
+        "state": "zafiskalizowana"
+      },
+      {
+        "line": "biznes",
+        "label": "E-faktury KSeF",
+        "state": "skonfigurowane"
+      },
+      {
+        "line": "biznes",
+        "label": "Komputery i kopie",
+        "state": "pod opieką"
+      },
+      {
+        "line": "instalacje",
+        "label": "Monitoring",
+        "state": "nagrywa"
+      },
+      {
+        "line": "instalacje",
+        "label": "Wi-Fi gości",
+        "state": "działa"
+      },
+      {
+        "line": "instalacje",
+        "label": "Alarm",
+        "state": "uzbrojony"
+      },
+      {
+        "line": "software",
+        "label": "Strona firmowa",
+        "state": "online"
+      }
+    ],
+    "facts": [
+      {
+        "value": "Od 2004 roku",
+        "label": "pracujemy dla firm",
+        "facts": [
+          "Od 2004"
+        ]
+      },
+      {
+        "value": "100+",
+        "label": "klientów firmowych",
+        "facts": [
+          "100+"
+        ]
+      },
+      {
+        "value": "4 autoryzacje",
+        "label": "Posnet, Elzab, GoPOS, InsERT",
+        "facts": [
+          "Posnet",
+          "Elzab",
+          "GoPOS",
+          "InsERT"
+        ]
+      },
+      {
+        "value": "Podhale · Małopolska",
+        "label": "dojazd na miejsce, a zdalnie cała Polska",
+        "facts": []
+      }
+    ]
+  },
+  "industries": {
+    "eyebrow": "Dobierz · 10 sekund",
+    "title": "Wybierz branżę. Pokażemy plan.",
+    "lead": "Co zwykle robimy w takiej firmie, od czego zaczynamy i o co zapytamy w pierwszej rozmowie.",
+    "planFor": "Plan dla:",
+    "start": "Od czego zaczynamy",
+    "ask": "O co zapytamy w pierwszej rozmowie",
+    "call": "Zadzwoń:",
+    "describe": "Opisz firmę",
+    "note": "Jeden telefon — łączymy Cię z właściwymi zespołami.",
+    "subs": [
+      {
+        "plan": "gastro",
+        "sub": "restauracja, bar, kawiarnia"
+      },
+      {
+        "plan": "hotel",
+        "sub": "pensjonat, apartamenty"
+      },
+      {
+        "plan": "sklep",
+        "sub": "sklep, punkt usługowy"
+      },
+      {
+        "plan": "biuro",
+        "sub": "kancelaria, księgowość"
+      },
+      {
+        "plan": "budowa",
+        "sub": "baza, magazyn, ekipy"
+      },
+      {
+        "plan": "teren",
+        "sub": "ekipy, serwis, transport"
+      },
+      {
+        "plan": "gabinet",
+        "sub": "gabinet, fryzjer, kosmetyka"
+      },
+      {
+        "plan": "produkcja",
+        "sub": "zakład, hurtownia"
+      },
+      {
+        "plan": "deweloper",
+        "sub": "inwestycje i projekty"
+      },
+      {
+        "plan": "wspolnota",
+        "sub": "bloki, osiedla"
+      },
+      {
+        "plan": "szkola",
+        "sub": "pracownie i sale"
+      },
+      {
+        "plan": "gmina",
+        "sub": "urząd, instytucja"
+      },
+      {
+        "plan": "inne",
+        "sub": "każda firma i instytucja"
+      }
+    ]
+  },
+  "areas": {
+    "eyebrow": "Co robimy dla firm",
+    "title": "Cztery linie pracują dla Twojej firmy.",
+    "inLine": "W tej linii",
+    "inArea": "w tym obszarze",
+    "steps": "Jak zaczynamy",
+    "lines": [
+      {
+        "line": "biznes",
+        "short": "Kasy, komputery, programy i dostawy"
+      },
+      {
+        "line": "instalacje",
+        "short": "Monitoring, sieci, obiekt"
+      },
+      {
+        "line": "software",
+        "short": "Strony, systemy, aplikacje"
+      },
+      {
+        "line": "tech",
+        "short": "Serwis sprzętu firmowego"
+      }
+    ],
+    "items": [
+      {
+        "line": "biznes",
+        "title": "Sprzedaż i kasa",
+        "lead": "Wszystko, czego potrzeba, żeby legalnie i wygodnie sprzedawać.",
+        "cta": "Oferta dla firm",
+        "href": null,
+        "steps": [
+          {
+            "title": "Dzwonisz albo piszesz",
+            "text": "Mówisz, co i gdzie sprzedajesz."
+          },
+          {
+            "title": "{obietnica}",
+            "text": "W godzinach pracy."
+          },
+          {
+            "title": "Fiskalizacja u Ciebie",
+            "text": "Zgłoszenie, fiskalizacja i programowanie, a szkolenie obsługi na życzenie."
+          }
+        ],
+        "services": [
+          {
+            "title": "Kasy fiskalne Posnet i Elzab",
+            "text": "Ze zgłoszeniem, fiskalizacją i programowaniem; szkolenie na życzenie."
+          },
+          {
+            "title": "Przejęcie serwisu kasy",
+            "text": "Przejmujemy serwis kasy po innej firmie i załatwiamy formalności."
+          },
+          {
+            "title": "Przeglądy kas",
+            "text": "Pilnujemy terminu obowiązkowego przeglądu."
+          },
+          {
+            "title": "GoPOS dla gastronomii",
+            "text": "System sprzedaży na salę i kuchnię, ze sprzętem."
+          },
+          {
+            "title": "Terminale płatnicze PolCard",
+            "text": "Dobór i uruchomienie terminala."
+          },
+          {
+            "title": "Wagi, skanery, drukarki etykiet",
+            "text": "Osprzęt stanowiska kasowego dobrany do kasy i programu."
+          },
+          {
+            "title": "Sprawdzarki cen",
+            "text": "Dla punktów sprzedaży z większym asortymentem."
+          },
+          {
+            "title": "Automaty sprzedające",
+            "text": "Z partnerem Optivendi — dla firm, obiektów i instytucji."
+          }
+        ]
+      },
+      {
+        "line": "biznes",
+        "title": "Biuro i IT",
+        "lead": "Sprzęt, programy i ktoś, kto odbiera telefon, gdy coś nie działa.",
+        "cta": "Oferta dla firm",
+        "href": null,
+        "steps": [
+          {
+            "title": "Bezpłatny przegląd IT",
+            "text": "Co jest, co działa, co grozi awarią."
+          },
+          {
+            "title": "Kopie zapasowe i porządek",
+            "text": "Najpierw to, co chroni dane."
+          },
+          {
+            "title": "Stała opieka",
+            "text": "Pomoc zdalna i na miejscu."
+          }
+        ],
+        "services": [
+          {
+            "title": "Komputery i laptopy",
+            "text": "Lenovo i Dell — dostawa, a na życzenie konfiguracja i przeniesienie danych."
+          },
+          {
+            "title": "Serwery i dyski sieciowe",
+            "text": "Serwery Dell, NAS Synology i QNAP — wdrożenie, szkolenie na życzenie."
+          },
+          {
+            "title": "Microsoft Office i ESET",
+            "text": "Licencje, a na życzenie instalacja i konfiguracja."
+          },
+          {
+            "title": "Opieka IT",
+            "text": "Pomoc zdalna, monitoring i stały kontakt z informatykiem."
+          },
+          {
+            "title": "Kopie zapasowe",
+            "text": "Kopia, którą da się odtworzyć — także poza firmą."
+          },
+          {
+            "title": "InsERT, Subiekt i KSeF",
+            "text": "Wdrożenie programu i e-faktur, szkolenie zespołu na życzenie."
+          },
+          {
+            "title": "Podpis kwalifikowany",
+            "text": "Pomagamy uzyskać i zainstalować podpis elektroniczny."
+          },
+          {
+            "title": "Niszczarki i monitory interaktywne",
+            "text": "Fellowes i Kobra, monitory do sal i biur."
+          },
+          {
+            "title": "Comarch ERP",
+            "text": "Dla firm, które wyrosły z prostego programu do faktur."
+          },
+          {
+            "title": "Bezpieczeństwo sieci",
+            "text": "Zapory Stormshield i Barracuda, ochrona danych firmy."
+          }
+        ]
+      },
+      {
+        "line": "instalacje",
+        "title": "Obiekt i bezpieczeństwo",
+        "lead": "Projekt, montaż i serwis instalacji w lokalu, biurze i obiekcie.",
+        "cta": "Zaplanuj instalację",
+        "href": null,
+        "steps": [
+          {
+            "title": "Opisujesz obiekt",
+            "text": "Albo przesyłasz rzuty."
+          },
+          {
+            "title": "{obietnica}",
+            "text": "W dni robocze, potem wizja lokalna."
+          },
+          {
+            "title": "Projekt, montaż, serwis",
+            "text": "Gwarancja na montaż 24 miesiące."
+          }
+        ],
+        "services": [
+          {
+            "title": "Monitoring",
+            "text": "Kamery z nagrywaniem i podglądem w telefonie."
+          },
+          {
+            "title": "Alarmy",
+            "text": "Z powiadomieniem w telefonie."
+          },
+          {
+            "title": "Kontrola dostępu",
+            "text": "Karty, kody i zamki — dla biur i obiektów noclegowych."
+          },
+          {
+            "title": "Sieci i Wi-Fi",
+            "text": "Okablowanie, światłowód i Wi-Fi, także osobne dla gości."
+          },
+          {
+            "title": "Teletechnika",
+            "text": "Instalacje niskoprądowe dla deweloperów i wykonawców."
+          },
+          {
+            "title": "Nagłośnienie",
+            "text": "Sale, lokale i obiekty."
+          },
+          {
+            "title": "Ekrany informacyjne",
+            "text": "Ekrany z ofertą i informacją, treść zmieniasz zdalnie."
+          },
+          {
+            "title": "Telewizja hotelowa i anteny",
+            "text": "Telewizja w pokojach i instalacje zbiorcze."
+          },
+          {
+            "title": "Ładowarki Elzab EcoPower",
+            "text": "Do firmy, obiektu i na parking."
+          },
+          {
+            "title": "Serwis i przeglądy po montażu",
+            "text": "Gwarancja na montaż 24 miesiące, przejmujemy też cudze instalacje."
+          }
+        ]
+      },
+      {
+        "line": "software",
+        "title": "Strona i systemy",
+        "lead": "Strona, która przyprowadza klientów, i system, który porządkuje pracę.",
+        "cta": "Policz swój projekt",
+        "href": null,
+        "steps": [
+          {
+            "title": "Opisujesz projekt",
+            "text": "Stronę, system albo proces."
+          },
+          {
+            "title": "{obietnica}",
+            "text": "Z pytaniami i propozycją."
+          },
+          {
+            "title": "Wdrożenie i opieka",
+            "text": "Serwer w Polsce, kopia co noc."
+          }
+        ],
+        "services": [
+          {
+            "title": "Strony internetowe",
+            "text": "Firmowe, wizytówki i landing page, z panelem do zmian."
+          },
+          {
+            "title": "Systemy i panele",
+            "text": "CRM, zlecenia, czas pracy i rozliczenia pod Twój proces."
+          },
+          {
+            "title": "Aplikacje",
+            "text": "Dla pracowników i dla klientów."
+          },
+          {
+            "title": "Automatyzacje",
+            "text": "Raporty i dokumenty bez przepisywania."
+          },
+          {
+            "title": "Opieka nad stroną",
+            "text": "Serwer w Polsce, kopia co noc."
+          },
+          {
+            "title": "Darmowy audyt strony",
+            "text": "Sprawdzimy obecną stronę i powiemy, co poprawić."
+          }
+        ]
+      },
+      {
+        "line": "biznes",
+        "title": "Dostawy i instytucje",
+        "lead": "Większe zamówienia sprzętu dla szkół, urzędów, hoteli i firm — konfiguracja i montaż na życzenie.",
+        "cta": "Oferta dla firm",
+        "href": "/inwestycje-i-dostawy",
+        "steps": [
+          {
+            "title": "Wysyłasz specyfikację",
+            "text": "Albo listę potrzeb."
+          },
+          {
+            "title": "Oferta na piśmie",
+            "text": "Z zakresem i terminem."
+          },
+          {
+            "title": "Dostawa i serwis",
+            "text": "Montaż i uruchomienie — jeśli tak ustalimy."
+          }
+        ],
+        "services": [
+          {
+            "title": "Większe dostawy IT",
+            "text": "Komputery, serwery, drukarki i sieć — według listy albo specyfikacji."
+          },
+          {
+            "title": "RTV i AGD dla firm",
+            "text": "Telewizory i sprzęt do pokoi, biur, kuchni i świetlic."
+          },
+          {
+            "title": "Pracownie i sale",
+            "text": "Komputery, monitory interaktywne i sieć dla szkół."
+          },
+          {
+            "title": "Zapytania ofertowe i przetargi",
+            "text": "Przygotowujemy oferty w postępowaniach."
+          },
+          {
+            "title": "Monitoring i nagłośnienie z montażem",
+            "text": "Robi to PRO-KOM Instalacje."
+          },
+          {
+            "title": "Współpraca przy inwestycjach",
+            "text": "Dla deweloperów i wykonawców — strona Współpraca."
+          }
+        ]
+      },
+      {
+        "line": "tech",
+        "title": "Serwis sprzętu",
+        "lead": "Zepsuty laptop, telefon służbowy albo drukarka nie zatrzymują pracy na długo.",
+        "cta": "Zgłoś naprawę",
+        "href": null,
+        "steps": [
+          {
+            "title": "Zgłaszasz online albo w salonie",
+            "text": "W salonie w Rabce-Zdroju."
+          },
+          {
+            "title": "Diagnoza i wycena",
+            "text": "Decydujesz, czy naprawiamy."
+          },
+          {
+            "title": "Naprawa i odbiór",
+            "text": "Status sprawdzasz online."
+          }
+        ],
+        "services": [
+          {
+            "title": "Laptopy i komputery",
+            "text": "Diagnoza i naprawa sprzętu firmowego."
+          },
+          {
+            "title": "Telefony i tablety służbowe",
+            "text": "Wyświetlacze, baterie, gniazda ładowania."
+          },
+          {
+            "title": "Drukarki",
+            "text": "Naprawa w serwisie."
+          },
+          {
+            "title": "Odzyskiwanie danych",
+            "text": "Z dysków i telefonów."
+          },
+          {
+            "title": "Folie Hammer Glass",
+            "text": "Ochrona ekranów telefonów i tabletów, cięta na wymiar."
+          },
+          {
+            "title": "Status naprawy online",
+            "text": "Bez dzwonienia — po numerze zlecenia."
+          }
+        ]
+      }
+    ]
+  },
+  "situations": {
+    "eyebrow": "Tak pracują razem",
+    "title": "Jedna sytuacja. Kilka linii. Ustalona kolejność.",
+    "lead": "Wybierz sytuację najbliższą Twojej. Zobaczysz, które zespoły wchodzą i w jakiej kolejności — ustalają to między sobą, nie przez Ciebie.",
+    "label": "Sytuacja",
+    "when": [
+      "Najpierw",
+      "Potem",
+      "Na końcu"
+    ],
+    "pillars": [
+      "Jeden plan na piśmie",
+      "Jeden kontakt do całości"
+    ],
+    "start": "Start:",
+    "items": [
+      {
+        "title": "Otwieram lokal",
+        "text": "Termin otwarcia goni, a potrzebna jest kasa, sieć, kamery i strona. Układamy kolejność tak, żeby lokal mógł sprzedawać od pierwszego dnia.",
+        "order": [
+          {
+            "line": "biznes",
+            "what": "Kasa i system sprzedaży"
+          },
+          {
+            "line": "instalacje",
+            "what": "Sieć, kamery, nagłośnienie"
+          },
+          {
+            "line": "software",
+            "what": "Strona i Google"
+          }
+        ]
+      },
+      {
+        "title": "Przejmuję lokal po kimś",
+        "text": "Kasa po poprzednim właścicielu, kamery bez haseł, sieć nie wiadomo jak zrobiona. Sprawdzamy, co da się przejąć, a co trzeba wymienić.",
+        "order": [
+          {
+            "line": "biznes",
+            "what": "Przejęcie serwisu kasy"
+          },
+          {
+            "line": "instalacje",
+            "what": "Przejęcie instalacji"
+          },
+          {
+            "line": "software",
+            "what": "Przejęcie albo nowa strona"
+          }
+        ]
+      },
+      {
+        "title": "Rośnie zespół i brakuje porządku w IT",
+        "text": "Każdy komputer inny, hasła na kartkach, kopii nikt nie sprawdzał. Zaczynamy od przeglądu i kopii zapasowych.",
+        "order": [
+          {
+            "line": "biznes",
+            "what": "Przegląd IT i kopie zapasowe"
+          },
+          {
+            "line": "biznes",
+            "what": "Opieka IT"
+          },
+          {
+            "line": "instalacje",
+            "what": "Sieć i dostęp"
+          }
+        ]
+      },
+      {
+        "title": "Muszę wejść w e-faktury",
+        "text": "Potrzebujesz programu, który wystawia i odbiera e-faktury w KSeF, i kogoś, kto go ustawi i przeszkoli zespół.",
+        "order": [
+          {
+            "line": "biznes",
+            "what": "Program InsERT i KSeF"
+          },
+          {
+            "line": "biznes",
+            "what": "Szkolenie zespołu"
+          },
+          {
+            "line": "software",
+            "what": "Automatyczne raporty"
+          }
+        ]
+      },
+      {
+        "title": "Remontuję obiekt",
+        "text": "Najtaniej zaplanować kable przed tynkami. Wchodzimy na etapie projektu i prowadzimy instalacje do odbioru.",
+        "order": [
+          {
+            "line": "instalacje",
+            "what": "Projekt i okablowanie"
+          },
+          {
+            "line": "instalacje",
+            "what": "Montaż i uruchomienie"
+          },
+          {
+            "line": "biznes",
+            "what": "Kasa, komputery, terminal"
+          }
+        ]
+      },
+      {
+        "title": "Firma pracuje na Excelu i kartkach",
+        "text": "Zlecenia w zeszycie, godziny w Excelu, faktury w trzecim miejscu. Zaczynamy od jednego modułu, który boli najbardziej.",
+        "order": [
+          {
+            "line": "software",
+            "what": "Panel pod proces"
+          },
+          {
+            "line": "biznes",
+            "what": "Program do faktur"
+          },
+          {
+            "line": "software",
+            "what": "Automatyzacje"
+          }
+        ]
+      }
+    ]
+  },
+  "rollout": {
+    "eyebrow": "Wdrożenie krok po kroku",
+    "title": "Od pierwszej rozmowy do opieki po uruchomieniu.",
+    "step": "Krok",
+    "we": "Co robimy my",
+    "you": "Co robisz Ty",
+    "steps": [
+      {
+        "title": "Jedna rozmowa",
+        "text": "Opowiadasz o firmie raz. Nie musisz wiedzieć, która linia czym się zajmuje.",
+        "we": "Zadajemy pytania i notujemy potrzeby dla wszystkich linii.",
+        "you": "Mówisz, co boli i na kiedy to ma działać."
+      },
+      {
+        "title": "Wizja lokalna albo przegląd",
+        "text": "Przy instalacjach przyjeżdżamy na miejsce, przy IT robimy przegląd, przy stronie — audyt.",
+        "we": "Sprawdzamy stan zastany i mierzymy to, co trzeba zmierzyć.",
+        "you": "Udostępniasz obiekt, rzuty albo dostępy."
+      },
+      {
+        "title": "Jeden plan i wycena",
+        "text": "Dostajesz plan z podziałem na etapy i wycenę na piśmie, zanim cokolwiek zaczniemy.",
+        "we": "Układamy kolejność prac między liniami.",
+        "you": "Akceptujesz zakres albo go zmieniasz."
+      },
+      {
+        "title": "Realizacja etapami",
+        "text": "Linie wchodzą w ustalonej kolejności: najpierw to, od czego zależy reszta — zwykle sieć i kasa.",
+        "we": "Zespoły ustalają szczegóły między sobą, nie przez Ciebie.",
+        "you": "Masz jeden kontakt do całości."
+      },
+      {
+        "title": "Uruchomienie",
+        "text": "Sprawdzamy, czy wszystko działa razem, a jeśli tak ustalimy — pokazujemy zespołowi, jak z tego korzystać.",
+        "we": "Konfigurujemy i testujemy; szkolimy, gdy tak ustalimy.",
+        "you": "Odbierasz działającą całość."
+      },
+      {
+        "title": "Opieka",
+        "text": "Po wdrożeniu nie znikamy: serwis kas, opieka IT, serwis instalacji i opieka nad stroną są w tej samej firmie.",
+        "we": "Pilnujemy przeglądów i odpowiadamy na zgłoszenia.",
+        "you": "Dzwonisz pod znany numer."
+      }
+    ]
+  },
+  "care": {
+    "eyebrow": "Po wdrożeniu",
+    "title": "Serwis i opieka zostają w tej samej firmie.",
+    "lead": "Kasy, komputery, instalacje i strona mają swój zespół i swój czas reakcji. Dzwonisz pod znany numer.",
+    "items": [
+      {
+        "line": "biznes",
+        "title": "Serwis kas fiskalnych",
+        "points": [
+          "Autoryzowany serwis Posnet i Elzab",
+          "Przeglądy i naprawy",
+          "Przejęcie serwisu po innej firmie"
+        ]
+      },
+      {
+        "line": "biznes",
+        "title": "Opieka IT",
+        "points": [
+          "Pomoc zdalna i na miejscu",
+          "Monitoring i kopie zapasowe",
+          "Bezpłatny przegląd IT na start"
+        ]
+      },
+      {
+        "line": "instalacje",
+        "title": "Serwis instalacji",
+        "points": [
+          "Gwarancja na montaż 24 miesiące",
+          "Przeglądy i pomoc zdalna",
+          "Przejęcie cudzej instalacji"
+        ]
+      },
+      {
+        "line": "software",
+        "title": "Opieka nad stroną i systemem",
+        "points": [
+          "Serwer w Polsce, kopia co noc",
+          "Aktualizacje i drobne zmiany",
+          "Rozwój systemu razem z firmą"
+        ]
+      }
+    ]
+  },
+  "compare": {
+    "eyebrow": "Dlaczego jedna firma",
+    "title": "Kilku wykonawców czy jeden? Różnica w sześciu punktach.",
+    "topic": "Temat",
+    "many": "Kilku wykonawców",
+    "one": "PRO-KOM",
+    "rows": [
+      {
+        "topic": "Kontakt",
+        "many": "Osobny numer i osobne ustalenia z każdym wykonawcą.",
+        "one": "Jeden kontakt do całości, a w tle właściwe zespoły."
+      },
+      {
+        "topic": "Gdy coś nie działa razem",
+        "many": "Każdy wykonawca odpowiada za swoją część i trzeba ustalić, czyja to sprawa.",
+        "one": "Sieć, kasę i komputer ustawia ta sama firma — sprawdzamy całość."
+      },
+      {
+        "topic": "Kolejność prac",
+        "many": "Terminy wykonawców koordynujesz sam.",
+        "one": "Kolejność między liniami układamy po naszej stronie."
+      },
+      {
+        "topic": "Wiedza o Twojej firmie",
+        "many": "Każdemu wykonawcy tłumaczysz wszystko od początku.",
+        "one": "Opowiadasz raz — zespoły pracują pod jednym dachem."
+      },
+      {
+        "topic": "Serwis po wdrożeniu",
+        "many": "Kilka umów i kilka miejsc do zgłaszania usterek.",
+        "one": "Serwis kas, IT, instalacji i strony w jednej firmie."
+      },
+      {
+        "topic": "Na miejscu",
+        "many": "Zależy od wykonawcy — część działa tylko zdalnie.",
+        "one": "Salon i serwis w Rabce-Zdroju, dojazd na Podhalu i w Małopolsce."
+      }
+    ]
+  },
+  "grants": {
+    "eyebrow": "Dofinansowania · szkoły, gminy, instytucje, firmy",
+    "title": "Kupujesz sprzęt w projekcie z dofinansowaniem? Przygotujemy papiery.",
+    "lead": "Do zamówień realizowanych z dofinansowaniem przygotowujemy kosztorys i dokumenty potrzebne do rozliczenia. Powiedz, w jakim projekcie bierzesz udział — dopasujemy zestawienie do jego wymagań.",
+    "cta": "Opisz projekt",
+    "points": [
+      {
+        "icon": "doc",
+        "text": "Kosztorys pod wymagania projektu"
+      },
+      {
+        "icon": "receipt",
+        "text": "Dokumenty do rozliczenia"
+      },
+      {
+        "icon": "laptop",
+        "text": "Dostawa, a konfiguracja i szkolenie na życzenie"
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Pytania firm",
+    "title": "Zanim zadzwonisz",
+    "missing": "Nie ma tu Twojego pytania? Zadzwoń:",
+    "helpLink": "Centrum pomocy",
+    "items": [
+      {
+        "question": "Potrzebuję kilku rzeczy naraz. Muszę dzwonić w kilka miejsc?",
+        "answer": "Nie. Wystarczy jeden telefon albo jedna wiadomość — połączymy zespoły po naszej stronie i dostaniesz jeden plan."
+      },
+      {
+        "question": "Czy linie to osobne firmy?",
+        "answer": "Nie. To jedna firma, PRO-KOM Tadeusz Wójciak z Rabki-Zdroju, z jednym NIP-em. Linie mają osobne strony i zespoły, żeby sprawa od razu trafiała do właściwych ludzi."
+      },
+      {
+        "question": "Mam już kasę albo kamery od innej firmy. Co wtedy?",
+        "answer": "Przejmujemy serwis kas po innych firmach i załatwiamy formalności. Przejmujemy też gotowe instalacje — najpierw sprawdzamy, co da się zostawić."
+      },
+      {
+        "question": "Co robicie przy uruchomieniu kasy fiskalnej?",
+        "answer": "Zgłaszamy kasę, fiskalizujemy ją i programujemy, a na życzenie szkolimy obsługę. Wniosek o ulgę na kasę składa Twoja księgowa."
+      },
+      {
+        "question": "Czy podajecie ceny na stronie?",
+        "answer": "Nie. Wycenę dostajesz na piśmie po krótkiej rozmowie, bo zależy od lokalu, liczby stanowisk i zakresu."
+      },
+      {
+        "question": "Jak szybko odpowiadacie?",
+        "answer": "Każda linia ma swój czas odpowiedzi — podajemy go przy jej numerze w sekcji „Po wdrożeniu” i na stronie linii."
+      },
+      {
+        "question": "Czy dojeżdżacie do klienta?",
+        "answer": "Tak. Do firm i na montaże dojeżdżamy na Podhalu i w całej Małopolsce. Strony i systemy robimy zdalnie dla firm z całej Polski."
+      },
+      {
+        "question": "Czy pomagacie przy zakupach z dofinansowaniem?",
+        "answer": "Tak. Przygotowujemy kosztorys i dokumenty potrzebne do rozliczenia zamówienia."
+      },
+      {
+        "question": "Czy muszę brać wszystko naraz?",
+        "answer": "Nie. Możesz zacząć od jednej rzeczy, na przykład kasy albo kamer. Plan pokazuje tylko, co warto mieć na uwadze na przyszłość."
+      },
+      {
+        "question": "Gdzie jest Wasz salon?",
+        "answer": "{adres}. {godziny}."
+      }
+    ]
+  },
+  "form": {
+    "eyebrow": "Opisz firmę",
+    "title": "Dwa zdania wystarczą. Resztę ustalimy w rozmowie.",
+    "afterLabel": "Co dalej po wysłaniu",
+    "after": [
+      "Wiadomość trafia do linii, której dotyczy Twoja sprawa.",
+      "Oddzwaniamy albo odpisujemy i dopytujemy o szczegóły.",
+      "Dostajesz plan i wycenę na piśmie, zanim cokolwiek zaczniemy."
+    ],
+    "cta": "Opisz swoją firmę"
+  },
+  "next": {
+    "eyebrow": "Co dalej?",
+    "title": "Cztery miejsca, do których warto zajrzeć.",
+    "items": [
+      {
+        "eyebrow": "Inwestycje i dostawy",
+        "title": "Większe zamówienie albo cały obiekt",
+        "text": "Sprzęt IT, RTV i AGD dla firm i instytucji — złóż listę zapytania, wczytaj przykład obiektu, wyślij SWZ.",
+        "href": "/inwestycje-i-dostawy"
+      },
+      {
+        "eyebrow": "Załatw online",
+        "title": "Załatw to bez dzwonienia",
+        "text": "Zgłoszenie naprawy, wycena strony, plan instalacji — wszystko, co da się zrobić przez internet.",
+        "href": "/zalatw-online"
+      },
+      {
+        "eyebrow": "Pomoc",
+        "title": "Co zrobić, gdy…",
+        "text": "Kasa nie drukuje, padło Wi-Fi, pękł ekran. Krótkie instrukcje i właściwy numer.",
+        "href": "/pomoc"
+      },
+      {
+        "eyebrow": "Linie PRO-KOM",
+        "title": "Co gdzie załatwisz",
+        "text": "Lista spraw z przypisaną linią, numerem i stroną z pełną ofertą.",
+        "href": "/linie"
+      }
+    ]
+  },
+  "final": {
+    "title": "Jeden telefon. Cała technika w firmie załatwiona.",
+    "contact": "Kontakt i dojazd",
+    "lines": "Co gdzie załatwisz"
+  }
+}
