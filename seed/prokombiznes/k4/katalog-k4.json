@@ -33713,7 +33713,7 @@
   {
    "slug_seed": "lenovo-thinkbook-14-2-in-1-g6",
    "zmiana_k4": "zmieniona",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "biuro",
    "kategoria": "laptopy",
    "podkategoria": "laptopy",
@@ -33725,9 +33725,10 @@
    "podtytul": "14\" ThinkBook 2 w 1 z Intel Core Ultra seria 3, zawiasem 360° i ekranem dotykowym WUXGA",
    "korzysc": "Laptop z obracanym ekranem dotykowym do biura, recepcji i szkoły, z pamięcią, którą rozbudujesz później.",
    "opis": [
-    "ThinkBook 14 2-in-1 G6 to laptop z ekranem dotykowym, który obracasz o 360°: do pracy przy biurku, do prezentacji „w namiot” albo w trybie tabletu. Dobry dla biura, recepcji, szkoły czy salonu usługowego, gdzie przyda się pokazanie czegoś klientowi na ekranie albo podpis rysikiem.",
-    "Ma procesory Intel Core Ultra 5 325 lub Core Ultra 7 355 z układem AI (Copilot+ PC), ekran 14\" WUXGA 1920×1200 o jasności 400 nitów, Wi-Fi 7 i kamerę Full HD z podczerwienią do logowania twarzą. Pamięć RAM siedzi w dwóch gniazdach (do 32 GB), a w środku są dwa gniazda M.2 na dyski.",
-    "Z boku masz dwa USB-A, dwa USB-C z ładowaniem i obrazem, HDMI, czytnik kart microSD i gniazdo słuchawkowe. Rysik Lenovo Pen Gen 2 kupujesz osobno. Aluminiowa obudowa przeszła testy MIL-STD-810H, bateria ma 60 Wh, a waga zaczyna się od 1,54 kg."
+    "ThinkBook 14 2-in-1 G6 to 14-calowy laptop z dotykowym ekranem na zawiasie 360°, który w kilka sekund zamieniasz w tablet, „namiot” albo podstawkę. Sprawdzi się w recepcji hotelu czy gabinetu, w szkole i w biurze obsługi klienta — wszędzie tam, gdzie trzeba odwrócić ekran do klienta, przejść razem z nim przez ofertę albo zebrać podpis pod umową.",
+    "W środku pracuje Intel Core Ultra 5 325 albo Core Ultra 7 355 z serii 3, z układem NPU do 49 TOPS, dzięki czemu laptop spełnia wymagania Copilot+ PC. Ekran WUXGA 1920×1200 ma jasność 400 nitów i błyszczącą szybę z dotykiem 10-punktowym. Pamięć DDR5-5600 siedzi w dwóch gniazdach SODIMM (do 32 GB), a obok fabrycznego dysku M.2 2242 czeka drugie, wolne gniazdo M.2 2280 na dodatkowy SSD.",
+    "Po bokach są dwa USB-C z ładowaniem i wyjściem DisplayPort, dwa USB-A (jedno zasila urządzenia także przy wyłączonym laptopie), HDMI 1.4b i czytnik microSD — razem obsłużysz do trzech monitorów zewnętrznych. Gniazda RJ-45 nie ma, w sieć firmową wchodzisz przez Wi-Fi 7. Rysik Lenovo Pen Gen 2 lub Gen 3 jest w pudełku tylko w wybranych modelach, a bateria 60 Wh ładuje się do 80% w około godzinę, gdy laptop jest wyłączony lub uśpiony.",
+    "W salonie PRO-KOM w Rabce-Zdroju pomożemy wybrać model z rysikiem lub bez i zdecydować, czy od razu dołożyć pamięć do 32 GB. ThinkBooka przygotujemy do pracy: Windows 11 Pro z szyfrowaniem BitLocker, konta użytkowników, logowanie twarzą przez kamerę IR, poczta i programy firmowe, a na stanowisko recepcji — wygodne podpisywanie dokumentów PDF rysikiem."
    ],
    "cechy": [
     "zawias 360°",
@@ -33737,39 +33738,55 @@
    "parametry": [
     {
      "k": "Ekran",
-     "v": "14\" WUXGA 1920×1200 IPS 16:10, dotykowy, 400 nitów, błyszczący, 60 Hz"
+     "v": "14\" WUXGA 1920×1200 IPS 16:10, dotykowy (10 punktów, OGS), 400 nitów, błyszczący, 45% NTSC, 60 Hz"
     },
     {
      "k": "Procesor",
-     "v": "Intel Core Ultra 5 325 lub Core Ultra 7 355 (seria 3, 8 rdzeni, NPU do 49 TOPS)"
+     "v": "Intel Core Ultra 5 325 lub Core Ultra 7 355 (seria 3, 8 rdzeni); NPU do 49 TOPS — Copilot+ PC"
     },
     {
      "k": "Pamięć RAM",
-     "v": "DDR5-5600, 2 gniazda SODIMM, maks. 32 GB"
+     "v": "DDR5-5600, 2 gniazda SODIMM (dwukanałowo), maks. 32 GB"
     },
     {
      "k": "Dysk",
-     "v": "2 gniazda M.2 PCIe 4.0 (2242 i 2280), SSD 256 GB, 512 GB lub 1 TB"
+     "v": "SSD M.2 2242 PCIe 4.0: 256 GB, 512 GB lub 1 TB; drugie gniazdo M.2 2280 PCIe 4.0 wolne do samodzielnej rozbudowy"
     },
     {
      "k": "Porty",
-     "v": "2× USB-A 5 Gb/s (jedno zawsze zasilane), 2× USB-C 5 Gb/s z ładowaniem i wyjściem obrazu, HDMI 1.4b, czytnik kart microSD, gniazdo słuchawkowe; brak RJ-45"
+     "v": "2× USB-A 5 Gb/s (jedno Always On), 2× USB-C 5 Gb/s (zasilanie USB PD 45–65 W, DisplayPort 1.2), HDMI 1.4b, czytnik microSD, gniazdo audio 3,5 mm; bez RJ-45"
+    },
+    {
+     "k": "Monitory zewnętrzne",
+     "v": "do 3 jednocześnie (razem z ekranem laptopa 4); HDMI do 3840×2160 30 Hz, USB-C do 3840×2160 60 Hz"
     },
     {
      "k": "Łączność",
-     "v": "Wi-Fi 7, Bluetooth 5.4; bez modemu LTE"
+     "v": "Wi-Fi 7 (2×2), Bluetooth 5.4; bez modemu WWAN"
     },
     {
      "k": "Kamera",
-     "v": "Full HD 1080p z podczerwienią (logowanie twarzą Windows Hello), zasłonka"
+     "v": "Full HD 1080p + podczerwień (logowanie twarzą Windows Hello), zasłonka"
     },
     {
      "k": "Rysik",
-     "v": "obsługa Lenovo Pen Gen 2 (sprzedawany osobno)"
+     "v": "Lenovo Pen Gen 2 lub Pen Gen 3 — w zestawie w wybranych modelach, w pozostałych do dokupienia"
+    },
+    {
+     "k": "Klawiatura",
+     "v": "podświetlana, odporna na zalanie, skok 1,3 mm, klawisz Copilot"
     },
     {
      "k": "Bateria",
-     "v": "60 Wh; szybkie ładowanie do 80% w ok. 1 godz. (laptop wyłączony lub uśpiony)"
+     "v": "60 Wh; Rapid Charge — do 80% w ok. 1 godz. (laptop wyłączony lub uśpiony)"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "USB-C 65 W"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub bez systemu"
     },
     {
      "k": "Waga",
@@ -33781,47 +33798,51 @@
     },
     {
      "k": "Obudowa / normy",
-     "v": "aluminiowa pokrywa i spód, kolor Luna Grey; test wytrzymałości MIL-STD-810H"
+     "v": "aluminiowa pokrywa i spód, kolor Luna Grey; test MIL-STD-810H"
     },
     {
      "k": "Bezpieczeństwo",
-     "v": "osobny układ TPM 2.0 (FIPS 140-3), logowanie twarzą, zasłonka kamery, hasła BIOS, samonaprawiający się BIOS; bez czytnika linii papilarnych"
+     "v": "osobny układ TPM 2.0 (FIPS 140-3), hasła BIOS, samonaprawiający się BIOS, zasłonka kamery; bez czytnika linii papilarnych"
     },
     {
-     "k": "Zasilacz",
-     "v": "USB-C 65 W"
+     "k": "Gwarancja",
+     "v": "1 rok lub 2 lata (bateria 1 rok) — kurier lub dostarczenie do serwisu"
     }
    ],
    "warianty_opis": [
     {
      "model": "Core Ultra 5 325",
-     "roznica": "Do biura, recepcji i szkoły: dokumenty, poczta, przeglądarka, wideorozmowy."
+     "roznica": "Recepcja, biuro i szkoła: dokumenty, poczta, przeglądarka i wideorozmowy."
     },
     {
      "model": "Core Ultra 7 355",
-     "roznica": "Więcej mocy do cięższych arkuszy i wielu programów naraz."
+     "roznica": "Wyższe taktowanie — dla cięższych arkuszy i wielu programów otwartych naraz."
     }
    ],
    "faq": [
     {
-     "q": "Czy rysik jest w zestawie?",
-     "a": "Nie. Laptop obsługuje rysik Lenovo Pen Gen 2, który kupuje się osobno."
+     "q": "Czy ThinkBook 14 2-in-1 G6 ma rysik w zestawie?",
+     "a": "Zależy od modelu. Lenovo oferuje konfiguracje z rysikiem Lenovo Pen Gen 2 albo Pen Gen 3 w pudełku oraz takie, w których rysik dokupuje się osobno. Przy zamówieniu sprawdzimy, którą wersję wybieramy, i doradzimy, czy rysik się przyda."
     },
     {
-     "q": "Czy mogę później dołożyć pamięci?",
-     "a": "Tak. Pamięć siedzi w dwóch gniazdach SODIMM, więc można ją rozbudować do 32 GB."
+     "q": "Czy w ThinkBook 14 2-in-1 G6 dołożę pamięć i drugi dysk?",
+     "a": "Tak. RAM DDR5-5600 jest w dwóch gniazdach SODIMM, więc rozbudujesz go do 32 GB. Fabryczny SSD zajmuje gniazdo M.2 2242, a drugie gniazdo M.2 2280 PCIe 4.0 zostaje wolne na dodatkowy dysk."
     },
     {
-     "q": "Core Ultra 5 czy Core Ultra 7 — który procesor wybrać?",
-     "a": "Core Ultra 5 325 wystarczy do biura, recepcji i szkoły: dokumenty, poczta, przeglądarka i wideorozmowy. Core Ultra 7 355 daje więcej mocy do cięższych arkuszy i wielu programów otwartych naraz."
+     "q": "Core Ultra 5 325 czy Core Ultra 7 355 w ThinkBook 14 2-in-1 G6?",
+     "a": "Oba procesory mają 8 rdzeni i NPU spełniające wymagania Copilot+ PC. Core Ultra 5 325 wystarczy do recepcji, biura i szkoły; Core Ultra 7 355 ma wyższe taktowanie i lepiej znosi ciężkie arkusze oraz wiele programów naraz."
     },
     {
-     "q": "Czy podłączę kabel sieciowy i monitor bez przejściówek?",
-     "a": "Monitor tak — przez HDMI 1.4b albo jeden z dwóch portów USB-C z wyjściem obrazu. Wbudowanego gniazda RJ-45 laptop nie ma — z siecią łączy się przez Wi-Fi 7. Do tego dwa USB-A i czytnik microSD."
+     "q": "Jak podłączyć ThinkBook 14 2-in-1 G6 do monitora i sieci przewodowej?",
+     "a": "Monitor podłączysz przez HDMI 1.4b (do 4K 30 Hz) albo USB-C z DisplayPort (do 4K 60 Hz) — łącznie do trzech ekranów zewnętrznych. Gniazda RJ-45 nie ma, więc do kabla sieciowego potrzebna jest przejściówka USB albo stacja dokująca na USB-C."
+    },
+    {
+     "q": "Ile waży ThinkBook 14 2-in-1 G6 i jak szybko się ładuje?",
+     "a": "Waży od 1,54 kg przy grubości 16,9–17,4 mm. Bateria 60 Wh w trybie Rapid Charge ładuje się do 80% w około godzinę, jeśli laptop jest wtedy wyłączony lub uśpiony; zasilacz USB-C 65 W."
     }
    ],
    "konfigurator": {
-    "opis": "Wybierasz procesor, pamięć, dysk, system i gwarancję.",
+    "opis": "Wybierasz procesor, pamięć, dysk, rysik, system i gwarancję.",
     "opcje": [
      {
       "nazwa": "Procesor",
@@ -33838,7 +33859,7 @@
        "16 GB",
        "32 GB"
       ],
-      "uwaga": "2 gniazda SODIMM — rozbudowa do 32 GB.",
+      "uwaga": "2 gniazda SODIMM DDR5-5600 — rozbudowa do 32 GB.",
       "dl": false,
       "pom": "Więcej pamięci RAM = więcej programów i kart przeglądarki naraz bez spowolnień."
      },
@@ -33849,14 +33870,27 @@
        "512 GB",
        "1 TB"
       ],
+      "uwaga": "Drugie gniazdo M.2 2280 zostaje wolne.",
       "dl": false,
       "pom": "Miejsce na system, programy i pliki. SSD to szybki dysk bez ruchomych części."
+     },
+     {
+      "nazwa": "Rysik",
+      "wartosci": [
+       "Lenovo Pen Gen 2 w zestawie",
+       "Lenovo Pen Gen 3 w zestawie",
+       "bez rysika (do dokupienia)"
+      ],
+      "uwaga": "Rysik w zestawie tylko w wybranych modelach.",
+      "dl": false,
+      "pom": "Rysik przydaje się do podpisów, notatek odręcznych i zaznaczania uwag na dokumentach."
      },
      {
       "nazwa": "System",
       "wartosci": [
        "Windows 11 Pro",
-       "Windows 11 Home"
+       "Windows 11 Home",
+       "bez systemu"
       ],
       "uwaga": "Dostępność wersji systemu zależy od konfiguracji.",
       "dl": false,
@@ -33889,6 +33923,18 @@
     {
      "slug": "lenovo-thinkvision-t",
      "etykieta": "Monitor z USB-C"
+    },
+    {
+     "slug": "lenovo-thinkvision-m-przenosne",
+     "etykieta": "Monitor przenośny"
+    },
+    {
+     "slug": "microsoft-365-business",
+     "etykieta": "Programy biurowe"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
     }
    ],
    "podobne": [
@@ -33907,13 +33953,8 @@
    "zrodla": [
     {
      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkBook/ThinkBook_14_2_in_1_G6_IPL/ThinkBook_14_2_in_1_G6_IPL_Spec.pdf",
-     "etykieta": "Specyfikacja PSREF — ThinkBook 14 2 in 1 G6 IPL",
-     "host": "psref.lenovo.com · PDF"
-    },
-    {
-     "url": "https://news.lenovo.com/pressroom/press-releases/trusted-ai-powered-business-computing-modular-enterprise-mwc/",
      "etykieta": "Strona producenta — Lenovo",
-     "host": "news.lenovo.com"
+     "host": "psref.lenovo.com · PDF"
     }
    ],
    "wyrozniki": [
@@ -33924,23 +33965,23 @@
    "w_skrocie_wzorzec": [
     {
      "k": "Ekran",
-     "v": "14\" WUXGA 1920×1200 IPS 16:10, dotykowy, 400 nitów, błyszczący, 60 Hz"
+     "v": "14\" WUXGA 1920×1200 IPS 16:10, dotykowy (10 punktów"
     },
     {
      "k": "Procesor",
-     "v": "Intel Core Ultra 5 325 lub Core Ultra 7 355"
+     "v": "Intel Core Ultra 5 325 lub Core Ultra 7 355 (seria 3, 8 rdzeni)"
     },
     {
      "k": "Pamięć RAM",
-     "v": "DDR5-5600, 2 gniazda SODIMM, maks. 32 GB"
-    },
-    {
-     "k": "Dysk",
-     "v": "2 gniazda M.2 PCIe 4.0 (2242 i 2280), SSD 256 GB"
+     "v": "DDR5-5600, 2 gniazda SODIMM (dwukanałowo), maks. 32 GB"
     },
     {
      "k": "Porty",
-     "v": "2× USB-A 5 Gb/s (jedno zawsze zasilane)"
+     "v": "2× USB-A 5 Gb/s (jedno Always On), 2× USB-C 5 Gb/s (zasilanie USB PD 45–65 W"
+    },
+    {
+     "k": "Waga",
+     "v": "od 1,54 kg"
     }
    ],
    "nowosc": false,
@@ -33951,6 +33992,28 @@
      "k": "Lenovo",
      "l": "en",
      "d": "model"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-thinkbook-14-2-in-1-g6-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkBook/ThinkBook_14_2_in_1_G6_IPL/ThinkBook_14_2_in_1_G6_IPL_CT1_04.png",
+     "ujecie": "tryb laptopa, przód pod kątem"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkbook-14-2-in-1-g6-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkBook/ThinkBook_14_2_in_1_G6_IPL/ThinkBook_14_2_in_1_G6_IPL_CT1_01.png",
+     "ujecie": "tryb „namiot” z rysikiem"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkbook-14-2-in-1-g6-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkBook/ThinkBook_14_2_in_1_G6_IPL/ThinkBook_14_2_in_1_G6_IPL_CT1_03.png",
+     "ujecie": "tryb tabletu z rysikiem"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkbook-14-2-in-1-g6-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkBook/ThinkBook_14_2_in_1_G6_IPL/ThinkBook_14_2_in_1_G6_IPL_CT2_04.png",
+     "ujecie": "bok z portami"
     }
    ]
   },
@@ -43679,7 +43742,7 @@
   {
    "slug_seed": "lenovo-thinkvision-m-przenosne",
    "zmiana_k4": "zmieniona",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "biuro",
    "kategoria": "monitory",
    "podkategoria": "monitory",
@@ -43688,12 +43751,13 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Lenovo ThinkVision M14d / M14t Gen 2 / M16 — monitory przenośne",
    "krotka": "Lenovo ThinkVision M14d / M14t Gen 2 / M16",
-   "podtytul": "Lekkie monitory przenośne 14\" i 16\" na USB-C, w wersji dotykowej z rysikiem (M14t Gen 2)",
+   "podtytul": "Lekkie monitory przenośne 14\" i 16\" na USB-C, w tym dotykowy M14t Gen 2 z rysikiem w zestawie",
    "korzysc": "Drugi ekran do laptopa, który wrzucisz do torby: podłączasz go jednym kablem USB-C.",
    "opis": [
-    "Monitor przenośny to lekki, cienki ekran, który podłączasz do laptopa jednym kablem USB-C — przesyła on obraz i zasilanie. Przyda się handlowcowi na spotkaniu, księgowej pracującej na dwóch dokumentach naraz, w recepcji i przy pracy w domu albo w hotelu.",
-    "M14d ma ekran 14\" 2240×1400 (16:10), jasność 300 nitów i 100% sRGB. Waży 0,6 kg z podstawką. M14t Gen 2 ma tę samą rozdzielczość, ale ekran dotykowy, rysik w zestawie i podstawkę, którą obrócisz do pionu; waży 0,7 kg. Oba mają dwa porty USB-C: do jednego podłączasz laptop, do drugiego możesz podłączyć zasilacz, który zasili też laptop (w M14t Gen 2 do 65 W).",
-    "Nowy ThinkVision M16 (2026) ma większy ekran 16\" 16:10, port USB-C z przekazywaniem zasilania i działa w poziomie oraz w pionie. M14d i M14t Gen 2 można też przykręcić do uchwytu VESA 100 mm i mają 3 lata gwarancji producenta."
+    "Monitory przenośne ThinkVision M to drugi ekran, który wozisz w torbie razem z laptopem i podłączasz jednym przewodem USB-C, przesyłającym jednocześnie obraz i zasilanie. Przydadzą się handlowcowi, który pokazuje ofertę po drugiej stronie stołu, księgowej porównującej dwa dokumenty w delegacji i recepcji, w której brakuje miejsca na zwykły monitor.",
+    "M14d to najlżejsza wersja: 14\" 2240×1400 (16:10), 300 nitów (szczytowo 375), 100% sRGB i 0,6 kg razem z podstawką. M14t Gen 2 ma tę samą rozdzielczość, ale ekran dotykowy 10-punktowy, rysik, etui i klipsy w pudełku oraz podstawkę obracaną do pionu; waży 0,7 kg. Oba czternastocalowe modele przykręcisz do uchwytu VESA 100 mm.",
+    "M16 z 2026 roku daje większy ekran 16\" 1920×1200 przy 300 nitach, waży 0,97 kg z podstawką i ma w komplecie pokrowiec. Każdy z trzech modeli ma dwa porty USB-C z DisplayPort 1.2, więc do drugiego możesz wpiąć zasilacz; M14t Gen 2 i M16 przekażą wtedy laptopowi do 65 W. Lenovo daje na wszystkie trzy 3 lata gwarancji.",
+    "Zanim zamówisz, w salonie w Rabce-Zdroju sprawdzimy, czy port USB-C Twojego laptopa wyprowadza obraz — od tego zależy, czy wystarczy jeden kabel. Pomożemy wybrać między lżejszym M14d, dotykowym M14t Gen 2 do podpisów i notatek a większym M16, ustawimy układ ekranów w Windows, a przy M14d i M14t Gen 2 pokażemy aplikację Lenovo Accessories and Display Manager do jasności i trybów obrazu."
    ],
    "cechy": [
     "jeden kabel USB-C",
@@ -43703,91 +43767,103 @@
    "parametry": [
     {
      "k": "Ekran",
-     "v": "M14d i M14t Gen 2: 14\" 2240×1400, 16:10, IPS; M16: 16\" 16:10"
+     "v": "M14d i M14t Gen 2: 14\", 16:10; M16: 16\", 16:10 (wąskie ramki z 3 stron)"
     },
     {
-     "k": "M16",
-     "v": "16\" 1920×1200 (16:10), jasność 300 cd/m²"
+     "k": "Rozdzielczość",
+     "v": "M14d i M14t Gen 2: 2240×1400 (189 ppi); M16: 1920×1200 (142 ppi)"
+    },
+    {
+     "k": "Matryca",
+     "v": "IPS, podświetlenie WLED, kontrast 1500:1, kąty widzenia 178°/178°; M14d i M16 z powłoką przeciwodblaskową"
     },
     {
      "k": "Jasność",
-     "v": "M14d: 300 nitów (szczytowo 375); M14t Gen 2: 270 nitów (panel 300)"
+     "v": "M14d: 300 cd/m² (szczytowo 375); M14t Gen 2: 270 cd/m² (panel 300); M16: 300 cd/m²"
     },
     {
      "k": "Kolory",
-     "v": "100% sRGB (M14d, M14t Gen 2)"
+     "v": "M14d i M14t Gen 2: 100% sRGB; M16: 45% NTSC"
     },
     {
      "k": "Odświeżanie",
-     "v": "60 Hz (M14d, M14t Gen 2)"
+     "v": "60 Hz, czas reakcji 6 ms (tryb Extreme) / 8 ms"
     },
     {
      "k": "Dotyk",
-     "v": "M14t Gen 2: dotyk 10-punktowy, rysik w zestawie; M14d: bez dotyku"
+     "v": "M14t Gen 2: dotyk 10-punktowy, rysik w zestawie; M14d i M16: bez dotyku"
     },
     {
      "k": "Porty",
-     "v": "M14d: 2× USB-C (obraz DP 1.2 Alt Mode); M14t Gen 2: 2× USB-C (obraz DP 1.2, USB PD); M16: USB-C z przekazywaniem zasilania"
+     "v": "M14d: 2× USB-C (DisplayPort 1.2 Alt Mode); M14t Gen 2: 2× USB-C (DisplayPort 1.2, USB PD 2.0); M16: 2× USB-C (DisplayPort 1.2, USB PD 3.0)"
     },
     {
      "k": "Przekazywanie zasilania do laptopa",
-     "v": "M14t Gen 2: do 65 W (zależnie od obciążenia i jasności); M14d: tak, moc zależna od podłączonych urządzeń (producent nie podaje wartości)"
+     "v": "M14t Gen 2 i M16: do 65 W (zależnie od podłączonych urządzeń i jasności); M14d: producent nie podaje mocy"
     },
     {
      "k": "Podstawka",
-     "v": "M14d: pochylenie -5° do +95°, regulacja wysokości 11 mm; M14t Gen 2: pochylenie 0–90°, obrót do pionu ±90°, regulacja wysokości 11 mm; M16: praca w poziomie i w pionie"
+     "v": "M14d: pochylenie −5° do +95°, 11 mm w górę; M14t Gen 2: pochylenie 0–90°, obrót do pionu ±90°, 11 mm; M16: pochylenie 0–90°, 10 mm"
     },
     {
      "k": "Montaż",
-     "v": "VESA 100 mm (M14d, M14t Gen 2)"
+     "v": "VESA 100 mm (M14d, M14t Gen 2); dla M16 producent nie podaje VESA"
     },
     {
      "k": "Waga",
-     "v": "M14d: 0,6 kg z podstawką; M14t Gen 2: 0,7 kg"
+     "v": "M14d: 0,6 kg z podstawką; M14t Gen 2: 0,7 kg; M16: 0,97 kg z podstawką"
     },
     {
      "k": "Wymiary",
-     "v": "M14d: 314,4 × 106,4 × 216,5–227,5 mm; M14t Gen 2: 314,8 × 96,4 × 224,3–235,3 mm"
+     "v": "M14d: 314,4 × 106,4 × 216,5–227,5 mm; M14t Gen 2: 314,8 × 96,4 × 224,3–235,3 mm; M16: 360 × 116,5 × 252,1–262,1 mm"
     },
     {
      "k": "W zestawie",
-     "v": "M14d: kabel USB-C 1 m; M14t Gen 2: kabel USB-C 1 m, rysik, etui ochronne, 2 klipsy, przejściówka kątowa"
+     "v": "M14d: kabel USB-C 1 m; M14t Gen 2: kabel USB-C 1 m, rysik, etui ochronne, 2 klipsy, przejściówka kątowa; M16: kabel USB-C 1 m, pokrowiec"
+    },
+    {
+     "k": "Zabezpieczenie",
+     "v": "gniazdo linki Kensington (M14t Gen 2 i M16: 2,5 × 6 mm)"
     },
     {
      "k": "Gwarancja",
-     "v": "3 lata gwarancji producenta (M14d, M14t Gen 2)"
+     "v": "3 lata gwarancji producenta (wszystkie trzy modele)"
     }
    ],
    "warianty_opis": [
     {
      "model": "ThinkVision M14d",
-     "roznica": "14\" 2240×1400, 300 nitów, bez dotyku, 0,6 kg — prosty drugi ekran do laptopa."
+     "roznica": "14\" 2240×1400, 300 nitów, 100% sRGB, bez dotyku, 0,6 kg — najlżejszy drugi ekran do laptopa."
     },
     {
      "model": "ThinkVision M14t Gen 2",
-     "roznica": "14\" dotykowy z rysikiem i etui w zestawie, obrót do pionu — do podpisów, notatek i prezentacji."
+     "roznica": "14\" dotykowy z rysikiem, etui i klipsami w zestawie, obrót do pionu, do 65 W dla laptopa — do podpisów, notatek i prezentacji."
     },
     {
      "model": "ThinkVision M16",
-     "roznica": "Nowy model 2026: większy ekran 16\" 16:10, praca w poziomie i w pionie."
+     "roznica": "Model 2026: 16\" 1920×1200, 300 nitów, 0,97 kg, do 65 W dla laptopa, pokrowiec w zestawie."
     }
    ],
    "faq": [
     {
-     "q": "Czy monitor zadziała z każdym laptopem?",
-     "a": "Działa z laptopami, których port USB-C przesyła obraz (DisplayPort Alt Mode, Thunderbolt lub USB4). Warto to sprawdzić w specyfikacji laptopa przed zakupem."
+     "q": "Czy ThinkVision M14d, M14t Gen 2 lub M16 zadziała z moim laptopem?",
+     "a": "Tak, jeśli port USB-C laptopa przesyła obraz (DisplayPort Alt Mode, Thunderbolt lub USB4) — monitory przyjmują sygnał DisplayPort 1.2 przez USB-C. Producent podaje zgodność z Windows 10 i 11; przed zakupem sprawdzimy specyfikację Twojego laptopa."
     },
     {
-     "q": "Czy potrzebuję osobnego zasilacza?",
-     "a": "Zwykle nie — monitor zasila się z laptopa przez kabel USB-C. Zasilacz możesz podłączyć do drugiego portu monitora, wtedy zasila on też laptopa (w M14t Gen 2 do 65 W)."
+     "q": "Czy monitory ThinkVision M potrzebują osobnego zasilacza?",
+     "a": "Zwykle nie — zasilają się z laptopa tym samym kablem USB-C. Jeśli chcesz oszczędzać baterię laptopa, zasilacz USB-C wpinasz do drugiego portu monitora; M14t Gen 2 i M16 przekażą wtedy laptopowi do 65 W."
     },
     {
-     "q": "Czym M14d różni się od M14t Gen 2?",
-     "a": "Oba mają ekran 14\" 2240×1400. M14t Gen 2 jest dotykowy (10 punktów), ma rysik w zestawie i podstawkę, którą obrócisz do pionu; waży 0,7 kg. M14d jest bez dotyku, jaśniejszy (300 nitów) i lżejszy — 0,6 kg z podstawką."
+     "q": "Czym ThinkVision M14t Gen 2 różni się od M14d?",
+     "a": "Oba mają 14\" 2240×1400 i 100% sRGB. M14t Gen 2 jest dotykowy (10 punktów), ma rysik, etui i klipsy w zestawie oraz podstawkę obracaną do pionu; waży 0,7 kg. M14d nie ma dotyku, jest jaśniejszy (300 nitów wobec 270) i lżejszy — 0,6 kg z podstawką."
     },
     {
-     "q": "Co dostanę w zestawie i jaka jest gwarancja?",
-     "a": "M14d ma w zestawie kabel USB-C 1 m. M14t Gen 2 — kabel USB-C 1 m, rysik, etui ochronne, 2 klipsy i przejściówkę kątową. Oba modele mają 3 lata gwarancji producenta i można je przykręcić do uchwytu VESA 100 mm."
+     "q": "Kiedy wybrać większy ThinkVision M16 zamiast modeli 14-calowych?",
+     "a": "Gdy liczy się większy obraz: M16 ma 16\" 1920×1200, ale waży 0,97 kg. Jego rozdzielczość jest niższa niż w M14d, a przestrzeń barw to 45% NTSC, więc do zdjęć i grafiki lepszy będzie M14d ze 100% sRGB."
+    },
+    {
+     "q": "Czy ThinkVision M14d i M14t Gen 2 można powiesić na uchwycie?",
+     "a": "Tak, oba mają mocowanie VESA 100 mm, więc przykręcisz je np. do ramienia przy recepcji. Dla M16 producent nie podaje mocowania VESA — ten model stoi na własnej podstawce z regulacją pochylenia 0–90°."
     }
    ],
    "konfigurator": {
@@ -43813,9 +43889,31 @@
      {
       "nazwa": "Podpisy i prezentacje",
       "konfiguracja": "ThinkVision M14t Gen 2"
+     },
+     {
+      "nazwa": "Większy ekran",
+      "konfiguracja": "ThinkVision M16"
      }
     ]
    },
+   "polecane": [
+    {
+     "slug": "lenovo-thinkbook-14-2-in-1-g6",
+     "etykieta": "Laptop 2 w 1 z USB-C"
+    },
+    {
+     "slug": "lenovo-thinkpad-x1-carbon-gen14",
+     "etykieta": "Lekki laptop do podróży"
+    },
+    {
+     "slug": "dell-stacje-dokujace",
+     "etykieta": "Stacja dokująca"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    }
+   ],
    "podobne": [
     "lenovo-thinkvision-e",
     "lenovo-thinkvision-t",
@@ -43831,22 +43929,17 @@
    "zrodla": [
     {
      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkVision/ThinkVision_M14d/ThinkVision_M14d_Spec.pdf",
-     "etykieta": "Specyfikacja PSREF — ThinkVision M14d",
+     "etykieta": "Strona producenta — Lenovo",
      "host": "psref.lenovo.com · PDF"
     },
     {
      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkVision/ThinkVision_M14t_Gen_2/ThinkVision_M14t_Gen_2_Spec.pdf",
-     "etykieta": "Specyfikacja PSREF — ThinkVision M14t Gen 2",
+     "etykieta": "Strona producenta — Lenovo",
      "host": "psref.lenovo.com · PDF"
     },
     {
-     "url": "https://news.lenovo.com/pressroom/press-releases/trusted-ai-powered-business-computing-modular-enterprise-mwc/",
-     "etykieta": "Strona producenta — Lenovo",
-     "host": "news.lenovo.com"
-    },
-    {
      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkVision/ThinkVision_M16_Monitor/ThinkVision_M16_Monitor_Spec.pdf",
-     "etykieta": "Specyfikacja PSREF — ThinkVision M16 Monitor",
+     "etykieta": "Strona producenta — Lenovo",
      "host": "psref.lenovo.com · PDF"
     }
    ],
@@ -43858,23 +43951,23 @@
    "w_skrocie_wzorzec": [
     {
      "k": "Ekran",
-     "v": "14\" 2240×1400, 16:10, IPS / 16\" 16:10"
+     "v": "M14d i M14t Gen 2: 14\", 16:10"
     },
     {
-     "k": "Porty",
-     "v": "zależnie od modelu (3 wersje)"
-    },
-    {
-     "k": "Waga",
-     "v": "0,6 kg z podstawką / 0,7 kg"
-    },
-    {
-     "k": "M16",
-     "v": "16\" 1920×1200 (16:10), jasność 300 cd/m²"
+     "k": "Rozdzielczość",
+     "v": "M14d i M14t Gen 2: 2240×1400 (189 ppi)"
     },
     {
      "k": "Jasność",
-     "v": "300 nitów (szczytowo 375) / 270 nitów (panel 300)"
+     "v": "M14d: 300 cd/m² (szczytowo 375)"
+    },
+    {
+     "k": "Porty",
+     "v": "M14d: 2× USB-C (DisplayPort 1.2 Alt Mode)"
+    },
+    {
+     "k": "Waga",
+     "v": "M14d: 0,6 kg z podstawką"
     }
    ],
    "nowosc": false,
@@ -43885,6 +43978,28 @@
      "k": "Lenovo",
      "l": "en",
      "d": "model"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-thinkvision-m-przenosne-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkVision/ThinkVision_M16_Monitor/ThinkVision_M16_Monitor_CT1_01.png",
+     "ujecie": "M16 — przód pod kątem"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkvision-m-przenosne-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkVision/ThinkVision_M14t_Gen_2/ThinkVision_M14t_Gen_2_CT1_01.png",
+     "ujecie": "M14t Gen 2 — przód pod kątem"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkvision-m-przenosne-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkVision/ThinkVision_M14d/ThinkVision_M14d_CT1_01.png",
+     "ujecie": "M14d — przód pod kątem"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkvision-m-przenosne-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkVision/ThinkVision_M16_Monitor/ThinkVision_M16_Monitor_CT2_05.png",
+     "ujecie": "M16 — tył z podstawką"
     }
    ]
   },
@@ -75372,7 +75487,7 @@
   {
    "slug_seed": "lenovo-thinksmart-core-gen-2",
    "zmiana_k4": "zmieniona",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "biuro",
    "kategoria": "av",
    "podkategoria": "wideokonferencje",
@@ -75384,9 +75499,10 @@
    "podtytul": "Komputer do sali konferencyjnej z Microsoft Teams Rooms lub Zoom Rooms, panelem dotykowym i listwą wideo ThinkSmart Bar 180",
    "korzysc": "Sala spotkań, w której wideokonferencję zaczynasz jednym dotknięciem, bez podłączania laptopa i szukania kabli.",
    "opis": [
-    "ThinkSmart Core Gen 2 to mały komputer do sali konferencyjnej z zainstalowanym oprogramowaniem Microsoft Teams Rooms albo Zoom Rooms. Razem z panelem dotykowym na stole i listwą z kamerą i mikrofonami tworzy stałe stanowisko do wideospotkań. Wchodzisz do sali, dotykasz „Dołącz” i spotkanie się zaczyna. Pasuje do sali spotkań w biurze, hotelu z salą konferencyjną, szkoły czy urzędu.",
-    "Możesz kupić sam komputer albo gotowy zestaw: z panelem ThinkSmart Controller (ekran dotykowy 10,1\") lub Lenovo IP Controller, a w zestawach FRK / IPFRK także z listwą ThinkSmart Bar 180. Bar 180 ma trzy kamery, które razem widzą 180° w poziomie, więc w kadrze są też osoby siedzące z boku. Ma też osiem mikrofonów i cztery głośniki.",
-    "Komputer ma procesor Intel Core Ultra 5 135H lub Core Ultra 7 165H, 16 lub 32 GB pamięci, dwa wyjścia HDMI na ekrany w sali, gniazdo sieciowe i Wi-Fi 6E. Opcjonalne wejście HDMI i USB-C pozwalają podłączyć laptop gościa. Salami zarządzasz zdalnie przez portal ThinkSmart Manager. Producent daje 3 lata gwarancji z naprawą u klienta."
+    "ThinkSmart Core Gen 2 to komputer sali konferencyjnej z fabrycznie zainstalowanym Microsoft Teams Rooms albo Zoom Rooms, zbudowany tak, by wideospotkanie startowało z panelu na stole, a nie z czyjegoś laptopa. Pasuje do sali zarządu, sali szkoleniowej w hotelu, pokoju nauczycielskiego czy sali posiedzeń w urzędzie — tam, gdzie z jednego miejsca łączą się różne osoby.",
+    "Kupujesz sam komputer albo komplet: z panelem ThinkSmart Controller (10,1\" 1920×1200, podłączanym kablem USB-C 10 m) lub Lenovo IP Controller (10,1\" 1280×800, łączonym przez sieć), a w zestawach FRK i IPFRK także z listwą ThinkSmart Bar 180. Listwa ma trzy kamery składające obraz panoramiczny 180° w poziomie, osiem mikrofonów z formowaniem wiązki i cztery głośniki — dwa niskotonowe i dwa wysokotonowe.",
+    "Komputer ma Intel Core Ultra 5 135H lub Core Ultra 7 165H z vPro Enterprise, 16 lub 32 GB DDR5 i SSD 256 GB z szyfrowaniem Opal. Na ekrany w sali wychodzą dwa HDMI 2.1 (do 4K 60 Hz), z siecią łączy się kablem 1 Gb/s albo przez Wi-Fi 6E, a opcjonalne wejście HDMI i złącze USB-C BYOM pozwalają podpiąć laptop gościa. Obudowa ma 185 × 140 × 38 mm i waży 0,86 kg, więc schowasz ją pod stołem albo za telewizorem na uchwycie VESA.",
+    "Przy wdrożeniu dobieramy wersję Teams lub Zoom do licencji, z których korzysta firma, planujemy miejsce na ekran i listwę Bar 180, prowadzimy okablowanie i ustawiamy salę w ThinkSmart Manager Portal. Lenovo daje na komputer 3 lata gwarancji z naprawą u klienta, a my z Rabki-Zdroju pomagamy w zgłoszeniach serwisowych i pokazujemy pracownikom, jak zacząć spotkanie jednym dotknięciem panelu."
    ],
    "cechy": [
     "Teams Rooms lub Zoom Rooms",
@@ -75396,43 +75512,51 @@
    "parametry": [
     {
      "k": "Oprogramowanie",
-     "v": "fabrycznie Microsoft Teams Rooms albo Zoom Rooms (osobne wersje), system Windows 11 IoT Enterprise; certyfikacja Zoom Rooms dla wersji Zoom"
+     "v": "fabrycznie Microsoft Teams Rooms (certyfikat Microsoft Teams) albo Zoom Rooms (certyfikat Zoom Rooms) — osobne modele; system Windows 11 IoT Enterprise for Collaboration"
     },
     {
      "k": "Procesor",
-     "v": "Intel Core Ultra 5 135H lub Core Ultra 7 165H, vPro Enterprise"
+     "v": "Intel Core Ultra 5 135H (14 rdzeni) lub Core Ultra 7 165H (16 rdzeni)"
     },
     {
      "k": "Pamięć i dysk",
-     "v": "16 lub 32 GB DDR5-5600; SSD 256 GB PCIe 4.0"
+     "v": "16 GB (2× 8 GB) lub 32 GB (2× 16 GB) DDR5-5600 SODIMM; SSD 256 GB M.2 PCIe 4.0 NVMe z szyfrowaniem Opal 2.0"
+    },
+    {
+     "k": "Rozdzielczość wyjść",
+     "v": "grafika Intel Arc, do 3840×2160 60 Hz na HDMI 2.1"
     },
     {
      "k": "Porty komputera",
-     "v": "2× HDMI-out 2.1, 2× USB-C 10 Gb/s (z obrazem), 3× USB-A 5 Gb/s, 1× USB-A 2.0, RJ-45 1 Gb/s; opcjonalnie HDMI-in, USB-C-in (podłączenie laptopa gościa) i RJ-45 2,5 Gb/s"
+     "v": "2× HDMI-out 2.1, 2× USB-C 10 Gb/s (DisplayPort 1.4, 15 W), 3× USB-A 5 Gb/s, 1× USB-A 2.0 (dla IP Controllera), RJ-45 1 Gb/s; opcjonalnie wejście HDMI, USB-C BYOM 5 Gb/s (45 W) i drugi RJ-45 2,5 Gb/s dla urządzeń audio-wideo"
     },
     {
      "k": "Łączność",
-     "v": "Wi-Fi 6E, Bluetooth 5.3"
+     "v": "Wi-Fi 6E (Intel AX211, 2×2), Bluetooth 5.3"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "135 W (modele bez BYOM) lub 170 W (z BYOM)"
     },
     {
      "k": "Zestawy",
      "v": "Core Gen 2 (sam komputer); +CTRL (z ThinkSmart Controller); +IPCTRL (z Lenovo IP Controller); FRK (Controller + Bar 180); IPFRK (IP Controller + Bar 180)"
     },
     {
-     "k": "ThinkSmart Controller",
-     "v": "panel dotykowy 10,1\" 1920×1200, 340 nitów, regulacja kąta 30° / 60°, połączenie USB-C (kabel 10 m w zestawie), 811 g"
+     "k": "Ekran panelu sterującego",
+     "v": "ThinkSmart Controller: 10,1\" 1920×1200, 340 nitów, dotyk 10-punktowy, kąt 30° / 60°, USB-C (kabel 10 m w zestawie), 811 g; Lenovo IP Controller: 10,1\" 1280×800, 340 nitów, RJ-45, wejście HDMI, link box z wyjściem HDMI, 0,97 kg"
     },
     {
      "k": "ThinkSmart Bar 180",
-     "v": "3 kamery, obraz do 3840×1080 / 30 kl/s, pole widzenia 180° w poziomie; 8 mikrofonów kierunkowych; 4 głośniki; złącza USB-C, USB-A, RJ-45; 650 × 80 × 125 mm, 2,2 kg"
+     "v": "3 kamery (13 Mpix), obraz panoramiczny do 3840×1080 / 30 kl/s, pole widzenia 180° × 54°; 8 mikrofonów z formowaniem wiązki; 4 głośniki (2 niskotonowe, 2 wysokotonowe); USB-C, USB-A, RJ-45; 650 × 80 × 125 mm, 2,2 kg"
     },
     {
      "k": "Montaż komputera",
-     "v": "opcjonalny uchwyt VESA, osłona kabli"
+     "v": "opcjonalnie uchwyt VESA, zdejmowana osłona kabli i zewnętrzny koszyk na zasilacz"
     },
     {
      "k": "Wymiary komputera",
-     "v": "185 × 140 × 38 mm (bez osłony kabli), 0,86 kg"
+     "v": "185 × 140 × 38 mm, 0,86 kg (z osłoną kabli: 185 × 220 × 38 mm, 1,01 kg)"
     },
     {
      "k": "Bezpieczeństwo",
@@ -75440,7 +75564,11 @@
     },
     {
      "k": "Zarządzanie",
-     "v": "ThinkSmart Manager Portal, Intel vPro Enterprise"
+     "v": "Intel vPro Enterprise; tryb BYOM ustawiany w BIOS lub w ThinkSmart Manager Portal"
+    },
+    {
+     "k": "Akcesoria opcjonalne",
+     "v": "kabel BYOM USB-C 3 m (w wersji Teams także 5 m bez obrazu)"
     },
     {
      "k": "Gwarancja",
@@ -75450,37 +75578,41 @@
    "warianty_opis": [
     {
      "model": "Wersja Microsoft Teams Rooms",
-     "roznica": "Fabrycznie zainstalowane Microsoft Teams Rooms — dla firm pracujących na Microsoft 365 i Teams."
+     "roznica": "Fabrycznie Microsoft Teams Rooms z certyfikatem Microsoft Teams — dla firm pracujących na Microsoft 365."
     },
     {
      "model": "Wersja Zoom Rooms",
-     "roznica": "Fabrycznie zainstalowane Zoom Rooms, certyfikacja Zoom — dla firm spotykających się przez Zoom."
+     "roznica": "Fabrycznie Zoom Rooms z certyfikatem Zoom Rooms — dla firm spotykających się przez Zoom."
     },
     {
      "model": "Zestaw FRK / IPFRK",
-     "roznica": "Komplet do sali: komputer, panel dotykowy i listwa ThinkSmart Bar 180 z kamerą 180°, mikrofonami i głośnikami."
+     "roznica": "Komplet do sali: komputer, panel ThinkSmart Controller lub Lenovo IP Controller i listwa Bar 180 z kamerą 180°, mikrofonami i głośnikami."
     }
    ],
    "faq": [
     {
-     "q": "Czy gość może podłączyć swojego laptopa?",
-     "a": "Tak, jeśli wybierzesz opcjonalne wejście HDMI lub USB-C. Wtedy laptop gościa wyświetli obraz na ekranie sali, a przez USB-C może też korzystać z kamery i mikrofonów sali."
+     "q": "Czy do ThinkSmart Core Gen 2 gość podłączy własnego laptopa?",
+     "a": "Tak, w modelach z opcjonalnym wejściem HDMI albo złączem USB-C BYOM (Bring Your Own Meeting, z zasilaniem 45 W). Tryb BYOM włącza się w BIOS lub w ThinkSmart Manager Portal, a Lenovo oferuje do niego kabel USB-C o długości 3 m."
     },
     {
-     "q": "Co jeszcze jest potrzebne w sali?",
-     "a": "Ekran lub telewizor (komputer ma dwa wyjścia HDMI), uchwyty, okablowanie oraz konto i licencja wybranej platformy — Microsoft Teams Rooms albo Zoom Rooms."
+     "q": "Co poza ThinkSmart Core Gen 2 trzeba przygotować w sali konferencyjnej?",
+     "a": "Ekran lub telewizor (komputer ma dwa wyjścia HDMI 2.1 do 4K), uchwyty, gniazdo sieciowe i zasilanie, a jeśli nie bierzesz zestawu FRK — kamerę z mikrofonami. Do tego konto i licencja wybranej platformy: Microsoft Teams Rooms albo Zoom Rooms."
     },
     {
-     "q": "Którą wersję wybrać: Microsoft Teams Rooms czy Zoom Rooms?",
-     "a": "To osobne wersje z fabrycznie zainstalowanym oprogramowaniem, więc wybierasz je przy zamówieniu. Teams Rooms jest dla firm pracujących na Microsoft 365 i Teams, a Zoom Rooms (z certyfikacją Zoom) dla firm spotykających się przez Zoom."
+     "q": "ThinkSmart Core Gen 2 z Teams Rooms czy z Zoom Rooms — którą wersję wybrać?",
+     "a": "To osobne modele z fabrycznie zainstalowanym oprogramowaniem i własnym certyfikatem, więc wybór robisz przy zamówieniu. Teams Rooms pasuje do firm na Microsoft 365, Zoom Rooms do tych, które spotykają się przez Zoom — sprzęt i porty są w obu takie same."
     },
     {
-     "q": "Czy kamera obejmie wszystkich siedzących przy stole?",
-     "a": "W zestawach FRK i IPFRK jest listwa ThinkSmart Bar 180 z trzema kamerami, które razem widzą 180° w poziomie, więc w kadrze są też osoby z boku. Listwa ma osiem mikrofonów kierunkowych i cztery głośniki."
+     "q": "Czy listwa ThinkSmart Bar 180 obejmie kadrem cały stół?",
+     "a": "Bar 180 ma trzy kamery składające obraz panoramiczny 180° w poziomie i 54° w pionie, w rozdzielczości do 3840×1080 przy 30 kl/s, więc w kadrze mieszczą się też osoby przy bokach stołu. Głos zbiera osiem mikrofonów z formowaniem wiązki."
+    },
+    {
+     "q": "Czym ThinkSmart Controller różni się od Lenovo IP Controller?",
+     "a": "ThinkSmart Controller łączy się z komputerem kablem USB-C (10 m w zestawie) i ma ekran 1920×1200. Lenovo IP Controller pracuje przez sieć, ma port RJ-45, wejście HDMI i link box z wyjściem HDMI, a ekran 1280×800. Oba mają 10,1\", 340 nitów i kąt 30° lub 60°."
     }
    ],
    "konfigurator": {
-    "opis": "Wybierasz platformę spotkań, procesor, pamięć i skład zestawu.",
+    "opis": "Wybierasz platformę spotkań, procesor, pamięć, skład zestawu i dodatkowe porty.",
     "opcje": [
      {
       "nazwa": "Platforma",
@@ -75503,8 +75635,8 @@
      {
       "nazwa": "Pamięć RAM",
       "wartosci": [
-       "16 GB",
-       "32 GB"
+       "16 GB (2× 8 GB)",
+       "32 GB (2× 16 GB)"
       ],
       "dl": false,
       "pom": "Więcej pamięci RAM = więcej programów i kart przeglądarki naraz bez spowolnień."
@@ -75515,22 +75647,23 @@
        "sam komputer Core Gen 2",
        "komputer + ThinkSmart Controller",
        "komputer + Lenovo IP Controller",
-       "FRK: komputer + Controller + Bar 180",
+       "FRK: komputer + ThinkSmart Controller + Bar 180",
        "IPFRK: komputer + IP Controller + Bar 180"
       ],
       "dl": true,
-      "pom": ""
+      "pom": "Zestaw FRK / IPFRK zawiera listwę z kamerą, mikrofonami i głośnikami — sala jest gotowa po podłączeniu ekranu."
      },
      {
       "nazwa": "Dodatkowe porty",
       "wartosci": [
        "bez dodatków",
        "wejście HDMI",
-       "wejście USB-C dla laptopa gościa",
-       "RJ-45 2,5 Gb/s"
+       "USB-C BYOM dla laptopa gościa",
+       "RJ-45 2,5 Gb/s dla urządzeń audio-wideo"
       ],
+      "uwaga": "Dostępne w wybranych modelach.",
       "dl": false,
-      "pom": ""
+      "pom": "Wejście HDMI i USB-C BYOM pozwalają podłączyć laptop gościa do systemu sali."
      }
     ],
     "std": [],
@@ -75547,9 +75680,27 @@
    },
    "polecane": [
     {
+     "slug": "samsung-qmc",
+     "etykieta": "Ekran do sali"
+    },
+    {
      "slug": "udr7",
      "etykieta": "Sieć i Wi-Fi"
+    },
+    {
+     "slug": "siec-wifi-montaz",
+     "etykieta": "Okablowanie i sieć"
+    },
+    {
+     "slug": "microsoft-365-business",
+     "etykieta": "Microsoft 365 i Teams"
     }
+   ],
+   "podobne": [
+    "logitech-rally-bar-huddle",
+    "logitech-rally-bar-mini",
+    "logitech-tap-ip",
+    "dell-wideokonferencje"
    ],
    "branze": [
     "Biura i usługi",
@@ -75559,12 +75710,12 @@
    "zrodla": [
     {
      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkSmart/ThinkSmart_Core_Gen_2_for_Microsoft_Team_Rooms/ThinkSmart_Core_Gen_2_for_Microsoft_Team_Rooms_Spec.pdf",
-     "etykieta": "Specyfikacja PSREF — ThinkSmart Core Gen 2 for Microsoft Team Rooms",
+     "etykieta": "Strona producenta — Lenovo",
      "host": "psref.lenovo.com · PDF"
     },
     {
      "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkSmart/ThinkSmart_Core_Gen_2_for_Zoom/ThinkSmart_Core_Gen_2_for_Zoom_Spec.pdf",
-     "etykieta": "Specyfikacja PSREF — ThinkSmart Core Gen 2 for Zoom",
+     "etykieta": "Strona producenta — Lenovo",
      "host": "psref.lenovo.com · PDF"
     }
    ],
@@ -75575,24 +75726,24 @@
    ],
    "w_skrocie_wzorzec": [
     {
+     "k": "Oprogramowanie",
+     "v": "fabrycznie Microsoft Teams Rooms (certyfikat Microsoft Teams) albo Zoom Rooms (certyfikat Zoom Rooms) — osobne modele"
+    },
+    {
      "k": "Procesor",
-     "v": "Intel Core Ultra 5 135H lub Core Ultra 7 165H, vPro Enterprise"
+     "v": "Intel Core Ultra 5 135H (14 rdzeni) lub Core Ultra 7 165H (16 rdzeni)"
     },
     {
      "k": "Porty komputera",
-     "v": "2× HDMI-out 2.1, 2× USB-C 10 Gb/s (z obrazem)"
+     "v": "2× HDMI-out 2.1, 2× USB-C 10 Gb/s (DisplayPort 1.4"
     },
     {
-     "k": "Łączność",
-     "v": "Wi-Fi 6E, Bluetooth 5.3"
+     "k": "ThinkSmart Bar 180",
+     "v": "3 kamery (13 Mpix), obraz panoramiczny do 3840×1080 / 30 kl/s"
     },
     {
-     "k": "Bezpieczeństwo",
-     "v": "osobny układ TPM 2.0, hasła BIOS, gniazdo Kensington"
-    },
-    {
-     "k": "Oprogramowanie",
-     "v": "fabrycznie Microsoft Teams Rooms albo Zoom Rooms"
+     "k": "Gwarancja",
+     "v": "3 lata z naprawą u klienta (on-site)"
     }
    ],
    "nowosc": false,
@@ -75610,6 +75761,28 @@
      "k": "Lenovo",
      "l": "en",
      "d": "model"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-thinksmart-core-gen-2-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkSmart/ThinkSmart_Core_Gen_2_for_Microsoft_Team_Rooms/ThinkSmart_Core_Gen_2_for_Microsoft_Team_Rooms_CT1_01.png",
+     "ujecie": "zestaw FRK: komputer, ThinkSmart Controller i Bar 180"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinksmart-core-gen-2-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkSmart/ThinkSmart_Core_Gen_2_for_Microsoft_Team_Rooms/ThinkSmart_Core_Gen_2_for_Microsoft_Team_Rooms_CT1_02.png",
+     "ujecie": "sam komputer Core Gen 2"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinksmart-core-gen-2-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkSmart/ThinkSmart_Core_Gen_2_for_Microsoft_Team_Rooms/ThinkSmart_Core_Gen_2_for_Microsoft_Team_Rooms_CT1_04.png",
+     "ujecie": "komputer z Lenovo IP Controller i link boxem"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinksmart-core-gen-2-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkSmart/ThinkSmart_Core_Gen_2_for_Zoom/ThinkSmart_Core_Gen_2_for_Zoom_CT1_03.png",
+     "ujecie": "zestaw w wersji Zoom Rooms z Bar 180"
     }
    ]
   },
@@ -94639,6 +94812,1318 @@
     }
    ],
    "nowosc": false
+  },
+  {
+   "slug_seed": "lenovo-yoga-pro-7-15",
+   "zmiana_k4": "zmieniona",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "laptopy",
+   "podkategoria": "laptopy",
+   "marka": "Lenovo",
+   "seria": "Yoga",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Lenovo Yoga Pro 7 15 (Gen 11)",
+   "krotka": "Lenovo Yoga Pro 7 15 (Gen 11)",
+   "podtytul": "Laptop dla twórców 15,3\" z Intel Core Ultra H, kartą NVIDIA GeForce RTX i ekranem OLED do 165 Hz",
+   "korzysc": "Lżejszy laptop z ekranem OLED 15,3\" i kartą NVIDIA do grafiki, wideo, projektów i wizualizacji.",
+   "opis": [
+    "Yoga Pro 7 15 (Gen 11, model 15IPH11) to laptop dla osób, które na co dzień montują filmy, retuszują zdjęcia, składają materiały reklamowe albo przygotowują wizualizacje i nie chcą przy tym nosić ciężkiej stacji roboczej. Waży od 1,59 kg i łączy procesor Intel Core Ultra serii H z osobną kartą NVIDIA GeForce RTX — to dobry wybór dla małej agencji, fotografa, biura nieruchomości czy działu marketingu.",
+    "Ekran OLED 15,3\" 2560×1600 odświeża obraz do 165 Hz, pokrywa 100% DCI-P3 i jest fabrycznie kalibrowany przez X-Rite; w trybie HDR osiąga szczytowo 1100 nitów. Lenovo oferuje go w wersji dotykowej i bez dotyku. Karty RTX 5050, RTX 5060 (po 8 GB) i RTX 5070 (12 GB GDDR7) pracują tu z mocą 85 W, a procesory Core Ultra 7 356H i Core Ultra 9 386H mają po 16 rdzeni i NPU do 50 TOPS.",
+    "Pamięć LPDDR5X-8533 jest wlutowana (do 64 GB), więc jej ilość wybierasz przy zakupie, ale dysk rozbudujesz: obok fabrycznego SSD M.2 2242 jest drugie gniazdo M.2 2280. Z boku są dwa Thunderbolt 4 z DisplayPort 2.1, HDMI 2.1 do 8K, dwa USB-A 10 Gb/s i czytnik SD UHS-II. Bateria ma 84 lub 92,5 Wh i w trybie Rapid Charge Pro ładuje się do połowy w 30 minut zasilaczem USB-C 140 W.",
+    "W salonie w Rabce-Zdroju doradzimy, czy przy Twoich programach wystarczy RTX 5050, czy lepiej wziąć RTX 5070 z 12 GB pamięci, i czy przyda się ekran dotykowy z rysikiem Yoga Pen. Instalujemy system i oprogramowanie graficzne, przenosimy biblioteki zdjęć i projekty ze starego komputera, a do pracy przy biurku dobierzemy monitor i stację dokującą na Thunderbolt."
+   ],
+   "cechy": [
+    "karta NVIDIA RTX",
+    "OLED 2.5K do 165 Hz",
+    "od 1,59 kg"
+   ],
+   "parametry": [
+    {
+     "k": "Ekran",
+     "v": "15,3\" OLED 2.5K 2560×1600, 16:10, do 165 Hz, dotykowy lub bez dotyku; 100% DCI-P3, HDR szczytowo 1100 nitów (SDR 500), DisplayHDR True Black 1000, kalibracja X-Rite"
+    },
+    {
+     "k": "Procesor",
+     "v": "Intel Core Ultra 7 356H lub Core Ultra 9 386H (seria 3, 16 rdzeni); NPU do 50 TOPS — Copilot+ PC"
+    },
+    {
+     "k": "Karta graficzna",
+     "v": "NVIDIA GeForce RTX 5050 8 GB, RTX 5060 8 GB lub RTX 5070 12 GB (GDDR7), moc karty (TGP) 85 W"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "LPDDR5X-8533, wlutowana, maks. 64 GB — bez rozbudowy"
+    },
+    {
+     "k": "Dysk",
+     "v": "SSD M.2 2242: 512 GB lub 1 TB (PCIe 4.0), 2 TB (PCIe 5.0); drugie gniazdo M.2 2280 PCIe 4.0 na dodatkowy dysk"
+    },
+    {
+     "k": "Porty",
+     "v": "2× Thunderbolt 4 (USB PD 65–100 W, DisplayPort 2.1), 2× USB-A 10 Gb/s (jedno Always On), HDMI 2.1 do 8K 60 Hz, czytnik kart SD UHS-II, gniazdo audio 3,5 mm; bez RJ-45"
+    },
+    {
+     "k": "Monitory zewnętrzne",
+     "v": "do 3 jednocześnie przez HDMI i Thunderbolt (do 8K 60 Hz)"
+    },
+    {
+     "k": "Kamera",
+     "v": "5 Mpix + podczerwień (logowanie twarzą Windows Hello), elektroniczna zasłonka"
+    },
+    {
+     "k": "Dźwięk",
+     "v": "4 głośniki (2 niskotonowe, 2 wysokotonowe) z Dolby Atmos, 4 mikrofony"
+    },
+    {
+     "k": "Rysik",
+     "v": "Lenovo Yoga Pen Gen 2 lub Gen 3 — w zestawie w wybranych modelach; touchpad Force Pad obsługuje rysik"
+    },
+    {
+     "k": "Łączność",
+     "v": "Wi-Fi 7 (2×2), Bluetooth 5.4; bez WWAN"
+    },
+    {
+     "k": "Bateria",
+     "v": "84 Wh lub 92,5 Wh; Rapid Charge Pro — do 50% w 30 min (laptop wyłączony lub w hibernacji)"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "USB-C 140 W"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home lub bez systemu"
+    },
+    {
+     "k": "Waga",
+     "v": "od 1,59 kg (z Clickpadem), od 1,69 kg (z Force Padem)"
+    },
+    {
+     "k": "Wymiary",
+     "v": "347 × 242 × 16,7 mm"
+    },
+    {
+     "k": "Obudowa / normy",
+     "v": "aluminium, kolor Luna Grey; test MIL-STD-810H (21 testów); platforma Intel Evo"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "firmware TPM 2.0, logowanie twarzą, hasła BIOS, samonaprawiający się BIOS; bez czytnika linii papilarnych"
+    },
+    {
+     "k": "Gwarancja",
+     "v": "1, 2 lub 3 lata (bateria 1 rok) — kurier lub dostarczenie do serwisu"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "GeForce RTX 5050 8 GB",
+     "roznica": "Obróbka zdjęć, montaż Full HD i 4K w prostszych projektach, grafika 2D."
+    },
+    {
+     "model": "GeForce RTX 5060 8 GB",
+     "roznica": "Szybsze renderowanie i efekty w montażu wideo oraz lżejsze wizualizacje 3D."
+    },
+    {
+     "model": "GeForce RTX 5070 12 GB",
+     "roznica": "Więcej pamięci graficznej na duże sceny 3D, wizualizacje i długi materiał 4K."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czym Yoga Pro 7 15 różni się od Yoga Pro 9 16?",
+     "a": "Pro 7 ma ekran 15,3\" 2.5K OLED do 165 Hz (z dotykiem lub bez), kartę RTX z mocą 85 W, waży od 1,59 kg i ładuje się zasilaczem USB-C 140 W. Pro 9 to dotykowy 16\" OLED 2.8K lub tandem 3.2K, karta 100 W, rysik zawsze w pudełku i waga od 1,90 kg."
+    },
+    {
+     "q": "Czy w Yoga Pro 7 15 jest dostępna karta RTX 5070?",
+     "a": "Tak. Według specyfikacji Lenovo Yoga Pro 7 15IPH11 występuje z GeForce RTX 5050 8 GB, RTX 5060 8 GB albo RTX 5070 12 GB GDDR7 — wszystkie z mocą 85 W. RTX 5070 warto wybrać do dużych scen 3D i długiego materiału 4K."
+    },
+    {
+     "q": "Czy w Yoga Pro 7 15 rozbudujesz pamięć albo dysk?",
+     "a": "Pamięci nie — LPDDR5X jest wlutowana (maksymalnie 64 GB), więc wybierasz ją przy zakupie. Dysk tak: fabryczny SSD siedzi w gnieździe M.2 2242, a drugie gniazdo M.2 2280 PCIe 4.0 przyjmie dodatkowy dysk na projekty."
+    },
+    {
+     "q": "Czy ekran Yoga Pro 7 15 nadaje się do obróbki zdjęć i materiałów do druku?",
+     "a": "Tak. OLED pokrywa 100% DCI-P3 i 100% sRGB, ma fabryczną kalibrację X-Rite ze średnim błędem Delta E poniżej 1 oraz certyfikaty Pantone Validated i SkinTone Validated. Czytnik SD UHS-II przyspiesza zgrywanie zdjęć z aparatu."
+    },
+    {
+     "q": "Czy Yoga Pro 7 15 naładuję zwykłą ładowarką USB-C?",
+     "a": "Porty Thunderbolt 4 przyjmują zasilanie USB PD od 65 do 100 W, więc ładowarka tej mocy wystarczy w podróży. Pełne 140 W i szybkie ładowanie Rapid Charge Pro daje tylko oryginalny zasilacz Lenovo 140 W."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz procesor, kartę graficzną, dysk, ekran, rysik, baterię, system i gwarancję.",
+    "opcje": [
+     {
+      "nazwa": "Procesor",
+      "wartosci": [
+       "Intel Core Ultra 7 356H",
+       "Intel Core Ultra 9 386H"
+      ],
+      "dl": false,
+      "pom": "Od procesora zależy szybkość pracy. Do biura i programów sprzedażowych wystarczy podstawowy, do grafiki, CAD i wielu programów naraz — mocniejszy."
+     },
+     {
+      "nazwa": "Karta graficzna",
+      "wartosci": [
+       "NVIDIA GeForce RTX 5050 8 GB",
+       "NVIDIA GeForce RTX 5060 8 GB",
+       "NVIDIA GeForce RTX 5070 12 GB"
+      ],
+      "uwaga": "Wszystkie z mocą 85 W.",
+      "dl": false,
+      "pom": "Osobna karta graficzna przydaje się do grafiki, wideo, CAD i 3D; do pracy biurowej wystarczy zintegrowana."
+     },
+     {
+      "nazwa": "Pamięć RAM",
+      "wartosci": [
+       "do 64 GB LPDDR5X-8533"
+      ],
+      "uwaga": "Wlutowana, bez rozbudowy; pojemność zależy od modelu — potwierdzamy przy wycenie.",
+      "dl": false,
+      "pom": "Więcej pamięci RAM = więcej programów i kart przeglądarki naraz bez spowolnień."
+     },
+     {
+      "nazwa": "Dysk SSD",
+      "wartosci": [
+       "512 GB",
+       "1 TB",
+       "2 TB (PCIe 5.0)"
+      ],
+      "uwaga": "Drugie gniazdo M.2 2280 na dodatkowy dysk.",
+      "dl": false,
+      "pom": "Miejsce na system, programy i pliki. SSD to szybki dysk bez ruchomych części."
+     },
+     {
+      "nazwa": "Ekran",
+      "wartosci": [
+       "15,3\" 2.5K OLED 165 Hz",
+       "15,3\" 2.5K OLED 165 Hz dotykowy"
+      ],
+      "dl": false,
+      "pom": "Matowy nie odbija światła, dotykowy pozwala pracować palcem lub rysikiem, wyższa rozdzielczość daje ostrzejszy obraz."
+     },
+     {
+      "nazwa": "Rysik",
+      "wartosci": [
+       "bez rysika",
+       "Lenovo Yoga Pen Gen 2",
+       "Lenovo Yoga Pen Gen 3"
+      ],
+      "uwaga": "Rysik w zestawie tylko w wybranych modelach.",
+      "dl": false,
+      "pom": "Rysik przydaje się do szkiców, retuszu i notatek na ekranie dotykowym."
+     },
+     {
+      "nazwa": "Bateria",
+      "wartosci": [
+       "84 Wh",
+       "92,5 Wh"
+      ],
+      "dl": false,
+      "pom": "Większa bateria to dłuższa praca bez zasilacza."
+     },
+     {
+      "nazwa": "System",
+      "wartosci": [
+       "Windows 11 Pro",
+       "Windows 11 Home",
+       "bez systemu"
+      ],
+      "dl": false,
+      "pom": "Windows 11 Pro ma funkcje dla firm, np. szyfrowanie dysku BitLocker i dołączanie do domeny."
+     },
+     {
+      "nazwa": "Gwarancja",
+      "wartosci": [
+       "1 rok (kurier / dostarczenie do serwisu)",
+       "2 lata (kurier / dostarczenie do serwisu, bateria 1 rok)",
+       "3 lata (kurier / dostarczenie do serwisu, bateria 1 rok)"
+      ],
+      "uwaga": "Warianty gwarancji bazowej producenta wg PSREF.",
+      "dl": true,
+      "pom": "„Na miejscu” (on-site) — serwisant naprawia u Ciebie; „kurier” — sprzęt jedzie do serwisu i wraca."
+     }
+    ],
+    "std": [],
+    "popularne": [
+     {
+      "nazwa": "Zdjęcia i grafika",
+      "konfiguracja": "Core Ultra 7 356H / RTX 5050 / 1 TB / 15,3\" 2.5K OLED / Windows 11 Pro"
+     },
+     {
+      "nazwa": "Wideo i 3D",
+      "konfiguracja": "Core Ultra 9 386H / RTX 5070 12 GB / 2 TB / 15,3\" 2.5K OLED / Windows 11 Pro"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "lenovo-thinkvision-p-24-27",
+     "etykieta": "Monitor do grafiki"
+    },
+    {
+     "slug": "dell-stacje-dokujace",
+     "etykieta": "Stacja dokująca"
+    },
+    {
+     "slug": "synology-diskstation-plus-2-4",
+     "etykieta": "Archiwum zdjęć i projektów"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    }
+   ],
+   "podobne": [
+    "lenovo-yoga-pro-9-16",
+    "lenovo-yoga-slim-7",
+    "lenovo-thinkbook-16p-g6",
+    "lenovo-thinkpad-p16-gen3"
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Szkoły i instytucje"
+   ],
+   "zrodla": [
+    {
+     "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Pro_7_15IPH11/Yoga_Pro_7_15IPH11_Spec.pdf",
+     "etykieta": "Strona producenta — Lenovo",
+     "host": "psref.lenovo.com · PDF"
+    }
+   ],
+   "wyrozniki": [
+    "karta NVIDIA RTX",
+    "OLED 2.5K do 165 Hz",
+    "od 1,59 kg"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Ekran",
+     "v": "15,3\" OLED 2.5K 2560×1600, 16:10, do 165 Hz, dotykowy lub bez dotyku"
+    },
+    {
+     "k": "Procesor",
+     "v": "Intel Core Ultra 7 356H lub Core Ultra 9 386H (seria 3, 16 rdzeni)"
+    },
+    {
+     "k": "Karta graficzna",
+     "v": "NVIDIA GeForce RTX 5050 8 GB, RTX 5060 8 GB lub RTX 5070 12 GB (GDDR7)"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "LPDDR5X-8533, wlutowana, maks. 64 GB — bez rozbudowy"
+    },
+    {
+     "k": "Waga",
+     "v": "od 1,59 kg (z Clickpadem), od 1,69 kg (z Force Padem)"
+    }
+   ],
+   "nowosc": false,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-yoga-pro-7-15-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/Yoga/Yoga_Pro_7_15IPH11/Yoga_Pro_7_15IPH11_CT1_03.png",
+     "ujecie": "przód pod kątem, kolor Luna Grey"
+    },
+    {
+     "plik": "media/produkty/lenovo-yoga-pro-7-15-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/Yoga/Yoga_Pro_7_15IPH11/Yoga_Pro_7_15IPH11_CT2_05.png",
+     "ujecie": "z góry — klawiatura i ekran"
+    },
+    {
+     "plik": "media/produkty/lenovo-yoga-pro-7-15-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/Yoga/Yoga_Pro_7_15IPH11/Yoga_Pro_7_15IPH11_CT2_01.png",
+     "ujecie": "lewy bok z portami"
+    },
+    {
+     "plik": "media/produkty/lenovo-yoga-pro-7-15-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/Yoga/Yoga_Pro_7_15IPH11/Yoga_Pro_7_15IPH11_CT2_06.png",
+     "ujecie": "pokrywa z logo"
+    }
+   ]
+  },
+  {
+   "slug_seed": "lenovo-yoga-pro-9-16",
+   "zmiana_k4": "zmieniona",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "laptopy",
+   "podkategoria": "laptopy",
+   "marka": "Lenovo",
+   "seria": "Yoga",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Lenovo Yoga Pro 9 16 (Gen 11)",
+   "krotka": "Lenovo Yoga Pro 9 16 (Gen 11)",
+   "podtytul": "Laptop dla twórców 16\" z Intel Core Ultra H, kartą NVIDIA GeForce RTX 100 W i dotykowym ekranem OLED",
+   "korzysc": "Laptop z dotykowym ekranem OLED 16\", kartą NVIDIA o mocy 100 W i rysikiem w zestawie.",
+   "opis": [
+    "Yoga Pro 9 16 (Gen 11, model 16IPH11) to największy i najmocniejszy laptop z linii Yoga Pro, przygotowany pod długie sesje w programach do montażu, grafiki 3D i wywoływania zdjęć RAW. Sprawdzi się u grafika, operatora wideo, architekta wnętrz czy w studiu reklamy, gdzie liczy się duży, wierny w kolorach ekran i karta, która nie zwalnia przy dłuższym renderowaniu.",
+    "Dotykowy ekran 16\" to OLED 2.8K 2880×1800 albo tandem OLED 3.2K 3200×2000 — oba 120 Hz, 100% DCI-P3, pod szkłem Gorilla Glass 3 i z fabryczną kalibracją X-Rite; wersja tandem świeci w HDR do 1600 nitów. Karty GeForce RTX 5050, RTX 5060 lub RTX 5070 dostają tu 100 W, a procesor to Core Ultra 7 356H albo Core Ultra 9 386H. Rysik Yoga Pen Gen 2 lub Gen 3 jest zawsze w pudełku, a touchpad Force Pad przyjmuje pisanie rysikiem.",
+    "Pamięć LPDDR5X-7467 ma 32 lub 64 GB i jest wlutowana, za to drugi dysk dołożysz — fabryczny M.2 2242 zajmuje pierwsze gniazdo, a drugie przyjmie SSD 2242 lub 2280. Bateria 92,5 Wh w trybie Rapid Charge Express daje około 3 godzin pracy po kwadransie ładowania zasilaczem 170 W lub 245 W, wpinanym w osobne złącze slim tip. Laptop waży od 1,90 kg, ma sześć głośników, dwa Thunderbolt 4, HDMI 2.1 i czytnik SD UHS-II.",
+    "Przed zakupem w Rabce-Zdroju pomożemy ocenić, czy przy Twoich projektach opłaca się panel tandem 3.2K i RTX 5070 z 12 GB, czy wystarczy wersja 2.8K z RTX 5050. Konfigurujemy Windows 11, instalujemy programy graficzne i aktualne sterowniki NVIDIA, przenosimy dane ze starego sprzętu i ustawiamy automatyczne kopie projektów na firmowy dysk sieciowy."
+   ],
+   "cechy": [
+    "karta NVIDIA RTX, 100 W",
+    "dotykowy OLED 16\"",
+    "rysik w zestawie"
+   ],
+   "parametry": [
+    {
+     "k": "Ekran",
+     "v": "16\" dotykowy OLED 2.8K 2880×1800 albo tandem OLED 3.2K 3200×2000, 16:10, 120 Hz; 100% DCI-P3, HDR szczytowo 1100 nitów (tandem: 1600, SDR 1000), Gorilla Glass 3, kalibracja X-Rite (w wybranych modelach także TCON)"
+    },
+    {
+     "k": "Procesor",
+     "v": "Intel Core Ultra 7 356H lub Core Ultra 9 386H (seria 3, 16 rdzeni); NPU do 50 TOPS — Copilot+ PC"
+    },
+    {
+     "k": "Karta graficzna",
+     "v": "NVIDIA GeForce RTX 5050 8 GB, RTX 5060 8 GB lub RTX 5070 12 GB (GDDR7), moc karty (TGP) 100 W"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "LPDDR5X-7467, wlutowana: 32 GB lub 64 GB — bez rozbudowy"
+    },
+    {
+     "k": "Dysk",
+     "v": "SSD M.2 2242: 512 GB lub 1 TB (PCIe 4.0), 2 TB (PCIe 5.0); drugie gniazdo M.2 2242/2280 PCIe 4.0 na dodatkowy dysk"
+    },
+    {
+     "k": "Porty",
+     "v": "2× Thunderbolt 4 (USB PD 65–100 W, DisplayPort 2.1), 2× USB-A 10 Gb/s (jedno Always On), HDMI 2.1 do 8K 60 Hz, czytnik kart SD UHS-II, gniazdo audio 3,5 mm, złącze zasilania slim tip; bez RJ-45"
+    },
+    {
+     "k": "Monitory zewnętrzne",
+     "v": "do 3 jednocześnie przez HDMI i Thunderbolt (do 8K 60 Hz)"
+    },
+    {
+     "k": "Kamera",
+     "v": "5 Mpix + podczerwień (logowanie twarzą Windows Hello), elektroniczna zasłonka"
+    },
+    {
+     "k": "Dźwięk",
+     "v": "6 głośników (4 niskotonowe, 2 wysokotonowe) z Dolby Atmos, 4 mikrofony"
+    },
+    {
+     "k": "Rysik",
+     "v": "w zestawie: Lenovo Yoga Pen Gen 2 lub Gen 3 (zależnie od modelu); touchpad Force Pad obsługuje rysik"
+    },
+    {
+     "k": "Łączność",
+     "v": "Wi-Fi 7 (2×2), Bluetooth 5.4; bez WWAN"
+    },
+    {
+     "k": "Bateria",
+     "v": "92,5 Wh; Rapid Charge Express — ok. 3 godz. pracy po 15 min ładowania (laptop wyłączony lub w hibernacji)"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "170 W lub 245 W ze złączem slim tip"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro lub Windows 11 Home"
+    },
+    {
+     "k": "Waga",
+     "v": "od 1,90 kg"
+    },
+    {
+     "k": "Wymiary",
+     "v": "360,8 × 248,9 × 17,3 mm"
+    },
+    {
+     "k": "Obudowa / normy",
+     "v": "aluminium, kolor Thunder Grey; test MIL-STD-810H (21 testów); platforma Intel Evo"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "firmware TPM 2.0, ultradźwiękowy czujnik obecności, logowanie twarzą, hasła BIOS, samonaprawiający się BIOS; bez czytnika linii papilarnych"
+    },
+    {
+     "k": "Gwarancja",
+     "v": "1, 2 lub 3 lata (bateria 1 rok) — kurier lub dostarczenie do serwisu"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "OLED 2.8K (2880×1800)",
+     "roznica": "HDR szczytowo 1100 nitów, nieco dłuższa praca na baterii — do zdjęć, grafiki i montażu."
+    },
+    {
+     "model": "Tandem OLED 3.2K (3200×2000)",
+     "roznica": "Wyższa rozdzielczość i jasność do 1600 nitów w HDR (1000 w SDR) — do pracy przy jasnym świetle i materiałów HDR."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czym Yoga Pro 9 16 różni się od Yoga Pro 7 15?",
+     "a": "Pro 9 ma większy, zawsze dotykowy ekran 16\" (2.8K lub tandem 3.2K), karty RTX zasilane mocą 100 W zamiast 85 W, sześć głośników i rysik w każdym zestawie. W zamian jest cięższy (od 1,90 kg) i ładuje się zasilaczem 170 W lub 245 W ze złączem slim tip."
+    },
+    {
+     "q": "Który ekran wybrać w Yoga Pro 9 16: OLED 2.8K czy tandem OLED 3.2K?",
+     "a": "Oba mają 120 Hz, dotyk i 100% DCI-P3. Tandem 3.2K daje wyższą rozdzielczość i jasność do 1600 nitów w HDR, więc lepiej sprawdza się przy jasnym świetle i materiałach HDR. Wersja 2.8K wytrzymuje według Lenovo nieco dłużej na baterii."
+    },
+    {
+     "q": "Czy rysik jest w zestawie z Yoga Pro 9 16?",
+     "a": "Tak. Każda konfiguracja Yoga Pro 9 16IPH11 ma w pudełku rysik Lenovo Yoga Pen Gen 2 albo Gen 3, w części modeli z etui. Touchpad Force Pad także obsługuje pisanie rysikiem."
+    },
+    {
+     "q": "Czy w Yoga Pro 9 16 dołożę pamięć RAM albo drugi dysk SSD?",
+     "a": "Pamięci nie — 32 lub 64 GB LPDDR5X jest wlutowane, więc ilość ustalasz przy zakupie. Dysk tak: pierwsze gniazdo zajmuje fabryczny SSD M.2 2242, a drugie przyjmie dodatkowy SSD 2242 lub 2280."
+    },
+    {
+     "q": "Jaki zasilacz jest potrzebny do Yoga Pro 9 16?",
+     "a": "W zestawie jest zasilacz 170 W lub 245 W ze złączem slim tip i tylko z nim działa pełne ładowanie Rapid Charge Express. Porty Thunderbolt 4 przyjmują też zasilanie USB PD od 65 do 100 W, co wystarczy w podróży przy lżejszej pracy."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz procesor, kartę graficzną, pamięć, dysk, ekran, rysik, zasilacz, system i gwarancję.",
+    "opcje": [
+     {
+      "nazwa": "Procesor",
+      "wartosci": [
+       "Intel Core Ultra 7 356H",
+       "Intel Core Ultra 9 386H"
+      ],
+      "dl": false,
+      "pom": "Od procesora zależy szybkość pracy. Do biura i programów sprzedażowych wystarczy podstawowy, do grafiki, CAD i wielu programów naraz — mocniejszy."
+     },
+     {
+      "nazwa": "Karta graficzna",
+      "wartosci": [
+       "NVIDIA GeForce RTX 5050 8 GB",
+       "NVIDIA GeForce RTX 5060 8 GB",
+       "NVIDIA GeForce RTX 5070 12 GB"
+      ],
+      "uwaga": "Wszystkie z mocą 100 W.",
+      "dl": false,
+      "pom": "Osobna karta graficzna przydaje się do grafiki, wideo, CAD i 3D; do pracy biurowej wystarczy zintegrowana."
+     },
+     {
+      "nazwa": "Pamięć RAM",
+      "wartosci": [
+       "32 GB",
+       "64 GB"
+      ],
+      "uwaga": "Wlutowana, bez możliwości rozbudowy.",
+      "dl": false,
+      "pom": "Więcej pamięci RAM = więcej programów i kart przeglądarki naraz bez spowolnień."
+     },
+     {
+      "nazwa": "Dysk SSD",
+      "wartosci": [
+       "512 GB",
+       "1 TB",
+       "2 TB (PCIe 5.0)"
+      ],
+      "uwaga": "Drugie gniazdo M.2 na dodatkowy dysk.",
+      "dl": false,
+      "pom": "Miejsce na system, programy i pliki. SSD to szybki dysk bez ruchomych części."
+     },
+     {
+      "nazwa": "Ekran",
+      "wartosci": [
+       "16\" 2.8K OLED dotykowy 120 Hz",
+       "16\" 3.2K tandem OLED dotykowy 120 Hz"
+      ],
+      "dl": false,
+      "pom": "Matowy nie odbija światła, dotykowy pozwala pracować palcem lub rysikiem, wyższa rozdzielczość daje ostrzejszy obraz."
+     },
+     {
+      "nazwa": "Rysik w zestawie",
+      "wartosci": [
+       "Lenovo Yoga Pen Gen 2",
+       "Lenovo Yoga Pen Gen 3"
+      ],
+      "uwaga": "Rysik jest w każdej konfiguracji; w części modeli z etui.",
+      "dl": false,
+      "pom": "Rysik przydaje się do szkiców, retuszu i notatek na ekranie dotykowym."
+     },
+     {
+      "nazwa": "Zasilacz",
+      "wartosci": [
+       "170 W slim tip",
+       "245 W slim tip"
+      ],
+      "dl": false,
+      "pom": "Mocniejszy zasilacz pozwala karcie i procesorowi pracować z pełną mocą i szybciej ładuje baterię."
+     },
+     {
+      "nazwa": "System",
+      "wartosci": [
+       "Windows 11 Pro",
+       "Windows 11 Home"
+      ],
+      "dl": false,
+      "pom": "Windows 11 Pro ma funkcje dla firm, np. szyfrowanie dysku BitLocker i dołączanie do domeny."
+     },
+     {
+      "nazwa": "Gwarancja",
+      "wartosci": [
+       "1 rok (kurier / dostarczenie do serwisu)",
+       "2 lata (kurier / dostarczenie do serwisu, bateria 1 rok)",
+       "3 lata (kurier / dostarczenie do serwisu, bateria 1 rok)"
+      ],
+      "uwaga": "Warianty gwarancji bazowej producenta wg PSREF.",
+      "dl": true,
+      "pom": "„Na miejscu” (on-site) — serwisant naprawia u Ciebie; „kurier” — sprzęt jedzie do serwisu i wraca."
+     }
+    ],
+    "std": [],
+    "popularne": [
+     {
+      "nazwa": "Duży ekran",
+      "konfiguracja": "Core Ultra 7 356H / RTX 5050 / 32 GB / 1 TB / 16\" 2.8K OLED / Windows 11 Pro"
+     },
+     {
+      "nazwa": "Mocniejsza grafika",
+      "konfiguracja": "Core Ultra 9 386H / RTX 5070 12 GB / 64 GB / 2 TB / 16\" 3.2K tandem OLED / Windows 11 Pro"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "lenovo-thinkvision-p-32-49-ultrawide",
+     "etykieta": "Duży monitor do grafiki"
+    },
+    {
+     "slug": "dell-stacje-dokujace",
+     "etykieta": "Stacja dokująca"
+    },
+    {
+     "slug": "synology-diskstation-plus-2-4",
+     "etykieta": "Kopie projektów"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    }
+   ],
+   "podobne": [
+    "lenovo-yoga-pro-7-15",
+    "lenovo-yoga-9-2w1",
+    "lenovo-thinkbook-16p-g6",
+    "lenovo-thinkpad-p16-gen3"
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Handel",
+    "Szkoły i instytucje"
+   ],
+   "zrodla": [
+    {
+     "url": "https://psref.lenovo.com/syspool/Sys/PDF/Yoga/Yoga_Pro_9_16IPH11/Yoga_Pro_9_16IPH11_Spec.pdf",
+     "etykieta": "Strona producenta — Lenovo",
+     "host": "psref.lenovo.com · PDF"
+    }
+   ],
+   "wyrozniki": [
+    "karta NVIDIA RTX, 100 W",
+    "dotykowy OLED 16\"",
+    "rysik w zestawie"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Ekran",
+     "v": "16\" dotykowy OLED 2.8K 2880×1800 albo tandem OLED 3.2K 3200×2000, 16:10"
+    },
+    {
+     "k": "Procesor",
+     "v": "Intel Core Ultra 7 356H lub Core Ultra 9 386H (seria 3, 16 rdzeni)"
+    },
+    {
+     "k": "Karta graficzna",
+     "v": "NVIDIA GeForce RTX 5050 8 GB, RTX 5060 8 GB lub RTX 5070 12 GB (GDDR7)"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "LPDDR5X-7467, wlutowana: 32 GB lub 64 GB — bez rozbudowy"
+    },
+    {
+     "k": "Waga",
+     "v": "od 1,90 kg"
+    }
+   ],
+   "nowosc": false,
+   "wideo": [
+    {
+     "id": "JFMP32TVrPM",
+     "t": "Lenovo Yoga Pro 9i Aura Edition at CES 2026",
+     "k": "Lenovo",
+     "l": "en",
+     "d": "model"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-yoga-pro-9-16-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/Yoga/Yoga_Pro_9_16IPH11/Yoga_Pro_9_16IPH11_CT1_03.png",
+     "ujecie": "przód pod kątem, kolor Thunder Grey"
+    },
+    {
+     "plik": "media/produkty/lenovo-yoga-pro-9-16-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/Yoga/Yoga_Pro_9_16IPH11/Yoga_Pro_9_16IPH11_CT2_05.png",
+     "ujecie": "z góry — klawiatura i ekran"
+    },
+    {
+     "plik": "media/produkty/lenovo-yoga-pro-9-16-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/Yoga/Yoga_Pro_9_16IPH11/Yoga_Pro_9_16IPH11_CT2_01.png",
+     "ujecie": "lewy bok z portami"
+    },
+    {
+     "plik": "media/produkty/lenovo-yoga-pro-9-16-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/Yoga/Yoga_Pro_9_16IPH11/Yoga_Pro_9_16IPH11_CT2_06.png",
+     "ujecie": "pokrywa z logo"
+    }
+   ]
+  },
+  {
+   "slug_seed": "lenovo-thinkstation-p3-tower-gen-2",
+   "zmiana_k4": "zmieniona",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "komputery",
+   "podkategoria": "stacje-robocze",
+   "marka": "Lenovo",
+   "seria": "ThinkStation",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Lenovo ThinkStation P3 Tower Gen 2",
+   "krotka": "Lenovo ThinkStation P3 Tower Gen 2",
+   "podtytul": "Stacja robocza tower na Intel Core Ultra (seria 2), z kartami do NVIDIA RTX PRO 6000 Blackwell",
+   "korzysc": "Stacja robocza tower na Intel Core Ultra do CAD, renderingu i AI — z miejscem na mocną kartę graficzną i do 7 dysków.",
+   "opis": [
+    "ThinkStation P3 Tower Gen 2 to stacja robocza w 27-litrowej obudowie tower dla biur projektowych, które pracują na dużych modelach BIM, symulacjach, renderingu albo montażu wideo 4K i potrzebują miejsca na mocną kartę graficzną oraz wiele dysków. Bazuje na procesorach Intel Core Ultra (seria 2) z maksymalnie 24 rdzeniami i taktowaniem do 5,7 GHz, osadzonych na chipsecie Intel W880.",
+    "W gnieździe PCIe 5.0 x16 zmieści się karta aż do NVIDIA RTX PRO 6000 Blackwell z 96 GB pamięci albo dwie RTX 2000 Ada; skromniejsze konfiguracje mają RTX A400, RTX A1000 lub RTX PRO 2000 Blackwell. Cztery gniazda DDR5 przyjmą do 256 GB, a moduły UDIMM z ECC, czyli korekcją błędów, działają z procesorami, które ją obsługują. Zasilacz 500, 750 lub 1100 W ma sprawność 92% (80 PLUS Platinum).",
+    "Na dane jest miejsce dla siedmiu nośników — czterech M.2 i trzech dysków SATA — albo dwóch M.2 i czterech SATA przy zasilaczu 500 W, z RAID 0/1/5/10 na SATA i 0/1/5 na NVMe. Z przodu jest USB-C 20 Gb/s i cztery USB-A, z tyłu HDMI 2.1, dwa DisplayPort 1.4 i Ethernet 1 Gb/s; opcjonalnie dojdą Wi-Fi 7, karty sieciowe do 25 Gb/s i porty USB4. Obudowę otwierasz bez narzędzi, a chronią ją ucho na kłódkę, gniazdo Kensington i opcjonalny czujnik otwarcia.",
+    "Konfigurację dobieramy w Rabce-Zdroju pod konkretny program: sprawdzamy go na liście certyfikacji ISV Lenovo i dopasowujemy kartę, pamięć oraz moc zasilacza do wielkości projektów. Instalujemy Windows 11 Pro albo Ubuntu, zakładamy RAID i kopie na serwer plików, a przy awarii korzystasz z gwarancji producenta z naprawą u klienta przez 1, 2 lub 3 lata."
+   ],
+   "cechy": [
+    "do RTX PRO 6000",
+    "RAM do 256 GB",
+    "do 7 dysków"
+   ],
+   "parametry": [
+    {
+     "k": "Obudowa",
+     "v": "tower 27 l, 180 × 370 × 415 mm, do 14,38 kg (maks. konfiguracja); pokrywa, pamięć, dyski i karty montowane bez narzędzi"
+    },
+    {
+     "k": "Procesor",
+     "v": "Intel Core Ultra 5 225 / 235 / 235A / 245 / 245K / 250K Plus, Core Ultra 7 265 / 265K / 270K Plus, Core Ultra 9 285 / 285K (seria 2, do 24 rdzeni, do 5,7 GHz, do 125 W)"
+    },
+    {
+     "k": "Chipset",
+     "v": "Intel W880"
+    },
+    {
+     "k": "Grafika",
+     "v": "do 1× NVIDIA RTX PRO 6000 Blackwell 96 GB (Workstation lub Max-Q) albo do 2× RTX 2000 Ada; w ofercie także RTX PRO 5000 Blackwell 48 / 72 GB, RTX PRO 4500 32 GB, RTX PRO 4000 24 GB, RTX PRO 2000 16 GB, RTX 5000 Ada 32 GB, RTX 4000 Ada 20 GB, RTX 2000 Ada 16 GB, RTX A1000 8 GB, RTX A400 4 GB"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "DDR5, 4 gniazda, maks. 256 GB (4× 64 GB CUDIMM); UDIMM DDR5-5600 z ECC lub bez, CUDIMM DDR5-6400 bez ECC; przy 4 modułach pamięć pracuje wolniej (4400–4800 MT/s)"
+    },
+    {
+     "k": "Dyski",
+     "v": "do 7 nośników (3× SATA + 4× M.2) albo 6 (4× SATA + 2× M.2, tylko z zasilaczem 500 W); M.2 PCIe 5.0 / 4.0 do 4 TB, HDD SATA do 12 TB, SSD SATA do 7,68 TB; RAID 0/1/5/10 (SATA) i 0/1/5 (NVMe); opcjonalnie napęd 9 mm DVD lub Blu-ray"
+    },
+    {
+     "k": "Porty z przodu",
+     "v": "USB-C 20 Gb/s (dane), 2× USB-A 10 Gb/s, 2× USB-A 5 Gb/s, gniazdo słuchawkowe, gniazdo mikrofonu; opcjonalnie czytnik kart SD"
+    },
+    {
+     "k": "Porty z tyłu",
+     "v": "2× USB-A 5 Gb/s, 2× USB-A 2.0, HDMI 2.1, 2× DisplayPort 1.4, RJ-45 1 Gb/s, wyjście liniowe; opcjonalnie Flex IO (HDMI, DisplayPort, VGA lub USB-C z obrazem), 2× USB4 40 Gb/s na karcie PCIe, porty szeregowe i równoległy"
+    },
+    {
+     "k": "Gniazda rozszerzeń",
+     "v": "PCIe 5.0 x16 (karta podwójnej szerokości, pełnej długości), PCIe 4.0 x16 (linie x4), 2× PCIe 3.0 x1"
+    },
+    {
+     "k": "Łączność / sieć",
+     "v": "Ethernet 1 Gb/s (Intel I219-LM, Wake-on-LAN); opcjonalnie Wi-Fi 7 (Intel BE200) + Bluetooth 5.4; do 2 dodatkowych kart sieciowych, w tym 10 GbE i 25 GbE (SFP28)"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "500 W, 750 W lub 1100 W, sprawność 92% (80 PLUS Platinum)"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home, Windows 11 IoT Enterprise LTSC 2024 (kanał OEM), Ubuntu Linux LTS, Red Hat Enterprise Linux 10 (certyfikacja)"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "osobny układ TPM 2.0 (FIPS 140-2), ucho na kłódkę, gniazdo Kensington, opcjonalnie zamek elektroniczny, linka i czujnik otwarcia obudowy, UEFI Secure Boot, samonaprawiający się BIOS"
+    },
+    {
+     "k": "Zarządzanie",
+     "v": "Intel vPro Enterprise (AMT 16) przy procesorach z vPro; Lenovo Diagnostics"
+    },
+    {
+     "k": "Certyfikacje programów",
+     "v": "Lenovo odsyła do listy certyfikacji ISV dla stacji roboczych (programy CAD / BIM / 3D); test MIL-STD-810H"
+    },
+    {
+     "k": "Gwarancja",
+     "v": "1, 2 lub 3 lata z naprawą u klienta (on-site), zależnie od modelu"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "Zasilacz 500 W",
+     "roznica": "Jedyna wersja z czwartą zatoką na dysk SATA — układ 4× SATA + 2× M.2, wygodny przy dużym archiwum na dyskach HDD."
+    },
+    {
+     "model": "Zasilacz 750 W / 1100 W",
+     "roznica": "Większy zapas mocy pod mocne karty RTX PRO Blackwell; dyski w układzie do 3× SATA + 4× M.2."
+    }
+   ],
+   "faq": [
+    {
+     "q": "ThinkStation P3 Tower Gen 2 czy ThinkStation P4 — czym się różnią?",
+     "a": "P3 Tower Gen 2 to platforma Intel Core Ultra (seria 2) z chipsetem W880, Ethernetem 1 Gb/s i miejscem nawet na siedem nośników. P4 ma procesory AMD Ryzen PRO 9000, Ethernet 2,5 Gb/s i do sześciu nośników. Obie przyjmą RTX PRO 6000 Blackwell i 256 GB RAM — wybór zależy zwykle od zaleceń programu."
+    },
+    {
+     "q": "Jaką kartę graficzną wybrać do ThinkStation P3 Tower Gen 2?",
+     "a": "Do rysunków 2D i średnich modeli 3D zwykle wystarczy RTX A1000 lub RTX PRO 2000 Blackwell. Duże modele BIM, rendering i AI korzystają z RTX PRO 4000–6000 Blackwell z 24–96 GB pamięci. Kartę dobieramy do programu i wielkości projektów, a zasilacz do karty."
+    },
+    {
+     "q": "Ile dysków zmieści ThinkStation P3 Tower Gen 2 i czy obsługuje RAID?",
+     "a": "Do siedmiu nośników (3× SATA + 4× M.2) albo sześciu (4× SATA + 2× M.2, tylko z zasilaczem 500 W). M.2 mają do 4 TB, dyski HDD do 12 TB. Kontroler SATA obsługuje RAID 0/1/5/10, a NVMe RAID 0/1/5."
+    },
+    {
+     "q": "Czy na ThinkStation P3 Tower Gen 2 można zainstalować Linuksa?",
+     "a": "Tak. Lenovo podaje dla P3 Tower Gen 2 Ubuntu Linux LTS oraz Red Hat Enterprise Linux 10 z certyfikacją, obok Windows 11 Pro i Home. Dla kanału OEM dostępny jest też Windows 11 IoT Enterprise LTSC 2024."
+    },
+    {
+     "q": "Czy ThinkStation P3 Tower Gen 2 obsługuje pamięć ECC?",
+     "a": "Tak, z modułami DDR5-5600 UDIMM ECC i procesorem obsługującym ECC. Maksymalne 256 GB osiąga się modułami CUDIMM 64 GB bez ECC. Przy czterech modułach pamięć pracuje wolniej (4400–4800 MT/s), co uwzględniamy przy doborze."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz procesor, kartę graficzną, pamięć, dyski, zasilacz, system i gwarancję.",
+    "opcje": [
+     {
+      "nazwa": "Procesor",
+      "wartosci": [
+       "Intel Core Ultra 5 245",
+       "Intel Core Ultra 7 265",
+       "Intel Core Ultra 7 265K",
+       "Intel Core Ultra 9 285K"
+      ],
+      "uwaga": "Najczęściej wybierane; pełna lista w parametrach.",
+      "dl": false,
+      "pom": "Od procesora zależy szybkość pracy. Do biura i programów sprzedażowych wystarczy podstawowy, do grafiki, CAD i wielu programów naraz — mocniejszy."
+     },
+     {
+      "nazwa": "Karta graficzna",
+      "wartosci": [
+       "NVIDIA RTX A1000 8 GB",
+       "NVIDIA RTX PRO 2000 Blackwell 16 GB",
+       "NVIDIA RTX PRO 4000 Blackwell 24 GB",
+       "NVIDIA RTX PRO 4500 Blackwell 32 GB",
+       "NVIDIA RTX PRO 5000 Blackwell 48 / 72 GB",
+       "NVIDIA RTX PRO 6000 Blackwell 96 GB"
+      ],
+      "dl": true,
+      "pom": "Osobna karta graficzna przydaje się do grafiki, wideo, CAD i 3D; do pracy biurowej wystarczy zintegrowana."
+     },
+     {
+      "nazwa": "Pamięć RAM",
+      "wartosci": [
+       "32 GB",
+       "64 GB",
+       "128 GB",
+       "256 GB"
+      ],
+      "uwaga": "ECC z modułami UDIMM ECC; 256 GB tylko CUDIMM bez ECC.",
+      "dl": false,
+      "pom": "Więcej pamięci RAM = więcej programów i kart przeglądarki naraz bez spowolnień."
+     },
+     {
+      "nazwa": "Dyski",
+      "wartosci": [
+       "1 TB SSD",
+       "2 TB SSD",
+       "SSD + dysk HDD na archiwum",
+       "kilka dysków w RAID"
+      ],
+      "dl": false,
+      "pom": "Miejsce na system, programy i pliki. SSD to szybki dysk bez ruchomych części."
+     },
+     {
+      "nazwa": "Zasilacz",
+      "wartosci": [
+       "500 W",
+       "750 W",
+       "1100 W"
+      ],
+      "uwaga": "Moc zasilacza dobiera się do karty graficznej.",
+      "dl": false,
+      "pom": "Mocniejsza karta graficzna wymaga zasilacza o większej mocy."
+     },
+     {
+      "nazwa": "System",
+      "wartosci": [
+       "Windows 11 Pro",
+       "Windows 11 Home",
+       "Ubuntu Linux LTS",
+       "Red Hat Enterprise Linux 10"
+      ],
+      "dl": false,
+      "pom": "Windows 11 Pro ma funkcje dla firm, np. szyfrowanie dysku BitLocker i dołączanie do domeny."
+     },
+     {
+      "nazwa": "Gwarancja",
+      "wartosci": [
+       "1 rok z naprawą u klienta (on-site)",
+       "2 lata z naprawą u klienta (on-site)",
+       "3 lata z naprawą u klienta (on-site)"
+      ],
+      "uwaga": "Warianty gwarancji bazowej producenta wg PSREF; dostępność zależy od konfiguracji.",
+      "dl": false,
+      "pom": "„Na miejscu” (on-site) — serwisant naprawia u Ciebie; „kurier” — sprzęt jedzie do serwisu i wraca."
+     }
+    ],
+    "std": [],
+    "popularne": [
+     {
+      "nazwa": "CAD i BIM",
+      "konfiguracja": "P3 Tower Gen 2, Core Ultra 7 265 / RTX PRO 2000 Blackwell / 64 GB / 2 TB / Windows 11 Pro"
+     },
+     {
+      "nazwa": "Rendering i wideo",
+      "konfiguracja": "P3 Tower Gen 2, Core Ultra 9 285K / RTX PRO 4500 Blackwell / 128 GB / 2 TB + HDD / Windows 11 Pro"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "lenovo-thinkvision-p-32-49-ultrawide",
+     "etykieta": "Monitor do CAD"
+    },
+    {
+     "slug": "apc-smart-ups-wieza",
+     "etykieta": "Zasilanie awaryjne"
+    },
+    {
+     "slug": "synology-diskstation-plus-5-8",
+     "etykieta": "Serwer plików na projekty"
+    },
+    {
+     "slug": "microsoft-windows-11-pro",
+     "etykieta": "Windows 11 Pro for Workstations"
+    }
+   ],
+   "podobne": [
+    "lenovo-thinkstation-p4",
+    "lenovo-thinkstation-p3-tiny-ultra-gen-2",
+    "lenovo-thinkpad-p16-gen3"
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Magazyn i produkcja",
+    "Szkoły i instytucje"
+   ],
+   "zrodla": [
+    {
+     "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkStation/ThinkStation_P3_Tower_Gen_2/ThinkStation_P3_Tower_Gen_2_Spec.pdf",
+     "etykieta": "Strona producenta — Lenovo",
+     "host": "psref.lenovo.com · PDF"
+    }
+   ],
+   "wyrozniki": [
+    "do RTX PRO 6000",
+    "RAM do 256 GB",
+    "do 7 dysków"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Procesor",
+     "v": "Intel Core Ultra 5 225 / 235 / 235A / 245 / 245K / 250K Plus, Core Ultra 7 265 / 265K / 270K Plus"
+    },
+    {
+     "k": "Grafika",
+     "v": "do 1× NVIDIA RTX PRO 6000 Blackwell 96 GB (Workstation lub Max-Q) albo do 2× RTX 2000 Ada"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "DDR5, 4 gniazda, maks. 256 GB (4× 64 GB CUDIMM)"
+    },
+    {
+     "k": "Dyski",
+     "v": "do 7 nośników (3× SATA + 4× M.2) albo 6 (4× SATA + 2× M.2, tylko z zasilaczem 500 W)"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "500 W, 750 W lub 1100 W, sprawność 92% (80 PLUS Platinum)"
+    }
+   ],
+   "nowosc": false,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-thinkstation-p3-tower-gen-2-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkStation/ThinkStation_P3_Tower_Gen_2/ThinkStation_P3_Tower_Gen_2_CT1_01.png",
+     "ujecie": "przód pod kątem"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkstation-p3-tower-gen-2-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkStation/ThinkStation_P3_Tower_Gen_2/ThinkStation_P3_Tower_Gen_2_CT2_01.png",
+     "ujecie": "przód z portami"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkstation-p3-tower-gen-2-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkStation/ThinkStation_P3_Tower_Gen_2/ThinkStation_P3_Tower_Gen_2_CT2_02.png",
+     "ujecie": "tył z portami i gniazdami PCIe"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkstation-p3-tower-gen-2-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkStation/ThinkStation_P3_Tower_Gen_2/ThinkStation_P3_Tower_Gen_2_CT2_04.png",
+     "ujecie": "bok"
+    }
+   ]
+  },
+  {
+   "slug_seed": "lenovo-thinkstation-p4",
+   "zmiana_k4": "zmieniona",
+   "status": "do-sprawdzenia",
+   "dzial": "biuro",
+   "kategoria": "komputery",
+   "podkategoria": "stacje-robocze",
+   "marka": "Lenovo",
+   "seria": "ThinkStation",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Lenovo ThinkStation P4",
+   "krotka": "Lenovo ThinkStation P4",
+   "podtytul": "Stacja robocza tower na AMD Ryzen PRO 9000, z kartami do NVIDIA RTX PRO 6000 Blackwell i siecią 2,5 Gb/s",
+   "korzysc": "Stacja robocza tower na AMD Ryzen PRO do CAD, BIM, renderingu i AI — z certyfikacjami programów i siecią 2,5 Gb/s.",
+   "opis": [
+    "ThinkStation P4 to nowa stacja robocza Lenovo w obudowie tower 29,9 l, zbudowana na procesorach AMD Ryzen PRO 9000 (do 16 rdzeni i 5,5 GHz) i chipsecie AMD PRO 675. Celuje w biura architektoniczne i konstrukcyjne oraz studia postprodukcji, które potrzebują profesjonalnej karty NVIDIA i dużo pamięci, a wolą platformę AMD — w tym wersje Ryzen 7 PRO 9755X3D i Ryzen 9 PRO 9965X3D z powiększoną pamięcią podręczną L3.",
+    "W głównym gnieździe PCIe 5.0 x16 pracuje karta do NVIDIA RTX PRO 6000 Blackwell z 96 GB pamięci; można też zamontować dwie RTX A1000. Cztery gniazda DDR5 mieszczą do 256 GB w modułach CUDIMM 64 GB, a pamięć z ECC jest dostępna w modułach UDIMM 16 i 32 GB. Najmocniejsze procesory — Ryzen 9 PRO 9965 oraz oba modele X3D — Lenovo montuje wyłącznie z fabrycznym chłodzeniem cieczą.",
+    "Mieści do sześciu nośników: trzy SSD M.2 (dwa gniazda PCIe 5.0 i jedno PCIe 4.0) oraz trzy dyski 3,5\" do 12 TB, z RAID 0/1/5 na SATA i 0/1 na NVMe. Z tyłu są cztery USB-A 5 Gb/s, HDMI 2.1, DisplayPort 1.4, DisplayPort 2.0 do 8K 60 Hz oraz Ethernet 2,5 Gb/s w standardzie, z przodu USB-C 20 Gb/s i cztery USB-A. Łącznie obsłuży do 12 monitorów: trzy z płyty, jeden z portu Flex IO i osiem z dwóch kart.",
+    "Lenovo podaje dla P4 certyfikacje ISV m.in. programów Autodesk, Bentley, Dassault, Nemetschek, PTC, Siemens i ANSYS, a z systemów — Windows 11, Ubuntu i Red Hat Enterprise Linux. W Rabce-Zdroju zestawimy P4 z ThinkStation P3 Tower Gen 2 pod Twój program i po potwierdzeniu dostępności w polskiej dystrybucji przygotujemy konfigurację z kartą, pamięcią i chłodzeniem dobranymi do projektów."
+   ],
+   "cechy": [
+    "do RTX PRO 6000",
+    "RAM do 256 GB",
+    "sieć 2,5 Gb/s"
+   ],
+   "parametry": [
+    {
+     "k": "Obudowa",
+     "v": "tower 29,9 l, 180 × 401,5 × 415 mm, od 8,75 kg"
+    },
+    {
+     "k": "Procesor",
+     "v": "AMD Ryzen 5 PRO 9655, Ryzen 7 PRO 9745 / 9755 / 9755X3D, Ryzen 9 PRO 9955 / 9965 / 9965X3D (do 16 rdzeni, do 5,5 GHz, do 170 W)"
+    },
+    {
+     "k": "Chipset",
+     "v": "AMD PRO 675"
+    },
+    {
+     "k": "Chłodzenie",
+     "v": "powietrzem (Entry / Standard) lub cieczą (Advanced Liquid); Ryzen 7 PRO 9755X3D, Ryzen 9 PRO 9965 i 9965X3D tylko z chłodzeniem cieczą"
+    },
+    {
+     "k": "Grafika",
+     "v": "do 1× NVIDIA RTX PRO 6000 Blackwell 96 GB (Workstation lub Max-Q) albo do 2× RTX A1000; w ofercie także RTX PRO 5000 Blackwell 48 / 72 GB, RTX PRO 4500 32 GB, RTX PRO 4000 24 GB, RTX PRO 2000 16 GB, RTX A1000 8 GB, RTX A400 4 GB"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "DDR5, 4 gniazda, maks. 256 GB (4× 64 GB CUDIMM bez ECC); ECC w modułach UDIMM 16 i 32 GB; przy 4 modułach pamięć pracuje wolniej (3200–3600 MT/s)"
+    },
+    {
+     "k": "Dyski",
+     "v": "do 6 nośników: 3× M.2 (2 gniazda PCIe 5.0, 1 PCIe 4.0; SSD Gen 5 do 4 TB) i 3× HDD 3,5\" do 12 TB; RAID 0/1/5 (SATA) i 0/1 (NVMe); opcjonalnie napęd DVD 9 mm"
+    },
+    {
+     "k": "Porty z przodu",
+     "v": "USB-C 20 Gb/s, 2× USB-A 10 Gb/s, 2× USB-A 5 Gb/s, gniazdo słuchawkowe, gniazdo mikrofonu; opcjonalnie czytnik kart SD"
+    },
+    {
+     "k": "Porty z tyłu",
+     "v": "4× USB-A 5 Gb/s, HDMI 2.1, DisplayPort 1.4, DisplayPort 2.0 (do 8K 60 Hz), RJ-45 2,5 Gb/s, wyjście liniowe; opcjonalnie Flex IO (HDMI, DisplayPort, VGA lub USB-C z obrazem), porty szeregowe i równoległy"
+    },
+    {
+     "k": "Monitory",
+     "v": "do 12: 3 z płyty głównej, 1 z portu Flex IO i 8 z dwóch kart graficznych"
+    },
+    {
+     "k": "Gniazda rozszerzeń",
+     "v": "PCIe 5.0 x16 (karta podwójnej szerokości, pełnej długości), PCIe 4.0 x16 (linie x4), 2× PCIe 4.0 x1"
+    },
+    {
+     "k": "Łączność / sieć",
+     "v": "Ethernet 2,5 Gb/s (Realtek RTL8125BP, Wake-on-LAN); opcjonalnie Wi-Fi 7 (MediaTek MT7925) + Bluetooth 5.4; dodatkowe karty: do 2× 2,5 GbE, 10 GbE lub 25 GbE (SFP28)"
+    },
+    {
+     "k": "Zasilacz",
+     "v": "500 W, 750 W lub 1100 W, sprawność 92% (80 PLUS Platinum)"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro, Windows 11 Home, Ubuntu Linux LTS, Red Hat Enterprise Linux 10.2 (certyfikacja)"
+    },
+    {
+     "k": "Bezpieczeństwo",
+     "v": "osobny układ TPM 2.0, ucho na kłódkę, gniazdo Kensington, opcjonalnie zamek elektroniczny, linka i czujnik otwarcia obudowy, UEFI Secure Boot, samonaprawiający się BIOS"
+    },
+    {
+     "k": "Zarządzanie",
+     "v": "AMD PRO Manageability; Lenovo Diagnostics"
+    },
+    {
+     "k": "Certyfikacje programów",
+     "v": "wg Lenovo: m.in. Autodesk, Bentley, Dassault, Nemetschek, PTC, Siemens, ANSYS, Altair, Avid; test MIL-STD-810H"
+    },
+    {
+     "k": "Gwarancja",
+     "v": "1, 2 lub 3 lata z naprawą u klienta (on-site), zależnie od modelu"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "Chłodzenie powietrzem",
+     "roznica": "Ryzen 5 PRO 9655, Ryzen 7 PRO 9745 / 9755, Ryzen 9 PRO 9955 — typowy CAD i BIM."
+    },
+    {
+     "model": "Chłodzenie cieczą (Advanced Liquid)",
+     "roznica": "Wymagane dla Ryzen 7 PRO 9755X3D, Ryzen 9 PRO 9965 i 9965X3D — długie obliczenia, symulacje i rendering."
+    }
+   ],
+   "faq": [
+    {
+     "q": "ThinkStation P4 czy P3 Tower Gen 2 — którą stację wybrać?",
+     "a": "P4 ma procesory AMD Ryzen PRO 9000 (także X3D z dużą pamięcią L3), Ethernet 2,5 Gb/s i DisplayPort 2.0 w standardzie. P3 Tower Gen 2 to Intel Core Ultra, sieć 1 Gb/s i do siedmiu nośników zamiast sześciu. Obie przyjmują RTX PRO 6000 Blackwell — rozstrzygają zalecenia Twojego programu."
+    },
+    {
+     "q": "Czy ThinkStation P4 jest dostępna w Polsce?",
+     "a": "Lenovo zapowiedziało ThinkStation P4 na wybranych rynkach od czerwca 2026 i nie podaje listy krajów. Dostępność konkretnych konfiguracji w polskiej dystrybucji potwierdzamy przy każdej wycenie."
+    },
+    {
+     "q": "Kiedy w ThinkStation P4 potrzebne jest chłodzenie cieczą?",
+     "a": "Według Lenovo Ryzen 7 PRO 9755X3D, Ryzen 9 PRO 9965 i Ryzen 9 PRO 9965X3D występują tylko z chłodzeniem Advanced Liquid. Słabsze procesory, np. Ryzen 7 PRO 9745 czy Ryzen 9 PRO 9955, mogą mieć chłodzenie powietrzem."
+    },
+    {
+     "q": "Jakie systemy i programy są certyfikowane dla ThinkStation P4?",
+     "a": "Lenovo wymienia certyfikacje ISV m.in. dla Autodesk, Bentley, Dassault, Nemetschek, PTC, Siemens, ANSYS, Altair i Avid. Z systemów: Windows 11 Pro i Home, Ubuntu Linux LTS oraz Red Hat Enterprise Linux 10.2 z certyfikacją."
+    },
+    {
+     "q": "Ile monitorów podłączę do ThinkStation P4?",
+     "a": "Do dwunastu: trzy do portów na płycie (2× DisplayPort i HDMI), jeden do opcjonalnego portu Flex IO i osiem do dwóch kart graficznych. Port DisplayPort 2.0 na płycie obsłuży monitor 8K przy 60 Hz."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz procesor, chłodzenie, kartę graficzną, pamięć, dyski, zasilacz, system i gwarancję.",
+    "opcje": [
+     {
+      "nazwa": "Procesor",
+      "wartosci": [
+       "AMD Ryzen 7 PRO 9745",
+       "AMD Ryzen 7 PRO 9755",
+       "AMD Ryzen 9 PRO 9965",
+       "AMD Ryzen 9 PRO 9965X3D"
+      ],
+      "uwaga": "Najczęściej wybierane; pełna lista w parametrach.",
+      "dl": false,
+      "pom": "Od procesora zależy szybkość pracy. Do biura i programów sprzedażowych wystarczy podstawowy, do grafiki, CAD i wielu programów naraz — mocniejszy."
+     },
+     {
+      "nazwa": "Chłodzenie",
+      "wartosci": [
+       "powietrzem (Entry / Standard)",
+       "cieczą (Advanced Liquid)"
+      ],
+      "uwaga": "9755X3D, 9965 i 9965X3D tylko z chłodzeniem cieczą.",
+      "dl": false,
+      "pom": "Chłodzenie cieczą pozwala najmocniejszym procesorom pracować długo z pełną mocą."
+     },
+     {
+      "nazwa": "Karta graficzna",
+      "wartosci": [
+       "NVIDIA RTX A1000 8 GB",
+       "NVIDIA RTX PRO 2000 Blackwell 16 GB",
+       "NVIDIA RTX PRO 4000 Blackwell 24 GB",
+       "NVIDIA RTX PRO 4500 Blackwell 32 GB",
+       "NVIDIA RTX PRO 5000 Blackwell 48 / 72 GB",
+       "NVIDIA RTX PRO 6000 Blackwell 96 GB"
+      ],
+      "dl": true,
+      "pom": "Osobna karta graficzna przydaje się do grafiki, wideo, CAD i 3D; do pracy biurowej wystarczy zintegrowana."
+     },
+     {
+      "nazwa": "Pamięć RAM",
+      "wartosci": [
+       "32 GB",
+       "64 GB",
+       "128 GB",
+       "256 GB"
+      ],
+      "uwaga": "ECC w modułach UDIMM 16 / 32 GB; 256 GB tylko CUDIMM bez ECC.",
+      "dl": false,
+      "pom": "Więcej pamięci RAM = więcej programów i kart przeglądarki naraz bez spowolnień."
+     },
+     {
+      "nazwa": "Dyski",
+      "wartosci": [
+       "1 TB SSD",
+       "2 TB SSD",
+       "SSD + dysk HDD na archiwum",
+       "kilka dysków w RAID"
+      ],
+      "dl": false,
+      "pom": "Miejsce na system, programy i pliki. SSD to szybki dysk bez ruchomych części."
+     },
+     {
+      "nazwa": "Zasilacz",
+      "wartosci": [
+       "500 W",
+       "750 W",
+       "1100 W"
+      ],
+      "uwaga": "Moc zasilacza dobiera się do karty graficznej.",
+      "dl": false,
+      "pom": "Mocniejsza karta graficzna wymaga zasilacza o większej mocy."
+     },
+     {
+      "nazwa": "System",
+      "wartosci": [
+       "Windows 11 Pro",
+       "Windows 11 Home",
+       "Ubuntu Linux LTS",
+       "Red Hat Enterprise Linux 10.2"
+      ],
+      "dl": false,
+      "pom": "Windows 11 Pro ma funkcje dla firm, np. szyfrowanie dysku BitLocker i dołączanie do domeny."
+     },
+     {
+      "nazwa": "Gwarancja",
+      "wartosci": [
+       "1 rok z naprawą u klienta (on-site)",
+       "2 lata z naprawą u klienta (on-site)",
+       "3 lata z naprawą u klienta (on-site)"
+      ],
+      "uwaga": "Warianty gwarancji bazowej producenta wg PSREF; dostępność zależy od konfiguracji.",
+      "dl": false,
+      "pom": "„Na miejscu” (on-site) — serwisant naprawia u Ciebie; „kurier” — sprzęt jedzie do serwisu i wraca."
+     }
+    ],
+    "std": [],
+    "popularne": [
+     {
+      "nazwa": "BIM / CAD duże projekty",
+      "konfiguracja": "P4, AMD Ryzen 7 PRO 9755 / RTX PRO 2000 Blackwell / 64 GB / 2 TB / Windows 11 Pro"
+     },
+     {
+      "nazwa": "Symulacje i rendering",
+      "konfiguracja": "P4, AMD Ryzen 9 PRO 9965X3D (chłodzenie cieczą) / RTX PRO 4500 Blackwell / 128 GB / 2 TB / Windows 11 Pro"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "lenovo-thinkvision-p-32-49-ultrawide",
+     "etykieta": "Monitor do CAD"
+    },
+    {
+     "slug": "apc-smart-ups-wieza",
+     "etykieta": "Zasilanie awaryjne"
+    },
+    {
+     "slug": "synology-diskstation-plus-5-8",
+     "etykieta": "Serwer plików na projekty"
+    },
+    {
+     "slug": "microsoft-windows-11-pro",
+     "etykieta": "Windows 11 Pro"
+    }
+   ],
+   "podobne": [
+    "lenovo-thinkstation-p3-tower-gen-2",
+    "lenovo-thinkstation-p3-tiny-ultra-gen-2",
+    "lenovo-thinkpad-p16-gen3"
+   ],
+   "branze": [
+    "Biura i usługi",
+    "Magazyn i produkcja",
+    "Szkoły i instytucje"
+   ],
+   "zrodla": [
+    {
+     "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkStation/ThinkStation_P4/ThinkStation_P4_Spec.pdf",
+     "etykieta": "Strona producenta — Lenovo",
+     "host": "psref.lenovo.com · PDF"
+    },
+    {
+     "url": "https://news.lenovo.com/pressroom/press-releases/thinkstation-p4-flagship-power-value-professionals/",
+     "etykieta": "Strona producenta — Lenovo",
+     "host": "news.lenovo.com"
+    }
+   ],
+   "wyrozniki": [
+    "do RTX PRO 6000",
+    "RAM do 256 GB",
+    "sieć 2,5 Gb/s"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Procesor",
+     "v": "AMD Ryzen 5 PRO 9655, Ryzen 7 PRO 9745 / 9755 / 9755X3D"
+    },
+    {
+     "k": "Grafika",
+     "v": "do 1× NVIDIA RTX PRO 6000 Blackwell 96 GB (Workstation lub Max-Q) albo do 2× RTX A1000"
+    },
+    {
+     "k": "Pamięć RAM",
+     "v": "DDR5, 4 gniazda, maks. 256 GB (4× 64 GB CUDIMM bez ECC)"
+    },
+    {
+     "k": "Dyski",
+     "v": "do 6 nośników: 3× M.2 (2 gniazda PCIe 5.0, 1 PCIe 4.0"
+    },
+    {
+     "k": "Łączność / sieć",
+     "v": "Ethernet 2,5 Gb/s (Realtek RTL8125BP, Wake-on-LAN)"
+    }
+   ],
+   "nowosc": false,
+   "wideo": [
+    {
+     "id": "r9grVzmG_wQ",
+     "t": "Lenovo ThinkStation P4: Future-Ready Design with Advanced Thermal Engineering",
+     "k": "Lenovo",
+     "l": "en",
+     "d": "model"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-thinkstation-p4-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkStation/ThinkStation_P4/ThinkStation_P4_CT1_01.png",
+     "ujecie": "przód pod kątem"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkstation-p4-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkStation/ThinkStation_P4/ThinkStation_P4_CT2_01.png",
+     "ujecie": "przód z portami"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkstation-p4-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkStation/ThinkStation_P4/ThinkStation_P4_CT2_02.png",
+     "ujecie": "tył z portami i gniazdami PCIe"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkstation-p4-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkStation/ThinkStation_P4/ThinkStation_P4_CT2_04.png",
+     "ujecie": "bok z perforacją"
+    }
+   ]
   }
  ]
 }
