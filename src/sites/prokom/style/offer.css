@@ -4,15 +4,6 @@
  * from tokens, the line colour as `--ln*`; motion only `transform`, off with reduced motion.
  */
 
-.pk-h1 {
-  font-family: var(--font-display);
-  font-size: clamp(40px, 5.4vw, 84px);
-  font-stretch: 118%;
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 0.95;
-}
-
 /* --- Hero ----------------------------------------------------------------------------------- */
 .pk-ohero {
   position: relative;
@@ -318,9 +309,6 @@
   color: var(--ln-text);
   font-size: 12px;
   font-weight: 800;
-}
-.pk-od__close {
-  display: none;
 }
 .pk-od__long,
 .pk-od__who {
@@ -642,34 +630,22 @@
   font-weight: 800;
 }
 
-/* --- Tablet and phone: the detail as a sheet ------------------------------------------------ */
+/* --- Tablet and phone: the detail in the shared sheet (`BottomSheet`) ----------------------- */
 @media (max-width: 1023px) {
   .pk-ocat__grid {
     grid-template-columns: 1fr;
   }
-  .pk-od {
-    position: fixed;
-    z-index: 60;
-    inset: auto 0 0;
+  .pk-ocat__grid > .pk-od {
     display: none;
-    max-height: 86vh;
-    border-radius: 28px 28px 0 0;
-    padding-bottom: calc(24px + env(safe-area-inset-bottom));
-    box-shadow: 0 -30px 60px -20px color-mix(in srgb, var(--k-dim) 80%, transparent);
   }
-  .pk-od[data-open] {
-    display: flex;
-  }
-  .pk-od__close {
-    display: inline-flex;
-    min-height: 44px;
-    align-items: center;
-    border: 1px solid var(--w22);
-    border-radius: 12px;
-    padding: 0 14px;
-    font-size: 14px;
-    font-weight: 800;
-  }
+}
+/* In the sheet: no frame of its own, the sheet gives the edges and the scrolling. */
+.pk-od--sheet {
+  position: static;
+  max-height: none;
+  overflow: visible;
+  border: 0;
+  border-radius: 20px;
 }
 @media (max-width: 640px) {
   .pk-ohero__inner {

@@ -63,17 +63,19 @@ test.describe('pro-kom.eu — /linie (spec §6.2)', () => {
     await expect(page.locator('#katalog .pk-osv').first()).toBeVisible()
   })
 
-  test('on a phone the service opens as a sheet that closes', async ({ page }) => {
+  test('on a phone the service opens as a modal sheet; Esc gives focus back', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto(site(HUB, '/linie'))
-    const sheet = page.locator('#usluga')
-    await expect(sheet).toBeHidden()
+    await expect(page.locator('#usluga')).toBeHidden()
     const first = page.locator('#katalog .pk-osv').first()
+    const title = (await first.locator('.pk-osv__title').textContent()) ?? ''
     await hydrated(first)
     await first.click()
+    const sheet = page.getByRole('dialog', { name: title })
     await expect(sheet).toBeVisible()
-    await sheet.getByRole('button', { name: 'Zamknij' }).click()
+    await page.keyboard.press('Escape')
     await expect(sheet).toBeHidden()
+    await expect(first).toBeFocused()
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
     )

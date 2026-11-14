@@ -107,5 +107,8 @@ describe('parseOfferParams and offerQuery', () => {
     expect(state).toEqual({ q: 'kasa', audience: 'firma', line: null, selected: 'b1' })
     expect(offerQuery(state, state.selected)).toBe('?q=kasa&dla=firma&u=b1')
     expect(offerQuery({ q: '', audience: null, line: null }, null)).toBe('')
+    expect(offerQuery({ q: '', audience: null, line: 'tech' }, null, '?utm_source=x&u=b1')).toBe(
+      '?utm_source=x&linia=tech',
+    )
   })
 })
