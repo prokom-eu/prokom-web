@@ -19,7 +19,7 @@ const columns = [
 ]
 
 describe('megaColumns — „Oferta ▾” of the capsule (ZMIANY-v24 §3.2)', () => {
-  it('a solution link shows its name and „od” price and opens its offer window', () => {
+  it('a solution link: its page for search engines, its offer window on a click (SEO etap 1)', () => {
     const [column] = megaColumns(
       columns,
       [solution('strona-wizytowka', 999), solution('opieka', 149, { priceMonthly: true })],
@@ -28,7 +28,8 @@ describe('megaColumns — „Oferta ▾” of the capsule (ZMIANY-v24 §3.2)', (
     expect(column?.items[0]).toEqual({
       label: 'Nazwa strona-wizytowka',
       note: keepTogether('od 999 zł'),
-      href: '/rozwiazania?rozwiazanie=strona-wizytowka',
+      href: '/rozwiazania/strona-wizytowka',
+      open: '/rozwiazania?rozwiazanie=strona-wizytowka',
     })
   })
 

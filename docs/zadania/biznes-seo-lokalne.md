@@ -32,6 +32,14 @@
 5. **Search Console + Bing Webmaster Tools** z `sitemap.xml` (TXT najpierw w `docs/dns.md`).
 6. **Linki:** z pro-kom.eu (stara domena z historią) do prokombiznes.pl na każdej podstronie oferty; wpisy partnerskie u producentów (Posnet, Elzab, GoPOS, InsERT — „znajdź partnera”), katalogi lokalne (Rabka-Zdrój, izba gospodarcza), spójne NAP (nazwa, adres, telefon) wszędzie.
 
+## Stan (noc 14.11)
+
+- ✅ PR FAQ (#565), opisy bez powtórzeń (#560).
+- ✅ PR 1 — sygnały na stronie: #567 + #570 (poprawki), #574 (oferta, marki, salony, zestawy, strony usług i zaopatrzenia; `brandMetaTitle`, `salonMetaTitle`, `localPageMeta`). Skan: 43/44 tytuły kategorii i wszystkie opisy z regionem; `LocalBusiness` z `geo` i `areaServed` z panelu.
+- ✅ PR 2 — `/llms.txt` Biznesu i `Service` na stronach usług i zaopatrzenia: #571 (+ #574).
+- ⏳ PR 3 — strony miejscowości: czeka na [SZEF] listę miejscowości i dojazdy/czas reakcji (bez tego wydmuszki).
+- ⏳ Poza kodem: produkcja, Profil Firmy w Google + opinie, Bing Places, Search Console, linki z pro-kom.eu i od producentów.
+
 ## Kolejność (rekomendacja)
 PR FAQ (w toku) → PR 1 (sygnały) → PR 2 (`llms.txt`) → decyzja o produkcji → równolegle profil Google i opinie → PR 3 (miejscowości, gdy szef potwierdzi listę i dojazdy).
 

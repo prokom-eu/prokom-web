@@ -77,6 +77,8 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
               wheelImage: true,
               wheelName: true,
               wheelColor: true,
+              // ADR-026: only ready cards are listed (`buildCatalogIndex`).
+              contentStatus: true,
             },
             overrideAccess: true,
           }),

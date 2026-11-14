@@ -59,8 +59,9 @@ test.describe('product pictures', () => {
     '/oferta',
     '/oferta/kasy-fiskalne',
     '/produkt/posnet-ergo-online',
-    // A card without a manufacturer photo (K31-ZMIANY §4.10).
-    '/produkt/lenovo-thinkpad-p1-gen-9',
+    // A card without a manufacturer photo (K31-ZMIANY §4.10); the ThinkPad P1 Gen 9 used before
+    // has PSREF photos since 14.11.
+    '/produkt/eset-small-business-security',
   ]) {
     test(`no empty or broken <img> on ${path}`, async ({ page }) => {
       await page.goto(site('biznes.localhost', path))
@@ -84,7 +85,7 @@ test.describe('product pictures', () => {
   }
 
   test('a product without a photo shows the stand-in, not an image', async ({ page }) => {
-    await page.goto(site('biznes.localhost', '/produkt/lenovo-thinkpad-p1-gen-9'))
+    await page.goto(site('biznes.localhost', '/produkt/eset-small-business-security'))
     const note = page.getByText('Zdjęcia producenta jeszcze nie ma.')
     await expect(note).toBeVisible()
     // The gallery stage holds the stand-in only: no <img> next to the note.

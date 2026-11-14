@@ -4,3 +4,6 @@
  * search to every page.
  */
 export const CATALOG_PATH = '/rozwiazania'
+
+/** The catalog's search parameter (`/rozwiazania?q=`), also for `WebSite` › `SearchAction`. */
+export const CATALOG_QUERY_PARAM = 'q'

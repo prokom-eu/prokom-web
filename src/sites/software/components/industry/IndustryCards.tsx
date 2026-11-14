@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { OFFER_GROUPS, offerGroup } from '@/lib/software/catalog'
 import type { OfferView } from '@/lib/software/offer'
-import { offerHref, solutionCard } from '@/lib/software/priceCards'
+import { offerHref, solutionCard, solutionHref } from '@/lib/software/priceCards'
 import type { IndexSolution } from '@/lib/software/solutionsIndex'
 import type { PriceDisplay } from '@/lib/software/priceDisplay'
 
@@ -37,7 +37,8 @@ export function IndustryCards({ cards, display, offers }: Props) {
             <PriceCard
               card={solutionCard(card, display, groupName(card))}
               details="Szczegóły →"
-              href={offerHref(card.slug)}
+              href={solutionHref(card.slug)}
+              open={offerHref(card.slug)}
               onOpen={() => setOpen(card.slug)}
             />
           </li>

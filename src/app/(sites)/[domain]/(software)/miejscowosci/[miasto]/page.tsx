@@ -5,12 +5,13 @@ import { notFound } from 'next/navigation'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { metaDescription } from '@/lib/seo/description'
+import { withTown } from '@/lib/software/meta'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { cardPrice } from '@/lib/software/cardPrice'
 import { cityHref } from '@/lib/software/cities'
-import { getCityView, getSolutionsIndex } from '@/lib/software/data'
+import { getCityList, getCityView, getSolutionsIndex } from '@/lib/software/data'
 import { fillText } from '@/lib/software/facts'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { Buttons } from '@/sites/software/components/about/Buttons'
@@ -38,7 +39,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!city) return {}
   const settings = await getSiteSettings(tenant.id)
   const title = city.seo.title ?? `Strony i systemy dla firm ${city.name}`
-  const description = metaDescription(city.seo.description ?? city.hero.lead)
+  // The town's name in the snippet (SEO etap 1): the lead of Rabka spoke of „Orkana 16B” only.
+  const description = withTown(metaDescription(city.seo.description ?? city.hero.lead), city.name)
   return {
     // The panel title is the whole `<title>` (spec. §9: „… | PRO-KOM Software”).
     title: city.seo.title ? { absolute: title } : title,
@@ -60,17 +62,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /**
  * `/miejscowosci/[miasto]` (spec. §6.9, board `Miasto`): hero, „Dla kogo pracujemy
  * najczęściej” with prices from the solutions, „Blisko, czyli prościej”, FAQ with
- * `{cena:<slug>}`, nearby places as plain chips (no links) and the salon CTA. JSON-LD `Service`
+ * `{cena:<slug>}`, nearby places as chips — a town with its own page is a link chip — and the salon CTA. JSON-LD `Service`
  * with `areaServed`; no `LocalBusiness` for a city without a branch.
  */
 export default async function CityPage({ params }: Props) {
   const { tenant, city } = await load(params)
   if (!city) notFound()
-  const [context, index, origin] = await Promise.all([
+  const [context, index, origin, cities] = await Promise.all([
     softwareTextContext(tenant.id),
     getSolutionsIndex(tenant.id),
     requestOrigin(),
+    getCityList(tenant.id),
   ])
+  // A nearby place with its own page links there (SEO etap 2): the towns link each other.
+  const townPage = new Map(cities.map((town) => [town.name, cityHref(town.slug)]))
   const fill = (value: string | null | undefined) => fillText(value ?? undefined, context)
   const bySlug = new Map(index.solutions.map((solution) => [solution.slug, solution]))
   const faq = city.faq.flatMap(({ question, answer }) => {
@@ -196,18 +201,29 @@ export default async function CityPage({ params }: Props) {
             <h2 id="okolica-h" className="sw-eyebrow">
               Pracujemy też w okolicy
             </h2>
-            {/* Plain chips, no links: other city pages exist only with their own text. */}
+            {/* A place with its own page (active, with its own text) is a link; the rest plain. */}
             <ul className="mt-3 flex flex-wrap gap-2">
-              {city.nearby.map((name) => (
-                <li
-                  key={name}
-                  className={
-                    name === city.name ? 'sw-chip border-accent-line text-accent-text' : 'sw-chip'
-                  }
-                >
-                  {name}
-                </li>
-              ))}
+              {city.nearby.map((name) => {
+                const href = name === city.name ? undefined : townPage.get(name)
+                // A link chip: the whole chip is the target (44 px, `a.sw-chip`) and the arrow
+                // tells it is a link without a pointer over it (WCAG 1.4.1).
+                return href ? (
+                  <li key={name}>
+                    <Link href={href} className="sw-chip text-ink">
+                      {name} <span aria-hidden="true">→</span>
+                    </Link>
+                  </li>
+                ) : (
+                  <li
+                    key={name}
+                    className={
+                      name === city.name ? 'sw-chip border-accent-line text-accent-text' : 'sw-chip'
+                    }
+                  >
+                    {name}
+                  </li>
+                )
+              })}
             </ul>
             <p className="mt-3 text-sm text-ink-2">Dalej pracujemy zdalnie, w całej Polsce.</p>
           </div>

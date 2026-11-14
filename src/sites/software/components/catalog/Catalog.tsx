@@ -17,7 +17,7 @@ import {
 } from '@/lib/software/catalog'
 import type { OfferView } from '@/lib/software/offer'
 import { INDUSTRY_GROUPS, SITUATIONS } from '@/lib/software/options'
-import { solutionCard } from '@/lib/software/priceCards'
+import { solutionCard, solutionHref } from '@/lib/software/priceCards'
 import { prepareSolutionSearch } from '@/lib/software/search'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
@@ -272,7 +272,8 @@ export function Catalog({ index, offers, hero }: Props) {
                     GROUP_SHORT[offerGroup(solution)] ?? '',
                   )}
                   details="Szczegóły →"
-                  href={catalogHref({ ...view, solution: solution.slug })}
+                  href={solutionHref(solution.slug)}
+                  open={catalogHref({ ...view, solution: solution.slug })}
                   onOpen={() => openWindow(solution.slug)}
                 />
               </li>

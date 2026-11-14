@@ -15,6 +15,7 @@ import { brandLogo } from './brandLogo'
 import { HOME_SLUG } from '../pages/slug'
 import type { FeaturedGroup, IconName } from './options'
 import { productImageAlt } from './card'
+import { isIndexableProduct } from './product'
 import { normalizeText } from './normalize'
 import { wizardSchema } from './wizard'
 
@@ -170,6 +171,7 @@ export type IndexedProductDoc = Pick<
   | 'wheelImage'
   | 'wheelName'
   | 'wheelColor'
+  | 'contentStatus'
 >
 
 export type CatalogSource = {
@@ -242,7 +244,10 @@ const subcategoryKey = (category: string, name: string) => `${category}/${name.t
 
 const optional = (value: string | null | undefined) => (value?.trim() ? value.trim() : undefined)
 
-export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
+export function buildCatalogIndex(input: CatalogSource): CatalogIndex {
+  // ADR-026 (wariant B): a card „Do sprawdzenia” is never listed — not in the lists, search, menu,
+  // counts nor „polecane”; it still answers at its address (`noindex`) and stays in the panel.
+  const source = { ...input, products: input.products.filter(isIndexableProduct) }
   const { tenantId } = source
   const groupById = new Map(source.groups.map((group) => [group.id, group]))
   const groupOf = (category: CatalogCategory) => {

@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { getEnv } from '@/lib/env'
 import { instalacjeLlmsTxt } from '@/lib/instalacje/llmsData'
 import { siteOrigin } from '@/lib/seo/origin'
+import { softwareLlmsData } from '@/lib/software/llmsData'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { findTenant } from '../tenant'
@@ -14,6 +15,7 @@ const BUILDERS: Partial<
   Record<SiteTenant['line'], (tenant: SiteTenant, origin: string) => Promise<string>>
 > = {
   instalacje: instalacjeLlmsTxt,
+  software: softwareLlmsData,
 }
 
 /**

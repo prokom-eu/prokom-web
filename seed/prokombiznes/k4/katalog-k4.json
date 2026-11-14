@@ -18531,7 +18531,7 @@
     },
     {
      "q": "Czy połączycie RJ-3055WB z programem sprzedaży w terenie?",
-     "a": "Tak. RJ-3035B łączymy z programem sprzedaży przez Bluetooth lub USB, RJ-3055WB także przez Wi-Fi, i sprawdzamy wydruk paragonów niefiskalnych i etykiet na Twoich towarach."
+     "a": "Tak. RJ-3035B łączymy z programem sprzedaży przez Bluetooth lub USB, RJ-3055WB także przez Wi-Fi, i sprawdzamy wydruk potwierdzeń, rachunków i etykiet na Twoich towarach."
     }
    ],
    "polecane": [
@@ -20074,6 +20074,28 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/optivendi-winda-2026.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-winda-2026-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/automat-z-winda-model-2026",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-2026-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/02/27/winda-11g-2-warstwy.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-2026-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/02/27/winda-budowa.jpg",
+     "ujecie": "budowa automatu"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-2026-premium-04.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/03/16/wymiary-001.jpg",
+     "ujecie": "wymiary — front"
+    }
    ]
   },
   {
@@ -20240,6 +20262,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-kawomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/kawomat-automat-do-wydawania-goracych-napojow",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-kawomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/02/09/1kawomat-str2.jpg",
+     "ujecie": "wnętrze automatu"
+    },
+    {
+     "plik": "media/produkty/optivendi-kawomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/03/30/kawomat-wymiary1.jpg",
+     "ujecie": "wymiary"
+    }
    ]
   },
   {
@@ -20405,6 +20444,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-chlebomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/chlebomat1",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-chlebomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/02/28/chlebomat-2.jpg",
+     "ujecie": "z boku, z wymiarem szerokości"
+    },
+    {
+     "plik": "media/produkty/optivendi-chlebomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/02/28/1chlebomat2.jpg",
+     "ujecie": "przed piekarnią"
+    }
    ]
   },
   {
@@ -20563,6 +20619,28 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/optivendi-boxomaty.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-boxomaty-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/automaty-wydajace-narzedzia",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-boxomaty-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2023/02/17/1boxomat.jpg",
+     "ujecie": "szafki z podświetleniem"
+    },
+    {
+     "plik": "media/produkty/optivendi-boxomaty-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/3boxomat-sterujaca.jpg",
+     "ujecie": "wymiary jednostki sterującej"
+    },
+    {
+     "plik": "media/produkty/optivendi-boxomaty-premium-04.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/3boxomat-szafka.jpg",
+     "ujecie": "wymiary szafki z boxami"
+    }
    ]
   },
   {
@@ -20734,6 +20812,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-winda-podwojna-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/automat-podwojny-z-winda",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-podwojna-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/02/27/2winda-winda.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-podwojna-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/02/27/maszyna-podwojna2.png",
+     "ujecie": "z boku"
     }
    ]
   },
@@ -20907,6 +21002,28 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-push-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/automat-vendingowy-z-winda-push",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-push-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2025/07/15/maszyna-push2.jpg",
+     "ujecie": "z boku"
+    },
+    {
+     "plik": "media/produkty/optivendi-push-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2025/07/15/winda-push-wymiary1.jpg",
+     "ujecie": "wymiary"
+    },
+    {
+     "plik": "media/produkty/optivendi-push-premium-04.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2025/07/15/maszyna-push4.jpg",
+     "ujecie": "wnętrze — półki"
+    }
    ]
   },
   {
@@ -21079,6 +21196,28 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-pull-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/automat-vendingowy-z-winda-pull1",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-pull-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2025/07/15/1maszyna2.jpg",
+     "ujecie": "z boku"
+    },
+    {
+     "plik": "media/produkty/optivendi-pull-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2025/07/15/1winda-pull-wymiary1.jpg",
+     "ujecie": "wymiary"
+    },
+    {
+     "plik": "media/produkty/optivendi-pull-premium-04.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2025/07/15/1maszyna4.jpg",
+     "ujecie": "wnętrze — półki"
+    }
    ]
   },
   {
@@ -21248,6 +21387,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-chlodnia-podwojna-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/maszyna-chlodnia-podwojna",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-chlodnia-podwojna-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/04/17/1maszyna-podwojna-wym11.jpg",
+     "ujecie": "wymiary — front"
+    },
+    {
+     "plik": "media/produkty/optivendi-chlodnia-podwojna-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/04/17/1maszyna-podwojna-wym22.jpg",
+     "ujecie": "wymiary — boki"
     }
    ]
   },
@@ -21421,6 +21577,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-micromarket-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/mikromarket-z-winda-pionowa-i-pozioma",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-micromarket-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/06/11/micromarket-fot1.jpg",
+     "ujecie": "wymiary — front"
+    },
+    {
+     "plik": "media/produkty/optivendi-micromarket-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/06/11/2micromarket-fot3.jpg",
+     "ujecie": "budowa szafy"
+    }
    ]
   },
   {
@@ -21590,6 +21763,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-smartvend-49-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/smartvend-49",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-smartvend-49-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/08/20/smartvent2.jpg",
+     "ujecie": "budowa automatu"
+    },
+    {
+     "plik": "media/produkty/optivendi-smartvend-49-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/08/20/smartvent-wymiary.jpg",
+     "ujecie": "wymiary"
+    }
    ]
   },
   {
@@ -21749,6 +21939,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-winda-boxomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/maszyna-z-winda-boxomat",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-boxomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/03/01/winda-box1.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-winda-boxomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/03/01/z2.jpg",
+     "ujecie": "we wnętrzu budynku"
     }
    ]
   },
@@ -21981,7 +22188,7 @@
     },
     {
      "q": "Jak zapłacić za obiad z Obiadomatu?",
-     "a": "W Obiadomacie II gotówką, zbliżeniowo lub BLIK-iem; w Obiadomacie I zestaw płatności może się różnić. Klient może dostać e-paragon albo e-fakturę na e-mail."
+     "a": "W Obiadomacie II gotówką, zbliżeniowo lub BLIK-iem; płatności w Obiadomacie I potwierdzimy w ofercie. Klient może dostać e-paragon albo e-fakturę na e-mail."
     },
     {
      "q": "Kto serwisuje Obiadomat z modułem grzewczym?",
@@ -22070,6 +22277,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-obiadomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/obiadomat-i-robot-do-wydawania-fast-food",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-obiadomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/15/kanapkomat-front.jpg",
+     "ujecie": "wymiary — front"
+    },
+    {
+     "plik": "media/produkty/optivendi-obiadomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/15/kanapkomat-boki.jpg",
+     "ujecie": "wymiary — boki"
     }
    ]
   },
@@ -22235,6 +22459,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-pizzomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/pizzomat",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-pizzomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/02/27/pizzomat1.jpg",
+     "ujecie": "pod innym kątem"
+    },
+    {
+     "plik": "media/produkty/optivendi-pizzomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2026/02/27/pizzomat-003.jpg",
+     "ujecie": "opis elementów"
     }
    ]
   },
@@ -22404,6 +22645,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-lodomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/lodomat-robot-do-wydawania-deserow-mrozonych",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-lodomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/lodomat-front.jpg",
+     "ujecie": "wymiary — front"
+    },
+    {
+     "plik": "media/produkty/optivendi-lodomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/lodomat-boki.jpg",
+     "ujecie": "wymiary — boki"
     }
    ]
   },
@@ -22737,6 +22995,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-tortomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/tortomat",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-tortomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/05/14/tortomat-str1.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-tortomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/05/14/torty006.jpg",
+     "ujecie": "w galerii handlowej"
+    }
    ]
   },
   {
@@ -23054,6 +23329,23 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-kwiatomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/kwiatomat",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-kwiatomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/05/14/kwiatomat-str001.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-kwiatomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/05/14/kwiaty004.jpg",
+     "ujecie": "we wnętrzu"
+    }
    ]
   },
   {
@@ -23217,6 +23509,18 @@
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-ksiazkomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/ksiazkomat-z-jednostka-centralna-sterujaca",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-ksiazkomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1310-ez/media/upload/2025/07/15/ksiazkomat-wymiary1.jpg",
+     "ujecie": "wymiary"
+    }
    ]
   },
   {
@@ -23370,6 +23674,28 @@
    "nowosc": false,
    "zdjecia": [
     "media/produkty/optivendi-kluczomat.webp"
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-kluczomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/depozytor-na-klucze",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-kluczomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2023/02/28/depozytor-na-klucze.jpg",
+     "ujecie": "w holu, z boku"
+    },
+    {
+     "plik": "media/produkty/optivendi-kluczomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/4boxomat-sterujaca.jpg",
+     "ujecie": "wymiary jednostki sterującej"
+    },
+    {
+     "plik": "media/produkty/optivendi-kluczomat-premium-04.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2024/02/14/4boxomat-szafka.jpg",
+     "ujecie": "wymiary szafki z boxami"
+    }
    ]
   },
   {
@@ -23528,6 +23854,23 @@
     {
      "slug": "pomoc-zdalna",
      "etykieta": "Pomoc zdalna"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/optivendi-pelletomat-premium-01.webp",
+     "zrodlo": "https://optivendi.pl/strona/pelletomat",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/optivendi-pelletomat-premium-02.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/03/01/pelletomat1.jpg",
+     "ujecie": "z wymiarami"
+    },
+    {
+     "plik": "media/produkty/optivendi-pelletomat-premium-03.webp",
+     "zrodlo": "https://optivendi.pl/thumbnails/w1000-ez/media/upload/2026/03/01/pelletomat2.jpg",
+     "ujecie": "z boku, oklejenie"
     }
    ]
   },
@@ -32433,6 +32776,28 @@
      "l": "en",
      "d": "seria"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-thinkpad-p1-gen-9-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_P1_Gen_9/Compressedimage/ThinkPad_P1_Gen_9_CT1_01.png",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-p1-gen-9-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_P1_Gen_9/Compressedimage/ThinkPad_P1_Gen_9_CT2_01.png",
+     "ujecie": "z góry — klawiatura"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-p1-gen-9-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_P1_Gen_9/Compressedimage/ThinkPad_P1_Gen_9_CT2_03.png",
+     "ujecie": "z boku"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-p1-gen-9-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_P1_Gen_9/ThinkPad_P1_Gen_9_OverViewPic.jpg",
+     "ujecie": "porty po obu stronach"
+    }
    ]
   },
   {
@@ -32738,6 +33103,28 @@
      "k": "Lenovo",
      "l": "en",
      "d": "seria"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-thinkpad-t14s-2-in-1-gen-2-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_T14s_2_in_1_Gen_2/Compressedimage/ThinkPad_T14s_2_in_1_Gen_2_CT1_05.png",
+     "ujecie": "jako laptop"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-t14s-2-in-1-gen-2-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_T14s_2_in_1_Gen_2/Compressedimage/ThinkPad_T14s_2_in_1_Gen_2_CT1_01.png",
+     "ujecie": "tryb namiotu"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-t14s-2-in-1-gen-2-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_T14s_2_in_1_Gen_2/Compressedimage/ThinkPad_T14s_2_in_1_Gen_2_CT1_03.png",
+     "ujecie": "tryb prezentacji"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkpad-t14s-2-in-1-gen-2-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkPad/ThinkPad_T14s_2_in_1_Gen_2/Compressedimage/ThinkPad_T14s_2_in_1_Gen_2_CT1_02.png",
+     "ujecie": "tryb tabletu"
     }
    ]
   },
@@ -39432,7 +39819,29 @@
      "v": "z tyłu"
     }
    ],
-   "nowosc": false
+   "nowosc": false,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/lenovo-thinkcentre-m70a-m90a-gen-6-premium-01.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkCentre/ThinkCentre_M70a_Gen_6/Compressedimage/ThinkCentre_M70a_Gen_6_CT2_02.png",
+     "ujecie": "M70a z przodu"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkcentre-m70a-m90a-gen-6-premium-02.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkCentre/ThinkCentre_M70a_Gen_6/Compressedimage/ThinkCentre_M70a_Gen_6_CT1_01.png",
+     "ujecie": "M70a pod kątem"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkcentre-m70a-m90a-gen-6-premium-03.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkCentre/ThinkCentre_M70a_Gen_6/Compressedimage/ThinkCentre_M70a_Gen_6_CT2_04.png",
+     "ujecie": "M70a z tyłu — porty"
+    },
+    {
+     "plik": "media/produkty/lenovo-thinkcentre-m70a-m90a-gen-6-premium-04.webp",
+     "zrodlo": "https://psrefstuff.lenovo.com/syspool/Sys/Image/ThinkCentre/ThinkCentre_M70a_Gen_6/Compressedimage/ThinkCentre_M70a_Gen_6_CT2_07.png",
+     "ujecie": "M70a z boku — regulowana podstawa"
+    }
+   ]
   },
   {
    "slug_seed": "lenovo-thinkstation-p3-tiny-ultra-gen-2",
@@ -44290,7 +44699,7 @@
     },
     {
      "q": "Czy przygotujecie iPada Air M4 do pracy w firmie?",
-     "a": "Tak: na iPadzie Air M4 instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "a": "Tak: na iPadzie Air M4 instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego urządzenia (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -44587,7 +44996,7 @@
     },
     {
      "q": "Czy przygotujecie iPada Pro M5 do pracy?",
-     "a": "Tak: na iPadzie Pro M5 instalujemy i ustawiamy system, konta i programy, a dane przenosimy ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "a": "Tak: na iPadzie Pro M5 instalujemy i ustawiamy system, konta i programy, a dane przenosimy ze starego urządzenia (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -46735,7 +47144,7 @@
     },
     {
      "q": "Czy podłączycie kamerę Brio 505 do komputera?",
-     "a": "Tak, przy przygotowaniu komputera wpinamy Brio 505 do portu USB-C i ustawiamy kamerę razem ze słuchawkami i myszą."
+     "a": "Tak, przy przygotowaniu komputera wpinamy Brio 505 do portu USB-C i ustawiamy obraz i ostrość w aplikacji Logi Tune."
     }
    ],
    "podobne": [
@@ -47107,7 +47516,7 @@
      "a": "Naturalną parą jest pionowa mysz Lift for Business. Obie łączą się przez Logi Bolt, a jeden odbiornik Logi Bolt obsłuży do 6 urządzeń."
     },
     {
-     "q": "Czy podłączycie Wave Keys for Business przy stanowisku?",
+     "q": "Czy podłączycie Wave Keys for Business do komputera na stanowisku?",
      "a": "Tak. Przygotowując komputer, łączymy Wave Keys z odbiornikiem Logi Bolt i ustawiamy klawiaturę z myszą."
     }
    ],
@@ -54149,7 +54558,7 @@
     },
     {
      "q": "Które QNAP-y do szafy rack obsłużą 10 GbE?",
-     "a": "Każdy model rack ma dwa porty 2,5 GbE. TS-432XeU dokłada port 10 GbE SFP+, a w TS-464U, TS-864eU, TS-873AeU i TS-1273AU-RP 10 GbE dodasz kartą PCIe. Na wszystkie modele z tej karty producent daje 3 lata gwarancji."
+     "a": "Każdy model rack ma dwa porty 2,5 GbE. TS-432XeU dokłada port 10 GbE SFP+, a w TS-464U, TS-864eU, TS-873AeU i TS-1273AU-RP 10 GbE dodasz kartą PCIe. Na wszystkie te modele producent daje 3 lata gwarancji."
     }
    ],
    "konfigurator": {
@@ -68244,6 +68653,23 @@
      "slug": "szkol",
      "etykieta": "Szkolenia zespołu"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kobra-1-cc4-es-premium-01.webp",
+     "zrodlo": "https://www.kobra.com/en-GB/products/classic-line/kobra-1-cc4",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/kobra-1-cc4-es-premium-02.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/79/2/eb80c690-b0f2-440f-a9a0-2d52d0a78272.jpg",
+     "ujecie": "z otwartym koszem"
+    },
+    {
+     "plik": "media/produkty/kobra-1-cc4-es-premium-03.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/79/2/25aa8f85-82e5-485a-aedc-5ac1331052db.jpg",
+     "ujecie": "noże tnące"
+    }
    ]
   },
   {
@@ -68743,6 +69169,18 @@
      "slug": "szkol",
      "etykieta": "Szkolenia zespołu"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kobra-2-cc2-es-premium-01.webp",
+     "zrodlo": "https://www.kobra.com/en-GB/products/classic-line/kobra-2-cc2",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/kobra-2-cc2-es-premium-02.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/88/2/a407f2b5-91bd-48bb-a5f0-3840c8a58fe3.jpg",
+     "ujecie": "z otwartym koszem — papier, CD i karty"
+    }
    ]
   },
   {
@@ -69074,6 +69512,28 @@
      "slug": "szkol",
      "etykieta": "Szkolenia zespołu"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kobra-240-c4-turbo-es-premium-01.webp",
+     "zrodlo": "https://www.kobra.com/en-GB/products/classic-line/kobra-240-c4-turbo",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/kobra-240-c4-turbo-es-premium-02.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/140/2/c8f301f2-1599-4ba7-8a71-264749a68822.jpg",
+     "ujecie": "przycisk Turbo"
+    },
+    {
+     "plik": "media/produkty/kobra-240-c4-turbo-es-premium-03.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/140/2/9e5ed138-273f-42fd-a946-b799b00e86e2.jpg",
+     "ujecie": "mechanizm tnący"
+    },
+    {
+     "plik": "media/produkty/kobra-240-c4-turbo-es-premium-04.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/140/2/5fa0a498-0b4f-4b30-bb14-c69d24bb6321.jpg",
+     "ujecie": "z otwartym koszem"
+    }
    ]
   },
   {
@@ -69233,6 +69693,23 @@
     {
      "slug": "szkol",
      "etykieta": "Szkolenia zespołu"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kobra-af-1-40-premium-01.webp",
+     "zrodlo": "https://www.kobra.com/en-GB/products/classic-line/kobra-af-1-40-l",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/kobra-af-1-40-premium-02.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/48/1/0d3994ed-f386-4641-b1da-02afc4f97b28.jpg",
+     "ujecie": "system bez oleju"
+    },
+    {
+     "plik": "media/produkty/kobra-af-1-40-premium-03.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/48/2/305f2515-ca0b-400c-ba9d-7425b1afb66f.jpg",
+     "ujecie": "otwór wrzutowy"
     }
    ]
   },
@@ -69559,6 +70036,23 @@
     {
      "slug": "szkol",
      "etykieta": "Szkolenia zespołu"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kobra-3-cc4-es-premium-01.webp",
+     "zrodlo": "https://www.kobra.com/en-GB/products/classic-line/kobra-3-cc4",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/kobra-3-cc4-es-premium-02.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/91/2/65c3bba7-48b0-4830-9efc-ddce1e08d7d9.jpg",
+     "ujecie": "z otwartym koszem"
+    },
+    {
+     "plik": "media/produkty/kobra-3-cc4-es-premium-03.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/91/2/2059a57a-aa30-42bb-b283-c859ed787289.jpg",
+     "ujecie": "otwory na papier, CD i karty"
     }
    ]
   },
@@ -70239,6 +70733,23 @@
      "slug": "szkol",
      "etykieta": "Szkolenia zespołu"
     }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kobra-300-1-c4-es-premium-01.webp",
+     "zrodlo": "https://www.kobra.com/en-GB/products/classic-line/kobra-300-1-c4",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/kobra-300-1-c4-es-premium-02.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/192/2/7d2c78b3-c686-4e44-a585-49c052b71c77.jpg",
+     "ujecie": "otwór wrzutowy"
+    },
+    {
+     "plik": "media/produkty/kobra-300-1-c4-es-premium-03.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/192/2/21b91dc2-04b3-42ec-97db-0eba465c3503.jpg",
+     "ujecie": "mechanizm tnący"
+    }
    ]
   },
   {
@@ -70565,6 +71076,23 @@
     {
      "slug": "szkol",
      "etykieta": "Szkolenia zespołu"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/kobra-240-1-c2-es-premium-01.webp",
+     "zrodlo": "https://www.kobra.com/en-GB/products/classic-line/kobra-240-1-c2",
+     "ujecie": "z przodu"
+    },
+    {
+     "plik": "media/produkty/kobra-240-1-c2-es-premium-02.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/105/2/479828eb-3241-4b9c-a3a5-547c192cc604.jpg",
+     "ujecie": "otwór wrzutowy"
+    },
+    {
+     "plik": "media/produkty/kobra-240-1-c2-es-premium-03.webp",
+     "zrodlo": "https://www.kobra.com/upload/Product/105/2/6f10faa3-6845-4c5a-b366-2f9f49862466.jpg",
+     "ujecie": "mechanizm tnący"
     }
    ]
   },
@@ -90485,7 +91013,24 @@
    ],
    "nowosc": false,
    "seria": "EuroCert — podpis i pieczęć",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eurocert-pieczec-chmura-premium-01.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/469/pieczecelektroniczna-w-chmurze-ECSginer---EuroCert---1.jpg",
+     "ujecie": "na komputerze i telefonie"
+    },
+    {
+     "plik": "media/produkty/eurocert-pieczec-chmura-premium-02.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/466/pieczecelektroniczna-w-chmurze-ECSginer---EuroCert---2.jpg",
+     "ujecie": "aplikacja ECSigner"
+    },
+    {
+     "plik": "media/produkty/eurocert-pieczec-chmura-premium-03.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/464/pieczecelektroniczna-w-chmurze-ECSginer---EuroCert---11.jpg",
+     "ujecie": "podpisywanie dokumentu"
+    }
+   ]
   },
   {
    "slug_seed": "eurocert-pieczec-karta",
@@ -90767,7 +91312,19 @@
    ],
    "nowosc": false,
    "seria": "EuroCert — podpis i pieczęć",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eurocert-ecsigner-online-premium-01.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/401/eo_ecsigner_telefon.png",
+     "ujecie": "aplikacja ECSigner na telefonie"
+    },
+    {
+     "plik": "media/produkty/eurocert-ecsigner-online-premium-02.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/403/ECSigner_podpis-kwaligfikowany_smartfon-i-komputer.png",
+     "ujecie": "na komputerze i telefonie"
+    }
+   ]
   },
   {
    "slug_seed": "eurocert-ecsigner",
@@ -90897,7 +91454,19 @@
    ],
    "nowosc": false,
    "seria": "EuroCert — podpis i pieczęć",
-   "sprawdzono": "2026-11-12"
+   "sprawdzono": "2026-11-12",
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/eurocert-ecsigner-premium-01.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/386/eo_ecsigner_telefon.png",
+     "ujecie": "aplikacja ECSigner na telefonie"
+    },
+    {
+     "plik": "media/produkty/eurocert-ecsigner-premium-02.webp",
+     "zrodlo": "https://sklep.eurocert.pl/userdata/public/gfx/362/ECSigner_podpis-kwaligfikowany_smartfon-i-komputer.png",
+     "ujecie": "na komputerze i telefonie"
+    }
+   ]
   },
   {
    "slug_seed": "eurocert-podpis-classic",

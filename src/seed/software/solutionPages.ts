@@ -2,9 +2,9 @@ import demo from '../../../seed/prokomsoftware/demo-aplikacja-ekip.json'
 
 /**
  * Texts of the full solution pages (`Solutions.page`, spec. §6.1) from the board `Rozwiazanie`
- * v22 — the package has the demo data (`demo-aplikacja-ekip.json`), the board the rest. Only the
- * field crew app has a full page; the other solutions show the template from their card and
- * window texts until Krystian writes theirs (plan §5).
+ * v22 — the package has the demo data (`demo-aplikacja-ekip.json`), the board the rest. The
+ * pages most searched with a place have their texts in `solutionPageTexts.ts` (SEO etap 2b); the
+ * other solutions show the template from their card and window texts (plan §5).
  * TODO(krystian): pełne treści pozostałych rozwiązań (pisane w czacie, spec. §6.1).
  */
 

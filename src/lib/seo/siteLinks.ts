@@ -61,11 +61,11 @@ export type SiteMapInput = {
   /** Instalacje: posts of the guide `/poradnik/<slug>` (I12); absent elsewhere. */
   guide?: { posts: readonly ({ slug: string; title: string } & Dated)[] } | null
   /** Software: the catalog and the page of every published solution (SW10); absent elsewhere. */
-  solutions?: { items: readonly { slug: string; name: string }[] } | null
+  solutions?: { items: readonly ({ slug: string; name: string } & Dated)[] } | null
   /** Software: active industry pages `/dla-branz/[branza]` (SW10b); absent elsewhere. */
-  industryPages?: readonly { slug: string; name: string }[] | null
+  industryPages?: readonly ({ slug: string; name: string } & Dated)[] | null
   /** Software: active city pages `/miejscowosci/[miasto]` (SW11b); absent elsewhere. */
-  cities?: readonly { slug: string; name: string }[] | null
+  cities?: readonly ({ slug: string; name: string } & Dated)[] | null
   /** Instalacje: published object pages `/dla-kogo/[obiekt]` (I10); absent elsewhere. */
   objectPages?: readonly ({ slug: string; name: string } & Dated)[] | null
   /** Instalacje: the towns list `/obszar` and the town pages `/obszar/[miasto]` (ADR-I006). */
@@ -219,7 +219,11 @@ export function buildSiteMap({
         { href: SOLUTIONS_PATH, label: 'Pełna oferta' },
         { href: WIZARD_PATH, label: 'Dobierz rozwiązanie' },
         ...solutions.items
-          .map((item) => ({ href: `${SOLUTIONS_PATH}/${item.slug}`, label: item.name }))
+          .map((item) => ({
+            href: `${SOLUTIONS_PATH}/${item.slug}`,
+            label: item.name,
+            updatedAt: item.updatedAt,
+          }))
           .sort(byLabel),
       ],
     })
@@ -232,6 +236,7 @@ export function buildSiteMap({
       links: industryPages.map((industry) => ({
         href: industryPageHref(industry.slug),
         label: industry.name,
+        updatedAt: industry.updatedAt,
       })),
     })
   }
@@ -251,7 +256,11 @@ export function buildSiteMap({
     sections.push({
       id: 'miejscowosci',
       title: 'Miejscowości',
-      links: cities.map((city) => ({ href: cityHref(city.slug), label: city.name })),
+      links: cities.map((city) => ({
+        href: cityHref(city.slug),
+        label: city.name,
+        updatedAt: city.updatedAt,
+      })),
     })
   }
 

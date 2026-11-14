@@ -282,7 +282,7 @@ export function SolutionDialog({
   const level = levels?.levels[selected]
   const steps = level ? level.steps : view.steps
   const choose = (index: number) => setPick({ slug: view.slug, index })
-  const bar = level ? { label: level.barLabel, price: level.price } : view.bar
+  const bar = level ? { label: level.barLabel, price: level.price, ask: false } : view.bar
   const barPrice = splitNet(bar.price)
   const projectName = level ? level.projectName : view.name
 
@@ -420,16 +420,21 @@ export function SolutionDialog({
                 .filter(Boolean)
                 .join(' · ') || bar.label}
         </span>
-        {/* One line on the phone too (AUDYT-0911 wieczór #4): „netto” small after the amount. */}
-        <span className="block truncate font-display text-xl font-extrabold text-accent-text max-[767px]:text-[19px]">
-          {barPrice.amount}
-          {barPrice.net && (
-            <>
-              {' '}
-              <small className="font-sans text-xs font-bold text-ink-2">netto</small>
-            </>
-          )}
-        </span>
+        {/* One line on the phone too (AUDYT-0911 wieczór #4): „netto” small after the amount.
+            No price: a small badge, not the price's type (SWA14 §4.1). */}
+        {bar.ask ? (
+          <span className="v-ask mt-1">{bar.price}</span>
+        ) : (
+          <span className="block truncate font-display text-xl font-extrabold text-accent-text max-[767px]:text-[19px]">
+            {barPrice.amount}
+            {barPrice.net && (
+              <>
+                {' '}
+                <small className="font-sans text-xs font-bold text-ink-2">netto</small>
+              </>
+            )}
+          </span>
+        )}
       </p>
       {added ? (
         <Link

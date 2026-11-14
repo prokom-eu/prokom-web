@@ -34,7 +34,7 @@ test.describe('Software hero v24', () => {
     await expect(caption).toContainText(/od [\d\s]+zł/)
     await expect(caption.getByRole('link')).toHaveAttribute(
       'href',
-      '/rozwiazania?rozwiazanie=strona-dla-restauracji-lub-baru',
+      '/rozwiazania/strona-dla-restauracji-lub-baru',
     )
   })
 

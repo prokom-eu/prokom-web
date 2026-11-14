@@ -32,6 +32,9 @@ export function priceLines(slugs: string[], index: SolutionsIndex): Record<strin
 /** Address of the offer window of a solution (catalog, `?rozwiazanie=`). */
 export const offerHref = (slug: string) => `/rozwiazania?rozwiazanie=${slug}`
 
+/** The solution's own, indexable page — the `href` of links to a solution (SEO etap 1). */
+export const solutionHref = (slug: string) => `/rozwiazania/${slug}`
+
 /** Every solution the bento points to (its prices are counted on the server). */
 export function bentoSlugs(bento: NonNullable<SoftwareHome['bento']>): string[] {
   return [

@@ -90,7 +90,8 @@ export type SolutionPageView = {
   deliverables: {
     title: string
     /** Price badge next to the title: „od 2 490 zł netto” / „Zapytaj o wycenę”. */
-    badge: { value: string; caption: string }
+    /** `ask`: no price — a small badge in the term's type, not the price's (SWA14 §4.1). */
+    badge: { value: string; caption: string; ask: boolean }
     items: { title: string; text: string | null; icon: IconName | null }[]
     /** „Wyceniane osobno” (`moreExamples`). */
     extra: string[]
@@ -239,7 +240,11 @@ export function buildSolutionPage({
       })),
     deliverables: {
       title: clean(page?.deliverablesTitle) ?? view.benefits.title,
-      badge: { value: price, caption: priceFrom === null ? ASK_CAPTION : view.term },
+      badge: {
+        value: price,
+        caption: priceFrom === null ? ASK_CAPTION : view.term,
+        ask: priceFrom === null,
+      },
       items: deliverablesOf(view, page, isIcon),
       extra: moreExamples.map((item) => item.trim()).filter(Boolean),
     },

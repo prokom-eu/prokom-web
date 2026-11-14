@@ -1,6 +1,6 @@
 'use client'
 
-import { IntentLink as Link } from '@/components/shared/IntentLink'
+import { SolutionLink } from '@/sites/software/components/ui/SolutionLink'
 import {
   useCallback,
   useEffect,
@@ -35,7 +35,10 @@ export type StageSlide = {
   term: string
   /** No price: the caption shows a small „Wycena po rozmowie” badge (SWA14 §4.1). */
   ask: boolean
+  /** The solution's own page (`/rozwiazania/<slug>`, indexable). */
   href: string
+  /** Its offer window (`?rozwiazanie=`): where a plain click goes. */
+  open: string
 }
 
 type Props = {
@@ -373,7 +376,9 @@ export function HeroStage({
             <b className={slide.ask ? 'hx-ask' : undefined}>{slide.price}</b>
             {!slide.ask && <span>{slide.term}</span>}
           </div>
-          <Link href={slide.href}>{offer}</Link>
+          <SolutionLink href={slide.href} open={slide.open}>
+            {offer}
+          </SolutionLink>
         </div>
         {/* Phone (≤ 600 px): which slide of how many — the tiles above and a swipe choose. */}
         <div className="hx-dots" aria-hidden="true">
