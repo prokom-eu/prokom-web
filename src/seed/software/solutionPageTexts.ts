@@ -2,8 +2,12 @@
  * Full texts of the solution pages most searched with a place (SEO etap 2b: „strona wizytówka
  * Rabka”, „sklep internetowy Podhale”…): H1 with its accent, lead, „Dziś / Z nami / Efekt”, FAQ
  * and the contact block (`Solutions.page`, spec. §6.1). Tiles, „W cenie” and the price come from
- * the solution itself, so they never disagree with the cards. Every page in its own words.
- * TODO(krystian): szkice Claude do akceptacji (spec. §6.1: treści pisze Krystian).
+ * the solution itself, so they never disagree with the cards; the term and payment rules come
+ * from the panel too (`{termin}`, `[ZALICZKA]`, `[ZASADY PŁATNOŚCI]`, filled per request). Every
+ * page in its own words. Nothing beyond „W cenie” is promised: the rest says „wyceniamy osobno”.
+ * The lead is also the meta description: 120–155 characters, whole sentences, with the region.
+ * TODO(krystian): szkice Claude do akceptacji (spec. §6.1: treści pisze Krystian). Poprawki w tym
+ * pliku, nie w panelu — seed nadpisuje zakładkę „Strona” przy każdej różnicy.
  */
 
 type Compare = { label: string; title: string; text: string }
@@ -29,7 +33,7 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
     eyebrow: 'Strona · usługi, rzemiosło, mała firma',
     title: 'Strona wizytówka.',
     titleAccent: 'Klient dzwoni od razu.',
-    lead: 'Jedna strona z ofertą, obszarem działania, mapą i dużym przyciskiem „Zadzwoń”. Dla firmy, która chce być w Google i odbierać telefony, a nie tłumaczyć klientom, jak ją znaleźć.',
+    lead: 'Jedna strona z ofertą, mapą i dużym przyciskiem „Zadzwoń”. Dla małych firm z Rabki-Zdroju, Podhala i całej Polski, które chcą być w Google.',
     compare: [
       {
         label: 'Dziś',
@@ -43,8 +47,8 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       },
       {
         label: EFFECT,
-        title: 'Więcej telefonów od ludzi, którzy Cię nie znali',
-        text: 'Ile zapytań przychodzi ze strony, widać w statystykach bez ciasteczek. Pokażemy Ci je po pierwszym miesiącu.',
+        title: 'Telefony od ludzi, którzy Cię nie znali',
+        text: 'Ile telefonów i formularzy przychodzi ze strony, sprawdzimy razem po pierwszych tygodniach, na Twoich zapytaniach.',
       },
     ],
     deliverablesTitle: 'W cenie **wizytówki**',
@@ -56,15 +60,15 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       },
       {
         q: 'Jak szybko będzie gotowa?',
-        a: 'Pierwszą wersję zwykle pokazujemy po kilku dniach. Gotowa strona jest od tygodnia, zależnie od tego, jak szybko dostaniemy teksty i zdjęcia.',
+        a: 'Wizytówka jest gotowa {termin}, zależnie od tego, jak szybko dostaniemy od Ciebie teksty i zdjęcia.',
       },
       {
         q: 'Czy pomożecie z wizytówką w Google?',
-        a: 'Tak. Profil Firmy w Google możemy ustawić razem ze stroną, żeby adres, godziny i telefon zgadzały się w obu miejscach.',
+        a: 'Tak. Profil Firmy w Google możemy ustawić razem ze stroną, żeby adres, godziny i telefon zgadzały się w obu miejscach. To wyceniamy osobno.',
       },
       {
-        q: 'Nie mam zdjęć ani tekstów. Co wtedy?',
-        a: 'Teksty napiszemy po rozmowie z Tobą, prostym językiem. Zdjęcia możesz zrobić telefonem, a my je przytniemy i dobierzemy.',
+        q: 'Kiedy płacę?',
+        a: 'Za wizytówkę płacisz w dwóch częściach, zaliczka przy zamówieniu to [ZALICZKA]. [ZASADY PŁATNOŚCI]',
       },
       {
         q: 'Pracujecie tylko w Rabce?',
@@ -82,7 +86,7 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
     eyebrow: 'Strona · firmy z ofertą i realizacjami',
     title: 'Strona firmowa z panelem.',
     titleAccent: 'Treści zmieniasz sam.',
-    lead: 'Oferta, realizacje, opinie i formularz, który trafia prosto do Ciebie. Nową realizację, cennik albo zdjęcie dodajesz w panelu po polsku, bez dzwonienia do informatyka.',
+    lead: 'Oferta, realizacje, opinie i formularz prosto do Ciebie, a treści zmieniasz sam w panelu. Strony firmowe z Rabki-Zdroju dla firm z Podhala i Polski.',
     compare: [
       {
         label: 'Dziś',
@@ -92,12 +96,12 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       {
         label: 'Ze stroną firmową',
         title: 'Pokazujesz to, co robisz najlepiej, i zmieniasz to sam',
-        text: 'Realizacje ze zdjęciami i opisem, opinie klientów i formularz. Panel jest prosty jak poczta.',
+        text: 'Realizacje ze zdjęciami i opisem, opinie klientów i formularz. Panel jest po polsku i prosty jak poczta.',
       },
       {
         label: EFFECT,
         title: 'Klient przychodzi przekonany, a nie z pytaniem „czy Pan to robi?”',
-        text: 'Zapytania z formularza są konkretniejsze, bo klient widział realizacje. Liczbę zapytań pokażemy w statystykach.',
+        text: 'Zapytania z formularza są konkretniejsze, bo klient widział realizacje. Porównamy je razem z tymi sprzed zmiany.',
       },
     ],
     deliverablesTitle: 'W cenie **strony firmowej**',
@@ -105,27 +109,27 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
     faq: [
       {
         q: 'Czy naprawdę sam zmienię treści?',
-        a: 'Tak. Panel jest po polsku i pokazujemy go na Twojej stronie. Dodanie realizacji ze zdjęciami to kilka minut.',
+        a: 'Tak. Panel jest po polsku, a przy odbiorze pokazujemy, jak z niego korzystać, na Twojej stronie. Dodanie realizacji ze zdjęciami to kilka minut.',
       },
       {
         q: 'Ile podstron dostanę w cenie?',
-        a: 'Do pięciu: zwykle oferta, realizacje, opinie, o firmie i kontakt. Więcej podstron, blog albo kolejny język wyceniamy osobno.',
+        a: 'Tyle, ile podaje punkt „W cenie” obok: oferta, realizacje, opinie i kontakt. Więcej podstron, blog albo kolejny język wyceniamy osobno.',
       },
       {
         q: 'Czy strona będzie widoczna w Google i w AI?',
-        a: 'Dostaje opisy, dane firmy i strukturę, które czytają wyszukiwarki i asystenci AI. Pozycji nie obiecujemy, ale nie zostawiamy niczego, co od nas zależy.',
+        a: 'Dostaje opisy, dane firmy i strukturę, które czytają wyszukiwarki i asystenci AI. Pozycji nie obiecujemy, ale robimy wszystko, co od nas zależy.',
       },
       {
-        q: 'Co z moją starą stroną i domeną?',
-        a: 'Domena zostaje Twoja. Treści przenosimy, a stare adresy przekierowujemy, żeby nie stracić tego, co już jest w Google.',
+        q: 'Mam już starą stronę. Co z nią?',
+        a: 'Domena zostaje Twoja. Przeniesienie starych treści i przekierowania starych adresów wyceniamy osobno, tak jak przy przebudowie strony.',
       },
       {
-        q: 'Robicie strony dla firm spoza Podhala?',
-        a: 'Tak. Najwięcej klientów mamy w Rabce, Nowym Targu i okolicy, ale strony firmowe robimy dla firm z całej Polski, zdalnie.',
+        q: 'Kiedy płacę?',
+        a: 'Przy stronie firmowej zaliczka wynosi [ZALICZKA], resztę płacisz po odbiorze. [ZASADY PŁATNOŚCI]',
       },
     ],
     contact: {
-      eyebrow: 'Porozmawiajmy o Twojej stronie',
+      eyebrow: 'Porozmawiajmy o stronie firmowej',
       title: 'Pokaż nam **swoje realizacje**, a zaprojektujemy stronę wokół nich',
       lead: 'Po rozmowie dostajesz podgląd do klikania i cenę w 5–7 dni. Bez zobowiązań.',
       quoteCaption: 'Opisz firmę i ofertę, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
@@ -133,14 +137,14 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
   },
   'strona-dla-hotelu-lub-pensjonatu': {
     eyebrow: 'Strona · pensjonaty, apartamenty, hotele',
-    title: 'Strona dla pensjonatu.',
+    title: 'Strona dla pensjonatu i hotelu.',
     titleAccent: 'Gość pisze do Ciebie.',
-    lead: 'Pokoje, galeria, okolica i zapytanie o termin w trzech językach. Gość, który znalazł Cię w Google, pisze prosto do Ciebie, bez prowizji portalu za każdą noc.',
+    lead: 'Pokoje, galeria i zapytanie o termin w trzech językach. Gość z Google pisze do Ciebie, bez prowizji portalu. Dla obiektów na Podhalu i w Małopolsce.',
     compare: [
       {
         label: 'Dziś',
         title: 'Portal bierze prowizję od gości, którzy i tak by przyjechali',
-        text: 'Stali goście rezerwują przez portal, bo nie mają gdzie indziej. Na Twoją starą stronę nie da się wejść wygodnie z telefonu.',
+        text: 'Stali goście rezerwują przez portal, bo nie mają gdzie indziej. Na Twoją starą stronę nie da się wygodnie wejść z telefonu.',
       },
       {
         label: 'Z własną stroną',
@@ -161,34 +165,34 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
         a: 'Nie. Własna strona przejmuje gości, którzy szukają Cię po nazwie albo wracają. Portale możesz zostawić dla nowych gości.',
       },
       {
-        q: 'Dlaczego trzy języki?',
-        a: 'Na Podhale przyjeżdżają goście z Polski, Niemiec i z całej Europy. Polski, angielski i niemiecki to najczęstszy zestaw, a każdy język ma własne opisy dla Google.',
+        q: 'Jakie języki dostanę?',
+        a: 'Taki zestaw jest w cenie: polski, angielski i niemiecki, każdy z własnymi opisami dla Google. Inne języki dokładamy osobno.',
       },
       {
         q: 'Czy goście zarezerwują i zapłacą online?',
-        a: 'W tej cenie gość wysyła zapytanie o termin. Kalendarz z rezerwacją i zadatkiem online to osobne rozwiązanie, które dokładamy, gdy jest potrzebne.',
+        a: 'W tej cenie gość wysyła zapytanie o termin. Kalendarz z rezerwacją i zaliczką online to osobne rozwiązanie, które dokładamy, gdy jest potrzebne.',
       },
       {
         q: 'Kiedy najlepiej zacząć?',
         a: 'Na dwa, trzy miesiące przed sezonem. Wtedy strona zdąży trafić do Google, zanim goście zaczną szukać noclegu.',
       },
       {
-        q: 'Robicie strony dla obiektów poza Rabką?',
-        a: 'Tak, dla pensjonatów z całego Podhala i Małopolski. Spotykamy się w Rabce albo przez wideo.',
+        q: 'Kiedy płacę?',
+        a: 'Zaliczka za stronę obiektu to [ZALICZKA], resztę płacisz po odbiorze gotowej strony. [ZASADY PŁATNOŚCI]',
       },
     ],
     contact: {
       eyebrow: 'Porozmawiajmy o Twoim obiekcie',
       title: 'Opisz **swoje pokoje**, a pokażemy stronę, przez którą goście piszą do Ciebie',
       lead: 'Rozmowa o obiekcie, podgląd strony i cena w 5–7 dni. Bez zobowiązań.',
-      quoteCaption: 'Napisz, ile masz pokoi i skąd są goście, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
+      quoteCaption: 'Napisz, ile masz pokoi, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
     },
   },
   'strona-dla-restauracji-lub-baru': {
     eyebrow: 'Strona · restauracje, bary, karczmy',
-    title: 'Strona dla restauracji.',
-    titleAccent: 'Menu zmieniasz w minutę.',
-    lead: 'Menu w panelu zamiast PDF-a, godziny w sezonie, dojazd i formularz rezerwacji stolika. Gość z telefonu w kilka sekund wie, czy jesteś otwarty i co dziś gotujesz.',
+    title: 'Strona dla restauracji i baru.',
+    titleAccent: 'Menu zmieniasz sam.',
+    lead: 'Menu w panelu zamiast PDF-a, godziny w sezonie, dojazd i rezerwacja stolika. Strony dla lokali z Rabki-Zdroju, Podhala i całej Małopolski.',
     compare: [
       {
         label: 'Dziś',
@@ -203,7 +207,7 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       {
         label: EFFECT,
         title: 'Mniej telefonów z tymi samymi pytaniami',
-        text: 'Ile rezerwacji przychodzi przez formularz, zobaczysz w panelu. Resztę policzymy razem po pierwszym sezonie.',
+        text: 'Ile rezerwacji przychodzi z formularza, widać w Twojej skrzynce. Po pierwszym sezonie sprawdzimy razem, co jeszcze poprawić.',
       },
     ],
     deliverablesTitle: 'W cenie **strony lokalu**',
@@ -219,30 +223,29 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       },
       {
         q: 'Godziny zmieniają się w sezonie. Co wtedy?',
-        a: 'Ustawiasz godziny na sezon i poza nim w panelu, a strona pokazuje te, które obowiązują dziś.',
+        a: 'Godziny zmieniasz w panelu tak samo jak menu, więc przed sezonem i po nim gość widzi aktualne.',
       },
       {
         q: 'Czy menu może być po angielsku?',
-        a: 'Tak, menu w dwóch językach dokładamy osobno. Turyści z zagranicy dobrze je widzą także na telefonie.',
+        a: 'Tak, menu w drugim języku dokładamy osobno. Przydaje się tam, gdzie przyjeżdża dużo turystów z zagranicy.',
       },
       {
-        q: 'Obsługujecie lokale poza Rabką?',
-        a: 'Tak, karczmy i restauracje z całego Podhala i dalej. Spotkać się możemy w Rabce albo u Ciebie w lokalu.',
+        q: 'Kiedy płacę?',
+        a: 'Przy stronie lokalu zaliczka to [ZALICZKA], a resztę płacisz, gdy odbierzesz stronę. [ZASADY PŁATNOŚCI]',
       },
     ],
     contact: {
       eyebrow: 'Porozmawiajmy o Twoim lokalu',
       title: 'Pokaż nam **swoje menu**, a zrobimy stronę, którą łatwo zmieniać',
       lead: 'Pokażemy podgląd strony z Twoim menu i podamy cenę. Bez zobowiązań.',
-      quoteCaption:
-        'Napisz, jaki masz lokal i jak zbierasz rezerwacje, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
+      quoteCaption: 'Napisz, jaki masz lokal, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
     },
   },
   'sklep-internetowy': {
-    eyebrow: 'Sklep · producenci, sklepy stacjonarne, hurt',
+    eyebrow: 'Sklep · producenci, sklepy lokalne',
     title: 'Sklep internetowy.',
     titleAccent: 'Zamówienia od razu w panelu.',
-    lead: 'Produkty, płatności online i BLIK, dostawa albo odbiór w sklepie. Zamówienie widzisz w panelu w chwili, w której klient je opłaci, i od razu wiesz, co spakować.',
+    lead: 'Produkty, płatności online i BLIK, dostawa albo odbiór w sklepie, a zamówienie od razu w panelu. Sklepy dla firm z Podhala, Małopolski i całej Polski.',
     compare: [
       {
         label: 'Dziś',
@@ -251,13 +254,13 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       },
       {
         label: 'Ze sklepem',
-        title: 'Klient wybiera, płaci i wybiera odbiór sam',
+        title: 'Klient sam wybiera, płaci i decyduje o odbiorze',
         text: 'Płatność online i BLIK, odbiór w sklepie albo dostawa. Zamówienie trafia do panelu opłacone i gotowe do spakowania.',
       },
       {
         label: EFFECT,
         title: 'Sprzedajesz także wtedy, gdy sklep jest zamknięty',
-        text: 'Ile zamówień przychodzi wieczorem i w weekendy, zobaczysz w panelu. Połączenie z magazynem i fakturami dokładamy, gdy przyjdzie pora.',
+        text: 'Ile zamówień przychodzi wieczorem i w weekendy, zobaczysz w panelu. Połączenie z magazynem i fakturami dokładamy osobno, gdy przyjdzie pora.',
       },
     ],
     deliverablesTitle: 'W cenie **sklepu**',
@@ -265,7 +268,7 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
     faq: [
       {
         q: 'Jakie płatności dostanie klient?',
-        a: 'Płatności online i BLIK przez operatora płatności, którego wybierzemy razem. Pieniądze trafiają na Twoje konto.',
+        a: 'Płatności online i BLIK przez operatora płatności, którego wybierzemy razem. Pieniądze trafiają na Twoje konto, a operator pobiera swoją opłatę.',
       },
       {
         q: 'Czy połączycie sklep z moim magazynem albo fakturami?',
@@ -273,30 +276,29 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       },
       {
         q: 'Ile produktów mogę mieć?',
-        a: 'Tyle, ile potrzebujesz. Produkty dodajesz w panelu albo przenosimy je z Twojego arkusza.',
+        a: 'Tyle, ile potrzebujesz. Produkty dodajesz w panelu, a przeniesienie ich z Twojego arkusza wyceniamy osobno.',
       },
       {
         q: 'Dlaczego nie gotowa platforma z abonamentem?',
-        a: 'Bo sklep, kod i dane należą do Ciebie, bez prowizji od sprzedaży i bez rosnącego abonamentu. Gdy gotowa platforma wystarczy, powiemy to wprost.',
+        a: 'Bo sklep, kod i dane należą do Ciebie, bez naszej prowizji od sprzedaży (operator płatności pobiera swoją opłatę). Gdy gotowa platforma wystarczy, powiemy to wprost.',
       },
       {
-        q: 'Robicie sklepy dla firm spoza Podhala?',
-        a: 'Tak. Biuro mamy w Rabce, ale sklepy robimy dla producentów i sklepów z całej Polski, pracując zdalnie.',
+        q: 'Kiedy płacę?',
+        a: 'Przy sklepie zaliczka wynosi [ZALICZKA], a resztę płacisz po odbiorze sklepu. [ZASADY PŁATNOŚCI]',
       },
     ],
     contact: {
       eyebrow: 'Porozmawiajmy o Twoim sklepie',
       title: 'Powiedz, **co sprzedajesz**, a zaplanujemy sklep pod Twoje zamówienia',
       lead: 'Rozmowa, plan sklepu i cena w 5–7 dni. Bez zobowiązań.',
-      quoteCaption:
-        'Opisz produkty i to, jak dziś sprzedajesz, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
+      quoteCaption: 'Opisz, co i jak dziś sprzedajesz, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
     },
   },
   'przebudowa-starej-strony': {
-    eyebrow: 'Strona · firmy ze starą stroną',
+    eyebrow: 'Strona · firmy ze starą, wolną stroną',
     title: 'Przebudowa starej strony.',
     titleAccent: 'Bez utraty pozycji w Google.',
-    lead: 'Nowa, szybka strona na telefon, a wszystkie stare adresy przekierowane tam, gdzie trzeba. Klienci z Google trafiają we właściwe miejsce, a starą stronę wyłączamy dopiero po odbiorze.',
+    lead: 'Nowa, szybka strona na telefon, a stare adresy przekierowane tam, gdzie trzeba. Przebudowujemy strony firm z Podhala, Małopolski i całej Polski.',
     compare: [
       {
         label: 'Dziś',
@@ -306,12 +308,12 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       {
         label: 'Po przebudowie',
         title: 'Nowa strona, te same adresy w Google',
-        text: 'Przenosimy treści i ustawiamy przekierowania ze starych adresów. Nic, co dziś przyprowadza klientów, nie znika.',
+        text: 'Ustawiamy przekierowania ze starych adresów na nowe. Nic, co dziś przyprowadza klientów, nie trafia w pustkę.',
       },
       {
         label: EFFECT,
-        title: 'Szybciej na telefonie i bez spadku w Google',
-        text: 'Szybkość mierzymy przed i po. Pozycję w Google możemy obserwować po starcie, jeśli dobierzesz kontrolę pozycji.',
+        title: 'Szybciej na telefonie, bez zgubionych adresów',
+        text: 'Szybkość strony mierzymy razem przed przebudową i po niej. Stare adresy sprawdzamy po starcie jeden po drugim.',
       },
     ],
     deliverablesTitle: 'W cenie **przebudowy**',
@@ -319,7 +321,7 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
     faq: [
       {
         q: 'Czy stracę pozycję w Google?',
-        a: 'Robimy wszystko, żeby nie: stare adresy przekierowujemy na nowe, treści przenosimy, a opisy dla Google ustawiamy od nowa. Starą stronę wyłączamy dopiero po odbiorze.',
+        a: 'Robimy wszystko, co od nas zależy: stare adresy przekierowujemy na nowe, a opisy dla Google ustawiamy od nowa. Starą stronę wyłączamy dopiero po odbiorze.',
       },
       {
         q: 'Co z moją domeną i pocztą?',
@@ -327,29 +329,29 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       },
       {
         q: 'Czy przeniesiecie wszystkie treści?',
-        a: 'W cenie przenosimy to, co mieści się w nowej stronie do trzech podstron. Przeniesienie wszystkich treści i zdjęć wyceniamy osobno.',
+        a: 'Nowa strona w cenie ma tyle podstron, ile podaje punkt „W cenie”. Przeniesienie większej liczby treści i zdjęć wyceniamy osobno.',
       },
       {
         q: 'Ile to potrwa?',
-        a: 'Zwykle od dwóch tygodni. Przez cały czas działa stara strona, więc nie ma przerwy dla klientów.',
+        a: 'Przebudowa trwa {termin}. Przez cały czas działa stara strona, więc klienci nie trafiają na przerwę.',
       },
       {
-        q: 'Przebudowujecie strony firm spoza Rabki?',
-        a: 'Tak, z całego Podhala i z całej Polski. Przebudowa idzie zdalnie, a rozmawiamy przez telefon albo wideo.',
+        q: 'Kiedy płacę?',
+        a: 'Przy przebudowie zaliczka to [ZALICZKA], a resztę płacisz, gdy nowa strona zastąpi starą. [ZASADY PŁATNOŚCI]',
       },
     ],
     contact: {
-      eyebrow: 'Porozmawiajmy o Twojej stronie',
+      eyebrow: 'Porozmawiajmy o przebudowie',
       title: 'Podeślij **adres starej strony**, a powiemy, co da się poprawić',
-      lead: 'Darmowe spojrzenie, potem plan przebudowy i stała cena. Bez zobowiązań.',
+      lead: 'Spojrzymy na stronę bez opłat, potem dostajesz plan przebudowy i stałą cenę.',
       quoteCaption: 'Wklej adres strony, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
     },
   },
   'system-zlecen-i-grafik-ekip': {
-    eyebrow: 'System · budowlanka, instalatorzy, serwisy',
+    eyebrow: 'System · firmy z ekipami i zleceniami',
     title: 'System zleceń i grafik ekip.',
     titleAccent: 'Bez dzwonienia wieczorem.',
-    lead: 'Kalendarz ekip, zlecenia z materiałami, protokoły i zdjęcia przy zleceniu, a klient sprawdza status pod linkiem. Biuro widzi, kto gdzie jest, a szef nie odbiera telefonów o 21:00.',
+    lead: 'Kalendarz ekip, zlecenia z adresem i zdjęcia przy zleceniu, a klient sprawdza status pod linkiem. Dla firm z Podhala, Małopolski i całej Polski.',
     compare: [
       {
         label: 'Dziś',
@@ -359,24 +361,24 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       {
         label: 'Z systemem',
         title: 'Jeden kalendarz dla biura i ekip',
-        text: 'Zlecenie ma adres, materiały i termin. Ekipa dodaje zdjęcia i protokół z telefonu, a klient widzi status pod swoim linkiem.',
+        text: 'Zlecenie ma adres, opis i termin. Ekipa dodaje zdjęcia z telefonu, a klient widzi status pod swoim linkiem.',
       },
       {
         label: EFFECT,
-        title: 'Mniej telefonów i żadnych zgubionych protokołów',
-        text: 'Ile godzin tygodniowo odzyskasz, policzymy razem na Twoich zleceniach po pierwszym miesiącu.',
+        title: 'Mniej telefonów i żadnych zgubionych zleceń',
+        text: 'Ile czasu w tygodniu odzyskacie, policzymy razem na Waszych zleceniach po pierwszym miesiącu pracy.',
       },
     ],
-    deliverablesTitle: 'W cenie **wdrożenia**',
+    deliverablesTitle: 'W cenie **pierwszego modułu**',
     faqEyebrow: 'Pytania o system zleceń',
     faq: [
       {
         q: 'Od czego zaczynamy?',
-        a: 'Od jednego modułu, zwykle kalendarza ekip ze zleceniami. Kolejne moduły, na przykład materiały albo faktury, dochodzą etapami.',
+        a: 'Od kalendarza ekip ze zleceniami, czyli od pierwszego modułu. Kolejne, na przykład czas pracy albo faktury, dochodzą etapami.',
       },
       {
         q: 'Czy ekipy poradzą sobie z telefonem?',
-        a: 'Ekran dla ekipy ma kilka przycisków: zlecenie, zdjęcie, protokół. Szkolimy na Waszych prawdziwych zleceniach.',
+        a: 'Ekran dla ekipy ma kilka przycisków: zlecenie, zdjęcie, gotowe. Projektujemy go pod Wasz sposób pracy.',
       },
       {
         q: 'Mamy dane w Excelu. Przeniesiecie je?',
@@ -384,26 +386,25 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       },
       {
         q: 'Ile osób może pracować w systemie?',
-        a: 'W cenie do pięciu użytkowników. Więcej osób i osobne role dla biura i ekip dokładamy, gdy firma rośnie.',
+        a: 'Tyle, ile podaje punkt „W cenie” obok. Więcej osób i osobne role dla biura i ekip dokładamy, gdy firma rośnie.',
       },
       {
-        q: 'Wdrażacie system poza Rabką?',
-        a: 'Tak. Z Rabki dojeżdżamy na wdrożenie na Podhalu i w Małopolsce, a dalej pracujemy zdalnie i przyjeżdżamy na start.',
+        q: 'Kiedy płacę?',
+        a: 'System zleceń budujemy etapami, zaliczka na start to [ZALICZKA]. [ZASADY PŁATNOŚCI]',
       },
     ],
     contact: {
-      eyebrow: 'Porozmawiajmy o Twoich ekipach',
+      eyebrow: 'Porozmawiajmy o grafiku ekip',
       title: 'Opisz **jeden dzień w firmie**, a pokażemy, jak to poukładać',
       lead: 'Rozmowa, podgląd i plan etapów z ceną w 5–7 dni. Bez zobowiązań.',
-      quoteCaption:
-        'Napisz, ile masz ekip i jak dziś planujesz zlecenia, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
+      quoteCaption: 'Napisz, ile masz ekip, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
     },
   },
   'crm-dla-malej-i-sredniej-firmy': {
     eyebrow: 'System · usługi, handel, firmy B2B',
     title: 'CRM dla małej i średniej firmy.',
     titleAccent: 'Żaden klient nie ginie.',
-    lead: 'Klienci, zapytania, oferty i przypomnienia, do kogo zadzwonić. Cała historia klienta w jednym miejscu, a do tego raport, skąd przychodzą nowi. Bez ogromnego systemu, którego nikt nie używa.',
+    lead: 'Klienci, zapytania, oferty i przypomnienia, do kogo zadzwonić, a cała historia klienta w jednym miejscu. CRM dla firm z Podhala, Małopolski i Polski.',
     compare: [
       {
         label: 'Dziś',
@@ -418,10 +419,10 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       {
         label: EFFECT,
         title: 'Więcej odpowiedzi na wysłane oferty',
-        text: 'Ile ofert kończy się zamówieniem i skąd przychodzą klienci, zobaczysz w raporcie. Porównamy to po pierwszym kwartale.',
+        text: 'Ile ofert kończy się zamówieniem i skąd przychodzą klienci, porównamy razem po pierwszym kwartale.',
       },
     ],
-    deliverablesTitle: 'W cenie **wdrożenia**',
+    deliverablesTitle: 'W cenie **CRM**',
     faqEyebrow: 'Pytania o CRM',
     faq: [
       {
@@ -438,19 +439,18 @@ export const SOLUTION_PAGE_TEXTS: Readonly<Record<string, SolutionPageText>> = {
       },
       {
         q: 'Ile osób może z niego korzystać?',
-        a: 'W cenie do pięciu użytkowników, z komputera i z telefonu. Więcej osób i ról dokładamy później.',
+        a: 'Tylu użytkowników, ile podaje punkt „W cenie”, z komputera i z telefonu. Więcej osób i ról dokładamy później.',
       },
       {
-        q: 'Wdrażacie CRM dla firm spoza Podhala?',
-        a: 'Tak. Biuro mamy w Rabce-Zdroju, a CRM wdrażamy dla firm z całej Małopolski i Polski, zdalnie i na miejscu przy starcie.',
+        q: 'Kiedy płacę?',
+        a: 'CRM wdrażamy etapami, a na początek płacisz zaliczkę [ZALICZKA]. [ZASADY PŁATNOŚCI]',
       },
     ],
     contact: {
       eyebrow: 'Porozmawiajmy o Twoich klientach',
       title: 'Opisz, **jak dziś prowadzicie klientów**, a zaproponujemy prosty CRM',
       lead: 'Rozmowa o Waszej sprzedaży, podgląd CRM i cena w 5–7 dni. Bez zobowiązań.',
-      quoteCaption:
-        'Napisz, skąd macie klientów i jak wysyłacie oferty, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
+      quoteCaption: 'Napisz, jak wysyłacie oferty, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
     },
   },
 }

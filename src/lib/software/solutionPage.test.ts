@@ -5,7 +5,7 @@ import demo from '../../../seed/prokomsoftware/demo-aplikacja-ekip.json'
 import okno from '../../../seed/prokomsoftware/okno-oferty.json'
 import { solutionData, solutionsToImport } from '../../seed/software/map'
 import { FIELD_CREW_PAGE, FIELD_CREW_SLUG } from '../../seed/software/solutionPages'
-import { SOLUTION_PAGE_TEXTS } from '../../seed/software/solutionPageTexts'
+import { SOLUTION_PAGE_TEXTS, type SolutionPageText } from '../../seed/software/solutionPageTexts'
 import { isIconName } from '../catalog/options'
 import {
   buildOfferView,
@@ -21,6 +21,7 @@ import {
   solutionDemoSchema,
   validateSolutionDemo,
 } from './solutionPage'
+import { richDescription } from './meta'
 import { DEFAULT_PRICE_DISPLAY } from './solutionsIndex'
 
 const offer = softwareOfferSchema.parse(okno)
@@ -90,6 +91,13 @@ describe('seed of the solution pages', () => {
       for (const item of text.compare) {
         check(slug, 'compare.label', item.label, 40)
         check(slug, 'compare.title', item.title, 120)
+        check(slug, 'compare.text', item.text, 300)
+      }
+      check(slug, 'deliverablesTitle', text.deliverablesTitle, 60)
+      check(slug, 'faqEyebrow', text.faqEyebrow, 40)
+      for (const item of text.faq) {
+        check(slug, 'faq.q', item.q, 120)
+        check(slug, 'faq.a', item.a, 600)
       }
       check(slug, 'contact.eyebrow', text.contact.eyebrow, 60)
       check(slug, 'contact.title', text.contact.title, 120)
@@ -99,9 +107,25 @@ describe('seed of the solution pages', () => {
     expect(over).toEqual([])
   })
 
+  it('uses the lead as a whole meta description: 120–155 characters, never cut with „…”', () => {
+    for (const [slug, text] of Object.entries(SOLUTION_PAGE_TEXTS)) {
+      expect(text.lead.length, slug).toBeGreaterThanOrEqual(120)
+      expect(richDescription(text.lead, { priced: true }), slug).not.toMatch(/…$/)
+    }
+  })
+
+  it('promises nothing the copy budget forbids', () => {
+    const all = JSON.stringify(SOLUTION_PAGE_TEXTS)
+    expect(all).not.toMatch(/na piśmie|co boli|zapłacisz|robi się samo|Zakopan|zadat/i)
+  })
+
   it('gives every page its own words: no sentence of 6+ words on two pages', () => {
     const owner = new Map<string, string>()
-    for (const [slug, text] of Object.entries(SOLUTION_PAGE_TEXTS)) {
+    const pages: [string, SolutionPageText][] = [
+      [FIELD_CREW_SLUG, FIELD_CREW_PAGE as unknown as SolutionPageText],
+      ...Object.entries(SOLUTION_PAGE_TEXTS),
+    ]
+    for (const [slug, text] of pages) {
       const parts = [
         text.lead,
         ...text.compare.map((item) => `${item.title}. ${item.text}`),
