@@ -44,3 +44,12 @@ Pomiar na `pnpm build && pnpm start` (lokalnie, port 3001) po wszystkich PR-ach 
 - [ ] Decyzje [SZEF]: „100+ klientów”, link Google, model Opieki IT bez cen.
 - [ ] Wdrożenie: staging = treść z kodu, akceptacja szefa w Asanie, kopia, certyfikat, `PROD_*`, §3a + §3a.1, smoke.
 - [x] 301 ze starej strony — nie dotyczy (domena bez wcześniejszej strony).
+
+## QA nocne 14.11 (build produkcyjny `pnpm build && pnpm start`, gałąź z #571 i #574)
+
+- `pnpm build` zielony (także nowa wspólna trasa `[domain]/llms.txt`).
+- `biznes-seo-audyt --links`: **553 adresy, 0 uwag**, 22 linki spoza mapy strony, 0 błędnych (18 to karty „do sprawdzenia”, `noindex` — pkt 5 wyżej).
+- Skan zaślepek (`[NAWIAS]`, `TODO`, `[SZEF`, „lorem”) na wszystkich 553 adresach z mapy: **0**.
+- `biznes-qa` 120 widoków: bez przewijania w bok, H1 i konsoli jak wcześniej; „białe bloki” — celowe płyty (pkt 3); axe `label-content-name-mismatch` na `/agd-rtv-dla-firm` — 3 kolejne pomiary bez błędu (niestabilny, pkt 2).
+- **Poprawione:** 13 pudełek programów w orbicie `/insert` bez `alt` → „Pudełko programu …” (jak w „Wszystkie programy”, QA 13.11). Puste `alt` w mega menu (ikony kategorii obok nazwy) i logo obok nazwy linii zostają — dekoracyjne.
+- Stan po nocy: zdjęcia ≥ 3 — **247 z 445**; parametry obowiązkowe — **26 kart / 48 pól**, każde z powodem (`parametry-braki-sprawdzone.md`); opisy i FAQ bez powtórzeń między kartami (testy).
