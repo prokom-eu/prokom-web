@@ -23,7 +23,7 @@ H0 dokumenty ──► (D1 + D2 scalone) ──► H1 fundament ──► H2 gł
 |---|---|---|---|---|
 | **H0** ✅ | 1 | wgranie paczki, ADR-H001/H002 przyjęte, STAN, CLAUDE.md, decyzja folder (14.11, z czatu) | — | — |
 | **H1** | `feat/wsp-linie-kontakt` · H1-1 · H1-2 · H1-3 | kontakt linii Tech/Gaming w `CompanyData` · tenant + routing domeny + model + seed · tokeny, motyw, powłoka (sloty huba, mega menu, szyna, arkusz, dolny pasek, stopka, status godzin) · indeks wyszukiwania + `/szukaj` | 3 | ✅ D1, D2 |
-| **H2** | H2-1 · H2-2 · H2-3 | strona główna: hero + Wszystkie linie · Dobierz, Załatw online, Co zrobić gdy, blok Współpraca · Marki, Zasięg, Aktualności, FAQ, Kontakt, Finał | 3,5 | H1 |
+| **H2** | H2-0 · H2-1 · H2-2 · H2-3 | model `home`/`brands` + kontakty linii i aktualności (H2-0, plan 14.11) · strona główna: hero + Wszystkie linie · Dobierz, Załatw online, Co zrobić gdy, blok Współpraca · Marki, Zasięg, Aktualności, FAQ, Kontakt, Finał | 3,5 | H1 |
 | **H3** | H3-1 · H3-2 · H3-3 | `/linie` · `/dla-firm` · `/dla-domu` | 3,5 | H1 (H2 nie blokuje) |
 | **H4** | H4-1 · H4-2 | `/inwestycje-i-dostawy` (lista, obiekty, zakres, pasek, kopiuj) · formularz dostaw + `/wspolpraca` | 3 | H1 |
 | **H5** | H5-1 · H5-2 · H5-3 | `/zalatw-online`, `/pomoc` + `/pomoc/[slug]` · `/kontakt`, `/o-firmie`, `/partnerzy` · `/gdzie-dzialamy`, `/aktualnosci`, prawne, `/mapa-strony`, 404 | 3,5 | H1 |
