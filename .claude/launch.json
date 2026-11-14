@@ -41,6 +41,13 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8765", "--directory", "docs/design/prokombiznes/k4/boards"],
       "port": 8765
+    },
+    {
+      "name": "hub-3004",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 3004,
+      "url": "http://prokom.localhost:3004"
     }
   ]
 }

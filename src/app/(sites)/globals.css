@@ -1,6 +1,6 @@
 /*
- * Stylesheet of pages without a line (ADR-023 „CSS per linia”): the PRO-KOM hub, an unknown domain
- * and the global error page. Lines have their own sheets (`src/styles/site.css`).
+ * Stylesheet of pages without a line (ADR-023 „CSS per linia”): an unknown domain and the global
+ * error page. Lines have their own sheets (`src/styles/site.css`).
  */
 @import 'tailwindcss' source(none);
 @import '../../styles/site.css';

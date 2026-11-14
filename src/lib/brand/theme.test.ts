@@ -99,10 +99,15 @@ describe('THEME_STORAGE_KEY', () => {
 })
 
 describe('hasDarkTheme', () => {
-  it('is true only for lines with a dark design (ADR-013, ADR-015, ADR-I003 §6)', () => {
+  it('is true only for lines with a dark design (ADR-013, ADR-015, ADR-I003 §6, ADR-H001)', () => {
     expect(hasDarkTheme('biznes')).toBe(true)
     expect(hasDarkTheme('software')).toBe(true)
     expect(hasDarkTheme('instalacje')).toBe(true)
-    expect(hasDarkTheme('prokom')).toBe(false)
+    expect(hasDarkTheme('prokom')).toBe(true)
+  })
+
+  it('the pro-kom.eu hub starts dark and its script falls back to dark (ADR-H001 pkt 4)', () => {
+    expect(defaultTheme('prokom')).toBe('dark')
+    expect(themeScript('prokom')).toContain('var t="dark"')
   })
 })

@@ -15,10 +15,10 @@ const TENANTS = [
     title: 'Kasy fiskalne, komputery, opieka IT — Rabka | PRO-KOM Biznes',
     // `\s`: a hard space after „i” (K4-FINAL §1); a regex sees the raw text.
     h1: /^Kasy, komputery i\sprogramy dla firm\./,
-    // No one-letter word: the H1 has hard spaces after them (K4-FINAL §1). Not „Kasy, komputery”
-    // alone: the shared lines band of every footer (L1, CompanyData.lines) shows the Biznes tagline
-    // „Kasy, komputery, opieka IT” by design — the H1 goes on with „ i”.
-    markers: ['Kasy, komputery i'],
+    // The H1 as the HTML has it: a hard space after „i” (K4-FINAL §1) is `&nbsp;`. Not „Kasy,
+    // komputery” alone: the shared lines band shows „Kasy, komputery, opieka IT” by design, and the
+    // hub's data has „Kasy, komputery i opieka IT” (pro-kom.eu cards of the lines, H2).
+    markers: ['Kasy, komputery i&nbsp;programy'],
   },
   {
     host: 'instalacje.localhost',
@@ -43,6 +43,18 @@ const TENANTS = [
       'Strony, systemy, aplikacje i automatyzacje dla firm',
       'Najpierw klikasz podgląd swojego projektu',
     ],
+  },
+  {
+    host: 'prokom.localhost',
+    name: 'PRO-KOM',
+    // pro-kom.eu (H1-2): the start page in code, title from spec §4.
+    title: 'PRO-KOM Rabka-Zdrój — IT dla firm, instalacje, serwis',
+    h1: /^PRO-KOM$/,
+    // The hub's line under the footer logo (`SiteSettings.footer.text`, seed:prokom).
+    markers: ['Strona główna firmy PRO-KOM z Rabki-Zdroju'],
+    // The hub names every line by design (mega menu, ADR-H001) and „PRO-KOM” is in every frame:
+    // names are not compared for it — the content markers above still are, both ways.
+    hub: true,
   },
 ]
 
@@ -77,10 +89,12 @@ test.describe('tenant isolation', () => {
       const jsonLd = (
         await page.locator('script[type="application/ld+json"]').allTextContents()
       ).join()
-      for (const other of TENANTS.filter((t) => t !== tenant)) {
-        expect(text).not.toContain(other.name)
-        expect(head).not.toContain(other.name)
-        expect(jsonLd).not.toContain(other.name)
+      if (!('hub' in tenant)) {
+        for (const other of TENANTS.filter((t) => t !== tenant && !('hub' in t))) {
+          expect(text).not.toContain(other.name)
+          expect(head).not.toContain(other.name)
+          expect(jsonLd).not.toContain(other.name)
+        }
       }
     })
   }

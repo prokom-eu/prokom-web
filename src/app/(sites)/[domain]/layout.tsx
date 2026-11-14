@@ -14,6 +14,7 @@ import { isPromoForLine } from '@/lib/site/promo'
 import { isValidTitleTemplate } from '@/lib/site/title'
 import { BiznesFrame } from '@/sites/biznes/Frame'
 import { InstalacjeFrame } from '@/sites/instalacje/Frame'
+import { ProkomFrame } from '@/sites/prokom/Frame'
 import { SoftwareFrame } from '@/sites/software/Frame'
 
 import { requestOrigin, requireTenant } from './tenant'
@@ -92,6 +93,13 @@ export default async function TenantLayout({ children, params }: Props) {
       <InstalacjeFrame tenant={tenant} settings={settings} promo={promo}>
         {main}
       </InstalacjeFrame>
+    )
+  } else if (tenant.line === 'prokom') {
+    // pro-kom.eu (ADR-H001): its own frame on the shared elements; data in `hub-*`.
+    frame = (
+      <ProkomFrame tenant={tenant} promo={promo}>
+        {main}
+      </ProkomFrame>
     )
   } else if (settings && navigation) {
     frame = (

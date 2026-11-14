@@ -1,0 +1,197 @@
+/*
+ * pro-kom.eu (hub, ADR-H001 pkt 4): role tokens of the shared elements and the hub palette `--k-*`
+ * from `docs/design/prokomeu/tokens.css` (1:1 from the visualisation). Dark is the default
+ * (`DEFAULT_THEME.prokom`, set in <head> before the first paint); light under `data-theme='light'`
+ * = the base rule. Green is the hub accent; line colours (`--k-b`, `--k-i`…) only mark a line
+ * (ADR-013). Values live only here (ADR-007).
+ */
+
+[data-line='prokom'] {
+  /* Interface accent: the darker green of the visualisation (like Software, ADR-015) — the brand
+     green #45A02C stays for the mark and large elements (`--accent-2`). */
+  --accent: var(--c-prokom-light-text);
+  --accent-on-dark: var(--c-prokom-on-dark);
+  --accent-text: var(--c-prokom-light-text);
+  --accent-2: var(--c-prokom);
+  --accent-ink: #ffffff;
+  --ok: #2e7a1e;
+  --warn: #b45309;
+
+  /* Light theme of the visualisation. */
+  --surface: #f4f5f1;
+  --surface-2: #eceee8;
+  --surface-3: #e4e7e0;
+  --card: #ffffff;
+  --card-2: #ffffff;
+  --ink: #121613;
+  --ink-soft: #2a302b;
+  --ink-2: #3a413b;
+  --ink-3: #4f5650;
+  --border: #d9dcd5;
+  --border-input: #7e857e;
+  --line-dark: #121613;
+  /* Header capsule, light (NAGLOWEK-KAPSULA §4). */
+  --cap-bg: rgba(255, 255, 255, 0.78);
+  --cap-bg-solid: rgba(255, 255, 255, 0.94);
+  --cap-border: rgba(18, 22, 19, 0.08);
+  --cap-highlight: rgba(255, 255, 255, 0.6);
+  --cap-shadow: rgba(18, 22, 19, 0.18);
+  --cap-kbd: rgba(18, 22, 19, 0.06);
+  --nav-ink: #121613;
+  --nav-ink-2: #4f5650;
+  --nav-hover: rgba(18, 22, 19, 0.05);
+  --nav-active-bg: rgba(46, 122, 30, 0.12);
+  --nav-active-ink: #286f18;
+  --cap-cta-from: #358f27;
+  --cap-cta-to: #2e7a1e;
+  --cap-cta-ink: #ffffff;
+  --cap-cta-glow: rgba(46, 122, 30, 0.4);
+
+  /* Hub palette, light (html[data-theme="light"] of the visualisation). */
+  --k-bg: #f4f5f1;
+  --k-bg2: #eceee8;
+  --k-card: #ffffff;
+  --k-card2: #ffffff;
+  --k-foot: #e4e7e0;
+  --k-bgp: #f4f5f1;
+  --k-cardp: #ffffff;
+  --k-dim: #d9dcd5;
+  --k-ink: #121613;
+  --k-ink1: #2a302b;
+  --k-ink2: #3a413b;
+  --k-ink3: #4f5650;
+  --k-ink4: #4f5650;
+  --k-ink5: #8a918a;
+  --k-gt: #2e7a1e;
+  --k-gd: #2e7a1e;
+  --k-g: #2e7a1e;
+  --k-g1: #358f27;
+  --k-g2: #286f18;
+  --k-g3: #1f5a12;
+  --k-gi: #ffffff;
+  --k-b: #244fb0;
+  --k-bt: #244fb0;
+  --k-bd: #e6ecfb;
+  --k-bi: #ffffff;
+  --k-i: #007a96;
+  --k-it: #006a82;
+  --k-id: #ddf1f5;
+  --k-ii: #ffffff;
+  --k-s: #6e45d4;
+  --k-st: #5b33c4;
+  --k-sd: #ece7fb;
+  --k-si: #ffffff;
+  --k-t: #c4362b;
+  --k-tt: #b3301f;
+  --k-td: #fbe8e5;
+  --k-ti: #ffffff;
+  --k-y: #9a7000;
+  /* Gaming as text: the board's gold #9A7000 has 4.48:1 on white — a shade darker for AA. */
+  --k-yt: #8a6400;
+  --k-yd: #fbf2d2;
+  --k-yi: #ffffff;
+  --k-white: #121613;
+  --r-w: 18, 22, 19;
+  --r-gl: 255, 255, 255;
+  --r-gl2: 255, 255, 255;
+  --r-gl3: 255, 255, 255;
+  --r-gl4: 255, 255, 255;
+  --r-gl5: 255, 255, 255;
+}
+
+[data-line='prokom'][data-theme='dark'] {
+  color-scheme: dark;
+  --accent: var(--c-prokom-on-dark);
+  --accent-on-dark: var(--c-prokom-on-dark);
+  --accent-text: #8fe07a;
+  --accent-2: #5bc23e;
+  --accent-ink: #07140a;
+  --button-bg: var(--accent);
+  --surface: #0a0d0b;
+  --surface-2: #0e1210;
+  --surface-3: #131815;
+  --card: #131815;
+  --card-2: #111613;
+  --ink: #f4f5f1;
+  --ink-soft: #dde1db;
+  --ink-2: #c9cec8;
+  --ink-3: #a9afa9;
+  --border: #232a25;
+  --border-input: #6b726b;
+  --ok-text: #8fe07a;
+  /* Status dots on dark surfaces (the light #2E7A1E / #B45309 stay below 3:1 here). */
+  --ok: #7bd36a;
+  --warn: #f2a541;
+  --header-bg: rgba(10, 13, 11, 0.86);
+  --line-dark: #060807;
+  /* Header capsule (NAGLOWEK-KAPSULA §4), green of the hub. */
+  --cap-bg: rgba(19, 24, 21, 0.72);
+  --cap-bg-solid: rgba(14, 18, 16, 0.92);
+  --cap-border: rgba(255, 255, 255, 0.08);
+  --cap-highlight: rgba(255, 255, 255, 0.05);
+  --cap-shadow: rgba(0, 0, 0, 0.65);
+  --cap-kbd: rgba(255, 255, 255, 0.08);
+  --nav-ink: #f4f5f1;
+  --nav-ink-2: #a9afa9;
+  --nav-hover: rgba(255, 255, 255, 0.06);
+  --nav-active-bg: rgba(79, 176, 52, 0.18);
+  --nav-active-ink: #8fe07a;
+  --cap-cta-from: #5bc23e;
+  --cap-cta-to: #43a02b;
+  --cap-cta-ink: #07140a;
+  --cap-cta-glow: rgba(79, 176, 52, 0.55);
+  --status-open: var(--status-open-on-dark);
+  --status-open-bg: var(--status-bg-on-dark);
+  --sdlg-backdrop: rgba(5, 7, 6, 0.72);
+  --sdlg-bg: rgba(19, 24, 21, 0.95);
+
+  /* Hub palette, dark (`:root` of the visualisation). */
+  --k-bg: #0a0d0b;
+  --k-bg2: #0e1210;
+  --k-card: #131815;
+  --k-card2: #111613;
+  --k-foot: #060807;
+  --k-bgp: #0c0f0d;
+  --k-cardp: #171c18;
+  --k-dim: #050706;
+  --k-ink: #f4f5f1;
+  --k-ink1: #dde1db;
+  --k-ink2: #c9cec8;
+  --k-ink3: #a9afa9;
+  --k-ink4: #b9bdb6;
+  --k-ink5: #7e857e;
+  --k-gt: #8fe07a;
+  --k-gd: #7bd36a;
+  --k-g: #4fb034;
+  --k-g1: #5bc23e;
+  --k-g2: #43a02b;
+  --k-g3: #2e7a1e;
+  --k-gi: #07140a;
+  --k-b: #4a7be0;
+  --k-bt: #8dadf0;
+  --k-bd: #0a1430;
+  --k-bi: #06102a;
+  --k-i: #12b6d8;
+  --k-it: #4ccbe6;
+  --k-id: #071214;
+  --k-ii: #06181c;
+  --k-s: #9670ee;
+  --k-st: #b49bf5;
+  --k-sd: #15131f;
+  --k-si: #120a26;
+  --k-t: #e2483a;
+  --k-tt: #f29185;
+  --k-td: #1a1312;
+  --k-ti: #1a0806;
+  --k-y: #f2c230;
+  --k-yt: #f2c230;
+  --k-yd: #080c0b;
+  --k-yi: #1a1400;
+  --k-white: #ffffff;
+  --r-w: 255, 255, 255;
+  --r-gl: 22, 28, 24;
+  --r-gl2: 19, 24, 21;
+  --r-gl3: 20, 25, 21;
+  --r-gl4: 10, 13, 11;
+  --r-gl5: 17, 22, 19;
+}

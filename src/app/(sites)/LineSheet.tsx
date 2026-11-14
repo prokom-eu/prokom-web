@@ -14,9 +14,10 @@ import { TailwindStyles as InstalacjeSheet } from '@/sites/instalacje/style/Line
  */
 const BiznesSheet = dynamic(() => import('@/sites/biznes/style/sheet'))
 const SoftwareSheet = dynamic(() => import('@/sites/software/style/sheet'))
+const ProkomSheet = dynamic(() => import('@/sites/prokom/style/sheet'))
 const BaseSheet = dynamic(() => import('./baseSheet'))
 
-/** The stylesheet of the page's line; no line (hub, unknown domain) → the shared styles only. */
+/** The stylesheet of the page's line; no line (unknown domain) → the shared styles only. */
 export function LineSheet({ line }: { line: Line | undefined }) {
   switch (line) {
     case 'biznes':
@@ -25,6 +26,8 @@ export function LineSheet({ line }: { line: Line | undefined }) {
       return <SoftwareSheet />
     case 'instalacje':
       return <InstalacjeSheet />
+    case 'prokom':
+      return <ProkomSheet />
     default:
       return <BaseSheet />
   }
