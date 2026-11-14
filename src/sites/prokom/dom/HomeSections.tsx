@@ -60,11 +60,11 @@ export function HomeHero({
           <ul className="pk-o5" role="list">
             {trio.map((card) => (
               <li key={card.line} style={lineStyle(card.line)}>
-                <a href={card.anchor} className="pk-lcard pk-trio">
+                <OptionalLink href={card.anchor ?? card.info.url} className="pk-lcard pk-trio">
                   <Mark label={card.info.label} />
                   <span className="pk-olc__short">{card.title}</span>
                   <span className="pk-olc__who">{card.text}</span>
-                </a>
+                </OptionalLink>
               </li>
             ))}
           </ul>
@@ -263,7 +263,7 @@ export function HomeFinal({
         {address && (
           <p className="pk-plan__note">
             {address} ·{' '}
-            <Link href="/kontakt" className="pk-link">
+            <Link href="/kontakt" className="pk-final__link">
               {texts.directions} <span aria-hidden="true">→</span>
             </Link>
           </p>

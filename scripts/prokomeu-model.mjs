@@ -1041,6 +1041,8 @@ function forHome() {
   const { LD, P, R, EX, care, TP } = fixTexts(raw, {
     'Składasz komputer po swojemu i od razu widzisz cenę.':
       'Składasz komputer po swojemu, krok po kroku.',
+    'Folia cięta ploterem pod Twój model, zakładana od ręki.':
+      'Folia cięta ploterem pod Twój model, zakładana w salonie.',
     'Rabka-Zdrój, ul. Orkana 16B, od poniedziałku do piątku 9:00–17:00. Serwis także w sobotę 9:00–14:00.':
       '{adres}. {godziny}.',
   })
@@ -1051,7 +1053,7 @@ function forHome() {
       // :184–200; H1 from spec §4; the salon fact without the street (contact data from the panel)
       eyebrow: 'Dla domu · dla rodziny · dla gracza',
       title: 'Wszystko dla domu w jednej firmie.',
-      lead: 'Dom, który sam pilnuje i sam się steruje. Telefon i laptop naprawione na miejscu. Komputer do gier złożony w Rabce-Zdroju. Trzy linie PRO-KOM, jedna firma i jeden salon.',
+      lead: 'Dom, który sam pilnuje i sam się steruje. Telefon i laptop naprawione w salonie w Rabce-Zdroju. Komputer do gier złożony w Rabce-Zdroju. Trzy linie PRO-KOM, jedna firma i jeden salon.',
       choose: 'Wybierz swoją sytuację',
       facts: [
         { value: '2004', label: 'od tego roku działamy w Rabce-Zdroju', facts: ['Od 2004'] },
@@ -1063,7 +1065,7 @@ function forHome() {
         line: line(card.cd),
         title: card.title,
         text: card.text,
-        anchor: card.anchor === '#przekroj' ? '#przekroj' : '#linie-dom',
+        anchor: card.anchor === '#przekroj' ? '#przekroj' : null,
       })),
     },
     situations: {
@@ -1075,7 +1077,7 @@ function forHome() {
       start: 'Od czego zacząć',
       call: 'Zadzwoń:',
       describe: 'Opisz, czego potrzebujesz',
-      note: 'Dzwonisz raz — łączymy Cię z właściwym zespołem.',
+      note: 'To numer zespołu, który zajmuje się tą sprawą.',
     },
     scene: {
       // :252–336 (renderVals `LD`); promises from the line panels, the chips with hours left out
@@ -1143,8 +1145,8 @@ function forHome() {
       remote: 'Nie jesteś z okolicy?',
       remoteNote: 'Zgłoś online, wyślij kurierem',
       extras: [
-        'Naprawy na miejscu',
-        'Folia Hammer Glass od ręki',
+        'Naprawy w salonie',
+        'Folia Hammer Glass w salonie',
         'Akcesoria GSM',
         'Odbiór komputera do gier',
       ],

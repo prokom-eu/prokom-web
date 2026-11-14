@@ -258,6 +258,7 @@ export function AreaTabs({
       <div
         id={`${baseId}-panel`}
         role="tabpanel"
+        tabIndex={0}
         aria-labelledby={`${baseId}-${area.line}`}
         className="pk-area"
         style={lineStyle(area.line)}

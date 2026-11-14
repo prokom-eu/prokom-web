@@ -76,6 +76,7 @@ export function TopicTabs({
       <div
         id={`${baseId}-panel`}
         role="tabpanel"
+        tabIndex={0}
         aria-labelledby={`${baseId}-${index}`}
         className="pk-area"
       >
