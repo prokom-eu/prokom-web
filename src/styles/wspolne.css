@@ -659,9 +659,10 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   position: fixed;
   top: 50%;
   /* Next to the content, not the window's edge (audit 14.11 pkt 3): on a wide monitor the page
-     (capsule 1344 px) stands in the middle, so the rail keeps 16 px off the capsule's left edge;
-     up to ~1520 px that is the window's 16 px. */
-  left: max(16px, calc((100% - 1344px) / 2 - 80px));
+     stands in the middle, so the rail keeps 16 px off the left edge of the line's page box
+     (`--rail-content`: the capsule's 1344 px, the hub's 1560 px); up to 1536 px (capsule) that
+     is the window's 16 px. */
+  left: max(16px, calc((100% - var(--rail-content, 1344px)) / 2 - 80px));
   z-index: 30;
   display: none;
   filter: drop-shadow(0 14px 30px var(--cap-shadow));

@@ -156,7 +156,7 @@ test('on a wide monitor the rail stays next to the capsule, not at the window ed
       const cap = document.querySelector('.cap-wrap')!.getBoundingClientRect()
       return { left: wrap.left, capLeft: cap.left }
     })
-    // Up to ~1520 px the window's 16 px; wider, 16 px off the capsule (64 px rail).
+    // Up to 1536 px the window's 16 px; wider, 16 px off the capsule's box (`.cap-wrap`, 64 px rail).
     if (gap === null) expect(box.left).toBe(16)
     else expect(Math.round(box.capLeft - (box.left + 64))).toBe(gap)
   }
