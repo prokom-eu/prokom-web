@@ -205,7 +205,7 @@ export function CardsSection({
               </span>
             )}
             {item.label && !item.href && (
-              <p className={cx(EYEBROW, 'text-accent-text max-md:text-[11px]')}>{item.label}</p>
+              <p className={cx(EYEBROW, 'text-accent-text max-md:text-[12px]')}>{item.label}</p>
             )}
             <h3 className="font-display text-[1.2rem] leading-tight font-extrabold text-balance max-md:text-[15px]">
               {item.title}
@@ -251,7 +251,7 @@ export function StepsSection({ block, axis = false }: Props & { axis?: boolean }
               {i + 1}
             </span>
             {item.label && (
-              <p className={cx(EYEBROW, 'text-ink-2 max-md:text-[10.5px]')}>{item.label}</p>
+              <p className={cx(EYEBROW, 'text-ink-2 max-md:text-[12px]')}>{item.label}</p>
             )}
             <h3 className="font-display text-[1.1rem] leading-tight font-extrabold max-md:text-base">
               {item.title}

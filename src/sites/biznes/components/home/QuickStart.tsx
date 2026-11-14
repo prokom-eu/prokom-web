@@ -84,7 +84,7 @@ function PhoneTileBody({ tile }: { tile: Tile }) {
       >
         <Icon name={tile.icon} className="size-5" />
       </span>
-      <em className="absolute top-3 right-2.5 line-clamp-2 max-w-[60%] rounded-[11px] bg-surface-dark/30 px-2 py-[3px] text-right text-[10.5px] leading-[1.5] font-extrabold not-italic">
+      <em className="absolute top-3 right-2.5 line-clamp-2 max-w-[60%] rounded-[11px] bg-surface-dark/30 px-2 py-[3px] text-right text-[12px] leading-[1.5] font-extrabold not-italic">
         {tile.phoneTag ?? tile.tag}
       </em>
       <b className="mt-auto text-[15px] leading-tight font-extrabold">{tile.title}</b>

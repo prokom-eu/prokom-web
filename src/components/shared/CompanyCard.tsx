@@ -104,7 +104,9 @@ export function CompanyCard({
       data-company-card
     >
       {heading}
-      <dl className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-2.5 text-sm">
+      {/* Baseline: the phone and e-mail links are 40 px tap targets with centred text — the label
+          sits on their line, not above it (audit 14.11). */}
+      <dl className="grid grid-cols-[auto_1fr] items-baseline gap-x-5 gap-y-2.5 text-sm">
         {rows.map(([label, value]) => (
           <div key={label} className="contents">
             <dt className="text-ink-2">{label}</dt>

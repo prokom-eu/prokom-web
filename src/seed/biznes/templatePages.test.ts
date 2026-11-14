@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { BIZNES_CONTACT } from './contact'
 import { TEMPLATE_PAGES, templateLayout } from './templatePages'
 
 describe('templateLayout (/kontakt and /o-firmie on the shared templates, plan 0611 §8.2)', () => {
@@ -39,5 +40,15 @@ describe('templateLayout (/kontakt and /o-firmie on the shared templates, plan 0
       ['kontakt', 'bzContactPage'],
     ])
     for (const page of TEMPLATE_PAGES) expect(page.description.length).toBeLessThanOrEqual(160)
+  })
+
+  it('/kontakt: confirmed contact data only, the 60-minute wording replaced (audit 14.11)', () => {
+    const contact = TEMPLATE_PAGES.find((page) => page.slug === 'kontakt')!
+    expect(contact.description).toContain(BIZNES_CONTACT.phone)
+    expect(contact.description).toContain(BIZNES_CONTACT.email)
+    expect(contact.description).not.toMatch(/60 minut/)
+    expect(contact.description.length).toBeGreaterThanOrEqual(100)
+    expect(contact.description.length).toBeLessThanOrEqual(155)
+    expect(contact.replaces?.some((old) => old.includes('60 minut'))).toBe(true)
   })
 })

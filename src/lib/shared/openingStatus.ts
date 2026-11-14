@@ -9,7 +9,8 @@ export type OpeningHours = { days: string[]; opens: string; closes: string }[]
 
 export type OpeningState = 'open' | 'soon' | 'closed'
 
-export type OpeningStatusResult = { state: OpeningState; label: string }
+/** `short`: the same status for narrow screens (audit 14.11) — „Zamknięte · pn 9:00”. */
+export type OpeningStatusResult = { state: OpeningState; label: string; short: string }
 
 const WEEK = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'] as const
 
@@ -23,6 +24,9 @@ const ON_DAY = [
   'w piątek',
   'w sobotę',
 ]
+
+/** "pn", "wt"… — the short form on narrow screens. */
+const DAY_SHORT = ['nd', 'pn', 'wt', 'śr', 'czw', 'pt', 'sob']
 
 /** Minutes before closing from which the status says „Zamykamy za N min”. */
 export const CLOSING_SOON_MINUTES = 30
@@ -90,9 +94,12 @@ export function openingStatus(
   if (current) {
     const left = current.to - today.minutes
     const until = `do ${display(current.closes)}`
-    return left <= CLOSING_SOON_MINUTES
-      ? { state: 'soon', label: `Zamykamy za ${left} min · ${until}` }
-      : { state: 'open', label: `Otwarte · ${until}` }
+    if (left <= CLOSING_SOON_MINUTES) {
+      const soon = `Zamykamy za ${left} min`
+      return { state: 'soon', label: `${soon} · ${until}`, short: soon }
+    }
+    const open = `Otwarte · ${until}`
+    return { state: 'open', label: open, short: open }
   }
 
   // Two weeks: enough for a run of holidays (Christmas, Easter) after a weekend.
@@ -102,8 +109,13 @@ export function openingStatus(
       .filter((row) => offset > 0 || row.from > today.minutes)
       .sort((a, b) => a.from - b.from)[0]
     if (next) {
-      const when = offset === 0 ? 'dziś' : offset === 1 ? 'jutro' : ON_DAY[day.weekday]
-      return { state: 'closed', label: `Zamknięte · otwieramy ${when} o ${display(next.opens)}` }
+      const near = offset === 0 ? 'dziś' : offset === 1 ? 'jutro' : null
+      const time = display(next.opens)
+      return {
+        state: 'closed',
+        label: `Zamknięte · otwieramy ${near ?? ON_DAY[day.weekday]} o ${time}`,
+        short: `Zamknięte · ${near ?? DAY_SHORT[day.weekday]} ${time}`,
+      }
     }
   }
   return null
