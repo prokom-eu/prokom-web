@@ -3,7 +3,7 @@
  * `hub-services`, `hub-tools`, `hub-help` and `hub-plans` (ADR-H002 §3). Pure functions, so the
  * counts and the exceptions are tested without a database; `run.ts` writes the result.
  */
-import type { HubHelp, HubPlan, HubService, HubTool } from '../../payload-types'
+import type { HubHelp, HubPlan, HubService, HubSetting, HubTool } from '../../payload-types'
 import { isHubLine, type HubLine } from '../../lib/prokom/lines'
 import { normalizeText } from '../../lib/shared/search/normalize'
 import dlaDomu from '../../../seed/prokomeu/strony/DlaDomu.json'
@@ -179,4 +179,21 @@ export function hubPlans(): PlanSeed[] {
     _status: 'published',
   }))
   return [...personas, ...industries, ...home]
+}
+
+/**
+ * Company facts allowed by spec §3 (since 2004, 100+ business clients, authorizations as in
+ * K4-FINAL §1) — approved, because the spec lists them. Anything else the boss adds in the panel
+ * starts unapproved.
+ */
+export function hubTrust(): NonNullable<HubSetting['trust']> {
+  const spec = 'spec prokomeu §3'
+  return [
+    { value: 'Od 2004', label: 'firma z Rabki-Zdroju', source: spec, approved: true },
+    { value: '100+', label: 'klientów firmowych', source: spec, approved: true },
+    { value: 'Posnet', label: 'Autoryzowany serwis', source: 'K4-FINAL §1', approved: true },
+    { value: 'Elzab', label: 'Autoryzowany serwis', source: 'K4-FINAL §1', approved: true },
+    { value: 'GoPOS', label: 'Autoryzowany partner', source: 'K4-FINAL §1', approved: true },
+    { value: 'InsERT', label: 'Autoryzowany partner', source: 'K4-FINAL §1', approved: true },
+  ]
 }

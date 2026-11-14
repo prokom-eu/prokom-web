@@ -99,6 +99,7 @@ export interface Config {
     'hub-tools': HubTool;
     'hub-help': HubHelp;
     'hub-plans': HubPlan;
+    'hub-settings': HubSetting;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -139,6 +140,7 @@ export interface Config {
     'hub-tools': HubToolsSelect<false> | HubToolsSelect<true>;
     'hub-help': HubHelpSelect<false> | HubHelpSelect<true>;
     'hub-plans': HubPlansSelect<false> | HubPlansSelect<true>;
+    'hub-settings': HubSettingsSelect<false> | HubSettingsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -5960,6 +5962,41 @@ export interface HubPlan {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hub-settings".
+ */
+export interface HubSetting {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Włącz stronę dopiero, gdy jest gotowa. Wyłączona = brak linków w menu, stopce i wyszukiwarce.
+   */
+  pages?: {
+    forHome?: boolean | null;
+    online?: boolean | null;
+    help?: boolean | null;
+    cooperation?: boolean | null;
+    partners?: boolean | null;
+    coverage?: boolean | null;
+    news?: boolean | null;
+    sitemap?: boolean | null;
+  };
+  /**
+   * Na produkcji widać tylko zatwierdzone fakty (spec §3). Źródło jest wewnętrzne — nie pokazujemy go.
+   */
+  trust?:
+    | {
+        value: string;
+        label: string;
+        source?: string | null;
+        approved?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -6210,6 +6247,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'hub-plans';
         value: number | HubPlan;
+      } | null)
+    | ({
+        relationTo: 'hub-settings';
+        value: number | HubSetting;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -9723,6 +9764,36 @@ export interface HubPlansSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hub-settings_select".
+ */
+export interface HubSettingsSelect<T extends boolean = true> {
+  tenant?: T;
+  pages?:
+    | T
+    | {
+        forHome?: T;
+        online?: T;
+        help?: T;
+        cooperation?: T;
+        partners?: T;
+        coverage?: T;
+        news?: T;
+        sitemap?: T;
+      };
+  trust?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        source?: T;
+        approved?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

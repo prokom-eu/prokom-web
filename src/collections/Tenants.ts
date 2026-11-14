@@ -84,6 +84,7 @@ const TENANT_CONTENT: readonly { collection: CollectionSlug; label: string }[] =
   { collection: 'hub-tools', label: 'narzędzia online (pro-kom.eu)' },
   { collection: 'hub-help', label: 'sytuacje pomocy (pro-kom.eu)' },
   { collection: 'hub-plans', label: 'plany (pro-kom.eu)' },
+  { collection: 'hub-settings', label: 'ustawienia pro-kom.eu' },
 ]
 
 const refuse = (message: string) => new APIError(message, 400, null, true)

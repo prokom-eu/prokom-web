@@ -5,7 +5,7 @@ import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
 import { PROKOM_SITE } from '../shared/prokom'
 import { seedSharedData } from '../shared/run'
-import { hubHelp, hubPlans, hubServices, hubTools } from './map'
+import { hubHelp, hubPlans, hubServices, hubTools, hubTrust } from './map'
 
 export const PROKOM_TENANT_SLUG = 'prokom'
 
@@ -75,6 +75,35 @@ export async function seedProkom(payload: Payload): Promise<void> {
     })
   }
   count('site-settings contact', siteUpdate ? 'updated' : 'skipped')
+
+  // --- HubSettings: created with the v1.1 pages off; then the facts of the package win ---
+  const {
+    docs: [hubSettings],
+  } = await payload.find({
+    collection: 'hub-settings',
+    where: { tenant: { equals: tenantId } },
+    limit: 1,
+    ...local,
+  })
+  const trust = hubTrust()
+  if (!hubSettings) {
+    await payload.create({
+      collection: 'hub-settings',
+      data: { tenant: tenantId, trust },
+      ...local,
+    })
+    count('hub-settings', 'created')
+  } else if (hasSameValues(hubSettings.trust, trust)) {
+    count('hub-settings', 'skipped')
+  } else {
+    await payload.update({
+      collection: 'hub-settings',
+      id: hubSettings.id,
+      data: { trust },
+      ...local,
+    })
+    count('hub-settings', 'updated')
+  }
 
   // --- services: first without relations, then the relations by key ---
   const serviceIds = new Map<string, number>()

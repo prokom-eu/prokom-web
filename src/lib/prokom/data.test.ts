@@ -4,7 +4,7 @@ vi.mock('@payload-config', () => ({ default: {} }))
 
 import type { HubHelp, HubPlan, HubService, HubTool } from '@/payload-types'
 
-import { hubWhere, toHubData } from './data'
+import { hubWhere, toHubData, toHubSettings } from './data'
 
 describe('hubWhere — every hub query is tenant-scoped (isolation)', () => {
   it('filters by tenant and the published version', () => {
@@ -103,5 +103,34 @@ describe('toHubData', () => {
       start: [],
       groups: [{ line: 'biznes', points: ['GoPOS'] }],
     })
+  })
+})
+
+describe('toHubSettings', () => {
+  const doc = {
+    pages: { help: true },
+    trust: [
+      { value: 'Od 2004', label: 'firma z Rabki-Zdroju', approved: true },
+      { value: '30 lat', label: 'na rynku', approved: false },
+    ],
+  }
+
+  it('without a document: v1.1 pages off and no facts', () => {
+    const view = toHubSettings(null, 'local')
+    expect(Object.values(view.pages).every((on) => !on)).toBe(true)
+    expect(view.trust).toEqual([])
+  })
+
+  it('switches on only the pages marked in the panel', () => {
+    const { pages } = toHubSettings(doc, 'local')
+    expect(pages.help).toBe(true)
+    expect(pages.forHome).toBe(false)
+  })
+
+  it('shows unapproved facts outside production only (spec §3)', () => {
+    expect(toHubSettings(doc, 'staging').trust).toHaveLength(2)
+    expect(toHubSettings(doc, 'production').trust).toEqual([
+      { value: 'Od 2004', label: 'firma z Rabki-Zdroju' },
+    ])
   })
 })
