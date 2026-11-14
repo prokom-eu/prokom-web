@@ -1,7 +1,15 @@
 import type { HubHelpView, HubPlanView, HubToolView } from '@/lib/prokom/data'
-import { fillPromise, type HubHome, withVisibleFacts } from '@/lib/prokom/home'
+import {
+  type FaqTokens,
+  fillPromise,
+  fillTokens,
+  type HubHome,
+  withVisibleFacts,
+} from '@/lib/prokom/home'
 import type { HubLineContact } from '@/lib/prokom/lineContacts'
 import type { HubLine } from '@/lib/prokom/lines'
+import type { SharedCompany } from '@/lib/shared/project'
+import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
 
 type SceneTexts = HubHome['lines']['scene'][HubLine]
@@ -22,6 +30,8 @@ export type HomeLine = {
   url: string | null
   phone: string | null
   tel: string | null
+  /** The line's hours as written in its panel (Tech is also open on Saturdays). */
+  hours: string | null
   promise: string | null
   hero: HubHome['hero']['lines'][HubLine]
   scene: HomeScene
@@ -47,6 +57,7 @@ export function homeLines(
     url: contact.url,
     phone: contact.phone,
     tel: contact.phone ? toTelHref(contact.phone) : null,
+    hours: contact.hours,
     promise: contact.promise,
     hero: home.hero.lines[contact.key],
     scene: sceneOf(home.lines.scene[contact.key], contact.promise, visibleFacts),
@@ -102,14 +113,17 @@ function sceneOf(
   }
 }
 
-/** „1 linia”, „3 linie”, „5 linii” — Polish plural of the plan's line count. */
-export function linesCount(count: number): string {
+/** Polish plural: `plural(3, ['marka', 'marki', 'marek'])` → „3 marki”. */
+export function plural(count: number, [one, few, many]: readonly [string, string, string]): string {
   const tens = count % 100
   const ones = count % 10
-  if (count === 1) return '1 linia'
-  if (ones >= 2 && ones <= 4 && (tens < 12 || tens > 14)) return `${count} linie`
-  return `${count} linii`
+  if (count === 1) return `1 ${one}`
+  if (ones >= 2 && ones <= 4 && (tens < 12 || tens > 14)) return `${count} ${few}`
+  return `${count} ${many}`
 }
+
+/** „1 linia”, „3 linie”, „5 linii” — the plan's line count. */
+export const linesCount = (count: number) => plural(count, ['linia', 'linie', 'linii'])
 
 /** What a card of a plan links to: the line's own site (from its panel). */
 type LineLink = Pick<HomeLine, 'key' | 'label' | 'domain' | 'url'>
@@ -170,5 +184,39 @@ export function helpCases(
         line: { key, name, domain, url, phone, tel },
       },
     ]
+  })
+}
+
+/** „ul. Orkana 16B, 34-700 Rabka-Zdrój” from the company's first location; `null` without one. */
+export function addressLine(company: Pick<SharedCompany, 'address'>): string | null {
+  const address = company.address
+  return address ? `${address.street}, ${address.postalCode} ${address.city}` : null
+}
+
+/** Contact data the FAQ tokens stand for — always from the panel (spec §3). */
+export function faqTokens(
+  company: Pick<SharedCompany, 'address' | 'hours'>,
+  phone: string | null,
+): FaqTokens {
+  return {
+    telefon: phone ?? '',
+    adres: addressLine(company) ?? '',
+    godziny: hoursSummary(company.hours),
+  }
+}
+
+/**
+ * FAQ items with the tokens filled from the panel; an answer whose token has no value (fresh
+ * panel) is left out rather than shown half-empty (spec §3).
+ */
+export function faqItems(
+  items: HubHome['faq']['items'],
+  tokens: FaqTokens,
+): { question: string; answer: string }[] {
+  return items.flatMap((item) => {
+    const missing = Object.entries(tokens).some(
+      ([name, value]) => !value && item.answer.includes(`{${name}}`),
+    )
+    return missing ? [] : [{ question: item.question, answer: fillTokens(item.answer, tokens) }]
   })
 }

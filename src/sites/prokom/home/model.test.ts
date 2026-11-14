@@ -4,7 +4,16 @@ import type { HubHelpView, HubPlanView, HubToolView } from '@/lib/prokom/data'
 import type { HubLineContact } from '@/lib/prokom/lineContacts'
 
 import { hubHome } from '../../../seed/prokom/map'
-import { choosePlans, helpCases, homeLines, linesCount, teamExamples } from './model'
+import {
+  addressLine,
+  choosePlans,
+  faqItems,
+  faqTokens,
+  helpCases,
+  homeLines,
+  linesCount,
+  teamExamples,
+} from './model'
 
 const contact = (key: HubLineContact['key'], promise: string | null): HubLineContact => ({
   key,
@@ -177,5 +186,31 @@ describe('helpCases', () => {
     expect(result.map((row) => row.slug)).toEqual(['a'])
     expect(result[0]?.steps).toHaveLength(3)
     expect(result[0]?.line.phone).toBe('111 222 333')
+  })
+})
+
+describe('addressLine, faqTokens and faqItems', () => {
+  const address = { street: 'ul. Testowa 1', postalCode: '00-001', city: 'Miasto' }
+  const hours = [{ days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' }]
+
+  it('writes the address of the first location, or nothing without one', () => {
+    expect(addressLine({ address })).toBe('ul. Testowa 1, 00-001 Miasto')
+    expect(addressLine({ address: null })).toBeNull()
+  })
+
+  it('fills the tokens and leaves out an answer whose token has no value', () => {
+    const items = [
+      { question: 'Telefon?', answer: 'Zadzwoń: {telefon}.' },
+      { question: 'Gdzie?', answer: '{adres}. {godziny}.' },
+      { question: 'Firmy?', answer: 'Jedna firma.' },
+    ]
+    const full = faqItems(items, faqTokens({ address, hours }, '111 222 333'))
+    expect(full.map((item) => item.answer)).toEqual([
+      'Zadzwoń: 111 222 333.',
+      expect.stringContaining('ul. Testowa 1, 00-001 Miasto.'),
+      'Jedna firma.',
+    ])
+    const empty = faqItems(items, faqTokens({ address: null, hours: [] }, null))
+    expect(empty.map((item) => item.question)).toEqual(['Firmy?'])
   })
 })
