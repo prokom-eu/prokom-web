@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
-import { measure, PAGES, shortfalls } from '../../../scripts/porownaj-tresc.mjs'
+import {
+  afterImportProblems,
+  mapPaths,
+  measure,
+  PAGES,
+  shortfalls,
+  sitemapPaths,
+} from '../../../scripts/porownaj-tresc.mjs'
 
 const page = (sections: number, words = 40) =>
   `<html><body><header><h2>Menu</h2></header><main>${Array.from(
@@ -32,5 +39,56 @@ describe('porownaj-tresc (staging = content from the code, NAPRAWA-0911)', () =>
     for (const path of ['/gopos', '/insert', '/opieka-it', '/o-firmie', '/kontakt']) {
       expect(PAGES).toContain(path)
     }
+  })
+})
+
+describe('porownaj-tresc --po-imporcie (audit 14.11 P2-8: a stale cache after the import)', () => {
+  const ok = { status: 200, noindex: false }
+  it('reads the addresses of sitemap.xml and of the site map’s <main>', () => {
+    expect(
+      sitemapPaths(
+        '<urlset><url><loc>https://x.pl/produkt/a</loc></url><url><loc>https://x.pl/</loc></url></urlset>',
+      ),
+    ).toEqual(['/produkt/a', '/'])
+    expect(
+      mapPaths(
+        '<header><a href="/kontakt">K</a></header><main><a href="/produkt/a">A</a><a href="/produkt/a">A</a><a href="https://x.pl">X</a></main>',
+      ),
+    ).toEqual(['/produkt/a'])
+  })
+
+  it('a fresh import passes', () => {
+    const pages = new Map([
+      ['/', ok],
+      ['/produkt/a', ok],
+    ])
+    expect(
+      afterImportProblems({ sitemap: ['/', '/produkt/a'], map: ['/', '/produkt/a'], pages }),
+    ).toEqual([])
+  })
+
+  it('the old cache of 14.11: 301 addresses on the map, new cards missing, cards with noindex', () => {
+    const pages = new Map([
+      ['/produkt/stary', { status: 301, noindex: false }],
+      ['/produkt/b', { status: 200, noindex: true }],
+    ])
+    expect(
+      afterImportProblems({
+        sitemap: ['/produkt/nowy', '/produkt/b'],
+        map: ['/produkt/stary', '/produkt/b'],
+        pages,
+      }),
+    ).toEqual([
+      'brak na mapie strony: /produkt/nowy',
+      'na mapie adres z przekierowaniem 301: /produkt/stary',
+      'karta z noindex: /produkt/b',
+    ])
+    expect(
+      afterImportProblems({
+        sitemap: ['/produkt/b'],
+        map: ['/produkt/b', '/produkt/c'],
+        pages: new Map(),
+      }),
+    ).toEqual(['kart w sitemap 1, na mapie strony 2'])
   })
 })

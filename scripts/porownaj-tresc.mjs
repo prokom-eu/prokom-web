@@ -14,6 +14,12 @@
 // opens the pages of scripts/widocznosc.mjs in Chromium (1440 and 390, motion on), scrolls like
 // a visitor and fails (exit 1) on any section still hidden — H2 counts cannot see that.
 // Login: TRESC_AUTH = user:password. Not through a tunnel (Chromium sets its own Host header).
+// After a content import (audit 14.11 P2-8, runbook §2a/§3a — required after staging-content.sh
+// and prod-content.sh):
+//   node scripts/porownaj-tresc.mjs --po-imporcie https://staging.prokombiznes.pl
+// every address of sitemap.xml is on /mapa-strony, no address there redirects (301), no product
+// card there has `noindex`, and both list the same number of cards (since ADR-026 B the site map
+// lists only „Gotowe” cards; the products API needs a panel login). Login: TRESC_AUTH.
 import { request as httpRequest } from 'node:http'
 import { request as httpsRequest } from 'node:https'
 import { isIP } from 'node:net'
@@ -61,6 +67,71 @@ export function measure(html) {
 /** Metrics where B has less than `threshold` of A (an empty list = the same content). */
 export function shortfalls(a, b, threshold = THRESHOLD) {
   return ['h2', 'sections', 'text'].filter((key) => a[key] > 0 && b[key] < a[key] * threshold)
+}
+
+/** Internal addresses of `/mapa-strony` (its `<main>`) and of `sitemap.xml`. */
+export function mapPaths(html) {
+  const main = html.match(/<main[\s>][\s\S]*?<\/main>/)?.[0] ?? ''
+  return [...new Set([...main.matchAll(/href="(\/[^"#?]*)"/g)].map((match) => match[1]))]
+}
+export function sitemapPaths(xml) {
+  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname)
+}
+
+/**
+ * Problems of a site right after a content import: an address of the sitemap missing from the
+ * site map, an address of the site map that redirects, a card with `noindex`, different numbers
+ * of cards. `pages`: status and `noindex` of each address of the site map.
+ */
+export function afterImportProblems({ sitemap, map, pages }) {
+  const listed = new Set(map)
+  const cards = (paths) => paths.filter((path) => path.startsWith('/produkt/')).length
+  return [
+    ...sitemap.filter((path) => !listed.has(path)).map((path) => `brak na mapie strony: ${path}`),
+    ...map.flatMap((path) => {
+      const page = pages.get(path)
+      if (!page) return []
+      if (page.status >= 300 && page.status < 400)
+        return [`na mapie adres z przekierowaniem ${page.status}: ${path}`]
+      if (page.status !== 200) return [`HTTP ${page.status}: ${path}`]
+      return page.noindex && path.startsWith('/produkt/') ? [`karta z noindex: ${path}`] : []
+    }),
+    ...(cards(sitemap) === cards(map)
+      ? []
+      : [`kart w sitemap ${cards(sitemap)}, na mapie strony ${cards(map)}`]),
+  ]
+}
+
+/** `--po-imporcie <origin>`: `afterImportProblems` of a running site. */
+async function afterImport(origin) {
+  const auth = process.env.TRESC_AUTH
+  const host = process.env.TRESC_HOST
+  const xml = await get(origin, '/sitemap.xml', auth, host)
+  const html = await get(origin, '/mapa-strony', auth, host)
+  if (xml.status !== 200 || html.status !== 200) {
+    console.error(`sitemap.xml HTTP ${xml.status}, /mapa-strony HTTP ${html.status}`)
+    process.exit(1)
+  }
+  const sitemap = sitemapPaths(xml.html)
+  const map = mapPaths(html.html)
+  const pages = new Map()
+  const queue = [...map]
+  const worker = async () => {
+    for (let path = queue.shift(); path; path = queue.shift()) {
+      const page = await get(origin, path, auth, host).catch(() => ({ status: 0, html: '' }))
+      const robots = page.html.match(/<meta name="robots" content="([^"]*)"/)?.[1] ?? ''
+      pages.set(path, { status: page.status, noindex: /noindex/.test(robots) })
+      process.stderr.write('.')
+    }
+  }
+  await Promise.all(Array.from({ length: 6 }, worker))
+  process.stderr.write('\n')
+  const problems = afterImportProblems({ sitemap, map, pages })
+  for (const problem of problems) console.log(problem)
+  console.log(
+    `\nSitemap ${sitemap.length} · mapa strony ${map.length} · uwagi: ${problems.length || 'brak'}`,
+  )
+  process.exit(problems.length ? 1 : 0)
 }
 
 function get(origin, path, auth, siteHost) {
@@ -135,6 +206,13 @@ Widoczność: ${bad ? `${bad} stron z problemem` : 'wszystkie sekcje widoczne'}`
 }
 
 async function main([a, b] = process.argv.slice(2)) {
+  if (a === '--po-imporcie') {
+    if (!b) {
+      console.error('usage: node scripts/porownaj-tresc.mjs --po-imporcie <adres>')
+      process.exit(2)
+    }
+    return afterImport(b)
+  }
   if (a === '--widocznosc') {
     if (!b) {
       console.error('usage: node scripts/porownaj-tresc.mjs --widocznosc <adres>')
