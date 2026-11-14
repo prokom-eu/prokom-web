@@ -28,7 +28,8 @@ test.describe('pro-kom.eu — home page sections (spec §6.1)', () => {
     const link = page.locator('a.srail__item[href="#pomoc"]')
     await expect(link).toHaveCount(1)
     await hydrated(link)
-    await link.click({ force: true })
+    // The folded rail clips its labels (`clip-path`): a pointer click could land elsewhere.
+    await link.evaluate((anchor: HTMLAnchorElement) => anchor.click())
     await expect(page.locator('section#pomoc')).toBeInViewport()
   })
 
