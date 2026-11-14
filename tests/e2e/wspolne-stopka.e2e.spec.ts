@@ -132,8 +132,11 @@ test.describe('/_wspolne — phone', () => {
     const card = sheet.locator('[data-menu-call-card]')
     await expect(card.locator('[data-opening-status]')).toContainText('otwieramy w poniedziałek')
     const call = await card.getByRole('link', { name: 'Zadzwoń' }).boundingBox()
-    expect(call).toBeTruthy()
-    expect(call!.x + call!.width).toBeLessThanOrEqual(375)
+    const box = await card.boundingBox()
+    expect(call && box).toBeTruthy()
+    // Inside the card, not just the screen: a small overflow hides under the sheet's padding.
+    expect(call!.x + call!.width).toBeLessThanOrEqual(box!.x + box!.width)
+    expect(box!.x + box!.width).toBeLessThanOrEqual(375)
     expect(call!.height).toBeGreaterThanOrEqual(43.5)
     const sideways = await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
