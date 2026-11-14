@@ -33,3 +33,29 @@ describe('MenuSheet — „Szukaj” on top of the sheet', () => {
     expect(html()).not.toContain('data-menu-search')
   })
 })
+
+// Hub H1-2 (14.11): a long closed status pushed „Zadzwoń” past the right edge at 375–390 px.
+describe('MenuSheet — the call card fits a 360 px phone', () => {
+  const card = html({
+    phone: '889 003 889',
+    hours: [{ days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' }],
+    // Saturday evening: „Zamknięte · otwieramy w poniedziałek o 9:00”, the longest label.
+    now: '2026-11-14T20:00:00+01:00',
+  })
+  const tag = (marker: RegExp) => card.match(marker)?.[0] ?? ''
+
+  it('renders the long status next to the number', () => {
+    expect(card).toContain('otwieramy w poniedziałek o 9:00')
+  })
+
+  it('the text column may shrink and the status may wrap', () => {
+    expect(tag(/<span class="[^"]*flex-col[^"]*"/)).toContain('min-w-0')
+    expect(tag(/<span class="[^"]*oh-status[^"]*"/)).toContain('whitespace-normal!')
+  })
+
+  it('„Zadzwoń” never shrinks and keeps a 44 px target', () => {
+    const call = tag(/<a href="tel:[^"]*" class="[^"]*"/)
+    expect(call).toContain('shrink-0')
+    expect(call).toContain('min-h-11')
+  })
+})

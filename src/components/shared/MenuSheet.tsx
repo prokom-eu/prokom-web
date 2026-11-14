@@ -128,20 +128,25 @@ export function MenuSheet({
         )}
         {children}
         {phone && tel && (
-          <div className="flex items-center justify-between gap-3 rounded-2xl bg-line-dark px-3.5 py-3 text-line-dark-ink">
-            <span className="flex flex-col gap-[3px]">
+          <div
+            className="flex items-center justify-between gap-3 rounded-2xl bg-line-dark px-3.5 py-3 text-line-dark-ink"
+            data-menu-call-card
+          >
+            {/* `min-w-0` + a wrapping status: a long „Zamknięte · otwieramy w poniedziałek o 9:00”
+                must not push „Zadzwoń” off a 360 px screen (hub H1-2, 14.11). */}
+            <span className="flex min-w-0 flex-col gap-[3px]">
               <OpeningStatus
                 hours={hours}
                 holidays={holidays}
                 now={now}
                 onDark
-                className="text-xs"
+                className="text-xs whitespace-normal!"
               />
               <span className="font-display text-[19px] font-extrabold">{phone}</span>
             </span>
             <a
               href={tel}
-              className="inline-flex min-h-11 items-center rounded-[14px] bg-on-dark px-4 font-extrabold text-on-dark-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-dark-text"
+              className="inline-flex min-h-11 shrink-0 items-center rounded-[14px] bg-on-dark px-4 font-extrabold text-on-dark-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-dark-text"
             >
               Zadzwoń
             </a>
