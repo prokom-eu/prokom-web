@@ -34992,118 +34992,142 @@
   {
    "slug_seed": "dell-pro-rugged",
    "zmiana_k4": "zmieniona",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "biuro",
    "kategoria": "laptopy",
    "podkategoria": "laptopy",
    "marka": "Dell",
    "seria": "Dell Pro Rugged",
    "rodzaj": "Urządzenia",
-   "nazwa": "Dell Pro Rugged 13 / 14 (RA13250 / RB14250)",
-   "krotka": "Dell Pro Rugged 13 / 14",
-   "podtytul": "Laptopy wzmocnione 13,3\" (w pełni wzmocniony) i 14\" (półwzmocniony) z jasnym ekranem i portami do urządzeń przemysłowych",
-   "korzysc": "Wzmocniony laptop na budowę, do serwisu w terenie i pracy w kurzu, z 4G/5G, GPS i portem RS-232.",
+   "nazwa": "Dell Pro Rugged 13 Extreme / Dell Pro Rugged 14 (PR713260 / PR514260)",
+   "krotka": "Dell Pro Rugged 13 Extreme / Pro Rugged 14",
+   "podtytul": "Laptopy wzmocnione z Intel Core Ultra seria 3: 13,3\" w pełni wzmocniony (IP66) i 14\" półwzmocniony (IP53), z ekranem do 1400 nitów, 5G i GPS",
+   "korzysc": "Laptop na budowę, do sieci przesyłowych, transportu i służb: odporny na kurz, wodę i upadki, z portem RS-232, 5G i GPS.",
    "opis": [
-    "Dell Pro Rugged 13 (RA13250) i Pro Rugged 14 (RB14250) to laptopy do pracy w kurzu, wilgoci i wstrząsach: na budowie, w warsztacie, przy serwisie maszyn w terenie, na hali produkcyjnej i w pojazdach służbowych. Model 13 jest w pełni wzmocniony (fully rugged), a model 14 — półwzmocniony (semi-rugged) i lżejszy, z większym ekranem. Oba mają grubą, gumowaną obudowę i porty zakryte klapkami.",
-    "Ekran 13,3\" ma 1400 nitów, a dotykowy ekran 14\" — 1100 nitów, więc tekst widać w pełnym słońcu; oba dotykowe panele obsługują pasywne pióro. Laptop ma porty, których nie ma zwykły notebook: RS-232 do sterowników PLC, wag i mierników, gniazdo RJ-45, HDMI 2.1 i Thunderbolt 4, a w opcjonalnej kieszeni dodatkowy RJ-45, USB-A, drugi port szeregowy lub USB Fischer.",
-    "W wersji 14\" dostępny jest osobny odbiornik GPS u-blox NEO-M9N, a w obu — gniazdo nano-SIM dla wersji z modemem komórkowym. Zamiast zaślepki kieszeni można włożyć drugą baterię 53,5 Wh. Zabezpieczenia to czytnik linii papilarnych, czytnik kart inteligentnych stykowy i zbliżeniowy NFC oraz Intel vPro w wybranych procesorach.",
-    "W PRO-KOM w Rabce-Zdroju dobieramy wersję 13 lub 14 do warunków pracy, konfigurujemy połączenie z urządzeniami przez RS-232, kartę SIM operatora i GPS, a także uchwyt samochodowy i ładowarkę baterii. Przed wydaniem sprawdzamy laptopa z Twoim oprogramowaniem serwisowym."
+    "Dell Pro Rugged 13 Extreme (PR713260) i Dell Pro Rugged 14 (PR514260) to następcy modeli RA13250 i RB14250, wprowadzeni przez Della w październiku 2026 roku z procesorami Intel Core Ultra seria 3. Kupują je firmy, których ludzie pracują poza biurem: brygady budowlane, ekipy wodociągów i energetyki, kierowcy i dyspozytorzy w transporcie, leśnicy, policja i straż pożarna oraz magazyny z chłodniami. Tam zwykły notebook przegrywa z pyłem cementowym, deszczem albo upadkiem z maski samochodu.",
+    "Model 13 Extreme jest w pełni wzmocniony: ma klasę szczelności IP66, certyfikaty MIL-STD-810H i MIL-STD-461G oraz test upadku z wysokości 1,8 m. Półwzmocniony Rugged 14 ma IP53 i test upadku z 0,9 m, za to jest lżejszy (od 2,13 kg wobec 2,41 kg) i ma większy ekran 16:10. Dla obu Dell podaje pracę w temperaturach od −29°C do 63°C, więc laptop poradzi sobie zarówno zimą na Podhalu, jak i latem w nagrzanej kabinie.",
+    "Ekran 13,3 cala świeci z jasnością 1400 nitów, a w czternastce do wyboru jest panel 400 lub 1100 nitów, także dotykowy z rysikiem; dotyk działa w rękawicach i na mokro. Z tyłu obudowy jest port szeregowy RS-232 do sterowników, wag i mierników, gniazdo RJ-45 i HDMI 2.1, a w kieszeni rozszerzeń można dodać drugi RS-232, RJ-45 2,5 Gb/s, USB-A albo złącze Fischer. Opcjonalny modem 5G Snapdragon X72 z eSIM i osobny odbiornik GNSS pozwalają wysyłać zlecenia i pozycję prosto z terenu, a drugą baterię 53,5 Wh wymienia się bez wyłączania komputera. Rugged 14 przyjmuje wymienną pamięć LPCAMM2 do 64 GB, a w wybranych konfiguracjach kartę graficzną NVIDIA RTX Pro 500 Blackwell.",
+    "W PRO-KOM w Rabce-Zdroju pomagamy wybrać między w pełni wzmocnioną trzynastką a lżejszą czternastką, zależnie od tego, czy laptop ma przetrwać upadki na placu budowy, czy głównie jeździć w uchwycie radiowozu lub ciężarówki. Konfigurujemy kartę SIM operatora, GPS, połączenie przez RS-232 z Waszymi urządzeniami i program serwisowy, a przed wydaniem sprawdzamy całość na miejscu. Później zajmujemy się serwisem i wymianą baterii, żeby sprzęt wracał do pracy w terenie jak najszybciej."
    ],
    "cechy": [
-    "ekran 1100–1400 nitów",
-    "4G/5G i GPS",
-    "port RS-232"
+    "IP66 i upadek z 1,8 m (13 Extreme)",
+    "ekran do 1400 nitów",
+    "5G, GPS i RS-232"
    ],
    "parametry": [
     {
      "k": "Typ",
-     "v": "Rugged 13: laptop w pełni wzmocniony (fully rugged); Rugged 14: laptop półwzmocniony (semi-rugged)"
+     "v": "Rugged 13 Extreme PR713260: laptop w pełni wzmocniony (fully rugged); Rugged 14 PR514260: laptop półwzmocniony (semi-rugged)"
     },
     {
      "k": "Procesor",
-     "v": "Intel Core Ultra (seria 1): Rugged 13 — Core Ultra 5 135U, Core Ultra 7 165U lub 165H; Rugged 14 — Core Ultra 5 125U vPro / 135U vPro, Core Ultra 7 165U vPro"
+     "v": "Intel Core Ultra seria 3 z NPU: Rugged 13 Extreme — Core Ultra 5 335 vPro (8 rdzeni, do 4,6 GHz), Core Ultra 5 338H vPro (12 rdzeni, do 4,7 GHz), Core Ultra X7 368H vPro (16 rdzeni, do 5,0 GHz); Rugged 14 — Core Ultra 5 335 vPro, Core Ultra 5 336H vPro (12 rdzeni, do 4,6 GHz), Core Ultra 7 366H vPro (16 rdzeni, do 4,8 GHz)"
+    },
+    {
+     "k": "Grafika",
+     "v": "Rugged 13 Extreme: zintegrowana Intel Arc; Rugged 14: zintegrowana lub osobna NVIDIA RTX Pro 500 Blackwell (wybrane konfiguracje)"
     },
     {
      "k": "Pamięć RAM",
-     "v": "Rugged 13: LPDDR5x wlutowana, do 6400 MT/s, 16, 32 lub 64 GB; Rugged 14: DDR5 do 5600 MT/s w gniazdach, 8–64 GB"
+     "v": "Rugged 13 Extreme: LPDDR5x wlutowana, do 8533 MT/s, do 64 GB; Rugged 14: wymienny moduł LPCAMM2 do 8533 MT/s, 16, 32 lub 64 GB"
     },
     {
      "k": "Dysk",
-     "v": "SSD M.2 PCIe Gen4 TLC 256 GB – 1 TB, także szyfrowane (SED)"
+     "v": "wyjmowany SSD: PCIe Gen4 QLC lub TLC 512 GB – 1 TB albo PCIe Gen5 szyfrowany (SED) 1–2 TB"
     },
     {
      "k": "Ekran",
-     "v": "Rugged 13: 13,3\" Full HD dotykowy, 1400 nitów, matowy, pasywne pióro; Rugged 14: 14\" Full HD 1920×1080, 400 nitów (bez dotyku) lub 1100 nitów (dotykowy, pasywne pióro)"
+     "v": "Rugged 13 Extreme: 13,3\" FHD 1920×1080, dotykowy, 1400 nitów, matowy, obsługa rękawic, wody i pasywnego pióra; Rugged 14: 14\" 16:10 FHD+ 1920×1200 matowy — 400 nitów, 1100 nitów lub 1100 nitów dotykowy z rysikiem (obsługa rękawic i wody)"
     },
     {
      "k": "Porty",
-     "v": "1× Thunderbolt 4 / USB4 z ładowaniem (opcjonalnie drugi), 2× USB-A 5 Gb/s (jeden z PowerShare), HDMI 2.1, RS-232, RJ-45 1 Gb/s, gniazdo słuchawkowe; opcjonalna kieszeń I/O: RJ-45, USB-A, port szeregowy lub USB Fischer"
+     "v": "Rugged 13 Extreme: Thunderbolt 4 40 Gb/s z ładowaniem (drugi w opcji); Rugged 14: 2× Thunderbolt 4 40 Gb/s z ładowaniem; w obu: 2× USB-A 5 Gb/s (jeden z PowerShare), HDMI 2.1, RS-232, RJ-45, gniazdo słuchawkowe; kieszeń I/O do wyboru: drugi RS-232, RJ-45 2,5 Gb/s, USB-A lub złącze Fischer USB"
     },
     {
      "k": "Gniazda",
-     "v": "czytnik microSD, nano-SIM (wersje z modemem), czytnik kart inteligentnych (opcja), gniazdo linki zabezpieczającej"
+     "v": "czytnik microSD, nano-SIM (wersje z modemem), czytnik kart inteligentnych (opcja), gniazdo linki zabezpieczającej, złącze dokowania pogo"
     },
     {
      "k": "Łączność",
-     "v": "Wi-Fi 6E (Intel AX211, Bluetooth 5.3) lub Wi-Fi 7 (Intel BE200); modem komórkowy w opcji (gniazdo nano-SIM); Rugged 14: opcjonalny odbiornik GPS u-blox NEO-M9N"
+     "v": "Wi-Fi 7 (Intel BE211), Bluetooth 6.0; opcjonalny modem 5G Qualcomm Snapdragon X72 z obsługą eSIM; osobny odbiornik GNSS (GPS) Airoha"
+    },
+    {
+     "k": "Odporność",
+     "v": "Rugged 13 Extreme: IP66, MIL-STD-810H i MIL-STD-461G, upadek z 1,8 m; Rugged 14: IP53, MIL-STD-810H, upadek z 0,9 m; praca od −29°C do 63°C (oba)"
     },
     {
      "k": "Bateria",
-     "v": "53,5 Wh z ExpressCharge; opcjonalna druga bateria w kieszeni"
+     "v": "3-ogniwowa 53,5 Wh z ExpressCharge; druga bateria 53,5 Wh w kieszeni, wymiana bez wyłączania; opcja baterii o wydłużonej żywotności z 3-letnią gwarancją; zasilacz USB-C 65 lub 105 W"
+    },
+    {
+     "k": "Kamera",
+     "v": "Rugged 13 Extreme: 5 Mpix z podczerwienią lub bez kamery; Rugged 14: HD, HD z podczerwienią lub bez kamery"
     },
     {
      "k": "Waga",
-     "v": "Rugged 13: 2,40 kg; Rugged 14: 2,04 kg"
+     "v": "Rugged 13 Extreme: od 2,41 kg; Rugged 14: od 2,13 kg (z jedną baterią)"
     },
     {
      "k": "Wymiary",
-     "v": "Rugged 13: 324 × 220 × 36,5 mm; Rugged 14: 340 × 220 × 33,6 mm"
+     "v": "Rugged 13 Extreme: 324 × 220 × 36,5 mm (z odbojnikami 332,4 × 228,4 × 43,5 mm); Rugged 14: 329,1 × 233 × 33,6 mm (z odbojnikami 334,1 × 238 × 40 mm)"
     },
     {
      "k": "Bezpieczeństwo",
-     "v": "czytnik linii papilarnych (także FIPS w Rugged 14), czytnik kart inteligentnych stykowy i zbliżeniowy NFC, kamera Full HD z podczerwienią (opcja), Intel vPro (wybrane procesory)"
+     "v": "czytnik linii papilarnych, czytnik kart inteligentnych stykowy i zbliżeniowy NFC, TPM 2.0, ControlVault 3+, Intel vPro; Rugged 13 Extreme: opcjonalny czujnik otwarcia obudowy"
     },
     {
-     "k": "Klawiatura / system",
-     "v": "klawiatura wzmocniona z podświetleniem RGB lub bez podświetlenia, z klawiszem Copilot; Windows 11 Pro / Home lub Ubuntu 24.04 LTS"
+     "k": "Klawiatura",
+     "v": "wzmocniona z podświetleniem RGB, gumowana z podświetleniem lub bez podświetlenia, z klawiszem Copilot"
+    },
+    {
+     "k": "System",
+     "v": "Windows 11 Pro"
     }
    ],
    "warianty_opis": [
     {
-     "model": "Dell Pro Rugged 13 (RA13250)",
-     "roznica": "W pełni wzmocniony, ekran dotykowy 1400 nitów, pamięć wlutowana 16–64 GB, opcja procesora Core Ultra 7 165H; 2,40 kg."
+     "model": "Dell Pro Rugged 13 Extreme (PR713260)",
+     "roznica": "W pełni wzmocniony: IP66, MIL-STD-810H i 461G, upadek z 1,8 m; ekran 13,3\" dotykowy 1400 nitów, kamera 5 Mpix z IR, pamięć wlutowana do 64 GB, opcja Core Ultra X7 368H; od 2,41 kg."
     },
     {
-     "model": "Dell Pro Rugged 14 (RB14250)",
-     "roznica": "Półwzmocniony, lżejszy (2,04 kg), ekran 14\" (400 nitów bez dotyku lub 1100 nitów z dotykiem), pamięć w gniazdach do 64 GB, opcja GPS."
+     "model": "Dell Pro Rugged 14 (PR514260)",
+     "roznica": "Półwzmocniony: IP53, upadek z 0,9 m; lżejszy (od 2,13 kg), ekran 14\" 16:10 400 lub 1100 nitów (z dotykiem lub bez), dwa porty Thunderbolt 4, wymienna pamięć LPCAMM2 do 64 GB, opcja NVIDIA RTX Pro 500."
+    },
+    {
+     "model": "Poprzednia generacja: Pro Rugged 13 (RA13250) / Pro Rugged 14 (RB14250)",
+     "roznica": "Intel Core Ultra seria 1; schodzą ze sprzedaży — dostępność sprawdzamy przy zapytaniu."
     }
    ],
    "faq": [
     {
-     "q": "Dell Pro Rugged 13 czy Pro Rugged 14 — czym się różnią?",
-     "a": "Rugged 13 jest w pełni wzmocniony, ma dotykowy ekran 1400 nitów, pamięć wlutowaną do 64 GB i waży 2,40 kg. Rugged 14 jest półwzmocniony i lżejszy (2,04 kg), ma ekran 14\" i pamięć w gniazdach do 64 GB, którą można wymienić."
+     "q": "Dell Pro Rugged 13 Extreme czy Pro Rugged 14 — który wybrać do pracy w terenie?",
+     "a": "Rugged 13 Extreme wybierz tam, gdzie laptop spada, moknie i pracuje w pyle: ma IP66 i przechodzi test upadku z 1,8 m. Rugged 14 (IP53, upadek z 0,9 m) jest o niemal 300 g lżejszy, ma większy ekran 16:10 i dwa porty Thunderbolt 4, więc lepiej sprawdza się w pojeździe i przy dokowaniu."
     },
     {
-     "q": "Czy ekran Dell Pro Rugged będzie czytelny w słońcu?",
-     "a": "Tak. Dotykowy ekran 13,3\" ma 1400 nitów, a dotykowy 14\" — 1100 nitów; typowy laptop biurowy ma 300–400 nitów. Ekrany dotykowe obsługują pasywne pióro. Wersja 14\" bez dotyku ma 400 nitów i nadaje się raczej do pracy pod dachem."
+     "q": "Czy ekran Dell Pro Rugged 13 Extreme da się odczytać w pełnym słońcu?",
+     "a": "Tak. Dotykowy ekran 13,3 cala ma 1400 nitów i matową powłokę, a dotyk działa w rękawicach i przy mokrej powierzchni. W Rugged 14 do pracy na zewnątrz wybieramy panel 1100 nitów; wersja 400 nitów nadaje się raczej do kabiny i pomieszczeń."
     },
     {
-     "q": "Czy do Dell Pro Rugged podłączę sterowniki i mierniki przez RS-232?",
-     "a": "Tak. Oba modele mają port szeregowy RS-232, a także RJ-45, HDMI 2.1 i Thunderbolt 4. W opcjonalnej kieszeni I/O dobierzesz drugi port szeregowy, dodatkowy RJ-45, USB-A lub złącze USB Fischer."
+     "q": "Czy Dell Pro Rugged 14 PR514260 ma port RS-232 i internet komórkowy?",
+     "a": "Tak. Port szeregowy RS-232 jest w standardzie, a w kieszeni rozszerzeń można dołożyć drugi. Modem 5G Qualcomm Snapdragon X72 z obsługą eSIM jest opcją zamawianą fabrycznie, podobnie jak osobny odbiornik GNSS do śledzenia pozycji."
     },
     {
-     "q": "Czy Dell Pro Rugged ma internet komórkowy i GPS do pracy w terenie?",
-     "a": "Oba modele mają gniazdo nano-SIM w wersjach z modemem komórkowym, a Rugged 14 może mieć osobny odbiornik GPS u-blox NEO-M9N. Rodzaj modemu (4G lub 5G) zależy od konfiguracji dostępnej przy zamówieniu."
+     "q": "Czy baterię w Dell Pro Rugged 13 Extreme można wymienić w trakcie pracy?",
+     "a": "Tak. Laptop ma baterię 53,5 Wh, a w kieszeni zamiast zaślepki można zamontować drugą taką samą. Baterie wymienia się bez wyłączania komputera, więc z zapasowym, naładowanym ogniwem zmiana trwa chwilę. Dell oferuje też baterię o wydłużonej żywotności z 3-letnią gwarancją."
+    },
+    {
+     "q": "Czy w Dell Pro Rugged 14 PR514260 można rozbudować pamięć RAM?",
+     "a": "Tak. Rugged 14 korzysta z wymiennego modułu LPCAMM2 (16, 32 lub 64 GB, do 8533 MT/s), który łatwiej wymienić niż pamięć wlutowaną. W Rugged 13 Extreme pamięć LPDDR5x jest na płycie głównej, więc jej ilość trzeba wybrać przy zamówieniu."
     }
    ],
    "konfigurator": {
-    "opis": "Wybierasz model (13 lub 14), procesor, pamięć, dysk, ekran, modem i GPS, zabezpieczenia oraz dodatkowy moduł portów.",
+    "opis": "Wybierasz model (13 Extreme lub 14), procesor, pamięć, dysk, ekran, modem 5G i GPS, zabezpieczenia oraz port w kieszeni rozszerzeń.",
     "opcje": [
      {
       "nazwa": "Model",
       "wartosci": [
-       "Dell Pro Rugged 13 (w pełni wzmocniony)",
-       "Dell Pro Rugged 14 (półwzmocniony)"
+       "Dell Pro Rugged 13 Extreme PR713260 (w pełni wzmocniony)",
+       "Dell Pro Rugged 14 PR514260 (półwzmocniony)"
       ],
       "dl": false,
       "pom": "Różnice między wersjami opisujemy niżej, w sekcji „Czym różnią się wersje”."
@@ -35111,10 +35135,11 @@
      {
       "nazwa": "Procesor",
       "wartosci": [
-       "Intel Core Ultra 5 125U vPro (14)",
-       "Intel Core Ultra 5 135U",
-       "Intel Core Ultra 7 165U",
-       "Intel Core Ultra 7 165H (13)"
+       "Intel Core Ultra 5 335 vPro",
+       "Intel Core Ultra 5 336H vPro (14)",
+       "Intel Core Ultra 5 338H vPro (13 Extreme)",
+       "Intel Core Ultra 7 366H vPro (14)",
+       "Intel Core Ultra X7 368H vPro (13 Extreme)"
       ],
       "dl": false,
       "pom": "Od procesora zależy szybkość pracy. Do biura i programów sprzedażowych wystarczy podstawowy, do grafiki, CAD i wielu programów naraz — mocniejszy."
@@ -35122,31 +35147,32 @@
      {
       "nazwa": "Pamięć RAM",
       "wartosci": [
-       "8 GB (14)",
        "16 GB",
        "32 GB",
        "64 GB"
       ],
+      "uwaga": "W Rugged 13 Extreme pamięć jest wlutowana, w Rugged 14 — wymienny moduł LPCAMM2.",
       "dl": false,
       "pom": "Więcej pamięci RAM = więcej programów i kart przeglądarki naraz bez spowolnień."
      },
      {
       "nazwa": "Dysk SSD",
       "wartosci": [
-       "256 GB",
        "512 GB",
-       "1 TB"
+       "1 TB",
+       "2 TB (szyfrowany SED)"
       ],
-      "uwaga": "Dostępne wersje szyfrowane (SED).",
+      "uwaga": "Dysk jest wyjmowany; 1 TB dostępny także jako szyfrowany PCIe Gen5.",
       "dl": false,
       "pom": "Miejsce na system, programy i pliki. SSD to szybki dysk bez ruchomych części."
      },
      {
       "nazwa": "Ekran",
       "wartosci": [
-       "13,3\" Full HD dotykowy 1400 nitów",
-       "14\" Full HD 400 nitów",
-       "14\" Full HD dotykowy 1100 nitów"
+       "13,3\" FHD dotykowy 1400 nitów (13 Extreme)",
+       "14\" FHD+ 400 nitów (14)",
+       "14\" FHD+ 1100 nitów (14)",
+       "14\" FHD+ dotykowy 1100 nitów z rysikiem (14)"
       ],
       "dl": false,
       "pom": "Matowy nie odbija światła, dotykowy pozwala pracować palcem lub rysikiem, wyższa rozdzielczość daje ostrzejszy obraz."
@@ -35155,19 +35181,19 @@
       "nazwa": "Łączność komórkowa i GPS",
       "wartosci": [
        "bez modemu",
-       "modem komórkowy (gniazdo nano-SIM)",
-       "odbiornik GPS u-blox (14)"
+       "modem 5G Snapdragon X72 (nano-SIM i eSIM)",
+       "odbiornik GNSS (GPS)"
       ],
       "dl": false,
       "pom": ""
      },
      {
-      "nazwa": "Moduł portów (opcja)",
+      "nazwa": "Kieszeń rozszerzeń (opcja)",
       "wartosci": [
-       "dodatkowy RJ-45",
-       "dodatkowy USB-A",
-       "dodatkowy port szeregowy",
-       "USB Fischer"
+       "drugi RS-232",
+       "RJ-45 2,5 Gb/s",
+       "USB-A",
+       "złącze Fischer USB"
       ],
       "dl": false,
       "pom": ""
@@ -35183,25 +35209,29 @@
       "pom": ""
      },
      {
-      "nazwa": "System",
+      "nazwa": "Druga bateria",
       "wartosci": [
-       "Windows 11 Pro",
-       "Windows 11 Home",
-       "Ubuntu 24.04 LTS"
+       "zaślepka kieszeni",
+       "druga bateria 53,5 Wh"
       ],
       "dl": false,
-      "pom": "Windows 11 Pro ma funkcje dla firm, np. szyfrowanie dysku BitLocker i dołączanie do domeny."
+      "pom": ""
      }
     ],
-    "std": [],
+    "std": [
+     {
+      "k": "System",
+      "v": "Windows 11 Pro"
+     }
+    ],
     "popularne": [
      {
-      "nazwa": "Serwis w terenie",
-      "konfiguracja": "Rugged 14, Core Ultra 5 135U vPro / 16 GB / 512 GB / ekran dotykowy 1100 nitów / modem / GPS / Windows 11 Pro"
+      "nazwa": "Ekipa w terenie",
+      "konfiguracja": "Rugged 13 Extreme PR713260, Core Ultra 5 335 vPro / 16 GB / 512 GB / ekran dotykowy 1400 nitów / 5G / GPS / Windows 11 Pro"
      },
      {
-      "nazwa": "Budowa i warsztat",
-      "konfiguracja": "Rugged 13, Core Ultra 5 135U / 16 GB / 512 GB / ekran 1400 nitów / Windows 11 Pro"
+      "nazwa": "Pojazd służbowy",
+      "konfiguracja": "Rugged 14 PR514260, Core Ultra 5 336H vPro / 32 GB / 512 GB / ekran dotykowy 1100 nitów / 5G / GPS / druga bateria / Windows 11 Pro"
      }
     ]
    },
@@ -35211,19 +35241,23 @@
      "etykieta": "Stacja dokująca"
     },
     {
-     "slug": "microsoft-365-business",
-     "etykieta": "Programy biurowe"
-    },
-    {
      "slug": "przygotowanie-komputera",
      "etykieta": "Przygotowanie komputera do pracy"
+    },
+    {
+     "slug": "srvkomp",
+     "etykieta": "Serwis komputerów"
+    },
+    {
+     "slug": "eset",
+     "etykieta": "Ochrona antywirusowa"
     }
    ],
    "podobne": [
-    "dell-14",
-    "dell-16",
+    "dell-pro-14-16",
+    "dell-pro-7-13-14",
     "dell-pro-essential-14-15",
-    "dell-pro-14-16"
+    "dell-14"
    ],
    "branze": [
     "Magazyn i produkcja",
@@ -35232,12 +35266,22 @@
    ],
    "zrodla": [
     {
-     "url": "https://www.dell.com/en-nz/shop/cty/pdp/spd/dell-pro-ra13250-rugged-laptop",
+     "url": "https://www.dell.com/en-us/shop/laptop-computers/spd/dellprorugged13pr713260",
      "etykieta": "Strona producenta — Dell",
      "host": "dell.com"
     },
     {
-     "url": "https://www.dell.com/en-au/shop/dell-laptops/dell-pro-rugged-14-laptop/spd/dell-pro-rb14250-rugged-laptop",
+     "url": "https://www.dell.com/en-us/shop/laptop-computers/spd/dellprorugged14pr514260",
+     "etykieta": "Strona producenta — Dell",
+     "host": "dell.com"
+    },
+    {
+     "url": "https://www.dell.com/en-gb/shop/laptop-computers/spd/dellprorugged13pr713260",
+     "etykieta": "Strona producenta — Dell",
+     "host": "dell.com"
+    },
+    {
+     "url": "https://www.dell.com/en-gb/shop/laptop-computers/spd/dellprorugged14pr514260",
      "etykieta": "Strona producenta — Dell",
      "host": "dell.com"
     },
@@ -35245,17 +35289,12 @@
      "url": "https://www.dell.com/en-gb/shop/scc/scr/laptop/appref=dell-pro-rugged-product-line",
      "etykieta": "Strona producenta — Dell",
      "host": "dell.com"
-    },
-    {
-     "url": "https://www.dell.com/en-us/blog/new-dell-pro-rugged-laptops-built-for-the-field/",
-     "etykieta": "Strona producenta — Dell",
-     "host": "dell.com"
     }
    ],
    "wyrozniki": [
-    "ekran 1100–1400 nitów",
-    "4G/5G i GPS",
-    "port RS-232"
+    "IP66 i upadek z 1,8 m (13 Extreme)",
+    "ekran do 1400 nitów",
+    "5G, GPS i RS-232"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -35264,7 +35303,7 @@
     },
     {
      "k": "Procesor",
-     "v": "Intel Core Ultra (seria 1)"
+     "v": "Intel Core Ultra seria 3 (vPro)"
     },
     {
      "k": "Pamięć RAM",
@@ -35272,24 +35311,35 @@
     },
     {
      "k": "Dysk",
-     "v": "SSD M.2 PCIe Gen4 256 GB – 1 TB, także szyfrowane"
+     "v": "wyjmowany SSD 512 GB – 2 TB, także szyfrowany"
     },
     {
      "k": "Porty",
      "v": "Thunderbolt 4, RS-232, RJ-45, HDMI 2.1"
     }
    ],
-   "nowosc": false,
+   "nowosc": true,
+   "sprawdzono": "2026-11-14",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/dell-pro-rugged-premium-01.webp",
-     "zrodlo": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/rugged/7340/media-gallery/laptop-dell-ra13250-rugged-pro-bk-gallery-1.psd?fmt=png-alpha&pscan=auto&scl=1&hei=1200&qlt=100,0&resMode=sharp2",
-     "ujecie": "RA13250 — przód"
+     "zrodlo": "https://i.dell.com/assetlink/img/global/laptop-dell-pr713260t-bk-fpr-w-handle-gallery-1-dl11gts2-large.png",
+     "ujecie": "PR713260 — przód, z uchwytem"
     },
     {
      "plik": "media/produkty/dell-pro-rugged-premium-02.webp",
-     "zrodlo": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/rugged/5440/media-gallery/laptop-dell-rb14250-rugged-pro-bk-gallery-1.psd?fmt=png-alpha&pscan=auto&scl=1&hei=1200&qlt=100,0&resMode=sharp2",
-     "ujecie": "RB14250 — przód"
+     "zrodlo": "https://i.dell.com/assetlink/img/global/laptop-dell-pr713260t-bk-fpr-w-handle-gallery-3-dl11gts3-large.png",
+     "ujecie": "PR713260 — skos z prawej"
+    },
+    {
+     "plik": "media/produkty/dell-pro-rugged-premium-03.webp",
+     "zrodlo": "https://i.dell.com/assetlink/img/global/laptop-pro-pr514260t-fpr-w-handle-black-gallery-1-dl11guoy-large.png",
+     "ujecie": "PR514260 — przód, z uchwytem"
+    },
+    {
+     "plik": "media/produkty/dell-pro-rugged-premium-04.webp",
+     "zrodlo": "https://i.dell.com/assetlink/img/global/laptop-pro-pr514260t-fpr-w-handle-black-gallery-2-dl11guol-large.png",
+     "ujecie": "PR514260 — skos z prawej"
     }
    ]
   },
