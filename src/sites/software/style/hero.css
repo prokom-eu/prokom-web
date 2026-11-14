@@ -1165,6 +1165,16 @@
 .hx-win[data-rank='rx'] .mk * {
   animation-play-state: paused;
 }
+/* The mock-ups of the windows in sight are always drawn (AUDYT-1411-HERO-BOKI): moved in 3D under
+   the perspective and the mask, Chrome counts them as off screen and `content-visibility: auto`
+   (mockups.css, PR 494) skipped their content — empty side frames, at times an empty middle one
+   during a change. A hidden window still skips it. */
+.hx-win .mk {
+  content-visibility: visible;
+}
+.hx-win[data-rank='rx'] .mk {
+  content-visibility: hidden;
+}
 .hx-deck[data-moving] .hx-win:not([data-jump]) {
   will-change: transform;
 }

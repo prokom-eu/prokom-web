@@ -892,6 +892,11 @@
   background: color-mix(in srgb, var(--ink) 4%, var(--surface));
   overflow: hidden;
 }
+/* In the top layer with an entering transform: never skip the mock-up's content for a frame
+   (AUDYT-1411-HERO-BOKI p. 2, as the hero windows). */
+.sw-offer-shot .mk {
+  content-visibility: visible;
+}
 .sw-offer-related-pic {
   display: block;
   height: 64px;
