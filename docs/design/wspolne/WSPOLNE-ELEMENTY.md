@@ -185,7 +185,7 @@ Teksty są w planszach (`plansze/Kontakt.dc.html` i `OFirmie.dc.html`, obiekty `
 - **Biznes (decyzja 01.11):** telefony **889 003 889** (główny) i **883 200 151**; e-mail **kontakt@prokombiznes.pl** (nie biznes@pro-kom.eu); **18 267 65 11 nie pokazujemy**. W planszy Kontakt fakt „Stacjonarny 18 267 65 11” → „Drugi numer 883 200 151”.
 - Instalacje: 889 003 889, kontakt@prokominstalacje.pl; drugi salon Zakopane — adres i godziny `[SZEF]` (nie publikować pustego).
 - Software: 883 200 151 i 788 986 074, kontakt@prokomsoftware.pl.
-- Tech (prokom-system): 883 200 151, e-mail do decyzji (dziś sklep@pro-kom.eu; docelowo kontakt@prokomserwis.pl po sprawdzeniu DNS/MX), soboty 9:00–14:00.
+- Tech (prokom-system): 883 200 151, e-mail kontakt@prokomserwis.pl (decyzja Krystiana 14.11), soboty 9:00–14:00.
 - Liczby z flagą: Biznes „100+ klientów firmowych” `[SZEF]`; Tech „10 000+ naprawionych urządzeń” `[SZEF]`.
 - `[Krystian]` linki: lista serwisów Posnet, wyszukiwarka partnerów InsERT; `[SZEF]` autoryzacje Satel/Ampio.
 

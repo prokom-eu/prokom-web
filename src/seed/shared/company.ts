@@ -104,7 +104,7 @@ export const COMPANY_LINES: NonNullable<CompanyDatum['lines']> = [
     descriptionLong: 'Naprawy telefonów, laptopów i komputerów.',
     // Tech has no site in this app — its contact lives here (ADR-H002 §1).
     phone: '883 200 151',
-    email: 'sklep@pro-kom.eu',
+    email: 'kontakt@prokomserwis.pl',
     hours: 'pn–pt 9:00–17:00, sob. 9:00–14:00',
     promise: 'Bezpłatna diagnoza i wycena, naprawy też kurierem',
     published: true,
