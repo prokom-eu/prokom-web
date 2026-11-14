@@ -12,6 +12,7 @@ import { pageMetadata } from '@/lib/pages/metadata'
 import { getSiteSettings } from '@/lib/site/data'
 import { HOME_SLUG } from '@/lib/pages/slug'
 import { serializeJsonLd, websiteSearchJsonLd } from '@/lib/seo/jsonLd'
+import { HOME_METADATA, HomeSkeleton } from '@/sites/prokom/home/HomeSkeleton'
 
 import { requestOrigin, requireTenant } from './tenant'
 
@@ -19,6 +20,8 @@ type Props = { params: Promise<{ domain: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireTenant(params)
+  // pro-kom.eu has no `Pages`: its start page is in code (ADR-H001, „Odrzucone”).
+  if (tenant.line === 'prokom') return HOME_METADATA
   const [page, settings] = await Promise.all([
     getPublishedPage(tenant.id, HOME_SLUG),
     getSiteSettings(tenant.id),
@@ -35,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /** Start page of a tenant: its published page with the `home` slug. */
 export default async function TenantHomePage({ params }: Props) {
   const tenant = await requireTenant(params)
+  if (tenant.line === 'prokom') return <HomeSkeleton tenant={tenant} />
   const page = await getPublishedPage(tenant.id, HOME_SLUG)
   if (!page) notFound()
   if (tenant.line !== 'biznes' && tenant.line !== 'software') {

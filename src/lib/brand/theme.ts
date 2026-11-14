@@ -1,7 +1,7 @@
 import type { Line } from '@/lib/tenant/lines'
 
 /** Lines with a designed dark theme (ADR-013); `tokens.css` defines dark values only for them. */
-export const DARK_THEME_LINES: readonly Line[] = ['biznes', 'instalacje', 'software']
+export const DARK_THEME_LINES: readonly Line[] = ['biznes', 'instalacje', 'software', 'prokom']
 
 export function hasDarkTheme(line: Line): boolean {
   return DARK_THEME_LINES.includes(line)
@@ -28,10 +28,15 @@ export const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("${THEME
 
 /**
  * Theme a line starts with whatever the system says, until the visitor picks one: Biznes light
- * (D-K4-5, ADR-017 K4), Software dark (ADR-015 „Rozstrzygnięcia v24” pkt 1). The other lines
+ * (D-K4-5, ADR-017 K4), Software and the pro-kom.eu hub dark (ADR-015 „Rozstrzygnięcia v24” pkt 1,
+ * ADR-H001 pkt 4). The other lines
  * follow `prefers-color-scheme`.
  */
-const DEFAULT_THEME: Partial<Record<Line, Theme>> = { biznes: 'light', software: 'dark' }
+const DEFAULT_THEME: Partial<Record<Line, Theme>> = {
+  biznes: 'light',
+  software: 'dark',
+  prokom: 'dark',
+}
 
 /** Theme of the line without a choice, or `null` when the system decides; `line`: `data-line`. */
 export function defaultTheme(line: string | null | undefined): Theme | null {

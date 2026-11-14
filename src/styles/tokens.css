@@ -28,6 +28,8 @@
   --c-prokom: #45a02c;
   --c-prokom-on-dark: #4fb034;
   --c-prokom-text: #367e23;
+  /* Hub interface (pro-kom.eu visualisation): small green text that keeps 4.5:1 on its papier. */
+  --c-prokom-light-text: #2e7a1e;
 
   --c-biznes: #244fb0;
   --c-biznes-on-dark: #4a7be0;
@@ -1354,12 +1356,7 @@
   --c-energy-ink-g: #000000;
 }
 
-[data-line='prokom'] {
-  --accent: var(--c-prokom);
-  --accent-on-dark: var(--c-prokom-on-dark);
-  --accent-text: var(--c-prokom-text);
-  --accent-2: var(--c-prokom);
-}
+/* `[data-line='prokom']` (pro-kom.eu hub, light and dark): the hub's own token file (H1-2, ADR-023). */
 
 [data-line='biznes'] {
   --accent: var(--c-biznes);

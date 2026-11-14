@@ -15,6 +15,7 @@ const ENTRIES = {
   biznes: 'src/sites/biznes/style/biznes.css',
   software: 'src/sites/software/style/software.css',
   instalacje: 'src/sites/instalacje/style/tailwind.css',
+  prokom: 'src/sites/prokom/style/prokom.css',
   base: 'src/app/(sites)/globals.css',
 }
 
@@ -41,8 +42,8 @@ describe('one Tailwind sheet per line', () => {
     expect(importers.sort()).toEqual(Object.values(ENTRIES).sort())
   })
 
-  it('a line scans its own folder; the Instalacje tokens stay in its sheet', () => {
-    for (const line of ['biznes', 'software', 'instalacje'] as const) {
+  it('a line scans its own folder; the Instalacje and hub tokens stay in their sheets', () => {
+    for (const line of ['biznes', 'software', 'instalacje', 'prokom'] as const) {
       expect(read(ENTRIES[line])).toContain("@source '..';")
     }
     const withLineTokens = sources('src')
@@ -50,6 +51,11 @@ describe('one Tailwind sheet per line', () => {
       .filter((file) => read(file).includes('tokens-instalacje.css'))
       .map((file) => file.split('\\').join('/'))
     expect(withLineTokens).toEqual([ENTRIES.instalacje])
+    const withHubTokens = sources('src')
+      .filter((file) => file.endsWith('.css'))
+      .filter((file) => read(file).includes('tokens-prokom.css'))
+      .map((file) => file.split('\\').join('/'))
+    expect(withHubTokens).toEqual([ENTRIES.prokom])
   })
 
   // A component of one line rendered by another (e.g. Biznes `PostContent` in Software) has its
@@ -70,7 +76,7 @@ describe('one Tailwind sheet per line', () => {
         .map((spec) => resolveFile(spec, file))
         .filter((file): file is string => file !== null && /\.tsx?$/.test(file))
 
-    for (const line of ['biznes', 'software', 'instalacje'] as const) {
+    for (const line of ['biznes', 'software', 'instalacje', 'prokom'] as const) {
       const own = `src/sites/${line}/`
       const sheet = ENTRIES[line]
       const scanned = [...read(sheet).matchAll(/^@source '([^']+)';/gm)].map(([, path]) =>
@@ -101,7 +107,7 @@ describe('one Tailwind sheet per line', () => {
   it('LineSheet renders a sheet for every line', () => {
     const lineSheet = read('src/app/(sites)/LineSheet.tsx')
     expect(lineSheet.startsWith("'use client'")).toBe(true)
-    for (const line of LINE_VALUES.filter((value) => value !== 'prokom')) {
+    for (const line of LINE_VALUES) {
       expect(lineSheet).toContain(`case '${line}':`)
     }
     expect(lineSheet).toContain('default:')

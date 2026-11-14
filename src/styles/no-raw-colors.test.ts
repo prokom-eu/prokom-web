@@ -10,7 +10,9 @@ const ROOTS = ['src/components', 'src/blocks', 'src/app/(sites)', 'src/styles', 
   (dir) => existsSync(dir),
 )
 const ALLOWED = new Set(
-  ['src/styles/tokens.css', 'src/styles/tokens-instalacje.css'].map((file) => path.normalize(file)),
+  ['src/styles/tokens.css', 'src/styles/tokens-instalacje.css', 'src/styles/tokens-prokom.css'].map(
+    (file) => path.normalize(file),
+  ),
 )
 const EXTENSIONS = new Set(['.ts', '.tsx', '.css'])
 const RAW_COLOR =

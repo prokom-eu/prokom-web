@@ -7,7 +7,7 @@ import { resolve, rule, type Declarations } from './parse-tokens'
 // Tokens of the shared elements (spec WSPOLNE-ELEMENTY §3, NAGLOWEK-KAPSULA §4): the line's dark
 // band, the header capsule and the page scrollbar — for the three lines with a design.
 type Mode = 'light' | 'dark'
-const LINES = ['biznes', 'instalacje', 'software'] as const
+const LINES = ['biznes', 'instalacje', 'software', 'prokom'] as const
 const cases = LINES.flatMap((line) => (['light', 'dark'] as const).map((mode) => ({ line, mode })))
 
 function scope(line: string, mode: Mode): Declarations {

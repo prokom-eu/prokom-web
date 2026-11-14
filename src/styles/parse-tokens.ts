@@ -3,11 +3,12 @@ import { fileURLToPath } from 'node:url'
 
 /**
  * Reads the token files for the token tests, so the checked values are the ones the browser gets:
- * `tokens.css` and the Instalacje rules split from it (`tokens-instalacje.css`, ADR-023).
+ * `tokens.css` and the rules split from it: Instalacje (`tokens-instalacje.css`, ADR-023) and the
+ * pro-kom.eu hub (`tokens-prokom.css`, H1-2).
  * Deliberately simple: one rule per selector, no nesting beyond `@media` blocks.
  * The paths are relative to this module, so the tests work from any working directory.
  */
-export const TOKEN_FILES = ['tokens.css', 'tokens-instalacje.css'] as const
+export const TOKEN_FILES = ['tokens.css', 'tokens-instalacje.css', 'tokens-prokom.css'] as const
 
 export const tokensCss = TOKEN_FILES.map((file) =>
   readFileSync(fileURLToPath(new URL(`./${file}`, import.meta.url)), 'utf8'),

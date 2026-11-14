@@ -44,6 +44,18 @@ const TENANTS = [
       'Najpierw klikasz podgląd swojego projektu',
     ],
   },
+  {
+    host: 'prokom.localhost',
+    name: 'PRO-KOM',
+    // pro-kom.eu (H1-2): the start page in code, title from spec §4.
+    title: 'PRO-KOM Rabka-Zdrój — IT dla firm, instalacje, serwis',
+    h1: /^PRO-KOM$/,
+    // The hub's line under the footer logo (`SiteSettings.footer.text`, seed:prokom).
+    markers: ['Strona główna firmy PRO-KOM z Rabki-Zdroju'],
+    // The hub names every line by design (mega menu, ADR-H001) and „PRO-KOM” is in every frame:
+    // names are not compared for it — the content markers above still are, both ways.
+    hub: true,
+  },
 ]
 
 test.describe('tenant isolation', () => {
@@ -77,10 +89,12 @@ test.describe('tenant isolation', () => {
       const jsonLd = (
         await page.locator('script[type="application/ld+json"]').allTextContents()
       ).join()
-      for (const other of TENANTS.filter((t) => t !== tenant)) {
-        expect(text).not.toContain(other.name)
-        expect(head).not.toContain(other.name)
-        expect(jsonLd).not.toContain(other.name)
+      if (!('hub' in tenant)) {
+        for (const other of TENANTS.filter((t) => t !== tenant && !('hub' in t))) {
+          expect(text).not.toContain(other.name)
+          expect(head).not.toContain(other.name)
+          expect(jsonLd).not.toContain(other.name)
+        }
       }
     })
   }

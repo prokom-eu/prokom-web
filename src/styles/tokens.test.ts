@@ -58,6 +58,11 @@ describe('data-line → --accent* (ADR-007)', () => {
       '--accent': 'var(--c-instalacje-light-accent)',
       '--accent-text': 'var(--c-instalacje-light-accent-text)',
     },
+    // ADR-H001 pkt 4: the hub's small green text from its visualisation (#2E7A1E, 4.5:1 on #ECEEE8).
+    prokom: {
+      '--accent': 'var(--c-prokom-light-text)',
+      '--accent-text': 'var(--c-prokom-light-text)',
+    },
   }
   const accents = (line: string) => ({
     '--accent': INTERFACE_ACCENTS[line]?.['--accent'] ?? `var(--c-${line})`,
@@ -70,7 +75,11 @@ describe('data-line → --accent* (ADR-007)', () => {
   })
 
   it('defaults to the main PRO-KOM line without the attribute (unknown domain)', () => {
-    expect(root).toMatchObject(accents('prokom'))
+    expect(root).toMatchObject({
+      '--accent': 'var(--c-prokom)',
+      '--accent-on-dark': 'var(--c-prokom-on-dark)',
+      '--accent-text': 'var(--c-prokom-text)',
+    })
   })
 })
 
