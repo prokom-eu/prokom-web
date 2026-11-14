@@ -64,3 +64,47 @@ test.describe('Biznes SEO of subpages (B5-2)', () => {
     await expect(page.locator('meta[property="og:image"]')).toHaveCount(1)
   })
 })
+
+// SEO lokalne 13.11: where we work in the titles, a Service on service pages, llms.txt for AI.
+test.describe('Biznes local SEO', () => {
+  for (const path of ['/oferta', '/marki', '/zestawy', '/marki/elzab', '/marki/godex']) {
+    test(`${path}: the region in the title`, async ({ page }) => {
+      await page.goto(biznes(path))
+      expect(await page.title()).toMatch(/Rabka-Zdrój/)
+    })
+  }
+
+  test('a service page names the region and og:title follows the title', async ({ page }) => {
+    await page.goto(biznes('/opieka-it'))
+    const title = await page.title()
+    expect(title).toMatch(/Rabka-Zdrój|Podhal/)
+    const og = await page.locator('meta[property="og:title"]').getAttribute('content')
+    expect(title.startsWith(og ?? '-')).toBe(true)
+  })
+
+  test('a category title names the region', async ({ page }) => {
+    await page.goto(biznes('/oferta/kasy-fiskalne'))
+    expect(await page.title()).toMatch(/Rabka-Zdrój/)
+  })
+
+  test('a service page carries a Service with the area and no price', async ({ page }) => {
+    await page.goto(biznes('/opieka-it'))
+    const blocks = await page.locator('script[type="application/ld+json"]').allTextContents()
+    const service = blocks
+      .map((text) => JSON.parse(text) as { '@type'?: string; areaServed?: { name: string }[] })
+      .find((data) => data['@type'] === 'Service')
+    expect(service?.areaServed?.map((area) => area.name)).toContain('Podhale')
+    expect(JSON.stringify(service)).not.toMatch(/offers|price/i)
+  })
+
+  test('llms.txt sums up the company for AI assistants', async ({ request }) => {
+    const response = await request.get(biznes('/llms.txt'))
+    expect(response.status()).toBe(200)
+    expect(response.headers()['content-type']).toContain('text/plain')
+    const text = await response.text()
+    expect(text.startsWith('# PRO-KOM Biznes')).toBe(true)
+    expect(text).toContain('/oferta/kasy-fiskalne')
+    expect(text).toMatch(/Rabk/)
+    expect(text).not.toMatch(/\d+\s?zł/)
+  })
+})

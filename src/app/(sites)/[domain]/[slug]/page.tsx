@@ -5,7 +5,8 @@ import { RenderBlocks } from '@/components/RenderBlocks'
 import { pageCrumbs } from '@/lib/biznes/pages/crumbs'
 import { getPublishedPage } from '@/lib/pages/data'
 import { pageMetadata } from '@/lib/pages/metadata'
-import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
+import { BIZNES_SERVICE_PAGES, biznesDescription, localPageMeta } from '@/lib/biznes/seo'
+import { biznesServiceJsonLd, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { heroCrumb } from '@/lib/software/pageCrumbs'
 import { getSiteSettings } from '@/lib/site/data'
 import { pagePath, slugFromSegment } from '@/lib/pages/slug'
@@ -36,11 +37,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, page } = await load(params)
   if (!page) return {}
   const settings = await getSiteSettings(tenant.id)
-  return pageMetadata(page, {
+  const metadata = pageMetadata(page, {
     name: tenant.name,
     ogImage: settings?.seo.ogImage ?? null,
     ...(tenant.line === 'biznes' && { line: tenant.line }),
   })
+  // A Biznes page that sells (services, procurement) names the region (SEO lokalne 14.11).
+  return localPageMeta(tenant.line, page, metadata)
 }
 
 /**
@@ -57,7 +60,21 @@ export default async function TenantPage({ params }: Props) {
       : tenant.line === 'software'
         ? softwareCrumbs(page)
         : []
-  const origin = crumbs.length > 0 ? await requestOrigin() : ''
+  const isService = tenant.line === 'biznes' && BIZNES_SERVICE_PAGES.has(page.slug)
+  const origin = crumbs.length > 0 || isService ? await requestOrigin() : ''
+  // A Biznes service page also says what is offered and where (SEO lokalne 13.11).
+  const settings = isService ? await getSiteSettings(tenant.id) : null
+  const service =
+    isService &&
+    biznesServiceJsonLd({
+      // The SEO title says the service („GoPOS dla gastronomii — wdrożenie w Rabce”), the page
+      // title only the product („GoPOS”).
+      name: page.seo?.title?.trim() || page.title,
+      description: page.seo?.description ? biznesDescription(page.seo.description) : undefined,
+      url: origin + pagePath(page.slug),
+      origin,
+      areaServed: settings?.biznes?.serviceAreas ?? [],
+    })
   return (
     <>
       {crumbs.length > 0 && (
@@ -68,6 +85,12 @@ export default async function TenantPage({ params }: Props) {
               breadcrumbJsonLd(crumbs.map(({ name, href }) => ({ name, url: origin + href }))),
             ),
           }}
+        />
+      )}
+      {service && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(service) }}
         />
       )}
       <RenderBlocks page={page} tenant={tenant} />

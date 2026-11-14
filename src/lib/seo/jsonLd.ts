@@ -69,6 +69,10 @@ const areaNode = (name: string) => ({
   name,
 })
 
+/** The Biznes area: the panel's towns plus the regions, one copy each (a region in the panel too). */
+const biznesAreaServed = (towns: readonly string[]) =>
+  [...new Set([...towns, ...Object.keys(BIZNES_REGIONS)])].map(areaNode)
+
 /** Where the Software line works (its texts: Podhale, Małopolska and remotely in Poland). */
 export const SOFTWARE_AREA_SERVED = ['Rabka-Zdrój', 'Podhale', 'Małopolska', 'Polska'] as const
 
@@ -142,10 +146,8 @@ export function organizationJsonLd({
     }),
     ...(tenant.line === 'biznes' && {
       geo: MAIN_OFFICE.geo,
-      ...(areaServed?.length && {
-        // One copy each: a region typed in the panel too is not listed twice.
-        areaServed: [...new Set([...areaServed, ...Object.keys(BIZNES_REGIONS)])].map(areaNode),
-      }),
+      // Always the regions, as the service pages: no towns in the panel = regions only.
+      areaServed: biznesAreaServed(areaServed ?? []),
     }),
     address: {
       '@type': 'PostalAddress',
@@ -448,4 +450,34 @@ export function websiteSearchJsonLd({
 /** JSON for `<script type="application/ld+json">`; `<` escaped so text cannot end the tag (Next docs). */
 export function serializeJsonLd(data: unknown): string {
   return JSON.stringify(data).replace(/</g, '\\u003c')
+}
+
+/**
+ * `Service` of a Biznes service page (Opieka IT, GoPOS, InsERT, KSeF…; SEO lokalne 13.11): who
+ * offers it (the site's `Organization`, by `@id`) and where — the same area as the salon. No
+ * offer and no price (K4-FINAL §1).
+ */
+export function biznesServiceJsonLd({
+  name,
+  description,
+  url,
+  origin,
+  areaServed,
+}: {
+  name: string
+  description: string | undefined
+  url: string
+  origin: string
+  /** Towns of `SiteSettings.biznes.serviceAreas`. */
+  areaServed: readonly string[]
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name,
+    ...(description && { description }),
+    url,
+    provider: { '@id': `${origin}/#organization` },
+    areaServed: biznesAreaServed(areaServed),
+  }
 }

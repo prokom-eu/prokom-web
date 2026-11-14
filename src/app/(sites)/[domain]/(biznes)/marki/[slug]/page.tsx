@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { fitTitle } from '@/lib/biznes/seo'
+import { brandMetaTitle, localDescription, salonMetaTitle } from '@/lib/biznes/seo'
 import { notFound, permanentRedirect } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
@@ -13,7 +13,7 @@ import {
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
 import { getBrandView, getCatalogIndex, getSalonDoc, getSalonSlugOfBrand } from '@/lib/catalog/data'
 import { BRANDS_PATH } from '@/lib/catalog/filters'
-import { buildSalonView, salonTitle, type SalonView } from '@/lib/catalog/salon'
+import { buildSalonView, type SalonView } from '@/lib/catalog/salon'
 import { getEnv } from '@/lib/env'
 import { pickSource } from '@/lib/media/sizes'
 import { ogImages } from '@/lib/pages/metadata'
@@ -22,7 +22,6 @@ import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
-import { biznesDescription } from '@/lib/biznes/seo'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { BrandAbout, BrandCta, BrandHero } from '@/sites/biznes/components/brand/BrandSections'
 import { SalonChooser, SalonFamily } from '@/sites/biznes/components/brand/salon/SalonClient'
@@ -66,17 +65,19 @@ async function load(params: Props['params']) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, salon, brand } = await load(params)
+  // SEO lokalne 14.11: the region in the title and the description (`salonMetaTitle`,
+  // `brandMetaTitle`) — the whole two-line salon heading was cut mid-sentence in results.
   const page = salon
     ? {
-        title: fitTitle(salonTitle(salon.h1a, salon.h1b)),
-        description: salon.lead ? biznesDescription(salon.lead) : undefined,
+        title: salonMetaTitle(salon.h1a),
+        description: salon.lead ? localDescription(salon.lead) : undefined,
         slug: salon.slug,
       }
     : brand
       ? {
-          title: fitTitle(brandTitle(brand.name, brand.shortDescription), 'dla firm — Rabka-Zdrój'),
+          title: brandMetaTitle(brand.name, brandTitle(brand.name, brand.shortDescription)),
           description: brand.shortDescription
-            ? biznesDescription(brand.shortDescription)
+            ? localDescription(brand.shortDescription)
             : undefined,
           slug: brand.slug,
         }

@@ -16,9 +16,6 @@ import type { IndexLogo, IndexProduct } from './catalogIndex'
 /** The only tag a model card may show (K4-FINAL §6). */
 export const ALLOWED_PLAN_TAG = 'polecamy na start'
 
-/** Longest `<title>` before the site name (K33 §8: ≤ 60). */
-const TITLE_LIMIT = 60
-
 /** Hero photos (board: up to 3). */
 const HERO_PHOTOS = 3
 
@@ -347,12 +344,4 @@ export function buildSalonView(
         bindShortWords(multi ? 'Więcej o markach' : `Więcej o marce ${brand}`),
     },
   }
-}
-
-/** `<title>` of a salon: both H1 halves, cut on a word to 60 characters. */
-export function salonTitle(h1a: string, h1b: string | null): string {
-  const full = [h1a, h1b].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim()
-  if (full.length <= TITLE_LIMIT) return full
-  const cut = full.slice(0, TITLE_LIMIT - 1)
-  return `${cut.slice(0, cut.lastIndexOf(' '))}…`
 }

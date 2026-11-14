@@ -1,5 +1,6 @@
 import { headers } from 'next/headers'
 
+import { biznesLlmsBody } from '@/lib/biznes/llmsRoute'
 import { getEnv } from '@/lib/env'
 import { instalacjeLlmsTxt } from '@/lib/instalacje/llmsData'
 import { siteOrigin } from '@/lib/seo/origin'
@@ -15,6 +16,7 @@ const BUILDERS: Partial<
   Record<SiteTenant['line'], (tenant: SiteTenant, origin: string) => Promise<string>>
 > = {
   instalacje: instalacjeLlmsTxt,
+  biznes: biznesLlmsBody,
   software: softwareLlmsData,
 }
 
