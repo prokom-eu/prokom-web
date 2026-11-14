@@ -154,7 +154,7 @@ export const getKsefPanel = (tenantId: number): Promise<KsefPanel | null> =>
   )()
 
 /** Newest public posts of one sister tenant as bare rows: slug, title, date, lead — no body or cover. */
-const getTenantPostRows = (tenantId: number, limit: number): Promise<SisterPostRow[]> =>
+export const getTenantPostRows = (tenantId: number, limit: number): Promise<SisterPostRow[]> =>
   cacheQuery(
     async () => {
       const payload = await getPayload({ config })
