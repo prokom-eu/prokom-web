@@ -18531,7 +18531,7 @@
     },
     {
      "q": "Czy połączycie RJ-3055WB z programem sprzedaży w terenie?",
-     "a": "Tak. RJ-3035B łączymy z programem sprzedaży przez Bluetooth lub USB, RJ-3055WB także przez Wi-Fi, i sprawdzamy wydruk paragonów niefiskalnych i etykiet na Twoich towarach."
+     "a": "Tak. RJ-3035B łączymy z programem sprzedaży przez Bluetooth lub USB, RJ-3055WB także przez Wi-Fi, i sprawdzamy wydruk potwierdzeń, rachunków i etykiet na Twoich towarach."
     }
    ],
    "polecane": [
@@ -21981,7 +21981,7 @@
     },
     {
      "q": "Jak zapłacić za obiad z Obiadomatu?",
-     "a": "W Obiadomacie II gotówką, zbliżeniowo lub BLIK-iem; w Obiadomacie I zestaw płatności może się różnić. Klient może dostać e-paragon albo e-fakturę na e-mail."
+     "a": "W Obiadomacie II gotówką, zbliżeniowo lub BLIK-iem; płatności w Obiadomacie I potwierdzimy w ofercie. Klient może dostać e-paragon albo e-fakturę na e-mail."
     },
     {
      "q": "Kto serwisuje Obiadomat z modułem grzewczym?",
@@ -44290,7 +44290,7 @@
     },
     {
      "q": "Czy przygotujecie iPada Air M4 do pracy w firmie?",
-     "a": "Tak: na iPadzie Air M4 instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "a": "Tak: na iPadzie Air M4 instalujemy i ustawiamy system, konta i programy oraz przenosimy dane ze starego urządzenia (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -44587,7 +44587,7 @@
     },
     {
      "q": "Czy przygotujecie iPada Pro M5 do pracy?",
-     "a": "Tak: na iPadzie Pro M5 instalujemy i ustawiamy system, konta i programy, a dane przenosimy ze starego komputera (usługa „Przygotowanie komputera do pracy”)."
+     "a": "Tak: na iPadzie Pro M5 instalujemy i ustawiamy system, konta i programy, a dane przenosimy ze starego urządzenia (usługa „Przygotowanie komputera do pracy”)."
     }
    ],
    "konfigurator": {
@@ -46735,7 +46735,7 @@
     },
     {
      "q": "Czy podłączycie kamerę Brio 505 do komputera?",
-     "a": "Tak, przy przygotowaniu komputera wpinamy Brio 505 do portu USB-C i ustawiamy kamerę razem ze słuchawkami i myszą."
+     "a": "Tak, przy przygotowaniu komputera wpinamy Brio 505 do portu USB-C i ustawiamy obraz i ostrość w aplikacji Logi Tune."
     }
    ],
    "podobne": [
@@ -47107,7 +47107,7 @@
      "a": "Naturalną parą jest pionowa mysz Lift for Business. Obie łączą się przez Logi Bolt, a jeden odbiornik Logi Bolt obsłuży do 6 urządzeń."
     },
     {
-     "q": "Czy podłączycie Wave Keys for Business przy stanowisku?",
+     "q": "Czy podłączycie Wave Keys for Business do komputera na stanowisku?",
      "a": "Tak. Przygotowując komputer, łączymy Wave Keys z odbiornikiem Logi Bolt i ustawiamy klawiaturę z myszą."
     }
    ],
@@ -54149,7 +54149,7 @@
     },
     {
      "q": "Które QNAP-y do szafy rack obsłużą 10 GbE?",
-     "a": "Każdy model rack ma dwa porty 2,5 GbE. TS-432XeU dokłada port 10 GbE SFP+, a w TS-464U, TS-864eU, TS-873AeU i TS-1273AU-RP 10 GbE dodasz kartą PCIe. Na wszystkie modele z tej karty producent daje 3 lata gwarancji."
+     "a": "Każdy model rack ma dwa porty 2,5 GbE. TS-432XeU dokłada port 10 GbE SFP+, a w TS-464U, TS-864eU, TS-873AeU i TS-1273AU-RP 10 GbE dodasz kartą PCIe. Na wszystkie te modele producent daje 3 lata gwarancji."
     }
    ],
    "konfigurator": {
