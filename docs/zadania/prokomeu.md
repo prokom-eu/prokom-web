@@ -104,7 +104,7 @@ H5-3: /gdzie-dzialamy (sprawdzanie miejscowości wg stref z CompanyData), /aktua
 ```
 /zadanie H6 — formularze, maile, SEO i przekierowania huba (spec §4, §7; ADR-H001 pkt 6–9; ADR-024).
 Jeden plan → akceptacja → PR-y:
-H6-1 (hub/h6-formularze): przegląd wszystkich 6 formularzy na wspólnym ContactForm (zgoda wg consentMode, honeypot, limit, komunikaty, sukces z numerem i krokami), routing lineKey → CompanyData.lines[].notificationEmail, maile potwierdzenia w marce PRO-KOM z obietnicą linii, powiadomienia z payload (lista jako tabela), limit 3/dobę; e2e każdego formularza na Mailpicie.
+H6-1 (hub/h6-formularze): przegląd wszystkich 6 formularzy na wspólnym ContactForm (zgoda wg consentMode, honeypot, limit, komunikaty, sukces z numerem i krokami), routing lineKey → Tenants.notificationEmail linii (tech, gaming, ogólne → skrzynka tenanta prokom) wg ADR-H001 pkt 6, maile potwierdzenia w marce PRO-KOM z obietnicą linii, powiadomienia z payload (lista jako tabela), limit 3/dobę; e2e każdego formularza na Mailpicie.
 H6-2 (hub/h6-seo): metadane z tabeli spec §4 (edytowalne w panelu), canonical, JSON-LD (Organization, LocalBusiness salonu z godzinami z CompanyData, BreadcrumbList, FAQPage tylko z widocznymi pytaniami), sitemap.xml (tylko indeksowane i opublikowane), robots.txt; przekierowania 301: zbuduj listę ze starego repo pro-kom.eu (podam ścieżkę) i jego sitemap — tabela stary adres → cel w PR do mojej akceptacji, potem wpisy do Redirects + test e2e każdego 301; Umami (zdarzenia: tel, formularz, narzędzie, szukaj-brak-wyniku).
 ```
 

@@ -7,7 +7,7 @@
 ## Zasada
 Układ i logika stron są w kodzie. Wszystko, co szef albo Krystian może chcieć zmienić bez programisty (teksty, listy, kolejność, widoczność), jest w panelu. Dane firmy wyłącznie z `CompanyData`. Znaczniki `[SZEF` w treści blokują publikację (hook jak w innych liniach).
 
-Seed z wizualizacji: `seed/prokomeu/strony/*.json` (migawki danych każdej planszy — teksty 1:1). Import w H1-1 skryptem `seed:prokomeu` (idempotentny, po `slug`/`key`).
+Seed z wizualizacji: `seed/prokomeu/strony/*.json` (migawki danych każdej planszy — teksty 1:1). Import w H1-1 skryptem `pnpm seed:prokom` (idempotentny, po `slug`/`key`).
 
 ## 1. Dane wspólne — `CompanyData` i `SiteSettings` (stan repo po D1/D2)
 Już jest: `CompanyData.lines[]` (`key` z `SHARED_LINE_KEYS`: prokom, biznes, instalacje, software, tech, zakopane, gaming; `name`, `kind`, `order`, `domain`, `url`, `logoLabel`, `color`, `colorOnDark`, `published`, `description`, `descriptionLong`), `company.locations[]` (salony z godzinami i `geo`), `serviceZones`, `holidays`, `legal`, `consent`. Telefon, drugi telefon, e-mail i godziny **linii z własną stroną** są w `SiteSettings` tej linii (`phone`, `phone2`, `email`, `shared.contact.hours` itd.) — hub czyta je stamtąd (jedno źródło).
