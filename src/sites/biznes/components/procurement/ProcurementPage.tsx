@@ -5,7 +5,7 @@ import { fillHours } from '@/lib/biznes/procurement/hours'
 import type { Service } from '@/lib/biznes/procurement/logic'
 import type { ProcurementPageData } from '@/lib/biznes/procurement/schema'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
-import { breadcrumbJsonLd, faqJsonLd, serializeJsonLd, serviceJsonLd } from '@/lib/seo/jsonLd'
+import { biznesServiceJsonLd, breadcrumbJsonLd, faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { toTelHref } from '@/lib/site/link'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
 
@@ -47,7 +47,8 @@ export type ProcurementContext = {
   email: string | null
   /** Opening hours from the company data, short („pn–pt 9:00–17:00”); `null` without hours. */
   hours: string | null
-  provider: string
+  /** Towns of `SiteSettings.biznes.serviceAreas` — the `Service` area, as on the service pages. */
+  serviceAreas: readonly string[]
   images: Record<number, IndexImage>
   /** Brand of the data → logo and link (same order as the data list). */
   resolveBrand: (brand: { name: string; partner?: string; image?: number | null }) => ResolvedBrand
@@ -62,9 +63,6 @@ export type ProcurementContext = {
   /** Signed "form shown at" token of the inquiry form (`lib/inquiry/spam`). */
   formToken: string
 }
-
-/** Where the service is offered (ZAOPATRZENIE §1). */
-const AREA_SERVED = ['Podhale', 'Małopolska'] as const
 
 /**
  * „Zaopatrzenie firm” template (ZAOPATRZENIE §2): the sections in the spec's order, each only
@@ -104,13 +102,14 @@ export function ProcurementPage({
   const links = data.nav.filter((link) => rendered.has(link.anchor))
 
   const jsonLd = [
-    serviceJsonLd({
+    // The same Service as the service pages (SEO lokalne 13.11): the site organization by `@id`,
+    // the panel towns plus Podhale and Małopolska (ZAOPATRZENIE §1), no price.
+    biznesServiceJsonLd({
       name: data.hero.title,
       description: data.hero.lead,
       url: context.origin + context.path,
-      provider: context.provider,
-      priceFrom: null,
-      areaServed: AREA_SERVED,
+      origin: context.origin,
+      areaServed: context.serviceAreas,
     }),
     ...(faq.length > 0 ? [faqJsonLd(faq.map(({ q, a }) => ({ question: q, answer: a })))] : []),
     breadcrumbJsonLd(crumbs.map(({ name, href }) => ({ name, url: context.origin + href }))),

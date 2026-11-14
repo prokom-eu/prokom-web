@@ -2,7 +2,11 @@ import { describe, expect, it } from 'vitest'
 
 import { META_DESCRIPTION_MAX } from '../seo/description'
 import {
+  BIZNES_LOCAL_PAGES,
   biznesDescription,
+  brandMetaTitle,
+  localPageMeta,
+  salonMetaTitle,
   fitTitle,
   localDescription,
   localTitle,
@@ -166,5 +170,70 @@ describe('fitTitle (audit 0611 P1-8: 30–60 characters with „ | PRO-KOM Bizne
     // Too short with nothing to add: as it is (the panel can set a longer one).
     expect(fitTitle('GoPOS')).toBe('GoPOS')
     expect(TITLE_BASE_MIN).toBe(13)
+  })
+})
+
+describe('salonMetaTitle / brandMetaTitle (SEO lokalne 14.11: brand and salon pages)', () => {
+  it('a salon: the first heading line without its trailing punctuation, with the region', () => {
+    expect(salonMetaTitle('Drukarki dla biura,')).toBe('Drukarki dla biura — Rabka-Zdrój i Podhale')
+    expect(salonMetaTitle('Kasy, drukarki i wagi Elzab')).toBe(
+      'Kasy, drukarki i wagi Elzab — Rabka-Zdrój',
+    )
+  })
+
+  it('a brand: its title with the full region, else „<marka> dla firm” with the region', () => {
+    expect(brandMetaTitle('APC', 'APC — Zasilacze UPS')).toBe(
+      'APC — Zasilacze UPS, Rabka-Zdrój i Podhale',
+    )
+    // „…, Rabka” at the end of a list reads as one more product: the name with the region.
+    expect(brandMetaTitle('Dibal', 'Dibal — Wagi sklepowe i etykietujące')).toBe(
+      'Dibal dla firm — Rabka-Zdrój i Podhale',
+    )
+    expect(brandMetaTitle('InsERT', 'InsERT — Subiekt, Rachmistrz, Rewizor')).toMatch(
+      /^InsERT dla firm — Rabka-Zdrój/,
+    )
+  })
+})
+
+describe('localPageMeta (SEO lokalne 14.11: the region on the Biznes pages that sell)', () => {
+  const base = {
+    title: 'Opieka IT',
+    description:
+      'Opis z panelu bez miejsca, ale dość długi, żeby nie dostać kontekstu firmy z biznesDescription i mieć ponad sto znaków.',
+    openGraph: { type: 'website' as const, title: 'Opieka IT', url: '/opieka-it' },
+  }
+  const page = (
+    slug: string,
+    seo: { title?: string | null; description?: string | null } = {},
+  ) => ({
+    slug,
+    title: 'Opieka IT',
+    seo,
+  })
+
+  it('leaves another line or a page outside the set as it is', () => {
+    expect(localPageMeta('software', page('opieka-it'), base)).toBe(base)
+    expect(localPageMeta('biznes', page('kontakt'), base)).toBe(base)
+  })
+
+  it('names the region in the title, also over a panel SEO title, and in the description', () => {
+    const meta = localPageMeta(
+      'biznes',
+      page('opieka-it', { title: 'Opieka IT dla firm', description: base.description }),
+      base,
+    )
+    expect(meta.title).toBe('Opieka IT dla firm — Rabka-Zdrój i Podhale')
+    expect(String(meta.description)).toMatch(/Rabce-Zdroju/)
+    expect(meta.openGraph).toMatchObject({ title: meta.title, url: '/opieka-it' })
+  })
+
+  it('keeps the layout description when the panel has none', () => {
+    const meta = localPageMeta('biznes', page('gopos'), base)
+    expect(meta.description).toBe(base.description)
+  })
+
+  it('covers the procurement pages too', () => {
+    expect(BIZNES_LOCAL_PAGES.has('dostawy-it-dla-firm')).toBe(true)
+    expect(BIZNES_LOCAL_PAGES.has('agd-rtv-dla-firm')).toBe(true)
   })
 })

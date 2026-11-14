@@ -67,6 +67,21 @@ test.describe('Biznes SEO of subpages (B5-2)', () => {
 
 // SEO lokalne 13.11: where we work in the titles, a Service on service pages, llms.txt for AI.
 test.describe('Biznes local SEO', () => {
+  for (const path of ['/oferta', '/marki', '/zestawy', '/marki/elzab', '/marki/godex']) {
+    test(`${path}: the region in the title`, async ({ page }) => {
+      await page.goto(biznes(path))
+      expect(await page.title()).toMatch(/Rabka-Zdrój/)
+    })
+  }
+
+  test('a service page names the region and og:title follows the title', async ({ page }) => {
+    await page.goto(biznes('/opieka-it'))
+    const title = await page.title()
+    expect(title).toMatch(/Rabka-Zdrój|Podhal/)
+    const og = await page.locator('meta[property="og:title"]').getAttribute('content')
+    expect(title.startsWith(og ?? '-')).toBe(true)
+  })
+
   test('a category title names the region', async ({ page }) => {
     await page.goto(biznes('/oferta/kasy-fiskalne'))
     expect(await page.title()).toMatch(/Rabka-Zdrój/)

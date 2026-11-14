@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import type { Partner, Showroom } from '@/payload-types'
 
 import type { IndexProduct } from './catalogIndex'
-import { buildSalonView, salonFacts, salonTitle } from './salon'
+import { buildSalonView, salonFacts } from './salon'
 
 const T = 1
 const OTHER = 2
@@ -201,17 +201,6 @@ describe('buildSalonView', () => {
   it('leaves out brands of another site', () => {
     const view = build(showroom({ brands: [partner(), partner({ id: 12, tenants: [OTHER] })] }))!
     expect(view.brands.map((brand) => brand.id)).toEqual([10])
-  })
-})
-
-describe('salonTitle', () => {
-  it('joins the H1 halves and cuts at 60 characters on a word', () => {
-    expect(salonTitle('Kasy i drukarki Posnet.', 'Z serwisem na miejscu.')).toBe(
-      'Kasy i drukarki Posnet. Z serwisem na miejscu.',
-    )
-    expect(salonTitle('a'.repeat(30), 'bardzo długi drugi człon tytułu salonu marki')).toBe(
-      `${'a'.repeat(30)} bardzo długi drugi człon…`,
-    )
   })
 })
 

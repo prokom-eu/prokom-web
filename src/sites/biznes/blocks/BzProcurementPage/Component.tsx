@@ -89,7 +89,7 @@ export async function BzProcurementPageBlock({ block, tenantId, path }: Props) {
     phone: settings?.phone ?? null,
     email: settings?.email ?? null,
     hours: hours || null,
-    provider: company?.name ?? 'PRO-KOM',
+    serviceAreas: settings?.biznes?.serviceAreas ?? [],
     images,
     resolveBrand: ({ name, partner, image }) => {
       const brand = partner ? index.brands.find((item) => item.slug === partner) : undefined

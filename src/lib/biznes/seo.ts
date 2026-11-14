@@ -1,4 +1,5 @@
 import { META_DESCRIPTION_MAX, metaDescription } from '../seo/description'
+import { SUPPLY_PAGE } from './procurement/links'
 
 /** Shortest meta description worth showing in results (audit 0611 P1-8: 100–155 characters). */
 export const META_DESCRIPTION_MIN = 100
@@ -37,6 +38,15 @@ export const BIZNES_SERVICE_PAGES: ReadonlySet<string> = new Set([
   'gopos',
   'insert',
   'automaty-vendingowe',
+])
+
+/**
+ * Pages whose title and description name the region (SEO lokalne 13.11): the service pages and
+ * the procurement ones. Legal pages, guides and the contact page stay as the panel writes them.
+ */
+export const BIZNES_LOCAL_PAGES: ReadonlySet<string> = new Set([
+  ...BIZNES_SERVICE_PAGES,
+  ...Object.values(SUPPLY_PAGE),
 ])
 
 /** A title split by a dash or a colon („Wagi dla firm — Dibal”, „Systemy: GoPOS”). */
@@ -133,4 +143,45 @@ export function localTitle(base: string): string {
   const head = title.split(/ — |: | – /)[0]!.trim()
   const firstPart = head.length >= TITLE_BASE_MIN ? withRegion(head) : undefined
   return withRegion(title) ?? withRegion(short) ?? firstPart ?? short
+}
+
+/** `<title>` of a brand salon: the first line of its heading, without trailing punctuation. */
+export function salonMetaTitle(h1a: string): string {
+  return localTitle(h1a.replace(/[\s,:;.—–-]+$/u, ''))
+}
+
+/**
+ * `<title>` of a brand page: its „Marka — co sprzedaje” with the full region; when only „,
+ * Rabka” fits at the end of a list (it reads as one more product) or no region at all, „<marka>
+ * dla firm” with the region, as the salons.
+ */
+export function brandMetaTitle(name: string, title: string): string {
+  const local = localTitle(title)
+  return local.includes('Rabka-Zdrój') ? local : localTitle(`${name} dla firm`)
+}
+
+type LocalPage = {
+  slug: string
+  title: string
+  seo?: { title?: string | null; description?: string | null } | null
+}
+
+/**
+ * Metadata of a Biznes page that sells (`BIZNES_LOCAL_PAGES`) with the region in the title — also
+ * over a panel SEO title (decision 14.11: the region wins) — and in the description; the
+ * Open Graph copy follows. Another line or page: the metadata as they came.
+ */
+export function localPageMeta<
+  M extends { title?: unknown; description?: unknown; openGraph?: unknown },
+>(line: string, page: LocalPage, metadata: M): M {
+  if (line !== 'biznes' || !BIZNES_LOCAL_PAGES.has(page.slug)) return metadata
+  const title = localTitle(page.seo?.title?.trim() || page.title)
+  const description = page.seo?.description ? localDescription(page.seo.description) : undefined
+  const openGraph = (metadata.openGraph ?? {}) as Record<string, unknown>
+  return {
+    ...metadata,
+    title,
+    ...(description && { description }),
+    openGraph: { ...openGraph, title, ...(description && { description }) },
+  }
 }

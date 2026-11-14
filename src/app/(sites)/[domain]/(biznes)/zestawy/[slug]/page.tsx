@@ -19,7 +19,7 @@ import { pageRobots } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
-import { biznesDescription, fitTitle, TITLE_BASE_MAX } from '@/lib/biznes/seo'
+import { fitTitle, localDescription, TITLE_BASE_MAX } from '@/lib/biznes/seo'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { BundleInquiry, type BundleRow } from '@/sites/biznes/components/bundle/BundleInquiry'
 import {
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title =
     named.length <= TITLE_BASE_MAX ? named : fitTitle(bundle.name, undefined, { head: false })
   const canonical = bundleHref(bundle.slug)
-  const description = bundle.benefit ? biznesDescription(bundle.benefit) : undefined
+  const description = bundle.benefit ? localDescription(bundle.benefit) : undefined
   return {
     title,
     description,
