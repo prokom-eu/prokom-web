@@ -268,10 +268,55 @@ describe('areaData', () => {
 describe('cityData', () => {
   const rabka = miejscowosci.items.find((item) => item.slug === 'rabka-zdroj')!
 
-  it('imports 6 cities, only Rabka-Zdrój active', () => {
+  it('imports 6 cities: Rabka and four more with their own page, Zakopane off (v23 §1)', () => {
     const cities = miejscowosci.items.map((item) => cityData(item, solutionId))
     expect(cities).toHaveLength(6)
-    expect(cities.filter((city) => city.active).map((city) => city.slug)).toEqual(['rabka-zdroj'])
+    expect(cities.filter((city) => city.active).map((city) => city.slug)).toEqual([
+      'rabka-zdroj',
+      'nowy-targ',
+      'mszana-dolna',
+      'limanowa',
+      'nowy-sacz',
+    ])
+  })
+
+  it('gives every city its own words: no sentence of 5+ words is shared (spec. §6.9)', () => {
+    const owner = new Map<string, string>()
+    for (const item of miejscowosci.items) {
+      const city = cityData(item, solutionId)
+      const texts = [
+        city.hero?.lead,
+        city.who?.lead,
+        ...(city.who?.items ?? []).map((card) => card.text),
+        ...(city.local?.items ?? []).map((card) => card.text),
+        ...(city.faq ?? []).map((entry) => entry.answer),
+        city.seo?.description,
+      ]
+      for (const text of texts) {
+        for (const sentence of (text ?? '').split(/(?<=[.!?])\s+/)) {
+          const clean = sentence.trim().toLowerCase()
+          if (clean.split(/\s+/).length < 5) continue
+          const first = owner.get(clean)
+          expect(first === undefined || first === city.slug, `${city.slug}: „${sentence}”`).toBe(
+            true,
+          )
+          owner.set(clean, city.slug)
+        }
+      }
+    }
+  })
+
+  it('never names Zakopane in a city page (ZMIANY-v23 §1: removed from Software)', () => {
+    for (const item of miejscowosci.items) {
+      const { slug, name, locative, ...page } = item
+      expect(JSON.stringify(page), `${slug} ${name} ${locative}`).not.toMatch(/Zakopan/)
+    }
+  })
+
+  it('names no salon outside Rabka (Software works from one office)', () => {
+    for (const item of miejscowosci.items.filter((city) => city.slug !== 'rabka-zdroj')) {
+      expect(JSON.stringify(item), item.slug).not.toMatch(/\bsalon\w*\b(?! w Rabce| przy Orkana)/i)
+    }
   })
 
   it('takes the hero badges as on the board (bold title, then text)', () => {
