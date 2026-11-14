@@ -3,7 +3,13 @@ import { join } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
-import { BIZNES_COMPANY, BIZNES_CONTACT } from './contact'
+import {
+  BIZNES_COMPANY,
+  BIZNES_CONTACT,
+  LEGACY_SERVICE_AREAS,
+  SERVICE_AREAS,
+  serviceAreasUpdate,
+} from './contact'
 
 /** Contact data the Biznes site must not show any more (decision of 01.11.2026). */
 const OLD_CONTACT = [
@@ -54,5 +60,18 @@ describe('Biznes contact data (01.11.2026)', () => {
       { days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' },
     ])
     expect(BIZNES_COMPANY).toMatchObject({ name: 'PRO-KOM Tadeusz Wójciak', nip: '7352511447' })
+  })
+})
+
+describe('serviceAreasUpdate (decision of 14.11.2026: Rabka, Nowy Targ, Zakopane, Kraków)', () => {
+  it('writes the confirmed list over an empty or the untouched earlier list', () => {
+    expect(serviceAreasUpdate([])).toEqual(['Rabka-Zdrój', 'Nowy Targ', 'Zakopane', 'Kraków'])
+    expect(serviceAreasUpdate(null)).toEqual(SERVICE_AREAS)
+    expect(serviceAreasUpdate(LEGACY_SERVICE_AREAS)).toEqual(SERVICE_AREAS)
+  })
+
+  it('keeps a list edited in the panel and does nothing on the confirmed one', () => {
+    expect(serviceAreasUpdate(['Rabka-Zdrój', 'Nowy Targ', 'Jordanów'])).toBeNull()
+    expect(serviceAreasUpdate(SERVICE_AREAS)).toBeNull()
   })
 })

@@ -8,10 +8,14 @@ import { SHARED_COMPANY } from '../shared/company'
 export const CONTACT_SLUG = 'kontakt'
 
 /**
- * Towns served, from the board (FAQ „Dojeżdżacie do mnie?” and the area diagram) — into
- * `SiteSettings.biznes.serviceAreas` when empty. TODO(krystian): [SZEF] potwierdzić listę.
+ * Towns served — Krystian's decision of 14.11.2026: Rabka-Zdrój and around, Nowy Targ, Zakopane,
+ * Kraków; the whole Podhale and Małopolska come as regions (`biznesAreaServed`, llms.txt).
+ * Into `SiteSettings.biznes.serviceAreas` when empty or still the earlier default list.
  */
-export const SERVICE_AREAS = [
+export const SERVICE_AREAS = ['Rabka-Zdrój', 'Nowy Targ', 'Zakopane', 'Kraków']
+
+/** The list of the board the seed wrote before 14.11.2026 — replaced when nobody edited it. */
+export const LEGACY_SERVICE_AREAS = [
   'Rabka-Zdrój',
   'Nowy Targ',
   'Zakopane',
@@ -23,6 +27,15 @@ export const SERVICE_AREAS = [
   'Szczawnica',
   'Kraków',
 ]
+
+/** Areas to write: the confirmed list over an empty or untouched default one, else none. */
+export function serviceAreasUpdate(current: readonly string[] | null | undefined): string[] | null {
+  const list = current ?? []
+  const untouched =
+    list.length === LEGACY_SERVICE_AREAS.length &&
+    list.every((town, index) => town === LEGACY_SERVICE_AREAS[index])
+  return list.length === 0 || untouched ? [...SERVICE_AREAS] : null
+}
 
 /**
  * Contact data of prokombiznes.pl — Krystian's decision of 01.11.2026 (replaces K4-FINAL §1

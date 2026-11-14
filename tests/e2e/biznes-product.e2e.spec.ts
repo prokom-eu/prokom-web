@@ -380,25 +380,51 @@ test.describe('Biznes product page 2.0', () => {
   test('a card „Do sprawdzenia” has a page, but noindex, no FAQPage and no place in the site maps', async ({
     page,
   }) => {
-    // ThinkStation P4 is „do-sprawdzenia” (Yoga Pro 7 15 „gotowe” since 14.11), Posnet Ergo „gotowe”.
-    const review = '/produkt/lenovo-thinkstation-p4'
-    const response = await page.goto(site('biznes.localhost', review))
-    expect(response?.status()).toBe(200)
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /follow/)
-    expect((await jsonLd(page)).find((item) => item['@type'] === 'FAQPage')).toBeUndefined()
+    // No card of the package waits for review since 14.11 (ThinkStation P4 removed): the test
+    // makes its own, published with „Do sprawdzenia”, and removes it at the end.
+    await loginAsAdmin(page)
+    const biznes = await tenantId(page, 'biznes')
+    const { json } = await api(
+      page,
+      'GET',
+      `/api/catalog-categories?where[slug][equals]=kasy-fiskalne&where[tenant][equals]=${biznes}&depth=0`,
+    )
+    const [category] = json.docs as { id: number }[]
+    const slug = `e2e-do-sprawdzenia-${Date.now()}`
+    const created = await api(page, 'POST', '/api/products', {
+      tenant: biznes,
+      slug,
+      name: 'Karta do sprawdzenia',
+      kind: 'device',
+      categories: [category!.id],
+      contentStatus: 'needs-review',
+      faq: [{ question: 'Czy to karta testowa?', answer: 'Tak, karta testowa e2e.' }],
+      _status: 'published',
+    })
+    expect(created.status).toBe(201)
+    const review = `/produkt/${slug}`
+    try {
+      const response = await page.goto(site('biznes.localhost', review))
+      expect(response?.status()).toBe(200)
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /follow/)
+      expect((await jsonLd(page)).find((item) => item['@type'] === 'FAQPage')).toBeUndefined()
 
-    await page.goto(site('biznes.localhost', ERGO))
-    await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
+      await page.goto(site('biznes.localhost', ERGO))
+      await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
 
-    const sitemap = await page.goto(site('biznes.localhost', '/sitemap.xml'))
-    const xml = (await sitemap?.text()) ?? ''
-    expect(xml).toContain(site('biznes.localhost', ERGO))
-    expect(xml).not.toContain(review)
-    await page.goto(site('biznes.localhost', '/mapa-strony'))
-    // The site map itself (`main`): the header's mega menu has its own „Najczęściej wybierane” card.
-    await expect(page.locator(`main a[href="${review}"]`)).toHaveCount(0)
-    await expect(page.locator(`main a[href="${ERGO}"]`)).toHaveCount(1)
+      const sitemap = await page.goto(site('biznes.localhost', '/sitemap.xml'))
+      const xml = (await sitemap?.text()) ?? ''
+      expect(xml).toContain(site('biznes.localhost', ERGO))
+      expect(xml).not.toContain(review)
+      await page.goto(site('biznes.localhost', '/mapa-strony'))
+      // The site map itself (`main`): the header's mega menu has its own „Najczęściej wybierane” card.
+      await expect(page.locator(`main a[href="${review}"]`)).toHaveCount(0)
+      await expect(page.locator(`main a[href="${ERGO}"]`)).toHaveCount(1)
+    } finally {
+      await page.goto('/admin/login')
+      await api(page, 'DELETE', `/api/products/${(created.json.doc as { id: number }).id}`)
+    }
   })
 
   test('the Biznes sitemap lists the catalog and products, other sites do not', async ({

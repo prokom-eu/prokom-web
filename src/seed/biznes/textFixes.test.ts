@@ -145,3 +145,28 @@ describe('KSeF post and relief (D17, K4-FINAL §1)', () => {
     ).toBe(RELIEF_FAQ_ANSWER)
   })
 })
+
+describe('client count of 14.11.2026 in stored pages', () => {
+  it('turns „100+ klientów firmowych” into „10 000+ klientów”, whole fields only', () => {
+    const fixed = fixTexts({
+      stats: [
+        { value: '2004', label: 'rok założenia firmy' },
+        { value: '100+', label: 'klientów firmowych' },
+      ],
+      trustItems: [{ icon: 'users', text: '100+ firm pod stałą opieką' }],
+      note: 'UDM-Pro: 100+ urządzeń UniFi',
+    })
+    expect(fixed.stats[1]).toEqual({ value: '10 000+', label: 'klientów' })
+    expect(fixed.trustItems[0]!.text).toBe('10 000+ klientów')
+    // „100+” inside a sentence is another number.
+    expect(fixed.note).toBe('UDM-Pro: 100+ urządzeń UniFi')
+  })
+
+  it('fixes the lead of „Plan Twojej firmy” with a hard space in „10 000”', () => {
+    expect(
+      fixTexts({
+        lead: 'Ponad 100 klientów firmowych z Podhala i Małopolski, od straganu po urząd gminy. Kliknij urządzenie na planie, a całość dodasz do zapytania jednym kliknięciem.',
+      }).lead,
+    ).toMatch(/^Ponad 10 000[  ]klientów z Podhala i Małopolski, od straganu/)
+  })
+})
