@@ -26,3 +26,12 @@ export function homeBundlesByScene<T extends { slug: string }>(
   }
   return out
 }
+
+/**
+ * The plan data for the home section: without the scenes' ready bundles (`FloorPlan` shows one
+ * home bundle per scene from `homeBundlesByScene` there, never the bundles section). On the home
+ * page the data goes to the browser in the page's payload — 47 KB of bundle cards nobody sees.
+ */
+export function homePlanData<T extends { bundles: Readonly<Record<string, unknown>> }>(plan: T): T {
+  return { ...plan, bundles: {} }
+}
