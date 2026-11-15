@@ -134,27 +134,29 @@ export async function BzNewsHomeBlock({
         >
           {featured && (
             <article className={cx(CARD, 'flex-col')} data-news-card="" data-news-featured="">
-              <div
-                data-surface="dark"
-                className="relative flex h-[230px] items-center justify-between gap-6 overflow-hidden bg-surface-dark px-7 text-white max-md:h-[180px] max-md:px-5"
-              >
-                {ksef && deadline && (
-                  <span className="flex max-w-[55%] flex-col gap-1">
-                    <span className="text-[12px] font-extrabold tracking-[0.16em] text-accent-on-dark uppercase">
-                      Termin
+              {(featured.cover || (ksef && deadline)) && (
+                <div
+                  data-surface="dark"
+                  className="relative flex h-[230px] items-center justify-between gap-6 overflow-hidden bg-surface-dark px-7 text-white max-md:h-[180px] max-md:px-5"
+                >
+                  {ksef && deadline && (
+                    <span className="flex max-w-[55%] flex-col gap-1">
+                      <span className="text-[12px] font-extrabold tracking-[0.16em] text-accent-on-dark uppercase">
+                        Termin
+                      </span>
+                      <time
+                        dateTime={deadline.dateTime}
+                        className="font-display text-[clamp(30px,3vw,40px)] leading-none font-extrabold font-stretch-115%"
+                      >
+                        {deadline.date}
+                      </time>
                     </span>
-                    <time
-                      dateTime={deadline.dateTime}
-                      className="font-display text-[clamp(30px,3vw,40px)] leading-none font-extrabold font-stretch-115%"
-                    >
-                      {deadline.date}
-                    </time>
+                  )}
+                  <span className="flex h-full flex-1 items-center justify-center py-6">
+                    <Cover post={featured} />
                   </span>
-                )}
-                <span className="flex h-full flex-1 items-center justify-center py-6">
-                  <Cover post={featured} />
-                </span>
-              </div>
+                </div>
+              )}
               <div className="flex flex-1 flex-col gap-2.5 p-6 max-md:p-5">
                 <p className="flex flex-wrap items-center justify-between gap-2">
                   <LineLabel
@@ -185,7 +187,7 @@ export async function BzNewsHomeBlock({
                   aria-hidden="true"
                   className="mt-auto pt-2 text-[14px] font-extrabold text-accent-text"
                 >
-                  Czytaj poradnik →
+                  Czytaj wpis →
                 </span>
               </div>
             </article>
@@ -264,7 +266,8 @@ export async function BzNewsHomeBlock({
                           aria-hidden="true"
                           className="text-[13.5px] font-extrabold text-accent-text"
                         >
-                          Czytaj na stronie linii ↗
+                          Czytaj na stronie {link.line === 'instalacje' ? 'Instalacji' : 'Software'}{' '}
+                          ↗
                         </span>
                       </span>
                     </article>

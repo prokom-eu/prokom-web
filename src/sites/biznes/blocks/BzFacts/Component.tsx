@@ -97,7 +97,7 @@ function FactsCard({
 }) {
   const [first, second] = stats
   return (
-    <div className="relative isolate grid items-center gap-x-14 gap-y-8 overflow-hidden rounded-[30px] bg-surface-2 p-[clamp(24px,4vw,56px)] max-[479px]:p-4 min-[981px]:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+    <div className="relative isolate grid items-center gap-x-14 gap-y-8 overflow-hidden rounded-[30px] bg-surface-2 p-[clamp(24px,4vw,56px)] max-[479px]:p-3 min-[981px]:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
       <span
         aria-hidden="true"
         className="pointer-events-none absolute -bottom-10 -left-4 -z-[1] font-display text-[clamp(140px,18vw,260px)] leading-none font-extrabold text-transparent font-stretch-120% [-webkit-text-stroke:1.5px_var(--border)]"
@@ -197,14 +197,14 @@ function FactsCard({
                     )}
                   </span>
                   {item.status && (
-                    <span className="flex items-center gap-2 px-4 py-3 max-md:px-3 max-[479px]:px-2.5">
+                    <span className="flex items-center gap-2 px-4 py-3 max-md:px-3 max-[479px]:px-2">
                       <Icon
                         name={service ? 'shield' : 'check'}
                         strokeWidth={2.4}
                         className="size-4 shrink-0 text-ok-text max-[479px]:hidden"
                       />
                       <span className="flex min-w-0 flex-col">
-                        <b className="text-[14px] leading-tight font-extrabold whitespace-nowrap text-ink max-[479px]:text-[12px] max-[479px]:tracking-[-0.01em]">
+                        <b className="text-[14px] leading-tight font-extrabold whitespace-nowrap text-ok-text max-[479px]:text-[12px] max-[479px]:tracking-[-0.02em]">
                           {item.status}
                         </b>
                         {showcase && (

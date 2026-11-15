@@ -41,10 +41,9 @@ export async function BzLinesBlock({ block, tenantId }: Props) {
               >
                 {/* The line's colour (panel data) over a soft band: its logo on a white plaque. */}
                 <span
-                  className="relative flex h-[92px] items-center px-6"
+                  className="relative flex h-[132px] items-end px-6 pb-5 max-md:h-[104px]"
                   style={{
-                    background: `linear-gradient(135deg, color-mix(in srgb, ${line.color ?? 'var(--accent)'} 18%, var(--card)), color-mix(in srgb, ${line.color ?? 'var(--accent)'} 6%, var(--card)))`,
-                    borderTop: `4px solid ${line.color ?? 'var(--accent)'}`,
+                    background: `linear-gradient(135deg, ${line.color ?? 'var(--accent)'}, color-mix(in srgb, ${line.color ?? 'var(--accent)'} 55%, var(--surface-dark)))`,
                   }}
                 >
                   <span className="inline-flex h-11 items-center rounded-xl bg-white px-3.5 shadow-[0_8px_18px_-12px_var(--glow)]">

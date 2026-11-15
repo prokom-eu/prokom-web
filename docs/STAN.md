@@ -174,7 +174,11 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
     9. TODO(krystian): [SZEF] teksty pasków statusu opieki IT w „Systemy” (przykład z planszy, §7 pkt 2).
     10. Plansza Systemów ma „gotowe na KSeF” przy pudełku nexo — pominięte (bez nowych obietnic).
     11. Pływanie obrazów w „Systemy” (±6 px) nie ma osobnej pauzy — dekoracja, wyłączona przy reduced-motion i poniżej 600 px.
-  - `Następny krok:` R4 `feat/biznes-glowna-sekcje-1411` (bzSteps, bzFacts, bzNewsHome, bzLines + FAQ), potem R5, potem Sesja C (R6–R8) — wszystko w tej sesji.
+    - R3 #643 (scalony).
+    - R4 `feat/biznes-glowna-sekcje-1411`: „Jak pracujemy” (oś 01–04, „Dostajesz”, bez „Zajmuje się”, zobowiązania 60 minut · Wycena na mailu · Przypomnimy o przeglądzie · Bez infolinii + 2 numery), „Od 2004” (kafle ze zdjęciem produktu z koła, status + zakres), Aktualności (wyróżniony wpis KSeF z terminem z panelu, etykieta linii), nowy blok „Inne linie PRO-KOM” (`bzLines`, migracja = nowe tabele), FAQ z granatowym panelem i 2 numerami (też na podstronach Biznesu z blokiem FAQ).
+    12. Filtr „dla firm” dla wpisów Instalacji/Software w Aktualnościach pominięty — `Posts` nie ma takiego pola (wymaga migracji). Pomysł: pole odbiorcy we wpisach + filtr w `getSisterLinePostLinks`.
+    13. „Inne linie PRO-KOM” usunięte w panelu wróci przy imporcie treści (jak Aktualności B3-2) — jeśli ma zniknąć na stałe, trzeba znacznika w ustawieniach.
+  - `Następny krok:` R5 `feat/biznes-wybierane-1411` (3 rzędy × 8, pozycje z planszy — wszystkie 24 są w katalogu), potem Sesja C (R6–R8) — w tej sesji.
 - **14.11 noc — poprawki po audycie produkcji (`tmp/AUDYT-BIZNES-PRODUKCJA-1411.md`), 2 PR-y od `develop`:**
   - `feat/wsp-kontakt-waski-ekran` (strefa wspólna): Kontakt 360–390 px bez ucięcia, gdy firma zamknięta (siatka hero `grid-cols-1` + `min-w-0`, pigułka statusu się zawija); **decyzja Krystiana 14.11:** pigułka statusu poniżej 480 px pokazuje skrót „Zamknięte · pn 9:00” (`openingStatus().short`; dotyczy też hero pro-kom.eu; pełne zdanie w Menu, stopce i dla czytników — spec §5); O firmie: „Telefon” na linii numeru, „od&nbsp;2004”. e2e `wspolne-kontakt-waski` (3 linie × 360/390, sobota 22:00).
   - `fix/biznes-seo-kontakt`: opis `/kontakt` (seed uzupełnia pusty / stare brzmienie z „60 minut”), jeden `BreadcrumbList` na `/kontakt` i `/o-firmie`, `/favicon.ico` per linia przez `proxy.ts`. `ProductGroup` bez `offers` — bez zmian do pierwszego raportu Search Console.
