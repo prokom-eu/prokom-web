@@ -15,13 +15,31 @@ export const SOFTWARE_NEWS_TEXTS = {
   count: ['wpis', 'wpisy', 'wpisów'],
   featured: 'wyróżniony',
   read: 'Czytaj wpis →',
-  /** The CTA closing the list (board: instead of the band above the footer). */
+  /** The two posts beside the featured one (first page of the whole list). */
+  latest: 'Najnowsze',
+  /** `<nav>` of the list pages (decision 15.11: `?strona=`, 12 posts a page). */
+  pages: {
+    label: 'Strony listy wpisów',
+    newer: '← Nowsze',
+    older: 'Starsze →',
+    page: 'Strona',
+    of: 'z',
+  },
+  /** The band after the 6th card of a long page (decision 15.11). */
+  band: {
+    eyebrow: 'Cena od razu',
+    text: 'Sprawdź, ile kosztuje Twoja strona albo system — cztery pytania, cena „od” i termin.',
+    link: { label: 'Dobierz w 60 sekund →', href: '/dobierz' },
+  },
+  /** The CTA closing the list (board: instead of the band above the footer; decision 15.11: the
+   * picker first, the free audit beside it). */
   listCta: {
     eyebrow: 'Zamiast czytać — sprawdź',
-    title: 'Darmowy audyt',
-    em: 'Twojej strony.',
-    text: 'Szybkość, telefon, Google i formularze. Raport z liczbami w 2 dni robocze, bez zobowiązań.',
-    link: { label: 'Zamów darmowy audyt →', href: '/audyt' },
+    title: 'Cena i termin',
+    em: 'w 60 sekund.',
+    text: 'Cztery krótkie pytania i widzisz rozwiązanie, cenę „od” i termin. Bez podawania telefonu. Wolisz zacząć od strony, którą już masz? Audyt robimy za darmo.',
+    link: { label: 'Dobierz w 60 sekund →', href: '/dobierz' },
+    audit: { label: 'Darmowy audyt strony', href: '/audyt' },
   },
   empty: 'Pierwsze wpisy są w drodze. Zajrzyj wkrótce albo zapytaj nas od razu.',
   minutes: 'min czytania',
