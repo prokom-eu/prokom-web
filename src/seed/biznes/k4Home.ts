@@ -32,27 +32,37 @@ export type K4HomeFile = {
 export type K4Splits = Record<string, { nowe: string[] }>
 
 /**
- * The 16 of K35 §7a („O to firmy pytają najczęściej — 16 pozycji z filtrem”, v150). The package
- * file still has the old 8 (`najczesciej_wybierane`), so the list and its pills live here,
- * slugs checked against `katalog-k4.json` (ADR-017 „Doprecyzowania K4a-2”).
+ * „Najczęściej wybierane” of runda 1411 (PRZEKAZANIE §4 R5, board `Wybierane.dc.html`): three rows
+ * of eight — Kasy i sprzedaż, Komputery i telefony, Programy, ochrona i zasilanie — in this order;
+ * the first four of a row are the earlier list, the other four the board's proposal (every card
+ * checked against `katalog-k4.json`). TODO(krystian): potwierdzić dodatkowe 4 pozycje na rząd (§7
+ * pkt 1). Replaces the 16 of K35 §7a.
  */
 export const K4_FEATURED: readonly { slug: string; group: FeaturedGroup }[] = [
   { slug: 'ergo', group: 'kasy-platnosci' },
   { slug: 'k10', group: 'kasy-platnosci' },
   { slug: 'd3', group: 'kasy-platnosci' },
-  { slug: 'v3mix', group: 'kasy-platnosci' },
   { slug: 'pol', group: 'kasy-platnosci' },
+  { slug: 'hx', group: 'kasy-platnosci' },
+  { slug: 'neo', group: 'kasy-platnosci' },
+  { slug: 'bingo', group: 'kasy-platnosci' },
+  { slug: 'elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka', group: 'kasy-platnosci' },
   { slug: 'lenovo-thinkbook-14-g8-g9', group: 'komputery-telefony' },
   { slug: 'lenovo-thinkcentre-neo-50s-55s', group: 'komputery-telefony' },
-  { slug: 'dell-pro-14-16', group: 'komputery-telefony' },
   { slug: 'apple-macbook-air-m5', group: 'komputery-telefony' },
   { slug: 'apple-iphone-17', group: 'komputery-telefony' },
+  { slug: 'dell-pro-14-16', group: 'komputery-telefony' },
+  { slug: 'lenovo-thinkpad-t14-gen7', group: 'komputery-telefony' },
+  { slug: 'dell-pro-tower-slim', group: 'komputery-telefony' },
+  { slug: 'konica-minolta-bizhub-c3321i', group: 'komputery-telefony' },
   { slug: 'nexo', group: 'programy-ochrona' },
   { slug: 'microsoft-365-business', group: 'programy-ochrona' },
   { slug: 'eset', group: 'programy-ochrona' },
   { slug: 'euro', group: 'programy-ochrona' },
-  { slug: 'apc-back-ups', group: 'zasilanie' },
-  { slug: 'comex-cover-core-one', group: 'zasilanie' },
+  { slug: 'comex-cover-core-one', group: 'programy-ochrona' },
+  { slug: 'apc-back-ups', group: 'programy-ochrona' },
+  { slug: 'synology-diskstation-plus-2-4', group: 'programy-ochrona' },
+  { slug: 'u7', group: 'programy-ochrona' },
 ]
 
 const fail = (message: string): never => {

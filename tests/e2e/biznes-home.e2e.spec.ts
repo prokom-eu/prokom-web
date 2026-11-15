@@ -231,11 +231,23 @@ test.describe('Biznes home page: offer and featured', () => {
     await expect(offer).toContainText('Usługa PRO-KOM')
   })
 
-  test('featured: sixteen products, one badge at most, added to the inquiry', async ({ page }) => {
+  test('featured: three rows of eight, no pills, one badge at most, added to the inquiry (runda 1411 R5)', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     const featured = page.locator('#wybierane')
-    const cards = featured.locator('[data-card]')
-    await expect(cards).toHaveCount(16)
+    // The arrow of the row's direction is decoration before the title.
+    await expect(featured.locator('h3[id^="wybierane-r"]')).toHaveText([
+      /Kasy i sprzedaż$/,
+      /Komputery i telefony$/,
+      /Programy, ochrona i zasilanie$/,
+    ])
+    // Each row holds its eight cards twice (the endless loop); the copies are hidden.
+    const cards = featured.locator('li:not([data-copy]) > [data-card]')
+    await expect(cards).toHaveCount(24)
+    await expect(
+      featured.getByRole('group', { name: 'Filtr najczęściej wybieranych' }),
+    ).toHaveCount(0)
     for (const card of await cards.all()) {
       expect(await card.locator('ul li').count()).toBeLessThanOrEqual(1)
     }
@@ -247,22 +259,39 @@ test.describe('Biznes home page: offer and featured', () => {
     await add.click()
   })
 
-  test('featured: pills filter the cards by group (K35 7a)', async ({ page }) => {
+  test('featured: the rows move by one card; „Zatrzymaj” stops them', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site('biznes.localhost'))
     const featured = page.locator('#wybierane')
-    const pills = featured.getByRole('group', { name: 'Filtr najczęściej wybieranych' })
-    await expect(pills.getByRole('button', { name: /^Wszystkie/ })).toHaveAttribute(
-      'aria-pressed',
-      'true',
+    await featured.scrollIntoViewIfNeeded()
+    const track = featured.locator('[data-featured-row="0"] .bzf-track')
+    const indexOf = () => track.evaluate((el) => (el as HTMLElement).style.getPropertyValue('--i'))
+    // The first row moves after 4.5 s.
+    await expect.poll(indexOf, { timeout: 9000 }).toBe('1')
+    const pause = featured.locator('[data-featured-pause]')
+    await pause.click()
+    await expect(pause).toHaveAttribute('aria-pressed', 'true')
+    await page.mouse.move(0, 0)
+    const held = await indexOf()
+    await page.waitForTimeout(5500)
+    expect(await indexOf()).toBe(held)
+  })
+
+  test('featured: reduced motion — the rows stay still', async ({ browser }) => {
+    const context = await browser.newContext({
+      reducedMotion: 'reduce',
+      viewport: { width: 1440, height: 900 },
+    })
+    const page = await context.newPage()
+    await page.goto(site('biznes.localhost'))
+    const featured = page.locator('#wybierane')
+    await featured.scrollIntoViewIfNeeded()
+    await page.waitForTimeout(6000)
+    const track = featured.locator('[data-featured-row="0"] .bzf-track')
+    expect(await track.evaluate((el) => (el as HTMLElement).style.getPropertyValue('--i'))).toBe(
+      '0',
     )
-    const power = pills.getByRole('button', { name: /^Zasilanie awaryjne/ })
-    await expect(async () => {
-      await power.click()
-      await expect(power).toHaveAttribute('aria-pressed', 'true', { timeout: 1000 })
-    }).toPass()
-    await expect(featured.locator('[data-card]').filter({ visible: true })).toHaveCount(2)
-    // v150: no cards under the list (they repeated „Szybki start”).
-    await expect(featured.getByRole('link', { name: 'Poznaj całą ofertę' })).toHaveCount(0)
+    await context.close()
   })
 
   test.describe('on a phone', () => {
