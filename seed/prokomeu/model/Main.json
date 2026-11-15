@@ -929,17 +929,17 @@
       "text": "Zgłoszenia, statusy, wyceny, plany i konfiguratory ze wszystkich linii w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.",
       "cta": "Zobacz wszystkie narzędzia"
     },
-    "remote": {
-      "eyebrow": "PRO-KOM · każda linia",
-      "title": "Pomoc zdalna",
-      "text": "Serwisant łączy się z Twoim komputerem, gdy się umówicie. Uruchamiasz program, podajesz ID i hasło, a na ekranie widzisz wszystko, co robimy.",
+    "own": {
+      "eyebrow": "PRO-KOM · Inwestycje i dostawy",
+      "title": "Lista zapytania",
+      "text": "Większe zamówienie dla firmy albo obiektu? Zaznaczasz sprzęt i liczbę sztuk, wysyłasz jedną listę i dostajesz ofertę na całość.",
       "steps": [
-        "Umów połączenie",
-        "Uruchom program",
-        "Podaj ID i hasło"
+        "Zaznacz sprzęt",
+        "Podaj liczbę sztuk",
+        "Wyślij jedną listę"
       ],
-      "cta": "Pobierz program",
-      "url": "https://get.teamviewer.com/pro-kom"
+      "cta": "Złóż listę zapytania",
+      "href": "/inwestycje-i-dostawy#lista"
     }
   },
   "help": {

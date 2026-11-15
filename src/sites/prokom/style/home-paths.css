@@ -657,8 +657,8 @@ a.pk-tlc:hover {
   background: var(--ln);
 }
 
-/* --- Pomoc zdalna (H9): the sixth tile while „Załatw online” is off. -------------------------- */
-.pk-remote {
+/* --- The hub's own tool (H9): the sixth tile while „Załatw online” is off. ------------------- */
+.pk-own {
   display: grid;
   flex: 1;
   grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
@@ -668,24 +668,24 @@ a.pk-tlc:hover {
   padding: 14px;
   background: var(--w05);
 }
-.pk-remote__body {
+.pk-own__body {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.pk-remote__steps {
+.pk-own__steps {
   display: flex;
   flex-direction: column;
   gap: 6px;
   font-size: 13.5px;
   font-weight: 700;
 }
-.pk-remote__steps li {
+.pk-own__steps li {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.pk-remote__steps b {
+.pk-own__steps b {
   display: grid;
   width: 24px;
   height: 24px;
@@ -696,70 +696,48 @@ a.pk-tlc:hover {
   color: var(--ln-text);
   font-size: 12px;
 }
-.pk-remote__go {
+.pk-own__go {
   min-height: 44px;
 }
-.pk-tv--remote {
+/* A mocked request list: rows with − / count / + and the sum, the last row just added. */
+.pk-tv--qty {
   height: 100%;
   min-height: 150px;
-  justify-content: space-between;
-  gap: 10px;
-}
-/* A mocked shared screen with the helper's cursor moving on it. */
-.pk-tv__screen {
-  position: relative;
-  flex: 1;
-  border: 1px solid var(--w09);
-  border-radius: 10px;
-  background:
-    linear-gradient(var(--w05) 1px, transparent 1px) 0 0 / 100% 14px,
-    color-mix(in srgb, var(--ln) 8%, transparent);
-}
-.pk-tv__cursor {
-  position: absolute;
-  top: 30%;
-  left: 25%;
-  width: 16px;
-  height: 20px;
-  background: var(--ln);
-  /* An arrow pointer, as on a shared screen. */
-  clip-path: polygon(0 0, 0 82%, 26% 62%, 44% 100%, 60% 92%, 42% 56%, 78% 56%);
-  filter: drop-shadow(0 2px 6px color-mix(in srgb, var(--ln) 60%, transparent));
-  animation: pk-cursor 6s ease-in-out infinite;
-}
-@keyframes pk-cursor {
-  33% {
-    top: 55%;
-    left: 62%;
-  }
-  66% {
-    top: 22%;
-    left: 70%;
-  }
-}
-.pk-tv__ids {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 6px;
 }
-.pk-tv__ids span {
+.pk-tv--qty .pk-tv__row {
+  justify-content: space-between;
+}
+.pk-tv__ctl {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  border: 1px solid var(--w09);
+  align-items: center;
+  gap: 6px;
+}
+.pk-tv__ctl i {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  border: 1px solid var(--w16);
+  border-radius: 5px;
+  font-style: normal;
+}
+.pk-tv__ctl b {
+  min-width: 18px;
+  font-family: var(--font-display);
+  text-align: center;
+}
+.pk-tv--qty .pk-tv__row[data-on] b {
+  color: var(--ln-text);
+  animation: pk-step 2.4s ease-in-out infinite;
+}
+.pk-tv__sum {
+  display: flex;
+  justify-content: space-between;
   border-radius: 8px;
   padding: 6px 10px;
-  background: var(--w05);
-  color: var(--w72);
-  font-size: 10.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.pk-tv__ids b {
-  color: var(--k-white);
-  font-family: var(--font-display);
-  font-size: 15px;
-  letter-spacing: 0.12em;
+  background: var(--ln);
+  color: var(--ln-ink);
 }
 
 .pk-tgr--all {
@@ -1037,7 +1015,7 @@ a.pk-ccard:hover {
 @media (prefers-reduced-motion: reduce) {
   .pk-tv--list .pk-tv__row[data-on] i,
   .pk-tv__bar i[data-state='now'],
-  .pk-tv__cursor {
+  .pk-tv--qty .pk-tv__row[data-on] b {
     animation: none;
   }
   .pk-hbtn,

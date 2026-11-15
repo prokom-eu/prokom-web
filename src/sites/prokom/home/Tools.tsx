@@ -79,7 +79,7 @@ export function Tools({ texts, groups, counts, total, allHref }: Props) {
             </span>
           </a>
         )}
-        {!allHref && texts.remote && <RemoteHelp texts={texts.remote} />}
+        {!allHref && texts.own && <OwnTool texts={texts.own} />}
       </div>
     </section>
   )
@@ -110,37 +110,47 @@ function ToolCard({ tool }: { tool: ToolGroup['tools'][number] }) {
   )
 }
 
+/** Mocked rows of the request list (illustration only, hidden from readers). */
+const LIST_SAMPLE = [
+  ['Laptopy', 12],
+  ['Monitory', 12],
+  ['Telewizory', 8],
+] as const
+
 /**
- * „Pomoc zdalna” (H9): the sixth tile, in the company green, while the card of all tools waits for
- * `/zalatw-online`. Steps as on the line cards; the button opens the program's download page.
+ * The hub's own tool (H9): the sixth tile, in the company green, while the card of all tools waits
+ * for `/zalatw-online` — the request list of „Inwestycje i dostawy”.
  */
-function RemoteHelp({ texts }: { texts: NonNullable<HubHome['tools']['remote']> }) {
+function OwnTool({ texts }: { texts: NonNullable<HubHome['tools']['own']> }) {
   return (
-    <div className="pk-tgr pk-tgr--remote" style={lineStyle('prokom')}>
+    <div className="pk-tgr pk-tgr--own" style={lineStyle('prokom')}>
       <div className="pk-tgr__head">
         <span className="pk-tgr__who">
           <Mark size="sm" />
           <span className="pk-tgr__promise">{texts.eyebrow}</span>
         </span>
       </div>
-      <div className="pk-remote">
-        <span aria-hidden="true" className="pk-tv pk-tv--remote">
-          <span className="pk-tv__screen">
-            <span className="pk-tv__cursor" />
-          </span>
-          <span className="pk-tv__ids">
-            <span>
-              ID <b>··· ··· ···</b>
+      <div className="pk-own">
+        <span aria-hidden="true" className="pk-tv pk-tv--qty">
+          {LIST_SAMPLE.map(([name, qty], index) => (
+            <span key={name} className="pk-tv__row" data-on={index === 2 ? '' : undefined}>
+              <span>{name}</span>
+              <span className="pk-tv__ctl">
+                <i>−</i>
+                <b>{qty}</b>
+                <i>+</i>
+              </span>
             </span>
-            <span>
-              Hasło <b>······</b>
-            </span>
+          ))}
+          <span className="pk-tv__sum">
+            <span>Twoja lista</span>
+            <b>32 szt.</b>
           </span>
         </span>
-        <div className="pk-remote__body">
+        <div className="pk-own__body">
           <h3 className="pk-tlc__title">{texts.title}</h3>
           <p className="pk-tlc__desc">{texts.text}</p>
-          <ol className="pk-remote__steps">
+          <ol className="pk-own__steps">
             {texts.steps.map((step, index) => (
               <li key={step}>
                 <b aria-hidden="true">{index + 1}</b>
@@ -148,9 +158,8 @@ function RemoteHelp({ texts }: { texts: NonNullable<HubHome['tools']['remote']> 
               </li>
             ))}
           </ol>
-          <a href={texts.url} className="pk-tlc__go pk-remote__go" rel="noopener">
-            {texts.cta} <span aria-hidden="true">↗</span>
-            <span className="sr-only"> (inna strona)</span>
+          <a href={texts.href} className="pk-tlc__go pk-own__go">
+            {texts.cta} <span aria-hidden="true">→</span>
           </a>
         </div>
       </div>

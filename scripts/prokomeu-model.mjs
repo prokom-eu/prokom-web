@@ -587,15 +587,15 @@ function home() {
         text: 'Zgłoszenia, statusy, wyceny, plany i konfiguratory ze wszystkich linii w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.',
         cta: 'Zobacz wszystkie narzędzia',
       },
-      // H9 (Krystian 15.11): the sixth tile while „Załatw online” is off — not on the board. The
-      // link is the one the old pro-kom.eu gave for remote help (`/zdalna-pomoc`).
-      remote: {
-        eyebrow: 'PRO-KOM · każda linia',
-        title: 'Pomoc zdalna',
-        text: 'Serwisant łączy się z Twoim komputerem, gdy się umówicie. Uruchamiasz program, podajesz ID i hasło, a na ekranie widzisz wszystko, co robimy.',
-        steps: ['Umów połączenie', 'Uruchom program', 'Podaj ID i hasło'],
-        cta: 'Pobierz program',
-        url: 'https://get.teamviewer.com/pro-kom',
+      // H9 (Krystian 15.11): the sixth tile while „Załatw online” is off — not on the board; the
+      // hub's own request list (texts after the board Dostawy, spec §6.5).
+      own: {
+        eyebrow: 'PRO-KOM · Inwestycje i dostawy',
+        title: 'Lista zapytania',
+        text: 'Większe zamówienie dla firmy albo obiektu? Zaznaczasz sprzęt i liczbę sztuk, wysyłasz jedną listę i dostajesz ofertę na całość.',
+        steps: ['Zaznacz sprzęt', 'Podaj liczbę sztuk', 'Wyślij jedną listę'],
+        cta: 'Złóż listę zapytania',
+        href: '/inwestycje-i-dostawy#lista',
       },
     },
     help: {
