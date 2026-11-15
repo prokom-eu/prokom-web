@@ -432,6 +432,11 @@
 .pk-hq__go:hover {
   transform: translateY(-1px);
 }
+@media (max-width: 560px) {
+  .pk-hq__go {
+    padding: 0 14px;
+  }
+}
 .pk-hch-list {
   display: flex;
   flex-wrap: wrap;
@@ -1101,7 +1106,6 @@
 }
 
 /* Counters. */
-
 .pk-hcn {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1256,6 +1260,12 @@ a.pk-mqi:hover {
   }
 }
 @media (max-width: 640px) {
+  .pk-hcn {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pk-hcn__value {
+    font-size: 36px;
+  }
   .pk-hb {
     gap: 10px;
   }
@@ -1309,7 +1319,7 @@ a.pk-mqi:hover {
 .pk-ht::before {
   position: absolute;
   z-index: -2;
-  inset: -40%;
+  inset: -20%;
   background: radial-gradient(
     38% 34% at 78% 18%,
     color-mix(in srgb, var(--ln) 22%, transparent),
@@ -1318,6 +1328,9 @@ a.pk-mqi:hover {
   content: '';
   pointer-events: none;
   animation: pk-drift 16s ease-in-out infinite alternate;
+}
+.pk-hb:not([data-running]) .pk-ht::before {
+  animation-play-state: paused;
 }
 @keyframes pk-drift {
   to {
@@ -1362,6 +1375,9 @@ a.pk-mqi:hover {
   .pk-ht:hover::after {
     opacity: 1;
   }
+}
+/* The tilt only where motion is welcome — reduced motion keeps the plain lift of the tile. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .pk-ht:hover {
     transform: perspective(1100px) rotateX(calc((0.5 - var(--my, 0.5)) * 4deg))
       rotateY(calc((var(--mx, 0.5) - 0.5) * 5deg)) translateY(-4px);
@@ -1370,7 +1386,7 @@ a.pk-mqi:hover {
       border-color 0.4s;
   }
 }
-/* One sheen across each tile as it comes in. */
+/* One sheen across each tile as it comes in (transform only; it crosses the whole tile). */
 .pk-ht__top::before {
   position: absolute;
   z-index: 1;
@@ -1381,9 +1397,8 @@ a.pk-mqi:hover {
   background: linear-gradient(100deg, transparent, var(--w12), transparent);
   content: '';
   pointer-events: none;
-  transform: skewX(-18deg);
+  transform: translateX(-100%) skewX(-18deg);
   animation: pk-sheen 1.6s var(--ease) both;
-  animation-delay: inherit;
 }
 .pk-ht--biznes .pk-ht__top::before {
   animation-delay: 0.5s;
@@ -1402,10 +1417,10 @@ a.pk-mqi:hover {
 }
 @keyframes pk-sheen {
   from {
-    left: -60%;
+    transform: translateX(0) skewX(-18deg);
   }
   to {
-    left: 140%;
+    transform: translateX(500%) skewX(-18deg);
   }
 }
 
@@ -1494,12 +1509,9 @@ a.pk-mqi:hover {
   }
 }
 
-/* Progress of the slides: a bright tip runs with the fill. */
-.pk-ht__seg i {
-  position: relative;
-}
-.pk-ht__seg i[data-fill='now'] {
-  box-shadow: 0 0 10px color-mix(in srgb, var(--ln) 70%, transparent);
+/* Progress of the slides: the track of the running slide glows softly. */
+.pk-ht__seg[aria-pressed='true'] > span {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--ln) 45%, transparent);
 }
 
 /* Tech: the repair moves on through its stages; Gaming: bars with a less even beat. */
@@ -1512,6 +1524,8 @@ a.pk-mqi:hover {
   inset: 0;
   background: linear-gradient(90deg, transparent, var(--w60), transparent);
   content: '';
+  /* Off the bar at rest, so reduced motion leaves no still streak. */
+  transform: translateX(-100%);
   animation: pk-run 1.8s ease-in-out infinite;
 }
 @keyframes pk-run {
@@ -1545,7 +1559,7 @@ a.pk-mqi:hover {
     transform: none;
   }
 }
-/* Without the steps (an older `home` in the panel) the call to action still sits at the bottom. */
+/* The call to action sits at the bottom of the tile. */
 .pk-hch-list + .pk-hb-main__cta {
   margin-top: auto;
 }

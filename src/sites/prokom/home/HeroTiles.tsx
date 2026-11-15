@@ -18,15 +18,18 @@ import { useAutoplay } from './useAutoplay'
 const SLIDE_MS = 4200
 /**
  * The light under the cursor and the tilt of a tile (H10): the pointer's place in the tile as
- * `--mx`/`--my` (0–1), written once per frame. Mouse only — a touch has no hover, and reduced
- * motion turns the effect off in CSS.
+ * `--mx`/`--my` (0–1), written once per frame. Mouse only — a touch has no hover; with reduced
+ * motion the light still follows (no movement of the tile), the tilt is off in CSS.
  */
+const frames = new WeakMap<HTMLElement, number>()
+
 function trackPointer(event: PointerEvent<HTMLElement>) {
   if (event.pointerType !== 'mouse') return
   const tile = event.currentTarget
   const { clientX, clientY } = event
-  cancelAnimationFrame(Number(tile.dataset.raf ?? 0))
-  tile.dataset.raf = String(
+  cancelAnimationFrame(frames.get(tile) ?? 0)
+  frames.set(
+    tile,
     requestAnimationFrame(() => {
       const box = tile.getBoundingClientRect()
       tile.style.setProperty('--mx', ((clientX - box.left) / box.width).toFixed(3))
