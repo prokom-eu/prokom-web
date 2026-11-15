@@ -780,10 +780,10 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
      the rail no longer starts level with the capsule (15.11). */
   top: calc(50% + 36px);
   /* Next to the content, not the window's edge (audit 14.11 pkt 3): on a wide monitor the page
-     stands in the middle, so the rail keeps 48 px off the left edge of the line's page box
-     (`--rail-content`: the capsule's 1344 px, the hub's 1560 px; 16 px stuck it to the sections —
-     Krystian 15.11); up to 1600 px (capsule) that is the window's 16 px. */
-  left: max(16px, calc((100% - var(--rail-content, 1344px)) / 2 - 112px));
+     stands in the middle, so the rail keeps 96 px off the left edge of the line's page box
+     (`--rail-content`: the capsule's 1344 px, the hub's 1560 px; 16 and 48 px stuck it to the sections
+     — Krystian 15.11); up to 1696 px (capsule) that is the window's 16 px. */
+  left: max(16px, calc((100% - var(--rail-content, 1344px)) / 2 - 160px));
   z-index: 30;
   display: none;
   filter: drop-shadow(0 14px 30px var(--cap-shadow));
