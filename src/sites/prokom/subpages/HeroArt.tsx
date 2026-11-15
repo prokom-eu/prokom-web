@@ -1,4 +1,5 @@
 import { Icon } from '@/components/ui/Icon'
+import { HUB_LINE_LABELS } from '@/lib/prokom/lines'
 import type { IconName } from '@/lib/shared/icons'
 
 import { Tick } from '../home/art'
@@ -14,7 +15,8 @@ type Row = {
   line: 'biznes' | 'instalacje' | 'software' | 'tech' | 'gaming' | 'prokom'
   icon: IconName
   label: string
-  state: 'switch' | string
+  /** `switch` draws a toggle; any other text is a ticked status. */
+  state: string
 }
 
 /** „Dla domu”: the home as an app — light, alarm, Wi-Fi, a phone in repair, a gaming PC. */
@@ -47,7 +49,7 @@ const STAGES: { line: Row['line']; title: string; state: 'done' | 'now' | 'next'
 export function HeroArt({ kind }: { kind: 'home' | 'deliveries' | 'cooperation' }) {
   if (kind === 'home') {
     return (
-      <div aria-hidden="true" className="pk-sart pk-app pk-app--big">
+      <div aria-hidden="true" className="pk-sart pk-app pk-app--big" style={lineStyle('prokom')}>
         <span className="pk-app__bar">
           <i className="pk-app__logo" />
           <span>Twój dom</span>
@@ -86,7 +88,7 @@ export function HeroArt({ kind }: { kind: 'home' | 'deliveries' | 'cooperation' 
   if (kind === 'deliveries') {
     const total = LIST_ROWS.reduce((sum, row) => sum + row.qty, 0)
     return (
-      <div aria-hidden="true" className="pk-sart pk-slist">
+      <div aria-hidden="true" className="pk-sart pk-slist" style={lineStyle('prokom')}>
         <span className="pk-app__bar">
           <i className="pk-app__logo" />
           <span>Lista zapytania · hotel</span>
@@ -120,7 +122,7 @@ export function HeroArt({ kind }: { kind: 'home' | 'deliveries' | 'cooperation' 
     )
   }
   return (
-    <div aria-hidden="true" className="pk-sart pk-stl">
+    <div aria-hidden="true" className="pk-sart pk-stl" style={lineStyle('prokom')}>
       <span className="pk-app__bar">
         <i className="pk-app__logo" />
         <span>Projekt · pensjonat</span>
@@ -133,19 +135,12 @@ export function HeroArt({ kind }: { kind: 'home' | 'deliveries' | 'cooperation' 
           <li key={stage.title} style={lineStyle(stage.line)} data-state={stage.state}>
             <span className="pk-stl__mark">{stage.state === 'done' ? <Tick /> : null}</span>
             <span className="pk-stl__title">{stage.title}</span>
-            <span className="pk-stl__line">{LINE_NAMES[stage.line]}</span>
+            <span className="pk-stl__line">
+              {stage.line === 'prokom' ? 'PRO-KOM' : HUB_LINE_LABELS[stage.line]}
+            </span>
           </li>
         ))}
       </ol>
     </div>
   )
-}
-
-const LINE_NAMES: Record<Row['line'], string> = {
-  biznes: 'Biznes',
-  instalacje: 'Instalacje',
-  software: 'Software',
-  tech: 'Tech',
-  gaming: 'Gaming',
-  prokom: 'PRO-KOM',
 }

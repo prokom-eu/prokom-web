@@ -683,7 +683,10 @@
 .pk-ohero {
   isolation: isolate;
 }
-.pk-ohero::before {
+/* `/kontakt` and `/o-firmie` (shared templates) open the same way, from the hub's sheet only. */
+.pk-ohero::before,
+[data-line='prokom']
+  :is(section[aria-labelledby='kontakt-h1'], section[aria-labelledby='o-firmie-h1'])::before {
   position: absolute;
   z-index: -1;
   inset: 0;
@@ -710,10 +713,13 @@
     );
   content: '';
   pointer-events: none;
-  animation: pk-drift 18s ease-in-out infinite alternate;
+  /* Two slow passes, then still — no endless layer behind every heading. */
+  animation: pk-drift 18s ease-in-out 2 alternate;
 }
 /* The five line colours as a thin stripe over the heading. */
-.pk-ohero::after {
+.pk-ohero::after,
+[data-line='prokom']
+  :is(section[aria-labelledby='kontakt-h1'], section[aria-labelledby='o-firmie-h1'])::after {
   position: absolute;
   top: 0;
   right: clamp(20px, 3vw, 48px);
@@ -899,13 +905,13 @@
 .pk-stl__line {
   border-radius: 999px;
   padding: 3px 10px;
-  background: color-mix(in srgb, var(--ln) 16%, transparent);
+  background: color-mix(in srgb, var(--ln) 10%, transparent);
   color: var(--ln-text);
   font-size: 12px;
   font-weight: 800;
 }
-@media (max-width: 900px) {
-  /* On a tablet the picture follows the text, and keeps it short. */
+@media (max-width: 1023px) {
+  /* With one column (`.pk-bhero`, ≤1023 px) the picture follows the text and keeps it short. */
   .pk-sart {
     max-width: 560px;
   }
@@ -919,8 +925,7 @@
 
 /* --- Cards of the subpages, premium pass (H13): the line's light in a corner of each card and a
    soft glow of its colour on hover; transform and shadow only. */
-.pk-lcard,
-.pk-ccard {
+:is(.pk-business, .pk-offer) :is(.pk-lcard, .pk-ccard) {
   background:
     radial-gradient(
       90% 60% at 100% 0%,
@@ -934,8 +939,7 @@
     box-shadow 0.35s var(--ease),
     border-color 0.3s;
 }
-a.pk-lcard:hover,
-a.pk-ccard:hover {
+:is(.pk-business, .pk-offer) :is(a.pk-lcard, a.pk-ccard):hover {
   border-color: var(--ln);
   box-shadow:
     inset 0 1px 0 var(--w09),
@@ -960,4 +964,11 @@ a.pk-ccard:hover {
 }
 .pk-osv:hover {
   box-shadow: 0 14px 30px -22px var(--ln, var(--k-g));
+}
+/* `/kontakt` and `/o-firmie` sit outside `.pk-home` and its reduced-motion rule. */
+@media (prefers-reduced-motion: reduce) {
+  [data-line='prokom']
+    :is(section[aria-labelledby='kontakt-h1'], section[aria-labelledby='o-firmie-h1'])::before {
+    animation: none;
+  }
 }
