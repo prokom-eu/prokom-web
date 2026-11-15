@@ -118,7 +118,8 @@ export function guidePostData(post: GuidePost, solution: SolutionRef): PostData 
     lead: post.lead,
     summary: post.summary,
     content: richText<Post['content']>(post.nodes),
-    sources: post.sources,
+    // As Payload stores a day: midnight UTC (compared on the next run, so no new version).
+    sources: post.sources.map((s) => ({ ...s, verifiedAt: `${s.verifiedAt}T00:00:00.000Z` })),
     relatedSolutions: post.relatedSolutions.map((slug) => {
       const id = solution(slug)
       if (id === undefined) throw new Error(`${post.file}: nieznane rozwiązanie „${slug}”.`)
