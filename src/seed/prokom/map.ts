@@ -99,14 +99,33 @@ export const FEATURED_TOOLS: Record<HubLine, readonly string[]> = {
   gaming: ['Konfigurator', 'Dobór pod grę'],
 }
 
+/**
+ * Deep links of the tools on the lines' sites (checked live 15.11.2026, audit H8). A tool without
+ * an entry leads to its line's home page. Tools here are live, so the board's „Wkrótce” is dropped.
+ */
+export const TOOL_LINKS: Record<string, string> = {
+  'biznes-konfigurator': 'https://prokombiznes.pl/konfigurator',
+  'biznes-plan-twojej-firmy': 'https://prokombiznes.pl/plan-firmy',
+  'instalacje-zaplanuj-instalacje': 'https://prokominstalacje.pl/zaplanuj',
+  'instalacje-zglos-awarie-instalacji': 'https://prokominstalacje.pl/serwis#zglos',
+  'software-policz-swoj-projekt': 'https://prokomsoftware.pl/dobierz',
+  'software-darmowy-audyt-strony': 'https://prokomsoftware.pl/audyt',
+  'tech-zglos-naprawe': 'https://prokomserwis.pl/zgloszenie',
+  // TODO(krystian): Status naprawy — prokomserwis.pl ma tylko /client/login; do decyzji.
+  'gaming-konfigurator': 'https://prokomgaming.pl/konfigurator',
+  'gaming-dobor-pod-gre': 'https://prokomgaming.pl/dobor-pod-gre',
+}
+
 type ToolTuple = [string, string, string, string, string[], string, string, unknown, string]
 
 export function hubTools(): ToolSeed[] {
   return (narzedzia.data as ToolTuple[]).map(
     ([lineKey, action, title, desc, inputs, result, ctaLabel, preview, badge], index) => {
       const own = line(lineKey)
+      const key = `${own}-${slugOf(title)}`
+      const url = TOOL_LINKS[key] ?? null
       return {
-        key: `${own}-${slugOf(title)}`,
+        key,
         line: own,
         action: action as ToolSeed['action'],
         title,
@@ -114,10 +133,9 @@ export function hubTools(): ToolSeed[] {
         inputs,
         result,
         ctaLabel,
-        // TODO(krystian): głębokie linki do narzędzi linii — do uzupełnienia w panelu po starcie
-        // linii; puste = formularz kontaktu z tematem (ADR-H002 §3).
-        url: null,
-        badge: badge || null,
+        // Empty = the line's home page (home, menu) or contact with the topic (search).
+        url,
+        badge: url && badge === 'Wkrótce' ? null : badge || null,
         preview: preview as ToolSeed['preview'],
         featuredOnHome: FEATURED_TOOLS[own].includes(title),
         order: (index + 1) * 10,

@@ -118,8 +118,12 @@ describe('hub search index (ADR-H002 §4)', () => {
     expect(on.find((e) => e.kind === 'help')?.href).toMatch(/^\/pomoc\/[a-z0-9-]+$/)
   })
 
-  it('a tool without a deep link leads to contact with its name as the phrase', () => {
-    expect(index.find((e) => e.kind === 'tool')?.href).toMatch(/^\/kontakt\?fraza=/)
+  it('a tool leads to its deep link, or without one to contact with its name as the phrase', () => {
+    const tools = index.filter((e) => e.kind === 'tool')
+    expect(tools.find((e) => e.title === 'Zaplanuj instalację')?.href).toBe(
+      'https://prokominstalacje.pl/zaplanuj',
+    )
+    expect(tools.find((e) => e.title === 'Status naprawy')?.href).toMatch(/^\/kontakt\?fraza=/)
   })
 
   it('stays under 50 KB gzip (the window fetches it once)', () => {

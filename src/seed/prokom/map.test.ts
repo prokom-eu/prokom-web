@@ -1,6 +1,15 @@
 import { describe, expect, it } from 'vitest'
 
-import { hubHelp, hubPlans, hubServices, hubTools, hubTrust, mergeTrust, slugOf } from './map'
+import {
+  TOOL_LINKS,
+  hubHelp,
+  hubPlans,
+  hubServices,
+  hubTools,
+  hubTrust,
+  mergeTrust,
+  slugOf,
+} from './map'
 
 const services = hubServices()
 const tools = hubTools()
@@ -55,6 +64,20 @@ describe('hub seed — services', () => {
 })
 
 describe('hub seed — tools and plans', () => {
+  it('featured tools lead deep into the lines (only Status naprawy waits, audit H8)', () => {
+    const shallow = tools
+      .filter((t) => t.featuredOnHome)
+      .filter((t) => !t.url || new URL(t.url).pathname === '/')
+      .map((t) => t.key)
+    expect(shallow).toEqual(['tech-status-naprawy'])
+    expect(Object.keys(TOOL_LINKS).filter((key) => !tools.some((t) => t.key === key))).toEqual([])
+  })
+
+  it('a linked tool is never „Wkrótce”', () => {
+    expect(tools.filter((t) => t.url && t.badge === 'Wkrótce')).toEqual([])
+    expect(tools.find((t) => t.key === 'biznes-lista-zapytania')?.badge).toBe('Wkrótce')
+  })
+
   it('two tools per line are featured on the home page', () => {
     for (const line of ['biznes', 'instalacje', 'software', 'tech', 'gaming']) {
       expect(tools.filter((t) => t.line === line && t.featuredOnHome)).toHaveLength(2)
