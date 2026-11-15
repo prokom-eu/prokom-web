@@ -1,0 +1,300 @@
+/*
+ * Light theme of pro-kom.eu, premium pass (H16, Krystian 15.11: „jasny motyw też ma być premium”).
+ * Dark builds depth from light on black — glows, translucent panes. The same rules on a light
+ * page turn into flat pastels and grey veils. This layer, only under `data-theme='light'`, gives
+ * the light theme its own depth: white cards with a wash of the line's colour, soft layered
+ * shadows with the line's light underneath, crisp white windows in the pictures and dark camera
+ * screens. Colours only from tokens (`--lt-*`, `--k-*`, `--ln`); dark theme untouched.
+ */
+
+[data-line='prokom'][data-theme='light'] {
+  /* Depth: a white top edge, a contact shadow and a soft ambient one. */
+  --lt-hair: color-mix(in srgb, var(--k-ink) 8%, transparent);
+  --lt-elev-1: inset 0 1px 0 var(--lt-hi), 0 1px 2px var(--lt-sh1), 0 8px 20px -12px var(--lt-sh2);
+  --lt-elev-2:
+    inset 0 1px 0 var(--lt-hi), 0 1px 2px var(--lt-sh1), 0 14px 32px -18px var(--lt-sh3),
+    0 2px 6px -2px var(--lt-sh1);
+}
+
+/* --- Page --------------------------------------------------------------------------------- */
+/* A faint aurora of the five line colours behind the hero and the final call. */
+[data-line='prokom'][data-theme='light'] :is(.pk-hero, .pk-final) {
+  background:
+    radial-gradient(
+      38% 46% at 6% 0%,
+      color-mix(in srgb, var(--k-g) 9%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      30% 40% at 46% 0%,
+      color-mix(in srgb, var(--k-b) 7%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      30% 40% at 72% 4%,
+      color-mix(in srgb, var(--k-s) 7%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      30% 40% at 98% 10%,
+      color-mix(in srgb, var(--k-i) 7%, transparent),
+      transparent 70%
+    );
+}
+[data-line='prokom'][data-theme='light'] :is(.pk-hero__dots, .pk-final__dots) {
+  opacity: 0.55;
+}
+[data-line='prokom'][data-theme='light'] .pk-band {
+  border-color: var(--lt-hair);
+  background: linear-gradient(180deg, var(--k-bg2), var(--k-bg) 85%);
+}
+
+/* --- Cards: white with the line's wash and its light underneath ----------------------------- */
+[data-line='prokom'][data-theme='light']
+  :is(
+    .pk-ht,
+    .pk-lt,
+    .pk-pn-wrap,
+    .pk-lcard,
+    .pk-tgr,
+    .pk-sit,
+    .pk-help__panel,
+    .pk-ccard,
+    .pk-auth__card,
+    .pk-bgroup,
+    .pk-ltab[aria-selected='true'],
+    .pk-area
+  ) {
+  border-color: color-mix(in srgb, var(--ln, var(--k-g)) 20%, transparent);
+  background:
+    radial-gradient(
+      90% 70% at 100% 0%,
+      color-mix(in srgb, var(--ln, var(--k-g)) 13%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      80% 60% at 0% 100%,
+      color-mix(in srgb, var(--ln, var(--k-g)) 7%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      160deg,
+      var(--k-card) 30%,
+      color-mix(in srgb, var(--ln, var(--k-g)) 6%, var(--k-card))
+    );
+  box-shadow:
+    var(--lt-elev-2),
+    0 34px 64px -44px color-mix(in srgb, var(--ln, var(--k-g)) 55%, transparent);
+}
+/* Neutral cards: plain white, the same depth. */
+[data-line='prokom'][data-theme='light']
+  :is(
+    .pk-hb-main,
+    .pk-plan,
+    .pk-coop,
+    .pk-salon,
+    .pk-reach__map,
+    .pk-fq,
+    .pk-contact,
+    .pk-pt:not([aria-pressed='true']),
+    .pk-bstate,
+    .pk-ind__item:not([aria-pressed='true']),
+    .pk-ltab:not([aria-selected='true']),
+    .pk-situation,
+    .pk-roll__step,
+    .pk-cmp-wrap,
+    .pk-onx
+  ) {
+  border-color: var(--lt-hair);
+  background-color: var(--k-card);
+  box-shadow: var(--lt-elev-1);
+}
+[data-line='prokom'][data-theme='light'] :is(.pk-hb-main, .pk-plan, .pk-contact, .pk-coop) {
+  box-shadow:
+    var(--lt-elev-2),
+    0 40px 80px -56px color-mix(in srgb, var(--k-g) 45%, transparent);
+}
+/* Small cards inside a card: white panes with a hairline. */
+[data-line='prokom'][data-theme='light']
+  :is(
+    .pk-svc,
+    .pk-tlc,
+    .pk-clr,
+    .pk-hq2__item,
+    .pk-blogo,
+    .pk-own,
+    .pk-ocp,
+    .pk-bfacts li,
+    .pk-area__list li,
+    .pk-grants li
+  ) {
+  border-color: var(--lt-hair);
+  background-color: var(--k-card);
+  box-shadow: var(--lt-elev-1);
+}
+[data-line='prokom'][data-theme='light'] :is(.pk-svc, .pk-hq2__item) {
+  background-image: radial-gradient(
+    120% 120% at 0% 0%,
+    color-mix(in srgb, var(--ln, var(--k-g)) 9%, transparent),
+    transparent 60%
+  );
+}
+[data-line='prokom'][data-theme='light'] :is(.pk-svc, .pk-tlc, .pk-hq2__item, .pk-lcard):hover {
+  box-shadow:
+    var(--lt-elev-2),
+    0 22px 44px -26px color-mix(in srgb, var(--ln, var(--k-g)) 60%, transparent);
+}
+
+/* --- Pictures: crisp white windows, dark camera screens ------------------------------------ */
+/* Windows of the pictures (hero tiles, line scene, tools, subpage art) as white panes; the
+   translucent layers inside them read as soft tints of the line instead of grey veils. */
+[data-line='prokom'][data-theme='light'] :is(.pk-vg, .pk-pn, .pk-tv, .pk-sart) {
+  --w03: color-mix(in srgb, var(--ln, var(--k-g)) 4%, var(--k-card));
+  --w05: color-mix(in srgb, var(--ln, var(--k-g)) 6%, var(--k-card));
+  --w09: color-mix(in srgb, var(--k-ink) 9%, transparent);
+  --w12: color-mix(in srgb, var(--ln, var(--k-g)) 14%, var(--k-card));
+  --w16: color-mix(in srgb, var(--ln, var(--k-g)) 20%, var(--k-card));
+  --w22: color-mix(in srgb, var(--k-ink) 18%, transparent);
+  border-color: var(--lt-hair);
+  background-color: var(--k-card);
+  background-image: linear-gradient(
+    180deg,
+    var(--k-card),
+    color-mix(in srgb, var(--ln, var(--k-g)) 4%, var(--k-card))
+  );
+  box-shadow:
+    var(--lt-elev-2),
+    0 24px 48px -30px color-mix(in srgb, var(--ln, var(--k-g)) 50%, transparent);
+}
+/* Camera feeds and the gaming readout stay screens: dark, like the real thing. */
+[data-line='prokom'][data-theme='light']
+  :is(.pk-tl2[data-kind='cam'], .pk-cb:not([data-kind='wifi']), .pk-ht__eq, .pk-game, .pk-game2) {
+  --k-white: var(--lt-screen-ink);
+  --w03: color-mix(in srgb, var(--lt-screen-ink) 3%, transparent);
+  --w05: color-mix(in srgb, var(--lt-screen-ink) 5%, transparent);
+  --w09: color-mix(in srgb, var(--lt-screen-ink) 9%, transparent);
+  --w12: color-mix(in srgb, var(--lt-screen-ink) 12%, transparent);
+  --w16: color-mix(in srgb, var(--lt-screen-ink) 16%, transparent);
+  --w22: color-mix(in srgb, var(--lt-screen-ink) 22%, transparent);
+  --w60: color-mix(in srgb, var(--lt-screen-ink) 62%, transparent);
+  color: var(--lt-screen-ink);
+}
+[data-line='prokom'][data-theme='light']
+  :is(.pk-tl2[data-kind='cam'], .pk-cb:not([data-kind='wifi'])) {
+  border-color: color-mix(in srgb, var(--lt-screen) 80%, transparent);
+  background: linear-gradient(165deg, var(--lt-screen-2), var(--lt-screen));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--lt-screen-ink) 10%, transparent),
+    0 10px 22px -14px var(--lt-sh3);
+}
+[data-line='prokom'][data-theme='light'] :is(.pk-game, .pk-game2) {
+  border-color: color-mix(in srgb, var(--ln, var(--k-g)) 30%, transparent);
+  background:
+    radial-gradient(
+      90% 80% at 100% 0%,
+      color-mix(in srgb, var(--ln, var(--k-g)) 22%, transparent),
+      transparent 65%
+    ),
+    linear-gradient(165deg, var(--lt-screen-2), var(--lt-screen));
+}
+[data-line='prokom'][data-theme='light'] :is(.pk-game, .pk-game2) .pk-game__fps {
+  color: var(--k-y);
+}
+[data-line='prokom'][data-theme='light'] .pk-game2__read {
+  color: var(--k-y);
+}
+
+/* Line name behind the scene panel: a crisper outline on the light wash. */
+[data-line='prokom'][data-theme='light'] .pk-pn__mark {
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--ln, var(--k-g)) 26%, transparent);
+}
+
+/* --- Buttons: the line's fill with its light under it ------------------------------------- */
+[data-line='prokom'][data-theme='light']
+  :is(.pk-btn-line, .pk-hcta, .pk-hbtn--accent, .pk-hbtn--line) {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--lt-hi) 35%, transparent),
+    0 10px 24px -12px color-mix(in srgb, var(--ln, var(--k-g)) 75%, transparent);
+}
+[data-line='prokom'][data-theme='light']
+  :is(
+    .pk-bx,
+    .pk-hphone,
+    .pk-btn-phone,
+    .pk-hbtn:not(.pk-hbtn--accent, .pk-hbtn--line, .pk-hbtn--on-dark)
+  ) {
+  border-color: var(--lt-hair);
+  background-color: var(--k-card);
+  box-shadow: var(--lt-elev-1);
+}
+
+/* Selected tile of „Wybierz”: the hub green with its light. */
+[data-line='prokom'][data-theme='light'] .pk-pt[aria-pressed='true'] {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--lt-hi) 30%, transparent),
+    0 18px 36px -18px color-mix(in srgb, var(--k-g) 70%, transparent);
+}
+/* The camera picture itself: a dark feed instead of the light theme's grey dim. */
+[data-line='prokom'][data-theme='light'] .pk-cam {
+  background: linear-gradient(
+    170deg,
+    var(--w09),
+    color-mix(in srgb, var(--lt-screen) 70%, transparent)
+  );
+}
+
+/* „Albo napisz”: a soft light of the five lines instead of a flat grey-green half. */
+[data-line='prokom'][data-theme='light'] .pk-contact__write {
+  background:
+    radial-gradient(
+      60% 70% at 100% 0%,
+      color-mix(in srgb, var(--k-g) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 60% at 0% 100%,
+      color-mix(in srgb, var(--k-b) 8%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 50% at 100% 100%,
+      color-mix(in srgb, var(--k-s) 7%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(160deg, var(--k-bg), var(--k-bg2));
+}
+
+/* Reach map: the salon's ring lit, the outer rings as fine lines. */
+[data-line='prokom'][data-theme='light'] .pk-reach__map {
+  background:
+    radial-gradient(
+      50% 50% at 50% 55%,
+      color-mix(in srgb, var(--k-g) 8%, transparent),
+      transparent 70%
+    ),
+    var(--k-card);
+}
+[data-line='prokom'][data-theme='light'] .pk-ring--1 {
+  box-shadow: 0 18px 40px -18px color-mix(in srgb, var(--k-g) 55%, transparent);
+}
+
+/* Subpages: the big panel of a line keeps its stripe on top; its service cards as white panes. */
+[data-line='prokom'][data-theme='light'] .pk-area {
+  border-top-color: var(--ln, var(--k-g));
+}
+[data-line='prokom'][data-theme='light'] .pk-osv:not([aria-pressed='true']) {
+  border-color: var(--lt-hair);
+  box-shadow: var(--lt-elev-1);
+}
+[data-line='prokom'][data-theme='light'] .pk-osv:hover {
+  box-shadow:
+    var(--lt-elev-2),
+    0 22px 44px -26px color-mix(in srgb, var(--ln, var(--k-g)) 60%, transparent);
+}
+
+/* Situations without a line colour: plain white until chosen. */
+[data-line='prokom'][data-theme='light'] .pk-sit--neutral:not([aria-pressed='true']) {
+  border-color: var(--lt-hair);
+  background: var(--k-card);
+  box-shadow: var(--lt-elev-1);
+}

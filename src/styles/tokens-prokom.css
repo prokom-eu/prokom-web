@@ -99,6 +99,17 @@
   --r-gl3: 255, 255, 255;
   --r-gl4: 255, 255, 255;
   --r-gl5: 255, 255, 255;
+
+  /* Light theme depth (H16, `style/light.css`): where dark glows on black, light builds depth
+     from soft layered shadows, a white top edge and dark "screens" in the pictures. */
+  --lt-hi: rgba(255, 255, 255, 0.95);
+  --lt-sh1: rgba(18, 22, 19, 0.05);
+  --lt-sh2: rgba(18, 22, 19, 0.09);
+  --lt-sh3: rgba(18, 22, 19, 0.16);
+  --lt-glass: rgba(255, 255, 255, 0.72);
+  --lt-screen: #101512;
+  --lt-screen-2: #1b231d;
+  --lt-screen-ink: #eef1ec;
 }
 
 [data-line='prokom'][data-theme='dark'] {
