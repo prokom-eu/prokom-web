@@ -758,7 +758,7 @@ function brands() {
       {
         line: 'biznes',
         title: 'Sprzęt i programy dla firm',
-        // Krystian 15.11: the brands of Biznes, each with its logo (Apple waits for its file).
+        // Krystian 15.11: the brands of Biznes, each with its logo.
         brands: [
           'Lenovo',
           'Dell',

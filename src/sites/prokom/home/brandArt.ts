@@ -20,6 +20,7 @@ export const BRAND_LOGOS: Record<string, BrandPicture> = {
   ESET: { src: '/prokom/marki/eset.webp', width: 404, height: 160 },
   Eurocert: { src: '/prokom/marki/eurocert.webp', width: 480, height: 93 },
   Sunmi: { src: '/prokom/marki/sunmi.webp', width: 480, height: 92 },
+  Apple: { src: '/prokom/marki/apple.webp', width: 350, height: 120 },
   // Phone makers of Tech: Xiaomi and Motorola from Krystian (15.11), Samsung from Instalacje.
   Xiaomi: { src: '/prokom/marki/xiaomi.webp', width: 450, height: 120 },
   Motorola: { src: '/prokom/marki/motorola.webp', width: 524, height: 120 },
