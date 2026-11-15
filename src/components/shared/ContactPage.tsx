@@ -4,23 +4,26 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { serializeJsonLd } from '@/lib/seo/jsonLd'
 import { formConsent } from '@/lib/shared/consent'
-import { hourTiles, weekHours } from '@/lib/shared/hourTiles'
+import { dayTiles, hourTiles, weekHours } from '@/lib/shared/hourTiles'
 import { isIconName } from '@/lib/shared/icons'
 import { lineSalons, pageBreadcrumbsJsonLd, PLACE_KIND_LABEL } from '@/lib/shared/pages'
 import type { SharedData } from '@/lib/shared/project'
 import { warsawWeekday } from '@/lib/site/hours'
+import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
 import type { Line } from '@/lib/tenant/lines'
 
 import { AddressMap } from './AddressMap'
 import { ContactForm } from './ContactForm'
 import { Contours } from './Contours'
+import { CopyEmail } from './CopyEmail'
 import { FaqBlock } from './FaqBlock'
 import { OpeningStatus } from './OpeningStatus'
 import { OtherLines } from './OtherLines'
 import { PageCrumbs, type Crumb } from './PageCrumbs'
 import { PAGE_CONTAINER as CONTAINER } from './pageContainer'
 import { ServiceAreaMap } from './ServiceAreaMap'
+import { ServiceAreaRings } from './ServiceAreaRings'
 import { Steps } from './Steps'
 import { AccentText, HeadingText } from './HeadingText'
 import { TAP_AREA } from './tapArea'
@@ -68,6 +71,18 @@ export type ContactPageProps = {
   headingEmClass?: string
   /** Hours in the address card: three tiles (default) or the seven days with „dziś” (Web-kontakt). */
   hoursLayout?: 'tiles' | 'week'
+  /**
+   * Top of the hero: `number` (default) — the big number and „Zadzwoń teraz”; `calls` (Biznes,
+   * runda 1411 KontaktHero) — two equal call tiles (the line's phone and second phone), the facts
+   * as one bar with „Kopiuj” at the e-mail, the card with seven day tiles. A line without a second
+   * number gets one tile.
+   */
+  heroLayout?: 'number' | 'calls'
+  /**
+   * „Dojazd”: `search` (default) — the town field and the zone drawing; `rings` (Biznes, runda 1411
+   * Obszar) — rings of 15 / 35 / 55 km with the towns at their true place (needs the salon's geo).
+   */
+  serviceArea?: 'search' | 'rings'
 }
 
 const H2 =
@@ -96,6 +111,8 @@ export function ContactPage({
   showOtherLines = true,
   headingEmClass,
   hoursLayout = 'tiles',
+  heroLayout = 'number',
+  serviceArea = 'search',
 }: ContactPageProps) {
   const { company, lines } = shared
   const data = shared.line
@@ -104,16 +121,26 @@ export function ContactPage({
   const salon = salons[0] ?? null
   const hours = salon?.hours ?? company.hours
   const tel = data.phone ? toTelHref(data.phone) : null
+  const calls = heroLayout === 'calls'
+  const callNumbers = [
+    { label: 'Numer główny', number: data.phone, main: true },
+    { label: 'Drugi numer', number: data.phone2, main: false },
+  ].flatMap(({ number, ...rest }) => {
+    const href = number ? toTelHref(number) : null
+    return number && href ? [{ ...rest, number, href }] : []
+  })
   const consent = formConsent(company.consent)
   const where = salon ? `${salon.street}, ${salon.postalCode} ${salon.city}` : null
   const today = warsawWeekday(new Date(now))
-  const tiles = hours.length && hoursLayout === 'tiles' ? hourTiles(hours, today) : []
-  const week = hours.length && hoursLayout === 'week' ? weekHours(hours, today) : []
+  const tiles = hours.length && hoursLayout === 'tiles' && !calls ? hourTiles(hours, today) : []
+  const week = hours.length && hoursLayout === 'week' && !calls ? weekHours(hours, today) : []
+  const days = hours.length && calls ? dayTiles(hours, today) : []
   const routes = contact.routes ?? []
   // The map drawing is of the office (Orkana 16B) and the route is `CompanyData.mapsUrl` — shown only
   // when the card is that salon; another first salon gets its address and hours without a map.
   const officeCard = salon !== null && salon.key === (shared.salons[0]?.key ?? null)
   const others = lines.filter((item) => item.key !== line)
+  const ringsGeo = salon?.geo ?? company.geo
   const jsonLd = pageBreadcrumbsJsonLd(origin, breadcrumbs)
 
   return (
@@ -148,6 +175,7 @@ export function ContactPage({
                 now={now}
                 variant="pill"
                 onDark
+                pulse={calls}
               />
             </div>
             <h1
@@ -157,7 +185,16 @@ export function ContactPage({
               <HeadingText text={contact.h1 || 'Kontakt'} />
             </h1>
             {contact.lead && <p className="max-w-[56ch] text-lg">{contact.lead}</p>}
-            {tel && (
+            {calls && (
+              <CallsHero
+                numbers={callNumbers}
+                facts={contact.facts ?? []}
+                hours={hours.length ? hoursSummary(hours) : null}
+                responsePromise={data.responsePromise}
+                writeCta={contact.writeCta}
+              />
+            )}
+            {!calls && tel && (
               <div className="flex flex-col gap-1">
                 <span className="text-xs font-extrabold tracking-[0.12em] text-on-dark-text uppercase">
                   Najszybciej — zadzwoń
@@ -174,31 +211,33 @@ export function ContactPage({
                 </a>
               </div>
             )}
-            <div className="flex flex-wrap gap-3">
-              {tel && (
+            {!calls && (
+              <div className="flex flex-wrap gap-3">
+                {tel && (
+                  <a
+                    href={tel}
+                    className={cx(
+                      'inline-flex min-h-12 items-center gap-2 rounded-[14px] bg-on-dark px-5 font-extrabold text-on-dark-ink',
+                      FOCUS,
+                    )}
+                  >
+                    <Icon name="phone" className="size-4" strokeWidth={2.2} />
+                    Zadzwoń teraz
+                  </a>
+                )}
                 <a
-                  href={tel}
+                  href="#formularz"
                   className={cx(
-                    'inline-flex min-h-12 items-center gap-2 rounded-[14px] bg-on-dark px-5 font-extrabold text-on-dark-ink',
+                    'inline-flex min-h-12 items-center gap-2 rounded-[14px] border-[1.5px] border-line-dark-rule px-5 font-extrabold text-line-dark-ink hover:bg-line-dark-current',
                     FOCUS,
                   )}
                 >
-                  <Icon name="phone" className="size-4" strokeWidth={2.2} />
-                  Zadzwoń teraz
+                  <Icon name="chat" className="size-4" strokeWidth={2.2} />
+                  {contact.writeCta || 'Napisz do nas'}
                 </a>
-              )}
-              <a
-                href="#formularz"
-                className={cx(
-                  'inline-flex min-h-12 items-center gap-2 rounded-[14px] border-[1.5px] border-line-dark-rule px-5 font-extrabold text-line-dark-ink hover:bg-line-dark-current',
-                  FOCUS,
-                )}
-              >
-                <Icon name="chat" className="size-4" strokeWidth={2.2} />
-                {contact.writeCta || 'Napisz do nas'}
-              </a>
-            </div>
-            {contact.facts && contact.facts.length > 0 && (
+              </div>
+            )}
+            {!calls && contact.facts && contact.facts.length > 0 && (
               <ul className="mt-2 grid gap-px overflow-hidden rounded-[22px] border border-line-dark-rule bg-line-dark-rule min-[640px]:grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
                 {contact.facts.map((fact, i) => (
                   <li key={i} className="flex items-start gap-3 bg-line-dark-card p-4">
@@ -262,6 +301,42 @@ export function ContactPage({
                     ))}
                   </ul>
                 )}
+                {days.length > 0 && (
+                  <ul
+                    className="grid grid-cols-7 gap-1.5"
+                    aria-label="Godziny otwarcia"
+                    data-day-tiles
+                  >
+                    {days.map((day) => (
+                      <li
+                        key={day.key}
+                        aria-current={day.today ? 'date' : undefined}
+                        className={cx(
+                          'flex min-w-0 flex-col items-center gap-0.5 rounded-[11px] py-2',
+                          day.today
+                            ? 'bg-button text-accent-ink'
+                            : day.compact
+                              ? 'bg-surface-2 text-ink'
+                              : 'border border-dashed border-border text-ink-2',
+                        )}
+                      >
+                        <span className="sr-only">
+                          {day.label}
+                          {day.today && ' (dziś)'}: {day.value}
+                        </span>
+                        <b aria-hidden="true" className="text-[12px]">
+                          {day.short}
+                        </b>
+                        <span
+                          aria-hidden="true"
+                          className="text-[11px] leading-tight whitespace-nowrap tabular-nums max-[399px]:text-[10.5px] max-[399px]:tracking-[-0.02em]"
+                        >
+                          {day.compact ?? 'zamkn.'}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 {week.length > 0 && (
                   <div className="px-2">
                     <table
@@ -303,7 +378,7 @@ export function ContactPage({
                 )}
                 <p className="flex flex-wrap justify-between gap-2 px-2 text-sm text-ink-2">
                   <span>
-                    {company.name} · NIP {company.nip}
+                    {company.name} · <span className="whitespace-nowrap">NIP {company.nip}</span>
                   </span>
                   {company.ceidgUrl && (
                     <a
@@ -447,7 +522,34 @@ export function ContactPage({
 
       {slots.afterForm}
 
-      {showServiceArea && company.serviceZones.length > 0 && (
+      {showServiceArea &&
+        company.serviceZones.length > 0 &&
+        serviceArea === 'rings' &&
+        ringsGeo && (
+          <section
+            id="dojazd"
+            aria-labelledby="kontakt-dojazd"
+            className={cx(CONTAINER, 'scroll-mt-28 py-16')}
+            data-rail-section="Dojazd"
+            data-rail-icon="map"
+          >
+            <ServiceAreaRings
+              zones={company.serviceZones}
+              salon={{
+                city: salon?.city ?? company.address?.city ?? '',
+                street: salon?.street ?? company.address?.street ?? '',
+                geo: ringsGeo,
+              }}
+              title={contact.mapTitle || 'Obszar działania'}
+              lead={contact.mapLead}
+              headingId="kontakt-dojazd"
+              phones={callNumbers.map((item) => item.number)}
+              headingEmClass={headingEmClass}
+            />
+          </section>
+        )}
+
+      {showServiceArea && company.serviceZones.length > 0 && serviceArea === 'search' && (
         <section
           id="dojazd"
           aria-labelledby="kontakt-dojazd"
@@ -525,5 +627,161 @@ function FactValue({ kind, value }: { kind: string; value: string }) {
     </a>
   ) : (
     <b className="text-line-dark-ink">{value}</b>
+  )
+}
+
+type CallNumber = { label: string; number: string; href: string; main: boolean }
+type Fact = NonNullable<NonNullable<SharedData['line']['contact']>['facts']>[number]
+
+/**
+ * The calls part of the Kontakt hero (runda 1411, KontaktHero): two equal call tiles (the main
+ * one in the line's colour), the facts bar — e-mail with „Kopiuj”, the salon's hours, the line's
+ * text facts — with labels over values that never wrap, and the line's promise with a link to
+ * the form. Phone: tiles and bar rows one under another.
+ */
+function CallsHero({
+  numbers,
+  facts,
+  hours,
+  responsePromise,
+  writeCta,
+}: {
+  numbers: CallNumber[]
+  facts: readonly Fact[]
+  hours: string | null
+  responsePromise: string | null
+  writeCta?: string | null
+}) {
+  const email = facts.find((fact) => fact.kind === 'email' && fact.value)
+  const texts = facts.filter((fact) => fact.kind === 'text' && fact.value)
+  const cells: { key: string; label: string; icon: string; node: ReactNode; wide?: boolean }[] = [
+    ...(email?.value
+      ? [
+          {
+            key: 'email',
+            label: email.label,
+            icon: email.icon ?? 'mail',
+            node: <CopyEmail email={email.value} />,
+            wide: true,
+          },
+        ]
+      : []),
+    ...(hours
+      ? [
+          {
+            key: 'hours',
+            label: 'Godziny',
+            icon: 'clock',
+            node: <b className="whitespace-nowrap text-line-dark-ink">{hours}</b>,
+          },
+        ]
+      : []),
+    ...texts.map((fact, i) => ({
+      key: `text-${i}`,
+      label: fact.label,
+      icon: fact.icon ?? 'check',
+      node: <b className="whitespace-nowrap text-line-dark-ink">{fact.value}</b>,
+    })),
+  ]
+  return (
+    <div className="flex flex-col gap-4" data-contact-calls>
+      {numbers.length > 0 && (
+        <>
+          <span className="mt-1 text-xs font-extrabold tracking-[0.14em] text-on-dark-text uppercase">
+            {numbers.length > 1
+              ? 'Najszybciej — zadzwoń na którykolwiek numer'
+              : 'Najszybciej — zadzwoń'}
+          </span>
+          <ul
+            className={cx(
+              'grid grid-cols-1 gap-3',
+              numbers.length > 1 && 'min-[560px]:grid-cols-2',
+            )}
+          >
+            {numbers.map((item) => (
+              <li key={item.href} className="min-w-0">
+                <a
+                  href={item.href}
+                  className={cx(
+                    'call-tile flex min-h-[86px] items-center gap-4 rounded-[20px] border px-5 py-4',
+                    item.main
+                      ? 'border-transparent bg-button text-accent-ink shadow-raised'
+                      : 'border-line-dark-rule bg-line-dark-card text-line-dark-ink hover:bg-line-dark-current',
+                    FOCUS,
+                  )}
+                  data-call-tile={item.main ? 'main' : 'second'}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={cx(
+                      'call-tile__icon flex size-[50px] shrink-0 items-center justify-center rounded-[15px]',
+                      item.main ? 'bg-accent-ink/15' : 'bg-line-dark-current text-on-dark-text',
+                    )}
+                  >
+                    <Icon name="phone" className="size-[22px]" strokeWidth={2} />
+                  </span>
+                  <span className="flex min-w-0 flex-col gap-0.5">
+                    <span className="text-xs font-bold">{item.label}</span>
+                    <b className="font-display text-[clamp(24px,7.4vw,30px)] leading-tight font-extrabold tracking-[-0.01em] whitespace-nowrap">
+                      {item.number}
+                    </b>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {cells.length > 0 && (
+        // A container query: the bar goes to one row only when its own box is wide enough for
+        // the e-mail, hours and promise without wrapping (the hero column, not the window).
+        <div className="@container">
+          <ul
+            className={cx(
+              'grid grid-cols-1 gap-px overflow-hidden rounded-[20px] border border-line-dark-rule bg-line-dark-rule',
+              cells.length === 3 && '@[640px]:grid-cols-[1.5fr_1fr_0.8fr]',
+              cells.length === 2 && '@[520px]:grid-cols-2',
+            )}
+            data-contact-bar
+          >
+            {cells.map((cell) => (
+              <li
+                key={cell.key}
+                className="flex min-w-0 items-center gap-3 bg-line-dark-card px-4 py-3.5"
+              >
+                <span
+                  aria-hidden="true"
+                  className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-line-dark-current text-on-dark-text max-[399px]:hidden @min-[640px]:@max-[800px]:hidden"
+                >
+                  <Icon
+                    name={isIconName(cell.icon) ? cell.icon : 'check'}
+                    className="size-[18px]"
+                  />
+                </span>
+                <span className="flex min-w-0 flex-1 flex-col gap-px">
+                  <span className="text-xs font-bold text-line-dark-text">{cell.label}</span>
+                  {cell.node}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {responsePromise && (
+        <p className="text-sm text-line-dark-text">
+          {responsePromise}. Wolisz napisać?{' '}
+          <a
+            href="#formularz"
+            className={cx(
+              'font-extrabold text-line-dark-ink underline-offset-4 hover:underline',
+              FOCUS,
+              TAP_AREA,
+            )}
+          >
+            {writeCta || 'Formularz zapytania'} ↓
+          </a>
+        </p>
+      )}
+    </div>
   )
 }

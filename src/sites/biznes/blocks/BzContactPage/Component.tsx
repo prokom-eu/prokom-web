@@ -17,7 +17,7 @@ type Props = { tenantId: number }
 
 /** The navy column's lead and promises of the Kontakt form (board Web-kontakt, K4). */
 const FORM_LEAD =
-  'Oddzwonimy w godzinach pracy z konkretną propozycją. Wycena na piśmie, bez zobowiązań.'
+  'Oddzwonimy w godzinach pracy z konkretną propozycją. Wycena na mailu, bez zobowiązań.'
 const FORM_PROMISES = [
   'Bez zakładania konta',
   'Bez newslettera i spamu',
@@ -50,6 +50,8 @@ export async function BzContactPageBlock({ tenantId }: Props) {
       now={new Date().toISOString()}
       formToken={issueFormToken(env.PAYLOAD_SECRET)}
       hoursLayout="week"
+      heroLayout="calls"
+      serviceArea="rings"
       slots={{
         form: (
           <ContactPanelCard
