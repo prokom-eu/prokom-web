@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
 import { api, clickUntilVisible, hydrated, loginAsAdmin, site, tenantId } from './helpers'
@@ -291,6 +292,9 @@ test.describe('Biznes home page: offer and featured', () => {
     expect(await track.evaluate((el) => (el as HTMLElement).style.getPropertyValue('--i'))).toBe(
       '0',
     )
+    // No card in view hidden from screen readers, no focusable thing inside a hidden one.
+    const { violations } = await new AxeBuilder({ page }).include('#wybierane').analyze()
+    expect(violations.map((v) => v.id)).toEqual([])
     await context.close()
   })
 

@@ -1771,6 +1771,8 @@
    the cards in view. Only `transform` moves. Phone: a strip to swipe, no motion, no copies. */
 [data-line='biznes'] .bzf-view {
   --gap: 18px;
+  /* Cards in view, before hydration too (no layout shift); `FeaturedRows` uses the same steps. */
+  --per: 4;
   overflow: hidden;
   margin: -12px -6px;
   padding: 12px 6px;
@@ -1791,13 +1793,23 @@
   flex: 0 0 calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));
   min-width: 0;
 }
+@media (max-width: 1079px) {
+  [data-line='biznes'] .bzf-view {
+    --per: 3;
+  }
+}
+@media (max-width: 899px) {
+  [data-line='biznes'] .bzf-view {
+    --per: 2;
+  }
+}
 @media (max-width: 767px) {
   [data-line='biznes'] .bzf-view {
-    margin: 0 -16px;
-    padding: 4px 16px 8px;
+    margin: 0 calc(-1 * var(--page-gutter, 16px));
+    padding: 4px var(--page-gutter, 16px) 8px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: 16px;
+    scroll-padding-inline: var(--page-gutter, 16px);
     scrollbar-width: none;
   }
   [data-line='biznes'] .bzf-track {
@@ -1816,5 +1828,10 @@
 @media (prefers-reduced-motion: reduce) {
   [data-line='biznes'] .bzf-track[data-animated] {
     transition: none;
+  }
+}
+@media (min-width: 640px) and (max-width: 767px) {
+  [data-line='biznes'] .bzf-view {
+    --page-gutter: 24px;
   }
 }

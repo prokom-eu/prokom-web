@@ -165,7 +165,7 @@ type Counter = { created: number; updated: number; skipped: number }
  */
 export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const catalog: SeedCatalog = katalog
-  // „O to firmy pytają najczęściej”: the 16 of K4 (K35 §7a) in place of the K3.1 list (K4a-2).
+  // „Najczęściej wybierane”: the 24 of runda 1411 R5 (three rows of eight) in place of the K3.1 list.
   const k31Dicts = k31Dictionaries(
     k3Dictionaries,
     K4_FEATURED.map((item) => item.slug),

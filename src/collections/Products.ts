@@ -568,8 +568,8 @@ export const Products: CollectionConfig = {
       admin: { position: 'sidebar', condition: (data) => Boolean(data?.featured) },
     },
     {
-      // Filter pills of „O to firmy pytają najczęściej” (K35 §7a): not the departments — UPS
-      // has its own pill.
+      // The row of „Najczęściej wybierane” (runda 1411 R5: three rows; „Zasilanie awaryjne”
+      // joins the third) — not the departments.
       name: 'featuredGroup',
       label: 'Grupa wyróżnienia',
       type: 'select',

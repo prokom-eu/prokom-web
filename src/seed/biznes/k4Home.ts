@@ -80,7 +80,7 @@ export function k4CategoryOrder(home: K4HomeFile, splits: K4Splits): Map<string,
   return order
 }
 
-/** Fields of a card the K4 lists set: its pill among the 16 and its place in the category. */
+/** Fields of a card the K4 lists set: its row in „Najczęściej wybierane” and its place in the category. */
 export function k4HomeProductFields(slug: string, categoryOrder: ReadonlyMap<string, number>) {
   return {
     featuredGroup: K4_FEATURED.find((item) => item.slug === slug)?.group ?? null,
