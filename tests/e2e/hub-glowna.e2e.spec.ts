@@ -92,7 +92,11 @@ test.describe('pro-kom.eu — home page sections (spec §6.1)', () => {
     expect(jsonLd).not.toMatch(/\{(telefon|adres|godziny)\}/)
     const topics = page.locator('#kontakt .pk-topic')
     expect(await topics.count()).toBeGreaterThanOrEqual(4)
-    await expect(topics.first()).toHaveAttribute('href', '/kontakt?temat=ogolne')
+    const href = await topics.first().getAttribute('href')
+    expect(href).toMatch(/^\/kontakt\?temat=.+#formularz$/)
+    // The topic is one of the contact form's chips: opening the link picks it.
+    await page.goto(site(HUB, href ?? '/kontakt'))
+    await expect(page.locator('#formularz [aria-pressed="true"]').first()).toBeVisible()
   })
 })
 

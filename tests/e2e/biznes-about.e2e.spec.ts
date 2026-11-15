@@ -5,14 +5,14 @@ import { setTheme, site } from './helpers'
 
 // D3-B PR 2 (docs/zadania/prokombiznes-0611.md §8.2): `/o-firmie` of Biznes on the shared O firmie
 // template — the company card with the four authorisation logos, the stats, rules, steps, the
-// lines, „Nie musisz wierzyć nam na słowo” and the visit card. No people, no photos. Data from
-// `pnpm seed`.
+// lines and the visit card. No people, no photos. Runda 1411: no CEIDG and no „Nie musisz wierzyć
+// nam na słowo” (the line's switch), both numbers. Data from `pnpm seed`.
 const ABOUT = '/o-firmie'
 
 test.describe('Biznes /o-firmie (shared template, §8.2)', () => {
   test.use({ viewport: { width: 1440, height: 900 } })
 
-  test('one H1, the company card with NIP, CEIDG and four authorisation logos', async ({
+  test('one H1, the company card with NIP, both numbers and four authorisation logos', async ({
     page,
   }) => {
     const response = await page.goto(site('biznes.localhost', ABOUT))
@@ -26,10 +26,10 @@ test.describe('Biznes /o-firmie (shared template, §8.2)', () => {
     ).toHaveText('O firmie')
     const card = page.locator('[data-company-card]')
     await expect(card).toContainText('NIP')
-    await expect(card.getByRole('link', { name: /CEIDG/ })).toHaveAttribute(
-      'href',
-      /biznes\.gov\.pl/,
-    )
+    // Runda 1411: NIP as plain text, no CEIDG link; both numbers as `tel:`.
+    await expect(card.getByRole('link', { name: /CEIDG/ })).toHaveCount(0)
+    await expect(card.locator('a[href="tel:+48889003889"]')).toHaveCount(1)
+    await expect(card.locator('a[href="tel:+48883200151"]')).toHaveCount(1)
     const logos = card.locator('[data-auth-logo]')
     await expect(logos).toHaveCount(4)
     await expect(logos.locator('img').first()).toHaveAttribute('alt', /.+/)
@@ -52,7 +52,7 @@ test.describe('Biznes /o-firmie (shared template, §8.2)', () => {
     expect(pictures.every((alt) => !/zespół|właściciel|pracown/i.test(alt))).toBe(true)
   })
 
-  test('PREMIUM-1011: brands by status, verify cards with links, talk band, no footer lines band', async ({
+  test('PREMIUM-1011: brands by status, no verify cards (runda 1411), talk band, no footer lines band', async ({
     page,
   }) => {
     await page.goto(site('biznes.localhost', ABOUT))
@@ -68,10 +68,9 @@ test.describe('Biznes /o-firmie (shared template, §8.2)', () => {
       'We współpracy',
     ])
     await expect(brands.getByText('Logotypy należą do ich właścicieli.')).toBeVisible()
-    // A card without a link stays hidden (plan 0611 §8.2): every shown card opens a source.
-    const cards = page.locator('[data-verify-cards] > li')
-    expect(await cards.count()).toBeGreaterThan(0)
-    expect(await cards.locator('a[href^="https://"]').count()).toBe(await cards.count())
+    // Runda 1411 (ADR-017 „Rozstrzygnięcia 15.11”): „Nie musisz wierzyć nam na słowo” is gone.
+    await expect(page.locator('[data-verify-cards]')).toHaveCount(0)
+    await expect(page.locator('#sprawdz')).toHaveCount(0)
     await expect(
       page.locator('[data-talk-band]').getByRole('link', { name: 'Napisz do nas' }),
     ).toHaveAttribute('href', '/kontakt#formularz')

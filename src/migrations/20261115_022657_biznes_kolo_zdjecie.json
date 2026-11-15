@@ -2752,6 +2752,13 @@
           "primaryKey": false,
           "notNull": false
         },
+        "shared_verify_links": {
+          "name": "shared_verify_links",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
         "shared_brand_bar_slot_label": {
           "name": "shared_brand_bar_slot_label",
           "type": "varchar",
@@ -59104,6 +59111,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "8b893adc-0a2e-43d1-9ff9-26e80c017c35",
+  "id": "1557f254-47c6-40b0-8ae7-9c014b5336be",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

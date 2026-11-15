@@ -1883,5 +1883,110 @@
       "text": "Ul. Orkana 16B, Rabka-Zdrój. Przyjdź z listą albo rzutami.",
       "href": "/kontakt"
     }
-  ]
+  ],
+  "page": {
+    "hero": {
+      "eyebrow": "Firmy · instytucje · hotele · inwestorzy · deweloperzy · architekci",
+      "title": "Większe zamówienie albo cały obiekt?",
+      "lead": "Sprzęt IT w zestawach, RTV i AGD dla firm, instalacje i oprogramowanie — dobrane pod Twój obiekt. Sama dostawa albo dostawa z konfiguracją, montażem i szkoleniem — zakres ustalamy z Tobą. Po dostawie zostajemy jako serwis.",
+      "cta": "Złóż listę zapytania",
+      "ways": [
+        {
+          "title": "Mam listę sprzętu",
+          "href": "#lista"
+        },
+        {
+          "title": "Mam specyfikację albo SWZ",
+          "href": "#formularz"
+        },
+        {
+          "title": "Wyposażam obiekt",
+          "href": "#obiekty"
+        }
+      ],
+      "segmentsLabel": "Dla kogo zamawiasz?",
+      "segmentsHint": "kliknij — dopasujemy stronę i formularz",
+      "start": "Zaczynamy od:"
+    },
+    "areas": {
+      "eyebrow": "Co dostarczamy",
+      "title": "Cztery obszary. Jedna oferta, jedna faktura, jeden kontakt.",
+      "lead": "Każdy obszar prowadzi linia PRO-KOM, która robi to na co dzień. Przy większym zamówieniu łączymy je w jedno.",
+      "how": "Jak dostarczamy:",
+      "details": "Szczegóły na prokombiznes.pl"
+    },
+    "list": {
+      "eyebrow": "Lista zapytania",
+      "title": "Zaznacz, czego i ile potrzebujesz. Resztę dopytamy.",
+      "lead": "Bez cen i bez zobowiązań. Lista trafia do formularza, a my odsyłamy wycenę na piśmie. Parametry ustalimy razem.",
+      "yours": "Twoja lista",
+      "clear": "Wyczyść",
+      "pcs": "szt.",
+      "empty": "Lista jest pusta. Dodaj pozycje obok albo wczytaj gotowy przykład obiektu niżej.",
+      "services": "Co jeszcze",
+      "term": "Kiedy potrzebujesz",
+      "tvNote": "RTV i AGD dostarczamy pod wskazany adres, bez montażu. Konfigurację i montaż sprzętu IT ustalamy przy ofercie.",
+      "attach": "Dołącz listę do zapytania",
+      "copy": "Kopiuj listę do schowka",
+      "copied": "Skopiowano listę",
+      "copyFailed": "Nie udało się skopiować — zaznacz listę i skopiuj ręcznie",
+      "bar": "Lista:",
+      "send": "Wyślij zapytanie"
+    },
+    "objects": {
+      "eyebrow": "Wyposażenie obiektu",
+      "title": "Wybierz obiekt — zobacz, co zwykle obejmuje taka dostawa.",
+      "lead": "Przykłady pokazują typowy zakres. Wczytaj przykład do listy i zmień ilości pod swój obiekt.",
+      "load": "Wczytaj przykład do listy",
+      "note": "Ilości są przykładowe — zakres i parametry ustalamy przy zapytaniu. Wycenę dostajesz na piśmie."
+    },
+    "scope": {
+      "eyebrow": "Zakres do wyboru",
+      "title": "Sama dostawa albo pełne wdrożenie. Ty decydujesz.",
+      "tabsLabel": "Co możemy dodać — wybierz rodzaj sprzętu",
+      "optional": "Każda z tych usług jest opcjonalna. Zakres ustalamy przy zapytaniu i zapisujemy w ofercie."
+    },
+    "steps": {
+      "eyebrow": "Jak wygląda realizacja",
+      "title": "Sześć kroków. Każdy uzgodniony na piśmie."
+    },
+    "brands": {
+      "eyebrow": "Na czym pracujemy",
+      "title": "Marki, które znamy od strony serwisu.",
+      "all": "Wszystkie marki i autoryzacje",
+      "note": "RTV i AGD dobieramy do zapytania — od sprawdzonych dystrybutorów, z gwarancją producenta."
+    },
+    "compare": {
+      "eyebrow": "Dlaczego jedna firma",
+      "title": "Mniej dostawców, mniej koordynacji.",
+      "area": "Obszar",
+      "other": "Kilku dostawców",
+      "ours": "PRO-KOM"
+    },
+    "formal": {
+      "eyebrow": "Instytucje i formalności",
+      "title": "Zapytania ofertowe i przetargi — też."
+    },
+    "after": {
+      "eyebrow": "Po dostawie",
+      "title": "Dostawa to początek. Zostajemy jako serwis.",
+      "lead": "Ten sam sprzęt, ta sama firma, jeden numer. Bez szukania, kto co dostarczał.",
+      "towns": "Dostawy i dojazdy serwisowe:",
+      "coverage": "Cała Małopolska — zobacz zasięg"
+    },
+    "faq": {
+      "eyebrow": "Pytania",
+      "title": "Zanim wyślesz zapytanie."
+    },
+    "form": {
+      "eyebrow": "Zapytanie ofertowe",
+      "to": "Trafia do:",
+      "cta": "Wyślij zapytanie",
+      "note": "Wycena na piśmie. Bez newslettera."
+    },
+    "next": {
+      "eyebrow": "Co dalej",
+      "title": "Inne drogi do tej samej firmy."
+    }
+  }
 }

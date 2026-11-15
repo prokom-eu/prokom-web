@@ -9,7 +9,10 @@ type Props = { params: Promise<{ domain: string }> }
 /** Spec §4: title of `/dla-firm`; the full SEO (description, canonical, JSON-LD) comes in H6-2. */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   await requireLine(params, 'prokom')
-  return { title: { absolute: 'Dla firm: kasy, IT, sieć, kamery, strona | PRO-KOM' } }
+  return {
+    title: { absolute: 'Dla firm: kasy, IT, sieć, kamery, strona | PRO-KOM' },
+    alternates: { canonical: '/dla-firm' },
+  }
 }
 
 /** `/dla-firm` of pro-kom.eu (spec §6.3). */

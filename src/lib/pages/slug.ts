@@ -40,6 +40,8 @@ export const RESERVED_PAGE_SLUGS: readonly string[] = [
   'linie',
   'dla-firm',
   'dla-domu',
+  'inwestycje-i-dostawy',
+  'wspolpraca',
 ]
 
 export function isValidPageSlug(slug: string): boolean {

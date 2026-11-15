@@ -32,7 +32,7 @@ async function asNewVisitor(page: Page) {
 test.describe('Biznes /kontakt (shared template, §8.2)', () => {
   test.use({ viewport: { width: 1440, height: 900 } })
 
-  test('hero: one H1, the phone first, e-mail and second number; Rabka only', async ({ page }) => {
+  test('hero: one H1, two call tiles, e-mail and hours; Rabka only', async ({ page }) => {
     const response = await page.goto(site('biznes.localhost', CONTACT))
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveCount(1)
@@ -40,9 +40,22 @@ test.describe('Biznes /kontakt (shared template, §8.2)', () => {
       'Powiedz, czego potrzebuje firma. Resztę ustalimy na miejscu.',
     )
     const root = page_(page)
-    await expect(root.locator('a[href^="tel:"]').first()).toContainText('889 003 889')
-    await expect(root).toContainText('kontakt@prokombiznes.pl')
-    await expect(root).toContainText('883 200 151')
+    // Runda 1411 (KontaktHero): two equal tiles, the main number first.
+    const tiles = root.locator('[data-call-tile]')
+    await expect(tiles).toHaveCount(2)
+    await expect(tiles.nth(0)).toHaveAttribute('href', 'tel:+48889003889')
+    await expect(tiles.nth(0)).toContainText('Numer główny')
+    await expect(tiles.nth(1)).toHaveAttribute('href', 'tel:+48883200151')
+    const [first, second] = await Promise.all([
+      tiles.nth(0).boundingBox(),
+      tiles.nth(1).boundingBox(),
+    ])
+    expect(Math.round(first!.width)).toBe(Math.round(second!.width))
+    const bar = root.locator('[data-contact-bar]')
+    await expect(bar).toContainText('kontakt@prokombiznes.pl')
+    await expect(bar).toContainText('pn–pt 9:00–17:00')
+    await expect(bar).toContainText('60 minut')
+    await expect(bar.getByRole('button', { name: /Kopiuj/ })).toBeVisible()
     await expect(root).toContainText('Orkana 16B')
     // The salon card names no other salon (D18: bez Zakopanego).
     await expect(root.locator('address, [data-salon]').filter({ hasText: 'Zakopane' })).toHaveCount(
@@ -129,10 +142,11 @@ test.describe('Biznes /kontakt (shared template, §8.2)', () => {
       localStorage.setItem('pk-cart', JSON.stringify([{ id: 'posnet-ergo-online', q: 1 }])),
     )
     await page.goto(site('biznes.localhost', CONTACT))
-    const week = page.locator('[data-week-hours] tr')
+    // Runda 1411: the week as seven day tiles, today marked.
+    const week = page.locator('[data-day-tiles] li')
     await expect(week).toHaveCount(7)
     await expect(week.first()).toContainText('Poniedziałek')
-    await expect(page.locator('[data-week-hours] tr[aria-current="date"]')).toHaveCount(1)
+    await expect(page.locator('[data-day-tiles] li[aria-current="date"]')).toHaveCount(1)
     const faq = page.locator('#pytania')
     await expect(faq.locator('details')).toHaveCount(4)
     await expect(faq.locator('details').first()).toContainText('Dojeżdżacie do mnie?')

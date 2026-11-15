@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Systemy, które u Ciebie wdrożymy</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-ext-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0100-017F}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-ext-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0100-017F}
+body{margin:0}
+a{color:#8fb0f4;text-decoration:none}a:hover{color:#ffffff}
+@keyframes bzsFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes bzsGlow{0%,100%{opacity:.55}50%{opacity:.95}}
+.bzs{transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s,border-color .4s}
+.bzs:hover{transform:translateY(-8px);box-shadow:0 40px 70px -40px rgba(10,20,48,.9);border-color:rgba(143,176,244,.35)}
+.bzs:hover .bzs-cta span{transform:translateX(4px)}
+.bzs-cta span{display:inline-block;transition:transform .3s}
+.bzs-vis{animation:bzsFloat 6s ease-in-out infinite}
+.bzs-glow{animation:bzsGlow 4s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.bzs-vis,.bzs-glow{animation:none}}
+</style>
+</helmet>
+<div style="width:1440px;height:820px;box-sizing:border-box;padding:56px 72px;background:#ffffff;color:#0d1326;font-family:Manrope,system-ui,sans-serif;display:flex;flex-direction:column;gap:30px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.16em;color:#244fb0"><span style="width:22px;height:2px;background:#244fb0"></span>WDRAŻAMY OD POCZĄTKU DO KOŃCA</span>
+      <h2 style="margin:0;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:800;font-size:46px;line-height:1.02;letter-spacing:-.03em">Systemy, które u Ciebie wdrożymy</h2>
+    </div>
+    <span style="font-size:14px;color:#4a5470;max-width:330px;text-align:right">Dwa autoryzowane partnerstwa i nasza usługa opieki IT.</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;flex:1">
+
+    <a href="#" class="bzs" style="position:relative;overflow:hidden;border-radius:30px;background:#0a1430;border:1px solid rgba(143,176,244,.12);color:#ffffff;display:flex;flex-direction:column">
+      <div style="position:relative;height:270px;background:radial-gradient(90% 100% at 50% 100%,#1d3b8a 0%,#0f1d45 55%,#0a1430 100%);overflow:hidden">
+        <div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(rgba(143,176,244,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(143,176,244,.07) 1px,transparent 1px);background-size:26px 26px;-webkit-mask-image:radial-gradient(closest-side,#000,transparent);mask-image:radial-gradient(closest-side,#000,transparent)"></div>
+        <div class="bzs-glow" aria-hidden="true" style="position:absolute;left:50%;bottom:22px;width:300px;height:50px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(91,141,246,.7),rgba(91,141,246,0))"></div>
+        <img class="bzs-vis" src="../obrazy/k4-kolo-gopos.webp" alt="Zestaw GoPOS" style="position:absolute;left:50%;top:34px;margin-left:-130px;width:260px;height:auto;filter:drop-shadow(0 24px 28px rgba(0,0,0,.6))">
+      </div>
+      <div style="padding:24px 28px 26px;display:flex;flex-direction:column;gap:12px;flex:1">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="height:38px;padding:0 12px;border-radius:11px;background:#ffffff;display:grid;place-items:center"><img src="../obrazy/logo-gopos.webp" alt="GoPOS" style="height:20px;width:auto"></span><span style="height:28px;padding:0 11px 0 8px;border-radius:999px;background:rgba(70,199,139,.14);color:#46c78b;font-size:11.5px;font-weight:800;display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>Autoryzowany partner</span></div>
+        <b style="font-family:Archivo,sans-serif;font-stretch:112%;font-size:25px;line-height:1.1">GoPOS dla gastronomii</b>
+        <span style="font-size:14px;line-height:1.6;color:#aeb8d2">Jeden system na salę, kuchnię i dowozy. Sprzęt Sunmi i Posnet, szkolenie w lokalu i serwis w sezonie.</span>
+        <span class="bzs-cta" style="margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);font-size:14px;font-weight:800;color:#8fb0f4">Poznaj GoPOS z PRO-KOM <span>→</span></span>
+      </div>
+    </a>
+
+    <a href="#" class="bzs" style="position:relative;overflow:hidden;border-radius:30px;background:#0a1430;border:1px solid rgba(143,176,244,.12);color:#ffffff;display:flex;flex-direction:column">
+      <div style="position:relative;height:270px;background:radial-gradient(90% 100% at 50% 100%,#1d3b8a 0%,#0f1d45 55%,#0a1430 100%);overflow:hidden">
+        <div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(rgba(143,176,244,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(143,176,244,.07) 1px,transparent 1px);background-size:26px 26px;-webkit-mask-image:radial-gradient(closest-side,#000,transparent);mask-image:radial-gradient(closest-side,#000,transparent)"></div>
+        <div class="bzs-glow" aria-hidden="true" style="position:absolute;left:50%;bottom:22px;width:260px;height:50px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(91,141,246,.7),rgba(91,141,246,0));animation-delay:-1.3s"></div>
+        <img class="bzs-vis" src="../obrazy/k4-kolo-nexo.webp" alt="InsERT Subiekt nexo" style="position:absolute;left:50%;top:26px;margin-left:-74px;height:210px;width:auto;filter:drop-shadow(0 24px 28px rgba(0,0,0,.6));animation-delay:-2s">
+        <span style="position:absolute;right:22px;top:24px;height:28px;padding:0 10px;border-radius:999px;background:rgba(143,176,244,.14);border:1px solid rgba(143,176,244,.25);color:#c9d3ea;font-size:11.5px;font-weight:800;line-height:28px">gotowe na KSeF</span>
+      </div>
+      <div style="padding:24px 28px 26px;display:flex;flex-direction:column;gap:12px;flex:1">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="height:38px;padding:0 12px;border-radius:11px;background:#ffffff;display:grid;place-items:center"><img src="../obrazy/logo-insert.webp" alt="InsERT" style="height:26px;width:auto"></span><span style="height:28px;padding:0 11px 0 8px;border-radius:999px;background:rgba(70,199,139,.14);color:#46c78b;font-size:11.5px;font-weight:800;display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>Autoryzowany partner</span></div>
+        <b style="font-family:Archivo,sans-serif;font-stretch:112%;font-size:25px;line-height:1.1">Subiekt i programy InsERT</b>
+        <span style="font-size:14px;line-height:1.6;color:#aeb8d2">Dobieramy program, przenosimy dane i łączymy go z kasą i KSeF. Szkolimy na Twoich dokumentach.</span>
+        <span class="bzs-cta" style="margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);font-size:14px;font-weight:800;color:#8fb0f4">Który Subiekt dla mnie? <span>→</span></span>
+      </div>
+    </a>
+
+    <a href="#" class="bzs" style="position:relative;overflow:hidden;border-radius:30px;background:#0a1430;border:1px solid rgba(143,176,244,.12);color:#ffffff;display:flex;flex-direction:column">
+      <div style="position:relative;height:270px;background:radial-gradient(90% 100% at 50% 100%,#1d3b8a 0%,#0f1d45 55%,#0a1430 100%);overflow:hidden;display:flex;align-items:center;justify-content:center">
+        <div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(rgba(143,176,244,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(143,176,244,.07) 1px,transparent 1px);background-size:26px 26px;-webkit-mask-image:radial-gradient(closest-side,#000,transparent);mask-image:radial-gradient(closest-side,#000,transparent)"></div>
+        <div class="bzs-vis" style="position:relative;width:300px;display:flex;flex-direction:column;gap:10px;animation-delay:-3s">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(6px)"><span style="display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700"><span style="width:8px;height:8px;border-radius:50%;background:#46c78b;box-shadow:0 0 10px #46c78b"></span>Kopia danych z nocy</span><span style="font-size:11.5px;font-weight:800;color:#46c78b">sprawdzona</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);margin-left:18px"><span style="display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700"><span style="width:8px;height:8px;border-radius:50%;background:#46c78b;box-shadow:0 0 10px #46c78b"></span>Aktualizacje na 4 komputerach</span><span style="font-size:11.5px;font-weight:800;color:#46c78b">gotowe</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)"><span style="display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700"><span style="width:8px;height:8px;border-radius:50%;background:#f2b33d;box-shadow:0 0 10px #f2b33d"></span>Przegląd kasy fiskalnej</span><span style="font-size:11.5px;font-weight:800;color:#f2b33d">za 43 dni</span></div>
+        </div>
+      </div>
+      <div style="padding:24px 28px 26px;display:flex;flex-direction:column;gap:12px;flex:1">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="height:38px;padding:0 12px;border-radius:11px;background:#ffffff;display:grid;place-items:center"><img src="../obrazy/prokom-biznes_poziome_kolor.svg" alt="PRO-KOM Biznes" style="height:20px;width:auto"></span><span style="height:28px;padding:0 11px 0 8px;border-radius:999px;background:rgba(143,176,244,.14);color:#8fb0f4;font-size:11.5px;font-weight:800;display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path></svg>Usługa PRO-KOM</span></div>
+        <b style="font-family:Archivo,sans-serif;font-stretch:112%;font-size:25px;line-height:1.1">Stała opieka IT</b>
+        <span style="font-size:14px;line-height:1.6;color:#aeb8d2">Informatyk na telefon: monitoring, kopie, aktualizacje i serwis. Zakres ustalamy w umowie. Zaczynamy od bezpłatnego przeglądu.</span>
+        <span class="bzs-cta" style="margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);font-size:14px;font-weight:800;color:#8fb0f4">Umów bezpłatny przegląd IT <span>→</span></span>
+      </div>
+    </a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":820}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

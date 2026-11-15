@@ -106,12 +106,10 @@ describe('shared seed — content rules (spec §2, §10 pkt 2)', () => {
   })
 
   it('points the Biznes contact facts to the line fields and keeps the K4-FINAL statuses', () => {
-    // E-mail and the second number come from the line fields (`BIZNES_CONTACT`), not copied here.
-    expect(BIZNES_SHARED.contact?.facts?.map((fact) => fact.kind)).toEqual([
-      'email',
-      'phone2',
-      'text',
-    ])
+    // The e-mail comes from the line field (`BIZNES_CONTACT`), not copied here; both numbers are
+    // call tiles of the hero (runda 1411), so no phone fact.
+    expect(BIZNES_SHARED.contact?.facts?.map((fact) => fact.kind)).toEqual(['email', 'text'])
+    expect(BIZNES_SHARED.verifyLinks).toBe(false)
     expect(BIZNES_SHARED.about?.auth).toEqual([
       'Autoryzowany serwis Posnet',
       'Autoryzowany serwis Elzab',

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Najczęściej wybierane — 3 przewijane rzędy</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-ext-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0100-017F}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-ext-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0100-017F}
+body{margin:0}
+a{color:#244fb0}a:hover{color:#1b3d8c}
+.bzp{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.bzp:hover{transform:translateY(-6px);box-shadow:0 30px 44px -32px rgba(13,19,38,.45)}
+.bzp img.prod{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.bzp:hover img.prod{transform:scale(1.07)}
+.bzr-btn{transition:background .25s,color .25s,border-color .25s}
+.bzr-btn:hover{background:#244fb0;color:#ffffff;border-color:#244fb0}
+.bzr-btn:focus-visible,.bzp-add:focus-visible{outline:3px solid #4a7be0;outline-offset:3px}
+</style>
+</helmet>
+<div style="width:1440px;height:1220px;box-sizing:border-box;padding:56px 72px;background:#ffffff;color:#0d1326;font-family:Manrope,system-ui,sans-serif;display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.16em;color:#244fb0"><span style="width:22px;height:2px;background:#244fb0"></span>NAJCZĘŚCIEJ WYBIERANE</span>
+      <h2 style="margin:0;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:800;font-size:46px;line-height:1.02;letter-spacing:-.03em">O to firmy pytają najczęściej.</h2>
+      <p style="margin:0;font-size:16px;line-height:1.6;color:#4a5470;max-width:640px">24 pozycje, od których firmy zaczynają najczęściej. Każdą dodasz do zapytania jednym kliknięciem.</p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="bzr-btn" type="button" onClick="{{togglePause}}" aria-label="{{pauseLabel}}" style="height:48px;padding:0 16px;border-radius:14px;border:1px solid #d6dcea;background:#ffffff;color:#244fb0;font:800 13px Manrope,sans-serif;display:flex;align-items:center;gap:8px;cursor:pointer">
+        <sc-if value="{{paused}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l14 8-14 8z"></path></svg>Wznów</sc-if>
+        <sc-if value="{{running}}" hint-placeholder-val="{{true}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"></path></svg>Zatrzymaj</sc-if>
+      </button>
+      <a href="#" style="height:48px;padding:0 18px;border-radius:14px;background:#244fb0;color:#ffffff;font:800 14px Manrope,sans-serif;display:flex;align-items:center;text-decoration:none;white-space:nowrap">Cała oferta · 455 pozycji →</a>
+    </div>
+  </div>
+
+  <sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
+    <div onMouseEnter="{{r.enter}}" onMouseLeave="{{r.leave}}" style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:800;color:#0d1326"><span style="{{r.dirStyle}}">{{r.arrow}}</span>{{r.title}}</span>
+        <span style="display:flex;align-items:center;gap:12px">
+          <span style="display:flex;gap:5px" aria-hidden="true"><sc-for list="{{r.dots}}" as="d" hint-placeholder-count="8"><span style="{{d}}"></span></sc-for></span>
+          <button class="bzr-btn" type="button" onClick="{{r.prev}}" aria-label="Poprzednie" style="width:32px;height:32px;border-radius:50%;border:1px solid #e2e6ef;background:#ffffff;color:#244fb0;cursor:pointer;font-weight:800">‹</button>
+          <button class="bzr-btn" type="button" onClick="{{r.next}}" aria-label="Następne" style="width:32px;height:32px;border-radius:50%;border:1px solid #e2e6ef;background:#ffffff;color:#244fb0;cursor:pointer;font-weight:800">›</button>
+        </span>
+      </div>
+      <div style="overflow:hidden;margin:-10px -10px;padding:10px 10px 14px">
+        <div style="{{r.trackStyle}}">
+          <sc-for list="{{r.items}}" as="p" hint-placeholder-count="16">
+            <article class="bzp" style="flex:none;width:310px;box-sizing:border-box;border-radius:22px;background:#ffffff;border:1px solid #e9edf6;padding:8px;box-shadow:0 14px 30px -28px rgba(13,19,38,.4)">
+              <div style="position:relative;height:160px;border-radius:16px;background:{{p.bg}};display:grid;place-items:center;overflow:hidden">
+                <sc-if value="{{p.hasLogo}}" hint-placeholder-val="{{true}}"><span style="position:absolute;left:10px;top:10px;height:24px;padding:0 8px;border-radius:8px;background:#ffffff;display:grid;place-items:center;box-shadow:0 2px 6px rgba(13,19,38,.08)"><img src="{{p.logo}}" alt="" style="max-height:13px;max-width:70px;width:auto"></span></sc-if>
+                <sc-if value="{{p.hasBadge}}" hint-placeholder-val="{{false}}"><span style="{{p.badgeStyle}}">{{p.badge}}</span></sc-if>
+                <sc-if value="{{p.isLic}}" hint-placeholder-val="{{false}}">
+                  <div style="width:140px;height:86px;transform:rotate(-5deg);border-radius:12px;background:#ffffff;box-shadow:0 20px 30px -16px rgba(13,19,38,.45);padding:11px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between"><img src="../obrazy/logo-microsoft.webp" alt="" style="height:13px;width:auto;align-self:flex-start"><b style="font-family:Archivo,sans-serif;font-stretch:110%;font-size:12.5px;line-height:1.05">Microsoft 365<br>dla firm</b></div>
+                </sc-if>
+                <sc-if value="{{p.isImg}}" hint-placeholder-val="{{true}}"><img class="prod" src="{{p.img}}" alt="{{p.name}}" style="{{p.imgStyle}}"></sc-if>
+                <button class="bzp-add" type="button" style="position:absolute;right:10px;bottom:10px;height:32px;padding:0 11px;border-radius:10px;border:0;background:#244fb0;color:#ffffff;font:800 12px Manrope,sans-serif;cursor:pointer">+ Do zapytania</button>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:2px;padding:10px 4px 2px">
+                <span style="font-size:10.5px;font-weight:800;letter-spacing:.12em;color:#6b7590">{{p.brand}}</span>
+                <b style="font-family:Archivo,sans-serif;font-stretch:108%;font-size:15.5px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{p.name}}</b>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1220}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { idx: [0, 8, 0], anim: [true, true, true], hover: [false, false, false], paused: false };
+    this.dirs = [1, -1, 1];
+    this.R = [
+      { title: 'Kasy i sprzedaż', items: [
+        { brand: 'POSNET', name: 'Posnet Ergo Online', img: '../obrazy/k4-kolo-ergo.webp', tall: 1, logo: '../obrazy/logo-posnet.webp', badge: 's' },
+        { brand: 'ELZAB', name: 'Elzab K10 Online', img: '../obrazy/k4-kolo-k10.webp', logo: '../obrazy/logo-elzab.webp', badge: 's' },
+        { brand: 'SUNMI', name: 'Sunmi D3 PRO', img: '../obrazy/k4-kolo-d3.webp', logo: '../obrazy/logo-sunmi.webp' },
+        { brand: 'POLCARD', name: 'Terminal płatniczy PolCard', img: '../obrazy/k4-kolo-pol.webp', tall: 1 },
+        { brand: 'POSNET', name: 'Posnet Thermal HX Online', img: '../obrazy/w-k3-hx.webp', logo: '../obrazy/logo-posnet.webp', badge: 's' },
+        { brand: 'POSNET', name: 'Posnet Neo Online', img: '../obrazy/w-k3-neo.webp', logo: '../obrazy/logo-posnet.webp', badge: 's' },
+        { brand: 'POSNET', name: 'Posnet Bingo Max2 Online', img: '../obrazy/w-k3-bingo.webp', logo: '../obrazy/logo-posnet.webp' },
+        { brand: 'ELZAB', name: 'Czytnik kodów Elzab BS80 2D', img: '../obrazy/w-k3-elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka.webp', logo: '../obrazy/logo-elzab.webp' }
+      ]},
+      { title: 'Komputery i telefony', items: [
+        { brand: 'LENOVO', name: 'Lenovo ThinkBook 14 G8 / G9', img: '../obrazy/k4-kolo-lenovo-thinkbook-14-g8-g9.webp', logo: '../obrazy/logo-lenovo.webp', badge: 'n' },
+        { brand: 'LENOVO', name: 'Lenovo ThinkCentre neo 50s', img: '../obrazy/k4-kolo-lenovo-thinkcentre-neo-50s-55s.webp', tall: 1, logo: '../obrazy/logo-lenovo.webp' },
+        { brand: 'APPLE', name: 'Apple MacBook Air 13" / 15"', img: '../obrazy/k4-kolo-apple-macbook-air-m5.webp', logo: '../obrazy/logo-apple.png', badge: 'n' },
+        { brand: 'APPLE', name: 'Apple iPhone', img: '../obrazy/k4-kolo-apple-iphone-18-pro.webp', tall: 1, logo: '../obrazy/logo-apple.png' },
+        { brand: 'DELL', name: 'Dell Pro 14 / Dell Pro 16', img: '../obrazy/w-k3-dell-pro-14-16.webp', logo: '../obrazy/logo-dell.webp', badge: 'n' },
+        { brand: 'LENOVO', name: 'Lenovo ThinkPad T14 Gen 7', img: '../obrazy/w-k3-lenovo-thinkpad-t14-gen7.webp', logo: '../obrazy/logo-lenovo.webp' },
+        { brand: 'DELL', name: 'Dell Pro Tower / Slim', img: '../obrazy/w-k3-dell-pro-tower-slim.webp', tall: 1, logo: '../obrazy/logo-dell.webp' },
+        { brand: 'KONICA MINOLTA', name: 'Konica Minolta bizhub C3321i', img: '../obrazy/k4-kolo-konica-minolta-bizhub-c3321i.webp', tall: 1, logo: '../obrazy/logo-konica-minolta.webp' }
+      ]},
+      { title: 'Programy, ochrona i zasilanie', items: [
+        { brand: 'INSERT', name: 'InsERT Subiekt nexo / nexo PRO', img: '../obrazy/k4-kolo-nexo.webp', tall: 1, logo: '../obrazy/logo-insert.webp', badge: 'p' },
+        { brand: 'MICROSOFT', name: 'Microsoft 365 dla firm', lic: 1, logo: '../obrazy/logo-microsoft.webp' },
+        { brand: 'ESET', name: 'ESET PROTECT', img: '../obrazy/k4-kolo-eset.webp', logo: '../obrazy/logo-eset.webp' },
+        { brand: 'EUROCERT', name: 'Kwalifikowany podpis EuroCert', img: '../obrazy/k4-kolo-euro.webp' },
+        { brand: 'COMEX', name: 'COMEX COVER CORE ONE', img: '../obrazy/k4-kolo-comex-cover-core-one.webp', logo: '../obrazy/logo-comex.svg' },
+        { brand: 'APC', name: 'APC Back-UPS', img: '../obrazy/w-k3-apc-back-ups.webp', tall: 1 },
+        { brand: 'SYNOLOGY', name: 'Synology DiskStation Plus', img: '../obrazy/w-k3-synology-diskstation-plus-2-4.webp', logo: '../obrazy/logo-synology.webp' },
+        { brand: 'UBIQUITI', name: 'Ubiquiti UniFi U7 Pro', img: '../obrazy/k4-kolo-u7.webp', logo: '../obrazy/logo-ubiquiti.webp' }
+      ]}
+    ];
+  }
+  componentDidMount() {
+    this.t = 0;
+    this.timer = setInterval(() => {
+      if (this.state.paused) return;
+      this.t += 100;
+      [0, 1, 2].forEach((r) => { if ((this.t - r * 1500) % 4500 === 0 && this.t >= r * 1500 && !this.state.hover[r]) this.step(r, this.dirs[r]); });
+    }, 100);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+  step(r, d) {
+    const idx = this.state.idx.slice(), anim = this.state.anim.slice();
+    idx[r] = idx[r] + d; anim[r] = true;
+    this.setState({ idx: idx, anim: anim });
+    if (idx[r] >= 8 || idx[r] <= 0) {
+      setTimeout(() => {
+        const i2 = this.state.idx.slice(), a2 = this.state.anim.slice();
+        i2[r] = idx[r] >= 8 ? 0 : 8; a2[r] = false;
+        this.setState({ idx: i2, anim: a2 });
+        setTimeout(() => { const a3 = this.state.anim.slice(); a3[r] = true; this.setState({ anim: a3 }); }, 60);
+      }, 820);
+    }
+  }
+  renderVals() {
+    const B = { s: 'Autoryzowany serwis', p: 'Autoryzowany partner', n: 'Nowość' };
+    const card = (p) => Object.assign({}, p, {
+      hasLogo: !!p.logo, hasBadge: !!p.badge, badge: p.badge ? B[p.badge] : '', isLic: !!p.lic, isImg: !p.lic,
+      bg: p.lic ? 'radial-gradient(120% 100% at 30% 0%,#ffffff 0%,#eef2fb 55%,#e1e8f4 100%)' : 'radial-gradient(90% 90% at 50% 35%,#ffffff 0%,#f3f5fa 100%)',
+      badgeStyle: 'position:absolute;right:10px;top:10px;height:22px;padding:0 8px;border-radius:7px;font-size:10px;font-weight:800;line-height:22px;color:#ffffff;background:' + (p.badge === 'n' ? '#15724a' : '#244fb0'),
+      imgStyle: (p.tall ? 'height:124px;width:auto;' : 'width:160px;height:auto;') + 'max-height:128px;max-width:78%;object-fit:contain;filter:drop-shadow(0 14px 16px rgba(13,19,38,.18))'
+    });
+    const rows = this.R.map((row, r) => {
+      const items = row.items.concat(row.items).map(card);
+      const i = this.state.idx[r];
+      const active = ((i % 8) + 8) % 8;
+      return {
+        title: row.title, items: items,
+        arrow: this.dirs[r] > 0 ? '←' : '→',
+        dirStyle: 'width:26px;height:26px;border-radius:8px;background:#e9effc;color:#244fb0;display:grid;place-items:center;font-size:13px',
+        dots: row.items.map((x, k) => 'height:6px;border-radius:3px;transition:width .4s,background .4s;' + (k === active ? 'width:22px;background:#244fb0' : 'width:6px;background:#d6dcea')),
+        trackStyle: 'display:flex;gap:18px;transform:translateX(' + (-i * 328) + 'px);' + (this.state.anim[r] ? 'transition:transform .8s cubic-bezier(.65,0,.35,1)' : 'transition:none'),
+        enter: () => { const h = this.state.hover.slice(); h[r] = true; this.setState({ hover: h }); },
+        leave: () => { const h = this.state.hover.slice(); h[r] = false; this.setState({ hover: h }); },
+        prev: () => this.step(r, -1), next: () => this.step(r, 1)
+      };
+    });
+    return { rows: rows, paused: this.state.paused, running: !this.state.paused,
+      pauseLabel: this.state.paused ? 'Wznów przewijanie' : 'Zatrzymaj przewijanie',
+      togglePause: () => this.setState({ paused: !this.state.paused }) };
+  }
+}
+</script>
+</body>
+</html>

@@ -15,6 +15,8 @@ type Props = {
   variant?: 'inline' | 'pill'
   /** On a dark band (`line-dark`): light dot, white text. */
   onDark?: boolean
+  /** A soft pulse around the dot (Kontakt hero, runda 1411); none with reduced motion. */
+  pulse?: boolean
   className?: string
 }
 
@@ -30,6 +32,7 @@ export function OpeningStatus({
   now,
   variant = 'inline',
   onDark,
+  pulse,
   className,
 }: Props) {
   const [moment, setMoment] = useState(() => new Date(now))
@@ -56,6 +59,7 @@ export function OpeningStatus({
       data-state={status.state}
       data-on-dark={onDark ? '' : undefined}
       data-has-short={short ? '' : undefined}
+      data-pulse={pulse ? '' : undefined}
       data-opening-status
     >
       <span className="oh-status__dot" aria-hidden="true" />

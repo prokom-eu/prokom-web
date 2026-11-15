@@ -668,3 +668,240 @@
     transition: none;
   }
 }
+
+/* --- /inwestycje-i-dostawy ------------------------------------------------------------------ */
+.pk-dways {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.pk-dseg {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pk-dseg__label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+}
+.pk-dseg__list,
+.pk-dobj {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.pk-dlist {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 20px;
+}
+.pk-dlist__groups {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pk-dlist__items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pk-dlist__note {
+  padding: 10px 12px 2px;
+}
+.pk-qty {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1.5px solid transparent;
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: var(--k-card);
+}
+.pk-qty[data-on] {
+  border-color: var(--ln);
+}
+.pk-qty__ctl {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pk-qty__ctl button {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1.5px solid var(--w16);
+  border-radius: 12px;
+  font-weight: 800;
+}
+.pk-qty__ctl button:disabled {
+  opacity: 0.45;
+}
+.pk-qty__n {
+  min-width: 40px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+}
+.pk-dsum {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid var(--w12);
+  border-top: 4px solid var(--k-g);
+  border-radius: 26px;
+  padding: 22px;
+  background: var(--k-card);
+}
+@media (min-width: 1240px) {
+  .pk-dsum {
+    position: sticky;
+    top: 96px;
+    max-height: calc(100vh - 112px);
+    overflow: auto;
+  }
+}
+.pk-dsum__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.pk-dsum__totals {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+}
+.pk-dsum__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+}
+.pk-dsum__rows li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid var(--w09);
+  padding: 6px 0;
+}
+.pk-dsum__set {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 0;
+  padding: 0;
+}
+.pk-check {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.pk-check input {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  accent-color: var(--k-g);
+}
+.pk-dsum__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.pk-dobj__cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 10px;
+}
+.pk-dobj__cols .pk-lcard {
+  min-height: 0;
+  gap: 8px;
+}
+.pk-dsum__lines {
+  display: block;
+  color: var(--k-ink3);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+}
+/* The steps joined by a line on wide screens (spec §6.5 pkt 6). */
+@media (min-width: 1024px) {
+  .pk-dsteps {
+    position: relative;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .pk-dsteps::before {
+    position: absolute;
+    top: 33px;
+    right: 6%;
+    left: 6%;
+    height: 2px;
+    background: color-mix(in srgb, var(--k-g) 50%, transparent);
+    content: '';
+  }
+  .pk-dsteps .pk-roll__step {
+    position: relative;
+  }
+}
+/* Room for the floating list bar at the end of the page. */
+.pk-business:has(.pk-dbar) {
+  padding-bottom: 96px;
+}
+.pk-bgroups--even {
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+}
+.pk-dbar {
+  position: fixed;
+  z-index: 40;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  max-width: 900px;
+  margin: 0 auto;
+  border: 1px solid var(--w16);
+  border-radius: 20px;
+  padding: 10px 12px 10px 18px;
+  background: var(--k-card);
+  box-shadow: 0 20px 50px -20px color-mix(in srgb, var(--k-dim) 80%, transparent);
+}
+.pk-dbar__text {
+  font-size: 14px;
+  font-weight: 700;
+}
+@media (max-width: 1023px) {
+  .pk-dlist {
+    grid-template-columns: 1fr;
+  }
+  .pk-dseg__list,
+  .pk-dobj {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 767px) {
+  /* Above the bottom tab bar of the phone layout (shown below 768 px). */
+  .pk-dbar {
+    bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+  .pk-dways {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .pk-dseg__list,
+  .pk-dobj {
+    grid-template-columns: 1fr;
+  }
+}

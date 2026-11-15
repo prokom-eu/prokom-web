@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Stopka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-ext-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0100-017F}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-ext-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0100-017F}
+body{margin:0}
+a{color:#c9d3ea;text-decoration:none}a:hover{color:#ffffff}
+</style>
+</helmet>
+<div style="width:1440px;height:400px;box-sizing:border-box;padding:56px 72px 28px;background:#060a15;color:#c9d3ea;font-family:Manrope,system-ui,sans-serif;display:flex;flex-direction:column;gap:36px">
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="display:inline-flex;align-self:flex-start;height:44px;padding:0 14px;border-radius:12px;background:#ffffff;align-items:center"><img src="../obrazy/prokom-biznes_poziome_kolor.svg" alt="PRO-KOM Biznes" style="height:26px;width:auto"></span>
+      <span style="font-size:14px;line-height:1.6;max-width:320px">Kasy, komputery, programy i opieka IT dla firm z Podhala i Małopolski. W Rabce-Zdroju od 2004 roku.</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:14px"><b style="color:#ffffff;font-size:12px;letter-spacing:.14em">OFERTA</b><a href="#">Kasy i sprzedaż</a><a href="#">Komputery i biuro</a><a href="#">Oprogramowanie</a><a href="#">Sieć i ochrona</a><a href="#">Serwis i usługi</a></div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:14px"><b style="color:#ffffff;font-size:12px;letter-spacing:.14em">FIRMA</b><a href="#">O firmie</a><a href="#">Marki</a><a href="#">Opieka IT</a><a href="#">Aktualności</a><a href="#">Kontakt</a></div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:14px"><b style="color:#ffffff;font-size:12px;letter-spacing:.14em">KONTAKT</b><span>ul. Orkana 16B, 34-700 Rabka-Zdrój</span><a href="#" style="color:#ffffff;font-weight:800;font-size:16px">889 003 889</a><a href="#" style="color:#ffffff;font-weight:800;font-size:16px">883 200 151</a><a href="#">kontakt@prokombiznes.pl</a><span>pn–pt 9:00–17:00</span></div>
+  </div>
+  <div style="margin-top:auto;display:flex;justify-content:space-between;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);font-size:12.5px;color:#7c88a4">
+    <span>© 2026 PRO-KOM Tadeusz Wójciak</span>
+    <span style="display:flex;gap:20px"><a href="#">Polityka prywatności</a><a href="#">Cookies</a><a href="#">Dostępność</a><a href="#">Mapa strony</a></span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":400}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -81,6 +81,36 @@ export const PROKOM_SHARED: SharedGroup = {
       ],
     },
   ],
+  // `/kontakt` (spec §6.8, H5/H6): H1 of spec §4, topics for `?temat=` — the home page chips use
+  // `home.contact.general` and the line names of `CompanyData.lines`: a renamed line must be renamed
+  // here too (e2e `hub-glowna` checks it). Form texts. Contact data from the panel, never here.
+  contact: {
+    h1: 'Jeden numer. Pokierujemy, gdzie trzeba.',
+    lead: 'Dzwonisz albo piszesz raz — sprawę przekazujemy do linii, która się nią zajmuje.',
+    writeCta: 'Napisz do nas',
+    placeKind: 'salon',
+    topics: [
+      'Nie wiem / ogólne',
+      'Biznes',
+      'Instalacje',
+      'Software',
+      'Tech',
+      'Gaming',
+      'Dla firm',
+      'Dla domu',
+      'Inwestycje i dostawy',
+      'Współpraca',
+    ],
+    formTitle: 'Napisz, czego potrzebujesz. Przekażemy to właściwej linii.',
+    placeholder: 'Napisz w dwóch zdaniach, czego potrzebujesz.',
+    sendLabel: 'Wyślij wiadomość',
+    nextSteps: [
+      { title: 'Czytamy wiadomość', text: 'Sprawdzamy, która linia się nią zajmie.' },
+      { title: 'Odzywa się właściwy zespół', text: 'Telefonem albo e-mailem.' },
+      { title: 'Plan albo wycena na piśmie', text: 'Zanim cokolwiek zaczniemy.' },
+    ],
+    salonKeys: ['rabka'],
+  },
 }
 
 /** Contact fields of the hub's `SiteSettings` (ADR-H002 §1, table „Firma (hub)”). */

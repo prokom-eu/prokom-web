@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Hero — dopracowane koło działów</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-ext-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0100-017F}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-ext-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0100-017F}
+body{margin:0}
+a{color:#244fb0}a:hover{color:#1b3d8c}
+.bzw-b{transition:width .45s cubic-bezier(.2,.8,.2,1),height .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .45s}
+.bzw-b:hover{box-shadow:0 0 0 4px rgba(36,79,176,.12),0 14px 26px -12px rgba(13,19,38,.4)}
+.bzw-n{transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s,width .4s,height .4s}
+.bzw-n:hover{transform:translate(-50%,-50%) scale(1.07)}
+.bzw-n:focus-visible,.bzw-b:focus-visible,.bzw-btn:focus-visible{outline:3px solid #4a7be0;outline-offset:3px}
+.bzw-l{transition:background .4s,color .4s,border-color .4s}
+.bzw-core{transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.bzw-line{transition:opacity .5s}
+@keyframes bzwArrive{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}70%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes bzwFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes bzwSpin{to{transform:rotate(360deg)}}
+@keyframes bzwPulse{0%{transform:translate(-50%,-50%) scale(1);opacity:.55}100%{transform:translate(-50%,-50%) scale(1.9);opacity:0}}
+@keyframes bzwCore{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:scale(1)}}
+.bzw-b{animation:bzwArrive .9s cubic-bezier(.2,.8,.2,1) backwards}
+.bzw-b:hover{transform:translate(-50%,-50%) scale(1.12) !important;z-index:5}
+.bzw-tip{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translate(-50%,6px);white-space:nowrap;height:28px;padding:0 11px;border-radius:999px;background:#0a1430;color:#ffffff;font:800 12px Manrope,sans-serif;line-height:28px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;box-shadow:0 10px 20px -8px rgba(10,20,48,.5)}
+.bzw-b:hover .bzw-tip,.bzw-b:focus-visible .bzw-tip{opacity:1;transform:translate(-50%,0)}
+.bzw-n{animation:bzwArrive .8s cubic-bezier(.2,.8,.2,1) backwards}
+.bzw-ring{animation:bzwSpin 90s linear infinite;transform-origin:360px 350px}
+.bzw-hub{animation:bzwCore .9s cubic-bezier(.2,.8,.2,1) backwards}
+@media (prefers-reduced-motion: reduce){.bzw-b,.bzw-n,.bzw-ring,.bzw-hub,.bzw-pulse,.bzw-float{animation:none !important}}
+</style>
+</helmet>
+<div style="width:1440px;height:1000px;box-sizing:border-box;background:#ffffff;color:#0d1326;font-family:Manrope,system-ui,sans-serif;overflow:hidden;position:relative">
+
+  <div style="height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 72px;font-size:12px;font-weight:600;color:#4a5470;border-bottom:1px solid #eef1f7">
+    <div style="display:flex;gap:18px;align-items:center">
+      <span>PRO-KOM</span><span style="color:#244fb0;font-weight:800">Biznes</span><span>Instalacje</span><span>Software</span><span>Tech</span>
+    </div>
+    <div style="display:flex;gap:18px;align-items:center">
+      <span style="display:inline-flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:50%;background:#1f9d63"></span>Otwarte teraz · do 17:00</span>
+      <span>Biznes: <b style="color:#0d1326">889 003 889</b> · <b style="color:#0d1326">883 200 151</b></span>
+    </div>
+  </div>
+
+  <header style="height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 72px">
+    <img src="../obrazy/prokom-biznes_poziome_kolor.svg" alt="PRO-KOM Biznes" style="height:32px;width:auto">
+    <nav aria-label="Główna" style="display:flex;gap:30px;font-size:14px;font-weight:700">
+      <a href="#" style="color:#0d1326;text-decoration:none">Oferta</a>
+      <a href="#" style="color:#0d1326;text-decoration:none">Marki</a>
+      <a href="#" style="color:#0d1326;text-decoration:none">Opieka IT</a>
+      <a href="#" style="color:#0d1326;text-decoration:none">GoPOS</a>
+      <a href="#" style="color:#0d1326;text-decoration:none">InsERT</a>
+      <a href="#" style="color:#0d1326;text-decoration:none">O firmie</a>
+      <a href="#" style="color:#0d1326;text-decoration:none">Kontakt</a>
+    </nav>
+    <div style="display:flex;gap:10px;align-items:center">
+      <span style="height:40px;padding:0 14px;border-radius:12px;border:1px solid #e2e6ef;background:#f3f5fa;color:#4a5470;font:600 13px Manrope,sans-serif;display:flex;align-items:center;gap:10px">Szukaj <span style="font-size:11px;padding:2px 6px;border-radius:6px;background:#ffffff;border:1px solid #e2e6ef">Ctrl K</span></span>
+      <a href="#" style="height:40px;padding:0 16px;border-radius:12px;background:#244fb0;color:#ffffff;font:800 14px Manrope,sans-serif;display:flex;align-items:center;gap:10px;text-decoration:none">Zapytanie <span style="min-width:20px;height:20px;border-radius:10px;background:#ffffff;color:#244fb0;font-size:12px;display:grid;place-items:center">0</span></a>
+    </div>
+  </header>
+
+  <section aria-label="Na start" style="display:flex;gap:36px;padding:0 72px;height:740px;box-sizing:border-box">
+    <div style="width:540px;flex:none;display:flex;flex-direction:column;justify-content:center;gap:24px;padding-bottom:30px">
+      <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:9px;padding:7px 14px 7px 10px;border-radius:999px;background:#f3f5fa;border:1px solid #e2e6ef;font-size:13px;font-weight:700;color:#4a5470">
+        <span style="width:8px;height:8px;border-radius:50%;background:#244fb0;box-shadow:0 0 0 4px rgba(36,79,176,.14)"></span>Rabka-Zdrój · Podhale · Małopolska
+      </div>
+      <h1 style="margin:0;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:800;font-size:64px;line-height:.98;letter-spacing:-.035em;text-wrap:balance">Kasy, komputery i&#160;programy dla firm.</h1>
+      <p style="margin:-8px 0 0;font-family:Archivo,sans-serif;font-stretch:110%;font-weight:800;font-size:28px;line-height:1.12;letter-spacing:-.02em;color:#244fb0">Wszystko z jednego miejsca w&#160;Rabce.</p>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#4a5470;max-width:480px">Dobieramy, wdrażamy i serwisujemy wszystko, na czym pracuje firma: od kasy fiskalnej i terminala, przez komputery i programy, po sieć i serwer. Jeden partner z Rabki zamiast kilku firm i infolinii.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#" style="height:54px;padding:0 22px;border-radius:15px;background:#244fb0;color:#ffffff;font:800 15px Manrope,sans-serif;display:flex;align-items:center;gap:12px;text-decoration:none;box-shadow:0 14px 30px -12px rgba(36,79,176,.6)">Dobierz rozwiązanie dla firmy →</a>
+        <a href="#" style="height:54px;padding:0 20px;border-radius:15px;border:1px solid #d6dcea;color:#0d1326;font:800 15px Manrope,sans-serif;display:flex;align-items:center;gap:10px;text-decoration:none;background:#ffffff">Przeglądaj ofertę <span style="color:#6b7590;font-weight:700">455</span></a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding-top:18px;border-top:1px solid #eef1f7">
+        <span style="font-size:12px;font-weight:800;letter-spacing:.14em;color:#6b7590">ZADZWOŃ · ODDZWANIAMY W 60 MINUT W GODZINACH PRACY</span>
+        <div style="display:flex;gap:10px">
+          <a href="#" style="height:52px;padding:0 18px 0 8px;border-radius:15px;background:#f3f5fa;border:1px solid #e2e6ef;display:flex;align-items:center;gap:12px;text-decoration:none;color:#0d1326">
+            <span style="width:36px;height:36px;border-radius:11px;background:#244fb0;color:#ffffff;display:grid;place-items:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg></span>
+            <b style="font-family:Archivo,sans-serif;font-stretch:112%;font-size:19px;letter-spacing:-.01em">889 003 889</b>
+          </a>
+          <a href="#" style="height:52px;padding:0 18px 0 8px;border-radius:15px;background:#f3f5fa;border:1px solid #e2e6ef;display:flex;align-items:center;gap:12px;text-decoration:none;color:#0d1326">
+            <span style="width:36px;height:36px;border-radius:11px;background:#ffffff;border:1px solid #d6dcea;color:#244fb0;display:grid;place-items:center;box-sizing:border-box"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg></span>
+            <b style="font-family:Archivo,sans-serif;font-stretch:112%;font-size:19px;letter-spacing:-.01em">883 200 151</b>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div style="position:relative;width:720px;height:740px;flex:none">
+      <div aria-hidden="true" style="position:absolute;left:60px;top:50px;width:600px;height:600px;border-radius:50%;background:radial-gradient(closest-side,{{glow}},rgba(255,255,255,0))"></div>
+      <svg width="720" height="740" viewBox="0 0 720 740" aria-hidden="true" style="position:absolute;left:0;top:0">
+        <g class="bzw-ring"><circle cx="360" cy="350" r="290" fill="none" stroke="#d6dcea" stroke-width="1.5" stroke-dasharray="2 8" stroke-linecap="round"></circle><circle cx="360" cy="60" r="3" fill="#9db6ea"></circle><circle cx="360" cy="640" r="2" fill="#c9d6f2"></circle></g>
+        <circle cx="360" cy="350" r="165" fill="none" stroke="#e1e8f4" stroke-width="1.5"></circle>
+        <path d="{{activeArc}}" fill="none" stroke="{{color}}" stroke-width="4" stroke-linecap="round" opacity=".85"></path>
+        <path class="bzw-line" d="{{links}}" fill="none" stroke="{{color}}" stroke-width="1.6" stroke-dasharray="4 5" opacity=".7"></path>
+        <circle cx="360" cy="350" r="112" fill="none" stroke="#eef1f7" stroke-width="5"></circle>
+        <path d="{{progress}}" fill="none" stroke="{{color}}" stroke-width="5" stroke-linecap="round"></path>
+      </svg>
+
+      <sc-for list="{{bubbles}}" as="b" hint-placeholder-count="10">
+        <button class="bzw-b" type="button" onClick="{{b.pick}}" aria-label="{{b.name}}" style="{{b.style}}"><img class="bzw-float" src="{{b.src}}" alt="" style="{{b.imgStyle}}"><span class="bzw-tip" aria-hidden="true">{{b.name}}</span></button>
+      </sc-for>
+
+      <div class="bzw-hub" style="position:absolute;left:260px;top:250px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 50% 25%,#1c2a4d 0%,#0a1430 70%);box-shadow:0 30px 60px -24px rgba(10,20,48,.7),inset 0 1px 0 rgba(255,255,255,.12);overflow:hidden">
+        <sc-for list="{{depts}}" as="d" hint-placeholder-count="5">
+          <div class="bzw-core" aria-hidden="{{d.hidden}}" style="{{d.coreStyle}}">
+            <span style="font-size:10px;font-weight:800;letter-spacing:.2em;color:{{d.light}}">DZIAŁ {{d.no}} Z 5</span>
+            <span style="font-family:Archivo,sans-serif;font-stretch:112%;font-weight:800;font-size:21px;line-height:1.05;color:#ffffff;max-width:160px">{{d.name}}</span>
+            <span style="font-size:11px;line-height:1.35;color:#a6b1c9;max-width:150px">{{d.pair}}</span>
+            <a href="#" style="margin-top:4px;height:30px;padding:0 5px 0 12px;border-radius:999px;background:#ffffff;color:#0a1430;font:800 12px Manrope,sans-serif;display:flex;align-items:center;gap:8px;text-decoration:none">Zobacz dział <span style="width:20px;height:20px;border-radius:50%;background:{{d.color}};color:#ffffff;display:grid;place-items:center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+          </div>
+        </sc-for>
+      </div>
+
+      <div role="tablist" aria-label="Działy oferty">
+        <sc-for list="{{depts}}" as="d" hint-placeholder-count="5">
+          <span class="bzw-pulse" aria-hidden="true" style="{{d.pulseStyle}}"></span>
+          <button class="bzw-n" type="button" role="tab" aria-selected="{{d.selected}}" aria-label="{{d.aria}}" onClick="{{d.pick}}" style="{{d.nodeStyle}}">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{d.icon}}"></path></svg>
+          </button>
+          <span class="bzw-l" aria-hidden="true" style="{{d.labelStyle}}">{{d.name}}</span>
+        </sc-for>
+      </div>
+
+      <div style="position:absolute;left:0;right:0;top:690px;display:flex;align-items:center;justify-content:center;gap:16px;font-size:13px;color:#6b7590">
+        <span>Kliknij dział albo produkt</span>
+        <span aria-hidden="true" style="width:4px;height:4px;border-radius:50%;background:#c3cad9"></span>
+        <a href="#" style="font-weight:800;text-decoration:none">Zobacz plan Twojej firmy ↓</a>
+        <button class="bzw-btn" type="button" onClick="{{togglePause}}" aria-label="{{pauseLabel}}" style="width:34px;height:34px;border-radius:50%;border:1px solid #d6dcea;background:#ffffff;color:#244fb0;display:grid;place-items:center;cursor:pointer">
+          <sc-if value="{{paused}}" hint-placeholder-val="{{false}}"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l14 8-14 8z"></path></svg></sc-if>
+          <sc-if value="{{running}}" hint-placeholder-val="{{true}}"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"></path></svg></sc-if>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div style="margin:0 72px;height:112px;box-sizing:border-box;border-radius:26px;background:#f3f5fa;border:1px solid #e2e6ef;display:flex;align-items:center;padding:0 12px 0 28px;gap:20px">
+    <span style="font-size:11px;font-weight:800;letter-spacing:.16em;color:#4a5470;width:118px;line-height:1.5;flex:none">UPRAWNIENIA PRODUCENTÓW</span>
+    <div style="flex:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
+      <div style="height:84px;border-radius:18px;background:#ffffff;border:1px solid #e2e6ef;display:flex;flex-direction:column;justify-content:center;gap:9px;padding:0 18px"><img src="../obrazy/logo-posnet.webp" alt="Posnet" style="height:20px;width:auto;align-self:flex-start"><span style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:#15724a;white-space:nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"></path></svg>Autoryzowany serwis</span></div>
+      <div style="height:84px;border-radius:18px;background:#ffffff;border:1px solid #e2e6ef;display:flex;flex-direction:column;justify-content:center;gap:9px;padding:0 18px"><img src="../obrazy/logo-elzab.webp" alt="Elzab" style="height:18px;width:auto;align-self:flex-start"><span style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:#15724a;white-space:nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"></path></svg>Autoryzowany serwis</span></div>
+      <div style="height:84px;border-radius:18px;background:#ffffff;border:1px solid #e2e6ef;display:flex;flex-direction:column;justify-content:center;gap:9px;padding:0 18px"><img src="../obrazy/logo-gopos.webp" alt="GoPOS" style="height:22px;width:auto;align-self:flex-start"><span style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:#244fb0;white-space:nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>Autoryzowany partner</span></div>
+      <div style="height:84px;border-radius:18px;background:#ffffff;border:1px solid #e2e6ef;display:flex;flex-direction:column;justify-content:center;gap:7px;padding:0 18px"><img src="../obrazy/logo-insert.webp" alt="InsERT" style="height:26px;width:auto;align-self:flex-start"><span style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:#244fb0;white-space:nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>Autoryzowany partner</span></div>
+    </div>
+    <div style="flex:none;height:84px;border-radius:18px;background:#0a1430;color:#ffffff;display:flex;align-items:center;gap:28px;padding:0 26px">
+      <span style="display:flex;flex-direction:column;gap:3px"><b style="font-family:Archivo,sans-serif;font-stretch:115%;font-size:26px;line-height:1">2004</b><span style="font-size:12px;color:#aeb8d2">w Rabce-Zdroju</span></span>
+      <span style="display:flex;flex-direction:column;gap:3px"><b style="font-family:Archivo,sans-serif;font-stretch:115%;font-size:26px;line-height:1;white-space:nowrap">10&#160;000+</b><span style="font-size:12px;color:#aeb8d2">klientów</span></span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { active: 0, p: 0, paused: false };
+    this.data = [
+      { name: 'Kasy i sprzedaż', count: '120 POZ.', color: '#2563eb', light: '#8fb0f4', glow: 'rgba(37,99,235,.14)', icon: 'M3 9l1.6-5h14.8L21 9M3 9v11h18V9M3 9h18M9.5 20v-5.5h5V20',
+        items: [{ n: 'Posnet Ergo Online', s: '../obrazy/k4-kolo-ergo.webp', tall: 1 }, { n: 'Terminal PolCard', s: '../obrazy/k4-kolo-pol.webp', tall: 1 }, { n: 'Sunmi D3 PRO', s: '../obrazy/k4-kolo-d3.webp', tall: 0 }] },
+      { name: 'Komputery i biuro', count: '239 POZ.', color: '#0093b3', light: '#7fd6ea', glow: 'rgba(0,147,179,.13)', icon: 'M4 5h16v10.5H4zM2 19.5h20M10 19.5v-1h4v1',
+        items: [{ n: 'MacBook Air M5', s: '../obrazy/k4-kolo-apple-macbook-air-m5.webp', tall: 0 }, { n: 'Lenovo ThinkCentre neo 50s', s: '../obrazy/k4-kolo-lenovo-thinkcentre-neo-50s-55s.webp', tall: 1 }, { n: 'Konica Minolta', s: '../obrazy/k4-kolo-konica-minolta-bizhub-c3321i.webp', tall: 1 }] },
+      { name: 'Oprogramowanie', count: '36 POZ.', color: '#7b4fe0', light: '#c3aefa', glow: 'rgba(123,79,224,.13)', icon: 'M14 3H6v18h12V7zM14 3v4h4M10.5 11.5l-2.5 2.5 2.5 2.5M13.5 11.5l2.5 2.5-2.5 2.5',
+        items: [{ n: 'GoPOS', s: '../obrazy/k4-kolo-gopos.webp', tall: 0 }, { n: 'Subiekt nexo', s: '../obrazy/k4-kolo-nexo.webp', tall: 1 }, { n: 'Office 2024', s: '../obrazy/k4-kolo-microsoft-office-2024.webp', tall: 1 }] },
+      { name: 'Sieć i ochrona', count: '39 POZ.', color: '#1f9d63', light: '#8fe0b8', glow: 'rgba(31,157,99,.12)', icon: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4',
+        items: [{ n: 'Podpis EuroCert', s: '../obrazy/k4-kolo-euro.webp', tall: 0 }, { n: 'ESET PROTECT', s: '../obrazy/k4-kolo-eset.webp', tall: 0 }, { n: 'Ubiquiti UniFi', s: '../obrazy/k4-kolo-u7.webp', tall: 0 }] },
+      { name: 'Serwis i usługi', count: '21 POZ.', color: '#e0482f', light: '#f5a58f', glow: 'rgba(224,72,47,.11)', icon: 'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z',
+        items: [{ n: 'Wdrożenie KSeF', s: '../obrazy/k4-kolo-ksef.webp', tall: 0 }, { n: 'Fiskalizacja kasy', s: '../obrazy/k4-kolo-k10.webp', tall: 0 }, { n: 'Opieka IT', s: '../obrazy/k4-kolo-lenovo-thinkbook-14-g8-g9.webp', tall: 0 }] }
+    ];
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      if (this.state.paused) return;
+      const p = this.state.p + 50 / 6500;
+      if (p >= 1) this.setState({ active: (this.state.active + 1) % 5, p: 0 });
+      else this.setState({ p: p });
+    }, 50);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+  renderVals() {
+    const C = { x: 360, y: 350 };
+    const xy = (r, deg) => { const a = deg * Math.PI / 180; return [C.x + r * Math.cos(a), C.y + r * Math.sin(a)]; };
+    const f = (v) => v.toFixed(1);
+    const act = this.state.active, A = this.data[act];
+    const bubbles = [], depts = [];
+    let links = '';
+    this.data.forEach((d, i) => {
+      const c = -90 + i * 72, on = i === act;
+      const n = xy(165, c);
+      d.items.forEach((it, k) => {
+        const ang = c + (k - 1) * 20;
+        const q = xy(290, ang);
+        const size = on ? 76 : 54;
+        bubbles.push({
+          name: it.n, src: it.s,
+          style: 'animation-delay:' + (0.25 + (i * 3 + k) * 0.06).toFixed(2) + 's;position:absolute;left:' + f(q[0]) + 'px;top:' + f(q[1]) + 'px;width:' + size + 'px;height:' + size + 'px;transform:translate(-50%,-50%);border-radius:50%;background:#ffffff;cursor:pointer;padding:0;display:grid;place-items:center;' +
+            (on ? 'border:3px solid ' + d.color + ';box-shadow:0 0 0 6px ' + d.glow + ',0 18px 30px -14px rgba(13,19,38,.45)' : 'border:1px solid #e2e6ef;box-shadow:0 10px 22px -14px rgba(13,19,38,.35)'),
+          imgStyle: (on ? 'animation:bzwFloat 3.6s ease-in-out ' + (k * 0.4).toFixed(1) + 's infinite;' : '') + (it.tall ? 'height:' + (on ? 54 : 38) + 'px;width:auto;' : 'width:' + (on ? 58 : 40) + 'px;height:auto;') + 'max-width:78%;max-height:72%;object-fit:contain',
+          pick: () => this.setState({ active: i, p: 0 })
+        });
+        if (on) links += 'M ' + f(n[0]) + ' ' + f(n[1]) + ' L ' + f(q[0]) + ' ' + f(q[1]) + ' ';
+      });
+      const size = on ? 70 : 54;
+      let lpos;
+      if (i === 0) lpos = 'left:' + f(n[0]) + 'px;top:' + f(n[1] - (on ? 66 : 58)) + 'px;transform:translateX(-50%);';
+      else lpos = 'left:' + f(n[0]) + 'px;top:' + f(n[1] + (on ? 42 : 34)) + 'px;transform:translateX(-50%);';
+      depts.push({
+        no: i + 1, name: d.name, count: d.count, color: d.color, light: d.light, icon: d.icon,
+        pair: d.items.map((x) => x.n).join(' · '),
+        pulseStyle: on ? 'position:absolute;left:' + f(n[0]) + 'px;top:' + f(n[1]) + 'px;width:70px;height:70px;border-radius:50%;background:' + d.color + ';z-index:1;animation:bzwPulse 2.2s ease-out infinite' : 'display:none',
+        selected: on ? 'true' : 'false', hidden: on ? 'false' : 'true', aria: d.name,
+        nodeStyle: 'animation-delay:' + (0.1 + i * 0.08).toFixed(2) + 's;position:absolute;left:' + f(n[0]) + 'px;top:' + f(n[1]) + 'px;width:' + size + 'px;height:' + size + 'px;transform:translate(-50%,-50%);border-radius:50%;display:grid;place-items:center;cursor:pointer;padding:0;color:#ffffff;border:0;z-index:2;background:linear-gradient(150deg,' + d.light + ' -40%,' + d.color + ' 70%);' +
+          (on ? 'box-shadow:0 0 0 7px ' + d.glow + ',0 0 0 8px #ffffff,0 0 0 10px ' + d.color + ',0 18px 30px -10px rgba(13,19,38,.45)' : 'box-shadow:0 12px 22px -12px rgba(13,19,38,.45);opacity:.92'),
+        labelStyle: 'position:absolute;' + lpos + 'white-space:nowrap;height:30px;padding:0 13px;border-radius:999px;font:800 13px Manrope,sans-serif;display:flex;align-items:center;z-index:2;' +
+          (on ? 'background:#0a1430;color:#ffffff;border:1px solid #0a1430' : 'background:#ffffff;color:#0d1326;border:1px solid #e2e6ef'),
+        coreStyle: 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;text-align:center;' + (on ? 'opacity:1;transform:none' : 'opacity:0;transform:scale(.94);pointer-events:none'),
+        pick: () => this.setState({ active: i, p: 0 })
+      });
+    });
+    const c = -90 + act * 72;
+    const a0 = xy(290, c - 20), a1 = xy(290, c + 20);
+    const p = Math.max(0.002, this.state.p);
+    const s0 = xy(112, -90), s1 = xy(112, -90 + 359.9 * p);
+    return {
+      bubbles: bubbles, depts: depts, color: A.color, glow: A.glow,
+      activeArc: 'M ' + f(a0[0]) + ' ' + f(a0[1]) + ' A 290 290 0 0 1 ' + f(a1[0]) + ' ' + f(a1[1]),
+      links: links,
+      progress: 'M ' + f(s0[0]) + ' ' + f(s0[1]) + ' A 112 112 0 ' + (p > 0.5 ? 1 : 0) + ' 1 ' + f(s1[0]) + ' ' + f(s1[1]),
+      paused: this.state.paused, running: !this.state.paused,
+      pauseLabel: this.state.paused ? 'Wznów animację' : 'Wstrzymaj animację',
+      togglePause: () => this.setState({ paused: !this.state.paused })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -49,7 +49,7 @@ type OrganizationInput = {
   company: PublicCompanyData
   tenant: { name: string; line: Line }
   /** Phone and e-mail of the line (`SiteSettings`); company ones are the fallback. */
-  contact: { phone: string | null; email: string | null }
+  contact: { phone: string | null; email: string | null; phone2?: string | null }
   origin: string
   /**
    * Towns the line serves (Biznes: `SiteSettings.biznes.serviceAreas`; the regions are added
@@ -106,6 +106,21 @@ export function organizationJsonLd({
   const orgId = `${origin}/#organization`
   const telephone = e164(contact.phone ?? company.phones[0]?.number)
   const email = contact.email ?? company.email
+  // The line's second number (Biznes, runda 1411): `telephone` stays the main one, the second is
+  // a `ContactPoint` of its own (customer service, in Polish).
+  const telephone2 = e164(contact.phone2 ?? undefined)
+  const contactPoint =
+    telephone2 && telephone2 !== telephone
+      ? [
+          {
+            '@type': 'ContactPoint',
+            telephone: telephone2,
+            contactType: 'customer service',
+            areaServed: 'PL',
+            availableLanguage: 'pl',
+          },
+        ]
+      : undefined
   const organization = {
     '@type': 'Organization',
     '@id': orgId,
@@ -114,6 +129,7 @@ export function organizationJsonLd({
     url: `${origin}/`,
     logo: origin + brandAsset(tenant.line, 'poziome_kolor.svg'),
     telephone,
+    ...(contactPoint && { contactPoint }),
     email,
     taxID: company.nip,
   }

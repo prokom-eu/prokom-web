@@ -262,11 +262,17 @@ export function Grants({
 }
 
 /**
- * „Opisz firmę” (board 03 `#formularz`): what happens after the message and the way to the form.
- * TODO(krystian): H6-1 puts the `hub-dla-firm` form (ContactForm) here; until then the button opens
- * the contact page with the topic set — one form flow, one anti-spam place (ADR-003).
+ * „Opisz firmę” / „Napisz” (boards 03, 04 `#formularz`): the heading, what happens after the
+ * message, and the hub's form (`HubForm` on the shared ContactForm, H6-1).
  */
-export function FormCta({ texts, href }: { texts: HubForBusiness['form']; href: string }) {
+export function FormCta({
+  texts,
+  children,
+}: {
+  texts: Pick<HubForBusiness['form'], 'eyebrow' | 'title' | 'afterLabel' | 'after'>
+  /** The form. */
+  children: React.ReactNode
+}) {
   return (
     <section id="formularz" aria-labelledby="formularz-h" className={`pk-sect ${HUB_CONTAINER}`}>
       <div className="pk-contact">
@@ -275,11 +281,6 @@ export function FormCta({ texts, href }: { texts: HubForBusiness['form']; href: 
           <h2 id="formularz-h" className="pk-h2">
             {texts.title}
           </h2>
-          <a href={href} className="pk-hbtn pk-hbtn--accent pk-hbtn--big">
-            {texts.cta} <span aria-hidden="true">→</span>
-          </a>
-        </div>
-        <div className="pk-contact__write">
           <span className="pk-eb">{texts.afterLabel}</span>
           <ol className="pk-ind__start">
             {texts.after.map((item, index) => (
@@ -290,6 +291,7 @@ export function FormCta({ texts, href }: { texts: HubForBusiness['form']; href: 
             ))}
           </ol>
         </div>
+        <div className="pk-contact__write">{children}</div>
       </div>
     </section>
   )

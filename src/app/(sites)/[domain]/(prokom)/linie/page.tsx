@@ -12,7 +12,10 @@ type Props = {
 /** Spec §4: title of `/linie`; the full SEO (description, canonical, JSON-LD) comes in H6-2. */
 export async function generateMetadata({ params }: Pick<Props, 'params'>): Promise<Metadata> {
   await requireLine(params, 'prokom')
-  return { title: { absolute: 'Linie PRO-KOM — co gdzie załatwisz' } }
+  return {
+    title: { absolute: 'Linie PRO-KOM — co gdzie załatwisz' },
+    alternates: { canonical: '/linie' },
+  }
 }
 
 /** `/linie?q=&dla=&linia=&u=` of pro-kom.eu (spec §6.2): the catalog state comes from the address. */

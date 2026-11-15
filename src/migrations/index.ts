@@ -116,7 +116,8 @@ import * as migration_20261114_200944_hub_glowna from './20261114_200944_hub_glo
 import * as migration_20261114_220230_hub_oferta from './20261114_220230_hub_oferta'
 import * as migration_20261114_222723_hub_dla_firm from './20261114_222723_hub_dla_firm'
 import * as migration_20261114_223809_hub_dla_domu from './20261114_223809_hub_dla_domu'
-import * as migration_20261115_003345_biznes_kolo_zdjecie from './20261115_003345_biznes_kolo_zdjecie'
+import * as migration_20261115_015856_wsp_weryfikacja_linki from './20261115_015856_wsp_weryfikacja_linki'
+import * as migration_20261115_022657_biznes_kolo_zdjecie from './20261115_022657_biznes_kolo_zdjecie'
 
 export const migrations = [
   {
@@ -710,8 +711,13 @@ export const migrations = [
     name: '20261114_223809_hub_dla_domu',
   },
   {
-    up: migration_20261115_003345_biznes_kolo_zdjecie.up,
-    down: migration_20261115_003345_biznes_kolo_zdjecie.down,
-    name: '20261115_003345_biznes_kolo_zdjecie',
+    up: migration_20261115_015856_wsp_weryfikacja_linki.up,
+    down: migration_20261115_015856_wsp_weryfikacja_linki.down,
+    name: '20261115_015856_wsp_weryfikacja_linki',
+  },
+  {
+    up: migration_20261115_022657_biznes_kolo_zdjecie.up,
+    down: migration_20261115_022657_biznes_kolo_zdjecie.down,
+    name: '20261115_022657_biznes_kolo_zdjecie',
   },
 ]

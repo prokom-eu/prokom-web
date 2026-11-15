@@ -42,6 +42,10 @@ test.describe('/_wspolne — modules of Kontakt and O firmie', () => {
     await expect(current).toHaveCount(1)
     await expect(current).toHaveAttribute('data-family-line', 'biznes')
 
+    // Runda 1411: Biznes switched its verification links off (`shared.verifyLinks`) — no cards.
+    await expect(modules(page).locator('[data-verify-cards]')).toHaveCount(0)
+    // A line with the switch on (default) keeps them, each opening its source in a new window.
+    await page.goto(site('instalacje.localhost', '/_wspolne'))
     const verify = modules(page).locator('[data-verify-cards] a')
     expect(await verify.count()).toBeGreaterThan(0)
     for (const link of await verify.all()) {

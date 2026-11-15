@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { hourTiles, weekHours } from './hourTiles'
+import { dayTiles, hourTiles, weekHours } from './hourTiles'
 
 const HOURS = [
   { days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' },
@@ -47,5 +47,31 @@ describe('weekHours (Kontakt „week” layout, Web-kontakt)', () => {
         .map((day) => day.key),
     ).toEqual(['fri'])
     expect(weekHours(HOURS, 'sun').findIndex((day) => day.today)).toBe(6)
+  })
+})
+
+describe('dayTiles (runda 1411, KontaktHero)', () => {
+  it('shows seven short days with compact hours, closed days as null', () => {
+    const tiles = dayTiles(
+      [...HOURS, { days: ['sun'], opens: '10:30', closes: '13:00' }].slice(0, 2),
+      'wed',
+    )
+    expect(tiles.map((tile) => tile.short)).toEqual(['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb', 'Nd'])
+    expect(tiles.map((tile) => tile.compact)).toEqual([
+      '9–17',
+      '9–17',
+      '9–17',
+      '9–17',
+      '9–17',
+      '9–14',
+      null,
+    ])
+    expect(tiles[6]).toMatchObject({ label: 'Niedziela', value: 'nieczynne', today: false })
+    expect(tiles.filter((tile) => tile.today).map((tile) => tile.key)).toEqual(['wed'])
+  })
+
+  it('keeps the minutes of a half hour', () => {
+    const [monday] = dayTiles([{ days: ['mon'], opens: '08:30', closes: '16:30' }], 'sun')
+    expect(monday).toMatchObject({ compact: '8:30–16:30', value: '8:30–16:30' })
   })
 })

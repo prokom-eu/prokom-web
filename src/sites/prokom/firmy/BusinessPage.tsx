@@ -19,11 +19,11 @@ import {
   Grants,
   Rollout,
 } from './BusinessSections'
+import { ChoiceState } from '../dostawy/ChoiceState'
+import { HubForm } from '../form/HubForm'
+import { PageFormPart } from '../form/FormParts'
 import { areas, industries, situations } from './model'
 import { AreaTabs, IndustryPicker, SituationPicker } from './Pickers'
-
-/** The contact page with the topic of this page, until H6-1 brings the form here. */
-const FORM_HREF = '/kontakt?temat=dla-firm'
 
 /**
  * `/dla-firm` (spec §6.3, board 03 `DlaFirm.dc.html`): hero, industries (`HubPlans`), areas in four
@@ -55,6 +55,7 @@ export async function BusinessPage({ tenant }: { tenant: SiteTenant }) {
     tel,
     promise,
   }))
+  const industryList = industries(hub.plans, texts.industries.subs, lines)
   const phone = shared.line.phone
   const tel = phone ? toTelHref(phone) : null
   const biznes = lines.find((line) => line.key === 'biznes') ?? null
@@ -64,47 +65,55 @@ export async function BusinessPage({ tenant }: { tenant: SiteTenant }) {
   })
 
   return (
-    <div className="pk-home pk-business">
-      <BusinessHero
-        texts={texts.hero}
-        facts={settings.trust}
-        phone={phone}
-        tel={tel}
-        hours={shared.line.hours}
-      />
-      <IndustryPicker
-        texts={texts.industries}
-        items={industries(hub.plans, texts.industries.subs, lines)}
-        phone={phone}
-        tel={tel}
-      />
-      <AreaTabs texts={texts.areas} lines={areaLines} items={areas(texts.areas.items, lines)} />
-      <SituationPicker
-        texts={texts.situations}
-        items={situations(texts.situations.items, lines)}
-        phone={phone}
-        tel={tel}
-      />
-      <Rollout texts={texts.rollout} />
-      <Care texts={texts.care} lines={lines} />
-      <Compare texts={texts.compare} />
-      <Grants texts={texts.grants} phone={biznes?.phone ?? phone} tel={biznes?.tel ?? tel} />
-      {settings.brands && (
-        <Brands
-          brands={settings.brands}
+    <ChoiceState first={industryList[0]?.key ?? ''}>
+      <div className="pk-home pk-business">
+        <BusinessHero
+          texts={texts.hero}
           facts={settings.trust}
-          lines={homeLineList}
-          allHref={isHubLinkLive('/partnerzy', pages) ? '/partnerzy' : null}
+          phone={phone}
+          tel={tel}
+          hours={shared.line.hours}
         />
-      )}
-      <Faq
-        texts={texts.faq}
-        tokens={faqTokens(shared.company, phone)}
-        helpHref={isHubLinkLive('/pomoc', pages) ? '/pomoc' : null}
-      />
-      <FormCta texts={texts.form} href={FORM_HREF} />
-      <NextSteps texts={texts.next} pages={pages} />
-      <BusinessFinal texts={texts.final} phone={phone} tel={tel} />
-    </div>
+        <IndustryPicker texts={texts.industries} items={industryList} phone={phone} tel={tel} />
+        <AreaTabs texts={texts.areas} lines={areaLines} items={areas(texts.areas.items, lines)} />
+        <SituationPicker
+          texts={texts.situations}
+          items={situations(texts.situations.items, lines)}
+          phone={phone}
+          tel={tel}
+        />
+        <Rollout texts={texts.rollout} />
+        <Care texts={texts.care} lines={lines} />
+        <Compare texts={texts.compare} />
+        <Grants texts={texts.grants} phone={biznes?.phone ?? phone} tel={biznes?.tel ?? tel} />
+        {settings.brands && (
+          <Brands
+            brands={settings.brands}
+            facts={settings.trust}
+            lines={homeLineList}
+            allHref={isHubLinkLive('/partnerzy', pages) ? '/partnerzy' : null}
+          />
+        )}
+        <Faq
+          texts={texts.faq}
+          tokens={faqTokens(shared.company, phone)}
+          helpHref={isHubLinkLive('/pomoc', pages) ? '/pomoc' : null}
+        />
+        <FormCta texts={texts.form}>
+          <HubForm
+            shared={shared}
+            sendLabel={texts.form.cta}
+            prefill={
+              <PageFormPart
+                label={texts.hero.eyebrow}
+                choices={industryList.map(({ key, name }) => ({ key, name }))}
+              />
+            }
+          />
+        </FormCta>
+        <NextSteps texts={texts.next} pages={pages} />
+        <BusinessFinal texts={texts.final} phone={phone} tel={tel} />
+      </div>
+    </ChoiceState>
   )
 }

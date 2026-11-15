@@ -180,6 +180,99 @@ function deliveries() {
     formalities: titled(r.formal),
     faq: faq(FQ),
     next: next(r.next),
+    // Headings and labels of the page (HTML :242–530); the line's promise comes from its panel.
+    page: {
+      hero: {
+        eyebrow: 'Firmy · instytucje · hotele · inwestorzy · deweloperzy · architekci',
+        title: 'Większe zamówienie albo cały obiekt?',
+        lead: 'Sprzęt IT w zestawach, RTV i AGD dla firm, instalacje i oprogramowanie — dobrane pod Twój obiekt. Sama dostawa albo dostawa z konfiguracją, montażem i szkoleniem — zakres ustalamy z Tobą. Po dostawie zostajemy jako serwis.',
+        cta: 'Złóż listę zapytania',
+        ways: [
+          { title: 'Mam listę sprzętu', href: '#lista' },
+          { title: 'Mam specyfikację albo SWZ', href: '#formularz' },
+          { title: 'Wyposażam obiekt', href: '#obiekty' },
+        ],
+        segmentsLabel: 'Dla kogo zamawiasz?',
+        segmentsHint: 'kliknij — dopasujemy stronę i formularz',
+        start: 'Zaczynamy od:',
+      },
+      areas: {
+        eyebrow: 'Co dostarczamy',
+        title: 'Cztery obszary. Jedna oferta, jedna faktura, jeden kontakt.',
+        lead: 'Każdy obszar prowadzi linia PRO-KOM, która robi to na co dzień. Przy większym zamówieniu łączymy je w jedno.',
+        how: 'Jak dostarczamy:',
+        details: 'Szczegóły na prokombiznes.pl',
+      },
+      list: {
+        eyebrow: 'Lista zapytania',
+        title: 'Zaznacz, czego i ile potrzebujesz. Resztę dopytamy.',
+        lead: 'Bez cen i bez zobowiązań. Lista trafia do formularza, a my odsyłamy wycenę na piśmie. Parametry ustalimy razem.',
+        yours: 'Twoja lista',
+        clear: 'Wyczyść',
+        pcs: 'szt.',
+        empty: 'Lista jest pusta. Dodaj pozycje obok albo wczytaj gotowy przykład obiektu niżej.',
+        services: 'Co jeszcze',
+        term: 'Kiedy potrzebujesz',
+        tvNote:
+          'RTV i AGD dostarczamy pod wskazany adres, bez montażu. Konfigurację i montaż sprzętu IT ustalamy przy ofercie.',
+        attach: 'Dołącz listę do zapytania',
+        copy: 'Kopiuj listę do schowka',
+        copied: 'Skopiowano listę',
+        copyFailed: 'Nie udało się skopiować — zaznacz listę i skopiuj ręcznie',
+        bar: 'Lista:',
+        send: 'Wyślij zapytanie',
+      },
+      objects: {
+        eyebrow: 'Wyposażenie obiektu',
+        title: 'Wybierz obiekt — zobacz, co zwykle obejmuje taka dostawa.',
+        lead: 'Przykłady pokazują typowy zakres. Wczytaj przykład do listy i zmień ilości pod swój obiekt.',
+        load: 'Wczytaj przykład do listy',
+        note: 'Ilości są przykładowe — zakres i parametry ustalamy przy zapytaniu. Wycenę dostajesz na piśmie.',
+      },
+      scope: {
+        eyebrow: 'Zakres do wyboru',
+        title: 'Sama dostawa albo pełne wdrożenie. Ty decydujesz.',
+        tabsLabel: 'Co możemy dodać — wybierz rodzaj sprzętu',
+        optional:
+          'Każda z tych usług jest opcjonalna. Zakres ustalamy przy zapytaniu i zapisujemy w ofercie.',
+      },
+      steps: {
+        eyebrow: 'Jak wygląda realizacja',
+        title: 'Sześć kroków. Każdy uzgodniony na piśmie.',
+      },
+      brands: {
+        eyebrow: 'Na czym pracujemy',
+        title: 'Marki, które znamy od strony serwisu.',
+        all: 'Wszystkie marki i autoryzacje',
+        note: 'RTV i AGD dobieramy do zapytania — od sprawdzonych dystrybutorów, z gwarancją producenta.',
+      },
+      compare: {
+        eyebrow: 'Dlaczego jedna firma',
+        title: 'Mniej dostawców, mniej koordynacji.',
+        area: 'Obszar',
+        other: 'Kilku dostawców',
+        ours: 'PRO-KOM',
+      },
+      formal: {
+        eyebrow: 'Instytucje i formalności',
+        title: 'Zapytania ofertowe i przetargi — też.',
+      },
+      after: {
+        eyebrow: 'Po dostawie',
+        title: 'Dostawa to początek. Zostajemy jako serwis.',
+        lead: 'Ten sam sprzęt, ta sama firma, jeden numer. Bez szukania, kto co dostarczał.',
+        towns: 'Dostawy i dojazdy serwisowe:',
+        coverage: 'Cała Małopolska — zobacz zasięg',
+      },
+      faq: { eyebrow: 'Pytania', title: 'Zanim wyślesz zapytanie.' },
+      form: {
+        eyebrow: 'Zapytanie ofertowe',
+        to: 'Trafia do:',
+        cta: 'Wyślij zapytanie',
+        note: 'Wycena na piśmie. Bez newslettera.',
+      },
+      next: { eyebrow: 'Co dalej', title: 'Inne drogi do tej samej firmy.' },
+    },
   }
 }
 
@@ -211,12 +304,68 @@ function cooperation() {
       tag: s.tag,
       items: s.items.map(([title, text, when]) => ({ title, text, when })),
     })),
-    facts: r.facts.map((f) => ({ value: f.v, label: f.l })),
+    facts: fixTexts(
+      r.facts.map((f) => ({ value: f.v, label: f.l })),
+      { 'na odpowiedź w dni robocze': 'na odpowiedź linii Instalacje w dni robocze' },
+    ),
     deliveries: titled(r.deliv),
     suppliers: titled(r.supp),
-    rules: titled(r.rules),
+    // Spec §3: no promise beyond the agreed ones (24 h is Instalacje only), no street address.
+    rules: fixTexts(titled(r.rules), {
+      'Odpowiedź w 24 godziny': 'Odpowiadamy w dni robocze',
+      'W dni robocze oddzwaniamy albo odpisujemy na każde zgłoszenie.':
+        'Oddzwaniamy albo odpisujemy na każde zgłoszenie — czas odpowiedzi linii podajemy przy jej numerze.',
+      'Ul. Orkana 16B w Rabce-Zdroju. Przyjdź z rzutami — omówimy projekt na miejscu.':
+        'W salonie w Rabce-Zdroju. Przyjdź z rzutami — omówimy projekt na miejscu.',
+    }),
     faq: faq(FQ),
     next: next(r.next),
+    // Headings and labels of the page (board 16 HTML); phones, e-mail and promises from the panels.
+    page: {
+      hero: {
+        eyebrow: 'Dla architektów · deweloperów · wykonawców · instytucji · dostawców',
+        title: 'Projektujesz, budujesz albo zamawiasz? Zróbmy to razem.',
+        lead: 'Instalacje, sprzęt i oprogramowanie od jednej firmy z Rabki-Zdroju. Wchodzimy w projekt wcześnie, bierzemy cały zakres i zostajemy po odbiorze. Wybierz, kim jesteś — pokażemy, od czego zaczynamy.',
+        cta: 'Wyślij rzuty albo zapytanie',
+        rolesLabel: 'Kim jesteś?',
+        rolesHint: 'kliknij — plan zmienia się obok',
+        start: 'Zaczynamy od:',
+      },
+      stages: {
+        eyebrow: 'Kiedy nas włączyć',
+        title: 'Im wcześniej, tym mniej kucia ścian.',
+        lead: 'Pięć etapów inwestycji: co robimy my, a czego potrzebujemy od Ciebie.',
+        we: 'Co robimy my',
+        you: 'Czego potrzebujemy od Ciebie',
+      },
+      scope: {
+        eyebrow: 'Co wnosimy do projektu',
+        title: 'Jeden wykonawca na wszystko, co ma kabel, ekran albo program.',
+        architectsTitle: 'Pełna strona dla architektów i deweloperów',
+        architectsText:
+          'Przekrój domu, nowe rozwiązania do projektów, checklista projektanta i przepisy — na stronie linii Instalacje.',
+        architectsPath: '/dla-architektow',
+      },
+      deliveries: {
+        eyebrow: 'Instytucje i większe dostawy',
+        title: 'Sto komputerów albo wyposażenie całego obiektu? Też.',
+        lead: 'Dla szkół, urzędów, gmin, hoteli i firm dostarczamy sprzęt w większych ilościach. Pełny zakres, lista zapytania i przykłady obiektów są na osobnej stronie.',
+        cta: 'Inwestycje i dostawy',
+      },
+      suppliers: {
+        eyebrow: 'Dostawcy i producenci',
+        title: 'Masz produkt, który pasuje do naszej oferty?',
+        lead: 'Sprzedajemy, montujemy i serwisujemy — więc szukamy sprzętu, za który możemy ręczyć. Napisz, co oferujesz. Odpowiadamy na każdą konkretną propozycję.',
+      },
+      rules: { eyebrow: 'Zasady współpracy', title: 'Krótko i na piśmie.' },
+      faq: { eyebrow: 'Pytania', title: 'Zanim napiszesz.' },
+      form: {
+        eyebrow: 'Napisz do nas',
+        note: 'Formularz dopasowuje się do tego, kim jesteś.',
+        to: 'Trafia do:',
+      },
+      next: { eyebrow: 'Co dalej', title: 'Inne drogi do tej samej firmy.' },
+    },
   }
 }
 

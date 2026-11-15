@@ -139,6 +139,26 @@ describe('toSharedData', () => {
     })
   })
 
+  it('keeps the CEIDG link and the verify cards by default', () => {
+    const about = { verify: [{ title: 'CEIDG', text: 'Po NIP.' }] }
+    const data = toSharedData(company, settings({ about }))
+    expect(data?.company.ceidgUrl).toBe('https://ceidg.test/1234563218')
+    expect(data?.line.about?.verify).toHaveLength(1)
+    expect(toSharedData(company, settings({ about, verifyLinks: true }))?.company.ceidgUrl).toBe(
+      'https://ceidg.test/1234563218',
+    )
+  })
+
+  it('drops the CEIDG link and the verify cards of a line that switched them off', () => {
+    const data = toSharedData(
+      company,
+      settings({ verifyLinks: false, about: { h1: 'O nas', verify: [{ title: 'CEIDG' }] } }),
+    )
+    expect(data?.company.ceidgUrl).toBeNull()
+    expect(data?.company.nip).toBe('1234563218')
+    expect(data?.line.about).toMatchObject({ h1: 'O nas', verify: [] })
+  })
+
   it('falls back to the company e-mail when the line has none', () => {
     expect(toSharedData(company, settings({}, { email: null }))?.line.email).toBe(
       'biuro@firma.test',

@@ -17,6 +17,33 @@ import {
  * static lists. The phone of a role comes from its `line` (CompanyData / SiteSettings), never from
  * the text. No „opiekun” promise until the boss decides (spec §6.6).
  */
+const head = { eyebrow: text(80), title: text(120) }
+
+/** Headings and labels of the page (board 16 HTML); contact data and promises from the panels. */
+const pageSchema = z.object({
+  hero: z.object({
+    ...head,
+    lead: text(400),
+    cta: text(40),
+    rolesLabel: text(30),
+    rolesHint: text(80),
+    start: text(30),
+  }),
+  stages: z.object({ ...head, lead: text(200), we: text(30), you: text(40) }),
+  scope: z.object({
+    ...head,
+    architectsTitle: text(80),
+    architectsText: text(240),
+    architectsPath: z.string().regex(/^\/[a-z0-9/-]*$/),
+  }),
+  deliveries: z.object({ ...head, lead: text(300), cta: text(40) }),
+  suppliers: z.object({ ...head, lead: text(300) }),
+  rules: z.object(head),
+  faq: z.object(head),
+  form: z.object({ eyebrow: text(40), note: text(120), to: text(20) }),
+  next: z.object(head),
+})
+
 export const cooperationSchema = z
   .object({
     roles: z
@@ -66,6 +93,7 @@ export const cooperationSchema = z
     rules: z.array(titled),
     faq: z.array(faqItem),
     next: z.array(nextItem),
+    page: pageSchema,
   })
   .strict()
 
