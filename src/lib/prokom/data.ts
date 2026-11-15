@@ -208,6 +208,19 @@ export type HubSettingsView = {
   offer: HubOffer | null
   forBusiness: HubForBusiness | null
   forHome: HubForHome | null
+  /** Landline numbers shown modestly on `/kontakt` (decision 15.11: the same as Google). */
+  extraPhones: { label: string; number: string }[]
+  /** Zakopane: only the Tech service there — not a company salon (decision 15.11). */
+  branch: HubBranch | null
+}
+
+export type HubBranch = {
+  name: string
+  street: string
+  postalCode: string
+  city: string
+  phone: string | null
+  note: string | null
 }
 
 type SiteEnv = 'production' | 'staging' | 'local'
@@ -226,6 +239,8 @@ export function toHubSettings(
         | 'offer'
         | 'forBusiness'
         | 'forHome'
+        | 'extraPhones'
+        | 'branch'
       >
     | null
     | undefined,
@@ -249,6 +264,25 @@ export function toHubSettings(
     offer: pageTexts(offerSchema, doc?.offer, 'offer', tenantId),
     forBusiness: pageTexts(forBusinessSchema, doc?.forBusiness, 'forBusiness', tenantId),
     forHome: pageTexts(forHomeSchema, doc?.forHome, 'forHome', tenantId),
+    extraPhones: (doc?.extraPhones ?? []).map(({ label, number }) => ({ label, number })),
+    branch: toBranch(doc?.branch),
+  }
+}
+
+const filled = (value: string | null | undefined) => (value?.trim() ? value.trim() : null)
+
+/** A branch only when switched on and with an address to show. */
+function toBranch(branch: HubSetting['branch']): HubBranch | null {
+  const street = filled(branch?.street)
+  const city = filled(branch?.city)
+  if (branch?.published !== true || !street || !city) return null
+  return {
+    name: filled(branch.name) ?? city,
+    street,
+    postalCode: filled(branch.postalCode) ?? '',
+    city,
+    phone: filled(branch.phone),
+    note: filled(branch.note),
   }
 }
 

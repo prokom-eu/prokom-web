@@ -36,6 +36,19 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
     await expect(page.getByText(/Czynny tylko .*Tech.*sob\. 9:00–14:00/)).toBeVisible()
   })
 
+  test('/kontakt and /o-firmie show the landlines and the Zakopane Tech point (decision 15.11)', async ({
+    page,
+  }) => {
+    await page.goto(site(HUB, '/kontakt'))
+    await expect(page.getByRole('link', { name: '18 267 65 11' })).toBeVisible()
+    await expect(page.getByRole('link', { name: '18 541 20 55' })).toBeVisible()
+    await expect(
+      page.getByText(/ul\. Stanisława Staszica 8, 34-500 Zakopane/).first(),
+    ).toBeVisible()
+    await page.goto(site(HUB, '/o-firmie'))
+    await expect(page.getByText(/ul\. Stanisława Staszica 8, 34-500 Zakopane/)).toBeVisible()
+  })
+
   test('the line sites keep their own /kontakt', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/kontakt'))
     await expect(page).toHaveTitle(/PRO-KOM Biznes/)

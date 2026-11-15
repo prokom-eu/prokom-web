@@ -6140,6 +6140,28 @@ export interface HubSetting {
     | boolean
     | null;
   /**
+   * Numery stacjonarne pokazywane skromnie na /kontakt (np. biuro, serwis) — te same co w wizytówce Google. Główne numery huba są w Ustawieniach strony.
+   */
+  extraPhones?:
+    | {
+        label: string;
+        number: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Punkt bez pełnego salonu firmy — pokazywany skromnie na /kontakt i /o-firmie. W Zakopanem działa tylko serwis PRO-KOM Tech (decyzja 15.11), dlatego nie jest salonem w Danych firmy.
+   */
+  branch?: {
+    published?: boolean | null;
+    name?: string | null;
+    phone?: string | null;
+    street?: string | null;
+    postalCode?: string | null;
+    city?: string | null;
+    note?: string | null;
+  };
+  /**
    * Na produkcji widać tylko zatwierdzone fakty (spec §3). Źródło jest wewnętrzne — nie pokazujemy go.
    */
   trust?:
@@ -10008,6 +10030,24 @@ export interface HubSettingsSelect<T extends boolean = true> {
   offer?: T;
   forBusiness?: T;
   forHome?: T;
+  extraPhones?:
+    | T
+    | {
+        label?: T;
+        number?: T;
+        id?: T;
+      };
+  branch?:
+    | T
+    | {
+        published?: T;
+        name?: T;
+        phone?: T;
+        street?: T;
+        postalCode?: T;
+        city?: T;
+        note?: T;
+      };
   trust?:
     | T
     | {

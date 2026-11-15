@@ -129,3 +129,24 @@ export const PROKOM_SITE = {
     text: 'Strona główna firmy PRO-KOM z Rabki-Zdroju. Jedna firma, pięć linii — każda z własnym zespołem i numerem.',
   },
 } as const
+
+/**
+ * Landlines and the Zakopane point of the hub (`HubSettings`, decision of Krystian 15.11): the
+ * same data as the old pro-kom.eu and the Google business profiles, shown modestly on `/kontakt`
+ * and `/o-firmie`. Zakopane is only the Tech service (phones, laptops, computers) — not a company
+ * salon, so it is not in `CompanyData.locations` (the other lines show Rabka only).
+ */
+export const PROKOM_EXTRA_PHONES = [
+  { label: 'Biuro (stacjonarny)', number: '18 267 65 11' },
+  { label: 'Serwis PRO-KOM Tech, Rabka-Zdrój', number: '18 541 20 55' },
+] as const
+
+export const PROKOM_BRANCH = {
+  published: true,
+  name: 'Zakopane — serwis PRO-KOM Tech',
+  street: 'ul. Stanisława Staszica 8',
+  postalCode: '34-500',
+  city: 'Zakopane',
+  phone: '18 541 20 15',
+  note: 'Tylko serwis: naprawy telefonów, laptopów i komputerów.',
+} as const

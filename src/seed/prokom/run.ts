@@ -5,7 +5,7 @@ import { seedProkomLegal } from './legal'
 import { seedProkomRedirects } from './redirects'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
-import { PROKOM_SITE } from '../shared/prokom'
+import { PROKOM_BRANCH, PROKOM_EXTRA_PHONES, PROKOM_SITE } from '../shared/prokom'
 import { seedSharedData } from '../shared/run'
 import {
   hubBrands,
@@ -113,6 +113,8 @@ export async function seedProkom(payload: Payload): Promise<void> {
     offer: hubOffer(),
     forBusiness: hubForBusiness(),
     forHome: hubForHome(),
+    extraPhones: PROKOM_EXTRA_PHONES.map((phone) => ({ ...phone })),
+    branch: { ...PROKOM_BRANCH },
   }
   if (!hubSettings) {
     await payload.create({
