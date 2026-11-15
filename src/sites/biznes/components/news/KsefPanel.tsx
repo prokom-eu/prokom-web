@@ -1,10 +1,12 @@
 import { Container } from '@/components/ui/Container'
+import { Icon } from '@/components/ui/Icon'
 import type { KsefPanel as KsefPanelData } from '@/lib/posts/ksefPanel'
 import { daysUntil } from '@/lib/site/days'
 import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { DayCount } from '../../blocks/BzKsef/DayCount'
 import { PageLink } from '../PageLink'
+import { NEWS_TEXTS } from './texts'
 
 /**
  * The KSeF panel above the news list (board `Aktualnosci`), from the Biznes settings: the days
@@ -13,6 +15,27 @@ import { PageLink } from '../PageLink'
  */
 export function KsefPanel({ panel }: { panel: KsefPanelData }) {
   const counting = daysUntil(panel.date, new Date()) !== null
+  const steps = (
+    <>
+      {panel.steps.map((step, position) => (
+        <li
+          key={position}
+          className="rounded-2xl bg-white/[0.06] p-5 ring-1 ring-white/10 ring-inset"
+        >
+          <span
+            aria-hidden="true"
+            className="text-[13px] font-extrabold tracking-[0.08em] text-accent-on-dark tabular-nums"
+          >
+            {String(position + 1).padStart(2, '0')}
+          </span>
+          <span className="mt-1.5 block text-lg font-bold">{step.title}</span>
+          {step.text && (
+            <span className="mt-1 block text-[14px] leading-snug text-white/75">{step.text}</span>
+          )}
+        </li>
+      ))}
+    </>
+  )
   return (
     <section id="ksef" aria-labelledby="ksef-h" className="scroll-mt-24 pb-6 sm:pb-10">
       <Container wide>
@@ -64,27 +87,23 @@ export function KsefPanel({ panel }: { panel: KsefPanelData }) {
             </div>
           </div>
           {panel.steps.length > 0 && (
-            <ol className="mt-10 grid gap-3 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
-              {panel.steps.map((step, position) => (
-                <li
-                  key={position}
-                  className="rounded-2xl bg-white/[0.06] p-5 ring-1 ring-white/10 ring-inset"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="text-[13px] font-extrabold tracking-[0.08em] text-accent-on-dark tabular-nums"
-                  >
-                    {String(position + 1).padStart(2, '0')}
-                  </span>
-                  <span className="mt-1.5 block text-lg font-bold">{step.title}</span>
-                  {step.text && (
-                    <span className="mt-1 block text-[14px] leading-snug text-white/75">
-                      {step.text}
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ol>
+            <>
+              {/* Phone: the steps fold away, so the posts start under the counter (redesign 15.11). */}
+              <details className="group/steps mt-8 rounded-2xl bg-white/[0.06] ring-1 ring-white/10 ring-inset sm:hidden">
+                <summary className="flex min-h-[52px] cursor-pointer list-none items-center justify-between gap-3 px-5 font-extrabold [&::-webkit-details-marker]:hidden">
+                  {NEWS_TEXTS.showSteps(panel.steps.length)}
+                  <Icon
+                    name="arrow"
+                    className="size-4 rotate-90 transition-transform group-open/steps:-rotate-90 motion-reduce:transition-none"
+                    strokeWidth={2.2}
+                  />
+                </summary>
+                <ol className="grid gap-3 px-3 pb-3">{steps}</ol>
+              </details>
+              <ol className="mt-10 hidden gap-3 sm:grid min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
+                {steps}
+              </ol>
+            </>
           )}
           {panel.note && (
             <p className="mt-6 text-[13px] leading-relaxed text-white/65">{panel.note}</p>

@@ -5,12 +5,15 @@ import { Container } from '@/components/ui/Container'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { getKsefPanel, getPostList } from '@/lib/posts/data'
-import { categoryChips, NEWS_PATH, parseCategory, CATEGORY_PARAM } from '@/lib/posts/list'
+import { postGroups, splitFeatured } from '@/lib/posts/groups'
+import { NEWS_PATH, parseCategory, CATEGORY_PARAM } from '@/lib/posts/list'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { CatalogContactPanel } from '@/sites/biznes/components/catalog/CatalogContactPanel'
 import { KsefPanel } from '@/sites/biznes/components/news/KsefPanel'
+import { NewsFeatured } from '@/sites/biznes/components/news/NewsFeatured'
+import { NewsGroups } from '@/sites/biznes/components/news/NewsGroups'
 import { NewsHero } from '@/sites/biznes/components/news/NewsHero'
 import { PostCards } from '@/sites/biznes/components/news/PostCards'
 import { NEWS_TEXTS } from '@/sites/biznes/components/news/texts'
@@ -18,6 +21,9 @@ import { SoftwareNews } from '@/sites/software/components/news/SoftwareNews'
 import { SOFTWARE_NEWS_TEXTS } from '@/sites/software/components/news/texts'
 
 import { requestOrigin, requireNewsTenant } from '../tenant'
+
+/** Posts in the „Najnowsze” row of the full list (one large, two beside it). */
+const FEATURED = 3
 
 type Props = {
   params: Promise<{ domain: string }>
@@ -93,9 +99,15 @@ export default async function NewsPage({ params, searchParams }: Props) {
     searchParams,
     requestOrigin(),
   ])
-  const chips = categoryChips(posts.map((post) => post.categoryValue))
+  const groups = postGroups(posts)
+  const chips = groups.map(({ value, label, posts: own }) => ({ value, label, count: own.length }))
   const category = parseCategory(query[CATEGORY_PARAM], tenant.line)
   const shown = category ? posts.filter((post) => post.categoryValue === category) : posts
+  // The full list: the newest three on top, every other post in its topic below the KSeF panel.
+  const { featured, rest } = splitFeatured(category ? [] : posts, FEATURED)
+  const newest = posts[0]
+  const last =
+    newest?.date && newest.dateTime ? { date: newest.date, dateTime: newest.dateTime } : null
 
   const breadcrumbs = breadcrumbJsonLd([
     { name: 'Strona główna', url: `${origin}/` },
@@ -108,17 +120,36 @@ export default async function NewsPage({ params, searchParams }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbs) }}
       />
-      <NewsHero chips={chips} current={category} />
-      {panel && !category && <KsefPanel panel={panel} />}
-      <section aria-label="Wpisy" className="pt-6 pb-14 sm:pt-10 sm:pb-20">
-        <Container wide>
-          {shown.length > 0 ? (
-            <PostCards posts={shown} featureFirst={!category} />
-          ) : (
-            <p className="rounded-[28px] bg-surface-2 p-8 text-lg text-ink-2">{NEWS_TEXTS.empty}</p>
+      <NewsHero chips={chips} current={category} total={posts.length} last={last} />
+      {category ? (
+        <section aria-label="Wpisy" className="pb-14 sm:pb-20">
+          <Container wide>
+            {shown.length > 0 ? (
+              <PostCards posts={shown} headingLevel="h2" eagerFirst />
+            ) : (
+              <p className="rounded-[28px] bg-surface-2 p-8 text-lg text-ink-2">
+                {NEWS_TEXTS.empty}
+              </p>
+            )}
+          </Container>
+        </section>
+      ) : (
+        <>
+          <NewsFeatured posts={featured} />
+          {panel && <KsefPanel panel={panel} />}
+          <NewsGroups
+            groups={postGroups(rest)}
+            totals={Object.fromEntries(chips.map((chip) => [chip.value, chip.count]))}
+          />
+          {posts.length === 0 && (
+            <Container wide className="pb-14">
+              <p className="rounded-[28px] bg-surface-2 p-8 text-lg text-ink-2">
+                {NEWS_TEXTS.emptyAll}
+              </p>
+            </Container>
           )}
-        </Container>
-      </section>
+        </>
+      )}
       <CatalogContactPanel
         tenantId={tenant.id}
         id="kontakt"
