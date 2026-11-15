@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useRef, useState, type PointerEvent, type ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import type { HubHome } from '@/lib/prokom/home'
@@ -16,6 +16,25 @@ import { useAutoplay } from './useAutoplay'
 
 /** Slides change every 4.2 s (spec §6.1 pkt 1). */
 const SLIDE_MS = 4200
+/**
+ * The light under the cursor and the tilt of a tile (H10): the pointer's place in the tile as
+ * `--mx`/`--my` (0–1), written once per frame. Mouse only — a touch has no hover, and reduced
+ * motion turns the effect off in CSS.
+ */
+function trackPointer(event: PointerEvent<HTMLElement>) {
+  if (event.pointerType !== 'mouse') return
+  const tile = event.currentTarget
+  const { clientX, clientY } = event
+  cancelAnimationFrame(Number(tile.dataset.raf ?? 0))
+  tile.dataset.raf = String(
+    requestAnimationFrame(() => {
+      const box = tile.getBoundingClientRect()
+      tile.style.setProperty('--mx', ((clientX - box.left) / box.width).toFixed(3))
+      tile.style.setProperty('--my', ((clientY - box.top) / box.height).toFixed(3))
+    }),
+  )
+}
+
 /** Biznes, Instalacje and Software are the big tiles with vignettes (board grid). */
 const BIG_TILES = 3
 
@@ -56,7 +75,9 @@ export function HeroTiles({ children, lines, techStages }: Props) {
             style={{ ...lineStyle(line.key), animationDelay: `${0.12 + index * 0.08}s` }}
             aria-label={`Linia ${line.name}`}
             {...handlers}
+            onPointerMove={trackPointer}
           >
+            <span aria-hidden="true" className="pk-ht__light" />
             <div className="pk-ht__top">
               <Mark label={line.label} />
               {line.url && (
