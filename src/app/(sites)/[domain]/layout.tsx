@@ -43,6 +43,9 @@ export async function generateMetadata({ params }: Omit<Props, 'children'>): Pro
       siteName: tenant.name,
       images: ogImages(settings?.seo.ogImage ?? null),
     },
+    // Biznes shares a 1200 × 630 card on every page (audyt 15.11 wieczorem §3.3); page metadata
+    // without its own `twitter` inherits this.
+    ...(tenant.line === 'biznes' && { twitter: { card: 'summary_large_image' } }),
   }
 }
 

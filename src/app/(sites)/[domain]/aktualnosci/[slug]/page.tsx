@@ -6,7 +6,7 @@ import { Container } from '@/components/ui/Container'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { getEnv } from '@/lib/env'
-import { ogImages } from '@/lib/pages/metadata'
+import { biznesPostOgImage, ogImages } from '@/lib/pages/metadata'
 import { postOutline } from '@/lib/posts/content'
 import { getPostList, getPostView } from '@/lib/posts/data'
 import { NEWS_PATH } from '@/lib/posts/list'
@@ -84,7 +84,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       ...(post.published && { publishedTime: post.published.dateTime }),
-      images: ogImages(post.cover ?? settings?.seo.ogImage ?? null),
+      // Biznes: the generated card with the title (audyt 15.11 wieczorem §3.3) — the KSeF post's
+      // cover is a 480 × 142 wordmark, poor as a sharing picture.
+      images:
+        tenant.line === 'biznes'
+          ? biznesPostOgImage(post.slug, post.title)
+          : ogImages(post.cover ?? settings?.seo.ogImage ?? null),
     },
   }
 }

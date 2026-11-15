@@ -159,6 +159,35 @@ test.describe('Biznes news', () => {
     expect(crumbs?.itemListElement).toHaveLength(3)
   })
 
+  test('sharing image: the post and the pages get a generated 1200 × 630 card', async ({
+    page,
+    request,
+  }) => {
+    // Audyt 15.11 wieczorem §3.3: was no picture on posts and the 512 px square mark elsewhere.
+    for (const [path, image] of [
+      [POST, '/og/wpis/ksef-od-1-stycznia-2027'],
+      ['/', '/og/strona'],
+    ] as const) {
+      await page.goto(site('biznes.localhost', path))
+      const og = page.locator('meta[property="og:image"]')
+      await expect(og).toHaveAttribute('content', site('biznes.localhost', image))
+      await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute(
+        'content',
+        '1200',
+      )
+      await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+        'content',
+        'summary_large_image',
+      )
+      const response = await request.get(site('biznes.localhost', image))
+      expect(response.status(), image).toBe(200)
+      expect(response.headers()['content-type']).toBe('image/png')
+    }
+    // Another line's domain has no such route.
+    const other = await request.get(site('software.localhost', '/og/strona'))
+    expect(other.status()).toBe(404)
+  })
+
   test('no prices, leasing or instalments on the list and the post', async ({ page }) => {
     for (const path of [LIST, POST]) {
       await page.goto(site('biznes.localhost', path))

@@ -42,6 +42,8 @@ export const RESERVED_PAGE_SLUGS: readonly string[] = [
   'dla-domu',
   'inwestycje-i-dostawy',
   'wspolpraca',
+  // Sharing images of Biznes (`og/strona`, `og/wpis/[slug]`, audyt 15.11 wieczorem §3.3).
+  'og',
 ]
 
 export function isValidPageSlug(slug: string): boolean {

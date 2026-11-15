@@ -18,6 +18,14 @@ type PageSeo = {
  */
 export type SiteSeo = { name: string; ogImage: PublicImage | null; line?: Line }
 
+/** The generated sharing card of the Biznes pages (`app/(sites)/[domain]/og/strona`). */
+export const BIZNES_OG_PAGE = '/og/strona'
+
+/** The generated sharing card of a Biznes post (`og/wpis/[slug]`), 1200 × 630. */
+export function biznesPostOgImage(slug: string, title: string) {
+  return [{ url: `/og/wpis/${encodeURIComponent(slug)}`, width: 1200, height: 630, alt: title }]
+}
+
 /** Open Graph image: the largest file of the image (sharing previews are ~1200 px wide). */
 export function ogImages(
   image: PublicImage | null,
@@ -27,9 +35,10 @@ export function ogImages(
   if (image && source) {
     return [{ url: source.url, width: image.width, height: image.height, alt: image.alt }]
   }
-  // No picture of the page nor of the settings: the line's 512 px mark, so a shared link still
-  // has a preview (audit 01.11: 118 pages without og:image).
-  // TODO(krystian): grafika 1200×630 linii (plansza marki) zamiast znaku 512 px.
+  // No picture of the page nor of the settings: a shared link still gets a preview (audit 01.11:
+  // 118 pages without og:image). Biznes: its generated 1200 × 630 card (`og/strona`, audyt 15.11
+  // wieczorem §3.3); the other lines that opted in: their 512 px mark.
+  if (line === 'biznes') return [{ url: BIZNES_OG_PAGE, width: 1200, height: 630, alt: '' }]
   return line ? [{ url: brandAsset(line, 'icon-512.png'), width: 512, height: 512, alt: '' }] : []
 }
 
