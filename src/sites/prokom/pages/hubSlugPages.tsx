@@ -2,15 +2,17 @@ import type { Metadata } from 'next'
 
 import { AboutPage } from '@/components/shared/AboutPage'
 import { ContactPage } from '@/components/shared/ContactPage'
+import { PAGE_CONTAINER } from '@/components/shared/pageContainer'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
-import { hubOgImage } from '@/lib/prokom/data'
+import { getHubSettings, hubOgImage } from '@/lib/prokom/data'
 import { getHubLineContacts } from '@/lib/prokom/lineContacts'
 import { hubPageMetadata, type HubDescribedPath } from '@/lib/prokom/seo'
 import { pageRobots } from '@/lib/seo/robots'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
+import { BranchNote, ExtraPhones } from './ExtraContacts'
 import { SaturdayNote } from './SaturdayNote'
 
 /**
@@ -56,6 +58,7 @@ export async function hubSlugPage(
   const shared = await getSharedData(tenant.id)
   if (!shared) return null
   const env = getEnv()
+  const settings = await getHubSettings(tenant.id)
   if (slug === 'kontakt') {
     return (
       <ContactPage
@@ -65,7 +68,15 @@ export async function hubSlugPage(
         now={new Date().toISOString()}
         formToken={issueFormToken(env.PAYLOAD_SECRET)}
         hoursLayout="week"
-        slots={{ heroAside: <SaturdayNote lines={await getHubLineContacts(tenant.id)} /> }}
+        slots={{
+          heroAside: (
+            <>
+              <SaturdayNote lines={await getHubLineContacts(tenant.id)} />
+              <ExtraPhones phones={settings.extraPhones} />
+              <BranchNote branch={settings.branch} />
+            </>
+          ),
+        }}
       />
     )
   }
@@ -76,6 +87,17 @@ export async function hubSlugPage(
       origin={await origin()}
       siteEnv={env.SITE_ENV}
       bothPhones
+      slots={
+        settings.branch
+          ? {
+              beforeVisit: (
+                <section aria-label={settings.branch.name} className={`${PAGE_CONTAINER} py-6`}>
+                  <BranchNote branch={settings.branch} />
+                </section>
+              ),
+            }
+          : undefined
+      }
     />
   )
 }

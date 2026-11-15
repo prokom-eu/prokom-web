@@ -133,6 +133,42 @@ describe('toHubSettings', () => {
     expect(view.cooperation).toBeNull()
   })
 
+  it('gives the extra phones and a published branch with an address (decision 15.11)', () => {
+    const branch = {
+      published: true,
+      name: 'Zakopane',
+      street: 'ul. Stanisława Staszica 8',
+      postalCode: '34-500',
+      city: 'Zakopane',
+      phone: '18 541 20 15',
+      note: 'Tylko serwis PRO-KOM Tech.',
+    }
+    const view = toHubSettings(
+      { ...doc, extraPhones: [{ label: 'Biuro', number: '18 267 65 11', id: 'a' }], branch },
+      'production',
+    )
+    expect(view.extraPhones).toEqual([{ label: 'Biuro', number: '18 267 65 11' }])
+    expect(view.branch).toEqual({
+      name: 'Zakopane',
+      street: 'ul. Stanisława Staszica 8',
+      postalCode: '34-500',
+      city: 'Zakopane',
+      phone: '18 541 20 15',
+      note: 'Tylko serwis PRO-KOM Tech.',
+    })
+  })
+
+  it('hides the branch when it is off or has no street and city', () => {
+    const base = { name: 'Zakopane', street: 'ul. Staszica 8', city: 'Zakopane' }
+    expect(
+      toHubSettings({ ...doc, branch: { ...base, published: false } }, 'local').branch,
+    ).toBeNull()
+    expect(
+      toHubSettings({ ...doc, branch: { ...base, street: '', published: true } }, 'local').branch,
+    ).toBeNull()
+    expect(toHubSettings(null, 'local')).toMatchObject({ extraPhones: [], branch: null })
+  })
+
   it('shows unapproved facts outside production only (spec §3)', () => {
     expect(toHubSettings(doc, 'staging').trust).toHaveLength(2)
     expect(toHubSettings(doc, 'production').trust).toEqual([

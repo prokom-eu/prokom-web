@@ -132,6 +132,52 @@ export const HubSettings: CollectionConfig = {
       },
     },
     {
+      name: 'extraPhones',
+      label: 'Dodatkowe numery (Kontakt)',
+      type: 'array',
+      admin: {
+        description:
+          'Numery stacjonarne pokazywane skromnie na /kontakt (np. biuro, serwis) — te same co w wizytówce Google. Główne numery huba są w Ustawieniach strony.',
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            { name: 'label', label: 'Opis', type: 'text', required: true, maxLength: 60 },
+            { name: 'number', label: 'Numer', type: 'text', required: true, maxLength: 30 },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'branch',
+      label: 'Oddział (Zakopane)',
+      type: 'group',
+      admin: {
+        description:
+          'Punkt bez pełnego salonu firmy — pokazywany skromnie na /kontakt i /o-firmie. W Zakopanem działa tylko serwis PRO-KOM Tech (decyzja 15.11), dlatego nie jest salonem w Danych firmy.',
+      },
+      fields: [
+        { name: 'published', label: 'Pokazuj', type: 'checkbox', defaultValue: false },
+        {
+          type: 'row',
+          fields: [
+            { name: 'name', label: 'Nazwa', type: 'text', maxLength: 60 },
+            { name: 'phone', label: 'Telefon', type: 'text', maxLength: 30 },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            { name: 'street', label: 'Ulica i numer', type: 'text', maxLength: 80 },
+            { name: 'postalCode', label: 'Kod pocztowy', type: 'text', maxLength: 10 },
+            { name: 'city', label: 'Miejscowość', type: 'text', maxLength: 60 },
+          ],
+        },
+        { name: 'note', label: 'Co tam załatwisz', type: 'text', maxLength: 140 },
+      ],
+    },
+    {
       name: 'trust',
       label: 'Fakty o firmie (liczby, autoryzacje)',
       type: 'array',
