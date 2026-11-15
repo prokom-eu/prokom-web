@@ -317,3 +317,21 @@ DoD: jak w promptach; Lighthouse po ruchu bez spadku względem PR 3; /przeglad; 
 
 ### 7.3 Paczka 0611 (od 08.11.2026 — decyzje Krystiana 05–06.11)
 Plan, zakres PR-ów, prompty i otwarte decyzje: **`docs/zadania/prokombiznes-0611.md`** (źródło prawdy, wygrywa z §7.1–§7.2 tam, gdzie się różnią). Cztery sesje: F (WhatsApp, folder fundamentu) → BIZ-1 (porządek, powłoka wspólna, Kontakt i O firmie) → BIZ-2 (Zaopatrzenie firm, nowa główna) → BIZ-3 (zestawy, jakość podstron, QA). Materiały: `docs/design/prokombiznes/0611/`, rozstrzygnięcia — ADR-017 „Rozstrzygnięcia 06.11”.
+
+### 7.4 Runda 1411 (od 15.11.2026 — aktualizacja działającej strony)
+Źródło prawdy: **`docs/design/prokombiznes/runda-1411/PRZEKAZANIE-RUNDA-1411.md`** (decyzje §1, prompty sesji §4, telefon §5, lista „gotowe do internetu” §6). Rozstrzygnięcia — ADR-017 „Rozstrzygnięcia 15.11”.
+
+| PR | Gałąź | Zakres | Strefa wspólna | Migracja |
+|---|---|---|---|---|
+| R0 | `docs/biznes-runda-1411` | pakiet do docs, ADR-017, INDEKS, ta tabela, STAN | — | — |
+| R1 | `feat/wsp-biznes-kontakt-1411` | 2 numery we wspólnych komponentach + JSON-LD, przełącznik CEIDG, góra Kontaktu, ServiceAreaMap, OpeningStatus | tak | tak |
+| R2 | `feat/biznes-hero-1411` | koło + pasek uprawnień + 2 numery w hero | — | możliwa |
+| R3 | `feat/biznes-glowna-uklad-1411` | kolejność głównej, bez bzKsef, nowy `bzSystems`, „Od czego zaczynasz”, „na mailu” | — | tak |
+| R4 | `feat/biznes-glowna-sekcje-1411` | bzSteps, bzFacts, bzNewsHome, nowy `bzLines` + FAQ | — | tak |
+| R5 | `feat/biznes-wybierane-1411` | Najczęściej wybierane: 3 rzędy × 8 | — | możliwa |
+| R6 | `feat/biznes-o-firmie-1411` | /o-firmie | jeśli trzeba `feat/wsp-*` | możliwa |
+| R7 | `feat/biznes-marki-1411` | /marki | — | — |
+| R8 | `feat/biznes-okladki-1411` | okładki licencji i usług, Office 2024 | — | możliwa |
+| R9 | `chore/biznes-runda-1411-qa` | telefon i całość, Lighthouse, e2e, staging | — | — |
+
+Sesje: **A** R0–R2 · **B** R3–R5 · **C** R6–R8 · **D** R9 + staging (produkcja po bramkach jakości).

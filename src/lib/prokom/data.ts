@@ -14,6 +14,8 @@ import { brandsSchema, type HubBrands } from './brands'
 import { cooperationSchema, type HubCooperation } from './cooperation'
 import { deliveriesSchema, type HubDeliveries } from './deliveries'
 import { homeSchema, type HubHome } from './home'
+import { forBusinessSchema, type HubForBusiness } from './forBusiness'
+import { forHomeSchema, type HubForHome } from './forHome'
 import { offerSchema, type HubOffer } from './offer'
 import { NO_OPTIONAL_PAGES, type HubPageFlags } from './pages'
 import { hubTag } from './tags'
@@ -202,6 +204,8 @@ export type HubSettingsView = {
   deliveries: HubDeliveries | null
   cooperation: HubCooperation | null
   offer: HubOffer | null
+  forBusiness: HubForBusiness | null
+  forHome: HubForHome | null
 }
 
 type SiteEnv = 'production' | 'staging' | 'local'
@@ -211,7 +215,15 @@ export function toHubSettings(
   doc:
     | Pick<
         HubSetting,
-        'pages' | 'trust' | 'home' | 'brands' | 'deliveries' | 'cooperation' | 'offer'
+        | 'pages'
+        | 'trust'
+        | 'home'
+        | 'brands'
+        | 'deliveries'
+        | 'cooperation'
+        | 'offer'
+        | 'forBusiness'
+        | 'forHome'
       >
     | null
     | undefined,
@@ -233,6 +245,8 @@ export function toHubSettings(
     deliveries: pageTexts(deliveriesSchema, doc?.deliveries, 'deliveries', tenantId),
     cooperation: pageTexts(cooperationSchema, doc?.cooperation, 'cooperation', tenantId),
     offer: pageTexts(offerSchema, doc?.offer, 'offer', tenantId),
+    forBusiness: pageTexts(forBusinessSchema, doc?.forBusiness, 'forBusiness', tenantId),
+    forHome: pageTexts(forHomeSchema, doc?.forHome, 'forHome', tenantId),
   }
 }
 
@@ -244,7 +258,7 @@ export function toHubSettings(
 function pageTexts<T>(
   schema: z.ZodType<T>,
   value: unknown,
-  field: 'home' | 'brands' | 'deliveries' | 'cooperation' | 'offer',
+  field: 'home' | 'brands' | 'deliveries' | 'cooperation' | 'offer' | 'forBusiness' | 'forHome',
   tenantId: number | null,
 ): T | null {
   if (value === null || value === undefined) return null

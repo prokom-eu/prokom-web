@@ -2752,13 +2752,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "shared_verify_links": {
-          "name": "shared_verify_links",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": true
-        },
         "shared_brand_bar_slot_label": {
           "name": "shared_brand_bar_slot_label",
           "type": "varchar",
@@ -53290,6 +53283,18 @@
           "primaryKey": false,
           "notNull": false
         },
+        "for_business": {
+          "name": "for_business",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "for_home": {
+          "name": "for_home",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp(3) with time zone",
@@ -59069,6 +59074,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "e7f1f8ad-579f-4dee-aff9-08342146d19e",
+  "id": "d83d994c-9865-4a0f-901a-44e3a6d1499a",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

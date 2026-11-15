@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Nowa kolejność strony głównej</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-ext-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0100-017F}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-ext-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0100-017F}
+body{margin:0}
+</style>
+</helmet>
+<div style="width:720px;height:1500px;box-sizing:border-box;padding:48px;background:#f3f5fa;color:#0d1326;font-family:Manrope,system-ui,sans-serif;display:flex;flex-direction:column;gap:12px">
+  <h2 style="margin:0 0 4px;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:800;font-size:32px;letter-spacing:-.02em">Strona główna — nowa kolejność</h2>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;font-size:12px;font-weight:800;margin-bottom:8px">
+    <span style="padding:4px 10px;border-radius:999px;background:#e8f6ef;color:#15724a">zostaje</span>
+    <span style="padding:4px 10px;border-radius:999px;background:#e9effc;color:#244fb0">przerobić</span>
+    <span style="padding:4px 10px;border-radius:999px;background:#fdeee9;color:#c43a22">nowe</span>
+    <span style="padding:4px 10px;border-radius:999px;background:#ffffff;color:#4a5470;border:1px solid #e2e6ef">przenieść / scalić</span>
+  </div>
+
+  <sc-for list="{{rows}}" as="r" hint-placeholder-count="14">
+    <div style="display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px;border-radius:16px;background:#ffffff;border:1px solid #e2e6ef">
+      <span style="font-family:Archivo,sans-serif;font-stretch:115%;font-weight:800;font-size:18px;color:#244fb0">{{r.no}}</span>
+      <span style="display:flex;flex-direction:column;gap:3px;min-width:0"><b style="font-size:15px">{{r.name}}</b><span style="font-size:12.5px;line-height:1.45;color:#4a5470">{{r.what}}</span></span>
+      <span style="{{r.tagStyle}}">{{r.tag}}</span>
+    </div>
+  </sc-for>
+  <div style="margin-top:6px;padding:14px 16px;border-radius:16px;border:1px dashed #c3cad9;font-size:12.5px;line-height:1.5;color:#4a5470"><b style="color:#c43a22">Usunąć / schować:</b> drugi zestaw tych samych CTA w kolejnych sekcjach, puste miejsca po ukrytym „Słowie od właściciela”, sekcję opinii dopóki nie ma kilku prawdziwych opinii z Google (zostaje ukryta przełącznikiem).</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":720,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const T = {
+      z: 'padding:4px 10px;border-radius:999px;background:#e8f6ef;color:#15724a;font-size:11px;font-weight:800;white-space:nowrap',
+      p: 'padding:4px 10px;border-radius:999px;background:#e9effc;color:#244fb0;font-size:11px;font-weight:800;white-space:nowrap',
+      n: 'padding:4px 10px;border-radius:999px;background:#fdeee9;color:#c43a22;font-size:11px;font-weight:800;white-space:nowrap',
+      s: 'padding:4px 10px;border-radius:999px;background:#ffffff;color:#4a5470;border:1px solid #e2e6ef;font-size:11px;font-weight:800;white-space:nowrap'
+    };
+    const L = { z: 'zostaje', p: 'przerobić', n: 'nowe', s: 'przenieść' };
+    const rows = [
+      ['Hero z kołem działów', 'Nowe koło (artboard 1): jeden kolor, duże produkty w środku, pauza.', 'p'],
+      ['Pasek zaufania pod hero', 'Posnet i Elzab — Autoryzowany serwis, GoPOS i InsERT — Autoryzowany partner, od 2004, 10 000+ klientów. Widać bez przewijania.', 'n'],
+      ['Czego szukasz? — szybkie kategorie', '6 skrótów (kasy, laptopy, terminale, programy, sieć, serwis) + wyszukiwarka Ctrl K.', 'z'],
+      ['Działy oferty', 'Każdy dział z 5 najczęściej wybieranymi pozycjami; karty licencji i usług z nowymi okładkami.', 'p'],
+      ['Plan Twojej firmy + zestawy', 'Wybór branży prowadzi od razu do gotowego zestawu (sklep, kawiarnia, pensjonat, biuro).', 's'],
+      ['GoPOS · InsERT · Opieka IT', 'Trzy duże kafle z autoryzacją i linkiem do podstrony — najważniejsze usługi z marżą.', 'n'],
+      ['Zaopatrzenie firm', 'AGD/RTV i dostawy IT dla firm — zostaje, niżej niż dziś.', 's'],
+      ['Jak pracujemy', 'Numery 01–04, bez sztucznych inicjałów, pasek zobowiązań z numerem (artboard 3).', 'p'],
+      ['Od 2004 + uprawnienia', 'Logo i statusy producentów naprawdę „obok” (artboard 2).', 'p'],
+      ['KSeF — odliczanie', 'Przeniesiony tuż nad aktualności (prośba Krystiana).', 's'],
+      ['Aktualności z całej firmy', 'Wyróżniony poradnik + wpisy dla firm z Instalacji i Software (artboard 4).', 'p'],
+      ['Inne linie PRO-KOM', 'Instalacje, Software, Tech — trzy kafle z linkiem; strony już działają.', 'n'],
+      ['FAQ „Zanim zadzwonisz”', 'Bez zmian, 6–8 pytań.', 'z'],
+      ['Kontakt + obszar działania', 'Kontakt i schemat obszaru w jednej sekcji na końcu (artboard 5).', 's']
+    ];
+    return { rows: rows.map((r, i) => ({ no: String(i + 1).padStart(2, '0'), name: r[0], what: r[1], tag: L[r[2]], tagStyle: T[r[2]] })) };
+  }
+}
+</script>
+</body>
+</html>

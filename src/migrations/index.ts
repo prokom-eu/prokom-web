@@ -114,7 +114,9 @@ import * as migration_20261114_160506_hub_ustawienia from './20261114_160506_hub
 import * as migration_20261114_180746_hub_dostawy from './20261114_180746_hub_dostawy'
 import * as migration_20261114_200944_hub_glowna from './20261114_200944_hub_glowna'
 import * as migration_20261114_220230_hub_oferta from './20261114_220230_hub_oferta'
-import * as migration_20261114_234836_wsp_weryfikacja_linki from './20261114_234836_wsp_weryfikacja_linki'
+import * as migration_20261114_222723_hub_dla_firm from './20261114_222723_hub_dla_firm'
+import * as migration_20261114_223809_hub_dla_domu from './20261114_223809_hub_dla_domu'
+import * as migration_20261115_015856_wsp_weryfikacja_linki from './20261115_015856_wsp_weryfikacja_linki'
 
 export const migrations = [
   {
@@ -698,8 +700,18 @@ export const migrations = [
     name: '20261114_220230_hub_oferta',
   },
   {
-    up: migration_20261114_234836_wsp_weryfikacja_linki.up,
-    down: migration_20261114_234836_wsp_weryfikacja_linki.down,
-    name: '20261114_234836_wsp_weryfikacja_linki',
+    up: migration_20261114_222723_hub_dla_firm.up,
+    down: migration_20261114_222723_hub_dla_firm.down,
+    name: '20261114_222723_hub_dla_firm',
+  },
+  {
+    up: migration_20261114_223809_hub_dla_domu.up,
+    down: migration_20261114_223809_hub_dla_domu.down,
+    name: '20261114_223809_hub_dla_domu',
+  },
+  {
+    up: migration_20261115_015856_wsp_weryfikacja_linki.up,
+    down: migration_20261115_015856_wsp_weryfikacja_linki.down,
+    name: '20261115_015856_wsp_weryfikacja_linki',
   },
 ]

@@ -31,3 +31,7 @@ pro-kom.eu ma być wejściem do całej firmy: mówi, kim jest PRO-KOM, i w kilka
 - **Osobne repo huba** — duplikacja panelu i zapytań.
 - **Hub jako zwykły szablon `Pages` z bloków** — strona główna i ścieżki (Dobierz, Załatw online, lista zapytania) są interaktywne i mają własną logikę; bloki dałyby zbyt dużo pól w panelu. Treści edytowalne zostają w panelu (ADR-H002), układ w kodzie.
 - **Kopie stron usług linii na hubie** — duplikacja treści.
+
+## Rozstrzygnięcia 15.11 (noc, rekomendacja Claude — do potwierdzenia przez Krystiana)
+- **Pkt 6 (zapytania), etap 1:** formularze huba idą przez wspólny `ContactForm` i `submitInquiry()` (ADR-003) jako zapytania tenanta `prokom`; powiadomienie trafia na `Tenants.notificationEmail` huba. Strona, segment/rola, branża/sytuacja i lista zapytania (z usługami i terminem) dołączają się do treści wiadomości (`registerFormAttachment`), adres źródłowy jest w zapytaniu. **Bez kategorii `hub-*` i bez routingu do skrzynek linii** — `ContactForm` nie przyjmuje dziś kategorii z zewnątrz (zmiana strefy wspólnej = osobny PR `feat/wsp-*`), a skrzynki Tech/Gaming nie są jeszcze ustalone. `HUB_INQUIRY_CATEGORIES` zostaje jako docelowa lista. Etap 2 (po starcie): prop `category` we wspólnym formularzu, routing linii, lista jako `Inquiries.payload` (spec §6.5 pkt 10).
+- **Pola z spec §7, których wspólny formularz nie ma** (NIP, miejsce dostawy, link do SWZ/rzutów): proszone w treści wiadomości (placeholder), do dodania razem z etapem 2.

@@ -64,6 +64,49 @@ const object = z.object({
     .max(4),
 })
 
+const head = { eyebrow: text(80), title: text(120) }
+
+/** Headings and labels of the page (board 17 HTML); the promise of a line comes from its panel. */
+const pageSchema = z.object({
+  hero: z.object({
+    ...head,
+    lead: text(400),
+    cta: text(40),
+    ways: z.array(z.object({ title: text(60), href: hubHref })).length(3),
+    segmentsLabel: text(40),
+    segmentsHint: text(80),
+    start: text(30),
+  }),
+  areas: z.object({ ...head, lead: text(240), how: text(30), details: text(60) }),
+  list: z.object({
+    ...head,
+    lead: text(240),
+    yours: text(30),
+    clear: text(20),
+    pcs: text(10),
+    empty: text(160),
+    services: text(30),
+    term: text(40),
+    tvNote: text(200),
+    attach: text(40),
+    copy: text(40),
+    copied: text(40),
+    copyFailed: text(120),
+    bar: text(20),
+    send: text(30),
+  }),
+  objects: z.object({ ...head, lead: text(240), load: text(40), note: text(200) }),
+  scope: z.object({ ...head, tabsLabel: text(80), optional: text(200) }),
+  steps: z.object(head),
+  brands: z.object({ ...head, all: text(40), note: text(200) }),
+  compare: z.object({ ...head, area: text(20), other: text(30), ours: text(30) }),
+  formal: z.object(head),
+  after: z.object({ ...head, lead: text(200), towns: text(60), coverage: text(60) }),
+  faq: z.object(head),
+  form: z.object({ eyebrow: text(40), to: text(20), cta: text(30), note: text(80) }),
+  next: z.object(head),
+})
+
 /**
  * „Inwestycje i dostawy” (spec §6.5, board 17): segments with their form, the request list,
  * optional services, terms, example objects, the levels and tabs of „Zakres do wyboru”, and the
@@ -133,6 +176,7 @@ export const deliveriesSchema = z
     faq: z.array(faqItem),
     next: z.array(nextItem),
     note: optionalText(300),
+    page: pageSchema,
   })
   .strict()
   .superRefine((value, ctx) => {

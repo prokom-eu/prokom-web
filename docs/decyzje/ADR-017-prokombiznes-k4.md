@@ -65,3 +65,16 @@ Uzupełnienia BIZ-1 (Krystian, 08.11): dolny pasek telefonu = wspólny `TabBar` 
 
 - **Marki na głównej w dwóch przesuwających się paskach** (ZAOPATRZENIE §9, D5 z 06.11) zastępują siatkę 16 kafli K4 v150. **Odwraca K36 §1** (usunięcie paska logo) i K4-FINAL „Start: bez paska marek” — także na telefonie. Wszystkie marki z `Partners` linii: najpierw kolejność z panelu (`BiznesSettings` → marki na głównej), potem reszta wg liczby pozycji, na zmianę między paski. Ruch to pętla `requestAnimationFrame` (zwalnianie pod kursorem, przeciąganie, stop przy fokusie), jeden przycisk „Wstrzymaj animację” dla obu pasków (WCAG 2.2.2); przy `prefers-reduced-motion` paski stoją, a przeciąganie działa.
 - **Nowa sekcja „Zaopatrzenie firm”** (blok `bzProcurement`, ZAOPATRZENIE §8, D4) zaraz po Ofercie. Karta pokazuje się tylko, gdy jej podstrona jest opublikowana; kalkulator bierze liczbę urządzeń na lokal/stanowisko z konfiguratora podstrony, a korzyść „Odbiór starego sprzętu” i oddzwanianie — z flagi strony AGD (§0 pkt 1) i obietnicy w panelu (§0 pkt 7).
+
+## Rozstrzygnięcia 15.11 (Krystian, runda 14–15.11 — aktualizacja działającej strony)
+
+Źródło prawdy: `docs/design/prokombiznes/runda-1411/PRZEKAZANIE-RUNDA-1411.md` §1 (plansze `runda-1411/plansze/`, plan PR-ów R0–R9 — `docs/zadania/prokombiznes.md` §7.4). Wygrywa z K4-FINAL, paczką 0611 i `MOBILE-APLIKACJA.md` tam, gdzie się różnią.
+- **Dwa numery wszędzie** (889 003 889, 883 200 151): górny pasek, hero, CTA, kontakt, o-firmie, stopka, dolny pasek telefonu (arkusz „Zadzwoń” z oboma numerami), JSON-LD (`telephone` + `contactPoint`). Numery tylko z panelu.
+- **„Wycena na mailu”** zamiast „wycena na piśmie” we wszystkich tekstach Biznesu (Instalacje i Software bez zmian).
+- **Bez linków „Sprawdź w CEIDG”** i kart weryfikacji na Biznesie — przełącznik linii w `SiteSettings.shared` (domyślnie włączony, Biznes wyłącza). NIP zostaje jako tekst.
+- Statusy bez zmian: Posnet/Elzab „Autoryzowany serwis”, GoPOS/InsERT „Autoryzowany partner”, Optivendi „Partner”, COMEX „We współpracy”.
+- **Nowa kolejność głównej** (13 sekcji, §1 przekazania): bez paska KSeF (strona `/ksef` zostaje) i bez mapy obszaru (tylko `/kontakt`); `bzReferences` ukryte; nowe bloki „Systemy, które u Ciebie wdrożymy” (zastępuje podsekcję Oferty) i „Inne linie PRO-KOM”.
+- **Hero:** koncepcja koła zostaje — 5 działów × 3 produkty jako zdjęcia, w środku bez liczby pozycji; pod hero pasek uprawnień; w hero dwa numery.
+- **Najczęściej wybierane:** 3 rzędy × 8, przewijane, bez zakładek. **Jak pracujemy:** bez „Zajmuje się” i inicjałów. **Od 2004:** bez rzędu Optivendi/COMEX, kafle ze zdjęciem produktu.
+- **/o-firmie** nowy układ, bez sekcji „Nie musisz wierzyć nam na słowo”; „Jawne dane firmy” → „Przypomnimy o przeglądzie”. **/kontakt:** 2 równe kafle numerów, 7 dni godzin, nowa mapa obszaru. **/marki:** Optivendi i COMEX w siatce „Pozostałe marki” ze znaczkiem statusu.
+- **Karty bez zdjęcia:** licencje z okładką „klucz licencji”, usługi z obrazem tego, czego dotyczą; Office 2024 rozdzielony („bezterminowa”, wsparcie do 10.2029).
