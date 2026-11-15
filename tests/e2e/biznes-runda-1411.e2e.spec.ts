@@ -126,3 +126,32 @@ for (const width of [360, 390]) {
     })
   })
 }
+
+// Runda 1411 R9 (§6 „gotowe do internetu”): the changed pages of the round — no CEIDG, no
+// „na piśmie”, no „dożywotnia” in their HTML, and no sideways scroll at 360 px.
+const ROUND_PAGES = [
+  '/',
+  '/o-firmie',
+  '/kontakt',
+  '/marki',
+  '/produkt/m365-business-standard',
+  '/produkt/przeglad-kasy-fiskalnej',
+  '/produkt/posnet-ergo-online',
+] as const
+
+test.describe('Biznes runda 1411 — ready for the internet (R9)', () => {
+  for (const path of ROUND_PAGES) {
+    test(`${path}: no CEIDG, „na piśmie” or „dożywotnia”; no sideways scroll at 360 px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 360, height: 800 })
+      const response = await page.goto(site('biznes.localhost', path))
+      expect(response?.status()).toBe(200)
+      const html = (await page.content()).toLowerCase()
+      for (const word of ['ceidg', 'na piśmie', 'dożywot']) {
+        expect(html, `${path}: ${word}`).not.toContain(word)
+      }
+      expect(await sideways(page), path).toBe(false)
+    })
+  }
+})
