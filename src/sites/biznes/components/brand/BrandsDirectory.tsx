@@ -6,45 +6,42 @@ import { useId, useState } from 'react'
 
 import { Icon } from '@/components/ui/Icon'
 import { cx } from '@/components/ui/cx'
-import type { BrandsGroup, BrandTile } from '@/lib/catalog/brandsPage'
+import type { BrandTile } from '@/lib/catalog/brandsPage'
 import { normalizeText } from '@/lib/catalog/normalize'
 import { openCartDrawer } from '@/lib/cart/store'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { plural } from '@/lib/plural'
 import { BZ_H1, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
-import { PathIcon } from '../product/PathIcon'
-import { ProductStage, STAGE_SHADOW } from '../ProductStage'
-
-const ALL = 'all'
-
 // Logos are made for a light background: a white plate in both themes (as `BrandsHome`).
 const PLATE =
   'flex items-center justify-center rounded-2xl bg-white shadow-[inset_0_0_0_1px_var(--border)]'
 
+/** Small caps label of a section (board: „MARKI”, „POZOSTAŁE MARKI”). */
+const EYEBROW = 'flex items-center gap-2.5 text-xs font-extrabold tracking-[0.16em] uppercase'
+
 /**
- * Header, search, group tabs and tiles of `/marki` (board `Web-Marki`). The search filters live
- * by name and description without diacritics; a tab shows one group (it filters, no scroll).
- * Everything renders on the server too — the island only filters.
+ * `/marki` of Biznes (runda 1411 R7, board `Marki.dc.html`): the dark header with the search,
+ * „Producenci, z którymi pracujemy” — the four authorisations with status, scope and a link — and
+ * „Pozostałe marki w ofercie”: one even grid (6 columns, 3 on a phone) by the number of items,
+ * Optivendi and COMEX in it with their badge. The search filters both live by name and
+ * description without diacritics; everything renders on the server too — the island only filters.
  */
 export function BrandsDirectory({
   total,
-  groups,
   authorized,
+  others,
 }: {
   total: number
-  groups: BrandsGroup[]
   authorized: BrandTile[]
+  others: BrandTile[]
 }) {
   const [query, setQuery] = useState('')
-  const [tab, setTab] = useState(ALL)
   const searchId = useId()
   const words = normalizeText(query).split(' ').filter(Boolean)
   const matches = (tile: BrandTile) => words.every((word) => tile.hay.includes(word))
-  const shown = groups
-    .map((group, i) => ({ group, key: String(i), tiles: group.tiles.filter(matches) }))
-    .filter(({ key, tiles }) => tiles.length > 0 && (tab === ALL || tab === key))
-  const allCount = new Set(groups.flatMap((group) => group.tiles.map((tile) => tile.id))).size
+  const shownAuth = authorized.filter(matches)
+  const shownOthers = others.filter(matches)
 
   return (
     <>
@@ -57,127 +54,92 @@ export function BrandsDirectory({
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(45%_70%_at_85%_15%,color-mix(in_srgb,var(--accent)_38%,transparent),transparent_70%)]"
         />
-        <div className="relative grid items-center gap-8 min-[1080px]:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
-          <div className="flex flex-col gap-5">
-            <p className="flex items-center gap-2 text-xs font-black tracking-[0.12em] text-white/80 uppercase">
-              <span aria-hidden="true" className="h-px w-4 bg-current" />
-              Salony marek
-            </p>
-            <h1 id="marki-h1" className={BZ_H1}>
-              Wszystkie marki w&nbsp;ofercie
-            </h1>
-            <p className={`${BZ_LEAD} max-w-[56ch] text-white/80`}>
-              {total} {plural(total, ['marka', 'marki', 'marek'])}: od kas fiskalnych po serwery.
-              Przy każdej pomożemy wybrać model, wdrożymy i&nbsp;zajmiemy się serwisem,
-              a&nbsp;salony producentów pokazują serie, porównania i&nbsp;gotowe konfiguracje.
-            </p>
-            <label htmlFor={searchId} className="sr-only">
-              Szukaj marki
-            </label>
-            <span className="relative flex max-w-[460px] items-center">
-              <Icon
-                name="search"
-                className="pointer-events-none absolute left-4 size-5 text-white/70"
-              />
-              <input
-                id={searchId}
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Szukaj marki, np. Posnet, Apple, UniFi"
-                autoComplete="off"
-                className="min-h-14 w-full rounded-2xl bg-white/8 pr-4 pl-12 font-semibold text-white ring-1 ring-white/20 ring-inset placeholder:text-white/60 focus:bg-white/12"
-              />
-            </span>
-          </div>
-          {authorized.length > 0 && (
-            <ul className="grid gap-3 min-[560px]:grid-cols-2">
-              {authorized.map((tile) => (
-                <li key={tile.id} className="flex">
-                  <Link
-                    href={tile.href}
-                    className="flex w-full items-center gap-4 rounded-2xl bg-white/6 p-3 ring-1 ring-white/15 ring-inset transition-colors hover:bg-white/10"
-                  >
-                    <Logo tile={tile} eager className="h-14 w-[86px] shrink-0 px-2" />
-                    <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                      <span className="text-[12px] leading-tight font-black tracking-[0.08em] text-accent-on-dark uppercase">
-                        {partnerStatusLabel(tile.status)}
-                      </span>
-                      <b className="font-extrabold">{tile.name}</b>
-                      {tile.description && (
-                        <small className="text-sm leading-snug text-white/70">
-                          {tile.description}
-                        </small>
-                      )}
-                    </span>
-                    <Icon
-                      name="arrow"
-                      strokeWidth={2.4}
-                      className="size-4 shrink-0 text-white/80"
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
+        <div className="relative flex max-w-[760px] flex-col gap-5">
+          <p className="flex items-center gap-2 text-xs font-black tracking-[0.12em] text-white/80 uppercase">
+            <span aria-hidden="true" className="h-px w-4 bg-current" />
+            Salony marek
+          </p>
+          <h1 id="marki-h1" className={BZ_H1}>
+            Wszystkie marki w&nbsp;ofercie
+          </h1>
+          <p className={`${BZ_LEAD} max-w-[56ch] text-white/80`}>
+            {total} {plural(total, ['marka', 'marki', 'marek'])}: od kas fiskalnych po serwery. Przy
+            każdej pomożemy wybrać model, wdrożymy i&nbsp;zajmiemy się serwisem, a&nbsp;salony
+            producentów pokazują serie, porównania i&nbsp;gotowe konfiguracje.
+          </p>
+          <label htmlFor={searchId} className="sr-only">
+            Szukaj marki
+          </label>
+          <span className="relative flex max-w-[460px] items-center">
+            <Icon
+              name="search"
+              className="pointer-events-none absolute left-4 size-5 text-white/70"
+            />
+            <input
+              id={searchId}
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Szukaj marki, np. Posnet, Apple, UniFi"
+              autoComplete="off"
+              className="min-h-14 w-full rounded-2xl bg-white/8 pr-4 pl-12 font-semibold text-white ring-1 ring-white/20 ring-inset placeholder:text-white/60 focus:bg-white/12"
+            />
+          </span>
         </div>
       </section>
 
-      <div className="sticky top-[68px] z-20 sm:top-[84px] mt-6 rounded-2xl bg-card/95 p-1.5 shadow-[inset_0_0_0_1px_var(--border)] backdrop-blur">
-        <div role="group" aria-label="Grupy marek" className="flex gap-1 overflow-x-auto">
-          <Tab
-            active={tab === ALL}
-            onClick={() => setTab(ALL)}
-            label="Wszystkie"
-            count={allCount}
-          />
-          {groups.map((group, i) => (
-            <Tab
-              key={i}
-              active={tab === String(i)}
-              onClick={() => setTab(String(i))}
-              label={group.short}
-              count={group.tiles.length}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-12 pt-10">
-        {shown.map(({ group, key, tiles }) => (
-          <section key={key} aria-labelledby={`marki-g${key}`} className="flex flex-col gap-5">
-            <div className="flex items-start gap-4">
-              {group.iconPath && (
-                <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-surface-2 text-accent-text">
-                  <PathIcon d={group.iconPath} className="size-5" />
-                </span>
-              )}
-              <div className="flex flex-col gap-1">
-                <h2
-                  id={`marki-g${key}`}
-                  className="font-display text-2xl font-extrabold text-balance text-ink"
-                >
-                  {group.title}
+      <div className="flex flex-col gap-12 pt-10 sm:gap-14 sm:pt-12">
+        {shownAuth.length > 0 && (
+          <section aria-labelledby="marki-producenci" className="flex flex-col gap-6">
+            <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+              <div className="flex flex-col gap-3">
+                <p className={cx(EYEBROW, 'text-accent-text')}>
+                  <span aria-hidden="true" className="h-0.5 w-5 bg-current" />
+                  Marki
+                </p>
+                <h2 id="marki-producenci" className={cx(BZ_H2, 'text-ink')}>
+                  Producenci, z&nbsp;którymi pracujemy
                 </h2>
-                {group.description && <p className="text-ink-2">{group.description}</p>}
               </div>
+              <p className="text-sm text-ink-2">Statusy dokładnie takie, jakie nadał producent</p>
             </div>
-            {/* Phone: two small tiles per row, without the product photos. */}
-            <ul
-              data-reveal-cards=""
-              data-logo-cascade=""
-              className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,285px),1fr))] max-md:grid-cols-2 max-md:gap-2.5"
-            >
-              {tiles.map((tile) => (
-                <li key={tile.id} className="flex">
-                  <BrandCard tile={tile} />
+            <ul data-auth-cards="" className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-3.5">
+              {shownAuth.map((tile) => (
+                <li key={tile.id} className="flex min-w-0">
+                  <AuthCard tile={tile} />
                 </li>
               ))}
             </ul>
           </section>
-        ))}
+        )}
 
-        {shown.length === 0 && (
+        {shownOthers.length > 0 && (
+          <section aria-labelledby="marki-pozostale" className="flex flex-col gap-5">
+            <div className="flex items-center gap-3.5">
+              <h2 id="marki-pozostale" className={cx(EYEBROW, 'shrink-0 text-ink-2')}>
+                Pozostałe marki w&nbsp;ofercie
+              </h2>
+              <span aria-hidden="true" className="h-px flex-1 bg-border" />
+              <span className="shrink-0 text-[13px] font-bold text-ink-2">
+                {shownOthers.length} {plural(shownOthers.length, ['marka', 'marki', 'marek'])}
+              </span>
+            </div>
+            <ul
+              data-others-grid=""
+              data-logo-cascade=""
+              className="grid grid-cols-3 gap-2 sm:gap-3 lg:grid-cols-6"
+            >
+              {shownOthers.map((tile) => (
+                <li key={tile.id} className="flex min-w-0">
+                  <BrandTileLink tile={tile} />
+                </li>
+              ))}
+            </ul>
+            <p className="text-xs text-ink-2">Logotypy należą do ich właścicieli.</p>
+          </section>
+        )}
+
+        {shownAuth.length === 0 && shownOthers.length === 0 && (
           <div
             role="status"
             className="flex flex-col items-start gap-3 rounded-3xl bg-surface-2 p-6 sm:p-8"
@@ -203,33 +165,6 @@ export function BrandsDirectory({
         </div>
       </div>
     </>
-  )
-}
-
-function Tab({
-  active,
-  onClick,
-  label,
-  count,
-}: {
-  active: boolean
-  onClick: () => void
-  label: string
-  count: number
-}) {
-  return (
-    <button
-      type="button"
-      aria-pressed={active}
-      onClick={onClick}
-      className={cx(
-        'inline-flex min-h-11 shrink-0 items-center gap-2 rounded-xl px-4 text-sm font-extrabold whitespace-nowrap transition-colors',
-        active ? 'bg-ink text-surface' : 'text-ink hover:bg-surface-2',
-      )}
-    >
-      {label}
-      <span className={cx('text-xs', active ? 'opacity-80' : 'text-ink-2')}>{count}</span>
-    </button>
   )
 }
 
@@ -266,68 +201,97 @@ function Logo({
   )
 }
 
-function BrandCard({ tile }: { tile: BrandTile }) {
-  const role = partnerStatusLabel(tile.status)
+/** One authorisation (board): logo, the status the producer gave, the scope and a link. */
+function AuthCard({ tile }: { tile: BrandTile }) {
+  const status = partnerStatusLabel(tile.status)
+  const service = tile.status === 'authorized-service'
   return (
     <Link
       href={tile.href}
-      data-logo-shine=""
-      className="relative flex w-full min-w-0 flex-col gap-3 rounded-3xl bg-card p-4 max-md:gap-2 max-md:rounded-[20px] max-md:p-2.5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
+      className="flex w-full min-w-0 flex-col gap-3 rounded-[22px] bg-surface-2 p-3 shadow-[inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[inset_0_0_0_1.5px_var(--accent-text)] sm:p-5"
     >
-      {/* „wejdź do salonu” in the name says it already: the badge stays out of the link name. */}
-      {tile.salon && (
-        <span
-          aria-hidden="true"
-          className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[12px] font-black tracking-[0.06em] text-surface uppercase max-md:-top-2 max-md:right-3 max-md:px-2 max-md:py-0.5"
-        >
-          Salon
-        </span>
-      )}
-      <Logo tile={tile} className="h-[76px] px-4 max-md:h-[60px] max-md:px-3" />
-      <span className="flex flex-col gap-0.5">
-        <b className="font-extrabold text-ink max-md:text-[15px]">
+      <span className="flex flex-wrap items-center justify-between gap-2">
+        <Logo tile={tile} eager className="h-12 w-[96px] px-3 sm:h-14 sm:w-[112px]" />
+        {status && (
+          <span
+            className={cx(
+              'inline-flex min-h-[26px] items-center rounded-full bg-card px-2.5 text-[11px] font-extrabold whitespace-nowrap',
+              service ? 'text-ok-text' : 'text-accent-text',
+            )}
+          >
+            {status}
+          </span>
+        )}
+      </span>
+      <span className="flex min-w-0 flex-col gap-1">
+        <b className="font-extrabold text-ink">
           {tile.name}
           {/* The visible text names the link; the action is added for screen readers (WCAG 2.5.3). */}
           <span className="sr-only"> — {tile.salon ? 'wejdź do salonu' : 'zobacz ofertę'}</span>
         </b>
         {tile.description && (
-          <small className="text-sm leading-snug text-ink-2 max-md:line-clamp-2 max-md:text-xs">
+          <small className="text-sm leading-snug text-ink-2 max-sm:line-clamp-3 max-sm:text-xs">
             {tile.description}
           </small>
         )}
       </span>
-      {tile.photos.length > 0 && (
-        <span aria-hidden="true" className="grid grid-cols-3 gap-1.5 max-md:hidden">
-          {tile.photos.map((photo) => (
-            <ProductStage key={photo.url} as="span" className="aspect-square rounded-xl">
-              <Image
-                src={photo.url}
-                alt={photo.alt}
-                width={photo.width}
-                height={photo.height}
-                unoptimized
-                className={cx(
-                  'relative max-h-[78%] w-auto max-w-[80%] object-contain',
-                  STAGE_SHADOW,
-                )}
-              />
-            </ProductStage>
-          ))}
+      <span className="mt-auto inline-flex items-center gap-1 text-sm font-extrabold text-accent-text">
+        <span className="max-sm:hidden">{tile.salon ? 'Wejdź do salonu' : 'Zobacz ofertę'}</span>
+        <Icon name="arrow" strokeWidth={2.4} className="size-4" />
+      </span>
+    </Link>
+  )
+}
+
+/** A tile of „Pozostałe marki” (board): the logo, the number of items and the badge of a status. */
+function BrandTileLink({ tile }: { tile: BrandTile }) {
+  const status = partnerStatusLabel(tile.status)
+  return (
+    <Link
+      href={tile.href}
+      data-logo-shine=""
+      data-brand-tile={tile.slug}
+      className={cx(
+        'relative flex w-full min-w-0 flex-col items-center justify-center gap-1.5 rounded-[18px] bg-white px-2 pt-7 pb-2.5 transition-shadow hover:shadow-[inset_0_0_0_1.5px_var(--accent-text)] sm:min-h-[112px] sm:px-3',
+        status
+          ? 'shadow-[inset_0_0_0_1px_var(--border),0_0_0_3px_color-mix(in_srgb,var(--accent)_10%,transparent)]'
+          : 'shadow-[inset_0_0_0_1px_var(--border)]',
+      )}
+    >
+      {status && (
+        <span
+          data-brand-status=""
+          className="absolute top-2 left-2 rounded-full bg-surface-dark px-2 py-0.5 text-[10px] leading-4 font-extrabold text-white"
+        >
+          {status}
         </span>
       )}
-      <span className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-extrabold">
-        {role && (
-          <em className="rounded-lg bg-surface-2 px-2 py-1 text-ok-text not-italic">{role}</em>
-        )}
-        {tile.count > 0 && (
-          <span className="text-ink-2">
-            {tile.count} {plural(tile.count, ['pozycja', 'pozycje', 'pozycji'])}
-          </span>
-        )}
-        <span className="ml-auto inline-flex items-center gap-1 text-sm text-accent-text">
-          <span className="max-md:hidden">{tile.salon ? 'Wejdź do salonu' : 'Zobacz ofertę'}</span>
-          <Icon name="arrow" strokeWidth={2.4} className="size-4" />
+      {tile.logo ? (
+        <Image
+          src={tile.logo.url}
+          alt=""
+          width={tile.logo.width}
+          height={tile.logo.height}
+          unoptimized
+          loading="lazy"
+          className="h-7 w-auto max-w-[80%] object-contain sm:h-8"
+        />
+      ) : (
+        <span
+          aria-hidden="true"
+          className="font-display text-base font-extrabold text-surface-dark"
+        >
+          {tile.name}
         </span>
+      )}
+      {/* A white plate in both themes: the text keeps the dark of the plate, not `ink`. */}
+      <span className="text-center text-[11px] leading-tight font-bold text-surface-dark sm:text-xs">
+        <span className="sr-only">{tile.name}, </span>
+        {tile.count > 0
+          ? `${tile.count} ${plural(tile.count, ['pozycja', 'pozycje', 'pozycji'])}`
+          : tile.salon
+            ? 'Salon marki'
+            : 'Oferta'}
       </span>
     </Link>
   )

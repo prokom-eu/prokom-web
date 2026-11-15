@@ -76,6 +76,11 @@ export type BrandsPage = {
   groups: BrandsGroup[]
   /** Brands with an authorized status, for the header cards. */
   authorized: BrandTile[]
+  /**
+   * „Pozostałe marki w ofercie” (runda 1411 R7, board `Marki.dc.html`): every other brand once, in
+   * one grid — by the number of items, then by name; Optivendi and COMEX with their badge.
+   */
+  others: BrandTile[]
 }
 
 export function buildBrandsPage({
@@ -140,9 +145,13 @@ export function buildBrandsPage({
       tiles: groupTiles,
     })
   }
+  const all = [...shown.values()]
   return {
     total: shown.size,
     groups: result,
-    authorized: [...shown.values()].filter((tile) => HEADER_STATUSES.has(tile.status)),
+    authorized: all.filter((tile) => HEADER_STATUSES.has(tile.status)),
+    others: all
+      .filter((tile) => !HEADER_STATUSES.has(tile.status))
+      .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, 'pl')),
   }
 }

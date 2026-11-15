@@ -138,6 +138,31 @@ describe('buildBrandsPage', () => {
     ])
   })
 
+  it('puts the other brands in one grid: by the number of items, then by name (runda 1411 R7)', () => {
+    const base = input()
+    const page = buildBrandsPage(
+      input({
+        index: index(
+          [...base.index.products, product('officejet', 'hp'), product('ecosys', 'kyocera')],
+          ['gopos'],
+        ),
+        partners: [...base.partners, partner(8, 'apc')],
+        groups: [
+          ...base.groups,
+          { title: 'Zasilanie', iconPath: null, description: null, partnerIds: [8, 5] },
+        ],
+        showrooms: [...base.showrooms, { slug: 'apc', brandIds: [8] }],
+      }),
+    )
+    expect(page.others.map((tile) => [tile.slug, tile.count])).toEqual([
+      ['hp', 2],
+      ['kyocera', 2],
+      ['polcard', 1],
+      ['apc', 0],
+    ])
+    expect(page.others.some((tile) => page.authorized.includes(tile))).toBe(false)
+  })
+
   it('makes the search text without diacritics from the name and the description', () => {
     const page = buildBrandsPage(
       input({
