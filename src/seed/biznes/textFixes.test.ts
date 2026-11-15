@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { hardSpaces } from '../../lib/text/hardSpace'
 import { RELIEF_FAQ_ANSWER } from './category'
 import { KSEF_POS_PARAGRAPH, KSEF_RELIEF_PARAGRAPH } from './posts'
-import { fixIndustryTexts, fixTexts } from './textFixes'
+import { fixIndustryTexts, fixTexts, mailWording } from './textFixes'
 
 describe('fixIndustryTexts (audit 01.11.2026)', () => {
   const day = { heading: 'Od otwarcia do raportu dobowego.', steps: [] }
@@ -101,8 +101,17 @@ describe('fixTexts', () => {
       h1b: 'Sprzedaż przez całą dobę.',
       label: 'Warianty',
     })
+    // Inside a longer text only the phrase fix of runda 1411 applies („na mailu”).
     const panel = 'Automat sprzedaje nocą. Bez obsługi. Na piśmie dostaniesz ofertę.'
-    expect(fixTexts(panel)).toBe(panel)
+    expect(fixTexts(panel)).toBe('Automat sprzedaje nocą. Bez obsługi. Na mailu dostaniesz ofertę.')
+  })
+
+  it('runda 1411: „na piśmie” becomes „na mailu”, a hard space kept (pages, catalog cards)', () => {
+    expect(fixTexts('Wycenę dostajesz na piśmie.')).toBe('Wycenę dostajesz na mailu.')
+    expect(mailWording({ a: ['Oferta na piśmie', 'NA PIŚMIE'], b: 1 })).toEqual({
+      a: ['Oferta na mailu', 'NA MAILU'],
+      b: 1,
+    })
   })
 
   it('leaves other texts untouched', () => {

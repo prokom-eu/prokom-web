@@ -128,7 +128,7 @@ export function BundleInquiry({
         <p className="mt-2 text-sm leading-relaxed text-white/75" aria-live="polite">
           {items.length}{' '}
           {plural(items.length, ['pozycja trafi', 'pozycje trafią', 'pozycji trafi'])} do zapytania.
-          Ofertę dostaniesz na piśmie.
+          Ofertę dostaniesz na mailu.
         </p>
         {/* On a phone the sticky bar carries the action and its notice. */}
         <div className="mt-5 max-md:hidden">{ask}</div>

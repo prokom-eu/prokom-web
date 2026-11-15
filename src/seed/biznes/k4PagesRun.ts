@@ -64,7 +64,7 @@ export function k4PageSeeds(slugOf: SlugOf, mediaOf?: MediaOf) {
       slug: 'automaty-vendingowe',
       title: 'Automaty vendingowe',
       description:
-        'Automaty vendingowe Optivendi z PRO-KOM: dobór maszyny do produktu i miejsca, płatności kartą i BLIK, zarządzanie z telefonu. Oferta na piśmie.',
+        'Automaty vendingowe Optivendi z PRO-KOM: dobór maszyny do produktu i miejsca, płatności kartą i BLIK, zarządzanie z telefonu. Oferta na mailu.',
       built: vendingK4Layout(vending, slugOf),
     },
     {

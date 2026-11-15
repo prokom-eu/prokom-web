@@ -21,7 +21,7 @@ import media from '../../../seed/prokombiznes/media.json'
 import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
 import search from '../../../seed/prokombiznes/wyszukiwarka.json'
 import { wizardSchema } from '../../lib/catalog/wizard'
-import { seedBiznesTextFixes } from './textFixes'
+import { mailWording, seedBiznesTextFixes } from './textFixes'
 import { k4Wizard, type K4WizardFile } from './k4Wizard'
 import { mapConcurrent } from '../concurrency'
 import { parseGalleryLimit, SEED_CONTEXT } from '../config'
@@ -103,6 +103,7 @@ import { seedBiznesProcurementPages } from './procurementPages'
 import { homeProcurementPackage, seedBiznesHomeProcurement } from './homeProcurement'
 import { homeBundlesUpdate, seedBiznesHomeBiz2 } from './homeBiz2'
 import { seedBiznesHomeKsefNews } from './homeKsefNews'
+import { seedBiznesHome1411 } from './home1411'
 import {
   brandLogoFile,
   galleryFileName,
@@ -600,27 +601,30 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     // K4 fields (K4-FINAL §4.2): the whole configurator, labelled sources, short name, kind and
     // premiere — the K4 package wins over the panel like the rest of the card.
     const k4Fields = k4 ? k4ProductFields(k4, k3Data.name) : null
-    const data = k4Fields
-      ? {
-          ...k3Data,
-          configurator: k4Fields.configurator,
-          sources: {
-            ...k3Data.sources,
-            links: k4Fields.sourceLinks,
-            // The date shows at each source (PRODUKCJA-BIZNES-1211 §1): the card's own
-            // `sprawdzono` (`null` = not confirmed, no date), else the package's; the later of it
-            // and the K3 date (and the stored one, `productUpdateData`) wins.
-            checkedAt: laterDate(
-              k3Data.sources.checkedAt,
-              k4Fields.sourceLinks.length === 0
-                ? null
-                : k4 && 'sprawdzono' in k4
-                  ? seedDate((k4 as { sprawdzono?: string | null }).sprawdzono)
-                  : seedDate(k4Catalog.sprawdzono),
-            ),
-          },
-        }
-      : k3Data
+    // Runda 1411: „na mailu” in the card texts of the package (`mailWording`).
+    const data = mailWording(
+      k4Fields
+        ? {
+            ...k3Data,
+            configurator: k4Fields.configurator,
+            sources: {
+              ...k3Data.sources,
+              links: k4Fields.sourceLinks,
+              // The date shows at each source (PRODUKCJA-BIZNES-1211 §1): the card's own
+              // `sprawdzono` (`null` = not confirmed, no date), else the package's; the later of it
+              // and the K3 date (and the stored one, `productUpdateData`) wins.
+              checkedAt: laterDate(
+                k3Data.sources.checkedAt,
+                k4Fields.sourceLinks.length === 0
+                  ? null
+                  : k4 && 'sprawdzono' in k4
+                    ? seedDate((k4 as { sprawdzono?: string | null }).sprawdzono)
+                    : seedDate(k4Catalog.sprawdzono),
+              ),
+            },
+          }
+        : k3Data,
+    )
     const k4Panel =
       k4 && k4Fields
         ? {
@@ -1409,6 +1413,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   await seedBiznesHomeBiz2(payload, tenant.id, pageReport)
   // B3-2: the KSeF band (deadline in the settings) and „Aktualności” (plan 0611 §7.1 pkt 7, 12).
   await seedBiznesHomeKsefNews(payload, tenant.id, pageReport)
+  // Runda 1411 R3: „Systemy” after the offer, no KSeF band, the order of §1.
+  await seedBiznesHome1411(payload, tenant.id, pageReport)
 
   // --- category page content (B10a): the cash registers from the board ---
   await seedBiznesCategoryContent(payload, tenant.id, pageRefs.product, pageReport)

@@ -114,7 +114,7 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
       // TODO(krystian): [SZEF] obietnica „60 min” — ta sama co w Ustawieniach strony (spec. §13).
       promises: [
         { text: 'Odpowiedź w 60 min' },
-        { text: 'Wycena na piśmie' },
+        { text: 'Wycena na mailu' },
         { text: 'Bez zobowiązań' },
       ],
       successText:

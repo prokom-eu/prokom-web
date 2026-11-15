@@ -698,7 +698,7 @@ export function goposK4Layout(
             surface: 'muted',
             eyebrow: 'Gotowe zestawy',
             heading: 'Gotowe zestawy dla gastronomii',
-            lead: 'Sprzęt dobrany pod lokal i sprawdzony ze sobą. Dodaj zestaw do zapytania — wycenę dostaniesz na piśmie.',
+            lead: 'Sprzęt dobrany pod lokal i sprawdzony ze sobą. Dodaj zestaw do zapytania — wycenę dostaniesz na mailu.',
             data: { slugs: g.zes },
           }),
         ]
@@ -1342,7 +1342,7 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
         variant: 'band',
         eyebrow: 'Opieka IT z Rabki-Zdroju',
         heading: 'Porozmawiajmy o Twojej firmie.',
-        lead: 'Opowiedz, ile masz stanowisk i co Cię dziś niepokoi. Zaproponujemy zakres opieki i przygotujemy wycenę na piśmie.',
+        lead: 'Opowiedz, ile masz stanowisk i co Cię dziś niepokoi. Zaproponujemy zakres opieki i przygotujemy wycenę na mailu.',
         data: {
           actions: [
             { label: 'Dodaj opiekę IT do zapytania', add: care, note: CARE_NOTE, primary: true },
@@ -1465,7 +1465,7 @@ export function vendingK4Layout(file: K4VendingFile, slugOf: SlugOf): K4Layout {
       data: {
         category: 'automaty-vendingowe',
         tabs: v.grp.map(([t]) => ({ t, subcategory: t })),
-        note: 'bez cen · oferta na piśmie',
+        note: 'bez cen · oferta na mailu',
       },
     }),
     faq('Pytania', 'Zanim postawisz automat', v.faq),

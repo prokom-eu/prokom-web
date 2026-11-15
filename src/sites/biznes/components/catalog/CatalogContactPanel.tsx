@@ -45,7 +45,7 @@ export function CatalogContactPanel({
           steps={withSteps ? <InquirySteps callbackTime={callbackTime} /> : undefined}
           formHeading="Formularz zapytania"
           formNote="Pola z gwiazdką są wymagane. Resztę dopiszemy razem przez telefon."
-          promises={[callbackTime, 'Wycena na piśmie', 'Bez zobowiązań'].filter(
+          promises={[callbackTime, 'Wycena na mailu', 'Bez zobowiązań'].filter(
             (promise): promise is string => Boolean(promise),
           )}
           successText={

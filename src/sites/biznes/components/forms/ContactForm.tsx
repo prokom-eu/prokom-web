@@ -30,7 +30,7 @@ type Props = {
   formToken: string
   heading?: string | null
   note?: string | null
-  /** Short promises under the button [SZEF], e.g. „Wycena na piśmie”. */
+  /** Short promises under the button [SZEF], e.g. „Wycena na mailu”. */
   promises?: string[]
   /** Under „Dziękujemy, zapytanie wysłane.” — the response time [SZEF]. */
   successText?: string | null

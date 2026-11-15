@@ -60,7 +60,7 @@ export function biznesLlmsTxt(input: BiznesLlmsInput): string {
     '',
     `> Kasy fiskalne, drukarki fiskalne, terminale płatnicze, stanowiska POS, komputery i laptopy, drukarki i urządzenia wielofunkcyjne, sieci i Wi-Fi, programy InsERT i GoPOS, Microsoft 365, KSeF i opieka IT dla firm z Rabki-Zdroju, Podhala i Małopolski. Dobór, wdrożenie i serwis z jednego salonu w Rabce-Zdroju (${input.company}, od ${FOUNDED.year} roku).`,
     '',
-    '- Wycena na piśmie, po rozmowie o potrzebach firmy; strona nie podaje cen.',
+    '- Wycena na mailu, po rozmowie o potrzebach firmy; strona nie podaje cen.',
     ...statuses.map((status) => `- ${status}.`),
     ...(input.areas.length
       ? [`- Obszar: ${input.areas.join(', ')} — całe Podhale i Małopolska.`]

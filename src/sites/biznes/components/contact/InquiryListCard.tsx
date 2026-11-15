@@ -18,7 +18,7 @@ export function InquiryListCard() {
     >
       <b className="font-display text-xl font-extrabold">Masz listę pozycji z katalogu?</b>
       <p className="text-ink-2">
-        Wyślij ją jako zapytanie — dostaniesz wycenę na piśmie, pod swoją firmę.
+        Wyślij ją jako zapytanie — dostaniesz wycenę na mailu, pod swoją firmę.
       </p>
       <Link
         href="/zapytanie"

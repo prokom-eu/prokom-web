@@ -187,7 +187,7 @@ export function BrandCta({
               Interesuje Cię {brand}? Dobierzemy i wycenimy.
             </h2>
             <p className="leading-relaxed text-white/80">
-              Dodaj produkty do zapytania albo napisz, czego szukasz. Wycena na piśmie, bez
+              Dodaj produkty do zapytania albo napisz, czego szukasz. Wycena na mailu, bez
               zobowiązań.{callbackTime ? ` ${callbackTime} w godzinach pracy.` : ''}
             </p>
           </div>

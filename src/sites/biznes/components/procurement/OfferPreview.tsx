@@ -180,7 +180,7 @@ export function OfferPreview({ offer, logo }: { offer: Offer; logo: ReactNode })
               Razem {total} {devicesWord(total)}
               {!agd && ` i ${serviceRows.length} ${plural(serviceRows.length, SERVICES_WORD)}`}
             </span>
-            <b>Ceny w ofercie na piśmie</b>
+            <b>Ceny w ofercie na mailu</b>
           </div>
         </div>
       </div>
