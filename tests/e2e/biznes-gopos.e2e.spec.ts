@@ -34,7 +34,7 @@ test.describe('Biznes /gopos (K4h)', () => {
       page.locator('section[aria-labelledby="gopos-h"]').getByText(/Autoryzowany partner GoPOS/),
     ).toBeVisible()
     await expect(page.locator('#lokal').getByRole('tab')).toHaveCount(5)
-    await expect(page.locator('#pakiet')).toContainText('bez cen · wycena na piśmie')
+    await expect(page.locator('#pakiet')).toContainText('bez cen · wycena na mailu')
     await expect(page.locator('#faq details')).toHaveCount(8)
     // No YouTube request before „▶” (ADR-016).
     await expect(page.locator('#film-gopos iframe')).toHaveCount(0)
