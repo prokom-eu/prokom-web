@@ -15,6 +15,8 @@ export type CoverTone = 'blue' | 'green' | 'red' | 'violet'
 
 export type LicenceCover = {
   kind: 'licence'
+  /** Text of the cover's picture: the card's name (search engines, a failed load). */
+  alt: string
   brand: string | null
   logo: IndexLogo | null
   /** The plan: the card's name without the producer in front („Business Standard”). */
@@ -28,6 +30,8 @@ export type LicenceCover = {
 
 export type ServiceCover = {
   kind: 'service'
+  /** Text of the cover's picture: the card's name. */
+  alt: string
   /** The picture of what the service is about; none → the card's icon stays in the middle. */
   image: IndexImage | null
   authorized: boolean
@@ -173,6 +177,7 @@ export function cardCover(
       : null
     return {
       kind: 'service',
+      alt: card.name,
       image,
       authorized: visual?.authorized === true,
       words: visual?.words ?? null,
@@ -182,6 +187,7 @@ export function cardCover(
   const brand = card.brand ? index.brands.find((item) => item.slug === card.brand) : undefined
   return {
     kind: 'licence',
+    alt: card.name,
     brand: brand?.name ?? null,
     logo: brand?.logo ?? null,
     plan: planOf(card.name, brand?.name ?? null),

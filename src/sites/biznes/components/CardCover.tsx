@@ -79,7 +79,7 @@ function LicenceKey({ cover, size }: { cover: LicenceCover; size: CoverSize }) {
         {cover.logo ? (
           <Image
             src={cover.logo.url}
-            alt=""
+            alt={cover.alt}
             width={cover.logo.width}
             height={cover.logo.height}
             unoptimized
@@ -152,7 +152,7 @@ function ServiceStage({
       {cover.image ? (
         <Image
           src={cover.image.url}
-          alt=""
+          alt={cover.alt}
           width={cover.image.width}
           height={cover.image.height}
           unoptimized

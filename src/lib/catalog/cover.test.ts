@@ -61,6 +61,7 @@ describe('cardCover (runda 1411 R8)', () => {
       ),
     ).toEqual({
       kind: 'licence',
+      alt: 'ESET Small Business Security',
       brand: 'ESET',
       logo: null,
       plan: 'Small Business Security',
@@ -89,6 +90,7 @@ describe('cardCover (runda 1411 R8)', () => {
       ),
     ).toEqual({
       kind: 'service',
+      alt: 'X',
       image: photo,
       authorized: true,
       words: ['Posnet', 'Elzab', 'w Rabce'],
