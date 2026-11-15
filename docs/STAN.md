@@ -185,8 +185,11 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
     - R5 #645 (scalony).
     - R6 `feat/biznes-o-firmie-1411`: `/o-firmie` Biznesu we własnym widoku `BzAboutView` wg planszy OFirmie (wizytówka z 2 numerami i 4 autoryzacjami, liczby, bento „Dlaczego my”, marki: 4 karty autoryzacji + ściana pozostałych z Optivendi/COMEX i ich statusem, kroki współpracy, inne linie, wizyta z mapą). Wspólny szablon O firmie bez zmian dla innych linii; bez migracji.
   - **Do przejrzenia rano (Sesja C):**
+    - R6 #646 (scalony).
+    - R7 `feat/biznes-marki-1411`: `/marki` wg planszy Marki — nagłówek z wyszukiwarką, „Producenci, z którymi pracujemy” (4 karty autoryzacji w kolejności K4-FINAL §1, opis = `description` marki z panelu), jedna siatka „Pozostałe marki w ofercie” (6/3 kolumny, wg liczby pozycji, potem alfabetycznie; Optivendi „Partner”, COMEX „We współpracy” ze znaczkiem), stopka o logotypach. Zakładki grup usunięte (grupy w panelu decydują już tylko, które marki są na stronie). `/marki` w teście axe.
     16. TODO(krystian): zdania o autoryzacjach na `/o-firmie` (`AUTH_TEXT` w `BzAboutPage/Component.tsx`) — z planszy, tylko fakty ze stron marek (§7 pkt 3).
-  - `Następny krok:` R6 (PR), R7 `feat/biznes-marki-1411`, R8 `feat/biznes-okladki-1411` — w tej sesji; potem Sesja D (R9).
+    17. `/marki`: Optivendi i COMEX stoją w siatce tam, gdzie wypada ich liczba pozycji (spec: sortowanie), nie na początku jak na planszy — jeśli mają być pierwsze, to jedna linijka w `buildBrandsPage`.
+  - `Następny krok:` PR R7, potem R8 `feat/biznes-okladki-1411` — w tej sesji; potem Sesja D (R9).
 - **14.11 noc — poprawki po audycie produkcji (`tmp/AUDYT-BIZNES-PRODUKCJA-1411.md`), 2 PR-y od `develop`:**
   - `feat/wsp-kontakt-waski-ekran` (strefa wspólna): Kontakt 360–390 px bez ucięcia, gdy firma zamknięta (siatka hero `grid-cols-1` + `min-w-0`, pigułka statusu się zawija); **decyzja Krystiana 14.11:** pigułka statusu poniżej 480 px pokazuje skrót „Zamknięte · pn 9:00” (`openingStatus().short`; dotyczy też hero pro-kom.eu; pełne zdanie w Menu, stopce i dla czytników — spec §5); O firmie: „Telefon” na linii numeru, „od&nbsp;2004”. e2e `wspolne-kontakt-waski` (3 linie × 360/390, sobota 22:00).
   - `fix/biznes-seo-kontakt`: opis `/kontakt` (seed uzupełnia pusty / stare brzmienie z „60 minut”), jeden `BreadcrumbList` na `/kontakt` i `/o-firmie`, `/favicon.ico` per linia przez `proxy.ts`. `ProductGroup` bez `offers` — bez zmian do pierwszego raportu Search Console.

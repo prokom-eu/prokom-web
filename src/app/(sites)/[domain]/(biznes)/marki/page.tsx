@@ -41,9 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /**
- * Brands `/marki` (K33 §6, board `Web-Marki`): the dark header with the search and the
- * authorized brands, the group tabs and a tile per brand — to its showroom, own page or the
- * offer filtered by the brand. Groups and their brands come from `BiznesSettings.brands`.
+ * Brands `/marki` (runda 1411 R7, board `Marki.dc.html`): the dark header with the search, the
+ * four authorisations and one grid of the other brands — each to its showroom, own page or the
+ * offer filtered by the brand. The brands come from the groups of `BiznesSettings.brands`.
  */
 export default async function BrandsPage({ params }: Props) {
   const tenant = await requireLine(params, 'biznes')
@@ -57,9 +57,7 @@ export default async function BrandsPage({ params }: Props) {
     { name: 'Strona główna', href: '/' },
     { name: 'Marki', href: BRANDS_PATH },
   ]
-  const unique = [
-    ...new Map(page.groups.flatMap((g) => g.tiles).map((tile) => [tile.id, tile])).values(),
-  ]
+  const unique = [...page.authorized, ...page.others]
   const jsonLd = [
     itemListJsonLd({
       name: 'Marki',
@@ -76,7 +74,7 @@ export default async function BrandsPage({ params }: Props) {
       />
       <Container wide className="pt-6 pb-14 sm:pt-8 sm:pb-20">
         <Breadcrumbs items={crumbs} />
-        <BrandsDirectory total={page.total} groups={page.groups} authorized={page.authorized} />
+        <BrandsDirectory total={page.total} authorized={page.authorized} others={page.others} />
       </Container>
     </>
   )

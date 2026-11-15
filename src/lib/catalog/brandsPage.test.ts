@@ -71,11 +71,11 @@ const input = (fields: Partial<BrandsPageInput> = {}): BrandsPageInput => ({
 })
 
 describe('buildBrandsPage', () => {
-  it('keeps the groups and brands of the panel in order, with a short tab label', () => {
+  it('keeps the groups and brands of the panel in order', () => {
     const page = buildBrandsPage(input())
-    expect(page.groups.map((group) => [group.title, group.short])).toEqual([
-      ['Kasy, POS i płatności', 'Kasy'],
-      ['Komputery, druk i akcesoria', 'Komputery'],
+    expect(page.groups.map((group) => group.title)).toEqual([
+      'Kasy, POS i płatności',
+      'Komputery, druk i akcesoria',
     ])
     expect(page.groups[0]!.tiles.map((tile) => tile.slug)).toEqual(['posnet', 'gopos', 'polcard'])
   })
@@ -103,14 +103,8 @@ describe('buildBrandsPage', () => {
     expect(tiles.map((tile) => tile.slug)).toEqual(['kyocera', 'hp'])
   })
 
-  it('counts the products and takes the first 3 photos of the brand', () => {
-    const posnet = buildBrandsPage(input()).groups[0]!.tiles[0]!
-    expect(posnet.count).toBe(5)
-    expect(posnet.photos.map((photo) => photo.url)).toEqual([
-      '/ergo.webp',
-      '/thermal.webp',
-      '/pospay.webp',
-    ])
+  it('counts the products of the brand', () => {
+    expect(buildBrandsPage(input()).groups[0]!.tiles[0]!.count).toBe(5)
   })
 
   it('counts a brand of two groups once and drops empty groups', () => {
@@ -130,12 +124,41 @@ describe('buildBrandsPage', () => {
     ])
   })
 
-  it('puts the authorized brands in the header cards, once each, in the panel order', () => {
-    const page = buildBrandsPage(input())
+  it('puts the authorized brands in the header cards, once each, in the order of K4-FINAL §1', () => {
+    const base = input()
+    // The panel lists GoPOS first: the cards keep Posnet before GoPOS.
+    const page = buildBrandsPage(
+      input({ groups: [{ ...base.groups[0]!, partnerIds: [2, 1, 3] }, base.groups[1]!] }),
+    )
     expect(page.authorized.map((tile) => [tile.slug, tile.status])).toEqual([
       ['posnet', 'authorized-service'],
       ['gopos', 'authorized-partner'],
     ])
+  })
+
+  it('puts the other brands in one grid: by the number of items, then by name (runda 1411 R7)', () => {
+    const base = input()
+    const page = buildBrandsPage(
+      input({
+        index: index(
+          [...base.index.products, product('officejet', 'hp'), product('ecosys', 'kyocera')],
+          ['gopos'],
+        ),
+        partners: [...base.partners, partner(8, 'apc')],
+        groups: [
+          ...base.groups,
+          { title: 'Zasilanie', iconPath: null, description: null, partnerIds: [8, 5] },
+        ],
+        showrooms: [...base.showrooms, { slug: 'apc', brandIds: [8] }],
+      }),
+    )
+    expect(page.others.map((tile) => [tile.slug, tile.count])).toEqual([
+      ['hp', 2],
+      ['kyocera', 2],
+      ['polcard', 1],
+      ['apc', 0],
+    ])
+    expect(page.others.some((tile) => page.authorized.includes(tile))).toBe(false)
   })
 
   it('makes the search text without diacritics from the name and the description', () => {
