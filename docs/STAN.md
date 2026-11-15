@@ -126,7 +126,7 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
   10. **Certyfikat:** poszerzenie `prokom-prod` o `pro-kom.eu` i `www.pro-kom.eu` (`certbot … --expand` z pełną listą domen, runbook §0 „bez zatrzymywania Nginx”).
   11. **Nginx/env:** `pro-kom.eu` w `PROD_SITE_HOSTS`, `www.pro-kom.eu` w `PROD_WWW_HOSTS` (`.env.proxy`), przeładowanie Nginx; panel produkcji → Strony → tenant `prokom` → Domeny: domena produkcji (środowisko „Produkcja”).
   12. **Po starcie:** Search Console (weryfikacja DNS, `https://pro-kom.eu/sitemap.xml`), monitoring dostępności, Umami (`UMAMI_WEBSITES`), cofnięcie = runbook §4 (poprzedni `APP_IMAGE_TAG`).
-- **Następny krok:** scalić #640 (H5-1 + H6) i PR H7-1 (`hub/h7-qa`) po zielonym CI; potem H7-2 wg listy powyżej (Krystian, po akceptacji szefa). Strony v1.1 H5 (`/zalatw-online`, `/pomoc`, `/partnerzy`, `/gdzie-dzialamy`, `/aktualnosci`) — po starcie.
+- **Następny krok:** #640 (H5-1 + H6) scalony 15.11 (https://github.com/prokom-eu/prokom-web/pull/640); PR H7-1 (`hub/h7-qa-1`) scalić po zielonym CI; potem H7-2 wg listy powyżej (Krystian, po akceptacji szefa). Strony v1.1 H5 (`/zalatw-online`, `/pomoc`, `/partnerzy`, `/gdzie-dzialamy`, `/aktualnosci`) — po starcie.
 - Uwaga migracje: jeśli do `develop` wejdzie inna migracja przed scaleniem, `hub_model`/`hub_ustawienia` (i wsp) do wygenerowania od nowa (`docs/sposob-pracy.md` → „Migracje z kilku folderów”).
 - Termin: 20.12.2026 (dokument fazy 1); plan ≈ 21,5 wieczoru — wersja 1 wg listy „bez cięć”, reszta zaraz po starcie (kolejność cięcia w planie §1).
 - Blokuje publikację (nie kod): akceptacja szefa, transfer DNS pro-kom.eu z nazwa.pl, polityka od prawnika, decyzje z `prokomeu-pytania.md`.
