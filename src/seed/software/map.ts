@@ -27,6 +27,7 @@ import { WIZARD_V3 } from './wizard'
 import { HOME_HERO } from './homeHero'
 import { HOME_V24 } from './homeV24'
 import { SOLUTION_PREVIEWS } from './previews'
+import { GUIDE_AUTHOR } from './posts'
 
 /**
  * Pure mapping of the Software package (`seed/prokomsoftware/`, v20) to the shapes of the
@@ -409,11 +410,7 @@ export function softwarePostData(item: SeedPost, ref: SolutionRef): PostData {
     ),
     // TODO(krystian): [SZEF] the author of the package's posts (the board `Wpis`); photo only
     // with consent — uploaded in the panel.
-    author: {
-      name: 'Krystian Potaczek',
-      role: 'PRO-KOM Software',
-      bio: 'Prowadzi Software w PRO-KOM: buduje strony w Next.js i systemy w Django, w tym nasz prokomserwis.pl.',
-    },
+    author: GUIDE_AUTHOR,
     seo: { description: item.listLead },
   }
 }
