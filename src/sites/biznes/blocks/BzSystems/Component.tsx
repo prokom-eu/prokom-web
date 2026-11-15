@@ -12,7 +12,7 @@ import { shownPartner } from '@/lib/partners/shown'
 import type { BzSystemsBlock as BzSystemsBlockData } from '@/payload-types'
 
 import { SectionHead } from '../../components/home/SectionHead'
-import { StatusRows } from '../BzOffer/Component'
+import { StatusRows } from '../../components/home/StatusRows'
 
 type Props = { block: BzSystemsBlockData; tenantId: number }
 type System = NonNullable<BzSystemsBlockData['systems']>[number]
@@ -25,10 +25,9 @@ function SystemCard({ system, tenantId }: { system: System; tenantId: number }) 
   // With a partner the badge is its status confirmed in the panel ([SZEF]), never free text.
   const badge = system.partner ? partnerStatusLabel(partner?.partnerStatus) : system.badge
   return (
-    <Link
-      href={system.link.href}
+    <article
       data-surface="dark"
-      className="bzs group/bzs flex flex-col overflow-hidden rounded-[30px] bg-surface-dark text-white shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--accent-on-dark)_12%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-accent-text"
+      className="bzs group/bzs relative flex flex-col overflow-hidden rounded-[30px] bg-surface-dark text-white shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--accent-on-dark)_12%,transparent)] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-3 has-[:focus-visible]:outline-accent-text"
     >
       {/* The picture with a glow over a fading grid (board); it floats slowly — not on phones. */}
       <div className="bzs-stage relative h-[270px] overflow-hidden max-[599px]:h-[200px]">
@@ -89,14 +88,18 @@ function SystemCard({ system, tenantId }: { system: System; tenantId: number }) 
         <p className="text-[15px] leading-relaxed text-white/75 min-[1080px]:text-[14px]">
           {system.text}
         </p>
-        <span className="mt-auto flex items-center gap-2 border-t border-white/8 pt-3.5 text-[14px] font-extrabold text-accent-on-dark">
+        {/* The action is the card's one link; it stretches over the whole card. */}
+        <Link
+          href={system.link.href}
+          className="mt-auto flex items-center gap-2 border-t border-white/8 pt-3.5 text-[14px] font-extrabold text-accent-on-dark outline-hidden after:absolute after:inset-0 after:content-['']"
+        >
           {system.link.label}
           <span aria-hidden="true" className="bzs-arrow inline-block">
             →
           </span>
-        </span>
+        </Link>
       </div>
-    </Link>
+    </article>
   )
 }
 

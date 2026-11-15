@@ -362,6 +362,9 @@ export function fixIndustryTexts<T extends Record<string, unknown>>(
 
 type Report = (name: string, changed: boolean) => void
 
+/** Pages whose wording is a legal text: never changed by the phrase fixes. */
+const LEGAL_SLUGS = new Set(['polityka-prywatnosci', 'cookies', 'dostepnosc', 'regulamin'])
+
 /**
  * Applies the fixes to the line's pages (layout), posts (lead, summary, content), the
  * KSeF panel of the Biznes settings, industries and categories; saved only when it changed.
@@ -384,6 +387,8 @@ export async function seedBiznesTextFixes(
     ...local,
   })
   for (const page of pages.docs) {
+    // Legal texts keep their exact wording (e.g. a complaint „na piśmie” is a legal form).
+    if (LEGAL_SLUGS.has(page.slug)) continue
     const layout = fixTexts(page.layout)
     // Runda 1411: the SEO description too („wycena na mailu” in the meta of the home page).
     const description = page.seo?.description

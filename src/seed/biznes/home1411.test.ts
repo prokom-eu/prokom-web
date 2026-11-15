@@ -74,6 +74,12 @@ describe('upgradeHome1411 (PRZEKAZANIE-RUNDA-1411 §1 — nowa kolejność)', ()
     expect(upgradeHome1411(next)).toBeNull()
   })
 
+  it('keeps the order the panel set after the move (no re-sorting on every import)', () => {
+    const faqAt = next.findIndex((block) => block.blockType === 'faq')
+    const moved = [next[faqAt]!, ...next.filter((_, i) => i !== faqAt)]
+    expect(upgradeHome1411(moved)).toBeNull()
+  })
+
   it('keeps a full KSeF card (not the band) and a page edited in the panel in its order', () => {
     const edited = [...next.slice(0, 2), { blockType: 'richText' }, ...next.slice(2)]
     expect(upgradeHome1411(edited)).toBeNull()

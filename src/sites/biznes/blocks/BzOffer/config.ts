@@ -105,8 +105,8 @@ export const BzOfferBlock: Block = {
   slug: 'bzOffer',
   interfaceName: 'BzOfferBlock',
   labels: {
-    singular: 'Biznes: oferta (działy i systemy)',
-    plural: 'Biznes: oferta (działy i systemy)',
+    singular: 'Biznes: oferta (działy)',
+    plural: 'Biznes: oferta (działy)',
   },
   fields: [
     {
@@ -159,10 +159,11 @@ export const BzOfferBlock: Block = {
     {
       type: 'row',
       fields: [
-        { name: 'systemsHeading', label: 'Podtytuł nad kartami systemów', type: 'text' },
-        { name: 'systemsNote', label: 'Dopisek po prawej', type: 'text' },
+        // Runda 1411: the cards moved to „Systemy” (`bzSystems`); kept, hidden, so nothing is lost.
+        { name: 'systemsHeading', type: 'text', admin: { hidden: true } },
+        { name: 'systemsNote', type: 'text', admin: { hidden: true } },
       ],
     },
-    systemsField,
+    { ...systemsField, admin: { ...systemsField.admin, hidden: true } } as typeof systemsField,
   ],
 }

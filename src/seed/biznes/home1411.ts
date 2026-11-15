@@ -33,7 +33,11 @@ export const HOME_ORDER_1411 = [
   'bzContact',
 ] as const
 
-/** Texts of the new section head (board `Systemy.dc.html`). */
+/**
+ * Texts of the new section head (board `Systemy.dc.html`). The cards come from „Oferta” as they
+ * are — TODO(krystian): [SZEF] the IT care status bars („Kopia danych z nocy”, „Aktualizacje na
+ * 4 komputerach”, „Przegląd kasy fiskalnej za 43 dni”) are the board's example (§7 pkt 2).
+ */
 export const SYSTEMS_HEAD = {
   eyebrow: 'Wdrażamy od początku do końca',
   heading: 'Systemy, które u Ciebie wdrożymy',
@@ -75,7 +79,9 @@ export function upgradeHome1411<T extends Block>(
       changed = true
     }
   }
-  if (next.every((block) => known.has(block.blockType))) {
+  // The new order once, with the move itself (the band out or „Systemy” in): a page the panel
+  // has rearranged since keeps its order on the next import.
+  if (changed && next.every((block) => known.has(block.blockType))) {
     const rank = (block: T) => HOME_ORDER_1411.indexOf(block.blockType as never)
     const sorted = [...next].sort((a, b) => rank(a) - rank(b))
     if (sorted.some((block, i) => block !== next[i])) {

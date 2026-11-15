@@ -4,6 +4,7 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 import katalog from '../../../seed/prokombiznes/k4/katalog-k4.json'
+import { lineCopy } from '../../lib/mail/lineCopy'
 import { mailWording } from './textFixes'
 
 // Runda 1411 (ADR-017 „Rozstrzygnięcia 15.11”): Biznes says „wycena na mailu”, never „na piśmie”.
@@ -15,7 +16,11 @@ const ROOTS = [
   'src/lib/biznes',
   'src/app/(sites)/[domain]/(biznes)',
 ]
-const FILES = ['src/seed/shared/biznes.ts']
+const FILES = [
+  'src/seed/shared/biznes.ts',
+  'src/lib/catalog/category.ts',
+  'src/lib/catalog/industry.ts',
+]
 const ALLOWED = new Set(['homeV150.ts', 'textFixes.ts'])
 const OLD = /na[  ]piśmie/i
 
@@ -33,6 +38,10 @@ describe('„na mailu”, not „na piśmie” (runda 1411)', () => {
       .filter((file) => !ALLOWED.has(path.basename(file)))
       .filter((file) => OLD.test(readFileSync(file, 'utf8')))
     expect(found).toEqual([])
+  })
+
+  it('the Biznes confirmation e-mail says „na mailu” (Instalacje and Software keep theirs)', () => {
+    expect(JSON.stringify(lineCopy('biznes'))).not.toMatch(OLD)
   })
 
   it('the catalog cards of the package lose it on import (`mailWording`)', () => {
