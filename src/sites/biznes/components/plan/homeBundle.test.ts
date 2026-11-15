@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { homeBundlesByScene, pickHomeBundle } from './homeBundle'
+import { homeBundlesByScene, homePlanData, pickHomeBundle } from './homeBundle'
 
 const card = (slug: string) => ({ slug, name: slug })
 
@@ -31,5 +31,18 @@ describe('homeBundlesByScene', () => {
         apteka: [],
       }),
     ).toEqual({ sklep: card('zestaw-sklep-kasa-start'), warsztat: card('zestaw-biuro-3-5') })
+  })
+})
+
+describe('homePlanData', () => {
+  it('drops the bundles section the home plan never shows, keeps the rest as it is', () => {
+    const plan = {
+      scenes: [{ slug: 'sklep' }],
+      products: { kasa: { slug: 'kasa' } },
+      bundles: { sklep: [card('zestaw-sklep-kasa-start')] },
+      firstSvg: '<svg/>',
+    }
+    expect(homePlanData(plan)).toEqual({ ...plan, bundles: {} })
+    expect(plan.bundles.sklep).toHaveLength(1)
   })
 })

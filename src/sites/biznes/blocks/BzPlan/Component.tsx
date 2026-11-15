@@ -8,7 +8,7 @@ import type { BzPlanBlock as BzPlanBlockData } from '@/payload-types'
 
 import { SectionHead } from '../../components/home/SectionHead'
 import { FloorPlan } from '../../components/plan/FloorPlanLazy'
-import { homeBundlesByScene } from '../../components/plan/homeBundle'
+import { homeBundlesByScene, homePlanData } from '../../components/plan/homeBundle'
 import { loadFloorPlan } from '../../components/plan/planData'
 import { PlanStats } from '../../components/plan/PlanStats'
 import { DEFAULT_PLAN_LABELS } from '../../components/plan/types'
@@ -134,7 +134,7 @@ export async function BzPlanBlock({ block, tenantId }: Props) {
             </div>
             <div className="mt-8 max-md:hidden">
               <FloorPlan
-                data={plan}
+                data={homePlanData(plan)}
                 headingLevel="h3"
                 labels={{
                   listNote: block.sceneNote || DEFAULT_PLAN_LABELS.listNote,
