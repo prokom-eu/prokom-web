@@ -78,6 +78,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             facts={settings.trust}
             company={shared.company}
             phone={phone}
+            phone2={phone2}
             now={now}
           />
           <LineScene

@@ -502,6 +502,8 @@ function home() {
       title: 'Sprzęt, instalacje, oprogramowanie i serwis. W jednej firmie.',
       lead: 'Pięć linii, każda ze swoim zespołem. Wybierz linię obok albo napisz, czego potrzebujesz.',
       unsure: 'Nie mamy pewności, która linia. Zadzwoń — pokierujemy.',
+      // H9 (Krystian 15.11): not on the board — the way a request goes, as on the contact page.
+      steps: ['Napisz albo zadzwoń', 'Wskażemy właściwą linię', 'Odzywa się jej zespół'],
       cta: 'Dobierz w 10 sekund',
       hints: PH.map(([hint, key]) => ({ text: hint.replace('np. ', ''), line: key })),
       chips: r.chips.map((c) => ({ label: c.label, line: line(c.c) })),

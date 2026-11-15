@@ -17,8 +17,9 @@ type Props = {
   /** Company facts visible here (on production: approved only, spec §3). */
   facts: { value: string; label: string }[]
   company: SharedCompany
-  /** The company's phone (`SiteSettings` of the hub). */
+  /** The company's phones (`SiteSettings` of the hub). */
   phone: string | null
+  phone2: string | null
   now: string
 }
 
@@ -30,9 +31,11 @@ const LINE_STRIPES = ['biznes', 'instalacje', 'software', 'tech', 'gaming'] as c
  * five line tiles with slides; company numbers; and the trust bar. Numbers and trust items tied to
  * a fact show only while the fact is visible (`withVisibleFacts`).
  */
-export function Hero({ home, lines, facts, company, phone, now }: Props) {
+export function Hero({ home, lines, facts, company, phone, phone2, now }: Props) {
   const { hero } = home
   const tel = phone ? toTelHref(phone) : null
+  const tel2 = phone2 ? toTelHref(phone2) : null
+  const [titleStart, titleEnd] = splitLastSentence(hero.title)
   const counters = withVisibleFacts(hero.counters, facts)
   const trust = withVisibleFacts(hero.trustBar, facts)
   const urlOf = (line: string) => lines.find((entry) => entry.key === line)?.url ?? null
@@ -76,7 +79,10 @@ export function Hero({ home, lines, facts, company, phone, now }: Props) {
                   <span className="pk-hy">-</span>
                   <span className="pk-wm">KOM</span>
                 </h1>
-                <p className="pk-hb-main__title">{hero.title}</p>
+                <p className="pk-hb-main__title">
+                  {titleStart}
+                  {titleEnd && <span className="pk-hb-main__em"> {titleEnd}</span>}
+                </p>
               </div>
               <p className="pk-hb-main__lead">{hero.lead}</p>
 
@@ -94,6 +100,9 @@ export function Hero({ home, lines, facts, company, phone, now }: Props) {
                     placeholder={hero.hints[0] ? `np. ${hero.hints[0].text}` : undefined}
                     className="pk-hq__input"
                   />
+                  <button type="submit" className="pk-hq__go">
+                    Szukaj
+                  </button>
                 </form>
                 <ul className="pk-hch-list" aria-label="Najczęściej szukane">
                   {hero.chips.map((chip) => (
@@ -109,14 +118,31 @@ export function Hero({ home, lines, facts, company, phone, now }: Props) {
                     </li>
                   ))}
                 </ul>
+                {hero.steps && (
+                  <ol className="pk-hsteps" aria-label="Jak to działa">
+                    {hero.steps.map((step, index) => (
+                      <li key={step}>
+                        <b aria-hidden="true">{String(index + 1).padStart(2, '0')}</b>
+                        <span>{step}</span>
+                      </li>
+                    ))}
+                  </ol>
+                )}
                 <div className="pk-hb-main__cta">
                   <a href="#dobierz" className="pk-hcta">
                     {hero.cta} <span aria-hidden="true">→</span>
                   </a>
                   {phone && tel && (
-                    <a href={tel} className="pk-hphone">
-                      {phone}
-                    </a>
+                    <span className="pk-hphones">
+                      <a href={tel} className="pk-hphone">
+                        {phone}
+                      </a>
+                      {phone2 && tel2 && (
+                        <a href={tel2} className="pk-hphone">
+                          {phone2}
+                        </a>
+                      )}
+                    </span>
                   )}
                   <span className="pk-hb-main__note">{hero.unsure}</span>
                 </div>
@@ -179,6 +205,15 @@ export function Hero({ home, lines, facts, company, phone, now }: Props) {
       )}
     </>
   )
+}
+
+/**
+ * „Sprzęt, instalacje, oprogramowanie i serwis. W jednej firmie.” → the last sentence apart, so it
+ * gets the accent and its own line (no „W” left at the end of a line).
+ */
+export function splitLastSentence(text: string): [string, string | null] {
+  const match = text.match(/^(.*[.!?])\s+([^.!?]+[.!?]?)$/)
+  return match?.[1] && match[2] ? [match[1], match[2]] : [text, null]
 }
 
 /** Icon of a trust-bar item: the company, an authorization, or the line's offer. */
