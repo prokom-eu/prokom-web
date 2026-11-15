@@ -5,6 +5,7 @@ import { getPayload, type Where } from 'payload'
 import { catalogTag } from '../catalog/tags'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { postListCards, type PostListCard } from './cards'
+import { readingMinutes, type RichTextData } from './content'
 import { ksefPanel, type KsefPanel } from './ksefPanel'
 import { publishedUntil } from './publishedAt'
 import type { Line } from '../tenant/lines'
@@ -42,6 +43,8 @@ export type PostListItem = PostListCard & {
   categoryValue: PostCategory
   /** For the sitemap. */
   updatedAt: string
+  /** Reading time, the same count as the post page (`readingMinutes` of content, lead, summary). */
+  minutes: number
 }
 
 /**
@@ -68,6 +71,8 @@ export const getPostList = (tenantId: number, line?: Line | null): Promise<PostL
           publishedAt: true,
           updatedAt: true,
           lead: true,
+          summary: true,
+          content: true,
           cover: true,
         },
         overrideAccess: true,
@@ -75,7 +80,12 @@ export const getPostList = (tenantId: number, line?: Line | null): Promise<PostL
       const cards = new Map(postListCards(docs, tenantId, line).map((card) => [card.slug, card]))
       return docs.flatMap((doc) => {
         const card = cards.get(doc.slug)
-        return card ? [{ ...card, categoryValue: doc.category, updatedAt: doc.updatedAt }] : []
+        if (!card) return []
+        const minutes = readingMinutes(doc.content as RichTextData | null | undefined, [
+          doc.lead,
+          doc.summary,
+        ])
+        return [{ ...card, categoryValue: doc.category, updatedAt: doc.updatedAt, minutes }]
       })
     },
     ['post-list', String(tenantId), line ?? ''],
