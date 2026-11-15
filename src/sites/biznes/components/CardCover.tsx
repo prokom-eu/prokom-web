@@ -90,10 +90,12 @@ function LicenceKey({ cover, size }: { cover: LicenceCover; size: CoverSize }) {
             {cover.brand}
           </span>
         )}
-        <span className="line-clamp-2 font-display text-[clamp(8px,7.4cqw,20px)] leading-[1.05] font-extrabold font-stretch-110%">
-          {cover.plan}
-        </span>
-        {size === 'md' ? (
+        {size !== 'sm' && (
+          <span className="line-clamp-2 font-display text-[clamp(8px,7.4cqw,20px)] leading-[1.05] font-extrabold font-stretch-110%">
+            {cover.plan}
+          </span>
+        )}
+        {size === 'md' && cover.terms ? (
           // A list card: the licence model on the key (its corners hold the brand and the button).
           <span className="truncate text-[clamp(8px,4.4cqw,12px)] font-extrabold text-[var(--cv)]">
             {SHORT_TERMS[cover.terms] ?? cover.terms}
@@ -107,8 +109,7 @@ function LicenceKey({ cover, size }: { cover: LicenceCover; size: CoverSize }) {
           </span>
         )}
       </span>
-      {size === 'md' && <span className="sr-only">{cover.terms}</span>}
-      {size === 'lg' && (
+      {size === 'lg' && cover.terms && (
         <span
           className={cx(
             'absolute bottom-[5cqw] left-[5cqw] max-w-[90cqw] truncate rounded-full px-[4cqw] py-[2.4cqw] text-white',
@@ -165,7 +166,9 @@ function ServiceStage({
           <Icon name={icon} className="size-[12cqw]" strokeWidth={2} />
         </span>
       )}
-      {size !== 'sm' && (
+      {/* Chip, badge and words: the gallery only — a list card shows its own logo plate and
+          „Usługa” / „Autoryzowany serwis” badges in these corners. */}
+      {size === 'lg' && (
         <>
           <span
             className={cx(
@@ -187,8 +190,7 @@ function ServiceStage({
               Autoryzowany serwis
             </span>
           )}
-          {/* Three words: the gallery only — a list card has its „Do zapytania” at the bottom. */}
-          {size === 'lg' && (
+          {cover.words && (
             <span
               className={cx(
                 'absolute inset-x-[5cqw] bottom-[5cqw] flex items-center @max-[200px]:hidden justify-center gap-[2.4cqw] rounded-[3.6cqw] bg-white/6 py-[2.8cqw] text-white/85 ring-1 ring-white/10',

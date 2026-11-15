@@ -42,7 +42,11 @@ describe('licenceTerms (runda 1411 R8)', () => {
       terms: PERPETUAL_TERMS,
       perpetual: true,
     })
-    expect(licenceTerms('ESET Small Business Security').terms).toBe(ELECTRONIC_TERMS)
+    expect(licenceTerms('ESET Small Business Security', 'eset').terms).toBe(ELECTRONIC_TERMS)
+    // A subscription wins over „Windows” / a year in its name.
+    expect(licenceTerms('Microsoft 365 Apps for business (Windows)').terms).toBe(SUBSCRIPTION_TERMS)
+    // Not a licence producer (SaaS, certificates): no model on the cover.
+    expect(licenceTerms('GoPOS', 'gopos').terms).toBeNull()
     // „bezterminowa”, never „dożywotnia”.
     expect(PERPETUAL_TERMS).not.toMatch(/dożywot/i)
   })
@@ -98,11 +102,12 @@ describe('cardCover (runda 1411 R8)', () => {
     })
   })
 
-  it('an own-brand card gets the service cover with generic words; a device none', () => {
+  it('an own-brand card gets the service cover without words; a device none', () => {
     expect(cardCover(card({ brand: 'pro-kom', slug: 'tusze-tonery' }), index)).toMatchObject({
       kind: 'service',
       image: null,
       authorized: false,
+      words: null,
     })
     expect(cardCover(card({ brand: 'hp' }), index)).toBeNull()
   })
@@ -111,7 +116,12 @@ describe('cardCover (runda 1411 R8)', () => {
     const authorized = Object.entries(SERVICE_VISUALS)
       .filter(([, visual]) => visual.authorized)
       .map(([slug]) => slug)
-    expect(authorized.every((slug) => /kas|fiskal/.test(slug))).toBe(true)
+    expect(authorized.sort()).toEqual([
+      'fiskalizacja',
+      'przeglad-kasy-fiskalnej',
+      'przejecie-serwisu-kasy',
+      'serwis-kas-i-drukarek-fiskalnych',
+    ])
     for (const visual of Object.values(SERVICE_VISUALS)) expect(visual.words).toHaveLength(3)
   })
 })

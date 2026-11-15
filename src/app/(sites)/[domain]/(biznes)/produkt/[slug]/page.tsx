@@ -268,7 +268,15 @@ export default async function ProductPage({ params }: Props) {
           <ProductHero
             product={product}
             icon={listed ? cardIcon(listed, index) : 'store'}
-            cover={listed ? cardCover(listed, index) : null}
+            cover={cardCover(
+              {
+                slug: product.slug,
+                name: product.name,
+                kind: product.kind,
+                brand: product.brand?.slug ?? null,
+              },
+              index,
+            )}
             brandHref={brandLink}
             categoryHref={categoryLink}
             phone={phone}

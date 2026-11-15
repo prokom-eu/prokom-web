@@ -20,7 +20,8 @@ export type LicenceCover = {
   /** The plan: the card's name without the producer in front („Business Standard”). */
   plan: string
   /** „Subskrypcja · na użytkownika”, „Licencja bezterminowa · jednorazowo” or „Licencja elektroniczna”. */
-  terms: string
+  /** `null`: a producer whose licence model the site does not state (SaaS, certificates). */
+  terms: string | null
   perpetual: boolean
   tone: CoverTone
 }
@@ -30,7 +31,8 @@ export type ServiceCover = {
   /** The picture of what the service is about; none → the card's icon stays in the middle. */
   image: IndexImage | null
   authorized: boolean
-  words: readonly [string, string, string]
+  /** `null`: no words for a service missing from `SERVICE_VISUALS` (no generic promise). */
+  words: readonly [string, string, string] | null
 }
 
 export type CardCover = LicenceCover | ServiceCover
@@ -73,7 +75,10 @@ export const SERVICE_VISUALS: Record<string, ServiceVisual> = {
   fiskalizacja: { product: KASA, words: REGISTERS, authorized: true },
   'przejecie-serwisu-kasy': { product: KASA, words: REGISTERS, authorized: true },
   'serwis-kas-i-drukarek-fiskalnych': { product: KASA, words: REGISTERS, authorized: true },
-  'wymiana-kasy': { product: 'elzab-k10-online', words: ['Dobór', 'Fiskalizacja', 'Szkolenie'] },
+  'wymiana-kasy': {
+    product: 'elzab-k10-online',
+    words: ['Odczyt pamięci', 'Protokół', 'Fiskalizacja'],
+  },
   'integracja-kasy': { product: 'polcard-move-3500', words: ['Kasa', 'Terminal', 'Program'] },
   'serwis-pos-i-terminali': {
     product: 'polcard-move-3500',
@@ -81,12 +86,12 @@ export const SERVICE_VISUALS: Record<string, ServiceVisual> = {
   },
   'wdrozenie-ksef-w-firmie': {
     product: 'insert-inspunkty-ksef',
-    words: ['Program', 'Certyfikat', 'Procedura'],
+    words: ['Uprawnienia', 'Program', 'Biuro rachunkowe'],
   },
   'przeglad-it': { product: LAPTOP, words: COMPUTERS },
   'bezplatny-przeglad-it': { product: LAPTOP, words: COMPUTERS },
   'opieka-informatyczna': { product: LAPTOP, words: ['Komputery', 'Sieć', 'Kasy'] },
-  'serwis-komputerow-dla-firm': { product: LAPTOP, words: ['Diagnoza', 'Naprawa', 'Części'] },
+  'serwis-komputerow-dla-firm': { product: LAPTOP, words: ['Laptopy', 'Komputery', 'Serwery'] },
   'modernizacja-komputera': {
     product: 'lenovo-thinkcentre-neo-50s-55s',
     words: ['Dysk', 'Pamięć', 'System'],
@@ -104,11 +109,11 @@ export const SERVICE_VISUALS: Record<string, ServiceVisual> = {
   },
   'siec-wifi-montaz': {
     product: 'ubiquiti-unifi-u7-pro',
-    words: ['Pomiar', 'Montaż', 'Konfiguracja'],
+    words: ['Wi-Fi dla gości', 'Montaż', 'Konfiguracja'],
   },
   'serwis-drukarek': {
     product: 'konica-minolta-bizhub-c3321i',
-    words: ['Diagnoza', 'Naprawa', 'Części'],
+    words: ['Konfiguracja', 'Skanowanie', 'Naprawa'],
   },
   'm365-poczta': { product: LAPTOP, words: ['Domena', 'Poczta', 'Konta'] },
   'szkolenia-zespolu': { product: LAPTOP, words: ['Kasa', 'Program', 'Zespół'] },
@@ -117,8 +122,6 @@ export const SERVICE_VISUALS: Record<string, ServiceVisual> = {
     words: ['Instalacja', 'Dane', 'Szkolenie'],
   },
 }
-
-const GENERIC_WORDS = ['Dobór', 'Wdrożenie', 'Serwis'] as const
 
 /** The plan: the name without its producer in front (case-insensitive), unless it starts with a number. */
 function planOf(name: string, brand: string | null): string {
@@ -131,10 +134,28 @@ function planOf(name: string, brand: string | null): string {
   return /^\d/.test(plan) ? name : plan
 }
 
-export function licenceTerms(name: string): { terms: string; perpetual: boolean } {
-  if (PERPETUAL.test(name)) return { terms: PERPETUAL_TERMS, perpetual: true }
+/** Producers selling licences: only they get „Licencja elektroniczna” when the model is unclear. */
+const LICENCE_BRANDS: ReadonlySet<string> = new Set([
+  'microsoft',
+  'eset',
+  'adobe',
+  'insert',
+  'comarch',
+  'insoft',
+])
+
+/**
+ * The licence model from the name: a subscription first (a „365 … Windows” plan is still one),
+ * then a licence paid once; else „Licencja elektroniczna” for a licence producer, nothing for the
+ * rest (a SaaS subscription or a certificate is not a licence).
+ */
+export function licenceTerms(
+  name: string,
+  brand: string | null = null,
+): { terms: string | null; perpetual: boolean } {
   if (SUBSCRIPTION.test(name)) return { terms: SUBSCRIPTION_TERMS, perpetual: false }
-  return { terms: ELECTRONIC_TERMS, perpetual: false }
+  if (PERPETUAL.test(name)) return { terms: PERPETUAL_TERMS, perpetual: true }
+  return { terms: brand && LICENCE_BRANDS.has(brand) ? ELECTRONIC_TERMS : null, perpetual: false }
 }
 
 /**
@@ -154,7 +175,7 @@ export function cardCover(
       kind: 'service',
       image,
       authorized: visual?.authorized === true,
-      words: visual?.words ?? GENERIC_WORDS,
+      words: visual?.words ?? null,
     }
   }
   if (card.kind !== 'software') return null
@@ -164,7 +185,7 @@ export function cardCover(
     brand: brand?.name ?? null,
     logo: brand?.logo ?? null,
     plan: planOf(card.name, brand?.name ?? null),
-    ...licenceTerms(card.name),
+    ...licenceTerms(card.name, card.brand),
     tone: (card.brand && BRAND_TONE[card.brand]) || 'blue',
   }
 }
