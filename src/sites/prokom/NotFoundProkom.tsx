@@ -88,6 +88,7 @@ export async function NotFoundProkom({ tenantId }: { tenantId: number }) {
                   {line.domain && (
                     <span className="pk-404__domain">
                       {line.domain} <span aria-hidden="true">↗</span>
+                      <span className="sr-only"> (inna strona)</span>
                     </span>
                   )}
                 </a>

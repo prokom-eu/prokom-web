@@ -25,6 +25,9 @@ const TITLE = 'Mapa strony'
 const DESCRIPTION =
   'Wszystkie strony serwisu w jednym miejscu: oferta, produkty, aktualności i informacje.'
 const HUB_SITE_MAP_H1 = 'Wszystko, co jest na pro-kom.eu.'
+/** The hub sells nothing itself: its pages and the lines, no „produkty”. */
+const HUB_SITE_MAP_LEAD =
+  'Wszystkie strony pro-kom.eu w jednym miejscu: oferta linii, strony dla firm, kontakt i informacje o firmie.'
 /** Software has no products: its own sentence (lead of the board `AU-mapa`). */
 const SOFTWARE_DESCRIPTION =
   'Wszystkie podstrony PRO-KOM Software na jednym ekranie: oferta, kreator, darmowy audyt, firma i informacje prawne.'
@@ -116,7 +119,9 @@ export default async function SiteMapPage({ params }: Props) {
         {/* pro-kom.eu: the H1 of spec §4; the title stays „Mapa strony”. */}
         {tenant.line === 'prokom' ? HUB_SITE_MAP_H1 : TITLE}
       </Heading>
-      <p className="mt-4 max-w-[60ch] text-lg text-ink-2">{DESCRIPTION}</p>
+      <p className="mt-4 max-w-[60ch] text-lg text-ink-2">
+        {tenant.line === 'prokom' ? HUB_SITE_MAP_LEAD : DESCRIPTION}
+      </p>
       {sections.map((section) => (
         <section key={section.id} aria-labelledby={`mapa-${section.id}`} className="mt-12">
           <Heading level={2} size="lg" id={`mapa-${section.id}`}>
