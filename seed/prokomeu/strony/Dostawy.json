@@ -194,7 +194,7 @@
    },
    {
     "t": "Opieka IT",
-    "d": "Monitoring sprzętu, pomoc zdalna i bezpłatny przegląd IT na start.",
+    "d": "Monitoring sprzętu, pomoc zdalna i kopie zapasowe.",
     "line": "PRO-KOM Biznes",
     "c": "var(--k-b)",
     "ct": "var(--k-bt)",
@@ -1104,7 +1104,7 @@
    {
     "n": "05",
     "q": "Ile trwa przygotowanie oferty?",
-    "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+    "a": "Oddzwaniamy w 60 minut w godzinach pracy. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej rozmowie.",
     "sel": "false",
     "rows": "0fr",
     "rot": "none"
@@ -3470,7 +3470,7 @@
      {
       "n": "05",
       "q": "Ile trwa przygotowanie oferty?",
-      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "a": "Oddzwaniamy w 60 minut w godzinach pracy. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej rozmowie.",
       "sel": "false",
       "rows": "0fr",
       "rot": "none"
@@ -3530,7 +3530,7 @@
      {
       "n": "05",
       "q": "Ile trwa przygotowanie oferty?",
-      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "a": "Oddzwaniamy w 60 minut w godzinach pracy. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej rozmowie.",
       "sel": "false",
       "rows": "0fr",
       "rot": "none"
@@ -3590,7 +3590,7 @@
      {
       "n": "05",
       "q": "Ile trwa przygotowanie oferty?",
-      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "a": "Oddzwaniamy w 60 minut w godzinach pracy. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej rozmowie.",
       "sel": "false",
       "rows": "0fr",
       "rot": "none"
@@ -3650,7 +3650,7 @@
      {
       "n": "05",
       "q": "Ile trwa przygotowanie oferty?",
-      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "a": "Oddzwaniamy w 60 minut w godzinach pracy. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej rozmowie.",
       "sel": "true",
       "rows": "1fr",
       "rot": "rotate(180deg)"
@@ -3710,7 +3710,7 @@
      {
       "n": "05",
       "q": "Ile trwa przygotowanie oferty?",
-      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "a": "Oddzwaniamy w 60 minut w godzinach pracy. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej rozmowie.",
       "sel": "false",
       "rows": "0fr",
       "rot": "none"
@@ -3770,7 +3770,7 @@
      {
       "n": "05",
       "q": "Ile trwa przygotowanie oferty?",
-      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "a": "Oddzwaniamy w 60 minut w godzinach pracy. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej rozmowie.",
       "sel": "false",
       "rows": "0fr",
       "rot": "none"
@@ -3830,7 +3830,7 @@
      {
       "n": "05",
       "q": "Ile trwa przygotowanie oferty?",
-      "a": "Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.",
+      "a": "Oddzwaniamy w 60 minut w godzinach pracy. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej rozmowie.",
       "sel": "false",
       "rows": "0fr",
       "rot": "none"

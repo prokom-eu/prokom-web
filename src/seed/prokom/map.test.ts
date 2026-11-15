@@ -19,9 +19,9 @@ const plans = hubPlans()
 const unique = (values: string[]) => new Set(values).size === values.length
 
 describe('hub seed — counts of the design package (ADR-H002 §3)', () => {
-  it('49 services, 20 tools, 26 help situations', () => {
+  it('49 services, 19 tools, 26 help situations (no „Status naprawy”, 15.11)', () => {
     expect(services).toHaveLength(49)
-    expect(tools).toHaveLength(20)
+    expect(tools).toHaveLength(19)
     expect(help).toHaveLength(26)
   })
 
@@ -64,12 +64,12 @@ describe('hub seed — services', () => {
 })
 
 describe('hub seed — tools and plans', () => {
-  it('featured tools lead deep into the lines (only Status naprawy waits, audit H8)', () => {
+  it('featured tools lead deep into the lines (audit H8)', () => {
     const shallow = tools
       .filter((t) => t.featuredOnHome)
       .filter((t) => !t.url || new URL(t.url).pathname === '/')
       .map((t) => t.key)
-    expect(shallow).toEqual(['tech-status-naprawy'])
+    expect(shallow).toEqual([])
     expect(Object.keys(TOOL_LINKS).filter((key) => !tools.some((t) => t.key === key))).toEqual([])
   })
 

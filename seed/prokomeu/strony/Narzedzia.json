@@ -1212,7 +1212,7 @@
     "prep": [
      "E-mail i hasło"
     ],
-    "get": "Historię napraw i ich statusy.",
+    "get": "Historię swoich napraw.",
     "cta": "Zaloguj się",
     "badge": "",
     "hasBadge": false,
@@ -1236,13 +1236,13 @@
      {
       "n": "03",
       "k": "Dostajesz",
-      "t": "Historię napraw i ich statusy."
+      "t": "Historię swoich napraw."
      }
     ],
     "hasPath": false,
     "pathTitle": "",
     "path": [],
-    "hay": "konto klienta wszystkie twoje naprawy w jednym miejscu. e-mail i haslo historie napraw i ich statusy. tech sprawdz telefon laptop komputer konsola naprawa ekran bateria status zlecenie",
+    "hay": "konto klienta wszystkie twoje naprawy w jednym miejscu. e-mail i haslo historie swoich napraw. tech sprawdz telefon laptop komputer konsola naprawa ekran bateria status zlecenie",
     "isRows": true,
     "rows": [
      {
@@ -2228,34 +2228,12 @@
   [
    "tech",
    "sprawdz",
-   "Status naprawy",
-   "Sprawdzasz, na jakim etapie jest Twoja naprawa.",
-   [
-    "Numer zlecenia albo konto klienta"
-   ],
-   "Aktualny etap: przyjęte, diagnoza, naprawa, do odbioru.",
-   "Sprawdź status",
-   {
-    "kind": "steps",
-    "steps": [
-     "Przyjęte",
-     "Diagnoza",
-     "Naprawa",
-     "Do odbioru"
-    ],
-    "done": 3
-   },
-   ""
-  ],
-  [
-   "tech",
-   "sprawdz",
    "Konto klienta",
    "Wszystkie Twoje naprawy w jednym miejscu.",
    [
     "E-mail i hasło"
    ],
-   "Historię napraw i ich statusy.",
+   "Historię swoich napraw.",
    "Zaloguj się",
    {
     "kind": "rows",
