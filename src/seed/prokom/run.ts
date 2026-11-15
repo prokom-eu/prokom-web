@@ -1,6 +1,7 @@
 import type { Payload, Where } from 'payload'
 
 import type { SiteSetting } from '../../payload-types'
+import { seedProkomLegal } from './legal'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
 import { PROKOM_SITE } from '../shared/prokom'
@@ -128,6 +129,9 @@ export async function seedProkom(payload: Payload): Promise<void> {
     })
     count('hub-settings', 'updated')
   }
+
+  // --- legal pages (H5): created while missing, then they belong to the panel ---
+  await seedProkomLegal(payload, tenantId, count)
 
   // --- services: first without relations, then the relations by key ---
   const serviceIds = new Map<string, number>()
