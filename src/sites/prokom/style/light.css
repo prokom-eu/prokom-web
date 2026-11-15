@@ -233,9 +233,10 @@
   --ln-text: var(--lt-screen-accent);
 }
 
-/* Line name behind the scene panel: a crisper outline on the light wash. */
+/* The line's name as a large outline behind the scene panel looks smudged on the light wash
+   (Krystian 15.11): light theme only, the dark keeps it. */
 [data-line='prokom'][data-theme='light'] .pk-pn__mark {
-  -webkit-text-stroke: 1px color-mix(in srgb, var(--ln, var(--k-g)) 26%, transparent);
+  display: none;
 }
 
 /* --- Buttons: the line's fill with its light under it ------------------------------------- */
