@@ -85,6 +85,14 @@ Strefa: **nazwa.pl** (decyzja Krystiana 15.11; NS `ns1/ns2/ns3.nazwa.pl`). **Nie
 6. **nadawcy `@pro-kom.eu` w SPF:** w nagłówkach obecnego maila sprawdzić, z jakiego IP wysyła nazwa.pl (czy `85.128.169.153`), i czy rekord `MS=` oznacza Microsoft 365 wysyłający jako `@pro-kom.eu` (wtedy `include:spf.protection.outlook.com`). Jeśli formularze huba mają wysyłać z adresu `@pro-kom.eu` przez inny serwer (np. hosting poczty Seohost, `MAIL_SENDERS` — dziś bez `prokom`), dopisać go do SPF (`include:`/`ip4:`) **przed** startem — przy `_dmarc p=quarantine` maile bez SPF trafią do spamu. TODO(krystian): adres i SMTP nadawcy huba.
 Dopiero potem: `A @` i `A www` (jawny, przed wildcardem) → `194.28.50.70`, TTL 300 na T−48 h. Wildcard i pozostałe nazwy zostają na nazwa.pl. **Hosting poczty jest na tym samym koncie nazwa.pl co obecna strona** — koniec abonamentu (grudzień, ADR-H001) nie może wyłączyć poczty: TODO(krystian) — sprawdzić w nazwa.pl, czy poczta to osobna usługa, zanim abonament strony wygaśnie.
 
+**Staging huba (H7-2 krok 1) — bezpieczny dla poczty, można przed decyzją o poczcie:** jawny rekord `staging` ma pierwszeństwo przed wildcardem tylko dla tej jednej nazwy; `@`, MX, SPF, `mail` i reszta zostają na nazwa.pl. Dziś `staging.pro-kom.eu` trafia przez wildcard na stary serwer `85.128.169.153` (sprawdzone 15.11), więc hubu na stagingu nie da się otworzyć.
+
+| Typ | Nazwa | Wartość | TTL | Po co | Stan |
+|---|---|---|---|---|---|
+| A | staging | `194.28.50.70` | 3600 | staging huba za hasłem (`noindex`), tenant `prokom` | do zrobienia (H7-2 krok 1) |
+
+Kolejność na serwerze (runbook §0 i §2, jak przy stagingu Tech): (1) panel stagingu → Strony → tenant `prokom` → Domeny: `staging.pro-kom.eu` (środowisko „Staging”) — **przed** dopisaniem hosta, bo smoke test wdrożenia sprawdza każdą domenę z `STAGING_SITE_HOSTS`; (2) po propagacji rekordu certyfikat `prokom-staging` z `--expand` i pełną listą jego domen + `staging.pro-kom.eu`; (3) `staging.pro-kom.eu` w `STAGING_SITE_HOSTS` (`.env.proxy`), przeładowanie Nginx; (4) `bash scripts/staging-content.sh prokom`.
+
 Po przełączeniu (cel):
 
 | Typ | Nazwa | Wartość | TTL | Po co | Stan |
