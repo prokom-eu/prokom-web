@@ -17,18 +17,16 @@ const home: K4HomeFile = homeFile
 const cards = new Set(catalog.produkty.map((card) => card.slug_seed))
 const splitCards = Object.values(slugMap.niepodzielone).flatMap((split) => split.nowe)
 
-describe('K4_FEATURED (K35 §7a)', () => {
-  it('has 16 cards of the K4 catalog with the pill counts of the board', () => {
-    expect(K4_FEATURED).toHaveLength(16)
+describe('K4_FEATURED (runda 1411 R5: three rows of eight)', () => {
+  it('has 24 cards of the catalog, eight a row, rows in a block, no repeat', () => {
+    expect(K4_FEATURED).toHaveLength(24)
     for (const item of K4_FEATURED) expect(cards.has(item.slug), item.slug).toBe(true)
-    const pills: Record<string, number> = {}
-    for (const item of K4_FEATURED) pills[item.group] = (pills[item.group] ?? 0) + 1
-    expect(pills).toEqual({
-      'kasy-platnosci': 5,
-      'komputery-telefony': 5,
-      'programy-ochrona': 4,
-      zasilanie: 2,
-    })
+    expect(new Set(K4_FEATURED.map((item) => item.slug)).size).toBe(24)
+    expect(K4_FEATURED.map((item) => item.group)).toEqual([
+      ...Array(8).fill('kasy-platnosci'),
+      ...Array(8).fill('komputery-telefony'),
+      ...Array(8).fill('programy-ochrona'),
+    ])
   })
 })
 
