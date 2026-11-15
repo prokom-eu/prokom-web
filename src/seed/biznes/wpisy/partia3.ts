@@ -3,7 +3,7 @@ import type { BiznesGuidePost } from './types'
 
 // Audyt 15.11 P1-3, partia 3: payment terminals, the season, split payment and the KSeF number in
 // transfers, and IT in the company (Windows 10, backups, shredders). Facts checked on 15.11.2026
-// (biznes.gov.pl, ksef.podatki.gov.pl, microsoft.com, polcard.pl, posnet.com.pl, synology.com,
+// (biznes.gov.pl, ksef.podatki.gov.pl, microsoft.com, polcard.pl, synology.com,
 // fellowes.com).
 
 const VERIFIED = '2026-11-15'
@@ -14,7 +14,7 @@ export const TERMINAL_WITH_REGISTER: BiznesGuidePost = {
   category: 'terminale',
   lead: 'Kasjer wbija kwotę na kasie, a potem drugi raz na terminalu. Wystarczy jedna pomyłka i rozliczenie dnia się nie zgadza. Połączenie terminala z kasą usuwa ten krok. Wyjaśniamy, jak to działa i co trzeba sprawdzić przed zakupem.',
   summary:
-    'Po połączeniu terminala z kasą kwota transakcji trafia do terminala sama, gdy kasjer wybierze płatność kartą. Kasy online komunikują się z terminalem przez krajowy protokół ECR-EFT. Integrację najlepiej przeprowadzić z serwisem, który zna i kasę, i terminal.',
+    'Po połączeniu terminala z kasą kwota transakcji trafia do terminala sama, gdy kasjer wybierze płatność kartą. Nowsze kasy mogą łączyć się z terminalem przez standard ECR-EFT, starsze przez protokoły producentów. Integrację najlepiej przeprowadzić z serwisem, który zna i kasę, i terminal.',
   content: [
     h2('Jedna kwota zamiast dwóch'),
     p(
@@ -31,7 +31,7 @@ export const TERMINAL_WITH_REGISTER: BiznesGuidePost = {
     ),
     h2('Jak to działa technicznie'),
     p(
-      'Kasy online rozmawiają z terminalem przez krajowy protokół ECR-EFT. W kasie włącza się obsługę terminala i ustawia połączenie, a w terminalu — współpracę z kasą. Szczegóły zależą od modelu kasy, terminala i wersji ich oprogramowania.',
+      'Nowsze kasy mogą łączyć się z terminalem przez standard ECR-EFT, starsze przez protokoły producentów kasy i terminala. W kasie włącza się obsługę terminala i ustawia połączenie, a w terminalu — współpracę z kasą. Szczegóły zależą od modelu kasy, terminala i wersji ich oprogramowania.',
     ),
     h2('Co sprawdzić przed zakupem'),
     ul(
@@ -56,10 +56,6 @@ export const TERMINAL_WITH_REGISTER: BiznesGuidePost = {
       name: 'PolCard — integracje z systemami kasowymi',
       url: 'https://www.polcard.pl/rozwiazania-platnicze/uslugi-dodatkowe/integracje-z-systemami-kasowymi/',
     },
-    {
-      name: 'Posnet — integracja kas online z terminalami płatniczymi',
-      url: 'https://saio.posnet.com.pl/strefa-wiedzy/integracja-kas-fiskalnych-online-z-terminalami-platniczymi-zostala-przesunieta',
-    },
   ],
   products: [
     'terminal-platniczy-polcard',
@@ -82,13 +78,13 @@ export const TERMINAL_WITH_REGISTER: BiznesGuidePost = {
   seo: {
     title: 'Terminal płatniczy połączony z kasą',
     description:
-      'Jak działa terminal płatniczy połączony z kasą fiskalną: kwota bez przepisywania, protokół ECR-EFT i co sprawdzić przed zakupem terminala.',
+      'Jak działa terminal płatniczy połączony z kasą fiskalną: kwota bez przepisywania, standard ECR-EFT i co sprawdzić przed zakupem terminala.',
   },
 }
 
 export const SEASON_CHECKLIST: BiznesGuidePost = {
   slug: 'kasa-i-terminal-przed-sezonem',
-  title: 'Kasa, terminal i Wi-Fi przed sezonem — lista dla sklepu, lokalu i pensjonatu',
+  title: 'Kasa i terminal przed sezonem — lista dla sklepu, lokalu i pensjonatu',
   category: 'terminale',
   lead: 'Na Podhalu sezon zaczyna się z dnia na dzień: ferie, majówka, wakacje. Gdy przy pełnej sali kasa traci połączenie albo terminal nie drukuje potwierdzeń, każda minuta kosztuje. Oto lista rzeczy, które warto sprawdzić kilka tygodni wcześniej.',
   summary:
@@ -118,9 +114,9 @@ export const SEASON_CHECKLIST: BiznesGuidePost = {
         '.',
       ],
     ),
-    h2('Internet i Wi-Fi'),
+    h2('Internet'),
     p(
-      'Kasa online, terminal, system POS i program do faktur potrzebują internetu. Gdy łącze pada, pada wszystko naraz. Sprawdź router, zasięg Wi-Fi w lokalu i zastanów się nad łączem zapasowym, na przykład modemem z kartą SIM.',
+      'Kasa online, terminal, system POS i program do faktur potrzebują internetu. Gdy łącze pada, pada wszystko naraz. Sprawdź router i łącze, a także zastanów się nad łączem zapasowym, na przykład modemem z kartą SIM.',
     ),
     h2('Nowi pracownicy'),
     ul(
@@ -139,7 +135,7 @@ export const SEASON_CHECKLIST: BiznesGuidePost = {
       '.',
     ),
     p(
-      'Zrobimy przegląd kasy, sprawdzimy terminal, sieć i kopie danych przed sezonem. Jeśli wolisz mieć to z głowy na stałe, zobacz ',
+      'Zrobimy przegląd kasy i sprawdzimy terminal przed sezonem. Jeśli wolisz mieć to z głowy na stałe, zobacz ',
       { text: 'opiekę IT', href: '/opieka-it' },
       '.',
     ),
@@ -159,18 +155,18 @@ export const SEASON_CHECKLIST: BiznesGuidePost = {
   ],
   cta: {
     eyebrow: 'Przed sezonem',
-    title: 'Przegląd kasy, terminala i sieci',
-    text: 'Sprawdzimy kasę, terminal, Wi-Fi i kopie danych, zanim przyjdą pierwsi goście.',
-    link: { label: 'Umów przegląd przed sezonem', href: '/kontakt' },
+    title: 'Kasa i terminal gotowe na sezon',
+    text: 'Przegląd kasy, próbna płatność na terminalu i kopia danych, zanim przyjdą pierwsi goście.',
+    link: { label: 'Skontaktuj się z nami', href: '/kontakt' },
   },
   contact: {
     heading: 'Przygotujmy firmę na sezon',
-    lead: 'Napisz, co masz w lokalu: kasę, terminal, POS, Wi-Fi. Ustalimy termin przeglądu przed sezonem.',
+    lead: 'Napisz, co masz w lokalu: kasę, terminal, system POS. Ustalimy termin przeglądu kasy przed sezonem.',
   },
   seo: {
     title: 'Kasa i terminal przed sezonem — lista',
     description:
-      'Co sprawdzić przed sezonem w sklepie, lokalu i pensjonacie: przegląd kasy, łączność kasy online, terminal, Wi-Fi, nowi pracownicy, KSeF i kopia danych.',
+      'Co sprawdzić przed sezonem w sklepie, lokalu i pensjonacie: przegląd kasy, łączność kasy online, terminal, internet, nowi pracownicy, KSeF i kopia danych.',
   },
 }
 
@@ -180,7 +176,7 @@ export const SPLIT_PAYMENT_KSEF: BiznesGuidePost = {
   category: 'ksef',
   lead: 'Mechanizm podzielonej płatności działa od lat, ale od 1 stycznia 2027 dochodzi nowy obowiązek: numer KSeF faktury w przelewie. Wyjaśniamy, kiedy split payment jest obowiązkowy i co trzeba będzie wpisywać w przelewach do kontrahentów.',
   summary:
-    'Split payment jest obowiązkowy, gdy faktura między podatnikami VAT przekracza 15 000 zł brutto i obejmuje towary lub usługi z załącznika 15 do ustawy o VAT. Od 1 stycznia 2027 czynny podatnik VAT płacący innemu podaje w przelewie numer KSeF faktury.',
+    'Split payment jest obowiązkowy, gdy faktura między podatnikami VAT przekracza 15 000 zł brutto i obejmuje towary lub usługi z załącznika 15 do ustawy o VAT. Od 1 stycznia 2027 czynny podatnik VAT płacący innemu za fakturę wystawioną w KSeF podaje w przelewie jej numer KSeF.',
   content: [
     h2('Jak działa split payment'),
     p(
@@ -197,7 +193,7 @@ export const SPLIT_PAYMENT_KSEF: BiznesGuidePost = {
     ),
     h2('Od 1 stycznia 2027: numer KSeF w przelewie'),
     p(
-      'Od 1 stycznia 2027 czynny podatnik VAT, który płaci innemu czynnemu podatnikowi VAT, podaje w przelewie numer KSeF faktury. Dotyczy to także płatności w mechanizmie podzielonej płatności. Przy płatności za kilka faktur jednym przelewem przepisy przewidują identyfikator zbiorczy.',
+      'Od 1 stycznia 2027 czynny podatnik VAT, który płaci innemu czynnemu podatnikowi VAT, podaje w przelewie numer KSeF faktury wystawionej w KSeF. Dotyczy to także płatności w mechanizmie podzielonej płatności. Jak opisać jeden przelew za kilka faktur, warto sprawdzić w objaśnieniach MF i w swoim banku.',
     ),
     p(
       'MF wskazuje, że celem jest przeciwdziałanie zatorom płatniczym: sprzedawca od razu wie, za którą fakturę przyszły pieniądze.',
@@ -205,7 +201,9 @@ export const SPLIT_PAYMENT_KSEF: BiznesGuidePost = {
     h2('Co przygotować'),
     ul(
       ['sprawdź, czy Twój program do faktur pokazuje numer KSeF przy każdej fakturze zakupu,'],
-      ['zapytaj bank, jak w bankowości firmowej wpisuje się numer KSeF i identyfikator zbiorczy,'],
+      [
+        'zapytaj bank, jak w bankowości firmowej wpisuje się numer KSeF, także przy przelewie za kilka faktur,',
+      ],
       [
         'ustal z księgową, kto robi przelewy i skąd bierze numery KSeF — o dostępie dla biura piszemy w poradniku ',
         { text: 'o uprawnieniach w KSeF', href: '/aktualnosci/uprawnienia-ksef-dla-ksiegowej' },
@@ -257,7 +255,7 @@ export const WINDOWS_10_END: BiznesGuidePost = {
   category: 'it-w-firmie',
   lead: '14 października 2025 Microsoft zakończył wsparcie Windows 10. Komputery dalej działają, ale nie dostają poprawek bezpieczeństwa. Podpowiadamy, jak sprawdzić, które komputery da się przenieść na Windows 11, a które lepiej wymienić.',
   summary:
-    'Windows 10 po 14 października 2025 nie dostaje aktualizacji ani poprawek bezpieczeństwa. Firmy mogą wykupić rozszerzone aktualizacje zabezpieczeń (ESU) najwyżej na 3 lata. Docelowo komputery trzeba przenieść na Windows 11 — wymaga on m.in. TPM 2.0 i bezpiecznego rozruchu UEFI.',
+    'Windows 10 po 14 października 2025 nie dostaje aktualizacji ani poprawek bezpieczeństwa. Firmy mogą wykupić rozszerzone aktualizacje zabezpieczeń (ESU) najdłużej do października 2028. Docelowo komputery trzeba przenieść na Windows 11 — wymaga on m.in. TPM 2.0 i bezpiecznego rozruchu UEFI.',
   content: [
     h2('Co się zmieniło po 14 października 2025'),
     p(
@@ -265,10 +263,10 @@ export const WINDOWS_10_END: BiznesGuidePost = {
     ),
     h2('Rozszerzone aktualizacje (ESU) — rozwiązanie na przejście'),
     p(
-      'Firmy mogą wykupić program Extended Security Updates: poprawki bezpieczeństwa najwyżej przez 3 lata po końcu wsparcia, licząc od listopada 2025. Warunek: komputer musi mieć Windows 10 w wersji 22H2. ESU nie obejmuje pomocy technicznej ani nowych funkcji — to czas na spokojną wymianę, nie sposób na kolejne lata.',
+      'Firmy mogą wykupić program Extended Security Updates: poprawki bezpieczeństwa najdłużej do października 2028, kupowane na kolejne lata. Firma, która dołącza później, płaci też za lata, które już minęły. Warunek: komputer musi mieć Windows 10 w wersji 22H2. ESU nie obejmuje pomocy technicznej ani nowych funkcji — to czas na spokojną wymianę, nie sposób na kolejne lata.',
     ),
     h2('Czy komputer pójdzie na Windows 11'),
-    p('Minimalne wymagania Windows 11 według Microsoft:'),
+    p('Najważniejsze wymagania Windows 11 według Microsoft:'),
     ul(
       ['procesor 64-bitowy, co najmniej 1 GHz i 2 rdzenie, z listy zgodnych procesorów,'],
       ['4 GB RAM i 64 GB miejsca na dysku,'],
@@ -326,7 +324,7 @@ export const WINDOWS_10_END: BiznesGuidePost = {
   seo: {
     title: 'Windows 10 bez wsparcia — co z firmą',
     description:
-      'Windows 10 bez wsparcia od 14 października 2025: co to znaczy dla firmy, ESU na maksymalnie 3 lata, wymagania Windows 11 i plan wymiany komputerów.',
+      'Windows 10 bez wsparcia od 14 października 2025: co to znaczy dla firmy, ESU najdłużej do 2028, wymagania Windows 11 i plan wymiany komputerów.',
   },
 }
 
@@ -345,7 +343,7 @@ export const BACKUP_321: BiznesGuidePost = {
       [{ bold: '1 kopia poza firmą' }, ': w chmurze albo na drugim urządzeniu w innym miejscu.'],
     ),
     p(
-      'Producenci serwerów NAS rozszerzają ją dziś do 3-2-1-1-0: jedna kopia ma być niezmienna albo odcięta od sieci, a zero oznacza zero błędów przy próbnym odtworzeniu.',
+      'Coraz częściej mówi się o rozszerzonej wersji 3-2-1-1-0: jedna kopia ma być niezmienna albo odcięta od sieci, a zero oznacza zero błędów przy próbnym odtworzeniu.',
     ),
     h2('Dlaczego sam dysk zewnętrzny nie wystarczy'),
     p(
@@ -424,10 +422,10 @@ export const SHREDDER_GDPR: BiznesGuidePost = {
     h2('Poziomy P-1 do P-7 w skrócie'),
     ul(
       [{ bold: 'P-1, P-2' }, ' — cięcie na paski, niezalecane w firmie ani dla danych osobowych,'],
-      [{ bold: 'P-3, P-4' }, ' — cięcie na ścinki, dla dokumentów z danymi osobowymi,'],
+      [{ bold: 'P-3' }, ' — ścinki, dla dokumentów bez danych osobowych,'],
       [
-        { bold: 'P-4 miniścinki' },
-        ' — co najmniej 1000 kawałków z kartki A4, wyraźnie trudniejsze do złożenia,',
+        { bold: 'P-4' },
+        ' — miniścinki, co najmniej 1000 kawałków z kartki A4; zalecane minimum dla danych osobowych,',
       ],
       [{ bold: 'P-5' }, ' — mikrościnki, dla danych ściśle poufnych,'],
       [{ bold: 'P-6, P-7' }, ' — dla dokumentów tajnych, rzadko potrzebne w małej firmie.'],
@@ -445,12 +443,12 @@ export const SHREDDER_GDPR: BiznesGuidePost = {
     ),
     h2('Dane na dyskach też trzeba zniszczyć'),
     p(
-      'Stary komputer, dysk czy telefon firmowy to te same dane, tylko w innej postaci. Przed sprzedażą albo oddaniem sprzętu dane trzeba trwale usunąć — samo skasowanie plików nie wystarczy. Pomożemy to zrobić przy ',
+      'Stary komputer, dysk czy telefon firmowy to te same dane, tylko w innej postaci. Przed sprzedażą albo oddaniem sprzętu dane trzeba trwale usunąć — samo skasowanie plików nie wystarczy. Pamiętaj o tym przy ',
       { text: 'wymianie komputerów', href: '/aktualnosci/windows-10-koniec-wsparcia-firma' },
       '.',
     ),
     p(
-      'Mamy niszczarki Fellowes i Kobra — od biurowych z podajnikiem po modele do dużych archiwów. Zobacz ',
+      'Mamy niszczarki Fellowes i Kobra — od biurowych z podajnikiem po modele do większych biur. Zobacz ',
       { text: 'niszczarki', href: '/oferta/niszczarki' },
       '.',
     ),
@@ -475,7 +473,7 @@ export const SHREDDER_GDPR: BiznesGuidePost = {
   cta: {
     eyebrow: 'Niszczarki',
     title: 'Niszczarka dobrana do Twoich dokumentów',
-    text: 'Fellowes i Kobra: poziom P-4 albo P-5, podajnik automatyczny, praca w biurze i w archiwum.',
+    text: 'Fellowes i Kobra: poziom P-4 albo P-5, podajnik automatyczny, do małego i większego biura.',
     link: { label: 'Zobacz niszczarki', href: '/oferta/niszczarki' },
   },
   contact: {

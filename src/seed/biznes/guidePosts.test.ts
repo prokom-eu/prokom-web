@@ -43,10 +43,12 @@ const GOV = /^https:\/\/([a-z0-9-]+\.)*gov\.pl\//
 const LEGAL_CATEGORIES: readonly string[] = ['ksef', 'kasy', 'dofinansowania']
 /**
  * Other posts (programs, terminals, IT) may also cite a producer's own site — the list of
- * `isProducerSource`, never a shop or a reseller (ADR-012 rozstrz. 19).
+ * `isProducerSource`, never a shop, a reseller or a price page (ADR-012 rozstrz. 19, K4-FINAL §1).
  */
+const PRICE_PAGE = /cennik|price|pricing|sklep|shop/i
 const sourceAllowed = (url: string, category: string) =>
-  GOV.test(url) || (!LEGAL_CATEGORIES.includes(category) && isProducerSource(url))
+  !PRICE_PAGE.test(url) &&
+  (GOV.test(url) || (!LEGAL_CATEGORIES.includes(category) && isProducerSource(url)))
 
 describe('Biznes guide posts — content rules (audyt 15.11 P1-3)', () => {
   it('unique slugs, Biznes categories', () => {
