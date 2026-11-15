@@ -68,6 +68,7 @@ export async function BzAboutPageBlock({ tenantId }: Props) {
       shared={shared}
       origin={siteOrigin(host, env.SITE_ENV) ?? ''}
       now={new Date().toISOString()}
+      siteEnv={env.SITE_ENV}
       auth={auth}
       tagged={tagged}
       others={others}

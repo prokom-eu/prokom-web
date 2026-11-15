@@ -9,7 +9,7 @@ import { setTheme, site } from './helpers'
 // nam na słowo” (the line's switch), both numbers. Data from `pnpm seed`.
 const ABOUT = '/o-firmie'
 
-test.describe('Biznes /o-firmie (shared template, §8.2)', () => {
+test.describe('Biznes /o-firmie (own view, runda 1411 R6)', () => {
   test.use({ viewport: { width: 1440, height: 900 } })
 
   test('one H1, the company card with NIP, both numbers and four authorisation logos', async ({

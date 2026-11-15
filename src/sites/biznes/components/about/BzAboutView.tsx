@@ -6,6 +6,7 @@ import type { AuthLogo } from '@/components/shared/CompanyCard'
 import { Contours } from '@/components/shared/Contours'
 import { HeadingText } from '@/components/shared/HeadingText'
 import { OpeningStatus } from '@/components/shared/OpeningStatus'
+import { visibleStats } from '@/components/shared/StatsStrip'
 import { PageCrumbs, type Crumb } from '@/components/shared/PageCrumbs'
 import { PAGE_CONTAINER } from '@/components/shared/pageContainer'
 import { cx } from '@/components/ui/cx'
@@ -16,6 +17,7 @@ import { FOUNDED, pageBreadcrumbsJsonLd } from '@/lib/shared/pages'
 import type { SharedData } from '@/lib/shared/project'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
+import { plural } from '@/lib/plural'
 import { BZ_H1, BZ_H2 } from '@/sites/biznes/typography'
 
 import type { AboutBrand } from '@/lib/biznes/aboutBrands'
@@ -26,6 +28,8 @@ type Props = {
   shared: SharedData
   origin: string
   now: string
+  /** `SITE_ENV`: on `production` a number flagged in the panel is left out (`visibleStats`). */
+  siteEnv: string
   auth: readonly AboutAuth[]
   /** Optivendi („Partner”), COMEX („We współpracy”): their badge in the wall of other brands. */
   tagged: readonly (AboutBrand & { status: string })[]
@@ -48,6 +52,15 @@ const BREADCRUMBS: readonly Crumb[] = [
   { name: 'O firmie', path: '/o-firmie' },
 ]
 const RULE_ICONS: IconName[] = ['check', 'phone', 'pin', 'cal']
+/** The heading counts the rules of the panel (board: six). */
+const RULE_COUNT: Record<number, string> = {
+  2: 'Dwie',
+  3: 'Trzy',
+  4: 'Cztery',
+  5: 'Pięć',
+  6: 'Sześć',
+  7: 'Siedem',
+}
 
 /** „Tel” links of the line's numbers, the first is the main one. */
 function phonesOf(line: SharedData['line']) {
@@ -67,7 +80,16 @@ function phonesOf(line: SharedData['line']) {
  * panel or the catalog (`shared`, `Partners`); the shared template stays as it is for the other
  * lines.
  */
-export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTotal }: Props) {
+export function BzAboutView({
+  shared,
+  origin,
+  now,
+  siteEnv,
+  auth,
+  tagged,
+  others,
+  brandTotal,
+}: Props) {
   const { company, lines } = shared
   const about = shared.line.about ?? {}
   const phones = phonesOf(shared.line)
@@ -78,7 +100,9 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
   const lastRule = middle.length > 4 ? middle.pop() : undefined
   const steps = about.steps ?? []
   const lineCount = lines.filter((line) => line.kind === 'linia').length
-  const clients = (about.stats ?? []).find((stat) => /klient/i.test(stat.label))
+  const clients = visibleStats(about.stats ?? [], siteEnv).find((stat) =>
+    /klient/i.test(stat.label),
+  )
   const services = auth.filter((item) => item.status.endsWith('serwis'))
   const partners = auth.filter((item) => item.status.endsWith('partner'))
   const facts = [
@@ -88,13 +112,13 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
       ? [
           {
             value: `${services.length} + ${partners.length}`,
-            label: `autoryzowane serwisy ${services.map((item) => item.name).join(' i ')}, partner ${partners.map((item) => item.name).join(' i ')}`,
+            label: `autoryzowane serwisy ${services.map((item) => item.name).join(' i ')}, ${partners.length > 1 ? 'autoryzowani partnerzy' : 'autoryzowany partner'} ${partners.map((item) => item.name).join(' i ')}`,
             icon: 'shield' as IconName,
           },
         ]
       : []),
     {
-      value: `${lineCount} linii`,
+      value: `${lineCount} ${plural(lineCount, ['linia', 'linie', 'linii'])}`,
       label: 'w jednej firmie — od kas po strony i naprawy',
       icon: 'grid' as IconName,
     },
@@ -111,7 +135,7 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
     },
     company.hours.length > 0 && { label: 'Godziny', value: hoursSummary(company.hours) },
   ].filter((field): field is { label: string; value: string; href?: string } => Boolean(field))
-  const wall = [...tagged, ...others].slice(0, 11)
+  const wall = [...tagged, ...others.map((brand) => ({ ...brand, status: null }))].slice(0, 11)
   const more = Math.max(0, brandTotal - auth.length - wall.length)
 
   return (
@@ -126,6 +150,8 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
       {/* 1. Hero with the company card */}
       <section
         aria-labelledby="o-firmie-h1"
+        data-rail-section="O firmie"
+        data-rail-icon="users"
         className="relative isolate overflow-hidden bg-line-dark pt-10 pb-28 text-line-dark-text max-md:pb-10 min-[1000px]:pt-14"
       >
         <Contours />
@@ -228,7 +254,7 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
                 <p className="text-[12px] font-extrabold tracking-[0.16em] text-accent-text uppercase">
                   {about.authTitle || 'Autoryzacje i partnerstwa'}
                 </p>
-                <ul className="grid grid-cols-2 gap-2">
+                <ul className="grid grid-cols-2 gap-2 max-[419px]:grid-cols-1">
                   {auth.map((item) => (
                     <li
                       key={item.name}
@@ -243,7 +269,7 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
                         unoptimized
                         className="h-[18px] w-auto object-contain"
                       />
-                      <span className="flex items-center gap-1 text-[12px] font-extrabold whitespace-nowrap text-[var(--c-biznes-tone-green-tag)]">
+                      <span className="flex items-center gap-1 text-[12px] font-extrabold whitespace-nowrap text-ok-text">
                         <Icon name="check" strokeWidth={2.8} className="size-3" />
                         {item.status}
                       </span>
@@ -259,14 +285,14 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
       {/* 2. Four numbers over the hero's edge */}
       <div className={cx(PAGE_CONTAINER, 'relative z-[1] -mt-14 max-md:mt-6')}>
         <ul
-          className="grid gap-3 min-[600px]:grid-cols-2 min-[1080px]:grid-cols-4"
+          className="grid grid-cols-2 gap-3 max-[359px]:grid-cols-1 min-[1080px]:grid-cols-4"
           data-stats-strip
         >
           {facts.map((fact, i) => (
             <li
               key={fact.label}
               className={cx(
-                'flex flex-col gap-2 rounded-[22px] px-6 py-[22px] shadow-[0_26px_44px_-30px_var(--glow)]',
+                'flex min-w-0 flex-col gap-2 rounded-[22px] px-6 py-[22px] shadow-[0_26px_44px_-30px_var(--glow)] max-md:px-4 max-md:py-4',
                 i === 1
                   ? 'bg-accent-text text-accent-ink'
                   : 'bg-card shadow-[0_26px_44px_-30px_var(--glow),inset_0_0_0_1px_var(--border)]',
@@ -283,7 +309,7 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
               </span>
               <b
                 className={cx(
-                  'mt-1.5 font-display text-[40px] leading-none font-extrabold tracking-[-0.03em] whitespace-nowrap font-stretch-112%',
+                  'mt-1.5 font-display text-[40px] leading-none font-extrabold tracking-[-0.03em] whitespace-nowrap font-stretch-112% max-md:text-[26px]',
                   i === 1 ? 'text-accent-ink' : 'text-accent-text',
                 )}
               >
@@ -291,7 +317,7 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
               </b>
               <span
                 className={cx(
-                  'text-[14px] leading-snug',
+                  'text-[14px] leading-snug max-md:text-[13px]',
                   i === 1 ? 'text-accent-ink' : 'text-ink-2',
                 )}
               >
@@ -307,13 +333,15 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
         <section
           id="dlaczego"
           aria-labelledby="o-firmie-zasady"
+          data-rail-section="Zasady"
+          data-rail-icon="star"
           className={cx(PAGE_CONTAINER, 'scroll-mt-28 py-16')}
         >
           <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-4">
             <div className="flex flex-col gap-3">
               <p className={KICKER}>Dlaczego PRO-KOM</p>
               <h2 id="o-firmie-zasady" className={BZ_H2}>
-                Sześć rzeczy, których możesz od nas oczekiwać.
+                {RULE_COUNT[rules.length] ?? rules.length} rzeczy, których możesz od nas oczekiwać.
               </h2>
             </div>
             <p className="max-w-[40ch] text-ink-2">
@@ -339,7 +367,9 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
                   </span>
                   <span className="flex flex-col">
                     <b className="text-[14px]">Wycena — kasa i program dla sklepu</b>
-                    <span className="text-[12px] text-ink-2">od: {shared.line.email}</span>
+                    {shared.line.email && (
+                      <span className="text-[12px] text-ink-2">od: {shared.line.email}</span>
+                    )}
                   </span>
                 </p>
                 <p className="mt-3 grid grid-cols-3 gap-3 text-[12px] text-ink-2">
@@ -382,10 +412,12 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
           </div>
           {lastRule && (
             <div className="relative mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 overflow-hidden rounded-[22px] bg-accent-soft px-7 py-5">
-              <span className="font-display text-[15px] font-extrabold text-ink">06</span>
-              <b className="font-display text-[20px] leading-tight font-extrabold">
+              <span className="font-display text-[15px] font-extrabold text-ink">
+                {String(rules.length).padStart(2, '0')}
+              </span>
+              <h3 className="font-display text-[20px] leading-tight font-extrabold">
                 {lastRule.title}
-              </b>
+              </h3>
               {lastRule.text && <span className="text-ink-2">{lastRule.text}</span>}
             </div>
           )}
@@ -397,6 +429,8 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
         <section
           id="marki"
           aria-labelledby="o-firmie-marki"
+          data-rail-section="Marki"
+          data-rail-icon="shield"
           className={cx(PAGE_CONTAINER, 'scroll-mt-28 py-16')}
           data-about-brands
         >
@@ -455,7 +489,7 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
                 aria-label="Pozostałe marki w ofercie"
               >
                 {wall.map((brand) => {
-                  const status = 'status' in brand ? (brand as { status: string }).status : null
+                  const status = brand.status
                   const tile = (
                     <>
                       <Image
@@ -512,6 +546,8 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
         <section
           id="wspolpraca"
           aria-labelledby="o-firmie-kroki"
+          data-rail-section="Jak pracujemy"
+          data-rail-icon="compass"
           className={cx(PAGE_CONTAINER, 'scroll-mt-28 py-16')}
         >
           <p className={KICKER}>Krok po kroku</p>
@@ -554,17 +590,19 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
       )}
 
       {/* 6. The PRO-KOM lines */}
-      {lines.length > 0 && (
+      {lineCount > 0 && (
         <section
           id="linie"
           aria-labelledby="o-firmie-linie"
+          data-rail-section="Linie"
+          data-rail-icon="grid"
           className={cx(PAGE_CONTAINER, 'scroll-mt-28 py-16')}
         >
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div className="flex flex-col gap-3">
               <p className={KICKER}>Jedna firma</p>
               <h2 id="o-firmie-linie" className={BZ_H2}>
-                {lineCount} linii PRO-KOM
+                {lineCount} {plural(lineCount, ['linia', 'linie', 'linii'])} PRO-KOM
               </h2>
             </div>
             <p className="max-w-[40ch] text-ink-2">
@@ -643,6 +681,8 @@ export function BzAboutView({ shared, origin, now, auth, tagged, others, brandTo
       <section
         id="wizyta"
         aria-labelledby="o-firmie-wizyta"
+        data-rail-section="Wizyta"
+        data-rail-icon="pin"
         className={cx(PAGE_CONTAINER, 'scroll-mt-28 py-16')}
         data-talk-band
       >
