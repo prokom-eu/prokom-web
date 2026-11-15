@@ -16,7 +16,7 @@ type Props = {
 }
 
 /**
- * „Załatw to od razu. Bez dzwonienia.” (spec §6.1 pkt 4, board 01 `#narzedzia`): per line its two
+ * „Załatw to od razu.” (spec §6.1 pkt 4, board 01 `#narzedzia`): per line its two
  * home tools with a small picture from the tool's `preview`, and the card of all tools with the
  * counts from the data. Server-rendered, no state.
  */
@@ -79,6 +79,7 @@ export function Tools({ texts, groups, counts, total, allHref }: Props) {
             </span>
           </a>
         )}
+        {!allHref && texts.own && <OwnTool texts={texts.own} />}
       </div>
     </section>
   )
@@ -109,6 +110,63 @@ function ToolCard({ tool }: { tool: ToolGroup['tools'][number] }) {
   )
 }
 
+/** Mocked rows of the request list (illustration only, hidden from readers). */
+const LIST_SAMPLE = [
+  ['Laptopy', 12],
+  ['Monitory', 12],
+  ['Telewizory', 8],
+] as const
+
+/**
+ * The hub's own tool (H9): the sixth tile, in the company green, while the card of all tools waits
+ * for `/zalatw-online` — the request list of „Inwestycje i dostawy”.
+ */
+function OwnTool({ texts }: { texts: NonNullable<HubHome['tools']['own']> }) {
+  return (
+    <div className="pk-tgr pk-tgr--own" style={lineStyle('prokom')}>
+      <div className="pk-tgr__head">
+        <span className="pk-tgr__who">
+          <Mark size="sm" />
+          <span className="pk-tgr__promise">{texts.eyebrow}</span>
+        </span>
+      </div>
+      <div className="pk-own">
+        <span aria-hidden="true" className="pk-tv pk-tv--qty">
+          {LIST_SAMPLE.map(([name, qty], index) => (
+            <span key={name} className="pk-tv__row" data-on={index === 2 ? '' : undefined}>
+              <span>{name}</span>
+              <span className="pk-tv__ctl">
+                <i>−</i>
+                <b>{qty}</b>
+                <i>+</i>
+              </span>
+            </span>
+          ))}
+          <span className="pk-tv__sum">
+            <span>Twoja lista</span>
+            <b>32 szt.</b>
+          </span>
+        </span>
+        <div className="pk-own__body">
+          <h3 className="pk-tlc__title">{texts.title}</h3>
+          <p className="pk-tlc__desc">{texts.text}</p>
+          <ol className="pk-own__steps">
+            {texts.steps.map((step, index) => (
+              <li key={index}>
+                <b aria-hidden="true">{index + 1}</b>
+                {step}
+              </li>
+            ))}
+          </ol>
+          <a href={texts.href} className="pk-tlc__go pk-own__go">
+            {texts.cta} <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /** The tool's small picture; its words are illustration only (hidden from readers). */
 function Preview({ preview }: { preview: ToolPreview }) {
   switch (preview.kind) {
@@ -116,7 +174,7 @@ function Preview({ preview }: { preview: ToolPreview }) {
       return (
         <span aria-hidden="true" className="pk-tv pk-tv--list">
           {preview.items.map((item, index) => (
-            <span key={item} className="pk-tv__row">
+            <span key={item} className="pk-tv__row" data-on={index === 0 ? '' : undefined}>
               <b>{String(index + 1).padStart(2, '0')}</b>
               <span>{item}</span>
               <i />
@@ -127,8 +185,10 @@ function Preview({ preview }: { preview: ToolPreview }) {
     case 'tiles':
       return (
         <span aria-hidden="true" className="pk-tv pk-tv--tiles">
-          {preview.items.map((item) => (
-            <span key={item}>{item}</span>
+          {preview.items.map((item, index) => (
+            <span key={item} data-on={index === 0 ? '' : undefined}>
+              {item}
+            </span>
           ))}
         </span>
       )
@@ -177,9 +237,13 @@ function Preview({ preview }: { preview: ToolPreview }) {
             <span>{preview.text}</span>
           </span>
           <span className="pk-tv__page">
-            <i className="pk-sk pk-sk--title" />
-            <i className="pk-sk" />
-            <i className="pk-sk pk-sk--short" />
+            <span className="pk-tv__copy">
+              <i className="pk-sk pk-sk--title" />
+              <i className="pk-sk" />
+              <i className="pk-sk pk-sk--short" />
+              <i className="pk-sk pk-sk--btn" />
+            </span>
+            <span className="pk-tv__shot" />
           </span>
         </span>
       )

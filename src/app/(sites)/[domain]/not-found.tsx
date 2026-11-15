@@ -4,6 +4,7 @@ import { Section } from '@/components/ui/Section'
 import { errorFields, log } from '@/lib/log'
 import { NotFoundBiznes } from '@/sites/biznes/components/NotFoundBiznes'
 import { NotFoundInstalacje } from '@/sites/instalacje/powloka/NotFoundInstalacje'
+import { NotFoundProkom } from '@/sites/prokom/NotFoundProkom'
 import { NotFoundSoftware } from '@/sites/software/components/NotFoundSoftware'
 
 import { tenantFromRequest } from './tenant'
@@ -13,7 +14,7 @@ import { tenantFromRequest } from './tenant'
 // `(sites)/not-found.tsx`, which reveals nothing about the sites we serve.
 // Software has its own page (board `NieZnaleziono`, spec. §6.11) while its texts are saved;
 // Biznes its own with the search and popular places (audit 01.11); Instalacje its own with links
-// to the main pages (audit before staging, P2 5).
+// to the main pages (audit before staging, P2 5); pro-kom.eu its own (spec §6.15, audit H8).
 export default async function SiteNotFound() {
   const tenant = await tenantFromRequest().catch(() => null)
   if (tenant?.line === 'software') {
@@ -26,6 +27,14 @@ export default async function SiteNotFound() {
   }
   if (tenant?.line === 'biznes') return <NotFoundBiznes />
   if (tenant?.line === 'instalacje') return <NotFoundInstalacje />
+  if (tenant?.line === 'prokom') {
+    // pro-kom.eu (spec §6.15): search, the five lines and the phone; a database failure → generic.
+    const page = await NotFoundProkom({ tenantId: tenant.id }).catch((error: unknown) => {
+      log.error({ tenant: tenant.id, ...errorFields(error) }, 'Hub 404 page failed')
+      return null
+    })
+    if (page) return page
+  }
   return (
     <Section className="py-24">
       <Heading level={1} size="xl">

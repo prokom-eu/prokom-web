@@ -7,6 +7,12 @@ import type { Line } from '../tenant/lines'
  * file share no image rather than another line's.
  */
 const DEFAULT_OG_IMAGES: Partial<Record<Line, PublicImage>> = {
+  prokom: {
+    alt: 'PRO-KOM — sprzęt, instalacje, oprogramowanie i serwis. W jednej firmie.',
+    width: 1200,
+    height: 630,
+    sources: [{ url: '/brand/prokom-glowna_og.png', width: 1200 }],
+  },
   software: {
     alt: 'PRO-KOM Software — strony i programy dla firm. Zobaczysz, zanim zapłacisz.',
     width: 1200,

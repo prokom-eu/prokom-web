@@ -488,7 +488,7 @@ function LineVisual({
             </span>
           </span>
           <span className="pk-bars pk-game__bars">
-            {Array.from({ length: 16 }, (_, i) => (
+            {Array.from({ length: 28 }, (_, i) => (
               <i
                 key={i}
                 style={{ height: `${45 + ((i * 37) % 55)}%`, animationDelay: `${i * 0.12}s` }}

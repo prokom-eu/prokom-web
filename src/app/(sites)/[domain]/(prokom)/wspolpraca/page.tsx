@@ -1,11 +1,14 @@
 import type { Metadata } from 'next'
+
 import { notFound } from 'next/navigation'
 
-import { getHubSettings } from '@/lib/prokom/data'
+import { getHubSettings, hubOgImage } from '@/lib/prokom/data'
 import { isHubLinkLive } from '@/lib/prokom/pages'
+import { hubPageMetadata } from '@/lib/prokom/seo'
 import { CooperationPage } from '@/sites/prokom/wspolpraca/CooperationPage'
+import { HubBreadcrumbJsonLd } from '@/sites/prokom/HubBreadcrumbs'
 
-import { requireLine } from '../../tenant'
+import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
@@ -15,16 +18,23 @@ async function liveTenant(params: Props['params']) {
   return tenant
 }
 
-/** Spec §4: title of `/wspolpraca`; the full SEO comes in H6-2. */
+/** Spec §4: title, description (140–160 characters), canonical and Open Graph (H8). */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  await liveTenant(params)
-  return {
-    title: { absolute: 'Współpraca: architekci, deweloperzy, instytucje | PRO-KOM' },
-    alternates: { canonical: '/wspolpraca' },
-  }
+  const tenant = await liveTenant(params)
+  return hubPageMetadata(
+    '/wspolpraca',
+    'Współpraca: architekci, deweloperzy, instytucje | PRO-KOM',
+    await hubOgImage(tenant.id),
+  )
 }
 
 /** `/wspolpraca` of pro-kom.eu (spec §6.6) — a v1.1 page: 404 until `HubSettings.pages.cooperation`. */
 export default async function HubCooperationRoute({ params }: Props) {
-  return <CooperationPage tenant={await liveTenant(params)} />
+  const tenant = await liveTenant(params)
+  return (
+    <>
+      <HubBreadcrumbJsonLd name="Współpraca" path="/wspolpraca" origin={await requestOrigin()} />
+      <CooperationPage tenant={tenant} />
+    </>
+  )
 }

@@ -1,5 +1,6 @@
 import { HeadingText } from '@/components/shared/HeadingText'
 import type { HubHome } from '@/lib/prokom/home'
+import { toTelHref } from '@/lib/site/link'
 
 import { HUB_CONTAINER } from '../container'
 
@@ -7,6 +8,8 @@ type Props = {
   texts: HubHome['final']
   phone: string | null
   tel: string | null
+  /** The second company number (`SiteSettings.phone2`), next to the main one. */
+  phone2: string | null
   contactHref: string
 }
 
@@ -15,7 +18,8 @@ type Props = {
  * (decoration — the page's H1 already says it), the call to action, the company phone, „Napisz”
  * and the way back to „Dobierz”.
  */
-export function Final({ texts, phone, tel, contactHref }: Props) {
+export function Final({ texts, phone, tel, phone2, contactHref }: Props) {
+  const tel2 = phone2 ? toTelHref(phone2) : null
   return (
     <section aria-labelledby="final-h" className="pk-final">
       <div aria-hidden="true" className="pk-final__dots" />
@@ -32,6 +36,11 @@ export function Final({ texts, phone, tel, contactHref }: Props) {
           {phone && tel && (
             <a href={tel} className="pk-hbtn pk-hbtn--accent pk-hbtn--xl pk-hbtn--phone">
               {phone}
+            </a>
+          )}
+          {phone2 && tel2 && (
+            <a href={tel2} className="pk-hbtn pk-hbtn--xl pk-hbtn--phone">
+              {phone2}
             </a>
           )}
           <a href={contactHref} className="pk-hbtn pk-hbtn--xl">

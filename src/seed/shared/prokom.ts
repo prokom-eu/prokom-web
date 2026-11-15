@@ -111,11 +111,18 @@ export const PROKOM_SHARED: SharedGroup = {
     ],
     salonKeys: ['rabka'],
   },
+  // `/o-firmie` (spec §4, board OFirmie): only the H1 for now — the lead names „pięć linii”, which
+  // waits for Krystian's decision (audit H8); other texts come from the shared template.
+  about: {
+    h1: 'Firma z Rabki, która robi technikę **od początku do końca.**',
+  },
 }
 
 /** Contact fields of the hub's `SiteSettings` (ADR-H002 §1, table „Firma (hub)”). */
 export const PROKOM_SITE = {
   phone: '883 200 151',
+  // Second company number on the whole hub (Krystian 15.11): brand bar, footer, sheet, contact.
+  phone2: '889 003 889',
   email: 'biuro@pro-kom.eu',
   footer: {
     // Board Stopka, brand block.

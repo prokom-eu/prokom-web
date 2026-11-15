@@ -468,9 +468,14 @@
 .pk-game__bars {
   height: 84px;
   gap: 5px;
+  /* H9: the chart spans the panel, on faint grid lines like a benchmark graph. */
+  border-bottom: 1px solid var(--w16);
+  background: repeating-linear-gradient(to top, transparent 0 27px, var(--w05) 27px 28px);
 }
 .pk-game__bars i {
-  max-width: 16px;
+  max-width: none;
+  border-radius: 3px 3px 1px 1px;
+  background: linear-gradient(to top, var(--ln), color-mix(in srgb, var(--ln) 55%, transparent));
 }
 .pk-ig {
   display: grid;

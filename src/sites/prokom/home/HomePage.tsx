@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 
-import { getHubData, getHubSettings } from '@/lib/prokom/data'
+import { getHubData, getHubSettings, hubOgImage } from '@/lib/prokom/data'
 import { getHubLineContacts } from '@/lib/prokom/lineContacts'
 import { getHubNews } from '@/lib/prokom/news'
 import { isHubLinkLive } from '@/lib/prokom/pages'
+import { hubPageMetadata } from '@/lib/prokom/seo'
 import { getEnv } from '@/lib/env'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import { toTelHref } from '@/lib/site/link'
@@ -23,10 +24,13 @@ import { News } from './News'
 import { Tools } from './Tools'
 import { toolGroups } from './toolGroups'
 
-/** Title of the start page (spec §4); SEO of every page is finished in H6-2. */
-export const HOME_METADATA: Metadata = {
-  title: { absolute: 'PRO-KOM Rabka-Zdrój — IT dla firm, instalacje, serwis' },
-  alternates: { canonical: '/' },
+/** Title, description and Open Graph of the start page (spec §4, H8). */
+export async function homeMetadata(tenantId: number): Promise<Metadata> {
+  return hubPageMetadata(
+    '/',
+    'PRO-KOM Rabka-Zdrój — IT dla firm, instalacje, serwis',
+    await hubOgImage(tenantId),
+  )
 }
 
 /** Three newest posts of the line sites (spec §6.1 pkt 9). */
@@ -60,6 +64,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
   const lines = home ? homeLines(contacts, home, hub.tools, settings.trust) : []
   const phone = shared?.line.phone ?? null
   const tel = phone ? toTelHref(phone) : null
+  const phone2 = shared?.line.phone2 ?? null
   const pages = settings.pages
   const live = (href: string) => (isHubLinkLive(href, pages) ? href : null)
 
@@ -73,6 +78,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             facts={settings.trust}
             company={shared.company}
             phone={phone}
+            phone2={phone2}
             now={now}
           />
           <LineScene
@@ -135,10 +141,11 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             texts={home.contact}
             lines={lines}
             company={shared.company}
+            email={shared.line.email}
             now={now}
             contactHref={CONTACT}
           />
-          <Final texts={home.final} phone={phone} tel={tel} contactHref={CONTACT} />
+          <Final texts={home.final} phone={phone} tel={tel} phone2={phone2} contactHref={CONTACT} />
         </>
       ) : (
         <h1 className={`py-10 font-display text-5xl font-extrabold ${HUB_CONTAINER}`}>PRO-KOM</h1>

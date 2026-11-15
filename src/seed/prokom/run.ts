@@ -30,10 +30,12 @@ type Counter = Record<Result, number>
 
 /** Only over the sample of `pnpm seed` or an empty field — a value typed in the panel stays. */
 export function siteContactUpdate(
-  settings: Pick<SiteSetting, 'phone' | 'email' | 'footer'>,
+  settings: Pick<SiteSetting, 'phone' | 'phone2' | 'email' | 'footer'>,
 ): Partial<SiteSetting> | null {
   const update: Partial<SiteSetting> = {}
   if (!settings.phone || settings.phone.startsWith('+48 000 000')) update.phone = PROKOM_SITE.phone
+  // Second company number (Krystian 15.11) — only while the panel has none.
+  if (!settings.phone2) update.phone2 = PROKOM_SITE.phone2
   if (!settings.email || settings.email.endsWith('@example.test')) update.email = PROKOM_SITE.email
   const text = settings.footer?.text
   if (!text || text.endsWith('dane przykładowe.')) {

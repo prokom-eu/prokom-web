@@ -183,6 +183,96 @@
   font-size: 13.5px;
   font-weight: 800;
 }
+/* --- Logos and products (H9): full-colour logos on light plates, products on the line's glow.
+   The plates use the base `--c-white`, not a hub `--k-*` role: they stay white in both themes,
+   because the logo files are drawn for white. A thin rule keeps them apart from a white card. */
+.pk-auth__art {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pk-auth__plate {
+  display: flex;
+  height: 64px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  border: 1px solid var(--w09);
+  padding: 0 18px;
+  background: var(--c-white);
+  box-shadow: 0 10px 30px -18px color-mix(in srgb, var(--ln) 80%, transparent);
+}
+.pk-auth__plate img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 34px;
+}
+.pk-auth__plate .pk-auth__name {
+  color: var(--c-grafit);
+  font-size: 28px;
+}
+.pk-auth__photo {
+  display: flex;
+  height: 150px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: radial-gradient(
+    60% 70% at 50% 60%,
+    color-mix(in srgb, var(--ln) 30%, transparent),
+    transparent 72%
+  );
+}
+.pk-auth__photo img {
+  width: auto;
+  max-width: 82%;
+  height: auto;
+  max-height: 134px;
+  filter: drop-shadow(0 18px 22px color-mix(in srgb, var(--k-dim) 70%, transparent));
+  transition: transform 0.5s var(--ease);
+}
+.pk-auth__card:hover .pk-auth__photo img {
+  transform: translateY(-4px) scale(1.03);
+}
+.pk-bgroup__logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 8px;
+}
+.pk-blogo {
+  display: flex;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid var(--w09);
+  padding: 0 12px;
+  background: var(--c-white);
+}
+.pk-blogo img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 26px;
+}
+/* A brand without a logo file: its name on the line's tint, the same size as a plate. */
+.pk-blogo--name {
+  border: 1px solid var(--w16);
+  background: var(--w05);
+  color: var(--k-white);
+  font-size: 13.5px;
+  font-weight: 800;
+  text-align: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pk-auth__photo img {
+    transition: none;
+  }
+  .pk-auth__card:hover .pk-auth__photo img {
+    transform: none;
+  }
+}
 .pk-bgroup__text {
   margin-top: auto;
   color: var(--w72);
@@ -783,4 +873,98 @@
   .pk-clr:hover {
     transform: none;
   }
+}
+
+/* --- 404 (spec §6.15, board E404): message + search, then the five lines. -------------------- */
+.pk-404 {
+  padding-block: clamp(48px, 8vw, 112px);
+}
+.pk-404__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(24px, 5vw, 72px);
+}
+.pk-404__code {
+  flex: 0 1 auto;
+  color: var(--k-gt);
+  font-family: var(--font-display);
+  font-size: clamp(96px, 16vw, 240px);
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+}
+.pk-404__body {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 480px;
+  flex-direction: column;
+  gap: 18px;
+}
+.pk-404__search {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+.pk-404__field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pk-404__field input {
+  min-height: 52px;
+  min-width: 0;
+  flex: 1 1 260px;
+  border: 1.5px solid var(--border-input);
+  border-radius: 16px;
+  background: var(--k-card);
+  padding: 0 18px;
+  color: var(--k-ink);
+  font-size: 16px;
+}
+.pk-404__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pk-404__lines {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: 12px;
+  margin-top: clamp(40px, 6vw, 72px);
+}
+.pk-404__line {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--w12);
+  border-top: 4px solid var(--ln);
+  border-radius: 18px;
+  background: var(--k-card);
+  padding: 20px;
+  transition: transform 0.4s var(--ease);
+}
+.pk-404__line:hover {
+  transform: translateY(-4px);
+}
+.pk-404__name {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.pk-404__desc {
+  color: var(--k-ink2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.pk-404__domain {
+  margin-top: auto;
+  color: var(--ln-text);
+  font-size: 13px;
+  font-weight: 800;
 }

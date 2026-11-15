@@ -194,9 +194,10 @@ export async function CooperationPage({ tenant }: { tenant: SiteTenant }) {
             </div>
             <div className="pk-sect__aside pk-stack">
               <p className="pk-lead">{page.suppliers.lead}</p>
-              {shared.company.email && (
-                <a href={`mailto:${shared.company.email}`} className="pk-hbtn">
-                  {shared.company.email}
+              {/* The hub's e-mail like the footer, not `CompanyData.email` (audit H8 pkt 3). */}
+              {shared.line.email && (
+                <a href={`mailto:${shared.line.email}`} className="pk-hbtn">
+                  {shared.line.email}
                 </a>
               )}
             </div>

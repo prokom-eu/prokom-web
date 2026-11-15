@@ -747,6 +747,17 @@
   font-weight: 800;
   text-align: center;
 }
+/* Narrow phones (audit H8 pkt 6): the counter goes under the name, so the name keeps the width
+   instead of breaking into 3–4 lines next to − / + / +10. */
+@media (max-width: 420px) {
+  .pk-qty {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pk-qty__ctl {
+    justify-content: flex-end;
+  }
+}
 .pk-dsum {
   display: flex;
   flex-direction: column;

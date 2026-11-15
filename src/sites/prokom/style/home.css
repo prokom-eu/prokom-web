@@ -188,7 +188,40 @@
   border: 1px solid var(--w09);
   border-radius: 36px;
   padding: clamp(28px, 3vw, 48px);
-  background: var(--k-card);
+  /* H9: a soft light of the five lines along the bottom, the company green behind the word. */
+  background:
+    radial-gradient(
+      42% 30% at 8% 104%,
+      color-mix(in srgb, var(--k-b) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      38% 28% at 34% 106%,
+      color-mix(in srgb, var(--k-i) 13%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      38% 28% at 60% 106%,
+      color-mix(in srgb, var(--k-s) 13%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      38% 28% at 84% 106%,
+      color-mix(in srgb, var(--k-t) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 30% at 104% 100%,
+      color-mix(in srgb, var(--k-y) 10%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 34% at 30% 22%,
+      color-mix(in srgb, var(--k-g) 9%, transparent),
+      transparent 72%
+    ),
+    var(--k-card);
+  box-shadow: inset 0 1px 0 var(--w09);
 }
 .pk-hstr {
   position: absolute;
@@ -310,6 +343,10 @@
   letter-spacing: -0.02em;
   line-height: 1.08;
 }
+.pk-hb-main__em {
+  display: block;
+  color: var(--k-gt);
+}
 .pk-hb-main__lead {
   position: relative;
   max-width: 480px;
@@ -380,6 +417,73 @@
 .pk-hq__input::placeholder {
   color: var(--k-ink3);
 }
+.pk-hq__go {
+  height: 46px;
+  flex: none;
+  border-radius: 14px;
+  padding: 0 18px;
+  background: var(--k-g);
+  color: var(--k-gi);
+  font-size: 14.5px;
+  font-weight: 800;
+  transition: transform 0.3s var(--ease);
+}
+.pk-hq__go:hover {
+  transform: translateY(-1px);
+}
+/* „Jak to działa” (H9): three steps joined by a line, filling the tile above the call to action. */
+.pk-hsteps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 8px;
+  counter-reset: step;
+}
+.pk-hsteps li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--w09);
+  border-radius: 18px;
+  padding: 14px 14px 16px;
+  background: var(--w03);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.pk-hsteps b {
+  color: var(--k-gt);
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+.pk-hsteps li:not(:last-child)::after {
+  position: absolute;
+  top: 22px;
+  right: -11px;
+  width: 12px;
+  height: 2px;
+  background: var(--w22);
+  content: '';
+}
+@media (max-width: 560px) {
+  .pk-hsteps {
+    grid-template-columns: 1fr;
+  }
+  .pk-hsteps li {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 14px;
+  }
+  .pk-hsteps li:not(:last-child)::after {
+    display: none;
+  }
+  .pk-hq__go {
+    padding: 0 14px;
+  }
+}
 .pk-hch-list {
   display: flex;
   flex-wrap: wrap;
@@ -428,7 +532,6 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-  margin-top: auto;
   border-top: 1px solid var(--w09);
   padding-top: 18px;
 }
@@ -448,19 +551,28 @@
 .pk-hcta:hover {
   transform: translateY(-2px);
 }
-.pk-hphone {
+/* Both company numbers in one capsule, split by a thin rule (H9). */
+.pk-hphones {
   display: flex;
   height: 52px;
-  align-items: center;
+  align-items: stretch;
   border: 1.5px solid var(--w22);
   border-radius: 16px;
-  padding: 0 20px;
+}
+.pk-hphone + .pk-hphone {
+  border-left: 1px solid var(--w16);
+}
+.pk-hphone {
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 16.5px;
   font-stretch: 118%;
   font-weight: 800;
 }
 .pk-hb-main__note {
+  flex-basis: 100%;
   color: var(--k-ink3);
   font-size: 13.5px;
 }
@@ -944,6 +1056,10 @@
 .pk-ht__eq {
   height: 30px;
 }
+/* H9: the gaming tile's equalizer spans the tile instead of a short stub. */
+.pk-ht__eq i {
+  max-width: none;
+}
 
 /* Slides. */
 .pk-ht__slides {
@@ -1249,5 +1365,21 @@ a.pk-mqi:hover {
   }
   .pk-ht__seg i[data-fill='now'] {
     transform: none;
+  }
+}
+/* Without the steps (an older `home` in the panel) the call to action still sits at the bottom. */
+.pk-hch-list + .pk-hb-main__cta {
+  margin-top: auto;
+}
+/* Narrow phones (H9 review): both numbers keep a margin at 360 px; below that they may wrap. */
+@media (max-width: 400px) {
+  .pk-hphones {
+    height: auto;
+    flex-wrap: wrap;
+  }
+  .pk-hphone {
+    min-height: 50px;
+    padding: 0 12px;
+    font-size: 16px;
   }
 }

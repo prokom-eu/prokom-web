@@ -15,6 +15,8 @@ type Props = {
   texts: HubHome['contact']
   lines: readonly HomeLine[]
   company: SharedCompany
+  /** The hub's e-mail (`SiteSettings` of `prokom`, like the footer) — not `CompanyData.email`. */
+  email: string | null
   now: string
   /** `/kontakt` — the form lives there (H6); the chips open it with the topic chosen. */
   contactHref: string
@@ -25,7 +27,7 @@ type Props = {
  * promise (from the line panels), the salon strip, and the topics as links to `/kontakt?temat=<label>` (the topics of the hub's contact form) — the
  * message form itself is on the contact page (one form, one place for the anti-spam of ADR-003).
  */
-export function Contact({ texts, lines, company, now, contactHref }: Props) {
+export function Contact({ texts, lines, company, email, now, contactHref }: Props) {
   const address = addressLine(company)
   const callable = lines.filter((line) => line.phone && line.tel)
   const topics = [
@@ -84,9 +86,9 @@ export function Contact({ texts, lines, company, now, contactHref }: Props) {
                 <span className="pk-csl__address">{address}</span>
                 <span className="pk-csl__meta">
                   <OpeningStatus hours={company.hours} holidays={company.holidays} now={now} />
-                  {company.email && (
-                    <a href={`mailto:${company.email}`} className="pk-csl__mail">
-                      {company.email}
+                  {email && (
+                    <a href={`mailto:${email}`} className="pk-csl__mail">
+                      {email}
                     </a>
                   )}
                 </span>

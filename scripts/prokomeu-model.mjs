@@ -502,6 +502,8 @@ function home() {
       title: 'Sprzęt, instalacje, oprogramowanie i serwis. W jednej firmie.',
       lead: 'Pięć linii, każda ze swoim zespołem. Wybierz linię obok albo napisz, czego potrzebujesz.',
       unsure: 'Nie mamy pewności, która linia. Zadzwoń — pokierujemy.',
+      // H9 (Krystian 15.11): not on the board — the way a request goes, as on the contact page.
+      steps: ['Napisz albo zadzwoń', 'Wskażemy właściwą linię', 'Odzywa się jej zespół'],
       cta: 'Dobierz w 10 sekund',
       hints: PH.map(([hint, key]) => ({ text: hint.replace('np. ', ''), line: key })),
       chips: r.chips.map((c) => ({ label: c.label, line: line(c.c) })),
@@ -578,13 +580,24 @@ function home() {
     },
     tools: {
       // :707–743
-      title: 'Załatw to od razu. Bez dzwonienia.',
+      // Krystian 15.11: the short form only.
+      title: 'Załatw to od razu.',
       lead: 'Każda linia ma swoje narzędzia online. Dwa najczęściej używane z każdej — obok siebie.',
       all: {
         eyebrow: 'Załatw online · pięć linii',
         title: 'spraw załatwisz bez dzwonienia.',
         text: 'Zgłoszenia, statusy, wyceny, plany i konfiguratory ze wszystkich linii w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.',
         cta: 'Zobacz wszystkie narzędzia',
+      },
+      // H9 (Krystian 15.11): the sixth tile while „Załatw online” is off — not on the board; the
+      // hub's own request list (texts after the board Dostawy, spec §6.5).
+      own: {
+        eyebrow: 'PRO-KOM · Inwestycje i dostawy',
+        title: 'Lista zapytania',
+        text: 'Większe zamówienie dla firmy albo obiektu? Zaznaczasz sprzęt i liczbę sztuk, wysyłasz jedną listę i dostajesz ofertę na całość.',
+        steps: ['Zaznacz sprzęt', 'Podaj liczbę sztuk', 'Wyślij jedną listę'],
+        cta: 'Złóż listę zapytania',
+        href: '/inwestycje-i-dostawy#lista',
       },
     },
     help: {
@@ -1143,7 +1156,8 @@ function forBusiness() {
     next: {
       // :602–611
       eyebrow: 'Co dalej?',
-      title: 'Cztery miejsca, do których warto zajrzeć.',
+      // No number: v1.1 pages switched off drop out of the list (audit 15.11 — two of four showed).
+      title: 'Gdzie jeszcze warto zajrzeć.',
       items: [
         [
           'Inwestycje i dostawy',
@@ -1354,9 +1368,23 @@ function forHome() {
   }
 }
 
+/**
+ * RTV i AGD is sold by Biznes (spec §3, Krystian 15.11): the board paints those cards and rows in
+ * the hub's green — here they take Biznes blue. Only entries that name RTV i AGD change.
+ */
+function rtvAgdToBiznes(value) {
+  if (Array.isArray(value)) return value.map(rtvAgdToBiznes)
+  if (!value || typeof value !== 'object') return value
+  const entry = Object.fromEntries(Object.entries(value).map(([k, v]) => [k, rtvAgdToBiznes(v)]))
+  const named = [entry.title, entry.lines, entry.name].some(
+    (text) => typeof text === 'string' && text.includes('RTV i AGD'),
+  )
+  return named && entry.line === 'prokom' ? { ...entry, line: 'biznes' } : entry
+}
+
 mkdirSync(OUT, { recursive: true })
 for (const [name, data] of [
-  ['Dostawy', deliveries()],
+  ['Dostawy', rtvAgdToBiznes(deliveries())],
   ['Wspolpraca', cooperation()],
   ['Main', home()],
   ['Marki', brands()],

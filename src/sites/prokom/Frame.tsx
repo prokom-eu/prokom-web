@@ -65,6 +65,7 @@ export async function ProkomFrame({ tenant, promo, children }: Props) {
           now={now}
           slot={shared.line.brandBarSlot}
           phone={shared.line.phone}
+          phone2={shared.line.phone2}
           phoneLabel={shared.line.phoneLabel}
         />
       )}
@@ -87,6 +88,7 @@ export async function ProkomFrame({ tenant, promo, children }: Props) {
           company={shared.company}
           contact={{
             phone: shared.line.phone,
+            phone2: shared.line.phone2,
             email: shared.line.email,
             hours: shared.company.hours,
             holidays: shared.company.holidays,
@@ -134,6 +136,7 @@ export async function ProkomFrame({ tenant, promo, children }: Props) {
             lines={shared.lines}
             current="prokom"
             phone={shared.line.phone}
+            phone2={shared.line.phone2}
             hours={shared.company.hours}
             holidays={shared.company.holidays}
             now={now}
