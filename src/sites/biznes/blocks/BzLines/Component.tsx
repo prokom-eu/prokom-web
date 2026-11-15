@@ -27,7 +27,12 @@ export async function BzLinesBlock({ block, tenantId }: Props) {
   })
   if (tiles.length === 0) return null
   return (
-    <section id="linie" aria-labelledby="linie-h" className="scroll-mt-24 py-12 max-md:py-7">
+    <section
+      id="linie"
+      aria-labelledby="linie-h"
+      className="scroll-mt-24 py-12 max-md:py-7"
+      data-lines-section
+    >
       <Container wide>
         <div className="rounded-[32px] border border-border bg-surface-2 p-10 max-md:rounded-[24px] max-md:p-5">
           <SectionHead

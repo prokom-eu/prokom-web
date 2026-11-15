@@ -131,3 +131,42 @@ for (const path of ['/zestawy', '/produkt/lenovo-thinkbook-14-g8-g9']) {
     expect(overflow).toBeLessThanOrEqual(0)
   })
 }
+
+// Audyt 15.11 P2-5: no visible text under 11 px on a 360 px phone (the audit's floor; MOBILE-APLIKACJA
+// §4 asks 12). Text for screen readers only (`sr-only`, clipped) does not count. Not covered: a
+// child of `sr-only` larger than 1 px (`clip` is not inherited) and SVG text scaled by its viewBox.
+for (const path of ['/', '/kontakt', '/oferta', '/oferta/microsoft-365-licencje']) {
+  test(`${path}: no visible text under 11 px at 360 px`, async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 740 })
+    await page.goto(biznes(path))
+    const small = await page.evaluate(() =>
+      [...document.querySelectorAll('body *')].flatMap((element) => {
+        const style = getComputedStyle(element)
+        const box = element.getBoundingClientRect()
+        const ownText = [...element.childNodes].some(
+          (node) => node.nodeType === Node.TEXT_NODE && node.textContent?.trim(),
+        )
+        const hidden =
+          box.width <= 1 ||
+          box.height <= 1 ||
+          style.visibility === 'hidden' ||
+          style.display === 'none' ||
+          style.clipPath === 'inset(50%)' ||
+          style.clip === 'rect(0px, 0px, 0px, 0px)' ||
+          // Hidden ancestors too; unlike `offsetParent`, keeps `position: fixed` (tab bar).
+          !element.checkVisibility()
+        if (!ownText || hidden || parseFloat(style.fontSize) >= 11) return []
+        return [`${element.textContent?.trim().slice(0, 30)} (${style.fontSize})`]
+      }),
+    )
+    expect(small).toEqual([])
+  })
+}
+
+test('home: the footer lines band hides under the page own block of the lines (P2-2)', async ({
+  page,
+}) => {
+  await page.goto(biznes('/'))
+  await expect(page.locator('[data-lines-section]')).toHaveCount(1)
+  await expect(page.locator('[data-lines-band]')).toBeHidden()
+})
