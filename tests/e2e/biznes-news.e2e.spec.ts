@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 import { POST_CATEGORIES } from '../../src/lib/catalog/options'
-import { BIZNES_GUIDE_POSTS } from '../../src/seed/biznes/wpisy'
+import { BIZNES_GUIDE_POSTS, RETIRED_GUIDE_SLUGS } from '../../src/seed/biznes/wpisy'
 import { site } from './helpers'
 
 // B11a: `/aktualnosci` and the post page — one route for the lines with news (ADR-012 rozstrz. 5,
@@ -10,10 +10,11 @@ import { site } from './helpers'
 const LIST = '/aktualnosci'
 const POST = '/aktualnosci/ksef-od-1-stycznia-2027'
 
+/** What `pnpm seed` creates (`postsToSeed`): the list without the withdrawn slugs. */
+const seeded = BIZNES_GUIDE_POSTS.filter((post) => !RETIRED_GUIDE_SLUGS.includes(post.slug))
 /** Posts of a category after `pnpm seed`: the guide posts, plus the board's KSeF post. */
 const postsIn = (category: string) =>
-  BIZNES_GUIDE_POSTS.filter((post) => post.category === category).length +
-  (category === 'ksef' ? 1 : 0)
+  seeded.filter((post) => post.category === category).length + (category === 'ksef' ? 1 : 0)
 /** A Biznes category still without posts, if any is left. */
 const emptyCategory = POST_CATEGORIES.find(
   (category) => category.line === 'biznes' && postsIn(category.value) === 0,
@@ -40,13 +41,50 @@ test.describe('Biznes news', () => {
     await expect(panel.getByRole('listitem')).toHaveCount(6)
     await expect(panel.getByRole('link', { name: 'Co się zmienia' })).toHaveAttribute('href', POST)
 
-    const posts = page.getByRole('region', { name: 'Wpisy' })
+    const posts = page.getByRole('region', { name: 'Wpisy', exact: true })
     await posts
       .getByRole('link', {
         name: 'KSeF od 1 stycznia 2027: 6 rzeczy, które mała firma musi zrobić do grudnia',
       })
       .click()
     await expect(page).toHaveURL(site('biznes.localhost', POST))
+  })
+
+  test('the newest three on top, every other post under its topic, counts on the chips', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost', LIST))
+    const newest = page.getByRole('region', { name: 'Najnowsze' })
+    await expect(newest.getByRole('article')).toHaveCount(3)
+    await expect(newest.getByText(/\d+ min czytania/).first()).toBeVisible()
+
+    // Featured + topic sections = every post exactly once.
+    const all = seeded.length + 1
+    const inTopics = page.getByRole('region', { name: 'Wpisy', exact: true }).getByRole('article')
+    await expect(inTopics).toHaveCount(all - 3)
+    await expect(page.locator('#temat-ksef').getByRole('heading', { level: 2 })).toContainText(
+      'KSeF',
+    )
+
+    const chips = page.getByRole('navigation', { name: 'Kategorie wpisów' })
+    await expect(chips.getByRole('link', { name: `Wszystkie ${all}` })).toBeVisible()
+    await expect(chips.getByRole('link', { name: `KSeF ${postsIn('ksef')}` })).toBeVisible()
+  })
+
+  test('on a phone the KSeF steps fold away and the chips stick to the top', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(site('biznes.localhost', LIST))
+    const steps = page.locator('#ksef details')
+    await expect(steps).toBeVisible()
+    await expect(steps.getByRole('listitem').first()).toBeHidden()
+    await steps.locator('summary').click()
+    await expect(steps.getByRole('listitem')).toHaveCount(6)
+
+    // Scrolling down hides the header capsule; the chips then take the top of the screen.
+    await page.mouse.wheel(0, 2500)
+    await expect(page.locator('.cap-wrap[data-hidden]')).toHaveCount(1)
+    const chips = page.getByRole('navigation', { name: 'Kategorie wpisów' })
+    await expect.poll(async () => (await chips.boundingBox())?.y ?? -1).toBeLessThanOrEqual(1)
   })
 
   test('a category view is noindex; an empty one says so', async ({ page }) => {
@@ -57,9 +95,9 @@ test.describe('Biznes news', () => {
       site('biznes.localhost', LIST),
     )
     await expect(page.locator('#ksef')).toHaveCount(0)
-    await expect(page.getByRole('region', { name: 'Wpisy' }).getByRole('article')).toHaveCount(
-      postsIn('ksef'),
-    )
+    await expect(
+      page.getByRole('region', { name: 'Wpisy', exact: true }).getByRole('article'),
+    ).toHaveCount(postsIn('ksef'))
 
     if (emptyCategory) {
       await page.goto(site('biznes.localhost', `${LIST}?kategoria=${emptyCategory}`))
