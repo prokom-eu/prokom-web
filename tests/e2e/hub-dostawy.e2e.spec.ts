@@ -30,8 +30,8 @@ test.describe('pro-kom.eu — /inwestycje-i-dostawy (spec §6.5)', () => {
     await restaurant.click()
     await expect(restaurant).toHaveAttribute('aria-pressed', 'true')
     await page.locator('#obiekty button', { hasText: 'Wczytaj przykład' }).click()
-    const totals = page.locator('.pk-dsum__totals')
-    await expect(totals).not.toContainText('3 szt. · 3')
+    // The „Restauracja” preset of the seed: 18 pieces in 7 positions.
+    await expect(page.locator('.pk-dsum__totals')).toContainText('18 szt. · 7 pozycji')
 
     await page.locator('#lista button', { hasText: 'Kopiuj listę' }).click()
     await expect(page.locator('#lista [role="status"]')).toHaveText('Skopiowano listę')

@@ -89,17 +89,25 @@ export function RequestListSection({
   groups,
   services,
   terms,
+  details,
 }: {
   texts: Page['list']
   groups: HubDeliveries['listGroups']
   services: HubDeliveries['services']
   terms: string[]
+  /** „Szczegóły na prokombiznes.pl” by group line (spec §6.5 „Związek z Biznesem”). */
+  details: { line: string; href: string; label: string }[]
 }) {
   const state = useDeliveries()
   const [copy, setCopy] = useState<'idle' | 'ok' | 'fail'>('idle')
   const totals = listTotals(state.list, groups)
   const hasTv = totals.groups.some((group) => group.key === 'agd')
-  const termId = useId()
+  const termName = useId()
+  // A changed list makes an old „copied” message wrong.
+  useEffect(() => {
+    const timer = window.setTimeout(() => setCopy('idle'), 0)
+    return () => window.clearTimeout(timer)
+  }, [state.list, state.services, state.term])
 
   const copyList = async () => {
     const text = listText(state.list, groups, {
@@ -135,6 +143,13 @@ export function RequestListSection({
                   <span className="pk-osv__title">{group.title}</span>
                   <span className="pk-ogr__short">{group.lines}</span>
                 </span>
+                {details
+                  .filter((entry) => entry.line === group.line)
+                  .map((entry) => (
+                    <a key={entry.href} href={entry.href} className="pk-chip-out">
+                      {entry.label} <span aria-hidden="true">↗</span>
+                    </a>
+                  ))}
               </div>
               <ul className="pk-dlist__items" role="list">
                 {group.items.map((item) => {
@@ -150,23 +165,25 @@ export function RequestListSection({
                       <span className="pk-qty__ctl" role="group" aria-labelledby={`q-${item.key}`}>
                         <button
                           type="button"
-                          aria-label={`− 1 ${item.title}`}
+                          aria-label={`Odejmij 1 — ${item.title}`}
                           disabled={qty === 0}
                           onClick={() => state.change(item.key, -1)}
                         >
                           −
                         </button>
-                        <output aria-live="polite">{qty}</output>
+                        <span className="pk-qty__n" aria-label={`${item.title}: ${qty}`}>
+                          {qty}
+                        </span>
                         <button
                           type="button"
-                          aria-label={`+ 1 ${item.title}`}
+                          aria-label={`Dodaj 1 — ${item.title}`}
                           onClick={() => state.change(item.key, 1)}
                         >
                           +
                         </button>
                         <button
                           type="button"
-                          aria-label={`+ 10 ${item.title}`}
+                          aria-label={`Dodaj 10 — ${item.title}`}
                           onClick={() => state.change(item.key, 10)}
                         >
                           +10
@@ -193,6 +210,11 @@ export function RequestListSection({
           </div>
           <p className="pk-dsum__totals" aria-live="polite">
             {totals.pieces} {texts.pcs} · {positions(totals.positions)}
+            {totals.groups.length > 0 && (
+              <span className="pk-dsum__lines">
+                {totals.groups.map((group) => group.title).join(' · ')}
+              </span>
+            )}
           </p>
           {totals.positions === 0 ? (
             <p className="pk-plan__note">{texts.empty}</p>
@@ -224,14 +246,12 @@ export function RequestListSection({
             ))}
           </fieldset>
           <fieldset className="pk-dsum__set">
-            <legend className="pk-eb" id={termId}>
-              {texts.term}
-            </legend>
+            <legend className="pk-eb">{texts.term}</legend>
             {terms.map((term) => (
               <label key={term} className="pk-check">
                 <input
                   type="radio"
-                  name="termin"
+                  name={termName}
                   checked={state.term === term}
                   onChange={() => state.setTerm(term)}
                 />
@@ -460,8 +480,9 @@ export function ListBar({
   useEffect(() => {
     const form = document.getElementById('formularz')
     if (!form || !('IntersectionObserver' in window)) return
+    // Hidden while the form is on screen and after it (the bar would cover the page's end).
     const observer = new IntersectionObserver(([entry]) =>
-      setFormVisible(Boolean(entry?.isIntersecting)),
+      setFormVisible(Boolean(entry && (entry.isIntersecting || entry.boundingClientRect.top < 0))),
     )
     observer.observe(form)
     return () => observer.disconnect()

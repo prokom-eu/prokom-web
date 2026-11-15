@@ -146,6 +146,15 @@ export async function DeliveriesPage({ tenant }: { tenant: SiteTenant }) {
           groups={data.listGroups}
           services={data.services}
           terms={data.terms}
+          details={
+            biznes
+              ? Object.entries(BIZNES_DETAILS).map(([line, path]) => ({
+                  line,
+                  href: `${biznes}${path}`,
+                  label: page.areas.details,
+                }))
+              : []
+          }
         />
         <ObjectsSection texts={page.objects} objects={data.objects} groups={data.listGroups} />
         <ScopeSection texts={page.scope} levels={data.levels} tabs={data.prepTabs} />
@@ -265,7 +274,10 @@ export async function DeliveriesPage({ tenant }: { tenant: SiteTenant }) {
             ))}
           </ul>
           <p className="pk-plan__note">
-            {page.after.towns} {data.towns.map((town) => town.name).join(' · ')}
+            {page.after.towns}{' '}
+            {data.towns
+              .map((town) => (town.salon ? `${town.name} (salon)` : town.name))
+              .join(' · ')}
             {coverage && (
               <>
                 {' '}

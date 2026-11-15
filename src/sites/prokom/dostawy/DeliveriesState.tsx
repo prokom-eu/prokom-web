@@ -40,7 +40,8 @@ export function DeliveriesState({
   // After hydration only (the server renders an empty list).
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      setList(loadList(groups))
+      // A click made before this runs wins over the stored list (no lost first click).
+      setList((current) => (Object.keys(current).length ? current : loadList(groups)))
       setLoaded(true)
     }, 0)
     return () => window.clearTimeout(timer)
