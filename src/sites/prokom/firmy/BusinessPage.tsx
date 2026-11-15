@@ -19,11 +19,10 @@ import {
   Grants,
   Rollout,
 } from './BusinessSections'
+import { HubForm } from '../form/HubForm'
+import { PageFormPart } from '../form/FormParts'
 import { areas, industries, situations } from './model'
 import { AreaTabs, IndustryPicker, SituationPicker } from './Pickers'
-
-/** The contact page with the topic of this page, until H6-1 brings the form here. */
-const FORM_HREF = '/kontakt?temat=dla-firm'
 
 /**
  * `/dla-firm` (spec §6.3, board 03 `DlaFirm.dc.html`): hero, industries (`HubPlans`), areas in four
@@ -102,7 +101,9 @@ export async function BusinessPage({ tenant }: { tenant: SiteTenant }) {
         tokens={faqTokens(shared.company, phone)}
         helpHref={isHubLinkLive('/pomoc', pages) ? '/pomoc' : null}
       />
-      <FormCta texts={texts.form} href={FORM_HREF} />
+      <FormCta texts={texts.form}>
+        <HubForm shared={shared} prefill={<PageFormPart label={texts.hero.eyebrow} />} />
+      </FormCta>
       <NextSteps texts={texts.next} pages={pages} />
       <BusinessFinal texts={texts.final} phone={phone} tel={tel} />
     </div>

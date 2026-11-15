@@ -13,11 +13,10 @@ import { faqTokens, homeLines } from '../home/model'
 import { NextSteps } from '../linie/OfferSections'
 import { TeamPicker } from '../linie/TeamPicker'
 import { HomeCare, HomeFinal, HomeHero, HouseSection } from './HomeSections'
+import { HubForm } from '../form/HubForm'
+import { PageFormPart } from '../form/FormParts'
 import { homeExamples, homeSituations, sceneAreas } from './model'
 import { TopicTabs } from './TopicTabs'
-
-/** The contact page with the topic of this page, until H6-1 brings the form here. */
-const FORM_HREF = '/kontakt?temat=dla-domu'
 
 /**
  * `/dla-domu` (spec §6.4, board 04 `DlaDomu.dc.html`), a v1.1 page — the route answers 404 until
@@ -110,7 +109,9 @@ export async function HomeOfferPage({ tenant }: { tenant: SiteTenant }) {
         tokens={faqTokens(shared.company, phone)}
         helpHref={isHubLinkLive('/pomoc', pages) ? '/pomoc' : null}
       />
-      <FormCta texts={texts.form} href={FORM_HREF} />
+      <FormCta texts={texts.form}>
+        <HubForm shared={shared} prefill={<PageFormPart label={texts.hero.eyebrow} />} />
+      </FormCta>
       <NextSteps texts={texts.next} pages={pages} />
       <HomeFinal texts={texts.final} lines={lines} company={shared.company} />
     </div>

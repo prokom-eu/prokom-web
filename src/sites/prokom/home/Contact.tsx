@@ -8,7 +8,7 @@ import { lineStyle } from '../lineColors'
 import { Mark } from './Mark'
 import { addressLine, type HomeLine } from './model'
 
-/** Topic of the contact page for a question that fits no line (`/kontakt?temat=ogolne`). */
+/** Key of the chip for a question that fits no line (its label is `contact.general`). */
 export const GENERAL_TOPIC = 'ogolne'
 
 type Props = {
@@ -22,7 +22,7 @@ type Props = {
 
 /**
  * „Kontakt” (spec §6.1 pkt 11, board 01 `#kontakt`): one row per line with its phone, hours and
- * promise (from the line panels), the salon strip, and the topics as links to `/kontakt?temat=…` — the
+ * promise (from the line panels), the salon strip, and the topics as links to `/kontakt?temat=<label>` (the topics of the hub's contact form) — the
  * message form itself is on the contact page (one form, one place for the anti-spam of ADR-003).
  */
 export function Contact({ texts, lines, company, now, contactHref }: Props) {
@@ -106,7 +106,10 @@ export function Contact({ texts, lines, company, now, contactHref }: Props) {
             <ul className="pk-topics__list" role="list" aria-labelledby="kontakt-tematy">
               {topics.map((topic) => (
                 <li key={topic.key} style={lineStyle(topic.line)}>
-                  <a href={`${contactHref}?temat=${topic.key}`} className="pk-topic">
+                  <a
+                    href={`${contactHref}?temat=${encodeURIComponent(topic.name)}#formularz`}
+                    className="pk-topic"
+                  >
                     <i aria-hidden="true" />
                     {topic.name}
                   </a>

@@ -13,6 +13,8 @@ import { Faq } from '../home/Faq'
 import { faqTokens } from '../home/model'
 import { lineStyle } from '../lineColors'
 import { NextSteps } from '../linie/OfferSections'
+import { CooperationFormPart } from '../form/FormParts'
+import { HubForm } from '../form/HubForm'
 import { RoleFormSummary } from './RoleFormSummary'
 
 /**
@@ -259,7 +261,10 @@ export async function CooperationPage({ tenant }: { tenant: SiteTenant }) {
               )}
             />
             <div className="pk-contact__write">
-              {/* TODO(krystian): H6-1 — the `hub-wspolpraca` form (field „link do rzutów”, no upload). */}
+              <HubForm
+                shared={shared}
+                prefill={<CooperationFormPart label={page.form.eyebrow} roles={data.roles} />}
+              />
               <p className="pk-plan__note">{page.form.note}</p>
             </div>
           </div>
