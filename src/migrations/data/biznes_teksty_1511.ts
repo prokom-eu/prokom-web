@@ -16,6 +16,8 @@ export const BIZNES_PHRASES_1511: readonly (readonly [from: string, to: string])
     'Uprawnienia producentów to podstawa — pozwalają nam serwisować kasy i wdrażać programy.',
   ],
   ['Jedna firma · cztery linie', 'Jedna firma — linie PRO-KOM'],
+  ['Jedna firma, cztery linie.', 'Jedna firma — linie PRO-KOM'],
+  ['Jedna firma, cztery linie', 'Jedna firma — linie PRO-KOM'],
   // §3.2: no source for „3 dni od zgłoszenia” (post przeglad-kasy-fiskalnej-co-2-lata).
   [
     'Serwisant ma na niego 3 dni od zgłoszenia i wpisuje go do książki kasy.',
@@ -25,17 +27,38 @@ export const BIZNES_PHRASES_1511: readonly (readonly [from: string, to: string])
     'Powinien go wykonać w ciągu 3 dni od zgłoszenia, więc nie zostawiaj tego na ostatni dzień terminu.',
     'Zgłoś go z wyprzedzeniem, najlepiej miesiąc przed terminem — nie zostawiaj tego na ostatni dzień.',
   ],
-  // §3.4: the notice to the tax office is still the relief's condition (art. 111 ust. 4), post
-  // fiskalizacja-kasy-online-krok-po-kroku (summary, then the paragraph of step 3).
+  // §3.4: the notice to the tax office is still the relief's condition (art. 111 ust. 4 i 5), post
+  // fiskalizacja-kasy-online-krok-po-kroku (summary, then the paragraph of step 3 — anchored on its
+  // whole sentence, so no other text gets the added one).
   [
     'Przy kasie online nie ma obowiązku zgłaszania kasy do naczelnika urzędu skarbowego.',
     'Przy kasie online nie ma obowiązku zgłaszania kasy do naczelnika urzędu skarbowego — chyba że chcesz skorzystać z ulgi na kasę.',
   ],
   [
-    'z papierowym albo elektronicznym zapisem kopii.',
-    'z papierowym albo elektronicznym zapisem kopii. Wyjątek: jeśli chcesz skorzystać z ulgi na zakup kasy, przed rozpoczęciem ewidencji złóż w urzędzie skarbowym zgłoszenie o liczbie i miejscu używania kas — to warunek ulgi.',
+    'Zgłoszenie w ciągu 7 dni od fiskalizacji dotyczyło kas starego typu, z papierowym albo elektronicznym zapisem kopii.',
+    'Zgłoszenie w ciągu 7 dni od fiskalizacji dotyczyło kas starego typu, z papierowym albo elektronicznym zapisem kopii. Wyjątek: jeśli chcesz skorzystać z ulgi na zakup kasy, przed rozpoczęciem ewidencji złóż w urzędzie skarbowym zgłoszenie o liczbie i miejscu używania kas — to warunek ulgi.',
   ],
 ]
+
+/**
+ * The source of the relief's condition, added to the post of §3.4 when it lacks it (spec. §6.9:
+ * a legal fact names its source) — the same entry as the post in the repo (`wpisy/partia2.ts`).
+ */
+export const FISCALIZATION_POST = 'fiskalizacja-kasy-online-krok-po-kroku'
+export const RELIEF_SOURCE = {
+  name: 'ustawa o VAT (art. 111 ust. 4 i 5)',
+  url: 'https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20040540535',
+  verifiedAt: '2026-11-15T00:00:00.000Z',
+} as const
+
+/** The post's sources with the relief's one appended, or `null` when a source has its address. */
+export function withReliefSource<T extends { url?: string | null }>(
+  sources: readonly T[] | null | undefined,
+): (T | typeof RELIEF_SOURCE)[] | null {
+  const list = [...(sources ?? [])]
+  if (list.some((source) => source.url === RELIEF_SOURCE.url)) return null
+  return [...list, RELIEF_SOURCE]
+}
 
 const SEPARATOR = '[ \\u00a0]'
 const escape = (part: string) => part.replace(/[.*+?^${}()|[\]\\]/g, (char) => `\\${char}`)
@@ -52,8 +75,9 @@ const PATTERNS = patterns(BIZNES_PHRASES_1511)
 /** One string with every frozen phrase replaced; a text that already says the new one stays. */
 function replaceText(text: string): string {
   return PATTERNS.reduce((current, { pattern, to }) => {
-    // Already fixed — and an added sentence (its „to” starts with the „from”) never twice.
-    if (current.includes(to)) return current
+    // Already fixed — and an added sentence (its „to” starts with the „from”) never twice; the
+    // seed's hard spaces count as spaces.
+    if (current.replace(/ /g, ' ').includes(to)) return current
     return current.replace(pattern, to)
   }, text)
 }

@@ -255,8 +255,9 @@ export const REGISTER_FISCALIZATION: BiznesGuidePost = {
       url: 'https://www.biznes.gov.pl/pl/portal/ou1575',
     },
     {
-      // Art. 111 ust. 4: the notice of the number and place of the registers — the relief's condition.
-      name: 'ustawa o VAT (art. 111 ust. 4)',
+      // Art. 111 ust. 4 i 5: the relief and its condition — the notice of the number and place of
+      // the registers before the recording starts (also added by migration biznes_teksty_1511).
+      name: 'ustawa o VAT (art. 111 ust. 4 i 5)',
       url: 'https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20040540535',
     },
   ],

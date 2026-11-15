@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
 import { BIZNES_GUIDE_POSTS } from '../../seed/biznes/wpisy'
-import { BIZNES_PHRASES_1511, replacePhrases } from './biznes_teksty_1511'
+import {
+  BIZNES_PHRASES_1511,
+  RELIEF_SOURCE,
+  replacePhrases,
+  withReliefSource,
+} from './biznes_teksty_1511'
 
 const lexical = (text: string) => ({
   root: { children: [{ type: 'paragraph', children: [{ type: 'text', text }] }] },
@@ -32,9 +37,12 @@ describe('biznes_teksty_1511 (audyt produkcji 15.11 wieczorem)', () => {
   })
 
   it('is idempotent: a sentence added after a phrase is never added twice', () => {
-    const once = replacePhrases(
-      'Dotyczyło kas starego typu, z papierowym albo elektronicznym zapisem kopii.',
-    )
+    // Anchored on the whole sentence of the post: a shorter text with its end gets nothing.
+    const other = 'Dotyczyło kas starego typu, z papierowym albo elektronicznym zapisem kopii.'
+    expect(replacePhrases(other)).toBe(other)
+    const sentence =
+      'Zgłoszenie w ciągu 7 dni od fiskalizacji dotyczyło kas starego typu, z papierowym albo elektronicznym zapisem kopii.'
+    const once = replacePhrases(sentence)
     expect(once).toContain('Wyjątek: jeśli chcesz skorzystać z ulgi')
     expect(replacePhrases(once)).toBe(once)
     for (const [from, to] of BIZNES_PHRASES_1511) {
@@ -47,6 +55,15 @@ describe('biznes_teksty_1511 (audyt produkcji 15.11 wieczorem)', () => {
     const text = JSON.stringify(BIZNES_GUIDE_POSTS)
     expect(text).not.toMatch(/skończy się token|3 dni od zgłoszenia|token\w* działa tylko/i)
     expect(replacePhrases(BIZNES_GUIDE_POSTS)).toEqual(BIZNES_GUIDE_POSTS)
+  })
+})
+
+describe('withReliefSource', () => {
+  it('appends the relief source once, keeps a list that has it', () => {
+    const own = { name: 'biznes.gov.pl', url: 'https://www.biznes.gov.pl/pl/portal/ou1575' }
+    expect(withReliefSource([own])).toEqual([own, RELIEF_SOURCE])
+    expect(withReliefSource(null)).toEqual([RELIEF_SOURCE])
+    expect(withReliefSource([own, { ...RELIEF_SOURCE }])).toBeNull()
   })
 })
 

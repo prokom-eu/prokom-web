@@ -62,8 +62,8 @@ type Card = {
 }
 
 /**
- * A day in the browsers and sharing caches, then fetched again — `ImageResponse` alone says a
- * year and `immutable`, but a title can change in the panel under the same address.
+ * A day in the browsers and sharing caches, then fetched again (a title can change in the panel
+ * under the same address); without it `ImageResponse` sends `max-age=0, must-revalidate`.
  */
 const CACHE = 'public, max-age=86400, stale-while-revalidate=604800'
 
