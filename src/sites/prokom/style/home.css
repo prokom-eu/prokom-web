@@ -1548,6 +1548,738 @@ a.pk-mqi:hover {
   animation-duration: 1.3s;
 }
 
+/* --- Hero pictures, richer pass (H11, Krystian 15.11) --------------------------------------------
+   The big tiles' pictures fill the free height (no gap above the title); every picture is a small,
+   tailored screen of its line. Tokens only; reduced motion stops the movement (global rule). */
+.pk-ht--big .pk-vg {
+  min-height: 120px;
+  max-height: none;
+  flex: 1 1 140px;
+  background:
+    radial-gradient(
+      90% 70% at 100% 0%,
+      color-mix(in srgb, var(--ln) 14%, transparent),
+      transparent 65%
+    ),
+    var(--w05);
+  box-shadow: inset 0 1px 0 var(--w09);
+}
+.pk-tick {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+/* A small app window: title bar, rows with icons and ticked statuses, a sync line. */
+.pk-app {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 10px 12px 10px;
+}
+.pk-app__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--w09);
+  padding-bottom: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.pk-app__logo {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--ln);
+}
+.pk-app__bar em {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  color: var(--ln-text);
+  font-style: normal;
+}
+.pk-app__bar em i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ln);
+  animation: pk-blink 2.4s ease-in-out infinite;
+}
+.pk-app__rows {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.pk-app__row {
+  gap: 10px;
+}
+.pk-app__ico {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  place-items: center;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--ln) 20%, transparent);
+  color: var(--ln-text);
+}
+.pk-app__ico svg {
+  width: 13px;
+  height: 13px;
+}
+.pk-app__label {
+  overflow: hidden;
+  flex: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-app .pk-vp {
+  gap: 5px;
+  color: var(--k-white);
+}
+.pk-app .pk-vp .pk-tick {
+  color: var(--ln-text);
+}
+.pk-app__sync {
+  height: 3px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--w09);
+}
+.pk-app__sync i {
+  width: 35%;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--ln);
+  animation: pk-flw 2.6s ease-in-out infinite;
+}
+
+/* Cameras: a scene behind a viewfinder, REC and LIVE. */
+.pk-cam {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    170deg,
+    var(--w09),
+    color-mix(in srgb, var(--k-dim) 70%, transparent)
+  );
+}
+.pk-cam__scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.pk-cam__shape {
+  fill: var(--w16);
+}
+.pk-cam__shade {
+  fill: var(--w09);
+}
+.pk-cam__line {
+  stroke: var(--w16);
+  stroke-width: 1;
+}
+.pk-cam__walker {
+  fill: color-mix(in srgb, var(--ln) 55%, var(--w22));
+  animation: pk-walk 7s ease-in-out infinite;
+}
+@keyframes pk-walk {
+  0%,
+  10% {
+    transform: translateX(-14px);
+  }
+  55%,
+  65% {
+    transform: translateX(22px);
+  }
+  100% {
+    transform: translateX(-14px);
+  }
+}
+/* Viewfinder corners. */
+.pk-cam__vf {
+  position: absolute;
+  inset: 8px;
+  background:
+    linear-gradient(var(--w60), var(--w60)) left top / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) left top / 1.5px 8px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right top / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right top / 1.5px 8px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) left bottom / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) left bottom / 1.5px 8px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right bottom / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right bottom / 1.5px 8px no-repeat;
+  opacity: 0.55;
+}
+.pk-cam__live {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  border-radius: 4px;
+  padding: 1px 5px;
+  background: var(--w12);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+.pk-tl2 .pk-cam b {
+  z-index: 1;
+}
+.pk-tl2 b .pk-rec {
+  animation: pk-blink 1.4s steps(2) infinite;
+}
+.pk-tl2 em {
+  z-index: 1;
+}
+
+/* Alarm: a shield, „Uzbrojony”, rings going out. */
+.pk-alarm {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.pk-alarm__ico {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  color: var(--ln-text);
+}
+.pk-alarm small {
+  position: relative;
+  border-radius: 999px;
+  padding: 2px 7px;
+  background: color-mix(in srgb, var(--ln) 26%, transparent);
+  font-size: 9px;
+  font-weight: 800;
+}
+.pk-alarm__rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.pk-alarm__rings i {
+  position: absolute;
+  top: -22px;
+  left: -22px;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--ln);
+  border-radius: 50%;
+  opacity: 0;
+  animation: pk-ring 2.6s ease-out infinite;
+}
+.pk-alarm__rings i + i {
+  animation-delay: 1.3s;
+}
+@keyframes pk-ring {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* Wi-Fi: arcs lighting up from the router, the strength under them. */
+.pk-wifi {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.pk-wifi__arcs {
+  width: 40px;
+  height: 30px;
+  fill: none;
+  stroke: var(--ln);
+  stroke-linecap: round;
+  stroke-width: 3;
+}
+.pk-wifi__arcs path {
+  animation: pk-arc 2.4s ease-in-out infinite;
+}
+.pk-wifi__arcs path:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.pk-wifi__arcs path:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes pk-arc {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+.pk-wifi small {
+  color: var(--ln-text);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* Website: a nav, a headline with a button and a picture block with a chart. */
+.pk-vg__chrome span {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  color: var(--w60);
+  font-size: 9px;
+  font-weight: 700;
+}
+.pk-web__nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px 0;
+}
+.pk-web__nav i {
+  width: 18px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--w16);
+}
+.pk-web__nav .pk-web__logo {
+  width: 14px;
+  height: 14px;
+  margin-right: auto;
+  border-radius: 4px;
+  background: var(--ln);
+}
+.pk-web__nav .pk-web__cta {
+  width: 30px;
+  height: 12px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ln) 60%, transparent);
+}
+.pk-sk--half {
+  width: 60%;
+}
+.pk-web__shot {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--ln) 42%, transparent),
+    color-mix(in srgb, var(--ln) 10%, transparent)
+  );
+}
+.pk-web__shot > i {
+  position: absolute;
+  top: 18%;
+  right: 14%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--w22);
+}
+.pk-web__shot .pk-vg__chart {
+  margin-top: auto;
+  background: none;
+}
+
+/* Kanban: counted columns, tagged cards with an avatar, one card travelling to „Gotowe”. */
+.pk-kc em {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pk-kc em b {
+  border-radius: 999px;
+  padding: 0 5px;
+  background: var(--w12);
+  font-size: 9px;
+}
+.pk-kd {
+  position: relative;
+  display: flex;
+  height: auto;
+  min-height: 22px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 5px 6px;
+  background: var(--w09);
+}
+.pk-kd i {
+  width: 70%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--w22);
+}
+.pk-kd u {
+  width: 30%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--ln);
+  text-decoration: none;
+}
+.pk-kd[data-tag='b'] u {
+  background: var(--w22);
+}
+.pk-kd::after {
+  position: absolute;
+  right: 6px;
+  bottom: 5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--w22);
+  content: '';
+}
+.pk-kd--moving {
+  min-height: 22px;
+  background: var(--ln);
+  animation: pk-move 5s var(--ease) infinite;
+}
+.pk-kd--moving::after {
+  background: var(--w60);
+}
+@keyframes pk-move {
+  0%,
+  30% {
+    transform: none;
+  }
+  55%,
+  85% {
+    transform: translateX(calc(100% + 6px));
+  }
+  100% {
+    transform: none;
+  }
+}
+.pk-vg__kanban {
+  overflow: hidden;
+}
+.pk-kc {
+  overflow: visible;
+}
+
+/* Flow: nodes with icons, the last one ticked. */
+.pk-fn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.pk-fn svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Tech: the device of the slide pops in beside the stages. */
+.pk-tech {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+.pk-tech__dev {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  place-items: center;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ln) 20%, transparent);
+  color: var(--ln-text);
+  animation: pk-pop 0.6s var(--ease) both;
+}
+.pk-tech__dev svg {
+  width: 18px;
+  height: 18px;
+}
+.pk-tech__track {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Gaming: the frames with a readout that changes with the slide. */
+.pk-game2 {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+.pk-game2 .pk-ht__eq {
+  flex: 1;
+}
+.pk-game2__read {
+  flex: none;
+  border: 1px solid color-mix(in srgb, var(--ln) 45%, transparent);
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: color-mix(in srgb, var(--ln) 14%, transparent);
+  color: var(--ln-text);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  animation: pk-pop 0.6s var(--ease) both;
+}
+
+/* Compact rows so three fit with the bar and the sync line in the smaller tiles. */
+.pk-app .pk-vr {
+  padding: 4px 0;
+  font-size: 11.5px;
+}
+.pk-app .pk-vp {
+  padding: 2px 7px;
+  font-size: 10px;
+}
+.pk-app__ico {
+  width: 20px;
+  height: 20px;
+}
+.pk-app__ico svg {
+  width: 11px;
+  height: 11px;
+}
+/* Flow in a tall tile: nodes stacked, the signal running down between them. */
+.pk-vg__flow {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  padding: 10px 16px;
+}
+.pk-vg__flow .pk-fl {
+  width: 2px;
+  min-width: 0;
+  height: auto;
+  min-height: 10px;
+  flex: 1 1 14px;
+  max-height: 26px;
+  margin-left: 18px;
+}
+.pk-vg__flow .pk-fl::after {
+  width: 100%;
+  height: 40%;
+  animation-name: pk-flw-down;
+}
+@keyframes pk-flw-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(250%);
+  }
+}
+/* --- Hero search, premium pass (15.11): a taller field with a glowing rim, a typed sample phrase
+   and live suggestions under it. */
+.pk-hq {
+  z-index: 5;
+  height: 68px;
+  border-radius: 22px;
+  padding: 0 8px 0 22px;
+  background:
+    linear-gradient(var(--k-bg), var(--k-bg)) padding-box,
+    linear-gradient(110deg, var(--w16), var(--w16)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow:
+    0 18px 40px -26px color-mix(in srgb, var(--k-g) 70%, transparent),
+    inset 0 1px 0 var(--w05);
+  transition:
+    box-shadow 0.35s var(--ease),
+    background 0.35s var(--ease);
+}
+/* On focus the rim lights in the five line colours. */
+.pk-hq:focus-within {
+  background:
+    linear-gradient(var(--k-bg), var(--k-bg)) padding-box,
+    linear-gradient(110deg, var(--k-b), var(--k-i), var(--k-s), var(--k-t), var(--k-y)) border-box;
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--k-g) 16%, transparent),
+    0 22px 50px -24px color-mix(in srgb, var(--k-g) 80%, transparent);
+}
+.pk-hq[data-open] {
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+}
+.pk-hq__icon {
+  width: 22px;
+  height: 22px;
+}
+.pk-hq__field {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex: 1;
+  align-items: center;
+}
+.pk-hq__input {
+  font-size: 17px;
+}
+.pk-hq[data-sample] .pk-hq__input::placeholder {
+  color: transparent;
+}
+/* The typed sample phrase, in the colour of its line. */
+.pk-hq__sample {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+  color: var(--k-ink3);
+  font-size: 17px;
+  font-weight: 600;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.pk-hq__sample b {
+  color: var(--ln-text);
+  font-weight: 700;
+}
+.pk-hq__caret {
+  width: 2px;
+  height: 20px;
+  background: var(--ln);
+  animation: pk-caret 1s steps(1) infinite;
+}
+.pk-hq__kbd {
+  flex: none;
+  border: 1px solid var(--w16);
+  border-radius: 8px;
+  padding: 4px 8px;
+  color: var(--k-ink3);
+  font: 700 12px var(--font-sans);
+}
+.pk-hq__go {
+  height: 50px;
+  padding: 0 22px;
+  font-size: 15px;
+  box-shadow: 0 10px 24px -14px var(--k-g);
+}
+@media (max-width: 760px) {
+  .pk-hq__kbd {
+    display: none;
+  }
+}
+
+/* Live suggestions. */
+.pk-hq__pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+  border: 1px solid var(--w12);
+  border-radius: 20px;
+  padding: 8px;
+  background: var(--k-card);
+  box-shadow: 0 30px 60px -24px color-mix(in srgb, var(--k-dim) 90%, transparent);
+  animation: pk-pop 0.35s var(--ease) both;
+}
+.pk-hq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pk-hq__hit {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 12px;
+  border-radius: 14px;
+  padding: 8px 12px;
+  transition: background 0.2s;
+}
+.pk-hq__list [aria-selected='true'] .pk-hq__hit,
+.pk-hq__hit:hover {
+  background: color-mix(in srgb, var(--ln) 14%, transparent);
+}
+.pk-hq__dot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ln);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--ln) 70%, transparent);
+}
+.pk-hq__hit-text {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+.pk-hq__hit-title {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-hq__hit-hint {
+  overflow: hidden;
+  color: var(--k-ink3);
+  font-size: 12.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-hq__kind {
+  flex: none;
+  border-radius: 999px;
+  padding: 3px 9px;
+  background: var(--w05);
+  color: var(--ln-text);
+  font-size: 11.5px;
+  font-weight: 800;
+}
+.pk-hq__note {
+  padding: 8px 12px 4px;
+  color: var(--k-ink3);
+  font-size: 13px;
+}
+.pk-hq__all {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--w09);
+  margin-top: 4px;
+  padding: 8px 12px 4px;
+  color: var(--k-gt);
+  font-size: 13.5px;
+  font-weight: 800;
+}
+/* The tile must not cut the suggestions off. */
+.pk-hb-main:has(.pk-hq[data-open]) {
+  overflow: visible;
+  z-index: 3;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pk-home *,
   .pk-home *::before,
@@ -1559,7 +2291,92 @@ a.pk-mqi:hover {
     transform: none;
   }
 }
+/* „Załatw od razu” (15.11): four tools of the lines as glass buttons in their colours, above the
+   call to action; two by two, one column on narrow phones. */
+.pk-hq2 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+.pk-hq2__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.pk-hq2__item {
+  position: relative;
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ln) 28%, var(--w09));
+  border-radius: 16px;
+  padding: 8px 12px 8px 8px;
+  background:
+    radial-gradient(
+      120% 140% at 0% 0%,
+      color-mix(in srgb, var(--ln) 16%, transparent),
+      transparent 60%
+    ),
+    var(--w03);
+  transition:
+    transform 0.35s var(--ease),
+    border-color 0.3s;
+}
+.pk-hq2__item:hover {
+  border-color: var(--ln);
+  transform: translateY(-2px);
+}
+.pk-hq2__icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--ln-fill, var(--ln));
+  color: var(--ln-ink);
+  box-shadow: 0 8px 20px -10px var(--ln);
+}
+.pk-hq2__text {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+.pk-hq2__title {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-hq2__line {
+  color: var(--ln-text);
+  font-size: 12px;
+  font-weight: 700;
+}
+.pk-hq2__go {
+  color: var(--k-ink3);
+  font-weight: 800;
+  transition: transform 0.3s var(--ease);
+}
+.pk-hq2__item:hover .pk-hq2__go {
+  color: var(--ln-text);
+  transform: translate(2px, -2px);
+}
+@media (max-width: 420px) {
+  .pk-hq2__list {
+    grid-template-columns: 1fr;
+  }
+}
 /* The call to action sits at the bottom of the tile. */
+.pk-hq2 + .pk-hb-main__cta,
 .pk-hch-list + .pk-hb-main__cta {
   margin-top: auto;
 }

@@ -12,6 +12,7 @@ import {
   helpCases,
   homeLines,
   linesCount,
+  quickTools,
   teamExamples,
 } from './model'
 
@@ -212,5 +213,47 @@ describe('addressLine, faqTokens and faqItems', () => {
     ])
     const empty = faqItems(items, faqTokens({ address: null, hours: [] }, null))
     expect(empty.map((item) => item.question)).toEqual(['Firmy?'])
+  })
+})
+
+describe('quickTools (hero „Załatw od razu”)', () => {
+  const lines = [
+    { key: 'tech' as const, name: 'Tech', url: 'https://tech.test' },
+    { key: 'gaming' as const, name: 'Gaming', url: 'https://gaming.test' },
+  ]
+  it('keeps the order of the keys, the tool link or the line site, and drops the rest', () => {
+    const tools = [
+      { ...tool('gaming-konfigurator', 'gaming', false), url: 'https://gaming.test/konfigurator' },
+      tool('tech-zglos-naprawe', 'tech', false),
+      tool('software-policz', 'software', false),
+    ]
+    expect(
+      quickTools(
+        ['tech-zglos-naprawe', 'software-policz', 'gaming-konfigurator', 'brak'],
+        tools,
+        lines,
+      ),
+    ).toEqual([
+      {
+        key: 'tech-zglos-naprawe',
+        title: 'Narzędzie tech-zglos-naprawe',
+        url: 'https://tech.test',
+        line: 'tech',
+        lineName: 'Tech',
+      },
+      {
+        key: 'gaming-konfigurator',
+        title: 'Narzędzie gaming-konfigurator',
+        url: 'https://gaming.test/konfigurator',
+        line: 'gaming',
+        lineName: 'Gaming',
+      },
+    ])
+  })
+
+  it('every key of the package is a tool of the seed', async () => {
+    const { hubTools } = await import('../../../seed/prokom/map')
+    const keys = new Set(hubTools().map((t) => t.key))
+    expect(hubHome().hero.quick?.tools.filter((k) => !keys.has(k))).toEqual([])
   })
 })

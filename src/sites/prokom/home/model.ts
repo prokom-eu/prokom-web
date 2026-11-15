@@ -126,14 +126,17 @@ export function plural(count: number, [one, few, many]: readonly [string, string
 export const linesCount = (count: number) => plural(count, ['linia', 'linie', 'linii'])
 
 /** What a card of a plan links to: the line's own site (from its panel). */
-type LineLink = Pick<HomeLine, 'key' | 'label' | 'domain' | 'url'>
+type LineLink = Pick<HomeLine, 'key' | 'label' | 'domain' | 'url'> & {
+  scene?: Pick<HomeScene, 'steps'>
+}
 
 export type ChoosePlan = {
   persona: string
   name: string
   sub: string | null
   title: string
-  groups: (LineLink & { points: string[] })[]
+  /** Per line: its points for the persona and how the line starts (titles of its scene steps). */
+  groups: (Omit<LineLink, 'scene'> & { points: string[]; steps: string[] })[]
 }
 
 /**
@@ -151,7 +154,11 @@ export function choosePlans(
     if (!plan) return []
     const groups = plan.groups.flatMap((group) => {
       const line = lines.find((entry) => entry.key === group.line)
-      return line && group.points.length ? [{ ...line, points: group.points }] : []
+      if (!line || !group.points.length) return []
+      const { scene, ...link } = line
+      return [
+        { ...link, points: group.points, steps: scene?.steps.map((step) => step.title) ?? [] },
+      ]
     })
     if (!groups.length) return []
     return [{ persona, name: plan.name, sub: sub ?? null, title: plan.title ?? plan.name, groups }]
@@ -218,5 +225,27 @@ export function faqItems(
       ([name, value]) => !value && item.answer.includes(`{${name}}`),
     )
     return missing ? [] : [{ question: item.question, answer: fillTokens(item.answer, tokens) }]
+  })
+}
+
+/** A button of „Załatw od razu” in the PRO-KOM tile. */
+export type QuickTool = { key: string; title: string; url: string; line: HubLine; lineName: string }
+
+/**
+ * The tools of „Załatw od razu” in the order of `keys`: a tool missing from the records, or one
+ * whose line is not on the page, is left out; without its own address it leads to the line's site.
+ */
+export function quickTools(
+  keys: readonly string[],
+  tools: readonly HubToolView[],
+  lines: readonly Pick<HomeLine, 'key' | 'name' | 'url'>[],
+): QuickTool[] {
+  return keys.flatMap((key) => {
+    const tool = tools.find((entry) => entry.key === key)
+    const line = tool && lines.find((entry) => entry.key === tool.line)
+    const url = tool?.url ?? line?.url
+    return tool && line && url
+      ? [{ key, title: tool.title, url, line: tool.line, lineName: line.name }]
+      : []
   })
 }

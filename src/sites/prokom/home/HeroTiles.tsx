@@ -3,6 +3,8 @@
 import { useCallback, useRef, useState, type PointerEvent, type ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
+import { Icon } from '@/components/ui/Icon'
+import type { IconName } from '@/lib/shared/icons'
 import type { HubHome } from '@/lib/prokom/home'
 
 import { lineStyle } from '../lineColors'
@@ -113,26 +115,9 @@ export function HeroTiles({ children, lines, techStages }: Props) {
               </div>
             )}
             {line.key === 'tech' && techStages.length > 0 && (
-              <div aria-hidden="true" className="pk-ht__stages">
-                <span className="pk-ht__bars">
-                  {techStages.map((stage, i) => (
-                    <i
-                      key={stage}
-                      className="pk-stp"
-                      data-state={i < 2 ? 'done' : i === 2 ? 'now' : undefined}
-                    />
-                  ))}
-                </span>
-                <span className="pk-ht__stage-names">
-                  {techStages.map((stage, i) => (
-                    <span key={stage} data-now={i === 2 ? '' : undefined}>
-                      {stage}
-                    </span>
-                  ))}
-                </span>
-              </div>
+              <TechVisual stages={techStages} slide={current} />
             )}
-            {line.key === 'gaming' && <Bars count={12} className="pk-ht__eq" />}
+            {line.key === 'gaming' && <GamingVisual slide={current} />}
 
             <div className="pk-ht__slides">
               {slides.map((slide, i) => {
@@ -221,38 +206,65 @@ function Bars({ count, className }: { count: number; className?: string }) {
 
 type VignetteData = HubHome['hero']['lines']['biznes']['vignettes'][number]
 
-/** The small moving pictures of the big tiles; their words are illustration only (hidden). */
+/** Icons of the rows of a „panel” picture, by place (illustration only). */
+const ROW_ICONS: IconName[] = ['bolt', 'pc', 'shield', 'check']
+
+/** A small tick for statuses and finished steps. */
+function Tick() {
+  return (
+    <svg viewBox="0 0 12 12" className="pk-tick" aria-hidden="true">
+      <path d="M2.5 6.2 5 8.6 9.6 3.6" />
+    </svg>
+  )
+}
+
+/** The pictures of the big tiles; their words are illustration only (hidden from readers). */
 function Vignette({ vignette }: { vignette: VignetteData }) {
   switch (vignette.kind) {
     case 'rows':
       return (
-        <div className="pk-vg__rows">
-          {vignette.rows.map((row) => (
-            <span key={row.label} className="pk-vr">
-              <span>{row.label}</span>
-              <span className="pk-vp">
-                <i className="pk-rec" />
-                {row.state}
+        <div className="pk-app">
+          <span className="pk-app__bar">
+            <i className="pk-app__logo" />
+            <span>Twoja firma</span>
+            <em>
+              <i /> online
+            </em>
+          </span>
+          <span className="pk-app__rows">
+            {vignette.rows.map((row, i) => (
+              <span key={row.label} className="pk-vr pk-app__row">
+                <b className="pk-app__ico">
+                  <Icon name={ROW_ICONS[i % ROW_ICONS.length] ?? 'check'} />
+                </b>
+                <span className="pk-app__label">{row.label}</span>
+                <span className="pk-vp">
+                  <Tick />
+                  {row.state}
+                </span>
               </span>
-            </span>
-          ))}
+            ))}
+          </span>
+          <span className="pk-app__sync">
+            <i />
+          </span>
         </div>
       )
     case 'tiles':
       return (
         <div className="pk-vg__tiles">
-          {vignette.tiles.map((tile) => (
+          {vignette.tiles.map((tile, i) => (
             <span key={tile.label} className="pk-tl2" data-kind={tile.icon}>
-              {tile.icon === 'cam' && (
-                <b>
-                  <i className="pk-rec" />
-                  REC
-                </b>
-              )}
-              {tile.icon === 'bars' && <Bars count={4} className="pk-tl2__wifi" />}
+              {tile.icon === 'cam' && <CamScene scene={i % 2} />}
+              {tile.icon === 'bars' && <WifiArcs strength={[98, 87, 92][i % 3] ?? 90} />}
               {tile.icon === 'ring' && (
-                <span className="pk-rg">
-                  <i />
+                <span className="pk-alarm">
+                  <span className="pk-alarm__rings">
+                    <i />
+                    <i />
+                  </span>
+                  <Icon name="shield" className="pk-alarm__ico" />
+                  <small>Uzbrojony</small>
                 </span>
               )}
               <em>{tile.label}</em>
@@ -262,18 +274,34 @@ function Vignette({ vignette }: { vignette: VignetteData }) {
       )
     case 'switch':
       return (
-        <div className="pk-vg__rows">
-          <span className="pk-vr">
-            <span>Światło w salonie</span>
-            <i className="pk-sw" />
+        <div className="pk-app">
+          <span className="pk-app__bar">
+            <i className="pk-app__logo" />
+            <span>Dom · salon</span>
+            <em>21°</em>
           </span>
-          <span className="pk-vr">
-            <span>Rolety</span>
-            <i className="pk-sw" style={{ animationDelay: '1.2s' }} />
-          </span>
-          <span className="pk-vr">
-            <span>Nagłośnienie sali</span>
-            <Bars count={6} className="pk-vr__eq" />
+          <span className="pk-app__rows">
+            <span className="pk-vr pk-app__row">
+              <b className="pk-app__ico">
+                <Icon name="spark" />
+              </b>
+              <span className="pk-app__label">Światło w salonie</span>
+              <i className="pk-sw" />
+            </span>
+            <span className="pk-vr pk-app__row">
+              <b className="pk-app__ico">
+                <Icon name="home" />
+              </b>
+              <span className="pk-app__label">Rolety</span>
+              <i className="pk-sw" style={{ animationDelay: '1.2s' }} />
+            </span>
+            <span className="pk-vr pk-app__row">
+              <b className="pk-app__ico">
+                <Icon name="bolt" />
+              </b>
+              <span className="pk-app__label">Nagłośnienie sali</span>
+              <Bars count={6} className="pk-vr__eq" />
+            </span>
           </span>
         </div>
       )
@@ -284,16 +312,26 @@ function Vignette({ vignette }: { vignette: VignetteData }) {
             <i />
             <i />
             <i />
-            <span />
+            <span>twojafirma.pl</span>
+          </span>
+          <span className="pk-web__nav">
+            <i className="pk-web__logo" />
+            <i />
+            <i />
+            <i />
+            <i className="pk-web__cta" />
           </span>
           <span className="pk-vg__page">
             <span className="pk-vg__copy">
               <i className="pk-sk pk-sk--title" />
+              <i className="pk-sk pk-sk--title pk-sk--half" />
               <i className="pk-sk" />
-              <i className="pk-sk pk-sk--short" />
               <i className="pk-vg__btn" />
             </span>
-            <Bars count={4} className="pk-vg__chart" />
+            <span className="pk-web__shot">
+              <i />
+              <Bars count={5} className="pk-vg__chart" />
+            </span>
           </span>
         </div>
       )
@@ -302,9 +340,20 @@ function Vignette({ vignette }: { vignette: VignetteData }) {
         <div className="pk-vg__kanban">
           {['Nowe', 'W toku', 'Gotowe'].map((column, i) => (
             <span key={column} className="pk-kc">
-              <em>{column}</em>
-              <i className="pk-kd" data-on={i === 1 ? '' : undefined} />
-              {i < 2 && <i className="pk-kd" />}
+              <em>
+                {column} <b>{[2, 1, 1][i]}</b>
+              </em>
+              <span className="pk-kd" data-tag="a">
+                <i />
+                <u />
+              </span>
+              {i === 0 && (
+                <span className="pk-kd" data-tag="b">
+                  <i />
+                  <u />
+                </span>
+              )}
+              {i === 1 && <span className="pk-kd pk-kd--moving" data-on="" />}
             </span>
           ))}
         </div>
@@ -312,14 +361,116 @@ function Vignette({ vignette }: { vignette: VignetteData }) {
     case 'flow':
       return (
         <div className="pk-vg__flow">
-          <span className="pk-fn">Formularz</span>
+          <span className="pk-fn">
+            <Icon name="site" />
+            Formularz
+          </span>
           <i className="pk-fl" />
           <span className="pk-fn" data-on="">
+            <Icon name="bolt" />
             Twój system
           </span>
           <i className="pk-fl" style={{ animationDelay: '0.9s' }} />
-          <span className="pk-fn">SMS i e-mail</span>
+          <span className="pk-fn">
+            <Tick />
+            SMS i e-mail
+          </span>
         </div>
       )
   }
+}
+
+/** A camera feed: a simple scene (a door with a passer-by, a parked car), REC, LIVE, viewfinder. */
+function CamScene({ scene }: { scene: number }) {
+  return (
+    <span className="pk-cam">
+      <svg viewBox="0 0 100 64" preserveAspectRatio="xMidYMid slice" className="pk-cam__scene">
+        {scene === 0 ? (
+          <>
+            <rect x="36" y="10" width="28" height="46" rx="2" className="pk-cam__shape" />
+            <rect x="40" y="14" width="20" height="38" rx="1" className="pk-cam__shade" />
+            <g className="pk-cam__walker">
+              <circle cx="20" cy="30" r="4" />
+              <rect x="16" y="35" width="8" height="16" rx="3" />
+            </g>
+          </>
+        ) : (
+          <>
+            <path d="M0 52h100" className="pk-cam__line" />
+            <path
+              d="M22 46c2-8 6-12 14-12h22c8 0 12 4 16 12h4v6H18v-6z"
+              className="pk-cam__shape"
+            />
+            <circle cx="32" cy="52" r="5" className="pk-cam__shade" />
+            <circle cx="66" cy="52" r="5" className="pk-cam__shade" />
+          </>
+        )}
+      </svg>
+      <span className="pk-cam__vf" />
+      <b>
+        <i className="pk-rec" />
+        REC
+      </b>
+      <small className="pk-cam__live">LIVE</small>
+    </span>
+  )
+}
+
+/** Wi-Fi in a room: arcs of the signal and its strength. */
+function WifiArcs({ strength }: { strength: number }) {
+  return (
+    <span className="pk-wifi">
+      <svg viewBox="0 0 40 30" className="pk-wifi__arcs">
+        <path d="M4 12a23 23 0 0 1 32 0" />
+        <path d="M10 18a14 14 0 0 1 20 0" />
+        <path d="M16 24a6 6 0 0 1 8 0" />
+      </svg>
+      <small>{strength}%</small>
+    </span>
+  )
+}
+
+/** Tech: the device of the slide (phone, laptop, finished ticket) beside the repair stages. */
+function TechVisual({ stages, slide }: { stages: string[]; slide: number }) {
+  // By the slide order of the package (telefony, laptopy i konsole, status naprawy).
+  const devices: IconName[] = ['phone', 'pc', 'check']
+  return (
+    <div aria-hidden="true" className="pk-ht__stages pk-tech">
+      <span className="pk-tech__dev" key={slide}>
+        <Icon name={devices[slide % devices.length] ?? 'wrench'} />
+      </span>
+      <span className="pk-tech__track">
+        <span className="pk-ht__bars">
+          {stages.map((stage, i) => (
+            <i
+              key={stage}
+              className="pk-stp"
+              data-state={i < 2 ? 'done' : i === 2 ? 'now' : undefined}
+            />
+          ))}
+        </span>
+        <span className="pk-ht__stage-names">
+          {stages.map((stage, i) => (
+            <span key={stage} data-now={i === 2 ? '' : undefined}>
+              {stage}
+            </span>
+          ))}
+        </span>
+      </span>
+    </div>
+  )
+}
+
+/** Gaming: the measured frames with a readout that follows the slide. */
+function GamingVisual({ slide }: { slide: number }) {
+  // By the slide order of the package (Komputery, Konfigurator, Dobór pod grę) — no figures.
+  const readouts = ['RGB · chłodzenie', 'CPU · GPU · RAM', 'Test w grze']
+  return (
+    <div aria-hidden="true" className="pk-game2">
+      <Bars count={14} className="pk-ht__eq" />
+      <span className="pk-game2__read" key={slide}>
+        {readouts[slide % readouts.length]}
+      </span>
+    </div>
+  )
 }

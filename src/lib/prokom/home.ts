@@ -63,6 +63,11 @@ export const homeSchema = z
       cta: text(40),
       /** Not shown since 15.11 (the tile has the company numbers); kept so older JSON validates. */
       steps: z.array(text(40)).length(3).nullish(),
+      /**
+       * „Załatw od razu” in the PRO-KOM tile (Krystian 15.11): the keys of up to four tools of
+       * `HubTools` — their titles and deep links come from the records, the line from the tool.
+       */
+      quick: z.object({ title: text(40), tools: z.array(key).min(1).max(4) }).nullish(),
       hints: z
         .array(z.object({ text: text(60), line: lineKey }))
         .min(1)
