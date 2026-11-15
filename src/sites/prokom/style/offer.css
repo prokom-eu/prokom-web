@@ -733,7 +733,7 @@
   pointer-events: none;
 }
 .pk-ohero__intro > * {
-  animation: pk-rise 0.8s var(--ease) both;
+  animation: pk-lift 0.8s var(--ease) both;
 }
 .pk-ohero__intro > :nth-child(2) {
   animation-delay: 0.08s;
@@ -905,8 +905,14 @@
   font-weight: 800;
 }
 @media (max-width: 900px) {
-  /* On a phone the picture follows the text, and keeps it short. */
+  /* On a tablet the picture follows the text, and keeps it short. */
   .pk-sart {
     max-width: 560px;
+  }
+}
+@media (max-width: 640px) {
+  /* A phone goes straight to the choice and the form (pages are long already, audit 15.11 P2). */
+  .pk-sart {
+    display: none;
   }
 }
