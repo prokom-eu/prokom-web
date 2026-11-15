@@ -100,6 +100,10 @@ export function HeroStage({
   const resume = useRef<number | undefined>(undefined)
   const swipe = useRef<number | null>(null)
   const offscreen = useRef(false)
+  const cmd = useRef<HTMLDivElement>(null)
+  const flow = useRef<HTMLDivElement>(null)
+  const lightFrame = useRef(0)
+  useEffect(() => () => cancelAnimationFrame(lightFrame.current), [])
 
   const syncPause = useCallback(() => {
     setPaused(offscreen.current || document.hidden)
@@ -193,12 +197,44 @@ export function HeroStage({
     if (Math.abs(dx) >= SWIPE_PX) choose(stepSlide(current, dx < 0 ? 1 : -1, count))
   }
 
+  /** Premium pass 15.11: the mouse lights the panel (`--mx`/`--my`) and tilts the carousel a
+   * little (`--tx`/`--ty`); once per frame, never for a touch or with reduced motion. */
+  function onPointerMove(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== 'mouse' || still) return
+    const { clientX, clientY } = event
+    cancelAnimationFrame(lightFrame.current)
+    lightFrame.current = requestAnimationFrame(() => {
+      const panel = cmd.current
+      if (panel) {
+        const box = panel.getBoundingClientRect()
+        panel.style.setProperty('--mx', ((clientX - box.left) / box.width).toFixed(3))
+        panel.style.setProperty('--my', ((clientY - box.top) / box.height).toFixed(3))
+      }
+      const stage = flow.current
+      if (stage) {
+        const box = stage.getBoundingClientRect()
+        const x = Math.max(-1, Math.min(1, ((clientX - box.left) / box.width) * 2 - 1))
+        const y = Math.max(-1, Math.min(1, ((clientY - box.top) / box.height) * 2 - 1))
+        stage.style.setProperty('--tx', x.toFixed(3))
+        stage.style.setProperty('--ty', y.toFixed(3))
+      }
+    })
+  }
+
+  function onPointerLeave() {
+    cancelAnimationFrame(lightFrame.current)
+    flow.current?.style.setProperty('--tx', '0')
+    flow.current?.style.setProperty('--ty', '0')
+  }
+
   const slide = slides[current] ?? slides[0]
   if (!slide) return null
 
   return (
     <div
       ref={root}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
       onFocus={(event) => {
         // Only keyboard focus rests the clock: a click also focuses the tile, and the clock must
         // come back 12 s after it (ZMIANY-v24 §4.1).
@@ -228,7 +264,7 @@ export function HeroStage({
         </Title>
         <p className="hx-lead">{lead}</p>
         {/* Eight tiles or more (SWA14 §4.3): the wide panel grows, so the names keep their room. */}
-        <div className="hx-cmd" data-many={count >= 8 ? '' : undefined}>
+        <div ref={cmd} className="hx-cmd" data-many={count >= 8 ? '' : undefined}>
           <div className="hx-q">
             <svg
               width="18"
@@ -302,6 +338,7 @@ export function HeroStage({
 
       <div id={`${ids}-stage`} role="tabpanel" aria-labelledby={`${ids}-tab-${current}`}>
         <div
+          ref={flow}
           className="hx-flow"
           onPointerDown={onPointerDown}
           onPointerUp={onPointerUp}
@@ -364,15 +401,21 @@ export function HeroStage({
         </div>
 
         {/* Announced only after the visitor's own choice, not on every turn of the clock. */}
-        <div className="hx-cap" aria-live={held || still ? 'polite' : 'off'}>
-          <span className="ic" aria-hidden="true">
+        {/* After the first change its parts come in again with each slide (keyed), inside the
+            same live region — re-mounting the region itself would not be announced. */}
+        <div
+          className="hx-cap"
+          aria-live={held || still ? 'polite' : 'off'}
+          data-swap={move.from !== move.to ? '' : undefined}
+        >
+          <span key={`ic-${current}`} className="ic" aria-hidden="true">
             {String(current + 1).padStart(2, '0')}
           </span>
-          <div>
+          <div key={`t-${current}`} className="hx-cap-t">
             <b>{slide.name}</b>
             <span>{slide.text}</span>
           </div>
-          <div className="div">
+          <div key={`p-${current}`} className="div">
             <b className={slide.ask ? 'hx-ask' : undefined}>{slide.price}</b>
             {!slide.ask && <span>{slide.term}</span>}
           </div>

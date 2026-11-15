@@ -21,10 +21,12 @@ const CHEAP = ['transform', 'opacity', 'translate', 'scale', 'rotate']
  * - `sw-em`, `sw-rise-blur` (decision SWA12): the H2 highlight and the section rise with a blur,
  *   on a computer only (the phone gets flat variants);
  * - `v-arc`: the gauge of „Technologia” draws its arc once (`stroke-dashoffset` of one small SVG
- *   path, no layout) — a drawn line has no transform equivalent.
+ *   path, no layout) — a drawn line has no transform equivalent;
+ * - `hx-cap-in-blur` (premium pass 15.11): the hero caption comes in out of a blur after a slide
+ *   change, once, on a computer only (the phone gets `hx-cap-in`, transform + opacity).
  */
 const PHONE_EXCEPTIONS = ['v-arc']
-const DESKTOP_EXCEPTIONS = [...PHONE_EXCEPTIONS, 'sw-em', 'sw-rise-blur']
+const DESKTOP_EXCEPTIONS = [...PHONE_EXCEPTIONS, 'sw-em', 'sw-rise-blur', 'hx-cap-in-blur']
 /**
  * A state change (hover, active item, the header on scroll) may fade colours, shadows and
  * corners for ≤ 300 ms — paint, not motion. It must not change the layout: these properties.
