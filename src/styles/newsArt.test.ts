@@ -16,5 +16,7 @@ describe('news category pictures (SWA4c)', () => {
   it.each(software.map(({ value }) => value))('%s has its colour and background', (value) => {
     expect(tokens).toMatch(new RegExp(`--news-art-${value}:`))
     expect(tokens).toMatch(new RegExp(`--news-art-${value}-bg:`))
+    // The solid hue of the covers' scenes (decision 15.11, `news/PostCover`).
+    expect(tokens).toMatch(new RegExp(`--news-art-${value}-ink:`))
   })
 })

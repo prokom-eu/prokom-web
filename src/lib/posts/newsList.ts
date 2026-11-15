@@ -3,7 +3,10 @@ import { categoryChips, CATEGORY_PARAM, NEWS_PATH, type PostCategory } from './l
 /** Query parameter of a list page from 2 up (`?strona=2`). */
 export const PAGE_PARAM = 'strona'
 
-/** Posts on one page of the list, after the featured one (decision 15.11: pages of 12). */
+/**
+ * Posts on one page of the list (decision 15.11: pages of 12), the featured one and the two beside
+ * it included — so the first page's grid is 9 cards: three full rows of three.
+ */
 export const NEWS_PAGE_SIZE = 12
 
 /** Posts beside the featured one on the first page of the whole list. */
@@ -48,7 +51,7 @@ export type NewsListView<T> = {
 
 /**
  * What one page of `/aktualnosci` shows (Software). The whole list features its newest post on
- * the first page and pages the rest; a category view is a plain grid, paged the same way.
+ * the first page (with two beside it); a category view is a plain grid; both in pages of 12.
  * `null` = no such page (404).
  */
 export function newsListView<T extends { categoryValue: string }>(
@@ -65,22 +68,21 @@ export function newsListView<T extends { categoryValue: string }>(
   }))
 
   const shown = category ? posts.filter((post) => post.categoryValue === category) : posts
-  const [first, ...rest] = shown
-  const featured = !category && first ? first : null
-  const paged = featured ? rest : shown
-  const pages = Math.max(1, Math.ceil(paged.length / NEWS_PAGE_SIZE))
+  const pages = Math.max(1, Math.ceil(shown.length / NEWS_PAGE_SIZE))
   if (page > pages) return null
 
-  const onPage = paged.slice((page - 1) * NEWS_PAGE_SIZE, page * NEWS_PAGE_SIZE)
-  const showFeatured = featured && page === 1 ? featured : null
-  const latest = showFeatured ? onPage.slice(0, LATEST) : []
+  const onPage = shown.slice((page - 1) * NEWS_PAGE_SIZE, page * NEWS_PAGE_SIZE)
+  const [first, ...rest] = onPage
+  const featured = !category && page === 1 && first ? first : null
+  const latest = featured ? rest.slice(0, LATEST) : []
+  const cards = featured ? rest.slice(LATEST) : onPage
   return {
     chips,
     total: shown.length,
     page,
     pages,
-    featured: showFeatured,
+    featured,
     latest,
-    cards: onPage.slice(latest.length),
+    cards,
   }
 }

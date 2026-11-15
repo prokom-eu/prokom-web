@@ -44,25 +44,26 @@ describe('newsListView', () => {
     expect(view).toMatchObject({ total: 6, page: 1, pages: 1 })
   })
 
-  it('pages the posts after the featured one by NEWS_PAGE_SIZE', () => {
+  it('pages by NEWS_PAGE_SIZE, the featured post and the two beside it included', () => {
     expect(NEWS_PAGE_SIZE).toBe(12)
     const first = newsListView(posts(20), null, 1)
     expect(first?.pages).toBe(2)
-    // 1 featured + 12 on the page: 2 beside it, 10 in the grid.
-    expect((first?.latest.length ?? 0) + (first?.cards.length ?? 0)).toBe(12)
+    // 1 featured + 2 beside it + 9 in the grid (three full rows).
+    expect(first?.featured?.slug).toBe('wpis-1')
+    expect(first?.cards.length).toBe(9)
     const second = newsListView(posts(20), null, 2)
     expect(second?.featured).toBeNull()
     expect(second?.latest).toEqual([])
     expect(slugs(second?.cards ?? [])).toEqual(
       posts(20)
-        .slice(13)
+        .slice(12)
         .map((post) => post.slug),
     )
   })
 
-  it('has one page up to 13 posts (the featured one does not count)', () => {
-    expect(newsListView(posts(13), null, 1)?.pages).toBe(1)
-    expect(newsListView(posts(14), null, 1)?.pages).toBe(2)
+  it('has one page up to 12 posts', () => {
+    expect(newsListView(posts(12), null, 1)?.pages).toBe(1)
+    expect(newsListView(posts(13), null, 1)?.pages).toBe(2)
   })
 
   it('shows a category without featuring, all of its posts in the grid', () => {
