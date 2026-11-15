@@ -6,7 +6,7 @@ import { isHttpsUrl } from '../site/link'
 import { tenantIdOf } from '../tenant/id'
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
 import { hasRichText } from './product'
-import { isProducerSource } from './sources'
+import { isProducerSource, isShopLink } from './sources'
 
 /**
  * Brand pages `/marki/[slug]` (K3-KATALOG §6, spec. §6.11, ADR-012 rozstrz. 15): the brand
@@ -59,6 +59,12 @@ const httpsOnly = (value: string | null | undefined) => {
   return url && isHttpsUrl(url) ? url : null
 }
 
+/** The producer's site: https and never a shop or reseller (audyt 15.11 P1-2). */
+const producerSite = (value: string | null | undefined) => {
+  const url = httpsOnly(value)
+  return url && !isShopLink(url) ? url : null
+}
+
 /** Source of a fact: a producer's or an official site only (ADR-012 rozstrz. 19), never a shop. */
 const factSource = (value: string | null | undefined) => {
   const url = httpsOnly(value)
@@ -94,7 +100,7 @@ export function buildBrandView(partner: Partner, tenantId: number): BrandView | 
         : []
     }),
     productLines: (page.productLines ?? []).map((line) => line.trim()).filter(Boolean),
-    website: httpsOnly(partner.website),
+    website: producerSite(partner.website),
   }
 }
 

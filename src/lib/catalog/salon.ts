@@ -6,6 +6,7 @@ import { tenantIdOf } from '../tenant/id'
 import { bindShortWords } from '../typography'
 import { brandLogo } from './brandLogo'
 import type { IndexLogo, IndexProduct } from './catalogIndex'
+import { isShopLink } from './sources'
 
 /**
  * Salon 2.0 (K4-FINAL §6, board `Strona.dc.html` „SALON MARKI 2.0”): one template for every
@@ -107,6 +108,10 @@ export type SalonView = {
 }
 
 const text = (value: string | null | undefined) => value?.trim() || null
+
+/** A link the salon shows: https and never a shop or reseller (audyt 15.11 P1-2). */
+const shownLink = (value: string | null | undefined) =>
+  value && isHttpsUrl(value) && !isShopLink(value) ? value : null
 /** A heading from the data, with no-break spaces after one-letter words (K4-FINAL §1). */
 const heading = (value: string | null | undefined) => {
   const trimmed = text(value)
@@ -180,7 +185,7 @@ export function buildSalonView(
         name: partner.name,
         slug: partner.slug ?? null,
         logo: brandLogo(partner) ?? null,
-        website: partner.website && isHttpsUrl(partner.website) ? partner.website : null,
+        website: shownLink(partner.website),
         description: text(partner.brandPage?.shortDescription),
       },
     ]
@@ -250,7 +255,7 @@ export function buildSalonView(
           {
             label: fact.label.trim(),
             value: fact.value.trim(),
-            sourceUrl: fact.sourceUrl && isHttpsUrl(fact.sourceUrl) ? fact.sourceUrl : null,
+            sourceUrl: shownLink(fact.sourceUrl),
           },
         ]
       : [],
