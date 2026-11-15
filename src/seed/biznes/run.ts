@@ -98,6 +98,7 @@ import { GOPOS_PHOTO_ALT, goposPhotoFiles, goposPhotoPath } from './k4Pages'
 import { k4PageSeeds, k4PagesFile, seedBiznesK4Pages } from './k4PagesRun'
 import { pagesToReplace } from './replacePages'
 import { seedBiznesTemplatePages, TEMPLATE_PAGES } from './templatePages'
+import { WHEEL_LINK_PHOTO_1411, WHEEL_PHOTO_1411, withWheel1411 } from './wheel1411'
 import { seedBiznesProcurementPages } from './procurementPages'
 import { homeProcurementPackage, seedBiznesHomeProcurement } from './homeProcurement'
 import { homeBundlesUpdate, seedBiznesHomeBiz2 } from './homeBiz2'
@@ -734,32 +735,22 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     if (slug !== undefined) slugByKey.set(shortId, slug)
   }
 
-  // --- K4 departments (K4a-2): first cards under „Polecane” (dzTop9) and the wheel products ---
-  for (const [slug, products] of k4GroupProducts(k4HomeFile, (key) => productIds.get(key))) {
-    const groupId = groupIds.get(slug)
-    if (groupId === undefined) throw new Error(`Seed (Biznes): department "${slug}" missing.`)
-    const existing = await payload.findByID({ collection: 'catalog-groups', id: groupId, ...local })
-    const same = hasSameValues(existing, products)
-    if (!same) {
-      await payload.update({ collection: 'catalog-groups', id: groupId, data: products, ...local })
-    }
-    count('catalog-groups K4 lists', same ? false : 'updated')
-  }
-
-  // --- wheel cards (KOLO-HERO v3): cut-out photo, short name and colour of each card ---
-  for (const [slug, fields] of k4WheelProducts(k4HomeFile)) {
-    const id = productIds.get(slug)
-    if (id === undefined) throw new Error(`Seed (Biznes): wheel card "${slug}" missing.`)
+  // Cut-out photos of the wheel (`k4-kolo-<slug>.webp`), each uploaded once and reused: runda
+  // 1411 lends one card's photo to another bubble (fiskalizacja, the Opieka IT page).
+  const wheelPhotoIds = new Map<string, number | null>()
+  const wheelPhoto = async (slug: string, alt: string): Promise<number | null> => {
+    const known = wheelPhotoIds.get(slug)
+    if (known !== undefined) return known
     const photo = k4WheelImageFile(slug)
-    let wheelImage: number | null = storedId(photo.uploadName) ?? null
+    let id: number | null = storedId(photo.uploadName) ?? null
     // A service without a photo (przegląd kasy) shows its icon on the wheel.
-    if (wheelImage === null && existsSync(photo.filePath)) {
+    if (id === null && existsSync(photo.filePath)) {
       const data = await readFile(path.resolve(photo.filePath))
-      wheelImage = (
+      id = (
         await payload.create({
           collection: 'media',
           data: {
-            alt: `${fields.wheelName} — zdjęcie na kole`,
+            alt,
             source: 'paczka 03.11.2026 (wycięte z paczki K3/K4), prawo użycia do potwierdzenia',
             requiresConsent: false,
             tenant: tenant.id,
@@ -770,6 +761,43 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       ).id
       count('media (koło)', true)
     }
+    wheelPhotoIds.set(slug, id)
+    return id
+  }
+  // Runda 1411: three products a department on the wheel (`wheel1411.ts`), not the package's run.
+  const wheelHome = withWheel1411(k4HomeFile)
+
+  // --- K4 departments (K4a-2): first cards under „Polecane” (dzTop9) and the wheel products ---
+  for (const [slug, lists] of k4GroupProducts(wheelHome, (key) => productIds.get(key))) {
+    const groupId = groupIds.get(slug)
+    if (groupId === undefined) throw new Error(`Seed (Biznes): department "${slug}" missing.`)
+    const linkPhoto = WHEEL_LINK_PHOTO_1411[slug]
+    const products = {
+      ...lists,
+      wheelLink: {
+        ...lists.wheelLink,
+        image:
+          linkPhoto && lists.wheelLink.label
+            ? await wheelPhoto(linkPhoto, `${lists.wheelLink.label} — zdjęcie na kole`)
+            : null,
+      },
+    }
+    const existing = await payload.findByID({ collection: 'catalog-groups', id: groupId, ...local })
+    const same = hasSameValues(existing, products)
+    if (!same) {
+      await payload.update({ collection: 'catalog-groups', id: groupId, data: products, ...local })
+    }
+    count('catalog-groups K4 lists', same ? false : 'updated')
+  }
+
+  // --- wheel cards (KOLO-HERO v3): cut-out photo, short name and colour of each card ---
+  for (const [slug, fields] of k4WheelProducts(wheelHome)) {
+    const id = productIds.get(slug)
+    if (id === undefined) throw new Error(`Seed (Biznes): wheel card "${slug}" missing.`)
+    const wheelImage = await wheelPhoto(
+      WHEEL_PHOTO_1411[slug] ?? slug,
+      `${fields.wheelName} — zdjęcie na kole`,
+    )
     const stored = await payload.findByID({ collection: 'products', id, ...local })
     const update = { ...fields, wheelImage }
     const same = hasSameValues(stored, update)

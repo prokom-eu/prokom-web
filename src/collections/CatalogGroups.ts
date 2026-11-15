@@ -137,7 +137,10 @@ export const CatalogGroups: CollectionConfig = {
       relationTo: 'products',
       hasMany: true,
       maxRows: 6,
-      admin: { description: 'Do 6 produktów; koło rozkłada wszystkie pozycje równo.' },
+      admin: {
+        description:
+          'Na kole stoją 3 pozycje działu (runda 1411): pierwsze produkty z tej listy, a dodatkowa pozycja niżej jako ostatnia.',
+      },
     },
     {
       // KOLO-HERO v3: one extra bubble after the products, for a page that is not a product.
@@ -163,6 +166,14 @@ export const CatalogGroups: CollectionConfig = {
             },
             { name: 'icon', label: 'Ikona', type: 'select', options: ICON_OPTIONS },
           ],
+        },
+        {
+          // Runda 1411: every bubble of the wheel is a photo — the page gets one too.
+          name: 'image',
+          label: 'Zdjęcie na kole',
+          type: 'upload',
+          relationTo: 'media',
+          admin: { description: 'Wycięte zdjęcie na białym kole; bez niego bąbel pokaże ikonę.' },
         },
       ],
     },

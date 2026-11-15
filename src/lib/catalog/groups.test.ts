@@ -102,7 +102,7 @@ describe('groupSummaries', () => {
   })
 })
 
-describe('wheelGroups (KOLO-HERO v3)', () => {
+describe('wheelGroups (runda 1411)', () => {
   const wheelIndex = {
     groups: [
       {
@@ -158,7 +158,7 @@ describe('wheelGroups (KOLO-HERO v3)', () => {
     ])
   })
 
-  it('keeps at most 8 bubbles on the ring, taking them in turns from each department', () => {
+  it('keeps three bubbles a department (runda 1411), the page bubble always last', () => {
     const many = (prefix: string, n: number) =>
       Array.from({ length: n }, (_, i) => ({ slug: `${prefix}${i}`, name: `${prefix} ${i}` }))
     const groups = ['a', 'b', 'c', 'd', 'e'].map((slug) => ({
@@ -174,31 +174,35 @@ describe('wheelGroups (KOLO-HERO v3)', () => {
       'groups' | 'categories' | 'products'
     >)
     expect(wheel.map((group) => group.items.map((item) => item.key))).toEqual([
-      ['a0', 'a1'],
-      ['b0', 'b1'],
-      ['c0', 'c1'],
-      ['d0'],
-      ['e0'],
+      ['a0', 'a1', 'a2'],
+      ['b0', 'b1', 'b2'],
+      ['c0', 'c1', 'c2'],
+      ['d0', 'd1', 'd2'],
+      ['e0', 'e1', 'e2'],
     ])
     // The department's count stays the catalog's, not the ring's.
     expect(wheel[0]!.count).toBe(4)
 
-    // A page bubble picked in the panel is never the one cut; it stays last in its run.
+    // A page bubble picked in the panel is never the one cut; with its photo it is a photo too.
+    const photo = image('kolo-opieka')
     const withLink = groups.map((group, i) =>
       i === 4
-        ? { ...group, wheelLink: { label: 'Opieka IT', href: '/opieka-it', icon: 'lifebuoy' } }
+        ? {
+            ...group,
+            wheelLink: { label: 'Opieka IT', href: '/opieka-it', icon: 'lifebuoy', image: photo },
+          }
         : group,
     )
     const linked = wheelGroups({ ...wheelIndex, groups: withLink, products } as unknown as Pick<
       CatalogIndex,
       'groups' | 'categories' | 'products'
     >)
-    expect(linked.map((group) => group.items.map((item) => item.key))).toEqual([
-      ['a0', 'a1'],
-      ['b0', 'b1'],
-      ['c0', 'c1'],
-      ['d0'],
-      ['link:/opieka-it'],
-    ])
+    expect(linked[4]!.items.map((item) => item.key)).toEqual(['e0', 'e1', 'link:/opieka-it'])
+    expect(linked[4]!.items[2]).toEqual({
+      key: 'link:/opieka-it',
+      name: 'Opieka IT',
+      href: '/opieka-it',
+      image: photo,
+    })
   })
 })
