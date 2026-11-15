@@ -9,8 +9,8 @@ import type { SharedGroup } from './types'
 export const PROKOM_SHARED: SharedGroup = {
   phoneLabel: 'Firma:',
   hours: 'pn–pt 9:00–17:00',
-  // TODO(krystian): dokładny adres „Status naprawy” na prokomserwis.pl.
-  brandBarSlot: { label: 'Status naprawy', href: 'https://prokomserwis.pl' },
+  // Decyzja 15.11: bez „Status naprawy” (prokomserwis.pl nie ma strony statusu).
+  brandBarSlot: { label: 'Serwis telefonów i laptopów', href: 'https://prokomserwis.pl' },
   headerCta: { label: 'Dobierz w 10 s', href: '/#dobierz', counter: 'none' },
   tabBar: {
     second: { label: 'Oferta', href: '/linie' },

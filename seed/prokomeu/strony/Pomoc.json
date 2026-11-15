@@ -470,8 +470,8 @@
    {
     "n": "03",
     "open": false,
-    "q": "Gdzie sprawdzę status naprawy?",
-    "a": "Na stronie linii Tech, prokomserwis.pl — po numerze zlecenia albo po zalogowaniu na konto klienta."
+    "q": "Czy mogę wysłać sprzęt do naprawy kurierem?",
+    "a": "Tak. Naprawę zgłosisz na prokomserwis.pl, a sprzęt przyniesiesz do salonu w Rabce-Zdroju albo wyślesz kurierem."
    },
    {
     "n": "04",

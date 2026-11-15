@@ -595,7 +595,7 @@ function home() {
       all: {
         eyebrow: 'Załatw online · pięć linii',
         title: 'spraw załatwisz bez dzwonienia.',
-        text: 'Zgłoszenia, statusy, wyceny, plany i konfiguratory ze wszystkich linii w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.',
+        text: 'Zgłoszenia, wyceny, plany i konfiguratory ze wszystkich linii w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.',
         cta: 'Zobacz wszystkie narzędzia',
       },
       // H9 (Krystian 15.11): the sixth tile while „Załatw online” is off — not on the board; the
@@ -883,7 +883,7 @@ function offer() {
         {
           eyebrow: 'Załatw online',
           title: 'Załatw online',
-          text: 'Zgłoszenia, plan instalacji, kreator projektu i status naprawy — bez dzwonienia.',
+          text: 'Zgłoszenia, plan instalacji, kreator projektu i zgłoszenie naprawy — bez dzwonienia.',
           href: '/zalatw-online',
         },
         {

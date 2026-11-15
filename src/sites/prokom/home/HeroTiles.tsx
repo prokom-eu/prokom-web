@@ -374,7 +374,7 @@ function Vignette({ vignette }: { vignette: VignetteData }) {
 
 /** Tech: the device of the slide (phone, laptop, finished ticket) beside the repair stages. */
 function TechVisual({ stages, slide }: { stages: string[]; slide: number }) {
-  // By the slide order of the package (telefony, laptopy i konsole, status naprawy).
+  // By the slide order of the package (telefony, laptopy i konsole, bezpłatna diagnoza).
   const devices: IconName[] = ['phone', 'pc', 'check']
   return (
     <div aria-hidden="true" className="pk-ht__stages pk-tech">

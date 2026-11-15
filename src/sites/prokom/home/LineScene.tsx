@@ -488,7 +488,7 @@ function LineVisual({
       return (
         <div className="pk-pn pk-stages">
           <span className="pk-pn__caption">
-            STATUS NAPRAWY · KLIKNIJ ETAP
+            ETAPY NAPRAWY · KLIKNIJ ETAP
             <span>
               <i aria-hidden="true" className="pk-rec" />
               ONLINE
