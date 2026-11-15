@@ -26,9 +26,9 @@ test.describe('pro-kom.eu — SEO of the pages (spec §4)', () => {
         /\/brand\/prokom-glowna_og\.png$/,
       )
       if (path !== '/') {
-        await expect(
-          page.locator('script[type="application/ld+json"]', { hasText: 'BreadcrumbList' }),
-        ).toHaveCount(1)
+        // `hasText` does not read a <script>'s content — compare the JSON-LD texts instead.
+        const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents()
+        expect(jsonLd.filter((text) => text.includes('"BreadcrumbList"'))).toHaveLength(1)
       }
     })
   }
