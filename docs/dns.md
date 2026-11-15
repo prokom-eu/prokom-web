@@ -85,6 +85,16 @@ Strefa: **nazwa.pl** (decyzja Krystiana 15.11; NS `ns1/ns2/ns3.nazwa.pl`). **Nie
 6. **nadawcy `@pro-kom.eu` w SPF:** w nagłówkach obecnego maila sprawdzić, z jakiego IP wysyła nazwa.pl (czy `85.128.169.153`), i czy rekord `MS=` oznacza Microsoft 365 wysyłający jako `@pro-kom.eu` (wtedy `include:spf.protection.outlook.com`). Jeśli formularze huba mają wysyłać z adresu `@pro-kom.eu` przez inny serwer (np. hosting poczty Seohost, `MAIL_SENDERS` — dziś bez `prokom`), dopisać go do SPF (`include:`/`ip4:`) **przed** startem — przy `_dmarc p=quarantine` maile bez SPF trafią do spamu. TODO(krystian): adres i SMTP nadawcy huba.
 Dopiero potem: `A @` i `A www` (jawny, przed wildcardem) → `194.28.50.70`, TTL 300 na T−48 h. Wildcard i pozostałe nazwy zostają na nazwa.pl. **Hosting poczty jest na tym samym koncie nazwa.pl co obecna strona** — koniec abonamentu (grudzień, ADR-H001) nie może wyłączyć poczty: TODO(krystian) — sprawdzić w nazwa.pl, czy poczta to osobna usługa, zanim abonament strony wygaśnie.
 
+**Decyzja 15.11 (audyt gotowości):** domena i poczta pro-kom.eu zostają w nazwa.pl **co najmniej do końca listopada 2026**. Przełączenie strony tylko w tej kolejności — kolejny krok dopiero, gdy poprzedni jest sprawdzony:
+
+| Krok | Co | Kiedy | Sprawdzenie |
+|---|---|---|---|
+| (a) | `A mail` → `85.128.169.153`, `MX @` → `10 mail.pro-kom.eu`, SPF bez `a` (`v=spf1 mx ip4:85.128.169.153 ~all`) | **≥ 24 h przed** (c) | `nslookup -type=MX pro-kom.eu 8.8.8.8`, `nslookup mail.pro-kom.eu 8.8.8.8` |
+| (b) | test poczty (wysłanie i odbiór z/na `@pro-kom.eu`, także Gmail; SPF/DMARC „pass”) i przestawienie programów pocztowych i telefonów pracowników na `mail.pro-kom.eu` (pkt 4–6 wyżej) | po propagacji (a) | każda skrzynka wysyła i odbiera po zmianie ustawień |
+| (c) | dopiero potem `A @` i `A www` → `194.28.50.70` (TTL 300 na T−48 h) | po (b), z akceptacją szefa (produkcja) | `bash scripts/smoke.sh https://pro-kom.eu`, mail testowy po przełączeniu |
+
+**Ryzyko:** poczta firmy jest na tym samym hostingu nazwa.pl co stara strona — **nie wyłączać ani nie wypowiadać abonamentu** strony bez osobnej decyzji o poczcie (ADR-002).
+
 **Staging huba (H7-2 krok 1) — bezpieczny dla poczty, można przed decyzją o poczcie:** jawny rekord `staging` ma pierwszeństwo przed wildcardem tylko dla tej jednej nazwy; `@`, MX, SPF, `mail` i reszta zostają na nazwa.pl. Dziś `staging.pro-kom.eu` trafia przez wildcard na stary serwer `85.128.169.153` (sprawdzone 15.11), więc hubu na stagingu nie da się otworzyć.
 
 | Typ | Nazwa | Wartość | TTL | Po co | Stan |
