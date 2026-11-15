@@ -166,7 +166,7 @@ export const BIZNES_SHARED: SharedGroup = {
   },
   about: {
     h1: 'Lokalna firma IT, która zostaje z klientem na lata.',
-    lead: 'Kasy fiskalne, programy, komputery i opieka IT dla firm z Podhala i Małopolski. Jeden numer do wszystkiego, ten sam adres od lat.',
+    lead: 'Kasy fiskalne, programy, komputery i opieka IT dla firm z Podhala i Małopolski. Jedna rozmowa do wszystkiego, ten sam adres od lat.',
     authTitle: 'Autoryzacje i partnerstwa',
     auth: [
       'Autoryzowany serwis Posnet',
@@ -182,15 +182,25 @@ export const BIZNES_SHARED: SharedGroup = {
     rules: [
       {
         title: 'Wycena na mailu, zanim zdecydujesz',
-        text: 'Zakres, termin i warunki dostajesz czarno na białym. Bez niespodzianek po fakcie.',
+        text: 'Zakres, termin i warunki dostajesz czarno na białym, w skrzynce. Bez niespodzianek po fakcie.',
       },
       {
         title: 'Tylko to, czego potrzebujesz',
         text: 'Dobieramy sprzęt i program pod firmę, nie odwrotnie.',
       },
-      { title: 'Jeden numer', text: 'Kasa, komputer, program i sieć — jedna rozmowa.' },
-      { title: 'Serwis na miejscu', text: 'Salon i serwis w Rabce-Zdroju.' },
-      { title: 'Jawne dane firmy', text: 'NIP, adres i autoryzacje sprawdzisz sam.' },
+      {
+        title: 'Jedna rozmowa do wszystkiego',
+        text: 'Kasa, komputer, program i sieć — jeden numer, jeden opiekun tematu.',
+      },
+      {
+        title: 'Serwis na miejscu',
+        text: 'Salon i serwis w Rabce-Zdroju. Przyjedziesz albo my przyjedziemy do Ciebie.',
+      },
+      // Runda 1411 §1: „Jawne dane firmy” → „Przypomnimy o przeglądzie”.
+      {
+        title: 'Przypomnimy o przeglądzie',
+        text: 'Pilnujemy terminów przeglądów kas i odnowień licencji, żebyś nie musiał.',
+      },
       {
         title: 'Mówimy wprost, gdy coś się nie opłaca',
         text: 'Wolimy stracić sprzedaż niż klienta.',
