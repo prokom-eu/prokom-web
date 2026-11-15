@@ -7,7 +7,9 @@ import { CountUp } from '@/components/motion/CountUp'
 import { countsUp } from '@/lib/motion/countUp'
 import { brandLogo } from '@/lib/catalog/brandLogo'
 import { getWheelPhotos } from '@/lib/catalog/data'
-import { partnerStatusLabel } from '@/lib/partners/badges'
+import { k4Rank, partnerStatusLabel } from '@/lib/partners/badges'
+import { getBrandStripData } from '@/lib/partners/data'
+import { pickSource } from '@/lib/media/sizes'
 import { getSiteSettings } from '@/lib/site/data'
 import { tenantIdOf } from '@/lib/tenant/id'
 import { BZ_H2 } from '@/sites/biznes/typography'
@@ -46,6 +48,32 @@ function authorizations(values: BzFactsBlockData['authorizations'], tenantId: nu
     const status = partnerStatusLabel(partner.partnerStatus)
     return logo ? [{ id: partner.id, name: partner.name, logo, status }] : []
   })
+}
+
+/** Logo width of the authorisation cards (as `brandLogo`). */
+const LOGO_WIDTH = 240
+
+/** Brands of the tenant with „Autoryzowany serwis” / „Autoryzowany partner” and a logo. */
+async function authorizedBrands(tenantId: number) {
+  const { brands } = await getBrandStripData(tenantId)
+  return brands
+    .filter(
+      (brand) => brand.status === 'authorized-service' || brand.status === 'authorized-partner',
+    )
+    .sort((a, b) => k4Rank(a.slug ?? a.name) - k4Rank(b.slug ?? b.name))
+    .flatMap((brand) => {
+      const logo = brand.logo
+      if (!logo || logo.sources.length === 0) return []
+      const url = pickSource(logo.sources, LOGO_WIDTH)
+      return [
+        {
+          id: brand.id,
+          name: brand.name,
+          logo: { url, width: logo.width, height: logo.height },
+          status: partnerStatusLabel(brand.status),
+        },
+      ]
+    })
 }
 
 /** The heading with its accented part (POPRAWKI-0311 §C), like the quote's highlight. */
@@ -233,7 +261,10 @@ function FactsCard({
  */
 export async function BzFactsBlock({ block, tenantId }: Props) {
   const owner = block.owner
-  const logos = authorizations(block.authorizations, tenantId)
+  const picked = authorizations(block.authorizations, tenantId)
+  // Production's block had the relation empty (the 4 cards never showed, 15.11): the brands of
+  // this line with an authorised status from the panel, in the K4-FINAL §1 order.
+  const logos = picked.length > 0 ? picked : await authorizedBrands(tenantId)
   const stats = block.stats ?? []
   // The quote was written by us (audit 01.11.2026): hidden until the owner approves it, like
   // the reviews (D-K4-6). Without it the section keeps the numbers, logos and the link.
