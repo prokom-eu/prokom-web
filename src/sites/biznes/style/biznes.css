@@ -598,9 +598,6 @@
   [data-line='biznes'] .bzw-arc[data-draw] {
     animation: bzw-draw 0.9s var(--ease-out) both;
   }
-  [data-line='biznes'] .bzw-cc[data-swap] {
-    animation: bzw-swap 0.5s var(--ease-out) both;
-  }
   [data-line='biznes']
     .bzw[data-hold]
     :is(.bzw-halo, .bzw-turn, .bzw-bub-inner, .bzw-prog, .bzw-wave) {
@@ -658,12 +655,6 @@
   }
   to {
     stroke-dashoffset: 0;
-  }
-}
-@keyframes bzw-swap {
-  from {
-    opacity: 0;
-    translate: 0 calc(8 * var(--u));
   }
 }
 @keyframes bzw-pop {
@@ -779,6 +770,13 @@
   pointer-events: none;
   transform: translateX(-120%) skewX(-18deg);
 }
+/* From 768 px the first call button is a quiet secondary one: the one sheen stays on the main
+   call to action (on a phone that button is the main one). */
+@media (min-width: 768px) {
+  [data-line='biznes'] [data-hero-calls] .bz-sheen::after {
+    display: none;
+  }
+}
 /* The status badge of an authorisation: a ring that opens once around it. */
 [data-line='biznes'] .bz-stat {
   position: relative;
@@ -802,7 +800,9 @@
   }
   /* A second pass of the sheen when the visitor points at the button. */
   [data-line='biznes'] [data-bz-hero] .bz-sheen:hover::after {
-    animation: bz-sheen 0.9s var(--ease-out);
+    animation:
+      bz-sheen 1.3s var(--ease-out) 0.7s,
+      bz-sheen-hover 0.9s var(--ease-out);
   }
 }
 
@@ -819,7 +819,8 @@
     animation: bz-ping 1.1s var(--ease-out) calc(0.75s + var(--i, 0) * 120ms) both;
   }
   [data-line='biznes'] [data-bz-hero] .bz-dep {
-    animation: bz-rise 0.6s var(--ease-out) calc(0.15s + var(--i, 0) * 70ms) backwards;
+    /* 4 px: the scrolling row has little room below, a longer rise would be cut. */
+    animation: bz-rise-sm 0.6s var(--ease-out) calc(0.15s + var(--i, 0) * 70ms) backwards;
   }
   /* A new department in the core: blur off, then its products one by one and „Zobacz dział”
      with a sheen. */
@@ -840,11 +841,13 @@
   }
   [data-line='biznes'] .bzw-cc[data-swap] .bzw-cta {
     position: relative;
+    isolation: isolate;
     overflow: hidden;
     animation: bz-rise 0.5s var(--ease-out) 0.32s backwards;
   }
   [data-line='biznes'] .bzw-cc[data-swap] .bzw-cta::after {
     position: absolute;
+    z-index: -1;
     inset: 0 auto 0 0;
     width: 50%;
     background: linear-gradient(
@@ -866,6 +869,20 @@
   }
   to {
     transform: translateX(260%) skewX(-18deg);
+  }
+}
+/* The same pass under a new name: a hover adds an animation instead of reusing the finished one. */
+@keyframes bz-sheen-hover {
+  from {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  to {
+    transform: translateX(260%) skewX(-18deg);
+  }
+}
+@keyframes bz-rise-sm {
+  from {
+    transform: translateY(4px);
   }
 }
 @keyframes bz-rise {
