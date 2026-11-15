@@ -172,7 +172,8 @@
 .pk-hb {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-template-rows: repeat(4, clamp(146px, calc((100svh - 222px) / 4), 214px));
+  /* Rows may grow with the PRO-KOM tile's content (short windows), never clip it. */
+  grid-template-rows: repeat(4, minmax(clamp(146px, calc((100svh - 222px) / 4), 214px), auto));
   gap: 14px;
 }
 
@@ -431,57 +432,55 @@
 .pk-hq__go:hover {
   transform: translateY(-1px);
 }
-/* „Jak to działa” (H9): three steps joined by a line, filling the tile above the call to action. */
-.pk-hsteps {
+/* Company numbers in the PRO-KOM tile (15.11): one row of four facts above the call to action,
+   split by thin rules; the numbers count up once (CountUp). Two by two on narrow tiles. */
+.pk-hfacts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: auto;
-  padding-top: 8px;
-  counter-reset: step;
+  border-top: 1px solid var(--w09);
 }
-.pk-hsteps li {
-  position: relative;
+.pk-hfacts li {
   display: flex;
+  min-width: 0;
   flex-direction: column;
-  gap: 8px;
-  border: 1px solid var(--w09);
-  border-radius: 18px;
-  padding: 14px 14px 16px;
-  background: var(--w03);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.3;
+  gap: 6px;
+  padding: 16px 14px 2px 0;
 }
-.pk-hsteps b {
-  color: var(--k-gt);
+.pk-hfacts li + li {
+  border-left: 1px solid var(--w09);
+  padding-left: 14px;
+}
+.pk-hfacts__value {
   font-family: var(--font-display);
-  font-size: 13px;
-  letter-spacing: 0.1em;
+  font-size: clamp(26px, 2.3vw, 36px);
+  font-stretch: 118%;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
 }
-.pk-hsteps li:not(:last-child)::after {
-  position: absolute;
-  top: 22px;
-  right: -11px;
-  width: 12px;
-  height: 2px;
-  background: var(--w22);
+.pk-hfacts__value::after {
+  display: block;
+  width: 22px;
+  height: 3px;
+  margin-top: 8px;
+  border-radius: 2px;
+  background: var(--k-g);
   content: '';
 }
+.pk-hfacts__label {
+  color: var(--k-ink3);
+  font-size: 12.5px;
+  line-height: 1.35;
+}
 @media (max-width: 560px) {
-  .pk-hsteps {
-    grid-template-columns: 1fr;
+  .pk-hfacts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .pk-hsteps li {
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 14px;
-  }
-  .pk-hsteps li:not(:last-child)::after {
-    display: none;
-  }
-  .pk-hq__go {
-    padding: 0 14px;
+  .pk-hfacts li:nth-child(3) {
+    border-left: none;
+    padding-left: 0;
   }
 }
 .pk-hch-list {
@@ -1153,31 +1152,6 @@
 }
 
 /* Counters. */
-.pk-hcn {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: 6px;
-  border-top: 1px solid var(--w12);
-}
-.pk-hcn li {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 20px 20px 0 0;
-}
-.pk-hcn__value {
-  font-family: var(--font-display);
-  font-size: 48px;
-  font-stretch: 118%;
-  font-variant-numeric: tabular-nums;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 0.96;
-}
-.pk-hcn__label {
-  color: var(--k-ink3);
-  font-size: 14.5px;
-}
 
 /* --- Trust bar ------------------------------------------------------------------------------ */
 .pk-mqw {
@@ -1347,12 +1321,6 @@ a.pk-mqi:hover {
   }
   .pk-ht--big .pk-ht__slides {
     height: 64px;
-  }
-  .pk-hcn {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .pk-hcn__value {
-    font-size: 36px;
   }
 }
 

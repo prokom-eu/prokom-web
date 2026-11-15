@@ -61,7 +61,7 @@ export const homeSchema = z
       lead: text(240),
       unsure: text(120),
       cta: text(40),
-      /** „How it works” in the PRO-KOM tile (H9): three short steps, no promise of a line. */
+      /** Not shown since 15.11 (the tile has the company numbers); kept so older JSON validates. */
       steps: z.array(text(40)).length(3).nullish(),
       hints: z
         .array(z.object({ text: text(60), line: lineKey }))
