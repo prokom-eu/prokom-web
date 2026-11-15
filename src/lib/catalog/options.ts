@@ -53,11 +53,14 @@ export const BUNDLE_AREAS = [
 
 export type BundleArea = (typeof BUNDLE_AREAS)[number]['value']
 
-/** Filter pills of „O to firmy pytają najczęściej” on the homepage (K35 §7a, K36 §6). */
+/**
+ * Rows of „Najczęściej wybierane” on the home page (runda 1411 R5: three rows, the title of a row
+ * is its group). `zasilanie` stays an option (stored values) but is shown in the third row.
+ */
 export const FEATURED_GROUPS = [
-  { label: 'Kasy i płatności', value: 'kasy-platnosci' },
+  { label: 'Kasy i sprzedaż', value: 'kasy-platnosci' },
   { label: 'Komputery i telefony', value: 'komputery-telefony' },
-  { label: 'Programy, ochrona i podpis', value: 'programy-ochrona' },
+  { label: 'Programy, ochrona i zasilanie', value: 'programy-ochrona' },
   { label: 'Zasilanie awaryjne', value: 'zasilanie' },
 ] as const
 
