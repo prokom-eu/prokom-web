@@ -100,6 +100,8 @@ const RESELLER_DOMAINS = ['argo.pl']
  * A shop or a reseller (audyt 15.11 P1-2): any host with „sklep”, „store” or „shop” in it
  * (`brothersklep.pl`, `store.brother.pl`, `sklepqnap.pl`) or a known reseller. Links a brand page
  * shows (the producer's site, a fact's source) skip these: the customer buys through us.
+ * Deliberately wider than `SHOP_HOST` (it also hides „photoshop” or „datastore” hosts): a hidden
+ * link costs nothing, a link to a shop sends the customer away.
  */
 export function isShopLink(link: string): boolean {
   if (!isHttpUrl(link)) return false

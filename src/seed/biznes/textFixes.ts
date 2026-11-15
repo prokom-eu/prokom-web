@@ -163,7 +163,9 @@ export const WHOLE_TEXT_FIXES: readonly Fix[] = [
     'Bez obietnic z ulotki — tak pracujemy na co dzień.',
     'Bez obietnic z ulotki, tylko to, jak pracujemy.',
   ],
-  ['Jedna firma, cztery linie.', 'Jedna firma, cztery linie'],
+  // Audyt 15.11 P2-1: no line count (was „Jedna firma, cztery linie”).
+  ['Jedna firma, cztery linie.', 'Jedna firma — linie PRO-KOM'],
+  ['Jedna firma, cztery linie', 'Jedna firma — linie PRO-KOM'],
   ['Najczęstsze sprawy — od razu wiesz, co dalej', 'Najczęstsze sprawy i co dalej'],
   ['Sprzedaż, która działa całą dobę.', 'Automaty vendingowe dla firm.'],
   ['Bez obsługi.', 'Sprzedaż przez całą dobę.'],
