@@ -31,7 +31,7 @@ const SHORT_TERMS: Record<string, string> = {
 }
 
 /** Small text that scales with the cover (container units) — readable from a card to the gallery. */
-const PILL_TEXT = 'text-[clamp(10px,4.2cqw,13px)] leading-none font-extrabold'
+const PILL_TEXT = 'text-[clamp(11px,4.2cqw,13px)] leading-none font-extrabold'
 
 /**
  * Cover of a card without a photo (runda 1411 R8, board `Karty.dc.html`) over the whole stage:
@@ -56,7 +56,11 @@ export function CardCoverView({
   )
 }
 
-/** The licence key: a white card with the logo and the plan on a grid in the producer's tone. */
+/**
+ * The licence key: a white card with the logo and the plan on a grid in the producer's tone. Its
+ * texts never go under 11 px (audyt 15.11 P2-5): on a small cover the brand word and the licence
+ * model hide instead of shrinking.
+ */
 function LicenceKey({ cover, size }: { cover: LicenceCover; size: CoverSize }) {
   return (
     <span
@@ -86,18 +90,18 @@ function LicenceKey({ cover, size }: { cover: LicenceCover; size: CoverSize }) {
             className="h-[6.5cqw] w-auto max-w-[60%] self-start object-contain object-left"
           />
         ) : (
-          <span className="text-[clamp(8px,5cqw,14px)] font-extrabold tracking-[0.08em] uppercase">
+          <span className="text-[clamp(11px,5cqw,14px)] font-extrabold tracking-[0.08em] uppercase @max-[219px]:hidden">
             {cover.brand}
           </span>
         )}
         {size !== 'sm' && (
-          <span className="line-clamp-2 font-display text-[clamp(8px,7.4cqw,20px)] leading-[1.05] font-extrabold font-stretch-110%">
+          <span className="line-clamp-2 font-display text-[clamp(11px,7.4cqw,20px)] leading-[1.05] font-extrabold font-stretch-110%">
             {cover.plan}
           </span>
         )}
         {size === 'md' && cover.terms ? (
           // A list card: the licence model on the key (its corners hold the brand and the button).
-          <span className="truncate text-[clamp(8px,4.4cqw,12px)] font-extrabold text-[var(--cv)]">
+          <span className="truncate text-[clamp(11px,4.4cqw,12px)] font-extrabold text-[var(--cv)] @max-[249px]:hidden">
             {SHORT_TERMS[cover.terms] ?? cover.terms}
           </span>
         ) : (

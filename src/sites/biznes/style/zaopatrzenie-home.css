@@ -585,7 +585,10 @@
   }
   .zh-tile-status {
     bottom: 9px;
-    font-size: 9.5px;
+    /* 11 px: nothing under 11 px on a phone (MOBILE-APLIKACJA §4, audyt 15.11 P2-5); the longest
+       status fits the 158 px tile. */
+    padding-inline: 7px;
+    font-size: 11px;
   }
   .zh-strip .zp-marq-group {
     gap: 10px;
