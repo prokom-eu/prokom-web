@@ -166,10 +166,16 @@ export const getTenantPostRows = (tenantId: number, limit: number): Promise<Sist
         limit,
         depth: 0,
         // Only what a link card shows (the lead becomes a short teaser): no body or cover.
-        select: { slug: true, title: true, publishedAt: true, lead: true },
+        select: { slug: true, title: true, publishedAt: true, lead: true, category: true },
         overrideAccess: true,
       })
-      return docs.map(({ slug, title, publishedAt, lead }) => ({ slug, title, publishedAt, lead }))
+      return docs.map(({ slug, title, publishedAt, lead, category }) => ({
+        slug,
+        title,
+        publishedAt,
+        lead,
+        category,
+      }))
     },
     ['post-rows', String(tenantId), String(limit)],
     { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { homeNewsMix } from './newsMix'
+import { homeNewsMix, isForBusiness } from './newsMix'
 
 const inst = (n: number) => ({ id: `i${n}`, line: 'instalacje' as const })
 const soft = (n: number) => ({ id: `s${n}`, line: 'software' as const })
@@ -26,5 +26,38 @@ describe('homeNewsMix (Biznes home news, 15.11)', () => {
 
   it('nothing to show = empty lists', () => {
     expect(homeNewsMix([], [])).toEqual({ own: [], sister: [] })
+  })
+})
+
+describe('isForBusiness (audyt 15.11: only posts „dla firm” on the B2B home)', () => {
+  const post = (line: 'instalacje' | 'software', title: string, category?: string) => ({
+    line,
+    title,
+    lead: null,
+    ...(category ? { category } : {}),
+  })
+
+  it('drops the home posts of Instalacje', () => {
+    expect(isForBusiness(post('instalacje', 'Ile kamer potrzebuje dom i gdzie je powiesić'))).toBe(
+      false,
+    )
+    expect(
+      isForBusiness(post('instalacje', 'Kamera Wi-Fi czy przewodowa? Co wybrać do domu')),
+    ).toBe(false)
+    expect(isForBusiness(post('instalacje', 'Alarm w domku letniskowym', 'alarmy'))).toBe(false)
+    // No signal either way: left out (never a home post by mistake).
+    expect(isForBusiness(post('instalacje', 'Monitoring zimą w górach', 'monitoring'))).toBe(false)
+  })
+
+  it('keeps the business posts of Instalacje and every Software post', () => {
+    expect(isForBusiness(post('instalacje', 'Kamery w pensjonacie', 'noclegi'))).toBe(true)
+    expect(isForBusiness(post('instalacje', 'Monitoring i alarm dla sklepu', 'monitoring'))).toBe(
+      true,
+    )
+    expect(isForBusiness(post('software', 'Strona internetowa, która sprzedaje'))).toBe(true)
+  })
+
+  it('a business word does not save a home post', () => {
+    expect(isForBusiness(post('instalacje', 'Biuro w domu: kamera do mieszkania'))).toBe(false)
   })
 })

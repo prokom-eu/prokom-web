@@ -13,12 +13,14 @@ import { getSharedData } from '@/lib/shared/getSharedData'
 import { getSiteSettings } from '@/lib/site/data'
 import type { BzNewsHomeBlock as BzNewsHomeBlockData } from '@/payload-types'
 
-import { homeNewsMix } from '@/lib/biznes/newsMix'
+import { homeNewsMix, isForBusiness } from '@/lib/biznes/newsMix'
 
 import { SplitHead } from '../../components/home/SplitHead'
 
 /** The featured post plus three in the list (runda 1411, board `Aktualnosci.dc.html`). */
 const LIST = 3
+/** Posts read per other line before the business filter (most of Instalacje are for homes). */
+const SISTER_READ = 12
 
 const LINE_NAME: Record<SisterLine | 'biznes', string> = {
   biznes: 'PRO-KOM Biznes',
@@ -93,11 +95,14 @@ export async function BzNewsHomeBlock({
 }) {
   const own = (await getPostList(tenantId, 'biznes')).slice(0, LIST + 1)
   const { SITE_ENV } = getEnv()
-  // The newest posts of each other line: one of Instalacje and one of Software (15.11).
-  const sisterAll = await getSisterLinePostLinksPerLine(tenantId, LIST + 1, {
-    siteEnv: SITE_ENV,
-    port: SITE_ENV === 'local' ? (process.env.PORT ?? '3000') : null,
-  })
+  // The newest posts of each other line: one of Instalacje and one of Software (15.11), only
+  // those for businesses (audyt 15.11 P1-1) — so read more and filter; none = fewer cards.
+  const sisterAll = (
+    await getSisterLinePostLinksPerLine(tenantId, SISTER_READ, {
+      siteEnv: SITE_ENV,
+      port: SITE_ENV === 'local' ? (process.env.PORT ?? '3000') : null,
+    })
+  ).filter(isForBusiness)
   if (own.length + sisterAll.length === 0) return null
   const [shared, settings] = await Promise.all([getSharedData(tenantId), getSiteSettings(tenantId)])
   const color = (key: string) => shared?.lines.find((line) => line.key === key)?.color ?? null
