@@ -1031,6 +1031,180 @@ function forBusiness() {
   }
 }
 
+/** Texts of `/dla-domu` (spec §6.4, board 04 `DlaDomu.dc.html`); situations live in `HubPlans`. */
+function forHome() {
+  const snapshot = JSON.parse(readFileSync('seed/prokomeu/strony/DlaDomu.json', 'utf8'))
+  const raw = runBoard('DlaDomu.dc.html', ['LD', 'P', 'R', 'EX', 'care', 'TP'], {
+    lines: () => snapshot.lines,
+    sits: () => snapshot.sits,
+  })
+  const { LD, P, R, EX, care, TP } = fixTexts(raw, {
+    'Składasz komputer po swojemu i od razu widzisz cenę.':
+      'Składasz komputer po swojemu, krok po kroku.',
+    'Folia cięta ploterem pod Twój model, zakładana od ręki.':
+      'Folia cięta ploterem pod Twój model, zakładana w salonie.',
+    'Rabka-Zdrój, ul. Orkana 16B, od poniedziałku do piątku 9:00–17:00. Serwis także w sobotę 9:00–14:00.':
+      '{adres}. {godziny}.',
+  })
+  const tiles = (items) => items.map((item) => ({ label: item.k, title: item.t, text: item.d }))
+  return {
+    _zrodlo: `${BOARDS}/DlaDomu.dc.html (HTML :179–575, renderVals) — scripts/prokomeu-model.mjs`,
+    hero: {
+      // :184–200; H1 from spec §4; the salon fact without the street (contact data from the panel)
+      eyebrow: 'Dla domu · dla rodziny · dla gracza',
+      title: 'Wszystko dla domu w jednej firmie.',
+      lead: 'Dom, który sam pilnuje i sam się steruje. Telefon i laptop naprawione w salonie w Rabce-Zdroju. Komputer do gier złożony w Rabce-Zdroju. Trzy linie PRO-KOM, jedna firma i jeden salon.',
+      choose: 'Wybierz swoją sytuację',
+      facts: [
+        { value: '2004', label: 'od tego roku działamy w Rabce-Zdroju', facts: ['Od 2004'] },
+        { value: '1 salon', label: 'w Rabce-Zdroju — przyjdź, zapytaj, zostaw sprzęt', facts: [] },
+        { value: 'Bezpłatnie', label: 'diagnoza i wycena naprawy', facts: [] },
+        { value: '24 mies.', label: 'gwarancji PRO-KOM na montaż instalacji', facts: [] },
+      ],
+      trio: R.trio.map((card) => ({
+        line: line(card.cd),
+        title: card.title,
+        text: card.text,
+        anchor: card.anchor === '#przekroj' ? '#przekroj' : null,
+      })),
+    },
+    situations: {
+      // :204–249
+      eyebrow: 'Twoja sytuacja',
+      title: 'Powiedz, co się u Ciebie dzieje.',
+      lead: 'Siedem najczęstszych sytuacji. Kliknij swoją — zobaczysz, co robimy, w jakiej kolejności i do kogo zadzwonić.',
+      planFor: 'Sytuacja:',
+      start: 'Od czego zacząć',
+      call: 'Zadzwoń:',
+      describe: 'Opisz, czego potrzebujesz',
+      note: 'To numer zespołu, który zajmuje się tą sprawą.',
+    },
+    scene: {
+      // :252–336 (renderVals `LD`); promises from the line panels, the chips with hours left out
+      eyebrow: 'Trzy linie dla domu',
+      title: 'Kto się czym zajmuje.',
+      inArea: 'w tej linii',
+      steps: 'Jak zaczynamy',
+      items: LD.map((entry) => ({
+        line: entry.key,
+        short: entry.short,
+        title: entry.h2,
+        lead: entry.lead,
+        cta: entry.cta,
+        steps: entry.steps,
+        services: entry.items.map(([title, text]) => ({ title, text })),
+      })),
+    },
+    section: {
+      // :339–394 (renderVals `P`); the drawing is illustration only — the points as a list
+      eyebrow: 'PRO-KOM Instalacje · dom w przekroju',
+      title: 'Jedenaście miejsc, w których dom robi coś za Ciebie.',
+      lead: 'Co to jest, po co i kiedy to zaplanować — punkt po punkcie.',
+      why: 'Po co',
+      when: 'Kiedy zaplanować',
+      note: 'Każdy dom planujemy osobno.',
+      cta: 'Zaplanuj instalację',
+      points: P.map(([, name, , , where, what, why, when]) => ({ name, where, what, why, when })),
+    },
+    topics: {
+      // :397–433 (renderVals `TP`)
+      eyebrow: 'PRO-KOM Instalacje · temat po temacie',
+      title: 'Konkretnie: co robimy w domu.',
+      items: TP.map((topic) => ({
+        name: topic.name,
+        short: topic.short,
+        eyebrow: topic.eb,
+        title: topic.h,
+        lead: topic.lead,
+        note: topic.note,
+        cta: topic.cta,
+        tiles: tiles(topic.items),
+      })),
+    },
+    together: {
+      // :436–469 (renderVals `EX`)
+      eyebrow: 'Jak to wygląda u Ciebie',
+      title: 'Jeden dom. Kilka linii. Jeden telefon.',
+      lead: 'Wybierz przykład i zobacz, która linia PRO-KOM co u Ciebie robi. Dzwonisz raz — łączymy Cię z właściwym zespołem.',
+      cta: 'Opisz swój dom',
+      pillars: ['Jedna firma', 'Jeden salon w Rabce-Zdroju', 'Jeden numer na start'],
+      examples: EX.map((example) => ({
+        key: slug(example.name),
+        tab: example.name,
+        node: example.node,
+        title: example.title,
+        groups: Object.entries(example.g).map(([key, points]) => ({ line: key, points })),
+      })),
+    },
+    care: {
+      // :472–500; the salon address and hours come from the panel
+      eyebrow: 'Gwarancje i opieka',
+      title: 'Po montażu i po naprawie zostajemy.',
+      items: care.map((item) => ({ line: line(item.cd), value: item.v, text: item.d })),
+      salon: 'Salon',
+      remote: 'Nie jesteś z okolicy?',
+      remoteNote: 'Zgłoś online, wyślij kurierem',
+      extras: [
+        'Naprawy w salonie',
+        'Folia Hammer Glass w salonie',
+        'Akcesoria GSM',
+        'Odbiór komputera do gier',
+      ],
+      directions: 'Kontakt i dojazd',
+    },
+    faq: {
+      // :503–517
+      eyebrow: 'Pytania',
+      title: 'Dziesięć pytań, które słyszymy najczęściej',
+      helpLink: 'Co zrobić, gdy…',
+      items: R.faq.map((item) => ({ question: item.q, answer: item.a })),
+    },
+    form: {
+      // :520–551; the form itself joins in H6-1 (one flow with the contact page, ADR-003)
+      eyebrow: 'Napisz',
+      title: 'Opisz, czego potrzebujesz.',
+      afterLabel: 'Wybierz temat, a wiadomość trafi prosto do zespołu, który się tym zajmuje.',
+      after: [
+        'Wysyłasz wiadomość z tematem',
+        'Odzywa się właściwy zespół',
+        'Dostajesz plan albo wycenę',
+      ],
+      cta: 'Napisz wiadomość',
+    },
+    next: {
+      // :554–561
+      eyebrow: 'Co dalej',
+      title: 'Co dalej?',
+      items: [
+        [
+          'Załatw online',
+          'Załatw to bez dzwonienia',
+          'Zgłoszenie naprawy, wycena strony, plan instalacji — wszystko, co da się zrobić przez internet.',
+          '/zalatw-online',
+        ],
+        [
+          'Pomoc',
+          'Co zrobić, gdy…',
+          'Kasa nie drukuje, padło Wi-Fi, pękł ekran. Krótkie instrukcje i właściwy numer.',
+          '/pomoc',
+        ],
+        [
+          'Dla firm',
+          'Masz też firmę?',
+          'Kasa, komputery, kamery i strona — jeden plan dla Twojej branży.',
+          '/dla-firm',
+        ],
+      ].map(([eyebrow, title, text, href]) => ({ eyebrow, title, text, href })),
+    },
+    final: {
+      // :564–574; numbers and promises of the lines from their panels
+      title: 'Wolisz zadzwonić? Każda linia ma swój numer.',
+      lines: R.nums.map((entry) => ({ line: line(entry.cd), what: entry.what })),
+      directions: 'Kontakt i dojazd',
+    },
+  }
+}
+
 mkdirSync(OUT, { recursive: true })
 for (const [name, data] of [
   ['Dostawy', deliveries()],
@@ -1039,6 +1213,7 @@ for (const [name, data] of [
   ['Marki', brands()],
   ['Linie', offer()],
   ['DlaFirm', forBusiness()],
+  ['DlaDomu', forHome()],
 ]) {
   writeFileSync(join(OUT, `${name}.json`), `${JSON.stringify(data, null, 2)}\n`)
   console.log(`${OUT}/${name}.json`)

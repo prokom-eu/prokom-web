@@ -12,6 +12,7 @@ import {
   hubHome,
   hubOffer,
   hubForBusiness,
+  hubForHome,
   hubHelp,
   hubPlans,
   hubServices,
@@ -107,6 +108,7 @@ export async function seedProkom(payload: Payload): Promise<void> {
     cooperation: hubCooperation(),
     offer: hubOffer(),
     forBusiness: hubForBusiness(),
+    forHome: hubForHome(),
   }
   if (!hubSettings) {
     await payload.create({

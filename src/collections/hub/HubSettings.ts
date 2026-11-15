@@ -7,6 +7,7 @@ import { validateCooperation } from '../../lib/prokom/cooperation'
 import { validateDeliveries } from '../../lib/prokom/deliveries'
 import { validateHome } from '../../lib/prokom/home'
 import { validateForBusiness } from '../../lib/prokom/forBusiness'
+import { validateForHome } from '../../lib/prokom/forHome'
 import { validateOffer } from '../../lib/prokom/offer'
 import { HUB_OPTIONAL_PAGES } from '../../lib/prokom/pages'
 import { onlyLineTenant } from '../../lib/tenant/onlyLine'
@@ -118,6 +119,16 @@ export const HubSettings: CollectionConfig = {
       admin: {
         description:
           'Teksty strony /dla-firm. Plany branż w kolekcji Plany huba (typ branża), marki z pola Marki, telefony i obietnice z paneli linii. Konfiguracja, montaż i szkolenie tylko jako opcja.',
+      },
+    },
+    {
+      name: 'forHome',
+      label: 'Dla domu /dla-domu (JSON)',
+      type: 'json',
+      validate: withSchema(validateForHome),
+      admin: {
+        description:
+          'Teksty strony /dla-domu (strona v1.1 — widoczna po włączeniu „Dla domu” w stronach). Sytuacje w kolekcji Plany huba (typ sytuacja-dom), telefony, obietnice, adres i godziny z paneli.',
       },
     },
     {

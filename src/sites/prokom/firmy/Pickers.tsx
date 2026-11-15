@@ -19,13 +19,20 @@ import { OptionalLink } from './OptionalLink'
  * what we ask first. Without JavaScript the first industry is shown.
  */
 export function IndustryPicker({
+  id = 'branze',
   texts,
   items,
   phone,
   tel,
 }: {
-  texts: HubForBusiness['industries']
+  /** Anchor of the section (`/dla-firm`: `branze`, `/dla-domu`: `sytuacja`). */
+  id?: string
+  texts: Pick<
+    HubForBusiness['industries'],
+    'eyebrow' | 'title' | 'lead' | 'planFor' | 'start' | 'call' | 'describe' | 'note'
+  > & { ask?: string }
   items: Industry[]
+  /** The company phone; a plan with its own line (`Industry.call`) shows that line's. */
   phone: string | null
   tel: string | null
 }) {
@@ -33,19 +40,21 @@ export function IndustryPicker({
   const [picked, setPicked] = useState(items[0]?.key ?? '')
   const plan = items.find((item) => item.key === picked) ?? items[0]
   if (!plan) return null
+  const callPhone = plan.call?.phone ?? phone
+  const callTel = plan.call?.tel ?? tel
   return (
-    <section id="branze" aria-labelledby="branze-h" className={`pk-sect ${HUB_CONTAINER}`}>
+    <section id={id} aria-labelledby={`${id}-h`} className={`pk-sect ${HUB_CONTAINER}`}>
       <div className="pk-sect__head">
         <div className="pk-sect__intro">
           <span className="pk-eb">{texts.eyebrow}</span>
-          <h2 id="branze-h" className="pk-h2 pk-h2--big">
+          <h2 id={`${id}-h`} className="pk-h2 pk-h2--big">
             {texts.title}
           </h2>
         </div>
         <p className="pk-lead pk-sect__aside">{texts.lead}</p>
       </div>
       <div className="pk-choose">
-        <div role="group" aria-labelledby="branze-h" className="pk-ind">
+        <div role="group" aria-labelledby={`${id}-h`} className="pk-ind">
           {items.map((item) => (
             <button
               key={item.key}
@@ -72,6 +81,7 @@ export function IndustryPicker({
                 {texts.planFor} {plan.name}
               </span>
               <h3 className="pk-h3">{plan.title}</h3>
+              {plan.lead && <p className="pk-plan__lead">{plan.lead}</p>}
             </div>
             <span className="pk-plan__count">{linesCount(plan.groups.length)}</span>
           </div>
@@ -102,7 +112,7 @@ export function IndustryPicker({
                 </ol>
               </div>
             )}
-            {plan.questions.length > 0 && (
+            {texts.ask && plan.questions.length > 0 && (
               <div className="pk-ind__block">
                 <span className="pk-eb">{texts.ask}</span>
                 <ul className="pk-ind__ask" role="list">
@@ -117,9 +127,9 @@ export function IndustryPicker({
             )}
           </div>
           <div className="pk-plan__foot">
-            {phone && tel && (
-              <a href={tel} className="pk-hbtn pk-hbtn--accent">
-                {texts.call} {phone}
+            {callPhone && callTel && (
+              <a href={callTel} className="pk-hbtn pk-hbtn--accent">
+                {texts.call} {callPhone}
               </a>
             )}
             <a href="#formularz" className="pk-hbtn">
@@ -163,11 +173,14 @@ function LineCard({ info, children }: { info: BusinessLineInfo; children: React.
  * the areas of the chosen line as chips, the panel with the area's services and first steps.
  */
 export function AreaTabs({
+  id = 'zakres',
   texts,
   lines,
   items,
 }: {
-  texts: Omit<HubForBusiness['areas'], 'items'>
+  /** Anchor of the section (`/dla-firm`: `zakres`, `/dla-domu`: `linie-dom`). */
+  id?: string
+  texts: Pick<HubForBusiness['areas'], 'eyebrow' | 'title' | 'inLine' | 'inArea' | 'steps'>
   lines: (BusinessLineInfo & { short: string })[]
   items: Area[]
 }) {
@@ -202,16 +215,16 @@ export function AreaTabs({
   }
 
   return (
-    <section id="zakres" aria-labelledby="zakres-h" className={`pk-sect ${HUB_CONTAINER}`}>
+    <section id={id} aria-labelledby={`${id}-h`} className={`pk-sect ${HUB_CONTAINER}`}>
       <div className="pk-sect__intro">
         <span className="pk-eb">
           {texts.eyebrow} · {plural(total, ['usługa', 'usługi', 'usług'])}
         </span>
-        <h2 id="zakres-h" className="pk-h2 pk-h2--big">
+        <h2 id={`${id}-h`} className="pk-h2 pk-h2--big">
           {texts.title}
         </h2>
       </div>
-      <div role="tablist" aria-labelledby="zakres-h" className="pk-ltabs" onKeyDown={onKey}>
+      <div role="tablist" aria-labelledby={`${id}-h`} className="pk-ltabs" onKeyDown={onKey}>
         {tabs.map((line) => {
           const on = line.key === area.line
           const count = items
@@ -245,6 +258,7 @@ export function AreaTabs({
       <div
         id={`${baseId}-panel`}
         role="tabpanel"
+        tabIndex={0}
         aria-labelledby={`${baseId}-${area.line}`}
         className="pk-area"
         style={lineStyle(area.line)}
@@ -319,7 +333,7 @@ export function AreaTabs({
                   {String(at + 1).padStart(2, '0')}
                 </span>
                 <span className="pk-ost__title">{step.title}</span>
-                <span className="pk-ost__text">{step.text}</span>
+                {step.text && <span className="pk-ost__text">{step.text}</span>}
               </li>
             ))}
           </ol>

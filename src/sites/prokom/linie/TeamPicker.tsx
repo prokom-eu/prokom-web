@@ -18,6 +18,10 @@ type Props = {
   lines: { key: string; label: string; url: string | null; phone: string | null }[]
   phone: string | null
   tel: string | null
+  /** Anchor of the section (`/linie`: `razem`, `/dla-domu`: `u-ciebie`). */
+  id?: string
+  /** Where the second button leads (`/linie`: „Dobierz” on the home page). */
+  ctaHref?: string
 }
 
 /**
@@ -25,21 +29,29 @@ type Props = {
  * (`home.team`, plans from `HubPlans`) as toggle buttons, one plan at a time. Without JavaScript
  * the first example is shown.
  */
-export function TeamPicker({ texts, examples, lines, phone, tel }: Props) {
+export function TeamPicker({
+  texts,
+  examples,
+  lines,
+  phone,
+  tel,
+  id = 'razem',
+  ctaHref = '/#dobierz',
+}: Props) {
   const [picked, setPicked] = useState(examples[0]?.persona ?? '')
   const example = examples.find((entry) => entry.persona === picked) ?? examples[0]
   if (!example) return null
 
   return (
-    <section id="razem" aria-labelledby="razem-h" className={`pk-sect ${HUB_CONTAINER}`}>
+    <section id={id} aria-labelledby={`${id}-h`} className={`pk-sect ${HUB_CONTAINER}`}>
       <div className="pk-coop pk-oteam">
         <div className="pk-coop__intro">
           <span className="pk-eb">{texts.eyebrow}</span>
-          <h2 id="razem-h" className="pk-h2">
+          <h2 id={`${id}-h`} className="pk-h2">
             {texts.title}
           </h2>
           <p className="pk-lead">{texts.lead}</p>
-          <div role="group" aria-labelledby="razem-h" className="pk-oteam__tabs">
+          <div role="group" aria-labelledby={`${id}-h`} className="pk-oteam__tabs">
             {examples.map((entry) => (
               <button
                 key={entry.persona}
@@ -58,7 +70,7 @@ export function TeamPicker({ texts, examples, lines, phone, tel }: Props) {
                 {phone}
               </a>
             )}
-            <Link href="/#dobierz" className="pk-hbtn">
+            <Link href={ctaHref} className="pk-hbtn">
               {texts.cta}
             </Link>
           </div>
