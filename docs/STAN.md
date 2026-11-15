@@ -132,6 +132,9 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 - **Do decyzji (TODO(krystian)):** (1) panel stagingu — `panel.staging.prokombiznes.pl` czy w pro-kom.eu; czy strefa pro-kom.eu jest już w Seohost; (2) usługi Sentry i monitoringu. **Polityka prywatności:** projekt z B11b wymienia hosting Seohost (ADR-002) — dostawca serwera to teraz webh.pl, poprawić przed akceptacją prawnika.
 
 ### prokombiznes.pl — folder `prokom-web-biznes`
+- **15.11 noc — runda 1411 (aktualizacja działającej strony), Sesja A (R0, R1, R2)** wg `docs/design/prokombiznes/runda-1411/PRZEKAZANIE-RUNDA-1411.md` (plan §7.4 w `docs/zadania/prokombiznes.md`, ADR-017 „Rozstrzygnięcia 15.11”). Praca nocna bez pytań (zasady nocne 15.11: decyzje wg rekomendacji, samodzielne scalanie przy zielonym CI).
+  - R0 `docs/biznes-runda-1411`: pakiet w `docs/design/prokombiznes/runda-1411/`, ADR-017, INDEKS, §7.4.
+  - `Następny krok:` R1 `feat/wsp-biznes-kontakt-1411` → R2 `feat/biznes-hero-1411` → Sesja B (R3–R5).
 - **14.11 noc — poprawki po audycie produkcji (`tmp/AUDYT-BIZNES-PRODUKCJA-1411.md`), 2 PR-y od `develop`:**
   - `feat/wsp-kontakt-waski-ekran` (strefa wspólna): Kontakt 360–390 px bez ucięcia, gdy firma zamknięta (siatka hero `grid-cols-1` + `min-w-0`, pigułka statusu się zawija); **decyzja Krystiana 14.11:** pigułka statusu poniżej 480 px pokazuje skrót „Zamknięte · pn 9:00” (`openingStatus().short`; dotyczy też hero pro-kom.eu; pełne zdanie w Menu, stopce i dla czytników — spec §5); O firmie: „Telefon” na linii numeru, „od&nbsp;2004”. e2e `wspolne-kontakt-waski` (3 linie × 360/390, sobota 22:00).
   - `fix/biznes-seo-kontakt`: opis `/kontakt` (seed uzupełnia pusty / stare brzmienie z „60 minut”), jeden `BreadcrumbList` na `/kontakt` i `/o-firmie`, `/favicon.ico` per linia przez `proxy.ts`. `ProductGroup` bez `offers` — bez zmian do pierwszego raportu Search Console.

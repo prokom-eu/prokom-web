@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Od czego zaczynasz — dopracowane</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-ext-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0100-017F}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-ext-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0100-017F}
+body{margin:0}
+.sk{position:relative;transition:background .3s}
+.sk:hover{background:#f7f9fd}
+.sk .bar{position:absolute;left:24px;right:24px;top:0;height:3px;border-radius:0 0 3px 3px;transform:scaleX(.25);transform-origin:left;opacity:.0;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.sk:hover .bar{transform:scaleX(1);opacity:1}
+.sk .ico{transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.sk:hover .ico{transform:translateY(-3px) rotate(-4deg)}
+.sk .go{transition:transform .35s,background .3s,color .3s}
+.sk:hover .go{transform:translateX(4px)}
+</style>
+</helmet>
+<div style="width:1440px;height:380px;box-sizing:border-box;padding:40px 72px;background:#ffffff;font-family:Manrope,system-ui,sans-serif;color:#0d1326">
+  <div style="display:grid;grid-template-columns:300px repeat(5,1fr);border-radius:26px;background:#ffffff;border:1px solid #e2e6ef;box-shadow:0 34px 60px -44px rgba(10,20,48,.45);overflow:hidden;height:300px">
+    <div style="position:relative;background:#0a1430;color:#ffffff;padding:28px 26px;display:flex;flex-direction:column;gap:12px;overflow:hidden">
+      <svg width="260" height="260" viewBox="0 0 260 260" style="position:absolute;right:-90px;bottom:-110px;opacity:.5" aria-hidden="true"><circle cx="130" cy="130" r="120" fill="none" stroke="#244fb0" stroke-width="1"/><circle cx="130" cy="130" r="86" fill="none" stroke="#244fb0" stroke-width="1"/><circle cx="130" cy="130" r="52" fill="none" stroke="#4a7be0" stroke-width="1"/></svg>
+      <span style="font-size:11px;font-weight:800;letter-spacing:.16em;color:#8fb0f4">SZYBKI START</span>
+      <b style="font-family:Archivo,sans-serif;font-stretch:112%;font-size:27px;line-height:1.05;letter-spacing:-.02em">Od czego<br>zaczynasz?</b>
+      <span style="font-size:13.5px;line-height:1.5;color:#c3cde4">Pięć najkrótszych dróg do tego, czego szukasz.</span>
+      <div style="margin-top:auto;position:relative;height:44px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;gap:10px;padding:0 10px 0 14px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8fb0f4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span style="font-size:13px;color:#c3cde4;flex:1">Szukaj: kasa, laptop, KSeF…</span>
+        <span style="font-size:11px;font-weight:800;color:#ffffff;background:rgba(255,255,255,.14);border-radius:6px;padding:3px 6px">Ctrl K</span>
+      </div>
+    </div>
+    <sc-for list="{{cards}}" as="c" hint-placeholder-count="5">
+      <a href="#" class="sk" style="{{c.cell}}">
+        <span class="bar" style="{{c.barStyle}}"></span>
+        <span class="ico" style="{{c.icoStyle}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{c.icon}}"></path></svg></span>
+        <span style="{{c.labelStyle}}">{{c.label}}</span>
+        <b style="font-family:Archivo,sans-serif;font-stretch:108%;font-size:19px;line-height:1.15;letter-spacing:-.01em;color:#0d1326">{{c.title}}</b>
+        <span style="font-size:13.5px;line-height:1.5;color:#4a5470">{{c.text}}</span>
+        <span style="{{c.ctaStyle}}">{{c.cta}}<span class="go" style="{{c.goStyle}}">→</span></span>
+      </a>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":380}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const C = [
+      { c: '#244fb0', bg: '#e9effc', label: '455 POZYCJI', title: 'Cała oferta', text: 'Kasy, komputery, programy, sieć i serwis — z filtrami po branży i marce.', cta: 'Przeglądaj ofertę', icon: 'M4 5h16v14H4zM4 10h16M10 10v9' },
+      { c: '#7b4fe0', bg: '#f1ebfd', label: 'OK. 1 MINUTA', title: 'Konfigurator', text: 'Odpowiesz na kilka pytań o firmę i dostaniesz dobrane rozwiązania.', cta: 'Dobierz teraz', icon: 'M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18zM15.5 8.5l-2 5-5 2 2-5z' },
+      { c: '#15724a', bg: '#e6f5ee', label: '12 RODZAJÓW FIRM', title: 'Plan Twojej firmy', text: 'Kliknij urządzenie na planie sklepu, lokalu lub biura i zobacz, co tam pasuje.', cta: 'Otwórz plan', icon: 'M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15M15 6v15' },
+      { c: '#c23a22', bg: '#fdeeea', label: '39 MAREK', title: 'Salony marek', text: 'Posnet, Elzab, Apple, Lenovo, Brother i inne — serie, porównania, dobór.', cta: 'Zobacz marki', icon: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z' },
+      { c: '#0a1430', bg: '#eef1f7', label: 'WYCENA NA MAILU', title: 'Zapytaj o wycenę', text: 'Napisz, czego potrzebujesz. Dobierzemy, wycenimy i odeślemy mailem.', cta: 'Wyślij zapytanie', icon: 'M4 6h16v12H4zM4 7l8 6 8-6' }
+    ];
+    return { cards: C.map((x, i) => ({
+      label: x.label, title: x.title, text: x.text, cta: x.cta, icon: x.icon,
+      cell: 'display:flex;flex-direction:column;gap:9px;padding:28px 24px 24px;text-decoration:none;' + (i ? 'border-left:1px solid #edf0f6' : ''),
+      barStyle: 'background:' + x.c,
+      icoStyle: 'width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin-bottom:6px;color:' + x.c + ';background:' + x.bg,
+      labelStyle: 'font-size:10.5px;font-weight:800;letter-spacing:.14em;color:' + x.c,
+      ctaStyle: 'margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px dashed #e2e6ef;font-size:13.5px;font-weight:800;color:' + x.c,
+      goStyle: 'width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;color:' + x.c + ';background:' + x.bg
+    })) };
+  }
+}
+</script>
+</body>
+</html>

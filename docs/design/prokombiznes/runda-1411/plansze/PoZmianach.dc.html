@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Obecna strona główna po zmianach</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-ext-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0100-017F}
+body{margin:0}
+.tag{position:absolute;left:16px;top:16px;z-index:20;height:30px;padding:0 12px;border-radius:999px;font:800 12px Manrope,sans-serif;line-height:30px;letter-spacing:.04em;box-shadow:0 8px 20px -8px rgba(0,0,0,.4)}
+.t-new{background:#e0482f;color:#ffffff}
+.t-chg{background:#244fb0;color:#ffffff}
+.t-mov{background:#f2b33d;color:#3a2600}
+.t-same{background:#ffffff;color:#4a5470;border:1px solid #e2e6ef}
+.sec{position:relative;width:1440px}
+.sec img.cur{display:block;width:1440px;height:auto}
+</style>
+</helmet>
+<div style="width:1440px;display:flex;flex-direction:column;background:#ffffff">
+  <div class="sec"><span class="tag t-chg">01 · HERO — dopracowane koło + pasek uprawnień + 2 numery</span><dc-import name="Main" hint-size="1440px,1000px"></dc-import></div>
+  <div class="sec"><span class="tag t-chg">02 · Od czego zaczynasz — dopracowane (wyszukiwarka, równe karty, „wycena na mailu”)</span><dc-import name="Start" hint-size="1440px,380px"></dc-import></div>
+  <div class="sec"><span class="tag t-same">03 · Oferta — działy — bez zmian (stara podsekcja „Systemy…” usunięta)</span><img class="cur" src="/_blob/7539eeb8986216a3fc17433bfc484d7a" alt="Obecna sekcja Oferta"></div>
+  <div class="sec"><span class="tag t-new">04 · ZMIANA — Systemy, które u Ciebie wdrożymy (zastępuje starą podsekcję)</span><dc-import name="Systemy" hint-size="1440px,820px"></dc-import></div>
+  <div class="sec"><span class="tag t-chg">05 · Najczęściej wybierane — 3 rzędy × 8, płynnie przewijane, bez zakładek</span><dc-import name="Wybierane" hint-size="1440px,1220px"></dc-import></div>
+  <div class="sec"><span class="tag t-same">06 · Plan Twojej firmy — bez zmian</span><img class="cur" src="/_blob/713f6a1c910ff9b106a3883e22d99e98" alt="Obecna sekcja Plan Twojej firmy"></div>
+  <div class="sec"><span class="tag t-chg">07 · Jak pracujemy — nowy wygląd</span><dc-import name="JakPracujemy" hint-size="1440px,1000px"></dc-import></div>
+  <div class="sec"><span class="tag t-chg">08 · Od 2004 — uprawnienia z produktami</span><dc-import name="Zaufanie" hint-size="1440px,680px"></dc-import></div>
+  <div class="sec"><span class="tag t-mov">09 · Marki — bez zmian, przeniesione pod „Od 2004”</span><img class="cur" src="/_blob/02aa895e8b242a30ebc45770c3cae817" alt="Obecna sekcja Marki"></div>
+  <div class="sec"><span class="tag t-mov">10 · Zaopatrzenie firm — bez zmian, przeniesione niżej</span><img class="cur" src="/_blob/a985f2a359050460abd38d4ffa065480" alt="Obecna sekcja Zaopatrzenie firm"></div>
+  <div class="sec"><span class="tag t-chg">11 · Aktualności — nowy wygląd, wpisy z całej firmy</span><dc-import name="Aktualnosci" hint-size="1440px,820px"></dc-import></div>
+  <div class="sec"><span class="tag t-new">12 · NOWE inne linie PRO-KOM + nowy wygląd FAQ</span><dc-import name="Koniec" hint-size="1440px,1120px"></dc-import></div>
+  <div class="sec"><span class="tag t-same">13 · Formularz, kontakt i stopka — bez zmian (tylko „Wycena na piśmie” → „na mailu”)</span><img class="cur" src="/_blob/982f9001e0ec11c22cdbab2eeb9abc4c" alt="Obecny formularz, kontakt i stopka"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":14053}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
