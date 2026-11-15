@@ -6,6 +6,7 @@ import { TextLink } from '@/components/ui/TextLink'
 import { biznesDescription } from '@/lib/biznes/seo'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
+import { HUB_DESCRIPTIONS } from '@/lib/prokom/seo'
 import { SITE_MAP_PATH, type SiteMapLink } from '@/lib/seo/siteLinks'
 import { loadSiteMap } from '@/lib/seo/siteLinksData'
 import { robotsMeta } from '@/lib/seo/robots'
@@ -22,6 +23,7 @@ type Props = { params: Promise<{ domain: string }> }
 const TITLE = 'Mapa strony'
 const DESCRIPTION =
   'Wszystkie strony serwisu w jednym miejscu: oferta, produkty, aktualności i informacje.'
+const HUB_SITE_MAP_H1 = 'Wszystko, co jest na pro-kom.eu.'
 /** Software has no products: its own sentence (lead of the board `AU-mapa`). */
 const SOFTWARE_DESCRIPTION =
   'Wszystkie podstrony PRO-KOM Software na jednym ekranie: oferta, kreator, darmowy audyt, firma i informacje prawne.'
@@ -34,7 +36,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? SOFTWARE_DESCRIPTION
       : tenant.line === 'biznes'
         ? biznesDescription(DESCRIPTION)
-        : DESCRIPTION
+        : tenant.line === 'prokom'
+          ? HUB_DESCRIPTIONS['/mapa-strony']
+          : DESCRIPTION
   // Biznes: 30–60 characters with the suffix (audit 0611 P1-8); the H1 stays „Mapa strony”.
   const title = tenant.line === 'biznes' ? `${TITLE} — wszystkie podstrony` : TITLE
   return {
@@ -104,7 +108,8 @@ export default async function SiteMapPage({ params }: Props) {
         </div>
       )}
       <Heading level={1} size="xl">
-        {TITLE}
+        {/* pro-kom.eu: the H1 of spec §4; the title stays „Mapa strony”. */}
+        {tenant.line === 'prokom' ? HUB_SITE_MAP_H1 : TITLE}
       </Heading>
       <p className="mt-4 max-w-[60ch] text-lg text-ink-2">{DESCRIPTION}</p>
       {sections.map((section) => (

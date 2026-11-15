@@ -4,6 +4,8 @@ import { AboutPage } from '@/components/shared/AboutPage'
 import { ContactPage } from '@/components/shared/ContactPage'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
+import { hubOgImage } from '@/lib/prokom/data'
+import { hubPageMetadata } from '@/lib/prokom/seo'
 import { pageRobots } from '@/lib/seo/robots'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import type { SiteTenant } from '@/lib/tenant/byHost'
@@ -27,11 +29,9 @@ const LEGAL = new Set(['polityka-prywatnosci', 'cookies', 'dostepnosc'])
 export async function hubSlugMetadata(tenant: SiteTenant, slug: string): Promise<Metadata | null> {
   const title = TITLES[slug]
   if (title) {
-    const shared = await getSharedData(tenant.id)
-    return {
-      title: { absolute: title(shared?.company.address ?? null) },
-      alternates: { canonical: `/${slug}` },
-    }
+    const [shared, ogImage] = await Promise.all([getSharedData(tenant.id), hubOgImage(tenant.id)])
+    const path = slug === 'kontakt' ? '/kontakt' : '/o-firmie'
+    return hubPageMetadata(path, title(shared?.company.address ?? null), ogImage)
   }
   if (LEGAL.has(slug)) return { robots: pageRobots(getEnv().SITE_ENV, false) }
   return null

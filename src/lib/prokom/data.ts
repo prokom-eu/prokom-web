@@ -8,7 +8,9 @@ import type { HubHelp, HubPlan, HubService, HubSetting, HubTool } from '@/payloa
 import { cacheQuery } from '../cache'
 import { getEnv } from '../env'
 import { log } from '../log'
+import type { PublicImage } from '../media/public'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
+import { getSiteSettings } from '../site/data'
 import type { HubLine } from './lines'
 import { brandsSchema, type HubBrands } from './brands'
 import { cooperationSchema, type HubCooperation } from './cooperation'
@@ -289,3 +291,8 @@ export const getHubSettings = cache((tenantId: number): Promise<HubSettingsView>
     { tags: [hubTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )(),
 )
+
+/** Link preview picture of the hub: the panel's „Obraz OG”, else the hub's file (`defaultOgImage`). */
+export async function hubOgImage(tenantId: number): Promise<PublicImage | null> {
+  return (await getSiteSettings(tenantId))?.seo.ogImage ?? null
+}

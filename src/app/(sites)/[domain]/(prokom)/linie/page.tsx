@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 
+import { hubOgImage } from '@/lib/prokom/data'
+import { hubPageMetadata } from '@/lib/prokom/seo'
+
 import { OfferPage } from '@/sites/prokom/linie/OfferPage'
 
 import { requireLine } from '../../tenant'
@@ -9,13 +12,14 @@ type Props = {
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
-/** Spec §4: title of `/linie`; the full SEO (description, canonical, JSON-LD) comes in H6-2. */
+/** Spec §4: title, description (140–160 characters), canonical and Open Graph (H8). */
 export async function generateMetadata({ params }: Pick<Props, 'params'>): Promise<Metadata> {
-  await requireLine(params, 'prokom')
-  return {
-    title: { absolute: 'Linie PRO-KOM — co gdzie załatwisz' },
-    alternates: { canonical: '/linie' },
-  }
+  const tenant = await requireLine(params, 'prokom')
+  return hubPageMetadata(
+    '/linie',
+    'Linie PRO-KOM — co gdzie załatwisz',
+    await hubOgImage(tenant.id),
+  )
 }
 
 /** `/linie?q=&dla=&linia=&u=` of pro-kom.eu (spec §6.2): the catalog state comes from the address. */

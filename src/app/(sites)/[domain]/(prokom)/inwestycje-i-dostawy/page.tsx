@@ -1,18 +1,22 @@
 import type { Metadata } from 'next'
 
+import { hubOgImage } from '@/lib/prokom/data'
+import { hubPageMetadata } from '@/lib/prokom/seo'
+
 import { DeliveriesPage } from '@/sites/prokom/dostawy/DeliveriesPage'
 
 import { requireLine } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
-/** Spec §4: title of `/inwestycje-i-dostawy`; the full SEO comes in H6-2. */
+/** Spec §4: title, description (140–160 characters), canonical and Open Graph (H8). */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  await requireLine(params, 'prokom')
-  return {
-    title: { absolute: 'Większe dostawy IT, RTV i AGD dla firm i instytucji | PRO-KOM' },
-    alternates: { canonical: '/inwestycje-i-dostawy' },
-  }
+  const tenant = await requireLine(params, 'prokom')
+  return hubPageMetadata(
+    '/inwestycje-i-dostawy',
+    'Większe dostawy IT, RTV i AGD dla firm i instytucji | PRO-KOM',
+    await hubOgImage(tenant.id),
+  )
 }
 
 /** `/inwestycje-i-dostawy` of pro-kom.eu (spec §6.5). */

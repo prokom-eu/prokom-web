@@ -1,18 +1,22 @@
 import type { Metadata } from 'next'
 
+import { hubOgImage } from '@/lib/prokom/data'
+import { hubPageMetadata } from '@/lib/prokom/seo'
+
 import { BusinessPage } from '@/sites/prokom/firmy/BusinessPage'
 
 import { requireLine } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
-/** Spec §4: title of `/dla-firm`; the full SEO (description, canonical, JSON-LD) comes in H6-2. */
+/** Spec §4: title, description (140–160 characters), canonical and Open Graph (H8). */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  await requireLine(params, 'prokom')
-  return {
-    title: { absolute: 'Dla firm: kasy, IT, sieć, kamery, strona | PRO-KOM' },
-    alternates: { canonical: '/dla-firm' },
-  }
+  const tenant = await requireLine(params, 'prokom')
+  return hubPageMetadata(
+    '/dla-firm',
+    'Dla firm: kasy, IT, sieć, kamery, strona | PRO-KOM',
+    await hubOgImage(tenant.id),
+  )
 }
 
 /** `/dla-firm` of pro-kom.eu (spec §6.3). */

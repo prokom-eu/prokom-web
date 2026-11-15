@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 
-import { getHubData, getHubSettings } from '@/lib/prokom/data'
+import { getHubData, getHubSettings, hubOgImage } from '@/lib/prokom/data'
 import { getHubLineContacts } from '@/lib/prokom/lineContacts'
 import { getHubNews } from '@/lib/prokom/news'
 import { isHubLinkLive } from '@/lib/prokom/pages'
+import { hubPageMetadata } from '@/lib/prokom/seo'
 import { getEnv } from '@/lib/env'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import { toTelHref } from '@/lib/site/link'
@@ -23,10 +24,13 @@ import { News } from './News'
 import { Tools } from './Tools'
 import { toolGroups } from './toolGroups'
 
-/** Title of the start page (spec §4); SEO of every page is finished in H6-2. */
-export const HOME_METADATA: Metadata = {
-  title: { absolute: 'PRO-KOM Rabka-Zdrój — IT dla firm, instalacje, serwis' },
-  alternates: { canonical: '/' },
+/** Title, description and Open Graph of the start page (spec §4, H8). */
+export async function homeMetadata(tenantId: number): Promise<Metadata> {
+  return hubPageMetadata(
+    '/',
+    'PRO-KOM Rabka-Zdrój — IT dla firm, instalacje, serwis',
+    await hubOgImage(tenantId),
+  )
 }
 
 /** Three newest posts of the line sites (spec §6.1 pkt 9). */
@@ -135,6 +139,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             texts={home.contact}
             lines={lines}
             company={shared.company}
+            email={shared.line.email}
             now={now}
             contactHref={CONTACT}
           />
