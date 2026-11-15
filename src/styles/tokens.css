@@ -1548,11 +1548,7 @@
   /* Pictures of the news categories (ZMIANY-v24 §1 pkt 4, aurora.css `.au-pc-art`): the only place
      with other hues — a category code (turquoise, gold, red, navy); dark in both themes. */
   --news-art-base: #0f1110;
-  --news-art-ring: rgba(195, 171, 250, 0.35);
   --news-art-orb: rgba(150, 112, 238, 0.55);
-  --news-art-dot: #c3abfa;
-  --news-art-dot-halo: rgba(195, 171, 250, 0.15);
-  --news-art-dot-glow: #9670ee;
   --news-art-poradnik: rgba(150, 112, 238, 0.55);
   --news-art-poradnik-bg: #1a1430;
   --news-art-strony: rgba(63, 193, 173, 0.45);

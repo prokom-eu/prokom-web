@@ -1,6 +1,8 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
+import { POST_COVER_MOTIFS } from '../../src/lib/software/postCovers'
+
 import { api, loginAsAdmin, site, tenantId } from './helpers'
 
 // SW11b: news in the Software look and the city pages (spec. §6.8–6.9). Data from `pnpm seed`:
@@ -52,11 +54,16 @@ test.describe('Software /aktualnosci with the seed posts', () => {
     test.skip((await posts.count()) === 0, 'no public post in this database')
     await expect(page.locator('main .sw-post-featured')).toHaveCount(1)
     await expect(page.locator('main .sw-post-meta').first()).toContainText('min czytania')
-    // Every post its own cover (decision 15.11): no scene twice on a page.
-    const covers = await page
-      .locator('main [data-cover]')
-      .evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-cover')))
-    expect(new Set(covers).size).toBe(covers.length)
+    // Every post of the package its own cover (decision 15.11): no scene twice on a page. A post
+    // added by hand falls back to its category's scene, so only the mapped posts count.
+    const covers = await page.locator('main a[data-card]').evaluateAll((cards) =>
+      cards.map((card) => ({
+        slug: card.getAttribute('href')?.split('/').pop() ?? '',
+        cover: card.querySelector('[data-cover]')?.getAttribute('data-cover') ?? '',
+      })),
+    )
+    const mapped = covers.filter(({ slug }) => slug in POST_COVER_MOTIFS).map(({ cover }) => cover)
+    expect(new Set(mapped).size).toBe(mapped.length)
     const chips = page.getByRole('navigation', { name: 'Kategorie' })
     test.skip((await chips.count()) === 0, 'posts of one category only')
     const chip = chips.getByRole('link').nth(1)
