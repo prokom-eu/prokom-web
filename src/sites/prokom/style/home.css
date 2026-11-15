@@ -387,7 +387,8 @@
 }
 .pk-hch {
   display: flex;
-  min-height: 34px;
+  /* A touch target of the hero chips (spec §9: ≥44 px). */
+  min-height: 44px;
   align-items: center;
   gap: 8px;
   border: 1px solid var(--w16);

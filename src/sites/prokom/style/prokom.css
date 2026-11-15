@@ -430,7 +430,9 @@
   background: var(--card);
 }
 .pk-side__phone {
-  display: inline-block;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
   margin: 8px 0 4px;
   color: var(--accent-text);
   font-family: var(--font-display);
