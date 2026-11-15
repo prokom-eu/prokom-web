@@ -61,6 +61,8 @@ export const homeSchema = z
       lead: text(240),
       unsure: text(120),
       cta: text(40),
+      /** „How it works” in the PRO-KOM tile (H9): three short steps, no promise of a line. */
+      steps: z.array(text(40)).length(3).nullish(),
       hints: z
         .array(z.object({ text: text(60), line: lineKey }))
         .min(1)
@@ -124,6 +126,20 @@ export const homeSchema = z
       title: text(90),
       lead: text(200),
       all: z.object({ eyebrow: text(60), title: text(90), text: text(240), cta: text(40) }),
+      /**
+       * The hub's own tool (H9, Krystian 15.11): the sixth tile while „Załatw online” is off —
+       * the request list of „Inwestycje i dostawy”, a v1 page.
+       */
+      own: z
+        .object({
+          eyebrow: text(60),
+          title: text(60),
+          text: text(240),
+          steps: z.array(text(40)).min(2).max(4),
+          cta: text(50),
+          href: hubHref,
+        })
+        .nullish(),
     }),
     help: z.object({
       eyebrow: text(40),

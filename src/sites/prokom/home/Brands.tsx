@@ -1,8 +1,11 @@
+import Image from 'next/image'
+
 import { Icon } from '@/components/ui/Icon'
 import { type HubBrands, visibleAuthorizations } from '@/lib/prokom/brands'
 
 import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
+import { AUTHORIZATION_PRODUCTS, BRAND_LOGOS } from './brandArt'
 import { Mark } from './Mark'
 import { type HomeLine, plural } from './model'
 
@@ -60,7 +63,7 @@ export function Brands({ brands, facts, lines, allHref }: Props) {
                     </span>
                     {row.status}
                   </span>
-                  <span className="pk-auth__name">{row.name}</span>
+                  <AuthorizationArt name={row.name} />
                   <span className="pk-auth__text">{row.text}</span>
                   {line && (
                     <span className="pk-auth__line">
@@ -89,13 +92,26 @@ export function Brands({ brands, facts, lines, allHref }: Props) {
                   </span>
                 </span>
                 <span className="pk-bgroup__title">{group.title}</span>
-                <span className="pk-bgroup__brands">
-                  {group.brands.map((brand) => (
-                    <span key={brand} className="pk-bch">
-                      {brand}
-                    </span>
-                  ))}
-                </span>
+                <ul className="pk-bgroup__logos" role="list">
+                  {group.brands.map((brand) => {
+                    const logo = BRAND_LOGOS[brand]
+                    return (
+                      <li key={brand} className={logo ? 'pk-blogo' : 'pk-blogo pk-blogo--name'}>
+                        {logo ? (
+                          <Image
+                            src={logo.src}
+                            width={logo.width}
+                            height={logo.height}
+                            alt={brand}
+                            sizes="140px"
+                          />
+                        ) : (
+                          brand
+                        )}
+                      </li>
+                    )
+                  })}
+                </ul>
                 <span className="pk-bgroup__text">{group.text}</span>
               </li>
             ))}
@@ -105,5 +121,34 @@ export function Brands({ brands, facts, lines, allHref }: Props) {
         {authorizations.length > 0 && <p className="pk-note">{brands.note}</p>}
       </div>
     </section>
+  )
+}
+
+/**
+ * Logo of an authorization on a light plate (full-colour logos, both themes) and one of its
+ * products on the line's glow. The logo's `alt` names the brand — the card's name for readers.
+ */
+function AuthorizationArt({ name }: { name: keyof typeof AUTHORIZATION_PRODUCTS }) {
+  const logo = BRAND_LOGOS[name]
+  const product = AUTHORIZATION_PRODUCTS[name]
+  return (
+    <span className="pk-auth__art">
+      <span className="pk-auth__plate">
+        {logo ? (
+          <Image src={logo.src} width={logo.width} height={logo.height} alt={name} sizes="160px" />
+        ) : (
+          <span className="pk-auth__name">{name}</span>
+        )}
+      </span>
+      <span className="pk-auth__photo">
+        <Image
+          src={product.src}
+          width={product.width}
+          height={product.height}
+          alt={product.alt}
+          sizes="(min-width: 1100px) 160px, 40vw"
+        />
+      </span>
+    </span>
   )
 }

@@ -329,6 +329,18 @@ describe('decideRoute — site domains', () => {
     })
   })
 
+  it('serves the brand logos and products of pro-kom.eu (H9) — only those', () => {
+    expect(route('prokom.localhost', '/prokom/marki/posnet.webp')).toEqual({ type: 'next' })
+    expect(route('prokom.localhost', '/prokom/marki/produkty/elzab-k10.webp')).toEqual({
+      type: 'next',
+    })
+    // `/prokom` itself stays a page path of the tenant.
+    expect(route('prokom.localhost', '/prokom/cennik')).toEqual({
+      type: 'rewrite',
+      pathname: '/prokom.localhost/prokom/cennik',
+    })
+  })
+
   it('serves the charger photos (I9) and brand logos (round v5) of Instalacje — only those', () => {
     expect(route('instalacje.localhost', '/instalacje/ev/home.webp')).toEqual({ type: 'next' })
     expect(route('instalacje.localhost', '/instalacje/marki/dahua.webp')).toEqual({ type: 'next' })

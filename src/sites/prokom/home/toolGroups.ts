@@ -76,6 +76,18 @@ export type ToolGroup = {
 export type ToolCount = { line: HubLine; name: string; count: number }
 
 /**
+ * Order of the line groups in the two-column grid (Krystian 15.11): Biznes | Software,
+ * Instalacje | Tech, Gaming | the hub's own tile — the firm lines first, then the home ones.
+ */
+export const TOOL_GROUP_ORDER: readonly HubLine[] = [
+  'biznes',
+  'software',
+  'instalacje',
+  'tech',
+  'gaming',
+]
+
+/**
  * „Załatw to od razu” (spec §6.1 pkt 4): per line on the page its two home tools
  * (`featuredOnHome`), plus the count of all tools per line for the „wszystkie sprawy” card.
  */
@@ -83,7 +95,13 @@ export function toolGroups(
   lines: readonly HomeLine[],
   tools: readonly HubToolView[],
 ): { groups: ToolGroup[]; counts: ToolCount[]; total: number } {
-  const groups = lines.flatMap((line) => {
+  // A line missing from the order (a future sixth one) goes last, not first.
+  const rank = (key: HubLine) => {
+    const index = TOOL_GROUP_ORDER.indexOf(key)
+    return index === -1 ? TOOL_GROUP_ORDER.length : index
+  }
+  const ordered = [...lines].sort((a, b) => rank(a.key) - rank(b.key))
+  const groups = ordered.flatMap((line) => {
     const own = tools
       .filter((tool) => tool.line === line.key && tool.featuredOnHome)
       .slice(0, 2)

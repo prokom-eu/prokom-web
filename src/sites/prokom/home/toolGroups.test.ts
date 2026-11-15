@@ -64,4 +64,17 @@ describe('toolGroups', () => {
     expect(counts).toEqual([{ line: 'tech', name: 'tech', count: 4 }])
     expect(total).toBe(4)
   })
+
+  it('orders the groups Biznes, Software, Instalacje, Tech, Gaming (Krystian 15.11)', () => {
+    const keys = ['biznes', 'instalacje', 'software', 'tech', 'gaming'] as const
+    const all = keys.map((key) => line(key))
+    const tools = keys.map((key) => tool(key, key, true))
+    expect(toolGroups(all, tools).groups.map((group) => group.line.key)).toEqual([
+      'biznes',
+      'software',
+      'instalacje',
+      'tech',
+      'gaming',
+    ])
+  })
 })

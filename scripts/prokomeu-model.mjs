@@ -502,6 +502,8 @@ function home() {
       title: 'Sprzęt, instalacje, oprogramowanie i serwis. W jednej firmie.',
       lead: 'Pięć linii, każda ze swoim zespołem. Wybierz linię obok albo napisz, czego potrzebujesz.',
       unsure: 'Nie mamy pewności, która linia. Zadzwoń — pokierujemy.',
+      // H9 (Krystian 15.11): not on the board — the way a request goes, as on the contact page.
+      steps: ['Napisz albo zadzwoń', 'Wskażemy właściwą linię', 'Odzywa się jej zespół'],
       cta: 'Dobierz w 10 sekund',
       hints: PH.map(([hint, key]) => ({ text: hint.replace('np. ', ''), line: key })),
       chips: r.chips.map((c) => ({ label: c.label, line: line(c.c) })),
@@ -578,13 +580,24 @@ function home() {
     },
     tools: {
       // :707–743
-      title: 'Załatw to od razu. Bez dzwonienia.',
+      // Krystian 15.11: the short form only.
+      title: 'Załatw to od razu.',
       lead: 'Każda linia ma swoje narzędzia online. Dwa najczęściej używane z każdej — obok siebie.',
       all: {
         eyebrow: 'Załatw online · pięć linii',
         title: 'spraw załatwisz bez dzwonienia.',
         text: 'Zgłoszenia, statusy, wyceny, plany i konfiguratory ze wszystkich linii w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.',
         cta: 'Zobacz wszystkie narzędzia',
+      },
+      // H9 (Krystian 15.11): the sixth tile while „Załatw online” is off — not on the board; the
+      // hub's own request list (texts after the board Dostawy, spec §6.5).
+      own: {
+        eyebrow: 'PRO-KOM · Inwestycje i dostawy',
+        title: 'Lista zapytania',
+        text: 'Większe zamówienie dla firmy albo obiektu? Zaznaczasz sprzęt i liczbę sztuk, wysyłasz jedną listę i dostajesz ofertę na całość.',
+        steps: ['Zaznacz sprzęt', 'Podaj liczbę sztuk', 'Wyślij jedną listę'],
+        cta: 'Złóż listę zapytania',
+        href: '/inwestycje-i-dostawy#lista',
       },
     },
     help: {
