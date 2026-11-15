@@ -692,9 +692,10 @@ test.describe('Biznes home page: no KSeF band, news, contact location', () => {
     // Seed: one Biznes post (KSeF) on /aktualnosci, the rest from Instalacje and Software.
     await expect(news.locator('a[href^="/aktualnosci/"]').first()).toBeVisible()
     const sister = news.locator('[data-sister-line]')
-    // 15.11 („różnorodnie”): one post of Instalacje and one of Software, both seeded with posts.
-    await expect(news.locator('[data-sister-line="instalacje"]')).toHaveCount(1)
-    await expect(news.locator('[data-sister-line="software"]')).toHaveCount(1)
+    // 15.11 („różnorodnie”): a post of Instalacje and one of Software, both seeded with posts
+    // (with a single Biznes post in the seed the third card is one more of the other lines).
+    await expect(news.locator('[data-sister-line="instalacje"]').first()).toBeVisible()
+    await expect(news.locator('[data-sister-line="software"]').first()).toBeVisible()
     const sisterCount = await sister.count()
     for (let i = 0; i < sisterCount; i++) {
       const card = sister.nth(i)
