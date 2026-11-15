@@ -6,7 +6,7 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { getEnv } from '@/lib/env'
 import { coverIsWordmark, postDate, type PostListCard } from '@/lib/posts/cards'
-import { getPostList, getSisterLinePostLinks } from '@/lib/posts/data'
+import { getPostList, getSisterLinePostLinksPerLine } from '@/lib/posts/data'
 import { NEWS_PATH } from '@/lib/posts/list'
 import type { SisterLine } from '@/lib/posts/sister'
 import { getSharedData } from '@/lib/shared/getSharedData'
@@ -93,8 +93,8 @@ export async function BzNewsHomeBlock({
 }) {
   const own = (await getPostList(tenantId, 'biznes')).slice(0, LIST + 1)
   const { SITE_ENV } = getEnv()
-  // Enough posts of the other lines to find one of Instalacje and one of Software (15.11).
-  const sisterAll = await getSisterLinePostLinks(tenantId, (LIST + 1) * 2, {
+  // The newest posts of each other line: one of Instalacje and one of Software (15.11).
+  const sisterAll = await getSisterLinePostLinksPerLine(tenantId, LIST + 1, {
     siteEnv: SITE_ENV,
     port: SITE_ENV === 'local' ? (process.env.PORT ?? '3000') : null,
   })
