@@ -1,6 +1,7 @@
 /**
- * `pnpm seed:prokom` — only the pro-kom.eu hub content (`pnpm seed` runs it too). Local only, like
- * the main seed; needs the tenants of `pnpm seed` and an up-to-date schema (`pnpm payload migrate`).
+ * `pnpm seed:prokom` — only the pro-kom.eu hub content (`pnpm seed` runs it too). Needs the tenant
+ * `prokom` (locally from `pnpm seed`) and an up-to-date schema (`pnpm payload migrate`). Production:
+ * only through `scripts/prod-line-content.sh prokom`, before the hub has its production domain.
  */
 import { getPayload } from 'payload'
 

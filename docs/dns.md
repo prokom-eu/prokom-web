@@ -80,7 +80,9 @@ Strefa: **nazwa.pl** (decyzja Krystiana 15.11; NS `ns1/ns2/ns3.nazwa.pl`). **Nie
 1. `A mail` → `85.128.169.153` jako jawny rekord (dziś działa tylko przez wildcard);
 2. `MX @` → `10 mail.pro-kom.eu` (zamiast `pro-kom.eu`);
 3. SPF → `v=spf1 mx ip4:85.128.169.153 ~all` (zamiast `a` — po przełączeniu `a` oznaczałby VPS);
-4. sprawdzić: `nslookup -type=MX pro-kom.eu 8.8.8.8`, wysłać i odebrać mail z i na adres `@pro-kom.eu` (w tym z Gmaila), nagłówki SPF/DMARC „pass”.
+4. sprawdzić: `nslookup -type=MX pro-kom.eu 8.8.8.8`, wysłać i odebrać mail z i na adres `@pro-kom.eu` (w tym z Gmaila), nagłówki SPF/DMARC „pass”;
+5. **programy pocztowe i telefony pracowników:** skoro MX to `pro-kom.eu`, skrzynki mają najpewniej IMAP/SMTP ustawione na `pro-kom.eu` — po zmianie `A @` przestałyby się łączyć (poczta na serwerze dochodziłaby dalej). Spisać ustawienia na wszystkich urządzeniach i przestawić je na `mail.pro-kom.eu` (albo nazwę serwera z panelu nazwa.pl); sprawdzić adres webmaila (jeśli jest pod `pro-kom.eu/…`, po przełączeniu zniknie) i `autodiscover`;
+6. **nadawcy `@pro-kom.eu` w SPF:** w nagłówkach obecnego maila sprawdzić, z jakiego IP wysyła nazwa.pl (czy `85.128.169.153`), i czy rekord `MS=` oznacza Microsoft 365 wysyłający jako `@pro-kom.eu` (wtedy `include:spf.protection.outlook.com`). Jeśli formularze huba mają wysyłać z adresu `@pro-kom.eu` przez inny serwer (np. hosting poczty Seohost, `MAIL_SENDERS` — dziś bez `prokom`), dopisać go do SPF (`include:`/`ip4:`) **przed** startem — przy `_dmarc p=quarantine` maile bez SPF trafią do spamu. TODO(krystian): adres i SMTP nadawcy huba.
 Dopiero potem: `A @` i `A www` (jawny, przed wildcardem) → `194.28.50.70`, TTL 300 na T−48 h. Wildcard i pozostałe nazwy zostają na nazwa.pl. **Hosting poczty jest na tym samym koncie nazwa.pl co obecna strona** — koniec abonamentu (grudzień, ADR-H001) nie może wyłączyć poczty: TODO(krystian) — sprawdzić w nazwa.pl, czy poczta to osobna usługa, zanim abonament strony wygaśnie.
 
 Po przełączeniu (cel):
