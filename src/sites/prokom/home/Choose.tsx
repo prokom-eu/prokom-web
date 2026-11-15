@@ -144,6 +144,16 @@ function PlanCard({ group }: { group: ChoosePlan['groups'][number] }) {
           <li key={point}>{point}</li>
         ))}
       </ul>
+      {group.steps.length > 0 && (
+        <ol className="pk-lcard__steps" role="list">
+          {group.steps.map((step, i) => (
+            <li key={step}>
+              <b aria-hidden="true">{String(i + 1).padStart(2, '0')}</b>
+              {step}
+            </li>
+          ))}
+        </ol>
+      )}
       {group.domain && (
         <span className="pk-chip-go">
           {group.domain} <span aria-hidden="true">↗</span>

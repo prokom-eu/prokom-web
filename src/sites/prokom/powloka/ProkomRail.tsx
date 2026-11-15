@@ -15,7 +15,7 @@ import type { PaletteAction } from '@/lib/shared/search/palette'
 import { onSearchRequest } from '@/lib/site/searchOpen'
 import { isSearchShortcut } from '@/lib/site/searchShortcut'
 
-const INDEX_URL = '/api/hub-search-index'
+import { loadHubIndex } from './hubIndex'
 
 type Props = {
   sections: SiteRailProps['sections']
@@ -24,24 +24,6 @@ type Props = {
   actions: readonly PaletteAction[]
   recentlyViewed: boolean
   phone: string | null
-}
-
-type Index = { entries: LineSearchEntry[]; ok: boolean }
-
-/** One fetch per page load, shared by every caller (the rail stays mounted across pages). */
-let indexRequest: Promise<Index> | null = null
-function loadIndex(): Promise<Index> {
-  indexRequest ??= fetch(INDEX_URL)
-    .then(async (response) => {
-      // A passing error (503) is not kept: the next request to search tries again.
-      if (!response.ok) throw new Error(`index ${response.status}`)
-      return { entries: (await response.json()) as LineSearchEntry[], ok: true }
-    })
-    .catch(() => {
-      indexRequest = null
-      return { entries: [], ok: false }
-    })
-  return indexRequest
 }
 
 const reportNoResults = () => track('szukaj_brak_wyniku', { miejsce: 'okno' })
@@ -63,7 +45,7 @@ export function ProkomRail({ sections, action, settings, actions, recentlyViewed
   useEffect(() => {
     let alive = true
     const load = () =>
-      void loadIndex().then((index) => {
+      void loadHubIndex().then((index) => {
         if (!alive) return
         setEntries(index.entries)
         setLoaded(index.ok)

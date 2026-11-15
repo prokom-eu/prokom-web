@@ -8,7 +8,7 @@ import type { SharedLine } from '@/lib/shared/project'
 
 import type { HubHelpView, HubServiceView, HubToolView } from './data'
 import { NO_OPTIONAL_PAGES } from './pages'
-import { buildHubSearchIndex, parseFilter, searchHub } from './searchIndex'
+import { buildHubSearchIndex, parseFilter, searchHub, suggestHub } from './searchIndex'
 
 const line = (key: SharedLine['key'], name: string, domain: string): SharedLine => ({
   key,
@@ -171,5 +171,33 @@ describe('searchHub — /szukaj (spec §5.6)', () => {
     expect(parseFilter('strony')).toBe('strony')
     expect(parseFilter('prokom')).toBe('wszystko')
     expect(parseFilter(undefined)).toBe('wszystko')
+  })
+})
+
+describe('suggestHub — hero suggestions (15.11)', () => {
+  it('gives the hits of the whole phrase, best first, at most six', () => {
+    const { results, loose } = suggestHub(index, 'kamery', synonyms)
+    expect(loose).toBe(false)
+    expect(results[0]?.title).toBe('Monitoring i kamery')
+    expect(results.length).toBeLessThanOrEqual(6)
+  })
+
+  it('falls back to the words of a phrase that finds nothing as a whole', () => {
+    expect(searchHub(index, 'kamery zzqqxx', 'wszystko', synonyms).total).toBe(0)
+    const { results, loose } = suggestHub(index, 'kamery zzqqxx', synonyms)
+    expect(loose).toBe(true)
+    expect(results[0]?.title).toBe('Monitoring i kamery')
+  })
+
+  it('tops up a phrase with few hits from its words', () => {
+    const whole = searchHub(index, 'kamery do pensjonatu', 'wszystko', synonyms).total
+    const { results, loose } = suggestHub(index, 'kamery do pensjonatu', synonyms)
+    expect(loose).toBe(false)
+    expect(results.length).toBeGreaterThan(whole)
+    expect(results[0]?.title).toBe('Monitoring i kamery')
+  })
+
+  it('finds nothing for nonsense, and does not fall back on one word', () => {
+    expect(suggestHub(index, 'zzqqxx', synonyms)).toEqual({ results: [], loose: false })
   })
 })

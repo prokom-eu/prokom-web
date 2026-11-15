@@ -41,10 +41,10 @@ const publicPosts = (tenantId: number): Where => ({
 
 export type PostListItem = PostListCard & {
   categoryValue: PostCategory
-  /** Reading time, counted like on the post page (`buildPostView`). */
-  minutes: number
   /** For the sitemap. */
   updatedAt: string
+  /** Reading time, the same count as the post page (`readingMinutes` of content, lead, summary). */
+  minutes: number
 }
 
 /**
@@ -72,7 +72,6 @@ export const getPostList = (tenantId: number, line?: Line | null): Promise<PostL
           updatedAt: true,
           lead: true,
           summary: true,
-          // For the reading time only: the cached result keeps the number, not the content.
           content: true,
           cover: true,
         },
@@ -82,8 +81,11 @@ export const getPostList = (tenantId: number, line?: Line | null): Promise<PostL
       return docs.flatMap((doc) => {
         const card = cards.get(doc.slug)
         if (!card) return []
-        const minutes = readingMinutes(doc.content as RichTextData, [card.lead, doc.summary])
-        return [{ ...card, categoryValue: doc.category, minutes, updatedAt: doc.updatedAt }]
+        const minutes = readingMinutes(doc.content as RichTextData | null | undefined, [
+          doc.lead,
+          doc.summary,
+        ])
+        return [{ ...card, categoryValue: doc.category, updatedAt: doc.updatedAt, minutes }]
       })
     },
     ['post-list', String(tenantId), line ?? ''],
