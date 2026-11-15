@@ -2,7 +2,7 @@
 slug: excel-w-firmie-kiedy-przestaje-wystarczac
 title: Excel w firmie – 7 sygnałów, że przestał wystarczać
 category: Systemy
-publishedAt: 2026-11-15
+publishedAt: 2026-11-15 11:50
 seoTitle: Excel w firmie: kiedy przestaje wystarczać
 seoDescription: Siedem sygnałów, że arkusz kalkulacyjny hamuje Twoją firmę: wersje plików, błędy, brak dostępu z telefonu. I jak przejść z Excela do systemu bez rewolucji.
 lead: Arkusz kalkulacyjny to świetne narzędzie na start. Problem zaczyna się, gdy firma rośnie, a cała wiedza o klientach, zleceniach i magazynie siedzi w kilku plikach na jednym komputerze. Oto sygnały, że czas na zmianę.

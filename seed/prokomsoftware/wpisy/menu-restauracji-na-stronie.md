@@ -2,7 +2,7 @@
 slug: menu-restauracji-na-stronie
 title: Menu restauracji na stronie – czytelne na telefonie i zawsze aktualne
 category: Strony
-publishedAt: 2026-12-10
+publishedAt: 2026-11-15 09:10
 seoTitle: Menu restauracji na stronie internetowej
 seoDescription: Jak pokazać menu restauracji lub baru na stronie, żeby dało się je czytać na telefonie i łatwo aktualizować. Godziny w sezonie, rezerwacje i dojazd.
 lead: Turysta głodny po zejściu ze szlaku szuka w telefonie, gdzie zjeść. Otwiera stronę restauracji i dostaje zdjęcie karty sprzed dwóch lat. Pokazujemy, jak zrobić to lepiej.

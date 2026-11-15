@@ -2,7 +2,7 @@
 slug: umowa-na-strone-internetowa-co-sprawdzic
 title: Umowa na stronę internetową – 10 punktów do sprawdzenia przed podpisem
 category: Poradnik
-publishedAt: 2026-11-23
+publishedAt: 2026-11-15 09:20
 seoTitle: Umowa na stronę internetową: co sprawdzić
 seoDescription: Dziesięć punktów, które powinny być w umowie na wykonanie strony: zakres, termin, płatności, własność kodu i domeny, poprawki, opieka i wypowiedzenie.
 lead: Wiele problemów ze stronami zaczyna się nie w kodzie, tylko w umowie, której nikt nie przeczytał. Przygotowaliśmy listę punktów, które warto sprawdzić, zanim złożysz podpis.
