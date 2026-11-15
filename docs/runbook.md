@@ -134,7 +134,7 @@ Pipeline przenosi kod i migracje, ale **nie treść**: `pnpm seed*` jest na stag
 
 Z komputera (Git Bash), w checkoucie, w którym `src/`, `seed/`, `docs/design/`, `package.json` i `pnpm-lock.yaml` są **takie jak w commicie stagingu** (skrypt sprawdza; najprościej `git fetch && git switch --detach <APP_IMAGE_TAG>`):
 ```bash
-SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/staging-content.sh [biznes software instalacje]
+SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/staging-content.sh [biznes software instalacje prokom]
 ```
 Kroki:
 1. `backup.sh staging predeploy` (B2) — błąd kopii zatrzymuje skrypt;

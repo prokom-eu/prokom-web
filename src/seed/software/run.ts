@@ -25,6 +25,7 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
+import { guidePostData, guidePosts } from './posts'
 import { seedSoftwareSeo } from './seo'
 import { seedSoftwareAudit } from './audit'
 import { seedSoftwareLegal } from './legal'
@@ -48,7 +49,7 @@ type Counter = { created: number; updated: number; skipped: number }
  * - Solutions, areas, cities, industries: every field the package provides wins over an edit
  *   in the panel.
  * - Posts: created as drafts when missing (their figures are checked on publication), later
- *   they belong to the panel.
+ *   they belong to the panel. Guide posts (`wpisy/*.md`): published with their date, the package wins.
  * - Settings (navigation, `SoftwareSettings`): written only while empty (or in a shape the
  *   schema no longer accepts) — then they belong to the panel. Facts: only the keys missing there are added.
  * - Solutions removed from the offer are never imported; one left in the database from an
@@ -213,6 +214,26 @@ export async function seedSoftware(payload: Payload): Promise<void> {
       })
     }
     count('posts', totalDocs === 0)
+  }
+  // Guide posts of `wpisy/*.md` (SEO 15.11): published with their date; locally the package wins
+  // over a panel edit, like solutions (staging and production: `pnpm software:posts`).
+  for (const post of guidePosts()) {
+    const data = { ...guidePostData(post, solutionRef), _status: 'published' as const }
+    const {
+      docs: [existing],
+    } = await payload.find({
+      collection: 'posts',
+      where: inTenant({ slug: { equals: post.slug } }),
+      limit: 1,
+      draft: true,
+      ...local,
+    })
+    if (!existing) {
+      await payload.create({ collection: 'posts', data: { ...data, tenant: tenant.id }, ...local })
+    } else if (!hasSameValues(existing, data)) {
+      await payload.update({ collection: 'posts', id: existing.id, data, ...local })
+    }
+    count('posts', !existing || (hasSameValues(existing, data) ? false : 'updated'))
   }
 
   // --- settings ---
