@@ -41,7 +41,7 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
       // the quote the section is named by the owner's label).
       heading: 'Od 2004 roku przy kasach i komputerach firm z Podhala',
       headingAccent: 'przy kasach i komputerach firm',
-      lead: 'Sprzedajemy, wdrażamy i serwisujemy w Rabce-Zdroju. Uprawnienia producentów widzisz obok — to one pozwalają nam serwisować kasy i wdrażać programy.',
+      lead: 'Sprzedajemy, wdrażamy i serwisujemy w Rabce-Zdroju. Uprawnienia producentów to podstawa — pozwalają nam serwisować kasy i wdrażać programy.',
       // TODO(krystian): cytat do akceptacji szefa (napisany przez nas). Na stronie dopiero po
       // „Pokaż słowo od właściciela” w Ustawieniach strony. [SZEF] też podpis (SVG) i zdjęcie.
       owner: {

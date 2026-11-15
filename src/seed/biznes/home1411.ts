@@ -135,7 +135,7 @@ const STEPS_OLD = {
  */
 export const LINES_BLOCK_1411 = {
   blockType: 'bzLines',
-  eyebrow: 'Jedna firma · cztery linie',
+  eyebrow: 'Jedna firma — linie PRO-KOM',
   heading: 'PRO-KOM to więcej niż kasy i komputery',
   note: 'Każda linia ma swój zespół i swój numer — ta sama firma z Rabki-Zdroju.',
   lines: [
