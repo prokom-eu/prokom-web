@@ -2,7 +2,9 @@
 # Refresh the CONTENT of staging from the line packages (runbook §2a). Run on Krystian's computer
 # (Git Bash), in a checkout of exactly the commit that runs on staging:
 #   bash scripts/staging-content.sh            # all three lines
-#   bash scripts/staging-content.sh instalacje # only some: biznes software instalacje
+#   bash scripts/staging-content.sh instalacje # only some: biznes software instalacje prokom
+#   bash scripts/staging-content.sh prokom     # pro-kom.eu (hub): not in the default three — its
+#                                              # tenant must exist on staging first (panel → Strony)
 # Why here and not on the server: the image has no `seed/` packages or `docs/design` photos, and
 # the seed is blocked there on purpose. So: staging DB + media → a throwaway local Postgres →
 # the line imports (`pnpm seed:<line>`, idempotent; they read tenants, never touch users,
@@ -18,7 +20,7 @@ export MSYS_NO_PATHCONV=1
 lines=("$@")
 [ ${#lines[@]} -gt 0 ] || lines=(biznes software instalacje)
 for l in "${lines[@]}"; do
-  case "$l" in biznes | software | instalacje) ;; *) echo "Unknown line: $l" >&2; exit 2 ;; esac
+  case "$l" in biznes | software | instalacje | prokom) ;; *) echo "Unknown line: $l" >&2; exit 2 ;; esac
 done
 
 SSH="${SSH:-ssh}" # Git Bash on Windows: SSH=/c/Windows/System32/OpenSSH/ssh.exe (key in the agent)
@@ -76,6 +78,18 @@ remote_sh "docker run --rm -v prokom-staging_media:/m:ro $pg_image tar -C /m -cf
 mkdir "$work/media"
 tar -C "$work/media" -xf "$work/media.tar"
 echo "   db $(du -h "$work/db.dump" | cut -f1), media $(du -sh "$work/media" | cut -f1)"
+
+# The hub imports into its tenant and its site settings — both made in the panel, never by a
+# seed (like prod-line-content.sh). Stop before any work on the copy when they are missing.
+for l in "${lines[@]}"; do
+  [ "$l" = prokom ] || continue
+  has="$(remote_sh "docker exec prokom-staging-postgres-1 psql -U prokom -d prokom_staging -Atc \"select count(*) from tenants t join site_settings s on s.tenant_id = t.id where t.slug = 'prokom'\"")"
+  if [ "$has" = 0 ]; then
+    echo "No tenant 'prokom' with site settings on staging. Panel stagingu → Strony → Dodaj" >&2
+    echo "(slug prokom, linia PRO-KOM (hub)), then Ustawienia stron → Dodaj for it." >&2
+    exit 1
+  fi
+done
 
 log "throwaway local Postgres on 127.0.0.1:$port"
 docker rm -f "$pg" >/dev/null 2>&1 || true
