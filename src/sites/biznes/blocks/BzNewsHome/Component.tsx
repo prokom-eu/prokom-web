@@ -191,7 +191,7 @@ export async function BzNewsHomeBlock({
             </article>
           )}
           {(rest.length > 0 || sister.length > 0) && (
-            <ul className="grid auto-rows-fr gap-3" data-reveal-cards="">
+            <ul className="grid auto-rows-fr content-start gap-3 self-start" data-reveal-cards="">
               {rest.map((post) => (
                 <li key={post.slug} className="flex">
                   <article className={cx(CARD, 'w-full items-stretch')} data-news-card="">

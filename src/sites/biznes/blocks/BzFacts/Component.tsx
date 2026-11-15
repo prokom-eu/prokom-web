@@ -6,7 +6,7 @@ import { Icon } from '@/components/ui/Icon'
 import { CountUp } from '@/components/motion/CountUp'
 import { countsUp } from '@/lib/motion/countUp'
 import { brandLogo } from '@/lib/catalog/brandLogo'
-import { getCatalogIndex } from '@/lib/catalog/data'
+import { getWheelPhotos } from '@/lib/catalog/data'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { getSiteSettings } from '@/lib/site/data'
 import { tenantIdOf } from '@/lib/tenant/id'
@@ -97,7 +97,7 @@ function FactsCard({
 }) {
   const [first, second] = stats
   return (
-    <div className="relative isolate grid items-center gap-x-14 gap-y-8 overflow-hidden rounded-[30px] bg-surface-2 p-[clamp(24px,4vw,56px)] min-[981px]:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+    <div className="relative isolate grid items-center gap-x-14 gap-y-8 overflow-hidden rounded-[30px] bg-surface-2 p-[clamp(24px,4vw,56px)] max-[479px]:p-4 min-[981px]:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
       <span
         aria-hidden="true"
         className="pointer-events-none absolute -bottom-10 -left-4 -z-[1] font-display text-[clamp(140px,18vw,260px)] leading-none font-extrabold text-transparent font-stretch-120% [-webkit-text-stroke:1.5px_var(--border)]"
@@ -122,15 +122,15 @@ function FactsCard({
                   key={stat.id ?? i}
                   className={
                     i === 0
-                      ? 'flex flex-col-reverse gap-1.5 rounded-[20px] bg-surface-dark px-5 py-[18px] text-white'
-                      : 'flex flex-col-reverse gap-1.5 rounded-[20px] bg-card px-5 py-[18px] shadow-[inset_0_0_0_1px_var(--border)]'
+                      ? 'flex flex-col-reverse gap-1.5 rounded-[20px] bg-surface-dark px-5 py-[18px] text-white max-[479px]:px-4'
+                      : 'flex flex-col-reverse gap-1.5 rounded-[20px] bg-card px-5 py-[18px] shadow-[inset_0_0_0_1px_var(--border)] max-[479px]:px-4'
                   }
                   data-surface={i === 0 ? 'dark' : undefined}
                 >
                   <dt className={i === 0 ? 'text-[14px] text-white/75' : 'text-[14px] text-ink-2'}>
                     {stat.label}
                   </dt>
-                  <dd className="font-display text-[clamp(2rem,3.2vw,2.75rem)] leading-none font-extrabold tracking-[-0.01em] whitespace-nowrap font-stretch-112%">
+                  <dd className="font-display text-[clamp(1.5rem,7vw,2.75rem)] leading-none font-extrabold tracking-[-0.01em] whitespace-nowrap font-stretch-112%">
                     <Figure text={stat.value} />
                   </dd>
                 </div>
@@ -161,7 +161,7 @@ function FactsCard({
           <ul
             aria-label="Autoryzacje i partnerstwa"
             data-reveal-cards=""
-            className="grid grid-cols-2 gap-3.5"
+            className="grid grid-cols-2 gap-3.5 max-[479px]:gap-2"
           >
             {logos.map((item) => {
               const showcase = SHOWCASE[item.name.toLowerCase()]
@@ -197,14 +197,14 @@ function FactsCard({
                     )}
                   </span>
                   {item.status && (
-                    <span className="flex items-center gap-2 px-4 py-3 max-md:px-3">
+                    <span className="flex items-center gap-2 px-4 py-3 max-md:px-3 max-[479px]:px-2.5">
                       <Icon
                         name={service ? 'shield' : 'check'}
                         strokeWidth={2.4}
-                        className="size-4 shrink-0 text-ok-text"
+                        className="size-4 shrink-0 text-ok-text max-[479px]:hidden"
                       />
                       <span className="flex min-w-0 flex-col">
-                        <b className="text-[14px] leading-tight font-extrabold whitespace-nowrap text-ink max-[399px]:text-[12px]">
+                        <b className="text-[14px] leading-tight font-extrabold whitespace-nowrap text-ink max-[479px]:text-[12px] max-[479px]:tracking-[-0.01em]">
                           {item.status}
                         </b>
                         {showcase && (
@@ -241,12 +241,12 @@ export async function BzFactsBlock({ block, tenantId }: Props) {
   const showOwner = Boolean(settings?.biznes?.showOwnerQuote)
 
   if (!showOwner) {
-    const index = await getCatalogIndex(tenantId)
+    const wheel = await getWheelPhotos(
+      tenantId,
+      Object.values(SHOWCASE).map(({ product }) => product),
+    )
     const photos = new Map(
-      Object.values(SHOWCASE).flatMap(({ product }) => {
-        const image = index.products.find((item) => item.slug === product)?.image
-        return image ? [[product, image] as const] : []
-      }),
+      Object.entries(wheel).map(([slug, image]) => [slug, { ...image, alt: '' }] as const),
     )
     return (
       <section id="fakty" aria-labelledby="fakty-h" className="py-12 sm:py-16">

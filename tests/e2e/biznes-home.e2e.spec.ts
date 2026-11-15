@@ -17,6 +17,7 @@ const HOME_ANCHORS = [
   'marki',
   'zaopatrzenie',
   'aktualnosci',
+  'linie',
   'faq',
   'kontakt',
 ]
@@ -432,8 +433,16 @@ test.describe('Biznes home page: industries, plan, steps', () => {
     ])
     await expect(steps).toContainText('Pierwszy kontakt')
     await expect(steps).toContainText('Nasze zobowiązania')
-    await expect(steps).toContainText('oddzwaniamy w godzinach pracy')
-    await expect(steps.getByRole('link', { name: /Zadzwoń/ })).toHaveAttribute('href', /^tel:/)
+    // Runda 1411 §1: no „Zajmuje się” and no initials; the four commitments and both numbers.
+    await expect(steps).not.toContainText('Zajmuje się')
+    await expect(steps.locator('[data-commitments] li b')).toHaveText([
+      '60 minut',
+      'Wycena na mailu',
+      'Przypomnimy o przeglądzie',
+      'Bez infolinii',
+    ])
+    await expect(steps.locator('a[href="tel:+48889003889"]')).toBeVisible()
+    await expect(steps.locator('a[href="tel:+48883200151"]')).toBeVisible()
   })
 
   test('v150 has no „Jedna firma czy pięć” and no old „Ostatnio w Aktualnościach”', async ({
@@ -511,7 +520,8 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await expect(facts.getByRole('heading', { level: 2 })).toHaveText(
       'Od 2004 roku przy kasach i komputerach firm z Podhala',
     )
-    await expect(facts.locator('dd')).toHaveText(['2004', '10\u00a0000+'])
+    // Runda 1411 (Zaufanie): the navy „10 000+ klientów” first, then „2004”.
+    await expect(facts.locator('dd')).toHaveText(['10\u00a0000+', '2004'])
     // Client count of 14.11.2026.
     await expect(facts).toContainText('klientów')
     await expect(facts).not.toContainText('firmowych')
@@ -534,10 +544,15 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     ).toHaveAttribute('href', '/o-firmie')
   })
 
-  test('FAQ: numbered cards, the first open, FAQPage data', async ({ page }) => {
+  test('FAQ: navy panel with both numbers, numbered cards, the first open, FAQPage data', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     const faq = page.locator('#faq')
     await expect(faq.getByRole('heading', { level: 2 })).toHaveText('Zanim zadzwonisz')
+    const panel = faq.locator('[data-faq-panel]')
+    await expect(panel.locator('a[href="tel:+48889003889"]')).toBeVisible()
+    await expect(panel.locator('a[href="tel:+48883200151"]')).toBeVisible()
     const items = faq.locator('details')
     await expect(items).toHaveCount(6)
     await expect(items.first()).toHaveAttribute('open', '')
@@ -549,6 +564,25 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await expect(faq).not.toContainText('miesięczną opłatą')
     const jsonLd = await faq.locator('script[type="application/ld+json"]').textContent()
     expect(JSON.parse(jsonLd ?? '{}')['@type']).toBe('FAQPage')
+  })
+
+  test('„Inne linie PRO-KOM”: three tiles with the lines’ own addresses (runda 1411)', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost'))
+    const lines = page.locator('#linie')
+    await expect(lines.getByRole('heading', { level: 2 })).toBeVisible()
+    const tiles = lines.locator('[data-line-tile]')
+    await expect(tiles).toHaveCount(3)
+    await expect(lines.locator('[data-line-tile="instalacje"]')).toHaveAttribute(
+      'href',
+      /prokominstalacje\.pl|instalacje\.localhost/,
+    )
+    // Before the FAQ.
+    const order = await page
+      .locator('#aktualnosci, #linie, #faq')
+      .evaluateAll((elements) => elements.map((element) => element.id))
+    expect(order).toEqual(['aktualnosci', 'linie', 'faq'])
   })
 
   test('contact: the panel channels and a working form at #kontakt', async ({ page }) => {
@@ -580,6 +614,7 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
       'Marki',
       'Zaopatrzenie firm',
       'Aktualności',
+      'Inne linie',
       'Pytania',
       'Kontakt',
     ])
@@ -616,10 +651,11 @@ test.describe('Biznes home page: no KSeF band, news, contact location', () => {
     await page.goto(site('biznes.localhost'))
     const news = page.locator('#aktualnosci')
     await expect(news.getByRole('heading', { level: 2 })).toBeVisible()
-    const cards = news.locator('[data-news-home] > li')
-    const count = await cards.count()
+    // Runda 1411: the featured Biznes post plus at most three in the list.
+    await expect(news.locator('[data-news-featured]')).toHaveCount(1)
+    const count = await news.locator('[data-news-card]').count()
     expect(count).toBeGreaterThan(0)
-    expect(count).toBeLessThanOrEqual(3)
+    expect(count).toBeLessThanOrEqual(4)
     // Seed: one Biznes post (KSeF) on /aktualnosci, the rest from Instalacje and Software.
     await expect(news.locator('a[href^="/aktualnosci/"]').first()).toBeVisible()
     const sister = news.locator('[data-sister-line]')
@@ -631,9 +667,9 @@ test.describe('Biznes home page: no KSeF band, news, contact location', () => {
         // The line's domain in this environment (CI: SITE_ENV=local → `*.localhost` of the seed).
         /^http:\/\/(instalacje|software)\.localhost(:\d+)?\/(poradnik|aktualnosci)\//,
       )
-      // NAPRAWA-0911 §4: the line's mark and a short teaser — never the other line's cover.
-      await expect(card.locator('img[data-line-logo]').first()).toBeAttached()
-      await expect(card.locator('img:not([data-line-logo])')).toHaveCount(0)
+      // Runda 1411: the line's name with its coloured dot (no logo, no cover of the other line).
+      await expect(card).toContainText(/PRO-KOM (Instalacje|Software)/)
+      await expect(card.locator('img')).toHaveCount(0)
       const teaser = card.locator('p.line-clamp-2')
       if (await teaser.count()) expect((await teaser.innerText()).length).toBeLessThanOrEqual(140)
     }
@@ -642,7 +678,7 @@ test.describe('Biznes home page: no KSeF band, news, contact location', () => {
     // under the last one.
     const gaps = await news.locator('[data-news-card]').evaluateAll((articles) =>
       articles.map((article) => {
-        const body = article.querySelector(':scope > div:last-child')
+        const body = article.querySelector(':scope > :last-child')
         const parts = [...(body?.children ?? [])].map((part) => part.getBoundingClientRect())
         const between = parts.slice(1).map((part, i) => part.top - parts[i]!.bottom)
         const under = article.getBoundingClientRect().bottom - (parts.at(-1)?.bottom ?? 0)
